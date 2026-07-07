@@ -359,3 +359,40 @@ Cost: ~190k subagent tokens, ~27min. Both hard risks (R1, R2) now retired.
 
 GOVERNANCE: guide R2 prose + §0 strategic line updated at Opus tier (factual
 retirement); a future Fable prose sweep may polish.
+
+## 2026-07-07 N3.6 Sonnet done (workflow: implement + independent verify)
+M3's final node — assembling G(z) >= c0(log z)^2 from N3.2-N3.5 — proved in
+new file Salt/Brun/M3Assembly.lean. Designed the exact inequality chain and
+constants myself first (the Nat.sqrt vs Real.log asymptotic bridge is the
+one genuinely tricky step; confirmed Nat.lt_succ_sqrt' + Real.sqrt_lt_sqrt
+give the needed sqrt bound before delegating), then ran a two-phase
+Workflow: an implementation agent per a full design brief (steps A-E),
+followed by an independent adversarial verification agent instructed not to
+trust the implementer's self-report. BOTH phases passed. On top of that,
+per the session's standing discipline, I (the driving/orchestrating
+session) ALSO independently re-verified myself, third-hand: full build,
+sorry/native_decide/axiom/admit grep, read the entire proof file myself
+line-by-line (confirmed non-circular — c0=1/64>0 genuine, z0=100 hypothesis
+used non-trivially throughout stepD/log_ge_four), and ran my own
+`#print axioms` on the main theorem plus three key helpers. All clean:
+[propext, Classical.choice, Quot.sound].
+
+Final theorem: exists_const_mainTermSum_ge, with mainTermSum z defined as
+the BARE gTwin sum (not tied to a live SelbergSieve instance) — a deliberate
+design choice (mine, before delegating) deferring the `mainTermSum = G(z)`
+identification against an actual sieve/P to N5.2, matching the same
+P-as-parameter deferral pattern used in N2.6/N5.1. Constants: c0=1/64,
+z0=100 (round numbers, not tight — the theorem is purely existential).
+Chain: mainTermSum >= Sigma tau(m)/m [N3.3 termwise + N3.2 fiber bound] >=
+(odd harmonic sum)^2 [N3.4, reindexed range->Icc] >= ((1/8)log z)^2 [N3.5 +
+the sqrt/log bridge, threshold z0=100 via exp(4) < 2.7182818286^4 < 100].
+
+M3 IS NOW COMPLETE (6/6). Cost: ~113k subagent tokens (workflow) + driver
+verification, ~6.5min wall clock for the workflow.
+
+GOVERNANCE NOTE: per the precedent set in this session's Opus passes (R1/R2
+retirement), the guide's §0 strategic line and frontier list were updated at
+SONNET tier here — the previous content (predicting N3.6 as next, M3 5/6)
+was factually stale and would have left the guide self-contradictory against
+the just-updated milestone table/graphs. A future Fable prose sweep may
+polish wording, but no correction of substance is needed.
