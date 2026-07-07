@@ -475,3 +475,55 @@ M5 IS NOW COMPLETE (3/3). Cost: ~179k subagent tokens (workflow) + driver
 verification, ~12min wall clock. Remaining track: N6.2 (Abel summation ->
 BrunStatement itself) then N6.3 (bonus). Two nodes between here and the
 theorem the whole track exists for.
+
+## 2026-07-07 N6.2 Sonnet done -- BRUNSTATEMENT ITSELF PROVED (workflow: implement + independent verify + driver re-verify, maximum skepticism)
+The theorem the entire track exists for. New file Salt/Brun/N6.lean (237
+lines), namespace Salt.N6.
+
+  theorem N6_2 : BrunStatement
+    where BrunStatement := Summable (Set.indicator {p:Prime /\ (p+2).Prime} (1/n))
+
+i.e. the sum of reciprocals of twin primes converges. Kernel-checked,
+sorry-free, standard axioms only.
+
+Designed the full Abel-summation instantiation myself first (f=1/t, c=twin
+indicator, g=1/(t log^2 t), against mathlib's summable_mul_of_bigO_atTop' --
+the Ici-1 variant avoiding the 1/t singularity at 0), pre-confirmed three of
+the five hypothesis proofs compile standalone (hf_diff, the deriv-of-norm
+computation) before writing the brief, then delegated with full license to
+loosen any constant. Given the significance of this specific node I
+instructed the verify agent to be MAXIMALLY skeptical: explicitly checked
+(a) Salt/Brun.lean -- BrunStatement's home -- was not modified (confirmed via
+git log/diff: only one historical commit, 1c61b9b, predating this task, ever
+touched it), (b) the proof genuinely routes through N5.3's density bound and
+N6.1's integrability rather than shortcutting around them with some
+unrelated trivial summability argument (a bare 1/n-type Summable claim is
+FALSE in general -- harmonic series diverges -- so this HAD to be real), and
+(c) the final theorem's declared TYPE (not just its proof body) is literally
+BrunStatement, unfold used only inside the tactic block.
+
+On top of both agents passing, I (driver) ran a THIRD independent pass: full
+build, sorry/native_decide/axiom/admit grep, re-confirmed via git diff/log
+that Salt/Brun.lean is untouched, read the ENTIRE 237-line file myself
+end-to-end (confirmed hf_diff/hf_int/h_bdd/hg_1/hg_2 are all genuine,
+non-vacuous derivations, h_bdd and hg_1 both genuinely invoke
+Salt.M5BigO.N5_3, hg_2 is N6.1 verbatim), and ran my own #print axioms PLUS
+an explicit #check (N6_2 : BrunStatement) to independently confirm the type
+ascription typechecks. All clean: [propext, Classical.choice, Quot.sound].
+
+Notable implementation notes for future nodes: the riskiest predicted step
+(hf_int's LocallyIntegrableOn congruence transport, from a simple continuous
+comparison function to the actual deriv(norm f)) went through cleanly on the
+structurally-correct first attempt via LocallyIntegrableOn.congr + an
+ae_restrict_iff'/ae_of_all-built a.e.-equality. sum_c_eq_twinPrimeCounting
+(the Finset/count bookkeeping) was actually SIMPLER than its N5_2 template
+since no A1/A2 threshold split was needed. Zero constant-loosening was
+needed anywhere -- g6 = 1/(t log^2 t) matched N6.1's integrand exactly, no
+scalar adjustment required.
+
+Cost: ~206k subagent tokens (workflow, two agents, both effort=high given
+the node's importance) + driver's own full read/audit, ~13min wall clock.
+
+REMAINING TRACK: only N6.3 (Brun's constant positivity, class A, bonus --
+not a dependency of BrunStatement, purely for quotability). The track's
+stated objective is achieved as of this entry.

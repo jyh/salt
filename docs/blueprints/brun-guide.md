@@ -38,18 +38,22 @@ Statement fidelity is guaranteed by the immutability rule above, not by tooling.
 
 *Updated: 2026-07-07 (Fable).*
 
-- **State**: 25 of 27 nodes proved. **M0–M5 all complete.** Only M6's
-  final two nodes remain.
-- **Frontier** (open, all deps met): **N6.2** (B) — Abel summation from
-  N5.3 + N6.1 → `BrunStatement` itself, the theorem the track exists for.
-- **Next step**: N6.2 (`summable_mul_of_bigO_atTop`, template
-  `Chebyshev.primeCounting_eq_theta_div_log_add_integral`), then N6.3
-  (bonus, class A).
-- **Blockers**: none — two nodes left, N6.2 then N6.3.
-- **Strategic line**: all research risk is retired (R1 M1-port, R2 N3.2).
-  M5's biggest assembly nodes (N5.2, N5.3) are done and independently
-  verified three times over each. One node stands between the track and
-  its target.
+- **State**: **26 of 27 nodes proved. `BrunStatement` itself is proved**
+  (N6.2, 2026-07-07) — the sum of reciprocals of twin primes converges,
+  kernel-checked, standard axioms only. Only N6.3 (bonus) remains.
+- **Frontier** (open, all deps met): **N6.3** (A) — define `brunConstant`
+  as the series' value and prove positivity. Not a dependency of the
+  track's goal; purely a quotability bonus.
+- **Next step**: N6.3, then the track is fully closed (27/27).
+- **Blockers**: none.
+- **Strategic line**: **the track's objective is achieved.** `Salt.N6.N6_2
+  : BrunStatement` is sorry-free and kernel-checked
+  (`propext, Classical.choice, Quot.sound` only), independently verified
+  three times including an explicit confirmation that `Salt/Brun.lean`'s
+  definition of `BrunStatement` was never altered. Everything from N1
+  through N6.2 was genuinely load-bearing — no step shortcut around the
+  twin-prime density bound. N6.3 is the only remaining node, and it is
+  ungated by anything upstream.
 
 ## 1. Big picture
 
@@ -285,7 +289,7 @@ flowchart TB
   end
   subgraph SM6["M6 — summability"]
     N6_1["N6.1 ✅ integrability (B)"]:::done
-    N6_2["N6.2 🔴 BrunStatement (B)"]:::open
+    N6_2["N6.2 ✅ BrunStatement (B)"]:::done
     N6_3["N6.3 🔴 Brun constant (A)"]:::open
   end
 
@@ -554,18 +558,19 @@ flowchart TB
 **Status.** ✅ 2026-07-07 (Opus, 1 attempt, after a Sonnet tier-flag).
 **Difficulty.** predicted B, actual B-at-Opus — the flagged "hard substitution" was a phantom; second cascade escalation. Flags 2026-07-07 N6.1.
 
-#### N6.2 — BrunStatement 🔴
+#### N6.2 — BrunStatement ✅
 **Statement.** The sum of reciprocals of twin primes converges.
 **Role.** The theorem. The track ends here (N6.3 is garnish).
-**Proof idea (expected).** `summable_mul_of_bigO_atTop` with c = twin indicator and f = 1/·; N5.3 supplies the Big-O, N6.1 the integrability; glue `twinPrimeCounting` to the indicator sum (watch R5).
-**Lean.** — not started
-**Status.** 🔴 open; blocked on N5.3 (N6.1 ready).
-**Difficulty.** predicted B.
+**Proof idea.** `summable_mul_of_bigO_atTop'` (the `Ici 1` variant, avoiding the `1/t` singularity at `0`) with `c` = twin indicator, `f = 1/·`, `g = 1/(t·(log t)²)`. `hf_diff`/`hf_int` are analytic facts about `‖1/t‖` and its derivative `-(t²)⁻¹` on `Ici 1` (the latter transported from a plain continuity argument via an a.e.-equality congruence). `h_bdd` and `hg₁` both route through N5.3 (`TwinCountingBigO`) directly — `h_bdd` bounds `twinPrimeCounting(n)/n = O(1)`, `hg₁` matches the algebraic identity `(t²)⁻¹·(t/log²t) = g(t)` exactly. `hg₂` is N6.1 verbatim, no rework. A final pointwise identity (`f·c = ` the `Set.indicator` in `BrunStatement`) transports the resulting `Summable` fact via `Summable.congr`.
+**Lean.** `Salt.N6.N6_2`, `Salt.N6.h_bdd`, `Salt.N6.hg₁`, `Salt.N6.hf_int`, `Salt.N6.sum_c_eq_twinPrimeCounting`, `Salt.N6.indicator_eq` (Salt/Brun/N6.lean)
+**Status.** ✅ 2026-07-07 (Sonnet, delegated implementation + independent adversarial verification instructed to be maximally skeptical given the theorem's significance, plus the driving session's own build/sorry-sweep/full-proof-read/axiom-audit and an explicit confirmation that `Salt/Brun.lean` — `BrunStatement`'s home — was never touched).
+**Difficulty.** predicted B, actual B (every hypothesis went through on a structurally-correct first attempt; the riskiest step, `hf_int`'s congruence transport, closed cleanly).
+**Notes.** **This is Brun's theorem, proved and kernel-checked.** No node past this one is required for the track's stated goal; N6.3 is a quotable bonus (the constant's positivity), not a dependency.
 
 #### N6.3 — Brun's constant 🔴
 **Statement.** Define brunConstant as the value of the convergent series and prove its positivity.
 **Role.** Bonus; makes the result quotable as a number.
 **Proof idea (expected).** `tsum` of a summable nonneg sequence with a positive term (p = 3).
 **Lean.** — not started
-**Status.** 🔴 open; blocked on N6.2.
+**Status.** 🔴 open — **frontier** (N6.2 ✅; unblocked).
 **Difficulty.** predicted A.
