@@ -119,4 +119,34 @@ lemma sieve_rem (d : ℕ) : (sieve N P hP).rem d = rem d N := by
   rw [BoundingSieve.rem, sieve_multSum, sieve_totalMass, sieve_nu, rem, nu_apply]
   ring
 
+/-- N3.1: at a prime, `selbergTerms p = ν(p)/(1−ν(p))`
+(since `p.primeFactors = {p}`). -/
+lemma selbergTerms_prime (p : ℕ) (hp : p.Prime) :
+    (sieve N P hP).selbergTerms p = nu p * (1 - nu p)⁻¹ := by
+  rw [BoundingSieve.selbergTerms_apply, sieve_nu, hp.primeFactors, Finset.prod_singleton]
+
+/-- N3.1 (`p = 2`): `selbergTerms 2 = 1` (`ν(2) = 1/2`). -/
+lemma selbergTerms_two : (sieve N P hP).selbergTerms 2 = 1 := by
+  rw [selbergTerms_prime 2 (by norm_num), nu_apply, rho_two]
+  norm_num
+
+/-- N3.1 (odd prime): `selbergTerms p ≥ 2/p` (`ν(p) = 2/p`, so
+`selbergTerms p = 2/(p−2) ≥ 2/p`). -/
+lemma selbergTerms_odd_prime_ge (p : ℕ) (hp : p.Prime) (hodd : p ≠ 2) :
+    (2 : ℝ) / p ≤ (sieve N P hP).selbergTerms p := by
+  rw [selbergTerms_prime p hp, nu_apply, rho_odd_prime hp hodd]
+  push_cast
+  have h3 : 3 ≤ p := by
+    have h2 := hp.two_le
+    rcases hp.eq_two_or_odd' with h | h
+    · exact absurd h hodd
+    · rcases h with ⟨k, hk⟩; omega
+  have hpR : (3 : ℝ) ≤ p := by exact_mod_cast h3
+  have hp0 : (0 : ℝ) < p := by linarith
+  have hnum : (0 : ℝ) < (p : ℝ) - 2 := by linarith
+  rw [show (1 : ℝ) - 2 / p = (p - 2) / p by field_simp, inv_div,
+    show (2 : ℝ) / p * (p / (p - 2)) = 2 / (p - 2) by field_simp]
+  gcongr
+  linarith
+
 end Salt.TwinSieve
