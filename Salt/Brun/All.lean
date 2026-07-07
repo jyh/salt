@@ -5,4 +5,5 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.Brun.CongruenceCounting
 import Salt.Brun.M2
+import Salt.Brun.M3
 import Salt.Brun.M4

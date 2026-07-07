@@ -112,3 +112,15 @@ CLAUDE.md's rubric), not a routine 2-5-lemma B lookup, even though the
 blueprint pre-classified it as B. Flagging rather than attempting at this
 tier; recommend Opus, and recommend the blueprint table be revisited (z's
 role should probably be made explicit before N2.6 is attempted).
+
+## 2026-07-07 N3.3 Sonnet done (part 1 only)
+Proved `card_divisors_le_two_pow_cardFactors : m≠0 → m.divisors.card ≤ 2^Ω(m)`
+in new file Salt/Brun/M3.lean (Ω = ArithmeticFunction.cardFactors, the "big
+Omega" counted-with-multiplicity prime factor count; opened via
+`scoped ArithmeticFunction.Omega`). Proof: `Nat.card_divisors` gives
+τ(m)=∏(a_p+1) over the factorization; `cardFactors_eq_sum_factorization`
+gives Ω(m)=Σa_p; bound each factor `a_p+1 ≤ 2^a_p` (`Nat.lt_two_pow_self`)
+and fold via `Finset.prod_pow_eq_pow_sum`. Part 2 of N3.3 (`ν*(m)≥τ(m)/m` for
+odd m) needs `ν*` from N3.2, which needs the sieve instance (N2.6, already
+flagged class-C) — not restated here, same pattern as N2.7.
+Clean build, axioms: [propext, Classical.choice, Quot.sound].
