@@ -86,3 +86,29 @@ lemmas `mem_Rnat_iff` (membership for a representative already `< d`) and
 its underlying equation works by defeq (`rw`/`rwa` directly on the ModEq term
 does not, since `≡ [MOD]` notation doesn't unify against `_%_=_%_` patterns
 syntactically). Clean build, axioms: [propext, Classical.choice, Quot.sound].
+
+## 2026-07-07 N2.7 Sonnet done (part 2 only)
+Proved `rho_squarefree_le : Squarefree d → rho d ≤ 2^ω(d)` in Salt/Brun/M2.lean
+(M2 now imports M4 to reuse its `omega` def). Strong induction on d: peel off
+one prime factor p via `Nat.exists_prime_and_dvd` + `Nat.squarefree_mul_iff`
+(gives p.Coprime d' and Squarefree d'), apply `rho_mul_of_coprime` (N2.2) and
+`omega_mul_coprime`/`omega_prime` (new small helpers, via `Nat.primeFactors_mul`
++ `Nat.Coprime.disjoint_primeFactors` and `Nat.Prime.primeFactors`), bound
+rho(p)≤2 via rho_two/rho_odd_prime (N2.3), recurse on d'. Part 1 of N2.7
+(`|rem d| ≤ rho d`) is not separately stated: it is exactly
+`progression_count_bound` (N2.4) once `rem` is instantiated against an actual
+SelbergSieve instance, which requires N2.6 first — noted in the docstring
+rather than restated. Clean build, axioms:
+[propext, Classical.choice, Quot.sound].
+
+## 2026-07-07 N2.6 Sonnet not-attempted
+Looked at mathlib's `BoundingSieve` structure (SelbergSieve.lean): it needs
+`support`, `prodPrimes` (+ squarefree proof), `weights` (+ nonneg), `totalMass`,
+`nu : ArithmeticFunction ℝ` (+ IsMultiplicative, positivity/sub-1 bounds on
+primes). Building this instance requires choosing a sieve level `z` (a further
+parameter not fixed anywhere in M2) and design decisions about `support`/
+`weights` — this is "new definitions, real proof design" (class C per
+CLAUDE.md's rubric), not a routine 2-5-lemma B lookup, even though the
+blueprint pre-classified it as B. Flagging rather than attempting at this
+tier; recommend Opus, and recommend the blueprint table be revisited (z's
+role should probably be made explicit before N2.6 is attempted).

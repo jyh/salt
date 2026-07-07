@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Mathlib
 import Salt.Brun
 import Salt.Brun.CongruenceCounting
+import Salt.Brun.M4
 
 /-!
 # M2 — twin-prime instantiation (blueprint milestone)
@@ -187,3 +188,44 @@ theorem progression_count_bound (d N : ℕ) (hd : d ≠ 0) :
   have hbound := congCount_bound d (Rnat d) hdpos N
   have hinter : Rnat d ∩ Finset.range d = Rnat d := Finset.inter_eq_left.mpr (Rnat_subset_range d)
   rwa [hinter, Rnat_card d] at hbound
+
+lemma omega_mul_coprime {m n : ℕ} (hm : m ≠ 0) (hn : n ≠ 0) (hcop : m.Coprime n) :
+    omega (m * n) = omega m + omega n := by
+  unfold omega
+  rw [Nat.primeFactors_mul hm hn, Finset.card_union_of_disjoint hcop.disjoint_primeFactors]
+
+lemma omega_prime {p : ℕ} (hp : p.Prime) : omega p = 1 := by
+  unfold omega
+  rw [hp.primeFactors, Finset.card_singleton]
+
+/-- N2.7 (part 2): `rho d ≤ 2^ω(d)` for squarefree `d`. Each prime factor
+contributes at most a factor of `2` to `rho` (by `rho_two`/`rho_odd_prime`),
+and `rho` is multiplicative on the (pairwise coprime) distinct prime factors
+of a squarefree number. Part 1 (`|rem d| ≤ rho d`) is `progression_count_bound`
+above, once `rem` is instantiated against the eventual sieve (N2.6). -/
+theorem rho_squarefree_le : ∀ d : ℕ, Squarefree d → rho d ≤ 2 ^ omega d := by
+  intro d
+  induction d using Nat.strong_induction_on with
+  | _ d ih =>
+    intro hd
+    rcases eq_or_ne d 1 with rfl | hd1
+    · have h1 : rho 1 = 1 := by decide
+      have h2 : omega 1 = 0 := by simp [omega, Nat.primeFactors_one]
+      rw [h1, h2]; norm_num
+    · obtain ⟨p, hp, hpd⟩ := Nat.exists_prime_and_dvd hd1
+      obtain ⟨d', rfl⟩ := hpd
+      have hcop : p.Coprime d' := (Nat.squarefree_mul_iff.mp hd).1
+      have hd'sq : Squarefree d' := (Nat.squarefree_mul_iff.mp hd).2.2
+      have hd'ne0 : d' ≠ 0 := hd'sq.ne_zero
+      have hd'lt : d' < p * d' := by
+        have h2 := hp.two_le
+        have hpos := hd'sq.ne_zero.bot_lt
+        nlinarith
+      have hind : rho d' ≤ 2 ^ omega d' := ih d' hd'lt hd'sq
+      have hrhop : rho p ≤ 2 := by
+        rcases eq_or_ne p 2 with rfl | hpodd
+        · rw [rho_two]; norm_num
+        · rw [rho_odd_prime hp hpodd]
+      rw [rho_mul_of_coprime hp.ne_zero hd'ne0 hcop, omega_mul_coprime hp.ne_zero hd'ne0 hcop,
+        omega_prime hp, pow_add, pow_one]
+      exact Nat.mul_le_mul hrhop hind
