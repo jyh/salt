@@ -229,7 +229,7 @@ statement of that is more useful than a fake fallback.
 | M3 | Main term, Mertens-free: `G(z) ≳ (log z)²` | 6/6 ✅ |
 | M4 | Error term: crude `y⁴` power saving | 2/2 ✅ |
 | M5 | Assembly: `π₂(N) = O(N/(log N)²)` | 3/3 ✅ |
-| M6 | Abel summation → `BrunStatement` | 1/3 🟡 |
+| M6 | Abel summation → `BrunStatement` | 3/3 ✅ |
 
 ```mermaid
 flowchart LR
@@ -239,7 +239,7 @@ flowchart LR
   M3["M3 main term 6/6 ✅"]
   M4["M4 error term 2/2 ✅"]
   M5["M5 counting bound 3/3 ✅"]
-  M6["M6 summability 1/3 🟡"]
+  M6["M6 summability 3/3 ✅"]
   M2 --> M3
   M2 --> M4
   M2 --> M5
@@ -281,7 +281,7 @@ flowchart TB
   subgraph SM3["M3 — main term"]
     N3_1["N3.1 ✅ g at primes (A)"]:::done
     N3_2["N3.2 ✅ ν* expansion (C)"]:::done
-    N3_3["N3.3 🟡 τ≤2^Ω (B)"]:::partial
+    N3_3["N3.3 ✅ τ≤2^Ω (B)"]:::done
     N3_4["N3.4 ✅ divisor pairing (B)"]:::done
     N3_5["N3.5 ✅ odd harmonic (B)"]:::done
     N3_6["N3.6 ✅ G≥c·log² (B)"]:::done
@@ -298,7 +298,7 @@ flowchart TB
   subgraph SM6["M6 — summability"]
     N6_1["N6.1 ✅ integrability (B)"]:::done
     N6_2["N6.2 ✅ BrunStatement (B)"]:::done
-    N6_3["N6.3 🔴 Brun constant (A)"]:::open
+    N6_3["N6.3 ✅ Brun constant (A)"]:::done
   end
 
   N1_1 --> N1_2
@@ -473,13 +473,13 @@ flowchart TB
 **Difficulty.** predicted C, actual C — the blueprint's flagged "no template" node; the injection closed without needing fallback A4.
 **Notes.** `gTwin ℓ = selbergTerms(ℓ)` on odd squarefree ℓ and `nuStar m ≥ τ(m)/m` (from N3.3 part 1) are the two bridges N3.6 uses; both confirmed provable (no definitional mismatch).
 
-#### N3.3 — τ ≤ 2^Ω 🟡
+#### N3.3 — τ ≤ 2^Ω ✅
 **Statement.** τ(m) ≤ 2^Ω(m) for m ≠ 0; hence ν*(m) ≥ τ(m)/m for odd m.
 **Role.** Bounds ν*(m) below by τ(m)/m — the summand N3.4 handles. (For odd m, ν*(m) is exactly 2^Ω(m)/m, so the two halves chain.)
-**Proof idea.** τ(∏p^a) = ∏(a+1) ≤ ∏2^a termwise. Second half is a near-one-liner once ν* exists (N3.2).
-**Lean.** `card_divisors_le_two_pow_cardFactors` (Salt/Brun/M3.lean)
-**Status.** 🟡 partial — first half ✅ 2026-07-07 (Sonnet); second half waits on N3.2's ν*.
-**Difficulty.** predicted B, actual B (first half).
+**Proof idea.** τ(∏p^a) = ∏(a+1) ≤ ∏2^a termwise. Second half is the predicted near-one-liner given N3.2's ν*: divide the first half by m.
+**Lean.** `card_divisors_le_two_pow_cardFactors` (Salt/Brun/M3.lean); `Salt.M3Assembly.term_bound` (Salt/Brun/M3Assembly.lean)
+**Status.** ✅ 2026-07-07 — first half Sonnet; second half landed as `term_bound` inside the N3.6 assembly (the card stayed 🟡 by oversight until the Fable close-out sweep caught it — the second half had in fact been proved the same day).
+**Difficulty.** predicted B, actual B.
 
 #### N3.4 — divisor pairing ✅
 **Statement.** Σ_{m<z, odd} τ(m)/m ≥ (Σ_{a<√z, odd} 1/a)².
