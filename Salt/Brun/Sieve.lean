@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Mathlib
 import Salt.Brun.M2
+import Salt.Brun.M3Expansion
 
 /-!
 # The twin-prime Selberg sieve setup (blueprint N2.6)
@@ -185,5 +186,42 @@ lemma twin_count_le_siftedSum {z : ℕ} (hPz : ∀ q, q.Prime → q ∣ P → q 
       ≤ (sieve N P hP).siftedSum := by
   rw [sieve_siftedSum]
   exact_mod_cast Finset.card_le_card (twin_subset_coprime hPz)
+
+/-- Exact value (not just the `selbergTerms_odd_prime_ge` lower bound):
+`selbergTerms p = 2/(p-2)` for odd prime `p`. -/
+lemma selbergTerms_odd_prime_eq (p : ℕ) (hp : p.Prime) (hodd : p ≠ 2) :
+    (sieve N P hP).selbergTerms p = 2 / ((p:ℝ) - 2) := by
+  rw [selbergTerms_prime p hp, nu_apply, rho_odd_prime hp hodd]
+  push_cast
+  have h3 : 3 ≤ p := by
+    have h2 := hp.two_le
+    rcases hp.eq_two_or_odd' with h | h
+    · exact absurd h hodd
+    · rcases h with ⟨k, hk⟩; omega
+  have hpR : (3:ℝ) ≤ p := by exact_mod_cast h3
+  rw [show (1:ℝ) - 2/p = (p-2)/p by field_simp, inv_div]
+  field_simp
+
+/-- `selbergTerms` decomposes as a product over prime factors, for any
+squarefree `d ∣ P` (immediate from `ArithmeticFunction.IsMultiplicative.prod_primeFactors`,
+applied to `selbergTerms` instead of `nu`). -/
+lemma prod_primeFactors_selbergTerms {d : ℕ} (hd : d ∣ P) :
+    ∏ p ∈ d.primeFactors, (sieve N P hP).selbergTerms p = (sieve N P hP).selbergTerms d :=
+  (sieve N P hP).selbergTerms_isMultiplicative.prod_primeFactors
+    (Squarefree.squarefree_of_dvd hd hP)
+
+/-- For `ℓ` ODD and SQUAREFREE with `ℓ ∣ P`: `selbergTerms ℓ` equals the bare
+twin formula `Salt.M3Expansion.gTwin ℓ` EXACTLY. -/
+lemma selbergTerms_eq_gTwin {ℓ : ℕ} (hℓP : ℓ ∣ P) (hℓodd : Odd ℓ) (_hℓsq : Squarefree ℓ) :
+    (sieve N P hP).selbergTerms ℓ = Salt.M3Expansion.gTwin ℓ := by
+  rw [← prod_primeFactors_selbergTerms hℓP, Salt.M3Expansion.gTwin]
+  apply Finset.prod_congr rfl
+  intro p hp
+  have hpp : p.Prime := Nat.prime_of_mem_primeFactors hp
+  have hpodd : p ≠ 2 := by
+    rintro rfl
+    have hpdvd : (2:ℕ) ∣ ℓ := Nat.dvd_of_mem_primeFactors hp
+    exact (Nat.not_even_iff_odd.mpr hℓodd) (even_iff_two_dvd.mpr hpdvd)
+  exact selbergTerms_odd_prime_eq p hpp hpodd
 
 end Salt.TwinSieve

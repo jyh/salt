@@ -396,3 +396,45 @@ SONNET tier here — the previous content (predicting N3.6 as next, M3 5/6)
 was factually stale and would have left the guide self-contradictory against
 the just-updated milestone table/graphs. A future Fable prose sweep may
 polish wording, but no correction of substance is needed.
+
+## 2026-07-07 N5.2 Sonnet done (workflow: implement + independent verify + driver re-verify)
+The biggest assembly node so far — construct an actual SelbergSieve instance
+for the twin sieve and chain N1.4+N2.6+N3.6+N4.2+N5.1 through it — proved.
+Files: Salt/Brun/Sieve.lean (appended, 3 new lemmas), Salt/Brun/M5Assembly.lean
+(new, 365 lines).
+
+Designed the full chain myself first (rpow/floor conventions for y=N^{1/5},
+z=floor(N^{1/10}), P=primorial(z); the primorial-squarefree induction proof;
+the selbergTerms=gTwin bridge via selbergTerms' multiplicativity, mirroring
+mathlib's own prod_primeFactors_nu pattern but for selbergTerms), confirmed
+Nat.primorial and Squarefree.dvd_primorial existed via recon, then delegated
+implementation with an explicit license to loosen ANY constant (this node is
+purely existential/asymptotic; N5.3 does final clean absorption), followed by
+an independent adversarial verify agent instructed not to trust the
+implementer. BOTH passed. On top of that I (driver) ran a THIRD independent
+pass: full build, sorry/native_decide/axiom/admit grep (both files), read
+EVERY line of the new Sieve.lean lemmas and ALL 365 lines of M5Assembly.lean
+myself end-to-end (confirmed the Step-3 subset argument and Step-4 reindexing
+are genuine, non-circular, non-vacuous), and ran my own #print axioms on all
+8 key declarations. All clean: [propext, Classical.choice, Quot.sound].
+
+Final theorem (Salt.M5Assembly.N5_2):
+  ∃ N₀, ∀ N≥N₀, ∀ hN:1≤N, twinPrimeCounting N ≤
+    N / selbergBoundingSum(twinSelbergSieve N hN) + 256*N^(4/5) + (z N + 1)
+with N₀=1 (Step 4's bound holds unconditionally for N≥1). Constants
+deliberately loosened (256, not the blueprint's implicit tight constant;
+z+1 not the bare z/N^{1/10}) per explicit license in the brief.
+
+Notable implementation gotchas recorded by the implementer (useful for
+future nodes): Salt.SelbergPort quantities (selbergBoundingSum, etc.) are
+plain defs in that namespace, NOT structure fields — no dot notation, must
+call by full name; a Lean parsing gotcha where `∑ x∈s, if p then a else 0 = B`
+parses wrong (else-branch swallows the trailing `=B`) — needs explicit
+parens around the sum; `open X in` must precede the docstring, not follow
+it; `set name : T := e with h` sometimes needs an explicit type ascription
+to avoid a Finset-carrier-type misinference when `e` involves a real cast
+inside a filter predicate.
+
+Cost: ~352k subagent tokens (workflow, two agents) + driver's own read/audit,
+~29min wall clock. Remaining track: N5.3 -> N6.2 -> N6.3, a single chain,
+no more research-level work — real-analysis packaging only.

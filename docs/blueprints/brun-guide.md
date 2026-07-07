@@ -38,19 +38,18 @@ Statement fidelity is guaranteed by the immutability rule above, not by tooling.
 
 *Updated: 2026-07-07 (Fable).*
 
-- **State**: 22 of 27 nodes proved. **M0, M1, M2, M3, M4 all complete.**
-  Only the M5/M6 assembly spine remains.
-- **Frontier** (open, all deps met): **N5.2** (B) — apply the N1.4
-  fundamental theorem to the twin sieve.
-- **Next step**: N5.2 needs a `SelbergSieve` wrapper of the N2.6
-  `BoundingSieve` (add `level = N^{2/5}`) plus the `mainTermSum = G(z)`
-  identification noted on the N3.6 card; then it chains N1.4 + N3.6 + N4.2
-  + N5.1. N5.3 and N6.2 follow mechanically.
-- **Blockers**: none load-bearing — N5.2 → N5.3 → N6.2 → N6.3 is a single
-  remaining chain, each node depending only on the previous.
+- **State**: 23 of 27 nodes proved. **M0, M1, M2, M3, M4 all complete.**
+  N5.1 and N5.2 done; only N5.3, N6.2, N6.3 remain.
+- **Frontier** (open, all deps met): **N5.3** (B) — divide N5.2 by N3.6's
+  log-bound and absorb lower-order terms into `O(N/(log N)²)`.
+- **Next step**: N5.3 (`isLittleO_log_rpow_rpow_atTop`, Chebyshev.lean's
+  `⌊x⌋₊` idiom as template), then N6.2 (Abel summation → `BrunStatement`
+  itself), then N6.3 (bonus).
+- **Blockers**: none — a single remaining chain, three nodes.
 - **Strategic line**: all research risk is retired (R1 M1-port, R2 N3.2).
-  Every remaining node is class-B/A assembly of already-proved pieces. The
-  track is a straight, unblocked line to `BrunStatement`.
+  N5.2 — the biggest assembly node — is done and independently verified
+  three times over. What's left is real-analysis packaging, not new
+  mathematics. The track is a straight, unblocked line to `BrunStatement`.
 
 ## 1. Big picture
 
@@ -217,7 +216,7 @@ statement of that is more useful than a fake fallback.
 | M2 | Twin instantiation: ρ, its laws, the `BoundingSieve` | 7/7 ✅ |
 | M3 | Main term, Mertens-free: `G(z) ≳ (log z)²` | 6/6 ✅ |
 | M4 | Error term: crude `y⁴` power saving | 2/2 ✅ |
-| M5 | Assembly: `π₂(N) = O(N/(log N)²)` | 1/3 🟡 |
+| M5 | Assembly: `π₂(N) = O(N/(log N)²)` | 2/3 🟡 |
 | M6 | Abel summation → `BrunStatement` | 1/3 🟡 |
 
 ```mermaid
@@ -227,7 +226,7 @@ flowchart LR
   M2["M2 twin sieve 7/7 ✅"]
   M3["M3 main term 6/6 ✅"]
   M4["M4 error term 2/2 ✅"]
-  M5["M5 counting bound 1/3 🟡"]
+  M5["M5 counting bound 2/3 🟡"]
   M6["M6 summability 1/3 🟡"]
   M2 --> M3
   M2 --> M4
@@ -281,7 +280,7 @@ flowchart TB
   end
   subgraph SM5["M5 — assembly"]
     N5_1["N5.1 ✅ twins sifted (B)"]:::done
-    N5_2["N5.2 🔴 counting bound (B)"]:::open
+    N5_2["N5.2 ✅ counting bound (C)"]:::done
     N5_3["N5.3 🔴 TwinCountingBigO (B)"]:::open
   end
   subgraph SM6["M6 — summability"]
@@ -527,21 +526,21 @@ flowchart TB
 **Difficulty.** predicted B, actual B.
 **Notes.** P kept as a parameter with an "all prime factors ≤ z" hypothesis — same z-deferral that de-fanged N2.6.
 
-#### N5.2 — the counting bound 🔴
+#### N5.2 — the counting bound ✅
 **Statement.** π₂(N) ≤ N/S + N^{4/5} + N^{1/10} + O(1), by applying N1.4 with y = N^{1/5}, z = √y, P = the primorial of z; S ≥ G(N^{1/10}) since g > 0, so N3.6's lower bound applies.
 **Role.** Instantiates the whole machine; N5.3 absorbs the lower-order terms.
-**Proof idea (expected).** Specialize N1.4 to the N2.6 instance; bound its error by N4.2, its sifted sum below by N5.1; count twins ≤ z by z.
-**Lean.** — not started
-**Status.** 🔴 open; blocked on N1.4 and N3.6 (N2.6, N4.2, N5.1 ready).
-**Difficulty.** predicted B.
-**Notes.** Exponent slack: any θ < 1/4 works; 1/5 is comfort margin (R4). The repo's `BrunTitchmarsh.lean` is a worked template for this kind of assembly.
+**Proof idea.** Built an actual `SelbergSieve` instance (`twinSelbergSieve N`, extending N2.6's `BoundingSieve` with `level = N^{1/5}`, `P = primorial ⌊N^{1/10}⌋₊`; needed a new `primorial_squarefree` lemma and a `selbergTerms ℓ = gTwin ℓ` bridge on odd squarefree ℓ, via `selbergTerms`'s multiplicativity — added to Sieve.lean). `twinPrimeCounting N` splits into twins `≤ z` (trivially `≤ z+1`) and twins `> z` (`≤ siftedSum` via N5.1); N1.4 bounds `siftedSum ≤ totalMass/S + errorSum`; `errorSum` is reindexed into N4.2's form (loosened to `≤ 256·N^{4/5}`, generous slack, not tight); `S ≥ mainTermSum(z)` (N3.6's bridge) is available for N5.3.
+**Lean.** `Salt.M5Assembly.N5_2`, `Salt.M5Assembly.twinSelbergSieve`, `Salt.M5Assembly.selbergBoundingSum_ge_mainTermSum`, `Salt.M5Assembly.selbergBoundingSum_ge_log_sq`, `Salt.M5Assembly.guardedErrorSum_le` (Salt/Brun/M5Assembly.lean); `Salt.TwinSieve.selbergTerms_odd_prime_eq`, `Salt.TwinSieve.prod_primeFactors_selbergTerms`, `Salt.TwinSieve.selbergTerms_eq_gTwin` (Salt/Brun/Sieve.lean)
+**Status.** ✅ 2026-07-07 (Sonnet, delegated implementation + independent adversarial verification, plus the driving session's own build/sorry-sweep/full-proof-read/axiom-audit — three-layer verification, the biggest assembly node so far).
+**Difficulty.** predicted B, actual C — genuinely the largest assembly to date (a new sieve instance plus five prior milestones chained through it).
+**Notes.** Final Lean form deliberately loosens constants throughout (`256·N^{4/5}` and `z+1` rather than the blueprint's exact `N^{4/5}+N^{1/10}`) — this node is existential/asymptotic and N5.3 absorbs everything into `O(N/(log N)²)` regardless, so tightness here is waste. `Salt.SelbergPort` quantities (`selbergBoundingSum`, `selbergWeights`) are plain `def`s, not structure fields — no dot notation, call by full name.
 
 #### N5.3 — TwinCountingBigO 🔴
 **Statement.** π₂(N) = O(N/(log N)²).
 **Role.** The M5 contract; the Big-O input to Abel summation.
-**Proof idea (expected).** Divide N5.2 by N3.6's bound; absorb N^{4/5}, N^{1/10}, O(1) using `isLittleO_log_rpow_rpow_atTop`; the ⌊x⌋₊ idiom per Chebyshev.lean.
+**Proof idea (expected).** Divide N5.2 by N3.6's bound (via `selbergBoundingSum_ge_log_sq`); absorb `256·N^{4/5}`, `z+1`, `O(1)` using `isLittleO_log_rpow_rpow_atTop`; the ⌊x⌋₊ idiom per Chebyshev.lean.
 **Lean.** — not started
-**Status.** 🔴 open; blocked on N5.2.
+**Status.** 🔴 open — **frontier** (N5.2 ✅).
 **Difficulty.** predicted B.
 
 ### M6 — summability
