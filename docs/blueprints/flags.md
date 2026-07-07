@@ -174,3 +174,19 @@ termwise; six_pow_omega_le_d_cubed (N4.1) gives 6^ω(d)≤d³; a crude
 completes N2.7 and N4.1's remaining "part 1" concerns retroactively — no
 sieve instance was ever needed for this chain. Clean build, axioms:
 [propext, Classical.choice, Quot.sound].
+
+## 2026-07-07 N6.1 Sonnet failed
+Looked for `IntegrableAtFilter (fun t => 1/(t*(log t)^2)) atTop`. Mathlib's
+`Analysis/SpecialFunctions/ImproperIntegrals.lean` has
+`integrableAtFilter_rpow_atTop_iff : IntegrableAtFilter (x^s) atTop ↔ s<-1`,
+which would give this result after a u=log(t) substitution (since
+∫1/(t·(log t)²)dt = ∫1/u² du under that substitution, and -2<-1 makes the
+rpow criterion apply) — but found no ready-made mathlib lemma for the
+substitution/composition step itself, and wiring up
+`intervalIntegral`/`MeasureTheory` change-of-variables machinery from
+scratch for an atTop filter looked like genuine analysis design work, not a
+routine 2-5-lemma B lookup. `Chebyshev.lean`'s
+`integrableOn_theta_div_id_mul_log_sq` handles a related integrand but only
+on a bounded interval `Icc 2 x`, not at `atTop`, so it doesn't transfer
+directly. Blocked on tier; escalate to Opus (or find the right
+composition/substitution lemma name first).
