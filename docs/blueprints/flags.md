@@ -49,3 +49,25 @@ since equal-but-syntactically-different `NeZero` proofs produced non-defeq
 `Fact p.Prime` instance is in scope (routes DecidableEq through the Field
 instance); works fine decided in isolation before introducing Fact.
 Clean build, axioms: [propext, Classical.choice, Quot.sound].
+
+## 2026-07-07 N2.4 Sonnet done
+Proved `progression_count_bound`: |#{n∈Icc 1 N : d∣n(n+2)} - N*rho(d)/d| ≤ rho(d).
+Turned out substantially harder than a typical class-B lookup — no existing
+mathlib lemma gives this directly (closest was `Nat.count_modEq_card`/
+`Int.Ico_filter_modEq_card`, exact ceiling/floor formulas, but combining them
+per-residue and summing over rho(d) roots led to fragile sign-error-prone
+algebra). Instead proved a general reusable lemma in a new file
+`Salt/Brun/CongruenceCounting.lean`: for any residue set S mod d, the count of
+n∈Icc 1 N with n%d∈S differs from N*|S∩range d|/d by at most |S∩range d|.
+Proof strategy: block decomposition — any d consecutive naturals hit every
+residue exactly once (`block_mod_bij`, via injectivity + card + subset
+argument), giving an exact step lemma `congCount(N+d) = congCount(N) + |S|`,
+then induction gives `congCount(q*d+s) = q*|S| + congCount(s)`, and a base
+case bound for s<d, then pure real algebra (isolated in its own lemma to keep
+field_simp/ring from choking on Nat-cast noise). Connected to `rho` via a
+`Rnat d` (nat-valued root set through `ZMod.val`) and
+`dvd_iff_mem_Rnat : d∣n(n+2) ↔ n%d∈Rnat d`. Gotchas: `Nat.div_add_mod'` (not
+`Nat.div_add_mod`, which has d*(N/d) not (N/d)*d); writing `(N%d:ℝ)` directly
+in a real-typed argument position silently elaborates as real mod on casts of
+N,d separately (need explicit `((N%d:ℕ):ℝ)` parens to force Nat mod first).
+Clean build, axioms: [propext, Classical.choice, Quot.sound].

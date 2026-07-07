@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Mathlib
 import Salt.Brun
+import Salt.Brun.CongruenceCounting
 
 /-!
 # M2 — twin-prime instantiation (blueprint milestone)
@@ -65,3 +66,55 @@ theorem rho_odd_prime {p : ℕ} (hp : p.Prime) (hodd : p ≠ 2) : rho p = 2 := b
     have hdvd : p ∣ 2 := (ZMod.natCast_eq_zero_iff 2 p).mp (by exact_mod_cast h2)
     exact hodd ((Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp hdvd)
   rw [Finset.card_insert_of_notMem (by simp [hne]), Finset.card_singleton]
+
+/-- N2.1 roots, represented as naturals in `[0, d)` via `ZMod.val`. -/
+noncomputable def Rnat (d : ℕ) [NeZero d] : Finset ℕ :=
+  (Finset.univ.filter (fun n : ZMod d => n * (n + 2) = 0)).image ZMod.val
+
+lemma Rnat_card (d : ℕ) [NeZero d] : (Rnat d).card = rho d := by
+  rw [rho_pos (NeZero.ne d)]
+  exact Finset.card_image_of_injective _ (ZMod.val_injective d)
+
+lemma Rnat_subset_range (d : ℕ) [NeZero d] : Rnat d ⊆ Finset.range d := by
+  intro r hr
+  simp only [Rnat, Finset.mem_image] at hr
+  obtain ⟨n, _, rfl⟩ := hr
+  simp [ZMod.val_lt]
+
+lemma dvd_iff_mem_Rnat (d : ℕ) [NeZero d] (n : ℕ) : d ∣ n * (n + 2) ↔ n % d ∈ Rnat d := by
+  simp only [Rnat, Finset.mem_image, Finset.mem_filter, Finset.mem_univ, true_and]
+  constructor
+  · intro hdvd
+    refine ⟨(n : ZMod d), ?_, ?_⟩
+    · have : ((n * (n + 2) : ℕ) : ZMod d) = 0 := (ZMod.natCast_eq_zero_iff _ _).mpr hdvd
+      push_cast at this
+      convert this using 2
+    · rw [ZMod.val_natCast]
+  · rintro ⟨m, hm, hmn⟩
+    have heq : (n : ZMod d) = m := by
+      rw [← ZMod.natCast_mod n d, ← hmn, ZMod.natCast_val, ZMod.cast_id]
+    have : ((n * (n + 2) : ℕ) : ZMod d) = 0 := by push_cast; rw [heq]; exact hm
+    rwa [ZMod.natCast_eq_zero_iff] at this
+
+/-- N2.4: the count of `n ∈ Icc 1 N` with `d ∣ n(n+2)` differs from the
+expected `N * rho d / d` by at most `rho d`. -/
+theorem progression_count_bound (d N : ℕ) (hd : d ≠ 0) :
+    haveI : NeZero d := ⟨hd⟩
+    |(((Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2))).card : ℝ) - N * rho d / d| ≤ rho d := by
+  haveI : NeZero d := ⟨hd⟩
+  have hdpos : 0 < d := Nat.pos_of_ne_zero hd
+  have hset_eq :
+      ((Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2))).card = congCount d (Rnat d) N := by
+    unfold congCount
+    congr 1
+    ext n
+    simp only [Finset.mem_filter]
+    constructor
+    · rintro ⟨hn, hdvd⟩
+      exact ⟨hn, (dvd_iff_mem_Rnat d n).mp hdvd⟩
+    · rintro ⟨hn, hmem⟩
+      exact ⟨hn, (dvd_iff_mem_Rnat d n).mpr hmem⟩
+  rw [hset_eq]
+  have hbound := congCount_bound d (Rnat d) hdpos N
+  have hinter : Rnat d ∩ Finset.range d = Rnat d := Finset.inter_eq_left.mpr (Rnat_subset_range d)
+  rwa [hinter, Rnat_card d] at hbound
