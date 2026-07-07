@@ -124,3 +124,20 @@ and fold via `Finset.prod_pow_eq_pow_sum`. Part 2 of N3.3 (`ν*(m)≥τ(m)/m` fo
 odd m) needs `ν*` from N3.2, which needs the sieve instance (N2.6, already
 flagged class-C) — not restated here, same pattern as N2.7.
 Clean build, axioms: [propext, Classical.choice, Quot.sound].
+
+## 2026-07-07 N3.5 Sonnet done
+Proved `oddHarmonicSum_ge : oddHarmonicSum n ≥ (log n)/2 - (1-log2)/2` in
+Salt/Brun/M3.lean. Chain: reindex even terms of Icc 1 n via i=2j to get
+`even_sum_eq_half_harmonic` (Σ_even 1/i = harmonic(n/2)/2 via
+`Finset.sum_image`), split Icc 1 n into odd/even filters to get
+`oddHarmonicSum_eq` (oddSum = harmonic n - harmonic(n/2)/2), then combine
+mathlib's `log_add_one_le_harmonic`/`harmonic_le_one_add_log`
+(Harmonic/Bounds.lean) with `Real.log_div`/`Real.log_le_log` monotonicity.
+Gotcha: n=1 is a genuine edge case, not just a proof-technicality — nat
+division (1/2:ℕ)=0 combined with mathlib's junk-value convention
+`Real.log 0 = 0` makes the general monotonicity argument (which needs
+log((n/2:ℕ)) ≤ log(n:ℝ)-log2) FALSE at n=1 (0 ≤ -log2 fails, since
+log2>0). Split n=0,1 off as direct base cases (`match n, Nat.lt_or_ge n 2`)
+and ran the general argument only for n≥2, where n/2≥1 keeps every log
+argument positive and the junk value never triggers. Clean build, axioms:
+[propext, Classical.choice, Quot.sound].
