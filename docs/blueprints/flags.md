@@ -22,3 +22,9 @@ Clean build, axioms: [propext, Classical.choice, Quot.sound].
 Implemented `twinProd_strictMono` lemma proving n ↦ n*(n+2) is strictly monotone.
 Used calc chain with Nat arithmetic lemmas. 
 Clean build, axioms: [propext, Quot.sound].
+
+## 2026-07-07 N4.1 Haiku failed
+Attempted to prove 6^ω(d) ≤ d³ for squarefree d. Requires product-of-factors
+bound via unique factorization (showing ∏(p | d) p = d) and Finset manipulation.
+This is class-B/C (requires squarefree API + finset product algebra), not class-A.
+Blocked on tier. Escalate to Sonnet/Opus.
