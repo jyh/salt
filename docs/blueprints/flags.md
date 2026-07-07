@@ -266,3 +266,19 @@ N3.6 (G-bound assembly) are independent of M1 but themselves heavy C nodes.
 Recommend a dedicated Fable/human session (or repo-access-enabled port) for
 M1 before the assembly nodes. Not attempted here to avoid landing a
 sprawling incomplete proof on the branch.
+
+## 2026-07-07 N1.1/N1.3/N1.4/N5.2 Fable statement-amendment
+Blueprint rows amended (Fable tier, per rule 1's escape hatch): truncation
+boundaries changed from strict (`d < √y`, `l < t`, `d < y`) to the
+non-strict level convention (`d² ≤ y`, `l² ≤ y`, `d ≤ y`, real `y ≥ 1`),
+and N1.3/N5.2 restated via `S = Σ_{l∣P, l²≤y} g(l)` instead of `G(√y)`.
+Rationale: the 2026-07-07 recon (see brun-guide.md R1) fixed the plan of
+record for M1 as a port of amellendijk/selberg-sieve4 `Selberg.lean`, whose
+statements use exactly this convention (`selbergBoundingSum`,
+`selbergWeights`, `selberg_bound_simple`); the boundary term is
+mathematically immaterial (g > 0 gives S ≥ G(√y), so M3's G-language lower
+bounds transfer via one comparison at assembly), and aligning the contract
+now prevents a false statement-mismatch when the ported N1.x land. N4.2
+(strict d < y over ℕ) is unaffected: the assembly glue from real-level to
+nat ranges is floor bookkeeping N5.2 owns either way (guide R4). Caught by
+the guide verification workflow (strict-vs-nonstrict finding, 3 warns).

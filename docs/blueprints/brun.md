@@ -78,10 +78,10 @@ Hardest cluster. Port/adapt from FLDutchmann if viable, else re-prove
 (Heath-Brown notes; the required Möbius identities are already in mathlib).
 | id | statement | deps | class |
 |---|---|---|---|
-| N1.1 | truncated optimal weights `w` supported on `{d ∣ P, d < √y}`, def + `w 1 = 1` | — | B |
+| N1.1 | truncated optimal weights `w` supported on `{d ∣ P, d² ≤ y}` (real level `y ≥ 1`), def + `w 1 = 1` | — | B |
 | N1.2 | `∀ d, |w d| ≤ 1` | N1.1 | C |
-| N1.3 | `mainSum (lambdaSquared w) = 1 / G(√y)` where `G(t) = Σ_{l ∣ P, l < t} selbergTerms l` (uses the three inversion identities + diagonalization) | N1.1 | C |
-| N1.4 | **fundamental theorem**: `siftedSum ≤ totalMass / G(√y) + Σ_{d ∣ P, d < y} 3^ω(d) * |rem d|` | N1.2, N1.3, `siftedSum_le_mainSum_errSum_of_upperMoebius`, `upperMoebius_lambdaSquared` | C |
+| N1.3 | `mainSum (lambdaSquared w) = 1 / S` where `S = Σ_{l ∣ P, l² ≤ y} selbergTerms l` (uses the three inversion identities + diagonalization; classically `S = G(√y)` up to the boundary term) | N1.1 | C |
+| N1.4 | **fundamental theorem**: `siftedSum ≤ totalMass / S + Σ_{d ∣ P, d ≤ y} 3^ω(d) * |rem d|` | N1.2, N1.3, `siftedSum_le_mainSum_errSum_of_upperMoebius`, `upperMoebius_lambdaSquared` | C |
 
 ### M2 — twin-prime instantiation
 | id | statement | deps | class |
@@ -114,7 +114,7 @@ Hardest cluster. Port/adapt from FLDutchmann if viable, else re-prove
 | id | statement | deps | class |
 |---|---|---|---|
 | N5.1 | twin `p` with `z < p ≤ N` ⇒ `p*(p+2)` coprime to `P(z)` ⇒ counted by `siftedSum` | N2.5 | B |
-| N5.2 | `twinPrimeCounting N ≤ N / G(N^{1/10}) + N^{4/5} + N^{1/10} + O(1)` (apply N1.4 with `y = N^{1/5}`) | N1.4, N2.6, N3.6, N4.2, N5.1 | B |
+| N5.2 | `twinPrimeCounting N ≤ N / S + N^{4/5} + N^{1/10} + O(1)` (apply N1.4 with `y = N^{1/5}`; `S ≥ G(N^{1/10})` since `g > 0`, so N3.6 applies) | N1.4, N2.6, N3.6, N4.2, N5.1 | B |
 | N5.3 | `TwinCountingBigO` (absorb lower-order terms; `isLittleO_log_rpow_rpow_atTop`, Chebyshev.lean idiom) | N5.2 | B |
 
 ### M6 — summability bridge

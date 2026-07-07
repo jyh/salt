@@ -47,24 +47,40 @@ Identify which model you are, then attempt only nodes at your tier or below:
    to `docs/blueprints/flags.md`, commit it, and move to the next node.
    A recorded failure is the cascade working; a long grind is waste.
 5. **Don't touch** `CLAUDE.md`, `docs/MODEL_POLICY.md`, blueprint node tables,
-   or already-merged proofs, unless you are a Fable/human-directed session.
+   already-merged proofs, or the prose and card **Statement**/**Role** fields
+   of `docs/blueprints/brun-guide.md`, unless you are a Fable/human-directed
+   session. Card *volatile* fields (Status/Lean/Difficulty/Proof idea/Notes),
+   Mermaid status colors, and the briefing frontier list are open to all
+   tiers via workflow step 5.
 
 ## Workflow per node
 
-1. Pick an unproven node of your class from the blueprint whose dependencies
-   are done (check `docs/blueprints/flags.md` for claims/flags).
+1. Pick an unproven node of your class from the guide's catalog/frontier list
+   (`docs/blueprints/brun-guide.md`); `docs/blueprints/flags.md` is the
+   detailed history behind it.
 2. Write the proof in the track's file (Brun track: `Salt/Brun/` modules,
    imported from `Salt/Brun.lean`).
 3. Verify: `lake build` (must succeed, no warnings introduced), then the
    axiom check (rule 3).
 4. Commit on the track branch with message `brun: N<id> <name>` and a line
    noting your model and attempt count.
+5. Update docs in the SAME commit: your node's card in
+   `docs/blueprints/brun-guide.md` (status token, Lean names, actual
+   difficulty, one-line proof idea), the Mermaid graphs' status
+   colors/emoji, and the briefing frontier list. Failed attempt? Set the
+   card to ⛔ with a flags pointer instead. Field-by-field rules: the
+   guide's preamble.
+
+Fable sessions additionally open with a reconciliation sweep: read the
+guide's briefing block, resolve `<!-- TODO -->` markers and ⛔ statuses,
+and run the lint.
 
 ## Build commands
 
 ```sh
-lake build                 # kernel-checks everything (fast; mathlib is cached)
-lake env lean Scratch.lean # for #print axioms checks (don't commit Scratch.lean)
+lake build                        # kernel-checks everything (mathlib is cached)
+lake env lean Scratch.lean        # for #print axioms checks (don't commit Scratch.lean)
+python3 scripts/blueprint_lint.py # docs↔code consistency + axiom audit (phase 1)
 ```
 
 If `lake` is not on PATH: `~/.elan/bin/lake`.
