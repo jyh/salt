@@ -114,3 +114,87 @@ theorem oddHarmonicSum_ge (n : ℕ) :
       have : (((n + 2) / 2 : ℕ) : ℝ) * 2 ≤ ((n + 2 : ℕ) : ℝ) := by exact_mod_cast hh
       linarith
     linarith
+
+/-- Sum of `τ(m)/m` over `m ∈ S`. -/
+noncomputable def divSum (S : Finset ℕ) : ℝ := ∑ m ∈ S, (m.divisors.card : ℝ) / m
+
+/-- The set of pairs `(m, d)` with `m ∈ S` and `d ∣ m`. -/
+def divPairs (S : Finset ℕ) : Finset (ℕ × ℕ) :=
+  S.biUnion (fun m => m.divisors.image (fun d => (m, d)))
+
+lemma divSum_eq_sum_divPairs (S : Finset ℕ) : divSum S = ∑ p ∈ divPairs S, (1 : ℝ) / p.1 := by
+  unfold divSum divPairs
+  rw [Finset.sum_biUnion]
+  · apply Finset.sum_congr rfl
+    intro m _
+    rw [Finset.sum_image (by simp_all)]
+    simp only
+    rw [Finset.sum_const, nsmul_eq_mul]
+    ring
+  · intro m1 _ m2 _ hne
+    simp only [Function.onFun, Finset.disjoint_left]
+    intro p hp1 hp2
+    simp only [Finset.mem_image] at hp1 hp2
+    obtain ⟨d1, _, hd1⟩ := hp1
+    obtain ⟨d2, _, hd2⟩ := hp2
+    apply hne
+    rw [← hd1] at hd2
+    exact ((Prod.mk.injEq .. ▸ hd2).1).symm
+
+/-- Divisor-pairing bound: if every product `a*b` for `a, b ∈ T` lands in `S`
+(with `a ∣ a*b`, automatic), then `Σ_{m∈S} τ(m)/m ≥ (Σ_{a∈T} 1/a)²`. Each pair
+`(a,b) ∈ T × T` injects into the `(m,d)` divisor pairs of `S` via
+`(a,b) ↦ (a*b, a)`; since all terms are nonnegative, the sub-sum over the
+image is at most the full sum over `divPairs S`. -/
+theorem divSum_ge_sq (S T : Finset ℕ) (hT0 : 0 ∉ T)
+    (hST : ∀ a ∈ T, ∀ b ∈ T, a * b ∈ S ∧ a ∣ (a * b)) :
+    divSum S ≥ (∑ a ∈ T, (1 : ℝ) / a) ^ 2 := by
+  have hR : (∑ a ∈ T, (1 : ℝ) / a) ^ 2 = ∑ p ∈ T ×ˢ T, (1 : ℝ) / (p.1 * p.2) := by
+    rw [sq, Finset.sum_mul_sum, ← Finset.sum_product']
+    apply Finset.sum_congr rfl
+    intro a _
+    rw [div_mul_div_comm, one_mul]
+  rw [hR, divSum_eq_sum_divPairs]
+  have hinj : Set.InjOn (fun p : ℕ × ℕ => (p.1 * p.2, p.1)) (T ×ˢ T : Finset (ℕ × ℕ)) := by
+    intro p1 hp1 p2 hp2 heq
+    simp only [Finset.coe_product, Set.mem_prod, Finset.mem_coe] at hp1 hp2
+    have h1 : p1.1 = p2.1 := (Prod.mk.injEq ..).mp heq |>.2
+    have h2 : p1.1 * p1.2 = p2.1 * p2.2 := (Prod.mk.injEq ..).mp heq |>.1
+    have hne0 : p1.1 ≠ 0 := fun h => hT0 (h ▸ hp1.1)
+    have hp2' : p1.2 = p2.2 := by
+      rw [h1] at h2
+      exact Nat.eq_of_mul_eq_mul_left (Nat.pos_of_ne_zero (h1 ▸ hne0)) h2
+    exact Prod.ext h1 hp2'
+  have hstep : ∑ p ∈ T ×ˢ T, (1 : ℝ) / (p.1 * p.2)
+      = ∑ p ∈ (T ×ˢ T).image (fun p : ℕ × ℕ => (p.1 * p.2, p.1)), (1 : ℝ) / p.1 := by
+    rw [Finset.sum_image hinj]
+    simp
+  rw [hstep]
+  apply Finset.sum_le_sum_of_subset_of_nonneg
+  · intro p hp
+    simp only [Finset.mem_image, Finset.mem_product] at hp
+    obtain ⟨⟨a, b⟩, ⟨ha, hb⟩, heq⟩ := hp
+    simp only at heq
+    obtain ⟨rfl, rfl⟩ := heq
+    obtain ⟨hmem, hdvd⟩ := hST a ha b hb
+    simp only [divPairs, Finset.mem_biUnion, Finset.mem_image]
+    have ha0 : a ≠ 0 := fun h => hT0 (h ▸ ha)
+    have hb0 : b ≠ 0 := fun h => hT0 (h ▸ hb)
+    exact ⟨a * b, hmem, a, Nat.mem_divisors.mpr ⟨hdvd, mul_ne_zero ha0 hb0⟩, rfl⟩
+  · intros; positivity
+
+/-- N3.4: `Σ_{m<z, odd} τ(m)/m ≥ (Σ_{a<√z, odd} 1/a)²`. Instantiates
+`divSum_ge_sq` with `S` = odds below `z`, `T` = odds below `√z`: for
+`a, b ∈ T`, `a*b` is odd (product of odds) and `a*b < z` (from
+`a, b < z.sqrt` and `z.sqrt^2 ≤ z`). -/
+theorem N3_4 (z : ℕ) :
+    divSum ((Finset.range z).filter Odd) ≥
+      (∑ a ∈ (Finset.range z.sqrt).filter Odd, (1 : ℝ) / a) ^ 2 := by
+  apply divSum_ge_sq
+  · simp
+  · intro a ha b hb
+    simp only [Finset.mem_filter, Finset.mem_range] at ha hb
+    refine ⟨?_, dvd_mul_right a b⟩
+    simp only [Finset.mem_filter, Finset.mem_range]
+    refine ⟨?_, ha.2.mul hb.2⟩
+    nlinarith [Nat.sqrt_le' z, ha.1, hb.1]

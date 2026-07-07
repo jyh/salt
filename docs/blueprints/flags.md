@@ -141,3 +141,20 @@ log2>0). Split n=0,1 off as direct base cases (`match n, Nat.lt_or_ge n 2`)
 and ran the general argument only for n≥2, where n/2≥1 keeps every log
 argument positive and the junk value never triggers. Clean build, axioms:
 [propext, Classical.choice, Quot.sound].
+
+## 2026-07-07 N3.4 Sonnet done
+Proved `N3_4 : divSum(odds<z) ≥ (Σ_{a<√z,odd}1/a)²` in Salt/Brun/M3.lean,
+via a general reusable lemma `divSum_ge_sq (S T) (hT0:0∉T)
+(hST:∀a∈T,∀b∈T, a*b∈S ∧ a∣a*b) : divSum S ≥ (Σ_{a∈T}1/a)²`. Proof: unfold
+τ(m)=divisors.card as a nested (m,d) pair-sum over `divPairs S` (biUnion of
+each m's divisors), rewrite (Σ1/a)² as a sum over T×T of 1/(ab) (`sum_mul_sum`
++ `sum_product'`), inject T×T into divPairs S via (a,b)↦(a*b,a)
+(injective since 0∉T keeps first coords cancellable — `Nat.eq_of_mul_eq_
+mul_left`), then `Finset.sum_le_sum_of_subset_of_nonneg` since the injected
+image is a genuine Finset subset with all-nonneg terms. N3_4 itself just
+instantiates S/T as odd-filtered ranges below z/√z and checks a*b odd+<z via
+`Nat.sqrt_le'` + nlinarith. This is the hardest of the "self-contained" B
+nodes tackled this session — closer to C in practice (comparable to N2.4's
+block-decomposition effort) — but the reusable divSum_ge_sq lemma converged
+cleanly once the (a,b)↦(a*b,a) injection was set up correctly. Clean build,
+axioms: [propext, Classical.choice, Quot.sound].
