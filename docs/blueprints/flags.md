@@ -190,3 +190,19 @@ routine 2-5-lemma B lookup. `Chebyshev.lean`'s
 on a bounded interval `Icc 2 x`, not at `atTop`, so it doesn't transfer
 directly. Blocked on tier; escalate to Opus (or find the right
 composition/substitution lemma name first).
+
+## 2026-07-07 N6.1 Opus done
+Proved `integrableAtFilter_inv_id_mul_log_sq` in new file Salt/Brun/M6.lean.
+The substitution instinct from the Sonnet failure entry was a red herring —
+no change of variables needed. Direct route: mathlib's
+`integrableOn_Ioi_deriv_of_nonneg'` says that if `g` is differentiable on
+`[a,∞)` with nonneg derivative `g'` and `g` tends to a finite limit at
+infinity, then `g'` is integrable on `(a,∞)`. Take the antiderivative
+`g t = -(log t)⁻¹`: `g' t = 1/(t·(log t)²) ≥ 0` on `(2,∞)` (chain rule via
+`Real.hasDerivAt_log` + `HasDerivAt.inv` + `.neg`), and `g → 0` at infinity
+(`Real.tendsto_log_atTop.inv_tendsto_atTop` then `.neg`). Then
+`IntegrableAtFilter ... atTop` just needs a witness set in atTop, namely
+`Ioi 2`. Key lemma names: `integrableOn_Ioi_deriv_of_nonneg'`
+(Integral/IntegralEqImproper.lean), `Real.log_ne_zero_of_pos_of_ne_one`,
+`Filter.Tendsto.inv_tendsto_atTop`. Note `open Topology` needed for `𝓝`.
+Clean build, axioms: [propext, Classical.choice, Quot.sound].
