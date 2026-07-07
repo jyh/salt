@@ -38,18 +38,18 @@ Statement fidelity is guaranteed by the immutability rule above, not by tooling.
 
 *Updated: 2026-07-07 (Fable).*
 
-- **State**: 23 of 27 nodes proved. **M0, M1, M2, M3, M4 all complete.**
-  N5.1 and N5.2 done; only N5.3, N6.2, N6.3 remain.
-- **Frontier** (open, all deps met): **N5.3** (B) — divide N5.2 by N3.6's
-  log-bound and absorb lower-order terms into `O(N/(log N)²)`.
-- **Next step**: N5.3 (`isLittleO_log_rpow_rpow_atTop`, Chebyshev.lean's
-  `⌊x⌋₊` idiom as template), then N6.2 (Abel summation → `BrunStatement`
-  itself), then N6.3 (bonus).
-- **Blockers**: none — a single remaining chain, three nodes.
+- **State**: 25 of 27 nodes proved. **M0–M5 all complete.** Only M6's
+  final two nodes remain.
+- **Frontier** (open, all deps met): **N6.2** (B) — Abel summation from
+  N5.3 + N6.1 → `BrunStatement` itself, the theorem the track exists for.
+- **Next step**: N6.2 (`summable_mul_of_bigO_atTop`, template
+  `Chebyshev.primeCounting_eq_theta_div_log_add_integral`), then N6.3
+  (bonus, class A).
+- **Blockers**: none — two nodes left, N6.2 then N6.3.
 - **Strategic line**: all research risk is retired (R1 M1-port, R2 N3.2).
-  N5.2 — the biggest assembly node — is done and independently verified
-  three times over. What's left is real-analysis packaging, not new
-  mathematics. The track is a straight, unblocked line to `BrunStatement`.
+  M5's biggest assembly nodes (N5.2, N5.3) are done and independently
+  verified three times over each. One node stands between the track and
+  its target.
 
 ## 1. Big picture
 
@@ -216,7 +216,7 @@ statement of that is more useful than a fake fallback.
 | M2 | Twin instantiation: ρ, its laws, the `BoundingSieve` | 7/7 ✅ |
 | M3 | Main term, Mertens-free: `G(z) ≳ (log z)²` | 6/6 ✅ |
 | M4 | Error term: crude `y⁴` power saving | 2/2 ✅ |
-| M5 | Assembly: `π₂(N) = O(N/(log N)²)` | 2/3 🟡 |
+| M5 | Assembly: `π₂(N) = O(N/(log N)²)` | 3/3 ✅ |
 | M6 | Abel summation → `BrunStatement` | 1/3 🟡 |
 
 ```mermaid
@@ -226,7 +226,7 @@ flowchart LR
   M2["M2 twin sieve 7/7 ✅"]
   M3["M3 main term 6/6 ✅"]
   M4["M4 error term 2/2 ✅"]
-  M5["M5 counting bound 2/3 🟡"]
+  M5["M5 counting bound 3/3 ✅"]
   M6["M6 summability 1/3 🟡"]
   M2 --> M3
   M2 --> M4
@@ -281,7 +281,7 @@ flowchart TB
   subgraph SM5["M5 — assembly"]
     N5_1["N5.1 ✅ twins sifted (B)"]:::done
     N5_2["N5.2 ✅ counting bound (C)"]:::done
-    N5_3["N5.3 🔴 TwinCountingBigO (B)"]:::open
+    N5_3["N5.3 ✅ TwinCountingBigO (B)"]:::done
   end
   subgraph SM6["M6 — summability"]
     N6_1["N6.1 ✅ integrability (B)"]:::done
@@ -535,13 +535,14 @@ flowchart TB
 **Difficulty.** predicted B, actual C — genuinely the largest assembly to date (a new sieve instance plus five prior milestones chained through it).
 **Notes.** Final Lean form deliberately loosens constants throughout (`256·N^{4/5}` and `z+1` rather than the blueprint's exact `N^{4/5}+N^{1/10}`) — this node is existential/asymptotic and N5.3 absorbs everything into `O(N/(log N)²)` regardless, so tightness here is waste. `Salt.SelbergPort` quantities (`selbergBoundingSum`, `selbergWeights`) are plain `def`s, not structure fields — no dot notation, call by full name.
 
-#### N5.3 — TwinCountingBigO 🔴
+#### N5.3 — TwinCountingBigO ✅
 **Statement.** π₂(N) = O(N/(log N)²).
 **Role.** The M5 contract; the Big-O input to Abel summation.
-**Proof idea (expected).** Divide N5.2 by N3.6's bound (via `selbergBoundingSum_ge_log_sq`); absorb `256·N^{4/5}`, `z+1`, `O(1)` using `isLittleO_log_rpow_rpow_atTop`; the ⌊x⌋₊ idiom per Chebyshev.lean.
-**Lean.** — not started
-**Status.** 🔴 open — **frontier** (N5.2 ✅).
-**Difficulty.** predicted B.
+**Proof idea.** Three independent parts. (A) The ℕ-indexed absorption: `log(z N) ≥ (1/20)log N` (a floor-vs-rpow bound in the same style as N3.6's `stepD`, threshold `N₀ = 2^100` chosen as a power of 2 so `log N₀` is exact) combines with `selbergBoundingSum_ge_log_sq` to give `N/S(N) ≤ 25600·N/(log N)²`; the two error terms `256·N^{4/5}` and `z N + 1` are absorbed via `isLittleO_log_rpow_rpow_atTop` (with the rpow identity `N^{4/5}·N^{1/5}=N`); summing gives `twinPrimeCounting N ≤ 25700·N/(log N)²` eventually. (B) A generic floor-transfer lemma `⌊x⌋₊/(log⌊x⌋₊)² = O(x/(log x)²)`. (C) Transfer (A) from ℕ to ℝ-atTop via `tendsto_nat_floor_atTop`, wrap as `IsBigO.of_bound`, chain with (B) via `.trans`.
+**Lean.** `Salt.M5BigO.N5_3`, `Salt.M5BigO.nat_absorb`, `Salt.M5BigO.floor_ratio_isBigO`, `Salt.M5BigO.logZ_ge` (Salt/Brun/M5BigO.lean)
+**Status.** ✅ 2026-07-07 (Sonnet, delegated implementation + independent adversarial verification, plus the driving session's own build/sorry-sweep/full-proof-read/axiom-audit — three-layer verification).
+**Difficulty.** predicted B, actual B (the `stepD`-style floor/log bound was the one genuinely tricky part, and it had a working template from N3.6/N5.2 to follow).
+**Notes.** `isLittleO_log_rpow_rpow_atTop` lives in the root namespace (not `Real.`-qualified) — confirmed by grep before delegating, saved a wasted iteration. Constants deliberately loosened throughout (`25700`, `N₀=2^100`) since this node is purely asymptotic bookkeeping.
 
 ### M6 — summability
 

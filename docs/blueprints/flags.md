@@ -438,3 +438,40 @@ inside a filter predicate.
 Cost: ~352k subagent tokens (workflow, two agents) + driver's own read/audit,
 ~29min wall clock. Remaining track: N5.3 -> N6.2 -> N6.3, a single chain,
 no more research-level work — real-analysis packaging only.
+
+## 2026-07-07 N5.3 Sonnet done (workflow: implement + independent verify + driver re-verify)
+TwinCountingBigO -- the M5 contract -- proved. New file Salt/Brun/M5BigO.lean
+(314 lines), namespace Salt.M5BigO.
+
+Designed the full three-part structure myself first (A: nu-indexed absorption
+chaining N5.2 with two isLittleO_log_rpow_rpow_atTop absorptions and a
+logZ-vs-logN bound in the same style as N3.6's stepD; B: a generic floor-vs-
+real transfer lemma; C: assembly via IsBigO.trans), confirmed
+isLittleO_log_rpow_rpow_atTop lives in the ROOT namespace (not Real.-
+qualified -- caught this before delegating, saved a wasted iteration), then
+delegated with full license to loosen every constant, followed by an
+independent adversarial verify agent. BOTH passed. On top of that I (driver)
+ran a THIRD independent pass: full build, sorry/native_decide/axiom/admit
+grep, read the ENTIRE 314-line file myself end-to-end (confirmed every
+sub-lemma A1-A4, the floor-transfer, and the final assembly are genuine,
+non-circular derivations -- not shortcuts), confirmed the final theorem's
+declared type is LITERALLY `TwinCountingBigO` (not a manually-restated
+look-alike), and ran my own #print axioms on 7 key declarations. All clean:
+[propext, Classical.choice, Quot.sound].
+
+Nice implementer improvement over the brief: chose N0 := 2^100 (a power of 2)
+instead of the brief's suggested exp-decimal-estimate threshold, making
+log(N0) = 100*log2 EXACT via Real.log_pow rather than needing
+Real.exp_one_lt_d9-style numeric bounds -- cleaner and the implementer noted
+their first attempt at the brief's suggested threshold produced a genuinely
+false numeric inequality that had to be abandoned (a real example of "loosen
+the constant, don't fight the brief's specific numbers").
+
+Gotcha for future nodes: `tendsto_nat_floor_atTop` needed an explicit
+`(α := ℝ)` type ascription (stated generically over any FloorSemiring) or
+typeclass resolution gets stuck on a metavariable.
+
+M5 IS NOW COMPLETE (3/3). Cost: ~179k subagent tokens (workflow) + driver
+verification, ~12min wall clock. Remaining track: N6.2 (Abel summation ->
+BrunStatement itself) then N6.3 (bonus). Two nodes between here and the
+theorem the whole track exists for.
