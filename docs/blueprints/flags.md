@@ -334,3 +334,28 @@ RESIDUAL for N5.2: N1.x are stated for s : SelbergSieve; the N2.6
 Salt.TwinSieve.sieve is a BoundingSieve. N5.2 must construct a SelbergSieve
 (BoundingSieve + level + one_le_level), choosing level = N^{2/5} so that
 d^2 ≤ level ⟺ d ≤ N^{1/5} = y.
+
+## 2026-07-07 N3.2 Opus done (delegated, from-scratch design)
+The blueprint's hardest node (R2, "no template anywhere") — the ν* geometric
+expansion — proved in new file Salt/Brun/M3Expansion.lean. The driving
+session worked out the full mathematical design (key simplification: for the
+twin ν, ν*(m) = 2^Ω(m)/m concretely, and each radical class sums to a product
+of geometric series = selbergTerms(ℓ)), confirmed the two crux mathlib lemmas
+exist (Finset.prod_sum, Summable.sum_le_tsum + tsum_geometric_of_lt_one,
+Nat.prod_factorization_pow_eq_self), wrote a step-by-step brief, and delegated
+the ~200-line mechanical proof to a fresh Opus agent working in an isolated
+file. Then INDEPENDENTLY VERIFIED: clean full build, no sorry/native_decide/
+axiom, axiom audit [propext, Classical.choice, Quot.sound] on
+nuStar_sum_le_gTwin_sum + radical_fiber_bound + geom_bound + nuStar_eq, and a
+statement + crux-honesty read confirming the target statement is exactly
+`Σ_{m<z odd} nuStar m ≤ Σ_{ℓ<z odd,sf} gTwin ℓ` (no weakening) and the
+per-fiber lemma is the genuine bound (honest factorization injection, not
+vacuous). Definitions: nuStar m = 2^Ω(m)/m, gTwin ℓ = ∏_{p|ℓ} 2/(p-2).
+Nice surprise from the agent: K = z works directly (Nat.factorization_lt gives
+every exponent < m < z), so the anticipated "p^K ≥ z" bound was unnecessary.
+Downstream bridges confirmed provable (no def mismatch): gTwin ℓ = selbergTerms
+ℓ on odd sf ℓ (via N3.1 multiplicativity), nuStar m ≥ τ(m)/m (via N3.3 pt1).
+Cost: ~190k subagent tokens, ~27min. Both hard risks (R1, R2) now retired.
+
+GOVERNANCE: guide R2 prose + §0 strategic line updated at Opus tier (factual
+retirement); a future Fable prose sweep may polish.

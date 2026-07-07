@@ -38,18 +38,17 @@ Statement fidelity is guaranteed by the immutability rule above, not by tooling.
 
 *Updated: 2026-07-07 (Fable).*
 
-- **State**: 20 of 27 nodes proved (+1 partial). **M0, M1, M2, M4 complete**;
-  M3 lacks only N3.2→N3.6; M5/M6 have their sieve-facing halves done.
-- **Frontier** (open, all deps met): **N3.2** (C) · **N5.2** (B, needs a
-  SelbergSieve wrapper of the N2.6 instance — see below).
-- **Next step**: N3.6 needs only N3.2; the M5/M6 spine (N5.2 → N5.3 → N6.2)
-  is now unblocked by M1 modulo N3.6. Two independent fronts: finish M3
-  (N3.2 → N3.6), and start the assembly (N5.2).
-- **Blockers**: N5.2 needs N3.6 (via N3.2) and a `SelbergSieve` instance
-  (the N2.6 `sieve` is a `BoundingSieve`; add `level = N^{2/5}`).
-- **Strategic line**: R1 is retired — the entire Selberg fundamental theorem
-  (N1.1–N1.4) is ported and kernel-verified. N3.2 (R2) is now the last hard
-  node with no template; the rest of the track is assembly.
+- **State**: 21 of 27 nodes proved. **M0, M1, M2, M4 complete**; M3 needs
+  only N3.6; M5/M6 have their sieve-facing halves done.
+- **Frontier** (open, all deps met): **N3.6** (B) — assemble the G-bound
+  from N3.2–N3.5; then the assembly spine opens.
+- **Next step**: N3.6 (collect the four M3 pieces into G ≥ c·(log z)²), then
+  the mechanical assembly N5.2 → N5.3 → N6.2 → N6.3.
+- **Blockers**: N5.2 needs N3.6 and a `SelbergSieve` instance (the N2.6
+  `sieve` is a `BoundingSieve`; add `level = N^{2/5}`).
+- **Strategic line**: both hard risks retired — M1 (R1) ported and verified,
+  N3.2 (R2, the "no template" node) proved. Every remaining node is class B
+  assembly. The track is now a straight line to `BrunStatement`.
 
 ## 1. Big picture
 
@@ -151,11 +150,14 @@ mathlib hit (`Nat.card_pair_lcm_eq`), and no upstream PR needed coordinating.
 but the N2.6 instance is a `BoundingSieve`; N5.2 must add a `level` to
 upgrade it (see the N1.4 card and R4).
 
-**R2 — the geometric expansion (N3.2).** *Severity: medium-high.* The
-radical-grouping argument (`G(z) ≥ Σ ν*(m)`) is the one C-node with no
-template anywhere: finite geometric expansion of `∏(1−ν(p))⁻¹`, reindexing
-by radical, truncation bookkeeping. Multiplicative-function and
-`Finsupp`-heavy. Fallback: A4.
+**R2 — the geometric expansion (N3.2).** *RETIRED 2026-07-07.* Proved
+(`Salt/Brun/M3Expansion.lean`), so no longer a risk. It was the one C-node
+with no template: the radical-grouping argument closed via a per-fiber
+injection into the `Nat.factorization` exponent grid plus a per-prime
+geometric partial-sum bound. Fallback A4 was not needed. The truncation
+turned out cleaner than feared — `K = z` works directly because
+`Nat.factorization_lt` bounds every exponent by `m < z`, so no `p^K ≥ z`
+argument is required.
 
 **R3 — mathlib API friction.** *Severity: low, chronic.* Pinned at
 v4.32.0-rc1. Already bitten once by stale docstrings naming nonexistent
@@ -211,7 +213,7 @@ statement of that is more useful than a fake fallback.
 | M0 | Formal targets: π₂, `TwinCountingBigO`, `BrunStatement` | 2/2 ✅ |
 | M1 | Selberg fundamental theorem (the engine) | 4/4 ✅ |
 | M2 | Twin instantiation: ρ, its laws, the `BoundingSieve` | 7/7 ✅ |
-| M3 | Main term, Mertens-free: `G(z) ≳ (log z)²` | 4/6 🟡 |
+| M3 | Main term, Mertens-free: `G(z) ≳ (log z)²` | 5/6 🟡 |
 | M4 | Error term: crude `y⁴` power saving | 2/2 ✅ |
 | M5 | Assembly: `π₂(N) = O(N/(log N)²)` | 1/3 🟡 |
 | M6 | Abel summation → `BrunStatement` | 1/3 🟡 |
@@ -221,7 +223,7 @@ flowchart LR
   M0["M0 targets 2/2 ✅"]
   M1["M1 fundamental thm 4/4 ✅"]
   M2["M2 twin sieve 7/7 ✅"]
-  M3["M3 main term 4/6 🟡"]
+  M3["M3 main term 5/6 🟡"]
   M4["M4 error term 2/2 ✅"]
   M5["M5 counting bound 1/3 🟡"]
   M6["M6 summability 1/3 🟡"]
@@ -265,7 +267,7 @@ flowchart TB
   end
   subgraph SM3["M3 — main term"]
     N3_1["N3.1 ✅ g at primes (A)"]:::done
-    N3_2["N3.2 🔴 ν* expansion (C)"]:::open
+    N3_2["N3.2 ✅ ν* expansion (C)"]:::done
     N3_3["N3.3 🟡 τ≤2^Ω (B)"]:::partial
     N3_4["N3.4 ✅ divisor pairing (B)"]:::done
     N3_5["N3.5 ✅ odd harmonic (B)"]:::done
@@ -449,14 +451,14 @@ flowchart TB
 **Status.** ✅ 2026-07-07 (Opus, 1 attempt).
 **Difficulty.** predicted A, actual A.
 
-#### N3.2 — geometric expansion 🔴
+#### N3.2 — geometric expansion ✅
 **Statement.** G(z) ≥ Σ_{m < z, m odd} ν*(m), where ν*(∏p^a) = ∏ν(p)^a — group m by radical and expand each (1−ν(p))⁻¹ as a finite geometric truncation.
 **Role.** Converts G (supported on squarefree ℓ ∣ P) into a sum over *all* odd m < z, where the τ machinery (N3.3–N3.5) applies.
-**Proof idea (expected).** Each squarefree ℓ ∣ P contributes g(ℓ) = ν(ℓ)·∏_{p∣ℓ}(1−ν(p))⁻¹ ≥ Σ_{rad(m)=ℓ, m<z} ν*(m); sum over ℓ. Careful radical/truncation bookkeeping; needs P to contain the odd primes below z (an N5.2 instantiation detail).
-**Lean.** — not started
-**Status.** 🔴 open — **frontier** (dep N3.1 ✅). The hardest remaining non-port node.
-**Difficulty.** predicted C.
-**Notes.** Fallback A4 (squarefree-part decomposition) if radical grouping stalls. See R2.
+**Proof idea.** Concretely `ν*(m) = 2^Ω(m)/m` (twin ν) and `g(ℓ) = ∏_{p∣ℓ} 2/(p−2)`. Partition odd m < z by radical (`Finset.sum_fiberwise_of_maps_to`); per radical ℓ, inject the fiber into the exponent grid via `Nat.factorization` (injective by unique factorization, exponents < z so K = z suffices — no p^K ≥ z argument needed), expand the product of geometric partials (`Finset.prod_sum`), and bound each per-prime partial `Σ_{j=1}^K (2/p)^j ≤ 2/(p−2)` (`Summable.sum_le_tsum` on the geometric series). All terms nonneg, so the finite fiber sum ≤ the full product = g(ℓ).
+**Lean.** `Salt.M3Expansion.nuStar_sum_le_gTwin_sum`, `Salt.M3Expansion.radical_fiber_bound`, `Salt.M3Expansion.geom_bound`, `Salt.M3Expansion.nuStar`, `Salt.M3Expansion.gTwin` (Salt/Brun/M3Expansion.lean)
+**Status.** ✅ 2026-07-07 (Opus, delegated from a full design brief + independent verification: build, axiom audit, statement-fidelity + crux-honesty read).
+**Difficulty.** predicted C, actual C — the blueprint's flagged "no template" node; the injection closed without needing fallback A4.
+**Notes.** `gTwin ℓ = selbergTerms(ℓ)` on odd squarefree ℓ and `nuStar m ≥ τ(m)/m` (from N3.3 part 1) are the two bridges N3.6 uses; both confirmed provable (no definitional mismatch).
 
 #### N3.3 — τ ≤ 2^Ω 🟡
 **Statement.** τ(m) ≤ 2^Ω(m) for m ≠ 0; hence ν*(m) ≥ τ(m)/m for odd m.
@@ -489,8 +491,9 @@ flowchart TB
 **Role.** The assembled main-term bound that N5.2 divides by.
 **Proof idea (expected).** Chain N3.2 → N3.3 → N3.4 → N3.5 and collect the explicit constants.
 **Lean.** — not started
-**Status.** 🔴 open; blocked on N3.2 (N3.4/N3.5 ready; N3.3's second half also waits on N3.2).
+**Status.** 🔴 open — **frontier** (N3.2 ✅ unblocks it; N3.3–N3.5 all ready, N3.3 part 2 is immediate from N3.2's `nuStar_eq` + part 1).
 **Difficulty.** predicted B.
+**Notes.** Chain: G(z) = Σ selbergTerms(ℓ) = Σ gTwin(ℓ) [N3.1 multiplicativity] ≥ Σ nuStar(m) [N3.2] ≥ Σ τ(m)/m [N3.3] ≥ (Σ 1/a)² [N3.4] ≥ ((log√z)/2 − C)² [N3.5]. Collect constants.
 
 ### M4 — error term
 
