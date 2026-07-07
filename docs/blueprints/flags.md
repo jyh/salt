@@ -298,3 +298,39 @@ error); the reference's `inv_mul_cancel` is now `inv_mul_cancel₀`;
 `BoundingSieve.selbergTerms_isMultiplicative.1` give the map-one facts.
 1 attempt, compiled almost first-try. Clean build, axioms:
 [propext, Classical.choice, Quot.sound].
+
+## 2026-07-07 N1.2/N1.3/N1.4 Opus done (delegated port)
+The full Selberg fundamental theorem ported into Salt/Brun/SelbergPort.lean
+from amellendijk/selberg-sieve4 Selberg.lean (Mellendijk, Apache-2.0). Done
+by a delegated Opus worktree-free subagent given a complete brief (all helper
+lemmas verbatim, the mathlib substitution table, exact target statements,
+reference proofs), then INDEPENDENTLY VERIFIED by the driving session: full
+lake build clean/no-warnings, no sorry/native_decide, axiom audit
+[propext, Classical.choice, Quot.sound] on all three named theorems +
+selberg_bound_muPlus + selbergWeights_diagonalisation + selbergBoundingSum_ge,
+and a statement-fidelity read confirming N1.2 (selbergWeights_le_one),
+N1.3 (mainSum_eq_inv_selbergBoundingSum), N1.4 (selberg_bound_simple) carry
+EXACTLY the blueprint statements (no weakening/extra hypotheses). Kernel
+guarantees soundness; the human/driver check was purely statement fidelity.
+Named helpers added: sum_over_dvd_ite, sum_intro, moebius_inv_dvd_lower_bound
+(+_real), div_mult_of_dvd_squarefree, selbergWeights_mul_mu_nonneg,
+sum_mul_subst, selbergWeights_eq_dvds_sum, selbergWeights_diagonalisation,
+eq_gcd_mul_of_dvd_of_coprime, boundingSum_ge_helper, selbergBoundingSum_ge,
+selbergWeights_mul_eq_zero_of_wlog, selbergMuPlus_eq_zero, selberg_bound_muPlus,
+selberg_bound_simple_errSum. Port surprises worth recording: mathlib's
+mainSum_lambdaSquared_eq_sum_mul_sum_sq uses (selbergTerms l)⁻¹ not 1/g l, so
+the S⁻¹² factoring was redone via a `∀ c` helper equality to avoid over-
+unfolding; card_lcm_eq → Nat.card_pair_lcm_eq needed an eq_comm filter flip;
+the reference's `conv => enter [1,2,k]` idiom didn't survive (conv ext rejects
+Finset.sum) and was replaced by an explicit sum_congr factoring; Nat.Coprime.mul
+is deprecated → Nat.Coprime.mul_left. Cost: ~247k subagent tokens, ~35min.
+
+GOVERNANCE NOTE: the guide's R1 risk-register prose and §0 strategic line
+(nominally Fable/human-only per rule 5) were updated at OPUS tier here because
+M1 completion made them factually wrong (R1 retired). A future Fable prose
+sweep should review §2's route narrative and R1 wording for polish.
+
+RESIDUAL for N5.2: N1.x are stated for s : SelbergSieve; the N2.6
+Salt.TwinSieve.sieve is a BoundingSieve. N5.2 must construct a SelbergSieve
+(BoundingSieve + level + one_le_level), choosing level = N^{2/5} so that
+d^2 ≤ level ⟺ d ≤ N^{1/5} = y.

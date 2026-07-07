@@ -38,17 +38,18 @@ Statement fidelity is guaranteed by the immutability rule above, not by tooling.
 
 *Updated: 2026-07-07 (Fable).*
 
-- **State**: 17 of 27 nodes proved (+1 partial). M0, M2, M4 complete;
-  M1 port under way (N1.1 ✅); M3 lacks only N3.2→N3.6; M5/M6 have their
-  sieve-facing halves done.
-- **Frontier** (open, all deps met): **N1.2** (C) · **N1.3** (C) ·
-  **N3.2** (C).
-- **Next step**: continue the M1 port — N1.2 (`|w| ≤ 1`) and N1.3
-  (`mainSum = 1/S`) from the cached reference, then N1.4 closes M1.
-- **Blockers**: M5/M6 wait on N1.4 (port) and N3.6 (via N3.2).
-- **Strategic line**: the port route is validated end-to-end — N1.1 landed
-  as a direct adaptation of the Mellendijk reference (see R1/A1). N3.2
-  remains the only open node with no template anywhere (R2).
+- **State**: 20 of 27 nodes proved (+1 partial). **M0, M1, M2, M4 complete**;
+  M3 lacks only N3.2→N3.6; M5/M6 have their sieve-facing halves done.
+- **Frontier** (open, all deps met): **N3.2** (C) · **N5.2** (B, needs a
+  SelbergSieve wrapper of the N2.6 instance — see below).
+- **Next step**: N3.6 needs only N3.2; the M5/M6 spine (N5.2 → N5.3 → N6.2)
+  is now unblocked by M1 modulo N3.6. Two independent fronts: finish M3
+  (N3.2 → N3.6), and start the assembly (N5.2).
+- **Blockers**: N5.2 needs N3.6 (via N3.2) and a `SelbergSieve` instance
+  (the N2.6 `sieve` is a `BoundingSieve`; add `level = N^{2/5}`).
+- **Strategic line**: R1 is retired — the entire Selberg fundamental theorem
+  (N1.1–N1.4) is ported and kernel-verified. N3.2 (R2) is now the last hard
+  node with no template; the rest of the track is assembly.
 
 ## 1. Big picture
 
@@ -135,21 +136,20 @@ has no mathlib scaffolding; retained as fallback A2, not the mainline.
 
 ## 3. Risk register
 
-**R1 — the Selberg optimization (N1.2–N1.4).** *Severity: was critical, now
-medium (recon 2026-07-07).* Mathlib's `SelbergSieve.lean` stops one step
-short: Λ² bound, upper-Möbius property, and diagonalization are there; the
-optimal-weight choice and the `mainSum = 1/G(√y)` identity are not. The
-recon found the missing step fully worked out in `amellendijk/selberg-sieve4`
-(Mellendijk; formerly `FLDutchmann/SelbergSieve`; Apache-2.0; dormant since
-2024-05): `selbergWeights`, `selberg_bound_weights` (|w| ≤ 1),
-`selberg_bound_simple` (the fundamental theorem, exactly our N1.4 shape).
-Decisively: mathlib's file *is* that repo's `SieveLemmas.lean`, upstreamed —
-the name mapping is known, so only `Selberg.lean` (~440 lines) needs porting
-across ~2.5 years of mechanical API drift (repo pins Lean v4.7.0-rc2).
-Residual risks: drift worse than it looks; mathlib's `level` field is inert
-(no theorem uses it), so the truncation machinery comes wholly from the port.
-Key files cached in the session scratchpad. *Current thinking: port (A1),
-after checking for in-flight upstream PRs (A3).*
+**R1 — the Selberg optimization (N1.2–N1.4).** *RETIRED 2026-07-07.* The
+entire fundamental theorem is ported and kernel-verified (N1.1–N1.4 in
+`Salt/Brun/SelbergPort.lean`), so this is no longer a risk. Retained for the
+record: mathlib's `SelbergSieve.lean` provided the Λ² bound, upper-Möbius
+property, and diagonalization but not the optimal-weight choice or
+`mainSum = 1/S`; those were ported from `amellendijk/selberg-sieve4`
+(Mellendijk; Apache-2.0), whose `SieveLemmas.lean` *is* mathlib's upstreamed
+foundation. The port went through in one delegated pass — the ~2.5-year API
+drift (Lean v4.7.0-rc2 → v4.32.0-rc1) was entirely mechanical
+(`∑ in`→`∈`, `₀`-cancel lemmas, notation scopes), `card_lcm_eq` was a direct
+mathlib hit (`Nat.card_pair_lcm_eq`), and no upstream PR needed coordinating.
+*Residual note for N5.2:* the theorems are stated for `s : SelbergSieve`,
+but the N2.6 instance is a `BoundingSieve`; N5.2 must add a `level` to
+upgrade it (see the N1.4 card and R4).
 
 **R2 — the geometric expansion (N3.2).** *Severity: medium-high.* The
 radical-grouping argument (`G(z) ≥ Σ ν*(m)`) is the one C-node with no
@@ -209,7 +209,7 @@ statement of that is more useful than a fake fallback.
 | Milestone | One line | State |
 |---|---|---|
 | M0 | Formal targets: π₂, `TwinCountingBigO`, `BrunStatement` | 2/2 ✅ |
-| M1 | Selberg fundamental theorem (the engine) | 1/4 🟡 port under way |
+| M1 | Selberg fundamental theorem (the engine) | 4/4 ✅ |
 | M2 | Twin instantiation: ρ, its laws, the `BoundingSieve` | 7/7 ✅ |
 | M3 | Main term, Mertens-free: `G(z) ≳ (log z)²` | 4/6 🟡 |
 | M4 | Error term: crude `y⁴` power saving | 2/2 ✅ |
@@ -219,7 +219,7 @@ statement of that is more useful than a fake fallback.
 ```mermaid
 flowchart LR
   M0["M0 targets 2/2 ✅"]
-  M1["M1 fundamental thm 1/4 🟡"]
+  M1["M1 fundamental thm 4/4 ✅"]
   M2["M2 twin sieve 7/7 ✅"]
   M3["M3 main term 4/6 🟡"]
   M4["M4 error term 2/2 ✅"]
@@ -250,9 +250,9 @@ flowchart TB
   end
   subgraph SM1["M1 — fundamental theorem"]
     N1_1["N1.1 ✅ weights (B)"]:::done
-    N1_2["N1.2 🔴🔬 |w|≤1 (C)"]:::keystone
-    N1_3["N1.3 🔴🔬 mainSum=1/G (C)"]:::keystone
-    N1_4["N1.4 🔴🔬 fund. thm (C)"]:::keystone
+    N1_2["N1.2 ✅ |w|≤1 (C)"]:::done
+    N1_3["N1.3 ✅ mainSum=1/S (C)"]:::done
+    N1_4["N1.4 ✅ fund. thm (C)"]:::done
   end
   subgraph SM2["M2 — twin sieve"]
     N2_1["N2.1 ✅ ρ def (A)"]:::done
@@ -350,30 +350,30 @@ flowchart TB
 **Difficulty.** predicted B, actual B (port-assisted; the recon had already located the exact reference definition).
 **Notes.** Attribution to Mellendijk in the file header (Apache-2.0). Port gotchas for N1.2–N1.4 recorded in flags 2026-07-07 N1.1.
 
-#### N1.2 — weight size bound 🔴🔬
+#### N1.2 — weight size bound ✅🔬
 **Statement.** |w d| ≤ 1 for all d.
 **Role.** Bounds the Λ² coefficients: |λ_d| ≤ 3^ω(d) in the error sum comes from this via the lcm expansion.
-**Proof idea (expected).** Port of `selberg_bound_weights`: multiplicative telescoping comparing the constrained sum against S.
-**Lean.** — not started
-**Status.** 🔴 open; dep N1.1.
-**Difficulty.** predicted C (port-assisted).
+**Proof idea.** From `selbergBoundingSum_ge` (S ≥ w(d)·μ(d)·S, itself a divisor-gcd double-sum manipulation via `boundingSum_ge_helper`), divide by S > 0 to get w(d)·μ(d) ≤ 1, then |w d| = w(d)·μ(d) since |μ(d)| = 1 on squarefree d and w(d)·μ(d) ≥ 0 (`selbergWeights_mul_mu_nonneg`).
+**Lean.** `Salt.SelbergPort.selbergWeights_le_one`, `Salt.SelbergPort.selbergBoundingSum_ge`, `Salt.SelbergPort.selbergWeights_mul_mu_nonneg` (Salt/Brun/SelbergPort.lean)
+**Status.** ✅ 2026-07-07 (Opus, delegated port + independent verification).
+**Difficulty.** predicted C, actual C (port-assisted).
 
-#### N1.3 — main-sum identity 🔴🔬
+#### N1.3 — main-sum identity ✅🔬
 **Statement.** With the optimal w, mainSum(Λ²(w)) = 1/S where S = Σ_{ℓ ∣ P, ℓ² ≤ y} g(ℓ) — the G(√y) of the classical statement.
-**Role.** *The* fundamental-theorem input: turns the diagonalized quadratic form into the 1/G main term. All of M5/M6 is downstream.
-**Proof idea (expected).** Port of the diagonalisation + optimum evaluation; mathlib already has the diagonalization identity, the repo has the rest.
-**Lean.** — not started
-**Status.** 🔴 open; dep N1.1.
-**Difficulty.** predicted C (port-assisted).
+**Role.** *The* fundamental-theorem input: turns the diagonalized quadratic form into the 1/S main term. All of M5/M6 is downstream.
+**Proof idea.** `selbergWeights_diagonalisation` (Σ_{ℓ∣d} ν(d)w(d) = [ℓ²≤y]·g(ℓ)μ(ℓ)/S, the Möbius-inversion heart, via `moebius_inv_dvd_lower_bound_real`) plugged into mathlib's `mainSum_lambdaSquared_eq_sum_mul_sum_sq`, collapsing the diagonal quadratic form to S⁻¹²·S = S⁻¹.
+**Lean.** `Salt.SelbergPort.mainSum_eq_inv_selbergBoundingSum`, `Salt.SelbergPort.selbergWeights_diagonalisation` (Salt/Brun/SelbergPort.lean)
+**Status.** ✅ 2026-07-07 (Opus, delegated port + independent verification).
+**Difficulty.** predicted C, actual C (port-assisted).
 
-#### N1.4 — fundamental theorem 🔴🔬
+#### N1.4 — fundamental theorem ✅🔬
 **Statement.** siftedSum ≤ totalMass/S + Σ_{d ∣ P, d ≤ y} 3^ω(d)·|R_d|.
 **Role.** The engine. N5.2 applies it with y = N^{1/5} to the twin sieve.
-**Proof idea (expected).** Port of `selberg_bound_simple`: combine mathlib's Λ² upper bound with N1.2 (error coefficients) and N1.3 (main term).
-**Lean.** — not started
-**Status.** 🔴 open; deps N1.2, N1.3.
-**Difficulty.** predicted C (port-assisted).
-**Notes.** Check for in-flight mathlib PRs before porting (A3).
+**Proof idea.** mathlib's Λ² upper bound (`siftedSum_le_mainSum_errSum_of_upperMoebius` + `upperMoebius_lambdaSquared` fed N1.1's w 1 = 1) gives siftedSum ≤ totalMass·mainSum + errSum; N1.3 rewrites the main term to totalMass/S; `selberg_bound_muPlus` (|μ⁺ n| ≤ 3^ω n, via `Nat.card_pair_lcm_eq` + N1.2) bounds the error sum.
+**Lean.** `Salt.SelbergPort.selberg_bound_simple`, `Salt.SelbergPort.selberg_bound_muPlus`, `Salt.SelbergPort.selberg_bound_simple_errSum` (Salt/Brun/SelbergPort.lean)
+**Status.** ✅ 2026-07-07 (Opus, delegated port + independent verification: build, axiom audit, statement-fidelity check).
+**Difficulty.** predicted C, actual C (port-assisted).
+**Notes.** Stated for any `s : SelbergSieve`. N5.2 must upgrade the N2.6 `BoundingSieve` to a `SelbergSieve` by supplying `level = N^{2/5}` (so d² ≤ level ⟺ d ≤ N^{1/5}) — a small wrapping step, flagged for N5.2.
 
 ### M2 — twin instantiation
 
