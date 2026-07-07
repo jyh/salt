@@ -229,3 +229,60 @@ theorem rho_squarefree_le : ∀ d : ℕ, Squarefree d → rho d ≤ 2 ^ omega d 
       rw [rho_mul_of_coprime hp.ne_zero hd'ne0 hcop, omega_mul_coprime hp.ne_zero hd'ne0 hcop,
         omega_prime hp, pow_add, pow_one]
       exact Nat.mul_le_mul hrhop hind
+
+/-- The error in approximating the count of `n ∈ Icc 1 N` with `d ∣ n(n+2)`
+by its expected value `N * rho d / d` (the sieve's `rem`, before an actual
+`SelbergSieve` instance exists to state it via `s.rem` — see N2.6). -/
+noncomputable def rem (d N : ℕ) : ℝ :=
+  (((Finset.Icc 1 N).filter (fun n => d ∣ n * (n + 2))).card : ℝ) - N * rho d / d
+
+/-- N2.7 (part 1, restated): `|rem d| ≤ rho d`, i.e. `progression_count_bound`
+in terms of `rem`. -/
+lemma rem_abs_le (d N : ℕ) (hd : d ≠ 0) : |rem d N| ≤ rho d :=
+  progression_count_bound d N hd
+
+lemma sum_cube_le_pow4 (y : ℕ) : ∑ d ∈ Finset.range y, d ^ 3 ≤ y ^ 4 := by
+  calc ∑ d ∈ Finset.range y, d ^ 3
+      ≤ ∑ _d ∈ Finset.range y, y ^ 3 := by
+        apply Finset.sum_le_sum
+        intro d hd
+        simp only [Finset.mem_range] at hd
+        exact Nat.pow_le_pow_left hd.le 3
+    _ = y * y ^ 3 := by rw [Finset.sum_const, Finset.card_range, smul_eq_mul]
+    _ = y ^ 4 := by ring
+
+/-- N4.2: `Σ_{d<y, squarefree} 3^ω(d) * |rem d| ≤ y⁴`. Combines `rem_abs_le`
+(N2.7 part 1) with `rho_squarefree_le` (N2.7 part 2, giving
+`3^ω(d)*rho(d) ≤ 6^ω(d)`), then `six_pow_omega_le_d_cubed` (N4.1,
+`6^ω(d) ≤ d³`), then the crude bound `Σ_{d<y} d³ ≤ y⁴`. -/
+theorem N4_2 (y N : ℕ) :
+    ∑ d ∈ (Finset.range y).filter Squarefree, (3 : ℝ) ^ omega d * |rem d N|
+      ≤ (y : ℝ) ^ 4 := by
+  have step1 : ∑ d ∈ (Finset.range y).filter Squarefree, (3 : ℝ) ^ omega d * |rem d N|
+      ≤ ∑ d ∈ (Finset.range y).filter Squarefree, (6 : ℝ) ^ omega d := by
+    apply Finset.sum_le_sum
+    intro d hd
+    simp only [Finset.mem_filter, Finset.mem_range] at hd
+    have hdne : d ≠ 0 := hd.2.ne_zero
+    have h1 : |rem d N| ≤ (rho d : ℝ) := rem_abs_le d N hdne
+    have h2 : (rho d : ℝ) ≤ 2 ^ omega d := by exact_mod_cast rho_squarefree_le d hd.2
+    calc (3 : ℝ) ^ omega d * |rem d N| ≤ (3 : ℝ) ^ omega d * (rho d : ℝ) :=
+          mul_le_mul_of_nonneg_left h1 (by positivity)
+      _ ≤ (3 : ℝ) ^ omega d * 2 ^ omega d := mul_le_mul_of_nonneg_left h2 (by positivity)
+      _ = 6 ^ omega d := by rw [← mul_pow]; norm_num
+  have step2 : ∑ d ∈ (Finset.range y).filter Squarefree, (6 : ℝ) ^ omega d
+      ≤ ∑ d ∈ (Finset.range y).filter Squarefree, (d : ℝ) ^ 3 := by
+    apply Finset.sum_le_sum
+    intro d hd
+    simp only [Finset.mem_filter, Finset.mem_range] at hd
+    exact_mod_cast six_pow_omega_le_d_cubed hd.2
+  have step3 : ∑ d ∈ (Finset.range y).filter Squarefree, (d : ℝ) ^ 3
+      ≤ ∑ d ∈ Finset.range y, (d : ℝ) ^ 3 := by
+    apply Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
+    intros; positivity
+  have step4 : ∑ d ∈ Finset.range y, (d : ℝ) ^ 3 ≤ (y : ℝ) ^ 4 := by
+    have hnat := sum_cube_le_pow4 y
+    calc ∑ d ∈ Finset.range y, (d : ℝ) ^ 3
+        = ((∑ d ∈ Finset.range y, d ^ 3 : ℕ) : ℝ) := by push_cast; ring
+      _ ≤ (y : ℝ) ^ 4 := by exact_mod_cast hnat
+  linarith [step1, step2, step3, step4]

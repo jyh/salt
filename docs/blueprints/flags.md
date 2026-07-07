@@ -158,3 +158,19 @@ nodes tackled this session — closer to C in practice (comparable to N2.4's
 block-decomposition effort) — but the reusable divSum_ge_sq lemma converged
 cleanly once the (a,b)↦(a*b,a) injection was set up correctly. Clean build,
 axioms: [propext, Classical.choice, Quot.sound].
+
+## 2026-07-07 N4.2 Sonnet done
+Proved `N4_2 : Σ_{d<y,squarefree} 3^ω(d)*|rem d| ≤ y⁴` in Salt/Brun/M2.lean
+(needs rho, so lives in M2 not M4, despite the blueprint listing it under
+M4 — M2 already imports M4 for omega). Defined `rem d N` generically as
+`count - N*rho(d)/d` (the same quantity `progression_count_bound`/N2.4
+already bounds — this resolves the "needs an actual SelbergSieve instance"
+concern flagged at N2.7/N4.1: `rem` doesn't need s.rem from a built
+BoundingSieve, just this direct definition, since the blueprint's own N4.2
+dependency list (N2.7, N4.1 only) never required N2.6). Chain: rem_abs_le
+(N2.7pt1) + rho_squarefree_le (N2.7pt2) gives 3^ω(d)*|rem d|≤6^ω(d)
+termwise; six_pow_omega_le_d_cubed (N4.1) gives 6^ω(d)≤d³; a crude
+Σ_{d<y}d³≤y⁴ (termwise d³≤y³, y terms) closes it. This effectively also
+completes N2.7 and N4.1's remaining "part 1" concerns retroactively — no
+sieve instance was ever needed for this chain. Clean build, axioms:
+[propext, Classical.choice, Quot.sound].
