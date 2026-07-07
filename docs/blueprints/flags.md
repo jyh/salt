@@ -527,3 +527,29 @@ the node's importance) + driver's own full read/audit, ~13min wall clock.
 REMAINING TRACK: only N6.3 (Brun's constant positivity, class A, bonus --
 not a dependency of BrunStatement, purely for quotability). The track's
 stated objective is achieved as of this entry.
+
+## 2026-07-07 N6.3 Sonnet done (no delegation -- genuinely class A)
+Brun's constant, the bonus quotability node -- proved directly, no workflow
+needed. Appended to Salt/Brun/N6.lean (natural home, depends directly on
+N6_2 in the same file):
+
+  noncomputable def brunConstant : ℝ :=
+    ∑' n, Set.indicator {p | p.Prime ∧ (p+2).Prime} (fun n => (1:ℝ)/n) n
+  theorem brunConstant_pos : 0 < brunConstant
+
+Via Summable.tsum_pos N6_2, termwise nonnegativity (Set.indicator_nonneg),
+and positivity witnessed by the twin pair (3,5) giving indicator(3) = 1/3 > 0.
+Compiled clean on the first attempt after confirming Summable.tsum_pos's
+exact signature via #check (mathlib's real tsum_pos is a to_additive
+derivation from Multipliable.one_lt_tprod in InfiniteSum/Order.lean, not the
+ENNReal-specific tsum_pos I found first). Verified myself: full build,
+sorry/native_decide/axiom/admit grep, own axiom check plus an explicit
+#check (brunConstant_pos : 0 < brunConstant) type confirmation. Clean:
+[propext, Classical.choice, Quot.sound].
+
+THE BLUEPRINT IS NOW COMPLETE: 27/27 nodes proved. Every node from N0.1
+through N6.3 is sorry-free and kernel-checked. BrunStatement (N6.2, the
+track's stated objective) was already achieved; this node closes out the
+remaining bonus. No further automated proving work remains on this
+blueprint -- next steps (experience report, mathlib upstreaming, scoping
+the next TPC-ladder rung) are human/Fable-tier calls, not proving tasks.

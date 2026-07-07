@@ -234,4 +234,25 @@ theorem N6_2 : BrunStatement := by
   unfold BrunStatement
   exact hsummable.congr indicator_eq
 
+/-! ## N6.3 — Brun's constant -/
+
+/-- **Brun's constant**: the value of the (now known to be convergent) sum
+of reciprocals of twin primes. -/
+noncomputable def brunConstant : ℝ :=
+  ∑' n, Set.indicator {p : ℕ | p.Prime ∧ (p + 2).Prime} (fun n => (1 : ℝ) / n) n
+
+/-- **N6.3.** Brun's constant is positive (witnessed by the twin prime
+pair `3, 5`). -/
+theorem brunConstant_pos : 0 < brunConstant := by
+  unfold brunConstant
+  apply Summable.tsum_pos N6_2
+  · intro i
+    apply Set.indicator_nonneg
+    intro a _
+    positivity
+  · have h3 : (3 : ℕ) ∈ {p : ℕ | p.Prime ∧ (p + 2).Prime} := by
+      constructor <;> norm_num
+    rw [Set.indicator_of_mem h3]
+    norm_num
+
 end Salt.N6

@@ -38,22 +38,24 @@ Statement fidelity is guaranteed by the immutability rule above, not by tooling.
 
 *Updated: 2026-07-07 (Fable).*
 
-- **State**: **26 of 27 nodes proved. `BrunStatement` itself is proved**
-  (N6.2, 2026-07-07) — the sum of reciprocals of twin primes converges,
-  kernel-checked, standard axioms only. Only N6.3 (bonus) remains.
-- **Frontier** (open, all deps met): **N6.3** (A) — define `brunConstant`
-  as the series' value and prove positivity. Not a dependency of the
-  track's goal; purely a quotability bonus.
-- **Next step**: N6.3, then the track is fully closed (27/27).
-- **Blockers**: none.
-- **Strategic line**: **the track's objective is achieved.** `Salt.N6.N6_2
-  : BrunStatement` is sorry-free and kernel-checked
-  (`propext, Classical.choice, Quot.sound` only), independently verified
-  three times including an explicit confirmation that `Salt/Brun.lean`'s
-  definition of `BrunStatement` was never altered. Everything from N1
-  through N6.2 was genuinely load-bearing — no step shortcut around the
-  twin-prime density bound. N6.3 is the only remaining node, and it is
-  ungated by anything upstream.
+- **State**: **27 of 27 nodes proved. The Brun track is complete.**
+  `BrunStatement` (N6.2) and its quotable companion `brunConstant_pos`
+  (N6.3) are both proved, sorry-free, kernel-checked, standard axioms only.
+- **Frontier**: none — no open nodes remain in this blueprint.
+- **Next step**: none within this track. Possible next moves (human/Fable
+  call): write up the experience report (§1's "payoff en route" dataset is
+  now complete across all 27 nodes), upstream the mathlib-worthy pieces
+  (M1's Selberg port, M3's Mertens-free bound), or scope the next rung of
+  the TPC ladder (Bombieri–Vinogradov / Maynard–Tao, per §1).
+- **Blockers**: none — the blueprint is closed.
+- **Strategic line**: **the track's objective is achieved and the
+  blueprint is closed.** `Salt.N6.N6_2 : BrunStatement` is sorry-free and
+  kernel-checked (`propext, Classical.choice, Quot.sound` only),
+  independently verified three times including an explicit confirmation
+  that `Salt/Brun.lean`'s definition of `BrunStatement` was never altered.
+  Every node from N0.1 through N6.3 is proved; nothing was shortcut or
+  weakened along the way. This guide's job now is historical record, not
+  routing — see flags.md for the full session-by-session account.
 
 ## 1. Big picture
 
@@ -567,10 +569,10 @@ flowchart TB
 **Difficulty.** predicted B, actual B (every hypothesis went through on a structurally-correct first attempt; the riskiest step, `hf_int`'s congruence transport, closed cleanly).
 **Notes.** **This is Brun's theorem, proved and kernel-checked.** No node past this one is required for the track's stated goal; N6.3 is a quotable bonus (the constant's positivity), not a dependency.
 
-#### N6.3 — Brun's constant 🔴
+#### N6.3 — Brun's constant ✅
 **Statement.** Define brunConstant as the value of the convergent series and prove its positivity.
 **Role.** Bonus; makes the result quotable as a number.
-**Proof idea (expected).** `tsum` of a summable nonneg sequence with a positive term (p = 3).
-**Lean.** — not started
-**Status.** 🔴 open — **frontier** (N6.2 ✅; unblocked).
-**Difficulty.** predicted A.
+**Proof idea.** `Summable.tsum_pos N6_2` (nonnegativity of the indicator termwise via `Set.indicator_nonneg`, positivity witnessed by the twin pair `3, 5`, giving `Set.indicator ... 3 = 1/3 > 0`).
+**Lean.** `Salt.N6.brunConstant`, `Salt.N6.brunConstant_pos` (Salt/Brun/N6.lean)
+**Status.** ✅ 2026-07-07 (Sonnet, 1 attempt, no delegation — genuinely class A, compiled clean on the first try).
+**Difficulty.** predicted A, actual A.
