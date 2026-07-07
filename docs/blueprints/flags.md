@@ -206,3 +206,23 @@ infinity, then `g'` is integrable on `(a,∞)`. Take the antiderivative
 (Integral/IntegralEqImproper.lean), `Real.log_ne_zero_of_pos_of_ne_one`,
 `Filter.Tendsto.inv_tendsto_atTop`. Note `open Topology` needed for `𝓝`.
 Clean build, axioms: [propext, Classical.choice, Quot.sound].
+
+## 2026-07-07 N2.6 Opus done
+Built the `BoundingSieve` instance in new file Salt/Brun/Sieve.lean
+(`Salt.TwinSieve.sieve N P hP`). The class-C concern Sonnet flagged (needing
+to "choose a sieve level z") turned out NOT to block the instance: `z` only
+enters via the choice of `prodPrimes = P`, which the instance takes as a
+parameter (any squarefree P), deferring the z-choice to N5.x. The key
+simplification: `ν(p) = ρ(p)/p ∈ (0,1)` holds for EVERY prime with no side
+conditions (p=2 → ρ=1 → ν=1/2; odd p → ρ=2 → ν=2/p ≤ 2/3), so
+nu_pos/nu_lt_one need no constraint on which primes divide P beyond
+squarefreeness. Fields: support = (Icc 1 N).image (n↦n(n+2)), weights ≡ 1,
+totalMass = N, nu = ⟨d ↦ ρ(d)/d, _⟩ (ArithmeticFunction; ν 0 = ρ0/0 = 0/0 = 0
+✓). nu_mult from N2.2 (rho_mul_of_coprime), handling coprime-with-0 cases
+(Coprime 0 n ↔ n=1) separately. Also proved connecting lemmas: sieve_support_
+card = N (completes N2.5's "card=N" half, via twinProd_injective extracted
+from twinProd_strictMono), sieve_multSum = #{n∈[1,N]:d∣n(n+2)}
+(Finset.sum_image over the injective map), and sieve_rem d = rem d N (so
+N2.4's progression_count_bound bounds the sieve's own remainder). Unblocks
+N5.1/N5.2 modulo the still-open M1 fundamental theorem. Clean build, axioms:
+[propext, Classical.choice, Quot.sound].
