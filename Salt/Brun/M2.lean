@@ -96,6 +96,75 @@ lemma dvd_iff_mem_Rnat (d : ℕ) [NeZero d] (n : ℕ) : d ∣ n * (n + 2) ↔ n 
     have : ((n * (n + 2) : ℕ) : ZMod d) = 0 := by push_cast; rw [heq]; exact hm
     rwa [ZMod.natCast_eq_zero_iff] at this
 
+/-- Membership in `Rnat d` for a representative already below `d`. -/
+lemma mem_Rnat_iff {d : ℕ} [NeZero d] (r : ℕ) (hr : r < d) : r ∈ Rnat d ↔ d ∣ r * (r + 2) := by
+  rw [dvd_iff_mem_Rnat d r, Nat.mod_eq_of_lt hr]
+
+lemma Rnat_lt {d : ℕ} [NeZero d] {r : ℕ} (hr : r ∈ Rnat d) : r < d :=
+  Finset.mem_range.mp (Rnat_subset_range d hr)
+
+/-- N2.2: `rho` is multiplicative on coprime moduli. Solutions to `n(n+2)≡0`
+mod `m*n` correspond bijectively, via CRT, to pairs of solutions mod `m` and
+mod `n`. -/
+theorem rho_mul_of_coprime {m n : ℕ} (hm : m ≠ 0) (hn : n ≠ 0) (hcop : m.Coprime n) :
+    rho (m * n) = rho m * rho n := by
+  haveI : NeZero m := ⟨hm⟩
+  haveI : NeZero n := ⟨hn⟩
+  haveI : NeZero (m * n) := ⟨mul_ne_zero hm hn⟩
+  rw [← Rnat_card (m * n), ← Rnat_card m, ← Rnat_card n, ← Finset.card_product]
+  apply Finset.card_bij (fun r _ => (r % m, r % n))
+  · intro r hr
+    have hrlt : r < m * n := Rnat_lt hr
+    have hdvd : m * n ∣ r * (r + 2) := (mem_Rnat_iff r hrlt).mp hr
+    simp only [Finset.mem_product]
+    refine ⟨(mem_Rnat_iff _ (Nat.mod_lt r hm.bot_lt)).mpr ?_,
+      (mem_Rnat_iff _ (Nat.mod_lt r hn.bot_lt)).mpr ?_⟩
+    · have hm' : m ∣ r * (r + 2) := (dvd_mul_right m n).trans hdvd
+      have hcong : (r % m) * (r % m + 2) ≡ r * (r + 2) [MOD m] :=
+        (Nat.mod_modEq r m).mul ((Nat.mod_modEq r m).add_right 2)
+      exact (Nat.modEq_zero_iff_dvd).mp (hcong.trans (Nat.modEq_zero_iff_dvd.mpr hm'))
+    · have hn' : n ∣ r * (r + 2) := (dvd_mul_left n m).trans hdvd
+      have hcong : (r % n) * (r % n + 2) ≡ r * (r + 2) [MOD n] :=
+        (Nat.mod_modEq r n).mul ((Nat.mod_modEq r n).add_right 2)
+      exact (Nat.modEq_zero_iff_dvd).mp (hcong.trans (Nat.modEq_zero_iff_dvd.mpr hn'))
+  · intro r1 h1 r2 h2 heq
+    have hlt1 : r1 < m * n := Rnat_lt h1
+    have hlt2 : r2 < m * n := Rnat_lt h2
+    simp only [Prod.mk.injEq] at heq
+    have hm : r1 ≡ r2 [MOD m] := heq.1
+    have hn : r1 ≡ r2 [MOD n] := heq.2
+    have := (Nat.modEq_and_modEq_iff_modEq_mul hcop).mp ⟨hm, hn⟩
+    exact (Nat.mod_eq_of_lt hlt1) ▸ (Nat.mod_eq_of_lt hlt2) ▸ this
+  · rintro ⟨a, b⟩ hab
+    simp only [Finset.mem_product] at hab
+    have halt : a < m := Rnat_lt hab.1
+    have hblt : b < n := Rnat_lt hab.2
+    obtain ⟨k, hka, hkb⟩ := Nat.chineseRemainder hcop a b
+    set r := k % (m * n) with hr_def
+    have hrm : r ≡ k [MOD m] := by
+      rw [Nat.ModEq, hr_def, Nat.mod_mod_of_dvd _ (dvd_mul_right m n)]
+    have hrn : r ≡ k [MOD n] := by
+      rw [Nat.ModEq, hr_def, Nat.mod_mod_of_dvd _ (dvd_mul_left n m)]
+    have hra : r ≡ a [MOD m] := hrm.trans hka
+    have hrb : r ≡ b [MOD n] := hrn.trans hkb
+    have hfa : r % m = a := by
+      have h : r % m = a % m := hra
+      rwa [Nat.mod_eq_of_lt halt] at h
+    have hfb : r % n = b := by
+      have h : r % n = b % n := hrb
+      rwa [Nat.mod_eq_of_lt hblt] at h
+    refine ⟨r, ?_, Prod.ext hfa hfb⟩
+    apply (mem_Rnat_iff r (Nat.mod_lt k (Nat.pos_of_ne_zero (mul_ne_zero hm hn)))).mpr
+    have hma : m ∣ a * (a + 2) := (mem_Rnat_iff a halt).mp hab.1
+    have hnb : n ∣ b * (b + 2) := (mem_Rnat_iff b hblt).mp hab.2
+    have hcm : r * (r + 2) ≡ a * (a + 2) [MOD m] := hra.mul (hra.add_right 2)
+    have hcn : r * (r + 2) ≡ b * (b + 2) [MOD n] := hrb.mul (hrb.add_right 2)
+    have hdm : m ∣ r * (r + 2) :=
+      (Nat.modEq_zero_iff_dvd).mp (hcm.trans (Nat.modEq_zero_iff_dvd.mpr hma))
+    have hdn : n ∣ r * (r + 2) :=
+      (Nat.modEq_zero_iff_dvd).mp (hcn.trans (Nat.modEq_zero_iff_dvd.mpr hnb))
+    exact hcop.mul_dvd_of_dvd_of_dvd hdm hdn
+
 /-- N2.4: the count of `n ∈ Icc 1 N` with `d ∣ n(n+2)` differs from the
 expected `N * rho d / d` by at most `rho d`. -/
 theorem progression_count_bound (d N : ℕ) (hd : d ≠ 0) :

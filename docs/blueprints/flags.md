@@ -71,3 +71,18 @@ field_simp/ring from choking on Nat-cast noise). Connected to `rho` via a
 in a real-typed argument position silently elaborates as real mod on casts of
 N,d separately (need explicit `((N%d:ℕ):ℝ)` parens to force Nat mod first).
 Clean build, axioms: [propext, Classical.choice, Quot.sound].
+
+## 2026-07-07 N2.2 Sonnet done
+Proved `rho_mul_of_coprime : m≠0 → n≠0 → m.Coprime n → rho(m*n) = rho m * rho n`.
+Went via a direct CRT bijection on the nat-valued root sets (`Rnat`) rather
+than through the `ZMod.chineseRemainder` ring-equiv API the blueprint
+suggested — unpacking that equiv's internal `castHom`/case-split definition
+looked more painful than just using `Nat.chineseRemainder` directly plus
+`Nat.ModEq` congruence lemmas (`Nat.mod_modEq`, `.mul`, `.add_right`,
+`Nat.modEq_and_modEq_iff_modEq_mul`, `Nat.Coprime.mul_dvd_of_dvd_of_dvd`) to
+build the map/inj/surj three-part `Finset.card_bij` argument. Added helper
+lemmas `mem_Rnat_iff` (membership for a representative already `< d`) and
+`Rnat_lt`. Gotcha: `have h : r%m = a%m := hra` to peel a `Nat.ModEq` back to
+its underlying equation works by defeq (`rw`/`rwa` directly on the ModEq term
+does not, since `≡ [MOD]` notation doesn't unify against `_%_=_%_` patterns
+syntactically). Clean build, axioms: [propext, Classical.choice, Quot.sound].
