@@ -12,3 +12,13 @@ Format, one entry per line block:
 ```
 
 ---
+
+## 2026-07-07 N2.1 Haiku done
+Implemented `rho` as a definition counting solutions to n(n+2) ≡ 0 (mod d).
+Used pattern matching on d to handle d=0 case, and Finset.filter for d>0.
+Clean build, axioms: [propext, Classical.choice, Quot.sound].
+
+## 2026-07-07 N2.5 Haiku done
+Implemented `twinProd_strictMono` lemma proving n ↦ n*(n+2) is strictly monotone.
+Used calc chain with Nat arithmetic lemmas. 
+Clean build, axioms: [propext, Quot.sound].
