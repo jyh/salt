@@ -226,3 +226,43 @@ from twinProd_strictMono), sieve_multSum = #{n∈[1,N]:d∣n(n+2)}
 N2.4's progression_count_bound bounds the sieve's own remainder). Unblocks
 N5.1/N5.2 modulo the still-open M1 fundamental theorem. Clean build, axioms:
 [propext, Classical.choice, Quot.sound].
+
+## 2026-07-07 N3.1 Opus done
+`selbergTerms_prime/two/odd_prime_ge` in Sieve.lean. selbergTerms p =
+ν(p)/(1−ν(p)) at a prime (p.primeFactors={p}); = 1 for p=2, ≥ 2/p for odd p
+(value is 2/(p−2)). Clean build, standard axioms.
+
+## 2026-07-07 N5.1 Opus done
+`sieve_siftedSum`, `coprime_twinProd`, `twin_subset_coprime`,
+`twin_count_le_siftedSum` in Sieve.lean. siftedSum =
+#{n∈[1,N]: Coprime P (n(n+2))} (parallels sieve_multSum). Coprimality core:
+a twin pair (p,p+2) has p(p+2)'s only prime factors = {p,p+2}, so if neither
+divides P then Coprime P (n(n+2)) (via Nat.Coprime.mul_right +
+Nat.Prime.coprime_iff_not_dvd). N5.1 proper: given all prime factors of P are
+≤ z (hypothesis hPz, keeping P as a parameter rather than fixing the
+primorial — same design choice as N2.6), twin leaders in (z,N] inject into
+the coprime set, so their count ≤ siftedSum. Independent of M1. Clean build,
+axioms: [propext, Classical.choice, Quot.sound].
+
+## 2026-07-07 M1 (N1.2/N1.3/N1.4) Opus not-attempted — genuine research keystone
+Confirmed by mathlib recon: the current mathlib `SelbergSieve.lean` provides
+the Λ² upper bound (`siftedSum_le_mainSum_errSum_of_upperMoebius`), the
+upper-Möbius property of `lambdaSquared` (`upperMoebius_lambdaSquared`), and
+the diagonalization of the main sum
+(`mainSum_lambdaSquared_eq_sum_mul_sum_sq`), but STOPS there. It does NOT
+contain the Selberg optimal-weight choice or the resulting `mainSum = 1/G(√y)`
+identity (N1.3), which is the crux of the fundamental theorem N1.4. Grepped
+all of mathlib — no `selberg_bound`/`fundamental_theorem`/`UpperBoundSieve`
+beyond the one file. So M1's core (N1.2 |w|≤1, N1.3 mainSum=1/G, N1.4
+fundamental theorem) is exactly the review-gated research node the blueprint
+flags as dominating cost. Two paths: (a) port FLDutchmann/SelbergSieve
+(Mellendijk's `selberg_bound_simple`) — needs fetching + license/attribution
++ a non-trivial adaptation to the current mathlib API, not doable from this
+sandbox without repo access; (b) re-prove Selberg's optimization from scratch
+(choose optimal w minimizing the diagonal quadratic form Σ y_l²/g_l subject
+to w_1=1 with truncation d<√y) — a multi-hundred-line C/D effort. Everything
+downstream (N5.2, N5.3, N6.2) is gated on N1.4; N3.2 (ν* expansion, C) and
+N3.6 (G-bound assembly) are independent of M1 but themselves heavy C nodes.
+Recommend a dedicated Fable/human session (or repo-access-enabled port) for
+M1 before the assembly nodes. Not attempted here to avoid landing a
+sprawling incomplete proof on the branch.

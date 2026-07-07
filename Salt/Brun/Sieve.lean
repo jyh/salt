@@ -149,4 +149,41 @@ lemma selbergTerms_odd_prime_ge (p : ℕ) (hp : p.Prime) (hodd : p ≠ 2) :
   gcongr
   linarith
 
+/-- The sifted sum counts `n ∈ [1,N]` whose `n(n+2)` is coprime to `P`. -/
+lemma sieve_siftedSum :
+    (sieve N P hP).siftedSum
+      = (((Finset.Icc 1 N).filter (fun n => Nat.Coprime P (n * (n + 2)))).card : ℝ) := by
+  rw [BoundingSieve.siftedSum]
+  change (∑ m ∈ (Finset.Icc 1 N).image (fun n => n * (n + 2)),
+      if Nat.Coprime P m then (1 : ℝ) else 0) = _
+  rw [Finset.sum_image (fun a _ b _ h => twinProd_injective h),
+    Finset.sum_ite, Finset.sum_const_zero, add_zero, Finset.sum_const, nsmul_eq_mul, mul_one]
+
+/-- A twin prime `p` (both `p`, `p+2` prime) with neither dividing `P` yields
+`p(p+2)` coprime to `P` — the only primes dividing `p(p+2)` are `p` and `p+2`. -/
+lemma coprime_twinProd {p : ℕ} (hp : p.Prime) (hp2 : (p + 2).Prime)
+    (hd1 : ¬ p ∣ P) (hd2 : ¬ (p + 2) ∣ P) : Nat.Coprime P (p * (p + 2)) :=
+  Nat.Coprime.mul_right (hp.coprime_iff_not_dvd.mpr hd1).symm
+    (hp2.coprime_iff_not_dvd.mpr hd2).symm
+
+/-- N5.1: if every prime factor of `P` is `≤ z`, every twin-prime leader
+`p ∈ (z, N]` lands in the coprime-to-`P` set (so is counted by `siftedSum`). -/
+lemma twin_subset_coprime {z : ℕ} (hPz : ∀ q, q.Prime → q ∣ P → q ≤ z) :
+    (Finset.Icc 1 N).filter (fun n => z < n ∧ n.Prime ∧ (n + 2).Prime) ⊆
+      (Finset.Icc 1 N).filter (fun n => Nat.Coprime P (n * (n + 2))) := by
+  intro n hn
+  simp only [Finset.mem_filter] at hn ⊢
+  obtain ⟨hmem, hz, hp, hp2⟩ := hn
+  refine ⟨hmem, coprime_twinProd hp hp2 ?_ ?_⟩
+  · intro hdvd; exact absurd (hPz n hp hdvd) (by omega)
+  · intro hdvd; exact absurd (hPz (n + 2) hp2 hdvd) (by omega)
+
+/-- N5.1 (counting form): the number of twin-prime leaders in `(z, N]` is at
+most `siftedSum`, when all prime factors of `P` are `≤ z`. -/
+lemma twin_count_le_siftedSum {z : ℕ} (hPz : ∀ q, q.Prime → q ∣ P → q ≤ z) :
+    (((Finset.Icc 1 N).filter (fun n => z < n ∧ n.Prime ∧ (n + 2).Prime)).card : ℝ)
+      ≤ (sieve N P hP).siftedSum := by
+  rw [sieve_siftedSum]
+  exact_mod_cast Finset.card_le_card (twin_subset_coprime hPz)
+
 end Salt.TwinSieve
