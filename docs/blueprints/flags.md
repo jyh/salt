@@ -282,3 +282,19 @@ now prevents a false statement-mismatch when the ported N1.x land. N4.2
 (strict d < y over ℕ) is unaffected: the assembly glue from real-level to
 nat ranges is floor bookkeeping N5.2 owns either way (guide R4). Caught by
 the guide verification workflow (strict-vs-nonstrict finding, 3 warns).
+
+## 2026-07-07 N1.1 Fable done
+Ported `selbergWeights`/`selbergBoundingSum` (+ positivity, the two support
+vanishing lemmas, and `selbergWeights_one`) from amellendijk/selberg-sieve4
+`Selberg.lean` onto mathlib's `SelbergSieve` structure, in new file
+Salt/Brun/SelbergPort.lean (namespace `Salt.SelbergPort`; Mellendijk
+attribution in the header, Apache-2.0). Port notes for N1.2–N1.4:
+parent-structure lemmas resolve with the BoundingSieve `s` implicit and
+inferred from the hypothesis (write `BoundingSieve.selbergTerms_pos hl`
+plainly); `open scoped Classical` is linted against — use `open Classical
+in` placed BEFORE the docstring (between docstring and def is a parse
+error); the reference's `inv_mul_cancel` is now `inv_mul_cancel₀`;
+`(l : ℝ)^2 ≤ y` casts needed no special handling; `s.nu_mult.1` /
+`BoundingSieve.selbergTerms_isMultiplicative.1` give the map-one facts.
+1 attempt, compiled almost first-try. Clean build, axioms:
+[propext, Classical.choice, Quot.sound].

@@ -38,16 +38,17 @@ Statement fidelity is guaranteed by the immutability rule above, not by tooling.
 
 *Updated: 2026-07-07 (Fable).*
 
-- **State**: 16 of 27 nodes proved (+1 partial). M0, M2, M4 complete;
-  M3 lacks only N3.2→N3.6; M5/M6 have their sieve-facing halves done.
-- **Frontier** (open, all deps met): **N1.1** (B) · **N3.2** (C).
-- **Next step**: N1.1 — adapt `selbergWeights` from the Mellendijk repo
-  (cached; see R1/A1), prove `w 1 = 1`.
-- **Blockers**: everything else in M5/M6 waits on N1.4 (via the M1 port)
-  and N3.6 (via N3.2).
-- **Strategic line**: M1 was feared as open-ended research; the 2026-07-07
-  recon reduced it to a C-class port of `amellendijk/selberg-sieve4` (see R1).
-  Land N1.1 first to validate the port route end-to-end on the easiest piece.
+- **State**: 17 of 27 nodes proved (+1 partial). M0, M2, M4 complete;
+  M1 port under way (N1.1 ✅); M3 lacks only N3.2→N3.6; M5/M6 have their
+  sieve-facing halves done.
+- **Frontier** (open, all deps met): **N1.2** (C) · **N1.3** (C) ·
+  **N3.2** (C).
+- **Next step**: continue the M1 port — N1.2 (`|w| ≤ 1`) and N1.3
+  (`mainSum = 1/S`) from the cached reference, then N1.4 closes M1.
+- **Blockers**: M5/M6 wait on N1.4 (port) and N3.6 (via N3.2).
+- **Strategic line**: the port route is validated end-to-end — N1.1 landed
+  as a direct adaptation of the Mellendijk reference (see R1/A1). N3.2
+  remains the only open node with no template anywhere (R2).
 
 ## 1. Big picture
 
@@ -208,7 +209,7 @@ statement of that is more useful than a fake fallback.
 | Milestone | One line | State |
 |---|---|---|
 | M0 | Formal targets: π₂, `TwinCountingBigO`, `BrunStatement` | 2/2 ✅ |
-| M1 | Selberg fundamental theorem (the engine) | 0/4 🔴 → port route |
+| M1 | Selberg fundamental theorem (the engine) | 1/4 🟡 port under way |
 | M2 | Twin instantiation: ρ, its laws, the `BoundingSieve` | 7/7 ✅ |
 | M3 | Main term, Mertens-free: `G(z) ≳ (log z)²` | 4/6 🟡 |
 | M4 | Error term: crude `y⁴` power saving | 2/2 ✅ |
@@ -218,7 +219,7 @@ statement of that is more useful than a fake fallback.
 ```mermaid
 flowchart LR
   M0["M0 targets 2/2 ✅"]
-  M1["M1 fundamental thm 0/4 🔴"]
+  M1["M1 fundamental thm 1/4 🟡"]
   M2["M2 twin sieve 7/7 ✅"]
   M3["M3 main term 4/6 🟡"]
   M4["M4 error term 2/2 ✅"]
@@ -248,7 +249,7 @@ flowchart TB
     N0_2["N0.2 ✅ targets (A)"]:::done
   end
   subgraph SM1["M1 — fundamental theorem"]
-    N1_1["N1.1 🔴 weights (B)"]:::open
+    N1_1["N1.1 ✅ weights (B)"]:::done
     N1_2["N1.2 🔴🔬 |w|≤1 (C)"]:::keystone
     N1_3["N1.3 🔴🔬 mainSum=1/G (C)"]:::keystone
     N1_4["N1.4 🔴🔬 fund. thm (C)"]:::keystone
@@ -340,14 +341,14 @@ flowchart TB
 
 ### M1 — the fundamental theorem
 
-#### N1.1 — truncated optimal weights 🔴
+#### N1.1 — truncated optimal weights ✅
 **Statement.** Define the Selberg weight sequence w, supported on {d ∣ P, d² ≤ y}, and prove w 1 = 1.
 **Role.** The candidate weights fed to mathlib's Λ² machinery; N1.2 and N1.3 are properties of exactly this w.
-**Proof idea (expected).** Adapt the reference definition (Mellendijk, cached): w d = ν(d)⁻¹ · g(d) · μ(d) · S⁻¹ · Σ_{m ∣ P, (dm)² ≤ y, (m,d)=1} g(m), with S the bounding sum Σ_{ℓ² ≤ y} g(ℓ). Then w 1 = 1 reduces to S ≠ 0, from positivity of `selbergTerms`.
-**Lean.** — not started
-**Status.** 🔴 open — **frontier** (class B, no dependencies).
-**Difficulty.** predicted B.
-**Notes.** First target under the port route (A1); attribution required.
+**Proof idea.** Ported Mellendijk's definition onto mathlib's `SelbergSieve`: w d = ν(d)⁻¹·g(d)·μ(d)·S⁻¹·Σ_{m ∣ P, (dm)² ≤ y, (m,d)=1} g(m), with S the bounding sum Σ_{ℓ ∣ P, ℓ² ≤ y} g(ℓ); S > 0 because g > 0 on divisors of P and ℓ = 1 qualifies (level ≥ 1); w 1 = 1 collapses to S⁻¹·S. Support stated as two vanishing lemmas.
+**Lean.** `Salt.SelbergPort.selbergWeights`, `Salt.SelbergPort.selbergWeights_one`, `Salt.SelbergPort.selbergWeights_eq_zero`, `Salt.SelbergPort.selbergWeights_eq_zero_of_not_dvd`, `Salt.SelbergPort.selbergBoundingSum`, `Salt.SelbergPort.selbergBoundingSum_pos` (Salt/Brun/SelbergPort.lean)
+**Status.** ✅ 2026-07-07 (Fable, 1 attempt — first node through the port route and through workflow step 5).
+**Difficulty.** predicted B, actual B (port-assisted; the recon had already located the exact reference definition).
+**Notes.** Attribution to Mellendijk in the file header (Apache-2.0). Port gotchas for N1.2–N1.4 recorded in flags 2026-07-07 N1.1.
 
 #### N1.2 — weight size bound 🔴🔬
 **Statement.** |w d| ≤ 1 for all d.
