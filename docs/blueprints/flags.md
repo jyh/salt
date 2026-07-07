@@ -28,3 +28,9 @@ Attempted to prove 6^ω(d) ≤ d³ for squarefree d. Requires product-of-factors
 bound via unique factorization (showing ∏(p | d) p = d) and Finset manipulation.
 This is class-B/C (requires squarefree API + finset product algebra), not class-A.
 Blocked on tier. Escalate to Sonnet/Opus.
+
+## 2026-07-07 N4.1 Sonnet done
+Proved `six_pow_omega_le_d_cubed` using `Nat.prod_primeFactors_of_squarefree`
+(d = ∏ p ∈ primeFactors, p for squarefree d), then `Finset.prod_le_prod` termwise
+(6 ≤ p³ for prime p ≥ 2, via nlinarith) and `Finset.prod_pow` to fold back to d³.
+Clean build, axioms: [propext, Classical.choice, Quot.sound].

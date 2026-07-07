@@ -4,3 +4,4 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.Brun.M2
+import Salt.Brun.M4
