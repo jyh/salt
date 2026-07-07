@@ -72,6 +72,9 @@ to mathlib's divergence of Σ 1/p over all primes. Per the 2026-07 survey in
 the blueprint, **no completed formalization exists in any major proof
 assistant** — Mellendijk's Lean 4 sieve repo names it as its end-goal but its
 twin-prime file is a stub. Completing it is an announceable first.
+*(Status 2026-07-07: completed — `Salt.N6.N6_2 : BrunStatement`, 27/27
+nodes, one session, sorry-free, standard axioms. See
+`docs/reports/2026-07-brun.md` for the write-up.)*
 
 **What "done" means.** A `theorem` of type `BrunStatement` with no `sorry`,
 kernel-checked, whose axioms are exactly mathlib's standard three
@@ -166,23 +169,26 @@ turned out cleaner than feared — `K = z` works directly because
 `Nat.factorization_lt` bounds every exponent by `m < z`, so no `p^K ≥ z`
 argument is required.
 
-**R3 — mathlib API friction.** *Severity: low, chronic.* Pinned at
-v4.32.0-rc1. Already bitten once by stale docstrings naming nonexistent
-declarations (blueprint warns). Renames (`Finset.card_insert_of_notMem`,
-…) cost small constant time per node. The pin means upstream refactors of
-`SelbergSieve.lean` don't hit us mid-track; the price is paid once at
-toolchain bumps.
+**R3 — mathlib API friction.** *RETIRED 2026-07-07 (track complete).* The
+chronic tax was real but never rose above nuisance level: renames, namespace
+surprises (`isLittleO_log_rpow_rpow_atTop` in root, `SelbergPort` quantities
+being plain defs not fields), and parsing gotchas (`if-then-else` swallowing
+a trailing `≤`), all catalogued in flags.md as they occurred. The pin at
+v4.32.0-rc1 held for the whole track.
 
-**R4 — assembly arithmetic (N5.2, N5.3).** *Severity: medium.* Every term
-is proved but the gluing is `rpow`/`log` bookkeeping with the `⌊x⌋₊` Big-O
-idiom — historically error-prone tactics work. Mitigations: exponent slack
-(θ < 1/4), Chebyshev.lean as the worked template, and all inputs already
-kernel-checked.
+**R4 — assembly arithmetic (N5.2, N5.3).** *RETIRED 2026-07-07.* Both nodes
+proved. The predicted pain materialized but was managed by the "loosen every
+constant" doctrine: briefs granted explicit license to replace tight bounds
+with generous round numbers (`256·N^{4/5}`, `N₀ = 2^100`), and the one
+genuinely false numeric inequality (an early N5.3 threshold suggestion)
+was caught by the implementing agent and replaced rather than fought.
+Exponent slack (θ < 1/4) was never close to exhausted.
 
-**R5 — the summability glue (N6.2).** *Severity: low-medium.* The bridge
-from `twinPrimeCounting` (a `Nat.count`) to the `Set.indicator` sum in
-`BrunStatement` is exactly the kind of off-by-one/coercion mismatch that
-surfaces late. Same template as R4.
+**R5 — the summability glue (N6.2).** *RETIRED 2026-07-07.* Proved. The
+feared off-by-one/coercion mismatch never materialized — the
+`Nat.count`-to-`Icc`-indicator bridge (`sum_c_eq_twinPrimeCounting`) was
+*simpler* than its N5.2 template, and the `Ici 1` variant of mathlib's
+Abel-summation lemma absorbed the `t = 0` singularity cleanly.
 
 ## 4. Alternatives, if the path fails
 
