@@ -1076,3 +1076,46 @@ unconditional before N7. Clean B/C.
 29/36 (N4.3 landed modulo the threaded hsol). Next: cong_solvable + the
 S2 side (N5.1-links, N5.3, N5.4, N5.5).
 Cost: ~215k subagent tokens.
+
+## 2026-07-08 S2 weight-mismatch FOUND + FIXED (Lemma 5.2 for lam) Opus+Fable
+DRIVER FINDING (this session): the Wave-4 S2 scaffolding (s2_diagonalisation
+in DiagonalS2.lean, and s2Form/s2FormMain in S2Decomp.lean) diagonalizes
+the WRONG weight -- lamG = ∏μ(dᵢ)φ(dᵢ)·wSumG -- chosen because
+φ(dᵢ)φ(eᵢ)/φ(lcm)=φ(gcd) telescopes cleanly. But the ACTUAL Maynard sieve
+weight is lam = ∏μ(dᵢ)dᵢ·wSum (the SAME weight S1 uses; weightSq/S1Bound
+use lam; the pigeonhole needs one consistent w(n)). lam·lam/∏φ(lcm) does
+NOT telescope the clean way (it carries dᵢeᵢ/φ(lcm) = (dᵢ/φdᵢ)(eᵢ/φeᵢ)φ(gcd)
+factors). So the lamG identity, while valid, is for a weight that isn't
+the sieve weight -- unusable for the real S2. The S2-over-n bridge was
+also never built. Flagged to the user; user directed a Fable design pass
+on the correct Lemma 5.2.
+
+FABLE DESIGN + FIX (new file Salt/Maynard/S2DiagLam.lean, PASS, verified
+3 ways incl. driver build/lamG-sweep/axiom-audit; standard axioms):
+The driver worked out Maynard's Lemma 5.2 from scratch. The crux new
+ingredient (never needed for lamG) is the per-coordinate Mobius/(d/φ)
+sum, which UNLIKE S1's does NOT collapse to a diagonal:
+
+  sigmaMu : Σ_{u|d, d|r} μ(d)·(d/φ(d)) = μ(r)·u/φ(r)   (squarefree r, u|r)
+
+verified on primes (r=p,u=1 → -1/(p-1); r=p,u=p → -p/(p-1)). Via the
+multiplicative core Σ_{d|s}μ(d)d/φ(d) = μ(s)/φ(s) (per prime
+1-p/(p-1)=-1/(p-1)) + a d=u·t reindex. Then:
+
+  lamPhiContract V(u) := (∏uᵢ)·Σ_{r∈𝒟,uᵢ|rᵢ} y_r·∏μ(rᵢ)/∏φ(rᵢ)²
+  wsum_lam_phi : Σ_{d∈𝒟,uᵢ|dᵢ} lam_d/∏φ(dᵢ) = V(u)     (V stays a sum over r⊇u -- no collapse)
+  s2_diag_lam : Σ_{d,e∈𝒟} lam·lam/∏φ(lcm) = Σ_{u∈𝒟} ∏g(uᵢ)·V(u)²
+
+This is the GENUINE lam-weighted S2 diagonalization -- the correct
+foundation. The g=p-2 singular series is real (via φ(gcd)=Σ_{u|gcd}gMult).
+The B₁² for the ratio comes from V(u)'s m-coordinate (a Σf/φ = B₁ factor)
+for tensor y -- a later node extracts it.
+
+STATUS of the wrong lamG scaffolding: s2_diagonalisation/s2Form remain in
+the repo as valid-but-unused identities; the S2 lower-bound path now
+builds on s2_diag_lam instead. (A future cleanup could delete the lamG
+material; leaving it is harmless -- it's sorry-free and axiom-clean.)
+
+30/36 + this correction. Next: the S2 lower-bound extraction (V(u) →
+B₁²·A₁^{k-1} for tensor y, via the sharp transfer), then N5.5, N7.
+Cost: ~279k subagent tokens.
