@@ -882,3 +882,48 @@ N4.2 (deps N2.3✅), N5.1 (deps N2.5✅), N6.3 (deps N6.2✅) -- next wave,
 plus dedicated re-attempts of the two walls.
 
 22/36 fully proved. Cost: ~778k subagent tokens (12 agents), ~18min.
+
+## 2026-07-07 Maynard Wave 5 (N4.2/N6.3 done; N3.3/N4.4 re-attempt crude; N5.1 partial) Opus -- TERMINAL BOUNDARY
+Five-node workflow: 3 reachable + 2 wall re-attempts. Driver third-pass
+(build 8618 jobs, sorry sweep, own #print axioms).
+
+FULLY LANDED (✅): N4.2 (S1Error.lean, trivial-error factorization +
+sum_abs_lam_le), N6.3 (K0.lean, exists_k0_ratio_gt). Both genuine.
+
+WALL RE-ATTEMPTS (attempt 2) -- both escaped vacuity, landed GENUINE
+CRUDE bounds, but NOT the sharp constants:
+- N3.3 (Transfer.lean): B1_lower and A1_upper_real landed, genuine
+  non-vacuous, correct (φW/W)·log R shape, R-independent additive C
+  (verified). Deleted the vacuous attempt-1 packages. BUT: the crude
+  bound uses fWt(R0) ~ k^{-1/8} (the MINIMUM of the weight) where the
+  design needs the AVERAGE ~ I_g ~ 1/8. Driver arithmetic: crude
+  B1²/A1 ~ k^{-9/8}·(log R) which DECAYS in k, vs sharp ~ (log k)·(log R)
+  which grows. So the crude bounds, though genuine, CANNOT clear the
+  ratio threshold -- the sharp exact-constant Abel-summation-to-integral
+  transfer is genuinely required and remains PORT-BLOCKERed.
+- N4.4 (CrossCollision.lean): a genuine crude majorant s1Compat_le_yside
+  _add_absColl landed (compat ≤ yside + |collision|), but the correction
+  |collision| grows with R and is NOT shown lower-order. The quantitative
+  (ck²/D₀) core remains open (CrossCollisionControlled Prop). The
+  collision form is signed/indefinite, so no naive drop.
+
+N5.1 (S2Decomp.lean): PARTIAL -- the algebraic decomposition scaffolding
+(s2_decomp, s2Main_factor, s2Error_abs_le) landed genuinely over a real
+prime object, but the two mathematical links (invoke s2_diagonalisation
+for main, eh_error_small for error) are PORT-BLOCKERed.
+
+=== TERMINAL BOUNDARY OF THE AUTOMATED PASS ===
+24/36 nodes fully proved. The complete multidimensional Selberg-sieve
+MACHINERY is formalized and kernel-checked (both diagonalizations,
+Mertens, Rankin, EH consumption, ratio prize, counting, weights). The
+remaining gap to BoundedGapsFromEH is a chain of SHARP analytic
+estimates -- above all N3.3's exact-constant transfer -- that 2 serious
+attempts each landed only in crude (shape-correct but constant-losing)
+form. Blocked on these: N4.3, N5.3, N5.4, N5.5, N7.1-N7.4. Per iron
+rule 4 (≤3 attempts then flag), stopping here and reporting honestly.
+Completing the remaining ~9 nodes needs sharper analytic-formalization
+than a single automated pass reliably produces, or human/Fable design.
+The gap is characterized down to named lemmas.
+
+Total Maynard track cost this session: ~4.5M subagent tokens across 6
+waves + the design panel. 24/36 kernel-checked, standard axioms only.

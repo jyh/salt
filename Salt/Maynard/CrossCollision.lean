@@ -185,4 +185,99 @@ def CrossCollisionControlled (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) : Prop 
     |s1CollisionForm k R W y|
       ≤ κ * ∑ r ∈ kSieveIndex k R W, (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ)
 
+/-! ## Re-attempt 2: a GENUINE (crude) absolute bound on the collision form
+
+The relative bound `CrossCollisionControlled` (`|collision| ≤ (small)·yside`)
+remains the wall: it needs the per-prime tensor structure of the collision
+constraint (a shared prime `p > D₀` in two coordinates) and is *not* proved.
+
+The collision form is **signed** (indefinite): `s1Summand d e =
+lam d · lam e / ∏lcm` and the sieve weights `lam` take both signs, so
+`0 ≤ s1CollisionForm` is **false in general** — we do not claim it.
+
+What *is* delivered here, unconditionally and non-vacuously, is the honest
+triangle-inequality bound the caller (N4.3) can still use: the compatible
+(count-weighted) main term is at most the diagonal y-side **plus** a
+genuinely-bounded, absolutely-summed collision correction
+`s1AbsCollisionForm = ∑_{collision (d,e)} |lam d|·|lam e| / ∏ᵢ lcm(dᵢ,eᵢ)`.
+This is crude (it does not exhibit the correction as lower-order) but it is
+a true, finite, of-the-right-additive-shape bound — not vacuous. -/
+
+/-- The **absolute** collision form: the absolute value of each collision
+summand, summed over the collision pairs. `s1AbsCollisionForm =
+∑_{collision (d,e)} |lam d|·|lam e| / ∏ᵢ lcm(dᵢ,eᵢ)`. This is the crude but
+genuine majorant of the (signed) `s1CollisionForm`. -/
+noncomputable def s1AbsCollisionForm (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) : ℝ :=
+  ∑ d ∈ kSieveIndex k R W, ∑ e ∈ kSieveIndex k R W,
+    if IsCollisionPair d e then
+      |lam k R W y d| * |lam k R W y e| / ∏ i, (Nat.lcm (d i) (e i) : ℝ)
+    else 0
+
+/-- The lcm-product denominator is nonnegative (a product of nat casts). -/
+theorem prod_lcm_nonneg {k : ℕ} (d e : Fin k → ℕ) :
+    0 ≤ ∏ i, (Nat.lcm (d i) (e i) : ℝ) :=
+  Finset.prod_nonneg fun i _ => by positivity
+
+/-- Each absolute collision summand is nonnegative. -/
+theorem s1AbsCollisionForm_nonneg (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) :
+    0 ≤ s1AbsCollisionForm k R W y := by
+  unfold s1AbsCollisionForm
+  apply Finset.sum_nonneg; intro d _
+  apply Finset.sum_nonneg; intro e _
+  split_ifs with h
+  · exact div_nonneg (mul_nonneg (abs_nonneg _) (abs_nonneg _)) (prod_lcm_nonneg d e)
+  · exact le_refl 0
+
+/-- **Genuine triangle bound.** The signed collision form is dominated in
+absolute value by the absolute collision form. Unconditional, non-vacuous:
+`|s1CollisionForm| ≤ ∑_{collision (d,e)} |lam d|·|lam e| / ∏ᵢ lcm(dᵢ,eᵢ)`. -/
+theorem s1CollisionForm_abs_le (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) :
+    |s1CollisionForm k R W y| ≤ s1AbsCollisionForm k R W y := by
+  unfold s1CollisionForm s1AbsCollisionForm
+  calc |∑ d ∈ kSieveIndex k R W, ∑ e ∈ kSieveIndex k R W,
+            if IsCollisionPair d e then s1Summand k R W y d e else 0|
+      ≤ ∑ d ∈ kSieveIndex k R W, |∑ e ∈ kSieveIndex k R W,
+            if IsCollisionPair d e then s1Summand k R W y d e else 0| :=
+        Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ d ∈ kSieveIndex k R W, ∑ e ∈ kSieveIndex k R W,
+            |if IsCollisionPair d e then s1Summand k R W y d e else 0| := by
+        apply Finset.sum_le_sum; intro d _; exact Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ d ∈ kSieveIndex k R W, ∑ e ∈ kSieveIndex k R W,
+            (if IsCollisionPair d e then
+              |lam k R W y d| * |lam k R W y e| / ∏ i, (Nat.lcm (d i) (e i) : ℝ)
+            else 0) := by
+        apply Finset.sum_le_sum; intro d _
+        apply Finset.sum_le_sum; intro e _
+        split_ifs with h
+        · rw [s1Summand, abs_div, abs_mul,
+            abs_of_nonneg (prod_lcm_nonneg d e)]
+        · rw [abs_zero]
+
+/-- **The usable upper bound for N4.3 (unconditional, non-vacuous).** The
+compatible (count-weighted) S₁ main term is at most the full diagonal form
+plus the crude absolute collision correction. From `s1_full_split`
+(`collision + compat = full`) and the triangle bound
+`-collision ≤ |collision| ≤ s1AbsCollisionForm`. -/
+theorem s1Compat_le_full_add_absColl (k R W : ℕ) (y : (Fin k → ℕ) → ℝ) :
+    s1CompatForm k R W y
+      ≤ s1FullForm k R W y + s1AbsCollisionForm k R W y := by
+  have hsplit := s1_full_split k R W y
+  have habs := s1CollisionForm_abs_le k R W y
+  have hneg := neg_le_abs (s1CollisionForm k R W y)
+  linarith
+
+/-- **The caller-facing form (unconditional, non-vacuous).** Restating the
+previous bound with the full form rewritten to the y-side via N2.4:
+`s1CompatForm ≤ (∑_r y(r)²/∏ᵢφ(rᵢ)) + s1AbsCollisionForm`. The leading term
+is the genuine diagonal y-side; the collision correction is a true, finite,
+additive term (crudely bounded, not shown lower-order — that sharpening is
+`CrossCollisionControlled`, still open). -/
+theorem s1Compat_le_yside_add_absColl (k R W : ℕ) (y : (Fin k → ℕ) → ℝ)
+    (hy : ∀ r, r ∉ kSieveIndex k R W → y r = 0) :
+    s1CompatForm k R W y
+      ≤ (∑ r ∈ kSieveIndex k R W, (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ))
+        + s1AbsCollisionForm k R W y := by
+  rw [← s1_full_eq_yside k R W y hy]
+  exact s1Compat_le_full_add_absColl k R W y
+
 end Salt.Maynard

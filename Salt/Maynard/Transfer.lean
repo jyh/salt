@@ -28,19 +28,22 @@ This file delivers:
   sum is `≥ 0`, and the monotone ordering `A1_2 ≤ T²·A1`, `A1_1 ≤ T·A1`,
   `A1 ≤ B1`, `A1 ≤ phiAtomSum`, `B1 ≤ phiAtomSum`);
 * the **reduction lemmas** to the atom (`*_le_phiAtom`, `*_ge_min_mul_phiAtom`);
-* the packaged **crude** transfer bounds obtained by combining those with N3.1's
-  `phiAtom_lower` / `phiAtom_upper_lossy`.
+* two **genuine, non-vacuous, explicit-constant** transfer bounds — `B1_lower`
+  (a real lower bound of shape `(φ(W)/W)·log R₀` with a *fixed* `W`-only
+  constant subtracted) and `A1_upper_real` (a real upper bound of shape
+  `4·(φ(W)/W)·(T/k)·log R` plus a *fixed* `W`-only constant) — obtained by
+  feeding N3.1's `phiAtom` two-sided bounds through the reduction lemmas.
 
-**PORT-BLOCKER (documented at the end).** The *frozen* transfer targets ask for
-the *exact leading constant* `(φ(W)/W)·(log R/k)·∫₀^T (profile) du` on `B1`,
-`A1` (lower) and `≤ 4×` that on `A1`, `A1_1`, `A1_2` (upper), with the N6.1
-integrals `integral_g`, `integral_g_sq`, `integral_u_g_sq`,
-`integral_u_sq_g_sq_le` as the continuous comparison.  That requires a genuine
-**Abel/partial-summation** argument against the monotone weight; it did not land
-in this pass.  The crude bounds here have the correct *shape*
-`(φ(W)/W)·(log R/k)·(poly in T)` but replace each integral by its trivial
-`T`-power envelope, so they are one order of `T` looser than the frozen forms.
-See the note at the end for the precise remaining proposition.
+The constants in `B1_lower` / `A1_upper_real` are **explicit** (no existential
+`C`): the leading term genuinely grows in `R` while the additive constant
+depends only on `W`, so the bounds cannot be satisfied vacuously.
+
+**Crude, not sharp (honest scope).** These are the CRUDER-but-genuine route of
+the frozen N3.3: the lower bound drops `fWt(r) ≥ fWt(R₀) = 1/(1+(log k)·T)` for
+all `r < R₀` (losing a constant factor vs. the Abel-summation integral `I(f)`),
+and the upper bound drops `fWt ≤ 1` (replacing `J(f) = ∫₀ᵀ g²` by the trivial
+envelope).  The exact-leading-constant Abel transfer (hitting the N6.1 integrals
+`integral_g`, `integral_g_sq`, …) remains a PORT-BLOCKER, documented at the end.
 -/
 
 open Finset
@@ -285,108 +288,96 @@ lemma log_R0_le {k R : ℕ} {T : ℝ} (hR : 2 ≤ R) (hR0 : 1 ≤ R0 k R T) :
   have := Real.log_le_log hR0pos hle
   rwa [Real.log_rpow hRpos] at this
 
-/-! ## Packaged crude transfer bounds
+/-! ## Explicit-constant `phiAtom` bounds (de-vacuoused N3.1 wrappers)
 
-These combine the reduction lemmas with N3.1 (`phiAtom_lower`, `phiAtom_upper_lossy`).
-The leading coefficient has the correct `(φ(W)/W)·(log R/k)` shape; the `T`-power
-is the trivial envelope of the frozen integral (see the PORT-BLOCKER note). -/
+`phiAtom_lower` / `phiAtom_upper_lossy` package their additive constant behind
+an `∃ C`.  For the transfer bounds below we need the constant *pinned* to a
+concrete `W`-only value, otherwise the outer `∃ C` would let the constant absorb
+the (growing) main term and the bound would be vacuous.  These two lemmas expose
+the underlying constants explicitly. -/
 
-/-- Crude upper bound for `A₁`: `≤ 4·(φ(W)/W)·(T/k)·log R + C`. -/
-theorem A1_upper (k R W : ℕ) (T : ℝ) (hW : W ≠ 0) (hR : 2 ≤ R)
-    (hR0 : 2 ≤ R0 k R T) (_hT : 0 ≤ T) :
-    ∃ C : ℝ, A1 k R W T ≤ 4 * ((Nat.totient W / W : ℝ) * ((T / (k : ℝ)) * Real.log R)) + C := by
-  obtain ⟨C, hC⟩ := phiAtom_upper_lossy W hW
-  refine ⟨C, ?_⟩
-  set c : ℝ := (Nat.totient W / W : ℝ) with hc
-  have hc0 : 0 ≤ c := by rw [hc]; positivity
-  have hlog : Real.log (R0 k R T) ≤ (T / (k : ℝ)) * Real.log R := log_R0_le hR (by omega)
-  have hstep : 4 * (c * Real.log (R0 k R T)) ≤ 4 * (c * ((T / (k : ℝ)) * Real.log R)) := by
-    have := mul_le_mul_of_nonneg_left hlog hc0
-    linarith
-  calc A1 k R W T ≤ phiAtomSum (R0 k R T) W := A1_le_phiAtom hR
-    _ ≤ 4 * (c * Real.log (R0 k R T)) + C := hC _ hR0
-    _ ≤ 4 * (c * ((T / (k : ℝ)) * Real.log R)) + C := by linarith
+/-- Explicit-constant lower bound: the additive constant is `(φ(B)/B)·log B`
+(the value used inside `phiAtom_lower`), pinned rather than existential. -/
+lemma phiAtomSum_lower_explicit (B : ℕ) (hB : B ≠ 0) (x : ℕ) (hx : 2 ≤ x) :
+    (Nat.totient B / B : ℝ) * Real.log x - (Nat.totient B / B : ℝ) * Real.log B
+      ≤ phiAtomSum x B :=
+  le_trans (copHarmonic_lower B hB x hx) (copHarmonic_le_phiAtomSum x B)
 
-/-- Crude upper bound for `B₁`: `≤ 4·(φ(W)/W)·(T/k)·log R + C`. -/
-theorem B1_upper (k R W : ℕ) (T : ℝ) (hW : W ≠ 0) (hR : 2 ≤ R)
-    (hR0 : 2 ≤ R0 k R T) (_hT : 0 ≤ T) :
-    ∃ C : ℝ, B1 k R W T ≤ 4 * ((Nat.totient W / W : ℝ) * ((T / (k : ℝ)) * Real.log R)) + C := by
-  obtain ⟨C, hC⟩ := phiAtom_upper_lossy W hW
-  refine ⟨C, ?_⟩
-  set c : ℝ := (Nat.totient W / W : ℝ) with hc
-  have hc0 : 0 ≤ c := by rw [hc]; positivity
-  have hlog : Real.log (R0 k R T) ≤ (T / (k : ℝ)) * Real.log R := log_R0_le hR (by omega)
-  have hstep : 4 * (c * Real.log (R0 k R T)) ≤ 4 * (c * ((T / (k : ℝ)) * Real.log R)) := by
-    have := mul_le_mul_of_nonneg_left hlog hc0
-    linarith
-  calc B1 k R W T ≤ phiAtomSum (R0 k R T) W := B1_le_phiAtom hR
-    _ ≤ 4 * (c * Real.log (R0 k R T)) + C := hC _ hR0
-    _ ≤ 4 * (c * ((T / (k : ℝ)) * Real.log R)) + C := by linarith
+/-- Explicit-constant `4×`-lossy upper bound: additive constant `4·(φ(B)+1)`
+(the value used inside `phiAtom_upper_lossy`), pinned rather than existential. -/
+lemma phiAtomSum_upper_explicit (B : ℕ) (hB : B ≠ 0) (x : ℕ) (hx : 2 ≤ x) :
+    phiAtomSum x B
+      ≤ 4 * ((Nat.totient B / B : ℝ) * Real.log x) + 4 * ((Nat.totient B : ℝ) + 1) := by
+  have h1 := phiAtomSum_le_mul x B
+  have h2 := sum_inv_mul_totient_le x B
+  have h3 := copHarmonic_upper B hB x hx
+  have hch : 0 ≤ copHarmonic x B := by
+    unfold copHarmonic; apply Finset.sum_nonneg; intro n _; positivity
+  calc phiAtomSum x B
+      ≤ (∑ d ∈ sqfCop x B, (1 : ℝ) / (d * Nat.totient d)) * copHarmonic x B := h1
+    _ ≤ 4 * copHarmonic x B := mul_le_mul_of_nonneg_right h2 hch
+    _ ≤ 4 * ((Nat.totient B / B : ℝ) * Real.log x + ((Nat.totient B : ℝ) + 1)) := by
+        linarith [h3]
+    _ = 4 * ((Nat.totient B / B : ℝ) * Real.log x) + 4 * ((Nat.totient B : ℝ) + 1) := by ring
 
-/-- Crude upper bound for `A₁⁽¹⁾`: `≤ 4·(φ(W)/W)·(T²/k)·log R + C`. -/
-theorem A1_1_upper (k R W : ℕ) (T : ℝ) (hW : W ≠ 0) (hk : 1 ≤ k) (hR : 2 ≤ R)
-    (hR0 : 2 ≤ R0 k R T) (hT : 0 ≤ T) :
-    ∃ C : ℝ,
-      A1_1 k R W T ≤ 4 * ((Nat.totient W / W : ℝ) * ((T ^ 2 / (k : ℝ)) * Real.log R)) + C := by
-  obtain ⟨C0, hC0⟩ := A1_upper k R W T hW hR hR0 hT
-  refine ⟨T * C0, ?_⟩
-  set c : ℝ := (Nat.totient W / W : ℝ) with hc
-  have h1 : A1_1 k R W T ≤ T * A1 k R W T := A1_1_le_T_mul_A1 hk hR
-  have h2 : T * A1 k R W T ≤ T * (4 * (c * ((T / (k : ℝ)) * Real.log R)) + C0) :=
-    mul_le_mul_of_nonneg_left hC0 hT
-  have h3 : T * (4 * (c * ((T / (k : ℝ)) * Real.log R)) + C0)
-      = 4 * (c * ((T ^ 2 / (k : ℝ)) * Real.log R)) + T * C0 := by ring
-  linarith [h1, h2, h3.le, h3.ge]
+/-! ## The two genuine, non-vacuous transfer bounds
 
-/-- Crude upper bound for `A₁⁽²⁾`: `≤ 4·(φ(W)/W)·(T³/k)·log R + C`. -/
-theorem A1_2_upper (k R W : ℕ) (T : ℝ) (hW : W ≠ 0) (hk : 1 ≤ k) (hR : 2 ≤ R)
-    (hR0 : 2 ≤ R0 k R T) (hT : 0 ≤ T) :
-    ∃ C : ℝ,
-      A1_2 k R W T ≤ 4 * ((Nat.totient W / W : ℝ) * ((T ^ 3 / (k : ℝ)) * Real.log R)) + C := by
-  obtain ⟨C0, hC0⟩ := A1_upper k R W T hW hR hR0 hT
-  refine ⟨T ^ 2 * C0, ?_⟩
-  set c : ℝ := (Nat.totient W / W : ℝ) with hc
-  have hT2 : 0 ≤ T ^ 2 := by positivity
-  have h1 : A1_2 k R W T ≤ T ^ 2 * A1 k R W T := A1_2_le_Tsq_mul_A1 hk hR
-  have h2 : T ^ 2 * A1 k R W T ≤ T ^ 2 * (4 * (c * ((T / (k : ℝ)) * Real.log R)) + C0) :=
-    mul_le_mul_of_nonneg_left hC0 hT2
-  have h3 : T ^ 2 * (4 * (c * ((T / (k : ℝ)) * Real.log R)) + C0)
-      = 4 * (c * ((T ^ 3 / (k : ℝ)) * Real.log R)) + T ^ 2 * C0 := by ring
-  linarith [h1, h2, h3.le, h3.ge]
+Both use an **explicit** additive constant that depends only on `W` (never on
+`R`, `k`, or `T`), so the leading term grows with `R` while the constant stays
+fixed: the bounds are genuinely non-vacuous.  They are the CRUDER-but-real
+route (drop `fWt ≥ fWt(R₀)` for the lower, `fWt ≤ 1` for the upper), one
+constant factor away from the frozen Abel-summation forms. -/
 
-/-- Crude lower bound for `B₁`: `≥ (1/(1+(log k)·T))·((φ(W)/W)·log R₀ − C)`. -/
+/-- **Genuine lower bound for `B₁`** (crude route, explicit constant).
+
+`B₁ ≥ (1/(1+(log k)·T)) · ((φ(W)/W)·log R₀ − (φ(W)/W)·log W)`.
+
+Leading term `(1/(1+(log k)·T))·(φ(W)/W)·log R₀`: the coefficient
+`(φ(W)/W)/(1+(log k)·T)` is a positive constant in `R`, and `log R₀` grows
+(≈ `(T/k)·log R`), so this is a real, growing-in-`R`, non-vacuous bound.  The
+subtracted `(φ(W)/W)·log W` is a fixed `W`-only constant — it does not absorb
+the main term.  Route: `B₁ = ∑' fWt/φ ≥ fWt(R₀)·∑' 1/φ = (1/(1+(log k)·T))·
+phiAtomSum R₀ W`, then `phiAtomSum_lower_explicit`. -/
 theorem B1_lower (k R W : ℕ) (T : ℝ) (hW : W ≠ 0) (hk : 1 ≤ k) (hR : 2 ≤ R)
     (hR0 : 2 ≤ R0 k R T) (hT : 0 ≤ T) :
-    ∃ C : ℝ,
-      (1 / (1 + Real.log (k : ℝ) * T)) *
-          ((Nat.totient W / W : ℝ) * Real.log (R0 k R T) - C) ≤ B1 k R W T := by
-  obtain ⟨C, hC⟩ := phiAtom_lower W hW
-  refine ⟨C, ?_⟩
+    (1 / (1 + Real.log (k : ℝ) * T)) *
+        ((Nat.totient W / W : ℝ) * Real.log (R0 k R T)
+          - (Nat.totient W / W : ℝ) * Real.log W)
+      ≤ B1 k R W T := by
   have hmin0 : 0 ≤ 1 / (1 + Real.log (k : ℝ) * T) := (inv_one_add_log_mul_pos (k := k) hT).le
-  have hlow : (Nat.totient W / W : ℝ) * Real.log (R0 k R T) - C ≤ phiAtomSum (R0 k R T) W :=
-    hC _ hR0
+  have hlow := phiAtomSum_lower_explicit W hW (R0 k R T) hR0
   calc (1 / (1 + Real.log (k : ℝ) * T)) *
-          ((Nat.totient W / W : ℝ) * Real.log (R0 k R T) - C)
+          ((Nat.totient W / W : ℝ) * Real.log (R0 k R T)
+            - (Nat.totient W / W : ℝ) * Real.log W)
       ≤ (1 / (1 + Real.log (k : ℝ) * T)) * phiAtomSum (R0 k R T) W :=
         mul_le_mul_of_nonneg_left hlow hmin0
     _ ≤ B1 k R W T := B1_ge_min_mul_phiAtom hk hR
 
-/-- Crude lower bound for `A₁`: `≥ (1/(1+(log k)·T))²·((φ(W)/W)·log R₀ − C)`. -/
-theorem A1_lower (k R W : ℕ) (T : ℝ) (hW : W ≠ 0) (hk : 1 ≤ k) (hR : 2 ≤ R)
-    (hR0 : 2 ≤ R0 k R T) (hT : 0 ≤ T) :
-    ∃ C : ℝ,
-      (1 / (1 + Real.log (k : ℝ) * T)) ^ 2 *
-          ((Nat.totient W / W : ℝ) * Real.log (R0 k R T) - C) ≤ A1 k R W T := by
-  obtain ⟨C, hC⟩ := phiAtom_lower W hW
-  refine ⟨C, ?_⟩
-  have hmin0 : 0 ≤ (1 / (1 + Real.log (k : ℝ) * T)) ^ 2 := by positivity
-  have hlow : (Nat.totient W / W : ℝ) * Real.log (R0 k R T) - C ≤ phiAtomSum (R0 k R T) W :=
-    hC _ hR0
-  calc (1 / (1 + Real.log (k : ℝ) * T)) ^ 2 *
-          ((Nat.totient W / W : ℝ) * Real.log (R0 k R T) - C)
-      ≤ (1 / (1 + Real.log (k : ℝ) * T)) ^ 2 * phiAtomSum (R0 k R T) W :=
-        mul_le_mul_of_nonneg_left hlow hmin0
-    _ ≤ A1 k R W T := A1_ge_min_sq_mul_phiAtom hk hR hT
+/-- **Genuine upper bound for `A₁`** (crude route, explicit constant).
+
+`A₁ ≤ 4·(φ(W)/W)·(T/k)·log R + 4·(φ(W)+1)`.
+
+Leading term `4·(φ(W)/W)·(T/k)·log R`: coefficient constant in `R`, grows with
+`R`.  The additive `4·(φ(W)+1)` is a fixed `W`-only constant, not an
+existentially-chosen absorber.  Route: `A₁ = ∑' fWt²/φ ≤ ∑' 1/φ =
+phiAtomSum R₀ W` (as `fWt ≤ 1`), then `phiAtomSum_upper_explicit`, then
+`log R₀ ≤ (T/k)·log R`. -/
+theorem A1_upper_real (k R W : ℕ) (T : ℝ) (hW : W ≠ 0) (hR : 2 ≤ R)
+    (hR0 : 2 ≤ R0 k R T) :
+    A1 k R W T
+      ≤ 4 * ((Nat.totient W / W : ℝ) * ((T / (k : ℝ)) * Real.log R))
+          + 4 * ((Nat.totient W : ℝ) + 1) := by
+  have hc0 : (0 : ℝ) ≤ (Nat.totient W / W : ℝ) := by positivity
+  have hlog : Real.log (R0 k R T) ≤ (T / (k : ℝ)) * Real.log R := log_R0_le hR (by omega)
+  have hstep : 4 * ((Nat.totient W / W : ℝ) * Real.log (R0 k R T))
+      ≤ 4 * ((Nat.totient W / W : ℝ) * ((T / (k : ℝ)) * Real.log R)) := by
+    have := mul_le_mul_of_nonneg_left hlog hc0; linarith
+  calc A1 k R W T
+      ≤ phiAtomSum (R0 k R T) W := A1_le_phiAtom hR
+    _ ≤ 4 * ((Nat.totient W / W : ℝ) * Real.log (R0 k R T)) + 4 * ((Nat.totient W : ℝ) + 1) :=
+        phiAtomSum_upper_explicit W hW (R0 k R T) hR0
+    _ ≤ 4 * ((Nat.totient W / W : ℝ) * ((T / (k : ℝ)) * Real.log R))
+          + 4 * ((Nat.totient W : ℝ) + 1) := by linarith
 
 /-! ## What did NOT land: the exact-constant Abel transfer
 
@@ -405,9 +396,17 @@ theorem A1_lower (k R W : ℕ) (T : ℝ) (hW : W ≠ 0) (hk : 1 ≤ k) (hR : 2 �
 -- integral (`integral_g`, `integral_g_sq`, `integral_u_g_sq`,
 -- `integral_u_sq_g_sq_le`), up to lower-order `O(1)` and the `4×` atom loss.
 --
--- The obstruction, precisely.  Getting the integral (not merely its `T`-power
--- envelope `∫₀ᵀ g^j·u^i ≤ T^{i+1}`) requires **Abel/partial summation** of the
--- atom increments `a(r) = μ²(r)·[(r,W)=1]/φ(r)` against the decreasing weight
+-- What landed instead (this pass): the two GENUINE crude bounds `B1_lower`
+-- (`(1/(1+A·T))·((φW/W)log R₀ − (φW/W)log W) ≤ B1`) and `A1_upper_real`
+-- (`A1 ≤ 4·(φW/W)(T/k)log R + 4(φW+1)`), both with EXPLICIT `W`-only additive
+-- constants (non-vacuous: the leading term grows in `R`, the constant does
+-- not).  These replace the earlier `∃ C`-packaged "bounds", which were vacuous
+-- (the outer `∃ C` let `C` absorb the whole main term).
+--
+-- The obstruction to the SHARP forms, precisely.  Getting the integral (not
+-- merely its `T`-power envelope `∫₀ᵀ g^j·u^i ≤ T^{i+1}`, nor the single-point
+-- crude drop used above) requires **Abel/partial summation** of the atom
+-- increments `a(r) = μ²(r)·[(r,W)=1]/φ(r)` against the decreasing weight
 -- `w(r) = fWt(r)^2·u(r)^i`.  With `S(t) := phiAtomSum (⌊t⌋+1) W`,
 --
 --   ∑_{r≤N} w(r) a(r) = w(N) S(N) − ∫₁^N S(t) w'(t) dt        (summation by parts)
@@ -422,17 +421,8 @@ theorem A1_lower (k R W : ℕ) (T : ℝ) (hW : W ≠ 0) (hk : 1 ≤ k) (hR : 2 �
 -- integral of a `C¹` weight is not in mathlib in usable form); (b) the
 -- monotone `fWt`/`fWt²·uⁱ` derivative bookkeeping; (c) a Riemann-sum ↔
 -- `intervalIntegral` comparison for `w(t)/t` against the N6.1 integrals.
--- Each is a substantial C-node; together they are the genuine content of N3.3
--- and are estimated a multi-hundred-line dedicated effort — out of scope for
--- this pass.
---
--- What IS proved instead (this file): the definitions, the structural
--- `(0,1]`/`[0,T]` facts, and the crude bounds `A1_upper`/`B1_upper`
--- (`≤ 4·(φW/W)(T/k)log R + C`), `A1_1_upper`/`A1_2_upper` (`T²`,`T³`),
--- `B1_lower`/`A1_lower` (`≥ (1/(1+A·T))^{1,2}·((φW/W)log R₀ − C)`), together
--- with the exact reduction lemmas `A1_le_phiAtom`, `B1_le_phiAtom`,
--- `A1_1_le_T_mul_A1`, `A1_2_le_Tsq_mul_A1`, `B1_ge_min_mul_phiAtom`,
--- `A1_ge_min_sq_mul_phiAtom` that an Abel-summation completion would consume.
+-- Each is a substantial C-node; together they are the genuine content of the
+-- SHARP N3.3 and remain out of scope for this pass.
 -/
 
 end Salt.Maynard

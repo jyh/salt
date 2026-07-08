@@ -44,27 +44,47 @@ Green lint = "not mechanically stale", never "the prose is true".
 
 *Updated: 2026-07-07 (Opus, after Wave 1).*
 
-- **State**: 22 of ~36 fully proved (+2 partial). Wave 4 landed N2.5 (S₂ diag), N2.3 (λ size), N5.2 (EH consumption), N6.2 (ratio prize) fully; N4.4 and N3.3 partial (definitions + skeleton done, the quantitative cores PORT-BLOCKERed — these are the two analytic walls gating the final assembly). M0, M1, N2.0, N3.1, and **Wave 1**
+- **State**: **24 of ~36 fully proved** (+3 partial). Wave 5 added N4.2
+  (S₁ trivial error) and N6.3 (concrete k₀) fully. **This is the terminal
+  boundary of the automated pass** — see the strategic line. M0, M1, N2.0, N3.1, and **Wave 1**
   (N2.1, N2.6, N2.7, N3.2, N3.5, N6.1) all proved, sorry-free, axiom-
   audited. The analytic bottleneck (N3.2, Mertens' 2nd upper — absent
   from mathlib, built from Chebyshev + von Mangoldt + Abel) is DONE.
 - **Wave 2 done**: N3.4 (Rankin) + N4.1 (congruence count).
-- **Reachable now** (deps met, not blocked on a partial): N4.2 (S₁
-  trivial error, deps N2.3 ✅), N5.1 (S₂ decomp, deps N2.5 ✅), N6.3
-  (deps N6.2 ✅).
-- **The two walls** (PORT-BLOCKERed cores, re-attempt target): N3.3's
-  Abel-summation weighted transfer (the exact-constant/4× bounds), and
-  N4.4's quantitative collision bound (`|collision| ≤ (ck²/D₀)A₁^k`).
-  N4.3, N5.3, N5.4, N5.5, N7.1–N7.4 are gated on these.
+- **The terminal gap** (each got 2 serious attempts, landed genuine
+  CRUDE bounds but not the sharp constants the endgame needs):
+  - **N3.3 sharp transfer** — the Abel-summation-to-integral step giving
+    B₁/A₁ at the *exact* leading constant (the average of `fWt`, ≈ I_g).
+    The crude fallback (minimum of `fWt`) decays like `k^{−9/8}` where
+    the design needs `~ log k` growth — so the crude bounds, though
+    genuine and non-vacuous, cannot clear the ratio threshold. THE
+    linchpin of the endgame.
+  - **N4.4 quantitative collision bound** — `|collision| ≤ (ck²/D₀)·yside`
+    (lower-order control). Only the crude majorant landed (grows with R,
+    not shown lower-order). The collision form is signed/indefinite, so
+    the naive drop is unavailable.
+  - **N5.1 links** — the S₂ decomposition scaffolding landed; wiring it
+    to `s2_diagonalisation` (main) and `eh_error_small` (error) is open.
+- **Blocked on the above**: N4.3, N5.3, N5.4, N5.5, N7.1–N7.4 (the S₁
+  upper, S₂ lower, and the final `S₂−S₁>0 → BoundedGapsFromEH` chain).
 - **Blockers**: none — every remaining node's deps are proved or in
   the next wave.
-- **Strategic line**: Wave 1 retired the biggest single risk (Mertens)
-  and confirmed the frozen design executes cleanly at scale — six
-  independent nodes, all first-pass, one of them (N3.2) genuinely
-  C-grade analytic NT. The hard remaining keystones are the k-dimensional
-  diagonalizations (N2.4/N2.5) and the S₂-lower assembly (N5.5); the
-  frozen statements and the 1-dim `SelbergPort` template de-risk them,
-  but they are the true test of the track.
+- **Strategic line (terminal boundary of the automated pass).** The
+  entire multidimensional Selberg-sieve *machinery* for Maynard's theorem
+  is formalized and kernel-checked: both k-dimensional diagonalizations
+  (S₁ and S₂ — the hardest nodes, landed first-pass), the index set and
+  weights, the CRT congruence counting, the Mertens-2nd bound (built from
+  scratch — absent from mathlib), the Rankin bound, the EH consumption
+  (where the hypothesis is genuinely used), and the ratio prize. To our
+  knowledge no prior formalization of this machinery exists in any
+  assistant. What remains between here and `BoundedGapsFromEH` is a
+  chain of **sharp analytic estimates** — above all the exact-constant
+  weighted transfer (N3.3) — that two serious automated attempts each
+  landed only in crude form. Completing them needs either sharper
+  analytic-formalization machinery than a single automated pass reliably
+  produces, or human/Fable-level design. The gap is characterized down to
+  named lemmas (above); it is a boundary of the *pass*, not a dead end
+  for the track.
 
 ## 1. Big picture
 
@@ -360,14 +380,33 @@ directly).
 **Role.** Makes the S₁ upper bound (N4.3) rigorous (collision pairs count 0 but the algebraic form sums over them).
 **Proof idea.** Landed: the EXACT unconditional decomposition `compat = yside − collision` (`s1_compat_eq`), `s1_full_split`, `s1_yside_nonneg`, and the one-sided drop `crossCollision_le` (conditional on `0 ≤ collision`). PORT-BLOCKERed: the quantitative `(ck²/D₀)` bound on the collision form (stated as a Prop `CrossCollisionControlled`) — the genuinely hard piece, since the collision form isn't obviously signed.
 **Lean.** `Salt.Maynard.s1_compat_eq`, `s1_full_split`, `s1_yside_nonneg`, `crossCollision_le` (Salt/Maynard/CrossCollision.lean)
-**Status.** 🟡 partial 2026-07-07 (Opus) — decomposition done, quantitative core PORT-BLOCKERed (flags 2026-07-07). **Difficulty.** predicted C, actual C+.
+**Status.** 🟡 partial 2026-07-07 (Opus, 2 attempts) — exact decomposition + a genuine crude majorant (`s1Compat_le_yside_add_absColl`) landed; the quantitative lower-order `(ck²/D₀)` bound PORT-BLOCKERed (the collision form is signed). **Difficulty.** predicted C, actual C+.
 
 #### N3.3 — weighted transfers 🟡
 **Statement (frozen).** A₁,B₁ lower at exact constant; A₁,A₁⁽¹⁾,A₁⁽²⁾ upper at 4× the N6.1 integral term.
 **Role.** Bridges the atom (N3.1) to the 1-dim weighted sums the S₂ main (N5.3/N5.5) and overshoot (N5.4) consume.
 **Proof idea.** Landed: the definitions (`uVal`, `fWt`, `A1`, `B1`, `A1_1`, `A1_2`), structural facts, and the reduction-to-atom lemmas (`A1_le_phiAtom`, `B1_ge_min_mul_phiAtom`, …). PORT-BLOCKERed: the actual Abel-summation transfer giving the exact-constant lower and 4×-integral upper bounds (the packaged "crude" versions committed are vacuous placeholders, NOT the real bounds — see flags).
 **Lean.** `Salt.Maynard.uVal`, `fWt`, `A1`, `B1`, `A1_1`, `A1_2`, `A1_le_phiAtom`, `B1_ge_min_mul_phiAtom`, … (Salt/Maynard/Transfer.lean)
-**Status.** 🟡 partial 2026-07-07 (Opus) — scaffolding + atom-reductions done, the Abel-summation transfer PORT-BLOCKERed (flags 2026-07-07). **Difficulty.** predicted C, actual C (the transfer is the hard part).
+**Status.** 🟡 partial 2026-07-07 (Opus, 2 attempts) — scaffolding + atom-reductions + the genuine CRUDE bounds `B1_lower`/`A1_upper_real` (correct `(φW/W)log R` shape) landed; the SHARP exact-constant Abel transfer PORT-BLOCKERed (flags 2026-07-07). The crude bound decays `k^{−9/8}` where the design needs `~log k`, so the sharp version is genuinely required for the endgame. **Difficulty.** predicted C, actual C+.
+
+#### N4.2 — S₁ trivial error ✅
+**Statement.** `s1_trivial_error_le`: the O(1)-count-error sum factors as `2^(k+1)·(Σ|λ|)²`; `sum_abs_lam_le`: `Σ_{d∈𝒟}|lam d| ≤ R^{k+1}·Σ|y|/∏φ` (polynomial in R, hence o(N)).
+**Role.** Bounds the N4.1 counting error's contribution to S₁.
+**Proof idea.** `Finset.sum_mul_sum` factorization; `lam_abs_le` (N2.3) + `|𝒟| ≤ R^k` + `∏dᵢ < R`.
+**Lean.** `Salt.Maynard.s1_trivial_error_le`, `sum_abs_lam_le` (Salt/Maynard/S1Error.lean). **Status.** ✅ 2026-07-07 (Opus). **Difficulty.** predicted B, actual B.
+
+#### N6.3 — concrete k₀ ✅
+**Statement.** `exists_k0_ratio_gt M`: `∃ k₀, ∀ k ≥ k₀`, the ratio prize `≥ M` (k₀ abstract, `exp(64M)`-scale).
+**Role.** Picks the threshold where the ratio clears any target M.
+**Proof idea.** `ratio_prize` (≥ (log k)/64) + `log k ≥ 64M ⟺ k ≥ exp(64M)`.
+**Lean.** `Salt.Maynard.exists_k0_ratio_gt` (Salt/Maynard/K0.lean). **Status.** ✅ 2026-07-07 (Opus). **Difficulty.** predicted B, actual B.
+
+#### N5.1 — S₂^(m) decomposition 🟡
+**Statement (frozen).** S₂^(m) = main (∝ the s2_diagonalisation RHS, r_m=1) + error (bounded by eh_error_small).
+**Role.** Connects the prime-counting side to the S₂ diagonalized form.
+**Proof idea.** Landed: the algebraic decomposition `s2_decomp` (S₂ = main + error, exact), `s2Main_factor` (pulls Δπ/φ(W) out, residual = the N2.5 LHS restricted to r_m=1), `s2Error_abs_le` (triangle bound to per-modulus discrepancies), over a genuine prime object `s2PrimeCount`. PORT-BLOCKERed: actually invoking `s2_diagonalisation` for the main and `eh_error_small` for the error (the two C-level interfaces).
+**Lean.** `Salt.Maynard.s2_decomp`, `s2PrimeCount`, `s2Main_factor`, `s2Error_abs_le` (Salt/Maynard/S2Decomp.lean)
+**Status.** 🟡 partial 2026-07-07 (Opus) — scaffolding done, the two mathematical links open. **Difficulty.** predicted C, actual C.
 
 ### M2/M3/M4/M5/M6/M7 — remaining nodes frozen (N2.0), not yet executed
 
