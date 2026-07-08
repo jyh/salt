@@ -1200,3 +1200,19 @@ NOT circular (needs stepB+D1+rankin to assemble to the conclusion).
 D2 (phiSq_tail_bound) is the proven load-bearing analytic factor for
 htail but not yet WIRED in (the multi-index Σ_{j≠m} assembly, ~300-500
 lines). Attempt 3 targets discharging htail via D2 × rankin.
+
+## 2026-07-08 Lemma 5.3 COMPLETE (htail discharged, attempt 3) -- unconditional
+htail_bound (Maynard's 5.31 multi-index tail) proven as a THEOREM; lemma53
+now UNCONDITIONAL (takes only hk:1≤k, hD:12k²≤D₀ + structural). PASS,
+verifier-confirmed: no blanket hypothesis, genuine union-bound + coordinate
+factorization threading phiSq_tail_bound (the 1/D₀) and rankin (the logR).
+New decls: tailCoordSet, gr_ratio_mem, phiSq_dvd_ne_bound, phiSq_dvd_bound,
+tail_factor_le, htail_bound. Constants R-free: Ctail=12k³·2^k·C₁,
+C=2C₁+Ctail (C₁ = Rankin const). Axiom-clean.
+
+  lemma53 : for rₘ=1, |y^(m)_r − Σ_{aₘ<R}y_{r;m→aₘ}/φ(aₘ)| ≤ C·logR/D₀
+
+MAYNARD LEMMA 5.3 DONE. The y^(m) contraction is complete: y^(m)_r =
+(B₁-type contraction) + O(logR/D₀). For tensor y=∏f this gives
+y^(m)_r ≈ B₁·∏_{i≠m}f(rᵢ) -- the B₁ factor for the ratio. Next: N5.4
+overshoot + S₂ tensor factorization + N5.5 + N7.

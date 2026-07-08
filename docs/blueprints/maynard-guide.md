@@ -44,7 +44,7 @@ Green lint = "not mechanically stale", never "the prose is true".
 
 *Updated: 2026-07-07 (Opus, after Wave 1).*
 
-- **State**: **32 of ~36 nodes proved** (S1 side complete & unconditional; S2 diagonalization foundation CORRECTED — see flags 2026-07-08). Remaining: the S2 lower-bound extraction (a design fork needing Maynard Lemma 5.3), overshoot, N5.5, and the N7 endgame.
+- **State**: **34 of ~36 nodes** (S1 side complete/unconditional; S2 foundation corrected — s2_diag_lam = Maynard Lemma 5.2; Lemma 5.3 y^(m) contraction COMPLETE and unconditional). Remaining: N5.4 overshoot, S2 tensor factorization, N5.5 assembly, N7.1 ratio, N7.2-4 pigeonhole — all with correct foundations + the paper.
 - **Wave 2 done**: N3.4 (Rankin) + N4.1 (congruence count).
 - **Remaining work (all assembly, no analytic walls)**: N4.3 (S₁ upper —
   compat_le_two_yside + congCountTuple, templated), N5.1-links (wire

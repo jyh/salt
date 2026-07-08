@@ -342,7 +342,7 @@ theorem gProd_bound (k R : ℕ) (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D₀ k)
     have hp1 : (1 : ℝ) ≤ (p : ℝ) - 1 := by
       have : (12 : ℝ) < (p : ℝ) := by exact_mod_cast lt_of_le_of_lt (by exact_mod_cast hD12) hpD
       linarith
-    have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := by positivity
+    have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := inv_nonneg.mpr (by linarith)
     have : ((p : ℝ) - 1)⁻¹ ≤ 1 := by
       rw [inv_le_one_iff₀]; right; linarith
     nlinarith [this, h0]
@@ -604,26 +604,187 @@ theorem abs_mainSum_le (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
         (Finset.sum_filter _ _).symm
     _ ≤ C₁ * Real.log R := hRankin
 
-/-! ## D4 — assembly of Lemma 5.3
+/-! ## D5 — the multi-index tail (Maynard's 5.31), discharging `htail`
 
-`lemma53` takes ONLY the numeric hypotheses `hk`, `hD` plus the standard
-`|y|≤1` / support / tuple hypotheses, and ONE precisely-scoped PORT-BLOCKER
-`htail`: the Maynard (5.31) multi-index tail sum bound. `htail` is a bound on a
-SPECIFIC finite sub-sum (the `∃ i≠m, aᵢ≠rᵢ` tail of the contraction), NOT on the
-conclusion `|yM − S|`; the two `O(logR/D₀)` pieces that attempt 1 hypothesised
-(the `|G−1|` step-C bound and the main-sum size) are here DISCHARGED via
-`gProd_bound` (`inv_sq_tele`) and `abs_mainSum_le` (`rankin_bound`). -/
+The per-coordinate reciprocal-`φ²` sums, the coordinate factorization, and the
+assembly into the `O(log R / D₀)` tail bound.  All constants are `R`-free. -/
 
-/-- **Lemma 5.3.** For `rₘ = 1`, `y^{(m)}_r` equals the single `m`-coordinate
-sum `∑_{aₘ<R} y_{r;m→aₘ}/φ(aₘ)` up to an `O(log R / D₀)` error. Everything is
-discharged from `stepB_identity` (exact algebra) + `gProd_bound` (Step C,
-`inv_sq_tele`) + `abs_mainSum_le` (`rankin_bound`), leaving only the tail as the
-`htail` port-blocker. -/
-theorem lemma53 (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
-    (hy1 : ∀ s, |y s| ≤ 1) (hysupp : ∀ s, s ∉ kSieveIndex k R (W k) → y s = 0)
+/-- The per-coordinate index set for the `j`-deviating tail: squarefree `x < R`
+with all prime factors `> D₀ k`, divisible by `r i`, and (only for the deviating
+coordinate `i = j`) constrained to `x ≠ r j`. -/
+noncomputable def tailCoordSet (k R : ℕ) (r : Fin k → ℕ) (j i : Fin k) : Finset ℕ :=
+  (Finset.range R).filter
+    (fun x => Squarefree x ∧ (∀ p ∈ x.primeFactors, D₀ k < p) ∧ r i ∣ x ∧ (i = j → x ≠ r j))
+
+/-- For a squarefree coordinate value `ρ` with all prime factors `≥ 3`,
+`g(ρ)·ρ/φ(ρ)² ∈ [0,1]` (it is `∏_{p∣ρ}(1 − (p−1)⁻²)`). -/
+private theorem gr_ratio_mem {ρ : ℕ} (hρ : Squarefree ρ)
+    (hodd : ∀ p ∈ ρ.primeFactors, 3 ≤ p) :
+    0 ≤ (gMult ρ : ℝ) * (ρ : ℝ) / (Nat.totient ρ : ℝ) ^ 2
+      ∧ (gMult ρ : ℝ) * (ρ : ℝ) / (Nat.totient ρ : ℝ) ^ 2 ≤ 1 := by
+  rw [g_factor_prod hρ hodd]
+  refine ⟨Finset.prod_nonneg (fun p hp => ?_),
+    Finset.prod_le_one (fun p hp => ?_) (fun p hp => ?_)⟩
+  · have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
+    have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := inv_nonneg.mpr (by linarith)
+    have h1 : ((p : ℝ) - 1)⁻¹ ≤ 1 := by rw [inv_le_one_iff₀]; right; linarith
+    nlinarith [h0, h1]
+  · have h3 : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hodd p hp
+    have h0 : (0 : ℝ) ≤ ((p : ℝ) - 1)⁻¹ := inv_nonneg.mpr (by linarith)
+    have h1 : ((p : ℝ) - 1)⁻¹ ≤ 1 := by rw [inv_le_one_iff₀]; right; linarith
+    nlinarith [h0, h1]
+  · nlinarith [sq_nonneg (((p : ℝ) - 1)⁻¹)]
+
+/-- **The deviating-coordinate tail (his 5.31, per coordinate).** Over squarefree
+`x < R` with all prime factors `> D₀ k`, divisible by `ρ` but `≠ ρ`, the
+reciprocal-`φ²` sum is `≤ (12k²/D₀ k)/φ(ρ)²`.  Reindex `x = ρ·c` (`c ≠ 1`,
+coprime to `ρ`), so `φ(x) = φ(ρ)·φ(c)`, and apply `phiSq_tail_bound`. -/
+private theorem phiSq_dvd_ne_bound (k R : ℕ) (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D₀ k)
+    (ρ : ℕ) (hρsq : Squarefree ρ) (_hρp : ∀ p ∈ ρ.primeFactors, D₀ k < p) :
+    ∑ x ∈ (Finset.range R).filter
+        (fun x => Squarefree x ∧ (∀ p ∈ x.primeFactors, D₀ k < p) ∧ ρ ∣ x ∧ x ≠ ρ),
+      1 / (Nat.totient x : ℝ) ^ 2
+      ≤ (1 / (Nat.totient ρ : ℝ) ^ 2) * (12 * (k : ℝ) ^ 2 / (D₀ k : ℝ)) := by
+  classical
+  set S := (Finset.range R).filter
+      (fun x => Squarefree x ∧ (∀ p ∈ x.primeFactors, D₀ k < p) ∧ ρ ∣ x ∧ x ≠ ρ) with hSdef
+  set T := ((Finset.range R).filter
+      (fun c => Squarefree c ∧ ∀ p ∈ c.primeFactors, D₀ k < p)).erase 1 with hTdef
+  have hρpos : 0 < ρ := Nat.pos_of_ne_zero hρsq.ne_zero
+  have hxmem : ∀ x ∈ S, ρ ∣ x ∧ Squarefree x ∧ x < R
+      ∧ (∀ p ∈ x.primeFactors, D₀ k < p) ∧ x ≠ ρ := by
+    intro x hx
+    rw [hSdef, Finset.mem_filter, Finset.mem_range] at hx
+    exact ⟨hx.2.2.2.1, hx.2.1, hx.1, hx.2.2.1, hx.2.2.2.2⟩
+  have hφfac : ∀ x ∈ S, (Nat.totient x : ℝ) = (Nat.totient ρ : ℝ) * (Nat.totient (x / ρ) : ℝ) := by
+    intro x hx
+    obtain ⟨hdvd, hxsq, _, _, _⟩ := hxmem x hx
+    have hxeq : ρ * (x / ρ) = x := Nat.mul_div_cancel' hdvd
+    have hcop : Nat.Coprime ρ (x / ρ) := by
+      have hx' : Squarefree (ρ * (x / ρ)) := by rw [hxeq]; exact hxsq
+      exact (Nat.squarefree_mul_iff.mp hx').1
+    have hh := Nat.totient_mul hcop
+    rw [hxeq] at hh
+    rw [hh]; push_cast; ring
+  have hinj : Set.InjOn (fun x => x / ρ) ↑S := by
+    intro x hx y hy hxy
+    rw [Finset.mem_coe] at hx hy
+    obtain ⟨hdx, _⟩ := hxmem x hx
+    obtain ⟨hdy, _⟩ := hxmem y hy
+    have e1 : ρ * (x / ρ) = x := Nat.mul_div_cancel' hdx
+    have e2 : ρ * (y / ρ) = y := Nat.mul_div_cancel' hdy
+    simp only at hxy
+    rw [← e1, ← e2, hxy]
+  have himg : S.image (fun x => x / ρ) ⊆ T := by
+    intro c hc
+    rw [Finset.mem_image] at hc
+    obtain ⟨x, hx, rfl⟩ := hc
+    obtain ⟨hdvd, hxsq, hxR, hxp, hxne⟩ := hxmem x hx
+    have hxeq : ρ * (x / ρ) = x := Nat.mul_div_cancel' hdvd
+    have hcdvd : (x / ρ) ∣ x := ⟨ρ, by rw [mul_comm]; exact hxeq.symm⟩
+    rw [hTdef, Finset.mem_erase, Finset.mem_filter, Finset.mem_range]
+    refine ⟨?_, lt_of_le_of_lt (Nat.div_le_self x ρ) hxR,
+      hxsq.squarefree_of_dvd hcdvd, ?_⟩
+    · intro h1
+      exact hxne (by rw [← hxeq, h1, mul_one])
+    · intro p hp
+      exact hxp p (Nat.primeFactors_mono hcdvd hxsq.ne_zero hp)
+  calc ∑ x ∈ S, 1 / (Nat.totient x : ℝ) ^ 2
+      = ∑ x ∈ S, (1 / (Nat.totient ρ : ℝ) ^ 2) * (1 / (Nat.totient (x / ρ) : ℝ) ^ 2) := by
+        refine Finset.sum_congr rfl (fun x hx => ?_)
+        rw [hφfac x hx, mul_pow]
+        simp only [one_div, mul_inv]
+    _ = (1 / (Nat.totient ρ : ℝ) ^ 2) * ∑ x ∈ S, 1 / (Nat.totient (x / ρ) : ℝ) ^ 2 := by
+        rw [Finset.mul_sum]
+    _ = (1 / (Nat.totient ρ : ℝ) ^ 2)
+          * ∑ c ∈ S.image (fun x => x / ρ), 1 / (Nat.totient c : ℝ) ^ 2 := by
+        rw [Finset.sum_image hinj]
+    _ ≤ (1 / (Nat.totient ρ : ℝ) ^ 2) * ∑ c ∈ T, 1 / (Nat.totient c : ℝ) ^ 2 := by
+        apply mul_le_mul_of_nonneg_left _ (by positivity)
+        exact Finset.sum_le_sum_of_subset_of_nonneg himg (fun c _ _ => by positivity)
+    _ = (1 / (Nat.totient ρ : ℝ) ^ 2) * ∑ c ∈ T, ((μ c : ℤ) : ℝ) ^ 2 / (Nat.totient c : ℝ) ^ 2 := by
+        congr 1
+        refine Finset.sum_congr rfl (fun c hc => ?_)
+        rw [hTdef, Finset.mem_erase, Finset.mem_filter] at hc
+        rw [moebius_sq_one hc.2.2.1]
+    _ ≤ (1 / (Nat.totient ρ : ℝ) ^ 2) * (12 * (k : ℝ) ^ 2 / (D₀ k : ℝ)) := by
+        apply mul_le_mul_of_nonneg_left _ (by positivity)
+        rw [hTdef]
+        exact phiSq_tail_bound k R hk hD
+
+/-- **The non-deviating-coordinate tail.** Without the `x ≠ ρ` constraint, the
+reciprocal-`φ²` sum is `≤ 2/φ(ρ)²` (the `x = ρ` term contributes `1/φ(ρ)²`, the
+`x ≠ ρ` tail `≤ (12k²/D₀)/φ(ρ)² ≤ 1/φ(ρ)²` by `hD`). -/
+private theorem phiSq_dvd_bound (k R : ℕ) (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D₀ k)
+    (ρ : ℕ) (hρsq : Squarefree ρ) (hρp : ∀ p ∈ ρ.primeFactors, D₀ k < p) (hρR : ρ < R) :
+    ∑ x ∈ (Finset.range R).filter
+        (fun x => Squarefree x ∧ (∀ p ∈ x.primeFactors, D₀ k < p) ∧ ρ ∣ x),
+      1 / (Nat.totient x : ℝ) ^ 2
+      ≤ (1 / (Nat.totient ρ : ℝ) ^ 2) * 2 := by
+  classical
+  set B := (Finset.range R).filter
+      (fun x => Squarefree x ∧ (∀ p ∈ x.primeFactors, D₀ k < p) ∧ ρ ∣ x) with hBdef
+  have hD0 : 0 < D₀ k := by
+    have hk2 : 1 ≤ k ^ 2 := Nat.one_le_pow 2 k (by omega); omega
+  have hρmem : ρ ∈ B := by
+    rw [hBdef, Finset.mem_filter, Finset.mem_range]
+    exact ⟨hρR, hρsq, hρp, dvd_refl ρ⟩
+  have hsplit : ∑ x ∈ B, 1 / (Nat.totient x : ℝ) ^ 2
+      = 1 / (Nat.totient ρ : ℝ) ^ 2 + ∑ x ∈ B.erase ρ, 1 / (Nat.totient x : ℝ) ^ 2 :=
+    (Finset.add_sum_erase B (fun x => 1 / (Nat.totient x : ℝ) ^ 2) hρmem).symm
+  have hBerase : B.erase ρ = (Finset.range R).filter
+      (fun x => Squarefree x ∧ (∀ p ∈ x.primeFactors, D₀ k < p) ∧ ρ ∣ x ∧ x ≠ ρ) := by
+    rw [hBdef]
+    ext x
+    simp only [Finset.mem_erase, Finset.mem_filter, Finset.mem_range]
+    tauto
+  have htail := phiSq_dvd_ne_bound k R hk hD ρ hρsq hρp
+  rw [← hBerase] at htail
+  have h12 : (12 * (k : ℝ) ^ 2 / (D₀ k : ℝ)) ≤ 1 := by
+    rw [div_le_one (by exact_mod_cast hD0)]; exact_mod_cast hD
+  have hnn : (0 : ℝ) ≤ 1 / (Nat.totient ρ : ℝ) ^ 2 := by positivity
+  rw [hsplit]
+  have hmul := mul_le_mul_of_nonneg_left h12 hnn
+  nlinarith [htail, hmul]
+
+/-- **The coordinate factorization (Step 3).** The divisor-guarded, `j`-deviating
+tail sum over the coupled index set factorizes across coordinates: it is
+dominated by the product of per-coordinate sums over `tailCoordSet`. -/
+private theorem tail_factor_le (k R : ℕ) (j : Fin k) (r : Fin k → ℕ)
+    (H : Fin k → ℕ → ℝ) (hH : ∀ i x, 0 ≤ H i x) :
+    ∑ a ∈ (kSieveIndex k R (W k)).filter (fun a => (∀ i, r i ∣ a i) ∧ a j ≠ r j),
+        ∏ i, H i (a i)
+      ≤ ∏ i, ∑ x ∈ tailCoordSet k R r j i, H i x := by
+  classical
+  rw [Finset.prod_univ_sum]
+  apply Finset.sum_le_sum_of_subset_of_nonneg
+  · intro a ha
+    rw [Finset.mem_filter] at ha
+    obtain ⟨haK, hguard, hdev⟩ := ha
+    have hK := (mem_kSieveIndex_iff a).mp haK
+    rw [Fintype.mem_piFinset]
+    intro i
+    simp only [tailCoordSet, Finset.mem_filter, Finset.mem_range]
+    refine ⟨kSieveIndex_coord_lt haK i, hK.1 i, ?_, hguard i, ?_⟩
+    · intro p hp
+      exact D₀_lt_of_prime_dvd_coord haK (Nat.prime_of_mem_primeFactors hp)
+        (Nat.dvd_of_mem_primeFactors hp)
+    · intro hij; subst hij; exact hdev
+  · intro a _ _
+    exact Finset.prod_nonneg (fun i _ => hH i (a i))
+
+/-- **Maynard's (5.31) multi-index tail bound.** The `∃ i ≠ m, aᵢ ≠ rᵢ` part of
+the contraction is `O(log R / D₀)` with an `R`-free constant `Ctail`.  Signs are
+stripped (`|y|,|μ| ≤ 1`), the sdiff is covered by the union over which coordinate
+deviates, each `j`-term factorizes across coordinates (`tail_factor_le`), the
+`m`-coordinate gives a `log R` (Rankin), the deviating coordinate `j` gives the
+`12k²/D₀` decay (`phiSq_dvd_ne_bound`), the rest are `≤ 2` (`phiSq_dvd_bound`),
+and `g(rᵢ)rᵢ/φ(rᵢ)² ≤ 1` (`gr_ratio_mem`) collapses the prefactor. -/
+theorem htail_bound (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
+    (hy1 : ∀ s, |y s| ≤ 1) (_hysupp : ∀ s, s ∉ kSieveIndex k R (W k) → y s = 0)
     (r : Fin k → ℕ) (hrm : r m = 1) (hR : 2 ≤ R) (hrsupp : r ∈ kSieveIndex k R (W k))
-    (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D₀ k)
-    (htail : ∃ Ctail : ℝ, 0 ≤ Ctail ∧
+    (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D₀ k) :
+    ∃ Ctail : ℝ, 0 ≤ Ctail ∧
       |(∏ i, ((μ (r i) : ℤ) : ℝ) * (gMult (r i) : ℝ))
           * (∑ a ∈ ((kSieveIndex k R (W k)).filter (fun a => ∀ i, r i ∣ a i)) \
                 ((kSieveIndex k R (W k)).filter
@@ -631,14 +792,320 @@ theorem lemma53 (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
               (y a / ∏ i, (Nat.totient (a i) : ℝ))
                 * ∏ i ∈ Finset.univ.erase m,
                     (((μ (a i) : ℤ) : ℝ) * ((r i : ℝ) / (Nat.totient (a i) : ℝ))))|
-        ≤ Ctail * Real.log R / (D₀ k : ℝ)) :
+        ≤ Ctail * Real.log R / (D₀ k : ℝ) := by
+  classical
+  obtain ⟨hsq, hcop, hcopW, hprodR⟩ := (mem_kSieveIndex_iff r).mp hrsupp
+  obtain ⟨C₁, hC₁1, hC₁⟩ := rankin_bound 1
+  have hk2 : 1 ≤ k ^ 2 := Nat.one_le_pow 2 k (by omega)
+  have hD12 : 12 ≤ D₀ k := by omega
+  have hD0 : 0 < D₀ k := by omega
+  have hD0R : (0 : ℝ) < (D₀ k : ℝ) := by exact_mod_cast hD0
+  have hD0ne : (D₀ k : ℝ) ≠ 0 := hD0R.ne'
+  have hR1 : (1 : ℝ) ≤ (R : ℝ) := by exact_mod_cast (by omega : 1 ≤ R)
+  have hlogR : 0 ≤ Real.log R := Real.log_nonneg hR1
+  have hC₁0 : (0 : ℝ) ≤ C₁ := by linarith
+  have hodd : ∀ i, ∀ p ∈ (r i).primeFactors, 3 ≤ p := by
+    intro i p hp
+    have := D₀_lt_of_prime_dvd_coord hrsupp (Nat.prime_of_mem_primeFactors hp)
+      (Nat.dvd_of_mem_primeFactors hp)
+    omega
+  have hrp : ∀ i, ∀ p ∈ (r i).primeFactors, D₀ k < p := fun i p hp =>
+    D₀_lt_of_prime_dvd_coord hrsupp (Nat.prime_of_mem_primeFactors hp)
+      (Nat.dvd_of_mem_primeFactors hp)
+  have hRankin : ∑ q ∈ (Finset.range R).filter Squarefree, 1 / (Nat.totient q : ℝ)
+      ≤ C₁ * Real.log R := by
+    have h := hC₁ R hR; simpa using h
+  set H : Fin k → ℕ → ℝ := fun i x =>
+    if i = m then 1 / (Nat.totient x : ℝ) else (r i : ℝ) / (Nat.totient x : ℝ) ^ 2 with hHdef
+  have hHnn : ∀ i x, 0 ≤ H i x := by
+    intro i x; simp only [hHdef]; split_ifs <;> positivity
+  set P : ℝ := ∏ i, ((μ (r i) : ℤ) : ℝ) * (gMult (r i) : ℝ) with hPdef
+  set INNER : (Fin k → ℕ) → ℝ := fun a =>
+    (y a / ∏ i, (Nat.totient (a i) : ℝ))
+      * ∏ i ∈ Finset.univ.erase m,
+          (((μ (a i) : ℤ) : ℝ) * ((r i : ℝ) / (Nat.totient (a i) : ℝ))) with hINNERdef
+  set FG := (kSieveIndex k R (W k)).filter (fun a => ∀ i, r i ∣ a i) with hFGdef
+  set Df := (kSieveIndex k R (W k)).filter
+      (fun a => (∀ i, r i ∣ a i) ∧ ∀ i, i ≠ m → a i = r i) with hDfdef
+  -- per-`a` pointwise bound `|INNER a| ≤ ∏ᵢ Hᵢ(aᵢ)`
+  have hbound : ∀ a ∈ kSieveIndex k R (W k), |INNER a| ≤ ∏ i, H i (a i) := by
+    intro a haK
+    have hφa : ∀ i, (0 : ℝ) < (Nat.totient (a i) : ℝ) := fun i => by
+      exact_mod_cast Nat.totient_pos.mpr (kSieveIndex_coord_pos haK i)
+    have hΦsplit : (∏ i, (Nat.totient (a i) : ℝ))
+        = (Nat.totient (a m) : ℝ) * ∏ i ∈ Finset.univ.erase m, (Nat.totient (a i) : ℝ) :=
+      (Finset.mul_prod_erase Finset.univ (fun i => (Nat.totient (a i) : ℝ))
+        (Finset.mem_univ m)).symm
+    have hprodH : (∏ i, H i (a i))
+        = (1 / (Nat.totient (a m) : ℝ))
+          * ∏ i ∈ Finset.univ.erase m, ((r i : ℝ) / (Nat.totient (a i) : ℝ) ^ 2) := by
+      rw [← Finset.mul_prod_erase Finset.univ (fun i => H i (a i)) (Finset.mem_univ m)]
+      congr 1
+      · simp only [hHdef]; rw [if_true]
+      · exact Finset.prod_congr rfl (fun i hi => by
+          simp only [hHdef]; rw [if_neg (Finset.ne_of_mem_erase hi)])
+    rw [hprodH]
+    simp only [hINNERdef]
+    rw [abs_mul, abs_div, abs_of_nonneg (Finset.prod_nonneg (fun i _ => (hφa i).le)),
+      Finset.abs_prod]
+    have hstep2 : ∀ i ∈ Finset.univ.erase m,
+        |((μ (a i) : ℤ) : ℝ) * ((r i : ℝ) / (Nat.totient (a i) : ℝ))|
+          ≤ (r i : ℝ) / (Nat.totient (a i) : ℝ) := by
+      intro i _
+      rw [abs_mul, abs_of_nonneg (by positivity : (0 : ℝ) ≤ (r i : ℝ) / (Nat.totient (a i) : ℝ))]
+      have h1 := abs_moebius_real_le_one (a i)
+      have h2 : (0 : ℝ) ≤ (r i : ℝ) / (Nat.totient (a i) : ℝ) := by positivity
+      nlinarith [mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - |((μ (a i) : ℤ) : ℝ)|) h2]
+    calc |y a| / (∏ i, (Nat.totient (a i) : ℝ))
+            * ∏ i ∈ Finset.univ.erase m,
+                |((μ (a i) : ℤ) : ℝ) * ((r i : ℝ) / (Nat.totient (a i) : ℝ))|
+        ≤ 1 / (∏ i, (Nat.totient (a i) : ℝ))
+            * ∏ i ∈ Finset.univ.erase m, ((r i : ℝ) / (Nat.totient (a i) : ℝ)) := by
+          apply mul_le_mul
+          · rw [div_eq_mul_inv, div_eq_mul_inv, one_mul]
+            calc |y a| * (∏ i, (Nat.totient (a i) : ℝ))⁻¹
+                ≤ 1 * (∏ i, (Nat.totient (a i) : ℝ))⁻¹ :=
+                  mul_le_mul_of_nonneg_right (hy1 a) (by positivity)
+              _ = (∏ i, (Nat.totient (a i) : ℝ))⁻¹ := one_mul _
+          · exact Finset.prod_le_prod (fun i _ => abs_nonneg _) hstep2
+          · exact Finset.prod_nonneg (fun i _ => abs_nonneg _)
+          · positivity
+      _ = (1 / (Nat.totient (a m) : ℝ))
+            * ∏ i ∈ Finset.univ.erase m, ((r i : ℝ) / (Nat.totient (a i) : ℝ) ^ 2) := by
+          rw [hΦsplit, Finset.prod_div_distrib, Finset.prod_div_distrib, Finset.prod_pow]
+          have hPFne : (∏ i ∈ Finset.univ.erase m, (Nat.totient (a i) : ℝ)) ≠ 0 :=
+            (Finset.prod_pos (fun i _ => hφa i)).ne'
+          have hφamne : (Nat.totient (a m) : ℝ) ≠ 0 := (hφa m).ne'
+          field_simp
+  -- per-`j` product bound (all `R`-free except the single `log R`)
+  have hjbound : ∀ j ∈ Finset.univ.erase m,
+      |P| * ∑ a ∈ (kSieveIndex k R (W k)).filter (fun a => (∀ i, r i ∣ a i) ∧ a j ≠ r j),
+              ∏ i, H i (a i)
+        ≤ C₁ * Real.log R * (12 * (k : ℝ) ^ 2 / (D₀ k : ℝ)) * 2 ^ k := by
+    intro j hj
+    have hjm : j ≠ m := Finset.ne_of_mem_erase hj
+    have hfact := tail_factor_le k R j r H hHnn
+    set U : Fin k → ℝ := fun i =>
+      (r i : ℝ) * (if i = j then (1 / (Nat.totient (r i) : ℝ) ^ 2) * (12 * (k : ℝ) ^ 2 / (D₀ k : ℝ))
+        else (1 / (Nat.totient (r i) : ℝ) ^ 2) * 2) with hUdef
+    -- factor bound per coordinate `i ≠ m`
+    have hUbound : ∀ i ∈ Finset.univ.erase m, (∑ x ∈ tailCoordSet k R r j i, H i x) ≤ U i := by
+      intro i hi
+      have him : i ≠ m := Finset.ne_of_mem_erase hi
+      have hHi : ∀ x, H i x = (r i : ℝ) / (Nat.totient x : ℝ) ^ 2 := by
+        intro x; simp only [hHdef]; rw [if_neg him]
+      rw [Finset.sum_congr rfl (fun x _ => hHi x)]
+      rw [show (∑ x ∈ tailCoordSet k R r j i, (r i : ℝ) / (Nat.totient x : ℝ) ^ 2)
+            = (r i : ℝ) * ∑ x ∈ tailCoordSet k R r j i, 1 / (Nat.totient x : ℝ) ^ 2 from by
+          rw [Finset.mul_sum]; exact Finset.sum_congr rfl (fun x _ => by rw [mul_one_div])]
+      simp only [hUdef]
+      apply mul_le_mul_of_nonneg_left _ (by positivity)
+      by_cases hij : i = j
+      · rw [if_pos hij]
+        have hset : tailCoordSet k R r j i = (Finset.range R).filter
+            (fun x => Squarefree x ∧ (∀ p ∈ x.primeFactors, D₀ k < p) ∧ r i ∣ x ∧ x ≠ r i) := by
+          simp only [tailCoordSet]; apply Finset.filter_congr; intro x _; simp [hij]
+        rw [hset]
+        exact phiSq_dvd_ne_bound k R hk hD (r i) (hsq i) (hrp i)
+      · rw [if_neg hij]
+        have hset : tailCoordSet k R r j i = (Finset.range R).filter
+            (fun x => Squarefree x ∧ (∀ p ∈ x.primeFactors, D₀ k < p) ∧ r i ∣ x) := by
+          simp only [tailCoordSet]; apply Finset.filter_congr; intro x _; simp [hij]
+        rw [hset]
+        exact phiSq_dvd_bound k R hk hD (r i) (hsq i) (hrp i) (kSieveIndex_coord_lt hrsupp i)
+    -- the `m`-coordinate factor `≤ C₁ log R`
+    have hmfac : (∑ x ∈ tailCoordSet k R r j m, H m x) ≤ C₁ * Real.log R := by
+      have hHm : ∀ x, H m x = 1 / (Nat.totient x : ℝ) := by
+        intro x; simp only [hHdef]; rw [if_true]
+      rw [Finset.sum_congr rfl (fun x _ => hHm x)]
+      refine le_trans
+        (Finset.sum_le_sum_of_subset_of_nonneg ?_ (fun x _ _ => by positivity)) hRankin
+      intro x hx
+      simp only [tailCoordSet, Finset.mem_filter, Finset.mem_range] at hx
+      simp only [Finset.mem_filter, Finset.mem_range]
+      exact ⟨hx.1, hx.2.1⟩
+    -- `|P| ≤ ∏_{i≠m} g(rᵢ)`
+    have hPabs : |P| ≤ ∏ i ∈ Finset.univ.erase m, (gMult (r i) : ℝ) := by
+      rw [hPdef]
+      calc |∏ i, ((μ (r i) : ℤ) : ℝ) * (gMult (r i) : ℝ)|
+          = ∏ i, |((μ (r i) : ℤ) : ℝ) * (gMult (r i) : ℝ)| := Finset.abs_prod _ _
+        _ ≤ ∏ i, (gMult (r i) : ℝ) := by
+            refine Finset.prod_le_prod (fun i _ => abs_nonneg _) (fun i _ => ?_)
+            rw [abs_mul, abs_of_nonneg (by positivity : (0 : ℝ) ≤ (gMult (r i) : ℝ))]
+            calc |((μ (r i) : ℤ) : ℝ)| * (gMult (r i) : ℝ)
+                ≤ 1 * (gMult (r i) : ℝ) := by
+                  apply mul_le_mul_of_nonneg_right (abs_moebius_real_le_one _) (by positivity)
+              _ = (gMult (r i) : ℝ) := one_mul _
+        _ = ∏ i ∈ Finset.univ.erase m, (gMult (r i) : ℝ) := by
+            rw [← Finset.mul_prod_erase Finset.univ (fun i => (gMult (r i) : ℝ))
+              (Finset.mem_univ m), hrm]
+            simp [gMult, Nat.primeFactors_one]
+    -- combine per-coordinate factors
+    have hprodU : (∏ i, ∑ x ∈ tailCoordSet k R r j i, H i x)
+        ≤ (∑ x ∈ tailCoordSet k R r j m, H m x) * ∏ i ∈ Finset.univ.erase m, U i := by
+      rw [← Finset.mul_prod_erase Finset.univ (fun i => ∑ x ∈ tailCoordSet k R r j i, H i x)
+        (Finset.mem_univ m)]
+      apply mul_le_mul_of_nonneg_left _ (Finset.sum_nonneg (fun x _ => hHnn m x))
+      exact Finset.prod_le_prod (fun i _ => Finset.sum_nonneg (fun x _ => hHnn i x)) hUbound
+    -- `(g·U) j ≤ 12k²/D₀`
+    have hjfac : (gMult (r j) : ℝ) * U j ≤ 12 * (k : ℝ) ^ 2 / (D₀ k : ℝ) := by
+      simp only [hUdef]; rw [if_true]
+      rw [show (gMult (r j) : ℝ) * ((r j : ℝ)
+              * ((1 / (Nat.totient (r j) : ℝ) ^ 2) * (12 * (k : ℝ) ^ 2 / (D₀ k : ℝ))))
+            = ((gMult (r j) : ℝ) * (r j : ℝ) / (Nat.totient (r j) : ℝ) ^ 2)
+              * (12 * (k : ℝ) ^ 2 / (D₀ k : ℝ)) from by ring]
+      calc ((gMult (r j) : ℝ) * (r j : ℝ) / (Nat.totient (r j) : ℝ) ^ 2)
+              * (12 * (k : ℝ) ^ 2 / (D₀ k : ℝ))
+          ≤ 1 * (12 * (k : ℝ) ^ 2 / (D₀ k : ℝ)) :=
+            mul_le_mul_of_nonneg_right (gr_ratio_mem (hsq j) (hodd j)).2 (by positivity)
+        _ = 12 * (k : ℝ) ^ 2 / (D₀ k : ℝ) := one_mul _
+    -- the rest of the coordinates `≤ 2^k`
+    have hrestfac : ∏ i ∈ (Finset.univ.erase m).erase j, ((gMult (r i) : ℝ) * U i) ≤ 2 ^ k := by
+      have hcard : ((Finset.univ.erase m).erase j).card ≤ k := by
+        calc ((Finset.univ.erase m).erase j).card
+            ≤ (Finset.univ : Finset (Fin k)).card :=
+              Finset.card_le_card ((Finset.erase_subset _ _).trans (Finset.erase_subset _ _))
+          _ = k := by rw [Finset.card_univ, Fintype.card_fin]
+      calc ∏ i ∈ (Finset.univ.erase m).erase j, ((gMult (r i) : ℝ) * U i)
+          ≤ ∏ _i ∈ (Finset.univ.erase m).erase j, (2 : ℝ) := by
+            refine Finset.prod_le_prod (fun i hi => ?_) (fun i hi => ?_)
+            · have hijne : i ≠ j := Finset.ne_of_mem_erase hi
+              simp only [hUdef]; rw [if_neg hijne]; positivity
+            · have hijne : i ≠ j := Finset.ne_of_mem_erase hi
+              simp only [hUdef]; rw [if_neg hijne]
+              rw [show (gMult (r i) : ℝ) * ((r i : ℝ) * ((1 / (Nat.totient (r i) : ℝ) ^ 2) * 2))
+                    = ((gMult (r i) : ℝ) * (r i : ℝ) / (Nat.totient (r i) : ℝ) ^ 2) * 2 from by
+                    ring]
+              nlinarith [(gr_ratio_mem (hsq i) (hodd i)).1, (gr_ratio_mem (hsq i) (hodd i)).2]
+        _ = (2 : ℝ) ^ ((Finset.univ.erase m).erase j).card := by rw [Finset.prod_const]
+        _ ≤ (2 : ℝ) ^ k := pow_le_pow_right₀ (by norm_num) hcard
+    have hrestnn : (0 : ℝ) ≤ ∏ i ∈ (Finset.univ.erase m).erase j, ((gMult (r i) : ℝ) * U i) := by
+      refine Finset.prod_nonneg (fun i hi => ?_)
+      have hijne : i ≠ j := Finset.ne_of_mem_erase hi
+      simp only [hUdef]; rw [if_neg hijne]; positivity
+    -- assemble
+    calc |P| * ∑ a ∈ (kSieveIndex k R (W k)).filter (fun a => (∀ i, r i ∣ a i) ∧ a j ≠ r j),
+              ∏ i, H i (a i)
+        ≤ |P| * ∏ i, ∑ x ∈ tailCoordSet k R r j i, H i x :=
+          mul_le_mul_of_nonneg_left hfact (abs_nonneg _)
+      _ ≤ |P| * ((∑ x ∈ tailCoordSet k R r j m, H m x) * ∏ i ∈ Finset.univ.erase m, U i) :=
+          mul_le_mul_of_nonneg_left hprodU (abs_nonneg _)
+      _ = (∑ x ∈ tailCoordSet k R r j m, H m x) * (|P| * ∏ i ∈ Finset.univ.erase m, U i) := by ring
+      _ ≤ (C₁ * Real.log R) * ((12 * (k : ℝ) ^ 2 / (D₀ k : ℝ)) * 2 ^ k) := by
+          refine mul_le_mul hmfac ?_ ?_ (mul_nonneg hC₁0 hlogR)
+          · calc |P| * ∏ i ∈ Finset.univ.erase m, U i
+                ≤ (∏ i ∈ Finset.univ.erase m, (gMult (r i) : ℝ))
+                    * ∏ i ∈ Finset.univ.erase m, U i := by
+                  refine mul_le_mul_of_nonneg_right hPabs (Finset.prod_nonneg (fun i _ => ?_))
+                  simp only [hUdef]; split_ifs <;> positivity
+              _ = ∏ i ∈ Finset.univ.erase m, ((gMult (r i) : ℝ) * U i) :=
+                  (Finset.prod_mul_distrib).symm
+              _ = ((gMult (r j) : ℝ) * U j)
+                    * ∏ i ∈ (Finset.univ.erase m).erase j, ((gMult (r i) : ℝ) * U i) :=
+                  (Finset.mul_prod_erase (Finset.univ.erase m)
+                    (fun i => (gMult (r i) : ℝ) * U i) hj).symm
+              _ ≤ (12 * (k : ℝ) ^ 2 / (D₀ k : ℝ)) * 2 ^ k :=
+                  mul_le_mul hjfac hrestfac hrestnn (by positivity)
+          · exact mul_nonneg (abs_nonneg _)
+              (Finset.prod_nonneg (fun i _ => by simp only [hUdef]; split_ifs <;> positivity))
+      _ = C₁ * Real.log R * (12 * (k : ℝ) ^ 2 / (D₀ k : ℝ)) * 2 ^ k := by ring
+  -- main bound
+  refine ⟨12 * (k : ℝ) ^ 3 * 2 ^ k * C₁, mul_nonneg (by positivity) hC₁0, ?_⟩
+  rw [abs_mul]
+  calc |P| * |∑ a ∈ FG \ Df, INNER a|
+      ≤ |P| * ∑ a ∈ FG \ Df, |INNER a| :=
+        mul_le_mul_of_nonneg_left (Finset.abs_sum_le_sum_abs _ _) (abs_nonneg _)
+    _ ≤ |P| * ∑ a ∈ FG \ Df, ∏ i, H i (a i) := by
+        refine mul_le_mul_of_nonneg_left (Finset.sum_le_sum (fun a ha => ?_)) (abs_nonneg _)
+        rw [Finset.mem_sdiff, hFGdef, Finset.mem_filter] at ha
+        exact hbound a ha.1.1
+    _ ≤ |P| * ∑ j ∈ Finset.univ.erase m,
+          ∑ a ∈ (kSieveIndex k R (W k)).filter (fun a => (∀ i, r i ∣ a i) ∧ a j ≠ r j),
+            ∏ i, H i (a i) := by
+        refine mul_le_mul_of_nonneg_left ?_ (abs_nonneg _)
+        have hunion : ∀ a ∈ FG \ Df, (∏ i, H i (a i))
+            ≤ ∑ j ∈ Finset.univ.erase m, (if a j ≠ r j then ∏ i, H i (a i) else 0) := by
+          intro a ha
+          rw [Finset.mem_sdiff] at ha
+          obtain ⟨haFG, haDf⟩ := ha
+          rw [hFGdef, Finset.mem_filter] at haFG
+          obtain ⟨j, hjmem, hjne⟩ : ∃ j ∈ Finset.univ.erase m, a j ≠ r j := by
+            by_contra hcon
+            apply haDf
+            rw [hDfdef, Finset.mem_filter]
+            refine ⟨haFG.1, haFG.2, fun i hi => ?_⟩
+            by_contra hne
+            exact hcon ⟨i, Finset.mem_erase.mpr ⟨hi, Finset.mem_univ i⟩, hne⟩
+          calc (∏ i, H i (a i)) = if a j ≠ r j then ∏ i, H i (a i) else 0 := by rw [if_pos hjne]
+            _ ≤ ∑ j ∈ Finset.univ.erase m, (if a j ≠ r j then ∏ i, H i (a i) else 0) := by
+                refine Finset.single_le_sum
+                  (f := fun j => if a j ≠ r j then ∏ i, H i (a i) else 0) (fun j _ => ?_) hjmem
+                split_ifs
+                · exact Finset.prod_nonneg (fun i _ => hHnn i (a i))
+                · exact le_refl 0
+        calc ∑ a ∈ FG \ Df, ∏ i, H i (a i)
+            ≤ ∑ a ∈ FG \ Df, ∑ j ∈ Finset.univ.erase m,
+                (if a j ≠ r j then ∏ i, H i (a i) else 0) := Finset.sum_le_sum hunion
+          _ = ∑ j ∈ Finset.univ.erase m, ∑ a ∈ FG \ Df,
+                (if a j ≠ r j then ∏ i, H i (a i) else 0) := Finset.sum_comm
+          _ ≤ ∑ j ∈ Finset.univ.erase m,
+                ∑ a ∈ (kSieveIndex k R (W k)).filter (fun a => (∀ i, r i ∣ a i) ∧ a j ≠ r j),
+                  ∏ i, H i (a i) := by
+              refine Finset.sum_le_sum (fun j _ => ?_)
+              rw [← Finset.sum_filter]
+              refine Finset.sum_le_sum_of_subset_of_nonneg ?_
+                (fun a _ _ => Finset.prod_nonneg (fun i _ => hHnn i (a i)))
+              intro a ha
+              rw [Finset.mem_filter, Finset.mem_sdiff, hFGdef, Finset.mem_filter] at ha
+              rw [Finset.mem_filter]
+              exact ⟨ha.1.1.1, ha.1.1.2, ha.2⟩
+    _ = ∑ j ∈ Finset.univ.erase m,
+          |P| * ∑ a ∈ (kSieveIndex k R (W k)).filter (fun a => (∀ i, r i ∣ a i) ∧ a j ≠ r j),
+            ∏ i, H i (a i) := Finset.mul_sum _ _ _
+    _ ≤ ∑ _j ∈ Finset.univ.erase m, C₁ * Real.log R * (12 * (k : ℝ) ^ 2 / (D₀ k : ℝ)) * 2 ^ k :=
+        Finset.sum_le_sum hjbound
+    _ = ((Finset.univ.erase m).card : ℝ)
+          * (C₁ * Real.log R * (12 * (k : ℝ) ^ 2 / (D₀ k : ℝ)) * 2 ^ k) := by
+        rw [Finset.sum_const, nsmul_eq_mul]
+    _ ≤ 12 * (k : ℝ) ^ 3 * 2 ^ k * C₁ * Real.log R / (D₀ k : ℝ) := by
+        have hcardle : ((Finset.univ.erase m).card : ℝ) ≤ (k : ℝ) := by
+          have : (Finset.univ.erase m).card ≤ k := by
+            calc (Finset.univ.erase m).card ≤ (Finset.univ : Finset (Fin k)).card :=
+                  Finset.card_le_card (Finset.erase_subset _ _)
+              _ = k := by rw [Finset.card_univ, Fintype.card_fin]
+          exact_mod_cast this
+        have hXnn : (0 : ℝ) ≤ C₁ * Real.log R * (12 * (k : ℝ) ^ 2 / (D₀ k : ℝ)) * 2 ^ k :=
+          mul_nonneg (mul_nonneg (mul_nonneg hC₁0 hlogR) (by positivity)) (by positivity)
+        have heq : (k : ℝ) * (C₁ * Real.log R * (12 * (k : ℝ) ^ 2 / (D₀ k : ℝ)) * 2 ^ k)
+            = 12 * (k : ℝ) ^ 3 * 2 ^ k * C₁ * Real.log R / (D₀ k : ℝ) := by
+          field_simp
+        exact le_trans (mul_le_mul_of_nonneg_right hcardle hXnn) (le_of_eq heq)
+
+/-! ## D4 — assembly of Lemma 5.3 (UNCONDITIONAL)
+
+`lemma53` now takes ONLY the numeric hypotheses `hk`, `hD` plus the standard
+`|y|≤1` / support / tuple hypotheses. All three `O(logR/D₀)` pieces are
+DISCHARGED in-repo: the `|G−1|` step-C bound via `gProd_bound` (`inv_sq_tele`),
+the main-sum size via `abs_mainSum_le` (`rankin_bound`), and the Maynard (5.31)
+multi-index tail (the `∃ i≠m, aᵢ≠rᵢ` sub-sum) via `htail_bound`
+(`phiSq_tail_bound` + Rankin + the coordinate factorization `tail_factor_le`). -/
+
+/-- **Lemma 5.3 (unconditional).** For `rₘ = 1`, `y^{(m)}_r` equals the single
+`m`-coordinate sum `∑_{aₘ<R} y_{r;m→aₘ}/φ(aₘ)` up to an `O(log R / D₀)` error.
+Everything is discharged from `stepB_identity` (exact algebra) + `gProd_bound`
+(Step C, `inv_sq_tele`) + `abs_mainSum_le` (`rankin_bound`) + `htail_bound`
+(Maynard 5.31 multi-index tail). The error constant is `R`-free. -/
+theorem lemma53 (k R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
+    (hy1 : ∀ s, |y s| ≤ 1) (hysupp : ∀ s, s ∉ kSieveIndex k R (W k) → y s = 0)
+    (r : Fin k → ℕ) (hrm : r m = 1) (hR : 2 ≤ R) (hrsupp : r ∈ kSieveIndex k R (W k))
+    (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D₀ k) :
     ∃ C : ℝ, 0 ≤ C ∧
       |yM k R (W k) m y r
           - ∑ am ∈ Finset.range R, y (Function.update r m am) / (Nat.totient am : ℝ)|
         ≤ C * Real.log R / (D₀ k : ℝ) := by
   classical
   obtain ⟨C₁, hC₁1, hSb⟩ := abs_mainSum_le k R m y hy1 hysupp r hR
-  obtain ⟨Ctail, hCtail0, hTb⟩ := htail
+  obtain ⟨Ctail, hCtail0, hTb⟩ := htail_bound k R m y hy1 hysupp r hrm hR hrsupp hk hD
   have hsub : (kSieveIndex k R (W k)).filter
         (fun a => (∀ i, r i ∣ a i) ∧ ∀ i, i ≠ m → a i = r i)
       ⊆ (kSieveIndex k R (W k)).filter (fun a => ∀ i, r i ∣ a i) := by
