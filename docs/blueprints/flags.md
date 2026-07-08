@@ -1151,3 +1151,33 @@ REMAINING to BoundedGapsFromEH (all now resting on CORRECT foundations):
   (e) N7.2/N7.3/N7.4: pigeonhole → BoundedGapsFromEH (B, mechanical).
 Recommended: obtain Maynard Lemma 5.3's exact form (paper) OR a dedicated
 Fable pass to re-derive the y^(m) contraction rigorously, before (a).
+
+## 2026-07-08 Lemma 5.3 PARTIAL: collapse identity landed, analytic tail blocked
+Working from Maynard 1311.4600 (user supplied the exact lemmas). The
+sigmaMu-based COLLAPSE IDENTITY (his 5.28-5.30) landed clean in
+Salt/Maynard/Lemma53.lean:
+  yM  (= Maynard's y^(m) = ∏μ(rᵢ)g(rᵢ)·lamPhiContractM)
+  sigmaMuKpin  (the m-pinned per-coord sigmaMu tensor, his 5.30)
+  lamPhiContractM_collapse : for rₘ=1,
+    lamPhiContractM r = Σ_{a∈𝒟,rᵢ|aᵢ}(y_a/∏φ(aᵢ))·∏_{i≠m}(μ(aᵢ)rᵢ/φ(aᵢ))
+This is the arithmetic HEART of Lemma 5.3 -- genuinely uses sigmaMu
+(S2DiagLam) for the inner d-sum eval. Axiom-clean, no lamG.
+
+BLOCKED (honest PORT-BLOCKER -- agent refused to ship sorry): the full
+lemma53 analytic error O(logR/D₀). Three sub-bounds remain (Maynard
+5.31-5.32 + final):
+  (i)  tail: restrict aⱼ=rⱼ (j≠m); aⱼ≠rⱼ ⟹ aⱼ≥D₀rⱼ, bounded by the
+       convergent Σ_{a>D₀t,t|a}μ²(a)/φ(a)² ≤ c/(φ(t)²D₀) crossed with
+       rankin_bound 1 (Σ_{aₘ<R}μ²/φ ≤ C logR). ⟹ ≪ ymax φW logR/(WD₀).
+  (ii) main-term aⱼ=rⱼ reindexing (piFinset ↔ aₘ-free × aⱼ-fixed).
+  (iii) g(p)p/φ(p)²=1−1/(p−1)²=1+O(p⁻²), product over p>D₀ = 1+O(1/D₀).
+These are convergent-Euler-tail estimates (euler_tail/rankin family), a
+well-defined analytic C-node -- the KEY VALUE (the collapse identity) is
+banked. Next: complete lemma53's error via a focused tail-estimate node.
+
+IMPORTANT confirmation from the paper: my s2_diag_lam_restricted IS
+Maynard Lemma 5.2 (his y^(m) = ∏μg·lamPhiContractM, and Σ(y^(m))²/∏g =
+Σ∏g·lamPhiContractM² since μ²=1). Compounding avoided by (iii)'s
+convergent product, NOT a pointwise domination -- the earlier design-fork
+worry is fully resolved. Path to BoundedGapsFromEH now directed by the
+paper (Lemmas 5.2✓, 5.3-core✓, 6.1 next for the smooth-choice eval).
