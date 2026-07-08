@@ -1038,3 +1038,41 @@ These feed N4.3 (S1 trivial error now genuinely o(N): Σ|λ| ≤ λ_max·card�
 ≤ (1+logR)^{k+1}·R(1+logR)^k = R·polylog, squared = R²·polylog =
 N^{2/5}·polylog = o(N)). Next: N4.3 proper.
 Cost: ~308k subagent tokens.
+
+## 2026-07-08 N4.3 (S1 upper bound) Opus done -- with one threaded hypothesis
+The first full assembly node. New file Salt/Maynard/S1Bound.lean (370
+lines), 5 theorems + S1/weightSq/windowSet defs, all axiom-clean, driver
+build/sweep/audit confirmed. PASS.
+
+  S1_upper : ∃C≥0, S1 ≤ 2((K₀-1)N/W')·yside + C·R²·(1+logR)^(4k+2)
+
+The square expansion (weightSq = (Σλ)²) is GENUINE (Finset.sum_mul_sum +
+sum_comm), inner count = congCountTuple (N4.1) exactly; compat/collision
+split via congCountTuple_approx/_collision (all coprimality side-conditions
+discharged inline); main via compat_le_two_yside (the factor 2); trivial
+error via the two sharp prereqs (lam_abs_le_sharp × kSieveIndex_card_le)
+-- genuinely o(N) at R=N^{1/5} (N^{2/5} polylog).
+
+Agent correctly caught an arithmetic slip in the driver's brief: the
+error exponent is 4k+2 (squaring the sum Σ|λ| ≤ R(1+logR)^{2k+1} doubles
+the exponent), not 2k+2. Proved the correct 4k+2 (tighter-in-intent,
+still o(N)) rather than force the brief's number -- iron rule 1 respected.
+
+ONE THREADED HYPOTHESIS (honest PORT-BLOCKER, as the brief authorized):
+hsol -- per compatible (d,e), the CRT solvability
+  ∃c, c%Wk=ν₀%Wk ∧ ∀i lcm(dᵢ,eᵢ)∣(c+hSeq k i).
+Genuinely needed (the two-sided count approx from congCountTuple_approx
+is required for an UPPER bound since λλ is sign-indefinite). It is TRUE
+(the k+1 moduli are pairwise coprime -- proved inline), but its Lean
+construction over the Fin-k product of moduli (building c via iterated
+CRT + lifting the -hSeq residues) is deferred. Threaded through
+S1_le_main_add_error / S1_le / S1_upper. modEq_prod_of_pairwise_coprime
+handles combination, not existence.
+
+TODO for the endgame: a lemma `cong_solvable` discharging hsol (CRT
+existence over pairwise-coprime Fin-k moduli), to make S1_upper
+unconditional before N7. Clean B/C.
+
+29/36 (N4.3 landed modulo the threaded hsol). Next: cong_solvable + the
+S2 side (N5.1-links, N5.3, N5.4, N5.5).
+Cost: ~215k subagent tokens.

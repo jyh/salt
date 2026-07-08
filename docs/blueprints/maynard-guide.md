@@ -401,6 +401,14 @@ directly).
 **Lean.** `Salt.Maynard.s2_decomp`, `s2PrimeCount`, `s2Main_factor`, `s2Error_abs_le` (Salt/Maynard/S2Decomp.lean)
 **Status.** 🟡 partial 2026-07-07 (Opus) — scaffolding done, the two mathematical links open. **Difficulty.** predicted C, actual C.
 
+#### N4.3 — the S₁ upper bound ✅ (modulo threaded CRT solvability)
+**Statement.** `S1_upper`: `∃ C ≥ 0, S1 ≤ 2·((K₀−1)N/W')·yside + C·R²·(1+log R)^(4k+2)` where `S1 = Σ_{n∈window} (Σ_{d∈𝒟, dᵢ∣n+hᵢ} λ_d)²`.
+**Role.** The S₁ side of the Maynard ratio; `yside` cancels against S₂ in N7.1.
+**Proof idea.** Genuine square expansion → `congCountTuple` (N4.1); compat/collision split; `compat_le_two_yside` (the factor 2); trivial error via the two sharp prereqs (`lam_abs_le_sharp` × `kSieveIndex_card_le`) — genuinely `o(N)` at `R = N^{1/5}`.
+**Lean.** `Salt.Maynard.S1_upper`, `S1_eq_sum_dd`, `S1_le`, `S1_trivial_error_le'`, `S1`, `weightSq`, `windowSet` (Salt/Maynard/S1Bound.lean)
+**Status.** ✅ 2026-07-08 (Opus, workflow + driver audit) — modulo one threaded hypothesis `hsol` (per-compat-pair CRT solvability, true but its Lean construction deferred to a `cong_solvable` lemma). **Difficulty.** predicted C, actual C.
+**Notes.** Error exponent `4k+2` (driver brief said `2k+2` — an arithmetic slip the agent correctly fixed). Uses the zero-patched `f₀` per the N4.4 caveat.
+
 ### M2/M3/M4/M5/M6/M7 — remaining nodes frozen (N2.0), not yet executed
 
 Frozen statements in `docs/blueprints/maynard.md`. Remaining: the

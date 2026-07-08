@@ -28,3 +28,4 @@ import Salt.Maynard.TransferSharp
 import Salt.Maynard.CollisionQuant
 import Salt.Maynard.LamBoundSharp
 import Salt.Maynard.DivisorCount
+import Salt.Maynard.S1Bound
