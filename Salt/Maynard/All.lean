@@ -5,3 +5,4 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.Maynard
 import Salt.Maynard.Tuple
+import Salt.Maynard.PhiAtom

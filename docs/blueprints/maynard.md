@@ -19,7 +19,7 @@ every later rung toward TPC.
 ## Route
 
 Fix an admissible k-tuple H = {h₁ < … < h_k}. Weight each
-n ≡ ν₀ (mod W), N ≤ n < 2N by w(n) = (Σ_{d : dᵢ ∣ n+hᵢ} λ_d)², λ built
+n ≡ ν₀ (mod W), N ≤ n < K₀N (K₀ = 64 per the freeze) by w(n) = (Σ_{d : dᵢ ∣ n+hᵢ} λ_d)², λ built
 from free parameters y by the Maynard change of variables. Compare
 S₂ = Σ_n (#{i : n+hᵢ prime})·w(n) against S₁ = Σ_n w(n): if S₂ > S₁ for
 all large N, some n in every window has ≥ 2 primes among n+hᵢ, so gaps
@@ -102,50 +102,110 @@ amend them (Fable-tier, logged).
 | N1.3 | `Admissible (H k)` (p ≤ k: residue 0 is omitted since all elements are primes > p; p > k: `card (ZMod p) > k`) | N1.1, N1.2 | B |
 | N1.4 | W-trick: `W k := primorial (max k (diam k))`; ∃ ν₀, ∀ h ∈ H k, `Nat.Coprime (ν₀ + h) (W k)` (CRT across p ∣ W via N1.3) | N1.3, `primorial_squarefree` | B |
 
-### M2 — sieve design + k-dimensional machinery
+### N2.0 — the design freeze (DONE 2026-07-07, Fable; adversarially reviewed)
+
+Frozen after the N3.1 probe and a three-reviewer adversarial panel
+(flags.md 2026-07-07 N2.0 for the full record — the panel caught one
+outright error in the draft freeze and eight repairs, all incorporated
+below). **Parameters:** window n ∈ [N, K₀N) with K₀ := 64; R := N^{1/5};
+g(u) := 1/(1+Au) on [0,T] with A := log k, T := k^{1/8}/log k;
+f(r) := g(k·log r/log R) on [1, R^{T/k}]; y_r := (∏ᵢ f(rᵢ))·1_𝒟;
+D₀ := max(k³, max(H k)) (Lean amended to match — the k³ floor is what
+makes every poly(k)/D₀ correction O(1/k)); all N-thresholds absorbed
+into N ≥ N₀(k). The target is pure-existence, so N₀(k) and k₀ may be
+astronomical (the honest chain forces log k₀ in the thousands; M6 works
+with abstract inequalities like k₀ := 2^{6000}, never numeric
+evaluation).
+
+**Decisions.**
+- **D1 (probe suffices).** The exact-constant μ²/φ upper bound (the
+  `(1*h)` convolution node in PhiAtom.lean's PORT-BLOCKER) is **not
+  built**. Full consumption audit: B₁-lower-exact consumed once
+  (squared) in the S₂ numerator; A₁-upper-4× exactly once in the final
+  ratio slot; A₁⁽¹⁾/A₁⁽²⁾-upper-4× only in overshoot moments;
+  A₁-lower at (1−o(1)) quality (free — decreasing-weight partial
+  summation preserves the atom's exact lower constant); B₁-upper only
+  at crude/fallback quality (λ_max, trivial errors). Nothing needs a
+  rung the probe didn't land.
+- **D2 (symbolic cancellation, mandated route).** S₁-upper and S₂-lower
+  are stated against the same abstract A₁ sum, so exactly one lossy 4
+  enters the ratio. Any route bounding mains per-coordinate (relative
+  C^k or (log k)^k) is **forbidden at statement level** — in particular
+  Maynard's general-y additive-y_max contraction (his Lemma 5.3 as
+  stated) costs ((log k)/8)^{k−1}/k² relative with our fixed D₀ and is
+  fatal; the tensor-specific multiplicative contraction (available
+  since f is decreasing) is mandated.
+- **D3 (empirical centering).** The overshoot second moment centers at
+  c := A₁⁽¹⁾/A₁ (kills the mean-squared cross term identically; any
+  fixed numeric center leaves Θ(1) from the factor-16 lossy-mean
+  interval, unprovable from the frozen rungs). Threshold-gap constant
+  3/4, not 1/2 (the 1/2 version has only O(1/log k) margin and fails
+  outright for k ≲ 200). Resulting rate 64T/(Ak) → 0; the k−T variant
+  (inner-sum truncation) works identically, gap ≥ 0.49k.
+- **D4 (three correction families, all r-averaged).** (i) pairwise
+  coprimality within one index: one-sided, ≤ (2k²/D₀)·main via the
+  Σ_{p>D₀} p⁻² tail; (ii) inner-sum coprimality in y^{(m)}: pointwise
+  bounds are FALSE (grow with N); use (B₁−L(r))² ≥ B₁² − 2B₁L(r) then
+  r-average, ≤ (ck/(D₀log D₀))·main; (iii) cross-collision pairs
+  (dᵢ,eⱼ) > 1 for i ≠ j (count is exactly 0, but the algebraic identity
+  sums over them): bounded via the y-side representation at
+  poly(k)/D₀ relative — never via |λ|-absolute sums (C^k, fatal).
+- **D5 (window/endpoints).** Window length (K₀−1)N = 63N appears in
+  S₁-main; S₂'s prime counts run at shifted endpoints x = N+h_m−1,
+  K₀N+h_m−1, with an O_k(1) slop lemma |Δπ_m − Δπ| ≤ 2·max(H k). The
+  binding EH-modulus constraint is at the smaller endpoint:
+  W·N^{2/5} ≤ ⌊(N+h_m−1)^{1/2}⌋ for N ≥ (2W)^{10}. (True room is
+  R = N^{1/4−δ}, not N^{1/4}.)
+
+### M2 — k-dimensional machinery (general-y algebra)
 | id | statement | deps | class |
 |---|---|---|---|
-| N2.0 | ★ **design freeze (Fable/human)**: fix f, T, A concretely; verify on paper that mains factor exactly, the overshoot Markov argument closes, and the ratio target M > 5 is reachable at k₀; amend M3–M6 statements accordingly | N3.1 probe | D (Fable) |
 | N2.1 | index set `𝒟 R W` = {r : Fin k → ℕ | ∀i squarefree rᵢ, pairwise coprime, coprime to W, ∏rᵢ < R}; membership API, finiteness | — | B |
-| N2.2 | `lam y : (Fin k → ℕ) → ℝ` from tensor y (Maynard (5.4)-style change of variables), support ⊆ 𝒟 | N2.1 | B |
-| N2.3 | size bound: `max |lam y d| ≤ C_k · y_max · (1 + log R)^k` | N2.2 | C |
-| N2.4 | ★ S₁ diagonalization: `Σ_{d,e} lam_d lam_e / ∏ᵢ [dᵢ,eᵢ] = Σ_r y_r² / ∏ᵢ φ(rᵢ)` (coordinatewise induction on the `SelbergPort` template) | N2.2 | C |
-| N2.5 | S₂^{(m)} diagonalization: same with d_m = e_m = 1 and the transformed `y^{(m)}` (tensor ⇒ explicit 1-dim reweighting in coordinate m) | N2.4 | C |
+| N2.2 | `lam y : (Fin k → ℕ) → ℝ` from y (Maynard (5.4) change of variables), support ⊆ 𝒟 | N2.1 | B |
+| N2.3 | size bound: `max |lam y d| ≤ C_k · y_max · (1 + log R)^k` (the 4^k inside C_k is error-side only — harmless by design, do not "fix") | N2.2 | C |
+| N2.4 | ★ S₁ diagonalization: `Σ_{d,e} lam_d lam_e / ∏ᵢ [dᵢ,eᵢ] = Σ_r y_r² / ∏ᵢ φ(rᵢ)` — exact algebra (`Σ_{u∣n} φ(u) = n`), coordinatewise on the `SelbergPort` template | N2.2 | C |
+| N2.5 | ★ S₂^{(m)} diagonalization: `Σ_{d,e : d_m=e_m=1} lam lam / ∏ φ([dᵢ,eᵢ]) = Σ_{r, r_m=1} (y^{(m)}_r)² / ∏ᵢ g(rᵢ)` with **g(p) = p−2** totally multiplicative (forced: φ = 1 ∗ g by Möbius inversion; φ-denominators are UNPROVABLE as algebra — panel finding) and `y^{(m)}` the φ-weighted m-contraction per Maynard (5.8) | N2.4 | C |
+| N2.6 | comparison lemmas: `g(r) ≤ φ(r)` and `φ(r)³ ≤ g(r)·r²` for squarefree r, least prime factor ≥ 3 (per-prime: `(p−2)p² ≥ (p−1)³ ⇔ p² ≥ 3p−1`) — restores literal-A₁ domination in S₂'s non-m coordinates, preserving D2's symbolic cancellation | — | A |
+| N2.7 | congruence compatibility: (d,e) with some (dᵢ,eⱼ) > 1, i ≠ j has NO solution (p > D₀ ≥ diam H cannot divide hᵢ−hⱼ ≠ 0), count = 0; otherwise CRT-solvable with a reduced residue mod W∏[dᵢ,eᵢ] | N1.4 | B |
 
 ### M3 — the 1-dimensional atoms
 | id | statement | deps | class |
 |---|---|---|---|
-| N3.1 | ★ **probe**: `Σ_{r<x, squarefree, (r,B)=1} 1/φ(r) = (φ(B)/B)·log x + O_B(1)` — lower `≥ (φ(B)/B)(log x − C_B)` and upper `≤ (φ(B)/B) log x + C_B` (fallback: upper `≤ C_B(1+log x)` acceptable, report which); radical-decomposition route (`N = r·m, r = rad N` unique) per `M3Expansion` | — | C |
+| N3.1 | ★ **probe — DONE** (Salt/Maynard/PhiAtom.lean): `phiAtom_lower` (exact constant), `phiAtom_upper_lossy` (4×), `phiAtom_upper_fallback`. The exact-upper PORT-BLOCKER stays unbuilt per D1 | — | C ✅ |
 | N3.2 | Mertens-upper: `Σ_{p ≤ x} 1/p ≤ log log x + C` (Chebyshev θ-bound + Abel summation) | — | B |
-| N3.3 | the truncated weighted atoms for the frozen f (log-power / g-sampled weights; exact statements from N2.0) | N2.0, N3.1 | C |
-| N3.4 | `Σ_{q<Q} μ²(q) L^{ω(q)} / φ(q) ≤ (C log Q)^L` for fixed L (3 and 9 needed) | N3.2 | B |
+| N3.3 | weighted transfers, frozen: A₁ & B₁ lower at exact constant; A₁, A₁⁽¹⁾ (weight u·g²), A₁⁽²⁾ (u²·g²) upper at 4×; B₁ upper at fallback quality; explicit additive +C_W constants (never bare (1+o)); the unimodal weight u·g² splits at u = 1/A, the increasing weight u²g² uses boundary+integral partial summation (lands at exactly 4× under the T/A² yardstick) | N3.1 | C |
+| N3.4 | `Σ_{q<Q} μ²(q) L^{ω(q)} / φ(q) ≤ (C log Q)^L` for fixed L — **consumed at L = 3k and L = 9k²** (the k-dim pair-multiplicity is (3k)^{ω}, not 3^ω) | N3.2 | B |
+| N3.5 | Chebyshev interval: `π(64N) − π(N) ≥ c·N/log N` (from mathlib `theta_ge` + `theta_le_log4_mul_x` + `theta_eq_sum_primesLE`; margin 62·log 2, conspiracy is exactly at K₀ = 2) | — | B |
 
 ### M4 — S₁
 | id | statement | deps | class |
 |---|---|---|---|
-| N4.1 | per-(d,e) congruence count: `#{n ∈ [N,2N) : n ≡ ν₀ (W), [dᵢ,eᵢ] ∣ n+hᵢ ∀i} = N/(W ∏[dᵢ,eᵢ]) + O(1)` (CRT + `congCount_bound`) | N1.4, N2.1 | B |
-| N4.2 | S₁ error: `Σ_{d,e} |lam lam| · O(1) ≤ C_k y_max² (log R)^{2k} R² = o(N)` for R = N^{1/5} | N2.3 | B |
-| N4.3 | ★ S₁ main: exact tensor factorization into products of N3.3 atoms + Markov overshoot bound | N2.4, N3.3, N4.1 | C |
+| N4.1 | per-(d,e) congruence count on [N, K₀N): under N2.7's compatibility, `= (K₀−1)N/(W ∏[dᵢ,eᵢ]) + O(1)`; for collision pairs, `= 0` (CRT + `congCount_bound`) | N1.4, N2.1, N2.7 | B |
+| N4.2 | S₁ trivial error: `Σ_{d,e} |lam lam| · O(1) ≤ C_k (log R)^{2k} R² = o(N/(log N)^anything)` — N^{3/5} headroom crushes all log powers | N2.3 | B |
+| N4.3 | ★ S₁-main UPPER: `≤ ((K₀−1)N/W)·A₁^k + cross-collision + trivial error`, by two one-sided relaxations (drop 𝒟-truncation, drop pairwise coprimality — both only add nonneg terms) with A₁ symbolic | N2.4, N3.3, N4.1, N4.4 | C |
+| N4.4 | cross-collision bound: the (dᵢ,eⱼ)>1 correction to S₁-main, via the y-side representation, `≤ (ck²/D₀)·A₁^k` relative (forced prime p > D₀ at the colliding coordinate pair) | N2.4, N2.7 | C |
 
 ### M5 — S₂ and the hypothesis
 | id | statement | deps | class |
 |---|---|---|---|
-| N5.1 | S₂^{(m)} decomposition: prime counts `primesCount` in progressions mod `W ∏[dᵢ,eᵢ]` (d_m = e_m = 1), main + per-modulus error | N2.5, N4.1 | C |
-| N5.2 | ★ **EH consumption**: `Σ_{q < R²W} μ²(q) 3^{ω(q)} max_a |π-error(q,a)| ≤ N/(log N)^A` via Cauchy–Schwarz between N3.4 and `EH (1/2)`, with N0.2 as the trivial factor | N0.2, N0.3, N3.4 | C |
-| N5.3 | S₂ main: tensor factorization + overshoot (the m-coordinate contributes the `(Σ f/φ)²`-shaped factor) | N2.5, N3.3, N5.1, N5.2 | C |
+| N5.1 | S₂^{(m)} decomposition at shifted endpoints (x = N+h_m−1, K₀N+h_m−1): prime counts `primesCount` in progressions mod W∏[dᵢ,eᵢ] (d_m = e_m = 1 vanishing is EXACT — a divisor 1 < d < p of a prime is impossible since ∏dᵢ < R < N ≤ n+h_m), main + per-modulus error; slop lemma `|Δπ_m − Δπ| ≤ 2·max(H k)` | N2.5, N2.7, N4.1 | C |
+| N5.2 | ★ **EH consumption**: `Σ_{q < R²W} μ²(q) (3k)^{ω(q)} maxDiscrepancy ≤ N/(log N)^A'` via Cauchy–Schwarz between N3.4 (L = 9k²) and `EH (1/2)` applied at both shifted endpoints with exponent A ≥ 9k² + O(k); N0.2 + π(x) ≤ x as the trivial factor | N0.2, N0.3, N3.4 | C |
+| N5.3 | ★ y^{(m)} contraction, tensor-specific multiplicative route (D2): `y^{(m)}_r = β(r)·(∏_{i≠m} f(rᵢ))·B-inner(r)·(1 + O(k·ε₂))` with β(r) = ∏_{p ∣ ∏rᵢ}(1−(p−1)⁻²) ∈ [1−2k/D₀, 1] via the DISTINCT-primes Euler tail (per-factor bounds are useless — ω grows with N), ε₂ ≤ c/(D₀ log D₀); inner-coprimality loss r-AVERAGED via (B₁−L)² ≥ B₁²−2B₁L (D4.ii) | N2.5, N3.3 | C |
+| N5.4 | overshoot/truncation: empirical-ratio-centered second moment (D3) — `Σ over {Σuᵢ ≥ k} ≤ (A₁⁽²⁾/A₁)·(4/k)·A₁^k/(1−c)²`-shape, c = A₁⁽¹⁾/A₁ ≤ 3/4, rate 64T/(Ak); k−T variant for the inner truncation (bulk tuples make it vacuous — u(a) < T always) | N3.3 | C |
+| N5.5 | ★ S₂-main LOWER: `≥ (Δπ_min/φ(W))·B₁²·A₁^{k−1}·(explicit constant)·(1 − D4 corrections)` with literal A₁ via N2.6's pointwise domination; Δπ_min from N3.5 with the D5 slop lemma | N2.6, N3.5, N5.1, N5.2, N5.3, N5.4 | C |
 
 ### M6 — the ratio: 1-dimensional calculus
 | id | statement | deps | class |
 |---|---|---|---|
-| N6.1 | closed forms/bounds for the g(t) = 1/(1+At) integrals-and-sums the frozen f needs (`∫g²`, `∫g`, log-weighted variants) | N2.0 | B |
-| N6.2 | ratio bound: `M(f, k, R) > 5` at the concrete k₀ (Prop-4.3-style: the log k − 2 log log k − 2 mechanism, all 1-dim) | N6.1 | C |
-| N6.3 | concrete k₀ arithmetic (`log k₀` bounds via `norm_num`-friendly log estimates) | N6.2 | B |
+| N6.1 | closed forms: `I_g = log(1+AT)/A`, `J_g = T/(1+AT)`, `∫ug² = [log(1+X)−X/(1+X)]/A²`, `∫u²g² ≤ T/A²` unconditionally (via `log(1+X) ≥ X/(1+X)`); the two DISTINCT limits μ_u → 1/8 and I_g → 1/8 kept separate (they differ ~50% at k ~ 10⁵) | — | B |
+| N6.2 | ratio bound: `Σ_m S₂^{(m)}/S₁ ≥ k·[c_cheb/((K₀−1)·64·4)]·(1/5)·A·I_g² ·(1 − constants) > 1` for k ≥ k₀, all constants explicit, A₁ symbolic throughout, k₀ ABSTRACT (2^{6000}-style; never numeric evaluation) | N6.1 | C |
+| N6.3 | concrete k₀: the closed-form chain of N6.2 verified at the chosen k₀ via abstract log-inequalities | N6.2 | B |
 
 ### M7 — assembly
 | id | statement | deps | class |
 |---|---|---|---|
 | N7.1 | `S₂ − S₁ > 0` for all large N, given `EH (1/2)`, at k₀ (chain M4 + M5 + M6 mains/errors) | N4.3, N5.3, N6.2, N6.3 | C |
-| N7.2 | pigeonhole: `S₂ > S₁ ⇒ ∃ n ∈ [N,2N), ≥ 2 of n+hᵢ prime`; infinitude over all windows | N7.1 | B |
+| N7.2 | pigeonhole: `S₂ > S₁ ⇒ ∃ n ∈ [N,K₀N), ≥ 2 of n+hᵢ prime`; infinitude over all windows | N7.1 | B |
 | N7.3 | **target `BoundedGapsFromEH`**: `EH (1/2) → ∃ C, …` with C = diam k₀ | N7.2 | B |
 | N7.4 | (bonus) liminf form: `EH (1/2) → liminf (p_{n+1} − p_n) ≤ diam k₀` via `Nat.nth` | N7.3 | B |
 
@@ -155,9 +215,10 @@ amend them (Fable-tier, logged).
   land sorry-free + axiom-audited, docs updated in the same commit
   (CLAUDE.md workflow step 5; guide file `maynard-guide.md` to be created
   when M1 opens, mirroring `brun-guide.md`'s card contract).
-- **Order**: N3.1 (probe) runs FIRST — it is dispatchable immediately and
-  its outcome gates N2.0, the Fable design freeze that fixes every M3–M6
-  statement. M0/M1 are probe-independent and can proceed in parallel.
+- **Order** (updated post-freeze, 2026-07-07): M0, M1, N3.1, N2.0 are
+  DONE. Everything in M2–M3 (N2.1–N2.7, N3.2–N3.5) plus N6.1 is now
+  unblocked and parallelizable; M4/M5/M6 chain behind them per the deps
+  columns.
 - Statement changes: N2.0 is the *designated* amendment point (Fable);
   after the freeze, iron rule 1 applies to M3–M6 statements like any
   others.

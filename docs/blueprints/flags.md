@@ -670,3 +670,71 @@ Cost: ~283k subagent tokens (workflow, two effort=high agents), ~38min
 wall clock -- the most expensive single dispatch in the track so far,
 consistent with the probe's mandate to actually stress-test the
 riskiest assumption rather than take a shortcut.
+
+## 2026-07-07 N2.0 Fable done -- design freeze, adversarially reviewed (3-panel)
+The designated Fable-tier design node. Process: (1) my own verification
+pass on the probe artifact (build by module name, forbidden-token grep,
+crux read of fiber_sum_le_inv_totient -- genuine factorization
+injection); (2) full paper design of the tensor route working out where
+each atom rung is consumed; (3) a three-reviewer adversarial panel
+(effort=high each, ~304k tokens total), one reviewer per load-bearing
+joint: (a) Maynard's diagonalization structure + exhaustive atom-
+consumption audit, (b) the overshoot/variance argument recomputed from
+scratch with only the landed rungs, (c) EH-consumption bookkeeping
+against the EH statement AS FORMALIZED + mathlib Chebyshev derivability.
+All three: REPAIRABLE. Repairs incorporated into the blueprint amendment
+(maynard.md, freeze section + rewritten M2-M6 tables).
+
+WHAT THE PANEL CAUGHT (the payoff):
+1. A genuine ERROR in my draft: I froze S2's quadratic form with
+   1/prod phi(r_i) denominators; Maynard's Lemma 5.2 forces
+   g(p) = p-2 (phi = 1 * g by Mobius inversion) -- as drafted, N2.5
+   would have been UNPROVABLE as algebra. Repair: freeze with g, add
+   two A-grade pointwise lemmas (g <= phi; phi^3 <= g*r^2 per odd
+   prime) restoring literal-A1 domination, so the symbolic cancellation
+   and single-4x conclusion survive unchanged.
+2. My overshoot argument silently dropped the mean-squared cross term
+   (k(k-1)mu^2); with only a 4x-lossy mean, every fixed-center Chebyshev
+   leaves Theta(1). Repair (reviewer b's construction): center at the
+   EMPIRICAL ratio c := A1^(1)/A1, which kills the cross term as an
+   algebraic identity and restores the 64T/(Ak) -> 0 rate using exactly
+   the landed rungs. Also: threshold-gap constant 3/4 not 1/2 (the 1/2
+   margin is O(1/log k) and fails for k <~ 200).
+3. A missing THIRD error family: cross-collision pairs (d_i,e_j) > 1,
+   i != j (count is exactly 0 but the algebraic identity sums over
+   them); new nodes N2.7/N4.4, bounded via the y-side representation --
+   the |lambda|-route costs C^k and is forbidden at statement level.
+4. My C2(ii) pointwise bound was FALSE (grows with N under the fixed-W
+   trick); restated r-averaged via (B1-L)^2 >= B1^2 - 2*B1*L.
+5. D0 as committed (max k (sup H) ~ 2k log k) lacked the k^3 floor all
+   poly(k)/D0 corrections need -- Lean amended (Tuple.lean), no proofs
+   broke (verified by rebuild; reviewer c checked each downstream use).
+6. Window-length factor (K0-1) = 63 missing from S1-main; endpoint
+   shifts (x = N+h_m-1) needed for EH application; EH pair-multiplicity
+   is (3k)^omega not 3^omega, CS exponent 9k^2, so EH must be consumed
+   at A >= 9k^2 + O(k) -- fine since EH quantifies over all A.
+
+WHAT THE PANEL CONFIRMED (equally valuable):
+- D1 HOLDS: full consumption audit shows nothing needs an atom rung the
+  probe didn't land; the exact-upper convolution node stays unbuilt.
+- The formalized EH delivers everything the consumption plan needs
+  (two-point differencing, modulus bound binding at the smaller
+  endpoint, sup' covers per-(d,e) residues, d_m = e_m = 1 is an EXACT
+  vanishing not an error).
+- K0 = 64 Chebyshev-interval node is derivable from mathlib's theta_ge/
+  theta_le_log4_mul_x with margin 62*log2 (conspiracy exactly at K0=2;
+  any K0 >= 3 works).
+- The closed forms and parameter choices (A = log k, T = k^{1/8}/log k)
+  verified from scratch, including int u^2 g^2 <= T/A^2 unconditionally;
+  the honest chain forces log k0 in the thousands -- fine for a
+  pure-existence target, and M6 is planned as abstract inequalities.
+
+Also landed with this commit: PhiAtom.lean wired into Salt/Maynard/
+All.lean (N3.1 is now an official node, card added), D0 amendment in
+Tuple.lean, blueprint freeze section + amended M2-M6 tables (nodes now
+number ~33: added N2.6, N2.7, N3.5, N4.4, N5.4, N5.5 restructured),
+guide briefing/cards updated.
+
+Cost: ~304k subagent tokens (panel) + driver design/reconciliation.
+Next: the eight-node frontier N2.1/N2.2/N2.6/N2.7/N3.2/N3.4/N3.5/N6.1
+(mostly B, parallelizable), then the M4/M5 spine.

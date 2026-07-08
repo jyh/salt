@@ -42,39 +42,31 @@ Green lint = "not mechanically stale", never "the prose is true".
 
 ## 0. Briefing
 
-*Updated: 2026-07-07 (Sonnet).*
+*Updated: 2026-07-07 (Fable, at the N2.0 freeze).*
 
-- **State**: 7 of ~30 nodes proved (M0, M1 complete). Track opened today
-  on branch `maynard`, immediately after Brun's theorem landed on `main`.
-- **Probe result** (N3.1, dispatched in parallel with M0/M1): the μ²/φ
-  atom's **lower bound landed with the exact constant** φ(B)/B (load-
-  bearing outcome, confirmed). The **upper bound did not land exact or
-  at 2×** — best achieved is 4×-lossy, plus a crude fallback. The clean
-  route (a signed multiplicative convolution, `Σ h(d)/d = 1` via a
-  `p`/`p²` cancellation miracle) is real but is its own C-difficulty
-  node, not a byproduct of the elementary route tried. **This is new
-  information the N2.0 design freeze must account for** — the blueprint
-  scoping doc assumed the atom would be cheap in both directions.
-- **Frontier** (open, all deps met): N2.0, the design freeze — but it is
-  Fable/human-tier only, and should now explicitly decide whether the
-  track needs the exact-constant μ²/φ upper bound (budget a dedicated
-  C-node per the probe's recommendation) or can proceed with the 4×-lossy
-  form (check whether the tensor-mains-are-exact argument in the
-  blueprint's Design Decision 4 tolerates a 4× loss on this one
-  ingredient — it enters the error side, not obviously the main side, so
-  this may be fine, but that judgment call is exactly what N2.0 is for).
-- **Next step**: a Fable/human session should read the full probe report
-  (flags.md 2026-07-07 N3.1 entry) and open N2.0. M0/M1's remaining
-  probe-independent neighbor, M1's tuple construction, is done; nothing
-  else is unblocked until N2.0 freezes the M3-M6 statements.
-- **Blockers**: N2.0 (design freeze, Fable-tier) gates all of M2-M6.
-- **Strategic line**: the track's entry ramp (M0, M1) is solid and
-  reused Brun-track muscle cleanly (CRT induction, primorial squarefree,
-  the block-counting/harmonic idiom). The one real surprise so far is
-  the μ²/φ atom's asymmetry — lower bounds came free, the exact upper
-  bound needs real machinery. This is exactly the kind of fact the probe
-  was for; better to learn it now, seven nodes in, than after M2-M6 are
-  built against a wrong assumption.
+- **State**: 9 of ~33 nodes done (M0, M1, N3.1 probe, N2.0 design
+  freeze). The design is FROZEN: all M2–M6 statements are now fixed in
+  `maynard.md` (amended at N2.0; iron rule 1 applies to them from here).
+- **The freeze in one line**: the probe's rungs suffice (no
+  exact-constant convolution node needed); mains cancel symbolically
+  with exactly one lossy 4× in the ratio; three r-averaged poly(k)/D₀
+  correction families; empirical-ratio-centered overshoot; window
+  [N, 64N); D₀ bumped to max(k³, max H) in Lean.
+- **The freeze was adversarially reviewed** (three-reviewer panel, all
+  REPAIRABLE→repaired): the panel caught a real error in the draft
+  (S₂ diagonalizes with g(p) = p−2 denominators, not φ — φ is
+  unprovable) plus eight repairs, all incorporated. See flags.md
+  2026-07-07 N2.0.
+- **Frontier** (open, all deps met, parallelizable): N2.1, N2.2, N2.6
+  (A!), N2.7, N3.2, N3.4, N3.5, N6.1 — eight nodes, mostly B. Then
+  N2.3–N2.5, N3.3 unlock the M4/M5 spine.
+- **Blockers**: none. The critical path runs N2.4/N2.5 → N5.3/N5.5
+  (the contraction and S₂-lower, hardest nodes in the track).
+- **Strategic line**: the design risk is retired the same way Brun's
+  was — by probe + adversarial review BEFORE building. What remains is
+  execution: ~24 nodes, C-heavy in M4/M5, every statement now frozen
+  and reviewed. The k-dim diagonalization (N2.4/N2.5) is the next
+  keystone and has the 1-dim `SelbergPort` proofs as its template.
 
 ## 1. Big picture
 
@@ -105,16 +97,21 @@ error consumes `EH`. The main-term ratio grows like log k, so a large
 concrete k buys unlimited slack.
 
 **Four locked design decisions** (full text in `maynard.md`): (1) every
-constant is loose and k is huge (θ=1/2, k₀≈10⁶, comically large gap
-bound); (2) the tuple is a *theorem* — H = the first k primes greater
+constant is loose and k is huge (θ=1/2; post-freeze the honest chain
+puts log k₀ in the thousands — the gap bound is astronomical by design,
+M6 handles k₀ abstractly); (2) the tuple is a *theorem* — H = the first k primes greater
 than k, admissibility is two lines, not a `decide` certificate; (3) W is
 a *fixed* primorial (k fixed ⇒ no log-log-log dance); (4) tensor-product
 weights make every k-fold main term factor *exactly* into products of
 1-dimensional sums — no per-variable approximation compounds as Cᵏ.
-Decision 4's viability rests on the 1-dimensional atoms (M3) being clean;
-**the N3.1 probe (§0) found the upper-bound atom is not as clean as
-hoped** — this is exactly the kind of fact decision 4 needs re-examined
-against, which is why N2.0 (Fable) comes next.
+Decision 4's viability rested on the 1-dimensional atoms (M3) being
+clean; the N3.1 probe found the upper-bound atom is only 4×-lossy, and
+the N2.0 freeze (now done — see its card) re-examined decision 4 against
+that fact and repaired it: the cancellation is *symbolic* (same abstract
+A₁ in numerator and denominator), so exactly one lossy 4 survives into
+the ratio, absorbed by k. The panel-corrected fine print (g(p) = p−2
+denominators in S₂, β(r) factors, three r-averaged correction families,
+empirical-centered overshoot) is in `maynard.md`'s freeze section.
 
 ## 3. Node catalog
 
@@ -237,10 +234,27 @@ directly).
 **Lean.** `D₀`, `W`, `W_squarefree`, `exists_nu0` (Salt/Maynard/Tuple.lean)
 **Status.** ✅ 2026-07-07 (Sonnet, delegated workflow, driver third-pass — read the full CRT induction, confirmed genuine and non-circular).
 **Difficulty.** predicted B, actual B.
+**Notes.** D₀ amended at the N2.0 freeze (2026-07-07, Fable): `max k (sup H)` → `max (k^3) (sup H)` — the k³ floor is load-bearing for every M4/M5 correction estimate; caught by the design-review panel; all M1 proofs were magnitude-agnostic, none broke.
 
-### M2-M7 — not yet opened
+### N2.0 — the design freeze ✅
+**Statement.** Fix all parameters (K₀, R, g, A, T, f, y, D₀) and freeze the M3–M6 statements so that the N3.1 probe's landed rungs suffice.
+**Role.** The designated Fable-tier amendment point for the whole track; after it, iron rule 1 applies to M2–M6 statements.
+**Proof idea.** Paper design (tensor mains cancel symbolically; one lossy 4× in the ratio; three r-averaged correction families; empirical-centered overshoot) + a three-reviewer adversarial panel that caught one real error (S₂'s quadratic form needs g(p)=p−2 denominators, not φ) and eight repairs, all incorporated into the blueprint amendment.
+**Lean.** — (design node; its Lean footprint is the D₀ amendment in Salt/Maynard/Tuple.lean and the frozen statements in maynard.md)
+**Status.** ✅ 2026-07-07 (Fable; panel = 3 × effort-high adversarial reviewers, verdicts REPAIRABLE→repaired; full record in flags.md).
+**Difficulty.** predicted D, actual D (the panel earned its cost: the draft freeze would have made N2.5 unprovable as stated).
 
-Blocked on N2.0 (design freeze, Fable/human-tier), itself informed by the
-N3.1 probe result (§0). See `docs/blueprints/maynard.md` for the full
-DAG and `docs/blueprints/flags.md` for the probe's detailed technical
-report.
+### N3.1 — the μ²/φ atom (probe) ✅
+**Statement.** `Σ_{r<x, squarefree, (r,B)=1} 1/φ(r)`: lower bound at the exact constant `(φ(B)/B)(log x − C_B)`; upper bounds at 4×-lossy and fallback quality.
+**Role.** The single analytic atom all M3 weighted transfers partial-sum against; the probe that gated N2.0.
+**Proof idea.** Lower: radical decomposition (n = rad(n)·m unique) + block-counting coprime harmonic bounds — `M3Expansion`'s technique verbatim. Upper: finite identity `r/φ(r) = Σ_{d∣r} 1/φ(d)`, divisorsAntidiagonal factorization, `d ≤ 2φ(d)²` tail. Exact-upper needs a signed-convolution identity — documented PORT-BLOCKER, deliberately NOT built (N2.0 D1).
+**Lean.** `Salt.Maynard.phiAtom_lower`, `phiAtom_upper_lossy`, `phiAtom_upper_fallback`, `sqfCop`, `phiAtomSum` (Salt/Maynard/PhiAtom.lean)
+**Status.** ✅ 2026-07-07 (delegated implement+verify workflow at effort-high; driver verification pass at the N2.0 session: build by module name, forbidden-token grep, crux read of `fiber_sum_le_inv_totient`).
+**Difficulty.** predicted C, actual C (the upper-bound asymmetry was the probe's key finding).
+
+### M2-M7 — statements frozen (N2.0), execution not yet started
+
+All M2–M7 statements are frozen as of the N2.0 amendment — see
+`docs/blueprints/maynard.md` (the freeze section + amended DAG tables)
+and `docs/blueprints/flags.md` for the panel record. Frontier: N2.1,
+N2.2, N2.6, N2.7, N3.2, N3.4, N3.5, N6.1.

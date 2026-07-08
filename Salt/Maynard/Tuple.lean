@@ -116,9 +116,13 @@ theorem H_admissible (k : ℕ) : Admissible (H k) := by
 
 /-! ## N1.4 — the W-trick: fixed modulus, existence of `ν₀` -/
 
-/-- `D₀ k` is a fixed threshold `≥` every element of `H k` and `≥ k`
-itself. -/
-noncomputable def D₀ (k : ℕ) : ℕ := max k ((H k).sup id)
+/-- `D₀ k` is a fixed threshold `≥ k³` and `≥` every element of `H k`.
+The `k³` floor is load-bearing (N2.0 design freeze, 2026-07-07): every
+coprimality-correction estimate in M4/M5 has shape `poly(k)/D₀` and
+needs `D₀ ≥ k³` to be `O(1/k)`; the original `max k (sup H) ≈ 2k log k`
+was too small (caught by the N2.0 adversarial review — all downstream
+M1 proofs are magnitude-agnostic, so only this def changed). -/
+noncomputable def D₀ (k : ℕ) : ℕ := max (k ^ 3) ((H k).sup id)
 
 /-- The fixed sieve modulus: the primorial of `D₀ k`. -/
 noncomputable def W (k : ℕ) : ℕ := primorial (D₀ k)
