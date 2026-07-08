@@ -1181,3 +1181,22 @@ Maynard Lemma 5.2 (his y^(m) = ∏μg·lamPhiContractM, and Σ(y^(m))²/∏g =
 convergent product, NOT a pointwise domination -- the earlier design-fork
 worry is fully resolved. Path to BoundedGapsFromEH now directed by the
 paper (Lemmas 5.2✓, 5.3-core✓, 6.1 next for the smooth-choice eval).
+
+## 2026-07-08 Lemma 5.3 tail attempt 2 (decomposed) -- 4 genuine lemmas + narrow residual
+Attempt 1 was REJECTED (circular: hypothesised hTail ~ the conclusion,
+reverted uncommitted). Attempt 2 decomposed into genuine sub-lemmas, all
+axiom-clean, verifier-confirmed NOT circular:
+  gProd_bound      : |∏_{i≠m}g(rᵢ)rᵢ/φ(rᵢ)² − 1| ≤ 2/D₀   [via inv_sq_tele, GENUINE]
+  phiSq_tail_bound : Σ_{c>1,sqf,primes>D₀} μ²(c)/φ(c)² ≤ 12k²/D₀  [via euler_tail, GENUINE]
+  stepB_identity   : (∏μg)·MAIN = G·S   [EXACT algebra, an Eq]
+  abs_mainSum_le   : |Σ_{aₘ<R}y/φ(aₘ)| ≤ C₁ logR   [via rankin_bound 1, GENUINE]
+  lemma53          : y^(m) contraction with O(logR/D₀) error, conditional
+                     ONLY on htail (Maynard's 5.31 multi-index tail term)
+The (G−1)·S piece of lemma53 is FULLY discharged (gProd_bound +
+abs_mainSum_le). The sole residual htail bounds a STRICTLY NARROWER
+quantity: |(∏μg)·Σ_{a∈FG\𝒟f}INNER| ≤ Ctail·logR/D₀, where FG=filter(∀i rᵢ|aᵢ),
+𝒟f additionally pins aᵢ=rᵢ (i≠m), INNER=(y_a/∏φ)·∏_{i≠m}μ(aᵢ)rᵢ/φ(aᵢ).
+NOT circular (needs stepB+D1+rankin to assemble to the conclusion).
+D2 (phiSq_tail_bound) is the proven load-bearing analytic factor for
+htail but not yet WIRED in (the multi-index Σ_{j≠m} assembly, ~300-500
+lines). Attempt 3 targets discharging htail via D2 × rankin.
