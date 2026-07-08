@@ -25,3 +25,4 @@ import Salt.Maynard.S1Error
 import Salt.Maynard.K0
 import Salt.Maynard.S2Decomp
 import Salt.Maynard.TransferSharp
+import Salt.Maynard.CollisionQuant

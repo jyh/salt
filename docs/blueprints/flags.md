@@ -967,3 +967,50 @@ on all 5 + byparts_transfer (driver-verified).
 c-check chain. Remaining walls: N4.4-quant (collision lower-order --
 next Fable design target), then N5.1-links/N5.5/N4.3/N7.x assembly.
 Cost: ~283k subagent tokens, ~43min.
+
+## 2026-07-08 N4.4-QUANT Fable+Opus done (attempt 3) -- THE LAST WALL FELL
+The quantitative collision bound landed in full, all seven deliverables
+P0-P6, no PORT-BLOCKERs. New file Salt/Maynard/CollisionQuant.lean (2142
+lines, 36 declarations). Verified: implementer + adversarial verifier
+(per-deliverable LANDED table, hunted the two fatal failure modes --
+silent <= inside the signed P4 expansion, R-dependent kappa -- both
+absent) + driver (build 8620 jobs with the module wired, forbidden-token
+sweep = 2 prose hits only, own #print axioms on 9 key theorems).
+
+  collision_lower_order : |s1CollisionForm| <= (12k^2/D_0 k) * yside
+  crossCollisionControlled_holds  (discharges the Wave-4 Prop)
+  compat_le_two_yside             (the form N4.3 consumes)
+
+The Fable design that cracked it (attempts 1-2 died on abs-lambda sums
+losing (log R)^k and positive diagonalization losing R^(c/log D0)):
+(I) DISJOINTNESS: pairwise coprimality of sieve coordinates means a
+prime divides at most one coordinate, so the per-prime collision
+indicator is an EXACT disjoint-sum identity (collision_indicator) --
+Maynard's auxiliary-modulus Mobius expansion becomes pure signed algebra
+with exact inner evaluations (T_forced: the forced-divisor version of
+N2.4's inner lemma; inner_exact: the constrained diagonalization).
+(II) PER-PRIME (p-1)^-2: the case analysis (p new on both sides / p in
+u at the sigma-slot / at the tau-slot) always yields two (p-1)^-1
+factors -- one from phi-growth, one from either the other side's
+phi-growth or a u -> u/p erasure (multiplicity 2 per prime, iterated by
+induction; Q-partition with the Sum_Q 2^|Q| = 3^|P| binomial). Euler
+tail via the Rankin powerset technique: Sum_s (3k^2)^omega prod(p-1)^-2
+<= 12k^2/D_0 -- convergent, R-free, D_0 = k^3 unamended.
+
+Implementer repackaging (all verified within granted latitude): the
+assignment structure carried directly (assignments = Finset.pi over
+primeFactors to offDiag pairs; slotProd the per-coordinate prime
+products) instead of six abstract hypotheses; collisionModuli =
+range(R^k+1) unfiltered with per-term case analysis; hypothesis
+thinning (P3 needs neither p > D_0 nor W = W k nor f0 <= 1).
+
+VERIFIER-CAUGHT CAVEAT for downstream callers (N4.3/N5.5): literal fWt
+does NOT satisfy the divisor-antitone hypothesis at m = 0 (junk value
+fWt 0 = 1); use the zero-patched f0 = if n = 0 then 0 else fWt k R n,
+which satisfies all hypotheses and induces the IDENTICAL y (coordinates
+in the sieve set are positive). One-line adaptation, noted on the card.
+
+ALL ANALYTIC WALLS ARE NOW DOWN. Remaining to BoundedGapsFromEH: pure
+assembly (N4.3, N5.1-links, N5.3, N5.4, N5.5, N7.1-N7.4).
+Cost: ~531k subagent tokens, ~92min (the longest single dispatch of the
+project -- 2142 lines).

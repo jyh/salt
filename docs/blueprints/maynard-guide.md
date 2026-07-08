@@ -44,23 +44,22 @@ Green lint = "not mechanically stale", never "the prose is true".
 
 *Updated: 2026-07-07 (Opus, after Wave 1).*
 
-- **State**: **25 of ~36 fully proved** (+2 partial). 2026-07-08: the
-  decisive wall fell — **N3.3-sharp landed on attempt 3** with complete
-  Fable-level design (all five bounds at exact constants). The previous
-  "terminal boundary" is broken; the endgame is live again. M0, M1, N2.0, N3.1, and **Wave 1**
+- **State**: **26 of ~36 fully proved** (+1 partial). 2026-07-08: BOTH
+  analytic walls fell on Fable-designed third attempts — N3.3-sharp (all
+  five transfer bounds at exact constants) and N4.4-quant (the collision
+  bound, |collision| ≤ (12k²/D₀)·yside). **Every analytic obstruction to
+  `BoundedGapsFromEH` is now retired**; what remains is assembly. M0, M1, N2.0, N3.1, and **Wave 1**
   (N2.1, N2.6, N2.7, N3.2, N3.5, N6.1) all proved, sorry-free, axiom-
   audited. The analytic bottleneck (N3.2, Mertens' 2nd upper — absent
   from mathlib, built from Chebyshev + von Mangoldt + Abel) is DONE.
 - **Wave 2 done**: N3.4 (Rankin) + N4.1 (congruence count).
-- **Remaining gaps** (post-N3.3):
-  - **N4.4 quantitative collision bound** — `|collision| ≤ (ck²/D₀)·yside`.
-    The next wall; needs its own Fable design session (the y-side
-    representation argument). Gates N4.3's S₁ upper.
-  - **N5.3 (y^(m) contraction)** — never attempted; C, now has all its
-    transfer inputs sharp.
-  - **N5.4 (overshoot)** — now FULLY unblocked (all moment bounds sharp
-    or sufficient-crude); the empirical-centering argument per the freeze.
-  - **N5.1 links, N5.5, N7.1–N7.4** — the assembly chain behind those.
+- **Remaining work (all assembly, no analytic walls)**: N4.3 (S₁ upper —
+  compat_le_two_yside + congCountTuple, templated), N5.1-links (wire
+  s2_decomp to s2_diagonalisation + eh_error_small), N5.3 (y^(m)
+  contraction), N5.4 (overshoot — all moment inputs ready), N5.5 (S₂
+  lower assembly), N7.1–N7.4 (the final S₂ − S₁ > 0 chain and
+  `BoundedGapsFromEH`). Note the fWt zero-patch caveat (N4.4 card) when
+  instantiating the tensor hypotheses.
 - **Blockers**: none — every remaining node's deps are proved or in
   the next wave.
 - **Strategic line (terminal boundary of the automated pass).** The
@@ -369,12 +368,12 @@ directly).
 **Proof idea.** Substitute the N6.1 closed forms; real-analysis inequality (k₀=2 sufficed).
 **Lean.** `Salt.Maynard.ratio_prize` (Salt/Maynard/Ratio.lean). **Status.** ✅ 2026-07-07 (Opus, driver checked the bound genuinely grows in k). **Difficulty.** predicted C, actual C.
 
-#### N4.4 — cross-collision correction 🟡
+#### N4.4 — cross-collision correction ✅
 **Statement (frozen).** The (dᵢ,eⱼ)>1 collision correction to S₁-main, bounded via the y-side by `(ck²/D₀)·A₁^k` relative.
 **Role.** Makes the S₁ upper bound (N4.3) rigorous (collision pairs count 0 but the algebraic form sums over them).
 **Proof idea.** Landed: the EXACT unconditional decomposition `compat = yside − collision` (`s1_compat_eq`), `s1_full_split`, `s1_yside_nonneg`, and the one-sided drop `crossCollision_le` (conditional on `0 ≤ collision`). PORT-BLOCKERed: the quantitative `(ck²/D₀)` bound on the collision form (stated as a Prop `CrossCollisionControlled`) — the genuinely hard piece, since the collision form isn't obviously signed.
 **Lean.** `Salt.Maynard.s1_compat_eq`, `s1_full_split`, `s1_yside_nonneg`, `crossCollision_le` (Salt/Maynard/CrossCollision.lean)
-**Status.** 🟡 partial 2026-07-07 (Opus, 2 attempts) — exact decomposition + a genuine crude majorant (`s1Compat_le_yside_add_absColl`) landed; the quantitative lower-order `(ck²/D₀)` bound PORT-BLOCKERed (the collision form is signed). **Difficulty.** predicted C, actual C+.
+**Status.** ✅ 2026-07-08 (Fable design + Opus execution, attempt 3) — the quantitative core landed in full: `collision_lower_order` gives `|s1CollisionForm| ≤ (12k²/D₀)·yside` with κ explicit and R-free; `crossCollisionControlled_holds` discharges the Wave-4 Prop; `compat_le_two_yside` is the form N4.3 consumes. New file Salt/Maynard/CollisionQuant.lean (2142 lines, 36 declarations, all axiom-clean). The design rests on two structural facts: pairwise coprimality makes the per-prime collision indicator an EXACT disjoint-sum identity (so the Möbius/assignment expansion stays signed with exact `T_forced` inner evaluations — no absolute values until the outermost layer), and every collision prime yields `(p−1)⁻²` (φ-growth + erasure case analysis, Q-partition with the `Σ_Q 2^{|Q|} = 3^{|P|}` binomial), giving a convergent R-free Euler tail at D₀ = k³ unamended. **Caveat for callers**: the tensor hypotheses need the ZERO-PATCHED weight `f₀ = if n = 0 then 0 else fWt k R n` (literal `fWt` has junk `fWt 0 = 1` violating divisor-antitonicity at m = 0; the patched weight induces the identical y). **Difficulty.** predicted C, actual C+ — landed only with complete Fable-level design, like N3.3.
 
 #### N3.3 — weighted transfers ✅
 **Statement (frozen).** A₁,B₁ lower at exact constant; A₁,A₁⁽¹⁾,A₁⁽²⁾ upper at 4× the N6.1 integral term.
