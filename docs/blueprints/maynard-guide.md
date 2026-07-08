@@ -44,29 +44,23 @@ Green lint = "not mechanically stale", never "the prose is true".
 
 *Updated: 2026-07-07 (Opus, after Wave 1).*
 
-- **State**: **24 of ~36 fully proved** (+3 partial). Wave 5 added N4.2
-  (S₁ trivial error) and N6.3 (concrete k₀) fully. **This is the terminal
-  boundary of the automated pass** — see the strategic line. M0, M1, N2.0, N3.1, and **Wave 1**
+- **State**: **25 of ~36 fully proved** (+2 partial). 2026-07-08: the
+  decisive wall fell — **N3.3-sharp landed on attempt 3** with complete
+  Fable-level design (all five bounds at exact constants). The previous
+  "terminal boundary" is broken; the endgame is live again. M0, M1, N2.0, N3.1, and **Wave 1**
   (N2.1, N2.6, N2.7, N3.2, N3.5, N6.1) all proved, sorry-free, axiom-
   audited. The analytic bottleneck (N3.2, Mertens' 2nd upper — absent
   from mathlib, built from Chebyshev + von Mangoldt + Abel) is DONE.
 - **Wave 2 done**: N3.4 (Rankin) + N4.1 (congruence count).
-- **The terminal gap** (each got 2 serious attempts, landed genuine
-  CRUDE bounds but not the sharp constants the endgame needs):
-  - **N3.3 sharp transfer** — the Abel-summation-to-integral step giving
-    B₁/A₁ at the *exact* leading constant (the average of `fWt`, ≈ I_g).
-    The crude fallback (minimum of `fWt`) decays like `k^{−9/8}` where
-    the design needs `~ log k` growth — so the crude bounds, though
-    genuine and non-vacuous, cannot clear the ratio threshold. THE
-    linchpin of the endgame.
-  - **N4.4 quantitative collision bound** — `|collision| ≤ (ck²/D₀)·yside`
-    (lower-order control). Only the crude majorant landed (grows with R,
-    not shown lower-order). The collision form is signed/indefinite, so
-    the naive drop is unavailable.
-  - **N5.1 links** — the S₂ decomposition scaffolding landed; wiring it
-    to `s2_diagonalisation` (main) and `eh_error_small` (error) is open.
-- **Blocked on the above**: N4.3, N5.3, N5.4, N5.5, N7.1–N7.4 (the S₁
-  upper, S₂ lower, and the final `S₂−S₁>0 → BoundedGapsFromEH` chain).
+- **Remaining gaps** (post-N3.3):
+  - **N4.4 quantitative collision bound** — `|collision| ≤ (ck²/D₀)·yside`.
+    The next wall; needs its own Fable design session (the y-side
+    representation argument). Gates N4.3's S₁ upper.
+  - **N5.3 (y^(m) contraction)** — never attempted; C, now has all its
+    transfer inputs sharp.
+  - **N5.4 (overshoot)** — now FULLY unblocked (all moment bounds sharp
+    or sufficient-crude); the empirical-centering argument per the freeze.
+  - **N5.1 links, N5.5, N7.1–N7.4** — the assembly chain behind those.
 - **Blockers**: none — every remaining node's deps are proved or in
   the next wave.
 - **Strategic line (terminal boundary of the automated pass).** The
@@ -382,12 +376,12 @@ directly).
 **Lean.** `Salt.Maynard.s1_compat_eq`, `s1_full_split`, `s1_yside_nonneg`, `crossCollision_le` (Salt/Maynard/CrossCollision.lean)
 **Status.** 🟡 partial 2026-07-07 (Opus, 2 attempts) — exact decomposition + a genuine crude majorant (`s1Compat_le_yside_add_absColl`) landed; the quantitative lower-order `(ck²/D₀)` bound PORT-BLOCKERed (the collision form is signed). **Difficulty.** predicted C, actual C+.
 
-#### N3.3 — weighted transfers 🟡
+#### N3.3 — weighted transfers ✅
 **Statement (frozen).** A₁,B₁ lower at exact constant; A₁,A₁⁽¹⁾,A₁⁽²⁾ upper at 4× the N6.1 integral term.
 **Role.** Bridges the atom (N3.1) to the 1-dim weighted sums the S₂ main (N5.3/N5.5) and overshoot (N5.4) consume.
 **Proof idea.** Landed: the definitions (`uVal`, `fWt`, `A1`, `B1`, `A1_1`, `A1_2`), structural facts, and the reduction-to-atom lemmas (`A1_le_phiAtom`, `B1_ge_min_mul_phiAtom`, …). PORT-BLOCKERed: the actual Abel-summation transfer giving the exact-constant lower and 4×-integral upper bounds (the packaged "crude" versions committed are vacuous placeholders, NOT the real bounds — see flags).
 **Lean.** `Salt.Maynard.uVal`, `fWt`, `A1`, `B1`, `A1_1`, `A1_2`, `A1_le_phiAtom`, `B1_ge_min_mul_phiAtom`, … (Salt/Maynard/Transfer.lean)
-**Status.** 🟡 partial 2026-07-07 (Opus, 2 attempts) — scaffolding + atom-reductions + the genuine CRUDE bounds `B1_lower`/`A1_upper_real` (correct `(φW/W)log R` shape) landed; the SHARP exact-constant Abel transfer PORT-BLOCKERed (flags 2026-07-07). The crude bound decays `k^{−9/8}` where the design needs `~log k`, so the sharp version is genuinely required for the endgame. **Difficulty.** predicted C, actual C+.
+**Status.** ✅ 2026-07-08 (Fable design + Opus execution, attempt 3) — ALL FIVE sharp bounds landed: `B1_lower_sharp`/`A1_lower_sharp` at constant exactly 1, `B1_upper_sharp`/`A1_upper_sharp` at constant exactly 4, `A1_1_upper_split` pointwise; error constants explicit and R/T-free (`errB1 = φW(log2+logW)`, `errA1 = 1+8φW·log2+4(φW+1)`). Key design moves: the universal by-parts identity `F = c₁(G−w·log)+c₂w`, closed-form antiderivatives in `s = 1+B·log t`, the R-free-only constant policy, and the A1_1 pointwise reduction (no Abel needed). New file Salt/Maynard/TransferSharp.lean (919 lines); attempt-1/2 scaffolding in Transfer.lean retained. **Difficulty.** predicted C, actual C — but only after complete Fable-level design; two delegated attempts without it produced only crude bounds.
 
 #### N4.2 — S₁ trivial error ✅
 **Statement.** `s1_trivial_error_le`: the O(1)-count-error sum factors as `2^(k+1)·(Σ|λ|)²`; `sum_abs_lam_le`: `Σ_{d∈𝒟}|lam d| ≤ R^{k+1}·Σ|y|/∏φ` (polynomial in R, hence o(N)).

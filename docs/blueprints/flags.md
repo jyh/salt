@@ -927,3 +927,43 @@ The gap is characterized down to named lemmas.
 
 Total Maynard track cost this session: ~4.5M subagent tokens across 6
 waves + the design panel. 24/36 kernel-checked, standard axioms only.
+
+## 2026-07-08 N3.3-SHARP Fable+Opus done (attempt 3) -- THE WALL FELL
+All FIVE sharp transfer bounds landed, verified three ways (implementer,
+adversarial verifier grading SHARP-LANDED per item, driver build/grep/
+axiom-audit/crux-read). New file Salt/Maynard/TransferSharp.lean (919
+lines). Constants: exactly 1 on the lowers (B1_lower_sharp,
+A1_lower_sharp), exactly 4 on the uppers (B1_upper_sharp, A1_upper_sharp
+-- the N3.1 atom loss, nothing more), A1_1_upper_split pointwise. Error
+constants explicit R-AND-T-free formulas (errB1 = phiW(log2+logW),
+errA1 = 1+8phiW log2+4(phiW+1)) -- no existentials.
+
+Why attempt 3 succeeded where 1-2 failed (the lesson):
+1. COMPLETE design before delegation: every antiderivative computed on
+   paper (all elementary in s = 1+B log t with B = k log k/log R -- the
+   same FTC species as our Mertens proof); a UNIVERSAL by-parts identity
+   F = c1(G - w log t) + c2 w covering all weights with one lemma.
+2. The CONSTANT POLICY fix: error terms need only be R-independent
+   (k/W/T-dependence harmless since k is fixed before N->infinity). This
+   dissolved the difficulty that forced attempt 2 into crude fallbacks.
+3. The A1_1 collapse: the frozen unimodal-Abel statement replaced by the
+   pointwise A1_1 <= (A1+B1)/log k (two-case dichotomy, class B); driver
+   re-verified the mean check closes (c <= 1/2 + o(1) <= 3/4) and that
+   this consumes a sharp B1 UPPER (added as P5 -- the crude fWt<=1 route
+   loses (s-1)/log s, fatal). Sharp A1_2 dropped (crude T^2-chain
+   suffices; overshoot <= 64T^2/k -> 0 recomputed).
+4. Trap list from the failed attempts (r=1 vanishing for mathlib Abel,
+   the fWt singularity below t=1, floor/log bridges) pre-empted every
+   snag; the implementer's only deviation was mathlib's Ioc 2 b base
+   point (handled R-free).
+Freeze amendments (i)-(iii) recorded in maynard.md (Fable tier).
+
+Implementer honesty notes: P2 proves the STRONGER no-boundary form and
+weakens to the stated one; P5 needed no boundary term at all; g3
+machinery never needed. Axioms: [propext, Classical.choice, Quot.sound]
+on all 5 + byparts_transfer (driver-verified).
+
+25/36 fully proved. Unblocked: N5.4 (all inputs ready), N5.3, and the
+c-check chain. Remaining walls: N4.4-quant (collision lower-order --
+next Fable design target), then N5.1-links/N5.5/N4.3/N7.x assembly.
+Cost: ~283k subagent tokens, ~43min.

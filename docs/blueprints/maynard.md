@@ -157,6 +157,20 @@ evaluation).
   W·N^{2/5} ≤ ⌊(N+h_m−1)^{1/2}⌋ for N ≥ (2W)^{10}. (True room is
   R = N^{1/4−δ}, not N^{1/4}.)
 
+**N2.0 amendment (2026-07-08, Fable, at the N3.3-sharp landing).**
+Three statement-level changes to the frozen M3 transfer set, made at the
+designated Fable amendment point: (i) the A1⁽¹⁾ upper is REPLACED by the
+equivalent-strength pointwise bound `A1_1 ≤ (A1 + B1)/log k` (the
+unimodal-weight Abel machinery is unnecessary — the two-case dichotomy
+`u·g² ≤ A⁻¹g²` (s≤2) / `≤ A⁻¹g` (s>2) suffices, and the downstream mean
+check closes at `c ≤ 1/2 + o(1) ≤ 3/4`); (ii) a sharp B1 UPPER (4×) is
+ADDED to the deliverable set (the mean check consumes it through (i);
+the crude `fWt ≤ 1` route loses `(s−1)/log s`, fatal); (iii) sharp A1⁽²⁾
+is DROPPED — the crude `T²·A1` chain suffices (recomputed overshoot:
+`≤ 64T²/k → 0`). Error-constant policy clarified: additive constants
+need only be R-INDEPENDENT (k/W/T-dependence harmless — k is fixed
+before N → ∞).
+
 ### M2 — k-dimensional machinery (general-y algebra)
 | id | statement | deps | class |
 |---|---|---|---|
