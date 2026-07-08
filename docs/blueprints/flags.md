@@ -553,3 +553,120 @@ track's stated objective) was already achieved; this node closes out the
 remaining bonus. No further automated proving work remains on this
 blueprint -- next steps (experience report, mathlib upstreaming, scoping
 the next TPC-ladder rung) are human/Fable-tier calls, not proving tasks.
+
+---
+
+# Maynard track (bounded gaps, conditional on EH(1/2)) — opened 2026-07-07
+
+Branch `maynard`, branched from `main` immediately after Brun's theorem
+landed. Blueprint: docs/blueprints/maynard.md. Guide:
+docs/blueprints/maynard-guide.md (created this session, transcribing
+Statement/Role text verbatim from the blueprint rather than composing
+new prose -- see the guide's own maintenance-rules header for the
+explicit note). Note: scripts/blueprint_lint.py is still hardcoded to
+brun-guide.md only (GUIDE = .../brun-guide.md) -- generalizing it to
+check maynard-guide.md too is future work, not done this session.
+
+## 2026-07-07 M0+M1 Sonnet done (workflow: implement + independent verify + driver re-verify)
+7 nodes (N0.1-N0.3, N1.1-N1.4) proved in one pass. New files:
+Salt/Maynard.lean (M0), Salt/Maynard/Tuple.lean (M1, namespace
+Salt.Maynard), Salt/Maynard/All.lean (aggregator), one import line added
+to Salt.lean.
+
+Pre-validated the two riskiest pieces myself in isolated scratch files
+before writing the brief: the "first k primes above k" construction's
+card/primality/>k properties (all confirmed standalone), and the
+Finset-pigeonhole pattern needed for N1.3's p>k case. Wrote a
+comprehensive brief pinning exact target statements for all 7 nodes
+(N0.3's EH hypothesis especially -- flagged as the single most important
+statement in the whole track, since everything downstream depends on
+its exact shape), delegated implementation with explicit
+statement-design-is-reserved-not-yours-to-decide language, then an
+independent verify pass instructed to check EH specifically for silent
+vacuity/triviality. BOTH passed. Driver (Sonnet) then ran a third
+independent pass: full build, sorry/native_decide/axiom/admit grep, read
+BOTH full files end-to-end myself (confirmed EH is genuinely non-trivial
+-- a crude block-counting bound alone gives only O(x log x), not
+O(x/(log x)^A) for arbitrary A, so EH encodes real equidistribution
+content; confirmed H_admissible's two cases and exists_nu0's CRT
+induction are genuine, non-circular derivations), and ran my own
+#print axioms on all 12 declarations plus explicit #check on EH's and
+BoundedGapsFromEH's types. All clean: [propext, Classical.choice,
+Quot.sound] (Admissible.mono even lighter: [propext, Quot.sound] only).
+
+Notable: N0.3's EH definition needed factoring "max over reduced
+residues" through an auxiliary total function (maxDiscrepancy, handling
+the q=0 junk case explicitly) since Finset.sup' demands a nonemptiness
+proof that must typecheck even at values never reached in the actual
+sum -- a pure Lean-encoding wrinkle, not a mathematical one; the faithful
+sup' encoding worked without needing the brief's inlined-forall
+fallback. N1.4's exists_nu0 used manual strong induction over the primes
+dividing W k (one Nat.chineseRemainder fold per prime via Nat.ModEq
+bookkeeping) rather than a ZMod.chineseRemainder ring-equiv route -- the
+brief's fallback was never needed. W_squarefree was reproved locally (3
+lines) rather than importing Salt.Brun.M5Assembly, to avoid pulling the
+whole Brun sieve stack into this track's import graph for one utility
+lemma -- a deliberate, reported tradeoff.
+
+Cost: ~200k subagent tokens (workflow, two agents) + driver's own
+read/audit, ~14min wall clock. M0 and M1 are both complete. Next:
+N2.0 (design freeze, Fable/human-tier), gated on the N3.1 probe below.
+
+## 2026-07-07 N3.1 probe Opus-tier(delegated)+Sonnet-driven done -- partial, informs N2.0
+Dispatched in parallel with M0/M1 (probe-independent per the blueprint).
+New file Salt/Maynard/PhiAtom.lean (955 lines), NOT wired into
+Salt/Maynard/All.lean (deliberately standalone -- a probe, not a landed
+blueprint node; will be integrated/renamed when N2.0 freezes the M3
+statements).
+
+Rung outcome (of the brief's four-rung ladder: lower-exact > upper-exact
+> upper-2x > upper-fallback):
+  - lower-exact: LANDED (phiAtom_lower) -- the load-bearing outcome, the
+    one the M4/M5 main-term route actually needs.
+  - upper-exact: NOT landed. Precise PORT-BLOCKER documented in-file
+    (lines ~918-953): the exact constant needs the identity
+    mu^2(r)*r/phi(r) = (1*h)(r) for a signed multiplicative h with
+    h(p)=1/(p-1), h(p^2)=-p/(p-1) (a genuine p/p^2 cancellation miracle
+    giving Sum h(d)/d = 1 exactly) -- this is a full C-difficulty node
+    (signed multiplicative convolution + convergent Euler products), not
+    a byproduct of the elementary route.
+  - upper-2x: NOT landed as 2x; landed as 4x-lossy instead
+    (phiAtom_upper_lossy). The TRUE constant is zeta(2)zeta(3)/zeta(6) ~=
+    1.9436 < 2, so 2x is true but proving it via the elementary
+    d <= 2*phi(d)^2 tail-bound route would need ~2500 explicit totient
+    term evaluations -- not a reasonable Lean route without the C-grade
+    convolution identity above.
+  - upper-fallback: LANDED (phiAtom_upper_fallback), C_B*(1+log x) form,
+    exactly as specified.
+
+Independently verified (Opus implementer + Opus verifier, both
+effort=high given this gates a design decision; then I, as driver,
+re-read the report and confirm it is internally consistent and the
+rung-outcome table is honestly characterized -- did NOT re-derive the
+955-line proof line-by-line myself, since the design decision this
+feeds is explicitly Fable/human-tier and a full re-verification is
+better done by whoever opens N2.0). Build clean (lake build
+Salt.Maynard.PhiAtom, 8582 jobs; full project lake build also clean but
+note PhiAtom.lean is NOT in the Salt root import closure so a bare
+"lake build" does not by itself exercise this file -- the verifier
+caught this and built it by module name explicitly, which is the
+correct check). No sorry/native_decide/admit/axiom. Axiom audit:
+[propext, Classical.choice, Quot.sound] on all three landed theorems.
+
+DESIGN IMPLICATION FOR N2.0 (flagged, not decided, by this Sonnet
+session): the blueprint's Design Decision 4 (tensor weights make k-fold
+MAINS exact, only errors are lossy) assumed the 1-dim atoms feeding
+those mains would be clean in both directions. The atom's upper bound
+is NOT clean without a dedicated C-node. Whoever opens N2.0 needs to
+decide: (a) budget that C-node now (the convolution route is described
+precisely enough above to scope it), or (b) check whether the 4x-lossy
+upper bound is actually tolerable where the atom is consumed (if it only
+feeds an ERROR term rather than a MAIN term, 4x may be free per the
+"loosen everything" doctrine) and proceed without it. This is exactly
+the kind of fact the probe was commissioned to surface before M2-M6 got
+built against a wrong assumption -- mission accomplished either way.
+
+Cost: ~283k subagent tokens (workflow, two effort=high agents), ~38min
+wall clock -- the most expensive single dispatch in the track so far,
+consistent with the probe's mandate to actually stress-test the
+riskiest assumption rather than take a shortcut.
