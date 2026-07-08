@@ -222,4 +222,42 @@ theorem exists_nu0 (k : ℕ) :
       have h2 : ν₀ + h ≡ ν₁ + h [MOD q] := (hν₀M.of_dvd hqM).add_right h
       exact hν₁ h hh q hqs (Nat.modEq_zero_iff_dvd.mp (h2.symm.trans h1))
 
+/-! ## Indexed enumeration of the tuple (shared M2/M4/M5 infrastructure)
+
+`H k` is a `Finset`; the k-dimensional sieve needs it as an ordered tuple
+`Fin k → ℕ`. `hSeq k i` is the `i`-th prime in the enumeration used to
+build `H k` (so `hSeq k` is injective with image `H k`). Added here (not
+in a downstream file) so every M2 node imports a stable definition. -/
+
+/-- The `i`-th element of the tuple `H k`, as a function `Fin k → ℕ`. -/
+noncomputable def hSeq (k : ℕ) (i : Fin k) : ℕ :=
+  Nat.nth Nat.Prime (firstIdxAboveK k + (i : ℕ))
+
+theorem hSeq_prime (k : ℕ) (i : Fin k) : (hSeq k i).Prime :=
+  Nat.nth_mem_of_infinite Nat.infinite_setOf_prime _
+
+theorem hSeq_injective (k : ℕ) : Function.Injective (hSeq k) := by
+  intro i j hij
+  unfold hSeq at hij
+  have := (Nat.nth_strictMono Nat.infinite_setOf_prime).injective hij
+  exact Fin.ext (by omega)
+
+theorem hSeq_mem_H (k : ℕ) (i : Fin k) : hSeq k i ∈ H k := by
+  unfold H hSeq
+  rw [Finset.mem_image]
+  exact ⟨(i : ℕ), Finset.mem_range.mpr i.isLt, rfl⟩
+
+theorem hSeq_gt_k (k : ℕ) (i : Fin k) : k < hSeq k i := by
+  unfold hSeq
+  have hbase := firstIdxAboveK_gt k
+  rcases Nat.eq_zero_or_pos (i : ℕ) with hi0 | hipos
+  · rw [hi0, Nat.add_zero]; exact hbase
+  · have : Nat.nth Nat.Prime (firstIdxAboveK k)
+        < Nat.nth Nat.Prime (firstIdxAboveK k + (i : ℕ)) :=
+      (Nat.nth_strictMono Nat.infinite_setOf_prime) (by omega)
+    omega
+
+theorem hSeq_le_D₀ (k : ℕ) (i : Fin k) : hSeq k i ≤ D₀ k :=
+  le_trans (Finset.le_sup (f := id) (hSeq_mem_H k i)) (le_max_right _ _)
+
 end Salt.Maynard
