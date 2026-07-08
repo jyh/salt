@@ -798,3 +798,41 @@ concern I flagged. Over-delivered ±2 then discharged to ±2^(k+1). B/C.
 17/36 nodes done. Next: the diagonalization core (N2.2/N2.4/N2.5/N3.3),
 the hardest cluster -- being designed carefully, not fanned out blind.
 Cost: ~258k subagent tokens, ~16min.
+
+## 2026-07-07 N2.2+N2.4 (k-dim S1 diagonalization) Opus done -- THE LINCHPIN
+The hardest node in the project, landed FIRST-PASS, no PORT-BLOCKER.
+Dedicated high-effort workflow (implement+adversarial-verify) + driver
+crux verification. New file Salt/Maynard/Diagonal.lean (381 lines).
+
+  s1_diagonalisation: Σ_{d,e∈𝒟} λ_d λ_e/∏lcm(dᵢ,eᵢ) = Σ_{r∈𝒟} y_r²/∏φ(rᵢ)
+
+with λ = lam k R W y = (∏μ(dᵢ)dᵢ)·wSum (Maynard's inverse change of
+variables). Generalizes Brun's 1-dim SelbergPort diagonalization to k
+coordinates.
+
+The implementer's key move: localize the two hard k-fold Finset steps
+(P3 tensor, P6 Mobius) into two standalone lemmas -- kernel1 (1-dim
+gcd/Mobius core: Σ_{d|r}Σ_{e|s}μ(d)μ(e)gcd(d,e) = [r=s]φ(r), proved via
+Nat.sum_totient + SelbergPort.moebius_inv_dvd_lower_bound applied per
+side + moebius_sq=1) and kernelK (its Finset.prod_univ_sum tensor over
+Fin k, vanishing off-diagonal via prod_eq_zero). This confined the k-fold
+generality to two short tensor lemmas and kept the Mobius inversion
+strictly 1-dim (reusing SelbergPort verbatim).
+
+Driver verification (this is the node where a hidden gap would be
+catastrophic): full build 8609 jobs; sorry/PORT-BLOCKER grep clean; own
+#print axioms on all 4 theorems = [propext, Classical.choice, Quot.sound];
+circularity check (only 1 reference to s1_diagonalisation = its own decl,
+no lemma references it); READ kernel1 and kernelK myself line-by-line --
+both genuine, non-vacuous derivations (kernel1 does real gcd=Σφ + double
+Mobius inversion; kernelK a real prod_univ_sum tensor). Verifier
+independently confirmed no circularity/vacuity, statement is the REAL
+diagonalization (both index sets 𝒟, RHS correct, y arbitrary).
+
+Difficulty: predicted C, actual C (hard end). The math was never in
+doubt; the cost was Lean-mechanical (higher-order rw matching on
+prod_univ_sum, hand-built 3/4-fold sum reorderings since sum_comm isn't
+confluent). No new mathlib results beyond the brief's anticipated tools.
+
+18/36 done. The M4/M5 spine is now REACHABLE. Newly unblocked: N2.3,
+N2.5, N3.3, N4.4, N5.2, N6.2. Cost: ~240k subagent tokens, ~29min.

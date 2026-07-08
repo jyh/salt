@@ -14,3 +14,4 @@ import Salt.Maynard.GIntegrals
 import Salt.Maynard.Mertens
 import Salt.Maynard.Rankin
 import Salt.Maynard.CongCount
+import Salt.Maynard.Diagonal

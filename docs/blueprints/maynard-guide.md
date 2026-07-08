@@ -44,15 +44,16 @@ Green lint = "not mechanically stale", never "the prose is true".
 
 *Updated: 2026-07-07 (Opus, after Wave 1).*
 
-- **State**: 17 of ~36 nodes done. M0, M1, N2.0, N3.1, and **Wave 1**
+- **State**: 18 of ~36 nodes done. **The diagonalization keystone (N2.4) is proved** — the M4/M5 spine is now reachable. M0, M1, N2.0, N3.1, and **Wave 1**
   (N2.1, N2.6, N2.7, N3.2, N3.5, N6.1) all proved, sorry-free, axiom-
   audited. The analytic bottleneck (N3.2, Mertens' 2nd upper — absent
   from mathlib, built from Chebyshev + von Mangoldt + Abel) is DONE.
 - **Wave 2 done**: N3.4 (Rankin) + N4.1 (congruence count).
-- **Frontier**: the **diagonalization core** — N2.2 (λ from y), N2.4
-  (S₁ diagonalization), N2.5 (S₂ diagonalization), N3.3 (weighted
-  transfers) — the coupled C-keystones, hardest in the track. Then the
-  M4/M5 spine (N2.3, N4.2–N4.4, N5.1–N5.5), M6 (N6.2/N6.3), M7 (N7.1–N7.4).
+- **N2.2/N2.4 done** (the S₁ diagonalization linchpin). Newly unblocked
+  (deps all met): N2.3 (λ size), N2.5 (S₂ diag), N3.3 (weighted
+  transfers), N4.4 (cross-collision), N5.2 (EH consumption), N6.2 (ratio).
+- **Frontier**: those six, then N4.2/N4.3, N5.1/N5.3/N5.4/N5.5, N6.3,
+  M7 (N7.1–N7.4).
 - **Blockers**: none — every remaining node's deps are proved or in
   the next wave.
 - **Strategic line**: Wave 1 retired the biggest single risk (Mertens)
@@ -316,6 +317,15 @@ directly).
 **Lean.** `Salt.Maynard.congCountTuple`, `congCountTuple_approx`, `congCountTuple_collision`, `modEq_prod_of_pairwise_coprime` (Salt/Maynard/CongCount.lean)
 **Status.** ✅ 2026-07-07 (Opus, workflow + driver third-pass; verifier confirmed the `_approx` hypotheses are load-bearing/CRT-satisfiable, not a vacuity dodge).
 **Difficulty.** predicted B, actual B/C.
+
+#### N2.2 + N2.4 — the k-dimensional S₁ diagonalization ✅ (the linchpin)
+**Statement.** `lam k R W y` (Maynard's inverse change of variables `(∏μ(dᵢ)dᵢ)·wSum`) and `wSum` are defined; then `Σ_{d,e∈𝒟} λ_d λ_e/∏ᵢ lcm(dᵢ,eᵢ) = Σ_{r∈𝒟} y_r²/∏ᵢ φ(rᵢ)`.
+**Role.** THE linchpin: the S₁ main term (N4.3) and, mirrored, S₂ (N2.5/N5.x) are read off this. The multidimensional generalization of Brun's Selberg port.
+**Proof idea.** Seven steps (P1–P7): `1/lcm = gcd/(de)`, `gcd = Σ_{u|d∧u|e}φ(u)` (`Nat.sum_totient`), the k-fold tensor of this and of the 1-dim Möbius inversion `Salt.SelbergPort.moebius_inv_dvd_lower_bound`, collapsing to the diagonal. Localized into two standalone lemmas: `kernel1` (the 1-dim gcd/Möbius core) and `kernelK` (its `Finset.prod_univ_sum` tensor over `Fin k`).
+**Lean.** `Salt.Maynard.s1_diagonalisation`, `lam`, `wSum`, `kernel1`, `kernelK`, `sum_ksieve_guarded_eq` (Salt/Maynard/Diagonal.lean)
+**Status.** ✅ 2026-07-07 (Opus, dedicated high-effort workflow + driver crux-read of `kernel1`/`kernelK`, axiom audit, no-circularity check). The hardest node in the project — landed first-pass with no PORT-BLOCKER.
+**Difficulty.** predicted C, actual C (hard end — the cost was Lean-mechanical k-fold sum reordering, not the mathematics).
+**Notes.** The mandated `hy` (y vanishes off 𝒟) hypothesis is unused — the identity holds unconditionally (every sum is over 𝒟); kept in signature per iron rule 1, underscore-named.
 
 ### M2/M3/M4/M5/M6/M7 — remaining nodes frozen (N2.0), not yet executed
 
