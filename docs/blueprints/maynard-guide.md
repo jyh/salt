@@ -44,14 +44,7 @@ Green lint = "not mechanically stale", never "the prose is true".
 
 *Updated: 2026-07-07 (Opus, after Wave 1).*
 
-- **State**: **26 of ~36 fully proved** (+1 partial). 2026-07-08: BOTH
-  analytic walls fell on Fable-designed third attempts — N3.3-sharp (all
-  five transfer bounds at exact constants) and N4.4-quant (the collision
-  bound, |collision| ≤ (12k²/D₀)·yside). **Every analytic obstruction to
-  `BoundedGapsFromEH` is now retired**; what remains is assembly. M0, M1, N2.0, N3.1, and **Wave 1**
-  (N2.1, N2.6, N2.7, N3.2, N3.5, N6.1) all proved, sorry-free, axiom-
-  audited. The analytic bottleneck (N3.2, Mertens' 2nd upper — absent
-  from mathlib, built from Chebyshev + von Mangoldt + Abel) is DONE.
+- **State**: **32 of ~36 nodes proved** (S1 side complete & unconditional; S2 diagonalization foundation CORRECTED — see flags 2026-07-08). Remaining: the S2 lower-bound extraction (a design fork needing Maynard Lemma 5.3), overshoot, N5.5, and the N7 endgame.
 - **Wave 2 done**: N3.4 (Rankin) + N4.1 (congruence count).
 - **Remaining work (all assembly, no analytic walls)**: N4.3 (S₁ upper —
   compat_le_two_yside + congCountTuple, templated), N5.1-links (wire

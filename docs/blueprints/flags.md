@@ -1119,3 +1119,35 @@ material; leaving it is harmless -- it's sorry-free and axiom-clean.)
 30/36 + this correction. Next: the S2 lower-bound extraction (V(u) →
 B₁²·A₁^{k-1} for tensor y, via the sharp transfer), then N5.5, N7.
 Cost: ~279k subagent tokens.
+
+## 2026-07-08 S2 restricted diag done; S2 lower-bound extraction = the design fork
+s2_diag_lam_restricted landed (Q_m^restricted = Σ_{u:uₘ=1}∏g(uᵢ)V_m(u)²,
+exact, lam-weighted). 32/36 + the corrected S2 foundation (s2_diag_lam)
++ S1 side complete/unconditional (cong_solvable done).
+
+DESIGN FORK reached at the S2 lower-bound extraction (the driver's honest
+assessment): the ratio Σ_m Q_m / yside ~ k·(B₁²/A₁)·(A_g/A₁)^{k-1} has a
+COMPOUNDING risk -- A_g (S2 1-dim diagonal, g-denominators) vs A₁ (S1
+1-dim, φ) differ, and the (k-1) power blows up unless A_g ≥ A₁ per
+coordinate. The N2.0 panel's resolution: after Maynard's Lemma 5.3
+contraction the S2 per-coordinate weight is f²(g·r²/φ³)/φ ≥ f²/φ pointwise
+(N2.6 φ³≤g·r²), giving A_g ≥ A₁ termwise, no compounding.
+
+THE ISSUE: that pointwise-domination argument attaches to Maynard's
+y^(m)-CONTRACTION form (Lemma 5.3), but the driver proved a DIFFERENT
+(also-correct) decomposition s2_diag_lam (Σ_u g(u)V(u)²). Reconciling the
+V(u) route with the pointwise-domination route -- or re-deriving the
+y^(m) contraction form directly -- is a genuine design choice that needs
+Maynard 1311.4600 Lemma 5.3's exact statement. Without it, delegating the
+extraction risks a correct-but-useless or subtly-wrong lemma. This is the
+boundary of what can be reliably designed from reconstructed memory.
+
+REMAINING to BoundedGapsFromEH (all now resting on CORRECT foundations):
+  (a) S2 lower extraction: y^(m) contraction / V(u) reconciliation +
+      the pointwise φ³≤g·r² domination (THE design fork above).
+  (b) overshoot (N5.4): yside vs A₁^k truncation, second-moment.
+  (c) N5.5: assemble S2 lower = (Δπ/φW)Σ_m Q_m − eh_error.
+  (d) N7.1: ratio > 1 (chain S1-upper, S2-lower, ratio_prize, pick k₀).
+  (e) N7.2/N7.3/N7.4: pigeonhole → BoundedGapsFromEH (B, mechanical).
+Recommended: obtain Maynard Lemma 5.3's exact form (paper) OR a dedicated
+Fable pass to re-derive the y^(m) contraction rigorously, before (a).
