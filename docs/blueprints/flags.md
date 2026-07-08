@@ -1014,3 +1014,27 @@ ALL ANALYTIC WALLS ARE NOW DOWN. Remaining to BoundedGapsFromEH: pure
 assembly (N4.3, N5.1-links, N5.3, N5.4, N5.5, N7.1-N7.4).
 Cost: ~531k subagent tokens, ~92min (the longest single dispatch of the
 project -- 2142 lines).
+
+## 2026-07-08 Endgame prereqs (sharp λ_max + k-fold divisor count) Opus done
+Two S1-side sharp bounds the crude N2.3/N4.2 versions couldn't supply
+(driver's own constant-chain analysis found the crude bounds give the
+S1 trivial error as N^{2k/5} >> N -- the product constraint ∏dᵢ<R makes
+the real support ~R·polylog, not R^k). Both PASS, verifier confirmed the
+constants are genuinely R-free (the hunted failure mode -- R-dependence
+disguised as R-free -- absent), driver build/sweep/axiom-audit clean.
+
+- LamBoundSharp.lean: lam_abs_le_sharp -- |lam k R W y d| ≤ C(1+logR)^(k+1)
+  for |y|≤1, d∈𝒟, with C = C₃·C₁^k (C₁ from rankin_bound 1, C₃=exp(Mertens
+  const)) explicit and R-free. The (k+1) power (not k) absorbs the
+  D/φ(D) ≤ C₃(1+logR) Mertens factor (phi_ratio_le). Per-coordinate
+  Rankin reindex + prod_univ_sum factorization + the φ(∏d)=∏φ(d)
+  pairwise-coprime step, all genuine.
+- DivisorCount.lean: kSieveIndex_card_le -- card 𝒟 ≤ R(1+logR)^k, leading
+  constant exactly 1. Via prodTuples_card_le (Fin-splitting + harmonic
+  induction, mathlib harmonic_le_one_add_log). W drops out (𝒟 ⊆ product-
+  bounded tuples).
+
+These feed N4.3 (S1 trivial error now genuinely o(N): Σ|λ| ≤ λ_max·card𝒟
+≤ (1+logR)^{k+1}·R(1+logR)^k = R·polylog, squared = R²·polylog =
+N^{2/5}·polylog = o(N)). Next: N4.3 proper.
+Cost: ~308k subagent tokens.

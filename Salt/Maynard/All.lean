@@ -26,3 +26,5 @@ import Salt.Maynard.K0
 import Salt.Maynard.S2Decomp
 import Salt.Maynard.TransferSharp
 import Salt.Maynard.CollisionQuant
+import Salt.Maynard.LamBoundSharp
+import Salt.Maynard.DivisorCount
