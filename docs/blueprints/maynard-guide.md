@@ -44,15 +44,15 @@ Green lint = "not mechanically stale", never "the prose is true".
 
 *Updated: 2026-07-07 (Opus, after Wave 1).*
 
-- **State**: 15 of ~33 nodes done. M0, M1, N2.0, N3.1, and **Wave 1**
+- **State**: 17 of ~36 nodes done. M0, M1, N2.0, N3.1, and **Wave 1**
   (N2.1, N2.6, N2.7, N3.2, N3.5, N6.1) all proved, sorry-free, axiom-
   audited. The analytic bottleneck (N3.2, Mertens' 2nd upper — absent
   from mathlib, built from Chebyshev + von Mangoldt + Abel) is DONE.
-- **Frontier** (deps met): **N2.2** (λ from y), **N3.4** (Rankin
-  bound, deps N3.2 ✅), **N4.1** (congruence count, deps N2.1/N2.7 ✅).
-- **Next**: Wave 2 (N2.2, N3.4, N4.1), then the N2.4/N2.5 k-dim
-  diagonalization keystones and the M4/M5 spine (N4.2–N4.4, N5.1–N5.5),
-  then M6 ratio (N6.2/N6.3) and M7 assembly (N7.1–N7.4).
+- **Wave 2 done**: N3.4 (Rankin) + N4.1 (congruence count).
+- **Frontier**: the **diagonalization core** — N2.2 (λ from y), N2.4
+  (S₁ diagonalization), N2.5 (S₂ diagonalization), N3.3 (weighted
+  transfers) — the coupled C-keystones, hardest in the track. Then the
+  M4/M5 spine (N2.3, N4.2–N4.4, N5.1–N5.5), M6 (N6.2/N6.3), M7 (N7.1–N7.4).
 - **Blockers**: none — every remaining node's deps are proved or in
   the next wave.
 - **Strategic line**: Wave 1 retired the biggest single risk (Mertens)
@@ -299,9 +299,27 @@ directly).
 **Status.** ✅ 2026-07-07 (Opus, workflow + driver third-pass).
 **Difficulty.** predicted B, actual B.
 
+### M3/M4 — Wave 2 (proved 2026-07-07, Opus)
+
+#### N3.4 — Rankin multiplicative-sum bound ✅
+**Statement.** For `L : ℕ`: `∃ C ≥ 1, ∀ Q ≥ 2, Σ_{q<Q, squarefree} L^{ω(q)}/φ(q) ≤ (C log Q)^L`.
+**Role.** The Cauchy–Schwarz second factor in N5.2's EH consumption (at `L = 3k` and `L = 9k²`).
+**Proof idea.** `L^{ω q}/φ(q) = ∏_{p|q} L/(p−1)` on squarefree; Euler-product upper bound `Σ_{q<Q sqfree} ≤ ∏_{p<Q}(1 + L/(p−1))` via `Finset.prod_add` + the `primeFactors` powerset injection; then `log ∏ ≤ L·Σ 1/(p−1) ≤ L(loglog Q + C₀)` (N3.2) and exponentiate.
+**Lean.** `Salt.Maynard.rankin_bound`, `rankin_term_eq` (Salt/Maynard/Rankin.lean)
+**Status.** ✅ 2026-07-07 (Opus, workflow + driver third-pass).
+**Difficulty.** predicted B, actual B. **Notes.** Applying Mertens at `n = Q` (not `Q−1`) eliminated the anticipated small-`Q` case split.
+
+#### N4.1 — per-tuple congruence count ✅
+**Statement.** `congCountTuple` = count of `n ∈ (N, K₀N]` with `n ≡ ν₀ (mod W k)` and `lcm(dᵢ,eᵢ) ∣ n+hSeq k i` ∀i. Compatible case: `|count − (K₀−1)N/(W∏lcm)| ≤ 2^(k+1)`. Collision case (`gcd(dᵢ,eⱼ)>1`, i≠j): count `= 0`.
+**Role.** The counting core of S₁ (N4.3) and S₂ (N5.1).
+**Proof idea.** Collision: a shared prime `> D₀ k` (via N2.7) divides two shifts → `not_common_prime_cross` → empty filter. Approx: CRT-fold the `k+1` pairwise-coprime moduli into one `n ≡ c (mod M)` (`modEq_prod_of_pairwise_coprime`, a `Finset.induction` over `Nat.modEq_and_modEq_iff_modEq_mul`), then Brun's `congCount_bound` at the two endpoints gives `±2` (discharged to `±2^(k+1)`).
+**Lean.** `Salt.Maynard.congCountTuple`, `congCountTuple_approx`, `congCountTuple_collision`, `modEq_prod_of_pairwise_coprime` (Salt/Maynard/CongCount.lean)
+**Status.** ✅ 2026-07-07 (Opus, workflow + driver third-pass; verifier confirmed the `_approx` hypotheses are load-bearing/CRT-satisfiable, not a vacuity dodge).
+**Difficulty.** predicted B, actual B/C.
+
 ### M2/M3/M4/M5/M6/M7 — remaining nodes frozen (N2.0), not yet executed
 
-Frozen statements in `docs/blueprints/maynard.md`. Frontier after Wave 1:
-**N2.2** (λ from y), **N3.4** (Rankin bound, deps N3.2 ✅), **N4.1**
-(congruence count, deps N2.1/N2.7 ✅). Then the N2.4/N2.5 diagonalization
-keystones and the M4/M5 spine.
+Frozen statements in `docs/blueprints/maynard.md`. Remaining: the
+**diagonalization core** (N2.2 λ-from-y, N2.4 S₁-diag, N2.5 S₂-diag, N3.3
+weighted transfers — the coupled C-keystones), then the M4/M5 spine
+(N2.3, N4.2–N4.4, N5.1–N5.5), M6 ratio (N6.2/N6.3), M7 assembly (N7.1–N7.4).

@@ -776,3 +776,25 @@ parameterized in general (A,T). N2.1/N2.6 clean first-pass.
 Cost: ~721k subagent tokens (12 agents: 6 impl + 6 verify), ~36min wall
 clock. Frontier now: N2.2, N3.4 (deps N3.2 done), N4.1 (deps N2.1/N2.7
 done). 15/33 nodes done.
+
+## 2026-07-07 Maynard Wave 2 (N3.4 Rankin, N4.1 congruence count) Opus done
+Both proved, one parallel workflow + driver third-pass (full build 8608
+jobs, sorry/axiom grep clean, own #print axioms on all 4 theorems).
+
+N3.4 (Rankin.lean): Σ_{q<Q sqfree} L^ω(q)/φ(q) ≤ (C log Q)^L for L:ℕ.
+Euler-product upper bound (Finset.prod_add + primeFactors powerset
+injection) + N3.2 Mertens. Clean B. Nice: applying Mertens at n=Q not
+Q-1 eliminated the small-Q case split.
+
+N4.1 (CongCount.lean): the per-tuple congruence count, both the O(1)
+approx (compatible case, via a CRT-fold lemma modEq_prod_of_pairwise_
+coprime + Brun's congCount_bound at the two interval endpoints) and the
+exact =0 collision case (via N2.7's not_common_prime_cross). The
+implementer chose reasonable _approx hypotheses (pairwise-coprime moduli
++ solvability hsol); verifier specifically confirmed hsol is load-bearing
+and CRT-satisfiable by real 𝒟 tuples, NOT a vacuity dodge -- the exact
+concern I flagged. Over-delivered ±2 then discharged to ±2^(k+1). B/C.
+
+17/36 nodes done. Next: the diagonalization core (N2.2/N2.4/N2.5/N3.3),
+the hardest cluster -- being designed carefully, not fanned out blind.
+Cost: ~258k subagent tokens, ~16min.

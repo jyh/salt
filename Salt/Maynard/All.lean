@@ -12,3 +12,5 @@ import Salt.Maynard.Compat
 import Salt.Maynard.ChebyshevInterval
 import Salt.Maynard.GIntegrals
 import Salt.Maynard.Mertens
+import Salt.Maynard.Rankin
+import Salt.Maynard.CongCount
