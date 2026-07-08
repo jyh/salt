@@ -738,3 +738,41 @@ guide briefing/cards updated.
 Cost: ~304k subagent tokens (panel) + driver design/reconciliation.
 Next: the eight-node frontier N2.1/N2.2/N2.6/N2.7/N3.2/N3.4/N3.5/N6.1
 (mostly B, parallelizable), then the M4/M5 spine.
+
+## 2026-07-07 Maynard Wave 1 (N2.1/N2.6/N2.7/N3.2/N3.5/N6.1) Opus done — 6-node parallel fan-out
+All six frontier nodes proved in one parallel workflow (each implement+
+verify), driver third-pass (wire imports, full build 8606 jobs, sorry/
+axiom grep clean, own #print axioms on all 12 theorems = [propext,
+Classical.choice, Quot.sound], crux-read of the hard proofs). New files:
+KSieve.lean (N2.1), GFunction.lean (N2.6), Compat.lean (N2.7),
+ChebyshevInterval.lean (N3.5), GIntegrals.lean (N6.1), Mertens.lean
+(N3.2). Also pre-added hSeq (indexed tuple) to Tuple.lean myself to
+de-conflict the wave.
+
+HEADLINE: N3.2 (Mertens' 2nd theorem, upper bound) LANDED — the track's
+analytic bottleneck, absent from all of mathlib, built from scratch:
+divisor swap (vonMangoldt_sum) -> Mertens-1st-upper via Chebyshev psi_le
+-> Abel summation (mathlib sum_mul_eq_sub_integral_mul₁) against 1/log t,
+with the two elementary integrals ∫1/(t log t)=loglog and
+∫1/(t log²t)=-1/log t evaluated by FTC. Coefficient EXACTLY 1 on loglog.
+Re-tiered predicted-B -> actual-C (genuine multi-step analytic NT). I
+read the two integral evaluations and the full Abel assembly myself
+(lines 290-431) — genuine, non-circular, non-vacuous.
+
+Notable: the Mertens implementer caught a FLAW IN THE DRIVER'S BRIEF —
+the suggested 1/(p-1) <= 2/p corollary route gives coefficient 2 on
+loglog, which does NOT satisfy the stated <= loglog+C; they replaced it
+with a 1/(p-1) = 1/p + 1/(p(p-1)) telescoping bound keeping coefficient
+1, WITHOUT altering the stated theorem. Verifier confirmed no statement
+weakening. Good catch — this exact issue would have surfaced downstream
+at N3.4/N5.2.
+
+Other nodes: N2.7's not_common_prime_cross has an unused p.Prime
+hypothesis (collision ruled out by size alone) — kept per iron rule 1.
+N3.5 landed with coefficient 28 log2 vs required 1 (huge margin, K0=64
+clears the K0=2 conspiracy). N6.1 all four g-integrals exact/tight,
+parameterized in general (A,T). N2.1/N2.6 clean first-pass.
+
+Cost: ~721k subagent tokens (12 agents: 6 impl + 6 verify), ~36min wall
+clock. Frontier now: N2.2, N3.4 (deps N3.2 done), N4.1 (deps N2.1/N2.7
+done). 15/33 nodes done.

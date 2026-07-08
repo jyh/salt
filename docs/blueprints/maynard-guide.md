@@ -42,31 +42,26 @@ Green lint = "not mechanically stale", never "the prose is true".
 
 ## 0. Briefing
 
-*Updated: 2026-07-07 (Fable, at the N2.0 freeze).*
+*Updated: 2026-07-07 (Opus, after Wave 1).*
 
-- **State**: 9 of ~33 nodes done (M0, M1, N3.1 probe, N2.0 design
-  freeze). The design is FROZEN: all M2–M6 statements are now fixed in
-  `maynard.md` (amended at N2.0; iron rule 1 applies to them from here).
-- **The freeze in one line**: the probe's rungs suffice (no
-  exact-constant convolution node needed); mains cancel symbolically
-  with exactly one lossy 4× in the ratio; three r-averaged poly(k)/D₀
-  correction families; empirical-ratio-centered overshoot; window
-  [N, 64N); D₀ bumped to max(k³, max H) in Lean.
-- **The freeze was adversarially reviewed** (three-reviewer panel, all
-  REPAIRABLE→repaired): the panel caught a real error in the draft
-  (S₂ diagonalizes with g(p) = p−2 denominators, not φ — φ is
-  unprovable) plus eight repairs, all incorporated. See flags.md
-  2026-07-07 N2.0.
-- **Frontier** (open, all deps met, parallelizable): N2.1, N2.2, N2.6
-  (A!), N2.7, N3.2, N3.4, N3.5, N6.1 — eight nodes, mostly B. Then
-  N2.3–N2.5, N3.3 unlock the M4/M5 spine.
-- **Blockers**: none. The critical path runs N2.4/N2.5 → N5.3/N5.5
-  (the contraction and S₂-lower, hardest nodes in the track).
-- **Strategic line**: the design risk is retired the same way Brun's
-  was — by probe + adversarial review BEFORE building. What remains is
-  execution: ~24 nodes, C-heavy in M4/M5, every statement now frozen
-  and reviewed. The k-dim diagonalization (N2.4/N2.5) is the next
-  keystone and has the 1-dim `SelbergPort` proofs as its template.
+- **State**: 15 of ~33 nodes done. M0, M1, N2.0, N3.1, and **Wave 1**
+  (N2.1, N2.6, N2.7, N3.2, N3.5, N6.1) all proved, sorry-free, axiom-
+  audited. The analytic bottleneck (N3.2, Mertens' 2nd upper — absent
+  from mathlib, built from Chebyshev + von Mangoldt + Abel) is DONE.
+- **Frontier** (deps met): **N2.2** (λ from y), **N3.4** (Rankin
+  bound, deps N3.2 ✅), **N4.1** (congruence count, deps N2.1/N2.7 ✅).
+- **Next**: Wave 2 (N2.2, N3.4, N4.1), then the N2.4/N2.5 k-dim
+  diagonalization keystones and the M4/M5 spine (N4.2–N4.4, N5.1–N5.5),
+  then M6 ratio (N6.2/N6.3) and M7 assembly (N7.1–N7.4).
+- **Blockers**: none — every remaining node's deps are proved or in
+  the next wave.
+- **Strategic line**: Wave 1 retired the biggest single risk (Mertens)
+  and confirmed the frozen design executes cleanly at scale — six
+  independent nodes, all first-pass, one of them (N3.2) genuinely
+  C-grade analytic NT. The hard remaining keystones are the k-dimensional
+  diagonalizations (N2.4/N2.5) and the S₂-lower assembly (N5.5); the
+  frozen statements and the 1-dim `SelbergPort` template de-risk them,
+  but they are the true test of the track.
 
 ## 1. Big picture
 
@@ -252,9 +247,61 @@ directly).
 **Status.** ✅ 2026-07-07 (delegated implement+verify workflow at effort-high; driver verification pass at the N2.0 session: build by module name, forbidden-token grep, crux read of `fiber_sum_le_inv_totient`).
 **Difficulty.** predicted C, actual C (the upper-bound asymmetry was the probe's key finding).
 
-### M2-M7 — statements frozen (N2.0), execution not yet started
+### M2/M3/M6 — Wave 1 (proved 2026-07-07, Opus; 6-node parallel fan-out)
 
-All M2–M7 statements are frozen as of the N2.0 amendment — see
-`docs/blueprints/maynard.md` (the freeze section + amended DAG tables)
-and `docs/blueprints/flags.md` for the panel record. Frontier: N2.1,
-N2.2, N2.6, N2.7, N3.2, N3.4, N3.5, N6.1.
+#### N2.1 — the k-dim index set 𝒟 ✅
+**Statement.** `kSieveIndex k R W`: the Finset of `r : Fin k → ℕ` of pairwise-coprime squarefrees, each coprime to `W`, with `∏ᵢ rᵢ < R`; `mem_iff` + per-coordinate `rᵢ < R`, `0 < rᵢ`.
+**Role.** The index set every M2/M4/M5 sum ranges over.
+**Proof idea.** Filter of `piFinset (range R)`; the reverse `mem_iff` re-derives `rᵢ < R` from `rᵢ ≤ ∏ⱼrⱼ < R` (`single_le_prod'`, factors `≥ 1` by squarefree-positivity).
+**Lean.** `Salt.Maynard.kSieveIndex`, `mem_kSieveIndex_iff`, `kSieveIndex_coord_lt`, `kSieveIndex_coord_pos` (Salt/Maynard/KSieve.lean)
+**Status.** ✅ 2026-07-07 (Opus, workflow + driver third-pass).
+**Difficulty.** predicted B, actual B.
+
+#### N2.6 — g/φ comparison ✅
+**Statement.** `gMult r = ∏_{p|r}(p−2)`; for squarefree `r` with all prime factors ≥ 3: `g(r) ≤ φ(r)` and `φ(r)³ ≤ g(r)·r²` (real-valued).
+**Role.** Restores literal-A₁ domination in the S₂ non-m coordinates (N5.5), preserving the D2 symbolic cancellation.
+**Proof idea.** Push `φ, r, g` to single `∏ p ∈ primeFactors` products; `Finset.prod_le_prod` termwise, per-prime `(p−1)³ ≤ (p−2)p²` by `nlinarith` given `3 ≤ p`.
+**Lean.** `Salt.Maynard.gMult`, `gMult_le_totient`, `totient_cubed_le_gMult_mul` (Salt/Maynard/GFunction.lean)
+**Status.** ✅ 2026-07-07 (Opus, workflow + driver third-pass).
+**Difficulty.** predicted A, actual A.
+
+#### N2.7 — congruence compatibility ✅
+**Statement.** Every prime factor of anything coprime to `W k` exceeds `D₀ k`; hence for `i ≠ j` no prime `> D₀ k` divides both `n+hSeq k i` and `n+hSeq k j` (it would divide the nonzero difference `≤ D₀ k`).
+**Role.** The cross-collision-pairs contribute 0 (N4.4/N5.1).
+**Proof idea.** `Nat.Prime.dvd_primorial_iff` for the first; ℤ-subtraction + `hSeq_injective`/`hSeq_le_D₀` + `Int.le_of_dvd` for the second.
+**Lean.** `Salt.Maynard.D₀_lt_of_prime_dvd_coprime`, `not_common_prime_cross` (Salt/Maynard/Compat.lean)
+**Status.** ✅ 2026-07-07 (Opus, workflow + driver third-pass).
+**Difficulty.** predicted B, actual B.
+**Notes.** `not_common_prime_cross`'s `p.Prime` hypothesis is unused (the collision is ruled out by size alone) — kept per iron rule 1, with a harmless linter-satisfier line.
+
+#### N3.2 — Mertens' 2nd theorem, upper bound ✅
+**Statement.** `Σ_{p ≤ n} 1/p ≤ log log n + C` and the `1/(p−1)` corollary — with leading coefficient **exactly 1** on log log.
+**Role.** The analytic input to N3.4 (Rankin bound → N5.2 EH consumption). Mathlib has no Mertens; this builds it.
+**Proof idea.** Divisor swap `Σ_{n≤N} log n = Σ_d Λ(d)⌊N/d⌋` (`vonMangoldt_sum`); `⌊N/d⌋ ≥ N/d−1` + Chebyshev `psi_le` ⇒ `Σ_{p≤N}(log p)/p ≤ log N + c` (Mertens 1st upper); then Abel summation (`sum_mul_eq_sub_integral_mul₁`) against `1/log t`, evaluating `∫1/(t log t) = log log` and `∫1/(t log²t) = −1/log t` by FTC.
+**Lean.** `Salt.Maynard.sum_inv_prime_le`, `sum_inv_prime_sub_one_le`, `sum_log_div_prime_le`, `integral_inv_tlog`, `integral_inv_tlogsq` (Salt/Maynard/Mertens.lean)
+**Status.** ✅ 2026-07-07 (Opus, workflow at high effort + driver crux-read of the two integrals and the Abel assembly). The single hardest node landed to date — the track's analytic bottleneck, absent from mathlib.
+**Difficulty.** predicted B, actual **C** (genuine multi-step analytic NT from scratch).
+**Notes.** The implementer caught a flaw in the driver's brief: the `1/(p−1) ≤ 2/p` corollary route gives coefficient 2, which fails the stated bound — replaced by a `1/(p−1) = 1/p + 1/(p(p−1))` telescoping bound keeping coefficient 1, without altering the statement.
+
+#### N3.5 — Chebyshev interval ✅
+**Statement.** `∃ c > 0, N₀, ∀ N ≥ N₀, c·N/log N ≤ π(64N) − π(N)`.
+**Role.** The prime-supply lower bound `Δπ ≥ cN/log N` for S₂ (N5.5).
+**Proof idea.** `Chebyshev.pi_ge`/`pi_le_log4_mul_div`; the leading coefficient is `28·log 2 ≈ 19.4` vs required `1`; the `√N` and `log(64N+1)` lower-order terms killed by two `Tendsto …(𝓝 0)` lemmas; `nlinarith` with `Real.log_two_gt_d9`.
+**Lean.** `Salt.Maynard.primes_in_interval_ge` (Salt/Maynard/ChebyshevInterval.lean)
+**Status.** ✅ 2026-07-07 (Opus, workflow + driver third-pass).
+**Difficulty.** predicted B, actual B. **Notes.** conspiracy is exactly at `K₀ = 2`; `64` clears it with margin `62 log 2`.
+
+#### N6.1 — g-integral closed forms ✅
+**Statement.** For `A > 0, T ≥ 0`: `∫₀^T 1/(1+Au) = log(1+AT)/A`, `∫₀^T 1/(1+Au)² = T/(1+AT)`, `∫₀^T u/(1+Au)² = (log(1+AT) − AT/(1+AT))/A²`, `∫₀^T u²/(1+Au)² ≤ T/A²`.
+**Role.** The 1-dim calculus feeding the M6 ratio (N6.2).
+**Proof idea.** FTC (`integral_eq_sub_of_hasDerivAt`) with explicit antiderivatives; the last is a pointwise `(u/(1+Au))² ≤ 1/A²` + `integral_mono_on`. `A, T` fully general.
+**Lean.** `Salt.Maynard.integral_g`, `integral_g_sq`, `integral_u_g_sq`, `integral_u_sq_g_sq_le` (Salt/Maynard/GIntegrals.lean)
+**Status.** ✅ 2026-07-07 (Opus, workflow + driver third-pass).
+**Difficulty.** predicted B, actual B.
+
+### M2/M3/M4/M5/M6/M7 — remaining nodes frozen (N2.0), not yet executed
+
+Frozen statements in `docs/blueprints/maynard.md`. Frontier after Wave 1:
+**N2.2** (λ from y), **N3.4** (Rankin bound, deps N3.2 ✅), **N4.1**
+(congruence count, deps N2.1/N2.7 ✅). Then the N2.4/N2.5 diagonalization
+keystones and the M4/M5 spine.
