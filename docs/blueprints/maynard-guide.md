@@ -44,16 +44,18 @@ Green lint = "not mechanically stale", never "the prose is true".
 
 *Updated: 2026-07-07 (Opus, after Wave 1).*
 
-- **State**: 18 of ~36 nodes done. **The diagonalization keystone (N2.4) is proved** — the M4/M5 spine is now reachable. M0, M1, N2.0, N3.1, and **Wave 1**
+- **State**: 22 of ~36 fully proved (+2 partial). Wave 4 landed N2.5 (S₂ diag), N2.3 (λ size), N5.2 (EH consumption), N6.2 (ratio prize) fully; N4.4 and N3.3 partial (definitions + skeleton done, the quantitative cores PORT-BLOCKERed — these are the two analytic walls gating the final assembly). M0, M1, N2.0, N3.1, and **Wave 1**
   (N2.1, N2.6, N2.7, N3.2, N3.5, N6.1) all proved, sorry-free, axiom-
   audited. The analytic bottleneck (N3.2, Mertens' 2nd upper — absent
   from mathlib, built from Chebyshev + von Mangoldt + Abel) is DONE.
 - **Wave 2 done**: N3.4 (Rankin) + N4.1 (congruence count).
-- **N2.2/N2.4 done** (the S₁ diagonalization linchpin). Newly unblocked
-  (deps all met): N2.3 (λ size), N2.5 (S₂ diag), N3.3 (weighted
-  transfers), N4.4 (cross-collision), N5.2 (EH consumption), N6.2 (ratio).
-- **Frontier**: those six, then N4.2/N4.3, N5.1/N5.3/N5.4/N5.5, N6.3,
-  M7 (N7.1–N7.4).
+- **Reachable now** (deps met, not blocked on a partial): N4.2 (S₁
+  trivial error, deps N2.3 ✅), N5.1 (S₂ decomp, deps N2.5 ✅), N6.3
+  (deps N6.2 ✅).
+- **The two walls** (PORT-BLOCKERed cores, re-attempt target): N3.3's
+  Abel-summation weighted transfer (the exact-constant/4× bounds), and
+  N4.4's quantitative collision bound (`|collision| ≤ (ck²/D₀)A₁^k`).
+  N4.3, N5.3, N5.4, N5.5, N7.1–N7.4 are gated on these.
 - **Blockers**: none — every remaining node's deps are proved or in
   the next wave.
 - **Strategic line**: Wave 1 retired the biggest single risk (Mertens)
@@ -326,6 +328,46 @@ directly).
 **Status.** ✅ 2026-07-07 (Opus, dedicated high-effort workflow + driver crux-read of `kernel1`/`kernelK`, axiom audit, no-circularity check). The hardest node in the project — landed first-pass with no PORT-BLOCKER.
 **Difficulty.** predicted C, actual C (hard end — the cost was Lean-mechanical k-fold sum reordering, not the mathematics).
 **Notes.** The mandated `hy` (y vanishes off 𝒟) hypothesis is unused — the identity holds unconditionally (every sum is over 𝒟); kept in signature per iron rule 1, underscore-named.
+
+#### N2.5 — the S₂ diagonalization ✅
+**Statement.** `s2_diagonalisation`: `Σ_{d,e∈𝒟} λG_d λG_e/∏ᵢφ(lcm(dᵢ,eᵢ)) = Σ_{r∈𝒟} y_r²/∏ᵢ gMult(rᵢ)`, with `λG = (∏μ(dᵢ)φ(dᵢ))·wSumG`.
+**Role.** The S₂ main-term structure (N5.x reads it off, restricting to `r_m=1`).
+**Proof idea.** Exact mirror of N2.4 via the g-analog `Σ_{u|n} gMult u = φ(n)` (`sum_gMult_eq_totient`) and `φ(d)φ(e)/φ(lcm) = φ(gcd) = Σ_{u|gcd}gMult`. Lemmas `kernelG`/`kernelKG` mirror `kernel1`/`kernelK`. Proved the FULL k-dim form (the m-pinned form is its restriction).
+**Lean.** `Salt.Maynard.s2_diagonalisation`, `sum_gMult_eq_totient`, `totient_gcd_mul_totient_lcm`, `kernelG`, `kernelKG`, `lamG`, `wSumG` (Salt/Maynard/DiagonalS2.lean)
+**Status.** ✅ 2026-07-07 (Opus, workflow + driver audit). **Difficulty.** predicted C, actual C (templated by N2.4).
+**Notes.** `λG` uses multiplier `μ(dᵢ)φ(dᵢ)` (forced by the φ(lcm) denominator), not N2.4's `μ(dᵢ)dᵢ`.
+
+#### N2.3 — λ size bound ✅
+**Statement.** `|lam k R W y d| ≤ (∏ᵢdᵢ)·Σ_{r∈𝒟}|y r|/∏φ(rᵢ)`.
+**Role.** The trivial-error factor (N4.2).
+**Proof idea.** `|∏μ(dᵢ)dᵢ| ≤ ∏dᵢ` + triangle inequality on `wSum`.
+**Lean.** `Salt.Maynard.lam_abs_le` (Salt/Maynard/LamBound.lean). **Status.** ✅ 2026-07-07 (Opus). **Difficulty.** predicted B, actual B.
+
+#### N5.2 — the EH consumption ✅
+**Statement.** `eh_error_small`: under `EH(1/2)`, `Σ_{q<√N, sqfree} (3k)^{ω(q)}·maxDiscrepancy(N,q) ≤ C·N/(log N)²`.
+**Role.** Where the EH hypothesis is used — the S₂ error absorption (N5.5). The single most important consumption.
+**Proof idea.** Cauchy–Schwarz (`Finset.sum_mul_sq_le_sq_mul_sq`) between `rankin_bound (9k²)` (fixed log-power) and `EH(1/2)` at exponent `9k²+4` (EH's ∀A crushes the Rankin factor), with N0.2 the trivial factor.
+**Lean.** `Salt.Maynard.eh_error_small` (Salt/Maynard/EHConsume.lean). **Status.** ✅ 2026-07-07 (Opus, workflow + driver check that EH is genuinely consumed). **Difficulty.** predicted C, actual C.
+
+#### N6.2 — the ratio prize ✅
+**Statement.** `ratio_prize`: `∃ k₀, ∀ k ≥ k₀, I_g²/J_g ≥ (log k)/64` (with `g(u)=1/(1+Au)`, `A=log k`, `T=k^{1/8}/log k`, the N6.1 closed forms substituted).
+**Role.** The variational prize: the Maynard ratio grows like log k, so it exceeds any threshold for large k.
+**Proof idea.** Substitute the N6.1 closed forms; real-analysis inequality (k₀=2 sufficed).
+**Lean.** `Salt.Maynard.ratio_prize` (Salt/Maynard/Ratio.lean). **Status.** ✅ 2026-07-07 (Opus, driver checked the bound genuinely grows in k). **Difficulty.** predicted C, actual C.
+
+#### N4.4 — cross-collision correction 🟡
+**Statement (frozen).** The (dᵢ,eⱼ)>1 collision correction to S₁-main, bounded via the y-side by `(ck²/D₀)·A₁^k` relative.
+**Role.** Makes the S₁ upper bound (N4.3) rigorous (collision pairs count 0 but the algebraic form sums over them).
+**Proof idea.** Landed: the EXACT unconditional decomposition `compat = yside − collision` (`s1_compat_eq`), `s1_full_split`, `s1_yside_nonneg`, and the one-sided drop `crossCollision_le` (conditional on `0 ≤ collision`). PORT-BLOCKERed: the quantitative `(ck²/D₀)` bound on the collision form (stated as a Prop `CrossCollisionControlled`) — the genuinely hard piece, since the collision form isn't obviously signed.
+**Lean.** `Salt.Maynard.s1_compat_eq`, `s1_full_split`, `s1_yside_nonneg`, `crossCollision_le` (Salt/Maynard/CrossCollision.lean)
+**Status.** 🟡 partial 2026-07-07 (Opus) — decomposition done, quantitative core PORT-BLOCKERed (flags 2026-07-07). **Difficulty.** predicted C, actual C+.
+
+#### N3.3 — weighted transfers 🟡
+**Statement (frozen).** A₁,B₁ lower at exact constant; A₁,A₁⁽¹⁾,A₁⁽²⁾ upper at 4× the N6.1 integral term.
+**Role.** Bridges the atom (N3.1) to the 1-dim weighted sums the S₂ main (N5.3/N5.5) and overshoot (N5.4) consume.
+**Proof idea.** Landed: the definitions (`uVal`, `fWt`, `A1`, `B1`, `A1_1`, `A1_2`), structural facts, and the reduction-to-atom lemmas (`A1_le_phiAtom`, `B1_ge_min_mul_phiAtom`, …). PORT-BLOCKERed: the actual Abel-summation transfer giving the exact-constant lower and 4×-integral upper bounds (the packaged "crude" versions committed are vacuous placeholders, NOT the real bounds — see flags).
+**Lean.** `Salt.Maynard.uVal`, `fWt`, `A1`, `B1`, `A1_1`, `A1_2`, `A1_le_phiAtom`, `B1_ge_min_mul_phiAtom`, … (Salt/Maynard/Transfer.lean)
+**Status.** 🟡 partial 2026-07-07 (Opus) — scaffolding + atom-reductions done, the Abel-summation transfer PORT-BLOCKERed (flags 2026-07-07). **Difficulty.** predicted C, actual C (the transfer is the hard part).
 
 ### M2/M3/M4/M5/M6/M7 — remaining nodes frozen (N2.0), not yet executed
 

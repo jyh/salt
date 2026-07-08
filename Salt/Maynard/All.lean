@@ -15,3 +15,9 @@ import Salt.Maynard.Mertens
 import Salt.Maynard.Rankin
 import Salt.Maynard.CongCount
 import Salt.Maynard.Diagonal
+import Salt.Maynard.DiagonalS2
+import Salt.Maynard.LamBound
+import Salt.Maynard.EHConsume
+import Salt.Maynard.Ratio
+import Salt.Maynard.CrossCollision
+import Salt.Maynard.Transfer

@@ -836,3 +836,49 @@ confluent). No new mathlib results beyond the brief's anticipated tools.
 
 18/36 done. The M4/M5 spine is now REACHABLE. Newly unblocked: N2.3,
 N2.5, N3.3, N4.4, N5.2, N6.2. Cost: ~240k subagent tokens, ~29min.
+
+## 2026-07-07 Maynard Wave 4 (N2.5/N2.3/N5.2/N6.2 done; N4.4/N3.3 partial) Opus
+Six-node parallel workflow off the diagonalization. Driver third-pass:
+full build 8615 jobs, sorry/PORT-BLOCKER grep, own #print axioms on the
+load-bearing theorems (all [propext, Classical.choice, Quot.sound]),
+statement reads for the latitude nodes.
+
+FULLY LANDED (✅):
+- N2.5 (DiagonalS2.lean): the S2 g-denominator diagonalization, exact
+  mirror of N2.4 via sum_gMult_eq_totient (Σ_{u|n}gMult(u)=φ(n)) and
+  φ(d)φ(e)/φ(lcm)=φ(gcd)=Σ_{u|gcd}gMult. Agent generalized beyond the
+  m-pinned target to the full k-dim form (strictly stronger, m-pinned is
+  its restriction). λG uses μ(dᵢ)φ(dᵢ) multiplier (forced by φ(lcm)
+  denominator). Clean.
+- N2.3 (LamBound.lean): |lam| ≤ (∏dᵢ)·Σ|y|/∏φ. Trivial B.
+- N5.2 (EHConsume.lean): eh_error_small -- THE EH consumption. Genuinely
+  uses EH(1/2) at exponent 9k²+4 via Cauchy-Schwarz against rankin_bound
+  (9k²). Verified non-vacuous (EH load-bearing). Clean C.
+- N6.2 (Ratio.lean): ratio_prize I_g²/J_g ≥ (log k)/64, k₀=2. Genuinely
+  growing in k (verified). Clean C.
+
+PARTIAL (🟡) -- THE TWO ANALYTIC WALLS:
+- N4.4 (CrossCollision.lean): landed the EXACT decomposition
+  s1_compat_eq (compat = yside - collision), s1_full_split,
+  s1_yside_nonneg, and crossCollision_le (one-sided drop, CONDITIONAL on
+  0 ≤ collision form). PORT-BLOCKERed: the quantitative |collision| ≤
+  (ck²/D₀)A₁^k bound (stated as a Prop CrossCollisionControlled). The
+  collision form is NOT obviously signed (λ has μ signs), so the naive
+  drop needs the quantitative bound -- genuinely hard, not landed.
+- N3.3 (Transfer.lean): landed the definitions (uVal, fWt, A1, B1,
+  A1_1, A1_2) + structural facts + the reduction-to-atom lemmas
+  (A1_le_phiAtom, B1_ge_min_mul_phiAtom, ...). PORT-BLOCKERed: the actual
+  Abel-summation transfer giving the exact-constant lower / 4×-integral
+  upper bounds. IMPORTANT HONESTY NOTE: the file also contains packaged
+  "crude bound" theorems (A1_upper etc.) that the verifier flagged as
+  VACUOUS (∃C absorbing the whole term) -- these are TRUE but useless and
+  must NOT be counted as the real transfer bounds; the real bounds are
+  pending. Committed for the useful scaffolding, documented as partial.
+
+These two PORT-BLOCKERed cores (Abel-summation transfer, quantitative
+collision bound) are the walls gating the final assembly: N4.3, N5.3,
+N5.4, N5.5, N7.1-N7.4 depend on them. Still reachable without them:
+N4.2 (deps N2.3✅), N5.1 (deps N2.5✅), N6.3 (deps N6.2✅) -- next wave,
+plus dedicated re-attempts of the two walls.
+
+22/36 fully proved. Cost: ~778k subagent tokens (12 agents), ~18min.
