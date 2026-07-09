@@ -1360,3 +1360,23 @@ assembly is unchanged (RHS just carried through). The inner estimate is
 still the hard research-level piece (V non-collapsing; via Cauchy-Schwarz +
 a shift-bound Sum_u prod g V(u+σ)^2 <= (factor)Sum_u prod g V(u)^2, or the
 N4.4 erasure adapted). To redo with the correct RHS.
+
+## 2026-07-09 FIFTH fragility caught AT DESIGN TIME + complete endgame design
+Writing the C5 constant chain (docs/blueprints/endgame-design.md), the
+driver (Fable) found: the committed s2main_lower error term
+(2ClogR/D0)*Sum_u|contraction|/prod phi is B-type (~B1^k), which EXCEEDS
+the main (1/4)B1^2 A1^{k-1} by (logk/2)^k/k^3 -> infinity. True-but-useless
+downstream. Root cause: lemma53's ABSOLUTE error; fix = lemma53_rel
+(relative error <= prod f0(v_i) * C logR/D0 -- the landed htail/gProd
+proofs support factoring prod f0 out) + s2main_lower_rel re-thread ->
+Qdiag_gv >= (1/8) B1^2 A1^{k-1}. All five fragilities now: per-u coprimality,
+budget split, hA11<=1/4, colliding-pairs RHS, absolute-vs-relative lemma53
+error. Pattern: EVERY error term must carry the f0-tensor weight (B-vs-A
+dimensional check).
+
+endgame-design.md now specifies EVERYTHING to BoundedGapsFromEH: P1
+lemma53_rel, P2 s2main_lower_rel, C4 over compat pairs (collision-zero +
+(3k)^omega fiber + eh_error_pow(2k+4) endpoints), P3 S1 wiring, P4 dpi
+shift, C5 (ratio: k B1^2/A1 >= (phiW/W) logR logk/324 vs needed
+(4032/c)(phiW/W)logN => logk > 6.6M/c => k0 = exp(7e6/c); phiW/W cancels;
+pigeonhole; the Icc form). Waves 3-6 are C-tier execution.
