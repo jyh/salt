@@ -1255,3 +1255,28 @@ Via (B1-omitMass)^2 >= B1^2 - 2 B1 omitMass, split into B1^2*main -
 contraction_ge_B1_sub_omit. Axiom-clean. c0=1/4 explicit.
 Next: discharge H_main (overshoot+coprimality, extend C3a/Overshoot) and
 H_omit (average omitted-mass via Sum_p 1/(p-1)^2), then C4/C5.
+
+## 2026-07-09 THIRD constant fragility: hA11<=1/4 unprovable; use Chebyshev overshoot
+DRIVER FINDING before C4: the committed s2_tensor_lower_closed is conditional
+on hA11 (A1_1 <= (1/4)A1), which is UNPROVABLE. The transfer bounds carry a
+lossy 4x (B1_upper/A1_upper factor 4, A1_lower factor 1), so provable
+B1/A1 <= (1/2)log k (4x the true ~1/8 log k), giving provable A1_1/A1 <= ~0.6,
+NOT 1/4. So s2_tensor_lower_closed would be vacuous when hA11 is discharged.
+
+ROOT CAUSE: I used FIRST-moment Markov for the overshoot (C3a/hOver), giving
+overshoot <= (k-1)/(k-T)*(A1_1/A1) ~ 1/2 (a CONSTANT, needs A1_1/A1 tiny).
+The frozen design (C3) specified SECOND-moment CHEBYSHEV: overshoot <=
+Var/(k-mean)^2 <= (k A1_2/A1)/(k(1-A1_1/A1))^2 <= 4T^2/k -> 0 (NEGLIGIBLE),
+using crude A1_2 <= T^2 A1 (uVal<=T) and any A1_1/A1 < 1. Chebyshev makes
+overshoot o(1), so ALL downstream constants get room and hA11 only needs
+A1_1/A1 <= 0.6 (achievable via the lossy bounds).
+
+FIX (in progress): (1) hA11 real: A1_1 <= (3/5)A1 for k>=k1, R large (via
+A1_1_upper_split + B1_upper_sharp/A1_lower_sharp, using b*logR0 = T log k =
+k^{1/8}, log(1+k^{1/8}) ~ (1/8)log k, err terms -> 0 as R->inf). (2) Chebyshev
+overshoot (moment2 dim k-1 + A1_2<=T^2 A1 + hA11) -> overshoot <= 4T^2/k.
+(3) re-thread H_main/s2_tensor_lower with the o(1) overshoot (c0 ~ 1/2, huge
+room). The first-moment hOver in HMainClose is REPLACED by the Chebyshev one.
+Lesson: overshoot MUST be second-moment (Chebyshev) not first-moment (Markov)
+-- the mean A1_1/A1 is only provably <1 (lossy 4x), not tiny; the variance
+route is what makes it o(1).
