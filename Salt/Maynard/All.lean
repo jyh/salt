@@ -33,3 +33,4 @@ import Salt.Maynard.CongSolvable
 import Salt.Maynard.S2DiagLam
 import Salt.Maynard.S2DiagRestricted
 import Salt.Maynard.Lemma53
+import Salt.Maynard.S2MainLower
