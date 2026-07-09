@@ -208,8 +208,11 @@ holds mathematically, but with `R = ⌊N'^{1/5}⌋` tied to `N'` and the dominan
 capping `N' ≤ R⁶`, choosing `N'` past the (hidden-value) thresholds is circular
 without `R`-uniform restatements of those three lemmas. -/
 def AnalyticFrontier : Prop :=
-  ∀ (k₀ : ℕ) (c : ℝ), EH (1 / 2) → 3072 ≤ k₀ → 0 < c →
-    (282175488 : ℝ) ≤ c * Real.log k₀ → ∀ N : ℕ,
+  ∀ (k₀ : ℕ) (c : ℝ) (Nc : ℕ), EH (1 / 2) → 3072 ≤ k₀ → 0 < c →
+    (282175488 : ℝ) ≤ c * Real.log k₀ →
+    (∀ N : ℕ, Nc ≤ N → c * (N : ℝ) / Real.log N
+      ≤ (Nat.primeCounting (64 * N) : ℝ) - (Nat.primeCounting N : ℝ)) →
+    ∀ N : ℕ,
     ∃ (N' R ν₀ : ℕ) (T C₀ Cs : ℝ), N ≤ N' ∧ 0 < N' ∧ 0 < Real.log N' ∧
       1 ≤ A1 k₀ R (W k₀) T ∧
       (∀ m : Fin k₀,
@@ -246,7 +249,7 @@ window's bounds into the sieve inequality `S₁ < Σ_m S₂^(m)`, and
 theorem bounded_gaps_from_eh (hFrontier : AnalyticFrontier) : BoundedGapsFromEH := by
   intro hEH
   -- The `Chebyshev` prime-supply constant `c` (`= 1`), obtained once.
-  obtain ⟨c, _Nc, hc0, _hckey⟩ := primes_in_interval_ge
+  obtain ⟨c, Nc, hc0, hckey⟩ := primes_in_interval_ge
   -- Choose `k₀` so `c·log k₀ ≥ 282175488` (and `k₀ ≥ 3072`).
   set k₀ := max 3072 ⌈Real.exp (282175488 / c)⌉₊ with hk₀def
   have hk3072 : 3072 ≤ k₀ := le_max_left _ _
@@ -265,7 +268,8 @@ theorem bounded_gaps_from_eh (hFrontier : AnalyticFrontier) : BoundedGapsFromEH 
   -- Reduce to the sieve inequality at arbitrarily large window bases.
   refine bounded_gaps_reduces k₀ (fun N => ?_)
   obtain ⟨N', R, ν₀, T, C₀, Cs, hNleN', hNpos, hlogNpos, hA1ge1, hDpi, hcompat,
-    hEHres, hS1, hratio, hδlb, hlogR, herr1, herr2⟩ := hFrontier k₀ c hEH hk3072 hc0 hdom N
+    hEHres, hS1, hratio, hδlb, hlogR, herr1, herr2⟩ :=
+    hFrontier k₀ c Nc hEH hk3072 hc0 hdom hckey N
   have hδ0 : 0 ≤ c * (N' : ℝ) / Real.log N' - (D₀ k₀ : ℝ) :=
     le_trans (by positivity) hδlb
   refine ⟨N', R, ν₀, yTensor k₀ R T, hNleN', ?_⟩
