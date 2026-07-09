@@ -178,4 +178,62 @@ theorem s2CompatFormM_ge_cheb (k R : ℕ) (T : ℝ) (m : Fin k)
   rw [heq] at hP2
   linarith [h6a, hP2, hcheb]
 
+/-! ## C5 — the counting identity and pigeonhole -/
+
+/-- **The counting identity.** `Σ_m S₂^(m) = Σ_{n∈window} P(n)·w(n)`, where
+`P(n) = #{m : (n+hₘ) prime}` and `w = weightSq ≥ 0`.  A sum swap. -/
+theorem sum_S2m_eq (k K₀ N R ν₀ : ℕ) (y : (Fin k → ℕ) → ℝ) :
+    ∑ m : Fin k, S2m k K₀ N R ν₀ m y
+      = ∑ n ∈ windowSet K₀ N (W k) ν₀,
+          ((Finset.univ.filter (fun m : Fin k => (n + hSeq k m).Prime)).card : ℝ)
+            * weightSq k R (W k) y n := by
+  simp only [S2m]
+  rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl (fun n _ => ?_)
+  rw [← Finset.sum_mul]
+  congr 1
+  rw [Finset.sum_boole]
+
+/-- **Pigeonhole.** If `Σ_m S₂^(m) > S₁ = Σ_n w(n)`, some window point `n` has
+at least two prime shifts `n+hₘ`. -/
+theorem exists_window_two_primes (k K₀ N R ν₀ : ℕ) (y : (Fin k → ℕ) → ℝ)
+    (hgt : S1 k K₀ N R (W k) ν₀ y < ∑ m : Fin k, S2m k K₀ N R ν₀ m y) :
+    ∃ n ∈ windowSet K₀ N (W k) ν₀,
+      2 ≤ (Finset.univ.filter (fun m : Fin k => (n + hSeq k m).Prime)).card := by
+  by_contra hcon
+  rw [sum_S2m_eq, S1] at hgt
+  have hle : ∑ n ∈ windowSet K₀ N (W k) ν₀,
+        ((Finset.univ.filter (fun m : Fin k => (n + hSeq k m).Prime)).card : ℝ)
+          * weightSq k R (W k) y n
+      ≤ ∑ n ∈ windowSet K₀ N (W k) ν₀, weightSq k R (W k) y n := by
+    refine Finset.sum_le_sum (fun n hn => ?_)
+    have hcard : (Finset.univ.filter (fun m : Fin k => (n + hSeq k m).Prime)).card ≤ 1 := by
+      by_contra hc; exact hcon ⟨n, hn, by omega⟩
+    calc ((Finset.univ.filter (fun m : Fin k => (n + hSeq k m).Prime)).card : ℝ)
+            * weightSq k R (W k) y n
+        ≤ 1 * weightSq k R (W k) y n :=
+          mul_le_mul_of_nonneg_right (by exact_mod_cast hcard)
+            (by rw [weightSq]; exact sq_nonneg _)
+      _ = weightSq k R (W k) y n := one_mul _
+  linarith [hgt, hle]
+
+/-- **Bounded gap from the sieve inequality.** If `Σ_m S₂^(m) > S₁`, the window
+contains a point with two prime shifts, yielding two primes `p ≠ q` above `N`
+with `|q − p| ≤ D₀ k`. -/
+theorem bounded_gap_of_S2_gt_S1 (k K₀ N R ν₀ : ℕ) (y : (Fin k → ℕ) → ℝ)
+    (hgt : S1 k K₀ N R (W k) ν₀ y < ∑ m : Fin k, S2m k K₀ N R ν₀ m y) :
+    ∃ p q : ℕ, N < p ∧ N < q ∧ p ≠ q ∧ p.Prime ∧ q.Prime ∧
+      (q : ℤ) - (p : ℤ) ∈ Set.Icc (-(D₀ k : ℤ)) (D₀ k : ℤ) := by
+  obtain ⟨n, hn, hcard⟩ := exists_window_two_primes k K₀ N R ν₀ y hgt
+  obtain ⟨i, hi, j, hj, hij⟩ := Finset.one_lt_card.mp (lt_of_lt_of_le one_lt_two hcard)
+  rw [Finset.mem_filter] at hi hj
+  have hnN : N < n := (Finset.mem_Ioc.mp (Finset.mem_filter.mp hn).1).1
+  refine ⟨n + hSeq k i, n + hSeq k j, by omega, by omega, ?_, hi.2, hj.2, ?_⟩
+  · have : hSeq k i ≠ hSeq k j := fun h => hij (hSeq_injective k h)
+    omega
+  · have hiD : hSeq k i ≤ D₀ k := hSeq_le_D₀ k i
+    have hjD : hSeq k j ≤ D₀ k := hSeq_le_D₀ k j
+    simp only [Set.mem_Icc]
+    constructor <;> push_cast <;> omega
+
 end Salt.Maynard
