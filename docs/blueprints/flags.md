@@ -1380,3 +1380,33 @@ lemma53_rel, P2 s2main_lower_rel, C4 over compat pairs (collision-zero +
 shift, C5 (ratio: k B1^2/A1 >= (phiW/W) logR logk/324 vs needed
 (4032/c)(phiW/W)logN => logk > 6.6M/c => k0 = exp(7e6/c); phiW/W cancels;
 pigeonhole; the Icc form). Waves 3-6 are C-tier execution.
+
+## 2026-07-09 Wave 3 LANDED (P1 + C4 items 1,2) — Opus execution, main thread
+After the parallel Wave-3 workflow STALLED (two high-effort agents each
+running full mathlib builds thrashed CPU past the 180s no-progress guard, 6
+retries each, zero results), drove Wave 3 in the main thread at Opus with
+module-scoped builds. Landed sorry-free, axiom-clean [propext, Classical.choice,
+Quot.sound]:
+  - P1  lemma53_rel  (Salt/Maynard/Lemma53Rel.lean, new) — the fifth-fragility
+        fix. RELATIVE contraction error |yM(v)-contraction(v)| <=
+        (prod_{i!=m} fTilde(v_i)) * C logR/D0. Proof route: RESCALING (cleaner
+        than re-deriving htail_bound) — apply the landed lemma53 to
+        z(a) := if (forall i, v_i | a_i) then yTensor(a)/P else 0, P := prod
+        fTilde(v_i); |z|<=1 by fTilde antitone + <=1; yM and contraction both
+        scale by 1/P on the divisibility fibre (via lamPhiContractM_collapse +
+        sum_congr); multiply lemma53's bound by P. Degenerate P=0 branch: both
+        yM(v) and contraction vanish (a zero fTilde factor). Helpers:
+        fTilde_le_one, yTensor_nonneg.
+  - C4 item 1  s2PrimeCount_collision (S2Eh.lean) — collision (d,e) => count=0,
+        verbatim congCountTuple_collision through the extra (n+h_m).Prime.
+  - C4 item 2  s2CompatMain_eq (S2Eh.lean) — (dpi/phiW)*s2CompatFormM =
+        Sum_compat lam lam * density, density = dpi/(phiW*prod phi(lcm)).
+        Added import S2Collision to S2Eh (no cycle).
+NOTE on the landed S2m_lower (a922a63): its main is the FULL Qdiag_m (all
+d_m=e_m=1, incl. collision pairs), so its herr sums |count-density| over
+collision pairs too, where |0-density|=density is BIG -> herr vacuous. The C4
+fix restricts the ERROR to compat pairs (item 1 kills collision counts) and
+routes collision pairs through Wave 2's SIGNED s2Compat_ge_N. So the remaining
+C4 assembly proves a compat-restricted S2m lower bound, NOT a discharge of the
+old herr. Remaining: C4 item 4 ((3k)^omega fiber count) + items 3,5 (compat
+EH error) + P2 + P3/P4 + C5.

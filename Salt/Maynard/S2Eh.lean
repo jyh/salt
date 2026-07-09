@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Mathlib
 import Salt.Maynard.S1Bound
 import Salt.Maynard.S2Decomp
+import Salt.Maynard.S2Collision
 import Salt.Maynard.S2MainLower
 import Salt.Maynard.CongSolvable
 import Salt.Maynard.LamBoundSharp
@@ -194,6 +195,48 @@ theorem s2PrimeCount_eq_zero_of_em (k K₀ N R ν₀ : ℕ) (m : Fin k) (d e : F
   · have hlt : e m < R := kSieveIndex_coord_lt he m
     have : e m < n + hSeq k m := by omega
     omega
+
+/-- **C4, item 1 — collision-zero for `s2PrimeCount`.** If two distinct
+coordinates `i ≠ j` have `¬ Coprime (dᵢ, eⱼ)` (a shared prime `> D₀`), no `n`
+in the window can satisfy the system, so the prime count is `0`.  Verbatim the
+`congCountTuple_collision` argument, carried through the extra `(n+hₘ).Prime`
+conjunct.  This is what restricts `S2m` to compatible pairs. -/
+theorem s2PrimeCount_collision (k K₀ N ν₀ : ℕ) (m : Fin k) (d e : Fin k → ℕ)
+    (hd : ∀ i, Nat.Coprime (d i) (W k))
+    {i j : Fin k} (hij : i ≠ j) (hcol : ¬ Nat.Coprime (d i) (e j)) :
+    s2PrimeCount k K₀ N ν₀ m d e = 0 := by
+  unfold s2PrimeCount
+  rw [Finset.card_eq_zero, Finset.filter_eq_empty_iff]
+  intro n _hn
+  rintro ⟨_hnW, _hprime, hdvd⟩
+  obtain ⟨p, hp, hpdi, hpej⟩ := Nat.Prime.not_coprime_iff_dvd.mp hcol
+  have hpD : D₀ k < p := D₀_lt_of_prime_dvd_coprime (hd i) hp hpdi
+  have h1 : p ∣ (n + hSeq k i) :=
+    (dvd_trans hpdi (Nat.dvd_lcm_left (d i) (e i))).trans (hdvd i)
+  have h2 : p ∣ (n + hSeq k j) :=
+    (dvd_trans hpej (Nat.dvd_lcm_right (d j) (e j))).trans (hdvd j)
+  exact not_common_prime_cross hij hp hpD h1 h2
+
+/-- **C4, item 2 — the compat main identity.** Distributing the scalar
+`Δπ/φW` into `s2CompatFormM` expresses the S₂ main term as a compat-guarded
+sum of `λλ·density`, `density = Δπ/(φW·∏φ(lcm))`.  Pure scalar algebra. -/
+theorem s2CompatMain_eq (k K₀ N R : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) :
+    (deltaPi k K₀ N m / (Nat.totient (W k) : ℝ)) * s2CompatFormM k R (W k) m y
+      = ∑ d ∈ (kSieveIndex k R (W k)).filter (fun d => d m = 1),
+          ∑ e ∈ (kSieveIndex k R (W k)).filter (fun e => e m = 1),
+            (if IsCollisionPair d e then 0
+             else lam k R (W k) y d * lam k R (W k) y e
+                    * (deltaPi k K₀ N m
+                        / ((Nat.totient (W k) : ℝ)
+                            * ∏ i, (Nat.totient (Nat.lcm (d i) (e i)) : ℝ)))) := by
+  unfold s2CompatFormM
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl (fun d _ => ?_)
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl (fun e _ => ?_)
+  by_cases h : IsCollisionPair d e
+  · rw [if_pos h, if_pos h, mul_zero]
+  · rw [if_neg h, if_neg h, s2Summand]; ring
 
 /-! ## Restriction: `S₂^(m)` collapses to the `dₘ=eₘ=1` guarded sum -/
 
