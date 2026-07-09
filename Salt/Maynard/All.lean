@@ -41,3 +41,5 @@ import Salt.Maynard.HMain
 import Salt.Maynard.HOmit
 import Salt.Maynard.HMainClose
 import Salt.Maynard.S2TensorClosed
+import Salt.Maynard.HA11
+import Salt.Maynard.OvershootCheb

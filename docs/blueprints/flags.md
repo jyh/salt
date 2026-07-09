@@ -1280,3 +1280,26 @@ room). The first-moment hOver in HMainClose is REPLACED by the Chebyshev one.
 Lesson: overshoot MUST be second-moment (Chebyshev) not first-moment (Markov)
 -- the mean A1_1/A1 is only provably <1 (lossy 4x), not tiny; the variance
 route is what makes it o(1).
+
+## 2026-07-09 hA11 + Chebyshev overshoot LANDED (constant fragility resolved)
+Both S2-fix deliverables landed, axiom-clean, verifier PASS:
+
+HA11.lean -- A1_1_le_seven_tenths : A1_1 <= (7/10)A1  (c=7/10 honest, <1)
+  via A1_1_upper_split + B1_upper_sharp/A1_lower_sharp: B1 <= (13/25)Q logk,
+  A1 >= (79/100)Q, combine at logk>=300. Conditional on two narrow R-large
+  err atoms hEA/hEB (errA1/errB1 <= (1/100)Q(logk) -- genuine R>=R1 conditions,
+  errA1/errB1 are R-free constants, NOT the conclusion).
+
+OvershootCheb.lean:
+  A1_2_le_Tsq       : A1_2 <= T^2 A1  (crude, uVal<=T)
+  hmBox_moment2     : dim-(k-1) SECOND moment = (k-1)A1_2 A1^{k-2} + (k-1)(k-2)A1_1^2 A1^{k-3}  (genuine, 2 special-coord factorizations)
+  overshoot_cheb    : overshoot <= (100 T^2/k) A1^{k-1}   [c=7/10; Chebyshev, o(1)]
+  overshoot_cheb_composed : same, hA11 discharged internally (only regime+err hyps)
+
+THE FIX: overshoot is now o(1) (100T^2/k = 100/(k^{3/4}(logk)^2) -> 0), via
+second-moment Chebyshev (variance collapse M2-2mu M1+mu^2 M0 = (k-1)(A A1_2 -
+A1_1^2)A^{k-3}, drop A1_1^2, A1_2<=T^2 A1). Replaces the first-moment Markov
+hOver (constant ~1/2). Now overshoot <= 1/8 for k>=k1, so H_main can give
+Sum_Good >= 3/4 and s2_tensor_lower c0 = 1/2 -- clean, no knife-edge.
+Next: re-thread H_main_closed (use overshoot_cheb_composed) + s2_tensor_lower
+(c0=1/2); then C4 (EH) + C5 (ratio+pigeonhole).
