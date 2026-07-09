@@ -1241,3 +1241,17 @@ version (same file, corrected decomposition).
 Lesson: coprimality/omitted-mass corrections in Maynard are SUM-LEVEL
 (average), never per-tuple worst-case -- the per-tuple ω is unbounded in
 N, only the average is bounded. (Same principle as C2 in the frozen design.)
+
+## 2026-07-08 C3b FIXED (sum-level coprimality) -- PASS
+The corrected s2_tensor_lower replaces the vacuous per-u version. Now
+conditional on TWO SUM-LEVEL, SATISFIABLE atoms (verifier-confirmed no
+per-u forall hypothesis remains):
+  H_main : (1/2)A1^{k-1} <= Sum_{u in Good} prod_{i!=m} fTilde^2/phi   [overshoot + u-coprimality]
+  H_omit : Sum_{u in Good} omitMass(u)*weight <= (1/8) B1 A1^{k-1}      [average coprimality]
+  => s2_tensor_lower : Sum_{u:um=1}(contraction)^2/prod phi >= (1/4) B1^2 A1^{k-1}
+Via (B1-omitMass)^2 >= B1^2 - 2 B1 omitMass, split into B1^2*main -
+2B1*avg-coprimality. Genuinely-landed helpers: prod_lt_of_sum_uVal_lt
+(prod r_i < R from Sum uVal < k, via Real.log_prod), update_mem_kSieveIndex_of_Good,
+contraction_ge_B1_sub_omit. Axiom-clean. c0=1/4 explicit.
+Next: discharge H_main (overshoot+coprimality, extend C3a/Overshoot) and
+H_omit (average omitted-mass via Sum_p 1/(p-1)^2), then C4/C5.
