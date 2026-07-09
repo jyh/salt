@@ -1410,3 +1410,36 @@ routes collision pairs through Wave 2's SIGNED s2Compat_ge_N. So the remaining
 C4 assembly proves a compat-restricted S2m lower bound, NOT a discharge of the
 old herr. Remaining: C4 item 4 ((3k)^omega fiber count) + items 3,5 (compat
 EH error) + P2 + P3/P4 + C5.
+
+## 2026-07-09 ENDGAME PROGRESS (post-Wave-3): C4 core + P2/P3/P4 + item6 + C5 pigeonhole
+Massive main-thread + background-Agent progress toward BoundedGapsFromEH. All
+sorry-free, axiom-clean. IMPORTANT LEARNING: the Workflow *parallel* stalls
+(180s no-progress guard trips on CPU-thrashed builds + long Opus think time),
+but the Agent tool (background, general-purpose) does NOT stall -- use Agent for
+heavy dispatch, main thread for delicate/exploratory.
+
+Landed since Wave 3:
+  - S2CompatEH.lean: abs_S2m_sub_compatMain_le (S2m->compat sum, item1+item2),
+    abs_S2m_sub_compatMain_le_disc (|S2m-main| <= lam_max^2 Sum_compat(disc+disc)
+    via lam_abs_le_sharp + s2PrimeCount_approx'), compat_lcm_coprime bridge.
+  - S2MainLowerRel.lean (Agent P2): s2main_lower_rel -- Qdiag_m >= main -
+    (2ClogR/D0)B1(2A1^{k-1}), A-type error (P_u weight from lemma53_rel). Verified
+    errbox_le routes contraction_le -> Gdiag_le genuinely.
+  - Endgame.lean: S1_upper_tensor (P3), deltaPi_ge/deltaPi_nonneg (P4),
+    s2CompatFormM_ge_Qdiag + s2CompatFormM_ge_cheb (item6: s2CompatFormM >=
+    (1/4)B1^2 A1^{k-1} - errP2 - errColl), sum_S2m_eq + exists_window_two_primes
+    + bounded_gap_of_S2_gt_S1 (C5 pigeonhole: Sum_m S2m > S1 => prime pair p!=q>N,
+    |q-p|<=D0 k).
+  - S2FiberCount.lean (Agent, finalizing): compat_pair_fiber_le -- the (3k)^omega
+    pair fiber count (pairTheta assignment machinery).
+
+RATIO reduction worked out (for the final assembly): k*B1^2/A1 = (phiW/W)(logR/4)
+*ratioPrize where ratioPrize = (log(1+AT)/A)^2/(T/(1+AT)) is exactly
+exists_k0_ratio_gt's expression (A=logk, T=k^{1/8}/logk); via B1_lower_sharp,
+A1_upper_sharp, bParam*logR0<=k^{1/8}=AT (HA11 hbU). So k*B1^2/A1 >= (phiW/W)
+(logN/20)*M for k>=k0(M); phiW/W cancels in the final inequality.
+
+REMAINING for BoundedGapsFromEH: (A) EH consumption (compat_pair_fiber_le +
+range-extend to sqrt(X) + eh_error_pow(2k+4) at both endpoints) -> S2m >=
+(dpi/phiW)s2CompatFormM - B^2 errEH; (B) ratio arithmetic (sharp bounds + k0 via
+above reduction); (C) final assembly Sum_m S2m > S1 -> pigeonhole -> the Icc form.
