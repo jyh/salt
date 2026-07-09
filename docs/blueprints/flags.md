@@ -1334,3 +1334,29 @@ STATE: hbij (s2PrimeCount_crt) committed and GENUINE. The C4 structure
 (S2m_eq_sum_dd, s2Main_eq_Qdiag, s2PrimeCount_approx') genuine. Remaining
 to BoundedGapsFromEH: (1) S2 collision bound (wall, N4.4 analog for phi(lcm)),
 (2) herr fiber count (3k)^omega, (3) C4 finish over compat, (4) C5 ratio+pigeonhole.
+
+## 2026-07-09 S2 collision bound: WRONG RHS diagnosis (yside_g should be Qdiag_m)
+The S2InnerControlled closure attempt was a LATERAL restatement (verifier
+FAIL, correctly caught -- lemma53/erasure not used; "pinned" atom equivalent
+to the original). Reverted. But it revealed the ROOT bug: the committed
+s2_collision_lower_order (95714a2) has the WRONG RHS.
+
+DIAGNOSIS: N4.4's inner_abs_le RHS = Sum y^2/prod phi = the S1 DIAGONAL
+(yside), because S1's forced value T_forced COLLAPSES to a single value.
+For S2 the diagonal is Qdiag_m = Sum_u prod g * V^2 (V=lamPhiContractM, does
+NOT collapse), which is NOT Sum y^2/prod g. Since V ~ prod f0 * B1, the inner
+sum Sum_u prod g V(u+σ)V(u+τ) ~ B1^2 * (per-assignment), so S2InnerControlled
+with RHS yside_g (NO B1^2) is UNSATISFIABLE (off by B1^2 ~ (log N)^2).
+=> The committed s2_collision_lower_order is VACUOUS (false RHS + false atom).
+
+CORRECT RHS = Qdiag_m = Sum_u prod g(u_i) V(u)^2 (the full S2 diagonal, >=0,
+= s2_diag_lam_restricted value). Then:
+  |s2CollisionForm| <= (12k^2/D0) * Qdiag_m   (the true N4.4 analog)
+and the per-assignment inner bound
+  |Sum_u prod g V(u+σ)V(u+τ)| <= 3^omega prod(p-1)^-2 * Sum_u prod g V(u)^2
+is dimensionally correct (B1^2 cancels both sides). For C4 this is exactly
+what's needed: Qdiag_m^compat >= Qdiag_m(1 - 12k^2/D0). The euler_tail
+assembly is unchanged (RHS just carried through). The inner estimate is
+still the hard research-level piece (V non-collapsing; via Cauchy-Schwarz +
+a shift-bound Sum_u prod g V(u+σ)^2 <= (factor)Sum_u prod g V(u)^2, or the
+N4.4 erasure adapted). To redo with the correct RHS.
