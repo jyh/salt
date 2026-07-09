@@ -62,6 +62,25 @@ theorem S1_upper_tensor (k K₀ N R ν₀ : ℕ) (T : ℝ)
         (Nat.lcm_dvd_mul (d i) (e i)))
       (fun i j hij => compat_lcm_coprime k R hd he hcompat hij)
 
+/-- **P3 (assembled).** `S₁ ≤ 2((K₀−1)N/W)·A₁^k + errS₁`, using `yside ≤ A₁^k`
+(`yside_le_A1pow`). -/
+theorem S1_upper_A1 (k K₀ N R ν₀ : ℕ) (T : ℝ)
+    (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D₀ k) (hK₀ : 1 ≤ K₀) (hR : 2 ≤ R) :
+    ∃ C : ℝ, 0 ≤ C ∧ S1 k K₀ N R (W k) ν₀ (yTensor k R T)
+      ≤ 2 * ((K₀ - 1) * N / (W k) : ℝ) * (A1 k R (W k) T) ^ k
+        + C * (R : ℝ) ^ 2 * (1 + Real.log R) ^ (4 * k + 2) := by
+  obtain ⟨C, hC0, hS1⟩ := S1_upper_tensor k K₀ N R ν₀ T hk hD hK₀ hR
+  refine ⟨C, hC0, ?_⟩
+  have h1 : (0 : ℝ) ≤ (K₀ - 1 : ℝ) := by
+    have : (1 : ℝ) ≤ (K₀ : ℝ) := by exact_mod_cast hK₀
+    linarith
+  have hcoef : (0 : ℝ) ≤ 2 * ((K₀ - 1) * N / (W k) : ℝ) := by
+    have h2 : (0 : ℝ) ≤ ((K₀ - 1) * N / (W k) : ℝ) :=
+      div_nonneg (mul_nonneg h1 (Nat.cast_nonneg N)) (Nat.cast_nonneg _)
+    linarith
+  have hmul := mul_le_mul_of_nonneg_left (yside_le_A1pow k R T) hcoef
+  linarith [hS1, hmul]
+
 /-- `Nat.count p` grows by at most `h` over a window of length `h`. -/
 theorem count_le_count_add (p : ℕ → Prop) [DecidablePred p] (a h : ℕ) :
     Nat.count p (a + h) ≤ Nat.count p a + h := by
