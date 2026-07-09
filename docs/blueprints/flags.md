@@ -1443,3 +1443,34 @@ REMAINING for BoundedGapsFromEH: (A) EH consumption (compat_pair_fiber_le +
 range-extend to sqrt(X) + eh_error_pow(2k+4) at both endpoints) -> S2m >=
 (dpi/phiW)s2CompatFormM - B^2 errEH; (B) ratio arithmetic (sharp bounds + k0 via
 above reduction); (C) final assembly Sum_m S2m > S1 -> pigeonhole -> the Icc form.
+
+## 2026-07-09 CAPSTONE reached (conditional) + AnalyticFrontier c-defect found
+bounded_gaps_from_eh : AnalyticFrontier -> BoundedGapsFromEH is PROVEN
+(Final.lean, axiom-clean). win_core (the FULL numerical sieve inequality) is
+proven: main = k(delta/phiW)cval >= 4 S1dom via ratio_core_lower, errors each
+<= S1dom. The entire MATH content of Maynard-from-EH is machine-checked.
+
+AnalyticFrontier (a def I introduced this session for the reduction, NOT a
+blueprint statement) is the 'pick a huge window past all thresholds' step.
+DEFECT found by the discharge agent: AnalyticFrontier universally quantifies the
+Chebyshev constant c with only a LOWER bound (282175488 <= c logk0), but its
+hDpi+hδlb conjuncts force c <~ 126 (PNT: deltaPi ~ 63 N/logN). So the literal
+forall-c frontier is FALSE for large c. FIX: add the Chebyshev key
+(forall N>=Nc, c N/logN <= pi(64N)-pi(N)) as a hypothesis of AnalyticFrontier --
+then large-c is vacuous (key false) and the real c<=63 discharges hDpi via
+deltaPi_lower_of. bounded_gaps_from_eh already obtains c,Nc,key from
+primes_in_interval_ge (discards key); thread it.
+
+R-UNIFORM INFRASTRUCTURE LANDED (FrontierDischarge.lean, axiom-clean): the
+central difficulty (constants bound AFTER R in landed EXISTS, but R=floor(N'^{1/5})
+ties R to N') is fixed -- lam_abs_le_sharp_uniform, S1_trivial_error_le'_uniform,
+S1_upper_A1_uniform, abs_S2m_sub_compatMain_le_disc_R_uniform,
+S2m_ge_compatMain_eh_uniform (C0,N0 BEFORE R), eventually_poly_beats_polylog
+(the polylog-threshold engine). Constants trace to rankin_bound (forall-Q-uniform C)
++ eh_error_pow (no R) -> genuinely R-uniform.
+
+REMAINING for the bare theorem: (1) fix AnalyticFrontier c-defect [done next];
+(2) compat constant R-uniform (reorder s2main_lower_rel/lemma53_rel) + the regime
+32 Cc logR <= B1 D0; (3) the R0/bParam sharp regime for R=floor(N'^{1/5}) N' large
+(hX, hb4, hbLo, hEA, hEB -- the hardest atoms, ~600 lines); (4) assemble
+analyticFrontier_holds -> bounded_gaps_from_eh_final. Est 600-800 lines.
