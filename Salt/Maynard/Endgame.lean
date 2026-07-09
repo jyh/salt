@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Mathlib
 import Salt.Maynard.S1Bound
 import Salt.Maynard.S2CompatEH
+import Salt.Maynard.S2MainLowerRel
 import Salt.Maynard.ChebyshevInterval
 
 /-!
@@ -112,5 +113,69 @@ theorem deltaPi_ge (k : ℕ) (m : Fin k) :
       ≤ (Nat.primeCounting N : ℝ) + (hSeq k m : ℝ) := by
     exact_mod_cast primeCounting_shift_le N (hSeq k m)
   linarith [hkeyN, hlo, hhi]
+
+/-- **C4 item 6 (diagonal side).** The compat diagonal is the full diagonal
+`Qdiag_m` minus a `(192k²/D₀)·B₁²A₁^{k-1}` collision correction: Wave 2's signed
+bound `s2Compat_ge_N`, with `s2FullFormM = Qdiag_m` (definitional) and
+`Ndiag = 4B₁²·Gdiag ≤ 8B₁²A₁^{k-1}` (`Gdiag_le`).  No coupling to the P2/EH
+constants — those enter in the final `C5` assembly. -/
+theorem s2CompatFormM_ge_Qdiag (k R : ℕ) (T : ℝ) (m : Fin k)
+    (hR : 2 ≤ R) (hD : 24 * k ^ 2 ≤ D₀ k) :
+    s2CompatFormM k R (W k) m (yTensor k R T)
+      ≥ Qdiag_m k R m (yTensor k R T)
+        - 192 * (k : ℝ) ^ 2 / (D₀ k : ℝ)
+            * ((B1 k R (W k) T) ^ 2 * (A1 k R (W k) T) ^ (k - 1)) := by
+  have hge := s2Compat_ge_N k R T m hR hD
+  have hfull : s2FullFormM k R (W k) m (yTensor k R T) = Qdiag_m k R m (yTensor k R T) := by
+    simp only [s2FullFormM, Qdiag_m, s2Summand]
+  have hB2 : (0 : ℝ) ≤ 4 * (B1 k R (W k) T) ^ 2 := by positivity
+  have hNdiag : Ndiag k R T m ≤ 8 * (B1 k R (W k) T) ^ 2 * (A1 k R (W k) T) ^ (k - 1) := by
+    rw [Ndiag]
+    calc 4 * (B1 k R (W k) T) ^ 2 * Gdiag k R T m
+        ≤ 4 * (B1 k R (W k) T) ^ 2 * (2 * (A1 k R (W k) T) ^ (k - 1)) :=
+          mul_le_mul_of_nonneg_left (Gdiag_le k R T m hR (by omega)) hB2
+      _ = 8 * (B1 k R (W k) T) ^ 2 * (A1 k R (W k) T) ^ (k - 1) := by ring
+  have hcoef : (0 : ℝ) ≤ 24 * (k : ℝ) ^ 2 / (D₀ k : ℝ) := by positivity
+  have hmul : 24 * (k : ℝ) ^ 2 / (D₀ k : ℝ) * Ndiag k R T m
+      ≤ 192 * (k : ℝ) ^ 2 / (D₀ k : ℝ)
+          * ((B1 k R (W k) T) ^ 2 * (A1 k R (W k) T) ^ (k - 1)) := by
+    calc 24 * (k : ℝ) ^ 2 / (D₀ k : ℝ) * Ndiag k R T m
+        ≤ 24 * (k : ℝ) ^ 2 / (D₀ k : ℝ)
+            * (8 * (B1 k R (W k) T) ^ 2 * (A1 k R (W k) T) ^ (k - 1)) :=
+          mul_le_mul_of_nonneg_left hNdiag hcoef
+      _ = 192 * (k : ℝ) ^ 2 / (D₀ k : ℝ)
+            * ((B1 k R (W k) T) ^ 2 * (A1 k R (W k) T) ^ (k - 1)) := by ring
+  linarith [hge, hfull, hmul]
+
+/-- **C4 item 6 (assembled).** Combining the diagonal collision correction
+(`s2CompatFormM_ge_Qdiag`), the relative main lower bound `s2main_lower_rel`
+(P2), and the Chebyshev tensor lower bound (`hcheb`, discharged in `C5` by
+`s2_tensor_lower_cheb`), the compat diagonal exceeds `(1/4)B₁²A₁^{k-1}` minus two
+explicit error terms: the P2 relative error (A-type, `∝ B₁A₁^{k-1}`) and the
+collision correction (`∝ (k²/D₀)B₁²A₁^{k-1}`).  `C5` bounds both by `(3/16)`
+of the main using the sharp `B₁` lower bound and `k ≥ 3072`. -/
+theorem s2CompatFormM_ge_cheb (k R : ℕ) (T : ℝ) (m : Fin k)
+    (hR : 2 ≤ R) (hk : 1 ≤ k) (hD : 24 * k ^ 2 ≤ D₀ k)
+    (hcheb : (∑ u ∈ (kSieveIndex k R (W k)).filter (fun u => u m = 1),
+        (∑ am ∈ Finset.range R,
+            yTensor k R T (Function.update u m am) / (Nat.totient am : ℝ)) ^ 2
+          / ∏ i, (Nat.totient (u i) : ℝ))
+      ≥ (1 / 4 : ℝ) * (B1 k R (W k) T) ^ 2 * (A1 k R (W k) T) ^ (k - 1)) :
+    ∃ C : ℝ, 0 ≤ C ∧
+      s2CompatFormM k R (W k) m (yTensor k R T)
+        ≥ (1 / 4 : ℝ) * (B1 k R (W k) T) ^ 2 * (A1 k R (W k) T) ^ (k - 1)
+          - (4 * C * Real.log R / (D₀ k : ℝ))
+              * ((B1 k R (W k) T) * (A1 k R (W k) T) ^ (k - 1))
+          - 192 * (k : ℝ) ^ 2 / (D₀ k : ℝ)
+              * ((B1 k R (W k) T) ^ 2 * (A1 k R (W k) T) ^ (k - 1)) := by
+  obtain ⟨C, hC0, hP2⟩ := s2main_lower_rel k R m T hR hk (by omega)
+  refine ⟨C, hC0, ?_⟩
+  have h6a := s2CompatFormM_ge_Qdiag k R T m hR hD
+  have heq : (2 * C * Real.log R / (D₀ k : ℝ)) * (B1 k R (W k) T)
+        * (2 * (A1 k R (W k) T) ^ (k - 1))
+      = (4 * C * Real.log R / (D₀ k : ℝ))
+          * ((B1 k R (W k) T) * (A1 k R (W k) T) ^ (k - 1)) := by ring
+  rw [heq] at hP2
+  linarith [h6a, hP2, hcheb]
 
 end Salt.Maynard
