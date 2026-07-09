@@ -51,4 +51,5 @@ import Salt.Maynard.EulerTailL
 import Salt.Maynard.Lemma53Rel
 import Salt.Maynard.S2CompatEH
 import Salt.Maynard.S2MainLowerRel
+import Salt.Maynard.S2FiberCount
 import Salt.Maynard.Endgame
