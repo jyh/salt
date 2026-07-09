@@ -236,4 +236,41 @@ theorem bounded_gap_of_S2_gt_S1 (k K₀ N R ν₀ : ℕ) (y : (Fin k → ℕ) �
     simp only [Set.mem_Icc]
     constructor <;> push_cast <;> omega
 
+/-! ## C5 — the master inequality reduces to one numerical bound -/
+
+/-- **The sieve inequality, reduced.** Given the per-`m` S₂ lower bound (EH
+consumption), a uniform compat-diagonal lower bound `cval`, a uniform `Δπ`
+lower bound `δ`, and the numerical inequality `hnum` (S₁ below the `k`-fold main
+term), we get `S₁ < Σ_m S₂^(m)`.  Pure combining — the analytic content is all
+in `hnum` (the ratio) and the input bounds. -/
+theorem S1_lt_sum_S2m (k K₀ N R ν₀ : ℕ) (y : (Fin k → ℕ) → ℝ)
+    (δ errEH cval : ℝ)
+    (hφ : 0 < (Nat.totient (W k) : ℝ)) (hcval : 0 ≤ cval) (hδ0 : 0 ≤ δ)
+    (hDpi : ∀ m : Fin k, δ ≤ deltaPi k K₀ N m)
+    (hcompat : ∀ m : Fin k, cval ≤ s2CompatFormM k R (W k) m y)
+    (hEHres : ∀ m : Fin k,
+      deltaPi k K₀ N m / (Nat.totient (W k) : ℝ) * s2CompatFormM k R (W k) m y - errEH
+        ≤ S2m k K₀ N R ν₀ m y)
+    (hnum : S1 k K₀ N R (W k) ν₀ y
+      < (k : ℝ) * (δ / (Nat.totient (W k) : ℝ) * cval) - (k : ℝ) * errEH) :
+    S1 k K₀ N R (W k) ν₀ y < ∑ m : Fin k, S2m k K₀ N R ν₀ m y := by
+  have hlow : ∀ m : Fin k,
+      δ / (Nat.totient (W k) : ℝ) * cval - errEH ≤ S2m k K₀ N R ν₀ m y := by
+    intro m
+    refine le_trans ?_ (hEHres m)
+    have hDpinn : 0 ≤ deltaPi k K₀ N m := le_trans hδ0 (hDpi m)
+    have hdiv : δ / (Nat.totient (W k) : ℝ) ≤ deltaPi k K₀ N m / (Nat.totient (W k) : ℝ) := by
+      gcongr
+      exact hDpi m
+    have hmain : δ / (Nat.totient (W k) : ℝ) * cval
+        ≤ deltaPi k K₀ N m / (Nat.totient (W k) : ℝ) * s2CompatFormM k R (W k) m y :=
+      mul_le_mul hdiv (hcompat m) hcval (div_nonneg hDpinn hφ.le)
+    linarith
+  calc S1 k K₀ N R (W k) ν₀ y
+      < (k : ℝ) * (δ / (Nat.totient (W k) : ℝ) * cval) - (k : ℝ) * errEH := hnum
+    _ = ∑ _m : Fin k, (δ / (Nat.totient (W k) : ℝ) * cval - errEH) := by
+        rw [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul]
+        ring
+    _ ≤ ∑ m : Fin k, S2m k K₀ N R ν₀ m y := Finset.sum_le_sum (fun m _ => hlow m)
+
 end Salt.Maynard
