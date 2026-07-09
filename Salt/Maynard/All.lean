@@ -45,3 +45,4 @@ import Salt.Maynard.HA11
 import Salt.Maynard.OvershootCheb
 import Salt.Maynard.S2TensorCheb
 import Salt.Maynard.S2Eh
+import Salt.Maynard.S2Collision
