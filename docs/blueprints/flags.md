@@ -1216,3 +1216,28 @@ MAYNARD LEMMA 5.3 DONE. The y^(m) contraction is complete: y^(m)_r =
 (B₁-type contraction) + O(logR/D₀). For tensor y=∏f this gives
 y^(m)_r ≈ B₁·∏_{i≠m}f(rᵢ) -- the B₁ factor for the ratio. Next: N5.4
 overshoot + S₂ tensor factorization + N5.5 + N7.
+
+## 2026-07-08 C3b FLAW found (driver): per-u coprimality atom is FALSE
+The committed C3b (s2_tensor_lower, c6d7c84) is conditional on H_contract:
+  ∀ u ∈ Good, (1/2)B1 <= inner m-contraction.
+DRIVER FINDING: H_contract is FALSE (unsatisfiable), so s2_tensor_lower is
+VACUOUS. Reason: the coprimality omitted-mass omit(u) = Sum_{aₘ not-perp ∏uᵢ}
+fWt/φ ~ (Sum_{p|∏u} 1/(p-1))·B1, and ω(∏uᵢ) grows with log R = log N, so
+for high-ω u (many prime factors, still in Good), omit(u) > (1/2)B1 and the
+inner contraction < (1/2)B1. The per-u bound cannot hold uniformly over Good.
+
+CORRECT FIX (Maynard Lemma 6.3 / eq 6.5, SUM-LEVEL not per-u): expand
+  (contraction)^2 = (∏fTilde)^2 (B1 - omit(u))^2 >= (∏fTilde)^2 (B1^2 - 2 B1 omit(u)),
+then Sum_u splits into
+  B1^2 · Sum_{Region}(∏fTilde)^2/∏φ            [Term1, overshoot+u-coprimality]
+  - 2 B1 · Sum_{Region} omit(u)(∏fTilde)^2/∏φ   [Term2, AVERAGE coprimality]
+Term2 = Sum_p Sum_{u:p|∏u}(...) is the AVERAGE coprimality correction:
+converges to O(k/D0)=O(1/k^2)·(main) via Sum_p 1/(p-1)^2 (the log R0 in
+omit cancels against B1's log R0). So Term2 = o(1)·Term1. Net: the S2
+tensor lower is >= (positive)·B1^2·A1^{k-1}, coprimality handled at the
+SUM level. The committed vacuous C3b will be REPLACED by this corrected
+version (same file, corrected decomposition).
+
+Lesson: coprimality/omitted-mass corrections in Maynard are SUM-LEVEL
+(average), never per-tuple worst-case -- the per-tuple ω is unbounded in
+N, only the average is bounded. (Same principle as C2 in the frozen design.)
