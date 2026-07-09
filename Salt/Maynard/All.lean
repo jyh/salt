@@ -40,3 +40,4 @@ import Salt.Maynard.S2Tensor
 import Salt.Maynard.HMain
 import Salt.Maynard.HOmit
 import Salt.Maynard.HMainClose
+import Salt.Maynard.S2TensorClosed
