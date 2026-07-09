@@ -197,6 +197,56 @@ theorem s2CompatFormM_ge_cheb (k R : ℕ) (T : ℝ) (m : Fin k)
   rw [heq] at hP2
   linarith [h6a, hP2, hcheb]
 
+/-- **Item 6 discharged to `(1/16)`.** From the three-term compat lower bound
+(`s2CompatFormM_ge_cheb`), if the P2 relative-error constant `C` satisfies the
+regime `32·C·logR ≤ B₁·D₀` (true for `N` large, as `B₁ ~ logR`), and `k ≥ 3072`,
+`k³ ≤ D₀` (so `192k²/D₀ ≤ 1/16`), then the two error terms consume `1/8 + 1/16`
+of the main, leaving `s2CompatFormM ≥ (1/16)B₁²A₁^{k-1}`. -/
+theorem s2CompatFormM_ge_sixteenth (k R : ℕ) (T : ℝ) (m : Fin k)
+    (hR : 2 ≤ R) (hk : 3072 ≤ k) (hD : k ^ 3 ≤ D₀ k)
+    (hB1pos : 0 < B1 k R (W k) T) (hA1nn : 0 ≤ A1 k R (W k) T)
+    (hcheb : (∑ u ∈ (kSieveIndex k R (W k)).filter (fun u => u m = 1),
+        (∑ am ∈ Finset.range R,
+            yTensor k R T (Function.update u m am) / (Nat.totient am : ℝ)) ^ 2
+          / ∏ i, (Nat.totient (u i) : ℝ))
+      ≥ (1 / 4 : ℝ) * (B1 k R (W k) T) ^ 2 * (A1 k R (W k) T) ^ (k - 1)) :
+    ∃ C : ℝ, 0 ≤ C ∧
+      (32 * C * Real.log R ≤ B1 k R (W k) T * (D₀ k : ℝ) →
+        (1 / 16 : ℝ) * (B1 k R (W k) T) ^ 2 * (A1 k R (W k) T) ^ (k - 1)
+          ≤ s2CompatFormM k R (W k) m (yTensor k R T)) := by
+  have h24 : 24 * k ^ 2 ≤ D₀ k := by
+    refine le_trans ?_ hD
+    calc 24 * k ^ 2 ≤ k * k ^ 2 := by gcongr; omega
+      _ = k ^ 3 := by ring
+  obtain ⟨C, hC0, hbound⟩ := s2CompatFormM_ge_cheb k R T m hR (by omega) h24 hcheb
+  refine ⟨C, hC0, fun hreg => ?_⟩
+  have hkpos : 0 < k := by omega
+  have hD0pos : (0 : ℝ) < (D₀ k : ℝ) := by
+    have : 0 < D₀ k := lt_of_lt_of_le (pow_pos hkpos 3) hD
+    exact_mod_cast this
+  set M := (A1 k R (W k) T) ^ (k - 1) with hMdef
+  have hM : 0 ≤ M := pow_nonneg hA1nn _
+  have hB1M : 0 ≤ B1 k R (W k) T * M := mul_nonneg hB1pos.le hM
+  have hB2M : 0 ≤ (B1 k R (W k) T) ^ 2 * M := mul_nonneg (sq_nonneg _) hM
+  -- error term 1 ≤ (1/8)·B₁²M via `4C logR/D₀ ≤ B₁/8`.
+  have h1 : 4 * C * Real.log R / (D₀ k : ℝ) ≤ B1 k R (W k) T / 8 := by
+    rw [div_le_iff₀ hD0pos] at *
+    nlinarith [hreg]
+  have he1 : 4 * C * Real.log R / (D₀ k : ℝ) * (B1 k R (W k) T * M)
+      ≤ 1 / 8 * ((B1 k R (W k) T) ^ 2 * M) := by
+    have := mul_le_mul_of_nonneg_right h1 hB1M
+    nlinarith [this]
+  -- error term 2 ≤ (1/16)·B₁²M via `192k²/D₀ ≤ 1/16`.
+  have h2 : 192 * (k : ℝ) ^ 2 / (D₀ k : ℝ) ≤ 1 / 16 := by
+    rw [div_le_iff₀ hD0pos]
+    have hk3 : (k : ℝ) ^ 3 ≤ (D₀ k : ℝ) := by exact_mod_cast hD
+    have hkR : (3072 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
+    nlinarith [hk3, hkR, sq_nonneg (k : ℝ)]
+  have he2 : 192 * (k : ℝ) ^ 2 / (D₀ k : ℝ) * ((B1 k R (W k) T) ^ 2 * M)
+      ≤ 1 / 16 * ((B1 k R (W k) T) ^ 2 * M) :=
+    mul_le_mul_of_nonneg_right h2 hB2M
+  nlinarith [hbound, he1, he2]
+
 /-! ## C5 — the counting identity and pigeonhole -/
 
 /-- **The counting identity.** `Σ_m S₂^(m) = Σ_{n∈window} P(n)·w(n)`, where
