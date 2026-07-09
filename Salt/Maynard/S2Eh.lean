@@ -325,6 +325,195 @@ theorem s2PrimeCount_approx (k K₀ N ν₀ : ℕ) (m : Fin k) (d e : Fin k → 
   · exact disc_le_maxDiscrepancy (K₀ * N + hSeq k m) q a hq0 haq hacop
   · exact disc_le_maxDiscrepancy (N + hSeq k m) q a hq0 haq hacop
 
+/-! ## The CRT residue bijection — discharging `hbij`
+
+`s2PrimeCount_crt` produces a genuine reduced residue `a` mod `q = W k·∏ lcm`
+with the exact count identity `s2PrimeCount = primesCount(K₀N+hₘ;q,a) −
+primesCount(N+hₘ;q,a)`.  This is the fiddly `n ↔ p=n+hₘ` shift folding the
+`k+1` congruences by CRT — the last narrow atom of Step 3. -/
+
+/-- Coprimality is invariant under congruence in the second-side modulus:
+`x ≡ y (mod n)` implies `Coprime x n ↔ Coprime y n` (both reduce to
+`gcd (·%n) n`). -/
+private theorem coprime_of_modEq {x y n : ℕ} (h : x ≡ y [MOD n]) :
+    Nat.Coprime x n ↔ Nat.Coprime y n := by
+  have h' : x % n = y % n := h
+  unfold Nat.Coprime
+  rw [Nat.gcd_comm x n, Nat.gcd_comm y n, Nat.gcd_rec n x, Nat.gcd_rec n y, h']
+
+/-- A `primesCount` difference over a half-open interval is the count of primes
+in the interval residue class: for `y ≤ x`,
+`primesCount x q a − primesCount y q a = #{p ∈ (y, x] : p.Prime ∧ p%q=a}`. -/
+private theorem primesCount_diff_eq_interval (x y q a : ℕ) (hyx : y ≤ x) :
+    (primesCount x q a : ℝ) - (primesCount y q a : ℝ)
+      = (((Finset.Ioc y x).filter (fun p => p.Prime ∧ p % q = a)).card : ℝ) := by
+  have hset : Finset.range (x + 1) = Finset.range (y + 1) ∪ Finset.Ioc y x := by
+    ext n; simp only [Finset.mem_union, Finset.mem_range, Finset.mem_Ioc]; omega
+  have hdisj : Disjoint (Finset.range (y + 1)) (Finset.Ioc y x) := by
+    rw [Finset.disjoint_left]; intro n hn hn'
+    simp only [Finset.mem_range] at hn; simp only [Finset.mem_Ioc] at hn'; omega
+  have key : primesCount x q a
+      = primesCount y q a
+        + ((Finset.Ioc y x).filter (fun p => p.Prime ∧ p % q = a)).card := by
+    unfold primesCount
+    rw [Nat.count_eq_card_filter_range, Nat.count_eq_card_filter_range, hset,
+      Finset.filter_union,
+      Finset.card_union_of_disjoint
+        (hdisj.mono (Finset.filter_subset _ _) (Finset.filter_subset _ _))]
+  rw [key]; push_cast; ring
+
+/-- **The CRT-residue bijection (discharges `hbij`).** For a compatible pair
+with `dₘ = eₘ = 1`, there is a reduced residue `a` mod `q = W k·∏ lcm(dᵢ,eᵢ)`
+(genuinely coprime to `q`) with the exact count identity
+`s2PrimeCount = primesCount(K₀N+hₘ;q,a) − primesCount(N+hₘ;q,a)`.
+
+Route: (A) a CRT solution `c` of the joint system via `cong_solvable`, with
+`a := (c+hₘ)%q`; (B) `Coprime a q` from `Coprime (c+hₘ) (W k)` (via `hν₀`,
+`hₘ ∈ H k`) and, for each `i≠m`, `Coprime (c+hₘ) (lcm(dᵢ,eᵢ))` (a shared prime
+would exceed `D₀ k` yet divide both `c+hₘ` and `c+hᵢ`, impossible by
+`not_common_prime_cross`); the `m`-factor is `lcm(1,1)=1`; (C) the shift
+`n ↦ p = n+hₘ` bijects the counted `n` with `{p ∈ (N+hₘ, K₀N+hₘ] : p.Prime ∧
+p%q=a}`, whose card is the `primesCount` difference, using the CRT
+predicate-equivalence `(n%Wk=ν₀%Wk ∧ ∀i lcm∣n+hᵢ) ↔ (n+hₘ)%q = a`. -/
+theorem s2PrimeCount_crt (k K₀ N ν₀ : ℕ) (m : Fin k) (d e : Fin k → ℕ)
+    (hdm : d m = 1) (hem : e m = 1)
+    (hcopW : ∀ i, Nat.Coprime (W k) (Nat.lcm (d i) (e i)))
+    (hcoplcm : ∀ i j, i ≠ j → Nat.Coprime (Nat.lcm (d i) (e i)) (Nat.lcm (d j) (e j)))
+    (hlcmpos : ∀ i, 0 < Nat.lcm (d i) (e i))
+    (hν₀ : ∀ h ∈ H k, Nat.Coprime (ν₀ + h) (W k))
+    (hNK : 1 ≤ K₀) :
+    ∃ a : ℕ, a < qMod k d e ∧ Nat.Coprime a (qMod k d e) ∧
+      (s2PrimeCount k K₀ N ν₀ m d e : ℝ)
+        = (primesCount (K₀ * N + hSeq k m) (qMod k d e) a : ℝ)
+          - (primesCount (N + hSeq k m) (qMod k d e) a : ℝ) := by
+  classical
+  have hWpos : 0 < W k := Nat.pos_of_ne_zero (W_squarefree k).ne_zero
+  obtain ⟨c, hcW, hclcm⟩ := cong_solvable k d e ν₀ hWpos hlcmpos hcopW hcoplcm
+  set q := qMod k d e with hqdef
+  have hqM : q = W k * ∏ i, Nat.lcm (d i) (e i) := by rw [hqdef]; rfl
+  have hprodpos : 0 < ∏ i, Nat.lcm (d i) (e i) := Finset.prod_pos (fun i _ => hlcmpos i)
+  have hqpos : 0 < q := by rw [hqM]; exact Nat.mul_pos hWpos hprodpos
+  have hcopWprod : Nat.Coprime (W k) (∏ i, Nat.lcm (d i) (e i)) :=
+    Nat.Coprime.prod_right (fun i _ => hcopW i)
+  set a := (c + hSeq k m) % q with ha
+  -- (A) `a < q`.
+  refine ⟨a, by rw [ha]; exact Nat.mod_lt _ hqpos, ?_, ?_⟩
+  · -- (B) `Coprime a q`.
+    -- `Coprime (c+hₘ) (W k)`: `c+hₘ ≡ ν₀+hₘ (mod W k)` and `hₘ ∈ H k`.
+    have hcopW' : Nat.Coprime (c + hSeq k m) (W k) := by
+      have hcWmod : c ≡ ν₀ [MOD W k] := hcW
+      have hmod : (c + hSeq k m) ≡ (ν₀ + hSeq k m) [MOD W k] :=
+        hcWmod.add_right (hSeq k m)
+      exact (coprime_of_modEq hmod).mpr (hν₀ (hSeq k m) (hSeq_mem_H k m))
+    -- `Coprime (c+hₘ) (lcm(dᵢ,eᵢ))` for every `i`.
+    have hcopL : ∀ i, Nat.Coprime (c + hSeq k m) (Nat.lcm (d i) (e i)) := by
+      intro i
+      by_cases him : i = m
+      · subst him
+        rw [hdm, hem, Nat.lcm_one_left]
+        exact Nat.coprime_one_right _
+      · apply Nat.coprime_of_dvd
+        intro p hpp hp_cm hp_lcm
+        have hpD : D₀ k < p := D₀_lt_of_prime_dvd_coprime (hcopW i).symm hpp hp_lcm
+        have hp_ci : p ∣ (c + hSeq k i) := hp_lcm.trans (hclcm i)
+        exact not_common_prime_cross (Ne.symm him) hpp hpD hp_cm hp_ci
+    -- Assemble: `Coprime (c+hₘ) q`, then transport to `a` via `a ≡ c+hₘ (mod q)`.
+    have hcopfull : Nat.Coprime (c + hSeq k m) q := by
+      rw [hqM]
+      exact Nat.Coprime.mul_right hcopW'
+        (Nat.Coprime.prod_right (fun i _ => hcopL i))
+    exact (coprime_of_modEq (Nat.mod_modEq (c + hSeq k m) q)).mpr hcopfull
+  · -- (C) the count identity.
+    -- The CRT predicate-equivalence, mirroring `congCountTuple_approx`'s `hPiff`.
+    have hPiff : ∀ n : ℕ,
+        (n % W k = ν₀ % W k ∧ ∀ i, Nat.lcm (d i) (e i) ∣ (n + hSeq k i))
+          ↔ n ≡ c [MOD q] := by
+      intro n
+      constructor
+      · rintro ⟨hnW, hnlcm⟩
+        have h1 : n ≡ c [MOD W k] := hnW.trans hcW.symm
+        have h2 : ∀ i ∈ (Finset.univ : Finset (Fin k)),
+            n ≡ c [MOD Nat.lcm (d i) (e i)] := by
+          intro i _
+          have hn0 : n + hSeq k i ≡ 0 [MOD Nat.lcm (d i) (e i)] :=
+            Nat.modEq_zero_iff_dvd.mpr (hnlcm i)
+          have hc0 : c + hSeq k i ≡ 0 [MOD Nat.lcm (d i) (e i)] :=
+            Nat.modEq_zero_iff_dvd.mpr (hclcm i)
+          exact Nat.ModEq.add_right_cancel' (hSeq k i) (hn0.trans hc0.symm)
+        have h2prod : n ≡ c [MOD ∏ i, Nat.lcm (d i) (e i)] :=
+          modEq_prod_of_pairwise_coprime _ Finset.univ
+            (fun i _ j _ hij => hcoplcm i j hij) h2
+        rw [hqM]
+        exact (Nat.modEq_and_modEq_iff_modEq_mul hcopWprod).mp ⟨h1, h2prod⟩
+      · intro hn
+        have hWdvd : W k ∣ q := by rw [hqM]; exact dvd_mul_right (W k) _
+        have h1 : n ≡ c [MOD W k] := hn.of_dvd hWdvd
+        refine ⟨(h1 : n % W k = c % W k).trans hcW, fun i => ?_⟩
+        have hlcmdvd : Nat.lcm (d i) (e i) ∣ q := by
+          rw [hqM]
+          exact (Finset.dvd_prod_of_mem _ (Finset.mem_univ i)).trans (dvd_mul_left _ (W k))
+        have hi : n ≡ c [MOD Nat.lcm (d i) (e i)] := hn.of_dvd hlcmdvd
+        have hc0 : c + hSeq k i ≡ 0 [MOD Nat.lcm (d i) (e i)] :=
+          Nat.modEq_zero_iff_dvd.mpr (hclcm i)
+        exact Nat.modEq_zero_iff_dvd.mp ((hi.add_right (hSeq k i)).trans hc0)
+    -- The shifted predicate-equivalence: the CRT block ⟺ `(n+hₘ)%q = a`.
+    have hcrt : ∀ n : ℕ,
+        (n % W k = ν₀ % W k ∧ ∀ i, Nat.lcm (d i) (e i) ∣ (n + hSeq k i))
+          ↔ (n + hSeq k m) % q = a := by
+      intro n
+      rw [hPiff n]
+      constructor
+      · intro hn
+        have := hn.add_right (hSeq k m)
+        rw [ha]; exact this
+      · intro hn
+        rw [ha] at hn
+        exact Nat.ModEq.add_right_cancel' (hSeq k m) hn
+    -- The `n ↦ p = n+hₘ` bijection to the prime residue class in `(N+hₘ, K₀N+hₘ]`.
+    have hbijcard : s2PrimeCount k K₀ N ν₀ m d e
+        = ((Finset.Ioc (N + hSeq k m) (K₀ * N + hSeq k m)).filter
+            (fun p => p.Prime ∧ p % q = a)).card := by
+      unfold s2PrimeCount
+      apply Finset.card_nbij' (fun n => n + hSeq k m) (fun p => p - hSeq k m)
+      · intro n hn
+        simp only [Finset.mem_coe, Finset.mem_filter, Finset.mem_Ioc] at hn ⊢
+        obtain ⟨⟨hN1, hN2⟩, hmod, hprime, hlcm⟩ := hn
+        exact ⟨⟨by omega, by omega⟩, hprime, (hcrt n).mp ⟨hmod, hlcm⟩⟩
+      · intro p hp
+        simp only [Finset.mem_coe, Finset.mem_filter, Finset.mem_Ioc] at hp ⊢
+        obtain ⟨⟨hN1, hN2⟩, hprime, hpmod⟩ := hp
+        have hpeq : p - hSeq k m + hSeq k m = p := by omega
+        have hpred := (hcrt (p - hSeq k m)).mpr (by rw [hpeq]; exact hpmod)
+        exact ⟨⟨by omega, by omega⟩, hpred.1, by rw [hpeq]; exact hprime, hpred.2⟩
+      · intro n _
+        dsimp only
+        omega
+      · intro p hp
+        simp only [Finset.mem_coe, Finset.mem_filter, Finset.mem_Ioc] at hp
+        dsimp only
+        omega
+    -- Combine with the interval `primesCount` difference.
+    rw [hbijcard,
+      ← primesCount_diff_eq_interval (K₀ * N + hSeq k m) (N + hSeq k m) q a
+        (by have : N ≤ K₀ * N := Nat.le_mul_of_pos_left N hNK; omega)]
+
+/-- **Step 3 with `hbij` discharged.** The `s2PrimeCount_approx` conclusion,
+now unconditional in the CRT bijection: `s2PrimeCount_crt` supplies the reduced
+residue witness. Downstream (`S2m_lower`'s `herr`) can consume this directly. -/
+theorem s2PrimeCount_approx' (k K₀ N ν₀ : ℕ) (m : Fin k) (d e : Fin k → ℕ)
+    (hdm : d m = 1) (hem : e m = 1)
+    (hlcmpos : ∀ i, 0 < Nat.lcm (d i) (e i))
+    (hcopW : ∀ i, Nat.Coprime (W k) (Nat.lcm (d i) (e i)))
+    (hcoplcm : ∀ i j, i ≠ j → Nat.Coprime (Nat.lcm (d i) (e i)) (Nat.lcm (d j) (e j)))
+    (hν₀ : ∀ h ∈ H k, Nat.Coprime (ν₀ + h) (W k))
+    (hNK : 1 ≤ K₀) :
+    |(s2PrimeCount k K₀ N ν₀ m d e : ℝ)
+        - deltaPi k K₀ N m / ((Nat.totient (W k) : ℝ) * phiLcmProd d e)|
+      ≤ maxDiscrepancy (K₀ * N + hSeq k m) (qMod k d e)
+        + maxDiscrepancy (N + hSeq k m) (qMod k d e) :=
+  s2PrimeCount_approx k K₀ N ν₀ m d e hlcmpos hcopW hcoplcm
+    (s2PrimeCount_crt k K₀ N ν₀ m d e hdm hem hcopW hcoplcm hlcmpos hν₀ hNK)
+
 /-! ## Steps 4–5 — the main term and the assembled headline -/
 
 /-- A guarded double sum over `𝒟 × 𝒟` equals the `dₘ=eₘ=1`-filtered double
