@@ -53,4 +53,5 @@ import Salt.Maynard.S2CompatEH
 import Salt.Maynard.S2MainLowerRel
 import Salt.Maynard.S2FiberCount
 import Salt.Maynard.S2CompatEHFinal
+import Salt.Maynard.RatioCore
 import Salt.Maynard.Endgame
