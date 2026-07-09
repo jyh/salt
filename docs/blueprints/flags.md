@@ -1303,3 +1303,34 @@ hOver (constant ~1/2). Now overshoot <= 1/8 for k>=k1, so H_main can give
 Sum_Good >= 3/4 and s2_tensor_lower c0 = 1/2 -- clean, no knife-edge.
 Next: re-thread H_main_closed (use overshoot_cheb_composed) + s2_tensor_lower
 (c0=1/2); then C4 (EH) + C5 (ratio+pigeonhole).
+
+## 2026-07-09 FOURTH S2-assembly issue: colliding pairs need a signed S2 collision bound
+DRIVER FINDING (scrutinizing the herr result): the herr agent's S2ErrRegroup
+atom is UNSATISFIABLE (S2m_lower_closed would be vacuous), so it was reverted.
+Root cause: C4's main = (deltaPi/phiW)*Qdiag_m uses the FULL S2 diagonal
+Qdiag_m = Sum_{all d,e: dm=em=1} lam lam/prod phi(lcm), which INCLUDES
+colliding pairs (cross gcd(d_i,e_j)>1). But the actual S2^(m) = Sum lam lam
+s2PrimeCount has s2PrimeCount=0 on colliding pairs (a shared prime p>D0
+divides n+h_i and n+h_j, so p | h_i-h_j, impossible). So
+  S2^(m) - main = Sum_compat lam lam (count-density) - Sum_colliding lam lam density.
+The compat term -> EH (absolute values OK, -> maxDisc). The COLLIDING term
+Sum_colliding lam lam density needs SIGNED cancellation: |Sum_colliding
+lam lam/phiLcmProd| <= (small)*Qdiag_m. The herr agent split it with
+ABSOLUTE values (|lam lam|density), which is LARGE (~lambda^2_max*(N/logN)*
+(poly(k)/D0)*A1 >> N/(logN)^{2k+4}), and colliding pairs' qMod is NOT
+squarefree (p^2 in prod lcm) so not in the maxDisc RHS -> S2ErrRegroup false.
+
+FIX NEEDED: a SIGNED S2 collision bound |Sum_{colliding} lam lam/prod phi(lcm)|
+<= (12k^2/D0)*Qdiag_m -- the exact ANALOG of N4.4's collision_lower_order
+(|s1CollisionForm| <= (12k^2/D0)yside) but for the S2 diagonal (prod phi(lcm)
+denominators, vs N4.4's prod lcm). N4.4/CollisionQuant used prod lcm and
+inner_exact/T_forced with 1/prod d; the S2 version needs prod phi(lcm) and
+the S2 diagonalization (sigmaMu/lamPhiContract). This is WALL-SIZED (N4.4
+was 2142 lines). Then C4's error is redone over COMPAT pairs only (clean EH,
+reusing the genuine endpoint_eh_bound/eh_error_pow machinery) + the fiber
+count, and Qdiag_m^compat >= (1/4)B1^2 A1^{k-1} - collision.
+
+STATE: hbij (s2PrimeCount_crt) committed and GENUINE. The C4 structure
+(S2m_eq_sum_dd, s2Main_eq_Qdiag, s2PrimeCount_approx') genuine. Remaining
+to BoundedGapsFromEH: (1) S2 collision bound (wall, N4.4 analog for phi(lcm)),
+(2) herr fiber count (3k)^omega, (3) C4 finish over compat, (4) C5 ratio+pigeonhole.
