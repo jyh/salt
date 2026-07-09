@@ -292,4 +292,19 @@ theorem S1_lt_sum_S2m (k K₀ N R ν₀ : ℕ) (y : (Fin k → ℕ) → ℝ)
         ring
     _ ≤ ∑ m : Fin k, S2m k K₀ N R ν₀ m y := Finset.sum_le_sum (fun m _ => hlow m)
 
+/-- **Reduction to the master inequality.** If for a fixed tuple width `k₀` the
+sieve inequality `S₁ < Σ_m S₂^(m)` holds at arbitrarily large window bases `N'`,
+then bounded gaps hold with `C = D₀ k₀`: each `N'` yields (via
+`bounded_gap_of_S2_gt_S1`) two primes `p ≠ q > N' ≥ N` with `|q − p| ≤ D₀ k₀`. -/
+theorem bounded_gaps_reduces (k₀ : ℕ)
+    (hwin : ∀ N : ℕ, ∃ (N' R ν₀ : ℕ) (y : (Fin k₀ → ℕ) → ℝ), N ≤ N' ∧
+      S1 k₀ 64 N' R (W k₀) ν₀ y < ∑ m : Fin k₀, S2m k₀ 64 N' R ν₀ m y) :
+    ∃ C : ℕ, ∀ N : ℕ, ∃ p q : ℕ, N < p ∧ N < q ∧ p ≠ q ∧
+      p.Prime ∧ q.Prime ∧ (q : ℤ) - (p : ℤ) ∈ Set.Icc (-(C : ℤ)) (C : ℤ) := by
+  refine ⟨D₀ k₀, fun N => ?_⟩
+  obtain ⟨N', R, ν₀, y, hNN', hwinN⟩ := hwin N
+  obtain ⟨p, q, hp, hq, hpq, hpp, hqp, hgap⟩ :=
+    bounded_gap_of_S2_gt_S1 k₀ 64 N' R ν₀ y hwinN
+  exact ⟨p, q, by omega, by omega, hpq, hpp, hqp, hgap⟩
+
 end Salt.Maynard
