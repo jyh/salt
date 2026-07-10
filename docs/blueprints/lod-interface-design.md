@@ -76,3 +76,26 @@ Nothing else in the proof sees the range.
 q.Prime ∧ (q:ℤ)−(p:ℤ) ∈ Set.Icc (−C) C`, axiom-clean, with
 `bounded_gaps_from_eh'` recovering the EH corollary. Estimated one Opus
 session (L2 is the bulk).
+
+---
+
+## DONE (2026-07-09)
+
+Rung 4b landed on `main`, axiom-clean `[propext, Classical.choice, Quot.sound]`:
+- `Salt/Maynard/Level.lean`: `HasLevel`, `EH_hasLevel`, `HasLevel_antitone` (L1).
+- `Salt/Maynard/LevelConsume.lean`: `lod_error_pow` (L2), `EH_range_lod` +
+  `range_haircut_mono` + `S2m_ge_compatMain_lod_uniform` (L3),
+  `analyticFrontier_lod` + `bounded_gaps_from_level_final` +
+  **`bounded_gaps_from_level : HasLevel (1/2) → ∃ C, ∀ N, ∃ p q, …`** +
+  **`bounded_gaps_from_eh' : BoundedGapsFromEH`** (L4, the consistency check).
+
+Acceptance met: `#check @bounded_gaps_from_level` is `HasLevel (1/2) → …` and
+`#check @bounded_gaps_from_eh'` is `BoundedGapsFromEH`. The theorem is now
+BV-consumable: proving BV (Rung 5) makes unconditional bounded gaps a one-line
+instantiation `bounded_gaps_from_level (bv_hasLevel …)`.
+
+One design allowance used (L3, "fold the threshold into `N₀`"): the haircut map
+`y ↦ y^{1/2}/(log y)^{B'}` is non-monotone near `y=2`, so `S2m_..._lod_uniform`
+folds a `⌈exp(2B')⌉₊` threshold into its `N₀` (helper `range_haircut_mono`,
+monotone once `2B' ≤ log N`). No blueprint statement altered; the interface
+signature matches spec exactly.
