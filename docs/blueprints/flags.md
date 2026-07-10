@@ -1512,3 +1512,87 @@ cascading to lemma53 (C~k), lemma53_rel, s2main_lower_rel (re-verify the A-type
 error is now o(main)), then s2CompatFormM_ge_sixteenth's regime closes and
 CompatFrontier follows. Est 200-400 lines of delicate analytic re-proving. The
 STRUCTURE (everything else) is done and axiom-clean.
+
+## 2026-07-09 SIXTH FRAGILITY Opus done (tight cascade) + PORT-BLOCKER (discharge)
+New file Salt/Maynard/Lemma53Tight.lean (~1357 lines), namespace Salt.Maynard.
+The core retightening is COMPLETE and axiom-clean; the CompatFrontier discharge
+is port-blocked (large, unobstructed re-derivation — see below). Landed nothing
+in the existing files; imports Salt.Maynard.FrontierFinal.
+
+TIGHT CASCADE (all sorry-free, [propext, Classical.choice, Quot.sound]):
+- phiSq_tail_tight (k M) (4 ≤ D₀ k): ∑ μ²/φ² ≤ 4/D₀  (was 12k²/D₀). One-liner
+  reduction to euler_tail_L at L=1 (the summand μ²(c)/φ(c)² = 1^ω·∏(p-1)⁻²).
+- phiSq_dvd_ne_tight / phiSq_dvd_tight: deviating / non-deviating tails with
+  constants 4/D₀ and 1+4/D₀  (were 12k²/D₀ and 2). Copies of the Lemma53.lean
+  privates with euler_tail_L(L=1) in place of euler_tail.
+- htail_tight: EXPLICIT constant Ctail = 4·exp 4·rankinC·k — LINEAR in k. The
+  non-deviating product ∏(gMult·U) ≤ exp 4 (each factor ≤ 1+4/D₀, ∏(1+4/D₀) ≤
+  exp(k·4/D₀) ≤ exp 4 for k ≤ D₀, via Real.add_one_le_exp + Real.exp_nat_mul),
+  replacing the old 2^k. Reproved the privates gr_ratio_mem/g_factor_prod/
+  tail_factor_le locally; used rankinC = (rankin_bound 1).choose for the Rankin
+  m-coordinate factor.
+- lemma53_tight: |yM − contraction| ≤ (lemma53Const·k)·logR/D₀ with
+  lemma53Const = rankinC·(2 + 4·exp 4) — EXPLICIT, O(k) (verified by #check).
+- lemma53_rel_tight, s2main_lower_rel_tight (reproved the constant-independent
+  privates sumFTilde_le_B1/yTensor_update_le/contraction_le/errbox_le locally),
+  s2CompatFormM_ge_cheb_tight: all carry the fixed explicit constant.
+- s2CompatFormM_ge_sixteenth_tight: (1/16)B₁²A₁^{k-1} ≤ s2CompatFormM, taking the
+  regime `32·(lemma53Const·k)·logR ≤ B₁·D₀` as a PROVABLE input (not the
+  unreachable antecedent of the landed s2CompatFormM_ge_sixteenth). This is the
+  key structural difference: with C = O(k) the regime CAN close.
+
+DISCHARGE INFRASTRUCTURE also landed (axiom-clean):
+- D0_eq_cube (k≥20): D₀ k = k³. Via count_le_count_cube (π(k³) ≥ π(k)+k, using
+  Chebyshev.pi_ge + Nat.lt_nth_iff_count_lt) ⇒ (H k).sup ≤ k³. Gives log D₀ =
+  3 log k for the regime.
+- W_div_totient_le: W k/φ(W k) ≤ exp(mertensC)·log(D₀ k) — the sharp Mertens
+  bound (primes | W are exactly ≤ D₀, so Mertens applies at n=D₀; phi_ratio_le's
+  W<R route loses to loglog R). Gives φW/W ≥ exp(-mertensC)/log D₀.
+
+PORT-BLOCKER (CompatFrontier discharge — routine but large, ~350 lines):
+The regime `576·lemma53Const ≤ (φW/W)·k` (⇔ `32·(lemma53Const·k)·logR ≤ B₁·D₀`
+after B1_ratio_lower `B₁ ≥ (φW/W)logR/(18k)` + D₀=k³) needs an EXPLICIT UPPER
+bound on lemma53Const, but rankinC = (rankin_bound 1).choose and mertensC =
+(sum_inv_prime_sub_one_le).choose are `∃`-hidden — only lower bounds are
+derivable. NARROW BLOCKER: re-derive explicit-constant versions using the
+EXPLICIT witness already in Mertens.lean's `sum_inv_prime_le_aux`
+(loglog n + (1 + 2(log4+4)/log2 − log(log2))): (1) define mertensC explicitly,
+reprove mertens_sub_one via sum_inv_prime_le_aux + telescoping; (2) redefine
+rankinC := exp(mertensC), reprove rankinC_bound directly (powerset injection of
+squarefree q<Q into subsets of primes<Q, à la euler_tail_L); (3) prove
+mertensC ≤ 18 (log2∈(.693,.694), 8/log2 ≤ 11.6), hence lemma53Const·exp(mertensC)
+≤ exp 50; (4) k-largeness: for log k ≥ 300, 1728·lemma53Const·exp(mertensC)·logk
+≤ k, via L ≤ exp(L−50) (from exp((L−50)/2) ≥ 1+(L−50)/2, squared) and
+k = exp(log k). Then (5) the ∀ᶠ N' CompatFrontier proof mirrors
+FrontierFinal.analyticFrontier_holds' lines 668–720 (reuse eventually_*/hbLo_of/
+hEA_cheb_of/hEB_cheb_of/five_T_le/hb4_of/R0_ge_four/…) to supply hcheb
+(s2_tensor_lower_cheb) + B1pos/A1nn + the discharged regime to
+s2CompatFormM_ge_sixteenth_tight; (6) feed the resulting
+`∀ k₀≥3072, 300≤log k₀ → CompatFrontier k₀ T` to
+bounded_gaps_from_eh_final ⇒ BoundedGapsFromEH (no residual hyps). No
+mathematical obstruction remains — only the explicit-constant re-derivation +
+exp-numeric + eventually-plumbing labour. Not committed.
+
+## 2026-07-09 SIXTH FRAGILITY math FIXED (lemma53 constant now O(k))
+Lemma53Tight.lean (axiom-clean) fixes the exponential constant:
+  lemma53_tight : |yM - contraction| <= lemma53Const * k * logR / D0
+  lemma53Const = rankinC*(2 + 4*exp 4)   -- LINEAR in k, not 2^k.
+Via euler_tail_L(L=1) tightening phiSq_tail_tight (4/D0) + phiSq_dvd_ne_tight
+(4/D0) + htail_tight (non-deviating prod <= exp 4 via prod(1+4/D0)<=exp(4)).
+Cascade: lemma53_rel_tight, s2main_lower_rel_tight, s2CompatFormM_ge_cheb_tight,
+s2CompatFormM_ge_sixteenth_tight (proves (1/16)B1^2 A1^{k-1} <= s2CompatFormM
+taking the NOW-PROVABLE regime 32*(lemma53Const*k)*logR <= B1*D0 as input).
+Plus D0_eq_cube (D0 k = k^3 for k>=20) and W_div_totient_le (Mertens).
+
+REMAINING (one layer of EXISTS-opacity, BOTTOMS OUT -- no math obstruction):
+lemma53Const = rankinC*(...) where rankinC=(rankin_bound 1).choose and
+mertensC=(sum_inv_prime_sub_one_le).choose are EXISTS-hidden (only lower bounds
+derivable), so lemma53Const isn't EXPLICITLY bounded -> the regime
+32*lemma53Const*k*logR <= B1*D0 can't be numerically closed. FIX (~350 lines,
+feasible): expose explicit rankinC/mertensC bounds using the explicit witness in
+Mertens.lean's sum_inv_prime_le_aux (prove mertensC <= 18), get explicit
+lemma53Const <= exp 50-ish, discharge k-largeness (1728*lemma53Const*logk <= k
+for logk>=300 via L<=exp(L-50)), then replicate analyticFrontier_holds'
+(FrontierFinal.lean:668-720) eventually-N' setup to feed hcheb
+(s2_tensor_lower_cheb)+B1pos+A1nn+regime to s2CompatFormM_ge_sixteenth_tight ->
+CompatFrontier -> feed bounded_gaps_from_eh_final -> bounded_gaps_from_eh_complete.
