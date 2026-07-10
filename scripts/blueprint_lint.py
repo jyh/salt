@@ -47,7 +47,7 @@ def fail(msg: str) -> None:
     errors.append(msg)
 
 
-SORRY_RE = re.compile(r"(?<!`)\bsorry\b(?!`)")  # prose mentions are `sorry`
+SORRY_RE = re.compile(r"(?<!`)\bsorry\b(?!`|-)")  # prose: `sorry`, "sorry-free"
 
 
 def check_sorry() -> None:

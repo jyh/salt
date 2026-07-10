@@ -1623,15 +1623,11 @@ Six fragilities caught+fixed this track: (1) per-u coprimality, (2) budget split
 Opus appends entries here (node id, tripwire hit, what was tried) instead of
 grinding; the next Fable wave opens by draining this list.
 
-- **explicit12 `budget_moment_g`** (W2-1, `Salt/Twelve/BudgetMoment.lean` header
-  block). The `μ²/g → μ²/φ` sandwich. Lower bound (`g ≤ φ`) is free; the upper
-  bound's powerset expansion of `∏_{p|r}(1+1/(p−2))` needs a COMPOSITE marked
-  sum (over `r` divisible by `s = ∏S`, `|S| ≥ 2`), but the landed
-  `marked_prime_phi` is single-prime only. Recipe verified numerically
-  (`Σ_{p>D}1/((p−1)(p−2)) ≤ 2/D`; multi-prime tail `≤ exp(2/D)−1 ≤ 4/D`).
-  Needs: a composite-`s` marked atom (reindex `r=s·t`, φ multiplicative) +
-  the Euler prime tail. Off the wave-3 critical path (only mv_J's OUTER `μ²/g`
-  factor consumes it; mv_I and mv_J's inner moments use the landed φ-version).
+- ~~**explicit12 `budget_moment_g`**~~ **DRAINED (Fable pre-flight
+  2026-07-10):** designed into wave-3 card **W3-2** (`BudgetMomentG.lean`:
+  `marked_sqf_g` + `budget_moment_g`, powerset-swap route via the new
+  `marked_sqf_phi`) — see `explicit12-design.md` wave-3 cards. Design
+  adversarially verified (4-lens pass); route hand- and numerically checked.
 - **explicit12 `marked_prime_g`** (W2-2, dead end — NOT needed). `φ(s)/g(s) =
   ∏(q−1)/(q−2)` is unbounded over squarefree `s` without a prime-`>D`
   restriction, so the per-term g→φ transfer is false. The g-sandwich routes
@@ -1646,4 +1642,5 @@ grinding; the next Fable wave opens by draining this list.
   window is `(1+log v)/v`, NOT `1/φ(v)`. Non-blocking (`PhiUpperAtom` threads as
   a hypothesis meanwhile).
 
-Currently: 3 entries (all explicit12 wave-2 deferrals; none critical-path).
+Currently: 2 live entries (`marked_prime_g` dead-end record; `hReindex`
+non-blocking residual) + 1 drained (`budget_moment_g` → W3-2).

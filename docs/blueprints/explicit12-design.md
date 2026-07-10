@@ -442,3 +442,446 @@ via marked primes (25 pairs × `O(1/D)`), then peel coordinates with
 inner two independent `budget_moment`s at fixed `W'` with Möbius
 `aₘ ⊥ ∏u` marking): `X^6·Σ_m simplexInt((F★⁽ᵐ⁾)²)·(1+E)`. Bridge to
 `Qdiag_m` via the (W',D)-generalized `lemma53` = wave-4 work with P4.
+
+---
+
+# Wave-3 cards (Fable pre-flight, 2026-07-10)
+
+Statements below are FROZEN (iron rule 1). Everything else — proof-internal
+definitions, helper lemmas, exact constants inside `∃ c` — is executor
+latitude. Throughout `X` abbreviates `(W'.totient : ℝ) / W' * Real.log R`
+(spelled out in every frozen statement; `X` is NOT a Lean def — executors may
+`set` it locally).
+
+All frozen statements were ELABORATION-CHECKED verbatim (2026-07-10,
+adversarial pass): they compile as written inside `namespace Salt.Twelve`
+PROVIDED the file adds `open Salt.Maynard` (for `kSieveIndex`, `gMult`) —
+every wave-3 module needs that open (or full qualification). The
+constant/dimension chain, the g-side swap machinery, and the D=3 tail
+constants were independently re-derived and numerically re-tested (J-side
+miniature: main `X³/20` + `(1+X)²` error shape confirmed; all tail bounds
+hold at the frozen minimum `D = 3` with ≥4× slack).
+
+## Architecture revision (supersedes the sketch's 2-node plan)
+
+Hand-deriving the peel revealed a better decomposition than "mv_I and mv_J
+directly": a single general-`n` induction workhorse does all the peeling for
+BOTH keystones.
+
+1. **`mv_monomial`** (n-dim, φ-weights, decoupled box, cap `z ≤ R`): peel the
+   FIRST coordinate at ℕ-cap `z' = (z−1)/r₀ + 1`, apply the induction
+   hypothesis at `z'`, then `budget_moment` at `(c,b) = (e₀, n+d+Σ'e)`. The β
+   coefficients telescope EXACTLY into the Dirichlet constant:
+   `DInt'ₙ(e',d) · e₀!·M!/(e₀+M+1)! = DInt'ₙ₊₁(e,d)` with `M = n+d+Σ'e`
+   (hand-verified; the `M!` cancels — `d!` is carried through unchanged). Base
+   `n = 1` IS `budget_moment` (up to the `Fin 1` tuple iso). Errors propagate
+   as absolute-times-`(1+X)`-powers: `≤ c·(1+X)^{n−1}`.
+2. `mv_I` = pairwise-coprimality drop (marked, `O(1/D)`) + monomial expansion
+   of `sq (ofPoly F)` + `mv_monomial` at `n = 5, z = R`. The pair count is
+   `C(5,2) = 10` (the sketch's "25" was a loose cross-keystone count).
+3. `mv_J` = per-`r` inner contraction (`inner_contract`, 1-dim peel +
+   marked `u ⊥ ∏r` correction with an r-DEPENDENT error budget), squared,
+   then the 4-dim g-weighted outer sum via `mv_monomial_g`.
+4. All g-weighted control routes through the powerset-swap: per-term
+   `1/g ≤ C/φ` is FALSE (W2-2's finding), but
+   `1/g(r) = (1/φ(r))·Σ_{u∣r} h(u)` with `h(u) = ∏_{p∣u} 1/(p−2)` (exact for
+   squarefree `r`), and after swapping the `u`-sum out, `marked_sqf_phi` at
+   `lcm(s,u)` + the `(p−1)(p−2)`-tail give uniform bounds. The `1/g(s)`
+   prefactor in `marked_sqf_g` is EXACT:
+   `(1/φ(s))·∏_{p∣s}(p−1)/(p−2) = 1/g(s)`.
+
+**Numeric verification (2026-07-10, `mv_smoke.py` + scaling fit):** k=2 model
+of `mv_monomial`/`mv_I` at `W' = 210`, `R = 10⁴…10⁶`: the residual
+`S − X²·∫F²` fits `0.382·X + 0.603` across all five R values to 4 decimals —
+error is exactly `O((1+X)^{n−1})`, main-term constant and X-power confirmed.
+Pairwise-coprimality drop measured 0.5% (`≤ O(1/D)` predicted). Convergence to
+the asymptote is `1/X`-slow — inherent; the rung's endgame is an `∀ᶠ`
+statement, so no explicit `N₀` is chased.
+
+## Frozen definitions
+
+```lean
+/-- The DECOUPLED box: like `kSieveIndex` but WITHOUT pairwise coprimality,
+and with cap `z` decoupled from the weight normalization `R`. Proof-internal
+to wave 3 but frozen because it appears in `mv_monomial`'s statement. -/
+def decBox (n z W' : ℕ) : Finset (Fin n → ℕ) :=
+  (Fintype.piFinset fun _ : Fin n => Finset.range z).filter
+    (fun r => (∀ i, Squarefree (r i)) ∧ (∀ i, (r i).Coprime W') ∧ ∏ i, r i < z)
+
+/-- The explicit12 sieve weight: `F` evaluated at `t(s)`, supported on the
+sieve box. Matches the `y`-slot of the spine's `lemma53_tight` contraction. -/
+noncomputable def yF (R W' : ℕ) (F : Poly) (s : Fin 5 → ℕ) : ℝ :=
+  if s ∈ kSieveIndex 5 R W'
+  then eval (ofPoly F) (fun i => Real.log (s i) / Real.log R) else 0
+```
+
+## Card W3-0 (prep) `Salt/Twelve/W3Prep.lean` — Sonnet, class B
+
+Four independent leaves; everything downstream imports this file.
+
+```lean
+theorem marked_sqf_phi (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W') (a : ℕ) :
+    ∃ c : ℝ, 0 ≤ c ∧ ∀ s z : ℕ, 0 < s → 2 ≤ z →
+      (∑ r ∈ (Finset.range z).filter
+          (fun r => Squarefree r ∧ r.Coprime W' ∧ s ∣ r),
+          (Real.log r) ^ a / (Nat.totient r : ℝ))
+        ≤ (1 / (Nat.totient s : ℝ)) * c * (Real.log z) ^ (a + 1)
+
+theorem eval_mul {n : ℕ} (p q : BPoly n) (t : Fin n → ℝ) :
+    eval (mul p q) t = eval p t * eval q t
+
+theorem eval_sq {n : ℕ} (p : BPoly n) (t : Fin n → ℝ) :
+    eval (sq p) t = eval p t ^ 2
+```
+plus a floor-slip helper (exact form = executor latitude, the NEED is frozen):
+for `1 ≤ r < z`, `|Real.log ((z−1)/r + 1 : ℕ) − (Real.log z − Real.log r)|
+≤ Real.log 2` (ℕ-division cap vs real budget).
+
+Route for `marked_sqf_phi`: the landed `marked_prime_phi` route verbatim with
+composite squarefree `s` — `r` squarefree ∧ `s ∣ r` ⇒ `Coprime s (r/s)` (else
+`p² ∣ r`), so `φ(r) = φ(s)·φ(r/s)` (`Nat.Coprime.totient_mul`), inject
+`r ↦ r/s` into the unmarked sum, finish with `phiAtom_upper_lossy`.
+**`c` is quantified BEFORE `s`** — uniformity in `s` is load-bearing (the
+g-side tail sums over `s`). No `PhiUpperAtom` hypothesis (the lossy upper
+suffices, as in W2-2). Note `s` need not be assumed squarefree/coprime: when
+it isn't, the LHS sum is empty and the bound is trivial. `eval_mul`: List
+`flatMap`/`map` sum algebra + `(1−Σt)^{d₁+d₂} = (…)^{d₁}·(…)^{d₂}` +
+`pow_add`; `eval_sq := eval_mul p p`. Verifier: `marked_sqf_phi` at `s = p`
+prime must recover `marked_prime_phi`'s strength; `c` outside `∀ s`; empty-`s`
+edge (`s = 0` excluded by `0 < s`; `s` with a small prime factor → empty sum).
+PB floor: none (B-tier on landed atoms).
+
+## Card W3-1 (workhorse) `Salt/Twelve/MvMoment.lean` — Opus, class C
+
+`decBox` (frozen above) and THE keystone:
+
+```lean
+theorem mv_monomial (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
+    (hUpper : PhiUpperAtom W') (n : ℕ) (e : Fin n → ℕ) (d : ℕ) :
+    ∃ c : ℝ, 0 ≤ c ∧ ∀ z R : ℕ, 2 ≤ z → z ≤ R → 1 ≤ Real.log R →
+      |(∑ r ∈ decBox n z W',
+            (∏ i, (Real.log (r i) / Real.log R) ^ e i)
+              * ((Real.log z - ∑ i, Real.log (r i)) / Real.log R) ^ d
+              / ∏ i, (Nat.totient (r i) : ℝ))
+        - ((W'.totient : ℝ) / W' * Real.log R) ^ n
+            * ((DInt' e d : ℚ) : ℝ)
+            * (Real.log z / Real.log R) ^ (n + d + ∑ i, e i)|
+      ≤ c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ (n - 1)
+```
+
+Route: induction on `n` (generalizing `e`, `d`, and — crucially — `z`; the
+constant `c` is per-`(n,e,d)`, obtained BEFORE `z`, `R`).
+- Base `n = 1`: `decBox 1 z` ≅ `budget_moment`'s filtered range (single-coord
+  tuple iso via `Fin.cons`/`piFinset` singleton); `DInt' e d` at `n = 1` is
+  `e₀!·d!/(1+d+e₀)!` — exactly `budget_moment`'s β. (`n = 0` is trivially
+  `0 ≤ c`: the empty tuple gives LHS = main.)
+- Step: split `r = Fin.cons r₀ r'` (`Finset.sum` over `piFinset` splits as
+  `sum_comm`/`sum_sigma`); for fixed `r₀` the inner tuple ranges over
+  `decBox n z' W'` with ℕ-cap `z' = (z−1)/r₀ + 1` (check: `r₀·P < z ↔ P < z'`
+  for `r₀ ≥ 1`); `2 ≤ z'` holds since `r₀ ≤ z−1`. Apply IH at `z'`; convert
+  `log z'` to `log z − log r₀` by the floor-slip helper (each slip is an
+  additive `O(1)` in a `[0,1]`-power, contributing absolute error
+  `≤ c·(1+X)^{n−1}` after the `r₀`-sum). Then `budget_moment` at
+  `(c,b) = (e₀, n+d+Σᵢ'eᵢ)` for the `r₀`-sum. Telescope check the executor
+  must reproduce: with `M = n+d+Σ'e`,
+  `DInt'ₙ(e',d)·(e₀!·M!/(e₀+M+1)!) = DInt'ₙ₊₁(e,d)` — concretely
+  `(∏'eᵢ!·d!/M!)·(e₀!·M!/(e₀+M+1)!) = ∏eᵢ!·d!/(n+1+d+Σe)!` (only `M!`
+  cancels; `d!` is preserved end-to-end).
+- Error bookkeeping: prior-level error × (a=0 moment of the new coordinate
+  `≤ c(1+X)`) + new absolute (`Catom·4^…` + slip terms) × `(1+X)^{n−1}`.
+
+Traps: (i) `z'`-threshold — IH needs `2 ≤ z'`, true only for `r₀ ≤ z−1`,
+which `Finset.range z` + squarefree (`r₀ ≥ 1`) gives; do NOT let `r₀ = 0`
+terms in (squarefree filter kills them). (ii) The budget numerator after
+peeling is `log z − log r₀ − Σ' log rᵢ'` — the IH's `z'`-budget
+`log z' − Σ'` differs by the slip; bound `|(A+δ)^d − A^d| ≤ d·|δ|·(1+|δ|)^{d−1}`
+with `A ∈ [0,1]`. (iii) All weights are ≥ 0 on the box (needed for crude
+upper bounds): `r < z ⇒ log r ≤ log z`... the BUDGET numerator uses
+`∏ r < z`, NOT per-coordinate. (iv) `budget_moment`'s `∀ z` quantifier is
+consumed at the DYNAMIC `z'` — this is why its constants-before-`z` shape
+matters; do not re-obtain constants per `r₀`. Verifier: `n = 1` reduction to
+`budget_moment` literally; the telescope identity at `(n,e,d) = (1,(2,·),3)`
+by hand; error shape has NO `log z` factor. PB floor: if the `piFinset`
+split fights, land `n = 5` concretely (5 hand-peels) — acceptable but flag.
+
+## Card W3-2 (g-engine) `Salt/Twelve/BudgetMomentG.lean` — Opus, class C
+
+Drains FABLE-QUEUE item 1. Both lemmas are powerset-swap machinery.
+
+```lean
+theorem marked_sqf_g (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W') (a : ℕ) :
+    ∃ c : ℝ, 0 ≤ c ∧ ∀ D s z : ℕ, 3 ≤ D →
+      (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) → 0 < s → 2 ≤ z →
+      (∑ r ∈ (Finset.range z).filter
+          (fun r => Squarefree r ∧ r.Coprime W' ∧ s ∣ r),
+          (Real.log r) ^ a / (gMult r : ℝ))
+        ≤ (1 / (gMult s : ℝ)) * c * (Real.log z) ^ (a + 1)
+
+theorem budget_moment_g (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
+    (hUpper : PhiUpperAtom W') (c b : ℕ) :
+    ∃ Cg : ℝ, 0 ≤ Cg ∧ ∀ D z R : ℕ, 3 ≤ D →
+      (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
+      2 ≤ z → z ≤ R → 1 ≤ Real.log R →
+      (∑ r ∈ (Finset.range z).filter (fun r => Squarefree r ∧ r.Coprime W'),
+          (Real.log r / Real.log R) ^ c
+            * ((Real.log z - Real.log r) / Real.log R) ^ b
+            / (Nat.totient r : ℝ))
+        ≤ (∑ r ∈ (Finset.range z).filter (fun r => Squarefree r ∧ r.Coprime W'),
+            (Real.log r / Real.log R) ^ c
+              * ((Real.log z - Real.log r) / Real.log R) ^ b
+              / (gMult r : ℝ)) ∧
+      (∑ r ∈ (Finset.range z).filter (fun r => Squarefree r ∧ r.Coprime W'),
+          (Real.log r / Real.log R) ^ c
+            * ((Real.log z - Real.log r) / Real.log R) ^ b
+            / (gMult r : ℝ))
+        ≤ (∑ r ∈ (Finset.range z).filter (fun r => Squarefree r ∧ r.Coprime W'),
+            (Real.log r / Real.log R) ^ c
+              * ((Real.log z - Real.log r) / Real.log R) ^ b
+              / (Nat.totient r : ℝ))
+          + Cg / D * Real.log R
+```
+
+Route (hand-verified, incl. numerically): for squarefree `r` with all prime
+factors `> D ≥ 3`: `1/g(r) = (1/φ(r))·∏_{p∣r}(1 + 1/(p−2))
+= (1/φ(r))·Σ_{u ∣ r} h(u)`, `h(u) = ∏_{p∣u} 1/(p−2)` (finite divisor sum —
+NO tsum). Swap `Σ_r Σ_{u∣r} → Σ_u Σ_{r: u∣r}` (`Finset.sum_sigma`-style over
+pairs, `u` ranges over `Finset.range z` filtered squarefree). Then:
+- `marked_sqf_g`: the marked sum at `s` becomes
+  `Σ_u h(u)·[marked_sqf_phi at lcm(s,u)]`; use
+  `φ(lcm(s,u)) = φ(s)·∏_{p∣u, p∤s}(p−1)` and split `u = u₁·u₂`
+  (`u₁ ∣ s`, `u₂ ⊥ s`): the `u₁`-factor resummed is EXACTLY
+  `∏_{p∣s}(1+1/(p−2)) = φ(s)/g(s)`, the `u₂`-factor is
+  `≤ ∏_{D<p<z}(1 + 1/((p−1)(p−2))) ≤ exp(2/D) ≤ 2`. Net prefactor
+  `(1/φ(s))·(φ(s)/g(s))·2·c = (2c)/g(s)`. **This is the exactness the whole
+  g-side rests on — verify the `u₁`-resummation identity by hand.**
+- `budget_moment_g` lower: termwise, `g(r) ≤ φ(r)` (each `p−2 ≤ p−1`) and
+  `gMult r > 0` on the box (all `p > D ≥ 3`), weights ≥ 0.
+  Upper: difference `= Σ_{u≠1} h(u)·(u-marked φ-sum with weights ≤ 1)`
+  `≤ Σ_{u≠1} h(u)·(1/φ(u))·c·log z ≤ (exp(2/D) − 1)·c·log R ≤ (4/D)·c·log R`
+  (using `e^x − 1 ≤ 2x` on `x = 2/D ≤ 2/3`). Numerics (2026-07-10):
+  `Σ_{p>D} 1/((p−1)(p−2))` = 0.037 at D=10 vs 2/D = 0.2 — slack ×5.
+
+Traps: (i) `gMult 0 = 1` (empty product over `primeFactors 0 = ∅`) — the
+`Squarefree r` filter kills `r = 0`, but NEVER bound `1/gMult` without being
+inside the filter. (ii) The per-term transfer `1/g ≤ C/φ` is FALSE — any
+route that bounds `∏(1+1/(p−2))` pointwise by a constant is wrong
+(`ω(r)` is unbounded); only the post-swap `(p−1)(p−2)` tail converges.
+(iii) `h` is multiplicative on coprime divisors of a squarefree number —
+build the divisor-sum identity via `Nat.sum_divisors`/`Finset.prod_add`-style
+expansion (`∏(1+xₚ) = Σ_{S⊆primes} ∏xₚ`), finite products only — no
+`ArithmeticFunction`/tsum. (iv) EVEN-`s` KNIFE EDGE (adversarial pass):
+`gMult s = 0` exactly when `2 ∣ s`, so for even `s` the frozen RHS of
+`marked_sqf_g` is `0` — the statement stays true because `hD` + `3 ≤ D`
+force `2 ∣ W'` (contrapositive: `¬2∣W' → D < 2`), so `2 ∣ s ⇒` the LHS
+filter is empty. Open the proof with the explicit early case
+"if ¬(Squarefree s ∧ s.Coprime W' ∧ ∀ p ∣ s, prime → D < p) then LHS = 0
+≤ RHS". (v) Land a reusable helper `box_g_pos : Squarefree r → r.Coprime W'
+→ (3 ≤ D) → hD → 0 < gMult r` (pivot: `2 ∣ W'` ⇒ `2 ∤ r`) — it is the
+load-bearing fact for the sandwich's LOWER half (a `g(r) = 0` term would
+flip that inequality under Lean's `x/0 = 0`) and is reused by W3-3/W3-6.
+Verifier: the `u₁`-resummation (`φ(s)/g(s)` exactness); `Cg` uniform in
+`D, z, R`; lower bound needs NO `hUpper`. PB floor: none — this is the
+designed drain of the queue item; if the swap machinery fights, flag rather
+than weaken the `1/g(s)` prefactor.
+
+## Card W3-3 (g-workhorse) `Salt/Twelve/MvMomentG.lean` — Opus, class C
+
+```lean
+theorem mv_monomial_g (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
+    (hUpper : PhiUpperAtom W') (n : ℕ) (e : Fin n → ℕ) (d : ℕ) :
+    ∃ c : ℝ, 0 ≤ c ∧ ∀ D z R : ℕ, 3 ≤ D →
+      (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
+      2 ≤ z → z ≤ R → 1 ≤ Real.log R →
+      |(∑ r ∈ decBox n z W',
+            (∏ i, (Real.log (r i) / Real.log R) ^ e i)
+              * ((Real.log z - ∑ i, Real.log (r i)) / Real.log R) ^ d
+              / ∏ i, (gMult (r i) : ℝ))
+        - ((W'.totient : ℝ) / W' * Real.log R) ^ n
+            * ((DInt' e d : ℚ) : ℝ)
+            * (Real.log z / Real.log R) ^ (n + d + ∑ i, e i)|
+      ≤ c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ (n - 1)
+          * (1 + Real.log R / D)
+```
+
+Same induction as `mv_monomial` (mirror the file), with each peel's
+`budget_moment` application replaced by `budget_moment` + the
+`budget_moment_g` sandwich: the g-peel's main term is the φ-peel's main term
+plus an absolute `O(Cg·log R/D)`, which propagates through remaining levels
+exactly like the other absolute errors (× `(1+X)`-powers — note the g-side
+crude a=0 bound needs `marked_sqf_g` at `s = 1`). MAIN TERM IS THE φ-MAIN
+TERM — the `∏(1+1/(p(p−2)))` singular-series deviation lives in the error
+(that's what the `log R/D` factor is for). Traps: same as W3-1 plus:
+the crude per-coordinate upper moments must ALSO use g-weights (via
+`marked_sqf_g` `s = 1`), not a pointwise `1/g ≤ 1/φ`-style lie (the
+inequality goes the WRONG way). Verifier: main term literally identical to
+`mv_monomial`'s; the `log R/D` factor present. Numeric caveat (adversarial
+pass): at FIXED `W'` the g/φ ratio converges to the singular constant
+`∏_{p∤W'}(1+1/(p(p−2))) ≈ 1.038` at `W' = 210` — NOT to 1; that offset IS
+the `log R/D` error term doing its job, not a bug. PB floor: `n = 4`
+concrete (mv_J's only consumption) — acceptable, flag.
+
+## Card W3-4 (keystone I) `Salt/Twelve/MvI.lean` — Opus, class C
+
+```lean
+theorem mv_I (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
+    (hUpper : PhiUpperAtom W') (F : Poly) :
+    ∃ c : ℝ, 0 ≤ c ∧ ∀ D R : ℕ, 3 ≤ D →
+      (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) → 1 ≤ Real.log R →
+      |(∑ r ∈ kSieveIndex 5 R W',
+            eval (ofPoly F) (fun i => Real.log (r i) / Real.log R) ^ 2
+              / ∏ i, (Nat.totient (r i) : ℝ))
+        - ((W'.totient : ℝ) / W' * Real.log R) ^ 5
+            * ((simplexInt (sq (ofPoly F)) : ℚ) : ℝ)|
+      ≤ c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ 5
+          * (1 / Real.log R + 1 / D)
+```
+
+Route: (1) `eval_sq` + `sq (ofPoly F)` is a `BPoly 5` with ALL budget
+exponents 0 (`ofPoly` sets 0, `mul` adds) — so the integrand is a plain
+`List`-sum of t-monomials; exchange `Finset.sum`/`List.sum`. (2) Enlarge
+`kSieveIndex 5 R W' ⊆ decBox 5 R W'` (same `range R`, same `∏ < R`, pairwise
+coprimality dropped): the DIFFERENCE is a sum over tuples where some pair
+`(i,j)` shares a prime `p` (necessarily `p ∤ W'`, so `p > D`); bound each
+monomial's contribution on the difference set by: weights `≤ 1` termwise
+(`t ∈ [0,1]` on the box), unmark 3 coordinates (a=0 moment,
+`≤ c(1+X)` each), mark coordinates `i,j` at `p` (`marked_sqf_phi` at
+`s = p`, a = 0: `≤ c·log R/(p−1)` each), sum `Σ_{p>D} 1/(p−1)² ≤ 2/D`, times
+10 pairs. NOTE the difference-set sum is SIGNED-FREE: `F(t)² ≥ 0`, so
+`0 ≤ Σ_dec − Σ_ksieve ≤ (marked bound)` — no absolute values needed on the
+drop. (3) `mv_monomial` at `n = 5`, `z = R` per monomial (the budget factor
+at `z = R` with `d = 0` is `1`; `(log R/log R)^{5+Σe} = 1` — no boundary
+slip at `z = R`), then `simplexInt (sq (ofPoly F)) = Σ q·DInt' α 0` is
+literally the definition. Traps: (i) the monomial-level constants `c(α)`
+are per-monomial — collect the finite max/sum over the `sq`-list (3136
+entries for F★ — do NOT unfold the list; work with `List.sum` abstractly).
+(ii) `(1+X)⁴ ≤ (1+X)⁵/Real.log R · (W'/φW')`-style absorptions need
+`X ≥ φW'/W'` (from `1 ≤ log R`) — keep the `(1+X)⁵` frozen error form, it
+absorbs both `mv_monomial`'s `(1+X)⁴` (via `/log R`) and the drop (via
+`/D`). Verifier: `t ∈ [0,1]` and budget ≥ 0 on the box; the drop's sign
+argument; consistency `simplexInt (sq (ofPoly Fstar)) = Ical Fstar` (landed
+tie) — so `mv_I` at `F★` concludes `X⁵·(1597/399168)·(1+E)`. PB floor: none.
+
+## Card W3-5 (inner contraction) `Salt/Twelve/MvJ.lean` — Opus, class C
+
+`yF` (frozen above) and:
+
+```lean
+theorem inner_contract (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
+    (hUpper : PhiUpperAtom W') (F : Poly) (m : Fin 5) :
+    ∃ c : ℝ, 0 ≤ c ∧ ∀ D R : ℕ, 3 ≤ D →
+      (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) → 1 ≤ Real.log R →
+      ∀ r ∈ kSieveIndex 5 R W', r m = 1 →
+      |(∑ u ∈ Finset.range R,
+            yF R W' F (Function.update r m u) / (Nat.totient u : ℝ))
+        - ((W'.totient : ℝ) / W' * Real.log R)
+            * eval (contractAt m F)
+                (fun i => Real.log (r (m.succAbove i)) / Real.log R)|
+      ≤ c * (1 + ((W'.totient : ℝ) / W' * Real.log R)
+              * ∑ p ∈ (∏ i, r i).primeFactors, (1 / ((p : ℝ) - 1)))
+```
+
+Route: unfold `yF`; `Function.update r m u ∈ kSieveIndex 5 R W'` iff `u` is
+squarefree, `u ⊥ W'`, `u ⊥ rᵢ (i ≠ m)`, and `u·∏_{i≠m} rᵢ < R` (use
+`r ∈ kSieveIndex`, `r m = 1`; note `∏ᵢ rᵢ = ∏_{i≠m} rᵢ`). So the inner sum
+is a 1-dim budget-moment at ℕ-cap `z_r = (R−1)/∏ᵢrᵢ + 1` with the EXTRA
+constraint `u ⊥ ∏r`: (a) drop it — the dropped terms are marked sums,
+`Σ_{p ∣ ∏r} marked_sqf_phi(s=p)` — this is the r-dependent error budget in
+the frozen bound (do NOT try to bound it r-uniformly; the caller swaps it);
+(b) the unconstrained sum: expand `eval (ofPoly F)(update-t)` per monomial
+`(α, q)`: the `tₘ`-power is `(log u/log R)^{α m}`, the others are constants
+in `u`; apply `budget_moment` at `(c,b) = (α m, 0)` and cap `z_r`; the main
+term reassembles as `X · eval (contractAt m F) t'` — `contractAt`'s
+`q/(αₘ+1)` coefficient and `(1−Σ't)^{αₘ+1}` budget exponent are EXACTLY the
+peel's `β = αₘ!·0!/(αₘ+1)! = 1/(αₘ+1)` and `(log z_r/log R)^{αₘ+1}` up to
+the floor slip `log z_r = log R − log ∏r + O(log 2)` (slip → absolute `O(1)`
+error via the `[0,1]`-power Lipschitz bound; `Fin.removeNth m t = t ∘
+m.succAbove` aligns the coordinates). Traps: (i) `u = 1` IS in the sum
+(`t_m = 0` term, legit); `u = 0` killed by squarefree-in-box. (ii) the
+`(1−Σ't)` in `eval (contractAt m F)` uses the FOUR remaining coordinates —
+`Σ_{i : Fin 4} log (r (m.succAbove i))/log R = log ∏ᵢrᵢ / log R` since
+`r m = 1`. (iii) `eval` bounded on the box: `t' ∈ [0,1]⁴`, `1−Σ't' ∈ [0,1]`
+— needed for the caller's square-expansion; state it as a companion lemma
+`inner_main_bound : |eval (contractAt m F) t'| ≤ (constant from F)` if
+useful (executor latitude). Verifier: the error's r-dependence is EXACTLY
+`Σ_{p ∣ ∏r} 1/(p−1)` (one marked power, not two); `contractAt` coefficient
+vs the β of `budget_moment` at `b = 0`. PB floor: none.
+
+## Card W3-6 (keystone J) — append to `Salt/Twelve/MvJ.lean` — Opus, class C+
+
+```lean
+theorem mv_J (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
+    (hUpper : PhiUpperAtom W') (F : Poly) (m : Fin 5) :
+    ∃ c : ℝ, 0 ≤ c ∧ ∀ D R : ℕ, 3 ≤ D →
+      (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) → 1 ≤ Real.log R →
+      |(∑ r ∈ (kSieveIndex 5 R W').filter (fun r => r m = 1),
+            (∑ u ∈ Finset.range R,
+                yF R W' F (Function.update r m u) / (Nat.totient u : ℝ)) ^ 2
+              / ∏ i ∈ Finset.univ.erase m, (gMult (r i) : ℝ))
+        - ((W'.totient : ℝ) / W' * Real.log R) ^ 6
+            * ((simplexInt (sq (contractAt m F)) : ℚ) : ℝ)|
+      ≤ c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ 6
+          * (1 / Real.log R + 1 / D)
+```
+
+Route (the assembly; consumes W3-1g/2/3/5): (1) substitute
+`inner = X·eval(contractAt m F)(t') + err_r` (W3-5) and expand the square:
+`inner² = X²·eval(…)² + 2X·eval(…)·err_r + err_r²`, with
+`|eval(…)| ≤ c_F` on the box. (2) The MAIN part
+`Σ_r X²·eval(sq (contractAt m F))(t')/∏g` (via `eval_sq`): the outer tuples
+`(r_i)_{i≠m}` under `r ∈ kSieveIndex, r_m = 1` form the 4-dim
+pairwise-coprime box; drop pairwise coprimality (6 pairs; g-weighted marked
+bounds via `marked_sqf_g` at `s = p`, tail `Σ 1/((p−2)·(p−2))`-shaped
+`≤ c/D`... note BOTH markings are now `1/(p−2)`) to land in `decBox 4 R W'`
+(reindex `Fin 5`-tuples-with-`r m = 1` ↔ `Fin 4`-tuples via
+`m.succAbove`/`Fin.insertNth m 1` — `∏_{i≠m} rᵢ = ∏ (4-tuple)`, budget
+matches); apply `mv_monomial_g` at `n = 4, z = R` per monomial of
+`sq (contractAt m F)` (budget exponents are NONZERO here — `d` up to
+`2(deg_m F + 1)` — this is why `mv_monomial_g` carries general `d`);
+reassemble `X²·X⁴·simplexInt (sq (contractAt m F))`. (3) The CROSS part:
+`Σ_r 2X·c_F·err_r/∏g ≤ 2X·c_F·Σ_r [c(1 + X·Σ_{p∣∏r}1/(p−1))]/∏g`; the
+`Σ_p`-part SWAPS: `Σ_r (Σ_{p∣∏r}1/(p−1))/∏g(rᵢ) = Σ_{p>D} (1/(p−1))·
+Σ_{r: p∣∏r} 1/∏g ≤ Σ_{p>D} (1/(p−1))·4·(1/(p−2))·(g-moment)³ᵘᵐ…` — four
+choices of the marked coordinate, `marked_sqf_g(s=p)` on it, crude g-moments
+(`marked_sqf_g` `s=1`) on the rest: net `≤ c·(1+X)³·Σ_{p>D}1/((p−1)(p−2))
+≤ c·(1+X)³·(2/D)`; total cross ≤ `c·X·(1+X)⁴/D`-shaped — inside the frozen
+budget. (4) `err_r²` similarly with TWO swapped primes (or crudely one prime
++ `Σ_{p∣∏r}1/(p−1) ≤ 1` for `D ≥ 3`... careful: that sum is NOT ≤ 1
+uniformly — use the double swap). (5) Collect into the frozen
+`(1+X)⁶(1/log R + 1/D)`.
+
+Traps: (i) the outer box after `r m = 1`-restriction: `kSieveIndex`
+membership of the 5-tuple ⇔ the 4-tuple's `decBox`-style membership PLUS
+pairwise coprimality — write the `Fin.insertNth`-bijection lemma FIRST and
+test it on a `#eval`-free example. (ii) `∏ i ∈ univ.erase m, gMult (r i)`
+vs `∏ i : Fin 4, gMult (4-tuple i)` — same product via the bijection
+(`gMult (r m) = gMult 1 = 1` if you prefer full products). (iii) The cross
+term's sign: `err_r` is NOT signed — use `|inner² − X²eval²| ≤
+2X|eval||err| + err²`. (iv) Never bound `Σ_{p∣∏r} 1/(p−1)` uniformly in `r`
+(it grows like `ω(∏r)/D` — the swap is mandatory). Verifier: the X-power
+(2 inner + 4 outer = 6); `simplexInt (sq (contractAt m Fstar)) = Jcal m
+Fstar` (landed tie) — so `mv_J` at `F★` concludes `X⁶·(Jcal m F★)·(1+E)`,
+`Σ_m Jcal m F★ = 191881/23950080`; the swap in steps (3)/(4). PB floor:
+if the full assembly exceeds budget, land the main part (2) as
+`mv_J_main` with hypotheses packaging (3)/(4)'s bounds, and flag — but the
+swap lemmas themselves must NOT be hypothesized away.
+
+## Dependency DAG and dispatch plan
+
+```
+W3-0 (Sonnet) ──┬─→ W3-1 (Opus) ──┬─→ W3-4 mv_I (Opus)
+                │                  └─→ W3-3 (Opus) ─→ W3-6 mv_J (Opus)
+                ├─→ W3-2 (Opus) ───→ W3-3
+                └─→ W3-5 (Opus) ───→ W3-6
+```
+
+Round 1: W3-0 alone (small, everything imports it). Round 2: W3-1, W3-2,
+W3-5 in parallel. Round 3: W3-3, W3-4 in parallel. Round 4: W3-6.
+Verify+commit each node before dependents dispatch (import race discipline,
+as wave 2). Wire new files into `Salt/Twelve/All.lean` at reconciliation.
+Escalation tripwires per MODEL_POLICY (3 serious attempts → FABLE-QUEUE).
+
+After wave 3, the remaining explicit12 work (wave 4, needs the next Fable
+pre-flight): the `Qdiag_m`/`S1` bridges via the `(D,W')`-generalized spine
+(`lemma53` at free `W'`, `S1_upperW`/`S2mW_lower` consumption), the window
+PNT/EH plumbing (`WindowPNT`/`EHall` → the prime-side counts), and the
+endgame assembly `gaps_le_twelve`.
