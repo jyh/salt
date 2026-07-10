@@ -367,6 +367,21 @@ deferred tail leaf, for the single final `W'`).
 
 ## Wave-2 cards (4, independent, parallel; W2-1/2/3 need no spine changes)
 
+**STATUS — wave 2 LANDED on `explicit12` (2026-07-10), all axiom-clean
+`[propext, Classical.choice, Quot.sound]`:**
+- W2-1 ✅ `a7c3926` — `beta_sum` + `budget_moment` (φ-version, frozen main term).
+  `budget_moment_g` → FABLE-QUEUE (composite marked sum).
+- W2-2 ✅ `6eeae61` — `marked_prime_phi`. `marked_prime_g` → FABLE-QUEUE (dead
+  end, unneeded; g-sandwich routes through `marked_prime_phi`).
+- W2-3 ✅ `b460815` — `BudgetPoly` symbolic ℚ layer; general-`F` ties
+  `simplexInt (sq (ofPoly F)) = Ical F` and `… (contractAt m F) = Jcal m F`.
+- W2-4 ✅ `c7ee1f9` — `(D,W')` spine sweep, purely additive `*_W` layer;
+  capstone `bounded_gaps_from_eh_complete` unchanged + full build green.
+- leaf ✅ `4e1b9a8` — `phiAtom_upper` analytic core (`powerful_sum_bounded`);
+  `phiUpperAtom_holds` discharges `PhiUpperAtom` modulo `hReindex` → FABLE-QUEUE.
+All wired into `Salt/Twelve/All.lean`. Next: wave-3 Fable pre-flight
+(`mv_I`/`mv_J`); the φ-version `budget_moment` is the critical-path atom.
+
 ### W2-1 (P3.a) `Salt/Twelve/BudgetMoment.lean` — Opus
 `beta_sum : ∀ c b, Σ_{j≤b} (b.choose j : ℚ)·(−1)^j/(c+j+1) = c!·b!/(c+b+1)!`
 (ℚ; induction on `b` or `decide` per instance for `c+b ≤ 14`; general proof

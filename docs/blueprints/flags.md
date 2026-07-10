@@ -1621,4 +1621,29 @@ Six fragilities caught+fixed this track: (1) per-u coprimality, (2) budget split
 
 ## FABLE-QUEUE (standing section — see docs/MODEL_POLICY.md wave protocol)
 Opus appends entries here (node id, tripwire hit, what was tried) instead of
-grinding; the next Fable wave opens by draining this list. Currently: (empty)
+grinding; the next Fable wave opens by draining this list.
+
+- **explicit12 `budget_moment_g`** (W2-1, `Salt/Twelve/BudgetMoment.lean` header
+  block). The `μ²/g → μ²/φ` sandwich. Lower bound (`g ≤ φ`) is free; the upper
+  bound's powerset expansion of `∏_{p|r}(1+1/(p−2))` needs a COMPOSITE marked
+  sum (over `r` divisible by `s = ∏S`, `|S| ≥ 2`), but the landed
+  `marked_prime_phi` is single-prime only. Recipe verified numerically
+  (`Σ_{p>D}1/((p−1)(p−2)) ≤ 2/D`; multi-prime tail `≤ exp(2/D)−1 ≤ 4/D`).
+  Needs: a composite-`s` marked atom (reindex `r=s·t`, φ multiplicative) +
+  the Euler prime tail. Off the wave-3 critical path (only mv_J's OUTER `μ²/g`
+  factor consumes it; mv_I and mv_J's inner moments use the landed φ-version).
+- **explicit12 `marked_prime_g`** (W2-2, dead end — NOT needed). `φ(s)/g(s) =
+  ∏(q−1)/(q−2)` is unbounded over squarefree `s` without a prime-`>D`
+  restriction, so the per-term g→φ transfer is false. The g-sandwich routes
+  through `marked_prime_phi` instead (see above); no g-marked lemma is on any
+  critical path. Record kept so no future wave re-attempts it.
+- **explicit12 `hReindex`** (leaf, `Salt/Twelve/PhiUpper.lean`). Discharges
+  `PhiUpperAtom` fully unconditional. The analytic core (`powerful_sum_bounded`:
+  `Σ_{v powerful}(1+log v)/v ≤ C`) is LANDED + axiom-clean; the residual is the
+  `Nat` squarefree/powerful reindex `n=u·v` regrouping `Tail(x)` into
+  `Σ_v (1/v)Σ_u 1/u ≤ Σ_v (1+log v)/v` — a true, `x`-independent inequality,
+  ~430 lines of mathlib-absent powerful/squarefree-part `tsum` work. Inner
+  window is `(1+log v)/v`, NOT `1/φ(v)`. Non-blocking (`PhiUpperAtom` threads as
+  a hypothesis meanwhile).
+
+Currently: 3 entries (all explicit12 wave-2 deferrals; none critical-path).
