@@ -59,3 +59,4 @@ import Salt.Maynard.Final
 import Salt.Maynard.FrontierDischarge
 import Salt.Maynard.FrontierFinal
 import Salt.Maynard.Lemma53Tight
+import Salt.Maynard.Complete

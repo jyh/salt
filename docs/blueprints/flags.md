@@ -1596,3 +1596,25 @@ for logk>=300 via L<=exp(L-50)), then replicate analyticFrontier_holds'
 (FrontierFinal.lean:668-720) eventually-N' setup to feed hcheb
 (s2_tensor_lower_cheb)+B1pos+A1nn+regime to s2CompatFormM_ge_sixteenth_tight ->
 CompatFrontier -> feed bounded_gaps_from_eh_final -> bounded_gaps_from_eh_complete.
+
+## 2026-07-09 *** COMPLETE: bounded_gaps_from_eh_complete : BoundedGapsFromEH ***
+The capstone is DONE, UNCONDITIONAL, axiom-clean. Verified maximum-scrutiny:
+  #check @bounded_gaps_from_eh_complete
+    => bounded_gaps_from_eh_complete : BoundedGapsFromEH   (NO hypotheses)
+  #print axioms => [propext, Classical.choice, Quot.sound]  (transitive: whole
+    dependency tree sorry-free/native_decide-free/axiom-free)
+  BoundedGapsFromEH def UNCHANGED from eb31922 (genuine target).
+Full lake build: 8654 jobs, clean.
+
+Sixth-fragility endgame (Complete.lean): the exists-opacity of rankinC/mertensC
+was resolved by re-deriving the contraction cascade with an EXPLICIT Rankin
+constant rankinK = exp 20 (from Mertens sum_inv_prime_le_aux, const <= 19 ->
+mertensC <= 20), giving lemma53KConst = exp20*(2+4 exp4) <= exp 26, and
+k_largeness (1728 lemma53KConst exp20 logk <= k for logk>=300, ~234 orders of
+slack). regime_discharge closes 32 lemma53KConst k logR <= B1 D0;
+compatFrontier_holds copies analyticFrontier_holds' N'-window setup;
+bounded_gaps_from_eh_complete := bounded_gaps_from_eh_final compatFrontier_holds.
+
+Six fragilities caught+fixed this track: (1) per-u coprimality, (2) budget split,
+(3) hA11<=1/4, (4) colliding-pairs RHS, (5) absolute-vs-relative lemma53 error,
+(6) lemma53 constant 2^k -> O(k). Maynard bounded-gaps-from-EH: machine-checked.
