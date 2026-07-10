@@ -281,3 +281,36 @@ m₃=Σtᵢ³, m₂₁=Σ_{i≠j}tᵢ²tⱼ, m₁₁₁=Σ_{i<j<l}tᵢtⱼtₗ).
 Level requirement: θ > 2/M₅ = 191640/191881 ≈ 0.99874, so `EHall` suffices
 (pick θ = 1 − δ★/4). Budget-sheet consumers each ≤ δ★/8 ≈ 3.1·10⁻⁴.
 Scripts: scratchpad `m5_opt.py`, `m5_verify.py`.
+
+---
+
+## Wave 1 status (2026-07-10) + P3 pre-flight readiness
+
+**Landed on `explicit12`** (axiom-clean throughout):
+- C1 `Certificate.lean` — `M5_cert : 2·Ical F★ < Σ Jcal`, `M₅ = 191881/95820 > 2`.
+- C3 `Params.lean` — `WindowPNT`/`EHall`, `hSeq 5 = {7,11,13,17,19}`,
+  `hSeq_diam_le_twelve`, spine audit (diagonalization core is FREE-W; the
+  `(D,W')`-sweep is confined to the counting/prime-side interface).
+- C2 `MomentAtom.lean` — `moment_atom` (two-sided, `C` uniform in `a`, exact
+  `1/(a+1)` main constant), conditional on `PhiUpperAtom`.
+- `PhiUpper.lean` — the hard core of `phiAtom_upper` (the Euler-product
+  radical-fiber identity `∑'_{rad n=r}1/n = 1/φ(r)` + reduction to one tail).
+
+**FABLE-QUEUE: (empty)** — no design/impossibility/statement issues arose.
+
+**Opus follow-on leaf (scheduled with wave-2 execution, NOT Fable):**
+`phiAtom_upper` tail bound `∑_{v powerful}(1+log v)/v < ∞` (reindex n=u·v
+squarefree×powerful; needs a `Nat` powerful/squarefree-part decomposition,
+~200 lines). Discharges `PhiUpperAtom` → `moment_atom` unconditional. Required
+for the rung's eventual unconditionality; carried as a hypothesis meanwhile
+(like `WindowPNT`/`EHall`). Deferred (leaf, non-blocking, possible mathlib gap
+— don't grind speculatively).
+
+**P3 pre-flight is now UNBLOCKED** — the two inputs the design deferred P3's
+cards for are known: (i) C1 fixed `F★` = **degree 3** (simplex sums top out at
+degree-3 monomials, budget powers ≤ `2·3+2 = 8`); (ii) C2 fixed the moment
+error form = **`C·(1+log z)^a` with `C` uniform in `a`** (so the P3 induction
+carries a single `(1+log R)^{deg}`-type error, no `a`-growth). Next Fable wave:
+write the P3 cards (the simplex mean-value keystone, §4-P3 sketch), reconcile
+the C3 audit's `(D,W')`-sweep list into a concrete node list, and decide the
+`moment_atom_g` (gMult) statement shape now that `F★`'s degree is fixed.
