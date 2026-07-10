@@ -165,3 +165,136 @@ Statement-design decisions reserved to Fable/human at blueprint time:
 the exact `EH θ` formulation (ψ vs θ vs π; max over residues; Q-range),
 fixed-(θ = 1/2, m = 2) vs the ∀θ form (W9), and the choice of k₀/F with
 deliberate slack.
+
+---
+
+# Scoping the next rung (post-Maynard)
+
+*Fable, 2026-07-09. Written the day `bounded_gaps_from_eh_complete :
+BoundedGapsFromEH` merged to `main` (48eb541): Rung 3 above is DONE —
+Maynard's theorem, machine-checked, conditional on EH(1/2), axiom-clean
+`[propext, Classical.choice, Quot.sound]`. This section records what the
+build taught us and ranks the rungs from here toward twin primes.*
+
+## 1. What the Maynard build established (assets)
+
+**Mathematical assets on `main`.** The full multidimensional Selberg
+engine: k-dim weights + diagonalization (S2DiagLam/S2DiagRestricted),
+Lemma 5.3 contraction with O(k) constants (Lemma53 + Lemma53Tight), the
+collision/erasure machinery (CollisionQuant, S2Collision, VAbs,
+EulerTailL), the (3k)^ω pair fiber count (S2FiberCount), EH consumption
+(EHConsume, S2CompatEHFinal), sharp one-variable transfers
+(Transfer/TransferSharp/RatioCore), Chebyshev-interval prime supply,
+CRT/congruence counting, explicit Mertens/Rankin, and the pigeonhole
+endgame (Endgame, Final, Complete). Roughly: everything a future
+sieve-theoretic rung needs short of new analytic inputs.
+
+**Methodological assets (the transferable ones).** Six fragilities were
+caught across the track — per-u coprimality (false atom), budget split,
+hA11 ≤ 1/4 (unprovable atom), colliding-pairs RHS (wrong by B₁²),
+absolute-vs-relative Lemma-5.3 error (B-type vs A-type), and the 2^k
+error constant (formalization looseness fatal only at the last atom).
+Every one lived in the *assembly* of estimates, not in any single lemma.
+The disciplines that caught them: (i) check satisfiability of every
+atom/hypothesis before building on it; (ii) the B-vs-A dimensional check
+(every error term carries the f₀-tensor weight); (iii) adversarial
+verification of every landed node; (iv) EXPLICIT constants — ∃-bound
+constants went opaque twice (R-uniformity, rankinC/mertensC) and had to
+be re-derived; new analytic work should expose constants from day one.
+Ops lesson: background Agents complete where parallel workflows stall on
+long builds; module-scoped `lake build` only.
+
+## 2. The hard ceiling of this method (why twins need new mathematics)
+
+Two structural facts, both now visible *inside* our own formalization:
+
+**M_k asymptotics.** The pigeonhole needs the sieve ratio (our
+`ratio_core_lower`, informally Maynard's M_k ~ log k) to exceed 2m/θ for
+m+1 primes at distribution level θ. Computed values: M₂ ≈ 1.38,
+M₃ ≈ 1.65, M₄ ≈ 1.84, M₅ > 2. Twin primes is the k = 2 tuple {0,2};
+even at the impossible-to-exceed θ = 1 it needs M₂ > 2. Not a loose
+constant — a theorem-shaped wall. First reachable: k = 5 under EH(1/2)
+⟹ gaps ≤ 12 (tuple {0,4,6,10,12}).
+
+**The parity barrier (Selberg).** Divisor-sum-driven sieves cannot
+distinguish even from odd numbers of prime factors. Polymath 8b: under
+*generalized* EH the ε-enlarged sieve reaches gaps ≤ 6 ({0,2,6}) and
+parity provably stops it there. The wall between 6 and 2 is not
+engineering. Chen's theorem (p, p+2 = P₂) is the sieve pushed exactly to
+this wall. **No refinement of what we built reaches twin primes.**
+
+## 3. The rungs, ranked
+
+### Rung 4a — Explicit gap: EH(1/2) → gaps ≤ 12 (recommended headline)
+Replace the crude logarithmic weights `fWt` (which forced
+k₀ ~ exp(7·10⁶/c)) with Maynard's genuine variational weights; formalize
+M₅ > 2 as a finite-dimensional optimization — rational I_k/J_k closed
+forms (Dirichlet integral: ∫∏tᵢ^{aᵢ} = ∏aᵢ!/(k+Σaᵢ)!) + a concrete
+polynomial F + `norm_num`-grade certification. Replaces `ratio_prize`'s
+asymptotic with an exact computation; turns "some C" into C = 12.
+Est. Brun-scale. Class profile: B with one C-cluster (re-threading the
+S₂ lower bound through polynomial weights).
+
+### Rung 4b — Level-of-distribution interface refactor (shovel-ready, ~1 session)
+Factor `EH`/`eh_error_pow` into a general "primes have level θ with a
+(log x)^B haircut" interface consumed by the sieve. Our moduli sit at
+W·N^{2/5} ≪ √N/(log N)^B, so the sieve side is unchanged. This makes the
+theorem *BV-consumable*: the day BV lands (Rung 5), unconditionality is
+an instantiation. Do this before or alongside 4a.
+
+### Rung 5 — The large sieve → Bombieri–Vinogradov (unconditional gaps)
+The pincer identified post-Brun, still correct: large sieve by duality +
+Bessel (constant-factor version suffices), Farey spacing, character form
+via |τ(χ)| = √q; then Vaughan's identity (unformalized anywhere) and the
+Siegel–Walfisz-grade input (the deep end — watch PrimeNumberTheoremAnd's
+progress on zero-free regions; Isabelle/AFP has the template). Payoff:
+**unconditional bounded gaps** — the strongest headline available to
+formalization today. Multi-quarter; the large-sieve module alone is
+first-in-any-assistant and self-contained.
+
+### Rung 6 — GEH → 6, plus the parity wall itself
+State generalized EH (level of distribution for Dirichlet convolutions),
+formalize the Polymath 8b ε-trick with k = 3 {0,2,6}. The deeper prize:
+a *formal statement of the method's limit* — machine-checked "no sieve
+of this class goes below 6." Novel meta-mathematics; needs careful
+Fable-tier statement design to be honest and non-vacuous.
+
+### Rung 7 — Chen's theorem (p, p+2 with p+2 = P₂)
+The closest true theorem to twin primes. Linear sieve with bilinear
+error terms + the switching principle. Monumental (multiple
+Maynard-scale tracks); parity-consistent, so no wall in the way. The
+natural flagship after BV exists.
+
+### Rung 8 — Parity-breaking beachheads (the only road that could lead to 2)
+Matomäki–Radziwiłł (multiplicative functions in short intervals) and
+Tao's two-point logarithmic Chowla (λ(n)λ(n+1) → 0 on log-average, via
+entropy decrement) are the only *proven* parity-breaking machinery.
+Neither gives twins — the Liouville→von-Mangoldt chasm is open — but a
+library holding our sieve stack + BV + MR + log-Chowla is the best
+possible position for whenever the mathematical breakthrough arrives.
+Nothing here is formalized anywhere. Moonshot-scale; scope only after
+Rung 5.
+
+**Twin primes itself: there is no proof to formalize.** Honest bottom
+line. What formalization contributes now: (a) the verified library along
+the known frontier; (b) the assembly discipline — a future proof will be
+a cascade of hundreds of coupled estimates, exactly the failure mode our
+pipeline catches.
+
+## 4. Recommendation
+
+**Rung 4b immediately** (one session, makes the artifact BV-ready), then
+**Rung 4a as the next track branch** (`explicit12`): EH → 12 explicit is
+the highest insight-per-node target and exercises the variational
+machinery every later rung shares. Interleave **Rung 5's large-sieve
+module** as the long-pole starter during 4a stalls (same pincer logic as
+post-Brun). Rungs 6–8 are scoped, not scheduled.
+
+Also queued (hygiene, Fable-tier, ~1 session): a consolidation sweep of
+the endgame scaffolds — `Complete.lean` is the load-bearing capstone;
+`Final.lean`'s conditional `bounded_gaps_from_eh`/`AnalyticFrontier` and
+the superseded ∃-constant lemmas (`s2main_lower` original,
+`S2InnerBoundQ`/`Qdiag_gv` section, `htail_bound` 2^k version, the
+non-uniform `S1_upper_A1`/`S2m_ge_compatMain_eh`) should be marked
+`deprecated`-by-docstring or pruned, and the maynard-guide.md status
+cards reconciled to COMPLETE.
