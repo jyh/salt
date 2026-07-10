@@ -314,3 +314,116 @@ carries a single `(1+log R)^{deg}`-type error, no `a`-growth). Next Fable wave:
 write the P3 cards (the simplex mean-value keystone, §4-P3 sketch), reconcile
 the C3 audit's `(D,W')`-sweep list into a concrete node list, and decide the
 `moment_atom_g` (gMult) statement shape now that `F★`'s degree is fixed.
+
+---
+
+# Wave 2 design (Fable pre-flight, 2026-07-10): P3.a/b/e + the spine sweep
+
+Pre-flight run: FABLE-QUEUE empty; design-debt review of wave-1 scaffolding
+PASSED (`PhiUpperAtom` matches the documented blocker; C1's `JD` verified
+against the contraction semantics — `(αₘ+1)(βₘ+1)` divisor, budget power
+`αₘ+βₘ+2`, `6+Σ` denominator — so P3 ties to the certified rationals).
+
+## The P3 design cruxes (worked at Fable tier — binding on execution)
+
+**Crux 1 — FORBIDDEN ROUTE: per-u modulus folding.** In the J-side, `aₘ`
+must be coprime to `W'·∏uᵢ`. Folding this into a moment-atom application at
+modulus `W'' = W'·∏uᵢ` is a fragility-#1-shaped trap: the atom's constant
+`C(W'')` grows like `Σ_{p|∏u} log p/p ~ log R/D` and is unbounded over `u`.
+**Binding design:** every moment-atom/budget-moment application is at the
+FIXED modulus `W'`; ALL coprimality coupling (pairwise `u`-coprimality, and
+`aₘ ⊥ ∏u`) is handled by Möbius/marked-prime expansion `[gcd=1] = Σ_{s|gcd}μ(s)`
+at SUM level: each marked prime `p > D` costs `O(1/p)` (weight transfer)
+times `O(1/p)` (hit probability), summing to `O(1/D)` total via
+`Σ_{p>D} 1/(p−1)(p−2)`-tails (landed euler-tail pattern).
+
+**Crux 2 — g-weights via sandwich.** The J-side outer weights are
+`μ²(uᵢ)/g(uᵢ)`. Per-prime `(1−1/p)(1+1/(p−2)) = 1 + 1/(p(p−2))`, so the
+g-moment main term is the φ-moment times a singular factor
+`𝔖_{W'} ∈ [1, 1 + 8/D]` (all `p ∤ W'` are `> D`). Prove as a two-sided
+sandwich `moment_φ ≤ moment_g ≤ (1+8/D)·moment_φ` via ONE marked-prime
+application (`1/g(r) = 1/φ(r)·∏_{p|r}(1+1/(p−2))`, expand, mark). Never
+compute 𝔖 exactly.
+
+**Crux 3 — the budget-moment reduction.** All multi-dim work reduces to:
+`Σ_{r<z} μ²(r)/φ(r)·(log r/log R)^c·((log z − log r)/log R)^b` = binomial
+expansion → `moment_atom` at `a = c+j` → collect with the beta identity
+`Σ_j (b choose j)(−1)^j/(c+j+1) = c!·b!/(c+b+1)!` → main
+`X·B(c,b)·(log z/log R)^{c+b+1}` with `X = (φW'/W')·log R`, error
+`≤ C_atom(W')·4^{b+c}` ABSOLUTE (relative `O(1/log R)`). Degrees are tiny:
+`F★` deg 3 ⟹ `c ≤ 6`, `b ≤ 8`.
+
+**Crux 4 — decouple analysis from combinatorics.** `mv_I`/`mv_J` (wave 3)
+conclude against a recursively-defined `simplexInt : BPoly → ℚ` (the peel
+order's own Dirichlet bookkeeping); separate `norm_num` nodes tie
+`simplexInt (F★²) = 1597/399168`-value and
+`Σ_m simplexInt ((F★⁽ᵐ⁾)²) = 191881/23950080`-value to C1's `Ical/Jcal`.
+The analysis never touches ℚ-arithmetic; the arithmetic never touches sums.
+
+**Hypothesis pattern:** g-lemmas and D-corrections take
+`(hD : ∀ p, p.Prime → ¬ p ∣ W' → D ≤ p)` (satisfied by `W' = primorial D`);
+`PhiUpperAtom W'` rides along as a hypothesis (discharged later by the
+deferred tail leaf, for the single final `W'`).
+
+## Wave-2 cards (4, independent, parallel; W2-1/2/3 need no spine changes)
+
+### W2-1 (P3.a) `Salt/Twelve/BudgetMoment.lean` — Opus
+`beta_sum : ∀ c b, Σ_{j≤b} (b.choose j : ℚ)·(−1)^j/(c+j+1) = c!·b!/(c+b+1)!`
+(ℚ; induction on `b` or `decide` per instance for `c+b ≤ 14`; general proof
+preferred). Then `budget_moment` (statement frozen up to the constant):
+for `W'` sqf pos, `PhiUpperAtom W'`, `c b : ℕ`, `z R : ℕ`, `2 ≤ z ≤ R`,
+`1 ≤ log R`:
+`|Σ_{r<z, sqf, (r,W')=1} (log r/log R)^c·((log z − log r)/log R)^b/φ(r)
+  − (φW'/W')·log R·(c!·b!/(c+b+1)!)·(log z/log R)^{c+b+1}|
+  ≤ C_atom(W')·4^{b+c}` — from `moment_atom` + `beta_sum` (route: Crux 3).
+Then `budget_moment_g` (both inequalities of the sandwich, Crux 2, using
+W2-2's marked lemma; hypothesis `hD`). Verifier: beta identity at (c,b) =
+(0,0),(1,2) by hand; the error is ABSOLUTE not `·log z`; g-sandwich is
+two-sided. PORT-BLOCKER floor: none (B-tier assembly on landed atoms).
+
+### W2-2 (P3.b) `Salt/Twelve/MarkedPrime.lean` — Sonnet-suitable
+`marked_prime_phi : p prime, p ∤ W', Σ_{r<z, sqf, (r,W')=1, p∣r}
+(log r)^a/φ(r) ≤ (1/(p−1))·c_up(W')·(log z)^{a+1}` (reindex `r = p·s`,
+crude `(log r)^a ≤ (log z)^a`, landed lossy upper bounds suffice — any O(1)
+constant); `marked_prime_g` (same, `1/(p−2)`). Optionally the tail-sum
+corollary `Σ_{p>D, p prime} (1/(p−1))·(1/(p−2)-ish) ≤ 4/D` — check landed
+`euler_tail_L`-adjacent forms first (may exist). PORT-BLOCKER floor: none.
+
+### W2-3 (P3.e) `Salt/Twelve/BudgetPoly.lean` — Opus
+The symbolic ℚ layer. Representation latitude (suggest
+`BPoly n := List ((Fin n → ℕ) × ℕ × ℚ)`: t-exponents, budget exponent,
+coeff). REQUIRED interface: `eval` (over ℝ, `t : Fin n → ℝ`, budget
+`1 − Σt`); `ofPoly : Poly → BPoly 5` (C1's `Poly`, budget exp 0);
+`contractAt m : Poly → BPoly 4` (the `∫dtₘ`: per monomial, divide by
+`αₘ+1`, budget exponent `αₘ+1`, drop coord `m`); `mul/sq`;
+`simplexInt : BPoly n → ℚ` per monomial `= (∏cᵢ!)·d!/(n+d+Σc)!`. TIES
+(norm_num, the wave's deliverable): `simplexInt (sq (ofPoly Fstar))
+= Ical Fstar` and `∀ m, simplexInt (sq (contractAt m Fstar)) = Jcal m Fstar`
+(semantic identity — should be provable for general `F` by `Finset` algebra,
+or per-`Fstar` by `norm_num`; either accepted, general preferred).
+Verifier: `contractAt` semantics vs `JD` (the `(αₘ+1)(βₘ+1)`/budget `+2`
+bookkeeping); `simplexInt` vs `DInt` at two instances. PORT-BLOCKER floor:
+the general-`F` tie may be PB'd to the `Fstar`-instance ties.
+
+### W2-4 (sweep) `(D, W')`-generalization — Opus, mechanical per C3 audit
+Files/lemmas per the audit table (CongCount, CongSolvable, Compat's two,
+S2Decomp defs+3, S2Eh defs+7, S1Bound's 4 dropping `hW : W' = W k`,
+CollisionQuant's 7 `D₀`-lemmas, Tuple: parameterized `exists_nu0`/
+`hSeq_le_D₀`-analogs at `W'' = primorial D`, `(H 5).sup < D`). **Fable
+authorization (statement-tier): generalize IN PLACE** — widen `W k → (W' : ℕ)`
++ explicit hypotheses (squarefree, primorial-primes-`> D`, `hν₀`-shape),
+PROVIDED the full `lake build` stays green with every downstream
+Maynard/Brun theorem building unchanged (instantiation must be trivially
+recoverable). Anything whose proof genuinely uses `W k`-specific facts:
+flag in the report, do not force. Verifier: full build + spot 3 downstream
+users unchanged + axiom audit on 3 generalized lemmas. PORT-BLOCKER floor:
+per-lemma flags.
+
+## Wave 3 (carded at next pre-flight; sketches binding)
+`mv_I` (5-dim, weights `μ²/φ`, integrand `F★²`): drop pairwise coprimality
+via marked primes (25 pairs × `O(1/D)`), then peel coordinates with
+`budget_moment`, concluding at `X^5·simplexInt(F★²)·(1+E)`,
+`|E| ≤ c(F,W')(1/log R + 1/D)`. `mv_J` (4+2-dim, outer `μ²/g` via sandwich,
+inner two independent `budget_moment`s at fixed `W'` with Möbius
+`aₘ ⊥ ∏u` marking): `X^6·Σ_m simplexInt((F★⁽ᵐ⁾)²)·(1+E)`. Bridge to
+`Qdiag_m` via the (W',D)-generalized `lemma53` = wave-4 work with P4.
