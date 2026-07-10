@@ -57,3 +57,4 @@ import Salt.Maynard.RatioCore
 import Salt.Maynard.Endgame
 import Salt.Maynard.Final
 import Salt.Maynard.FrontierDischarge
+import Salt.Maynard.FrontierFinal

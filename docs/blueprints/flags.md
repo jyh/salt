@@ -1474,3 +1474,41 @@ REMAINING for the bare theorem: (1) fix AnalyticFrontier c-defect [done next];
 32 Cc logR <= B1 D0; (3) the R0/bParam sharp regime for R=floor(N'^{1/5}) N' large
 (hX, hb4, hbLo, hEA, hEB -- the hardest atoms, ~600 lines); (4) assemble
 analyticFrontier_holds -> bounded_gaps_from_eh_final. Est 600-800 lines.
+
+## 2026-07-09 SIXTH FRAGILITY: lemma53/htail_bound constant is EXPONENTIAL (2^k)
+The full structural proof is DONE: bounded_gaps_from_eh_final :
+(forall k0>=3072, 300<=log k0 -> CompatFrontier k0 T) -> BoundedGapsFromEH
+(FrontierFinal.lean, axiom-clean). The ENTIRE remaining gap is the single atom
+CompatFrontier = the compat main-term lower bound
+  eventually_{N'} forall m, (1/16)B1^2 A1^{k0-1} <= s2CompatFormM(m)
+i.e. s2CompatFormM_ge_sixteenth's regime 32*C*logR <= B1*D0, where C is the
+s2main_lower_rel/lemma53_rel/lemma53 error constant.
+
+FINDING: lemma53's constant is C ~ 12*k^3*2^k (Lemma53.lean:1013, htail_bound).
+The 2^k is from prod_{i!=m,j}(gMult*U) <= 2^k (line 963-981, each factor <= 2).
+The k^2 in the deviating-coordinate factor is from phiSq_dvd_ne_bound
+(Lemma53.lean:642, bound 12*k^2/D0). So the item6->(1/16) regime
+32*C*logR <= B1*D0 becomes 6912*k*2^k <= phiW/W < 1 -- IMPOSSIBLE. The error
+term (4C logR/D0)B1 A1^{k-1} ~ 2^k * main, so s2CompatFormM_ge_cheb's
+(1/4 - error) is NEGATIVE. This is why CompatFrontier can't be discharged.
+
+The fifth-fragility fix (lemma53_rel) fixed the error DIMENSION (B-type->A-type)
+but NOT the CONSTANT: lemma53_rel inherits lemma53's 2^k C.
+
+ROOT CAUSE = FORMALIZATION LOOSENESS (not a design flaw). The TIGHT bounds:
+- phiSq_dvd_ne_bound: Sum_{c>1,primes>D0} 1/phi(c)^2 ~ 1/D0 (Sum_{p>D0}1/(p-1)^2),
+  NOT 12k^2/D0 -- loose by 12k^2.
+- htail_bound per-coord factor: 1+12k^2/D0 = 1+12/k (D0=k^3), product
+  (1+12/k)^k -> e^{12} (CONSTANT), NOT 2^k -- loose by 2^k/e^{12}.
+With tight constants: tail ~ k*(1/D0)*e^{12} = e^{12}/k^2 * logR -> 0, giving
+lemma53 C ~ e^{12}*k (LINEAR). Then 32*C*logR <= B1*D0 becomes
+e^{12}*k <~ (phiW/W)k^2/576 ~ k^2/(1728 log k), i.e. e^{12}*1728*log k <= k --
+TRUE for k large. So CompatFrontier IS provable after tightening.
+
+FIX (Fable/human-tier -- deep re-proving of landed analytic lemmas): retighten
+phiSq_dvd_ne_bound (12k^2/D0 -> c/D0, needs Sum_{p>D0}1/(p-1)^2 <= c/D0) and
+htail_bound (2^k -> e^{12}, via prod(1+12/k) <= e^{12} using Real.add_one_le_exp),
+cascading to lemma53 (C~k), lemma53_rel, s2main_lower_rel (re-verify the A-type
+error is now o(main)), then s2CompatFormM_ge_sixteenth's regime closes and
+CompatFrontier follows. Est 200-400 lines of delicate analytic re-proving. The
+STRUCTURE (everything else) is done and axiom-clean.
