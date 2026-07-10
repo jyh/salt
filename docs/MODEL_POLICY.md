@@ -51,3 +51,57 @@ Haiku pass@2 → Sonnet pass@2 → Opus pass@3 → STOP: human-review queue
 
 Batch API: 50% off. Cache reads ~0.1× input; cache writes 1.25× (5-min TTL).
 Re-verify against current pricing before large runs.
+
+## Wave protocol (interactive tracks)
+
+*Added 2026-07-10 after the Maynard track. Empirical basis: the expensive
+failure mode was Opus grinding past a design defect (three failed S₂-inner
+attempts + the reverted vacuous-herr work cost more than the Fable design pass
+that resolved them); every Opus wave run from a committed Fable design landed.
+Both Fable design docs caught a fragility at design time.*
+
+The loop: **Fable wave → committed design + sketch cards → Opus waves until the
+queue forces the next Fable wave.**
+
+### Fable wave contract
+A Fable wave ends only when it has COMMITTED a design doc containing, per node:
+1. the frozen Lean statement;
+2. a hand-verified constant/dimension chain (B-vs-A check pre-done);
+3. a sketch card — numbered route steps naming the landed/mathlib lemmas,
+   with the one hard trick spelled out;
+4. known traps;
+5. a verifier brief (2–4 decisive checks for the adversarial pass);
+6. the narrowest permitted PORT-BLOCKER.
+Fable writes docs, not Lean. The moment remaining work is "copy a landed proof
+with modifications", "thread constants", "assembly", or "threshold analysis",
+Fable stops — all of those succeed at Opus.
+
+### Escalation tripwires (Opus → FABLE-QUEUE)
+Do not spend the third attempt. Queue (in `docs/blueprints/flags.md`,
+`FABLE-QUEUE` section) and move to the next independent node when:
+- an atom fails a satisfiability sanity-check (no consistent toy instance);
+- 2 adversarial-verification failures on the same node for *mathematical*
+  (not Lean-mechanical) reasons;
+- any statement needs changing (iron rule 1);
+- an error term fails the dimensional check with no landed fix;
+- a constant needed later for numerics goes ∃-opaque;
+- an agent claims something is *impossible* — impossibility claims are
+  diagnosis work, always Fable.
+
+### Opus wave discipline
+Opus drives; writes agent-dispatch recipes from the sketch cards; runs
+adversarial verification at Opus (it catches defects in Fable-authored
+scaffolding too — never spend Fable on verification); drains every node whose
+card exists; pushes A/B nodes to Sonnet agents. Background Agents for heavy
+dispatch (workflow-parallel stalls on long builds); module-scoped `lake build`
+only.
+
+### Fable cadence + pre-flight
+Trigger: start of a rung, OR the queue has ≥ 2 entries, OR Opus fully blocked.
+Fixed pre-flight, batched into one session: (i) drain FABLE-QUEUE; (ii)
+reconciliation sweep (per CLAUDE.md); (iii) review Opus-authored scaffolding
+defs since the last wave (design-debt rule — scaffolding statements are where
+Opus-tier design errors hide, cf. AnalyticFrontier); (iv) write/ratify the next
+design doc with sketch cards; (v) commit, hand off. Don't over-design: cards
+only for the next Opus wave; later waves get cards after the information
+arrives.

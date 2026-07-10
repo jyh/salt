@@ -1618,3 +1618,7 @@ bounded_gaps_from_eh_complete := bounded_gaps_from_eh_final compatFrontier_holds
 Six fragilities caught+fixed this track: (1) per-u coprimality, (2) budget split,
 (3) hA11<=1/4, (4) colliding-pairs RHS, (5) absolute-vs-relative lemma53 error,
 (6) lemma53 constant 2^k -> O(k). Maynard bounded-gaps-from-EH: machine-checked.
+
+## FABLE-QUEUE (standing section — see docs/MODEL_POLICY.md wave protocol)
+Opus appends entries here (node id, tripwire hit, what was tried) instead of
+grinding; the next Fable wave opens by draining this list. Currently: (empty)
