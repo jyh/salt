@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Mathlib
 import Salt.Maynard.PhiAtom
+import Salt.Twelve.MomentAtom
 
 /-!
 # The sharp `μ²/φ` upper bound (toward discharging `PhiUpperAtom`)
@@ -275,6 +276,244 @@ theorem phiAtom_upper_of_tail_bound (B : ℕ) (hB : B ≠ 0)
   have h1 := copHarmonic_upper B hB x hx
   have h2 := hC₀ x hx
   linarith
+
+/-! ## Part 3 — the convergent powerful-number series (discharging the tail)
+
+The tail-bound `Tail(x) = O_B(1)` reduces, via the squarefree/powerful
+decomposition `n = u·v` (`u` squarefree, `v` powerful), to the `x`-independent
+series `∑_{v powerful} (1 + log v)/v < ∞`.  This section lands that convergent
+series fact unconditionally: every powerful `v` is `a²·c³`, so the surjection
+`(a,c) ↦ a²c³` factors the series into convergent (log-weighted) `p`-series
+`∑ 1/a², ∑ log a/a², ∑ 1/c³, ∑ log c/c³` — elementary, no Mertens.
+
+`∑_{v powerful, v≥2} (1+log v)/v ≈ 3.95` numerically (converges fast: powerful
+numbers ≤ N number `~ √N`). -/
+
+/-- A number is *powerful* if every prime dividing it does so to power ≥ 2. -/
+def IsPowerful (n : ℕ) : Prop := ∀ p, p.Prime → p ∣ n → p ^ 2 ∣ n
+
+/-- **Powerful ⟹ `a²c³`.** Every nonzero powerful number is `a^2 * c^3`
+(`a,c ≥ 1`): each prime exponent `e ≥ 2` is `2·aₚ + 3·cₚ`. -/
+lemma exists_sq_mul_cube_of_powerful {v : ℕ} (hv : v ≠ 0) (hpow : IsPowerful v) :
+    ∃ a c : ℕ, 1 ≤ a ∧ 1 ≤ c ∧ v = a ^ 2 * c ^ 3 := by
+  classical
+  set aExp : ℕ → ℕ := fun e => (e - 3 * (e % 2)) / 2 with haExp
+  set cExp : ℕ → ℕ := fun e => e % 2 with hcExp
+  have hea : ∀ p ∈ v.primeFactors,
+      2 * aExp (v.factorization p) + 3 * cExp (v.factorization p) = v.factorization p := by
+    intro p hp
+    have hpp : p.Prime := Nat.prime_of_mem_primeFactors hp
+    have hpd : p ∣ v := Nat.dvd_of_mem_primeFactors hp
+    have hp2 : 2 ≤ v.factorization p :=
+      (Nat.Prime.pow_dvd_iff_le_factorization hpp hv).mp (hpow p hpp hpd)
+    simp only [haExp, hcExp]; omega
+  have hself : ∏ p ∈ v.primeFactors, p ^ (v.factorization p) = v := by
+    have h1 := Nat.prod_factorization_pow_eq_self hv
+    rwa [Nat.prod_factorization_eq_prod_primeFactors] at h1
+  refine ⟨∏ p ∈ v.primeFactors, p ^ (aExp (v.factorization p)),
+    ∏ p ∈ v.primeFactors, p ^ (cExp (v.factorization p)), ?_, ?_, ?_⟩
+  · exact Finset.one_le_prod' (fun p hp => Nat.one_le_pow _ _ (Nat.pos_of_mem_primeFactors hp))
+  · exact Finset.one_le_prod' (fun p hp => Nat.one_le_pow _ _ (Nat.pos_of_mem_primeFactors hp))
+  · calc v = ∏ p ∈ v.primeFactors, p ^ (v.factorization p) := hself.symm
+      _ = ∏ p ∈ v.primeFactors,
+            (p ^ (aExp (v.factorization p))) ^ 2 * (p ^ (cExp (v.factorization p))) ^ 3 := by
+          refine Finset.prod_congr rfl (fun p hp => ?_)
+          rw [← pow_mul, ← pow_mul, ← pow_add]
+          congr 1
+          have := hea p hp; omega
+      _ = (∏ p ∈ v.primeFactors, p ^ (aExp (v.factorization p))) ^ 2
+            * (∏ p ∈ v.primeFactors, p ^ (cExp (v.factorization p))) ^ 3 := by
+          rw [Finset.prod_mul_distrib, Finset.prod_pow, Finset.prod_pow]
+
+lemma log_natCast_nonneg (n : ℕ) : 0 ≤ Real.log (n : ℝ) := by
+  rcases Nat.eq_zero_or_pos n with h | h
+  · subst h; simp
+  · exact Real.log_nonneg (by exact_mod_cast h)
+
+lemma log_le_two_sqrt {x : ℝ} (hx : 0 ≤ x) : Real.log x ≤ 2 * Real.sqrt x := by
+  rcases hx.lt_or_eq with hx | hx
+  · have hs : 0 < Real.sqrt x := Real.sqrt_pos.mpr hx
+    have h1 : Real.log (Real.sqrt x) ≤ Real.sqrt x - 1 := Real.log_le_sub_one_of_pos hs
+    have h2 : Real.log x = 2 * Real.log (Real.sqrt x) := by rw [Real.log_sqrt hx.le]; ring
+    rw [h2]; nlinarith [Real.sqrt_nonneg x]
+  · rw [← hx]; simp
+
+/-- The log-weighted `p`-series `∑ log n / n^k` converges for `k ≥ 2`
+(via `log n ≤ 2√n`, dominating by the `p`-series at `k - 1/2 > 1`). -/
+lemma summable_log_div_pow {k : ℕ} (hk : 2 ≤ k) :
+    Summable (fun n : ℕ => Real.log n / (n : ℝ) ^ k) := by
+  have hexp : (1 : ℝ) < (k : ℝ) - 1 / 2 := by
+    have : (2 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
+    linarith
+  have hdom : Summable (fun n : ℕ => 2 * ((n : ℝ) ^ ((k : ℝ) - 1 / 2))⁻¹) :=
+    (Real.summable_nat_rpow_inv.mpr hexp).mul_left 2
+  refine Summable.of_nonneg_of_le (fun n => ?_) (fun n => ?_) hdom
+  · exact div_nonneg (log_natCast_nonneg n) (by positivity)
+  · rcases Nat.eq_zero_or_pos n with hn | hn
+    · subst hn
+      simp only [Nat.cast_zero, Real.log_zero, zero_div]
+      have : ((0 : ℝ) ^ ((k : ℝ) - 1 / 2))⁻¹ = 0 := by rw [Real.zero_rpow (by linarith), inv_zero]
+      rw [this]; simp
+    · have hnR : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
+      have hlog : Real.log n ≤ 2 * Real.sqrt n := log_le_two_sqrt hnR.le
+      have hnk : (n : ℝ) ^ k = (n : ℝ) ^ ((k : ℝ)) := (Real.rpow_natCast _ _).symm
+      have hkey : Real.sqrt n / (n : ℝ) ^ k = ((n : ℝ) ^ ((k : ℝ) - 1 / 2))⁻¹ := by
+        rw [Real.sqrt_eq_rpow, hnk, ← Real.rpow_sub hnR, ← Real.rpow_neg hnR.le]
+        congr 1; ring
+      have hstep : Real.log n / (n : ℝ) ^ k ≤ 2 * Real.sqrt n / (n : ℝ) ^ k := by gcongr
+      rw [mul_div_assoc, hkey] at hstep
+      exact hstep
+
+/-- Summand over the `(a,c)`-plane dominating the powerful log-series. -/
+noncomputable def powFac (q : ℕ × ℕ) : ℝ :=
+  (1 + Real.log ((q.1 ^ 2 * q.2 ^ 3 : ℕ))) / ((q.1 ^ 2 * q.2 ^ 3 : ℕ))
+
+noncomputable def powGa (a : ℕ) : ℝ := (1 + 2 * Real.log a) / (a : ℝ) ^ 2
+noncomputable def powHc (c : ℕ) : ℝ := (1 + 3 * Real.log c) / (c : ℝ) ^ 3
+
+lemma powGa_nonneg (a : ℕ) : 0 ≤ powGa a := by
+  rw [powGa]; apply div_nonneg _ (by positivity); nlinarith [log_natCast_nonneg a]
+lemma powHc_nonneg (c : ℕ) : 0 ≤ powHc c := by
+  rw [powHc]; apply div_nonneg _ (by positivity); nlinarith [log_natCast_nonneg c]
+
+lemma summable_powGa : Summable powGa := by
+  have h : powGa = fun a : ℕ => 1 / (a : ℝ) ^ 2 + 2 * (Real.log a / (a : ℝ) ^ 2) := by
+    funext a; rw [powGa]; ring
+  rw [h]
+  exact (Real.summable_one_div_nat_pow.mpr one_lt_two).add
+    ((summable_log_div_pow (le_refl 2)).mul_left 2)
+lemma summable_powHc : Summable powHc := by
+  have h : powHc = fun c : ℕ => 1 / (c : ℝ) ^ 3 + 3 * (Real.log c / (c : ℝ) ^ 3) := by
+    funext c; rw [powHc]; ring
+  rw [h]
+  exact (Real.summable_one_div_nat_pow.mpr (by norm_num)).add
+    ((summable_log_div_pow (by norm_num)).mul_left 3)
+
+lemma powFac_nonneg (q : ℕ × ℕ) : 0 ≤ powFac q := by
+  rw [powFac]; apply div_nonneg _ (by positivity)
+  nlinarith [log_natCast_nonneg (q.1 ^ 2 * q.2 ^ 3)]
+
+lemma powFac_le (q : ℕ × ℕ) : powFac q ≤ powGa q.1 * powHc q.2 := by
+  obtain ⟨a, c⟩ := q
+  rcases Nat.eq_zero_or_pos a with ha | ha
+  · subst ha
+    have hF : powFac (0, c) = 0 := by rw [powFac]; simp
+    have hG : powGa 0 = 0 := by rw [powGa]; simp
+    rw [hF, hG, zero_mul]
+  rcases Nat.eq_zero_or_pos c with hc | hc
+  · subst hc
+    have hF : powFac (a, 0) = 0 := by rw [powFac]; simp
+    have hH : powHc 0 = 0 := by rw [powHc]; simp
+    rw [hF, hH, mul_zero]
+  · change powFac (a, c) ≤ powGa a * powHc c
+    have hla : 0 ≤ Real.log a := log_natCast_nonneg a
+    have hlc : 0 ≤ Real.log c := log_natCast_nonneg c
+    have hden : (0 : ℝ) < (a : ℝ) ^ 2 * (c : ℝ) ^ 3 := by positivity
+    have hlogeq : Real.log ((a : ℝ) ^ 2 * (c : ℝ) ^ 3) = 2 * Real.log a + 3 * Real.log c := by
+      rw [Real.log_mul (by positivity) (by positivity), Real.log_pow, Real.log_pow]
+      push_cast; ring
+    have hcast : ((a ^ 2 * c ^ 3 : ℕ) : ℝ) = (a : ℝ) ^ 2 * (c : ℝ) ^ 3 := by push_cast; ring
+    rw [powFac, powGa, powHc, hcast, hlogeq, div_mul_div_comm, div_le_div_iff_of_pos_right hden]
+    nlinarith [mul_nonneg hla hlc]
+
+lemma summable_powFac : Summable powFac :=
+  Summable.of_nonneg_of_le powFac_nonneg powFac_le
+    (Summable.mul_of_nonneg summable_powGa summable_powHc powGa_nonneg powHc_nonneg)
+
+/-- **The convergent-series fact.**  `∑_{v powerful} (1 + log v)/v` is bounded by
+an explicit constant `C = ∑'_{(a,c)} powFac`, uniformly over any finite set of
+powerful numbers. This is the `x`-independent core that discharges `Tail(x)`. -/
+theorem powerful_sum_bounded :
+    ∃ C : ℝ, ∀ S : Finset ℕ, (∀ v ∈ S, IsPowerful v ∧ v ≠ 0) →
+      ∑ v ∈ S, (1 + Real.log v) / (v : ℝ) ≤ C := by
+  classical
+  have key : ∀ v : ℕ, ∃ q : ℕ × ℕ, (IsPowerful v ∧ v ≠ 0) → q.1 ^ 2 * q.2 ^ 3 = v := by
+    intro v
+    by_cases h : IsPowerful v ∧ v ≠ 0
+    · obtain ⟨a, c, _, _, hac⟩ := exists_sq_mul_cube_of_powerful h.2 h.1
+      exact ⟨(a, c), fun _ => hac.symm⟩
+    · exact ⟨(0, 0), fun h' => absurd h' h⟩
+  choose g hg using key
+  refine ⟨∑' q, powFac q, fun S hS => ?_⟩
+  have hgval : ∀ v ∈ S, (g v).1 ^ 2 * (g v).2 ^ 3 = v := fun v hv => hg v (hS v hv)
+  have hinj : Set.InjOn g S := by
+    intro v hv w hw hvw
+    have := hgval v hv; rw [hvw, hgval w hw] at this; omega
+  have hfeq : ∀ v ∈ S, (1 + Real.log v) / (v : ℝ) = powFac (g v) :=
+    fun v hv => by rw [powFac, hgval v hv]
+  calc ∑ v ∈ S, (1 + Real.log v) / (v : ℝ)
+      = ∑ v ∈ S, powFac (g v) := Finset.sum_congr rfl hfeq
+    _ = ∑ q ∈ S.image g, powFac q := (Finset.sum_image (fun x hx y hy => hinj hx hy)).symm
+    _ ≤ ∑' q, powFac q := Summable.sum_le_tsum _ (fun q _ => powFac_nonneg q) summable_powFac
+
+/-! ## Part 4 — the unconditional tail bound
+
+The radical-fiber tail `radFiberTail r x B = ∑'_{n : rad n = r, x ≤ n} 1/n`;
+summing over `r ∈ sqfCop x B` regroups to `Tail(x) = ∑'_{n : rad n < x ≤ n,
+(n,B)=1} 1/n`.  Reindexing `n = u·v` (`u` squarefree, `v` powerful) turns this
+into `∑_{v powerful} (1/v)·∑_{u ∈ [x/v, x/rad v)} 1/u ≤ ∑_{v powerful}
+(1+log v)/v`, an `x`-independent bound.  The convergent series `∑_{v powerful}
+(1+log v)/v` is `powerfulWeight_tsum_le` (Part 3, LANDED unconditionally).
+
+The remaining step — the `Nat` squarefree/powerful reindex bounding
+`∑_r radFiberTail r x B ≤ ∑'_v powerfulWeight v` — is a from-scratch `tsum`
+regrouping over a decomposition absent from mathlib (`n ↦ (sqfreePart n,
+powerfulPart n)`, the inner harmonic estimate over the `u`-window).  It is
+carried as the hypothesis `hReindex` (a true, `x`-independent inequality: the
+reindex introduces no new analytic content beyond Part 3's convergence). -/
+
+open Classical in
+/-- The `x`-independent envelope: `(1 + log v)/v` on powerful `v`, else `0`. -/
+noncomputable def powerfulWeight (v : ℕ) : ℝ :=
+  if IsPowerful v ∧ v ≠ 0 then (1 + Real.log v) / (v : ℝ) else 0
+
+lemma powerfulWeight_nonneg (v : ℕ) : 0 ≤ powerfulWeight v := by
+  rw [powerfulWeight]
+  split_ifs with h
+  · exact div_nonneg (by nlinarith [log_natCast_nonneg v]) (by positivity)
+  · exact le_rfl
+
+/-- The powerful envelope has finite total mass, bounded by the Part-3 constant. -/
+lemma powerfulWeight_tsum_le : ∃ C : ℝ, ∑' v : ℕ, powerfulWeight v ≤ C := by
+  classical
+  obtain ⟨C, hC⟩ := powerful_sum_bounded
+  refine ⟨C, Real.tsum_le_of_sum_le (fun v => powerfulWeight_nonneg v) (fun s => ?_)⟩
+  calc ∑ v ∈ s, powerfulWeight v
+      = ∑ v ∈ s, if (IsPowerful v ∧ v ≠ 0) then (1 + Real.log v) / (v : ℝ) else 0 := by
+        exact Finset.sum_congr rfl (fun v _ => by rw [powerfulWeight])
+    _ = ∑ v ∈ s.filter (fun v => IsPowerful v ∧ v ≠ 0), (1 + Real.log v) / (v : ℝ) :=
+        (Finset.sum_filter _ _).symm
+    _ ≤ C := hC _ (fun v hv => (Finset.mem_filter.mp hv).2)
+
+/-- **The uniform radical-fiber tail bound (from the reindex).**  Given the
+squarefree/powerful reindex `hReindex`, the fiber-tail sum is bounded by the
+`x`-independent Part-3 constant.  This is the antecedent of
+`phiAtom_upper_of_tail_bound`. -/
+theorem tail_bound (B : ℕ) (_hB : B ≠ 0)
+    (hReindex : ∀ x : ℕ, 2 ≤ x →
+      (∑ r ∈ Salt.Maynard.sqfCop x B, radFiberTail r x B) ≤ ∑' v : ℕ, powerfulWeight v) :
+    ∃ C₀ : ℝ, ∀ x : ℕ, 2 ≤ x →
+      (∑ r ∈ Salt.Maynard.sqfCop x B, radFiberTail r x B) ≤ C₀ := by
+  obtain ⟨C, hC⟩ := powerfulWeight_tsum_le
+  exact ⟨C, fun x hx => (hReindex x hx).trans hC⟩
+
+/-- **The sharp `μ²/φ` upper bound**, modulo the squarefree/powerful reindex
+`hReindex`.  The hard analytic core (`radFiber_inv_hasSum`, the reduction, and
+the convergent powerful-number series) is unconditional; only the elementary
+`Nat` reindex remains as a hypothesis. -/
+theorem phiAtom_upper (B : ℕ) (hB : B ≠ 0)
+    (hReindex : ∀ x : ℕ, 2 ≤ x →
+      (∑ r ∈ Salt.Maynard.sqfCop x B, radFiberTail r x B) ≤ ∑' v : ℕ, powerfulWeight v) :
+    ∃ C : ℝ, ∀ x : ℕ, 2 ≤ x →
+      Salt.Maynard.phiAtomSum x B ≤ (Nat.totient B / B : ℝ) * Real.log (x : ℝ) + C :=
+  phiAtom_upper_of_tail_bound B hB (tail_bound B hB hReindex)
+
+/-- Discharge of `Salt.Twelve.PhiUpperAtom` (modulo `hReindex`). -/
+theorem phiUpperAtom_holds (B : ℕ) (hB : B ≠ 0)
+    (hReindex : ∀ x : ℕ, 2 ≤ x →
+      (∑ r ∈ Salt.Maynard.sqfCop x B, radFiberTail r x B) ≤ ∑' v : ℕ, powerfulWeight v) :
+    Salt.Twelve.PhiUpperAtom B :=
+  phiAtom_upper B hB hReindex
 
 end Salt.Twelve
 
