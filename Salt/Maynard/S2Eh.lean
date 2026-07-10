@@ -664,4 +664,445 @@ theorem S2m_lower (k K₀ N R ν₀ : ℕ) (m : Fin k) (y : (Fin k → ℕ) → 
             - deltaPi k K₀ N m / ((Nat.totient (W k) : ℝ) * phiLcmProd d e))
        else 0))]
 
+/-! ## Free-modulus `(D, W')` generalization (explicit-gaps sweep W2-4)
+
+The C4 chain with the modulus `W k` replaced by a free squarefree `W'`, keeping
+the tuple `H k`/`hSeq k` fixed (only the modulus widens).  `deltaPi` has no `W`
+dependence and is reused verbatim; `weightSq`, `windowSet`, `s2CompatFormM`,
+`disc_le_maxDiscrepancy`, `guarded_double_sum` and the private helpers are all
+`W`-generic.  The collision/coprimality steps take the free-`D` hypotheses
+`hD : ∀ p prime, p ∤ W' → D ≤ p` and `hlt : ∀ i, hSeq k i < D` (in place of
+`W k = primorial (D₀ k)` + `hSeq_le_D₀`), and `hν₀ : ∀ h ∈ H k, Coprime (ν₀+h)
+W'` (from `exists_nu0W`).  Instantiate `W' := W k`, `D := D₀ k + 1` to recover
+the `W k`-versions above. -/
+
+/-- Free-modulus form of `S2m`. -/
+noncomputable def S2mW (k K₀ N R ν₀ W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) : ℝ :=
+  ∑ n ∈ windowSet K₀ N W' ν₀,
+    (if (n + hSeq k m).Prime then (1 : ℝ) else 0) * weightSq k R W' y n
+
+/-- Free-modulus form of `qMod`. -/
+noncomputable def qModW (k W' : ℕ) (d e : Fin k → ℕ) : ℕ :=
+  W' * ∏ i, Nat.lcm (d i) (e i)
+
+/-- Free-modulus form of `Qdiag_m`. -/
+noncomputable def Qdiag_mW (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) : ℝ :=
+  ∑ d ∈ (kSieveIndex k R W').filter (fun d => d m = 1),
+    ∑ e ∈ (kSieveIndex k R W').filter (fun e => e m = 1),
+      lam k R W' y d * lam k R W' y e
+        / ∏ i, (Nat.totient (Nat.lcm (d i) (e i)) : ℝ)
+
+/-- Free-modulus form of `S2m_eq_sum_dd`. -/
+theorem S2mW_eq_sum_dd (k K₀ N R ν₀ W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) :
+    S2mW k K₀ N R ν₀ W' m y
+      = ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+          lam k R W' y d * lam k R W' y e
+            * (s2PrimeCountW k K₀ N ν₀ W' m d e : ℝ) := by
+  classical
+  unfold S2mW weightSq
+  have step1 : ∀ n,
+      (if (n + hSeq k m).Prime then (1 : ℝ) else 0) *
+        (∑ d ∈ (kSieveIndex k R W').filter (fun d => ∀ i, d i ∣ (n + hSeq k i)),
+            lam k R W' y d) ^ 2
+        = ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+            (if (n + hSeq k m).Prime then (1 : ℝ) else 0) *
+              ((if ∀ i, d i ∣ (n + hSeq k i) then lam k R W' y d else 0) *
+               (if ∀ i, e i ∣ (n + hSeq k i) then lam k R W' y e else 0)) := by
+    intro n
+    rw [Finset.sum_filter, sq, Finset.sum_mul_sum, Finset.mul_sum]
+    refine Finset.sum_congr rfl (fun d _ => ?_)
+    rw [Finset.mul_sum]
+  rw [Finset.sum_congr rfl (fun n _ => step1 n)]
+  rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl (fun d _ => ?_)
+  rw [Finset.sum_comm]
+  refine Finset.sum_congr rfl (fun e _ => ?_)
+  have inner_eq : ∀ n,
+      (if (n + hSeq k m).Prime then (1 : ℝ) else 0) *
+        ((if ∀ i, d i ∣ (n + hSeq k i) then lam k R W' y d else 0) *
+         (if ∀ i, e i ∣ (n + hSeq k i) then lam k R W' y e else 0))
+        = if ((n + hSeq k m).Prime ∧ (∀ i, d i ∣ (n + hSeq k i)) ∧
+                (∀ i, e i ∣ (n + hSeq k i)))
+            then lam k R W' y d * lam k R W' y e else 0 := by
+    intro n
+    by_cases hp : (n + hSeq k m).Prime <;>
+      by_cases hd' : ∀ i, d i ∣ (n + hSeq k i) <;>
+      by_cases he' : ∀ i, e i ∣ (n + hSeq k i) <;>
+      simp [hp, hd', he']
+  rw [Finset.sum_congr rfl (fun n _ => inner_eq n), ← Finset.sum_filter, Finset.sum_const]
+  have hcard :
+      ((windowSet K₀ N W' ν₀).filter
+          (fun n => (n + hSeq k m).Prime ∧ (∀ i, d i ∣ (n + hSeq k i)) ∧
+              (∀ i, e i ∣ (n + hSeq k i)))).card
+        = s2PrimeCountW k K₀ N ν₀ W' m d e := by
+    unfold windowSet s2PrimeCountW
+    rw [Finset.filter_filter]
+    congr 1
+    apply Finset.filter_congr
+    intro n _
+    constructor
+    · rintro ⟨hmod, hp, hd', he'⟩
+      exact ⟨hmod, hp, fun i => (nat_lcm_dvd_iff' _ _ _).mpr ⟨hd' i, he' i⟩⟩
+    · rintro ⟨hmod, hp, hlcm⟩
+      refine ⟨hmod, hp, fun i => ((nat_lcm_dvd_iff' _ _ _).mp (hlcm i)).1,
+        fun i => ((nat_lcm_dvd_iff' _ _ _).mp (hlcm i)).2⟩
+  rw [hcard, nsmul_eq_mul]
+  ring
+
+/-- Free-modulus form of `s2PrimeCount_eq_zero_of_dm`. -/
+theorem s2PrimeCountW_eq_zero_of_dm (k K₀ N R ν₀ W' : ℕ) (m : Fin k) (d e : Fin k → ℕ)
+    (hd : d ∈ kSieveIndex k R W') (hRN : R ≤ N) (hdm : d m ≠ 1) :
+    s2PrimeCountW k K₀ N ν₀ W' m d e = 0 := by
+  unfold s2PrimeCountW
+  rw [Finset.card_eq_zero, Finset.filter_eq_empty_iff]
+  intro n hn
+  rw [Finset.mem_Ioc] at hn
+  rintro ⟨_, hp, hlcm⟩
+  have hdvd : d m ∣ (n + hSeq k m) := (Nat.dvd_lcm_left (d m) (e m)).trans (hlcm m)
+  rcases (Nat.Prime.eq_one_or_self_of_dvd hp (d m) hdvd) with h1 | hself
+  · exact hdm h1
+  · have hlt : d m < R := kSieveIndex_coord_lt hd m
+    have : d m < n + hSeq k m := by omega
+    omega
+
+/-- Free-modulus form of `s2PrimeCount_eq_zero_of_em`. -/
+theorem s2PrimeCountW_eq_zero_of_em (k K₀ N R ν₀ W' : ℕ) (m : Fin k) (d e : Fin k → ℕ)
+    (he : e ∈ kSieveIndex k R W') (hRN : R ≤ N) (hem : e m ≠ 1) :
+    s2PrimeCountW k K₀ N ν₀ W' m d e = 0 := by
+  unfold s2PrimeCountW
+  rw [Finset.card_eq_zero, Finset.filter_eq_empty_iff]
+  intro n hn
+  rw [Finset.mem_Ioc] at hn
+  rintro ⟨_, hp, hlcm⟩
+  have hdvd : e m ∣ (n + hSeq k m) := (Nat.dvd_lcm_right (d m) (e m)).trans (hlcm m)
+  rcases (Nat.Prime.eq_one_or_self_of_dvd hp (e m) hdvd) with h1 | hself
+  · exact hem h1
+  · have hlt : e m < R := kSieveIndex_coord_lt he m
+    have : e m < n + hSeq k m := by omega
+    omega
+
+/-- Free-modulus form of `s2PrimeCount_collision`. -/
+theorem s2PrimeCountW_collision (k K₀ N ν₀ W' D : ℕ) (m : Fin k) (d e : Fin k → ℕ)
+    (hD : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D ≤ p) (hlt : ∀ i : Fin k, hSeq k i < D)
+    (hd : ∀ i, Nat.Coprime (d i) W')
+    {i j : Fin k} (hij : i ≠ j) (hcol : ¬ Nat.Coprime (d i) (e j)) :
+    s2PrimeCountW k K₀ N ν₀ W' m d e = 0 := by
+  unfold s2PrimeCountW
+  rw [Finset.card_eq_zero, Finset.filter_eq_empty_iff]
+  intro n _hn
+  rintro ⟨_hnW, _hprime, hdvd⟩
+  obtain ⟨p, hp, hpdi, hpej⟩ := Nat.Prime.not_coprime_iff_dvd.mp hcol
+  have hpD : D ≤ p := D_le_of_prime_dvd_coprime hD (hd i) hp hpdi
+  have h1 : p ∣ (n + hSeq k i) :=
+    (dvd_trans hpdi (Nat.dvd_lcm_left (d i) (e i))).trans (hdvd i)
+  have h2 : p ∣ (n + hSeq k j) :=
+    (dvd_trans hpej (Nat.dvd_lcm_right (d j) (e j))).trans (hdvd j)
+  exact not_common_prime_crossW hij hlt hp hpD h1 h2
+
+/-- Free-modulus form of `s2CompatMain_eq`. -/
+theorem s2CompatMainW_eq (k K₀ N R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) :
+    (deltaPi k K₀ N m / (Nat.totient W' : ℝ)) * s2CompatFormM k R W' m y
+      = ∑ d ∈ (kSieveIndex k R W').filter (fun d => d m = 1),
+          ∑ e ∈ (kSieveIndex k R W').filter (fun e => e m = 1),
+            (if IsCollisionPair d e then 0
+             else lam k R W' y d * lam k R W' y e
+                    * (deltaPi k K₀ N m
+                        / ((Nat.totient W' : ℝ)
+                            * ∏ i, (Nat.totient (Nat.lcm (d i) (e i)) : ℝ)))) := by
+  unfold s2CompatFormM
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl (fun d _ => ?_)
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl (fun e _ => ?_)
+  by_cases h : IsCollisionPair d e
+  · rw [if_pos h, if_pos h, mul_zero]
+  · rw [if_neg h, if_neg h, s2Summand]; ring
+
+/-- Free-modulus form of `S2m_eq_guarded`. -/
+theorem S2mW_eq_guarded (k K₀ N R ν₀ W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
+    (hRN : R ≤ N) :
+    S2mW k K₀ N R ν₀ W' m y
+      = ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+          (if d m = 1 ∧ e m = 1 then
+            lam k R W' y d * lam k R W' y e
+              * (s2PrimeCountW k K₀ N ν₀ W' m d e : ℝ)
+           else 0) := by
+  rw [S2mW_eq_sum_dd]
+  refine Finset.sum_congr rfl (fun d hd => ?_)
+  refine Finset.sum_congr rfl (fun e he => ?_)
+  by_cases h : d m = 1 ∧ e m = 1
+  · rw [if_pos h]
+  · rw [if_neg h]
+    rw [not_and_or] at h
+    rcases h with hdm | hem
+    · rw [s2PrimeCountW_eq_zero_of_dm k K₀ N R ν₀ W' m d e hd hRN hdm]; simp
+    · rw [s2PrimeCountW_eq_zero_of_em k K₀ N R ν₀ W' m d e he hRN hem]; simp
+
+/-- Free-modulus form of `totient_qMod_eq`. -/
+theorem totient_qModW_eq (k W' : ℕ) (d e : Fin k → ℕ)
+    (hcopW : ∀ i, Nat.Coprime W' (Nat.lcm (d i) (e i)))
+    (hcoplcm : ∀ i j, i ≠ j → Nat.Coprime (Nat.lcm (d i) (e i)) (Nat.lcm (d j) (e j))) :
+    (Nat.totient (qModW k W' d e) : ℝ)
+      = (Nat.totient W' : ℝ) * phiLcmProd d e := by
+  unfold qModW phiLcmProd
+  have hcopWprod : Nat.Coprime W' (∏ i, Nat.lcm (d i) (e i)) :=
+    Nat.Coprime.prod_right (fun i _ => hcopW i)
+  rw [Nat.totient_mul hcopWprod,
+    totient_prod_coprime (fun i => Nat.lcm (d i) (e i)) Finset.univ
+      (fun i _ j _ hij => hcoplcm i j hij)]
+  push_cast
+  ring
+
+/-- Free-modulus form of `s2PrimeCount_approx`. -/
+theorem s2PrimeCountW_approx (k K₀ N ν₀ W' : ℕ) (m : Fin k) (d e : Fin k → ℕ)
+    (hW' : Squarefree W')
+    (hlcmpos : ∀ i, 0 < Nat.lcm (d i) (e i))
+    (hcopW : ∀ i, Nat.Coprime W' (Nat.lcm (d i) (e i)))
+    (hcoplcm : ∀ i j, i ≠ j → Nat.Coprime (Nat.lcm (d i) (e i)) (Nat.lcm (d j) (e j)))
+    (hbij : ∃ a : ℕ, a < qModW k W' d e ∧ Nat.Coprime a (qModW k W' d e) ∧
+      (s2PrimeCountW k K₀ N ν₀ W' m d e : ℝ)
+        = (primesCount (K₀ * N + hSeq k m) (qModW k W' d e) a : ℝ)
+          - (primesCount (N + hSeq k m) (qModW k W' d e) a : ℝ)) :
+    |(s2PrimeCountW k K₀ N ν₀ W' m d e : ℝ)
+        - deltaPi k K₀ N m / ((Nat.totient W' : ℝ) * phiLcmProd d e)|
+      ≤ maxDiscrepancy (K₀ * N + hSeq k m) (qModW k W' d e)
+        + maxDiscrepancy (N + hSeq k m) (qModW k W' d e) := by
+  obtain ⟨a, haq, hacop, hcount⟩ := hbij
+  set q := qModW k W' d e with hqdef
+  have hWpos : 0 < W' := Nat.pos_of_ne_zero hW'.ne_zero
+  have hprodpos : 0 < ∏ i, Nat.lcm (d i) (e i) := Finset.prod_pos (fun i _ => hlcmpos i)
+  have hqpos : 0 < q := by rw [hqdef, qModW]; exact Nat.mul_pos hWpos hprodpos
+  have hq0 : q ≠ 0 := hqpos.ne'
+  have hφq : (Nat.totient q : ℝ) = (Nat.totient W' : ℝ) * phiLcmProd d e :=
+    totient_qModW_eq k W' d e hcopW hcoplcm
+  have hφqpos : (0 : ℝ) < (Nat.totient q : ℝ) := by
+    exact_mod_cast Nat.totient_pos.mpr hqpos
+  have hdens : deltaPi k K₀ N m / ((Nat.totient W' : ℝ) * phiLcmProd d e)
+      = deltaPi k K₀ N m / (Nat.totient q : ℝ) := by rw [hφq]
+  rw [hdens, hcount, deltaPi]
+  set A := (primesCount (K₀ * N + hSeq k m) q a : ℝ) with hA
+  set B := (primesCount (N + hSeq k m) q a : ℝ) with hB
+  set PA := (primesCount (K₀ * N + hSeq k m) 1 0 : ℝ) with hPA
+  set PB := (primesCount (N + hSeq k m) 1 0 : ℝ) with hPB
+  have hsplit : (A - B) - (PA - PB) / (Nat.totient q : ℝ)
+      = (A - PA / (Nat.totient q : ℝ)) - (B - PB / (Nat.totient q : ℝ)) := by
+    field_simp
+    ring
+  rw [hsplit]
+  refine (abs_sub _ _).trans (add_le_add ?_ ?_)
+  · exact disc_le_maxDiscrepancy (K₀ * N + hSeq k m) q a hq0 haq hacop
+  · exact disc_le_maxDiscrepancy (N + hSeq k m) q a hq0 haq hacop
+
+/-- Free-modulus form of `s2PrimeCount_crt`.  The CRT-residue bijection at the
+free modulus `W'`, using `cong_solvableW`, `exists_nu0W`-supplied `hν₀`, and the
+free-`D` coprimality-cross lemmas. -/
+theorem s2PrimeCountW_crt (k K₀ N ν₀ W' D : ℕ) (m : Fin k) (d e : Fin k → ℕ)
+    (hdm : d m = 1) (hem : e m = 1)
+    (hW' : Squarefree W')
+    (hD : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D ≤ p) (hlt : ∀ i : Fin k, hSeq k i < D)
+    (hcopW : ∀ i, Nat.Coprime W' (Nat.lcm (d i) (e i)))
+    (hcoplcm : ∀ i j, i ≠ j → Nat.Coprime (Nat.lcm (d i) (e i)) (Nat.lcm (d j) (e j)))
+    (hlcmpos : ∀ i, 0 < Nat.lcm (d i) (e i))
+    (hν₀ : ∀ h ∈ H k, Nat.Coprime (ν₀ + h) W')
+    (hNK : 1 ≤ K₀) :
+    ∃ a : ℕ, a < qModW k W' d e ∧ Nat.Coprime a (qModW k W' d e) ∧
+      (s2PrimeCountW k K₀ N ν₀ W' m d e : ℝ)
+        = (primesCount (K₀ * N + hSeq k m) (qModW k W' d e) a : ℝ)
+          - (primesCount (N + hSeq k m) (qModW k W' d e) a : ℝ) := by
+  classical
+  have hWpos : 0 < W' := Nat.pos_of_ne_zero hW'.ne_zero
+  obtain ⟨c, hcW, hclcm⟩ := cong_solvableW k W' d e ν₀ hWpos hlcmpos hcopW hcoplcm
+  set q := qModW k W' d e with hqdef
+  have hqM : q = W' * ∏ i, Nat.lcm (d i) (e i) := by rw [hqdef]; rfl
+  have hprodpos : 0 < ∏ i, Nat.lcm (d i) (e i) := Finset.prod_pos (fun i _ => hlcmpos i)
+  have hqpos : 0 < q := by rw [hqM]; exact Nat.mul_pos hWpos hprodpos
+  have hcopWprod : Nat.Coprime W' (∏ i, Nat.lcm (d i) (e i)) :=
+    Nat.Coprime.prod_right (fun i _ => hcopW i)
+  set a := (c + hSeq k m) % q with ha
+  refine ⟨a, by rw [ha]; exact Nat.mod_lt _ hqpos, ?_, ?_⟩
+  · have hcopW' : Nat.Coprime (c + hSeq k m) W' := by
+      have hcWmod : c ≡ ν₀ [MOD W'] := hcW
+      have hmod : (c + hSeq k m) ≡ (ν₀ + hSeq k m) [MOD W'] :=
+        hcWmod.add_right (hSeq k m)
+      exact (coprime_of_modEq hmod).mpr (hν₀ (hSeq k m) (hSeq_mem_H k m))
+    have hcopL : ∀ i, Nat.Coprime (c + hSeq k m) (Nat.lcm (d i) (e i)) := by
+      intro i
+      by_cases him : i = m
+      · subst him
+        rw [hdm, hem, Nat.lcm_one_left]
+        exact Nat.coprime_one_right _
+      · apply Nat.coprime_of_dvd
+        intro p hpp hp_cm hp_lcm
+        have hpD : D ≤ p := D_le_of_prime_dvd_coprime hD (hcopW i).symm hpp hp_lcm
+        have hp_ci : p ∣ (c + hSeq k i) := hp_lcm.trans (hclcm i)
+        exact not_common_prime_crossW (Ne.symm him) hlt hpp hpD hp_cm hp_ci
+    have hcopfull : Nat.Coprime (c + hSeq k m) q := by
+      rw [hqM]
+      exact Nat.Coprime.mul_right hcopW'
+        (Nat.Coprime.prod_right (fun i _ => hcopL i))
+    exact (coprime_of_modEq (Nat.mod_modEq (c + hSeq k m) q)).mpr hcopfull
+  · have hPiff : ∀ n : ℕ,
+        (n % W' = ν₀ % W' ∧ ∀ i, Nat.lcm (d i) (e i) ∣ (n + hSeq k i))
+          ↔ n ≡ c [MOD q] := by
+      intro n
+      constructor
+      · rintro ⟨hnW, hnlcm⟩
+        have h1 : n ≡ c [MOD W'] := hnW.trans hcW.symm
+        have h2 : ∀ i ∈ (Finset.univ : Finset (Fin k)),
+            n ≡ c [MOD Nat.lcm (d i) (e i)] := by
+          intro i _
+          have hn0 : n + hSeq k i ≡ 0 [MOD Nat.lcm (d i) (e i)] :=
+            Nat.modEq_zero_iff_dvd.mpr (hnlcm i)
+          have hc0 : c + hSeq k i ≡ 0 [MOD Nat.lcm (d i) (e i)] :=
+            Nat.modEq_zero_iff_dvd.mpr (hclcm i)
+          exact Nat.ModEq.add_right_cancel' (hSeq k i) (hn0.trans hc0.symm)
+        have h2prod : n ≡ c [MOD ∏ i, Nat.lcm (d i) (e i)] :=
+          modEq_prod_of_pairwise_coprime _ Finset.univ
+            (fun i _ j _ hij => hcoplcm i j hij) h2
+        rw [hqM]
+        exact (Nat.modEq_and_modEq_iff_modEq_mul hcopWprod).mp ⟨h1, h2prod⟩
+      · intro hn
+        have hWdvd : W' ∣ q := by rw [hqM]; exact dvd_mul_right W' _
+        have h1 : n ≡ c [MOD W'] := hn.of_dvd hWdvd
+        refine ⟨(h1 : n % W' = c % W').trans hcW, fun i => ?_⟩
+        have hlcmdvd : Nat.lcm (d i) (e i) ∣ q := by
+          rw [hqM]
+          exact (Finset.dvd_prod_of_mem _ (Finset.mem_univ i)).trans (dvd_mul_left _ W')
+        have hi : n ≡ c [MOD Nat.lcm (d i) (e i)] := hn.of_dvd hlcmdvd
+        have hc0 : c + hSeq k i ≡ 0 [MOD Nat.lcm (d i) (e i)] :=
+          Nat.modEq_zero_iff_dvd.mpr (hclcm i)
+        exact Nat.modEq_zero_iff_dvd.mp ((hi.add_right (hSeq k i)).trans hc0)
+    have hcrt : ∀ n : ℕ,
+        (n % W' = ν₀ % W' ∧ ∀ i, Nat.lcm (d i) (e i) ∣ (n + hSeq k i))
+          ↔ (n + hSeq k m) % q = a := by
+      intro n
+      rw [hPiff n]
+      constructor
+      · intro hn
+        have := hn.add_right (hSeq k m)
+        rw [ha]; exact this
+      · intro hn
+        rw [ha] at hn
+        exact Nat.ModEq.add_right_cancel' (hSeq k m) hn
+    have hbijcard : s2PrimeCountW k K₀ N ν₀ W' m d e
+        = ((Finset.Ioc (N + hSeq k m) (K₀ * N + hSeq k m)).filter
+            (fun p => p.Prime ∧ p % q = a)).card := by
+      unfold s2PrimeCountW
+      apply Finset.card_nbij' (fun n => n + hSeq k m) (fun p => p - hSeq k m)
+      · intro n hn
+        simp only [Finset.mem_coe, Finset.mem_filter, Finset.mem_Ioc] at hn ⊢
+        obtain ⟨⟨hN1, hN2⟩, hmod, hprime, hlcm⟩ := hn
+        exact ⟨⟨by omega, by omega⟩, hprime, (hcrt n).mp ⟨hmod, hlcm⟩⟩
+      · intro p hp
+        simp only [Finset.mem_coe, Finset.mem_filter, Finset.mem_Ioc] at hp ⊢
+        obtain ⟨⟨hN1, hN2⟩, hprime, hpmod⟩ := hp
+        have hpeq : p - hSeq k m + hSeq k m = p := by omega
+        have hpred := (hcrt (p - hSeq k m)).mpr (by rw [hpeq]; exact hpmod)
+        exact ⟨⟨by omega, by omega⟩, hpred.1, by rw [hpeq]; exact hprime, hpred.2⟩
+      · intro n _
+        dsimp only
+        omega
+      · intro p hp
+        simp only [Finset.mem_coe, Finset.mem_filter, Finset.mem_Ioc] at hp
+        dsimp only
+        omega
+    rw [hbijcard,
+      ← primesCount_diff_eq_interval (K₀ * N + hSeq k m) (N + hSeq k m) q a
+        (by have : N ≤ K₀ * N := Nat.le_mul_of_pos_left N hNK; omega)]
+
+/-- Free-modulus form of `s2PrimeCount_approx'` (with `hbij` discharged). -/
+theorem s2PrimeCountW_approx' (k K₀ N ν₀ W' D : ℕ) (m : Fin k) (d e : Fin k → ℕ)
+    (hdm : d m = 1) (hem : e m = 1)
+    (hW' : Squarefree W')
+    (hD : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D ≤ p) (hlt : ∀ i : Fin k, hSeq k i < D)
+    (hlcmpos : ∀ i, 0 < Nat.lcm (d i) (e i))
+    (hcopW : ∀ i, Nat.Coprime W' (Nat.lcm (d i) (e i)))
+    (hcoplcm : ∀ i j, i ≠ j → Nat.Coprime (Nat.lcm (d i) (e i)) (Nat.lcm (d j) (e j)))
+    (hν₀ : ∀ h ∈ H k, Nat.Coprime (ν₀ + h) W')
+    (hNK : 1 ≤ K₀) :
+    |(s2PrimeCountW k K₀ N ν₀ W' m d e : ℝ)
+        - deltaPi k K₀ N m / ((Nat.totient W' : ℝ) * phiLcmProd d e)|
+      ≤ maxDiscrepancy (K₀ * N + hSeq k m) (qModW k W' d e)
+        + maxDiscrepancy (N + hSeq k m) (qModW k W' d e) :=
+  s2PrimeCountW_approx k K₀ N ν₀ W' m d e hW' hlcmpos hcopW hcoplcm
+    (s2PrimeCountW_crt k K₀ N ν₀ W' D m d e hdm hem hW' hD hlt hcopW hcoplcm hlcmpos hν₀ hNK)
+
+/-- Free-modulus form of `s2Main_eq_Qdiag`. -/
+theorem s2Main_eqW_Qdiag (k K₀ N R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) :
+    (∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+        (if d m = 1 ∧ e m = 1 then
+          lam k R W' y d * lam k R W' y e *
+            (deltaPi k K₀ N m / ((Nat.totient W' : ℝ) * phiLcmProd d e))
+         else 0))
+      = deltaPi k K₀ N m / (Nat.totient W' : ℝ) * Qdiag_mW k R W' m y := by
+  rw [guarded_double_sum]
+  unfold Qdiag_mW phiLcmProd
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl (fun d _ => ?_)
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl (fun e _ => ?_)
+  ring
+
+/-- Free-modulus form of the headline `S2m_lower`. -/
+theorem S2mW_lower (k K₀ N R ν₀ W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
+    (C : ℝ) (hRN : R ≤ N)
+    (herr : ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+        (if d m = 1 ∧ e m = 1 then
+          |lam k R W' y d| * |lam k R W' y e| *
+            |(s2PrimeCountW k K₀ N ν₀ W' m d e : ℝ)
+              - deltaPi k K₀ N m / ((Nat.totient W' : ℝ) * phiLcmProd d e)|
+         else 0)
+      ≤ C * (N : ℝ) / (Real.log N) ^ (2 * k + 4) * (1 + Real.log R) ^ (2 * k + 2)) :
+    S2mW k K₀ N R ν₀ W' m y
+      ≥ deltaPi k K₀ N m / (Nat.totient W' : ℝ) * Qdiag_mW k R W' m y
+        - C * (N : ℝ) / (Real.log N) ^ (2 * k + 4) * (1 + Real.log R) ^ (2 * k + 2) := by
+  classical
+  have hsplit : S2mW k K₀ N R ν₀ W' m y
+      = (∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+          (if d m = 1 ∧ e m = 1 then
+            lam k R W' y d * lam k R W' y e *
+              (deltaPi k K₀ N m / ((Nat.totient W' : ℝ) * phiLcmProd d e))
+           else 0))
+        + (∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+            (if d m = 1 ∧ e m = 1 then
+              lam k R W' y d * lam k R W' y e *
+                ((s2PrimeCountW k K₀ N ν₀ W' m d e : ℝ)
+                  - deltaPi k K₀ N m / ((Nat.totient W' : ℝ) * phiLcmProd d e))
+             else 0)) := by
+    rw [S2mW_eq_guarded k K₀ N R ν₀ W' m y hRN, ← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl (fun d _ => ?_)
+    rw [← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl (fun e _ => ?_)
+    by_cases h : d m = 1 ∧ e m = 1
+    · simp only [if_pos h]; ring
+    · simp only [if_neg h]; ring
+  have hEbound :
+      |∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+          (if d m = 1 ∧ e m = 1 then
+            lam k R W' y d * lam k R W' y e *
+              ((s2PrimeCountW k K₀ N ν₀ W' m d e : ℝ)
+                - deltaPi k K₀ N m / ((Nat.totient W' : ℝ) * phiLcmProd d e))
+           else 0)|
+        ≤ ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+            (if d m = 1 ∧ e m = 1 then
+              |lam k R W' y d| * |lam k R W' y e| *
+                |(s2PrimeCountW k K₀ N ν₀ W' m d e : ℝ)
+                  - deltaPi k K₀ N m / ((Nat.totient W' : ℝ) * phiLcmProd d e)|
+             else 0) := by
+    refine (Finset.abs_sum_le_sum_abs _ _).trans ?_
+    refine Finset.sum_le_sum (fun d _ => ?_)
+    refine (Finset.abs_sum_le_sum_abs _ _).trans ?_
+    refine Finset.sum_le_sum (fun e _ => ?_)
+    by_cases h : d m = 1 ∧ e m = 1
+    · rw [if_pos h, if_pos h, abs_mul, abs_mul]
+    · rw [if_neg h, if_neg h, abs_zero]
+  rw [hsplit, s2Main_eqW_Qdiag k K₀ N R W' m y]
+  linarith [hEbound, herr, neg_abs_le (∑ d ∈ kSieveIndex k R W',
+    ∑ e ∈ kSieveIndex k R W',
+      (if d m = 1 ∧ e m = 1 then
+        lam k R W' y d * lam k R W' y e *
+          ((s2PrimeCountW k K₀ N ν₀ W' m d e : ℝ)
+            - deltaPi k K₀ N m / ((Nat.totient W' : ℝ) * phiLcmProd d e))
+       else 0))]
+
 end Salt.Maynard

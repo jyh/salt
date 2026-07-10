@@ -200,4 +200,88 @@ two endpoints (`φ(Q) = φ(W k)·∏φ(lcm)` by coprimality). Summing the
 sum. Not attempted here — this is the prime-side/sieve interface, the genuine
 C-content of N5.1. -/
 
+/-! ## Free-modulus `(D, W')` generalization (explicit-gaps sweep W2-4)
+
+The N5.1 objects/decomposition with the modulus `W k` replaced by a free `W'`.
+Pure scalar algebra (no `D₀`/primorial content); `phiLcmProd` is already
+modulus-free.  Instantiate `W' := W k` to recover the `W k`-versions. -/
+
+/-- Free-modulus form of `s2PrimeCount`. -/
+noncomputable def s2PrimeCountW (k K₀ N ν₀ W' : ℕ) (m : Fin k) (d e : Fin k → ℕ) : ℕ :=
+  ((Finset.Ioc N (K₀ * N)).filter
+    (fun n => n % W' = ν₀ % W' ∧ (n + hSeq k m).Prime ∧
+      ∀ i, Nat.lcm (d i) (e i) ∣ (n + hSeq k i))).card
+
+/-- Free-modulus form of `s2Form`. -/
+noncomputable def s2FormW (k R K₀ N ν₀ W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) : ℝ :=
+  ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+    (if d m = 1 ∧ e m = 1 then
+      lamG k R W' y d * lamG k R W' y e * (s2PrimeCountW k K₀ N ν₀ W' m d e : ℝ)
+     else 0)
+
+/-- Free-modulus form of `s2FormMain`. -/
+noncomputable def s2FormMainW (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
+    (deltaPi : ℝ) : ℝ :=
+  ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+    (if d m = 1 ∧ e m = 1 then
+      lamG k R W' y d * lamG k R W' y e *
+        (deltaPi / ((Nat.totient W' : ℝ) * phiLcmProd d e))
+     else 0)
+
+/-- Free-modulus form of `s2FormErr`. -/
+noncomputable def s2FormErrW (k R K₀ N ν₀ W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
+    (deltaPi : ℝ) : ℝ :=
+  ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+    (if d m = 1 ∧ e m = 1 then
+      lamG k R W' y d * lamG k R W' y e *
+        ((s2PrimeCountW k K₀ N ν₀ W' m d e : ℝ)
+          - deltaPi / ((Nat.totient W' : ℝ) * phiLcmProd d e))
+     else 0)
+
+/-- Free-modulus form of `s2_decomp`. -/
+theorem s2_decompW (k R K₀ N ν₀ W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
+    (deltaPi : ℝ) :
+    s2FormW k R K₀ N ν₀ W' m y
+      = s2FormMainW k R W' m y deltaPi + s2FormErrW k R K₀ N ν₀ W' m y deltaPi := by
+  unfold s2FormW s2FormMainW s2FormErrW
+  rw [← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl (fun d _ => ?_)
+  rw [← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl (fun e _ => ?_)
+  split_ifs with h <;> ring
+
+/-- Free-modulus form of `s2Main_factor`. -/
+theorem s2Main_factorW (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) (deltaPi : ℝ) :
+    s2FormMainW k R W' m y deltaPi
+      = deltaPi / (Nat.totient W' : ℝ) *
+          ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+            (if d m = 1 ∧ e m = 1 then
+              lamG k R W' y d * lamG k R W' y e / phiLcmProd d e
+             else 0) := by
+  unfold s2FormMainW
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl (fun d _ => ?_)
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl (fun e _ => ?_)
+  split_ifs with h <;> ring
+
+/-- Free-modulus form of `s2Error_abs_le`. -/
+theorem s2Error_abs_leW (k R K₀ N ν₀ W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
+    (deltaPi : ℝ) :
+    |s2FormErrW k R K₀ N ν₀ W' m y deltaPi|
+      ≤ ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+          (if d m = 1 ∧ e m = 1 then
+            |lamG k R W' y d| * |lamG k R W' y e| *
+              |(s2PrimeCountW k K₀ N ν₀ W' m d e : ℝ)
+                - deltaPi / ((Nat.totient W' : ℝ) * phiLcmProd d e)|
+           else 0) := by
+  unfold s2FormErrW
+  refine (Finset.abs_sum_le_sum_abs _ _).trans ?_
+  refine Finset.sum_le_sum (fun d _ => ?_)
+  refine (Finset.abs_sum_le_sum_abs _ _).trans ?_
+  refine Finset.sum_le_sum (fun e _ => ?_)
+  split_ifs with h
+  · rw [abs_mul, abs_mul]
+  · rw [abs_zero]
+
 end Salt.Maynard

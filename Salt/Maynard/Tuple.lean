@@ -150,24 +150,12 @@ theorem W_squarefree (k : ℕ) : Squarefree (W k) := by
   unfold W primorial
   exact prod_primes_squarefree (fun _p hp => (Finset.mem_filter.mp hp).2)
 
-/-- **N1.4.** There is a residue `ν₀ mod W k` such that `ν₀ + h` is
-coprime to `W k` for every `h ∈ H k`.
-
-Route: strong induction on the (finite) `Finset` of prime factors of
-`W k`, folding in one CRT step (`Nat.chineseRemainder`) per prime. For
-each prime `p ∣ W k`, `H_admissible k` supplies a residue `a_p : ZMod p`
-avoided by `H k`; taking `ν₀ ≡ -a_p (mod p)` (via `ZMod.val`) makes
-`ν₀ + h ≢ 0 (mod p)` for every `h ∈ H k`. The final coprimality
-statement is assembled from the per-prime non-divisibility facts via
-`Nat.coprime_of_dvd` (`W k` squarefree, hence `Nat.Coprime m (W k) ↔
-∀ p, p.Prime → p ∣ W k → ¬ p ∣ m` reduces to `Nat.coprime_of_dvd`'s
-hypothesis directly, no squarefreeness needed beyond it not mattering
-here). -/
-theorem exists_nu0 (k : ℕ) :
-    ∃ ν₀ : ℕ, ∀ h ∈ H k, Nat.Coprime (ν₀ + h) (W k) := by
-  -- For each prime `p`, a residue `r p : ℕ` with `r p < p` (when `p ≠ 0`)
-  -- such that `(r p + h) % p ≠ 0` for every `h ∈ H k` — obtained from the
-  -- admissibility witness `a_p` by negating and taking `ZMod.val`.
+/-- **N1.4, free-modulus form (`(D,W')` sweep).** For ANY nonzero modulus `W'`
+there is a residue `ν₀` with `ν₀ + h` coprime to `W'` for every `h ∈ H k`.
+Identical CRT construction to `exists_nu0`; the modulus is a free parameter,
+so the explicit-gaps track can instantiate at `W' = primorial D`. -/
+theorem exists_nu0W (k W' : ℕ) (hW' : W' ≠ 0) :
+    ∃ ν₀ : ℕ, ∀ h ∈ H k, Nat.Coprime (ν₀ + h) W' := by
   have hex : ∀ p : ℕ, p.Prime → ∃ r : ℕ, ∀ h ∈ H k, ¬ p ∣ (r + h) := by
     intro p hp
     obtain ⟨a, ha⟩ := H_admissible k p hp
@@ -179,16 +167,13 @@ theorem exists_nu0 (k : ℕ) :
     rw [ZMod.natCast_val, ZMod.cast_id] at this
     have haux : (h : ZMod p) = a := by linear_combination this
     exact ha h hh haux
-  -- Strong induction over the (finite) Finset of prime factors of `W k`,
-  -- combining the per-prime residues via `Nat.chineseRemainder`.
   suffices hgen : ∀ s : Finset ℕ, (∀ p ∈ s, p.Prime) →
       ∃ ν₀ : ℕ, ∀ h ∈ H k, ∀ p ∈ s, ¬ p ∣ (ν₀ + h) by
-    obtain ⟨ν₀, hν₀⟩ := hgen (W k).primeFactors (fun p hp => Nat.prime_of_mem_primeFactors hp)
+    obtain ⟨ν₀, hν₀⟩ := hgen W'.primeFactors (fun p hp => Nat.prime_of_mem_primeFactors hp)
     refine ⟨ν₀, fun h hh => ?_⟩
     apply Nat.coprime_of_dvd
     intro p hpp hpdvd hpdvdW
-    have hWne : W k ≠ 0 := (W_squarefree k).ne_zero
-    exact hν₀ h hh p (Nat.mem_primeFactors.mpr ⟨hpp, hpdvdW, hWne⟩) hpdvd
+    exact hν₀ h hh p (Nat.mem_primeFactors.mpr ⟨hpp, hpdvdW, hW'⟩) hpdvd
   intro s
   induction s using Finset.induction with
   | empty => exact fun _ => ⟨0, fun _ _ p hp => absurd hp (Finset.notMem_empty p)⟩
@@ -198,9 +183,6 @@ theorem exists_nu0 (k : ℕ) :
     have hsprimes : ∀ q ∈ s, q.Prime := fun q hq => hprimes q (Finset.mem_insert_of_mem hq)
     obtain ⟨ν₁, hν₁⟩ := ih hsprimes
     obtain ⟨r, hr⟩ := hex p hpp
-    -- Combine modulus `p` (target residue `r`) with modulus `∏ q ∈ s, q`
-    -- (target residue `ν₁`) via CRT; `p ∉ s` (all primes, `s`'s elements
-    -- distinct from `p`) gives coprimality of the two moduli.
     set M := ∏ q ∈ s, q with hM
     have hMcop : p.Coprime M := by
       apply Nat.Coprime.prod_right
@@ -209,18 +191,23 @@ theorem exists_nu0 (k : ℕ) :
     obtain ⟨ν₀, hν₀p, hν₀M⟩ := Nat.chineseRemainder hMcop r ν₁
     refine ⟨ν₀, fun h hh q hq => ?_⟩
     rcases Finset.mem_insert.mp hq with hqp | hqs
-    · -- `q = p`: `ν₀ ≡ r (mod p)`, and `r` was chosen so `p ∤ r + h`.
-      intro hdvd
+    · intro hdvd
       rw [hqp] at hdvd
       have h1 : ν₀ + h ≡ 0 [MOD p] := Nat.modEq_zero_iff_dvd.mpr hdvd
       have h2 : ν₀ + h ≡ r + h [MOD p] := hν₀p.add_right h
       exact hr h hh (Nat.modEq_zero_iff_dvd.mp (h2.symm.trans h1))
-    · -- `q ∈ s`: `ν₀ ≡ ν₁ (mod M)`, reduce mod `q` via `q ∣ M`.
-      intro hdvd
+    · intro hdvd
       have hqM : q ∣ M := Finset.dvd_prod_of_mem _ hqs
       have h1 : ν₀ + h ≡ 0 [MOD q] := Nat.modEq_zero_iff_dvd.mpr hdvd
       have h2 : ν₀ + h ≡ ν₁ + h [MOD q] := (hν₀M.of_dvd hqM).add_right h
       exact hν₁ h hh q hqs (Nat.modEq_zero_iff_dvd.mp (h2.symm.trans h1))
+
+/-- **N1.4.** There is a residue `ν₀ mod W k` such that `ν₀ + h` is
+coprime to `W k` for every `h ∈ H k`. Specialization of `exists_nu0W` at
+the concrete Maynard modulus `W k`. -/
+theorem exists_nu0 (k : ℕ) :
+    ∃ ν₀ : ℕ, ∀ h ∈ H k, Nat.Coprime (ν₀ + h) (W k) :=
+  exists_nu0W k (W k) (W_squarefree k).ne_zero
 
 /-! ## Indexed enumeration of the tuple (shared M2/M4/M5 infrastructure)
 
@@ -259,5 +246,13 @@ theorem hSeq_gt_k (k : ℕ) (i : Fin k) : k < hSeq k i := by
 
 theorem hSeq_le_D₀ (k : ℕ) (i : Fin k) : hSeq k i ≤ D₀ k :=
   le_trans (Finset.le_sup (f := id) (hSeq_mem_H k i)) (le_max_right _ _)
+
+/-- **`hSeq_le_D₀`-analog for a free cutoff `D`.** If the tuple's sup is
+strictly below `D` (e.g. `(H 5).sup id = 19 < D`), every tuple entry is
+`< D`. This is the strict-`<` bound the `(D,W')` collision/coprimality
+tails consume (mirrors how `hSeq_le_D₀` bounds `hSeq k i` by `D₀ k`). -/
+theorem hSeq_lt_of_sup_lt (k : ℕ) {D : ℕ} (hD : (H k).sup id < D) (i : Fin k) :
+    hSeq k i < D :=
+  lt_of_le_of_lt (Finset.le_sup (f := id) (hSeq_mem_H k i)) hD
 
 end Salt.Maynard

@@ -2138,5 +2138,450 @@ theorem compat_le_two_yside (k R W' : ℕ) (y : (Fin k → ℕ) → ℝ) (f₀ :
             (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) := one_mul _
   linarith
 
+/-! ## Free-modulus `(D, W')` generalizations (explicit-gaps sweep W2-4)
+
+The collision machinery (`s1CollisionForm`, `cRad`, `s1Summand`, the Möbius/
+assignment expansions) is already `W`-generic; only the two `D₀ k`/`W k`-pinned
+STEPS — "primes dividing a sieve coordinate exceed the cutoff" and the Euler
+tail — are widened.  The cutoff `D₀ k` becomes a free `D` with the explicit
+lower-bound hypothesis `hDlt : ∀ p prime, p ∤ W' → D < p` (satisfied by
+`W' = primorial D` via `Nat.Prime.dvd_primorial_iff`) plus `12 k² ≤ D`.
+Instantiating `W' := W k`, `D := D₀ k` recovers the `W k`-versions above (whose
+proofs are left untouched for the landed Maynard spine). -/
+
+/-- Free-`(D,W')` form of `D₀_lt_of_prime_dvd_coord` (strict `D < p`). -/
+theorem D_lt_of_prime_dvd_coordW {k R W' D : ℕ}
+    (hDlt : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p)
+    {r : Fin k → ℕ} (hr : r ∈ kSieveIndex k R W') {p : ℕ} (hp : p.Prime) {i : Fin k}
+    (hpi : p ∣ r i) : D < p := by
+  refine hDlt p hp (fun hpW => ?_)
+  have hcop : Nat.Coprime (r i) W' := ((mem_kSieveIndex_iff r).mp hr).2.2.1 i
+  have hp1 : p ∣ 1 := hcop ▸ Nat.dvd_gcd hpi hpW
+  exact hp.one_lt.ne' (Nat.dvd_one.mp hp1)
+
+/-- Free-`(D,W')` form of `inner_collision_zero`. -/
+theorem inner_collision_zeroW (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ)
+    (hDlt : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p)
+    {t p : ℕ} (hp : p.Prime) (hpt : p ∣ t) (hpD : p ≤ D) :
+    (∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+        if t ∣ cRad d e then s1Summand k R W' y d e else 0) = 0 := by
+  apply Finset.sum_eq_zero; intro d hd
+  apply Finset.sum_eq_zero; intro e he
+  rw [if_neg]
+  intro hdvd
+  have hpc : p ∣ cRad d e := hpt.trans hdvd
+  obtain ⟨ij, _, h1, _⟩ := (prime_dvd_cRad_iff hp).mp hpc
+  exact absurd (D_lt_of_prime_dvd_coordW hDlt hd hp h1) (not_lt.mpr hpD)
+
+/-- Free-`D` form of `euler_tail`: the Euler tail over squarefree moduli whose
+prime factors all exceed `D`, with per-prime weight `3k²(p−1)⁻²`, is
+`≤ 12k²/D`.  Verbatim port of `euler_tail` with `D₀ k → D`. -/
+theorem euler_tailW (k M D : ℕ) (hk : 1 ≤ k) (hD : 12 * k ^ 2 ≤ D) :
+    ∑ t ∈ ((Finset.range M).filter
+        (fun t => Squarefree t ∧ ∀ p ∈ t.primeFactors, D < p)).erase 1,
+      (3 * (k : ℝ) ^ 2) ^ t.primeFactors.card
+        * ∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2
+      ≤ 12 * (k : ℝ) ^ 2 / (D : ℝ) := by
+  classical
+  have hD12 : 12 ≤ D := le_trans (by nlinarith) hD
+  have hDpos : (0 : ℝ) < (D : ℝ) := by
+    have : 0 < D := by omega
+    exact_mod_cast this
+  set L : ℝ := 3 * (k : ℝ) ^ 2 with hL
+  have hLpos : 0 < L := by positivity
+  set a : ℕ → ℝ := fun p => L * (((p : ℝ) - 1)⁻¹) ^ 2 with haDef
+  have ha_nonneg : ∀ p, 0 ≤ a p := fun p => by positivity
+  set SF := ((Finset.range M).filter
+      (fun t => Squarefree t ∧ ∀ p ∈ t.primeFactors, D < p)).erase 1 with hSF
+  set PP := (Finset.range M).filter (fun p => p.Prime ∧ D < p) with hPP
+  have hterm : ∀ t ∈ SF,
+      (3 * (k : ℝ) ^ 2) ^ t.primeFactors.card
+          * ∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2
+        = ∏ p ∈ t.primeFactors, a p := by
+    intro t _
+    rw [haDef, Finset.prod_mul_distrib, Finset.prod_const, hL]
+  have hinj : Set.InjOn Nat.primeFactors ↑SF := by
+    intro x hx y hy hxy
+    rw [Finset.mem_coe, hSF, Finset.mem_erase, Finset.mem_filter] at hx hy
+    have hx' := Nat.prod_primeFactors_of_squarefree hx.2.2.1
+    rw [← hx', hxy, Nat.prod_primeFactors_of_squarefree hy.2.2.1]
+  have hsub : SF.image Nat.primeFactors ⊆ PP.powerset.erase ∅ := by
+    intro S hS
+    rw [Finset.mem_image] at hS
+    obtain ⟨t, ht, rfl⟩ := hS
+    rw [hSF, Finset.mem_erase, Finset.mem_filter, Finset.mem_range] at ht
+    obtain ⟨hne1, htM, hsq, hbig⟩ := ht
+    rw [Finset.mem_erase, Finset.mem_powerset]
+    constructor
+    · have ht2 : 1 < t := by
+        rcases Nat.lt_or_ge t 2 with h | h
+        · interval_cases t
+          · exact absurd hsq not_squarefree_zero
+          · exact absurd rfl hne1
+        · omega
+      have : t.primeFactors.Nonempty := Nat.nonempty_primeFactors.mpr ht2
+      exact Finset.nonempty_iff_ne_empty.mp this
+    · intro p hp
+      rw [hPP, Finset.mem_filter, Finset.mem_range]
+      have hpp : p.Prime := Nat.prime_of_mem_primeFactors hp
+      have hpd : p ∣ t := Nat.dvd_of_mem_primeFactors hp
+      have ht0 : 0 < t := Nat.pos_of_ne_zero hsq.ne_zero
+      exact ⟨lt_of_le_of_lt (Nat.le_of_dvd ht0 hpd) htM, hpp, hbig p hp⟩
+  have hprodadd : ∏ p ∈ PP, (1 + a p)
+      = ∑ S ∈ PP.powerset, ∏ p ∈ S, a p := by
+    have h := Finset.prod_add (fun p => a p) (fun _ => (1 : ℝ)) PP
+    simp only [Finset.prod_const_one, mul_one] at h
+    rw [← h]
+    exact Finset.prod_congr rfl fun p _ => by ring
+  have hsplit : ∑ S ∈ PP.powerset.erase ∅, ∏ p ∈ S, a p
+      = (∏ p ∈ PP, (1 + a p)) - 1 := by
+    have h := Finset.sum_erase_add PP.powerset (fun S => ∏ p ∈ S, a p)
+      (Finset.empty_mem_powerset PP)
+    rw [Finset.prod_empty] at h
+    rw [hprodadd]
+    linarith
+  have htailsum : ∑ p ∈ PP, (((p : ℝ) - 1)⁻¹) ^ 2 ≤ 2 / (D : ℝ) := by
+    have hPPsub : PP ⊆ Finset.Icc (D + 1) M := by
+      intro p hp
+      rw [hPP, Finset.mem_filter, Finset.mem_range] at hp
+      rw [Finset.mem_Icc]
+      omega
+    have hmono : ∑ p ∈ PP, (((p : ℝ) - 1)⁻¹) ^ 2
+        ≤ ∑ n ∈ Finset.Icc (D + 1) M, (((n : ℝ) - 1)⁻¹) ^ 2 :=
+      Finset.sum_le_sum_of_subset_of_nonneg hPPsub fun n _ _ => by positivity
+    rcases Nat.lt_or_ge M D with hM | hM
+    · rw [Finset.Icc_eq_empty (by omega), Finset.sum_empty] at hmono
+      exact le_trans hmono (by positivity)
+    · have htele := inv_sq_tele D (by omega) M hM
+      have hMinv : 0 ≤ ((M : ℝ) - 1)⁻¹ := by
+        have hM2 : (2 : ℝ) ≤ (M : ℝ) := by
+          have : 12 ≤ M := by omega
+          exact_mod_cast (by omega : 2 ≤ M)
+        rw [inv_nonneg]
+        linarith
+      have hfrac : ((D : ℝ) - 1)⁻¹ ≤ 2 / (D : ℝ) := by
+        have h1 : (0 : ℝ) < (D : ℝ) - 1 := by
+          have : (12 : ℝ) ≤ (D : ℝ) := by exact_mod_cast hD12
+          linarith
+        rw [inv_eq_one_div, div_le_div_iff₀ h1 hDpos]
+        have : (12 : ℝ) ≤ (D : ℝ) := by exact_mod_cast hD12
+        linarith
+      linarith
+  have hasum : ∑ p ∈ PP, a p ≤ 1 / 2 := by
+    have h1 : ∑ p ∈ PP, a p = L * ∑ p ∈ PP, (((p : ℝ) - 1)⁻¹) ^ 2 := by
+      simp only [haDef, Finset.mul_sum]
+    rw [h1]
+    have h2 : L * ∑ p ∈ PP, (((p : ℝ) - 1)⁻¹) ^ 2 ≤ L * (2 / (D : ℝ)) :=
+      mul_le_mul_of_nonneg_left htailsum hLpos.le
+    have h3 : L * (2 / (D : ℝ)) ≤ 1 / 2 := by
+      have hcast : (12 : ℝ) * (k : ℝ) ^ 2 ≤ (D : ℝ) := by exact_mod_cast hD
+      have heq : L * (2 / (D : ℝ)) = 6 * (k : ℝ) ^ 2 / (D : ℝ) := by
+        rw [hL]; ring
+      rw [heq, div_le_div_iff₀ hDpos (by norm_num : (0:ℝ) < 2)]
+      nlinarith
+    linarith
+  calc ∑ t ∈ SF, (3 * (k : ℝ) ^ 2) ^ t.primeFactors.card
+          * ∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2
+      = ∑ t ∈ SF, ∏ p ∈ t.primeFactors, a p := Finset.sum_congr rfl hterm
+    _ = ∑ S ∈ SF.image Nat.primeFactors, ∏ p ∈ S, a p := by
+        have himg : ∑ S ∈ SF.image Nat.primeFactors, ∏ p ∈ S, a p
+            = ∑ t ∈ SF, ∏ p ∈ t.primeFactors, a p := Finset.sum_image hinj
+        rw [himg]
+    _ ≤ ∑ S ∈ PP.powerset.erase ∅, ∏ p ∈ S, a p :=
+        Finset.sum_le_sum_of_subset_of_nonneg hsub fun S _ _ =>
+          Finset.prod_nonneg fun p _ => ha_nonneg p
+    _ = (∏ p ∈ PP, (1 + a p)) - 1 := hsplit
+    _ ≤ (1 + 2 * ∑ p ∈ PP, a p) - 1 := by
+        have := prod_one_add_le PP a (fun p _ => ha_nonneg p) hasum
+        linarith
+    _ = 2 * ∑ p ∈ PP, a p := by ring
+    _ ≤ 2 * (L * (2 / (D : ℝ))) := by
+        have h1 : ∑ p ∈ PP, a p = L * ∑ p ∈ PP, (((p : ℝ) - 1)⁻¹) ^ 2 := by
+          simp only [haDef, Finset.mul_sum]
+        rw [h1]
+        have h2 := mul_le_mul_of_nonneg_left htailsum hLpos.le
+        linarith
+    _ = 12 * (k : ℝ) ^ 2 / (D : ℝ) := by
+        rw [hL]
+        field_simp
+        ring
+
+/-- Free-`(D,W')` form of `collision_lower_order`. -/
+theorem collision_lower_orderW (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ) (f₀ : ℕ → ℝ)
+    (hf01 : ∀ n, 0 ≤ f₀ n ∧ f₀ n ≤ 1)
+    (hfmono : ∀ d m : ℕ, d ∣ m → 0 < d → f₀ m ≤ f₀ d)
+    (hy : ∀ r, y r = if r ∈ kSieveIndex k R W' then ∏ i, f₀ (r i) else 0)
+    (hDlt : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hk : 1 ≤ k) (hDk : 12 * k ^ 2 ≤ D) :
+    |s1CollisionForm k R W' y|
+      ≤ 12 * (k : ℝ) ^ 2 / (D : ℝ)
+          * ∑ r ∈ kSieveIndex k R W', (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) := by
+  classical
+  have hf0 : ∀ n, 0 ≤ f₀ n := fun n => (hf01 n).1
+  have hy0 : ∀ r, r ∉ kSieveIndex k R W' → y r = 0 := by
+    intro r hr
+    rw [hy r, if_neg hr]
+  have hyside : 0 ≤ ∑ r ∈ kSieveIndex k R W',
+      (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) := s1_yside_nonneg k R W' y
+  have hk2 : 1 ≤ k ^ 2 := Nat.one_le_pow _ _ hk
+  have hDposN : 0 < D := by omega
+  have hDpos : (0 : ℝ) < (D : ℝ) := by exact_mod_cast hDposN
+  have hκ : (0 : ℝ) ≤ 12 * (k : ℝ) ^ 2 / (D : ℝ) := by positivity
+  rcases Nat.eq_zero_or_pos R with hR0 | hRpos
+  · subst hR0
+    have hempty : kSieveIndex k 0 W' = ∅ := by
+      apply Finset.eq_empty_of_forall_notMem
+      intro r hr
+      exact absurd ((mem_kSieveIndex_iff r).mp hr).2.2.2 (Nat.not_lt_zero _)
+    unfold s1CollisionForm
+    rw [hempty]
+    simp
+  have h1mem : (1 : ℕ) ∈ collisionModuli k R := by
+    rw [collisionModuli, Finset.mem_range]
+    have := Nat.one_le_pow k R hRpos
+    omega
+  have hcompat := compat_moebius_expansion k R W' y
+  have herase := Finset.add_sum_erase (collisionModuli k R)
+    (fun t => ((μ t : ℤ) : ℝ)
+      * ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+          (if t ∣ cRad d e then s1Summand k R W' y d e else 0)) h1mem
+  have hG1 : (∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+      (if (1 : ℕ) ∣ cRad d e then s1Summand k R W' y d e else 0))
+      = s1FullForm k R W' y := by
+    unfold s1FullForm
+    apply Finset.sum_congr rfl; intro d _
+    apply Finset.sum_congr rfl; intro e _
+    rw [if_pos (one_dvd _)]
+  have hμ1 : ((μ 1 : ℤ) : ℝ) = 1 := by
+    rw [ArithmeticFunction.moebius_apply_one]
+    norm_num
+  have hkey : s1CollisionForm k R W' y
+      = - ∑ t ∈ (collisionModuli k R).erase 1, ((μ t : ℤ) : ℝ)
+          * ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+              (if t ∣ cRad d e then s1Summand k R W' y d e else 0) := by
+    have hsplit0 := s1_full_split k R W' y
+    have hfull := s1_full_eq_yside k R W' y hy0
+    simp only [hμ1, one_mul, hG1] at herase
+    have e1 : s1CompatForm k R W' y
+        = s1FullForm k R W' y
+          + ∑ t ∈ (collisionModuli k R).erase 1, ((μ t : ℤ) : ℝ)
+              * ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+                  (if t ∣ cRad d e then s1Summand k R W' y d e else 0) := by
+      rw [hcompat, ← herase]
+    linarith
+  have hbound : ∀ t ∈ (collisionModuli k R).erase 1,
+      |((μ t : ℤ) : ℝ)
+        * ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+            (if t ∣ cRad d e then s1Summand k R W' y d e else 0)|
+      ≤ (if Squarefree t ∧ ∀ p ∈ t.primeFactors, D < p then
+          (3 * (k : ℝ) ^ 2) ^ t.primeFactors.card
+            * (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
+            * ∑ r ∈ kSieveIndex k R W',
+                (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ)
+        else 0) := by
+    intro t _
+    by_cases hgood : Squarefree t ∧ ∀ p ∈ t.primeFactors, D < p
+    · rw [if_pos hgood]
+      obtain ⟨hsq, _⟩ := hgood
+      have hcard : (assignments k t).card
+          = (k * k - k) ^ t.primeFactors.card := by
+        rw [assignments, Finset.card_pi, Finset.prod_const,
+          Finset.offDiag_card, Finset.card_univ, Fintype.card_fin]
+      have hinvsq_nonneg : 0 ≤ ∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2 :=
+        Finset.prod_nonneg fun p _ => sq_nonneg _
+      have hGabs : |∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+          (if t ∣ cRad d e then s1Summand k R W' y d e else 0)|
+          ≤ ((assignments k t).card : ℝ)
+              * ((3 : ℝ) ^ t.primeFactors.card
+                * (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
+                * ∑ r ∈ kSieveIndex k R W',
+                    (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ)) := by
+        rw [inner_collision_expand k R W' y hsq]
+        calc |∑ α ∈ assignments k t,
+              ∑ d ∈ (kSieveIndex k R W').filter
+                  (fun d => ∀ i, slotProd t α Prod.fst i ∣ d i),
+                ∑ e ∈ (kSieveIndex k R W').filter
+                    (fun e => ∀ i, slotProd t α Prod.snd i ∣ e i),
+                  s1Summand k R W' y d e|
+            ≤ ∑ α ∈ assignments k t,
+                |∑ d ∈ (kSieveIndex k R W').filter
+                    (fun d => ∀ i, slotProd t α Prod.fst i ∣ d i),
+                  ∑ e ∈ (kSieveIndex k R W').filter
+                      (fun e => ∀ i, slotProd t α Prod.snd i ∣ e i),
+                    s1Summand k R W' y d e| :=
+              Finset.abs_sum_le_sum_abs _ _
+          _ ≤ ∑ _α ∈ assignments k t,
+                ((3 : ℝ) ^ t.primeFactors.card
+                  * (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
+                  * ∑ r ∈ kSieveIndex k R W',
+                      (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ)) := by
+              apply Finset.sum_le_sum
+              intro α hα
+              have hinner := inner_exact k R W' y hy0
+                (slotProd t α Prod.fst) (slotProd t α Prod.snd)
+              unfold s1Summand
+              rw [hinner]
+              exact inner_abs_le k R W' y f₀ hf0 hfmono hy hsq α hα
+          _ = ((assignments k t).card : ℝ)
+                * ((3 : ℝ) ^ t.primeFactors.card
+                  * (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
+                  * ∑ r ∈ kSieveIndex k R W',
+                      (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ)) := by
+              rw [Finset.sum_const, nsmul_eq_mul]
+      have hcast : ((assignments k t).card : ℝ) * (3 : ℝ) ^ t.primeFactors.card
+          ≤ (3 * (k : ℝ) ^ 2) ^ t.primeFactors.card := by
+        rw [hcard]
+        push_cast
+        rw [← mul_pow]
+        apply pow_le_pow_left₀
+        · positivity
+        · have hle : ((k * k - k : ℕ) : ℝ) ≤ (k : ℝ) * (k : ℝ) := by
+            have h1 : (k * k - k : ℕ) ≤ k * k := Nat.sub_le _ _
+            calc ((k * k - k : ℕ) : ℝ) ≤ ((k * k : ℕ) : ℝ) := by exact_mod_cast h1
+              _ = (k : ℝ) * (k : ℝ) := by push_cast; ring
+          nlinarith
+      calc |((μ t : ℤ) : ℝ)
+            * ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+                (if t ∣ cRad d e then s1Summand k R W' y d e else 0)|
+          ≤ |∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+              (if t ∣ cRad d e then s1Summand k R W' y d e else 0)| := by
+            rw [abs_mul]
+            have h1 := abs_moebius_real_le_one t
+            have h2 := abs_nonneg (∑ d ∈ kSieveIndex k R W',
+              ∑ e ∈ kSieveIndex k R W',
+                (if t ∣ cRad d e then s1Summand k R W' y d e else 0))
+            nlinarith
+        _ ≤ ((assignments k t).card : ℝ)
+              * ((3 : ℝ) ^ t.primeFactors.card
+                * (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
+                * ∑ r ∈ kSieveIndex k R W',
+                    (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ)) := hGabs
+        _ ≤ (3 * (k : ℝ) ^ 2) ^ t.primeFactors.card
+              * (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
+              * ∑ r ∈ kSieveIndex k R W',
+                  (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) := by
+            have hrest : 0 ≤ (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
+                * ∑ r ∈ kSieveIndex k R W',
+                    (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) :=
+              mul_nonneg hinvsq_nonneg hyside
+            calc ((assignments k t).card : ℝ)
+                  * ((3 : ℝ) ^ t.primeFactors.card
+                    * (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
+                    * ∑ r ∈ kSieveIndex k R W',
+                        (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ))
+                = (((assignments k t).card : ℝ) * (3 : ℝ) ^ t.primeFactors.card)
+                    * ((∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
+                      * ∑ r ∈ kSieveIndex k R W',
+                          (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ)) := by ring
+              _ ≤ (3 * (k : ℝ) ^ 2) ^ t.primeFactors.card
+                    * ((∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
+                      * ∑ r ∈ kSieveIndex k R W',
+                          (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ)) :=
+                  mul_le_mul_of_nonneg_right hcast hrest
+              _ = (3 * (k : ℝ) ^ 2) ^ t.primeFactors.card
+                    * (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
+                    * ∑ r ∈ kSieveIndex k R W',
+                        (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) := by ring
+    · rw [if_neg hgood]
+      by_cases hsq : Squarefree t
+      · have hsmall : ∃ p ∈ t.primeFactors, ¬ D < p := by
+          by_contra hall
+          push Not at hall
+          exact hgood ⟨hsq, hall⟩
+        obtain ⟨p, hp, hple⟩ := hsmall
+        have hzero := inner_collision_zeroW k R W' D y hDlt
+          (Nat.prime_of_mem_primeFactors hp)
+          (Nat.dvd_of_mem_primeFactors hp) (not_lt.mp hple)
+        rw [hzero, mul_zero, abs_zero]
+      · have hμ0 : ((μ t : ℤ) : ℝ) = 0 := by
+          rw [ArithmeticFunction.moebius_eq_zero_of_not_squarefree hsq]
+          norm_num
+        rw [hμ0, zero_mul, abs_zero]
+  have htail := euler_tailW k (R ^ k + 1) D hk hDk
+  calc |s1CollisionForm k R W' y|
+      = |∑ t ∈ (collisionModuli k R).erase 1, ((μ t : ℤ) : ℝ)
+          * ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+              (if t ∣ cRad d e then s1Summand k R W' y d e else 0)| := by
+        rw [hkey, abs_neg]
+    _ ≤ ∑ t ∈ (collisionModuli k R).erase 1,
+          |((μ t : ℤ) : ℝ)
+            * ∑ d ∈ kSieveIndex k R W', ∑ e ∈ kSieveIndex k R W',
+                (if t ∣ cRad d e then s1Summand k R W' y d e else 0)| :=
+        Finset.abs_sum_le_sum_abs _ _
+    _ ≤ ∑ t ∈ (collisionModuli k R).erase 1,
+          (if Squarefree t ∧ ∀ p ∈ t.primeFactors, D < p then
+            (3 * (k : ℝ) ^ 2) ^ t.primeFactors.card
+              * (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
+              * ∑ r ∈ kSieveIndex k R W',
+                  (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ)
+          else 0) :=
+        Finset.sum_le_sum hbound
+    _ = ∑ t ∈ (((collisionModuli k R).filter
+          (fun t => Squarefree t ∧ ∀ p ∈ t.primeFactors, D < p)).erase 1),
+          (3 * (k : ℝ) ^ 2) ^ t.primeFactors.card
+            * (∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
+            * ∑ r ∈ kSieveIndex k R W',
+                (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) := by
+        rw [← Finset.sum_filter, Finset.filter_erase]
+    _ = (∑ t ∈ (((collisionModuli k R).filter
+          (fun t => Squarefree t ∧ ∀ p ∈ t.primeFactors, D < p)).erase 1),
+          (3 * (k : ℝ) ^ 2) ^ t.primeFactors.card
+            * ∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2)
+          * ∑ r ∈ kSieveIndex k R W',
+              (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) := by
+        rw [Finset.sum_mul]
+    _ ≤ 12 * (k : ℝ) ^ 2 / (D : ℝ)
+          * ∑ r ∈ kSieveIndex k R W',
+              (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) :=
+        mul_le_mul_of_nonneg_right htail hyside
+
+/-- Free-`(D,W')` form of `crossCollisionControlled_holds`. -/
+theorem crossCollisionControlled_holdsW (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ)
+    (f₀ : ℕ → ℝ)
+    (hf01 : ∀ n, 0 ≤ f₀ n ∧ f₀ n ≤ 1)
+    (hfmono : ∀ d m : ℕ, d ∣ m → 0 < d → f₀ m ≤ f₀ d)
+    (hy : ∀ r, y r = if r ∈ kSieveIndex k R W' then ∏ i, f₀ (r i) else 0)
+    (hDlt : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hk : 1 ≤ k) (hDk : 12 * k ^ 2 ≤ D) :
+    CrossCollisionControlled k R W' y := by
+  refine ⟨12 * (k : ℝ) ^ 2 / (D : ℝ), ?_, ?_⟩
+  · have hk2 : 1 ≤ k ^ 2 := Nat.one_le_pow _ _ hk
+    have hDposN : 0 < D := by omega
+    have hDpos : (0 : ℝ) < (D : ℝ) := by exact_mod_cast hDposN
+    positivity
+  · exact collision_lower_orderW k R W' D y f₀ hf01 hfmono hy hDlt hk hDk
+
+/-- Free-`(D,W')` form of `compat_le_two_yside`. -/
+theorem compat_le_two_ysideW (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ) (f₀ : ℕ → ℝ)
+    (hf01 : ∀ n, 0 ≤ f₀ n ∧ f₀ n ≤ 1)
+    (hfmono : ∀ d m : ℕ, d ∣ m → 0 < d → f₀ m ≤ f₀ d)
+    (hy : ∀ r, y r = if r ∈ kSieveIndex k R W' then ∏ i, f₀ (r i) else 0)
+    (hDlt : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hk : 1 ≤ k) (hDk : 12 * k ^ 2 ≤ D) :
+    s1CompatForm k R W' y
+      ≤ 2 * ∑ r ∈ kSieveIndex k R W', (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) := by
+  have hy0 : ∀ r, r ∉ kSieveIndex k R W' → y r = 0 := by
+    intro r hr
+    rw [hy r, if_neg hr]
+  have hcoll := collision_lower_orderW k R W' D y f₀ hf01 hfmono hy hDlt hk hDk
+  have hyside := s1_yside_nonneg k R W' y
+  have heq := s1_compat_eq k R W' y hy0
+  have hk2 : 1 ≤ k ^ 2 := Nat.one_le_pow _ _ hk
+  have hDposN : 0 < D := by omega
+  have hDpos : (0 : ℝ) < (D : ℝ) := by exact_mod_cast hDposN
+  have hratio : 12 * (k : ℝ) ^ 2 / (D : ℝ) ≤ 1 := by
+    rw [div_le_one hDpos]
+    exact_mod_cast hDk
+  have habs := neg_le_abs (s1CollisionForm k R W' y)
+  have hcoll2 : |s1CollisionForm k R W' y|
+      ≤ ∑ r ∈ kSieveIndex k R W', (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) := by
+    calc |s1CollisionForm k R W' y|
+        ≤ 12 * (k : ℝ) ^ 2 / (D : ℝ)
+            * ∑ r ∈ kSieveIndex k R W',
+                (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) := hcoll
+      _ ≤ 1 * ∑ r ∈ kSieveIndex k R W',
+            (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) :=
+          mul_le_mul_of_nonneg_right hratio hyside
+      _ = ∑ r ∈ kSieveIndex k R W',
+            (y r) ^ 2 / ∏ i, (Nat.totient (r i) : ℝ) := one_mul _
+  linarith
+
 
 end Salt.Maynard

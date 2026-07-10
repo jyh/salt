@@ -111,4 +111,67 @@ theorem cong_solvable (k : ℕ) (d e : Fin k → ℕ) (ν₀ : ℕ)
           Nat.modEq_zero_iff_dvd.mpr (hc₁ i his)
         exact Nat.modEq_zero_iff_dvd.mp ((hci.add_right (hSeq k i)).trans hc₁0)
 
+/-- **N4.3, free-modulus form (`(D,W')` sweep).** The joint congruence system is
+solvable at any positive modulus `W'`: identical iterated-CRT fold, modulus a
+free parameter.  Instantiate `W' := W k` to recover `cong_solvable`. -/
+theorem cong_solvableW (k W' : ℕ) (d e : Fin k → ℕ) (ν₀ : ℕ)
+    (hWpos : 0 < W') (hlcmpos : ∀ i, 0 < Nat.lcm (d i) (e i))
+    (hcopW : ∀ i, Nat.Coprime W' (Nat.lcm (d i) (e i)))
+    (hcoplcm : ∀ i j, i ≠ j → Nat.Coprime (Nat.lcm (d i) (e i)) (Nat.lcm (d j) (e j))) :
+    ∃ c : ℕ, c % W' = ν₀ % W' ∧ ∀ i, Nat.lcm (d i) (e i) ∣ (c + hSeq k i) := by
+  classical
+  have _ := hWpos
+  set a : Fin k → ℕ :=
+    fun i => Nat.lcm (d i) (e i) * (hSeq k i / Nat.lcm (d i) (e i) + 1) - hSeq k i
+    with ha
+  have haZero : ∀ i, Nat.lcm (d i) (e i) ∣ (a i + hSeq k i) := by
+    intro i
+    have hLpos : 0 < Nat.lcm (d i) (e i) := hlcmpos i
+    have hdm := Nat.div_add_mod (hSeq k i) (Nat.lcm (d i) (e i))
+    have hmlt := Nat.mod_lt (hSeq k i) hLpos
+    have hXY : Nat.lcm (d i) (e i) * (hSeq k i / Nat.lcm (d i) (e i) + 1)
+        = Nat.lcm (d i) (e i) * (hSeq k i / Nat.lcm (d i) (e i)) + Nat.lcm (d i) (e i) := by
+      ring
+    have key : a i + hSeq k i
+        = Nat.lcm (d i) (e i) * (hSeq k i / Nat.lcm (d i) (e i) + 1) := by
+      simp only [ha]
+      omega
+    rw [key]
+    exact dvd_mul_right _ _
+  have haModEq : ∀ i, a i + hSeq k i ≡ 0 [MOD Nat.lcm (d i) (e i)] :=
+    fun i => Nat.modEq_zero_iff_dvd.mpr (haZero i)
+  suffices hgen : ∀ s : Finset (Fin k), ∃ c : ℕ,
+      c % W' = ν₀ % W' ∧ ∀ i ∈ s, Nat.lcm (d i) (e i) ∣ (c + hSeq k i) by
+    obtain ⟨c, hcW, hc⟩ := hgen Finset.univ
+    exact ⟨c, hcW, fun i => hc i (Finset.mem_univ i)⟩
+  intro s
+  induction s using Finset.induction with
+  | empty => exact ⟨ν₀, rfl, fun i hi => absurd hi (Finset.notMem_empty i)⟩
+  | insert x s hx ih =>
+    obtain ⟨c₁, hc₁W, hc₁⟩ := ih
+    set M : ℕ := W' * ∏ j ∈ s, Nat.lcm (d j) (e j) with hM
+    have hcopx : Nat.Coprime (Nat.lcm (d x) (e x)) M := by
+      rw [hM]
+      apply Nat.Coprime.mul_right
+      · exact (hcopW x).symm
+      · apply Nat.Coprime.prod_right
+        intro j hj
+        exact hcoplcm x j (by rintro rfl; exact hx hj)
+    obtain ⟨c, hcx, hcM⟩ := Nat.chineseRemainder hcopx (a x) c₁
+    refine ⟨c, ?_, ?_⟩
+    · have hWdvd : W' ∣ M := by rw [hM]; exact dvd_mul_right W' _
+      have hcWk : c % W' = c₁ % W' := hcM.of_dvd hWdvd
+      exact hcWk.trans hc₁W
+    · intro i hi
+      rcases Finset.mem_insert.mp hi with hix | his
+      · subst hix
+        exact Nat.modEq_zero_iff_dvd.mp ((hcx.add_right (hSeq k i)).trans (haModEq i))
+      · have hdvdM : Nat.lcm (d i) (e i) ∣ M := by
+          rw [hM]
+          exact (Finset.dvd_prod_of_mem _ his).trans (dvd_mul_left _ W')
+        have hci : c ≡ c₁ [MOD Nat.lcm (d i) (e i)] := hcM.of_dvd hdvdM
+        have hc₁0 : c₁ + hSeq k i ≡ 0 [MOD Nat.lcm (d i) (e i)] :=
+          Nat.modEq_zero_iff_dvd.mpr (hc₁ i his)
+        exact Nat.modEq_zero_iff_dvd.mp ((hci.add_right (hSeq k i)).trans hc₁0)
+
 end Salt.Maynard

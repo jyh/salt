@@ -229,4 +229,149 @@ theorem congCountTuple_approx (k K₀ N ν₀ : ℕ) (d e : Fin k → ℕ)
     exact_mod_cast Nat.le_self_pow (Nat.succ_ne_zero k) 2
   exact hbound.trans h2pow
 
+/-! ## Free-modulus `(D, W')` generalization (explicit-gaps sweep W2-4)
+
+The counting function and its two facts, with the modulus `W k` replaced by a
+free squarefree `W'`.  The collision fact additionally takes the explicit
+lower-bound hypotheses `hD : ∀ p prime, p ∤ W' → D ≤ p` and `hlt : ∀ i, hSeq k i
+< D` (in place of `W k = primorial (D₀ k)` + `hSeq_le_D₀`).  Instantiating
+`W' := W k`, `D := D₀ k + 1` recovers the `W k`-specific versions:
+`congCountTupleW k K₀ N ν₀ (W k) d e` is *definitionally* `congCountTuple …`. -/
+
+/-- Free-modulus form of `congCountTuple`: `n ∈ (N, K₀N]`, `n ≡ ν₀ (mod W')`,
+`lcm(dᵢ,eᵢ) ∣ n + hSeq k i` for every `i`. -/
+noncomputable def congCountTupleW (k K₀ N ν₀ W' : ℕ) (d e : Fin k → ℕ) : ℕ :=
+  ((Finset.Ioc N (K₀ * N)).filter
+    (fun n => n % W' = ν₀ % W' ∧ ∀ i, Nat.lcm (d i) (e i) ∣ (n + hSeq k i))).card
+
+/-- Free-modulus form of `congCountTuple_collision`. -/
+theorem congCountTupleW_collision (k K₀ N ν₀ W' D : ℕ) (d e : Fin k → ℕ)
+    (hD : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D ≤ p) (hlt : ∀ i : Fin k, hSeq k i < D)
+    (hd : ∀ i, Nat.Coprime (d i) W') (_he : ∀ i, Nat.Coprime (e i) W')
+    {i j : Fin k} (hij : i ≠ j) (hcol : ¬ Nat.Coprime (d i) (e j)) :
+    congCountTupleW k K₀ N ν₀ W' d e = 0 := by
+  unfold congCountTupleW
+  rw [Finset.card_eq_zero, Finset.filter_eq_empty_iff]
+  intro n _hn
+  rintro ⟨_hnW, hdvd⟩
+  obtain ⟨p, hp, hpdi, hpej⟩ := Nat.Prime.not_coprime_iff_dvd.mp hcol
+  have hpNat : p.Prime := hp
+  have hpD : D ≤ p := D_le_of_prime_dvd_coprime hD (hd i) hpNat hpdi
+  have h1 : p ∣ (n + hSeq k i) :=
+    (dvd_trans hpdi (Nat.dvd_lcm_left (d i) (e i))).trans (hdvd i)
+  have h2 : p ∣ (n + hSeq k j) :=
+    (dvd_trans hpej (Nat.dvd_lcm_right (d j) (e j))).trans (hdvd j)
+  exact not_common_prime_crossW hij hlt hpNat hpD h1 h2
+
+/-- Free-modulus form of `congCountTuple_approx`.  Only positivity of `W'`
+(from `Squarefree W'`) is used; the CRT fold is modulus-agnostic. -/
+theorem congCountTupleW_approx (k K₀ N ν₀ W' : ℕ) (d e : Fin k → ℕ)
+    (hW' : Squarefree W')
+    (hK₀ : 1 ≤ K₀)
+    (hlcmpos : ∀ i, 0 < Nat.lcm (d i) (e i))
+    (hcopW : ∀ i, Nat.Coprime W' (Nat.lcm (d i) (e i)))
+    (hcoplcm : ∀ i j, i ≠ j → Nat.Coprime (Nat.lcm (d i) (e i)) (Nat.lcm (d j) (e j)))
+    (hsol : ∃ c : ℕ, c % W' = ν₀ % W' ∧
+      ∀ i, Nat.lcm (d i) (e i) ∣ (c + hSeq k i)) :
+    |(congCountTupleW k K₀ N ν₀ W' d e : ℝ)
+       - ((K₀ - 1) * N : ℝ) / (W' * ∏ i, Nat.lcm (d i) (e i) : ℕ)|
+      ≤ 2 ^ (k + 1) := by
+  set M : ℕ := W' * ∏ i, Nat.lcm (d i) (e i) with hMdef
+  obtain ⟨c, hcW, hclcm⟩ := hsol
+  have hWpos : 0 < W' := Nat.pos_of_ne_zero hW'.ne_zero
+  have hprodpos : 0 < ∏ i, Nat.lcm (d i) (e i) := Finset.prod_pos (fun i _ => hlcmpos i)
+  have hMpos : 0 < M := by rw [hMdef]; exact Nat.mul_pos hWpos hprodpos
+  have hM0 : (M : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr hMpos.ne'
+  have hcopWprod : Nat.Coprime W' (∏ i, Nat.lcm (d i) (e i)) :=
+    Nat.Coprime.prod_right (fun i _ => hcopW i)
+  have hPiff : ∀ n : ℕ,
+      (n % W' = ν₀ % W' ∧ ∀ i, Nat.lcm (d i) (e i) ∣ (n + hSeq k i))
+        ↔ n ≡ c [MOD M] := by
+    intro n
+    constructor
+    · rintro ⟨hnW, hnlcm⟩
+      have h1 : n ≡ c [MOD W'] := hnW.trans hcW.symm
+      have h2 : ∀ i ∈ (Finset.univ : Finset (Fin k)),
+          n ≡ c [MOD Nat.lcm (d i) (e i)] := by
+        intro i _
+        have hn0 : n + hSeq k i ≡ 0 [MOD Nat.lcm (d i) (e i)] :=
+          Nat.modEq_zero_iff_dvd.mpr (hnlcm i)
+        have hc0 : c + hSeq k i ≡ 0 [MOD Nat.lcm (d i) (e i)] :=
+          Nat.modEq_zero_iff_dvd.mpr (hclcm i)
+        exact Nat.ModEq.add_right_cancel' (hSeq k i) (hn0.trans hc0.symm)
+      have h2prod : n ≡ c [MOD ∏ i, Nat.lcm (d i) (e i)] :=
+        modEq_prod_of_pairwise_coprime _ Finset.univ
+          (fun i _ j _ hij => hcoplcm i j hij) h2
+      rw [hMdef]
+      exact (Nat.modEq_and_modEq_iff_modEq_mul hcopWprod).mp ⟨h1, h2prod⟩
+    · intro hn
+      have hWdvd : W' ∣ M := by rw [hMdef]; exact dvd_mul_right W' _
+      have h1 : n ≡ c [MOD W'] := hn.of_dvd hWdvd
+      refine ⟨(h1 : n % W' = c % W').trans hcW, fun i => ?_⟩
+      have hlcmdvdM : Nat.lcm (d i) (e i) ∣ M := by
+        rw [hMdef]
+        exact (Finset.dvd_prod_of_mem _ (Finset.mem_univ i)).trans (dvd_mul_left _ W')
+      have hi : n ≡ c [MOD Nat.lcm (d i) (e i)] := hn.of_dvd hlcmdvdM
+      have hc0 : c + hSeq k i ≡ 0 [MOD Nat.lcm (d i) (e i)] :=
+        Nat.modEq_zero_iff_dvd.mpr (hclcm i)
+      exact Nat.modEq_zero_iff_dvd.mp ((hi.add_right (hSeq k i)).trans hc0)
+  have hfilter : ∀ n : ℕ,
+      (n % W' = ν₀ % W' ∧ ∀ i, Nat.lcm (d i) (e i) ∣ (n + hSeq k i))
+        ↔ n % M ∈ ({c % M} : Finset ℕ) := by
+    intro n
+    rw [Finset.mem_singleton]
+    exact hPiff n
+  have hCT : congCountTupleW k K₀ N ν₀ W' d e
+      = ((Finset.Ioc N (K₀ * N)).filter
+          (fun n => n % M ∈ ({c % M} : Finset ℕ))).card := by
+    unfold congCountTupleW
+    congr 1
+    exact Finset.filter_congr (fun n _ => hfilter n)
+  have hNle : N ≤ K₀ * N := Nat.le_mul_of_pos_left N hK₀
+  have hsplit : Finset.Icc 1 (K₀ * N) = Finset.Icc 1 N ∪ Finset.Ioc N (K₀ * N) := by
+    ext x; simp only [Finset.mem_union, Finset.mem_Icc, Finset.mem_Ioc]; omega
+  have hdisj : Disjoint (Finset.Icc 1 N) (Finset.Ioc N (K₀ * N)) := by
+    rw [Finset.disjoint_left]; intro x hx hx'
+    simp only [Finset.mem_Icc] at hx; simp only [Finset.mem_Ioc] at hx'; omega
+  have hadd : congCount M ({c % M}) (K₀ * N)
+      = ((Finset.Ioc N (K₀ * N)).filter
+          (fun n => n % M ∈ ({c % M} : Finset ℕ))).card
+        + congCount M ({c % M}) N := by
+    unfold congCount
+    rw [hsplit, Finset.filter_union,
+      Finset.card_union_of_disjoint
+        (hdisj.mono (Finset.filter_subset _ _) (Finset.filter_subset _ _))]
+    omega
+  have hcteq : (congCountTupleW k K₀ N ν₀ W' d e : ℝ)
+      = (congCount M ({c % M}) (K₀ * N) : ℝ) - (congCount M ({c % M}) N : ℝ) := by
+    rw [hCT]
+    have hcast : (congCount M ({c % M}) (K₀ * N) : ℝ)
+        = (((Finset.Ioc N (K₀ * N)).filter
+              (fun n => n % M ∈ ({c % M} : Finset ℕ))).card : ℝ)
+          + (congCount M ({c % M}) N : ℝ) := by exact_mod_cast hadd
+    linarith
+  have hcardR : ((({c % M} : Finset ℕ) ∩ Finset.range M).card : ℝ) = 1 := by
+    have hmem : c % M ∈ Finset.range M := Finset.mem_range.mpr (Nat.mod_lt _ hMpos)
+    rw [Finset.singleton_inter_of_mem hmem, Finset.card_singleton]; norm_num
+  have hb1 := congCount_bound M ({c % M}) hMpos (K₀ * N)
+  have hb2 := congCount_bound M ({c % M}) hMpos N
+  rw [hcardR] at hb1 hb2
+  set X : ℝ := (congCount M ({c % M}) (K₀ * N) : ℝ) - ↑(K₀ * N) * 1 / ↑M with hXdef
+  set Y : ℝ := (congCount M ({c % M}) N : ℝ) - ↑N * 1 / ↑M with hYdef
+  have hbound : |X - Y| ≤ 2 :=
+    calc |X - Y| ≤ |X - 0| + |0 - Y| := abs_sub_le X 0 Y
+      _ = |X| + |Y| := by rw [sub_zero, zero_sub, abs_neg]
+      _ ≤ 1 + 1 := add_le_add hb1 hb2
+      _ = 2 := by norm_num
+  have hgoaleq : (congCountTupleW k K₀ N ν₀ W' d e : ℝ) - ((K₀ - 1) * N : ℝ) / ↑M
+      = X - Y := by
+    rw [hcteq, hXdef, hYdef]
+    push_cast
+    field_simp
+    ring
+  rw [hgoaleq]
+  have h2pow : (2 : ℝ) ≤ 2 ^ (k + 1) := by
+    exact_mod_cast Nat.le_self_pow (Nat.succ_ne_zero k) 2
+  exact hbound.trans h2pow
+
 end Salt.Maynard
