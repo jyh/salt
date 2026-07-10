@@ -255,3 +255,29 @@ signed coefficients — absolute-value bounds must be taken per-monomial
 polynomial `y` lives on a 4-dim simplex slice (budget `1 − Σ_{i≠m}tᵢ`) —
 off-by-one in budget exponents is the likeliest silent error (verify
 against `Jcal`'s `+2`); all mains sharp, all crudeness in errors.
+
+---
+
+## C1 off-line result (2026-07-10, Opus) — CERTIFIED F★
+
+Symmetric-polynomial optimization on the 5-simplex (exact ℚ, cross-checked two
+ways: symmetric-basis eigenproblem AND full 56-monomial expansion; Dirichlet
+sanity `vol Δ₅ = 1/120`, `∫t₁ = 1/720` both pass). Float optimum M₅ ≈ 2.00289
+(matches Maynard); sparse integer certificate:
+
+**F★ = 7·1 − 19·m₁ + 28·m₂ + 30·m₁₁ − 15·m₃ − 21·m₂₁ − 19·m₁₁₁**
+
+(monomial symmetric functions on 5 vars: m₁=Σtᵢ, m₂=Σtᵢ², m₁₁=Σ_{i<j}tᵢtⱼ,
+m₃=Σtᵢ³, m₂₁=Σ_{i≠j}tᵢ²tⱼ, m₁₁₁=Σ_{i<j<l}tᵢtⱼtₗ). Degree 3, 56 monomials.
+
+- **I(F★) = 1597/399168**
+- **Σ_m J⁽ᵐ⁾(F★) = 191881/23950080**
+- **M₅ = 191881/95820 = 2.0025151… > 2** ✓
+- **δ★ = 241/95820 ≈ 2.515·10⁻³** — the certified relative slack (drives §5).
+- Lean reduces to: `2·I < J ⟺ 2·1597/399168 < 191881/23950080
+  ⟺ 191640 < 191881` (common denom 23950080). Trivial ℕ inequality after
+  evaluation.
+
+Level requirement: θ > 2/M₅ = 191640/191881 ≈ 0.99874, so `EHall` suffices
+(pick θ = 1 − δ★/4). Budget-sheet consumers each ≤ δ★/8 ≈ 3.1·10⁻⁴.
+Scripts: scratchpad `m5_opt.py`, `m5_verify.py`.
