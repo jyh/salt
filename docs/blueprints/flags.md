@@ -1623,11 +1623,22 @@ Six fragilities caught+fixed this track: (1) per-u coprimality, (2) budget split
 Opus appends entries here (node id, tripwire hit, what was tried) instead of
 grinding; the next Fable wave opens by draining this list.
 
-- **explicit12 `qdiag_bridge`** (W4-5, `Salt/Twelve/QdiagBridge.lean`, Opus,
-  2026-07-10) — **PB floor invoked: steps (1)–(3) + `qdiag_bridge_of` landed
-  (axiom-clean `[propext, Classical.choice, Quot.sound]`, zero warnings); the
-  UNCONDITIONAL `qdiag_bridge` is FLAGGED — the frozen `1/D` bucket is too tight
-  in SHAPE (one κ⁻¹) for a square-difference SELF-term the card overlooked.**
+- ~~**explicit12 `qdiag_bridge`**~~ **LANDED (W4-5,
+  `Salt/Twelve/QdiagBridge.lean`, Opus, 2026-07-10) — axiom-clean
+  `[propext, Classical.choice, Quot.sound]`, zero warnings.** The Opus pre-flight
+  first hit the bucket-shape wall below (a square-difference SELF-term the card's
+  `1/D` accounting overlooked); the user AUTHORIZED the option-(a) statement fix
+  and the full unconditional `qdiag_bridge` then landed with the **two-term**
+  bucket `A·κ⁻¹·Y⁶/D + A·κ⁻²·Y⁶/D²` (`A = 32·c₀ + 16·c₀² + A'`, `c₀ =
+  lemma53Const·5`, W'-free; κ⁻¹, κ⁻² explicit). `qdiag_gap` discharges steps
+  (1)–(4) (cross → κ⁻¹, self → κ⁻²), `qdiag_bridge_of` closes step (5) (triangle
+  with `mv_J_split`, fold via κ⁻¹≥1). Endgame-safe: `κ⁻²/D² ≤ 25/D → 0` at
+  `W' = primorial D★`. **Wave-5 consumers must use the two-term bucket** (the
+  extra `κ⁻²·Y⁶/D²` term is affordable, vanishes as `D★→∞`). Original wall
+  record (now RESOLVED) follows.
+  - **The wall (RESOLVED by the two-term fix): the frozen `1/D` bucket was too
+    tight in SHAPE (one κ⁻¹) for a square-difference SELF-term the card
+    overlooked.**
   - **Landed unconditionally.** `qdiag_eq_yMsq_sum` (step 1, the diagonalisation
     identity `Qdiag_mW 5 R W' m (yF F) = ∑_{u:uₘ=1} yM(u)²/∏_{i≠m}g` via
     `s2_diag_lam_restricted` at `W'` + the per-term `(∏ᵢg)V² = yM²/∏_{i≠m}g`
