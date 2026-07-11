@@ -76,6 +76,10 @@ track's `All.lean`.
 scratch `#print axioms` dance (~40 times); the lint's phase-3 now does it
 out-of-band, but in-file is stronger (fails at build time, not lint
 time). **When:** any idle slot; pairs with wiring into `lean_action_ci`.
+**STATUS: LANDED** (`Salt/Tactic/AuditAxioms.lean`, `#guard_msgs`-pinned
+self-tests incl. a negative on `Lean.ofReduceBool`; adopted in
+`Salt/BV/All.lean` — remaining tracks' `All.lean` adoption queued for the
+next close-out sweep).
 
 ### T6 — Finset-reindexing helper library (+ aesop set) — class B, library-not-tactic
 The `sum_nbij'`/`sum_sigma`/`sum_comm'`/fiberwise patterns, packaged.

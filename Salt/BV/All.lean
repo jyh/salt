@@ -4,6 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.BV.Defs
+import Salt.BV.MaxReduction
+import Salt.Tactic.AuditAxioms
 import Salt.BV.DivisorSum
 
 /-!
@@ -21,3 +23,9 @@ normalization); `DivisorSum` (V1b — the divisor summatory bound
 identity `sum_Ioc_sigma0_eq_sum_div`, plus the ℓ²-flavored corollary
 `sum_log_sq_le`).
 -/
+
+-- Build-time axiom audit (T5 adoption): a stray axiom in the BV track fails
+-- `lake build` here, not just the out-of-band lint.
+open Salt.Tactic in
+#audit_axioms Salt.BV.sum_card_divisors_le Salt.BV.psiAP_discrepancy_le
+  Salt.BV.psiAP_discrepancy_sup'_le Salt.BV.siegelWalfisz_psiTot
