@@ -1495,7 +1495,8 @@ g-weighted prefactor, blessed inline — reconciled below), NC-3 LANDED PB-floor
 residuals (flags.md 2026-07-11 + Fable review): R1 — the `hQd` comparison,
 discharged POINTWISE at `(primorial Dfin, Dfin)` via the now-public
 `s2_inner_termwise` (NO statement surgery on the frozen `hQd`; per-m
-`Jcal m Fstar > 0` is class A via the landed `J_Fstar_0..4`,
+positivity LANDED: `Jcal_Fstar1_eq`/`Jcal_Fstar1_pos`,
+`Salt/Twelve/JcalPos.lean`, from the landed `J_Fstar_0..4`,
 `Certificate.lean:197-249`); R2 — the `WinFrontierM` `∀ᶠ N` slack (conjuncts
 1–6 = `winFrontier_of` pattern re-instantiated at `Dfin`; conjunct 7 =
 `win_ratio_core` + vanishing budget). `Dfin` resize (`10^18 → ~10^32`) planned
