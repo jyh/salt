@@ -2230,3 +2230,15 @@ The FABLE-QUEUE for this rung is now EMPTY except the `marked_prime_g`
 dead-end record. Open follow-ups (non-blocking, tooling/meta): extend
 `blueprint_lint.py` to the explicit12 card grammar; MODEL_POLICY/CLAUDE.md
 track-closure bookkeeping.
+
+## 2026-07-11 largesieve L8.1 PB-floor: standalone Σ1/φ bound deferred (→ L8.1b)
+
+`Salt/LS/Conductor.lean` landed the conductor-descent toolkit with the
+analytic factor `∑_{m ≤ Q} 1/φ(m) ≤ C·(1+log Q)` THREADED as hypothesis
+`hphi` (`sum_inv_totient_dvd_le`). Blocker: the divisor-swap route needs the
+general-`m` identity `m/φ(m) = ∑_{d∣m} μ²(d)/φ(d)`; mathlib and Salt carry
+only the squarefree version (`Salt.Maynard.PhiAtom.sum_divisors_inv_totient_ge`).
+Route for L8.1b (new node, C, ~150–250 lines): general-`m` via
+`m/φ(m) = rad(m)/φ(rad(m))`, swap, `sum_inv_mul_totient_le ≤ 4`,
+`harmonic_le_one_add_log` ⇒ `C = 4`. L8.4 (BDH) consumes `hphi` either way —
+L8.1b makes it unconditional.
