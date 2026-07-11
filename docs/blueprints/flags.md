@@ -1640,12 +1640,20 @@ grinding; the next Fable wave opens by draining this list.
   + fiber-tsum reindex + harmonic window landed. `PhiUpperAtom` is no longer a
   hypothesis anywhere.
 
-- **explicit12 `mv_J_split`** (W4-2, `Salt/Twelve/MvSplit.lean`; Opus, class C).
-  **FIX APPLIED (wave-4-fix Fable pass 2026-07-10): the frozen `mv_J_split`
-  (and `qdiag_bridge`) `1/D` bucket is now the MIXED-power `(1+X+PAS)⁶` — see
-  the design-doc CORRECTION notes. READY FOR OPUS RE-DISPATCH into
-  `MvSplit.lean` (append `mv_J_split` only; `inner_contract_rel`/`mv_I_split`
-  already committed). Then W4-5 unblocks.** Original wall record follows.
+- ~~**explicit12 `mv_J_split`**~~ **LANDED (W4-2, `Salt/Twelve/MvSplit.lean`,
+  Opus, 2026-07-10) — axiom-clean `[propext, Classical.choice, Quot.sound]`,
+  zero warnings.** The mixed-power fix (b′) below was implemented verbatim: the
+  frozen `1/D` bucket is `A·(1+X+PAS)⁶/D` with `A` F-only
+  (`A = Amain + 512·cF·Aic + 10240·Aic²`), `1/log R` bucket keeps the opaque
+  `∃c`. Route exactly as designed: `mv_J_main_split` (relativized 4-dim g-moment
+  = φ-moment via `mv_monomial` + `badpair_bound_rel4` drop + `g_gap_rel`-style
+  gap via `mjs_gap_rel`, all F-only `1/D`) for the main term, and the
+  `inner_contract_rel` square-expansion (Approach A `Inn²−X²Ev² = 2X·Ev·δ + δ²`,
+  `S1/S2` via relativized MQ/MQ2 `marked_sqf_g_rel`) for the error; both fit
+  `(1+X+PAS)⁶` since `X²·(1+PAS)⁴ ≤ (1+X+PAS)⁶` and `X·PAS⁵ ≤ (1+X+PAS)⁶`. No
+  `X ≤ C(1+PAS)` cross-bound needed. Queue item CLOSED. W4-5 (`qdiag_bridge`)
+  now unblocked (consumes `inner_contract_rel` + `mv_J_split`). Original wall
+  record (now moot) follows.
   `inner_contract_rel` + `mv_I_split` LANDED clean + axiom-clean in that file;
   `mv_J_split` FLAGGED (PB floor: the two must-haves shipped, the double-swap
   assembly hit a *statement-level* wall). **The exact broken step — the main-term
@@ -1700,6 +1708,6 @@ grinding; the next Fable wave opens by draining this list.
     (c) prove `mv_J` natively as a 6-dim moment (avoids the `X²·(4-dim)`
     split; heavier, a fresh proof outside the inner_contract route).
 
-Currently: 2 live entries (`marked_prime_g` dead-end record; `mv_J_split`
-statement-shape wall — 2 of 3 W4-2 deliverables landed, fix (b′) identified)
-+ 2 CLOSED (`budget_moment_g` `3f2f098`; `hReindex` `085f496`).
+Currently: 1 live entry (`marked_prime_g` dead-end record) + 3 CLOSED
+(`budget_moment_g` `3f2f098`; `hReindex` `085f496`; `mv_J_split` — all 3 W4-2
+deliverables landed via the mixed-power fix, MvSplit.lean axiom-clean).
