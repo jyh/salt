@@ -4,6 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.LS.Dist
+import Salt.LS.Defs
+import Salt.LS.Parseval
+import Salt.LS.Gallagher
 
 /-!
 # Rung 5 opener (`largesieve`) — aggregate import
@@ -14,5 +17,9 @@ The large sieve → BDH → Vaughan track. Design:
 
 Landed: `Dist` (L0.2 — the mod-1 circle distance `dist₁`, round-based,
 full spec incl. triangle inequality and the integer-difference
-characterization).
+characterization); `Defs` (L0.1 — the frozen carriers `e`/`expSum` +
+trivia, `@[fun_prop]`-tagged continuity); `Parseval` (L1.1 orthogonality +
+L1.2 **Parseval** `∫₀¹‖expSum‖² = Σ‖aₙ‖²`); `Gallagher` (L4.1 — the
+Sobolev/Gallagher pointwise lemma, `ContDiff ℝ 1` form, frozen constant 2).
+W1 probe verdict: GO — keystone risk retired, Gallagher route ratified.
 -/

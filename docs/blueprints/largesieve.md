@@ -73,16 +73,16 @@ Legend: class A/B/C per `CLAUDE.md`; ✅ proved / 🔄 in flight / ⬜ open / �
 ### W0 — statements (this document + `Salt/LS/Defs.lean`)
 | id | statement | class | status |
 |---|---|---|---|
-| L0.1 | `e`, `expSum` defs + trivia (`‖e x‖ = 1`, `e (x+1) = e x`, `e`-additivity) | A | ⬜ |
+| L0.1 | `e`, `expSum` defs + trivia (`‖e x‖ = 1`, `e (x+1) = e x`, `e`-additivity) — `Salt/LS/Defs.lean`, `@[fun_prop]` continuity | A | ✅ |
 | L0.2 | `dist₁` def + spec lemmas (symm, ≤ 1/2, int-shift invariance, triangle-ish `dist₁ x z ≤ dist₁ x y + dist₁ y z`) — `Salt/LS/Dist.lean`, round-based carrier, 9 lemmas | B | ✅ |
 | L0.3 | `Spaced` def + `Spaced δ α → R ≤ 1/δ + 1`-style counting sanity (optional, drop if unused) | B | ⬜ |
 
 ### W1 — the de-risking probe (Opus, FIRST COMMITTED NODE)
 | id | statement | class | status |
 |---|---|---|---|
-| L1.1 | `∫ α in (0:ℝ)..1, e ((n − m : ℤ) * α) = if n = m then 1 else 0` (orthogonality; ℤ-cast exponent) | B | ⬜ |
-| L1.2 | **Parseval**: `∫ α in (0:ℝ)..1, ‖expSum N a α‖^2 = ∑ n ∈ range N, ‖a n‖^2` | B/C | ⬜ |
-| L4.1 | **Gallagher pointwise**: `f : ℝ → ℂ` differentiable on `[t₀ − δ/2, t₀ + δ/2]`, continuous deriv (executor latitude: `ContDiff ℝ 1` or explicit `HasDerivAt` hypotheses): `‖f t₀‖^2 ≤ δ⁻¹ * ∫ t in I, ‖f t‖^2 + 2 * ∫ t in I, ‖f t‖ * ‖deriv f t‖` (the constant 2 is fine — doctrine) | C | ⬜ |
+| L1.1 | `∫ α in (0:ℝ)..1, e ((n − m : ℤ) * α) = if n = m then 1 else 0` (orthogonality; ℤ-cast exponent) — `integral_e_int` + `integral_e_mul_conj` | B | ✅ |
+| L1.2 | **Parseval**: `∫ α in (0:ℝ)..1, ‖expSum N a α‖^2 = ∑ n ∈ range N, ‖a n‖^2` — `parseval`, landed at B (expand-and-integrate; prove in ℂ, cast once) | B/C | ✅ |
+| L4.1 | **Gallagher pointwise**: `f : ℝ → ℂ` differentiable on `[t₀ − δ/2, t₀ + δ/2]`, continuous deriv (executor latitude: `ContDiff ℝ 1` or explicit `HasDerivAt` hypotheses): `‖f t₀‖^2 ≤ δ⁻¹ * ∫ t in I, ‖f t‖^2 + 2 * ∫ t in I, ‖f t‖ * ‖deriv f t‖` (the constant 2 is fine — doctrine) — `gallagher_pointwise`, `ContDiff ℝ 1` form; the set↔interval integral conversions were the C-content (`norm_integral_le_integral_norm_uIoc` chain) | C | ✅ |
 
 Side conditions: `expSum` is a finite sum of smooth terms — integrability via
 `Continuous.intervalIntegrable`, no measurability nodes needed (state this in
@@ -90,10 +90,9 @@ the file docstring, don't let side goals balloon). De-risked by the
 adversarial pass: L1.1 compiles against the pin via
 `integral_exp_mul_complex` + `Complex.exp_int_mul_two_pi_mul_I` (verified).
 
-**Probe verdict rule:** if L1.2 + L4.1 land ≤ B/C-as-classified, keystone risk
-is retired and W2–W3 dispatch immediately. If either breaks class, STOP —
-Fable redesigns (candidate fallback: duality route with the log, absorbed by
-`δ⁻¹ log(3/δ)` in Δ — downstream consumers re-checked before adopting).
+**Probe verdict (2026-07-11): GO.** L1.2 landed at B, L4.1 at C as
+classified; no node needed a second attempt; API pins held. Keystone risk
+RETIRED — the Gallagher route is ratified and the duality fallback is closed.
 
 ### W2 — analytic large sieve
 | id | statement | class | status |
