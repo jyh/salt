@@ -574,4 +574,648 @@ theorem yF_V_mul_g_le (R W' D : ℕ) (m : Fin 5) (F : Poly) (hQ : Qabs F ≤ 1)
   · rw [lamPhiContractM_vanish 5 R W' m (yF R W' F) w hcase, abs_zero, mul_zero]
     linarith [hPASnn, hε0]
 
+/-- **NC-2 hterm_g** — the per-`u` termwise bound (S₁'s `hterm` ported to g/V).
+For `u` in the pinned box, `|∏g(u)·V(u∨σ)·V(u∨τ)| ≤ K·(PAS+ε)²·((1/∏_{i≠m}g)·CT_u)`
+with `K = ∏(q−2)⁻²`, `CT_u = ∏_{contam(u)}(q−2)`; via `yF_V_mul_g_le` + `gMult_lcm_split`
++ the g-`hcompl` contamination identity. -/
+private lemma s2_term_bound (F : Poly) (m : Fin 5) (hQ : Qabs F ≤ 1)
+    (R W' D : ℕ) (hR2 : 2 ≤ R) (hW' : Squarefree W') (hpos : 0 < W')
+    (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hDk : 300 ≤ D)
+    {s : ℕ} (hs : Squarefree s)
+    (α : (p : ℕ) → p ∈ s.primeFactors → Fin 5 × Fin 5)
+    (hα : α ∈ assignments 5 s)
+    (u : Fin 5 → ℕ) (hu : u ∈ kSieveIndex 5 R W') (hum : u m = 1) :
+    |(∏ i, (gMult (u i) : ℝ))
+        * lamPhiContractM 5 R W' m (yF R W' F) (fun i => Nat.lcm (u i) (slotProd s α Prod.fst i))
+        * lamPhiContractM 5 R W' m (yF R W' F) (fun i => Nat.lcm (u i) (slotProd s α Prod.snd i))|
+      ≤ (∏ q ∈ s.primeFactors.attach, (((q : ℕ) : ℝ) - 2)⁻¹ ^ 2)
+          * ((Salt.Maynard.phiAtomSum R W' + lemma53Const * 5 * Real.log R / D) ^ 2)
+          * ((1 / ∏ i ∈ Finset.univ.erase m, (gMult (u i) : ℝ))
+              * ∏ q ∈ s.primeFactors.attach.filter
+                  (fun q : {x // x ∈ s.primeFactors} => (q : ℕ) ∣ u ((α q.1 q.2).1)
+                    ∨ (q : ℕ) ∣ u ((α q.1 q.2).2)),
+                  (((q : ℕ) : ℝ) - 2)) := by
+  classical
+  set V := lamPhiContractM 5 R W' m (yF R W' F) with hVdef
+  set PE : ℝ := Salt.Maynard.phiAtomSum R W' + lemma53Const * 5 * Real.log R / D with hPEdef
+  set σ : Fin 5 → ℕ := slotProd s α Prod.fst with hσ0
+  set τ : Fin 5 → ℕ := slotProd s α Prod.snd with hτ0
+  set K : ℝ := ∏ q ∈ s.primeFactors.attach, (((q : ℕ) : ℝ) - 2)⁻¹ ^ 2 with hKdef
+  set CT : ℝ := ∏ q ∈ s.primeFactors.attach.filter
+      (fun q : {x // x ∈ s.primeFactors} => (q : ℕ) ∣ u ((α q.1 q.2).1)
+        ∨ (q : ℕ) ∣ u ((α q.1 q.2).2)), (((q : ℕ) : ℝ) - 2) with hCTdef
+  have hPE0 : 0 ≤ PE := by
+    rw [hPEdef]
+    have h1 : 0 ≤ Salt.Maynard.phiAtomSum R W' := by
+      unfold Salt.Maynard.phiAtomSum; exact Finset.sum_nonneg (fun _ _ => by positivity)
+    have h2 : 0 ≤ lemma53Const * 5 * Real.log R / D :=
+      div_nonneg (mul_nonneg (mul_nonneg lemma53Const_nonneg (by norm_num))
+        (Real.log_nonneg (by exact_mod_cast (by omega : 1 ≤ R)))) (by positivity)
+    linarith
+  have hPprime : ∀ p ∈ s.primeFactors, p.Prime := fun p hp => Nat.prime_of_mem_primeFactors hp
+  have hσsq : ∀ (sel : Fin 5 × Fin 5 → Fin 5) i, Squarefree (slotProd s α sel i) :=
+    fun sel i => hs.squarefree_of_dvd (slotProd_dvd hs α sel i)
+  have hgpos : ∀ (v : Fin 5 → ℕ), v ∈ kSieveIndex 5 R W' → ∀ i, (0:ℝ) < (gMult (v i) : ℝ) := by
+    intro v hv i
+    have hposN : (0:ℕ) < gMult (v i) := by
+      rw [gMult]; apply Finset.prod_pos; intro p hp
+      have hpp : p.Prime := Nat.prime_of_mem_primeFactors hp
+      have hpcop : p.Coprime W' :=
+        (((mem_kSieveIndex_iff v).mp hv).2.2.1 i).coprime_dvd_left (Nat.dvd_of_mem_primeFactors hp)
+      have hpW' : ¬ p ∣ W' := (Nat.Prime.coprime_iff_not_dvd hpp).mp hpcop
+      have := hDW p hpp hpW'; omega
+    exact_mod_cast hposN
+  have hΦu_pos : 0 < ∏ i, (gMult (u i) : ℝ) := Finset.prod_pos (fun i _ => hgpos u hu i)
+  have hgm1 : (gMult (u m) : ℝ) = 1 := by rw [hum]; simp [gMult, Nat.primeFactors_one]
+  have hprodgu : (∏ i, (gMult (u i) : ℝ)) = ∏ i ∈ Finset.univ.erase m, (gMult (u i) : ℝ) := by
+    rw [← Finset.mul_prod_erase Finset.univ (fun i => (gMult (u i):ℝ)) (Finset.mem_univ m),
+      hgm1, one_mul]
+  have hKnn : 0 ≤ K := Finset.prod_nonneg fun q _ => sq_nonneg _
+  have hq2 : ∀ q : {x // x ∈ s.primeFactors}, (2:ℝ) ≤ ((q:ℕ):ℝ) := by
+    intro q; exact_mod_cast (hPprime _ q.2).two_le
+  have hCTnn : 0 ≤ CT := Finset.prod_nonneg fun q _ => by have := hq2 q; linarith
+  have hinvnn : 0 ≤ 1 / ∏ i ∈ Finset.univ.erase m, (gMult (u i) : ℝ) := by
+    rw [← hprodgu]; positivity
+  by_cases hbox : ((fun i => Nat.lcm (u i) (σ i)) ∈ kSieveIndex 5 R W'
+      ∧ (fun i => Nat.lcm (u i) (σ i)) m = 1)
+      ∧ ((fun i => Nat.lcm (u i) (τ i)) ∈ kSieveIndex 5 R W'
+      ∧ (fun i => Nat.lcm (u i) (τ i)) m = 1)
+  · obtain ⟨⟨hσbox, _hσm⟩, ⟨hτbox, _hτm⟩⟩ := hbox
+    -- g > 0 on the cofactor products
+    have hcofpos : ∀ (sel : Fin 5 × Fin 5 → Fin 5),
+        (fun i => Nat.lcm (u i) (slotProd s α sel i)) ∈ kSieveIndex 5 R W' →
+        (0:ℝ) < ∏ i, (gMult (slotProd s α sel i / Nat.gcd (slotProd s α sel i) (u i)) : ℝ) := by
+      intro sel hsb
+      apply Finset.prod_pos; intro i _
+      have hposN : (0:ℕ) < gMult (slotProd s α sel i / Nat.gcd (slotProd s α sel i) (u i)) := by
+        rw [gMult]; apply Finset.prod_pos; intro p hp
+        have hpp : p.Prime := Nat.prime_of_mem_primeFactors hp
+        have hpdvd : p ∣ slotProd s α sel i / Nat.gcd (slotProd s α sel i) (u i) :=
+          Nat.dvd_of_mem_primeFactors hp
+        -- p ∣ σᵢ/gcd ∣ σᵢ ∣ lcm(uᵢ,σᵢ) = (u∨σ)ᵢ, a box coord ⇒ p ∤ W'
+        have hplcm : p ∣ Nat.lcm (u i) (slotProd s α sel i) :=
+          (hpdvd.trans (Nat.div_dvd_of_dvd (Nat.gcd_dvd_left _ _))).trans (Nat.dvd_lcm_right _ _)
+        have hpW' : ¬ p ∣ W' := (Nat.Prime.coprime_iff_not_dvd hpp).mp
+          ((((mem_kSieveIndex_iff _).mp hsb).2.2.1 i).coprime_dvd_left hplcm)
+        have := hDW p hpp hpW'; omega
+      exact_mod_cast hposN
+    have hGσpos := hcofpos Prod.fst hσbox
+    have hGτpos := hcofpos Prod.snd hτbox
+    -- ∏g(u∨sel) = ∏g(u) · Gsel  (g-lcm-split per coord)
+    have hgsplit : ∀ (sel : Fin 5 × Fin 5 → Fin 5),
+        (∏ i, (gMult (Nat.lcm (u i) (slotProd s α sel i)) : ℝ))
+          = (∏ i, (gMult (u i) : ℝ))
+              * ∏ i, (gMult (slotProd s α sel i / Nat.gcd (slotProd s α sel i) (u i)) : ℝ) := by
+      intro sel
+      rw [← Finset.prod_mul_distrib]
+      apply Finset.prod_congr rfl; intro i _
+      rw [← Nat.cast_mul, ← gMult_lcm_split (hσsq sel i)]
+    -- V-bound ⇒ |V(u∨sel)| ≤ PE / (∏g(u) · Gsel)
+    have hVle : ∀ (sel : Fin 5 × Fin 5 → Fin 5),
+        (0:ℝ) < ∏ i, (gMult (slotProd s α sel i / Nat.gcd (slotProd s α sel i) (u i)) : ℝ) →
+        |V (fun i => Nat.lcm (u i) (slotProd s α sel i))|
+          ≤ PE / ((∏ i, (gMult (u i) : ℝ))
+              * ∏ i, (gMult (slotProd s α sel i / Nat.gcd (slotProd s α sel i) (u i)) : ℝ)) := by
+      intro sel hGsel
+      rw [le_div_iff₀ (mul_pos hΦu_pos hGsel), ← hgsplit sel, mul_comm]
+      rw [hPEdef]
+      exact yF_V_mul_g_le R W' D m F hQ hR2 hW' hpos hDW hDk _
+    have hVσle := hVle Prod.fst hGσpos
+    have hVτle := hVle Prod.snd hGτpos
+    -- termwise chain
+    have habsprod : |(∏ i, (gMult (u i) : ℝ))
+        * V (fun i => Nat.lcm (u i) (σ i)) * V (fun i => Nat.lcm (u i) (τ i))|
+        = (∏ i, (gMult (u i) : ℝ)) * |V (fun i => Nat.lcm (u i) (σ i))|
+            * |V (fun i => Nat.lcm (u i) (τ i))| := by
+      rw [abs_mul, abs_mul, abs_of_pos hΦu_pos]
+    rw [habsprod]
+    set Gσ : ℝ := ∏ i, (gMult (σ i / Nat.gcd (σ i) (u i)) : ℝ) with hGσdef
+    set Gτ : ℝ := ∏ i, (gMult (τ i / Nat.gcd (τ i) (u i)) : ℝ) with hGτdef
+    -- hchain: ∏g(u)|Vσ||Vτ| ≤ ∏g(u)·(PE/(∏g(u)Gσ))·(PE/(∏g(u)Gτ))
+    have hchain : (∏ i, (gMult (u i) : ℝ)) * |V (fun i => Nat.lcm (u i) (σ i))|
+          * |V (fun i => Nat.lcm (u i) (τ i))|
+        ≤ (∏ i, (gMult (u i) : ℝ)) * (PE / ((∏ i, (gMult (u i) : ℝ)) * Gσ))
+            * (PE / ((∏ i, (gMult (u i) : ℝ)) * Gτ)) := by
+      have hNσ : 0 ≤ (∏ i, (gMult (u i) : ℝ)) * (PE / ((∏ i, (gMult (u i) : ℝ)) * Gσ)) :=
+        mul_nonneg hΦu_pos.le (by positivity)
+      refine mul_le_mul ?_ hVτle (abs_nonneg _) hNσ
+      exact mul_le_mul_of_nonneg_left hVσle hΦu_pos.le
+    refine le_trans hchain ?_
+    -- halg: rewrite to K·PE²·(1/∏g(u))·(∏_{contam}(q-2))  via hcompl_g
+    have halg : (∏ i, (gMult (u i) : ℝ)) * (PE / ((∏ i, (gMult (u i) : ℝ)) * Gσ))
+          * (PE / ((∏ i, (gMult (u i) : ℝ)) * Gτ))
+        = (1 / ∏ i, (gMult (u i) : ℝ)) * (Gσ⁻¹ * Gτ⁻¹) * PE ^ 2 := by
+      have h1 := hΦu_pos.ne'
+      have h2 := hGσpos.ne'
+      have h3 := hGτpos.ne'
+      field_simp
+    rw [halg]
+    -- hcompl_g: Gσ⁻¹Gτ⁻¹ = K · CT
+    have hslots : ∀ (q : {x // x ∈ s.primeFactors}), (α q.1 q.2).1 ≠ (α q.1 q.2).2 := by
+      intro q
+      have hmem := (Finset.mem_pi.mp hα) q.1 q.2
+      rw [Finset.mem_offDiag] at hmem; exact hmem.2.2
+    -- every prime of s divides a box coord, hence ≥ 3 (coprime W', > D ≥ 300)
+    have hs3 : ∀ (q : {x // x ∈ s.primeFactors}), 3 ≤ (q : ℕ) := by
+      intro q
+      have hqp : ((q:ℕ)).Prime := hPprime _ q.2
+      have hqσ : (q:ℕ) ∣ slotProd s α Prod.fst ((α q.1 q.2).1) :=
+        (prime_dvd_slotProd_iff α Prod.fst hqp _).mpr ⟨q.2, rfl⟩
+      have hqlcm : (q:ℕ) ∣ Nat.lcm (u ((α q.1 q.2).1)) (slotProd s α Prod.fst ((α q.1 q.2).1)) :=
+        hqσ.trans (Nat.dvd_lcm_right _ _)
+      have hqW' : ¬ (q:ℕ) ∣ W' := (Nat.Prime.coprime_iff_not_dvd hqp).mp
+        ((((mem_kSieveIndex_iff _).mp hσbox).2.2.1 ((α q.1 q.2).1)).coprime_dvd_left hqlcm)
+      have := hDW (q:ℕ) hqp hqW'; omega
+    have hqne0 : ∀ (q : {x // x ∈ s.primeFactors}), (((q:ℕ):ℝ) - 2) ≠ 0 := by
+      intro q
+      have h3 : (3:ℝ) ≤ ((q:ℕ):ℝ) := by exact_mod_cast hs3 q
+      intro h; linarith
+    have hT : (0:ℝ) < ∏ q ∈ s.primeFactors.attach, (((q:ℕ):ℝ) - 2) := by
+      apply Finset.prod_pos; intro q _
+      have h3 : (3:ℝ) ≤ ((q:ℕ):ℝ) := by exact_mod_cast hs3 q
+      linarith
+    -- hreindex_g: Gσ = ∏_{q : ¬q∣u(sel(αq))} (q-2)
+    have hGsel_eq : ∀ (sel : Fin 5 × Fin 5 → Fin 5),
+        (fun i => Nat.lcm (u i) (slotProd s α sel i)) ∈ kSieveIndex 5 R W' →
+        (∏ i, (gMult (slotProd s α sel i / Nat.gcd (slotProd s α sel i) (u i)) : ℝ))
+          = ∏ q ∈ s.primeFactors.attach.filter
+              (fun q : {x // x ∈ s.primeFactors} => ¬ (q : ℕ) ∣ u (sel (α q.1 q.2))),
+              (((q : ℕ) : ℝ) - 2) := by
+      intro sel hsb
+      have hcast : (∏ i, (gMult (slotProd s α sel i / Nat.gcd (slotProd s α sel i) (u i)) : ℝ))
+          = ∏ i, ∏ p ∈ (slotProd s α sel i / Nat.gcd (slotProd s α sel i) (u i)).primeFactors,
+              ((p : ℝ) - 2) := by
+        apply Finset.prod_congr rfl; intro i _
+        refine gMult_cast (fun p hp => ?_)
+        have hpp := Nat.prime_of_mem_primeFactors hp
+        have hplcm : p ∣ Nat.lcm (u i) (slotProd s α sel i) :=
+          ((Nat.dvd_of_mem_primeFactors hp).trans
+            (Nat.div_dvd_of_dvd (Nat.gcd_dvd_left _ _))).trans (Nat.dvd_lcm_right _ _)
+        have hpW' : ¬ p ∣ W' := (Nat.Prime.coprime_iff_not_dvd hpp).mp
+          ((((mem_kSieveIndex_iff _).mp hsb).2.2.1 i).coprime_dvd_left hplcm)
+        have := hDW p hpp hpW'; omega
+      rw [hcast]
+      -- the S1 hreindex fiberwise structure, with (·-2)
+      rw [← Finset.prod_fiberwise_of_maps_to
+        (g := fun q : {x // x ∈ s.primeFactors} => sel (α q.1 q.2))
+        (t := (Finset.univ : Finset (Fin 5)))
+        (fun q _ => Finset.mem_univ _)
+        (fun q : {x // x ∈ s.primeFactors} => (((q : ℕ) : ℝ) - 2))]
+      apply Finset.prod_congr rfl; intro i _
+      have hcne : slotProd s α sel i / Nat.gcd (slotProd s α sel i) (u i) ≠ 0 := by
+        have hσpos : 0 < slotProd s α sel i := Squarefree.pos (hσsq sel i)
+        have hgpos' : 0 < Nat.gcd (slotProd s α sel i) (u i) :=
+          Nat.gcd_pos_of_pos_left _ hσpos
+        exact (Nat.div_pos (Nat.le_of_dvd hσpos (Nat.gcd_dvd_left _ _)) hgpos').ne'
+      have hset : (slotProd s α sel i / Nat.gcd (slotProd s α sel i) (u i)).primeFactors
+          = ((s.primeFactors.attach.filter
+              (fun q : {x // x ∈ s.primeFactors} => ¬ (q : ℕ) ∣ u (sel (α q.1 q.2)))).filter
+              (fun q => sel (α q.1 q.2) = i)).image
+                (fun q : {x // x ∈ s.primeFactors} => (q : ℕ)) := by
+        ext p
+        simp only [Nat.mem_primeFactors, Finset.mem_image, Finset.mem_filter,
+          Finset.mem_attach, true_and]
+        constructor
+        · rintro ⟨hp, hpc, -⟩
+          obtain ⟨hpσ, hpu⟩ := (prime_dvd_cofactor_iff (hσsq sel i) hp).mp hpc
+          obtain ⟨hmem, hsel⟩ := (prime_dvd_slotProd_iff α sel hp i).mp hpσ
+          refine ⟨⟨p, hmem⟩, ⟨?_, hsel⟩, rfl⟩
+          simp only; rw [hsel]; exact hpu
+        · rintro ⟨q, ⟨hqnot, hqsel⟩, rfl⟩
+          have hqp : (q : ℕ).Prime := hPprime _ q.2
+          refine ⟨hqp, ?_, hcne⟩
+          apply (prime_dvd_cofactor_iff (hσsq sel i) hqp).mpr
+          refine ⟨(prime_dvd_slotProd_iff α sel hqp i).mpr ⟨q.2, hqsel⟩, ?_⟩
+          rw [← hqsel]; exact hqnot
+      rw [hset, Finset.prod_image]
+      intro q₁ _ q₂ _ h; exact Subtype.ext h
+    have hGσ_eq : Gσ = ∏ q ∈ s.primeFactors.attach.filter
+        (fun q : {x // x ∈ s.primeFactors} => ¬ (q : ℕ) ∣ u ((α q.1 q.2).1)),
+        (((q : ℕ) : ℝ) - 2) := hGsel_eq Prod.fst hσbox
+    have hGτ_eq : Gτ = ∏ q ∈ s.primeFactors.attach.filter
+        (fun q : {x // x ∈ s.primeFactors} => ¬ (q : ℕ) ∣ u ((α q.1 q.2).2)),
+        (((q : ℕ) : ℝ) - 2) := hGsel_eq Prod.snd hτbox
+    set Bσ := s.primeFactors.attach.filter
+        (fun q : {x // x ∈ s.primeFactors} => (q : ℕ) ∣ u ((α q.1 q.2).1)) with hBσ
+    set Bτ := s.primeFactors.attach.filter
+        (fun q : {x // x ∈ s.primeFactors} => (q : ℕ) ∣ u ((α q.1 q.2).2)) with hBτ
+    have hsplitσ : (∏ q ∈ Bσ, (((q : ℕ) : ℝ) - 2)) * Gσ
+        = ∏ q ∈ s.primeFactors.attach, (((q : ℕ) : ℝ) - 2) := by
+      rw [hGσ_eq, hBσ]; exact Finset.prod_filter_mul_prod_filter_not _ _ _
+    have hsplitτ : (∏ q ∈ Bτ, (((q : ℕ) : ℝ) - 2)) * Gτ
+        = ∏ q ∈ s.primeFactors.attach, (((q : ℕ) : ℝ) - 2) := by
+      rw [hGτ_eq, hBτ]; exact Finset.prod_filter_mul_prod_filter_not _ _ _
+    have hdisj : Disjoint Bσ Bτ := by
+      rw [Finset.disjoint_left]; intro q hqσ hqτ
+      rw [hBσ, Finset.mem_filter] at hqσ; rw [hBτ, Finset.mem_filter] at hqτ
+      exact hslots q (prime_dvd_coord_unique hu (hPprime _ q.2) hqσ.2 hqτ.2)
+    have hunion : s.primeFactors.attach.filter
+        (fun q : {x // x ∈ s.primeFactors} => (q : ℕ) ∣ u ((α q.1 q.2).1)
+          ∨ (q : ℕ) ∣ u ((α q.1 q.2).2)) = Bσ ∪ Bτ := by
+      rw [hBσ, hBτ, Finset.filter_or]
+    have hcompl_g : Gσ⁻¹ * Gτ⁻¹ = K * CT := by
+      have hKinv : K = ((∏ q ∈ s.primeFactors.attach, (((q : ℕ) : ℝ) - 2))⁻¹) ^ 2 := by
+        rw [hKdef, ← Finset.prod_inv_distrib, ← Finset.prod_pow]
+      rw [hCTdef, hunion, Finset.prod_union hdisj, hKinv]
+      have h1 : Gσ⁻¹ = (∏ q ∈ Bσ, (((q : ℕ) : ℝ) - 2))
+          / ∏ q ∈ s.primeFactors.attach, (((q : ℕ) : ℝ) - 2) := by
+        rw [eq_div_iff hT.ne', ← hsplitσ]; field_simp
+      have h2 : Gτ⁻¹ = (∏ q ∈ Bτ, (((q : ℕ) : ℝ) - 2))
+          / ∏ q ∈ s.primeFactors.attach, (((q : ℕ) : ℝ) - 2) := by
+        rw [eq_div_iff hT.ne', ← hsplitτ]; field_simp
+      rw [h1, h2]; ring
+    rw [hcompl_g, hprodgu]
+    apply le_of_eq; ring
+  · have hz : V (fun i => Nat.lcm (u i) (σ i)) = 0 ∨ V (fun i => Nat.lcm (u i) (τ i)) = 0 := by
+      by_cases h1 : (fun i => Nat.lcm (u i) (σ i)) ∈ kSieveIndex 5 R W'
+          ∧ (fun i => Nat.lcm (u i) (σ i)) m = 1
+      · right; exact lamPhiContractM_vanish 5 R W' m (yF R W' F) _ (fun h => hbox ⟨h1, h⟩)
+      · left; exact lamPhiContractM_vanish 5 R W' m (yF R W' F) _ h1
+    have hterm0 : (∏ i, (gMult (u i) : ℝ))
+        * V (fun i => Nat.lcm (u i) (σ i)) * V (fun i => Nat.lcm (u i) (τ i)) = 0 := by
+      rcases hz with h | h <;> rw [h] <;> ring
+    rw [hterm0, abs_zero]
+    exact mul_nonneg (mul_nonneg hKnn (sq_nonneg PE)) (mul_nonneg hinvnn hCTnn)
+
+/-- **NC-2 hpart_g** — the contamination partition (S₁'s `hpart` ported to g), via
+pairs-fibering `u ↦ (Bσ(u),Bτ(u))` over the landed `box_marked_gmoment`, giving `3^ω`. -/
+private lemma s2_part_bound (R W' D : ℕ) (hR2 : 2 ≤ R) (hW' : Squarefree W') (hpos : 0 < W')
+    (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hD : 300 ≤ D)
+    (m : Fin 5) {s : ℕ} (_hs : Squarefree s)
+    (α : (p : ℕ) → p ∈ s.primeFactors → Fin 5 × Fin 5)
+    (hα : α ∈ assignments 5 s)
+    (hfstne : ∀ q : {x // x ∈ s.primeFactors}, (α q.1 q.2).1 ≠ m)
+    (hsndne : ∀ q : {x // x ∈ s.primeFactors}, (α q.1 q.2).2 ≠ m) :
+    ∑ u ∈ (kSieveIndex 5 R W').filter (fun u => u m = 1),
+        (1 / ∏ i ∈ Finset.univ.erase m, (gMult (u i) : ℝ))
+          * ∏ q ∈ s.primeFactors.attach.filter
+              (fun q : {x // x ∈ s.primeFactors} => (q : ℕ) ∣ u ((α q.1 q.2).1)
+                ∨ (q : ℕ) ∣ u ((α q.1 q.2).2)),
+              (((q : ℕ) : ℝ) - 2)
+      ≤ 3 ^ s.primeFactors.card * (2 * Salt.Maynard.phiAtomSum R W') ^ 4 := by
+  classical
+  set pf := s.primeFactors.attach with hpf
+  set box1 := (kSieveIndex 5 R W').filter (fun u => u m = 1) with hbox1
+  set wt : (Fin 5 → ℕ) → ℝ := fun u => 1 / ∏ i ∈ Finset.univ.erase m, (gMult (u i) : ℝ) with hwt
+  have hwtnn : ∀ u, 0 ≤ wt u := fun u => by rw [hwt]; positivity
+  set PAS := Salt.Maynard.phiAtomSum R W' with hPAS
+  have hPASnn : 0 ≤ PAS := by
+    rw [hPAS]; unfold Salt.Maynard.phiAtomSum; exact Finset.sum_nonneg (fun _ _ => by positivity)
+  have hPprime : ∀ p ∈ s.primeFactors, p.Prime := fun p hp => Nat.prime_of_mem_primeFactors hp
+  set Bσ : (Fin 5 → ℕ) → Finset {x // x ∈ s.primeFactors} := fun u =>
+    pf.filter (fun q => (q : ℕ) ∣ u ((α q.1 q.2).1)) with hBσ
+  set Bτ : (Fin 5 → ℕ) → Finset {x // x ∈ s.primeFactors} := fun u =>
+    pf.filter (fun q => (q : ℕ) ∣ u ((α q.1 q.2).2)) with hBτ
+  -- fiber map
+  have hmaps : ∀ u ∈ box1, (Bσ u, Bτ u) ∈ pf.powerset ×ˢ pf.powerset := by
+    intro u _
+    rw [Finset.mem_product]
+    exact ⟨Finset.mem_powerset.mpr (Finset.filter_subset _ _),
+      Finset.mem_powerset.mpr (Finset.filter_subset _ _)⟩
+  rw [← Finset.sum_fiberwise_of_maps_to hmaps
+    (fun u => wt u * ∏ q ∈ s.primeFactors.attach.filter
+        (fun q : {x // x ∈ s.primeFactors} => (q : ℕ) ∣ u ((α q.1 q.2).1)
+          ∨ (q : ℕ) ∣ u ((α q.1 q.2).2)),
+        (((q : ℕ) : ℝ) - 2))]
+  -- per fiber (S,T) bound
+  have hfiber : ∀ ST ∈ pf.powerset ×ˢ pf.powerset,
+      (∑ u ∈ box1.filter (fun u => (Bσ u, Bτ u) = ST),
+        wt u * ∏ q ∈ s.primeFactors.attach.filter
+            (fun q : {x // x ∈ s.primeFactors} => (q : ℕ) ∣ u ((α q.1 q.2).1)
+              ∨ (q : ℕ) ∣ u ((α q.1 q.2).2)),
+            (((q : ℕ) : ℝ) - 2))
+        ≤ (if Disjoint ST.1 ST.2 then (2 * PAS) ^ 4 else 0) := by
+    intro ST hST
+    obtain ⟨S, T⟩ := ST
+    rw [Finset.mem_product, Finset.mem_powerset, Finset.mem_powerset] at hST
+    obtain ⟨hSpf, hTpf⟩ := hST
+    simp only
+    -- Bσ(u), Bτ(u) are always disjoint (a prime divides ≤ 1 box coord, and slots differ)
+    have hBdisj : ∀ u ∈ box1, Disjoint (Bσ u) (Bτ u) := by
+      intro u hu
+      rw [hbox1, Finset.mem_filter] at hu
+      rw [Finset.disjoint_left]; intro q hqσ hqτ
+      rw [hBσ, Finset.mem_filter] at hqσ; rw [hBτ, Finset.mem_filter] at hqτ
+      have hslots : (α q.1 q.2).1 ≠ (α q.1 q.2).2 := by
+        have hmem := (Finset.mem_pi.mp hα) q.1 q.2
+        rw [Finset.mem_offDiag] at hmem; exact hmem.2.2
+      exact hslots (prime_dvd_coord_unique hu.1 (hPprime _ q.2) hqσ.2 hqτ.2)
+    by_cases hdisj : Disjoint S T
+    · rw [if_pos hdisj]
+      rcases (box1.filter (fun u => (Bσ u, Bτ u) = (S, T))).eq_empty_or_nonempty
+        with hempty | ⟨u₀, hu₀⟩
+      · rw [hempty, Finset.sum_empty]; positivity
+      · rw [Finset.mem_filter] at hu₀
+        obtain ⟨hu₀box1, hu₀eq⟩ := hu₀
+        have hSeq : S = Bσ u₀ := (Prod.ext_iff.mp hu₀eq).1.symm
+        have hTeq : T = Bτ u₀ := (Prod.ext_iff.mp hu₀eq).2.symm
+        -- primes of S ∪ T exceed D (they divide a box coord of u₀)
+        have hSTbig : ∀ q ∈ S ∪ T, D < (q : ℕ) := by
+          intro q hq
+          rw [Finset.mem_union] at hq
+          rw [hbox1, Finset.mem_filter] at hu₀box1
+          rcases hq with hq | hq
+          · rw [hSeq, hBσ, Finset.mem_filter] at hq
+            exact D_lt_of_prime_dvd_coordW hDW hu₀box1.1 (hPprime _ q.2) hq.2
+          · rw [hTeq, hBτ, Finset.mem_filter] at hq
+            exact D_lt_of_prime_dvd_coordW hDW hu₀box1.1 (hPprime _ q.2) hq.2
+        set Q : Finset ℕ := (S ∪ T).image Subtype.val with hQ
+        set slotf : ℕ → Fin 5 := fun p =>
+          if hp : p ∈ s.primeFactors then
+            (if (⟨p, hp⟩ : {x // x ∈ s.primeFactors}) ∈ S then (α p hp).1 else (α p hp).2)
+          else m with hslotf
+        have hQmem : ∀ p ∈ Q, ∃ hp : p ∈ s.primeFactors,
+            (⟨p, hp⟩ : {x // x ∈ s.primeFactors}) ∈ S ∪ T := by
+          intro p hp
+          rw [hQ] at hp
+          obtain ⟨q, hqST, hqe⟩ := Finset.mem_image.mp hp
+          have hpp : p ∈ s.primeFactors := hqe ▸ q.2
+          refine ⟨hpp, ?_⟩
+          have hqq : (⟨p, hpp⟩ : {x // x ∈ s.primeFactors}) = q := Subtype.ext hqe.symm
+          rw [hqq]; exact hqST
+        -- box_marked_gmoment hyps
+        have hslotne : ∀ p ∈ Q, slotf p ≠ m := by
+          intro p hp
+          obtain ⟨hp', _⟩ := hQmem p hp
+          rw [hslotf]; simp only [dif_pos hp']
+          split_ifs
+          · exact hfstne ⟨p, hp'⟩
+          · exact hsndne ⟨p, hp'⟩
+        have hQprime : ∀ p ∈ Q, p.Prime := by
+          intro p hp; obtain ⟨hp', _⟩ := hQmem p hp; exact hPprime p hp'
+        have hQdlt : ∀ p ∈ Q, D < p := by
+          intro p hp; obtain ⟨hp', hpST⟩ := hQmem p hp; exact hSTbig _ hpST
+        have hbmg := box_marked_gmoment R W' D m Q slotf hslotne hQprime hQdlt hW' hpos
+          (by omega) hDW hR2
+        -- the marked set matches: box.filter(uₘ=1 ∧ ∀p∈Q, p∣u(slotf p)) ⊇ fiber
+        have hsubset : box1.filter (fun u => (Bσ u, Bτ u) = (S, T))
+            ⊆ (kSieveIndex 5 R W').filter
+                (fun u => u m = 1 ∧ ∀ p ∈ Q, p ∣ u (slotf p)) := by
+          intro u hu
+          rw [Finset.mem_filter, hbox1, Finset.mem_filter] at hu
+          obtain ⟨⟨hubox, hum⟩, hueq⟩ := hu
+          rw [Finset.mem_filter]
+          refine ⟨hubox, hum, ?_⟩
+          intro p hp
+          obtain ⟨hp', hpST⟩ := hQmem p hp
+          have hBσu : Bσ u = S := (Prod.ext_iff.mp hueq).1
+          have hBτu : Bτ u = T := (Prod.ext_iff.mp hueq).2
+          rw [hslotf]; simp only [dif_pos hp']
+          rw [Finset.mem_union] at hpST
+          split_ifs with hin
+          · -- ⟨p,hp'⟩ ∈ S = Bσ u ⇒ p ∣ u ((α p hp').1)
+            have : (⟨p, hp'⟩ : {x // x ∈ s.primeFactors}) ∈ Bσ u := hBσu ▸ hin
+            rw [hBσ, Finset.mem_filter] at this; exact this.2
+          · -- ⟨p,hp'⟩ ∈ T = Bτ u
+            rcases hpST with h | h
+            · exact absurd h hin
+            · have : (⟨p, hp'⟩ : {x // x ∈ s.primeFactors}) ∈ Bτ u := hBτu ▸ h
+              rw [hBτ, Finset.mem_filter] at this; exact this.2
+        -- CT_u = ∏_{S∪T}(q-2) on the fiber
+        have hCTeq : ∀ u ∈ box1.filter (fun u => (Bσ u, Bτ u) = (S, T)),
+            (∏ q ∈ s.primeFactors.attach.filter
+                (fun q : {x // x ∈ s.primeFactors} => (q : ℕ) ∣ u ((α q.1 q.2).1)
+                  ∨ (q : ℕ) ∣ u ((α q.1 q.2).2)), (((q : ℕ) : ℝ) - 2))
+              = ∏ q ∈ S ∪ T, (((q : ℕ) : ℝ) - 2) := by
+          intro u hu
+          rw [Finset.mem_filter] at hu
+          have hBσu : Bσ u = S := (Prod.ext_iff.mp hu.2).1
+          have hBτu : Bτ u = T := (Prod.ext_iff.mp hu.2).2
+          congr 1
+          rw [← hBσu, ← hBτu, hBσ, hBτ, ← Finset.filter_or]
+        rw [Finset.sum_congr rfl (fun u hu => by rw [hCTeq u hu])]
+        rw [← Finset.sum_mul]
+        -- ∏_{S∪T}(q-2) ≠ 0 and = ∏_Q(p-2)
+        have hprodQ : (∏ q ∈ S ∪ T, (((q : ℕ) : ℝ) - 2)) = ∏ p ∈ Q, ((p : ℝ) - 2) := by
+          rw [hQ, Finset.prod_image (fun q₁ _ q₂ _ h => Subtype.ext h)]
+        have hSTpos : (0:ℝ) < ∏ q ∈ S ∪ T, (((q : ℕ) : ℝ) - 2) := by
+          apply Finset.prod_pos; intro q hq
+          have := hSTbig q hq
+          have : (D:ℝ) < ((q:ℕ):ℝ) := by exact_mod_cast this
+          have hDR : (300:ℝ) ≤ (D:ℝ) := by exact_mod_cast hD
+          linarith
+        calc (∑ u ∈ box1.filter (fun u => (Bσ u, Bτ u) = (S, T)),
+              1 / ∏ i ∈ Finset.univ.erase m, (gMult (u i) : ℝ))
+              * ∏ q ∈ S ∪ T, (((q : ℕ) : ℝ) - 2)
+            ≤ ((∏ p ∈ Q, ((p : ℝ) - 2)⁻¹) * (2 * PAS) ^ 4)
+                * ∏ q ∈ S ∪ T, (((q : ℕ) : ℝ) - 2) := by
+              apply mul_le_mul_of_nonneg_right _ hSTpos.le
+              refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg hsubset
+                (fun u _ _ => by rw [hwt] at hwtnn; positivity)) ?_
+              rw [hPAS]; exact hbmg
+          _ = (2 * PAS) ^ 4 := by
+              have hQ0 : (∏ p ∈ Q, ((p : ℝ) - 2)) ≠ 0 := hprodQ ▸ hSTpos.ne'
+              rw [hprodQ, Finset.prod_inv_distrib, mul_right_comm, inv_mul_cancel₀ hQ0, one_mul]
+    · rw [if_neg hdisj]
+      rw [Finset.sum_eq_zero]
+      intro u hu
+      exfalso
+      rw [Finset.mem_filter] at hu
+      have hBσu : Bσ u = S := (Prod.ext_iff.mp hu.2).1
+      have hBτu : Bτ u = T := (Prod.ext_iff.mp hu.2).2
+      exact hdisj (hBσu ▸ hBτu ▸ hBdisj u hu.1)
+  calc ∑ ST ∈ pf.powerset ×ˢ pf.powerset,
+        ∑ u ∈ box1.filter (fun u => (Bσ u, Bτ u) = ST),
+          wt u * ∏ q ∈ s.primeFactors.attach.filter
+              (fun q : {x // x ∈ s.primeFactors} => (q : ℕ) ∣ u ((α q.1 q.2).1)
+                ∨ (q : ℕ) ∣ u ((α q.1 q.2).2)),
+              (((q : ℕ) : ℝ) - 2)
+      ≤ ∑ ST ∈ pf.powerset ×ˢ pf.powerset, (if Disjoint ST.1 ST.2 then (2 * PAS) ^ 4 else 0) :=
+        Finset.sum_le_sum hfiber
+    _ = 3 ^ s.primeFactors.card * (2 * PAS) ^ 4 := by
+        have hfactor : ∀ ST : Finset {x // x ∈ s.primeFactors} × Finset {x // x ∈ s.primeFactors},
+            (if Disjoint ST.1 ST.2 then (2 * PAS) ^ 4 else 0)
+              = (if Disjoint ST.1 ST.2 then (1:ℝ) else 0) * (2 * PAS) ^ 4 := by
+          intro ST; split_ifs <;> ring
+        rw [Finset.sum_congr rfl (fun ST _ => hfactor ST), ← Finset.sum_mul]
+        congr 1
+        rw [Finset.sum_product]
+        have hinner : ∀ S ∈ pf.powerset,
+            (∑ T ∈ pf.powerset, (if Disjoint S T then (1:ℝ) else 0))
+              = (2:ℝ) ^ (pf \ S).card := by
+          intro S hS
+          rw [Finset.sum_boole]
+          have hset : pf.powerset.filter (fun T => Disjoint S T) = (pf \ S).powerset := by
+            ext T
+            simp only [Finset.mem_filter, Finset.mem_powerset]
+            constructor
+            · rintro ⟨hTpf, hdisj⟩
+              intro x hx
+              rw [Finset.mem_sdiff]
+              exact ⟨hTpf hx, fun hxS => (Finset.disjoint_left.mp hdisj) hxS hx⟩
+            · intro hT
+              refine ⟨hT.trans Finset.sdiff_subset, ?_⟩
+              rw [Finset.disjoint_left]; intro x hxS hxT
+              exact (Finset.mem_sdiff.mp (hT hxT)).2 hxS
+          rw [hset, Finset.card_powerset]; push_cast; ring
+        rw [Finset.sum_congr rfl hinner]
+        have hprodadd : (∑ S ∈ pf.powerset, (2:ℝ) ^ (pf \ S).card)
+            = ∏ _p ∈ pf, ((1:ℝ) + 2) := by
+          rw [Finset.prod_add]
+          apply Finset.sum_congr rfl
+          intro S hS
+          rw [Finset.prod_const_one, one_mul, Finset.prod_const]
+        rw [hprodadd, Finset.prod_const, hpf, Finset.card_attach]
+        norm_num
+
+/-- **NC-2 s2_inner_termwise** — the full termwise+partition bound: the S₂ inner
+form is `≤ 3^ω · ∏(p−2)⁻² · ((PAS+ε)²·(2·PAS)⁴)`.  Combines `s2_term_bound` (termwise)
++ `s2_part_bound` (partition), with the whole-`s` vanishing cases (`σₘ≠1 ∨ τₘ≠1 ⇒`
+sum `= 0` via `lamPhiContractM_eq_zero_of_coord_ne_one`). -/
+private lemma s2_inner_termwise (F : Poly) (m : Fin 5) (hQ : Qabs F ≤ 1)
+    (R W' D : ℕ) (hR2 : 2 ≤ R) (hW' : Squarefree W') (hpos : 0 < W')
+    (hDW : ∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) (hDk : 300 ≤ D)
+    {s : ℕ} (hs : Squarefree s)
+    (α : (p : ℕ) → p ∈ s.primeFactors → Fin 5 × Fin 5) (hα : α ∈ assignments 5 s) :
+    |∑ u ∈ kSieveIndex 5 R W', (∏ i, (gMult (u i) : ℝ))
+        * lamPhiContractM 5 R W' m (yF R W' F) (fun i => Nat.lcm (u i) (slotProd s α Prod.fst i))
+        * lamPhiContractM 5 R W' m (yF R W' F) (fun i => Nat.lcm (u i) (slotProd s α Prod.snd i))|
+      ≤ 3 ^ s.primeFactors.card
+          * (∏ p ∈ s.primeFactors, (((p : ℝ) - 2)⁻¹) ^ 2)
+          * ((Salt.Maynard.phiAtomSum R W' + lemma53Const * 5 * Real.log R / D) ^ 2
+              * (2 * Salt.Maynard.phiAtomSum R W') ^ 4) := by
+  classical
+  set V := lamPhiContractM 5 R W' m (yF R W' F) with hVdef
+  set PE : ℝ := Salt.Maynard.phiAtomSum R W' + lemma53Const * 5 * Real.log R / D with hPEdef
+  set K : ℝ := ∏ p ∈ s.primeFactors, (((p : ℝ) - 2)⁻¹) ^ 2 with hKdef
+  have hPASnn : 0 ≤ Salt.Maynard.phiAtomSum R W' := by
+    unfold Salt.Maynard.phiAtomSum; exact Finset.sum_nonneg (fun _ _ => by positivity)
+  have hPE0 : 0 ≤ PE := by
+    rw [hPEdef]
+    have h2 : 0 ≤ lemma53Const * 5 * Real.log R / D :=
+      div_nonneg (mul_nonneg (mul_nonneg lemma53Const_nonneg (by norm_num))
+        (Real.log_nonneg (by exact_mod_cast (by omega : 1 ≤ R)))) (by positivity)
+    linarith
+  have hKnn : 0 ≤ K := Finset.prod_nonneg fun p _ => sq_nonneg _
+  -- σ m = 1 extraction ⇒ slots ≠ m
+  by_cases hcase : slotProd s α Prod.fst m = 1 ∧ slotProd s α Prod.snd m = 1
+  · obtain ⟨hσm1, hτm1⟩ := hcase
+    have hslotm : ∀ (sel : Fin 5 × Fin 5 → Fin 5), slotProd s α sel m = 1 →
+        ∀ (q : {x // x ∈ s.primeFactors}), sel (α q.1 q.2) ≠ m := by
+      intro sel hsm q hbad
+      have hpdvd : (q : ℕ) ∣ slotProd s α sel m :=
+        (prime_dvd_slotProd_iff α sel (Nat.prime_of_mem_primeFactors q.2) m).mpr ⟨q.2, hbad⟩
+      rw [hsm] at hpdvd
+      exact (Nat.prime_of_mem_primeFactors q.2).one_lt.ne' (Nat.dvd_one.mp hpdvd)
+    have hfstne : ∀ q : {x // x ∈ s.primeFactors}, (α q.1 q.2).1 ≠ m := hslotm Prod.fst hσm1
+    have hsndne : ∀ q : {x // x ∈ s.primeFactors}, (α q.1 q.2).2 ≠ m := hslotm Prod.snd hτm1
+    -- drop uₘ ≠ 1 terms (V(u∨σ) = 0 since (u∨σ)ₘ = uₘ ≠ 1)
+    have hdrop : (∑ u ∈ kSieveIndex 5 R W', (∏ i, (gMult (u i) : ℝ))
+          * V (fun i => Nat.lcm (u i) (slotProd s α Prod.fst i))
+          * V (fun i => Nat.lcm (u i) (slotProd s α Prod.snd i)))
+        = ∑ u ∈ (kSieveIndex 5 R W').filter (fun u => u m = 1), (∏ i, (gMult (u i) : ℝ))
+          * V (fun i => Nat.lcm (u i) (slotProd s α Prod.fst i))
+          * V (fun i => Nat.lcm (u i) (slotProd s α Prod.snd i)) := by
+      symm
+      apply Finset.sum_subset (Finset.filter_subset _ _)
+      intro u hu hunf
+      have hum : u m ≠ 1 := fun h => hunf (Finset.mem_filter.mpr ⟨hu, h⟩)
+      have hV0 : V (fun i => Nat.lcm (u i) (slotProd s α Prod.fst i)) = 0 := by
+        apply lamPhiContractM_eq_zero_of_coord_ne_one
+        show Nat.lcm (u m) (slotProd s α Prod.fst m) ≠ 1
+        rw [hσm1, Nat.lcm_one_right]; exact hum
+      rw [hV0]; ring
+    rw [hdrop]
+    calc |∑ u ∈ (kSieveIndex 5 R W').filter (fun u => u m = 1), (∏ i, (gMult (u i) : ℝ))
+            * V (fun i => Nat.lcm (u i) (slotProd s α Prod.fst i))
+            * V (fun i => Nat.lcm (u i) (slotProd s α Prod.snd i))|
+        ≤ ∑ u ∈ (kSieveIndex 5 R W').filter (fun u => u m = 1),
+            |(∏ i, (gMult (u i) : ℝ))
+              * V (fun i => Nat.lcm (u i) (slotProd s α Prod.fst i))
+              * V (fun i => Nat.lcm (u i) (slotProd s α Prod.snd i))| :=
+          Finset.abs_sum_le_sum_abs _ _
+      _ ≤ ∑ u ∈ (kSieveIndex 5 R W').filter (fun u => u m = 1),
+            (K * PE ^ 2) * ((1 / ∏ i ∈ Finset.univ.erase m, (gMult (u i) : ℝ))
+              * ∏ q ∈ s.primeFactors.attach.filter
+                  (fun q : {x // x ∈ s.primeFactors} => (q : ℕ) ∣ u ((α q.1 q.2).1)
+                    ∨ (q : ℕ) ∣ u ((α q.1 q.2).2)),
+                  (((q : ℕ) : ℝ) - 2)) := by
+          apply Finset.sum_le_sum
+          intro u hu
+          rw [Finset.mem_filter] at hu
+          have hterm := s2_term_bound F m hQ R W' D hR2 hW' hpos hDW hDk hs α hα u hu.1 hu.2
+          -- s2_term_bound's K is ∏_{attach}(q-2)⁻¹^2 = K (prod_attach)
+          have hKeq : (∏ q ∈ s.primeFactors.attach, (((q : ℕ) : ℝ) - 2)⁻¹ ^ 2) = K := by
+            rw [hKdef]; exact Finset.prod_attach s.primeFactors (fun p => (((p:ℝ)-2)⁻¹)^2)
+          rw [hKeq] at hterm
+          exact hterm
+      _ = (K * PE ^ 2) * ∑ u ∈ (kSieveIndex 5 R W').filter (fun u => u m = 1),
+            ((1 / ∏ i ∈ Finset.univ.erase m, (gMult (u i) : ℝ))
+              * ∏ q ∈ s.primeFactors.attach.filter
+                  (fun q : {x // x ∈ s.primeFactors} => (q : ℕ) ∣ u ((α q.1 q.2).1)
+                    ∨ (q : ℕ) ∣ u ((α q.1 q.2).2)),
+                  (((q : ℕ) : ℝ) - 2)) := by rw [Finset.mul_sum]
+      _ ≤ (K * PE ^ 2) * (3 ^ s.primeFactors.card * (2 * Salt.Maynard.phiAtomSum R W') ^ 4) := by
+          apply mul_le_mul_of_nonneg_left _ (by positivity)
+          exact s2_part_bound R W' D hR2 hW' hpos hDW hDk m hs α hα hfstne hsndne
+      _ = 3 ^ s.primeFactors.card * K
+            * (PE ^ 2 * (2 * Salt.Maynard.phiAtomSum R W') ^ 4) := by ring
+  · -- σₘ ≠ 1 or τₘ ≠ 1 ⇒ the whole sum is 0
+    have hsum0 : (∑ u ∈ kSieveIndex 5 R W', (∏ i, (gMult (u i) : ℝ))
+          * V (fun i => Nat.lcm (u i) (slotProd s α Prod.fst i))
+          * V (fun i => Nat.lcm (u i) (slotProd s α Prod.snd i))) = 0 := by
+      apply Finset.sum_eq_zero; intro u _
+      rw [not_and_or] at hcase
+      rcases hcase with h | h
+      · have hV0 : V (fun i => Nat.lcm (u i) (slotProd s α Prod.fst i)) = 0 := by
+          apply lamPhiContractM_eq_zero_of_coord_ne_one
+          show Nat.lcm (u m) (slotProd s α Prod.fst m) ≠ 1
+          intro hc
+          exact h (Nat.dvd_one.mp (hc ▸ Nat.dvd_lcm_right _ _))
+        rw [hV0]; ring
+      · have hV0 : V (fun i => Nat.lcm (u i) (slotProd s α Prod.snd i)) = 0 := by
+          apply lamPhiContractM_eq_zero_of_coord_ne_one
+          show Nat.lcm (u m) (slotProd s α Prod.snd m) ≠ 1
+          intro hc
+          exact h (Nat.dvd_one.mp (hc ▸ Nat.dvd_lcm_right _ _))
+        rw [hV0]; ring
+    rw [hsum0, abs_zero]
+    positivity
+
+
+/-- **Card NC-2 deliverable 4 — `yF` satisfies the S₂ inner atom.** The S₂ collision
+inner bound `S2InnerBoundQC` for Maynard's weight `yF`, via the design's TERMWISE +
+contamination-partition proof (`s2_inner_termwise`) plus the step-(d) `qdiag`
+conversion `(PAS+ε)²·(2·PAS)⁴ ≤ CF·Qdiag_gv`.
+
+Per the NC-2 PB floor, step (d) is taken as the explicit `∀ᶠ`-hypothesis `hQd`
+(its discharge is a direct read of the landed `qdiag_bridge`: `Qdiag_gv ≥ X⁶·J/2`
+eventually + `PAS ≤ X + O_{W'}(1)`, giving `CF → 2⁶·2/Jcal_m`, F/m-only — obtain
+`qdiag_bridge`'s `A` before `W'`, the W'-approach folds into `R₀`; see flags.md).
+`CF` is F/m-only exactly when `hQd` provides such a `CF` (which `qdiag_bridge`
+does).  The explicit `s2_inner_yF` hyps (`Squarefree W'`, `0<W'`, `PhiUpperAtom W'`,
+`300≤D`, `hDlt`, `hκ`) are all primorial-dischargeable at `W' = primorial D` for
+all large `D` (`hκ` via `primorial_ratio_le`). -/
+theorem s2_inner_yF (F : Poly) (m : Fin 5) (hQ : Qabs F ≤ 1)
+    (hQd : ∃ CF : ℝ, 0 ≤ CF ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' → PhiUpperAtom W' →
+      300 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) →
+      ((W' : ℝ) / W'.totient ≤ 5 * Real.sqrt D) →
+      ∃ R₀ : ℕ, ∀ R : ℕ, R₀ ≤ R → 1 ≤ Real.log R →
+        (Salt.Maynard.phiAtomSum R W' + lemma53Const * 5 * Real.log R / D) ^ 2
+            * (2 * Salt.Maynard.phiAtomSum R W') ^ 4
+          ≤ CF * Qdiag_gv 5 R W' m (yF R W' F)) :
+    ∃ CF : ℝ, 0 ≤ CF ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' → PhiUpperAtom W' →
+      300 ≤ D → (∀ p : ℕ, p.Prime → ¬ p ∣ W' → D < p) →
+      ((W' : ℝ) / W'.totient ≤ 5 * Real.sqrt D) →
+      ∃ R₀ : ℕ, ∀ R : ℕ, R₀ ≤ R → 1 ≤ Real.log R →
+        S2InnerBoundQC 5 R W' m (yF R W' F) CF := by
+  obtain ⟨CF, hCF, hcmp⟩ := hQd
+  refine ⟨CF, hCF, ?_⟩
+  intro W' D hW' hpos hUpper hD hDlt hκ
+  obtain ⟨R₀, hR₀⟩ := hcmp W' D hW' hpos hUpper hD hDlt hκ
+  refine ⟨max R₀ 2, ?_⟩
+  intro R hR hlogR s hs α hα
+  have hR2 : 2 ≤ R := le_trans (le_max_right R₀ 2) hR
+  have htw := s2_inner_termwise F m hQ R W' D hR2 hW' hpos hDlt hD hs α hα
+  have hqd := hR₀ R (le_trans (le_max_left R₀ 2) hR) hlogR
+  refine le_trans htw ?_
+  have hA : (0 : ℝ) ≤ 3 ^ s.primeFactors.card
+      * (∏ p ∈ s.primeFactors, (((p : ℝ) - 2)⁻¹) ^ 2) := by positivity
+  have hreassoc : 3 ^ s.primeFactors.card
+        * (∏ p ∈ s.primeFactors, (((p : ℝ) - 2)⁻¹) ^ 2) * CF * Qdiag_gv 5 R W' m (yF R W' F)
+      = (3 ^ s.primeFactors.card * (∏ p ∈ s.primeFactors, (((p : ℝ) - 2)⁻¹) ^ 2))
+          * (CF * Qdiag_gv 5 R W' m (yF R W' F)) := by ring
+  rw [hreassoc]
+  exact mul_le_mul_of_nonneg_left hqd hA
+
 end Salt.Twelve

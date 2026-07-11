@@ -2022,3 +2022,40 @@ eventual) + `PAS ≤ X + O_{W'}(1)`, `CF` F/m-only (obtain `qdiag_bridge`'s `A`
 before `W'`; per PB floor may be an explicit `∀ᶠ`-hypothesis). ~450 lines; the
 statement finding above should be Fable-blessed first (it fixes the atom `CF`
 would be quantified against).
+
+## 2026-07-11 NC-2 (InnerS2) Opus round-2 CONTINUED — s2_inner_yF LANDED
+
+The `(p−2)⁻²` correction was Fable-CONFIRMED and committed. `s2_inner_yF` is now
+LANDED (axiom-clean `[propext, Classical.choice, Quot.sound]`, 0 sorry, 0 warnings,
+fresh build green) — the full termwise + contamination-partition port of NC-1's
+`s1_inner_bounded` to the g/V side.
+
+**New landed decls (`Salt/Twelve/InnerS2.lean`):**
+- `s2_term_bound` (hterm_g) — per-`u` termwise `|∏g·V(u∨σ)V(u∨τ)| ≤ K·(PAS+ε)²·
+  ((1/∏_{i≠m}g)·CT_u)` via `yF_V_mul_g_le`×2 + `gMult_lcm_split` + the g-`hcompl`
+  contamination identity (S1's `hreindex`/`hcompl` ported with `φ→g`, `(p−1)→(p−2)`).
+- `s2_part_bound` (hpart_g) — `∑_{uₘ=1}(1/∏_{i≠m}g)·CT_u ≤ 3^ω·(2PAS)⁴` via
+  **pairs-fibering** `u ↦ (Bσ(u),Bτ(u))` over the landed single-slot
+  `box_marked_gmoment` (the disjoint-pairs count is `3^ω` by `prod_add`) — NO
+  OR-moment / `box_erase_branch` port needed.
+- `s2_inner_termwise` — combines the two + the whole-`s` vanishing cases
+  (`σₘ≠1 ∨ τₘ≠1 ⇒` sum `= 0`), concluding `|inner| ≤ 3^ω·∏(p−2)⁻²·((PAS+ε)²(2PAS)⁴)`.
+- `s2_inner_yF` — the frozen shape, with step (d) `(PAS+ε)²(2PAS)⁴ ≤ CF·Qdiag_gv`
+  taken as the **PB-floor explicit `∀ᶠ`-hypothesis** `hQd` (which also supplies the
+  F/m-only `CF`).
+
+**`s2_inner_yF` signature (exact):** `(F : Poly)(m : Fin 5)(hQ : Qabs F ≤ 1)(hQd :
+∃ CF ≥ 0, ∀ W' D, Squarefree W' → 0<W' → PhiUpperAtom W' → 300≤D → (primes>D) →
+(W'/φW' ≤ 5√D) → ∃ R₀, ∀ R≥R₀, 1≤log R → (PAS+ε)²(2PAS)⁴ ≤ CF·Qdiag_gv 5 R W' m
+(yF R W' F)) : ∃ CF ≥ 0, ∀ W' D, [same hyps] → ∃ R₀, ∀ R≥R₀, 1≤log R →
+S2InnerBoundQC 5 R W' m (yF R W' F) CF`.  The explicit hyps
+(`Squarefree W'`/`0<W'`/`PhiUpperAtom`/`300≤D`/`hDlt`/`hκ`) are all
+primorial-dischargeable at all large `D`.
+
+**CF F/m-only:** YES — `CF` is whatever `hQd` provides; `hQd` is dischargeable by
+the landed `qdiag_bridge` (`Qdiag_gv ≥ X⁶·J/2` eventual + `PAS ≤ X + O_{W'}(1)`,
+`A` obtained before `W'`, W'-approach in `R₀`), giving `CF → 2⁶·2/Jcal_m` — F/m-only.
+NOTE: `hQd` genuinely NEEDS `Jcal m F > 0` (i.e. `F = Fstar`), so it is F-specific
+and correctly an input, not provable for arbitrary `F`.  NC-3 discharges `hQd` for
+`Fstar` via `qdiag_bridge`.  Recommend Fable confirm this `hQd`-input shape (the
+step-(d) `∀ᶠ`-hypothesis) as the NC-2↔NC-3 interface.
