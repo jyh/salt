@@ -2242,3 +2242,18 @@ Route for L8.1b (new node, C, ~150–250 lines): general-`m` via
 `m/φ(m) = rad(m)/φ(rad(m))`, swap, `sum_inv_mul_totient_le ≤ 4`,
 `harmonic_le_one_add_log` ⇒ `C = 4`. L8.4 (BDH) consumes `hphi` either way —
 L8.1b makes it unconditional.
+
+## 2026-07-11 largesieve L8.4 RE-FROZEN (Fable): pure-LS Barban form
+
+The blueprint's original BDH freeze (`√x ≤ Q → variance ≤ C·Q·x·(logx)³`)
+is UNPROVABLE with this rung's toolkit: for conductors `f = O(1)` (e.g. the
+quadratic character mod 3) the only available bound is the trivial
+`|ψ(x,χ)| ≤ ψ(x) ~ x`, contributing `x²`-order to the variance — no log
+power fixes `x² > Q·x·(logx)³` at `Q ~ √x`. Beating the trivial bound on
+small conductors IS Siegel–Walfisz, this rung's declared out-of-scope deep
+end (BV rung). The blueprint-verification math lens's "(logx)³ headroom
+adequate" was wrong — caught at L8.4 dispatch time by re-deriving the
+dyadic budget: `Σ_F (2F + 26x/F)·ΣΛ²·8(1+logQ)` ⇒ `C(Qx + x²)(logx)²`.
+L8.4 re-frozen to that honest hypothesis-free Barban form (explicit
+numeral 4000, latitude upward). The `Qx logx`-sharp BDH becomes a named
+target of the BV rung, gated on SW.
