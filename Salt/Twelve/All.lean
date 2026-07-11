@@ -35,6 +35,7 @@ import Salt.Twelve.JcalPos
 import Salt.Twelve.FrontierM
 import Salt.Twelve.QdiagFloor
 import Salt.Twelve.GapsUncond
+import Salt.Twelve.WindowPNTDischarge
 
 /-!
 # Rung 4a (`explicit12`) — aggregate import
@@ -98,4 +99,10 @@ certificate positivity), `QdiagFloor` (the pointwise S₂ collision closure,
 `GapsUncond` — **`gaps_le_twelve (hPNT : WindowPNT) (hEH : EHall)`**, the
 frozen target, UNCONDITIONAL beyond its two named analytic inputs, with the
 Archimedes cutoff chosen existentially after the F-only constants.
+
+WindowPNT seam (landed): `WindowPNTDischarge` — **`PiAsymp`** (ordinary PNT as
+`π ∼ x/log x`, the `pi_alt'`-shaped interface) discharges the long-window
+hypothesis via `windowPNT_of_piAsymp`, collapsing the two standing analytic
+inputs of the capstone to `PiAsymp` + `EHall` in
+`gaps_le_twelve_of_piAsymp` (a definitional composition, no new analytic content).
 -/
