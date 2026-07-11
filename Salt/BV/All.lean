@@ -1,0 +1,23 @@
+/-
+Copyright (c) 2026 Jason Hickey. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Jason Hickey, Claude
+-/
+import Salt.BV.Defs
+import Salt.BV.DivisorSum
+
+/-!
+# The BV rung (`bv`) — aggregate import
+
+Bombieri–Vinogradov modulo the single named `SiegelWalfisz` gate. Design:
+`docs/blueprints/bv.md`. Extended as modules land; wired into `Salt.lean`
+from the first commit so the bare `lake build` covers the track.
+
+Landed: `Defs` (V0.1 — the frozen carrier `SiegelWalfisz` + trivia:
+monotonicity in the saving exponent `A`, the `q = 1` instance recovering an
+unconditional bound on `psiTot`, and the `a`/`a % q` coprimality
+normalization); `DivisorSum` (V1b — the divisor summatory bound
+`sum_card_divisors_le` `Σ τ(n) ≤ x(1 + log x)` via the mathlib hyperbola
+identity `sum_Ioc_sigma0_eq_sum_div`, plus the ℓ²-flavored corollary
+`sum_log_sq_le`).
+-/

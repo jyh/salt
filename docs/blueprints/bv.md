@@ -75,7 +75,7 @@ Legend: class A–D per `CLAUDE.md`; statuses ⬜/🔄/✅/⛔.
 ### V0 — statements + consumer audit (Fable + one A/B node)
 | id | content | class | status |
 |---|---|---|---|
-| V0.1 | `Salt/BV/Defs.lean`: the `SiegelWalfisz` def above + trivia (monotonicity in A; the `q ≤ (log x)^C` range is nonempty for large x) | A/B | ⬜ |
+| V0.1 | `Salt/BV/Defs.lean`: the `SiegelWalfisz` def above + trivia (monotonicity in A; the `q ≤ (log x)^C` range is nonempty for large x) — def landed BYTE-EXACT; `siegelWalfisz_mono`/`psiAP_one`/`siegelWalfisz_psiTot` (q=1 = PNT-error, 3 ≤ x threshold)/`coprime_mod_left` (mathlib `ZMod.coprime_mod_iff_coprime`) | A/B | ✅ |
 | V0.2 | **Consumer audit — RESOLVED by the blueprint verification pass (2026-07-11):** `Salt.Maynard.bounded_gaps_from_level : HasLevel (1/2) → ∃ C : ℕ, ∀ N, ∃ p q, N<p ∧ N<q ∧ p≠q ∧ p.Prime ∧ q.Prime ∧ (q:ℤ)-(p:ℤ) ∈ Set.Icc (-(C:ℤ)) (C:ℤ)` is landed sorry-free and consumes exactly `HasLevel (1/2)` (π-form, single-x `maxDiscrepancy`). V5's target stands; NO V5b needed; V6 is a one-line composition. | B (reading) | ✅ |
 
 ### V1 — the two independent B-preliminaries (parallel)
