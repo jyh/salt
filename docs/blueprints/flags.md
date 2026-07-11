@@ -1623,6 +1623,68 @@ Six fragilities caught+fixed this track: (1) per-u coprimality, (2) budget split
 Opus appends entries here (node id, tripwire hit, what was tried) instead of
 grinding; the next Fable wave opens by draining this list.
 
+- **explicit12 `qdiag_bridge`** (W4-5, `Salt/Twelve/QdiagBridge.lean`, Opus,
+  2026-07-10) — **PB floor invoked: steps (1)–(3) + `qdiag_bridge_of` landed
+  (axiom-clean `[propext, Classical.choice, Quot.sound]`, zero warnings); the
+  UNCONDITIONAL `qdiag_bridge` is FLAGGED — the frozen `1/D` bucket is too tight
+  in SHAPE (one κ⁻¹) for a square-difference SELF-term the card overlooked.**
+  - **Landed unconditionally.** `qdiag_eq_yMsq_sum` (step 1, the diagonalisation
+    identity `Qdiag_mW 5 R W' m (yF F) = ∑_{u:uₘ=1} yM(u)²/∏_{i≠m}g` via
+    `s2_diag_lam_restricted` at `W'` + the per-term `(∏ᵢg)V² = yM²/∏_{i≠m}g`
+    reduction, `μ²=1`/`g(1)=1`; the `u`-box is EXACTLY `mv_J_split`'s outer box,
+    no reindex). `yF_abs_le_Qabs` (general `|yF F| ≤ Qabs F`). `yM_sub_inn_le`
+    (step 2, `lemma53_tightW` at `B=1`, `|yM−Inn| ≤ lemma53Const·5·logR/D`).
+    `absInn_le_pas` (step 3, `|Inn(u)| ≤ PAS` via `marked_sqf_phi_rel` a=0 s=1).
+    `qdiag_bridge_of` (steps (4)–(5): from a hypothesis `hgap` bounding
+    `|Qdiag − ∑Inn²/∏g|` in the frozen κ⁻¹ bucket, `qdiag_bridge` follows by
+    triangle with `mv_J_split`, folding `mv_J`'s `A'·Y⁶/D` in via κ⁻¹ ≥ 1;
+    `A = Agap + A'` is W'-free, κ⁻¹ stays explicit). **`hgap` is the un-landed
+    step (4).**
+  - **The exact broken step — the self-term `∑_u (yM_u − Inn_u)²/∏_{i≠m}g`.**
+    Write `δ_u := yM_u − Inn_u`, `ε := lemma53Const·5·logR/D` (step 2, uniform).
+    `yM²−Inn² = 2·Inn·δ + δ²`. The CROSS part sums fine into κ⁻¹ (the card's
+    source (a)): `|2∑Inn·δ/∏g| ≤ 2ε·PAS·∑1/∏g ≤ 32ε·PAS⁵`, and `ε = c₀·logR/D
+    = c₀·κ⁻¹·X/D` (since `logR = X/κ`), so `≤ 32c₀·κ⁻¹·X·PAS⁵/D ≤
+    32c₀·κ⁻¹·(1+X+PAS)⁶/D`. **But the SELF part** `∑δ²/∏g ≤ ε²·∑1/∏g ≤
+    ε²·(2·PAS)⁴ = 16c₀²·(logR/D)²·PAS⁴`, and `(logR)² = κ⁻²·X²`, giving
+    `16c₀²·κ⁻²·X²·PAS⁴/D² ≤ 16c₀²·κ⁻²·(1+X+PAS)⁶/D²`. This is **κ⁻²/D²** — the
+    frozen single-`κ⁻¹·Y⁶/D` bucket cannot absorb it: `κ⁻²/D² ≤ A·κ⁻¹/D ⟺
+    κ⁻¹ ≤ A·D`, and `κ⁻¹ = W'/φW'` is UNBOUNDED over the valid `W'` (the
+    hypotheses force every prime `≤ D` to divide `W'`, but `W'` may carry
+    arbitrarily many larger primes, so `∏_{p|W'}p/(p−1)` has no upper bound in
+    `D`). The card's `1/D` accounting names only (a) the cross-term and (b)
+    `mv_J`'s own error — the δ² self-term (from the lemma53 layer's `logR/D`
+    contraction error, SQUARED) is never mentioned.
+  - **Distinct from the mv_J κ² issue already fixed (mixed-power reshape).**
+    That was `mv_J`'s inner_contract δ, which is `O(1)+PAS·Pr`-sized (no
+    `logR/D`), so its square is `~PAS⁶/D`, clean. Here δ is the LEMMA53
+    contraction error, genuinely `O(logR/D)` per `u`; `mv_J` has no such layer,
+    so the mixed-power reshape does NOT cover this. **Crucially this is
+    κ⁻²/*D²* (two `D`'s, from ε²), NOT the REJECTED κ⁻²/D:** at the endgame
+    (`κ⁻¹ ≤ 5√D`) `κ⁻²/D² ≤ 25/D → 0` DOES decay (unlike κ⁻²/D ≈ 25). So the
+    obstruction is a bucket-SHAPE defect, not a fatal loss of decay.
+  - **Fable options.** (a) **STATEMENT FIX (recommended, endgame-safe,
+    statement-tier).** Widen the frozen `1/D` bucket to `A·(κ⁻¹·Y⁶/D +
+    κ⁻²·Y⁶/D²)` (`Y = 1+X+PAS`). Then all three sources fit with W'-free `A`
+    (cross → κ⁻¹/D, self → κ⁻²/D², mv_J → κ⁻¹/D). Provable NOW from the landed
+    steps (1)–(3) + `qdiag_bridge_of`-style triangle, once the crude 4-dim
+    g-moment `∑_{u:uₘ=1} 1/∏_{i≠m}g ≤ (2·PAS)⁴` is assembled (reindex via
+    `sum_filt_removeNth` to `kSieveIndex 4`, then box ≤ product-of-coords ≤
+    `(marked_sqf_g_rel a=0 s=1)⁴`; ~200 lines, B/C). Endgame consumption
+    survives: at `W' = primorial D★`, `κ⁻²Y⁶/D²/(J·X⁶) ~ 1600/(J·D★) → 0`
+    (uses wave-5 `primorial_ratio_le : κ⁻¹ ≤ 5√D`). This mirrors the mv_J
+    mixed-power correction; re-freeze `qdiag_bridge` (W4-5) with the two-term
+    bucket. (b) **Keep the single κ⁻¹ bucket** by supplying a direct,
+    PAS-relative ℓ¹ diagonal moment `∑_u |lamPhiContractM 5 R W' m (yF F) u| ≤
+    C·(1+PAS)⁵` (equivalently a bound on `∑|yM_u|/∏g` that does NOT route
+    through `|yM| ≤ |Inn|+ε`): then `|yM²−Inn²| ≤ ε·(|yM|+|Inn|)` sums with a
+    SINGLE ε (→ κ⁻¹), no self-term. Pre-flight #6 assumed "|V| falls out of
+    inner_contract + lemma53", but that path gives `|yM| ≤ |Inn|+ε` — the `+ε`
+    is exactly what squares; a genuinely `Inn`-independent `∑|V|` bound is
+    needed (the landed tensor `VAbs.lean` is `yTensor`-only, not `yF`). This is
+    a fresh C-tier moment estimate. (c) Restrict `W'` (hypothesis `κ⁻¹ ≤ C·D`;
+    holds at `W' = primorial D`) — narrows the theorem, ugly. **Recommend (a).**
+
 - ~~**explicit12 `budget_moment_g`**~~ **LANDED (`3f2f098`, W3-2):**
   `Salt/Twelve/BudgetMomentG.lean` — `marked_sqf_g` + `budget_moment_g` +
   `box_g_pos`, axiom-clean. The `1/g(s)` prefactor came out EXACT via `gMult`
