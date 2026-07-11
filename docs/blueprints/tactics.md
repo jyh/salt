@@ -46,6 +46,11 @@ eventually_DL` — ~120 lines of pure plumbing), `windowPNT_of_piAsymp`
 (threshold extraction). Recurs in EVERY analytic assembly; V3/V5 of the
 BV rung will hit it again. **When:** early in the BV rung (V3 is the
 natural first consumer).
+**STATUS: LANDED at both layers** (`Salt/Tactic/EventuallyBudget.lean`:
+the Finset combinators + Tendsto extractors (mathlib duplicates aliased,
+not re-proved) + the `eventually_budget [h₁,…]` macro with `</≤` handling;
+kernel-checked self-tests + `#audit_axioms` dogfood. Known edge: the macro
+needs syntactic piece-match — documented).
 
 ### T3 — `budget_num`: explicit-constant arithmetic closer — class B
 A `norm_num`/`nlinarith` wrapper pre-loaded with the standard analytic
