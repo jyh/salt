@@ -18,6 +18,7 @@ import Salt.LS.CharLS
 import Salt.LS.Vaughan
 import Salt.LS.Conductor
 import Salt.LS.BDHPrep
+import Salt.LS.PhiSum
 
 /-!
 # Rung 5 opener (`largesieve`) — aggregate import
@@ -75,4 +76,12 @@ standalone `∑ 1/φ ≤ C(1+log Q)` factor threaded as a hypothesis, see flags)
 via full character orthogonality `DirichletCharacter.sum_characters_eq`
 (over *all* `χ`, not just primitive — `psiChi_eq_sum_psiAP` fibers `Icc 1 x`
 by residue, `sum_normSq_psiChi_eq` is the Parseval assembly)).
+`PhiSum` (L8.1b — the standalone φ-double-counting factor
+**`sum_inv_totient_le`** `∑_{m ∈ Icc 1 Q} 1/φ(m) ≤ 4·(1 + log Q)`: the general-`m`
+one-sided identity `1/φ(m) ≤ ∑_{d ∣ m} μ²(d)/(m·φ(d))` via the radical
+`rad m` and `Salt.Maynard.sum_divisors_inv_totient_ge`, the `Finset.sum_comm`
+divisor swap, and `harmonic_le_one_add_log` + reuse of
+`Salt.Maynard.sum_inv_mul_totient_le` (`≤ 4`); plus the composed corollary
+**`sum_inv_totient_dvd_le'`** that discharges the `hphi` hypothesis of
+`Conductor.sum_inv_totient_dvd_le` — making the L8.1 bound unconditional for L8.4).
 -/
