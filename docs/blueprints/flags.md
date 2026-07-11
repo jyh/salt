@@ -1633,14 +1633,68 @@ grinding; the next Fable wave opens by draining this list.
   restriction, so the per-term g→φ transfer is false. The g-sandwich routes
   through `marked_prime_phi` instead (see above); no g-marked lemma is on any
   critical path. Record kept so no future wave re-attempts it.
-- **explicit12 `hReindex`** (leaf, `Salt/Twelve/PhiUpper.lean`). Discharges
-  `PhiUpperAtom` fully unconditional. The analytic core (`powerful_sum_bounded`:
-  `Σ_{v powerful}(1+log v)/v ≤ C`) is LANDED + axiom-clean; the residual is the
-  `Nat` squarefree/powerful reindex `n=u·v` regrouping `Tail(x)` into
-  `Σ_v (1/v)Σ_u 1/u ≤ Σ_v (1+log v)/v` — a true, `x`-independent inequality,
-  ~430 lines of mathlib-absent powerful/squarefree-part `tsum` work. Inner
-  window is `(1+log v)/v`, NOT `1/φ(v)`. Non-blocking (`PhiUpperAtom` threads as
-  a hypothesis meanwhile).
+- ~~**explicit12 `hReindex`**~~ **CLOSED (`085f496`, W4-0):**
+  `Salt/Twelve/PhiUpperReindex.lean` — `reindex_tail_le` + `phiUpperAtom_final
+  : ∀ B ≠ 0, PhiUpperAtom B` (UNCONDITIONAL), axiom-clean. The
+  squarefree/powerful decomposition (`sqfPart`/`powPart`, built from scratch)
+  + fiber-tsum reindex + harmonic window landed. `PhiUpperAtom` is no longer a
+  hypothesis anywhere.
 
-Currently: 2 live entries (`marked_prime_g` dead-end record; `hReindex`
-non-blocking residual) + 1 CLOSED (`budget_moment_g`, landed `3f2f098`).
+- **explicit12 `mv_J_split`** (W4-2, `Salt/Twelve/MvSplit.lean`; Opus, class C).
+  `inner_contract_rel` + `mv_I_split` LANDED clean + axiom-clean in that file;
+  `mv_J_split` FLAGGED (PB floor: the two must-haves shipped, the double-swap
+  assembly hit a *statement-level* wall). **The exact broken step — the main-term
+  `1/D` cannot be relativized into the frozen `A·(1+PAS)⁶/D` bucket with an
+  F-only `A`.**
+  - Route followed the design (inner_contract → square → 4-dim g-outer). The
+    error part is FINE: with `inner_contract_rel` giving `|δ| ≤ cabs + Q`,
+    `Q = cF·PAS·Pr(r)`, and the sharp `|Inn| ≤ cF·PAS` (⇒ `Inn²−X²Ev² =
+    2·Inn·δ − δ²`, avoiding the stray `X` on `2·X·Ev·δ`), the genuine `1/D`
+    error terms are `2cF²·PAS²·S1` and `cF²·PAS²·S2` with `S1 ≤ 256·PAS⁴/D`,
+    `S2 ≤ 5120·PAS⁴/D` (relativized MQ/MQ2 via `marked_sqf_g_rel`), i.e.
+    `~PAS⁶/D` — F-only coefficient, clean. The mixed `cabs·Q` cross term is
+    `~cabs·PAS⁵/D ≤ cabs·(1+PAS)⁵ ≤ c(W')·(1+X)⁶/L` (drop `1/D`, absorb — opaque
+    OK on the `1/L` side). So the *square-expansion* side is fully routable.
+  - **The wall is the MAIN term** `X²·∑Ev²/∏g` vs `X⁶·J`. Its `1/D` (the
+    4-dim pairwise-coprimality drop of `∑Ev²/∏φ`, relativized à la
+    `badpair_bound_rel`, PLUS the g↔φ gap via `g_gap_rel`) is F-only and
+    `(1+PAS)⁴/D`-sized, so it contributes `X²·A_m·(1+PAS)⁴/D`. To land in the
+    frozen `A·(1+PAS)⁶/D` bucket needs `X² ≤ A·(1+PAS)²`, i.e. an
+    **absolute-constant bound `X ≤ C·(1+PAS)`** (`X = (φW'/W')·log R`). It
+    cannot go to the `1/L` side either: `X²(1+PAS)⁴/D` is full `X⁶/D`-sized, and
+    `X⁶/D ≤ c(W')·(1+X)⁶/L` fails for large `L` (needs `L ≤ c(W')`).
+  - **Missing lemma (finding-1 territory).** `X ≤ C·(1+PAS)` ⟺ a constant-free
+    lower bound `phiAtomSum R W' ≥ c·(φW'/W')·log R`, absolute `c`, uniform in
+    `W'`, over the whole `1 ≤ log R` range. The repo has only
+    `Salt.Maynard.copHarmonic_lower`/`phiAtom_lower`:
+    `PAS ≥ (φW'/W')·log R − (φW'/W')·log W'`, whose defect `(φW'/W')·log W'` is
+    W'-opaque (→∞ with `W' = primorial D`) and vacuous for `R < W'`. Per
+    finding 1 the true `copHarmonic` constant needs Mertens-type facts we do
+    not have.
+  - **Fable options.** (a) supply the sharp `phiAtomSum` lower bound
+    (`PAS ≳ κ·log R` uniform) as a new leaf — this is Mertens-hard, AVOID.
+    ~~(b) `A·κ⁻²·(1+PAS)⁶/D`~~ — **REJECTED (Opus review 2026-07-10, the
+    agent's proposal is FATAL): `κ⁻² ≤ (5√D)² = 25D`, so `κ⁻²/D ≤ 25` does
+    NOT vanish — it destroys the `1/D` decay. One `κ⁻¹` is affordable
+    (`κ⁻¹/D ≤ 5/√D → 0`); two is not.**
+    (b′) **THE FIX (Opus, verified): re-shape the frozen `1/D` bucket to a
+    MIXED-power form** `A·(1+X)²·(1+PAS)⁴/D` for the main-drop term PLUS
+    `A·(1+PAS)⁶/D` for the square-expansion terms — equivalently a single
+    `A·(1+X+PAS)⁶/D` (dominates both). This is TRIVIALLY provable: the
+    main-drop's `X²·A_m·(1+PAS)⁴` is `≤ A_m·(1+X)²·(1+PAS)⁴` by `X² ≤ (1+X)²`
+    (NO cross-bound between `X` and `PAS` needed). And it closes the endgame
+    with NO κ factor: at fixed `(W',D★)` as `R→∞`, `(1+X)²(1+PAS)⁴ ≈ X⁶`
+    (both `~κ log R`), so the term is `≈ A·X⁶/D★`, relative error
+    `→ A/(D★·J)` — absolute, `< δ★` by choosing `D★ > A/(δ★·J)`. `X` is an
+    explicit computable (`κ log R`), NOT opaque, so `(1+X)` in the bucket is
+    consumption-safe. **This makes W4-5's `qdiag_bridge` κ⁻¹ likely
+    UNNECESSARY too** (re-examine at wave-5 pre-flight: the same mixed-power
+    reshape may drop its κ⁻¹). Requires re-freezing `mv_J_split` AND
+    `qdiag_bridge` (W4-5) with the mixed bucket + re-checking wave-5 endgame
+    consumption — a short Fable pre-flight correction (statement-tier). OR
+    (c) prove `mv_J` natively as a 6-dim moment (avoids the `X²·(4-dim)`
+    split; heavier, a fresh proof outside the inner_contract route).
+
+Currently: 2 live entries (`marked_prime_g` dead-end record; `mv_J_split`
+statement-shape wall — 2 of 3 W4-2 deliverables landed, fix (b′) identified)
++ 2 CLOSED (`budget_moment_g` `3f2f098`; `hReindex` `085f496`).
