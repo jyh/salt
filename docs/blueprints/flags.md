@@ -1623,6 +1623,19 @@ Six fragilities caught+fixed this track: (1) per-u coprimality, (2) budget split
 Opus appends entries here (node id, tripwire hit, what was tried) instead of
 grinding; the next Fable wave opens by draining this list.
 
+- **explicit12 W5-7 — discharge `WinFrontier (primorial Dstar)`** (`hFrontier`
+  hypothesis of `gaps_le_twelve_of_inner`, `Salt/Twelve/WinCore.lean`). The
+  STEP-6 `∀ᶠ N` largeness bundle (`WindowPNT → EHall → ∀ N ∃ N'≥N,
+  S1 < Σ S2mW`). MECHANICAL (a mirror of `analyticFrontier_lod` at level θ★):
+  thresholds via `eventually_poly_beats_polylog` + `EH_range_theta` +
+  `logR_lower_theta`/`logR_upper_theta` (two-sided pin `log R/log N → θ★/2`);
+  per-N' bounds from `mv_I_split`+`sharp_S1_upperW` (S1) and `qdiag_bridge`+
+  `S2mW_lower`+`S2mW_ge_compatMain_theta_uniform` (S2m); margin closed by
+  `win_ratio_core` (the `1999·191881 > 4003·95820` sharp cert, with
+  `Dstar=3·10⁷`, `ε=1/100`, `ρ=1249/2500`). Tedious but no new math — Opus
+  follow-up. Discharging it leaves `gaps_le_twelve` conditional on ONLY
+  `hInner` (Node B).
+
 - **explicit12 Node B — `S1InnerBound (yF Fstar1)`** (wave-5 CRUX, needs its own
   Fable/human design pass; scoped in `explicit12-design.md` "Node B — THE CRUX
   SUB-WAVE"). The LAST genuine mathematical content of the rung: the sharp S1
