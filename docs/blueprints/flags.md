@@ -1696,6 +1696,58 @@ grinding; the next Fable wave opens by draining this list.
   wave-5 deep-reads (endgame ratio, prime plumbing, collision) confirm the rest
   of the rung is feasible/mechanical; Node B is the sole crux.
 
+- **explicit12 NB-3 (S2 collision twin) — PARTIALLY LANDED (Opus, 2026-07-11,
+  `Salt/Twelve/CollisionYF_S2.lean`, axiom-clean `[propext, Classical.choice,
+  Quot.sound]`, zero warnings).** LANDED unconditionally: the entire free-`(D,W')`
+  S₂-collision infrastructure that the design's C3 audit left `W k`/`D₀ k`-pinned.
+  - `inner_collision_zero_MW` — free-`(D,W')` `m`-restricted collision-zero lemma
+    (mirror of S₁'s `inner_collision_zeroW`; the one free-W gap in the S₂
+    structural layer — `compat_moebius_expansion_M`/`inner_collision_expand_M`/
+    `inner_exact_S2`/`s2_diag_lam_restricted` were already free-W).
+  - `s2_collision_le_QdiagW` — the free-`(D,W')` mirror of `s2_collision_le_Qdiag`
+    (`S2Collision.lean:808`): `|s2CollisionForm| ≤ (Cs·k²/D)·Qdiag_gv`, CONDITIONAL
+    on the abstract atom `S2InnerBoundQ k R W' m y` (exactly as the landed W k
+    version is). Proof = landed body with 3 swaps: no `subst hW`;
+    `inner_collision_zero_MW`; `euler_tailW` (free-D). The vestigial tensor
+    hypotheses `(f₀, hy, _hf01, _hfmono)` of the W k version are DROPPED (unused).
+  - `Qdiag_mW_eq_s2FullFormM` (`rfl`) + `s2FullFormM_eq_Qdiag` ⇒ `Qdiag_mW =
+    Qdiag_gv`, and `s2_compat_eq_M` ⇒ `Qdiag_mW − s2CompatFormM = s2CollisionForm`.
+  - `collision_yF_le_S2 (R W' D F m … hInner)` — the NB-3 deliverable, CONDITIONAL
+    on `hInner : S2InnerBoundQ 5 R W' m (yF R W' F)`:
+    `|Qdiag_mW − s2CompatFormM| ≤ (Cs·5²/D)·Qdiag_mW`. **Note the RHS is
+    `Qdiag`-relative (= `Qdiag_mW`), NOT M-relative** — because the natural
+    collision RHS is `Qdiag_gv = Qdiag_mW`, not `∑_r 1/∏φ`. NB-4 converts via
+    `qdiag_bridge` (which already evaluates `Qdiag_mW ≈ X⁶·Jcal`), a
+    `(1 + Cs·5²/D)`-multiplicative loss on the S₂ main term — NOT via
+    `yside_ge_cM`. D-threshold: `12·5² ≤ D` (from `euler_tailW`).
+  - **Not needed / no blocker on the free-W' side:** `s2_collision_le_QdiagW` was
+    BUILT here (only the `W k` `s2_collision_le_Qdiag` existed; W2-4's sweep did
+    not generalize it). So the missing-free-W'-mirror worry is RESOLVED.
+  - **THE STUCK STEP (the inner discharge — a genuine research obstruction, NOT a
+    missing mirror):** discharging `S2InnerBoundQ (yF R W' F)`, i.e.
+    `|∑_u ∏g(uᵢ)·V(u∨σ)·V(u∨τ)| ≤ 3^ω·∏(p−1)⁻²·Qdiag_gv`, `V = lamPhiContractM y`.
+    **The design's "dominate by ONE / monotone in |y|" shortcut is INVALID for the
+    S₂ side** — two concrete corrections for the next Fable pass:
+    (1) `s2_inner_bound_N` (`S2Collision.lean:2105`) does NOT discharge
+    `S2InnerBoundQ`: it proves a DIFFERENT bound (RHS `Ndiag`/`(p−2)⁻²`, not
+    `Qdiag_gv`/`(p−1)⁻²`), and only for the tensor `yTensor`, via `fTilde`-
+    antitonicity + `Gdiag`/`B1` machinery. There is no `f₀≡1` free slot-in.
+    (2) `lamPhiContractM` is LINEAR in `y`, so the S₂ inner form is a SIGNED
+    quadratic form `yᵀMy` bounded by the quadratic form `yᵀNy = Qdiag_gv` — a
+    SPECTRAL statement (`−cN ⪯ M ⪯ cN`), NOT monotone in `|y|` and NOT reducible
+    to the single vector `y=ONE` (the forced side does not collapse — the
+    documented `PORT-BLOCKER` at `S2Collision.lean:462,782`). So `S2InnerBoundQ
+    yF ≤ S2InnerBoundQ ONE` is FALSE as a route.
+    **Real content:** a weighted Cauchy–Schwarz shift bound `∑_u ∏g·V(u∨σ)² ≤
+    ∏_{p|σ}(…)·Qdiag_gv` (design open-question (c), "the full double-sieve
+    Cauchy–Schwarz structure"). This is the S₂ analog wall of Node B / the
+    `hslackEv` residual (b) above, and is the rung's highest-uncertainty node.
+  - **Consequence for NB-4:** `gaps_le_twelve` closes conditional on ONLY
+    `S2InnerBoundQ (yF Fstar1)` (S₂) + `S1InnerBound (yF Fstar1)` (S₁, Node B) —
+    two narrow TRUE analytic atoms, both the same Cauchy–Schwarz-shift shape,
+    both carryable as explicit hypotheses (like `WindowPNT`/`EHall`) until a
+    dedicated Fable design pass freezes the shift-bound card set.
+
 - ~~**explicit12 `qdiag_bridge`**~~ **LANDED (W4-5,
   `Salt/Twelve/QdiagBridge.lean`, Opus, 2026-07-10) — axiom-clean
   `[propext, Classical.choice, Quot.sound]`, zero warnings.** The Opus pre-flight
