@@ -1909,3 +1909,60 @@ grinding; the next Fable wave opens by draining this list.
 Currently: 1 live entry (`marked_prime_g` dead-end record) + 3 CLOSED
 (`budget_moment_g` `3f2f098`; `hReindex` `085f496`; `mv_J_split` — all 3 W4-2
 deliverables landed via the mixed-power fix, MvSplit.lean axiom-clean).
+
+## 2026-07-11 NC-2 (InnerS2) Opus done (3 of 4 deliverables) — s2_inner_yF flagged
+
+New file `Salt/Twelve/InnerS2.lean`, axiom-clean `[propext, Classical.choice,
+Quot.sound]`, builds with 0 warnings, 0 sorry/native_decide/admit, 0 new axioms.
+
+**LANDED (3 of 4):**
+- **`box_marked_gmoment`** (deliverable 1) — the marked 4-dim g-moment, the
+  marked generalisation of the landed `gmoment4_le` (`Q = ∅` case). Signature
+  `(R W' D)(m)(Q : Finset ℕ)(slot : ℕ → Fin 5)(hslot : ∀p∈Q, slot p ≠ m)
+  (hQp : ∀p∈Q, p.Prime)(hDlt : ∀p∈Q, D < p)(hW')(hpos)(hD : 3≤D)(hDW)(hR2)`:
+  `∑_{u∈box, uₘ=1, ∀p∈Q p∣u(slot p)} 1/∏_{i≠m}g(uᵢ) ≤ (∏_{p∈Q}(p−2)⁻¹)·(2PAS)⁴`.
+  Proof mirrors `gmoment4_le`'s box→per-coordinate-product→`marked_sqf_g_rel`
+  structure with the per-coordinate forced product `sfun i = ∏_{p∈Q,slot p=i}p`;
+  the g-constant collapses to `∏_{p∈Q}(p−2)⁻¹` by `Finset.prod_fiberwise_of_maps_to`
+  (`slot` maps `Q` into `univ.erase m`) + `gMult_cast` + `Nat.primeFactors_prod`.
+  ~110 lines.
+- **`S2InnerBoundQC`** (deliverable 2) — the CF-slotted atom. LHS verified
+  **BYTE-IDENTICAL** to `S2InnerBoundQ` (`S2Collision.lean:795`) modulo the
+  binder name `W`/`W'` (compiler-confirmed: `s2_collision_le_QdiagW_C`
+  typechecks against `inner_exact_S2`'s output). RHS gains the `CF` slot:
+  `≤ 3^ω(s)·(∏_{p|s}(p−1)⁻²)·CF·Qdiag_gv`.
+- **`s2_collision_le_QdiagW_C`** (deliverable 3) — the CF-slotted assembly,
+  `|s2CollisionForm| ≤ Cs·CF·k²/D·Qdiag_gv`. Landed via a general helper
+  `s2_collision_le_of_innerB` (the landed `s2_collision_le_QdiagW` proof with
+  the concrete `Qdiag_gv` diagonal abstracted to an opaque nonneg `B`),
+  instantiated at `B := CF·Qdiag_gv`. Hyps = NB-3's (`hDlt`, `hk`, `hDk`).
+
+**FLAGGED — `s2_inner_yF` (deliverable 4): NOT landed (would require sorry).**
+This is the termwise + contamination-partition + qdiag-conversion discharge of
+the *signed, non-collapsing* S2 inner form — the previously-open analytic core
+(the `S2Collision.lean:782` PORT-BLOCKER, `CollisionYF_S2.lean` header's "open
+Cauchy–Schwarz shift"), whose S1 mirror (NC-1 `inner_abs_le`) is **also not yet
+landed**. The full proof is ~500–900 lines of new intricate Finset/contamination
+work; it did not fit this session's budget. All INPUTS it needs are in place:
+- termwise: `yM = (∏μ(wᵢ)g(wᵢ))·V` ⇒ `|V(w)|·∏g(w) = |yM(w)|`; `yM_sub_inn_le`
+  + `absInn_le_pas` (both landed, `QdiagBridge.lean`) give `|yM(w)| ≤ PAS+ε`,
+  `ε = lemma53Const·5·logR/D`, at nonvanishing joins `w = u∨σ` (in box, `wₘ=1`);
+- vanishing cases ALL landed as `lamPhiContractM_eq_zero_of_{coord_ne_one,
+  not_squarefree,not_coprime,le_prod}` (`VAbs.lean`) — `σₘ≠1 ⟹ wₘ≠1 ⟹ V=0`,
+  off-slot contamination ⟹ pairwise-non-coprime join ⟹ V=0;
+- the marked-moment collector = the landed `box_marked_gmoment` above;
+- qdiag conversion = `qdiag_eq_yMsq_sum` + `qdiag_bridge` (landed).
+
+The **remaining work** (structural plan, all mirrors NC-1's S1 partition):
+(i) the termwise bound `∏g(u)·|V(u∨σ)||V(u∨τ)| ≤ (PAS+ε)²/(∏g(u)·Gσ·Gτ)` with
+`∏g(u∨σ) = ∏g(u)·Gσ`, `Gσ(u) = ∏_{p|σ,p∤u}(p−2)` (gMult lcm/multiplicativity);
+(ii) the contamination partition `1/(Gσ Gτ) ≤ ∏_{p∉Q}(p−2)⁻²·∏_{p∈Q}(p−2)⁻¹`
+with `Q = {p|s : p∣u at its fst/snd slot}` and the `slot`-assignment feeding
+`box_marked_gmoment`; the `3^{ω(s)}` budget absorbs the side-choice and
+`(p−2)⁻¹ ≤ 2(p−1)⁻¹` (D≥300) conversions; (iii) the qdiag step
+`(PAS+ε)²(2PAS)⁴ ≤ CF·Qdiag_gv` via `Qdiag_gv ≥ X⁶·J/2` (R≥R₀) + `PAS ≤ X+O_{W'}(1)`,
+`CF = (2⁶·2/Jcal_m)·(1+o(1))` F-only (obtain `qdiag_bridge`'s `A` before `W'`).
+Per the PB floor, if (iii) fights it may be taken as an explicit `∀ᶠ`-hypothesis;
+but (i)+(ii) (the signed-form partition) is the genuine blocker and is shared
+with NC-1 — recommend landing NC-1's `inner_abs_le`/`box_marked_moment` (S1) and
+the shared contamination-partition helper FIRST, then porting to the g/V S2 side.
