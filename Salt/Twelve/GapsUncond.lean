@@ -22,8 +22,8 @@ flag in `docs/blueprints/flags.md`.
 
 * **R2b** (`winSlackM_ev`) discharges the conjunct-7 slack `WinSlackM D C₀ N'`
   eventually in `N'`, for all `D` above an explicit (∃, F-only) cutoff `D₀`.
-* **R2c** (`gaps_le_twelve_uncond`) feeds `winSlackM_ev` through
-  `winFrontierMW_of` (R2a) and mirrors `GapsFinal.gaps_le_twelve` at
+* **R2c** (`gaps_le_twelve` — THE frozen capstone name) feeds `winSlackM_ev` through
+  `winFrontierMW_of` (R2a) and mirrors `gaps_le_twelve_of_frontierM` at
   `(D₀, primorial D₀)`, yielding the unconditional explicit bounded-gaps theorem.
 
 The slack anatomy (all at FIXED `(D, W' = primorial D)`, `N' → ∞`,
@@ -1055,10 +1055,10 @@ theorem winSlackM_ev : ∃ D₀ : ℕ, 300 ≤ D₀ ∧ ∀ D : ℕ, D₀ ≤ D 
 apart from the standing analytic inputs `WindowPNT` and `EHall`: for every `N`
 there are two primes `p ≠ q > N` with `|q − p| ≤ 12`.  Assembles `winSlackM_ev`
 (R2b) through `winFrontierMW_of` (R2a) — discharging the largeness bundle
-`WinFrontierMW D₀` at the F-only cutoff `D₀` — and mirrors `GapsFinal.gaps_le_twelve`
+`WinFrontierMW D₀` at the F-only cutoff `D₀` — and mirrors `gaps_le_twelve_of_frontierM`
 at `(D₀, primorial D₀)` via the free-`W'` diam-12 pigeonhole
 `bounded_gaps_reduces_twelve` and the unconditional sieve inequality `win_core_M`. -/
-theorem gaps_le_twelve_uncond (hPNT : WindowPNT) (hEH : EHall) :
+theorem gaps_le_twelve (hPNT : WindowPNT) (hEH : EHall) :
     ∀ N : ℕ, ∃ p q : ℕ, N < p ∧ N < q ∧ p ≠ q ∧ p.Prime ∧ q.Prime ∧
       (q : ℤ) - (p : ℤ) ∈ Set.Icc (-12 : ℤ) 12 := by
   obtain ⟨D₀, hD₀300, hslackfun⟩ := winSlackM_ev

@@ -257,13 +257,16 @@ def WinFrontierM : Prop :=
         < (∑ m : Fin 5,
               δ / (Nat.totient (primorial Dfin) : ℝ) * cval m) - ∑ m : Fin 5, errEH m)
 
-/-! ## The capstone `gaps_le_twelve`
+/-! ## The frontier-conditional capstone `gaps_le_twelve_of_frontierM`
 
-The FROZEN top-of-doc target, matched verbatim in its conclusion; the S₁ inner
+(Renamed from `gaps_le_twelve` when the rung closed: the frozen name now lives
+on the UNCONDITIONAL theorem in `Salt/Twelve/GapsUncond.lean`.)
+The frozen target's conclusion, matched verbatim; the S₁ inner
 atom is discharged (via `collision_yF_M` inside `win_core_M`).  It remains
 CONDITIONAL on the mechanical `WinFrontierM` largeness bundle (PB-floor #2 of the
 NC-3 card: the `∀ᶠ N` slack threading is carried explicitly and flagged). -/
-theorem gaps_le_twelve (hPNT : WindowPNT) (hEH : EHall) (hFrontier : WinFrontierM) :
+theorem gaps_le_twelve_of_frontierM (hPNT : WindowPNT) (hEH : EHall)
+    (hFrontier : WinFrontierM) :
     ∀ N : ℕ, ∃ p q : ℕ, N < p ∧ N < q ∧ p ≠ q ∧ p.Prime ∧ q.Prime ∧
       (q : ℤ) - (p : ℤ) ∈ Set.Icc (-12 : ℤ) 12 := by
   refine bounded_gaps_reduces_twelve (primorial Dfin) (fun N => ?_)

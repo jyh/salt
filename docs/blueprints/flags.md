@@ -2204,3 +2204,29 @@ built FROM `A` (`Salt/Twelve/QdiagFloor.lean`); the final assembly (R2c) picks
 `gaps_le_twelve (…)(hFrontier : WinFrontierM)` remains valid as stated
 (`WinFrontierM ↔ WinFrontierMW Dfin`); it is simply not the discharge path —
 the unconditional theorem lands via the parameterized mirror.
+
+## 2026-07-11 RUNG CLOSED — gaps_le_twelve (hPNT)(hEH) unconditional
+
+R2b+R2c landed at PB-floor 1 (`eb42624`); the frozen name moved to the
+unconditional theorem (GapsFinal's 3-arg version renamed
+`gaps_le_twelve_of_frontierM`). `Salt/Twelve/GapsUncond.lean`:
+`winSlackM_ev` (`∃D₀ ≥ 300, ∀D ≥ D₀, ∀C₀ ≥ 0, ∀ᶠN', WinSlackM D C₀ N'`,
+unconditional in N') + `gaps_le_twelve (hPNT : WindowPNT)(hEH : EHall)`
+matching the frozen target verbatim. Axiom-clean, 0 sorry, bare `lake build`
+green (8693 jobs). Execution notes for the record:
+- `deltaPi` upper bound (the flagged risk): derived unconditionally from
+  mathlib's `Chebyshev.pi_le_log4_mul_div` (`deltaPi_upper_ev`,
+  `≤ 1000·N'/log N'` eventually) — no new analytic node was needed.
+- Executor-caught trap: the dispatch's suggested `qdiag_floor`-with-`/2`
+  main would have blown the certificate margin (`31465/1000` vs
+  `63·1999/4003` leaves no factor-2 room); replaced by the tight
+  `qdiag_err_split` with the error folded ADDITIVELY into `win_ratio_core`'s
+  free `eps` (7 vanishing pieces, each `≤ U/700000`). `win_ratio_core`
+  consumed unchanged — the wave-5 abstract-eps design paid off exactly as
+  intended.
+- The Archimedes cutoff `D₀` is an ∃-witness assembled from F-only constants
+  (per `51221c8`); no primorial is ever evaluated.
+The FABLE-QUEUE for this rung is now EMPTY except the `marked_prime_g`
+dead-end record. Open follow-ups (non-blocking, tooling/meta): extend
+`blueprint_lint.py` to the explicit12 card grammar; MODEL_POLICY/CLAUDE.md
+track-closure bookkeeping.

@@ -88,8 +88,14 @@ free-`(W',D)` S2 collision infrastructure).
 Node C — THE CLOSURE (landed): `InnerS1` (NC-1, **`collision_yF_M`** — the
 UNCONDITIONAL S1 collision atom, termwise + contamination partition), `InnerS2`
 (NC-2, **`s2_inner_yF`** — the S2 atom with the g-weighted `(p−2)⁻²` prefactor,
-mod the `hQd` qdiag comparison), `GapsFinal` (NC-3, **`gaps_le_twelve`** at the
-abstract Archimedean `primorial Dfin` — conditional on `WindowPNT`/`EHall`/
-`WinFrontierM`; live residuals R1 (`hQd` pointwise at `Dfin`) and R2
-(`WinFrontierM` `∀ᶠ N` slack) — see `docs/blueprints/flags.md` 2026-07-11).
+mod the `hQd` qdiag comparison), `GapsFinal` (NC-3, `gaps_le_twelve_of_frontierM` at
+the abstract Archimedean `primorial Dfin`, conditional on the frontier).
+
+THE RUNG IS CLOSED (R1a/R1b/R2a/R2b/R2c, 2026-07-11): `JcalPos` (per-m
+certificate positivity), `QdiagFloor` (the pointwise S₂ collision closure,
+`∃Dthr` from `qdiag_bridge`'s `A`), `FrontierM` (`WinFrontierMW (D)` +
+`winFrontierMW_of`: frontier conjuncts 1–6 at any `D ≥ 300`), and
+`GapsUncond` — **`gaps_le_twelve (hPNT : WindowPNT) (hEH : EHall)`**, the
+frozen target, UNCONDITIONAL beyond its two named analytic inputs, with the
+Archimedes cutoff chosen existentially after the F-only constants.
 -/

@@ -11,7 +11,7 @@ import Salt.Twelve.GapsFinal
 Design: `docs/blueprints/explicit12-design.md`, card NC-3 and the W5-7 flag in
 `docs/blueprints/flags.md`.
 
-`gaps_le_twelve` (`Salt/Twelve/GapsFinal.lean`) is conditional on the
+`gaps_le_twelve_of_frontierM` (`Salt/Twelve/GapsFinal.lean`) is conditional on the
 `WinFrontierM` hypothesis `hFrontier` — the `∀ᶠ N` largeness bundle
 `WindowPNT → EHall → ∀ N, ∃ N' ≥ N, [analytic conjuncts]` at the modulus
 `primorial Dfin`, with the *M-based* S₁ slack (conjunct 7).  This file lands the

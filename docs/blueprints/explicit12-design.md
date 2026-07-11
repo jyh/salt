@@ -1488,10 +1488,20 @@ hypotheses if the largeness stack fights; flag.
 
 # Node C — THE CLOSURE (Fable design pass 2, 2026-07-11) — termwise + marked moments
 
-**STATUS (Fable review, 2026-07-11): NC-1 LANDED (`a0ce27e`, `collision_yF_M`
-unconditional), NC-2 LANDED (`4594f54`, `s2_inner_yF` mod `hQd`; `(p−2)⁻²`
-g-weighted prefactor, blessed inline — reconciled below), NC-3 LANDED PB-floor
-#2 (`4648af1`, `gaps_le_twelve (hPNT)(hEH)(hFrontier : WinFrontierM)`).** Live
+**STATUS: THE RUNG IS CLOSED (2026-07-11).** The frozen top-of-doc target is
+LANDED under its frozen name, UNCONDITIONAL beyond `WindowPNT`/`EHall`:
+**`gaps_le_twelve (hPNT : WindowPNT) (hEH : EHall)`**,
+`Salt/Twelve/GapsUncond.lean` (`eb42624` + rename), axiom-clean
+`[propext, Classical.choice, Quot.sound]`, bare-`lake build`-checked.
+Chain: NC-1 (`a0ce27e`, `collision_yF_M`), NC-2 (`4594f54`, `s2_inner_yF`,
+`(p−2)⁻²`), NC-3 (`4648af1`, now `gaps_le_twelve_of_frontierM`), R1a
+(`4868be9`, `JcalPos`), R2a (`9c54938`, `FrontierM` — parameterized per the
+pinned-Dfin correction `51221c8`), R1b (`fbde659`, `QdiagFloor`), R2b+R2c
+(`eb42624`, `GapsUncond`: `winSlackM_ev` + capstone; `deltaPi` upper via
+mathlib Chebyshev; the qdiag error folded additively into `win_ratio_core`'s
+free `eps` — the `/2`-floor form would have blown the certificate margin).
+Historical residual notes below are CLOSED; kept for the record. Original
+review-era text: Live
 residuals (flags.md 2026-07-11 + Fable review): R1 — the `hQd` comparison,
 discharged POINTWISE at `(primorial Dfin, Dfin)` via the now-public
 `s2_inner_termwise` (NO statement surgery on the frozen `hQd`; per-m
