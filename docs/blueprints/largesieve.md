@@ -6,6 +6,19 @@ Vaughan's identity (the identity + Type I/II reduction; the BV assembly and
 Siegel–Walfisz input are the NEXT rung). Track branch `largesieve`. First
 node: the W1 de-risking probe.*
 
+**STATUS: RUNG COMPLETE (2026-07-11, same day).** All 25 nodes ✅ (one
+PB-floor, L8.1, closed same-day by L8.1b). The five headline theorems —
+`analytic_LS` (δ⁻¹+13N), `arithmetic_LS` (Q²+13N), `char_LS` (q/φ(q),
+primitive, composite-safe), **`bdh`** (pure-LS Barban form,
+`6000(Qx+x²)(logx)²`), `vaughan` + the Type I/II dispersion interface
+(`psiChi_sub_head_eq`) — all axiom-clean
+`[propext, Classical.choice, Quot.sound]`, bare `lake build` covered
+throughout. Two Fable statement corrections mid-rung (both flagged): the
+7N→13N Gallagher constant (pre-dispatch adversarial pass) and the L8.4
+re-freeze to the Barban form (the sharp `Qx·logx` BDH is Siegel–Walfisz-
+gated → named target of the BV rung). First large sieve + BDH + Vaughan
+in any proof assistant.*
+
 ## Doctrine
 
 1. **Constant-factor everywhere.** No sharp `N + δ⁻¹` (needs Beurling–Selberg,
@@ -123,7 +136,7 @@ RETIRED — the Gallagher route is ratified and the duality fallback is closed.
 | L8.1 | conductor descent: sums over all χ mod q ↦ primitive χ mod conductor, with the `q/φ(q)` bookkeeping (mathlib conductor/`isPrimitive` API) — `Salt/LS/Conductor.lean` (8 lemmas: agreement via `primitiveCharacter_apply_of_isCoprime`; ψ-diff `≤ ω(q)·log x` fiber count; φ-double-counting reduced via `totient_super_multiplicative`, PB-FLOOR: the `Σ1/φ(m) ≤ C(1+logQ)` factor threaded as `hphi` — residual node L8.1b below) | C | ✅ (PB) |
 | L8.2 | `∑_{n ≤ x} Λ(n)^2 ≤ C·x·log x` (Chebyshev, reuse `Salt/Maynard` supply + mathlib `Chebyshev.lean`) — `sum_vonMangoldt_sq_le`, `C = log4 + 4` (mathlib `Chebyshev.psi_le_const_mul_self` verbatim), `Salt/LS/BDHPrep.lean` | B | ✅ |
 | L8.3 | character orthogonality → residue-class variance identity: `∑_{a reduced} ‖ψ(x;q,a) − ψ(x,χ₀)/φ(q)‖^2 = (1/φ q) ∑_{χ ≠ χ₀} ‖ψ(x,χ)‖^2` — `variance_eq` EXACT (mean = `psiChi x χ₀/φ(q)`, not `ψ(x)/φ(q)` — the χ₀-vs-full conversion is L8.4's, via L8.1's crude bound) + `psiChi_eq_sum_psiAP` + full Parseval `sum_normSq_psiChi_eq`; mathlib `DirichletCharacter.sum_characters_eq` had FULL orthogonality | B | ✅ |
-| L8.4 | **BDH, pure-large-sieve Barban form** (RE-FROZEN, Fable 2026-07-11 — the original `√x ≤ Q → ≤ C·Q·x·(logx)³` is UNPROVABLE without Siegel–Walfisz: small conductors carry an irreducible trivial-bound `x²` term, e.g. `|ψ(x,χ₃)|² ~ x²`; the sharp small-conductor version is exactly the SW-gated content of the BV rung. The earlier verification claim "(logx)³ headroom adequate" was wrong.): `∀ x Q, 2 ≤ x → 2 ≤ Q → Q ≤ x → ∑ q ∈ Icc 1 Q, ∑_{a reduced} (psiAP x q a − mean)² ≤ 4000 * ((Q:ℝ)*x + x^2) * (log x)^2` with mean = `psiChi x χ₀/φ(q)` primary (what `variance_eq` gives; the `ψ(x)/φ(q)`-mean corollary via the L8.1 crude bound is a stretch add-on). Explicit numeral latitude upward. Assembly: variance_eq → descent (2·err² split) → dyadic blocks F: `(1/φf) ≤ (2/F)(f/φf)`, per-block `char_LS` at `Q:=F` ⇒ `(2F + 26x/F)·ΣΛ²`, Σ_dyadic ⇒ `(4Q+26x)·ΣΛ²`; PhiSum's `Σ1/φ` for the descent multiplicity; L8.2 for `ΣΛ²`. ψ-form primary; θ-form L8.5 stretch, non-blocking. | C | ⬜ |
+| L8.4 | **BDH, pure-large-sieve Barban form** (RE-FROZEN, Fable 2026-07-11 — the original `√x ≤ Q → ≤ C·Q·x·(logx)³` is UNPROVABLE without Siegel–Walfisz: small conductors carry an irreducible trivial-bound `x²` term, e.g. `|ψ(x,χ₃)|² ~ x²`; the sharp small-conductor version is exactly the SW-gated content of the BV rung. The earlier verification claim "(logx)³ headroom adequate" was wrong.): `∀ x Q, 2 ≤ x → 2 ≤ Q → Q ≤ x → ∑ q ∈ Icc 1 Q, ∑_{a reduced} (psiAP x q a − mean)² ≤ 4000 * ((Q:ℝ)*x + x^2) * (log x)^2` with mean = `psiChi x χ₀/φ(q)` primary (what `variance_eq` gives; the `ψ(x)/φ(q)`-mean corollary via the L8.1 crude bound is a stretch add-on). Explicit numeral latitude upward. Assembly: variance_eq → descent (2·err² split) → dyadic blocks F: `(1/φf) ≤ (2/F)(f/φf)`, per-block `char_LS` at `Q:=F` ⇒ `(2F + 26x/F)·ΣΛ²`, Σ_dyadic ⇒ `(4Q+26x)·ΣΛ²`; PhiSum's `Σ1/φ` for the descent multiplicity; L8.2 for `ΣΛ²`. ψ-form primary; θ-form L8.5 stretch, non-blocking. — **`bdh`**, `Salt/LS/BDH.lean` (~560 lines; numeral 6000 held, chain ≈5792; injective (q,χ⋆)-regrouping via `changeLevel_primitiveCharacter` + `sum_image`; dyadic via `Nat.log 2 (f−1)` fibering; the one snag was DecidableEq/Fintype instance unification on character sums — resolved by a scoped high-priority Classical instance + one `Subsingleton.elim` bridge) | C | ✅ |
 | L8.1b | **(residual from L8.1's PB-floor)** the standalone `∑_{m ∈ Icc 1 Q} (1/φ(m):ℝ) ≤ 4·(1+Real.log Q)`-shape bound. Route (flagged by L8.1): general-`m` identity `m/φ(m) = ∑_{d∣m} μ²(d)/φ(d)` (only the SQUAREFREE version exists — `Salt.Maynard.PhiAtom.sum_divisors_inv_totient_ge`; general case via `m/φ(m) = rad(m)/φ(rad m)`), then the divisor swap + `Salt.Maynard.PhiAtom.sum_inv_mul_totient_le` (`≤ 4`) + `harmonic_le_one_add_log`. ~150–250 lines — `sum_inv_totient_le` (C=4 exactly, radical route) + `sum_inv_totient_dvd_le'` (discharges Conductor's `hphi`), `Salt/LS/PhiSum.lean`; reused Brun `rad` + Maynard φ-atoms | C | ✅ |
 
 ### W6 — Vaughan

@@ -20,6 +20,7 @@ import Salt.LS.Conductor
 import Salt.LS.BDHPrep
 import Salt.LS.PhiSum
 import Salt.LS.TypeSums
+import Salt.LS.BDH
 
 /-!
 # Rung 5 opener (`largesieve`) — aggregate import
@@ -100,4 +101,15 @@ data into `b(m) = ∑_{c∣m,c>V}Λc` rather than the node prose's `Λ(c)`);
 `∑_{V<n≤x} Λ(n) f(n) = TypeI₁ − TypeI₂ + TypeII`) and the character reduction
 **`psiChi_sub_head_eq`** with head bound `norm_head_le` (`‖head‖ ≤ V·log V`)
 and multiplicativity `chi_cast_mul`).
+`BDH` (L8.4 — **`bdh`**, Barban–Davenport–Halberstam in the pure large-sieve
+Barban form: `∑_{q ≤ Q} ∑_{a reduced} ‖ψ(x;q,a) − ψ(x,χ₀)/φ(q)‖² ≤
+6000·(Q·x + x²)·(log x)²` for `2 ≤ Q ≤ x`). Assembly: `variance_eq` per modulus →
+conductor descent `‖ψ(x,χ)‖² ≤ 2‖ψ(x,χ⋆)‖² + 2‖ψ(x,χ)−ψ(x,χ⋆)‖²` → the error
+piece (`Conductor` crude bound + character count `card_eq_totient`, closed by
+`(log x)² ≤ 4x`) plus the main piece: the injective primitive-pair regrouping
+`regroup` (`χ ↦ ⟨conductor χ, χ.primitiveCharacter⟩`, left inverse `changeLevel`),
+the `(q,f)` swap (`Finset.sum_comm'` + `PhiSum.sum_inv_totient_dvd_le'`), and the
+dyadic block bound `dyadic` (fibre by `Nat.log 2 (f-1)`, per block `CharLS.char_LS`
+at level `2ʲ⁺¹` via the `psiChi ↔ range (x+1)` bridge `charLS_psi`). Verified
+numeral `≈ 5792 ≤ 6000`.
 -/

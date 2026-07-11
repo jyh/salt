@@ -2257,3 +2257,23 @@ dyadic budget: `Σ_F (2F + 26x/F)·ΣΛ²·8(1+logQ)` ⇒ `C(Qx + x²)(logx)²`.
 L8.4 re-frozen to that honest hypothesis-free Barban form (explicit
 numeral 4000, latitude upward). The `Qx logx`-sharp BDH becomes a named
 target of the BV rung, gated on SW.
+
+## 2026-07-11 largesieve RUNG COMPLETE — LS + BDH + Vaughan, all landed
+
+Single-day rung (W0 blueprint → W7 close-out), 25/25 nodes, ~15 commits on
+`largesieve`. Headlines (all axiom-clean, bare-build-covered):
+`analytic_LS` (Gallagher route, Δ=δ⁻¹+13N), `arithmetic_LS` (Q²+13N over
+reduced Farey), `char_LS` (q/φ(q)-weighted primitive, composite-modulus
+Gauss sums — the [Field R] trap dodged per the pre-dispatch adversarial
+pass), `bdh` (pure-LS Barban `6000(Qx+x²)(logx)²` — re-frozen mid-rung:
+the sharp `Qx·logx` form is SW-gated, now a NAMED BV-rung target),
+`vaughan` + Type I/II (`psiChi_sub_head_eq`, the dispersion-consumable
+interface; the μ(d)/typeIIData(m) bilinear packaging ruled
+dispersion-correct — typeIIData vanishes for m ≤ V).
+Process notes for the record: blueprint adversarially verified BEFORE
+dispatch (caught the unprovable 7N and the Field-only Gauss lemma); one
+agent stall (infra watchdog, clean retry); every node landed within its
+class, zero sorry ever committed. BV-rung pre-flight now has: the LS
+chain, the Vaughan interface, `sum_inv_totient_le`, conductor toolkit.
+Missing for BV: Siegel–Walfisz-grade input (the deep end — watch
+PrimeNumberTheoremAnd/mathlib), the dispersion computation itself.
