@@ -16,6 +16,11 @@ import Salt.Twelve.BudgetMomentG
 import Salt.Twelve.MvMomentG
 import Salt.Twelve.MvI
 import Salt.Twelve.MvJ
+import Salt.Twelve.PhiUpperReindex
+import Salt.Twelve.RelEngines
+import Salt.Twelve.FstarNorm
+import Salt.Twelve.MvSplit
+import Salt.Twelve.QdiagBridge
 
 /-!
 # Rung 4a (`explicit12`) — aggregate import
@@ -41,6 +46,18 @@ g-weighted workhorse), and the two keystones **`MvI`** (`mv_I` : the 5-dim first
 moment `X⁵·simplexInt (sq (ofPoly F))`) and **`MvJ`** (`inner_contract` + `mv_J` :
 the 4+2-dim second moment `X⁶·simplexInt (sq (contractAt m F))`). At `F★` these
 conclude, via the `BudgetPoly` ties, `X⁵·Ical F★` and `X⁶·Σ_m Jcal m F★`.
-PORT-BLOCKERs still in FABLE-QUEUE: `marked_prime_g` (unneeded dead-end record),
-`hReindex` (powerful/squarefree reindex; non-blocking).
+
+Wave 4 (landed): the bridges from the moments to the `(D,W')`-generalized sieve
+spine. `PhiUpperReindex` (**`phiUpperAtom_final : ∀ B≠0, PhiUpperAtom B`**,
+UNCONDITIONAL — the `PhiUpperAtom` hypothesis is discharged everywhere);
+`RelEngines` (constant-free relative marked/gap bounds vs `phiAtomSum`);
+`FstarNorm` (`Fstar1` normalized weight `|yF|≤1`, `M5_cert1`, `primorial_hDlt`);
+`MvSplit` (`mv_I_split`/`mv_J_split`/`inner_contract_rel` — the split-error
+forms with `1/D` errors relativized to `phiAtomSum`, `∃A` before `W'`);
+`Lemma53W` (`Salt/Maynard/`, free-`(W',D)` `lemma53_tightW`); and **`QdiagBridge`**
+(`qdiag_bridge` : `Qdiag_mW 5 R W' m (yF F) ≈ X⁶·simplexInt (sq (contractAt m F))`).
+Design corrections this wave (Opus, endgame-verified): the `mv_J_split`/
+`qdiag_bridge` `1/D` buckets are MIXED-power `(1+X+PAS)⁶`, and `qdiag_bridge`
+carries a second `κ⁻²·Y⁶/D²` term (both endgame-safe via `κ⁻¹ ≤ 5√D`).
+FABLE-QUEUE now: only `marked_prime_g` (unneeded dead-end record).
 -/

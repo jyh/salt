@@ -911,6 +911,27 @@ endgame assembly `gaps_le_twelve`.
 
 # Wave-4 cards (Fable pre-flight, 2026-07-10)
 
+**STATUS — wave 4 COMPLETE on `explicit12` (2026-07-10), all axiom-clean
+`[propext, Classical.choice, Quot.sound]`:**
+- W4-0 ✅ `085f496` — `PhiUpperReindex`: `phiUpperAtom_final : ∀ B≠0,
+  PhiUpperAtom B` UNCONDITIONAL (closed the `hReindex` residual).
+- W4-1 ✅ `a6dd715` — `RelEngines`: `marked_sqf_phi_rel`/`marked_sqf_g_rel`/
+  `g_gap_rel` (constant-free, vs `phiAtomSum`).
+- W4-2 ✅ `6086f68`+`ba5c526` — `MvSplit`: `inner_contract_rel`, `mv_I_split`,
+  `mv_J_split` (split errors; `1/D` relativized, `∃A` before `W'`).
+- W4-3 ✅ `380b9e7` — `Lemma53W`: `euler_tail_LW` + `lemma53_tightW` (free
+  `(W',D)`, `|y|≤B`).
+- W4-4 ✅ `02be093` — `FstarNorm`: `Fstar1` (`|yF|≤1`), `M5_cert1`,
+  `primorial_hDlt`.
+- W4-5 ✅ `abf457c` — `QdiagBridge`: `qdiag_bridge` (the S2 bridge).
+All wired into `Salt/Twelve/All.lean`. TWO Opus-inline design corrections
+(both endgame-verified, `κ⁻¹≤5√D`): the `mv_J_split`/`qdiag_bridge` `1/D`
+buckets became MIXED-power `(1+X+PAS)⁶` (`db82524`), and `qdiag_bridge` gained
+a second `κ⁻²·Y⁶/D²` term for the `δ²` self-term (`c9db92b`). Both were
+pre-flight bucket under-specs the execution caught. FABLE-QUEUE now holds only
+`marked_prime_g` (dead-end record). Next: wave-5 pre-flight (S1 non-tensor
+collision, sharp S1, WindowPNT/EHall plumbing, `gaps_le_twelve`).
+
 Statements below are FROZEN (iron rule 1); routes/traps are executor guidance.
 `X` abbreviates `(W'.totient : ℝ)/W' * Real.log R`; `PAS z W'` abbreviates
 `Salt.Maynard.phiAtomSum z W'` (a landed def, NOT new notation in Lean).
