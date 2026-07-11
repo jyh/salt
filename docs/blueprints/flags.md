@@ -1626,15 +1626,50 @@ grinding; the next Fable wave opens by draining this list.
 - **explicit12 W5-7 — discharge `WinFrontier (primorial Dstar)`** (`hFrontier`
   hypothesis of `gaps_le_twelve_of_inner`, `Salt/Twelve/WinCore.lean`). The
   STEP-6 `∀ᶠ N` largeness bundle (`WindowPNT → EHall → ∀ N ∃ N'≥N,
-  S1 < Σ S2mW`). MECHANICAL (a mirror of `analyticFrontier_lod` at level θ★):
-  thresholds via `eventually_poly_beats_polylog` + `EH_range_theta` +
-  `logR_lower_theta`/`logR_upper_theta` (two-sided pin `log R/log N → θ★/2`);
-  per-N' bounds from `mv_I_split`+`sharp_S1_upperW` (S1) and `qdiag_bridge`+
-  `S2mW_lower`+`S2mW_ge_compatMain_theta_uniform` (S2m); margin closed by
-  `win_ratio_core` (the `1999·191881 > 4003·95820` sharp cert, with
-  `Dstar=3·10⁷`, `ε=1/100`, `ρ=1249/2500`). Tedious but no new math — Opus
-  follow-up. Discharging it leaves `gaps_le_twelve` conditional on ONLY
-  `hInner` (Node B).
+  S1 < Σ S2mW`). **PARTIALLY LANDED (Opus, 2026-07-10,
+  `Salt/Twelve/WinFrontierDischarge.lean`, axiom-clean
+  `[propext, Classical.choice, Quot.sound]`, zero warnings) as `winFrontier_of`,
+  taking the assembled ratio-slack (conjunct 7) as an explicit `∀ᶠ`-hypothesis
+  `hslackEv : ∀ C₀ ≥ 0, ∀ᶠ N', WinSlack C₀ N'`.** Discharged concretely
+  (PB-floor MUST-HAVE met):
+  - The `∀ᶠ` threshold assembly: `N' := max N₀ N`, `R := ⌊N'^{1999/4000}⌋₊`
+    (`θ★/2`), `ν₀ := (exists_nu0W …).choose`, `δ := (63−1/100)·N'/log N' − 19`
+    (`hSeq ≤ 19`); thresholds via `eventually_poly_beats_polylog`,
+    `EH_range_theta`, `R_ge_two_theta`/`R_le_N'_theta`, `WindowPNT` at `ε=1/100`.
+  - Conjunct 1 (`hsol`): `cong_solvableW` + a reproved free-`W'`
+    non-collision→pairwise-coprime-lcm helper.
+  - Conjunct 2 (`hφpos`): `Nat.totient_pos` on `primorial Dstar > 0`.
+  - Conjunct 3 (`hcvnn`, `cval := Qdiag`): `Qdiag ≥ 0` via `qdiag_eq_yMsq_sum`
+    (sum of `yM²/∏g`, `g` a ℕ-cast ⇒ `≥ 0` termwise) — no `box_g_pos` needed.
+  - Conjunct 4 (`hδ0`/`hDpi`): `deltaPi_lower_of` fed `WindowPNT`'s `63−ε`.
+  - Conjunct 5 (`hQlow`): `le_refl` (`cval := Qdiag`).
+  - Conjunct 6 (`hS2low`): `S2mW_ge_compatMain_theta_uniform` (θ₊-level, EHall→
+    `HasLevel(3999/4000)`), with `errEH m := Δπ/φW'·(Qdiag − s2CompatForm) +
+    C₀·(1+log R)^12·N'/(log N')^14` — the S2-collision difference folded into
+    `errEH` so conjunct 6 is an EXACT `linarith` consequence (no separate S2
+    lower bound in `Qdiag`-form / `S2mW_lower` herr needed).
+  - **FABLE-QUEUE (the unthreaded content — conjunct 7 `WinSlack C₀ N'`):** the
+    assembled ratio-slack. Reduces to `win_ratio_core` (certified
+    `63·N'·(1+300/Dstar)·Ical < δ·log R·ΣJ`, `θ★/2·M₅>1` via
+    `theta_ratio_cert_sharp`, `Dstar=3·10⁷`⇒`eps=1/100000`) after cancelling the
+    common `κ⁵/W'·(log R)⁵` factor from BOTH mains, but TWO pieces are unthreaded:
+    (a) **`win_ratio_core` exposes only a strict `<`, not a QUANTITATIVE margin**
+    — comparing the summed errors (`mv_I_split`'s `c(1+X)⁵/logR + A(1+PAS)⁵/D`,
+    `qdiag_bridge`'s `c(1+X)⁶/logR + Aκ⁻¹Y⁶/D + Aκ⁻²Y⁶/D²`, the `herr`, the S1
+    truncation `2^6(Σ|λ|)²`, the `Δπ` shift) against the gap
+    `31465/1000 − 63·1999/4003 ≈ 4.4×10⁻³` needs a re-derivation of
+    `win_ratio_core` with the gap made explicit (or the summed-error-below-gap
+    fact as its own atom); (b) **the S2-collision total
+    `Σ_m Δπ/φW'·(Qdiag − s2CompatForm)` (folded into `errEH`) needs an
+    S2-collision estimate** — the `s2_collision_le_QdiagW`/`S2InnerBoundQ`
+    compat↔full-form passage (`S2Collision.lean:795`), not landed for `yF Fstar1`
+    (the S2 analog of Node B; `¬` cleanly in the landed free-`W'` `herr` chain,
+    which is compat-pairs-only). Both are budgeted-vanishing per the design's
+    error sheet (`Dstar` budget + `∀ᶠ`), so `hslackEv` is TRUE; only its Lean
+    threading remains. `WinSlack`/`winFrontier_of` are in
+    `Salt/Twelve/WinFrontierDischarge.lean`. Discharging `hslackEv` (⇒
+    `winFrontier_holds` unconditional) leaves `gaps_le_twelve` conditional on
+    ONLY `hInner` (Node B).
 
 - **explicit12 Node B — `S1InnerBound (yF Fstar1)`** (wave-5 CRUX, needs its own
   Fable/human design pass; scoped in `explicit12-design.md` "Node B — THE CRUX
