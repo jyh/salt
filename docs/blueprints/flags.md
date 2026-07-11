@@ -1671,7 +1671,13 @@ grinding; the next Fable wave opens by draining this list.
     `winFrontier_holds` unconditional) leaves `gaps_le_twelve` conditional on
     ONLY `hInner` (Node B).
 
-- **explicit12 Node B — `S1InnerBound (yF Fstar1)`** (wave-5 CRUX, needs its own
+- **explicit12 Node B — CARDED (Fable 2026-07-11, CRUDE-domination route).**
+  The non-tensor collision estimate needs NO Lipschitz: `|yF r| ≤ ONE r` (constant
+  tensor `f₀≡1`), so `inner_abs_le` at `ONE` bounds the abs-majorant
+  `s1AbsCollisionForm(yF) ≤ 12k²/D·M`, then `M ≤ yside/c` (c=120·Ical≈0.48).
+  Collision constant `12k²/(cD) ≈ 2.08e-5`; ratio `1.000736 > 1` (verified).
+  Cards NB-1..NB-4 in `explicit12-design.md`. Same route discharges the S2 twin
+  (`S2InnerBoundQ`). NB-4 assembles UNCONDITIONAL `gaps_le_twelve`. (orig crux note:
   Fable/human design pass; scoped in `explicit12-design.md` "Node B — THE CRUX
   SUB-WAVE"). The LAST genuine mathematical content of the rung: the sharp S1
   non-tensor collision bound. Maynard's real weight `yF` is divisor-INCREASING,

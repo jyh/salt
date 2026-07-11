@@ -1486,7 +1486,109 @@ FROZEN capstone (`gaps_le_twelve` at the top of this doc). Traps: the Archimedea
 (the ratio) + the assembly with `analyticFrontierW`'s `∀ᶠ` conjuncts as
 hypotheses if the largeness stack fights; flag.
 
-## Node B — THE CRUX SUB-WAVE (needs its own Fable/human design pass; NOT carded here)
+## Node B — CARDED (Fable design pass, 2026-07-11) — the CRUDE-domination route
+
+**RESOLVED: the collision estimate needs NO Lipschitz smoothness.** The design
+exploration (full read of `inner_abs_le`) found the crude route (b′): `yF` is
+BOUNDED (`|yF R W' Fstar1 r| ≤ 1`, landed `yF_Fstar1_abs_le_one`), so
+`|yF r| ≤ ONE r` where `ONE r := if r ∈ kSieveIndex 5 R W' then 1 else 0` is the
+CONSTANT tensor (`f₀ ≡ 1`, a legal divisor-DECREASING tensor: `1 ≤ 1`). The
+`μ`-sign-strip inside `inner_abs_le` makes the inner form MONOTONE in `|y|`
+pointwise, so `inner_abs_le` applied to `ONE` bounds the `yF` form:
+`|s1CollisionForm (yF)| ≤ 12k²/D · M`, `M := ∑_r 1/∏φ(rᵢ)` (the crude moment =
+`yside` of `ONE`). Then `M ≤ (1/c)·yside` (`c = 120·Ical(Fstar1) = 120·1597/399168
+≈ 0.480`) converts it to `≤ 12k²/(cD)·yside`. NUMERICS (verified): the collision
+constant becomes `12·25/(c·Dstar) ≈ 2.08×10⁻⁵` (vs the tensor `10⁻⁵`); the ratio
+`(θ★/2)M₅/(1+2.08×10⁻⁵) = 1.000736 > 1` — closes with margin `7.36×10⁻⁴` to
+spare (bumping `Dstar` restores it fully). NO Lipschitz, NO new erasure, NO
+`euler_tailW_log`. The erase-case residual worry was a MISDIAGNOSIS (the
+`log/log R` normalization makes the erase shift uniform) — but the crude route
+sidesteps it entirely anyway.
+
+### NB-1 `Salt/Twelve/CollisionYF.lean` — `collision_yF_le` (S1 side) — Opus, B/C
+```lean
+def ONEw (R W' : ℕ) : (Fin 5 → ℕ) → ℝ := fun r => if r ∈ kSieveIndex 5 R W' then 1 else 0
+
+theorem collision_yF_le (R W' D : ℕ) (F : Poly) (hQ : Qabs F ≤ 1)
+    (hW' : Squarefree W') (hDlt : ∀ p, p.Prime → ¬p ∣ W' → D < p)
+    (hDk : 12 * 5 ^ 2 ≤ D) :
+    |s1CollisionForm 5 R W' (yF R W' F)|
+      ≤ (12 * (5:ℝ)^2 / D) * ∑ r ∈ kSieveIndex 5 R W', 1 / ∏ i, (Nat.totient (r i) : ℝ)
+```
+Route (the domination is on the ABS-majorant `s1AbsCollisionForm`, NOT the signed
+form — the `lam` weights carry `μ` signs so `s1AbsCollisionForm ONE ≠
+s1CollisionForm ONE`): (i) **`collision_abs_ONE_le : s1AbsCollisionForm 5 R W' (ONEw)
+≤ 12k²/D·M`** — this is what `inner_abs_le` at `f₀ ≡ 1` (`hf0 : 0 ≤ 1`, `hfmono :
+1 ≤ 1`) + the `collision_lower_orderW` ASSEMBLY prove, since `inner_abs_le` and
+the assembly go through the ABS forms (`∑_u ∏φ·|ŷ||ŷ|`). Extract an abs-conclusion
+`collision_lower_orderW_of_abs : S1InnerBound … → s1AbsCollisionForm … ≤ 12k²/D·yside`
+from the existing proof (its body already bounds the abs-majorant; the signed
+`|s1CollisionForm|` is a downstream corollary via `s1CollisionForm_le_abs`).
+`yside[ONE] = M`. (ii) **`|s1CollisionForm (yF F)| ≤ s1AbsCollisionForm (yF F) ≤
+s1AbsCollisionForm ONEw`** — `s1CollisionForm_le_abs` (`|·| ≤` majorant) +
+`s1AbsCollisionForm_mono` (`|y₁ r| ≤ |y₂ r| ∀r ⇒ s1AbsCollisionForm y₁ ≤
+s1AbsCollisionForm y₂`, since `|lam y d| = ∏dᵢ·|wSum y d|` is monotone in `|y|`
+via `|wSum y d| ≤ ∑|y_r|/∏φ`), and `|yF r| ≤ ONEw r` (`yF_abs_le_Qabs` + `hQ`;
+off-box both 0). Chain (i)+(ii): `≤ 12k²/D·M`. Land `s1AbsCollisionForm_mono`,
+`s1CollisionForm_le_abs`, `lam_abs_mono` (`|y₁|≤|y₂| ⇒ |lam y₁ d| ≤ |lam y₂ d|`).
+PB floor: if extracting the abs-conclusion from `collision_lower_orderW_of` fights,
+prove `collision_abs_ONE_le` directly by re-running the assembly (it's `y`-generic
+and its inequalities are all on abs forms).
+
+### NB-2 `Salt/Twelve/CollisionYF.lean` — `yside_ge_cM` — Opus, B/C
+```lean
+theorem yside_ge_cM (F : Poly) : ∃ c : ℝ, 0 < c ∧ ∀ W' D : ℕ, Squarefree W' →
+    0 < W' → PhiUpperAtom W' → 3 ≤ D → (∀ p, p.Prime → ¬p ∣ W' → D < p) →
+    ∃ R₀ : ℕ, ∀ R : ℕ, R₀ ≤ R → 1 ≤ Real.log R →
+      c * (∑ r ∈ kSieveIndex 5 R W', 1 / ∏ i, (Nat.totient (r i):ℝ))
+        ≤ ∑ r ∈ kSieveIndex 5 R W', (yF R W' F r)^2 / ∏ i, (Nat.totient (r i):ℝ)
+```
+Route: `yside = X⁵·Ical F ± mv_I err` (landed `mv_I`); `M = X⁵·simplexInt(1)
+± err = X⁵/120 ± err` (`mv_I` at `F ≡ 1`, `simplexInt(sq(ofPoly 1)) = DInt'(0,0)
+= 1/120`); ratio `→ 120·Ical F`. `c = 100·Ical F` (after absorbing `o(1)`);
+`Ical_Fstar1_pos` (landed `WinCore.lean:127`). NEEDS `PhiUpperAtom` — discharge
+it via the landed `phiUpperAtom_final` (W4-0, UNCONDITIONAL) so `yside_ge_cM` is
+hypothesis-free at `Fstar1`. PB floor: none.
+
+### NB-3 `Salt/Twelve/CollisionYF.lean` — S2 twin `collision_yF_le_S2` — Opus, C
+The S2-side analog: `s2_collision_le_QdiagW` (`S2Collision.lean:808`, `y`-generic
+modulo `S2InnerBoundQ`) — discharge `S2InnerBoundQ (yF)` by the SAME ONE-tensor
+domination (`s2_inner_bound_N`'s `fTilde`-antitone step replaced by the `f₀≡1`
+instance), giving `|Qdiag_mW − s2CompatFormM| ≤ (c₂k²/D)·M ≤ (c₂k²/(cD))·yside`.
+This connects `S2mW_lower`'s compat bound to `qdiag_bridge`'s `Qdiag` (the
+`hslackEv` residual (b) from W5-7). Traps: audit `s2_collision_le_QdiagW`'s exact
+hyp shape; the `S2InnerBoundQ` Prop atom. PB floor: if the S2 split needs its own
+`_of` refactor (like W5-1 did for S1), land that first.
+
+### NB-4 `Salt/Twelve/GapsFinal.lean` — assemble UNCONDITIONAL `gaps_le_twelve` — Opus, C
+Consumes NB-1/2/3 + the landed `gaps_le_twelve_of_inner`/`winFrontier_of`. (a)
+Discharge `hInner`: `collision_yF_le` + `yside_ge_cM` give the S1 collision bound;
+feed the sharp S1 (revise `sharp_S1_upperW` → factor `(1 + 12k²/(cD))`, an
+INLINE endgame-verified constant change to `WinCore.lean` — ratio re-verified
+`1.000736 > 1`). (b) Discharge `hslackEv` (W5-7's residual): NB-3 closes the S2
+collision, then the vanishing-error threading (mechanical, per W5-7's flag)
+closes `WinSlack`. (c) `winFrontier_holds := winFrontier_of hslackEv`. (d)
+`gaps_le_twelve := gaps_le_twelve_of_inner hPNT hEH hInner winFrontier_holds` —
+matching the FROZEN top-of-doc target `gaps_le_twelve (hPNT) (hEH) : ∀N ∃p q,
+… ∈ Icc(-12,12)`. NB-4 is where the two atoms + slack land the unconditional
+theorem. INLINE-authorized constant changes to `WinCore.lean` (the `300/Dstar →
+12k²/(cD)` in `WinFrontier`/`sharp_S1_upperW`/`win_ratio_core`, all endgame-
+verified: ratio `1.000736 > 1`, margin `7.36×10⁻⁴`) — bump `Dstar` if any
+re-cert is tight. PB floor: land `hInner`-discharge (a) cleanly (that alone
+removes the S1 collision hypothesis); if the S2/slack (b) fights, the result is
+`gaps_le_twelve` conditional on ONLY the S2 collision — still a milestone; flag.
+
+### Node B dependency DAG
+```
+NB-1 collision_yF_le ─┐
+NB-2 yside_ge_cM ─────┼→ NB-4 GapsFinal (hInner discharge + assembly) → gaps_le_twelve
+NB-3 S2 twin ─────────┘   (+ hslackEv discharge via NB-3 + vanishing errors)
+```
+Round 1: NB-1, NB-2, NB-3 parallel. Round 2: NB-4. This is the FINISH.
+
+---
+
+### Historical note (the Lipschitz route, superseded by the crude route above)
 
 **SCOPE CORRECTION (W5-7 execution, 2026-07-10): the non-tensor collision
 estimate is needed on BOTH sieve sides — it is ONE technique, TWO atoms.** The
