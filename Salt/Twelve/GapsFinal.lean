@@ -71,11 +71,11 @@ private lemma prod_primes_sqf' {s : Finset ℕ} (hs : ∀ p ∈ s, p.Prime) :
     rw [Nat.squarefree_mul_iff]
     exact ⟨hcop, hap.squarefree, ih hsp⟩
 
-private lemma primorial_sqf' (D : ℕ) : Squarefree (primorial D) := by
+lemma primorial_sqf' (D : ℕ) : Squarefree (primorial D) := by
   unfold primorial
   exact prod_primes_sqf' (fun p hp => (Finset.mem_filter.mp hp).2)
 
-private lemma primorial_pos'' (D : ℕ) : 0 < primorial D := by
+lemma primorial_pos'' (D : ℕ) : 0 < primorial D := by
   unfold primorial
   exact Finset.prod_pos (fun p hp => (Finset.mem_filter.mp hp).2.pos)
 

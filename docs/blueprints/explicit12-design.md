@@ -1497,10 +1497,15 @@ discharged POINTWISE at `(primorial Dfin, Dfin)` via the now-public
 `s2_inner_termwise` (NO statement surgery on the frozen `hQd`; per-m
 positivity LANDED: `Jcal_Fstar1_eq`/`Jcal_Fstar1_pos`,
 `Salt/Twelve/JcalPos.lean`, from the landed `J_Fstar_0..4`,
-`Certificate.lean:197-249`); R2 — the `WinFrontierM` `∀ᶠ N` slack (conjuncts
-1–6 = `winFrontier_of` pattern re-instantiated at `Dfin`; conjunct 7 =
-`win_ratio_core` + vanishing budget). `Dfin` resize (`10^18 → ~10^32`) planned
-with R2's budget — free, `primorial Dfin` never evaluated.
+`Certificate.lean:197-249`); R2 — the frontier slack, PARAMETERIZED per the
+pinned-Dfin correction (flags 2026-07-11: the slack constants are ∃-opaque, so
+the Archimedes `D` is chosen existentially AFTER the constants — no numeral
+resize suffices). R2a LANDED: `WinFrontierMW (D)`/`WinSlackM D C₀ N'`/
+`winFrontierMW_of (300 ≤ D)` + defeq bridge `winFrontierM_of_W`
+(`Salt/Twelve/FrontierM.lean`) — conjuncts 1–6 discharged at any `D ≥ 300`,
+only conjunct 7 (`hslackEv`) remains. R2b = discharge `∀ᶠ N', WinSlackM D C₀
+N'` at the existential `D`; R2c = the ~30-line assembly picking
+`D ≥ max(Dthr, 300)` from R1b's constants → unconditional `gaps_le_twelve`.
 
 **SUPERSEDES Node B's crude-domination route** (whose S1 form was proven a
 mirage by NB-1 — the domination overshoots to `M` and the abs/signed forms
