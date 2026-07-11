@@ -2184,3 +2184,23 @@ entry above:
    explicit12/Twelve declarations are lint-audited (why the `(p−1)/(p−2)`
    card drift went undetected). Extending the lint to the explicit12 card
    grammar is a separate B-class tooling node.
+
+## 2026-07-11 Fable design correction: the pinned-numeral `Dfin` is undischargeable
+
+CORRECTS item 3 of the review entry above ("resize free"): a resize of the
+`GapsFinal.lean` numeral `Dfin := 10^18` is NOT sufficient for R2's discharge.
+The constants the conjunct-7 slack must compare against `D` — `qdiag_bridge`'s
+`A`, `mv_I_split`'s `A₁`/`A_F` — are ∃-OPAQUE reals: no numeral `Dfin`,
+however large, can be PROVEN `≥` an opaque threshold. (The residual-scope
+agent's "R1-IF" worry was half-right; the adversarial refutation killed the
+"code is false" framing but the discharge obstruction was real, in this new
+form.) Fix — the NC-3 card's original prescription, now enforced:
+**parameterize the frontier** (`WinFrontierMW (D : ℕ)`, `WinSlackM D C0 N'`,
+R2a in `Salt/Twelve/FrontierM.lean`) and make the Archimedes choice
+EXISTENTIALLY, after obtaining the constants: R1b's theorems carry `∃ Dthr`
+built FROM `A` (`Salt/Twelve/QdiagFloor.lean`); the final assembly (R2c) picks
+`D ≥ max(Dthr…, 300)` as an ∃-witness and instantiates the (already
+`(W',D)`-generic) `win_core_M` chain there. The landed pinned
+`gaps_le_twelve (…)(hFrontier : WinFrontierM)` remains valid as stated
+(`WinFrontierM ↔ WinFrontierMW Dfin`); it is simply not the discharge path —
+the unconditional theorem lands via the parameterized mirror.
