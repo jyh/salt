@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.BV.Defs
 import Salt.BV.MaxReduction
+import Salt.BV.SWChar
 import Salt.Tactic.AuditAxioms
 import Salt.BV.DivisorSum
 
@@ -29,3 +30,5 @@ identity `sum_Ioc_sigma0_eq_sum_div`, plus the ℓ²-flavored corollary
 open Salt.Tactic in
 #audit_axioms Salt.BV.sum_card_divisors_le Salt.BV.psiAP_discrepancy_le
   Salt.BV.psiAP_discrepancy_sup'_le Salt.BV.siegelWalfisz_psiTot
+  Salt.BV.psiChi_le_of_siegelWalfisz Salt.BV.psiChi_le_of_siegelWalfisz_absorbed
+  Salt.BV.norm_psiChi_one_sub_psiTot_le
