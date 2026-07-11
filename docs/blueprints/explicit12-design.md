@@ -1236,10 +1236,24 @@ theorem qdiag_bridge (F : Poly) (m : Fin 5) (hQ : Qabs F ≤ 1) :
           + A * ((W' : ℝ) / W'.totient)
               * (1 + (W'.totient : ℝ) / W' * Real.log R
                    + Salt.Maynard.phiAtomSum R W') ^ 6 / D
+          + A * ((W' : ℝ) / W'.totient) ^ 2
+              * (1 + (W'.totient : ℝ) / W' * Real.log R
+                   + Salt.Maynard.phiAtomSum R W') ^ 6 / D ^ 2
 ```
-**MIXED-power bucket `(1+X+PAS)⁶` (wave-4-fix 2026-07-10, mirrors the
-mv_J_split correction).** The `1/D`-term carries ONE explicit `(W'/φW')`
-(κ⁻¹) AND the mixed `(1+X+PAS)⁶`. It covers BOTH of qdiag_bridge's `1/D`
+**TWO-TERM bucket `κ⁻¹·Y⁶/D + κ⁻²·Y⁶/D²` (wave-4-fix-2 2026-07-10, Opus
+inline — endgame-verified).** The W4-5 execution caught a SECOND shape defect
+the original single-`κ⁻¹` bucket missed: the square difference
+`yM² − Inn² = 2·Inn·δ + δ²` (`δ = yM − Inn`, `|δ| ≤ ε = lemma53Const·5·logR/D`)
+has a SELF-term `Σδ²/∏g ≤ ε²·Σ1/∏g ≤ κ⁻²·X²·PAS⁴/D² ≤ κ⁻²·Y⁶/D²` — genuinely
+`κ⁻²/D²` (two `D`'s from `ε²`), NOT the rejected `κ⁻²/D`. It is ENDGAME-SAFE
+(`κ⁻²/D² ≤ 25/D → 0` via `κ⁻¹ ≤ 5√D`, subdominant to the `κ⁻¹/D` term's
+`5/√D`; numerically confirmed both → 0). The complete `1/D` accounting is
+now: (a) cross `2·Inn·δ` → `κ⁻¹·Y⁶/D`; (b) self `δ²` → `κ⁻²·Y⁶/D²`; (c)
+consumed `mv_J_split` → `κ⁻¹·Y⁶/D`. Provable from the landed pieces
+(`qdiag_eq_yMsq_sum`, `yM_sub_inn_le`, `absInn_le_pas`, `qdiag_bridge_of`,
+`2d4b522`) + the crude 4-dim g-moment `Σ_{u:uₘ=1}1/∏_{i≠m}g ≤ (2·PAS)⁴`. The
+mixed `(1+X+PAS)⁶` (below) is still needed in BOTH terms (the `X²`/`X`-powers
+from `Inn`/`ε`). This card covers BOTH of qdiag_bridge's older `1/D`
 sources: (a) the `lemma53W` contraction error `logR/D` summed against
 `Σ_u|Inn|/∏g ≲ X·(1+PAS)⁴`, `= logR·X·(1+PAS)⁴/D = κ⁻¹·X²·(1+PAS)⁴/D ≤
 κ⁻¹·(1+X+PAS)⁶/D`; and (b) the consumed `mv_J_split` error `(1+X+PAS)⁶/D ≤
