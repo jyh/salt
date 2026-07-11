@@ -1326,22 +1326,213 @@ Round 1: W4-0, W4-1, W4-3, W4-4 in parallel (independent files). Round 2:
 W4-2. Round 3: W4-5. Verify+commit per node; wire into `All.lean` at
 reconciliation. Escalation per MODEL_POLICY.
 
-## Wave-5 preview (next pre-flight; NOT carded)
-⚠️ ZERO-SLACK WARNING (adversarial pass): the pigeonhole margin at
-`θ★ = 1999/2000` is `7.6×10⁻⁴` RELATIVE and every `1/D` and `1/log R` loss
-is vanishing — but any FIXED multiplicative loss in the wave-5 sharp-S1
-assembly (item b) directly eats the margin. The sharp S1 constant must be
-EXACT (window count two-sided to `(1+O(W'/N))`), not merely order-correct;
-`θ★` can be pushed toward 1 as insurance if needed (margin scales like
-`θ − 2/M₅`).
-(a) the S1 non-tensor collision bound (Fable reads
-`collision_lower_orderW`'s proof; per-monomial bilinear vs fresh mv-style);
-(b) the sharp S1 assembly (kill the factor 2; exact window count);
-(c) `herr`-assembly for `S2mW_lower` at level `θ₊` (EH plumbing at
-`R = ⌊N^{θ★/2}⌋`, `θ★ = 1999/2000`, `θ₊ = 3999/4000`);
-(d) `WindowPNT → deltaPi_lower_of` (63−ε); (e) the `W'`-pigeonhole re-issue
-+ diam-12 variant; (f) `primorial_ratio_le : (primorial D : ℝ)/(primorial
-D).totient ≤ 5·√D` (elementary, route in W4-5's card — DESIGNED, B-tier) +
-`win_core'` on the `M5_cert1` budget with the Archimedean `D★`; (g)
-`gaps_le_twelve` assembly. Also: `s2_collision_le_QdiagW` audit (the
-`S2InnerBoundQ` hypothesis) — needed for compat↔full-form passage.
+---
+
+# Wave-5 cards (Fable pre-flight, 2026-07-10) — THE ENDGAME
+
+Statements FROZEN (iron rule 1). Abbrev: `X = (φW'/W')·log R`,
+`PAS = phiAtomSum R W'`, `Y = 1+X+PAS`, `κ⁻¹ = W'/φW'`, `M₅ = (Σ Jcal m F★)/Ical F★
+= 191881/95820`, `θ★ = 1999/2000`, `θ₊ = 3999/4000`, `K₀ = 64` (window `(N,64N]`).
+
+## Pre-flight findings (three deep-reads of the PROOF internals; binding)
+
+**FEASIBILITY: the rung closes, with ONE genuine remaining node (Node B below).**
+Nothing is impossible; the S1 collision bound is TRUE for `yF` (it is Maynard's
+real weight), it just needs a new estimate.
+
+1. **The endgame ratio is a pure rational (derived term-by-term).** With the
+   SHARP S1 (`mv_I`, factor-2 KILLED) and `qdiag_bridge`:
+   `Σ_m S2m / S1 = (Δπ·log R)/(63·N)·M₅` — EVERY `φW'`, `W'`, `log N` cancels
+   (`(W'/φW')·X = log R`; `X⁶/X⁵ = X`; the `63 = K₀−1` window count cancels the
+   `63` of `WindowPNT`). With `Δπ ≥ (63−ε)N/log N` and `log R/log N → θ★/2`:
+   `→ ((63−ε)/63)·(θ★/2)·M₅ → (θ★/2)·M₅ = 383570119/383280000 = 1.00076 > 1`.
+   Maynard's `M_k > 4` is REPLACED by `(θ★/2)·M₅ > 1 ⟺ M₅ > 2/θ★ ≈ 2.0013`
+   (certified `M₅ = 2.00252`; `θ = 99/100` FAILS — the rung genuinely needs
+   `θ > 2/M₅`). `norm_num` target: `1999·191881·1000 > 95820·2000²`.
+   The landed `win_core` constant tower (`126=2·63`, `1/16`, `504=4·126`,
+   `2916`, `k→∞` dominance) is ENTIRELY DISCARDED.
+2. **The interface to hit is `S1_lt_sum_S2m`** (`Endgame.lean:315`, free `y`,
+   slots `δ`/`cval`/`errEH`) — `win_core'` produces its `hnum`. The prime-supply
+   plug is `deltaPi_lower_of` (`Final.lean:174`), which takes `WindowPNT`'s
+   `63−ε` directly in place of Chebyshev `c=1` (`ChebyshevInterval.lean:144`,
+   which is FATAL here: `2/(a·θ) ≥ 2.17 > M₅` for any fixed `a<1`).
+3. **Prime-side plumbing (clusters 1–3): all mechanical, B/A.** Confirmed:
+   (i) `Salt.Twelve` reuses `Salt.Maynard.hSeq 5` — no tuple mismatch;
+   (ii) `W'·R² ≤ N^{θ₊}` at fixed `W'` reduces to `W' ≤ N^{1/4000}` (eventual);
+   (iii) the λ-bound `lam_abs_le_sharp_uniform` is free-`W`/free-`y` under just
+   `|y| ≤ 1` → ports to `yF Fstar1` via the landed `yF_Fstar1_abs_le_one`;
+   (iv) `herr` vanishes against the main with a `(log N)²` margin;
+   (v) the pigeonhole spine needs NO squarefree hypothesis — pure
+   `S2m→S2mW`, `W k→W'` + a ~10-line `hSeq_diam_le_twelve` swap for `Icc(-12,12)`.
+4. **THE ONE OPEN NODE — S1 non-tensor collision (Node B).** The landed collision
+   bound's `hfmono` (divisor-DECREASING) is load-bearing for DIRECTION: it is the
+   sole source of the `(p−1)⁻²` Euler-tail decay. `yF`'s monomials are divisor-
+   INCREASING, so the landed route fails, `|y|≤1` fails, per-monomial fails,
+   Cauchy–Schwarz gives a true-but-divergent bound. The tensor dependency bottoms
+   out in ONE atom (`inner_abs_le`, `CollisionQuant.lean:1107`). Node B discharges
+   it via a Lipschitz-smoothness argument — a C/D node needing its OWN design pass.
+5. **ZERO-SLACK on the SHARP constant** (margin `7.6×10⁻⁴`): the factor-2 MUST be
+   killed (crude-2 S1 ⟹ ratio `0.50 < 1`, fatal). All errors VANISH (in `N`,
+   `D★`, or budgeted `ε`), so the margin absorbs them; but no FIXED loss is
+   allowed — the sharp S1 main constant must be EXACTLY `(K₀−1)·N/W'·X⁵·Ical`.
+
+## Error budget (term-by-term, from the win_core deep-read) — the ordering strategy
+Both mains `~ N·(log N)⁵` at fixed `(W'=primorial D★, D★)`, `N→∞`. Total allowable
+relative loss `< 7.6×10⁻⁴`; per-consumer budget `δ★/8 ≈ 3.1×10⁻⁴`.
+1. Pick `ε` (WindowPNT, term i) and `θ★=1999/2000` (level, term 0) so
+   `((63−ε)/63)(θ★/2)M₅ > 1 + margin/2`. `ε` is a budgeted constant (not a limit).
+2. Pick `D★` (Archimedes) so the `/D` terms — `mv_I_split` `A(1+PAS)⁵/D`,
+   `qdiag` `κ⁻¹Y⁶/D` + `κ⁻²Y⁶/D²`, all F-only `A` — sum `< margin/4`, using
+   `primorial_ratio_le : κ⁻¹ ≤ 5√D` (`κ⁻¹/D → 5/√D`, `κ⁻²/D² → 25/D`).
+3. Fix `W' = primorial D★`. Take `N→∞`: the `1/log R` errors (`mv_I_split`,
+   `qdiag` opaque `c`), the `herr` `C/(log N)⁷` (term iv), the S1 truncation
+   `Cs·R²·polylog = N^{−1/2000}·polylog` (term v, via `eventually_poly_beats_polylog`),
+   and the `Δπ` shift `12·log N/(63N)` (term vi) each `→ 0` below the remaining budget.
+4. Discharge Node B (sharp collision, term vii), assemble `hnum`, call the
+   `W'`-reissued `S1_lt_sum_S2m`, close `S1 < Σ S2m`, pigeonhole → gap `≤ 12`.
+
+## Cards — the MECHANICAL/FEASIBLE layer (Opus-executable from the deep-read reports)
+
+### W5-1 `Salt/Maynard/CollisionQuantW.lean` (Node A: S1 collision SPLIT) — Opus, B
+Refactor so the collision assembly is `y`-generic modulo an atom. Define
+```lean
+def S1InnerBound (k R W' : ℕ) (y : (Fin k → ℕ) → ℝ) : Prop :=
+  ∀ s : ℕ, Squarefree s → ∀ (assignment data α as in inner_abs_le),
+    |∑ u ∈ kSieveIndex k R W', (∏ i, (Nat.totient (u i):ℝ))
+        * yhat … u * yhat … u|
+      ≤ (3:ℝ)^s.primeFactors.card
+          * (∏ p ∈ s.primeFactors, ((p:ℝ)-1)⁻¹^2)
+          * ∑ r ∈ kSieveIndex k R W', (y r)^2 / ∏ i, (Nat.totient (r i):ℝ)
+```
+(the EXACT conclusion of `inner_abs_le`, `CollisionQuant.lean:1114–1123` — READ
+it and transcribe verbatim). Then land `collision_lower_orderW_of` : the current
+`collision_lower_orderW` (`:2310`) with `hf01`/`hfmono`/`hy` REPLACED by
+`(hInner : S1InnerBound k R W' y)` and `hy0` (off-support). Body UNCHANGED except
+the one call at `:2423` becomes `hInner …`. Propagate the swap up:
+`crossCollisionControlled_holds_of`, `compat_le_two_yside_of`, `S1_le_of`,
+`S1_upper_of` (each drops the tensor hyps, takes `S1InnerBound`). Verify: the old
+`collision_lower_orderW` still builds (keep it; the `_of` versions are parallel).
+PB floor: none — pure signature refactor, the assembly is already `y`-generic.
+
+### W5-2 `Salt/Maynard/EHLevelTheta.lean` (Cluster 1: EH at θ★) — Opus, B (one C)
+Level-θ₊ / range-`N^{θ★/2}` twins of the pinned literals. Land:
+`lod_error_pow_theta` (`lod_error_pow` with `(1/2:ℝ)→(3999/4000:ℝ)`);
+`EH_range_theta` (`R=⌊N^{1999/4000}⌋`, `R²≤N^{3998/4000}`, `W'·(log N)^{B'}≤N^{1/4000}`,
+`1/4000+3998/4000=3999/4000`); `R_sq_le_theta`, `logR_upper_theta`
+(`≤(1999/4000)log N`), **`logR_lower_theta`** (the ONE fiddly node: the floor-slack
+exponent split — landed `1/5=1/6+1/30` becomes `1999/4000 = ρ + rest` with `2·x^ρ
+≤ x^{θ★/2}`; choose `ρ` and thread its output constant), `R_ge_two_theta`,
+`R_le_N'_theta`. `eventually_poly_beats_polylog` is θ-agnostic (reuse). Traps: the
+`logR_lower_theta` output constant ripples into every `analyticFrontier`/`win_core`
+threshold — pick it once and thread. PB floor: none (literal swaps + one split).
+
+### W5-3 `Salt/Maynard/S2CompatEHW.lean` (Cluster 2: herr at W'/yF/θ★) — Opus, B (one B/C)
+Free-`W'` mirrors: `abs_S2mW_sub_compatMainW_le` (mirror `S2CompatEH.lean:84`),
+`abs_S2mW_sub_compatMainW_le_disc_R_uniform` (mirror `FrontierDischarge.lean:224`,
+reuse free-`W` `lam_abs_le_sharp_uniform` + landed `s2PrimeCountW_approx'`),
+**`compat_pair_fiber_leW`** (mirror `S2FiberCount.lean:411` — the free-`W'` CRT
+`(3k)^{ω(q)}`-multiplicity fiber count, the ONE intricate atom),
+`S2mW_ge_compatMain_theta_uniform` (mirror `:289`/`LevelConsume.lean:326`,
+consuming `lod_error_pow_theta` at level θ₊). `S2mW_lower` itself is already free
+and needs no change. λ-bound discharge via `yF_Fstar1_abs_le_one`. PB floor:
+`compat_pair_fiber_leW` may need care (CRT bookkeeping); flag if it fights.
+
+### W5-4 `Salt/Twelve/PrimorialRatio.lean` — Sonnet, B
+```lean
+theorem primorial_ratio_le (D : ℕ) (hD : 2 ≤ D) :
+    (primorial D : ℝ) / (primorial D).totient ≤ 5 * Real.sqrt D
+```
+Route (elementary, NO Mertens; numerically ≥30× slack): `primorial D/φ =
+∏_{p≤D} p/(p−1) ≤ exp(Σ_{p≤D} 1/(p−1))`, and `Σ_{p≤D} 1/(p−1) ≤ 1 + (1+log D)/2`
+(the primes `≤ D` other than `2` are distinct odds `≥ 3`, so the `j`-th smallest
+prime `p_j ≥ 2j+1`, giving `1/(p_j−1) ≤ 1/(2j)`; `Σ 1/(2j) ≤ (1+log(π(D)))/2 ≤
+(1+log D)/2`). Then `exp(1+(1+log D)/2) = e^{3/2}·√D ≤ 5√D` (`e^{3/2}=4.48`). Traps:
+the `p_j ≥ 2j+1` injection into odds (careful with `p=2`); mathlib `primorial`
+= `∏ p ∈ (range(n+1)).filter Nat.Prime`. PB floor: none.
+
+### W5-5 `Salt/Twelve/Pigeonhole12.lean` (Cluster 3) — Opus, A/B
+Free-`W'` + diam-12 pigeonhole. `sum_S2mW_eq`, `exists_window_two_primesW`,
+`bounded_gap_of_S2_gt_S1_twelve`, `bounded_gaps_reduces_twelve` — the four spine
+lemmas (`Endgame.lean:254/268/292/349`) with `S2m→S2mW`, `W k→W'`, and the
+`:303–306` bullet swapped: `hSeq_le_D₀ k` → `Salt.Twelve.hSeq_diam_le_twelve j i`,
+interval `Icc(-(D₀ k),D₀ k)` → `Icc(-12,12)`, output `C = D₀ k₀` → `12`. All
+`y`/`W'`-generic (no squarefree needed). Frozen conclusion of the last:
+```lean
+theorem bounded_gaps_reduces_twelve (W' : ℕ)
+    (hwin : ∀ N : ℕ, ∃ (N' R ν₀ : ℕ) (y : (Fin 5 → ℕ) → ℝ), N ≤ N' ∧
+      S1 5 64 N' R W' ν₀ y < ∑ m : Fin 5, S2mW 5 64 N' R ν₀ W' m y) :
+    ∀ N : ℕ, ∃ p q : ℕ, N < p ∧ N < q ∧ p ≠ q ∧ p.Prime ∧ q.Prime ∧
+      (q : ℤ) - (p : ℤ) ∈ Set.Icc (-12 : ℤ) 12
+```
+PB floor: none.
+
+### W5-6 `Salt/Twelve/WinCore.lean` (the ratio assembly + `gaps_le_twelve`) — Opus, C
+The capstone assembly. Depends on ALL of W5-1..W5-5, `mv_I_split`, `qdiag_bridge`,
+`M5_cert1`, `FstarNorm`, and Node B (via the W5-1 `S1InnerBound` discharged for
+`yF Fstar1`). Structure: (1) `deltaPiW_lower` — feed `WindowPNT` into
+`deltaPi_lower_of` (`c := 63−ε`, shift `≤ 12`). (2) `sharp_S1_upper` — `S1 ≤
+(63N/W')·X⁵·Ical + [errors]` from `mv_I_split` + W5-1 (collision, needs Node B)
++ S1 truncation. (3) `sharp_S2m_lower` — `S2mW ≥ (Δπ/φW')·X⁶·Jcal_m − [errors]`
+from `S2mW_lower` (W5-3 `herr`) + `qdiag_bridge`. (4) `win_core'` — assemble
+`hnum : S1 < Σ_m (…)` via the ratio `(θ★/2)M₅ > 1` (`norm_num` on
+`1999·191881·1000 > 95820·2000²`) with all errors budgeted `∀ᶠ N`; call
+`S1_lt_sum_S2mW`. (5) `analyticFrontierW` — the `∀ N ∃ N'≥N` largeness (mirror
+`analyticFrontier_lod`, the `∀ᶠ` stack + `eventually_poly_beats_polylog`, at θ★).
+(6) `gaps_le_twelve (hPNT : WindowPNT) (hEH : EHall)` — `bounded_gaps_reduces_twelve
+(primorial D★) (analyticFrontierW …)` at the Archimedean `D★`. This is the
+FROZEN capstone (`gaps_le_twelve` at the top of this doc). Traps: the Archimedean
+`D★` choice (from `primorial_ratio_le` + the `/D` error budget) — a concrete
+`∃D★`; the `∀ᶠ N` threshold assembly is the bulk. PB floor: land `win_core'`
+(the ratio) + the assembly with `analyticFrontierW`'s `∀ᶠ` conjuncts as
+hypotheses if the largeness stack fights; flag.
+
+## Node B — THE CRUX SUB-WAVE (needs its own Fable/human design pass; NOT carded here)
+
+**`S1InnerBound k R W' (yF R W' Fstar1)` — discharge for the divisor-INCREASING
+polynomial weight.** This is the last genuine mathematical content of the rung
+(Maynard's singular-series smoothness / ε-enlargement estimate). The landed
+monotone-tensor machinery (`inner_abs_le`/`yhat_side_le`/`erase_branch`) is
+UNUSABLE (wrong monotonicity direction). Design substrate for the dedicated pass:
+
+- **The target.** For squarefree collision modulus `σ` (primes `> D`), the
+  restricted double-sieve sum must contract by `∏_{p|σ}(p−1)⁻²` (TWO powers — both
+  sieve variables `d,e` divisible by `p`) to feed `euler_tailW`'s convergent tail.
+  For DECREASING `f₀≤1` this is `yhat_side_le` (`y(lcm) ≤ y(u)` + `φ(lcm)=∏(p−1)φ`).
+- **The obstruction, precisely.** For INCREASING `yF`, `y(lcm) ≥ y(u)`, so the
+  bound is backwards. BUT `yF_v = eval F(log v/log R)` is LIPSCHITZ in log-space:
+  `|eval F(t+δ) − eval F(t)| ≤ L(F)·‖δ‖`, `L(F)` computable from `F`'s formal
+  partial derivatives (`Qabs` of `∂F`). The shift from the σ-primes is
+  `δ = log(σ-part)/log R`. KEY REGIME FACT: at fixed `D★`, `R→∞`, the dominant
+  collision terms have `σ = O(1)` primes near `D★`, so `δ = log D★/log R → 0` —
+  the contraction is `(p−1)⁻²·(1 + O(L·log p/log R))`, recovering the decay up to
+  a VANISHING Lipschitz correction. The `(p−1)⁻²` survives; the correction is a
+  new `1/log R`-side error term.
+- **The open design questions (for the dedicated pass):** (a) does the `(p−1)⁻²`
+  survive cleanly for ALL σ (incl. large-modulus σ where `δ = O(1)`), or does the
+  large-modulus tail need a separate crude bound (weighted by the tiny
+  `∏(p−1)⁻²`)? — the C-vs-D fork; (b) the exact form of the Lipschitz constant
+  `L(F)` and whether `Fstar1`'s degree-≤3 / 56-monomial structure gives a clean
+  bound; (c) does the argument need the full double-sieve Cauchy–Schwarz structure
+  or a direct per-`σ` reindex? Recommend: a Fable design pass reads `inner_abs_le`
+  in FULL, hand-derives the Lipschitz contraction with the small-modulus tail
+  case split, and freezes `S1InnerBound`'s discharge as its own card set — THEN
+  Opus executes. This is the highest-uncertainty node in the rung; do NOT rush it.
+- **Fallback if Node B proves intractable:** the rung's `gaps_le_twelve` would
+  remain conditional on `S1InnerBound (yF Fstar1)` as an explicit hypothesis (a
+  narrow, TRUE, `∀ᶠ`-shaped analytic input — like `WindowPNT`/`EHall` already
+  are), landing `gaps_le_twelve (hPNT) (hEH) (hInner)` — still a major result
+  (explicit bounded gaps modulo one standard sieve estimate), with Node B as a
+  documented PORT-BLOCKER. But the recommended path is to CLOSE it.
+
+## Wave-5 dependency DAG
+```
+W5-4 primorial_ratio (Sonnet) ─┐
+W5-2 EHtheta (Opus) ─┐         │
+W5-3 herr (Opus) ────┼→ W5-6 win_core/gaps_le_twelve (Opus) ← W5-5 pigeonhole
+W5-1 collision-split ┘   ↑
+Node B (sub-wave) ───────┘  (discharges S1InnerBound for W5-1's collision bound)
+```
+Round 1: W5-1, W5-2, W5-3, W5-4, W5-5 in parallel (independent). Node B: its own
+Fable design pass, then execution. Round 2: W5-6 (after Round 1 + Node B).
+`s2_collision_le_QdiagW` audit (the `S2InnerBoundQ` compat↔full-form passage)
+folds into W5-3 if needed.

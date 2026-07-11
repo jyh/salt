@@ -1623,6 +1623,25 @@ Six fragilities caught+fixed this track: (1) per-u coprimality, (2) budget split
 Opus appends entries here (node id, tripwire hit, what was tried) instead of
 grinding; the next Fable wave opens by draining this list.
 
+- **explicit12 Node B — `S1InnerBound (yF Fstar1)`** (wave-5 CRUX, needs its own
+  Fable/human design pass; scoped in `explicit12-design.md` "Node B — THE CRUX
+  SUB-WAVE"). The LAST genuine mathematical content of the rung: the sharp S1
+  non-tensor collision bound. Maynard's real weight `yF` is divisor-INCREASING,
+  so the landed monotone-tensor collision machinery (`inner_abs_le`/
+  `yhat_side_le`/`erase_branch`, `CollisionQuant.lean`) is UNUSABLE (wrong
+  monotonicity direction — the `(p−1)⁻²` Euler-tail decay it provides is absent).
+  The bound is TRUE (it IS Maynard's weight); discharge route = a Lipschitz-
+  smoothness restricted-diagonal contraction (`|eval F(t+δ)−eval F(t)| ≤ L(F)‖δ‖`,
+  shift `δ=log(σ-part)/log R → 0` at fixed `D★`). Open design questions:
+  large-modulus tail case split (C-vs-D fork), `L(F)` form, direct-reindex vs
+  Cauchy–Schwarz. Node A (the `y`-generic SPLIT isolating this atom, wave-5 card
+  W5-1) is B-level mechanical and unblocks everything else. FALLBACK: carry
+  `S1InnerBound (yF Fstar1)` as an explicit hypothesis of `gaps_le_twelve` (a
+  narrow TRUE `∀ᶠ` analytic input, like `WindowPNT`/`EHall`) — still a major
+  result, with Node B a documented PORT-BLOCKER. Recommended: CLOSE it. Three
+  wave-5 deep-reads (endgame ratio, prime plumbing, collision) confirm the rest
+  of the rung is feasible/mechanical; Node B is the sole crux.
+
 - ~~**explicit12 `qdiag_bridge`**~~ **LANDED (W4-5,
   `Salt/Twelve/QdiagBridge.lean`, Opus, 2026-07-10) — axiom-clean
   `[propext, Classical.choice, Quot.sound]`, zero warnings.** The Opus pre-flight
