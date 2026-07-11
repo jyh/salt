@@ -1083,8 +1083,25 @@ theorem mv_J_split (F : Poly) (m : Fin 5) :
           - ((W'.totient : ℝ) / W' * Real.log R) ^ 6
               * ((simplexInt (sq (contractAt m F)) : ℚ) : ℝ)|
         ≤ c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ 6 / Real.log R
-          + A * (1 + Salt.Maynard.phiAtomSum R W') ^ 6 / D
+          + A * (1 + (W'.totient : ℝ) / W' * Real.log R
+                   + Salt.Maynard.phiAtomSum R W') ^ 6 / D
 ```
+**CORRECTION (2026-07-10, wave-4-fix Fable pass — mv_J_split `1/D` bucket
+reshaped to MIXED-power `(1 + X + PAS)^6`).** The original `(1+PAS)^6` bucket
+was PROVABLY too tight: `mv_J`'s main term `X²·∑Ev²/∏g` has an outer `X²`
+prefactor (from `Inn = X·Ev + δ`), so its coprimality-drop `1/D` error is
+`X²·A_m·(1+PAS)⁴/D` — fitting `(1+PAS)⁶` needs `X ≤ C(1+PAS)`, a Mertens-type
+sharp lower bound the repo lacks (the W4-2 execution hit exactly this wall).
+The fix: `(1+X+PAS)⁶` dominates BOTH the main-drop `X²(1+PAS)⁴` (via
+`X² ≤ (1+X)²`, TRIVIAL — no cross-bound) AND the square-expansion `(1+PAS)⁶`
+(finding: `|Inn| ≤ cF·PAS`, the `Pr`-weighted parts swap to `~PAS⁶/D`). It
+still closes the endgame with NO extra κ: at fixed `(W',D★)`, `R→∞`,
+`(1+X+PAS)⁶ ≈ 64·X⁶` (both `X`, `PAS ~ κ log R`), so the term is `≈ A·X⁶/D★`,
+relative error `→ 64A/(D★·J) < δ★` (Archimedes; NO κ factor). `X = κ log R`
+is explicit, so `(1+X+PAS)` is consumption-safe. The REJECTED `κ⁻²` reshape
+was fatal (`κ⁻²/D ≈ 25`, no decay). `mv_I_split` is UNAFFECTED (no inner
+contraction, no `X²`; its `(1+PAS)⁵/D` is already landed & correct).
+
 `A` may depend on `F` (and `m`) ONLY. THIRD frozen deliverable (adversarial
 pass, binding — the landed `inner_contract`'s constant `cic` is W'-opaque
 and leaks into mv_J's `1/D` side through the MQ/MQ2 collision moments, so
@@ -1217,12 +1234,20 @@ theorem qdiag_bridge (F : Poly) (m : Fin 5) (hQ : Qabs F ≤ 1) :
               * ((simplexInt (sq (contractAt m F)) : ℚ) : ℝ)|
         ≤ c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ 6 / Real.log R
           + A * ((W' : ℝ) / W'.totient)
-              * (1 + Salt.Maynard.phiAtomSum R W') ^ 6 / D
+              * (1 + (W'.totient : ℝ) / W' * Real.log R
+                   + Salt.Maynard.phiAtomSum R W') ^ 6 / D
 ```
-The `1/D`-term carries ONE explicit `(W'/φW')`-factor (κ⁻¹). This is the
-HONEST shape: the `lemma53W` contraction error `logR/D` sums against
-`Σ_u |Inn(u)|/∏g ≲ X·(1+PAS)⁴ ~ X⁵`, and `logR·X⁵ = κ⁻¹·X⁶` — one
-κ⁻¹ is unavoidable (numerics lens: confirmed exact, not an artifact).
+**MIXED-power bucket `(1+X+PAS)⁶` (wave-4-fix 2026-07-10, mirrors the
+mv_J_split correction).** The `1/D`-term carries ONE explicit `(W'/φW')`
+(κ⁻¹) AND the mixed `(1+X+PAS)⁶`. It covers BOTH of qdiag_bridge's `1/D`
+sources: (a) the `lemma53W` contraction error `logR/D` summed against
+`Σ_u|Inn|/∏g ≲ X·(1+PAS)⁴`, `= logR·X·(1+PAS)⁴/D = κ⁻¹·X²·(1+PAS)⁴/D ≤
+κ⁻¹·(1+X+PAS)⁶/D`; and (b) the consumed `mv_J_split` error `(1+X+PAS)⁶/D ≤
+κ⁻¹·(1+X+PAS)⁶/D` (κ⁻¹ ≥ 1). The `(1+PAS)⁶` bucket was too tight for BOTH
+(same `X²` wall as mv_J_split). ONE κ⁻¹ (from the contraction's `logR = X/κ`)
+is unavoidable; it is affordable (κ⁻¹/D → 0, see below). NOTE the two 1/D
+sources are NOT summed with distinct exponents — `(1+X+PAS)⁶` dominates each,
+so a single term suffices.
 NOTE: `A` here is F-only ONLY BECAUSE mv_J_split/inner_contract_rel carry
 F-only `A`s (the adversarial pass traced `cic`-leakage; the
 `inner_contract_rel` deliverable in W4-2 is what makes this card's claim

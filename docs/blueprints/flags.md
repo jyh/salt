@@ -1641,6 +1641,11 @@ grinding; the next Fable wave opens by draining this list.
   hypothesis anywhere.
 
 - **explicit12 `mv_J_split`** (W4-2, `Salt/Twelve/MvSplit.lean`; Opus, class C).
+  **FIX APPLIED (wave-4-fix Fable pass 2026-07-10): the frozen `mv_J_split`
+  (and `qdiag_bridge`) `1/D` bucket is now the MIXED-power `(1+X+PAS)⁶` — see
+  the design-doc CORRECTION notes. READY FOR OPUS RE-DISPATCH into
+  `MvSplit.lean` (append `mv_J_split` only; `inner_contract_rel`/`mv_I_split`
+  already committed). Then W4-5 unblocks.** Original wall record follows.
   `inner_contract_rel` + `mv_I_split` LANDED clean + axiom-clean in that file;
   `mv_J_split` FLAGGED (PB floor: the two must-haves shipped, the double-swap
   assembly hit a *statement-level* wall). **The exact broken step — the main-term
