@@ -130,9 +130,9 @@ RETIRED — the Gallagher route is ratified and the duality fallback is closed.
 | id | statement | class | status |
 |---|---|---|---|
 | L9.1 | **Vaughan's identity** (frozen as an exact `ArithmeticFunction`/finite-sum identity): for `U, V ≥ 1`, `n > V`: `Λ n = (∑_{d ∣ n, d ≤ U} μ d * Real.log (n/d)) − (∑_{dc ∣ n, d ≤ U, c ≤ V} μ d * Λ c) + (∑_{dc ∣ n, d > U, c > V} μ d * Λ c)` — exact bracket placement per Vaughan; executor derives from `μ * log = Λ * 1`-side identities in mathlib's `ArithmeticFunction` — `vaughan` + `vaughan_sum`, `Salt/LS/Vaughan.lean` (nested-divisor-sum representation; the `n > V` guard spent in one convolution lemma `μ*(Λ_{≤V}*ζ)=Λ_{≤V}`; easy end of C) | C | ✅ |
-| L9.2 | Type I shape: `∑_{n ≤ x} a₁(n) f(n)` rearranged to `∑_{d ≤ UV} (coef d) ∑_{m ≤ x/d} f(dm)` with `|coef d| ≤ log x` | B | ⬜ |
-| L9.3 | Type II bilinear shape: the `d > U, c > V` piece as `∑_m ∑_k b_m c_k f(mk)` with dyadic ranges and `‖b‖₂, ‖c‖₂` controlled | C | ⬜ |
-| L9.4 | AP-discrepancy reduction (frozen SHAPE): the character sum `∑_{n≤x} Λ(n) χ(n)` bounded by Type I + Type II pieces — the statement BV's dispersion step consumes. PB-floor: L9.1 alone closes the wave with L9.2–4 flagged. | C | ⬜ |
+| L9.2 | Type I shape: `∑_{n ≤ x} a₁(n) f(n)` rearranged to `∑_{d ≤ UV} (coef d) ∑_{m ≤ x/d} f(dm)` with `|coef d| ≤ log x` — `typeI_one_eq` (μ-coeff) + `typeI_two_eq`/`typeICoeff` (`|a(t)| ≤ log t`, support `≤ UV`), `Salt/LS/TypeSums.lean` | B | ✅ |
+| L9.3 | Type II bilinear shape: the `d > U, c > V` piece as `∑_m ∑_k b_m c_k f(mk)` with dyadic ranges and `‖b‖₂, ‖c‖₂` controlled — `typeII_eq`: `μ(d)` (d > U) against `typeIIData V m = Σ_{c∣m,c>V}Λ(c)` (`0 ≤ · ≤ log m`; VANISHES for `m ≤ V` ⇒ both ranges effectively large — Fable ruling: dispersion-consumable as landed, the two-variable `μ·Λ·f(dc)` prose form was a dispatch over-spec, not the frozen req) | C | ✅ |
+| L9.4 | AP-discrepancy reduction (frozen SHAPE): the character sum `∑_{n≤x} Λ(n) χ(n)` bounded by Type I + Type II pieces — the statement BV's dispersion step consumes. PB-floor: L9.1 alone closes the wave with L9.2–4 flagged. — `tail_decomp` (general f) + `psiChi_eq_head_add_tail`/`norm_head_le` (`≤ V·log V`) + **`psiChi_sub_head_eq`** (χ-instantiated) + `chi_cast_mul`; reindex engine `reindex_core` frees all `n.divisors` ranges | C | ✅ |
 
 ### W7 — close-out
 Reconciliation sweep, axiom audit of the four headline theorems, `Salt.lean`

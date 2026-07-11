@@ -19,6 +19,7 @@ import Salt.LS.Vaughan
 import Salt.LS.Conductor
 import Salt.LS.BDHPrep
 import Salt.LS.PhiSum
+import Salt.LS.TypeSums
 
 /-!
 # Rung 5 opener (`largesieve`) — aggregate import
@@ -84,4 +85,19 @@ divisor swap, and `harmonic_le_one_add_log` + reuse of
 `Salt.Maynard.sum_inv_mul_totient_le` (`≤ 4`); plus the composed corollary
 **`sum_inv_totient_dvd_le'`** that discharges the `hphi` hypothesis of
 `Conductor.sum_inv_totient_dvd_le` — making the L8.1 bound unconditional for L8.4).
+`TypeSums` (L9.2/L9.3/L9.4 — the Type I/II reduction of Vaughan's identity:
+the reindex engine `reindex_core` (`sum_comm'` + per-`d` bijection `n ↔ d·m`,
+freeing all `n.divisors`); **`typeI_one_eq`**/**`typeI_two_eq`** (Type I —
+`Σ₁ = ∑_{d≤U} μ(d) ∑_m (log m) f(dm)` and the `t = d·c` collapse
+`Σ₂ = ∑_t a(t) ∑_m f(tm)` via AF-associativity `sigma2_inner`, coefficient
+`typeICoeff` with `abs_typeICoeff_le` `|a(t)| ≤ log t` and support
+`typeICoeff_eq_zero`); **`typeII_eq`** (Type II bilinear —
+`Σ₃ = ∑_{d>U} μ(d) ∑_m b(m) f(dm)`, `typeIIData` with
+`typeIIData_nonneg`/`typeIIData_le_log`; the landed `vaughan`'s `Σ₃` is the
+`d·c ∣ n` residual form, so the faithful bilinear packaging folds the `>V`
+data into `b(m) = ∑_{c∣m,c>V}Λc` rather than the node prose's `Λ(c)`);
+**`tail_decomp`** (general-`f`
+`∑_{V<n≤x} Λ(n) f(n) = TypeI₁ − TypeI₂ + TypeII`) and the character reduction
+**`psiChi_sub_head_eq`** with head bound `norm_head_le` (`‖head‖ ≤ V·log V`)
+and multiplicativity `chi_cast_mul`).
 -/
