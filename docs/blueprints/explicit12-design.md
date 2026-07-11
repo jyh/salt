@@ -447,6 +447,27 @@ inner two independent `budget_moment`s at fixed `W'` with Möbius
 
 # Wave-3 cards (Fable pre-flight, 2026-07-10)
 
+**STATUS — wave 3 LANDED on `explicit12` (2026-07-10), all axiom-clean
+`[propext, Classical.choice, Quot.sound]`, every statement verbatim-frozen:**
+- W3-0 ✅ `97bd32d` — `W3Prep`: `marked_sqf_phi`, `eval_mul/sq`, `log_natCap_slip`.
+- W3-1 ✅ `d620dda` — `MvMoment`: `decBox` + `mv_monomial` (general-`n` workhorse;
+  `DInt'_succ` telescope).
+- W3-2 ✅ `3f2f098` — `BudgetMomentG`: `marked_sqf_g` + `budget_moment_g` +
+  `box_g_pos` (drained the `budget_moment_g` FABLE-QUEUE item; `1/g(s)` prefactor
+  exact via `gMult` multiplicativity).
+- W3-3 ✅ `06d3643` — `MvMomentG`: `mv_monomial_g` (top-level g↔φ comparison,
+  general `n`; reusable `product_gap_bound`).
+- W3-4 ✅ `6091663` — `MvI`: **`mv_I`** (keystone I), general over `F`.
+- W3-5 ✅ `f45a63f` — `MvJ` pt1: `yF` + `inner_contract`.
+- W3-6 ✅ `570be28` — `MvJ` pt2: **`mv_J`** (keystone II), full 4-part assembly
+  (`mv_J_main` + single/double sum-swaps), nothing hypothesized.
+All wired into `Salt/Twelve/All.lean`. At `F★`, via the W2-3 ties, `mv_I` gives
+`X⁵·Ical F★` and `mv_J` gives `X⁶·Jcal m F★` (`Σ_m Jcal m F★ = 191881/23950080`).
+Design allowances used: three `set_option maxHeartbeats` (documented; resource
+limits, not axioms); `mv_I` handled the coprimality-drop sign per-monomial
+(equivalent to the `F²≥0` framing). Next: wave-4 Fable pre-flight (spine
+bridges, `WindowPNT`/`EHall`, endgame).
+
 Statements below are FROZEN (iron rule 1). Everything else — proof-internal
 definitions, helper lemmas, exact constants inside `∃ c` — is executor
 latitude. Throughout `X` abbreviates `(W'.totient : ℝ) / W' * Real.log R`

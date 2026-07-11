@@ -1623,11 +1623,11 @@ Six fragilities caught+fixed this track: (1) per-u coprimality, (2) budget split
 Opus appends entries here (node id, tripwire hit, what was tried) instead of
 grinding; the next Fable wave opens by draining this list.
 
-- ~~**explicit12 `budget_moment_g`**~~ **DRAINED (Fable pre-flight
-  2026-07-10):** designed into wave-3 card **W3-2** (`BudgetMomentG.lean`:
-  `marked_sqf_g` + `budget_moment_g`, powerset-swap route via the new
-  `marked_sqf_phi`) — see `explicit12-design.md` wave-3 cards. Design
-  adversarially verified (4-lens pass); route hand- and numerically checked.
+- ~~**explicit12 `budget_moment_g`**~~ **LANDED (`3f2f098`, W3-2):**
+  `Salt/Twelve/BudgetMomentG.lean` — `marked_sqf_g` + `budget_moment_g` +
+  `box_g_pos`, axiom-clean. The `1/g(s)` prefactor came out EXACT via `gMult`
+  multiplicativity (`r = s·b`) rather than the designed lcm/powerset split.
+  Consumed by `mv_monomial_g` (W3-3) and `mv_J` (W3-6). Queue item CLOSED.
 - **explicit12 `marked_prime_g`** (W2-2, dead end — NOT needed). `φ(s)/g(s) =
   ∏(q−1)/(q−2)` is unbounded over squarefree `s` without a prime-`>D`
   restriction, so the per-term g→φ transfer is false. The g-sandwich routes
@@ -1643,4 +1643,4 @@ grinding; the next Fable wave opens by draining this list.
   a hypothesis meanwhile).
 
 Currently: 2 live entries (`marked_prime_g` dead-end record; `hReindex`
-non-blocking residual) + 1 drained (`budget_moment_g` → W3-2).
+non-blocking residual) + 1 CLOSED (`budget_moment_g`, landed `3f2f098`).
