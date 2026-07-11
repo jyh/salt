@@ -906,3 +906,382 @@ pre-flight): the `Qdiag_m`/`S1` bridges via the `(D,W')`-generalized spine
 (`lemma53` at free `W'`, `S1_upperW`/`S2mW_lower` consumption), the window
 PNT/EH plumbing (`WindowPNT`/`EHall` → the prime-side counts), and the
 endgame assembly `gaps_le_twelve`.
+
+---
+
+# Wave-4 cards (Fable pre-flight, 2026-07-10)
+
+Statements below are FROZEN (iron rule 1); routes/traps are executor guidance.
+`X` abbreviates `(W'.totient : ℝ)/W' * Real.log R`; `PAS z W'` abbreviates
+`Salt.Maynard.phiAtomSum z W'` (a landed def, NOT new notation in Lean).
+
+## Pre-flight findings (three interface maps + endgame analysis; binding)
+
+1. **The ∃-opacity trap and its resolution (THE structural decision).** The
+   wave-3 keystones quantify `∃c` AFTER `W'`. At the endgame `W' = primorial D`
+   is LINKED to `D`, so the residual error `c(W')/D` is an opaque real that can
+   never be beaten against the certified slack `δ★ = M₅ − 2 = 241/95820`.
+   Uniformizing `c` over `W'` is NOT viable via absolute atom constants: the
+   landed `phiAtom_upper_lossy` constant is `4(φ(B)+1)` (grows like `B`), the
+   true `copHarmonic` constant analysis needs Mertens-type facts we do not
+   have. **Resolution — relativize:** all `1/D`-side errors are re-stated
+   against the CONCRETE quantity `PAS R W'` (no constants at all): e.g. the
+   marked bound `≤ (1/φ(s))·(log z)^a·PAS z W'` is EXACT by the landed reindex
+   proof. `1/D`-side coefficients become ABSOLUTE (pair counts, `2/D` tails,
+   `Qabs`-powers), quantified `∃A` BEFORE `W'`. At the endgame, at fixed
+   `(W', D★)`: `PAS R W'/X → 1` inside the `∀ᶠ` (per-`W'` atom bounds, opacity
+   harmless there), and `∃D★ > A·M₅/δ★` is pure Archimedes on a single real.
+   The `1/log R`-side keeps per-`W'` opaque constants (they die in `∀ᶠ` at
+   fixed `W'`).
+2. **`hReindex` is CRITICAL-PATH now**: `gaps_le_twelve (WindowPNT) (EHall)`
+   cannot carry `PhiUpperAtom` — the per-`B` discharge (W4-0) is required at
+   the instantiated `W' = primorial D★`.
+3. **θ arithmetic (verified, `norm_num`-ready):** the pigeonhole needs
+   `(θ/2)·M₅ > 1`. At `θ★ = 1999/2000`: `191881·1999·1000 > 95820·2000²`
+   equivalently `(1999/4000)·M₅ = 1.000757 > 1`, margin `7.6×10⁻⁴`. (`θ=99/100`
+   FAILS — the rung genuinely needs level `> 2/M₅ ≈ 0.99875`.) EH is consumed
+   at level `θ₊ = 3999/4000 > θ★` so `W'·R² ≤ N^{θ₊}` holds eventually at
+   `R = ⌊N^{θ★/2}⌋` with `W'` fixed.
+4. **`D₀ 5 = 125 < 300 = 12·5²`**: every `D₀ k`-pinned lemma is VACUOUS at
+   k=5. All bridges must run on the free-`D` `*W` spine with `12k² ≤ D`
+   (i.e. `D ≥ 300`; the endgame's Archimedean `D★` also obeys this).
+5. **The tensor obstruction is S1-only.** `S1_upperW` (landed, free `(W',D)`)
+   has the diagonalized main `2·((K₀−1)N/W')·Σ_r y²/∏φ` whose inner sum IS
+   `mv_I`'s LHS — but its collision step (`compat_le_two_ysideW` /
+   `collision_lower_orderW`) requires tensor `y = ⟦𝒟⟧·∏f₀` with `f₀`
+   divisor-MONOTONE. `yF`'s monomials are tensors but INCREASING — the
+   monotone hypothesis fails. **The general-`y` (or per-monomial-bilinear)
+   collision bound is the single open analytic design item — wave-5
+   pre-flight work (Fable must read `collision_lower_orderW`'s proof), NOT
+   carded here.** Also the crude factor 2 must go (sharp assembly, wave 5).
+6. **The S2 side aligns exactly.** `s2_diag_lam_restricted` (already free-`W`)
+   gives `Qdiag_mW k R W' m y = Σ_{u: uₘ=1} (∏ᵢ g(uᵢ))·V(u)²` with
+   `V = lamPhiContractM`; `∏g·V² = yM²/∏_{i≠m}g` (`μ²=1`); `lemma53W` (W4-3)
+   bridges `yM ↔ Inn := Σ_u y(update)/φ(u)` pointwise with the EXPLICIT
+   W'-free constant `B·lemma53Const·k·log R/D`; `mv_J` evaluates `Σ Inn²/∏g`.
+   The `|V|`-bound needed for `|yM² − Inn²|` falls out of the landed
+   `inner_contract` + `lemma53W` — no tensor `VAbs` needed.
+7. **Normalization:** `S1`, `S2m`, `Qdiag`, `mv_I`, `mv_J` are all degree-2
+   homogeneous in `y`, so the pigeonhole is scale-invariant. Freeze
+   `Fstar1 := Fstar` with every coefficient divided by
+   `Qabs := Σ|coeffs Fstar|` (exact ℚ scaling): then `|yF R W' Fstar1| ≤ 1`
+   on the box, ALL landed `|y| ≤ 1` machinery applies verbatim, and
+   `M5_cert` transports (both sides scale by `Qabs⁻²`).
+8. **Consumption anchors (from the endgame map):** the pigeonhole spine
+   (`sum_S2m_eq`, `exists_window_two_primes`, `bounded_gap_of_S2_gt_S1`,
+   `bounded_gaps_reduces`, `S1_lt_sum_S2m`) is k/y-generic but `W k`-pinned —
+   wave 5 re-issues it at `W'` (mechanical sum-swaps) with the diam-12 variant
+   via `hSeq_diam_le_twelve`. `S2mW_lower` (landed, free `W'`) needs its
+   `herr` assembled from `s2PrimeCountW_approx'` + EH at `θ₊` (wave 5).
+   `deltaPi_lower_of` takes the abstract prime supply — feed `WindowPNT`
+   (`63−ε`, replacing Chebyshev's `c=1`). `eventually_poly_beats_polylog` is
+   θ-agnostic and reused. `S1_upperW`'s error exponent is `(4k+2)` (not
+   `2k+2`).
+
+## Card W4-0 `Salt/Twelve/PhiUpperReindex.lean` — Opus, class C
+**Discharge `hReindex`** (new file; do NOT edit the landed `PhiUpper.lean`):
+```lean
+theorem reindex_tail_le (B : ℕ) (hB : B ≠ 0) : ∀ x : ℕ, 2 ≤ x →
+    (∑ r ∈ Salt.Maynard.sqfCop x B, radFiberTail r x B)
+      ≤ ∑' v : ℕ, powerfulWeight v
+
+theorem phiUpperAtom_final (B : ℕ) (hB : B ≠ 0) : Salt.Twelve.PhiUpperAtom B
+```
+(`phiUpperAtom_final := phiUpperAtom_holds B hB (reindex_tail_le B hB)`.)
+Route (designed; ~430 lines of `tsum` bookkeeping, all in ℝ with
+nonneg/summable — no ENNReal): (i) `radFiberTail r x B` = the tsum of the
+fiber `{n | rad n = r, n ≠ 0, x ≤ n}` of `n⁻¹` (from `radFiber_inv_hasSum`
+minus the finite head via `HasSum.sub`; note `n ⊥ B` is AUTOMATIC on the
+fiber since `rad n = r ⊥ B`). (ii) Sum over `r ∈ sqfCop x B` = tsum over the
+disjoint union `{n | rad n < x ≤ n, sqf-rad, ⊥B}` (finite sum of tsums,
+nonneg). (iii) Reindex by `n ↦ (powPart n, sqfPart n)` where
+`sqfPart n = ∏_{e_p = 1} p`, `powPart n = ∏_{e_p ≥ 2} p^{e_p}` (via
+`Nat.factorization`; facts: `n = sqfPart·powPart`, coprime, `sqfPart`
+squarefree, `powPart` powerful (`IsPowerful`), `rad n = sqfPart·rad powPart`).
+The map is INJECTIVE on the union (`n` recovers as the product). (iv) Group
+by `v = powPart n`: the fiber over `v` has `u = sqfPart n` ranging in the
+window `x/v ≤ u·(rad v stuff)`: precisely `u·v ≥ x` and `u·rad v·... < x`
+— derive the window `x/v ≤ u < x/rad v` from `rad n = u·rad v < x ≤ n = u·v`.
+(v) Per-`v` harmonic window: `Σ_{a ≤ u < b} 1/u ≤ 1 + log(b/a)` via the
+telescope `1/u ≤ log u − log(u−1)` for `u ≥ 2` (from
+`Real.add_one_le_exp (−1/u)`), giving `≤ 1 + log(v/rad v) ≤ 1 + log v`.
+(vi) Total `≤ Σ'_v powerfulWeight v` (`tsum_le_tsum`, nonneg). Traps:
+`v = 1` (fiber = squarefree `n = u`, window `x ≤ u < x` EMPTY — handle
+`rad v = v = 1` separately); `u = 1`-edges; summability side-goals (dominate
+by the landed `powerfulWeight_tsum_le` and full-fiber sums). PB floor: NONE —
+this is critical-path; if the tsum regroup fights, escalate to FABLE-QUEUE
+with the exact broken step rather than weakening.
+
+## Card W4-1 `Salt/Twelve/RelEngines.lean` — Sonnet, class B
+Constant-FREE relative forms (each SIMPLER than its landed analog — same
+reindex/swap bodies, stopping BEFORE any atom-constant step):
+```lean
+theorem marked_sqf_phi_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
+    (a : ℕ) (s z : ℕ) (hs : 0 < s) (hz : 2 ≤ z) :
+    (∑ r ∈ (Finset.range z).filter
+        (fun r => Squarefree r ∧ r.Coprime W' ∧ s ∣ r),
+        (Real.log r) ^ a / (Nat.totient r : ℝ))
+      ≤ (1 / (Nat.totient s : ℝ)) * (Real.log z) ^ a
+          * Salt.Maynard.phiAtomSum z W'
+
+theorem marked_sqf_g_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
+    (a : ℕ) (D s z : ℕ) (hD : 3 ≤ D)
+    (hDp : ∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) (hs : 0 < s) (hz : 2 ≤ z) :
+    (∑ r ∈ (Finset.range z).filter
+        (fun r => Squarefree r ∧ r.Coprime W' ∧ s ∣ r),
+        (Real.log r) ^ a / (gMult r : ℝ))
+      ≤ (1 / (gMult s : ℝ)) * 2 * (Real.log z) ^ a
+          * Salt.Maynard.phiAtomSum z W'
+
+theorem g_gap_rel (W' : ℕ) (hW' : Squarefree W') (hpos : 0 < W')
+    (c b : ℕ) (D z R : ℕ) (hD : 3 ≤ D)
+    (hDp : ∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p)
+    (hz : 2 ≤ z) (hzR : z ≤ R) (hlR : 1 ≤ Real.log R) :
+    (∑ r ∈ (Finset.range z).filter (fun r => Squarefree r ∧ r.Coprime W'),
+        (Real.log r / Real.log R) ^ c
+          * ((Real.log z - Real.log r) / Real.log R) ^ b / (gMult r : ℝ))
+      ≤ (∑ r ∈ (Finset.range z).filter (fun r => Squarefree r ∧ r.Coprime W'),
+          (Real.log r / Real.log R) ^ c
+            * ((Real.log z - Real.log r) / Real.log R) ^ b
+            / (Nat.totient r : ℝ))
+        + (4 / (D : ℝ)) * Salt.Maynard.phiAtomSum z W'
+```
+No `∃` anywhere — every coefficient is literal (`1`, `2`, `4/D`). Routes:
+`marked_sqf_phi_rel` = W3-0's reindex `r = s·t` + extend, STOPPING at
+`phiAtomSum` (do not invoke `phiAtom_upper_lossy`). `marked_sqf_g_rel` =
+W3-2's `r = s·b` multiplicativity + divisor swap + `exp(2/D) ≤ 2`, with the
+residual `b`-sum bounded by `marked_sqf_phi_rel`-shaped sums (the `2` is the
+tail factor). `g_gap_rel` = W3-2's upper-half swap with weights `≤ 1` and
+`e^x−1 ≤ 2x`, landing `(4/D)·PAS`. Traps: the even-`s`/`box_g_pos` cases as
+in W3-2 (reuse `box_g_pos`); weights `∈ [0,1]` on the box needs `z ≤ R`.
+PB floor: none (these are sub-proofs of landed theorems).
+
+## Card W4-2 `Salt/Twelve/MvSplit.lean` — Opus, class C
+The split-error keystone re-statements (quantifier order is THE point:
+`A` before `W'`):
+```lean
+theorem mv_I_split (F : Poly) :
+    ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
+      PhiUpperAtom W' → 3 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
+      ∃ c : ℝ, 0 ≤ c ∧ ∀ R : ℕ, 1 ≤ Real.log R →
+        |(∑ r ∈ kSieveIndex 5 R W',
+              eval (ofPoly F) (fun i => Real.log (r i) / Real.log R) ^ 2
+                / ∏ i, (Nat.totient (r i) : ℝ))
+          - ((W'.totient : ℝ) / W' * Real.log R) ^ 5
+              * ((simplexInt (sq (ofPoly F)) : ℚ) : ℝ)|
+        ≤ c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ 5 / Real.log R
+          + A * (1 + Salt.Maynard.phiAtomSum R W') ^ 5 / D
+
+theorem mv_J_split (F : Poly) (m : Fin 5) :
+    ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
+      PhiUpperAtom W' → 3 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
+      ∃ c : ℝ, 0 ≤ c ∧ ∀ R : ℕ, 1 ≤ Real.log R →
+        |(∑ r ∈ (kSieveIndex 5 R W').filter (fun r => r m = 1),
+              (∑ u ∈ Finset.range R,
+                  yF R W' F (Function.update r m u) / (Nat.totient u : ℝ)) ^ 2
+                / ∏ i ∈ Finset.univ.erase m, (gMult (r i) : ℝ))
+          - ((W'.totient : ℝ) / W' * Real.log R) ^ 6
+              * ((simplexInt (sq (contractAt m F)) : ℚ) : ℝ)|
+        ≤ c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ 6 / Real.log R
+          + A * (1 + Salt.Maynard.phiAtomSum R W') ^ 6 / D
+```
+`A` may depend on `F` (and `m`) ONLY. THIRD frozen deliverable (adversarial
+pass, binding — the landed `inner_contract`'s constant `cic` is W'-opaque
+and leaks into mv_J's `1/D` side through the MQ/MQ2 collision moments, so
+it can NOT be black-boxed):
+```lean
+theorem inner_contract_rel (F : Poly) (m : Fin 5) :
+    ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
+      PhiUpperAtom W' → 3 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
+      ∃ c : ℝ, 0 ≤ c ∧ ∀ R : ℕ, 1 ≤ Real.log R →
+      ∀ r ∈ kSieveIndex 5 R W', r m = 1 →
+      |(∑ u ∈ Finset.range R,
+            yF R W' F (Function.update r m u) / (Nat.totient u : ℝ))
+        - ((W'.totient : ℝ) / W' * Real.log R)
+            * eval (contractAt m F)
+                (fun i => Real.log (r (m.succAbove i)) / Real.log R)|
+      ≤ c + A * Salt.Maynard.phiAtomSum R W'
+              * ∑ p ∈ (∏ i, r i).primeFactors, (1 / ((p : ℝ) - 1))
+```
+(the landed `inner_contract` shape with the SPLIT error: the `Pr(r)`-weighted
+part carries `A·PAS` with `A` F-only; the `r`-uniform part keeps opaque `c`.
+Proof = the landed `inner_contract` with ONLY the `u ⊥ ∏r`-drop step routed
+through `marked_sqf_phi_rel`; everything else black-boxes.)
+Route: replay the landed `mv_I`/`mv_J` proofs (they are on disk — READ them)
+with every `1/D`-producing step routed through W4-1's relative engines
+instead of the constant-bearing W3 lemmas: (mv_I) the stage-2 pairwise
+drop's marked²·unmarked³ products become `(PAS)²·(PAS)³`-bounded with the
+absolute tail `Σ_{p>D}1/(p−1)² ≤ 2/D` — the landed covering uses 20 ORDERED
+pairs, so `A = 40·(monomial ℓ¹-data of sq(ofPoly F))`-shaped; (mv_J) the
+g-sandwich gaps (`g_gap_rel`), the outer pairwise drop (`marked_sqf_g_rel`),
+the `u ⊥ ∏r` swaps via `inner_contract_rel` + `marked_sqf_phi_rel` /
+`marked_sqf_g_rel`, each with absolute coefficients; the `1/log R`-side
+(budget_moment/mv_monomial(±g) machinery, floor slips, X-power absorptions)
+keeps landed per-`W'` constants inside `∃c`. Crude moments on the `1/D` side
+MUST be `PAS`-relative (`marked_*_rel` at `s = 1`), never `c(W')·(1+X)`.
+Traps: (i) `inner_contract` is NOT `1/log R`-only — its `X·Pr(r)` error part
+feeds the `1/D` side (MQ/MQ2); use `inner_contract_rel` there. In the
+square-expansion use `(a+b)² ≤ 2a² + 2b²` on `δ ≤ c + A·PAS·Pr` — NO mixed
+`c·A·Pr` term may survive multiplication into the `1/D` side (a pure
+`c(W')/D` coefficient is consumption-poison; mixed `c(W')/(D·log R)` terms
+are fine — they vanish at fixed `(W',D)`); (ii) `mv_monomial_g`'s error
+factor `(1+X)^{n−1}(1+log R/D)` MIXES the sides: its `log R/D` part must be
+re-derived relatively (the g-gap accumulation with `g_gap_rel`, coefficient
+`4·n`-shaped absolute × `(1+PAS)`-powers) — a genuinely new sub-proof;
+(iii) `(1+PAS)` vs `(1+X)`: on the `1/D` side always dominate crude sums by
+`PAS`-powers (PAS ≥ the a=0 crude moment ≥ 1 for `z ≥ 2` since `r=1 ∈` box).
+PB floor: `mv_I_split` + `inner_contract_rel` are the must-haves; if the
+mv_J double-swap assembly resists, land those two + flag `mv_J_split` to
+FABLE-QUEUE with the exact broken step. Do NOT land a `mv_J_split` whose
+`1/D` coefficient carries ANY opaque W'-dependent factor — that artifact is
+unconsumable (worse than nothing, it would mask the gap).
+
+## Card W4-3 `Salt/Maynard/Lemma53W.lean` — Opus, class B/C
+The free-`(W',D)`, `|y| ≤ B` contraction (mechanical sweep per the
+lemma53 interface map; the heart — `yM`, `lamPhiContractM`,
+`lamPhiContractM_collapse`, `sigmaMuKpin`, `s2_diag_lam_restricted` — is
+ALREADY free-`W`):
+```lean
+theorem euler_tail_LW (M : ℕ) (L : ℝ) (D : ℕ) (hL : 1 ≤ L)
+    (hD : 4 * L ≤ (D : ℝ)) :
+    ∑ t ∈ ((Finset.range M).filter
+        (fun t => Squarefree t ∧ ∀ p ∈ t.primeFactors, D < p)).erase 1,
+      L ^ t.primeFactors.card * ∏ p ∈ t.primeFactors, (((p : ℝ) - 1)⁻¹) ^ 2
+      ≤ 4 * L / (D : ℝ)
+
+theorem lemma53_tightW (k R W' D : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ)
+    (B : ℝ) (hB0 : 0 ≤ B) (hyB : ∀ s, |y s| ≤ B)
+    (hysupp : ∀ s, s ∉ kSieveIndex k R W' → y s = 0)
+    (r : Fin k → ℕ) (hrm : r m = 1) (hR : 2 ≤ R)
+    (hrsupp : r ∈ kSieveIndex k R W')
+    (hW' : Squarefree W') (hDlt : ∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p)
+    (hk : 1 ≤ k) (hDk : 12 * k ^ 2 ≤ D) :
+    |yM k R W' m y r
+        - ∑ am ∈ Finset.range R, y (Function.update r m am) / (Nat.totient am : ℝ)|
+      ≤ B * (lemma53Const * (k : ℝ)) * Real.log R / (D : ℝ)
+```
+Recipe (from the map; verbatim ports keeping old names intact, new `*W`):
+`euler_tail_LW` = `euler_tail_L` with `D₀ k → D` (its `k` occurs ONLY via
+`D₀ k` — drop the binder); then `phiSq_tail_tightW`, `phiSq_dvd_ne_tightW`,
+`phiSq_dvd_tightW`, `tailCoordSetW`, `tail_factor_le'W`, `gProd_boundW`,
+`stepB_identityW` (pure `W k → W'`, no `D`), `abs_mainSum_le_tightW` (+`B`:
+`hy1` enters ONLY at the `|y(update)|/φ ≤ B/φ` step → `B·rankinC·logR`),
+`htail_tightW` (+`B` at its one `|y a|` step → `B·4·exp4·rankinC·k·logR/D`),
+assembly `lemma53_tightW` (`|G−1|·|S| + |PT|` with the `B` factor threaded;
+`hfinal`'s `nlinarith` gets `hB0`). Use `D_lt_of_prime_dvd_coordW` (STRICT
+`D < p`, collision convention) everywhere `D₀_lt_of_prime_dvd_coord` was
+used; `3 ≤ p` comes from `D < p`, `4 ≤ D`. NO primorial/parity facts are
+used anywhere in the chain (verified). Traps: `rankinC`/`lemma53Const` are
+landed and W-free — do NOT redefine; `hkD : k ≤ D` inside `htail_tight`
+follows from `12k² ≤ D` by `nlinarith`. PB floor: none (two independent
+precedents: `c7ee1f9`, `*_K`).
+
+## Card W4-4 `Salt/Twelve/FstarNorm.lean` — Sonnet, class B
+Normalization + instantiation helpers:
+```lean
+def Qabs (F : Poly) : ℚ := (F.map (fun m => |m.2|)).sum
+
+noncomputable def Fstar1 : Poly := Fstar.map (fun m => (m.1, m.2 / Qabs Fstar))
+
+theorem M5_cert1 : 2 * Ical Fstar1 < ∑ m : Fin 5, Jcal m Fstar1
+
+theorem yF_Fstar1_abs_le_one (R W' : ℕ) (s : Fin 5 → ℕ) :
+    |yF R W' Fstar1 s| ≤ 1
+
+theorem primorial_hDlt (D : ℕ) :
+    ∀ p : ℕ, p.Prime → ¬p ∣ primorial D → D < p
+```
+Routes: `M5_cert1` by the scaling identities `Ical (scale q F) = q²·Ical F`,
+`Jcal m (scale q F) = q²·Jcal m F` (List.map algebra over the landed defs;
+`Qabs Fstar > 0` by `norm_num`-evaluation or positivity of the coefficient
+list) + the landed `M5_cert`; do NOT re-run the 3136-monomial `norm_num`.
+`yF_Fstar1_abs_le_one`: off-box `= 0`; on-box `|eval (ofPoly F) t| ≤
+Σ|coeffs|` (monomials `∈ [0,1]` — `t ∈ [0,1]⁵` on `kSieveIndex` needs
+`log rᵢ ≤ log R`, from `rᵢ < R`), and `Σ|coeffs Fstar1| = 1` by
+construction. `primorial_hDlt`: `p ∤ primorial D` + `p ≤ D` would force
+`p ∣ primorial D` (the product of primes `≤ D`) — contradiction; use
+mathlib's `primorial`/`Nat.prod` facts or the repo's `W_squarefree`-adjacent
+lemmas (`Tuple.lean`). Check first whether an equivalent exists in
+`Tuple.lean` (the W2-4 report mentions primorial discharge helpers) — reuse,
+don't duplicate. PB floor: none.
+
+## Card W4-5 `Salt/Twelve/QdiagBridge.lean` — Opus, class C+
+The S2 bridge (consumes W4-2, W4-3, W4-4; the deepest card):
+```lean
+theorem qdiag_bridge (F : Poly) (m : Fin 5) (hQ : Qabs F ≤ 1) :
+    ∃ A : ℝ, 0 ≤ A ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' →
+      PhiUpperAtom W' → 300 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
+      ∃ c : ℝ, 0 ≤ c ∧ ∀ R : ℕ, 2 ≤ R → 1 ≤ Real.log R →
+        |Qdiag_mW 5 R W' m (yF R W' F)
+          - ((W'.totient : ℝ) / W' * Real.log R) ^ 6
+              * ((simplexInt (sq (contractAt m F)) : ℚ) : ℝ)|
+        ≤ c * (1 + (W'.totient : ℝ) / W' * Real.log R) ^ 6 / Real.log R
+          + A * ((W' : ℝ) / W'.totient)
+              * (1 + Salt.Maynard.phiAtomSum R W') ^ 6 / D
+```
+The `1/D`-term carries ONE explicit `(W'/φW')`-factor (κ⁻¹). This is the
+HONEST shape: the `lemma53W` contraction error `logR/D` sums against
+`Σ_u |Inn(u)|/∏g ≲ X·(1+PAS)⁴ ~ X⁵`, and `logR·X⁵ = κ⁻¹·X⁶` — one
+κ⁻¹ is unavoidable (numerics lens: confirmed exact, not an artifact).
+NOTE: `A` here is F-only ONLY BECAUSE mv_J_split/inner_contract_rel carry
+F-only `A`s (the adversarial pass traced `cic`-leakage; the
+`inner_contract_rel` deliverable in W4-2 is what makes this card's claim
+true — W4-5 must consume it, never the landed `inner_contract`, on any
+`1/D` path). It is CONSUMABLE because κ⁻¹ is a CONCRETE computable
+of `W'` (not opaque) and (RESOLVED at this pre-flight, numerically verified
+with ≥30× slack): the elementary bound
+`(primorial D : ℝ)/(primorial D).totient ≤ 5·Real.sqrt D` holds via
+`∏_{p≤D} p/(p−1) ≤ exp(Σ_{p≤D} 1/(p−1))` and — the key elementary step —
+`Σ_{p≤D} 1/(p−1) ≤ 1 + (1 + log D)/2` (the primes ≤ D other than 2 are
+distinct odds ≥ 3, so the j-th contributes ≤ 1/(2j); NO Mertens needed).
+So the endgame's error is `A·5√D/D = 5A/√D → 0`, Archimedes closes. The
+`primorial_ratio_le` lemma lands in wave 5 (`5·√D` frozen there).
+Route: (1) `Qdiag_mW 5 R W' m y = Σ_{u: uₘ=1} (∏ᵢ g(uᵢ))·V(u)²` by
+`s2_diag_lam_restricted` at `W'` (free-W, landed; `V = lamPhiContractM`);
+`∏g·V² = yM²/∏_{i≠m}g(uᵢ)` (`μ² = 1` on the box, `g(1) = 1`).
+(2) `|yM(u) − Inn(u)| ≤ lemma53Const·k·logR/D` pointwise by `lemma53_tightW`
+at `B = 1` (from `hQ` via W4-4's `|yF| ≤ Qabs F ≤ 1` on the box; support
+from `yF`'s `if`). (3) `|yM² − Inn²| ≤ |yM−Inn|·(2|Inn| + |yM−Inn|)` with
+`|Inn(u)| ≤ X·c_F + (landed inner_contract error)`. (4) Sum over `u`: crude
+g-moments via `marked_sqf_g_rel (s=1)` powers — every crude sum
+`PAS`-relative, never `c(W')`-weighted. (5) `Σ_u Inn(u)²/∏_{i≠m}g =
+mv_J_split`'s LHS — conclude, collecting the `1/logR`-side into `c` and the
+`1/D`-side into `A·κ⁻¹·(1+PAS)⁶/D`. Traps: `V` vanishes off `uₘ = 1`
+(`lamPhiContractM`'s filter); `12·5² = 300 ≤ D` is the binding constant
+(hence `300 ≤ D`); the `u`-box is `kSieveIndex 5 R W'` filtered `uₘ = 1` —
+EXACTLY `mv_J`'s outer box, no reindex needed; keep the κ⁻¹ EXPLICIT — do
+NOT absorb it into `A` (that would smuggle the W'-dependence back into the
+opaque constant and kill the endgame). PB floor: land steps (1)–(3) + the
+statement with (4)–(5) hypothesized, flag loudly.
+
+## Dependency DAG and dispatch plan (wave 4)
+
+```
+W4-0 (Opus) ──────────────→ (endgame, wave 5)
+W4-1 (Sonnet) ─→ W4-2 (Opus) ─→ W4-5 (Opus)
+W4-3 (Opus) ──────────────────→ W4-5
+W4-4 (Sonnet) ────────────────→ (wave 5; W4-5 may use yF_Fstar1_abs_le_one)
+```
+Round 1: W4-0, W4-1, W4-3, W4-4 in parallel (independent files). Round 2:
+W4-2. Round 3: W4-5. Verify+commit per node; wire into `All.lean` at
+reconciliation. Escalation per MODEL_POLICY.
+
+## Wave-5 preview (next pre-flight; NOT carded)
+⚠️ ZERO-SLACK WARNING (adversarial pass): the pigeonhole margin at
+`θ★ = 1999/2000` is `7.6×10⁻⁴` RELATIVE and every `1/D` and `1/log R` loss
+is vanishing — but any FIXED multiplicative loss in the wave-5 sharp-S1
+assembly (item b) directly eats the margin. The sharp S1 constant must be
+EXACT (window count two-sided to `(1+O(W'/N))`), not merely order-correct;
+`θ★` can be pushed toward 1 as insurance if needed (margin scales like
+`θ − 2/M₅`).
+(a) the S1 non-tensor collision bound (Fable reads
+`collision_lower_orderW`'s proof; per-monomial bilinear vs fresh mv-style);
+(b) the sharp S1 assembly (kill the factor 2; exact window count);
+(c) `herr`-assembly for `S2mW_lower` at level `θ₊` (EH plumbing at
+`R = ⌊N^{θ★/2}⌋`, `θ★ = 1999/2000`, `θ₊ = 3999/4000`);
+(d) `WindowPNT → deltaPi_lower_of` (63−ε); (e) the `W'`-pigeonhole re-issue
++ diam-12 variant; (f) `primorial_ratio_le : (primorial D : ℝ)/(primorial
+D).totient ≤ 5·√D` (elementary, route in W4-5's card — DESIGNED, B-tier) +
+`win_core'` on the `M5_cert1` budget with the Archimedean `D★`; (g)
+`gaps_le_twelve` assembly. Also: `s2_collision_le_QdiagW` audit (the
+`S2InnerBoundQ` hypothesis) — needed for compat↔full-form passage.
