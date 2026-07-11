@@ -1486,7 +1486,205 @@ FROZEN capstone (`gaps_le_twelve` at the top of this doc). Traps: the Archimedea
 (the ratio) + the assembly with `analyticFrontierW`'s `∀ᶠ` conjuncts as
 hypotheses if the largeness stack fights; flag.
 
+# Node C — THE CLOSURE (Fable design pass 2, 2026-07-11) — termwise + marked moments
+
+**SUPERSEDES Node B's crude-domination route** (whose S1 form was proven a
+mirage by NB-1 — the domination overshoots to `M` and the abs/signed forms
+don't align — and whose S2 form is spectral, NB-3). The correct closure needs
+NO smoothness/Lipschitz and NO domination: it is a TERMWISE absolute bound
+(valid purely from `|y| ≤ 1`), a contamination partition (the landed
+`hcompl`/`hpart` structure), and MARKED componentwise moments (our landed
+`marked_sqf_phi_rel`/`marked_sqf_g_rel` machinery) — with all constants
+absorbed by an ABSTRACT Archimedean `Dfin` (never computed; `primorial Dfin`
+appears only symbolically).
+
+## The two discharges (hand-derived, term-by-term; numerically checked)
+
+**S1 (unconditional in R).** For `|y| ≤ 1` supported on the box, the per-(s,α)
+inner form satisfies, TERMWISE: `|term_u| = ∏φ(u)·|y(u∨σ)||y(u∨τ)|/(∏φ(u∨σ)·
+∏φ(u∨τ)) ≤ 1/(∏φ(u)·Wσ(u)·Wτ(u))` (`φ(u∨σ) = φ(u)·Wσ`, `totient_lcm_split` —
+PUBLIC). Partition `u` by the contamination set `Q = {p ∣ s : p ∣ u at its
+fst- or snd-slot}` (a prime dividing `u` at any OTHER coordinate makes the
+join pairwise-non-coprime ⟹ `u∨σ ∉ kSieveIndex` ⟹ `yF(u∨σ) = 0` — term
+VANISHES; and `u` pairwise-coprime means each `p` divides at most one
+coordinate, so fst-XOR-snd): `Wσ·Wτ ≥ ∏_{p∉Q}(p−1)²·∏_{p∈Q}(p−1)` (the
+contaminated prime loses its power on ONE side only). The `Q`-marked crude
+moment: `Σ_{u: p|u@slot(p) ∀p∈Q} 1/∏φ(u) ≤ ∏_{p∈Q}(p−1)⁻¹·M` (componentwise
+reindex `u_i = p·u'_i`, `φ(p·u') = (p−1)φ(u')`, image ⊆ box — EXACTLY the
+`marked_sqf_phi_rel` reindex, on the 5-dim box). Net per `Q`:
+`∏_{p|s}(p−1)⁻²·M`; `Σ_Q ≤ Σ_{T⊆pf(s)} 2^{|T|} = 3^{ω(s)}`. TOTAL:
+`3^ω·∏(p−1)⁻²·M`. NO CS, NO smoothness, NO threshold.
+
+**S2 (∀ᶠ R at fixed (W',D)).** Same skeleton with `g` for `φ` and the
+CONTRACTION `V = lamPhiContractM`: `|term_u| = ∏g(u)·|V(u∨σ)||V(u∨τ)| ≤
+(PAS+ε)²/(∏g(u)·Gσ·Gτ)` where `|V(w)| = |yM(w)|/∏g(w) ≤ (|Inn(w)|+ε)/∏g(w) ≤
+(PAS+ε)/∏g(w)` via `lemma53_tightW` (B=1) + `absInn_le_pas` (both LANDED);
+`ε = lemma53Const·5·logR/D`; joins violating pairwise coprimality or `wₘ≠1`
+give `V = 0`. Contamination partition + `g`-marked moments
+(`∏_{p∈Q}(p−2)⁻¹·Mg₄`, `Mg₄ ≤ (2·PAS)⁴` = the landed `gmoment4_le`,
+`uₘ=1`-box) + `(p−2)⁻¹ ≤ 2(p−1)⁻¹` (D≥300): TOTAL
+`≤ 3^ω·∏(p−1)⁻²·[2^{ω-ish folded}·(PAS+ε)²·(2PAS)⁴]`. Convert to the atom's
+`Qdiag_gv`-RHS via the landed `qdiag_bridge`: at fixed `(W',D)` with the
+`D`-largeness hypotheses (below), `Qdiag_gv ≥ X⁶·J/2` for `R ≥ R₀(W')` and
+`PAS⁶ ≤ C·X⁶` — net `(PAS+ε)²(2PAS)⁴ ≤ CF·Qdiag_gv`, `CF` F-only (the ratio
+`→ 2⁶·2/J(F)`; W'-dependent approach absorbed in `R₀`). Requires (as
+hypotheses, dischargeable at `primorial Dfin` for all large `Dfin`):
+`hκ : (W':ℝ)/W'.totient ≤ 5·√D` (from `primorial_ratio_le`) and D-largeness
+vs the (F-only, obtained-before-W') `qdiag_bridge` constant and `lemma53Const`
+(`ε ≤ PAS` etc.) — executor latitude on the exact form, FROZEN REQUIREMENT:
+every hypothesis must hold at `W' = primorial D` for ALL sufficiently large
+`D` (Archimedes-compatible; no opaque-W'-linked-to-D constants).
+
+**Endgame constants (verified numerically, scale-invariant; the landed
+`yside_ge_cM` has `c = 60·Ical` but NC-3 re-bases on `mv_I_split` — the ratio
+`(1/120)/Ical` governs):** S1 collision
+constant `~ 12k²·Qabs²/(120·Ical(Fstar)) ≈ 9.4×10⁸` ⟹ `D ≥ 10¹³`; S2
+`~ 48k²·2⁶·Qabs²/J(Fstar) ≈ 1.4×10¹³` ⟹ `D ≥ 7×10¹⁶`. **`Dfin ~ 10¹⁸`
+covers both** — an ∃-witness, never computed (`primorial Dfin` symbolic);
+`κ⁻¹ ≤ 5√Dfin`, `12k² ≤ Dfin` all hold. The ratio closes at ANY total
+collision loss `< 7.5×10⁻⁴` and the `Dfin` choice makes it arbitrarily small.
+The pigeonhole/frontier machinery is W'-generic, so instantiating at
+`primorial Dfin` (instead of WinCore's numeral `Dstar`) is a re-thread, not
+new analysis.
+
+## Card NC-1 `Salt/Twelve/InnerS1.lean` — the S1 discharge — Opus, C
+```lean
+def S1InnerBoundM (k R W' : ℕ) (y : (Fin k → ℕ) → ℝ) (B : ℝ) : Prop :=
+  -- the LHS |I(s,α)[y]| VERBATIM from S1InnerBound (CollisionQuantW.lean),
+  -- with RHS  3 ^ s.primeFactors.card * (∏ p ∈ s.primeFactors, ((p:ℝ)-1)⁻¹^2) * B
+  ∀ {s : ℕ}, Squarefree s → ∀ (α : (p : ℕ) → p ∈ s.primeFactors → Fin k × Fin k),
+    α ∈ assignments k s → |/- I(s,α)[y] -/| ≤ 3 ^ s.primeFactors.card
+      * (∏ p ∈ s.primeFactors, (((p:ℝ)-1)⁻¹)^2) * B
+
+theorem s1_inner_bounded (k R W' : ℕ) (y : (Fin k → ℕ) → ℝ)
+    (hy1 : ∀ r, |y r| ≤ 1) (hy0 : ∀ r, r ∉ kSieveIndex k R W' → y r = 0) :
+    S1InnerBoundM k R W' y
+      (∑ r ∈ kSieveIndex k R W', 1 / ∏ i, (Nat.totient (r i) : ℝ))
+
+theorem collision_lower_orderW_ofM (k R W' D : ℕ) (y : (Fin k → ℕ) → ℝ) (B : ℝ)
+    (hB : 0 ≤ B) (hy0 : ∀ r, r ∉ kSieveIndex k R W' → y r = 0)
+    (hInner : S1InnerBoundM k R W' y B)
+    (hDlt : ∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) (hk : 1 ≤ k)
+    (hDk : 12 * k ^ 2 ≤ D) :
+    |s1CollisionForm k R W' y| ≤ 12 * (k:ℝ)^2 / D * B
+```
+Route: `s1_inner_bounded` = the termwise+partition proof above (the crux
+proof of the closure; the partition/marked-reindex Finset work mirrors the
+landed `hcompl`/`hpart`/`erase`-injection structure with the weight steps
+REPLACED by `|y| ≤ 1` and the componentwise marked reindex — all on PUBLIC
+machinery: `totient_lcm_split`, `lcm_split`, `assignments`, `slotProd`,
+`mem_kSieveIndex_iff`). `collision_lower_orderW_ofM` = the `y`-generic
+assembly of `collision_lower_orderW_of` with the RHS constant `B` threading
+through the euler tail unchanged (NB-1's flagged "constant-B copy" — the
+assembly is public+`y`-generic per NB-1's read). Corollary at `y = yF R W' F`,
+`hQ : Qabs F ≤ 1` (via landed `yF_abs_le_Qabs`): `collision_yF_M :
+|s1CollisionForm 5 R W' (yF R W' F)| ≤ 300/D · M`. Traps: the third-coordinate
+contamination ⟹ join ∉ box ⟹ `y(join) = 0` (handle explicitly); a prime
+divides `u` at ≤1 coordinate (pairwise-coprime box); the marked reindex needs
+`p ∤ u'` (from squarefree `p·u'`). The TWO real proofs: `box_marked_moment`
+(the 5-dim Q-marked moment, ~120 lines) and the contamination partition
+(~150 lines mirroring `inner_abs_le`'s fiberwise `hpart` structure). PB floor:
+if the partition balloons past ~500 lines, land `box_marked_moment` +
+`S1InnerBoundM`+assembly and flag the partition step precisely.
+
+## Card NC-2 `Salt/Twelve/InnerS2.lean` — the S2 discharge — Opus, C+
+```lean
+def S2InnerBoundQC (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) (CF : ℝ) : Prop :=
+  -- LHS verbatim from S2InnerBoundQ (S2Collision.lean:795); RHS gains the CF slot:
+  ∀ {s : ℕ}, Squarefree s → ∀ α ∈ assignments k s,
+    |/- S2 inner form -/| ≤ 3 ^ s.primeFactors.card
+      * (∏ p ∈ s.primeFactors, (((p:ℝ)-1)⁻¹)^2) * CF * Qdiag_gv k R W' m y
+
+theorem s2_inner_yF (F : Poly) (m : Fin 5) (hQ : Qabs F ≤ 1) :
+    ∃ CF : ℝ, 0 ≤ CF ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' → PhiUpperAtom W' →
+      300 ≤ D → (∀ p : ℕ, p.Prime → ¬p ∣ W' → D < p) →
+      ((W':ℝ)/W'.totient ≤ 5 * Real.sqrt D) →
+      /- + D-largeness hyps vs the F-only qdiag_bridge/lemma53 constants;
+         executor latitude, FROZEN REQUIREMENT: each must hold at
+         W' = primorial D for all sufficiently large D -/
+      ∃ R₀ : ℕ, ∀ R : ℕ, R₀ ≤ R → 1 ≤ Real.log R →
+        S2InnerBoundQC 5 R W' m (yF R W' F) CF
+
+theorem s2_collision_le_QdiagW_C (k R W' D : ℕ) (m : Fin k) (y) (CF : ℝ)
+    (hCF : 0 ≤ CF) (hInner : S2InnerBoundQC k R W' m y CF) (hyps…) :
+    |s2CollisionForm k R W' m y| ≤ Cs * CF * (k:ℝ)^2 / D * Qdiag_gv k R W' m y
+```
+(`s2_collision_le_QdiagW_C` = the CF-slotted mirror of NB-3's landed
+`s2_collision_le_QdiagW` — CF multiplies through the euler tail.) Route for
+`s2_inner_yF`: the S2 termwise+partition proof above. Key landed inputs:
+`lemma53_tightW` (B=1) for `|yM(w)| ≤ |Inn(w)| + ε` at each NONVANISHING join
+`w` (needs `w ∈ kSieveIndex`, `wₘ=1` — the vanishing cases `V=0` handled
+first); `absInn_le_pas` for `|Inn| ≤ PAS`; a MARKED generalization of `gmoment4_le`
+(the landed one is the Q=∅ case only): `box_marked_gmoment` — `Σ_{u: uₘ=1,
+p|u@slot ∀p∈Q} 1/∏_{i≠m}g(uᵢ) ≤ ∏_{p∈Q}(p−2)⁻¹·(2·PAS)⁴` (compose
+`gmoment4_le`'s box→product structure with per-prime `marked_sqf_g_rel`
+reindexes at the α-dependent slots — an explicit deliverable, ~100 lines); `qdiag_eq_yMsq_sum` for `Qdiag_gv = Σ yM²/∏g`; `qdiag_bridge` for
+`Qdiag_gv ≥ X⁶J/2` at `R ≥ R₀` (obtain its `A` BEFORE `W'`); the atom
+`3^ω`-budget absorbs the side-choice and `(p−2)→(p−1)` conversion factors.
+Traps: the `(PAS+ε)² ≤ 4PAS²` step needs `ε ≤ PAS` — from `hκ` + D-largeness
+(`c₀κ⁻¹/D ≤ 1`); the `Mg₄` box is `uₘ=1` (4 free coords); σₘ≠1 ⟹ V=0.
+PB floor: if the `Qdiag ≥ X⁶J/2` eventual-comparison fights, take it as an
+explicit `∀ᶠ`-hypothesis and flag — but its proof is a direct read of
+`qdiag_bridge` + `theta_ratio`-style positivity.
+
+## Card NC-3 `Salt/Twelve/GapsFinal.lean` — the assembly — Opus, C+
+The final node: `gaps_le_twelve (hPNT : WindowPNT) (hEH : EHall)` UNCONDITIONAL
+(the FROZEN top-of-doc target). Structure: (1) obtain ALL constants BEFORE
+choosing the modulus: `qdiag_bridge`'s `A` (F-only), NC-2's `CF`,
+`lemma53Const`, and the `mv_I_split` `A`-constants (F-only, `∃A` BEFORE `W'`).
+⚠️ BLOCKER FIX (adversarial pass): do NOT route the S1 conversion through the
+landed `yside_ge_cM` — its `hD0` hypothesis carries the W'-OPAQUE `mvIErr`
+(`~φ(W')` via the atom witness), unsatisfiable at `W' = primorial Dfin` for
+EVERY `Dfin`. Instead base BOTH moments on the wave-4 relativized
+**`mv_I_split`** (whose `1/D` bucket has F-only `A`): `M`-side at `onePoly`
+(`M ≤ X⁵/120 + A₁(1+X+PAS)⁵/D + c_M(W')(1+X)⁵/logR`; `Ical onePoly = 1/120`,
+`Qabs onePoly = 1`) and `yside`-side at `Fstar1`
+(`yside ≥ X⁵·Ical − A_F(1+X+PAS)⁵/D − c(W')(1+X)⁵/logR`). At fixed `(W',D)`,
+`R→∞`: the `1/logR` parts die, `(1+X+PAS)⁵ ~ 32X⁵`, so
+`M/yside → (1/120 + 32A₁/D)/(Ical − 32A_F/D)` — F-ONLY, Archimedes-compatible.
+The landed `yside_ge_cM` is NOT consumed by NC-3 (it remains a landed lemma;
+its `mvIErr`-conditioned form is documented as unusable at primorial moduli). (2) **Archimedes:** `∃ Dfin` with: `12k² ≤
+Dfin`, every NC-2 D-largeness hypothesis, NB-2's `hD0`, and the TOTAL
+collision losses `[300/(c·Dfin)]·(S1) + [Cs·CF·25/Dfin]·(S2) + (qdiag κ-terms)
+< the win_ratio margin-share` — each term explicit-or-F-only over `1/Dfin` or
+`1/√Dfin`. (3) `W' := primorial Dfin`; discharge `Squarefree`/`hDlt`
+(`primorial_hDlt`)/`hκ` (`primorial_ratio_le`)/`hν₀` (`exists_nu0W`)/
+`PhiUpperAtom` (`phiUpperAtom_final`)/`hIcal` (`Ical_Fstar1_pos`). (4)
+Re-thread the WinCore chain AT THE ABSTRACT `(Dfin, primorial Dfin)`. The
+Dstar-numeral pins to mirror: `gaps_le_twelve_of_inner`, `WinFrontier`'s
+`(1+12·5²/Dstar)` factor, `hSeq_lt_Dstar`, the `win_core'` instantiation.
+GOOD NEWS: `win_ratio_core` ALREADY takes `eps` as a free real
+(`hepsle : eps ≤ 1/100000`) — reuse directly with the assembled abstract eps
+(no cert re-derivation). `sharp_S1_upperW`'s pattern runs with
+`collision_yF_M` + the `mv_I_split`-based conversion (step 1) giving the
+`(1 + [F-only]/Dfin)` factor; `S2mW_ge_compatMain_theta_uniform`,
+`qdiag_bridge`, `winFrontier_of`'s conjunct-structure,
+`bounded_gaps_reduces_twelve` are all W'-generic or re-instantiable. (5) Discharge the `WinSlack`/`hslackEv` quantitative
+threading (W5-7 residual (a)): all vanishing errors below the margin at the
+chosen constants — the `∀ᶠ N` stack. (6) `gaps_le_twelve := …` — matching the
+frozen target EXACTLY. Traps: quantifier ORDER is everything — constants
+before `Dfin`, `Dfin` before `W'`, thresholds inside `∀ᶠ N`; do NOT reuse the
+`Dstar`-pinned `WinFrontier`/`gaps_le_twelve_of_inner` directly (mirror at the
+abstract modulus); the `win_ratio` margin analysis needs the certified
+`theta_ratio_cert_sharp` with the abstract-eps version. PB floor: land (1)–(3)
++ the S1-side re-thread + `gaps_le_twelve` with the S2/slack pieces as
+explicit hypotheses if the full (4)–(5) balloons — then ONE follow-up
+discharges them; flag precisely.
+
+## Node C dependency DAG
+```
+NC-1 (S1 discharge) ──┐
+NC-2 (S2 discharge) ──┼→ NC-3 GapsFinal → gaps_le_twelve (hPNT) (hEH)  — THE END
+   (landed: yside_ge_cM, collision chains, qdiag_bridge, WinCore, frontier)
+```
+Round 1: NC-1, NC-2 parallel. Round 2: NC-3.
+
+---
+
 ## Node B — CARDED (Fable design pass, 2026-07-11) — the CRUDE-domination route
+**(SUPERSEDED by Node C above — the S1 crude-domination was proven a mirage by
+NB-1's execution; kept as history. NB-2's `yside_ge_cM` and NB-3's landed
+S2 infrastructure remain LIVE inputs to Node C.)**
 
 **RESOLVED: the collision estimate needs NO Lipschitz smoothness.** The design
 exploration (full read of `inner_abs_le`) found the crude route (b′): `yF` is
