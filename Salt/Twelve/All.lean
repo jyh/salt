@@ -34,6 +34,7 @@ import Salt.Twelve.GapsFinal
 import Salt.Twelve.JcalPos
 import Salt.Twelve.FrontierM
 import Salt.Twelve.QdiagFloor
+import Salt.Twelve.GapsUncond
 
 /-!
 # Rung 4a (`explicit12`) — aggregate import
