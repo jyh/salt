@@ -74,7 +74,7 @@ Legend: class A/B/C per `CLAUDE.md`; ✅ proved / 🔄 in flight / ⬜ open / �
 | id | statement | class | status |
 |---|---|---|---|
 | L0.1 | `e`, `expSum` defs + trivia (`‖e x‖ = 1`, `e (x+1) = e x`, `e`-additivity) | A | ⬜ |
-| L0.2 | `dist₁` def + spec lemmas (symm, ≤ 1/2, int-shift invariance, triangle-ish `dist₁ x z ≤ dist₁ x y + dist₁ y z`) | B | ⬜ |
+| L0.2 | `dist₁` def + spec lemmas (symm, ≤ 1/2, int-shift invariance, triangle-ish `dist₁ x z ≤ dist₁ x y + dist₁ y z`) — `Salt/LS/Dist.lean`, round-based carrier, 9 lemmas | B | ✅ |
 | L0.3 | `Spaced` def + `Spaced δ α → R ≤ 1/δ + 1`-style counting sanity (optional, drop if unused) | B | ⬜ |
 
 ### W1 — the de-risking probe (Opus, FIRST COMMITTED NODE)
