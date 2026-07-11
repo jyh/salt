@@ -11,6 +11,7 @@ import Salt.LS.Farey
 import Salt.LS.Deriv
 import Salt.LS.Spacing
 import Salt.LS.AnalyticLS
+import Salt.LS.ArithmeticLS
 
 /-!
 # Rung 5 opener (`largesieve`) — aggregate import
@@ -32,5 +33,9 @@ W1 probe verdict: GO — keystone risk retired, Gallagher route ratified.
 `(2πN)²`); `Spacing` (L5.1/L5.2 fused — `Spaced` + the periodic
 disjoint-union bound `sum_integral_le_period`, sort-free min-window
 route); `AnalyticLS` (L3.1 — **`analytic_LS`**, the analytic large sieve
-`Δ = δ⁻¹ + 13N`, Young-inequality cross term, `π² ≤ 10` slack).
+`Δ = δ⁻¹ + 13N`, Young-inequality cross term, `π² ≤ 10` slack);
+`ArithmeticLS` (L6.1b/L6.2 — the reduced Farey system `fareyPairs`/`fareyFrac`,
+the reindexing engine `sum_expSum_sq_le_of_spaced`, and the arithmetic large
+sieve **`arithmetic_LS`** `Q² + 13N` (`2 ≤ Q`) plus the `Q = 1`
+Cauchy–Schwarz corollary `arithmetic_LS_one`).
 -/

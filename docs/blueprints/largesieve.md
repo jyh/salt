@@ -107,8 +107,8 @@ RETIRED — the Gallagher route is ratified and the duality fallback is closed.
 | id | statement | class | status |
 |---|---|---|---|
 | L6.1 | **Farey spacing**: `a/q ≠ a'/q'` reduced, `q, q' ≤ Q` ⇒ `dist₁ (a/q) (a'/q') ≥ 1/Q^2` (mod-1 wraparound case: `qq' − |aq'−a'q|` is a nonzero integer — write the argument out) — `farey_spacing_core`/`farey_spacing`, `Salt/LS/Farey.lean`, coprimality-free | B | ✅ |
-| L6.1b | Farey system assembly: enumerate `{(q,a) : q ∈ Icc 1 Q, a reduced}` as `Fin R → ℝ`, derive `Spaced (1/Q²)` from pairwise L6.1, reindex `∑_q∑_a ↔ ∑_r` (bookkeeping; adversarial pass: this is C, not part of a B node) | C | ⬜ |
-| L6.2 | **ARITHMETIC LS** (frozen): for `2 ≤ Q`: `∑ q ∈ Icc 1 Q, ∑ a ∈ (range q).filter (Nat.Coprime q), ‖expSum N c (a/q)‖^2 ≤ (Q^2 + 13*N) * ∑ n ∈ range N, ‖c n‖^2` — the `Q = 1` case is a separate one-line Cauchy–Schwarz corollary (`δ = 1/Q² = 1` violates L3.1's `δ ≤ 1/2` gate; adversarial pass) | B | ⬜ |
+| L6.1b | Farey system assembly: enumerate `{(q,a) : q ∈ Icc 1 Q, a reduced}` as `Fin R → ℝ`, derive `Spaced (1/Q²)` from pairwise L6.1, reindex `∑_q∑_a ↔ ∑_r` (bookkeeping; adversarial pass: this is C, not part of a B node) — `fareyPairs`/`fareyFrac` (sigma-set, no bare Fin R) + the generic reindex engine `sum_expSum_sq_le_of_spaced`; filter = modulus-first `Nat.Coprime q a` (L7.3/L8 follow this) | C | ✅ |
+| L6.2 | **ARITHMETIC LS** (frozen): for `2 ≤ Q`: `∑ q ∈ Icc 1 Q, ∑ a ∈ (range q).filter (Nat.Coprime q), ‖expSum N c (a/q)‖^2 ≤ (Q^2 + 13*N) * ∑ n ∈ range N, ‖c n‖^2` — the `Q = 1` case is a separate one-line Cauchy–Schwarz corollary (`δ = 1/Q² = 1` violates L3.1's `δ ≤ 1/2` gate; adversarial pass) — `arithmetic_LS` + `arithmetic_LS_one`, `Salt/LS/ArithmeticLS.lean` | B | ✅ |
 
 ### W4 — character form
 | id | statement | class | status |
