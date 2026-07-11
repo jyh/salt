@@ -21,6 +21,16 @@ import Salt.Twelve.RelEngines
 import Salt.Twelve.FstarNorm
 import Salt.Twelve.MvSplit
 import Salt.Twelve.QdiagBridge
+import Salt.Twelve.PrimorialRatio
+import Salt.Twelve.Pigeonhole12
+import Salt.Twelve.CollisionYF
+import Salt.Twelve.CollisionYF_S2
+import Salt.Twelve.YsideCM
+import Salt.Twelve.InnerS1
+import Salt.Twelve.InnerS2
+import Salt.Twelve.WinCore
+import Salt.Twelve.WinFrontierDischarge
+import Salt.Twelve.GapsFinal
 
 /-!
 # Rung 4a (`explicit12`) — aggregate import
@@ -59,5 +69,23 @@ forms with `1/D` errors relativized to `phiAtomSum`, `∃A` before `W'`);
 Design corrections this wave (Opus, endgame-verified): the `mv_J_split`/
 `qdiag_bridge` `1/D` buckets are MIXED-power `(1+X+PAS)⁶`, and `qdiag_bridge`
 carries a second `κ⁻²·Y⁶/D²` term (both endgame-safe via `κ⁻¹ ≤ 5√D`).
-FABLE-QUEUE now: only `marked_prime_g` (unneeded dead-end record).
+
+Wave 5 + endgame (landed): `PrimorialRatio` (`primorial_ratio_le : κ⁻¹ ≤ 5√D`),
+`Pigeonhole12` (`bounded_gaps_reduces_twelve`, the faithful pigeonhole
+reduction), `WinCore` (the endgame capstone `gaps_le_twelve_of_inner` +
+`win_ratio_core` + `WinFrontier` at `Dstar`), and `WinFrontierDischarge`
+(`winFrontier_of`: frontier conjuncts 1–6 + threshold assembly).
+
+Node B (route superseded by Node C; scaffolding landed): `CollisionYF` (NB-1 S1
+reductions — exposed the crude-domination mirage), `YsideCM` (NB-2 — its `hD0`
+is W'-opaque, documented unusable at primorial moduli), `CollisionYF_S2` (NB-3,
+free-`(W',D)` S2 collision infrastructure).
+
+Node C — THE CLOSURE (landed): `InnerS1` (NC-1, **`collision_yF_M`** — the
+UNCONDITIONAL S1 collision atom, termwise + contamination partition), `InnerS2`
+(NC-2, **`s2_inner_yF`** — the S2 atom with the g-weighted `(p−2)⁻²` prefactor,
+mod the `hQd` qdiag comparison), `GapsFinal` (NC-3, **`gaps_le_twelve`** at the
+abstract Archimedean `primorial Dfin` — conditional on `WindowPNT`/`EHall`/
+`WinFrontierM`; live residuals R1 (`hQd` pointwise at `Dfin`) and R2
+(`WinFrontierM` `∀ᶠ N` slack) — see `docs/blueprints/flags.md` 2026-07-11).
 -/

@@ -1488,6 +1488,19 @@ hypotheses if the largeness stack fights; flag.
 
 # Node C — THE CLOSURE (Fable design pass 2, 2026-07-11) — termwise + marked moments
 
+**STATUS (Fable review, 2026-07-11): NC-1 LANDED (`a0ce27e`, `collision_yF_M`
+unconditional), NC-2 LANDED (`4594f54`, `s2_inner_yF` mod `hQd`; `(p−2)⁻²`
+g-weighted prefactor, blessed inline — reconciled below), NC-3 LANDED PB-floor
+#2 (`4648af1`, `gaps_le_twelve (hPNT)(hEH)(hFrontier : WinFrontierM)`).** Live
+residuals (flags.md 2026-07-11 + Fable review): R1 — the `hQd` comparison,
+discharged POINTWISE at `(primorial Dfin, Dfin)` via the now-public
+`s2_inner_termwise` (NO statement surgery on the frozen `hQd`; per-m
+`Jcal m Fstar > 0` is class A via the landed `J_Fstar_0..4`,
+`Certificate.lean:197-249`); R2 — the `WinFrontierM` `∀ᶠ N` slack (conjuncts
+1–6 = `winFrontier_of` pattern re-instantiated at `Dfin`; conjunct 7 =
+`win_ratio_core` + vanishing budget). `Dfin` resize (`10^18 → ~10^32`) planned
+with R2's budget — free, `primorial Dfin` never evaluated.
+
 **SUPERSEDES Node B's crude-domination route** (whose S1 form was proven a
 mirage by NB-1 — the domination overshoots to `M` and the abs/signed forms
 don't align — and whose S2 form is spectral, NB-3). The correct closure needs
@@ -1522,8 +1535,10 @@ CONTRACTION `V = lamPhiContractM`: `|term_u| = ∏g(u)·|V(u∨σ)||V(u∨τ)| �
 `ε = lemma53Const·5·logR/D`; joins violating pairwise coprimality or `wₘ≠1`
 give `V = 0`. Contamination partition + `g`-marked moments
 (`∏_{p∈Q}(p−2)⁻¹·Mg₄`, `Mg₄ ≤ (2·PAS)⁴` = the landed `gmoment4_le`,
-`uₘ=1`-box) + `(p−2)⁻¹ ≤ 2(p−1)⁻¹` (D≥300): TOTAL
-`≤ 3^ω·∏(p−1)⁻²·[2^{ω-ish folded}·(PAS+ε)²·(2PAS)⁴]`. Convert to the atom's
+`uₘ=1`-box): TOTAL `≤ 3^ω·∏(p−2)⁻²·(PAS+ε)²·(2PAS)⁴` — the atom keeps the
+g-weighted `(p−2)⁻²` (the `(p−2)⁻²≤4(p−1)⁻²` conversion costs `4^ω`, unabsorbable
+by any F-only CF; it is deferred to the collision assembly's euler tail, where it
+costs a single factor 4: `48 = 4·Cs`). Convert to the atom's
 `Qdiag_gv`-RHS via the landed `qdiag_bridge`: at fixed `(W',D)` with the
 `D`-largeness hypotheses (below), `Qdiag_gv ≥ X⁶·J/2` for `R ≥ R₀(W')` and
 `PAS⁶ ≤ C·X⁶` — net `(PAS+ε)²(2PAS)⁴ ≤ CF·Qdiag_gv`, `CF` F-only (the ratio
@@ -1593,7 +1608,7 @@ def S2InnerBoundQC (k R W' : ℕ) (m : Fin k) (y : (Fin k → ℕ) → ℝ) (CF 
   -- LHS verbatim from S2InnerBoundQ (S2Collision.lean:795); RHS gains the CF slot:
   ∀ {s : ℕ}, Squarefree s → ∀ α ∈ assignments k s,
     |/- S2 inner form -/| ≤ 3 ^ s.primeFactors.card
-      * (∏ p ∈ s.primeFactors, (((p:ℝ)-1)⁻¹)^2) * CF * Qdiag_gv k R W' m y
+      * (∏ p ∈ s.primeFactors, (((p:ℝ)-2)⁻¹)^2) * CF * Qdiag_gv k R W' m y
 
 theorem s2_inner_yF (F : Poly) (m : Fin 5) (hQ : Qabs F ≤ 1) :
     ∃ CF : ℝ, 0 ≤ CF ∧ ∀ W' D : ℕ, Squarefree W' → 0 < W' → PhiUpperAtom W' →
@@ -1607,7 +1622,7 @@ theorem s2_inner_yF (F : Poly) (m : Fin 5) (hQ : Qabs F ≤ 1) :
 
 theorem s2_collision_le_QdiagW_C (k R W' D : ℕ) (m : Fin k) (y) (CF : ℝ)
     (hCF : 0 ≤ CF) (hInner : S2InnerBoundQC k R W' m y CF) (hyps…) :
-    |s2CollisionForm k R W' m y| ≤ Cs * CF * (k:ℝ)^2 / D * Qdiag_gv k R W' m y
+    |s2CollisionForm k R W' m y| ≤ 48 * CF * (k:ℝ)^2 / D * Qdiag_gv k R W' m y
 ```
 (`s2_collision_le_QdiagW_C` = the CF-slotted mirror of NB-3's landed
 `s2_collision_le_QdiagW` — CF multiplies through the euler tail.) Route for
@@ -1620,7 +1635,7 @@ p|u@slot ∀p∈Q} 1/∏_{i≠m}g(uᵢ) ≤ ∏_{p∈Q}(p−2)⁻¹·(2·PAS)⁴
 `gmoment4_le`'s box→product structure with per-prime `marked_sqf_g_rel`
 reindexes at the α-dependent slots — an explicit deliverable, ~100 lines); `qdiag_eq_yMsq_sum` for `Qdiag_gv = Σ yM²/∏g`; `qdiag_bridge` for
 `Qdiag_gv ≥ X⁶J/2` at `R ≥ R₀` (obtain its `A` BEFORE `W'`); the atom
-`3^ω`-budget absorbs the side-choice and `(p−2)→(p−1)` conversion factors.
+`3^ω`-budget absorbs the side-choice factors (the `(p−2)→(p−1)` conversion is NOT taken in the atom — see the TOTAL note above).
 Traps: the `(PAS+ε)² ≤ 4PAS²` step needs `ε ≤ PAS` — from `hκ` + D-largeness
 (`c₀κ⁻¹/D ≤ 1`); the `Mg₄` box is `uₘ=1` (4 free coords); σₘ≠1 ⟹ V=0.
 PB floor: if the `Qdiag ≥ X⁶J/2` eventual-comparison fights, take it as an
@@ -1645,7 +1660,7 @@ EVERY `Dfin`. Instead base BOTH moments on the wave-4 relativized
 The landed `yside_ge_cM` is NOT consumed by NC-3 (it remains a landed lemma;
 its `mvIErr`-conditioned form is documented as unusable at primorial moduli). (2) **Archimedes:** `∃ Dfin` with: `12k² ≤
 Dfin`, every NC-2 D-largeness hypothesis, NB-2's `hD0`, and the TOTAL
-collision losses `[300/(c·Dfin)]·(S1) + [Cs·CF·25/Dfin]·(S2) + (qdiag κ-terms)
+collision losses `[300/(c·Dfin)]·(S1) + [48·CF·25/Dfin]·(S2) + (qdiag κ-terms)
 < the win_ratio margin-share` — each term explicit-or-F-only over `1/Dfin` or
 `1/√Dfin`. (3) `W' := primorial Dfin`; discharge `Squarefree`/`hDlt`
 (`primorial_hDlt`)/`hκ` (`primorial_ratio_le`)/`hν₀` (`exists_nu0W`)/

@@ -1623,7 +1623,11 @@ Six fragilities caught+fixed this track: (1) per-u coprimality, (2) budget split
 Opus appends entries here (node id, tripwire hit, what was tried) instead of
 grinding; the next Fable wave opens by draining this list.
 
-- **explicit12 W5-7 — discharge `WinFrontier (primorial Dstar)`** (`hFrontier`
+- **[SUPERSEDED by NC-3 → residual R2 (task #79): the frontier was re-based
+  from `primorial Dstar` to `primorial Dfin` as `WinFrontierM`
+  (`GapsFinal.lean`); the conjunct 1–6 discharge pattern below carries over
+  verbatim — see the 2026-07-11 entries.]**
+  **explicit12 W5-7 — discharge `WinFrontier (primorial Dstar)`** (`hFrontier`
   hypothesis of `gaps_le_twelve_of_inner`, `Salt/Twelve/WinCore.lean`). The
   STEP-6 `∀ᶠ N` largeness bundle (`WindowPNT → EHall → ∀ N ∃ N'≥N,
   S1 < Σ S2mW`). **PARTIALLY LANDED (Opus, 2026-07-10,
@@ -1671,7 +1675,11 @@ grinding; the next Fable wave opens by draining this list.
     `winFrontier_holds` unconditional) leaves `gaps_le_twelve` conditional on
     ONLY `hInner` (Node B).
 
-- **explicit12 Node B — CARDED (Fable 2026-07-11, CRUDE-domination route).**
+- **[SUPERSEDED by Node C (design doc "# Node C — THE CLOSURE"): the
+  crude-domination route below was proven a mirage by NB-1; Node C's
+  termwise+partition route landed BOTH collision atoms (NC-1 `a0ce27e`,
+  NC-2 `4594f54`) and the capstone (NC-3 `4648af1`).]**
+  **explicit12 Node B — CARDED (Fable 2026-07-11, CRUDE-domination route).**
   The non-tensor collision estimate needs NO Lipschitz: `|yF r| ≤ ONE r` (constant
   tensor `f₀≡1`), so `inner_abs_le` at `ONE` bounds the abs-majorant
   `s1AbsCollisionForm(yF) ≤ 12k²/D·M`, then `M ≤ yside/c` (c=120·Ical≈0.48).
@@ -1906,9 +1914,12 @@ grinding; the next Fable wave opens by draining this list.
     (c) prove `mv_J` natively as a 6-dim moment (avoids the `X²·(4-dim)`
     split; heavier, a fresh proof outside the inner_contract route).
 
-Currently: 1 live entry (`marked_prime_g` dead-end record) + 3 CLOSED
-(`budget_moment_g` `3f2f098`; `hReindex` `085f496`; `mv_J_split` — all 3 W4-2
-deliverables landed via the mixed-power fix, MvSplit.lean axiom-clean).
+Currently (Fable review 2026-07-11): 2 live residuals — **R1** (`hQd` for
+`Fstar1`, pointwise at `Dfin`; task #78) and **R2** (`WinFrontierM` `∀ᶠN`
+slack; task #79, gates the fully-unconditional `gaps_le_twelve`) — plus the
+`marked_prime_g` dead-end record. CLOSED this cycle: Node B (superseded),
+W5-7 (re-based into R2), NC-1/NC-2/NC-3 (landed), `budget_moment_g`
+`3f2f098`, `hReindex` `085f496`, `mv_J_split` (MvSplit.lean axiom-clean).
 
 ## 2026-07-11 NC-2 (InnerS2) Opus done (3 of 4 deliverables) — s2_inner_yF flagged
 
@@ -2121,3 +2132,55 @@ Conjuncts 1–6 are discharged verbatim in WinCore's `winFrontier_of` pattern
 collision bounds (`sharp_S1_upperM`'s M-term via `mv_I_split` at `onePoly`/`Fstar1`;
 `s2_collision_yF_C` via `qdiag_bridge`) plus the `herr`/`1/logR`/`R²·polylog`
 `∀ᶠ` stack. This is the W5-7-style residual; carried as the `hFrontier` hypothesis.
+
+## 2026-07-11 Fable state review — corrections to the NC-3 residual scoping
+
+Multi-agent audit (truth-chain / vacuity / docs-drift / residual-scoping, each
+red/yellow finding adversarially verified). Corrections to the 2026-07-11 NC-3
+entry above:
+
+1. **RESIDUAL 1(a) is STALE — per-m `Jcal` positivity is ALREADY LANDED.**
+   `J_Fstar_0..J_Fstar_4` (each `= 191881/119750400`) are in
+   `Certificate.lean:197-249` (10M-heartbeat `norm_num`, wave 1). With
+   `Fstar1_eq_scaleW` + `Jcal_scaleW` (the `WinCore.lean:90-93` pattern),
+   per-m `Jcal m Fstar1 = (191881/119750400)/1227² > 0` is a ~15-line
+   class-A composition. No symmetry lemma, heartbeat bump, or
+   `simplexInt`-positivity lemma needed.
+2. **The frozen `hQd` interface needs NO statement surgery (no "R1-IF").**
+   `s2_inner_yF` is quantifier plumbing; the content is `s2_inner_termwise`
+   (`InnerS2.lean:1065`), POINTWISE in `(R, W', D)` with only `300 ≤ D`. The
+   universally-quantified `hQd` (which demands the qdiag comparison down to
+   `D = 300`, where the landed `κ⁻¹ ≤ 5√D` bound cannot close it) is BYPASSED:
+   R1 proves the comparison only at `(primorial Dfin, Dfin)` and feeds
+   `s2_inner_termwise` → `S2InnerBoundQC` pointwise → `s2_collision_yF_C`
+   (already pointwise). `s2_inner_termwise` de-privated for this (visibility-
+   only change, no statement/proof touched — Fable-blessed this review).
+   `hQd`/`s2_collision_Fstar1_of_hQd` remain landed as (unused) packaging.
+3. **`Dfin = 10^18` is likely too small for the R2 PROOF budget** (truth is
+   fine; provability isn't): the `qdiag_bridge` floor `Qdiag ≥ X⁶·J₁/2` under
+   the landed `κ⁻¹ ≤ 5√D` has relative error `≈ 5⁷·A/(√D·J₁)`
+   (`J₁ = Jcal m Fstar1 ≈ 1.064×10⁻⁹`, `A = Ac+Aself+A'` F-only from
+   `qdiag_bridge_of`); `< 1/2` forces `Dfin > 4·A²·5¹⁴/J₁² ≈ 2.16×10²⁸·A²`
+   (vacuity audit, verified). At `10¹⁸` the provable floor error is `~7×10⁴·A`
+   — useless — while the TRUTH closes there via real Mertens `κ⁻¹ ≈ 74`.
+   Resize with
+   R2's computed budget — free (`primorial Dfin` never evaluated; only
+   trivial numeral facts consumed). Do NOT add a Mertens-type `κ⁻¹ ≲ log D`
+   lemma just to keep `10^18`.
+4. **Truth-chain audit: PASS** — `bounded_gaps_reduces_twelve` is a faithful
+   pigeonhole (real sieve sums, strict inequality does the work, primes > N,
+   diam 12 via `hSeq_diam_le_twelve`); `WindowPNT` is PNT-in-window with the
+   correct `63 = 64−1` constant; `EHall` is exactly full Elliott–Halberstam
+   (`θ < 1`, correctly excluding the false `θ = 1`). No circularity. Honest
+   framing: BOTH remaining analytic conjuncts live in `WinFrontierM` — the
+   headline is "gaps ≤ 12 IF the sieve inequality holds ∀ᶠN", until R2 lands.
+5. **Build coverage gap FIXED this commit**: bare `lake build` did not reach
+   `Salt/Twelve` at all (`Salt.lean` never imported it; `All.lean` stopped at
+   wave 4). `Salt.lean` now imports `Salt.Twelve.All`, which now aggregates
+   every Twelve module including `GapsFinal` — restoring CLAUDE.md's
+   "`lake build` kernel-checks everything" invariant.
+6. **Known residual doc-tooling gap (unfixed, low priority):**
+   `scripts/blueprint_lint.py` parses only `brun-guide.md` — zero
+   explicit12/Twelve declarations are lint-audited (why the `(p−1)/(p−2)`
+   card drift went undetected). Extending the lint to the explicit12 card
+   grammar is a separate B-class tooling node.

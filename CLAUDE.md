@@ -1,7 +1,11 @@
 # salt — session instructions
 
 Lean 4 + mathlib project. Objective: a machine-checked proof of the Twin Prime
-Conjecture; current track: Brun's theorem (`docs/blueprints/brun.md`).
+Conjecture. Tracks: Brun's theorem (`docs/blueprints/brun.md`, branch `brun`)
+and — currently active — explicit bounded gaps ≤ 12
+(`docs/blueprints/explicit12-design.md`, branch `explicit12`; commit messages
+`explicit12 <node>: <name>`; note `scripts/blueprint_lint.py` audits only the
+Brun guide, so explicit12 docs↔code checks are manual).
 Full routing policy: `docs/MODEL_POLICY.md`. The Lean kernel is the referee:
 `lake build` checks every proof.
 
