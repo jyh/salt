@@ -2277,3 +2277,25 @@ class, zero sorry ever committed. BV-rung pre-flight now has: the LS
 chain, the Vaughan interface, `sum_inv_totient_le`, conductor toolkit.
 Missing for BV: Siegel–Walfisz-grade input (the deep end — watch
 PrimeNumberTheoremAnd/mathlib), the dispersion computation itself.
+
+## 2026-07-11 bv blueprint: adversarial pass caught TWO level-breaking blockers pre-dispatch
+
+The most valuable verification catch of the project to date — both defects
+would have surfaced only at V3, after the V2 waves were built to the wrong
+shapes. (1) **The level-1/4 trap:** the original V2a/V2b frozen outputs
+(`(q/φq)`-weighted L¹ character sums, consumed at `Q = √x`) evaluate to
+`x^{3/2}` — the level-1/2 saving lives in the `(1/φq)` AP-weight's extra
+`1/q`, exploited per-dyadic-block exactly as the landed BDH assembly did.
+V2 re-frozen per-block. (2) **The missing `max_{y≤x}`:** V4.2's θ→π Abel
+summation needs the discrepancy at ALL scales `t ≤ x` (the single-x form
+gives only `x^{3/2}` trivially; the "haircut absorbs a sandwich" idea was
+FALSE); V3.1 re-frozen to the maximal form, new node V3.0 (dyadic-in-y
+maximal completion) added — this is FLDutchmann's `⨆_{y ∈ Icc 1 x}`,
+independently rediscovered by the verifier. Also: new node V3.2 (AP-form
+SW → character form at small conductor via `psiChi_eq_sum_psiAP`,
+`A ↦ A+C` absorption); V0.2 RESOLVED by the pass itself
+(`bounded_gaps_from_level : HasLevel (1/2) → ∃C, bounded gaps` is landed —
+V6 is a one-line composition). Traps lens errored (5th occurrence of the
+structured-output stub failure); its unique checks (SW quantifier flow,
+`a % q` edge) self-covered by Fable: constants flow `A → (A',C') → K → (B,C_out)`
+acyclically; `Nat.Coprime a q ↔ Coprime (a%q) q` — V0.1 trivia.
