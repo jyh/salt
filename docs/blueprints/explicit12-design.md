@@ -1488,10 +1488,30 @@ hypotheses if the largeness stack fights; flag.
 
 ## Node B — THE CRUX SUB-WAVE (needs its own Fable/human design pass; NOT carded here)
 
-**`S1InnerBound k R W' (yF R W' Fstar1)` — discharge for the divisor-INCREASING
-polynomial weight.** This is the last genuine mathematical content of the rung
-(Maynard's singular-series smoothness / ε-enlargement estimate). The landed
-monotone-tensor machinery (`inner_abs_le`/`yhat_side_le`/`erase_branch`) is
+**SCOPE CORRECTION (W5-7 execution, 2026-07-10): the non-tensor collision
+estimate is needed on BOTH sieve sides — it is ONE technique, TWO atoms.** The
+wave-5 design under-scoped the S2 side as an "audit"; the W5-7 discharge showed
+it is a full atom of the same shape as the S1 one:
+- **S1 side — `S1InnerBound k R W' (yF R W' Fstar1)`** (Node A `collision_lower_orderW_of`,
+  W5-1): the sharp S1 factor-2 kill.
+- **S2 side — `S2InnerBoundQ`-for-`yF` / `s2_collision_le_QdiagW`** (`S2Collision.lean:795/808`):
+  the `s2CompatFormM ↔ Qdiag_mW` passage (`Qdiag − s2CompatForm = s2CollisionForm`,
+  needed to connect `S2mW_lower`'s compat-pairs bound to `qdiag_bridge`'s sharp
+  `X⁶·Jcal`). Its landed discharge `s2_inner_bound_N` uses `fTilde`-antitonicity
+  (tensor) — unusable for `yF`, exactly like Node A.
+Both discharge via the SAME Lipschitz-smoothness restricted-diagonal contraction
+(below). The S2 split (`s2_collision_le_Qdiag` + abstract `S2InnerBoundQ`) already
+exists `y`-generic, so the S2 atom is a drop-in once the technique is designed.
+Downstream, the quantitative slack `hslackEv` (W5-7's `winFrontier_of` residual
+(a): thread the vanishing errors below `win_ratio_core`'s ~4.4×10⁻³ main-gap) is
+MECHANICAL but BLOCKED on the S2 atom (its `errEH` carries the S2 collision) —
+lands once both atoms do.
+
+**The estimate (`S1InnerBound k R W' (yF R W' Fstar1)` and its S2 twin) — for the
+divisor-INCREASING polynomial weight.** This is the last genuine mathematical
+content of the rung (Maynard's singular-series smoothness / ε-enlargement
+estimate). The landed monotone-tensor machinery
+(`inner_abs_le`/`yhat_side_le`/`erase_branch`) is
 UNUSABLE (wrong monotonicity direction). Design substrate for the dedicated pass:
 
 - **The target.** For squarefree collision modulus `σ` (primes `> D`), the
