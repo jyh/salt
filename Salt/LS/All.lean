@@ -12,6 +12,7 @@ import Salt.LS.Deriv
 import Salt.LS.Spacing
 import Salt.LS.AnalyticLS
 import Salt.LS.GaussSum
+import Salt.LS.PsiDefs
 import Salt.LS.ArithmeticLS
 import Salt.LS.Vaughan
 
