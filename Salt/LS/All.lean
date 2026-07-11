@@ -12,6 +12,7 @@ import Salt.LS.Deriv
 import Salt.LS.Spacing
 import Salt.LS.AnalyticLS
 import Salt.LS.ArithmeticLS
+import Salt.LS.Vaughan
 
 /-!
 # Rung 5 opener (`largesieve`) — aggregate import
@@ -37,5 +38,9 @@ route); `AnalyticLS` (L3.1 — **`analytic_LS`**, the analytic large sieve
 `ArithmeticLS` (L6.1b/L6.2 — the reduced Farey system `fareyPairs`/`fareyFrac`,
 the reindexing engine `sum_expSum_sq_le_of_spaced`, and the arithmetic large
 sieve **`arithmetic_LS`** `Q² + 13N` (`2 ≤ Q`) plus the `Q = 1`
-Cauchy–Schwarz corollary `arithmetic_LS_one`).
+Cauchy–Schwarz corollary `arithmetic_LS_one`); `Vaughan` (L9.1 —
+**`vaughan`**, Vaughan's identity as an exact `ArithmeticFunction`/finite-sum
+decomposition of `Λ n` for `n > V`, plus the `f : ℕ → ℂ`-weighted summed form
+`vaughan_sum`; direct divisor double-counting with the `n > V` guard term
+killed by the convolution `μ * (Λ_{≤V} * ζ) = Λ_{≤V}`).
 -/
