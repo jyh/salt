@@ -1496,8 +1496,12 @@ residuals (flags.md 2026-07-11 + Fable review): R1 — the `hQd` comparison,
 discharged POINTWISE at `(primorial Dfin, Dfin)` via the now-public
 `s2_inner_termwise` (NO statement surgery on the frozen `hQd`; per-m
 positivity LANDED: `Jcal_Fstar1_eq`/`Jcal_Fstar1_pos`,
-`Salt/Twelve/JcalPos.lean`, from the landed `J_Fstar_0..4`,
-`Certificate.lean:197-249`); R2 — the frontier slack, PARAMETERIZED per the
+`Salt/Twelve/JcalPos.lean`; R1b LANDED: `qdiag_floor` (`Qdiag ≥ X⁶·J₁/2`,
+`∃Dthr` built from `qdiag_bridge`'s `A`), `qdiag_cmp` (the hQd payload,
+`CF = 720000/J₁` a closed numeral), `s2_collision_floor` (the pointwise S2
+collision closure, RHS = `s2_collision_yF_C`'s) — `Salt/Twelve/QdiagFloor.lean`,
+quantifier order `∃CF ∃Dthr ∀W'D ∃R₀ ∀R` frozen); R2 — the frontier slack,
+PARAMETERIZED per the
 pinned-Dfin correction (flags 2026-07-11: the slack constants are ∃-opaque, so
 the Archimedes `D` is chosen existentially AFTER the constants — no numeral
 resize suffices). R2a LANDED: `WinFrontierMW (D)`/`WinSlackM D C₀ N'`/
