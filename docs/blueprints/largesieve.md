@@ -113,8 +113,8 @@ RETIRED — the Gallagher route is ratified and the duality fallback is closed.
 ### W4 — character form
 | id | statement | class | status |
 |---|---|---|---|
-| L7.1 | primitive `χ` mod q: `χ n * gaussSum χ⁻¹-bar = ∑ a, χ-bar a * e (n*a/q)`-shape (align with mathlib's `gaussSum` API — executor reads `Mathlib/NumberTheory/GaussSum.lean` first; the ℝ/ℂ-additive-character bridge `e (a/q) ↔ ZMod.toCircle`/`stdAddChar` is THE risk here) | C | ⬜ |
-| L7.2 | `‖gaussSum χ ψ‖^2 = q` for primitive χ mod q, **ALL q (composite included)**. ⚠️ Adversarial pass: mathlib's `gaussSum_mul_gaussSum_eq_card` is `[Field R]`-only (prime q) — USELESS here. Route via the general-modulus API that IS in the pin: `gaussSum_mulShift_of_isPrimitive` + `star_gaussSum_eq` + Parseval over residues (`Analysis/Fourier/ZMod.lean` bridge `IsPrimitive.fourierTransform_eq_inv_mul_gaussSum`). Real work. | C | ⬜ |
+| L7.1 | primitive `χ` mod q: `χ n * gaussSum χ⁻¹-bar = ∑ a, χ-bar a * e (n*a/q)`-shape (align with mathlib's `gaussSum` API — executor reads `Mathlib/NumberTheory/GaussSum.lean` first; the ℝ/ℂ-additive-character bridge `e (a/q) ↔ ZMod.toCircle`/`stdAddChar` is THE risk here) — `dirichlet_inversion`/`dirichlet_inversion'` + `stdAddChar_eq_e` (bridge landed clean, PB-floor unused), `Salt/LS/GaussSum.lean` | C | ✅ |
+| L7.2 | `‖gaussSum χ ψ‖^2 = q` for primitive χ mod q, **ALL q (composite included)**. ⚠️ Adversarial pass: mathlib's `gaussSum_mul_gaussSum_eq_card` is `[Field R]`-only (prime q) — USELESS here. Route via the general-modulus API that IS in the pin: `gaussSum_mulShift_of_isPrimitive` + `star_gaussSum_eq` + Parseval over residues (`Analysis/Fourier/ZMod.lean` bridge `IsPrimitive.fourierTransform_eq_inv_mul_gaussSum`). Real work. — **`gaussSum_normSq`** (+ `_of_primitive` any-ψ form, `gaussSum_ne_zero`, `isPrimitive_inv`): Parseval-over-residues via `AddChar.sum_mulShift`, φ(q) never computed, ALL q | C | ✅ |
 | L7.3 | **CHARACTER LS** (frozen shape): `∑ q ∈ Icc 1 Q, (q / φ q : ℝ) * ∑ χ primitive mod q, ‖∑ n ∈ range N, c n * χ n‖^2 ≤ (Q^2 + 13*N) * ∑ ‖c n‖^2` (for `2 ≤ Q`) | C | ⬜ |
 
 ### W5 — BDH

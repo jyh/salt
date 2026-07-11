@@ -11,6 +11,7 @@ import Salt.LS.Farey
 import Salt.LS.Deriv
 import Salt.LS.Spacing
 import Salt.LS.AnalyticLS
+import Salt.LS.GaussSum
 import Salt.LS.ArithmeticLS
 import Salt.LS.Vaughan
 
@@ -42,5 +43,12 @@ Cauchy–Schwarz corollary `arithmetic_LS_one`); `Vaughan` (L9.1 —
 **`vaughan`**, Vaughan's identity as an exact `ArithmeticFunction`/finite-sum
 decomposition of `Λ n` for `n > V`, plus the `f : ℕ → ℂ`-weighted summed form
 `vaughan_sum`; direct divisor double-counting with the `n > V` guard term
-killed by the convolution `μ * (Λ_{≤V} * ζ) = Λ_{≤V}`).
+killed by the convolution `μ * (Λ_{≤V} * ζ) = Λ_{≤V}`); `GaussSum`
+(L7.1/L7.2 — the Gauss-sum machinery: **`gaussSum_normSq`**
+`‖gaussSum χ ψ‖² = q` for primitive `χ`, **all** `q` (composite included) via
+Parseval-over-residues + `AddChar.sum_mulShift` orthogonality — dodging the
+`[Field R]`-only `gaussSum_mul_gaussSum_eq_card`; the τ-inversion
+`dirichlet_inversion`/`dirichlet_inversion'` from
+`gaussSum_mulShift_of_isPrimitive` at `χ⁻¹`; and `stdAddChar_eq_e`, the
+`ψ a = e (a.val / q)` bridge to the track carrier `e`).
 -/
