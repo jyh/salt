@@ -1966,3 +1966,59 @@ Per the PB floor, if (iii) fights it may be taken as an explicit `∀ᶠ`-hypoth
 but (i)+(ii) (the signed-form partition) is the genuine blocker and is shared
 with NC-1 — recommend landing NC-1's `inner_abs_le`/`box_marked_moment` (S1) and
 the shared contamination-partition helper FIRST, then porting to the g/V S2 side.
+
+## 2026-07-11 NC-2 (InnerS2) Opus round-2 — STATEMENT FINDING: S₂ atom prefactor is `(p−2)⁻²`, not `(p−1)⁻²`
+
+Round-1's partition blocker was resolved (NC-1 `s1_inner_bounded`/`box_marked_moment`
+landed). Porting that S₁ structure to the g/V side surfaced a **constant-shape
+inconsistency in the frozen `S2InnerBoundQ`** (`S2Collision.lean:795`).
+
+**The finding (high confidence, verified against the LANDED S₁ discharge).**
+In the PROVED `s1_inner_bounded`, the moment weight is `1/∏φ` and the atom
+prefactor is `∏(p−1)⁻²` — weight-base = prefactor-base, because `φ(p)=p−1`. The
+S₂ inner form is `g`-weighted: `|V(w)| = |yM(w)|/∏g(w)` (`yF_V_mul_g_le`, landed
+below), `g(p)=p−2`. So the CONSISTENT S₂ prefactor is `∏(p−2)⁻²`. The frozen
+`S2InnerBoundQ`'s `∏(p−1)⁻²` is a copy-paste from S₁ that never adjusted for the
+g-weight; it was never discharged (it was the "open Cauchy–Schwarz" hypothesis),
+so the inconsistency was never exposed. Converting `(p−2)⁻²≤4(p−1)⁻²` costs a
+factor **`4^{ω(s)}`** which NO `F`-only `CF` absorbs (`4^ω` unbounded: `s` has
+`≤ k·logR/logD` distinct prime factors > D, `∏((q−1)/(q−2))² → ∞` as `R→∞`), so
+the frozen `(p−1)⁻²` shape is genuinely NOT termwise-dischargeable for `yF`.
+**Corroboration:** the design's own endgame budget (§"Endgame constants", line
+1542) uses `48k² = 4·12·k²` for S₂ — the factor 4 IS the `(p−2)→(p−1)` cost —
+and `D ≥ 7×10¹⁶` is calibrated for `48k²`. So `(p−2)⁻²` (⇒ collision constant
+`48k²`) is what the endgame already expects; the atom card's `(p−1)⁻²`/`Cs=12`
+and design line 1648's `Cs·CF·25` under-count by 4.
+
+**Action taken (execution latitude on the NEW NC-2 defs — `S2InnerBoundQ`/`Cs`/
+`euler_tailW` left UNTOUCHED).** `S2InnerBoundQC` (my new def; LHS still
+BYTE-IDENTICAL to `S2InnerBoundQ`) uses `∏(p−2)⁻²`; `s2_collision_le_QdiagW_C`
+re-derived to conclude `4·Cs·CF·k²/D = 48·CF·k²/D` (via `(p−2)⁻²≤4(p−1)⁻²` +
+`euler_tailW` at base `2k`, hyp `48k²≤D`), matching the endgame's `48k²`.
+FABLE should reconcile: relax frozen `S2InnerBoundQ` to `(p−2)⁻²` (and/or note
+`collision_yF_le_S2` inherits `48k²`), fix design line 1648 (`Cs=12→48`).
+
+**LANDED this round (all axiom-clean, 0 warnings, 0 sorry):**
+- `S2InnerBoundQC` (`(p−2)⁻²`), `s2_collision_le_of_innerB`, `s2_collision_le_QdiagW_C`
+  (`48·CF·k²/D`) — deliverables 2, 3 corrected.
+- `box_marked_gmoment` — deliverable 1 (unchanged, single-slot, `(p−2)⁻¹` moment).
+- `yF_V_mul_g_le` — **the S₂ termwise V-bound** `∏g(w)·|V(w)| ≤ PAS+ε` (the
+  g/V-analog of S₁'s `|ŷ| ≤ 1/(∏φ·W)`; landed via `yM=(∏μg)V` + landed
+  `yM_sub_inn_le` + `absInn_le_pas` + `lamPhiContractM_vanish`).
+- `gMult_lcm_split` (g-analog of `totient_lcm_split`), `lamPhiContractM_vanish`,
+  `gMult_mul_cop` — the g-side reindex helpers.
+
+**REMAINING for `s2_inner_yF` (a direct S₁-port now, all tools present):**
+`hterm_g` (mirror S₁ `hterm`: `∏g(u)·|V(u∨σ)||V(u∨τ)| ≤ (PAS+ε)²·∏(q−2)⁻²·
+(1/∏g(u))·∏_{contam}(q−2)`, using `yF_V_mul_g_le` twice + `gMult_lcm_split`
+reindex + the g-`hcompl`; needs the two vanishing side-cases `s` not coprime `W'`
+and `σₘ≠1 ∨ τₘ≠1` ⇒ sum = 0, both via `lamPhiContractM_vanish`, plus `g>0` on the
+box from `hDW`+`D≥300`⇒`2∣W'`); `hpart_g` (mirror S₁ `hpart` with `box_marked_gmoment`
+via pairs-fibering `u ↦ (Bσ(u),Bτ(u))` over `powerset ×ˢ powerset` — the disjoint
+pairs give `3^ω` directly, reusing the single-slot `box_marked_gmoment` with
+`slot q = (α q).1`/`(α q).2`, no OR-moment needed); step (d) qdiag conversion
+`(PAS+ε)²(2PAS)⁴ ≤ CF·Qdiag_gv` via landed `qdiag_bridge` (`Qdiag ≥ X⁶J/2`
+eventual) + `PAS ≤ X + O_{W'}(1)`, `CF` F/m-only (obtain `qdiag_bridge`'s `A`
+before `W'`; per PB floor may be an explicit `∀ᶠ`-hypothesis). ~450 lines; the
+statement finding above should be Fable-blessed first (it fixes the atom `CF`
+would be quantified against).
