@@ -2059,3 +2059,65 @@ NOTE: `hQd` genuinely NEEDS `Jcal m F > 0` (i.e. `F = Fstar`), so it is F-specif
 and correctly an input, not provable for arbitrary `F`.  NC-3 discharges `hQd` for
 `Fstar` via `qdiag_bridge`.  Recommend Fable confirm this `hQd`-input shape (the
 step-(d) `∀ᶠ`-hypothesis) as the NC-2↔NC-3 interface.
+
+## 2026-07-11 NC-3 (GapsFinal) Opus — LANDED (PB-floor #2: `hFrontier`-conditional)
+
+`Salt/Twelve/GapsFinal.lean` lands `gaps_le_twelve` matching the FROZEN
+top-of-doc conclusion verbatim, re-threaded at the abstract Archimedean modulus
+`primorial Dfin` (`Dfin := 10^18`, an ∃-witness — `primorial Dfin` is NEVER
+evaluated). Axiom-clean `[propext, Classical.choice, Quot.sound]`, 0 sorry, 0
+warnings, fresh build green (`lake build Salt.Twelve.GapsFinal`).
+
+**Result:** `gaps_le_twelve (hPNT : WindowPNT) (hEH : EHall)
+(hFrontier : WinFrontierM)` — the two inner-atom PROPS (`S1InnerBound`,
+`S2InnerBoundQ/QC`) are ABSENT as hypotheses. Beyond `hPNT`/`hEH` only the
+mechanical `WinFrontierM` largeness bundle remains (PB-floor #2).
+
+**S₁ inner atom — DISCHARGED (unconditional).**
+- `sharp_S1_upperM` — the sharp `S1` upper bound (factor-2 killed) built from the
+  NC-1 corollary `collision_yF_M` (`|s1CollisionForm| ≤ 12·5²/D · M`,
+  `M = ∑ 1/∏φ`, unconditional) via `S1_le_main_add_errorW` + `s1_compat_eq`.
+  Replaces WinCore's `sharp_S1_upperW` which consumes the *yside*-based
+  `S1InnerBound` hypothesis (a mirage: `M ≥ yside`, so the M-bound cannot recover
+  the yside-bound — confirmed why the WinCore path needed `hInner`).
+- `win_core_M` — the `S1 < Σ_m S2mW` sieve inequality with NO `S1InnerBound`
+  hypothesis; M-based slack. Mirror of WinCore's `win_core'`.
+
+**S₂ collision — assembled (bound closed from the NC-2 atom; `hQd`-conditional).**
+- `s2_collision_yF_C` — the `Qdiag`-relative CF-slotted S₂ collision bound
+  `|Qdiag_mW − s2CompatFormM| ≤ 4·Cs·CF·5²/D · Qdiag_mW` from the
+  `S2InnerBoundQC` atom. CF-slotted mirror of the landed `collision_yF_le_S2`
+  (swaps `s2_collision_le_QdiagW`→`_C`, `S2InnerBoundQ`→`QC`). Unconditional
+  given the atom.
+- `s2_collision_Fstar1_of_hQd` — composes `s2_inner_yF` (NC-2) + `s2_collision_yF_C`
+  to close the S₂ collision at `Fstar1` for all large `R`, GIVEN the NC-2/NC-3
+  interface hypothesis `hQd`.
+
+**RESIDUAL 1 — `hQd` for `Fstar1` NOT discharged (flagged, PB-floored).** The
+NC-2 `hQd` input — the eventual comparison `(PAS+ε)²(2·PAS)⁴ ≤ CF·Qdiag_gv`,
+i.e. `Qdiag_gv ≥ X⁶·Jcal m Fstar1 / 2` via `qdiag_bridge` — has two genuine
+obstacles that make it a large sub-node (not attempted per iron rule 4):
+  (a) **per-`m` `Jcal m Fstar1 > 0`**: `Jcal m` is a 56×56=3136-term `biQuadW`
+      sum; direct `norm_num [Jcal, Fstar]` on a SINGLE `m` (`Jcal 0 Fstar`)
+      TIMES OUT at 200000 heartbeats (probed). Only the *sum*
+      `Σ_m Jcal m Fstar = 191881/23950080` is landed (`Certificate.J_Fstar`);
+      per-`m` needs either a symmetry argument (`Fstar` is symmetric ⇒ all `Jcal m`
+      equal ⇒ each `= sum/5 > 0`) or an expensive per-`m` `maxHeartbeats` bump,
+      OR a `simplexInt (sq p) > 0 ↔ p ≠ 0` positivity lemma.
+  (b) the `∀ᶠ R` + D-largeness threading of `qdiag_bridge`'s error buckets
+      (`c·(1+X)⁶/logR` → 0; `A·κ⁻¹·Y⁶/D`, `A·κ⁻²·Y⁶/D²` bounded by `κ⁻¹ ≤ 5√D`
+      ⇒ `5A/√D` small, an added D-largeness hyp) below `X⁶·Jcal/2`, plus
+      `PAS ≤ 4X + C_B` (landed `phiAtom_upper_lossy`) to bound the LHS. ~250+ lines.
+  Recommend a dedicated Opus/Fable follow-up: land (a) via `Fstar` symmetry, then
+  (b) as the `Qdiag ≥ X⁶J/2` eventual-comparison lemma (NC-2 PB-floor already
+  anticipated this may stay an explicit `∀ᶠ`-hypothesis).
+
+**RESIDUAL 2 — `WinFrontierM` ∀ᶠ N largeness/slack NOT discharged (flagged).**
+Mirror of WinCore's `WinFrontier` at `primorial Dfin` with the M-based S₁ slack.
+Conjuncts 1–6 are discharged verbatim in WinCore's `winFrontier_of` pattern
+(`S2mW_ge_compatMain_theta_uniform`, `deltaPi_lower_of`, `exists_nu0W`,
+`EH_range_theta`, ...). Conjunct 7 (the assembled ratio-slack) is the
+`win_ratio_core` + vanishing-error budget content — now feedable by BOTH landed
+collision bounds (`sharp_S1_upperM`'s M-term via `mv_I_split` at `onePoly`/`Fstar1`;
+`s2_collision_yF_C` via `qdiag_bridge`) plus the `herr`/`1/logR`/`R²·polylog`
+`∀ᶠ` stack. This is the W5-7-style residual; carried as the `hFrontier` hypothesis.
