@@ -97,11 +97,11 @@ RETIRED — the Gallagher route is ratified and the duality fallback is closed.
 ### W2 — analytic large sieve
 | id | statement | class | status |
 |---|---|---|---|
-| L2.1 | `deriv (expSum N a) = expSum N (fun n => 2πi·n·a n)` (finite sum of smooth terms) | B | ⬜ |
-| L2.2 | Parseval for the derivative + `n ≤ N` crude bound: `∫₀¹ ‖deriv (expSum N a)‖^2 ≤ (2π N)^2 · Σ ‖a n‖^2` | B | ⬜ |
-| L5.1 | `Spaced δ α` (with `δ ≤ 1/2`, points taken mod 1) ⇒ the open intervals `(α r − δ/2, α r + δ/2)` are pairwise disjoint mod 1 | C (bookkeeping) | ⬜ |
-| L5.2 | periodic unfolding: `g` 1-periodic, `0 ≤ g`, intervals disjoint mod 1 ⇒ `∑ r, ∫_{I r} g ≤ ∫ t in x₀..x₀+1, g` | C (bookkeeping) | ⬜ |
-| L3.1 | **ANALYTIC LS** (frozen): `Spaced δ α → 0 < δ → δ ≤ 1/2 → ∑ r, ‖expSum N a (α r)‖^2 ≤ (δ⁻¹ + 13 * N) * ∑ n ∈ range N, ‖a n‖^2` | C | ⬜ |
+| L2.1 | `deriv (expSum N a) = expSum N (fun n => 2πi·n·a n)` (finite sum of smooth terms) — `hasDerivAt_expSum`/`deriv_expSum`/`contDiff_expSum`, `Salt/LS/Deriv.lean` | B | ✅ |
+| L2.2 | Parseval for the derivative + `n ≤ N` crude bound: `∫₀¹ ‖deriv (expSum N a)‖^2 ≤ (2π N)^2 · Σ ‖a n‖^2` — `integral_norm_deriv_sq_le` | B | ✅ |
+| L5.1 | `Spaced δ α` (with `δ ≤ 1/2`, points taken mod 1) ⇒ the open intervals `(α r − δ/2, α r + δ/2)` are pairwise disjoint mod 1 — fused into L5.2, `Salt/LS/Spacing.lean` | C (bookkeeping) | ✅ |
+| L5.2 | periodic unfolding: `g` 1-periodic, `0 ≤ g`, intervals disjoint mod 1 ⇒ `∑ r, ∫_{I r} g ≤ ∫ t in x₀..x₀+1, g` — `sum_integral_le_period` (min-window disjoint-union route, NO sorting; easier than feared) | C (bookkeeping) | ✅ |
+| L3.1 | **ANALYTIC LS** (frozen): `Spaced δ α → 0 < δ → δ ≤ 1/2 → ∑ r, ‖expSum N a (α r)‖^2 ≤ (δ⁻¹ + 13 * N) * ∑ n ∈ range N, ‖a n‖^2` — **`analytic_LS`**, `Salt/LS/AnalyticLS.lean` (Young `2xy ≤ 5N x² + y²/(5N)` cross term — no Lp machinery; `25 + 4π² ≤ 65` via `Real.pi_lt_d2`) | C | ✅ |
 
 ### W3 — arithmetic large sieve
 | id | statement | class | status |

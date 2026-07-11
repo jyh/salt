@@ -8,6 +8,9 @@ import Salt.LS.Defs
 import Salt.LS.Parseval
 import Salt.LS.Gallagher
 import Salt.LS.Farey
+import Salt.LS.Deriv
+import Salt.LS.Spacing
+import Salt.LS.AnalyticLS
 
 /-!
 # Rung 5 opener (`largesieve`) — aggregate import
@@ -24,5 +27,10 @@ L1.2 **Parseval** `∫₀¹‖expSum‖² = Σ‖aₙ‖²`); `Gallagher` (L4.1 
 Sobolev/Gallagher pointwise lemma, `ContDiff ℝ 1` form, frozen constant 2).
 W1 probe verdict: GO — keystone risk retired, Gallagher route ratified.
 `Farey` (L6.1 — `farey_spacing_core` at `1/(q·q')` + `farey_spacing` at
-`1/Q²`, coprimality-free).
+`1/Q²`, coprimality-free); `Deriv` (L2.1/L2.2 — `hasDerivAt_expSum`/
+`deriv_expSum`/`contDiff_expSum` + the derivative Parseval bound
+`(2πN)²`); `Spacing` (L5.1/L5.2 fused — `Spaced` + the periodic
+disjoint-union bound `sum_integral_le_period`, sort-free min-window
+route); `AnalyticLS` (L3.1 — **`analytic_LS`**, the analytic large sieve
+`Δ = δ⁻¹ + 13N`, Young-inequality cross term, `π² ≤ 10` slack).
 -/
