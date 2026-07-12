@@ -8,6 +8,7 @@ import Salt.SW.Kernel
 import Salt.SW.Psi1Identity
 import Salt.SW.ZeroCount
 import Salt.SW.Growth
+import Salt.SW.PartialFractions
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -57,3 +58,5 @@ open Salt.Tactic in
   Salt.SW.norm_deriv_le_of_re_le
   Salt.SW.LFunction_eq_growthSum Salt.SW.LFunction_growth
   Salt.SW.LFunction_growth_sphere
+  Salt.SW.logDeriv_prod_pow Salt.SW.LFunction_exists_factorization
+  Salt.SW.LFunction_partialFraction Salt.SW.norm_logDeriv_sub_sum_le

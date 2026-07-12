@@ -2777,3 +2777,35 @@ product remainder). Optional polish node B3c (general-ω raw-Mertens →
 `hMert` via partial summation) recorded, NOT on P1's critical path.
 Tally: 19 design errors caught pre-(downstream)-execution, 0 proofs on
 wrong statements; #17–#19 all surfaced by executors holding the line.
+
+## 2026-07-12 P0 B3a: Lemma 3 honestly interfaced (`hcorr`) — new node B3a′
+
+B3a landed (2.11) in full (`esymm_le`, from scratch — mathlib has no
+Maclaurin/esymm inequality; built on `sum_pow_eq_sum_piAntidiag` +
+`multinomial_spec`) plus the endpoint compositions
+`mainSum_le_of_upper'`/`mainSum_ge_of_lower'` (compiler-verified
+drop-ins for B5). The p. 104 display itself — Lemma 3's telescoping
++ `d = δpt` reindex + `Σ_{δ∣P(p)}μω/δ = W(p)` + the Corollary grouping
++ (2.10) forcing — is the explicit interface hypothesis `hcorr`
+(faithful powersetCard form). Not a design catch: nothing outside the
+frozen set; a genuine ~800-line combinatorial obligation recorded as
+node B3a′ (the LAST combinatorial node of the P0 chain). Lemma 3
+transcribed verbatim (p. 102 re-fetched; pymupdf beat numdam's broken
+XRef).
+
+## 2026-07-12 SW Z3: factorization + partial-fraction identity landed; B-C numeric = Z3b
+
+Z3 EXCEEDED its floor: `LFunction_exists_factorization` (pointwise
+upgrade of mathlib's codiscrete `MeromorphicOn.extract_zeros_poles`
+via the identity theorem — entire L, nonneg divisor, PerfectSpace ℂ
+gives 𝓝[≠] NeBot), `LFunction_partialFraction` (ball(2+it₀, 3/2);
+multiplicity-respecting Σm_ρ ≤ log(4M₀)/log(7/6) tied UNCONDITIONALLY
+to the Jensen keystone; S3's region incl. Re s < 1 covered),
+`logDeriv_prod_pow`, and the transfer `norm_logDeriv_sub_sum_le`.
+Remaining node **Z3b**: the numeric ‖h'/h‖ ≤ C·log M₀ on the mid-disk
+— B-C (`norm_deriv_le_of_re_le`) on log(g/g(c)) needs an UPPER bound
+on ‖g‖ = ‖L‖/‖P‖, and ‖P‖ has no lower bound near zeros; the classical
+fix is Blaschke factors (mathlib `Complex.canonicalFactor`, modulus 1
+on the boundary circle), whose logDeriv differs from Σm_ρ/(s−ρ) by an
+O(1/R)-per-zero correction absorbed in O(log M₀). Consumes exactly
+what Z3 landed.
