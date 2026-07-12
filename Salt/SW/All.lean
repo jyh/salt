@@ -15,6 +15,7 @@ import Salt.SW.EulerBridge
 import Salt.SW.ThreeFourOne
 import Salt.SW.ZetaPole
 import Salt.SW.ZeroFree
+import Salt.SW.ZetaPartialFractions
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -77,3 +78,6 @@ open Salt.Tactic in
   Salt.SW.three_four_one_logDeriv
   Salt.SW.neg_logDeriv_zeta_le Salt.SW.neg_logDeriv_LFunction_trivChar_le
   Salt.SW.zero_free_region_primitive Salt.SW.zero_free_region
+  Salt.SW.Zc_growth Salt.SW.entire_zero_count_le
+  Salt.SW.entire_norm_logDeriv_sub_sum'
+  Salt.SW.neg_logDeriv_zeta_split Salt.SW.zeta_neg_re_logDeriv_le
