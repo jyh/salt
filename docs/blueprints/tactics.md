@@ -57,6 +57,12 @@ eventually_DL` — ~120 lines of pure plumbing), `windowPNT_of_piAsymp`
 (threshold extraction). Recurs in EVERY analytic assembly; V3/V5 of the
 BV rung will hit it again. **When:** early in the BV rung (V3 is the
 natural first consumer).
+**FIRST-CONSUMER VERDICT (V3.1, honest): NOT USED.** The dispersion's
+absorption collapsed to ONE dominant power-saving monomial
+(`x^{19/20}(1+L)⁴`), not T2's target pattern (a flat +-tree of
+independent →0 pieces à la GapsUncond's 7-piece budget). The extractors
+duplicated plain mathlib there. T2's real consumer profile: multi-piece
+eventual budgets — V4/V5 remain candidates; re-evaluate at rung close.
 **STATUS: LANDED at both layers** (`Salt/Tactic/EventuallyBudget.lean`:
 the Finset combinators + Tendsto extractors (mathlib duplicates aliased,
 not re-proved) + the `eventually_budget [h₁,…]` macro with `</≤` handling;

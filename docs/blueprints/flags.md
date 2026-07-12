@@ -2428,3 +2428,70 @@ Difficulty vs class: the reindex + per-block bilinear application landed cleanly
 at ≈C (the `bilinear_LS_shell` interface fit exactly, guard-drop was the one real
 idea). The deferred geometric sum is B/C-tedious but purely numeric — the honest
 C+ cost was the reduction, now paid.
+
+---
+
+## V3.1 — ψ-form BV dispersion assembly (Opus, PB-floor landing 2026-07-11)
+
+`Salt/BV/Dispersion.lean` (900 lines, sorry-free, axioms
+`[propext, Classical.choice, Quot.sound]` on every lemma incl. the keystone).
+
+**Constants chosen** (operating point): `B = A+6`; conductor cutoff `Cc = A+6`;
+SW invocation `psiChi_le_of_siegelWalfisz_absorbed` at `A_sw = 3A+14`, `C_sw = A+7`,
+giving small-conductor saving `D = A_sw − C_sw = 2A+7`; Vaughan windows
+`U = V = ⌊x^{1/10}⌋`.
+
+**Filter-alignment (step 5):** split point `(log x)^{Cc}` throughout (matches
+`typeII_disc_le`'s filter verbatim, so `largeEnergy_le` consumes it directly). The
+`(log x)`-cutoff ↔ `(log y)`-range mismatch of SW is bridged by `sw_align`
+(`L^{Cc} ≤ (log y)^{Cc+1}` for `L ≥ 2^{Cc+1}`, `log y ≥ L/2`), i.e. SW is invoked with
+`C_sw = Cc+1` so the extra log power absorbs the `2^{Cc+1}` constant. This is the
+"cleaner" of the two documented options.
+
+**Carrier bridge (step 6):** `vaughan_bridge` — the `typeI₁/typeI₂/typeII` carriers
+are DEFEQ to `psiChi_sub_head_eq`'s pieces at `x := y` (verified: `unfold` + `hid.symm`
+closes it), so the bridge is essentially free (triangle inequality). NO friction here —
+the carriers were designed to match.
+
+**PROVEN (all of steps 1–6 + the analysis engine), sorry-free:**
+- `regroupL1_perq` — the L¹ conductor regroup per modulus (the flagged likeliest
+  balloon; landed as a clean L¹ analogue of `Salt.LS.regroup`, ~65 lines).
+- `swapPhi_le` + `dispDisc_perq_le` + `dispSum_le` — V1a→dispDisc, conductor descent
+  (error `≤ Σω(q)log y`), regroup-with-weights (via `sum_inv_totient_dvd_le'`).
+- `largeEnergy_le` — step 6, the four-block Vaughan bound (`norm_head_le` +
+  `typeI_one/two_maxdisc_le` + `typeII_disc_le`), fixed-y ⊆ sup'-over-y domination.
+- `smallEnergy_le` — step 5 (SW small conductor).
+- `energy_split`, `descentError_le`, `dispSum_split_le` — the full explicit
+  `descent + 4(1+log Q)(large+small)` split bound.
+- `absorb_real`/`absorb_nat` — a general `o(x/(log x)^A)` absorption engine
+  (isLittleO route: `(1+log x)^k(log x)^A =o x^{1−θ}`). Built fresh — see T2 note below.
+- `smallY_bound` (step 1), `sw_align`, `eventually_two_polylog_le_sqrt`, crude bounds.
+- `psi_BV_of_siegelWalfisz` — the frozen keystone (∀A∃BC∀x∀y, `dispDisc` packaging),
+  proven from `hlargeY` via the branch combination + `absorb_nat` + small-`x`
+  finite-range absorption (crude bound `Σ_q dispDisc ≤ Q·2ψ(x)` summed into `Csm`).
+
+**DEFERRED (the single PB-floor hypothesis `hlargeY`):** the large-`y` branch
+term-by-term rpow bounding — that `dispSum_split_le`'s explicit RHS at the operating
+point is `≤ Mc·x^{19/20}·(1+log x)^4 + Kc·x/(log x)^A` with
+`Mc = 26 + 16384√2`, `Kc = 262144 + 8K·2^{2A+7}`. This is PURE real-analysis
+bookkeeping (≈9 terms, each `atom-bound + rpow_add + rpow-monotone`); the atoms
+(`U ≤ x^{1/10}`, `Q ≤ x^{1/2}`, `Σ√f ≤ x^{3/4}`, `√U ≥ x^{1/20}/√2`, the two `(1+L)^4`
+npow/rpow bridges, `(log y)^D ≥ (L/2)^D`) were all worked out and partially written
+before the rpow-arithmetic volume exceeded budget. `hlargeY` is a SPECIFIC explicit
+bound (non-circular — NOT an `∃C` restatement of the goal); it is discharged by
+`dispSum_split_le` (proven) + this arithmetic. Term budget verified to close:
+descent(θ=1/2), head(3/5), TypeI₁(17/20), TypeI₂(19/20), x/√U,x/√V(19/20) absorbed;
+√xQ, x/(log x)^{Cc}, small-conductor are direct `x/L^A` (the `L^{−(A+2)}`,
+`L^{Cc−D}=L^{−(A+1)}` savings eat the `(1+L)^4`).
+
+**T2 (`eventually_budget`) verdict:** NOT used. The absorption here is a single
+`absorb_nat` (one `x^{19/20}(1+L)^4` term after collapsing all 6 sub-terms via
+`x^θ ≤ x^{19/20}`, `(1+L)^k ≤ (1+L)^4`), not a flat `+`-tree of independent eventual
+pieces, so the combinator did not fit; a bespoke `absorb_real` (isLittleO) was cleaner.
+The `Tendsto.eventually`/`eventually_atTop.mp` extractors WERE the right shape but are
+plain mathlib. First-consumer data point: T2's macro targets a different pattern
+(many `→0` pieces summed) than this rung's (one dominant power-saving monomial).
+
+Difficulty vs class C+: the number theory (regroup, both energies, carrier bridge)
+landed at ≈C with no surprises — every landed interface fit. The genuine C+ cost was
+the final packaging's rpow bookkeeping volume, which is the deferred `hlargeY`.
