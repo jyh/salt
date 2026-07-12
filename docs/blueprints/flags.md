@@ -2365,3 +2365,66 @@ x/L^{K−2} + √x·L per shell ✓. Tiny scales t ≤ √x: |E| ≤ 3t triviall
 integral negligible. V3.1 re-frozen to the ∀-fixed-y form (uniform
 constants); the max lives nowhere below V4. Classical texts carry the max
 because Perron gives it free — budget-honest formalization drops it.
+
+## 2026-07-11 bv V2b: core + assembly reduction LANDED; closed-form geometric sum deferred
+
+`Salt/BV/TypeII.lean` (Opus, 1 attempt, ~470 lines, sorry-free, axioms
+`[propext, Classical.choice, Quot.sound]`, zero warnings). Landed the Type II
+node's mathematical heart and the entire character-theoretic/Finset assembly,
+leaving ONLY a pure-real geometric double sum. NOT in `All.lean` yet (Fable
+wiring pending); build `lake build Salt.BV.TypeII`.
+
+**Landed lemmas.**
+- Carrier `typeII U V y χ` = the `psiChi_sub_head_eq` TypeII summand at `x:=y`
+  (`∑_{d∈Ioc U y} μ(d) ∑_{m:V<dm≤y} typeIIData(V,m)·χ(dm)`); block `typeIIBlock V y D χ`
+  restricts `d∈Ioc D (2D)`.
+- **The reindex insight** (the load-bearing novelty): the Vaughan LOWER guard
+  `V < d·m` is FREE. `typeIIData_eq_zero_of_le` (`m ≤ V ⇒ typeIIData V m = 0`,
+  every divisor `c ≤ m ≤ V`), so a term with `d·m ≤ V` has `m ≤ d·m ≤ V` and
+  vanishes; `inner_dropguard` collapses the inner filter `(V<dm ∧ dm≤y)` to
+  `(dm≤y)`, and `mset_eq` (`d>D`) collapses the `m`-range `Icc 1 y → Icc 1 (y/D)`.
+  `typeIIBlock_eq` packages these into the exact `bilinear_LS_shell` inner shape
+  with `a d = μ(d)·1_{(D,2D]}`, `b m = typeIIData V m`, `M:=2D`, `H:=y/D`, `Y:=y`.
+- **`typeII_block_le`** (the C+ core): `∑_{f∈Icc F (2F)}(1/φf)∑*_χ ‖typeIIBlock V y D χ‖
+  ≤ blockBound x y D F`, one `bilinear_LS_shell` call. Masses `‖a‖₂²≤D` (`aMass_le`),
+  `‖b‖₂²≤(y/D)(1+log x)²` (`bMass_le` via `sum_log_sq_le`); `(1/φf)` weight via
+  `(1/φf) ≤ (1/F)(f/φf)` on `f≥F` (BDH collapse). `blockBound x y D F =
+  (1/F)·2(1+log x)·√((2F)²+13(2D+1))·√((2F)²+13(y/D+1))·√D·(√(y/D)·(1+log x))`
+  (V-free: the b-mass does not see V). Degenerate `y<D`: block=0.
+- **`typeII_le_sum_blocks`** (dyadic-in-`d`): `y ≤ U·2^J ⇒
+  ‖typeII U V y χ‖ ≤ ∑_{j<J} ‖typeIIBlock V y (U·2^j) χ‖` (extend `Ioc U y → Ioc U (U2^J)`
+  — the `d>y` tail is empty — then `sum_Ioc_consecutive` telescoping partition).
+- **`typeII_disc_reduce`** (the full assembly, general conductor set `S⊆Icc 1 Q`,
+  `f≥2`): `∑_{f∈S}(1/φf)∑*_χ ‖typeII U V y χ‖ ≤ ∑_{j<J}∑_{i≤log₂(Q-1)} blockBound x y (U·2^j)(2^i)`.
+  Does ALL the character theory: d-decomp + sum swap + BDH-style conductor fibering
+  by `Nat.log 2 (f-1)` (each fibre `⊆ Icc (2^i)(2^{i+1})`, closed by `typeII_block_le`).
+
+**What remains for the closed form `typeII_disc_le`** (PURE real analysis, no more
+character/Finset/sieve work — hence deferrable to V3.1 per the V2b PB-floor):
+1. **Cutoff-aware i-range.** `typeII_disc_reduce` sums `i` from `0`; the `i=0`
+   (conductor `F=1`) diagonal is un-saved (`≈ x·L³`). The `f > (log x)^C` cutoff
+   (blueprint option (b): restrict `S`) makes fibres land in `Icc i_min (log₂(Q-1))`
+   with `i_min = Nat.log 2 (⌈(log x)^C⌉ − 1)`; the fibering proof is unchanged
+   except `hmaps` targets `Icc i_min I` (needs `∀ f∈S, (log x)^C < f`, giving
+   `2^{i_min} ≤ f-1`). Only then does the diagonal geometric sum start at `i_min`.
+2. **The four-regime double geometric sum** of `blockBound x y (U·2^j)(2^i)`:
+   split each `√((2F)²+13·) ≤ 2F + √(13·)` (`Real.sqrt_add_le`); use
+   `√D·√(y/D) ≤ √y ≤ √x`; then the four totals close as
+   - `T_a` (the `4F²` term): `∑_i 2^i ≤ 2Q`, `×J` ⇒ `x^{1/2}·Q·L³`;
+   - `T_b` (`2F·√(13(y/D+1))`): `∑_j √(y/(U2^j)) ≤ c·√(y/U)` (decreasing geometric)
+     ⇒ `x·U^{-1/2}·L³` (`√y·√(y/U)=y/√U`);
+   - `T_c` (`√(13(2D+1))·2F`): `∑_j √(U2^j) ≤ c·√(y/V)` (increasing geometric, `D≤y/V`)
+     ⇒ `x·V^{-1/2}·L³`;
+   - `T_diag` (`13√((2D+1)(y/D+1)) ≈ 13√(2y)`): `∑_{i≥i_min} 2^{-i} ≤ 2^{1-i_min}
+     ≈ 2/(log x)^C` ⇒ `x·L³/(log x)^C` (killed by the cutoff of step 1).
+   Final: `κ = 3` (≤ 6 ✓); `C₃` an explicit small numeral (≈ few hundred after the
+   `2^{I+1}≤2Q` and geometric-series constants, cf. BDH `dyadic`'s `8Q+39x` route).
+   The landed RHS must carry the explicit `x·L^κ/(log x)^C` diagonal term (it is
+   NOT absorbable into `x^{1/2}Q + xU^{-1/2} + xV^{-1/2}` at general `Q`, e.g. `Q=2`).
+   No blueprint-statement change: this matches the CORRECTED V2b row (the two
+   Vaughan-boundary terms + the `f>(log x)^C` cutoff) exactly.
+
+Difficulty vs class: the reindex + per-block bilinear application landed cleanly
+at ≈C (the `bilinear_LS_shell` interface fit exactly, guard-drop was the one real
+idea). The deferred geometric sum is B/C-tedious but purely numeric — the honest
+C+ cost was the reduction, now paid.

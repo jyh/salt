@@ -12,6 +12,7 @@ import Salt.BV.PolyaVinogradov
 import Salt.BV.Completion
 import Salt.BV.TypeI
 import Salt.BV.BilinearLS
+import Salt.BV.TypeII
 import Salt.Tactic.AuditAxioms
 import Salt.BV.DivisorSum
 
@@ -42,3 +43,4 @@ open Salt.Tactic in
   Salt.BV.fourierCutoff_indicator Salt.BV.sum_norm_fourierCutoff_le
   Salt.BV.bilinear_factorization Salt.BV.typeI_one_maxdisc_le
   Salt.BV.typeI_two_maxdisc_le Salt.BV.bilinear_LS_shell
+  Salt.BV.typeII_block_le Salt.BV.typeII_disc_reduce
