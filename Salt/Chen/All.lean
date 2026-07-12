@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.Chen.RosserChain
+import Salt.Chen.Tail
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
 
@@ -52,3 +53,5 @@ open Salt.Tactic in
   Salt.Chen.fseq_nonneg Salt.Chen.fseq_eq_zero_of_ge
   Salt.Chen.fseq_intervalIntegrable Salt.Chen.fseq_shift_intervalIntegrable
   Salt.Chen.Fchain_add_fchain Salt.Chen.Fchain_add_fchain_one_ne_two
+  Salt.Chen.fseq_le Salt.Chen.fseq_tail_sum_le Salt.Chen.fseq_tail_le
+  Salt.Chen.fchain_close Salt.Chen.Fchain_close
