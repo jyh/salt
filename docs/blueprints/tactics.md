@@ -121,6 +121,15 @@ input actually lands (the Mertens case) or at a rung close-out with
 idle capacity. Evidence will accumulate passively via the named-gate
 discharges.
 
+### Doctrine addition (2026-07-11, evidence-based): kernel lemmas land PUBLIC
+~270 lines of duplication in one wave (V2.Perron replicated 6 PV privates,
+LS-bil replicated the harmonic kernel again) traced to mathlib-style
+`private` habits on shared analytic kernels. New rule for Salt executors:
+chord/geometric/harmonic/`dist₁`-kernel lemmas land PUBLIC by default
+(namespaced; `private` only for genuinely proof-local scaffolding).
+Retroactive de-privating of `PolyaVinogradov.lean`'s six kernel lemmas +
+dropping the two replica blocks = a queued close-out sweep item.
+
 ## Period-planning hooks
 
 - **Blueprint checklist line:** "Which ledger tactics would shorten this
