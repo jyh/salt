@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.SW.Defs
 import Salt.SW.Kernel
+import Salt.SW.Psi1Identity
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -49,3 +50,4 @@ open Salt.Tactic in
   Salt.SW.psi1AP_sub_lower Salt.SW.psi1AP_sub_upper
   Salt.SW.neg_logDeriv_LSeries_eq_LSeries_twist
   Salt.SW.kernel_identity Salt.SW.kernel_sum_swap
+  Salt.SW.psi1_eq_integral Salt.SW.psi1_eq_integral_logDeriv
