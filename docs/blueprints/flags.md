@@ -2347,3 +2347,21 @@ independently re-derived). R1 (polylog V) rejected (breaks V2b ∀A); R3
 (uncollapsed) no gain; R4 (elementary Route A) works but strictly
 dominated (new sub-architecture, still needs LS-bil). Score: 5/5
 level-breakers at design/freeze time, 0 at execution.
+
+## 2026-07-11 bv V2.LS-bil: shell form landed; the MAX form is STRUCK (6th correction — a simplification)
+
+`bilinear_LS_shell` landed (fixed cutoff, κ=1, c₀=2, the frozen structure
+exactly). The max_y form is genuinely obstructed with the elementary
+toolkit (executor analysis: the γ_h² mass is per-fixed-shell; under max_y
+both routes pay a POWER — √(#blocks) via interval_decomp since the block
+coefficients overlap in m, or H via the prefix identity which kills the
+h-decay; the recon's κ=2 collapse implicitly assumed fixed shells).
+FABLE RESOLUTION: the max form is UNNECESSARY — struck from the DAG.
+V4's θ→π bridge consumes fixed-scale ψ-BV on a POLYLOG NET of scales +
+a CRUDE within-shell increment bound: max_{t∈shell}|E(t)| ≤ |E(t_i)| +
+ψ-increment + width/φq, and Σ_{q≤Q} max_a[increment] ≤ L·(width·L + Q)
+(the trivial interval count width/q + 1 — NO Brun–Titchmarsh needed) =
+x/L^{K−2} + √x·L per shell ✓. Tiny scales t ≤ √x: |E| ≤ 3t trivially,
+integral negligible. V3.1 re-frozen to the ∀-fixed-y form (uniform
+constants); the max lives nowhere below V4. Classical texts carry the max
+because Perron gives it free — budget-honest formalization drops it.
