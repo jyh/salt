@@ -66,5 +66,10 @@ writeup.*
 - "Zero partial transfer" (Liouville → von Mangoldt) is a synthesis of
   the parity-problem framing, not a single quotable theorem — frame it
   as such.
-- Chen numerics: `A₁ ≥ (log 3 − o(1))·…` via `f(4)`, `ΣA₂,ₚ ≤ (log 6 +
-  o(1))·…` via `F`, switching for `A₃`; margin `log 3 − ½ log 6 > 0`.
+- Chen numerics — ⚠️ CORRECTED (catch #20, Chen recon 2026-07-12): the
+  margin `log 3 − ½ log 6 ≈ 0.203` is only the A₁-vs-A₂ gap. The
+  switched term A₃ costs `½·c̄` with `c̄ = ∫_{1/8}^{1/3} log(2−3t)/
+  (t(1−t)) dt ≈ 0.36308` (< 0.363084, BJS Lemma 52), so the TRUE
+  assembly margin is `log 3 − ½log 6 − ½c̄ ≈ 0.0212` — five times
+  thinner (1.9% relative). Full corrected chain + budget ledger:
+  `docs/blueprints/chen.md`.

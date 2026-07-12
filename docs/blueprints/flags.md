@@ -2896,3 +2896,15 @@ count, factorization/B-C/max-modulus — every technique has a landed
 template) — FIRST CHECK whether mathlib/PNT-upstream already has ζ
 logDeriv/zero-free machinery to consume. Then S3d-b (real-χ complex
 zeros) and S3e (Landau–Page).
+
+## 2026-07-12 Chen recon: catch #20 — the 0.203 "margin" was only the A₁/A₂ gap
+
+The three-scout Chen recon (sources / P2-scope / switching) corrected
+parity-frontier.md: the assembly margin must ALSO pay the switched
+term's ½c̄ ≈ 0.1815 (c̄ = ∫_{1/8}^{1/3} log(2−3t)/(t(1−t))dt <
+0.363084, BJS Lemma 52), leaving log3 − ½log6 − ½c̄ ≈ 0.0212 — FIVE
+times thinner than the memo's implied 0.203, 1.9% relative. Route
+freeze → docs/blueprints/chen.md (Tao Supp. 5 native-twin chain, BJS
+Thm 6 explicit linear sieve, weak-form general BV per the V2.LS-bil
+lesson, mandatory budget ledger C0). Tally: 20 design errors caught,
+0 proofs on wrong statements.
