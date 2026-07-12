@@ -103,6 +103,24 @@ across module boundaries. **Evidence:** `BDH.lean` friction report; the
 `open Classical in`-before-docstring trap in `CharLS`. **When:** if it
 bites a third time.
 
+### T8 — `slack_report`: retrospective proof-tightening miner — class C/D, SPECULATIVE (research-note)
+User-raised question (2026-07-11): can landed proofs be tightened
+retrospectively as new results arrive? Two mechanizable halves:
+(1) **budget re-runner** — the explicit-constant doctrine makes every
+estimate chain re-computable; when a sharper input lands (e.g. a
+Mertens-sharp `κ⁻¹ ≲ log D` vs the landed `5√D`), re-run downstream
+budgets and report every numeral that improves (concrete first target:
+`GapsUncond`'s `Dfin ~ 10²⁸·A²` would drop to `~10¹⁷`-scale);
+(2) **application-site slack analyzer** — a metaprogram walking proof
+terms, comparing each lemma application's strength to what the step
+consumes; would have found the struck-max artifact (6th correction)
+retrospectively. Framing: computable reverse mathematics — "weakest
+sufficient interface" as a batch query (done manually for WindowPNT →
+PiAsymp). **When:** genuinely speculative; revisit when a sharpened
+input actually lands (the Mertens case) or at a rung close-out with
+idle capacity. Evidence will accumulate passively via the named-gate
+discharges.
+
 ## Period-planning hooks
 
 - **Blueprint checklist line:** "Which ledger tactics would shorten this
