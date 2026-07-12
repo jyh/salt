@@ -16,6 +16,7 @@ import Salt.SW.ThreeFourOne
 import Salt.SW.ZetaPole
 import Salt.SW.ZeroFree
 import Salt.SW.ZetaPartialFractions
+import Salt.SW.LandauPage
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -81,3 +82,6 @@ open Salt.Tactic in
   Salt.SW.Zc_growth Salt.SW.entire_zero_count_le
   Salt.SW.entire_norm_logDeriv_sub_sum'
   Salt.SW.neg_logDeriv_zeta_split Salt.SW.zeta_neg_re_logDeriv_le
+  Salt.SW.landau_neg_logDeriv_re_lower Salt.SW.analyticOrderAt_eq_of_factorization
+  Salt.SW.landau_one_exceptional_at Salt.SW.landau_one_exceptional
+  Salt.SW.landau_one_exceptional_simple
