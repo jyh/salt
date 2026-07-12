@@ -3,6 +3,7 @@ Copyright (c) 2026 Jason Hickey. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
+import Salt.Chen.RosserChain
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
 
@@ -18,7 +19,18 @@ backbone; margin `M = 2log3 − log6 − c̄ ≈ 0.0424` at assembly
 normalization (catch #20), governed by the frozen C0 budget ledger
 (catches #21–#24).
 
-## Landed (wave 1, partial)
+## Landed (wave 1)
+
+`RosserChain` (C1a, FULL): `fseq` (the BJS (15)–(17) Rosser-chain
+system, total with documented junk-zero windows; the improper tails
+realized as finite `intervalIntegral`s via `fseq_eq_zero_of_ge`),
+`Fchain`/`fchain` at the **catch-#24-corrected parities** (F = 1 +
+odd sum, f = 1 − EVEN sum; regression witness
+`Fchain_add_fchain_one_ne_two` documents that the printed parity would
+force F + f ≡ 2), first values `fseq_one_window`/`fseq_two_window`
+(= BJS (19)), and the full integrability package (`fseq_props`
+coupled induction → `fseq_measurable`/`fseq_bounded`/
+`fseq_intervalIntegrable`/`fseq_shift_intervalIntegrable`).
 
 `SwitchConstant` (C4a, FLOOR): `cbar` (the switch integral), `cbar_pos`,
 and **`two_log_three_sub_log_six_sub_cbar_pos`** — the literal budget
@@ -36,3 +48,7 @@ module docstring and `docs/blueprints/flags.md`.
 open Salt.Tactic in
 #audit_axioms Salt.Chen.cbar_pos
   Salt.Chen.two_log_three_sub_log_six_sub_cbar_pos
+  Salt.Chen.fseq_one_window Salt.Chen.fseq_two_window
+  Salt.Chen.fseq_nonneg Salt.Chen.fseq_eq_zero_of_ge
+  Salt.Chen.fseq_intervalIntegrable Salt.Chen.fseq_shift_intervalIntegrable
+  Salt.Chen.Fchain_add_fchain Salt.Chen.Fchain_add_fchain_one_ne_two

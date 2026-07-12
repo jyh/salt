@@ -148,7 +148,7 @@ an adaptation, not a copy).
 | id | content | class |
 |---|---|---|
 | C0 ✅ | the margin budget ledger — FROZEN above (gate-corrected: ε_sieve = 1/10000, seven sites, 57.1% spent / 42.9% reserve) | B (done at the gate) |
-| C1a | BJS `fₙ`/Rosser-chain defs + the elementary recursion + monotonicity | B/C |
+| C1a ✅ | LANDED FULL (RosserChain.lean, 463 lines): `fseq` ((15)–(17), total, junk-zero windows documented; improper tails = finite intervalIntegrals via `fseq_eq_zero_of_ge`), `Fchain`/`fchain` at the #24-CORRECTED parities + the regression witness (`Fchain 1 2 + fchain 1 2 = 5/2 ≠ 2`), `fseq_two_window` = BJS (19) exactly (the gate's spot-check anchor), and the FULL integrability package by one coupled induction (measurable ∧ bounded ∧ intervalIntegrable — the risk item, closed) | B/C |
 | C1b | the `h(s)`/tail machinery + the `c_n` certified tail (n ≈ 80–100 at 2-decimal precision, rational interval ops — the T1 CertEval axis; prototype margins show 60–90% headroom so coarse certification suffices) | C (compute-heavy) |
 | C1c | **BJS Theorem 6** — the two-sided linear sieve at the frozen windows | C+ (keystone 1) |
 | C1d | hypothesis (4) discharge — RE-SPECCED (catch #22): `ℚ = {p < w₀}`, `w₀ := exp(19/(share·log(1+ε_sieve)))`-shape (≈ e^{3.8·10⁵} at 1/10000, half-share) OR port BJS Lemma 18 verbatim (u₀ = 10⁹, their ε = 1.452·10⁻⁷ — then re-freeze ε_sieve to match, Fable decision at dispatch); product-form explicit Mertens on `u ∈ [w₀, z)` (a real C node); NEW pointwise helper `−log(1−1/(p−1)) ≤ 1/p + 4/p²` (p ≥ 3) wanted; do NOT consume `neg_log_one_sub_nu_le` (2/p, BoundingSieve-typed); export `Q = ∏_{p<w₀}p` as the level constant | C |
