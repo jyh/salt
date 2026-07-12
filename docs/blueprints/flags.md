@@ -2677,3 +2677,18 @@ not gate the rung. Also corrected: ladder Λ = 2λ/A general; block offset
 2b − ν + 2n − 1 exact; the "support cutoff" was a mis-description (the
 frozen form is the explicit (2.12) remainder product, O-free per
 doctrine). Tally: 16 design errors caught pre-execution, 0 at execution.
+
+## 2026-07-12 P0 B0: catch #17 — BY THE EXECUTOR (the block predicate's two readings)
+
+First catch at the executor level: the p0.md blueprint compressed H-R's
+χ_ν into the "all-of-d" reading and asked for a single-condition
+min-prime-factor equivalence. The B0 executor produced a concrete
+counterexample (b=1, ν=1, d = q₁q₂q₃q₄ across ladder levels) showing
+that reading violates the paper's own divisor-closure rule (2.2), which
+the paper calls "obvious" — true only for the RESTRICTED-COUNT form
+`#{p ∣ d : p ≥ z_n} ≤ 2b − ν + 2n − 1`. The executor formalized the
+correct form, REFUSED to state the false equivalence (landing the honest
+one-way `chi_imp_windowed`), and flagged. Iron Rule 1 exercised
+downstream. All four structural rules (2.1)–(2.4) proven under the
+correct reading. Tally: 17 design errors caught pre-(downstream)-
+execution, 0 proofs ever built on a wrong statement.
