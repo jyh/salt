@@ -2853,3 +2853,23 @@ imprimitive→primitive logDeriv bridge (changeLevel Euler factors,
 1<σ≤2, elementary integral comparisons; χ₀ reduces to ζ with a
 NEGATIVE correction); then S3d assembly (the region, exceptional case
 carved out) + S3e Landau–Page.
+
+## 2026-07-12 P0/P1 RUNG COMPLETE — twin_almost_prime, K = 20
+
+`twin_almost_prime : {n | Ω (n*(n+2)) ≤ 20}.Infinite` landed FULL at
+the PRIMARY operating point (b = 2, λ = 1/4, margin +0.946). The
+capstone discharged all ~16 hypotheses of brun_lower in one file:
+hMert_twinSieve (PM2), rem_abs_le (M2, 2024-era corpus reuse), a
+fresh rho-multiplicativity induction, W ≥ e^{−70}/log²z (PM1+PM2
+pointwise), margin ≥ 9/10, remainder ≤ 125·25^{r−1}·z^{10.2} (crude
+π ≤ m+1 — the exponential slack at zOne = exp(exp 50000) absorbs all
+constants), pair-form level gate (u < 10.5), infinitude by
+unboundedness. Load-bearing numeric: e^Λ ≥ 1+Λ+Λ²/2 (first order
+FAILS at 11.0 > 10.5). One documented maxHeartbeats 1600000.
+Rung totals: 13 dispatches, 13 first-attempt landings, 0 PB-floors
+on the critical path, catches #17–#19 (all executor-surfaced),
+tally 19 design errors caught / 0 proofs on wrong statements.
+The parity-frontier P1 milestone — the cheapest honest possibility
+rung — is DONE: the corpus now proves twin ALMOST-primes exist
+infinitely often, by elementary sieve means, alongside twinbar's
+proof that this METHOD cannot reach twin primes themselves.

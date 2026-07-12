@@ -14,6 +14,7 @@ import Salt.BrunLower.MertensWindow
 import Salt.BrunLower.Lemma3
 import Salt.BrunLower.Pair
 import Salt.BrunLower.MertensDischarge
+import Salt.BrunLower.TwinInstance
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -82,3 +83,4 @@ open Salt.Tactic in
   Salt.BrunLower.LamTwin_pos Salt.BrunLower.LamTwin_le_lam
   Salt.BrunLower.LamTwin_le_one Salt.BrunLower.log_Wratio_le_ladder
   Salt.BrunLower.hMert_twin Salt.BrunLower.hMert_twinSieve
+  Salt.BrunLower.twin_almost_prime
