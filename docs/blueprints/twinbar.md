@@ -141,7 +141,7 @@ iterated order — THE novel-to-corpus 2-D step;
 | T4 | the simplex order-swap — LANDED STRONGER than frozen: `simplex_swap (G)(hG : ContinuousOn …) : iterated(t₂-outer) = iterated(t₁-outer)` — NO nonnegativity needed (Fable dropped the inert hypothesis): the executor assessed both routes and chose Bochner–Fubini (`integral_prod_symm`/`integral_prod` through the single 2-D indicator integral; `ContinuousOn.integrableOn_compact'` on the compact R₂ + `integrable_indicator_iff`), which needs only integrability — the `lintegral` lever was the costlier route (ofReal/toReal round-trip). First 2-D integration in the corpus. `Salt/TwinBar/Tonelli.lean` | **C** (low end) | ✅ |
 | T5 ✅ | `combine : J₁+J₂ ≤ 2·log 2·I₂` (pointwise `w₁+w₂ = 2`, `integral_add`, mono) | A–B | ⬜ |
 | T6 ✅ | H1/H2/H3 assembly + `two_log_two_lt_two` | A–B | ⬜ |
-| T7 | *(follow-on rung, NOT this one)* the rational tie: `∬_{R₂} eval (sq p) = (simplexInt p : ℝ)` at n = 2 ⇒ the `Poly`-class corollary (mathlib has NO multivariate Dirichlet-integral lemma — ~6–8 h greenfield; EXCLUDED from the floor) | C | ⬜ (excluded) |
+| T7 ✅ | *(follow-on, LANDED 2026-07-12)* the rational tie: `∬_{R₂} eval (sq p) = (simplexInt p : ℝ)` at n = 2 ⇒ the `Poly`-class corollary (mathlib had NO real multivariate Dirichlet lemma — `betaNat` proved by IBP induction; `dirichlet₂` + the full bridge `I₂_eval₂`/`J_eval₂` + **`no_twin_certificate`** (the rational dual of `M5_cert`, proved by TRANSCENDENTAL means) + `twin_certificate_example` (1383/1000 rationally) + `bridge_consistency` (209/196 & 1084/735 equal via two independent routes — end-to-end validation), `Salt/TwinBar/RationalTie.lean` | C | ✅ |
 
 ## PB-floors
 - The rung is DONE at T6 (H1+H2+H3). Floor estimate 11–15 h.
