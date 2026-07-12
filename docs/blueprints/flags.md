@@ -2602,3 +2602,26 @@ verdicts, 2 executor-error corrections by the gate (Chebyshev-absent
 claim; the flag-recipe's unavailable hypothesis). Close-out residuals
 queued: de-privating sweep, guide reconciliation, T6/T9 harvest,
 merge decision (user).
+
+## 2026-07-12 twinbar RUNG COMPLETE — the twin-prime impossibility theorem
+
+Single sitting, T1→T6 every node first-attempt, zero PB-floors used.
+`Salt/TwinBar/`: **no_twin_weight** — ¬∃ continuous F with I₂ > 0 and
+2·I₂ < J₁+J₂ — plus twin_bar (≤ 2log2·I₂) and twin_gate_fails (every
+θ ≤ 1). The FIRST machine-checked negative result about a sieve method:
+the Maynard–Selberg gate provably cannot fire for the twin tuple at any
+level of distribution. Duality complete: the same corpus now certifies
+what the method achieves (gaps ≤ 12 via M5_cert; ≤ C mod SW) and where
+it provably ends (M₂ ≤ 2log2 < 2). Source: Polymath8b Lemma 6.1/Cor 6.4
+(k=2), verified against the PDF at design time. Execution notes:
+simplex_swap landed STRONGER than frozen (Bochner–Fubini needs no sign
+condition — the frozen nonneg hypothesis was inert, dropped);
+interval_CS landed public (mathlib lacks the two-function interval CS —
+discriminant route); the assembly's integrability plumbing dissolved via
+integral_mono_of_nonneg (only the RHS needs integrability) +
+Fubini-marginals of the compact-simplex indicator (avoiding a Tietze
+extension). Honesty contract carried in the module docstring (the
+parity/FI/Chen NOT-claim; the θ=1 superset; the continuous-vs-L² density
+remark). Residual: T7 (the Poly-class rational tie, ~6-8h) = designed
+follow-on, excluded from the rung. Fable's one edit slip this rung (the
+dropped-colon amend) was caught by the build gate in seconds.

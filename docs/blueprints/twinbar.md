@@ -1,5 +1,19 @@
 # The twin-bar rung — `M₂ ≤ 2·log 2 < 2` (`twinbar`)
 
+**STATUS: RUNG COMPLETE (2026-07-12, single sitting, every node
+first-attempt).** The three frozen headliners are LANDED byte-faithful in
+`Salt/TwinBar/Impossibility.lean`: **`twin_bar`** (J₁+J₂ ≤ 2log2·I₂),
+**`twin_gate_fails`** (θ-form, all θ ≤ 1), **`no_twin_weight`** (the ¬∃
+headline) — the first machine-checked negative result about a sieve
+method, the exact dual of the landed `M5_cert`. Axiom-clean, 0 sorry,
+9 project headliners lint-audited. Chain as designed: `logWeight` (T2) →
+`interval_CS`/`sliceCS` (T3, the signed-safe discriminant CS — mathlib
+lacked it) → `simplex_swap` (T4, STRONGER than frozen: no sign condition;
+first 2-D integration in the corpus) → the assembly (T5+T6; the
+integrability plumbing dissolved via `integral_mono_of_nonneg` +
+Fubini-marginals — no Tietze, no PB-floor anywhere). T7 rational tie
+remains the designed follow-on.
+
 *Fable, 2026-07-12. Ratified by the user as the flagship: NEW-mathematics
 artifact — the first machine-checked negative result about a sieve method.
 Design recon: the session's design memo (Polymath8b arXiv:1407.4897,
@@ -112,12 +126,12 @@ iterated order — THE novel-to-corpus 2-D step;
 
 | id | content | class | status |
 |---|---|---|---|
-| T1 | Carriers + trivia: `0 ≤ I₂/J₁/J₂` (squares); slice integrability from `ContinuousOn` (compact slices ⇒ bounded ⇒ intervalIntegrable); the `Function.uncurry`/slice-continuity plumbing | B–C | ⬜ |
-| T2 | `logWeight : 0 < a → ∫ t in (0:ℝ)..a, (a + t)⁻¹ = Real.log 2` (via `integral_inv`/`integral_one_div` + shift; `log (2a) − log a = log 2`) | A–B | ⬜ |
-| T3 | `sliceCS : (∫₀^a F·)² ≤ Real.log 2 · ∫₀^a w₁·F²` per slice. ⚠️ ROUTE (verify pass): the L² inner-product CS (`abs_inner_le_norm`/`inner_mul_le_norm_mul_norm`) is PRIMARY — sign-agnostic, and the Maynard weights are SIGNED (`Fstar` has negative coefficients), so `integral_mul_le_Lp_mul_Lq_of_nonneg` does NOT apply raw (nonneg hypotheses; usable only after `(∫F)² ≤ (∫|F|)²`, and it returns the un-squared form). a = 0 slice trivial. | B–C | ⬜ |
+| T1 ✅ | Carriers + trivia: `0 ≤ I₂/J₁/J₂` (squares); slice integrability from `ContinuousOn` (compact slices ⇒ bounded ⇒ intervalIntegrable); the `Function.uncurry`/slice-continuity plumbing | B–C | ⬜ |
+| T2 ✅ | `logWeight : 0 < a → ∫ t in (0:ℝ)..a, (a + t)⁻¹ = Real.log 2` (via `integral_inv`/`integral_one_div` + shift; `log (2a) − log a = log 2`) | A–B | ⬜ |
+| T3 ✅ | `sliceCS : (∫₀^a F·)² ≤ Real.log 2 · ∫₀^a w₁·F²` per slice. ⚠️ ROUTE (verify pass): the L² inner-product CS (`abs_inner_le_norm`/`inner_mul_le_norm_mul_norm`) is PRIMARY — sign-agnostic, and the Maynard weights are SIGNED (`Fstar` has negative coefficients), so `integral_mul_le_Lp_mul_Lq_of_nonneg` does NOT apply raw (nonneg hypotheses; usable only after `(∫F)² ≤ (∫|F|)²`, and it returns the un-squared form). a = 0 slice trivial. | B–C | ⬜ |
 | T4 | the simplex order-swap — LANDED STRONGER than frozen: `simplex_swap (G)(hG : ContinuousOn …) : iterated(t₂-outer) = iterated(t₁-outer)` — NO nonnegativity needed (Fable dropped the inert hypothesis): the executor assessed both routes and chose Bochner–Fubini (`integral_prod_symm`/`integral_prod` through the single 2-D indicator integral; `ContinuousOn.integrableOn_compact'` on the compact R₂ + `integrable_indicator_iff`), which needs only integrability — the `lintegral` lever was the costlier route (ofReal/toReal round-trip). First 2-D integration in the corpus. `Salt/TwinBar/Tonelli.lean` | **C** (low end) | ✅ |
-| T5 | `combine : J₁+J₂ ≤ 2·log 2·I₂` (pointwise `w₁+w₂ = 2`, `integral_add`, mono) | A–B | ⬜ |
-| T6 | H1/H2/H3 assembly + `two_log_two_lt_two` | A–B | ⬜ |
+| T5 ✅ | `combine : J₁+J₂ ≤ 2·log 2·I₂` (pointwise `w₁+w₂ = 2`, `integral_add`, mono) | A–B | ⬜ |
+| T6 ✅ | H1/H2/H3 assembly + `two_log_two_lt_two` | A–B | ⬜ |
 | T7 | *(follow-on rung, NOT this one)* the rational tie: `∬_{R₂} eval (sq p) = (simplexInt p : ℝ)` at n = 2 ⇒ the `Poly`-class corollary (mathlib has NO multivariate Dirichlet-integral lemma — ~6–8 h greenfield; EXCLUDED from the floor) | C | ⬜ (excluded) |
 
 ## PB-floors
