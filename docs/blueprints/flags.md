@@ -2625,3 +2625,20 @@ parity/FI/Chen NOT-claim; the θ=1 superset; the continuous-vs-L² density
 remark). Residual: T7 (the Poly-class rational tie, ~6-8h) = designed
 follow-on, excluded from the rung. Fable's one edit slip this rung (the
 dropped-colon amend) was caught by the build gate in seconds.
+
+## 2026-07-12 sw blueprint: error #14 (de-smoothing order) caught at the gate
+
+Fable flagged the suspicion in the verify dispatch itself; the lens
+confirmed: the finite-difference de-smoothing sandwich requires
+monotonicity, and ψ(x,χ) is ℂ-valued/oscillating — S6 as drawn would
+attempt an impossible real-sandwich on a ℂ carrier. Fix: orthogonality
+FIRST (the ψ₁-level fold to the real AP carrier ψ₁(x;q,a) — the ψ₁
+analog of MaxReduction's identity; nonneg terms ⇒ psiAP nondecreasing,
+ψ₁ convex), THEN the first-difference sandwich (not the second-difference
+heuristic form). S0 gains the real carrier + monotonicity lemma; S1
+pins c > 1; S4 gains the 4-fold nonneg-coefficients sub-node (mathlib's
+zetaMul_nonneg is 2-fold/single-χ; the positivity ENGINE is ready).
+MellinInversion CONFIRMED for the Riesz kernel (MellinConvergent +
+VerticalIntegrable (1/|t|² decay) + ContinuousAt all check for (1−·)₊).
+Running tally: 14 design errors caught at gates across 5 rungs, 0 at
+execution.
