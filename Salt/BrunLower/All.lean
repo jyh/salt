@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.BrunLower.Defs
 import Salt.BrunLower.LowerMoebius
+import Salt.BrunLower.Pointwise
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -18,7 +19,7 @@ Bonferroni cannot serve this (flags #15); the feasible-λ window and block offse
 those of the primary source read at page-image level, `Λ = 2λ/A` general and offset
 `2b − ν + 2n − 1` exact (flags #16).
 
-## Landed (nodes B0 + B1)
+## Landed (nodes B0 + B1 + B2)
 
 `Defs` (B0): the ladder `zLev`/`bigLambda` with the bottom `z_r = 2` and the
 minimal-`r` characterisation (2.14); the block predicate `chi` (`χ_ν`, (2.10),
@@ -27,6 +28,11 @@ restricted-count form) and its structural rules (2.1)–(2.4) `chi_one`,
 `LowerMoebius` (B1): `IsLowerMoebius` and the lower-bound sieve inequalities
 `siftedSum_ge_sum_of_lowerMoebius` / `siftedSum_ge_mainSum_errSum_of_lowerMoebius`
 — the exact sign-flipped dual of mathlib's upper Selberg plumbing (upstreamable).
+`Pointwise` (B2, the keystone): the pointwise block-Brun pair
+`sum_moebius_chi_upper`/`sum_moebius_chi_lower` via H-R's Lemma 1 + (2.5)
+(smallest-prime peel; the sign is exactly B0's parity rule (2.3) contraposed) and
+the bridges `isUpperMoebius_moebius_chiOne` / `isLowerMoebius_moebius_chiTwo`
+(all `n`, via the radical).
 
 **Note (block predicate, load-bearing).** `chi` is the *restricted-count* reading of
 (2.10): `∀ n ≥ 1`, `#{p ∣ d : z_n ≤ p} ≤ 2b−ν+2n−1`.  The naive "all-of-`d`" reading
@@ -44,3 +50,6 @@ open Salt.Tactic in
   Salt.BrunLower.chi_add_smaller_prime Salt.BrunLower.W_pos
   Salt.BrunLower.siftedSum_ge_sum_of_lowerMoebius
   Salt.BrunLower.siftedSum_ge_mainSum_errSum_of_lowerMoebius
+  Salt.BrunLower.sum_moebius_chi_upper Salt.BrunLower.sum_moebius_chi_lower
+  Salt.BrunLower.isUpperMoebius_moebius_chiOne
+  Salt.BrunLower.isLowerMoebius_moebius_chiTwo
