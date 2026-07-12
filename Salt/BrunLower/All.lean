@@ -12,6 +12,7 @@ import Salt.BrunLower.WRatio
 import Salt.BrunLower.Remainder
 import Salt.BrunLower.MertensWindow
 import Salt.BrunLower.Lemma3
+import Salt.BrunLower.Pair
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -75,3 +76,5 @@ open Salt.Tactic in
   Salt.BrunLower.master_signed Salt.BrunLower.hcorr_upper
   Salt.BrunLower.hcorr_lower
   Salt.BrunLower.mainSum_le_blockForm' Salt.BrunLower.mainSum_ge_blockForm'
+  Salt.BrunLower.errSum_le_remainder_prod
+  Salt.BrunLower.brun_lower Salt.BrunLower.brun_upper

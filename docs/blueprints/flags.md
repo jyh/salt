@@ -2825,3 +2825,14 @@ executor's docstring): ‖B‖ = 1 on the boundary sphere
 there; max-modulus (norm_le_of_forall_mem_frontier_norm_le) needs g
 continuous up to the boundary — obtain by re-factoring at radius 8/5
 via LFunction_exists_factorization and folding annulus zeros into h.
+
+## 2026-07-12 P0 B5: THE PAIR LANDED — P0 complete at the abstract level
+
+`brun_lower`/`brun_upper` (H-R 1971 Théorème 2, O-free, hypothesis-
+parameterized per catch #19) composed from the seven landed nodes with
+ZERO interface mismatches — every endpoint plugged as designed; the
+only additions were one plumbing helper (|μχ| ≤ χ) and the faithful
+`0 ≤ totalMass` (implicit in H-R's X). The first machine-checked
+lower-bound sieve. Ten dispatches, ten first-attempt landings, three
+executor-level catches (#17–#19). Remaining for the P1 headline:
+PM2 (in flight) + P1 instantiation at TwinSieve.
