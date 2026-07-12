@@ -20,6 +20,7 @@ import Salt.SW.LandauPage
 import Salt.SW.ZeroFreeReal
 import Salt.SW.Page
 import Salt.SW.FourFold
+import Salt.SW.Siegel
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -96,3 +97,8 @@ open Salt.Tactic in
   Salt.SW.fourfold_vonMangoldt_nonneg Salt.SW.changeLevel_quadratic
   Salt.SW.fourfoldCoeff_nonneg Salt.SW.fourfoldCoeff_apply_one
   Salt.SW.LSeries_fourfoldCoeff_eq Salt.SW.LSeriesSummable_fourfoldCoeff
+  Salt.SW.LFunction_pos_of_one_lt Salt.SW.LFunction_apply_one_pos
+  Salt.SW.fourfold_pos_of_one_lt Salt.SW.lambda_pos
+  Salt.SW.estermann_fourfold Salt.SW.siegel_dichotomy
+  Salt.SW.siegel_L_one_extract Salt.SW.goldfeld_L_one_lower
+  Salt.SW.siegel_zero_free_of_exceptional_case

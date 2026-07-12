@@ -2967,3 +2967,52 @@ consequence folded into C3d's card: spec the count bound against the
 LITERAL ledger line via PNT-with-error (Chebyshev's 38% slack cannot
 serve the 0.3% S7 cap), so cbar_lt is likely never consumed. If it is
 ever wanted: a rigorous dilog mini-library is the clean C+ artifact.
+
+## 2026-07-12 SW S4b: Siegel via Goldfeld — FLOORED at the Estermann core (Opus)
+
+`Salt/SW/Siegel.lean` lands the full *reduction* of Siegel's theorem to
+Goldfeld's single deep analytic lemma, sorry-free and axiom-clean
+(`[propext, Classical.choice, Quot.sound]`). Route transcribed from
+Goldfeld PNAS 1974 via Liu arXiv:2201.11145 and Bao–Vo (the
+Montgomery–Vaughan §11.14 / Estermann packaging, which maps onto the
+mathlib positivity engine — cleaner than Goldfeld's original Perron
+contour). **FULLY PROVEN**: `LFunction_pos_of_one_lt` (L(σ,χ) > 0 for
+real σ>1, real quadratic χ — via `LSeries.positive` on `zetaMul χ` and
+`riemannZeta_pos_of_one_lt`), `LFunction_apply_one_pos` (L(1,χ) > 0 —
+the right-limit of the positive L(σ,χ) + `LFunction_conj` real-valuedness
++ `LFunction_apply_one_ne_zero`), `fourfold_pos_of_one_lt`, `lambda_pos`
+(the residue λ = L(1,χ₁)L(1,χ₂)L(1,χ₁χ₂) > 0), `siegel_dichotomy` (the
+ineffective-choice `by_cases`), `siegel_L_one_extract` (the "combine"
+step: product-of-positives factors the .re, divide out the fixed
+factors), `estermann_fourfold` (the genuine Estermann plug-in: f entire,
+ζf = LSeries fourfoldCoeff, f(β₁)=0), `goldfeld_L_one_lower` (the
+one-line quantitative L(1,χ₂) ≫ (1−σ)/4·M^{−3(1−σ)}/(B₁B₂) reduction),
+and `siegel_zero_free_of_exceptional_case` (the EXACT target zero-free
+signature, with the **no-exceptional-zero branch proven fully and
+effectively, C = ε**, and only the exceptional case as a hypothesis).
+
+**THE ONE FLAGGED INPUT** — `EstermannPositivity` (a `def … : Prop`):
+Montgomery–Vaughan *Mult. Number Theory I* Lemma 11.13 (quantitative
+Landau): for entire f, ‖f‖≤M on |s−2|<3/2, ζf = Σ r(n)n^{−s} with r≥0,
+r(1)=1, and f(σ)≥0 at some σ∈[19/20,1), then (1−σ)/4·M^{−3(1−σ)} ≤
+(f 1).re. Its proof is self-contained but genuinely C+: Cauchy estimates
+on the pole-subtracted ψ = ζf − f(1)/(s−1) about s=2 (the coefficients
+c_k = (−1)^k(a_k − f(1)) with a_k = Σ r(n)(log n)^k/(k!n²) ≥ 0 and
+a_0 = F(2) ≥ 1), then a Landau truncation: for y = 2−σ ∈ (1, 21/20],
+Σ_{k≤N}(a_k−f(1))y^k + tail ≤ f(1)/(y−1) with ζ(σ)f(σ) ≤ 0, giving
+f(1) ≥ (y−1)(1 − (10B/3)(7/10)^{N+1})/y^{N+1} at N ≈ log B/log(10/7).
+Deferred — a self-contained analysis wave (needs mathlib
+`LSeries_iteratedDeriv` + `iteratedDeriv_alternating` for a_k≥0, a
+removable-singularity `Function.update` à la BadChar for ψ, and Cauchy
+estimates on the circle radius 3/2). No mathlib Siegel/Tatuzawa exists
+(`SiegelsLemma.lean` is the unrelated linear-algebra lemma).
+
+**Also deferred** (the exceptional-branch assembly, folded into `hHard`
+of `siegel_zero_free_of_exceptional_case`): the disk growth bound M and
+one-point bounds B₁,B₂ (MV Lemma 10.15 — salt's `LFunction_growth` gives
+it for the *primitive* factors but the product χχ₁ is imprimitive, needing
+the EulerBridge correction); the common-level `changeLevel` wiring; the
+`(1−σ)/4·M^{−3(1−σ)} ≫ q^{−ε}` rpow arithmetic; and the derivative
+mean-value step L(1)≫q^{−ε} ⇒ zero-free. NOT a catch — a floor per Iron
+Rule 4 (this is the arc's hardest node, budget 4). The ineffective C(ε)
+is intrinsic and by construction (`Classical.em` in `siegel_dichotomy`).
