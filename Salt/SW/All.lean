@@ -21,6 +21,7 @@ import Salt.SW.ZeroFreeReal
 import Salt.SW.Page
 import Salt.SW.FourFold
 import Salt.SW.Siegel
+import Salt.SW.Estermann
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -102,3 +103,5 @@ open Salt.Tactic in
   Salt.SW.estermann_fourfold Salt.SW.siegel_dichotomy
   Salt.SW.siegel_L_one_extract Salt.SW.goldfeld_L_one_lower
   Salt.SW.siegel_zero_free_of_exceptional_case
+  Salt.SW.landau_truncation Salt.SW.estermannPositivity_core
+  Salt.SW.estermannPositivity_of_interface

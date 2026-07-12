@@ -3016,3 +3016,69 @@ the EulerBridge correction); the common-level `changeLevel` wiring; the
 mean-value step L(1)≫q^{−ε} ⇒ zero-free. NOT a catch — a floor per Iron
 Rule 4 (this is the arc's hardest node, budget 4). The ineffective C(ε)
 is intrinsic and by construction (`Classical.em` in `siegel_dichotomy`).
+
+## 2026-07-12 SW S4b′: Estermann positivity — Landau-truncation CORE landed (PB-floor, Opus)
+
+`Salt/SW/Estermann.lean` (new; `import Mathlib` + `Salt.SW.Siegel`; namespace
+`Salt.SW`) lands the mathematical **heart** of the flagged `EstermannPositivity`
+input, sorry-free and axiom-clean (`[propext, Classical.choice, Quot.sound]` on
+all three theorems). This is the PB-floor promised at S4b (budget 4): the Cauchy
+bound `B` and the ψ-Taylor plumbing are one hypothesis package; the truncation
+arithmetic + the `ζ(σ)f(σ)≤0` step are FULLY proven.
+
+**FULLY PROVEN**
+* `landau_truncation` — the pure real-analysis Landau truncation. From `a k ≥ 0`,
+  `a 0 ≥ 1`, `|a k − L| ≤ B(2/3)^k` (`2 ≤ B ≤ (29/2)M`, `M ≥ 1`) and
+  `∑ (a k − L)y^k ≤ L/(y−1)` at `y = 2−σ ∈ (1,21/20]`, it derives the FROZEN
+  `(y−1)/4·M^{−3(y−1)} ≤ L`. Index `K = ⌈log(40B/3)/log(10/7)⌉₊`; tail ≤ 1/4 via
+  the `q = 2y/3 ≤ 7/10` geometric (`(10B/3)(7/10)^K ≤ 1/4` from `(10/7)^K ≥ 40B/3`),
+  head `∑_{k<K} a_k y^k ≥ a_0 ≥ 1`, combine to `L·y^K/(y−1) ≥ 3/4`, then the closing
+  `y^K ≤ 3M^{3(y−1)}` from `K·log y ≤ log3 + 3(y−1)logM` (`log y ≤ y−1`, `K < L₀+1`,
+  `log(40B/3) ≤ log(580/3)+logM`, and the numeric slack `1/log(10/7) < 3`,
+  `log(580/3) ≤ 19·log(10/7)` i.e. `580/3 ≤ (10/7)^19`, `log 3 ≥ 1`). Needs
+  `set_option maxHeartbeats 1200000`.
+* `estermannPositivity_core` — the FROZEN conclusion
+  `(1−σ)/4·M^{−3(1−σ)} ≤ (f 1).re` from the Taylor/Cauchy data + `ζ(σ) ≤ 0` +
+  the ψ-series identity `∑ (a k−L)(2−σ)^k = (ζ(σ)f(σ)).re + L/(1−σ)`. The
+  `(ζ(σ)f(σ)).re ≤ 0` step (nonpos `ζ` × nonneg `f`, via `Complex.le_def`/`mul_re`)
+  is proven here.
+* `estermannPositivity_of_interface : EstermannInterface → EstermannPositivity` —
+  the EXACT reduction (compiler-checked conclusion shape). `EstermannInterface` is
+  the `∀ input, ∃ (a,B), [nonneg + Cauchy + ζ(σ)≤0 + ψ-series]` package.
+
+**CONSTANTS (do NOT re-tune).** The frozen `¼` and `M^{−3}` close with ~28% margin
+using the tail threshold `1/4` (not `1/2`) and `B ≤ (29/2)M`. The `(29/2)` is
+`Cζ + 2` with `Cζ = 25/2` the CRUDE circle sup: on `|s−2|=3/2`,
+`‖ζ(s)‖ = ‖Zc(s)‖/‖s−1‖ ≤ 1/‖s−1‖ + ‖s‖(1+1/Re s) ≤ 2 + (7/2)(3) = 25/2` (from
+`ZetaPartialFractions.Zc_growth`, using `‖s−1‖≥1/2`, `‖s‖≤7/2`, `Re s≥1/2`). The
+sloppy `max‖Zc‖/min‖s−1‖ = 27.25/0.5 = 54.5` does NOT close — the `+1/‖s−1‖`
+split is essential. (True `Cζ ≈ 4.9`; `25/2` is the provable crude value and the
+frozen constants were tuned for exactly it.)
+
+**DEFERRED = `EstermannInterface`** (the honest floor boundary): (i) `a k =
+∑ r(n)(log n)^k/(k!n²)` and `a k ≥ 0`, `a 0 ≥ 1` — mathlib
+`ArithmeticFunction.iteratedDeriv_LSeries_alternating` /
+`LSeries.iteratedDeriv_alternating` gated on `abscissaOfAbsConv r < 2` (itself a
+Landau-abscissa argument from the bare `ζf = LSeries r` equality — not free);
+(ii) the Cauchy bound `B` on `ψ = ζf − f(1)/(s−1)` — removable singularity via
+`Function.update` à la BadChar/`Zc`, then `Complex.taylorSeries_eq_of_entire'` +
+Cauchy estimate on `|s−2|=3/2` (the `25/2` ζ bound above); (iii) the ψ-series
+identity (same `taylorSeries_eq_of_entire'`, real part); (iv) `ζ(σ) ≤ 0` on
+`[19/20,1)` — NOT in mathlib (no `riemannZeta_neg` on `(0,1)`, no Dirichlet-eta in
+the L-series files); route: `ζ(σ) = Zc(σ)/(σ−1)` with `Zc(σ) > 0` via a
+Cauchy-derivative (`|Zc'| ≤ 8` on a radius-1/4 subdisk from `Zc_growth`) + MVT
+from `Zc(1)=1`, OR the eta `ζ(σ)(1−2^{1−σ}) = η(σ) > 0` (needs building η). All
+four are real analysis, no research; a self-contained wave discharges them, then
+`estermannPositivity_of_interface` upgrades to `estermannPositivity :
+EstermannPositivity` with NO change to `Siegel.lean`.
+
+**mathlib internals mirrored** (per the S4b brief): studied
+`LSeries.positive_of_differentiable_of_eqOn` — its engine is
+`Differentiable.apply_le_of_iteratedDeriv_alternating`
+(`Mathlib/Analysis/Complex/Positivity.lean`), a Taylor-at-`c` argument whose core
+is `Complex.taylorSeries_eq_on_ball'` / `taylorSeries_eq_of_entire'` — exactly the
+ψ-series identity of (iii). The truncation adapts the *tail/head split* mathlib's
+`apply_le_of_iteratedDeriv_alternating` cannot do (the Taylor series of `F` itself
+diverges at `y > 1`; only the entire ψ converges), which is why Estermann is
+strictly harder than the mathlib positivity lemma. No `native_decide`, no new
+axioms. Scratch `ScratchS4bp.lean` deleted.
