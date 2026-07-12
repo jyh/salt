@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.Chen.RosserChain
 import Salt.Chen.Tail
 import Salt.Chen.LinearSieve
+import Salt.Chen.Buchstab
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
 
@@ -62,3 +63,6 @@ open Salt.Tactic in
   Salt.Chen.rosserSieve_isUpperMoebius Salt.Chen.rosserSieve_isLowerMoebius
   Salt.Chen.linear_sieve_upper Salt.Chen.linear_sieve_lower
   Salt.Chen.linear_sieve_upper_chain Salt.Chen.linear_sieve_lower_chain
+  Salt.Chen.rosserCond_upper_lt Salt.Chen.rosserCond_lower_lt
+  Salt.Chen.mainSum_moebius_eq_W Salt.Chen.mainSum_lam_defect
+  Salt.Chen.linear_sieve_upper_rosser Salt.Chen.linear_sieve_lower_rosser

@@ -3082,3 +3082,162 @@ is `Complex.taylorSeries_eq_on_ball'` / `taylorSeries_eq_of_entire'` — exactly
 diverges at `y > 1`; only the entire ψ converges), which is why Estermann is
 strictly harder than the mathlib positivity lemma. No `native_decide`, no new
 axioms. Scratch `ScratchS4bp.lean` deleted.
+
+---
+
+## 2026-07-12 Chen C1c′ Opus partial-done + statement-concern (hsupp FULL; hmain deferred; linear_sieve_lower hsupp bug)
+`Salt/Chen/Buchstab.lean` (346 lines, builds green, axiom-clean [propext,
+Classical.choice, Quot.sound], zero warnings, no sorry). Completes the **support
+half** of C1c′ and fixes a structural bug in the just-landed `LinearSieve.lean`.
+
+**LANDED FULL (`hsupp`, both sides).** The Rosser support bound `d < D` from the
+positional Rosser condition, via `support_core` (organise by whether the last prime
+position `r=L` is itself checked (`m=L`) or the check sits at `m=L−1`; the tail after
+`m` has ≤ 1 prime `< pₘ`). Structural `rlist` facts proven: `rprefix_full`
+(`p₁⋯p_L = d`, squarefree), `relem_descent` (strict `SortedGT`), `two_le_relem`,
+`rprefix_pos`, `rprefix_succ`.
+- `rosserCond_upper_lt` (ν=1): `d < D` for EVERY squarefree `d`, needs only `2 ≤ D`
+  (position 1 is always checked → `p₁³ < D`). No `d ∣ P(z)` needed. This is why the
+  upper endpoint needs only `D ≥ z`.
+- `rosserCond_lower_lt` (ν=2): `d < D` for squarefree `d ∣ P(z)` (all primes `< z`),
+  needs `z ≤ D` ONLY in the `r=1` single-prime case (unchecked by ν=2). The honest
+  home of the `D ≥ z` vs `D ≥ z²` asymmetry.
+
+**STATEMENT-CONCERN (Iron Rule 1) — `linear_sieve_lower`'s `hsupp` is structurally
+unsatisfiable.** `LinearSieve.errSum_lam_le` / `linear_sieve_lower(_chain)` demand
+`∀ d, S.P d → (d:ℝ) < bound` UNCONDITIONALLY in `d`. For a `side=2` TruncSieve this
+is impossible: `one_mem` + `add_prime` at `t=1` (parity `0 = ν mod 2`) force `P p`
+for EVERY prime `p`, so `{d : P d} ⊇ primes` has no finite bound. (For `side=1`,
+`add_prime` at `t=1` needs parity `1 ≠ 0` so it does NOT fire — the upper side is
+fine and plugs directly.) The lower support genuinely lives on `d ∣ prodPrimes` (the
+`errSum` summation range). Did NOT modify LinearSieve (task: new file only). Provided
+the corrected divisor-restricted plumbing `errSum_lam_le_div` + `linear_sieve_lower_div`
+(via B1's `siftedSum_ge_mainSum_errSum_of_lowerMoebius`). Fable/human should either
+weaken `errSum_lam_le`'s hyp to `∀ d, d ∣ s.prodPrimes → S.P d → d < bound` (one-line:
+keep the `d ∈ divisors` hyp `errSum_lam_le` currently discards) or bless the
+divisor-restricted variants as the lower interface.
+
+**Compiler-verified plugs.** `linear_sieve_upper_rosser` invokes the unmodified
+`linear_sieve_upper_chain` (S = `rosserSquarefreeSieve 1 D`, bound `= Q·D`, hsupp
+discharged), leaving ONLY `hmain` as hypothesis. `linear_sieve_lower_rosser` does the
+dual through `linear_sieve_lower_div`. `rosserSquarefreeSieve` = the Rosser predicate
+`∧ Squarefree` (a valid TruncSieve — squarefreeness is `add_prime`-closed via
+coprimality; `.lam` unchanged since `μ` already kills non-squarefrees), which makes the
+upper `hsupp` unconditional-in-`d`.
+
+**Buchstab decomposition (a) — base + defect landed, prime-tuple tail DEFERRED.**
+`mainSum_moebius_eq_W`: `∑_{d|P(z)} μ(d)ν(d) = W(z) = V(z)` (the `n=0`/`V(z)` term of
+BJS Prop 13, via mathlib `IsMultiplicative.prodPrimeFactors_one_sub_of_squarefree`).
+`mainSum_lam_defect`: `W s − mainSum S.lam = ∑_{d|P(z)} μ(d)[¬P d]ν(d)` (the exact
+Rosser-violating defect). What remains for FULL (a): Nathanson Lemma 9.3 —
+reorganising this defect into the signed prime-tuple tail `∓Σₙ Tₙ`, `Tₙ =
+Σ_{yₙ≤pₙ<⋯<p₁<z, Rosser} g(p₁⋯pₙ)V(pₙ)` (BJS (28)). This is a large `Finset`-over-
+prime-tuples combinatorial formalisation (organise by position of first Rosser
+violation); not soundly completable in this session alongside hsupp.
+
+**`hmain` (BJS Prop 13 / Lemma 11 / Lemma 12) — DEFERRED, remains the named hypothesis
+in `linear_sieve_{upper,lower}_rosser` (exactly as in LinearSieve).** BJS induction
+transcribed (arXiv:2207.09452v6, §2.4, eqs (28)–(34), re-fetched via pdftotext):
+- (28) `Tₙ(D,z) = Σ_{yₙ≤pₙ<⋯<p₁<z, pₘ<yₘ ∀m<n m≡n(2)} g(p₁⋯pₙ)V(pₙ)`,
+  `yₙ = (D/(p₁⋯pₙ))^{1/2}`.
+- Prop 13 (via Nathanson 9.3): `G(z,λ⁺) = V(z) + Σ_{n odd} Tₙ`, `G(z,λ⁻) = V(z) −
+  Σ_{n even} Tₙ`; then `G(z,λ⁺) < V(z)(F(s)+εe²h(s)Στ_{2n−1})`, dual for λ⁻.
+- Lemma 11 hyp (4)/(29): `V(u)/V(z) = ∏_{u≤p<z}(1−g(p))⁻¹ ≤ K log z/log u`, `1<K<1+ε`
+  (30). Bound `Tₙ < V(z)(fₙ(s)+ετₙe²h(s))` by induction on `n`; τ₁=3, recursion (31).
+- (34) (s≥3): `Tₙ/V(z) < (K−1)(f_{n−1}+h_{n−1})(s−1) + (K/s)∫_s^∞(f_{n−1}+h_{n−1})(t−1)dt`;
+  the four term-bounds (35)–(38) use (22)/(18) (`h(s−1)≤γ₃h(s)`, `fₙ≤2e²cₙⁿ⁻¹h`), (16)
+  (`(K/s)∫f_{n−1}(t−1)=Kfₙ`), and (24)/(26) (`∫h(t−1)=H(s)≤κ₃sh(s)`). The odd 1≤s≤3
+  case (39) uses (23)/(26) and `V(D^{1/3})≤(3K/s)V(z)`. Lemma 12 → `Στ_{2n−1}=C₁(ε)`,
+  `Στ_{2n}=C₂(ε)` (Table 1: ε=1/10000 → C₁=106,C₂=108).
+STOP-AND-FLAG check ✓: the deferred hmain needs nothing outside the frozen set;
+`fseq`/`Fchain`/`fchain`/`hbar`/`fseq_le`/`fseq_tail_le`/`fchain_close`/`Fchain_close`
+(C1a/C1b) are the analytic inputs. NB the truncation direction: Prop 13 gives the
+FULL `F(s) = Fchain N + tail`, so the chain-form target `≤ W(Fchain N + εC₁e²h)`
+needs the fₙ-tail (C1b `fseq_tail_le ≤ 4.3e−4`) absorbed into the `C₁` gap — a C5/
+constant-threading matter, priced in the C0 S1 budget (0.0022 abs).
+
+## 2026-07-12 SW S4b″: EstermannInterface — DISCHARGED as `EstermannInterface'`; original `EstermannInterface` is FALSE (Opus)
+
+`Salt/SW/EstermannInterface.lean` (new; namespace `Salt.SW`) discharges the
+S4b′ analytic plumbing, sorry-free and axiom-clean
+(`[propext, Classical.choice, Quot.sound]` on every theorem).
+
+**CRITICAL FINDING — `Salt.SW.EstermannInterface` (in `Estermann.lean`) is FALSE
+as a `Prop`.** Its hypotheses (`ζ·f = LSeries r` on `Re > 1`, `r ≥ 0`, `r 1 = 1`)
+do NOT force `r` to be summable, because mathlib's `LSeries` is a `tsum` that
+returns `0` on non-summable input. Counterexample: `f ≡ 0`, `r n = 2^(n-1)` (or
+`n!`). Then `r ≥ 0`, `r 1 = 1`, `‖f‖ ≤ M`, `f` entire, and `LSeries r s = 0 =
+ζ(s)·0` at every `Re s > 1` (r non-summable everywhere on `Re > 1`), so ALL
+interface hypotheses hold; and `f(19/20) = 0 ≥ 0`. But then `(f 1).re = 0` and the
+ψ-identity forces `∑' k, a k·(2−σ)^k = 0`, while the Cauchy bound `|a k| ≤
+B(2/3)^k` makes that series converge to `≥ a 0 ≥ 1` — contradiction. The kernel of
+this contradiction is machine-checked: `no_estermann_data_for_zero` (pure real
+analysis: geometric domination + `Summable.le_tsum`). `EstermannPositivity`
+(`Siegel.lean`) is false for the same input (its RHS is `> 0`, forced `≤ 0`).
+
+**FIX (Fable/human-tier statement change).** Add the summability hypothesis
+`LSeries.abscissaOfAbsConv r < 2` to `EstermannInterface` (and, via the same route,
+to `EstermannPositivity` — as `∀ real y > 1, LSeriesSummable r y` or the abscissa
+form). Every real application satisfies it: `estermann_fourfold` passes
+`r = fourfoldCoeff χ₁ χ₂`, whose abscissa `≤ 1` follows from
+`LSeriesSummable_fourfoldCoeff` (already used in `Siegel.fourfold_pos_of_one_lt`).
+With that one hypothesis added, the reduction is complete.
+
+**FULLY PROVEN (in the new file)**
+* `EstermannInterface'` — `EstermannInterface` + `abscissaOfAbsConv r < 2` — and
+  `estermannInterface' : EstermannInterface'`, the COMPLETE per-input construction:
+  - **Obligation 1** (nonneg Taylor data): `a k = ((−1)^k·∂ᵏ(LSeries r)(2)/k!).re ≥ 0`
+    via `LSeries.iteratedDeriv_alternating` gated on the added abscissa hypothesis;
+    `a 0 = (LSeries r 2).re ≥ 1` (summable at 2, `term_nonneg`, `Summable.le_tsum`).
+  - **Obligation 2** (Cauchy `|a k − (f 1).re| ≤ B(2/3)^k`, `B = 29/2·M`): the entire
+    `ψ = dslope (Zc·f − f(1)) 1` (removable singularity via `differentiableOn_dslope`),
+    `‖ψ‖ ≤ 29/2·M` on `|s−2| = 3/2` (`Zc_growth` split `‖ζ‖ ≤ 1/‖s−1‖ + ‖s‖(1+1/Re s)
+    ≤ 25/2`, plus `‖f‖ ≤ M` extended to the closed ball by `closure_minimal`, plus
+    `2‖f(1)‖`), then `Complex.norm_iteratedDeriv_le_of_forall_mem_sphere_norm_le`.
+  - **The ψ-series identity**: `taylorSeries`/`hasSum_taylorSeries_of_entire` + termwise
+    `Re`, with the pole bridge `∂ᵏ ψ(2) = ∂ᵏ F(2) − f(1)·(−1)^k·k!` where
+    `∂ᵏ (s−1)⁻¹(2) = (−1)^k k!` (`iteratedDeriv_pole`, a `HasDerivAt` induction) — no
+    `f(1) ∈ ℝ` needed, everything runs through real parts.
+* `zeta_nonpos` — **Obligation 3**: `ζ(σ) ≤ 0` on `[19/20, 1)`, self-contained via
+  the landed `Zc_eq_series`/`norm_R_le` (Route (b) of S4b′): `Zc(σ)` is a real with
+  `Re ≥ 9/10 > 0` (tail `‖(σ−1)∑dTerm‖ ≤ (1−σ²) ≤ 39/400`) and `im = 0` (`dTerm`
+  real for real σ via `intervalIntegral.integral_ofReal`); then `ζ(σ) = Zc(σ)/(σ−1)`
+  with `σ−1 < 0`.
+* `no_estermann_data_for_zero` — the machine-checked falseness kernel.
+
+**NOT DELIVERED**: `estermannInterface : EstermannInterface` and
+`estermannPositivity : EstermannPositivity` (both UNPROVABLE as stated — the
+statements are false; see above). Blocked on the Fable statement fix; once
+`EstermannInterface` carries `abscissaOfAbsConv r < 2`, `estermannInterface'` IS
+that theorem verbatim, and `estermannPositivity_of_interface` upgrades it to
+`EstermannPositivity'`, unblocking Siegel. `Chen/LinearSieve.lean` untouched.
+
+## 2026-07-12 SW S4b″ + Chen C1c′: catches #25 and #26 — both by executors, both statement-level
+
+**#26 (S4b″, the sharper of the two): `EstermannPositivity` as frozen
+was FALSE.** The hypotheses (ζf = LSeries r on Re > 1, r ≥ 0, r 1 = 1)
+do not force r summable — mathlib's LSeries tsum-defaults to 0, so
+f ≡ 0 with r n = 2^{n−1} satisfies everything while no (a,B) package
+can exist. The executor MACHINE-CHECKED the counterexample kernel
+(`no_estermann_data_for_zero`) rather than proving the false statement
+— Iron Rule 1 at its best. Fable amendment: `LSeries.abscissaOfAbsConv
+r < 2` added to `EstermannPositivity` and `EstermannInterface`; the
+application supplies it from `LSeriesSummable_fourfoldCoeff`. With the
+amendment, S4b″'s FULL discharge (all four obligations: the a_k
+package via iteratedDeriv_LSeries_alternating; the ψ = dslope-Cauchy
+bound at B = (29/2)M; ζ(σ) ≤ 0 on [19/20,1) via the Zc-series route —
+NO eta needed, nothing in mathlib; the ψ-series identity via
+hasSum_taylorSeries_of_entire; f(1)-realness NOT needed) makes
+**`estermannPositivity : EstermannPositivity` UNCONDITIONAL**.
+
+**#25 (C1c′): `linear_sieve_lower`'s `hsupp` was structurally
+unsatisfiable** — any side-2 TruncSieve forces P p for every prime
+(add_prime at t = 1, parity 0 = ν mod 2), so no finite bound covers
+the support. Executor delivered the honest `_div` variants; Fable
+amendment applied at source: `errSum_lam_le`/`linear_sieve_lower`/
+`_chain` weakened to `∀ d, d ∣ prodPrimes → P d → d < bound` (the
+divisors-sum already carries the fact). Buchstab.lean's variants stay
+as landed.
+
+Tally: 26 design errors caught, 0 proofs on wrong statements.
+Executor-caught: #17–#19, #24 (source erratum), #25, #26.

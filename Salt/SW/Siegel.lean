@@ -171,7 +171,7 @@ used through analyticity on the disk — every factor in the Goldfeld applicatio
 def EstermannPositivity : Prop :=
   ∀ (f : ℂ → ℂ) (r : ℕ → ℂ) (M : ℝ), 1 ≤ M → Differentiable ℂ f →
     (∀ z ∈ Metric.ball (2 : ℂ) (3 / 2), ‖f z‖ ≤ M) →
-    (0 ≤ r) → r 1 = 1 →
+    (0 ≤ r) → r 1 = 1 → LSeries.abscissaOfAbsConv r < 2 →
     (∀ s : ℂ, 1 < s.re → riemannZeta s * f s = LSeries r s) →
     ∀ {σ : ℝ}, (19 / 20 : ℝ) ≤ σ → σ < 1 → (0 : ℂ) ≤ f (σ : ℂ) →
       (1 - σ) / 4 * M ^ (-(3 * (1 - σ))) ≤ (f 1).re
@@ -209,7 +209,13 @@ theorem estermann_fourfold (hEst : EstermannPositivity) {N : ℕ} [NeZero N]
   have hfσ : (0 : ℂ) ≤ f (σ : ℂ) := by
     have : f (σ : ℂ) = 0 := by simp only [hf, hzero, zero_mul]
     rw [this]
-  exact hEst f (⇑(fourfoldCoeff χ₁ χ₂)) M hM hfdiff hMbnd hr0 hr1 hident hσlo hσhi hfσ
+  have habsc : LSeries.abscissaOfAbsConv (⇑(fourfoldCoeff χ₁ χ₂)) < 2 := by
+    refine lt_of_le_of_lt
+      (LSeries.abscissaOfAbsConv_le_of_forall_lt_LSeriesSummable
+        (x := 1) (fun y hy => LSeriesSummable_fourfoldCoeff χ₁ χ₂ (by rwa [Complex.ofReal_re]))) ?_
+    have h12 : ((1 : ℝ) : EReal) < ((2 : ℝ) : EReal) := by exact_mod_cast (one_lt_two : (1 : ℝ) < 2)
+    simpa using h12
+  exact hEst f (⇑(fourfoldCoeff χ₁ χ₂)) M hM hfdiff hMbnd hr0 hr1 habsc hident hσlo hσhi hfσ
 
 /-! ## 4. The exceptional-zero dichotomy (the ineffective choice) -/
 

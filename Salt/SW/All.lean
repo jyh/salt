@@ -22,6 +22,7 @@ import Salt.SW.Page
 import Salt.SW.FourFold
 import Salt.SW.Siegel
 import Salt.SW.Estermann
+import Salt.SW.EstermannInterface
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -105,3 +106,6 @@ open Salt.Tactic in
   Salt.SW.siegel_zero_free_of_exceptional_case
   Salt.SW.landau_truncation Salt.SW.estermannPositivity_core
   Salt.SW.estermannPositivity_of_interface
+  Salt.SW.no_estermann_data_for_zero Salt.SW.zeta_nonpos
+  Salt.SW.estermannInterface' Salt.SW.estermannInterface
+  Salt.SW.estermannPositivity

@@ -311,14 +311,14 @@ noncomputable def rosserRemainder (s : BoundingSieve) (bound : ℝ) : ℝ :=
 and `λ` is supported on the Rosser set `{d : P d}` which lies below `bound = QD`,
 `errSum λ = Σ |λ(d)||r(d)| ≤ Σ_{d<QD} |r(d)| = R`. -/
 lemma errSum_lam_le (S : TruncSieve) (s : BoundingSieve) {bound : ℝ}
-    (hsupp : ∀ d, S.P d → (d : ℝ) < bound) :
+    (hsupp : ∀ d, d ∣ s.prodPrimes → S.P d → (d : ℝ) < bound) :
     s.errSum S.lam ≤ rosserRemainder s bound := by
   rw [errSum]
   unfold rosserRemainder
   apply Finset.sum_le_sum
-  intro d _
+  intro d hd
   by_cases hP : S.P d
-  · rw [if_pos (hsupp d hP)]
+  · rw [if_pos (hsupp d (Nat.dvd_of_mem_divisors hd) hP)]
     calc |S.lam d| * |s.rem d|
         ≤ 1 * |s.rem d| := mul_le_mul_of_nonneg_right (S.abs_lam_le_one d) (abs_nonneg _)
       _ = |s.rem d| := one_mul _
@@ -339,7 +339,7 @@ theorem linear_sieve_upper (s : BoundingSieve) (S : TruncSieve) (hside : S.side 
   have hU := siftedSum_le_mainSum_errSum_of_upperMoebius S.lam (S.isUpperMoebius hside) (s := s)
   have hmul : s.totalMass * s.mainSum S.lam ≤ s.totalMass * mainBound :=
     mul_le_mul_of_nonneg_left hmain htm
-  have herr := errSum_lam_le S s hsupp
+  have herr := errSum_lam_le S s (fun d _ hP => hsupp d hP)
   linarith [hU, hmul, herr]
 
 /-- **Linear sieve, lower bound** (BJS Theorem 6, (6)).  From a lower (`side = 2`)
@@ -348,7 +348,7 @@ comparison `mainBound ≤ mainSum λ⁻`,
 `totalMass · mainBound − R ≤ siftedSum`. -/
 theorem linear_sieve_lower (s : BoundingSieve) (S : TruncSieve) (hside : S.side = 2)
     {bound mainBound : ℝ}
-    (hsupp : ∀ d, S.P d → (d : ℝ) < bound)
+    (hsupp : ∀ d, d ∣ s.prodPrimes → S.P d → (d : ℝ) < bound)
     (htm : 0 ≤ s.totalMass)
     (hmain : mainBound ≤ s.mainSum S.lam) :
     s.totalMass * mainBound - rosserRemainder s bound ≤ s.siftedSum := by
@@ -387,7 +387,8 @@ theorem linear_sieve_upper_chain (s : BoundingSieve) (S : TruncSieve) (hside : S
 /-- **BJS Theorem 6 (6)**, chain form.  With `mainBound = W s·(fchain N s − εC₂e²h(s))`
 the main-term comparison (BJS Prop 13) gives the explicit lower linear sieve. -/
 theorem linear_sieve_lower_chain (s : BoundingSieve) (S : TruncSieve) (hside : S.side = 2)
-    {bound : ℝ} (hsupp : ∀ d, S.P d → (d : ℝ) < bound) (htm : 0 ≤ s.totalMass)
+    {bound : ℝ} (hsupp : ∀ d, d ∣ s.prodPrimes → S.P d → (d : ℝ) < bound)
+    (htm : 0 ≤ s.totalMass)
     (N : ℕ) (sparam ε C₂ : ℝ)
     (hmain : Salt.BrunLower.W s * (fchain N sparam - ε * C₂ * Real.exp 2 * hBJS sparam)
       ≤ s.mainSum S.lam) :

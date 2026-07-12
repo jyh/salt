@@ -274,7 +274,7 @@ work (see the module docstring and `docs/blueprints/flags.md`, SW S4b′). -/
 def EstermannInterface : Prop :=
   ∀ (f : ℂ → ℂ) (r : ℕ → ℂ) (M : ℝ), 1 ≤ M → Differentiable ℂ f →
     (∀ z ∈ Metric.ball (2 : ℂ) (3 / 2), ‖f z‖ ≤ M) →
-    (0 ≤ r) → r 1 = 1 →
+    (0 ≤ r) → r 1 = 1 → LSeries.abscissaOfAbsConv r < 2 →
     (∀ s : ℂ, 1 < s.re → riemannZeta s * f s = LSeries r s) →
     ∀ {σ : ℝ}, (19 / 20 : ℝ) ≤ σ → σ < 1 → (0 : ℂ) ≤ f (σ : ℂ) →
       ∃ (a : ℕ → ℝ) (B : ℝ), (∀ k, 0 ≤ a k) ∧ 1 ≤ a 0 ∧ 2 ≤ B ∧ B ≤ 29 / 2 * M ∧
@@ -287,9 +287,9 @@ whenever the analytic interface `EstermannInterface` can be discharged. Everythi
 the interface — the Landau truncation and the frozen constants — is proven
 (`estermannPositivity_core`). -/
 theorem estermannPositivity_of_interface (H : EstermannInterface) : EstermannPositivity := by
-  intro f r M hM hf hfM hr0 hr1 hζf σ hσlo hσhi hfσ
+  intro f r M hM hf hfM hr0 hr1 habsc hζf σ hσlo hσhi hfσ
   obtain ⟨a, B, ha, ha0, hBlo, hBM, hcauchy, hζneg, hseries⟩ :=
-    H f r M hM hf hfM hr0 hr1 hζf (σ := σ) hσlo hσhi hfσ
+    H f r M hM hf hfM hr0 hr1 habsc hζf (σ := σ) hσlo hσhi hfσ
   exact estermannPositivity_core f hM hσlo hσhi hfσ a ha ha0 B hBlo hBM hcauchy hζneg hseries
 
 end Salt.SW
