@@ -2660,3 +2660,20 @@ block-Brun inequality). GUARD: transcribe Théorème 2's E(b)/c(b,λ)/
 hypothesis-shape from the primary PDF before freezing (the recon's
 envelope BEAT the source's proven window — a constant is off somewhere;
 trust only the PDF). Running tally: 15 design errors caught pre-execution.
+
+## 2026-07-12 P0 transcription: error #16 averted (the e² in the denominator)
+
+The primary-source transcription (H-R 1971 read at page-image level,
+constants reproduced from the proof's own (2.11)–(2.17)) caught the
+recon sketch's error factor missing the e²: true denominator
+1 − λ²e^{2+2λ} (condition λe^{1+λ} < 1, λ < 0.2785), not 1 − λ²e^{2λ}
+(λ < 0.567) — the sketched window was 2× too wide, and at the natural
+λ = 1/4, b = 1 the twin u-window (level 8.077 vs u < 8) is EMPTY; {7,7}
+closes only in the razor band λ ≈ 0.2525–0.253. Blueprint frozen on the
+paper's constants with margins PRE-computed: P1 primary = (b=2, λ=1/4)
+⇒ main-term margin +0.946, u = 10.1, K = 20 pair — robust to Lean
+loosening; the {7,7}/K=14 stretch (margin +0.014) is optional and must
+not gate the rung. Also corrected: ladder Λ = 2λ/A general; block offset
+2b − ν + 2n − 1 exact; the "support cutoff" was a mis-description (the
+frozen form is the explicit (2.12) remainder product, O-free per
+doctrine). Tally: 16 design errors caught pre-execution, 0 at execution.
