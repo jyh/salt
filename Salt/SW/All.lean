@@ -19,6 +19,7 @@ import Salt.SW.ZetaPartialFractions
 import Salt.SW.LandauPage
 import Salt.SW.ZeroFreeReal
 import Salt.SW.Page
+import Salt.SW.FourFold
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -92,3 +93,6 @@ open Salt.Tactic in
   Salt.SW.zero_free_region_all'
   Salt.SW.product_ne_one Salt.SW.page_positivity
   Salt.SW.neg_reLogDeriv_changeLevel_le Salt.SW.page_cross_modulus
+  Salt.SW.fourfold_vonMangoldt_nonneg Salt.SW.changeLevel_quadratic
+  Salt.SW.fourfoldCoeff_nonneg Salt.SW.fourfoldCoeff_apply_one
+  Salt.SW.LSeries_fourfoldCoeff_eq Salt.SW.LSeriesSummable_fourfoldCoeff
