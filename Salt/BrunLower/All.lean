@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.BrunLower.Defs
 import Salt.BrunLower.LowerMoebius
 import Salt.BrunLower.Pointwise
+import Salt.BrunLower.MainTerm
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -53,3 +54,5 @@ open Salt.Tactic in
   Salt.BrunLower.sum_moebius_chi_upper Salt.BrunLower.sum_moebius_chi_lower
   Salt.BrunLower.isUpperMoebius_moebius_chiOne
   Salt.BrunLower.isLowerMoebius_moebius_chiTwo
+  Salt.BrunLower.blockTail_le
+  Salt.BrunLower.mainSum_le_of_upper Salt.BrunLower.mainSum_ge_of_lower

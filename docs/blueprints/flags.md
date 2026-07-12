@@ -2692,3 +2692,23 @@ one-way `chi_imp_windowed`), and flagged. Iron Rule 1 exercised
 downstream. All four structural rules (2.1)–(2.4) proven under the
 correct reading. Tally: 17 design errors caught pre-(downstream)-
 execution, 0 proofs ever built on a wrong statement.
+
+## 2026-07-12 P0 B3: catch #18 — the freeze omitted (2.16) from the hypothesis decomposition
+
+The B3 executor (transcribe-first discipline) confirmed the frozen
+endpoint constants at page-image level (the #16 factor `e^{2λ}/(1 −
+λ²e^{2+2λ})` exactly as frozen) but found H-R's (2.11)→(2.17) chain
+consumes the W-ratio bound **(2.16)** `W(z_n)/W(z) ≤ e^{2nλ}` — which
+H-R derive on pp. 104–106 from a Mertens estimate ("a well-known
+result": `Σ_{w≤p<z} ω(p)log p/p ≤ A(log(z/w)+1)`) + (Ω₁) + the
+Λ-choice (2.18) valid only for z large. The p0.md freeze listed
+{(Ω), (Ω₁), (R), ladder, (1.2)} and did not surface (2.16) as a node.
+Per Iron Rule 1 the executor landed the endpoint with `hWr`(=(2.16)),
+`hps`, `hdecomp`(=(2.11)) as EXPLICIT hypotheses — no statement
+improvised, the #16-critical tail arithmetic (`blockTail_le`) fully
+proved with tight constants. Adjudication (Fable): decomposition
+error, not statement error — the DAG gains B3b (discharge (2.16) +
+(2.11); re-check Thm 2's p. 99 statement for a possible z-threshold
+the freeze may also have dropped). Tally: 18 design errors caught,
+0 proofs on wrong statements; #17 and #18 both surfaced by executors
+holding the line — the discipline is now bidirectional.
