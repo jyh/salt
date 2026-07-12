@@ -18,6 +18,7 @@ import Salt.BV.Dispersion
 import Salt.BV.DispersionClose
 import Salt.BV.PsiToPi
 import Salt.BV.Abel
+import Salt.BV.AbelCore
 import Salt.BV.Headline
 import Salt.Tactic.AuditAxioms
 import Salt.BV.DivisorSum
@@ -54,3 +55,5 @@ open Salt.Tactic in
   Salt.BV.psiToPiTransfer_of_core
   Salt.BV.hasLevel_half_of_siegelWalfisz_of_bridge
   Salt.BV.bounded_gaps_of_siegelWalfisz_of_bridge
+  Salt.BV.psiToPiTransfer_holds Salt.BV.hasLevel_half_of_siegelWalfisz
+  Salt.BV.bounded_gaps_of_siegelWalfisz

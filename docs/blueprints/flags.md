@@ -2584,3 +2584,21 @@ enclosure) lives ENTIRELY inside the deferred `PsiToPiCore` (its RHS is already 
 reduction is one-sided (`≤`) throughout and needs no lower chain. `primesCount_eq_card`
 (Nat.count→Finset) was scoped as the natural next brick for the Abel identity but
 not landed (not needed by the reduction; keeps the file to the floor).
+
+## 2026-07-12 bv RUNG COMPLETE — bounded_gaps_of_siegelWalfisz LANDED
+
+V4-core-2 reached FULL floor (`Salt/BV/AbelCore.lean`, 762 lines):
+`psiToPiCore'_holds` (SHADOWED with the honest extra log — the freight
+slot was short by exactly one log, caught by the dispatch's re-derive-
+first instruction; mathlib's `Chebyshev.psi_sub_theta_le` supplied the
+ψ−θ freight directly, no custom estimate) + the re-proven reduction
+(haircut B := B'+A+1) + `psiToPiTransfer_holds` +
+`hasLevel_half_of_siegelWalfisz` + **`bounded_gaps_of_siegelWalfisz`**.
+The chain: gate → ψ-BV keystone → Abel bridge → HasLevel(1/2) → the
+Rung-4b consumer. All 8 project headliners lint-audited; 27 BV decls
+in-build audited. The rung ran 2026-07-11→12: ~20 nodes, 7 design
+corrections (all pre-execution), 0 execution failures, 2 honest T2
+verdicts, 2 executor-error corrections by the gate (Chebyshev-absent
+claim; the flag-recipe's unavailable hypothesis). Close-out residuals
+queued: de-privating sweep, guide reconciliation, T6/T9 harvest,
+merge decision (user).

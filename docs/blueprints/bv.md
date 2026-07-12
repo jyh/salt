@@ -1,5 +1,20 @@
 # The BV rung — Bombieri–Vinogradov modulo one named gate (`bv`)
 
+**STATUS: RUNG COMPLETE (2026-07-12).** The headline is LANDED:
+**`bounded_gaps_of_siegelWalfisz (hSW : SiegelWalfisz) : ∃ C : ℕ, ∀ N,
+∃ p q, N < p ∧ N < q ∧ p ≠ q ∧ p.Prime ∧ q.Prime ∧ (q:ℤ)−(p:ℤ) ∈
+Icc (−C) C`** — bounded prime gaps, unconditional modulo ONE named
+classical gate, zero axioms, zero sorries (`Salt/BV/`, 15 modules; the
+first load-bearing Bombieri–Vinogradov chain in any proof assistant —
+via `psi_BV_of_siegelWalfisz'` (ψ-BV) → `psiToPiTransfer_holds` (the
+Abel bridge) → `hasLevel_half_of_siegelWalfisz : HasLevel (1/2)` → the
+Rung-4b consumer `bounded_gaps_from_level`, exactly as designed). SEVEN
+design corrections caught pre-execution (5 statement-level breakers +
+the struck max + the freight-slot log); 0 execution failures. Firsts en
+route: Pólya–Vinogradov, the maximal & bilinear large sieves, the exact
+DFT completion. Close-out residuals: de-privating sweep (PV kernel ×3
+replicas), guide/Mermaid reconciliation, T6/T9 harvest.*
+
 *Fable, 2026-07-11. Ratified by the user (blueprint + execute). Recon:
 `wf_11993b24-bdc` (three scouts; findings reproduced in
 `project_largesieve` memory + below). Target: `HasLevel (1/2)` — the landed

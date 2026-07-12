@@ -55,6 +55,7 @@ HEADLINERS = [
     "Salt.LS.bdh",
     "Salt.LS.vaughan",
     "Salt.N6.N6_2",
+    "Salt.BV.bounded_gaps_of_siegelWalfisz",
 ]
 
 PROVED_TOKENS = ("✅", "\U0001f7e1")  # ✅ proved, 🟡 partial
