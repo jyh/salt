@@ -11,6 +11,7 @@ import Salt.SW.Growth
 import Salt.SW.PartialFractions
 import Salt.SW.BCBound
 import Salt.SW.MaxModulus
+import Salt.SW.EulerBridge
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -66,3 +67,6 @@ open Salt.Tactic in
   Salt.SW.LFunction_norm_logDeriv_sub_sum Salt.SW.neg_re_logDeriv_le
   Salt.SW.norm_reflectedFactor_eq_on_sphere
   Salt.SW.LFunction_norm_logDeriv_sub_sum'
+  Salt.SW.LFunction_eq_primitive_mul Salt.SW.eulerCorr_ne_zero
+  Salt.SW.logDeriv_LFunction_eq Salt.SW.LFunction_eq_zero_iff_primitive
+  Salt.SW.norm_logDeriv_LFunction_sub_primitive_le
