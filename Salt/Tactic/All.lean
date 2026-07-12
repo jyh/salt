@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.Tactic.AuditAxioms
 import Salt.Tactic.EventuallyBudget
 import Salt.Tactic.DyadicRec
+import Salt.Tactic.CertEval
 
 /-!
 # Salt tactic toolkit — aggregate import

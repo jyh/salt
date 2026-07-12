@@ -44,6 +44,16 @@ weekend with reflection. **When:** before the k=105 certificate rung;
 independent of BV — can be probed any time. **Probe:** re-verify
 `J_Fstar_0` via a toy reflective evaluator; target ≥100× heartbeat
 reduction.
+**PROBE RESULT (2026-07-12, `Salt/Tactic/CertEval.lean`): GO — 2285×**
+(477 heartbeats vs the landed 1.09M, exact same statement, via the
+packed-`Exp5` rep + `cJD` closed form + the F-generic bridge; `decide
++kernel` MANDATORY — plain `decide`/`rfl` stall in the elaborator).
+Scaling ~linear in pairwise terms (~4 hb + 0.5 ms/pair) ⇒ **k=105 ≈
+minutes of kernel time: PLAUSIBLE, no further engineering required**.
+Production residuals: factorial tabulation for high degree; optimizer
+codegen; native packed-rep statements to erase the one-time `toPoly`
+defeq tax. Gotchas ledgered: `#count_heartbeats` needs
+`Elab.async false`; doc-comment placement after `set_option … in`.
 
 ### T2 — `eventually_budget`: the ∀ᶠ threshold-stack assembler — class C, HIGH leverage
 Combine a list of eventual facts (`∀ᶠ N, fᵢ N ≤ εᵢ`) against a monotone
