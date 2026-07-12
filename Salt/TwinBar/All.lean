@@ -5,6 +5,8 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.TwinBar.Defs
 import Salt.TwinBar.LogWeight
+import Salt.TwinBar.SliceCS
+import Salt.TwinBar.Tonelli
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -51,3 +53,5 @@ open Salt.Tactic in
   Salt.TwinBar.slice₁_sq_intervalIntegrable Salt.TwinBar.slice₂_sq_intervalIntegrable
   Salt.TwinBar.slice₁_weight_sq_intervalIntegrable
   Salt.TwinBar.slice₂_weight_sq_intervalIntegrable
+  Salt.TwinBar.interval_CS Salt.TwinBar.sliceCS₁ Salt.TwinBar.sliceCS₂
+  Salt.TwinBar.logWeight Salt.TwinBar.simplex_swap
