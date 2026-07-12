@@ -17,6 +17,17 @@ are project code (`Salt/Tactic/`), promotable to mathlib when mature.*
   *inside tactic search*, but the produced proof must check pure).
 - Classes: tactic nodes get the same A–D grades; metaprogram nodes are
   Opus-tier by default (the `TacticM` API is unforgiving).
+- **Incompleteness doctrine (user, 2026-07-11):** tools capture real IDEAS
+  and minimize mechanical cruft; no toolbox is complete and none should
+  try to be. Corollaries: (i) incomplete tools must FAIL CLEANLY, leaving
+  honest, readable residual goals (a documented contract — the
+  `eventually_budget` model), never a half-transformed goal; (ii) do not
+  chase the completeness asymptote (the growing-simp-set monster) — stop
+  at the idea boundary; ten crisp tools beat one oracle; (iii) tactic
+  incompleteness is SAFE by construction: tactics are search, the kernel
+  checks — a bad tactic wastes time, never soundness. Readability is a
+  first-class goal: idea-level tactics make the proof text mirror the
+  informal sketch.
 
 ## The candidates (evidence-ranked)
 
