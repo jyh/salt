@@ -18,6 +18,7 @@ import Salt.SW.ZeroFree
 import Salt.SW.ZetaPartialFractions
 import Salt.SW.LandauPage
 import Salt.SW.ZeroFreeReal
+import Salt.SW.Page
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -89,3 +90,5 @@ open Salt.Tactic in
   Salt.SW.LFunction_conj Salt.SW.neg_re_logDeriv_trivChar_complex_le
   Salt.SW.zero_free_region_real Salt.SW.zero_free_region_all
   Salt.SW.zero_free_region_all'
+  Salt.SW.product_ne_one Salt.SW.page_positivity
+  Salt.SW.neg_reLogDeriv_changeLevel_le Salt.SW.page_cross_modulus
