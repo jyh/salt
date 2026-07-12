@@ -10,6 +10,7 @@ import Salt.BV.MaxLS
 import Salt.BV.SWMaxY
 import Salt.BV.PolyaVinogradov
 import Salt.BV.Completion
+import Salt.BV.TypeI
 import Salt.Tactic.AuditAxioms
 import Salt.BV.DivisorSum
 
@@ -38,4 +39,5 @@ open Salt.Tactic in
   Salt.BV.norm_psiChi_one_sub_psiTot_le Salt.BV.char_LS_max
   Salt.BV.sup_div_log_pow_le Salt.BV.polya_vinogradov
   Salt.BV.fourierCutoff_indicator Salt.BV.sum_norm_fourierCutoff_le
-  Salt.BV.bilinear_factorization
+  Salt.BV.bilinear_factorization Salt.BV.typeI_one_maxdisc_le
+  Salt.BV.typeI_two_maxdisc_le
