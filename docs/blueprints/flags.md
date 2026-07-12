@@ -2712,3 +2712,68 @@ error, not statement error — the DAG gains B3b (discharge (2.16) +
 the freeze may also have dropped). Tally: 18 design errors caught,
 0 proofs on wrong statements; #17 and #18 both surfaced by executors
 holding the line — the discipline is now bidirectional.
+
+## 2026-07-12 P0 B3b: catch #19 — (2.18) redefines Λ AND the O-free freeze dropped the z-threshold (STOP-AND-FLAG, Iron Rule 1)
+
+B3b executor (Opus, transcribe-first) re-fetched the numdam PDF and rendered
+the missing p. 106. Two verbatim findings feeding Fable-tier decisions:
+
+1. **(2.18) is `Λ = (2λ/A)·(1 + B₁/loglog z)⁻¹`** (p. 106, "Thus (2.16) follows
+   on choosing"). This is a `z`-dependent scale strictly BELOW B0's nominal
+   `bigLambda A lam = 2λ/A`, rising to it as `z → ∞`; H-R add "`0 < Λ ≤ 1`
+   since `λ < 1/2`, `A ≥ 1` and `z` is large." So (2.18) BOTH redefines Λ AND
+   requires `z` large. Per the STOP-AND-FLAG the executor did NOT pick a new Λ:
+   B3b keeps `Lam` a FREE PARAMETER and expresses (2.18)'s content as the
+   free-parameter inequality `hkappa : κ ≤ 2λ` (equality when Λ per (2.18)),
+   where `κ` is the common rate of the pre-(2.18) bound (p. 106 "whence")
+   `log(W(z_n)/W(z)) ≤ nΛA(1 + B₁/loglog z) = n·κ`. B0's `zLev` is Λ-generic and
+   B3's carriers are Λ-abstract, so nothing landed breaks; the Λ instantiation
+   for B5 is a Fable ladder decision. **Fable action: at B5/P1, instantiate the
+   ladder with the (2.18) Λ (or verify `κ ≤ 2λ` at the twin instance).**
+
+2. **Théorème 2 (p. 99) carries NO explicit z-threshold hypothesis.** Verbatim:
+   "Suppose that (Ω), (Ω₁) and (R) hold. Let b be a positive integer and λ any
+   positive real number satisfying (1.2) λe^{1+λ}<1. Then S ≤ XW(z){1+2λ^{2b+1}
+   e^{2λ}/(1−λ²e^{2+2λ})} + O(z^{2b+2.01/(e^{2λ/A}−1)}) and S ≥ XW(z){1−2λ^{2b}
+   e^{2λ}/(1−λ²e^{2+2λ})} + O(z^{2b−1+2.01/(e^{2λ/A}−1)})." The "z sufficiently
+   large" is ABSORBED into the O-term (and the `2 → 2.01` fudge on the level
+   exponent `2b−ν+1 + 2/(e^Λ−1)` of (2.15)); Λ = 2λ/A appears as `e^{2λ/A}`,
+   confirming B0. **But** p0.md's freeze re-expressed the pair O-free (O-term →
+   explicit `Σχ_ν|R_d|`), and that exact inequality holds only once (2.16) does
+   — i.e. only for `z ≥ z₀(λ,b,A)` (the (2.18)/"z large" threshold). So the
+   frozen B5 pair DOES need a `z ≥ z₀` side-condition that the O-notation hid.
+   **Fable action: B5 statements should carry the (2.18) `z`-large hypothesis
+   (or its concrete twin-instance value); this is a statement decision, not the
+   executor's.** (Aside: the p. 99 denominator scans as `1+λ²e^{2+2λ}`, but the
+   derivation (2.17) unambiguously gives `1−λ²e^{2+2λ}`, which is what the
+   freeze/MainTerm use — a known H-R typo, not a freeze error.)
+
+Resolution: B3b landed `Salt/BrunLower/WRatio.lean` (new file, namespace
+`Salt.BrunLower`), sorry-free, axioms `[propext, Classical.choice, Quot.sound]`.
+Concrete carriers `windowPrimes`/`windowSum`/`Wratio` (= `W(z_n)/W(z)` over the
+`BoundingSieve`); `windowSum_le_log_Wratio` lands H-R's p.104 one-liner
+`Σ ω(p)/p ≤ log(W(z_n)/W(z))` (needs only ν<1, no (Ω₁)); `Wratio_le_exp`
+(=(2.16), B3's `hWr`) and `windowSum_le` (B3's `hps`) discharge from the single
+Mertens interface hypothesis `hMert : log(Wratio) ≤ n·κ` + `hkappa : κ ≤ 2λ`.
+Shapes verified to plug into MainTerm's `mainSum_le_of_upper`/`_ge_of_lower`
+with no glue (`Wr := Wratio s Lam z`, `ps := windowSum s Lam z`). **P1 must
+discharge `hMert` at the twin instance** (ω(2)=1, ω(p)=2, A=2) via the corpus'
+product-form Mertens (`log(Wratio s Lam z n) = Σ_{p∈window} −log(1−ν(p))`, so
+`hMert` is a windowed Mertens-product bound — "Maynard's Mertens" territory).
+Floor-vs-full: this is the sanctioned PB-floor at generality level (a) — the raw
+Mertens `Σ ω(p)logp/p ≤ A(log(z/w)+1)` → (W-est) partial-summation and the
+(2.18) Λ-choice are held as the `hMert`/`hkappa` interface (Fable/P1-tier), not
+re-derived, since (2.18) is a Λ-redefinition (finding #1).
+
+Adjudication (Fable, same day): both findings accepted. (i) B0's
+`bigLambda = 2λ/A` stays as the ASYMPTOTIC scale; the ladder machinery
+is Λ-generic, and B5/P1 instantiate Λ per (2.18) (z-dependent) — the
+p0.md ladder line is corrected. (ii) B5 will be stated
+hypothesis-parameterized (`hMert`/`hkappa` interface, as B3b shaped) —
+no hidden z₀; P1 discharges at the twin instance where Mertens is
+concrete and the threshold explicit. The 2.01 exponent fudge in H-R's
+p. 99 O-form does not touch our freeze (we keep the exact (2.12)
+product remainder). Optional polish node B3c (general-ω raw-Mertens →
+`hMert` via partial summation) recorded, NOT on P1's critical path.
+Tally: 19 design errors caught pre-(downstream)-execution, 0 proofs on
+wrong statements; #17–#19 all surfaced by executors holding the line.
