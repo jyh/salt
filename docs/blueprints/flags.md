@@ -2873,3 +2873,26 @@ The parity-frontier P1 milestone — the cheapest honest possibility
 rung — is DONE: the corpus now proves twin ALMOST-primes exist
 infinitely often, by elementary sieve means, alongside twinbar's
 proof that this METHOD cannot reach twin primes themselves.
+
+## 2026-07-12 SW S3d: the zero-free region — complex-χ FULL (c₀ = 1/50456); real-χ = Z2ζ gap
+
+S3d landed `zero_free_region_primitive` + the imprimitive
+`zero_free_region` (EulerBridge transfer): every zero of L(s,χ) with
+χ² ≠ 1 (resp. primitiveCharacter² ≠ 1), Re ρ ≥ 1/2 satisfies
+Re ρ ≤ 1 − c₀/log(q(|Im ρ|+2)) with EXPLICIT c₀ = 1/50456
+(δ = 1/7208, log(4M₀) ≤ 6L). Mechanics: ball-zero→Z from the
+factorization invariants; mathlib's LFunction_ne_zero_of_one_le_re
+gives Re ρ' < 1 < σ for the drop-all-but-one; 3-4-1 carried
+LSeries→LFunction; χ² on its primitive via the C₅ = 0 bridge.
+**FLOOR: the real-χ complex-zero case (b)** — the 3-4-1's third term
+is then L(χ₀) whose pole needs the honest
+Re(−ζ'/ζ(σ+2iγ)) ≤ Re(1/(σ−1+2iγ)) + O(log(|γ|+2)) — ζ ZERO-THEORY
+at complex s, which the primitive-only (f ≥ 2) S2 machinery does not
+supply; the crude termwise bound gives 1/(σ−1) which exactly cancels
+the 3-4-1 margin (conjugate-zero trick closes small γ only). New node
+**Z2ζ**: mirror the S2 cluster for ζ (growth by Abel at S(u) = ⌊u⌋,
+center ‖ζ(2+it)‖ ≥ ζ(4)/ζ(2)-shape from the Euler product, Jensen
+count, factorization/B-C/max-modulus — every technique has a landed
+template) — FIRST CHECK whether mathlib/PNT-upstream already has ζ
+logDeriv/zero-free machinery to consume. Then S3d-b (real-χ complex
+zeros) and S3e (Landau–Page).

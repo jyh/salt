@@ -14,6 +14,7 @@ import Salt.SW.MaxModulus
 import Salt.SW.EulerBridge
 import Salt.SW.ThreeFourOne
 import Salt.SW.ZetaPole
+import Salt.SW.ZeroFree
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -75,3 +76,4 @@ open Salt.Tactic in
   Salt.SW.three_four_one_termwise Salt.SW.three_four_one
   Salt.SW.three_four_one_logDeriv
   Salt.SW.neg_logDeriv_zeta_le Salt.SW.neg_logDeriv_LFunction_trivChar_le
+  Salt.SW.zero_free_region_primitive Salt.SW.zero_free_region
