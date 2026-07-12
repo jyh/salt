@@ -17,6 +17,7 @@ import Salt.SW.ZetaPole
 import Salt.SW.ZeroFree
 import Salt.SW.ZetaPartialFractions
 import Salt.SW.LandauPage
+import Salt.SW.ZeroFreeReal
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -85,3 +86,6 @@ open Salt.Tactic in
   Salt.SW.landau_neg_logDeriv_re_lower Salt.SW.analyticOrderAt_eq_of_factorization
   Salt.SW.landau_one_exceptional_at Salt.SW.landau_one_exceptional
   Salt.SW.landau_one_exceptional_simple
+  Salt.SW.LFunction_conj Salt.SW.neg_re_logDeriv_trivChar_complex_le
+  Salt.SW.zero_free_region_real Salt.SW.zero_free_region_all
+  Salt.SW.zero_free_region_all'

@@ -2908,3 +2908,22 @@ freeze → docs/blueprints/chen.md (Tao Supp. 5 native-twin chain, BJS
 Thm 6 explicit linear sieve, weak-form general BV per the V2.LS-bil
 lesson, mandatory budget ledger C0). Tally: 20 design errors caught,
 0 proofs on wrong statements.
+
+## 2026-07-12 SW S3d-b + S3e: THE S3 WAVE IS CLOSED
+
+S3d-b landed FULL: zero_free_region_real (real primitive χ, complex
+zeros, c₀ = 1/126848 — Davenport's compensation formalized: the
+|γ| < σ−1 case retains the conjugate zero, whose 1/(5(σ−β)) beats the
+full pole 1/(σ−1) at margin 24/5 vs 17/4) + the S5-facing
+zero_free_region_all (c₀ = 1/126848 combined) + imprimitive transfer.
+LFunction_conj DERIVED (nothing in mathlib): χ real ⟹ L(s̄,χ) =
+conj L(s,χ) by termwise conj + identity theorem. S3e landed FULL:
+landau_one_exceptional (+_simple +_at, c₁ = 1/5000) — at most one
+real zero in [1 − c₁/log(4q), 1) and it is SIMPLE (analyticOrderAt
+= 1, the S5 residue form), via Landau's 2-term squeeze; χ² = 1
+mathematically unused. Net S3: the COMPLETE quantitative zero-free
+region for all primitive χ ≠ 1 (complex-χ 1/50456; real-χ complex
+zeros 1/126848; real zeros = at most one, simple, beyond
+1 − (1/5000)/log(4q)) + Landau per-modulus. Remaining to the gate:
+S4 (Siegel/Goldfeld + Page cross-modulus), S5 (contour shift +
+residues-lite), S6 (fold + de-smooth).
