@@ -2951,3 +2951,19 @@ would have frozen a wrong f at the keystone. c̄ verified 3-way to
 12 digits. Tally: 24 design errors caught, 0 proofs on wrong
 statements — #21/#23 were MY compression errors, #22 my interface
 overclaim, #24 the SOURCE's own misprint.
+
+## 2026-07-12 Chen C4a: cbar_lt FLOORED (dilog-blocked); the budget line landed
+
+C4a landed the C5-consumable line (`two_log_three_sub_log_six_sub_
+cbar_pos`: 2log3 − log6 = log(3/2) ≥ 2/5 > 0.363084, pure log
+arithmetic) + `cbar` def + `cbar_pos`, sorry-free. The tight
+`cbar_lt : cbar < 0.363084` (true gap 2.7e−7) is deferred: the
+integrand is concave (tangent majorants optimal ⇒ ≳220 panels, each a
+log(rational) with no norm_num extension) and mathlib has NO
+Li₂/polylog (the exact antiderivative needs Li₂(3/16), Li₂(8/21) —
+does not collapse to π² + elementary; confirmed via the u = 2−3t
+substitution). NOT a catch — a floor per Iron Rule 4. Design
+consequence folded into C3d's card: spec the count bound against the
+LITERAL ledger line via PNT-with-error (Chebyshev's 38% slack cannot
+serve the 0.3% S7 cap), so cbar_lt is likely never consumed. If it is
+ever wanted: a rigorous dilog mini-library is the clean C+ artifact.

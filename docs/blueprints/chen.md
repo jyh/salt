@@ -157,8 +157,8 @@ an adaptation, not a copy).
 | C3a | **general BV, weak form** (fixed scale/residue, L¹, SW-hypothesis-named) — Vaughan + large sieve + dispersion pipeline reuse | C+ (keystone 2) |
 | C3b | β-SW: the interval prime-indicator derivation from the gate | C |
 | C3c | the fine-partition bookkeeping (λ = 1+log^{−20}x blocks, diagonal absorption, explicit-K budgets per the DispersionClose precedent) | C |
-| C3d | the PNT double-integral count of `Σa_n` | C |
-| C4a | the `c̄ < 0.363084` integral certificate (elementary, interval-arithmetic-friendly) | B (numeric) |
+| C3d | the count of `Σa_n` — ⚠️ DESIGN NOTE (from C4a's floor): the Lean shape will bound the triple-prime count by EXPLICIT prime sums (PNT-with-error / mathlib's upstreamed PNT — hunt what error term is now available), NOT by the smooth integral `cbar`; spec C3d's endpoint against the LITERAL 0.363084-ledger line (C4a's `two_log_three_sub_log_six_sub_cbar_pos`), so `cbar_lt` (deferred, dilog-blocked) is never consumed. The S7 cap (0.0011 abs) prices the PNT residual — Chebyshev-only bounds (38% slack) canNOT serve; a genuine PNT error term is REQUIRED here | C |
+| C4a ◐ | FLOOR landed (SwitchConstant.lean): `cbar` def + `cbar_pos` + **`two_log_three_sub_log_six_sub_cbar_pos`** (the only line C5 consumes: `log(3/2) ≥ 2/5 > 0.363084`). `cbar_lt` DEFERRED — the 2.7e−7 gap is beyond elementary majorants (concave integrand ⇒ tangent lines optimal ⇒ ≳220 panels each carrying a `log(rational)`; no norm_num log extension) and mathlib has NO Li₂/polylog (the exact dilog route needs a from-scratch dilog library, C+, separate session). Likely never needed if C3d follows its design note | B (floored) |
 | C4b | prime-power strip (½Σ1_{p²∣n+2} WITH the coprimality restriction) + the `x^{2/3}` validity threshold of the weights + the Lemma-37 `2N^{7/8}+N^{1/3}` losses | A/B |
 | C5 | assembly → **`chen_of_siegelWalfisz`** | C |
 

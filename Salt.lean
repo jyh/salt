@@ -8,4 +8,5 @@ import Salt.LS.All
 import Salt.BV.All
 import Salt.TwinBar.All
 import Salt.SW.All
+import Salt.Chen.All
 import Salt.Tactic.All
