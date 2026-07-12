@@ -7,6 +7,7 @@ import Salt.BrunLower.Defs
 import Salt.BrunLower.LowerMoebius
 import Salt.BrunLower.Pointwise
 import Salt.BrunLower.MainTerm
+import Salt.BrunLower.BlockDecomp
 import Salt.BrunLower.WRatio
 import Salt.Tactic.AuditAxioms
 
@@ -60,3 +61,6 @@ open Salt.Tactic in
   Salt.BrunLower.windowSum_le_log_Wratio Salt.BrunLower.Wratio_le_exp
   Salt.BrunLower.windowSum_le Salt.BrunLower.Wratio_pos
   Salt.BrunLower.windowSum_nonneg
+  Salt.BrunLower.esymm_le Salt.BrunLower.block_esymm_le
+  Salt.BrunLower.mainSum_le_blockForm Salt.BrunLower.mainSum_ge_blockForm
+  Salt.BrunLower.mainSum_le_of_upper' Salt.BrunLower.mainSum_ge_of_lower'
