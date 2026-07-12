@@ -84,22 +84,32 @@ Legend: class A–D per `CLAUDE.md`; statuses ⬜/🔄/✅/⛔.
 | V1a | **Max-reduction**: for `q ≥ 1`, reduced `a`: `|psiAP x q a − psiChi x χ₀/φ(q)| ≤ (1/φ(q))·Σ_{χ ≠ χ₀ mod q} ‖psiChi x χ‖` (from the orthogonality expansion `psiAP = (1/φq)Σ_χ χ̄(a)·psiChi x χ` — the L8.3 `psiChi_eq_sum_psiAP` machinery INVERTED; triangle inequality, `‖χ̄(a)‖ = 1`). Hence the max over `a` obeys the same bound (a-free RHS). File `Salt/BV/MaxReduction.lean`. — `psiAP_discrepancy_le` + `psiAP_discrepancy_sup'_le`; route improved: mathlib's `sum_char_inv_mul_char_eq` used directly (valid here — the argument is a unit), no hand-rolled conj bridge | B | ✅ |
 | V1b | **Divisor summatory (mathlib gap)**: `Σ_{n ∈ Icc 1 x} (n.divisors.card : ℝ) ≤ x·(1 + Real.log x)` (swap `Σ_n Σ_{d∣n} 1 = Σ_d ⌊x/d⌋ ≤ x·Σ 1/d`, harmonic). Loose numeral fine. Plus the ℓ²-flavored corollary the Type II Cauchy–Schwarz wants: `Σ_{n≤x} (log n)² ≤ x(log x)²` (trivial) — put both in `Salt/BV/DivisorSum.lean`. — `sum_card_divisors_le` + `sum_log_sq_le`; the swap was pre-packaged in mathlib after all (`ArithmeticFunction.sum_Ioc_sigma0_eq_sum_div`) — only the ℝ-composition was the gap | B | ✅ |
 
-### V2 — the two large-sieve estimates (parallel, both consume `Salt.LS`)
+### V2 — the Type I/II estimates (RE-DESIGNED, third-blocker fix 2026-07-11)
 
-**⚠️ RE-FROZEN (adversarial pass, 2026-07-11 — BLOCKER fix):** the original
-`(q/φq)`-weighted L¹ character-sum output shapes evaluate to `x^{3/2}` at
-`Q = √x` — **level 1/4, not 1/2**. The level-1/2 saving lives in the
-`(1/φq)` AP-weight's extra `1/q` at large moduli, exploited DYADICALLY
-exactly as the landed BDH assembly did (`1/φf ≤ (2/F)(f/φf)` per block,
-`char_LS` at `2F`, divide by `F`). V2 outputs are therefore frozen
-**per dyadic block**, and V3 consumes them with the small-conductor split
-at `(log x)^C` routed to SW. Both nodes also carry the `max_{y ≤ x}` inner
-sup (see V3.0) — the maximal forms, not fixed-x.
+**⚠️ THIRD LEVEL-BREAKER (design-report gate):** `char_LS_max` is a
+SINGLE-SEQUENCE maximal sieve; Type II is irreducibly BILINEAR. Monolithic
+consumption gives `Σ‖c^{II}‖² ~ x·L⁵` (the `Στ²` mass — that candidate
+node is a symptom of the failing route: DROPPED) times the `+13x` diagonal
+⇒ un-saved `x·L⁶` for EVERY B. The budget closes only through a **maximal
+BILINEAR large sieve** (new node V2.LS-bil). Type I via the plain sieve is
+also un-saved; Fable ruling: **Pólya–Vinogradov route** (Route B) — PV is
+within reach of the landed Gauss-sum toolkit (`dirichlet_inversion`,
+`gaussSum_normSq`, `dist₁`, geometric `e`-sums), keeps the V1a
+architecture uniform, and is a first-in-mathlib-world library theorem.
+Verified budget (design report, Davenport/IK cross-checked): with these
+nodes the total closes at `B(A) = A+5` (Davenport form) or `2A+8`
+(thin-block form) — either satisfies V3.1's `∃B`.
 
 | id | content | class | status |
 |---|---|---|---|
-| V2a | **Type I, per-block maximal form**: for a dyadic level `F` (`1 ≤ F ≤ Q`): `Σ_{f ∈ Ioc F (2F)} (f/φf) Σ_{χ prim mod f} max_{y ≤ x} ‖TypeI piece(y, χ)‖ ≤ (explicit)·(F² + x/U-ish)·polylog(x)`-shape via partial summation + V1b + `char_LS` at `2F`; exact frozen form at V2 dispatch (Fable), AFTER V3.0 fixes the max-threading mechanism. | C | ⬜ |
-| V2b | **Type II bilinear contraction, per-block maximal form** (hardest achievable): Cauchy–Schwarz the `typeII_eq` double sum, `char_LS` on EACH factor at level `2F`, dyadic in `D·M ~ x`; output `Σ_{f ∈ block F} (f/φf) Σ_{χ prim} max_y ‖TypeII(y,χ)‖ ≤ (explicit)·(F + x^{1/2} + x/(F·U^{1/2}-ish))·x^{1/2}·polylog`-shape — the budget MUST show the summed-over-blocks total `≤ [Q + x^{1/2} + x/(logx)^C]·x^{1/2}·polylog` so that `Q = √x/(logx)^B` closes level 1/2. Frozen at V2 dispatch (Fable). | C | ⬜ |
+| V2.PV | **Pólya–Vinogradov**: `max_{t ≤ ?}‖Σ_{m≤t} χ(m)‖ ≤ √f·(1 + log f)`-shape for non-principal χ mod f. Route: `dirichlet_inversion` (χ from additive chars) + `gaussSum_normSq` (`‖τ‖=√f`) + geometric sums `‖Σ_{m≤t} e(am/f)‖ ≤ min(t, 1/(2·dist₁(a/f, 0)))` + `Σ_a 1/dist₁ ~ f log f`. All ingredients LANDED. | C | ⬜ |
+| V2a | **Type I via PV + partial summation**: `Σ_{f≤Q}(1/φf)Σ*_χ max_y‖TypeIᵢ(y,χ)‖ ≤ C·U·Q^{3/2}·(log x)³`-shape (`= x^{19/20+o(1)}` at the corner — closes with margin). Consumes V2.PV + `typeI_one_eq`/`typeI_two_eq` + Abel. Frozen form at dispatch after V2.PV lands. | C | ⬜ |
+| V2.LS-bil | **The maximal BILINEAR large sieve** (THE rung cost center, top of DAG): `Σ_{q≤Q}(q/φq)Σ*_χ max_y ‖Σ_{m<M}Σ_{n<N, mn≤y} aₘbₙχ(mn)‖ ≤ c·(M+Q²)^{1/2}(N+Q²)^{1/2}·‖a‖·‖b‖·polylog`. Mechanism: CS-in-χ + per-factor `char_LS`, product-cutoff `mn ≤ y` completed via THIN `(1+δ)`-adic blocks in m (within a thin block, `n ≤ y/m` ≈ an interval; boundary strip mass δ-small; `δ = Δ^{1/2}L²`, `δ⁻²L²` blocks) — elementary, NO Perron. Dedicated Fable design brief + its own adversarial pass BEFORE dispatch. | C+/D | ⬜ |
+| V2b | **Type II** `typeII_maxdisc_le`: `Σ_{f}(1/φf)Σ*_χ max_y‖TypeII(y,χ)‖ ≤ C·x^{1/2}·Q·L^κ` — instantiate V2.LS-bil at `a = μ` (d>U), `b = typeIIData V` over dyadic product scales, `(1/φf)→(f/φf)` per conductor block. Frozen at dispatch after V2.LS-bil. | C+ | ⬜ |
+| V2.SW-maxy | tiny: `sup_{2≤y≤x} y/(log y)^{A'} ≤ C_{A'} + x/(log x)^{A'}` (the max-y lift for the SW piece — the function is eventually increasing) | A/B | ⬜ |
+
+The L¹/L² CS bridge (verified): `Σ_f(1/φf)Σ*_χ M_χ ≤ √(Σ_f(f/φf)Σ*_χ M_χ²)·√(1+log Q)` — V3.1's glue.
+`char_LS_max` remains landed/reusable (single-sequence prefixes, PV's partial summation) — just not the Type II engine.
 ### V3 — dispersion assembly (ψ-form MAXIMAL BV)
 | id | content | class | status |
 |---|---|---|---|

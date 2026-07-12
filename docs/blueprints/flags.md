@@ -2299,3 +2299,20 @@ V6 is a one-line composition). Traps lens errored (5th occurrence of the
 structured-output stub failure); its unique checks (SW quantifier flow,
 `a % q` edge) self-covered by Fable: constants flow `A → (A',C') → K → (B,C_out)`
 acyclically; `Nat.Coprime a q ↔ Coprime (a%q) q` — V0.1 trivia.
+
+## 2026-07-11 bv V2 freeze: THIRD level-breaker caught by the design-report gate
+
+`char_LS_max` (single-sequence) cannot close Type II — the bilinear
+structure is essential: monolithic consumption gives `Σ‖c^{II}‖² ~ x·L⁵`
+(τ²-mass) × the `+13x` diagonal ⇒ un-saved `x·L⁶` ∀B. The `Στ² ≤ x(1+L)³`
+candidate node was a SYMPTOM of the failing route (dropped). Type I via
+the plain sieve is likewise un-saved. Fixes (Fable rulings): new node
+V2.LS-bil — the maximal BILINEAR large sieve `(M+Q²)^{1/2}(N+Q²)^{1/2}‖a‖‖b‖`
+with the product-cutoff `mn≤y` completed by thin `(1+δ)`-adic blocks
+(elementary, no Perron) — the rung's true cost center (C+/D, dedicated
+design brief + adversarial pass before dispatch); Type I re-routed through
+a new Pólya–Vinogradov node (all ingredients landed in Salt/LS/GaussSum +
+Dist; first-in-mathlib-world); tiny V2.SW-maxy added. Verified budget
+closes at B(A)=A+5 (Davenport) / 2A+8 (thin-block). Three of three
+level-breakers in this rung caught at design time, zero at execution time
+— the design-gate discipline is the story of this rung.
