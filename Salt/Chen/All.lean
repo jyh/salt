@@ -7,6 +7,7 @@ import Salt.Chen.RosserChain
 import Salt.Chen.Tail
 import Salt.Chen.LinearSieve
 import Salt.Chen.Buchstab
+import Salt.Chen.TnInduction
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
 
@@ -66,3 +67,8 @@ open Salt.Tactic in
   Salt.Chen.rosserCond_upper_lt Salt.Chen.rosserCond_lower_lt
   Salt.Chen.mainSum_moebius_eq_W Salt.Chen.mainSum_lam_defect
   Salt.Chen.linear_sieve_upper_rosser Salt.Chen.linear_sieve_lower_rosser
+  Salt.Chen.buchstab_defect Salt.Chen.buchstab_upper Salt.Chen.buchstab_lower
+  Salt.Chen.T_nonneg Salt.Chen.hbar_le_hBJS
+  Salt.Chen.hmain_upper Salt.Chen.hmain_lower
+  Salt.Chen.linear_sieve_upper_rosser_assembled
+  Salt.Chen.linear_sieve_lower_rosser_assembled
