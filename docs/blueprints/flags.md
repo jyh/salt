@@ -2809,3 +2809,19 @@ fix is Blaschke factors (mathlib `Complex.canonicalFactor`, modulus 1
 on the boundary circle), whose logDeriv differs from Σm_ρ/(s−ρ) by an
 O(1/R)-per-zero correction absorbed in O(log M₀). Consumes exactly
 what Z3 landed.
+
+## 2026-07-12 SW Z3b: B-C numeric landed (floor); Z3c = the max-modulus sup
+
+Z3b landed the full Landau numeric: reflected/Blaschke factors at
+R = 3/2, primitive-based analytic log (isExactOn_ball +
+logDeriv_eqOn_iff), B-C via norm_deriv_le_of_re_le at Cauchy radius
+1/4 (coefficient exactly 100) + reflected-pole sum ≤ 20·log(4M₀) ⇒
+**C₂ = 120**, region ‖s−c‖ ≤ 23/20 ⊇ the S3 box {7/8 ≤ Re s ≤ 2,
+|Im s−t₀| ≤ 1/8}; plus the S3 real-part corollary neg_re_logDeriv_le
+(ungated). ONE hypothesis remains (`hsup`): ‖h·∏reflected^m‖ ≤ M₀ on
+ball(c,3/2) — the Blaschke maximum-modulus step. **Z3c spec** (from the
+executor's docstring): ‖B‖ = 1 on the boundary sphere
+(norm_canonicalFactor_eval_circle_eq_one-shape) gives ‖g‖ = ‖L‖ ≤ M₀
+there; max-modulus (norm_le_of_forall_mem_frontier_norm_le) needs g
+continuous up to the boundary — obtain by re-factoring at radius 8/5
+via LFunction_exists_factorization and folding annulus zeros into h.
