@@ -11,6 +11,7 @@ import Salt.BrunLower.BlockDecomp
 import Salt.BrunLower.WRatio
 import Salt.BrunLower.Remainder
 import Salt.BrunLower.MertensWindow
+import Salt.BrunLower.Lemma3
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -71,3 +72,6 @@ open Salt.Tactic in
   Salt.BrunLower.sum_vonMangoldt_div_ge Salt.BrunLower.abs_Sfun_sub_log_le
   Salt.BrunLower.sum_inv_prime_window_le Salt.BrunLower.sum_inv_le_of_prime_window
   Salt.BrunLower.sum_inv_le_of_subset_window
+  Salt.BrunLower.master_signed Salt.BrunLower.hcorr_upper
+  Salt.BrunLower.hcorr_lower
+  Salt.BrunLower.mainSum_le_blockForm' Salt.BrunLower.mainSum_ge_blockForm'
