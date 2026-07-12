@@ -13,6 +13,15 @@ first 2-D integration in the corpus) → the assembly (T5+T6; the
 integrability plumbing dissolved via `integral_mono_of_nonneg` +
 Fubini-marginals — no Tietze, no PB-floor anywhere). T7 rational tie
 remains the designed follow-on.
+**THE SQUEEZE (possibility complement, landed same-day):** `twin_witness`
++ **`M₂_squeeze`** (`Salt/TwinBar/Witness.lean`): the explicit degree-1
+weight `Fw = 1 + (9/7)(1−t₁−t₂)`, exact values `I₂ = 209/196`,
+`J₁ = J₂ = 542/735`, certifying `(1383/1000)·I₂ ≤ J₁+J₂` — hence the
+two-sided kernel-checked bound **`1.383 ≤ M₂ ≤ 2·log 2 < 2`** (true
+value `1/(1−W(1/e)) ≈ 1.38593`, Polymath8b Cor 6.3, not formalized).
+The method's reach pinned to a 0.003-wide certified interval sitting
+0.614 below the twin threshold: the impossibility is quantitatively
+honest — not a photo finish.
 
 *Fable, 2026-07-12. Ratified by the user as the flagship: NEW-mathematics
 artifact — the first machine-checked negative result about a sieve method.

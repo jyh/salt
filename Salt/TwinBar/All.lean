@@ -8,6 +8,7 @@ import Salt.TwinBar.LogWeight
 import Salt.TwinBar.SliceCS
 import Salt.TwinBar.Tonelli
 import Salt.TwinBar.Impossibility
+import Salt.TwinBar.Witness
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -57,3 +58,4 @@ open Salt.Tactic in
   Salt.TwinBar.interval_CS Salt.TwinBar.sliceCS₁ Salt.TwinBar.sliceCS₂
   Salt.TwinBar.logWeight Salt.TwinBar.simplex_swap
   Salt.TwinBar.twin_bar Salt.TwinBar.twin_gate_fails Salt.TwinBar.no_twin_weight
+  Salt.TwinBar.twin_witness Salt.TwinBar.M₂_squeeze
