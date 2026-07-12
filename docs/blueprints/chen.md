@@ -23,10 +23,36 @@ an assembly margin: the switch costs `½c̄ ≈ 0.1815`. TRUE margin:
 
 **The budget-ledger doctrine (mandatory, twinbar/T1 precedent):** the
 sensitivity equation is `1.0986·δ_f + 0.8959·δ_F + 0.1815·δ_sw +
-(absolute slop)/(Π₂x/(4 log z)) < 0.0212` — a RUNG-LEVEL ledger, not
-per-node. Node C0 freezes the allocation table (each of the seven o(1)
-sites gets an explicit slack budget summing under M) BEFORE any wave-2+
-dispatch; every executor's landed constant is checked against its row.
+(absolute slop) < M = 0.0211907` — a RUNG-LEVEL ledger, not per-node.
+
+## C0 — THE FROZEN LEDGER (gate-corrected 2026-07-12; catches #21–#23)
+
+**Global freeze: `ε_sieve = 1/10000`** (BJS Table 1: C₁ = 106,
+C₂ = 108; admissible ≤ 1/74). NOT 1/200 (catch #21: at 1/200 the
+sieve slack totals 21×M — the A₂ site alone 14×M; 1/2000 still
+1.51×M; Table 1 has no usable intermediate row — do NOT interpolate,
+C-monotonicity is unstated). `ε_sieve` is DECOUPLED from the level
+deficit `ε'` in `D = x^{1/2−ε'}` (keep ε' ≈ 1/200 there; the retreat
+f(4)−f(4−8ε') is inside S7). Operating points: A₁ lower s = 4−8ε'
+(D ≥ z² ✓); A₂ uppers s_p ∈ [4/3, 3] (h hits the e⁻² plateau for
+p ≥ x^{1/4−ε'}); A₃ switch **on P(y) at s = logD*/log y → 3/2⁻**
+(Lemma 32's level; F(3/2)·e^{−γ}·(3/4) = 1.000000 exactly — the
+sieve constant absorbs into c̄).
+
+| site | mathematical site | cap (M-abs) | justification at ε_sieve = 1/10000 |
+|---|---|---|---|
+| S1 | A₁ Thm-6 slack εC₂e²h(4) + f(4)-series cert (C1b) | 0.0022 | slack = 0.112% rel; cert: odd-trunc N ≥ 23 w/ Table-2 cₙ (tail ≤ 4.3e−4) |
+| S2 | A₂ aggregated slack εC₁e²·J, J = ∫h(4−8t)dt/t = 0.0949632 | 0.0055 | δ_F = 0.466% rel; headroom covers F-grid cert + Σ_p→∫ error |
+| S3 | A₃ switch slack at s = 3/2 (e²h = 1) | 0.0015 | δ_sw = εC₁·3/(4e^γ) = 0.446% |
+| S4 | BV remainders, ALL carriers, level **QD** (Q = ∏_{p<w₀}p const) | 0.0008 | x/log¹⁰x; vanishes |
+| S5 | hyp-(4) threshold guard (w₀; no direct M-cost) | 0.0004 | see the C1d card |
+| S6 | V↔U_N conversions ((114)/(115) factors) | 0.0006 | o(1) |
+| S7 | thresholds/drifts: 2N^{7/8}+N^{1/3}, PNT residuals, s-drifts, prime powers, ε'-retreat 4.2e−5 | 0.0011 | o(1)/const |
+| | **TOTAL 0.0121 = 57.1% of M; reserve 42.9%** | | |
+
+Carrier-normalization convention (gate F6): the absolute carriers are
+`(·)·Π₂x/(4 log z)` (|A| ≈ x/2 folded); the sensitivity ledger is
+relative and unaffected; C5 pins the convention.
 
 ## The frozen route (Tao 254A Supp. 5 §3 = Opera de Cribro ch. 25; the
 explicit-constants backbone = Bordignon–Johnston–Starichkova (BJS),
@@ -52,10 +78,15 @@ outside the elementary window, forces an extra iterate).
 - **A₂** (upper sieve, per-prime level `D/p`): `≤ (log 6 + o(1))·Π₂·x/
   (2 log z)` via `∫₁^{8/3} dt/(t(4−t)) = (log 6)/4`.
 - **A₃** (THE SWITCH): sift `E'_d = {+2 mod d}` on
-  `a_n = 1_{[x/2+2,x]}·Σ 1_{n=p₁p₂p₃}` (`z≤p₁≤y<p₂≤p₃`); level-D
+  `a_n = 1_{[x/2+2,x]}·Σ 1_{n=p₁p₂p₃}` (`z≤p₁≤y<p₂≤p₃`); level-D*
   distribution via GENERAL BV for triple convolutions of
-  primes-in-intervals with an SW-regular factor; upper sieve at
-  `s = 1+ε`; PNT double-integral count ⇒ `≤ (c̄ + o(1))·Π₂·x/(2 log z)`.
+  primes-in-intervals with an SW-regular factor; **upper sieve on
+  `P(y)` at `s = log D*/log y → 3/2⁻`** (⚠️ catch #23: NOT Tao's
+  `s = 1+ε` tuning, which sifts P(√x) and is irreconcilable with the
+  `d ∣ P(y)` remainder freeze — the mixed form's margin is NEGATIVE;
+  BJS's `½S(B,P(y))` tuning is the freeze, endpoint constant
+  identical since F(s)·V(z_sift) is tuning-invariant); PNT
+  double-integral count ⇒ `≤ (c̄ + o(1))·Π₂·x/(4 log z)`.
 - **Assembly**: `LHS ≥ (2log3 − log6 − c̄)·Π₂·x/(4 log z) > 0`.
 
 ## The linear-sieve freeze (P2, serving this rung and P3/P4 forever)
@@ -69,16 +100,34 @@ breakpoints at page-image level). Everything V(z)-relative (P0's O-free
 doctrine); the closed forms `2e^γ/s` (on (1,3]) and `(2e^γ/s)log(s−1)`
 (on [2,4]) are DOCUMENTATION, never Lean statements. Do NOT attempt the
 series = closed-form identification (Jurkat–Richert Selberg-seed
-cluster in disguise, D-adjacent). Hypothesis (4) (the V-ratio/Mertens
-input) is served by the landed PM1 windowed Mertens nearly verbatim
-(the Σ1/p → ∏(1−g(p))⁻¹ log-bridge via PM2's pointwise pattern; keep
-the Q-set general in the freeze).
+cluster in disguise, D-adjacent).
 
-**Known errata (transcribe-time traps, from the recon):** Nathanson
-Thm 10.3 is missing a factor 2 in `U_N` (BJS p. 36 fn. 4); Thm 10.2
-needs the `q ∤ N` side condition (BJS fn. 3); Yamada arXiv:1511.03409
-is BROKEN at (87)/(104) — never consult; Tao's lower-bound half (his
-(13)) is Exercise 10 — BJS Thm 6 is the proved source for BOTH sides.
+⚠️ **Hypothesis (4) — CORRECTED (catch #22, two gate lenses
+independently):** (4) is **FALSE for the twin `g(p) = 1/(p−1)` with
+ℚ = ∅** (at u = 3 the window product carries the constant
+`1/Π₂ ≈ 1.515` excess — violated 1.47×, no Mertens error term can
+save it; the small-u excess `∏(1−1/(p−1)²)⁻¹` must be EXCLUDED). BJS
+themselves verify (4) only on `u₀ ≤ u < z` with **ℚ := {p < u₀}**,
+`u₀ = 10⁹`, `ε = 1.452·10⁻⁷` (their Lemma 18; Thm 44 couples
+u₀ ↔ ε). The freeze: `ℚ = {p < w₀}` with `w₀` explicit per the C1d
+card; the constant `Q = ∏_{p<w₀} p` is PAID into the remainder range
+`d < QD` — C2a/C3a consume the BV input at level `QD` (free
+asymptotically since Q is constant, but it must be THREADED). PM1
+serves ONLY the C2b q-sum grids — NOT hypothesis (4); the (4)
+discharge is a product-form explicit-Mertens node (BJS Lemmas 15–18
+lineage), C1d re-specced below.
+
+**Known errata (transcribe-time traps):** Nathanson Thm 10.3 is
+missing a factor 2 in `U_N` (BJS p. 36 fn. 4); Thm 10.2 needs the
+`q ∤ N` side condition (BJS fn. 3); Yamada arXiv:1511.03409 is BROKEN
+at (87)/(104) — never consult; Tao's lower-bound half (his (13)) is
+Exercise 10 — BJS Thm 6 is the proved source for BOTH sides;
+⚠️ **catch #24, an erratum in BJS v6 ITSELF (not in their errata
+note): printed eq. (14) (p. 6) sums over n ODD — same parity as (13)
+— forcing `F + f ≡ 2`, contradicting their (8) (`F(2)+f(2) = e^γ ≠
+2`) and `f(2) = 0`. The correct definition is `f(s) = 1 − Σ_{n EVEN}
+fₙ(s)` (gate-verified: series = the DDE closed forms to 1e-8 iff
+even). C1a/C1c MUST define f with the even-n sum.**
 
 ## The general-BV freeze discipline (P4 keystone)
 
@@ -98,19 +147,19 @@ an adaptation, not a copy).
 
 | id | content | class |
 |---|---|---|
-| C0 | the margin budget ledger: the sensitivity table with per-site slack allocations (seven o(1) sites), frozen numerically | B (Fable+numeric) |
+| C0 ✅ | the margin budget ledger — FROZEN above (gate-corrected: ε_sieve = 1/10000, seven sites, 57.1% spent / 42.9% reserve) | B (done at the gate) |
 | C1a | BJS `fₙ`/Rosser-chain defs + the elementary recursion + monotonicity | B/C |
 | C1b | the `h(s)`/tail machinery + the `c_n` certified tail (n ≈ 80–100 at 2-decimal precision, rational interval ops — the T1 CertEval axis; prototype margins show 60–90% headroom so coarse certification suffices) | C (compute-heavy) |
 | C1c | **BJS Theorem 6** — the two-sided linear sieve at the frozen windows | C+ (keystone 1) |
-| C1d | hypothesis (4) discharge via PM1/PM2 (the log-bridge) | B/C |
-| C2a | A₁ at the twin sequence: the BV input (39) from the SW-gated chain + C1c lower side | C |
+| C1d | hypothesis (4) discharge — RE-SPECCED (catch #22): `ℚ = {p < w₀}`, `w₀ := exp(19/(share·log(1+ε_sieve)))`-shape (≈ e^{3.8·10⁵} at 1/10000, half-share) OR port BJS Lemma 18 verbatim (u₀ = 10⁹, their ε = 1.452·10⁻⁷ — then re-freeze ε_sieve to match, Fable decision at dispatch); product-form explicit Mertens on `u ∈ [w₀, z)` (a real C node); NEW pointwise helper `−log(1−1/(p−1)) ≤ 1/p + 4/p²` (p ≥ 3) wanted; do NOT consume `neg_log_one_sub_nu_le` (2/p, BoundingSieve-typed); export `Q = ∏_{p<w₀}p` as the level constant | C |
+| C2a | A₁ at the twin sequence: the BV input (39) from the SW-gated chain + C1c lower side. Glue (gate): the even-d trivial branch (`g(2) = 0`, `r_d ≪ log²x` for 2∣d); the ψ_{χ₀}↔ψ main-term conversion (A-class); the two-endpoint window subtraction; level **QD** threaded. The Λ-form is native — NO ψ→π here (the PsiToPi-style tag belongs to C3b) | C |
 | C2b | A₂: the per-prime-level upper applications + the `∫dt/(t(4−t))` grid (PM1 serves the q-sum) | C |
 | C3a | **general BV, weak form** (fixed scale/residue, L¹, SW-hypothesis-named) — Vaughan + large sieve + dispersion pipeline reuse | C+ (keystone 2) |
 | C3b | β-SW: the interval prime-indicator derivation from the gate | C |
 | C3c | the fine-partition bookkeeping (λ = 1+log^{−20}x blocks, diagonal absorption, explicit-K budgets per the DispersionClose precedent) | C |
 | C3d | the PNT double-integral count of `Σa_n` | C |
 | C4a | the `c̄ < 0.363084` integral certificate (elementary, interval-arithmetic-friendly) | B (numeric) |
-| C4b | prime-power strip + the `x^{2/3}` threshold trivia | A/B |
+| C4b | prime-power strip (½Σ1_{p²∣n+2} WITH the coprimality restriction) + the `x^{2/3}` validity threshold of the weights + the Lemma-37 `2N^{7/8}+N^{1/3}` losses | A/B |
 | C5 | assembly → **`chen_of_siegelWalfisz`** | C |
 
 PB-floors: C1c alone is a standalone mathlib-first artifact (the first
@@ -120,12 +169,16 @@ stalls, the floor is `p + 2 = P₄`-shape at the same architecture with
 slack margins (state honestly, flag). The optimality/parity section of
 BJS stays OUT (not needed).
 
-## Pre-dispatch gates
-1. ⏳ page-image transcription of BJS Thm 6 + the C_i/h tables + Lemmas
-   32/37/52 (+ the Nathanson reconciliation) — in flight.
-2. The C0 ledger freeze (needs 1).
-3. The adversarial gate workflow on this blueprint (ultracode; multiple
-   lenses: statement fidelity vs the sources, the budget arithmetic,
-   the V2.LS-bil-trap check on C3a's freeze, interface fit against
-   Salt/BV + PM1/PM2 + the sieve carriers).
-Only then wave 1 (C0/C1a/C1b/C4a in parallel).
+## Pre-dispatch gates — ALL CLEARED 2026-07-12
+1. ✅ page-image transcription (dossier in the session scratchpad;
+   recon confirmed at pixel level).
+2. ✅ C0 ledger — frozen above (gate-corrected).
+3. ✅ the adversarial gate workflow (4 lenses: 2 BLOCK + 2
+   PASS_WITH_CORRECTIONS → catches #21–#24 folded into this
+   revision). The c̄ certificate verified 3-way independently
+   (tanh-sinh / Simpson / closed dilog form — the dilog route is
+   C4a's recommended exact-arithmetic path: `c̄ = [log2·logβ −
+   Li₂(3β/2)] + [log3·logu + (logu)²/2 + Li₂(1/(3u))]` at the
+   endpoints).
+Wave 1 = C1a + C1b + C4a (C0 done; the corrected even-n f-definition
+and the ε_sieve = 1/10000 certification targets are BINDING).

@@ -2927,3 +2927,27 @@ zeros 1/126848; real zeros = at most one, simple, beyond
 1 − (1/5000)/log(4q)) + Landau per-modulus. Remaining to the gate:
 S4 (Siegel/Goldfeld + Page cross-modulus), S5 (contour shift +
 residues-lite), S6 (fold + de-smooth).
+
+## 2026-07-12 Chen gate: catches #21–#24 — the adversarial gate's largest single harvest
+
+Four lenses on the chen.md freeze (2 BLOCK, 2 PASS_WITH_CORRECTIONS):
+**#21** the dossier's draft ε = 1/200 blows the sieve-slack ledger
+21×M (A₂ alone 14×M) — re-frozen ε_sieve = 1/10000 (C₁ = 106,
+C₂ = 108; 57.1% of M spent, 42.9% reserve), decoupled from the level
+ε'. **#22** BJS hypothesis (4) is FALSE for the twin g with ℚ = ∅
+(u = 3: violated 1.47×; the 1/Π₂ excess is structural) — BJS verify
+it only for u ≥ u₀ = 10⁹ with ℚ = {p < u₀} and the constant
+Q = ∏_{p<u₀}p paid into the d < QD remainder level; C1d re-specced
+(the "PM1 serves (4) nearly verbatim" claim was WRONG — PM1 serves
+only C2b); found INDEPENDENTLY by two lenses. **#23** the blueprint
+mixed Tao's switch tuning (sift P(√x), s = 1+ε) with BJS's d ∣ P(y)
+remainder freeze — irreconcilable, and the mixed margin is NEGATIVE
+(−0.0696); fixed to BJS's ½S(B,P(y)) at s → 3/2⁻ where
+F(3/2)e^{−γ}(3/4) = 1 exactly. **#24 — an erratum in BJS v6 ITSELF**:
+printed (14) sums over n odd, forcing F + f ≡ 2 against their own
+(8); the numeric lens proved f = 1 − Σ_{n EVEN} fₙ (series = closed
+forms to 1e-8 iff even). Not in BJS's errata; formalizing the print
+would have frozen a wrong f at the keystone. c̄ verified 3-way to
+12 digits. Tally: 24 design errors caught, 0 proofs on wrong
+statements — #21/#23 were MY compression errors, #22 my interface
+overclaim, #24 the SOURCE's own misprint.
