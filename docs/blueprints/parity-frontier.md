@@ -48,8 +48,8 @@ writeup.*
 
 | rung | statement | needs | est. | verdict |
 |---|---|---|---|---|
-| P0 | both-sided fundamental lemma, Tier A | Brun M-series reuse | ~20–35 nodes | the reusable keystone; unlocks P1 |
-| P1 | **elementary twin-almost-prime `n(n+2) = P_K`** (K ≈ 7–9, Brun's classical) | P0 only — dimension-2 sieve, ELEMENTARY error terms (no BV); congCount/Mertens/Rankin landed | ~20–30 nodes on top of P0 | **the cheapest honest possibility rung** — recommended next on this side |
+| P0 | both-sided fundamental lemma, Tier A — ⚠️ DESIGN-CORRECTED (P0 recon 2026-07-12): must be the BLOCK-truncated Brun pair (H-R 1971 Thm 2; Rademacher–Tartakovskij lineage) — fixed-depth Bonferroni provably CANNOT serve P1 (tail swamps V(z) at κ=2; K degenerates to loglog). Reuse corrected: M2/CongruenceCounting/Sieve.lean verbatim + Maynard's Mertens (the sleeper find), but M1/M3's Selberg-Λ² core transfers NOTHING — the χ± combinatorial heart is greenfield; mathlib's missing `IsLowerMoebius` is the cheapest structural node. Constants MUST be transcribed from the numdam PDF pre-freeze. | ~15–18 nodes (recon-refined) | the reusable keystone; unlocks P1 |
+| P1 | **elementary twin-almost-prime `Ω(n(n+2)) ≤ K`** (pair-form; tuned classical {7,7} ⇒ K=14; accept ≤ 30 as floor — stated in Ω, multiplicity) | P0 only — dimension-2, elementary error (`Στ(d) ≤ D(1+logD)`), Mertens discharges the block-density hyp | ~8–10 nodes on top of P0 (recon-refined) | **the cheapest honest possibility rung** |
 | P2 | sharp Rosser–Iwaniec linear sieve (Tier B) | greenfield C-track | ~40–70 nodes | the enabling investment for P3/P4 |
 | P3 | `p` prime, `p+2 = P₃`, modulo SW | P2 + the EXISTING gate (no switching needed at P₃) | ~15–25 on top of P2 | first one-sided prime-almost-prime |
 | P4 | **CHEN modulo SW** (`p+2 = P₂`) | P2 + the switching principle (~40–60 nodes, C-keystone; bilinear sums structurally adjacent to our Vaughan Type-II) + the 0.203-margin assembly | ~2–3 Maynard-scale cumulative | the capstone; roadmap Rung 7 confirmed feasible-in-principle with our analytics |

@@ -2642,3 +2642,21 @@ MellinInversion CONFIRMED for the Riesz kernel (MellinConvergent +
 VerticalIntegrable (1/|t|² decay) + ContinuousAt all check for (1−·)₊).
 Running tally: 14 design errors caught at gates across 5 rungs, 0 at
 execution.
+
+## 2026-07-12 P0 recon: design error #15 averted (Bonferroni cannot serve P1)
+
+The parity memo's P0 row implicitly permitted fixed-depth Bonferroni; the
+recon's arithmetic kills it (the (2loglog z)^{2m}/(2m)! tail swamps
+V(z) ≍ (log z)⁻² at every fixed depth ⇒ no fixed K — the consumer breaks
+silently). Freeze = the block-truncated Brun pair (H-R Mém. SMF 25
+(1971) Thm 2, open-access numdam; {7,7} worked example pp. 99–100).
+Reuse audit corrections: M2/CongCount/Sieve.lean transfer verbatim,
+Maynard's Mertens.lean is the sleeper (kills the analytic input the
+Brun track had to engineer around); M1/M3 Selberg-Λ² core transfers
+NOTHING — χ± is greenfield; mathlib lacks IsLowerMoebius (the mirror of
+its upper plumbing — cheapest structural node, mathlib-worthy).
+Estimates refined: P0 ~15–18 + P1 ~8–10 nodes. RISK: B2.3 (the pointwise
+block-Brun inequality). GUARD: transcribe Théorème 2's E(b)/c(b,λ)/
+hypothesis-shape from the primary PDF before freezing (the recon's
+envelope BEAT the source's proven window — a constant is off somewhere;
+trust only the PDF). Running tally: 15 design errors caught pre-execution.
