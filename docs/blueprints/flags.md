@@ -2836,3 +2836,20 @@ only additions were one plumbing helper (|μχ| ≤ χ) and the faithful
 lower-bound sieve. Ten dispatches, ten first-attempt landings, three
 executor-level catches (#17–#19). Remaining for the P1 headline:
 PM2 (in flight) + P1 instantiation at TwinSieve.
+
+## 2026-07-12 SW Z3c: hsup discharged — S2 CLUSTER CLOSED; S3 sub-node split
+
+Z3c FULL: single inlined 8/5-factorization regrouped (Z₈ = Z'⊔Zout;
+no two-factorization reconciliation needed — divisor locality via
+meromorphicOrderAt makes the counts agree), sphere identity
+‖reflectedFactor‖ = ‖z−ρ‖ exact, DiffContOnCl free from the larger
+ball, M₀ UNCHANGED. `LFunction_norm_logDeriv_sub_sum'` is the ungated
+endpoint S3 consumes. S2 = Jensen count + growth + factorization +
+partial fractions + B-C + max-modulus: CLOSED, all unconditional.
+**S3 split (Fable)**: S3a = the 3-4-1 positivity on Λ-series (2(1+cosθ)²,
+via S0's neg_logDeriv_LSeries_eq_LSeries_twist); S3b = the
+imprimitive→primitive logDeriv bridge (changeLevel Euler factors,
+≤ log q on σ ≥ 1); S3c = the ζ/χ₀ pole bound (−ζ'/ζ(σ) ≤ 1/(σ−1)+c on
+1<σ≤2, elementary integral comparisons; χ₀ reduces to ζ with a
+NEGATIVE correction); then S3d assembly (the region, exceptional case
+carved out) + S3e Landau–Page.
