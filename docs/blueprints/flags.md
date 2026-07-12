@@ -2333,3 +2333,17 @@ x·V^{-1/2} (pure x^{1/2}Q is FALSE free-Q) and the REQUIRED lower conductor
 cutoff f > (log x)^C; CS-bridge scoped to single-character pieces. Score:
 4/4 level-breakers caught at design time (3 statement-level, 1 mechanism-
 level), zero at execution. One verify lens stubbed (6th occurrence).
+
+## 2026-07-11 bv V2a freeze: FIFTH level-breaker (mass conflation) + the x^{1/10} fix
+
+Fable's freeze-gate arithmetic (confirmed by the focused check): the V2a
+card's budget `U·Q^{3/2}` used TypeI₁'s outer mass for BOTH pieces;
+TypeI₂'s support is `UV`, giving `x^{23/20}` at `U=V=x^{1/5}` — false.
+Rescue R2 adopted: `U = V = x^{1/10}` (the balanced optimum, 5θ/2 = 1/4;
+window θ ∈ (0,1/8), wall at 1/8) — documented V3.1 latitude, ZERO new
+nodes, PV architecture kept; TypeI₂ closes at `x^{19/20}` and V2b's
+boundary terms rise only to `x^{19/20}` (T_a/diagonal U,V-independent;
+independently re-derived). R1 (polylog V) rejected (breaks V2b ∀A); R3
+(uncollapsed) no gain; R4 (elementary Route A) works but strictly
+dominated (new sub-architecture, still needs LS-bil). Score: 5/5
+level-breakers at design/freeze time, 0 at execution.
