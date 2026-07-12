@@ -130,6 +130,37 @@ chord/geometric/harmonic/`dist₁`-kernel lemmas land PUBLIC by default
 Retroactive de-privating of `PolyaVinogradov.lean`'s six kernel lemmas +
 dropping the two replica blocks = a queued close-out sweep item.
 
+## The schema criterion (user doctrine, 2026-07-11)
+
+**When a pattern of reasoning becomes visible in a domain and CANNOT be
+captured in a lemma — because the recurring object is a proof SHAPE with
+holes (a motive pattern), not a proposition — that is the signal to
+capture it as a tactic or tactic-group** ("perform induction with this
+hypothesis shape"; "handle the base shape of this class"; "handle the
+step like this"). Capture ladder, cheapest first:
+(a) **custom induction/elimination principle** — a higher-order LEMMA with
+a motive; `induction … using it` gives most of the tactic experience with
+zero metaprogramming; (b) **macro** bundling the eliminator + standard
+discharge moves; (c) **elab tactic** only when genuine syntactic goal
+analysis is required.
+
+### T9 — schema harvest candidates (evidence-ranked, post-BV)
+- **`dyadicRec` / dyadic-assembly** (4+ occurrences: `interval_decomp`
+  strict-length induction, BDH conductor fibering, TypeII d-blocks,
+  V2b-close's geometric sums): "split dyadically; per-block obligation;
+  geometric close dominated at top/bottom." Start at ladder rung (a) —
+  an eliminator parameterized by the block motive + domination direction.
+  Merges with T6's library harvest.
+- **`regime_split`** (the `√(a+b) ≤ √a+√b` four-regime budget expansion —
+  AnalyticLS, BDH, V2b): rung (b) macro over the split + per-regime goals.
+- **`guard_collapse`** (vanishing-factor filter elimination — typeIIData/V,
+  MulChar off-units, lamPhiContractM off-box; three tracks): rung (a)/(b).
+- **constants-first linter** (the ∃-opacity discipline as a CHECK: flag
+  proofs introducing the modulus before obtaining ∃-constants): rung (c),
+  speculative — pairs with T8.
+Harvest AFTER the BV rung closes (V2b-close + V3.1 will add instances to
+generalize from; premature abstraction remains the risk).
+
 ## Period-planning hooks
 
 - **Blueprint checklist line:** "Which ledger tactics would shorten this
