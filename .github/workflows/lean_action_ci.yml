@@ -18,4 +18,11 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: leanprover/lean-action@v1
+      # Blueprint lint: docs↔code consistency + repo-wide axiom audit (CLAUDE.md
+      # iron rule 3). Runs AFTER lean-action so the oleans it built are on disk:
+      # the lint's phase-1/phase-3 `lake env lean` invocations elaborate a tiny
+      # `import Salt` scratch against those cached oleans (no full rebuild), and
+      # elan/lake are already on PATH from lean-action.
+      - name: Blueprint lint (docs↔code + axiom audit)
+        run: python3 scripts/blueprint_lint.py
       - uses: leanprover-community/docgen-action@v1

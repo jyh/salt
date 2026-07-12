@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.LS.Defs
 import Salt.LS.Dist
 import Salt.LS.TypeSums
+import Salt.BV.PolyaVinogradov
 
 /-!
 # V2.Perron — the cutoff-completion kernel (Route S)
@@ -33,199 +34,17 @@ The bilinear factorization corollary (`bilinear_factorization`) feeds the L2
 consumer of `V2.LS-bil`: it splits a sharp-cutoff bilinear form
 `∑_{m,n : mn ≤ Y} a_m b_n χ(mn)` into `H` clean product twists.
 
-The private lemmas `chordP`/`geom_e_boundP`/`dist_lbP`/`dist_posP`/`term_leP`/
-`sum_H_leP` are **replicas** of the (private) PV kernel lemmas of the same names
-in `Salt/BV/PolyaVinogradov.lean`; they are re-proved locally (the `P`-suffix
-idiom) rather than de-privated, per the house rule against editing merged files.
-De-privating those six in PolyaVinogradov.lean would let this file drop ~130
-lines of replication — worth doing when that file is next touched.
+The analytic-kernel lemmas (`chord`, `geom_e_bound`, `dist_lb`, `dist_pos`,
+`term_le`, `sum_H_le`) are the **public** kernel of
+`Salt/BV/PolyaVinogradov.lean`, reused directly here: the close-out
+de-privating sweep dropped the former `P`-suffix replica block, per the
+kernel-visibility doctrine (`docs/blueprints/tactics.md`).
 -/
 
 namespace Salt.BV
 
 open scoped BigOperators
 open Salt.LS
-
-/-! ### Replicas of the PV kernel lemmas (see module docstring) -/
-
-/-- **Chord bound** (replica of PV `chord`). `‖e θ − 1‖ = 2|sin(πθ)| ≥
-4·dist₁(θ, 0)`, uniformly in `θ`. -/
-private lemma chordP (θ : ℝ) : 4 * dist₁ θ 0 ≤ ‖e θ - 1‖ := by
-  have hdd : dist₁ θ 0 = |θ - (round θ : ℝ)| := by
-    unfold dist₁; simp only [sub_zero]
-  have hnorm : ‖e θ - 1‖ = 2 * |Real.sin (Real.pi * θ)| := by
-    have he : e θ = Complex.exp (Complex.I * ((2 * Real.pi * θ : ℝ) : ℂ)) := by
-      unfold e; congr 1; push_cast; ring
-    rw [he, Complex.norm_exp_I_mul_ofReal_sub_one,
-        show (2 * Real.pi * θ) / 2 = Real.pi * θ from by ring,
-        Real.norm_eq_abs, abs_mul, abs_two]
-  have hsin_eq :
-      |Real.sin (Real.pi * (θ - (round θ : ℝ)))| = |Real.sin (Real.pi * θ)| := by
-    rw [show Real.pi * (θ - (round θ : ℝ)) = Real.pi * θ - (round θ : ℝ) * Real.pi from by ring,
-        Real.sin_sub_int_mul_pi, abs_mul, abs_zpow]
-    simp
-  have hsin : 2 * dist₁ θ 0 ≤ |Real.sin (Real.pi * θ)| := by
-    rw [hdd, ← hsin_eq]
-    have hle : |Real.pi * (θ - (round θ : ℝ))| ≤ Real.pi / 2 := by
-      rw [abs_mul, abs_of_pos Real.pi_pos]
-      have hh : |θ - (round θ : ℝ)| ≤ 1 / 2 := by rw [← hdd]; exact dist₁_le_half θ 0
-      nlinarith [Real.pi_pos, hh]
-    have hj := Real.mul_abs_le_abs_sin hle
-    have hcompute :
-        2 / Real.pi * |Real.pi * (θ - (round θ : ℝ))| = 2 * |θ - (round θ : ℝ)| := by
-      have hpi : Real.pi ≠ 0 := Real.pi_ne_zero
-      rw [abs_mul, abs_of_pos Real.pi_pos]
-      field_simp
-    rw [hcompute] at hj
-    exact hj
-  rw [hnorm]; linarith [hsin]
-
-/-- **Geometric bound** (replica of PV `geom_e_bound`). For `dist₁ θ 0 > 0`,
-`‖∑_{m<t} (e θ)^m‖ ≤ 1/(2·dist₁(θ, 0))`, uniformly in `t`. -/
-private lemma geom_e_boundP (θ : ℝ) (t : ℕ) (hd : 0 < dist₁ θ 0) :
-    ‖∑ m ∈ Finset.range t, (e θ) ^ m‖ ≤ 1 / (2 * dist₁ θ 0) := by
-  have hchord : 4 * dist₁ θ 0 ≤ ‖e θ - 1‖ := chordP θ
-  have hpos : 0 < ‖e θ - 1‖ := lt_of_lt_of_le (by linarith) hchord
-  have hzne : e θ ≠ 1 := by
-    intro h; rw [h, sub_self, norm_zero] at hpos; exact lt_irrefl 0 hpos
-  have hnum : ‖(e θ) ^ t - 1‖ ≤ 2 := by
-    calc ‖(e θ) ^ t - 1‖ ≤ ‖(e θ) ^ t‖ + ‖(1 : ℂ)‖ := norm_sub_le _ _
-      _ = 2 := by rw [norm_pow, norm_e, one_pow, norm_one]; norm_num
-  have hdpos2 : (0 : ℝ) < 2 * dist₁ θ 0 := by linarith
-  rw [geom_sum_eq hzne t, norm_div, div_le_iff₀ hpos]
-  calc ‖(e θ) ^ t - 1‖ ≤ 2 := hnum
-    _ = 1 / (2 * dist₁ θ 0) * (4 * dist₁ θ 0) := by
-        rw [eq_comm, div_mul_eq_mul_div, one_mul, div_eq_iff hdpos2.ne']; ring
-    _ ≤ 1 / (2 * dist₁ θ 0) * ‖e θ - 1‖ := by
-        apply mul_le_mul_of_nonneg_left hchord
-        exact le_of_lt (one_div_pos.mpr hdpos2)
-
-/-- **Denominator-sharp lower bound** (replica of PV `dist_lb`). For `0 < k < f`,
-`dist₁(k/f, 0) ≥ k(f−k)/f²`. -/
-private lemma dist_lbP (f k : ℕ) (hk : 0 < k) (hkf : k < f) :
-    (k : ℝ) * ((f : ℝ) - k) / (f : ℝ) ^ 2 ≤ dist₁ ((k : ℝ) / (f : ℝ)) 0 := by
-  have hkR : (0 : ℝ) < k := by exact_mod_cast hk
-  have hkfR : (k : ℝ) < f := by exact_mod_cast hkf
-  have hf0 : (0 : ℝ) < f := by linarith
-  have hfne : (f : ℝ) ≠ 0 := hf0.ne'
-  have hkfpos : (0 : ℝ) < (k : ℝ) / (f : ℝ) := div_pos hkR hf0
-  have key : ∀ n : ℤ,
-      (k : ℝ) * ((f : ℝ) - k) / (f : ℝ) ^ 2 ≤ |(k : ℝ) / (f : ℝ) - (n : ℝ)| := by
-    intro n
-    have h1 : (k : ℝ) * ((f : ℝ) - k) / (f : ℝ) ^ 2 ≤ (k : ℝ) / (f : ℝ) := by
-      rw [div_le_div_iff₀ (pow_pos hf0 2) hf0]
-      nlinarith [mul_nonneg (sq_nonneg (k : ℝ)) hf0.le]
-    have h2 : (k : ℝ) * ((f : ℝ) - k) / (f : ℝ) ^ 2 ≤ ((f : ℝ) - k) / (f : ℝ) := by
-      rw [div_le_div_iff₀ (pow_pos hf0 2) hf0]
-      nlinarith [mul_nonneg (sq_nonneg ((f : ℝ) - k)) hf0.le]
-    rcases le_or_gt (n : ℝ) 0 with hn | hn
-    · rw [abs_of_nonneg (by linarith)]
-      linarith
-    · have hnZ : (0 : ℤ) < n := by exact_mod_cast hn
-      have hn1 : (1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hnZ
-      have hkf1 : (k : ℝ) / (f : ℝ) < 1 := by rw [div_lt_one hf0]; exact hkfR
-      rw [abs_of_nonpos (by linarith)]
-      have hfk_eq : ((f : ℝ) - k) / (f : ℝ) = 1 - (k : ℝ) / (f : ℝ) := by field_simp
-      linarith
-  have hdd : dist₁ ((k : ℝ) / (f : ℝ)) 0
-      = |(k : ℝ) / (f : ℝ) - (round ((k : ℝ) / (f : ℝ)) : ℝ)| := by
-    unfold dist₁; simp only [sub_zero]
-  rw [hdd]
-  exact key (round ((k : ℝ) / (f : ℝ)))
-
-/-- `dist₁(k/f, 0) > 0` for `0 < k < f` (replica of PV `dist_pos`). -/
-private lemma dist_posP (f k : ℕ) (hk : 0 < k) (hkf : k < f) :
-    0 < dist₁ ((k : ℝ) / (f : ℝ)) 0 := by
-  have hkR : (0 : ℝ) < k := by exact_mod_cast hk
-  have hkfR : (k : ℝ) < f := by exact_mod_cast hkf
-  have hfkR : (0 : ℝ) < (f : ℝ) - k := by linarith
-  have hf0 : (0 : ℝ) < f := by linarith
-  have hBpos : (0 : ℝ) < (k : ℝ) * ((f : ℝ) - k) / (f : ℝ) ^ 2 :=
-    div_pos (mul_pos hkR hfkR) (pow_pos hf0 2)
-  exact lt_of_lt_of_le hBpos (dist_lbP f k hk hkf)
-
-/-- **Per-term harmonic bound** (replica of PV `term_le`).
-`1/(2·dist₁(k/f,0)) ≤ (f/2)·(1/k + 1/(f−k))`. -/
-private lemma term_leP (f k : ℕ) (hk : 0 < k) (hkf : k < f) :
-    1 / (2 * dist₁ ((k : ℝ) / (f : ℝ)) 0)
-      ≤ ((f : ℝ) / 2) * (1 / (k : ℝ) + 1 / ((f : ℝ) - k)) := by
-  have hkR : (0 : ℝ) < k := by exact_mod_cast hk
-  have hkfR : (k : ℝ) < f := by exact_mod_cast hkf
-  have hfkR : (0 : ℝ) < (f : ℝ) - k := by linarith
-  have hf0 : (0 : ℝ) < f := by linarith
-  have hlb := dist_lbP f k hk hkf
-  have hBpos : (0 : ℝ) < (k : ℝ) * ((f : ℝ) - k) / (f : ℝ) ^ 2 :=
-    div_pos (mul_pos hkR hfkR) (pow_pos hf0 2)
-  have step1 : 1 / (2 * dist₁ ((k : ℝ) / (f : ℝ)) 0)
-      ≤ 1 / (2 * ((k : ℝ) * ((f : ℝ) - k) / (f : ℝ) ^ 2)) := by
-    apply one_div_le_one_div_of_le
-    · linarith
-    · linarith
-  have step2 : 1 / (2 * ((k : ℝ) * ((f : ℝ) - k) / (f : ℝ) ^ 2))
-      = ((f : ℝ) / 2) * (1 / (k : ℝ) + 1 / ((f : ℝ) - k)) := by
-    rw [eq_comm]
-    field_simp
-    ring
-  rw [step2] at step1
-  exact step1
-
-/-- **The harmonic sum** (replica of PV `sum_H_le`).
-`∑_{k<f, k≠0} 1/(2·dist₁(k/f,0)) ≤ f·(1 + log f)`. -/
-private lemma sum_H_leP (f : ℕ) (hf : 2 ≤ f) :
-    ∑ k ∈ Finset.range f,
-        (if k = 0 then (0 : ℝ) else 1 / (2 * dist₁ ((k : ℝ) / (f : ℝ)) 0))
-      ≤ (f : ℝ) * (1 + Real.log f) := by
-  have hEq : ((harmonic (f - 1) : ℚ) : ℝ) = ∑ k ∈ Finset.Icc 1 (f - 1), (1 : ℝ) / k := by
-    rw [harmonic_eq_sum_Icc]; push_cast
-    apply Finset.sum_congr rfl; intro k _; rw [one_div]
-  have hA : ∑ k ∈ Finset.Ico 1 f, (1 : ℝ) / k ≤ 1 + Real.log f := by
-    have hIco : Finset.Ico 1 f = Finset.Icc 1 (f - 1) := by
-      ext k; simp only [Finset.mem_Ico, Finset.mem_Icc]; omega
-    rw [hIco, ← hEq]
-    calc ((harmonic (f - 1) : ℚ) : ℝ) ≤ 1 + Real.log ((f - 1 : ℕ) : ℝ) :=
-          harmonic_le_one_add_log (f - 1)
-      _ ≤ 1 + Real.log f := by
-          have h01 : (0 : ℝ) < ((f - 1 : ℕ) : ℝ) := by
-            have : 0 < f - 1 := by omega
-            exact_mod_cast this
-          have hle : ((f - 1 : ℕ) : ℝ) ≤ (f : ℝ) := by exact_mod_cast Nat.sub_le f 1
-          have := Real.log_le_log h01 hle
-          linarith
-  have hBA : ∑ k ∈ Finset.Ico 1 f, (1 : ℝ) / ((f : ℝ) - k)
-      = ∑ k ∈ Finset.Ico 1 f, (1 : ℝ) / k := by
-    apply Finset.sum_nbij' (fun k => f - k) (fun k => f - k)
-    · intro k hk; rw [Finset.mem_Ico] at hk ⊢; omega
-    · intro k hk; rw [Finset.mem_Ico] at hk ⊢; omega
-    · intro k hk; rw [Finset.mem_Ico] at hk; omega
-    · intro k hk; rw [Finset.mem_Ico] at hk; omega
-    · intro k hk; rw [Finset.mem_Ico] at hk; rw [Nat.cast_sub hk.2.le]
-  have hB : ∑ k ∈ Finset.Ico 1 f, (1 : ℝ) / ((f : ℝ) - k) ≤ 1 + Real.log f := by
-    rw [hBA]; exact hA
-  have hconv : ∀ k : ℕ,
-      (if k = 0 then (0 : ℝ) else 1 / (2 * dist₁ ((k : ℝ) / (f : ℝ)) 0))
-        = (if k ≠ 0 then 1 / (2 * dist₁ ((k : ℝ) / (f : ℝ)) 0) else 0) := by
-    intro k; by_cases h : k = 0 <;> simp [h]
-  have hrange :
-      ∑ k ∈ Finset.range f,
-          (if k = 0 then (0 : ℝ) else 1 / (2 * dist₁ ((k : ℝ) / (f : ℝ)) 0))
-        = ∑ k ∈ Finset.Ico 1 f, 1 / (2 * dist₁ ((k : ℝ) / (f : ℝ)) 0) := by
-    rw [Finset.sum_congr rfl (fun k _ => hconv k), ← Finset.sum_filter]
-    congr 1
-    ext k; simp only [Finset.mem_filter, Finset.mem_range, Finset.mem_Ico]; omega
-  rw [hrange]
-  calc ∑ k ∈ Finset.Ico 1 f, 1 / (2 * dist₁ ((k : ℝ) / (f : ℝ)) 0)
-      ≤ ∑ k ∈ Finset.Ico 1 f, ((f : ℝ) / 2) * (1 / (k : ℝ) + 1 / ((f : ℝ) - k)) := by
-        apply Finset.sum_le_sum; intro k hk
-        rw [Finset.mem_Ico] at hk
-        exact term_leP f k hk.1 hk.2
-    _ = ((f : ℝ) / 2)
-        * ((∑ k ∈ Finset.Ico 1 f, (1 : ℝ) / k)
-            + (∑ k ∈ Finset.Ico 1 f, (1 : ℝ) / ((f : ℝ) - k))) := by
-        rw [← Finset.mul_sum, Finset.sum_add_distrib]
-    _ ≤ ((f : ℝ) / 2) * (2 * (1 + Real.log f)) := by
-        apply mul_le_mul_of_nonneg_left _ (by positivity)
-        linarith [hA, hB]
-    _ = (f : ℝ) * (1 + Real.log f) := by ring
 
 /-! ### `e`-arithmetic helpers -/
 
@@ -275,7 +94,7 @@ theorem sum_e_eq (H : ℕ) (hH : 0 < H) (r : ℤ) :
       intro hζ
       apply hd
       have hd0 : dist₁ ((r : ℝ) / (H : ℝ)) 0 = 0 := by
-        have hc := chordP ((r : ℝ) / (H : ℝ))
+        have hc := chord ((r : ℝ) / (H : ℝ))
         rw [hζ, sub_self, norm_zero] at hc
         have := dist₁_nonneg ((r : ℝ) / (H : ℝ)) 0
         linarith
@@ -368,7 +187,7 @@ theorem fourierCutoff_indicator (H Z n : ℕ) (hH : 0 < H) (hn1 : 1 ≤ n) (hnH 
 
 /-- **P4 (per-coefficient bound).** For `1 ≤ h < H`, the cutoff coefficient obeys
 `‖ĉ_h(Z)‖ ≤ (1/H)·(2·dist₁(h/H, 0))⁻¹`, **uniformly in `Z`** — the geometric bound
-`geom_e_boundP` re-applied after factoring off the length-`Z` prefix. -/
+`geom_e_bound` re-applied after factoring off the length-`Z` prefix. -/
 theorem norm_fourierCutoff_le (H Z h : ℕ) (hh1 : 1 ≤ h) (hhH : h < H) :
     ‖fourierCutoff H Z h‖ ≤ (1 / (H : ℝ)) * (1 / (2 * dist₁ ((h : ℝ) / (H : ℝ)) 0)) := by
   unfold fourierCutoff
@@ -393,8 +212,8 @@ theorem norm_fourierCutoff_le (H Z h : ℕ) (hh1 : 1 ≤ h) (hhH : h < H) :
       rw [pow_add, pow_one]
     rw [hfactor, norm_mul, norm_e, one_mul]
     have hdθ : 0 < dist₁ (-((h : ℝ) / (H : ℝ))) 0 := by
-      rw [dist₁_neg_zero]; exact dist_posP H h hh1 hhH
-    have hb := geom_e_boundP (-((h : ℝ) / (H : ℝ))) Z hdθ
+      rw [dist₁_neg_zero]; exact dist_pos H h hh1 hhH
+    have hb := geom_e_bound (-((h : ℝ) / (H : ℝ))) Z hdθ
     rwa [dist₁_neg_zero] at hb
   exact mul_le_mul_of_nonneg_left hsum (by positivity)
 
@@ -414,7 +233,7 @@ private lemma norm_fourierCutoff_zero_le (H Z : ℕ) (hH : 0 < H) (hZH : Z ≤ H
 
 /-- **P3 (the L¹ mass).** `∑_{h<H} ‖ĉ_h(Z)‖ ≤ 2 + log H`, **uniformly in `Z`**:
 the `h = 0` term is `≤ 1`, and the `h ≠ 0` terms sum (via P4 and the harmonic
-`sum_H_leP`) to `≤ 1 + log H`. -/
+`sum_H_le`) to `≤ 1 + log H`. -/
 theorem sum_norm_fourierCutoff_le (H Z : ℕ) (hH : 0 < H) (hZH : Z ≤ H) :
     ∑ h ∈ Finset.range H, ‖fourierCutoff H Z h‖ ≤ 2 + Real.log H := by
   rcases lt_or_ge H 2 with hH1 | hH2
@@ -453,7 +272,7 @@ theorem sum_norm_fourierCutoff_le (H Z : ℕ) (hH : 0 < H) (hZH : Z ≤ H) :
             simp [hH]
           rw [hone]
       _ ≤ 1 + (1 / (H : ℝ)) * ((H : ℝ) * (1 + Real.log H)) := by
-          have hstep := mul_le_mul_of_nonneg_left (sum_H_leP H hH2)
+          have hstep := mul_le_mul_of_nonneg_left (sum_H_le H hH2)
             (by positivity : (0 : ℝ) ≤ 1 / (H : ℝ))
           linarith [hstep]
       _ = 2 + Real.log H := by

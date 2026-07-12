@@ -30,6 +30,18 @@ Bombieri–Vinogradov modulo the single named `SiegelWalfisz` gate. Design:
 `docs/blueprints/bv.md`. Extended as modules land; wired into `Salt.lean`
 from the first commit so the bare `lake build` covers the track.
 
+**Headline (`bounded_gaps_of_siegelWalfisz`).** Bounded prime gaps —
+`∃ C, ∀ N, ∃ p q, N < p ∧ N < q ∧ p ≠ q ∧ p.Prime ∧ q.Prime ∧ |q − p| ≤ C` —
+unconditional modulo the single named classical gate `SiegelWalfisz`, zero
+axioms, zero sorries; the first load-bearing Bombieri–Vinogradov chain in a
+proof assistant. The chain: `psi_BV_of_siegelWalfisz'` (ψ-form BV) →
+`psiToPiTransfer_holds` (the Abel ψ→π bridge) →
+`hasLevel_half_of_siegelWalfisz : HasLevel (1/2)` → the landed Rung-4b consumer
+`Salt.Maynard.bounded_gaps_from_level`. Firsts en route: Pólya–Vinogradov
+(`polya_vinogradov`), the maximal and bilinear large sieves (`char_LS_max`,
+`bilinear_LS_shell`), and the exact finite-Fourier cutoff completion
+(`fourierCutoff_indicator`).
+
 Landed: `Defs` (V0.1 — the frozen carrier `SiegelWalfisz` + trivia:
 monotonicity in the saving exponent `A`, the `q = 1` instance recovering an
 unconditional bound on `psiTot`, and the `a`/`a % q` coprimality

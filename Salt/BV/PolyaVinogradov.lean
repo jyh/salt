@@ -42,7 +42,7 @@ open Salt.LS
 
 /-- **Chord bound.** `‖e θ − 1‖ = 2|sin(πθ)| ≥ 4·dist₁(θ, 0)`, uniformly in `θ`
 (Jordan's inequality after reducing `θ` mod `1`). -/
-private lemma chord (θ : ℝ) : 4 * dist₁ θ 0 ≤ ‖e θ - 1‖ := by
+lemma chord (θ : ℝ) : 4 * dist₁ θ 0 ≤ ‖e θ - 1‖ := by
   have hdd : dist₁ θ 0 = |θ - (round θ : ℝ)| := by
     unfold dist₁; simp only [sub_zero]
   have hnorm : ‖e θ - 1‖ = 2 * |Real.sin (Real.pi * θ)| := by
@@ -77,7 +77,7 @@ private lemma chord (θ : ℝ) : 4 * dist₁ θ 0 ≤ ‖e θ - 1‖ := by
 /-- **Geometric bound.** For `dist₁ θ 0 > 0` (so `e θ ≠ 1`), the geometric partial
 sum is bounded uniformly in the length `t`:
 `‖∑_{m<t} (e θ)^m‖ ≤ 1/(2·dist₁(θ, 0))`. -/
-private lemma geom_e_bound (θ : ℝ) (t : ℕ) (hd : 0 < dist₁ θ 0) :
+lemma geom_e_bound (θ : ℝ) (t : ℕ) (hd : 0 < dist₁ θ 0) :
     ‖∑ m ∈ Finset.range t, (e θ) ^ m‖ ≤ 1 / (2 * dist₁ θ 0) := by
   have hchord : 4 * dist₁ θ 0 ≤ ‖e θ - 1‖ := chord θ
   have hpos : 0 < ‖e θ - 1‖ := lt_of_lt_of_le (by linarith) hchord
@@ -101,7 +101,7 @@ private lemma geom_e_bound (θ : ℝ) (t : ℕ) (hd : 0 < dist₁ θ 0) :
 `dist₁(k/f, 0) ≥ k(f−k)/f²`. Proof: every integer `n` has
 `|k/f − n| ≥ k(f−k)/f²` (case split on `n ≤ 0` vs `n ≥ 1`); instantiate at
 `n = round(k/f)`. -/
-private lemma dist_lb (f k : ℕ) (hk : 0 < k) (hkf : k < f) :
+lemma dist_lb (f k : ℕ) (hk : 0 < k) (hkf : k < f) :
     (k : ℝ) * ((f : ℝ) - k) / (f : ℝ) ^ 2 ≤ dist₁ ((k : ℝ) / (f : ℝ)) 0 := by
   have hkR : (0 : ℝ) < k := by exact_mod_cast hk
   have hkfR : (k : ℝ) < f := by exact_mod_cast hkf
@@ -133,7 +133,7 @@ private lemma dist_lb (f k : ℕ) (hk : 0 < k) (hkf : k < f) :
   exact key (round ((k : ℝ) / (f : ℝ)))
 
 /-- `dist₁(k/f, 0) > 0` for `0 < k < f`. -/
-private lemma dist_pos (f k : ℕ) (hk : 0 < k) (hkf : k < f) :
+lemma dist_pos (f k : ℕ) (hk : 0 < k) (hkf : k < f) :
     0 < dist₁ ((k : ℝ) / (f : ℝ)) 0 := by
   have hkR : (0 : ℝ) < k := by exact_mod_cast hk
   have hkfR : (k : ℝ) < f := by exact_mod_cast hkf
@@ -144,7 +144,7 @@ private lemma dist_pos (f k : ℕ) (hk : 0 < k) (hkf : k < f) :
   exact lt_of_lt_of_le hBpos (dist_lb f k hk hkf)
 
 /-- **Per-term harmonic bound.** `1/(2·dist₁(k/f,0)) ≤ (f/2)·(1/k + 1/(f−k))`. -/
-private lemma term_le (f k : ℕ) (hk : 0 < k) (hkf : k < f) :
+lemma term_le (f k : ℕ) (hk : 0 < k) (hkf : k < f) :
     1 / (2 * dist₁ ((k : ℝ) / (f : ℝ)) 0)
       ≤ ((f : ℝ) / 2) * (1 / (k : ℝ) + 1 / ((f : ℝ) - k)) := by
   have hkR : (0 : ℝ) < k := by exact_mod_cast hk
@@ -168,7 +168,7 @@ private lemma term_le (f k : ℕ) (hk : 0 < k) (hkf : k < f) :
   exact step1
 
 /-- **The harmonic sum.** `∑_{k<f, k≠0} 1/(2·dist₁(k/f,0)) ≤ f·(1 + log f)`. -/
-private lemma sum_H_le (f : ℕ) (hf : 2 ≤ f) :
+lemma sum_H_le (f : ℕ) (hf : 2 ≤ f) :
     ∑ k ∈ Finset.range f,
         (if k = 0 then (0 : ℝ) else 1 / (2 * dist₁ ((k : ℝ) / (f : ℝ)) 0))
       ≤ (f : ℝ) * (1 + Real.log f) := by
