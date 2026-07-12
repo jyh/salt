@@ -12,6 +12,7 @@ import Salt.SW.PartialFractions
 import Salt.SW.BCBound
 import Salt.SW.MaxModulus
 import Salt.SW.EulerBridge
+import Salt.SW.ThreeFourOne
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -70,3 +71,5 @@ open Salt.Tactic in
   Salt.SW.LFunction_eq_primitive_mul Salt.SW.eulerCorr_ne_zero
   Salt.SW.logDeriv_LFunction_eq Salt.SW.LFunction_eq_zero_iff_primitive
   Salt.SW.norm_logDeriv_LFunction_sub_primitive_le
+  Salt.SW.three_four_one_termwise Salt.SW.three_four_one
+  Salt.SW.three_four_one_logDeriv
