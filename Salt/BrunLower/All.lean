@@ -13,6 +13,7 @@ import Salt.BrunLower.Remainder
 import Salt.BrunLower.MertensWindow
 import Salt.BrunLower.Lemma3
 import Salt.BrunLower.Pair
+import Salt.BrunLower.MertensDischarge
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -78,3 +79,6 @@ open Salt.Tactic in
   Salt.BrunLower.mainSum_le_blockForm' Salt.BrunLower.mainSum_ge_blockForm'
   Salt.BrunLower.errSum_le_remainder_prod
   Salt.BrunLower.brun_lower Salt.BrunLower.brun_upper
+  Salt.BrunLower.LamTwin_pos Salt.BrunLower.LamTwin_le_lam
+  Salt.BrunLower.LamTwin_le_one Salt.BrunLower.log_Wratio_le_ladder
+  Salt.BrunLower.hMert_twin Salt.BrunLower.hMert_twinSieve
