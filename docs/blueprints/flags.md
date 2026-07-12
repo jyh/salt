@@ -2316,3 +2316,20 @@ Dist; first-in-mathlib-world); tiny V2.SW-maxy added. Verified budget
 closes at B(A)=A+5 (Davenport) / 2A+8 (thin-block). Three of three
 level-breakers in this rung caught at design time, zero at execution time
 — the design-gate discipline is the story of this rung.
+
+## 2026-07-11 bv V2.LS-bil: FOURTH level-breaker (mechanism, not statement)
+
+The adversarial pass on the LS-bil draft: the STATEMENT survives (L¹-max
+form FORCED; free-Q parameterization correct) but the thin-block MECHANISM
+fails — CS-over-blocks pays √(#blocks) = √(M/Q²·logM), a POWER loss in the
+M>Q² regime (the draft's "#blocks hits the R-side only" claim was false:
+nested prefixes, not disjoint), and the boundary strip's δ-gain is
+unrecoverable under max_y (moving window = prefix difference at full
+b-energy). Honest route: outer dyadic-in-y + per-shell CUTOFF COMPLETION
+(new prerequisite node V2.Perron: truncated Perron vs elementary
+sawtooth/finite-Fourier — Fable picks after API recon) + clean product LS.
+Also corrected: V2b gains the genuine Vaughan-boundary terms x·U^{-1/2} +
+x·V^{-1/2} (pure x^{1/2}Q is FALSE free-Q) and the REQUIRED lower conductor
+cutoff f > (log x)^C; CS-bridge scoped to single-character pieces. Score:
+4/4 level-breakers caught at design time (3 statement-level, 1 mechanism-
+level), zero at execution. One verify lens stubbed (6th occurrence).
