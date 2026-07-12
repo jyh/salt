@@ -23,6 +23,7 @@ import Salt.SW.FourFold
 import Salt.SW.Siegel
 import Salt.SW.Estermann
 import Salt.SW.EstermannInterface
+import Salt.SW.SiegelFinal
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -109,3 +110,5 @@ open Salt.Tactic in
   Salt.SW.no_estermann_data_for_zero Salt.SW.zeta_nonpos
   Salt.SW.estermannInterface' Salt.SW.estermannInterface
   Salt.SW.estermannPositivity
+  Salt.SW.LFunction_one_re_le_mvt Salt.SW.fourfold_disk_bound
+  Salt.SW.siegel_L_one_exceptional Salt.SW.siegel_zero_free_exceptional

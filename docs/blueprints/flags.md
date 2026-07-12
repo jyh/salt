@@ -3241,3 +3241,80 @@ as landed.
 
 Tally: 26 design errors caught, 0 proofs on wrong statements.
 Executor-caught: #17–#19, #24 (source erratum), #25, #26.
+
+## 2026-07-12 SW S4b‴: Siegel exceptional-branch assembly — 3 of 4 deferred `hHard` pieces LANDED; ε-arithmetic FLOORED (Opus)
+
+`Salt/SW/SiegelFinal.lean` (new; `import Mathlib` + `Salt.SW.{Growth,EulerBridge,FourFold,Siegel,
+EstermannInterface,Page}`; namespace `Salt.SW`). NOT wired into `Salt/SW/All.lean` (task: new file
+only). Builds green, zero warnings, no sorry, axiom-clean `[propext, Classical.choice, Quot.sound]`
+on all seven theorems. Discharges the analytic pieces the `hHard` hypothesis of
+`siegel_zero_free_of_exceptional_case` folded away.
+
+**LANDED FULL (the assembly that composes end-to-end)**
+* `LFunction_one_re_le_mvt` — **the derivative mean-value step (deferred piece 4)**, the flagged
+  "L(1) ⇒ zero-free" conversion, at the achievable `q^{1/2}` exponent: for primitive `χ` mod `f≥2`
+  with a real zero `β ∈ [3/4,1)`, `(L(1,χ)).re ≤ (1−β)·27·√f·(1+log f)`. Route: FTC
+  `L(1)−L(β)=∫_β^1 L'` (`intervalIntegral.integral_eq_sub_of_hasDerivAt` + `HasDerivAt.comp_ofReal`),
+  `L(β)=0`, Cauchy `‖L'(σ)‖ ≤ 27√f(1+log f)` on `[3/4,1]`
+  (`Complex.norm_deriv_le_of_forall_mem_sphere_norm_le`, radius `1/4` disk in `Re∈[1/2,5/4]`,
+  `LFunction_growth`), `(L(1)).re ≤ ‖L(1)‖`.
+* `fourfold_disk_bound` — **the imprimitive disk growth `M` (deferred piece 2)**, exactly goldfeld's
+  `hMbnd` shape: `‖L(χ₁,z)·L(χ₂,z)·L(χ₁χ₂,z)‖ ≤ (diskConst N)^3` on `ball 2 (3/2)` for
+  `χ₁,χ₂,χ₁χ₂ ≠ 1` mod `N`, `diskConst N = 27/2·√N·(1+log N)·N`. Via `LFunction_eq_primitive_mul`
+  (EulerBridge), `LFunction_growth` on each primitive factor (`cond ≤ N`), and a crude
+  `‖eulerCorr‖ ≤ 2^{ω(N)} ≤ ∏_{p|N}p ≤ N` (helpers `norm_eulerFactor_ball_le`,
+  `norm_eulerCorr_ball_le`, `norm_LFunction_ball_le`).
+* `siegel_L_one_exceptional` — **the common-level wiring (deferred piece 1) + Goldfeld fired**: for
+  the fixed exceptional `χ₁` mod `q₁` (real zero `β₁∈[19/20,1)`) and a distinct target `χ` mod `q`
+  (both primitive real quadratic ≠1), the concrete Goldfeld bound
+  `(1−β₁)/4·(D³)^{−3(1−β₁)}/(D·D) ≤ (L(χ',1)).re` on the lift `χ' = changeLevel(q∣q₁q)χ`,
+  `D = diskConst(q₁q)`. Wiring: `changeLevel_quadratic`, `changeLevel_ne_one` (nontrivial via
+  `conductor_changeLevel`), `product_ne_one` (Page) for `χ₁'χ' ≠ 1`, `LFunction_changeLevel` for the
+  zero transfer `L(χ₁',β₁)=0`, and `estermannPositivity` (now unconditional) through
+  `goldfeld_L_one_lower`. This is the whole Estermann→Goldfeld→L(1) chain firing with REAL lifted
+  characters.
+* `siegel_zero_free_exceptional` — **end-to-end**: composes `siegel_L_one_exceptional` with the
+  imprimitive mean-value step (`LFunction_one_re_le_mvt_imprim`, mirror of the primitive MVT using
+  the imprimitive `norm_deriv_LFunction_imprim_le` on a radius-`1/8` disk, so it applies to `χ'`
+  directly with NO imprimitive→primitive L(1)-conversion) to a concrete zero-free bound
+  `β ≤ 1 − G/(8D)` on every real zero `β∈[7/8,1)` of the target `L(·,χ)` (`G` = the Goldfeld bound).
+  Proof-of-composition that the pipeline Estermann→Goldfeld→L(1)-lower→MVT→zero-free closes,
+  sorry-free.
+
+**FLOORED = the ε-arithmetic (deferred piece 3), i.e. THE ε-QUANTIFIED SIEGEL** — `siegel_theorem`
+(`β ≤ 1−C/q^ε`) and `siegel_L_one` (`L(1,χ) ≫_ε q^{−ε}`) are NOT delivered and are NOT achievable
+with the current mathlib + salt SW stack. Iron Rule 4 floor (budget 4, node's hardest). The
+obstruction is a fixed additive exponent loss that δ (the dichotomy window) cannot absorb, from TWO
+crude bounds, neither available at the needed `q^{o(1)}` strength:
+  (a) **the one-point bounds `B₁,B₂ ≪ 2^{ω(N)}`** fed to `goldfeld_L_one_lower` (here bounded crudely
+      by `diskConst N ≪ N`). The ε-form needs `2^{ω(N)} = N^{o(1)}` (equivalently `L(1,ψ) ≪ log N`);
+      mathlib has NO divisor bound `2^{ω(n)} ≤ n^ε` / `d(n) = n^{o(1)}` and NO `L(1,χ) ≪ log q`.
+  (b) **the mean-value step is `q^{1/2}`-lossy** because `LFunction_growth` is `≪ √q log q` uniformly
+      on the strip. The ε-form needs the SHARP near-the-line growth `L(s,χ) ≪ log q` on
+      `Re s ≥ 1−c/log q` (truncated-Dirichlet-series bound `Σ_{n≤q}1/n + PV-tail`), which is a new
+      growth lemma not in salt (Growth.lean proves only the uniform `√q` bound) nor mathlib.
+With (a) and (b) landed, the ε-form follows by choosing the dichotomy window `δ = min(ε/(6k), 1/20)`
+so `M^{−3(1−β₁)} ≥ c·q^{−ε/2}` and absorbing the (fixed, ineffective) `β₁,q₁,χ₁` constants into
+`C(ε)`; that arithmetic is the last mile once (a),(b) exist. The ineffectivity remains intrinsic
+(`Classical.em` in `siegel_dichotomy`). No source/statement error — this is a genuine analytic-input
+gap, flagged per Iron Rule 4. Scratch `ScratchS4bppp.lean` deleted.
+
+## 2026-07-12 SW S4b‴ adjudication: both floored gaps DISSOLVE with landed tools — S4b⁗ specced
+
+The executor's two "not achievable with mathlib + salt" inputs are
+both reachable from the corpus (Fable adjudication):
+(a) `L(1,χ) ≪ log q` and the near-line `‖L(s,χ)‖, ‖L'(s,χ)‖ ≪
+log-powers on Re s ≥ 1 − 1/log q`: the truncated-Dirichlet-series
+split at T = q — head `Σ_{n≤q} n^{−σ} ≤ e(1+log q)` (since
+n^{1−σ} ≤ q^{1−σ} ≤ e there), tail by Abel + polya_vinogradov
+(EXACTLY Growth.lean's own machinery re-run with the truncation);
+the L' version with a log n weight (head ≤ log²q).
+(b) the `2^{ω(N)}`/Euler-correction loss: ‖eulerCorr(1)‖ ≤
+∏_{p∣N}(1+1/p) ≤ exp(Σ_{p∣N}1/p) ≤ exp(Σ_{p≤N}1/p) ≤ e^C·log N by
+**PM1's full-range Mertens** (`Salt/BrunLower/MertensWindow.lean`,
+sum_inv_prime_window_le at w = 2) — a cross-rung reuse; no
+divisor-function theory needed.
+With (a)+(b) the ε-arithmetic is the executor's own "one arithmetic
+step" (δ = min(ε/6k, 1/20), fixed data absorbed into the ineffective
+C(ε)). Node **S4b⁗**: (i) the near-line log-power bounds; (ii) the
+PM1 Euler bound; (iii) siegel_L_one + siegel_theorem assembly.
