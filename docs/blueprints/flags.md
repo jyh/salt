@@ -2515,3 +2515,72 @@ kernel ∫dt/(t log²t) ≤ 2/log x). Keystone consumed cleanly (only
 (`Salt/BV/Headline.lean`: bounded_gaps_of_siegelWalfisz_of_bridge via the
 landed bounded_gaps_from_level). REMAINING: V4-core (discharge
 PsiToPiTransfer) → strip the bridge from V5/V6 → close-out sweep.
+
+## 2026-07-12 bv V4-core: PsiToPiTransfer reduced to the Abel core `PsiToPiCore` (PB-floor)
+
+`Salt/BV/Abel.lean` (new, ~90 code lines, axioms `[propext, Classical.choice,
+Quot.sound]` only, zero warnings). Opus-tier. `PsiToPiTransfer` did NOT fully
+discharge; landed the honest weakest-floor: a single-hypothesis reduction plus
+the complete gate-free conversion sub-lemma.
+
+**LANDED (complete, sorry-free):**
+- `sum_omega_mul_le` — the gate-free conversion sum
+  `∑_{q≤Q} ω(q)·L/φq ≤ (logb 2 Q)·L·4(1+log Q)` (polylog, degree ≤ 3), via
+  `primeFactors_card_le_logb` + `sum_inv_totient_le`. Confirms the dispatch's
+  q=1-differencing de-risker: the ψ(t)-vs-t mean never appears (no SW gate);
+  only the χ₀-vs-ψ(t) gap (`norm_psiChi_one_sub_psiTot_le`'s `ω(q)L`) does, and
+  it sums to polylog — well under the `x/L^A` budget. Complete.
+- `psiToPiTransfer_of_core : PsiToPiCore → PsiToPiTransfer` — the FULL assembly
+  around the Abel core, sorry-free: ψ-family extraction at `A+1`, haircut
+  inflation `B := B'+A` (ψ-bound carried to the smaller range by floor
+  monotonicity — this is what tames the prime-power `x/L^B` term, since `B ≥ A`),
+  scale-uniform `M := C'x/L^{A+1}` instantiation, the polylog conversion
+  absorption via `absorb_nat` (`√x·(1+log x)³ = o(x/L^A)`, θ=1/2<1), and the
+  `∀A∃B∃C` packaging with `C := 5 + 2C'`.
+
+**DEFERRED (the single PB-floor hypothesis `PsiToPiCore`):** the genuine
+discretized-Abel content, isolated per-`x`: given a scale-uniform
+`∀ y ≤ x, ∑_q dispDisc y q ≤ M`, then
+`∑_q maxDiscrepancy x q ≤ √x·(1+log x)³ + 2·M + 4·x/(log x)^B`. The three
+summands are the polylog conversion (bounded by `sum_omega_mul_le`), the main
+Abel term (`Σ_q Σ_n w_n dispDisc(n) q`, telescoping weights `Σ_n w_n = 1/log 2
+< 2`, `Σ_q`-swapped inside so `Σ_q dispDisc(n) q ≤ M` applies uniformly in the
+scale `n`), and the prime-power correction. This is NOT an `∃C` restatement of
+the goal — it is a specific per-`x` inequality with explicit term shapes.
+
+**Why deferred (the two genuine obstructions, both D-flavored):**
+1. **The log-weighted Abel identity for `primesCount`.** `π(x;q,a) = Σ_{p≤x,p≡a} 1
+   = Σ (log p)·(1/log p)` needs `Finset.sum_Ioc_by_parts` with `f n = 1/log n`,
+   partial sums `= θ(n;q,a)` (cf. `Salt/BV/TypeI.lean`'s `abel_log_char_le`
+   precedent). Splitting at `n=1` (not `√x`) keeps the boundary terms at
+   `θ(x)/log x`, total weight `1/log 2` — the `2/L`-kernel of the dispatch is not
+   even needed (constant weight suffices; the `L^A` saving is inherited from the
+   ψ-family). Requires: `Nat.count`→`Finset` bridge for `primesCount`, the
+   `indicator·log·(1/log) = indicator` cleanup at `n≥2`, and the ℕ/ℝ casts.
+2. **The prime-power (`ψ−θ`) correction, and why it forces `B ≥ A`.** `E_θ` vs
+   `E_ψ` differ by `≤ 2(ψ(t)−θ(t))`; weighted-and-summed over `q,n` this is
+   `~ (Q + log Q)·Σ_n w_n(ψ(n)−θ(n))`. With the SIZE bound `ψ(n)−θ(n) = O(√n·log²n)`
+   (a Chebyshev estimate ABSENT from mathlib — must be built: `Σ_{p^k≤n,k≥2} log p`),
+   `Σ_n w_n(ψ(n)−θ(n)) ~ √x`, times `Q ~ √x/L^B` gives `~ x/L^B`. This is NOT
+   `√x·polylog` (so NOT absorbable by size) — it is the `4x/L^B` summand, made
+   `≤ x/L^A` only by the haircut inflation `B := B'+A ≥ A` (the reduction handles
+   this). The crude `ψ(n) ≤ n log n` fails (gives `x^{3/2}`); the `√n` rate is
+   mandatory. This is the delicate estimate that makes the node C+/borderline-D.
+
+**T2 (`eventually_budget`) verdict — 2nd-consumer data point:** NOT used, and
+does NOT fit. The π-family target IS a `∀ᶠ x, ... ≤ margin` budget, but the
+margin `C·x/(log x)^A` is x-DEPENDENT (not a numeral), and the pieces are
+`≤ (fraction)·x/L^A` (not `≤ εᵢ` constants), so the macro's `norm_num` numeral
+tail cannot apply. Assembled by hand with one `filter_upwards` (thresholds: the
+`absorb_nat` eventual + `x ≥ 3` for `log x ≥ 1`) — 2 thresholds, no `+`-tree.
+Same conclusion as the V3.1 keystone: T2 targets many-`→0`-pieces-summed, not
+power-saving monomials against an x-dependent margin. Recommend T2 stay as-is
+(its Finset combinator `eventually_finset_sum_le` remains the right tool for its
+actual pattern) rather than generalizing for this rung.
+
+**Two-sided handling:** the `|E_π|` two-sidedness (dispatch's `1` vs `log p/log t`
+enclosure) lives ENTIRELY inside the deferred `PsiToPiCore` (its RHS is already a
+`|·|`-friendly upper bound on the sup'-of-abs `maxDiscrepancy`); the landed
+reduction is one-sided (`≤`) throughout and needs no lower chain. `primesCount_eq_card`
+(Nat.count→Finset) was scoped as the natural next brick for the Abel identity but
+not landed (not needed by the reduction; keeps the file to the floor).

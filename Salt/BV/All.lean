@@ -17,6 +17,7 @@ import Salt.BV.TypeIIClose
 import Salt.BV.Dispersion
 import Salt.BV.DispersionClose
 import Salt.BV.PsiToPi
+import Salt.BV.Abel
 import Salt.BV.Headline
 import Salt.Tactic.AuditAxioms
 import Salt.BV.DivisorSum
@@ -50,5 +51,6 @@ open Salt.Tactic in
   Salt.BV.typeI_two_maxdisc_le Salt.BV.bilinear_LS_shell
   Salt.BV.typeII_block_le Salt.BV.typeII_disc_reduce Salt.BV.typeII_disc_le
   Salt.BV.psi_BV_of_siegelWalfisz Salt.BV.psi_BV_of_siegelWalfisz'
+  Salt.BV.psiToPiTransfer_of_core
   Salt.BV.hasLevel_half_of_siegelWalfisz_of_bridge
   Salt.BV.bounded_gaps_of_siegelWalfisz_of_bridge
