@@ -10,6 +10,7 @@ import Salt.BrunLower.MainTerm
 import Salt.BrunLower.BlockDecomp
 import Salt.BrunLower.WRatio
 import Salt.BrunLower.Remainder
+import Salt.BrunLower.MertensWindow
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -67,3 +68,6 @@ open Salt.Tactic in
   Salt.BrunLower.mainSum_le_of_upper' Salt.BrunLower.mainSum_ge_of_lower'
   Salt.BrunLower.capSum_le Salt.BrunLower.capSum_master
   Salt.BrunLower.remainder_prod_bound Salt.BrunLower.remainder_prod_bound_of_R
+  Salt.BrunLower.sum_vonMangoldt_div_ge Salt.BrunLower.abs_Sfun_sub_log_le
+  Salt.BrunLower.sum_inv_prime_window_le Salt.BrunLower.sum_inv_le_of_prime_window
+  Salt.BrunLower.sum_inv_le_of_subset_window
