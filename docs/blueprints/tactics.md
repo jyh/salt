@@ -177,6 +177,16 @@ analysis is required.
   speculative — pairs with T8.
 Harvest AFTER the BV rung closes (V2b-close + V3.1 will add instances to
 generalize from; premature abstraction remains the risk).
+**HARVESTED (2026-07-12, `Salt/Tactic/DyadicRec.lean`):** the fibering
+pair (`dyadic_cover_sum_le` + `_range` + `mem_dyadic_block`), the
+domination quartet (`geom_sum_le_top/bot` + `_Icc` + the four
+r-corollaries), and the ONE true eliminator `dyadic_interval_rec`
+(sole natural client `interval_decomp`, verified). Could-have-consumed
+checks verified against BDH/TypeII/TypeIIClose/MaxLS exact lines;
+demonstrations 2-12 lines vs 15-40 by hand. `regime_split`/
+`guard_collapse`: NOT-YET (1 instance / structurally-unrelated
+discharges) — incompleteness doctrine applied. PhiSum's swap verified
+NON-dyadic (excluded).
 
 ## Period-planning hooks
 
