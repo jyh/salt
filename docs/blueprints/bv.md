@@ -126,12 +126,12 @@ The L¹/L² CS bridge (verified): `Σ_f(1/φf)Σ*_χ M_χ ≤ √(Σ_f(f/φf)Σ*
 ### V5 — the target
 | id | content | class | status |
 |---|---|---|---|
-| V5.1 | **`hasLevel_half_of_siegelWalfisz : SiegelWalfisz → HasLevel (1/2)`** (or the exact consumer form per V0.2's audit; statement FROZEN after V0.2 reports — Fable sign-off required) | C | ⬜ |
+| V5.1 | **`hasLevel_half_of_siegelWalfisz : SiegelWalfisz → HasLevel (1/2)`** (or the exact consumer form per V0.2's audit; statement FROZEN after V0.2 reports — Fable sign-off required) — LANDED modulo `PsiToPiTransfer` (`hasLevel_half_of_siegelWalfisz_of_bridge`, `Salt/BV/PsiToPi.lean`; flags 2026-07-11). Remaining: **V4-core** = discharge the bridge (the discretized Abel; C+/D, two de-riskers flagged). | C | ✅ (PB) |
 
 ### V6 — the headline
 | id | content | class | status |
 |---|---|---|---|
-| V6.1 | Compose with the landed Maynard chain (per V0.2's audit): **`bounded_gaps_of_siegelWalfisz : SiegelWalfisz → ∀ N, ∃ p q, N < p ∧ N < q ∧ p ≠ q ∧ p.Prime ∧ q.Prime ∧ |gap| ≤ C₀`** for the landed explicit C₀ (whatever diameter the Rung-3/4b chain yields at level 1/2 — NOT 600; the k=105 certificate is a future rung). Ideally a short composition. | B/C | ⬜ |
+| V6.1 | (conditional form LANDED: `bounded_gaps_of_siegelWalfisz_of_bridge`, `Salt/BV/Headline.lean` — the full chain is visible gate-to-headline) Compose with the landed Maynard chain (per V0.2's audit): **`bounded_gaps_of_siegelWalfisz : SiegelWalfisz → ∀ N, ∃ p q, N < p ∧ N < q ∧ p ≠ q ∧ p.Prime ∧ q.Prime ∧ |gap| ≤ C₀`** for the landed explicit C₀ (whatever diameter the Rung-3/4b chain yields at level 1/2 — NOT 600; the k=105 certificate is a future rung). Ideally a short composition. | B/C | ⬜ |
 
 ## PB-floors
 - V3.1 is the rung's MUST; its floor is the statement with V2a/V2b outputs

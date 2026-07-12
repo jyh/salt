@@ -2495,3 +2495,23 @@ plain mathlib. First-consumer data point: T2's macro targets a different pattern
 Difficulty vs class C+: the number theory (regroup, both energies, carrier bridge)
 landed at ≈C with no surprises — every landed interface fit. The genuine C+ cost was
 the final packaging's rpow bookkeeping volume, which is the deferred `hlargeY`.
+
+## 2026-07-11 bv V4+V5: HasLevel(1/2) landed modulo the ψ→π bridge (PB-floor)
+
+`Salt/BV/PsiToPi.lean`: `hasLevel_half_of_siegelWalfisz_of_bridge` proves
+the frozen `SiegelWalfisz → HasLevel (1/2)` modulo ONE explicit hypothesis
+`PsiToPiTransfer` = the node-V4-core discretized Abel (ψ-BV family →
+π-BV family, haircut preserved, eventual-in-x; assessed C+/borderline-D,
+multi-hundred lines — honest single-hypothesis floor). Proven around it:
+range bridge √x = x^{1/2}, small-x absorption (π-analogue of the
+Dispersion crude tail), ∀A∃B∃C packaging. θ-SKIP confirmed
+(maxDiscrepancy is π-form; no θ-carrier exists; the ψ−θ prime-power
+correction is O(√x log²x) by SIZE not absence — docstring caveat). Two
+V4-core de-riskers: (i) differencing against q=1 cancels ALL main terms —
+no PNT reconstruction of π(x); (ii) the keystone's fixed-x q-range applies
+at every net point t_i ∈ [√x, x] with no √t shrinkage (≤ log₂x points,
+kernel ∫dt/(t log²t) ≤ 2/log x). Keystone consumed cleanly (only
+√x ↔ x^{1/2} friction). V6 conditional composition landed same commit
+(`Salt/BV/Headline.lean`: bounded_gaps_of_siegelWalfisz_of_bridge via the
+landed bounded_gaps_from_level). REMAINING: V4-core (discharge
+PsiToPiTransfer) → strip the bridge from V5/V6 → close-out sweep.
