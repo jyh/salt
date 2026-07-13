@@ -4293,3 +4293,56 @@ Remaining = TWO named satisfiable cores (C3c″): hMainEnergy (the
 dyadic-in-conductor shell arithmetic at fixed coefficient) and
 hErrSum (the BDH Möbius L¹ treatment of the coprimality restriction
 — fails per-character, sums fine).
+
+## 2026-07-13 C3c″: hMainEnergy FULLY DISCHARGED; hErrSum (BDH e-fold) is the one remaining core
+
+`Salt/Chen/EnergyClose.lean` (new; namespace `Salt.Chen`) discharges the
+first of C3c′'s two named cores and lands the structural entry point of
+the second. All sorry-free; axioms `[propext, Classical.choice, Quot.sound]`.
+
+**Finding (why hMainEnergy needs β-structure).** `hMainEnergy` is FALSE for
+a general pair `‖α‖,‖β‖ ≤ 1`: at `α = β = χ₃` (Legendre mod 3),
+`bilinPrimEnergy α β X Y 3 ≈ (4/9)XY`, so the `f=3` term of the LHS alone is
+`(8/9)(1+log D)·XY > Kmain·XY/(log)^A`. The large sieve gives NO saving for a
+single small conductor (its saving is the `Q²` term = summing over many moduli).
+It is satisfiable ONLY for the consumer's `β = blockPrimeInd N`, whose
+small-conductor twists have Siegel–Walfisz cancellation — so the discharge is
+honestly gated on the named `hβSW` (exactly `hβSW_of_prime_indicator`'s output).
+
+**hMainEnergy — FULL (`hMainEnergy_discharge`).** Two-regime:
+- `f ≤ D0`: `smallConductor_energy_le` (SW) → `Kβ·XY/(log)^{A+1}`.
+- `f > D0`: `dyadic_large_reduction` (fibration `f ↦ ⌊log₂ f⌋`, per-block
+  `block_energy_le'`) → the geometric sum `∑_{k=k0}^K (1/2^k)·shellBound(2^{k+1})`,
+  evaluated by `geom_shell_sum_le` (via `dyadic_term_bound`
+  `(1/F)√((2F)²+a)√((2F)²+b) ≤ 4F+2√a+2√b+√a√b/F`) to the four-term
+  `2(1+logY)√X√Y·(4·2^{K+1} + 2(K+1)√(13(X+1)) + 2(K+1)√(13(Y+1))
+  + √(13(X+1))√(13(Y+1))·2/2^{k0})`, then scaled by `four_term_scale_le` to
+  `(448+32√26)·XY/(log)^{A+1}`. The four contributions land as constants
+  `32` (`~D√(XY)` main term, needs `D ≤ √(XY)/(log)^B`, `B ≥ A+2`), `16√26`
+  twice (the `~√X·Y`, `~X·√Y` cross terms, needing `X,Y ≥ (log)^{2A+6}`), and
+  `416` (the `~XY/D0` tail, needs `(log)^{C0} ≤ 2·2^{k0}`, `C0 ≥ A+2`).
+- Folding `4(1+log D) ≤ 6·log(XY)` (since `log D ≤ ½log(XY)`) and
+  `log(XY)·(log(XY))^{-(A+1)} = (log(XY))^{-A}` gives the exact
+  `bilinear_hLargeDisc` slot `≤ Kmain·XY/(log XY)^A`, `Kmain = 6(Kβ+448+32√26)`.
+  Honest operating scale: `X,Y ≥ 2`, `1 ≤ D`, `D ≤ √(XY)/(log)^B` (`B ≥ A+2`),
+  `D0 = 2^{k0}` with `D0 ≍ (log)^{C0}` (`C0 ≥ A+2`), `X,Y ≥ (log)^{2A+6}`.
+
+**hErrSum — NOT discharged (the one remaining core).** Structural entry point
+landed: `bilinTwist_sub_primitive_eq` proves
+`A_d(χ) − A⋆ = −∑_{m≤X, gcd(m,d)>1} α(m)·χ⋆(m)` (the imprimitive-vs-primitive
+difference is the FULL-α twist restricted to non-coprime residues), and
+`norm_bilinTwist_sub_primitive_le` the crude `‖·‖ ≤ #{m≤X:(m,d)>1}`. THE
+OBSTRUCTION, quantified: the crude `d`-sum
+`∑_{d≤D}(1/φd)·(∑_{p∣d}X/p)·Y ≈ XY·∑_p(1/p)⌊D/p⌋ ≈ XY·D` is
+`(XY)^{3/2}/(log)^B` — too big by `D`. The honest fix (research-level) is the
+BDH Möbius `e`-fold `A_d − A⋆ = ∑_{e∣d,e>1} μ(e)ψ(e)·A^{(e)}(⌊X/e⌋)` (from
+`[gcd(m,d)>1] = −∑_{e∣d,e>1,e∣m}μ(e)` + complete multiplicativity of ψ): a
+`1/e`-weighted sum of shifted-scale (`X/e`) primitive energies, re-run through
+the hMainEnergy machinery, geometric in `e ≤ D` (so `∑_e (X/e)·… ≈ XY·log D`).
+The bookkeeping of the per-`e` scale (for large `e`, `X/e` shrinks below the
+`D`-scale) is the delicate part. Even the `β = prime-indicator` special case
+needs the e-fold on the A-side (`‖B_d‖ ≤ Y` crude, no SW for `d > D0`).
+
+**Status.** `general_BV_final` (= `general_BV_closed` + `bilinear_hLargeDisc`
+with both cores discharged) does NOT close: core 1 (`hMainEnergy_discharge`)
+DONE, core 2 (`hErrSum` e-fold) remains. Keystone 2 not yet closed.
