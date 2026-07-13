@@ -427,6 +427,39 @@ nodes (engine / hh / hf-3-branches / composition+TauSharpB mirror).
 the REAL A₁ operating point s ≈ 4 (the unwindowed consumers landed in
 E₁b carry `hσ3 : σ ≤ 3`, false at s = 4).
 
+## THE PE ARC (the hPerE endgame; designed 2026-07-13 post-catch-#43)
+
+**PE1 — the reshaped composition (NEW-FILE MIRROR, no landed edits):**
+`Salt/Chen/PerEEngine2.lean`: `hErrSum_final'`/`hLargeDisc_of_perE'`/
+`general_BV_final'` — the keystone-2 composition with the per-e slot
+at the HONEST envelope `EfoldTerm e ≤ Kerr·(XM/(log XM)^A)·(1/e)`
+(1/e not 1/e²; catch #43), the e-sum via the harmonic bound
+`Σ_{e=2}^D 1/e ≤ log D` absorbed by A → A+1 in the final exponent
+(Kerr/A are threshold-level — adversarially verified safe), and the
+NEW hypothesis `D < N` threaded (it kills the β-side and holds at
+the operating point x^{1/2−ε′} < x^{1/2}). Mirror the landed proofs;
+the old general_BV_final stays (true, superseded). Class B+.
+**PE2 — the β-side vanishes** (same file or sibling): EfoldTermAlpha/
+Beta split defs + `EfoldTermBeta = 0` under 2 ≤ e ≤ D < N
+(blockPrimeInd N (e·n') = 0: composite for n' ≥ 2, needs e > N at
+n' = 1). Class B.
+**PE3 — the α-side per-e bound at 1/e** (the last analytic node):
+(i) `‖B_d(χ)‖ ≤ ‖B⋆(χ⋆)‖ + ω(d)`-form for the PRIME-INDICATOR β
+(coprimeRestrict differs at only the primes dividing d) — B-class;
+(ii) the main piece: primitive×primitive with FIXED coefficients
+(α∘(e·) = a prime pattern for prime e — for e semiprime the single
+m'=1 term ≤ 1, for Ω(e) ≥ 3 zero — case on e) at scales (⌊X/e⌋, M):
+re-instantiate regroup_bilin + swapPhi_generic + the two-regime
+engine (small conductor via prime_indicator_coprime_SW at the
+DILATED scale — still a prime indicator; large via the dyadic shell
++ shifted four_term_scale_le at (X/e, M)); the (X/e)-scale output
+supplies the 1/e; (iii) the ω(d) error piece: Cauchy–Schwarz over
+χ mod d + orthogonality ⟹ ~D^{1/2}(X/e)^{1/2}-type, power-small
+(pre-gate arithmetic: ~x^{3/4}log/e^{1/2} ≪ x/(log)^A ✓ — the gate
+re-verifies). Class C+. GATE the (iii) arithmetic + the dilated SW
+fit numerically BEFORE dispatch (standing doctrine; catches #38–#43).
+Then: general_BV_final' feeds SW3 (odd moduli) → SW4 → H-glue.
+
 ## THE H-GLUE (the final node) — discharge map (Fable, 2026-07-13,
 frozen for dispatch after SS1; gate on the hledger arithmetic running)
 
