@@ -5349,3 +5349,26 @@ through hErrSum_final/hLargeDisc_of_perE/general_BV_final + the harmonic-sum lem
 PE2 (β-side ≡ 0, class B) → PE3 (the α-side per-e bound at the reshaped envelope via the
 prime×prime collapse + dilated re-instantiation of the two-regime engine, class C+) → SW3
 (rem → apDiscBilin at odd moduli) → SW4 → H-glue.
+
+## 2026-07-13 SS3a Opus done FULL (both profile budgets are Lean theorems)
+
+`Salt/Chen/SuperProfileDef.lean` (570 lines; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. The 200/220-knot PL profiles + K/v³ tail as concrete defs (ℕ-numerator knots over
+getD lists, /10⁷); the frozen panel interface on Set.Ico (SEAM DECISION: tail wins at v = 12 —
+panels tile [2,12)/[1,12), no overlap; SS3b/c must heed); **`Ebar_integral_le : ∀ b ≥ 2,
+∫_2^b Ē ≤ 43/75`** and **`Obar_integral_le : ∀ b ≥ 3, ∫_3^b Ō ≤ 11/125`** — the two ledger
+budgets, matching SS1's hypothesis shapes exactly. One maxRecDepth 4000 (the by-decide knot
+bound), no heartbeat bumps; the 200-term ℕ-sums evaluate in one simp (~3s).
+
+## 2026-07-13 PE1+PE2 Opus done FULL (the reshaped keystone-2 composition; β-side DEAD)
+
+`Salt/Chen/PerEEngine2.lean` (wired by Fable). Sorry-free, axiom-clean, zero warnings, default
+heartbeats. PE2: `EfoldTermAlpha`/`EfoldTermBeta` split; `blockPrimeInd_dilated_eq_zero`;
+**`EfoldTermBeta_eq_zero`** (2 ≤ e ≤ N) — catch #43's collapse is now a THEOREM. PE1:
+`sum_inv_Icc_le_log` (harmonic); **`general_BV_final'`** — the honest composition: per-e slot at
+`Kerr·(XM/(log XM)^{A+1})·(1/e)`, new hypothesis `D < N`, and the CONSUMER SHAPE BYTE-IDENTICAL
+to the landed general_BV_final (the log D from the harmonic sum collapses against the A+1 via
+log D ≤ log XM — the raised-input-exponent form; SW3's consumption unchanged). BONUS
+**`hPerE_reduces_to_alpha`**: under 2 ≤ e ≤ D < N the per-e obligation IS the α-side alone.
+The old general_BV_final stays as the documented superseded form. **The keystone-2 endgame is
+now exactly one lemma: EfoldTermAlpha ≤ Kerr·(XM/(log XM)^{A+1})·(1/e) — PE3, gate running.**

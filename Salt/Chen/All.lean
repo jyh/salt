@@ -30,6 +30,7 @@ import Salt.Chen.TripleCount
 import Salt.Chen.EnergyClose
 import Salt.Chen.ErrFold
 import Salt.Chen.PerEEngine
+import Salt.Chen.PerEEngine2
 import Salt.Chen.WeightTrivia
 import Salt.Chen.SharpFuncbound
 import Salt.Chen.FlatFuncbound
@@ -44,6 +45,7 @@ import Salt.Chen.MassCert2
 import Salt.Chen.LogToolkit
 import Salt.Chen.SuperSolution
 import Salt.Chen.SuperProfile
+import Salt.Chen.SuperProfileDef
 import Salt.Chen.SharpH
 import Salt.Chen.SharpH2
 import Salt.Chen.SharpF
@@ -173,6 +175,10 @@ open Salt.Tactic in
   Salt.Chen.hErrSum_discharge
   Salt.Chen.efold_density_fold Salt.Chen.hErrSum_final
   Salt.Chen.hLargeDisc_of_perE Salt.Chen.general_BV_final
+  Salt.Chen.EfoldTerm_split Salt.Chen.blockPrimeInd_dilated_eq_zero
+  Salt.Chen.EfoldTermBeta_eq_zero Salt.Chen.sum_inv_Icc_le_log
+  Salt.Chen.hErrSum_final' Salt.Chen.hLargeDisc_of_perE'
+  Salt.Chen.general_BV_final' Salt.Chen.hPerE_reduces_to_alpha
   Salt.Chen.razor_reduction Salt.Chen.triplePrimeSum_le
   Salt.Chen.chen_positivity Salt.Chen.chen_survivor
   Salt.Chen.chen_of_hypotheses
@@ -231,6 +237,11 @@ open Salt.Tactic in
   Salt.Chen.superSol_dominates Salt.Chen.massE_sum_eq Salt.Chen.massO_sum_eq
   Salt.Chen.massSum_le_A2_of_superSolution Salt.Chen.massOSum_le_A1_of_superSolution
   Salt.Chen.hSE_reduce Salt.Chen.hSO_reduce
+  Salt.Chen.Ebar_panel_eq Salt.Chen.Obar_panel_eq
+  Salt.Chen.Ebar_tail_eq Salt.Chen.Obar_tail_eq
+  Salt.Chen.Ebar_nonneg Salt.Chen.Obar_nonneg
+  Salt.Chen.Ebar_intervalIntegrable Salt.Chen.Obar_intervalIntegrable
+  Salt.Chen.Ebar_integral_le Salt.Chen.Obar_integral_le
   Salt.Chen.fseq2_upper_of_log_lower Salt.Chen.tail_integral_le
   Salt.Chen.budE_le Salt.Chen.budO_le
   Salt.Chen.cflatI_tight Salt.Chen.cflatI_lower
