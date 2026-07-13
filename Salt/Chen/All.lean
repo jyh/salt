@@ -19,6 +19,7 @@ import Salt.Chen.DecayMass
 import Salt.Chen.WindowedStep
 import Salt.Chen.TwinA1
 import Salt.Chen.TwinA2
+import Salt.Chen.BVSum
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
 
@@ -116,3 +117,5 @@ open Salt.Tactic in
   Salt.Chen.nuChen_eq_inv_totient Salt.Chen.twinA1_rem_eq
   Salt.Chen.twinA1_abs_rem_le Salt.Chen.twinA1_hnu Salt.Chen.twinA1_hguard
   Salt.Chen.twin_A1_lower
+  Salt.Chen.rosserRemainder_le_split Salt.Chen.convSum_le
+  Salt.Chen.sum_inv_totient_le_Winv Salt.Chen.twinA1_hBV

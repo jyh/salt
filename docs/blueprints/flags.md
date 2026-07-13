@@ -4012,3 +4012,18 @@ Bounded gaps between primes is now a THEOREM of this corpus with no
 hypotheses. The k = 105 → gaps ≤ 600 instantiation (CertEval-gated
 GO) is the quantitative upgrade node. Chen-mod-SW flips
 unconditional the day the Chen arc's C5 lands.
+
+## 2026-07-13 C2c: hBV discharged (∃-guarded); the C2 wave CLOSED
+
+twinA1_hBV lands the exact hBV slot as an ∃-package guarded by two
+consumer obligations (they reference the BV theorem's existential
+B/C witnesses, so cannot be stated witness-free): the level check
+Q·D ≤ √x/(log x)^B and the numeric closing 2C·x/(log x)^11 +
+(log x)³-polylog ≤ x/(log x)^10 — both sound and dischargeable at
+the C5 operating point (sanity: convBound ≈ 0.41(log x)³; closing
+needs 4C ≤ log x and ≈0.82(log x)^13 ≤ x). The chain consumed the
+UNCONDITIONAL psi_BV_of_siegelWalfisz' at siegelWalfisz_holds, the
+subset/level reduction to the Icc index set, and C1d's vratio for
+Σ1/φ(d) ≤ (1+ε)log z/log w₀. The C2 wave (A₁ + A₂ + hBV) is CLOSED.
+Remaining Chen: C3 (the switch, keystone 2), C4b, C1cτ (numerics),
+C1b′ (value certification), C5 (assembly).
