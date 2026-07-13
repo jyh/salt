@@ -4436,3 +4436,64 @@ the strip, A₁ (C2a via keystone 1 + the unconditional BV), A₂ (C2b),
 A₃ (C3d via the gate's PNT), the survivor extraction, the
 infinitude. The prime-restricted carrier design makes survivors
 genuinely prime; IsP2 2 is the fixed honest P₂ carrier.
+
+## 2026-07-13 C1b′ Opus done (interface + sharp-leading + tail + ledger; sharp constants = C1cσ debt)
+
+`Salt/Chen/ChainValues.lean` (new file only; namespace `Salt.Chen`; `import Mathlib +
+Salt.Chen.Tail + Salt.Chen.SwitchConstant`; NOT wired into All.lean). Builds green, zero
+warnings, no sorry / native_decide, axiom-clean `[propext, Classical.choice, Quot.sound]` on all
+13 public decls. Default heartbeats; fastest full build 2.8s (no lemma near 30s).
+
+**Scoped "certified numeric lower bounds on `fchain N 4` + `Fchain`-uppers on [4/3,3]" to feed C5.
+The honest arithmetic (computed pre-code, pure-Python DDE integration) shows the LOAD-BEARING sharp
+constants are NOT reachable with the landed machinery; the sharp route is the C1cσ decaying-cₙ
+cascade. Delivered the full interface + genuine sharp leading term + sharp tail + ledger core, and
+isolated the sharp head as the C1cσ debt.** STOP-AND-FLAG (Iron Rule 1/4): no blueprint statement
+altered, no faked constant; the honest artifact + this flag landed.
+
+**The certification wall (machine-relevant finding).** `fchain N s = 1 − Σ_{n even ≤ N} fₙ(s)`; the
+ledger (`chen_ledger_line`: `2log3 − log6 − c̄ > 0`) closes only if the truncated values reach their
+asymptotics to within S1/S2: A₁ needs `fchain ≥ f(4) − 4.3e−4 ≈ 0.9779` (even-sum `≤ ≈0.0221`), A₂
+needs `supF ≤ ≈2.68`. These are essentially EXACT. The landed C1b bound `fseq_le : fₙ₊₁ ≤
+2e²(99/100)ⁿ·hbar s` has ratio ρ=99/100 whose multiplier `1/(1−ρ)=100` swamps the small per-level
+constant `2e²·hbar(3.9)≈0.20`: summed over ALL n≤2048 the even-sum bound is `≈10 > 1` ⇒ NO positive
+lower bound on `fchain` at any feasible depth. The `fseq_le` tail `≈20·(99/100)^K` first drops below
+`5e−3` only near `K≈700`, so the mandate's suggested "sharp levels to n≈14 + fseq_le crude tail"
+does NOT close (at n=14 the crude tail is `≈18`). Confirmed: BOTH targets need decaying per-level cₙ.
+
+**True values (worst-case s=39/10 for A₁; sup at s=4/3 for A₂), for the C1cσ target:**
+- fchain(3.90)=0.972475, fchain(4.00)=0.978354; per-even-level f₄(4)=8.8e−3, f₆=6.0e−3, f₈=3.3e−3,
+  … per-two-level ratio → 0.5224 (per-level ≈0.723 = e/4-ish, the true tail decay the band forbids
+  a uniform majorant from seeing).
+- Fchain(4/3)=2.6723 (=supF), Fchain(3/2)=2.3748, Fchain(3)=1.1874.
+- A single global exponential super-solution of the coupled (E,O) integral system was checked
+  numerically: best gives fchain(3.9)≥0.58 / fchain(4)≥0.72 — a genuine but NON-load-bearing coarse
+  bound (doesn't close the ledger), and its Lean proof (band [2,3] flat handling + C1(s) log
+  integral + coupled induction) is itself ~300 lines. Every cheap route (fseq_le, antitone-anchor,
+  L¹ scalar system) bottoms out at needing a sharp value on [2,3]/[2,4] where fseq_le is ~100× off.
+  So no cheap genuine numeric bound exists; per Iron Rule 4 the coarse super-solution was NOT ground
+  out (non-load-bearing).
+
+**LANDED (sorry-free, axiom-clean):**
+- Interface in exact C5 shapes: `fchain_lower_of_evenSum_le` (⟹ `TwinA1.twin_A1_lower`'s fchain
+  term at `N=maxDepth`, `s=logRatio z D`), `Fchain_upper_of_oddSum_le` (⟹ `TwinA2.A2grid_le_envelope`
+  supF on [4/3,3]); structural `fchain_le_one`, `one_le_Fchain`, `fchain_antitone_depth`
+  (depth-monotonicity: a small-depth lower bound does NOT transfer up), `Fchain_mono_depth`.
+- Genuine sharp LEADING per-level bound (the `fseq_two_window` one-integration template for the
+  C1cσ cascade): `fseq_two_eq_zero_at_four` (f₂(4)=0), `fseq_two_le_sq` (`f₂(s) ≤ (4−s)²/(s(s−1))`
+  on [2,4], via the closed form + `log x ≤ x−1`), `fseq_two_le_op` (`≤ 1/1000` on [39/10,4]).
+- Depth-2 certified value: `fchain_two_eq` (`fchain 2 s = 1 − f₂(s)`), `fchain_two_lower`
+  (`fchain 2 s ≥ 999/1000` on [39/10,4]) — genuine, but at N=2 (upper anchor, not operating depth).
+- SHARP truncation tail (reuses C1b `fseq_tail_le`): `fchain_trunc_close` — for N≥2048, s≥4/3,
+  `fchain 2048 s − 4.3e−4 ≤ fchain N s ≤ fchain 2048 s`. Reduces the ∞-depth value to the depth-2048
+  value; the remaining sharp head (even n ≤ 2048 at the operating point) is the C1cσ debt.
+- Ledger numeric core: `chen_ledger_line` (= C4a `two_log_three_sub_log_six_sub_cbar_pos`,
+  re-exposed with the value-cert verdict).
+
+**REMAINING = C1cσ (the sharp constants).** The decaying per-level cₙ (BJS Table 2): ~25 sharp
+one-integration bounds in the `fseq_two_le_sq` style (each producing log/log² terms bounded
+rationally) propagated through the recursion, + the sharp tail, to certify even-sum ≤ 0.0221 (⇒
+fchain ≥ 0.9779) and supF ≤ 2.68. C+ keystone-scale; the value→ledger mapping and the tail are
+already landed here, so C1cσ is exactly the head cascade. C5's `chen_positivity` already takes
+`mainA1`/`mainA2` abstractly, so this debt is threaded there (unaffected downstream), but the FINAL
+unconditional Chen needs C1cσ to instantiate the operating-point package `H` at the sharp margin.

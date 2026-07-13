@@ -32,6 +32,7 @@ import Salt.Chen.ErrFold
 import Salt.Chen.PerEEngine
 import Salt.Chen.WeightTrivia
 import Salt.Chen.SharpFuncbound
+import Salt.Chen.ChainValues
 import Salt.Chen.Assembly
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
@@ -157,6 +158,9 @@ open Salt.Tactic in
   Salt.Chen.chen_positivity Salt.Chen.chen_survivor
   Salt.Chen.chen_of_hypotheses
   Salt.Chen.tail_parts_bound Salt.Chen.hBJS_funcbound_sharp
+  Salt.Chen.fchain_lower_of_evenSum_le Salt.Chen.Fchain_upper_of_oddSum_le
+  Salt.Chen.fseq_two_le_sq Salt.Chen.fchain_two_lower
+  Salt.Chen.fchain_trunc_close Salt.Chen.chen_ledger_line
   Salt.Chen.chen_weight_le_indicator Salt.Chen.chen_weight_struct
   Salt.Chen.stripSum_le Salt.Chen.window_two_thirds_lt
   Salt.Chen.switch_loss_le
