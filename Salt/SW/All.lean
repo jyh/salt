@@ -25,6 +25,7 @@ import Salt.SW.Estermann
 import Salt.SW.EstermannInterface
 import Salt.SW.SiegelFinal
 import Salt.SW.SiegelClose
+import Salt.SW.ContourShift
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -116,3 +117,6 @@ open Salt.Tactic in
   Salt.SW.LFunction_apply_one_norm_le Salt.SW.LFunction_norm_le_near_one
   Salt.SW.norm_deriv_LFunction_near_one Salt.SW.LFunction_one_re_le_mvt_sharp
   Salt.SW.norm_eulerCorr_one_le Salt.SW.siegel_theorem
+  Salt.SW.rectBI_eq_zero_of_differentiableOn Salt.SW.rectBI_dslope_eq_zero
+  Salt.SW.rectBI_inv_eq_two_pi_I Salt.SW.rectBI_cif_eq
+  Salt.SW.kernel_residue
