@@ -35,6 +35,7 @@ import Salt.Chen.SharpFuncbound
 import Salt.Chen.ChainValues
 import Salt.Chen.TauSharp
 import Salt.Chen.ValueCascade
+import Salt.Chen.PLCascade
 import Salt.Chen.WindowedStepP
 import Salt.Chen.Assembly
 import Salt.Chen.SwitchConstant
@@ -181,3 +182,9 @@ open Salt.Tactic in
   Salt.Chen.bjs_theorem6_windowed_p_upper Salt.Chen.bjs_theorem6_windowed_p_lower
   Salt.Chen.bjs_theorem6_windowed_upper_via_p Salt.Chen.bjs_theorem6_windowed_lower_via_p
   Salt.Chen.bjs_theorem6_windowed_sharp_upper Salt.Chen.bjs_theorem6_windowed_sharp_lower
+  Salt.Chen.geom_decay_pointwise Salt.Chen.geom_tail_ratio
+  Salt.Chen.geom_tail_majorant Salt.Chen.fseq_le_leftEndpoint
+  Salt.Chen.fseq_next_le_const Salt.Chen.evenSum_reindex
+  Salt.Chen.fseq_evensum_tail_le Salt.Chen.evenSum_le_head_add_geomtail
+  Salt.Chen.fseq_even_le_crude Salt.Chen.fseq_evensum_tail_crude
+  Salt.Chen.fseq_two_le_const_demo

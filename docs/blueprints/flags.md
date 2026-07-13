@@ -4588,3 +4588,40 @@ the per-step boundary defects ((35)/(36): (K−1)g(s−1) ≤ ε·γ₃·g(s), �
 boundary-padded `chSharpB = (1+ε)(49/50) + 4ε`; the parametric keystones make that a 10-line
 re-instantiation — the E₁d interface is correct either way. BJS footnote 1 (p. 12) FIXES a known
 Nathanson Thm-9.5 error in the odd-flat branch — E₁c must freeze BJS (39), never [40]'s version.
+
+## 2026-07-13 VC2 Opus done (floor A: tail machinery + the wall quantified; A₂ mass-reduction found)
+
+`Salt/Chen/PLCascade.lean` (345 lines, new file; wired by Fable). Builds green 2.6s, zero
+warnings, sorry-free, axiom-clean on all 11 decls, default heartbeats. STOP-AND-FLAG honored:
+both frozen targets confirmed TRUE (0.021688 < 0.0221; 1.6716 < 1.68) — no statement altered;
+closure is keystone-scale, deferred with the arithmetic below.
+
+**LANDED (floor A):** the self-certified geometric-tail pipeline in the exact A₁ interface shape —
+`geom_decay_pointwise`/`geom_tail_ratio`/`geom_tail_majorant` (general contracting-majorant
+tails), `evenSum_reindex` + `fseq_evensum_tail_le` + `evenSum_le_head_add_geomtail` (even-sum =
+finite head + geometric tail, keyed on a two-level contraction hypothesis, feeding
+`fchain_lower_of_evenSum_le`); the between-knot glue `fseq_le_leftEndpoint` (antitone panels) +
+`fseq_next_le_const` (exact constant-panel integral, rational, NO log) with demo
+`fseq_two_le_const_demo`; and a GENUINE certified instantiation `fseq_even_le_crude`/
+`fseq_evensum_tail_crude` at r = (99/100)² from the landed fseq_le — the pipeline runs end to
+end sorry-free at the crude ratio.
+
+**THE WALL (machine-adjacent, two independent methods agreeing < 1e−4):** the load-bearing
+contraction is r ≈ 0.5224, and (1) the POINTWISE two-level ratio blows up at the right support
+edge (fseq k → 0 while fseq (k+2) > 0 there; support creeps right by 1/level) — no fixed profile
+is invariant, so no cheap self-propagating pointwise contraction exists; (2) piecewise-constant
+majorants lose 1–2%/level — at grid 1/80 the k ≤ 12 even-mass partial already exhausts the A₂
+target; required tightness ⇒ ~10³ panels/level, multi-session. A₁ additionally needs head to
+k ≈ 14–16 with total looseness < 1e−4 AND the certified r ≈ 0.524.
+
+**NEW STRUCTURAL FIND (the cleaner attack for the eventual keystone):** on [4/3, 3] the odd-sum
+equals `(3 − s + Σ_{k even} mass(f_k))/s` (sup at s = 4/3), so **A₂ ⟺ Σ even masses ≤ 0.5733**
+(true 0.5623, slack 2% — 4× the pointwise headroom). Masses are per-level SCALARS with a clean
+0.5224-ish contraction and NO edge pathology (integration kills the support-edge blowup). The
+C1cσ keystone should target the mass ledger, not pointwise profiles, for A₂ — and consider
+whether an A₁ analog exists (the even-sum at the window is also a near-scalar target).
+
+**REMAINING = C1cσ (unchanged name, re-scoped):** a multi-session fine-knot PL cascade — head
+profiles to depth ~14–16 (~10³ panels/level at A₁ tightness) + a self-certified mass/profile
+contraction r ≤ 0.55 feeding the landed tail pipeline. All interfaces now exist; the debt is
+pure certified numerics. Plan as its own arc segment AFTER E₁c (or parallel if budget allows).
