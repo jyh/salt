@@ -5239,3 +5239,27 @@ LP is search, the kernel is the referee), RECORDS the rational knot table in the
 proves ∫Ē ≤ 43/75 and ∫Ō ≤ 11/125 (the binding one: gate slack 6.3e−4) by exact panel
 quadrature + the wing integral, and discharges hSE/hSO via the 43 panel checks with TK1's
 log-sandwiches (the heavy-mechanical half; generate uniform lemmas from Python as TK1 did).
+
+## 2026-07-13 SW-A₃ RECON (Opus scout) + CATCH #42 — hPerE is BACK ON THE CRITICAL PATH
+
+The recon inventoried the switch route end-to-end. **CATCH #42 (scout-surfaced, against MY catch-
+#41 repair plan):** the plan claimed the switched BV remainder machinery was "LANDED (keystone-2's
+PerEEngine/…/general_BV_final built for exactly this)" — FALSE AS STATED: `general_BV_final`
+carries `hPerE` (the per-e energy glue — the α-side imprimitive dilated twist A^{(e)}(χ⋆) against
+the imprimitive B_d(χ)) as an UNDISCHARGED HYPOTHESIS, explicitly flagged D-class research core
+at its landing. The C5-era claim "keystone 2 off the critical path" was refuted by catch #41;
+consequently **the unconditional Chen headline is blocked on hPerE** — the one genuine research
+core remaining in the entire twinbar program. Tally: 42 catches, 0 proofs on wrong statements.
+
+**Recon findings folded into the plan:** (i) the α-multiplicity worry DISSOLVES (α = 0/1
+semiprime-pattern indicator; unique factorization; multiplicity is upper-bound overcount; no τ₃
+needed); (ii) the catch-#41 log-x trap does NOT recur on the sieved route (siftedSum carries W ~
+1/log); (iii) use the SHARP cB keystone (τ-debts discharged internally); (iv) hguard via the
+w₀-window exactly as TwinA1 (Q into the level); (v) SW4's numeric collapse needs Fchain(3/2) —
+thread symbolically if C1cσ hasn't certified it (the A₁/A₂ pattern).
+
+**REVISED PLAN:** SW12 (dispatched: the switched instance + the conditional Λ-carrier bound with
+`hBVswitch` NAMED — the honest A₁/A₂ pattern) → SW4 (the numeric row, after SW12 + SS2) →
+**hPerE (THE ENDGAME NODE: Fable design block + likely its own arc — the last mathematics
+between here and the unconditional Chen)**. SW3 (rem → apDiscBilin reduction, C+) can run
+parallel to the hPerE design.
