@@ -3393,3 +3393,25 @@ template) to discharge `hlevel` for n≥2; (iii) the numeric (31) constants to i
 `Finset.range_subset.mpr (by omega)` mis-elaborates — use `Finset.range_mono (Nat.le_succ)`;
 `rw [hsplit]` over a `set S` rewrites ALL occurrences (incl. `β*S`) — isolate via a
 `have hSeq` on the LHS pattern only.
+
+## 2026-07-12 SW S4b⁗: ═══ SIEGEL'S THEOREM LANDED — FULL, ALL q ═══
+
+`siegel_theorem : ∀ ε > 0, ∃ C > 0, ∀ q, ∀ real primitive χ ≠ 1,
+every real zero β < 1 has β ≤ 1 − C/q^ε` — unconditional, no q₀
+restriction, ineffective C by construction (Classical.em in the
+dichotomy). To our knowledge the FIRST formalization of Siegel's
+theorem in any proof assistant. The closer's pieces: near-line
+log-power bounds (head/tail split of Growth's Abel form at index f:
+trivial head + PV tail ⇒ ‖L‖ ≤ 5e(1+log f)‖s‖ on the strip; Cauchy ⇒
+‖L'‖ ≤ 25e(1+log f)²; the sharp MVT), the Euler-correction log bound
+via PM1's Mertens (eulerC = e^{19/log 2}/log 2 — the P0-rung
+cross-reuse), and the four-branch assembly (no-exceptional effective;
+distinct-near via Estermann→Goldfeld vs the sharp MVT, window
+dl = min(ε/36, 1/20), A₁ = 625e³eulerC³(1+log q₁)⁵(1+14/ε)⁷;
+distinct-far trivial; χ = χ₁ by a CONTINUITY gap from L(1,χ₁) ≠ 0 —
+no finiteness-of-zeros needed). siegel_L_one standalone did NOT fall
+out (the L(1)-lower exists only in the assembly-internal
+exceptional-pair form) — fine, S5/S6 consume the zero-free form.
+The S4 wave is CLOSED. The full Siegel cluster: S4a fourfold, S4b
+reduction, S4b′ Landau truncation, S4b″ interface (catch #26), S4b‴
+assembly, S4b⁗ closer — six nodes, every floor closed same-day.

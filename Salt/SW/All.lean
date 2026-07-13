@@ -24,6 +24,7 @@ import Salt.SW.Siegel
 import Salt.SW.Estermann
 import Salt.SW.EstermannInterface
 import Salt.SW.SiegelFinal
+import Salt.SW.SiegelClose
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -112,3 +113,6 @@ open Salt.Tactic in
   Salt.SW.estermannPositivity
   Salt.SW.LFunction_one_re_le_mvt Salt.SW.fourfold_disk_bound
   Salt.SW.siegel_L_one_exceptional Salt.SW.siegel_zero_free_exceptional
+  Salt.SW.LFunction_apply_one_norm_le Salt.SW.LFunction_norm_le_near_one
+  Salt.SW.norm_deriv_LFunction_near_one Salt.SW.LFunction_one_re_le_mvt_sharp
+  Salt.SW.norm_eulerCorr_one_le Salt.SW.siegel_theorem
