@@ -5110,3 +5110,59 @@ hh/hf targets omitted an ε-smallness hypothesis; the flat cells' excesses are S
 executors added the identical `hεsmall : ε ≤ 1/1000` and flagged it. Ratified: the amendment is
 designer-approved; ε_sieve = 2e−8 supplies it everywhere downstream. Tally: 40 catches,
 0 proofs on wrong statements.
+
+## 2026-07-13 TK1 Opus done (FULL minus Cphi1: the log-majorant toolkit + all binding constants)
+
+`Salt/Chen/LogToolkit.lean` (NEW file, 2236 lines, NOT wired into All.lean — Fable to wire).
+Sorry-free, axiom-clean (`[propext, Classical.choice, Quot.sound]` on all 17 public decls; verified
+individually), zero warnings, no `native_decide`/new axioms, default heartbeats, 13s module build.
+Numeric plan built first (exact-rational `Fraction` panels cross-checked vs mpmath dps=50), recorded
+in the module docstring.
+
+**LANDED — the reusable toolkit (Part 1):**
+- **Rational log-point sandwiches** `log_le_of_taylor` / `le_log_of_taylor`: `log q ≤ r` ⇐
+  `q ≤ Σ_{i<n} rⁱ/i!` (`Real.sum_le_exp_of_nonneg`); `r ≤ log q` ⇐ `Σ + rⁿ(n+1)/(n!·n) ≤ q`
+  (`Real.exp_bound'`, needs `0 ≤ r ≤ 1`). Pure rational `norm_num`; `n = 10` gives ≲1e-8 on `[1,2]`.
+  Points with `log > 1` (e.g. `log 3`) split as `log 2 + log(3/2)`. Concrete: `log_two_le`/`le_log_two`,
+  `log_threehalf_le`/`le_log_threehalf`, `log_three_le`/`le_log_three`.
+- **Panel log envelopes** `log_half_le_tangent` (tangent above, via `log_le_sub_one`) and
+  `log_half_ge_chord` (chord below, via `strictConcaveOn_log_Ioi`). Reusable for `log((w+1)/2)` too
+  (pass `s := w+1`, and for `log(v−1)` pass `s := 2v−2`).
+- **Rational panel quadrature** `integral_quad` (`∫(A+Bs+Cs²)` exact), `panel_le`/`panel_ge`
+  (bound `∫ f` by an exact rational given a linear×linear pointwise envelope). `integral_line`
+  (`∫(A+Bw)`) for the Φ layer.
+
+**LANDED — the certified constants (Parts 2–3). N = 16 uniform panels on [2,4]; two independent
+methods agree to ≥6 digits. Table (certified vs true vs target):**
+```
+constant   true        target(up)  certified(up)  target(lo)  certified(lo)   status
+cflatI     0.3554084   ≤0.3560     0.3557504      ≥0.3540     0.3550863       BOTH landed
+massE 2     0.2936364   ≤0.2950     0.2944997      ≥0.2900     0.2929957       BOTH landed
+Cphi2      0.1412700   ≤0.1450     0.1419371      —           —               landed
+Cphi1      0.0440300   ≤0.0460     0.0449650*     —           —               STOP/FLAG (below)
+```
+`cflatI_tight`/`cflatI_lower`, `massE_two_tight`/`massE_two_lower` (BONUS floor-C lower bounds both
+landed), `Cphi2_tight`. Route: per panel, `log(s/2)` between midpoint-tangent (upper) and chord
+(lower) with rational log knots; the rational weight (`1/(s−1)` for cflatI, `(4−s)/(s−1)` for
+massE 2) between its secant (upper) and midpoint-tangent (lower); linear×linear ⇒ exact rational
+quadratic integral, summed via `integral_add_adjacent_intervals`. massE 2 uses `massE_two_integral`
+(`massE 2 = ∫_2^4 (4−s)/(s−1)·log(s/2)`, from `massE_recursion` + `fseq_one_window`). Φ layer:
+`Phi_le_quad` (`Φ(v) ≤ a(v−2)+b((v+1)²−9)/2`, `a=2487/10000, b=−3/625`, from `h(w)=log((w+1)/2)/w ≤
+a+bw` on `[3,5]` via 16 sub-interval tangents + concavity endpoint checks); then `Cphi2` is an
+elementary outer integral (`∫ 1/v` via `integral_one_div`).
+
+**STOP-AND-FLAG (Iron Rule 4): `Cphi1_tight` not landed** (least-critical target; MR2b: "not
+load-bearing given the flag"; task allowed +4% slack). `Cphi1 = ∫_2^4 Φ(v)·(log3−log(v−1))/v dv`.
+With `Φ ≤ P` (Phi_le_quad), the residual is bounding the weight `log(3/(v−1))`. Numeric findings:
+crude `log(3/(v−1)) ≤ (4−v)/(v−1)` ⇒ 0.0579 (FAIL); `(x²−1)/2x` ⇒ 0.04652 (FAIL, x=3/(v−1));
+2-panel secant ⇒ 0.04727 (FAIL); **4-panel secant ⇒ 0.044965 ≤ 0.046 (works, 0.001 margin)**. The
+4-panel secant needs: `log(v−1)` chord lower bounds (via `log_half_ge_chord` with `s=2v−2`), a
+`le_log (5/2)` knot bound (new), and 4 cubic/v outer integrals (each with a `d0·log(vq/vp)` term
+needing `log(5/4),log(6/5),log(7/6),log(8/7)` bounds). All machinery exists; ~200 lines + ~5 new
+log lemmas remain — a clean follow-up, not a wall. The `*` in the table marks this reachable-but-
+unbuilt value.
+
+**Downstream:** TK2's coupled head ledger (massE 4..18, massO 3..17) consumes `panel_le`/`panel_ge`,
+`log_*_of_taylor`, and the envelope lemmas directly; `cflatI_tight`/`massE_two_tight` are the gate's
+stated binding requirements (cflatI ≤ 0.360 with room to spare, massE 2 ≤ 0.297). The toolkit is the
+shared substrate for every remaining MR2c route.

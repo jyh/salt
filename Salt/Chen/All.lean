@@ -41,6 +41,7 @@ import Salt.Chen.MassLedger
 import Salt.Chen.MassLedgerA1
 import Salt.Chen.MassCert
 import Salt.Chen.MassCert2
+import Salt.Chen.LogToolkit
 import Salt.Chen.SharpH
 import Salt.Chen.SharpH2
 import Salt.Chen.SharpF
@@ -218,6 +219,11 @@ open Salt.Tactic in
   Salt.Chen.massO_nonneg Salt.Chen.fseq_even_eq_masses
   Salt.Chen.evenSum_le_of_massSums Salt.Chen.fchain_ge_A1_of_massSums
   Salt.Chen.massO_le_crude
+  Salt.Chen.log_two_le Salt.Chen.le_log_two Salt.Chen.log_three_le
+  Salt.Chen.le_log_three Salt.Chen.log_half_le_tangent Salt.Chen.log_half_ge_chord
+  Salt.Chen.panel_le Salt.Chen.panel_ge Salt.Chen.integral_quad
+  Salt.Chen.cflatI_tight Salt.Chen.cflatI_lower
+  Salt.Chen.massE_two_tight Salt.Chen.massE_two_lower Salt.Chen.Cphi2_tight
   Salt.Chen.fseq_odd_le_massE_div Salt.Chen.fseq_even_le_massO_div
   Salt.Chen.fseq_even_continuousOn Salt.Chen.massTail_eq_phiMoment
   Salt.Chen.massE_eq_flat_phiMoment Salt.Chen.Cphi1_le Salt.Chen.Cphi2_le
