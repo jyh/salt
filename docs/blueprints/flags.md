@@ -5090,3 +5090,23 @@ directly from ∫Ē's exact rational panel arithmetic; TK1's TOOLKIT part is the
 constants part is demoted to non-load-bearing. THE NUMERIC KEYSTONE'S FINAL SHAPE: TK1 (toolkit)
 → **SS1** (the super-solution certification: the Neumann lemma + 43 × (r ≥ 0) panel checks +
 the two ledger integrals) → MR1/MR3's reductions consume the sums → the A₁/A₂ values → C5's H.
+
+## 2026-07-13 E₁c-hf Opus done FULL + VD1 (THE f-SIDE IS CLOSED) + CATCH #40 adjudicated
+
+`Salt/Chen/SharpF.lean` (810 lines, 7 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings; one inline-documented maxHeartbeats 400000 (hf_sharp_flat). LANDED:
+**`abel_pushforward`** — a DERIVATIVE-FREE discrete Abel engine (antitone g + affine up-set
+mass control ⟹ Σ m·g ≤ d·g(a) + c·∫g; pure Abel + Riemann lower sums — needed because the
+landed layer_cake engine is hBJS-kernel-specific and fseq has no uniform derivative kernel);
+`hf_cell_ge2`; `hBJS_flat_lb` (e²·S·hBJS S ≥ 1 on [1,3] — the floor that keeps the flat ledger
+under 20); **`vlow_le_of_guard` (VD1)** — h4 derived internally from hguard/hnu (E₁c-close is
+h4-free); `hf_sharp_flat`; **`hf_sharp_of_window`** — THE SHARP f-COMPARISON at cfSharpB, all
+cells. Defect ledgers (numeric self-check in the docstring): S≥2 cells 10.08 ≤ 20 (true sup
+2.68); flat 9.97 ≤ 19.8 (true sup 6.66) — the gate's cushion confirmed.
+
+**CATCH #40 (both comparison executors, adjudicated and RATIFIED by Fable):** my frozen
+hh/hf targets omitted an ε-smallness hypothesis; the flat cells' excesses are SUPER-LINEAR in ε
+((1+ε)² against the linear cfSharpB/chSharpB) so the statements are FALSE for ε ≳ 18. Both
+executors added the identical `hεsmall : ε ≤ 1/1000` and flagged it. Ratified: the amendment is
+designer-approved; ε_sieve = 2e−8 supplies it everywhere downstream. Tally: 40 catches,
+0 proofs on wrong statements.

@@ -43,6 +43,7 @@ import Salt.Chen.MassCert
 import Salt.Chen.MassCert2
 import Salt.Chen.SharpH
 import Salt.Chen.SharpH2
+import Salt.Chen.SharpF
 import Salt.Chen.FseqAntitone
 import Salt.Chen.TwinSharp
 import Salt.Chen.WindowedStepP
@@ -211,6 +212,9 @@ open Salt.Tactic in
   Salt.Chen.layer_cake_pushforward Salt.Chen.hpush_core
   Salt.Chen.hh_sharp_ge2 Salt.Chen.upset_mass_window_le
   Salt.Chen.hh_sharp_flat Salt.Chen.hh_sharp_of_window
+  Salt.Chen.abel_pushforward Salt.Chen.hf_cell_ge2
+  Salt.Chen.hBJS_flat_lb Salt.Chen.vlow_le_of_guard
+  Salt.Chen.hf_sharp_flat Salt.Chen.hf_sharp_of_window
   Salt.Chen.massO_nonneg Salt.Chen.fseq_even_eq_masses
   Salt.Chen.evenSum_le_of_massSums Salt.Chen.fchain_ge_A1_of_massSums
   Salt.Chen.massO_le_crude
