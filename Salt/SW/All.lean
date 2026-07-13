@@ -28,6 +28,7 @@ import Salt.SW.SiegelClose
 import Salt.SW.ContourShift
 import Salt.SW.ShiftAssembly
 import Salt.SW.ShiftVariants
+import Salt.SW.ZetaZeroFree
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -125,3 +126,5 @@ open Salt.Tactic in
   Salt.SW.psi1_contour_shift
   Salt.SW.norm_logDeriv_le_of_ball_dist Salt.SW.rectBI_sub_of_edge_eq
   Salt.SW.psi1_contour_shift_exceptional
+  Salt.SW.zeta_neg_re_logDeriv_le_keep Salt.SW.zeta_zero_free_strip
+  Salt.SW.zeta_zero_free_region
