@@ -4169,3 +4169,46 @@ recorded as optional node **E₁-dev** (C+ scale, own session,
 USER-DECISION whether to pursue — queued for the morning brief).
 Tally: 30 caught, 0 proofs on wrong statements; #29/#30 both mine,
 both caught by executors with kernel-checked counterexamples.
+
+## 2026-07-13 C3a landed (general BV weak, KEYSTONE 2) + the `(q/φq)`↔`(1/φd)` weight finding
+
+**Landed sorry-free** (`Salt/Chen/GeneralBV.lean`, namespace `Salt.Chen`, axioms
+`[propext, Classical.choice, Quot.sound]`, builds in ~3 s at default
+`maxHeartbeats 200000`):
+
+* `apDiscBilin` — the fixed-residue bilinear AP-discrepancy carrier (the
+  `dispDisc` analogue at a single class `N₀ mod d`), and **`apDiscBilin_orthogonality`
+  (FULL)**: the exact identity `apDiscBilin = (1/φd)·∑_{χ≠χ₀} χ(N₀⁻¹)·A(χ)·B(χ)`,
+  the bilinear analogue of `Salt.BV.psiAP_discrepancy_le` — the convolution SPLITS
+  as the product `A(χ)·B(χ)` (this is the reusable "BV corpus → convolutions"
+  upgrade). `norm_apDiscBilin_le` is the per-`d` triangle form.
+* **`bilinTwist_energy_le` (FULL)** — a genuine consumption of the landed shell
+  `Salt.BV.bilinear_LS_shell`: cutoff taken vacuous (`X·Y`) so the bilinear
+  character sum is exactly `A(χ)·B(χ)`, masses `∑‖α‖²,∑‖β‖² ≤ X,Y`, giving the
+  balanced `2(1+log Y)√(D²+13X)√(D²+13Y)√X√Y` bound.
+* **`general_BV_weak`** — the `L¹`-over-`d` headline in the frozen weak shape
+  (fixed scale `Icc 1 X/Y`, fixed residue, `L¹` in the modulus over the
+  consumer set `Dset`, SW-regularity of `β` named — **NOT** the maximal
+  `max-over-y` form). **Small-conductor branch FULL** via the named `hβSW`
+  (per-character SW-regularity of the convolution factor `β`, the freeze):
+  crude `‖A(χ)‖ ≤ X` × `hβSW` × `∑ 1/φd ≤ D0 ≤ (log XY)^{C0}` closes to
+  `Kβ·XY/(log XY)^A`. **Large-conductor branch** discharged through the named
+  dyadic-glue `hLargeDisc`.
+
+**FINDING (Iron Rule 1) — `bilinear_LS_shell`'s `(q/φq)` weight does not match the
+discrepancy's `(1/φd)` weight.** After the conductor fold these differ by a factor
+of the modulus; consuming the shell without a dyadic-in-conductor decomposition is
+lossy by `~√(XY)` (yields `(XY)^{3/2}` in place of `XY/log^A`). A dyadic-in-`f`
+decomposition recovers the `1/f` per block and closes to `~XY/log^A` — this IS the
+C3c "fine-partition bookkeeping" (`λ = 1+log^{−20}x` blocks). So C3a's large branch
+names `hLargeDisc` (whose per-block engine `bilinTwist_energy_le` is landed here),
+and the dyadic reassembly + conductor descent are deferred to C3b/C3c. The shell is
+not mis-shaped — it is the correct per-block engine; only the assembly (weights +
+dyadic glue) is a separate node.
+
+**Floor:** between (A) and (B) — the χ-reduction and shell-consumption are landed
+FULL and reusable, the small branch is FULL, the large branch is the named
+`hLargeDisc` glue. `hβSW` and `hLargeDisc` are genuine mathematical inputs (β-SW
+= C3b; the dyadic large-sieve assembly = C3c), not restatements of the conclusion
+(`hLargeDisc` bounds the character energy, which dominates the discrepancy via
+`norm_apDiscBilin_le`).

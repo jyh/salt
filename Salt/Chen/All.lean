@@ -22,6 +22,7 @@ import Salt.Chen.TwinA2
 import Salt.Chen.BVSum
 import Salt.Chen.TauNumeric
 import Salt.Chen.SharpTau
+import Salt.Chen.GeneralBV
 import Salt.Chen.WeightTrivia
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
@@ -126,6 +127,8 @@ open Salt.Tactic in
   Salt.Chen.hτrec_zero_impossible Salt.Chen.tauSum_odd_ge
   Salt.Chen.fseq_geom_uniform Salt.Chen.ch_const_geom_ge
   Salt.Chen.tauDecSum_odd_ge
+  Salt.Chen.apDiscBilin_orthogonality Salt.Chen.norm_apDiscBilin_le
+  Salt.Chen.bilinTwist_energy_le Salt.Chen.general_BV_weak
   Salt.Chen.chen_weight_le_indicator Salt.Chen.chen_weight_struct
   Salt.Chen.stripSum_le Salt.Chen.window_two_thirds_lt
   Salt.Chen.switch_loss_le
