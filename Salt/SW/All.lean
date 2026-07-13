@@ -31,6 +31,7 @@ import Salt.SW.ShiftVariants
 import Salt.SW.ZetaZeroFree
 import Salt.SW.ShiftTrivChar
 import Salt.SW.Psi1Transfer
+import Salt.SW.CharDispatch
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -134,3 +135,5 @@ open Salt.Tactic in
   Salt.SW.norm_logDeriv_Zc_le_of_ball_dist
   Salt.SW.psi1_contour_shift_trivchar Salt.SW.psi1_contour_shift_trivchar_full
   Salt.SW.psi1_transfer Salt.SW.psi1Chi_one_primitive Salt.SW.psi1_transfer_one
+  Salt.SW.sq_le_C_exp Salt.SW.E_shape_bound
+  Salt.SW.psi1_char_bound Salt.SW.psi1_trivchar_bound
