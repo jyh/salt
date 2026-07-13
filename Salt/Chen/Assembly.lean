@@ -256,9 +256,11 @@ theorem aCount_ge_one_of {x z y P n : ℕ} (hx : 2 ≤ x) (hn : n ∈ twinWindow
   exact_mod_cast hcard
 
 /-- **The unsifted-A₃ domination.**  `A₃ = triplePrimeSum ≤ log x · tripleSum` — the switch carrier
-is bounded by `log x` times the *unsifted* C3d triple count.  This is the composition that keeps
-`hPerE`/keystone-2 off the critical path: the switched-sequence sieve is never applied, because the
-C3d count (`0.298`) is already below the ledger line (`0.363`). -/
+is bounded by `log x` times the *unsifted* C3d triple count.  ⚠ CATCH #41 (2026-07-13): this bound
+is TRUE but NOT LOAD-BEARING — `log x · tripleSum` is `x`-scale against the `x/log x`-scale main
+terms (the `Λ(n) ≤ log x` step drops `Λ`'s prime support), so no ledger closes through it.  The
+assembly now takes the honest Λ-carrier `triplePrimeSum ≤ mainA3` directly (H-amendment 1); the
+switched-sequence sieve (SW-A₃) discharges it.  Kept as a documented true lemma. -/
 theorem triplePrimeSum_le {x z P y : ℕ} (hx : 2 ≤ x)
     (hPfull : ∀ q, q.Prime → q < z → q ∣ P) :
     triplePrimeSum x P y ≤ Real.log x * tripleSum x z y := by
@@ -303,24 +305,23 @@ main-term bounds (`hA1`, `hA2`, `hA3`) and the numeric ledger closure (`hledger`
 razor (`razor_reduction`), the strip bound (`stripPrimeSum_le`, C4b), and the unsifted-A₃
 domination (`triplePrimeSum_le`, C3d) are all discharged in full.
 
-The named debts are minimal and honest:
+The named debts are minimal and honest (hA3 amended per catch #41 — H-AMENDMENT 1, 2026-07-13:
+the slot takes the Λ-carrier itself; the previous `log x · tripleSum` shape was undischargeable):
 * `hA1 : mainA1 ≤ A1primeSum x P` — A₁ lower bound (C2a `twin_A1_lower` + prime-power strip);
 * `hA2 : omegaPrimeSum x P y ≤ mainA2` — A₂ upper bound (C2b `twin_A2_upper`);
-* `hA3 : Real.log x * tripleSum x z y ≤ mainA3` — switch bound (C3d `triple_count_le`);
+* `hA3 : triplePrimeSum x P y ≤ mainA3` — the switch bound (the SW-A₃ switched-sequence sieve);
 * `hledger : 0 < mainA1 − ½·mainA2 − ½·mainA3 − ½·(log x · x/(z−1))` — the C0 ledger closure. -/
 theorem chen_positivity {x z P y : ℕ} {mainA1 mainA2 mainA3 : ℝ}
     (hx : 2 ≤ x) (hz : 2 ≤ z) (hyx : x < (y + 1) ^ 3)
     (hPfull : ∀ q, q.Prime → q < z → q ∣ P)
     (hA1 : mainA1 ≤ A1primeSum x P)
     (hA2 : omegaPrimeSum x P y ≤ mainA2)
-    (hA3 : Real.log x * tripleSum x z y ≤ mainA3)
+    (hA3 : triplePrimeSum x P y ≤ mainA3)
     (hledger : 0 < mainA1 - mainA2 / 2 - mainA3 / 2 - Real.log x * (x : ℝ) / ((z : ℝ) - 1) / 2) :
     0 < p2PrimeSum x z P := by
   have hred := razor_reduction hx hyx hPfull
   have hS := stripPrimeSum_le (y := y) hx hz hPfull
-  have hT := triplePrimeSum_le (z := z) (y := y) hx hPfull
-  have hTb : triplePrimeSum x P y ≤ mainA3 := le_trans hT hA3
-  linarith [hred, hA1, hA2, hTb, hS, hledger]
+  linarith [hred, hA1, hA2, hA3, hS, hledger]
 
 /-! ## Part G — the survivor and the infinitude headline -/
 
@@ -340,7 +341,7 @@ theorem chen_survivor {x z P y : ℕ} {mainA1 mainA2 mainA3 : ℝ}
     (hPfull : ∀ q, q.Prime → q < z → q ∣ P)
     (hA1 : mainA1 ≤ A1primeSum x P)
     (hA2 : omegaPrimeSum x P y ≤ mainA2)
-    (hA3 : Real.log x * tripleSum x z y ≤ mainA3)
+    (hA3 : triplePrimeSum x P y ≤ mainA3)
     (hledger : 0 < mainA1 - mainA2 / 2 - mainA3 / 2 - Real.log x * (x : ℝ) / ((z : ℝ) - 1) / 2) :
     ∃ n : ℕ, x / 2 ≤ n ∧ n.Prime ∧ IsP2 2 (n + 2) := by
   have hpos := chen_positivity hx hz hyx hPfull hA1 hA2 hA3 hledger
@@ -380,7 +381,7 @@ theorem chen_of_hypotheses
         (∀ q, q.Prime → q < z → q ∣ P) ∧
         mainA1 ≤ A1primeSum x P ∧
         omegaPrimeSum x P y ≤ mainA2 ∧
-        Real.log x * tripleSum x z y ≤ mainA3 ∧
+        triplePrimeSum x P y ≤ mainA3 ∧
         0 < mainA1 - mainA2 / 2 - mainA3 / 2 - Real.log x * (x : ℝ) / ((z : ℝ) - 1) / 2) :
     {p : ℕ | p.Prime ∧ IsP2 2 (p + 2)}.Infinite := by
   apply Set.infinite_of_forall_exists_gt
