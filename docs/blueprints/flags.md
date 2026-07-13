@@ -4987,3 +4987,41 @@ the 0.52 mass scaling beyond W ≈ 6, so support creep is absorbed by the wing f
 at ~25% tolerance with the wing is a different, feasible object. MR2c = design-gate the operator
 statement, then one executor. MR4 (massO ledger) reuses `fseq_even_le_massO_div` + the same
 normalized profile.
+
+## 2026-07-13 THE MR2c GATE — DOUBLE BLOCK (catches #38/#39); the numeric keystone re-architected
+
+Both lenses BLOCKED the MR2c design (constructive + fidelity, independent methods, engines
+cross-validated against all repo truths to 3–4 digits).
+
+**CATCH #38 (constructive lens — the propagation flaw):** the one-sided normalized super-profile
+does NOT self-propagate. Any finite PL+wing profile strictly dominating the true normalized
+profiles has operator self-map constant r_op ≥ the Perron eigenvalue 0.52239 STRICTLY (best in a
+full (λ, W, C) sweep: 0.580), while the true mass ratios approach 0.52239 FROM BELOW — so the
+normalized domination degrades by r_op/ratio ≈ 1.11 per two-level step and DIVERGES. The
+contraction is TRUE (the object exists; profiles converge at rate 0.32/level) but the route
+cannot prove it. Fix requires two-sided/finite-depth+asymptotic machinery — not one executor.
+
+**CATCH #39 (both lenses — the budget framing):** my "34% margin" was measured on the WRONG
+quantity. The r-tail is nearly irrelevant (r ∈ [0.52, 0.58] moves the sum < 0.001); the sum
+budget is a 2.0% RAZOR dominated by HEAD-mass precision: closure requires cflatI certified
+within ~+1% of true (≤ 0.360; the landed 1/2 gives total 0.727 — fail by 0.15), massE 2 within
+~+1% (≤ 0.297; landed 0.352 fails), per-level head tails at ~0% slack, AND (fidelity) TIGHT
+massO bounds enter the head path via the exact identities (the crude massO bound is unusable:
+0.197 > massE 6 itself). Even 5th-order Taylor majorants compose to 0.5798 > 0.57333. Needed:
+≥ 7th-order rational log-majorants, both directions.
+**CONFIRMED by the gate:** the wing (two-level factor ≈ 0.32, conservative), the Φ-machinery
+interfaces, the existence of the dominating profile, and the floor: exact constants give
+0.56172 ≤ 0.57333 with 0.0116 absolute slack — closure is POSSIBLE, just precise.
+
+**REVISED NUMERIC-KEYSTONE ARCHITECTURE (Fable):**
+- **TK1 (dispatch now, needed by EVERY route):** the high-order log-majorant toolkit — rational
+  upper AND lower bounds for log via ≥ 7th-order Taylor/Padé panels, then near-exact certified
+  constants: cflatI ∈ [tight, ≤ 0.3560], massE 2 ≤ ~0.2950, Cphi1/Cphi2 tight both sides, and
+  the per-level head-tail integral templates.
+- **TK2:** the coupled head ledger (massE 4..18 AND massO 3..17 together — the identities couple
+  them) via TK1.
+- **TK3 (the remaining research object):** the uniform tail. Candidate routes to gate: (a)
+  finite-depth profiles to P* + the 0.32/level geometric convergence argument; (b) the
+  Σ-mass integral characterization (Σ_even massE = ∫_2^∞ E, E = the total even sum, satisfying
+  the closed coupled (E,O) renewal system — C1b′'s super-solution idea aimed at the MASS not
+  pointwise); (c) two-sided sandwich + spectral gap. Gate before freeze; tally: 39 catches.
