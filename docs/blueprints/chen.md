@@ -298,6 +298,35 @@ FREEZE ONLY AFTER the pushforward route is worked at Lemma-9.8 level
 against the landed AbelStep telescope (telescope_ge, stepHyp_lhs_eq,
 Vbelow_le_ratio) — the boundary structure depends on OUR peel's exact
 form, not BJS's continuous one.
+(d) ROUTE REFINEMENT (Fable, corpus-grounded): the per-step reduces
+via the landed `stepHyp_lhs_eq` + `ledger_collect` to TWO windowed
+comparisons, both against the Stieltjes measure m_p = ν(p)·Vbelow(p)
+whose (29)-control is landed (`Vbelow_le_ratio`: V(p) ≤
+(1+ε)(log z/log p)·W under the hguard, i.e. K = 1+ε exactly):
+• hh-sharp (`Σ m_p·hBJS(σ_p) ≤ W·chSharpB·hBJS(S)`): hBJS is
+  non-increasing and σ_p is decreasing in p, so g(σ_p) is increasing
+  in p and the layer-cake/up-set argument applies: {g ≥ y} is an
+  up-set with mass V(t(y)) − W (`telescope_ge`), V(t)/W ≤ (1+ε)·
+  (log z/log t); reconstruct ≤ (1+ε)·W·(1/S)∫_{S−1}h + the z-edge
+  boundary (the (36)-defect, ε-scale) → E₁a closes at 49/50; the
+  boundary rides in the +4ε pad of chSharpB.
+• hf-sharp (`Σ m_p·fseq n(σ_p) ≤ W·(fseq(n+1)(S) + cfSharpB·hBJS S)`):
+  fseq is NOT monotone — do NOT layer-cake it. BJS's own route: the
+  main term is the EXACT recursion ((16)/our window equations:
+  (1/S)∫fseq n(t−1)dt = fseq(n+1)(S) on the tail branch; windowed
+  variants otherwise), so ONLY THE DEFECT needs bounding:
+  |Σ m_p·fseq n(σ_p) − W·(1/S)∫fseq n| ≤ (ε-slack of the measure per
+  (29) + Riemann/panel error) × ‖fseq n‖-mass, and `fseq_le`
+  (2e²·rf^{n−1}·hbar) converts the mass to the geometric rf^n·h-shape
+  → cfSharpB. The (35)-boundary (ε·2γ₃e²rf^{n−2}-scale) fixes
+  cfSharpB ≈ 8εe²rf^n (vs E₁b's 3): re-freeze via the E₁d parametric
+  layer with tauSharpB/CsharpB ≈ (8/3)·15000 = 40000; ledger recheck
+  at ε = 10⁻⁷: S3 spend 8/3× = 1.7e−3 vs cap 1.5e−3 — FAILS at 10⁻⁷!
+  → refreeze ε_sieve = 5·10⁻⁸ alongside (S3 spend 8.4e−4, margin
+  1.8×; S1/S2 comfortable; w0R(5e−8) ≈ exp(8·10⁸) still a constant).
+  PRE-VERIFY this pair (cfSharpB envelope + ε = 5e−8) numerically at
+  gate time BEFORE freezing; the odd-flat branch (BJS (39), K²-terms)
+  may add its own envelope constant — audit it in the same gate.
 **E₁d** (Fable-tier design) — parametrize `WindowedStep`'s hardcoded
 `cf_const`/`ch_const` over `(cf, ch)` so the sharp coefficients reach
 the REAL A₁ operating point s ≈ 4 (the unwindowed consumers landed in
