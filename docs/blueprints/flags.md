@@ -5046,3 +5046,21 @@ hguard/hnu via vratio at D'^{1/3} (~100-line sibling of upset_mass_window_le); (
 chSharp-vs-chSharpB 4ε accounting concerns only the TERMINAL unwindowed consumers (fidelity
 lens: nothing downstream consumes them) — no action. The h-slot of the sharp per-step is
 otherwise COMPLETE.
+
+## 2026-07-13 TK3 ROUTE (b) DESIGN (Fable) — the super-solution escape from the Perron wall
+
+The total even/odd sums E(v) = Σ_even fseq k (v), O(v) = Σ_{odd≥3} fseq j (v) satisfy a CLOSED
+monotone system (sum the window equations; uniform convergence from fseq_le): E = f₂ + T_e[O],
+O = T_o[E], hence E = f₂ + T₂[E] with T₂ = T_e∘T_o positive monotone, spectral radius = the mass
+ratio 0.5224 < 1, and E = Σ T₂^k f₂ (Neumann). A SUPER-SOLUTION Ē ≥ f₂ + T₂[Ē] pointwise
+dominates: Ē ≥ E (induction over Neumann partial sums — a clean Lean lemma, no spectral theory).
+Then **Σ_even massE = ∫_2^∞ E ≤ ∫ Ē** and the massO ledger comes from the same pair (M_O from
+Ō = T_o[Ē]-dominated). WHY THIS ESCAPES catches #38/#39's walls: (i) NO normalized per-level
+propagation — one fixed inequality checked panel-wise (T₂ of a PL+wing function is explicitly
+integrable); the Perron-eigenvalue divergence never arises; (ii) the tightness demand is
+INTEGRAL not pointwise: ∫Ē − ∫E ≈ (1−ρ)^{−1}∫r ≈ 2∫r, so the residual r = Ē − f₂ − T₂Ē ≥ 0
+may be locally loose anywhere provided ∫r ≲ 0.006 (1% of the mass) — vs C1b′'s impossible
+2%-POINTWISE demand at the operating point. HEAD PRECISION (catch #39) still applies to massE 2
+and cflatI-type constants (TK1, in flight). GATE (constructive) launched: build Ē numerically
+(~25 panels + wing), check the ∫r budget, the T₂-panel arithmetic shapes, and the massO
+extraction, BEFORE any freeze.
