@@ -5310,3 +5310,42 @@ thread symbolically if C1cσ hasn't certified it (the A₁/A₂ pattern).
 **hPerE (THE ENDGAME NODE: Fable design block + likely its own arc — the last mathematics
 between here and the unconditional Chen)**. SW3 (rem → apDiscBilin reduction, C+) can run
 parallel to the hPerE design.
+
+## 2026-07-13 THE hPerE RECON — ★ CATCH #43: hPerE AS LANDED IS FALSE ★ (and the collapse that saves it)
+
+Three-lens recon (interface + adversarial done; mathematics lens re-running after an API failure).
+
+**CATCH #43 (adversarial lens, numerically decisive).** `hPerE`'s pointwise envelope
+`EfoldTerm e ≤ Kerr·(XM/(log XM)^A)·(1/e²)` is UNPROVABLE: EfoldTerm is a cancellation-free sum
+of norm-products, and exact small-scale computation (faithful characters/conductors, the real
+coefficients) shows `EfoldTerm(e)·e²` grows ~9× across e = 2..19 while `EfoldTerm(e)·e` is flat —
+the honest decay is ~1/e (= 1/(e·φe)-fold shapes), exactly as ErrFold's own module comments
+hinted. NO fixed Kerr works; the keystone-2 composition rests on an undischargeable hypothesis.
+This was frozen by ME at the keystone-2 design; the composition's G-slot and
+`sum_inv_sq_Icc_le_one` envelope must be RESHAPED to 1/e (Σ ~ log D — absorbed by raising the
+free A by one; the adversarial lens verified Kerr/A live inside a log: a THRESHOLD phenomenon,
+not a ledger margin — the reshape is SAFE, no interaction with the E₁/S-row fixed-margin ledger).
+
+**THE STRUCTURAL COLLAPSES (both lenses agree, Lean-provable):**
+- **β-side ≡ 0**: `blockPrimeInd N (e·n')` = 0 for all e ∈ [2, D] once D < N (e·n' composite for
+  n' ≥ 2; the n' = 1 case needs e > N ≥ D). D = x^{1/2−ε′} < N ~ x^{1/2} at the operating point.
+  The flag's obstruction (ii) — the uncontrolled β-side — DOES NOT EXIST for this theorem.
+- **α-side collapses to PRIME×PRIME**: for e prime, `α(e·m')` (semiprime pattern) forces m'
+  prime — A^{(e)} is a prime twist at scale X/e; e semiprime → the single m' = 1 term; Ω(e) ≥ 3
+  → zero. The "imprimitive research core" reduces to prime-indicator energies at dilated scales,
+  where `hβSW_of_prime_indicator` + the landed two-regime engine apply (the d-dependent
+  coprimeRestrict subtlety per the interface lens: fold B_d primitive via
+  bilinTwist_coprimeRestrict_primitive + regroup_bilin (both parametric, re-instantiate), then
+  the per-f treatment needs the dilated-scale re-instantiation — the mathematics lens is
+  designing this route).
+**Side-condition findings:** add `D < N` (or ≤) to general_BV_final (holds at the operating
+point; it is what kills the β-side); SW3 must feed ODD moduli (R₀ = 2 forces Coprime 2 d);
+the scale-compat constant inflates Kβ by 2^{A+2C0} (benign). Tally: **43 catches, 0 proofs on
+wrong statements** — three of the last four caught MY freezes; the kernel-and-gates culture is
+what keeps the program honest at the exact moments the designer is most confident.
+
+**THE REVISED ENDGAME (PE nodes):** PE1 (Fable statement amendments: the 1/e envelope reshape
+through hErrSum_final/hLargeDisc_of_perE/general_BV_final + the harmonic-sum lemma + D < N) →
+PE2 (β-side ≡ 0, class B) → PE3 (the α-side per-e bound at the reshaped envelope via the
+prime×prime collapse + dilated re-instantiation of the two-regime engine, class C+) → SW3
+(rem → apDiscBilin at odd moduli) → SW4 → H-glue.
