@@ -17,6 +17,7 @@ import Salt.Chen.AbelStep
 import Salt.Chen.SharpStep
 import Salt.Chen.DecayMass
 import Salt.Chen.WindowedStep
+import Salt.Chen.TwinA2
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
 
@@ -109,3 +110,5 @@ open Salt.Tactic in
   Salt.Chen.stepHyp_pointwise
   Salt.Chen.T_vanish Salt.Chen.stepHypW_holds Salt.Chen.T_le_of_peel_step_w
   Salt.Chen.bjs_theorem6_windowed_upper Salt.Chen.bjs_theorem6_windowed_lower
+  Salt.Chen.one_le_Fchain Salt.Chen.twin_A2_per_prime
+  Salt.Chen.A2grid_le_envelope Salt.Chen.twin_A2_upper
