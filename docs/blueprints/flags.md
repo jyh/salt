@@ -4081,3 +4081,91 @@ tier, not merely "unfetched (31) constants". Fable/human decision.
 recursion proven on the window"); `cf_const_nonneg`/`ch_const_nonneg`; the numeric cores
 `exp_two_lt_eight`/`eight_le_exp_three`/`cf_const_zero_ge`/`Cabs_ge_one`/`ch_const_ge_two`; and the
 two findings `hτrec_zero_impossible` + `tauChen_double`/`tauChen_ge_geom`/`tauSum_odd_ge`.
+
+## 2026-07-13 C1cσ: the geometric-decay fix does NOT achieve contraction — STOP-AND-FLAG (Opus)
+
+`Salt/Chen/SharpTau.lean` (new file only; namespace `Salt.Chen`; `import Mathlib +
+Salt.Chen.TauNumeric`; NOT wired into All.lean; no landed file modified). Builds green
+(`lake build Salt.Chen.SharpTau`, 3.4s), zero warnings, no sorry / native_decide, axiom-clean
+`[propext, Classical.choice, Quot.sound]` on all public decls. Default heartbeats.
+
+**Scope (chen.md C1cσ row):** re-run the two comparison endgames (`SharpStep.hf_of_window`,
+`DecayMass.hh_of_window`) carrying the landed geometric decay `Tail.fseq_le`
+(`fseq (n+1) s ≤ 2e²(99/100)ⁿ·hbar s`), the hope being `c_f(n), c_h(n) ≤ K·(99/100)ⁿ` so the
+τ-recursion contracts and `tau_sum_le_of_recursion` closes at explicit `C₁'/C₂'`. **The
+investigation found the geometric factor does NOT rescue contraction** — Iron Rule 1
+STOP-AND-FLAG, machine-checked, no statement altered.
+
+**FINDING 1 (the geometric factor touches only the `f`-side).** The two Stieltjes comparisons
+`stepHyp_of_comparisons` reduces `StepHyp` to are `hf: Σ ν(p)V(p)fₙ(σ_p) ≤ W(fₙ₊₁+c_f·h)` and
+`hh: Σ ν(p)V(p)h(σ_p) ≤ W(c_h·h)`. Only `hf` has an `fₙ` factor, so only there does
+`fseq_le` apply — `hh` is a pure `h`-sum, no `fₙ`, no geometric factor to carry. But the
+τ-multiplier is `β = c_h` (`ledger_collect`), so it is the `h`-side that must contract. The
+`f`-side decay is real (landed `fseq_geom_uniform : fₙ(s) ≤ 2(99/100)ⁿ⁻¹`, n≥1) but cannot
+help the multiplier at all.
+
+**FINDING 2 (even applied to both sides, `(99/100)ⁿ·c_h ≥ 24`).** `ch_const n ε =
+(1+ε)Cabs(n+3)e^{n+3}`; the `e^{n+3}` is the mandatory window-conversion `one_le_window_hBJS`
+(the crude `decay_mass_le` gives an ABSOLUTE mass `Cabs`, expressing it in `h(S)`-units at the
+worst operating point `S=n+3` costs `1/h(n+3)=(n+3)e^{n+3}/3`). The geometric factor does not
+beat it: `(99/100)ⁿ·ch_const n ε ≥ 3e³·((99/100)e)ⁿ ≥ 3e³ ≥ 24` (`ch_const_geom_ge`), because
+`(99/100)·e ≈ 2.69 > 1`. (Against `hbar`: `(99/100)·e^{6/5} ≈ 3.29 > 1` — NO fixed-rate
+majorant floor for `h` on `[1,n+3]` avoids it.) Landed `tauDec` (the optimistically
+fully-decayed recursion, geometric factor granted to BOTH `c_f` and `c_h`): still
+`2τₙ ≤ τₙ₊₁` (`tauDec_double`), `3·2^m ≤ τ_{m+1}` (`tauDec_ge_geom`), odd-sum `≥ 3·2^{2m}`
+(`tauDecSum_odd_ge`), `ε`-uniform. So achievable `C₁' ≥ 3·2^{~π(z)}`, astronomical; no usable
+`C₁'/C₂'`, no ε-refreeze (incl. the 1/100000 row) helps. This is C1cτ Findings 1–2 made
+specific to the geometric-factor fix.
+
+**Root cause + the genuine fix (out of scope; corroborates C1c⁵/StepBound).** Contraction
+(`c_h < 1`) needs the SHARP discrete→integral comparison (BJS §2.4): the loglog-density
+pushforward turning `Σ ν(p)V(p)h(σ_p)` into `∫ h`, closed by `Tail.hbar_funcbound` (ratio
+99/100<1) — the `AbelStep`/`StepBound`-deferred "multi-hundred-line real analysis, its own
+session" hypothesis, NOT obtainable by re-running the crude `decay_mass_le` endgame (all C1cσ's
+mandate re-runs). Moreover even the sharp *elementary* funcbound floors at `c_h ≈
+(1+ε)(99/100)·s/(s−1) ≈ 1.98 > 1` (the `s/(s−1)` density factor at `s=2`); genuine `κ₃≈0.96<1`
+needs the `3u⁻¹e⁻ᵘ`-tail exponential integral `E₁`, not elementary in mathlib. So the numeric
+row genuinely requires the sharp BJS constants — the C1c⁵ `κ₃=1 ⟹ β≥1` finding, now confirmed
+against the geometric-factor route too.
+
+**Catch #29 (the n≥1 hτrec amendment).** Orthogonal to the decay issue and already substantially
+handled: `TauNumeric.hτrec_zero_impossible` (the global n=0 demand is impossible) +
+`TauNumeric.tauChen_rec` (the recursion holds on n≥1). `T_le_of_peel_step_w` only USES `hτrec m`
+at `m≥1`, so the one-token `∀ n → ∀ n, 1≤n →` amendment to the landed keystones
+(`T_le_of_peel_step_w`/`hlevel_w_*`/`bjs_theorem6_windowed_*`/`twin_A1_lower`) is sound — a
+Fable interface sweep. NOT re-derived here (Finding 2 shows it wouldn't close the numerics, so
+the ~200-line re-derivation of the whole windowed chain is deferred and moot for numeric
+closure).
+
+**Consumers (TwinA1/TwinA2).** Their `hτrec`/`htau` slots remain genuinely open: no concrete
+`tau` closes them at 106/108 (or any usable constant) via the landed constants. `twin_A1_lower`'s
+endpoint is NOT dischargeable to `twin_A1_lower_numeric` from this node — the true numeric
+closure needs the sharp-`E₁`/funcbound development (a separate C+ session), not the
+geometric-factor re-run. Fable/human decision on whether to pursue the sharp route or accept the
+parametric `htau` per the C0 doctrine.
+
+**Landed (sorry-free, the PB-floor as a rigorous negative result):** `fseq_geom_uniform`
+(the real `f`-side decay); `one_le_geom_mul_exp`/`geom_mul_exp_pow_ge_one`/`exp_nat_eq`
+(the `(99/100)·e ≥ 1` arithmetic wall); `ch_const_ge_exp`/`ch_const_defeats_geom`/
+`ch_const_geom_ge` (Finding 2's `(99/100)ⁿ·ch_const ≥ 24`); `tauDec` +
+`tauDec_double`/`tauDec_ge_geom`/`tauDecSum_odd_ge` (the fully-decayed recursion still blows up).
+
+## 2026-07-13 C1cσ adjudication: catch #30 (my repair premise) — the τ-row stays PARAMETRIC
+
+The C1cσ executor STOP-AND-FLAGGED with machine-checked
+counterexamples: my proposed fix (carry fseq_le's geometric decay
+through the endgames) is unsound — (1) the h-side comparison has no
+fₙ to decay (the τ-multiplier is c_h, untouched by the f-decay);
+(2) the e^{n+3} window conversion is MANDATORY at the elementary
+tier and defeats every fixed-rate floor ((99/100)·e > 1 against
+both hBJS and hbar); (3) even fully-decayed-both-sides the recursion
+doubles (tauDec: 3·2^m, ε-uniform — no refreeze helps). The base
+was never the blocker (s = 3 closes comfortably). ADJUDICATION:
+**htau stays parametric per the C0 doctrine** — the Chen arc
+completes MODULO the parametric τ exactly as the ledger anticipated;
+the genuine numeric close is the sharp κ₃ < 1 development (the E₁
+exponential integral + the true BJS (35)–(38) integral comparison),
+recorded as optional node **E₁-dev** (C+ scale, own session,
+USER-DECISION whether to pursue — queued for the morning brief).
+Tally: 30 caught, 0 proofs on wrong statements; #29/#30 both mine,
+both caught by executors with kernel-checked counterexamples.
