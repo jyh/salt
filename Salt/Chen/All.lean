@@ -28,6 +28,7 @@ import Salt.Chen.ConductorDescent
 import Salt.Chen.BilinearDescent
 import Salt.Chen.TripleCount
 import Salt.Chen.EnergyClose
+import Salt.Chen.ErrFold
 import Salt.Chen.WeightTrivia
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
@@ -145,6 +146,8 @@ open Salt.Tactic in
   Salt.Chen.chen_switch_const_lt
   Salt.Chen.smallConductor_energy_le Salt.Chen.hMainEnergy_discharge
   Salt.Chen.bilinTwist_sub_primitive_eq
+  Salt.Chen.bilinTwist_efold Salt.Chen.hErrSum_reorg
+  Salt.Chen.hErrSum_discharge
   Salt.Chen.chen_weight_le_indicator Salt.Chen.chen_weight_struct
   Salt.Chen.stripSum_le Salt.Chen.window_two_thirds_lt
   Salt.Chen.switch_loss_le

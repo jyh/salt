@@ -4346,3 +4346,18 @@ needs the e-fold on the A-side (`‖B_d‖ ≤ Y` crude, no SW for `d > D0`).
 **Status.** `general_BV_final` (= `general_BV_closed` + `bilinear_hLargeDisc`
 with both cores discharged) does NOT close: core 1 (`hMainEnergy_discharge`)
 DONE, core 2 (`hErrSum` e-fold) remains. Keystone 2 not yet closed.
+
+## 2026-07-13 C3c‴: the e-fold LANDED (floor A); the per-e energy = C3c⁗
+
+bilinTwist_efold — the BDH identity FULL (A_d − A⋆ = Σ_{e ∣ d, e>1}
+μ(e)χ⋆(e)·A^{(e)} at scale ⌊X/e⌋, via the Möbius-zeta convolution
+identity + the m = e·m′ reindex + complete multiplicativity);
+hErrSum_reorg (both error sides pulled to e-outermost); the
+convergence telescope; hErrSum_discharge = the verbatim
+bilinear_hLargeDisc slot modulo ONE named per-e glue
+(EfoldTerm e ≤ (c/φe)·⌊X/e⌋·Y/(log)^{A+1}-shape + its sum). The
+glue is a per-e re-run of C3c″'s ENTIRE dyadic engine at shifted
+scale — a second full copy with delicate bookkeeping (C3c⁗, honest
+own-node scale). KEYSTONE 2 status: closed modulo C3c⁗'s glue.
+The DecidableEq-instance crux (NeZero scoped inside step1 only) is
+recorded for the C3c⁗ executor.
