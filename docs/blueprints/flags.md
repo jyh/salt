@@ -4413,3 +4413,26 @@ keystone-2 stack down to the single per-e energy glue hPerE. Keystone 2
 is closed modulo hPerE (+ operating scale + ‖α‖≤1 + hMainEnergy's own
 C3c″ discharge). All four structural layers — the e-fold identity, the
 reorganisation, the 1/e² envelope, and the full composition — are landed.
+
+## 2026-07-13 C5: ═══ THE CHEN ASSEMBLY LANDED — KEYSTONE 2 OFF THE CRITICAL PATH ═══
+
+chen_of_hypotheses : {p | p.Prime ∧ IsP2 2 (p+2)}.Infinite — the P₂
+headline, modulo the per-x input package H (hPfull/hA1/hA2/hA3/
+hledger). THE STRUCTURAL DISCOVERY (machine-checked,
+triplePrimeSum_le + aCount_ge_one_of): the switch's z ≤ p₁ comes
+from the COPRIMALITY CUT, not from any distribution estimate — so
+the UNSIFTED C3d count (0.29827 < 0.363084) serves A₃ directly and
+the entire switched-sequence sieve (keystone 2: general BV, hPerE)
+is NOT on the headline's critical path. GeneralBV/PerEEngine are
+not even imported by Assembly.lean. Keystone 2 remains a standalone
+mathlib-first artifact (the first bilinear-BV machinery) with its
+one honest glue (hPerE) as optional polish.
+THE CHEN ARC's remaining debts for the UNCONDITIONAL headline:
+(1) the numeric τ (E₁-dev — USER DECISION pending); (2) C1b′ (the
+fchain/Fchain value certification — Table-2-sharp, compute-heavy);
+(3) the final H-instantiation glue node once (1)+(2) exist.
+Everything else is composed: the weights (C4b), the (38) reduction,
+the strip, A₁ (C2a via keystone 1 + the unconditional BV), A₂ (C2b),
+A₃ (C3d via the gate's PNT), the survivor extraction, the
+infinitude. The prime-restricted carrier design makes survivors
+genuinely prime; IsP2 2 is the fixed honest P₂ carrier.

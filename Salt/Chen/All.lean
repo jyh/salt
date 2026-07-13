@@ -31,6 +31,7 @@ import Salt.Chen.EnergyClose
 import Salt.Chen.ErrFold
 import Salt.Chen.PerEEngine
 import Salt.Chen.WeightTrivia
+import Salt.Chen.Assembly
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
 
@@ -151,6 +152,9 @@ open Salt.Tactic in
   Salt.Chen.hErrSum_discharge
   Salt.Chen.efold_density_fold Salt.Chen.hErrSum_final
   Salt.Chen.hLargeDisc_of_perE Salt.Chen.general_BV_final
+  Salt.Chen.razor_reduction Salt.Chen.triplePrimeSum_le
+  Salt.Chen.chen_positivity Salt.Chen.chen_survivor
+  Salt.Chen.chen_of_hypotheses
   Salt.Chen.chen_weight_le_indicator Salt.Chen.chen_weight_struct
   Salt.Chen.stripSum_le Salt.Chen.window_two_thirds_lt
   Salt.Chen.switch_loss_le
