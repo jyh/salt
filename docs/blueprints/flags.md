@@ -3830,3 +3830,116 @@ over-closes ("No goals") — use `show`-rewrites of the exponent; `div_le_div_if
 `sum_inv_le_of_prime_window` is namespaced `Salt.BrunLower.`; `positivity` cannot prove `1 ≤ n+3` or
 `0 ≤ 1/(p−1)` (feed `Nat.cast_nonneg`/`one_div_pos` explicitly). Tally: 27 caught, 0 proofs on wrong
 statements.
+
+## 2026-07-12 SW S5c: exceptional-zero contour variant — FULL; χ₀ variant + ζ zero-free region FLAGGED (Opus)
+`Salt/SW/ShiftVariants.lean` (new file; `import Mathlib` + `Salt.SW.ShiftAssembly`; namespace
+`Salt.SW`; NOT wired into any All.lean — new file only). Builds green, zero warnings, sorry-free,
+no `native_decide`, no new axioms. Axiom-clean `[propext, Classical.choice, Quot.sound]` on all
+three public decls (`psi1_contour_shift_exceptional`, `norm_logDeriv_le_of_ball_dist`,
+`rectBI_sub_of_edge_eq`). `set_option maxHeartbeats 1600000` on the main theorem (documented
+in-file; the `set`-heavy assembly), default elsewhere. ~22s compile.
+
+**LANDED FULL — `psi1_contour_shift_exceptional`.** Verbatim:
+`‖psi1Chi x χ + (x:ℂ)^(↑β₁+1)/(↑β₁*(↑β₁+1))‖ ≤ (1/2π)·E`, for primitive χ mod f≥2, x≥3, T≥2,
+w>0, σ₀−w≥9/10, σ₀<1, `hβsep : σ₀+w ≤ β₁`, β₁<1, `hβ_simple : analyticOrderAt (LFunction χ) ↑β₁ = 1`,
+and the CARVED zero-free hypothesis
+`hzf : ∀ ρ, L ρ = 0 → σ₀−w ≤ ρ.re → ρ.re ≤ 1 → |ρ.im| ≤ T+2 → ρ = ↑β₁`
+(every box-region zero IS β₁). **`E` is IDENTICAL to S5b's clean `E`** — the three summands
+`2(c−σ₀)·B·x^{c+1}/T² + B·x^{σ₀+1}·(π/σ₀) + (log x+1)·x^{c+1}·(2/T)`, same
+`B = 120·L4 + (L4/log(7/6))/w`, `L4 = log(4·5·(4+T)·√f·(1+log f))`, `c = 1+1/log x`. The residue
+`x^{β₁+1}/(β₁(β₁+1))` is the ADDED main term on the LEFT; it does NOT enlarge `E` (see finding).
+
+**Mechanism (resolves the S5b executor's obstructions (1)+(2); recommended route confirmed).**
+The G-trick, with the correct sign `G := (−L'/L) + 1/(s−β₁)` (the S5b flag's `− 1/(s−β₁)` was a
+sign slip — with `−`, `ker·G` retains a double pole at β₁; `+` cancels it):
+* **The gluing (obstruction 1).** From `hβ_simple` + `AnalyticAt L β₁`,
+  `AnalyticAt.analyticOrderAt_eq_natCast (n:=1)` gives `L =ᶠ[𝓝 β₁] (·−β₁)^1 • hfac`, `hfac` analytic,
+  `hfac β₁ ≠ 0`. Then `G = −logDeriv hfac` on `𝓝[≠] β₁` (`logDeriv_mul`), so
+  `Gtrue := Function.update G β₁ (−logDeriv hfac β₁)` is `=ᶠ[𝓝 β₁] −logDeriv hfac`, hence
+  DifferentiableAt β₁ (`congr_of_eventuallyEq`). Away from β₁, `Gtrue = G` (update off-point) is
+  differentiable where `L ≠ 0` (the carved hzf gives box\{β₁} non-vanishing). So
+  `A := ker·Gtrue` is `DifferentiableOn` the WHOLE box ⇒ `rectBI A = 0` (plain Goursat
+  `rectBI_eq_zero_of_differentiableOn`, NO pole-carve variant of `rectBI_right_split` needed).
+* **The residue.** `F = A − Bfun` off β₁ (`Bfun := ker/(·−β₁)`, the `kernel_residue` integrand
+  exactly). New helper `rectBI_sub_of_edge_eq` gives `rectBI F = rectBI A − rectBI Bfun` from the
+  four edge pointwise identities + eight interval-integrabilities (edges avoid β₁). With
+  `rectBI A = 0` and `rectBI Bfun = 2πi·ker(β₁)` (`kernel_residue`, β₁ strictly interior via
+  hβsep+β₁<1<c), `rectBI F = −2πi·κ`, `κ = ker(β₁) = x^{β₁+1}/(β₁(β₁+1))`. Rearranged:
+  `I·(RIGHT + 2π·κ) = TOPI − BOTI + I·LEFT` (`linear_combination`), so the S5b `‖RIGHT‖` bound
+  becomes `‖RIGHT + 2π·κ‖ ≤ ‖TOPI‖+‖BOTI‖+‖LEFT‖`; and `psi1 + κ = (1/2π)•((RIGHT+2π·κ)+tail)`,
+  giving `‖psi1 + κ‖ ≤ (1/2π)·(edge+tail bounds)`.
+
+**FINDING — E' = E (obstruction (2)'s "carve costs" do NOT materialize).** The S5b flag scoped a
+~150-line carved-edge bound and predicted `E' = E + carve costs`. NOT so: bounding
+`‖logDeriv L‖` DIRECTLY on the edges (not `‖G‖`) keeps it at exactly `B`, because
+`logDeriv L = Σ_{ρ∈Z} m_ρ/(s−ρ) + logDeriv h_endpoint` and β₁'s term `1/(s−β₁)` is `≤ 1/w`
+on the edges (`hβsep`), no larger than the other kept `1/w` terms — `Σ_{ρ∈Z} m_ρ ≤ log(4M₀)/log(7/6)`
+regardless of whether β₁ ∈ Z. So the edge bound reuses S5b's constant `B` verbatim; the residue
+`κ` rides entirely on the LEFT of the inequality. The edge bound is delivered by the reusable
+helper `norm_logDeriv_le_of_ball_dist` (S5b's `norm_neg_logDeriv_le_shifted` with the zero-free
+hypothesis abstracted to a direct `hdist : ∀ρ, Lρ=0 → ρ∈ball(2+iγ)(3/2) → w ≤ ‖s−ρ‖`), and the
+exceptional `hdist` is the by-cases (`ρ=β₁`: hβsep on the left edge / `|Im|=T≥w` on horizontals;
+`ρ≠β₁`: carved hzf ⇒ Re ρ ≤ σ₀−w) — obstruction (3) discharged by the `hβsep` HYPOTHESIS (stated,
+not derived; S6 supplies it since β₁ is Siegel). `w ≤ T` is derived from σ₀−w≥9/10, σ₀<c<2, T≥2.
+
+**Two reusable helpers landed (floor-C insurance, both used by the main theorem):**
+* `norm_logDeriv_le_of_ball_dist` — the distance-form edge bound (see above).
+* `rectBI_sub_of_edge_eq` — edge-wise linearity `rectBI F = rectBI A − rectBI B` from pointwise
+  `F = A − B` on the four edges + interval-integrabilities (`integral_congr` + `integral_sub`).
+
+**Friction (for the next executor).** (a) `ContinuousAt.comp` with a `set`-lambda `F` triggers a
+genuine `isDefEq` heartbeat BLOWUP (6.4M heartbeats exhausted on ONE tactic) when matching
+`F ∘ γ` against `fun v => F(γ v)` — F's body unfolds `LFunction` exponentially. FIX: `simp only [hF]`
+to unfold F FIRST, then build `ContinuousOn` from concrete pieces (`const_cpow`/`ContinuousOn.div`/
+`ContinuousOn.mul` + `hdLcont.comp hline`), mirroring `contour_integrand_integrable`. This is the
+single most important gotcha — `.comp` on set-defined heavy functions is a trap.
+(b) The four rectBI MapsTo close cleanly with `left_mem_uIcc`/`right_mem_uIcc` after
+`rw [closedRect, mem_reProdIm]` and `rw [show pt.re = … by simp]` — do NOT try to `rw` the domain
+`uIcc zc.re wc.re` (leave it symbolic; the point's `.re` equals the parameter, so it IS the domain
+membership). (c) `AnalyticAt.analyticOrderAt_eq_natCast` needs `analyticOrderAt = ↑(1:ℕ)`;
+`by exact_mod_cast hβ_simple` bridges the `(1:ℕ∞)`. (d) `hσ₀c : σ₀<c` via `lt_trans hσ₀1 hc1`
+(NOT `by linarith`, which routes around `hσ₀1` via `σ₀<c<2` elsewhere and trips the unused-variable
+linter). (e) `Complex.real_smul` + `ring` collapses the `(1/2π)•(2π·κ) = κ` bookkeeping.
+
+**FLAG — χ₀ (principal character) variant NOT attempted (Iron Rule 4: flag over grind; BLOCKED on
+S3f).** `psi1_contour_shift_trivchar` for `LFunction (1 : DirichletCharacter ℂ q)` is the SAME
+G-trick at the POLE `s = 1` (inside the box, σ₀<1<c) rather than a zero: `−L'/L(χ₀)` has pole part
+`+1/(s−1)` (opposite sign to the zero's `−1/(s−β₁)`), so `G₀ := (−L'/L)(χ₀) − 1/(s−1)` is the
+de-singularized integrand, and the residue is `+2πi·ker(1) = +2πi·x²/2`, giving
+`‖psi1Chi χ₀ x − x²/2‖ ≤ E₀` (main term SUBTRACTED). The gluing mirrors the exceptional one but with
+`Zc` in place of `hfac`: near s=1, `−logDeriv ζ = −logDeriv Zc + 1/(s−1)` (`neg_logDeriv_zeta_split`/
+`logDeriv_zeta_eq`, `Zc := (s−1)ζ` entire, `Zc(1)=1≠0`), and `−logDeriv L(χ₀) = −logDeriv ζ −
+logDeriv EulerCorr` (`logDeriv_LFunction_eq` / the `LFunctionTrivChar_eq_mul_riemannZeta` split), so
+`G₀ = −logDeriv Zc − logDeriv EulerCorr` is analytic at 1. Two obstructions make it a SECOND full
+C-construction, NOT a cheap compose:
+  (1) **The χ₀ edge bound.** `‖logDeriv L(χ₀)‖ ≤ B₀` on the edges needs a Zc-analogue of
+  `norm_logDeriv_le_of_ball_dist` built on `entire_norm_logDeriv_sub_sum'` (the entire-base numeric,
+  Zc growth spheres `Zc_sphere_bound`) PLUS the Euler-correction `‖logDeriv ∏_{p∣q}(1−p^{−s})‖ ≤
+  log q` on Re ≥ 9/10 (mirror `norm_logDeriv_eulerFactor_le`'s arithmetic at the 9/10 threshold —
+  `p^{−9/10} ≤ 2^{−9/10} < 1`). ~150 new lines. So `E₀ = E-shape + a `log q` Euler cost`.
+  (2) **⚠ The ζ zero-free region on the box is NOT LANDED — this is the hard blocker.** The box
+  `[σ₀,c]×[−T,T]` non-vanishing of `L(χ₀)` reduces (Euler factors nonzero) to `ζ ≠ 0` there, which
+  must be a NAMED HYPOTHESIS `hzfζ` here (parameterize exactly like the χ-case's `hzf`). But S3d's
+  `zero_free_region` is for Dirichlet χ ≠ 1 (needs q ≥ 2 / χ ≠ 1); `ζ = LFunction (1 mod 1)`
+  (`LFunction_modOne_eq`) is the q=1 case, where the 3-4-1 argument degenerates. **The classical
+  ζ zero-free region needs its own small node — see the S3f flag below.** Until S3f lands, even a
+  hypothesis-parameterized `psi1_contour_shift_trivchar` depends on an unlanded input; deferring is
+  the honest call. RECOMMEND a Fable/human session lands S3f first, then the χ₀ variant is a
+  mechanical mirror of `psi1_contour_shift_exceptional` (swap `hfac`→`Zc`, sign of the residue,
+  and the edge helper).
+
+## 2026-07-12 SW S3f (NEW NODE): quantitative ζ zero-free region — MISSING, needed by S5c-χ₀/S6 (Opus)
+Surfaced while scoping the S5c χ₀ variant. The Dirichlet-L quantitative zero-free region (S3d,
+`Salt/SW/ZeroFree.lean`) is stated for χ ≠ 1 (needs q ≥ 2-shapes); it does NOT cover the trivial
+character `ζ = LFunction (1 : DirichletCharacter ℂ 1)` (`LFunction_modOne_eq`), because the classical
+3-4-1 argument uses `ζ(σ)³·|L(σ+it,χ)|⁴·|L(σ+2it,χ²)|` with χ ≠ 1 — at q=1 the character machinery
+degenerates and the argument needs its own (classical Vallée-Poussin, `ζ³ζ'⁴`-shape) instance.
+**Needed deliverable (S3f):** a constant `c₃ > 0` and `ζ(s) ≠ 0` for `Re s ≥ 1 − c₃/log(|Im s|+2)`
+(with the standard one-exceptional-real-zero caveat), i.e. the ζ analogue of S3d. The Z2ζ machinery
+already landed (`Salt/SW/ZetaPartialFractions.lean`: `Zc`, `Zc_growth`, `entire_norm_logDeriv_sub_sum'`,
+`zeta_neg_re_logDeriv_le` = the honest complex pole term + `O(log(|γ|+2))` remainder with C₇=1080)
+supplies the −ζ'/ζ complex-`s` bound the 3-4-1 needs; the remaining work is the 3-4-1 positivity for
+ζ at q=1 (the `neg_logDeriv_zeta_le` real-σ pole bound C₆=1 is landed; the complex-`s` cos-inequality
+assembly is the node). Classification: C (real proof design, but small — the Z2ζ layer already
+carries the analytic inputs). This node gates BOTH the S5c χ₀ variant AND S6's χ₀ main-term
+`x²/(2φ(q))` (the `[x²/2]_{χ=χ₀}` term of the S5 summary in `docs/blueprints/sw.md`).
