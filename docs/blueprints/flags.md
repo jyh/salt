@@ -3770,3 +3770,63 @@ free. Consumes only `StepBound2` (`StepHyp`, `fseqBound'`), `Peeling` (`W_sieveB
 summand `ν(p)·V(p) = …` (not just `V(p)`); the even-side vacuous filter closes by `omega` on
 `2%2=1`; `stepHyp_lhs_eq` must run BEFORE `simp only [fseqBound']` so the sub-sieve `fseqBound'`
 is gone before the parent one is unfolded. Tally unchanged: 27 caught, 0 proofs on wrong statements.
+
+## 2026-07-12 Chen C1c⁸: the sharp `f`-comparison `hf` — FULL for all `n` (conditional); `hh` reduced to its isolated decay-mass remainder (Opus)
+
+`Salt/Chen/SharpStep.lean` (new; `import Mathlib` + `Salt.Chen.AbelStep` + `Salt.Chen.Tail` +
+`Salt.BrunLower.MertensWindow`; namespace `Salt.Chen`; NOT wired into `All.lean` — new file only).
+Builds green, zero warnings, no `sorry`, no `native_decide`, axiom-clean `[propext, Classical.choice,
+Quot.sound]` on every declaration; default heartbeats. This is the sharp change-of-variables that
+C1c⁷ (`AbelStep`) isolated as the ONE named remainder of `stepHyp_of_comparisons`.
+
+**The `f`-comparison `hf` is FULLY discharged, all `n` (not just `n=1,2`), via the PM1-density
+route.** The chain, all landed sorry-free:
+- `Vbelow_le_ratio` (the mandatory pushforward, AbelStep's flagged step): `Vbelow s p ≤
+  (1+ε)·(log z/log p)·W s` from `Hyp4.vratio_window_le` at threshold `u = p` — because `W =
+  Vbelow s p · ∏_{q≥p}(1−ν q)` and `(∏_{q≥p})⁻¹ ≤ (1+ε)log z/log p`. This *factors `W` out*,
+  dissolving the `W→0` obstruction the C1c⁷ FINDING proved fatal to every crude bound.
+- `support_prime_bounds`: `fₙ(σ_p) ≠ 0 ⟹ 1 ≤ σ_p < n+2 ⟹ p < D' ∧ log D' < (n+3)log p` (the
+  lower support via `⌈D'/p⌉ ≥ p`, upper via `⌈D'/p⌉ ≥ D'/p`). This is the *compact support of `fₙ`*
+  turning the p-sum into a finite prime window.
+- `prime_support_mass_le` (THE reusable comparison lemma; the `d(loglog p) = −du/u` cancellation):
+  for primes in `D'^{1/(n+3)} < p < D'`, `Σ 1/(p−1) ≤ log(n+3) + 19/log 2 + 2`, **uniform in
+  `D', z`** — the window's loglog-length is `log(n+3)` whatever `D'`. Two-regime PM1
+  (`sum_inv_le_of_prime_window`, base `D'^{1/(n+3)}` when `≥ 2`, else base `2`; both give
+  `log(log D'/log w) ≤ log(n+3)`) + the `1/(p−1)`-vs-`1/p` bridge + the `Σ 1/p²` telescope.
+- `inv_S_le`: the operating-window slack `1/S ≤ (n+3)e^{n+3}·h(S)` on `1 ≤ S ≤ n+3` (region-split
+  against `h`'s three branches, `h(S) ≥ h(n+3)`).
+- `hf_of_window`: assembles the above into `Σ ν(p)V(p)fₙ(σ_p) ≤ W·(fₙ₊₁(σ_z) + c_f·h(σ_z))` with
+  the EXPLICIT `c_f = cf_const n ε = 2(1+ε)(n+3)·(log(n+3)+19/log2+2)·(n+3)e^{n+3}`. Its conclusion
+  is exactly `stepHyp_of_comparisons`'s `hf` slot at `σ = logRatio`, `c_f = cf_const n ε`.
+
+**The `h`-comparison `hh` is NOT closed; it is reduced to its isolated remainder (`hh_reduced`) and
+flagged.** The same pushforward `Vbelow_le_ratio` factors `W` out of the `h`-part too (`hh_reduced`:
+`Σ ν(p)V(p)h(σ_p) ≤ (1+ε)W·Σ (1/(p−1))(log z/log p)h(σ_p)`), so what remains is a *pure decay-mass
+prime sum*. The `f`-route's compact-support shortcut is UNAVAILABLE: `h > 0` never vanishes, so the
+p-sum is not a finite window — it converges only through `h`'s exponential tail (`h(σ_p) ≤ e·e^{−u_p}`,
+`u_p = log D'/log p`; and `Σ_p (1/(p−1))·u_p·e^{−u_p}` diverges without the decay). Closing it needs
+the **antitone dyadic-piece integral comparison**: partition the window by `k = ⌊u_p⌋` into the
+unit `u`-pieces `p ∈ (D'^{1/(k+1)}, D'^{1/k}]` (loglog-length `log((k+1)/k)`, `prime_support_mass_le`
+per piece), bound `h(σ_p) ≤ h(⌊u_p⌋−1)` on each (`h` antitone), sum the geometric-ish series
+`Σ_k (k+1)·e^{−k}` to a constant, then close against `StepBound.hBJS_funcbound` (`∫_{S−1} h ≤ S·h(S)`,
+`κ₃=1`) and `Lemma11.inv_le_e2_hBJS`. That is ~300 lines with several new sub-lemmas (a general
+piece-mass bound, `Finset` fiber-grouping over `⌊u_p⌋`, `hBJS` antitone, an explicit `Σ k e^{−k}`
+bound) — a genuine separate development, DEFERRED per the give-up-early rule rather than rushed.
+
+**Conditionality (honest).** `stepHyp_of_comparisons`'s bare `hf`/`hh` are unconditional in `s'`;
+ours carry the sieve-class inputs BJS Theorem 6 already supplies — `ν q ≤ 1/(q−1)` (`hnu`), the
+per-prime catch-#22 threshold guard `hguard` (`3 ≤ q`, `19/log q + 4/(q−1) ≤ log(1+ε)`, i.e. all
+sifting primes past `w₀(ε)`), and the operating window `1 ≤ σ z D' ≤ n+3` (`hS1`/`hSn`). So the
+composition to `StepHyp` is CONDITIONAL (the ambient Theorem-6 context discharges these); the
+"keystone-complete" AbelStep composition is reached only once `hh` lands and the sieve-class
+hypotheses are threaded. `c_f`/`c_h` explicit per-`n` is fine — `ledger_collect` absorbs any value.
+
+**PB floor:** EXCEEDED the stated Floor A on the `f`-side (Floor A asked `hf` for `n=1,2` + the
+comparison lemma + moduli; delivered `hf` for ALL `n` + `prime_support_mass_le` + `Vbelow_le_ratio`
++ `support_prime_bounds` + `inv_S_le`). `hh` at its reduction floor (`hh_reduced` + the decay-mass
+gap precisely specified). Friction: `set L`/`set w` fold `Real.log ↑D'` so `Real.exp_log` needs an
+explicit `rw [hLdef]` first (or bypass with `show`); `congr 2; ring` on `(n+3)·exp X = (n+3)·exp Y`
+over-closes ("No goals") — use `show`-rewrites of the exponent; `div_le_div_iff` is `div_le_div_iff₀`;
+`sum_inv_le_of_prime_window` is namespaced `Salt.BrunLower.`; `positivity` cannot prove `1 ≤ n+3` or
+`0 ≤ 1/(p−1)` (feed `Nat.cast_nonneg`/`one_div_pos` explicitly). Tally: 27 caught, 0 proofs on wrong
+statements.
