@@ -9,6 +9,7 @@ import Salt.Chen.LinearSieve
 import Salt.Chen.Buchstab
 import Salt.Chen.TnInduction
 import Salt.Chen.Lemma11
+import Salt.Chen.Peeling
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
 
@@ -78,3 +79,7 @@ open Salt.Tactic in
   Salt.Chen.hTbound_upper_of_levels Salt.Chen.hTbound_lower_of_levels
   Salt.Chen.linear_sieve_upper_rosser_assembled_final
   Salt.Chen.linear_sieve_lower_rosser_assembled_final
+  Salt.Chen.T_peel Salt.Chen.isViolPrefix_peel_iff Salt.Chen.W_sieveBelow
+  Salt.Chen.T_le_of_peel_step
+  Salt.Chen.hlevel_upper_of_step Salt.Chen.hlevel_lower_of_step
+  Salt.Chen.hmain_upper_of_step Salt.Chen.hmain_lower_of_step

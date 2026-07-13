@@ -3415,3 +3415,79 @@ exceptional-pair form) — fine, S5/S6 consume the zero-free form.
 The S4 wave is CLOSED. The full Siegel cluster: S4a fourfold, S4b
 reduction, S4b′ Landau truncation, S4b″ interface (catch #26), S4b‴
 assembly, S4b⁗ closer — six nodes, every floor closed same-day.
+
+## 2026-07-12 Chen C1c⁗: the Tₙ peeling identity + Buchstab induction skeleton — floor A (Opus)
+
+`Salt/Chen/Peeling.lean` (new; `import Mathlib` + `Salt.Chen.Lemma11`; namespace
+`Salt.Chen`; NOT wired into `All.lean` — new file only). Builds green, zero warnings, no
+sorry, axiom-clean `[propext, Classical.choice, Quot.sound]` on all theorems. Reaches
+**Floor A**: the peeling identity (i) FULL + the induction (ii) with the per-step
+discrete-to-integral comparison as ONE named hypothesis + (iii) assembled through C1c‴'s
+`hTbound_*_of_levels` to BJS Theorem 6 (5)/(6), modulo two named hypotheses.
+
+**The infrastructure gap the C1c‴ executor named — CLOSED.** `TnInduction.T` bakes `z`
+into the fixed `s.prodPrimes`; the peel needs a genuine sieve-below-p. Chose **option (b)**
+(honest `sieveBelow s p : BoundingSieve`), because it makes the recursion self-similar (`T`
+of the sub-sieve), which is exactly what powers the induction — option (a) (raw
+restricted-Finset sum) would not recurse. The `sieveBelow` reuses `Pbelow s p` as its
+`prodPrimes`; weights/mass/ν/ν-mult inherited; the two ν-positivity fields discharged by
+`Pbelow_dvd_prodPrimes`. Carriers transport cleanly: `Vbelow_sieveBelow` (`q ≤ p →
+Vbelow(sieveBelow s p) q = Vbelow s q`) and `W_sieveBelow` (`W(sieveBelow s p) = Vbelow s p
+= V(p)`) — the latter is precisely the `V(u)/V(z)` carrier hypothesis (4) bounds.
+
+**The level transform.** The head-peeled Rosser check carries a factor `p`
+(`p·(p₂⋯pₘ)·pₘ² < D`); the intrinsic sub-check is `(p₂⋯pₘ)·pₘ² < ⌈D/p⌉` via the exact ℕ
+biconditional `p·X < D ↔ X < cdiv D p` (`mul_lt_iff_lt_cdiv`, `cdiv D p := (D−1)/p + 1`,
+needs `1 ≤ p`, `1 ≤ D`; `1 ≤ cdiv` always, so the `1 ≤ D` threshold threads through the
+recursion). The FAIL check is the negation, same biconditional.
+
+**The peeling identity — verbatim** (`T_peel`, `n ≥ 1`, `1 ≤ D`, `side ∈ {1,2}`):
+`T s side D (n+1) = Σ_{p ∈ primeFactors.filter (fun p => side%2=1 → p^3<D)} s.nu p ·
+T (sieveBelow s p) (3−side) (cdiv D p) n`. An EXACT identity. The head window is `p³ < D`
+on the odd/upper side (position 1 is the odd check, must pass) and ALL sifting primes on
+the even/lower side (position 1 unchecked). The side flips `3−side` because peeling the head
+shifts every checked position by one (parity flip). Proof: `sum_fiberwise_of_maps_to` on the
+head map `c ↦ relem c 0`, then per-head `Finset.sum_nbij'` bijecting the fiber `{c : head =
+p}` with the sub-chains via `c ↔ (p, rsuffix c 1)`. The combinatorial heart is
+`isViolPrefix_peel_iff`: `isViolPrefix side D (p·c') ↔ (side%2=1 → p³<D) ∧ isViolPrefix
+(3−side) (cdiv D p) c'`, proved from the head-cons `rlist(p·c') = p :: rlist c'`
+(`rlist_head_cons`) and the position translations `rprefix (p·c')(m+1) = p·rprefix c' m`,
+`relem (p·c')(i+1) = relem c' i`, `rmin(p·c') = rmin c'`.
+
+**The induction skeleton (ii)** (`T_le_of_peel_step`): abstract target family `B :
+BoundingSieve → ℕ → ℕ → ℕ → ℝ`, base `hbase` (depth 1), and the **per-step comparison**
+`hstep : Σ_p ν(p)·B(sieveBelow s' p)(3−side')(cdiv D' p) n ≤ B s' side' D' (n+1)` as the
+single named hypothesis (the discrete-to-integral core of BJS (34)–(38)). Strong induction on
+`n` via `T_peel` + `ih` on each sub-sieve (ν(p) ≥ 0 preserves the term inequality) yields
+`Tₙ ≤ B s side D n` for all `n ≥ 1`, all sieves/levels/sides.
+
+**The plugs (iii)** (`hlevel_upper_of_step` / `hlevel_lower_of_step`,
+`hmain_{upper,lower}_of_step`): instantiate `B = fseqBound σ ε τ` (BJS Lemma 11's shape,
+`W s'·(fₙ(σ s' D') + ε·τₙ·e²·h(σ s' D'))`, with `σ : BoundingSieve → ℕ → ℝ` the operating-
+point map `log D/log z`). Produces Lemma11's EXACT `hlevel` shape at `sparam = σ s D`, hence
+through C1c‴'s `hmain_{upper,lower}_of_levels` the assembled BJS Theorem 6 (5)/(6), modulo
+`hbase` + `hstep` (+ `htau`). The lower even filter's `n = 0` term (`T s 2 D 0 = 0`,
+`fseq 0 = 0`) handled directly (needs `0 ≤ ε`, `0 ≤ τ 0`). Compiler-VERIFIED against
+`hmain_upper_of_levels`/`hmain_lower_of_levels`.
+
+**DEFERRED — the two named hypotheses (the honest analytic gap, satisfiable, not false):**
+- `hstep` — BJS (35)–(38): the partial-summation bound turning the head-sum
+  `Σ_p ν(p)·V(p)·fₙ(log⌈D/p⌉/log p)` into `V(z)·fₙ₊₁(σ s D)` via the WINDOWED hypothesis (4)
+  `V(u)/V(z) ≤ K·log z/log u`. The design note's "h4 windowed form" is SUBSUMED into `hstep`
+  (cleaner than exposing h4 + the integral comparison separately; the `V(u)/V(z)` carrier is
+  landed as `W_sieveBelow`/`Vbelow_sieveBelow`, so a future session states h4 against those).
+  Genuine real analysis (discrete→integral, varying `sparam' = log⌈D/p⌉/log p`); the `fseq`
+  recursion (16)/(17) is the integral it lands in. `Tail.lean`'s `hbar_funcbound` is the
+  integral-recursion template but must be re-run against the SUM (Σ_p → ∫ via
+  `AntitoneOn.sum_le_integral`, `MertensWindow.lean` idioms) — the piece not attempted here.
+- `hbase` — BJS (39): reduces to `Lemma11.hlevel_one_upper` (upper, needs `σ s' D' ∈ [1,3]`,
+  the per-sub-sieve h4, `τ 1 = 3`) + `T_two_one_zero`/`T_zero` (lower). A wrapper, not new math.
+The numeric frozen-row `ε=1/10000 → C₁=106, C₂=108` stays parametric (`htau` hypothesis),
+per the C0-ledger doctrine (BJS's exact (31) γ₃/κ₃/cₙ at page-image level, unfetchable).
+
+STOP-AND-FLAG ✓: nothing outside the frozen set. `hstep`/`hbase` consume only
+`fseq`/`Fchain`/`fchain`/`hBJS`/`sieveBelow`-carriers (C1a/C1b/C1c″/C1c‴). Friction:
+`rw [← hsplit]` rewrites `c` inside `rsuffix c 1` (loops) — rewrite forward on a `have`
+instead; `hc'len` via `rw [rlist_rsuffix, List.length_drop, hclen, Nat.add_sub_cancel]`
+(the `n+1−1` needs the explicit cancel); omega treats `p*X` and `X*p` as distinct atoms
+(insert `mul_comm` before omega in the cdiv biconditional).
