@@ -3577,3 +3577,66 @@ majorant on the [2,3] panel, or a mixed hbar/hBJS strategy (hbar's
 that the BASE needs hBJS). Until then the parametric htau is the
 honest state, per the C0 doctrine. Tally: 27 caught, 0 proofs on
 wrong statements.
+
+## 2026-07-12 Chen C1c⁶: the cutoff-threaded skeleton — catch #27 RESOLVED, `hstep'` now STATABLE (Opus)
+
+`Salt/Chen/StepBound2.lean` (new; `import Mathlib` + `Salt.Chen.StepBound`; namespace
+`Salt.Chen`; NOT wired into `All.lean` — new file only, alongside the untouched committed
+`Peeling.lean`/`StepBound.lean`). Builds green, zero warnings, no `sorry`, no
+`native_decide`, axiom-clean `[propext, Classical.choice, Quot.sound]` on all 9 public
+declarations. Default heartbeats (no `set_option maxHeartbeats` — proofs are wrappers, 2.5s).
+
+**Catch #27 RESOLVED (the amendment executed).** The C1c⁵-flagged architectural obstruction
+was that `Peeling`'s operating-point map `σ : BoundingSieve → ℕ → ℝ` cannot recover the
+sub-sieve cutoff `p` from `sieveBelow s p` (its `prodPrimes = ∏_{q<p} q` forgets `p`), so
+BJS's change of variables `t = log D/log p` — the whole discrete→integral mechanism — was
+NOT STATABLE and any `hsum` isolation degenerated into restating `hstep`. Fix (skeleton is an
+internal scaffold, amendable): key the operating point on the **explicit cutoff** instead of
+the sieve.
+
+**LANDED FULL**
+- `T_le_of_peel_step'` — the cutoff-threaded induction engine: abstract family
+  `B : BoundingSieve → ℕ → ℕ → ℕ → ℕ → ℝ` with signature `B s' z side D n` (z the cutoff).
+  Re-derived from `Peeling.T_peel` exactly as the unprimed skeleton; the sole new obligation
+  — the sub-sieve cutoff hyp `∀ q ∈ (sieveBelow s' p).primeFactors, q < p` — is immediate
+  (`sieveBelow_primeFactors`+`belowPrimes` filter is `· < p`). Threads a top cutoff hyp
+  `∀ q ∈ s'.primeFactors, q < z` (unused by the pure induction, but weakens `hstep'`/lets a
+  future proof use `W s' = V(z)`).
+- `fseqBound'` — the family keyed on abstract `σ : ℕ → ℕ → ℝ` of `(cutoff z, level D)` (vs
+  the unprimed `σ : BoundingSieve → ℕ → ℝ`). Intended concrete map `logRatio z D = log D/log z`
+  (offered as a def; its [1,3]-window stays a hypothesis, same softness as the unprimed design).
+- `StepHyp σ ε τ` — the per-step comparison as a shared `Prop`. Its sub-term
+  `fseqBound' σ ε τ (sieveBelow s' p) p … = W(sieveBelow s' p)·(fₙ(σ p ⌈D'/p⌉) + …)` has the
+  cutoff `p` EXPLICIT in the operating point — **`hstep'` (BJS (34)–(38)) is now statable**,
+  which is precisely what catch #27 demanded. Still the one named analytic hypothesis (the
+  genuine partial-summation real analysis, NOT attempted here — it is the honest remaining gap,
+  now unblocked rather than architecturally impossible).
+- `hbase'_of` (BJS (39), both sides), `hlevel'_{upper,lower}_of_step'`,
+  `bjs_theorem6_{upper,lower}'` (+ `_sifted'`) — the payoff re-assembled on the new skeleton.
+  Base discharged via `Lemma11.hlevel_one_upper` (unchanged — the base does not recurse, so the
+  cutoff plays no combinatorial role) + `T_two_one_zero`; produced `hlevel` shape at
+  `sparam = σ zTop D` fed through C1c‴'s `hmain_{upper,lower}_of_levels` /
+  `linear_sieve_{upper,lower}_rosser_assembled_final`. The lower sifted form reuses the sieve's
+  sifting limit `zTop` (`∀ p ∈ primeFactors, p < zTop`) as both the assembly's `z` and the
+  operating cutoff. Remaining named hypotheses: `hstep'` (statable), hyp-(4) (`h4` V-ratio +
+  σ-window), parametric `htau`.
+
+**FINDING (the κ₃ route, orthogonal to catch #27).** BJS's τ-recursion needs
+`β = Kκ₃ + (K−1)γ₃ < 1`; elementary `StepBound.hBJS_funcbound` gives κ₃ = 1 (tight at s = 2).
+Route (I) sharpening (worked out, NOT yet formalised): integrate the tail `∫_3^∞ 3u⁻¹e⁻ᵘ` by
+parts twice — `= 3a⁻¹e⁻ᵃ − 3∫u⁻²e⁻ᵘ`, and `∫_a^∞ u⁻²e⁻ᵘ ≥ a⁻²e⁻ᵃ(1−2/a)` (one more by-parts
++ `u⁻³ ≤ a⁻³`) — gives `∫_3^∞ 3u⁻¹e⁻ᵘ ≤ (8/9)e⁻³`, hence `∫_1^∞ h ≤ 2e⁻² − (1/9)e⁻³ ≈
+0.98·2e⁻²`, i.e. κ₃ ≤ 0.98 at the tight point. This affects ONLY the numeric `htau` close
+(`C₁=106, C₂=108`), which the C0-ledger doctrine keeps parametric regardless (BJS's γ₃/cₙ from
+(31) still page-image-unfetchable), so route (I) has no immediate consumer and does not gate
+catch #27; left as the named `htau` + `StepBound.tauSum_{odd,even}_le` dischargers. NOT
+formalised (low value / high risk relative to the clean C1c⁶ deliverable).
+
+STOP-AND-FLAG ✓: nothing outside the frozen set; the skeleton (a scaffold) was amended exactly
+as sanctioned, no blueprint statement altered. Consumes only `Peeling`/`StepBound`/`Lemma11`
+exports (`T_peel`, `sieveBelow_primeFactors`, `belowPrimes`, `hlevel_one_upper`,
+`hmain_*_of_levels`, `linear_sieve_*_assembled_final`). Friction: the sub-sieve cutoff hyp via
+`simp only [sieveBelow_primeFactors, belowPrimes, Finset.mem_filter]` (belowPrimes is a def,
+needs unfolding for `mem_filter` to fire); `StepHyp` as a `Prop` def passes defeq-cleanly to
+the raw `∀`-form expected by `T_le_of_peel_step'`. Tally: 27 caught, 0 proofs on wrong
+statements (catch #27 now resolved, not merely isolated).
