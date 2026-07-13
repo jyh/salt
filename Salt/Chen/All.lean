@@ -8,6 +8,7 @@ import Salt.Chen.Tail
 import Salt.Chen.LinearSieve
 import Salt.Chen.Buchstab
 import Salt.Chen.TnInduction
+import Salt.Chen.Lemma11
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
 
@@ -72,3 +73,8 @@ open Salt.Tactic in
   Salt.Chen.hmain_upper Salt.Chen.hmain_lower
   Salt.Chen.linear_sieve_upper_rosser_assembled
   Salt.Chen.linear_sieve_lower_rosser_assembled
+  Salt.Chen.prod_telescope Salt.Chen.T_one_upper Salt.Chen.T_two_one_zero
+  Salt.Chen.hlevel_one_upper Salt.Chen.tau_sum_le_of_recursion
+  Salt.Chen.hTbound_upper_of_levels Salt.Chen.hTbound_lower_of_levels
+  Salt.Chen.linear_sieve_upper_rosser_assembled_final
+  Salt.Chen.linear_sieve_lower_rosser_assembled_final

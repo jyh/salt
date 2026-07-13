@@ -3318,3 +3318,78 @@ With (a)+(b) the ε-arithmetic is the executor's own "one arithmetic
 step" (δ = min(ε/6k, 1/20), fixed data absorbed into the ineffective
 C(ε)). Node **S4b⁗**: (i) the near-line log-power bounds; (ii) the
 PM1 Euler bound; (iii) siegel_L_one + siegel_theorem assembly.
+
+## 2026-07-12 Chen C1c‴: the Lemma 11 analytic induction — `hTbound` discharged to per-level + τ-close (Opus)
+
+`Salt/Chen/Lemma11.lean` (new; `import Mathlib` + `Salt.Chen.TnInduction`; namespace
+`Salt.Chen`). NOT wired into `Salt/Chen/All.lean` (task: new file only). Builds green,
+zero warnings, no sorry, axiom-clean `[propext, Classical.choice, Quot.sound]` on all 12
+theorems. Discharges C1c‴ to **Floor A** (n=1 concrete + general induction with the
+chain-to-integral as ONE named hypothesis + the τ-close full), reaching the analytically
+honest core (Floor B) at n=1.
+
+**The exact target (verified against `TnInduction.hmain_upper`/`hmain_lower`).** The
+consumed `hTbound` shapes are, verbatim,
+`Σ_{n∈range(maxDepth+1), odd} T s 1 D n ≤ W s·(Fchain N sparam − 1 + ε·C₁·e²·hBJS sparam)`
+and the even/`C₂`/`1−fchain` dual. Everything landed sums to exactly these (at
+`N = maxDepth s`).
+
+**BJS (28)–(39) transcription (arXiv:2207.09452v6 §2.4; the PDF could not be re-fetched
+this session — WebFetch returns only the abstract, no pdftotext in the Bash sandbox — so
+this rests on the flags-transcribed forms at lines 3141–3151) vs what landed:**
+- **(28)** `Tₙ = Σ_{chains} g(p₁⋯pₙ)V(pₙ)` — IS `TnInduction.T` (divisor form). Consumed as-is.
+- **Prop 13** `G(z,λ±) = V(z) ± Σ Tₙ` — landed in C1c″ (`buchstab_upper/lower`). Consumed.
+- **n=1 base (39)** `V(D^{1/3}) ≤ (3K/s)V(z)` + (17) flattening — **LANDED FULL**:
+  `T_one_upper : T s 1 D 1 = Vlow − W` (an EXACT identity, `Vlow = V(D^{1/3}) =
+  ∏_{p³<D}(1−ν p)`), via the new general **telescoping-product** identity
+  `prod_telescope : Σ_{p∈S} a p·∏_{q∈S,q<p}(1−a q) = 1 − ∏_{p∈S}(1−a p)` (induction on the
+  max element — mathlib lacked it; reusable). Then `hlevel_one_upper`: with hyp (4) as
+  `h4 : Vlow ≤ (3K/s)W`, `T₁ ≤ W(f₁(s) + ε·3·e²·hBJS(s))` on `s∈[1,3]`, `τ₁ = 3`. The
+  closing step is `inv_le_e2_hBJS : 1/s ≤ e²·hBJS(s)` on [1,3] (degree-4 `exp` Taylor bound
+  `exp(s−2) ≤ s` on [2,3]). NB the per-level bounds MUST be phrased against BJS's `hBJS`,
+  not C1b's `hbar`: at `s→3⁻`, `1/s ≤ e²·hbar(s)` FAILS (hbar's rate 6/5 undershoots), so
+  `τ₁=3` would not close against `hbar` — the `hbar→hBJS` slack direction (C1c″
+  `hbar_le_hBJS`) is load-bearing exactly here.
+- **T₁ even side** `T_two_one_zero : T s 2 D 1 = 0` (position 1 unchecked for ν=2). LANDED.
+- **(34) recursion** `Tₙ/V(z) < (K−1)(f+h)_{n−1}(s−1) + (K/s)∫(f+h)_{n−1}(t−1)` and the four
+  term-bounds **(35)–(38)** — **DEFERRED** as the named hypothesis `hlevel : ∀ n∈parity-filter,
+  T s side D n ≤ W·(fseq n s + ε·τ n·e²·hBJS s)`. This is the genuine chain-to-integral core:
+  it needs the peeling recursion `Tₙ(D,z) = Σ_p ν(p)·T_{n−1}(D/p, p)`, which requires a
+  *restricted sieve below p* — `TnInduction.T` bakes `z` into the fixed `s.prodPrimes`, so
+  stating the recursion needs a new "sieve-below-p" object + a large Finset-over-chains
+  reindex. Not soundly completable alongside the rest this session; discharged concretely
+  only at n=1. STOP-AND-FLAG ✓: `hlevel` consumes nothing outside the frozen set
+  (`fseq`/`Fchain`/`fchain`/`hBJS`, C1a/C1b).
+- **Lemma 12 τ-close** `Στ_{2n−1}=C₁, Στ_{2n}=C₂` — **LANDED PARAMETRIC**:
+  `tau_sum_le_of_recursion`: any τ obeying the contracting geometric recursion
+  `τₙ₊₁ ≤ a·rⁿ + β·τₙ` (`0≤r,β<1`, from the decaying `cₙ`/`h` levels + the `β=γ₃ε+Kκ₃<1`
+  contraction) has `Σ_{n<M} τ ≤ (τ₀ + a/(1−r))/(1−β)` — the finite `Cᵢ`, uniform in `M`.
+  Proof: sum the recursion, `Σr^n ≤ 1/(1−r)`, close `S(1−β) ≤ τ₀+a/(1−r)`.
+
+**The h4 design chosen.** Hypothesis (4)/(29) `V(u)/V(z) = ∏_{u≤p<z}(1−g p)⁻¹ ≤ K log z/log u`
+(`1<K≤1+ε`, (30)) is taken in the n=1-specialised V-ratio form `h4 : Vlow s D ≤ (3K/s)·W s`
+(i.e. at `u = D^{1/3}`, `log z/log(D^{1/3}) = 3/s`). Matches the WRatio carriers' shape
+(`Vlow/W = ∏_{D^{1/3}≤p<z}(1−ν)⁻¹`). K, ε parametric with `1<K≤1+ε`; C1d discharges h4.
+
+**Compiler-plug status against `hTbound` (all compiler-VERIFIED):**
+`hTbound_upper_of_levels`/`hTbound_lower_of_levels` produce the EXACT `hmain_upper`/
+`hmain_lower` hypotheses; `hmain_{upper,lower}_of_levels` feed them through C1c″ to
+`mainSum λ±`; `linear_sieve_{upper,lower}_rosser_assembled_final` close the full BJS Thm 6
+(5)/(6) `siftedSum` bounds, modulo only `hlevel` (n≥2) + `htau`. At `N = maxDepth s` the
+truncation is EXACT (`Fchain(maxDepth)−1` IS the full odd `fseq`-sum), so the C0-ledger S1
+fseq-tail absorption is nil here; the ledger's `N≥2048` value-cert is a C1b′/C5 matter,
+unaffected (`maxDepth s = π(z) ≫ 2048`).
+
+**Floor: A (reached), + the honest core of B at n=1.** Full discharge of `hTbound`
+unconditionally was NOT reached: the (34)–(38) general-n chain-to-integral (the restricted-
+sieve peeling) is the deferred `hlevel`, and the numeric frozen-row `ε=1/10000 → C₁=106,
+C₂=108` is left parametric (needs BJS's exact (31) constants γ₃/κ₃/cₙ at page-image level —
+unfetchable this session; per the C0-ledger doctrine the parametric τ-close + a numeric row
+as an explicit `htau` hypothesis is acceptable). What a follow-up needs: (i) a
+`sieveBelow s p` restricted-sieve object + the `Tₙ = Σ_p ν(p)T_{n−1}(D/p,p)` peeling
+identity; (ii) the (35)–(38) `hbar_funcbound`-style induction (Tail.lean's machinery is the
+template) to discharge `hlevel` for n≥2; (iii) the numeric (31) constants to instantiate
+`C₁,C₂`. Friction: `relem`/`rmin` have no rw-equations (use `change`/`rfl`-unfold);
+`Finset.range_subset.mpr (by omega)` mis-elaborates — use `Finset.range_mono (Nat.le_succ)`;
+`rw [hsplit]` over a `set S` rewrites ALL occurrences (incl. `β*S`) — isolate via a
+`have hSeq` on the LHS pattern only.
