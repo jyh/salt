@@ -427,6 +427,32 @@ nodes (engine / hh / hf-3-branches / composition+TauSharpB mirror).
 the REAL A₁ operating point s ≈ 4 (the unwindowed consumers landed in
 E₁b carry `hσ3 : σ ≤ 3`, false at s = 4).
 
+## THE H-GLUE (the final node) — discharge map (Fable, 2026-07-13,
+frozen for dispatch after SS1; gate on the hledger arithmetic running)
+
+`chen_of_hypotheses`'s H = ∀ X, ∃ (x z P y, mainA1/2/3): hXx/hx/hz/
+hyx/hPfull/hA1/hA2/hA3/hledger. Operating point: ε = 2e−8 (Amendment
+3), w₀ = w0R(ε) ≈ exp(2·10⁹) (Hyp4), z = x^{1/8}-shape, D = x^{1/2−ε′}
+(ε′ = 1e−4, Amendment 2), y per the A₃ switch (s → 3/2⁻ on P(y)),
+P = ∏ primes < z, x ≥ x₀ ∨ 2X+2. Discharge paths (ALL landed):
+- hA1: `twin_A1_lower_B (hstepWPC := stepHypWPC_sharpB)` +
+  `fchain_ge_A1_of_massSums` ∘ (SS1's two sums) + hBV =
+  `general_BV_final` at level QD + hguard/hnu from the w₀-window
+  (only primes ≥ w₀ in the sieve support; `w0R_threshold`) + Q-part
+  via the Hyp4/BVSum machinery.
+- hA2: `twin_A2_upper` ∘ `twin_A2_per_prime_B (hstepWPC :=
+  stepHypWPC_sharpB)` + `Fchain_le_A2_of_massSum` ∘ (SS1's massE sum).
+- hA3: `triple_count_le` + `chen_switch_const_lt` (landed, grid-free).
+- h4 (structural): `h4_base` (Hyp4) at K = 1+ε.
+- hledger: the C0 sensitivity line at the achieved constants —
+  fchain ≥ 9779/10000, Fchain ≤ 268/100, the switch ≤ 0.363084,
+  the ε-slack rows at 2e−8, the F6 carrier normalization
+  (·)·Π₂x/(4log z). THE GATE (running) re-verifies this end-to-end.
+- The ∀X/∃x assembly: thresholds (PNT residuals, S4–S7 o(1) rows,
+  w₀/x₀ floors) collected as ONE `∃ x₀ ∀ x ≥ x₀` hypothesis package;
+  the glue takes max with 2X+2. Split if heavy: GLU-1 (the value
+  chains at abstract x) + GLU-2 (thresholds + hledger + ∃-assembly).
+
 ## Pre-dispatch gates — ALL CLEARED 2026-07-12
 1. ✅ page-image transcription (dossier in the session scratchpad;
    recon confirmed at pixel level).
