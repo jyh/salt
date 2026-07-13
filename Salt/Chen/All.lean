@@ -26,6 +26,7 @@ import Salt.Chen.GeneralBV
 import Salt.Chen.BetaSW
 import Salt.Chen.ConductorDescent
 import Salt.Chen.BilinearDescent
+import Salt.Chen.TripleCount
 import Salt.Chen.WeightTrivia
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
@@ -139,6 +140,8 @@ open Salt.Tactic in
   Salt.Chen.bilinTwist_coprimeRestrict_primitive Salt.Chen.perd_energy_le
   Salt.Chen.regroup_bilin Salt.Chen.swapPhi_generic
   Salt.Chen.bilinear_hLargeDisc
+  Salt.Chen.prime_count_Ioc_le Salt.Chen.triple_count_le
+  Salt.Chen.chen_switch_const_lt
   Salt.Chen.chen_weight_le_indicator Salt.Chen.chen_weight_struct
   Salt.Chen.stripSum_le Salt.Chen.window_two_thirds_lt
   Salt.Chen.switch_loss_le
