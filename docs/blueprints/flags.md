@@ -3982,3 +3982,33 @@ The C1c family closes at FOURTEEN nodes, every one first-attempt,
 zero sorries ever, catches #25/#27/#28 caught and fixed en route.
 To our knowledge the first machine-checked Rosser–Iwaniec linear
 sieve, now with its analytic engine complete.
+
+## 2026-07-13 (night) S6d: ═══════════════════════════════════════════
+## THE GATE IS DISCHARGED — siegelWalfisz_holds, bounded gaps UNCONDITIONAL
+## ═══════════════════════════════════════════════════════════════════
+
+`siegelWalfisz_holds : Salt.BV.SiegelWalfisz` (the frozen ∀A∀C∃K
+statement, untouched since the BV rung) and
+`bounded_gaps_unconditional : ∃ C, ∀ N, ∃ p q > N, p ≠ q prime,
+|q − p| ≤ C` — BY LITERAL FUNCTION APPLICATION through the BV chain.
+Kernel-checked out-of-band: both on exactly [propext,
+Classical.choice, Quot.sound]. The sandwich at h = x/(log x)^{A+2}
+with the magic substitution h·x/P = h²; S6c at A' = 2A+4, C' = C+1;
+the log-slop, residue-reduction, and initial-segment bridges; the
+gate's error form carries NO φ(q) (read, matched, untouched).
+
+The SW rung: 27 nodes from S0 to S6d, every one first-attempt, every
+floor closed within the session, six executor-surfaced catches along
+the way. The chain: Riesz carriers → the smoothed Perron identity →
+the complete zero theory (Jensen, growth, factorization, B-C,
+max-modulus; the 3-4-1 regions for all χ AND ζ; Landau, Page,
+SIEGEL'S THEOREM) → residues-lite → the three contour variants → the
+dispatcher → the fold → the sandwich → THE GATE. Everything
+unconditional; the one ineffective constant (Siegel's C_ε) is
+intrinsic and lives inside the gate's ∃K exactly as designed in the
+BV-rung freeze.
+
+Bounded gaps between primes is now a THEOREM of this corpus with no
+hypotheses. The k = 105 → gaps ≤ 600 instantiation (CertEval-gated
+GO) is the quantitative upgrade node. Chen-mod-SW flips
+unconditional the day the Chen arc's C5 lands.

@@ -33,6 +33,7 @@ import Salt.SW.ShiftTrivChar
 import Salt.SW.Psi1Transfer
 import Salt.SW.CharDispatch
 import Salt.SW.Fold
+import Salt.SW.Gate
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -139,3 +140,4 @@ open Salt.Tactic in
   Salt.SW.sq_le_C_exp Salt.SW.E_shape_bound
   Salt.SW.psi1_char_bound Salt.SW.psi1_trivchar_bound
   Salt.SW.psi1AP_main_bound
+  Salt.SW.siegelWalfisz_holds Salt.SW.bounded_gaps_unconditional
