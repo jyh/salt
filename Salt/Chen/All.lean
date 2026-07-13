@@ -34,6 +34,7 @@ import Salt.Chen.WeightTrivia
 import Salt.Chen.SharpFuncbound
 import Salt.Chen.ChainValues
 import Salt.Chen.TauSharp
+import Salt.Chen.ValueCascade
 import Salt.Chen.Assembly
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
@@ -171,3 +172,6 @@ open Salt.Tactic in
   Salt.Chen.tauSharp_sum_odd_le Salt.Chen.tauSharp_sum_even_le
   Salt.Chen.Csharp_frozen Salt.Chen.stepHyp_sharp_of_comparisons
   Salt.Chen.bjs_theorem6_sharp_upper Salt.Chen.bjs_theorem6_sharp_lower
+  Salt.Chen.fseq_next_le_of_shift_majorant Salt.Chen.integral_M3
+  Salt.Chen.fseq2_shift_le_M3 Salt.Chen.M3_intble
+  Salt.Chen.fseq_three_tail_le Salt.Chen.fseq_three_flat_le

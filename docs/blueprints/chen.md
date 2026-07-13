@@ -68,6 +68,23 @@ S1–S3 drops 0.0092 → 0.0018). Downstream: `Hyp4.w0R` is parametric —
 every `(1+ε)` site improves; no landed node relands. Verified
 independently (Fable re-derivation) against the executor's table.
 
+**C0 AMENDMENT 2 (Fable, 2026-07-13, on C1b″'s arithmetic; catch
+#31): `ε′` FROZEN `= 10⁻⁴`; the A₁ value-certification interval is
+the 8ε′-window `[4 − 8ε′, 4] = [3.9992, 4]`, NOT `[39/10, 4]`.**
+The C0 prose said "keep ε′ ≈ 1/200" while the S7 line item
+"ε′-retreat 4.2e−5" was computed at ε′ = 10⁻⁴ (retreat =
+f′(4)·8ε′, f′(4) = 2e^γ(1/12 − log3/16) ≈ 0.05226: at 10⁻⁴ →
+4.18e−5 ✓; at 1/200 → 2.1e−3, exceeding S7's ENTIRE cap 0.0011).
+The arithmetic governs: ε′ = 10⁻⁴. Consequence (C1b″'s finding):
+the A₁ target `fchain ≥ 0.9779` is unreachable uniformly on
+[39/10, 4] (true fchain(3.9) = 0.9725) but the demand only ever
+lives on the 8ε′-window, where the true even-sum is ≤ 0.021646 +
+4.2e−5 = 0.021688 vs the 0.0221 target — headroom 4.1e−4 (1.9%
+rel), feasible for a fine-knot piecewise-linear cascade. D =
+x^{1/2−ε′} at 10⁻⁴ still sits under the general-BV level (S4
+unaffected). A₂ unchanged: odd-sum ≤ 1.68 on [4/3, 3] (true sup
+1.6716, 0.5% headroom).
+
 ## The frozen route (Tao 254A Supp. 5 §3 = Opera de Cribro ch. 25; the
 explicit-constants backbone = Bordignon–Johnston–Starichkova (BJS),
 arXiv:2207.09452v6 — reconcile v6 against Nathanson ch. 10 at
@@ -165,6 +182,7 @@ an adaptation, not a copy).
 | C1a ✅ | LANDED FULL (RosserChain.lean, 463 lines): `fseq` ((15)–(17), total, junk-zero windows documented; improper tails = finite intervalIntegrals via `fseq_eq_zero_of_ge`), `Fchain`/`fchain` at the #24-CORRECTED parities + the regression witness (`Fchain 1 2 + fchain 1 2 = 5/2 ≠ 2`), `fseq_two_window` = BJS (19) exactly (the gate's spot-check anchor), and the FULL integrability package by one coupled induction (measurable ∧ bounded ∧ intervalIntegrable — the risk item, closed) | B/C |
 | C1b ✅ | LANDED (Tail.lean): the full BJS-Lemma-8 mechanism with an EXPONENTIAL majorant `hbar` swapped for BJS's `3s⁻¹e⁻ˢ` (makes the majorant integral elementary — dodges E₁); `fseq_le` (per-level `2e²·(99/100)ⁿ·hbar s`, one induction through (16)/(17)), `fseq_tail_le` (≤ 43/100000 uniformly on s ≥ 4/3), `fchain_close`/`Fchain_close` (the C1c consumables). ⚠️ N-FLOOR: certified ratio 99/100 (not BJS's sharp 0.9607) ⇒ **N = 2048**, not the ledger row's 23 — fine for the CLOSENESS/tail purpose (the value 4.3e−4 holds) | C |
 | C1b′ ◑ | **the VALUE certification** (needed by C5 assembly, NOT by C1c): certified numeric lower bounds on `fchain N 4` (and the F-values on [4/3, 3]) — at ρ = 99/100 the tail forces ~1000 level evaluations (infeasible); the route is Table-2-sharp per-level `cₙ` for n ≤ ~25 (each a one-integration bound in the `fseq_two_window` style) + the sharp tail. Dispatch AFTER C1c fixes the exact consumption shape. **PARTIAL** (ChainValues.lean): interface in exact C5 shapes (`fchain_lower_of_evenSum_le`/`Fchain_upper_of_oddSum_le` + depth-monotonicity), the genuine sharp LEADING per-level bound `fseq_two_le_sq` (`f₂ ≤ (4−s)²/(s(s−1)) ≤ 1/1000`, the `fseq_two_window` template), the SHARP tail `fchain_trunc_close` (reuses C1b `fseq_tail_le`; `fchain N ∈ [fchain 2048 − 4.3e−4, fchain 2048]`), and `chen_ledger_line`. REMAINING = the sharp head (even n ≤ ~2048): the decaying-cₙ cascade = **C1cσ** (see flags 2026-07-13 C1b′; the landed `fseq_le` ρ=99/100 provably gives NO positive lower bound, ledger needs fchain ≥ 0.9779 / supF ≤ 2.68) | C (compute-heavy) |
+| C1b″ ◑ | **the cascade engine + the design verdict** (ValueCascade.lean, floor B): `fseq_next_le_of_shift_majorant` (the general per-level step: `fseq n ≤ g on [lo,up]` ⇒ `fseq (n+1) s ≤ (1/s)∫g`, keyed on the window equations — serves even/odd-tail/odd-flat uniformly), `integral_M3` (exact partial-fractions antiderivative), `fseq_three_tail_le`/`fseq_three_flat_le` (the first genuine level past f₂, both regions). VERDICT (kernel-adjacent numerics, matches C1b′'s table): closed-form majorants are 2.3–3.1× loose PER LEVEL (log-linearization) ⇒ provably non-load-bearing at ≤0.5% headroom; the load-bearing route is fine-knot PIECEWISE-LINEAR majorants with exact per-panel integrals feeding the engine. A₁ interval catch → C0 Amendment 2 (catch #31). The PL cascade = the final C1cσ artifact | C (compute-heavy) |
 | C1c ◑ | **BJS Theorem 6** — EXCEEDS floor B (LinearSieve.lean, 589 lines): the generic `TruncSieve` engine (the B2 peel machinery generalized from `chi` to abstract predicates — pointwise ± proved ONCE), the GENUINE Rosser positional predicate `rosserCond` with divisor-closure via a new sorted-sublist positional-domination lemma (`rosserCond_dvd_closed` — mathlib lacked it) + parity closure, `rosserSieve_isUpper/LowerMoebius` (**the Rosser–Iwaniec fundamental sieve inequality, first anywhere**), the full assembly `linear_sieve_upper/lower` with the `d < QD` remainder, and the BJS (5)/(6) chain packaging (`W·(Fchain/fchain ± εCᵢe²·hBJS)`, ε/Cᵢ parametric). Remaining = **C1c′**: the main-term comparison `hmain` (BJS Prop 13/Lemma 11 — the Tₙ Buchstab-chain induction coupling fₙ/h/H to the prime sums via hyp (4), the τₙ bookkeeping) + the support bound `hsupp` (`rosserCond → d < QD`; the lower ν=2, r=1 case needs `p < z ≤ √D` — the honest home of the D ≥ z vs D ≥ z² asymmetry). STOP-AND-FLAG check ✓: nothing outside the frozen set | C+ (keystone 1) |
 | C1c′ ✅ | `hsupp` FULL both sides (Buchstab.lean: `support_core` — the honest D ≥ z vs z² asymmetry home) + catch #25 (the lower hsupp unsatisfiability, fixed at source) + the Buchstab base/defect + compiler-plugged endpoints | C+ |
 | C1c″ ✅ | **the Buchstab decomposition = BJS Prop 13 EXACTLY** (TnInduction.lean, 827 lines, 46 lemmas): `buchstab_upper/lower` (`mainSum λ± = W ± Σ_{parity} Tₙ`, an IDENTITY, sign-audited; via `buchstab_defect` — first-violation fiber decomposition, both fiber directions proved) + `hmain_upper/lower` (the exact `hmain` plugs, single named hypothesis `hTbound`) + the `hbar_le_hBJS` bridge + `linear_sieve_*_rosser_assembled` (compiler-verified BJS Thm 6 (5)/(6) modulo `hTbound`). Reusable: `rlist_mul_block`, prefix/suffix split, `Vbelow_eq` | C+ |

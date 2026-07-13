@@ -4533,3 +4533,35 @@ CLOSED end to end on the unwindowed path.
 - **E₁d** (Fable-tier): `WindowedStep.T_le_of_peel_step_w` HARDCODES `cf_const`/`ch_const` in its
   hτrec slot; the real A₁ point s ≈ 4 needs the windowed induction (the E₁b consumers carry
   `hσ3 : σ ≤ 3`). Parametrize the windowed keystone over `(cf, ch)`.
+
+## 2026-07-13 C1b″ Opus done (cascade engine, floor B) + CATCH #31 → C0 Amendment 2
+
+`Salt/Chen/ValueCascade.lean` (227 lines, new file; wired by Fable). Builds green, zero warnings,
+sorry-free, axiom-clean on all 6 decls, default heartbeats, full module 2.7s.
+
+**CATCH #31 (executor-surfaced, numeric, verified by Fable re-derivation).** The C1b″ mandate froze
+the A₁ value-certification interval as [39/10, 4]; the executor's rational-arithmetic DDE values
+(cross-checked against C1b′'s independent table) show the target `fchain ≥ 0.9779` is UNREACHABLE
+uniformly there — true fchain(3.9) = 0.9725, and 0.9779 is the s = 4 value. ROOT CAUSE: the C0
+prose said "keep ε′ ≈ 1/200" while the S7 ledger line "ε′-retreat 4.2e−5" was computed at
+ε′ = 10⁻⁴ (retreat = f′(4)·8ε′ with f′(4) ≈ 0.05226; at 1/200 the retreat alone is 2.1e−3 > S7's
+whole 0.0011 cap — the prose was internally inconsistent with the frozen arithmetic). RESOLUTION
+(C0 Amendment 2, chen.md): ε′ = 10⁻⁴ frozen; the A₁ demand lives on the 8ε′-window [3.9992, 4],
+where the headroom is 4.1e−4 (1.9% rel) — feasible. The interval [39/10,4] was MY freeze; the
+executor's honest arithmetic caught it before any proof was built on it. Tally: 31 catches, still
+0 proofs on wrong statements.
+
+**LANDED (floor B):** `fseq_next_le_of_shift_majorant` — THE cascade engine (any majorant `g` of
+the shifted iterate propagates one level via `(1/s)∫g`; keyed on the window equation so one lemma
+serves even-window/odd-tail/odd-flat); `integral_M3` (exact `∫(5−t)²/((t−1)(t−2))`, partial
+fractions); `fseq2_shift_le_M3`, `M3_intble`; `fseq_three_tail_le` (on [3,5]) +
+`fseq_three_flat_le` (on [1,3]) — the first genuine level past the f₂ anchor, both regions.
+
+**DESIGN VERDICT for the final numeric node (C1cσ-sharp):** closed-form majorants are provably
+non-load-bearing — `log x ≤ x−1` linearization costs 2.3–3.1× PER LEVEL (worst at left endpoints),
+compounding; both ledger targets have ≤ 1.9% total headroom. The load-bearing artifact is a
+FINE-KNOT PIECEWISE-LINEAR cascade (exact per-panel integrals, no log-linearization) feeding the
+landed engine, to depth ~12–14 + the landed sharp tail (`fchain_trunc_close`). Targets after
+Amendment 2: A₂ odd-sum ≤ 1.68 on [4/3, 3] (true sup 1.6716, 0.5% headroom); A₁ even-sum ≤ 0.0221
+on [3.9992, 4] (true ≤ 0.021688, 1.9% headroom). Per-level true values and tails are recorded in
+the C1b′/C1b″ reports for knot planning.
