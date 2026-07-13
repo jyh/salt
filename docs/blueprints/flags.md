@@ -4716,3 +4716,21 @@ Honest bookkeeping addition: `hN : 1 ≤ N` on items 4/5 (f₁ absent from Fchai
 mass-ratio tail, summing ≤ 43/75 (true 0.5623, 2.0% slack).** Masses contract at ≈ 0.5224/two-
 levels with no edge pathology (VC2). The A₁ half (pointwise even-sum on [3.9992, 4]) remains
 profile-shaped; investigate an A₁ mass-analog before committing to 10³-panel profiles.
+
+## 2026-07-13 DESIGN: the A₁ mass-reduction (Fable) — the 10³-panel profile keystone is DEAD
+
+Investigating the MR1 note ("A₁ mass-analog?"): on the WHOLE window s ∈ [2,4], even levels are
+EXACT scalars — `fseq k s = (massE (k−2)·log(3/(s−1)) + massO (k−1))/s` for even k ≥ 4, where
+`massO j := ∫_3^{j+1} fseq j` (odd tail-mass): split the even window integral at u = 3, the flat
+piece is `fseq_odd_eq_massE` (MR1) integrating to massE·log(3/(s−1)), the tail piece is massO.
+At s = 4 the log vanishes: evenSum(4) = (1/4)·Σ_{odd j≥3} massO j (VC2 cross-check:
+0.021646·4 = 0.086584 = Σ massO ✓). On [3.9992, 4]: log(3/(s−1)) ≤ (4−s)/(s−1) ≤ 2.7e−4
+(rational, log x ≤ x−1 — 2× loose but the term is ~1.5e−4·total); f₂ ≤ (4−s)²/(s(s−1)) ≤ 5.4e−8
+(fseq_two_le_sq). The A₁ ledger row closes at **Σ massO ≤ 11/125 = 0.088** (true 0.086584,
+slack 1.6%): worst s = 39992/10000 gives 2.7e−4·(43/75) + MO ≤ 0.0883823 ⟹ MO ≤ 0.0882.
+**C1cσ IS NOW FOUR SCALAR NODES**: MR1 ✅ (A₂ reduction) → MR2 (Σ massE ≤ 43/75, in flight) →
+MR3 (the A₁ reduction: massO + the exact identity + the window arithmetic; MR1's sibling, B+)
+→ MR4 (Σ massO ≤ 11/125 via the same weighted-Fubini machinery as MR2; the massO recursion:
+massO j = ∫_2^j fseq (j−1)(w)·log((w+1)/3) dw — same shape as MR2's with weight log((w+1)/3)).
+No pointwise profile cascade needed anywhere. VC2's support-edge wall is fully bypassed:
+integration kills the edge.
