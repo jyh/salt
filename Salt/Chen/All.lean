@@ -41,6 +41,7 @@ import Salt.Chen.MassLedger
 import Salt.Chen.MassLedgerA1
 import Salt.Chen.MassCert
 import Salt.Chen.SharpH
+import Salt.Chen.FseqAntitone
 import Salt.Chen.TwinSharp
 import Salt.Chen.WindowedStepP
 import Salt.Chen.WindowedStepC
@@ -201,6 +202,8 @@ open Salt.Tactic in
   Salt.Chen.Fchain_mass_ledger Salt.Chen.Fchain_le_A2_of_massSum
   Salt.Chen.massE_le_crude
   Salt.Chen.twin_A1_lower_B Salt.Chen.twin_A2_per_prime_B
+  Salt.Chen.antitone_integral_lower Salt.Chen.fseq_one_antitoneOn_Ici
+  Salt.Chen.fseq_antitoneOn_odd Salt.Chen.fseq_antitoneOn_even
   Salt.Chen.hBJS_shift_le Salt.Chen.upset_mass_le
   Salt.Chen.hh_antitone_majorize Salt.Chen.hh_sharp_ge2_of_pushforward
   Salt.Chen.massO_nonneg Salt.Chen.fseq_even_eq_masses

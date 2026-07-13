@@ -4883,3 +4883,12 @@ so its B-port consumes `hlevel_wpc_lower` (the hlevel-layer sibling, same file, 
 No top-condition gaps: A₁'s hStop : 2 ≤ σ and A₂'s hStop : 1 ≤ σ match verbatim. FOR THE
 H-GLUE: swap surface = {twin_A1_lower → twin_A1_lower_B, twin_A2_per_prime →
 twin_A2_per_prime_B}, both keyed on the ONE hstepWPC slot that E₁c-close will discharge.
+
+## 2026-07-13 AF1 Opus done FULL first attempt (fseq antitone, both parities, no case splits)
+
+`Salt/Chen/FseqAntitone.lean` (4 decls; wired by Fable). Sorry-free, axiom-clean, zero warnings.
+`fseq_antitoneOn_odd` (Ici 1) / `fseq_antitoneOn_even` (Ici 2) — the E₁c-hf helper, frozen
+targets verbatim — plus the reusable `antitone_integral_lower`. The single-formula globalization
+worked for BOTH parities (even: fseq_even_window is already global on [2,∞); odd: the
+MassCert max-collapse idiom transplanted, whose proof never used its upper endpoint) — zero
+junction case-splits. Class B exactly as classified; friction: le_or_gt naming, linter show→change.
