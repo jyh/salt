@@ -3640,3 +3640,55 @@ exports (`T_peel`, `sieveBelow_primeFactors`, `belowPrimes`, `hlevel_one_upper`,
 needs unfolding for `mem_filter` to fire); `StepHyp` as a `Prop` def passes defeq-cleanly to
 the raw `∀`-form expected by `T_le_of_peel_step'`. Tally: 27 caught, 0 proofs on wrong
 statements (catch #27 now resolved, not merely isolated).
+
+## 2026-07-12 SW S5b: contour-shift assembly — clean no-exceptional variant DONE; exceptional + χ₀ FLAGGED (Opus)
+`Salt/SW/ShiftAssembly.lean`, `theorem psi1_contour_shift`. Builds green (zero warnings),
+axiom-clean `[propext, Classical.choice, Quot.sound]`, sorry-free. Consumes the seven landed
+helper lemmas in the same file + the corpus (`LFunction_norm_logDeriv_sub_sum'`,
+`psi1_eq_integral_logDeriv`, `LFunction_zero_count_le`/`_growth_sphere`,
+`analyticOrderAt_eq_of_factorization`, `rectBI_eq_zero_of_differentiableOn`, kernel lemmas).
+`set_option maxHeartbeats 1600000` (documented in-file; the one `set`-heavy final term).
+
+**E (the clean bound), verbatim from the statement**, for primitive χ mod f≥2, x≥3, T≥2, w>0,
+σ₀-w≥9/10, σ₀<1, and widened `hzf` (no zero ρ with σ₀-w≤Re ρ≤1 and |Im ρ|≤T+2):
+`‖psi1Chi x χ‖ ≤ (1/2π)·[ 2(c-σ₀)·B·x^{c+1}/T² + B·x^{σ₀+1}·(π/σ₀) + (log x+1)·x^{c+1}·(2/T) ]`
+with `c = 1+1/log x` and `B = 120·L4 + (L4/log(7/6))/w`, `L4 = log(4·5·(4+T)·√f·(1+log f))`.
+Three summands = (top+bottom horizontals) + (left edge, Lorentzian mass π/σ₀) + (c-line tail 2/T).
+**S6 sanity (checks out):** with `w = c₀/(2 log(f(T+2)))` one gets `1/w = 2 log(f(T+2))/c₀`
+(a log power) and `σ₀ = 1 - c₀/log(fT) ≥ 9/10` once `log(fT) ≥ 10 c₀`; then B is a log·log and
+each summand is (poly in log x, T)·x^{≤c+1}, i.e. the expected `x·(log)^{O(1)}·e^{-c/(...)}`-shape
+input to S6 once σ₀ is pushed to the zero-free frontier. **Widened-hzf design (as landed):**
+`T' := T` (no ∃-T' pigeonhole); Im-range `T+2` covers every zero in the boundary disks
+`ball(2+it₀,3/2)`, `|t₀|≤T` (reach `|Im|<T+3/2<T+2`), so the box interior/edges are zero-free and
+`dist(edge,ρ) ≥ w` holds uniformly — all `∃-σ₀'`/`∃-T'` spacing dodges dissolve. `σ₀≥9/10` keeps
+the left edge in the `23/20` partial-fraction region and off the kernel poles `s=0,−1`.
+Notable proof points: the zero-count is NOT exposed by the S2 endpoint — re-derived inline via
+`analyticOrderAt → AnalyticOnNhd.divisor_apply → finsum_le_finsum' → LFunction_zero_count_le`
+(Jensen). Left-edge integrability is by **continuity** (`ContinuousOn.comp`+`MapsTo` into
+`closedRect`, then `.intervalIntegrable`), NOT `contour_integrand_integrable` (which needs Re>1);
+the edge log-deriv bound only holds for |Im|≤T, so the left-edge pointwise estimate is proved on
+`Icc(-T,T)` and the *dominating* Lorentzian (nonneg, integrable on ℝ) passes to the full-line
+`π/σ₀` via `setIntegral_le_integral`.
+
+**FLAG — exceptional variant NOT attempted (rule 4: flag over grind).** Intended route:
+`kernel_residue` (landed in `ContourShift.lean:356`) supplies
+`∮_{∂R} x^{s+1}/(s(s+1))·1/(s−β) = 2πi·x^{β+1}/(β(β+1))`, so the exceptional main term is
+`m·x^{β₁+1}/(β₁(β₁+1))`. Obstructions making it a full second C-construction, not a cheap compose:
+(1) **Removable-singularity / global de-singularization.** Goursat (`rectBI_right_split`) needs
+`DifferentiableOn F` on the whole box, but `F = kernel·(−L'/L)` has a pole at β₁. One must show
+`G(s) := F(s) + m·kernel(s)/(s−β₁)` is `DifferentiableAt` at β₁ (the poles cancel to `kernel·(−logDeriv h)`,
+h≠0 the endpoint factor) — a removable-singularity argument threading the LOCAL factorization
+`LFunction_norm_logDeriv_sub_sum'` (valid only on `ball(2+it₀,3/2)`) to GLOBAL box holomorphy.
+There is no pole-carve variant of `rectBI_right_split` in the corpus.
+(2) **A carved-zero edge bound** — a `norm_neg_logDeriv_le_shifted` analogue bounding
+`‖−L'/L(s) + m/(s−β₁)‖` (retaining β₁'s term) on the box; ~150 new lines mirroring the shifted
+lemma with `Z={β₁}` rather than `Z=∅`.
+(3) **β₁ vs left edge separation.** β₁∈[σ₀−w,1] real can sit near/at the `Re=σ₀` edge, so
+`1/(s−β₁)` needs a `β₁−σ₀ ≥ gap` hypothesis or a deformed contour. Recommend a Fable/human session:
+land the pole-carve Goursat + carved edge bound first, then the residue reassembly is short.
+
+**FLAG — χ₀ (principal character) does NOT compose.** For χ₀ (=1), `LFunction χ₀ = ζ·∏(1−p^{−s})`
+has a POLE at s=1, which lies INSIDE the box (σ₀<1<c). The whole setup assumes `differentiable_LFunction hχ1`
+(needs χ≠1) and `LFunction_ne_zero_of_one_le_re`; both fail at χ₀. Handling it needs the S3c
+`zeta/χ₀` pole residue extraction as a separate main-term construction — out of scope for a cheap
+compose; defer to the S3c/S6 assembly that already owns the ζ-pole.

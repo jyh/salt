@@ -26,6 +26,7 @@ import Salt.SW.EstermannInterface
 import Salt.SW.SiegelFinal
 import Salt.SW.SiegelClose
 import Salt.SW.ContourShift
+import Salt.SW.ShiftAssembly
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -120,3 +121,4 @@ open Salt.Tactic in
   Salt.SW.rectBI_eq_zero_of_differentiableOn Salt.SW.rectBI_dslope_eq_zero
   Salt.SW.rectBI_inv_eq_two_pi_I Salt.SW.rectBI_cif_eq
   Salt.SW.kernel_residue
+  Salt.SW.psi1_contour_shift
