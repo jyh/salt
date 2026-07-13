@@ -5372,3 +5372,32 @@ log D ≤ log XM — the raised-input-exponent form; SW3's consumption unchanged
 **`hPerE_reduces_to_alpha`**: under 2 ≤ e ≤ D < N the per-e obligation IS the α-side alone.
 The old general_BV_final stays as the documented superseded form. **The keystone-2 endgame is
 now exactly one lemma: EfoldTermAlpha ≤ Kerr·(XM/(log XM)^{A+1})·(1/e) — PE3, gate running.**
+
+## 2026-07-13 THE PE3 GATE — BLOCK: CATCH #44 (the discharge plan, not the statement) + PE3 v2
+
+**CATCH #44 (constructive lens):** PE3's large-conductor sub-step claimed `four_term_scale_le`
+re-instantiates at (⌊X/e⌋, M) — FALSE: its hDscale hypothesis `D ≤ √((X/e)M)/(log)^B` becomes
+`e ≤ x^{2ε′} = x^{0.0002}` at the frozen ε′ — unavailable for essentially every e. The middle
+band e ∈ (x^{0.0002}, x^{0.25}) had NO landed tool. The needed saving is the POWER x^{−ε′} (the
+BV level deficit) — invisible to four_term's log-power mechanism. The ENVELOPE IS PLAUSIBLY TRUE
+via the corrected route (gate-computed): the e-fold's conductor-regrouped density supplies an
+extra 1/φ(e) (Salt.LS.sum_inv_totient_dvd_le′, landed), giving main-LC ~ x^{1−ε′}/e^{3/2} vs the
+target x/((log)^{A+1}e) — ratio x^{−ε′}(log)^{A+1}/√e → 0 at a THRESHOLD x₀(ε′, A) (huge,
+constant, fine for Infinite). Numeric probe consistent (dilated ratios grow at accessible scales
+exactly because x^{−ε′} ≈ 1 there — the saving is asymptotic, as designed).
+**GATE'S SIMPLIFICATIONS (both verified):** (i) SW belongs to the UNDILATED β factor — the landed
+`smallConductor_energy_le` + `hβSW_of_prime_indicator` work for ALL e verbatim (no hDscale in the
+small regime; my dilated-SW Route B was unnecessary AND wrong for semiprime e); (ii) under D < N
+the imprimitive correction is IDENTICALLY ZERO (any p | d has p ≤ D < N; coprimeRestrict = id on
+blockPrimeInd) — the α-side is primitive×primitive ALREADY; the ω(d) piece VANISHES (and its
+honest decay was e^{−3/2} anyway, better than my e^{−1/2}). Tally: 44 catches, 0 wrong proofs.
+
+**PE3 v2 (frozen for dispatch):** ONE new analytic lemma + assembly:
+- PE3a: the hDscale-FREE four-term/large-sieve mean value at scale (⌊X/e⌋, M) — the landed
+  four_term_scale_le's proof with the level absorption stripped, conclusion carrying the diagonal
+  `D·√((X/e)M)`-term explicitly (raw form). Class C.
+- PE3b: the assembly — small-conductor via the landed engine (all e); large-conductor via PE3a +
+  the (e,f)-regrouped density (1+log D)/φ(lcm(e,f)) + the x^{−ε′} threshold (a new explicit
+  hypothesis `hx₀ : (log(XM))^{A+1} ≤ (XM)^{ε₀}`-shape threaded to the H-glue) →
+  `EfoldTermAlpha ≤ Kerr·(XM/(log XM)^{A+1})·(1/e)` → via hPerE_reduces_to_alpha + PE1, the
+  general_BV_final' per-e slot DISCHARGED. Class C+.
