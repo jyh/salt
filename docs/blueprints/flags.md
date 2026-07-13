@@ -3943,3 +3943,22 @@ supplies the −ζ'/ζ complex-`s` bound the 3-4-1 needs; the remaining work is 
 assembly is the node). Classification: C (real proof design, but small — the Z2ζ layer already
 carries the analytic inputs). This node gates BOTH the S5c χ₀ variant AND S6's χ₀ main-term
 `x²/(2φ(q))` (the `[x²/2]_{χ=χ₀}` term of the S5 summary in `docs/blueprints/sw.md`).
+
+## 2026-07-12 (night) C1c⁹: hh CLOSED; catch #28 — StepHyp's bare ∀ (Fable)
+
+C1c⁹ landed FULL on the analysis: `hh_of_window` (the decay-mass
+close: dyadic pieces by k = ⌊u_p⌋, prime_tail_mass_le per piece,
+h(k−1) ≤ e^{−(k−1)} unifying all three branches, geometric at 2/e —
+c_h = (1+ε)·Cabs·(n+3)e^{n+3}, Cabs = 3(19/log2+2)e·e/(e−2)) and
+`stepHyp_pointwise` — BOTH sharp comparisons compose at every
+operating point. **Catch #28 (mine, the C1c⁶ StepHyp interface):**
+the bare `∀ z D' n` ranges over points OUTSIDE the operating window
+where the comparisons are FALSE as stated; the executor honored Iron
+Rule 1 (landed the pointwise form, did not alter the interface).
+**Fable adjudication + the fix's key lemma:** out-of-window points
+are TRIVIAL, not false — a first-violation chain has
+(p₁⋯pₙ)·pₙ² ≥ D with every pᵢ < z, so `T side D n = 0` whenever
+`log D/log z > n+2` (T_vanish). The windowed redesign (C1c¹⁰):
+StepHypW restricted to the window + sieve-class conditions; the peel
+induction handles out-of-window children by T = 0 ≤ B; rethread to
+bjs_theorem6. Tally: 28 caught, 0 proofs on wrong statements.

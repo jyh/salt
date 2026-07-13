@@ -15,6 +15,7 @@ import Salt.Chen.StepBound2
 import Salt.Chen.Hyp4
 import Salt.Chen.AbelStep
 import Salt.Chen.SharpStep
+import Salt.Chen.DecayMass
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
 
@@ -102,3 +103,6 @@ open Salt.Tactic in
   Salt.Chen.ledger_collect Salt.Chen.stepHyp_of_comparisons
   Salt.Chen.Vbelow_le_ratio Salt.Chen.prime_support_mass_le
   Salt.Chen.hf_of_window Salt.Chen.hh_reduced
+  Salt.Chen.hBJS_antitone Salt.Chen.prime_tail_mass_le
+  Salt.Chen.decay_mass_le Salt.Chen.hh_of_window
+  Salt.Chen.stepHyp_pointwise
