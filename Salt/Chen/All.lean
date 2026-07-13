@@ -37,6 +37,7 @@ import Salt.Chen.ChainValues
 import Salt.Chen.TauSharp
 import Salt.Chen.ValueCascade
 import Salt.Chen.PLCascade
+import Salt.Chen.MassLedger
 import Salt.Chen.WindowedStepP
 import Salt.Chen.WindowedStepC
 import Salt.Chen.Assembly
@@ -192,6 +193,9 @@ open Salt.Tactic in
   Salt.Chen.tauSharpB_sum_le Salt.Chen.tauSharpB_sum_odd_le
   Salt.Chen.tauSharpB_sum_even_le Salt.Chen.CsharpB_frozen
   Salt.Chen.bjs_theorem6_windowed_cB_upper Salt.Chen.bjs_theorem6_windowed_cB_lower
+  Salt.Chen.massE_nonneg Salt.Chen.fseq_odd_eq_massE
+  Salt.Chen.Fchain_mass_ledger Salt.Chen.Fchain_le_A2_of_massSum
+  Salt.Chen.massE_le_crude
   Salt.Chen.hBJS_window_min Salt.Chen.hBJS_funcbound_flat
   Salt.Chen.flat_h_contract
   Salt.Chen.geom_decay_pointwise Salt.Chen.geom_tail_ratio

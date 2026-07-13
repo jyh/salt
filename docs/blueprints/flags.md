@@ -4698,3 +4698,21 @@ CsharpB_frozen ≤ 100001 at 2e−8); THE B-PLUGS bjs_theorem6_windowed_cB_{uppe
 fully discharged, single remaining slot `hstepWPC : StepHypWPC (cfSharpB ·) (chSharpB const) ε
 (tauSharpB ε)` = nodes E₁c-hh/hf/close. Friction: one motive-not-type-correct on a 1-literal
 rewrite (fixed via tauSharpB_succ + simpa); two 101-char docstrings.
+
+## 2026-07-13 MR1 Opus done FULL first attempt (A₂ is now a SCALAR ledger, kernel-checked)
+
+`Salt/Chen/MassLedger.lean` (194 lines; wired by Fable). Sorry-free, axiom-clean (6 decls, in-build
+audit), zero new warnings, default heartbeats. VC2's numeric mass-reduction find is now a THEOREM:
+`massE n = ∫_2^{n+2} fseq n` (the even-level mass scalar); `fseq_odd_eq_massE` (odd level m ≥ 3 on
+[1,3] equals massE(m−1)/s — flat window + tail-at-3 junction + the u = t−1 substitution);
+`Fchain_mass_ledger` (Fchain N s = 1 + (3−s)/s + (Σ_{even k, 2 ≤ k ≤ N−1} massE k)/s on [1,3]);
+**`Fchain_le_A2_of_massSum`** (Σ massE ≤ 43/75 ⟹ Fchain ≤ 268/100 on [4/3,3] — the A₂ ledger
+row, exact rationals, sup at s = 4/3: 9/4 + (3/4)(43/75) = 268/100 EXACTLY); `massE_le_crude`
+(≤ (5/3)(99/100)^{n−1} via fseq_le — the crude tail interface the sharp cascade replaces).
+Honest bookkeeping addition: `hN : 1 ≤ N` on items 4/5 (f₁ absent from Fchain 0; operating depth
+≥ 2048 — always satisfied). Constants untouched.
+
+**C1cσ's A₂ half is now: certify ~8–10 rational upper bounds on massE k (even k to ~16–20) + a
+mass-ratio tail, summing ≤ 43/75 (true 0.5623, 2.0% slack).** Masses contract at ≈ 0.5224/two-
+levels with no edge pathology (VC2). The A₁ half (pointwise even-sum on [3.9992, 4]) remains
+profile-shaped; investigate an A₁ mass-analog before committing to 10³-panel profiles.
