@@ -4734,3 +4734,87 @@ MR3 (the A₁ reduction: massO + the exact identity + the window arithmetic; MR1
 massO j = ∫_2^j fseq (j−1)(w)·log((w+1)/3) dw — same shape as MR2's with weight log((w+1)/3)).
 No pointwise profile cascade needed anywhere. VC2's support-edge wall is fully bypassed:
 integration kills the edge.
+
+## 2026-07-13 E₁c-hh Opus — FLOOR (mass control + cell scaffold; the FTC/IBP pushforward flagged)
+
+`Salt/Chen/SharpH.lean` (324 lines, new file; NOT yet wired into All.lean — Fable to wire).
+Builds green standalone, zero warnings, sorry-free, `#print axioms` clean
+(`[propext, Classical.choice, Quot.sound]`) on all 4 landed decls. No `native_decide`, no new
+axioms. Numeric self-checks reproduced the gate exactly (Python, hi-precision): side≥2 ideal
+pushforward sup `(1/S)∫_{S−1}^∞ h / h(S) = 0.96068` at S = 2 (gate 0.9607); flat-cell
+`(1/S)∫_2^∞ h / h(S) = 0.92137` at S = 1 (gate 0.9214); full side-2 ratio 0.96068 < chSharpB =
+0.98. Target confirmed TRUE, the honest engine derivation validated.
+
+**LANDED FULL (all axiom-clean):**
+- `hBJS_shift_le : hBJS (S−1) ≤ 4·hBJS S` for `S ≥ 1` — the `h`-boundary helper the mandate
+  requested; `γ₃ʰ = sup hBJS(S−1)/hBJS(S) = (4/3)e = 3.6244` at S = 4 (verified), so 4 is a safe
+  rational envelope = the `4ε` pad of `chSharpB`. Four-branch arithmetic.
+- `upset_mass_le` — **the sharp discrete mass control** (the measure heart of the pushforward):
+  for any real `t ≥ S := logRatio z D'`, `Σ_{p∈pf, logRatio p D' ≤ t} ν(p)·Vbelow(p) ≤
+  ((1+ε)·t/S − 1)·W`. This is BJS hypothesis (4) as a SINGLE `(1+ε)` multiplicative error over the
+  whole `[D'^{1/t}, z)` window — NOT a per-dyadic-piece additive PM1 error (which is exactly why
+  `DecayMass.decay_mass_le`'s absolute `Cabs` cannot reach the sharp constant). Route:
+  `AbelStep.telescope_ge` turns the mass into `Vbelow(⌈D'^{1/t}⌉) − W`; `Hyp4.vratio_prod_le`,
+  **anchored at the minimal prime `p₀` of the up-set** (where the per-prime guard `hguard` IS the
+  `hthresh` at `p₀`), bounds `Vbelow(⌈D'^{1/t}⌉)/W ≤ (1+ε)log z/log p₀ ≤ (1+ε)t/S` (the last step
+  from `logRatio p₀ D' ≤ t`). No `w₀` needed — the minimal-prime anchor is the clean trick.
+- `hh_antitone_majorize` — `hBJS(σ_p) ≤ hBJS(u_p−1)` (removes the ⌈D'/p⌉ rounding via
+  `logRatio_child_ge` + `hBJS_antitone`), so the pushforward runs against the strictly monotone
+  `u_p = logRatio p D'`.
+- `hh_sharp_ge2_of_pushforward` — **the `S ≥ 2` cell closure MODULO the pushforward**: given the
+  pushforward output `hpush : Σ m_p·hBJS(u_p−1) ≤ ε·W·hBJS(S−1) + (1+ε)(1/S)(∫_{S−1}^U h)·W`,
+  antitone + E₁a (`TauSharp.chSharp_h_contract`, κ₃ = 49/50) + `hBJS_shift_le` compose to
+  `Σ m_p·hBJS(σ_p) ≤ W·chSharpB·hBJS(S)` (using `chSharpB = chSharp + 4ε`). This is exactly the
+  composition side' = 2 (`S ≥ 2` via `hlo`/`loBnd_two`) and side' = 1 (`S ≥ 3`) need.
+
+**NOT landed (the honest residual — the frozen `hh_sharp_of_window` is NOT yet closed):** the
+FTC/Fubini/IBP *assembly* producing `hpush` from `upset_mass_le`. The exact remaining identity:
+`Σ_p m_p·hBJS(u_p−1) = ∫_{S−1}^{U₀} U(v)·(−hBJS'(v)) dv + hBJS(U₀)·M_tot` (FTC per prime + Fubini
+`integral_finset_sum`), with `U(v) := Σ_{p:u_p−1≤v}m_p ≤ ((1+ε)(v+1)/S−1)W` (Part B), then IBP of
+the affine bound against `−hBJS'` (kink-split at 2, 3) giving `−B(U₀)W·hBJS(U₀) + εW·hBJS(S−1) +
+(1+ε)(W/S)∫_{S−1}^{U₀}h`, with `hBJS(U₀)M_tot − B(U₀)W·hBJS(U₀) ≤ 0` by the mass bound at `v=U₀`.
+This is genuine multi-hundred-line measure theory (improper/finite IBP against `dhBJS`,
+`HasDerivWithinAt` at the kinks — `SharpFuncbound.Gtail` is the style template but the sum↔integral
+Fubini + real-threshold mass plumbing is the bulk); prior executors (`SharpStep`/`DecayMass` flags)
+sized this "its own session", and it is genuinely unavoidable — the sharp constant provably needs
+the CONTINUOUS integral (unit-step Riemann sums lose >budget, the VC2/C1cσ wall).
+
+**The FLAT cell (side' = 1, S ∈ [1,3)) — an extra finding, catch-worthy:** the full-`pf` mass bound
+`upset_mass_le` is provably TOO LOOSE at the `v = 2` boundary for the flat cell. The window
+`{p³<D'} = {u_p>3}` has `U_window(2) = 0` exactly, but `B(2)W = ((1+ε)3/S−1)W ≈ 2W` (at S = 1),
+and that spurious `B(2)·W·hBJS(2)` boundary blows the ~0.01 flat budget (would give ≈ 0.4W vs the
+true ≈ 0.12W). FIX (numerically verified): use the **window-relative** mass bound `V(t) − Vlow ≤
+((1+ε)(v+1)/3 − 1)·Vlow` — the `upset_mass_le` proof with `vratio_prod_le` at `"z" := D'^{1/3}`
+(real) instead of `z`, giving `V(t)/Vlow ≤ (1+ε)(v+1)/3` and boundary `ε·Vlow` (ε-scale, NOT O(1)).
+Then `flat_h_contract` (κ̃ = 97/100) + `Hyp4.h4`-style `Vlow ≤ (3(1+ε)/S)W` close it at
+`(1+ε)²(97/100) + O(ε) < chSharpB` (margin ≈ 0.01 + O(ε)). So the flat cell needs a SECOND
+`~130-line` mass-bound lemma (window-relative) + its own IBP; do NOT try the full-pf bound there.
+
+**Assessment vs the mandate floors:** hit `hBJS_shift_le` + the pushforward's MEASURE CONTROL
+(`upset_mass_le`) + antitone + the `S≥2` cell CLOSURE-modulo-pushforward. Short of Floor A only in
+that the FTC/Fubini/IBP core producing `hpush` is not assembled (flagged above with its exact
+statement). The `chSharpB` numerics and the entire cell architecture are machine-verified modulo
+that one measure-theoretic assembly.
+
+## 2026-07-13 E₁c-hh Opus done FLOOR (mass control + cell scaffold) + CATCH #34
+
+`Salt/Chen/SharpH.lean` (324 lines; wired by Fable). Sorry-free, axiom-clean (4 decls), zero
+warnings. Numeric self-checks reproduced the gate exactly (0.96068@S=2 / 0.92137@S=1 / γ₃ʰ =
+3.6244). LANDED: `hBJS_shift_le` (≤ 4·hBJS, the exact 4ε pad); **`upset_mass_le`** — THE sharp
+discrete mass control: Σ_{σ_p ≤ t} ν(p)Vbelow(p) ≤ ((1+ε)t/S − 1)·W for t ≥ S, via telescope_ge
++ vratio_prod_le ANCHORED AT THE UP-SET'S MINIMAL PRIME (the guard is hthresh there — hypothesis
+(4) as a single (1+ε) across the window, the thing Cabs could never be); `hh_antitone_majorize`
+(kills the ⌈D'/p⌉ rounding); `hh_sharp_ge2_of_pushforward` (the S ≥ 2 cells CLOSED modulo hpush:
+antitone + E₁a + the shift helper → W·chSharpB·hBJS S).
+
+**RESIDUAL (precise, in the module docstring): the IBP core.** `hpush`: Σ m_p·hBJS(u_p−1) =
+∫_{S−1}^{U₀} U(v)·(−hBJS′(v))dv + boundary (layer-cake/IBP against dhBJS, kink-split at 2, 3),
+then U(v) ≤ ((1+ε)(v+1)/S − 1)W ⟹ ε·W·hBJS(S−1) + (1+ε)(W/S)∫_{S−1}h. Multi-hundred-line
+measure theory, unavoidable (unit-step Riemann sums provably exceed the budget). = node E₁c-hh2.
+
+**CATCH #34 (executor-surfaced, numeric):** `upset_mass_le` is provably TOO LOOSE at the flat
+cell's v = 2 boundary (U_window(2) = 0 exactly but the full-window bound gives ≈ 2W — blows the
+~0.01 flat budget). FIX (numerically verified by the executor): a WINDOW-RELATIVE mass bound
+`V(t) − Vlow ≤ ((1+ε)(v+1)/3 − 1)·Vlow` — same proof anchored at D'^{1/3} — then flat_h_contract
+(97/100) + Vlow ≤ (3(1+ε)/S)W close the flat cell. ~130-line sibling lemma, folded into E₁c-hh2.
+Tally: 34 catches, 0 proofs on wrong statements.
