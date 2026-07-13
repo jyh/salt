@@ -4625,3 +4625,47 @@ whether an A₁ analog exists (the even-sum at the window is also a near-scalar 
 profiles to depth ~14–16 (~10³ panels/level at A₁ tightness) + a self-certified mass/profile
 contraction r ≤ 0.55 feeding the landed tail pipeline. All interfaces now exist; the debt is
 pure certified numerics. Plan as its own arc segment AFTER E₁c (or parallel if budget allows).
+
+## 2026-07-13 THE E₁c FREEZE GATE — BLOCK: catches #32 + #33 (the gate pays for itself again)
+
+4-lens adversarial workflow on the E₁c freeze candidate (chen.md card notes (a)–(e)). Verdicts:
+envelope PASS_W_CORRECTIONS, fidelity PASS, source PASS_W_CORRECTIONS, adversary **BLOCK**.
+
+**CATCH #32 (adversary lens — machine-verified counterexample, the big one).** `StepHypWP` as
+frozen in E₁d is UNDISCHARGEABLE at ε-order coefficients: it carries only `1 ≤ σ ≤ n+3`, no
+`loBnd side' ≤ σ` and no parity structure. Counterexample verified numerically: (side'=2, n=1,
+S ∈ [1,2)) — every hypothesis satisfiable, RHS collapses to O(εW) (`fseq 2 = 0` below 2), LHS
+Θ(W); likewise (side'=1, n=1, S ∈ [1,2)). The landed ABSOLUTE route masked this (cf_const(1,ε)
+≈ 5.4e4 carries no ε: RHS absorbs with 5600× margin) — which is why E₁d's faithfulness
+regression could not see it. ROOT CAUSE (structural, from BJS pp. 11–12): BJS's induction NEVER
+peels naively in the odd-flat regime — (39) reroutes through `V(D^{1/3}) ≤ (3K/s)V(z)` exactly
+so even-index f is never evaluated below 2. THE FIX (Fable-tier, freeze v2): (i) a CONDITIONED
+contract `StepHypWPC` carrying the loBnd invariant (already threaded by the landed induction as
+`hlow`); (ii) the sharp windowed induction gets a THIRD branch — the (39)-reroute step — taken
+exactly where the naive peel would evaluate even-index fseq below 2; (iii) a new (39)-step
+lemma (T bounded via the V(D^{1/3}) mass at fixed safe arguments f(2), ∫_3^∞). The adversary
+lens ALSO verified: WITH loBnd/parity in force the hh comparison closes (sups 0.9607/0.9214 <
+1), and fseq_antitoneOn re-confirmed by an independent method (m = 1..9, junctions included).
+
+**CATCH #33 (source lens — page-image verified).** E₁a (`hBJS_funcbound_sharp`) is stated only
+for `s ≥ 2`; the odd-flat branch needs the FIXED integral `H(3) = ∫_3^∞ h(t−1)dt` bounded by
+`κ̃·s·h(s)` down to `s = 1` (BJS Lemma 10's separate κ̃ = 0.9214 bound, tight at s = 1). NEW
+LEMMA REQUIRED — **E₁a-flat**: `∫_3^∞ hBJS(t−1)dt ≤ (97/100)·s·hBJS s` on `1 ≤ s ≤ 3`.
+Feasibility (Fable arithmetic): H(3) = (e⁻²−e⁻³) + 3E₁(3) ≈ 0.12469; the existing parts-twice
+tail bound gives H(3) ≤ 0.1298 ≤ 0.97·e⁻² = 0.13127 (1.1% margin at the s = 1 worst point;
+s ∈ (2,3] ratios ≤ 0.84). κ̃B = 97/100 < 49/50 keeps chSharpB intact.
+
+**Gate corrections folded into freeze v2:** the B-mirror's contraction hypothesis is
+`ε < 1/249` EXACTLY (not hε49; (49/50+4)ε < 1/50) — executors must not copy `hε49`; the
+B-hτrec needs a case split (n = 0 anchor: 3 ≤ 20; n ≥ 1: equality) — no blind copy of
+tauSharp's one-liner. **Independently CONFIRMED:** γ̄ = (5/3)e^{3/5} = 3.0368647 (S=5, global),
+γ₃ʰ = (4/3)e = 3.6243758 (S=4, global); ledger at ε = 2e−8, CsharpB = 100000: spends
+2.03e−4/1.403e−3/8.42e−4, margins 10.84×/3.92×/1.78× (S3 binds); the f-envelope 20 has ~2.5×
+honest cushion (my 16.5 odd-flat figure coupled suprema at different S — conservative
+direction); no load-bearing hard-coded ε in Lean statements (Csharp_frozen is a marker, w0R
+parametric). **Downstream note for the H-glue:** TwinA1/TwinA2 currently wire the ABSOLUTE
+windowed keystones; the sharp chain rewires them to the B-plugs.
+
+Tally: **33 catches, 0 proofs on wrong statements.** #32 is the second machine-checked
+refutation of a Fable-frozen statement (after #26) — both caught by gates/executors BEFORE any
+proof was built on them.

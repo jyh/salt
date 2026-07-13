@@ -328,6 +328,30 @@ whose (29)-control is landed (`Vbelow_le_ratio`: V(p) ≤
   PRE-VERIFY this pair (cfSharpB envelope + ε = 5e−8) numerically at
   gate time BEFORE freezing; the odd-flat branch (BJS (39), K²-terms)
   may add its own envelope constant — audit it in the same gate.
+(f) **THE FREEZE GATE RAN 2026-07-13 — BLOCK (catches #32/#33, see
+flags). FREEZE V2 REQUIRED before any dispatch:**
+1. `StepHypWPC` — the CONDITIONED contract: StepHypWP + the loBnd
+   invariant `loBnd side' ≤ logRatio z D'` (the induction already
+   threads it as hlow). The unconditioned StepHypWP is PROVEN
+   undischargeable at ε-order coefficients (catch #32 counterexample).
+2. The sharp windowed induction `T_le_of_peel_step_wb` gets a THIRD
+   branch: the BJS-(39) REROUTE, taken exactly where the naive peel
+   would evaluate even-index fseq below 2 (the odd-flat regime); new
+   step lemma bounding T via the `V(D^{1/3}) ≤ (3K/s)V(z)` mass at
+   fixed arguments (f at 2, ∫_3^∞). BJS never peels naively there;
+   neither can we at sharp constants.
+3. **E₁a-flat** (new lemma, catch #33): `∫_3^∞ hBJS(t−1)dt ≤
+   (97/100)·s·hBJS s` on `1 ≤ s ≤ 3` (E₁a is s ≥ 2 only; the
+   odd-flat h-side needs the κ̃-analog; 1.1% margin at s = 1 via the
+   existing parts-twice tail bound; 97/100 < 49/50 keeps chSharpB).
+4. B-mirror hypotheses: contraction needs `ε < 1/249` (NOT hε49);
+   B-hτrec needs the n = 0/n ≥ 1 case split (anchor 3 ≤ 20 vs
+   equality).
+5. Envelopes/ledger INDEPENDENTLY CONFIRMED (gate): γ̄ = 3.0369,
+   γ₃ʰ = 3.6244 global; cfSharpB = 20εe²rf^n has ~2.5× honest
+   cushion; ε_sieve = 2e−8 rows verified (S3 binds 1.78×).
+6. H-glue note: TwinA1/A2 wire the ABSOLUTE keystones today; the
+   sharp chain rewires them to the B-plugs.
 (e) ENVELOPE PRE-VERIFICATION (Fable 2026-07-13, against the LANDED
 lemma forms — supersedes (d)'s guesses):
 `hbar_le_hBJS` is uniform constant-1 (hbar rate 6/5 > 1) — NO (n+3)
