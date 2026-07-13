@@ -4669,3 +4669,13 @@ windowed keystones; the sharp chain rewires them to the B-plugs.
 Tally: **33 catches, 0 proofs on wrong statements.** #32 is the second machine-checked
 refutation of a Fable-frozen statement (after #26) — both caught by gates/executors BEFORE any
 proof was built on them.
+
+## 2026-07-13 E₁a-flat Opus done FULL first attempt (catch #33 closed)
+
+`Salt/Chen/FlatFuncbound.lean` (105 lines; wired by Fable). Sorry-free, axiom-clean (3 decls),
+default heartbeats, 3.4s module. `hBJS_funcbound_flat : ∫_2^c hBJS ≤ (97/100)·s·hBJS s` on
+1 ≤ s ≤ 3 (verbatim freeze) + `flat_h_contract` consumption corollary + `hBJS_window_min`.
+Chain: `hBJS_intbound_from2_sharp` (E₁a's fixed-integral bound, already all-c) → e⁻² − (1/9)e⁻³
+≤ (97/100)e⁻² (⟺ 27e ≤ 100) → the window minimum (the [2,3] branch via the landed Padé panel
+`exp_pade_upper`: (4−s)e^{s−2} ≤ s). κ̃B = 97/100 < 49/50 ✓ — chSharpB undisturbed. The odd-flat
+h-side input for the E₁c freeze v2 is now LANDED.
