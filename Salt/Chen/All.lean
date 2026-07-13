@@ -33,6 +33,7 @@ import Salt.Chen.PerEEngine
 import Salt.Chen.WeightTrivia
 import Salt.Chen.SharpFuncbound
 import Salt.Chen.ChainValues
+import Salt.Chen.TauSharp
 import Salt.Chen.Assembly
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
@@ -164,3 +165,9 @@ open Salt.Tactic in
   Salt.Chen.chen_weight_le_indicator Salt.Chen.chen_weight_struct
   Salt.Chen.stripSum_le Salt.Chen.window_two_thirds_lt
   Salt.Chen.switch_loss_le
+  Salt.Chen.chSharp_lt_one Salt.Chen.sharp_h_contract
+  Salt.Chen.chSharp_h_contract Salt.Chen.tauSharp_nonneg
+  Salt.Chen.tauSharp_hτrec Salt.Chen.tauSharp_sum_le
+  Salt.Chen.tauSharp_sum_odd_le Salt.Chen.tauSharp_sum_even_le
+  Salt.Chen.Csharp_frozen Salt.Chen.stepHyp_sharp_of_comparisons
+  Salt.Chen.bjs_theorem6_sharp_upper Salt.Chen.bjs_theorem6_sharp_lower

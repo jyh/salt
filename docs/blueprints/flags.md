@@ -4497,3 +4497,39 @@ fchain ≥ 0.9779) and supF ≤ 2.68. C+ keystone-scale; the value→ledger mapp
 already landed here, so C1cσ is exactly the head cascade. C5's `chen_positivity` already takes
 `mainA1`/`mainA2` abstractly, so this debt is threaded there (unaffected downstream), but the FINAL
 unconditional Chen needs C1cσ to instantiate the operating-point package `H` at the sharp margin.
+
+## 2026-07-13 E₁b Opus done (τ-relative close; THE LEDGER CLOSES → C0 Amendment 1)
+
+`Salt/Chen/TauSharp.lean` (328 lines, new file; wired into All.lean by Fable). Builds green, zero
+warnings, no sorry / native_decide, axiom-clean on all decls (in-build audit), default heartbeats.
+
+**The τ-relative reformulation lands and does what the absolute route provably could not.** Two
+machine-checked pillars: (1) the h-side CONTRACTS — `chSharp ε = (1+ε)(49/50) < 1` for ε < 1/49,
+via E₁a consumed at the same s (`sharp_h_contract`: divide `hBJS_funcbound_sharp` by s); no
+`e^{n+3}` window conversion. (2) the ε-CANCELLATION — `cfSharp n ε = 3εe²·(99/100)^n`, so
+forcing/τ-unit = `3·(99/100)^n`, geometric and ε-free (vs `cf_const/(εe²) → ∞`). Consequence:
+`tauSharp` satisfies the keystone `hτrec` GLOBALLY WITH EQUALITY (dissolving catch #29's n=0 wall:
+`cfSharp 0 ε = 3εe² = εe²·τ₁` exactly), and `Σ τ ≤ Csharp ε = 300/(1−chSharp ε) ≤ 15074` at
+1/10000, → 15000 as ε → 0 — BOUNDED in ε, the exact property C1cτ/C1cσ proved unattainable for
+the absolute constants (`Cᵢ ≥ 3·2^{π(z)}`, ε-uniformly).
+
+**LEDGER VERDICT (Fable re-derived independently, ratified as C0 Amendment 1 in chen.md):**
+`ε·Csharp ε → 0`, so the three S-row slacks close by refreezing ε_sieve. Thresholds: S1 closes at
+ε ≤ 1.45e−6, S2 at 5.2e−7, S3 BINDS at 2.4e−7. **Re-frozen `ε_sieve = 10⁻⁷`** (margins
+14.4×/5.2×/2.4×); caps unchanged; `w0R(10⁻⁷) ≈ exp(4·10⁸)` still a constant; no landed node
+relands. The mandate's 10⁻⁸ guess was ~40× conservative — the honest S3-binding value governs.
+
+**LANDED:** `cfSharp`/`chSharp`/`chSharp_lt_one`; `sharp_h_contract` + `chSharp_h_contract` (E₁a's
+exact role in the future `hh` slot); `tauSharp` + global `tauSharp_hτrec`; `tauSharp_sum_{le,odd_le,
+even_le}` at `Csharp`; `Csharp_frozen ≤ 15074`; parametric consumers `stepHyp_sharp_of_comparisons`
++ `bjs_theorem6_sharp_{upper,lower}` — hτrec AND htau both DISCHARGED; the numeric τ-layer is
+CLOSED end to end on the unwindowed path.
+
+**FLAGGED (honest blockers, both above Opus tier — the remaining E₁-dev queue, see chen.md):**
+- **E₁c** (C, own session): the sharp discrete→integral pushforward producing `hf`/`hh` at
+  (cfSharp, chSharp) — the loglog density comparison with s-DEPENDENT error control; the landed
+  `decay_mass_le` keeps only absolute `Cabs`. E₁a's 49/50 is consumed exactly by `sharp_h_contract`;
+  what's missing is the Σ_p → (1/s)∫ step itself.
+- **E₁d** (Fable-tier): `WindowedStep.T_le_of_peel_step_w` HARDCODES `cf_const`/`ch_const` in its
+  hτrec slot; the real A₁ point s ≈ 4 needs the windowed induction (the E₁b consumers carry
+  `hσ3 : σ ≤ 3`). Parametrize the windowed keystone over `(cf, ch)`.

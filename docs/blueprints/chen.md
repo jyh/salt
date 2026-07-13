@@ -54,6 +54,20 @@ Carrier-normalization convention (gate F6): the absolute carriers are
 `(·)·Π₂x/(4 log z)` (|A| ≈ x/2 folded); the sensitivity ledger is
 relative and unaffected; C5 pins the convention.
 
+**C0 AMENDMENT 1 (Fable, 2026-07-13, on E₁b's arithmetic): `ε_sieve`
+RE-FROZEN `1/10000 → 10⁻⁷`.** Driver: the achieved sharp constants are
+`C₁′ = C₂′ = Csharp ≤ 15074` (`TauSharp.Csharp_frozen`; → 15000 as
+ε → 0), not BJS Table 1's 106/108 — the elementary route to those is
+kernel-proven impossible (catches #29/#30), and the τ-relative route's
+`Csharp` is bounded in ε, so the refreeze closes. At `ε = 10⁻⁷`,
+`C′ = 15074`: S1 spend 1.53e−4 (cap 0.0022, 14.4×), S2 spend 1.06e−3
+(cap 0.0055, 5.2×), S3 spend 6.35e−4 (cap 0.0015, 2.4× — S3 BINDS,
+threshold ε ≤ 2.4e−7). Caps UNCHANGED (spends shrink; total spend on
+S1–S3 drops 0.0092 → 0.0018). Downstream: `Hyp4.w0R` is parametric —
+`w0R(10⁻⁷) ≈ exp(4·10⁸)`, still a constant (fine for `Infinite`);
+every `(1+ε)` site improves; no landed node relands. Verified
+independently (Fable re-derivation) against the executor's table.
+
 ## The frozen route (Tao 254A Supp. 5 §3 = Opera de Cribro ch. 25; the
 explicit-constants backbone = Bordignon–Johnston–Starichkova (BJS),
 arXiv:2207.09452v6 — reconcile v6 against Nathanson ch. 10 at
@@ -215,6 +229,29 @@ C₁′/C₂′, the C0 ledger check at the achieved constants (1.8× headroom
 at 106/108; the 1/100000 ε-refreeze row pre-verified for 10× more),
 and the instantiation into bjs_theorem6_windowed's hτrec (n ≥ 1 per
 catch #29)/htau slots → twin_A1_lower/A2's parametric debts CLOSED.
+
+**E₁a ✅ LANDED** (`SharpFuncbound.lean`): `hBJS_funcbound_sharp`,
+κ₃ = 49/50 via the parts-twice Gtail route; the tail bound is
+load-bearing at 0.24% margin; threshold s₀ = 2.
+**E₁b ✅ LANDED** (`TauSharp.lean`, Floor A+): the τ-relative
+machinery in full — `cfSharp = 3εe²rf^n` (the ε-cancellation:
+forcing/τ-unit = 3·(99/100)^n, ε-FREE), `chSharp = (1+ε)(49/50) < 1`,
+`tauSharp` with the global `hτrec` DISCHARGED (dissolves catch #29:
+equality at every n, `cfSharp 0 ε = 3εe² = εe²τ₁` exactly),
+`Σodd/even ≤ Csharp ε ≤ 15074`, E₁a consumed (`sharp_h_contract`),
+parametric consumers `bjs_theorem6_sharp_{upper,lower}` with hτrec AND
+htau both discharged. THE LEDGER CLOSES → C0 Amendment 1 (ε_sieve =
+10⁻⁷). NOT in this node (flagged, above Opus tier — the remaining
+E₁-dev queue):
+**E₁c** (C, own session) — the sharp discrete→integral pushforward:
+`Σ_p (1/(p−1))(log z/log p)h(σ_p) ≤ (1/s)∫_{s−1}h`-shape with
+s-dependent error control, producing the `hf`/`hh` slots at
+(cfSharp, chSharp); the landed `decay_mass_le` keeps only the absolute
+`Cabs`, discarding the s-dependence that E₁a's 49/50 needs.
+**E₁d** (Fable-tier design) — parametrize `WindowedStep`'s hardcoded
+`cf_const`/`ch_const` over `(cf, ch)` so the sharp coefficients reach
+the REAL A₁ operating point s ≈ 4 (the unwindowed consumers landed in
+E₁b carry `hσ3 : σ ≤ 3`, false at s = 4).
 
 ## Pre-dispatch gates — ALL CLEARED 2026-07-12
 1. ✅ page-image transcription (dossier in the session scratchpad;
