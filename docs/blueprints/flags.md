@@ -4276,3 +4276,20 @@ genuinely discharged, not merely named). Deliverable 2 = the single named `hLarg
 input + this flag naming the mismatch (between floors A and B: `hLargeDisc` is the one
 named hypothesis + the composition, but it is not further reduced, since the bilinear
 primitive reduction that would reduce it is the flagged obstruction).
+
+## 2026-07-13 C3c′: the fold obstruction DISSOLVED; two glue cores remain (C3c″)
+
+The C3c flag's α-side "error" does not exist at the fold:
+`bilinTwist α X d χ = bilinTwist (coprimeRestrict α d) X f χ⋆`
+EXACTLY (the imprimitive twist IS the primitive twist of the
+coprime-restricted α, still ‖·‖ ≤ 1). The difficulty relocates:
+α_d depends on d, so the shell can't apply post-regroup with a fixed
+coefficient — resolved by prod_split_le (full-α primitive main +
+the α-side error split). Landed FULL: the fold, the shell
+consumption (perd_energy_le), regroup_bilin + swapPhi_generic (the
+bilinear ports of the V3.1 linear machinery), bilinear_hLargeDisc
+(the assembly, unification-tested against general_BV_closed's slot).
+Remaining = TWO named satisfiable cores (C3c″): hMainEnergy (the
+dyadic-in-conductor shell arithmetic at fixed coefficient) and
+hErrSum (the BDH Möbius L¹ treatment of the coprimality restriction
+— fails per-character, sums fine).
