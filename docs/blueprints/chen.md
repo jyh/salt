@@ -328,6 +328,45 @@ whose (29)-control is landed (`Vbelow_le_ratio`: V(p) ≤
   PRE-VERIFY this pair (cfSharpB envelope + ε = 5e−8) numerically at
   gate time BEFORE freezing; the odd-flat branch (BJS (39), K²-terms)
   may add its own envelope constant — audit it in the same gate.
+(g) **FREEZE V2 (Fable 2026-07-13, post-gate — THE frozen design):**
+KEY STRUCTURAL RESOLUTION: our discrete `T_peel` ALREADY encodes BJS
+(39)'s restriction — the `p³ < D'` side-1 filter forces σ_child ≥ 2
+(logRatio_child_lower), which is BJS's `V(D^{1/3})` in discrete form.
+So NO new induction branch: the odd-flat case is the flat-window
+branch of the comparison proofs (fseq_odd_flat_window + the landed
+E₁a-flat). The fix is the CONDITIONED CONTRACT:
+1. `StepHypWPC (cf ch : ℕ → ℝ) (ε) (tau)` = StepHypWP + TWO premises:
+   `loBnd side' ≤ logRatio z D'` and the PARITY COUPLING
+   `side' % 2 ≠ n % 2` (per-step child-depth form; parent form
+   `side' % 2 = depth % 2`). The descent preserves the coupling
+   (side and depth flip together); the keystones' top calls satisfy
+   it (upper sums odd depths at side 1, lower even at side 2); the
+   excluded base (side 2, depth 1) was `T_two_one_zero = 0` anyway.
+   StepHypWP → StepHypWPC trivially (more premises), so the const
+   instance is free.
+2. `T_le_of_peel_step_wpc`: the E₁d induction with the invariant
+   `side' % 2 = n % 2` threaded (hlow already is); conditioned
+   `hlevel_wpc_*`, keystones `bjs_theorem6_windowed_c_{upper,lower}`.
+   Verify hTbound_{upper,lower}_of_levels consume hlevel ONLY at the
+   coupled parities (odd@1 / even@2) — expected from the htau
+   filters; if not, STOP AND FLAG.
+3. B-mirror per the gate: `cfSharpB n ε = if n = 0 then 3εe² else
+   20εe²(99/100)ⁿ`; `chSharpB ε = (1+ε)(49/50) + 4ε`; `tauSharpB`
+   (hτrec case-split n=0 anchor 3 ≤ 20 / n ≥ 1 equality); `CsharpB =
+   2000/(1−chSharpB) ≤ 100001` concrete; contraction hypothesis
+   `ε < 1/249` (NEVER hε49); sums both parities.
+4. B-plugs: the conditioned keystones at (cfSharpB, chSharpB,
+   tauSharpB, CsharpB), leaving `hstepWPC-B : StepHypWPC (cfSharpB ·)
+   (fun _ => chSharpB ε) ε (tauSharpB ε)` as the single analytic slot.
+5. The analytic discharge (2 nodes after E₁d′): **E₁c-hh** (layer-cake
+   on the descending-V measure: telescope_ge + Vbelow_le_ratio;
+   E₁a on σ ≥ 2 cells, E₁a-flat on the odd-flat cells; γ₃ʰ ≤ 4
+   boundary in the +4ε pad; gate-verified to close at 0.9607/0.9214)
+   and **E₁c-hf** (window recursions exact on the main term:
+   even-window/odd-tail/odd-flat forms; defect via fseq_le geometric;
+   needs helper `fseq_antitoneOn [loBnd(parity), ∞)` — numerically
+   verified twice). Then **E₁c-close**: ledger_collect composition →
+   discharge the slot → C0 AMENDMENT 3 (ε_sieve = 2·10⁻⁸) ratifies.
 (f) **THE FREEZE GATE RAN 2026-07-13 — BLOCK (catches #32/#33, see
 flags). FREEZE V2 REQUIRED before any dispatch:**
 1. `StepHypWPC` — the CONDITIONED contract: StepHypWP + the loBnd
