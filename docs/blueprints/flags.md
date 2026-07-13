@@ -5184,3 +5184,39 @@ The E₁-dev arc (E₁a → E₁a-flat → E₁b → E₁d → E₁d′ → hh/h
 last numeric debt," is ANALYTICALLY COMPLETE: the sharp per-step at (cfSharpB, chSharpB,
 tauSharpB) is a THEOREM, unconditional on everything except the structural sieve inputs.
 Remaining to the headline: SS1 (in flight — both mass ledgers) + the H-glue.
+
+## 2026-07-13 THE hledger GATE — BLOCK: ★ CATCH #41 ★ (the deepest catch of the project)
+
+The final-margin gate (end-to-end re-derivation of hledger at all achieved constants, launched
+BEFORE the H-glue dispatch) found the C5 assembly's A₃ glue WRONG BY A FACTOR OF log x — the
+hledger slot as shaped is FALSE at every operating point (razor/U = 0.1338 − 0.1491·log x → −∞).
+
+**ROOT CAUSE (Fable-confirmed against the Lean definitions):** `tripleSet` (TripleCount.lean:176)
+does NOT require n = prod−2 prime, so `tripleSum` ~ 0.298·x/(2 log z) sits at x/log x SCALE;
+`triplePrimeSum_le` (Assembly.lean:262) converts the Λ-weighted A₃ carrier via Λ(n) ≤ log x,
+DROPPING Λ's prime support (a 1/log x density) — the bound log x·tripleSum is x-SCALE against
+x/log x-scale main terms. My C5 design note said it out loud: "the switched-sequence sieve is
+never applied, because the C3d count (0.298) is already below the ledger line (0.363)" — the
+0.298 < 0.363 comparison is true AT COUNT LEVEL but the assembly needed the Λ-carrier, and
+bridging count → Λ-carrier without the PRIMALITY SIEVE ON THE SWITCHED SEQUENCE is precisely
+the step Chen's proof is famous for. The bypass was a normalization illusion (the gate's second
+finding: the raw count also lacks A₁/A₂'s Π₂ suppression — dissolves once A₃ comes from a sieve,
+which carries W). NO WRONG THEOREM EXISTS: chen_of_hypotheses is a true conditional; its H was
+undischargeable as shaped. Caught by the LAST gate before the final assembly — the method's
+whole design (gate before glue) exercised at maximum stakes. Every other value chain confirmed
+sound end-to-end by the same lens (fchain/Fchain/M/strip all re-derived exactly).
+
+**THE REPAIR (staged; most machinery ALREADY LANDED because keystone-2 was proven anyway):**
+1. **H-AMENDMENT (Fable, designer-tier, Assembly.lean):** the hA3 slot becomes the honest
+   Λ-carrier `triplePrimeSum x P y ≤ mainA3`; remove chen_positivity's internal
+   triplePrimeSum_le conversion. chen_of_hypotheses stays true; H becomes dischargeable.
+2. **SW-A₃ (the switched-sequence sieve, 2–4 executor nodes):** upper linear sieve applied to
+   {p₁p₂p₃ − 2} — the switched BoundingSieve instance (density/hguard/hnu at the w₀-window),
+   the upper keystone application (LANDED: the cB upper machinery), the BV remainder for the
+   switched sequence (LANDED: keystone-2's PerEEngine/ErrFold/EnergyClose/general_BV_final were
+   built for exactly this), and the c̄ ledger row (LANDED: C4a's cbar_pos +
+   two_log_three_sub_log_six_sub_cbar_pos — the budget line that was always meant to pay here;
+   the honest A₃ ~ c̄-comparable·Π₂x/(4 log z) restores the SHARED normalization).
+3. **Re-gate the margin end-to-end** at the repaired A₃ before the H-glue dispatches.
+Tally: **41 catches, 0 proofs on wrong statements** — and #41 is the existence proof for the
+gate-before-glue doctrine.
