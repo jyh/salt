@@ -29,6 +29,7 @@ import Salt.SW.ContourShift
 import Salt.SW.ShiftAssembly
 import Salt.SW.ShiftVariants
 import Salt.SW.ZetaZeroFree
+import Salt.SW.ShiftTrivChar
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -128,3 +129,6 @@ open Salt.Tactic in
   Salt.SW.psi1_contour_shift_exceptional
   Salt.SW.zeta_neg_re_logDeriv_le_keep Salt.SW.zeta_zero_free_strip
   Salt.SW.zeta_zero_free_region
+  Salt.SW.norm_logDeriv_eulerCorr_trivChar_le
+  Salt.SW.norm_logDeriv_Zc_le_of_ball_dist
+  Salt.SW.psi1_contour_shift_trivchar Salt.SW.psi1_contour_shift_trivchar_full
