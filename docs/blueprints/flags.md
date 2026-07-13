@@ -4818,3 +4818,26 @@ cell's v = 2 boundary (U_window(2) = 0 exactly but the full-window bound gives �
 `V(t) − Vlow ≤ ((1+ε)(v+1)/3 − 1)·Vlow` — same proof anchored at D'^{1/3} — then flat_h_contract
 (97/100) + Vlow ≤ (3(1+ε)/S)W close the flat cell. ~130-line sibling lemma, folded into E₁c-hh2.
 Tally: 34 catches, 0 proofs on wrong statements.
+
+## 2026-07-13 MR3 Opus done FULL first attempt (the A₁ row closes in scalars) + CATCH #35
+
+`Salt/Chen/MassLedgerA1.lean` (5 decls; wired by Fable). Sorry-free, axiom-clean, zero warnings,
+full build green. LANDED: `massO n := ∫_3^{n+2} fseq n` + nonneg; **`fseq_even_eq_masses`** (the
+EXACT even-level scalar identity on s ∈ [2,4], ℕ-subtraction via k = i+2 reparametrisation);
+`evenSum_le_of_massSums` + **`fchain_ge_A1_of_massSums`** (Σ massE ≤ 43/75 ∧ Σ massO ≤ 11/125 ⟹
+fchain ≥ 9779/10000 on [3.9992, 4]; the rational close is a downward parabola with worst point at
+the left endpoint; evenSum slack ≈ 5.7e−5 — the executor used the EXACT rational log-bound
+(4−s)/(s−1) ≤ 8/29992 rather than the design's rounded 2.7e−4, absorbing the log x ≤ x−1
+slack); `massO_le_crude` (the (5/3)e^{−6/5}(99/100)^{n−1} crude interface). Index correspondences
+to MR1/MR2/MR4 sets documented in-file; both H-glue hypotheses compose directly.
+
+**CATCH #35 (executor-surfaced): the DESIGN entry's massO limits were OFF BY ONE.** The
+2026-07-13 A₁-design flags entry wrote `massO n := ∫_3^{n+1}` — but fseq n's support runs to
+n+2 (`fseq_eq_zero_of_ge`); the change-of-variables tail piece is ∫ to the support edge. Using
+n+1 would drop the mass on [n+1, n+2], making the identity FALSE (and MR4's ledger falsely
+small). The executor used the forced `∫_3^{n+2}`, verified the identity numerically to full
+precision (Σ massO → 0.086584 < 0.088 ✓), and flagged rather than silently proceeding.
+**CORRECTION BINDING ON MR4:** the massO recursion in the A₁-design entry has the same
+systematic shift — it must read `massO j = ∫_2^{j+1} fseq (j−1)(w)·log((w+1)/3) dw` (upper
+limit j+1 = (j−1)+2, the support edge of the even level j−1). Tally: 35 catches, 0 proofs on
+wrong statements.

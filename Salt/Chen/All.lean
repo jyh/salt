@@ -38,6 +38,7 @@ import Salt.Chen.TauSharp
 import Salt.Chen.ValueCascade
 import Salt.Chen.PLCascade
 import Salt.Chen.MassLedger
+import Salt.Chen.MassLedgerA1
 import Salt.Chen.SharpH
 import Salt.Chen.WindowedStepP
 import Salt.Chen.WindowedStepC
@@ -199,6 +200,9 @@ open Salt.Tactic in
   Salt.Chen.massE_le_crude
   Salt.Chen.hBJS_shift_le Salt.Chen.upset_mass_le
   Salt.Chen.hh_antitone_majorize Salt.Chen.hh_sharp_ge2_of_pushforward
+  Salt.Chen.massO_nonneg Salt.Chen.fseq_even_eq_masses
+  Salt.Chen.evenSum_le_of_massSums Salt.Chen.fchain_ge_A1_of_massSums
+  Salt.Chen.massO_le_crude
   Salt.Chen.hBJS_window_min Salt.Chen.hBJS_funcbound_flat
   Salt.Chen.flat_h_contract
   Salt.Chen.geom_decay_pointwise Salt.Chen.geom_tail_ratio
