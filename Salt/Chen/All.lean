@@ -20,6 +20,7 @@ import Salt.Chen.WindowedStep
 import Salt.Chen.TwinA1
 import Salt.Chen.TwinA2
 import Salt.Chen.BVSum
+import Salt.Chen.TauNumeric
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
 
@@ -119,3 +120,5 @@ open Salt.Tactic in
   Salt.Chen.twin_A1_lower
   Salt.Chen.rosserRemainder_le_split Salt.Chen.convSum_le
   Salt.Chen.sum_inv_totient_le_Winv Salt.Chen.twinA1_hBV
+  Salt.Chen.tauChen_one Salt.Chen.tauChen_rec
+  Salt.Chen.hτrec_zero_impossible Salt.Chen.tauSum_odd_ge

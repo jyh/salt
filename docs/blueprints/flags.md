@@ -4027,3 +4027,57 @@ subset/level reduction to the Icc index set, and C1d's vratio for
 Σ1/φ(d) ≤ (1+ε)log z/log w₀. The C2 wave (A₁ + A₂ + hBV) is CLOSED.
 Remaining Chen: C3 (the switch, keystone 2), C4b, C1cτ (numerics),
 C1b′ (value certification), C5 (assembly).
+
+## 2026-07-13 C1cτ: the numeric τ-row is NOT closeable with the landed constants — TWO obstructions (Opus)
+
+`Salt/Chen/TauNumeric.lean` (new file only; namespace `Salt.Chen`; `import Mathlib +
+Salt.Chen.DecayMass`; NOT wired into All.lean). Builds green, zero warnings, no sorry /
+native_decide, axiom-clean `[propext, Classical.choice, Quot.sound]` on all 10 public decls.
+Default heartbeats. **This node was scoped "supply the concrete tau, close C₁=106/C₂=108"; the
+investigation found the numeric row is UN-CLOSEABLE against the actually-landed `SharpStep.cf_const`
+/ `DecayMass.ch_const`, for two independent machine-checked reasons.** STOP-AND-FLAG (Iron
+Rule 1): no blueprint statement altered, no faked close; the honest artifact + this flag landed.
+
+**The τ-sum's range (investigation).** The keystone `htau` is over `Finset.range (maxDepth s + 1)`
+with `maxDepth s = s.prodPrimes.primeFactors.card = π(z)` (TnInduction, line 626) — ASTRONOMICAL,
+not a small window. The hoped-for "T=0 for n>6 ⇒ finite table" (spec option ii) is FALSE: `T_vanish`
+kills T_n for `n < σ−2` (a LOWER cutoff ≈ 2 at the operating σ≈4), never an upper one; the nonzero-T
+band still grows unboundedly with x (max chain length ~ log x/loglog x). So the sum genuinely runs
+0..π(z).
+
+**FINDING 1 (interface over-demand — the n=0 contradiction; `hτrec_zero_impossible`).** The landed
+keystones `WindowedStep.bjs_theorem6_windowed_{upper,lower}` (and `TwinA1.twin_A1_lower`) demand
+`hτrec : ∀ n, cf_const n ε + ε·e²·ch_const n ε·τ_n ≤ ε·e²·τ_{n+1}` GLOBALLY (incl. n=0), together
+with `htau1: τ_1=3` and `hτ0: τ_n≥0`. At n=0 this needs `cf_const 0 ε ≤ 3·ε·e²`, but
+`cf_const 0 ε ≥ 3168` (`cf_const_zero_ge`, proven: log3>1, 19/log2≥19, e³≥8) while `3εe² ≤ 24`
+(ε≤1, e²<8). So NO nonneg τ with τ_1=3 satisfies the global hτrec — the keystones are
+un-instantiable AS STATED. It is an OVER-DEMAND: the windowed induction
+`WindowedStep.T_le_of_peel_step_w` only ever USES `hτrec m` at depths `m≥1` (base case
+`hlevel_one_upper` hardcodes τ_1=3 and does not recurse). **Recommended fix (Fable, catch-#28
+pattern):** restrict `hτrec` to `1 ≤ n` in `T_le_of_peel_step_w` / `hlevel_w_{upper,lower}` /
+`bjs_theorem6_windowed_*` / `twin_A1_lower` (a one-token `hτrec m → hτrec m hm1` change; `hm1: 1≤m`
+is already in scope). `TauNumeric.tauChen_rec` is exactly the `n≥1` recursion the amended keystones
+would consume. (Not landed as a prime keystone here — Finding 2 shows it wouldn't rescue the
+numerics, so the re-derivation is deferred to the Fable interface sweep.)
+
+**FINDING 2 (the κ₃=1 wall, quantified — the real blocker).** Even with the n≥1 amendment, the
+recursion `τ_{n+1} ≥ cf_const n/(εe²) + ch_const n·τ_n` is EXPANSIVE: `ch_const n ε ≥ 24`
+(`ch_const_ge_two`, via `Cabs ≥ 1`) — never contracts — so `τ_{n+1} ≥ 2τ_n` (`tauChen_double`) and
+`τ_{m+1} ≥ 3·2^m` (`tauChen_ge_geom`). Summed over range(π(z)+1) the achievable C₁ is `≥ 3·2^{~π(z)}`
+(`tauSum_odd_ge`): astronomically large, certainly not 106/108. The slack `εC_i e²h(σ)` then dwarfs
+the main term — the C0 ledger (S1/S2/S3 caps ≈ 0.002M) fails by dozens of orders. **No ε-re-freeze
+helps** (smaller ε ENLARGES the forcing cf/(εe²); Table-1's 1/100000 row is worse). Root cause: the
+landed cf_const/ch_const are the CRUDE elementary majorants (fseq≤2, loglog window mass, h≤e^{−u},
+dyadic geometric) — the κ₃=1 regime; unlike BJS's sharp constants they don't even → 0 as ε→0
+(`cf_const 0 ε ≥ 3168` independent of ε). This is the C1c⁵ `κ₃=1 ⟹ β≥1` finding made fully
+quantitative against the actual landed constants: the numeric row genuinely requires the SHARP BJS
+constants (κ₃<1 via the E₁ exponential integral, c_f∝ε), NOT elementary in mathlib. So `htau` at
+106/108 is a route-level gap requiring the E₁/sharp-sieve development (a real C+ session), exactly
+as the C0 doctrine anticipated leaving parametric — but now proven un-satisfiable at the elementary
+tier, not merely "unfetched (31) constants". Fable/human decision.
+
+**Landed (sorry-free, the PB-floor):** `tauChen ε` (the equality recursion; τ_0=0, τ_1=3) +
+`tauChen_one`/`tauChen_nonneg`/`tauChen_rec` (recursion on the window n≥1 — the "τ-table with the
+recursion proven on the window"); `cf_const_nonneg`/`ch_const_nonneg`; the numeric cores
+`exp_two_lt_eight`/`eight_le_exp_three`/`cf_const_zero_ge`/`Cabs_ge_one`/`ch_const_ge_two`; and the
+two findings `hτrec_zero_impossible` + `tauChen_double`/`tauChen_ge_geom`/`tauSum_odd_ge`.

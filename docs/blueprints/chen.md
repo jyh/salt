@@ -175,6 +175,27 @@ stalls, the floor is `p + 2 = P₄`-shape at the same architecture with
 slack margins (state honestly, flag). The optimality/parity section of
 BJS stays OUT (not needed).
 
+## C1cσ — the decaying per-level constants (specced 2026-07-13, after C1cτ's findings)
+
+C1cτ PROVED (machine-checked) that the numeric τ-row cannot close
+against the landed cf_const/ch_const: (catch #29) the global hτrec is
+unsatisfiable at n = 0 (the induction only uses n ≥ 1 — the one-token
+amendment); and (the wall) ch_const = (1+ε)Cabs(n+3)e^{n+3} never
+contracts ⇒ achievable C₁' ≥ 3·2^{π(z)}; no ε-refreeze helps. ROOT
+CAUSE + FIX (Fable): the sup-envelope endgames of hf_of_window/
+hh_of_window used `fseq_le_two`/worst-case-window conversions,
+THROWING AWAY the landed geometric decay — `fseq_le : fseq (n+1) s ≤
+2e²(99/100)ⁿ·hbar s` (Tail.lean) gives the per-level sup a FREE rⁿ
+factor. C1cσ = re-run the two comparison endgames carrying the
+geometric factor: c_f(n), c_h(n) ≤ K·(99/100)ⁿ-shape ⇒ the τ-recursion
+contracts ⇒ tau_sum_le_of_recursion closes at explicit C₁'/C₂';
+re-check the C0 ledger at the achieved constants (the S-row slack
+scales by C₁'/106 — the gate showed 1.8× headroom at 106; if C₁' >
+~200, re-freeze ε_sieve at the pre-verified 1/100000 row for 10×
+more headroom). Deliverables: the n≥1 hτrec amendment (prime-form
+consumers alongside the landed ones), cf_dec/ch_dec + the amended
+comparisons, tauChenσ + the geometric close, the ledger check.
+
 ## Pre-dispatch gates — ALL CLEARED 2026-07-12
 1. ✅ page-image transcription (dossier in the session scratchpad;
    recon confirmed at pixel level).
