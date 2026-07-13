@@ -4892,3 +4892,98 @@ targets verbatim — plus the reusable `antitone_integral_lower`. The single-for
 worked for BOTH parities (even: fseq_even_window is already global on [2,∞); odd: the
 MassCert max-collapse idiom transplanted, whose proof never used its upper endpoint) — zero
 junction case-splits. Class B exactly as classified; friction: le_or_gt naming, linter show→change.
+
+## 2026-07-13 MR2b Opus — FLOOR A landed (Φ-moment structural layer) + STOP-AND-FLAG the contraction
+
+`Salt/Chen/MassCert2.lean` (496 lines, NEW file, NOT wired into All.lean — Fable to wire).
+Sorry-free, axiom-clean (14 decls audited: `[propext, Classical.choice, Quot.sound]`), zero
+warnings, no `native_decide`/new axioms, default heartbeats, 3.4s. Numeric plan built first (pure
+Python DDE + mpmath, hi-precision), recorded in the module docstring.
+
+**LANDED (FLOOR A — the structural layer, all exact/rational):**
+- **The sub-interval mass bounds** (the clean rational envelope of the deep profile, immediate from
+  the window recursion + a nonnegative sub-interval): `fseq_odd_le_massE_div`
+  (`fseq (p+1) w ≤ massE p / w` for `w ≥ 3`, `p` even) and **`fseq_even_le_massO_div`**
+  (`fseq k u ≤ massO (k−1)/u` for `u ≥ 4`, `k` even). Both verified pointwise numerically.
+  **`fseq_even_le_massO_div` is the reusable atom MR4's `massO` ledger consumes** (the mandate's
+  "w ≥ 4 sub-interval bound"; confirmed: `u−1 ≥ 3` makes the even window an integral over a
+  sub-interval of `massO (k−1)`'s support). Also `massE_shift_form`/`massO_shift_form` (the
+  `∫_·^{n+3} fseq n (t−1)` change-of-variable forms).
+- **Even-level continuity** `fseq_even_continuousOn` (`fseq k` continuous on `[2,k+2]`, `k` even) —
+  the FTC input the IBP needs (MR2 landed only the odd-level version).
+- **The Φ-moment identity** `massTail_eq_phiMoment`: **MR2's `Tail` = a Φ-weighted moment of the
+  even predecessor**, `∫_4^{m+3} fseq m (s−1)·log(s/2) ds = ∫_2^{m+1} fseq (m−1)(v)·Φ v dv`,
+  `Φ v := ∫_3^{v+1} log((w+1)/2)/w dw`. Done by **honest integration by parts** (u = tail
+  primitive `A`, v = `Φ(·−1)`, both boundary terms vanish) — **NOT the measure-theoretic Fubini the
+  MR2 flag anticipated**; the IBP mirrors `massE_recursion` exactly (executor find, cleaner). Plus
+  `massE_eq_flat_phiMoment` (composes with `MassCert.massE_flat_split`:
+  `massE (m+1) = massE (m−1)·cflatI + Φ-moment`).
+- **The fixed constants** `Cphi1 = ∫_2^4 Φ v (log 3 − log(v−1))/v dv`,
+  `Cphi2 = ∫_2^4 Φ v/v dv` (+ `Phi_continuousOn`, `Phi_nonneg`, `Phi_le_lin : Φ v ≤ (2/5)(v−2)`
+  on `[2,4]`), certified: `Cphi1_nonneg`, `Cphi2_nonneg`, `Cphi1_le : ≤ 4/5`, `Cphi2_le : ≤ 2/5`.
+  (Bounds are LOOSE vs true `0.04403`/`0.14127` — they use the rational log majorant `log x ≤ x−1`;
+  tighter panel bounds are unnecessary since the constants are not load-bearing given the flag
+  below. The `[2,4]` split `∫_2^4 fseq (m−1)·Φ = massE (m−3)·Cφ1 + massO (m−2)·Cφ2` via MR3's
+  `fseq_even_eq_masses` is mechanical — left out only because it needs `Φ` continuity on the
+  parametric `[4,m+1]`; the constants + `Phi_continuousOn` on `[2,4]` are landed.)
+
+**STOP-AND-FLAG: the FROZEN `massSum_le_A2 (≤ 43/75)` is NOT reachable — it needs the sharp profile
+decay keystone (the standing C1cσ/VC2 debt), provably not the landed lemmas.** The FULL close needs
+the uniform two-level contraction `massE (2(j+1)) ≤ r·massE (2j)` (hypothesis of the landed
+`MassCert.massSum_le_head_add_geomtail`). From `massE_eq_flat_phiMoment`, `r = cflatI + κ` with
+`κ = sup_p Tail_{p+2}/massE p`. Bounding `κ` uniformly is the wall: `Tail = ∫ fseq(m−1)·Φ` and
+`massE(m−1) = ∫ fseq(m−1)`, so a pointwise `Tail ≤ κ·massE(m−1)` would need `Φ v ≤ κ`, but `Φ` is
+UNBOUNDED (`Φ v ~ (log v)²/2`). **Machine-checked dead-ends (numeric plan):** (i) the coupled
+2-vector `(massE, massO)` route the MR2 mandate suggested — bounding `Φ v ≤ α + β·ψ v`,
+`ψ = log((v+1)/3)` — FAILS: `Φ` grows super-linearly relative to `ψ`, forcing `α → ∞` (grid check:
+`α ≈ 3.0` over `[2,60]`, unbounded). (ii) The mandate's step-2(b) claim that `fseq(m−1) v ≤
+massO(m−2)/v` "kills the [4,∞) piece cleanly" is FALSE for the uniform bound: it gives
+`R ≤ massO(m−2)·∫_4^{m+1} Φ/v dv`, and `∫_4^{m+1} Φ/v dv` GROWS with the level (≈20× too loose at
+`p=12`). It DOES bound `R` per fixed head level, but not uniformly. (iii) `fseq_le` (the only landed
+per-level profile envelope) has two-level ratio `(99/100)² ≈ 0.98`, exponentially too loose vs the
+required `≈ 0.52`. Every surrogate weight (`Φ`, `ψ`, first moment) is a log-growing moment that
+provably cannot be bounded by the plain mass without the sharp per-level profile decay
+`fseq p (v) ≤ D·massE p·(fixed exp envelope)` — exactly the C1cσ/VC2 fine-knot cascade keystone,
+flagged multi-session and NOT landed. This is consistent with the MR2 flag ("profile work survives
+only here") and VC2's support-growth wall.
+
+**The exact certified-vs-true table (the closure DOES close once a certified `r` exists):**
+```
+even masses (true):  massE2=0.29364  massE4=0.13140  massE6=0.06597  massE8=0.03406
+                     massE10=0.01773 massE12=0.00925 massE14=0.00483 ... two-level ratio → 0.52239
+Σ_{even k≥2} massE = 0.5623 ;  target 43/75 = 0.57333 ;  slack 0.0110
+cflatI = 0.35541 (landed bound ≤ 1/2) ; κ = Tail/massE → 0.16698 ; r = cflatI+κ → 0.52239
+Cφ1 = 0.04403 (bound 4/5) ; Cφ2 = 0.14127 (bound 2/5)
+closure (head + geom tail, MassCert.massSum_le_head_add_geomtail), TRUE masses:
+  J=3 (head massE2+massE4=0.42504) + tail massE6/(1−r)=0.13858 @ r=0.524 = 0.56362 ≤ 0.57333  ✓
+  → so the FROZEN 43/75 closes at head-to-k=4 + a certified r ≤ 0.524; ONLY the uniform r is missing.
+```
+So MR2b = the FLOOR (Φ-moment structural layer) is landed; the residual is precisely the sharp
+contraction `r ≤ 0.524` (equivalently the profile decay). Recommend routing the remaining
+`massSum_le_A2` through the C1cσ fine-knot cascade once that keystone lands — no new blueprint
+statement touched; `43/75` is preserved. **massO note (feeds MR4):** `fseq_even_le_massO_div` and
+`massO_shift_form` are the shared machinery MR4's `massO` ledger reuses; no massO *bounds* were
+needed for FLOOR A itself.
+
+**FABLE ADJUDICATION of the MR2b flag (2026-07-13) + CATCH #37 + the MR2c design:**
+CATCH #37 — the MR2b MANDATE's two tail-closure routes were both WRONG (executor-refuted,
+numeric): (i) the coupled (massE, massO) route via Φ ≤ α + β·ψ fails (Φ super-linear, α → ∞);
+(ii) my claim that `fseq (m−1) v ≤ massO (m−2)/v` "kills the [4,∞) piece cleanly" is false
+uniformly (the Φ/v integral grows with the level; ~20× loose at p = 12). Tally: 37 catches,
+0 proofs on wrong statements.
+THE BUDGET RELAXATION (Fable re-derivation from the executor's table): the closure demand is NOT
+r ≤ 0.524 at head-4 (0.3% margin — hopeless). With head through k = 8 and the tail from 10:
+Σhead(2..8) = 0.52507 + massE10-bound/(1−r): at r = 0.58, κ-demand = r − cflatI = 0.2246 vs true
+κ = 0.16698 — a **34% margin**; at r = 0.55: 25%. The remaining object is a UNIFORM two-level
+mass contraction with double-digit tolerance, NOT the razor VC2 wall.
+**MR2c DESIGN (the certified contraction): the mass-normalized super-profile + wing.** Certify a
+fixed profile g on [2, W] (~15–25 panels; tolerance ~25%) + an exponential wing `C·e^{−6v/5}`
+from W ≈ 6, such that (a) fseq (m−1) ≤ massE (m−1)·g pointwise propagates through TWO peel levels
+(the normalized two-level operator maps g under itself × r), and (b) ∫ g·Φ ≤ κ-target. THE WING
+IS SELF-STABLE (Fable calc, to be gate-checked): the tail operator on e^{−λv} at λ = 6/5 gives
+factor e^{λ}/(λ s) ≤ 0.52 for s ≥ e^{1.2}/(1.2·0.52) ≈ 5.32 — the wing contracts FASTER than
+the 0.52 mass scaling beyond W ≈ 6, so support creep is absorbed by the wing forever. VC2's
+"no invariant profile" wall was about UN-normalized profiles at ≤ 2% tolerance; mass-normalized
+at ~25% tolerance with the wing is a different, feasible object. MR2c = design-gate the operator
+statement, then one executor. MR4 (massO ledger) reuses `fseq_even_le_massO_div` + the same
+normalized profile.
