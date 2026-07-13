@@ -68,6 +68,15 @@ S1–S3 drops 0.0092 → 0.0018). Downstream: `Hyp4.w0R` is parametric —
 every `(1+ε)` site improves; no landed node relands. Verified
 independently (Fable re-derivation) against the executor's table.
 
+**C0 AMENDMENT 3 (Fable, 2026-07-13, RATIFIED at E₁c-close):
+`ε_sieve = 2·10⁻⁸`** (supersedes Amendment 1's 10⁻⁷). Driver: the
+gate-corrected sharp-B constants (CsharpB ≤ 100001). Rows verified
+twice independently (the E₁c freeze gate's envelope lens + fidelity
+lens): S1 spend 2.03e−4 (10.8×), S2 1.40e−3 (3.9×), S3 8.42e−4
+(1.78×, binds). w0R(2e−8) ≈ exp(2·10⁹), a constant. All landed
+sharp-B lemmas carry ε-hypotheses satisfied at 2e−8 (0 ≤ ε ≤ 1/1000,
+ε < 1/249 derived). The H-glue instantiates this value.
+
 **C0 AMENDMENT 2 (Fable, 2026-07-13, on C1b″'s arithmetic; catch
 #31): `ε′` FROZEN `= 10⁻⁴`; the A₁ value-certification interval is
 the 8ε′-window `[4 − 8ε′, 4] = [3.9992, 4]`, NOT `[39/10, 4]`.**
