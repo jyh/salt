@@ -38,6 +38,7 @@ import Salt.Chen.TauSharp
 import Salt.Chen.ValueCascade
 import Salt.Chen.PLCascade
 import Salt.Chen.WindowedStepP
+import Salt.Chen.WindowedStepC
 import Salt.Chen.Assembly
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
@@ -183,6 +184,14 @@ open Salt.Tactic in
   Salt.Chen.bjs_theorem6_windowed_p_upper Salt.Chen.bjs_theorem6_windowed_p_lower
   Salt.Chen.bjs_theorem6_windowed_upper_via_p Salt.Chen.bjs_theorem6_windowed_lower_via_p
   Salt.Chen.bjs_theorem6_windowed_sharp_upper Salt.Chen.bjs_theorem6_windowed_sharp_lower
+  Salt.Chen.stepHypWPC_of_wp Salt.Chen.stepHypWPC_const
+  Salt.Chen.T_le_of_peel_step_wpc
+  Salt.Chen.hlevel_wpc_upper Salt.Chen.hlevel_wpc_lower
+  Salt.Chen.bjs_theorem6_windowed_c_upper Salt.Chen.bjs_theorem6_windowed_c_lower
+  Salt.Chen.chSharpB_lt_one Salt.Chen.tauSharpB_hτrec
+  Salt.Chen.tauSharpB_sum_le Salt.Chen.tauSharpB_sum_odd_le
+  Salt.Chen.tauSharpB_sum_even_le Salt.Chen.CsharpB_frozen
+  Salt.Chen.bjs_theorem6_windowed_cB_upper Salt.Chen.bjs_theorem6_windowed_cB_lower
   Salt.Chen.hBJS_window_min Salt.Chen.hBJS_funcbound_flat
   Salt.Chen.flat_h_contract
   Salt.Chen.geom_decay_pointwise Salt.Chen.geom_tail_ratio

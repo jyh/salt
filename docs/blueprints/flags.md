@@ -4679,3 +4679,22 @@ Chain: `hBJS_intbound_from2_sharp` (E₁a's fixed-integral bound, already all-c)
 ≤ (97/100)e⁻² (⟺ 27e ≤ 100) → the window minimum (the [2,3] branch via the landed Padé panel
 `exp_pade_upper`: (4−s)e^{s−2} ≤ s). κ̃B = 97/100 < 49/50 ✓ — chSharpB undisturbed. The odd-flat
 h-side input for the E₁c freeze v2 is now LANDED.
+
+## 2026-07-13 E₁d′ Opus done FULL first attempt (freeze v2 items 1–7; the slot is now exact)
+
+`Salt/Chen/WindowedStepC.lean` (441 lines; wired by Fable). Sorry-free, axiom-clean (22 decls),
+zero warnings, default heartbeats. THE PARITY CHECK PASSED: hTbound_{upper,lower}_of_levels
+consume T-bounds ONLY at odd@side-1 / even@side-2 (the htau filters tile the top) — no
+Odd(maxDepth) side conditions needed; the conditioned keystones have the same hypothesis shape
+as the E₁d ones with StepHypWPC in the slot.
+
+**LANDED:** StepHypWPC (the catch-#32 fix: + loBnd invariant + parity coupling side'%2 ≠ n%2);
+stepHypWPC_of_wp/const (free); T_le_of_peel_step_wpc (invariant side'%2 = n%2 threaded; base
+side-2 excluded by omega — was T_two_one_zero anyway); hlevel_wpc_{upper,lower};
+bjs_theorem6_windowed_c_{upper,lower}; THE B-MIRROR (cfSharpB n=0 anchor / 20εe²rf^n,
+chSharpB = (1+ε)(49/50)+4ε, chSharpB_lt_one at ε < 1/249, tauSharpB with hτrec EQUALITY at
+every n, CsharpB = 2000/(1−chSharpB), sums via tau_sum_le_of_recursion with the n=0 row 3 ≤ 20,
+CsharpB_frozen ≤ 100001 at 2e−8); THE B-PLUGS bjs_theorem6_windowed_cB_{upper,lower} — τ-layer
+fully discharged, single remaining slot `hstepWPC : StepHypWPC (cfSharpB ·) (chSharpB const) ε
+(tauSharpB ε)` = nodes E₁c-hh/hf/close. Friction: one motive-not-type-correct on a 1-literal
+rewrite (fixed via tauSharpB_succ + simpa); two 101-char docstrings.
