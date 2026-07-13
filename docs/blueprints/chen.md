@@ -196,6 +196,26 @@ more headroom). Deliverables: the n≥1 hτrec amendment (prime-form
 consumers alongside the landed ones), cf_dec/ch_dec + the amended
 comparisons, tauChenσ + the geometric close, the ledger check.
 
+## E₁-dev (USER-RATIFIED 2026-07-13 morning) — the sharp τ-numerics
+
+Two nodes closing the last numeric debt (the elementary route being
+kernel-proven impossible, catches #29/#30):
+**E₁a** — the sharp funcbound: `hBJS_funcbound_sharp : ∫_{s−1}^{c}
+hBJS ≤ (49/50)·s·hBJS s` on the operating window — via the
+parts-twice bound `∫_3^∞ 3u⁻¹e⁻ᵘ ≤ (8/9)e⁻³` (C1c⁶'s worked route:
+∫ = 3a⁻¹e⁻ᵃ − 3∫u⁻²e⁻ᵘ and ∫_a^∞ u⁻²e⁻ᵘ ≥ a⁻²e⁻ᵃ(1−2/a)); no full
+E₁ library needed — the finite certified integrals suffice.
+**E₁b** — the BJS-(31)–(39)-faithful per-level bookkeeping: the
+τ-RELATIVE formulation (their hₙ = ετₙe²h(s) with the (35)–(38)
+four-way split producing τₙ₊₁ from κ₃-contraction + geometrically-
+decaying forcing — the f-side must ALSO be τ-relative; our landed
+absolute cf_const(n)·e^{n+3} growth is exactly what the relative
+form avoids), the concrete tauSharp with Στ-odd/even ≤ explicit
+C₁′/C₂′, the C0 ledger check at the achieved constants (1.8× headroom
+at 106/108; the 1/100000 ε-refreeze row pre-verified for 10× more),
+and the instantiation into bjs_theorem6_windowed's hτrec (n ≥ 1 per
+catch #29)/htau slots → twin_A1_lower/A2's parametric debts CLOSED.
+
 ## Pre-dispatch gates — ALL CLEARED 2026-07-12
 1. ✅ page-image transcription (dossier in the session scratchpad;
    recon confirmed at pixel level).
