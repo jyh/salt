@@ -4565,3 +4565,26 @@ landed engine, to depth ~12–14 + the landed sharp tail (`fchain_trunc_close`).
 Amendment 2: A₂ odd-sum ≤ 1.68 on [4/3, 3] (true sup 1.6716, 0.5% headroom); A₁ even-sum ≤ 0.0221
 on [3.9992, 4] (true ≤ 0.021688, 1.9% headroom). Per-level true values and tails are recorded in
 the C1b′/C1b″ reports for knot planning.
+
+## 2026-07-13 E₁d Opus done FULL (the parametric windowed keystone; E₁c's slot is now exact)
+
+`Salt/Chen/WindowedStepP.lean` (358 lines, new file; wired by Fable). Builds green, zero warnings,
+sorry-free, axiom-clean on all 10 decls, default heartbeats, first attempt, essentially zero
+friction (the node was mechanical exactly as classed B+).
+
+**LANDED:** `StepHypWP` (StepHypW with the hτrec premise over abstract `(cf ch : ℕ → ℝ)`);
+`stepHypWP_const` (the absolute instance via `stepHyp_pointwise`); `T_le_of_peel_step_wp`
+(line-for-line port — the induction never uses what cf/ch are); `hlevel_wp_{upper,lower}`;
+`bjs_theorem6_windowed_p_{upper,lower}` (the parametric keystones);
+`bjs_theorem6_windowed_{upper,lower}_via_p` (FAITHFULNESS REGRESSION: #check-verified byte-identical
+types to the landed keystones, re-derived from the parametric ones at the absolute constants);
+`bjs_theorem6_windowed_sharp_{upper,lower}` (the payoff: keystones at
+(cfSharp, chSharp, tauSharp, Csharp) with hτrec/htau/τ₁/nonneg ALL discharged, NO hσ3 ≤ 3 —
+works at the real A₁ point s ≈ 4; the ONLY remaining per-step slot is
+`hstepWP : StepHypWP (cfSharp ·) (fun _ => chSharp ε) ε (tauSharp ε)` = node E₁c).
+
+**E₁c NOTE (Fable pre-design, see the chen.md E₁c card):** the pixel-verified BJS pp. 10–12 show
+the per-step boundary defects ((35)/(36): (K−1)g(s−1) ≤ ε·γ₃·g(s), γ₃ ≈ (4/3)e) may need a
+boundary-padded `chSharpB = (1+ε)(49/50) + 4ε`; the parametric keystones make that a 10-line
+re-instantiation — the E₁d interface is correct either way. BJS footnote 1 (p. 12) FIXES a known
+Nathanson Thm-9.5 error in the odd-flat branch — E₁c must freeze BJS (39), never [40]'s version.

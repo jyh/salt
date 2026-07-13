@@ -266,6 +266,38 @@ E₁-dev queue):
 s-dependent error control, producing the `hf`/`hh` slots at
 (cfSharp, chSharp); the landed `decay_mass_le` keeps only the absolute
 `Cabs`, discarding the s-dependence that E₁a's 49/50 needs.
+**E₁c PRE-DESIGN NOTES (Fable, 2026-07-13, from the PIXEL-VERIFIED
+BJS pp. 10–12 — the (28)–(39) proof of their Lemma 11):**
+(a) BJS Thm-6/Lemma-11 does NO discrete pushforward itself: (34)
+imports it from [40, Lemma 9.8] (Nathanson GTM 164 ch. 9; we don't
+hold the source — Tao supp-5 / Halberstam Astérisque in the dossier
+carry the same lemma; transcribe whichever at page level pre-freeze).
+(35)–(38) = exactly E₁b's landed bookkeeping ((37): the f-integral is
+EXACT by the recursion (16) — our window equations; (38): κ₃ = E₁a).
+(b) THE ODD-FLAT BRANCH (n ≥ 3 odd, 1 ≤ s ≤ 3) uses BJS (39) with K²
+and `V(D^{1/3}) ≤ (3K/s)V(z)` — their footnote 1 FIXES A KNOWN ERROR
+IN NATHANSON's Thm 9.5 (his `f_n(3)+h_n(3)` claim contradicts
+linear-sieve optimality). Freeze (39), never [40]'s odd-flat step.
+(c) BOUNDARY-DEFECT WARNING for the freeze: (34)'s boundary terms
+(35)/(36) carry `(K−1)g(s−1) ≤ ε·γ₃·g(s)`-defects (γ₃ ≈ (4/3)e ≈
+3.62 for hBJS on the operating range). The E₁b-frozen `chSharp =
+(1+ε)(49/50)` has only (49/50)ε of ε-room — the honest windowed
+per-step likely needs `chSharpB := (1+ε)(49/50) + 4ε` (envelopes
+γ₃; still < 1 at any ε < 1/300; Csharp moves by ~3e−4 at ε = 10⁻⁷ —
+ledger unaffected). Thanks to E₁d's parametric keystone this is a
+FREE instantiation change: E₁c should land tauSharpB/CsharpB
+(~40-line TauSharp mirror at chSharpB) and discharge StepHypWP at
+(cfSharp, chSharpB) — do NOT try to squeeze the boundary into E₁a's
+0.24%-margin statement or the n-dependent f-slot (fails at n ≳ 180).
+Similarly audit cfSharp's room against BJS's (35) f-boundary
+`2γ₃(c_{n−1})^{n−2}/τ_{n−1}` — if our discrete route incurs it, the
+f-forcing needs `cfSharpB ≈ 8εe²rf^n`-shape (Csharp scales by 8/3 —
+still bounded in ε, ledger recheck: S-thresholds shrink 8/3× to
+ε ≤ ~9e−8 at S3 — refreeze ε_sieve to 5e−8 if so; caps still hold).
+FREEZE ONLY AFTER the pushforward route is worked at Lemma-9.8 level
+against the landed AbelStep telescope (telescope_ge, stepHyp_lhs_eq,
+Vbelow_le_ratio) — the boundary structure depends on OUR peel's exact
+form, not BJS's continuous one.
 **E₁d** (Fable-tier design) — parametrize `WindowedStep`'s hardcoded
 `cf_const`/`ch_const` over `(cf, ch)` so the sharp coefficients reach
 the REAL A₁ operating point s ≈ 4 (the unwindowed consumers landed in

@@ -35,6 +35,7 @@ import Salt.Chen.SharpFuncbound
 import Salt.Chen.ChainValues
 import Salt.Chen.TauSharp
 import Salt.Chen.ValueCascade
+import Salt.Chen.WindowedStepP
 import Salt.Chen.Assembly
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
@@ -175,3 +176,8 @@ open Salt.Tactic in
   Salt.Chen.fseq_next_le_of_shift_majorant Salt.Chen.integral_M3
   Salt.Chen.fseq2_shift_le_M3 Salt.Chen.M3_intble
   Salt.Chen.fseq_three_tail_le Salt.Chen.fseq_three_flat_le
+  Salt.Chen.stepHypWP_const Salt.Chen.T_le_of_peel_step_wp
+  Salt.Chen.hlevel_wp_upper Salt.Chen.hlevel_wp_lower
+  Salt.Chen.bjs_theorem6_windowed_p_upper Salt.Chen.bjs_theorem6_windowed_p_lower
+  Salt.Chen.bjs_theorem6_windowed_upper_via_p Salt.Chen.bjs_theorem6_windowed_lower_via_p
+  Salt.Chen.bjs_theorem6_windowed_sharp_upper Salt.Chen.bjs_theorem6_windowed_sharp_lower
