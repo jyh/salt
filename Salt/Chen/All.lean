@@ -10,6 +10,7 @@ import Salt.Chen.Buchstab
 import Salt.Chen.TnInduction
 import Salt.Chen.Lemma11
 import Salt.Chen.Peeling
+import Salt.Chen.StepBound
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
 
@@ -83,3 +84,7 @@ open Salt.Tactic in
   Salt.Chen.T_le_of_peel_step
   Salt.Chen.hlevel_upper_of_step Salt.Chen.hlevel_lower_of_step
   Salt.Chen.hmain_upper_of_step Salt.Chen.hmain_lower_of_step
+  Salt.Chen.hBJS_funcbound Salt.Chen.hbase_of
+  Salt.Chen.tauSum_odd_le Salt.Chen.tauSum_even_le
+  Salt.Chen.bjs_theorem6_upper Salt.Chen.bjs_theorem6_lower
+  Salt.Chen.bjs_theorem6_upper_sifted Salt.Chen.bjs_theorem6_lower_sifted

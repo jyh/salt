@@ -3491,3 +3491,89 @@ STOP-AND-FLAG ✓: nothing outside the frozen set. `hstep`/`hbase` consume only
 instead; `hc'len` via `rw [rlist_rsuffix, List.length_drop, hclen, Nat.add_sub_cancel]`
 (the `n+1−1` needs the explicit cancel); omega treats `p*X` and `X*p` as distinct atoms
 (insert `mul_comm` before omega in the cdiv biconditional).
+
+## 2026-07-12 Chen C1c⁵: discharge `hbase` FULL + `hBJS` funcbound + τ dischargers — `hstep` DEFERRED (architectural) (Opus)
+
+`Salt/Chen/StepBound.lean` (new; `import Mathlib` + `Salt.Chen.Peeling`; namespace
+`Salt.Chen`; NOT wired into `All.lean` — new file only). Builds green, zero warnings, no
+sorry, no `native_decide`, axiom-clean `[propext, Classical.choice, Quot.sound]` on all 11
+public theorems. Default heartbeats (no `set_option maxHeartbeats`).
+
+**LANDED FULL**
+- `hBJS_funcbound : 2 ≤ s → ∫_{s-1}^c hBJS ≤ s·hBJS s` — the `κ = 1` analogue of Tail's
+  `hbar_funcbound` (BJS's `H(s) ≤ κ₃·s·h(s)`, their (24)/(26)); the `h`-slack ingredient a
+  future `hstep` integrates. Region split: tail `s ≥ 3` via `∫ ≤ e^{-(s-1)} = e·e^{-s} ≤
+  3e^{-s} = s·h(s)` (`e < 3`); band `2 ≤ s ≤ 3` via the crossing bound `e^{-2}(4-s)` and the
+  Padé panel `(4-s)e^{s-2} ≤ s` (`exp_pade_upper : (2-x)eˣ ≤ 2+x` on [0,1], from
+  `Real.exp_bound` n=4: the residual is `-x³/6 - x⁴/16 ≤ 0`). Helpers: `hBJS_le2/mid/ge3`,
+  `hBJS_le_exp_of_ge`, `hBJS_le_exp2`, `hBJS_measurable`, `hBJS_intervalIntegrable`,
+  `integral_exp_neg`, `hBJS_intbound_hi/cross`.
+- `hbase_of` — BJS (39), BOTH SIDES FULL. Discharges the base slot of
+  `hmain_{upper,lower}_of_step` for `fseqBound σ ε τ`, from the σ-window (`1 ≤ σ ≤ 3`), hyp
+  (4) (`h4 : Vlow ≤ (3K/σ)W`), `0 ≤ ε`, `K ≤ 1+ε`, `τ₁ = 3`. Upper = `hlevel_one_upper`;
+  even/lower = `T_two_one_zero` against `0 ≤ W·(f₁ + ε·3·e²·hBJS)` (nonneg). REMOVES `hbase`
+  as a named hypothesis.
+- `tauSum_odd_le` / `tauSum_even_le` — parametric `htau` dischargers: drop
+  `Lemma11.tau_sum_le_of_recursion` onto the odd/even filters (`sub-sum ≤ full sum`, `τ ≥ 0`).
+- `bjs_theorem6_{upper,lower}` (mainSum) and `..._sifted` (siftedSum) — the payoff:
+  `hmain_*_of_step` / `linear_sieve_*_rosser_assembled_final` with `hbase` discharged via
+  `hbase_of`. Remaining named hypotheses: `hstep` (below), the parametric `htau`, and the
+  hyp-(4) family (`h4` + σ-window). This is BJS Theorem 6 (5)/(6), one honest hypothesis
+  (`hstep`) from unconditional-modulo-(hyp-4 + numeric-τ).
+
+**FINDING 1 — `hstep` is architecturally deferred, not merely laborious.** `Peeling`'s
+`σ : BoundingSieve → ℕ → ℝ` cannot recover the sub-sieve cutoff `p` from `sieveBelow s p`
+(its `prodPrimes = Pbelow s p = ∏_{q<p} q` forgets `p` — many `p` give the same `Pbelow`).
+So BJS's change of variables `t = log D/log p ↦ s'_p = t − 1`, which turns the head-sum
+`Σ_p ν(p)V(p)·fₙ(s'_p)` into the `fseq` recursion integral `(1/S)∫_S^∞ fₙ(t−1) dt`, is NOT
+statable through `σ(sieveBelow s p)(cdiv D p)` alone (both the `f`- and `h`-parts hit this).
+No finer decomposition into "one clean `hsum`" is honest — any hsum through the integral
+needs the `p`-scale, so it degenerates to restating `hstep`. FIX for a future session (Fable-
+tier design): either extend the operating-point map to take `p` (`σ' : BoundingSieve → ℕ → ℕ
+→ ℝ`, or fold `p` into a per-sieve scale field), or carry `z` explicitly in `T` rather than
+baking it into `prodPrimes`. `hBJS_funcbound` is the ingredient it will consume. Floor B
+reached (hbase full + hBJS-funcbound + τ machinery + this flag); Floor A (hstep-with-hsum)
+NOT reachable soundly given the architecture.
+
+**FINDING 2 — the elementary `hBJS` self-integral is `κ = 1`, which does NOT contract the
+τ-recursion.** `hBJS_funcbound`'s `κ = 1` is *tight at s = 2* (equality `∫_1^∞ (majorant) =
+2·h(2)`) and is the best an ELEMENTARY majorant yields: the true `∫_1^∞ hBJS ≈ 0.260 <
+2e^{-2} ≈ 0.271` requires the exponential integral `E₁` of the `3u⁻¹e^{-u}` tail (`κ₃ ≈ 0.96`,
+matching BJS's `α = 0.9607`), which mathlib lacks. BJS's τ-recursion (31) contracts only with
+`β = Kκ₃ + (K−1)γ₃ < 1`; at `κ₃ = 1` (elementary), `β ≥ Kκ₃ ≥ 1`, so NO concrete contracting
+τ with BJS's actual (31) coefficients is elementarily derivable, and `tau_sum_le_of_recursion`
+cannot be fired with the real BJS constants. Hence the frozen `C₁ = 106, C₂ = 108` stay named
+`htau` hypotheses (as the C0-ledger doctrine already prescribes) — the `tauSum_*_le`
+dischargers instantiate them once E₁-based `κ₃ < 1`, `γ₃`, `cₙ` (page-image (31)) are
+available. **C0-ledger not exceeded** (no numeric τ shipped that could breach 106/108); the
+caps are untouched, the gap is the missing `E₁` library, flagged not fudged (Iron Rule 1).
+
+STOP-AND-FLAG ✓: everything consumes only the frozen set (`fseq`/`hBJS`/`sieveBelow`-carriers
++ `Peeling`/`Lemma11` exports). Friction: `Measure.integrableOn_of_bounded` needs the `(M :=
+...)` named arg + `Real.volume_uIoc`/`ENNReal.ofReal_ne_top`; `(exp∘neg).comp` yields a `∘`
+form — split `HasDerivAt` into a `simpa`-normalised `have` before `.neg`; `rw [if_pos le_rfl]`
+auto-closes the reflexive branch (drop the trailing `norm_num`).
+
+## 2026-07-12 C1c⁵ adjudication: catch #27 (the σ-map architecture) + the κ₃ constants issue
+
+**Catch #27 (Fable design error in the C1c⁗ spec, caught by the C1c⁵
+executor pre-execution of hstep):** Peeling's operating-point map
+`σ : BoundingSieve → ℕ → ℝ` cannot recover the sub-sieve cutoff p from
+`sieveBelow s p` (prodPrimes forgets p), so BJS's change of variables
+`t = log D/log p` — the entire discrete→integral mechanism — is NOT
+STATABLE through σ alone; any "hsum" isolation degenerates into
+restating hstep. Adjudication: amend the SKELETON (an internal
+scaffold, not a frozen blueprint statement) — generalize
+`T_le_of_peel_step`/`fseqBound` to carry the cutoff explicitly
+(B gains a z-cutoff argument threaded by the peel). Node C1c⁶.
+**The κ₃ issue (not a catch — an honest constants gap):** the
+elementary hBJS_funcbound gives κ₃ = 1 (tight at s = 2), but BJS's
+τ-contraction needs β = Kκ₃ + (K−1)γ₃ < 1 — κ₃ = 1 forces β ≥ 1.
+BJS's true κ₃ ≈ 0.96 rests on the E₁ exponential integral of the
+3u⁻¹e⁻ᵘ tail (absent from mathlib). Options for the eventual numeric
+row (C₁ = 106/C₂ = 108): an E₁ mini-development, a sharper elementary
+majorant on the [2,3] panel, or a mixed hbar/hBJS strategy (hbar's
+99/100 contraction + a one-time conversion — mind Lemma11's finding
+that the BASE needs hBJS). Until then the parametric htau is the
+honest state, per the C0 doctrine. Tally: 27 caught, 0 proofs on
+wrong statements.
