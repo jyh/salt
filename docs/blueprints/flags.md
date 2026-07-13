@@ -5025,3 +5025,24 @@ interfaces, the existence of the dominating profile, and the floor: exact consta
   Σ-mass integral characterization (Σ_even massE = ∫_2^∞ E, E = the total even sum, satisfying
   the closed coupled (E,O) renewal system — C1b′'s super-solution idea aimed at the MASS not
   pointwise); (c) two-sided sandwich + spectral gap. Gate before freeze; tally: 39 catches.
+
+## 2026-07-13 E₁c-hh2 Opus done FULL (THE h-SIDE IS CLOSED; catch #34 fixed)
+
+`Salt/Chen/SharpH2.lean` (890 lines, 6 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. LANDED: **`layer_cake_pushforward`** (the reusable discrete→integral engine:
+finsetSum/indicator exchange + master IBP `hBJS_ibp_master` with per-branch FTC-2 antiderivatives
+glued at the kinks 2, 3); **`hpush_core`** (the exact residual the SharpH scaffold expected);
+`hh_sharp_ge2` (the S ≥ 2 cells composed); `upset_mass_window_le` (catch #34's window-relative
+mass bound at D'^{1/3}); `hh_sharp_flat` (the flat cell: fixed S := 3 forces the lower limit 2,
+the 3 cancels the 1/3; closes at (1+ε)²(97/100) + 12ε(1+ε) ≤ chSharpB); and
+**`hh_sharp_of_window`** — THE SHARP h-COMPARISON at chSharpB, all cells composed by side'/S
+cases, RHS mirroring the crude ancestor exactly. Executor found+fixed a genuine mid-proof bug
+(a false `=` in the flat boundary — replaced by `≤` via 1/S ≤ 1) — the kernel catching drift
+mid-node, as designed.
+
+**WIRING RESIDUALS (precise, for E₁c-close):** (1) **VD1** — hh_sharp_of_window threads
+`h4 : Vlow ≤ (3K/σ)W`, but StepHypWPC's premise set has NO h4 — derive it internally from
+hguard/hnu via vratio at D'^{1/3} (~100-line sibling of upset_mass_window_le); (2) the
+chSharp-vs-chSharpB 4ε accounting concerns only the TERMINAL unwindowed consumers (fidelity
+lens: nothing downstream consumes them) — no action. The h-slot of the sharp per-step is
+otherwise COMPLETE.
