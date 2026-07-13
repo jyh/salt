@@ -24,6 +24,7 @@ import Salt.Chen.TauNumeric
 import Salt.Chen.SharpTau
 import Salt.Chen.GeneralBV
 import Salt.Chen.BetaSW
+import Salt.Chen.ConductorDescent
 import Salt.Chen.WeightTrivia
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
@@ -132,6 +133,8 @@ open Salt.Tactic in
   Salt.Chen.bilinTwist_energy_le Salt.Chen.general_BV_weak
   Salt.Chen.thetaAP_SW Salt.Chen.prime_indicator_SW
   Salt.Chen.prime_indicator_coprime_SW
+  Salt.Chen.bilinTwist_eq_sum_class Salt.Chen.bilinTwist_le_of_classDisc
+  Salt.Chen.hβSW_of_prime_indicator Salt.Chen.general_BV_closed
   Salt.Chen.chen_weight_le_indicator Salt.Chen.chen_weight_struct
   Salt.Chen.stripSum_le Salt.Chen.window_two_thirds_lt
   Salt.Chen.switch_loss_le

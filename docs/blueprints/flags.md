@@ -4212,3 +4212,67 @@ FULL and reusable, the small branch is FULL, the large branch is the named
 = C3b; the dyadic large-sieve assembly = C3c), not restatements of the conclusion
 (`hLargeDisc` bounds the character energy, which dominates the discrepancy via
 `norm_apDiscBilin_le`).
+
+## 2026-07-13 C3c landed (count→twist bridge + general-BV close, β-side of KEYSTONE 2) + the bilinear-descent obstruction
+
+**Landed sorry-free** (`Salt/Chen/ConductorDescent.lean`, namespace `Salt.Chen`, new
+file, no `All.lean` edit; axioms `[propext, Classical.choice, Quot.sound]` on all five
+theorems; builds ~2.7 s at default `maxHeartbeats 200000` — no override needed; zero
+warnings from the file):
+
+* **Deliverable 1 — FULL — the count→twist duality bridge.**
+  `bilinTwist_eq_sum_class` (the finite-Fourier identity
+  `bilinTwist β Y d χ = ∑_{r:ZMod d} χ(r)·Cnt(r)`, `Cnt(r)` = class-`r` β-mass) +
+  **`bilinTwist_le_of_classDisc` (FULL)**: for `χ ≠ 1`, orthogonality
+  `∑_r χ(r) = 0` (`MulChar.sum_eq_zero_of_ne_one`) kills the `Mass/φd` main term and
+  `χ` vanishes off units (`MulChar.map_nonunit`), so `‖bilinTwist‖ ≤ d·δ` where `δ`
+  bounds the per-unit-class discrepancy. This is the exact **dual** of C3a's
+  `apDiscBilin_orthogonality` (that one sums over χ; this one over residues) — the
+  reusable "count ↔ twist" reconciliation the C3b note flagged (finite-Fourier duality
+  over `(ℤ/d)ˣ`). The duality arithmetic: `bilinTwist = ∑_r χ(r)·Cnt(r)`, subtract
+  `(Mass/φd)·∑_r χ(r) = 0`, giving `∑_r χ(r)·(Cnt(r)−Mass/φd)`, then `‖χ(r)‖ ≤ 1` on
+  units / `= 0` off units and `|ZMod d| = d` (`ZMod.card`) ⇒ `≤ d·δ`.
+* **Deliverable 1 — FULL — the prime-indicator instantiation.** `blockPrimeInd N`
+  (the interval prime indicator, `1` at primes `> N`), `blockPrimeInd_classCount`
+  (`Cnt(r) = #{p ∈ (N,M] : prime, p ≡ r}` via `Finset.card_bij` `Icc 1 M`↔`Ioc N M`),
+  and **`hβSW_of_prime_indicator` (FULL)**: bridge + C3b's `prime_indicator_SW` give
+  `‖bilinTwist (blockPrimeInd N) M d χ‖ ≤ d·K·N/(log N)^A` (`χ ≠ 1`, `d ≤ (log N)^C`).
+  The fiber↔`%` reconciliation: `(↑p:ZMod d)=r ↔ p%d = r.val%d`
+  (`ZMod.natCast_eq_natCast_iff'` + `ZMod.natCast_zmod_val`), unit↔coprime via
+  `ZMod.isUnit_iff_coprime`, complex→real norm via `Complex.norm_real`.
+* **Deliverable 3 — FULL composition — `general_BV_closed`.** `general_BV_weak` with
+  the small-conductor `hβSW` slot **DISCHARGED** (via D1 + the log-power scale
+  bookkeeping `A' = A + 2·C0`: `d·K·N/(log N)^{A+2C0} ≤ Kβ·M/(log XM)^{A+C0}` from
+  `d ≤ D0 ≤ (log XM)^{C0}`, `N ≤ M`, and the scale hypothesis
+  `K·(log XM)^{A+2C0} ≤ Kβ·(log N)^{A+2C0}`). So keystone 2 is closed for
+  `β = blockPrimeInd N` **modulo**: `‖α‖ ≤ 1` (as designed), residue coprimality, the
+  scale-compat hypothesis (`log XM`, `log N` same order — const absorbs into `Kβ/K`),
+  and `hLargeDisc`.
+
+**FINDING (Iron Rule 1 / STOP-AND-FLAG) — the bilinear conductor descent (`hLargeDisc`,
+= deliverable 2) does NOT mirror the corpus' linear descent.** `general_BV_closed`
+still names `hLargeDisc` (the same slot C3a exposed) rather than reducing it. The
+obstruction, investigated concretely: the landed LINEAR descent
+(`Salt.BV.regroupL1_perq` + the primitive-reduction error
+`Salt.LS.norm_psiChi_sub_primitiveCharacter_le` + `Salt.BV.swapPhi_le` +
+`Salt.LS.sum_inv_totient_dvd_le'`) reduces a SINGLE character sum `psiChi y χ` to its
+primitive level with an `ω(q)·log y` error. Mirroring to the PRODUCT `‖A_d(χ)‖·‖B_d(χ)‖`
+fails: `A_d(χ) = A⋆ + errA`, `B_d(χ) = B⋆ + errB` gives cross-terms
+`‖A⋆‖·‖errB‖ + ‖errA‖·‖B⋆‖`. The β-side `errB` IS cheap (prime indicator ⇒ only
+primes `p ∣ d` contribute ⇒ `≤ ω(d)`, matching the design note) — BUT the α-side
+`errA` is NOT small for a general `‖α‖ ≤ 1` sequence (α is not coprime-supported: the
+naive "prime factors `> d`" argument fails because block scale `N ≈ x^{1/3}` `< D ≈
+x^{1/2}`), so per-factor descent is genuinely lossy. The correct route keeps `A⋆, B⋆`
+primitive from the start and consumes the landed shell engine
+`Salt.Chen.bilinTwist_energy_le` (C3a, the `(q/φq)`-weighted primitive product energy)
+DYADICALLY in the conductor `f ∈ [F, 2F]` — recovering the `1/f` per-block weight
+(closing the C3a `(q/φq)`↔`(1/φd)` mismatch) and Cauchy–Schwarzing across O(log) blocks.
+That dyadic reassembly + the α-side descent handling is the remaining analytic core of
+C3c; it is a genuine bilinear analogue of the whole `bv` V3.1 node, not a cheap mirror.
+
+**Floor:** deliverable 1 FULL (both the general bridge and the prime-indicator
+instantiation, connecting to C3b) + deliverable 3 FULL (the composition, with `hβSW`
+genuinely discharged, not merely named). Deliverable 2 = the single named `hLargeDisc`
+input + this flag naming the mismatch (between floors A and B: `hLargeDisc` is the one
+named hypothesis + the composition, but it is not further reduced, since the bilinear
+primitive reduction that would reduce it is the flagged obstruction).
