@@ -3692,3 +3692,81 @@ has a POLE at s=1, which lies INSIDE the box (σ₀<1<c). The whole setup assume
 (needs χ≠1) and `LFunction_ne_zero_of_one_le_re`; both fail at χ₀. Handling it needs the S3c
 `zeta/χ₀` pole residue extraction as a separate main-term construction — out of scope for a cheap
 compose; defer to the S3c/S6 assembly that already owns the ζ-pole.
+
+## 2026-07-12 Chen C1c⁷: the Stieltjes summation-by-parts core of `hstep'` — FLOOR C+ (machinery around ONE named sharp comparison), sharp change-of-variables DEFERRED (Opus)
+
+`Salt/Chen/AbelStep.lean` (new; `import Mathlib` + `Salt.Chen.StepBound2` + `Salt.Chen.Hyp4`;
+namespace `Salt.Chen`; NOT wired into `All.lean` — new file only). Builds green, zero warnings,
+no `sorry`, no `native_decide`, axiom-clean `[propext, Classical.choice, Quot.sound]` on all 9
+public declarations. Default heartbeats (proofs are algebra/telescoping, 2.7s).
+
+**Scope honestly reached: FLOOR C+ (the reusable Stieltjes/Abel core + the full ε/τ ledger
+around ONE named sharp comparison). The sharp discrete→integral change of variables — the
+genuine multi-hundred-line real-analysis heart of BJS (34)–(38) — is NOT attempted, no `sorry`,
+no crude bound dressed up as the sharp one.** Two prior executors sized this node as "its own
+session"; the sharp comparison remains that session.
+
+**LANDED FULL**
+- `telescope_lt` / `telescope_ge` — the descending-`V` Stieltjes measure: the peel weight
+  `ν(p)·V(p)` is the telescoping increment `V(p)−V(p⁺)` (`Lemma11.prod_telescope`), so the tail
+  mass `Σ_{p≥t} ν(p)·V(p) = V(t) − W`. This is the discrete integration-by-parts kernel BJS's
+  partial summation runs on (the reusable core = floor C). Helper `filter_lt_filter_lt`.
+- `stepHyp_lhs_eq` — `StepBound2.StepHyp`'s left side unfolded (via `fseqBound'` +
+  `Peeling.W_sieveBelow`, `W(sieveBelow s' p)=Vbelow s' p=V(p)`) to the Stieltjes sum
+  `Σ_{window} (ν(p)·V(p))·g(p)`, `g(p)=fₙ(σ p ⌈D'/p⌉)+ε·τₙ·e²·h(σ p ⌈D'/p⌉)`.
+- `telescope_window_upper` (`= 1 − V(D^{1/3})`) / `telescope_window_lower` (`= 1 − W`) — the
+  total Stieltjes mass in the two concrete peel windows. Upper needs the window-downward-closure
+  `q<p ∧ p³<D' ⟹ q³<D'` (`Nat.pow_lt_pow_left`); lower is direct `prod_telescope` on all prime
+  factors (the even-side filter `2%2=1 → …` is vacuous).
+- `stieltjes_sum_le_of_le` — the crude one-sided Stieltjes bound `Σ incr(p) g(p) ≤ M·(1−∏(1−a))`
+  (`g≤M`, increments ≥0); the majorant the sharp comparison must beat (and the witness that NO
+  uniform crude bound discharges `StepHyp` — see FINDING).
+- `ledger_collect` — the ε-ledger collect (BJS (35)–(38) closure, abstract): from `Ff ≤ W·(f₁+c_f·hz)`,
+  `Fh ≤ W·(c_h·hz)` and the τ-recursion `c_f + ε·e²·c_h·τₙ ≤ ε·e²·τₙ₊₁`, derives
+  `Ff + ε·τₙ·e²·Fh ≤ W·(f₁+ε·τₙ₊₁·e²·hz)`. Pure algebra (`nlinarith`).
+- `stepHyp_of_comparisons` — the full reduction: **`StepHyp σ ε τ` ⇐ (sharp `f`-comparison `hf`)
+  ∧ (sharp `h`-comparison `hh`) ∧ (τ-recursion `hτrec` in the ≥-direction)**. `hf`/`hh` are the
+  two named remaining hypotheses, stated in the PRIMITIVE Stieltjes form (`Σ ν(p)V(p)·fₙ(σ_p) ≤
+  W·(fₙ₊₁(σ_z)+c_f·h(σ_z))` and the `h`-mirror) — no `fseqBound'` wrapper, no ε/τ mixing — i.e.
+  exactly what a change-of-variables discharge produces. All the surrounding bookkeeping (LHS
+  reshape, the `f`/`h` sum split, the ε/τ collect) is FULL.
+
+**The τ-direction resolution (asked for; machine-checked in `ledger_collect`).** `StepHyp σ ε τ`
+FIXES `τ` and demands the inequality per-`n`. Writing the comparison as `f`-part `≤ W(fₙ₊₁+c_f h)`
++ `h`-part `≤ W(c_h h)`, the collect closes IFF `c_f + ε·e²·c_h·τₙ ≤ ε·e²·τₙ₊₁`, i.e.
+`τₙ₊₁ ≥ c_f/(εe²) + c_h·τₙ` — BJS's `τₙ₊₁ = a·rⁿ + β·τₙ` in the **≥ direction** (`a·rⁿ=c_f/(εe²)`,
+`β=c_h`). **This per-`n` inequality closes for ANY `c_h`** (no `β<1` needed here — the C1c⁵ finding
+that κ₃=1 forces β≥1 does NOT block `hstep'`). `β<1` bites only at the τ-SUM close (`htau : Στ≤Cᵢ`,
+`Lemma11.tau_sum_le_of_recursion`), already parametric per the C0 ledger. So the honest state is
+exactly as StepBound2 left it: `StepHyp` reduces to the sharp comparisons + a τ with `hτrec`, and
+the numeric contraction stays the named `htau`.
+
+**The cdiv-slop handling (worked out, lives in `c_f`).** BJS's change of variables is
+`t = log D'/log p`; the peel's operating point is `σ p ⌈D'/p⌉ = log⌈D'/p⌉/log p ≈ (log D'−log p)/log p
+= t−1`, with the ⌈·⌉ overshoot `log⌈D'/p⌉ − log(D'/p) ≤ log(1 + p/D') = O(p/D')` a positive slop.
+Since `fseq n` is monotone-piecewise and the slop is one-signed, it is absorbed into the `f`-part
+error coefficient `c_f` (BJS's (35)–(38) `h`-slack ledger) alongside hypothesis (4)'s `(1+ε)` factor
+(`Hyp4.vratio_window_le`). No separate carrier needed — it is a summand of `c_f` in `hf`.
+
+**FINDING — the sharp comparison is genuinely multi-session; no uniform crude shortcut.** I verified
+there is NO shortcut: the target `Σ ν(p)V(p)·fₙ(σ_p) ≤ W·fₙ₊₁(σ_z) + slack` must be UNIFORM in the
+sieve `s'`, but the total Stieltjes mass `1−V(D^{1/3})` (resp. `1−W`) has NO uniform ratio to the
+target `W·fₙ₊₁(σ_z)` — as `W→0` the ratio `(1−W)/W → ∞`, so no fixed `M·mass` (crude bound) and no
+τ-slack-domination (uniform `τ` cannot swallow `(1−W)/W`) discharges `StepHyp`. The SHARP comparison
+is mandatory: (a) pushforward of the descending-`V` measure under `p ↦ t=log D'/log p`, (b)
+hypothesis (4) (`vratio_window_le`) bounding the pushforward density by `(1+ε)/log`, (c) the
+monotone-piece comparison of the resulting Stieltjes sum to the `fseq`-recursion integral
+(`RosserChain` (16)/(17), finitely many level-independent pieces), producing the sharp `c_f, c_h`
+of `ledger_collect`. The `h`-side sharp tool already exists (`StepBound.hBJS_funcbound`,
+`∫_{s-1}^c h ≤ s·h(s)`); the `f`-side needs the analogous fseq step. Both hit the same change-of-
+variables/pushforward-measure obstruction, which mathlib does not package — genuine formalization,
+left for the dedicated session `hstep'` deserves.
+
+STOP-AND-FLAG ✓ (Iron Rule 1): nothing outside the frozen set; no blueprint statement altered;
+`StepHyp` is discharged exactly to the two primitive sharp comparisons + the τ-direction, all sorry-
+free. Consumes only `StepBound2` (`StepHyp`, `fseqBound'`), `Peeling` (`W_sieveBelow`, `sieveBelow`,
+`cdiv`), `Lemma11` (`prod_telescope`), `TnInduction` (`Vbelow`, `belowPrimes`), `LinearSieve`/`StepBound`
+(`hBJS`, `hBJS_pos`), `Defs` (`W`). Friction: `Finset.sum_congr rfl hV` needs `hV` on the FULL
+summand `ν(p)·V(p) = …` (not just `V(p)`); the even-side vacuous filter closes by `omega` on
+`2%2=1`; `stepHyp_lhs_eq` must run BEFORE `simp only [fseqBound']` so the sub-sieve `fseqBound'`
+is gone before the parent one is unfolded. Tally unchanged: 27 caught, 0 proofs on wrong statements.

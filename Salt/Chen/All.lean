@@ -13,6 +13,7 @@ import Salt.Chen.Peeling
 import Salt.Chen.StepBound
 import Salt.Chen.StepBound2
 import Salt.Chen.Hyp4
+import Salt.Chen.AbelStep
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
 
@@ -95,3 +96,6 @@ open Salt.Tactic in
   Salt.Chen.bjs_theorem6_upper_sifted' Salt.Chen.bjs_theorem6_lower_sifted'
   Salt.Chen.neg_log_nu_le Salt.Chen.vratio_prod_le Salt.Chen.vratio_window_le
   Salt.Chen.h4_base Salt.Chen.w0R_threshold Salt.Chen.thresh_mono
+  Salt.Chen.telescope_ge Salt.Chen.stepHyp_lhs_eq
+  Salt.Chen.telescope_window_upper Salt.Chen.telescope_window_lower
+  Salt.Chen.ledger_collect Salt.Chen.stepHyp_of_comparisons
