@@ -5240,6 +5240,53 @@ proves ∫Ē ≤ 43/75 and ∫Ō ≤ 11/125 (the binding one: gate slack 6.3e−
 quadrature + the wing integral, and discharges hSE/hSO via the 43 panel checks with TK1's
 log-sandwiches (the heavy-mechanical half; generate uniform lemmas from Python as TK1 did).
 
+## 2026-07-13 SS2 Opus — PROFILE SOLVED + EXACT-RATIONAL CERTIFIED (Python); Lean = structural
+## layer landed, the 420-panel transcription FLAGGED (below floor A in Lean, not a math risk)
+
+`Salt/Chen/SuperProfile.lean` (NEW, sorry-free, axiom-clean `[propext, Classical.choice,
+Quot.sound]` on all 6 decls, zero warnings, 2.6s build; NOT wired into All.lean — Fable to wire).
+
+**★ THE OBJECT EXISTS — a valid super-solution meeting BOTH frozen budgets, exact-rational
+certified (Python `fractions`, no floats in the certificate):**
+- Shared grid `h = 1/20`. `Ebar` PL on `{2, 2+1/20, …, 12}` (200 panels); `Obar` PL on
+  `{1, …, 12}` (220 panels; flat `[1,3)` carries the `T_o` image, does NOT enter `∫_3^∞`). Beyond
+  `W = 12`: power tail `Ebar = Obar = K/v³`, `K = 1/10000`.
+- **∫Ebar = 126695471/225000000 ≈ 0.5630910 ≤ 43/75** (even slack 1.02·10⁻²).
+- **∫_3^∞ Obar = 312655139/3600000000 ≈ 0.0868486 ≤ 11/125** (odd slack 1.15·10⁻³ — the binding
+  budget; matches the gate's ~6.3·10⁻⁴ order, safe at h=1/20; h=1/10 gives only 3.7·10⁻⁴ → too
+  thin for certification, hence 200/220 panels not ~43).
+- **hSE: all 200 panels verified ≥ 0** (per panel `Ebar(v)·v − f₂maj_num(v) − GO(v−1) ≥ 0`, a
+  rational quadratic, `nlinarith` shape à la TK1 `masseU_*`; `GO x := ∫_x^∞ Obar` exact rational,
+  `f₂maj` = chord upper bound of `sup fseq 2` via log knots). **hSO: all 220 verified ≥ 0.**
+- **Tail + seam verified:** self-domination `2(v−1)² ≥ v²` for `v ≥ 13`; seam `[12,13)` closes
+  because `K ≥ 169·(∫_{11}^{12}Obar + K/288)` (10⁻⁴ ≥ 7.56·10⁻⁵).
+
+**The profile is DETERMINISTIC/REPRODUCIBLE** (recipe in the module docstring): iterate
+`cE[a] := ⌈f₂maj(a,a+h) + GO(a−1)/a⌉`, `cO[d] := ⌈GE(max(d−1,2))/d⌉` (⌈·⌉ to denom 10⁷) to the
+fixed point (25 iters). No stored 420-value table needed — re-run the recipe to regenerate the
+identical certified table. (KEY STRUCTURAL FINDINGS: step wastes ~0.03 even / ~0.01 odd → PL is
+FORCED by the odd budget; PL needs shift-aligned grids so `GO(v−1)`/`GE(w−1)` is one quadratic per
+panel → a single SHARED uniform grid; the `∀b` tops are removed because integrands ≥ 0, so
+`∫_v^b ≤ ∫_{v−1}^∞`; a power tail `K/v³` (not exp/geometric) gives a rational improper integral
+`K/(2W²)` and self-dominates via `(v−2)²≥2`.)
+
+**LANDED in Lean (the reusable STRUCTURAL layer the transcription factors through):**
+`hSE_reduce`/`hSO_reduce` (turn SS1's `∀b` `hSE`/`hSO` into panel-local checks vs a fixed
+total-tail bound `TO`/`TE`), `fseq2_upper_of_log_lower` (the tight chord `fseq 2` majorant, reuses
+`LogToolkit.log_half_ge_chord`/`log_three_le`), `tail_integral_le` (`∫_W^b K/x³ ≤ K/(2W²)`, exact
+FTC), and `budE_le`/`budO_le` (the achieved budgets clear 43/75, 11/125 — machine-checked).
+
+**FLAGGED = the transcription (below floor A IN LEAN; NOT math risk — the certificate proves it
+goes through):** define the 200+220-panel PL `Ebar`/`Obar` + power tail in Lean; prove PL
+nonneg/integrability; the two `∫`-budgets by PL trapezoid rational sums + `tail_integral_le`
+(= floor A); the 420 per-panel domination lemmas (generate from the recipe, `nlinarith` each) via
+`hSE_reduce`/`hSO_reduce`+`fseq2_upper_of_log_lower` (= hSE/hSO); compose through SS1's
+`massSum_le_A2_of_superSolution`/`massOSum_le_A1_of_superSolution` for the two final theorems.
+Scope = multi-thousand-line code-generation grind (build time > 15 min single-lemma limits + the
+robust PL-definition/integral library) — exceeds one session; the design ALWAYS called this
+"heavy-mechanical, hundreds of instances." Iron-rule-4 stop: math done + de-risked, Lean
+transcription queued. (No `native_decide`/`decide` shortcut: 420 rationals with 10⁷ denoms.)
+
 ## 2026-07-13 SW-A₃ RECON (Opus scout) + CATCH #42 — hPerE is BACK ON THE CRITICAL PATH
 
 The recon inventoried the switch route end-to-end. **CATCH #42 (scout-surfaced, against MY catch-
