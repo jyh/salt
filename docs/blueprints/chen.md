@@ -328,6 +328,28 @@ whose (29)-control is landed (`Vbelow_le_ratio`: V(p) ≤
   PRE-VERIFY this pair (cfSharpB envelope + ε = 5e−8) numerically at
   gate time BEFORE freezing; the odd-flat branch (BJS (39), K²-terms)
   may add its own envelope constant — audit it in the same gate.
+(e) ENVELOPE PRE-VERIFICATION (Fable 2026-07-13, against the LANDED
+lemma forms — supersedes (d)'s guesses):
+`hbar_le_hBJS` is uniform constant-1 (hbar rate 6/5 > 1) — NO (n+3)
+reintroduction; `fseq_le` converts freely to hBJS units. Boundary
+ratios (computed from the landed hbar/hBJS branch forms):
+γ̄ = sup_S hbar(S−1)/hBJS(S) = (5/3)e^{3/5} ≈ 3.04 at S = 5 (≤ 3.1);
+γ₃ʰ = sup_S hBJS(S−1)/hBJS(S) = (4/3)e ≈ 3.63 at S = 4 (≤ 4).
+f-side rows (in εe²·hBJS(S) units): K-excess 2rfⁿ; z-edge boundary
+2γ̄/rf·rfⁿ ≈ 6.3rfⁿ; ODD-FLAT (BJS (39)) dominates: 3K(K−1)f-edge ≈
+6e/rf·rfⁿ ≈ 16.5rfⁿ + K²-excess ≈ 2rfⁿ. CANDIDATE FREEZE:
+**cfSharpB = 20·ε·e²·rfⁿ, chSharpB = (1+ε)(49/50) + 4ε**, giving
+CsharpB = 2000/(1−chSharpB) → 100000 as ε → 0. LEDGER (C0 Amendment 3
+candidate): **ε_sieve = 2·10⁻⁸** — S3 spend 8.4e−4 (cap 0.0015,
+1.8×), S2 1.40e−3 (cap 0.0055, 3.9×), S1 2.0e−4 (cap 0.0022, 10.8×);
+w0R(2e−8) ≈ exp(2·10⁹), still a constant. ROUTE ENABLER to check:
+`fseq_antitoneOn` (each fseq n antitone on [loBnd(parity), ∞) — the
+below-window junk-zeros sit LEFT of loBnd and the windowed peel never
+evaluates there) — if true (numeric check running), ONE layer-cake/
+Abel engine serves both hf and hh; if false, the f-side needs the
+piecewise-monotone split. GATE: verify all of the above independently
+(different method) before the freeze; then decompose into executor
+nodes (engine / hh / hf-3-branches / composition+TauSharpB mirror).
 **E₁d** (Fable-tier design) — parametrize `WindowedStep`'s hardcoded
 `cf_const`/`ch_const` over `(cf, ch)` so the sharp coefficients reach
 the REAL A₁ operating point s ≈ 4 (the unwindowed consumers landed in
