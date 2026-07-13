@@ -1,4 +1,4 @@
-# METHODS — how this project does mathematics
+# THE SALT METHOD — how this project does mathematics
 
 *Fable + human, 2026-07-12. This document codifies the working methods
 developed over the salt project's arcs (Brun → BV → twinbar → P0/P1 →
@@ -196,8 +196,10 @@ freezing early is cheaper than researching past the answer.
 
 ## Naming
 
-The methods are invoked by their phrases; the umbrella discipline —
-every claim either passes a referee or carries a loud flag — does not
-yet have a ratified name. Candidates on file: *the Cascade*, *the Salt
-Method*, *kernel-trust*, *freeze-and-flag*. <!-- NAME: to be picked by
-the human; update here and in the writeup. -->
+**The Salt method** (ratified 2026-07-12): the umbrella discipline —
+every claim either passes a referee or carries a loud flag. Its two
+faces are the proving method and the research method, entered by
+their invocation phrases; its spine is the loop contract; its
+evidence is the flags ledger. (Runner-up names on file for the
+writeup's discussion: *the Cascade*, *kernel-trust*,
+*freeze-and-flag* — each names a component; *Salt* names the whole.)
