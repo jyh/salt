@@ -4361,3 +4361,55 @@ scale — a second full copy with delicate bookkeeping (C3c⁗, honest
 own-node scale). KEYSTONE 2 status: closed modulo C3c⁗'s glue.
 The DecidableEq-instance crux (NeZero scoped inside step1 only) is
 recorded for the C3c⁗ executor.
+
+## 2026-07-13 C3c⁗: the keystone-2 composition LANDED (floor A); the per-e energy = hPerE glue
+
+PerEEngine.lean lands the final structural layer of keystone 2 and
+composes the whole stack, sorry-free (axioms = [propext,
+Classical.choice, Quot.sound]):
+
+- **efold_density_fold** — the e ∣ d density fold FULL: over the large
+  moduli d (Dset, d > D0) that are multiples of e, a uniformly bounded
+  per-d weight W(d) ≤ M gives Σ_d (1/φd)·W(d) ≤ M·(4/φe)(1+log D). A
+  direct offset-e instance of Salt.LS.sum_inv_totient_dvd_le' — the
+  reusable convergent BDH density (step 1 of the per-e route).
+- **hErrSum_final** — the exact bilinear_hLargeDisc hErrSum slot,
+  discharged from the single named glue hPerE via hErrSum_discharge with
+  G e = Kerr·(XY/(log XY)^A)·(1/e²); Σ_e G e telescopes by
+  sum_inv_sq_Icc_le_one to Kerr·XY/(log XY)^A.
+- **hLargeDisc_of_perE** — the exact general_BV_closed hLargeDisc slot,
+  = bilinear_hLargeDisc fed hMainEnergy (core 1, dischargeable by
+  hMainEnergy_discharge) + hErrSum_final (core 2 mod hPerE); Klarge =
+  Kmain + Kerr.
+- **general_BV_final** — general_BV_closed with hLargeDisc discharged for
+  β = blockPrimeInd N via hLargeDisc_of_perE. Σ_d ‖apDiscBilin‖ ≤
+  (Kβ + (Kmain + Kerr))·XM/(log XM)^A, closed modulo: operating-scale
+  side conditions, ‖α‖ ≤ 1, the named hMainEnergy bound (its own C3c″
+  discharge), and the single named per-e glue hPerE.
+
+**hPerE — NOT discharged (the one remaining core, PB-floor A).** hPerE
+is EfoldTerm e ≤ Kerr·(XY/(log XY)^A)·(1/e²), exposed as a hypothesis of
+hErrSum_final / hLargeDisc_of_perE / general_BV_final. THE OBSTRUCTION,
+quantified: (i) the α-side of EfoldTerm pairs the DILATED PRIMITIVE twist
+A^{(e)}(χ⋆) (scale ⌊X/e⌋) against the IMPRIMITIVE full twist B_d(χ) —
+NOT a clean primitive block energy, so the C3c″ regroup+swapPhi+shell
+engine does not apply verbatim; a second full copy of the Cauchy–Schwarz
++ two-regime (small-conductor via hβSW, large via the dyadic shell)
+treatment is required. (ii) The naive large-e trivial branch does NOT
+close crudely: a threshold e ≷ X/(log)^{2A+6} controls the α-side
+⌊X/e⌋, but the β-side term ‖A⋆‖·‖B^{(e)}‖ keeps A⋆ at the FULL scale X
+(only B^{(e)} dilates to ⌊Y/e⌋), so the β-side crude total ~ D·XY/e²
+stays uncontrolled when Y ≫ X — the two sides need INDEPENDENT X- and
+Y-scale thresholds and their own energy engines (the α-side runs at
+(⌊X/e⌋, Y), the β-side — a clean primitive-primitive pairing — at
+(X, ⌊Y/e⌋), which the density fold + a shifted four_term_scale_le would
+close; the α-side imprimitive factor is the genuine research core). The
+density fold (the reusable convergent weight) is landed; re-running both
+engines with the scale bookkeeping is deferred.
+
+**Status.** general_BV_final (= general_BV_closed + bilinear_hLargeDisc
+with both cores, hMainEnergy_discharge + hErrSum_final) CLOSES the
+keystone-2 stack down to the single per-e energy glue hPerE. Keystone 2
+is closed modulo hPerE (+ operating scale + ‖α‖≤1 + hMainEnergy's own
+C3c″ discharge). All four structural layers — the e-fold identity, the
+reorganisation, the 1/e² envelope, and the full composition — are landed.
