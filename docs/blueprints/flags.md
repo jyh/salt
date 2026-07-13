@@ -5166,3 +5166,21 @@ unbuilt value.
 `log_*_of_taylor`, and the envelope lemmas directly; `cflatI_tight`/`massE_two_tight` are the gate's
 stated binding requirements (cflatI ≤ 0.360 with room to spare, massE 2 ≤ 0.297). The toolkit is the
 shared substrate for every remaining MR2c route.
+
+## 2026-07-13 E₁c-close Opus done — ★ THE ANALYTIC KEYSTONE IS COMPLETE ★
+
+`Salt/Chen/SharpClose.lean` (4 keystone decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. LANDED: `stepHyp_sharpB_pointwise` (the stepHyp_pointwise sibling at the sharp
+coefficients — stepHyp_lhs_eq → split → ledger_collect, with hf_sharp_of_window + a cased hh
+part: VD1 supplies h4 in the flat branch, the h4-free hh_sharp_ge2 elsewhere — the h4-uniform
+monolith was correctly bypassed at leaf level, no statement change); **`stepHypWPC_sharpB`** —
+THE SLOT DISCHARGED (hypotheses: 0 ≤ ε ≤ 1/1000 only); `bjs_theorem6_sharpB_final_{upper,lower}`
+— the windowed sharp BJS Theorem 6 with NO per-step, NO τ-numeric, NO h249 hypotheses (derived);
+remaining hypotheses are purely structural (hguard/hnu/h4/hStop/hKe — the H-glue's Hyp4/
+operating-point discharge set). The kernel CONFIRMED the H-glue slots compose:
+`twin_A1_lower_B (hstepWPC := stepHypWPC_sharpB …)` and `twin_A2_per_prime_B (…)` elaborate.
+
+The E₁-dev arc (E₁a → E₁a-flat → E₁b → E₁d → E₁d′ → hh/hh2 → hf → close), begun as "close the
+last numeric debt," is ANALYTICALLY COMPLETE: the sharp per-step at (cfSharpB, chSharpB,
+tauSharpB) is a THEOREM, unconditional on everything except the structural sieve inputs.
+Remaining to the headline: SS1 (in flight — both mass ledgers) + the H-glue.

@@ -45,6 +45,7 @@ import Salt.Chen.LogToolkit
 import Salt.Chen.SharpH
 import Salt.Chen.SharpH2
 import Salt.Chen.SharpF
+import Salt.Chen.SharpClose
 import Salt.Chen.FseqAntitone
 import Salt.Chen.TwinSharp
 import Salt.Chen.WindowedStepP
@@ -216,6 +217,8 @@ open Salt.Tactic in
   Salt.Chen.abel_pushforward Salt.Chen.hf_cell_ge2
   Salt.Chen.hBJS_flat_lb Salt.Chen.vlow_le_of_guard
   Salt.Chen.hf_sharp_flat Salt.Chen.hf_sharp_of_window
+  Salt.Chen.stepHyp_sharpB_pointwise Salt.Chen.stepHypWPC_sharpB
+  Salt.Chen.bjs_theorem6_sharpB_final_upper Salt.Chen.bjs_theorem6_sharpB_final_lower
   Salt.Chen.massO_nonneg Salt.Chen.fseq_even_eq_masses
   Salt.Chen.evenSum_le_of_massSums Salt.Chen.fchain_ge_A1_of_massSums
   Salt.Chen.massO_le_crude
