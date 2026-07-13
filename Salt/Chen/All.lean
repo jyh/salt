@@ -39,6 +39,7 @@ import Salt.Chen.ValueCascade
 import Salt.Chen.PLCascade
 import Salt.Chen.MassLedger
 import Salt.Chen.MassLedgerA1
+import Salt.Chen.MassCert
 import Salt.Chen.SharpH
 import Salt.Chen.WindowedStepP
 import Salt.Chen.WindowedStepC
@@ -203,6 +204,11 @@ open Salt.Tactic in
   Salt.Chen.massO_nonneg Salt.Chen.fseq_even_eq_masses
   Salt.Chen.evenSum_le_of_massSums Salt.Chen.fchain_ge_A1_of_massSums
   Salt.Chen.massO_le_crude
+  Salt.Chen.fseq_odd_continuousOn Salt.Chen.massE_recursion
+  Salt.Chen.cflatI_le_half Salt.Chen.massE_flat_split
+  Salt.Chen.massE_two_le Salt.Chen.massE_two_le_half
+  Salt.Chen.massSum_reindex Salt.Chen.massEvenSum_tail_le
+  Salt.Chen.massSum_le_head_add_geomtail
   Salt.Chen.hBJS_window_min Salt.Chen.hBJS_funcbound_flat
   Salt.Chen.flat_h_contract
   Salt.Chen.geom_decay_pointwise Salt.Chen.geom_tail_ratio

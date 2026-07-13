@@ -4841,3 +4841,29 @@ precision (Σ massO → 0.086584 < 0.088 ✓), and flagged rather than silently 
 systematic shift — it must read `massO j = ∫_2^{j+1} fseq (j−1)(w)·log((w+1)/3) dw` (upper
 limit j+1 = (j−1)+2, the support edge of the even level j−1). Tally: 35 catches, 0 proofs on
 wrong statements.
+
+## 2026-07-13 MR2 Opus done (floor A + tail machinery) + CATCH #36 (the flat coefficient)
+
+`Salt/Chen/MassCert.lean` (475 lines, 13 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings, 3.2s. LANDED: **`massE_recursion`** (the Fubini/IBP mass recursion, proven by honest
+integration-by-parts with boundary terms vanishing; needed the NEW `fseq_odd_continuousOn` —
+odd fseq is continuous on [1, m+2] via the single-formula max-collapse, since fseq_props gives
+only measurability); `massE_flat_split` (massE(m+1) = cflatI·massE(m−1) + Tail, Tail ≥ 0);
+`cflatI ≤ 1/2` (true 0.35541); `massE_two_le` (≤ 2 − (3/2)log3 ≈ 0.352, true 0.294); the tail
+machinery `massSum_reindex`/`massEvenSum_tail_le`/**`massSum_le_head_add_geomtail`** — output
+shape composes EXACTLY with MassLedger.Fchain_le_A2_of_massSum. Numeric table recorded in-file
+(mpmath + explicit cross-check): Σ = 0.5623, target 43/75, slack 0.0113, ratio → 0.52239.
+
+**CATCH #36 (executor-surfaced): the MR2 mandate's flat coefficient c_flat ≈ 0.2126 =
+∫_2^3 log((u+1)/2)/u was WRONG** — it dropped the [1,2] slice of the flat window (the odd
+predecessor is flat on the FULL [1,3]). Honest coefficient: ∫_1^3 = ∫_2^4 log(s/2)/(s−1) =
+0.35541. The executor used the correct value; the flat/tail balance is 0.355 + 0.167 → 0.522.
+Tally: 36 catches, 0 proofs on wrong statements.
+
+**REMAINING = MR2b (the last A₂ numeric debt):** tight `Tail_k` for k = 4..K* (≈12–14) + the
+certified contraction r ≤ 0.55 feeding the landed tail machinery. NEW ROUTE (executor): a second
+Fubini gives `Tail_k = ∫_2^m fseq(m−1)(w)·Φ(w)dw`, Φ(w) = ∫_3^{w+1} log((u+1)/2)/u du — the
+tail as a Φ-weighted moment of the EVEN predecessor (profile work survives only here, on the
+small 0.167-relative piece; ValueCascade.fseq_three_tail_le is 2.71× loose ⇒ non-load-bearing,
+correctly not ground per Iron Rule 4). MR4 (massO ledger) shares this machinery + catch #35's
+limit correction.
