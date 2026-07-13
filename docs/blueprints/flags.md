@@ -4867,3 +4867,19 @@ tail as a Φ-weighted moment of the EVEN predecessor (profile work survives only
 small 0.167-relative piece; ValueCascade.fseq_three_tail_le is 2.71× loose ⇒ non-load-bearing,
 correctly not ground per Iron Rule 4). MR4 (massO ledger) shares this machinery + catch #35's
 limit correction.
+
+## 2026-07-13 GL1 Opus done FULL first attempt (the H-glue swap surface is mapped)
+
+`Salt/Chen/TwinSharp.lean` (2 theorems; wired by Fable). Sorry-free, axiom-clean, zero warnings,
+first build. LANDED: **`twin_A1_lower_B`** (twin_A1_lower with the τ-numeric hypotheses dropped —
+the B-layer discharges them — + hε49B : ε < 1/249 + the single hstepWPC slot; slack constant
+ε·CsharpB·e²·hBJS) and **`twin_A2_per_prime_B`** (same surgery on the A₂ per-prime link).
+Both ports type-checked on the FIRST build — the E₁d′ interfaces fit exactly.
+
+**ARCHITECTURAL FINDING (the node's purpose):** A₁ never consumed the mainSum keystone — it
+routes through the HLEVEL layer (`hlevel_w_lower` → `linear_sieve_lower_rosser_assembled_final`),
+so its B-port consumes `hlevel_wpc_lower` (the hlevel-layer sibling, same file, same slot), NOT
+`bjs_theorem6_windowed_cB_lower`. A₂ consumes the mainSum keystone (`_cB_upper`) as expected.
+No top-condition gaps: A₁'s hStop : 2 ≤ σ and A₂'s hStop : 1 ≤ σ match verbatim. FOR THE
+H-GLUE: swap surface = {twin_A1_lower → twin_A1_lower_B, twin_A2_per_prime →
+twin_A2_per_prime_B}, both keyed on the ONE hstepWPC slot that E₁c-close will discharge.
