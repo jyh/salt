@@ -5220,3 +5220,22 @@ sound end-to-end by the same lens (fchain/Fchain/M/strip all re-derived exactly)
 3. **Re-gate the margin end-to-end** at the repaired A₃ before the H-glue dispatches.
 Tally: **41 catches, 0 proofs on wrong statements** — and #41 is the existence proof for the
 gate-before-glue doctrine.
+
+## 2026-07-13 SS1 Opus done (floor A + BOTH ledger reductions composed)
+
+`Salt/Chen/SuperSolution.lean` (513 lines, 24 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. LANDED: the partial sums Xe/Xo with support/integrability; **the summed window
+identities** (`even_step`/`odd_step`/`Xe_recursion` — BJS (16)/(17) summed termwise, tops
+extended freely to K+2 by the support edges); **`superSol_dominates`** — the coupled domination
+induction (a super-solution pair (Ē, Ō) dominates every truncation; the ∀b finite-integral
+hypothesis form keeps everything in elementary intervalIntegral land); the ledger integral
+identities; and **`massSum_le_A2_of_superSolution` / `massOSum_le_A1_of_superSolution`** —
+compile-checked to feed MassLedger/MassLedgerA1 VERBATIM. The whole numeric closure is now:
+exhibit ONE concrete (Ē, Ō) discharging six hypothesis groups.
+
+**REMAINING = SS2:** the concrete profile. The gate's 43 knot values were not persisted (its
+scratch is gone) — SS2 re-derives its own LP profile (any kernel-passing profile is valid; the
+LP is search, the kernel is the referee), RECORDS the rational knot table in the docstring,
+proves ∫Ē ≤ 43/75 and ∫Ō ≤ 11/125 (the binding one: gate slack 6.3e−4) by exact panel
+quadrature + the wing integral, and discharges hSE/hSO via the 43 panel checks with TK1's
+log-sandwiches (the heavy-mechanical half; generate uniform lemmas from Python as TK1 did).

@@ -42,6 +42,7 @@ import Salt.Chen.MassLedgerA1
 import Salt.Chen.MassCert
 import Salt.Chen.MassCert2
 import Salt.Chen.LogToolkit
+import Salt.Chen.SuperSolution
 import Salt.Chen.SharpH
 import Salt.Chen.SharpH2
 import Salt.Chen.SharpF
@@ -225,6 +226,9 @@ open Salt.Tactic in
   Salt.Chen.log_two_le Salt.Chen.le_log_two Salt.Chen.log_three_le
   Salt.Chen.le_log_three Salt.Chen.log_half_le_tangent Salt.Chen.log_half_ge_chord
   Salt.Chen.panel_le Salt.Chen.panel_ge Salt.Chen.integral_quad
+  Salt.Chen.even_step Salt.Chen.odd_step Salt.Chen.Xe_recursion
+  Salt.Chen.superSol_dominates Salt.Chen.massE_sum_eq Salt.Chen.massO_sum_eq
+  Salt.Chen.massSum_le_A2_of_superSolution Salt.Chen.massOSum_le_A1_of_superSolution
   Salt.Chen.cflatI_tight Salt.Chen.cflatI_lower
   Salt.Chen.massE_two_tight Salt.Chen.massE_two_lower Salt.Chen.Cphi2_tight
   Salt.Chen.fseq_odd_le_massE_div Salt.Chen.fseq_even_le_massO_div
