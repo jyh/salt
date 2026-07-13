@@ -5064,3 +5064,29 @@ may be locally loose anywhere provided ∫r ≲ 0.006 (1% of the mass) — vs C1
 and cflatI-type constants (TK1, in flight). GATE (constructive) launched: build Ē numerically
 (~25 panels + wing), check the ∫r budget, the T₂-panel arithmetic shapes, and the massO
 extraction, BEFORE any freeze.
+
+## 2026-07-13 THE TK3b GATE — PASS_WITH_CORRECTIONS: the super-solution route VALIDATED
+
+Constructive gate on TK3 route (b). The DDE engine reproduced every repo truth to machine
+precision; the system derivation is EXACT (residuals 1e−12–1e−15; the f₂-separate bookkeeping,
+the max(s,3) flat form, massO = ∫_3^∞ O — all confirmed); the Neumann domination logic verified
+discretely (iterates rise monotonically to ∫E = 0.561718, every iterate ≤ E — hard floors:
+ANY super-solution has ∫Ē ≥ 0.5617, massO ≥ 0.086584).
+
+**THE OBJECT EXISTS: a 43-knot PL + wing Ē** (0.1-spacing head [2,4], 0.25 on [4,7], 0.5 on
+[7,12], wing beyond) with ∫Ē = 0.5658 ≤ 43/75 = 0.5733 ✓ AND — the SAME object —
+∫_3^∞ T_o[Ē] = 0.087367 ≤ 11/125 = 0.088 ✓ (slack 6.3e−4, STABLE across grid refinements).
+Structural reason one object serves both: the massO weight ln((u+1)/3) VANISHES at u = 2, so
+super-solution excess parked near the head is nearly free for massO. The wing is a non-issue
+(pointwise T₂-factor ≈ 0.02 at v = 20; massO wing contribution 0.000000).
+
+**CORRECTIONS folded into the freeze:** (i) 43 knots, not ~25 — head resolution on [2,4] binds
+(17/23-knot attempts FAIL both ledgers); (ii) the massO slack is the true binding constraint;
+(iii) the Lean lift is heavy-mechanical: T₂[PL] = (poly + Σ c_k·log(s − a_k))/s per panel (same
+class as f₂'s closed form) ⟹ r ≥ 0 needs two-sided rational log-sandwiches per panel —
+hundreds of instances, gated on TK1 (in flight). **CONSEQUENCE: catch #39's head-precision
+program (per-level massE/massO certs, tight cflatI/Cphi) is OBSOLETE** — the ledger sums come
+directly from ∫Ē's exact rational panel arithmetic; TK1's TOOLKIT part is the enabler, its
+constants part is demoted to non-load-bearing. THE NUMERIC KEYSTONE'S FINAL SHAPE: TK1 (toolkit)
+→ **SS1** (the super-solution certification: the Neumann lemma + 43 × (r ≥ 0) panel checks +
+the two ledger integrals) → MR1/MR3's reductions consume the sums → the A₁/A₂ values → C5's H.
