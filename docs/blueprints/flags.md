@@ -3962,3 +3962,23 @@ are TRIVIAL, not false — a first-violation chain has
 StepHypW restricted to the window + sieve-class conditions; the peel
 induction handles out-of-window children by T = 0 ≤ B; rethread to
 bjs_theorem6. Tally: 28 caught, 0 proofs on wrong statements.
+
+## 2026-07-12 (night) C1c¹⁰: ═══ KEYSTONE 1 ANALYTICALLY COMPLETE ═══
+
+bjs_theorem6_windowed_upper/lower LANDED — BJS Theorem 6 (5)/(6) with
+the per-step comparison a PROVEN THEOREM (stepHyp_pointwise through
+the windowed contract), catch #28 retired. The below-window
+investigation's finding is the night's most elegant: below-window
+nodes CAN carry mass (the universal bound is genuinely false there),
+but the parity-alternating peel makes them UNREACHABLE — the
+side-dependent invariant loBnd (odd→even children land at σ ≥ 2 via
+the p³ < D' filter; even→odd at σ ≥ 1) self-propagates, so the
+troublesome branch is provably vacuous. T_vanish tiles at exactly
+n+2 (verified from the carriers). Remaining hypotheses of the
+windowed Theorem 6: the sieve-class inputs (hguard/hnu/h4 — the twin
+application supplies via Hyp4), the structural constants, and the
+parametric τ pieces (hτrec/htau — the C0 κ₃ deferral, orthogonal).
+The C1c family closes at FOURTEEN nodes, every one first-attempt,
+zero sorries ever, catches #25/#27/#28 caught and fixed en route.
+To our knowledge the first machine-checked Rosser–Iwaniec linear
+sieve, now with its analytic engine complete.

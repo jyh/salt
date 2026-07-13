@@ -16,6 +16,7 @@ import Salt.Chen.Hyp4
 import Salt.Chen.AbelStep
 import Salt.Chen.SharpStep
 import Salt.Chen.DecayMass
+import Salt.Chen.WindowedStep
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
 
@@ -106,3 +107,5 @@ open Salt.Tactic in
   Salt.Chen.hBJS_antitone Salt.Chen.prime_tail_mass_le
   Salt.Chen.decay_mass_le Salt.Chen.hh_of_window
   Salt.Chen.stepHyp_pointwise
+  Salt.Chen.T_vanish Salt.Chen.stepHypW_holds Salt.Chen.T_le_of_peel_step_w
+  Salt.Chen.bjs_theorem6_windowed_upper Salt.Chen.bjs_theorem6_windowed_lower
