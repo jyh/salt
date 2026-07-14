@@ -5416,3 +5416,16 @@ sieve; aCount ≥ 1; Λ ≤ log x); **`mainA3_of_hBVswitch`** — the EXACT hA3-
 NAMED hBVswitch. The catch-#41 repair's conditional core is COMPLETE; remaining on the switch
 line: SW3 (rem → apDiscBilin at odd moduli, consumes general_BV_final′ + PE3's discharge) and
 SW4 (the numeric row, needs SS3c's Fchain values).
+
+## 2026-07-13 SS3b Opus done FULL (all 220 hSO panels; the A₁ ledger's hSO slot is a theorem)
+
+`Salt/Chen/SuperPanelsO.lean` (3423 lines, 236 decls; wired by Fable). Sorry-free, axiom-clean
+(hSO_holds audited), zero semantic warnings (style linters disabled file-wide per the
+LogToolkit machine-generated precedent, documented). ALL 220 panels + seam + tail proven:
+`TEfun` (the ∀b removal via integral_comp_sub_right + the tail split), the cumulative head by
+ONE by-decide recurrence over the 201-entry list, per-panel exact rational quadratics
+(the step-function shortcut FAILS 100/220 panels — worst −0.048 — the exact quadratics are
+mandatory, as designed), nlinarith with product hints. Worst margins: 2.78e−10 (panels 87/88)
+— positive, kernel-checked. `hSO_holds` type-checks into massOSum_le_A1_of_superSolution's
+slot verbatim. Targeted build 66s (~0.3s/panel). Remaining for the numeric close: SS3c's hSE
++ the composition (in flight).
