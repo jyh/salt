@@ -76,6 +76,7 @@ import Salt.Chen.SuperClose
 import Salt.Chen.FchainPoint
 import Salt.Chen.A2Weighted
 import Salt.Chen.WindowMembership
+import Salt.Chen.RazorClose
 import Salt.Chen.SharpH
 import Salt.Chen.SharpH2
 import Salt.Chen.SharpF
@@ -310,6 +311,8 @@ open Salt.Tactic in
   Salt.Chen.Ebar_nonneg Salt.Chen.Obar_nonneg
   Salt.Chen.Ebar_intervalIntegrable Salt.Chen.Obar_intervalIntegrable
   Salt.Chen.Ebar_integral_le Salt.Chen.Obar_integral_le
+  Salt.Chen.razor_scalar_margin Salt.Chen.razor_of_normalized
+  Salt.Chen.hledger_at_certs
   Salt.Chen.logRatio_A1_mem Salt.Chen.logRatio_A3_mem
   Salt.Chen.Fchain_switch_le Salt.Chen.A2grid_sharp_le
   Salt.Chen.massSum_le_A2_sharp

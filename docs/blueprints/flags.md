@@ -6268,3 +6268,20 @@ FULLY CLOSED — every value certification the razor consumes is now a kernel th
 arithmetic settled with ≥100× slack) + `logRatio_A3_mem` (∈ [1.49, 1.51] — FPC's consumer);
 threshold x₁ = 10⁴⁸ for both (the exponents evaluate cleanly); Nat.floor-of-rpow convention
 verified against the actual consumers. The M-layer (M1/M2/M3/M4) is now COMPLETE IN FULL.
+
+## 2026-07-14 SW4 Opus done FULL — ★★★ THE RAZOR IS POSITIVE, KERNEL-CERTIFIED ★★★
+
+`Salt/Chen/RazorClose.lean` (4 decls; wired by Fable). Sorry-free, axiom-clean, zero warnings,
+FIRST attempt. **`razor_scalar_margin` : 1/100 ≤ 9779/10000 − ½(3+43/75)(log6/4) −
+½·c̄·(3/8)(243/100)** — consuming cbar_lt (the 600-panel certificate), the LogToolkit
+sandwiches, and every landed value cert; **certified margin M = 0.012151** (the sharp-mass
+variant gives 0.01444; the re-gate's projections reproduced). `razor_of_normalized` (the
+symbolic lift at the shared X_W = totalMass·W_z normalization) and **`hledger_at_certs`** —
+the EXACT chen_positivity hledger conjunct, END-TO-END TYPE-CHECKED into chen_positivity.
+The frozen 43/75 suffices for the hard ledger (the sharp mass was only the soft sub-budget's
+need). Division of labor: SW4 owns the arithmetic; the H-glue (GLU-1/2) discharges the four
+normalized per-carrier bounds + the error bundle (all O(1/log z), the x₀-home) from the landed
+carrier lemmas. Catch #20's hand-computed M ≈ 0.0212 (1966) is now a kernel-certified 0.0122.
+REMAINING: **GLU-1** (the normalized-bounds discharge), **GLU-BV** (hBVblocks at the operating
+point via the WBV chain's thresholds), **GLU-2** (the ∃-package → chen_of_hypotheses → THE
+HEADLINE), + 58c (docs rewire).
