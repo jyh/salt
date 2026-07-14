@@ -6013,3 +6013,29 @@ landed cbar to 17 digits); **`tripleSum_le_cbar_final`** — the c̄/2 leading c
 convention; SW4 supplies the operating point and folds the explicit lower-order Rem).
 THE COUNT LINE (CNT2 → CBL → AB1 → AB2 → AB3 → AB4) IS COMPLETE: the catch-#53-corrected,
 catch-#55-sharpened weighted count is a kernel theorem at the honest constant.
+
+## 2026-07-13 C54-RECON (Opus scout) + FABLE FREEZE — route (i): the one-sided cutoff carrier
+
+**THE LOAD-BEARING FACT:** `Salt.BV.bilinear_LS_shell` (BilinearLS.lean:279) NATIVELY carries
+the sharp cutoff `m·n ≤ Y` inside the character sum with an IDENTICAL energy bound — the landed
+pipeline discards it via bilin_cutoff_eq one layer up. And `prime_indicator_coprime_SW` already
+prices ANY sub-interval of a dyadic block (M′ ≤ 2N inherited). CONSEQUENCES: route (ii)
+(per-singleton) is DEAD (three independent failures: fixed-β signatures, the diagonal-energy
+incomparability, the √x-application explosion); route (iii) (strip mini-BV) is DOMINATED (its
+only endgame IS route (i)'s per-m windowed SW, reached via a doomed recursion + an invasive hHD
+reshape); the hyperbola CANNOT be tiled into O(log) rectangles (SW3d-ii re-confirmed) — the
+window must live in the CARRIER. Also pinned: ε₀ is a fixed constant (not x-dependent); the
+band is Θ(box) and unshrinkable by ε₀; count-based band treatment impossible outside top-j.
+**FROZEN (the WBV wave, ~3–4 files, the recon's 9-item list):** WBV1 = `apDiscBilinCutoff`
+(the two-guard carrier) + `_orthogonality` (the cutoff rides UNfactored) + `norm_..._le` +
+`cutoffTwist_energy_le` (consume the shell KEEPING Y = T — easier than the landed lemma) [A/B].
+WBV2 = the descent port (cutoffPrimEnergy + regroup + dyadic → the cutoff Klarge) [B–C,
+mechanical; consider the generic-functional refactor to share proofs]. WBV3 =
+`smallconductor_window_perd` (THE one genuine new estimate: per-m interval-SW at exponent
+A+C0+1, summed over the band — all on landed SW) + `blockBox_windowDisc_eq` (the identification
+via blockBox_pair_card, window-in-carrier, NO corner hypotheses) [C]. WBV4 =
+`general_BV_cutoff_final` + `hHD_of_generalBV_window` feeding the EXISTING hHD slot (no reshape
+— BlockPricing untouched) [B–C]. RISKS: the ordering diagonal at low pieces (per-m lower cutoff
+n ≥ p₂, a second guard — sub-node if needed); the port volume (R2 — the generic refactor
+mitigates); the harmonic/exponent bookkeeping (matches A ≥ 12). The window = the difference of
+T = x and T = x/2+1 cutoffs (triangle).
