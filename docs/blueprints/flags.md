@@ -6246,3 +6246,17 @@ collapses to (3+M)/s, decreasing). Worst point EXACT: 1072/447 ≈ 2.39821; froz
 slack — the executor correctly overrode my 2.4 hint, which had only 0.075% and would break at
 any mass-budget loosening; good judgment, not a catch). The A₃ razor row: ½·c̄·(3/8)·2.43 =
 0.16547 ≪ the 2.6403-equivalent ceiling. 58a CLOSED; A2W (58b) is the last cert gap.
+
+## 2026-07-14 A2W Opus done FULL — ★ CATCH #58 FULLY CLOSED: the last value node ★
+
+`Salt/Chen/A2Weighted.lean` (592 lines, 20 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. **`A2grid_sharp_le`**: A2grid ≤ (3 + Cmass)·((log 6)/4 + O(1/log z)-error) — the
+mass-ledger collapse Fchain = (3+M)/s pointwise, the ceiling domination, the smooth-carrier
+calculus, the partial-fraction (log 6)/4 integral, the z^u change of variables, the monotone
+Abel pass, the 1/(p(p−1)) crumb — all composed. PLUS `massSum_le_A2_sharp` (≈ 0.56309, derived
+from the ACHIEVED super-solution integrals WITHOUT altering the frozen 43/75 — the frozen bound
+alone breaches the soft sub-budget by 0.0008, exactly as the dispatch warned; the sharp form
+gives ½mainA2/X_W = **0.79803** ≤ 0.7995). PROJECTED RAZOR: **+0.0174** (92% of the classical
+ideal). The s_p ∈ [1,3] range + the idealized Dtot = z⁴ geometry are caller hypotheses
+(documented; the realistic-geometry O(1/log z) corrections live in SW4's x₀). CATCH #58 IS
+FULLY CLOSED — every value certification the razor consumes is now a kernel theorem.
