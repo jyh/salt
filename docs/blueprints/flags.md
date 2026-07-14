@@ -5462,3 +5462,24 @@ obligations: **hHD** (the dyadic decomposition of switchHonestDisc into O(log²x
 boxes — the window coupling makes the per-d identity false on the nose, as anticipated; = node
 SW3b), **hCE** (the conversion-error crude sum → SW4), **hNum** (the numeric row → SW4).
 The switch line's map: PE3c (δ-restricted LS, recon in flight) → SW3b → SW4.
+
+## 2026-07-13 PE3c RECON (Opus scout) — the route is architectural, the risk is pinned
+
+The Q² diagonal is born at ONE point: `farey_spacing_core` (the whole chain
+analytic_LS → arithmetic_LS → char_LS → bilinear_LS_shell → energy_shell → the dyadic engine is
+PARAMETRIC in the point-set separation). δ ∣ q, δ ∣ q′ ⟹ δ ∣ (aq′ − a′q − nqq′) ⟹ separation
+δ/Q² — a ~20-line spacing refinement; everything else is δ-copies. The f = δg reindex
+alternative FIRMLY FAILS (primitive characters mod δg don't push to conductor g — the
+improvement lives only at the Farey root). The consumer needs δ = g for EVERY divisor g of e
+(via gcd = Σ_{g ∣ e, g ∣ f} φ(g)); no single-δ shortcut exists.
+**THE RISK (recon finding, Fable-adjudicated):** under the Σ_{g∣e} φ(g) fibering the dyadic
+TAIL term is g-independent and picks up Σφ(g) = e — vs the target's 1/e. RESOLUTION (Fable):
+the tail scales as XM/(log)^{C0-shape} with C0 a FREE parameter of general_BV_final′ and the SW
+gate uniform in every log power — raise C0 ≳ 2(A+1); a threshold, not a margin. The PE3c-4
+gate MUST verify this numerically (four-term exponent bookkeeping) before the assembly
+dispatches; if the per-block structure defeats C0-raising, the fallback is the recon's direct
+gcd-WEIGHTED mean value (carry φ(gcd) through the Farey root).
+**STAGING:** PE3c-1 (B+, DISPATCHED: farey_spacing_dvd + arithmetic_LS_dvd + char_LS_dvd) →
+PE3c-2 (C: cs_over_q_chi generalization + bilinear_LS_shell_dvd + energy_shell_dvd) →
+PE3c-3 (C: the δ-dyadic engine) → PE3c-4 (C+, GATE FIRST: the hlarge assembly with the C0
+resolution). Then SW3b → SW4 → H-glue.
