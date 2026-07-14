@@ -6298,3 +6298,80 @@ machine-checked: the ×8 resolved by hWy (the 3/8 ratio) × hcount (the c̄-brid
 A₂'s carrier identification (Λmass·V = X_W) lives in GLU-2's hcoef — no GLU-1 obligation.
 FLAGGED PREREQ for GLU-2: a crude W-lower for the CHEN twinA1Sieve (TwinInstance.W_twin_ge is
 the Brun-track's — same ∏(1−ν) shape, a re-run) for the R/X_W + strip shares at x₀.
+
+## 2026-07-14 GLU-BV Opus — FLOOR A + B (per-box price + crumb reductions) + ★ CATCH #59 ★
+
+`Salt/Chen/GlueBV.lean` (NEW, 9 decls; namespace `Salt.Chen`; NOT wired into `All.lean` per the
+task). Sorry-free, axiom-clean (`[propext, Classical.choice, Quot.sound]` on all 9), zero warnings
+(`lake build Salt.Chen.GlueBV` green, exit 0; the only corpus warning is the pre-existing
+`Salt/SW/Siegel.lean:217` simpa hint, not this file).
+
+**LANDED (all correct + reusable regardless of the catch below):**
+* **FLOOR A — `cutoff_BV_at_op`.** `general_BV_cutoff_unconditional` (WBV7) with its `herr_div`
+  slot (`∀ e, 2≤e≤D → d(e)·L^{A+5} ≤ √X`) discharged VERBATIM by `DivisorBound.hdiv_discharge`
+  under the operating relations `D ≤ √x`, `√x ≤ 4X`, `X·M ≤ x²` (the `d(e) ≤ C₃e^{1/3}`, `1/3<1/2`
+  absorption). The rest is the structural operating-point bundle; the conclusion is EXACTLY the
+  `hprice_hi`/`hprice_lo` shape the window/band consumers name.
+* **The `M ≤ 2N` off-by-one — RESOLVED.** `pieceM k = 2^{k+1}−1`, `pieceN k = 2^k−1` give
+  `M = 2N+1`, VIOLATING the terminal `M ≤ 2·N`. Fix (`blockPrimeInd_pieceN_eq` + `not_prime_two_pow`
+  + `pieceM_le_two_pow`/`two_pow_le_pieceM` + `sum_norm_apDiscBilinCutoff_pieceN`): apply at
+  `N' := 2^k` (`pieceM k ≤ 2·2^k` ✓) and transport the price to `blockPrimeInd (pieceN k)` — for
+  `k ≥ 2` the two indicators are EQUAL (they differ only at `n = 2^k`, not prime). `k ≤ 1` = the
+  `O(1)` crude/empty fallback.
+* **FLOOR B — the crude crumbs (the `ν ≤ 1` / ν-summability halves).** `sum_nuChen_le_card`
+  (`∑_{d∈S} ν(d) ≤ #S`); `hCE_discharge` (the conversion-error double sum `≤` the non-unit
+  triple-count double sum, VERBATIM at the guard — the crude count is the named `w₀`-scale
+  residual); `diag_nu_crumb` (the `d`-independent band-diagonal's ν-weighted sum FACTORS as
+  `(∑ν)·#diag ≤ #S·y·(M−N)` via the landed `bandDiagCount_le`). The tight forms (the crude
+  conversion count "`d` has a prime factor `≥ w₀`", the `π`-refined diagonal `∑_{p₁≤y}π(√(x/p₁)) ≪
+  x^{2/3}/log`, the Mertens `∑ 1/φd ≤ C log`) are SW4-downstream analytic NT — the named residuals.
+
+**★ CATCH #59 (executor honest-assessed against the LANDED window-BV chain; the budget row the node
+was told to close) — THE OPERATING-POINT `hNum` DOES NOT CLOSE WITH THE NOMINAL-`X·M` PRICE.★**
+The task premise "`X_box·M_piece ~ x` per box, `O(log²x)` boxes at `x/(log)^A`" is FALSE on the
+WINDOW route as landed, because the `m`-range is priced in ONE shot (PieceDecomp docstring: "`(a,b)`
+is the `m`-window, here **full**") — NOT dyadically sub-blocked in `m` (unlike the SW3 box route
+`SwitchDyadic`/`SwitchPricing`, where `X = 2^i`, `M = 2^j`, so `X·M = 2^{i+j} ~ x` on the
+`O(log x)` surviving `i+j∈{K−2,K−1,K}` boxes — that route closes fine). Concretely, both consumers
+force `X ≫ x/M`:
+* **Band (`BandIdent.Plo_discharge_priced`, `hxX : x ≤ X`)** prices `∑_k ‖apDiscBilinCutoff (…) X
+  (pieceM k) 2 d T‖` at a GLOBAL `X ≥ x`. The band is non-empty only for `N ≤ √(x/z)` (catch #57),
+  but the LARGEST such piece alone gives `X·pieceM k ≥ x·2√(x/z) = 2x^{3/2}/√z`, so its
+  `general_BV_cutoff_(final/unconditional)` price `~ x^{3/2}/√z/(log)^A ≫ x/(log)^{10}` (`≈ x^{1.44}`
+  at `z = x^{1/8}`).
+* **High piece (`WindowClose.hHD_of_generalBV_window`, `hbX : b ≤ X+1`, `b = min(z·N+1, x+1)`)** has
+  `X·M ≥ min(z·N,x)·2N`. For `N ≤ √(x/z)` this is `≤ 2x` ✓; but pieces with `√(x/z) < N ≤ x/z²` are
+  NON-EMPTY (`p₁p₂ ∈ [z², x/N]`) yet carry `X·M ~ 2z·N² ≫ x` (up to `~ x^{13/8}` at `N ~ x^{3/4}`).
+The **root cause**: `general_BV_cutoff_unconditional`'s price is the NOMINAL box area `X·M`, but the
+cutoff `m·n ≤ T = x` makes the EFFECTIVE mass `~ x/log ≪ X·M` (for the high-`N` pieces the box
+`[0, z·N)` overshoots the admissible `m ≤ x/N` by `z·N²/x`). The price is a true upper bound but is
+`(X·M)/x`-lossy, so summing it over the `O(log²x)` `(j,k)` boxes gives `~ x^{3/2}`–`x²` `≫
+x/(log)^{10}`. `hNum` (`RHD + RCE ≤ x/(log x)^{10}`) is UNPROVABLE with these prices, and
+`cutoff_BV_at_op`'s own `X·M ≤ x²` relation itself FAILS on the top pieces — the same signal.
+**Not rescuable by the crude fallback:** the `~0.3·log₂x` high pieces with
+`N ∈ (√(x/z)·polylog, x/z²·(1−o(1)))` (`≈ (x^{0.44}, x^{0.75})` at `z = x^{1/8}`) carry `~ x/log`
+triples EACH (`#m ~ x/N`, `#p₃ ~ N/log`), so the crude `|disc| ≤ count` also overshoots the
+per-box budget `x/(log)^{12}` — neither tool covers this band. The cutoff-mass price
+`≤ (const)·x/(log)^A ≤ x/(log)^{12}` (`A ≥ 12`) DOES clear it, which is why the resolution below is
+mass-based.
+
+**RESOLUTION (Fable/human/design-tier — rule 1/rule 4, NOT attempted):** the cutoff carrier must be
+priced by the cutoff MASS, i.e. `general_BV_cutoff_final` should conclude `≤ (const)·T/(log T)^A`
+(the effective `mass ~ T = x`), OR the window boxes must be dyadically `m`-sub-blocked (à la SW3) so
+`X·M ~ T` per sub-box — either is a change to the LANDED `general_BV_cutoff_final`/`PieceDecomp`
+design. `hBVblocks_at_op` (FULL) is BLOCKED on this; the per-box thresholds, the `M ≤ 2N` re-index,
+`hdiv`, and the crude crumbs are landed honestly above.
+Tally: **59 catches, 0 proofs on wrong statements.**
+
+**FABLE ADJUDICATION of catch #59 (2026-07-14 ~06:30): the m-SUB-BLOCKING fix, ratified.**
+The executor's analysis is correct: the nominal X·M price is (X·M)/x-lossy and the medium-N band
+defeats both landed tools. THE FIX (= **GBV2**, dispatched): dyadic m-sub-blocking of the window
+boxes — per (j, piece), split the m-range dyadically; under the cutoff m·n ≤ T the hyperbola
+leaves only O(log) NON-EMPTY sub-boxes per piece (the corner test at the cutoff: a sub-box with
+min-m·min-n > T has BOTH guarded counts empty ⟹ the cutoff disc vanishes identically), and
+every survivor has X_sub·M ≤ 4T ≤ 4x ⟹ O(log³x) applications at the A ≥ 14-family exponents
+clear x/(log x)^10. Machinery: the cutoff α-additivity (a WBV1-mirror of
+SwitchStrip.apDiscBilin_sum_alpha — the carrier is linear in α), restrictAlpha sub-ranges, the
+sub-box vanishing lemma, the re-summed budget, the re-composed hHD/Plo prices at the sub-box
+level. No change to general_BV_cutoff_unconditional (the per-application price is correct);
+only the SUMMATION layer re-organizes. Tally: 59 catches, 0 wrong proofs.
