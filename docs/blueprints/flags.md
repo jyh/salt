@@ -5578,3 +5578,31 @@ warnings, first pass. `totient_ratio_le_log` (e/φe ≤ 3·log e, e ≥ 3 — th
 (UNCONDITIONAL); `card_divisors_le_two_sqrt` (the √-reflection); the sum_totient forms; the
 reusable `prod_ratio_le_card_succ`. ALL PE3c-4 inputs are now landed — the assembly dispatches
 at the gate's frozen recipe (C0 = A+5, hlev coupled at c = C0, the raw four-term).
+
+## 2026-07-13 THE SW4 GATE — BLOCK: ★ CATCH #49 ★ (the carrier reconciliation + the Mertens debt)
+
+The normalization gate on SW4 (launched per the catch-#41 doctrine BEFORE dispatch) BLOCKED with
+two fatal findings and one correction:
+**CATCH #49a (the ×8):** my SW4 pre-design's "count × F-excess = 0.3366 < 0.363084" model does
+NOT survive the honest factor-trace through the LANDED mainA3_of_hBVswitch: the Λ-bridge's
+log x against the y-window Mertens product W(switchSieve) leaves an ×8 = log x/log z discrepancy
+vs the pre-design's implied carrier (the design's implied V(y) is 8× below the true Mertens
+value). The collapse identity F(3/2)e^{−γ}(3/4) = 1.00002 is VERIFIED numerically, but its
+carrier bookkeeping — where the 3/4 and the 8 reconcile against the Π₂x/(4 log z) convention —
+is nowhere written in Lean or the blueprint. The A₁-vs-A₃ comparison also needs the WINDOW
+RATIO W(y-window)/W(z-window) ~ log z/log y = 3/8 — likely exactly the reconciling factor
+(3/8 × 8 = 3... the honest chain needs writing down ONCE, carefully).
+**CATCH #49b (the Mertens debt is DUE):** the corpus has NO sharp Mertens bounds for the sieve
+products — the A₁/A₂/A₃ mains are all SYMBOLIC in W; converting to the ledger's numbers needs:
+(1) `mertens_W_switch_upper` (W over [w₀, y)); (2) the RATIO form W_y/W_z ≤ (log z/log y)(1+o(1))
+— note `WRatio.lean`'s machinery exists but is gated on the UNDISCHARGED named `hMert` from the
+P0 era (the debt was known and deferred); (3) `lambda_mass_lower` — the window PNT
+Σ_{twinWindow} Λ ≥ (1−o(1))x/2 (the SW arc's psiTot_pnt machinery is the natural source);
+(4) the nat-rounding window-membership thresholds. CONFIRMED SOUND by the same gate: hBJS(3/2) =
+e^{−2}; the switch point s = 1.4997 ∈ [4/3,3] reuses SS3c's Fchain_A2_final (no new value cert);
+the ε-slack is 0.075% noise; the count margin 17.85% stands.
+**CONSEQUENCE:** SW4 and the H-glue's hledger instantiation are BLOCKED on the Mertens/PNT
+layer (M-nodes) + the carrier-reconciliation design (a Fable block: write the full chain
+A₁/A₂/A₃ → Π₂x/(4 log z) units ONCE, numerically verified end-to-end, then freeze). This was
+always the deferred absolute-numbers layer of the C5 symbolic design; it is now the critical
+path. Tally: 49 catches, 0 proofs on wrong statements.
