@@ -71,6 +71,7 @@ import Salt.Chen.SwitchBV
 import Salt.Chen.SwitchDyadic
 import Salt.Chen.SwitchPricing
 import Salt.Chen.SwitchStrip
+import Salt.Chen.SwitchBlocks
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
 
@@ -217,6 +218,9 @@ open Salt.Tactic in
   Salt.Chen.abs_boxHonestDisc_le_boxCount Salt.Chen.card_relevantBoxes_le
   Salt.Chen.hHD_of_uniform_price Salt.Chen.norm_boxAlpha_le_one
   Salt.Chen.box_price_of_apDiscBilin
+  Salt.Chen.tripleSum_eq_sum_blockTripleSum Salt.Chen.blockSwitchSieve_W_eq
+  Salt.Chen.block_switch_upper_B Salt.Chen.triplePrimeSum_le_sum_blocks
+  Salt.Chen.norm_blockAlpha_le_one Salt.Chen.mainA3_of_block_remainders
   Salt.Chen.apDiscBilin_sum_alpha Salt.Chen.apDiscBilin_split_threshold
   Salt.Chen.apDiscBilin_singleton_collapse Salt.Chen.norm_restrictAlpha_le_one
   Salt.Chen.productInWindow_of_corners

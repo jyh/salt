@@ -5862,3 +5862,19 @@ PATTERN (reusable): two-level block telescoping (25-panel blocks, 1e−12 round-
 sums) — single-level telescoping hits the heartbeat wall at N = 600 (O(N) rw goals). The C4a
 flag's "not mechanisable" verdict is overturned by the TK1 toolkit + the SS-panel discipline.
 Consumer: CNT2/AB1's final count row.
+
+## 2026-07-13 NBL Opus done FULL (the narrow blocks; the main term is rfl-identical to SW12)
+
+`Salt/Chen/SwitchBlocks.lean` (24 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. The blockIdx floor-of-log partition (fiberwise kernel mirroring SwitchDyadic);
+blockSwitchSieve instances; **`blockSwitchSieve_W_eq`/`_maxDepth_eq` BY RFL** (prodPrimes/nu
+shared ⟹ the carrier W·(Fchain + slack) is block-independent — the main term of
+`mainA3_of_block_remainders` is LITERALLY `mainA3_of_hBVswitch`'s; SW4's numeric row is
+unchanged from the CNT2-weighted form); `block_switch_upper_B` (the cB keystone per block);
+`triplePrimeSum_le_sum_blocks`; `blockAlpha` (0/1, norm ≤ 1 — the general_BV_alpha_final
+m-side input); the composed conditional under the single named
+**`hBVblocks : Σ_j rosserRemainder(block j)(Q·Dlev) ≤ x/(log x)^10`** — the catch-#50 dyadic
+boxes fully superseded (SW3b/c/d stay landed as documented unused paths + the reusable
+backbone). REMAINING ON THE SWITCH LINE: **BVP** (price hBVblocks per block via
+general_BV_alpha_final at blockAlpha — the per-block window is CLEAN so the catch-#50
+hyperbola never appears; + the hCE conversion-error crumb), then the numeric re-gate → SW4.
