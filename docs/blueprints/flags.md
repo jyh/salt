@@ -6680,3 +6680,20 @@ closable with landed inputs (p₁ ∣ d forcing + W_twinA1_ge at P := Ps + harmo
 total x^{7/8}·polylog, room x^{1/8}). Finding 6 — twin_A1_lower_B lacks A1primeSum's
 [n prime] restriction; bridge mass ≤ √x·log₂x·log x, one small lemma. Tally: 65 catches,
 0 wrong proofs.
+
+**2026-07-14 H2-GATE (adversarial math lens on the H-AMENDMENT 2 design) — BLOCK-then-GO;
+CATCHES #66 + #67, both kernel-certain, both PRE-FREEZE (zero executor cost).** #66: the h4
+slot threaded by EVERY A₁/A₂/A₃ supplier is ∀-form false for all K (z'=1/D'=1 degenerate:
+1 ≤ 0; z'=2/D'=2^60 honest: contradicts hKe) — the discharge map's "h4 (structural): h4_base"
+line was an estimate-vs-statement divergence of the #64 genre; GLU-2's STEP 0 missed it
+because h4 is supplier-internal, not an H-conjunct. Repair = H4C (conditioned slot at the
+real use sites, both flat-cell-only with guards in scope; h4_base + thresh_mono discharge;
+new op-row (w0R ε)³ ≤ z). #67: the design's tower row Q ≤ e^{w₀} is UNPROVABLE in-corpus
+(ineffective SW K); fix Q ≤ 4^{w₀} (Nat.primorial_le_four_pow) + tower exp(exp(2·w0N ε)).
+Also ratified: C3 smooth-totalMass convention (rem d = exact Qd-discrepancy), C4 residue-
+function generalization r(d) replacing the literal 2 in the windowed chain, C5 A2W′
+re-sized as construction, C6/C7 stated. The W-trick architecture SURVIVED all eight attack
+surfaces otherwise (gcd chains, no w'-boundary gap, BoundingSieve field transparency,
+dispersion a-fortiori injection d ↦ Qd, extraction clean, findings 3–5 transfer). Tally:
+67 catches, 0 wrong proofs — three of the last four caught by gates/STEP-0 before any
+proof attempt.

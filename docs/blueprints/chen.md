@@ -587,3 +587,31 @@ Coprime Q (a+2)` (`w'` = the split point, `w₀` at instantiation).
   DivisorBound, the d0_window certificate machinery (re-parametrized), `normalized_package`
   /`hledger_at_certs` (X_W-relative — the new X_W^Q slots in), the entire generic sieve/BV
   keystone corpus. The catch64/catch65 records stay as standalone theorems.
+
+### H-AMENDMENT 2 — GATE RESULT (2026-07-14): BLOCK-then-GO; corrections C1–C7 RATIFIED
+The adversarial gate falsified two design-text claims (both kernel-certain, both caught
+pre-freeze): **CATCH #66** — the `h4` supplier slot (`∀ s' z' D', 1 ≤ D' → Vlow s' D' ≤
+(3K/logRatio z' D')·W s'`) is FALSE for every K (at z'=1, D'=1: Vlow = 1, RHS = 0 by
+division-by-zero conventions; also false at honest z' = 2 via hKe); the actual use sites
+(T_le_of_peel_step_w base case, WindowedStep.lean:282; hh_sharp_of_window, SharpH2.lean:870)
+apply it flat-cell-only with full guards in scope. **CATCH #67** — D4's `Q ≤ e^{w₀}` is
+unprovable (SW's K is ineffective); the corpus bound is `Nat.primorial_le_four_pow`:
+Q ≤ 4^{w₀}. Ratified corrections:
+- **C1 (node H4C, warrant)**: condition the h4 slot (add prime-support < z', the
+  hguard/hnu rows, 1 ≤ logRatio z' D' ≤ 3) through StepBound2/WindowedStep(P)/TauSharp/
+  SharpClose/TwinA1/TwinA2/TwinSharp/SwitchSieve/SwitchBlocks; discharge via h4_base at
+  u := D'^{1/3} + thresh_mono; NEW op-row `(w0R ε)³ ≤ z`. D2's "h4 VERBATIM" is deleted.
+- **C2 (D4 fixed)**: tower `x₀ ≥ exp(exp(2·w0N ε))`-form; Q ≤ 4^{w₀} by primorial_le_four_pow;
+  Q ≤ L unchanged downstream.
+- **C3 (D2/D3 fixed)**: totalMass convention = SMOOTH `(Σ_window Λ)/φ(Q)` for all three
+  W-instances (rem d exactly the Qd-discrepancy; rem 1 = the mod-Q SW row via
+  psiAP_sub_psiTot_bound; lambda_mass/hcount/ratio certs verbatim, φ(Q) cancels).
+- **C4 (A3W scope)**: generalize the hard-coded residue literal 2 (and `Coprime 2 d`) to a
+  residue function r(d) with `∀ d ∈ Dset, Coprime (r d) d` across general_BV_cutoff_final/
+  _closed/_unconditional/_closed_sqrtD/_sqrtD, Plo_discharge_priced, BandIdent; audit hcop2
+  uses (expected orthogonality-only). α/β untouched (the AP filter folds into the class).
+- **C5 (D7 re-sized)**: A2W′ = per-prime instance CONSTRUCTION (+hcoef +hBVagg), not mirror.
+- **C6 (D5)**: count-line SW at block scale log N ≈ L/3 needs C ≥ 2, A ≥ 3 (trivial at A=13).
+- **C7 (D4)**: honest crude main scale 32e^{−70}·x/L³ (BV crumb room = L⁷/e^{70}, decisive).
+Extraction (surface 7) and findings 3–5 compat (surface 8) PASSED clean. WAVE ORDER:
+H4C ∥ W-SURG first, then A1W/A2W′/A3W/CNTW, then GLU-2W.
