@@ -6375,3 +6375,11 @@ SwitchStrip.apDiscBilin_sum_alpha — the carrier is linear in α), restrictAlph
 sub-box vanishing lemma, the re-summed budget, the re-composed hHD/Plo prices at the sub-box
 level. No change to general_BV_cutoff_unconditional (the per-application price is correct);
 only the SUMMATION layer re-organizes. Tally: 59 catches, 0 wrong proofs.
+
+## 2026-07-14 WLOW Opus done (W ≥ e⁻³⁵/log z — stronger than flagged)
+
+`Salt/Chen/WLower.lean` (wired by Fable). Sorry-free, axiom-clean, zero warnings.
+`W_twinA1_ge : e^{−35}/log z ≤ W(twinA1Sieve)` — the SINGLE-log-power form (the sharp
+neg_log_one_sub_nuChen_le bracket keeps the coefficient at 1 vs the Brun-crude 2 that forced
+(log z)²). GLU-2's R/X_W and strip shares now vanish against a single log. The GLU-1 prereq is
+closed.
