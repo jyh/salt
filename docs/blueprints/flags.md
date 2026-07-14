@@ -5606,3 +5606,18 @@ layer (M-nodes) + the carrier-reconciliation design (a Fable block: write the fu
 A₁/A₂/A₃ → Π₂x/(4 log z) units ONCE, numerically verified end-to-end, then freeze). This was
 always the deferred absolute-numbers layer of the C5 symbolic design; it is now the critical
 path. Tally: 49 catches, 0 proofs on wrong statements.
+
+## 2026-07-13 SW3c Opus done (pricing reduction FULL modulo the two catch-#48 residuals)
+
+`Salt/Chen/SwitchPricing.lean` (300 lines; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. LANDED: the crude per-box fallback (`abs_boxHonestDisc_le_boxCount` — covers the
+top-j boxes where m = O(1)); **`card_relevantBoxes_le`** (surviving boxes live in the band
+i+j ∈ {K−2, K−1, K} ⟹ ≤ 3(K+1) — the O(log x) count, proven); **`hHD_of_uniform_price`**
+(the closure to ONE uniform price P + the numeric threshold); `boxAlpha` + norm ≤ 1;
+**`box_price_of_apDiscBilin`** (per-box → Σ_d ‖apDiscBilin‖ + correction, R₀ = 2 coprimality
+FREE, plugs general_BV_alpha_discharged's output in one line) — modulo the two NAMED residuals
+the SW3b catch anticipated: **hIdent** (the hyperbola sub-split: fixed-p m-ranges are initial
+segments, not rectangles; dyadic m-sub-split leaves an O(1) strip per p) and **boxCorr/hCorrSum**
+(the p₂ ≤ p₃ same/adjacent-block diagonal, count ≪ x/log, absorbed with the 1/φd savings).
+= node **SW3d**, the switch line's last analytic piece. Accounting table in the module docstring
+(bulk closes at A ≥ 11; top-j crude; 3(K+1) boxes).

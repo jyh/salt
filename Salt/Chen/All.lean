@@ -65,6 +65,7 @@ import Salt.Chen.Assembly
 import Salt.Chen.SwitchSieve
 import Salt.Chen.SwitchBV
 import Salt.Chen.SwitchDyadic
+import Salt.Chen.SwitchPricing
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
 
@@ -205,6 +206,9 @@ open Salt.Tactic in
   Salt.Chen.hBVswitch_of_generalBV
   Salt.Chen.switchHonestDisc_eq_sum_box Salt.Chen.boxHonestDisc_zero_of_windowDisjoint
   Salt.Chen.abs_switchHonestDisc_le_sum_relevant Salt.Chen.hHD_of_generalBV_inputs
+  Salt.Chen.abs_boxHonestDisc_le_boxCount Salt.Chen.card_relevantBoxes_le
+  Salt.Chen.hHD_of_uniform_price Salt.Chen.norm_boxAlpha_le_one
+  Salt.Chen.box_price_of_apDiscBilin
   Salt.Chen.tail_parts_bound Salt.Chen.hBJS_funcbound_sharp
   Salt.Chen.fchain_lower_of_evenSum_le Salt.Chen.Fchain_upper_of_oddSum_le
   Salt.Chen.fseq_two_le_sq Salt.Chen.fchain_two_lower
