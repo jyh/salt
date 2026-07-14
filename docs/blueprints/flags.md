@@ -6077,3 +6077,18 @@ hypothesis + the trivial nesting hxlo). Ordering diagonal: hord (piece threshold
 N ≥ y) kept as a hypothesis; the low-piece residual is WBV4's named object. NEXT: WBV4 —
 general_BV_cutoff_final (WBV2's large + WBV3's small) + hHD_of_generalBV_window into
 BlockPricing's EXISTING slot.
+
+## 2026-07-14 WBV4 Opus done FULL (the catch-#54 assembly; two named slots remain)
+
+`Salt/Chen/WindowClose.lean` (455 lines, 5 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. `cutoffTwist_coprimeRestrict_primitive` (the fold IS mechanical — 30 lines);
+`regroup_cutoff`; `cutoff_hLargeDisc` (SINGLE-error split: no β-side error since blockPrimeInd
+is coprime-supported at d < N; the α-side coprimality error re-appears — the recon's "exact"
+claim held only for the orthogonality, honestly corrected); **`general_BV_cutoff_final`**
+(hdiv NOT needed on the window path — confirmed; hlev/hD0lo/hMlev live downstream in
+hMainEnergy's discharge); **`hHD_of_generalBV_window`** (the per-box T-difference price; the
+composition chain #check-verified end-to-end). REMAINING (WBV5/6): discharge **hMainEnergy**
+(mechanical: the landed mainEnergy pattern at dyadic_energy_le_cutoff — WBV2's output) and
+**hErrSum** (the α-side e-fold at the cutoff carrier — the THIRD run of the twice-done
+ErrFold/PerE/AlphaSide pattern; sizable-mechanical); the O(log²x) piece decomposition +
+**hLowPieces** (the thin ordering band at low pieces — crude count or its own node).
