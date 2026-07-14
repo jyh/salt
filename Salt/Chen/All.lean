@@ -58,6 +58,7 @@ import Salt.Chen.WindowedStepP
 import Salt.Chen.WindowedStepC
 import Salt.Chen.Assembly
 import Salt.Chen.SwitchSieve
+import Salt.Chen.SwitchBV
 import Salt.Chen.SwitchConstant
 import Salt.Tactic.AuditAxioms
 
@@ -192,6 +193,10 @@ open Salt.Tactic in
   Salt.Chen.switch_hnu Salt.Chen.switch_hguard
   Salt.Chen.switch_upper_B Salt.Chen.triplePrimeSum_le_sifted
   Salt.Chen.mainA3_of_hBVswitch
+  Salt.Chen.switch_dvd_coprime_two Salt.Chen.switchSieve_multSum_eq_apCount
+  Salt.Chen.norm_semiprimeBlockInd_le_one Salt.Chen.switchSieve_rem_split
+  Salt.Chen.switchSieve_abs_rem_le Salt.Chen.switchSieve_rosserRemainder_split_le
+  Salt.Chen.hBVswitch_of_generalBV
   Salt.Chen.tail_parts_bound Salt.Chen.hBJS_funcbound_sharp
   Salt.Chen.fchain_lower_of_evenSum_le Salt.Chen.Fchain_upper_of_oddSum_le
   Salt.Chen.fseq_two_le_sq Salt.Chen.fchain_two_lower

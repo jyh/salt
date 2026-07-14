@@ -5449,3 +5449,16 @@ large-sieve mean value**: `Σ_{f ≤ Q, δ ∣ f} (f/φf)·bilinPrimEnergy(f) �
 diagonal]` — classically true (conductors ≡ 0 mod δ are Q/δ-many; Farey spacing δ/Q²-refined),
 NOT in the corpus. = **PE3c**, the LAST analytic node (recon dispatched: does the Salt/LS core
 admit the δ-restriction?). Tally: 45 catches, 0 proofs on wrong statements.
+
+## 2026-07-13 SW3 Opus done (floor A FULL + composition scaffold; odd-moduli DISSOLVES)
+
+`Salt/Chen/SwitchBV.lean` (18 decls; wired by Fable). Sorry-free, axiom-clean, zero warnings.
+LANDED: `switch_dvd_coprime_two` (the recon's odd-moduli warning DISSOLVES — Ps has no factor 2,
+exactly as twinA1's even-d glue dissolved); the per-d AP bridge (`switchSieve_multSum_eq_apCount`);
+`semiprimeBlockInd` + `norm_semiprimeBlockInd_le_one` (the exact ‖α‖ ≤ 1 shape); the honest
+remainder split (`switchSieve_rem_split`/`_abs_rem_le`, the bilinear twinA1_rem_eq analogue);
+the summed reduction + **`hBVswitch_of_generalBV`** — the exact hBVswitch SW12 named, from three
+obligations: **hHD** (the dyadic decomposition of switchHonestDisc into O(log²x) apDiscBilin
+boxes — the window coupling makes the per-d identity false on the nose, as anticipated; = node
+SW3b), **hCE** (the conversion-error crude sum → SW4), **hNum** (the numeric row → SW4).
+The switch line's map: PE3c (δ-restricted LS, recon in flight) → SW3b → SW4.
