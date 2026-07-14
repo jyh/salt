@@ -5646,3 +5646,28 @@ lambda_mass_lower via psiTot_pnt two-endpoint subtraction (B/C); M4 = rounding t
 M1/M3/M4 are freezable NOW; M2's interface after the fiber shape. Precision is NOT a risk
 (1/log w₀ ~ 5e−10); the F/f value certs are LANDED (SS3c). Tally stands at 49; the fiber
 mis-shape is #49's full extent, now precisely diagnosed.
+
+## 2026-07-13 SW3d Opus done (floor A: the sub-split backbone) + ★ CATCH #50 ★
+
+`Salt/Chen/SwitchStrip.lean` (276 lines, 16 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. LANDED (all reusable regardless of the design outcome): the apDiscBilin
+ADDITIVITY backbone (`apDiscBilin_sum_alpha` — finite α-partitions split coherently;
+`_split_threshold`; `_congr`/`_add_left`/`_zero`), `restrictAlpha` + norm preservation,
+**`apDiscBilin_singleton_collapse`** (width-1 sub-blocks = single-m prime-AP discrepancies),
+and the corner-test window classification (`productInWindow_of_corners` etc.).
+
+**CATCH #50 (executor STOP-AND-FLAG, three findings):** (i) SW3c's `hIdent` slot is
+UNDER-POWERED as coded — one full-box apDiscBilin vs the windowed count leaves a Θ(x) residual
+on every generic surviving box (i+j = K−1 ⟹ the factor-2 window cuts the factor-4 box
+interior); the honest interface is a SUM over decided-in sub-boxes + strip (a slot-shape
+revision of SwitchPricing, designer-tier). (ii) My brief's singleton-α strip resolution was
+WRONG: 1-D m-splitting leaves 2^ℓ crossing sub-blocks (the COUNT grows; only the AREA decays)
+— the strip needs the 2-D m-and-p decomposition and its own apDiscBilin-type pricing.
+(iii) The tripleSet ↔ (m, p)-pair bijection bridge (the semiprimeBlockInd multiplicity
+conversion) is MISSING from the corpus — a prerequisite for ANY apDiscBilin identification.
+**ADJUDICATION: catches #49 + #50 are ONE design region** — the per-p₁-fiber re-shape and the
+window decomposition are both aspects of the classical switch treatment (BJS Lemma 52 / Tao's
+switch section handle the window INSIDE the fiber). ⟹ **THE SW-FIBER DESIGN BLOCK** (fresh
+context, page-level primary source) now owns: the fiber structure, the window/hyperbola
+handling, the pair bijection, the revised pricing interface, and the M2 interface — then
+re-gate the numeric row end-to-end, then the executor wave. Tally: 50 catches, 0 wrong proofs.
