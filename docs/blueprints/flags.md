@@ -6171,3 +6171,15 @@ new analysis. **= BND2** (dispatched): α_low + norm ≤ 1; the three-piece band
 the max(y, N) threshold (symmetric ½-split [landed] + the α_low rectangle + the diagonal
 [landed]); the composed Plo_discharge feeding PieceDecomp's slot. Tally: 57 catches, 0 wrong
 proofs.
+
+## 2026-07-14 WBV7 Opus done FULL — ★ general_BV_cutoff_unconditional: THE WINDOWED BV IS CLOSED ★
+
+`Salt/Chen/WindowSmallChi.lean` (574 lines, 6 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. The χ-level per-m regroup; the per-(m,ψ) interval SW (the landed
+hβSW_of_prime_indicator fits EXACTLY — interval inheritance kernel-confirmed; the mandate's
+stop-condition never triggered); `hSmallCut_discharge` + `hsmall_pere_discharge` (the D0²-cost
+folded one C0-power higher — clean bookkeeping); **`general_BV_cutoff_unconditional`** — the
+terminal theorem: the windowed bilinear BV closed at ONLY structural/operating-point thresholds
+(the full list documented in-file for the H-glue; Kerr = 2^{A+5}Kβ′ + 15360). The catch-#54
+wave: WBV1–7 ALL LANDED; the ONLY remaining piece is BND2 (the three-piece band close, in
+flight) — then the hHD/hBVblocks/mainA3 chain is complete modulo thresholds.
