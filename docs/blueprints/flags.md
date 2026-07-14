@@ -6196,3 +6196,16 @@ rectangle → apDiscBilinCutoff identifications (blockAlphaSym/blockAlphaLow + h
 bijections — the ordering from p₂ ≤ N < p₃ (low) / the symmetry (sym); ~WindowSW-scale);
 (ii) the diagonal's analytic tightening (the finset bound landed; the ν-summability ×
 x^{2/3}-average is a downstream crumb for SW4's budget row).
+
+## 2026-07-14 BND3 Opus done FULL — ★ THE SWITCH LINE'S COMBINATORIAL CHAIN IS COMPLETE ★
+
+`Salt/Chen/BandIdent.lean` (750 lines, 11 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. `blockAlphaLow`/`blockAlphaSym` (+ norms ≤ 1, oriented uniqueness); the two
+identifications (`lowRect_eq_apDiscBilinCutoff` — ordering from p₂ ≤ N < p₃, no hord;
+`symRect_eq_apDiscBilinCutoff` — unordered, the raised lower end's dyadic hypothesis verified);
+**`Plo_discharge_priced`** — the band slot at four general_BV_cutoff_final-priceable one-sided
+sums, #check-chained end-to-end. THE CATCH #54/#56/#57 REGION IS CLOSED: bandDisc → three
+pieces → identifications → the windowed BV prices → Plo → hBlock → hHDblocks → hBVblocks →
+mainA3_of_block_remainders — every link kernel-checked, modulo operating-point thresholds only.
+**NEXT: THE END-TO-END NUMERIC RE-GATE** (the honest A₁/A₂/A₃ razor at all achieved constants),
+then SW4, then the H-glue.
