@@ -5891,3 +5891,18 @@ band-α are both 0/1 α's priced by their own apDiscBilin). Design row: A ≥ 12
 (p₁,p₂,p₃) ↦ (p₁p₂, p₃) turning blockHonestDisc into the apDiscBilin double sums — SW3d-iii,
 the known missing bridge; SwitchStrip's corner tests + additivity serve the window half) +
 the operating-point thresholds (H-glue) + hCE/hNum (SW4).
+
+## 2026-07-13 AB1 Opus done (floor B: the abstract Abel pass + Application A)
+
+`Salt/Chen/AbelPass.lean` (wired by Fable). Sorry-free, axiom-clean, zero warnings.
+**`prime_sum_abel_antitone`/`_monotone`** — the reusable BJS-Lemma-20 equivalent (abstract f,
+both monotonicities, error (21/log w)·f(endpoint) = corpus-19 + 2 boundary units; the main term
+EXACT); **`applicationA`** — the p₂-carrier fully instantiated (hbjs calculus proven: positivity,
+increasing derivative, integrability). FINDING: Application B ≡ the antitone pass at f = I —
+the sole blocker is **I(u)'s moving-boundary Leibniz derivative** (u in both the integrand and
+the upper limit √(N/u); mathlib support thin — the genuine remaining wall). **= AB2**: I's
+calculus + the (187)-tail change of variables + t = N^β into the landed cbar_eq_double_integral
++ the pairSet fibered re-index + the final composition to
+`tripleSum ≤ (1+slack)(c̄/2+slack)·x/log x`. Both brackets (input + far target) stay landed.
+Note: the 21/log-w error is weaker than BJS's 1/log²y — acceptable per the slack budget; a
+sharper windowed-Mertens (1/log²) node only if the re-gate demands it.
