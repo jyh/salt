@@ -5506,3 +5506,9 @@ warnings. `farey_spacing_core_dvd` (δ ∣ k ⟹ |k| ≥ δ via explicit cofacto
 `farey_spacing_dvd` (δ/Q²), `arithmetic_LS_dvd` (diagonal Q²/δ + 13N; three-branch on δ>Q/Q=1/
 main), `char_LS_dvd` (char_LS_perQ reused verbatim), δ=1 recovery examples. The one-line spacing
 refinement predicted by the recon is real. NEXT: PE3c-2 (the bilinear shell δ-copy).
+
+**Fable process note (2026-07-13 evening):** the SS3c+PE3c-1 commit briefly pushed with a broken
+Salt.Chen.All (cross-namespace audit names without import; caught within one minute, amended,
+force-pushed green at c4afb2b). Root cause: `lake build | tail` masks the exit code — the
+ceremony's build check now uses the explicit exit-code form. The kernel discipline held (nothing
+consumed the broken aggregate); the process hole is closed.
