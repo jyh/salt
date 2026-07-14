@@ -5538,3 +5538,14 @@ supplies every log power); hscale stays satisfiable. Tally: 47 catches, 0 wrong 
 (elementary: Σ_{p∣e} 1/(p−1) ≤ H_{ω(e)}, k-th prime ≥ k+1); (ii) `φ(lcm(e,f))·φ(gcd(e,f)) =
 φe·φf` (from Nat.totient_gcd_mul_totient_mul); (iii) `d(e) ≤ 2√e` (pair divisors with e/d);
 (iv) gcd = Σ_{g ∣ gcd} φ(g) EXISTS (Nat.sum_totient). PE3c-4 dispatches when PE3c-3 + 4a land.
+
+## 2026-07-13 PE3c-3 Opus done FULL first attempt (the δ-dyadic engine, raw four-term form)
+
+`Salt/Chen/DyadicDvd.lean` (wired by Fable). Sorry-free, axiom-clean, zero warnings.
+`dyadic_term_bound_dvd` (1/δ on main, 1/√δ on crosses, tail untouched — EXACTLY the gate's
+predicted shape), `block_energy_le_dvd`, `dyadic_large_reduction_dvd`, `geom_shell_sum_le_dvd`
+(four terms explicit), **`dyadic_energy_le_dvd`** — the RAW composed form PE3c-4 consumes
+(the catch-#44 lesson honored: no level absorption; the diagonal stays explicit). δ=1 recovery
+examples. The executor flagged the tail's δ-independence to PE3c-4 — consistent with the gate's
+C0-raising resolution, which operates on precisely that term. PE3c-4 dispatches when PE3c-4a
+(helpers) lands.
