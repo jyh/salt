@@ -6209,3 +6209,30 @@ pieces → identifications → the windowed BV prices → Plo → hBlock → hHD
 mainA3_of_block_remainders — every link kernel-checked, modulo operating-point thresholds only.
 **NEXT: THE END-TO-END NUMERIC RE-GATE** (the honest A₁/A₂/A₃ razor at all achieved constants),
 then SW4, then the H-glue.
+
+## 2026-07-14 ★★ THE END-TO-END RE-GATE — BLOCK (catch #58) — BUT THE CHAIN IS SOUND ★★
+
+Two lenses (forward trace + classical benchmark), both BLOCK, both agreeing EXACTLY.
+**THE HEADLINE POSITIVE: the symbolic normalization chain is VERIFIED GAP-FREE** — Row A (all
+true values) reproduces (2log3 − log6 − c̄)·e^γ/4 = catch-#20's M·e^γ/2 = +0.018871 to 8
+digits; the collapse (3/8)·F(3/2) = e^γ/2 EXACT; the count c̄/2, the W-ratio 3/8, the Λ-mass
+x/2 all compose with no unit gap. Every #41/#49-class error is dead. The strip vanishes
+(x ≳ e^100 — fine at our x₀); the ε-slacks are 1.6% of the margin (noise, not free).
+**CATCH #58 (two value-cert gaps):**
+**58a — the A₃ point cert:** the switch consumes the UNIFORM Fchain ≤ 268/100 at s = 1.4997;
+the razor needs ≤ 2.6403 there. **THE FIX IS ALREADY LANDED IN PIECES** (Fable): MR1's
+`Fchain_mass_ledger` (Fchain N s = 1 + (3−s)/s + ΣmassE/s on [1,3]) + SS3c's
+`massSum_le_A2_final` (Σ ≤ 43/75) evaluated AT the switch window: Fchain(1.4997-window) ≤
+2 + (2/3)(43/75) + rounding = **≤ ~2.383 ≪ 2.6403** — an 11% cushion. = node **FPC** (class B:
+the point-window evaluation of the landed identity).
+**58b — the A₂ aggregation:** the ONLY landed aggregation (`A2grid_le_envelope`) is **5.007×**
+the honest F-weighted value (supF × the crude +2 envelope; its docstring's "0.466% gap" claim
+was wrong by 400× — never re-gated after the sharp-B rewiring). THE FIX (same identity!):
+Fchain(s_p) = 1 + (3−s_p)/s_p + M_E/s_p pointwise (all s_p ∈ [4/3,3] ⊂ [1,3] ✓) turns A2grid
+into EXPLICIT weighted window sums (Σ(1/(p−1))·(3/s_p − 1)-forms + M_E·Σ(1/((p−1)s_p))) —
+priceable by the AbelPass abstract machinery (prime_sum_abel) + the numeric row → the honest
+(e^γ/2)log6 = 1.5956 value. = node **A2W** (class C, bracketed by AbelPass + MR1).
+**58c (correction):** Assembly's docstrings/H-glue routing still cite the discredited
+0.29827-count model — rewire to the honest carrier at the H-glue (docs, not proofs).
+WITH FPC + A2W: the projected razor = 0.9777 − 0.7978 − ½·c̄·(3/8)·2.383 = **+0.0177** (93% of
+the ideal margin). Tally: **58 catches, 0 proofs on wrong statements.**
