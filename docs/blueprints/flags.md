@@ -5523,3 +5523,18 @@ consuming char_LS_dvd); `shellBoundDvd` + `shellBoundDvd_one` (δ=1 bridge — N
 Q²/1); **`energy_shell_dvd`** — the AlphaSide FLAG's target shape verbatim. Eight private
 helpers reproved byte-identical across the module boundary (private mangling ⟹ no collision).
 NEXT: PE3c-3 (the δ-dyadic engine); the PE3c-4 gate is running.
+
+## 2026-07-13 THE PE3c-4 GATE — PASS_WITH_CORRECTIONS (the assembly closes at C0 = A+5) + CATCH #47
+
+The fibered four-term bookkeeping verified end-to-end: the g-independent tail picks up Σφ(g) = e,
+cancelling the target's 1/e, leaving 104·(e/φe)·L^{A+3−C0} — closure iff **C0 > A+3 STRICTLY**.
+**CATCH #47:** my recon adjudication "raise C0 ≳ 2(A+1)" was WRONG at A = 1 (2(A+1) = A+3 exactly
+— the ratio diverges as log L). FROZEN: **C0 = A+5** (elementary e/φe ≤ C·log e) or A+4 (sharp
+loglog); **hlev must be supplied at the MATCHING exponent c = C0** (the level-deficit and D0
+exponents are COUPLED). Main/cross terms close via hlev (D·L^{C0} ≤ √(XM)); the dilated floor
+X/e ≥ x^{ε′} is uniform (no degenerate e-band); the small-conductor side is C0-uniform (SW
+supplies every log power); hscale stays satisfiable. Tally: 47 catches, 0 wrong proofs.
+**PREREQUISITE HELPERS (mathlib lacks; dispatched as PE3c-4a):** (i) `e/φe ≤ C·log e`-form
+(elementary: Σ_{p∣e} 1/(p−1) ≤ H_{ω(e)}, k-th prime ≥ k+1); (ii) `φ(lcm(e,f))·φ(gcd(e,f)) =
+φe·φf` (from Nat.totient_gcd_mul_totient_mul); (iii) `d(e) ≤ 2√e` (pair divisors with e/d);
+(iv) gcd = Σ_{g ∣ gcd} φ(g) EXISTS (Nat.sum_totient). PE3c-4 dispatches when PE3c-3 + 4a land.
