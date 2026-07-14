@@ -48,6 +48,7 @@ import Salt.Chen.WindowErrFold
 import Salt.Chen.WindowSmallChi
 import Salt.Chen.PieceDecomp
 import Salt.Chen.BandSplit
+import Salt.Chen.BandClose
 import Salt.Chen.ErrFold
 import Salt.Chen.PerEEngine
 import Salt.Chen.PerEEngine2
@@ -318,6 +319,9 @@ open Salt.Tactic in
   Salt.Chen.tripleSum_le_cbar_final
   Salt.Chen.apDiscBilinCutoff_orthogonality Salt.Chen.norm_apDiscBilinCutoff_le
   Salt.Chen.cutoffTwist_energy_le Salt.Chen.energy_shell_cutoff
+  Salt.Chen.symCard_two_mul Salt.Chen.bandCard_split
+  Salt.Chen.bandDisc_eq_three Salt.Chen.bandDisc_le_three_pieces
+  Salt.Chen.Plo_discharge
   Salt.Chen.sum_symm_ordered_split Salt.Chen.bandDiagCount_le
   Salt.Chen.blockHonestDisc_eq_sum_pieces Salt.Chen.abs_blockHonestDisc_le_sum_pieces
   Salt.Chen.card_pieces Salt.Chen.hBlock_of_window_prices

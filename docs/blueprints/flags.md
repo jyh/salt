@@ -6183,3 +6183,16 @@ terminal theorem: the windowed bilinear BV closed at ONLY structural/operating-p
 (the full list documented in-file for the H-glue; Kerr = 2^{A+5}Kβ′ + 15360). The catch-#54
 wave: WBV1–7 ALL LANDED; the ONLY remaining piece is BND2 (the three-piece band close, in
 flight) — then the hHD/hBVblocks/mainA3 chain is complete modulo thresholds.
+
+## 2026-07-14 BND2 Opus done (floor A + Plo_discharge composed; the identifications = BND3)
+
+`Salt/Chen/BandClose.lean` (492 lines, 24 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. The m-threshold VERIFIED (automatic on the symmetric region — p₁p₂ ≥ z(N+1) ≥ zN+1;
+genuinely cuts on the low region — carried explicitly); the ½-split at the landed identity
+(cwin symmetric); `bandDisc_eq_three` + the per-d triangle; **`Plo_discharge`** — the band slot
+bounded by ½·Psym + Plow + the explicit diagonal, #check-chained through
+hBVblocks_of_generalBV → general_BV_cutoff_final. HONEST RESIDUALS (= BND3): (i) the two
+rectangle → apDiscBilinCutoff identifications (blockAlphaSym/blockAlphaLow + hord-FREE pair
+bijections — the ordering from p₂ ≤ N < p₃ (low) / the symmetry (sym); ~WindowSW-scale);
+(ii) the diagonal's analytic tightening (the finset bound landed; the ν-summability ×
+x^{2/3}-average is a downstream crumb for SW4's budget row).
