@@ -5999,3 +5999,17 @@ poly-beats-log threshold in the `∃ x₀`).
 **FLOOR REACHED: B** (piece 1 + piece 2, both sorry-free/axiom-clean).  FULL blocked by the above
 `pairSet` gap.  Recommendation: dispatch the `pairSet` tightening as a Fable design node, then AB3's
 assembly (with the p₁-dependent inner window) is a direct compose of the pieces here.
+
+## 2026-07-13 AB4 Opus done FULL — ★ THE COUNT LINE IS CLOSED (catch #55 fixed) ★
+
+`Salt/Chen/CountFinal.lean` (618 lines, 17 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. `pairSet′` at the sharp BJS-(185) cutoff (p₁p₂² ≤ x); CNT2's three lemmas
+re-proven (per_pair via subset-transfer, no proof copy); the p₁-dependent fibering + bridges;
+**the (187) TAIL VANISHES IDENTICALLY** (the sharp window IS Ifun's upper limit — replaced by
+one boundary prime at O(x^{−1/6}/log x) per fibre); `weightedPairSum′_le_cbar` (the analytic
+heart: ≤ c̄/log x + explicit corrections; numeric pre-flight: the sharp inner integral = the
+landed cbar to 17 digits); **`tripleSum_le_cbar_final`** — the c̄/2 leading constant MANIFEST
+(vs 0.554 at the loose cutoff), parametrized-hypothesis form (the landed triple_count_le
+convention; SW4 supplies the operating point and folds the explicit lower-order Rem).
+THE COUNT LINE (CNT2 → CBL → AB1 → AB2 → AB3 → AB4) IS COMPLETE: the catch-#53-corrected,
+catch-#55-sharpened weighted count is a kernel theorem at the honest constant.
