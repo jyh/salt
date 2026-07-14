@@ -12,6 +12,7 @@ import Salt.BV.PolyaVinogradov
 import Salt.BV.Completion
 import Salt.BV.TypeI
 import Salt.BV.BilinearLS
+import Salt.BV.BilinearLSDvd
 import Salt.BV.TypeII
 import Salt.BV.TypeIIClose
 import Salt.BV.Dispersion

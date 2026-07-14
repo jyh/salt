@@ -5512,3 +5512,14 @@ Salt.Chen.All (cross-namespace audit names without import; caught within one min
 force-pushed green at c4afb2b). Root cause: `lake build | tail` masks the exit code — the
 ceremony's build check now uses the explicit exit-code form. The kernel discipline held (nothing
 consumed the broken aggregate); the process hole is closed.
+
+## 2026-07-13 PE3c-2 Opus done FULL first attempt (the δ-shell reaches bilinPrimEnergy)
+
+`Salt/BV/BilinearLSDvd.lean` + `Salt/Chen/EnergyShellDvd.lean` (wired by Fable into both
+aggregates). Sorry-free, axiom-clean, zero warnings, FIRST BUILD. `cs_over_finset_chi` (the
+generalized CS core — supersedes the private cs_over_q_chi; both shells can share it in a future
+de-privating sweep); **`bilinear_LS_shell_dvd`** (the exact δ-copy, √(Q²/δ + 13·)-factors,
+consuming char_LS_dvd); `shellBoundDvd` + `shellBoundDvd_one` (δ=1 bridge — NOT defeq, carries
+Q²/1); **`energy_shell_dvd`** — the AlphaSide FLAG's target shape verbatim. Eight private
+helpers reproved byte-identical across the module boundary (private mangling ⟹ no collision).
+NEXT: PE3c-3 (the δ-dyadic engine); the PE3c-4 gate is running.
