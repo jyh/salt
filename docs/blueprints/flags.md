@@ -5549,3 +5549,23 @@ predicted shape), `block_energy_le_dvd`, `dyadic_large_reduction_dvd`, `geom_she
 examples. The executor flagged the tail's δ-independence to PE3c-4 — consistent with the gate's
 C0-raising resolution, which operates on precisely that term. PE3c-4 dispatches when PE3c-4a
 (helpers) lands.
+
+## 2026-07-13 SW3b Opus done (floor A FULL + the hHD reduction) + CATCH #48
+
+`Salt/Chen/SwitchDyadic.lean` (322 lines, 7 headline decls; wired by Fable). Sorry-free,
+axiom-clean, zero warnings. LANDED: the (K+1)² box partition of the switched counts
+(`switchHonestDisc_eq_sum_box`), the window-disjoint vanishing (`boxHonestDisc_zero_of_...`),
+the surviving-box triangle bound, and **`hHD_of_generalBV_inputs`** — hHD reduced to per-box
+honest-disc sums (compile-verified to plug hBVswitch_of_generalBV's slot at bound = Q·Dlev).
+
+**CATCH #48 (executor-surfaced, TWO briefing corrections):** (i) equal-dyadic boxes span factor
+4 in the product vs the factor-2 window — NO wholly-interior box exists; my interior/boundary
+split was wrong as stated. UPSIDE: window-touching pins the product to the factor-8 band ⟹ only
+**O(log x)** boxes survive (better than my O(log²x)); the numeric plan closes at A ≥ 11 vs the
+S4 budget. (ii) tripleSet's `p₂ ≤ p₃` ordering couples the sides — NOT capturable by a product
+coefficient α(m)·β(p); needs a same-block DIAGONAL correction. The executor correctly reduced to
+the per-box interface rather than forcing a misleading apDiscBilin equality. Tally: 48 catches,
+0 wrong proofs.
+**SW3c (the residual, next):** per-box pricing — the sub-dyadic window-edge split, the p₂≤p₃
+same-block diagonal correction (crude + 1/φd savings), then general_BV_final′ per box →
+the RBox/hSum inputs of hHD_of_generalBV_inputs.
