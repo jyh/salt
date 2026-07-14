@@ -31,6 +31,7 @@ import Salt.Chen.EnergyClose
 import Salt.Chen.EnergyShellDvd
 import Salt.Chen.DyadicDvd
 import Salt.Chen.TotientHelpers
+import Salt.Chen.DivisorBound
 import Salt.Chen.MertensPNT
 import Salt.Chen.WRatioSharp
 import Salt.Chen.WeightedCount
@@ -309,6 +310,8 @@ open Salt.Tactic in
   Salt.Chen.W_ratio_upper Salt.Chen.W_ratio_lower
   Salt.Chen.sum_inv_prime_window_ge Salt.Chen.twinWindow_mass_eq
   Salt.Chen.lambda_mass_lower Salt.Chen.lambda_mass_upper
+  Salt.Chen.card_divisors_subpoly Salt.Chen.card_divisors_cube_root
+  Salt.Chen.hdiv_discharge
   Salt.Chen.totient_ratio_le_log Salt.Chen.totient_lcm_mul_totient_gcd
   Salt.Chen.card_divisors_le_two_sqrt Salt.Chen.prod_ratio_le_card_succ
   Salt.Chen.block_energy_le_dvd Salt.Chen.dyadic_large_reduction_dvd

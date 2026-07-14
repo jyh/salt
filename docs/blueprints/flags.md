@@ -5934,3 +5934,14 @@ log z ≥ 38) and the composed **`W_ratio_upper/lower`** (+ literal div forms) �
 main term parametric (3/8 at the operating point), the hwin window-identification discharged by
 the H-glue from the concrete moduli. The Mertens layer (M1/M2/M3) is now COMPLETE; M4a restates
 against Amendment 4's 3.99928 point at the H-glue.
+
+## 2026-07-13 DIV1 Opus done FULL (d(e) ≤ C₃·e^{1/3}; hdiv discharged verbatim)
+
+`Salt/Chen/DivisorBound.lean` (4 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. `card_divisors_pow_le` (the multiplicative core: per-prime split at 2^m);
+`card_divisors_subpoly` (d(n) ≤ C_m·n^{1/m}, C_m = (m/log 2)^{2^m} explicit);
+`card_divisors_cube_root` (m = 3: C₃ ≈ 1.23e5); **`hdiv_discharge`** — AlphaClose's hdiv
+VERBATIM under honest operating relations (D ≤ √x, √x ≤ 4X, XM ≤ x²; the ε = 1/3 < 1/2
+exponent is exactly what closes catch #52's cross-M for ALL A; the log-power absorbed via
+isLittleO_log_rpow_rpow_atTop). The keystone-2 threshold set is now: hlev/hD0lo/hMlev
+(operating-point arithmetic at the H-glue) + hdiv ✅ DISCHARGED (modulo the relations).
