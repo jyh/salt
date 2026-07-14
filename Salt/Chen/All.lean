@@ -89,6 +89,7 @@ import Salt.Chen.Headline
 import Salt.Chen.SharpH
 import Salt.Chen.SharpH2
 import Salt.Chen.SharpF
+import Salt.Chen.H4Cond
 import Salt.Chen.SharpClose
 import Salt.Chen.FseqAntitone
 import Salt.Chen.TwinSharp
@@ -301,7 +302,7 @@ open Salt.Tactic in
   Salt.Chen.hh_sharp_ge2 Salt.Chen.upset_mass_window_le
   Salt.Chen.hh_sharp_flat Salt.Chen.hh_sharp_of_window
   Salt.Chen.abel_pushforward Salt.Chen.hf_cell_ge2
-  Salt.Chen.hBJS_flat_lb Salt.Chen.vlow_le_of_guard
+  Salt.Chen.hBJS_flat_lb Salt.Chen.vlow_le_of_guard Salt.Chen.h4_cond_of_base
   Salt.Chen.hf_sharp_flat Salt.Chen.hf_sharp_of_window
   Salt.Chen.stepHyp_sharpB_pointwise Salt.Chen.stepHypWPC_sharpB
   Salt.Chen.bjs_theorem6_sharpB_final_upper Salt.Chen.bjs_theorem6_sharpB_final_lower
@@ -328,6 +329,9 @@ open Salt.Tactic in
   Salt.Chen.medium_survivor_price Salt.Chen.hHD_of_box_disc
   Salt.Chen.Plo_sym_of_box_disc Salt.Chen.Plo_low_of_box_disc
   Salt.Chen.hNum_at_op
+  Salt.Chen.chen_of_hypotheses_W Salt.Chen.chen_positivity_W Salt.Chen.chen_survivor_W
+  Salt.Chen.factors_ge_z_of_sift_W Salt.Chen.razor_reduction_W Salt.Chen.stripPrimeSum_le_W
+  Salt.Chen.aCount_ge_one_of_W Salt.Chen.residue_witness
   Salt.Chen.catch65_slot_torn Salt.Chen.catch65_no_H_at_odd_P
   Salt.Chen.catch64_op_boundary_infeasible Salt.Chen.catch64_D0_window_empty
   Salt.Chen.hyx_at_op Salt.Chen.sievePrimorial_dvd Salt.Chen.hDsq_row

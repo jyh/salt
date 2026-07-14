@@ -69,6 +69,39 @@ Everything else — the pointwise weight inequality, the four-way expansion, the
 unsifted-A₃ domination — is discharged in full here.  No `sorry`, no `native_decide`, no new axioms;
 `hPerE`, `hτrec`, `htau`, `h4`, `hBV`, `hcoef`, `hBVagg` are the parametric debts owned by the
 consumed nodes (C2a/C2b/C3d) and never re-opened here.
+
+## H-AMENDMENT 2 — the W-trick family (`_W`, 2026-07-14)
+
+★ CATCH #65 (kernel record: `Salt/Chen/Headline.lean`) tore the original H-package at the
+`hPfull`/`hA1` seam: no modulus `P` can carry every prime `< z` (the razor's need) AND the A₁
+suppliers' structural constraints (`ν(2) = 1/φ(2) = 1` excludes `2` from every sieve modulus; the
+Rosser guard excludes `[3, w₀)`).  The ratified repair (`docs/blueprints/chen.md`, H-AMENDMENT 2,
+D1–D8 with gate corrections C1–C7) restricts every razor carrier to a residue class
+`n ≡ a (mod Q)`, so small primes are excluded from `n+2` by AP-MEMBERSHIP
+(`gcd(n+2, Q) = gcd(a+2, Q) = 1`), not by sieving.  Parts H–L below add the W-family alongside
+the original (D1):
+
+* `keepW Q a P n` — the W-keep indicator; the five W-carriers (`A1primeSumW` … `p2PrimeSumW`)
+  mirror the landed five at `keepW`;
+* `factors_ge_z_of_sift_W` — the split bridge: `hPfull` splits into `hQfull` (every prime `< w'`
+  divides `Q`) + `hPfull'` (every prime in `[w', z)` divides `P`) + `hQa2` (`Coprime Q (a+2)`);
+  no gap at the `w'` boundary (gate surface 1);
+* the `_W` mirrors `razor_reduction_W`/`stripPrimeSum_le_W`/`aCount_ge_one_of_W`/
+  `chen_positivity_W`/`chen_survivor_W`, and the amended headline consumer
+  `chen_of_hypotheses_W` — H_W gains `Q a w'` in the ∃ with the three split hypotheses replacing
+  `hPfull`;
+* `residue_witness` — the D1 residue `a = Q − 1` has `gcd(Q, a+2) = gcd(Q, Q+1) = 1` for free.
+
+Supplier expectations (post-gate, C1-corrected): the `hA1`/`hA2`/`hA3` slots of the W-family are
+re-supplied at the AP-restricted instances by the W-supplier nodes (A1W/A2W′/A3W — support
+filtered by `Q ∣ n+1` at `a = Q − 1`; A2W′ is a per-prime instance CONSTRUCTION per C5), NOT
+majorized by the unrestricted carriers (D2: the ledger normalizes by the AP-scale `X_W/φ(Q)`).
+Their `h4` slot is CONDITIONED per catch #66 (node H4C); `h4` lives in the suppliers, never in
+this file.  At instantiation (GLU-2W): `w' = w0N ε ≥ 3`, `Q = Qval ε`, `a = Q − 1`
+(`Salt/Chen/Hyp4.lean`).
+
+The OLD `keepR` family below stays intact and load-bearing for the record: catch #65's kernel
+theorems (`catch65_slot_torn`/`catch65_no_H_at_odd_P`, Headline.lean) are stated against it.
 -/
 
 open Finset ArithmeticFunction
@@ -310,7 +343,10 @@ the slot takes the Λ-carrier itself; the previous `log x · tripleSum` shape wa
 * `hA1 : mainA1 ≤ A1primeSum x P` — A₁ lower bound (C2a `twin_A1_lower` + prime-power strip);
 * `hA2 : omegaPrimeSum x P y ≤ mainA2` — A₂ upper bound (C2b `twin_A2_upper`);
 * `hA3 : triplePrimeSum x P y ≤ mainA3` — the switch bound (the SW-A₃ switched-sequence sieve);
-* `hledger : 0 < mainA1 − ½·mainA2 − ½·mainA3 − ½·(log x · x/(z−1))` — the C0 ledger closure. -/
+* `hledger : 0 < mainA1 − ½·mainA2 − ½·mainA3 − ½·(log x · x/(z−1))` — the C0 ledger closure.
+
+⚠ CATCH #65 (2026-07-14): torn at hPfull/hA1 — kernel record in Headline.lean; superseded by
+`chen_positivity_W` (the `_W` family, H-AMENDMENT 2). -/
 theorem chen_positivity {x z P y : ℕ} {mainA1 mainA2 mainA3 : ℝ}
     (hx : 2 ≤ x) (hz : 2 ≤ z) (hyx : x < (y + 1) ^ 3)
     (hPfull : ∀ q, q.Prime → q < z → q ∣ P)
@@ -374,7 +410,10 @@ infinitely many primes `p` with `p + 2` a P₂ (prime, or a product of two prime
 This is Chen's theorem in the honest current form: the analytic values (`mainA1`/`mainA2`/`mainA3`)
 and the ledger closure are threaded through `H`, which packages the outputs of C2a/C2b/C3d at the
 operating point.  The infinitude is genuine (`Set.infinite_of_forall_exists_gt`): each operating
-point yields a prime survivor `p ≥ x/2 ≥ X`, so `X → ∞` gives infinitely many. -/
+point yields a prime survivor `p ≥ x/2 ≥ X`, so `X → ∞` gives infinitely many.
+
+⚠ CATCH #65 (2026-07-14): torn at hPfull/hA1 — kernel record in Headline.lean; superseded by
+`chen_of_hypotheses_W` (the `_W` family, H-AMENDMENT 2). -/
 theorem chen_of_hypotheses
     (H : ∀ X : ℕ, ∃ (x z P y : ℕ) (mainA1 mainA2 mainA3 : ℝ),
         X ≤ x / 2 ∧ 2 ≤ x ∧ 2 ≤ z ∧ x < (y + 1) ^ 3 ∧
@@ -391,5 +430,313 @@ theorem chen_of_hypotheses
   obtain ⟨n, hlo, hprime, hIsP2⟩ := chen_survivor hx hz hyx hPfull hA1 hA2 hA3 hledger
   refine ⟨n, ⟨hprime, hIsP2⟩, ?_⟩
   omega
+
+/-! ## Part H — the W-trick carriers (H-AMENDMENT 2, D1)
+
+The W-keep indicator adds the residue-class membership `n ≡ a (mod Q)` to `keepR`'s conjunction;
+the five carriers mirror Parts A's five at `keepW`.  The AP-membership is what pays the small-prime
+range `[2, w')` in the split bridge (Part I): a kept point has `gcd(n+2, Q) = gcd(a+2, Q) = 1`. -/
+
+/-- The W-keep indicator `1_{n prime ∧ (n+2, P) = 1 ∧ n ≡ a (mod Q)}` (real-valued).  The residue
+membership replaces small-prime sieving: together with `hQfull` and `hQa2` it forces every prime
+factor `< w'` of `n+2` out (Part I), while the coprimality cut handles `[w', z)` via `hPfull'`. -/
+noncomputable def keepW (Q a P n : ℕ) : ℝ :=
+  if Nat.Prime n ∧ Nat.Coprime P (n + 2) ∧ n % Q = a % Q then 1 else 0
+
+lemma keepW_nonneg (Q a P n : ℕ) : 0 ≤ keepW Q a P n := by unfold keepW; split_ifs <;> norm_num
+
+lemma keepW_le_one (Q a P n : ℕ) : keepW Q a P n ≤ 1 := by unfold keepW; split_ifs <;> norm_num
+
+lemma keepW_eq_one_of_ne_zero {Q a P n : ℕ} (h : keepW Q a P n ≠ 0) : keepW Q a P n = 1 := by
+  unfold keepW at h ⊢
+  by_cases hh : Nat.Prime n ∧ Nat.Coprime P (n + 2) ∧ n % Q = a % Q
+  · rw [if_pos hh]
+  · rw [if_neg hh] at h; exact absurd rfl h
+
+lemma keepW_eq_one_iff {Q a P n : ℕ} :
+    keepW Q a P n = 1 ↔ Nat.Prime n ∧ Nat.Coprime P (n + 2) ∧ n % Q = a % Q := by
+  unfold keepW
+  by_cases hh : Nat.Prime n ∧ Nat.Coprime P (n + 2) ∧ n % Q = a % Q
+  · rw [if_pos hh]; exact ⟨fun _ => hh, fun _ => rfl⟩
+  · rw [if_neg hh]; exact ⟨fun h => absurd h (by norm_num), fun h => absurd h hh⟩
+
+/-- The W-restricted A₁ carrier: the prime-restricted, sifted, AP-restricted window `Λ`-mass. -/
+noncomputable def A1primeSumW (Q a x P : ℕ) : ℝ :=
+  ∑ n ∈ twinWindow x, vonMangoldt n * keepW Q a P n
+
+/-- The W-restricted aggregated A₂ carrier `Σ_{n≡a(Q)} Λ(n)·1_{keepW}·ω_{≤y}(n+2)`. -/
+noncomputable def omegaPrimeSumW (Q a x P y : ℕ) : ℝ :=
+  ∑ n ∈ twinWindow x, vonMangoldt n * keepW Q a P n * (omegaLe y (n + 2) : ℝ)
+
+/-- The W-restricted A₃ switch carrier `Σ_{n≡a(Q)} Λ(n)·1_{keepW}·1_T(n+2)`. -/
+noncomputable def triplePrimeSumW (Q a x P y : ℕ) : ℝ :=
+  ∑ n ∈ twinWindow x, vonMangoldt n * keepW Q a P n * tripleT y (n + 2)
+
+/-- The W-restricted prime-power strip carrier `Σ_{n≡a(Q)} Λ(n)·1_{keepW}·S(n+2)`. -/
+noncomputable def stripPrimeSumW (Q a x P y : ℕ) : ℝ :=
+  ∑ n ∈ twinWindow x, vonMangoldt n * keepW Q a P n * (sqStrip y (n + 2) : ℝ)
+
+/-- The W-restricted P₂ carrier — the quantity the W-razor lower-bounds. -/
+noncomputable def p2PrimeSumW (Q a x z P : ℕ) : ℝ :=
+  ∑ n ∈ twinWindow x, vonMangoldt n * keepW Q a P n * p2Ind z (n + 2)
+
+/-! ## Part I — the split sifting bridge (D1; gate surface 1: no `w'`-boundary gap) -/
+
+/-- **The split sifting bridge.**  `hPfull` splits at `w'`: if every prime `< w'` divides `Q`
+(`hQfull`), every prime in `[w', z)` divides `P` (`hPfull'`), and `(Q, a+2) = 1` (`hQa2`), then at
+a kept point — `(P, n+2) = 1` and `n ≡ a (mod Q)` — every prime factor of `n+2` is `≥ z`.
+
+For a prime `p ∣ n+2` with `p < z`: if `p < w'` then `p ∣ Q`, and the mod-`Q` transfer
+`n % Q = a % Q ⟹ (n+2) % Q = (a+2) % Q` puts `p ∣ a+2` (via `Nat.dvd_mod_iff` twice), so
+`p ∣ gcd(Q, a+2) = 1` — impossible; if `w' ≤ p < z` then `p ∣ P` against `(P, n+2) = 1` as in
+`factors_ge_z_of_sift`.  Every `p < z` falls in one of the two ranges — no boundary gap; in
+particular `p = 2` is excluded by `hQfull` at the instantiation `w' = w0N ε ≥ 3`. -/
+theorem factors_ge_z_of_sift_W {Q a P w' z n : ℕ}
+    (hQfull : ∀ q, q.Prime → q < w' → q ∣ Q)
+    (hPfull' : ∀ q, q.Prime → w' ≤ q → q < z → q ∣ P)
+    (hQa2 : Nat.Coprime Q (a + 2))
+    (hcop : Nat.Coprime P (n + 2)) (hmod : n % Q = a % Q) :
+    ∀ p ∈ (n + 2).primeFactors, z ≤ p := by
+  intro p hp
+  have hpp : p.Prime := Nat.prime_of_mem_primeFactors hp
+  have hpd : p ∣ (n + 2) := Nat.dvd_of_mem_primeFactors hp
+  by_contra hlt
+  rw [not_le] at hlt
+  by_cases hw : p < w'
+  · -- small range [2, w'): p ∣ Q, and the mod-Q transfer puts p inside gcd (Q, a+2) = 1
+    have hpQ : p ∣ Q := hQfull p hpp hw
+    have hmod2 : (n + 2) % Q = (a + 2) % Q := by
+      conv_lhs => rw [Nat.add_mod, hmod, ← Nat.add_mod]
+    have hpn2 : p ∣ (n + 2) % Q := (Nat.dvd_mod_iff hpQ).mpr hpd
+    rw [hmod2] at hpn2
+    have hpa2 : p ∣ (a + 2) := (Nat.dvd_mod_iff hpQ).mp hpn2
+    have hdvd1 : p ∣ Nat.gcd Q (a + 2) := Nat.dvd_gcd hpQ hpa2
+    rw [Nat.Coprime] at hQa2
+    rw [hQa2] at hdvd1
+    exact hpp.ne_one (Nat.dvd_one.mp hdvd1)
+  · -- sieve range [w', z): p ∣ P against (P, n+2) = 1
+    rw [not_lt] at hw
+    have hpP : p ∣ P := hPfull' p hpp hw hlt
+    have hdvd1 : p ∣ Nat.gcd P (n + 2) := Nat.dvd_gcd hpP hpd
+    rw [Nat.Coprime] at hcop
+    rw [hcop] at hdvd1
+    exact hpp.ne_one (Nat.dvd_one.mp hdvd1)
+
+/-! ## Part J — the W-mirrors of the razor chain
+
+Near-verbatim mirrors of Parts C/D/E: the landed proofs consume `hPfull` ONLY through
+`factors_ge_z_of_sift` at kept points, so swapping in the split bridge is the whole change. -/
+
+/-- **The W-razor reduction.**  `razor_reduction` at `keepW`, with the split bridge in place of
+`hPfull`: Tao's Lemma 11 dominates Chen's weight by `1_{P₂}` at every AP-restricted kept point. -/
+theorem razor_reduction_W {x z P y Q a w' : ℕ} (hx : 2 ≤ x) (hyx : x < (y + 1) ^ 3)
+    (hQfull : ∀ q, q.Prime → q < w' → q ∣ Q)
+    (hPfull' : ∀ q, q.Prime → w' ≤ q → q < z → q ∣ P)
+    (hQa2 : Nat.Coprime Q (a + 2)) :
+    A1primeSumW Q a x P - omegaPrimeSumW Q a x P y / 2 - triplePrimeSumW Q a x P y / 2
+      - stripPrimeSumW Q a x P y / 2 ≤ p2PrimeSumW Q a x z P := by
+  -- pointwise: `Λ·keepW·chenWeight ≤ Λ·keepW·p2Ind`
+  have hpt : ∀ n ∈ twinWindow x,
+      vonMangoldt n * keepW Q a P n * chenWeight y (n + 2)
+        ≤ vonMangoldt n * keepW Q a P n * p2Ind z (n + 2) := by
+    intro n hn
+    by_cases hk : Nat.Prime n ∧ Nat.Coprime P (n + 2) ∧ n % Q = a % Q
+    · have hcop := factors_ge_z_of_sift_W hQfull hPfull' hQa2 hk.2.1 hk.2.2
+      rw [twinWindow, Finset.mem_Icc] at hn
+      have hn2 : 2 ≤ n + 2 := by omega
+      have hub : n + 2 ≤ x := by omega
+      have hmy : n + 2 < (y + 1) ^ 3 := lt_of_le_of_lt hub hyx
+      have hstruct : ¬ IsP2 z (n + 2) →
+          2 ≤ (omegaLe y (n + 2) : ℝ) + tripleT y (n + 2) + (sqStrip y (n + 2) : ℝ) :=
+        fun hnp2 => chen_weight_struct hn2 hcop hmy hnp2
+      have hle := chen_weight_le_indicator hstruct
+      exact mul_le_mul_of_nonneg_left hle
+        (mul_nonneg vonMangoldt_nonneg (keepW_nonneg Q a P n))
+    · have hkeep0 : keepW Q a P n = 0 := by unfold keepW; rw [if_neg hk]
+      simp [hkeep0]
+  have hsum := Finset.sum_le_sum hpt
+  -- the RHS sum is `p2PrimeSumW`
+  have hRHS : ∑ n ∈ twinWindow x, vonMangoldt n * keepW Q a P n * p2Ind z (n + 2)
+      = p2PrimeSumW Q a x z P := rfl
+  -- expand the LHS into the four carriers
+  have hterm : ∀ n, vonMangoldt n * keepW Q a P n * chenWeight y (n + 2)
+      = vonMangoldt n * keepW Q a P n
+        - vonMangoldt n * keepW Q a P n * (omegaLe y (n + 2) : ℝ) / 2
+        - vonMangoldt n * keepW Q a P n * tripleT y (n + 2) / 2
+        - vonMangoldt n * keepW Q a P n * (sqStrip y (n + 2) : ℝ) / 2 := by
+    intro n; rw [chenWeight]; ring
+  rw [Finset.sum_congr rfl (fun n _ => hterm n)] at hsum
+  rw [Finset.sum_sub_distrib, Finset.sum_sub_distrib, Finset.sum_sub_distrib,
+    ← Finset.sum_div, ← Finset.sum_div, ← Finset.sum_div] at hsum
+  rw [hRHS] at hsum
+  exact hsum
+
+/-- **The W prime-power strip bound.**  `stripPrimeSum_le` at `keepW`: the AP-restricted strip
+carrier is dominated termwise by the same C4b sum, via the split bridge at kept points. -/
+theorem stripPrimeSum_le_W {x z P y Q a w' : ℕ} (hx : 2 ≤ x) (hz : 2 ≤ z)
+    (hQfull : ∀ q, q.Prime → q < w' → q ∣ Q)
+    (hPfull' : ∀ q, q.Prime → w' ≤ q → q < z → q ∣ P)
+    (hQa2 : Nat.Coprime Q (a + 2)) :
+    stripPrimeSumW Q a x P y ≤ Real.log x * (x : ℝ) / ((z : ℝ) - 1) := by
+  rw [stripPrimeSumW]
+  refine le_trans ?_ (stripSum_le (y := y) hx hz)
+  apply Finset.sum_le_sum
+  intro n _
+  by_cases hk : Nat.Prime n ∧ Nat.Coprime P (n + 2) ∧ n % Q = a % Q
+  · have hkeep1 : keepW Q a P n = 1 := by unfold keepW; rw [if_pos hk]
+    have hcop := factors_ge_z_of_sift_W hQfull hPfull' hQa2 hk.2.1 hk.2.2
+    have hn0 : n + 2 ≠ 0 := by omega
+    have heq := sqStrip_eq_sqStripZ (z := z) (y := y) hn0 hcop
+    rw [hkeep1, mul_one, heq]
+  · have hkeep0 : keepW Q a P n = 0 := by unfold keepW; rw [if_neg hk]
+    rw [hkeep0]
+    simp only [mul_zero, zero_mul]
+    exact mul_nonneg vonMangoldt_nonneg (by positivity)
+
+/-- **The W triple-membership bound.**  `aCount_ge_one_of` at `keepW`: a kept, AP-restricted
+window point matching Chen's triple pattern is an admissible triple, hence `aCount ≥ 1`.  The
+admissibility `z ≤ p₁` comes from the split bridge, not from any sieving of the switched
+sequence.  (Mirrored for the A3W supplier node; the assembly's own A₃ slot takes the Λ-carrier
+`triplePrimeSumW ≤ mainA3` directly, per H-AMENDMENT 1.) -/
+theorem aCount_ge_one_of_W {x z y P Q a w' n : ℕ} (hx : 2 ≤ x) (hn : n ∈ twinWindow x)
+    (hk : Nat.Prime n ∧ Nat.Coprime P (n + 2) ∧ n % Q = a % Q)
+    (hQfull : ∀ q, q.Prime → q < w' → q ∣ Q)
+    (hPfull' : ∀ q, q.Prime → w' ≤ q → q < z → q ∣ P)
+    (hQa2 : Nat.Coprime Q (a + 2))
+    (htp : TripleP y (n + 2)) : (1 : ℝ) ≤ aCount x z y n := by
+  obtain ⟨p₁, p₂, p₃, hp1, hp2, hp3, hprod, hp1y, hyp2, hp23⟩ := htp
+  have hn2pos : 0 < n + 2 := by omega
+  -- p₁ ∣ n+2, hence z ≤ p₁ by the split sifting bridge
+  have hp1dvd : p₁ ∣ (n + 2) := ⟨p₂ * p₃, by rw [hprod]; ring⟩
+  have hp2dvd : p₂ ∣ (n + 2) := ⟨p₁ * p₃, by rw [hprod]; ring⟩
+  have hp3dvd : p₃ ∣ (n + 2) := ⟨p₁ * p₂, by rw [hprod]; ring⟩
+  have hp1mem : p₁ ∈ (n + 2).primeFactors := Nat.mem_primeFactors.mpr ⟨hp1, hp1dvd, by omega⟩
+  have hzp1 : z ≤ p₁ := factors_ge_z_of_sift_W hQfull hPfull' hQa2 hk.2.1 hk.2.2 p₁ hp1mem
+  -- window bounds
+  rw [twinWindow, Finset.mem_Icc] at hn
+  have hlo : x / 2 + 2 ≤ n + 2 := by omega
+  have hhi : n + 2 ≤ x := by omega
+  have hp1x : p₁ ≤ x := le_trans (Nat.le_of_dvd hn2pos hp1dvd) hhi
+  have hp2x : p₂ ≤ x := le_trans (Nat.le_of_dvd hn2pos hp2dvd) hhi
+  have hp3x : p₃ ≤ x := le_trans (Nat.le_of_dvd hn2pos hp3dvd) hhi
+  -- membership in the admissible-triple set
+  have ht : (p₁, p₂, p₃) ∈ tripleSet x z y := by
+    rw [tripleSet, Finset.mem_filter]
+    refine ⟨?_, hzp1, hp1y, hyp2, hp23, hp1, hp2, hp3, ?_, ?_⟩
+    · rw [Finset.mem_product, Finset.mem_product]
+      refine ⟨?_, ?_, ?_⟩ <;> rw [Finset.mem_Icc]
+      · exact ⟨hp1.one_lt.le, hp1x⟩
+      · exact ⟨hp2.one_lt.le, hp2x⟩
+      · exact ⟨hp3.one_lt.le, hp3x⟩
+    · show x / 2 + 2 ≤ prod3 (p₁, p₂, p₃)
+      rw [prod3]; rw [← hprod]; exact hlo
+    · show prod3 (p₁, p₂, p₃) ≤ x
+      rw [prod3]; rw [← hprod]; exact hhi
+  have hmem : (p₁, p₂, p₃) ∈ (tripleSet x z y).filter (fun t => prod3 t = n + 2) := by
+    rw [Finset.mem_filter]
+    exact ⟨ht, by show prod3 (p₁, p₂, p₃) = n + 2; rw [prod3, ← hprod]⟩
+  rw [aCount]
+  have hcard : 0 < ((tripleSet x z y).filter (fun t => prod3 t = n + 2)).card :=
+    Finset.card_pos.mpr ⟨_, hmem⟩
+  exact_mod_cast hcard
+
+/-! ## Part K — the W-positivity, the W-survivor, and the amended headline consumer -/
+
+/-- **`chen_positivity_W` — the finite-`x` core at the W-carriers.**  `chen_positivity` with the
+split bridge: given the three analytic main-term bounds at the AP-RESTRICTED instances (D2: they
+must be re-supplied there, not majorized — the ledger normalizes by the AP-scale `X_W/φ(Q)`) and
+the identical ledger conjunct, the W-restricted P₂-carrier is strictly positive. -/
+theorem chen_positivity_W {x z P y Q a w' : ℕ} {mainA1 mainA2 mainA3 : ℝ}
+    (hx : 2 ≤ x) (hz : 2 ≤ z) (hyx : x < (y + 1) ^ 3)
+    (hQfull : ∀ q, q.Prime → q < w' → q ∣ Q)
+    (hPfull' : ∀ q, q.Prime → w' ≤ q → q < z → q ∣ P)
+    (hQa2 : Nat.Coprime Q (a + 2))
+    (hA1 : mainA1 ≤ A1primeSumW Q a x P)
+    (hA2 : omegaPrimeSumW Q a x P y ≤ mainA2)
+    (hA3 : triplePrimeSumW Q a x P y ≤ mainA3)
+    (hledger : 0 < mainA1 - mainA2 / 2 - mainA3 / 2 - Real.log x * (x : ℝ) / ((z : ℝ) - 1) / 2) :
+    0 < p2PrimeSumW Q a x z P := by
+  have hred := razor_reduction_W hx hyx hQfull hPfull' hQa2
+  have hS := stripPrimeSum_le_W (y := y) hx hz hQfull hPfull' hQa2
+  linarith [hred, hA1, hA2, hA3, hS, hledger]
+
+/-- **The W Chen survivor.**  `chen_survivor` at the W-carriers: from the positivity of the
+W-restricted P₂-carrier there is a prime `n ≥ x/2` in the window with `n+2` a genuine P₂. -/
+theorem chen_survivor_W {x z P y Q a w' : ℕ} {mainA1 mainA2 mainA3 : ℝ}
+    (hx : 2 ≤ x) (hz : 2 ≤ z) (hyx : x < (y + 1) ^ 3)
+    (hQfull : ∀ q, q.Prime → q < w' → q ∣ Q)
+    (hPfull' : ∀ q, q.Prime → w' ≤ q → q < z → q ∣ P)
+    (hQa2 : Nat.Coprime Q (a + 2))
+    (hA1 : mainA1 ≤ A1primeSumW Q a x P)
+    (hA2 : omegaPrimeSumW Q a x P y ≤ mainA2)
+    (hA3 : triplePrimeSumW Q a x P y ≤ mainA3)
+    (hledger : 0 < mainA1 - mainA2 / 2 - mainA3 / 2 - Real.log x * (x : ℝ) / ((z : ℝ) - 1) / 2) :
+    ∃ n : ℕ, x / 2 ≤ n ∧ n.Prime ∧ IsP2 2 (n + 2) := by
+  have hpos := chen_positivity_W hx hz hyx hQfull hPfull' hQa2 hA1 hA2 hA3 hledger
+  have hpos' : 0 < ∑ n ∈ twinWindow x, vonMangoldt n * keepW Q a P n * p2Ind z (n + 2) := hpos
+  -- a strictly positive term exists
+  obtain ⟨n, hn, hterm⟩ :
+      ∃ n ∈ twinWindow x, 0 < vonMangoldt n * keepW Q a P n * p2Ind z (n + 2) := by
+    by_contra hcon
+    simp only [not_exists, not_and, not_lt] at hcon
+    exact absurd (Finset.sum_nonpos hcon) (not_le.mpr hpos')
+  -- decode the term: keepW = 1 (prime ∧ sifted ∧ AP-member), p2Ind = 1 (IsP2 z)
+  have hkeepne : keepW Q a P n ≠ 0 := by
+    intro h0; rw [h0] at hterm; simp at hterm
+  have hkeep1 : keepW Q a P n = 1 := keepW_eq_one_of_ne_zero hkeepne
+  obtain ⟨hprime, -⟩ := keepW_eq_one_iff.mp hkeep1
+  have hp2ne : p2Ind z (n + 2) ≠ 0 := by
+    intro h0; rw [h0] at hterm; simp at hterm
+  have hIsP2z : IsP2 z (n + 2) := by
+    unfold p2Ind at hp2ne
+    by_contra hnp2
+    rw [if_neg hnp2] at hp2ne
+    exact hp2ne rfl
+  have hlo : x / 2 ≤ n := by rw [twinWindow, Finset.mem_Icc] at hn; exact hn.1
+  exact ⟨n, hlo, hprime, isP2_mono hz hIsP2z⟩
+
+/-- **`chen_of_hypotheses_W` — the amended Chen headline (H-AMENDMENT 2).**  The H_W-package: for
+every threshold `X` there is an operating point `x` with the residue-class data `Q a w'`, the
+three split sifting hypotheses (`hQfull`/`hPfull'`/`hQa2` replacing catch #65's torn `hPfull`),
+the three analytic main-term bounds at the W-carriers, and the identical ledger conjunct.  Then
+there are infinitely many primes `p` with `p + 2` a P₂.
+
+The `3 ≤ w'` conjunct pins the intended instantiation window (`w' = w0N ε ≥ 3`, so `q = 2` falls
+to `hQfull`); the extraction itself needs only the split bridge.  Suppliers: A1W/A2W′/A3W at the
+AP-restricted instances, GLU-2W discharges (with `Q = Qval ε`, `a = Q − 1`, `residue_witness`). -/
+theorem chen_of_hypotheses_W
+    (H : ∀ X : ℕ, ∃ (x z P y Q a w' : ℕ) (mainA1 mainA2 mainA3 : ℝ),
+        X ≤ x / 2 ∧ 2 ≤ x ∧ 2 ≤ z ∧ 3 ≤ w' ∧ x < (y + 1) ^ 3 ∧
+        (∀ q, q.Prime → q < w' → q ∣ Q) ∧
+        (∀ q, q.Prime → w' ≤ q → q < z → q ∣ P) ∧
+        Nat.Coprime Q (a + 2) ∧
+        mainA1 ≤ A1primeSumW Q a x P ∧
+        omegaPrimeSumW Q a x P y ≤ mainA2 ∧
+        triplePrimeSumW Q a x P y ≤ mainA3 ∧
+        0 < mainA1 - mainA2 / 2 - mainA3 / 2 - Real.log x * (x : ℝ) / ((z : ℝ) - 1) / 2) :
+    {p : ℕ | p.Prime ∧ IsP2 2 (p + 2)}.Infinite := by
+  apply Set.infinite_of_forall_exists_gt
+  intro b
+  obtain ⟨x, z, P, y, Q, a, w', mainA1, mainA2, mainA3,
+    hXx, hx, hz, _hw3, hyx, hQfull, hPfull', hQa2, hA1, hA2, hA3, hledger⟩ := H (b + 1)
+  obtain ⟨n, hlo, hprime, hIsP2⟩ :=
+    chen_survivor_W hx hz hyx hQfull hPfull' hQa2 hA1 hA2 hA3 hledger
+  refine ⟨n, ⟨hprime, hIsP2⟩, ?_⟩
+  omega
+
+/-! ## Part L — the residue witness (D1's `a = Q − 1`; GLU-2W helpers) -/
+
+/-- **The residue witness.**  D1 takes `a = Q − 1`; then `a + 2 = Q + 1` and
+`gcd(Q, a+2) = gcd(Q, Q+1) = 1` — the `hQa2` slot is free, no CRT needed. -/
+theorem residue_witness (Q : ℕ) (hQ : 2 ≤ Q) : Nat.Coprime Q (Q - 1 + 2) := by
+  have h : Q - 1 + 2 = Q + 1 := by omega
+  rw [h]
+  simp
+
+/-- The companion form: `gcd(Q, a) = gcd(Q, Q−1) = 1` at `a = Q − 1` (consecutive integers), in
+case a W-mirror needs the residue itself coprime to the modulus. -/
+theorem residue_witness' (Q : ℕ) (hQ : 2 ≤ Q) : Nat.Coprime Q (Q - 1) := by
+  obtain ⟨m, rfl⟩ : ∃ m, Q = m + 1 := ⟨Q - 1, by omega⟩
+  simp
 
 end Salt.Chen
