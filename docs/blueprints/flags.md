@@ -5945,3 +5945,57 @@ VERBATIM under honest operating relations (D ≤ √x, √x ≤ 4X, XM ≤ x²; 
 exponent is exactly what closes catch #52's cross-M for ALL A; the log-power absorbed via
 isLittleO_log_rpow_rpow_atTop). The keystone-2 threshold set is now: hlev/hD0lo/hMlev
 (operating-point arithmetic at the H-glue) + hdiv ✅ DISCHARGED (modulo the relations).
+
+## 2026-07-13 AB3 Opus — floor B (bridge + honest tail) + ⚠ A LANDED DESIGN GAP FLAGGED
+
+`Salt/Chen/CountClose.lean` (new file, namespace `Salt.Chen`; NOT yet wired into `All.lean`).
+Sorry-free, axiom-clean ([propext, Classical.choice, Quot.sound]), zero warnings, `lake build
+Salt.Chen.CountClose` green. LANDED (both correct + reusable regardless of the fix below):
+
+* **Piece 1 — the ℕ-window ↔ `primesInWindow` bridges.**  `S2set_subset_primesInWindow`
+  (`S2set x yN ⊆ primesInWindow yR (√x+1)` for `yR ≤ yN+1`, direct — nonneg summands make the
+  Abel-pass subset step one-directional); `S1set_subset_insert`
+  (`S1set x zN yN ⊆ insert zN (insert yN (primesInWindow zR yR))` for `zR ≤ zN+1 ≤ … ≤ yN ≤ yR`,
+  the two boundary-prime corrections at `zN=⌊zR⌋`, `yN=⌊yR⌋`).  These reconcile the fibered
+  `weightedPairSum` (closed ℕ ranges) with `applicationA`/`applicationB` (half-open real windows).
+* **Piece 2 — the (187) tail.**  `tail_integral_le`: for `9 ≤ log x`, `1 < p₁`, `log p₁ ≤ log x/3`,
+  `∫_{√(x/p₁)}^{√x+1} h_{p₁}/(t log t) dt ≤ 6/log x + 36·log 2/log²x`, via a direct integrand
+  estimate (integrand `≤ 36 t⁻¹/log²x`; `∫ t⁻¹ = log(b/a) ≤ log 2 + log x/6`).
+
+**⚠ WHY AB3's ASSEMBLY (`tripleSum_le_cbar_final` at `c̄/2`) IS NOT PROVABLE FROM THE LANDED
+`pairSet` — a gap in CNT2/WeightedCount, not in AB3.**  The landed `pairSet`/`S2set`
+(`Salt/Chen/TripleCount.lean`) cut the inner window at `q.2*q.2 ≤ x` (`p₂ ≤ √x`), but BJS Lemma 52
+— and the landed `cbar` — correspond to the SHARP admissible cutoff `p₂ ≤ √(x/p₁)` (forced, since
+any triple has `p₁p₂² ≤ p₁p₂p₃ ≤ x`; pairs with `p₂ > √(x/p₁)` have `U = ⌊x/p₁p₂⌋ < p₂`, i.e.
+EMPTY `p₃`-fibre).  Those extra pairs carry positive weight `1/(p₁p₂ log(x/p₁p₂))` in
+`weightedPairSum`, and their mass — the (187) tail — is `Θ(1/log x)`, NOT `o(1/log x)`.  Exact
+σ-space form (`t = x^σ`, `β = log p₁/log x`): `tail = (1/log x)·(1/(1−β))·log(1/(1−2β))`, a positive
+`Θ(1)` numerator; the landed `Ifun` integrates only `σ ∈ [1/3, (1−β)/2]`, this adds `[(1−β)/2, 1/2]`.
+Summed over the outer `p₁`-loop:
+`weightedPairSum·log x → c̄ + ∫_{1/8}^{1/3}(1/β)(1/(1−β))log(1/(1−2β))dβ`
+`= 0.363084 + 0.744288 = 1.107372` (numerically verified; the `c̄` half reproduces the landed
+`cbar = 0.363083729`).  So the landed chain gives `tripleSum ≤ (1.1074/2 + o(1))·x/log x ≈
+0.554·x/log x`, NOT `c̄/2 ≈ 0.1815` — and `0.554 > 0.1815` is a genuine `~3×` overshoot that the
+AB2 slack ledger and the SW4 numeric re-gate (which expect `c̄/2`) do NOT absorb (the extra is a
+CONSTANT, not a `C/log x` slack). `tripleSum_le_cbar_final` was therefore NOT written (writing it
+at `c̄/2` would require altering a statement to force a false proof — iron rule 1).
+
+**THE FIX (Fable/design-tier — touches landed CNT2 nodes, out of Opus scope):** tighten `pairSet`
++ `S2set` to the sharp cutoff `q.1 * q.2 * q.2 ≤ x` (i.e. `p₁p₂² ≤ x`, so `p₂ ≤ √(x/p₁)`).  The
+projection `tripleSet → pairSet` STILL lands in it (`p₁p₂² ≤ p₁p₂p₃ ≤ x`), so
+`card_tripleSet_le_pairSum` re-proves with the tighter target and the tail vanishes; then
+re-derive `per_pair_weighted_le` and `tripleSum_le_weighted_pairSum` (mechanical — same proofs,
+tighter membership).  Under that fix: (a) `S2set_subset_primesInWindow` restates as
+`S2set' x p₁ ⊆ primesInWindow yR (√(x/p₁)+1)` (p₁-dependent upper — the `applicationA` window `w`
+becomes `√(x/p₁)+1`, and `p·w < N` reads `p₁·√(x/p₁) = √(x p₁) < x` ✓); (b) `S1set_subset_insert`
+is UNCHANGED (outer window untouched); (c) piece 2's tail shrinks to the honest
+`ε₀`-sliver `[√(x/p₁), √(x/p₁)+1]` (σ-width `O(1/(√(x/p₁) log x))` → genuinely `O(1/log²x)`), so
+`tail_integral_le`'s method carries over with a `log⁻²` bound.  Then the assembly composes
+`weightedPairSum_fibered → applicationA (inner) → applicationB + Ifun_integral_eq_cbar (outer)`
+with the two bridges + tail → the honest `tripleSum ≤ (1+C₁/log x)(c̄/2 + C₂/log x)·x/log x` (plus
+the `|pairSet|/L₀` remainder, which is `≤ x^{5/6}/L₀ = o(x/log x)` via `|pairSet| ≤ yN·⌊√x⌋` and a
+poly-beats-log threshold in the `∃ x₀`).
+
+**FLOOR REACHED: B** (piece 1 + piece 2, both sorry-free/axiom-clean).  FULL blocked by the above
+`pairSet` gap.  Recommendation: dispatch the `pairSet` tightening as a Fable design node, then AB3's
+assembly (with the p₁-dependent inner window) is a direct compose of the pieces here.
