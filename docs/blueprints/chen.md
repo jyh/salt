@@ -531,3 +531,59 @@ stays under the BV level; D < N preserved; the certified
 fchain_A1_final window [39992/10000, 4] UNCHANGED (the point moves
 INTO the interior — no re-certification). M4a restates against
 3.99928 and becomes provable; M4b's exact forms wait on SW-FIBER.
+
+## H-AMENDMENT 2 — the W-trick repair of catch #65 (Fable design, 2026-07-14)
+
+**The tear** (kernel-checked, `catch65_slot_torn`/`catch65_no_H_at_odd_P`): H demands ONE `P`
+with `hPfull` (every prime `< z` divides `P`) and `hA1` — but every A₁ supplier requires
+`P`'s support in `[w₀, z)` (structural: `nuChen 2 = 1`). **The repair**: restrict every razor
+carrier to the residue class `n ≡ a (mod Q)`, `Q = Qval ε = ∏_{p<w₀} p`, `a = Q − 1` (then
+`gcd(a, Q) = gcd(a+2, Q) = 1` automatically — no CRT). Small primes are excluded from `n+2`
+by residue membership (`gcd(n+2, Q) = gcd(a+2, Q) = 1`), not by sieving; `hPfull` splits into
+`hQfull : ∀ q prime < w', q ∣ Q` + `hPfull' : ∀ q prime ∈ [w', z), q ∣ P` + `hQa2 :
+Coprime Q (a+2)` (`w'` = the split point, `w₀` at instantiation).
+
+**Design decisions (D1–D8):**
+- **D1 (carriers)**: `keepW Q a P n = if n.Prime ∧ Coprime P (n+2) ∧ n % Q = a % Q then 1
+  else 0`; all five carriers mirrored (`A1primeSumW` etc. at `keepW`). Assembly surgery
+  mirrors `factors_ge_z_of_sift` → `_W` (uses `hQa2` for `p < w'`, `hPfull'` for
+  `[w', z)`), `razor_reduction`/`stripPrimeSum_le`/`aCount_ge_one_of`/`chen_positivity`/
+  `chen_survivor`/`chen_of_hypotheses` → `_W` forms; H gains `Q a w'` in the ∃ with the
+  three split hypotheses replacing `hPfull`.
+- **D2 (scale coherence — the ledger)**: A₂/A₃/strip are upper bounds, but they must be
+  re-supplied at the AP-restricted instances (NOT majorized by the unrestricted carriers):
+  the ledger normalizes by the AP-scale `X_W^Q ≈ X_W/φ(Q)`, so unrestricted uppers would be
+  `φ(Q)×` too big. All three sieve instances mirror with support filtered by `Q ∣ n+1`
+  (a = Q−1): `twinA1SieveW`, per-prime A₂ instances, `switchSieveW`/`blockSwitchSieveW`.
+  `nu = nuChen` UNCHANGED (the AP density cancels in the ν-ratio: mass of `n ≡ a (Q),
+  n ≡ −2 (d)` ≈ ψ/φ(Qd) = (ψ/φ(Q))·(1/φ(d)) by CRT, `gcd(d, Q) = 1` since `d`'s primes
+  ≥ w₀). Generic keystones (Rosser/Buchstab/Lemma11/StepHypWPC, `h4`) apply VERBATIM — only
+  instance facts (siftedSum rfl, rem identification, hguard) re-prove.
+- **D3 (remainders — the Q-shift)**: each W-instance's `rem d` is a discrepancy at modulus
+  `Q·d`, reduced class (`gcd(c, Qd) = 1`: `c ≡ −1 (Q)`, `c ≡ −2 (d)`, `d` odd). A₁/A₂
+  discharge via the dispersion BV a fortiori (the `q = Q·d` sub-family of `∑_{q ≤ Y}
+  dispDisc`, level sizing `Q·(QD) ≤ √x/L^B` absorbed by x₀). A₃/blocks: the windowed-BV
+  chain re-instantiated at shifted moduli `Q·d`, residue `CRT(a+2 mod Q, 2 mod d)` — the
+  chain is generic in the modulus argument; identification lemmas (BandIdent res-counts ↔
+  `apDiscBilinCutoff` at `Qd`) mirror.
+- **D4 (the numeric key — Q is a polylog)**: freeze the master threshold at the TOWER
+  `log log x₀ ≥ w₀` (concretely `x₀ ≥ exp(exp(w0R ε + 1))`-form) so `Q ≤ e^{w₀} ≤ L =
+  log x`. Every Q-shifted threshold row then costs ONE extra `L` power where the landed rows
+  have `x^{c}` or `L^{≥2}` room: D0-window (L³ room), hdiv/hDsq/habs (`x^{1/9}`+ room),
+  the BV crumbs (`x/L^{10}` vs the new main scale `X_W/φ(Q) ≳ x/L²` — L⁸ room; this is
+  what the L^10 sizing was FOR). `chen_of_hypotheses` imposes no growth constraint on x₀.
+- **D5 (the count line)**: `tripleSum` → AP-restricted `tripleSumW` (triples with
+  `p₁p₂p₃ ≡ a+2 (mod Q)`); the c̄-count re-runs with AP-restricted π-inputs via the landed
+  `BetaSW` fixed-modulus SW (`prime_indicator_SW` at `Q ≤ L ≤ (log x)^C` ✓ in range). The
+  razor certs (`razor_scalar_margin`, fchain/Fchain/cbar) are RATIO-level — reusable
+  verbatim; only the common normalization changes.
+- **D6 (A₁ prime-power bridge — Finding 6)**: fold the `[n prime]`-restriction bridge
+  (mass ≤ √x·log₂x·log x) into the A₁-W node.
+- **D7 (nodes)**: W-SURG (Assembly surgery + H_W, Fable warrant), A1W (instance + supplier
+  mirror + rem/BV discharge + D6), A2W′ (per-prime mirrors), A3W (switch/blocks mirror +
+  the Q-shifted windowed-BV re-instantiation — the largest; may split), CNTW (count line at
+  AP), GLU-2W (the final run, findings 3–5 folded). Gate before W-SURG freezes.
+- **D8 (what stays)**: `razor_scalar_margin`, all value certs, the mass ledgers, M-layer,
+  DivisorBound, the d0_window certificate machinery (re-parametrized), `normalized_package`
+  /`hledger_at_certs` (X_W-relative — the new X_W^Q slots in), the entire generic sieve/BV
+  keystone corpus. The catch64/catch65 records stay as standalone theorems.
