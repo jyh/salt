@@ -5743,3 +5743,34 @@ bound (d(e) ≤ e^{c/log log e}-form — classical, elementary, NOT in the corpu
 DIV1** (B/C: the explicit divisor bound + the operating-point hdiv discharge; queue with the
 H-glue wave). Also corrected my gate note's φ(gcd) = Σφg slip (≤ gcd — harmless direction).
 Tally: **52 catches, 0 proofs on wrong statements.**
+
+## 2026-07-13 ★ THE SW-FIBER DESIGN BLOCK RESOLVED (BJS pp. 57–59 at page level) + CATCH #53 ★
+
+**CATCH #53 (against MY catch-#49 adjudication): the per-fiber-sieve diagnosis was WRONG.**
+BJS's Theorem 51 proof applies Theorem 6 GLOBALLY per block at s_b = 3/2 − 3α₃ < 3 — (191),
+pixel-verified — exactly SW12's structure. The c̄-correlation lives ENTIRELY IN THE COUNT:
+Lemma 52 bounds |B̄| ≤ (1+ε₀+9/log N)(N/log N)[c̄ + explicit slack] via the π-bound [46, Thm 1]
+whose 1/log(N/p₁p₂) DENOMINATOR (the p₃-count's own log) rides through two Abel passes
+(their Lemmas 20/21 = our M1/PM1 window-Mertens machinery!) and the I(u)-integrals to
+c̄ = ∫_{1/8}^{1/3} log(2−3β)/(β(1−β))dβ. OUR C3d count (uniform log-denominator) is ~3.3×
+looser — THAT (× residual normalization slips in the recon's trace) is the ×7. The classical
+chain reconciles at ½A₃/A₁ ≈ 0.165 with the weighted count in place.
+**THE REPAIR PLAN (supersedes the fiber re-shape):**
+- **CNT2** (the weighted count): re-prove the triple-count bound with the log(N/p₁p₂) weight →
+  `tripleSum ≤ (c̄ + slack)·x/log x`-form, following Lemma 52's route: the Chebyshev π upper
+  bound (need: π(t) ≤ (1+9/log t)-form — check the corpus/[46 Thm 1]-equivalent; possibly a new
+  small node), two window-Abel passes (M1 + PM1 + Lemma-20/21-style partial summation — the
+  MertensPNT machinery serves), the I(u) integral evaluation, and the w = √((1+ε₀)N/p₁) cutoff
+  bookkeeping (the window handled INSIDE the count — no hyperbola boxes).
+- **CBL** (cbar_lt, NOW FEASIBLE): c̄ < 0.363084 was C4a-deferred (no dilog/no norm_num-log);
+  the TK1 LogToolkit + the SS2/SS3 exact-rational panel quadrature make the ~220-panel tangent
+  majorant route landable. CNT2 consumes it.
+- **NBL** (narrow-block remainders, REPLACES the catch-#50 dyadic boxes): BJS's B^{(j)} =
+  narrow p₁-blocks (ω_j ≤ p₁ < ω_j(1+ε₀), j₀ ~ log/ε₀ blocks); within a block the window is a
+  clean p₂p₃-cutoff (ε₀-slop into the count's (1+ε₀)); the per-block remainder R^{(j)} =
+  Σ_d |B_d^{(j)} − |B^{(j)}|/φd| feeds general_BV_alpha_final with the narrow-block semiprime α
+  (SW3d's additivity backbone + SwitchBV's bridge serve; SW3b/c's box lemmas partially
+  superseded — keep landed, unused paths documented).
+- Then M2 (the W-ratio at the P ∣ Ps nesting), the END-TO-END numeric re-gate (the honest
+  A₁/A₂/A₃ chain in Π₂-units at the weighted count — BEFORE any SW4 freeze), then SW4, DIV1,
+  H-glue. Tally: **53 catches, 0 proofs on wrong statements.**
