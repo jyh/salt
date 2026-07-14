@@ -6383,3 +6383,66 @@ only the SUMMATION layer re-organizes. Tally: 59 catches, 0 wrong proofs.
 neg_log_one_sub_nuChen_le bracket keeps the coefficient at 1 vs the Brun-crude 2 that forced
 (log z)²). GLU-2's R/X_W and strip shares now vanish against a single log. The GLU-1 prereq is
 closed.
+
+## 2026-07-14 GBV2 Opus — FLOOR A + item-3 STRUCTURAL + ★ CATCH #60 (refines #59) ★
+
+`Salt/Chen/SubBlocked.lean` (NEW, 11 decls; namespace `Salt.Chen`; NOT wired into `All.lean` per the
+task). Sorry-free, axiom-clean (`[propext, Classical.choice, Quot.sound]` on all 11), zero warnings
+(`lake build Salt.Chen.SubBlocked` exit 0; only pre-existing corpus warning is `Salt/SW/Siegel.lean:217`).
+
+**LANDED (correct + reusable — the whole summation-layer re-organization catch #59's fix names):**
+* **Item 1 — the cutoff α-additivity backbone (WBV1-carrier mirror of `SwitchStrip`):**
+  `apDiscBilinCutoff_zero`, `_congr` (depends only on `α|Icc 1 X`), `_add_left` (both guarded
+  counts LINEAR in α), `_sum_alpha` (finite α-partition ⟹ coherent sum), `_split_threshold`, and
+  `apDiscBilinCutoff_restrict_X` (the X-shrink: the carrier is independent of the m-top for
+  `X ≥ b−1`, so a survivor sub-box prices at its own top `X_sub` ⟹ reduced area).
+* **Item 2 — the sub-box vanishing (corner test AT the carrier):**
+  `apDiscBilinCutoff_eq_zero_of_over` — `T < a·(N+1)` ⟹ every summand filtered (`min-m·min-n =
+  2^i·(N+1) > T`), BOTH guarded counts empty ⟹ cutoff disc `= 0`.
+* **Item 3 — the sub-blocked price (structural / summation layer):** `dyadicSurvivors` (=
+  `{i ≤ K : 2^i·(N+1) ≤ T}`), `dyadicSurvivors_card_le` (`≤ ⌊log₂T⌋+1`, the O(log)-per-box count),
+  `restrictAlpha_dyadic_sum` (the pointwise dyadic partition), `sum_norm_apDiscBilinCutoff_dyadic_decomp`
+  (box price ≤ Σ over NON-vanishing sub-boxes), and **`subblocked_box_price`** (box price ≤ Σ of the
+  per-survivor prices — the exact re-organization "only the summation layer re-organizes"). Survivor
+  accounting verified: largest survivor has `X_sub·M ≤ 4T ≤ 4x` (`2^{i*}(N+1) ≤ T`, `X_sub =
+  2·2^{i*}`, `M ≤ 2·2^k`, `2^k ≤ N+1`).
+
+**★ CATCH #60 (executor honest-assessed against the LANDED `cutoff_BV_at_op`/`DivisorBound`; refines
+the #59 resolution) — THE m-SUB-BLOCKING ALONE DOES NOT CLOSE THE MEDIUM-N BAND. ★**  Fable's #59
+adjudication authorizes "every survivor has `X_sub·M ≤ 4T` ⟹ apply `cutoff_BV_at_op` at the
+sub-scales". The AREA bound is correct and landed, but `cutoff_BV_at_op` (via
+`DivisorBound.hdiv_discharge`'s `hsqrt4X`) ADDITIONALLY requires **`√x ≤ 4·X`** — instantiated at a
+survivor this is `X_sub ≥ √x/4`. The largest survivor of a piece at `p₃`-scale `N` has
+`X_sub ≤ 2x/(N+1)`, so `X_sub ≥ √x/4 ⟺ N ≤ 8√x−1`. For the NON-empty medium band
+`√(x/z) < N ≤ x/z²` (catch #57; `≈ (x^{0.44}, x^{0.75}]` at `z = x^{1/8}`, `N ≫ 8√x`), EVERY
+survivor sub-block has `X_sub < √x/4` and NONE is `cutoff_BV_at_op`-priceable despite `X_sub·M ≤ 4x`.
+Crude count is no rescue (already #59's finding): those boxes carry `~x/log` triples, and the
+small-block share is `Θ(x/log)` (the `∑_{m∈[2^i,2^{i+1})} T/m ≤ T` cutoff-mass), so `|disc| ≤ count`
+overshoots. The task-proposed "small-block crude `X_sub·(M/d+1)`" DOES NOT clear: summed over the
+O(log) pieces the `∑_k M_k ~ 4x` factor gives `x·polylog ≫ x/(log)^{10}`.
+**Root cause:** `general_BV_cutoff_unconditional`/`DivisorBound` extract cancellation from the
+m-side (`X`-side; the `hsqrt4X`/`√X` thresholds), needing X LONG. The medium-band survivors are
+short-m/LONG-n (n prime in (N,M], length `~2^k`); they ARE priceable by cancellation on the PRIME
+side, but the theorem hardcodes `blockPrimeInd` in the SECOND slot and a transpose
+`apDiscBilinCutoff α β X Y N₀ d T = apDiscBilinCutoff β α Y X N₀ d T` (true by `m·n = n·m`) would put
+the prime indicator in the FIRST slot, which the theorem does not accept.
+**RESOLUTION (Fable/design-tier — rule 1/rule 4, NOT attempted):** the m-sub-blocking must be PAIRED
+with a long-prime-side (`√M`) BV price — a symmetric `general_BV_cutoff` extracting from the n-side
+when `X_sub < √x/4` (or a role-swap variant of `DivisorBound.hdiv_discharge` using `√x ≤ 4M`). This
+is a change to the LANDED `general_BV_cutoff_unconditional`/`DivisorBound` design. `subblocked_box_price`
+lands the summation layer with the per-survivor price ABSTRACTED (`hprice`); it is discharged by
+`cutoff_BV_at_op` ONLY for the `X_sub ≥ √x/4` (low-N) survivors. `hHD_window_subblocked`/`Plo_subblocked`
+(item 4's re-composed sums) and **`hNum_at_op`** are BLOCKED on this residual.
+Tally: **60 catches, 0 proofs on wrong statements.**
+
+**FABLE ADJUDICATION of catch #60 (2026-07-14 ~06:50):** the diagnosis is right and the fix is
+classically guaranteed: the medium-band survivors (short-m × long-prime-n, X_sub·M ~ x at level
+D ~ √x/(log)^B) are EXACTLY the classical Bombieri bilinear regime — the cancellation must come
+from the LONG (prime) side. THE FIX (= **GBV3**, recon-first): the TRANSPOSED windowed chain —
+α (the short semiprime band, ‖α‖ ≤ 1, few m's) × the prime side as the SW carrier: the
+small-conductor half is ALREADY landed in transpose-compatible form (WBV7's per-m regroup
+`smallconductor_window_perd` bounds by X_sub·(K·M/(log M)^A) ≤ 4Kx/(log)^A ✓ — verify); the
+large-conductor half needs the shell (symmetric in the two coefficient vectors ✓) + the dyadic
+descent at the swapped roles with the boundary-regime bookkeeping (D² ~ X_sub·M — the classical
+two-regime log-power win; MANDATORY numeric feasibility check before any port). Tally: 60
+catches, 0 wrong proofs.
