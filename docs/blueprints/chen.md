@@ -518,3 +518,16 @@ inequality: mainA3-normalized ≤ 0.3366-row < 0.363084; then the
 hledger assembly at the achieved A₁/A₂/A₃ values. Gate the exact
 normalization chain (the F6 carrier convention) at dispatch — the
 catch-#41 lesson lives exactly here.
+
+**C0 AMENDMENT 4 (Fable, 2026-07-13 evening; catch #51): `ε′`
+RE-FROZEN `10⁻⁴ → 9/100000`.** Driver: the floored A₁ operating point
+lands 4.3e−10 BELOW the frozen [3.9992, 4] window's left edge at
+x = 10¹⁶ (and infinitely often at perfect 8th powers) — ε′ = 10⁻⁴ had
+ZERO rounding margin (M134's kernel-adjacent witness). At 9/100000:
+the un-floored point is 4 − 8ε′ = 3.99928 (margin 8e−5, absorbing
+floor perturbations above a modest x-threshold); the S7 retreat
+IMPROVES (f′(4)·8ε′ = 3.76e−5 < the 4.2e−5 line); D = x^{1/2−ε′}
+stays under the BV level; D < N preserved; the certified
+fchain_A1_final window [39992/10000, 4] UNCHANGED (the point moves
+INTO the interior — no re-certification). M4a restates against
+3.99928 and becomes provable; M4b's exact forms wait on SW-FIBER.

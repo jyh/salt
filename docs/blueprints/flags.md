@@ -5671,3 +5671,54 @@ switch section handle the window INSIDE the fiber). ⟹ **THE SW-FIBER DESIGN BL
 context, page-level primary source) now owns: the fiber structure, the window/hyperbola
 handling, the pair bijection, the revised pricing interface, and the M2 interface — then
 re-gate the numeric row end-to-end, then the executor wave. Tally: 50 catches, 0 wrong proofs.
+
+## 2026-07-13 M134 Opus done (M1 + M3 LANDED) + ★ CATCH #51 ★ (the M4 A₁-edge fails by a hair)
+
+`Salt/Chen/MertensPNT.lean` (new file, namespace `Salt.Chen`; not yet in All.lean — report
+wiring). Sorry-free, axiom-clean ([propext, Classical.choice, Quot.sound]), zero warnings.
+LANDED:
+* **M1** `window_core_lower` + `sum_inv_prime_window_ge` — the LOWER windowed Mertens, exact
+  mirror of the landed upper `BrunLower.sum_inv_prime_window_le` over the identical
+  `primesInWindow w z` set. Re-ran the `window_core` Abel pass with every inequality flipped
+  (pointwise UPPER on `deriv mF · Sfun` from the two-sided `abs_Sfun_sub_log_le` lower half;
+  integral-mono reversed; boundary bounds reversed). Honest constant **C₃' = 19** (`= 18` Abel
+  `R`-terms + `1/log w` for the lone boundary prime `⌊z⌋₊` the `[⌊w⌋,⌊z⌋]` window may carry
+  outside `[w,z)`), matching the upper C₃ = 19. `w₀ = 2`.
+* **M3** `twinWindow_mass_eq` (`∑_{twinWindow x} Λ = ψ(x−2) − ψ(x/2−1)`, index alignment),
+  `lambda_mass_lower` (`x/2 − 1 − 2K·x/log x ≤ ∑`) and `lambda_mass_upper` (`∑ ≤ x/2 +
+  2K·x/log x`), both `∀ x ≥ 8`, **K = the `psiTot_pnt` constant** (K ≥ 0, A=1 saving). The
+  two endpoint PNT errors collapse to `2K·x/log x` via `self_div_log_le` (`t/log t` monotone on
+  `[e,∞)`, reciprocal of mathlib `Real.log_div_self_antitoneOn`). Threshold x ≥ 8 = min for
+  both endpoints ≥ 3 (PNT domain) and ≥ e (monotonicity domain).
+
+**CATCH #51 (executor STOP-AND-FLAG — the frozen A₁ window needs a hair of margin):** M4a as
+specified is **FALSE on a subsequence**, by exact arithmetic. Operating point
+`s = logRatio ⌊x^{1/8}⌋ ⌊x^{1/2−ε′}⌋ = log⌊x^{1/2−ε′}⌋ / log⌊x^{1/8}⌋`, ε′ = 1/10000, so the
+un-floored ratio is `(1/2−ε′)/(1/8) = 39992/10000 = 3.9992` — EXACTLY the left edge of the
+frozen `fchain_A1_final` window `[3.9992, 4]` (ZERO margin). The numerator floor
+`⌊x^{1/2−ε′}⌋ ≤ x^{1/2−ε′}` pulls `s` DOWN; the denominator floor pulls it UP; net sign depends
+on x's fractional parts. On **perfect 8th powers x = m^8** the denominator is EXACT
+(`⌊x^{1/8}⌋ = m`, slack 0) while the numerator strictly drops, so
+`s = log⌊m^{3.9992}⌋ / log m ≤ 3.9992`, STRICTLY below for essentially all m (equality only if
+`m^{3.9992}` is an integer — never). Concrete witness: **x = 10^16 (= 100^8)** gives
+`s = log⌊10^{7.9984}⌋ / log 100 = log(99632170) / log 100 = 3.99919999957 < 3.9992` — outside
+the closed window by ~4.3e−10. So `∀ x ≥ x₁, s ∈ [3.9992,4]` is unprovable as stated (fails at
+x = 10^16, 10^24, … infinitely often). The rounding lands epsilon-BELOW the frozen edge, exactly
+as the M-brief anticipated. **The frozen constants are NOT altered** (executor iron rule 1). The
+UPPER half `s ≤ 4` is robustly true (num ≤ (1/2−ε′)X = 3.9992·βX < 4·log z for large x); only
+the lower edge fails. **FIX is designer-tier (three options, do NOT pick here):** (a) shrink ε′
+strictly below 1/10000 so `4 − 8ε′ > 3.9992` with margin > the floor slop `~8x^{−(1/2−ε′)}/log x`;
+(b) round the numerator UP (`⌈x^{1/2−ε′}⌉`) so `log D ≥ (1/2−ε′)X`; or (c) drop the window's
+left edge below `4 − 8ε′`. **M4b** (`logRatio_A3_mem ∈ [4/3, 3]`) is interior-safe (s ≈ 1.4997,
+margins 0.17 / 1.5 ≫ floor slop) hence provable in principle, but its exact `z,D` floor forms
+are the A₃ operating point — entangled with the SW-FIBER design block / M2 interface (per the
+M-RECON) — so it is not cleanly statable now. **M4 → the SW-FIBER design block** (choose the
+margin fix, then the discharge is a clean class-A/B floor-bracketing). Tally: 51 catches, 0
+wrong proofs.
+
+**FABLE ADJUDICATION of catch #51 (same evening): C0 AMENDMENT 4 — ε′ = 9/100000** (chen.md).
+The un-floored A₁ point moves to 3.99928 (8e−5 margin, floors absorbed at threshold); S7
+improves; D-level/D < N preserved; the SS3c-certified window untouched. M4a restates against
+the new point (provable, interior); M4b waits on the SW-FIBER shapes. M1 (C₃′ = 19, the
+window_core sign-flip) + M3 (two-sided Λ-mass at the psiTot_pnt constant, threshold x ≥ 8,
+twinWindow_mass_eq alignment) LANDED and wired. Tally: 51 catches, 0 wrong proofs.
