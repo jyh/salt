@@ -6285,3 +6285,16 @@ carrier lemmas. Catch #20's hand-computed M ≈ 0.0212 (1966) is now a kernel-ce
 REMAINING: **GLU-1** (the normalized-bounds discharge), **GLU-BV** (hBVblocks at the operating
 point via the WBV chain's thresholds), **GLU-2** (the ∃-package → chen_of_hypotheses → THE
 HEADLINE), + 58c (docs rewire).
+
+## 2026-07-14 GLU-1 Opus done FULL (the normalized package; catch #49's chain is a THEOREM)
+
+`Salt/Chen/GlueNormalized.lean` (6 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. The four normalized discharges (hmA1 via twin_A1_lower_B + fchain_A1_final; hmA2 via
+twin_A2_upper + A2grid_sharp_le at the frozen mass; hmA3 — THE CATCH-#49 RECONCILIATION,
+machine-checked: the ×8 resolved by hWy (the 3/8 ratio) × hcount (the c̄-bridge over the
+Λ-mass), every deviation in the O(1/log z) remainder; hstrip exact) + `errorBundle_le` +
+**`normalized_package`** — composing through hledger_at_certs to the EXACT hledger conjunct;
+`chen_positivity … (normalized_package …) : 0 < p2PrimeSum` TYPECHECKED. Instance findings:
+A₂'s carrier identification (Λmass·V = X_W) lives in GLU-2's hcoef — no GLU-1 obligation.
+FLAGGED PREREQ for GLU-2: a crude W-lower for the CHEN twinA1Sieve (TwinInstance.W_twin_ge is
+the Brun-track's — same ∏(1−ν) shape, a re-run) for the R/X_W + strip shares at x₀.
