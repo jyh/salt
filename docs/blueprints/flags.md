@@ -6596,3 +6596,34 @@ of statement scope (take 1 ≤ d) or the DecidableEq instances (FunLike vs Class
 unify with the landed slots. GLU-2 obligations: hDsq row, habs row, the +1 Kerr shift in
 budget rows. Tally: 63 catches, 0 wrong proofs. **THE MEDIUM BAND IS FULLY CLOSED — the
 last node is GLU-2.**
+
+**2026-07-14 GLU-2 first run → ★ CATCH #64 (GlueFinal.lean, Opus executor attempt 1) —
+THE FIRST MACHINE-CHECKED CATCH: the D0 window is EMPTY at every boundary box.** All six
+terminal variants hypothesize, at the SAME exponent C0 (hCge : A+2 ≤ C0): hD0lo_main
+(L^{C0} ≤ 2·2^{k0}, L = log(XM), for EnergyClose.four_term_scale_le's T4 tail) AND hD0N'
+(D0 ≤ (log N)^{C0}, the SW small-conductor range). Jointly: log N ≥ L/2^{1/C0} > 0.707·L.
+But dyadicBoundary membership FORCES XM > x/2 and (N+1)·z·y < 2x ⟹ log N/L → 13/24 ≈
+0.5417 — infeasible for EVERY C0 > 2, EVERY x ≥ e^{200}, every A > 0: not threshold-
+curable. At A=12, log x = 2e10: D0 ≥ 8.2e143 required vs D0 ≤ 3.1e140 allowed (≈2680×
+empty). KERNEL-CHECKED as `catch64_op_boundary_infeasible` (from actual dyadicBoundary
+membership + the verbatim row shapes ⟹ False) + the parameter-space pinch lemmas — the
+catch is itself a theorem set, landed and wired. ROOT CAUSE: four_term_scale_le's PROOF
+only needs D0 ≥ L^{A+2}/2 (its use: 2/2^{k0} ≤ 4/L^{A+2}); its STATEMENT demands L^{C0}.
+GBV3's STEP 0 silently read the honest A+4-form — the feasibility check and the landed
+statement diverged there. **RATIFIED REPAIR (Fable warrant, = node D0W): DECOUPLE in
+place** — hD0lo_main → L^{A+2} ≤ 2·2^{k0} (hD0N' stays at C0); window restored:
+[L^{A+2}/2, (log N)^{C0}] has ratio ≈ L³·(13/24)^{A+5} ~ 1.3e26 at A=13, C0=A+5. Old
+suppliers stay valid (L^{A+2} ≤ L^{C0} at L ≥ 1). Repair chain: four_term_scale_le →
+hMainEnergy_cutoff_discharge → general_BV_cutoff_final → _closed/_unconditional →
+_closed_sqrtD/_sqrtD → medium_survivor_price(+_sqrtD) → cutoff_BV_at_op; the per-e row
+herr_D0E gets the same treatment if traced to the coupled form. This is a hypothesis
+WEAKENING of landed statements under the H-AMENDMENT-1 precedent (Iron Rule 5, Fable-
+directed). **FINDING 2 (no statement change)**: M4F's Dlev = ⌊√x⌋ violates hDscale/
+herr_lev at boundary boxes — Dlev must sit a polylog below √x; enabler landed
+(`logRatio_A3_mem_range`: membership holds for EVERY Dlev ∈ [x^{497/1000}, √x]). ALSO
+LANDED (F1 rows, convention A := 13): hyx_at_op, sievePrimorial(+_dvd) = the hPfull
+witness, hDsq_row (x^{1/9} room), hfloor_row (margin e^{178} vs 5e59, threshold e^{4000}),
+habs_row (margin e^{1221} vs 1e45), all ≤ [propext, Classical.choice, Quot.sound]. x₀
+deliberately not frozen (moot until D0W; the w₀-guard scale exp(1.6e10) will dominate).
+Tally: 64 catches, 0 wrong proofs — the estimate-vs-statement divergence was caught by
+the mandated STEP-0 inventory BEFORE any proof attempt burned against it.
