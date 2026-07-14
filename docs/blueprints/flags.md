@@ -6039,3 +6039,14 @@ via blockBox_pair_card, window-in-carrier, NO corner hypotheses) [C]. WBV4 =
 n ≥ p₂, a second guard — sub-node if needed); the port volume (R2 — the generic refactor
 mitigates); the harmonic/exponent bookkeeping (matches A ≥ 12). The window = the difference of
 T = x and T = x/2+1 cutoffs (triangle).
+
+## 2026-07-14 WBV1 Opus done FULL (the cutoff carrier — SIMPLER than the landed layer)
+
+`Salt/Chen/WindowBV.lean` (321 lines, wired by Fable). Sorry-free, axiom-clean, zero warnings.
+`cutoffTwist` (the UNfactored windowed twist), `apDiscBilinCutoff` (both guards),
+`apDiscBilinCutoff_orthogonality` (STRICTLY SIMPLER than the landed proof — no sum_mul_sum
+split, no chi_cast_mul; the guard is inert per-(m,n)), `norm_..._le`, `cutoffTwist_energy_le` +
+`cutoffPrimEnergy`/`energy_shell_cutoff` (the shell consumed KEEPING the cutoff — skips
+bilin_cutoff_eq entirely; RHS = the existing shellBound VERBATIM so the WBV2 descent ports
+mechanically), degeneracy examples (T ≥ XY recovers the landed shapes). The recon's
+load-bearing fact is now kernel-verified. NEXT: WBV2 (the descent port at cutoffPrimEnergy).

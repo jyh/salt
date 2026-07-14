@@ -40,6 +40,7 @@ import Salt.Chen.AbelPass
 import Salt.Chen.AbelPass2
 import Salt.Chen.CountClose
 import Salt.Chen.CountFinal
+import Salt.Chen.WindowBV
 import Salt.Chen.ErrFold
 import Salt.Chen.PerEEngine
 import Salt.Chen.PerEEngine2
@@ -308,6 +309,8 @@ open Salt.Tactic in
   Salt.Chen.Ifun_integral_eq_cbar Salt.Chen.weightedPairSum_fibered
   Salt.Chen.tripleSum_le_weighted_pairSum' Salt.Chen.weightedPairSum'_le_cbar
   Salt.Chen.tripleSum_le_cbar_final
+  Salt.Chen.apDiscBilinCutoff_orthogonality Salt.Chen.norm_apDiscBilinCutoff_le
+  Salt.Chen.cutoffTwist_energy_le Salt.Chen.energy_shell_cutoff
   Salt.Chen.S2set_subset_primesInWindow Salt.Chen.S1set_subset_insert
   Salt.Chen.tail187_integral_le
   Salt.Chen.per_pair_weighted_le Salt.Chen.tripleSum_le_weighted_pairSum
