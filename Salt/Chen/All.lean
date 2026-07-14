@@ -31,6 +31,7 @@ import Salt.Chen.EnergyClose
 import Salt.Chen.ErrFold
 import Salt.Chen.PerEEngine
 import Salt.Chen.PerEEngine2
+import Salt.Chen.AlphaSide
 import Salt.Chen.WeightTrivia
 import Salt.Chen.SharpFuncbound
 import Salt.Chen.FlatFuncbound
@@ -181,6 +182,10 @@ open Salt.Tactic in
   Salt.Chen.EfoldTermBeta_eq_zero Salt.Chen.sum_inv_Icc_le_log
   Salt.Chen.hErrSum_final' Salt.Chen.hLargeDisc_of_perE'
   Salt.Chen.general_BV_final' Salt.Chen.hPerE_reduces_to_alpha
+  Salt.Chen.EfoldTermAlpha_eq_prim Salt.Chen.efold_alpha_reduce_dense
+  Salt.Chen.efold_small_le Salt.Chen.efold_large_fourterm
+  Salt.Chen.efold_alpha_le Salt.Chen.efold_small_discharge
+  Salt.Chen.general_BV_alpha_discharged
   Salt.Chen.razor_reduction Salt.Chen.triplePrimeSum_le
   Salt.Chen.chen_positivity Salt.Chen.chen_survivor
   Salt.Chen.chen_of_hypotheses

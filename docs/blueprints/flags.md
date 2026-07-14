@@ -5429,3 +5429,23 @@ mandatory, as designed), nlinarith with product hints. Worst margins: 2.78e−10
 — positive, kernel-checked. `hSO_holds` type-checks into massOSum_le_A1_of_superSolution's
 slot verbatim. Targeted build 66s (~0.3s/panel). Remaining for the numeric close: SS3c's hSE
 + the composition (in flight).
+
+## 2026-07-13 PE3 Opus done (floors A+B FULL + the assembly) + CATCH #45 → PE3c
+
+`Salt/Chen/AlphaSide.lean` (589 lines, 11 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. LANDED: the Step-0 identities (the α-side IS primitive×primitive under D < N — no ω(d)
+piece, as the PE3 gate found); `efold_alpha_reduce_dense` (the honest (e,f)-density reduction);
+**`efold_small_le` + `efold_small_discharge`** — the small-conductor half DISCHARGED FOR ALL e at
+the dilated scale (Ksmall = 2^{A+5}·Kβ); **`efold_large_fourterm`** (PE3a: the hDscale-free raw
+four-term, diagonal explicit); `efold_alpha_le` (the two-regime assembly);
+`general_BV_alpha_discharged` (the per-e slot filled modulo the named `hlarge`).
+
+**CATCH #45 (executor-surfaced, exact):** my PE3-v2 Step 4 assumed the regrouped density
+`4/φ(lcm(e,f))` delivers BOTH 1/φe (the e-decay) and 1/φf (the linear-D dyadic weight)
+term-by-term — FALSE: φ(lcm) = φe·φf/φ(gcd) and φ(gcd) is unbounded when e ∣ f; either factor
+alone loses (e^{−1/2} diverges on the catch-#44 middle band; or the D² diagonal returns). The
+honest residual, landed as the named `hlarge`, needs ONE missing estimate — **the δ-restricted
+large-sieve mean value**: `Σ_{f ≤ Q, δ ∣ f} (f/φf)·bilinPrimEnergy(f) ≤ [shell with Q²/δ
+diagonal]` — classically true (conductors ≡ 0 mod δ are Q/δ-many; Farey spacing δ/Q²-refined),
+NOT in the corpus. = **PE3c**, the LAST analytic node (recon dispatched: does the Salt/LS core
+admit the δ-restriction?). Tally: 45 catches, 0 proofs on wrong statements.
