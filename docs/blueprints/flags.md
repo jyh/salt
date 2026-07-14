@@ -5774,3 +5774,78 @@ chain reconciles at ½A₃/A₁ ≈ 0.165 with the weighted count in place.
 - Then M2 (the W-ratio at the P ∣ Ps nesting), the END-TO-END numeric re-gate (the honest
   A₁/A₂/A₃ chain in Π₂-units at the weighted count — BEFORE any SW4 freeze), then SW4, DIV1,
   H-glue. Tally: **53 catches, 0 proofs on wrong statements.**
+
+## 2026-07-13 CNT2 Opus PARTIAL (step 1 + reduction + step-6 core landed; the two Abel passes flagged)
+
+`Salt/Chen/WeightedCount.lean` (new file, 459 lines, namespace `Salt.Chen`; NOT in
+All.lean — standalone, not committed, report-only). Sorry-free, axiom-clean (all four
+decls `[propext, Classical.choice, Quot.sound]`), zero warnings. One documented
+`maxHeartbeats 1200000` (the monolithic per-pair chain). Imports the landed
+`TripleCount` + `SwitchConstant` only.
+
+**LANDED (the c̄-weighted count's two ends):**
+* **Step 1 — the corrected π-upper INPUT.** `per_pair_weighted_le`: the sharp per-pair
+  inner count keeping the honest `log(N/p₁p₂)` weight, replacing the landed
+  `per_pair_le`'s uniform `1/log⌊x/(2y√x)⌋` floor (the ~3.3× over-count catch #53
+  diagnosed). Reuses the LANDED `prime_count_Ioc_le` — NO separate Rosser–Schoenfeld
+  π-upper needed: because `L = ⌊x/(2p₁p₂)⌋` is large (`log L ≥ log(N/p₁p₂) − 2log 2`,
+  proven via `Lfun ≥ t/2`), the interval-mass count already gives the `(1+o(1))`
+  constant. Under `4 ≤ log⌊x/(2y√x)⌋` (forces `Lval ≥ 5` via `5 ≤ exp 4 ≤ Lval`); the
+  `log L`-vs-`log(N/p₁p₂)` shift is the explicit `(1+W₀)` slack, `W₀ = 4log 2/log(2·Lval)`.
+* **Step 2 — the reduction.** `tripleSum_le_weighted_pairSum`:
+  `tripleSum ≤ (1+3K/L₀)(1+W₀)(x/2)·weightedPairSum + |pairSet|/L₀`, where
+  `weightedPairSum = Σ_{pairSet} 1/(p₁p₂·log(N/p₁p₂))` — the EXACT object the two Abel
+  passes consume. Composes `triple_count_le_pairSum` (landed Fubini+projection) with step 1.
+* **Step 6 CORE — the c̄ evaluation heart (de-risks the WALL).** `cbar_inner_integral`:
+  `∫_{1/3}^{(1-β)/2} 1/(σ(1−β−σ)) dσ = log(2−3β)/(1−β)` (explicit antiderivative
+  `F(σ)=(1−β)⁻¹(log σ − log(1−β−σ))`, both factors ≥ 1/3 on the interval). And
+  `cbar_eq_double_integral`: `cbar = ∫_{1/8}^{1/3} (1/β)·(∫_{1/3}^{(1-β)/2} 1/(σ(1−β−σ)) dσ) dβ`
+  — the LANDED `SwitchConstant.cbar` IS the BJS double integral in `(β,σ)=(log_N u,log_N v)`
+  coordinates. So the c̄ side of step 6 is fully formalized; only the `(t,s)→(β,σ)`
+  change of variables (`∫·d(loglog)=∫·dβ/β`) remains.
+
+**HONEST WINDOW FACTOR (reported):** the ½ is threaded (our count is over `(L,U]`,
+length `x/(2p₁p₂)`, so the ½ is GENUINE, kept — BJS bounds the full `π(U)`, our window
+is strictly smaller). Hence `tripleSum ≤ (1+o(1))·(c̄/2)·x/log x ≤ (1+o(1))·0.1815·x/log x`
+(`c̄/2 < 0.363084/2 = 0.181542`). This is ≤ the full-π(U) route's `c̄`, so compatible with
+the recon's `½A₃/A₁ ≈ 0.165` expectation, with strictly better margin. Multiplicative
+slack `(1+3K/L₀)(1+W₀) → 1` (both `→ 0` as x→∞); `|pairSet|/L₀ = o(x/log x)`. Well inside
+the generous budget (`0.3631` target vs honest `0.363084`).
+
+**★ BELOW FLOOR A — the two Abel passes NOT landed (the true remaining core). ★**
+Floor A = π-upper input + p₂-sum Abel pass. I landed the π-upper input (step 1) + the
+reduction + the step-6 c̄ core, but NOT the p₂-sum Abel pass. Exact remaining decomposition:
+- **p₂-sum pass** (BJS Lemma 20, f = h_{p₁}(t)=1/log(N/p₁t), g=loglog, E=1/log²y):
+  `Σ_{y≤p₂<w} h_{p₁}(p₂)/p₂ ≤ ∫_y^w h_{p₁} d(loglog) + E·h_{p₁}(w)`.
+- **p₁-sum pass** (Lemma 20, f=I, E=1/log²z): `Σ_{z≤p₁<y} I(p₁)/p₁ ≤ ∫_z^y I d(loglog) + I(z)/log²z`,
+  `I(u)=∫_y^{√(N/u)} h_u d(loglog)`; plus the tail `[√(N/u),w] ≤ 10log(1+ε₀)/log²N` (BJS (187)).
+- **change of variables** `u=N^β, v=N^σ` sending `∫_z^y I d(loglog) → cbar/log N`
+  (`cbar_eq_double_integral` supplies the target; only the substitution remains).
+**Why flagged, not attempted to completion:** the honest route needs the ABSTRACT BJS
+Lemma 20 (positive monotone `f`, sub-window bound `Σ_{x≤n<y}c(n) ≤ g(y)−g(x)+E`, conclusion
+`Σ c(n)f(n) ≤ ∫ f g' + E·max(f(w),f(z))`) as the reusable enabler — a Riemann–Stieltjes
+partial-summation lemma, ~300 lines, then two ~200-line applications (h_{p₁}/I with their
+derivatives, integrability, monotonicity) + the nested-integral change of variables (~200
+lines). This is a multi-hundred-line hard-analysis effort beyond a single executor's budget;
+the corpus has the 1-D Abel identity (`sum_mul_eq_sub_integral_mul₁`) + the concrete f=1/log
+pass (`BrunLower.window_core`) as templates. **RECOMMENDATION:** dispatch the abstract
+Lemma 20 as its own node first (mirror `window_core` with arbitrary differentiable monotone
+`f`), then the two passes + change-of-variables are direct. The landed `per_pair_weighted_le`
++ `tripleSum_le_weighted_pairSum` are their input and `cbar_eq_double_integral` their target,
+so the remaining work is cleanly bracketed. Composition into SW4 unchanged: `mainA3_of_hBVswitch`
+carries `tripleSum` symbolically; the reduction here is its `Σ 1/(p₁p₂ log)` factor.
+
+## 2026-07-13 CNT2 Opus done (the π-input + reduction + the c̄ identity; the Abel core bracketed)
+
+`Salt/Chen/WeightedCount.lean` (459 lines; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. LANDED: **`per_pair_weighted_le`** — the corrected inner count at the HONEST
+log(N/p₁p₂) weight (finding: the landed `prime_count_Ioc_le` already delivers the (1+o(1))
+constant — no new π-node; mathlib's Chebyshev would cost ×2.77); `tripleSum_le_weighted_pairSum`
+(the reduction to Σ 1/(p₁p₂·log(N/p₁p₂)) with vanishing slack); **`cbar_eq_double_integral`**
+(+ the inner antiderivative) — the landed SwitchConstant.cbar IS the BJS (β,σ) double integral;
+the far end is formalized. **THE HONEST WINDOW FACTOR: c̄/2** — our (x/2, x] count gives
+tripleSum ≤ (c̄/2 + o(1))·x/log x ≈ 0.1815·x/log x — strictly better than the recon's chain.
+**REMAINING = AB1 (bracketed):** the abstract BJS-Lemma-20 partial summation (Riemann–Stieltjes
+vs d(loglog), positive monotone f, ~300 lines — mirror window_core with abstract f) + its two
+applications (p₂-sum at h_{p₁}, p₁-sum at I) + the u = N^β change of variables into
+cbar_eq_double_integral. Input and target both landed — the node is cleanly bracketed.
