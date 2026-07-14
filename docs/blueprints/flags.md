@@ -6446,3 +6446,89 @@ large-conductor half needs the shell (symmetric in the two coefficient vectors �
 descent at the swapped roles with the boundary-regime bookkeeping (D² ~ X_sub·M — the classical
 two-regime log-power win; MANDATORY numeric feasibility check before any port). Tally: 60
 catches, 0 wrong proofs.
+
+## 2026-07-14 GBV3 Opus — FLOOR A+B (transpose backbone + small-conductor + MainEnergy verified) + ★ CATCH #61 (refines #60): the e-fold ErrSum does NOT transpose ★
+
+`Salt/Chen/TransposedBV.lean` (NEW, 6 decls; namespace `Salt.Chen`; NOT wired into `All.lean`).
+Sorry-free, axiom-clean (`[propext, Classical.choice, Quot.sound]` on all 6; `lake build
+Salt.Chen.TransposedBV` exit 0, zero warnings in-file; full `lake build` exit 0; only pre-existing
+corpus warnings are `Salt/SW/Siegel.lean:217` + `Salt/Twelve/MvJ.lean` long-lines).
+
+**STEP 0 numeric feasibility (the MANDATORY check, verified against the LANDED chain — full table
+in the file docstring).** The windowed price (`general_BV_cutoff_final`) splits at the conductor
+cut `D0` into small-conductor + large-conductor, and the large-conductor half splits (via
+`cutoff_hLargeDisc`'s per-χ triangle) into **MainEnergy** (primitive-character shell energy) +
+**ErrSum** (imprimitive→primitive difference). At the swapped medium-band scales (`X_sub ∈
+[polylog, √x/4)`, `M` long, `X_sub·M ≤ 4x`, `D ~ √x/(log)^B`, `A=12,C0=B=14`):
+* **(a) small-conductor — CLOSES ✓.** `hSmallCut_discharge` prices by the χ-level per-`m` regroup
+  (`cutoffTwist_le_sum_interval_twists`) pricing each fibre by the PRIME-side interval SW
+  (`hβSW_of_prime_indicator`, cancellation at length `N`): `‖cutoffTwist‖ ≤ X_sub·(f·K·N/(log N)^A)`
+  — NO `√X_sub` threshold. Transpose-compatible verbatim (`α := restrictAlpha`, `‖·‖ ≤ 1`).
+  **The adjudication's "already landed" claim VERIFIED.**
+* **(b.1) MainEnergy four-term — CLOSES ✓ on `X_sub ≥ L^{2(A+3)}`.** `four_term_scale_le`'s four
+  terms at `(X_sub, M)`: T1 (`2^{K+1}~2D`) clears via the LEVEL cut `D ≤ √(X_sub M)/L^B` (the
+  `D²~X_sub·M/L^{2B}` two-regime win — symmetric); T2 uses `hMsqrt : L^{A+3} ≤ √M` (M long ✓);
+  T4 uses the D0 cut `2^{k0} ≥ L^{A+4}` (symmetric); **T3** uses `hXsqrt : L^{A+3} ≤ √X_sub`,
+  holding iff `X_sub ≥ L^{2(A+3)}` (a MILDER cut than (b.2)'s `x^{1/3}`, so it never binds
+  independently). `hMainEnergy_cutoff_discharge` is already GENERIC in β — the adjudication's "shell
+  symmetric ✓" VERIFIED. **The adjudication's "shell + dyadic descent" = exactly MainEnergy, and it
+  transposes.**
+* **★ (b.2) ErrSum — DOES NOT CLOSE (the refinement the adjudication omitted). ★** The
+  imprimitive→primitive descent (`cutoffTwist_sub_efold_blockPrimeInd`) folds onto the **`α`-side**
+  because `β = blockPrimeInd` is coprime-supported mod `d < N` — so ALL non-coprimality (the whole
+  Möbius fold) lands on the SHORT semiprime `α`, NOT the prime side. `cutoffEfold_large_discharge`
+  then needs `hdiv : d(e)·L^{A+5} ≤ √X_sub` ∀`e∈[2,D]`; with the sharp `d(e) ≤ C₃·e^{1/3} ≤
+  C₃·x^{1/6}` (`DivisorBound`, `e ≤ D ≤ √x`) this forces **`X_sub ≥ C₃²·x^{1/3}·L^{2(A+5)}`** (≈
+  `x^{1/3}`; `hdiv_discharge` derives it from `√x ≤ 4·X_sub`, i.e. `X_sub ≥ √x/4`). The medium band
+  `N ∈ (8√x, x/z²]` has its LARGEST survivor at `X_sub ≤ 2x/(N+1)`, so for `N > x^{2/3}` (non-empty,
+  up to `x^{3/4}` at `z=x^{1/8}`) EVERY survivor has `X_sub < x^{1/3}` and FAILS `hdiv`. **The
+  TRANSPOSE does NOT rescue this:** swapping `α ↔ blockPrimeInd` swaps the SLOTS but not WHICH
+  coefficient is coprime-supported (the prime side is always coprime), so the fold is always on the
+  short side. Crude is no rescue (reintroduces the all-character large-sieve loss: `ErrSum ≲
+  N·D·X_sub/log ~ 2x·√x/log = x^{3/2}/log ≫ x`), so the task's three-way split has NO working
+  "tiny by crude" leg: the whole `X_sub < x^{1/3}` range is the residual, uniformly via the e-fold.
+  **Root cause: the LANDED windowed machinery has
+  ONLY the BDH `α`-fold route to reduce imprimitive→primitive; the short-`α` regime is exactly the
+  classical DISPERSION regime (Cauchy–Schwarz on the long prime variable + large sieve, NO
+  `α`-fold), which is NOT in the codebase.** The adjudication's "shell + dyadic descent" model
+  overlooked the ErrSum (the imprimitive→primitive reduction is a separate technical necessity —
+  the shell prices PRIMITIVE characters only).
+* **(c) budget — fine modulo (b.2).** Per-survivor `≤ Kβ·(X_sub·M)/L^{A+1} ~ X_sub·M/L^A`
+  (`Kβ~log N`); per box `∑_i X_sub_i·M ~ 8x` ⟹ `8x/L^A`; `O(log³x)` applications ⟹ `x/L^{A−3} ≤
+  x/L^{10}` for `A ≥ 13`.
+
+**LANDED (correct + reusable regardless of (b.2)):**
+* **The transpose backbone** — `cutoffTwist_transpose`, `apDiscBilinCutoff_transpose`: the windowed
+  carrier is `(α,X)↔(β,Y)`-invariant (Fubini + `m·n=n·m`). Verifies the adjudication's symmetry
+  premise; the identity catch #60 named ("prime indicator FIRST↔SECOND slot").
+* **`blockPrimeInd_norm_le_one`** — the prime indicator is a valid `‖·‖ ≤ 1` coefficient.
+* **`medium_smallconductor_prime_side`** (deliverable 1) — `hSmallCut_discharge` re-exposed at the
+  survivor's `restrictAlpha` coefficient: the transposed small-conductor half, prime-side SW, no
+  `√X_sub`. Confirms (a).
+* **`medium_band_price`** + **`subblocked_box_price_reduced`** (deliverable 3, summation layer) —
+  via `apDiscBilinCutoff_restrict_X` the survivor's GLOBAL-`X` carrier equals its REDUCED-top
+  carrier at `X_sub = 2^{i+1}−1` (area `X_sub·M ≤ 4T ≤ 4x`, defeating catch #59's `X·M`-lossiness);
+  composed with `SubBlocked.subblocked_box_price`, the box price ≤ the `O(log)`-survivor sum at
+  reduced area. The per-survivor reduced price supplier is `general_BV_cutoff_unconditional` at
+  `(X_sub, M)` — whose SOLE residual is the (b.2) `herr_div` slot.
+
+**BLOCKED on (b.2):** `hNum_at_op` (deliverable 3's budget) and the FULL medium-band price. The
+residual is PRECISELY the e-fold `herr_div`/`√x ≤ 4·X_sub` slot of
+`general_BV_cutoff_unconditional`/`cutoff_BV_at_op` — UNCHANGED by the transpose (catch #60 already
+pinned it; GBV3 confirms the transpose does not move it and isolates the whole medium band down to
+exactly this one slot). Needs the DISPERSION method (`√M`-side error treatment, no `α`-fold) — new
+analytic machinery, Fable/design-tier, NOT a mechanical port. Tally: **61 catches, 0 proofs on
+wrong statements.**
+
+**FABLE ADJUDICATION of catch #61 (2026-07-14 ~07:15): THE BLOCKED RANGE IS EMPTY — no
+dispersion needed.** The geometry: every triple has p₁ ≥ z (the block floor) and p₂ > y, so
+m = p₁p₂ ≥ z·y = x^{1/8}·x^{1/3} = **x^{11/24} ≈ x^{0.458}** — every NON-EMPTY survivor's
+m-scale (= X_sub-scale) sits at ≥ x^{11/24}/2, far above catch #61's x^{1/3}·polylog residual
+threshold. AND at that floor the hdiv discharges DIRECTLY: d(e) ≤ C₃·x^{1/6} = x^{8/48} ≤
+√(x^{11/24}) = x^{11/48} with power-room — no √x ≤ 4X needed (GBV3's own "partial extension",
+now sufficient since the sub-x^{1/3} range is EMPTY). The dispersion arc is UNNECESSARY.
+**= GBV4 (dispatched):** (i) the m-scale floor lemma (the box/band supports vanish below z·y —
+from the triple structure, elementary); (ii) `hdiv_direct` at X_sub ≥ x^{11/24}-forms
+(DivisorBound's machinery at the weaker relation); (iii) the completed three-way survivor split
+→ `hNum_at_op` → the hBVblocks discharge. Tally: 61 catches (the 61st adjudicated benign at
+the operating geometry), 0 wrong proofs.

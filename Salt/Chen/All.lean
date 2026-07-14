@@ -81,6 +81,7 @@ import Salt.Chen.GlueNormalized
 import Salt.Chen.GlueBV
 import Salt.Chen.WLower
 import Salt.Chen.SubBlocked
+import Salt.Chen.TransposedBV
 import Salt.Chen.SharpH
 import Salt.Chen.SharpH2
 import Salt.Chen.SharpF
@@ -316,6 +317,8 @@ open Salt.Tactic in
   Salt.Chen.Ebar_intervalIntegrable Salt.Chen.Obar_intervalIntegrable
   Salt.Chen.Ebar_integral_le Salt.Chen.Obar_integral_le
   Salt.Chen.W_twinA1_ge
+  Salt.Chen.apDiscBilinCutoff_transpose Salt.Chen.medium_smallconductor_prime_side
+  Salt.Chen.medium_band_price Salt.Chen.subblocked_box_price_reduced
   Salt.Chen.apDiscBilinCutoff_sum_alpha Salt.Chen.apDiscBilinCutoff_eq_zero_of_over
   Salt.Chen.subblocked_box_price
   Salt.Chen.cutoff_BV_at_op Salt.Chen.hCE_discharge Salt.Chen.diag_nu_crumb
