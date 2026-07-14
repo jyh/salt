@@ -83,6 +83,7 @@ import Salt.Chen.WLower
 import Salt.Chen.SubBlocked
 import Salt.Chen.TransposedBV
 import Salt.Chen.MediumFloor
+import Salt.Chen.SqrtDFold
 import Salt.Chen.SharpH
 import Salt.Chen.SharpH2
 import Salt.Chen.SharpF
@@ -325,6 +326,9 @@ open Salt.Tactic in
   Salt.Chen.medium_survivor_price Salt.Chen.hHD_of_box_disc
   Salt.Chen.Plo_sym_of_box_disc Salt.Chen.Plo_low_of_box_disc
   Salt.Chen.hNum_at_op
+  Salt.Chen.two_sqrt_primes_not_both_dvd Salt.Chen.efold_beta_le_single
+  Salt.Chen.card_conductor_not_dvd_le Salt.Chen.general_BV_cutoff_sqrtD
+  Salt.Chen.medium_survivor_price_sqrtD Salt.Chen.hNum_at_op_sqrtD
   Salt.Chen.apDiscBilinCutoff_transpose Salt.Chen.medium_smallconductor_prime_side
   Salt.Chen.medium_band_price Salt.Chen.subblocked_box_price_reduced
   Salt.Chen.apDiscBilinCutoff_sum_alpha Salt.Chen.apDiscBilinCutoff_eq_zero_of_over

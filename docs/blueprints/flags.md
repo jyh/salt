@@ -6571,3 +6571,28 @@ M ≥ polylog — astronomically inside budget (M ≥ x^{1/3} here). GBV5 = (i)
 (prime floor)², ErrSum re-assembly with the extra 4X(1+log D) crumb; new threshold
 M-polylog row); (iii) re-thread GBV4's feeders at the variant. Tally: 62 catches, 0 wrong
 proofs.
+
+**2026-07-14 GBV5 ✅ FULL (SqrtDFold.lean, Opus executor attempt 1) — CATCH #62 CLOSED +
+CATCH #63 (executor catch against the adjudication's accounting, fixed in-node).** STEP 0
+traced D < N to a SINGLE root use, exactly gcd-support form (`coprimeRestrict_blockPrimeInd`:
+block primes > N > d), inherited by the whole cutoff ErrSum leg; the hMainEnergy leg never
+uses it; GBV4's hHD/Plo/hNum feeders were already D<N-free (only medium_survivor_price
+carried it). **Catch #63**: the #62 adjudication's absorption tally Σ_d X/φ(d) ≤ 4X(1+log D)
+was per-MODULUS — the crumb rides through φ(d)−1 characters per modulus (~X·D total, over
+budget by x^{1/16} on band boxes). The honest close (proved): the crumb VANISHES whenever
+the block prime divides cond χ (ψ(mp) = 0), and #{χ mod d : p ∤ cond χ} ≤ d/p (conductor
+injection + card_eq_totient — first use of that mathlib surface in the chain). Honest total
+4(1+log D)·(D/(N+1))·X, absorbed by the named row habs with x^{1/6} room. Landed:
+two_sqrt_primes_not_both_dvd, block_prime_dvd_unique, blockDrop + the hd-free fold,
+cutoffTwist_sub_efold_sqrtD (honest identity, NO hypothesis on d), efold_beta_le_single,
+card_conductor_not_dvd_le, crumb_chi_sum_le, the reorg/discharge/closed _sqrtD chain, and
+**general_BV_cutoff_sqrtD** — byte-for-byte the terminal with D < N → hDsq : D < (N+1)² +
+habs : 4(1+log D)·D ≤ N·M/L^A, Kerr = 2^(A+5)·Kβ′ + 15360 + 1. Feeders re-exported at
+_sqrtD names; hDsq automatic at sym carriers from ONE numeric row D < (y+1)² (x^{1/6} room);
+the #check chain lands character-for-character in mainA3_of_block_remainders' hBVblocks
+slot. 25 declarations, all ≤ [propext, Classical.choice, Quot.sound]. Authoring catch for
+the record: statements restating erase-sums over DirichletCharacter must keep NeZero d OUT
+of statement scope (take 1 ≤ d) or the DecidableEq instances (FunLike vs Classical) won't
+unify with the landed slots. GLU-2 obligations: hDsq row, habs row, the +1 Kerr shift in
+budget rows. Tally: 63 catches, 0 wrong proofs. **THE MEDIUM BAND IS FULLY CLOSED — the
+last node is GLU-2.**
