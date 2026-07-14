@@ -30,6 +30,7 @@ import Salt.Chen.TripleCount
 import Salt.Chen.EnergyClose
 import Salt.Chen.EnergyShellDvd
 import Salt.Chen.DyadicDvd
+import Salt.Chen.TotientHelpers
 import Salt.Chen.ErrFold
 import Salt.Chen.PerEEngine
 import Salt.Chen.PerEEngine2
@@ -268,6 +269,8 @@ open Salt.Tactic in
   Salt.Chen.massSum_le_A2_final Salt.Chen.massOSum_le_A1_final
   Salt.Chen.Fchain_A2_final Salt.Chen.fchain_A1_final
   Salt.Chen.energy_shell_dvd Salt.Chen.bilinTwist_energy_le_dvd
+  Salt.Chen.totient_ratio_le_log Salt.Chen.totient_lcm_mul_totient_gcd
+  Salt.Chen.card_divisors_le_two_sqrt Salt.Chen.prod_ratio_le_card_succ
   Salt.Chen.block_energy_le_dvd Salt.Chen.dyadic_large_reduction_dvd
   Salt.Chen.geom_shell_sum_le_dvd Salt.Chen.dyadic_energy_le_dvd
   Salt.BV.bilinear_LS_shell_dvd Salt.BV.cs_over_finset_chi

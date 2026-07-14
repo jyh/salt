@@ -5569,3 +5569,12 @@ the per-box interface rather than forcing a misleading apDiscBilin equality. Tal
 **SW3c (the residual, next):** per-box pricing — the sub-dyadic window-edge split, the p₂≤p₃
 same-block diagonal correction (crude + 1/φd savings), then general_BV_final′ per box →
 the RBox/hSum inputs of hHD_of_generalBV_inputs.
+
+## 2026-07-13 PE3c-4a Opus done FULL (the totient/divisor helpers; C = 3)
+
+`Salt/Chen/TotientHelpers.lean` (6 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings, first pass. `totient_ratio_le_log` (e/φe ≤ 3·log e, e ≥ 3 — the telescoping
+Π p/(p−1) ≤ ω+1 via induction_on_max + 2^ω ≤ e); `totient_lcm_mul_totient_gcd`
+(UNCONDITIONAL); `card_divisors_le_two_sqrt` (the √-reflection); the sum_totient forms; the
+reusable `prod_ratio_le_card_succ`. ALL PE3c-4 inputs are now landed — the assembly dispatches
+at the gate's frozen recipe (C0 = A+5, hlev coupled at c = C0, the raw four-term).
