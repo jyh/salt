@@ -5906,3 +5906,18 @@ calculus + the (187)-tail change of variables + t = N^β into the landed cbar_eq
 `tripleSum ≤ (1+slack)(c̄/2+slack)·x/log x`. Both brackets (input + far target) stay landed.
 Note: the 21/log-w error is weaker than BJS's 1/log²y — acceptable per the slack budget; a
 sharper windowed-Mertens (1/log²) node only if the re-gate demands it.
+
+## 2026-07-13 AB2 Opus done (Floor C + composition step 1) — THE LEIBNIZ WALL DISSOLVED
+
+`Salt/Chen/AbelPass2.lean` (487 lines; wired by Fable). Sorry-free, axiom-clean, zero warnings.
+**THE WALL DISSOLVED, not scaled:** the moving-boundary Leibniz derivative is replaced by the
+CLOSED FORM `I(u) = log(2 − 3·log u/log N)/(log N − log u)` (`Ifun_closed_form`, via the
+monotone t = N^σ change of variables — no continuity hypotheses needed — + the partial-fraction
+antiderivative); the derivative is then elementary. **FINDING: I is GLOBALLY ANTITONE on
+[z, y]** (`Ifun_deriv_nonpos` reduces to P·log P ≤ 1 + P at P = 2−3β ∈ [1, 13/8]; numerically
+verified J(β) < 0 throughout) — the antitone Abel pass applies directly. LANDED:
+`applicationB` (the p₁-pass at f = I), **`Ifun_integral_eq_cbar`** (∫_z^y I d(loglog) = c̄/log N
+— the landed cbar, exactly), `weightedPairSum_fibered`. Slack ledger verified end-to-end:
+weightedPairSum ≤ c̄/log N + O(1/log²N) ⟹ tripleSum ≤ (1+o(1))(c̄/2)x/log x ≈ 0.1815·x/log x.
+**REMAINING = AB3 (bracketed, ~330 lines):** the ℕ-window ↔ primesInWindow bridge, the (187)
+tail (∫_{√(N/p₁)}^{√x}), the slack-ledger assembly → `tripleSum_le_cbar_final`.

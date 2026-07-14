@@ -35,6 +35,7 @@ import Salt.Chen.MertensPNT
 import Salt.Chen.WeightedCount
 import Salt.Chen.CbarCert
 import Salt.Chen.AbelPass
+import Salt.Chen.AbelPass2
 import Salt.Chen.ErrFold
 import Salt.Chen.PerEEngine
 import Salt.Chen.PerEEngine2
@@ -298,7 +299,9 @@ open Salt.Tactic in
   Salt.Chen.energy_shell_dvd Salt.Chen.bilinTwist_energy_le_dvd
   Salt.Chen.cbar_lt
   Salt.Chen.prime_sum_abel_antitone Salt.Chen.prime_sum_abel_monotone
-  Salt.Chen.applicationA
+  Salt.Chen.applicationA Salt.Chen.Ifun_closed_form Salt.Chen.Ifun_hasDerivAt
+  Salt.Chen.Ifun_deriv_nonpos Salt.Chen.applicationB
+  Salt.Chen.Ifun_integral_eq_cbar Salt.Chen.weightedPairSum_fibered
   Salt.Chen.per_pair_weighted_le Salt.Chen.tripleSum_le_weighted_pairSum
   Salt.Chen.cbar_inner_integral Salt.Chen.cbar_eq_double_integral
   Salt.Chen.sum_inv_prime_window_ge Salt.Chen.twinWindow_mass_eq
