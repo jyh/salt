@@ -70,7 +70,8 @@ discharge names `hβSW`) and the large part `∑_{D0<f≤D}` priced by WBV2's fo
 (`dyadic_energy_le_cutoff`) scaled by `four_term_scale_le` to `(448+32√26)·XY/L^{A+1}`; folding
 the `4(1+log D) ≤ 6L` prefactor gives the exact `hMainEnergy` slot with `Kmain = 6(Kβ+448+32√26)`.
 Honest operating scale identical to `hMainEnergy_discharge` (`X,Y ≥ 2`, `1 ≤ D`,
-`D ≤ √(XY)/L^B`, `B ≥ A+2`, `D0 = 2^{k0}` with `L^{C0} ≤ 2·2^{k0}`, `C0 ≥ A+2`,
+`D ≤ √(XY)/L^B`, `B ≥ A+2`, `D0 = 2^{k0}` with `L^{A+2} ≤ 2·2^{k0}` — the T4-tail cut at
+the DECOUPLED exponent `A+2`, not the SW exponent `C0`: the catch-#64 repair — `C0 ≥ A+2`,
 `X,Y ≥ L^{2A+6}`) — no `hdiv` (no `e`-dilation on the plain window path). -/
 theorem hMainEnergy_cutoff_discharge {X Y T D0 D k0 K : ℕ} {A B C0 Kβ : ℝ}
     (hA : 0 ≤ A) (hX2 : 2 ≤ X) (hY2 : 2 ≤ Y) (h1D : 1 ≤ D)
@@ -78,7 +79,7 @@ theorem hMainEnergy_cutoff_discharge {X Y T D0 D k0 K : ℕ} {A B C0 Kβ : ℝ}
     (hD0eq : D0 = 2 ^ k0) (h2D0 : 2 ≤ D0) (hD0D : D0 ≤ D)
     (hK : K = Nat.log 2 D)
     (hDscale : (D : ℝ) ≤ Real.sqrt ((X : ℝ) * (Y : ℝ)) / (Real.log ((X : ℝ) * (Y : ℝ))) ^ B)
-    (hD0lo : (Real.log ((X : ℝ) * (Y : ℝ))) ^ C0 ≤ 2 * (2 : ℝ) ^ k0)
+    (hD0lo : (Real.log ((X : ℝ) * (Y : ℝ))) ^ (A + 2) ≤ 2 * (2 : ℝ) ^ k0)
     (hXsqrt : (Real.log ((X : ℝ) * (Y : ℝ))) ^ (A + 3) ≤ Real.sqrt X)
     (hYsqrt : (Real.log ((X : ℝ) * (Y : ℝ))) ^ (A + 3) ≤ Real.sqrt Y)
     (hKβ : 0 ≤ Kβ) (α β : ℕ → ℂ) (hα : ∀ m, ‖α m‖ ≤ 1) (hβ : ∀ n, ‖β n‖ ≤ 1)
@@ -1243,9 +1244,10 @@ retained `hMainEnergy`/`hsmall`) are:
   `hlarge`; see the module header.
 
 **The operating-point threshold list (for the H-glue).**  Beyond the structural/scale set of
-`general_BV_cutoff_final` (the SW coupling `K·L^{A+C0} ≤ Kβ·(log N)^{A+2C0}`, `D0 ≍ L^{C0}`,
+`general_BV_cutoff_final` (the SW coupling `K·L^{A+C0} ≤ Kβ·(log N)^{A+2C0}`, `D0 ≤ L^{C0}`,
 `N ≤ M ≤ 2N`, `D < N`), the `hMainEnergy` discharge wants: `2 ≤ X,M`; `A+2 ≤ B ≤`, the level cut
-`D ≤ √(XM)/L^B`; `A+2 ≤ C0` with `L^{C0} ≤ 2·2^{k0}` (`D0 = 2^{k0}`); and `L^{A+3} ≤ √X,√M`.
+`D ≤ √(XM)/L^B`; `A+2 ≤ C0` with `L^{A+2} ≤ 2·2^{k0}` (`D0 = 2^{k0}`; the T4-tail cut at the
+decoupled exponent `A+2` — catch #64); and `L^{A+3} ≤ √X,√M`.
 `Kmain = 6(Km+448+32√26)`. -/
 open Classical in
 /-- **WBV5 (item 3, FULL) — `general_BV_cutoff_closed`.**  `general_BV_cutoff_final` with both
@@ -1270,7 +1272,7 @@ theorem general_BV_cutoff_closed {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
         2 ≤ X → 2 ≤ M → A + 2 ≤ B → A + 2 ≤ C0 →
         D0 = 2 ^ k0 → 2 ≤ D0 → D0 ≤ D → Klog = Nat.log 2 D →
         ((D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ B) →
-        ((Real.log ((X : ℝ) * (M : ℝ))) ^ C0 ≤ 2 * (2 : ℝ) ^ k0) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 2) ≤ 2 * (2 : ℝ) ^ k0) →
         ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 3) ≤ Real.sqrt X) →
         ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 3) ≤ Real.sqrt M) →
         (∑ f ∈ Finset.Icc 2 D0, (1 / (f.totient : ℝ)) * cutoffPrimEnergy α (blockPrimeInd N) X M T f

@@ -332,6 +332,7 @@ open Salt.Tactic in
   Salt.Chen.hfloor_row Salt.Chen.habs_row Salt.Chen.logRatio_A3_mem_range
   Salt.Chen.two_sqrt_primes_not_both_dvd Salt.Chen.efold_beta_le_single
   Salt.Chen.card_conductor_not_dvd_le Salt.Chen.general_BV_cutoff_sqrtD
+  Salt.Chen.d0_window_nonempty
   Salt.Chen.medium_survivor_price_sqrtD Salt.Chen.hNum_at_op_sqrtD
   Salt.Chen.apDiscBilinCutoff_transpose Salt.Chen.medium_smallconductor_prime_side
   Salt.Chen.medium_band_price Salt.Chen.subblocked_box_price_reduced

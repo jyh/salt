@@ -744,7 +744,7 @@ theorem general_BV_cutoff_closed_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) 
         2 ≤ X → 2 ≤ M → A + 2 ≤ B → A + 2 ≤ C0 →
         D0 = 2 ^ k0 → 2 ≤ D0 → D0 ≤ D → Klog = Nat.log 2 D →
         ((D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ B) →
-        ((Real.log ((X : ℝ) * (M : ℝ))) ^ C0 ≤ 2 * (2 : ℝ) ^ k0) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 2) ≤ 2 * (2 : ℝ) ^ k0) →
         ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 3) ≤ Real.sqrt X) →
         ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 3) ≤ Real.sqrt M) →
         (∑ f ∈ Finset.Icc 2 D0, (1 / (f.totient : ℝ)) * cutoffPrimEnergy α (blockPrimeInd N) X M T f
@@ -826,7 +826,7 @@ theorem general_BV_cutoff_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
         2 ≤ X → 2 ≤ M → A + 2 ≤ B → A + 2 ≤ C0 →
         D0 = 2 ^ k0 → 2 ≤ D0 → D0 ≤ D → Klog = Nat.log 2 D →
         ((D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ B) →
-        ((Real.log ((X : ℝ) * (M : ℝ))) ^ C0 ≤ 2 * (2 : ℝ) ^ k0) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 2) ≤ 2 * (2 : ℝ) ^ k0) →
         ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 3) ≤ Real.sqrt X) →
         ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 3) ≤ Real.sqrt M) →
         -- error-side (`e`-fold) thresholds
@@ -951,7 +951,7 @@ theorem medium_survivor_price_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
         2 ≤ X → 2 ≤ M → A + 2 ≤ B → A + 2 ≤ C0 →
         D0 = 2 ^ k0 → 2 ≤ D0 → D0 ≤ D → Klog = Nat.log 2 D →
         ((D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ B) →
-        ((Real.log ((X : ℝ) * (M : ℝ))) ^ C0 ≤ 2 * (2 : ℝ) ^ k0) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 2) ≤ 2 * (2 : ℝ) ^ k0) →
         ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 3) ≤ Real.sqrt X) →
         ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 3) ≤ Real.sqrt M) →
         ((D : ℝ) * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 5) ≤ Real.sqrt ((X : ℝ) * (M : ℝ))) →
@@ -1184,5 +1184,260 @@ section CompositionSanity
 #check @Salt.Chen.mainA3_of_block_remainders
 
 end CompositionSanity
+
+/-! ## 12. The anti-#64 certificate — the decoupled `D0`-window is NONEMPTY at the
+boundary boxes (node D0W)
+
+Catch #64 (`GlueFinal.catch64_op_boundary_infeasible`) proved the OLD coupled rows
+(`hD0lo_main` at the SW exponent `C0` jointly with `hD0N'` at `C0`) contradictory at every
+`dyadicBoundary` box.  After the D0W repair (`hD0lo_main` weakened in place to the T4-tail
+exponent `A+2` — the only power `EnergyClose.four_term_scale_le` ever consumed), the window
+is restored.  This section certifies it kernel-checked, at the operating convention
+`A = 13`, `C0 = 18 = A + 5` (so the rows below are at exponents `A+2 = 15`, `A+4 = 17`,
+`C0 = 18`).
+
+**The construction.**  `D0 = 2^{k0}` with `k0 = ⌈log₂⌈L^{17}⌉⌉`, so `L^{17} ≤ D0 ≤ 4·L^{17}`
+(`L = log(X·M)`, the box's cutoff-mass log).  Against each binding row, with
+`t = log x ≥ 10^9` (threshold dwarfed by the `w₀`-guard scale `x₀ ≈ exp(1.6·10^{10})`),
+`L ∈ [t − 1, t + 3]` (boundary clauses 1+3 with `M ≤ 2N`), `log N ≥ (11/24)·t − 7` (the
+`hNfloor` row — the operating floors put every priced box's block scale above `x^{11/24}/8`):
+
+* `herr_D0lo` (`L^{17} ≤ D0`): by construction.
+* `hD0lo_main`, DECOUPLED (`L^{15} ≤ 2·2^{k0}`): from `L^{17} ≤ D0`, `L ≥ 1`.
+* `hD0` (`D0 ≤ L^{18}`): `4·L^{17} ≤ L^{18} ⟺ 4 ≤ L` — room factor `L/4 ~ 4·10^9`.
+* `hD0N'` (`D0 ≤ (log N)^{18}`): `L ≤ (12/5)·W` at `W := (11/24)·t − 7 ≤ log N`, so it needs
+  `W ≥ 4·(12/5)^{17} ≈ 1.17·10^7` — satisfied with factor `≈ 39` at `t = 10^9` (the OLD
+  coupled shape needed `log N > 0.707·L`, impossible at `log N/L → 13/24 ≈ 0.5417`).
+* **`herr_D0E` (per-`e`, dilated: `D0 ≤ (log(⌊X/e⌋·M))^{18}`) — the verdict: NO decoupling
+  needed or possible.**  Traced use: `hsmall_pere_discharge` feeds it to
+  `hSmallCut_discharge`'s `hD0` slot at the dilated carrier, where the `C0` power is
+  load-bearing (the conductor count `D0 ≤ LE^{C0}` must cancel the SW denominator
+  `LE^{A+1+C0}`); it is an UPPER-bound row of the `hD0N'` family, so catch #64's
+  lower-bound mechanism never applied to it.  Feasibility at the boundary boxes goes
+  through the landed `herr_scale` row (`LE ≥ L/2`, the dilated log loses at most a factor
+  `2` — GLU-2's "pinches harder" ONLY bit against the old `C0`-coupled LOWER bound):
+  `4·L^{17} ≤ (L/2)^{18} ⟺ L ≥ 4·2^{18} = 2^{20} ≈ 1.05·10^6` — factor `≈ 950` at
+  `t = 10^9`.  Emitted below in exactly that `herr_scale`-shaped form.
+* `hD0N` (`D0 ≤ N`) and the `x`-scale bound (`D0 ≤ x^{11/24}/8`, from which any level row
+  `D0 ≤ D` follows at the operating `D ~ x^{1/2−ε}`): `4·L^{17} ≤ W^{18} ≤ e^W ≤ x^{11/24}/8`.
+
+`h2D0` and `hD0eq` hold by construction; the `D0 ≤ D` adjacency chains from the
+`x`-scale bound.  Consumed by the GLU-2 re-run when instantiating
+`medium_survivor_price_sqrtD` at the boundary boxes (`norm_num` converts `15 = 13 + 2`,
+`17 = 13 + 4`, `18` to the `A`-form exponents). -/
+
+/-- **`d0_window_nonempty` (node D0W) — the anti-#64 certificate.**  At the operating point
+(`x ≥ exp(10^9)`, `M ≤ 2N`, the block floor `N ≥ x^{11/24}/8`), EVERY `dyadicBoundary` box
+(any m-floor `F`, at the mandated `X = 2^{i+1} − 1`) admits a `D0 = 2^{k0}` satisfying ALL
+the `D0`-window rows of the repaired terminal family at `A = 13`, `C0 = 18`: the decoupled
+`hD0lo_main` (exponent `A+2 = 15`), `herr_D0lo` (`A+4 = 17`), `hD0` and `hD0N'` (`C0 = 18`),
+the per-`e` `herr_D0E` (via the `herr_scale` form `L ≤ 2·LE`), the scale bound
+`D0 ≤ x^{11/24}/8`, and `hD0N : D0 ≤ N`.  See the section header for the margins. -/
+theorem d0_window_nonempty {x N M K i X F : ℕ}
+    (hx : Real.exp (10 ^ 9) ≤ (x : ℝ))
+    (hM2N : M ≤ 2 * N)
+    (hNfloor : (x : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (N : ℝ))
+    (hi : i ∈ dyadicBoundary N M (x / 2 + 1) x F K)
+    (hXsub : X = 2 ^ (i + 1) - 1) :
+    ∃ D0 k0 : ℕ, D0 = 2 ^ k0 ∧ 2 ≤ D0
+      ∧ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((15 : ℝ)) ≤ 2 * (2 : ℝ) ^ k0
+      ∧ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((17 : ℝ)) ≤ (D0 : ℝ)
+      ∧ (D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((18 : ℝ))
+      ∧ (D0 : ℝ) ≤ (Real.log N) ^ ((18 : ℝ))
+      ∧ (∀ LE : ℝ, Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * LE → (D0 : ℝ) ≤ LE ^ ((18 : ℝ)))
+      ∧ (D0 : ℝ) ≤ (x : ℝ) ^ ((11 : ℝ) / 24) / 8
+      ∧ D0 ≤ N := by
+  -- ① the scale facts: `t ≥ 10^9`, `x ≥ 2`.
+  have h109 : (10 : ℝ) ^ 9 = 1000000000 := by norm_num
+  have ht : (10 : ℝ) ^ 9 ≤ Real.log x := by
+    have h := Real.log_le_log (Real.exp_pos _) hx
+    rwa [Real.log_exp] at h
+  have hxR2 : (2 : ℝ) ≤ (x : ℝ) := by
+    have h1 := Real.add_one_le_exp ((10 : ℝ) ^ 9)
+    linarith
+  have hx2 : 2 ≤ x := by exact_mod_cast hxR2
+  have hxpos : (0 : ℝ) < (x : ℝ) := by linarith
+  -- ② the boundary clauses: `x/2 < X·M ≤ 4x`.
+  rw [dyadicBoundary, Finset.mem_filter] at hi
+  obtain ⟨-, hcorner, -, hcutoff⟩ := hi
+  have hXM : x / 2 + 1 < X * M := by rw [hXsub]; exact hcutoff
+  have hXle : X ≤ 2 ^ (i + 1) := by rw [hXsub]; exact Nat.sub_le _ _
+  have hXM4x : X * M ≤ 4 * x :=
+    calc X * M ≤ 2 ^ (i + 1) * (2 * N) := Nat.mul_le_mul hXle hM2N
+      _ = 4 * (2 ^ i * N) := by rw [pow_succ]; ring
+      _ ≤ 4 * (2 ^ i * (N + 1)) :=
+          Nat.mul_le_mul (le_refl 4) (Nat.mul_le_mul (le_refl (2 ^ i)) (Nat.le_succ N))
+      _ ≤ 4 * x := Nat.mul_le_mul (le_refl 4) hcorner
+  have hXMposN : 0 < X * M := by omega
+  have hXMposR : (0 : ℝ) < (X : ℝ) * (M : ℝ) := by exact_mod_cast hXMposN
+  have hXM4xR : (X : ℝ) * (M : ℝ) ≤ 4 * (x : ℝ) := by exact_mod_cast hXM4x
+  set L := Real.log ((X : ℝ) * (M : ℝ)) with hLdef
+  -- ③ `t − 1 ≤ L ≤ t + 3`.
+  have hL_lo : Real.log x - 1 ≤ L := by
+    have h1 : x < (x / 2 + 1) * 2 := by omega
+    have h2 : x / 2 + 1 ≤ X * M := by omega
+    have h1R : (x : ℝ) < ((x / 2 + 1 : ℕ) : ℝ) * 2 := by exact_mod_cast h1
+    have h2R : ((x / 2 + 1 : ℕ) : ℝ) ≤ (X : ℝ) * (M : ℝ) := by exact_mod_cast h2
+    push_cast at h1R h2R
+    have hhalf : (x : ℝ) / 2 < (X : ℝ) * (M : ℝ) := by linarith
+    have hlog : Real.log ((x : ℝ) / 2) ≤ L := Real.log_le_log (by linarith) hhalf.le
+    rw [Real.log_div (ne_of_gt hxpos) (by norm_num : (2 : ℝ) ≠ 0)] at hlog
+    have h2log : Real.log 2 ≤ 1 := by
+      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num)]
+    linarith
+  have hL_up : L ≤ Real.log x + 3 := by
+    have h1 : L ≤ Real.log (4 * (x : ℝ)) := Real.log_le_log hXMposR hXM4xR
+    rw [Real.log_mul (by norm_num : (4 : ℝ) ≠ 0) (ne_of_gt hxpos)] at h1
+    have h4log : Real.log 4 ≤ 3 := by
+      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 4 by norm_num)]
+    linarith
+  have hL1 : (1 : ℝ) ≤ L := by linarith
+  have hLnn : (0 : ℝ) ≤ L := by linarith
+  have hLpos : (0 : ℝ) < L := by linarith
+  have hL4 : (4 : ℝ) ≤ L := by linarith
+  have hL20 : (1048576 : ℝ) ≤ L := by linarith
+  -- ④ the block-floor log: `W := (11/24)·t − 7 ≤ log N`.
+  set W : ℝ := 11 / 24 * Real.log x - 7 with hWdef
+  have hWlogN : W ≤ Real.log N := by
+    have hlogN := Real.log_le_log (div_pos (Real.rpow_pos_of_pos hxpos _) (by norm_num))
+      hNfloor
+    rw [Real.log_div (ne_of_gt (Real.rpow_pos_of_pos hxpos _)) (by norm_num : (8 : ℝ) ≠ 0),
+      Real.log_rpow hxpos] at hlogN
+    have h8log : Real.log 8 ≤ 7 := by
+      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 8 by norm_num)]
+    rw [hWdef]
+    linarith
+  have hWpos : (0 : ℝ) < W := by rw [hWdef]; linarith
+  have hW1296 : (1296 : ℝ) ≤ W := by rw [hWdef]; linarith
+  have hLW : L ≤ 12 / 5 * W := by rw [hWdef]; linarith
+  have hW4 : 4 * ((12 : ℝ) / 5) ^ ((17 : ℝ)) ≤ W := by
+    have hc : ((12 : ℝ) / 5) ^ ((17 : ℝ)) = ((12 : ℝ) / 5) ^ (17 : ℕ) := by
+      rw [show ((17 : ℝ)) = ((17 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+    have hnum : 4 * ((12 : ℝ) / 5) ^ (17 : ℕ) ≤ 11 / 24 * 10 ^ 9 - 7 := by norm_num
+    rw [hc, hWdef]
+    linarith
+  -- ⑤ the dyadic window: `D0 = 2^{k0} ∈ [L^{17}, 4·L^{17}]`.
+  have hL17_1 : (1 : ℝ) ≤ L ^ ((17 : ℝ)) := Real.one_le_rpow hL1 (by norm_num)
+  have hL17_2 : (2 : ℝ) ≤ L ^ ((17 : ℝ)) := by
+    calc (2 : ℝ) ≤ L := by linarith
+      _ = L ^ ((1 : ℝ)) := (Real.rpow_one L).symm
+      _ ≤ L ^ ((17 : ℝ)) := Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
+  -- `n`/`k0` are introduced OPAQUELY (obtain, not set): their computational bodies
+  -- (`Nat.ceil`/`Nat.clog` over noncomputable reals) must stay out of defeq reach.
+  obtain ⟨n, hn_ge, hn_le⟩ :
+      ∃ n : ℕ, L ^ ((17 : ℝ)) ≤ (n : ℝ) ∧ (n : ℝ) ≤ L ^ ((17 : ℝ)) + 1 :=
+    ⟨⌈L ^ ((17 : ℝ))⌉₊, Nat.le_ceil _,
+      le_of_lt (Nat.ceil_lt_add_one (Real.rpow_nonneg hLnn _))⟩
+  have hn1 : 1 < n := by
+    have h1R : (1 : ℝ) < (n : ℝ) := by linarith
+    exact_mod_cast h1R
+  obtain ⟨k0, hnpow, hpow2n⟩ : ∃ k0 : ℕ, n ≤ 2 ^ k0 ∧ 2 ^ k0 ≤ 2 * n := by
+    refine ⟨Nat.clog 2 n, Nat.le_pow_clog (by norm_num) n, ?_⟩
+    have hk0pos : 0 < Nat.clog 2 n := Nat.clog_pos (by norm_num) hn1
+    have hpow_lt : 2 ^ (Nat.clog 2 n - 1) < n :=
+      Nat.pow_pred_clog_lt_self (by norm_num) hn1
+    have hsplit : 2 * 2 ^ (Nat.clog 2 n - 1) = 2 ^ Nat.clog 2 n := by
+      rw [← pow_succ']
+      congr 1
+      omega
+    rw [← hsplit]
+    exact Nat.mul_le_mul (le_refl 2) (le_of_lt hpow_lt)
+  have hD0_lo : L ^ ((17 : ℝ)) ≤ ((2 ^ k0 : ℕ) : ℝ) := by
+    refine le_trans hn_ge ?_
+    exact_mod_cast hnpow
+  have hD0_hi : ((2 ^ k0 : ℕ) : ℝ) ≤ 4 * L ^ ((17 : ℝ)) := by
+    have h1 : ((2 ^ k0 : ℕ) : ℝ) ≤ 2 * (n : ℝ) := by exact_mod_cast hpow2n
+    linarith
+  have hL18eq : L ^ ((18 : ℝ)) = L * L ^ ((17 : ℝ)) := by
+    have hh := Real.rpow_add hLpos 1 17
+    rw [Real.rpow_one] at hh
+    rw [show (18 : ℝ) = 1 + 17 by norm_num, hh]
+  have h17nn : (0 : ℝ) ≤ L ^ ((17 : ℝ)) := Real.rpow_nonneg hLnn _
+  -- ⑥ the `hD0N'` leg: `4·L^{17} ≤ W^{18}` (the anti-#64 margin).
+  have hW18 : 4 * L ^ ((17 : ℝ)) ≤ W ^ ((18 : ℝ)) := by
+    have hW17 : L ^ ((17 : ℝ)) ≤ ((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ)) := by
+      calc L ^ ((17 : ℝ)) ≤ (12 / 5 * W) ^ ((17 : ℝ)) :=
+            Real.rpow_le_rpow hLnn hLW (by norm_num)
+        _ = ((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ)) :=
+            Real.mul_rpow (by norm_num) hWpos.le
+    have hW18eq : W ^ ((18 : ℝ)) = W * W ^ ((17 : ℝ)) := by
+      have hh := Real.rpow_add hWpos 1 17
+      rw [Real.rpow_one] at hh
+      rw [show (18 : ℝ) = 1 + 17 by norm_num, hh]
+    have h17Wnn : (0 : ℝ) ≤ W ^ ((17 : ℝ)) := Real.rpow_nonneg hWpos.le _
+    rw [hW18eq]
+    calc 4 * L ^ ((17 : ℝ))
+        ≤ 4 * (((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ))) := by linarith
+      _ = (4 * ((12 : ℝ) / 5) ^ ((17 : ℝ))) * W ^ ((17 : ℝ)) := by ring
+      _ ≤ W * W ^ ((17 : ℝ)) := mul_le_mul_of_nonneg_right hW4 h17Wnn
+  -- ⑦ the `hD0N` leg: `W^{18} ≤ e^W ≤ x^{11/24}/8`.
+  have hexpW : W ^ ((18 : ℝ)) ≤ Real.exp W := by
+    have hunn : (0 : ℝ) ≤ W / 36 := by linarith
+    have hquad : W ≤ (W / 36) ^ ((2 : ℝ)) := by
+      rw [show ((2 : ℝ)) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+      have hexpand : (W / 36) ^ (2 : ℕ) = W * W / 1296 := by ring
+      rw [hexpand, le_div_iff₀ (by norm_num : (0 : ℝ) < 1296)]
+      have keyq : (0 : ℝ) ≤ (W - 1296) * W := mul_nonneg (by linarith) hWpos.le
+      linarith [keyq]
+    have hu : W / 36 ≤ Real.exp (W / 36) := by linarith [Real.add_one_le_exp (W / 36)]
+    calc W ^ ((18 : ℝ))
+        ≤ ((W / 36) ^ ((2 : ℝ))) ^ ((18 : ℝ)) :=
+          Real.rpow_le_rpow hWpos.le hquad (by norm_num)
+      _ = (W / 36) ^ ((36 : ℝ)) := by
+          rw [← Real.rpow_mul hunn]
+          norm_num
+      _ ≤ (Real.exp (W / 36)) ^ ((36 : ℝ)) := Real.rpow_le_rpow hunn hu (by norm_num)
+      _ = Real.exp W := by
+          rw [Real.rpow_def_of_pos (Real.exp_pos _), Real.log_exp]
+          congr 1
+          ring
+  have hexp_le : Real.exp W ≤ (x : ℝ) ^ ((11 : ℝ) / 24) / 8 := by
+    have hEW : Real.exp W = (x : ℝ) ^ ((11 : ℝ) / 24) / Real.exp 7 := by
+      rw [hWdef, Real.exp_sub, Real.rpow_def_of_pos hxpos]
+      have hmul : Real.log (x : ℝ) * ((11 : ℝ) / 24) = 11 / 24 * Real.log x := by ring
+      rw [hmul]
+    rw [hEW]
+    have h7 : (8 : ℝ) ≤ Real.exp 7 := by linarith [Real.add_one_le_exp (7 : ℝ)]
+    exact div_le_div_of_nonneg_left (Real.rpow_nonneg hxpos.le _) (by norm_num) h7
+  -- ⑧ emit the rows.
+  have hcast : ((2 ^ k0 : ℕ) : ℝ) = (2 : ℝ) ^ k0 := by push_cast; ring
+  refine ⟨2 ^ k0, k0, rfl, le_trans (by omega : 2 ≤ n) hnpow, ?_, hD0_lo, ?_, ?_, ?_, ?_, ?_⟩
+  · -- `hD0lo_main`, the DECOUPLED row (exponent `A+2 = 15`)
+    have h15 : L ^ ((15 : ℝ)) ≤ L ^ ((17 : ℝ)) :=
+      Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
+    have h2k0pos : (0 : ℝ) < (2 : ℝ) ^ k0 := by positivity
+    calc L ^ ((15 : ℝ)) ≤ L ^ ((17 : ℝ)) := h15
+      _ ≤ ((2 ^ k0 : ℕ) : ℝ) := hD0_lo
+      _ = (2 : ℝ) ^ k0 := hcast
+      _ ≤ 2 * (2 : ℝ) ^ k0 := by linarith
+  · -- `hD0` (`D0 ≤ L^{C0}`, `C0 = 18`)
+    rw [hL18eq]
+    have key : (0 : ℝ) ≤ (L - 4) * L ^ ((17 : ℝ)) := mul_nonneg (by linarith) h17nn
+    linarith [hD0_hi, key]
+  · -- `hD0N'` (`D0 ≤ (log N)^{C0}`, `C0 = 18`)
+    have hmono : W ^ ((18 : ℝ)) ≤ (Real.log N) ^ ((18 : ℝ)) :=
+      Real.rpow_le_rpow hWpos.le hWlogN (by norm_num)
+    linarith [hD0_hi, hW18, hmono]
+  · -- `herr_D0E` in the `herr_scale` form (`LE ≥ L/2`, exponent `C0 = 18`)
+    intro LE hLE
+    have hhalfpos : (0 : ℝ) < L / 2 := by linarith
+    have hstep : 4 * L ^ ((17 : ℝ)) ≤ (L / 2) ^ ((18 : ℝ)) := by
+      have hdiv : (L / 2) ^ ((18 : ℝ)) = L ^ ((18 : ℝ)) / (2 : ℝ) ^ ((18 : ℝ)) :=
+        Real.div_rpow hLnn (by norm_num) _
+      have h218 : (2 : ℝ) ^ ((18 : ℝ)) = 262144 := by
+        rw [show ((18 : ℝ)) = ((18 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+        norm_num
+      rw [hdiv, h218, hL18eq, le_div_iff₀ (by norm_num : (0 : ℝ) < 262144)]
+      have key : (0 : ℝ) ≤ (L - 1048576) * L ^ ((17 : ℝ)) := mul_nonneg (by linarith) h17nn
+      linarith [key]
+    have hmono : (L / 2) ^ ((18 : ℝ)) ≤ LE ^ ((18 : ℝ)) :=
+      Real.rpow_le_rpow hhalfpos.le (by linarith) (by norm_num)
+    linarith [hD0_hi]
+  · -- the `x`-scale bound (`D0 ≤ x^{11/24}/8` — chains `hD0D : D0 ≤ D` at the operating level)
+    linarith [hD0_hi, hW18, hexpW, hexp_le]
+  · -- `hD0N` (`D0 ≤ N`)
+    have hfin : ((2 ^ k0 : ℕ) : ℝ) ≤ (N : ℝ) := by
+      linarith [hD0_hi, hW18, hexpW, hexp_le, hNfloor]
+    exact_mod_cast hfin
 
 end Salt.Chen

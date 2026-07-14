@@ -192,7 +192,7 @@ theorem cutoff_BV_at_op {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
         1 ≤ D → (∀ d ∈ Dset, d ≤ D) → D < N → 2 ≤ X → 2 ≤ M → A + 2 ≤ B → A + 2 ≤ C0 →
         D0 = 2 ^ k0 → 2 ≤ D0 → D0 ≤ D → Klog = Nat.log 2 D →
         ((D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ B) →
-        ((Real.log ((X : ℝ) * (M : ℝ))) ^ C0 ≤ 2 * (2 : ℝ) ^ k0) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 2) ≤ 2 * (2 : ℝ) ^ k0) →
         ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 3) ≤ Real.sqrt X) →
         ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 3) ≤ Real.sqrt M) →
         ((D : ℝ) * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 5) ≤ Real.sqrt ((X : ℝ) * (M : ℝ))) →

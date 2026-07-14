@@ -6627,3 +6627,26 @@ habs_row (margin e^{1221} vs 1e45), all ≤ [propext, Classical.choice, Quot.sou
 deliberately not frozen (moot until D0W; the w₀-guard scale exp(1.6e10) will dominate).
 Tally: 64 catches, 0 wrong proofs — the estimate-vs-statement divergence was caught by
 the mandated STEP-0 inventory BEFORE any proof attempt burned against it.
+
+**2026-07-14 D0W ✅ FULL (Opus executor attempt 1, Fable statement-change warrant, survived
+one API stream drop) — CATCH #64 REPAIRED IN PLACE.** hD0lo_main weakened L^{C0} → L^{A+2}
+through the full chain (four_term_scale_le root at EnergyClose:488 with the proof patched at
+its unique use; pass-throughs WindowErrFold:82/1275, WindowSmallChi:468 + the H-glue
+threshold-list docstring, SqrtDFold:747/829/954, MediumFloor:518, GlueBV:195; the row is fed
+positionally so pass-through proofs needed NO edits). general_BV_cutoff_final carries no
+hD0lo row (verified); hMainEnergy_discharge (non-cutoff path, outside warrant) kept its
+statement — proof-body adapter only. **herr_D0E verdict: no decoupling needed or possible**
+— it is an hD0N'-family UPPER row whose C0 power is load-bearing (cancels the SW denominator
+LE^{A+1+C0}); with the lower row decoupled the pair is feasible via the landed herr_scale
+(LE ≥ L/2): 4L^17 ≤ (L/2)^18 ⟺ L ≥ 2^20 — room ~1.5e4 at op scale. **Anti-#64 certificate
+landed**: `d0_window_nonempty` (SqrtDFold §12): at A=13, C0=18, x ≥ exp(10^9), every
+dyadicBoundary box admits D0 = 2^{k0} ∈ [L^17, 4L^17] satisfying ALL D0 rows (decoupled
+hD0lo_main, herr_D0lo, hD0, hD0N' — worst row room ≈39× at threshold, growing at op scale —
+herr_D0E via herr_scale shape, hD0D chain, D0 ≤ N). GBV4/GBV5 #check chains still land
+(example blocks in the green build). All 12 edited/new declarations exactly [propext,
+Classical.choice, Quot.sound]. AUTHORING CATCH (cost 2 rebuild rounds): `set`-binding
+Nat.ceil/Nat.clog of noncomputable reals puts computational bodies in defeq reach —
+nlinarith/elaboration hit deterministic whnf timeouts; introduce such witnesses OPAQUELY via
+`obtain` on an existential, prefer linarith [explicit certificate] in rpow-heavy contexts.
+GLU-2 re-run is UNBLOCKED: terminals demand A+2 only; d0_window_nonempty is the witness.
+Tally: 64 catches, 0 wrong proofs.

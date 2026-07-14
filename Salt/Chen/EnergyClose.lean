@@ -470,7 +470,10 @@ theorem smallConductor_energy_le {X Y D0 : ℕ} {A C0 Kβ : ℝ} (α β : ℕ �
 
 /-- **The four-term scale arithmetic (the classical `choose B vs A` endgame) — FULL.**
 Under the honest operating scale — `X, Y ≥ 2`, `1 ≤ D`, level cut `D ≤ √(XY)/(log XY)^B`
-with `B ≥ A+2`, dyadic bottom `D0 = 2^{k0}` with `(log XY)^{C0} ≤ 2·2^{k0}`, `C0 ≥ A+2`,
+with `B ≥ A+2`, dyadic bottom `D0 = 2^{k0}` with `(log XY)^{A+2} ≤ 2·2^{k0}` (the T4 tail
+exponent — DECOUPLED from the SW exponent `C0`, the catch-#64 repair: the proof only ever
+needed the `A+2` power here, and demanding `L^{C0}` jointly with `D0 ≤ (log N)^{C0}` empties
+the `D0`-window at every boundary box), `C0 ≥ A+2`,
 and the mild `X, Y ≥ (log XY)^{2A+6}` (as `(log XY)^{A+3} ≤ √X, √Y`) — the explicit
 four-term dyadic bound `2(1+log Y)√X√Y·(4·2^{K+1} + 2(K+1)√(13(X+1)) + 2(K+1)√(13(Y+1))
 + √(13(X+1))√(13(Y+1))·2/2^{k0})` (with `K = ⌊log₂ D⌋`) is `≤ (448+32√26)·XY/(log XY)^{A+1}`.
@@ -482,7 +485,7 @@ theorem four_term_scale_le {X Y D k0 K : ℕ} {A B C0 : ℝ}
     (hB : A + 2 ≤ B) (hC0 : A + 2 ≤ C0)
     (hD : (D : ℝ) ≤ Real.sqrt ((X : ℝ) * (Y : ℝ)) / (Real.log ((X : ℝ) * (Y : ℝ))) ^ B)
     (hK : K = Nat.log 2 D)
-    (hD0 : (Real.log ((X : ℝ) * (Y : ℝ))) ^ C0 ≤ 2 * (2 : ℝ) ^ k0)
+    (hD0 : (Real.log ((X : ℝ) * (Y : ℝ))) ^ (A + 2) ≤ 2 * (2 : ℝ) ^ k0)
     (hXsqrt : (Real.log ((X : ℝ) * (Y : ℝ))) ^ (A + 3) ≤ Real.sqrt X)
     (hYsqrt : (Real.log ((X : ℝ) * (Y : ℝ))) ^ (A + 3) ≤ Real.sqrt Y) :
     (2 * (1 + Real.log Y) * Real.sqrt X * Real.sqrt Y)
@@ -492,6 +495,10 @@ theorem four_term_scale_le {X Y D k0 K : ℕ} {A B C0 : ℝ}
           + Real.sqrt (13 * ((X : ℝ) + 1)) * Real.sqrt (13 * ((Y : ℝ) + 1)) * (2 / (2 : ℝ) ^ k0))
       ≤ (448 + 32 * Real.sqrt 26) * ((X : ℝ) * (Y : ℝ))
           / (Real.log ((X : ℝ) * (Y : ℝ))) ^ (A + 1) := by
+  -- catch-#64 repair: `hD0` is now consumed at the decoupled `A+2` exponent, so `hC0` is
+  -- no longer needed by this proof; it is retained in the signature (the D0W warrant is a
+  -- row-only statement change) and referenced here for the unused-variable linter.
+  have _ := hC0
   set L := Real.log ((X : ℝ) * (Y : ℝ)) with hLdef
   have hXR : (2 : ℝ) ≤ (X : ℝ) := by exact_mod_cast hX2
   have hYR : (2 : ℝ) ≤ (Y : ℝ) := by exact_mod_cast hY2
@@ -572,15 +579,16 @@ theorem four_term_scale_le {X Y D k0 K : ℕ} {A B C0 : ℝ}
     exact Real.rpow_le_rpow_of_exponent_le hL1 hB
   have hrp_C0 : L * (2 / (2 : ℝ) ^ k0) ≤ 4 / L ^ (A + 1) := by
     have h2k0 : (0 : ℝ) < (2 : ℝ) ^ k0 := by positivity
-    have hstep : (2 : ℝ) / (2 : ℝ) ^ k0 ≤ 4 / L ^ C0 := by
+    -- catch-#64 repair: the tail cut is consumed DIRECTLY at the `A+2` exponent.
+    have hstep : (2 : ℝ) / (2 : ℝ) ^ k0 ≤ 4 / L ^ (A + 2) := by
       rw [div_le_div_iff₀ h2k0 (Real.rpow_pos_of_pos hLpos _)]; linarith [hD0]
     calc L * (2 / (2 : ℝ) ^ k0)
-        ≤ L * (4 / L ^ C0) := mul_le_mul_of_nonneg_left hstep (le_of_lt hLpos)
-      _ = 4 * (L / L ^ C0) := by ring
-      _ ≤ 4 * (1 / L ^ (A + 1)) := by
-          apply mul_le_mul_of_nonneg_left _ (by norm_num)
-          rw [div_le_div_iff₀ (Real.rpow_pos_of_pos hLpos _) hLApos, one_mul, hcollapse]
-          exact Real.rpow_le_rpow_of_exponent_le hL1 (by linarith)
+        ≤ L * (4 / L ^ (A + 2)) := mul_le_mul_of_nonneg_left hstep (le_of_lt hLpos)
+      _ = 4 * (L / L ^ (A + 2)) := by ring
+      _ = 4 * (1 / L ^ (A + 1)) := by
+          have h : L / L ^ (A + 2) = 1 / L ^ (A + 1) := by
+            rw [div_eq_div_iff (Real.rpow_pos_of_pos hLpos _).ne' hLApos.ne', one_mul, hcollapse]
+          rw [h]
       _ = 4 / L ^ (A + 1) := by ring
   -- distribute
   rw [mul_add, mul_add, mul_add]
@@ -786,8 +794,13 @@ theorem hMainEnergy_discharge {X Y D0 D k0 K : ℕ} {A B C0 Kβ : ℝ}
   have hLpos : (0 : ℝ) < Real.log ((X : ℝ) * (Y : ℝ)) := by linarith
   have hsum := mainEnergy_sum_le (A := A + 1) (C0 := C0) (Kβ := Kβ) hD0eq hK h2D0 hD0D
     hYpos α β hα hβ hKβ hLpos hD0hi hβSW
+  -- catch-#64: `four_term_scale_le` now takes the decoupled `A+2`-exponent tail cut;
+  -- this discharge keeps its landed `L^{C0} ≤ 2·2^{k0}` row and weakens it here
+  -- (`L^{A+2} ≤ L^{C0}` from `1 ≤ L`, `A+2 ≤ C0`).
+  have hD0lo' : (Real.log ((X : ℝ) * (Y : ℝ))) ^ (A + 2) ≤ 2 * (2 : ℝ) ^ k0 :=
+    le_trans (Real.rpow_le_rpow_of_exponent_le hL1 hC0) hD0lo
   have hft := four_term_scale_le (A := A) (B := B) (C0 := C0) hA hX2 hY2 h1D hB hC0
-    hDscale hK hD0lo hXsqrt hYsqrt
+    hDscale hK hD0lo' hXsqrt hYsqrt
   set L := Real.log ((X : ℝ) * (Y : ℝ)) with hLdef
   have hLApos : (0 : ℝ) < L ^ (A + 1) := Real.rpow_pos_of_pos hLpos _
   have hLAApos : (0 : ℝ) < L ^ A := Real.rpow_pos_of_pos hLpos _

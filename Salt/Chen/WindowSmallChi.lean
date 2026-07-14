@@ -432,7 +432,10 @@ constant (`K₃`/`K₄`/`Kg` the item-3 / item-4 / `general_BV_cutoff_closed` ex
 
 * **Coefficient / block:** `‖α‖ ≤ 1`; `0 ≤ Kβ, Km, Kβ'`; `N₀ ≤ N`; `M ≤ 2N`; `D0 ≤ N`;
   `N ≤ M`; `Dset ⊆ [1,D]`, all coprime to `2`; `D < N`; `1 ≤ D`; `2 ≤ X, M`.
-* **Scale / dyadic:** `1 ≤ L := log(XM)`; `D0 ≤ L^{C0}`, `D0 ≤ (log N)^{C0}`, `L^{C0} ≤ 2·2^{k0}`,
+* **Scale / dyadic:** `1 ≤ L := log(XM)`; `D0 ≤ L^{C0}`, `D0 ≤ (log N)^{C0}` (`hD0N'`, the SW
+  small-conductor range — exponent `C0`), `L^{A+2} ≤ 2·2^{k0}` (`hD0lo_main`, the T4-tail cut —
+  exponent `A+2`, DECOUPLED from `C0`; coupling both rows at `C0` empties the `D0`-window at
+  every boundary box: catch #64, `GlueFinal.catch64_op_boundary_infeasible`),
   `D0 = 2^{k0}`, `2 ≤ D0 ≤ D`; `A+2 ≤ B, C0`; `Klog = ⌊log₂ D⌋`; the level cut
   `D ≤ √(XM)/L^B`; `L^{A+3} ≤ √X, √M`; `D ≤ XM`.
 * **Error-side (the `e`-fold):** `D·L^{A+5} ≤ √(XM)`, `L^{A+4} ≤ D0`, `L^{A+5} ≤ √M`, and per `e`:
@@ -462,7 +465,7 @@ theorem general_BV_cutoff_unconditional {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0)
         1 ≤ D → (∀ d ∈ Dset, d ≤ D) → D < N → 2 ≤ X → 2 ≤ M → A + 2 ≤ B → A + 2 ≤ C0 →
         D0 = 2 ^ k0 → 2 ≤ D0 → D0 ≤ D → Klog = Nat.log 2 D →
         ((D : ℝ) ≤ Real.sqrt ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ B) →
-        ((Real.log ((X : ℝ) * (M : ℝ))) ^ C0 ≤ 2 * (2 : ℝ) ^ k0) →
+        ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 2) ≤ 2 * (2 : ℝ) ^ k0) →
         ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 3) ≤ Real.sqrt X) →
         ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 3) ≤ Real.sqrt M) →
         -- error-side (`e`-fold) thresholds
