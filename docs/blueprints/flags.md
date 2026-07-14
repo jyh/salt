@@ -6108,3 +6108,19 @@ cutoffPrimEnergy level + the per-e hsmall) — the cutoff twist doesn't factor, 
 small machinery doesn't route; the discharge is WBV3's per-m interval-SW technique AT THE
 χ-LEVEL (each primitive χ mod f ≤ D0 gets the interval prime twist per m — the χ-twisted SW
 prime_indicator machinery applies). The wave is 5/7; WBV6 (pieces + band) in flight.
+
+## 2026-07-14 WBV6 Opus done FULL + ★ CATCH #56: the band is NOT thin ★
+
+`Salt/Chen/PieceDecomp.lean` (466 lines, 17 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. The piece decomposition (exact + triangle; O(log x) pieces); the m-split at
+z·N+1 (ordering-clear + band); **`hBlock_of_window_prices`** — the full assembly into
+BlockPricing's hBlock slot, #check-verified through hBVblocks_of_generalBV, with the high-piece
+prices named per hHD_of_generalBV_window and the band as the named Plo.
+**CATCH #56 (executor honest-assessed, against WindowClose's design note): the p₂ ≈ p₃
+ordering band is Θ(x/log x)-THICK** — the crude count overshoots the budget by ≥ (log x)^{10}
+(band mass ~ C²x/2·Σ1/k²; the d-sum multiplies by log x). The band needs its own
+equidistribution node. **THE FIX (= BND, Fable design): the SYMMETRY SPLIT** — the ordered
+band sum = ½·(the UNORDERED block×block sum — a CLEAN RECTANGLE at the cutoff carrier, priced
+by general_BV_cutoff_final verbatim) + ½·(the diagonal p₂ = p₃ — the p₁p₂² triples, ~x^{2/3}
+total, genuinely crude-able). The ν-linearity respects the split (both counts are per-d linear).
+Tally: **56 catches, 0 proofs on wrong statements.**
