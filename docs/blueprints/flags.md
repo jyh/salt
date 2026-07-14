@@ -6092,3 +6092,19 @@ composition chain #check-verified end-to-end). REMAINING (WBV5/6): discharge **h
 **hErrSum** (the α-side e-fold at the cutoff carrier — the THIRD run of the twice-done
 ErrFold/PerE/AlphaSide pattern; sizable-mechanical); the O(log²x) piece decomposition +
 **hLowPieces** (the thin ordering band at low pieces — crude count or its own node).
+
+## 2026-07-14 WBV5 Opus done FULL (both slots discharged; general_BV_cutoff_closed)
+
+`Salt/Chen/WindowErrFold.lean` (1333 lines, 14 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. `hMainEnergy_cutoff_discharge` (the landed pattern at WBV2's four-term;
+Kmain = 6(Km+448+32√26)); the CUTOFF e-fold (the BDH identity with the delicate ⌊T/e⌋ reindex;
+**β ≡ 0 achieved AT THE FOLD** — cleaner than the landed split; the error is a SINGLE α-side
+norm); the α-side per-e at 1/e (regroup — already primitive, no collapse needed — + the
+δ+cutoff descent + the gcd-fibered assembly, Klarge = 15360, the C0 = A+5 chain scripted-ported
+~350 lines verbatim); **`general_BV_cutoff_closed`** — both slots fed, the alpha_final shape.
+Thresholds for the H-glue: main (A+2 ≤ B/C0 forms, L^{A+3} ≤ √X,√M) + error (hlev/hD0lo/hMlev/
+hdiv at A+5). **THE ONE RESIDUAL = WBV7:** the small cutoff-conductor SW inputs (hSmallCut at
+cutoffPrimEnergy level + the per-e hsmall) — the cutoff twist doesn't factor, so the bilinear
+small machinery doesn't route; the discharge is WBV3's per-m interval-SW technique AT THE
+χ-LEVEL (each primitive χ mod f ≤ D0 gets the interval prime twist per m — the χ-twisted SW
+prime_indicator machinery applies). The wave is 5/7; WBV6 (pieces + band) in flight.

@@ -44,6 +44,7 @@ import Salt.Chen.WindowBV
 import Salt.Chen.WindowBVDescent
 import Salt.Chen.WindowSW
 import Salt.Chen.WindowClose
+import Salt.Chen.WindowErrFold
 import Salt.Chen.ErrFold
 import Salt.Chen.PerEEngine
 import Salt.Chen.PerEEngine2
@@ -314,6 +315,9 @@ open Salt.Tactic in
   Salt.Chen.tripleSum_le_cbar_final
   Salt.Chen.apDiscBilinCutoff_orthogonality Salt.Chen.norm_apDiscBilinCutoff_le
   Salt.Chen.cutoffTwist_energy_le Salt.Chen.energy_shell_cutoff
+  Salt.Chen.hMainEnergy_cutoff_discharge Salt.Chen.cutoffEfoldTerm_reorg
+  Salt.Chen.cutoffEfold_alpha_le Salt.Chen.hErrSum_cutoff_of_thresholds
+  Salt.Chen.general_BV_cutoff_closed
   Salt.Chen.cutoffTwist_coprimeRestrict_primitive Salt.Chen.regroup_cutoff
   Salt.Chen.cutoff_hLargeDisc Salt.Chen.general_BV_cutoff_final
   Salt.Chen.hHD_of_generalBV_window
