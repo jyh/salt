@@ -5483,3 +5483,26 @@ gcd-WEIGHTED mean value (carry φ(gcd) through the Farey root).
 PE3c-2 (C: cs_over_q_chi generalization + bilinear_LS_shell_dvd + energy_shell_dvd) →
 PE3c-3 (C: the δ-dyadic engine) → PE3c-4 (C+, GATE FIRST: the hlarge assembly with the C0
 resolution). Then SW3b → SW4 → H-glue.
+
+## 2026-07-13 SS3c Opus done FULL — ★ THE NUMERIC KEYSTONE (C1cσ) IS CLOSED ★ + CATCH #46
+
+`Salt/Chen/SuperPanelsE.lean` (7918 lines) + `Salt/Chen/SuperClose.lean` (65 lines); wired by
+Fable. Sorry-free, axiom-clean, zero warnings. ALL 200 hSE panels (chord fseq₂ majorant on
+0–39, pure rational beyond) + the suffix-cumulative ObarTailBound (one downward decide-recurrence)
++ the seam; **`hSE_holds`**; and — SS3b having landed mid-session — the UNCONDITIONAL close:
+**`massSum_le_A2_final`, `massOSum_le_A1_final`, `Fchain_A2_final` (≤ 268/100 on [4/3,3]),
+`fchain_A1_final` (≥ 9779/10000 on [3.9992, 4])** — the H-glue's A₁/A₂ value inputs, ZERO
+hypotheses. Worst margins: 5.28e−9 (even), 4.03e−8 (fseq₂ panels).
+**CATCH #46 (executor-surfaced, transcription layer):** the SS2 recipe was NOT all-clear — panel
+39 fails by −1.5e−7 at the recipe's 7-digit log knots (rounding artifact, not a real gap); fixed
+proof-side with 8-digit sandwiches, profile untouched. The C1cσ debt — open since C1b′ declared
+the value certification infeasible-by-cheap-routes — is DISCHARGED: fchain/Fchain at the
+operating points are kernel-checked theorems. Tally: 46 catches, 0 wrong proofs.
+
+## 2026-07-13 PE3c-1 Opus done FULL (the δ-Farey root: the diagonal is now parametric)
+
+`Salt/LS/DvdLS.lean` (wired into Salt/LS/All.lean by Fable). Sorry-free, axiom-clean, zero
+warnings. `farey_spacing_core_dvd` (δ ∣ k ⟹ |k| ≥ δ via explicit cofactor witnesses),
+`farey_spacing_dvd` (δ/Q²), `arithmetic_LS_dvd` (diagonal Q²/δ + 13N; three-branch on δ>Q/Q=1/
+main), `char_LS_dvd` (char_LS_perQ reused verbatim), δ=1 recovery examples. The one-line spacing
+refinement predicted by the recon is real. NEXT: PE3c-2 (the bilinear shell δ-copy).
