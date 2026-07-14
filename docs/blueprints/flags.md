@@ -6771,3 +6771,20 @@ executors, all benign, all kernel-checked:
 Tally: 67 catches, 0 wrong proofs. NEXT: A3W2 (the hBlockW/band/low W-mirror construction)
 → GLU-2W (the ∃-package at the tower x₀ + findings 3–5 + the row ledger above) →
 chen_headline via chen_of_hypotheses_W.
+
+**2026-07-14 A3W2 ✅ FULL first-attempt (SwitchW2.lean, 1118 lines, 31 decls) — THE W
+BOX/BAND CLOSE IS COMPLETE; hBVblocksW is supplied.** W-disc objects at (Q·d, crtClassW);
+the WBV6 piece-decomposition mirror EXACT; blockBoxW_windowDisc_eq — the identification
+folds ON THE NOSE through blockBox_windowDisc_eq_res (no #65-genre failure); hNum_at_opW
+at the image Dset (Q*·) with r = crtClassW (reindex via sum_image, injectivity by
+eq_of_mul_eq_mul_left); the m-side support floor UNTOUCHED by the W-shift (z·y verbatim);
+the band three-piece close mirrored (class-generic band kernels applied verbatim at the
+shifted class; diagonal only shrinks); hBVblocksW_discharge #check-chained character-for-
+character into mainA3_of_block_remainders_W's slot, emitting the exact hA3 shape.
+Structural rows DISCHARGED in-node (hrW/hDge1W/hDlevW). The consolidated 10-row GLU-2W
+ledger is in the module header (level/divisor/crumb/Price/PsymK-PlowK/diagonal/hCE_W/
+budget rows; finding-3 floor caveat recorded as a NAMED-hypothesis resolution). All 31
+declarations exactly [propext, Classical.choice, Quot.sound]. Six consecutive first-
+attempt FULLs since the H2-GATE. Tally: 67 catches, 0 wrong proofs. **NEXT: GLU-2W — THE
+FINAL NODE** (the ∃-package at the tower x₀; every supplier example is landed and every
+row is named).

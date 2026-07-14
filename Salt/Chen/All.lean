@@ -104,6 +104,7 @@ import Salt.Chen.SwitchStrip
 import Salt.Chen.SwitchBlocks
 import Salt.Chen.TwinA1W
 import Salt.Chen.SwitchW
+import Salt.Chen.SwitchW2
 import Salt.Chen.CountW
 import Salt.Chen.TwinA2W
 import Salt.Chen.BlockPricing
@@ -343,6 +344,9 @@ open Salt.Tactic in
   Salt.Chen.medium_survivor_price Salt.Chen.hHD_of_box_disc
   Salt.Chen.Plo_sym_of_box_disc Salt.Chen.Plo_low_of_box_disc
   Salt.Chen.hNum_at_op
+  Salt.Chen.hBVblocksW_discharge Salt.Chen.hNum_at_opW Salt.Chen.PloW_discharge
+  Salt.Chen.blockBoxW_windowDisc_eq Salt.Chen.bandDiscW_le_three_pieces
+  Salt.Chen.hBlockW_of_window_prices Salt.Chen.hrW_discharge
   Salt.Chen.twin_A1_lower_B_W Salt.Chen.twinA1_hBV_W Salt.Chen.twinA1W_rem_eq
   Salt.Chen.A1primeSumW_bridge Salt.Chen.crt_class_coprime
   Salt.Chen.tripleSum_le_cbar_final_W Salt.Chen.tripleSumW_equidist
