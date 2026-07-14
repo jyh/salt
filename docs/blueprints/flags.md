@@ -6897,3 +6897,33 @@ OPPOINT/A1A2 checkpoint (1675 lines, standalone exit 0) is the foundation; it st
 unwired until the wave completes. Executors on Opus per the ratified budget rule. Tally
 stays 68 catches, 0 wrong proofs (a scope discovery, not a catch — no landed statement is
 false or infeasible).
+
+**2026-07-14 PRICE-GATE (adversarial, Opus) — GO_W_CORRECTIONS + ★ CATCH #69 ★.** The
+declared risk (Kβ/Km/Kβ′ aggregation) is FEASIBLE but ONLY via Finding 4 (ε₀ := x ⟹
+maxBlock = 0; x₀ = x₀(K) after destructuring): TransposedBV note (c) is an UNDER-COUNT —
+it silently dropped the c^{−(A+2C0)}·K·L per-box factor (Km, Kβ′ ≥ K·L forced by the
+couplings; honest per-box price 2^{18}c^{−50}K·XM/L^{12}, one L worse than sketched); the
+honest aggregate ≈ 3.5·10²³·K·x/t^{11} ≤ x/t^{10} ⟺ t ≥ 3.5·10²³·K — dwarfed by the
+tower (log x₀ ≥ w'^{w'}, w' ~ exp(2·10⁹)). Note (c) is DISCARDED; the gate's aggregate
+derivation replaces it. **CATCH #69 (NEW, kernel-certain): the terminal's per-e rows
+(herr_LEpos/herr_scale/herr_D0E at SqrtDFold:966–971) are FALSE for e ∈ (X, D]** — nat
+division gives ⌊X/e⌋ = 0, log(0·M) = 0, and the rows read 0 < 0 / L ≤ 0 / D0 ≤ 0^{18}.
+Every medium-band box has D ~ x^{0.497} > X (≥ z·y = x^{0.4583} at the floor, up to
+x^{0.497}) — the rows are unsatisfiable at the needed level. SOUND UNDERNEATH: for e > X
+the e-fold term cutoffEfoldTerm is IDENTICALLY 0 (the m'-range is empty at top X/e = 0) —
+the rows demand positivity of terms that vanish. The tell: d0_window_nonempty supplies
+herr_D0E in the GUARDED form (∀ LE, L ≤ 2LE → …, vacuous at e > X) but the terminal takes
+the direct form — the witness and the consumer diverged. Never fired because the terminal
+was never applied (the GLU-2W-fin scoping finding). **RATIFIED REPAIR = PRICE-0 (Fable
+warrant, BEFORE PRICE-1)**: guard the per-e rows to e ≤ X (or the d0_window guarded shape)
+through general_BV_cutoff_sqrtD/medium_survivor_price_sqrtD (+ the chain where they
+thread), re-proving hGlue with the e ≤ X / e > X split (the e > X leg = the vanishing
+lemma). ALSO RATIFIED: Finding C (pieceM = 2·pieceN + 1 vs the terminal's M ≤ 2N — bridge
+at N' = 2^k in PRICE-1, blockPrimeInd equal as functions since 2^k composite at priced k);
+Finding-3 CONFIRMED (the strip N ∈ [x^{7/16}/4.9, x^{11/24}/8) is real, carries
+non-cancelling boxes, needs the lower-floor d0 variant in PRICE-2 — binding row has ~83×
+room; it also drives the worst-c aggregate constant (16/7)^{49}, absorbed). SW couplings:
+no corpus discharger anywhere — PRICE-1 supplies them as minimal-value choices (pure
+algebra). WAVE ORDER (corrected): **PRICE-0 → PRICE-1 → PRICE-2 → PRICE-3/GLU-2W-fin2.**
+Tally: 69 catches, 0 wrong proofs — #69 found by the gate BEFORE the wave was dispatched;
+the fourth consecutive pre-construction catch.
