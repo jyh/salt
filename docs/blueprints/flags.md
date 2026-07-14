@@ -6236,3 +6236,13 @@ priceable by the AbelPass abstract machinery (prime_sum_abel) + the numeric row 
 0.29827-count model — rewire to the honest carrier at the H-glue (docs, not proofs).
 WITH FPC + A2W: the projected razor = 0.9777 − 0.7978 − ½·c̄·(3/8)·2.383 = **+0.0177** (93% of
 the ideal margin). Tally: **58 catches, 0 proofs on wrong statements.**
+
+## 2026-07-14 FPC Opus done (catch #58a CLOSED: Fchain at the switch ≤ 2.43)
+
+`Salt/Chen/FchainPoint.lean` (1 decl; wired by Fable). Sorry-free, axiom-clean, zero warnings,
+first attempt. `Fchain_switch_le : ∀ s ∈ [149/100, 151/100], Fchain N s ≤ 243/100` — the MR1
+mass identity + the SS3c sum composed at the point (index sets literally identical; the ledger
+collapses to (3+M)/s, decreasing). Worst point EXACT: 1072/447 ≈ 2.39821; frozen 2.43 (1.33%
+slack — the executor correctly overrode my 2.4 hint, which had only 0.075% and would break at
+any mass-budget loosening; good judgment, not a catch). The A₃ razor row: ½·c̄·(3/8)·2.43 =
+0.16547 ≪ the 2.6403-equivalent ceiling. 58a CLOSED; A2W (58b) is the last cert gap.

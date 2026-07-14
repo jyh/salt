@@ -73,6 +73,7 @@ import Salt.Chen.SuperProfileDef
 import Salt.Chen.SuperPanelsO
 import Salt.Chen.SuperPanelsE
 import Salt.Chen.SuperClose
+import Salt.Chen.FchainPoint
 import Salt.Chen.SharpH
 import Salt.Chen.SharpH2
 import Salt.Chen.SharpF
@@ -307,6 +308,7 @@ open Salt.Tactic in
   Salt.Chen.Ebar_nonneg Salt.Chen.Obar_nonneg
   Salt.Chen.Ebar_intervalIntegrable Salt.Chen.Obar_intervalIntegrable
   Salt.Chen.Ebar_integral_le Salt.Chen.Obar_integral_le
+  Salt.Chen.Fchain_switch_le
   Salt.Chen.hSO_holds Salt.Chen.hSE_holds
   Salt.Chen.massSum_le_A2_final Salt.Chen.massOSum_le_A1_final
   Salt.Chen.Fchain_A2_final Salt.Chen.fchain_A1_final
