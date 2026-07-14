@@ -102,6 +102,10 @@ import Salt.Chen.SwitchDyadic
 import Salt.Chen.SwitchPricing
 import Salt.Chen.SwitchStrip
 import Salt.Chen.SwitchBlocks
+import Salt.Chen.TwinA1W
+import Salt.Chen.SwitchW
+import Salt.Chen.CountW
+import Salt.Chen.TwinA2W
 import Salt.Chen.BlockPricing
 import Salt.Chen.PairBijection
 import Salt.Chen.SwitchConstant
@@ -258,6 +262,16 @@ open Salt.Tactic in
   Salt.Chen.tripleSum_eq_sum_blockTripleSum Salt.Chen.blockSwitchSieve_W_eq
   Salt.Chen.block_switch_upper_B Salt.Chen.triplePrimeSum_le_sum_blocks
   Salt.Chen.norm_blockAlpha_le_one Salt.Chen.mainA3_of_block_remainders
+  Salt.Chen.switchSieveW_W_eq Salt.Chen.blockSwitchSieveW_W_eq
+  Salt.Chen.blockSwitchSieveW_maxDepth_eq
+  Salt.Chen.triplePrimeSumW_le_sifted Salt.Chen.switchSieveW_siftedSum_eq_sum_blocks
+  Salt.Chen.block_switch_upper_B_W Salt.Chen.mainA3_of_block_remainders_W
+  Salt.Chen.crtClassW_coprime Salt.Chen.memClassW_iff
+  Salt.Chen.blockMultSumW_eq_apCount Salt.Chen.blockUnitM_add_blockNonUnitM
+  Salt.Chen.blockSwitchSieveW_rem_split Salt.Chen.blockSwitchSieveW_abs_rem_le
+  Salt.Chen.blockRemW_rosserRemainder_split_le Salt.Chen.sum_blockRemW_split_le
+  Salt.Chen.hBVblocksW_of_generalBV
+  Salt.Chen.blockBox_windowDisc_eq_res
   Salt.Chen.apDiscBilin_sum_alpha Salt.Chen.apDiscBilin_split_threshold
   Salt.Chen.apDiscBilin_singleton_collapse Salt.Chen.norm_restrictAlpha_le_one
   Salt.Chen.productInWindow_of_corners
@@ -329,6 +343,11 @@ open Salt.Tactic in
   Salt.Chen.medium_survivor_price Salt.Chen.hHD_of_box_disc
   Salt.Chen.Plo_sym_of_box_disc Salt.Chen.Plo_low_of_box_disc
   Salt.Chen.hNum_at_op
+  Salt.Chen.twin_A1_lower_B_W Salt.Chen.twinA1_hBV_W Salt.Chen.twinA1W_rem_eq
+  Salt.Chen.A1primeSumW_bridge Salt.Chen.crt_class_coprime
+  Salt.Chen.tripleSum_le_cbar_final_W Salt.Chen.tripleSumW_equidist
+  Salt.Chen.twin_A2_per_prime_W Salt.Chen.twinA2W_hcoef Salt.Chen.twinA2_hBVagg_W
+  Salt.Chen.omegaPrimeSumW_decomp Salt.Chen.twinA2W_rem_eq
   Salt.Chen.chen_of_hypotheses_W Salt.Chen.chen_positivity_W Salt.Chen.chen_survivor_W
   Salt.Chen.factors_ge_z_of_sift_W Salt.Chen.razor_reduction_W Salt.Chen.stripPrimeSum_le_W
   Salt.Chen.aCount_ge_one_of_W Salt.Chen.residue_witness

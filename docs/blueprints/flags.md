@@ -6728,3 +6728,46 @@ declarations, all ≤ [propext, Classical.choice, Quot.sound]; Assembly.lean onl
 deletions = docstring lines re-added with the catch-65 supersession pointer). Both nodes
 first-attempt, parallel execution, no build contention. Tally: 67 catches, 0 wrong proofs.
 WAVE 2 NEXT: A1W ∥ A3W ∥ CNTW, then A2W′ (needs A1W's instance pattern), then GLU-2W.
+
+**2026-07-14 WAVE 2 ✅ 4/4 FULL, ALL FIRST-ATTEMPT (A1W, A3W, CNTW, A2W′) — the W-trick
+instance layer is COMPLETE.** Every gated design decision held; three refinements found by
+executors, all benign, all kernel-checked:
+- **A1W (TwinA1W.lean, 28 decls)**: twinA1SieveW at smooth totalMass ψ/φ(Q); the CRT class
+  is the N-SIDE class (≡ a mod Q, ≡ d−2 mod d) — consumes gcd(a,Q)=1 (free at a = Q−1 via
+  residue_witness'), NOT gcd(a+2,Q); twinA1W_rem_eq EXACT (ν(d)·ψ/φ(Q) = ψ/φ(Qd) at
+  totient_mul); uniform d ∣ P incl. d = 1 ABSORBS the mod-Q SW row into the dispersion
+  family (no separate row); twin_A1_lower(_B)_W at the conditioned h4; twinA1_hBV_W a
+  fortiori (injection d ↦ Qd); Finding-6 prime-power bridge (√x·log₂x·log x); example →
+  the hA1 slot. Rows: W-LEVEL Q·(Qlev·D) ≤ √x/L^B, W-CLOSE (ω(Q) summand), hQmP, hQma.
+- **A3W (11 chain files + SwitchW.lean 815 lines, 26+31 decls)**: C4 r(d) generalization
+  in place with const-2 recovery verified (GBV4/5 examples elaborate unchanged); hcop2
+  audit: all orthogonality/coprimality-shaped; RATIFIED narrowing: Plo_discharge_priced
+  keeps its pinned residue (the literal lives in disc DEFS — α/β-level, outside warrant);
+  R₀-generalized identification cores landed (blockBox_windowDisc_eq_res); switchSieveW/
+  blockSwitchSieveW at smooth tripleSum/φ(Q); blockSwitchSieveW_rem_split EXACT
+  (ν(d)·TS/φ(Q) = ν(Qd)·TS); mainA3_of_block_remainders_W at slot hBVblocksW;
+  hBVblocksW_of_generalBV bridge; hr row DISCHARGED in-node. Rows: level Q·(QR·Dlev),
+  divisor τ(Qd) ≤ L·τ(d), crumb vs 32e⁻⁷⁰x/L³; REMAINING CONSTRUCTION: the hBlockW box
+  supplier (piece-decomp mirror at blockHonestDiscW via _eq_res at (Qd, crtClassW) +
+  medium_survivor_price_sqrtD; band/low W mirrors on the Plo_discharge pattern) = node
+  A3W2, then the numeric rows at GLU-2W.
+- **CNTW (CountW.lean, 19 decls)**: tripleSetW/tripleSumW at prod3 ≡ a+2 (mod Q)
+  (window_class_iff fixes the convention); EXACT fiber bijection (sharper than the landed
+  injection); tripleSumW_equidist with the honest wrinkle — ONE boundary point per fiber
+  can escape the M ≤ 2N SW block ⟹ +2|pairSet| ≤ 2·y√x ≈ 2x^{5/6}, a named row; honest
+  C6 recompute: block scale L/6 (not L/3), 6^A constant, STILL clears at A ≥ 3, C ≥ 2
+  (L ≥ 36); tripleSum_le_cbar_final_W = landed keystone/φ(Q) + named SW error (c̄
+  integrals NOT re-run — AP-invariant); example → the hcount slot at the smooth scale.
+- **A2W′ (TwinA2W.lean, 975 lines, 20 decls)**: twinA2SieveW at smooth ψ/(φ(Q)(p−1));
+  twinA2W_rem_eq EXACT at the FUSED divisor p·d (class ≡ a (Q), ≡ pd−2 (pd));
+  omegaPrimeSumW_decomp (Fubini at kept points; CONVENTION FINDING: the landed omegaLe
+  filter is CLOSED q ≤ y ⟹ Prange = Icc z y, grid certs take yR > y);
+  **twinA2W_hcoef is an unconditional EQUALITY** — the gate's anticipated dispersion row
+  at modulus Qp DISSOLVED at the smooth conventions (X_W^Q = totalMass·W transparent by
+  rfl); twinA2_hBVagg_W (injectivity of (p,d) ↦ Qpd by disjoint prime supports; Rosser
+  cuts collapse via p·⌈Dtot/p⌉ ≤ Dtot + y); example → hA2 ∧ hrawA2 at the SAME X_W^Q
+  (no ledger drift). Rows: W2-LEVEL (D ↦ Dtot + y), W2-CLOSE (A₂ density factor), hQmPr,
+  per-prime cdiv/logRatio rows.
+Tally: 67 catches, 0 wrong proofs. NEXT: A3W2 (the hBlockW/band/low W-mirror construction)
+→ GLU-2W (the ∃-package at the tower x₀ + findings 3–5 + the row ledger above) →
+chen_headline via chen_of_hypotheses_W.
