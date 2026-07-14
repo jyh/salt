@@ -5849,3 +5849,16 @@ tripleSum ≤ (c̄/2 + o(1))·x/log x ≈ 0.1815·x/log x — strictly better th
 vs d(loglog), positive monotone f, ~300 lines — mirror window_core with abstract f) + its two
 applications (p₂-sum at h_{p₁}, p₁-sum at I) + the u = N^β change of variables into
 cbar_eq_double_integral. Input and target both landed — the node is cleanly bracketed.
+
+## 2026-07-13 CBL Opus done FULL — cbar_lt LANDED (the C4a debt closed)
+
+`Salt/Chen/CbarCert.lean` (21189 generated lines, 600 panels; generator scripts/cbar_cert.py
+persisted; wired by Fable). Sorry-free, axiom-clean, zero warnings, 200s build.
+**`cbar_lt : cbar < 363084/1000000`** — margin +3.18e−8 (certified 0.363083968 vs true
+0.363083729), worst panel overshoot 1.79e−9, total 2.39e−7 < the 2.71e−7 budget. Route:
+tangent-above-log (concavity) × chord-above-convex-weight per panel, exact rational quadratic
+integrals (TK1's integral_quad), Taylor n = 12 knots with certified upward search. ENGINEERING
+PATTERN (reusable): two-level block telescoping (25-panel blocks, 1e−12 round-up, 24 block
+sums) — single-level telescoping hits the heartbeat wall at N = 600 (O(N) rw goals). The C4a
+flag's "not mechanisable" verdict is overturned by the TK1 toolkit + the SS-panel discipline.
+Consumer: CNT2/AB1's final count row.

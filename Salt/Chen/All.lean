@@ -33,6 +33,7 @@ import Salt.Chen.DyadicDvd
 import Salt.Chen.TotientHelpers
 import Salt.Chen.MertensPNT
 import Salt.Chen.WeightedCount
+import Salt.Chen.CbarCert
 import Salt.Chen.ErrFold
 import Salt.Chen.PerEEngine
 import Salt.Chen.PerEEngine2
@@ -283,6 +284,7 @@ open Salt.Tactic in
   Salt.Chen.massSum_le_A2_final Salt.Chen.massOSum_le_A1_final
   Salt.Chen.Fchain_A2_final Salt.Chen.fchain_A1_final
   Salt.Chen.energy_shell_dvd Salt.Chen.bilinTwist_energy_le_dvd
+  Salt.Chen.cbar_lt
   Salt.Chen.per_pair_weighted_le Salt.Chen.tripleSum_le_weighted_pairSum
   Salt.Chen.cbar_inner_integral Salt.Chen.cbar_eq_double_integral
   Salt.Chen.sum_inv_prime_window_ge Salt.Chen.twinWindow_mass_eq
