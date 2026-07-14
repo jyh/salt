@@ -6813,3 +6813,24 @@ composed supplier hBVblocksW_discharge′ with the corrected hSum/hNum shapes (t
 enters as its own named x^{5/6}-scale row). hBVblocksW_discharge stays as a landed true
 theorem with infeasible aggregate rows (the triplePrimeSum_le status). Tally: 68 catches,
 0 wrong proofs.
+
+**2026-07-14 PDIAG ✅ FULL first-attempt (PDiag.lean, 902 lines, 15 decls) — CATCH #68
+REPAIRED with ZERO statement changes; GLU-2W is UNBLOCKED.** The honest diagonal close:
+(i) diagPairSet fibers EXACTLY one dyadic piece per pair (bandLargeSet_piece_eq) and injects
+into Icc 1 y ×ˢ Icc 1 √x — card ≤ y·√x (vs the crude 2xy); (ii) the w₀-rough divisor crumb
+#{d ∣ Ps : d ∣ nn} ≤ 2^{Nat.log w' x} via gcd-pinning + the powerset injection (the tower
+NOT baked in — the exponent is the named Nat.log w' x); (iii) Σ_{d∣Ps} ν(d) =
+Π(1+ν(p)) ≤ (1+ε)·log yR/log u via the LANDED Hyp4.vratio_prod_le at switchSieve's ν.
+Keystone diagAggW_le_honest: the aggregated diagonal ≤ y·√x·(2^{Nat.log w' x} + Σν) =
+x^{5/6 + log2/log w'}·polylog — closes at x^{1−c} for any c < 1/6 − log2/log w' (c = 1/7
+already at w' > 2^42; crumb exponent ≈ 3.5e−10 at the tower). NO catch #69. PloW_honest
+fills the ABSTRACT Plo slot (½Psym + Plow + ½Pdiag; sym/low legs = A3W2's verbatim);
+hBVblocksW_discharge' re-emits the composed supplier with hdiag as its OWN named row
+(row 8′: y·√x·(2^{Nat.log w' x} + Σν) ≤ Pdiag + two free structural rows); the example
+lands character-for-character in mainA3_of_block_remainders_W. KERNEL-VERIFIED
+non-applicability: catch68's certificate requires the verbatim fixed τ(Ps)-summand — the
+new hSum carries ½·Pdiag, uninstantiable against it. hBVblocksW_discharge (unprimed) stays
+landed as a true theorem with infeasible aggregate rows (triplePrimeSum_le status). All 15
+decls exactly [propext, Classical.choice, Quot.sound]. Tally: 68 catches, 0 wrong proofs.
+**GLU-2W re-run NEXT — rows 1–7, 9 already verified ready by its own STEP 0; row 8′ + rows
+10–12 + the tower freeze remain.**

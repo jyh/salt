@@ -106,6 +106,7 @@ import Salt.Chen.TwinA1W
 import Salt.Chen.SwitchW
 import Salt.Chen.SwitchW2
 import Salt.Chen.HeadlineW
+import Salt.Chen.PDiag
 import Salt.Chen.CountW
 import Salt.Chen.TwinA2W
 import Salt.Chen.BlockPricing
@@ -345,6 +346,8 @@ open Salt.Tactic in
   Salt.Chen.medium_survivor_price Salt.Chen.hHD_of_box_disc
   Salt.Chen.Plo_sym_of_box_disc Salt.Chen.Plo_low_of_box_disc
   Salt.Chen.hNum_at_op
+  Salt.Chen.PloW_honest Salt.Chen.hBVblocksW_discharge' Salt.Chen.diagAggW_le_honest
+  Salt.Chen.rough_divisor_crumb Salt.Chen.nuChen_sum_divisors_le
   Salt.Chen.catch68_hSum_hNum_infeasible Salt.Chen.catch68_price_rows_nonneg
   Salt.Chen.hBVblocksW_discharge Salt.Chen.hNum_at_opW Salt.Chen.PloW_discharge
   Salt.Chen.blockBoxW_windowDisc_eq Salt.Chen.bandDiscW_le_three_pieces
