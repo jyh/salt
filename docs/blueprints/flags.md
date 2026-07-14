@@ -5878,3 +5878,16 @@ boxes fully superseded (SW3b/c/d stay landed as documented unused paths + the re
 backbone). REMAINING ON THE SWITCH LINE: **BVP** (price hBVblocks per block via
 general_BV_alpha_final at blockAlpha — the per-block window is CLEAN so the catch-#50
 hyperbola never appears; + the hCE conversion-error crumb), then the numeric re-gate → SW4.
+
+## 2026-07-13 BVP Opus done (block pricing composed; the pair bijection is the last bridge)
+
+`Salt/Chen/BlockPricing.lean` (wired by Fable). Sorry-free, axiom-clean, zero warnings.
+The per-block rem algebra FULLY PROVEN (multSum/apCount/rem_split/L¹ per block + summed);
+`blockPieceAlpha` (+ norm ≤ 1); `hHDblocks_of_perBlock` (the O(log²x) applications explicit);
+**`hBVblocks_of_generalBV`** — composition kernel-verified into mainA3_of_block_remainders'
+slot. The band-by-DISCREPANCY design confirmed (SW3d-ii's count-wall dissolved: decided-α +
+band-α are both 0/1 α's priced by their own apDiscBilin). Design row: A ≥ 12 + slack.
+**REMAINING NAMED = PBJ** (the per-(j,piece) pair-bijection + window identification:
+(p₁,p₂,p₃) ↦ (p₁p₂, p₃) turning blockHonestDisc into the apDiscBilin double sums — SW3d-iii,
+the known missing bridge; SwitchStrip's corner tests + additivity serve the window half) +
+the operating-point thresholds (H-glue) + hCE/hNum (SW4).
