@@ -6061,3 +6061,19 @@ compose). STRUCTURAL FINDING: apDiscBilinCutoff's orthogonality is EXACT (no α-
 coprimality error — the window does not factor and needs no BDH fibering) ⟹ the windowed main
 descent is PLAIN; δ-variants provided as de-risking only. NEXT: WBV3 (the per-m interval-SW
 small-conductor estimate — the wave's one genuine new estimate) + the identification.
+
+## 2026-07-14 WBV3 Opus done FULL (the window SW + the corner-free identification)
+
+`Salt/Chen/WindowSW.lean` (667 lines; wired by Fable). Sorry-free, axiom-clean, zero warnings.
+**`smallconductor_window_perd/_sum`** — THE wave's genuine estimate: the cutoff discrepancy
+regrouped BY FIXED m; each fibre = the clean-interval prime-AP discrepancy at n ≡ 2m⁻¹ (mod d),
+priced by the LANDED prime_indicator_SW (block primes > N ≥ d auto-coprime; (m,d) > 1 vanishes
+via Coprime 2 d); summed at the mirrored A+2C0 bookkeeping. **`blockBox_windowDisc_eq`** —
+apDiscBilinCutoff(x) − apDiscBilinCutoff(x/2+1) = the blockBoxHonestDisc shape, via the
+re-derived CORNER-FREE bijection `blockBox_windowed_pair_card` (the recon's "via
+blockBox_pair_card without corners" was not literally achievable — its corner hyps live in the
+surjectivity branch and its helpers are private; re-proved with the window as a class-predicate
+hypothesis + the trivial nesting hxlo). Ordering diagonal: hord (piece threshold, automatic at
+N ≥ y) kept as a hypothesis; the low-piece residual is WBV4's named object. NEXT: WBV4 —
+general_BV_cutoff_final (WBV2's large + WBV3's small) + hHD_of_generalBV_window into
+BlockPricing's EXISTING slot.
