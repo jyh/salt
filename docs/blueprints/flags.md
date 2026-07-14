@@ -5401,3 +5401,18 @@ honest decay was e^{−3/2} anyway, better than my e^{−1/2}). Tally: 44 catche
   hypothesis `hx₀ : (log(XM))^{A+1} ≤ (XM)^{ε₀}`-shape threaded to the H-glue) →
   `EfoldTermAlpha ≤ Kerr·(XM/(log XM)^{A+1})·(1/e)` → via hPerE_reduces_to_alpha + PE1, the
   general_BV_final' per-e slot DISCHARGED. Class C+.
+
+## 2026-07-13 SW12 Opus done FULL (the switched sieve; the hA3 slot has its conditional shape)
+
+`Salt/Chen/SwitchSieve.lean` (15 decls; wired by Fable). Sorry-free, axiom-clean, zero warnings,
+FIRST BUILD, default heartbeats. Survived an API-timeout mid-recon (resumed from transcript —
+the recovery pattern's 4th successful use). LANDED: `switchSieve` (support = twinWindow
+UN-shifted — the congruence is q ∣ n, disambiguated from my briefing's shifted-products shape
+and documented; weights aCount, totalMass tripleSum, nu nuChen, prodPrimes = the [w₀, y) window);
+the unfolding lemmas + guards (delegating to the modulus-generic twinA1 lemmas);
+**`switch_upper_B`** (the cB keystone applied at zTop = y, slot filled by stepHypWPC_sharpB);
+**`triplePrimeSum_le_sifted`** (the Λ-carrier bridge: n prime ≥ x/2 ≥ y survives the y-window
+sieve; aCount ≥ 1; Λ ≤ log x); **`mainA3_of_hBVswitch`** — the EXACT hA3-slot shape under the
+NAMED hBVswitch. The catch-#41 repair's conditional core is COMPLETE; remaining on the switch
+line: SW3 (rem → apDiscBilin at odd moduli, consumes general_BV_final′ + PE3's discharge) and
+SW4 (the numeric row, needs SS3c's Fchain values).
