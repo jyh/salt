@@ -133,8 +133,8 @@ theorem stepHypWPC_sharpB (ε : ℝ) (hε : 0 ≤ ε) (hεsmall : ε ≤ 1 / 100
 /-- **BJS Theorem 6 (5), windowed, sharp, per-step-CLOSED (upper) — the E₁c-close payoff.**
 `bjs_theorem6_windowed_cB_upper` with the FREEZE-V2 slot filled by `stepHypWPC_sharpB`: no per-step
 hypothesis remains.  The contraction gate `h249 : ε < 1/249` is DERIVED from `hεsmall`
-(`1/1000 < 1/249`).  The structural Hyp-(4) slot `h4` stays — it is discharged by the H-glue
-(`Hyp4`), not here. -/
+(`1/1000 < 1/249`).  The structural Hyp-(4) slot `h4` stays, in the CONDITIONED form
+(catch #66/H4C) — it is discharged by the H-glue via `H4Cond.h4_cond_of_base`, not here. -/
 theorem bjs_theorem6_sharpB_final_upper (s : BoundingSieve) (zTop D : ℕ) (ε K : ℝ)
     (hD : 1 ≤ D) (hzTop : ∀ q ∈ s.prodPrimes.primeFactors, q < zTop)
     (hguard : ∀ q ∈ s.prodPrimes.primeFactors,
@@ -142,6 +142,11 @@ theorem bjs_theorem6_sharpB_final_upper (s : BoundingSieve) (zTop D : ℕ) (ε K
     (hnu : ∀ q ∈ s.prodPrimes.primeFactors, s.nu q ≤ 1 / ((q : ℝ) - 1))
     (hε : 0 ≤ ε) (hεsmall : ε ≤ 1 / 1000) (hKe : K ≤ 1 + ε)
     (h4 : ∀ (s' : BoundingSieve) (z D' : ℕ), 1 ≤ D' →
+        (∀ q ∈ s'.prodPrimes.primeFactors, q < z) →
+        (∀ q ∈ s'.prodPrimes.primeFactors,
+            3 ≤ (q : ℝ) ∧ 19 / Real.log q + 4 / ((q : ℝ) - 1) ≤ Real.log (1 + ε)) →
+        (∀ q ∈ s'.prodPrimes.primeFactors, s'.nu q ≤ 1 / ((q : ℝ) - 1)) →
+        1 ≤ logRatio z D' → logRatio z D' ≤ 3 →
         Vlow s' D' ≤ (3 * K / logRatio z D') * Salt.BrunLower.W s')
     (hStop : 1 ≤ logRatio zTop D) :
     s.mainSum (rosserSquarefreeSieve 1 D (Or.inl rfl)).lam
@@ -160,6 +165,11 @@ theorem bjs_theorem6_sharpB_final_lower (s : BoundingSieve) (zTop D : ℕ) (ε K
     (hnu : ∀ q ∈ s.prodPrimes.primeFactors, s.nu q ≤ 1 / ((q : ℝ) - 1))
     (hε : 0 ≤ ε) (hεsmall : ε ≤ 1 / 1000) (hKe : K ≤ 1 + ε)
     (h4 : ∀ (s' : BoundingSieve) (z D' : ℕ), 1 ≤ D' →
+        (∀ q ∈ s'.prodPrimes.primeFactors, q < z) →
+        (∀ q ∈ s'.prodPrimes.primeFactors,
+            3 ≤ (q : ℝ) ∧ 19 / Real.log q + 4 / ((q : ℝ) - 1) ≤ Real.log (1 + ε)) →
+        (∀ q ∈ s'.prodPrimes.primeFactors, s'.nu q ≤ 1 / ((q : ℝ) - 1)) →
+        1 ≤ logRatio z D' → logRatio z D' ≤ 3 →
         Vlow s' D' ≤ (3 * K / logRatio z D') * Salt.BrunLower.W s')
     (hStop : 2 ≤ logRatio zTop D) :
     Salt.BrunLower.W s *

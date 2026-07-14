@@ -104,6 +104,11 @@ theorem twin_A2_per_prime (sp0 : BoundingSieve) (zTop Dlev : ℕ) (ε K C₁ Q :
     (hτrec : ∀ n, cf_const n ε + ε * Real.exp 2 * ch_const n ε * tau n
         ≤ ε * Real.exp 2 * tau (n + 1))
     (h4 : ∀ (s' : BoundingSieve) (z D' : ℕ), 1 ≤ D' →
+        (∀ q ∈ s'.prodPrimes.primeFactors, q < z) →
+        (∀ q ∈ s'.prodPrimes.primeFactors,
+            3 ≤ (q : ℝ) ∧ 19 / Real.log q + 4 / ((q : ℝ) - 1) ≤ Real.log (1 + ε)) →
+        (∀ q ∈ s'.prodPrimes.primeFactors, s'.nu q ≤ 1 / ((q : ℝ) - 1)) →
+        1 ≤ logRatio z D' → logRatio z D' ≤ 3 →
         Vlow s' D' ≤ (3 * K / logRatio z D') * Salt.BrunLower.W s')
     (hStop : 1 ≤ logRatio zTop Dlev)
     (htau : ∑ n ∈ (Finset.range (maxDepth sp0 + 1)).filter (fun n => Odd n), tau n ≤ C₁) :

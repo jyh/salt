@@ -844,9 +844,9 @@ place of the crude `W·(ch_const n ε·hBJS S)`.  Cases:
 * `side' = 2` (`⇒ S ≥ 2` via `loBnd_two`/`hlo`) and `side' = 1, S > 3` — the moving-lower-limit
   cells, closed by `hh_sharp_ge2` (E₁a `49/50` through the `hpush_core` IBP engine);
 * `side' = 1, S ∈ [1,3]` — the flat cell, closed by `hh_sharp_flat` (E₁a-flat `97/100`,
-  window-relative pushforward), which consumes the threaded Hyp-(4) mass bound
-  `h4 : Vlow ≤ (3K/S)·W` (`K ≤ 1+ε`) — exactly the `Vlow ≤ (3K/σ)·W` that the whole Chen step
-  stack threads (`T_le_of_peel_step_wpc`, `bjs_theorem6_sharp_*`, `WindowedStep`, `TauSharp`).
+  window-relative pushforward), which consumes the threaded Hyp-(4) mass bound `h4` in the
+  CONDITIONED form `1 ≤ S → S ≤ 3 → Vlow ≤ (3K/S)·W` (`K ≤ 1+ε`; catch #66/H4C — the
+  unconditioned row is false outside the flat cell), applied here at `hS1`/`hle3`.
 
 The `ε ≤ 1/1000` window is comfortable at the frozen `ε_sieve = 2·10⁻⁸`. -/
 theorem hh_sharp_of_window (s' : BoundingSieve) (ε K : ℝ) (z side' D' n : ℕ)
@@ -858,7 +858,8 @@ theorem hh_sharp_of_window (s' : BoundingSieve) (ε K : ℝ) (z side' D' n : ℕ
     (hnu : ∀ q ∈ s'.prodPrimes.primeFactors, s'.nu q ≤ 1 / ((q : ℝ) - 1))
     (hS1 : 1 ≤ logRatio z D')
     (hlo : loBnd side' ≤ logRatio z D')
-    (h4 : Vlow s' D' ≤ (3 * K / logRatio z D') * Salt.BrunLower.W s') :
+    (h4 : 1 ≤ logRatio z D' → logRatio z D' ≤ 3 →
+        Vlow s' D' ≤ (3 * K / logRatio z D') * Salt.BrunLower.W s') :
     (∑ p ∈ s'.prodPrimes.primeFactors.filter (fun p => side' % 2 = 1 → p ^ 3 < D'),
         s'.nu p * Vbelow s' p * hBJS (logRatio p (cdiv D' p)))
       ≤ Salt.BrunLower.W s' * (chSharpB ε * hBJS (logRatio z D')) := by
@@ -868,7 +869,7 @@ theorem hh_sharp_of_window (s' : BoundingSieve) (ε K : ℝ) (z side' D' n : ℕ
     by_cases hle3 : logRatio z D' ≤ 3
     · -- flat cell, S ∈ [1,3]
       have h4' : Vlow s' D' ≤ (3 * (1 + ε) / logRatio z D') * Salt.BrunLower.W s' :=
-        le_trans h4 (mul_le_mul_of_nonneg_right
+        le_trans (h4 hS1 hle3) (mul_le_mul_of_nonneg_right
           (div_le_div_of_nonneg_right (by linarith) hSpos.le) (Salt.BrunLower.W_pos s').le)
       have hfilter :
           s'.prodPrimes.primeFactors.filter (fun p => 1 % 2 = 1 → p ^ 3 < D')

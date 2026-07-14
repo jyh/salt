@@ -362,8 +362,9 @@ where `V(z) = W (twinA1Sieve …)`, `N = maxDepth`, and the `fchain`-value is **
 (C1b′/the value certification supplies numerics at C5).
 
 Threaded inputs (the standard `bjs_theorem6_lower_sifted'` pattern):
-* `h4` — the hypothesis-(4) V-ratio family (dischargeable per sub-sieve by `h4_base`;
-  see the module note on the `∀ s'` shape);
+* `h4` — the hypothesis-(4) V-ratio family in the CONDITIONED form (catch #66/H4C:
+  sieve-class rows + the flat-cell window `1 ≤ logRatio ≤ 3`; discharged by
+  `H4Cond.h4_cond_of_base`);
 * `hτrec`, `htau` — the parametric τ-recursion / τ-sum (C1cτ discharges later);
 * `hBV` — the (39) BV remainder bound `rosserRemainder (twinA1Sieve …) (Q·D) ≤ x/(log x)^10`,
   the unconditional-BV consequence (`psi_BV_of_siegelWalfisz'`; the pointwise reduction is
@@ -379,6 +380,11 @@ theorem twin_A1_lower (x z D P : ℕ) (ε K C₂ Q : ℝ) (tau : ℕ → ℝ)
     (hτrec : ∀ n, cf_const n ε + ε * Real.exp 2 * ch_const n ε * tau n
         ≤ ε * Real.exp 2 * tau (n + 1))
     (h4 : ∀ (s' : BoundingSieve) (z' D' : ℕ), 1 ≤ D' →
+        (∀ q ∈ s'.prodPrimes.primeFactors, q < z') →
+        (∀ q ∈ s'.prodPrimes.primeFactors,
+            3 ≤ (q : ℝ) ∧ 19 / Real.log q + 4 / ((q : ℝ) - 1) ≤ Real.log (1 + ε)) →
+        (∀ q ∈ s'.prodPrimes.primeFactors, s'.nu q ≤ 1 / ((q : ℝ) - 1)) →
+        1 ≤ logRatio z' D' → logRatio z' D' ≤ 3 →
         Vlow s' D' ≤ (3 * K / logRatio z' D') * Salt.BrunLower.W s')
     (htau : ∑ n ∈ (Finset.range (maxDepth (twinA1Sieve x P hP hPodd) + 1)).filter
         (fun n => Even n), tau n ≤ C₂)

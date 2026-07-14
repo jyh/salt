@@ -282,6 +282,11 @@ theorem block_switch_upper_B (x z y : ℕ) (ε₀ : ℝ) (j Ps Dlev : ℕ) (ε K
     (hD2 : 2 ≤ Dlev) (hQ : 1 ≤ Q)
     (hε : 0 < ε) (hw0 : 3 ≤ w0R ε) (hεsmall : ε ≤ 1 / 1000) (hKe : K ≤ 1 + ε)
     (h4 : ∀ (s' : BoundingSieve) (z' D' : ℕ), 1 ≤ D' →
+        (∀ q ∈ s'.prodPrimes.primeFactors, q < z') →
+        (∀ q ∈ s'.prodPrimes.primeFactors,
+            3 ≤ (q : ℝ) ∧ 19 / Real.log q + 4 / ((q : ℝ) - 1) ≤ Real.log (1 + ε)) →
+        (∀ q ∈ s'.prodPrimes.primeFactors, s'.nu q ≤ 1 / ((q : ℝ) - 1)) →
+        1 ≤ logRatio z' D' → logRatio z' D' ≤ 3 →
         Vlow s' D' ≤ (3 * K / logRatio z' D') * Salt.BrunLower.W s')
     (hStop : 1 ≤ logRatio y Dlev) :
     (blockSwitchSieve x z y ε₀ j Ps hPs hPodd).siftedSum
@@ -389,6 +394,11 @@ theorem mainA3_of_block_remainders (x z y P Ps Dlev : ℕ) (ε₀ ε K Q : ℝ)
     (hD2 : 2 ≤ Dlev) (hQ : 1 ≤ Q)
     (hε : 0 < ε) (hw0 : 3 ≤ w0R ε) (hεsmall : ε ≤ 1 / 1000) (hKe : K ≤ 1 + ε)
     (h4 : ∀ (s' : BoundingSieve) (z' D' : ℕ), 1 ≤ D' →
+        (∀ q ∈ s'.prodPrimes.primeFactors, q < z') →
+        (∀ q ∈ s'.prodPrimes.primeFactors,
+            3 ≤ (q : ℝ) ∧ 19 / Real.log q + 4 / ((q : ℝ) - 1) ≤ Real.log (1 + ε)) →
+        (∀ q ∈ s'.prodPrimes.primeFactors, s'.nu q ≤ 1 / ((q : ℝ) - 1)) →
+        1 ≤ logRatio z' D' → logRatio z' D' ≤ 3 →
         Vlow s' D' ≤ (3 * K / logRatio z' D') * Salt.BrunLower.W s')
     (hStop : 1 ≤ logRatio y Dlev)
     (hBVblocks : (∑ j ∈ Finset.range (maxBlock x z ε₀ + 1),

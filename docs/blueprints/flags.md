@@ -6697,3 +6697,34 @@ surfaces otherwise (gcd chains, no w'-boundary gap, BoundingSieve field transpar
 dispersion a-fortiori injection d ↦ Qd, extraction clean, findings 3–5 transfer). Tally:
 67 catches, 0 wrong proofs — three of the last four caught by gates/STEP-0 before any
 proof attempt.
+
+**2026-07-14 H4C ✅ FULL (Opus executor attempt 1, Fable warrant) — CATCH #66 REPAIRED.**
+The h4 ∀-slot conditioned (31 rows across WindowedStep/P/C, SharpClose, SharpH2 per-instance,
+TwinA1/A2/Sharp, SwitchSieve/Blocks; non-use-site rows positional, zero proof edits; 4
+use-site patches, all facts in scope). RATIFIED DEVIATIONS: (1) the slot premise is the
+hguard/hnu row bundle (the draft's w0R-floor row was UNDERIVABLE at use sites — guard only
+forces q > (w0R)^{19/40}); (2) the discharge lemma `h4_cond_of_base` (new H4Cond.lean) goes
+through VD1's vlow_le_of_guard, NOT h4_base+thresh_mono, and the proposed op-row (w0R ε)³ ≤ z
+is NOT introduced (it would live inside the ∀-premise where use sites cannot discharge it) —
+GLU-2W's total h4 obligation is hz/hguard/hnu (already discharged via twinA1_hguard/
+switch_hguard from hPlow) + 0 ≤ ε + 1+ε ≤ K. STRICTLY better than the gate's C1 sketch.
+(3) StepBound/StepBound2/TauSharp abstract-σ precursor rows NOT swapped — verified off the
+GLU-2W path (TwinA1→hlevel_w_lower; TwinSharp/Switch→WindowedStepC plugs); their {hσ1,hσ3,h4}
+bundle was already jointly uninstantiable at σ = logRatio via hσ3 alone; DISPOSITION:
+deprecation note at the 58c docs pass, keep as landed true theorems. 33 edited + 1 new
+declaration, all exactly [propext, Classical.choice, Quot.sound].
+
+**2026-07-14 W-SURG ✅ FULL (Opus executor attempt 1, Fable warrant) — H-AMENDMENT 2's
+Assembly half LANDED.** keepW + the five W-carriers + keepR-analogue lemmas;
+factors_ge_z_of_sift_W (the split bridge: mod-transfer (n+2)%Q = (a+2)%Q by one conv_lhs
+rewrite, then Nat.dvd_mod_iff twice against hQa2; total case split, NO boundary gap);
+razor_reduction_W/stripPrimeSum_le_W/aCount_ge_one_of_W/chen_positivity_W/chen_survivor_W
+(near-verbatim mirrors — hPfull was consumed only through the bridge at kept points, as
+designed); **chen_of_hypotheses_W** with H_W = ∀X ∃ x z P y Q a w' (mainA1/2/3), 12
+conjuncts (hXx/hx/hz/hw3/hyx/hQfull/hPfull'/hQa2/hA1/hA2/hA3/hledger — the GLU-2W
+discharge list, recorded verbatim in the executor report); residue_witness (gcd(Q, Q+1)=1)
++ residue_witness'. Old keepR family INTACT (catch-65 record dependencies compile). 19
+declarations, all ≤ [propext, Classical.choice, Quot.sound]; Assembly.lean only (+349/−2,
+deletions = docstring lines re-added with the catch-65 supersession pointer). Both nodes
+first-attempt, parallel execution, no build contention. Tally: 67 catches, 0 wrong proofs.
+WAVE 2 NEXT: A1W ∥ A3W ∥ CNTW, then A2W′ (needs A1W's instance pattern), then GLU-2W.

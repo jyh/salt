@@ -256,6 +256,11 @@ children (`logRatio_child_lower`).  The base uses `Lemma11.hlevel_one_upper`
 theorem T_le_of_peel_step_w (ε K : ℝ) (tau : ℕ → ℝ)
     (hε : 0 ≤ ε) (hKe : K ≤ 1 + ε) (htau1 : tau 1 = 3) (hτ0 : ∀ n, 0 ≤ tau n)
     (h4 : ∀ (s' : BoundingSieve) (z D' : ℕ), 1 ≤ D' →
+        (∀ q ∈ s'.prodPrimes.primeFactors, q < z) →
+        (∀ q ∈ s'.prodPrimes.primeFactors,
+            3 ≤ (q : ℝ) ∧ 19 / Real.log q + 4 / ((q : ℝ) - 1) ≤ Real.log (1 + ε)) →
+        (∀ q ∈ s'.prodPrimes.primeFactors, s'.nu q ≤ 1 / ((q : ℝ) - 1)) →
+        1 ≤ logRatio z D' → logRatio z D' ≤ 3 →
         Vlow s' D' ≤ (3 * K / logRatio z D') * Salt.BrunLower.W s')
     (hstepW : StepHypW ε tau)
     (hτrec : ∀ n, cf_const n ε + ε * Real.exp 2 * ch_const n ε * tau n
@@ -279,7 +284,8 @@ theorem T_le_of_peel_step_w (ε K : ℝ) (tau : ℕ → ℝ)
       · -- side' = 1
         by_cases h3 : logRatio z D' ≤ 3
         · have hs1 : 1 ≤ logRatio z D' := le_trans (le_of_eq loBnd_one.symm) hlow
-          have h := hlevel_one_upper s' D' (logRatio z D') ε K hs1 h3 hε hKe (h4 s' z D' hD')
+          have h := hlevel_one_upper s' D' (logRatio z D') ε K hs1 h3 hε hKe
+            (h4 s' z D' hD' hz hguard hnu hs1 h3)
           simp only [fseqBound', htau1]
           exact h
         · rw [T_vanish s' 1 D' 1 z hD' hz (by push_cast; linarith [not_le.mp h3])]
@@ -334,6 +340,11 @@ theorem hlevel_w_upper (s : BoundingSieve) (zTop D : ℕ) (ε K : ℝ) (tau : �
     (hτrec : ∀ n, cf_const n ε + ε * Real.exp 2 * ch_const n ε * tau n
         ≤ ε * Real.exp 2 * tau (n + 1))
     (h4 : ∀ (s' : BoundingSieve) (z D' : ℕ), 1 ≤ D' →
+        (∀ q ∈ s'.prodPrimes.primeFactors, q < z) →
+        (∀ q ∈ s'.prodPrimes.primeFactors,
+            3 ≤ (q : ℝ) ∧ 19 / Real.log q + 4 / ((q : ℝ) - 1) ≤ Real.log (1 + ε)) →
+        (∀ q ∈ s'.prodPrimes.primeFactors, s'.nu q ≤ 1 / ((q : ℝ) - 1)) →
+        1 ≤ logRatio z D' → logRatio z D' ≤ 3 →
         Vlow s' D' ≤ (3 * K / logRatio z D') * Salt.BrunLower.W s')
     (hStop : 1 ≤ logRatio zTop D) :
     ∀ n ∈ (Finset.range (maxDepth s + 1)).filter (fun n => Odd n),
@@ -360,6 +371,11 @@ theorem hlevel_w_lower (s : BoundingSieve) (zTop D : ℕ) (ε K : ℝ) (tau : �
     (hτrec : ∀ n, cf_const n ε + ε * Real.exp 2 * ch_const n ε * tau n
         ≤ ε * Real.exp 2 * tau (n + 1))
     (h4 : ∀ (s' : BoundingSieve) (z D' : ℕ), 1 ≤ D' →
+        (∀ q ∈ s'.prodPrimes.primeFactors, q < z) →
+        (∀ q ∈ s'.prodPrimes.primeFactors,
+            3 ≤ (q : ℝ) ∧ 19 / Real.log q + 4 / ((q : ℝ) - 1) ≤ Real.log (1 + ε)) →
+        (∀ q ∈ s'.prodPrimes.primeFactors, s'.nu q ≤ 1 / ((q : ℝ) - 1)) →
+        1 ≤ logRatio z D' → logRatio z D' ≤ 3 →
         Vlow s' D' ≤ (3 * K / logRatio z D') * Salt.BrunLower.W s')
     (hStop : 2 ≤ logRatio zTop D) :
     ∀ n ∈ (Finset.range (maxDepth s + 1)).filter (fun n => Even n),
@@ -392,6 +408,11 @@ theorem bjs_theorem6_windowed_upper (s : BoundingSieve) (zTop D : ℕ) (ε K C�
     (hτrec : ∀ n, cf_const n ε + ε * Real.exp 2 * ch_const n ε * tau n
         ≤ ε * Real.exp 2 * tau (n + 1))
     (h4 : ∀ (s' : BoundingSieve) (z D' : ℕ), 1 ≤ D' →
+        (∀ q ∈ s'.prodPrimes.primeFactors, q < z) →
+        (∀ q ∈ s'.prodPrimes.primeFactors,
+            3 ≤ (q : ℝ) ∧ 19 / Real.log q + 4 / ((q : ℝ) - 1) ≤ Real.log (1 + ε)) →
+        (∀ q ∈ s'.prodPrimes.primeFactors, s'.nu q ≤ 1 / ((q : ℝ) - 1)) →
+        1 ≤ logRatio z D' → logRatio z D' ≤ 3 →
         Vlow s' D' ≤ (3 * K / logRatio z D') * Salt.BrunLower.W s')
     (hStop : 1 ≤ logRatio zTop D)
     (htau : ∑ n ∈ (Finset.range (maxDepth s + 1)).filter (fun n => Odd n), tau n ≤ C₁) :
@@ -412,6 +433,11 @@ theorem bjs_theorem6_windowed_lower (s : BoundingSieve) (zTop D : ℕ) (ε K C�
     (hτrec : ∀ n, cf_const n ε + ε * Real.exp 2 * ch_const n ε * tau n
         ≤ ε * Real.exp 2 * tau (n + 1))
     (h4 : ∀ (s' : BoundingSieve) (z D' : ℕ), 1 ≤ D' →
+        (∀ q ∈ s'.prodPrimes.primeFactors, q < z) →
+        (∀ q ∈ s'.prodPrimes.primeFactors,
+            3 ≤ (q : ℝ) ∧ 19 / Real.log q + 4 / ((q : ℝ) - 1) ≤ Real.log (1 + ε)) →
+        (∀ q ∈ s'.prodPrimes.primeFactors, s'.nu q ≤ 1 / ((q : ℝ) - 1)) →
+        1 ≤ logRatio z D' → logRatio z D' ≤ 3 →
         Vlow s' D' ≤ (3 * K / logRatio z D') * Salt.BrunLower.W s')
     (hStop : 2 ≤ logRatio zTop D)
     (htau : ∑ n ∈ (Finset.range (maxDepth s + 1)).filter (fun n => Even n), tau n ≤ C₂) :

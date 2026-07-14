@@ -59,6 +59,11 @@ theorem twin_A1_lower_B (x z D P : ℕ) (ε K Q : ℝ)
     (hε49B : ε < 1 / 249)
     (hstepWPC : StepHypWPC (fun n => cfSharpB n ε) (fun _ => chSharpB ε) ε (tauSharpB ε))
     (h4 : ∀ (s' : BoundingSieve) (z' D' : ℕ), 1 ≤ D' →
+        (∀ q ∈ s'.prodPrimes.primeFactors, q < z') →
+        (∀ q ∈ s'.prodPrimes.primeFactors,
+            3 ≤ (q : ℝ) ∧ 19 / Real.log q + 4 / ((q : ℝ) - 1) ≤ Real.log (1 + ε)) →
+        (∀ q ∈ s'.prodPrimes.primeFactors, s'.nu q ≤ 1 / ((q : ℝ) - 1)) →
+        1 ≤ logRatio z' D' → logRatio z' D' ≤ 3 →
         Vlow s' D' ≤ (3 * K / logRatio z' D') * Salt.BrunLower.W s')
     (hQ : 1 ≤ Q)
     (hBV : rosserRemainder (twinA1Sieve x P hP hPodd) (Q * D) ≤ (x : ℝ) / (Real.log x) ^ 10) :
@@ -107,6 +112,11 @@ theorem twin_A2_per_prime_B (sp0 : BoundingSieve) (zTop Dlev : ℕ) (ε K Q : �
     (hε : 0 ≤ ε) (h249 : ε < 1 / 249) (hKe : K ≤ 1 + ε)
     (hstepWPC : StepHypWPC (fun n => cfSharpB n ε) (fun _ => chSharpB ε) ε (tauSharpB ε))
     (h4 : ∀ (s' : BoundingSieve) (z D' : ℕ), 1 ≤ D' →
+        (∀ q ∈ s'.prodPrimes.primeFactors, q < z) →
+        (∀ q ∈ s'.prodPrimes.primeFactors,
+            3 ≤ (q : ℝ) ∧ 19 / Real.log q + 4 / ((q : ℝ) - 1) ≤ Real.log (1 + ε)) →
+        (∀ q ∈ s'.prodPrimes.primeFactors, s'.nu q ≤ 1 / ((q : ℝ) - 1)) →
+        1 ≤ logRatio z D' → logRatio z D' ≤ 3 →
         Vlow s' D' ≤ (3 * K / logRatio z D') * Salt.BrunLower.W s')
     (hStop : 1 ≤ logRatio zTop Dlev) :
     sp0.siftedSum
