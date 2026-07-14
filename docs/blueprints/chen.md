@@ -499,3 +499,22 @@ P = ∏ primes < z, x ≥ x₀ ∨ 2X+2. Discharge paths (ALL landed):
    endpoints).
 Wave 1 = C1a + C1b + C4a (C0 done; the corrected even-n f-definition
 and the ε_sieve = 1/10000 certification targets are BINDING).
+
+## SW4 PRE-DESIGN (Fable, 2026-07-13 evening — the recon's RISK-2 arithmetic)
+SW4 consumes the CERTIFIED Fchain ≤ 268/100 (uniform on [4/3, 3],
+from the mass ledger via SS3c) at the switch operating point
+s = logRatio y Dlev ∈ [4/3, 3] near 3/2 — NOT the true F(3/2) =
+2.3748 (the classical collapse F(3/2)e^{−γ}(3/4) = 1.0000 exactly).
+The excess factor is 2.68/2.3748 = 1.1285. THE ROW STILL CLOSES:
+0.29827 (the certified count, triple_count_le/chen_switch_const_lt)
+× 1.1285 = 0.3366 < 0.363084 (the c̄ ledger line) — margin ≈ 7.3%
+absorbed by the count's 17.85%. The (1+ε)-Mertens slacks at 2e−8 and
+the ε·CsharpB·e²·hBJS(3/2) keystone slack (~3e−5 relative) are
+noise at this margin. SW4's brief: assemble mainA3 from SW12's
+mainA3_of_hBVswitch + the W(y)↔e^{−γ}/log y conversion (the S6-row
+machinery) + Fchain_le_A2-style bound AT the switch point (the SAME
+SS3c artifact — [4/3,3] covers it) + chen_switch_const_lt; target
+inequality: mainA3-normalized ≤ 0.3366-row < 0.363084; then the
+hledger assembly at the achieved A₁/A₂/A₃ values. Gate the exact
+normalization chain (the F6 carrier convention) at dispatch — the
+catch-#41 lesson lives exactly here.
