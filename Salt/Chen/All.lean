@@ -32,6 +32,7 @@ import Salt.Chen.EnergyShellDvd
 import Salt.Chen.DyadicDvd
 import Salt.Chen.TotientHelpers
 import Salt.Chen.MertensPNT
+import Salt.Chen.WRatioSharp
 import Salt.Chen.WeightedCount
 import Salt.Chen.CbarCert
 import Salt.Chen.AbelPass
@@ -304,6 +305,8 @@ open Salt.Tactic in
   Salt.Chen.Ifun_integral_eq_cbar Salt.Chen.weightedPairSum_fibered
   Salt.Chen.per_pair_weighted_le Salt.Chen.tripleSum_le_weighted_pairSum
   Salt.Chen.cbar_inner_integral Salt.Chen.cbar_eq_double_integral
+  Salt.Chen.W_switch_factor Salt.Chen.window_prod_lower Salt.Chen.window_prod_upper
+  Salt.Chen.W_ratio_upper Salt.Chen.W_ratio_lower
   Salt.Chen.sum_inv_prime_window_ge Salt.Chen.twinWindow_mass_eq
   Salt.Chen.lambda_mass_lower Salt.Chen.lambda_mass_upper
   Salt.Chen.totient_ratio_le_log Salt.Chen.totient_lcm_mul_totient_gcd

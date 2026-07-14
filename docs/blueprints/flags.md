@@ -5921,3 +5921,16 @@ verified J(β) < 0 throughout) — the antitone Abel pass applies directly. LAND
 weightedPairSum ≤ c̄/log N + O(1/log²N) ⟹ tripleSum ≤ (1+o(1))(c̄/2)x/log x ≈ 0.1815·x/log x.
 **REMAINING = AB3 (bracketed, ~330 lines):** the ℕ-window ↔ primesInWindow bridge, the (187)
 tail (∫_{√(N/p₁)}^{√x}), the slack-ledger assembly → `tripleSum_le_cbar_final`.
+
+## 2026-07-13 M2 Opus done FULL (the two-sided W-ratio; C′ = 25 / C = 38)
+
+`Salt/Chen/WRatioSharp.lean` (364 lines, 7 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. `W_switch_factor` (the P ∣ Ps factorization — W is modulus-only since both
+sieves share nuChen); the sharp pointwise bracket `1/p ≤ −log(1−ν) ≤ 1/p + 6/p²` (the executor
+correctly REJECTED my briefed 2/p-form — factor-2 lossy for the lower product — substituting
+1/(p−2)-based sharpness: a technique choice, no statement altered); the square tail;
+**`window_prod_lower/upper`** ((log z/log y)(1 ∓ C/log z), C′ = 25 unconditional, C = 38 under
+log z ≥ 38) and the composed **`W_ratio_upper/lower`** (+ literal div forms) — SW4-consumable,
+main term parametric (3/8 at the operating point), the hwin window-identification discharged by
+the H-glue from the concrete moduli. The Mertens layer (M1/M2/M3) is now COMPLETE; M4a restates
+against Amendment 4's 3.99928 point at the H-glue.
