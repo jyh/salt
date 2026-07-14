@@ -5621,3 +5621,28 @@ segments, not rectangles; dyadic m-sub-split leaves an O(1) strip per p) and **b
 (the p₂ ≤ p₃ same/adjacent-block diagonal, count ≪ x/log, absorbed with the 1/φd savings).
 = node **SW3d**, the switch line's last analytic piece. Accounting table in the module docstring
 (bulk closes at A ≥ 11; top-j crude; 3(K+1) boxes).
+
+## 2026-07-13 M-RECON (Opus scout) + FABLE ADJUDICATION — catch #49 DEEPENS: the fiber structure
+
+**The recon's verdict (trace at the landed lemmas, exact):** the ×8 does NOT reconcile via the
+window ratio alone — `A₃/A₁ = (log x·tripleSum/totalMass)·(W_y/W_z)·(F(3/2)/f(4)) =
+(8·0.29827)·(3/8)·2.4275 = 2.172`, so ½A₃/A₁ ≈ 1.086 > 1: with the CURRENT carriers the razor
+is NEGATIVE. The pre-design's 0.3366 row needs ≈ 0.153 — a ×7 gap. The collapse identity
+F(3/2)e^{−γ}(3/4) = 1 cancels only three factors; the log x bridge and W_y's absolute size were
+silently unaccounted.
+**FABLE ROOT-CAUSE ADJUDICATION (to be page-verified in the design block):** the classical
+c̄ = ∫_{1/8}^{1/3} log(2−3t)/(t(1−t))dt is a DOUBLE-INTEGRAL/PER-FIBER object — the switch sieve
+applied per p₁-fiber (level D*/(fiber), varying s), its value CORRELATED with the triple
+density; C0's own A₃ row said "PNT double-integral count". SW12's `switch_upper_B` applied ONE
+GLOBAL sieve at s = 3/2 — a legitimate bound but ~×5–7 lossy vs the c̄ structure. THE REPAIR
+(the SW-FIBER design block, FRESH CONTEXT, primary source at page level — Tao Supp. 5's switch
+/ BJS Lemma 52): re-shape the switch application per-p₁-fiber (fiber counts × per-fiber
+F(s(t))·V), the t-integral reproducing c̄; SW12's instance machinery is reusable per fiber;
+SW3b/c/d's box pricing serves the per-fiber BV identically. The M-LAYER (recon's M1–M4) is
+CONFIRMED needed and well-posed INDEPENDENT of the fiber repair: M1 = the missing LOWER window
+Mertens (window_core re-run, class B); M2 = the two-sided W-ratio over [z,y) (the w₀/Q parts
+cancel — no absolute Mertens-3rd needed; needs P ∣ Ps nesting threaded at the H-glue); M3 =
+lambda_mass_lower via psiTot_pnt two-endpoint subtraction (B/C); M4 = rounding thresholds (A/B).
+M1/M3/M4 are freezable NOW; M2's interface after the fiber shape. Precision is NOT a risk
+(1/log w₀ ~ 5e−10); the F/f value certs are LANDED (SS3c). Tally stands at 49; the fiber
+mis-shape is #49's full extent, now precisely diagnosed.
