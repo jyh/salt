@@ -229,21 +229,21 @@ rectangle's honest discrepancy IS the difference of the two one-sided cutoff car
 `[a, b)` carried explicitly, the threshold cuts on the low region) with `β = blockPrimeInd N`.  NO
 `hord`: the ordering `p₂ ≤ N < p₃` is automatic (`lowBox_pair_card`).  Mirrors
 `WindowSW.blockBox_windowDisc_eq`, corner- and `hord`-free. -/
-theorem lowRect_eq_apDiscBilinCutoff {x z y : ℕ} {ε₀ : ℝ} {j N M a b X d : ℕ}
+theorem lowRect_eq_apDiscBilinCutoff {x z y : ℕ} {ε₀ : ℝ} {j N M a b X d R₀ : ℕ}
     (hbX : b ≤ X + 1) (hxlo : x / 2 + 1 ≤ x) :
-    apDiscBilinCutoff (restrictAlpha (blockAlphaLow z y ε₀ j N) a b) (blockPrimeInd N) X M 2 d x
-      - apDiscBilinCutoff (restrictAlpha (blockAlphaLow z y ε₀ j N) a b) (blockPrimeInd N) X M 2 d
+    apDiscBilinCutoff (restrictAlpha (blockAlphaLow z y ε₀ j N) a b) (blockPrimeInd N) X M R₀ d x
+      - apDiscBilinCutoff (restrictAlpha (blockAlphaLow z y ε₀ j N) a b) (blockPrimeInd N) X M R₀ d
           (x / 2 + 1)
-      = ((lowCard x z y ε₀ j N M a b (fun v => ((v : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d)) : ℝ) : ℂ)
+      = ((lowCard x z y ε₀ j N M a b (fun v => ((v : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d)) : ℝ) : ℂ)
         - (1 / (d.totient : ℂ)) *
           ((lowCard x z y ε₀ j N M a b (fun v => IsUnit ((v : ℕ) : ZMod d)) : ℝ) : ℂ) := by
   classical
   -- window redundancy: on `tripleSet` the folded window `x/2+2 ≤ prod3 ≤ x` is automatic.
   have hredRes : ((tripleSet x z y).filter (fun t => blockIdx z ε₀ t.1 = j ∧
-        (x / 2 + 2 ≤ prod3 t ∧ prod3 t ≤ x ∧ ((prod3 t : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d)) ∧
+        (x / 2 + 2 ≤ prod3 t ∧ prod3 t ≤ x ∧ ((prod3 t : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d)) ∧
         N < t.2.2 ∧ t.2.2 ≤ M ∧ a ≤ t.1 * t.2.1 ∧ t.1 * t.2.1 < b ∧ t.2.1 ≤ N)).card
       = ((tripleSet x z y).filter (fun t => blockIdx z ε₀ t.1 = j ∧
-        ((prod3 t : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) ∧
+        ((prod3 t : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) ∧
         N < t.2.2 ∧ t.2.2 ≤ M ∧ a ≤ t.1 * t.2.1 ∧ t.1 * t.2.1 < b ∧ t.2.1 ≤ N)).card := by
     apply congrArg
     apply Finset.filter_congr
@@ -268,22 +268,22 @@ theorem lowRect_eq_apDiscBilinCutoff {x z y : ℕ} {ε₀ : ℝ} {j N M a b X d 
     · rintro ⟨h1, ⟨_, _, hr⟩, hrest⟩; exact ⟨h1, hr, hrest⟩
     · rintro ⟨h1, hr, hrest⟩; exact ⟨h1, ⟨hwlo, hwhi, hr⟩, hrest⟩
   have hcardRes := (lowBox_pair_card
-    (fun v => x / 2 + 2 ≤ v ∧ v ≤ x ∧ ((v : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d))
+    (fun v => x / 2 + 2 ≤ v ∧ v ≤ x ∧ ((v : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d))
     (M := M) hbX (fun v hv => ⟨hv.1, hv.2.1⟩)).trans hredRes
   have hcardUnit := (lowBox_pair_card
     (fun v => x / 2 + 2 ≤ v ∧ v ≤ x ∧ IsUnit ((v : ℕ) : ZMod d))
     (M := M) hbX (fun v hv => ⟨hv.1, hv.2.1⟩)).trans hredUnit
   have hRes :
       (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x),
-          if ((m * n : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) then
+          if ((m * n : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) then
             restrictAlpha (blockAlphaLow z y ε₀ j N) a b m * blockPrimeInd N n else 0)
         - (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x / 2 + 1),
-          if ((m * n : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) then
+          if ((m * n : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) then
             restrictAlpha (blockAlphaLow z y ε₀ j N) a b m * blockPrimeInd N n else 0)
         = ((lowCard x z y ε₀ j N M a b
-            (fun v => ((v : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d)) : ℝ) : ℂ) := by
+            (fun v => ((v : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d)) : ℝ) : ℂ) := by
     rw [cutoffDiff_eq_pairCard_low x z y ε₀ j N a b X M
-      (fun v => ((v : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d)) hxlo, hcardRes]
+      (fun v => ((v : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d)) hxlo, hcardRes]
     simp only [lowCard]
     norm_cast
   have hUnit :
@@ -300,9 +300,9 @@ theorem lowRect_eq_apDiscBilinCutoff {x z y : ℕ} {ε₀ : ℝ} {j N M a b X d 
     simp only [lowCard]
     norm_cast
   have hexpx : apDiscBilinCutoff (restrictAlpha (blockAlphaLow z y ε₀ j N) a b)
-        (blockPrimeInd N) X M 2 d x
+        (blockPrimeInd N) X M R₀ d x
       = (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x),
-          if ((m * n : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) then
+          if ((m * n : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) then
             restrictAlpha (blockAlphaLow z y ε₀ j N) a b m * blockPrimeInd N n else 0)
         - (1 / (d.totient : ℂ)) *
           (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x),
@@ -310,9 +310,9 @@ theorem lowRect_eq_apDiscBilinCutoff {x z y : ℕ} {ε₀ : ℝ} {j N M a b X d 
               restrictAlpha (blockAlphaLow z y ε₀ j N) a b m * blockPrimeInd N n else 0) :=
     rfl
   have hexplo : apDiscBilinCutoff (restrictAlpha (blockAlphaLow z y ε₀ j N) a b)
-        (blockPrimeInd N) X M 2 d (x / 2 + 1)
+        (blockPrimeInd N) X M R₀ d (x / 2 + 1)
       = (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x / 2 + 1),
-          if ((m * n : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) then
+          if ((m * n : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) then
             restrictAlpha (blockAlphaLow z y ε₀ j N) a b m * blockPrimeInd N n else 0)
         - (1 / (d.totient : ℂ)) *
           (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x / 2 + 1),
@@ -521,26 +521,27 @@ symmetric rectangle's honest discrepancy IS the difference of the two one-sided 
 over `(max(y, N), M]`.  NO `m`-range restriction and NO ordering constraint (the unordered double
 count, `symBox_pair_card`).  The `β`-block's raised lower end `max(y, N)` keeps the dyadic
 hypothesis `M ≤ 2·max(y, N)` (since `M ≤ 2N ≤ 2·max(y, N)`) — threaded honestly downstream. -/
-theorem symRect_eq_apDiscBilinCutoff {x z y : ℕ} {ε₀ : ℝ} {j N M X d : ℕ}
+theorem symRect_eq_apDiscBilinCutoff {x z y : ℕ} {ε₀ : ℝ} {j N M X d R₀ : ℕ}
     (hxX : x ≤ X) (hxlo : x / 2 + 1 ≤ x) :
-    apDiscBilinCutoff (blockAlphaSym z y ε₀ j N M) (blockPrimeInd (max y N)) X M 2 d x
-      - apDiscBilinCutoff (blockAlphaSym z y ε₀ j N M) (blockPrimeInd (max y N)) X M 2 d (x / 2 + 1)
-      = ((symRectCount x z y ε₀ j N M (fun v => ((v : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d)) : ℝ) : ℂ)
+    apDiscBilinCutoff (blockAlphaSym z y ε₀ j N M) (blockPrimeInd (max y N)) X M R₀ d x
+      - apDiscBilinCutoff (blockAlphaSym z y ε₀ j N M) (blockPrimeInd (max y N)) X M R₀ d
+          (x / 2 + 1)
+      = ((symRectCount x z y ε₀ j N M (fun v => ((v : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d)) : ℝ) : ℂ)
         - (1 / (d.totient : ℂ)) *
           ((symRectCount x z y ε₀ j N M (fun v => IsUnit ((v : ℕ) : ZMod d)) : ℝ) : ℂ) := by
   classical
   have hRes :
       (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x),
-          if ((m * n : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) then
+          if ((m * n : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) then
             blockAlphaSym z y ε₀ j N M m * blockPrimeInd (max y N) n else 0)
         - (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x / 2 + 1),
-          if ((m * n : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) then
+          if ((m * n : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) then
             blockAlphaSym z y ε₀ j N M m * blockPrimeInd (max y N) n else 0)
         = ((symRectCount x z y ε₀ j N M
-            (fun v => ((v : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d)) : ℝ) : ℂ) := by
+            (fun v => ((v : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d)) : ℝ) : ℂ) := by
     rw [cutoffDiff_eq_pairCard_sym x z y ε₀ j N M X
-      (fun v => ((v : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d)) hxlo,
-      symBox_pair_card (fun v => ((v : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d)) hxX,
+      (fun v => ((v : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d)) hxlo,
+      symBox_pair_card (fun v => ((v : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d)) hxX,
       symRectCount_eq_card]
     norm_cast
   have hUnit :
@@ -555,19 +556,19 @@ theorem symRect_eq_apDiscBilinCutoff {x z y : ℕ} {ε₀ : ℝ} {j N M X d : �
     rw [cutoffDiff_eq_pairCard_sym x z y ε₀ j N M X (fun v => IsUnit ((v : ℕ) : ZMod d)) hxlo,
       symBox_pair_card (fun v => IsUnit ((v : ℕ) : ZMod d)) hxX, symRectCount_eq_card]
     norm_cast
-  have hexpx : apDiscBilinCutoff (blockAlphaSym z y ε₀ j N M) (blockPrimeInd (max y N)) X M 2 d x
+  have hexpx : apDiscBilinCutoff (blockAlphaSym z y ε₀ j N M) (blockPrimeInd (max y N)) X M R₀ d x
       = (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x),
-          if ((m * n : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) then
+          if ((m * n : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) then
             blockAlphaSym z y ε₀ j N M m * blockPrimeInd (max y N) n else 0)
         - (1 / (d.totient : ℂ)) *
           (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x),
             if IsUnit ((m * n : ℕ) : ZMod d) then
               blockAlphaSym z y ε₀ j N M m * blockPrimeInd (max y N) n else 0) :=
     rfl
-  have hexplo : apDiscBilinCutoff (blockAlphaSym z y ε₀ j N M) (blockPrimeInd (max y N)) X M 2 d
+  have hexplo : apDiscBilinCutoff (blockAlphaSym z y ε₀ j N M) (blockPrimeInd (max y N)) X M R₀ d
         (x / 2 + 1)
       = (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x / 2 + 1),
-          if ((m * n : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) then
+          if ((m * n : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) then
             blockAlphaSym z y ε₀ j N M m * blockPrimeInd (max y N) n else 0)
         - (1 / (d.totient : ℂ)) *
           (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x / 2 + 1),

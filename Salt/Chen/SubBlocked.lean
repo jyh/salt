@@ -291,38 +291,38 @@ the box carrier into the `K + 1` sub-box carriers (partition `restrictAlpha_dyad
 the non-survivor sub-boxes vanish (`apDiscBilinCutoff_eq_zero_of_over`), restricting to
 `dyadicSurvivors`. -/
 theorem sum_norm_apDiscBilinCutoff_dyadic_decomp {α : ℕ → ℂ} {X M N T : ℕ} (K : ℕ)
-    (hK : Nat.log 2 X ≤ K) (Dset : Finset ℕ) :
-    ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+    (hK : Nat.log 2 X ≤ K) (Dset : Finset ℕ) (r : ℕ → ℕ) :
+    ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
       ≤ ∑ i ∈ dyadicSurvivors N T K, ∑ d ∈ Dset,
           ‖apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-            (blockPrimeInd N) X M 2 d T‖ := by
+            (blockPrimeInd N) X M (r d) d T‖ := by
   classical
-  have hstep1 : ∀ d, apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T
+  have hstep1 : ∀ d, apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T
       = ∑ i ∈ Finset.range (K + 1),
           apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-            (blockPrimeInd N) X M 2 d T := by
+            (blockPrimeInd N) X M (r d) d T := by
     intro d
-    rw [← apDiscBilinCutoff_sum_alpha (blockPrimeInd N) X M 2 d T (Finset.range (K + 1))
+    rw [← apDiscBilinCutoff_sum_alpha (blockPrimeInd N) X M (r d) d T (Finset.range (K + 1))
           (fun i => restrictAlpha α (2 ^ i) (2 ^ (i + 1)))]
     refine apDiscBilinCutoff_congr (fun m hm => ?_)
     rw [Finset.mem_Icc] at hm
     exact (restrictAlpha_dyadic_sum hm.1 (le_trans (Nat.log_mono_right hm.2) hK)).symm
-  calc ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+  calc ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
       = ∑ d ∈ Dset, ‖∑ i ∈ Finset.range (K + 1),
             apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-              (blockPrimeInd N) X M 2 d T‖ := by
+              (blockPrimeInd N) X M (r d) d T‖ := by
         refine Finset.sum_congr rfl (fun d _ => ?_); rw [hstep1 d]
     _ ≤ ∑ d ∈ Dset, ∑ i ∈ Finset.range (K + 1),
             ‖apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-              (blockPrimeInd N) X M 2 d T‖ :=
+              (blockPrimeInd N) X M (r d) d T‖ :=
         Finset.sum_le_sum (fun d _ => norm_sum_le _ _)
     _ = ∑ i ∈ Finset.range (K + 1), ∑ d ∈ Dset,
             ‖apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-              (blockPrimeInd N) X M 2 d T‖ :=
+              (blockPrimeInd N) X M (r d) d T‖ :=
         Finset.sum_comm
     _ = ∑ i ∈ dyadicSurvivors N T K, ∑ d ∈ Dset,
             ‖apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-              (blockPrimeInd N) X M 2 d T‖ := by
+              (blockPrimeInd N) X M (r d) d T‖ := by
         refine (Finset.sum_subset (Finset.filter_subset _ _) (fun i hi hni => ?_)).symm
         have hover : T < 2 ^ i * (N + 1) := by
           by_contra h
@@ -339,13 +339,13 @@ The intended supplier is `GlueBV.cutoff_BV_at_op` at `(X_sub, M)` (via
 NOTE (see the file header + closing flag) it discharges `hprice` only for the `X_sub ≥ √x/4`
 survivors — the medium-band small survivors are the residual gap. -/
 theorem subblocked_box_price {α : ℕ → ℂ} {X M N T : ℕ} (K : ℕ) (hK : Nat.log 2 X ≤ K)
-    (Dset : Finset ℕ) (Price : ℕ → ℝ)
+    (Dset : Finset ℕ) (r : ℕ → ℕ) (Price : ℕ → ℝ)
     (hprice : ∀ i ∈ dyadicSurvivors N T K,
         ∑ d ∈ Dset, ‖apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-          (blockPrimeInd N) X M 2 d T‖ ≤ Price i) :
-    ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+          (blockPrimeInd N) X M (r d) d T‖ ≤ Price i) :
+    ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
       ≤ ∑ i ∈ dyadicSurvivors N T K, Price i :=
-  le_trans (sum_norm_apDiscBilinCutoff_dyadic_decomp K hK Dset) (Finset.sum_le_sum hprice)
+  le_trans (sum_norm_apDiscBilinCutoff_dyadic_decomp K hK Dset r) (Finset.sum_le_sum hprice)
 
 /-! ## Composition sanity -/
 

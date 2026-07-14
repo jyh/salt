@@ -394,36 +394,36 @@ exactly what `medium_survivor_price` supplies (twice: `T = T₂` and `T = T₁`)
 theorem box_disc_three_way {α : ℕ → ℂ} {X M N T₁ T₂ F : ℕ} (K : ℕ)
     (hK : Nat.log 2 X ≤ K) (hT : T₁ ≤ T₂)
     (hsupp : ∀ m, α m ≠ 0 → F < m)
-    (Dset : Finset ℕ) (Price : ℕ → ℝ)
+    (Dset : Finset ℕ) (r : ℕ → ℕ) (Price : ℕ → ℝ)
     (hiX : ∀ i ∈ dyadicBoundary N M T₁ T₂ F K, 2 ^ (i + 1) ≤ X + 1)
     (hprice : ∀ i ∈ dyadicBoundary N M T₁ T₂ F K,
         (∑ d ∈ Dset, ‖apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-            (blockPrimeInd N) (2 ^ (i + 1) - 1) M 2 d T₂‖)
+            (blockPrimeInd N) (2 ^ (i + 1) - 1) M (r d) d T₂‖)
           + (∑ d ∈ Dset, ‖apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-              (blockPrimeInd N) (2 ^ (i + 1) - 1) M 2 d T₁‖) ≤ Price i) :
-    ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T₂
-        - apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T₁‖
+              (blockPrimeInd N) (2 ^ (i + 1) - 1) M (r d) d T₁‖) ≤ Price i) :
+    ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T₂
+        - apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T₁‖
       ≤ ∑ i ∈ dyadicBoundary N M T₁ T₂ F K, Price i := by
   classical
   set B := dyadicBoundary N M T₁ T₂ F K with hB
   -- (1) the dyadic decomposition of both one-sided carriers (as in `SubBlocked`).
-  have hdecomp : ∀ (T d : ℕ), apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T
+  have hdecomp : ∀ (T d : ℕ), apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T
       = ∑ i ∈ Finset.range (K + 1),
           apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-            (blockPrimeInd N) X M 2 d T := by
+            (blockPrimeInd N) X M (r d) d T := by
     intro T d
-    rw [← apDiscBilinCutoff_sum_alpha (blockPrimeInd N) X M 2 d T (Finset.range (K + 1))
+    rw [← apDiscBilinCutoff_sum_alpha (blockPrimeInd N) X M (r d) d T (Finset.range (K + 1))
           (fun i => restrictAlpha α (2 ^ i) (2 ^ (i + 1)))]
     refine apDiscBilinCutoff_congr (fun m hm => ?_)
     rw [Finset.mem_Icc] at hm
     exact (restrictAlpha_dyadic_sum hm.1 (le_trans (Nat.log_mono_right hm.2) hK)).symm
   -- (2) per `d`, the difference restricts to the boundary (the three zero tests).
-  have hdiff : ∀ d, apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T₂
-        - apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T₁
+  have hdiff : ∀ d, apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T₂
+        - apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T₁
       = ∑ i ∈ B, (apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-            (blockPrimeInd N) X M 2 d T₂
+            (blockPrimeInd N) X M (r d) d T₂
           - apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-            (blockPrimeInd N) X M 2 d T₁) := by
+            (blockPrimeInd N) X M (r d) d T₁) := by
     intro d
     rw [hdecomp T₂ d, hdecomp T₁ d, ← Finset.sum_sub_distrib]
     symm
@@ -450,28 +450,28 @@ theorem box_disc_three_way {α : ℕ → ℂ} {X M N T₁ T₂ F : ℕ} (K : ℕ
         rw [apDiscBilinCutoff_eq_zero_of_over hover₂,
           apDiscBilinCutoff_eq_zero_of_over hover₁, sub_self]
   -- (3) triangle, swap, shrink to the reduced top, price.
-  calc ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T₂
-        - apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T₁‖
+  calc ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T₂
+        - apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T₁‖
       = ∑ d ∈ Dset, ‖∑ i ∈ B,
           (apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-              (blockPrimeInd N) X M 2 d T₂
+              (blockPrimeInd N) X M (r d) d T₂
             - apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-              (blockPrimeInd N) X M 2 d T₁)‖ := by
+              (blockPrimeInd N) X M (r d) d T₁)‖ := by
         refine Finset.sum_congr rfl (fun d _ => ?_)
         rw [hdiff d]
     _ ≤ ∑ d ∈ Dset, ∑ i ∈ B,
           (‖apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-              (blockPrimeInd N) X M 2 d T₂‖
+              (blockPrimeInd N) X M (r d) d T₂‖
             + ‖apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-              (blockPrimeInd N) X M 2 d T₁‖) := by
+              (blockPrimeInd N) X M (r d) d T₁‖) := by
         refine Finset.sum_le_sum (fun d _ => ?_)
         refine le_trans (norm_sum_le _ _) (Finset.sum_le_sum (fun i _ => ?_))
         exact norm_sub_le _ _
     _ = ∑ i ∈ B, ∑ d ∈ Dset,
           (‖apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-              (blockPrimeInd N) X M 2 d T₂‖
+              (blockPrimeInd N) X M (r d) d T₂‖
             + ‖apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-              (blockPrimeInd N) X M 2 d T₁‖) := Finset.sum_comm
+              (blockPrimeInd N) X M (r d) d T₁‖) := Finset.sum_comm
     _ ≤ ∑ i ∈ B, Price i := by
         refine Finset.sum_le_sum (fun i hi => ?_)
         have h1 : 2 ^ (i + 1) ≤ (2 ^ (i + 1) - 1) + 1 := by
@@ -505,9 +505,9 @@ The conclusion is the exact per-side price `box_disc_three_way`'s `hprice` consu
 theorem medium_survivor_price {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
       ∀ (x Lb : ℝ) (F : ℕ) (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ)
-        (Kβ Km Kβ' B : ℝ),
+        (r : ℕ → ℕ) (Kβ Km Kβ' B : ℝ),
         (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → 0 ≤ Km → 0 ≤ Kβ' → N₀ ≤ N → M ≤ 2 * N → D0 ≤ N →
-        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime 2 d) →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) →
         (1 ≤ Real.log ((X : ℝ) * (M : ℝ))) →
         ((D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ C0) →
         ((D0 : ℝ) ≤ (Real.log N) ^ C0) →
@@ -539,12 +539,12 @@ theorem medium_survivor_price {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
         (∀ e, 2 ≤ e → e ≤ D →
             K * (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ (A + 1 + 1 + 2 * C0)
               ≤ Kβ' * (Real.log N) ^ (A + 1 + 2 * C0)) →
-        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
           ≤ (Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26)
                 + ((2 : ℝ) ^ (A + 5) * Kβ' + 15360))) * ((X : ℝ) * (M : ℝ))
               / (Real.log ((X : ℝ) * (M : ℝ))) ^ A := by
   obtain ⟨K, N₀, hK0, hbody⟩ := general_BV_cutoff_unconditional hA hC0
-  refine ⟨K, N₀, hK0, fun x Lb F α X N M T D0 D k0 Klog Dset Kβ Km Kβ' B hα hKβ hKm hKβ' hN
+  refine ⟨K, N₀, hK0, fun x Lb F α X N M T D0 D k0 Klog Dset r Kβ Km Kβ' B hα hKβ hKm hKβ' hN
     hM2N hD0N hDge1 hcop2 hL1 hD0 hD0N' hNM hD1 hDsetD hDN hX2 hM2 hBge hCge hD0eq h2D0 hD0D
     hKlog hDscale hD0lo_main hXsqrt hMsqrt herr_lev herr_D0lo herr_Mlev hFX hDx hLbb hfloor
     herr_LEpos herr_D0E hDXM herr_scale hcoupG hcoup3 herr_book4 => ?_⟩
@@ -553,7 +553,7 @@ theorem medium_survivor_price {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
         ≤ Real.sqrt (X : ℝ) :=
     fun e he2 heD =>
       hdiv_direct hA.le x Lb F X M D hFX (by omega) (by omega) hDx hLbb hfloor e (by omega) heD
-  exact hbody α X N M T D0 D k0 Klog Dset Kβ Km Kβ' B hα hKβ hKm hKβ' hN hM2N hD0N hDge1 hcop2
+  exact hbody α X N M T D0 D k0 Klog Dset r Kβ Km Kβ' B hα hKβ hKm hKβ' hN hM2N hD0N hDge1 hcop2
     hL1 hD0 hD0N' hNM hD1 hDsetD hDN hX2 hM2 hBge hCge hD0eq h2D0 hD0D hKlog hDscale hD0lo_main
     hXsqrt hMsqrt herr_lev herr_D0lo herr_Mlev herr_div herr_LEpos herr_D0E hDXM herr_scale
     hcoupG hcoup3 herr_book4
@@ -674,8 +674,8 @@ theorem hNum_at_op {x z y : ℕ} {ε₀ : ℝ} {j N M a b X : ℕ} (K Ps : ℕ) 
   classical
   rw [← Finset.sum_filter]
   refine hHD_of_box_disc _ hz hbX hord hxlo ?_
-  exact box_disc_three_way K hK hxlo (fun m hm => medium_support_floor_high hm) _ Price
-    hiX hprice
+  exact box_disc_three_way K hK hxlo (fun m hm => medium_support_floor_high hm) _ (fun _ => 2)
+    Price hiX hprice
 
 /-! ## 8. Composition sanity — the #check-chain into the exact `hBVblocks` shape
 

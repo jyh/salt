@@ -236,16 +236,16 @@ any reduced-top price `hprice_sub` (area `X_sub·M ≤ 4T`) transfers to the glo
 carrier — the summation-layer win that plugs `SubBlocked.subblocked_box_price`'s abstract slot at
 the reduced area.  (`hiX : 2^{i+1} ≤ X + 1` holds for every medium-band survivor: `2^i·(N+1) ≤ T`
 and `N ≫ 8√x` give `2^{i+1} ≤ 2T/(N+1) ≤ X`.) -/
-theorem medium_band_price {α : ℕ → ℂ} {X M N T i : ℕ} (Dset : Finset ℕ) {P : ℝ}
+theorem medium_band_price {α : ℕ → ℂ} {X M N T i : ℕ} (Dset : Finset ℕ) (r : ℕ → ℕ) {P : ℝ}
     (hiX : 2 ^ (i + 1) ≤ X + 1)
     (hprice_sub : ∑ d ∈ Dset, ‖apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-        (blockPrimeInd N) (2 ^ (i + 1) - 1) M 2 d T‖ ≤ P) :
+        (blockPrimeInd N) (2 ^ (i + 1) - 1) M (r d) d T‖ ≤ P) :
     ∑ d ∈ Dset, ‖apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-        (blockPrimeInd N) X M 2 d T‖ ≤ P := by
+        (blockPrimeInd N) X M (r d) d T‖ ≤ P := by
   refine le_trans (le_of_eq (Finset.sum_congr rfl (fun d _ => ?_))) hprice_sub
   have hpow : 1 ≤ 2 ^ (i + 1) := Nat.one_le_pow _ _ (by norm_num)
   rw [apDiscBilinCutoff_restrict_X (α := α) (a := 2 ^ i) (b := 2 ^ (i + 1))
-      (X := 2 ^ (i + 1) - 1) (X' := X) (Y := M) (N₀ := 2) (d := d) (T := T)
+      (X := 2 ^ (i + 1) - 1) (X' := X) (Y := M) (N₀ := r d) (d := d) (T := T)
       (by omega) (by omega)]
 
 /-- **`subblocked_box_price_reduced` (FULL).**  The box's `L¹`-over-`d` cutoff price is bounded by
@@ -256,15 +256,15 @@ complete summation layer of catch #60's fix: the box price is the `O(log)`-survi
 survivor priced at its OWN reduced area — the input `hprice` is exactly the per-survivor reduced
 price supplied (given the e-fold residual) by `general_BV_cutoff_unconditional`. -/
 theorem subblocked_box_price_reduced {α : ℕ → ℂ} {X M N T : ℕ} (K : ℕ) (hK : Nat.log 2 X ≤ K)
-    (Dset : Finset ℕ) (Price : ℕ → ℝ)
+    (Dset : Finset ℕ) (r : ℕ → ℕ) (Price : ℕ → ℝ)
     (hiX : ∀ i ∈ dyadicSurvivors N T K, 2 ^ (i + 1) ≤ X + 1)
     (hprice : ∀ i ∈ dyadicSurvivors N T K,
         ∑ d ∈ Dset, ‖apDiscBilinCutoff (restrictAlpha α (2 ^ i) (2 ^ (i + 1)))
-          (blockPrimeInd N) (2 ^ (i + 1) - 1) M 2 d T‖ ≤ Price i) :
-    ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+          (blockPrimeInd N) (2 ^ (i + 1) - 1) M (r d) d T‖ ≤ Price i) :
+    ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
       ≤ ∑ i ∈ dyadicSurvivors N T K, Price i :=
-  subblocked_box_price K hK Dset Price
-    (fun i hi => medium_band_price Dset (hiX i hi) (hprice i hi))
+  subblocked_box_price K hK Dset r Price
+    (fun i hi => medium_band_price Dset r (hiX i hi) (hprice i hi))
 
 /-! ## Composition sanity -/
 

@@ -1258,10 +1258,10 @@ windowed `L¹`-over-`d` AP discrepancy at residue `2` meets the target envelope
 `(Kβ + (6(Km+448+32√26) + Kerr))·XM/L^A`. -/
 theorem general_BV_cutoff_closed {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
-      ∀ (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ) (Kβ Km Kerr B : ℝ)
+      ∀ (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (Kβ Km Kerr B : ℝ)
         (G : ℕ → ℝ),
         (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → 0 ≤ Km → N₀ ≤ N → M ≤ 2 * N → D0 ≤ N →
-        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime 2 d) →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) →
         (0 < Real.log ((X : ℝ) * (M : ℝ))) →
         ((D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ C0) →
         ((D0 : ℝ) ≤ (Real.log N) ^ C0) →
@@ -1281,11 +1281,11 @@ theorem general_BV_cutoff_closed {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
         (∀ e, 2 ≤ e → e ≤ D → cutoffEfoldTerm α N X M T D0 Dset e ≤ G e) →
         (∑ e ∈ Finset.Icc 2 D, G e
             ≤ Kerr * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ A) →
-        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
           ≤ (Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26) + Kerr)) * ((X : ℝ) * (M : ℝ))
               / (Real.log ((X : ℝ) * (M : ℝ))) ^ A := by
   obtain ⟨K, N₀, hK0, hbody⟩ := general_BV_cutoff_final (A := A) (C0 := C0) hA hC0
-  refine ⟨K, N₀, hK0, fun α X N M T D0 D k0 Klog Dset Kβ Km Kerr B G hα hKβ hKm hN hM2N hD0N
+  refine ⟨K, N₀, hK0, fun α X N M T D0 D k0 Klog Dset r Kβ Km Kerr B G hα hKβ hKm hN hM2N hD0N
     hDge1 hcop2 hLpos hD0 hD0N' hNM hscale hD1 hDsetD hDN hX2 hM2 hBge hCge hD0eq h2D0 hD0D hKeq
     hDscale hD0lo hXsqrt hMsqrt hSmallCut hGlue hGsum => ?_⟩
   have hβ1 : ∀ n, ‖blockPrimeInd N n‖ ≤ 1 := by
@@ -1308,7 +1308,7 @@ theorem general_BV_cutoff_closed {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
               - cutoffTwist α (blockPrimeInd N) X M T χ.conductor χ.primitiveCharacter‖
       ≤ Kerr * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ A :=
     hErrSum_cutoff_discharge α N X M T D D0 Dset G hDge1 hDsetD hDN hGlue hGsum
-  exact hbody α X N M T D0 D Dset Kβ (6 * (Km + 448 + 32 * Real.sqrt 26)) Kerr hα hKβ hN hM2N
+  exact hbody α X N M T D0 D Dset r Kβ (6 * (Km + 448 + 32 * Real.sqrt 26)) Kerr hα hKβ hN hM2N
     hD0N hDge1 hcop2 hLpos hD0 hD0N' hNM hscale hD1 hDsetD hMainEnergy hErrSum
 
 /-! ## 5. Composition sanity (item 4) — the end-to-end chain elaborates

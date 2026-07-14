@@ -455,9 +455,9 @@ AP discrepancy at residue `2` is bounded with **no analytic slot remaining** —
 structural / operating-point thresholds and the three SW couplings (see the section header). -/
 theorem general_BV_cutoff_unconditional {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
-      ∀ (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ) (Kβ Km Kβ' B : ℝ),
+      ∀ (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (Kβ Km Kβ' B : ℝ),
         (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → 0 ≤ Km → 0 ≤ Kβ' → N₀ ≤ N → M ≤ 2 * N → D0 ≤ N →
-        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime 2 d) →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) →
         (1 ≤ Real.log ((X : ℝ) * (M : ℝ))) →
         ((D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ C0) →
         ((D0 : ℝ) ≤ (Real.log N) ^ C0) →
@@ -486,7 +486,7 @@ theorem general_BV_cutoff_unconditional {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0)
         (∀ e, 2 ≤ e → e ≤ D →
             K * (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ (A + 1 + 1 + 2 * C0)
               ≤ Kβ' * (Real.log N) ^ (A + 1 + 2 * C0)) →
-        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
           ≤ (Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26)
                 + ((2 : ℝ) ^ (A + 5) * Kβ' + 15360))) * ((X : ℝ) * (M : ℝ))
               / (Real.log ((X : ℝ) * (M : ℝ))) ^ A := by
@@ -494,7 +494,7 @@ theorem general_BV_cutoff_unconditional {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0)
   obtain ⟨K₄, N₀₄, hK4pos, hbody4⟩ := hsmall_pere_discharge (A := A) (C0 := C0) hA hC0
   obtain ⟨Kg, N₀g, hKgpos, hbodyg⟩ := general_BV_cutoff_closed (A := A) (C0 := C0) hA hC0
   refine ⟨K₃ + K₄ + Kg, max (max N₀₃ N₀₄) N₀g, by positivity,
-    fun α X N M T D0 D k0 Klog Dset Kβ Km Kβ' B hα hKβ hKm hKβ' hN hM2N hD0N hDge1 hcop2 hL1
+    fun α X N M T D0 D k0 Klog Dset r Kβ Km Kβ' B hα hKβ hKm hKβ' hN hM2N hD0N hDge1 hcop2 hL1
       hD0 hD0N' hNM hD1 hDsetD hDN hX2 hM2 hBge hCge hD0eq h2D0 hD0D hKlog hDscale hD0lo_main
       hXsqrt hMsqrt herr_lev herr_D0lo herr_Mlev herr_div herr_LEpos herr_D0E hDXM herr_scale
       hcoupG hcoup3 herr_book4 => ?_⟩
@@ -555,7 +555,7 @@ theorem general_BV_cutoff_unconditional {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0)
           rw [hKsmdef, Real.rpow_add hLpos A 1, Real.rpow_one]
           field_simp
   -- assemble via `general_BV_cutoff_closed`.
-  exact hbodyg α X N M T D0 D k0 Klog Dset Kβ Km ((2 : ℝ) ^ (A + 5) * Kβ' + 15360) B G
+  exact hbodyg α X N M T D0 D k0 Klog Dset r Kβ Km ((2 : ℝ) ^ (A + 5) * Kβ' + 15360) B G
     hα hKβ hKm hNg hM2N hD0N hDge1 hcop2 hLpos hD0 hD0N' hNM
     (le_trans (mul_le_mul_of_nonneg_right hKgleK (Real.rpow_nonneg hLnn _)) hcoupG)
     hD1 hDsetD hDN hX2 hM2 hBge hCge hD0eq h2D0 hD0D hKlog hDscale hD0lo_main hXsqrt hMsqrt

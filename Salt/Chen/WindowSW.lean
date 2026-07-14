@@ -16,15 +16,16 @@ Design: `docs/blueprints/flags.md`, the `2026-07-13 C54-RECON` freeze (route (i)
 ## Item 6 — `smallconductor_window_perd` / `smallconductor_window_sum` (THE estimate)
 
 For a small conductor `d ≤ D0`, the windowed AP discrepancy `apDiscBilinCutoff α (blockPrimeInd N)
-X M 2 d T` is expanded **by fixed `m`**: pulling `α m` out, the inner `n`-sum is the residue-count
-minus `(1/φd)·`unit-count of the primes `n` over the CLEAN `m`-interval `(N, min M ⌊T/m⌋]`.  For
-each `m` coprime to `d` the residue class `n ≡ 2·m⁻¹ (mod d)` is a single unit class, and the
-inner discrepancy is EXACTLY the interval prime-AP discrepancy priced by C3b's
-`prime_indicator_SW`; for `(m, d) > 1` (with `d` odd, i.e. `Coprime 2 d`) both counts vanish
-(`2` is a unit, so a residue-`2` product forces `m` a unit).  Summing over `m ≤ X` with
-`‖α‖ ≤ 1` gives `X ·` (the per-interval SW error), and summing over `d ≤ D0` absorbs the `D0`
-factor into one `(log XM)^{C0}` via the recon's exponent bookkeeping (mirroring
-`GeneralBV.small_perd` / `EnergyClose.smallConductor_energy_le`).
+X M R₀ d T` (residue-generalized to a per-`d` residue `r d` coprime to `d` — H-AMENDMENT 2 C4;
+the landed consumers instantiate `r ≡ 2`) is expanded **by fixed `m`**: pulling `α m` out, the
+inner `n`-sum is the residue-count minus `(1/φd)·`unit-count of the primes `n` over the CLEAN
+`m`-interval `(N, min M ⌊T/m⌋]`.  For each `m` coprime to `d` the residue class
+`n ≡ R₀·m⁻¹ (mod d)` is a single unit class, and the inner discrepancy is EXACTLY the interval
+prime-AP discrepancy priced by C3b's `prime_indicator_SW`; for `(m, d) > 1` (with
+`Coprime R₀ d`) both counts vanish (`R₀` is a unit, so a residue-`R₀` product forces `m` a
+unit).  Summing over `m ≤ X` with `‖α‖ ≤ 1` gives `X ·` (the per-interval SW error), and summing
+over `d ≤ D0` absorbs the `D0` factor into one `(log XM)^{C0}` via the recon's exponent
+bookkeeping (mirroring `GeneralBV.small_perd` / `EnergyClose.smallConductor_energy_le`).
 
 The window never enters this estimate — it lives in the carrier's cutoff `T` (route (i)); the
 identification (item 8) turns the honest per-block discrepancy into a difference of two one-sided
@@ -89,24 +90,26 @@ lemma windowed_blockPrimeInd_classCount (N M T m : ℕ) (hm : 1 ≤ m)
 /-! ## Item 6 — the per-`d` small-conductor windowed SW estimate -/
 
 open Classical in
-/-- **`smallconductor_window_perd` — the per-`d` windowed small-conductor SW bound (FULL).**  The
-genuinely new WBV estimate.  For `d ≤ N` odd (`Coprime 2 d`) below the SW range (`d ≤ (log N)^C`),
-the windowed AP discrepancy at residue `2` is bounded by `X ·` (the interval SW error `K·N/(log
-N)^A`): expand `apDiscBilinCutoff` by fixed `m`, identify each inner `n`-discrepancy with the
-prime-AP discrepancy of the clean interval `(N, min M ⌊T/m⌋]` (priced by C3b's
-`prime_indicator_SW`), and sum over `m ≤ X` with `‖α‖ ≤ 1`.  For `(m, d) > 1` the inner
-discrepancy vanishes (`2` a unit forces `m` a unit); for `m` coprime to `d` the residue class
-`n ≡ 2·m⁻¹ (mod d)` is a single unit class, and (since block primes `> N ≥ d` are automatically
-coprime to `d`) the unit-count is the total prime count — exactly the SW shape. -/
+/-- **`smallconductor_window_perd` — the per-`d` windowed small-conductor SW bound (FULL,
+residue-generalized per H-AMENDMENT 2 C4).**  The genuinely new WBV estimate.  For `d ≤ N` below
+the SW range (`d ≤ (log N)^C`) and ANY residue `R₀` coprime to `d`, the windowed AP discrepancy
+at residue `R₀` is bounded by `X ·` (the interval SW error `K·N/(log N)^A`): expand
+`apDiscBilinCutoff` by fixed `m`, identify each inner `n`-discrepancy with the prime-AP
+discrepancy of the clean interval `(N, min M ⌊T/m⌋]` (priced by C3b's `prime_indicator_SW`), and
+sum over `m ≤ X` with `‖α‖ ≤ 1`.  For `(m, d) > 1` the inner discrepancy vanishes (`R₀` a unit
+forces `m` a unit); for `m` coprime to `d` the residue class `n ≡ R₀·m⁻¹ (mod d)` is a single
+unit class, and (since block primes `> N ≥ d` are automatically coprime to `d`) the unit-count is
+the total prime count — exactly the SW shape.  The residue enters ONLY through
+`IsUnit (R₀ : ZMod d)`; the landed consumers instantiate `R₀ = 2`. -/
 theorem smallconductor_window_perd {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
-      ∀ (α : ℕ → ℂ) (X N M T d : ℕ),
+      ∀ (α : ℕ → ℂ) (X N M T d R₀ : ℕ),
         (∀ m, ‖α m‖ ≤ 1) → N₀ ≤ N → M ≤ 2 * N → 1 ≤ d → d ≤ N →
-        Nat.Coprime 2 d → ((d : ℝ) ≤ (Real.log N) ^ C) →
-        ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+        Nat.Coprime R₀ d → ((d : ℝ) ≤ (Real.log N) ^ C) →
+        ‖apDiscBilinCutoff α (blockPrimeInd N) X M R₀ d T‖
           ≤ (X : ℝ) * (K * N / (Real.log N) ^ A) := by
   obtain ⟨K, N₀sw, hK0, hb⟩ := prime_indicator_SW hA hC
-  refine ⟨K, max N₀sw 3, hK0, fun α X N M T d hα hN hM2N hd1 hdN hcop2 hdlog => ?_⟩
+  refine ⟨K, max N₀sw 3, hK0, fun α X N M T d R₀ hα hN hM2N hd1 hdN hcop2 hdlog => ?_⟩
   classical
   haveI : NeZero d := ⟨by omega⟩
   have hNsw : N₀sw ≤ N := le_trans (le_max_left _ _) hN
@@ -117,22 +120,22 @@ theorem smallconductor_window_perd {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
   -- the per-`m` inner discrepancy is bounded by the interval SW error, uniformly in `m ≥ 1`.
   have hperm : ∀ m, 1 ≤ m →
       ‖(∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ T),
-            if ((m * n : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) then blockPrimeInd N n else 0)
+            if ((m * n : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) then blockPrimeInd N n else 0)
           - (1 / (d.totient : ℂ)) *
             (∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ T),
               if IsUnit ((m * n : ℕ) : ZMod d) then blockPrimeInd N n else 0)‖
         ≤ K * N / (Real.log N) ^ A := by
     intro m hm
     rw [windowed_blockPrimeInd_classCount N M T m hm
-          (fun n => ((m * n : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d)),
+          (fun n => ((m * n : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d)),
         windowed_blockPrimeInd_classCount N M T m hm
           (fun n => IsUnit ((m * n : ℕ) : ZMod d))]
     set U := min M (T / m) with hUdef
     by_cases hcopm : Nat.Coprime m d
     · -- coprime `m`: identify with the interval prime-AP discrepancy and apply SW.
       have hm_unit : IsUnit ((m : ℕ) : ZMod d) := (ZMod.isUnit_iff_coprime m d).mpr hcopm
-      have h2_unit : IsUnit ((2 : ℕ) : ZMod d) := (ZMod.isUnit_iff_coprime 2 d).mpr hcop2
-      set rm : ZMod d := ((m : ℕ) : ZMod d)⁻¹ * ((2 : ℕ) : ZMod d) with hrmdef
+      have h2_unit : IsUnit ((R₀ : ℕ) : ZMod d) := (ZMod.isUnit_iff_coprime R₀ d).mpr hcop2
+      set rm : ZMod d := ((m : ℕ) : ZMod d)⁻¹ * ((R₀ : ℕ) : ZMod d) with hrmdef
       have hminv_unit : IsUnit (((m : ℕ) : ZMod d)⁻¹) := by
         rw [isUnit_iff_exists]
         exact ⟨((m : ℕ) : ZMod d), ZMod.inv_mul_of_unit _ hm_unit,
@@ -143,7 +146,7 @@ theorem smallconductor_window_perd {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
         rw [← ZMod.isUnit_iff_coprime, hrmval]; exact hrm_unit
       -- the residue class `m·n ≡ 2` is the single class `n ≡ rm`.
       have hstep : ∀ p : ℕ,
-          (((m : ℕ) : ZMod d) * ((p : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d))
+          (((m : ℕ) : ZMod d) * ((p : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d))
             ↔ (((p : ℕ) : ZMod d) = rm) := by
         intro p
         constructor
@@ -152,19 +155,19 @@ theorem smallconductor_window_perd {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
               = (((m : ℕ) : ZMod d)⁻¹ * ((m : ℕ) : ZMod d)) * ((p : ℕ) : ZMod d) := by
                 rw [ZMod.inv_mul_of_unit _ hm_unit, one_mul]
             _ = ((m : ℕ) : ZMod d)⁻¹ * (((m : ℕ) : ZMod d) * ((p : ℕ) : ZMod d)) := by ring
-            _ = ((m : ℕ) : ZMod d)⁻¹ * ((2 : ℕ) : ZMod d) := by rw [h]
+            _ = ((m : ℕ) : ZMod d)⁻¹ * ((R₀ : ℕ) : ZMod d) := by rw [h]
             _ = rm := by rw [hrmdef]
         · intro h
           rw [h, hrmdef]
-          calc ((m : ℕ) : ZMod d) * (((m : ℕ) : ZMod d)⁻¹ * ((2 : ℕ) : ZMod d))
-              = (((m : ℕ) : ZMod d) * ((m : ℕ) : ZMod d)⁻¹) * ((2 : ℕ) : ZMod d) := by ring
-            _ = ((2 : ℕ) : ZMod d) := by rw [ZMod.mul_inv_of_unit _ hm_unit, one_mul]
+          calc ((m : ℕ) : ZMod d) * (((m : ℕ) : ZMod d)⁻¹ * ((R₀ : ℕ) : ZMod d))
+              = (((m : ℕ) : ZMod d) * ((m : ℕ) : ZMod d)⁻¹) * ((R₀ : ℕ) : ZMod d) := by ring
+            _ = ((R₀ : ℕ) : ZMod d) := by rw [ZMod.mul_inv_of_unit _ hm_unit, one_mul]
       have hpr_iff : ∀ p : ℕ, (((p : ℕ) : ZMod d) = rm) ↔ (p % d = rm.val % d) := by
         intro p
         have h := ZMod.natCast_eq_natCast_iff' p rm.val d
         rwa [hrmval] at h
       have hres_pred : ∀ p : ℕ,
-          (((m * p : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d)) ↔ (p % d = rm.val % d) := by
+          (((m * p : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d)) ↔ (p % d = rm.val % d) := by
         intro p
         rw [Nat.cast_mul, hstep p, hpr_iff p]
       -- block primes `p > N ≥ d` are coprime to `d`, hence `m·p` is a unit.
@@ -180,7 +183,7 @@ theorem smallconductor_window_perd {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
       -- rewrite both interval counts into the SW shape.
       have hResCard :
           ((Finset.Ioc N U).filter
-              (fun p => p.Prime ∧ ((m * p : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d))).card
+              (fun p => p.Prime ∧ ((m * p : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d))).card
             = ((Finset.Ioc N U).filter (fun p => p.Prime ∧ p % d = rm.val % d)).card := by
         congr 1
         apply Finset.filter_congr
@@ -220,10 +223,10 @@ theorem smallconductor_window_perd {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
     · -- `(m, d) > 1`: the residue and unit counts both vanish (`2` a unit ⟹ `m` a unit).
       have hResEmpty :
           ((Finset.Ioc N U).filter
-              (fun p => p.Prime ∧ ((m * p : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d))).card = 0 := by
+              (fun p => p.Prime ∧ ((m * p : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d))).card = 0 := by
         rw [Finset.card_eq_zero, Finset.filter_eq_empty_iff]
         intro p _ ⟨_, hres⟩
-        have h2u : IsUnit ((2 : ℕ) : ZMod d) := (ZMod.isUnit_iff_coprime 2 d).mpr hcop2
+        have h2u : IsUnit ((R₀ : ℕ) : ZMod d) := (ZMod.isUnit_iff_coprime R₀ d).mpr hcop2
         have hmpu : IsUnit ((m * p : ℕ) : ZMod d) := hres ▸ h2u
         rw [Nat.cast_mul] at hmpu
         exact hcopm ((ZMod.isUnit_iff_coprime m d).mp (isUnit_of_mul_isUnit_left hmpu))
@@ -239,10 +242,10 @@ theorem smallconductor_window_perd {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
       exact hboundnn
   -- regroup `apDiscBilinCutoff` by fixed `m` (pull `α m` out of both guarded sums).
   have hregroup :
-      apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T
+      apDiscBilinCutoff α (blockPrimeInd N) X M R₀ d T
         = ∑ m ∈ Finset.Icc 1 X, α m *
             ((∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ T),
-                  if ((m * n : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) then blockPrimeInd N n else 0)
+                  if ((m * n : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) then blockPrimeInd N n else 0)
               - (1 / (d.totient : ℂ)) *
                 (∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ T),
                   if IsUnit ((m * n : ℕ) : ZMod d) then blockPrimeInd N n else 0)) := by
@@ -253,7 +256,7 @@ theorem smallconductor_window_perd {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
     congr 1
     · rw [Finset.mul_sum]
       refine Finset.sum_congr rfl (fun n _ => ?_)
-      by_cases h : ((m * n : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d)
+      by_cases h : ((m * n : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d)
       · rw [if_pos h, if_pos h]
       · rw [if_neg h, if_neg h, mul_zero]
     · rw [Finset.mul_sum, Finset.mul_sum, Finset.mul_sum]
@@ -264,13 +267,13 @@ theorem smallconductor_window_perd {A C : ℝ} (hA : 0 < A) (hC : 0 < C) :
   rw [hregroup]
   calc ‖∑ m ∈ Finset.Icc 1 X, α m *
             ((∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ T),
-                  if ((m * n : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) then blockPrimeInd N n else 0)
+                  if ((m * n : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) then blockPrimeInd N n else 0)
               - (1 / (d.totient : ℂ)) *
                 (∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ T),
                   if IsUnit ((m * n : ℕ) : ZMod d) then blockPrimeInd N n else 0))‖
       ≤ ∑ m ∈ Finset.Icc 1 X, ‖α m *
             ((∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ T),
-                  if ((m * n : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) then blockPrimeInd N n else 0)
+                  if ((m * n : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) then blockPrimeInd N n else 0)
               - (1 / (d.totient : ℂ)) *
                 (∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ T),
                   if IsUnit ((m * n : ℕ) : ZMod d) then blockPrimeInd N n else 0))‖ :=
@@ -298,20 +301,20 @@ hypothesis per the recon's exponent bookkeeping) converts the `(log N)`-saving i
 `general_BV_closed` scale step. -/
 theorem smallconductor_window_sum {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
-      ∀ (α : ℕ → ℂ) (X N M T D0 : ℕ) (Dset : Finset ℕ) (Kβ : ℝ),
+      ∀ (α : ℕ → ℂ) (X N M T D0 : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (Kβ : ℝ),
         (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → N₀ ≤ N → M ≤ 2 * N → D0 ≤ N →
-        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime 2 d) →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) →
         (0 < Real.log ((X : ℝ) * (M : ℝ))) →
         ((D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ C0) →
         ((D0 : ℝ) ≤ (Real.log N) ^ C0) →
         ((N : ℝ) ≤ (M : ℝ)) →
         (K * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + C0) ≤ Kβ * (Real.log N) ^ (A + 2 * C0)) →
         ∑ d ∈ Dset.filter (fun d => d ≤ D0),
-            ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+            ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
           ≤ Kβ * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ A := by
   obtain ⟨K, N₀, hK0, hperd⟩ :=
     smallconductor_window_perd (A := A + 2 * C0) (C := C0) (by linarith) hC0
-  refine ⟨K, max N₀ 3, hK0, fun α X N M T D0 Dset Kβ hα hKβ hN hM2N hD0N hDge1 hcopSet
+  refine ⟨K, max N₀ 3, hK0, fun α X N M T D0 Dset r Kβ hα hKβ hN hM2N hD0N hDge1 hcopSet
     hLpos hD0 hD0N' hNM hscale => ?_⟩
   classical
   have hNN₀ : N₀ ≤ N := le_trans (le_max_left _ _) hN
@@ -326,14 +329,14 @@ theorem smallconductor_window_sum {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     rw [← Real.rpow_add hLpos]; congr 1; ring
   -- per-`d` bound in the target shape `Kβ·XM/L^{A+C0}`.
   have hperd' : ∀ d ∈ Dset.filter (fun d => d ≤ D0),
-      ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+      ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
         ≤ Kβ * ((X : ℝ) * (M : ℝ)) / L ^ (A + C0) := by
     intro d hd
     rw [Finset.mem_filter] at hd
     have hd1 : 1 ≤ d := hDge1 d hd.1
     have hdN : d ≤ N := le_trans hd.2 hD0N
     have hdlogN : (d : ℝ) ≤ (Real.log N) ^ C0 := le_trans (by exact_mod_cast hd.2) hD0N'
-    have hbase := hperd α X N M T d hα hNN₀ hM2N hd1 hdN (hcopSet d hd.1) hdlogN
+    have hbase := hperd α X N M T d (r d) hα hNN₀ hM2N hd1 hdN (hcopSet d hd.1) hdlogN
     -- convert `X·K·N/(log N)^{A+2C0} ≤ Kβ·XM/L^{A+C0}`.
     refine le_trans hbase ?_
     have hXnn : (0 : ℝ) ≤ (X : ℝ) := by positivity
@@ -361,7 +364,7 @@ theorem smallconductor_window_sum {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     rw [h2] at h1; exact_mod_cast h1
   have hVsmall0 : (0 : ℝ) ≤ Kβ * ((X : ℝ) * (M : ℝ)) / L ^ (A + C0) := by positivity
   calc ∑ d ∈ Dset.filter (fun d => d ≤ D0),
-          ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+          ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
       ≤ ∑ _d ∈ Dset.filter (fun d => d ≤ D0),
           Kβ * ((X : ℝ) * (M : ℝ)) / L ^ (A + C0) := Finset.sum_le_sum hperd'
     _ = ((Dset.filter (fun d => d ≤ D0)).card : ℝ)
@@ -552,34 +555,32 @@ private lemma cutoffDiff_eq_pairCard (x z y : ℕ) (ε₀ : ℝ) (j N M a b X : 
     simp only [if_neg hP, if_neg hnw, ite_self, sub_self]
 
 open Classical in
-/-- **`blockBox_windowDisc_eq` — the window-in-carrier identification (item 8, FULL).**  On a box
-that is ordering-cleared (`hord : b ≤ zN+1`, automatic for high pieces `N ≥ y`) — but with NO
-window corner hypotheses — the block's honest box discrepancy IS the difference of the two
-one-sided cutoff carriers at `T = x` and `T = x/2+1`:
-```
-apDiscBilinCutoff (restrictAlpha (blockAlpha j) a b) (blockPrimeInd N) X M 2 d x
-  − apDiscBilinCutoff (restrictAlpha (blockAlpha j) a b) (blockPrimeInd N) X M 2 d (x/2+1)
-    = blockBoxResCount − (1/φd)·blockBoxUnitCount.
-```
-The window `x/2+2 ≤ prod3 ≤ x` now lives in the cutoff (route (i)): the difference of the two
-cutoffs is exactly the window (`cutoffDiff_eq_pairCard`), the corner-free bijection
-`blockBox_windowed_pair_card` identifies the surviving pairs with `tripleSet` triples, and the
-`tripleSet` window makes the folded window redundant.  The `±1`: `T_hi = x`, `T_lo = (x/2+2) − 1
-= x/2+1`.  Mirrors `PairBijection.blockBox_apDiscBilin_eq`, corner-free and cutoff-aware. -/
-theorem blockBox_windowDisc_eq {x z y : ℕ} {ε₀ : ℝ} {j N M a b X d : ℕ}
+/-- **`blockBox_windowDisc_eq_res` — the window-in-carrier identification at a FREE residue
+`R₀` (H-AMENDMENT 2 C4).**  The residue-generalized core of `blockBox_windowDisc_eq`: on an
+ordering-cleared box the difference of the two one-sided cutoff carriers at residue `R₀` equals
+the raw `tripleSet` class-count difference at the class `prod3 ≡ R₀ (mod d)`.  NO coprimality is
+required — this is an exact counting identity (the residue never enters the bijection).  The
+landed `R₀ = 2` wrapper below folds the counts into `blockBoxResCount`/`blockBoxUnitCount`; the
+W-mirror instantiates `d := Q·d'`, `R₀ :=` the CRT class combining `a+2 (mod Q)`, `2 (mod d')`. -/
+theorem blockBox_windowDisc_eq_res {x z y : ℕ} {ε₀ : ℝ} {j N M a b X d R₀ : ℕ}
     (hz : 1 ≤ z) (hbX : b ≤ X + 1) (hord : b ≤ z * N + 1) (hxlo : x / 2 + 1 ≤ x) :
-    apDiscBilinCutoff (restrictAlpha (blockAlpha z y ε₀ j) a b) (blockPrimeInd N) X M 2 d x
-      - apDiscBilinCutoff (restrictAlpha (blockAlpha z y ε₀ j) a b) (blockPrimeInd N) X M 2 d
+    apDiscBilinCutoff (restrictAlpha (blockAlpha z y ε₀ j) a b) (blockPrimeInd N) X M R₀ d x
+      - apDiscBilinCutoff (restrictAlpha (blockAlpha z y ε₀ j) a b) (blockPrimeInd N) X M R₀ d
           (x / 2 + 1)
-      = ((blockBoxResCount x z y ε₀ j N M a b d : ℝ) : ℂ)
-        - (1 / (d.totient : ℂ)) * ((blockBoxUnitCount x z y ε₀ j N M a b d : ℝ) : ℂ) := by
+      = (((tripleSet x z y).filter (fun t => blockIdx z ε₀ t.1 = j ∧
+            ((prod3 t : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) ∧
+            N < t.2.2 ∧ t.2.2 ≤ M ∧ a ≤ t.1 * t.2.1 ∧ t.1 * t.2.1 < b)).card : ℂ)
+        - (1 / (d.totient : ℂ)) *
+          (((tripleSet x z y).filter (fun t => blockIdx z ε₀ t.1 = j ∧
+            IsUnit ((prod3 t : ℕ) : ZMod d) ∧
+            N < t.2.2 ∧ t.2.2 ≤ M ∧ a ≤ t.1 * t.2.1 ∧ t.1 * t.2.1 < b)).card : ℂ) := by
   classical
   -- window redundancy: on `tripleSet` the folded window `x/2+2 ≤ prod3 ≤ x` is automatic.
   have hredRes : ((tripleSet x z y).filter (fun t => blockIdx z ε₀ t.1 = j ∧
-        (x / 2 + 2 ≤ prod3 t ∧ prod3 t ≤ x ∧ ((prod3 t : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d)) ∧
+        (x / 2 + 2 ≤ prod3 t ∧ prod3 t ≤ x ∧ ((prod3 t : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d)) ∧
         N < t.2.2 ∧ t.2.2 ≤ M ∧ a ≤ t.1 * t.2.1 ∧ t.1 * t.2.1 < b)).card
       = ((tripleSet x z y).filter (fun t => blockIdx z ε₀ t.1 = j ∧
-        ((prod3 t : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) ∧
+        ((prod3 t : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) ∧
         N < t.2.2 ∧ t.2.2 ≤ M ∧ a ≤ t.1 * t.2.1 ∧ t.1 * t.2.1 < b)).card := by
     apply congrArg
     apply Finset.filter_congr
@@ -605,7 +606,7 @@ theorem blockBox_windowDisc_eq {x z y : ℕ} {ε₀ : ℝ} {j N M a b X d : ℕ}
     · rintro ⟨h1, hr, hrest⟩; exact ⟨h1, ⟨hwlo, hwhi, hr⟩, hrest⟩
   -- the pair count → `tripleSet` count chains (corner-free bijection + redundancy).
   have hcardRes := (blockBox_windowed_pair_card
-    (fun v => x / 2 + 2 ≤ v ∧ v ≤ x ∧ ((v : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d))
+    (fun v => x / 2 + 2 ≤ v ∧ v ≤ x ∧ ((v : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d))
     (M := M) hz hbX hord (fun v hv => ⟨hv.1, hv.2.1⟩)).trans hredRes
   have hcardUnit := (blockBox_windowed_pair_card
     (fun v => x / 2 + 2 ≤ v ∧ v ≤ x ∧ IsUnit ((v : ℕ) : ZMod d))
@@ -613,16 +614,16 @@ theorem blockBox_windowDisc_eq {x z y : ℕ} {ε₀ : ℝ} {j N M a b X d : ℕ}
   -- residue / unit cutoff differences equal the `tripleSet` counts.
   have hRes :
       (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x),
-          if ((m * n : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) then
+          if ((m * n : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) then
             restrictAlpha (blockAlpha z y ε₀ j) a b m * blockPrimeInd N n else 0)
         - (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x / 2 + 1),
-          if ((m * n : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) then
+          if ((m * n : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) then
             restrictAlpha (blockAlpha z y ε₀ j) a b m * blockPrimeInd N n else 0)
         = (((tripleSet x z y).filter (fun t => blockIdx z ε₀ t.1 = j ∧
-            ((prod3 t : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) ∧
+            ((prod3 t : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) ∧
             N < t.2.2 ∧ t.2.2 ≤ M ∧ a ≤ t.1 * t.2.1 ∧ t.1 * t.2.1 < b)).card : ℂ) := by
     rw [cutoffDiff_eq_pairCard x z y ε₀ j N M a b X
-      (fun v => ((v : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d)) hxlo, hcardRes]
+      (fun v => ((v : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d)) hxlo, hcardRes]
   have hUnit :
       (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x),
           if IsUnit ((m * n : ℕ) : ZMod d) then
@@ -637,9 +638,9 @@ theorem blockBox_windowDisc_eq {x z y : ℕ} {ε₀ : ℝ} {j N M a b X d : ℕ}
       (fun v => IsUnit ((v : ℕ) : ZMod d)) hxlo, hcardUnit]
   -- unfold the two carriers (definitional), rearrange, and substitute.
   have hexpx : apDiscBilinCutoff (restrictAlpha (blockAlpha z y ε₀ j) a b)
-        (blockPrimeInd N) X M 2 d x
+        (blockPrimeInd N) X M R₀ d x
       = (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x),
-          if ((m * n : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) then
+          if ((m * n : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) then
             restrictAlpha (blockAlpha z y ε₀ j) a b m * blockPrimeInd N n else 0)
         - (1 / (d.totient : ℂ)) *
           (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x),
@@ -647,9 +648,9 @@ theorem blockBox_windowDisc_eq {x z y : ℕ} {ε₀ : ℝ} {j N M a b X d : ℕ}
               restrictAlpha (blockAlpha z y ε₀ j) a b m * blockPrimeInd N n else 0) :=
     rfl
   have hexplo : apDiscBilinCutoff (restrictAlpha (blockAlpha z y ε₀ j) a b)
-        (blockPrimeInd N) X M 2 d (x / 2 + 1)
+        (blockPrimeInd N) X M R₀ d (x / 2 + 1)
       = (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x / 2 + 1),
-          if ((m * n : ℕ) : ZMod d) = ((2 : ℕ) : ZMod d) then
+          if ((m * n : ℕ) : ZMod d) = ((R₀ : ℕ) : ZMod d) then
             restrictAlpha (blockAlpha z y ε₀ j) a b m * blockPrimeInd N n else 0)
         - (1 / (d.totient : ℂ)) *
           (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ (Finset.Icc 1 M).filter (fun n => m * n ≤ x / 2 + 1),
@@ -660,7 +661,32 @@ theorem blockBox_windowDisc_eq {x z y : ℕ} {ε₀ : ℝ} {j N M a b X d : ℕ}
   rw [show ∀ (r1 u1 r2 u2 : ℂ),
       (r1 - (1 / (d.totient : ℂ)) * u1) - (r2 - (1 / (d.totient : ℂ)) * u2)
         = (r1 - r2) - (1 / (d.totient : ℂ)) * (u1 - u2) from fun r1 u1 r2 u2 => by ring]
-  rw [hRes, hUnit, blockBoxResCount, blockBoxUnitCount]
+  rw [hRes, hUnit]
+
+open Classical in
+/-- **`blockBox_windowDisc_eq` — the window-in-carrier identification (item 8, FULL).**  On a box
+that is ordering-cleared (`hord : b ≤ zN+1`, automatic for high pieces `N ≥ y`) — but with NO
+window corner hypotheses — the block's honest box discrepancy IS the difference of the two
+one-sided cutoff carriers at `T = x` and `T = x/2+1`:
+```
+apDiscBilinCutoff (restrictAlpha (blockAlpha j) a b) (blockPrimeInd N) X M 2 d x
+  − apDiscBilinCutoff (restrictAlpha (blockAlpha j) a b) (blockPrimeInd N) X M 2 d (x/2+1)
+    = blockBoxResCount − (1/φd)·blockBoxUnitCount.
+```
+The window `x/2+2 ≤ prod3 ≤ x` now lives in the cutoff (route (i)): the difference of the two
+cutoffs is exactly the window (`cutoffDiff_eq_pairCard`), the corner-free bijection
+`blockBox_windowed_pair_card` identifies the surviving pairs with `tripleSet` triples, and the
+`tripleSet` window makes the folded window redundant.  The `±1`: `T_hi = x`, `T_lo = (x/2+2) − 1
+= x/2+1`.  Mirrors `PairBijection.blockBox_apDiscBilin_eq`, corner-free and cutoff-aware.
+(The `R₀ = 2` instance of `blockBox_windowDisc_eq_res`, folded into the landed count objects.) -/
+theorem blockBox_windowDisc_eq {x z y : ℕ} {ε₀ : ℝ} {j N M a b X d : ℕ}
+    (hz : 1 ≤ z) (hbX : b ≤ X + 1) (hord : b ≤ z * N + 1) (hxlo : x / 2 + 1 ≤ x) :
+    apDiscBilinCutoff (restrictAlpha (blockAlpha z y ε₀ j) a b) (blockPrimeInd N) X M 2 d x
+      - apDiscBilinCutoff (restrictAlpha (blockAlpha z y ε₀ j) a b) (blockPrimeInd N) X M 2 d
+          (x / 2 + 1)
+      = ((blockBoxResCount x z y ε₀ j N M a b d : ℝ) : ℂ)
+        - (1 / (d.totient : ℂ)) * ((blockBoxUnitCount x z y ε₀ j N M a b d : ℝ) : ℂ) := by
+  rw [blockBox_windowDisc_eq_res hz hbX hord hxlo, blockBoxResCount, blockBoxUnitCount]
   push_cast
   ring
 

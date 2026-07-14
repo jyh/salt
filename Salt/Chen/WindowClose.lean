@@ -282,9 +282,9 @@ and no `hlev`/`hD0lo`/`hMlev` at this level — those live in the downstream dis
 `hMainEnergy` via `dyadic_energy_le_cutoff`. -/
 theorem general_BV_cutoff_final {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
-      ∀ (α : ℕ → ℂ) (X N M T D0 D : ℕ) (Dset : Finset ℕ) (Kβ Kmain Kerr : ℝ),
+      ∀ (α : ℕ → ℂ) (X N M T D0 D : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (Kβ Kmain Kerr : ℝ),
         (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → N₀ ≤ N → M ≤ 2 * N → D0 ≤ N →
-        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime 2 d) →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) →
         (0 < Real.log ((X : ℝ) * (M : ℝ))) →
         ((D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ C0) →
         ((D0 : ℝ) ≤ (Real.log N) ^ C0) →
@@ -301,32 +301,32 @@ theorem general_BV_cutoff_final {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
                 ‖cutoffTwist α (blockPrimeInd N) X M T d χ
                   - cutoffTwist α (blockPrimeInd N) X M T χ.conductor χ.primitiveCharacter‖
           ≤ Kerr * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ A) →
-        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
           ≤ (Kβ + (Kmain + Kerr)) * ((X : ℝ) * (M : ℝ))
               / (Real.log ((X : ℝ) * (M : ℝ))) ^ A := by
   obtain ⟨K, N₀, hK0, hsmall⟩ := smallconductor_window_sum (A := A) (C0 := C0) hA hC0
-  refine ⟨K, N₀, hK0, fun α X N M T D0 D Dset Kβ Kmain Kerr hα hKβ hN hM2N hD0N hDge1 hcop2
+  refine ⟨K, N₀, hK0, fun α X N M T D0 D Dset r Kβ Kmain Kerr hα hKβ hN hM2N hD0N hDge1 hcop2
     hLpos hD0 hD0N' hNM hscale hD1 hDsetD hMainEnergy hErrSum => ?_⟩
   classical
   set L := Real.log ((X : ℝ) * (M : ℝ)) with hLdef
   -- Split at the threshold `D0`.
   rw [← Finset.sum_filter_add_sum_filter_not Dset (fun d => d ≤ D0)
-        (fun d => ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖)]
+        (fun d => ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖)]
   -- The small-conductor branch (COMPLETE, WBV3).
   have hSmall : ∑ d ∈ Dset.filter (fun d => d ≤ D0),
-        ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+        ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
       ≤ Kβ * ((X : ℝ) * (M : ℝ)) / L ^ A :=
-    hsmall α X N M T D0 Dset Kβ hα hKβ hN hM2N hD0N hDge1 hcop2 hLpos hD0 hD0N' hNM hscale
+    hsmall α X N M T D0 Dset r Kβ hα hKβ hN hM2N hD0N hDge1 hcop2 hLpos hD0 hD0N' hNM hscale
   -- The large-conductor branch (WBV2 descent + fold + regroup).
   have hLarge : ∑ d ∈ Dset.filter (fun d => ¬ d ≤ D0),
-        ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+        ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
       ≤ (Kmain + Kerr) * ((X : ℝ) * (M : ℝ)) / L ^ A := by
     refine le_trans (Finset.sum_le_sum (fun d hd => ?_))
       (cutoff_hLargeDisc α (blockPrimeInd N) X M T D D0 Dset hD1 hDsetD hMainEnergy hErrSum)
     rw [Finset.mem_filter] at hd
     have hd1 : 1 ≤ d := hDge1 d hd.1
     haveI : NeZero d := ⟨by omega⟩
-    refine (norm_apDiscBilinCutoff_le α (blockPrimeInd N) X M 2 T (hcop2 d hd.1)).trans_eq ?_
+    refine (norm_apDiscBilinCutoff_le α (blockPrimeInd N) X M (r d) T (hcop2 d hd.1)).trans_eq ?_
     congr 1
     exact Finset.sum_congr
       (congrArg (fun i => @Finset.erase (DirichletCharacter ℂ d) i Finset.univ 1)
@@ -334,9 +334,9 @@ theorem general_BV_cutoff_final {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
       (fun _ _ => rfl)
   -- Assemble.
   calc ∑ d ∈ Dset.filter (fun d => d ≤ D0),
-          ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+          ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
         + ∑ d ∈ Dset.filter (fun d => ¬ d ≤ D0),
-          ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+          ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
       ≤ Kβ * ((X : ℝ) * (M : ℝ)) / L ^ A
         + (Kmain + Kerr) * ((X : ℝ) * (M : ℝ)) / L ^ A := add_le_add hSmall hLarge
     _ = (Kβ + (Kmain + Kerr)) * ((X : ℝ) * (M : ℝ)) / L ^ A := by ring

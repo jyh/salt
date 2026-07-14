@@ -158,9 +158,9 @@ with `cutoff_BV_at_op` at `N := 2^k`, `M := pieceM k` (the `M ≤ 2N`/`N ≤ M` 
 `WindowClose.hHD_of_generalBV_window` and the four one-sided prices of
 `BandIdent.Plo_discharge_priced` at the ACTUAL operating-point object. -/
 theorem sum_norm_apDiscBilinCutoff_pieceN {k : ℕ} (hk : 2 ≤ k) (α : ℕ → ℂ) (X M T : ℕ)
-    (Dset : Finset ℕ) :
-    (∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd (pieceN k)) X M 2 d T‖)
-      = ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd (2 ^ k)) X M 2 d T‖ := by
+    (Dset : Finset ℕ) (r : ℕ → ℕ) :
+    (∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd (pieceN k)) X M (r d) d T‖)
+      = ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd (2 ^ k)) X M (r d) d T‖ := by
   rw [blockPrimeInd_pieceN_eq hk]
 
 /-! ## 2. `cutoff_BV_at_op` — the terminal theorem with `herr_div` discharged (item A / FLOOR) -/
@@ -181,10 +181,11 @@ relation `X·M ≤ x²` (like the `x/(log)^{10}` budget) FAILS on the top window
 un-sub-blocked `m`-range makes `X·M ≫ x²`. -/
 theorem cutoff_BV_at_op {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     ∃ (K : ℝ) (N₀ : ℕ) (x₀ : ℝ), 0 < K ∧
-      ∀ (x : ℝ) (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ) (Kβ Km Kβ' B : ℝ),
+      ∀ (x : ℝ) (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ)
+        (Kβ Km Kβ' B : ℝ),
         x₀ ≤ x →
         (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → 0 ≤ Km → 0 ≤ Kβ' → N₀ ≤ N → M ≤ 2 * N → D0 ≤ N →
-        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime 2 d) →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) →
         (1 ≤ Real.log ((X : ℝ) * (M : ℝ))) →
         ((D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ C0) →
         ((D0 : ℝ) ≤ (Real.log N) ^ C0) →
@@ -211,20 +212,20 @@ theorem cutoff_BV_at_op {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
         (∀ e, 2 ≤ e → e ≤ D →
             K * (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ (A + 1 + 1 + 2 * C0)
               ≤ Kβ' * (Real.log N) ^ (A + 1 + 2 * C0)) →
-        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
           ≤ (Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26)
                 + ((2 : ℝ) ^ (A + 5) * Kβ' + 15360))) * ((X : ℝ) * (M : ℝ))
               / (Real.log ((X : ℝ) * (M : ℝ))) ^ A := by
   obtain ⟨K, N₀, hK0, hbody⟩ := general_BV_cutoff_unconditional hA hC0
   obtain ⟨x₀, hdiv⟩ := hdiv_discharge (A := A) hA.le
-  refine ⟨K, N₀, x₀, hK0, fun x α X N M T D0 D k0 Klog Dset Kβ Km Kβ' B hx
+  refine ⟨K, N₀, x₀, hK0, fun x α X N M T D0 D k0 Klog Dset r Kβ Km Kβ' B hx
     hα hKβ hKm hKβ' hN hM2N hD0N hDge1 hcop2 hL1 hD0 hD0N' hNM hD1 hDsetD hDN hX2 hM2 hBge hCge
     hD0eq h2D0 hD0D hKlog hDscale hD0lo_main hXsqrt hMsqrt herr_lev herr_D0lo herr_Mlev
     hsqrt4X hDsqrtx hXMx2 herr_LEpos herr_D0E hDXM herr_scale hcoupG hcoup3 herr_book4 => ?_⟩
   have herr_div : ∀ e, 2 ≤ e → e ≤ D →
       (e.divisors.card : ℝ) * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 5) ≤ Real.sqrt (X : ℝ) :=
     fun e he2 heD => hdiv x hx X M D (by omega) (by omega) hDsqrtx hsqrt4X hXMx2 e (by omega) heD
-  exact hbody α X N M T D0 D k0 Klog Dset Kβ Km Kβ' B hα hKβ hKm hKβ' hN hM2N hD0N hDge1 hcop2 hL1
+  exact hbody α X N M T D0 D k0 Klog Dset r Kβ Km Kβ' B hα hKβ hKm hKβ' hN hM2N hD0N hDge1 hcop2 hL1
     hD0 hD0N' hNM hD1 hDsetD hDN hX2 hM2 hBge hCge hD0eq h2D0 hD0D hKlog hDscale hD0lo_main hXsqrt
     hMsqrt herr_lev herr_D0lo herr_Mlev herr_div herr_LEpos herr_D0E hDXM herr_scale hcoupG hcoup3
     herr_book4

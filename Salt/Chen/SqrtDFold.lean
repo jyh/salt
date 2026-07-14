@@ -729,10 +729,10 @@ open Classical in
 is UNCHANGED (STEP 0: it never used `D < N`). -/
 theorem general_BV_cutoff_closed_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
-      ∀ (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ) (Kβ Km Kerr B : ℝ)
+      ∀ (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (Kβ Km Kerr B : ℝ)
         (G : ℕ → ℝ),
         (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → 0 ≤ Km → N₀ ≤ N → M ≤ 2 * N → D0 ≤ N →
-        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime 2 d) →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) →
         (0 < Real.log ((X : ℝ) * (M : ℝ))) →
         ((D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ C0) →
         ((D0 : ℝ) ≤ (Real.log N) ^ C0) →
@@ -752,11 +752,11 @@ theorem general_BV_cutoff_closed_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) 
         (∀ e, 2 ≤ e → e ≤ D → cutoffEfoldTerm α N X M T D0 Dset e ≤ G e) →
         (∑ e ∈ Finset.Icc 2 D, G e
             ≤ Kerr * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ A) →
-        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
           ≤ (Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26) + (Kerr + 1))) * ((X : ℝ) * (M : ℝ))
               / (Real.log ((X : ℝ) * (M : ℝ))) ^ A := by
   obtain ⟨K, N₀, hK0, hbody⟩ := general_BV_cutoff_final (A := A) (C0 := C0) hA hC0
-  refine ⟨K, N₀, hK0, fun α X N M T D0 D k0 Klog Dset Kβ Km Kerr B G hα hKβ hKm hN hM2N hD0N
+  refine ⟨K, N₀, hK0, fun α X N M T D0 D k0 Klog Dset r Kβ Km Kerr B G hα hKβ hKm hN hM2N hD0N
     hDge1 hcop2 hLpos hD0 hD0N' hNM hscale hD1 hDsetD hDsq habs hX2 hM2 hBge hCge hD0eq h2D0
     hD0D hKeq hDscale hD0lo hXsqrt hMsqrt hSmallCut hGlue hGsum => ?_⟩
   have hβ1 : ∀ n, ‖blockPrimeInd N n‖ ≤ 1 := by
@@ -797,7 +797,7 @@ theorem general_BV_cutoff_closed_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) 
       ≤ (Kerr + 1) * ((X : ℝ) * (M : ℝ)) / (Real.log ((X : ℝ) * (M : ℝ))) ^ A :=
     hErrSum_cutoff_discharge_sqrtD α N X M T D D0 Dset G hα hD1 hDge1 hDsetD hDsq habs_raw
       hGlue hGsum
-  exact hbody α X N M T D0 D Dset Kβ (6 * (Km + 448 + 32 * Real.sqrt 26)) (Kerr + 1) hα hKβ hN
+  exact hbody α X N M T D0 D Dset r Kβ (6 * (Km + 448 + 32 * Real.sqrt 26)) (Kerr + 1) hα hKβ hN
     hM2N hD0N hDge1 hcop2 hLpos hD0 hD0N' hNM hscale hD1 hDsetD hMainEnergy hErrSum
 
 /-! ## 8. `general_BV_cutoff_sqrtD` — the terminal variant (deliverable 2) -/
@@ -813,9 +813,9 @@ GBV4's feeders re-thread through — it covers the catch-#62 strip (high boxes a
 with `x^{1/6}`-scale room. -/
 theorem general_BV_cutoff_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
-      ∀ (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ) (Kβ Km Kβ' B : ℝ),
+      ∀ (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (Kβ Km Kβ' B : ℝ),
         (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → 0 ≤ Km → 0 ≤ Kβ' → N₀ ≤ N → M ≤ 2 * N → D0 ≤ N →
-        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime 2 d) →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) →
         (1 ≤ Real.log ((X : ℝ) * (M : ℝ))) →
         ((D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ C0) →
         ((D0 : ℝ) ≤ (Real.log N) ^ C0) →
@@ -847,7 +847,7 @@ theorem general_BV_cutoff_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
         (∀ e, 2 ≤ e → e ≤ D →
             K * (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ (A + 1 + 1 + 2 * C0)
               ≤ Kβ' * (Real.log N) ^ (A + 1 + 2 * C0)) →
-        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
           ≤ (Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26)
                 + ((2 : ℝ) ^ (A + 5) * Kβ' + 15360 + 1))) * ((X : ℝ) * (M : ℝ))
               / (Real.log ((X : ℝ) * (M : ℝ))) ^ A := by
@@ -855,7 +855,7 @@ theorem general_BV_cutoff_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
   obtain ⟨K₄, N₀₄, hK4pos, hbody4⟩ := hsmall_pere_discharge (A := A) (C0 := C0) hA hC0
   obtain ⟨Kg, N₀g, hKgpos, hbodyg⟩ := general_BV_cutoff_closed_sqrtD (A := A) (C0 := C0) hA hC0
   refine ⟨K₃ + K₄ + Kg, max (max N₀₃ N₀₄) N₀g, by positivity,
-    fun α X N M T D0 D k0 Klog Dset Kβ Km Kβ' B hα hKβ hKm hKβ' hN hM2N hD0N hDge1 hcop2 hL1
+    fun α X N M T D0 D k0 Klog Dset r Kβ Km Kβ' B hα hKβ hKm hKβ' hN hM2N hD0N hDge1 hcop2 hL1
       hD0 hD0N' hNM hD1 hDsetD hDsq habs hX2 hM2 hBge hCge hD0eq h2D0 hD0D hKlog hDscale
       hD0lo_main hXsqrt hMsqrt herr_lev herr_D0lo herr_Mlev herr_div herr_LEpos herr_D0E hDXM
       herr_scale hcoupG hcoup3 herr_book4 => ?_⟩
@@ -914,7 +914,7 @@ theorem general_BV_cutoff_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
           rw [hKsmdef, Real.rpow_add hLpos A 1, Real.rpow_one]
           field_simp
   -- assemble via `general_BV_cutoff_closed_sqrtD` (the β-crumb costs the `+ 1`).
-  exact hbodyg α X N M T D0 D k0 Klog Dset Kβ Km ((2 : ℝ) ^ (A + 5) * Kβ' + 15360) B G
+  exact hbodyg α X N M T D0 D k0 Klog Dset r Kβ Km ((2 : ℝ) ^ (A + 5) * Kβ' + 15360) B G
     hα hKβ hKm hNg hM2N hD0N hDge1 hcop2 hLpos hD0 hD0N' hNM
     (le_trans (mul_le_mul_of_nonneg_right hKgleK (Real.rpow_nonneg hLnn _)) hcoupG)
     hD1 hDsetD hDsq habs hX2 hM2 hBge hCge hD0eq h2D0 hD0D hKlog hDscale hD0lo_main hXsqrt
@@ -938,9 +938,9 @@ prices the catch-#62 strip: the medium/high boxes and ALL live band boxes at `N 
 theorem medium_survivor_price_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
       ∀ (x Lb : ℝ) (F : ℕ) (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ)
-        (Kβ Km Kβ' B : ℝ),
+        (r : ℕ → ℕ) (Kβ Km Kβ' B : ℝ),
         (∀ m, ‖α m‖ ≤ 1) → 0 ≤ Kβ → 0 ≤ Km → 0 ≤ Kβ' → N₀ ≤ N → M ≤ 2 * N → D0 ≤ N →
-        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime 2 d) →
+        (∀ d ∈ Dset, 1 ≤ d) → (∀ d ∈ Dset, Nat.Coprime (r d) d) →
         (1 ≤ Real.log ((X : ℝ) * (M : ℝ))) →
         ((D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ C0) →
         ((D0 : ℝ) ≤ (Real.log N) ^ C0) →
@@ -975,12 +975,12 @@ theorem medium_survivor_price_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
         (∀ e, 2 ≤ e → e ≤ D →
             K * (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ (A + 1 + 1 + 2 * C0)
               ≤ Kβ' * (Real.log N) ^ (A + 1 + 2 * C0)) →
-        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M 2 d T‖
+        ∑ d ∈ Dset, ‖apDiscBilinCutoff α (blockPrimeInd N) X M (r d) d T‖
           ≤ (Kβ + (6 * (Km + 448 + 32 * Real.sqrt 26)
                 + ((2 : ℝ) ^ (A + 5) * Kβ' + 15360 + 1))) * ((X : ℝ) * (M : ℝ))
               / (Real.log ((X : ℝ) * (M : ℝ))) ^ A := by
   obtain ⟨K, N₀, hK0, hbody⟩ := general_BV_cutoff_sqrtD hA hC0
-  refine ⟨K, N₀, hK0, fun x Lb F α X N M T D0 D k0 Klog Dset Kβ Km Kβ' B hα hKβ hKm hKβ' hN
+  refine ⟨K, N₀, hK0, fun x Lb F α X N M T D0 D k0 Klog Dset r Kβ Km Kβ' B hα hKβ hKm hKβ' hN
     hM2N hD0N hDge1 hcop2 hL1 hD0 hD0N' hNM hD1 hDsetD hDsq habs hX2 hM2 hBge hCge hD0eq h2D0
     hD0D hKlog hDscale hD0lo_main hXsqrt hMsqrt herr_lev herr_D0lo herr_Mlev hFX hDx hLbb
     hfloor herr_LEpos herr_D0E hDXM herr_scale hcoupG hcoup3 herr_book4 => ?_⟩
@@ -989,7 +989,7 @@ theorem medium_survivor_price_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
         ≤ Real.sqrt (X : ℝ) :=
     fun e he2 heD =>
       hdiv_direct hA.le x Lb F X M D hFX (by omega) (by omega) hDx hLbb hfloor e (by omega) heD
-  exact hbody α X N M T D0 D k0 Klog Dset Kβ Km Kβ' B hα hKβ hKm hKβ' hN hM2N hD0N hDge1 hcop2
+  exact hbody α X N M T D0 D k0 Klog Dset r Kβ Km Kβ' B hα hKβ hKm hKβ' hN hM2N hD0N hDge1 hcop2
     hL1 hD0 hD0N' hNM hD1 hDsetD hDsq habs hX2 hM2 hBge hCge hD0eq h2D0 hD0D hKlog hDscale
     hD0lo_main hXsqrt hMsqrt herr_lev herr_D0lo herr_Mlev herr_div herr_LEpos herr_D0E hDXM
     herr_scale hcoupG hcoup3 herr_book4
