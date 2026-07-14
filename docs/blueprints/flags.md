@@ -6532,3 +6532,42 @@ from the triple structure, elementary); (ii) `hdiv_direct` at X_sub ≥ x^{11/24
 (DivisorBound's machinery at the weaker relation); (iii) the completed three-way survivor split
 → `hNum_at_op` → the hBVblocks discharge. Tally: 61 catches (the 61st adjudicated benign at
 the operating geometry), 0 wrong proofs.
+
+**2026-07-14 GBV4 ✅ FULL (MediumFloor.lean, Opus executor attempt 1, survived two API
+stream drops via transcript resume).** The catch-#61 adjudication is now kernel-checked:
+support floors at all three carriers (`blockAlpha`/`blockAlphaLow`/`blockAlphaSym` all
+force m = p₁p₂ > z·y; sym sharper at z·max(y,N)), `carrier_eq_zero_below_floor` (the
+below-floor sub-blocks vanish), `hdiv_direct` (the herr_div slot from
+`hfloor : (3/log2)^8·x^{1/6}·Lb^{A+5} ≤ √F` — GLU-2 discharges at F = z·y with x^{1/16}
+room), and the completed split: `apDiscBilinCutoff_eq_of_under` (sub-blocks with
+(2^{i+1}−1)·M ≤ x/2+1 have T-identical carriers ⟹ CANCEL in the honest T-difference —
+this also fixes GBV3's (b.1) level-cut analysis, which implicitly assumed top-survivor
+area), `dyadicBoundary_card_le_three` (≤ 3 live boundary survivors per box — budget
+upgraded to O(log²x) total applications), `medium_survivor_price` (the terminal theorem
+with herr_div ← hdiv_direct, replacing √x ≤ 4X / XM ≤ x²), feeders
+`hHD_of_box_disc`/`Plo_sym_of_box_disc`/`Plo_low_of_box_disc` at the VERBATIM landed slot
+shapes (the band route bypasses Plo_discharge_priced's per-side triangle, which would
+reintroduce the level-failing survivors), and **`hNum_at_op`** #check-chained →
+hBlock_of_window_prices → hHDblocks_of_perBlock → hBVblocks_of_generalBV, conclusion
+character-for-character the hBVblocks slot of mainA3_of_block_remainders. 20 declarations,
+all `[propext, Classical.choice, Quot.sound]`. Authoring catch: `filter (fun d => (d:ℝ) <
+bound)` type-ascribes the binder — write `fun d : ℕ => …`.
+
+**CATCH #62 (GBV4 executor, RATIFIED): the D < N structural hypothesis binds off the top
+pieces.** `general_BV_cutoff_unconditional` inherits PE2's β-side e-fold kill
+(`EfoldTermBeta_eq_zero` under D < N); chen.md's check ("D ~ x^{1/2−ε′} < N at the
+operating point") covered top pieces only. At the operating level D ~ √x/polylog: high
+boxes at √(x/(4z)) < N ≤ D and ALL band boxes (live range N ≤ √(2x/z) = x^{7/16}·√2 < D)
+FAIL it. GBV4's lemmas carry D < N explicitly, so everything landed is unconditionally
+correct — the gap is a discharge gap, not a defect. **FABLE ADJUDICATION + FIX (= GBV5):
+D < N was never the honest mechanism.** The β-e-fold kill needs only "no block prime
+divides e ≤ D"; every β-side prime exceeds y = x^{1/3} > √D (D ≤ √x), and TWO distinct
+primes > √e cannot both divide e — so at most ONE block prime divides any e, i.e. the
+e-fold correction is a SINGLE term per (d,e) instead of zero. Absorption:
+Σ_{d ≤ D} X·1/φ(d) ≤ 4X(1+log D) (landed `sum_inv_totient_le`) ≪ XM/(log)^A at
+M ≥ polylog — astronomically inside budget (M ≥ x^{1/3} here). GBV5 = (i)
+`efold_beta_le_single` (the ≤-1-term bound under √D < block-prime floor, replacing ≡ 0);
+(ii) `general_BV_cutoff_sqrtD` (the terminal variant: D < N hypothesis → hDsq : D <
+(prime floor)², ErrSum re-assembly with the extra 4X(1+log D) crumb; new threshold
+M-polylog row); (iii) re-thread GBV4's feeders at the variant. Tally: 62 catches, 0 wrong
+proofs.

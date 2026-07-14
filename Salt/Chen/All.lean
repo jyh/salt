@@ -82,6 +82,7 @@ import Salt.Chen.GlueBV
 import Salt.Chen.WLower
 import Salt.Chen.SubBlocked
 import Salt.Chen.TransposedBV
+import Salt.Chen.MediumFloor
 import Salt.Chen.SharpH
 import Salt.Chen.SharpH2
 import Salt.Chen.SharpF
@@ -317,6 +318,13 @@ open Salt.Tactic in
   Salt.Chen.Ebar_intervalIntegrable Salt.Chen.Obar_intervalIntegrable
   Salt.Chen.Ebar_integral_le Salt.Chen.Obar_integral_le
   Salt.Chen.W_twinA1_ge
+  Salt.Chen.medium_support_floor_high Salt.Chen.medium_support_floor_low
+  Salt.Chen.medium_support_floor_sym Salt.Chen.carrier_eq_zero_below_floor
+  Salt.Chen.apDiscBilinCutoff_eq_of_under Salt.Chen.hdiv_direct
+  Salt.Chen.dyadicBoundary_card_le_three Salt.Chen.box_disc_three_way
+  Salt.Chen.medium_survivor_price Salt.Chen.hHD_of_box_disc
+  Salt.Chen.Plo_sym_of_box_disc Salt.Chen.Plo_low_of_box_disc
+  Salt.Chen.hNum_at_op
   Salt.Chen.apDiscBilinCutoff_transpose Salt.Chen.medium_smallconductor_prime_side
   Salt.Chen.medium_band_price Salt.Chen.subblocked_box_price_reduced
   Salt.Chen.apDiscBilinCutoff_sum_alpha Salt.Chen.apDiscBilinCutoff_eq_zero_of_over
