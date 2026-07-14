@@ -6650,3 +6650,33 @@ nlinarith/elaboration hit deterministic whnf timeouts; introduce such witnesses 
 `obtain` on an existential, prefer linarith [explicit certificate] in rpow-heavy contexts.
 GLU-2 re-run is UNBLOCKED: terminals demand A+2 only; d0_window_nonempty is the witness.
 Tally: 64 catches, 0 wrong proofs.
+
+**2026-07-14 GLU-2 re-run → ★ CATCH #65 (Headline.lean, same executor resumed) — THE
+H-PACKAGE IS TORN AT THE hPfull/hA1 SEAM (kernel-checked).** chen_of_hypotheses demands ONE
+P with hPfull (∀ q prime < z, q ∣ P — the IsP2 extraction needs EVERY small prime, incl. 2)
+AND hA1 at the certified ledger — but every landed hA1 supplier rides twinA1Sieve's hPodd
+(∀ p ∈ P.primeFactors, 3 ≤ p), which is STRUCTURAL: ν = 1/φ has nuChen 2 = 1, so
+nu_lt_one_of_prime excludes 2 from any sieve modulus. In ℕ the unique escape is P = 0
+(everything divides 0), where A1primeSum = 0 and hledger collapses. Kernel-checked:
+`catch65_slot_torn` (hPfull + hPodd + 3 ≤ z ⟹ P = 0) and `catch65_no_H_at_odd_P` (against
+the VERBATIM H-conjunct shapes, any odd-parity instantiation is False). Deeper half (prose,
+Headline.lean docstring): even patching parity, [3, w₀) is outside the Rosser guard and a
+full-primorial carrier sits ≍ 1/log w₀ ≈ 1e-9 below the [w₀,z)-normalized X_W — no x₀
+cures a normalization ratio; Assembly's "ℚ-window bridge paid by the caller in the choice
+of P" docstring claim is REFUTED. Second consecutive Assembly-seam catch (#41 was the
+first) and second consecutive STEP-0 catch burning zero proof attempts. **RATIFIED REPAIR
+DIRECTION (= H-AMENDMENT 2, Fable design + GATE before warrant): the W-trick the corpus
+was sized for since C2a** — restrict the razor carriers to n ≡ a (mod Q), Q = ∏_{p<w₀} p,
+(a+2, Q) = 1; then 2 is free by parity, [3, w₀) by AP-membership, hPfull keeps only
+[w₀, z) and matches the suppliers; the Q·D remainder levels were sized for exactly this.
+Design pass next; after two seam catches the repaired H gets a MATH-LENS GATE against
+verbatim supplier signatures BEFORE the surgery warrant. DURABLE RECON (same report):
+Finding 3 — d0_window_nonempty's floor x^{11/24}/8 misses terminal-needing pieces down to
+√(x/(24z)) ≈ x^{7/16}/4.9; same construction covers it (room ≈83×); one-hypothesis
+amendment. Finding 4 — take ε₀ := x (maxBlock O(1)); REQUIRED at A = 13 (constant-ε₀
+exceeds the budget by a constant; O(1) blocks give ~K·e^41·x/t^11); choose x₀ = x₀(K)
+after destructuring the terminal existential (legal inside the H-proof). Finding 5 — hCE
+closable with landed inputs (p₁ ∣ d forcing + W_twinA1_ge at P := Ps + harmonic fibers;
+total x^{7/8}·polylog, room x^{1/8}). Finding 6 — twin_A1_lower_B lacks A1primeSum's
+[n prime] restriction; bridge mass ≤ √x·log₂x·log x, one small lemma. Tally: 65 catches,
+0 wrong proofs.

@@ -85,6 +85,7 @@ import Salt.Chen.TransposedBV
 import Salt.Chen.MediumFloor
 import Salt.Chen.SqrtDFold
 import Salt.Chen.GlueFinal
+import Salt.Chen.Headline
 import Salt.Chen.SharpH
 import Salt.Chen.SharpH2
 import Salt.Chen.SharpF
@@ -327,6 +328,7 @@ open Salt.Tactic in
   Salt.Chen.medium_survivor_price Salt.Chen.hHD_of_box_disc
   Salt.Chen.Plo_sym_of_box_disc Salt.Chen.Plo_low_of_box_disc
   Salt.Chen.hNum_at_op
+  Salt.Chen.catch65_slot_torn Salt.Chen.catch65_no_H_at_odd_P
   Salt.Chen.catch64_op_boundary_infeasible Salt.Chen.catch64_D0_window_empty
   Salt.Chen.hyx_at_op Salt.Chen.sievePrimorial_dvd Salt.Chen.hDsq_row
   Salt.Chen.hfloor_row Salt.Chen.habs_row Salt.Chen.logRatio_A3_mem_range
