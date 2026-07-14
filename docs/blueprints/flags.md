@@ -6124,3 +6124,50 @@ band sum = ½·(the UNORDERED block×block sum — a CLEAN RECTANGLE at the cuto
 by general_BV_cutoff_final verbatim) + ½·(the diagonal p₂ = p₃ — the p₁p₂² triples, ~x^{2/3}
 total, genuinely crude-able). The ν-linearity respects the split (both counts are per-d linear).
 Tally: **56 catches, 0 proofs on wrong statements.**
+
+## 2026-07-14 BND Opus done FLOOR A + ★ CATCH #57: the band box is NOT symmetric ★
+
+`Salt/Chen/BandSplit.lean` (NEW, 191 lines, 3 decls; NOT wired into All.lean per the task).
+Sorry-free, axiom-clean (`[propext, Classical.choice, Quot.sound]` on all 3), zero warnings
+(`lake build Salt.Chen.BandSplit` green, exit 0; full `lake build` green). Delivers FLOOR A:
+**`sum_symm_ordered_split`** (the exact ½-identity `2·∑_{p≤q∈S} w = ∑_{S×S} w + ∑_{p∈S} w p p`
+for symmetric `w`, via `sum_union_inter` + the `Prod.swap` reindex + the diagonal `p↦(p,p)`
+image — general/reusable) and **`bandDiagCount`/`bandDiagCount_le_pairCard`/`bandDiagCount_le`**
+(the diagonal `p₂=p₃` triples inject into `(p₁,p₃)`, so `#diag ≤ y·(M−N)` per box; the honest
+global `x^{2/3}/log x` is `∑_{p₁≤y} π(√(x/p₁)) ≪ √x·√y/log`, item-3 arithmetic in the header).
+
+**★ CATCH #57 (executor honest-assessed against the FROZEN BND symmetry-split design; the
+designated stop-and-flag point "the symmetric-summand verification"):** the ordered band box is
+**NOT** a symmetric block×block sum. The band box (FROZEN by `PieceDecomp`'s split point) is
+`{p₃∈(N,M], p₂≤p₃, m=p₁p₂ ≥ z·N+1}`, and `m ≥ z·N+1` does **NOT** force `p₂ > N`. For pieces with
+`N > y` (present whenever `y < N < x/z`, non-empty since `z < y`), a `p₁` near `y` with `p₂∈(y,N]`
+gives `m ≥ z·N+1` yet `p₂ ≤ N < p₃` (p₂ in a STRICTLY LOWER dyadic band). Concrete witness:
+`2^k∈(x^{1/3},√(x/z))`, `p₂∈(y,2^k)`, `p₁∈(z·2^k/p₂, y]`, `p₃∈[2^k,2^{k+1})`. So
+`band box = {p₂,p₃∈(max(y,N),M], p₂≤p₃}` (SYMMETRIC — the ½-split applies) `⊔ {p₂∈(y,N], p₃∈(N,M]}`
+(**Part 2**, N>y only). Part 2 is `Θ(x·loglog/log x)` — NOT the diagonal, NOT `≤ x/(log x)^{10}`;
+it is its own oriented-semiprime rectangle `α_low(m)=[m=p₁p₂, p₁∈block j, y<p₂≤N]` (m-intrinsic
+0/1, ordering automatic since `p₂≤N<p₃`), BV-priceable by `general_BV_cutoff_final` at its own
+cutoff — but ABSENT from the frozen design. Also the symmetric part's clean range is `(max(y,N),M]`
+(the `tripleSet` threshold `y` vs the piece boundary `N` do not align), not the design's `(N,M]`.
+
+**REFINED RESOLUTION (Fable/design-tier — amends the frozen BND design):** per band box, discharge
+`Plo` = **two** BV-priced rectangles + the crude diagonal — (a) `α_sym` over `(max(y,N),M]` with
+the ½-split (`sum_symm_ordered_split` — landed), (b) `α_low` over `(y,N]` (N>y pieces; a fresh
+WBV3/WBV4-scale rectangle identification + `norm α_low ≤ 1` + BV price — the NEW work), (c) the
+diagonal (`bandDiagCount_le` — landed kernel, `x^{2/3}`). FLOOR B (band-box→rectangle bijection at
+the cutoff carrier, corner-free, both α's) and FULL (`Plo_discharge` into
+`hBlock_of_window_prices`) are BLOCKED on this amendment (adding `α_low` + the `max(y,N)`
+threshold), which is a design change, hence not attempted (rule 1/rule 4 + the explicit
+stop-and-flag). The diagonal half of the frozen design is CONFIRMED sound (crude, `x^{2/3}`); the
+½-split half is sound only for the `(max(y,N),M]` part.
+Tally: **57 catches, 0 proofs on wrong statements.**
+
+**FABLE ADJUDICATION of catch #57 (2026-07-14, same hour):** the executor's refined resolution is
+RATIFIED — and Part 2 is structurally BENIGN: on (y, N] × (N, M] the ordering p₂ ≤ p₃ is
+AUTOMATIC (p₂ ≤ N < p₃), so Part 2 is a CLEAN oriented rectangle at the cutoff carrier —
+α_low = the block-j semiprime indicator with p₂ ∈ (y, N] (m-intrinsic, oriented factorization
+unique as in PairBijection) — directly apDiscBilinCutoff/general_BV_cutoff_final-priceable, NO
+new analysis. **= BND2** (dispatched): α_low + norm ≤ 1; the three-piece band decomposition at
+the max(y, N) threshold (symmetric ½-split [landed] + the α_low rectangle + the diagonal
+[landed]); the composed Plo_discharge feeding PieceDecomp's slot. Tally: 57 catches, 0 wrong
+proofs.
