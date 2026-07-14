@@ -6834,3 +6834,66 @@ landed as a true theorem with infeasible aggregate rows (triplePrimeSum_le statu
 decls exactly [propext, Classical.choice, Quot.sound]. Tally: 68 catches, 0 wrong proofs.
 **GLU-2W re-run NEXT — rows 1–7, 9 already verified ready by its own STEP 0; row 8′ + rows
 10–12 + the tower freeze remain.**
+
+**2026-07-14 GLU-2W-fin (Opus executor, Fable warrant) — SCOPING FINDING, not a catch: the
+checkpoint OPPOINT+A1A2 is solid, but A3-CONT's box-PRICE rows are the never-assembled analytic
+capstone, NOT a named-supplier assembly. NO code changes; investigation-only (no proof attempts
+burned).** The checkpoint `Salt/Chen/HeadlineW2.lean` (1675 lines, 68 decls, standalone
+`lake env lean` exit 0, NOT wired into the build graph) lands the full OPPOINT fragment
+(`opf_*`, `opf_tower` — the 17-row operating bundle) and the A1A2 fragment (`a12_*` through
+`a12_hA1`:1524 / `a12_hA2`:1569, both ∃-x₁ row bundles). Solid and correct.
+**The blocker for `a12_hA3`:** the `hA3` slot needs `hBVblocksW_discharge'` →
+`mainA3_of_block_remainders_W`, whose `hprice`/`hpriceSym`/`hpriceLow` rows are the per-box
+`apDiscBilinCutoff`-norm box prices. The A3W2 ledger (SwitchW2 header, row 6) names them as
+"TWO `medium_survivor_price_sqrtD` applications per boundary survivor" — but
+`medium_survivor_price_sqrtD`/`general_BV_cutoff_sqrtD`/`cutoff_BV_at_op` are NEVER applied with
+hypotheses discharged ANYWHERE in the corpus (only `#check`/`example`/docstring). There is NO
+`hprice` discharger at an operating point in EITHER the W or non-W path — the box prices have
+always been passed as abstract hypotheses through the composition lemmas (`hNum_at_opW`,
+`hBlockW_of_window_prices`, `hBVblocksW_discharge'`), and the "does the operating point actually
+discharge them?" question was deferred at every layer (incl. HeadlineW.lean's STEP-0 inventory,
+which marked row 8 ready-mod-#68 without auditing the price inputs). **This is the analytic core
+of Chen's A₃ (bilinear/dispersion) term at the operating point — the whole GBV/SqrtD/D0W/
+SubBlocked/TransposedBV arc built the SUPPLIERS but never assembled the operating-point
+discharge.**
+**DISCHARGEABLE IN PRINCIPLE (so NOT catch #69 — no false/infeasible landed statement):** the
+#60/#61 medium-band ErrSum residual (SubBlocked/TransposedBV: `X_sub < x^{1/3}` boxes unpriceable
+by the e-fold `hdiv`, needs new √M-side dispersion) does NOT bite here — `medium_support_floor_high`
+floors the box-leg m-side at `z·y` and `carrier_eq_zero_below_floor` vanishes everything below,
+so every surviving box-leg has `X_sub > z·y = x^{11/24} = x^{0.458} > x^{1/3}`. GBV4's
+`medium_survivor_price_sqrtD` (hfloor route: `(3/log2)^8·x^{1/6}·Lb^{A+5} ≤ √F`, `F ≤ X`, cleared
+by `F = z·y` with `x^{11/24}/x^{1/3} = x^{1/8}` room) then prices the surviving boxes; the
+finding-3 lower floor `√(x/(24z)) = x^{7/16} > x^{1/3}` also clears. Per TransposedBV (c) the
+aggregate budget `O(log³x)·x/L^A ≤ x/L^{10}` holds for `A ≥ 13` once the boxes are priced.
+**SCOPE (why this is not a single finishing node):** the per-box discharge is ~35 operating-point
+rows of `medium_survivor_price_sqrtD` (the 3 SW couplings `hcoupG/hcoup3/herr_book4` with per-box
+`Kβ/Km/Kβ'`; the D0 window via `d0_window_nonempty` at its `N ≥ x^{11/24}/8` floor; `hDscale`
+level, `hfloor`, `hDsq`/`habs`, `hXsqrt`/`hMsqrt`, `herr_*`) × `O(log³x)` boxes via
+`hNum_at_opW`/`hBlockW_of_window_prices`, PLUS the sym/low band legs (`PloW_sym/low_of_box_disc`
+with their own price inputs), the finding-3 lower-floor `d0_window_nonempty` variant, and the
+`hSum`/`hCE`/`hNum` numeric closure (tracking the per-box `Kβ ~ K·(L/log N)^{...}` variation into
+the budget). Estimated multi-thousand-line construction — a WAVE, not a node.
+**RECOMMENDATION:** re-scope GLU-2W-fin. First concrete deliverable = a single uniform per-box
+operating-point price lemma (discharge `medium_survivor_price_sqrtD`'s rows for a generic
+`dyadicBoundary` survivor box at the tower `x`, box params `X = 2^{i+1}−1` with `z·y < 2^{i+1}`,
+`N = pieceN k`, `M = pieceM k`, `D = Q·QR·Dlev`); then the sym/low variants; then `hNum_at_opW`
+folding + the numeric closure; then the trivial LEDGER (needs `mainA3` concrete) + the 12-conjunct
+ASSEMBLY into `chen_headline`. Tally: 68 catches, 0 wrong proofs (this is a scoping finding, not a
+catch).
+
+**FABLE RATIFICATION of the GLU-2W-fin scoping finding (2026-07-14 ~16:45):** accepted in
+full. The finding is the #64-genre estimate-vs-statement gap at its LAST possible layer —
+the operating-point application of the box-price terminals — and the mandated STEP-0
+discipline caught it before any proof attempt, again. Node plan (= the PRICE wave):
+**PRICE-GATE first** (adversarial row-by-row feasibility of the uniform per-box lemma at a
+generic dyadicBoundary survivor: X = 2^{i+1}−1 with z·y < 2^{i+1}, N = pieceN k,
+M = pieceM k, D = Q·QR·Dlev at the tower — ALL ~35 rows of medium_survivor_price_sqrtD
+enumerated with both sides' values; the SW-coupling Kβ/Km/Kβ′ bookkeeping into hSum/hNum is
+the declared risk [TransposedBV (c) only sketched it]; BLOCK = catch #69) → **PRICE-1**
+(the uniform per-box lemma) → **PRICE-2** (sym/low variants + the finding-3 lower-floor
+d0 variant) → **PRICE-3** (hNum_at_opW folding + the hSum/hCE/hNum numeric closure) →
+**GLU-2W-fin2** (LEDGER + the 12-conjunct ASSEMBLY → chen_headline). HeadlineW2.lean's
+OPPOINT/A1A2 checkpoint (1675 lines, standalone exit 0) is the foundation; it stays
+unwired until the wave completes. Executors on Opus per the ratified budget rule. Tally
+stays 68 catches, 0 wrong proofs (a scope discovery, not a catch — no landed statement is
+false or infeasible).
