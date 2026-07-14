@@ -6050,3 +6050,14 @@ split, no chi_cast_mul; the guard is inert per-(m,n)), `norm_..._le`, `cutoffTwi
 bilin_cutoff_eq entirely; RHS = the existing shellBound VERBATIM so the WBV2 descent ports
 mechanically), degeneracy examples (T ≥ XY recovers the landed shapes). The recon's
 load-bearing fact is now kernel-verified. NEXT: WBV2 (the descent port at cutoffPrimEnergy).
+
+## 2026-07-14 WBV2 Opus done FULL (the cutoff descent, plain + δ variants)
+
+`Salt/Chen/WindowBVDescent.lean` (392 lines, 9 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. The full large-conductor descent at cutoffPrimEnergy (block/dyadic/geom/raw
+four-term — geom is cutoff-AGNOSTIC, restated; no level absorption per catch #44) + the
+δ+cutoff co-extension (bilinear_LS_shell_dvd carries BOTH natively — orthogonal extensions
+compose). STRUCTURAL FINDING: apDiscBilinCutoff's orthogonality is EXACT (no α-side
+coprimality error — the window does not factor and needs no BDH fibering) ⟹ the windowed main
+descent is PLAIN; δ-variants provided as de-risking only. NEXT: WBV3 (the per-m interval-SW
+small-conductor estimate — the wave's one genuine new estimate) + the identification.
