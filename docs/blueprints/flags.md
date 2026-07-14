@@ -5722,3 +5722,24 @@ improves; D-level/D < N preserved; the SS3c-certified window untouched. M4a rest
 the new point (provable, interior); M4b waits on the SW-FIBER shapes. M1 (C₃′ = 19, the
 window_core sign-flip) + M3 (two-sided Λ-mass at the psiTot_pnt constant, threshold x ≥ 8,
 twinWindow_mass_eq alignment) LANDED and wired. Tally: 51 catches, 0 wrong proofs.
+
+## 2026-07-13 PE3c-4 Opus done FULL — ★★ KEYSTONE 2 IS COMPLETE ★★ + CATCH #52 → DIV1
+
+`Salt/Chen/AlphaClose.lean` (792 lines; wired by Fable). Sorry-free, axiom-clean, zero
+warnings; one documented maxHeartbeats 1600000 (the monolithic four-term discharge). LANDED:
+`sum_totient_div_sqrt_le`; `efold_large_fibered` (the gcd/fibering exchange, EXACT);
+`efold_large_reduce`; **`efold_large_discharge`** (the hlarge slot PROVEN, Klarge = 15360 =
+1536 + 4608 + 2304 + 6912, all four terms closed at the coupled C0 = A+5 chain); and
+**`general_BV_alpha_final` — THE COMPLETED KEYSTONE 2**: the general bilinear BV with NO per-e
+slot and NO hlarge, under four explicit named thresholds (hlev : D·L^{A+5} ≤ √(XM); hD0lo :
+L^{A+4} ≤ D0; hMlev : L^{A+5} ≤ √M; hdiv : d(e)·L^{A+5} ≤ √X) — all H-glue-dischargeable at
+the operating point. SwitchBV composition kernel-confirmed (#check).
+
+**CATCH #52 (executor-surfaced): the cross-M asymmetry.** My gate recipe's cross-term treatment
+(Σφg/√g ≤ 2e + hlev) is INSUFFICIENT for the β-cross: the dilation is α-side-only, so cross-M
+pairs √⌊X/e⌋ against the full √M; with only d(e) ≤ 2√e the leftover L^{(A+5)/2} diverges for
+A > 1. Resolved honestly as the named `hdiv`, whose discharge needs a SUB-POLYNOMIAL divisor
+bound (d(e) ≤ e^{c/log log e}-form — classical, elementary, NOT in the corpus) ⟹ **new node
+DIV1** (B/C: the explicit divisor bound + the operating-point hdiv discharge; queue with the
+H-glue wave). Also corrected my gate note's φ(gcd) = Σφg slip (≤ gcd — harmless direction).
+Tally: **52 catches, 0 proofs on wrong statements.**
