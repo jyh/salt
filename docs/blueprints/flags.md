@@ -6788,3 +6788,28 @@ declarations exactly [propext, Classical.choice, Quot.sound]. Six consecutive fi
 attempt FULLs since the H2-GATE. Tally: 67 catches, 0 wrong proofs. **NEXT: GLU-2W — THE
 FINAL NODE** (the ∃-package at the tower x₀; every supplier example is landed and every
 row is named).
+
+**2026-07-14 GLU-2W attempt 1 → ★ CATCH #68 (HeadlineW.lean) — the diagonal budget row of
+hBVblocksW_discharge is infeasible; THIRD consecutive terminal-node catch at STEP 0, zero
+proof attempts burned.** The hSum/hNum rows (SwitchW2 ledger row 10) force RHD ≥ the j = 0
+diagonal summand = ½·τ(Ps)·Σ_k y·2^k > x/4 (prices ≥ 0 forced by the norm rows), against
+hNum's RHD + RCE ≤ x/(log x)^10 — contradiction for EVERY x ≥ 8, no operating point
+escapes; at the honest point the deficit is ≥ x^{1/3}·2^{3x^{1/3}/log x}. KERNEL-CHECKED:
+catch68_price_rows_nonneg + catch68_hSum_hNum_infeasible (hypotheses character-for-character
+from hBVblocksW_discharge). ROOT CAUSE: PloW_discharge (and its landed non-W ancestor
+BandClose.Plo_discharge — same defect, no longer load-bearing) aggregates the crude per-box
+diagonal kernel bandDiagCount ≤ y·(M−N) over ALL τ(Ps) divisors × ALL pieces — a triple
+over-count vs BandSplit item-3's ratified plan. A3W2's row-8 note ("the diagonal only
+shrinks") was true per-(d, box); the AGGREGATE was never priced — and #64 blocked upstream
+so the row was never exercised. THE HONEST CLOSE (classically ≲ x^{5/6+o(1)}, room
+x^{1/6−o(1)}): (i) the global diagonal (p₂ = p₃ = p ≤ √x) count ≤ 2x^{5/6}; (ii) the
+residue side takes the w₀-ROUGH DIVISOR CRUMB #{d ∣ Ps : d ∣ N} ≤ 2^{log x/log w0R} =
+x^{o(1)} (divisors of Ps are w₀-rough), NOT τ(Ps); (iii) the unit side Σ_{d∣Ps} ν(d) =
+O(log y/log w₀) via the landed W-ratio machinery. **RATIFIED REPAIR (= node PDIAG, option
+(b) — ZERO statement changes)**: hBlockW_of_window_prices' Plo slot is ABSTRACT and NOT
+infeasible — land the honest three-piece band close directly into it (½sym + ½·honest-
+diagonal + low, the sym/low legs reusing A3W2's PloW_sym/low_of_box_disc), re-emit the
+composed supplier hBVblocksW_discharge′ with the corrected hSum/hNum shapes (the diagonal
+enters as its own named x^{5/6}-scale row). hBVblocksW_discharge stays as a landed true
+theorem with infeasible aggregate rows (the triplePrimeSum_le status). Tally: 68 catches,
+0 wrong proofs.
