@@ -6260,3 +6260,11 @@ gives ½mainA2/X_W = **0.79803** ≤ 0.7995). PROJECTED RAZOR: **+0.0174** (92% 
 ideal). The s_p ∈ [1,3] range + the idealized Dtot = z⁴ geometry are caller hypotheses
 (documented; the realistic-geometry O(1/log z) corrections live in SW4's x₀). CATCH #58 IS
 FULLY CLOSED — every value certification the razor consumes is now a kernel theorem.
+
+## 2026-07-14 M4F Opus done FULL (the window memberships; M4 fully closed)
+
+`Salt/Chen/WindowMembership.lean` (wired by Fable). Sorry-free, axiom-clean, zero warnings.
+`logRatio_A1_mem` (∈ [3.9992, 4] at ε′ = 9/100000 — Amendment 4's point, the catch-#51
+arithmetic settled with ≥100× slack) + `logRatio_A3_mem` (∈ [1.49, 1.51] — FPC's consumer);
+threshold x₁ = 10⁴⁸ for both (the exponents evaluate cleanly); Nat.floor-of-rpow convention
+verified against the actual consumers. The M-layer (M1/M2/M3/M4) is now COMPLETE IN FULL.
