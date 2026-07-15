@@ -93,6 +93,8 @@ min FIN-A3b at 147k — the mechanical restatements).
 | Q2C-CAP | 128 | least_k_theorem; Q2 closes |
 | Q6b-recon | 168 | the door shape + the dichotomy close |
 | G-PIUPPER-FIX | 129 | hlogNz sharp fix; op tension resolved |
+| Q6b-GATE | 81 | GO_W_CORR — catches the DESIGNER (main term one log off) |
+| G-SW2 | 294 | annulus pricing; absorption < 2 certified |
 
 Exploration total so far ≈ **1.54 M**; recon median ≈ 100k; probe
 median ≈ 200k. (Q2-ASM in flight at recording time.)

@@ -1157,3 +1157,45 @@ decisions per question.
   op-instantiable; the G-OP path is clear.** Fix economics: catch
   248k + fix 129k + house edit ≈ one node's budget for a tear that
   would have been vacuous-at-op if consumed blind.
+
+- 2026-07-15 ~19:10: **Q6b-GATE: GO_W_CORRECTIONS — THE GATE CATCHES
+  THE DESIGNER: the frozen main term was CLASSICALLY FALSE** (cost ≈
+  81k tokens / 13 tools / ~7 min — the sprint's cheapest gate and
+  arguably its most valuable). C1 (BLOCKING): the design's main term
+  𝔖·x/(log x)² pattern-matched the UNWEIGHTED twin count — but
+  p1PrimeSum carries the Λ-weight (verified against the landed
+  p1_carrier_inhabited witness: the n = 17 term IS log 17), so the
+  true order is C₂·x/log x (the window halves 𝔖 to C₂) and
+  TwinTypeII as frozen was FALSE for every A > 1 — while the
+  implication would still have COMPILED (a valid derivation from a
+  false premise; the build-invisible genre). C2: mathlib's tprod
+  junk-defaults to 1 without a Multipliable witness — the positivity
+  obligation would have passed ON A LIE (0 < 2); the design's own
+  c₀-undershoot dodge REFUTED (a two-sided asymptotic needs the
+  exact constant); the genuine Euler-product chain priced C-tier.
+  C3: wall_or_door carries the full hypothesis set. C4: θ was a dead
+  binder. PASSED CLEAN: the dichotomy contraposition (quantifier
+  match verified at Wall.lean:533), the survivor re-point
+  (CONFIRMED EASIER than P₂ — keepR 1 filters to primes, no
+  prime-power crumb), import hygiene (TwinDeficit + Wall reach
+  everything, no capstone drag). All four corrections applied to
+  q6b-design.md; Q6b-DOOR dispatched (~300k, the twinC2 sub-node
+  STOP-AND-FLAG-able alone). NINTH design-layer catch of the
+  sprint; the first against the HOUSE's own freeze — the
+  catch-the-designer datum the method paper needs.
+
+- 2026-07-15 ~19:15: **G-SW2 COMPLETE — first attempt; the annulus
+  absorption arithmetic kernel-certified** (cost ≈ 294k tokens / 49
+  tools / ~28 min vs 350k). Salt/Goldbach/SW2.lean (514 lines):
+  gold_hBlockW_of_window_prices, **gold_hNum_at_opW** (the annulus
+  keystone: every price carries EXACTLY ONE range(⌊log₂N⌋+1) axis —
+  24 occurrences, never nested; the A+1 absorption factor ≤ 1/log 2
+  + o(1) < 2), gold_PloW_sym/low, the honest band triangle
+  (pre-built for G-PDIAG, de-risking it), and the p₃-piece/m-split
+  decomposition layer (Parts B/C — a SCOPE SURPRISE: the Goldbach
+  world lacked the block↔box connective tissue; ~180 lines new).
+  Correct deviation: the CRUDE diagonal path not built (the honest
+  terminal routes through the residue crumb — catch #68's lesson
+  encoded). Ceremony: wired + 8 keystones — full build exit 0
+  (8968 jobs). **G-PDIAG DISPATCHED (the Chen-2 terminal-discharge
+  node) ∥ Q6b-DOOR DISPATCHED.**

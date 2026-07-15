@@ -5,40 +5,52 @@ executor node after the gate. The registered intent: the minimal
 parity-breaking input for twins, precisely stated; the implication as
 the stretch; the deep gap stated-not-attempted.*
 
-## D1 — the two Props (the door)
+## D1 — the two Props (the door) — POST-GATE (C1/C2/C4 applied)
 
-File: `Salt/TwinBar/TwinDoor.lean`. House named-Prop convention
-(EHall/HasLevel style). Prerequisite named defs:
-`twinSingularSeries : ℝ := 2 * ∏' p-style` — USE the cleanest landed-
-or-mathlib-expressible form (the executor picks the carrier — a tprod
-over primes > 2 of (1 − (p−1)⁻²), or the equivalent convergent form —
-and proves `twinSingularSeries_pos`, the F≡1-alarm obligation);
-`mainTwinMass x := x / (log x)^2`.
+File: `Salt/TwinBar/TwinDoor.lean`. House named-Prop convention.
+Prerequisite named defs (GATE CORRECTION C1 — the carrier is
+Λ-WEIGHTED, so the main term is one log up from the naive twin count,
+and the window [x/2, x−2] halves the constant):
+
+- `twinC2 : ℝ := ∏'_{p prime, p > 2} (1 − ((p:ℝ) − 1)⁻²)` — the
+  GENUINE Euler product (GATE CORRECTION C2: the def must be backed
+  by a `Multipliable` witness — mathlib's tprod junk-defaults to 1
+  without it, which would satisfy positivity on a lie. The chain:
+  summability of (p−1)⁻² on the prime subtype →
+  `Real.multipliable_of_summable_log'` → tprod = exp(tsum log) > 0.
+  Priced C-TIER; the executor lands it as its own section and may
+  STOP-AND-FLAG on it alone if mathlib's Euler-product support
+  resists — the Prop pair still lands with twinC2 as a def + the
+  positivity as the flagged sub-node.)
+- `twinMainTerm x := twinC2 * x / Real.log x` — the log-weighted,
+  window-correct target (Σ_{n ∈ [x/2, x−2], n & n+2 prime} log n ~
+  C₂·x/log x; 𝔖 = 2C₂ is the unweighted-count constant, NOT ours).
 
 ```lean
-def TwinTypeII (θ : ℝ) : Prop :=
+def TwinTypeII : Prop :=
   ∀ A : ℝ, 0 < A → ∃ C : ℝ, ∀ x : ℕ, 2 ≤ x →
-    |p1PrimeSum x 1 - twinSingularSeries * mainTwinMass x|
+    |p1PrimeSum x 1 - twinMainTerm x|
       ≤ C * (x : ℝ) / (Real.log x) ^ A
 
-def TwinB_min : Prop := ∃ θ : ℝ, 1/2 < θ ∧ TwinTypeII θ
+def TwinB_min : Prop := TwinTypeII
 ```
 
-θ enters through the level at which the bilinear form is consumed —
-the executor states the literature-facing equivalent over
-`apDiscBilinCutoff` (the Q4/WindowedBVStatement discipline: one Prop,
-two readings) and records the correspondence in the docstring. If the
-θ-slot resists a clean binding in the p1PrimeSum reading, the honest
-fallback is TwinTypeII alone as TwinB_min (θ implicit in the error
-saving) — report, don't force.
+GATE CORRECTION C4: θ was a dead variable in the sketched binder —
+dropped. TwinB_min := TwinTypeII directly; the level-θ discussion
+(what strength the bilinear consumption would need, > 1/2) lives in
+the docstring as the literature-facing commentary, not a phantom
+binder. The apDiscBilinCutoff reading likewise moves to the
+docstring (the Q4 discipline) — the executor states the
+correspondence in prose + a #check-able remark, not a second Prop.
 
 ## D2 — the implication (the stretch, IN scope)
 
 `twinB_min_implies_twins : TwinB_min → TwinPrimeConjecture`
 (Salt/Basic.lean:25's Prop), via:
-1. (B) the main term dominates at A > 2:
-   `p1PrimeSum x 1 ≥ (twinSingularSeries/2) * mainTwinMass x`
-   eventually — the Wall.lean:563ff rate-arithmetic pattern.
+1. (B) the main term dominates at A > 1 (post-C1: the error is
+   x/(log x)^A against a main term of order x/log x):
+   `p1PrimeSum x 1 ≥ (twinC2/2) * (x / Real.log x)` eventually —
+   the Wall.lean:563ff rate-arithmetic pattern.
 2. (B/C) positive p1PrimeSum mass ⟹ infinitely many twin survivors —
    the landed Assembly survivor endgame re-pointed from P₂ to P₁
    (`Set.infinite_of_forall_exists_gt`; the keep/window plumbing of
@@ -46,20 +58,21 @@ saving) — report, don't force.
 
 ## D3 — THE DICHOTOMY (the headline; a corollary, not a new proof)
 
-`wall_or_door` : every Φ : BoundingSieve → ℝ with `∀ s, Φ s ≤
-s.siftedSum` (a lower-bound certificate) that captures a positive
-proportion of `siftedSum (sMinus x)` eventually is NOT
-SieveAgree-tolerant — direct from the landed
-`no_parity_beating_certificate` (Wall.lean:533) by contraposition.
-Docstring states the partition: tolerant ⟹ parity-blind (the wall);
-parity-effective ⟹ signed-weights reader (the door). The λ ↦ −λ
-involution note (the recon's hinge — the |rem| bounds are literally
-identical on the witness pair) goes in the docstring as the
-mechanism.
+`wall_or_door` — GATE CORRECTION C3: carries the source theorem's
+FULL hypothesis set explicitly: `(A : ℝ) (hA : 2 < A)
+(hLS : LambdaSummatory A) (D : ℕ) (hD : 2 ≤ D)`. For any
+Φ : BoundingSieve → ℝ with `∀ s, Φ s ≤ s.siftedSum` that captures a
+positive proportion of `siftedSum (sMinus x)` eventually: Φ is NOT
+SieveAgree-tolerant at level D — direct contraposition of the landed
+`no_parity_beating_certificate` (Wall.lean:533; the gate verified the
+quantifier match: same D, same 2B tolerance shape, same
+eventually-form). Docstring states the partition + the λ ↦ −λ
+involution mechanism.
 
 ## D4 — anti-vacuity (Part III discipline)
 
-1. `twinSingularSeries_pos` (the zero-main-term alarm).
+1. `twinC2_pos` via the genuine Multipliable witness (the
+   zero-main-term alarm AND the C2 junk-default trap).
 2. The upper half is landed (windowed_bilinear_BV_sqrtD) — cite in
    the docstring: TwinTypeII's error-control half is not vacuously
    false; the NEW content is strictly the main term.
@@ -103,4 +116,10 @@ open-on-both-sides).
    carrier; check mathlib's tprod/Euler-product support suffices at
    B-tier.
 
-Node: Q6b-DOOR (B/C, ~250k, one executor) after the gate.
+Node: Q6b-DOOR (B/C + the C-tier twinC2 sub-obligation, ~300k,
+one executor) — GATE RAN 2026-07-15: GO_W_CORRECTIONS, C1 (blocking:
+the main term was one log off — the Λ-weighted carrier), C2 (the
+tprod junk-default trap), C3 (hypothesis carry), C4 (dead θ). All
+applied above. The D2/D4/import-hygiene checks passed clean; the
+survivor re-point is confirmed EASIER than the P₂ endgame (keepR 1
+already filters to primes — no prime-power crumb).

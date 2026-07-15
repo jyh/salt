@@ -18,6 +18,7 @@ import Salt.Goldbach.WindowSW
 import Salt.Goldbach.PiUpper
 import Salt.Goldbach.BandIdent
 import Salt.Goldbach.CountFinal
+import Salt.Goldbach.SW2
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -91,3 +92,10 @@ open Salt.Tactic in
   Salt.Goldbach.goldBandLowDisc_eq_carrier
   Salt.Goldbach.goldTripleSum_le_cbar_final
   Salt.Goldbach.goldCount_bound_uniformK
+  Salt.Goldbach.gold_hBlockW_of_window_prices Salt.Goldbach.gold_hNum_at_opW
+  Salt.Goldbach.gold_PloW_sym_of_box_disc
+  Salt.Goldbach.gold_PloW_low_of_box_disc
+  Salt.Goldbach.gold_bandDiscW_le_three_pieces_diag
+  Salt.Goldbach.goldBlockHonestDiscW_eq_sum_pieces
+  Salt.Goldbach.goldBlockBoxHonestDisc_split_m
+  Salt.Goldbach.goldBlockResCountM_eq_sum_pieces
