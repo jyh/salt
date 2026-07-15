@@ -469,3 +469,17 @@ decisions per question.
   Rb-4 verdict D); the witness pair, evaluations, tolerance
   structure, and concrete core unconditional.** N4-ASM unlocked
   per amendment A1 (the wall closed first) — gate dispatched.
+
+- 2026-07-15 ~13:40: **Q1 CHECKPOINT RATIFIED (JYH: "let's do full
+  in-sprint")** — Chen-2 (chen_goldbach, the Goldbach form: every
+  sufficiently large even N is p + P₂) will be PROVEN in-sprint; the
+  reuse coefficient ships MEASURED, not census-predicted. Immediate
+  consequence for the flagship: the "both of Chen's theorems"
+  headline restructure is live (title/abstract/intro at the last
+  responsible moment, per the drafting policy). Pipeline: Q1-INV
+  (declaration-level mirror map, dispatched) → the Fable design
+  freeze (wave plan + the three re-derive nodes) → adversarial gate
+  → mirror waves. The recon census stands as the prediction to test:
+  ~63% verbatim / ~35% parametric-mirror / ~1–2% re-derive (the
+  N-dependent density + singular series, the CRT residue witness,
+  the ∀N uniformity).
