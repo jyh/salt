@@ -21,18 +21,26 @@ the coprimality-cut prime-power strip (`stripSum_le`, C4b), and the switch count
 C3d), leaving only the three analytic main-term values as named inputs (`hA1`, `hA2`, `hA3`) and
 the numeric ledger closure as `hledger`.
 
-## The unsifted-A₃ verification (hPerE drops off the critical path)
+## The A₃ route (58c rewrite — the honest post-#41/#53 narrative)
 
-The classical Chen switch sifts the switched triple-sequence `a_n = Σ 1_{n = p₁p₂p₃}` to push the
-count down to `c̄ ≈ 0.363`.  Our C3d endpoint (`triple_count_le`) already lands the **unsifted**
-count at `3·log(8/3)·log(3/2)/4 = 0.29827 < 0.363084` (`chen_switch_const_lt`).  Since the switch
-carrier obeys the crude domination
+⚠ HISTORY: this section originally claimed the **unsifted** count model closed the ledger
+(`0.29827 < 0.363084` via the crude domination `A₃ ≤ log x · tripleSum`, `triplePrimeSum_le`
+below).  CATCH #41 (2026-07-13) discredited that route: the `Λ(n) ≤ log x` step drops Λ's prime
+support, so `log x · tripleSum` is `x`-scale against the `x/log x`-scale main terms — TRUE but
+NOT LOAD-BEARING; no ledger closes through it.  `triplePrimeSum_le` is kept below as a documented
+true lemma only.
 
-  `A₃ = Σ_{n} Λ(n)·1_{sifted}·1_{T}(n+2)  ≤  log x · Σ_{n} a_n = log x · tripleSum`
-
-(`triplePrimeSum_le` below, proved in FULL), and `0.298 < 0.363` clears the ledger line WITHOUT
-any sieving of the switched sequence, the whole `hPerE`/keystone-2 (`general_BV_final`,
-`PerEEngine`) debt is **off the critical path** for C5.  C5 never imports `GeneralBV`/`PerEEngine`.
+The honest route, as landed (H-AMENDMENT 1 + the catch-#53 count):
+* the `hA3` slot takes the Λ-carrier `triplePrimeSum ≤ mainA3` DIRECTLY;
+* `mainA3` is supplied by the **switched-sequence sieve** (`mainA3_of_block_remainders_W`,
+  SwitchW.lean) at the windowed/cutoff BV (`hBVblocksW`, discharged at the operating point);
+* the count input is the `log(N/p₁p₂)`-WEIGHTED count at the manifest `c̄/2` constant
+  (`tripleSum_le_cbar_final`, CountFinal.lean — BJS Lemma 52's honest form; the old unsifted
+  `0.29827` model was 3.3× loose per catch #53 and is superseded);
+* the ledger closes through the certified razor (`razor_scalar_margin`, M = 0.012151) with the
+  error bundle proven ≤ 1/200 (FinLed3.lean).
+The full discharge map: `docs/blueprints/chen.md` (H-AMENDMENT 2) and the flags ledger
+(#41, #49, #53, and the endgame arc #59–#78).
 
 ## The ledger arithmetic (as landed)
 

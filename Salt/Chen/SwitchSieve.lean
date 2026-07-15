@@ -29,8 +29,9 @@ congruence per sifting prime `q` is `q ∣ n`, i.e. `p₁p₂p₃ ≡ 2 (mod q)`
 * `weights n = aCount x z y n` — the switch multiplicity `#{(p₁,p₂,p₃) admissible :
   p₁p₂p₃ = n + 2}` (C3d's fibre count; `α ∈ {0,1,…}`, an honest overcount per the recon's
   multiplicity finding);
-* `totalMass = tripleSum x z y` — the C3d count `∑_{n ∈ window} aₙ` (priced by
-  `triple_count_le` at `0.29827·x/(2 log z)`-shape);
+* `totalMass = tripleSum x z y` — the C3d count `∑_{n ∈ window} aₙ` (58c note: priced in the
+  FINAL chain by the c̄/2-weighted `tripleSum_le_cbar_final`, CountFinal.lean — the old
+  unsifted `0.29827` pricing was superseded by catch #53);
 * `nu = nuChen` — ONE residue class (`p₁p₂p₃ ≡ 2 mod q`) on the product ⟹ the dimension-1
   density `ν(q) = 1/(q−1) = 1/φ(q)`, the same density as `twinA1Sieve`; `rem d =
   multSum d − ν(d)·totalMass` is then BY DEFINITION the honest deviation of the switched

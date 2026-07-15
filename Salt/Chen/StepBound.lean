@@ -7,6 +7,14 @@ import Mathlib
 import Salt.Chen.Peeling
 
 /-!
+⚠ 58c DEPRECATION NOTE (2026-07-15, from the H4C disposition): the abstract-σ `h4` rows in
+this file (`∀ s' …, Vlow ≤ (3K/σ)·W`-shaped) are landed TRUE theorems whose hypothesis
+bundles `{hσ1, hσ3, h4}` are jointly uninstantiable at σ = logRatio (catch #66's genre —
+via hσ3 alone).  They are OFF the headline's dependency path: the live chain routes through
+the H4C-CONDITIONED slots (WindowedStep/P/C + H4Cond.h4_cond_of_base).  Kept as landed
+mathematics; do not build new consumers on the abstract-σ rows.
+-/
+/-!
 # C1c⁵ — discharging `hbase`, the `hBJS` functional integral bound, and the τ interface
 
 This file supplies the pieces C1c⁗ (`Peeling.lean`) named as the two remaining named

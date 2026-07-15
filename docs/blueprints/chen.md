@@ -506,7 +506,7 @@ from the mass ledger via SS3c) at the switch operating point
 s = logRatio y Dlev ∈ [4/3, 3] near 3/2 — NOT the true F(3/2) =
 2.3748 (the classical collapse F(3/2)e^{−γ}(3/4) = 1.0000 exactly).
 The excess factor is 2.68/2.3748 = 1.1285. THE ROW STILL CLOSES:
-0.29827 (the certified count, triple_count_le/chen_switch_const_lt)
+0.29827 (HISTORICAL — superseded by catch #53's c̄/2-weighted count; kept for the record)
 × 1.1285 = 0.3366 < 0.363084 (the c̄ ledger line) — margin ≈ 7.3%
 absorbed by the count's 17.85%. The (1+ε)-Mertens slacks at 2e−8 and
 the ε·CsharpB·e²·hBJS(3/2) keystone slack (~3e−5 relative) are
