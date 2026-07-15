@@ -127,6 +127,7 @@ import Salt.Chen.AssembleA3b
 import Salt.Chen.TheHeadline
 import Salt.Chen.PackA
 import Salt.Chen.PackB
+import Salt.Chen.CountAtOp
 import Salt.Chen.CountW
 import Salt.Chen.TwinA2W
 import Salt.Chen.BlockPricing
@@ -375,6 +376,7 @@ open Salt.Tactic in
   Salt.Chen.boxPriceKerrY_worst_le Salt.Chen.symPriceK_worst_le
   Salt.Chen.lowPriceK_worst_le Salt.Chen.hRCE_at_op Salt.Chen.ratio_le_of_floor
   Salt.Chen.twinA1SieveW_W_eq Salt.Chen.hWy_at_op Salt.Chen.XW_pos_at_op
+  Salt.Chen.hcount_at_op Salt.Chen.hcount_massBridge Salt.Chen.hcount_op_geometry
   Salt.Chen.nonunit_forces_fst_dvd Salt.Chen.nuChen_sum_dvd_le
   Salt.Chen.middle_k_price Salt.Chen.middle_medium_box_price_at_y
   Salt.Chen.band_habs_row Salt.Chen.middle_k_M_le_two_y

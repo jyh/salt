@@ -7440,3 +7440,15 @@ the ecount extraction from tripleSum_le_cbar_final's error sums + three easy row
 HEB (hEbundle, blocked on both). All 12 new decls exactly [propext, Classical.choice,
 Quot.sound]. Tally: 75 catches, 0 wrong proofs. **A2WIN ∥ HCOUNT → HEB+fin8d (the final
 wiring).**
+
+**2026-07-15 HCOUNT ✅ the packageable half (CountAtOp.lean, 6 decls).** hcount_massBridge
+(lambda_mass_lower composed via massLo monotonicity), hcount_op_geometry (ALL 8 keystone
+geometry rows EXACT at op — Real.log_rpow gives log zR = log x/8 exactly, the count
+geometry is reachable unlike #75's A₂), hcount_op_AP3, and hcount_at_op with ecount pinned
+to ecountOp C x = C/log(opZ x), honest C = cbar·(11K + 12·log2)/4 ≪ 0.01 at the tower —
+inside the razor's M ≥ 1/100. Slot example mirrors CountW:749. REMAINING (= HCOUNT-2,
+three self-contained sub-rows, enumerated in-file): Lval floors (x^{1/6}-scale, easy),
+CORR (the Abel-error bound — three missing pieces: the Ifun upper C_I/log x from Ifun_cf,
+the hbjs boundary 2/log x, the windowed-Mertens Σ1/p₁), SLACK (LF·WF−1 + the E_SW
+polylog-beats-power fold). All 6 decls exactly [propext, Classical.choice, Quot.sound].
+Tally: 75 catches, 0 wrong proofs. A2WIN still in flight.
