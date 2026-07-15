@@ -438,3 +438,34 @@ decisions per question.
   Rb-4 killing the honest-looking route) and terminated at ONE
   missing classical theorem, stated exactly — total probe cost
   ≈ 317k tokens, zero executor tokens burned on a dead route.
+
+- 2026-07-15 ~13:20: **Q6a-2 COMPLETE — THE PARITY WALL IS LANDED;
+  Q6a CLOSES** (cost ≈ 425k tokens / 80 tools / ~65 min, Opus; one
+  serious pass, ~12 build cycles). Salt/TwinBar/Wall.lean (652
+  lines): the budget lemmas (rosserRemainder ≤ ⌊√x⌋ +
+  C·x(1+log x)/(log x)^A under LambdaSummatory); **the concrete core
+  rosser_floor_undershoot — UNCONDITIONAL** (V(sMinus) ≤ 2 +
+  errSum(sPlus) vs sifted mass 2(π(x)−π(√x)), pure algebra off the
+  landed floor); **parity_wall** (tolerant, concludes on sMinus,
+  2 + 2B) + **parity_wall_effective** (explicit budget under
+  MmuRate); **no_parity_beating_certificate** (the
+  vanishing-proportion punch, full asymptotic argument —
+  Chebyshev.pi_ge + three limit lemmas); phiLowerR inhabitation
+  (tolerance UNCONDITIONAL; certificate modulo hsupp). TWO HOUSE
+  ADJUDICATIONS (both accepted): (1) the Rosser support bound
+  errSum ≤ rosserRemainder is UNLANDED and its naive form
+  (rosserCond → d < D) is FALSE for the lower sieve (the
+  odd-position prime) — the executor delivered the honest errSum
+  form for the concrete core and the design's 2+2B undershoot via
+  the wall route, which reads rosserRemainder directly;
+  phiLowerR_certificate carries hsupp explicitly (satisfied by the
+  landed concrete Rosser instantiations; a small future node could
+  discharge it generally). (2) The per-x √x-level tolerance form is
+  only trivially inhabited — the FIXED-level-D form is canonical
+  (the third instance of the exact-vs-tolerant lesson; recorded).
+  Ceremony: wired + 11 keystones — full build exit 0, all ✓
+  [3 axioms]. **Q6a FINAL SHAPE: the wall + undershoot landed;
+  analytic budget conditional on MmuRate (registered debt,
+  Rb-4 verdict D); the witness pair, evaluations, tolerance
+  structure, and concrete core unconditional.** N4-ASM unlocked
+  per amendment A1 (the wall closed first) — gate dispatched.

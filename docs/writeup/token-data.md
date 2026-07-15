@@ -65,6 +65,7 @@ min FIN-A3b at 147k — the mechanical restatements).
 | Q6a-3 | 340 | bridge node 2 landed; node 1 flagged (MmuRate) |
 | Q6a-4-recon | 167 | R-b adjudicated; Rb-4 = the keystone; naive routes refuted |
 | Rb-4-recon | 150 | verdict D — local zero-density unreachable; debt registered |
+| Q6a-2 | 425 | the wall assembly — Q6a closes; 2 adjudications |
 
 Exploration total so far ≈ **1.54 M**; recon median ≈ 100k; probe
 median ≈ 200k. (Q2-ASM in flight at recording time.)

@@ -17,6 +17,7 @@ import Salt.TwinBar.ThreeBarAsm
 import Salt.TwinBar.FourBar
 import Salt.TwinBar.LambdaRate
 import Salt.TwinBar.ParityWall
+import Salt.TwinBar.Wall
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -91,3 +92,9 @@ open Salt.Tactic in
   Salt.TwinBar.liouville_eq_chiSq_mul_moebius Salt.TwinBar.Mlambda_eq_sum_Mmu
   Salt.TwinBar.Mmu_abs_le Salt.TwinBar.Mlambda_rate
   Salt.TwinBar.LambdaSummatory_of_MmuRate
+  Salt.TwinBar.rosser_floor_undershoot Salt.TwinBar.rosser_floor_vs_prime_mass
+  Salt.TwinBar.parity_wall Salt.TwinBar.parity_wall_effective
+  Salt.TwinBar.no_parity_beating_certificate
+  Salt.TwinBar.phiLowerR_tolerant Salt.TwinBar.phiLowerR_certificate
+  Salt.TwinBar.rosserRemainder_sPlus_le Salt.TwinBar.rosserRemainder_sMinus_le
+  Salt.TwinBar.witness_rosserRemainder_le Salt.TwinBar.sum_inv_Icc_le
