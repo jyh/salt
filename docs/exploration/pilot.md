@@ -483,3 +483,29 @@ decisions per question.
   ~63% verbatim / ~35% parametric-mirror / ~1–2% re-derive (the
   N-dependent density + singular series, the CRT residue witness,
   the ∀N uniformity).
+
+- 2026-07-15 ~14:05: **N4-ASM-GATE: GO_W_CORRECTIONS — the J₃₄
+  peel-order tear caught pre-dispatch; all four corrections applied**
+  (cost ≈ 142k tokens / 9 tools / ~15 min, Opus). THE TEAR (gate
+  confidence ~90%, permutation analysis + cross-check against
+  ThreeBarAsm's actual swap mechanism): J₃₄'s carrier order
+  (t₄,t₂,t₁ outers, t₃ innermost) reaches NEITHER size-s reduce3
+  order without swapping a MARGINAL — which needs a size-s
+  marginal-continuity lemma that exists nowhere (ThreeBarAsm never
+  swaps a marginal) and was unbudgeted; the design's own node-b line
+  ("J₃₄ via peel-t₁-outer") was internally inconsistent with the
+  carrier (t₄ outermost — the peel cannot start). Numerics CANNOT
+  catch this genre (the region identity is order-agnostic Fubini) —
+  the peel-order audit was the load-bearing check. FIX (the
+  pre-authorized free choice): J₃₄ reordered to outers (t₁,t₂,t₄) in
+  FourBar.lean (~10 lines, J₃₄ def + nonneg; sliceCS₃₄ and the
+  no-go are order-independent; full build exit 0). Also applied:
+  node-a signatures PINNED in the design (Δ₃ s, canonical/w3order
+  _eq_region₃ s — the a→b interface de-risked); the two
+  slice-continuity lemmas listed with owner node a; Δ₃_one_eq_R₃
+  s=1 regression anchor added; J₃₄'s novel route pinned to node b.
+  Gate also verified: s=0 non-pathological, s=1/2 numeric Fubini
+  agreement (3 orders, 0.03020833), s=1 recovery clean, the 2-D
+  layer already fully size-parametrized (reused verbatim), four_bar
+  TRUE + inhabited on an asymmetric F (sumJ 0.5627 ≤ 0.7188).
+  N4-ASM-a DISPATCHED (post-correction).

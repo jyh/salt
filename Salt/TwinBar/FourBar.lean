@@ -89,10 +89,17 @@ noncomputable def J₂₄ (F : ℝ → ℝ → ℝ → ℝ → ℝ) : ℝ :=
   ∫ t₄ in (0:ℝ)..1, ∫ t₃ in (0:ℝ)..(1 - t₄), ∫ t₁ in (0:ℝ)..(1 - t₄ - t₃),
     (∫ t₂ in (0:ℝ)..(1 - t₄ - t₃ - t₁), F t₁ t₂ t₃ t₄) ^ 2
 
-/-- `J₃₄ F` — the marginal-in-`t₃` Selberg peel, `t₃` innermost. -/
+/-- `J₃₄ F` — the marginal-in-`t₃` Selberg peel, `t₃` innermost.
+
+Outer order `(t₁, t₂, t₄)` — `t₁` OUTERMOST, per the N4-ASM gate's correction 1:
+the original `(t₄, t₂, t₁)` order left the `t₃` marginal unreachable by either
+size-`s` reduce3 order without swapping a marginal (an unbudgeted size-`s`
+marginal-continuity lemma); with `t₁` outermost the route is peel-`t₁`-outer →
+one plain inner-two swap `(t₄, t₃)` at size `1 − t₁ − t₂` → w3order. The peel
+orders are the assembly's one free choice (value-neutral by Tonelli). -/
 noncomputable def J₃₄ (F : ℝ → ℝ → ℝ → ℝ → ℝ) : ℝ :=
-  ∫ t₄ in (0:ℝ)..1, ∫ t₂ in (0:ℝ)..(1 - t₄), ∫ t₁ in (0:ℝ)..(1 - t₄ - t₂),
-    (∫ t₃ in (0:ℝ)..(1 - t₄ - t₂ - t₁), F t₁ t₂ t₃ t₄) ^ 2
+  ∫ t₁ in (0:ℝ)..1, ∫ t₂ in (0:ℝ)..(1 - t₁), ∫ t₄ in (0:ℝ)..(1 - t₁ - t₂),
+    (∫ t₃ in (0:ℝ)..(1 - t₁ - t₂ - t₄), F t₁ t₂ t₃ t₄) ^ 2
 
 /-- `J₄₄ F` — the marginal-in-`t₄` Selberg peel, `t₄` innermost. -/
 noncomputable def J₄₄ (F : ℝ → ℝ → ℝ → ℝ → ℝ) : ℝ :=
@@ -135,11 +142,11 @@ theorem J₂₄_nonneg (F : ℝ → ℝ → ℝ → ℝ → ℝ) : 0 ≤ J₂₄
 /-- `0 ≤ J₃₄ F`. -/
 theorem J₃₄_nonneg (F : ℝ → ℝ → ℝ → ℝ → ℝ) : 0 ≤ J₃₄ F := by
   apply intervalIntegral.integral_nonneg (by norm_num : (0:ℝ) ≤ 1)
-  intro t₄ ht₄
-  apply intervalIntegral.integral_nonneg (by have := ht₄.2; linarith : (0:ℝ) ≤ 1 - t₄)
+  intro t₁ ht₁
+  apply intervalIntegral.integral_nonneg (by have := ht₁.2; linarith : (0:ℝ) ≤ 1 - t₁)
   intro t₂ ht₂
-  apply intervalIntegral.integral_nonneg (by have := ht₂.2; linarith : (0:ℝ) ≤ 1 - t₄ - t₂)
-  intro t₁ _; positivity
+  apply intervalIntegral.integral_nonneg (by have := ht₂.2; linarith : (0:ℝ) ≤ 1 - t₁ - t₂)
+  intro t₄ _; positivity
 
 /-- `0 ≤ J₄₄ F`. -/
 theorem J₄₄_nonneg (F : ℝ → ℝ → ℝ → ℝ → ℝ) : 0 ≤ J₄₄ F := by

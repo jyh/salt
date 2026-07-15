@@ -32,9 +32,35 @@ peels reconcile to canonical `(t₄,t₃,t₂,t₁)` as:
   marginals, integrabilities) is hardwired to size 1 and must be
   parametrized by s.**
 
-**Carrier orders consumed (fixed by N4-CORE; re-fixable there without
-touching the analytic core if the gate prefers):** J₁₄ outers t₄,t₃,t₂;
-J₂₄ outers t₄,t₃,t₁; J₃₄ outers t₄,t₂,t₁; J₄₄ outers t₁,t₂,t₃.
+**Carrier orders consumed (POST-GATE, correction 1 applied 2026-07-15):**
+J₁₄ outers t₄,t₃,t₂ (peel t₁ inner → canonical₃); J₂₄ outers t₄,t₃,t₁
+(one plain inner-two swap (t₁,t₂) at size 1−t₃−t₄ → peel t₁ inner →
+canonical₃); **J₃₄ outers t₁,t₂,t₄ (REORDERED by the gate — was
+t₄,t₂,t₁, which left the t₃ marginal unreachable without an unbudgeted
+size-s marginal-continuity lemma): peel t₁ outer → one plain inner-two
+swap (t₄,t₃) at size 1−t₁−t₂ → w3order₃**; J₄₄ outers t₁,t₂,t₃ (peel
+t₁ outer → w3order₃, no swap). Route census: {0,0,1,1} plain inner-two
+swaps + the two size-s reduce3 lemmas; every t₁-peel is at an extreme
+(the association slot never moves); NO marginal is ever swapped.
+
+**Node-a deliverable signatures (PINNED, gate correction 2 — node b
+consumes these verbatim, no renegotiation):**
+- `Δ₃ (s : ℝ) : Set (ℝ × ℝ × ℝ) := {p | 0 ≤ p.1 ∧ 0 ≤ p.2.1 ∧
+  0 ≤ p.2.2 ∧ p.1 + p.2.1 + p.2.2 ≤ s}` with `Δ₃_one_eq_R₃ : Δ₃ 1 = R₃`
+  (definitional; the s=1 regression anchor — gate correction 4; do NOT
+  refactor the landed three_bar to consume size-s versions).
+- `canonical_eq_region₃ (s) (hs : 0 ≤ s) (hF : ContinuousOn f (Δ₃ s)) :
+  (∫ t₄ in 0..s, ∫ t₃ in 0..s−t₄, ∫ t₂ in 0..s−t₄−t₃, f t₂ t₃ t₄)
+  = ∫ region (Δ₃ s)` — t₂ inner, mirroring the landed size-1 shape.
+- `w3order_eq_region₃ (s) (hs : 0 ≤ s) (hF : …) :
+  (∫ t₂ in 0..s, ∫ t₃ in 0..s−t₂, ∫ t₄ in 0..s−t₂−t₃, f t₂ t₃ t₄)
+  = ∫ region (Δ₃ s)` — t₄ inner.
+- `psi_eq₃ s`, `region_integrable₃ s`, size-s outer-marginal
+  integrabilities: mirror the landed names with the `(s) (hs)` prefix.
+- **The two slice-continuity lemmas (gate correction 3, owner: NODE A):**
+  fix-one-var → `ContinuousOn … (Δ₃ s)` and fix-two-var →
+  `ContinuousOn … (Δ s)` (consumed by J₂₄'s and J₃₄'s swaps) — cheap
+  MapsTo-into-R₄ mirrors of slice_fix_t1/t3.
 
 ## Nodes
 
@@ -48,9 +74,13 @@ J₂₄ outers t₄,t₃,t₁; J₃₄ outers t₄,t₂,t₁; J₄₄ outers t�
   simplex, zero integrals — not false side-conditions).
 - **N4-ASM-b — Δ₄ geometry + the 4-D reorderings (C).** `Δ₄`
   compact/closed/measurable; the t₁-marginal identity (psi₄); the four
-  region↔iterated reductions: canonical via peel-t₁-inner + size-1
-  reduce3; J₃₄/J₄₄ via peel-t₁-outer + **size-s** reduce3 (consumes
-  N4-ASM-a); J₂₄ via `simplex_swap_param`.
+  region↔iterated reductions (POST-GATE routes): J₁₄ via peel-t₁-inner
+  + size-1 canonical₃; J₂₄ via `simplex_swap_param` + peel-t₁-inner +
+  size-1 canonical₃; **J₄₄ via peel-t₁-outer + size-s w3order₃; J₃₄
+  via peel-t₁-outer + one plain inner-two swap (t₄,t₃) at size
+  1−t₁−t₂ + size-s w3order₃** (consumes N4-ASM-a). J₃₄'s route has no
+  3-D mirror — it stays IN NODE B (gate: if it leaks to node c, c
+  becomes B/C).
 - **N4-ASM-c — the peel bounds + combine (B).** The four `J_m4_bound`
   (triple-nested `integral_mono_of_nonneg` + `sliceCS_m4` + nested
   marginal integrabilities), then `four_bar` and the unconditional
