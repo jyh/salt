@@ -225,7 +225,28 @@ To add before announcing:
 4. **Then the exploration sprint (§7)** — strictly timeboxed, in parallel
    with the writing (exploration is agent-heavy; writing is house-session
    work). It also road-tests clone-and-continue and feeds METHODS.md.
-5. **Release** follows the sprint, with the exploration chapter included.
+5. **Release** follows the sprint: papers + the exploration chapter + the
+   repo with the open-problems board and the disclosed pre-registration.
+6. **Post-release**: triage the remaining queue (further monuments,
+   explicit12 continuation) informed by sprint findings and community
+   uptake.
+
+### Queue amendment (JYH-ratified 2026-07-14: demo over monuments)
+
+- **Hardy–Littlewood is NOT done by us pre-release.** It is promoted to
+  the FLAGSHIP item of the public open-problems board (§5 item 4): a
+  fully blueprinted, pre-classified arc waiting in the repo. Rationale:
+  a second monument adds little evidence (Chen already carried the
+  capability update), while a well-prepared visible arc is the strongest
+  adoption seed — the first outside group to land it validates
+  clone-and-continue for us, with their name on it. What we don't prove
+  is also a design choice.
+- **The parity-barrier and Heath-Brown discussions are ABSORBED into the
+  sprint**, not dropped: Heath-Brown = the design session for the Tier 3
+  probe; parity = the frame for the Tier 1 atlas + Tier 2 GEH_min
+  bracket.
+- **The Night Cycle pre-loaded first nights change** from "H-L / parity /
+  Heath-Brown" to the six pre-registered sprint questions.
 
 ## 7. The exploration sprint (JYH-ratified 2026-07-14: "harvest the low-hanging fruit, right now")
 
@@ -243,9 +264,13 @@ is an infinite regress and the corpus's release value doesn't decay.**
 
 ### The demo design (the "big wow" — costs almost nothing extra)
 
-**Pre-register the questions in the repo**: a signed commit stating "we
-pose these N questions; we do not know the answers," BEFORE exploration
-begins. Run the sprint under the Night Cycle protocol with the same
+**Pre-register the questions in the repo — PRIVATELY (JYH-ratified)**: a
+signed commit stating "we pose these N questions; we do not know the
+answers," BEFORE exploration begins. Private pre-registration preserves
+both integrity and exclusivity: the commit hash is the tamper-evident
+timestamp (optionally publish just the hash at sprint start); the commit
+itself is disclosed at release, when anyone can verify the questions
+predate the answers. Run the sprint under the Night Cycle protocol with the same
 flags-ledger discipline (an exploration ledger). Report ALL outcomes —
 resolved, refuted, open — with token and wall-clock costs per question.
 "N pre-registered questions, k resolved, one refuted with a kernel-checked
