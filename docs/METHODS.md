@@ -199,7 +199,7 @@ converged on.*
    - **the COULD-NOT-VERIFY ledger** — every claim that rests on a
      secondary source, an abstract, or an unfetchable original is
      listed as such, verbatim, in the deliverable. This section is
-     load-bearing; a research memo without it is not done.
+     essential; a research memo without it is not done.
 4. **Adversarial distillation.** A judge pass over the scouts'
    findings before synthesis: what's missing, what conflicts, which
    quotes don't survive re-checking. (The gate, pointed at claims

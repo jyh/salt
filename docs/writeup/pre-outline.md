@@ -75,7 +75,7 @@ record — our constants are explicit-but-worse (tower thresholds).
    assistants produced essentially none of it. The demonstration is: the
    hardest genre of informal mathematics is no longer out of reach, at
    person-days of attention. The reader's correct update is about their own
-   Monday morning: kernel-checking THEIR load-bearing lemma is now cheap.
+   Monday morning: kernel-checking THEIR critical lemma is now cheap.
    The clone-and-continue repo is this argument made concrete.
 
 3. **The refutation engine (the strongest claim).** What kills attacks on
@@ -91,7 +91,7 @@ record — our constants are explicit-but-worse (tower thresholds).
 
 4. **The proof became an object.** Chen has been cited for 50 years as a
    monolith; nobody builds on the interior because the interior is prose.
-   Ours is queryable and re-runnable (which hypotheses are load-bearing for
+   Ours is queryable and re-runnable (which hypotheses are critical for
    the constant; what changes at a different distribution level) — a new
    kind of access to old mathematics, and the honest sense in which
    something mathematical was produced.
@@ -143,10 +143,14 @@ one sentence → the result QUANTIFIED with one earned superlative
 10. **One vivid phrase per section, not per paragraph.** ("The X-ray of
     a classical proof," "the wall and the door," "premise latency" —
     spent sparingly.)
+11. **Vocabulary (JYH-set):** avoid "load-bearing" — use "critical,"
+    "important," or "essential" as context demands. (House jargon that
+    served the working sessions does not automatically survive into the
+    papers; sweep for other insider terms at drafting.)
 
 Calibration sample (paper A's abstract, in the register, to be refined at
 drafting): *"The correctness of classical analytic number theory rests on
-proofs whose load-bearing details are checked by referee trust; verifying
+proofs whose critical details are checked by referee trust; verifying
 them formally has been notoriously laborious, and for the hardest genre —
 sieve theory with explicit constants — essentially never done. Here we
 present a machine-checked proof of Chen's theorem, unconditional and
@@ -231,7 +235,7 @@ on terminal nodes (4 of 4 at the end), tokens and wall-clock per arc.
    blueprints, difficulty classes, the flags ledger as institutional
    memory.
 3. Adversarial gating and STEP-0: why satisfiability checking of statement
-   packages is the load-bearing discipline (evidence: the terminal-node
+   packages is the essential discipline (evidence: the terminal-node
    catch sequence).
 4. Orchestration mechanics: model routing (and the Fable-inheritance
    budget lesson), resume-on-failure, ceremonies with explicit exit codes,
