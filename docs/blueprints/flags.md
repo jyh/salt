@@ -6986,3 +6986,19 @@ image-family Dset bookkeeping (1 ≤ m / crtClassW coprimality / m ≤ D over Q/
 hDsq_at_sym_carrier wiring, the 27-row analytic list at the reduced tops, and the
 Price/PsymK/PlowK numeric closure into x/L^{10} (Finding-4 aggregate). Tally: 69 catches,
 0 wrong proofs.
+
+**2026-07-14 EXPLORATION PILOT P-A/P-B ✅ FULL first-attempt (Salt/TwinBar/Enlarged.lean)
+— the first exploration theorem + the process validation.** `twin_bar_enlarged`
+(M₂^{[δ]} ≤ 2(1+δ)log 2, all continuous F, via CoV pull-back onto the landed twin_bar) +
+**`no_twin_weight_enlarged` (the k=2 no-go persists under ε-enlargement for δ < 1/log2 − 1
+≈ 0.4427)** — believed unrecorded at k=2; hygiene corollaries twin_bar_asymmetric/_signed;
+the density-bridge Prop. THE PROCESS RESULT: the executor caught that the naive F ≡ 1
+witness would imply twin-primes-under-EH (open!), diagnosed the definitional ambiguity,
+verified Polymath8b's marginal constraint, proved the a-fortiori bound, and ESCALATED —
+the naive-executor failure mode surfaced and handled by the STOP-AND-FLAG discipline in
+its first exploration outing. Fable adjudication of OPEN 1: the gate stays 2 (the
+enlargement is paid by the marginal constraint, not gate rescaling); above δ₀ genuinely
+open at k=2. Protocol rules R1–R4 + budget calibration extracted to
+docs/exploration/pilot.md. All declarations exactly [propext, Classical.choice,
+Quot.sound]; wired into TwinBar/All.lean's audit block. Tally: 69 catches, 0 wrong proofs
+(the F≡1 alarm was caught pre-landing — the discipline generalizes to exploration).

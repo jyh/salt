@@ -10,6 +10,7 @@ import Salt.TwinBar.Tonelli
 import Salt.TwinBar.Impossibility
 import Salt.TwinBar.Witness
 import Salt.TwinBar.RationalTie
+import Salt.TwinBar.Enlarged
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -60,5 +61,8 @@ open Salt.Tactic in
   Salt.TwinBar.logWeight Salt.TwinBar.simplex_swap
   Salt.TwinBar.twin_bar Salt.TwinBar.twin_gate_fails Salt.TwinBar.no_twin_weight
   Salt.TwinBar.twin_witness Salt.TwinBar.M₂_squeeze
+  Salt.TwinBar.twin_bar_asymmetric Salt.TwinBar.twin_bar_signed
+  Salt.TwinBar.twin_bar_enlarged Salt.TwinBar.no_twin_weight_enlarged
+  Salt.TwinBar.two_fifths_below_threshold
   Salt.TwinBar.dirichlet₂ Salt.TwinBar.no_twin_certificate
   Salt.TwinBar.twin_certificate_example Salt.TwinBar.bridge_consistency

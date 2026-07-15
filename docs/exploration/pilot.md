@@ -64,3 +64,42 @@ refined phrasing.
 - 2026-07-14: PILOT-recon complete (the M₂ formal surface; lesson #1
   above). P-A dispatched (with P-B as warm-up in the same file domain).
   P-C held.
+- 2026-07-14 evening: **P-A + P-B COMPLETE (Salt/TwinBar/Enlarged.lean,
+  361 lines, kernel-checked, first attempt).** The mathematics:
+  `twin_bar_enlarged` (M₂^{[δ]} ≤ 2(1+δ)·log 2 for ALL continuous F on
+  the enlarged simplex — finiteness YES, via a change-of-variables
+  pull-back onto the landed twin_bar, NOT a re-derivation) and
+  **`no_twin_weight_enlarged`: the k = 2 no-go PERSISTS under
+  ε-enlargement for δ < δ₀ = 1/log 2 − 1 ≈ 0.4427** (concrete admissible
+  δ = 2/5 pinned) — to our knowledge unrecorded at k = 2. Hygiene:
+  `twin_bar_asymmetric`/`twin_bar_signed` citable; the density-bridge
+  question stated as a Prop.
+- **Pilot lesson #2 (the process validation — worth more than the
+  theorem):** the executor found that the naive witness F ≡ 1 on the
+  unconstrained enlarged carriers gives ratio > 2 near δ = 1 — which
+  would "prove twin primes under EH" and is therefore a definitional
+  alarm, not a result. It identified the honest functional (Polymath8b's
+  ε-trick constrains the MARGINALS to the original simplex, making the
+  would-be witness inadmissible), proved the a-fortiori-valid upper
+  bound, and ESCALATED the interpretation question instead of landing a
+  false exhibit. The naive-executor failure mode the pilot existed to
+  surface — surfaced and handled.
+- **FABLE ADJUDICATION of OPEN 1**: per Polymath8b's ε-trick the gate
+  stays 2 (the enlargement is paid by the marginal constraint and the
+  GEH-level requirements, not by rescaling the gate), so
+  no_twin_weight_enlarged delimits the honest constrained problem for
+  δ < δ₀. Above δ₀: genuinely open at k = 2 (circumstantial evidence —
+  Polymath8b used k = 3, not k = 2, for gaps ≤ 6 under GEH — suggests
+  the constrained sup stays < 2, unproven). Drafting-time TODO: verify
+  the k = 2 enlarged threshold really is unrecorded (literature sweep).
+- **Extracted protocol rules for the sprint (from the experience
+  report):** (R1) recon precedes question freezing — including the
+  TARGET'S exact variational/functional definition, not just the Lean
+  surface; (R2) a T3 executor first asks "can this perturbation be
+  pulled back onto a landed theorem?" before porting machinery; (R3)
+  an explicit early checkpoint "is the carrier/functional definition
+  unambiguous?" — if not, escalate within the first attempt; (R4) a
+  would-be witness that implies something OPEN is a definitional alarm.
+  Budget calibration: P-A cost ≈ 1 web check + ~5 build cycles + one
+  de-risking scratch; T3 sprint budgets sized to this.
+- P-C DISPATCHED (the k = 3 probe, P-A's lessons injected).
