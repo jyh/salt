@@ -273,3 +273,22 @@ decisions per question.
   (minimality of FORM, not depth). The GEH_min-at-k=3 route's scope
   map (multi-quarter, two new C-clusters) stands as Q3's obstruction
   note and the explicit12 post-release triage input.
+
+- 2026-07-15 ~11:10: **Q6a-GATE — GO_W_CORRECTIONS; three tears
+  caught pre-freeze + THE UNCONDITIONALITY AMENDMENT** (cost ≈ 128k
+  tokens; numeric verification included). (1) The ≤ z tear: sifting
+  p < ⌊√x⌋ lets z² survive with weight 2 whenever z is prime —
+  siftedSum₊ = 2 FALSE on an unbounded set (verified x = 25/49/169);
+  ∀ᶠ does not rescue it. (2) The dead-hypothesis tear: concluding on
+  sPlus never uses invariance — the wall must conclude on sMinus.
+  (3) The inhabitation tear: exact invariance admits only trivial
+  certificates; the tolerant 2B form is inhabited by the landed
+  Rosser floor but kills the fixed-3 corollary → the vanishing-
+  proportion form + the CONCRETE CORE (V(sMinus) ≤ 2 + B vs sifted
+  mass 2·(π(x) − π(√x)) — no abstract Φ, inhabited by construction).
+  (4) THE AMENDMENT: total multiplicativity reduces the a = 0 class
+  POINTWISE (Σ_{d∣n} λ = λ(d)·M_λ(⌊x/d⌋)) — no λ-BV ever needed; the
+  effective summatory rate suffices and is reachable from the LANDED
+  siegelWalfisz_psiTot via two bridge nodes ⟹ **THE WALL SHIPS
+  UNCONDITIONAL** (the design's conditional-Prop route retired). All
+  corrections applied to q6a-design.md; Q6a-1 ∥ Q6a-3 dispatched.

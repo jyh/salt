@@ -1,6 +1,6 @@
 # Q6a DESIGN — the parity wall as an interface theorem (Fable freeze, pre-gate)
 
-*2026-07-15. From the Q6a-recon (the pilot ledger): the honest shape is
+*2026-07-15, REVISED post-gate (all three mandatory corrections + the amendment applied — the gate report is in the exploration ledger). From the Q6a-recon (the pilot ledger): the honest shape is
 the consumer-relative form (c) with the ε-agreement core (b); the
 exact-agreement shapes are vacuous. This design freezes the statements
 for the gate. The corpus convention (EHall/PiAsymp-style named Props)
@@ -10,7 +10,9 @@ sub-node.*
 ## D1 — the sifting instances (the Selberg witness pair)
 
 Over `support = Icc 1 x` (as the sieve's ℕ-support), `prodPrimes = P(z) =
-∏_{p < z} p` at `z = Nat.sqrt x`, shared density `ν(d) = 1/d`
+∏_{p ≤ z} p` at `z = Nat.sqrt x` (GATE CORRECTION 1: ≤ not < — the strict
+form lets z² survive whenever z is prime, falsifying siftedSum₊ = 2 on an
+unbounded set; verified at x = 25/49/169), shared density `ν(d) = 1/d`
 (`nuDiv : ArithmeticFunction ℝ`, the integer-sifting density — NOT
 nuChen; multiplicativity and 0 < ν(p) < 1 for p ≥ 2 are elementary),
 shared `totalMass = (x : ℝ)`:
@@ -39,7 +41,21 @@ support/weights only through `Σ_{d<D} |rem d|`. Exact equality on the
 main-fields, a shared budget on the remainder — the exact granularity
 the interface operates at.
 
-## D3 — the analytic input (the named Prop, corpus convention)
+## D3 — the analytic input (GATE AMENDMENT: no λ-BV — the summatory rate suffices; the wall is UNCONDITIONAL)
+
+Total multiplicativity gives the POINTWISE identity
+`Σ_{n≤x, d∣n} λ(n) = λ(d)·M_λ(⌊x/d⌋)` — the a = 0 class never needs
+equidistribution. The analytic input shrinks to the effective summatory
+rate `LambdaSummatory A : |M_λ(y)| ≤ C·y/(log y)^A`, SOURCED FROM THE
+LANDED `siegelWalfisz_psiTot` via two bridge nodes (Q6a-3, now
+CRITICAL-PATH not stretch): (i) ψ→M_μ (the Tauberian bridge at the
+power-log rate), (ii) M_μ→M_λ (λ = μ∗1_squares, the hyperbola fold —
+rate-preserving since x/d² ≥ ... with log(x/d) ≥ log x/2 on the range).
+The rem bound: |rem d| ≤ 1 + |M_λ(⌊x/d⌋)|; summed over d ∣ P(z), d < D
+with Σ1/d ~ log x: rosserRemainder ≤ C·x/(log x)^A at A-2. (The old
+LambdaLevel λ-BV design is RETIRED — kept below for the record only.)
+
+## D3-RETIRED — the named-Prop λ-BV route (superseded by the amendment)
 
 ```
 def LambdaLevel (θ : ℝ) : Prop :=
@@ -65,58 +81,64 @@ max over ALL residues a < d, not just reduced; flag for the gate).
 ## D4 — the wall (shape (c)) and its corollary (shape (b))
 
 ```
-theorem parity_wall (hλ : LambdaLevel (1/2)) :
+theorem parity_wall :   -- UNCONDITIONAL (post-amendment)
   ∀ᶠ x in atTop, ∀ (Φ : BoundingSieve → ℝ),
-    (∀ s t, SieveAgree s t (D x) (Bbudget x) → Φ s = Φ t) →   -- invariance
-    (∀ s, Φ s ≤ s.siftedSum) →                                 -- a lower-bound certificate
-    Φ (sPlus x) ≤ 2                                            -- ≤ the plus-instance's sifted sum
+    (∀ s t, SieveAgree s t (D x) (Bbudget x) → |Φ s − Φ t| ≤ 2·Bbudget x) →  -- TOLERANT invariance (gate correction 3)
+    (∀ s, Φ s ≤ s.siftedSum) →
+    Φ (sMinus x) ≤ 2 + 2·Bbudget x                             -- ON sMinus (gate correction 2)
 ```
-with the reading: any Agree-invariant lower-bound certificate is capped
-at 2 — while the prime-detecting instance sMinus has sifted mass
-2·π(√x, x] → ∞. Proof skeleton: invariance + the pair's SieveAgree
-(D1 + D3's rem bounds) give Φ(sMinus) = Φ(sPlus) ≤ siftedSum(sPlus) = 2.
-The ¬∃ corollary in the house genre:
+Reading: any tolerantly-invariant lower-bound certificate captures at
+most 2 + 2B = o(the prime mass) from the prime-detecting instance —
+NO invariant certificate captures a positive proportion of the primes.
+The corollary (the vanishing-proportion punch, replacing the false
+fixed-3 form):
 
 ```
-theorem no_parity_beating_certificate (hλ : LambdaLevel (1/2)) :
-  ¬ ∃ Φ, (invariant ∧ certificate ∧ ∀ᶠ x, 3 ≤ Φ (sMinus x))
+theorem no_parity_beating_certificate :
+  ¬ ∃ Φ (invariant-tolerant ∧ certificate),
+      ∃ c > 0, ∀ᶠ x, c · siftedSum (sMinus x) ≤ Φ (sMinus x)
 ```
-(any invariant certificate claiming ≥ 3 primes-mass from the minus
-instance is refuted — the constant 2 is the wall).
+
+**The concrete core (the gate's recommended primary deliverable —
+inhabited by construction, no abstract Φ):** the landed Rosser floor
+`V(s) := totalMass·mainSum(μ⁻) − errSum(μ⁻)` satisfies
+`V (sMinus x) ≤ 2 + Bbudget x` while `siftedSum (sMinus x) =
+2(π(x) − π(√x))` — the undershoot → ∞. Land this FIRST (`rosser_floor_
+undershoot`); the abstract wall generalizes it.
 
 ## D5 — the anti-vacuity obligations (Part III discipline)
 
 1. The witness pair COMPILES as BoundingSieve values (weights_nonneg
    etc.) — instance construction is deliverable 1.
-2. **The invariance hypothesis is inhabited by the REAL landed
-   consumer**: exhibit `Φ_lower s := s.totalMass · mainSum(μ⁻) −
-   errSum(μ⁻)`-style (the lower-Möbius floor at a fixed μ⁻ built from
-   {prodPrimes, nu}) as (i) Agree-invariant given the budget (mainSum
-   reads only the shared fields; errSum ≤ B on both sides — note the
-   floor uses −errSum so invariance is within 2B: adjust the wall to
-   `|Φ s − Φ t| ≤ 2B`-tolerant form OR make Φ_lower's errSum-free
-   version the instance; THE GATE DECIDES which form is honest) and
-   (ii) a certificate (the landed lower bound). Without this the wall
-   delimits an empty consumer class.
+2. **The invariance class is inhabited** (GATE-ADJUDICATED): the
+   tolerant form is the honest one — the landed lower-Möbius floor
+   Φ_lower satisfies |Φ_lower s − Φ_lower t| ≤ 2B under SieveAgree
+   (mainSum reads only shared fields; the errSums differ by ≤ 2B) and
+   is a certificate. The exact form admits only trivial certificates
+   (uninhabited by the real consumer — recorded). The concrete-core
+   theorem needs no inhabitation argument at all.
 3. Numeric sanity: at x = 10⁶, siftedSum₊ = 2 and siftedSum₋ =
    2(π(10⁶) − π(10³)) = 2·78330 — a compiled #eval-style check or a
    cited computation.
 
-## D6 — the stretch (unconditional Σλ)
+## D6 — the bridges (CRITICAL PATH post-amendment, not stretch)
 
-Two nodes, elementary route (the recon's costing): (i) M(y) = o(y) from
-psiTot_pnt (the ψ↔M Tauberian bridge — the classical "equivalent forms"
-argument, explicit constants); (ii) Σ_{n≤x} λ(n) = o(x) via λ = μ ∗
-1_squares (the hyperbola fold). This discharges only the a = 0,
-d = 1-ish part — the FULL LambdaLevel(1/2) is the λ-BV (C/D-tier, NOT
-in the sprint). The wall therefore ships conditional; the stretch makes
-the d = 1 instance unconditional as a corollary demonstration.
+Two nodes at the EFFECTIVE rate (gate correction 3's upgrade — the
+qualitative o(y) does NOT suffice; the power-log rate does and is
+reachable from the landed `siegelWalfisz_psiTot`):
+(i) `Mmu_rate : |M_μ(y)| ≤ C·y/(log y)^A` from ψ (the effective
+Tauberian bridge); (ii) `Mlambda_rate` via λ = μ∗1_squares (the
+hyperbola fold preserves the rate — log(x/d²) ≥ log x/2-form on the
+contributing range... derive honestly; the gate verified the budget
+shape). These feed LambdaSummatory; THE WALL SHIPS UNCONDITIONAL.
 
-## Nodes
+## Nodes (post-gate)
 
-Q6a-1 (defs + instances + evaluations + the rem-bound lemma);
-Q6a-2 (the wall + the corollary + the Φ_lower inhabitation + the
-numeric sanity). Stretch Q6a-3 (D6). GATE FIRST (one adversarial lens):
-the Agree definition's strength (too strong = vacuous wall, too weak =
-false wall), the a = 0 residue flag in D3, the ±2B invariance-tolerance
-choice in D5.2, and the honest-consumer inhabitation.
+Q6a-1 (defs + instances at the ≤ z fix + evaluations + the pointwise
+rem identity) ∥ Q6a-3 (the two bridge nodes, D6) → Q6a-2 (the concrete
+core rosser_floor_undershoot FIRST, then the tolerant wall + the
+vanishing-proportion corollary + the Φ_lower inhabitation + numeric
+sanity). THE GATE RAN (GO_W_CORRECTIONS, all applied above): three
+tears caught pre-freeze — the ≤ z false lemma, the dead-hypothesis
+flagship, the uninhabited/false corollary — plus the unconditionality
+amendment. The gate report: the exploration ledger, 2026-07-15.
