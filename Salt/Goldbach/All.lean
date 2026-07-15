@@ -15,6 +15,7 @@ import Salt.Goldbach.SwitchBV
 import Salt.Goldbach.Band
 import Salt.Goldbach.Count
 import Salt.Goldbach.WindowSW
+import Salt.Goldbach.PiUpper
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -77,3 +78,4 @@ open Salt.Tactic in
   Salt.Goldbach.goldWindowDisc_le_annulus_sum
   Salt.Goldbach.goldBlockBoxHonestDisc_eq_carrier
   Salt.Goldbach.goldBoxHonestDisc_le_annulus_sum
+  Salt.Goldbach.goldPerPair_pi_upper

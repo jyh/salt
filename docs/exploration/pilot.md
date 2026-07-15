@@ -977,3 +977,23 @@ decisions per question.
   380k, first-attempt each). Ceremony: wired + 7 keystones — full
   build exit 0 (8962 jobs). **N4-ASM-c DISPATCHED — the k=4 finale
   (the four peel bounds + four_bar + no_quad_weight).**
+
+- 2026-07-15 ~17:10 (real ~16:05): **G-PIUPPER COMPLETE — the
+  dyadic-tear keystone, CLEANER than the twin's mechanism** (cost ≈
+  362k tokens / 75 tools / ~65 min vs 250k — the arc's first
+  overrun: one coherent design, ~15 API-drift build iterations, no
+  restart). Salt/Goldbach/PiUpper.lean (527 lines):
+  **goldPerPair_pi_upper** — the sharp per-pair count over the
+  non-dyadic (y, M] via full dyadic descent to y + per-piece
+  crude pricing + telescoping/Abel: the correction is PURELY
+  MULTIPLICATIVE, 1 + (4log2 + 16log3 + 32K)/log y, with **NO
+  additive per-pair remainder** (the twin's +1/L₀ is gone — the
+  Abel identity kills the piece floors). The overshoot is o(1),
+  the razor-margin break avoided. Compiled regression: the summed
+  form matches weightedPairSum' byte-identically ⟹
+  **weightedPairSum'_le_cbar reuses VERBATIM** (as G-COUNT
+  predicted). BYTE-LOCKS for G-COUNT-2: no additive remainder to
+  thread; the correction lives in log y (not log Lval); two extra
+  hypotheses (6 ≤ y, log N ≤ 3 log y — the operating relation).
+  Ceremony: wired + 1 keystone — full build exit 0 (8963 jobs).
+  G-COUNT-2 DISPATCHED.
