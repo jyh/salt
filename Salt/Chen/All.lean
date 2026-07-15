@@ -145,6 +145,7 @@ import Salt.Chen.TwinA2W
 import Salt.Chen.BlockPricing
 import Salt.Chen.PairBijection
 import Salt.Chen.SwitchConstant
+import Salt.Chen.TwinDeficit
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -531,3 +532,12 @@ open Salt.Tactic in
   Salt.Chen.fseq_evensum_tail_le Salt.Chen.evenSum_le_head_add_geomtail
   Salt.Chen.fseq_even_le_crude Salt.Chen.fseq_evensum_tail_crude
   Salt.Chen.fseq_two_le_const_demo
+  Salt.Chen.twin_razor_deficit Salt.Chen.twin_razor_deficit'
+  Salt.Chen.twin_razor_deficit_W Salt.Chen.p1_razor_reduction
+  Salt.Chen.p1_razor_reduction_W Salt.Chen.p2Ind_split
+  Salt.Chen.p2PrimeSum_split Salt.Chen.p2PrimeSumW_split
+  Salt.Chen.heavy_semiprime_obstruction Salt.Chen.p1RazorValue_eq
+  Salt.Chen.deficit_quant_ledger Salt.Chen.p2RazorLHS_ge_of_certs
+  Salt.Chen.e2_lower_of_certs_twinup Salt.Chen.deficit_floor_of_certs
+  Salt.Chen.e2_carrier_inhabited Salt.Chen.p1_carrier_inhabited
+  Salt.Chen.e2W_carrier_inhabited

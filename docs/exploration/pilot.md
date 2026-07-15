@@ -588,3 +588,57 @@ decisions per question.
   odd N the q=2 CRT class is correctly vacuous). Base spine
   axiom-clean. Corrections applied to q1-design.md. WAVES W0+W1
   DISPATCHED (G-IMPORT, G-DENS, G-RES, G-WEIGHT).
+
+- 2026-07-15 ~13:55: **Q5b AXIS B COMPLETE — the conditional deficit
+  + the kernel-checked self-funding no-go** (cost ≈ 164k tokens on
+  the completing run / 25 tools; one API-drop resume mid-task —
+  resumed at the checkpoint, no work lost). Salt/Chen/TwinDeficit.lean
+  (595 lines, imports Assembly + RazorClose only). LANDED: the IsE2
+  carrier + the exact split p2Ind = p1Ind + e2Ind; the honest
+  P₁-razor p1RazorValue := p2RazorLHS − e2PrimeSum;
+  **twin_razor_deficit** (≤ −δ·XW) conditional on TWO NAMED GAPS —
+  GAP-U (an XW-scale UPPER bound on the sifted prime mass = the
+  F-side Rosser chain at s = 4; the corpus has only the f-side
+  lower) and GAP-E (a LOWER bound on the two-factor mass = a
+  Chen-type semiprime count from below; the landed switching layer
+  upper-bounds only) — plus the W-mirror at the live carriers.
+  **THE STRUCTURAL FINDS (unconditional, kernel-checked): (1)
+  deficit_floor_of_certs — the razor can NEVER fund its own deficit
+  (any discharge needs e2lo ≥ 1/200 + δ, strictly above the razor's
+  entire certified output); (2) heavy_semiprime_obstruction — on
+  semiprimes with both factors > y, Chen's weight is identically 1
+  with all three decorations zero: the E2-above-y mass is INVISIBLE
+  to any retuning of the ½-coefficients.** The brief's hoped-for
+  switching route refuted honestly (it upper-bounds the triple
+  mass; the floor lemmas now make the inconsistent-hypothesis
+  workaround impossible to write silently). R4 armed and CLEAR
+  (witnesses certify finite positivity only). Axis sequencing
+  verdict: the deficit lives in e2lo vs a1up, neither θ-dependent
+  at leading order ⟹ DEFAULT C CONFIRMED (Axis A adds nothing B
+  didn't). Ceremony: wired + 17 keystones — full build exit 0.
+
+- 2026-07-15 ~14:00: **G-IMPORT (W0) COMPLETE — the backbone
+  compiles as-imported; ONE SPINE SURPRISE** (cost ≈ 51k tokens /
+  17 tools / ~5 min — under the 60k estimate, first attempt).
+  Salt/Goldbach/Base.lean: the 11-module reuse surface + 5 smoke
+  examples (razor_scalar_margin, cbar_lt, fchain_A1_final, IsP2
+  prime disjunct, normalized_package) all reachable. SPINE FINDING
+  (corrects the inventory): the live tail is Headline4 →
+  **TheHeadline** → Assembly (TheHeadline is LOAD-BEARING, not
+  superseded); and 7 of the 8 "superseded" capstones ARE in
+  ChenTheorem's transitive import closure (via FinA3/AggSum/
+  AssembleA3 stale imports) — import-closure ≠ proof-term
+  dependence, but the claim as posed fails. HOUSE DECISION: no
+  pruning of merged files now (hygiene-list item); G-ASM's brief
+  will mandate MINIMAL imports for the mirrors (fresh files inherit
+  nothing). Ceremony: Salt/Goldbach/All.lean created (house-owned
+  aggregator) + wired into Salt.lean; full build exit 0 (8948 jobs).
+
+- 2026-07-15 ~14:05: **THROTTLE POLICY (JYH-directed): max 4 active
+  agents; work queues.** In flight at adoption: G-DENS, G-RES,
+  G-WEIGHT, N4-ASM-b (= at cap). THE QUEUE (dependency-ordered,
+  dispatched as slots free): 1. Q5b-C (weight-family optimality —
+  A2's default-C confirmed by B); 2. N4-ASM-c (needs b); 3. G-A1,
+  4. G-A2, 5. G-SW (need G-DENS); 6. G-COUNT, 7. G-BAND (W3);
+  8. G-OP; 9. G-ASM (terminal). House work (design passes,
+  ceremonies, ledgers) is not throttled.
