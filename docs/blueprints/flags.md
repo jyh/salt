@@ -7232,3 +7232,18 @@ the band price mirrors sym/low_box_hprice_at_2pow_band. All 7 decls exactly [pro
 Classical.choice, Quot.sound]. Tally: 72 catches, 0 wrong proofs. fin6 = the band window +
 F1-rows(b,c) + F2 + F3 → chen_headline (the handoff lemma list is in the fin5 report,
 recorded in ChenFinal's docstring).
+
+**2026-07-14 fin6 ✅ F0 COMPLETE (ChenFinal2.lean, 8 decls) — CATCH #72 REPAIRED additively;
+the endgame restructures to dedicated row nodes.** d0_window_of_XM_band at floor x^{1/3}/8
+(the honest Lean threshold exp(10^{10}) — fin5's 1.55e9 was the asymptotic; the checkable
+ratio 31/10 > 3 gives 2.7e9, rounded to the clean tower with 3.7× margin; free downstream
+vs Ccon·K ~ 10²³); medium_box_price_at_op_band via the PriceTwo packed-∃ core (the pattern
+paid off exactly as designed); the band price legs _band; band_kfloor_of_live (live band
+box ⟹ y < 2^k via the vanishing contrapositive; x^{1/3}/8 ≤ y at opY). SYM SUBTLETY
+FLAGGED: the single k with pieceN k < y < pieceM k (sym live, max-collapse fails) needs
+its own treatment in the band bundle. All 8 decls exactly [propext, Classical.choice,
+Quot.sound]. THE REMAINING GAP, NAMED: the ~23-row operating-point bundle per price leg —
+every landed consumer defers them as hypotheses; each row is an a12-style tower estimate
+with a PRICE-GATE-verified margin. RESTRUCTURE (Fable): **fin7a (box rows, ChenRows1.lean)
+∥ fin7b (band rows + the sym single-k, ChenRows2.lean) → fin8 (F2 leaves + F3 assembly →
+chen_headline)**. Tally: 72 catches, 0 wrong proofs.
