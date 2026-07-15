@@ -7291,3 +7291,16 @@ hdiag, hCE, hNum → hBVblocksW_at_op → the hA3 bundle; the PDiag:782 Composit
 template verified to emit the exact hA3 shape) → fin8c (F3: the ledger at X_W^Q + the 12
 conjuncts → chen_of_hypotheses_W → chen_headline).** Both decls exactly [propext,
 Classical.choice, Quot.sound]. Tally: 73 catches, 0 wrong proofs.
+
+**2026-07-14 fin8a ✅ FULL first-attempt (MiddleK.lean, 460 lines, 3 decls) — the middle-k
+price lands at N := y; catch #73 FULLY CLOSED; no catch #74.** Every guard closed as
+adjudicated: hM2N ← middle_k_M_le_two_y (no 2^k bridge), the D0 family ←
+d0_window_of_XM_band verbatim at y, the couplings generic at log y, the per-e rows through
+the #69 guard, the analytic rows via the ChenRows2 y-floor engines (+ the one restatement
+hDsq_of_floor), habs weakened internally from the band shape. middle_k_price keeps the sym
+carrier (no rewrite — the conclusion IS the consumer's slot) and the anti-#69 example
+feeds sym_box_price_at_op → PloW_sym_of_box_disc character-for-character. Interface
+matches sym_rows_at_op (residuals hDbnd + habs threaded). All 3 decls exactly [propext,
+Classical.choice, Quot.sound]. Tally: 73 catches, 0 wrong proofs. **The sym dichotomy is
+now COMPLETE (vanish / collapsed / middle-k); every price input of hBVblocksW_discharge'
+has a landed supplier. fin8b = F2; fin8c = F3 → chen_headline.**
