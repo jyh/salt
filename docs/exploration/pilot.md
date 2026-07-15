@@ -340,3 +340,21 @@ decisions per question.
   BV-level" + an open note for the ≤ 6 optimality. N4-CORE dispatched
   (safe under every reframe); N4-ASM scheduling + k=5 debt + the Q2c
   reframe = user decisions.
+
+- 2026-07-15 ~11:50: **N4-CORE COMPLETE — the k=4 analytic core,
+  first attempt** (cost ≈ 106k tokens / 13 tools / ~8 min, Opus —
+  cheaper than the recon's 120–180k estimate).
+  Salt/TwinBar/FourBar.lean (443 lines): carriers R₄/I₄/J₁₄..J₄₄
+  (marginal-innermost, ThreeBar convention); weights w₁₄..w₄₄ with
+  w_sum_four ≡ 4/3; logWeight_third (∫ (a/3+t)⁻¹ = log 4);
+  log_slice_CS_third + the four sliceCS lemmas (interval_CS reused
+  verbatim); the numeric atom four_thirds_log_four_lt_two via
+  log 4 = 2 log 2 + log_two_lt_d9 (cheaper than the k=3 exp route);
+  FourBar as the named Prop + no_quad_weight_of_fourBar (modulo
+  N4-ASM, exactly the k=3 heart pattern). Friction: namespace-clash
+  avoidance vs ThreeBar's un-suffixed names (executor pre-renamed;
+  confirmed no clash at the wired All.lean build); 4-tuple
+  right-nesting projections fine under fun_prop. Ceremony: wired +
+  13 keystones in #audit_axioms — full build exit 0, all ✓
+  [3 axioms]. The M₄ leg of the least-k theorem (amendment A1) now
+  rests only on N4-ASM-a/b/c (gated on the parity wall closing).

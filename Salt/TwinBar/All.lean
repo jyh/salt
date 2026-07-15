@@ -14,6 +14,7 @@ import Salt.TwinBar.Enlarged
 import Salt.TwinBar.ThreeBar
 import Salt.TwinBar.Constrained
 import Salt.TwinBar.ThreeBarAsm
+import Salt.TwinBar.FourBar
 import Salt.TwinBar.ParityWall
 import Salt.Tactic.AuditAxioms
 
@@ -78,3 +79,11 @@ open Salt.Tactic in
   Salt.TwinBar.siftedSum_sPlus Salt.TwinBar.siftedSum_sMinus
   Salt.TwinBar.lambda_mult_sum Salt.TwinBar.sPlus_rem_bound
   Salt.TwinBar.sMinus_rem_bound Salt.TwinBar.sieveAgree_pair
+  Salt.TwinBar.I₄_nonneg Salt.TwinBar.J₁₄_nonneg Salt.TwinBar.J₂₄_nonneg
+  Salt.TwinBar.J₃₄_nonneg Salt.TwinBar.J₄₄_nonneg
+  Salt.TwinBar.w_sum_four Salt.TwinBar.logWeight_third
+  Salt.TwinBar.log_slice_CS_third
+  Salt.TwinBar.sliceCS₁₄ Salt.TwinBar.sliceCS₂₄
+  Salt.TwinBar.sliceCS₃₄ Salt.TwinBar.sliceCS₄₄
+  Salt.TwinBar.four_thirds_log_four_lt_two
+  Salt.TwinBar.no_quad_weight_of_fourBar
