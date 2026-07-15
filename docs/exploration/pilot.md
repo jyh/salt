@@ -1084,3 +1084,48 @@ decisions per question.
   Dirichlet bridge = registered debt. SPRINT SCOREBOARD: Q2 ✓ Q3 ✓
   Q4 ✓ Q5 ✓ Q6a ✓; Q1 at 12/16 nodes; Q6b design block = the
   remaining slate item.**
+
+- 2026-07-15 ~18:30: **POST-SPRINT DIRECTIVE (JYH): "we should
+  revisit local-zero-density when we are done with the sprint"** —
+  the N(T)/local-zero-density design arc (the Rb-4 verdict-D debt;
+  discharging it makes the parity wall unconditional and unlocks
+  zero-density technology) is RATIFIED as the first post-sprint
+  work item. The route per the D-conversion doctrine: a Fable
+  design arc decomposing Riemann–von Mangoldt into gated C-nodes
+  (the SW-contour-arc pattern), not a D dispatch. Queued ahead of
+  the release lane's remaining items.
+
+- 2026-07-15 ~18:35: **Q6b-RECON COMPLETE — the door has a
+  freeze-ready shape and a THEOREM-LEVEL DICHOTOMY close** (cost ≈
+  168k tokens / 32 tools / ~8 min). THE HINGE (deliverable 1): the
+  wall's tolerance quantifies over everything the main term +
+  pooled |·|-budget can see; the ONLY escaping read is the SIGN of
+  the weights inside multSum (the λ ↦ −λ involution preserves
+  SieveAgree — the |rem| bounds are literally identical on the
+  pair); Chen's switch is the kernel-checked proof-of-life that a
+  certificate CAN read at signed resolution (the α⊗β bilinear
+  decomposition). THE CENSUS (deliverable 2, brutal per the Q5a
+  lesson): (i) the FI-style twin type-II form — the ‖·‖ upper half
+  is LANDED (windowed_bilinear_BV), the twin implication crosses to
+  open exactly at upper→asymptotic-lower (the P₁ lower sieve, the
+  large-sieve level-1/2 wall); (ii) TwinLambda (λ(n)λ(n+2)
+  cancellation over the landed Liouville carriers) — beautiful but
+  open on BOTH premise (fixed-shift Chowla) and implication (zero
+  λ→Λ transfer) — board sibling, NOT the door; (iii) Heath-Brown/
+  Siegel — needs the same N(T) stack Rb-4 verdict-D'd, and is the
+  wrong genre (doesn't go through the sieve interface) — board
+  sibling. RECOMMENDATION: freeze (i) as TwinB_min := ∃ θ > 1/2,
+  TwinTypeII θ (the MAIN-TERM-carrying twin bilinear asymptotic
+  over apDiscBilinCutoff/p1PrimeSum); ship TwinB_min ⟹
+  TwinPrimeConjecture at B/C (the main term dominates + the landed
+  survivor endgame re-pointed); **the wall∧door DICHOTOMY as a
+  cheap corollary of the landed no_parity_beating_certificate:
+  every lower-bound certificate is EITHER SieveAgree-tolerant (and
+  parity-blind — the wall) OR a signed-weights reader (the door)**;
+  anti-vacuity incl. the twinSingularSeries > 0 obligation (the
+  F≡1 alarm: a zero main term must not satisfy the Prop) and the
+  R4 discipline (a level-θ asymptotic with explicit saving, never
+  a raw lower bound). The deep D-gap (proving TwinB_min) is
+  STATED-NOT-ATTEMPTED = flagship Challenge 2 + board entry #2.
+  Est. in-sprint total ~430–630k (gate + one B/C executor).
+  DESIGN FREEZE next (house), then the gate.
