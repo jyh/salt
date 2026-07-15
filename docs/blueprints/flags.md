@@ -6947,3 +6947,22 @@ green; it had sat untracked through two agent interruptions — checkpoint disci
 Tally: 69 catches, 0 wrong proofs. NEXT: PRICE-1 (the uniform per-box lemma per the gate's
 row table: SW couplings chosen minimal, the N' = 2^k bridge, the PASS* box rows, the guarded
 per-e rows via d0_window conjunct 7).
+
+**2026-07-14 PRICE-1 ✅ FULL first-attempt (PriceOne.lean, 450 lines) — THE UNIFORM PER-BOX
+PRICE LEMMA LANDS; no catch #70.** `medium_box_price_at_op`: for a generic dyadicBoundary
+survivor at A=13/B=15/C0=18, medium_survivor_price_sqrtD applies with EVERYTHING PRICE-1-
+owned discharged — SW couplings at the minimal shapes K·L^{A+C0}/logN^{A+2C0}-family
+(hcoupG/hcoup3 with EQUALITY; herr_book4 per-e via log(⌊X/e⌋M) ≤ L), the guarded per-e rows
+via bridge_scale (L ≤ 2·log(⌊X/e⌋M) at e ≤ X from X < 2⌊X/e⌋e + e ≤ √(XM)/L^B + L^{2B} ≥ 4
+— the catch-#69 repair exercised end-to-end), the D0 family via d0_window_nonempty verbatim
+(exponent identities 15 = 13+2, 17 = 13+4), Finding C via GlueBV's ALREADY-LANDED
+blockPrimeInd_pieceN_eq (the executor found the gate's "missing" bridge in the corpus and
+de-duplicated — cutoff_BV_at_op is the D<N sibling/template of the new lemma); conclusion
+transported to blockPrimeInd (pieceN k) via sum_norm_apDiscBilinCutoff_pieceN, Kerr form the
+terminal's own. 27 named analytic rows remain (GlueFinal/opf_*-shaped, the gate's PASS*
+list — PRICE-3 discharges). SATISFIABILITY WITNESSED (the anti-#69 discipline): box
+inhabitation by decide + bridge_scale firing at a concrete shape whose e > X instance was
+#69's 0 < 0. RESTRICTION: N ≥ x^{11/24}/8 (d0_window's floor) — the finding-3 strip
+[x^{7/16}/4.9, x^{11/24}/8) is PRICE-2's. All declarations exactly [propext,
+Classical.choice, Quot.sound]. NEXT: PRICE-2 (the lower-floor d0 variant + the sym/low band
+price variants + the strip extension).
