@@ -805,3 +805,29 @@ decisions per question.
   / actual 787k, all first-attempt. W3 UNLOCKED: G-COUNT + G-BAND
   dispatched (active: N4-ASM-b, G-COUNT, G-BAND; one slot held for
   N4-ASM-c).**
+
+- 2026-07-15 ~16:30: **G-BAND: STOP-AND-FLAG (the D5 ≥2× rule fires,
+  attempt 1) — the band chain re-cut into four nodes; two S2 kernels
+  landed as the down-payment** (cost ≈ 187k tokens / 20 tools / ~12
+  min). THE MEASUREMENT: the terminal gold_hBVblocksW_discharge'
+  chain is NOT carrier-generic — Chen.blockBox_windowDisc_eq_res
+  (WindowSW:565) hard-wires the twin TOP-half window as a DIFFERENCE
+  of two apDiscBilinCutoff cutoffs; goldTripleSet's BOTTOM-half
+  window (G-SW's recorded novelty) reshapes the identification to a
+  SINGLE cutoff — the box/band/diagonal chain is a genuine
+  re-derivation (~1500–2500 lines: SwitchW2 1118 + PDiag 902 +
+  BandIdent 751 + BandClose 492 + WindowSW), a wave not a node.
+  LANDED (Salt/Goldbach/Band.lean, 92 lines, both keystones
+  3-axiom): gold_dvd_sub_of_resG (the S2 divisibility at the
+  reflected class — the ℕ-subtraction direction flips and is
+  handled) + gold_diag_residue_crumb (the divisor-count residue leg,
+  rough_divisor_crumb reused verbatim). VERBATIM-CONFIRMED: the
+  whole bilinear/Kerr pricing engine + pair bijection + the diagonal
+  N-free ingredients are generic (no mirror needed). RE-CUT ADOPTED
+  (design table amended): G-WINDOWSW (C, de-risk recon FIRST — the
+  single-cutoff reshape is the risk) → G-BANDIDENT (B) ∥ → G-SW2
+  (B/C) → G-PDIAG (C, the terminal). Chen-2 grows 11 → 14 nodes;
+  the estimate moves back toward the recon's original ≈2.9M (the
+  early waves' savings partly spent here — the honest coefficient).
+  Ceremony: wired + 2 keystones — full build exit 0 (8958 jobs).
+  G-WINDOWSW-recon dispatched (the de-risk pass).

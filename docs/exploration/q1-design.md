@@ -80,7 +80,17 @@ STOP AND FLAG.
 | W2 | G-A2 | goldA2SieveW + aggregation | B | 280k |
 | W2 | G-SW | goldSwitch{Sieve,W,Blocks,BV}. **GATE FINDING: the {q∣N} unit seam VANISHES** — goldPs excludes q∣N so Coprime N d is free for all d∣Ps; the Q-level residue is a unit via G-RES's Coprime Q (N−a); the AggCE conversion crumb is entirely N-free. Downgraded from THE RISK NODE; expect strong reuse. | B/C | 350k (over-budgeted) |
 | W3 | G-COUNT | goldTripleCount/WeightedCount/CountFinal/CountW/CountAtOp*/CountClose | B | 380k |
-| W3 | G-BAND | goldPairBijection/Band*/PDiag/SwitchDyadic/Pricing/Strip/W2/Agg*/BlockPricing | B | 380k |
+| W3 | ~~G-BAND~~ **RE-CUT 2026-07-15 (the D5 ≥2× rule fired — the band
+chain is NOT carrier-generic: the twin's top-half window is a
+DIFFERENCE of two apDiscBilinCutoff cutoffs; the bottom-half
+goldTripleSet reshapes to a SINGLE cutoff — a ~1500–2500-line genuine
+re-derivation). G-BAND's partial landed (Band.lean: the two S2
+kernels gold_dvd_sub_of_resG + gold_diag_residue_crumb). Replaced by
+four nodes:** | | |
+| W3a | **G-WINDOWSW** ⚠ | the bottom-half window identification (single-cutoff gold_blockBox_windowDisc_eq_res) + box counts (WindowSW + SwitchW2 A–C). DE-RISK RECON FIRST (the single-cutoff reshape is the risk gate). | C | 400k |
+| W3a | G-BANDIDENT | band identifications + pair bijection (BandIdent/BandClose/BandSplit) | B | 300k |
+| W3b | G-SW2 | hBlockW_of_window_prices / hNum_at_opW / PloW_sym/low / band close (SwitchW2 D–G) | B/C | 350k |
+| W3b | G-PDIAG | the diagonal aggregate (consumes Band.lean's kernels) + the terminal gold_hBVblocksW_discharge' (PDiag) | C | 350k |
 | W4 | G-OP | goldHeadlineW2 op-facts (opP_N, opA_N, a12_h* bundles) | B/C | 330k |
 | W4 | G-ASM | goldAssembly (positivity/survivor/factors_ge_z + the ∀N wrapper) + goldFinA3/FinLed/Headline4 + the terminal chen_goldbach | C | 380k |
 

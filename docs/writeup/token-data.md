@@ -79,6 +79,7 @@ min FIN-A3b at 147k — the mechanical restatements).
 | G-A1 | 239 | A₁ pair first-attempt; divisor_cases dissolves; crtClassA1 catch |
 | G-A2 | 249 | A₂ layer first-attempt; punctured-window byte-lock for G-COUNT |
 | G-SW | 299 | switch layer; W2 closes; zero odd-d casework |
+| G-BAND | 187 | STOP-AND-FLAG ≥2×; band chain re-cut ×4; 2 kernels landed |
 
 Exploration total so far ≈ **1.54 M**; recon median ≈ 100k; probe
 median ≈ 200k. (Q2-ASM in flight at recording time.)

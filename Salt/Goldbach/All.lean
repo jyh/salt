@@ -12,6 +12,7 @@ import Salt.Goldbach.A1W
 import Salt.Goldbach.A2W
 import Salt.Goldbach.Switch
 import Salt.Goldbach.SwitchBV
+import Salt.Goldbach.Band
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -66,3 +67,4 @@ open Salt.Tactic in
   Salt.Goldbach.gold_nonunit_forces_fst_dvd Salt.Goldbach.gold_hCE_at_op
   Salt.Goldbach.norm_goldSemiprimeBlockInd_le_one
   Salt.Goldbach.gold_switch_coprime_N
+  Salt.Goldbach.gold_dvd_sub_of_resG Salt.Goldbach.gold_diag_residue_crumb
