@@ -69,6 +69,7 @@ min FIN-A3b at 147k — the mechanical restatements).
 | N4-ASM-GATE | 142 | GO_W_CORRECTIONS — the J₃₄ peel-order tear |
 | Q1-INV | 256 | census validated; no re-certification; wave plan |
 | N4-ASM-a | 174 | size-s 3-D layer, first-build-clean, half budget |
+| Q1-GATE | 179 | GO_W_CORR — X_W passes at proof level; G-SW seam vanishes |
 
 Exploration total so far ≈ **1.54 M**; recon median ≈ 100k; probe
 median ≈ 200k. (Q2-ASM in flight at recording time.)

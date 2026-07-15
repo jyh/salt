@@ -562,3 +562,29 @@ decisions per question.
   codepoints. Ceremony: wired + 13 keystones — full build exit 0,
   all ✓ [3 axioms]. N4-ASM-b DISPATCHED on the byte-locked
   interface.
+
+- 2026-07-15 ~13:35: **Q1-GATE: GO_W_CORRECTIONS — the X_W
+  cancellation PASSES AT PROOF LEVEL; the G-SW seam VANISHES; one
+  real correction** (cost ≈ 179k tokens / 28 tools / ~17 min, Opus).
+  (1) ATTACK 1 (the load-bearing fact) SOUND: razor_of_normalized +
+  hledger_at_certs take XW as a FREE positive real (the razor is
+  XW-agnostic); totalMass = (ΣΛ)/φ(Q) is 𝔖_N-free; 𝔖_N lives only
+  in W (the modulus); the c̄ count bridge's tripleSum is a pure
+  N-free triple count; 𝔖_N cancels in Wy/Wz (both W's from the same
+  modulus family). The dimensionless margin survives UNCHANGED;
+  fchain_A1_final confirmed DEPTH-UNIFORM (∀ N ≥ 2, ∀ s ∈
+  [3.9992,4]) so the Goldbach maxDepth is covered. The
+  no-recertification verdict HOLDS at proof level. (2) ATTACK 2:
+  the {q∣N} unit seam VANISHES (goldPs excludes q∣N ⟹ Coprime N d
+  free on all d∣Ps; Q-level absorbed by G-RES; the AggCE crumb
+  N-free) — G-SW downgraded from risk node, over-budgeted. (3) THE
+  CORRECTION: W_ratio_upper's hwin hypothesis (window difference =
+  ALL primes in [z,y)) is FALSE for Goldbach — G-DENS must prove a
+  NEW window_prod_upper_punctured (prod_sdiff factoring + the
+  exp(8/(z−2)) correction via ≤ 8 large prime divisors); numerics
+  astronomically comfortable (e^{−4.25×10⁶} vs 1.26×10⁻³ slack),
+  both directions checked. (4) The frozen statement passes (IsP2 2
+  admits q prime; Even N load-bearing and correctly placed — for
+  odd N the q=2 CRT class is correctly vacuous). Base spine
+  axiom-clean. Corrections applied to q1-design.md. WAVES W0+W1
+  DISPATCHED (G-IMPORT, G-DENS, G-RES, G-WEIGHT).

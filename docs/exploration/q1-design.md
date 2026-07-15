@@ -46,10 +46,18 @@ STOP AND FLAG.
    (`coprime_sub_two` TwinA1:221 → `Coprime d N` from `Coprime P_N N`;
    consumers: apDisc_le TwinA1:242, crt_class_coprime TwinA1W:208,
    rosserRemainderW_le_split TwinA1W:457, rosserRemainderW2_le_split
-   TwinA2W:426, divisor_cases BVSum:184); the W-ratio residual: primes
-   q ∣ N in [z, y) leave ≤ ω(N)·N^{−1/8} = o(1/log z), absorbed by
-   the window_prod slack (constants 25/38 per log z — bump if needed,
-   flag the bump).
+   TwinA2W:426, divisor_cases BVSum:184); **the W-ratio residual
+   (GATE CORRECTION, 2026-07-15): a NEW sibling lemma
+   `window_prod_upper_punctured` over `primesInWindow z y \ {q ∣ N}`
+   — NOT a reuse of W_ratio_upper, whose `hwin` hypothesis (window
+   difference = ALL primes in [z,y)) is FALSE for Goldbach.** Route:
+   `Finset.prod_sdiff` factoring ∏_{subset} = ∏_{all} /
+   ∏_{q∣N, z≤q<y}(1−ν(q)), then the correction ∏(q−1)/(q−2) ≤
+   exp(Σ_{q∣N, q≥z} 1/(q−2)) ≤ exp(8/(z−2)) via #{q ∣ N : q ≥ N^{1/8}}
+   ≤ 8. Numerics comfortable: at the landed threshold log x ≥ 3.4×10⁷
+   the residual ≈ e^{−4.25×10⁶} vs budget slack ~1.26×10⁻³; both
+   perturbation directions verified safe (rho up = negligible sliver;
+   XW crumbs improve).
 2. **G-RES (B).** `∃ a < Q, Coprime Q a ∧ Coprime Q (N − a) ∧
    ∀ q ∈ Q.primeFactors, a % q ∉ {0, N % q}` — CRT over the FIXED
    opQ; nonvacuity q ≥ 3 ⟹ ≥ q−2 free classes (q ∣ N ⟹ q−1); q = 2
@@ -70,7 +78,7 @@ STOP AND FLAG.
 | W1 | G-WEIGHT | window_two_thirds_lt mirror at N−n | A | 80k |
 | W2 | G-A1 | goldA1Sieve(/W) + goldBVSum (divisor_cases mirror) | B/C | 330k |
 | W2 | G-A2 | goldA2SieveW + aggregation | B | 280k |
-| W2 | **G-SW** ⚠ | goldSwitch{Sieve,W,Blocks,BV}: **the {q∣N} unit seam** (switch_dvd_coprime_two SwitchBV:88, nonunit_forces_fst_dvd AggCE:75) — the finite exceptional-modulus split in the switched remainder, x^{o(1)} scale. THE RISK NODE. | C | 350k |
+| W2 | G-SW | goldSwitch{Sieve,W,Blocks,BV}. **GATE FINDING: the {q∣N} unit seam VANISHES** — goldPs excludes q∣N so Coprime N d is free for all d∣Ps; the Q-level residue is a unit via G-RES's Coprime Q (N−a); the AggCE conversion crumb is entirely N-free. Downgraded from THE RISK NODE; expect strong reuse. | B/C | 350k (over-budgeted) |
 | W3 | G-COUNT | goldTripleCount/WeightedCount/CountFinal/CountW/CountAtOp*/CountClose | B | 380k |
 | W3 | G-BAND | goldPairBijection/Band*/PDiag/SwitchDyadic/Pricing/Strip/W2/Agg*/BlockPricing | B | 380k |
 | W4 | G-OP | goldHeadlineW2 op-facts (opP_N, opA_N, a12_h* bundles) | B/C | 330k |
