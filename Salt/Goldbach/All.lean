@@ -14,6 +14,7 @@ import Salt.Goldbach.Switch
 import Salt.Goldbach.SwitchBV
 import Salt.Goldbach.Band
 import Salt.Goldbach.Count
+import Salt.Goldbach.WindowSW
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -70,3 +71,9 @@ open Salt.Tactic in
   Salt.Goldbach.gold_switch_coprime_N
   Salt.Goldbach.gold_dvd_sub_of_resG Salt.Goldbach.gold_diag_residue_crumb
   Salt.Goldbach.goldCard_le_pairSum Salt.Goldbach.goldTripleSum_le_pairSum
+  Salt.Goldbach.goldBlockBox_windowed_pair_card
+  Salt.Goldbach.goldBlockBox_windowDisc_eq_res
+  Salt.Goldbach.goldBlockBox_windowDisc_eq_res_annulus
+  Salt.Goldbach.goldWindowDisc_le_annulus_sum
+  Salt.Goldbach.goldBlockBoxHonestDisc_eq_carrier
+  Salt.Goldbach.goldBoxHonestDisc_le_annulus_sum

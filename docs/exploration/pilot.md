@@ -935,3 +935,23 @@ decisions per question.
   flip's re-opening of five ceremonied nodes on an un-reconned
   design belief. The window-flip lesson stands recorded for the
   taxonomy; no retrofit.
+
+- 2026-07-15 ~16:35 (real ~15:40): **G-WINDOWSW COMPLETE — Opt-A
+  vindicated first-attempt** (cost ≈ 285k tokens / 65 tools / ~31
+  min vs 400k). Salt/Goldbach/WindowSW.lean (499 lines): the goldCut
+  annulus family (T_k = min(2^k, N/2); goldCut_succ_le_two_mul IS
+  the factor-2 hT slot — dyadicBoundary_card_le_three consumable
+  per annulus); the general-cutoff identification (the twin's
+  hard-wired (x, x/2+1) pair GENERALIZED to arbitrary (Tlo, Thi] —
+  each annulus is a genuine window filter, the ±1 boundary worked
+  honestly); the telescoping outer sum; the Φ_k reassembly ending
+  at goldBoxHonestDisc_le_annulus_sum (the hHD analogue with the
+  extra Σ_{k ≤ ⌊log₂N⌋} explicit — the ONE log Opt-A pays, now
+  kernel-certified as ⌊log₂N⌋ + 1 annuli). REUSE MEASURED: ~60%
+  verbatim/mirror, ~40% new annulus plumbing; the twin's PRIVATE
+  pair-uniqueness lemmas had to be restated (the private wall
+  again — third occurrence, now a standing pattern for the
+  method paper). BYTE-LOCK for G-SW2: price each annulus via
+  box_disc_three_way verbatim, consume BV at A+1; the box objects
+  are OWNED here (import, never redefine). Ceremony: wired + 6
+  keystones — full build exit 0 (8961 jobs). G-BANDIDENT DISPATCHED.
