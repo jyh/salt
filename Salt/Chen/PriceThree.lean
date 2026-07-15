@@ -165,20 +165,29 @@ theorem maxBlock_eq_zero_of_eps_self {x z : ℕ} (hz : 1 ≤ z) (hx : 1 ≤ x) :
   calc Real.log ((x : ℝ) / (z : ℝ)) ≤ Real.log (x : ℝ) := Real.log_le_log hxz_pos hxz_le
     _ < Real.log (1 + (x : ℝ)) := Real.log_lt_log hxpos (by linarith)
 
-/-! ## 4. The boundary reconciliation (deliverable 3 wiring; the pieceN ↔ 2^k seam)
+/-! ## 4. The boundary reconciliation (deliverable 3 wiring; the pieceN ↔ 2^k seam, RESOLVED)
 
-**The seam.**  The consumer `hBVblocksW_discharge'` prices the box leg over
-`dyadicBoundary (pieceN k) (pieceM k) (x/2+1) x (z·y) K`, but the box-price terminal
-`medium_box_price_at_op` demands the boundary at `N = 2^k` (Finding C: `pieceM k = 2·pieceN k + 1`
-so the terminal's `M ≤ 2N` needs `N = 2^k = pieceN k + 1`, NOT `pieceN k`).  The only
-`N`-dependent boundary clause is `2^i·(N+1) ≤ T₂`, and `pieceN k + 1 = 2^k ≤ 2^k + 1 = (2^k)+1`,
-so `dyadicBoundary (2^k) ⊆ dyadicBoundary (pieceN k)` (`boundary_2pow_subset_pieceN`).  The
-containment is the WRONG way for a direct discharge — the consumer's boundary is the LARGER one.
-The extra "edge" boxes `i ∈ dyadicBoundary (pieceN k) \ dyadicBoundary (2^k)` satisfy
-`2^i·2^k ≤ x < 2^i·(2^k+1)`, i.e. `2^i ∈ (x/(2^k+1), x/2^k]`, an interval of ratio
-`1 + 2^{-k} < 2`, so it contains **at most one power of `2`**: `≤ 1` edge box per piece `k`.
-`box_hprice_at_2pow` prices every box in the `2^k`-boundary; the `≤ 1` edge box per piece is the
-remaining PRICE-3 seam (see the report / flags PRICE-3 entry). -/
+**The seam and its catch-#71 resolution.**  The consumer `hBVblocksW_discharge'` prices the box
+leg over `dyadicBoundary (pieceN k) (pieceM k) (x/2+1) x (z·y) K`.  Originally
+`medium_box_price_at_op` demanded the boundary at `N = 2^k` (Finding C: `pieceM k = 2·pieceN k+1`
+so the terminal's `M ≤ 2N` needs `N = 2^k`), and since `pieceN k + 1 = 2^k`, only the corner
+clause `2^i·(N+1) ≤ T₂` distinguishes the two — the `2^k`-corner `2^i·(2^k+1) ≤ x` is STRICTLY
+stronger than the pieceN-corner `2^i·2^k ≤ x`, so `dyadicBoundary (2^k) ⊆ dyadicBoundary (pieceN k)`
+(`boundary_2pow_subset_pieceN`), the WRONG way for a direct discharge.  The `≤ 1` "edge" box per
+piece `i ∈ dyadicBoundary (pieceN k) \ dyadicBoundary (2^k)` (window `2^i ∈ (x/(2^k+1), x/2^k]`,
+ratio `1 + 2^{-k} < 2`) was catch #71: for `2^k > x^{7/16}` its carrier is live yet it resisted
+both the vanish and the `2^k`-boundary price routes.
+
+**Catch #71, ratified option (a) — the corner relaxation.**  `medium_box_price_at_op(_lo)`,
+`medium_box_price_core`, and all three `*_hprice_at_2pow` now take the pieceN-boundary membership
+directly (weak corner `2^i·2^k ≤ x`).  The proofs rebuild the `D0`-window from the raw scale facts
+`x/2+1 < X·M ≤ 4x` (`d0_window_of_XM`/`d0_window_of_XM_lo`, PriceOne §4b / PriceTwo §1b) — which
+the WEAK corner supplies IDENTICALLY (`X·M ≤ 2^{i+1}·(2·2^k) = 4·2^i·2^k ≤ 4x`, NO degradation:
+the `4x` bound is unchanged, `d0_window_nonempty` never used the `+1` slack).  So
+`box_hprice_at_2pow` now prices EVERY box of the FULL pieceN-boundary, edge box included.  The
+trichotomy (vanish / `2^k`-priced / edge) COLLAPSES to a **dichotomy** (vanish / priced) over the
+pieceN-boundary: the former edge box is now on the "priced" side (or vanishes).
+`boundary_2pow_subset_pieceN` survives as a historical fact (unused by the discharge). -/
 
 /-- **`boundary_2pow_subset_pieceN` (deliverable 3 wiring).**  The `2^k`-boundary (what
 `medium_box_price_at_op` prices) is contained in the `pieceN k`-boundary (what the consumer
@@ -196,24 +205,26 @@ theorem boundary_2pow_subset_pieceN (k M T₁ T₂ F K : ℕ) :
   rw [hpk]
   exact le_trans (Nat.mul_le_mul_left _ (by omega : (2 : ℕ) ^ k ≤ 2 ^ k + 1)) hc1
 
-/-! ## 5. The per-box price at the `2^k`-boundary (deliverable 3, the box leg)
+/-! ## 5. The per-box price over the pieceN-boundary (deliverable 3, the box leg)
 
 `box_hprice_at_2pow` composes the carrier bridge (`norm_box_leg_le_one`), the Dset bookkeeping
 (`one_le_of_mem_QImage`/`crtClassW_coprime_of_mem`/`le_D_of_mem_QImage`), and TWO applications of
 PriceOne's `medium_box_price_at_op` (at `T = x` and `T = x/2+1`, same `T`-independent bound) into
 the consumer's box `hprice` slot: the box leg's HONEST two-`T` sum over the `Q`-shifted image
 family is `≤ 2·(the box price)`.  The `Price j k i := 2·(Kerr bound)`, feeding the `hprice` slot of
-`hBVblocksW_discharge'` at every box of the `2^k`-boundary.  Everything except the 27 named
+`hBVblocksW_discharge'` at every box of the pieceN-boundary (catch #71: the corner-relaxed
+terminal now prices the full pieceN-boundary, edge box included).  Everything except the 27 named
 analytic rows (GlueFinal/`opf_*`-shaped, at `X = 2^{i+1}−1`, `M = pieceM k`, `N = 2^k`) is
 discharged internally.  The `Q`/`Ps`/`a` coprimality side conditions are the operating
 `opf_QPs`/`opf_Qa2`/`opf_Psodd`. -/
 
-/-- **`box_hprice_at_2pow` (deliverable 3, the box leg).**  At the `2^k`-boundary, the box-leg
-two-`T` `hprice` sum is `≤ 2·(the Kerr box price)` — PriceOne's `medium_box_price_at_op` applied
-twice, with the carrier `≤ 1`-norm and the `Q`-image Dset rows discharged internally.  The
-surviving inputs are the 27 named analytic rows (the operating-point facts PRICE-3's row table
-supplies) and the `Q·bound ≤ D` conductor row.  Directly slots the `Price j k i := 2·Kerr`
-value into `hBVblocksW_discharge'`'s box `hprice` for every `2^k`-boundary box. -/
+/-- **`box_hprice_at_2pow` (deliverable 3, the box leg).**  Over the pieceN-boundary (catch #71
+corner relaxation), the box-leg two-`T` `hprice` sum is `≤ 2·(the Kerr box price)` — PriceOne's
+`medium_box_price_at_op` applied twice, with the carrier `≤ 1`-norm and the `Q`-image Dset rows
+discharged internally.  The surviving inputs are the 27 named analytic rows (the operating-point
+facts PRICE-3's row table supplies) and the `Q·bound ≤ D` conductor row.  Directly slots the
+`Price j k i := 2·Kerr` value into `hBVblocksW_discharge'`'s box `hprice` for every pieceN-boundary
+box. -/
 theorem box_hprice_at_2pow (z y Ps Q a : ℕ) (hQ1 : 1 ≤ Q) (hPspos : 0 < Ps)
     (hQPs : Nat.Coprime Q Ps) (hQa2 : Nat.Coprime Q (a + 2))
     (hPodd : ∀ p ∈ Ps.primeFactors, 3 ≤ p) :
@@ -221,7 +232,7 @@ theorem box_hprice_at_2pow (z y Ps Q a : ℕ) (hQ1 : 1 ≤ Q) (hPspos : 0 < Ps)
       ∀ (x : ℕ) (ε₀ : ℝ) (j k i : ℕ) (Lb : ℝ) (F Krange X : ℕ) (QR : ℝ) (Dlev D : ℕ),
         2 ≤ k →
         Real.exp (10 ^ 9) ≤ (x : ℝ) →
-        i ∈ dyadicBoundary (2 ^ k) (pieceM k) (x / 2 + 1) x F Krange →
+        i ∈ dyadicBoundary (pieceN k) (pieceM k) (x / 2 + 1) x F Krange →
         X = 2 ^ (i + 1) - 1 →
         (x : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ ((2 ^ k : ℕ) : ℝ) →
         N₀ ≤ 2 ^ k →
@@ -307,7 +318,7 @@ theorem sym_box_hprice_at_2pow (z y Ps Q a : ℕ) (hQ1 : 1 ≤ Q) (hPspos : 0 < 
         2 ≤ k →
         y ≤ pieceN k →
         Real.exp (10 ^ 9) ≤ (x : ℝ) →
-        i ∈ dyadicBoundary (2 ^ k) (pieceM k) (x / 2 + 1) x F Krange →
+        i ∈ dyadicBoundary (pieceN k) (pieceM k) (x / 2 + 1) x F Krange →
         X = 2 ^ (i + 1) - 1 →
         (x : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ ((2 ^ k : ℕ) : ℝ) →
         N₀ ≤ 2 ^ k →
@@ -386,7 +397,7 @@ theorem low_box_hprice_at_2pow (z y Ps Q a : ℕ) (hQ1 : 1 ≤ Q) (hPspos : 0 < 
       ∀ (x : ℕ) (ε₀ : ℝ) (j k i : ℕ) (Lb : ℝ) (F Krange X : ℕ) (QR : ℝ) (Dlev D : ℕ),
         2 ≤ k →
         Real.exp (10 ^ 9) ≤ (x : ℝ) →
-        i ∈ dyadicBoundary (2 ^ k) (pieceM k) (x / 2 + 1) x F Krange →
+        i ∈ dyadicBoundary (pieceN k) (pieceM k) (x / 2 + 1) x F Krange →
         X = 2 ^ (i + 1) - 1 →
         (x : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ ((2 ^ k : ℕ) : ℝ) →
         N₀ ≤ 2 ^ k →

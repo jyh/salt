@@ -254,6 +254,220 @@ theorem log_efold_le (X M e : ℕ) :
   · rw [h0, Nat.cast_zero, Real.log_zero]; exact Real.log_natCast_nonneg _
   · exact Real.log_le_log (by exact_mod_cast hpos) (by exact_mod_cast hle)
 
+/-! ## 4b. The `D0`-window from raw `X·M` bounds (catch #71 repair core)
+
+**Why this exists (catch #71, ratified option (a)).**  The landed `d0_window_nonempty`
+(`SqrtDFold`) consumes the `2^k`-boundary membership through its STRONG corner clause
+`2^i·(2^k+1) ≤ x`; but the consumer supplies only the pieceN-boundary (weak corner
+`2^i·2^k ≤ x`).  The `d0_window_nonempty` construction, however, only ever uses the corner to
+derive the two scale facts `x/2 < X·M ≤ 4x` — and the WEAK corner delivers `X·M ≤ 4x` just as
+the strong one does (`X·M ≤ 2^{i+1}·M ≤ 2^{i+1}·(2·2^k) = 4·2^i·2^k ≤ 4x`, no `+1` slack
+needed).  So we factor the raw-bounds core here: it takes `x/2+1 < X·M` and `X·M ≤ 4x`
+directly, reproducing `d0_window_nonempty`'s IDENTICAL 9-conjunct conclusion at the same `N`.
+The pieceN-boundary price lemmas call it with the weak corner in hand — there is NO degradation
+(the `4x` upper bound is unchanged).  `SqrtDFold`'s `d0_window_nonempty` is left untouched. -/
+
+/-- **`d0_window_of_XM` (catch #71 repair core).**  The `D0`-window construction stripped of the
+boundary membership: from the raw scale facts `x/2+1 < X·M` and `X·M ≤ 4x` (which BOTH the strong
+`2^k`-corner and the weak pieceN-corner supply — see the section note), at the operating point
+(`x ≥ exp(10^9)`, block floor `x^{11/24}/8 ≤ N`) emits the IDENTICAL 9-conjunct conclusion of
+`SqrtDFold.d0_window_nonempty`.  Body verbatim `d0_window_nonempty` from the `L`-bounds onward. -/
+theorem d0_window_of_XM {x N M X : ℕ}
+    (hx : Real.exp (10 ^ 9) ≤ (x : ℝ))
+    (hNfloor : (x : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ (N : ℝ))
+    (hXMlo : x / 2 + 1 < X * M)
+    (hXMhi : X * M ≤ 4 * x) :
+    ∃ D0 k0 : ℕ, D0 = 2 ^ k0 ∧ 2 ≤ D0
+      ∧ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((15 : ℝ)) ≤ 2 * (2 : ℝ) ^ k0
+      ∧ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((17 : ℝ)) ≤ (D0 : ℝ)
+      ∧ (D0 : ℝ) ≤ (Real.log ((X : ℝ) * (M : ℝ))) ^ ((18 : ℝ))
+      ∧ (D0 : ℝ) ≤ (Real.log N) ^ ((18 : ℝ))
+      ∧ (∀ LE : ℝ, Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * LE → (D0 : ℝ) ≤ LE ^ ((18 : ℝ)))
+      ∧ (D0 : ℝ) ≤ (x : ℝ) ^ ((11 : ℝ) / 24) / 8
+      ∧ D0 ≤ N := by
+  -- ① the scale facts: `t ≥ 10^9`, `x ≥ 2`.
+  have h109 : (10 : ℝ) ^ 9 = 1000000000 := by norm_num
+  have ht : (10 : ℝ) ^ 9 ≤ Real.log x := by
+    have h := Real.log_le_log (Real.exp_pos _) hx
+    rwa [Real.log_exp] at h
+  have hxR2 : (2 : ℝ) ≤ (x : ℝ) := by
+    have h1 := Real.add_one_le_exp ((10 : ℝ) ^ 9)
+    linarith
+  have hx2 : 2 ≤ x := by exact_mod_cast hxR2
+  have hxpos : (0 : ℝ) < (x : ℝ) := by linarith
+  -- ② the scale facts (from the RAW bounds, in place of the boundary corner): `x/2 < X·M ≤ 4x`.
+  have hXM : x / 2 + 1 < X * M := hXMlo
+  have hXM4x : X * M ≤ 4 * x := hXMhi
+  have hXMposN : 0 < X * M := by omega
+  have hXMposR : (0 : ℝ) < (X : ℝ) * (M : ℝ) := by exact_mod_cast hXMposN
+  have hXM4xR : (X : ℝ) * (M : ℝ) ≤ 4 * (x : ℝ) := by exact_mod_cast hXM4x
+  set L := Real.log ((X : ℝ) * (M : ℝ)) with hLdef
+  -- ③ `t − 1 ≤ L ≤ t + 3`.
+  have hL_lo : Real.log x - 1 ≤ L := by
+    have h1 : x < (x / 2 + 1) * 2 := by omega
+    have h2 : x / 2 + 1 ≤ X * M := by omega
+    have h1R : (x : ℝ) < ((x / 2 + 1 : ℕ) : ℝ) * 2 := by exact_mod_cast h1
+    have h2R : ((x / 2 + 1 : ℕ) : ℝ) ≤ (X : ℝ) * (M : ℝ) := by exact_mod_cast h2
+    push_cast at h1R h2R
+    have hhalf : (x : ℝ) / 2 < (X : ℝ) * (M : ℝ) := by linarith
+    have hlog : Real.log ((x : ℝ) / 2) ≤ L := Real.log_le_log (by linarith) hhalf.le
+    rw [Real.log_div (ne_of_gt hxpos) (by norm_num : (2 : ℝ) ≠ 0)] at hlog
+    have h2log : Real.log 2 ≤ 1 := by
+      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num)]
+    linarith
+  have hL_up : L ≤ Real.log x + 3 := by
+    have h1 : L ≤ Real.log (4 * (x : ℝ)) := Real.log_le_log hXMposR hXM4xR
+    rw [Real.log_mul (by norm_num : (4 : ℝ) ≠ 0) (ne_of_gt hxpos)] at h1
+    have h4log : Real.log 4 ≤ 3 := by
+      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 4 by norm_num)]
+    linarith
+  have hL1 : (1 : ℝ) ≤ L := by linarith
+  have hLnn : (0 : ℝ) ≤ L := by linarith
+  have hLpos : (0 : ℝ) < L := by linarith
+  have hL4 : (4 : ℝ) ≤ L := by linarith
+  have hL20 : (1048576 : ℝ) ≤ L := by linarith
+  -- ④ the block-floor log: `W := (11/24)·t − 7 ≤ log N`.
+  set W : ℝ := 11 / 24 * Real.log x - 7 with hWdef
+  have hWlogN : W ≤ Real.log N := by
+    have hlogN := Real.log_le_log (div_pos (Real.rpow_pos_of_pos hxpos _) (by norm_num))
+      hNfloor
+    rw [Real.log_div (ne_of_gt (Real.rpow_pos_of_pos hxpos _)) (by norm_num : (8 : ℝ) ≠ 0),
+      Real.log_rpow hxpos] at hlogN
+    have h8log : Real.log 8 ≤ 7 := by
+      linarith [Real.log_le_sub_one_of_pos (show (0 : ℝ) < 8 by norm_num)]
+    rw [hWdef]
+    linarith
+  have hWpos : (0 : ℝ) < W := by rw [hWdef]; linarith
+  have hW1296 : (1296 : ℝ) ≤ W := by rw [hWdef]; linarith
+  have hLW : L ≤ 12 / 5 * W := by rw [hWdef]; linarith
+  have hW4 : 4 * ((12 : ℝ) / 5) ^ ((17 : ℝ)) ≤ W := by
+    have hc : ((12 : ℝ) / 5) ^ ((17 : ℝ)) = ((12 : ℝ) / 5) ^ (17 : ℕ) := by
+      rw [show ((17 : ℝ)) = ((17 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+    have hnum : 4 * ((12 : ℝ) / 5) ^ (17 : ℕ) ≤ 11 / 24 * 10 ^ 9 - 7 := by norm_num
+    rw [hc, hWdef]
+    linarith
+  -- ⑤ the dyadic window: `D0 = 2^{k0} ∈ [L^{17}, 4·L^{17}]`.
+  have hL17_1 : (1 : ℝ) ≤ L ^ ((17 : ℝ)) := Real.one_le_rpow hL1 (by norm_num)
+  have hL17_2 : (2 : ℝ) ≤ L ^ ((17 : ℝ)) := by
+    calc (2 : ℝ) ≤ L := by linarith
+      _ = L ^ ((1 : ℝ)) := (Real.rpow_one L).symm
+      _ ≤ L ^ ((17 : ℝ)) := Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
+  obtain ⟨n, hn_ge, hn_le⟩ :
+      ∃ n : ℕ, L ^ ((17 : ℝ)) ≤ (n : ℝ) ∧ (n : ℝ) ≤ L ^ ((17 : ℝ)) + 1 :=
+    ⟨⌈L ^ ((17 : ℝ))⌉₊, Nat.le_ceil _,
+      le_of_lt (Nat.ceil_lt_add_one (Real.rpow_nonneg hLnn _))⟩
+  have hn1 : 1 < n := by
+    have h1R : (1 : ℝ) < (n : ℝ) := by linarith
+    exact_mod_cast h1R
+  obtain ⟨k0, hnpow, hpow2n⟩ : ∃ k0 : ℕ, n ≤ 2 ^ k0 ∧ 2 ^ k0 ≤ 2 * n := by
+    refine ⟨Nat.clog 2 n, Nat.le_pow_clog (by norm_num) n, ?_⟩
+    have hk0pos : 0 < Nat.clog 2 n := Nat.clog_pos (by norm_num) hn1
+    have hpow_lt : 2 ^ (Nat.clog 2 n - 1) < n :=
+      Nat.pow_pred_clog_lt_self (by norm_num) hn1
+    have hsplit : 2 * 2 ^ (Nat.clog 2 n - 1) = 2 ^ Nat.clog 2 n := by
+      rw [← pow_succ']
+      congr 1
+      omega
+    rw [← hsplit]
+    exact Nat.mul_le_mul (le_refl 2) (le_of_lt hpow_lt)
+  have hD0_lo : L ^ ((17 : ℝ)) ≤ ((2 ^ k0 : ℕ) : ℝ) := by
+    refine le_trans hn_ge ?_
+    exact_mod_cast hnpow
+  have hD0_hi : ((2 ^ k0 : ℕ) : ℝ) ≤ 4 * L ^ ((17 : ℝ)) := by
+    have h1 : ((2 ^ k0 : ℕ) : ℝ) ≤ 2 * (n : ℝ) := by exact_mod_cast hpow2n
+    linarith
+  have hL18eq : L ^ ((18 : ℝ)) = L * L ^ ((17 : ℝ)) := by
+    have hh := Real.rpow_add hLpos 1 17
+    rw [Real.rpow_one] at hh
+    rw [show (18 : ℝ) = 1 + 17 by norm_num, hh]
+  have h17nn : (0 : ℝ) ≤ L ^ ((17 : ℝ)) := Real.rpow_nonneg hLnn _
+  -- ⑥ the `hD0N'` leg: `4·L^{17} ≤ W^{18}` (the anti-#64 margin).
+  have hW18 : 4 * L ^ ((17 : ℝ)) ≤ W ^ ((18 : ℝ)) := by
+    have hW17 : L ^ ((17 : ℝ)) ≤ ((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ)) := by
+      calc L ^ ((17 : ℝ)) ≤ (12 / 5 * W) ^ ((17 : ℝ)) :=
+            Real.rpow_le_rpow hLnn hLW (by norm_num)
+        _ = ((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ)) :=
+            Real.mul_rpow (by norm_num) hWpos.le
+    have hW18eq : W ^ ((18 : ℝ)) = W * W ^ ((17 : ℝ)) := by
+      have hh := Real.rpow_add hWpos 1 17
+      rw [Real.rpow_one] at hh
+      rw [show (18 : ℝ) = 1 + 17 by norm_num, hh]
+    have h17Wnn : (0 : ℝ) ≤ W ^ ((17 : ℝ)) := Real.rpow_nonneg hWpos.le _
+    rw [hW18eq]
+    calc 4 * L ^ ((17 : ℝ))
+        ≤ 4 * (((12 : ℝ) / 5) ^ ((17 : ℝ)) * W ^ ((17 : ℝ))) := by linarith
+      _ = (4 * ((12 : ℝ) / 5) ^ ((17 : ℝ))) * W ^ ((17 : ℝ)) := by ring
+      _ ≤ W * W ^ ((17 : ℝ)) := mul_le_mul_of_nonneg_right hW4 h17Wnn
+  -- ⑦ the `hD0N` leg: `W^{18} ≤ e^W ≤ x^{11/24}/8`.
+  have hexpW : W ^ ((18 : ℝ)) ≤ Real.exp W := by
+    have hunn : (0 : ℝ) ≤ W / 36 := by linarith
+    have hquad : W ≤ (W / 36) ^ ((2 : ℝ)) := by
+      rw [show ((2 : ℝ)) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+      have hexpand : (W / 36) ^ (2 : ℕ) = W * W / 1296 := by ring
+      rw [hexpand, le_div_iff₀ (by norm_num : (0 : ℝ) < 1296)]
+      have keyq : (0 : ℝ) ≤ (W - 1296) * W := mul_nonneg (by linarith) hWpos.le
+      linarith [keyq]
+    have hu : W / 36 ≤ Real.exp (W / 36) := by linarith [Real.add_one_le_exp (W / 36)]
+    calc W ^ ((18 : ℝ))
+        ≤ ((W / 36) ^ ((2 : ℝ))) ^ ((18 : ℝ)) :=
+          Real.rpow_le_rpow hWpos.le hquad (by norm_num)
+      _ = (W / 36) ^ ((36 : ℝ)) := by
+          rw [← Real.rpow_mul hunn]
+          norm_num
+      _ ≤ (Real.exp (W / 36)) ^ ((36 : ℝ)) := Real.rpow_le_rpow hunn hu (by norm_num)
+      _ = Real.exp W := by
+          rw [Real.rpow_def_of_pos (Real.exp_pos _), Real.log_exp]
+          congr 1
+          ring
+  have hexp_le : Real.exp W ≤ (x : ℝ) ^ ((11 : ℝ) / 24) / 8 := by
+    have hEW : Real.exp W = (x : ℝ) ^ ((11 : ℝ) / 24) / Real.exp 7 := by
+      rw [hWdef, Real.exp_sub, Real.rpow_def_of_pos hxpos]
+      have hmul : Real.log (x : ℝ) * ((11 : ℝ) / 24) = 11 / 24 * Real.log x := by ring
+      rw [hmul]
+    rw [hEW]
+    have h7 : (8 : ℝ) ≤ Real.exp 7 := by linarith [Real.add_one_le_exp (7 : ℝ)]
+    exact div_le_div_of_nonneg_left (Real.rpow_nonneg hxpos.le _) (by norm_num) h7
+  -- ⑧ emit the rows.
+  have hcast : ((2 ^ k0 : ℕ) : ℝ) = (2 : ℝ) ^ k0 := by push_cast; ring
+  refine ⟨2 ^ k0, k0, rfl, le_trans (by omega : 2 ≤ n) hnpow, ?_, hD0_lo, ?_, ?_, ?_, ?_, ?_⟩
+  · -- `hD0lo_main`, the DECOUPLED row (exponent `A+2 = 15`)
+    have h15 : L ^ ((15 : ℝ)) ≤ L ^ ((17 : ℝ)) :=
+      Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
+    have h2k0pos : (0 : ℝ) < (2 : ℝ) ^ k0 := by positivity
+    calc L ^ ((15 : ℝ)) ≤ L ^ ((17 : ℝ)) := h15
+      _ ≤ ((2 ^ k0 : ℕ) : ℝ) := hD0_lo
+      _ = (2 : ℝ) ^ k0 := hcast
+      _ ≤ 2 * (2 : ℝ) ^ k0 := by linarith
+  · -- `hD0` (`D0 ≤ L^{C0}`, `C0 = 18`)
+    rw [hL18eq]
+    have key : (0 : ℝ) ≤ (L - 4) * L ^ ((17 : ℝ)) := mul_nonneg (by linarith) h17nn
+    linarith [hD0_hi, key]
+  · -- `hD0N'` (`D0 ≤ (log N)^{C0}`, `C0 = 18`)
+    have hmono : W ^ ((18 : ℝ)) ≤ (Real.log N) ^ ((18 : ℝ)) :=
+      Real.rpow_le_rpow hWpos.le hWlogN (by norm_num)
+    linarith [hD0_hi, hW18, hmono]
+  · -- `herr_D0E` in the `herr_scale` form (`LE ≥ L/2`, exponent `C0 = 18`)
+    intro LE hLE
+    have hhalfpos : (0 : ℝ) < L / 2 := by linarith
+    have hstep : 4 * L ^ ((17 : ℝ)) ≤ (L / 2) ^ ((18 : ℝ)) := by
+      have hdiv : (L / 2) ^ ((18 : ℝ)) = L ^ ((18 : ℝ)) / (2 : ℝ) ^ ((18 : ℝ)) :=
+        Real.div_rpow hLnn (by norm_num) _
+      have h218 : (2 : ℝ) ^ ((18 : ℝ)) = 262144 := by
+        rw [show ((18 : ℝ)) = ((18 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+        norm_num
+      rw [hdiv, h218, hL18eq, le_div_iff₀ (by norm_num : (0 : ℝ) < 262144)]
+      have key : (0 : ℝ) ≤ (L - 1048576) * L ^ ((17 : ℝ)) := mul_nonneg (by linarith) h17nn
+      linarith [key]
+    have hmono : (L / 2) ^ ((18 : ℝ)) ≤ LE ^ ((18 : ℝ)) :=
+      Real.rpow_le_rpow hhalfpos.le (by linarith) (by norm_num)
+    linarith [hD0_hi]
+  · -- the `x`-scale bound (`D0 ≤ x^{11/24}/8`)
+    linarith [hD0_hi, hW18, hexpW, hexp_le]
+  · -- `hD0N` (`D0 ≤ N`)
+    have hfin : ((2 ^ k0 : ℕ) : ℝ) ≤ (N : ℝ) := by
+      linarith [hD0_hi, hW18, hexpW, hexp_le, hNfloor]
+    exact_mod_cast hfin
+
 /-! ## 5. The uniform per-box price lemma `medium_box_price_at_op` (deliverable 5, the summit)
 
 The operating-point discharge of `medium_survivor_price_sqrtD` (the `D < (N+1)²` terminal that
@@ -281,7 +495,7 @@ theorem medium_box_price_at_op :
         (Dset : Finset ℕ) (r : ℕ → ℕ),
         2 ≤ k →
         Real.exp (10 ^ 9) ≤ (x : ℝ) →
-        i ∈ dyadicBoundary (2 ^ k) (pieceM k) (x / 2 + 1) x F Krange →
+        i ∈ dyadicBoundary (pieceN k) (pieceM k) (x / 2 + 1) x F Krange →
         X = 2 ^ (i + 1) - 1 →
         (x : ℝ) ^ ((11 : ℝ) / 24) / 8 ≤ ((2 ^ k : ℕ) : ℝ) →
         (∀ m, ‖α m‖ ≤ 1) →
@@ -341,9 +555,24 @@ theorem medium_box_price_at_op :
     have : (1 : ℝ) < ((2 ^ k : ℕ) : ℝ) := by exact_mod_cast (by omega : 1 < 2 ^ k)
     exact this
   have hM2 : 2 ≤ M := by rw [hMdef]; exact two_le_pieceM hk1
-  -- the `D0`-window (node D0W)
+  have hM2k : M ≤ 2 * 2 ^ k := by rw [hMdef]; exact pieceM_le_two_pow k
+  -- the `D0`-window (node D0W), rebuilt from the WEAK pieceN-corner (catch #71, ratified (a)).
+  -- `pieceN k + 1 = 2^k`, so the pieceN corner `2^i·(pieceN k+1) ≤ x` reads `2^i·2^k ≤ x` and
+  -- still gives `X·M ≤ 2^{i+1}·(2·2^k) = 4·2^i·2^k ≤ 4x` — the raw bound `d0_window_of_XM` needs.
+  have hpk : pieceN k + 1 = 2 ^ k := by
+    have h1 : (1 : ℕ) ≤ 2 ^ k := Nat.one_le_pow _ _ (by norm_num)
+    unfold pieceN; omega
+  rw [dyadicBoundary, Finset.mem_filter] at hi
+  obtain ⟨-, hcorner, -, hcutoff⟩ := hi
+  rw [hpk] at hcorner
+  have hXMlo : x / 2 + 1 < X * M := by rw [hXsub]; exact hcutoff
+  have hXMhi : X * M ≤ 4 * x := by
+    have hXle : X ≤ 2 ^ (i + 1) := by rw [hXsub]; exact Nat.sub_le _ _
+    calc X * M ≤ 2 ^ (i + 1) * (2 * 2 ^ k) := Nat.mul_le_mul hXle hM2k
+      _ = 4 * (2 ^ i * 2 ^ k) := by rw [pow_succ]; ring
+      _ ≤ 4 * x := Nat.mul_le_mul (le_refl 4) hcorner
   obtain ⟨D0, k0, hd_eq, hd_2D0, hd_main, hd_D0lo, hd_hD0, hd_hD0N', hd_conj7, hd_xscale,
-    hd_hD0N⟩ := d0_window_nonempty hx (pieceM_le_two_pow k) hNfloor hi hXsub
+    hd_hD0N⟩ := d0_window_of_XM (N := 2 ^ k) (M := M) hx hNfloor hXMlo hXMhi
   -- SW couplings (minimal choices), with `Kβ := Kbeta_min` etc.
   have hcoupG : K * L ^ ((13 : ℝ) + 18) ≤ Kbeta_min K L logN 13 18 * logN ^ ((13 : ℝ) + 2 * 18) :=
     Kbeta_min_coupling hlogNpos
@@ -405,10 +634,13 @@ medium-band shape:
 §11b; the `D0`-window rows by `d0_window_nonempty`; the SW couplings hold by construction of
 `Kbeta_min`/`Km_min`/`Kbeta'_min`.) -/
 
-/-- Anti-#69 (box inhabitation): the `dyadicBoundary` survivor set of PRICE-1's box hypothesis
-is NONEMPTY at the concrete piece shape `k = 2`, `x = 16` (`i = 1` survives all three clauses:
-`2¹·(4+1) = 10 ≤ 16`, `1 < 2² = 4`, `9 < (2²−1)·7 = 21`). -/
-example : 1 ∈ dyadicBoundary (2 ^ 2) (pieceM 2) (16 / 2 + 1) 16 1 5 := by decide
+/-- Anti-#69 (box inhabitation): the `dyadicBoundary` survivor set of PRICE-1's (relaxed, pieceN)
+box hypothesis is NONEMPTY at the concrete piece shape `k = 2`, `x = 16` (`i = 1` survives all
+three clauses: weak corner `2¹·(pieceN 2 + 1) = 2¹·4 = 8 ≤ 16`, `1 < 2² = 4`,
+`9 < (2²−1)·7 = 21`).  The former `2^k`-boundary witness `1 ∈ dyadicBoundary (2^2) …` still holds
+too (it is a subset, `boundary_2pow_subset_pieceN`); the relaxation only ENLARGES the survivor
+set (adding the ≤ 1 edge box per piece), so the lemma's hypothesis remains non-vacuous. -/
+example : 1 ∈ dyadicBoundary (pieceN 2) (pieceM 2) (16 / 2 + 1) 16 1 5 := by decide
 
 /-- Anti-#69 (guarded per-`e` bridge fires): `bridge_scale` — the honest `L ≤ 2·log(⌊X/e⌋·M)`
 that discharges `herr_scale`/`herr_LEpos`/`herr_D0E` — is satisfiable at a concrete medium-band
@@ -427,7 +659,8 @@ example :
   -- `hDscale : D = 2 ≤ √(10⁸)/L¹`, i.e. `log(10⁸) ≤ 5000`, via `log ≤ 4·(10⁸)^{1/4} = 400`
   have hlog_le : Real.log (((10000 : ℕ) : ℝ) * ((10000 : ℕ) : ℝ)) ≤ 400 := by
     rw [hXM]
-    have h := Real.log_le_rpow_div (by norm_num : (0 : ℝ) ≤ 100000000) (by norm_num : (0 : ℝ) < 1 / 4)
+    have h := Real.log_le_rpow_div (by norm_num : (0 : ℝ) ≤ 100000000)
+      (by norm_num : (0 : ℝ) < 1 / 4)
     have hval : (100000000 : ℝ) ^ ((1 : ℝ) / 4) = 100 := by
       rw [show (100000000 : ℝ) = (100 : ℝ) ^ (4 : ℕ) by norm_num,
         ← Real.rpow_natCast (100 : ℝ) 4, ← Real.rpow_mul (by norm_num)]

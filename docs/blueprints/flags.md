@@ -7125,3 +7125,74 @@ x^{−1/8}·polylog error shares at a concrete x₀). These are tractable once F
 repaired. Tally: 71 catches, 0 wrong proofs — the SIXTH consecutive terminal-adjacent catch.
 Build unchanged: `lake build Salt.Chen` exit 0 (no code written; ChenHeadline.lean NOT
 created, as it would require a sorry at the edge-box row).
+
+**2026-07-14 EDGE+fin3 Part 1 ✅ FULL (Opus executor, Fable warrant) — CATCH #71 REPAIRED
+via ratified option (a): the corner-clause relaxation.** The 6 PRICE-wave application lemmas
+carrying a `dyadicBoundary (2^k)` membership (`medium_box_price_at_op` PriceOne:278;
+`medium_box_price_core`/`medium_box_price_at_op_lo` PriceTwo:316/438; `box_/sym_/low_box_hprice_at_2pow`
+PriceThree) now take the pieceN-boundary membership directly (weak corner `2^i·2^k ≤ x`). KEY
+FINDING (sharper than the warrant's worry): there is **NO degradation** — `d0_window_nonempty`'s
+ONLY use of the corner is to bound `X·M ≤ 4x`, and the WEAK corner gives the SAME `4x`
+(`X·M ≤ 2^{i+1}·pieceM k ≤ 2^{i+1}·2·2^k = 4·2^i·2^k ≤ 4x`; the strong corner's `+1` slack was
+never used). So the ≤2× worry does not materialize; the D0-window is byte-identical. MECHANISM:
+factored two repair cores `d0_window_of_XM` (PriceOne §4b, 11/24 floor) / `d0_window_of_XM_lo`
+(PriceTwo §1b, 7/16 floor) = `d0_window_nonempty(_lo)`'s body from the raw `x/2+1 < X·M ≤ 4x`
+bounds (boundary extraction stripped); the price lemmas extract the weak corner and feed these.
+`SqrtDFold`/`d0_window_nonempty(_lo)` UNTOUCHED (out of warrant); `sym_/low_box_price_at_op` were
+already pieceN consumers (no change). The trichotomy (vanish / 2^k-priced / edge) COLLAPSES to a
+DICHOTOMY (vanish / priced) over the full pieceN-boundary; `boundary_2pow_subset_pieceN` survives
+as a historical fact. Anti-#69 witnesses updated to the pieceN shape (`1 ∈ dyadicBoundary (pieceN 2)…`
+by decide) and re-verified; composition examples unaffected. All 8 new/edited decls exactly
+[propext, Classical.choice, Quot.sound]; `lake build Salt.Chen.All` exit 0, zero new warnings
+(two preexisting long lines in the rebuilt files reflowed). diff: PriceOne/Two/Three only.
+Tally: 71 catches, 0 wrong proofs — the edge-box OBLIGATION is DISCHARGED (not a new catch).
+
+**2026-07-14 EDGE+fin3 Part 2 (the final assembly) — OPEN, deferred to a Fable design session
+(F1–F3 unbuilt; no sorry written, no file created).** Part 1 unblocks the edge box, but the F1–F3
+assembly (`ChenHeadline.lean` → `chen_headline`) is NOT completable as pure wiring — it needs the
+still-UNPACKAGED analytic corpus, and one NEW coupling obligation surfaced. STATUS BY FLOOR:
+• F1 (dichotomy discharger + hSum): the vanish/price DICHOTOMY atoms are landed
+  (`box_carrier_eq_zero_above_cap`, `y_lt_two_pow_succ_of_carrier`, `hDsq_piece_of_kfloor`,
+  `hDsmall_at_op`) and `box_hprice_at_2pow` now prices any pieceN box — BUT the **27 named analytic
+  rows** of `box_hprice_at_2pow` (hDscale/habs/hXsqrt/hMsqrt/herr_lev/herr_Mlev/hFX/hDx/hLbb/hfloor/
+  hDXM/… at piece params) are STILL NOT packaged (flags PRICE-1/PRICE-3b list them as remaining;
+  `hBVblocksW_at_op` does not exist). Each is a fresh operating-point estimate — not wiring.
+• ★ NEW COUPLING OBLIGATION (surfaced, not resolved — the Part-2 assembler MUST settle it) ★: the
+  carrier k-floor only yields `2^k > y/2 ~ x^{1/3}/2`, but `box_hprice_at_2pow` needs
+  `hNfloor : x^{11/24}/8 ≤ 2^k` and even the strip `_lo` needs `x^{7/16}/8 ≤ 2^k` — BOTH strictly
+  above `x^{1/3}/2` (11/24≈.458, 7/16=.4375, 1/3≈.333). So a non-vanishing box's carrier k-floor
+  does NOT by itself meet the price-lemma floor; pieces with `2^k ∈ (x^{1/3}/2, x^{7/16}/8)` need a
+  separate argument (band structure / boundary-emptiness / a lower-floor price variant) before the
+  dichotomy's "priced" branch fires. This is an assembly-design question (which pieces carry
+  non-cancelling medium boxes vs. which vanish or belong to another band), NOT a defect in Part 1
+  (F0 is orthogonal — hNfloor stays a named hypothesis). Flagged so it is not glossed at assembly.
+• F2 (hBVblocksW_at_op + hA3): the wiring `hBVblocksW_discharge' (PDiag:682, already pieceN) →
+  mainA3_of_block_remainders_W (SwitchW:340) → hA3` is verified-wireable, but its leaves (hSum
+  aggregation over pieces × ≤3 boxes × the F1 rows; hCE; hdiag; hNum via `hNum_close_of_tower` under
+  `hK_tower` at x₀(K)) are un-built and depend on F1.
+• F3 (chen_headline): A1/A2 slots ARE packaged (`a12_hA1`/`a12_hA2`, HeadlineW2:1524/1569); the
+  ledger conjunct (normalized_package/hledger_at_certs + the still-inline hcount + hEbundle) and the
+  12-conjunct → `chen_of_hypotheses_W` (Assembly:707) remain. NOT attempted: would require F1/F2 and
+  the 27 rows first; forcing it now risks the "0 wrong proofs" invariant given the coupling above.
+DECISION (anti-grind discipline): Part 1 is the safe warranted deliverable and it resolves the
+catch that stopped GLU-2W-fin2; Part 2 is genuine design work (un-packaged rows + the floor coupling)
+best done by a Fable session with a statement warrant for `ChenHeadline.lean`. `#print axioms
+chen_headline` NOT produced (theorem not built). Tally: 71 catches, 0 wrong proofs.
+
+**2026-07-14 EDGE (= EDGE+fin3 Part 1) ✅ FULL (Fable warrant) — CATCH #71 REPAIRED WITH
+ZERO DEGRADATION.** The six wave application lemmas' membership hypotheses weakened
+2^k-boundary → pieceN-boundary (the new d0_window_of_XM(_lo) cores rebuild the D0 window
+from the weak corner 2^i·2^k ≤ x — the strong corner's +1 slack was NEVER USED; X·M ≤ 4x
+is identical). No catch #72; the trichotomy collapses to a DICHOTOMY (vanish/priced) over
+the full pieceN-boundary; witnesses re-verified at the new shape; pre-wave terminals
+untouched. All 8 edited/new decls exactly [propext, Classical.choice, Quot.sound].
+**FABLE ADJUDICATION of fin3's surfaced coupling obligation: IT DISSOLVES.** The executor
+derived the k-floor only from the cap route (y < 2^{k+1} ⟹ 2^k > x^{1/3}/2, short of the
+_lo floor x^{7/16}/8). But a non-vanishing box ALSO satisfies the boundary cutoff clause:
+x/8 < 2^{i+k} together with 2^i ≤ z·2^k gives z·2^{2k} > x/8 ⟹ 2^k > √(x/(8z)) =
+x^{7/16}/(2√2) ≥ x^{7/16}/8 with room (2√2 < 8). The gap range (x^{1/3}/2, x^{7/16}/8) is
+EMPTY of live boundary boxes — one lemma (kfloor_of_live_box: 2^i < cap → x/2 < X·M →
+x^{7/16}/8 ≤ 2^k), not a design block. REMAINING for fin4: that lemma, the 27 piece-
+parameter rows packaged a12-style (mechanical estimates with the gate's verified margins,
+consuming boundary facts + opf_*), then the assembly per the standing checklist →
+chen_headline. Tally: 71 catches, 0 wrong proofs.
