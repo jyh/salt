@@ -997,3 +997,39 @@ decisions per question.
   hypotheses (6 ≤ y, log N ≤ 3 log y — the operating relation).
   Ceremony: wired + 1 keystone — full build exit 0 (8963 jobs).
   G-COUNT-2 DISPATCHED.
+
+- 2026-07-15 ~17:35 (real ~16:25): **G-BANDIDENT COMPLETE, first
+  attempt** (cost ≈ 308k tokens / 97 tools / ~38 min vs 300k).
+  Salt/Goldbach/BandIdent.lean (977 lines, 31 decls): the band
+  rectangle↔cutoff identifications per-annulus (general (Tlo,Thi],
+  free R₀); the window-free band close (goldBandCard_split,
+  goldSymCard_two_mul via sum_symm_ordered_split INSTANTIATED
+  VERBATIM, goldBandDiagCount_le, goldBandDiscW_eq_three); the two
+  annulus-sum telescopes (both driven by WindowSW's generic
+  goldWindowDisc_le_annulus_sum). Private wall — 4TH occurrence
+  (the twin's private pair-uniqueness/summand lemmas restated).
+  HOUSE CONFIRMATION of the executor's flag: the residue crumb
+  (gold_diag_residue_crumb) belongs to G-PDIAG's aggregate, NOT the
+  per-box count — the executor's combinatorial-projection reading
+  of goldBandDiagCount_le is correct. Ceremony: wired + 11
+  keystones.
+
+- 2026-07-15 ~17:40 (real ~16:25): **N4-ASM-c COMPLETE — FOUR_BAR
+  IS PROVED; M₄ < 2 UNCONDITIONAL; THE Q2b ASSEMBLY CLOSES** (cost
+  ≈ 258k tokens / 42 tools / ~28 min vs 300k; 1 serious attempt,
+  ~6 targeted cycles). Salt/TwinBar/FourBarAsm.lean (493 lines):
+  the four peel bounds J₁₄..J₄₄_bound (the J₃₃_bound template one
+  level up — triple-nested integral_mono + the landed sliceCS at
+  the innermost slice + nodes a/b1/b2's marginals and reductions),
+  the w_sum_four combine, **four_bar : FourBar** (the Prop
+  discharged), **no_quad_weight : M₄ ≤ (4/3)log 4 < 2,
+  UNCONDITIONAL** — the atlas's third delimitation. Friction: the
+  Δ₄/R₄ defeq bridge under HO metavars (the have-coercion pattern);
+  explicit (g := ...) on non-goal-pinned slice calls (the landed
+  pattern). Assembly totals: a 174k + b1 170k + b2 210k + c 258k +
+  2 dead b-runs ≈ 90k = **~900k vs the original 3-node 950k
+  budget** — ON BUDGET despite the process failures, thanks to the
+  gate + the pinned interfaces. Ceremony: wired + 7 keystones —
+  full build exit 0 (8965 jobs). **THE LEAST-K CAPSTONE (Q2C-CAP)
+  DISPATCHED: k = 2, 3, 4 closed + the ℚ certificate at k = 5 →
+  the A1-ratified statement.** G-SW2 DISPATCHED (BandIdent landed).
