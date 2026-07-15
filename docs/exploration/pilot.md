@@ -218,3 +218,29 @@ decisions per question.
   the a-fortiori bridge. OPEN Q5a-1 (= Tao's problem: c(δ) < 2 on
   (δ₀,1), c(1) = 2) is rung-∞ territory beyond the sprint timebox —
   Q5a reports as RESOLVED-AS-OBSTRUCTION with the open note.**
+
+- 2026-07-15 ~10:15: **Q3-recon COMPLETE** (cost ≈ 97k tokens / 23
+  tools / ~6 min): the ENTIRE gaps ≤ 12 chain consumes EHall at
+  EXACTLY ONE LINE (FrontierM.lean:171), reducing to the landed
+  HasLevel (3999/4000) — strictly weaker in FORM (single level +
+  BV-shaped haircut; the honest caveat: θ ≈ 1 is EH-strength in
+  DEPTH). Option (b) EH_min ⟹ H₁ ≤ 12 = 1–2 nodes of pure
+  extraction; option (a) GEH_min ⟹ H₁ ≤ 6 = multi-quarter (the k=5
+  moment keystones are Fin-5-hardwired ~9k lines; the enlarged SIEVE
+  machinery confirmed absent; the GEH convolution Prop is Fable-tier
+  statement design). **FABLE ADJUDICATION: Q3 executes as (b)** —
+  gaps_le_twelve_of_hasLevel with the θ-caveat stated prominently;
+  (a)'s scope map is Q3's obstruction note (and the post-release
+  explicit12 triage input).
+- 2026-07-15 ~10:20: **Q4 COMPLETE — VERDICT: UNRECORDED, a minor
+  new theorem** (cost ≈ 136k tokens / 30 tools / ~11 min).
+  WindowedBVStatement.lean lands the two literature-facing
+  restatements (exact-application proofs; axiom-clean; wired). The
+  sweep (10 families, URLs + could-not-verify appendix): explicit
+  closed-form BV constants exist ONLY for Λ/single-variable
+  (Akbary–Hambrook, Sedunova, arXiv:2510.10853); every bilinear/
+  type-II BV is ineffective; the sharp unfactored mn ≤ T window is
+  non-standard packaging. OUR FORM'S DELTA: the first bilinear,
+  sharp-windowed BV with closed-form constants + the block-prime √D
+  level. Honest framing: new effective PACKAGING, not a new
+  asymptotic frontier.

@@ -139,6 +139,7 @@ import Salt.Chen.FinLed2
 import Salt.Chen.FinA3c
 import Salt.Chen.FinLed3
 import Salt.Chen.ChenTheorem
+import Salt.Chen.WindowedBVStatement
 import Salt.Chen.CountW
 import Salt.Chen.TwinA2W
 import Salt.Chen.BlockPricing
@@ -391,6 +392,7 @@ open Salt.Tactic in
   Salt.Chen.box_price_indep Salt.Chen.tripleSum_le_16x_at_op
   Salt.Chen.low_price_indep Salt.Chen.sym_price_indep
   Salt.Chen.chen_headline Salt.Chen.hL_bundle
+  Salt.Chen.windowed_bilinear_BV_sqrtD Salt.Chen.windowed_bilinear_BV_below_N
   Salt.Chen.hA3_bundle Salt.Chen.priceBoxOp_le Salt.Chen.priceLowOp_le
   Salt.Chen.hcertA1_at_op Salt.Chen.hcertA3_at_op Salt.Chen.hcount_seam
   Salt.Chen.A2grid_topwindow_le Salt.Chen.razor_topwindow_cost
