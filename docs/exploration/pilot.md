@@ -1129,3 +1129,14 @@ decisions per question.
   STATED-NOT-ATTEMPTED = flagship Challenge 2 + board entry #2.
   Est. in-sprint total ~430–630k (gate + one B/C executor).
   DESIGN FREEZE next (house), then the gate.
+
+- 2026-07-15 ~18:40: **CORRECTION to the ~18:30 entry (JYH
+  refinement): the post-sprint local-zero-density item is a
+  DECISION POINT, not a ratified arc** — "revisit ... and decide
+  whether to unpark it." At sprint close the house brings JYH the
+  unparking decision with: the Rb-4 obstruction statement, a
+  design-arc scope estimate (the Riemann–von Mangoldt → gated
+  C-nodes decomposition, SW-arc pattern), what it buys (the wall
+  unconditional; zero-density technology; the N1 |ζ| ≤ C log T
+  reusable), and the competing queue (Night Cycle, release lane,
+  writeup drafting). No commitment implied before that review.
