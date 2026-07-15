@@ -93,7 +93,7 @@ goldTripleSet reshapes to a SINGLE cutoff — a ~1500–2500-line genuine
 re-derivation). G-BAND's partial landed (Band.lean: the two S2
 kernels gold_dvd_sub_of_resG + gold_diag_residue_crumb). Replaced by
 four nodes:** | | |
-| W3a | **G-WINDOWSW** ⚠ | the bottom-half window identification (single-cutoff gold_blockBox_windowDisc_eq_res) + box counts (WindowSW + SwitchW2 A–C). DE-RISK RECON FIRST (the single-cutoff reshape is the risk gate). | C | 400k |
+| W3a | **G-WINDOWSW** (POST-RECON Opt-A spec, ledger ~17:30 — the single-cutoff premise was NO_GO; the two-cutoff difference is load-bearing) | the OUTER DYADIC ANNULUS SUM: slice the effective support [z·y², N/2] into factor-2 annuli; per annulus reuse the twin's difference-form identification + boundary reduction VERBATIM at x_local = 2^{k+1}; the Φ_k reassembly; consume the BV backbone at A+1 (the O(log N) annuli cost one log, free). | C | 400k |
 | W3a | G-BANDIDENT | band identifications + pair bijection (BandIdent/BandClose/BandSplit) | B | 300k |
 | W3b | G-SW2 | hBlockW_of_window_prices / hNum_at_opW / PloW_sym/low / band close (SwitchW2 D–G) | B/C | 350k |
 | W3b | G-PDIAG | the diagonal aggregate (consumes Band.lean's kernels) + the terminal gold_hBVblocksW_discharge' (PDiag) | C | 350k |

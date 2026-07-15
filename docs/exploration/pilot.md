@@ -862,3 +862,45 @@ decisions per question.
   DISPATCHED → G-COUNT-2 (the compose + op chain, mostly verbatim)
   follows. Chen-2 now ~16 nodes. Ceremony: wired + 2 keystones —
   full build exit 0 (8959 jobs).
+
+- 2026-07-15 ~17:30: **G-WINDOWSW-recon: NO_GO on the single-cutoff
+  premise — the de-risk gate catches the deepest tear of the arc
+  pre-dispatch; FABLE ADJUDICATION: Opt-A (annulus-sliced reuse)**
+  (cost ≈ 208k tokens / 19 tools / ~17 min, read-only). THE FINDING:
+  the window IDENTIFICATION reshapes to a single cutoff cleanly
+  (the lower boundary is VACUOUS — prod3 ≥ 8; A(1) = 0 identically)
+  — but the PRICING does not compose: the generic pricers bound by
+  the FULL box X·M with no T-dependence; the twin never pays that
+  because box_disc_three_way cancels the two cutoffs off the
+  dyadicBoundary (≤ 3 pieces, needing T₂ ≤ 2·T₁ — the twin's
+  top-half window IS a factor-2 annulus). The Goldbach effective
+  support [z·y², N/2] ≈ [N^0.79, N/2] spans ~21 dyadic scales —
+  a monolithic cutoff pays X·M ≈ N^1.21 ≫ the N/(log N)^A budget,
+  and the naive difference form fails the ≤-3-pieces lemma. THE
+  TWO-CUTOFF STRUCTURE IS LOAD-BEARING (the exact
+  shared-boundary-cancellation genre the brief asked about).
+  ADJUDICATION (house): **Opt-A — the outer dyadic annulus sum**:
+  slice [z·y², N/2] into factor-2 annuli; per annulus the twin's
+  difference form + boundary reduction reuse VERBATIM at
+  x_local = 2^{k+1}; the O(log N) annuli cost ONE log, absorbed by
+  consuming the BV backbone at A+1 (free — SW supplies every A).
+  No landed node re-opens. Opt-B (single annulus [N/4, N/2])
+  REJECTED on a check the recon skipped: prod/N ratios [1/4,1/2] ≠
+  the twin's [1/2,1] shift the BJS weight endpoints → c̄ changes →
+  re-certification — worse than priced. HINDSIGHT NOTE (recorded
+  for the taxonomy): a window-role FLIP at design time (sift n over
+  [2, N/2], products land top-half) would have given the twin's
+  ratios everywhere and avoided all three bottom-half tears — the
+  lesson: mirror the INVARIANT (the product-window shape the
+  mechanisms depend on), not the SURFACE (the n-window finset).
+  Five landed nodes make the flip uneconomical now; Opt-A is
+  strictly cheaper. G-WINDOWSW DISPATCHED on the Opt-A spec.
+
+- 2026-07-15 ~17:35: **N4-ASM-b KILLED after a third
+  monolithic-generation failure (no skeleton 30 min post-resume
+  despite the incremental mandate) — RE-CUT into b1/b2 with fresh
+  context** (the poisoned-context reset; sunk cost ≈ 2 failed runs).
+  b1 = Δ₄ geometry + psi₄ + region_integrable₄ + marginals + the
+  two PEEL-OUTER reductions (j3order/j4order, consuming SimplexS);
+  b2 (queued behind b1) = the two peel-inner reductions (canonical4/
+  j2order). Hard per-call line limits in both briefs. b1 DISPATCHED.
