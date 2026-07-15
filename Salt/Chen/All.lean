@@ -113,6 +113,7 @@ import Salt.Chen.PriceTwo
 import Salt.Chen.PriceThree
 import Salt.Chen.PriceClose
 import Salt.Chen.ChenHeadline
+import Salt.Chen.ChenFinal
 import Salt.Chen.CountW
 import Salt.Chen.TwinA2W
 import Salt.Chen.BlockPricing
@@ -354,6 +355,8 @@ open Salt.Tactic in
   Salt.Chen.hNum_at_op
   Salt.Chen.medium_box_price_at_op Salt.Chen.bridge_scale
   Salt.Chen.kfloor_of_live_box Salt.Chen.box_hprice_at_2pow_lo
+  Salt.Chen.boundary_XM_raw Salt.Chen.boundary_log_bounds Salt.Chen.xm_sqrt_bounds
+  Salt.Chen.blockAlphaLow_eq_zero_of_pieceN_le Salt.Chen.blockAlphaSym_eq_zero_of_pieceM_le
   Salt.Chen.box_carrier_eq_zero_above_cap Salt.Chen.y_lt_two_pow_succ_of_carrier
   Salt.Chen.hDsq_piece_of_kfloor Salt.Chen.hDsmall_at_op
   Salt.Chen.tower_budget Salt.Chen.hNum_close_of_tower

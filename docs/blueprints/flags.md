@@ -7211,3 +7211,24 @@ rpow/sqrt/log lemmas), the box-leg 27-row a12-bundle against _lo, sym/low_box_hp
 floors — verify, not assume), then F2 (discharger/hSum/hdiag/hCE/hNum/hBVblocksW_at_op →
 hA3) and F3 (ledger + 12 conjuncts → chen_headline) — both verified wireable. Tally: 71
 catches, 0 wrong proofs.
+
+**2026-07-14 fin5 ✅ F1-rows(a) + ★ CATCH #72 ★ (ChenFinal.lean, 7 decls) — the band-carrier
+k-floor ASYMMETRY; the seventh consecutive pre-construction catch.** Landed: the boundary-
+window scaffold (x/2 < X·M ≤ 4x raw + ℝ, log(X·M) ∈ [log x − 1, log x + 3], √(X·M) ∈
+[√x/2, 2√x] — floor-independent, survives the catch) + the two band vanishing lemmas
+(blockAlphaLow ≡ 0 at pieceN ≤ y; blockAlphaSym ≡ 0 at pieceM ≤ y). THE CATCH: the band
+carriers have MIRRORED geometry — they vanish BELOW a support floor and cap ABOVE from the
+LARGE prime (p₂ ≤ pieceN/pieceM k), so a live band box gives only 2^k ≳ √(x/(8y)) ~
+x^{1/3}/2.8 — the range (y+1, x^{7/16}/8) ≈ (x^{1/3}, x^{7/16}/8), ~(5/48)log₂x pieces, is
+LIVE and unpriceable by landed atoms (vanishing needs 2^k ≤ y+1; the _lo price needs
+x^{7/16}/8; trivial fallback overshoots by x^1). There is NO band analogue of
+kfloor_of_live_box — the fin4/EDGE plan presumed the box k-floor transferred; it does not.
+**RATIFIED REPAIR (= fin6 part 1, ADDITIVE — no warrant needed, the PriceTwo core pattern
+was built for this)**: d0_window_of_XM_band — the D0-window construction at floor
+x^{1/3}/8 (binding row 4·L^{17} ≤ W^{18} at W = (1/3)log x − 7 closes at log x ≥ 4·3^{18}
+≈ 1.55·10⁹, UNDER the tower's ~2·10⁹ with margin) — fed to medium_box_price_core (which
+takes the window as a packed ∃-hypothesis precisely so new floors are witness-swaps), then
+the band price mirrors sym/low_box_hprice_at_2pow_band. All 7 decls exactly [propext,
+Classical.choice, Quot.sound]. Tally: 72 catches, 0 wrong proofs. fin6 = the band window +
+F1-rows(b,c) + F2 + F3 → chen_headline (the handoff lemma list is in the fin5 report,
+recorded in ChenFinal's docstring).
