@@ -130,3 +130,29 @@ intermediates against the published explicit-ANT literature.
 great"); Q5 two-leg 2026-07-14 ("let's do two legs"); the sprint
 start 2026-07-15 ("let's pre-register the sprint so we can get it
 started").
+
+---
+
+## Amendments (transparent, post-registration; the frozen text above is
+## unedited — the registration hash 7ddeb491665ac2cc82055f0552f467587ee1c494
+## certifies the original)
+
+**A1 (2026-07-15, JYH-ratified: "I agree with all three recommendations,
+proceed that way").** On Q2bc-recon evidence (the exploration ledger,
+2026-07-15 ~11:20):
+
+1. **Q2c reframed** from the registered "H₁ ≤ 6 delimitation statement"
+   to **the least-k theorem**: *in the unmodified Maynard–Selberg class,
+   the least k with M_k > 2 is 5* (k = 2, 3, 4 closed by the no-go
+   atlas; k = 5 achieved by the landed ℚ certificate), with the honest
+   gap companion "k = 5 delivers H₁ ≤ 12 at BV-level distribution" and
+   the "≤ 6 optimality" recorded as an open note (its sharp half is
+   Tao's open problem; the DHL bridge is unlanded). The original
+   phrasing conflated three carriers — the recon's R3 early stop is the
+   registered-protocol outcome, reported as such.
+2. **k=4 assembly scheduling**: N4-ASM-a/b/c run in-sprint only if the
+   parity wall (Q6a) closes first; otherwise scheduled past the sprint
+   as assembly debt (permitted by Protocol §1).
+3. **k=5 upper bound + the Dirichlet real-integral bridge**: recorded
+   as debt, not sprint work. The sprint reports the asymmetric honest
+   form (ℚ witness > 2 landed; real (5/4)log5 upper bound as debt).
