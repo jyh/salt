@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.Goldbach.Base
 import Salt.Goldbach.WeightWindow
 import Salt.Goldbach.Residue
+import Salt.Goldbach.Density
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -28,3 +29,13 @@ open Salt.Tactic in
   Salt.Goldbach.exists_crt_finset Salt.Goldbach.goldbach_residue_witness
   Salt.Goldbach.crtClassG_modEq_left Salt.Goldbach.crtClassG_modEq_right
   Salt.Goldbach.crtClassG_coprime Salt.Goldbach.crt_class_coprimeG
+  Salt.Goldbach.goldPs_squarefree Salt.Goldbach.goldPs_primeFactors
+  Salt.Goldbach.goldPs_coprime_N Salt.Goldbach.coprime_of_dvd_goldPs
+  Salt.Goldbach.goldPs_odd Salt.Goldbach.goldPs_primeFactors_facts
+  Salt.Goldbach.coprime_mod_of_coprime Salt.Goldbach.crtClass_coprime_gold
+  Salt.Goldbach.card_primesInWindow_dvd_le
+  Salt.Goldbach.punctured_correction_le
+  Salt.Goldbach.window_prod_upper_punctured
+  Salt.Goldbach.exp_correction_le Salt.Goldbach.exp_correction_le_op
+  Salt.Goldbach.window_prod_upper_punctured_folded
+  Salt.Goldbach.goldPs_nu_eq Salt.Goldbach.goldPs_hnu

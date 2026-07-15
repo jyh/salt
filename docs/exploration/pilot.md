@@ -680,3 +680,25 @@ decisions per question.
   full build exit 0 (8950 jobs). Queue state: slot open but heads
   blocked (N4-ASM-c needs b; W2 needs G-DENS — both in flight);
   active = G-DENS, N4-ASM-b, Q5b-C.
+
+- 2026-07-15 ~14:50: **G-DENS (W1) COMPLETE — W1 CLOSES; the
+  gate-corrected keystone lands + one executor catch** (cost ≈ 198k
+  tokens / 28 tools / ~19 min vs 250k estimate; 1 serious attempt +
+  2 trivial fixes). Salt/Goldbach/Density.lean (361 lines): goldPs
+  (the punctured modulus, mirroring opP with ¬q∣N) + squarefree/
+  primeFactors/odd facts; **coprime_of_dvd_goldPs** (the
+  switch-seam-vanishing fact); the re-threading
+  (coprime_mod_of_coprime — the class is N % d — +
+  crtClass_coprime_gold); divisor_cases confirmed GENERIC (reused,
+  not re-proven); **window_prod_upper_punctured** (prod_sdiff route
+  exactly per the gate) + exp_correction_le_op (zr ≥ 10⁷ ⟹
+  correction ≤ 1 + 2/10⁶) + the folded consumable form; goldPs_nu_eq
+  (nuChen = 1/φ by rfl — N-independence confirmed at the kernel).
+  EXECUTOR CATCH (adjudicated, accepted): the brief's card bound
+  N ≤ zr^8 was BACKWARDS (zr = ⌊N^{1/8}⌋ gives zr^8 ≤ N) — the
+  dischargeable form is (N:ℝ) < zr^9 ⟹ ≤ 8 divisors; G-OP must
+  supply N < (opZ N)^9 (trivial at scale; route noted). Ceremony:
+  wired + 17 keystones — full build exit 0 (8951 jobs). **W1
+  reuse-coefficient row: est 480k across 3 nodes, actual 413k, all
+  first-attempt.** W2 UNLOCKED: G-A1 + G-A2 dispatched (cap 4:
+  N4-ASM-b, Q5b-C, G-A1, G-A2); G-SW queued.
