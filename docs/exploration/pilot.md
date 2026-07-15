@@ -385,3 +385,29 @@ decisions per question.
   local Mlambda dropped (the pre-mapped merge, house surgery); five
   keystones in #audit_axioms — full build exit 0, all ✓ [3 axioms].
   Q6a-2 DISPATCHED (the concrete core + the tolerant wall).
+
+- 2026-07-15 ~12:20: **Q6a-4-RECON COMPLETE — R-b (Perron/1/ζ)
+  recommended, GATED on the one missing keystone** (cost ≈ 167k
+  tokens / 27 tools / ~12 min, Opus). Inventory: the SW contour
+  spine is GENERIC at the Kernel/ContourShift/riesz_tsum_eq level
+  (reused verbatim) and ψ-hardwired only from the composite identity
+  down; 1/ζ is SIMPLER than −ζ′/ζ (mathlib has L(μ) = 1/ζ directly;
+  |μ| ≤ 1 domination trivial; NO pole at s = 1 — no residue, no main
+  term, rectBI = 0 closes the shift). R-a (the elementary Landau
+  bootstrap): mathlib has Abel summation + all the μ/Λ convolution
+  identities (L1–L3 are B-tier), but L4's naive insertion is
+  CONFIRMED circular/false (the x·Σμ(d)/d term couples back to M(x)
+  — verified on two splits; the term-by-term form cancels the LHS
+  log exactly); the honest every-A iteration is C-with-D-risk.
+  **THE FINDING: Rb-4 (|1/ζ| ≤ poly-log T on the zero-free box) is
+  the whole ballgame** — absent from the corpus, and the landed
+  ζ′/ζ box bound (O(log²T) via M0zeta) exponentiates to a
+  SUPER-POLYNOMIAL |1/ζ| bound the kernel decay cannot absorb (the
+  false-intermediate failure mode, caught at recon on the R-b side).
+  The honest route needs a ONE-power ζ′/ζ segment bound near σ = 1
+  (Titchmarsh 3.11-grade) or a poly-log Euler-product base at
+  σ = 1 + 1/log T. VERDICT: Rb-4 sub-recon/design-gate dispatched
+  (can the landed Blaschke/zero-count apparatus reach one power?);
+  if Rb-4 prices D, BOTH routes are effectively D and the wall
+  stays conditional on MmuRate as recorded debt (an acceptable
+  registered outcome).

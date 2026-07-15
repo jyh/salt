@@ -63,6 +63,7 @@ min FIN-A3b at 147k — the mechanical restatements).
 | Q2bc-recon | 158 | k=4 GO / k=5 mismatch map / Q2c R3 stop |
 | N4-CORE | 106 | k=4 analytic core, first attempt |
 | Q6a-3 | 340 | bridge node 2 landed; node 1 flagged (MmuRate) |
+| Q6a-4-recon | 167 | R-b adjudicated; Rb-4 = the keystone; naive routes refuted |
 
 Exploration total so far ≈ **1.54 M**; recon median ≈ 100k; probe
 median ≈ 200k. (Q2-ASM in flight at recording time.)
