@@ -7258,3 +7258,22 @@ box_hprice_at_2pow_lo's hypotheses — fin8 applies the consumer with only the s
 hk/hi/hXsub/hN₀/hDbnd remaining. Anti-#69 witness compiled (the bundle drives the consumer
 end-to-end, no shape mismatch). All declarations exactly [propext, Classical.choice,
 Quot.sound]. Tally: 72 catches, 0 wrong proofs. fin7b (the band bundles) in flight.
+
+**2026-07-14 fin7b ✅ FULL (ChenRows2.lean, 775 lines, 16 decls) + ★ CATCH #73 ★ (the sym
+middle-k box) — ADJUDICATED SMALL.** The band bundles land (low_rows_at_op FULL — the low
+leg has NO gap, it vanishes exactly where unpriceable; sym_rows_at_op covers the collapsed
+regime; the poly3 row engines; the low-chain anti-#69 witness low_price_feeds_consumer).
+THE CATCH: the single middle k (pieceN k < y < pieceM k) has a LIVE sym box the consumer
+demands, whose carrier collapses to a low SHAPE (blockAlphaSym_eq_blockAlphaLow_of_le,
+proven) but keeps indicator blockPrimeInd y — no landed terminal prices that combination.
+**FABLE ADJUDICATION: one additive application lemma, not a redesign.** The terminal
+medium_survivor_price_sqrtD is generic in N; at the middle k, 2^k ≤ y gives M = pieceM k ≤
+2y (the M ≤ 2N guard closes at N := y DIRECTLY — no 2^k bridge); d0_window_of_XM_band
+applies verbatim at y ≥ x^{1/3}/8; the price at log y is within an additive log 2 of the
+log 2^k shape, one extra worst-magnitude term absorbed by the count slack under the
+3.5·10²³ headroom — hSum keeps its shape, count ≤ +1. Repair = fin8's `middle_k_price`
+(apply the terminal at N := y for that k; rows from fin7b's engines at the y-floors).
+Residuals threaded to fin8: rows 12 (caller QR) + 15 (habs, one more poly3 row). All 16
+decls exactly [propext, Classical.choice, Quot.sound]. Tally: 73 catches, 0 wrong proofs —
+the row layer is COMPLETE modulo one adjudicated-small application lemma; fin8 = the final
+assembly.
