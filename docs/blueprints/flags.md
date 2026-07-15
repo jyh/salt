@@ -7036,3 +7036,28 @@ MATHEMATICS PHASE IS COMPLETE IN ONE EVENING (3-day timebox): two new delimitati
 atlas, four protocol rules, two calibration data. All ThreeBar declarations ≤ [propext,
 Classical.choice, Quot.sound]; wired into TwinBar/All.lean. Tally: 69 catches, 0 wrong
 proofs.
+
+**2026-07-14 PRICE-3b ✅ crux + closure core (PriceClose.lean, 250 lines, 6 decls) —
+★ CATCH #70 ★: the PRICE-3 k-floor mechanism was WRONG; the honest mechanism is a
+THREE-WAY carrier split (resolved in-node, 0 wrong proofs).** The PRICE-3 finding claimed
+boundary membership supplies the k-floor (2^k ≳ x^{1/4} for hDsq) via the area clause —
+FALSE: the boundary clauses pin 2^{i+k} ∈ (x/8, x] and only UPPER-bound 2^k; the k=2
+counterexample is concrete (the pieceN-boundary at F = z·y is NONEMPTY at k = 2 for large
+x, yet hDsq demands D < 25 against D ~ x^{0.497} — off by x^{0.497}). THE HONEST
+MECHANISM: the box carrier's own upper cap c = min(z·pieceN k + 1, x+1) — EITHER 2^i ≥ c
+and the carrier VANISHES (box_carrier_eq_zero_above_cap, the upper mirror of
+carrier_eq_zero_below_floor), OR 2^i < c forces y < 2^{k+1}
+(y_lt_two_pow_succ_of_carrier) — the GENUINE k-floor 2^k > y/2 ~ x^{1/3}/2, clearing hDsq
+with x^{1/9} room (hDsq_piece_of_kfloor + hDsmall_at_op at x ≥ 10⁹⁶). The box price is a
+TRICHOTOMY (vanish / 2^k-boundary priced / edge box — the edge resists neither route),
+not a single application. All landed price lemmas remain TRUE theorems (hDsq was a
+hypothesis). ALSO LANDED: tower_budget + hNum_close_of_tower — the exact hNum slot from
+RHD, RCE ≤ Ccon·K·x/L^{11} under hK_tower : 2·Ccon·K ≤ log x (Ccon = 3.5·10²³, the gate's
+aggregate as a Lean chain; the hCE crumb folds into the factor-2 margin). Anti-vacuity
+witnesses fire for both crux lemmas. THE FULL H_W CHECKLIST recorded in the report +
+PriceClose docstring (opf_ destructuring order, the trichotomy discharger spec, hdiag/hCE
+instantiation, x₀(K) last). All 6 decls exactly [propext, Classical.choice, Quot.sound].
+Tally: 70 catches, 0 wrong proofs — the FIFTH consecutive terminal-adjacent catch found
+before assembly. REMAINING (= GLU-2W-fin2, THE FINAL NODE): the trichotomy discharger
+Price j k i, the hSum count bound (≤4 × pieces × worst), the hdiag/hCE operating
+instantiation, hBVblocksW_at_op, the hA3 example, the 12 conjuncts → chen_headline.
