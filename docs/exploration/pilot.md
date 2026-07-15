@@ -923,3 +923,15 @@ decisions per question.
   b2 needs the integrate-t₁-out marginal (the true psi_eq analogue)
   + slice_fix₄_snd — in its brief. Ceremony: wired + 10 keystones —
   full build exit 0 (8960 jobs). N4-ASM-b2 DISPATCHED.
+
+- 2026-07-15 ~18:10: **Opt-A RATIFIED (JYH: "that's a good tradeoff,
+  stay with Opt-A and keep going")** after the results-cost review:
+  the theorem statement/unconditionality/axioms/c̄/margin are
+  unchanged under either route; the costs are a modest inflation of
+  the already-tower-grade N₀ (A ↦ A+1 absorption), a higher-but-
+  more-informative measured reuse coefficient (the hindsight delta
+  is registered as a finding, and the annulus + PiUpper machinery
+  are reusable assets a flip would not have produced), vs the
+  flip's re-opening of five ceremonied nodes on an un-reconned
+  design belief. The window-flip lesson stands recorded for the
+  taxonomy; no retrofit.
