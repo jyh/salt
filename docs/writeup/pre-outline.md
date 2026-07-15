@@ -45,6 +45,64 @@ caught, diagnosis, repair, category). Nothing like it exists at this scale;
 useful to proof-engineering and AI-evaluation communities independently of
 the papers.
 
+## 1½. The mathematician claim, stress-tested (devil's-advocate session, 2026-07-14)
+
+The attack (JYH as devil's advocate): formalizing known work is service, catches
+were expected (every big formalization found gaps; the community's prior is
+"proofs have local gaps, theorems are fine" and 69-catches-zero-false-theorems
+*confirms* it), the bounds aren't records, and there is no new theorem.
+
+**Conceded, and the paper says so on page one:** no new theorem; "we found
+catches" is not news and must not be the thesis; drop "better bounds" from the
+pitch entirely unless a drafting-time audit against the explicit-ANT literature
+(explicit zero-free regions, Akbary–Hambrook-style explicit BV) shows a genuine
+record — our constants are explicit-but-worse (tower thresholds).
+
+**What survives — the four claims the paper actually makes:**
+
+1. **The mechanism, not the distribution.** The serious catches (#64, #65,
+   #69) were statement packages individually true and individually checkable
+   but JOINTLY uninhabitable — a failure mode reading cannot detect even in
+   principle. And our own carefully-written designs produced it at the same
+   rate as the literature until adversarial satisfiability-gating was added.
+   So "the community would have caught these" is wrong in an interesting way:
+   the process that catches them is instantiation, not refereeing, and nobody
+   was running it. Epistemology with data, not a gotcha.
+
+2. **The terrain was chosen adversarially.** Analytic NT (uniformities,
+   log-power bookkeeping, "by dyadic decomposition we may assume") is the
+   consensus worst case for formalization — which is why 40 years of proof
+   assistants produced essentially none of it. The demonstration is: the
+   hardest genre of informal mathematics is no longer out of reach, at
+   person-days of attention. The reader's correct update is about their own
+   Monday morning: kernel-checking THEIR load-bearing lemma is now cheap.
+   The clone-and-continue repo is this argument made concrete.
+
+3. **The refutation engine (the strongest claim).** What kills attacks on
+   hard problems is not lack of ideas but late discovery that lemma-packages
+   are jointly incompatible — found by hand, months in, sometimes post-
+   publication. We demonstrated the cheap version four times in one day:
+   adversarial instantiation returns either a kernel-checked "uninhabitable,
+   here is the witness" or a green light, BEFORE proof effort is spent. For
+   the frontier this is a design instrument, not a verification service. The
+   M₂ ≤ 2 log 2 no-go is the same instrument pointed at a method: parity-
+   barrier folklore turned into a theorem with an exact formal boundary —
+   and the boundary IS the research program.
+
+4. **The proof became an object.** Chen has been cited for 50 years as a
+   monolith; nobody builds on the interior because the interior is prose.
+   Ours is queryable and re-runnable (which hypotheses are load-bearing for
+   the constant; what changes at a different distribution level) — a new
+   kind of access to old mathematics, and the honest sense in which
+   something mathematical was produced.
+
+**Page-one framing sentence:** *we didn't add a theorem to number theory; we
+changed what it costs to know one, to build on one, and to kill a wrong path
+to one.* Rejecting all four claims amounts to claiming mathematicians don't
+care about certainty, reuse, or failed attempts — and the history of this
+exact problem (Chen's interior unaudited for fifty years, the parity barrier
+as folklore, a century of dead twin-prime attacks) says otherwise.
+
 ## 2. Audiences and tone
 
 | Audience | Tone | Leads with | Never says |
@@ -105,9 +163,16 @@ on terminal nodes (4 of 4 at the end), tokens and wall-clock per arc.
    five catches and a pricing layer; the uninhabitable H-package (#65 —
    shape-correctness vs satisfiability); the estimate-vs-statement genre
    (#64/#69 — true estimates wearing false statements).
-5. What this changes: verification economics, explicit constants as a
-   dividend, the corpus as a foundation, what it means for frontier work
-   (parity barrier, stated carefully).
+5. The no-go theorem: M₂ ≤ 2 log 2 kernel-checked — the k = 2 instance of
+   Polymath8b's M_k ≤ (k/(k−1))·log k, but formalized: the parity barrier
+   as a theorem about a precisely-delimited method class, and (pending a
+   literature sweep) the first machine-checked limitative theorem about a
+   named proof method. The formal class boundary is the research object.
+6. What this changes — the four §1½ claims: the mechanism (instantiation
+   catches what reading cannot), the worst-case terrain demonstration,
+   the refutation engine as frontier instrument, the proof as queryable
+   object. Verification economics and explicit constants as supporting
+   material, not the thesis.
 
 **B. Method paper** — sections:
 1. The result as benchmark (what was proven, at what cost).
