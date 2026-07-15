@@ -7343,3 +7343,16 @@ opPdiag_compat: ≤ x/L^{11} with x^{1/42} room (the diagonal enters hSum as a 1
 fraction of the budget — vanishing). hdiag_slot_at_op = the verbatim slot + the budget
 fit. All 6 decls exactly [propext, Classical.choice, Quot.sound]. Tally: 73 catches, 0
 wrong proofs. SYMLOW/HSUM still in flight.
+
+**2026-07-15 HSUM ✅ FULL first-attempt (AggSum.lean, 5 decls) + ★ CATCH #74 ★ (the honest
+aggregation constant), RESOLVED IN-NODE by parametricity.** The Kerr worst-price at the
+honest band floor c = 1/3 with the Lean-checkable ratio R = 31/10: boxPriceKerr ≤
+CconBox·Kc·x/L^{12} with CconBox = 2250816·(31/10)^50/(9/10)^{12} ≈ 2.95·10³¹; the sum
+(single block, ≤3 boxes × 2·log x pieces × 9/2 band coefficients + ½Pdiag) closes to
+RHD = (9·CconBox + Ccon_diag/2)·Kc·x/L^{11} ≈ 2.65·10³². THE CATCH: nine orders above the
+gate's 3.5·10²³ (which was computed at the pre-#72 box floor c = 7/16) — RESOLVED:
+hNum_close_of_tower takes Ccon as a FREE PARAMETER (the 3.5e23 was docstring-only) and the
+tower row 2·Ccon′·K ≤ log x holds with astronomic room (log x₀ ≥ w'^{w'} ≫ 10³²). No
+statement altered; fin8c instantiates at the honest constant. The slot-match example
+reproduces the verbatim hSum LHS. All 5 decls exactly [propext, Classical.choice,
+Quot.sound]. Tally: 74 catches, 0 wrong proofs. SYMLOW is the last F2 input in flight.
