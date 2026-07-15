@@ -194,3 +194,27 @@ decisions per question.
   level-D version) is C/D-tier. THE CORPUS CONVENTION (EHall/
   PiAsymp-style named Props) permits the wall CONDITIONAL on a
   stated λBV Prop with zero porting — honest and idiomatic.
+
+- 2026-07-15 ~09:30: **Q5a COMPLETE — outcome: OBSTRUCTION-PRECISE +
+  a new delimitation theorem + Tao's open problem identified** (cost
+  ≈ 243k tokens / 49 tool uses / ~36 min; 1 web check + 2 numeric
+  scripts + 4 build cycles). Landed (Salt/TwinBar/Constrained.lean,
+  11 decls, wired): twin_bar_constrained (the honest constrained
+  bound), **no_twin_weight_constrained** (the no-go below δ₀ at the
+  honest class, tent-witnessed non-vacuous),
+  **cs_bound_ignores_constraint** (THE OBSTRUCTION AS A THEOREM: the
+  identical bound holds with no marginal hypothesis — the per-slice
+  CS never consumes the constraint; the wing weight reaches 2(1+δ)
+  and β-optimality shows no base-tuning beats it — method-intrinsic).
+  THE DISCOVERY: Q5a's full form IS Tao's open problem (Polymath8b
+  VII, k=2 GEH: "We suspect... negative, but have not formally ruled
+  it out"). Numerics (two methods, unconstrained control validates):
+  c(δ) = 1.61/.2, 1.80/δ₀, 1.94/.7, 1.99/.9, **2.00000 at δ = 1**
+  (grid-independent) — the first quantitative map of the constrained
+  sup; R4 cleared (a non-attained sup, no gate crossing). R3
+  divergence recorded (registration's class vs Tao's exact ε-class);
+  **FABLE ADJUDICATION: the atlas canonicalizes TAO'S class for
+  literature-facing statements; the corpus-internal class kept with
+  the a-fortiori bridge. OPEN Q5a-1 (= Tao's problem: c(δ) < 2 on
+  (δ₀,1), c(1) = 2) is rung-∞ territory beyond the sprint timebox —
+  Q5a reports as RESOLVED-AS-OBSTRUCTION with the open note.**

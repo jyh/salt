@@ -12,6 +12,7 @@ import Salt.TwinBar.Witness
 import Salt.TwinBar.RationalTie
 import Salt.TwinBar.Enlarged
 import Salt.TwinBar.ThreeBar
+import Salt.TwinBar.Constrained
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -64,6 +65,8 @@ open Salt.Tactic in
   Salt.TwinBar.twin_witness Salt.TwinBar.M₂_squeeze
   Salt.TwinBar.twin_bar_asymmetric Salt.TwinBar.twin_bar_signed
   Salt.TwinBar.twin_bar_enlarged Salt.TwinBar.no_twin_weight_enlarged
+  Salt.TwinBar.twin_bar_constrained Salt.TwinBar.no_twin_weight_constrained
+  Salt.TwinBar.cs_bound_ignores_constraint Salt.TwinBar.admissible_witness
   Salt.TwinBar.log_slice_CS Salt.TwinBar.w_sum_three
   Salt.TwinBar.three_halves_log_three_lt_two Salt.TwinBar.no_triple_weight_of_tripleBar
   Salt.TwinBar.two_fifths_below_threshold
