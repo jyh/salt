@@ -7356,3 +7356,17 @@ tower row 2·Ccon′·K ≤ log x holds with astronomic room (log x₀ ≥ w'^{w
 statement altered; fin8c instantiates at the honest constant. The slot-match example
 reproduces the verbatim hSum LHS. All 5 decls exactly [propext, Classical.choice,
 Quot.sound]. Tally: 74 catches, 0 wrong proofs. SYMLOW is the last F2 input in flight.
+
+**2026-07-15 SYMLOW ✅ FULL first-attempt (AssembleA3b.lean, 774 lines) — the sym/low
+dischargers land; ALL SIX consumer inputs now have landed suppliers.** low (2 regimes) +
+sym (3 regimes incl. the middle-k at log y) via the arg-free extraction trick (Kb/N₀b and
+Km/N₀m pulled before ∀x, rows replicated inline, N₀ folded into x₁ via the (8(N₀+4))³
+floor); the sym reconciliation resolved WITHOUT membership transfer (F := z·max throughout;
+the collapse F-floor via zy_floor_ge; the middle-k x^{1/3}/8 ≤ 2^k re-derived from
+opY + 1 ≤ 2^{k+1}). The anti-#69 example feeds BOTH slots into hBVblocksW_discharge'
+verbatim at the operating values. All 3 public decls exactly [propext, Classical.choice,
+Quot.sound]. Tally: 74 catches, 0 wrong proofs. **F2's input set is COMPLETE: Price
+(box_price_at_op) / PsymK+PlowK (sym/low_price_at_op) / hdiag (hdiag_slot_at_op) / hSum
+(hSum_at_op at the honest Ccon′) / hCE (hCE_at_op) / hNum (hNum_close_of_tower,
+parametric). fin8c = THE COMPOSITION: hBVblocksW_at_op → a12_hA3 → the ledger → the 12
+conjuncts → chen_headline.**
