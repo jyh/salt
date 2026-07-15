@@ -79,7 +79,13 @@ STOP AND FLAG.
 | W2 | G-A1 | goldA1Sieve(/W) + goldBVSum (divisor_cases mirror) | B/C | 330k |
 | W2 | G-A2 | goldA2SieveW + aggregation | B | 280k |
 | W2 | G-SW | goldSwitch{Sieve,W,Blocks,BV}. **GATE FINDING: the {q∣N} unit seam VANISHES** — goldPs excludes q∣N so Coprime N d is free for all d∣Ps; the Q-level residue is a unit via G-RES's Coprime Q (N−a); the AggCE conversion crumb is entirely N-free. Downgraded from THE RISK NODE; expect strong reuse. | B/C | 350k (over-budgeted) |
-| W3 | G-COUNT | goldTripleCount/WeightedCount/CountFinal/CountW/CountAtOp*/CountClose | B | 380k |
+| W3 | ~~G-COUNT~~ **RE-CUT 2026-07-15 (the dyadic tear — ledger
+~17:00): the twin's dyadic p₃-interval is forced by its lower product
+bound; the bottom-half interval is non-dyadic and crude pricing
+breaks the razor margin. Partial landed (Count.lean: the projection
+reduction). Replaced by:** | | |
+| W3 | **G-PIUPPER** | goldPerPair_pi_upper — the sharp per-pair count via dyadic decomposition + geometric series against prime_count_Ioc_le; explicit 1 + C/log correction fitting the ledger's error budget | C | 250k |
+| W3 | G-COUNT-2 | compose (weightedPairSum'_le_cbar reuses VERBATIM) → goldTripleSum_le_cbar_final + the CountW/CountAtOp*/CountClose op chain on the punctured window | B | 300k |
 | W3 | ~~G-BAND~~ **RE-CUT 2026-07-15 (the D5 ≥2× rule fired — the band
 chain is NOT carrier-generic: the twin's top-half window is a
 DIFFERENCE of two apDiscBilinCutoff cutoffs; the bottom-half
