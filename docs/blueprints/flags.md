@@ -7333,3 +7333,13 @@ QR/Dlev (the cutoff discarded, crumbs ≥ 0), honest scale x^{7/8}·polylog with
 room. The slot match feeds hBVblocksW_of_generalBV character-for-character. All 4 decls
 exactly [propext, Classical.choice, Quot.sound]. Tally: 73 catches, 0 wrong proofs.
 SYMLOW/HSUM/HDIAG still in flight.
+
+**2026-07-15 HDIAG ✅ FULL first-attempt (AggDiag.lean, 6 decls) — hdiag discharged with
+x^{1/42} margin; no catch.** crumb_le_rpow_at_op (2^{Nat.log w' x} ≤ x^{1/7} for EVERY
+x ≥ 1 — threshold-free via pow_log_le_self + log w' ≥ 12 ≥ 7·log 2); the ν-side at u :=
+w0R opEps with all guards from opf_* (Σν ~ log x/(6·10⁹) ≤ log x — polylog, as
+pre-adjudicated); opPdiag := opY·√x·(x^{1/7} + log x) ≤ 2x^{41/42};
+opPdiag_compat: ≤ x/L^{11} with x^{1/42} room (the diagonal enters hSum as a 1/(2 log x)
+fraction of the budget — vanishing). hdiag_slot_at_op = the verbatim slot + the budget
+fit. All 6 decls exactly [propext, Classical.choice, Quot.sound]. Tally: 73 catches, 0
+wrong proofs. SYMLOW/HSUM still in flight.
