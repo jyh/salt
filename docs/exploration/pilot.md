@@ -509,3 +509,32 @@ decisions per question.
   layer already fully size-parametrized (reused verbatim), four_bar
   TRUE + inhabited on an asymmetric F (sumJ 0.5627 ≤ 0.7188).
   N4-ASM-a DISPATCHED (post-correction).
+
+- 2026-07-15 ~14:50: **Q1-INV COMPLETE — the census VALIDATED at
+  declaration level; the re-certification risk RESOLVED: NONE
+  NEEDED** (cost ≈ 256k tokens / 42 tools / ~20 min, Opus; spine
+  read personally + 4 deep-read subagents). (1) Target statement
+  recommended: `∃ N₀, ∀ N ≥ N₀, Even N → ∃ p q, N = p + q ∧ p.Prime
+  ∧ IsP2 2 q` (additive form, explicit threshold, IsP2 2 unchanged —
+  no carrier N-parametrization anywhere). (2) THE KEY FINDING: the
+  singular series 𝔖_N = ∏_{q|N,q>2}(q−1)/(q−2) enters ONLY through
+  W (the sifted primes exclude q|N), and X_W = totalMass·W is the
+  COMMON factor of all three razor carriers — it cancels in the
+  normalized bracket; nuChen = 1/φ(d) never sees the residue; c̄ is
+  a dimensionless integral over the fixed exponents [1/8,1/3];
+  CbarCert/SuperPanels/razor_scalar_margin reused VERBATIM. (3) The
+  three re-derive items priced DOWN: (i) B not C (the {q∤N}
+  primorial + reduced-residue re-threading + a W-ratio residual
+  ≤ ω(N)·N^{−1/8} absorbed by existing slack); (ii) B (the CRT
+  witness avoiding {0, N mod q}, nonvacuous at q ≥ 3); (iii) A/B
+  (opQ is a FIXED constant — opEps = 2/10⁸ — so opQ ≤ log N for
+  N ≥ e^{opQ}; the ∀N wrapper is SIMPLER than the twin infinitude).
+  (4) Riskiest node: G-SW — the {q|N} unit seam in the switched
+  remainder (SwitchBV:88 + AggCE:75), the ONE genuinely new
+  casework site (finite x^{o(1)} exceptional-modulus split). (5)
+  Wave plan W0–W4, ~11 nodes, est. ≈2.9M tokens (→ ~2.2M if the
+  rfl-transfer productivity holds). Two marked uncertainties (the
+  hWy numeric closure at op point; G-SW cost read at signature
+  level) + a W0 obligation (confirm the live spine =
+  ChenTheorem ← FinA3c/FinLed3 ← Headline4 ← Assembly before
+  mirroring). Design freeze (Fable) next → gate → waves.
