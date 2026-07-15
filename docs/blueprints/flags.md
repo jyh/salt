@@ -7277,3 +7277,17 @@ Residuals threaded to fin8: rows 12 (caller QR) + 15 (habs, one more poly3 row).
 decls exactly [propext, Classical.choice, Quot.sound]. Tally: 73 catches, 0 wrong proofs —
 the row layer is COMPLETE modulo one adjudicated-small application lemma; fin8 = the final
 assembly.
+
+**2026-07-14 fin8 ✅ the F1 residuals (Headline3.lean, 2 decls) — honest re-scope to three
+nodes.** band_habs_row (the habs row at the band floor — LHS·L^{13} ≤ x^{2/3}/64 ≤ (2^k)²;
+character-for-character the input fin7b threaded) + middle_k_M_le_two_y (the M ≤ 2N guard
+at N := y). RE-SCOPE (rule-4 discipline, no new catch): middle_k_price is a genuine
+terminal application at N := y — medium_box_price_core hardcodes the pieceN→2^k bridge, so
+the middle-k box needs the generic-N terminal applied directly with its ~35 hypotheses
+(the band D0 window at N := y, the generic couplings, the per-e rows, the ChenRows2
+engines at y-floors — ALL ingredients landed, a node of discharge). **fin8a
+(middle_k_price) → fin8b (F2: the three dichotomy dischargers → Price/PsymK/PlowK, hSum,
+hdiag, hCE, hNum → hBVblocksW_at_op → the hA3 bundle; the PDiag:782 CompositionSanity
+template verified to emit the exact hA3 shape) → fin8c (F3: the ledger at X_W^Q + the 12
+conjuncts → chen_of_hypotheses_W → chen_headline).** Both decls exactly [propext,
+Classical.choice, Quot.sound]. Tally: 73 catches, 0 wrong proofs.
