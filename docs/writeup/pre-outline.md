@@ -110,6 +110,57 @@ as folklore, a century of dead twin-prime attacks) says otherwise.
 | Mathematicians | measured, modest, evidence-first | the ledger and its distribution | "referees are obsolete"; any unanchored speed claim |
 | ITP / AI-for-math | direct, quantitative | scale + cost + method | hand-waving about rigor (this crowd checks) |
 
+### §2½ — THE VOICE (JYH-set, 2026-07-15; the exemplar: Bar-Sinai, Hoyer, Hickey & Brenner, "Learning data-driven discretizations for partial differential equations," PNAS 116(31) 2019, doi:10.1073/pnas.1814058116)
+
+The register, extracted from the exemplar (its abstract is the calibration
+artifact — study its seven-sentence arc: problem → concrete difficulty →
+"the only recourse" → honest state-of-the-art ("notoriously difficult, and
+often ad hoc") → "Here we introduce X, a method for Y" → the mechanism in
+one sentence → the result QUANTIFIED with one earned superlative
+("remarkably accurate … 4–8× coarser")):
+
+1. **Problem-first openings.** No history-of-the-field throat-clearing;
+   the first sentence states the difficulty plainly.
+2. **"Here we introduce X, a method for Y."** The contribution named and
+   defined once, in one sentence, without fanfare.
+3. **Every strong adjective is paid for by a number in the same
+   sentence.** "Remarkably accurate" is licensed by "4–8×." Ours:
+   78 catches / 0 wrong proofs / ~127k lines / person-days not
+   person-years / 63% verbatim reuse / δ₀ ≈ 0.4427.
+4. **First person plural, active voice.** "We introduce," "we prove,"
+   "we measured." Collaborative authority; no passive evasion.
+5. **Short declarative sentences carry the claims; long sentences carry
+   only mechanism.** Vary length strategically, never uniformly.
+6. **Honest plainness about the state of the art.** "Notoriously
+   difficult, and often ad hoc" — direct without combativeness; the same
+   register for our own limitations.
+7. **Limitations explicit, enumerated, actionable, at the end.**
+   "Two challenges remain: …" — never buried, never vague.
+8. **Mathematics woven into prose**, notation explained where it first
+   appears, figures referenced parenthetically as support.
+9. **Hedge only where uncertainty is real** ("often," "typically");
+   core contributions carry no modal verbs.
+10. **One vivid phrase per section, not per paragraph.** ("The X-ray of
+    a classical proof," "the wall and the door," "premise latency" —
+    spent sparingly.)
+
+Calibration sample (paper A's abstract, in the register, to be refined at
+drafting): *"The correctness of classical analytic number theory rests on
+proofs whose load-bearing details are checked by referee trust; verifying
+them formally has been notoriously laborious, and for the hardest genre —
+sieve theory with explicit constants — essentially never done. Here we
+present a machine-checked proof of Chen's theorem, unconditional and
+axiom-minimal, built by an AI-orchestrated method in days of wall-clock
+time. The formalization produced a complete ledger of 78 corrections to
+the classical presentation, none in the celebrated ideas and essentially
+all at the interfaces between subsystems — jointly unsatisfiable
+hypothesis packages, idealized identities no operating point can reach,
+constants quantified in the wrong scope. Every defect was caught before a
+wrong proof could be built on it. We describe the method, measure where
+correctness actually lives in a classical proof, and show that the
+marginal cost of full verification has fallen from person-years to
+person-days of attention. Two challenges remain: …"*
+
 Calibration rules for both: state up front that no new theorems were proven
 (the frontier claim is about *method*, not results); anchor every speed
 claim to cost-of-attention (person-days of human decision points, tokens,
