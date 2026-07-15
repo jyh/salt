@@ -17,6 +17,7 @@ import Salt.TwinBar.ThreeBarAsm
 import Salt.TwinBar.FourBar
 import Salt.TwinBar.SimplexS
 import Salt.TwinBar.Simplex4
+import Salt.TwinBar.Simplex4Inner
 import Salt.TwinBar.LambdaRate
 import Salt.TwinBar.ParityWall
 import Salt.TwinBar.Wall
@@ -112,3 +113,7 @@ open Salt.Tactic in
   Salt.TwinBar.psi₄ Salt.TwinBar.region_integrable₄
   Salt.TwinBar.outer_marg₄_fst Salt.TwinBar.outer_marg₄_swap
   Salt.TwinBar.j4order_eq_region Salt.TwinBar.j3order_eq_region
+  Salt.TwinBar.psi_eq₄ Salt.TwinBar.reduce3_canonical_int
+  Salt.TwinBar.outer_marg₃_lst_int Salt.TwinBar.canonical4_eq_region
+  Salt.TwinBar.outer_marg₄_lst Salt.TwinBar.j2order_eq_region
+  Salt.TwinBar.outer_marg₄_lst_swap

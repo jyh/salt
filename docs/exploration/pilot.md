@@ -955,3 +955,25 @@ decisions per question.
   box_disc_three_way verbatim, consume BV at A+1; the box objects
   are OWNED here (import, never redefine). Ceremony: wired + 6
   keystones — full build exit 0 (8961 jobs). G-BANDIDENT DISPATCHED.
+
+- 2026-07-15 ~16:50 (real ~15:55): **N4-ASM-b2 COMPLETE — node b
+  CLOSES; the gate's marginal-continuity blocker met and resolved
+  faithfully** (cost ≈ 210k tokens / 27 tools / ~23 min vs 300k;
+  every declaration first-pass). Salt/TwinBar/Simplex4Inner.lean
+  (248 lines): psi_eq₄ (the true integrate-t₁-out marginal);
+  **reduce3_canonical_int** — the design call of the node: peeling
+  t₁ inner produces the full marginal Φ whose CONTINUITY is exactly
+  the unbudgeted lemma the gate flagged; the executor swapped the
+  hypothesis to INDICATOR-INTEGRABILITY (from region_integrable₄
+  via Fubini), which is how the 3-D template itself bottoms out —
+  faithful, not a weakening; **canonical4_eq_region** (J₁₄) +
+  **j2order_eq_region** (J₂₄, via slice_fix₄_snd +
+  simplex_swap_param) + the two t₄-outer marginals node c needs.
+  ALL FOUR reduction LHS orders match the FourBar carriers
+  character-for-character; all four RHS share the identical
+  Δ₄.indicator form. Node b totals (incl. the two dead monolithic
+  runs): ≈ 470k vs the original 350k estimate — the overrun is
+  entirely the process failure, not the mathematics (b1+b2 proper:
+  380k, first-attempt each). Ceremony: wired + 7 keystones — full
+  build exit 0 (8962 jobs). **N4-ASM-c DISPATCHED — the k=4 finale
+  (the four peel bounds + four_bar + no_quad_weight).**
