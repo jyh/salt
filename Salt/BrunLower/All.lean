@@ -1,0 +1,86 @@
+/-
+Copyright (c) 2026 Jason Hickey. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Jason Hickey, Claude
+-/
+import Salt.BrunLower.Defs
+import Salt.BrunLower.LowerMoebius
+import Salt.BrunLower.Pointwise
+import Salt.BrunLower.MainTerm
+import Salt.BrunLower.BlockDecomp
+import Salt.BrunLower.WRatio
+import Salt.BrunLower.Remainder
+import Salt.BrunLower.MertensWindow
+import Salt.BrunLower.Lemma3
+import Salt.BrunLower.Pair
+import Salt.BrunLower.MertensDischarge
+import Salt.BrunLower.TwinInstance
+import Salt.Tactic.AuditAxioms
+
+/-!
+# The both-sided Brun sieve rung (`p0`) — aggregate import
+
+Design: `docs/blueprints/p0.md`.  The **possibility-side keystone** of the twin
+ladder: the block-truncated Brun sieve of Halberstam–Richert, *A new look at Brun's
+sieve*, Mém. SMF **25** (1971) 97–106, Théorème 2 — the tool that will deliver
+`Ω(n(n+2)) ≤ 20` for infinitely many `n` (`docs/blueprints/p0.md` §P1).  Fixed-depth
+Bonferroni cannot serve this (flags #15); the feasible-λ window and block offset are
+those of the primary source read at page-image level, `Λ = 2λ/A` general and offset
+`2b − ν + 2n − 1` exact (flags #16).
+
+## Landed (nodes B0 + B1 + B2)
+
+`Defs` (B0): the ladder `zLev`/`bigLambda` with the bottom `z_r = 2` and the
+minimal-`r` characterisation (2.14); the block predicate `chi` (`χ_ν`, (2.10),
+restricted-count form) and its structural rules (2.1)–(2.4) `chi_one`,
+`chi_dvd_closed`, `chi_prime`, `chi_add_smaller_prime`; the density product `W`.
+`LowerMoebius` (B1): `IsLowerMoebius` and the lower-bound sieve inequalities
+`siftedSum_ge_sum_of_lowerMoebius` / `siftedSum_ge_mainSum_errSum_of_lowerMoebius`
+— the exact sign-flipped dual of mathlib's upper Selberg plumbing (upstreamable).
+`Pointwise` (B2, the keystone): the pointwise block-Brun pair
+`sum_moebius_chi_upper`/`sum_moebius_chi_lower` via H-R's Lemma 1 + (2.5)
+(smallest-prime peel; the sign is exactly B0's parity rule (2.3) contraposed) and
+the bridges `isUpperMoebius_moebius_chiOne` / `isLowerMoebius_moebius_chiTwo`
+(all `n`, via the radical).
+
+**Note (block predicate, load-bearing).** `chi` is the *restricted-count* reading of
+(2.10): `∀ n ≥ 1`, `#{p ∣ d : z_n ≤ p} ≤ 2b−ν+2n−1`.  The naive "all-of-`d`" reading
+is not divisor-closed (fails (2.2)); the divisibility-window form is recovered only as
+the one-way consequence `chi_imp_windowed`.  See `Defs`'s module docstring.
+-/
+
+-- Build-time axiom audit: a stray axiom in the `p0` carriers fails `lake build` here.
+open Salt.Tactic in
+#audit_axioms Salt.BrunLower.zLev_zero Salt.BrunLower.zLev_antitone
+  Salt.BrunLower.zLev_le_two_iff Salt.BrunLower.exists_zLev_le_two
+  Salt.BrunLower.zLev_minLevel_le_two Salt.BrunLower.exp_minLevel_ge
+  Salt.BrunLower.bigOmegaGe_eq_card_iff Salt.BrunLower.chi_imp_windowed
+  Salt.BrunLower.chi_one Salt.BrunLower.chi_dvd_closed Salt.BrunLower.chi_prime
+  Salt.BrunLower.chi_add_smaller_prime Salt.BrunLower.W_pos
+  Salt.BrunLower.siftedSum_ge_sum_of_lowerMoebius
+  Salt.BrunLower.siftedSum_ge_mainSum_errSum_of_lowerMoebius
+  Salt.BrunLower.sum_moebius_chi_upper Salt.BrunLower.sum_moebius_chi_lower
+  Salt.BrunLower.isUpperMoebius_moebius_chiOne
+  Salt.BrunLower.isLowerMoebius_moebius_chiTwo
+  Salt.BrunLower.blockTail_le
+  Salt.BrunLower.mainSum_le_of_upper Salt.BrunLower.mainSum_ge_of_lower
+  Salt.BrunLower.windowSum_le_log_Wratio Salt.BrunLower.Wratio_le_exp
+  Salt.BrunLower.windowSum_le Salt.BrunLower.Wratio_pos
+  Salt.BrunLower.windowSum_nonneg
+  Salt.BrunLower.esymm_le Salt.BrunLower.block_esymm_le
+  Salt.BrunLower.mainSum_le_blockForm Salt.BrunLower.mainSum_ge_blockForm
+  Salt.BrunLower.mainSum_le_of_upper' Salt.BrunLower.mainSum_ge_of_lower'
+  Salt.BrunLower.capSum_le Salt.BrunLower.capSum_master
+  Salt.BrunLower.remainder_prod_bound Salt.BrunLower.remainder_prod_bound_of_R
+  Salt.BrunLower.sum_vonMangoldt_div_ge Salt.BrunLower.abs_Sfun_sub_log_le
+  Salt.BrunLower.sum_inv_prime_window_le Salt.BrunLower.sum_inv_le_of_prime_window
+  Salt.BrunLower.sum_inv_le_of_subset_window
+  Salt.BrunLower.master_signed Salt.BrunLower.hcorr_upper
+  Salt.BrunLower.hcorr_lower
+  Salt.BrunLower.mainSum_le_blockForm' Salt.BrunLower.mainSum_ge_blockForm'
+  Salt.BrunLower.errSum_le_remainder_prod
+  Salt.BrunLower.brun_lower Salt.BrunLower.brun_upper
+  Salt.BrunLower.LamTwin_pos Salt.BrunLower.LamTwin_le_lam
+  Salt.BrunLower.LamTwin_le_one Salt.BrunLower.log_Wratio_le_ladder
+  Salt.BrunLower.hMert_twin Salt.BrunLower.hMert_twinSieve
+  Salt.BrunLower.twin_almost_prime

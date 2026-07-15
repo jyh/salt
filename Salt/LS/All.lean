@@ -15,6 +15,7 @@ import Salt.LS.GaussSum
 import Salt.LS.PsiDefs
 import Salt.LS.ArithmeticLS
 import Salt.LS.CharLS
+import Salt.LS.DvdLS
 import Salt.LS.Vaughan
 import Salt.LS.Conductor
 import Salt.LS.BDHPrep

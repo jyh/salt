@@ -2660,3 +2660,4984 @@ block-Brun inequality). GUARD: transcribe Théorème 2's E(b)/c(b,λ)/
 hypothesis-shape from the primary PDF before freezing (the recon's
 envelope BEAT the source's proven window — a constant is off somewhere;
 trust only the PDF). Running tally: 15 design errors caught pre-execution.
+
+## 2026-07-12 P0 transcription: error #16 averted (the e² in the denominator)
+
+The primary-source transcription (H-R 1971 read at page-image level,
+constants reproduced from the proof's own (2.11)–(2.17)) caught the
+recon sketch's error factor missing the e²: true denominator
+1 − λ²e^{2+2λ} (condition λe^{1+λ} < 1, λ < 0.2785), not 1 − λ²e^{2λ}
+(λ < 0.567) — the sketched window was 2× too wide, and at the natural
+λ = 1/4, b = 1 the twin u-window (level 8.077 vs u < 8) is EMPTY; {7,7}
+closes only in the razor band λ ≈ 0.2525–0.253. Blueprint frozen on the
+paper's constants with margins PRE-computed: P1 primary = (b=2, λ=1/4)
+⇒ main-term margin +0.946, u = 10.1, K = 20 pair — robust to Lean
+loosening; the {7,7}/K=14 stretch (margin +0.014) is optional and must
+not gate the rung. Also corrected: ladder Λ = 2λ/A general; block offset
+2b − ν + 2n − 1 exact; the "support cutoff" was a mis-description (the
+frozen form is the explicit (2.12) remainder product, O-free per
+doctrine). Tally: 16 design errors caught pre-execution, 0 at execution.
+
+## 2026-07-12 P0 B0: catch #17 — BY THE EXECUTOR (the block predicate's two readings)
+
+First catch at the executor level: the p0.md blueprint compressed H-R's
+χ_ν into the "all-of-d" reading and asked for a single-condition
+min-prime-factor equivalence. The B0 executor produced a concrete
+counterexample (b=1, ν=1, d = q₁q₂q₃q₄ across ladder levels) showing
+that reading violates the paper's own divisor-closure rule (2.2), which
+the paper calls "obvious" — true only for the RESTRICTED-COUNT form
+`#{p ∣ d : p ≥ z_n} ≤ 2b − ν + 2n − 1`. The executor formalized the
+correct form, REFUSED to state the false equivalence (landing the honest
+one-way `chi_imp_windowed`), and flagged. Iron Rule 1 exercised
+downstream. All four structural rules (2.1)–(2.4) proven under the
+correct reading. Tally: 17 design errors caught pre-(downstream)-
+execution, 0 proofs ever built on a wrong statement.
+
+## 2026-07-12 P0 B3: catch #18 — the freeze omitted (2.16) from the hypothesis decomposition
+
+The B3 executor (transcribe-first discipline) confirmed the frozen
+endpoint constants at page-image level (the #16 factor `e^{2λ}/(1 −
+λ²e^{2+2λ})` exactly as frozen) but found H-R's (2.11)→(2.17) chain
+consumes the W-ratio bound **(2.16)** `W(z_n)/W(z) ≤ e^{2nλ}` — which
+H-R derive on pp. 104–106 from a Mertens estimate ("a well-known
+result": `Σ_{w≤p<z} ω(p)log p/p ≤ A(log(z/w)+1)`) + (Ω₁) + the
+Λ-choice (2.18) valid only for z large. The p0.md freeze listed
+{(Ω), (Ω₁), (R), ladder, (1.2)} and did not surface (2.16) as a node.
+Per Iron Rule 1 the executor landed the endpoint with `hWr`(=(2.16)),
+`hps`, `hdecomp`(=(2.11)) as EXPLICIT hypotheses — no statement
+improvised, the #16-critical tail arithmetic (`blockTail_le`) fully
+proved with tight constants. Adjudication (Fable): decomposition
+error, not statement error — the DAG gains B3b (discharge (2.16) +
+(2.11); re-check Thm 2's p. 99 statement for a possible z-threshold
+the freeze may also have dropped). Tally: 18 design errors caught,
+0 proofs on wrong statements; #17 and #18 both surfaced by executors
+holding the line — the discipline is now bidirectional.
+
+## 2026-07-12 P0 B3b: catch #19 — (2.18) redefines Λ AND the O-free freeze dropped the z-threshold (STOP-AND-FLAG, Iron Rule 1)
+
+B3b executor (Opus, transcribe-first) re-fetched the numdam PDF and rendered
+the missing p. 106. Two verbatim findings feeding Fable-tier decisions:
+
+1. **(2.18) is `Λ = (2λ/A)·(1 + B₁/loglog z)⁻¹`** (p. 106, "Thus (2.16) follows
+   on choosing"). This is a `z`-dependent scale strictly BELOW B0's nominal
+   `bigLambda A lam = 2λ/A`, rising to it as `z → ∞`; H-R add "`0 < Λ ≤ 1`
+   since `λ < 1/2`, `A ≥ 1` and `z` is large." So (2.18) BOTH redefines Λ AND
+   requires `z` large. Per the STOP-AND-FLAG the executor did NOT pick a new Λ:
+   B3b keeps `Lam` a FREE PARAMETER and expresses (2.18)'s content as the
+   free-parameter inequality `hkappa : κ ≤ 2λ` (equality when Λ per (2.18)),
+   where `κ` is the common rate of the pre-(2.18) bound (p. 106 "whence")
+   `log(W(z_n)/W(z)) ≤ nΛA(1 + B₁/loglog z) = n·κ`. B0's `zLev` is Λ-generic and
+   B3's carriers are Λ-abstract, so nothing landed breaks; the Λ instantiation
+   for B5 is a Fable ladder decision. **Fable action: at B5/P1, instantiate the
+   ladder with the (2.18) Λ (or verify `κ ≤ 2λ` at the twin instance).**
+
+2. **Théorème 2 (p. 99) carries NO explicit z-threshold hypothesis.** Verbatim:
+   "Suppose that (Ω), (Ω₁) and (R) hold. Let b be a positive integer and λ any
+   positive real number satisfying (1.2) λe^{1+λ}<1. Then S ≤ XW(z){1+2λ^{2b+1}
+   e^{2λ}/(1−λ²e^{2+2λ})} + O(z^{2b+2.01/(e^{2λ/A}−1)}) and S ≥ XW(z){1−2λ^{2b}
+   e^{2λ}/(1−λ²e^{2+2λ})} + O(z^{2b−1+2.01/(e^{2λ/A}−1)})." The "z sufficiently
+   large" is ABSORBED into the O-term (and the `2 → 2.01` fudge on the level
+   exponent `2b−ν+1 + 2/(e^Λ−1)` of (2.15)); Λ = 2λ/A appears as `e^{2λ/A}`,
+   confirming B0. **But** p0.md's freeze re-expressed the pair O-free (O-term →
+   explicit `Σχ_ν|R_d|`), and that exact inequality holds only once (2.16) does
+   — i.e. only for `z ≥ z₀(λ,b,A)` (the (2.18)/"z large" threshold). So the
+   frozen B5 pair DOES need a `z ≥ z₀` side-condition that the O-notation hid.
+   **Fable action: B5 statements should carry the (2.18) `z`-large hypothesis
+   (or its concrete twin-instance value); this is a statement decision, not the
+   executor's.** (Aside: the p. 99 denominator scans as `1+λ²e^{2+2λ}`, but the
+   derivation (2.17) unambiguously gives `1−λ²e^{2+2λ}`, which is what the
+   freeze/MainTerm use — a known H-R typo, not a freeze error.)
+
+Resolution: B3b landed `Salt/BrunLower/WRatio.lean` (new file, namespace
+`Salt.BrunLower`), sorry-free, axioms `[propext, Classical.choice, Quot.sound]`.
+Concrete carriers `windowPrimes`/`windowSum`/`Wratio` (= `W(z_n)/W(z)` over the
+`BoundingSieve`); `windowSum_le_log_Wratio` lands H-R's p.104 one-liner
+`Σ ω(p)/p ≤ log(W(z_n)/W(z))` (needs only ν<1, no (Ω₁)); `Wratio_le_exp`
+(=(2.16), B3's `hWr`) and `windowSum_le` (B3's `hps`) discharge from the single
+Mertens interface hypothesis `hMert : log(Wratio) ≤ n·κ` + `hkappa : κ ≤ 2λ`.
+Shapes verified to plug into MainTerm's `mainSum_le_of_upper`/`_ge_of_lower`
+with no glue (`Wr := Wratio s Lam z`, `ps := windowSum s Lam z`). **P1 must
+discharge `hMert` at the twin instance** (ω(2)=1, ω(p)=2, A=2) via the corpus'
+product-form Mertens (`log(Wratio s Lam z n) = Σ_{p∈window} −log(1−ν(p))`, so
+`hMert` is a windowed Mertens-product bound — "Maynard's Mertens" territory).
+Floor-vs-full: this is the sanctioned PB-floor at generality level (a) — the raw
+Mertens `Σ ω(p)logp/p ≤ A(log(z/w)+1)` → (W-est) partial-summation and the
+(2.18) Λ-choice are held as the `hMert`/`hkappa` interface (Fable/P1-tier), not
+re-derived, since (2.18) is a Λ-redefinition (finding #1).
+
+Adjudication (Fable, same day): both findings accepted. (i) B0's
+`bigLambda = 2λ/A` stays as the ASYMPTOTIC scale; the ladder machinery
+is Λ-generic, and B5/P1 instantiate Λ per (2.18) (z-dependent) — the
+p0.md ladder line is corrected. (ii) B5 will be stated
+hypothesis-parameterized (`hMert`/`hkappa` interface, as B3b shaped) —
+no hidden z₀; P1 discharges at the twin instance where Mertens is
+concrete and the threshold explicit. The 2.01 exponent fudge in H-R's
+p. 99 O-form does not touch our freeze (we keep the exact (2.12)
+product remainder). Optional polish node B3c (general-ω raw-Mertens →
+`hMert` via partial summation) recorded, NOT on P1's critical path.
+Tally: 19 design errors caught pre-(downstream)-execution, 0 proofs on
+wrong statements; #17–#19 all surfaced by executors holding the line.
+
+## 2026-07-12 P0 B3a: Lemma 3 honestly interfaced (`hcorr`) — new node B3a′
+
+B3a landed (2.11) in full (`esymm_le`, from scratch — mathlib has no
+Maclaurin/esymm inequality; built on `sum_pow_eq_sum_piAntidiag` +
+`multinomial_spec`) plus the endpoint compositions
+`mainSum_le_of_upper'`/`mainSum_ge_of_lower'` (compiler-verified
+drop-ins for B5). The p. 104 display itself — Lemma 3's telescoping
++ `d = δpt` reindex + `Σ_{δ∣P(p)}μω/δ = W(p)` + the Corollary grouping
++ (2.10) forcing — is the explicit interface hypothesis `hcorr`
+(faithful powersetCard form). Not a design catch: nothing outside the
+frozen set; a genuine ~800-line combinatorial obligation recorded as
+node B3a′ (the LAST combinatorial node of the P0 chain). Lemma 3
+transcribed verbatim (p. 102 re-fetched; pymupdf beat numdam's broken
+XRef).
+
+## 2026-07-12 SW Z3: factorization + partial-fraction identity landed; B-C numeric = Z3b
+
+Z3 EXCEEDED its floor: `LFunction_exists_factorization` (pointwise
+upgrade of mathlib's codiscrete `MeromorphicOn.extract_zeros_poles`
+via the identity theorem — entire L, nonneg divisor, PerfectSpace ℂ
+gives 𝓝[≠] NeBot), `LFunction_partialFraction` (ball(2+it₀, 3/2);
+multiplicity-respecting Σm_ρ ≤ log(4M₀)/log(7/6) tied UNCONDITIONALLY
+to the Jensen keystone; S3's region incl. Re s < 1 covered),
+`logDeriv_prod_pow`, and the transfer `norm_logDeriv_sub_sum_le`.
+Remaining node **Z3b**: the numeric ‖h'/h‖ ≤ C·log M₀ on the mid-disk
+— B-C (`norm_deriv_le_of_re_le`) on log(g/g(c)) needs an UPPER bound
+on ‖g‖ = ‖L‖/‖P‖, and ‖P‖ has no lower bound near zeros; the classical
+fix is Blaschke factors (mathlib `Complex.canonicalFactor`, modulus 1
+on the boundary circle), whose logDeriv differs from Σm_ρ/(s−ρ) by an
+O(1/R)-per-zero correction absorbed in O(log M₀). Consumes exactly
+what Z3 landed.
+
+## 2026-07-12 SW Z3b: B-C numeric landed (floor); Z3c = the max-modulus sup
+
+Z3b landed the full Landau numeric: reflected/Blaschke factors at
+R = 3/2, primitive-based analytic log (isExactOn_ball +
+logDeriv_eqOn_iff), B-C via norm_deriv_le_of_re_le at Cauchy radius
+1/4 (coefficient exactly 100) + reflected-pole sum ≤ 20·log(4M₀) ⇒
+**C₂ = 120**, region ‖s−c‖ ≤ 23/20 ⊇ the S3 box {7/8 ≤ Re s ≤ 2,
+|Im s−t₀| ≤ 1/8}; plus the S3 real-part corollary neg_re_logDeriv_le
+(ungated). ONE hypothesis remains (`hsup`): ‖h·∏reflected^m‖ ≤ M₀ on
+ball(c,3/2) — the Blaschke maximum-modulus step. **Z3c spec** (from the
+executor's docstring): ‖B‖ = 1 on the boundary sphere
+(norm_canonicalFactor_eval_circle_eq_one-shape) gives ‖g‖ = ‖L‖ ≤ M₀
+there; max-modulus (norm_le_of_forall_mem_frontier_norm_le) needs g
+continuous up to the boundary — obtain by re-factoring at radius 8/5
+via LFunction_exists_factorization and folding annulus zeros into h.
+
+## 2026-07-12 P0 B5: THE PAIR LANDED — P0 complete at the abstract level
+
+`brun_lower`/`brun_upper` (H-R 1971 Théorème 2, O-free, hypothesis-
+parameterized per catch #19) composed from the seven landed nodes with
+ZERO interface mismatches — every endpoint plugged as designed; the
+only additions were one plumbing helper (|μχ| ≤ χ) and the faithful
+`0 ≤ totalMass` (implicit in H-R's X). The first machine-checked
+lower-bound sieve. Ten dispatches, ten first-attempt landings, three
+executor-level catches (#17–#19). Remaining for the P1 headline:
+PM2 (in flight) + P1 instantiation at TwinSieve.
+
+## 2026-07-12 SW Z3c: hsup discharged — S2 CLUSTER CLOSED; S3 sub-node split
+
+Z3c FULL: single inlined 8/5-factorization regrouped (Z₈ = Z'⊔Zout;
+no two-factorization reconciliation needed — divisor locality via
+meromorphicOrderAt makes the counts agree), sphere identity
+‖reflectedFactor‖ = ‖z−ρ‖ exact, DiffContOnCl free from the larger
+ball, M₀ UNCHANGED. `LFunction_norm_logDeriv_sub_sum'` is the ungated
+endpoint S3 consumes. S2 = Jensen count + growth + factorization +
+partial fractions + B-C + max-modulus: CLOSED, all unconditional.
+**S3 split (Fable)**: S3a = the 3-4-1 positivity on Λ-series (2(1+cosθ)²,
+via S0's neg_logDeriv_LSeries_eq_LSeries_twist); S3b = the
+imprimitive→primitive logDeriv bridge (changeLevel Euler factors,
+≤ log q on σ ≥ 1); S3c = the ζ/χ₀ pole bound (−ζ'/ζ(σ) ≤ 1/(σ−1)+c on
+1<σ≤2, elementary integral comparisons; χ₀ reduces to ζ with a
+NEGATIVE correction); then S3d assembly (the region, exceptional case
+carved out) + S3e Landau–Page.
+
+## 2026-07-12 P0/P1 RUNG COMPLETE — twin_almost_prime, K = 20
+
+`twin_almost_prime : {n | Ω (n*(n+2)) ≤ 20}.Infinite` landed FULL at
+the PRIMARY operating point (b = 2, λ = 1/4, margin +0.946). The
+capstone discharged all ~16 hypotheses of brun_lower in one file:
+hMert_twinSieve (PM2), rem_abs_le (M2, 2024-era corpus reuse), a
+fresh rho-multiplicativity induction, W ≥ e^{−70}/log²z (PM1+PM2
+pointwise), margin ≥ 9/10, remainder ≤ 125·25^{r−1}·z^{10.2} (crude
+π ≤ m+1 — the exponential slack at zOne = exp(exp 50000) absorbs all
+constants), pair-form level gate (u < 10.5), infinitude by
+unboundedness. Load-bearing numeric: e^Λ ≥ 1+Λ+Λ²/2 (first order
+FAILS at 11.0 > 10.5). One documented maxHeartbeats 1600000.
+Rung totals: 13 dispatches, 13 first-attempt landings, 0 PB-floors
+on the critical path, catches #17–#19 (all executor-surfaced),
+tally 19 design errors caught / 0 proofs on wrong statements.
+The parity-frontier P1 milestone — the cheapest honest possibility
+rung — is DONE: the corpus now proves twin ALMOST-primes exist
+infinitely often, by elementary sieve means, alongside twinbar's
+proof that this METHOD cannot reach twin primes themselves.
+
+## 2026-07-12 SW S3d: the zero-free region — complex-χ FULL (c₀ = 1/50456); real-χ = Z2ζ gap
+
+S3d landed `zero_free_region_primitive` + the imprimitive
+`zero_free_region` (EulerBridge transfer): every zero of L(s,χ) with
+χ² ≠ 1 (resp. primitiveCharacter² ≠ 1), Re ρ ≥ 1/2 satisfies
+Re ρ ≤ 1 − c₀/log(q(|Im ρ|+2)) with EXPLICIT c₀ = 1/50456
+(δ = 1/7208, log(4M₀) ≤ 6L). Mechanics: ball-zero→Z from the
+factorization invariants; mathlib's LFunction_ne_zero_of_one_le_re
+gives Re ρ' < 1 < σ for the drop-all-but-one; 3-4-1 carried
+LSeries→LFunction; χ² on its primitive via the C₅ = 0 bridge.
+**FLOOR: the real-χ complex-zero case (b)** — the 3-4-1's third term
+is then L(χ₀) whose pole needs the honest
+Re(−ζ'/ζ(σ+2iγ)) ≤ Re(1/(σ−1+2iγ)) + O(log(|γ|+2)) — ζ ZERO-THEORY
+at complex s, which the primitive-only (f ≥ 2) S2 machinery does not
+supply; the crude termwise bound gives 1/(σ−1) which exactly cancels
+the 3-4-1 margin (conjugate-zero trick closes small γ only). New node
+**Z2ζ**: mirror the S2 cluster for ζ (growth by Abel at S(u) = ⌊u⌋,
+center ‖ζ(2+it)‖ ≥ ζ(4)/ζ(2)-shape from the Euler product, Jensen
+count, factorization/B-C/max-modulus — every technique has a landed
+template) — FIRST CHECK whether mathlib/PNT-upstream already has ζ
+logDeriv/zero-free machinery to consume. Then S3d-b (real-χ complex
+zeros) and S3e (Landau–Page).
+
+## 2026-07-12 Chen recon: catch #20 — the 0.203 "margin" was only the A₁/A₂ gap
+
+The three-scout Chen recon (sources / P2-scope / switching) corrected
+parity-frontier.md: the assembly margin must ALSO pay the switched
+term's ½c̄ ≈ 0.1815 (c̄ = ∫_{1/8}^{1/3} log(2−3t)/(t(1−t))dt <
+0.363084, BJS Lemma 52), leaving log3 − ½log6 − ½c̄ ≈ 0.0212 — FIVE
+times thinner than the memo's implied 0.203, 1.9% relative. Route
+freeze → docs/blueprints/chen.md (Tao Supp. 5 native-twin chain, BJS
+Thm 6 explicit linear sieve, weak-form general BV per the V2.LS-bil
+lesson, mandatory budget ledger C0). Tally: 20 design errors caught,
+0 proofs on wrong statements.
+
+## 2026-07-12 SW S3d-b + S3e: THE S3 WAVE IS CLOSED
+
+S3d-b landed FULL: zero_free_region_real (real primitive χ, complex
+zeros, c₀ = 1/126848 — Davenport's compensation formalized: the
+|γ| < σ−1 case retains the conjugate zero, whose 1/(5(σ−β)) beats the
+full pole 1/(σ−1) at margin 24/5 vs 17/4) + the S5-facing
+zero_free_region_all (c₀ = 1/126848 combined) + imprimitive transfer.
+LFunction_conj DERIVED (nothing in mathlib): χ real ⟹ L(s̄,χ) =
+conj L(s,χ) by termwise conj + identity theorem. S3e landed FULL:
+landau_one_exceptional (+_simple +_at, c₁ = 1/5000) — at most one
+real zero in [1 − c₁/log(4q), 1) and it is SIMPLE (analyticOrderAt
+= 1, the S5 residue form), via Landau's 2-term squeeze; χ² = 1
+mathematically unused. Net S3: the COMPLETE quantitative zero-free
+region for all primitive χ ≠ 1 (complex-χ 1/50456; real-χ complex
+zeros 1/126848; real zeros = at most one, simple, beyond
+1 − (1/5000)/log(4q)) + Landau per-modulus. Remaining to the gate:
+S4 (Siegel/Goldfeld + Page cross-modulus), S5 (contour shift +
+residues-lite), S6 (fold + de-smooth).
+
+## 2026-07-12 Chen gate: catches #21–#24 — the adversarial gate's largest single harvest
+
+Four lenses on the chen.md freeze (2 BLOCK, 2 PASS_WITH_CORRECTIONS):
+**#21** the dossier's draft ε = 1/200 blows the sieve-slack ledger
+21×M (A₂ alone 14×M) — re-frozen ε_sieve = 1/10000 (C₁ = 106,
+C₂ = 108; 57.1% of M spent, 42.9% reserve), decoupled from the level
+ε'. **#22** BJS hypothesis (4) is FALSE for the twin g with ℚ = ∅
+(u = 3: violated 1.47×; the 1/Π₂ excess is structural) — BJS verify
+it only for u ≥ u₀ = 10⁹ with ℚ = {p < u₀} and the constant
+Q = ∏_{p<u₀}p paid into the d < QD remainder level; C1d re-specced
+(the "PM1 serves (4) nearly verbatim" claim was WRONG — PM1 serves
+only C2b); found INDEPENDENTLY by two lenses. **#23** the blueprint
+mixed Tao's switch tuning (sift P(√x), s = 1+ε) with BJS's d ∣ P(y)
+remainder freeze — irreconcilable, and the mixed margin is NEGATIVE
+(−0.0696); fixed to BJS's ½S(B,P(y)) at s → 3/2⁻ where
+F(3/2)e^{−γ}(3/4) = 1 exactly. **#24 — an erratum in BJS v6 ITSELF**:
+printed (14) sums over n odd, forcing F + f ≡ 2 against their own
+(8); the numeric lens proved f = 1 − Σ_{n EVEN} fₙ (series = closed
+forms to 1e-8 iff even). Not in BJS's errata; formalizing the print
+would have frozen a wrong f at the keystone. c̄ verified 3-way to
+12 digits. Tally: 24 design errors caught, 0 proofs on wrong
+statements — #21/#23 were MY compression errors, #22 my interface
+overclaim, #24 the SOURCE's own misprint.
+
+## 2026-07-12 Chen C4a: cbar_lt FLOORED (dilog-blocked); the budget line landed
+
+C4a landed the C5-consumable line (`two_log_three_sub_log_six_sub_
+cbar_pos`: 2log3 − log6 = log(3/2) ≥ 2/5 > 0.363084, pure log
+arithmetic) + `cbar` def + `cbar_pos`, sorry-free. The tight
+`cbar_lt : cbar < 0.363084` (true gap 2.7e−7) is deferred: the
+integrand is concave (tangent majorants optimal ⇒ ≳220 panels, each a
+log(rational) with no norm_num extension) and mathlib has NO
+Li₂/polylog (the exact antiderivative needs Li₂(3/16), Li₂(8/21) —
+does not collapse to π² + elementary; confirmed via the u = 2−3t
+substitution). NOT a catch — a floor per Iron Rule 4. Design
+consequence folded into C3d's card: spec the count bound against the
+LITERAL ledger line via PNT-with-error (Chebyshev's 38% slack cannot
+serve the 0.3% S7 cap), so cbar_lt is likely never consumed. If it is
+ever wanted: a rigorous dilog mini-library is the clean C+ artifact.
+
+## 2026-07-12 SW S4b: Siegel via Goldfeld — FLOORED at the Estermann core (Opus)
+
+`Salt/SW/Siegel.lean` lands the full *reduction* of Siegel's theorem to
+Goldfeld's single deep analytic lemma, sorry-free and axiom-clean
+(`[propext, Classical.choice, Quot.sound]`). Route transcribed from
+Goldfeld PNAS 1974 via Liu arXiv:2201.11145 and Bao–Vo (the
+Montgomery–Vaughan §11.14 / Estermann packaging, which maps onto the
+mathlib positivity engine — cleaner than Goldfeld's original Perron
+contour). **FULLY PROVEN**: `LFunction_pos_of_one_lt` (L(σ,χ) > 0 for
+real σ>1, real quadratic χ — via `LSeries.positive` on `zetaMul χ` and
+`riemannZeta_pos_of_one_lt`), `LFunction_apply_one_pos` (L(1,χ) > 0 —
+the right-limit of the positive L(σ,χ) + `LFunction_conj` real-valuedness
++ `LFunction_apply_one_ne_zero`), `fourfold_pos_of_one_lt`, `lambda_pos`
+(the residue λ = L(1,χ₁)L(1,χ₂)L(1,χ₁χ₂) > 0), `siegel_dichotomy` (the
+ineffective-choice `by_cases`), `siegel_L_one_extract` (the "combine"
+step: product-of-positives factors the .re, divide out the fixed
+factors), `estermann_fourfold` (the genuine Estermann plug-in: f entire,
+ζf = LSeries fourfoldCoeff, f(β₁)=0), `goldfeld_L_one_lower` (the
+one-line quantitative L(1,χ₂) ≫ (1−σ)/4·M^{−3(1−σ)}/(B₁B₂) reduction),
+and `siegel_zero_free_of_exceptional_case` (the EXACT target zero-free
+signature, with the **no-exceptional-zero branch proven fully and
+effectively, C = ε**, and only the exceptional case as a hypothesis).
+
+**THE ONE FLAGGED INPUT** — `EstermannPositivity` (a `def … : Prop`):
+Montgomery–Vaughan *Mult. Number Theory I* Lemma 11.13 (quantitative
+Landau): for entire f, ‖f‖≤M on |s−2|<3/2, ζf = Σ r(n)n^{−s} with r≥0,
+r(1)=1, and f(σ)≥0 at some σ∈[19/20,1), then (1−σ)/4·M^{−3(1−σ)} ≤
+(f 1).re. Its proof is self-contained but genuinely C+: Cauchy estimates
+on the pole-subtracted ψ = ζf − f(1)/(s−1) about s=2 (the coefficients
+c_k = (−1)^k(a_k − f(1)) with a_k = Σ r(n)(log n)^k/(k!n²) ≥ 0 and
+a_0 = F(2) ≥ 1), then a Landau truncation: for y = 2−σ ∈ (1, 21/20],
+Σ_{k≤N}(a_k−f(1))y^k + tail ≤ f(1)/(y−1) with ζ(σ)f(σ) ≤ 0, giving
+f(1) ≥ (y−1)(1 − (10B/3)(7/10)^{N+1})/y^{N+1} at N ≈ log B/log(10/7).
+Deferred — a self-contained analysis wave (needs mathlib
+`LSeries_iteratedDeriv` + `iteratedDeriv_alternating` for a_k≥0, a
+removable-singularity `Function.update` à la BadChar for ψ, and Cauchy
+estimates on the circle radius 3/2). No mathlib Siegel/Tatuzawa exists
+(`SiegelsLemma.lean` is the unrelated linear-algebra lemma).
+
+**Also deferred** (the exceptional-branch assembly, folded into `hHard`
+of `siegel_zero_free_of_exceptional_case`): the disk growth bound M and
+one-point bounds B₁,B₂ (MV Lemma 10.15 — salt's `LFunction_growth` gives
+it for the *primitive* factors but the product χχ₁ is imprimitive, needing
+the EulerBridge correction); the common-level `changeLevel` wiring; the
+`(1−σ)/4·M^{−3(1−σ)} ≫ q^{−ε}` rpow arithmetic; and the derivative
+mean-value step L(1)≫q^{−ε} ⇒ zero-free. NOT a catch — a floor per Iron
+Rule 4 (this is the arc's hardest node, budget 4). The ineffective C(ε)
+is intrinsic and by construction (`Classical.em` in `siegel_dichotomy`).
+
+## 2026-07-12 SW S4b′: Estermann positivity — Landau-truncation CORE landed (PB-floor, Opus)
+
+`Salt/SW/Estermann.lean` (new; `import Mathlib` + `Salt.SW.Siegel`; namespace
+`Salt.SW`) lands the mathematical **heart** of the flagged `EstermannPositivity`
+input, sorry-free and axiom-clean (`[propext, Classical.choice, Quot.sound]` on
+all three theorems). This is the PB-floor promised at S4b (budget 4): the Cauchy
+bound `B` and the ψ-Taylor plumbing are one hypothesis package; the truncation
+arithmetic + the `ζ(σ)f(σ)≤0` step are FULLY proven.
+
+**FULLY PROVEN**
+* `landau_truncation` — the pure real-analysis Landau truncation. From `a k ≥ 0`,
+  `a 0 ≥ 1`, `|a k − L| ≤ B(2/3)^k` (`2 ≤ B ≤ (29/2)M`, `M ≥ 1`) and
+  `∑ (a k − L)y^k ≤ L/(y−1)` at `y = 2−σ ∈ (1,21/20]`, it derives the FROZEN
+  `(y−1)/4·M^{−3(y−1)} ≤ L`. Index `K = ⌈log(40B/3)/log(10/7)⌉₊`; tail ≤ 1/4 via
+  the `q = 2y/3 ≤ 7/10` geometric (`(10B/3)(7/10)^K ≤ 1/4` from `(10/7)^K ≥ 40B/3`),
+  head `∑_{k<K} a_k y^k ≥ a_0 ≥ 1`, combine to `L·y^K/(y−1) ≥ 3/4`, then the closing
+  `y^K ≤ 3M^{3(y−1)}` from `K·log y ≤ log3 + 3(y−1)logM` (`log y ≤ y−1`, `K < L₀+1`,
+  `log(40B/3) ≤ log(580/3)+logM`, and the numeric slack `1/log(10/7) < 3`,
+  `log(580/3) ≤ 19·log(10/7)` i.e. `580/3 ≤ (10/7)^19`, `log 3 ≥ 1`). Needs
+  `set_option maxHeartbeats 1200000`.
+* `estermannPositivity_core` — the FROZEN conclusion
+  `(1−σ)/4·M^{−3(1−σ)} ≤ (f 1).re` from the Taylor/Cauchy data + `ζ(σ) ≤ 0` +
+  the ψ-series identity `∑ (a k−L)(2−σ)^k = (ζ(σ)f(σ)).re + L/(1−σ)`. The
+  `(ζ(σ)f(σ)).re ≤ 0` step (nonpos `ζ` × nonneg `f`, via `Complex.le_def`/`mul_re`)
+  is proven here.
+* `estermannPositivity_of_interface : EstermannInterface → EstermannPositivity` —
+  the EXACT reduction (compiler-checked conclusion shape). `EstermannInterface` is
+  the `∀ input, ∃ (a,B), [nonneg + Cauchy + ζ(σ)≤0 + ψ-series]` package.
+
+**CONSTANTS (do NOT re-tune).** The frozen `¼` and `M^{−3}` close with ~28% margin
+using the tail threshold `1/4` (not `1/2`) and `B ≤ (29/2)M`. The `(29/2)` is
+`Cζ + 2` with `Cζ = 25/2` the CRUDE circle sup: on `|s−2|=3/2`,
+`‖ζ(s)‖ = ‖Zc(s)‖/‖s−1‖ ≤ 1/‖s−1‖ + ‖s‖(1+1/Re s) ≤ 2 + (7/2)(3) = 25/2` (from
+`ZetaPartialFractions.Zc_growth`, using `‖s−1‖≥1/2`, `‖s‖≤7/2`, `Re s≥1/2`). The
+sloppy `max‖Zc‖/min‖s−1‖ = 27.25/0.5 = 54.5` does NOT close — the `+1/‖s−1‖`
+split is essential. (True `Cζ ≈ 4.9`; `25/2` is the provable crude value and the
+frozen constants were tuned for exactly it.)
+
+**DEFERRED = `EstermannInterface`** (the honest floor boundary): (i) `a k =
+∑ r(n)(log n)^k/(k!n²)` and `a k ≥ 0`, `a 0 ≥ 1` — mathlib
+`ArithmeticFunction.iteratedDeriv_LSeries_alternating` /
+`LSeries.iteratedDeriv_alternating` gated on `abscissaOfAbsConv r < 2` (itself a
+Landau-abscissa argument from the bare `ζf = LSeries r` equality — not free);
+(ii) the Cauchy bound `B` on `ψ = ζf − f(1)/(s−1)` — removable singularity via
+`Function.update` à la BadChar/`Zc`, then `Complex.taylorSeries_eq_of_entire'` +
+Cauchy estimate on `|s−2|=3/2` (the `25/2` ζ bound above); (iii) the ψ-series
+identity (same `taylorSeries_eq_of_entire'`, real part); (iv) `ζ(σ) ≤ 0` on
+`[19/20,1)` — NOT in mathlib (no `riemannZeta_neg` on `(0,1)`, no Dirichlet-eta in
+the L-series files); route: `ζ(σ) = Zc(σ)/(σ−1)` with `Zc(σ) > 0` via a
+Cauchy-derivative (`|Zc'| ≤ 8` on a radius-1/4 subdisk from `Zc_growth`) + MVT
+from `Zc(1)=1`, OR the eta `ζ(σ)(1−2^{1−σ}) = η(σ) > 0` (needs building η). All
+four are real analysis, no research; a self-contained wave discharges them, then
+`estermannPositivity_of_interface` upgrades to `estermannPositivity :
+EstermannPositivity` with NO change to `Siegel.lean`.
+
+**mathlib internals mirrored** (per the S4b brief): studied
+`LSeries.positive_of_differentiable_of_eqOn` — its engine is
+`Differentiable.apply_le_of_iteratedDeriv_alternating`
+(`Mathlib/Analysis/Complex/Positivity.lean`), a Taylor-at-`c` argument whose core
+is `Complex.taylorSeries_eq_on_ball'` / `taylorSeries_eq_of_entire'` — exactly the
+ψ-series identity of (iii). The truncation adapts the *tail/head split* mathlib's
+`apply_le_of_iteratedDeriv_alternating` cannot do (the Taylor series of `F` itself
+diverges at `y > 1`; only the entire ψ converges), which is why Estermann is
+strictly harder than the mathlib positivity lemma. No `native_decide`, no new
+axioms. Scratch `ScratchS4bp.lean` deleted.
+
+---
+
+## 2026-07-12 Chen C1c′ Opus partial-done + statement-concern (hsupp FULL; hmain deferred; linear_sieve_lower hsupp bug)
+`Salt/Chen/Buchstab.lean` (346 lines, builds green, axiom-clean [propext,
+Classical.choice, Quot.sound], zero warnings, no sorry). Completes the **support
+half** of C1c′ and fixes a structural bug in the just-landed `LinearSieve.lean`.
+
+**LANDED FULL (`hsupp`, both sides).** The Rosser support bound `d < D` from the
+positional Rosser condition, via `support_core` (organise by whether the last prime
+position `r=L` is itself checked (`m=L`) or the check sits at `m=L−1`; the tail after
+`m` has ≤ 1 prime `< pₘ`). Structural `rlist` facts proven: `rprefix_full`
+(`p₁⋯p_L = d`, squarefree), `relem_descent` (strict `SortedGT`), `two_le_relem`,
+`rprefix_pos`, `rprefix_succ`.
+- `rosserCond_upper_lt` (ν=1): `d < D` for EVERY squarefree `d`, needs only `2 ≤ D`
+  (position 1 is always checked → `p₁³ < D`). No `d ∣ P(z)` needed. This is why the
+  upper endpoint needs only `D ≥ z`.
+- `rosserCond_lower_lt` (ν=2): `d < D` for squarefree `d ∣ P(z)` (all primes `< z`),
+  needs `z ≤ D` ONLY in the `r=1` single-prime case (unchecked by ν=2). The honest
+  home of the `D ≥ z` vs `D ≥ z²` asymmetry.
+
+**STATEMENT-CONCERN (Iron Rule 1) — `linear_sieve_lower`'s `hsupp` is structurally
+unsatisfiable.** `LinearSieve.errSum_lam_le` / `linear_sieve_lower(_chain)` demand
+`∀ d, S.P d → (d:ℝ) < bound` UNCONDITIONALLY in `d`. For a `side=2` TruncSieve this
+is impossible: `one_mem` + `add_prime` at `t=1` (parity `0 = ν mod 2`) force `P p`
+for EVERY prime `p`, so `{d : P d} ⊇ primes` has no finite bound. (For `side=1`,
+`add_prime` at `t=1` needs parity `1 ≠ 0` so it does NOT fire — the upper side is
+fine and plugs directly.) The lower support genuinely lives on `d ∣ prodPrimes` (the
+`errSum` summation range). Did NOT modify LinearSieve (task: new file only). Provided
+the corrected divisor-restricted plumbing `errSum_lam_le_div` + `linear_sieve_lower_div`
+(via B1's `siftedSum_ge_mainSum_errSum_of_lowerMoebius`). Fable/human should either
+weaken `errSum_lam_le`'s hyp to `∀ d, d ∣ s.prodPrimes → S.P d → d < bound` (one-line:
+keep the `d ∈ divisors` hyp `errSum_lam_le` currently discards) or bless the
+divisor-restricted variants as the lower interface.
+
+**Compiler-verified plugs.** `linear_sieve_upper_rosser` invokes the unmodified
+`linear_sieve_upper_chain` (S = `rosserSquarefreeSieve 1 D`, bound `= Q·D`, hsupp
+discharged), leaving ONLY `hmain` as hypothesis. `linear_sieve_lower_rosser` does the
+dual through `linear_sieve_lower_div`. `rosserSquarefreeSieve` = the Rosser predicate
+`∧ Squarefree` (a valid TruncSieve — squarefreeness is `add_prime`-closed via
+coprimality; `.lam` unchanged since `μ` already kills non-squarefrees), which makes the
+upper `hsupp` unconditional-in-`d`.
+
+**Buchstab decomposition (a) — base + defect landed, prime-tuple tail DEFERRED.**
+`mainSum_moebius_eq_W`: `∑_{d|P(z)} μ(d)ν(d) = W(z) = V(z)` (the `n=0`/`V(z)` term of
+BJS Prop 13, via mathlib `IsMultiplicative.prodPrimeFactors_one_sub_of_squarefree`).
+`mainSum_lam_defect`: `W s − mainSum S.lam = ∑_{d|P(z)} μ(d)[¬P d]ν(d)` (the exact
+Rosser-violating defect). What remains for FULL (a): Nathanson Lemma 9.3 —
+reorganising this defect into the signed prime-tuple tail `∓Σₙ Tₙ`, `Tₙ =
+Σ_{yₙ≤pₙ<⋯<p₁<z, Rosser} g(p₁⋯pₙ)V(pₙ)` (BJS (28)). This is a large `Finset`-over-
+prime-tuples combinatorial formalisation (organise by position of first Rosser
+violation); not soundly completable in this session alongside hsupp.
+
+**`hmain` (BJS Prop 13 / Lemma 11 / Lemma 12) — DEFERRED, remains the named hypothesis
+in `linear_sieve_{upper,lower}_rosser` (exactly as in LinearSieve).** BJS induction
+transcribed (arXiv:2207.09452v6, §2.4, eqs (28)–(34), re-fetched via pdftotext):
+- (28) `Tₙ(D,z) = Σ_{yₙ≤pₙ<⋯<p₁<z, pₘ<yₘ ∀m<n m≡n(2)} g(p₁⋯pₙ)V(pₙ)`,
+  `yₙ = (D/(p₁⋯pₙ))^{1/2}`.
+- Prop 13 (via Nathanson 9.3): `G(z,λ⁺) = V(z) + Σ_{n odd} Tₙ`, `G(z,λ⁻) = V(z) −
+  Σ_{n even} Tₙ`; then `G(z,λ⁺) < V(z)(F(s)+εe²h(s)Στ_{2n−1})`, dual for λ⁻.
+- Lemma 11 hyp (4)/(29): `V(u)/V(z) = ∏_{u≤p<z}(1−g(p))⁻¹ ≤ K log z/log u`, `1<K<1+ε`
+  (30). Bound `Tₙ < V(z)(fₙ(s)+ετₙe²h(s))` by induction on `n`; τ₁=3, recursion (31).
+- (34) (s≥3): `Tₙ/V(z) < (K−1)(f_{n−1}+h_{n−1})(s−1) + (K/s)∫_s^∞(f_{n−1}+h_{n−1})(t−1)dt`;
+  the four term-bounds (35)–(38) use (22)/(18) (`h(s−1)≤γ₃h(s)`, `fₙ≤2e²cₙⁿ⁻¹h`), (16)
+  (`(K/s)∫f_{n−1}(t−1)=Kfₙ`), and (24)/(26) (`∫h(t−1)=H(s)≤κ₃sh(s)`). The odd 1≤s≤3
+  case (39) uses (23)/(26) and `V(D^{1/3})≤(3K/s)V(z)`. Lemma 12 → `Στ_{2n−1}=C₁(ε)`,
+  `Στ_{2n}=C₂(ε)` (Table 1: ε=1/10000 → C₁=106,C₂=108).
+STOP-AND-FLAG check ✓: the deferred hmain needs nothing outside the frozen set;
+`fseq`/`Fchain`/`fchain`/`hbar`/`fseq_le`/`fseq_tail_le`/`fchain_close`/`Fchain_close`
+(C1a/C1b) are the analytic inputs. NB the truncation direction: Prop 13 gives the
+FULL `F(s) = Fchain N + tail`, so the chain-form target `≤ W(Fchain N + εC₁e²h)`
+needs the fₙ-tail (C1b `fseq_tail_le ≤ 4.3e−4`) absorbed into the `C₁` gap — a C5/
+constant-threading matter, priced in the C0 S1 budget (0.0022 abs).
+
+## 2026-07-12 SW S4b″: EstermannInterface — DISCHARGED as `EstermannInterface'`; original `EstermannInterface` is FALSE (Opus)
+
+`Salt/SW/EstermannInterface.lean` (new; namespace `Salt.SW`) discharges the
+S4b′ analytic plumbing, sorry-free and axiom-clean
+(`[propext, Classical.choice, Quot.sound]` on every theorem).
+
+**CRITICAL FINDING — `Salt.SW.EstermannInterface` (in `Estermann.lean`) is FALSE
+as a `Prop`.** Its hypotheses (`ζ·f = LSeries r` on `Re > 1`, `r ≥ 0`, `r 1 = 1`)
+do NOT force `r` to be summable, because mathlib's `LSeries` is a `tsum` that
+returns `0` on non-summable input. Counterexample: `f ≡ 0`, `r n = 2^(n-1)` (or
+`n!`). Then `r ≥ 0`, `r 1 = 1`, `‖f‖ ≤ M`, `f` entire, and `LSeries r s = 0 =
+ζ(s)·0` at every `Re s > 1` (r non-summable everywhere on `Re > 1`), so ALL
+interface hypotheses hold; and `f(19/20) = 0 ≥ 0`. But then `(f 1).re = 0` and the
+ψ-identity forces `∑' k, a k·(2−σ)^k = 0`, while the Cauchy bound `|a k| ≤
+B(2/3)^k` makes that series converge to `≥ a 0 ≥ 1` — contradiction. The kernel of
+this contradiction is machine-checked: `no_estermann_data_for_zero` (pure real
+analysis: geometric domination + `Summable.le_tsum`). `EstermannPositivity`
+(`Siegel.lean`) is false for the same input (its RHS is `> 0`, forced `≤ 0`).
+
+**FIX (Fable/human-tier statement change).** Add the summability hypothesis
+`LSeries.abscissaOfAbsConv r < 2` to `EstermannInterface` (and, via the same route,
+to `EstermannPositivity` — as `∀ real y > 1, LSeriesSummable r y` or the abscissa
+form). Every real application satisfies it: `estermann_fourfold` passes
+`r = fourfoldCoeff χ₁ χ₂`, whose abscissa `≤ 1` follows from
+`LSeriesSummable_fourfoldCoeff` (already used in `Siegel.fourfold_pos_of_one_lt`).
+With that one hypothesis added, the reduction is complete.
+
+**FULLY PROVEN (in the new file)**
+* `EstermannInterface'` — `EstermannInterface` + `abscissaOfAbsConv r < 2` — and
+  `estermannInterface' : EstermannInterface'`, the COMPLETE per-input construction:
+  - **Obligation 1** (nonneg Taylor data): `a k = ((−1)^k·∂ᵏ(LSeries r)(2)/k!).re ≥ 0`
+    via `LSeries.iteratedDeriv_alternating` gated on the added abscissa hypothesis;
+    `a 0 = (LSeries r 2).re ≥ 1` (summable at 2, `term_nonneg`, `Summable.le_tsum`).
+  - **Obligation 2** (Cauchy `|a k − (f 1).re| ≤ B(2/3)^k`, `B = 29/2·M`): the entire
+    `ψ = dslope (Zc·f − f(1)) 1` (removable singularity via `differentiableOn_dslope`),
+    `‖ψ‖ ≤ 29/2·M` on `|s−2| = 3/2` (`Zc_growth` split `‖ζ‖ ≤ 1/‖s−1‖ + ‖s‖(1+1/Re s)
+    ≤ 25/2`, plus `‖f‖ ≤ M` extended to the closed ball by `closure_minimal`, plus
+    `2‖f(1)‖`), then `Complex.norm_iteratedDeriv_le_of_forall_mem_sphere_norm_le`.
+  - **The ψ-series identity**: `taylorSeries`/`hasSum_taylorSeries_of_entire` + termwise
+    `Re`, with the pole bridge `∂ᵏ ψ(2) = ∂ᵏ F(2) − f(1)·(−1)^k·k!` where
+    `∂ᵏ (s−1)⁻¹(2) = (−1)^k k!` (`iteratedDeriv_pole`, a `HasDerivAt` induction) — no
+    `f(1) ∈ ℝ` needed, everything runs through real parts.
+* `zeta_nonpos` — **Obligation 3**: `ζ(σ) ≤ 0` on `[19/20, 1)`, self-contained via
+  the landed `Zc_eq_series`/`norm_R_le` (Route (b) of S4b′): `Zc(σ)` is a real with
+  `Re ≥ 9/10 > 0` (tail `‖(σ−1)∑dTerm‖ ≤ (1−σ²) ≤ 39/400`) and `im = 0` (`dTerm`
+  real for real σ via `intervalIntegral.integral_ofReal`); then `ζ(σ) = Zc(σ)/(σ−1)`
+  with `σ−1 < 0`.
+* `no_estermann_data_for_zero` — the machine-checked falseness kernel.
+
+**NOT DELIVERED**: `estermannInterface : EstermannInterface` and
+`estermannPositivity : EstermannPositivity` (both UNPROVABLE as stated — the
+statements are false; see above). Blocked on the Fable statement fix; once
+`EstermannInterface` carries `abscissaOfAbsConv r < 2`, `estermannInterface'` IS
+that theorem verbatim, and `estermannPositivity_of_interface` upgrades it to
+`EstermannPositivity'`, unblocking Siegel. `Chen/LinearSieve.lean` untouched.
+
+## 2026-07-12 SW S4b″ + Chen C1c′: catches #25 and #26 — both by executors, both statement-level
+
+**#26 (S4b″, the sharper of the two): `EstermannPositivity` as frozen
+was FALSE.** The hypotheses (ζf = LSeries r on Re > 1, r ≥ 0, r 1 = 1)
+do not force r summable — mathlib's LSeries tsum-defaults to 0, so
+f ≡ 0 with r n = 2^{n−1} satisfies everything while no (a,B) package
+can exist. The executor MACHINE-CHECKED the counterexample kernel
+(`no_estermann_data_for_zero`) rather than proving the false statement
+— Iron Rule 1 at its best. Fable amendment: `LSeries.abscissaOfAbsConv
+r < 2` added to `EstermannPositivity` and `EstermannInterface`; the
+application supplies it from `LSeriesSummable_fourfoldCoeff`. With the
+amendment, S4b″'s FULL discharge (all four obligations: the a_k
+package via iteratedDeriv_LSeries_alternating; the ψ = dslope-Cauchy
+bound at B = (29/2)M; ζ(σ) ≤ 0 on [19/20,1) via the Zc-series route —
+NO eta needed, nothing in mathlib; the ψ-series identity via
+hasSum_taylorSeries_of_entire; f(1)-realness NOT needed) makes
+**`estermannPositivity : EstermannPositivity` UNCONDITIONAL**.
+
+**#25 (C1c′): `linear_sieve_lower`'s `hsupp` was structurally
+unsatisfiable** — any side-2 TruncSieve forces P p for every prime
+(add_prime at t = 1, parity 0 = ν mod 2), so no finite bound covers
+the support. Executor delivered the honest `_div` variants; Fable
+amendment applied at source: `errSum_lam_le`/`linear_sieve_lower`/
+`_chain` weakened to `∀ d, d ∣ prodPrimes → P d → d < bound` (the
+divisors-sum already carries the fact). Buchstab.lean's variants stay
+as landed.
+
+Tally: 26 design errors caught, 0 proofs on wrong statements.
+Executor-caught: #17–#19, #24 (source erratum), #25, #26.
+
+## 2026-07-12 SW S4b‴: Siegel exceptional-branch assembly — 3 of 4 deferred `hHard` pieces LANDED; ε-arithmetic FLOORED (Opus)
+
+`Salt/SW/SiegelFinal.lean` (new; `import Mathlib` + `Salt.SW.{Growth,EulerBridge,FourFold,Siegel,
+EstermannInterface,Page}`; namespace `Salt.SW`). NOT wired into `Salt/SW/All.lean` (task: new file
+only). Builds green, zero warnings, no sorry, axiom-clean `[propext, Classical.choice, Quot.sound]`
+on all seven theorems. Discharges the analytic pieces the `hHard` hypothesis of
+`siegel_zero_free_of_exceptional_case` folded away.
+
+**LANDED FULL (the assembly that composes end-to-end)**
+* `LFunction_one_re_le_mvt` — **the derivative mean-value step (deferred piece 4)**, the flagged
+  "L(1) ⇒ zero-free" conversion, at the achievable `q^{1/2}` exponent: for primitive `χ` mod `f≥2`
+  with a real zero `β ∈ [3/4,1)`, `(L(1,χ)).re ≤ (1−β)·27·√f·(1+log f)`. Route: FTC
+  `L(1)−L(β)=∫_β^1 L'` (`intervalIntegral.integral_eq_sub_of_hasDerivAt` + `HasDerivAt.comp_ofReal`),
+  `L(β)=0`, Cauchy `‖L'(σ)‖ ≤ 27√f(1+log f)` on `[3/4,1]`
+  (`Complex.norm_deriv_le_of_forall_mem_sphere_norm_le`, radius `1/4` disk in `Re∈[1/2,5/4]`,
+  `LFunction_growth`), `(L(1)).re ≤ ‖L(1)‖`.
+* `fourfold_disk_bound` — **the imprimitive disk growth `M` (deferred piece 2)**, exactly goldfeld's
+  `hMbnd` shape: `‖L(χ₁,z)·L(χ₂,z)·L(χ₁χ₂,z)‖ ≤ (diskConst N)^3` on `ball 2 (3/2)` for
+  `χ₁,χ₂,χ₁χ₂ ≠ 1` mod `N`, `diskConst N = 27/2·√N·(1+log N)·N`. Via `LFunction_eq_primitive_mul`
+  (EulerBridge), `LFunction_growth` on each primitive factor (`cond ≤ N`), and a crude
+  `‖eulerCorr‖ ≤ 2^{ω(N)} ≤ ∏_{p|N}p ≤ N` (helpers `norm_eulerFactor_ball_le`,
+  `norm_eulerCorr_ball_le`, `norm_LFunction_ball_le`).
+* `siegel_L_one_exceptional` — **the common-level wiring (deferred piece 1) + Goldfeld fired**: for
+  the fixed exceptional `χ₁` mod `q₁` (real zero `β₁∈[19/20,1)`) and a distinct target `χ` mod `q`
+  (both primitive real quadratic ≠1), the concrete Goldfeld bound
+  `(1−β₁)/4·(D³)^{−3(1−β₁)}/(D·D) ≤ (L(χ',1)).re` on the lift `χ' = changeLevel(q∣q₁q)χ`,
+  `D = diskConst(q₁q)`. Wiring: `changeLevel_quadratic`, `changeLevel_ne_one` (nontrivial via
+  `conductor_changeLevel`), `product_ne_one` (Page) for `χ₁'χ' ≠ 1`, `LFunction_changeLevel` for the
+  zero transfer `L(χ₁',β₁)=0`, and `estermannPositivity` (now unconditional) through
+  `goldfeld_L_one_lower`. This is the whole Estermann→Goldfeld→L(1) chain firing with REAL lifted
+  characters.
+* `siegel_zero_free_exceptional` — **end-to-end**: composes `siegel_L_one_exceptional` with the
+  imprimitive mean-value step (`LFunction_one_re_le_mvt_imprim`, mirror of the primitive MVT using
+  the imprimitive `norm_deriv_LFunction_imprim_le` on a radius-`1/8` disk, so it applies to `χ'`
+  directly with NO imprimitive→primitive L(1)-conversion) to a concrete zero-free bound
+  `β ≤ 1 − G/(8D)` on every real zero `β∈[7/8,1)` of the target `L(·,χ)` (`G` = the Goldfeld bound).
+  Proof-of-composition that the pipeline Estermann→Goldfeld→L(1)-lower→MVT→zero-free closes,
+  sorry-free.
+
+**FLOORED = the ε-arithmetic (deferred piece 3), i.e. THE ε-QUANTIFIED SIEGEL** — `siegel_theorem`
+(`β ≤ 1−C/q^ε`) and `siegel_L_one` (`L(1,χ) ≫_ε q^{−ε}`) are NOT delivered and are NOT achievable
+with the current mathlib + salt SW stack. Iron Rule 4 floor (budget 4, node's hardest). The
+obstruction is a fixed additive exponent loss that δ (the dichotomy window) cannot absorb, from TWO
+crude bounds, neither available at the needed `q^{o(1)}` strength:
+  (a) **the one-point bounds `B₁,B₂ ≪ 2^{ω(N)}`** fed to `goldfeld_L_one_lower` (here bounded crudely
+      by `diskConst N ≪ N`). The ε-form needs `2^{ω(N)} = N^{o(1)}` (equivalently `L(1,ψ) ≪ log N`);
+      mathlib has NO divisor bound `2^{ω(n)} ≤ n^ε` / `d(n) = n^{o(1)}` and NO `L(1,χ) ≪ log q`.
+  (b) **the mean-value step is `q^{1/2}`-lossy** because `LFunction_growth` is `≪ √q log q` uniformly
+      on the strip. The ε-form needs the SHARP near-the-line growth `L(s,χ) ≪ log q` on
+      `Re s ≥ 1−c/log q` (truncated-Dirichlet-series bound `Σ_{n≤q}1/n + PV-tail`), which is a new
+      growth lemma not in salt (Growth.lean proves only the uniform `√q` bound) nor mathlib.
+With (a) and (b) landed, the ε-form follows by choosing the dichotomy window `δ = min(ε/(6k), 1/20)`
+so `M^{−3(1−β₁)} ≥ c·q^{−ε/2}` and absorbing the (fixed, ineffective) `β₁,q₁,χ₁` constants into
+`C(ε)`; that arithmetic is the last mile once (a),(b) exist. The ineffectivity remains intrinsic
+(`Classical.em` in `siegel_dichotomy`). No source/statement error — this is a genuine analytic-input
+gap, flagged per Iron Rule 4. Scratch `ScratchS4bppp.lean` deleted.
+
+## 2026-07-12 SW S4b‴ adjudication: both floored gaps DISSOLVE with landed tools — S4b⁗ specced
+
+The executor's two "not achievable with mathlib + salt" inputs are
+both reachable from the corpus (Fable adjudication):
+(a) `L(1,χ) ≪ log q` and the near-line `‖L(s,χ)‖, ‖L'(s,χ)‖ ≪
+log-powers on Re s ≥ 1 − 1/log q`: the truncated-Dirichlet-series
+split at T = q — head `Σ_{n≤q} n^{−σ} ≤ e(1+log q)` (since
+n^{1−σ} ≤ q^{1−σ} ≤ e there), tail by Abel + polya_vinogradov
+(EXACTLY Growth.lean's own machinery re-run with the truncation);
+the L' version with a log n weight (head ≤ log²q).
+(b) the `2^{ω(N)}`/Euler-correction loss: ‖eulerCorr(1)‖ ≤
+∏_{p∣N}(1+1/p) ≤ exp(Σ_{p∣N}1/p) ≤ exp(Σ_{p≤N}1/p) ≤ e^C·log N by
+**PM1's full-range Mertens** (`Salt/BrunLower/MertensWindow.lean`,
+sum_inv_prime_window_le at w = 2) — a cross-rung reuse; no
+divisor-function theory needed.
+With (a)+(b) the ε-arithmetic is the executor's own "one arithmetic
+step" (δ = min(ε/6k, 1/20), fixed data absorbed into the ineffective
+C(ε)). Node **S4b⁗**: (i) the near-line log-power bounds; (ii) the
+PM1 Euler bound; (iii) siegel_L_one + siegel_theorem assembly.
+
+## 2026-07-12 Chen C1c‴: the Lemma 11 analytic induction — `hTbound` discharged to per-level + τ-close (Opus)
+
+`Salt/Chen/Lemma11.lean` (new; `import Mathlib` + `Salt.Chen.TnInduction`; namespace
+`Salt.Chen`). NOT wired into `Salt/Chen/All.lean` (task: new file only). Builds green,
+zero warnings, no sorry, axiom-clean `[propext, Classical.choice, Quot.sound]` on all 12
+theorems. Discharges C1c‴ to **Floor A** (n=1 concrete + general induction with the
+chain-to-integral as ONE named hypothesis + the τ-close full), reaching the analytically
+honest core (Floor B) at n=1.
+
+**The exact target (verified against `TnInduction.hmain_upper`/`hmain_lower`).** The
+consumed `hTbound` shapes are, verbatim,
+`Σ_{n∈range(maxDepth+1), odd} T s 1 D n ≤ W s·(Fchain N sparam − 1 + ε·C₁·e²·hBJS sparam)`
+and the even/`C₂`/`1−fchain` dual. Everything landed sums to exactly these (at
+`N = maxDepth s`).
+
+**BJS (28)–(39) transcription (arXiv:2207.09452v6 §2.4; the PDF could not be re-fetched
+this session — WebFetch returns only the abstract, no pdftotext in the Bash sandbox — so
+this rests on the flags-transcribed forms at lines 3141–3151) vs what landed:**
+- **(28)** `Tₙ = Σ_{chains} g(p₁⋯pₙ)V(pₙ)` — IS `TnInduction.T` (divisor form). Consumed as-is.
+- **Prop 13** `G(z,λ±) = V(z) ± Σ Tₙ` — landed in C1c″ (`buchstab_upper/lower`). Consumed.
+- **n=1 base (39)** `V(D^{1/3}) ≤ (3K/s)V(z)` + (17) flattening — **LANDED FULL**:
+  `T_one_upper : T s 1 D 1 = Vlow − W` (an EXACT identity, `Vlow = V(D^{1/3}) =
+  ∏_{p³<D}(1−ν p)`), via the new general **telescoping-product** identity
+  `prod_telescope : Σ_{p∈S} a p·∏_{q∈S,q<p}(1−a q) = 1 − ∏_{p∈S}(1−a p)` (induction on the
+  max element — mathlib lacked it; reusable). Then `hlevel_one_upper`: with hyp (4) as
+  `h4 : Vlow ≤ (3K/s)W`, `T₁ ≤ W(f₁(s) + ε·3·e²·hBJS(s))` on `s∈[1,3]`, `τ₁ = 3`. The
+  closing step is `inv_le_e2_hBJS : 1/s ≤ e²·hBJS(s)` on [1,3] (degree-4 `exp` Taylor bound
+  `exp(s−2) ≤ s` on [2,3]). NB the per-level bounds MUST be phrased against BJS's `hBJS`,
+  not C1b's `hbar`: at `s→3⁻`, `1/s ≤ e²·hbar(s)` FAILS (hbar's rate 6/5 undershoots), so
+  `τ₁=3` would not close against `hbar` — the `hbar→hBJS` slack direction (C1c″
+  `hbar_le_hBJS`) is load-bearing exactly here.
+- **T₁ even side** `T_two_one_zero : T s 2 D 1 = 0` (position 1 unchecked for ν=2). LANDED.
+- **(34) recursion** `Tₙ/V(z) < (K−1)(f+h)_{n−1}(s−1) + (K/s)∫(f+h)_{n−1}(t−1)` and the four
+  term-bounds **(35)–(38)** — **DEFERRED** as the named hypothesis `hlevel : ∀ n∈parity-filter,
+  T s side D n ≤ W·(fseq n s + ε·τ n·e²·hBJS s)`. This is the genuine chain-to-integral core:
+  it needs the peeling recursion `Tₙ(D,z) = Σ_p ν(p)·T_{n−1}(D/p, p)`, which requires a
+  *restricted sieve below p* — `TnInduction.T` bakes `z` into the fixed `s.prodPrimes`, so
+  stating the recursion needs a new "sieve-below-p" object + a large Finset-over-chains
+  reindex. Not soundly completable alongside the rest this session; discharged concretely
+  only at n=1. STOP-AND-FLAG ✓: `hlevel` consumes nothing outside the frozen set
+  (`fseq`/`Fchain`/`fchain`/`hBJS`, C1a/C1b).
+- **Lemma 12 τ-close** `Στ_{2n−1}=C₁, Στ_{2n}=C₂` — **LANDED PARAMETRIC**:
+  `tau_sum_le_of_recursion`: any τ obeying the contracting geometric recursion
+  `τₙ₊₁ ≤ a·rⁿ + β·τₙ` (`0≤r,β<1`, from the decaying `cₙ`/`h` levels + the `β=γ₃ε+Kκ₃<1`
+  contraction) has `Σ_{n<M} τ ≤ (τ₀ + a/(1−r))/(1−β)` — the finite `Cᵢ`, uniform in `M`.
+  Proof: sum the recursion, `Σr^n ≤ 1/(1−r)`, close `S(1−β) ≤ τ₀+a/(1−r)`.
+
+**The h4 design chosen.** Hypothesis (4)/(29) `V(u)/V(z) = ∏_{u≤p<z}(1−g p)⁻¹ ≤ K log z/log u`
+(`1<K≤1+ε`, (30)) is taken in the n=1-specialised V-ratio form `h4 : Vlow s D ≤ (3K/s)·W s`
+(i.e. at `u = D^{1/3}`, `log z/log(D^{1/3}) = 3/s`). Matches the WRatio carriers' shape
+(`Vlow/W = ∏_{D^{1/3}≤p<z}(1−ν)⁻¹`). K, ε parametric with `1<K≤1+ε`; C1d discharges h4.
+
+**Compiler-plug status against `hTbound` (all compiler-VERIFIED):**
+`hTbound_upper_of_levels`/`hTbound_lower_of_levels` produce the EXACT `hmain_upper`/
+`hmain_lower` hypotheses; `hmain_{upper,lower}_of_levels` feed them through C1c″ to
+`mainSum λ±`; `linear_sieve_{upper,lower}_rosser_assembled_final` close the full BJS Thm 6
+(5)/(6) `siftedSum` bounds, modulo only `hlevel` (n≥2) + `htau`. At `N = maxDepth s` the
+truncation is EXACT (`Fchain(maxDepth)−1` IS the full odd `fseq`-sum), so the C0-ledger S1
+fseq-tail absorption is nil here; the ledger's `N≥2048` value-cert is a C1b′/C5 matter,
+unaffected (`maxDepth s = π(z) ≫ 2048`).
+
+**Floor: A (reached), + the honest core of B at n=1.** Full discharge of `hTbound`
+unconditionally was NOT reached: the (34)–(38) general-n chain-to-integral (the restricted-
+sieve peeling) is the deferred `hlevel`, and the numeric frozen-row `ε=1/10000 → C₁=106,
+C₂=108` is left parametric (needs BJS's exact (31) constants γ₃/κ₃/cₙ at page-image level —
+unfetchable this session; per the C0-ledger doctrine the parametric τ-close + a numeric row
+as an explicit `htau` hypothesis is acceptable). What a follow-up needs: (i) a
+`sieveBelow s p` restricted-sieve object + the `Tₙ = Σ_p ν(p)T_{n−1}(D/p,p)` peeling
+identity; (ii) the (35)–(38) `hbar_funcbound`-style induction (Tail.lean's machinery is the
+template) to discharge `hlevel` for n≥2; (iii) the numeric (31) constants to instantiate
+`C₁,C₂`. Friction: `relem`/`rmin` have no rw-equations (use `change`/`rfl`-unfold);
+`Finset.range_subset.mpr (by omega)` mis-elaborates — use `Finset.range_mono (Nat.le_succ)`;
+`rw [hsplit]` over a `set S` rewrites ALL occurrences (incl. `β*S`) — isolate via a
+`have hSeq` on the LHS pattern only.
+
+## 2026-07-12 SW S4b⁗: ═══ SIEGEL'S THEOREM LANDED — FULL, ALL q ═══
+
+`siegel_theorem : ∀ ε > 0, ∃ C > 0, ∀ q, ∀ real primitive χ ≠ 1,
+every real zero β < 1 has β ≤ 1 − C/q^ε` — unconditional, no q₀
+restriction, ineffective C by construction (Classical.em in the
+dichotomy). To our knowledge the FIRST formalization of Siegel's
+theorem in any proof assistant. The closer's pieces: near-line
+log-power bounds (head/tail split of Growth's Abel form at index f:
+trivial head + PV tail ⇒ ‖L‖ ≤ 5e(1+log f)‖s‖ on the strip; Cauchy ⇒
+‖L'‖ ≤ 25e(1+log f)²; the sharp MVT), the Euler-correction log bound
+via PM1's Mertens (eulerC = e^{19/log 2}/log 2 — the P0-rung
+cross-reuse), and the four-branch assembly (no-exceptional effective;
+distinct-near via Estermann→Goldfeld vs the sharp MVT, window
+dl = min(ε/36, 1/20), A₁ = 625e³eulerC³(1+log q₁)⁵(1+14/ε)⁷;
+distinct-far trivial; χ = χ₁ by a CONTINUITY gap from L(1,χ₁) ≠ 0 —
+no finiteness-of-zeros needed). siegel_L_one standalone did NOT fall
+out (the L(1)-lower exists only in the assembly-internal
+exceptional-pair form) — fine, S5/S6 consume the zero-free form.
+The S4 wave is CLOSED. The full Siegel cluster: S4a fourfold, S4b
+reduction, S4b′ Landau truncation, S4b″ interface (catch #26), S4b‴
+assembly, S4b⁗ closer — six nodes, every floor closed same-day.
+
+## 2026-07-12 Chen C1c⁗: the Tₙ peeling identity + Buchstab induction skeleton — floor A (Opus)
+
+`Salt/Chen/Peeling.lean` (new; `import Mathlib` + `Salt.Chen.Lemma11`; namespace
+`Salt.Chen`; NOT wired into `All.lean` — new file only). Builds green, zero warnings, no
+sorry, axiom-clean `[propext, Classical.choice, Quot.sound]` on all theorems. Reaches
+**Floor A**: the peeling identity (i) FULL + the induction (ii) with the per-step
+discrete-to-integral comparison as ONE named hypothesis + (iii) assembled through C1c‴'s
+`hTbound_*_of_levels` to BJS Theorem 6 (5)/(6), modulo two named hypotheses.
+
+**The infrastructure gap the C1c‴ executor named — CLOSED.** `TnInduction.T` bakes `z`
+into the fixed `s.prodPrimes`; the peel needs a genuine sieve-below-p. Chose **option (b)**
+(honest `sieveBelow s p : BoundingSieve`), because it makes the recursion self-similar (`T`
+of the sub-sieve), which is exactly what powers the induction — option (a) (raw
+restricted-Finset sum) would not recurse. The `sieveBelow` reuses `Pbelow s p` as its
+`prodPrimes`; weights/mass/ν/ν-mult inherited; the two ν-positivity fields discharged by
+`Pbelow_dvd_prodPrimes`. Carriers transport cleanly: `Vbelow_sieveBelow` (`q ≤ p →
+Vbelow(sieveBelow s p) q = Vbelow s q`) and `W_sieveBelow` (`W(sieveBelow s p) = Vbelow s p
+= V(p)`) — the latter is precisely the `V(u)/V(z)` carrier hypothesis (4) bounds.
+
+**The level transform.** The head-peeled Rosser check carries a factor `p`
+(`p·(p₂⋯pₘ)·pₘ² < D`); the intrinsic sub-check is `(p₂⋯pₘ)·pₘ² < ⌈D/p⌉` via the exact ℕ
+biconditional `p·X < D ↔ X < cdiv D p` (`mul_lt_iff_lt_cdiv`, `cdiv D p := (D−1)/p + 1`,
+needs `1 ≤ p`, `1 ≤ D`; `1 ≤ cdiv` always, so the `1 ≤ D` threshold threads through the
+recursion). The FAIL check is the negation, same biconditional.
+
+**The peeling identity — verbatim** (`T_peel`, `n ≥ 1`, `1 ≤ D`, `side ∈ {1,2}`):
+`T s side D (n+1) = Σ_{p ∈ primeFactors.filter (fun p => side%2=1 → p^3<D)} s.nu p ·
+T (sieveBelow s p) (3−side) (cdiv D p) n`. An EXACT identity. The head window is `p³ < D`
+on the odd/upper side (position 1 is the odd check, must pass) and ALL sifting primes on
+the even/lower side (position 1 unchecked). The side flips `3−side` because peeling the head
+shifts every checked position by one (parity flip). Proof: `sum_fiberwise_of_maps_to` on the
+head map `c ↦ relem c 0`, then per-head `Finset.sum_nbij'` bijecting the fiber `{c : head =
+p}` with the sub-chains via `c ↔ (p, rsuffix c 1)`. The combinatorial heart is
+`isViolPrefix_peel_iff`: `isViolPrefix side D (p·c') ↔ (side%2=1 → p³<D) ∧ isViolPrefix
+(3−side) (cdiv D p) c'`, proved from the head-cons `rlist(p·c') = p :: rlist c'`
+(`rlist_head_cons`) and the position translations `rprefix (p·c')(m+1) = p·rprefix c' m`,
+`relem (p·c')(i+1) = relem c' i`, `rmin(p·c') = rmin c'`.
+
+**The induction skeleton (ii)** (`T_le_of_peel_step`): abstract target family `B :
+BoundingSieve → ℕ → ℕ → ℕ → ℝ`, base `hbase` (depth 1), and the **per-step comparison**
+`hstep : Σ_p ν(p)·B(sieveBelow s' p)(3−side')(cdiv D' p) n ≤ B s' side' D' (n+1)` as the
+single named hypothesis (the discrete-to-integral core of BJS (34)–(38)). Strong induction on
+`n` via `T_peel` + `ih` on each sub-sieve (ν(p) ≥ 0 preserves the term inequality) yields
+`Tₙ ≤ B s side D n` for all `n ≥ 1`, all sieves/levels/sides.
+
+**The plugs (iii)** (`hlevel_upper_of_step` / `hlevel_lower_of_step`,
+`hmain_{upper,lower}_of_step`): instantiate `B = fseqBound σ ε τ` (BJS Lemma 11's shape,
+`W s'·(fₙ(σ s' D') + ε·τₙ·e²·h(σ s' D'))`, with `σ : BoundingSieve → ℕ → ℝ` the operating-
+point map `log D/log z`). Produces Lemma11's EXACT `hlevel` shape at `sparam = σ s D`, hence
+through C1c‴'s `hmain_{upper,lower}_of_levels` the assembled BJS Theorem 6 (5)/(6), modulo
+`hbase` + `hstep` (+ `htau`). The lower even filter's `n = 0` term (`T s 2 D 0 = 0`,
+`fseq 0 = 0`) handled directly (needs `0 ≤ ε`, `0 ≤ τ 0`). Compiler-VERIFIED against
+`hmain_upper_of_levels`/`hmain_lower_of_levels`.
+
+**DEFERRED — the two named hypotheses (the honest analytic gap, satisfiable, not false):**
+- `hstep` — BJS (35)–(38): the partial-summation bound turning the head-sum
+  `Σ_p ν(p)·V(p)·fₙ(log⌈D/p⌉/log p)` into `V(z)·fₙ₊₁(σ s D)` via the WINDOWED hypothesis (4)
+  `V(u)/V(z) ≤ K·log z/log u`. The design note's "h4 windowed form" is SUBSUMED into `hstep`
+  (cleaner than exposing h4 + the integral comparison separately; the `V(u)/V(z)` carrier is
+  landed as `W_sieveBelow`/`Vbelow_sieveBelow`, so a future session states h4 against those).
+  Genuine real analysis (discrete→integral, varying `sparam' = log⌈D/p⌉/log p`); the `fseq`
+  recursion (16)/(17) is the integral it lands in. `Tail.lean`'s `hbar_funcbound` is the
+  integral-recursion template but must be re-run against the SUM (Σ_p → ∫ via
+  `AntitoneOn.sum_le_integral`, `MertensWindow.lean` idioms) — the piece not attempted here.
+- `hbase` — BJS (39): reduces to `Lemma11.hlevel_one_upper` (upper, needs `σ s' D' ∈ [1,3]`,
+  the per-sub-sieve h4, `τ 1 = 3`) + `T_two_one_zero`/`T_zero` (lower). A wrapper, not new math.
+The numeric frozen-row `ε=1/10000 → C₁=106, C₂=108` stays parametric (`htau` hypothesis),
+per the C0-ledger doctrine (BJS's exact (31) γ₃/κ₃/cₙ at page-image level, unfetchable).
+
+STOP-AND-FLAG ✓: nothing outside the frozen set. `hstep`/`hbase` consume only
+`fseq`/`Fchain`/`fchain`/`hBJS`/`sieveBelow`-carriers (C1a/C1b/C1c″/C1c‴). Friction:
+`rw [← hsplit]` rewrites `c` inside `rsuffix c 1` (loops) — rewrite forward on a `have`
+instead; `hc'len` via `rw [rlist_rsuffix, List.length_drop, hclen, Nat.add_sub_cancel]`
+(the `n+1−1` needs the explicit cancel); omega treats `p*X` and `X*p` as distinct atoms
+(insert `mul_comm` before omega in the cdiv biconditional).
+
+## 2026-07-12 Chen C1c⁵: discharge `hbase` FULL + `hBJS` funcbound + τ dischargers — `hstep` DEFERRED (architectural) (Opus)
+
+`Salt/Chen/StepBound.lean` (new; `import Mathlib` + `Salt.Chen.Peeling`; namespace
+`Salt.Chen`; NOT wired into `All.lean` — new file only). Builds green, zero warnings, no
+sorry, no `native_decide`, axiom-clean `[propext, Classical.choice, Quot.sound]` on all 11
+public theorems. Default heartbeats (no `set_option maxHeartbeats`).
+
+**LANDED FULL**
+- `hBJS_funcbound : 2 ≤ s → ∫_{s-1}^c hBJS ≤ s·hBJS s` — the `κ = 1` analogue of Tail's
+  `hbar_funcbound` (BJS's `H(s) ≤ κ₃·s·h(s)`, their (24)/(26)); the `h`-slack ingredient a
+  future `hstep` integrates. Region split: tail `s ≥ 3` via `∫ ≤ e^{-(s-1)} = e·e^{-s} ≤
+  3e^{-s} = s·h(s)` (`e < 3`); band `2 ≤ s ≤ 3` via the crossing bound `e^{-2}(4-s)` and the
+  Padé panel `(4-s)e^{s-2} ≤ s` (`exp_pade_upper : (2-x)eˣ ≤ 2+x` on [0,1], from
+  `Real.exp_bound` n=4: the residual is `-x³/6 - x⁴/16 ≤ 0`). Helpers: `hBJS_le2/mid/ge3`,
+  `hBJS_le_exp_of_ge`, `hBJS_le_exp2`, `hBJS_measurable`, `hBJS_intervalIntegrable`,
+  `integral_exp_neg`, `hBJS_intbound_hi/cross`.
+- `hbase_of` — BJS (39), BOTH SIDES FULL. Discharges the base slot of
+  `hmain_{upper,lower}_of_step` for `fseqBound σ ε τ`, from the σ-window (`1 ≤ σ ≤ 3`), hyp
+  (4) (`h4 : Vlow ≤ (3K/σ)W`), `0 ≤ ε`, `K ≤ 1+ε`, `τ₁ = 3`. Upper = `hlevel_one_upper`;
+  even/lower = `T_two_one_zero` against `0 ≤ W·(f₁ + ε·3·e²·hBJS)` (nonneg). REMOVES `hbase`
+  as a named hypothesis.
+- `tauSum_odd_le` / `tauSum_even_le` — parametric `htau` dischargers: drop
+  `Lemma11.tau_sum_le_of_recursion` onto the odd/even filters (`sub-sum ≤ full sum`, `τ ≥ 0`).
+- `bjs_theorem6_{upper,lower}` (mainSum) and `..._sifted` (siftedSum) — the payoff:
+  `hmain_*_of_step` / `linear_sieve_*_rosser_assembled_final` with `hbase` discharged via
+  `hbase_of`. Remaining named hypotheses: `hstep` (below), the parametric `htau`, and the
+  hyp-(4) family (`h4` + σ-window). This is BJS Theorem 6 (5)/(6), one honest hypothesis
+  (`hstep`) from unconditional-modulo-(hyp-4 + numeric-τ).
+
+**FINDING 1 — `hstep` is architecturally deferred, not merely laborious.** `Peeling`'s
+`σ : BoundingSieve → ℕ → ℝ` cannot recover the sub-sieve cutoff `p` from `sieveBelow s p`
+(its `prodPrimes = Pbelow s p = ∏_{q<p} q` forgets `p` — many `p` give the same `Pbelow`).
+So BJS's change of variables `t = log D/log p ↦ s'_p = t − 1`, which turns the head-sum
+`Σ_p ν(p)V(p)·fₙ(s'_p)` into the `fseq` recursion integral `(1/S)∫_S^∞ fₙ(t−1) dt`, is NOT
+statable through `σ(sieveBelow s p)(cdiv D p)` alone (both the `f`- and `h`-parts hit this).
+No finer decomposition into "one clean `hsum`" is honest — any hsum through the integral
+needs the `p`-scale, so it degenerates to restating `hstep`. FIX for a future session (Fable-
+tier design): either extend the operating-point map to take `p` (`σ' : BoundingSieve → ℕ → ℕ
+→ ℝ`, or fold `p` into a per-sieve scale field), or carry `z` explicitly in `T` rather than
+baking it into `prodPrimes`. `hBJS_funcbound` is the ingredient it will consume. Floor B
+reached (hbase full + hBJS-funcbound + τ machinery + this flag); Floor A (hstep-with-hsum)
+NOT reachable soundly given the architecture.
+
+**FINDING 2 — the elementary `hBJS` self-integral is `κ = 1`, which does NOT contract the
+τ-recursion.** `hBJS_funcbound`'s `κ = 1` is *tight at s = 2* (equality `∫_1^∞ (majorant) =
+2·h(2)`) and is the best an ELEMENTARY majorant yields: the true `∫_1^∞ hBJS ≈ 0.260 <
+2e^{-2} ≈ 0.271` requires the exponential integral `E₁` of the `3u⁻¹e^{-u}` tail (`κ₃ ≈ 0.96`,
+matching BJS's `α = 0.9607`), which mathlib lacks. BJS's τ-recursion (31) contracts only with
+`β = Kκ₃ + (K−1)γ₃ < 1`; at `κ₃ = 1` (elementary), `β ≥ Kκ₃ ≥ 1`, so NO concrete contracting
+τ with BJS's actual (31) coefficients is elementarily derivable, and `tau_sum_le_of_recursion`
+cannot be fired with the real BJS constants. Hence the frozen `C₁ = 106, C₂ = 108` stay named
+`htau` hypotheses (as the C0-ledger doctrine already prescribes) — the `tauSum_*_le`
+dischargers instantiate them once E₁-based `κ₃ < 1`, `γ₃`, `cₙ` (page-image (31)) are
+available. **C0-ledger not exceeded** (no numeric τ shipped that could breach 106/108); the
+caps are untouched, the gap is the missing `E₁` library, flagged not fudged (Iron Rule 1).
+
+STOP-AND-FLAG ✓: everything consumes only the frozen set (`fseq`/`hBJS`/`sieveBelow`-carriers
++ `Peeling`/`Lemma11` exports). Friction: `Measure.integrableOn_of_bounded` needs the `(M :=
+...)` named arg + `Real.volume_uIoc`/`ENNReal.ofReal_ne_top`; `(exp∘neg).comp` yields a `∘`
+form — split `HasDerivAt` into a `simpa`-normalised `have` before `.neg`; `rw [if_pos le_rfl]`
+auto-closes the reflexive branch (drop the trailing `norm_num`).
+
+## 2026-07-12 C1c⁵ adjudication: catch #27 (the σ-map architecture) + the κ₃ constants issue
+
+**Catch #27 (Fable design error in the C1c⁗ spec, caught by the C1c⁵
+executor pre-execution of hstep):** Peeling's operating-point map
+`σ : BoundingSieve → ℕ → ℝ` cannot recover the sub-sieve cutoff p from
+`sieveBelow s p` (prodPrimes forgets p), so BJS's change of variables
+`t = log D/log p` — the entire discrete→integral mechanism — is NOT
+STATABLE through σ alone; any "hsum" isolation degenerates into
+restating hstep. Adjudication: amend the SKELETON (an internal
+scaffold, not a frozen blueprint statement) — generalize
+`T_le_of_peel_step`/`fseqBound` to carry the cutoff explicitly
+(B gains a z-cutoff argument threaded by the peel). Node C1c⁶.
+**The κ₃ issue (not a catch — an honest constants gap):** the
+elementary hBJS_funcbound gives κ₃ = 1 (tight at s = 2), but BJS's
+τ-contraction needs β = Kκ₃ + (K−1)γ₃ < 1 — κ₃ = 1 forces β ≥ 1.
+BJS's true κ₃ ≈ 0.96 rests on the E₁ exponential integral of the
+3u⁻¹e⁻ᵘ tail (absent from mathlib). Options for the eventual numeric
+row (C₁ = 106/C₂ = 108): an E₁ mini-development, a sharper elementary
+majorant on the [2,3] panel, or a mixed hbar/hBJS strategy (hbar's
+99/100 contraction + a one-time conversion — mind Lemma11's finding
+that the BASE needs hBJS). Until then the parametric htau is the
+honest state, per the C0 doctrine. Tally: 27 caught, 0 proofs on
+wrong statements.
+
+## 2026-07-12 Chen C1c⁶: the cutoff-threaded skeleton — catch #27 RESOLVED, `hstep'` now STATABLE (Opus)
+
+`Salt/Chen/StepBound2.lean` (new; `import Mathlib` + `Salt.Chen.StepBound`; namespace
+`Salt.Chen`; NOT wired into `All.lean` — new file only, alongside the untouched committed
+`Peeling.lean`/`StepBound.lean`). Builds green, zero warnings, no `sorry`, no
+`native_decide`, axiom-clean `[propext, Classical.choice, Quot.sound]` on all 9 public
+declarations. Default heartbeats (no `set_option maxHeartbeats` — proofs are wrappers, 2.5s).
+
+**Catch #27 RESOLVED (the amendment executed).** The C1c⁵-flagged architectural obstruction
+was that `Peeling`'s operating-point map `σ : BoundingSieve → ℕ → ℝ` cannot recover the
+sub-sieve cutoff `p` from `sieveBelow s p` (its `prodPrimes = ∏_{q<p} q` forgets `p`), so
+BJS's change of variables `t = log D/log p` — the whole discrete→integral mechanism — was
+NOT STATABLE and any `hsum` isolation degenerated into restating `hstep`. Fix (skeleton is an
+internal scaffold, amendable): key the operating point on the **explicit cutoff** instead of
+the sieve.
+
+**LANDED FULL**
+- `T_le_of_peel_step'` — the cutoff-threaded induction engine: abstract family
+  `B : BoundingSieve → ℕ → ℕ → ℕ → ℕ → ℝ` with signature `B s' z side D n` (z the cutoff).
+  Re-derived from `Peeling.T_peel` exactly as the unprimed skeleton; the sole new obligation
+  — the sub-sieve cutoff hyp `∀ q ∈ (sieveBelow s' p).primeFactors, q < p` — is immediate
+  (`sieveBelow_primeFactors`+`belowPrimes` filter is `· < p`). Threads a top cutoff hyp
+  `∀ q ∈ s'.primeFactors, q < z` (unused by the pure induction, but weakens `hstep'`/lets a
+  future proof use `W s' = V(z)`).
+- `fseqBound'` — the family keyed on abstract `σ : ℕ → ℕ → ℝ` of `(cutoff z, level D)` (vs
+  the unprimed `σ : BoundingSieve → ℕ → ℝ`). Intended concrete map `logRatio z D = log D/log z`
+  (offered as a def; its [1,3]-window stays a hypothesis, same softness as the unprimed design).
+- `StepHyp σ ε τ` — the per-step comparison as a shared `Prop`. Its sub-term
+  `fseqBound' σ ε τ (sieveBelow s' p) p … = W(sieveBelow s' p)·(fₙ(σ p ⌈D'/p⌉) + …)` has the
+  cutoff `p` EXPLICIT in the operating point — **`hstep'` (BJS (34)–(38)) is now statable**,
+  which is precisely what catch #27 demanded. Still the one named analytic hypothesis (the
+  genuine partial-summation real analysis, NOT attempted here — it is the honest remaining gap,
+  now unblocked rather than architecturally impossible).
+- `hbase'_of` (BJS (39), both sides), `hlevel'_{upper,lower}_of_step'`,
+  `bjs_theorem6_{upper,lower}'` (+ `_sifted'`) — the payoff re-assembled on the new skeleton.
+  Base discharged via `Lemma11.hlevel_one_upper` (unchanged — the base does not recurse, so the
+  cutoff plays no combinatorial role) + `T_two_one_zero`; produced `hlevel` shape at
+  `sparam = σ zTop D` fed through C1c‴'s `hmain_{upper,lower}_of_levels` /
+  `linear_sieve_{upper,lower}_rosser_assembled_final`. The lower sifted form reuses the sieve's
+  sifting limit `zTop` (`∀ p ∈ primeFactors, p < zTop`) as both the assembly's `z` and the
+  operating cutoff. Remaining named hypotheses: `hstep'` (statable), hyp-(4) (`h4` V-ratio +
+  σ-window), parametric `htau`.
+
+**FINDING (the κ₃ route, orthogonal to catch #27).** BJS's τ-recursion needs
+`β = Kκ₃ + (K−1)γ₃ < 1`; elementary `StepBound.hBJS_funcbound` gives κ₃ = 1 (tight at s = 2).
+Route (I) sharpening (worked out, NOT yet formalised): integrate the tail `∫_3^∞ 3u⁻¹e⁻ᵘ` by
+parts twice — `= 3a⁻¹e⁻ᵃ − 3∫u⁻²e⁻ᵘ`, and `∫_a^∞ u⁻²e⁻ᵘ ≥ a⁻²e⁻ᵃ(1−2/a)` (one more by-parts
++ `u⁻³ ≤ a⁻³`) — gives `∫_3^∞ 3u⁻¹e⁻ᵘ ≤ (8/9)e⁻³`, hence `∫_1^∞ h ≤ 2e⁻² − (1/9)e⁻³ ≈
+0.98·2e⁻²`, i.e. κ₃ ≤ 0.98 at the tight point. This affects ONLY the numeric `htau` close
+(`C₁=106, C₂=108`), which the C0-ledger doctrine keeps parametric regardless (BJS's γ₃/cₙ from
+(31) still page-image-unfetchable), so route (I) has no immediate consumer and does not gate
+catch #27; left as the named `htau` + `StepBound.tauSum_{odd,even}_le` dischargers. NOT
+formalised (low value / high risk relative to the clean C1c⁶ deliverable).
+
+STOP-AND-FLAG ✓: nothing outside the frozen set; the skeleton (a scaffold) was amended exactly
+as sanctioned, no blueprint statement altered. Consumes only `Peeling`/`StepBound`/`Lemma11`
+exports (`T_peel`, `sieveBelow_primeFactors`, `belowPrimes`, `hlevel_one_upper`,
+`hmain_*_of_levels`, `linear_sieve_*_assembled_final`). Friction: the sub-sieve cutoff hyp via
+`simp only [sieveBelow_primeFactors, belowPrimes, Finset.mem_filter]` (belowPrimes is a def,
+needs unfolding for `mem_filter` to fire); `StepHyp` as a `Prop` def passes defeq-cleanly to
+the raw `∀`-form expected by `T_le_of_peel_step'`. Tally: 27 caught, 0 proofs on wrong
+statements (catch #27 now resolved, not merely isolated).
+
+## 2026-07-12 SW S5b: contour-shift assembly — clean no-exceptional variant DONE; exceptional + χ₀ FLAGGED (Opus)
+`Salt/SW/ShiftAssembly.lean`, `theorem psi1_contour_shift`. Builds green (zero warnings),
+axiom-clean `[propext, Classical.choice, Quot.sound]`, sorry-free. Consumes the seven landed
+helper lemmas in the same file + the corpus (`LFunction_norm_logDeriv_sub_sum'`,
+`psi1_eq_integral_logDeriv`, `LFunction_zero_count_le`/`_growth_sphere`,
+`analyticOrderAt_eq_of_factorization`, `rectBI_eq_zero_of_differentiableOn`, kernel lemmas).
+`set_option maxHeartbeats 1600000` (documented in-file; the one `set`-heavy final term).
+
+**E (the clean bound), verbatim from the statement**, for primitive χ mod f≥2, x≥3, T≥2, w>0,
+σ₀-w≥9/10, σ₀<1, and widened `hzf` (no zero ρ with σ₀-w≤Re ρ≤1 and |Im ρ|≤T+2):
+`‖psi1Chi x χ‖ ≤ (1/2π)·[ 2(c-σ₀)·B·x^{c+1}/T² + B·x^{σ₀+1}·(π/σ₀) + (log x+1)·x^{c+1}·(2/T) ]`
+with `c = 1+1/log x` and `B = 120·L4 + (L4/log(7/6))/w`, `L4 = log(4·5·(4+T)·√f·(1+log f))`.
+Three summands = (top+bottom horizontals) + (left edge, Lorentzian mass π/σ₀) + (c-line tail 2/T).
+**S6 sanity (checks out):** with `w = c₀/(2 log(f(T+2)))` one gets `1/w = 2 log(f(T+2))/c₀`
+(a log power) and `σ₀ = 1 - c₀/log(fT) ≥ 9/10` once `log(fT) ≥ 10 c₀`; then B is a log·log and
+each summand is (poly in log x, T)·x^{≤c+1}, i.e. the expected `x·(log)^{O(1)}·e^{-c/(...)}`-shape
+input to S6 once σ₀ is pushed to the zero-free frontier. **Widened-hzf design (as landed):**
+`T' := T` (no ∃-T' pigeonhole); Im-range `T+2` covers every zero in the boundary disks
+`ball(2+it₀,3/2)`, `|t₀|≤T` (reach `|Im|<T+3/2<T+2`), so the box interior/edges are zero-free and
+`dist(edge,ρ) ≥ w` holds uniformly — all `∃-σ₀'`/`∃-T'` spacing dodges dissolve. `σ₀≥9/10` keeps
+the left edge in the `23/20` partial-fraction region and off the kernel poles `s=0,−1`.
+Notable proof points: the zero-count is NOT exposed by the S2 endpoint — re-derived inline via
+`analyticOrderAt → AnalyticOnNhd.divisor_apply → finsum_le_finsum' → LFunction_zero_count_le`
+(Jensen). Left-edge integrability is by **continuity** (`ContinuousOn.comp`+`MapsTo` into
+`closedRect`, then `.intervalIntegrable`), NOT `contour_integrand_integrable` (which needs Re>1);
+the edge log-deriv bound only holds for |Im|≤T, so the left-edge pointwise estimate is proved on
+`Icc(-T,T)` and the *dominating* Lorentzian (nonneg, integrable on ℝ) passes to the full-line
+`π/σ₀` via `setIntegral_le_integral`.
+
+**FLAG — exceptional variant NOT attempted (rule 4: flag over grind).** Intended route:
+`kernel_residue` (landed in `ContourShift.lean:356`) supplies
+`∮_{∂R} x^{s+1}/(s(s+1))·1/(s−β) = 2πi·x^{β+1}/(β(β+1))`, so the exceptional main term is
+`m·x^{β₁+1}/(β₁(β₁+1))`. Obstructions making it a full second C-construction, not a cheap compose:
+(1) **Removable-singularity / global de-singularization.** Goursat (`rectBI_right_split`) needs
+`DifferentiableOn F` on the whole box, but `F = kernel·(−L'/L)` has a pole at β₁. One must show
+`G(s) := F(s) + m·kernel(s)/(s−β₁)` is `DifferentiableAt` at β₁ (the poles cancel to `kernel·(−logDeriv h)`,
+h≠0 the endpoint factor) — a removable-singularity argument threading the LOCAL factorization
+`LFunction_norm_logDeriv_sub_sum'` (valid only on `ball(2+it₀,3/2)`) to GLOBAL box holomorphy.
+There is no pole-carve variant of `rectBI_right_split` in the corpus.
+(2) **A carved-zero edge bound** — a `norm_neg_logDeriv_le_shifted` analogue bounding
+`‖−L'/L(s) + m/(s−β₁)‖` (retaining β₁'s term) on the box; ~150 new lines mirroring the shifted
+lemma with `Z={β₁}` rather than `Z=∅`.
+(3) **β₁ vs left edge separation.** β₁∈[σ₀−w,1] real can sit near/at the `Re=σ₀` edge, so
+`1/(s−β₁)` needs a `β₁−σ₀ ≥ gap` hypothesis or a deformed contour. Recommend a Fable/human session:
+land the pole-carve Goursat + carved edge bound first, then the residue reassembly is short.
+
+**FLAG — χ₀ (principal character) does NOT compose.** For χ₀ (=1), `LFunction χ₀ = ζ·∏(1−p^{−s})`
+has a POLE at s=1, which lies INSIDE the box (σ₀<1<c). The whole setup assumes `differentiable_LFunction hχ1`
+(needs χ≠1) and `LFunction_ne_zero_of_one_le_re`; both fail at χ₀. Handling it needs the S3c
+`zeta/χ₀` pole residue extraction as a separate main-term construction — out of scope for a cheap
+compose; defer to the S3c/S6 assembly that already owns the ζ-pole.
+
+## 2026-07-12 Chen C1c⁷: the Stieltjes summation-by-parts core of `hstep'` — FLOOR C+ (machinery around ONE named sharp comparison), sharp change-of-variables DEFERRED (Opus)
+
+`Salt/Chen/AbelStep.lean` (new; `import Mathlib` + `Salt.Chen.StepBound2` + `Salt.Chen.Hyp4`;
+namespace `Salt.Chen`; NOT wired into `All.lean` — new file only). Builds green, zero warnings,
+no `sorry`, no `native_decide`, axiom-clean `[propext, Classical.choice, Quot.sound]` on all 9
+public declarations. Default heartbeats (proofs are algebra/telescoping, 2.7s).
+
+**Scope honestly reached: FLOOR C+ (the reusable Stieltjes/Abel core + the full ε/τ ledger
+around ONE named sharp comparison). The sharp discrete→integral change of variables — the
+genuine multi-hundred-line real-analysis heart of BJS (34)–(38) — is NOT attempted, no `sorry`,
+no crude bound dressed up as the sharp one.** Two prior executors sized this node as "its own
+session"; the sharp comparison remains that session.
+
+**LANDED FULL**
+- `telescope_lt` / `telescope_ge` — the descending-`V` Stieltjes measure: the peel weight
+  `ν(p)·V(p)` is the telescoping increment `V(p)−V(p⁺)` (`Lemma11.prod_telescope`), so the tail
+  mass `Σ_{p≥t} ν(p)·V(p) = V(t) − W`. This is the discrete integration-by-parts kernel BJS's
+  partial summation runs on (the reusable core = floor C). Helper `filter_lt_filter_lt`.
+- `stepHyp_lhs_eq` — `StepBound2.StepHyp`'s left side unfolded (via `fseqBound'` +
+  `Peeling.W_sieveBelow`, `W(sieveBelow s' p)=Vbelow s' p=V(p)`) to the Stieltjes sum
+  `Σ_{window} (ν(p)·V(p))·g(p)`, `g(p)=fₙ(σ p ⌈D'/p⌉)+ε·τₙ·e²·h(σ p ⌈D'/p⌉)`.
+- `telescope_window_upper` (`= 1 − V(D^{1/3})`) / `telescope_window_lower` (`= 1 − W`) — the
+  total Stieltjes mass in the two concrete peel windows. Upper needs the window-downward-closure
+  `q<p ∧ p³<D' ⟹ q³<D'` (`Nat.pow_lt_pow_left`); lower is direct `prod_telescope` on all prime
+  factors (the even-side filter `2%2=1 → …` is vacuous).
+- `stieltjes_sum_le_of_le` — the crude one-sided Stieltjes bound `Σ incr(p) g(p) ≤ M·(1−∏(1−a))`
+  (`g≤M`, increments ≥0); the majorant the sharp comparison must beat (and the witness that NO
+  uniform crude bound discharges `StepHyp` — see FINDING).
+- `ledger_collect` — the ε-ledger collect (BJS (35)–(38) closure, abstract): from `Ff ≤ W·(f₁+c_f·hz)`,
+  `Fh ≤ W·(c_h·hz)` and the τ-recursion `c_f + ε·e²·c_h·τₙ ≤ ε·e²·τₙ₊₁`, derives
+  `Ff + ε·τₙ·e²·Fh ≤ W·(f₁+ε·τₙ₊₁·e²·hz)`. Pure algebra (`nlinarith`).
+- `stepHyp_of_comparisons` — the full reduction: **`StepHyp σ ε τ` ⇐ (sharp `f`-comparison `hf`)
+  ∧ (sharp `h`-comparison `hh`) ∧ (τ-recursion `hτrec` in the ≥-direction)**. `hf`/`hh` are the
+  two named remaining hypotheses, stated in the PRIMITIVE Stieltjes form (`Σ ν(p)V(p)·fₙ(σ_p) ≤
+  W·(fₙ₊₁(σ_z)+c_f·h(σ_z))` and the `h`-mirror) — no `fseqBound'` wrapper, no ε/τ mixing — i.e.
+  exactly what a change-of-variables discharge produces. All the surrounding bookkeeping (LHS
+  reshape, the `f`/`h` sum split, the ε/τ collect) is FULL.
+
+**The τ-direction resolution (asked for; machine-checked in `ledger_collect`).** `StepHyp σ ε τ`
+FIXES `τ` and demands the inequality per-`n`. Writing the comparison as `f`-part `≤ W(fₙ₊₁+c_f h)`
++ `h`-part `≤ W(c_h h)`, the collect closes IFF `c_f + ε·e²·c_h·τₙ ≤ ε·e²·τₙ₊₁`, i.e.
+`τₙ₊₁ ≥ c_f/(εe²) + c_h·τₙ` — BJS's `τₙ₊₁ = a·rⁿ + β·τₙ` in the **≥ direction** (`a·rⁿ=c_f/(εe²)`,
+`β=c_h`). **This per-`n` inequality closes for ANY `c_h`** (no `β<1` needed here — the C1c⁵ finding
+that κ₃=1 forces β≥1 does NOT block `hstep'`). `β<1` bites only at the τ-SUM close (`htau : Στ≤Cᵢ`,
+`Lemma11.tau_sum_le_of_recursion`), already parametric per the C0 ledger. So the honest state is
+exactly as StepBound2 left it: `StepHyp` reduces to the sharp comparisons + a τ with `hτrec`, and
+the numeric contraction stays the named `htau`.
+
+**The cdiv-slop handling (worked out, lives in `c_f`).** BJS's change of variables is
+`t = log D'/log p`; the peel's operating point is `σ p ⌈D'/p⌉ = log⌈D'/p⌉/log p ≈ (log D'−log p)/log p
+= t−1`, with the ⌈·⌉ overshoot `log⌈D'/p⌉ − log(D'/p) ≤ log(1 + p/D') = O(p/D')` a positive slop.
+Since `fseq n` is monotone-piecewise and the slop is one-signed, it is absorbed into the `f`-part
+error coefficient `c_f` (BJS's (35)–(38) `h`-slack ledger) alongside hypothesis (4)'s `(1+ε)` factor
+(`Hyp4.vratio_window_le`). No separate carrier needed — it is a summand of `c_f` in `hf`.
+
+**FINDING — the sharp comparison is genuinely multi-session; no uniform crude shortcut.** I verified
+there is NO shortcut: the target `Σ ν(p)V(p)·fₙ(σ_p) ≤ W·fₙ₊₁(σ_z) + slack` must be UNIFORM in the
+sieve `s'`, but the total Stieltjes mass `1−V(D^{1/3})` (resp. `1−W`) has NO uniform ratio to the
+target `W·fₙ₊₁(σ_z)` — as `W→0` the ratio `(1−W)/W → ∞`, so no fixed `M·mass` (crude bound) and no
+τ-slack-domination (uniform `τ` cannot swallow `(1−W)/W`) discharges `StepHyp`. The SHARP comparison
+is mandatory: (a) pushforward of the descending-`V` measure under `p ↦ t=log D'/log p`, (b)
+hypothesis (4) (`vratio_window_le`) bounding the pushforward density by `(1+ε)/log`, (c) the
+monotone-piece comparison of the resulting Stieltjes sum to the `fseq`-recursion integral
+(`RosserChain` (16)/(17), finitely many level-independent pieces), producing the sharp `c_f, c_h`
+of `ledger_collect`. The `h`-side sharp tool already exists (`StepBound.hBJS_funcbound`,
+`∫_{s-1}^c h ≤ s·h(s)`); the `f`-side needs the analogous fseq step. Both hit the same change-of-
+variables/pushforward-measure obstruction, which mathlib does not package — genuine formalization,
+left for the dedicated session `hstep'` deserves.
+
+STOP-AND-FLAG ✓ (Iron Rule 1): nothing outside the frozen set; no blueprint statement altered;
+`StepHyp` is discharged exactly to the two primitive sharp comparisons + the τ-direction, all sorry-
+free. Consumes only `StepBound2` (`StepHyp`, `fseqBound'`), `Peeling` (`W_sieveBelow`, `sieveBelow`,
+`cdiv`), `Lemma11` (`prod_telescope`), `TnInduction` (`Vbelow`, `belowPrimes`), `LinearSieve`/`StepBound`
+(`hBJS`, `hBJS_pos`), `Defs` (`W`). Friction: `Finset.sum_congr rfl hV` needs `hV` on the FULL
+summand `ν(p)·V(p) = …` (not just `V(p)`); the even-side vacuous filter closes by `omega` on
+`2%2=1`; `stepHyp_lhs_eq` must run BEFORE `simp only [fseqBound']` so the sub-sieve `fseqBound'`
+is gone before the parent one is unfolded. Tally unchanged: 27 caught, 0 proofs on wrong statements.
+
+## 2026-07-12 Chen C1c⁸: the sharp `f`-comparison `hf` — FULL for all `n` (conditional); `hh` reduced to its isolated decay-mass remainder (Opus)
+
+`Salt/Chen/SharpStep.lean` (new; `import Mathlib` + `Salt.Chen.AbelStep` + `Salt.Chen.Tail` +
+`Salt.BrunLower.MertensWindow`; namespace `Salt.Chen`; NOT wired into `All.lean` — new file only).
+Builds green, zero warnings, no `sorry`, no `native_decide`, axiom-clean `[propext, Classical.choice,
+Quot.sound]` on every declaration; default heartbeats. This is the sharp change-of-variables that
+C1c⁷ (`AbelStep`) isolated as the ONE named remainder of `stepHyp_of_comparisons`.
+
+**The `f`-comparison `hf` is FULLY discharged, all `n` (not just `n=1,2`), via the PM1-density
+route.** The chain, all landed sorry-free:
+- `Vbelow_le_ratio` (the mandatory pushforward, AbelStep's flagged step): `Vbelow s p ≤
+  (1+ε)·(log z/log p)·W s` from `Hyp4.vratio_window_le` at threshold `u = p` — because `W =
+  Vbelow s p · ∏_{q≥p}(1−ν q)` and `(∏_{q≥p})⁻¹ ≤ (1+ε)log z/log p`. This *factors `W` out*,
+  dissolving the `W→0` obstruction the C1c⁷ FINDING proved fatal to every crude bound.
+- `support_prime_bounds`: `fₙ(σ_p) ≠ 0 ⟹ 1 ≤ σ_p < n+2 ⟹ p < D' ∧ log D' < (n+3)log p` (the
+  lower support via `⌈D'/p⌉ ≥ p`, upper via `⌈D'/p⌉ ≥ D'/p`). This is the *compact support of `fₙ`*
+  turning the p-sum into a finite prime window.
+- `prime_support_mass_le` (THE reusable comparison lemma; the `d(loglog p) = −du/u` cancellation):
+  for primes in `D'^{1/(n+3)} < p < D'`, `Σ 1/(p−1) ≤ log(n+3) + 19/log 2 + 2`, **uniform in
+  `D', z`** — the window's loglog-length is `log(n+3)` whatever `D'`. Two-regime PM1
+  (`sum_inv_le_of_prime_window`, base `D'^{1/(n+3)}` when `≥ 2`, else base `2`; both give
+  `log(log D'/log w) ≤ log(n+3)`) + the `1/(p−1)`-vs-`1/p` bridge + the `Σ 1/p²` telescope.
+- `inv_S_le`: the operating-window slack `1/S ≤ (n+3)e^{n+3}·h(S)` on `1 ≤ S ≤ n+3` (region-split
+  against `h`'s three branches, `h(S) ≥ h(n+3)`).
+- `hf_of_window`: assembles the above into `Σ ν(p)V(p)fₙ(σ_p) ≤ W·(fₙ₊₁(σ_z) + c_f·h(σ_z))` with
+  the EXPLICIT `c_f = cf_const n ε = 2(1+ε)(n+3)·(log(n+3)+19/log2+2)·(n+3)e^{n+3}`. Its conclusion
+  is exactly `stepHyp_of_comparisons`'s `hf` slot at `σ = logRatio`, `c_f = cf_const n ε`.
+
+**The `h`-comparison `hh` is NOT closed; it is reduced to its isolated remainder (`hh_reduced`) and
+flagged.** The same pushforward `Vbelow_le_ratio` factors `W` out of the `h`-part too (`hh_reduced`:
+`Σ ν(p)V(p)h(σ_p) ≤ (1+ε)W·Σ (1/(p−1))(log z/log p)h(σ_p)`), so what remains is a *pure decay-mass
+prime sum*. The `f`-route's compact-support shortcut is UNAVAILABLE: `h > 0` never vanishes, so the
+p-sum is not a finite window — it converges only through `h`'s exponential tail (`h(σ_p) ≤ e·e^{−u_p}`,
+`u_p = log D'/log p`; and `Σ_p (1/(p−1))·u_p·e^{−u_p}` diverges without the decay). Closing it needs
+the **antitone dyadic-piece integral comparison**: partition the window by `k = ⌊u_p⌋` into the
+unit `u`-pieces `p ∈ (D'^{1/(k+1)}, D'^{1/k}]` (loglog-length `log((k+1)/k)`, `prime_support_mass_le`
+per piece), bound `h(σ_p) ≤ h(⌊u_p⌋−1)` on each (`h` antitone), sum the geometric-ish series
+`Σ_k (k+1)·e^{−k}` to a constant, then close against `StepBound.hBJS_funcbound` (`∫_{S−1} h ≤ S·h(S)`,
+`κ₃=1`) and `Lemma11.inv_le_e2_hBJS`. That is ~300 lines with several new sub-lemmas (a general
+piece-mass bound, `Finset` fiber-grouping over `⌊u_p⌋`, `hBJS` antitone, an explicit `Σ k e^{−k}`
+bound) — a genuine separate development, DEFERRED per the give-up-early rule rather than rushed.
+
+**Conditionality (honest).** `stepHyp_of_comparisons`'s bare `hf`/`hh` are unconditional in `s'`;
+ours carry the sieve-class inputs BJS Theorem 6 already supplies — `ν q ≤ 1/(q−1)` (`hnu`), the
+per-prime catch-#22 threshold guard `hguard` (`3 ≤ q`, `19/log q + 4/(q−1) ≤ log(1+ε)`, i.e. all
+sifting primes past `w₀(ε)`), and the operating window `1 ≤ σ z D' ≤ n+3` (`hS1`/`hSn`). So the
+composition to `StepHyp` is CONDITIONAL (the ambient Theorem-6 context discharges these); the
+"keystone-complete" AbelStep composition is reached only once `hh` lands and the sieve-class
+hypotheses are threaded. `c_f`/`c_h` explicit per-`n` is fine — `ledger_collect` absorbs any value.
+
+**PB floor:** EXCEEDED the stated Floor A on the `f`-side (Floor A asked `hf` for `n=1,2` + the
+comparison lemma + moduli; delivered `hf` for ALL `n` + `prime_support_mass_le` + `Vbelow_le_ratio`
++ `support_prime_bounds` + `inv_S_le`). `hh` at its reduction floor (`hh_reduced` + the decay-mass
+gap precisely specified). Friction: `set L`/`set w` fold `Real.log ↑D'` so `Real.exp_log` needs an
+explicit `rw [hLdef]` first (or bypass with `show`); `congr 2; ring` on `(n+3)·exp X = (n+3)·exp Y`
+over-closes ("No goals") — use `show`-rewrites of the exponent; `div_le_div_iff` is `div_le_div_iff₀`;
+`sum_inv_le_of_prime_window` is namespaced `Salt.BrunLower.`; `positivity` cannot prove `1 ≤ n+3` or
+`0 ≤ 1/(p−1)` (feed `Nat.cast_nonneg`/`one_div_pos` explicitly). Tally: 27 caught, 0 proofs on wrong
+statements.
+
+## 2026-07-12 SW S5c: exceptional-zero contour variant — FULL; χ₀ variant + ζ zero-free region FLAGGED (Opus)
+`Salt/SW/ShiftVariants.lean` (new file; `import Mathlib` + `Salt.SW.ShiftAssembly`; namespace
+`Salt.SW`; NOT wired into any All.lean — new file only). Builds green, zero warnings, sorry-free,
+no `native_decide`, no new axioms. Axiom-clean `[propext, Classical.choice, Quot.sound]` on all
+three public decls (`psi1_contour_shift_exceptional`, `norm_logDeriv_le_of_ball_dist`,
+`rectBI_sub_of_edge_eq`). `set_option maxHeartbeats 1600000` on the main theorem (documented
+in-file; the `set`-heavy assembly), default elsewhere. ~22s compile.
+
+**LANDED FULL — `psi1_contour_shift_exceptional`.** Verbatim:
+`‖psi1Chi x χ + (x:ℂ)^(↑β₁+1)/(↑β₁*(↑β₁+1))‖ ≤ (1/2π)·E`, for primitive χ mod f≥2, x≥3, T≥2,
+w>0, σ₀−w≥9/10, σ₀<1, `hβsep : σ₀+w ≤ β₁`, β₁<1, `hβ_simple : analyticOrderAt (LFunction χ) ↑β₁ = 1`,
+and the CARVED zero-free hypothesis
+`hzf : ∀ ρ, L ρ = 0 → σ₀−w ≤ ρ.re → ρ.re ≤ 1 → |ρ.im| ≤ T+2 → ρ = ↑β₁`
+(every box-region zero IS β₁). **`E` is IDENTICAL to S5b's clean `E`** — the three summands
+`2(c−σ₀)·B·x^{c+1}/T² + B·x^{σ₀+1}·(π/σ₀) + (log x+1)·x^{c+1}·(2/T)`, same
+`B = 120·L4 + (L4/log(7/6))/w`, `L4 = log(4·5·(4+T)·√f·(1+log f))`, `c = 1+1/log x`. The residue
+`x^{β₁+1}/(β₁(β₁+1))` is the ADDED main term on the LEFT; it does NOT enlarge `E` (see finding).
+
+**Mechanism (resolves the S5b executor's obstructions (1)+(2); recommended route confirmed).**
+The G-trick, with the correct sign `G := (−L'/L) + 1/(s−β₁)` (the S5b flag's `− 1/(s−β₁)` was a
+sign slip — with `−`, `ker·G` retains a double pole at β₁; `+` cancels it):
+* **The gluing (obstruction 1).** From `hβ_simple` + `AnalyticAt L β₁`,
+  `AnalyticAt.analyticOrderAt_eq_natCast (n:=1)` gives `L =ᶠ[𝓝 β₁] (·−β₁)^1 • hfac`, `hfac` analytic,
+  `hfac β₁ ≠ 0`. Then `G = −logDeriv hfac` on `𝓝[≠] β₁` (`logDeriv_mul`), so
+  `Gtrue := Function.update G β₁ (−logDeriv hfac β₁)` is `=ᶠ[𝓝 β₁] −logDeriv hfac`, hence
+  DifferentiableAt β₁ (`congr_of_eventuallyEq`). Away from β₁, `Gtrue = G` (update off-point) is
+  differentiable where `L ≠ 0` (the carved hzf gives box\{β₁} non-vanishing). So
+  `A := ker·Gtrue` is `DifferentiableOn` the WHOLE box ⇒ `rectBI A = 0` (plain Goursat
+  `rectBI_eq_zero_of_differentiableOn`, NO pole-carve variant of `rectBI_right_split` needed).
+* **The residue.** `F = A − Bfun` off β₁ (`Bfun := ker/(·−β₁)`, the `kernel_residue` integrand
+  exactly). New helper `rectBI_sub_of_edge_eq` gives `rectBI F = rectBI A − rectBI Bfun` from the
+  four edge pointwise identities + eight interval-integrabilities (edges avoid β₁). With
+  `rectBI A = 0` and `rectBI Bfun = 2πi·ker(β₁)` (`kernel_residue`, β₁ strictly interior via
+  hβsep+β₁<1<c), `rectBI F = −2πi·κ`, `κ = ker(β₁) = x^{β₁+1}/(β₁(β₁+1))`. Rearranged:
+  `I·(RIGHT + 2π·κ) = TOPI − BOTI + I·LEFT` (`linear_combination`), so the S5b `‖RIGHT‖` bound
+  becomes `‖RIGHT + 2π·κ‖ ≤ ‖TOPI‖+‖BOTI‖+‖LEFT‖`; and `psi1 + κ = (1/2π)•((RIGHT+2π·κ)+tail)`,
+  giving `‖psi1 + κ‖ ≤ (1/2π)·(edge+tail bounds)`.
+
+**FINDING — E' = E (obstruction (2)'s "carve costs" do NOT materialize).** The S5b flag scoped a
+~150-line carved-edge bound and predicted `E' = E + carve costs`. NOT so: bounding
+`‖logDeriv L‖` DIRECTLY on the edges (not `‖G‖`) keeps it at exactly `B`, because
+`logDeriv L = Σ_{ρ∈Z} m_ρ/(s−ρ) + logDeriv h_endpoint` and β₁'s term `1/(s−β₁)` is `≤ 1/w`
+on the edges (`hβsep`), no larger than the other kept `1/w` terms — `Σ_{ρ∈Z} m_ρ ≤ log(4M₀)/log(7/6)`
+regardless of whether β₁ ∈ Z. So the edge bound reuses S5b's constant `B` verbatim; the residue
+`κ` rides entirely on the LEFT of the inequality. The edge bound is delivered by the reusable
+helper `norm_logDeriv_le_of_ball_dist` (S5b's `norm_neg_logDeriv_le_shifted` with the zero-free
+hypothesis abstracted to a direct `hdist : ∀ρ, Lρ=0 → ρ∈ball(2+iγ)(3/2) → w ≤ ‖s−ρ‖`), and the
+exceptional `hdist` is the by-cases (`ρ=β₁`: hβsep on the left edge / `|Im|=T≥w` on horizontals;
+`ρ≠β₁`: carved hzf ⇒ Re ρ ≤ σ₀−w) — obstruction (3) discharged by the `hβsep` HYPOTHESIS (stated,
+not derived; S6 supplies it since β₁ is Siegel). `w ≤ T` is derived from σ₀−w≥9/10, σ₀<c<2, T≥2.
+
+**Two reusable helpers landed (floor-C insurance, both used by the main theorem):**
+* `norm_logDeriv_le_of_ball_dist` — the distance-form edge bound (see above).
+* `rectBI_sub_of_edge_eq` — edge-wise linearity `rectBI F = rectBI A − rectBI B` from pointwise
+  `F = A − B` on the four edges + interval-integrabilities (`integral_congr` + `integral_sub`).
+
+**Friction (for the next executor).** (a) `ContinuousAt.comp` with a `set`-lambda `F` triggers a
+genuine `isDefEq` heartbeat BLOWUP (6.4M heartbeats exhausted on ONE tactic) when matching
+`F ∘ γ` against `fun v => F(γ v)` — F's body unfolds `LFunction` exponentially. FIX: `simp only [hF]`
+to unfold F FIRST, then build `ContinuousOn` from concrete pieces (`const_cpow`/`ContinuousOn.div`/
+`ContinuousOn.mul` + `hdLcont.comp hline`), mirroring `contour_integrand_integrable`. This is the
+single most important gotcha — `.comp` on set-defined heavy functions is a trap.
+(b) The four rectBI MapsTo close cleanly with `left_mem_uIcc`/`right_mem_uIcc` after
+`rw [closedRect, mem_reProdIm]` and `rw [show pt.re = … by simp]` — do NOT try to `rw` the domain
+`uIcc zc.re wc.re` (leave it symbolic; the point's `.re` equals the parameter, so it IS the domain
+membership). (c) `AnalyticAt.analyticOrderAt_eq_natCast` needs `analyticOrderAt = ↑(1:ℕ)`;
+`by exact_mod_cast hβ_simple` bridges the `(1:ℕ∞)`. (d) `hσ₀c : σ₀<c` via `lt_trans hσ₀1 hc1`
+(NOT `by linarith`, which routes around `hσ₀1` via `σ₀<c<2` elsewhere and trips the unused-variable
+linter). (e) `Complex.real_smul` + `ring` collapses the `(1/2π)•(2π·κ) = κ` bookkeeping.
+
+**FLAG — χ₀ (principal character) variant NOT attempted (Iron Rule 4: flag over grind; BLOCKED on
+S3f).** `psi1_contour_shift_trivchar` for `LFunction (1 : DirichletCharacter ℂ q)` is the SAME
+G-trick at the POLE `s = 1` (inside the box, σ₀<1<c) rather than a zero: `−L'/L(χ₀)` has pole part
+`+1/(s−1)` (opposite sign to the zero's `−1/(s−β₁)`), so `G₀ := (−L'/L)(χ₀) − 1/(s−1)` is the
+de-singularized integrand, and the residue is `+2πi·ker(1) = +2πi·x²/2`, giving
+`‖psi1Chi χ₀ x − x²/2‖ ≤ E₀` (main term SUBTRACTED). The gluing mirrors the exceptional one but with
+`Zc` in place of `hfac`: near s=1, `−logDeriv ζ = −logDeriv Zc + 1/(s−1)` (`neg_logDeriv_zeta_split`/
+`logDeriv_zeta_eq`, `Zc := (s−1)ζ` entire, `Zc(1)=1≠0`), and `−logDeriv L(χ₀) = −logDeriv ζ −
+logDeriv EulerCorr` (`logDeriv_LFunction_eq` / the `LFunctionTrivChar_eq_mul_riemannZeta` split), so
+`G₀ = −logDeriv Zc − logDeriv EulerCorr` is analytic at 1. Two obstructions make it a SECOND full
+C-construction, NOT a cheap compose:
+  (1) **The χ₀ edge bound.** `‖logDeriv L(χ₀)‖ ≤ B₀` on the edges needs a Zc-analogue of
+  `norm_logDeriv_le_of_ball_dist` built on `entire_norm_logDeriv_sub_sum'` (the entire-base numeric,
+  Zc growth spheres `Zc_sphere_bound`) PLUS the Euler-correction `‖logDeriv ∏_{p∣q}(1−p^{−s})‖ ≤
+  log q` on Re ≥ 9/10 (mirror `norm_logDeriv_eulerFactor_le`'s arithmetic at the 9/10 threshold —
+  `p^{−9/10} ≤ 2^{−9/10} < 1`). ~150 new lines. So `E₀ = E-shape + a `log q` Euler cost`.
+  (2) **⚠ The ζ zero-free region on the box is NOT LANDED — this is the hard blocker.** The box
+  `[σ₀,c]×[−T,T]` non-vanishing of `L(χ₀)` reduces (Euler factors nonzero) to `ζ ≠ 0` there, which
+  must be a NAMED HYPOTHESIS `hzfζ` here (parameterize exactly like the χ-case's `hzf`). But S3d's
+  `zero_free_region` is for Dirichlet χ ≠ 1 (needs q ≥ 2 / χ ≠ 1); `ζ = LFunction (1 mod 1)`
+  (`LFunction_modOne_eq`) is the q=1 case, where the 3-4-1 argument degenerates. **The classical
+  ζ zero-free region needs its own small node — see the S3f flag below.** Until S3f lands, even a
+  hypothesis-parameterized `psi1_contour_shift_trivchar` depends on an unlanded input; deferring is
+  the honest call. RECOMMEND a Fable/human session lands S3f first, then the χ₀ variant is a
+  mechanical mirror of `psi1_contour_shift_exceptional` (swap `hfac`→`Zc`, sign of the residue,
+  and the edge helper).
+
+## 2026-07-12 SW S3f (NEW NODE): quantitative ζ zero-free region — MISSING, needed by S5c-χ₀/S6 (Opus)
+Surfaced while scoping the S5c χ₀ variant. The Dirichlet-L quantitative zero-free region (S3d,
+`Salt/SW/ZeroFree.lean`) is stated for χ ≠ 1 (needs q ≥ 2-shapes); it does NOT cover the trivial
+character `ζ = LFunction (1 : DirichletCharacter ℂ 1)` (`LFunction_modOne_eq`), because the classical
+3-4-1 argument uses `ζ(σ)³·|L(σ+it,χ)|⁴·|L(σ+2it,χ²)|` with χ ≠ 1 — at q=1 the character machinery
+degenerates and the argument needs its own (classical Vallée-Poussin, `ζ³ζ'⁴`-shape) instance.
+**Needed deliverable (S3f):** a constant `c₃ > 0` and `ζ(s) ≠ 0` for `Re s ≥ 1 − c₃/log(|Im s|+2)`
+(with the standard one-exceptional-real-zero caveat), i.e. the ζ analogue of S3d. The Z2ζ machinery
+already landed (`Salt/SW/ZetaPartialFractions.lean`: `Zc`, `Zc_growth`, `entire_norm_logDeriv_sub_sum'`,
+`zeta_neg_re_logDeriv_le` = the honest complex pole term + `O(log(|γ|+2))` remainder with C₇=1080)
+supplies the −ζ'/ζ complex-`s` bound the 3-4-1 needs; the remaining work is the 3-4-1 positivity for
+ζ at q=1 (the `neg_logDeriv_zeta_le` real-σ pole bound C₆=1 is landed; the complex-`s` cos-inequality
+assembly is the node). Classification: C (real proof design, but small — the Z2ζ layer already
+carries the analytic inputs). This node gates BOTH the S5c χ₀ variant AND S6's χ₀ main-term
+`x²/(2φ(q))` (the `[x²/2]_{χ=χ₀}` term of the S5 summary in `docs/blueprints/sw.md`).
+
+## 2026-07-12 (night) C1c⁹: hh CLOSED; catch #28 — StepHyp's bare ∀ (Fable)
+
+C1c⁹ landed FULL on the analysis: `hh_of_window` (the decay-mass
+close: dyadic pieces by k = ⌊u_p⌋, prime_tail_mass_le per piece,
+h(k−1) ≤ e^{−(k−1)} unifying all three branches, geometric at 2/e —
+c_h = (1+ε)·Cabs·(n+3)e^{n+3}, Cabs = 3(19/log2+2)e·e/(e−2)) and
+`stepHyp_pointwise` — BOTH sharp comparisons compose at every
+operating point. **Catch #28 (mine, the C1c⁶ StepHyp interface):**
+the bare `∀ z D' n` ranges over points OUTSIDE the operating window
+where the comparisons are FALSE as stated; the executor honored Iron
+Rule 1 (landed the pointwise form, did not alter the interface).
+**Fable adjudication + the fix's key lemma:** out-of-window points
+are TRIVIAL, not false — a first-violation chain has
+(p₁⋯pₙ)·pₙ² ≥ D with every pᵢ < z, so `T side D n = 0` whenever
+`log D/log z > n+2` (T_vanish). The windowed redesign (C1c¹⁰):
+StepHypW restricted to the window + sieve-class conditions; the peel
+induction handles out-of-window children by T = 0 ≤ B; rethread to
+bjs_theorem6. Tally: 28 caught, 0 proofs on wrong statements.
+
+## 2026-07-12 (night) C1c¹⁰: ═══ KEYSTONE 1 ANALYTICALLY COMPLETE ═══
+
+bjs_theorem6_windowed_upper/lower LANDED — BJS Theorem 6 (5)/(6) with
+the per-step comparison a PROVEN THEOREM (stepHyp_pointwise through
+the windowed contract), catch #28 retired. The below-window
+investigation's finding is the night's most elegant: below-window
+nodes CAN carry mass (the universal bound is genuinely false there),
+but the parity-alternating peel makes them UNREACHABLE — the
+side-dependent invariant loBnd (odd→even children land at σ ≥ 2 via
+the p³ < D' filter; even→odd at σ ≥ 1) self-propagates, so the
+troublesome branch is provably vacuous. T_vanish tiles at exactly
+n+2 (verified from the carriers). Remaining hypotheses of the
+windowed Theorem 6: the sieve-class inputs (hguard/hnu/h4 — the twin
+application supplies via Hyp4), the structural constants, and the
+parametric τ pieces (hτrec/htau — the C0 κ₃ deferral, orthogonal).
+The C1c family closes at FOURTEEN nodes, every one first-attempt,
+zero sorries ever, catches #25/#27/#28 caught and fixed en route.
+To our knowledge the first machine-checked Rosser–Iwaniec linear
+sieve, now with its analytic engine complete.
+
+## 2026-07-13 (night) S6d: ═══════════════════════════════════════════
+## THE GATE IS DISCHARGED — siegelWalfisz_holds, bounded gaps UNCONDITIONAL
+## ═══════════════════════════════════════════════════════════════════
+
+`siegelWalfisz_holds : Salt.BV.SiegelWalfisz` (the frozen ∀A∀C∃K
+statement, untouched since the BV rung) and
+`bounded_gaps_unconditional : ∃ C, ∀ N, ∃ p q > N, p ≠ q prime,
+|q − p| ≤ C` — BY LITERAL FUNCTION APPLICATION through the BV chain.
+Kernel-checked out-of-band: both on exactly [propext,
+Classical.choice, Quot.sound]. The sandwich at h = x/(log x)^{A+2}
+with the magic substitution h·x/P = h²; S6c at A' = 2A+4, C' = C+1;
+the log-slop, residue-reduction, and initial-segment bridges; the
+gate's error form carries NO φ(q) (read, matched, untouched).
+
+The SW rung: 27 nodes from S0 to S6d, every one first-attempt, every
+floor closed within the session, six executor-surfaced catches along
+the way. The chain: Riesz carriers → the smoothed Perron identity →
+the complete zero theory (Jensen, growth, factorization, B-C,
+max-modulus; the 3-4-1 regions for all χ AND ζ; Landau, Page,
+SIEGEL'S THEOREM) → residues-lite → the three contour variants → the
+dispatcher → the fold → the sandwich → THE GATE. Everything
+unconditional; the one ineffective constant (Siegel's C_ε) is
+intrinsic and lives inside the gate's ∃K exactly as designed in the
+BV-rung freeze.
+
+Bounded gaps between primes is now a THEOREM of this corpus with no
+hypotheses. The k = 105 → gaps ≤ 600 instantiation (CertEval-gated
+GO) is the quantitative upgrade node. Chen-mod-SW flips
+unconditional the day the Chen arc's C5 lands.
+
+## 2026-07-13 C2c: hBV discharged (∃-guarded); the C2 wave CLOSED
+
+twinA1_hBV lands the exact hBV slot as an ∃-package guarded by two
+consumer obligations (they reference the BV theorem's existential
+B/C witnesses, so cannot be stated witness-free): the level check
+Q·D ≤ √x/(log x)^B and the numeric closing 2C·x/(log x)^11 +
+(log x)³-polylog ≤ x/(log x)^10 — both sound and dischargeable at
+the C5 operating point (sanity: convBound ≈ 0.41(log x)³; closing
+needs 4C ≤ log x and ≈0.82(log x)^13 ≤ x). The chain consumed the
+UNCONDITIONAL psi_BV_of_siegelWalfisz' at siegelWalfisz_holds, the
+subset/level reduction to the Icc index set, and C1d's vratio for
+Σ1/φ(d) ≤ (1+ε)log z/log w₀. The C2 wave (A₁ + A₂ + hBV) is CLOSED.
+Remaining Chen: C3 (the switch, keystone 2), C4b, C1cτ (numerics),
+C1b′ (value certification), C5 (assembly).
+
+## 2026-07-13 C1cτ: the numeric τ-row is NOT closeable with the landed constants — TWO obstructions (Opus)
+
+`Salt/Chen/TauNumeric.lean` (new file only; namespace `Salt.Chen`; `import Mathlib +
+Salt.Chen.DecayMass`; NOT wired into All.lean). Builds green, zero warnings, no sorry /
+native_decide, axiom-clean `[propext, Classical.choice, Quot.sound]` on all 10 public decls.
+Default heartbeats. **This node was scoped "supply the concrete tau, close C₁=106/C₂=108"; the
+investigation found the numeric row is UN-CLOSEABLE against the actually-landed `SharpStep.cf_const`
+/ `DecayMass.ch_const`, for two independent machine-checked reasons.** STOP-AND-FLAG (Iron
+Rule 1): no blueprint statement altered, no faked close; the honest artifact + this flag landed.
+
+**The τ-sum's range (investigation).** The keystone `htau` is over `Finset.range (maxDepth s + 1)`
+with `maxDepth s = s.prodPrimes.primeFactors.card = π(z)` (TnInduction, line 626) — ASTRONOMICAL,
+not a small window. The hoped-for "T=0 for n>6 ⇒ finite table" (spec option ii) is FALSE: `T_vanish`
+kills T_n for `n < σ−2` (a LOWER cutoff ≈ 2 at the operating σ≈4), never an upper one; the nonzero-T
+band still grows unboundedly with x (max chain length ~ log x/loglog x). So the sum genuinely runs
+0..π(z).
+
+**FINDING 1 (interface over-demand — the n=0 contradiction; `hτrec_zero_impossible`).** The landed
+keystones `WindowedStep.bjs_theorem6_windowed_{upper,lower}` (and `TwinA1.twin_A1_lower`) demand
+`hτrec : ∀ n, cf_const n ε + ε·e²·ch_const n ε·τ_n ≤ ε·e²·τ_{n+1}` GLOBALLY (incl. n=0), together
+with `htau1: τ_1=3` and `hτ0: τ_n≥0`. At n=0 this needs `cf_const 0 ε ≤ 3·ε·e²`, but
+`cf_const 0 ε ≥ 3168` (`cf_const_zero_ge`, proven: log3>1, 19/log2≥19, e³≥8) while `3εe² ≤ 24`
+(ε≤1, e²<8). So NO nonneg τ with τ_1=3 satisfies the global hτrec — the keystones are
+un-instantiable AS STATED. It is an OVER-DEMAND: the windowed induction
+`WindowedStep.T_le_of_peel_step_w` only ever USES `hτrec m` at depths `m≥1` (base case
+`hlevel_one_upper` hardcodes τ_1=3 and does not recurse). **Recommended fix (Fable, catch-#28
+pattern):** restrict `hτrec` to `1 ≤ n` in `T_le_of_peel_step_w` / `hlevel_w_{upper,lower}` /
+`bjs_theorem6_windowed_*` / `twin_A1_lower` (a one-token `hτrec m → hτrec m hm1` change; `hm1: 1≤m`
+is already in scope). `TauNumeric.tauChen_rec` is exactly the `n≥1` recursion the amended keystones
+would consume. (Not landed as a prime keystone here — Finding 2 shows it wouldn't rescue the
+numerics, so the re-derivation is deferred to the Fable interface sweep.)
+
+**FINDING 2 (the κ₃=1 wall, quantified — the real blocker).** Even with the n≥1 amendment, the
+recursion `τ_{n+1} ≥ cf_const n/(εe²) + ch_const n·τ_n` is EXPANSIVE: `ch_const n ε ≥ 24`
+(`ch_const_ge_two`, via `Cabs ≥ 1`) — never contracts — so `τ_{n+1} ≥ 2τ_n` (`tauChen_double`) and
+`τ_{m+1} ≥ 3·2^m` (`tauChen_ge_geom`). Summed over range(π(z)+1) the achievable C₁ is `≥ 3·2^{~π(z)}`
+(`tauSum_odd_ge`): astronomically large, certainly not 106/108. The slack `εC_i e²h(σ)` then dwarfs
+the main term — the C0 ledger (S1/S2/S3 caps ≈ 0.002M) fails by dozens of orders. **No ε-re-freeze
+helps** (smaller ε ENLARGES the forcing cf/(εe²); Table-1's 1/100000 row is worse). Root cause: the
+landed cf_const/ch_const are the CRUDE elementary majorants (fseq≤2, loglog window mass, h≤e^{−u},
+dyadic geometric) — the κ₃=1 regime; unlike BJS's sharp constants they don't even → 0 as ε→0
+(`cf_const 0 ε ≥ 3168` independent of ε). This is the C1c⁵ `κ₃=1 ⟹ β≥1` finding made fully
+quantitative against the actual landed constants: the numeric row genuinely requires the SHARP BJS
+constants (κ₃<1 via the E₁ exponential integral, c_f∝ε), NOT elementary in mathlib. So `htau` at
+106/108 is a route-level gap requiring the E₁/sharp-sieve development (a real C+ session), exactly
+as the C0 doctrine anticipated leaving parametric — but now proven un-satisfiable at the elementary
+tier, not merely "unfetched (31) constants". Fable/human decision.
+
+**Landed (sorry-free, the PB-floor):** `tauChen ε` (the equality recursion; τ_0=0, τ_1=3) +
+`tauChen_one`/`tauChen_nonneg`/`tauChen_rec` (recursion on the window n≥1 — the "τ-table with the
+recursion proven on the window"); `cf_const_nonneg`/`ch_const_nonneg`; the numeric cores
+`exp_two_lt_eight`/`eight_le_exp_three`/`cf_const_zero_ge`/`Cabs_ge_one`/`ch_const_ge_two`; and the
+two findings `hτrec_zero_impossible` + `tauChen_double`/`tauChen_ge_geom`/`tauSum_odd_ge`.
+
+## 2026-07-13 C1cσ: the geometric-decay fix does NOT achieve contraction — STOP-AND-FLAG (Opus)
+
+`Salt/Chen/SharpTau.lean` (new file only; namespace `Salt.Chen`; `import Mathlib +
+Salt.Chen.TauNumeric`; NOT wired into All.lean; no landed file modified). Builds green
+(`lake build Salt.Chen.SharpTau`, 3.4s), zero warnings, no sorry / native_decide, axiom-clean
+`[propext, Classical.choice, Quot.sound]` on all public decls. Default heartbeats.
+
+**Scope (chen.md C1cσ row):** re-run the two comparison endgames (`SharpStep.hf_of_window`,
+`DecayMass.hh_of_window`) carrying the landed geometric decay `Tail.fseq_le`
+(`fseq (n+1) s ≤ 2e²(99/100)ⁿ·hbar s`), the hope being `c_f(n), c_h(n) ≤ K·(99/100)ⁿ` so the
+τ-recursion contracts and `tau_sum_le_of_recursion` closes at explicit `C₁'/C₂'`. **The
+investigation found the geometric factor does NOT rescue contraction** — Iron Rule 1
+STOP-AND-FLAG, machine-checked, no statement altered.
+
+**FINDING 1 (the geometric factor touches only the `f`-side).** The two Stieltjes comparisons
+`stepHyp_of_comparisons` reduces `StepHyp` to are `hf: Σ ν(p)V(p)fₙ(σ_p) ≤ W(fₙ₊₁+c_f·h)` and
+`hh: Σ ν(p)V(p)h(σ_p) ≤ W(c_h·h)`. Only `hf` has an `fₙ` factor, so only there does
+`fseq_le` apply — `hh` is a pure `h`-sum, no `fₙ`, no geometric factor to carry. But the
+τ-multiplier is `β = c_h` (`ledger_collect`), so it is the `h`-side that must contract. The
+`f`-side decay is real (landed `fseq_geom_uniform : fₙ(s) ≤ 2(99/100)ⁿ⁻¹`, n≥1) but cannot
+help the multiplier at all.
+
+**FINDING 2 (even applied to both sides, `(99/100)ⁿ·c_h ≥ 24`).** `ch_const n ε =
+(1+ε)Cabs(n+3)e^{n+3}`; the `e^{n+3}` is the mandatory window-conversion `one_le_window_hBJS`
+(the crude `decay_mass_le` gives an ABSOLUTE mass `Cabs`, expressing it in `h(S)`-units at the
+worst operating point `S=n+3` costs `1/h(n+3)=(n+3)e^{n+3}/3`). The geometric factor does not
+beat it: `(99/100)ⁿ·ch_const n ε ≥ 3e³·((99/100)e)ⁿ ≥ 3e³ ≥ 24` (`ch_const_geom_ge`), because
+`(99/100)·e ≈ 2.69 > 1`. (Against `hbar`: `(99/100)·e^{6/5} ≈ 3.29 > 1` — NO fixed-rate
+majorant floor for `h` on `[1,n+3]` avoids it.) Landed `tauDec` (the optimistically
+fully-decayed recursion, geometric factor granted to BOTH `c_f` and `c_h`): still
+`2τₙ ≤ τₙ₊₁` (`tauDec_double`), `3·2^m ≤ τ_{m+1}` (`tauDec_ge_geom`), odd-sum `≥ 3·2^{2m}`
+(`tauDecSum_odd_ge`), `ε`-uniform. So achievable `C₁' ≥ 3·2^{~π(z)}`, astronomical; no usable
+`C₁'/C₂'`, no ε-refreeze (incl. the 1/100000 row) helps. This is C1cτ Findings 1–2 made
+specific to the geometric-factor fix.
+
+**Root cause + the genuine fix (out of scope; corroborates C1c⁵/StepBound).** Contraction
+(`c_h < 1`) needs the SHARP discrete→integral comparison (BJS §2.4): the loglog-density
+pushforward turning `Σ ν(p)V(p)h(σ_p)` into `∫ h`, closed by `Tail.hbar_funcbound` (ratio
+99/100<1) — the `AbelStep`/`StepBound`-deferred "multi-hundred-line real analysis, its own
+session" hypothesis, NOT obtainable by re-running the crude `decay_mass_le` endgame (all C1cσ's
+mandate re-runs). Moreover even the sharp *elementary* funcbound floors at `c_h ≈
+(1+ε)(99/100)·s/(s−1) ≈ 1.98 > 1` (the `s/(s−1)` density factor at `s=2`); genuine `κ₃≈0.96<1`
+needs the `3u⁻¹e⁻ᵘ`-tail exponential integral `E₁`, not elementary in mathlib. So the numeric
+row genuinely requires the sharp BJS constants — the C1c⁵ `κ₃=1 ⟹ β≥1` finding, now confirmed
+against the geometric-factor route too.
+
+**Catch #29 (the n≥1 hτrec amendment).** Orthogonal to the decay issue and already substantially
+handled: `TauNumeric.hτrec_zero_impossible` (the global n=0 demand is impossible) +
+`TauNumeric.tauChen_rec` (the recursion holds on n≥1). `T_le_of_peel_step_w` only USES `hτrec m`
+at `m≥1`, so the one-token `∀ n → ∀ n, 1≤n →` amendment to the landed keystones
+(`T_le_of_peel_step_w`/`hlevel_w_*`/`bjs_theorem6_windowed_*`/`twin_A1_lower`) is sound — a
+Fable interface sweep. NOT re-derived here (Finding 2 shows it wouldn't close the numerics, so
+the ~200-line re-derivation of the whole windowed chain is deferred and moot for numeric
+closure).
+
+**Consumers (TwinA1/TwinA2).** Their `hτrec`/`htau` slots remain genuinely open: no concrete
+`tau` closes them at 106/108 (or any usable constant) via the landed constants. `twin_A1_lower`'s
+endpoint is NOT dischargeable to `twin_A1_lower_numeric` from this node — the true numeric
+closure needs the sharp-`E₁`/funcbound development (a separate C+ session), not the
+geometric-factor re-run. Fable/human decision on whether to pursue the sharp route or accept the
+parametric `htau` per the C0 doctrine.
+
+**Landed (sorry-free, the PB-floor as a rigorous negative result):** `fseq_geom_uniform`
+(the real `f`-side decay); `one_le_geom_mul_exp`/`geom_mul_exp_pow_ge_one`/`exp_nat_eq`
+(the `(99/100)·e ≥ 1` arithmetic wall); `ch_const_ge_exp`/`ch_const_defeats_geom`/
+`ch_const_geom_ge` (Finding 2's `(99/100)ⁿ·ch_const ≥ 24`); `tauDec` +
+`tauDec_double`/`tauDec_ge_geom`/`tauDecSum_odd_ge` (the fully-decayed recursion still blows up).
+
+## 2026-07-13 C1cσ adjudication: catch #30 (my repair premise) — the τ-row stays PARAMETRIC
+
+The C1cσ executor STOP-AND-FLAGGED with machine-checked
+counterexamples: my proposed fix (carry fseq_le's geometric decay
+through the endgames) is unsound — (1) the h-side comparison has no
+fₙ to decay (the τ-multiplier is c_h, untouched by the f-decay);
+(2) the e^{n+3} window conversion is MANDATORY at the elementary
+tier and defeats every fixed-rate floor ((99/100)·e > 1 against
+both hBJS and hbar); (3) even fully-decayed-both-sides the recursion
+doubles (tauDec: 3·2^m, ε-uniform — no refreeze helps). The base
+was never the blocker (s = 3 closes comfortably). ADJUDICATION:
+**htau stays parametric per the C0 doctrine** — the Chen arc
+completes MODULO the parametric τ exactly as the ledger anticipated;
+the genuine numeric close is the sharp κ₃ < 1 development (the E₁
+exponential integral + the true BJS (35)–(38) integral comparison),
+recorded as optional node **E₁-dev** (C+ scale, own session,
+USER-DECISION whether to pursue — queued for the morning brief).
+Tally: 30 caught, 0 proofs on wrong statements; #29/#30 both mine,
+both caught by executors with kernel-checked counterexamples.
+
+## 2026-07-13 C3a landed (general BV weak, KEYSTONE 2) + the `(q/φq)`↔`(1/φd)` weight finding
+
+**Landed sorry-free** (`Salt/Chen/GeneralBV.lean`, namespace `Salt.Chen`, axioms
+`[propext, Classical.choice, Quot.sound]`, builds in ~3 s at default
+`maxHeartbeats 200000`):
+
+* `apDiscBilin` — the fixed-residue bilinear AP-discrepancy carrier (the
+  `dispDisc` analogue at a single class `N₀ mod d`), and **`apDiscBilin_orthogonality`
+  (FULL)**: the exact identity `apDiscBilin = (1/φd)·∑_{χ≠χ₀} χ(N₀⁻¹)·A(χ)·B(χ)`,
+  the bilinear analogue of `Salt.BV.psiAP_discrepancy_le` — the convolution SPLITS
+  as the product `A(χ)·B(χ)` (this is the reusable "BV corpus → convolutions"
+  upgrade). `norm_apDiscBilin_le` is the per-`d` triangle form.
+* **`bilinTwist_energy_le` (FULL)** — a genuine consumption of the landed shell
+  `Salt.BV.bilinear_LS_shell`: cutoff taken vacuous (`X·Y`) so the bilinear
+  character sum is exactly `A(χ)·B(χ)`, masses `∑‖α‖²,∑‖β‖² ≤ X,Y`, giving the
+  balanced `2(1+log Y)√(D²+13X)√(D²+13Y)√X√Y` bound.
+* **`general_BV_weak`** — the `L¹`-over-`d` headline in the frozen weak shape
+  (fixed scale `Icc 1 X/Y`, fixed residue, `L¹` in the modulus over the
+  consumer set `Dset`, SW-regularity of `β` named — **NOT** the maximal
+  `max-over-y` form). **Small-conductor branch FULL** via the named `hβSW`
+  (per-character SW-regularity of the convolution factor `β`, the freeze):
+  crude `‖A(χ)‖ ≤ X` × `hβSW` × `∑ 1/φd ≤ D0 ≤ (log XY)^{C0}` closes to
+  `Kβ·XY/(log XY)^A`. **Large-conductor branch** discharged through the named
+  dyadic-glue `hLargeDisc`.
+
+**FINDING (Iron Rule 1) — `bilinear_LS_shell`'s `(q/φq)` weight does not match the
+discrepancy's `(1/φd)` weight.** After the conductor fold these differ by a factor
+of the modulus; consuming the shell without a dyadic-in-conductor decomposition is
+lossy by `~√(XY)` (yields `(XY)^{3/2}` in place of `XY/log^A`). A dyadic-in-`f`
+decomposition recovers the `1/f` per block and closes to `~XY/log^A` — this IS the
+C3c "fine-partition bookkeeping" (`λ = 1+log^{−20}x` blocks). So C3a's large branch
+names `hLargeDisc` (whose per-block engine `bilinTwist_energy_le` is landed here),
+and the dyadic reassembly + conductor descent are deferred to C3b/C3c. The shell is
+not mis-shaped — it is the correct per-block engine; only the assembly (weights +
+dyadic glue) is a separate node.
+
+**Floor:** between (A) and (B) — the χ-reduction and shell-consumption are landed
+FULL and reusable, the small branch is FULL, the large branch is the named
+`hLargeDisc` glue. `hβSW` and `hLargeDisc` are genuine mathematical inputs (β-SW
+= C3b; the dyadic large-sieve assembly = C3c), not restatements of the conclusion
+(`hLargeDisc` bounds the character energy, which dominates the discrepancy via
+`norm_apDiscBilin_le`).
+
+## 2026-07-13 C3c landed (count→twist bridge + general-BV close, β-side of KEYSTONE 2) + the bilinear-descent obstruction
+
+**Landed sorry-free** (`Salt/Chen/ConductorDescent.lean`, namespace `Salt.Chen`, new
+file, no `All.lean` edit; axioms `[propext, Classical.choice, Quot.sound]` on all five
+theorems; builds ~2.7 s at default `maxHeartbeats 200000` — no override needed; zero
+warnings from the file):
+
+* **Deliverable 1 — FULL — the count→twist duality bridge.**
+  `bilinTwist_eq_sum_class` (the finite-Fourier identity
+  `bilinTwist β Y d χ = ∑_{r:ZMod d} χ(r)·Cnt(r)`, `Cnt(r)` = class-`r` β-mass) +
+  **`bilinTwist_le_of_classDisc` (FULL)**: for `χ ≠ 1`, orthogonality
+  `∑_r χ(r) = 0` (`MulChar.sum_eq_zero_of_ne_one`) kills the `Mass/φd` main term and
+  `χ` vanishes off units (`MulChar.map_nonunit`), so `‖bilinTwist‖ ≤ d·δ` where `δ`
+  bounds the per-unit-class discrepancy. This is the exact **dual** of C3a's
+  `apDiscBilin_orthogonality` (that one sums over χ; this one over residues) — the
+  reusable "count ↔ twist" reconciliation the C3b note flagged (finite-Fourier duality
+  over `(ℤ/d)ˣ`). The duality arithmetic: `bilinTwist = ∑_r χ(r)·Cnt(r)`, subtract
+  `(Mass/φd)·∑_r χ(r) = 0`, giving `∑_r χ(r)·(Cnt(r)−Mass/φd)`, then `‖χ(r)‖ ≤ 1` on
+  units / `= 0` off units and `|ZMod d| = d` (`ZMod.card`) ⇒ `≤ d·δ`.
+* **Deliverable 1 — FULL — the prime-indicator instantiation.** `blockPrimeInd N`
+  (the interval prime indicator, `1` at primes `> N`), `blockPrimeInd_classCount`
+  (`Cnt(r) = #{p ∈ (N,M] : prime, p ≡ r}` via `Finset.card_bij` `Icc 1 M`↔`Ioc N M`),
+  and **`hβSW_of_prime_indicator` (FULL)**: bridge + C3b's `prime_indicator_SW` give
+  `‖bilinTwist (blockPrimeInd N) M d χ‖ ≤ d·K·N/(log N)^A` (`χ ≠ 1`, `d ≤ (log N)^C`).
+  The fiber↔`%` reconciliation: `(↑p:ZMod d)=r ↔ p%d = r.val%d`
+  (`ZMod.natCast_eq_natCast_iff'` + `ZMod.natCast_zmod_val`), unit↔coprime via
+  `ZMod.isUnit_iff_coprime`, complex→real norm via `Complex.norm_real`.
+* **Deliverable 3 — FULL composition — `general_BV_closed`.** `general_BV_weak` with
+  the small-conductor `hβSW` slot **DISCHARGED** (via D1 + the log-power scale
+  bookkeeping `A' = A + 2·C0`: `d·K·N/(log N)^{A+2C0} ≤ Kβ·M/(log XM)^{A+C0}` from
+  `d ≤ D0 ≤ (log XM)^{C0}`, `N ≤ M`, and the scale hypothesis
+  `K·(log XM)^{A+2C0} ≤ Kβ·(log N)^{A+2C0}`). So keystone 2 is closed for
+  `β = blockPrimeInd N` **modulo**: `‖α‖ ≤ 1` (as designed), residue coprimality, the
+  scale-compat hypothesis (`log XM`, `log N` same order — const absorbs into `Kβ/K`),
+  and `hLargeDisc`.
+
+**FINDING (Iron Rule 1 / STOP-AND-FLAG) — the bilinear conductor descent (`hLargeDisc`,
+= deliverable 2) does NOT mirror the corpus' linear descent.** `general_BV_closed`
+still names `hLargeDisc` (the same slot C3a exposed) rather than reducing it. The
+obstruction, investigated concretely: the landed LINEAR descent
+(`Salt.BV.regroupL1_perq` + the primitive-reduction error
+`Salt.LS.norm_psiChi_sub_primitiveCharacter_le` + `Salt.BV.swapPhi_le` +
+`Salt.LS.sum_inv_totient_dvd_le'`) reduces a SINGLE character sum `psiChi y χ` to its
+primitive level with an `ω(q)·log y` error. Mirroring to the PRODUCT `‖A_d(χ)‖·‖B_d(χ)‖`
+fails: `A_d(χ) = A⋆ + errA`, `B_d(χ) = B⋆ + errB` gives cross-terms
+`‖A⋆‖·‖errB‖ + ‖errA‖·‖B⋆‖`. The β-side `errB` IS cheap (prime indicator ⇒ only
+primes `p ∣ d` contribute ⇒ `≤ ω(d)`, matching the design note) — BUT the α-side
+`errA` is NOT small for a general `‖α‖ ≤ 1` sequence (α is not coprime-supported: the
+naive "prime factors `> d`" argument fails because block scale `N ≈ x^{1/3}` `< D ≈
+x^{1/2}`), so per-factor descent is genuinely lossy. The correct route keeps `A⋆, B⋆`
+primitive from the start and consumes the landed shell engine
+`Salt.Chen.bilinTwist_energy_le` (C3a, the `(q/φq)`-weighted primitive product energy)
+DYADICALLY in the conductor `f ∈ [F, 2F]` — recovering the `1/f` per-block weight
+(closing the C3a `(q/φq)`↔`(1/φd)` mismatch) and Cauchy–Schwarzing across O(log) blocks.
+That dyadic reassembly + the α-side descent handling is the remaining analytic core of
+C3c; it is a genuine bilinear analogue of the whole `bv` V3.1 node, not a cheap mirror.
+
+**Floor:** deliverable 1 FULL (both the general bridge and the prime-indicator
+instantiation, connecting to C3b) + deliverable 3 FULL (the composition, with `hβSW`
+genuinely discharged, not merely named). Deliverable 2 = the single named `hLargeDisc`
+input + this flag naming the mismatch (between floors A and B: `hLargeDisc` is the one
+named hypothesis + the composition, but it is not further reduced, since the bilinear
+primitive reduction that would reduce it is the flagged obstruction).
+
+## 2026-07-13 C3c′: the fold obstruction DISSOLVED; two glue cores remain (C3c″)
+
+The C3c flag's α-side "error" does not exist at the fold:
+`bilinTwist α X d χ = bilinTwist (coprimeRestrict α d) X f χ⋆`
+EXACTLY (the imprimitive twist IS the primitive twist of the
+coprime-restricted α, still ‖·‖ ≤ 1). The difficulty relocates:
+α_d depends on d, so the shell can't apply post-regroup with a fixed
+coefficient — resolved by prod_split_le (full-α primitive main +
+the α-side error split). Landed FULL: the fold, the shell
+consumption (perd_energy_le), regroup_bilin + swapPhi_generic (the
+bilinear ports of the V3.1 linear machinery), bilinear_hLargeDisc
+(the assembly, unification-tested against general_BV_closed's slot).
+Remaining = TWO named satisfiable cores (C3c″): hMainEnergy (the
+dyadic-in-conductor shell arithmetic at fixed coefficient) and
+hErrSum (the BDH Möbius L¹ treatment of the coprimality restriction
+— fails per-character, sums fine).
+
+## 2026-07-13 C3c″: hMainEnergy FULLY DISCHARGED; hErrSum (BDH e-fold) is the one remaining core
+
+`Salt/Chen/EnergyClose.lean` (new; namespace `Salt.Chen`) discharges the
+first of C3c′'s two named cores and lands the structural entry point of
+the second. All sorry-free; axioms `[propext, Classical.choice, Quot.sound]`.
+
+**Finding (why hMainEnergy needs β-structure).** `hMainEnergy` is FALSE for
+a general pair `‖α‖,‖β‖ ≤ 1`: at `α = β = χ₃` (Legendre mod 3),
+`bilinPrimEnergy α β X Y 3 ≈ (4/9)XY`, so the `f=3` term of the LHS alone is
+`(8/9)(1+log D)·XY > Kmain·XY/(log)^A`. The large sieve gives NO saving for a
+single small conductor (its saving is the `Q²` term = summing over many moduli).
+It is satisfiable ONLY for the consumer's `β = blockPrimeInd N`, whose
+small-conductor twists have Siegel–Walfisz cancellation — so the discharge is
+honestly gated on the named `hβSW` (exactly `hβSW_of_prime_indicator`'s output).
+
+**hMainEnergy — FULL (`hMainEnergy_discharge`).** Two-regime:
+- `f ≤ D0`: `smallConductor_energy_le` (SW) → `Kβ·XY/(log)^{A+1}`.
+- `f > D0`: `dyadic_large_reduction` (fibration `f ↦ ⌊log₂ f⌋`, per-block
+  `block_energy_le'`) → the geometric sum `∑_{k=k0}^K (1/2^k)·shellBound(2^{k+1})`,
+  evaluated by `geom_shell_sum_le` (via `dyadic_term_bound`
+  `(1/F)√((2F)²+a)√((2F)²+b) ≤ 4F+2√a+2√b+√a√b/F`) to the four-term
+  `2(1+logY)√X√Y·(4·2^{K+1} + 2(K+1)√(13(X+1)) + 2(K+1)√(13(Y+1))
+  + √(13(X+1))√(13(Y+1))·2/2^{k0})`, then scaled by `four_term_scale_le` to
+  `(448+32√26)·XY/(log)^{A+1}`. The four contributions land as constants
+  `32` (`~D√(XY)` main term, needs `D ≤ √(XY)/(log)^B`, `B ≥ A+2`), `16√26`
+  twice (the `~√X·Y`, `~X·√Y` cross terms, needing `X,Y ≥ (log)^{2A+6}`), and
+  `416` (the `~XY/D0` tail, needs `(log)^{C0} ≤ 2·2^{k0}`, `C0 ≥ A+2`).
+- Folding `4(1+log D) ≤ 6·log(XY)` (since `log D ≤ ½log(XY)`) and
+  `log(XY)·(log(XY))^{-(A+1)} = (log(XY))^{-A}` gives the exact
+  `bilinear_hLargeDisc` slot `≤ Kmain·XY/(log XY)^A`, `Kmain = 6(Kβ+448+32√26)`.
+  Honest operating scale: `X,Y ≥ 2`, `1 ≤ D`, `D ≤ √(XY)/(log)^B` (`B ≥ A+2`),
+  `D0 = 2^{k0}` with `D0 ≍ (log)^{C0}` (`C0 ≥ A+2`), `X,Y ≥ (log)^{2A+6}`.
+
+**hErrSum — NOT discharged (the one remaining core).** Structural entry point
+landed: `bilinTwist_sub_primitive_eq` proves
+`A_d(χ) − A⋆ = −∑_{m≤X, gcd(m,d)>1} α(m)·χ⋆(m)` (the imprimitive-vs-primitive
+difference is the FULL-α twist restricted to non-coprime residues), and
+`norm_bilinTwist_sub_primitive_le` the crude `‖·‖ ≤ #{m≤X:(m,d)>1}`. THE
+OBSTRUCTION, quantified: the crude `d`-sum
+`∑_{d≤D}(1/φd)·(∑_{p∣d}X/p)·Y ≈ XY·∑_p(1/p)⌊D/p⌋ ≈ XY·D` is
+`(XY)^{3/2}/(log)^B` — too big by `D`. The honest fix (research-level) is the
+BDH Möbius `e`-fold `A_d − A⋆ = ∑_{e∣d,e>1} μ(e)ψ(e)·A^{(e)}(⌊X/e⌋)` (from
+`[gcd(m,d)>1] = −∑_{e∣d,e>1,e∣m}μ(e)` + complete multiplicativity of ψ): a
+`1/e`-weighted sum of shifted-scale (`X/e`) primitive energies, re-run through
+the hMainEnergy machinery, geometric in `e ≤ D` (so `∑_e (X/e)·… ≈ XY·log D`).
+The bookkeeping of the per-`e` scale (for large `e`, `X/e` shrinks below the
+`D`-scale) is the delicate part. Even the `β = prime-indicator` special case
+needs the e-fold on the A-side (`‖B_d‖ ≤ Y` crude, no SW for `d > D0`).
+
+**Status.** `general_BV_final` (= `general_BV_closed` + `bilinear_hLargeDisc`
+with both cores discharged) does NOT close: core 1 (`hMainEnergy_discharge`)
+DONE, core 2 (`hErrSum` e-fold) remains. Keystone 2 not yet closed.
+
+## 2026-07-13 C3c‴: the e-fold LANDED (floor A); the per-e energy = C3c⁗
+
+bilinTwist_efold — the BDH identity FULL (A_d − A⋆ = Σ_{e ∣ d, e>1}
+μ(e)χ⋆(e)·A^{(e)} at scale ⌊X/e⌋, via the Möbius-zeta convolution
+identity + the m = e·m′ reindex + complete multiplicativity);
+hErrSum_reorg (both error sides pulled to e-outermost); the
+convergence telescope; hErrSum_discharge = the verbatim
+bilinear_hLargeDisc slot modulo ONE named per-e glue
+(EfoldTerm e ≤ (c/φe)·⌊X/e⌋·Y/(log)^{A+1}-shape + its sum). The
+glue is a per-e re-run of C3c″'s ENTIRE dyadic engine at shifted
+scale — a second full copy with delicate bookkeeping (C3c⁗, honest
+own-node scale). KEYSTONE 2 status: closed modulo C3c⁗'s glue.
+The DecidableEq-instance crux (NeZero scoped inside step1 only) is
+recorded for the C3c⁗ executor.
+
+## 2026-07-13 C3c⁗: the keystone-2 composition LANDED (floor A); the per-e energy = hPerE glue
+
+PerEEngine.lean lands the final structural layer of keystone 2 and
+composes the whole stack, sorry-free (axioms = [propext,
+Classical.choice, Quot.sound]):
+
+- **efold_density_fold** — the e ∣ d density fold FULL: over the large
+  moduli d (Dset, d > D0) that are multiples of e, a uniformly bounded
+  per-d weight W(d) ≤ M gives Σ_d (1/φd)·W(d) ≤ M·(4/φe)(1+log D). A
+  direct offset-e instance of Salt.LS.sum_inv_totient_dvd_le' — the
+  reusable convergent BDH density (step 1 of the per-e route).
+- **hErrSum_final** — the exact bilinear_hLargeDisc hErrSum slot,
+  discharged from the single named glue hPerE via hErrSum_discharge with
+  G e = Kerr·(XY/(log XY)^A)·(1/e²); Σ_e G e telescopes by
+  sum_inv_sq_Icc_le_one to Kerr·XY/(log XY)^A.
+- **hLargeDisc_of_perE** — the exact general_BV_closed hLargeDisc slot,
+  = bilinear_hLargeDisc fed hMainEnergy (core 1, dischargeable by
+  hMainEnergy_discharge) + hErrSum_final (core 2 mod hPerE); Klarge =
+  Kmain + Kerr.
+- **general_BV_final** — general_BV_closed with hLargeDisc discharged for
+  β = blockPrimeInd N via hLargeDisc_of_perE. Σ_d ‖apDiscBilin‖ ≤
+  (Kβ + (Kmain + Kerr))·XM/(log XM)^A, closed modulo: operating-scale
+  side conditions, ‖α‖ ≤ 1, the named hMainEnergy bound (its own C3c″
+  discharge), and the single named per-e glue hPerE.
+
+**hPerE — NOT discharged (the one remaining core, PB-floor A).** hPerE
+is EfoldTerm e ≤ Kerr·(XY/(log XY)^A)·(1/e²), exposed as a hypothesis of
+hErrSum_final / hLargeDisc_of_perE / general_BV_final. THE OBSTRUCTION,
+quantified: (i) the α-side of EfoldTerm pairs the DILATED PRIMITIVE twist
+A^{(e)}(χ⋆) (scale ⌊X/e⌋) against the IMPRIMITIVE full twist B_d(χ) —
+NOT a clean primitive block energy, so the C3c″ regroup+swapPhi+shell
+engine does not apply verbatim; a second full copy of the Cauchy–Schwarz
++ two-regime (small-conductor via hβSW, large via the dyadic shell)
+treatment is required. (ii) The naive large-e trivial branch does NOT
+close crudely: a threshold e ≷ X/(log)^{2A+6} controls the α-side
+⌊X/e⌋, but the β-side term ‖A⋆‖·‖B^{(e)}‖ keeps A⋆ at the FULL scale X
+(only B^{(e)} dilates to ⌊Y/e⌋), so the β-side crude total ~ D·XY/e²
+stays uncontrolled when Y ≫ X — the two sides need INDEPENDENT X- and
+Y-scale thresholds and their own energy engines (the α-side runs at
+(⌊X/e⌋, Y), the β-side — a clean primitive-primitive pairing — at
+(X, ⌊Y/e⌋), which the density fold + a shifted four_term_scale_le would
+close; the α-side imprimitive factor is the genuine research core). The
+density fold (the reusable convergent weight) is landed; re-running both
+engines with the scale bookkeeping is deferred.
+
+**Status.** general_BV_final (= general_BV_closed + bilinear_hLargeDisc
+with both cores, hMainEnergy_discharge + hErrSum_final) CLOSES the
+keystone-2 stack down to the single per-e energy glue hPerE. Keystone 2
+is closed modulo hPerE (+ operating scale + ‖α‖≤1 + hMainEnergy's own
+C3c″ discharge). All four structural layers — the e-fold identity, the
+reorganisation, the 1/e² envelope, and the full composition — are landed.
+
+## 2026-07-13 C5: ═══ THE CHEN ASSEMBLY LANDED — KEYSTONE 2 OFF THE CRITICAL PATH ═══
+
+chen_of_hypotheses : {p | p.Prime ∧ IsP2 2 (p+2)}.Infinite — the P₂
+headline, modulo the per-x input package H (hPfull/hA1/hA2/hA3/
+hledger). THE STRUCTURAL DISCOVERY (machine-checked,
+triplePrimeSum_le + aCount_ge_one_of): the switch's z ≤ p₁ comes
+from the COPRIMALITY CUT, not from any distribution estimate — so
+the UNSIFTED C3d count (0.29827 < 0.363084) serves A₃ directly and
+the entire switched-sequence sieve (keystone 2: general BV, hPerE)
+is NOT on the headline's critical path. GeneralBV/PerEEngine are
+not even imported by Assembly.lean. Keystone 2 remains a standalone
+mathlib-first artifact (the first bilinear-BV machinery) with its
+one honest glue (hPerE) as optional polish.
+THE CHEN ARC's remaining debts for the UNCONDITIONAL headline:
+(1) the numeric τ (E₁-dev — USER DECISION pending); (2) C1b′ (the
+fchain/Fchain value certification — Table-2-sharp, compute-heavy);
+(3) the final H-instantiation glue node once (1)+(2) exist.
+Everything else is composed: the weights (C4b), the (38) reduction,
+the strip, A₁ (C2a via keystone 1 + the unconditional BV), A₂ (C2b),
+A₃ (C3d via the gate's PNT), the survivor extraction, the
+infinitude. The prime-restricted carrier design makes survivors
+genuinely prime; IsP2 2 is the fixed honest P₂ carrier.
+
+## 2026-07-13 C1b′ Opus done (interface + sharp-leading + tail + ledger; sharp constants = C1cσ debt)
+
+`Salt/Chen/ChainValues.lean` (new file only; namespace `Salt.Chen`; `import Mathlib +
+Salt.Chen.Tail + Salt.Chen.SwitchConstant`; NOT wired into All.lean). Builds green, zero
+warnings, no sorry / native_decide, axiom-clean `[propext, Classical.choice, Quot.sound]` on all
+13 public decls. Default heartbeats; fastest full build 2.8s (no lemma near 30s).
+
+**Scoped "certified numeric lower bounds on `fchain N 4` + `Fchain`-uppers on [4/3,3]" to feed C5.
+The honest arithmetic (computed pre-code, pure-Python DDE integration) shows the LOAD-BEARING sharp
+constants are NOT reachable with the landed machinery; the sharp route is the C1cσ decaying-cₙ
+cascade. Delivered the full interface + genuine sharp leading term + sharp tail + ledger core, and
+isolated the sharp head as the C1cσ debt.** STOP-AND-FLAG (Iron Rule 1/4): no blueprint statement
+altered, no faked constant; the honest artifact + this flag landed.
+
+**The certification wall (machine-relevant finding).** `fchain N s = 1 − Σ_{n even ≤ N} fₙ(s)`; the
+ledger (`chen_ledger_line`: `2log3 − log6 − c̄ > 0`) closes only if the truncated values reach their
+asymptotics to within S1/S2: A₁ needs `fchain ≥ f(4) − 4.3e−4 ≈ 0.9779` (even-sum `≤ ≈0.0221`), A₂
+needs `supF ≤ ≈2.68`. These are essentially EXACT. The landed C1b bound `fseq_le : fₙ₊₁ ≤
+2e²(99/100)ⁿ·hbar s` has ratio ρ=99/100 whose multiplier `1/(1−ρ)=100` swamps the small per-level
+constant `2e²·hbar(3.9)≈0.20`: summed over ALL n≤2048 the even-sum bound is `≈10 > 1` ⇒ NO positive
+lower bound on `fchain` at any feasible depth. The `fseq_le` tail `≈20·(99/100)^K` first drops below
+`5e−3` only near `K≈700`, so the mandate's suggested "sharp levels to n≈14 + fseq_le crude tail"
+does NOT close (at n=14 the crude tail is `≈18`). Confirmed: BOTH targets need decaying per-level cₙ.
+
+**True values (worst-case s=39/10 for A₁; sup at s=4/3 for A₂), for the C1cσ target:**
+- fchain(3.90)=0.972475, fchain(4.00)=0.978354; per-even-level f₄(4)=8.8e−3, f₆=6.0e−3, f₈=3.3e−3,
+  … per-two-level ratio → 0.5224 (per-level ≈0.723 = e/4-ish, the true tail decay the band forbids
+  a uniform majorant from seeing).
+- Fchain(4/3)=2.6723 (=supF), Fchain(3/2)=2.3748, Fchain(3)=1.1874.
+- A single global exponential super-solution of the coupled (E,O) integral system was checked
+  numerically: best gives fchain(3.9)≥0.58 / fchain(4)≥0.72 — a genuine but NON-load-bearing coarse
+  bound (doesn't close the ledger), and its Lean proof (band [2,3] flat handling + C1(s) log
+  integral + coupled induction) is itself ~300 lines. Every cheap route (fseq_le, antitone-anchor,
+  L¹ scalar system) bottoms out at needing a sharp value on [2,3]/[2,4] where fseq_le is ~100× off.
+  So no cheap genuine numeric bound exists; per Iron Rule 4 the coarse super-solution was NOT ground
+  out (non-load-bearing).
+
+**LANDED (sorry-free, axiom-clean):**
+- Interface in exact C5 shapes: `fchain_lower_of_evenSum_le` (⟹ `TwinA1.twin_A1_lower`'s fchain
+  term at `N=maxDepth`, `s=logRatio z D`), `Fchain_upper_of_oddSum_le` (⟹ `TwinA2.A2grid_le_envelope`
+  supF on [4/3,3]); structural `fchain_le_one`, `one_le_Fchain`, `fchain_antitone_depth`
+  (depth-monotonicity: a small-depth lower bound does NOT transfer up), `Fchain_mono_depth`.
+- Genuine sharp LEADING per-level bound (the `fseq_two_window` one-integration template for the
+  C1cσ cascade): `fseq_two_eq_zero_at_four` (f₂(4)=0), `fseq_two_le_sq` (`f₂(s) ≤ (4−s)²/(s(s−1))`
+  on [2,4], via the closed form + `log x ≤ x−1`), `fseq_two_le_op` (`≤ 1/1000` on [39/10,4]).
+- Depth-2 certified value: `fchain_two_eq` (`fchain 2 s = 1 − f₂(s)`), `fchain_two_lower`
+  (`fchain 2 s ≥ 999/1000` on [39/10,4]) — genuine, but at N=2 (upper anchor, not operating depth).
+- SHARP truncation tail (reuses C1b `fseq_tail_le`): `fchain_trunc_close` — for N≥2048, s≥4/3,
+  `fchain 2048 s − 4.3e−4 ≤ fchain N s ≤ fchain 2048 s`. Reduces the ∞-depth value to the depth-2048
+  value; the remaining sharp head (even n ≤ 2048 at the operating point) is the C1cσ debt.
+- Ledger numeric core: `chen_ledger_line` (= C4a `two_log_three_sub_log_six_sub_cbar_pos`,
+  re-exposed with the value-cert verdict).
+
+**REMAINING = C1cσ (the sharp constants).** The decaying per-level cₙ (BJS Table 2): ~25 sharp
+one-integration bounds in the `fseq_two_le_sq` style (each producing log/log² terms bounded
+rationally) propagated through the recursion, + the sharp tail, to certify even-sum ≤ 0.0221 (⇒
+fchain ≥ 0.9779) and supF ≤ 2.68. C+ keystone-scale; the value→ledger mapping and the tail are
+already landed here, so C1cσ is exactly the head cascade. C5's `chen_positivity` already takes
+`mainA1`/`mainA2` abstractly, so this debt is threaded there (unaffected downstream), but the FINAL
+unconditional Chen needs C1cσ to instantiate the operating-point package `H` at the sharp margin.
+
+## 2026-07-13 E₁b Opus done (τ-relative close; THE LEDGER CLOSES → C0 Amendment 1)
+
+`Salt/Chen/TauSharp.lean` (328 lines, new file; wired into All.lean by Fable). Builds green, zero
+warnings, no sorry / native_decide, axiom-clean on all decls (in-build audit), default heartbeats.
+
+**The τ-relative reformulation lands and does what the absolute route provably could not.** Two
+machine-checked pillars: (1) the h-side CONTRACTS — `chSharp ε = (1+ε)(49/50) < 1` for ε < 1/49,
+via E₁a consumed at the same s (`sharp_h_contract`: divide `hBJS_funcbound_sharp` by s); no
+`e^{n+3}` window conversion. (2) the ε-CANCELLATION — `cfSharp n ε = 3εe²·(99/100)^n`, so
+forcing/τ-unit = `3·(99/100)^n`, geometric and ε-free (vs `cf_const/(εe²) → ∞`). Consequence:
+`tauSharp` satisfies the keystone `hτrec` GLOBALLY WITH EQUALITY (dissolving catch #29's n=0 wall:
+`cfSharp 0 ε = 3εe² = εe²·τ₁` exactly), and `Σ τ ≤ Csharp ε = 300/(1−chSharp ε) ≤ 15074` at
+1/10000, → 15000 as ε → 0 — BOUNDED in ε, the exact property C1cτ/C1cσ proved unattainable for
+the absolute constants (`Cᵢ ≥ 3·2^{π(z)}`, ε-uniformly).
+
+**LEDGER VERDICT (Fable re-derived independently, ratified as C0 Amendment 1 in chen.md):**
+`ε·Csharp ε → 0`, so the three S-row slacks close by refreezing ε_sieve. Thresholds: S1 closes at
+ε ≤ 1.45e−6, S2 at 5.2e−7, S3 BINDS at 2.4e−7. **Re-frozen `ε_sieve = 10⁻⁷`** (margins
+14.4×/5.2×/2.4×); caps unchanged; `w0R(10⁻⁷) ≈ exp(4·10⁸)` still a constant; no landed node
+relands. The mandate's 10⁻⁸ guess was ~40× conservative — the honest S3-binding value governs.
+
+**LANDED:** `cfSharp`/`chSharp`/`chSharp_lt_one`; `sharp_h_contract` + `chSharp_h_contract` (E₁a's
+exact role in the future `hh` slot); `tauSharp` + global `tauSharp_hτrec`; `tauSharp_sum_{le,odd_le,
+even_le}` at `Csharp`; `Csharp_frozen ≤ 15074`; parametric consumers `stepHyp_sharp_of_comparisons`
++ `bjs_theorem6_sharp_{upper,lower}` — hτrec AND htau both DISCHARGED; the numeric τ-layer is
+CLOSED end to end on the unwindowed path.
+
+**FLAGGED (honest blockers, both above Opus tier — the remaining E₁-dev queue, see chen.md):**
+- **E₁c** (C, own session): the sharp discrete→integral pushforward producing `hf`/`hh` at
+  (cfSharp, chSharp) — the loglog density comparison with s-DEPENDENT error control; the landed
+  `decay_mass_le` keeps only absolute `Cabs`. E₁a's 49/50 is consumed exactly by `sharp_h_contract`;
+  what's missing is the Σ_p → (1/s)∫ step itself.
+- **E₁d** (Fable-tier): `WindowedStep.T_le_of_peel_step_w` HARDCODES `cf_const`/`ch_const` in its
+  hτrec slot; the real A₁ point s ≈ 4 needs the windowed induction (the E₁b consumers carry
+  `hσ3 : σ ≤ 3`). Parametrize the windowed keystone over `(cf, ch)`.
+
+## 2026-07-13 C1b″ Opus done (cascade engine, floor B) + CATCH #31 → C0 Amendment 2
+
+`Salt/Chen/ValueCascade.lean` (227 lines, new file; wired by Fable). Builds green, zero warnings,
+sorry-free, axiom-clean on all 6 decls, default heartbeats, full module 2.7s.
+
+**CATCH #31 (executor-surfaced, numeric, verified by Fable re-derivation).** The C1b″ mandate froze
+the A₁ value-certification interval as [39/10, 4]; the executor's rational-arithmetic DDE values
+(cross-checked against C1b′'s independent table) show the target `fchain ≥ 0.9779` is UNREACHABLE
+uniformly there — true fchain(3.9) = 0.9725, and 0.9779 is the s = 4 value. ROOT CAUSE: the C0
+prose said "keep ε′ ≈ 1/200" while the S7 ledger line "ε′-retreat 4.2e−5" was computed at
+ε′ = 10⁻⁴ (retreat = f′(4)·8ε′ with f′(4) ≈ 0.05226; at 1/200 the retreat alone is 2.1e−3 > S7's
+whole 0.0011 cap — the prose was internally inconsistent with the frozen arithmetic). RESOLUTION
+(C0 Amendment 2, chen.md): ε′ = 10⁻⁴ frozen; the A₁ demand lives on the 8ε′-window [3.9992, 4],
+where the headroom is 4.1e−4 (1.9% rel) — feasible. The interval [39/10,4] was MY freeze; the
+executor's honest arithmetic caught it before any proof was built on it. Tally: 31 catches, still
+0 proofs on wrong statements.
+
+**LANDED (floor B):** `fseq_next_le_of_shift_majorant` — THE cascade engine (any majorant `g` of
+the shifted iterate propagates one level via `(1/s)∫g`; keyed on the window equation so one lemma
+serves even-window/odd-tail/odd-flat); `integral_M3` (exact `∫(5−t)²/((t−1)(t−2))`, partial
+fractions); `fseq2_shift_le_M3`, `M3_intble`; `fseq_three_tail_le` (on [3,5]) +
+`fseq_three_flat_le` (on [1,3]) — the first genuine level past the f₂ anchor, both regions.
+
+**DESIGN VERDICT for the final numeric node (C1cσ-sharp):** closed-form majorants are provably
+non-load-bearing — `log x ≤ x−1` linearization costs 2.3–3.1× PER LEVEL (worst at left endpoints),
+compounding; both ledger targets have ≤ 1.9% total headroom. The load-bearing artifact is a
+FINE-KNOT PIECEWISE-LINEAR cascade (exact per-panel integrals, no log-linearization) feeding the
+landed engine, to depth ~12–14 + the landed sharp tail (`fchain_trunc_close`). Targets after
+Amendment 2: A₂ odd-sum ≤ 1.68 on [4/3, 3] (true sup 1.6716, 0.5% headroom); A₁ even-sum ≤ 0.0221
+on [3.9992, 4] (true ≤ 0.021688, 1.9% headroom). Per-level true values and tails are recorded in
+the C1b′/C1b″ reports for knot planning.
+
+## 2026-07-13 E₁d Opus done FULL (the parametric windowed keystone; E₁c's slot is now exact)
+
+`Salt/Chen/WindowedStepP.lean` (358 lines, new file; wired by Fable). Builds green, zero warnings,
+sorry-free, axiom-clean on all 10 decls, default heartbeats, first attempt, essentially zero
+friction (the node was mechanical exactly as classed B+).
+
+**LANDED:** `StepHypWP` (StepHypW with the hτrec premise over abstract `(cf ch : ℕ → ℝ)`);
+`stepHypWP_const` (the absolute instance via `stepHyp_pointwise`); `T_le_of_peel_step_wp`
+(line-for-line port — the induction never uses what cf/ch are); `hlevel_wp_{upper,lower}`;
+`bjs_theorem6_windowed_p_{upper,lower}` (the parametric keystones);
+`bjs_theorem6_windowed_{upper,lower}_via_p` (FAITHFULNESS REGRESSION: #check-verified byte-identical
+types to the landed keystones, re-derived from the parametric ones at the absolute constants);
+`bjs_theorem6_windowed_sharp_{upper,lower}` (the payoff: keystones at
+(cfSharp, chSharp, tauSharp, Csharp) with hτrec/htau/τ₁/nonneg ALL discharged, NO hσ3 ≤ 3 —
+works at the real A₁ point s ≈ 4; the ONLY remaining per-step slot is
+`hstepWP : StepHypWP (cfSharp ·) (fun _ => chSharp ε) ε (tauSharp ε)` = node E₁c).
+
+**E₁c NOTE (Fable pre-design, see the chen.md E₁c card):** the pixel-verified BJS pp. 10–12 show
+the per-step boundary defects ((35)/(36): (K−1)g(s−1) ≤ ε·γ₃·g(s), γ₃ ≈ (4/3)e) may need a
+boundary-padded `chSharpB = (1+ε)(49/50) + 4ε`; the parametric keystones make that a 10-line
+re-instantiation — the E₁d interface is correct either way. BJS footnote 1 (p. 12) FIXES a known
+Nathanson Thm-9.5 error in the odd-flat branch — E₁c must freeze BJS (39), never [40]'s version.
+
+## 2026-07-13 VC2 Opus done (floor A: tail machinery + the wall quantified; A₂ mass-reduction found)
+
+`Salt/Chen/PLCascade.lean` (345 lines, new file; wired by Fable). Builds green 2.6s, zero
+warnings, sorry-free, axiom-clean on all 11 decls, default heartbeats. STOP-AND-FLAG honored:
+both frozen targets confirmed TRUE (0.021688 < 0.0221; 1.6716 < 1.68) — no statement altered;
+closure is keystone-scale, deferred with the arithmetic below.
+
+**LANDED (floor A):** the self-certified geometric-tail pipeline in the exact A₁ interface shape —
+`geom_decay_pointwise`/`geom_tail_ratio`/`geom_tail_majorant` (general contracting-majorant
+tails), `evenSum_reindex` + `fseq_evensum_tail_le` + `evenSum_le_head_add_geomtail` (even-sum =
+finite head + geometric tail, keyed on a two-level contraction hypothesis, feeding
+`fchain_lower_of_evenSum_le`); the between-knot glue `fseq_le_leftEndpoint` (antitone panels) +
+`fseq_next_le_const` (exact constant-panel integral, rational, NO log) with demo
+`fseq_two_le_const_demo`; and a GENUINE certified instantiation `fseq_even_le_crude`/
+`fseq_evensum_tail_crude` at r = (99/100)² from the landed fseq_le — the pipeline runs end to
+end sorry-free at the crude ratio.
+
+**THE WALL (machine-adjacent, two independent methods agreeing < 1e−4):** the load-bearing
+contraction is r ≈ 0.5224, and (1) the POINTWISE two-level ratio blows up at the right support
+edge (fseq k → 0 while fseq (k+2) > 0 there; support creeps right by 1/level) — no fixed profile
+is invariant, so no cheap self-propagating pointwise contraction exists; (2) piecewise-constant
+majorants lose 1–2%/level — at grid 1/80 the k ≤ 12 even-mass partial already exhausts the A₂
+target; required tightness ⇒ ~10³ panels/level, multi-session. A₁ additionally needs head to
+k ≈ 14–16 with total looseness < 1e−4 AND the certified r ≈ 0.524.
+
+**NEW STRUCTURAL FIND (the cleaner attack for the eventual keystone):** on [4/3, 3] the odd-sum
+equals `(3 − s + Σ_{k even} mass(f_k))/s` (sup at s = 4/3), so **A₂ ⟺ Σ even masses ≤ 0.5733**
+(true 0.5623, slack 2% — 4× the pointwise headroom). Masses are per-level SCALARS with a clean
+0.5224-ish contraction and NO edge pathology (integration kills the support-edge blowup). The
+C1cσ keystone should target the mass ledger, not pointwise profiles, for A₂ — and consider
+whether an A₁ analog exists (the even-sum at the window is also a near-scalar target).
+
+**REMAINING = C1cσ (unchanged name, re-scoped):** a multi-session fine-knot PL cascade — head
+profiles to depth ~14–16 (~10³ panels/level at A₁ tightness) + a self-certified mass/profile
+contraction r ≤ 0.55 feeding the landed tail pipeline. All interfaces now exist; the debt is
+pure certified numerics. Plan as its own arc segment AFTER E₁c (or parallel if budget allows).
+
+## 2026-07-13 THE E₁c FREEZE GATE — BLOCK: catches #32 + #33 (the gate pays for itself again)
+
+4-lens adversarial workflow on the E₁c freeze candidate (chen.md card notes (a)–(e)). Verdicts:
+envelope PASS_W_CORRECTIONS, fidelity PASS, source PASS_W_CORRECTIONS, adversary **BLOCK**.
+
+**CATCH #32 (adversary lens — machine-verified counterexample, the big one).** `StepHypWP` as
+frozen in E₁d is UNDISCHARGEABLE at ε-order coefficients: it carries only `1 ≤ σ ≤ n+3`, no
+`loBnd side' ≤ σ` and no parity structure. Counterexample verified numerically: (side'=2, n=1,
+S ∈ [1,2)) — every hypothesis satisfiable, RHS collapses to O(εW) (`fseq 2 = 0` below 2), LHS
+Θ(W); likewise (side'=1, n=1, S ∈ [1,2)). The landed ABSOLUTE route masked this (cf_const(1,ε)
+≈ 5.4e4 carries no ε: RHS absorbs with 5600× margin) — which is why E₁d's faithfulness
+regression could not see it. ROOT CAUSE (structural, from BJS pp. 11–12): BJS's induction NEVER
+peels naively in the odd-flat regime — (39) reroutes through `V(D^{1/3}) ≤ (3K/s)V(z)` exactly
+so even-index f is never evaluated below 2. THE FIX (Fable-tier, freeze v2): (i) a CONDITIONED
+contract `StepHypWPC` carrying the loBnd invariant (already threaded by the landed induction as
+`hlow`); (ii) the sharp windowed induction gets a THIRD branch — the (39)-reroute step — taken
+exactly where the naive peel would evaluate even-index fseq below 2; (iii) a new (39)-step
+lemma (T bounded via the V(D^{1/3}) mass at fixed safe arguments f(2), ∫_3^∞). The adversary
+lens ALSO verified: WITH loBnd/parity in force the hh comparison closes (sups 0.9607/0.9214 <
+1), and fseq_antitoneOn re-confirmed by an independent method (m = 1..9, junctions included).
+
+**CATCH #33 (source lens — page-image verified).** E₁a (`hBJS_funcbound_sharp`) is stated only
+for `s ≥ 2`; the odd-flat branch needs the FIXED integral `H(3) = ∫_3^∞ h(t−1)dt` bounded by
+`κ̃·s·h(s)` down to `s = 1` (BJS Lemma 10's separate κ̃ = 0.9214 bound, tight at s = 1). NEW
+LEMMA REQUIRED — **E₁a-flat**: `∫_3^∞ hBJS(t−1)dt ≤ (97/100)·s·hBJS s` on `1 ≤ s ≤ 3`.
+Feasibility (Fable arithmetic): H(3) = (e⁻²−e⁻³) + 3E₁(3) ≈ 0.12469; the existing parts-twice
+tail bound gives H(3) ≤ 0.1298 ≤ 0.97·e⁻² = 0.13127 (1.1% margin at the s = 1 worst point;
+s ∈ (2,3] ratios ≤ 0.84). κ̃B = 97/100 < 49/50 keeps chSharpB intact.
+
+**Gate corrections folded into freeze v2:** the B-mirror's contraction hypothesis is
+`ε < 1/249` EXACTLY (not hε49; (49/50+4)ε < 1/50) — executors must not copy `hε49`; the
+B-hτrec needs a case split (n = 0 anchor: 3 ≤ 20; n ≥ 1: equality) — no blind copy of
+tauSharp's one-liner. **Independently CONFIRMED:** γ̄ = (5/3)e^{3/5} = 3.0368647 (S=5, global),
+γ₃ʰ = (4/3)e = 3.6243758 (S=4, global); ledger at ε = 2e−8, CsharpB = 100000: spends
+2.03e−4/1.403e−3/8.42e−4, margins 10.84×/3.92×/1.78× (S3 binds); the f-envelope 20 has ~2.5×
+honest cushion (my 16.5 odd-flat figure coupled suprema at different S — conservative
+direction); no load-bearing hard-coded ε in Lean statements (Csharp_frozen is a marker, w0R
+parametric). **Downstream note for the H-glue:** TwinA1/TwinA2 currently wire the ABSOLUTE
+windowed keystones; the sharp chain rewires them to the B-plugs.
+
+Tally: **33 catches, 0 proofs on wrong statements.** #32 is the second machine-checked
+refutation of a Fable-frozen statement (after #26) — both caught by gates/executors BEFORE any
+proof was built on them.
+
+## 2026-07-13 E₁a-flat Opus done FULL first attempt (catch #33 closed)
+
+`Salt/Chen/FlatFuncbound.lean` (105 lines; wired by Fable). Sorry-free, axiom-clean (3 decls),
+default heartbeats, 3.4s module. `hBJS_funcbound_flat : ∫_2^c hBJS ≤ (97/100)·s·hBJS s` on
+1 ≤ s ≤ 3 (verbatim freeze) + `flat_h_contract` consumption corollary + `hBJS_window_min`.
+Chain: `hBJS_intbound_from2_sharp` (E₁a's fixed-integral bound, already all-c) → e⁻² − (1/9)e⁻³
+≤ (97/100)e⁻² (⟺ 27e ≤ 100) → the window minimum (the [2,3] branch via the landed Padé panel
+`exp_pade_upper`: (4−s)e^{s−2} ≤ s). κ̃B = 97/100 < 49/50 ✓ — chSharpB undisturbed. The odd-flat
+h-side input for the E₁c freeze v2 is now LANDED.
+
+## 2026-07-13 E₁d′ Opus done FULL first attempt (freeze v2 items 1–7; the slot is now exact)
+
+`Salt/Chen/WindowedStepC.lean` (441 lines; wired by Fable). Sorry-free, axiom-clean (22 decls),
+zero warnings, default heartbeats. THE PARITY CHECK PASSED: hTbound_{upper,lower}_of_levels
+consume T-bounds ONLY at odd@side-1 / even@side-2 (the htau filters tile the top) — no
+Odd(maxDepth) side conditions needed; the conditioned keystones have the same hypothesis shape
+as the E₁d ones with StepHypWPC in the slot.
+
+**LANDED:** StepHypWPC (the catch-#32 fix: + loBnd invariant + parity coupling side'%2 ≠ n%2);
+stepHypWPC_of_wp/const (free); T_le_of_peel_step_wpc (invariant side'%2 = n%2 threaded; base
+side-2 excluded by omega — was T_two_one_zero anyway); hlevel_wpc_{upper,lower};
+bjs_theorem6_windowed_c_{upper,lower}; THE B-MIRROR (cfSharpB n=0 anchor / 20εe²rf^n,
+chSharpB = (1+ε)(49/50)+4ε, chSharpB_lt_one at ε < 1/249, tauSharpB with hτrec EQUALITY at
+every n, CsharpB = 2000/(1−chSharpB), sums via tau_sum_le_of_recursion with the n=0 row 3 ≤ 20,
+CsharpB_frozen ≤ 100001 at 2e−8); THE B-PLUGS bjs_theorem6_windowed_cB_{upper,lower} — τ-layer
+fully discharged, single remaining slot `hstepWPC : StepHypWPC (cfSharpB ·) (chSharpB const) ε
+(tauSharpB ε)` = nodes E₁c-hh/hf/close. Friction: one motive-not-type-correct on a 1-literal
+rewrite (fixed via tauSharpB_succ + simpa); two 101-char docstrings.
+
+## 2026-07-13 MR1 Opus done FULL first attempt (A₂ is now a SCALAR ledger, kernel-checked)
+
+`Salt/Chen/MassLedger.lean` (194 lines; wired by Fable). Sorry-free, axiom-clean (6 decls, in-build
+audit), zero new warnings, default heartbeats. VC2's numeric mass-reduction find is now a THEOREM:
+`massE n = ∫_2^{n+2} fseq n` (the even-level mass scalar); `fseq_odd_eq_massE` (odd level m ≥ 3 on
+[1,3] equals massE(m−1)/s — flat window + tail-at-3 junction + the u = t−1 substitution);
+`Fchain_mass_ledger` (Fchain N s = 1 + (3−s)/s + (Σ_{even k, 2 ≤ k ≤ N−1} massE k)/s on [1,3]);
+**`Fchain_le_A2_of_massSum`** (Σ massE ≤ 43/75 ⟹ Fchain ≤ 268/100 on [4/3,3] — the A₂ ledger
+row, exact rationals, sup at s = 4/3: 9/4 + (3/4)(43/75) = 268/100 EXACTLY); `massE_le_crude`
+(≤ (5/3)(99/100)^{n−1} via fseq_le — the crude tail interface the sharp cascade replaces).
+Honest bookkeeping addition: `hN : 1 ≤ N` on items 4/5 (f₁ absent from Fchain 0; operating depth
+≥ 2048 — always satisfied). Constants untouched.
+
+**C1cσ's A₂ half is now: certify ~8–10 rational upper bounds on massE k (even k to ~16–20) + a
+mass-ratio tail, summing ≤ 43/75 (true 0.5623, 2.0% slack).** Masses contract at ≈ 0.5224/two-
+levels with no edge pathology (VC2). The A₁ half (pointwise even-sum on [3.9992, 4]) remains
+profile-shaped; investigate an A₁ mass-analog before committing to 10³-panel profiles.
+
+## 2026-07-13 DESIGN: the A₁ mass-reduction (Fable) — the 10³-panel profile keystone is DEAD
+
+Investigating the MR1 note ("A₁ mass-analog?"): on the WHOLE window s ∈ [2,4], even levels are
+EXACT scalars — `fseq k s = (massE (k−2)·log(3/(s−1)) + massO (k−1))/s` for even k ≥ 4, where
+`massO j := ∫_3^{j+1} fseq j` (odd tail-mass): split the even window integral at u = 3, the flat
+piece is `fseq_odd_eq_massE` (MR1) integrating to massE·log(3/(s−1)), the tail piece is massO.
+At s = 4 the log vanishes: evenSum(4) = (1/4)·Σ_{odd j≥3} massO j (VC2 cross-check:
+0.021646·4 = 0.086584 = Σ massO ✓). On [3.9992, 4]: log(3/(s−1)) ≤ (4−s)/(s−1) ≤ 2.7e−4
+(rational, log x ≤ x−1 — 2× loose but the term is ~1.5e−4·total); f₂ ≤ (4−s)²/(s(s−1)) ≤ 5.4e−8
+(fseq_two_le_sq). The A₁ ledger row closes at **Σ massO ≤ 11/125 = 0.088** (true 0.086584,
+slack 1.6%): worst s = 39992/10000 gives 2.7e−4·(43/75) + MO ≤ 0.0883823 ⟹ MO ≤ 0.0882.
+**C1cσ IS NOW FOUR SCALAR NODES**: MR1 ✅ (A₂ reduction) → MR2 (Σ massE ≤ 43/75, in flight) →
+MR3 (the A₁ reduction: massO + the exact identity + the window arithmetic; MR1's sibling, B+)
+→ MR4 (Σ massO ≤ 11/125 via the same weighted-Fubini machinery as MR2; the massO recursion:
+massO j = ∫_2^j fseq (j−1)(w)·log((w+1)/3) dw — same shape as MR2's with weight log((w+1)/3)).
+No pointwise profile cascade needed anywhere. VC2's support-edge wall is fully bypassed:
+integration kills the edge.
+
+## 2026-07-13 E₁c-hh Opus — FLOOR (mass control + cell scaffold; the FTC/IBP pushforward flagged)
+
+`Salt/Chen/SharpH.lean` (324 lines, new file; NOT yet wired into All.lean — Fable to wire).
+Builds green standalone, zero warnings, sorry-free, `#print axioms` clean
+(`[propext, Classical.choice, Quot.sound]`) on all 4 landed decls. No `native_decide`, no new
+axioms. Numeric self-checks reproduced the gate exactly (Python, hi-precision): side≥2 ideal
+pushforward sup `(1/S)∫_{S−1}^∞ h / h(S) = 0.96068` at S = 2 (gate 0.9607); flat-cell
+`(1/S)∫_2^∞ h / h(S) = 0.92137` at S = 1 (gate 0.9214); full side-2 ratio 0.96068 < chSharpB =
+0.98. Target confirmed TRUE, the honest engine derivation validated.
+
+**LANDED FULL (all axiom-clean):**
+- `hBJS_shift_le : hBJS (S−1) ≤ 4·hBJS S` for `S ≥ 1` — the `h`-boundary helper the mandate
+  requested; `γ₃ʰ = sup hBJS(S−1)/hBJS(S) = (4/3)e = 3.6244` at S = 4 (verified), so 4 is a safe
+  rational envelope = the `4ε` pad of `chSharpB`. Four-branch arithmetic.
+- `upset_mass_le` — **the sharp discrete mass control** (the measure heart of the pushforward):
+  for any real `t ≥ S := logRatio z D'`, `Σ_{p∈pf, logRatio p D' ≤ t} ν(p)·Vbelow(p) ≤
+  ((1+ε)·t/S − 1)·W`. This is BJS hypothesis (4) as a SINGLE `(1+ε)` multiplicative error over the
+  whole `[D'^{1/t}, z)` window — NOT a per-dyadic-piece additive PM1 error (which is exactly why
+  `DecayMass.decay_mass_le`'s absolute `Cabs` cannot reach the sharp constant). Route:
+  `AbelStep.telescope_ge` turns the mass into `Vbelow(⌈D'^{1/t}⌉) − W`; `Hyp4.vratio_prod_le`,
+  **anchored at the minimal prime `p₀` of the up-set** (where the per-prime guard `hguard` IS the
+  `hthresh` at `p₀`), bounds `Vbelow(⌈D'^{1/t}⌉)/W ≤ (1+ε)log z/log p₀ ≤ (1+ε)t/S` (the last step
+  from `logRatio p₀ D' ≤ t`). No `w₀` needed — the minimal-prime anchor is the clean trick.
+- `hh_antitone_majorize` — `hBJS(σ_p) ≤ hBJS(u_p−1)` (removes the ⌈D'/p⌉ rounding via
+  `logRatio_child_ge` + `hBJS_antitone`), so the pushforward runs against the strictly monotone
+  `u_p = logRatio p D'`.
+- `hh_sharp_ge2_of_pushforward` — **the `S ≥ 2` cell closure MODULO the pushforward**: given the
+  pushforward output `hpush : Σ m_p·hBJS(u_p−1) ≤ ε·W·hBJS(S−1) + (1+ε)(1/S)(∫_{S−1}^U h)·W`,
+  antitone + E₁a (`TauSharp.chSharp_h_contract`, κ₃ = 49/50) + `hBJS_shift_le` compose to
+  `Σ m_p·hBJS(σ_p) ≤ W·chSharpB·hBJS(S)` (using `chSharpB = chSharp + 4ε`). This is exactly the
+  composition side' = 2 (`S ≥ 2` via `hlo`/`loBnd_two`) and side' = 1 (`S ≥ 3`) need.
+
+**NOT landed (the honest residual — the frozen `hh_sharp_of_window` is NOT yet closed):** the
+FTC/Fubini/IBP *assembly* producing `hpush` from `upset_mass_le`. The exact remaining identity:
+`Σ_p m_p·hBJS(u_p−1) = ∫_{S−1}^{U₀} U(v)·(−hBJS'(v)) dv + hBJS(U₀)·M_tot` (FTC per prime + Fubini
+`integral_finset_sum`), with `U(v) := Σ_{p:u_p−1≤v}m_p ≤ ((1+ε)(v+1)/S−1)W` (Part B), then IBP of
+the affine bound against `−hBJS'` (kink-split at 2, 3) giving `−B(U₀)W·hBJS(U₀) + εW·hBJS(S−1) +
+(1+ε)(W/S)∫_{S−1}^{U₀}h`, with `hBJS(U₀)M_tot − B(U₀)W·hBJS(U₀) ≤ 0` by the mass bound at `v=U₀`.
+This is genuine multi-hundred-line measure theory (improper/finite IBP against `dhBJS`,
+`HasDerivWithinAt` at the kinks — `SharpFuncbound.Gtail` is the style template but the sum↔integral
+Fubini + real-threshold mass plumbing is the bulk); prior executors (`SharpStep`/`DecayMass` flags)
+sized this "its own session", and it is genuinely unavoidable — the sharp constant provably needs
+the CONTINUOUS integral (unit-step Riemann sums lose >budget, the VC2/C1cσ wall).
+
+**The FLAT cell (side' = 1, S ∈ [1,3)) — an extra finding, catch-worthy:** the full-`pf` mass bound
+`upset_mass_le` is provably TOO LOOSE at the `v = 2` boundary for the flat cell. The window
+`{p³<D'} = {u_p>3}` has `U_window(2) = 0` exactly, but `B(2)W = ((1+ε)3/S−1)W ≈ 2W` (at S = 1),
+and that spurious `B(2)·W·hBJS(2)` boundary blows the ~0.01 flat budget (would give ≈ 0.4W vs the
+true ≈ 0.12W). FIX (numerically verified): use the **window-relative** mass bound `V(t) − Vlow ≤
+((1+ε)(v+1)/3 − 1)·Vlow` — the `upset_mass_le` proof with `vratio_prod_le` at `"z" := D'^{1/3}`
+(real) instead of `z`, giving `V(t)/Vlow ≤ (1+ε)(v+1)/3` and boundary `ε·Vlow` (ε-scale, NOT O(1)).
+Then `flat_h_contract` (κ̃ = 97/100) + `Hyp4.h4`-style `Vlow ≤ (3(1+ε)/S)W` close it at
+`(1+ε)²(97/100) + O(ε) < chSharpB` (margin ≈ 0.01 + O(ε)). So the flat cell needs a SECOND
+`~130-line` mass-bound lemma (window-relative) + its own IBP; do NOT try the full-pf bound there.
+
+**Assessment vs the mandate floors:** hit `hBJS_shift_le` + the pushforward's MEASURE CONTROL
+(`upset_mass_le`) + antitone + the `S≥2` cell CLOSURE-modulo-pushforward. Short of Floor A only in
+that the FTC/Fubini/IBP core producing `hpush` is not assembled (flagged above with its exact
+statement). The `chSharpB` numerics and the entire cell architecture are machine-verified modulo
+that one measure-theoretic assembly.
+
+## 2026-07-13 E₁c-hh Opus done FLOOR (mass control + cell scaffold) + CATCH #34
+
+`Salt/Chen/SharpH.lean` (324 lines; wired by Fable). Sorry-free, axiom-clean (4 decls), zero
+warnings. Numeric self-checks reproduced the gate exactly (0.96068@S=2 / 0.92137@S=1 / γ₃ʰ =
+3.6244). LANDED: `hBJS_shift_le` (≤ 4·hBJS, the exact 4ε pad); **`upset_mass_le`** — THE sharp
+discrete mass control: Σ_{σ_p ≤ t} ν(p)Vbelow(p) ≤ ((1+ε)t/S − 1)·W for t ≥ S, via telescope_ge
++ vratio_prod_le ANCHORED AT THE UP-SET'S MINIMAL PRIME (the guard is hthresh there — hypothesis
+(4) as a single (1+ε) across the window, the thing Cabs could never be); `hh_antitone_majorize`
+(kills the ⌈D'/p⌉ rounding); `hh_sharp_ge2_of_pushforward` (the S ≥ 2 cells CLOSED modulo hpush:
+antitone + E₁a + the shift helper → W·chSharpB·hBJS S).
+
+**RESIDUAL (precise, in the module docstring): the IBP core.** `hpush`: Σ m_p·hBJS(u_p−1) =
+∫_{S−1}^{U₀} U(v)·(−hBJS′(v))dv + boundary (layer-cake/IBP against dhBJS, kink-split at 2, 3),
+then U(v) ≤ ((1+ε)(v+1)/S − 1)W ⟹ ε·W·hBJS(S−1) + (1+ε)(W/S)∫_{S−1}h. Multi-hundred-line
+measure theory, unavoidable (unit-step Riemann sums provably exceed the budget). = node E₁c-hh2.
+
+**CATCH #34 (executor-surfaced, numeric):** `upset_mass_le` is provably TOO LOOSE at the flat
+cell's v = 2 boundary (U_window(2) = 0 exactly but the full-window bound gives ≈ 2W — blows the
+~0.01 flat budget). FIX (numerically verified by the executor): a WINDOW-RELATIVE mass bound
+`V(t) − Vlow ≤ ((1+ε)(v+1)/3 − 1)·Vlow` — same proof anchored at D'^{1/3} — then flat_h_contract
+(97/100) + Vlow ≤ (3(1+ε)/S)W close the flat cell. ~130-line sibling lemma, folded into E₁c-hh2.
+Tally: 34 catches, 0 proofs on wrong statements.
+
+## 2026-07-13 MR3 Opus done FULL first attempt (the A₁ row closes in scalars) + CATCH #35
+
+`Salt/Chen/MassLedgerA1.lean` (5 decls; wired by Fable). Sorry-free, axiom-clean, zero warnings,
+full build green. LANDED: `massO n := ∫_3^{n+2} fseq n` + nonneg; **`fseq_even_eq_masses`** (the
+EXACT even-level scalar identity on s ∈ [2,4], ℕ-subtraction via k = i+2 reparametrisation);
+`evenSum_le_of_massSums` + **`fchain_ge_A1_of_massSums`** (Σ massE ≤ 43/75 ∧ Σ massO ≤ 11/125 ⟹
+fchain ≥ 9779/10000 on [3.9992, 4]; the rational close is a downward parabola with worst point at
+the left endpoint; evenSum slack ≈ 5.7e−5 — the executor used the EXACT rational log-bound
+(4−s)/(s−1) ≤ 8/29992 rather than the design's rounded 2.7e−4, absorbing the log x ≤ x−1
+slack); `massO_le_crude` (the (5/3)e^{−6/5}(99/100)^{n−1} crude interface). Index correspondences
+to MR1/MR2/MR4 sets documented in-file; both H-glue hypotheses compose directly.
+
+**CATCH #35 (executor-surfaced): the DESIGN entry's massO limits were OFF BY ONE.** The
+2026-07-13 A₁-design flags entry wrote `massO n := ∫_3^{n+1}` — but fseq n's support runs to
+n+2 (`fseq_eq_zero_of_ge`); the change-of-variables tail piece is ∫ to the support edge. Using
+n+1 would drop the mass on [n+1, n+2], making the identity FALSE (and MR4's ledger falsely
+small). The executor used the forced `∫_3^{n+2}`, verified the identity numerically to full
+precision (Σ massO → 0.086584 < 0.088 ✓), and flagged rather than silently proceeding.
+**CORRECTION BINDING ON MR4:** the massO recursion in the A₁-design entry has the same
+systematic shift — it must read `massO j = ∫_2^{j+1} fseq (j−1)(w)·log((w+1)/3) dw` (upper
+limit j+1 = (j−1)+2, the support edge of the even level j−1). Tally: 35 catches, 0 proofs on
+wrong statements.
+
+## 2026-07-13 MR2 Opus done (floor A + tail machinery) + CATCH #36 (the flat coefficient)
+
+`Salt/Chen/MassCert.lean` (475 lines, 13 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings, 3.2s. LANDED: **`massE_recursion`** (the Fubini/IBP mass recursion, proven by honest
+integration-by-parts with boundary terms vanishing; needed the NEW `fseq_odd_continuousOn` —
+odd fseq is continuous on [1, m+2] via the single-formula max-collapse, since fseq_props gives
+only measurability); `massE_flat_split` (massE(m+1) = cflatI·massE(m−1) + Tail, Tail ≥ 0);
+`cflatI ≤ 1/2` (true 0.35541); `massE_two_le` (≤ 2 − (3/2)log3 ≈ 0.352, true 0.294); the tail
+machinery `massSum_reindex`/`massEvenSum_tail_le`/**`massSum_le_head_add_geomtail`** — output
+shape composes EXACTLY with MassLedger.Fchain_le_A2_of_massSum. Numeric table recorded in-file
+(mpmath + explicit cross-check): Σ = 0.5623, target 43/75, slack 0.0113, ratio → 0.52239.
+
+**CATCH #36 (executor-surfaced): the MR2 mandate's flat coefficient c_flat ≈ 0.2126 =
+∫_2^3 log((u+1)/2)/u was WRONG** — it dropped the [1,2] slice of the flat window (the odd
+predecessor is flat on the FULL [1,3]). Honest coefficient: ∫_1^3 = ∫_2^4 log(s/2)/(s−1) =
+0.35541. The executor used the correct value; the flat/tail balance is 0.355 + 0.167 → 0.522.
+Tally: 36 catches, 0 proofs on wrong statements.
+
+**REMAINING = MR2b (the last A₂ numeric debt):** tight `Tail_k` for k = 4..K* (≈12–14) + the
+certified contraction r ≤ 0.55 feeding the landed tail machinery. NEW ROUTE (executor): a second
+Fubini gives `Tail_k = ∫_2^m fseq(m−1)(w)·Φ(w)dw`, Φ(w) = ∫_3^{w+1} log((u+1)/2)/u du — the
+tail as a Φ-weighted moment of the EVEN predecessor (profile work survives only here, on the
+small 0.167-relative piece; ValueCascade.fseq_three_tail_le is 2.71× loose ⇒ non-load-bearing,
+correctly not ground per Iron Rule 4). MR4 (massO ledger) shares this machinery + catch #35's
+limit correction.
+
+## 2026-07-13 GL1 Opus done FULL first attempt (the H-glue swap surface is mapped)
+
+`Salt/Chen/TwinSharp.lean` (2 theorems; wired by Fable). Sorry-free, axiom-clean, zero warnings,
+first build. LANDED: **`twin_A1_lower_B`** (twin_A1_lower with the τ-numeric hypotheses dropped —
+the B-layer discharges them — + hε49B : ε < 1/249 + the single hstepWPC slot; slack constant
+ε·CsharpB·e²·hBJS) and **`twin_A2_per_prime_B`** (same surgery on the A₂ per-prime link).
+Both ports type-checked on the FIRST build — the E₁d′ interfaces fit exactly.
+
+**ARCHITECTURAL FINDING (the node's purpose):** A₁ never consumed the mainSum keystone — it
+routes through the HLEVEL layer (`hlevel_w_lower` → `linear_sieve_lower_rosser_assembled_final`),
+so its B-port consumes `hlevel_wpc_lower` (the hlevel-layer sibling, same file, same slot), NOT
+`bjs_theorem6_windowed_cB_lower`. A₂ consumes the mainSum keystone (`_cB_upper`) as expected.
+No top-condition gaps: A₁'s hStop : 2 ≤ σ and A₂'s hStop : 1 ≤ σ match verbatim. FOR THE
+H-GLUE: swap surface = {twin_A1_lower → twin_A1_lower_B, twin_A2_per_prime →
+twin_A2_per_prime_B}, both keyed on the ONE hstepWPC slot that E₁c-close will discharge.
+
+## 2026-07-13 AF1 Opus done FULL first attempt (fseq antitone, both parities, no case splits)
+
+`Salt/Chen/FseqAntitone.lean` (4 decls; wired by Fable). Sorry-free, axiom-clean, zero warnings.
+`fseq_antitoneOn_odd` (Ici 1) / `fseq_antitoneOn_even` (Ici 2) — the E₁c-hf helper, frozen
+targets verbatim — plus the reusable `antitone_integral_lower`. The single-formula globalization
+worked for BOTH parities (even: fseq_even_window is already global on [2,∞); odd: the
+MassCert max-collapse idiom transplanted, whose proof never used its upper endpoint) — zero
+junction case-splits. Class B exactly as classified; friction: le_or_gt naming, linter show→change.
+
+## 2026-07-13 MR2b Opus — FLOOR A landed (Φ-moment structural layer) + STOP-AND-FLAG the contraction
+
+`Salt/Chen/MassCert2.lean` (496 lines, NEW file, NOT wired into All.lean — Fable to wire).
+Sorry-free, axiom-clean (14 decls audited: `[propext, Classical.choice, Quot.sound]`), zero
+warnings, no `native_decide`/new axioms, default heartbeats, 3.4s. Numeric plan built first (pure
+Python DDE + mpmath, hi-precision), recorded in the module docstring.
+
+**LANDED (FLOOR A — the structural layer, all exact/rational):**
+- **The sub-interval mass bounds** (the clean rational envelope of the deep profile, immediate from
+  the window recursion + a nonnegative sub-interval): `fseq_odd_le_massE_div`
+  (`fseq (p+1) w ≤ massE p / w` for `w ≥ 3`, `p` even) and **`fseq_even_le_massO_div`**
+  (`fseq k u ≤ massO (k−1)/u` for `u ≥ 4`, `k` even). Both verified pointwise numerically.
+  **`fseq_even_le_massO_div` is the reusable atom MR4's `massO` ledger consumes** (the mandate's
+  "w ≥ 4 sub-interval bound"; confirmed: `u−1 ≥ 3` makes the even window an integral over a
+  sub-interval of `massO (k−1)`'s support). Also `massE_shift_form`/`massO_shift_form` (the
+  `∫_·^{n+3} fseq n (t−1)` change-of-variable forms).
+- **Even-level continuity** `fseq_even_continuousOn` (`fseq k` continuous on `[2,k+2]`, `k` even) —
+  the FTC input the IBP needs (MR2 landed only the odd-level version).
+- **The Φ-moment identity** `massTail_eq_phiMoment`: **MR2's `Tail` = a Φ-weighted moment of the
+  even predecessor**, `∫_4^{m+3} fseq m (s−1)·log(s/2) ds = ∫_2^{m+1} fseq (m−1)(v)·Φ v dv`,
+  `Φ v := ∫_3^{v+1} log((w+1)/2)/w dw`. Done by **honest integration by parts** (u = tail
+  primitive `A`, v = `Φ(·−1)`, both boundary terms vanish) — **NOT the measure-theoretic Fubini the
+  MR2 flag anticipated**; the IBP mirrors `massE_recursion` exactly (executor find, cleaner). Plus
+  `massE_eq_flat_phiMoment` (composes with `MassCert.massE_flat_split`:
+  `massE (m+1) = massE (m−1)·cflatI + Φ-moment`).
+- **The fixed constants** `Cphi1 = ∫_2^4 Φ v (log 3 − log(v−1))/v dv`,
+  `Cphi2 = ∫_2^4 Φ v/v dv` (+ `Phi_continuousOn`, `Phi_nonneg`, `Phi_le_lin : Φ v ≤ (2/5)(v−2)`
+  on `[2,4]`), certified: `Cphi1_nonneg`, `Cphi2_nonneg`, `Cphi1_le : ≤ 4/5`, `Cphi2_le : ≤ 2/5`.
+  (Bounds are LOOSE vs true `0.04403`/`0.14127` — they use the rational log majorant `log x ≤ x−1`;
+  tighter panel bounds are unnecessary since the constants are not load-bearing given the flag
+  below. The `[2,4]` split `∫_2^4 fseq (m−1)·Φ = massE (m−3)·Cφ1 + massO (m−2)·Cφ2` via MR3's
+  `fseq_even_eq_masses` is mechanical — left out only because it needs `Φ` continuity on the
+  parametric `[4,m+1]`; the constants + `Phi_continuousOn` on `[2,4]` are landed.)
+
+**STOP-AND-FLAG: the FROZEN `massSum_le_A2 (≤ 43/75)` is NOT reachable — it needs the sharp profile
+decay keystone (the standing C1cσ/VC2 debt), provably not the landed lemmas.** The FULL close needs
+the uniform two-level contraction `massE (2(j+1)) ≤ r·massE (2j)` (hypothesis of the landed
+`MassCert.massSum_le_head_add_geomtail`). From `massE_eq_flat_phiMoment`, `r = cflatI + κ` with
+`κ = sup_p Tail_{p+2}/massE p`. Bounding `κ` uniformly is the wall: `Tail = ∫ fseq(m−1)·Φ` and
+`massE(m−1) = ∫ fseq(m−1)`, so a pointwise `Tail ≤ κ·massE(m−1)` would need `Φ v ≤ κ`, but `Φ` is
+UNBOUNDED (`Φ v ~ (log v)²/2`). **Machine-checked dead-ends (numeric plan):** (i) the coupled
+2-vector `(massE, massO)` route the MR2 mandate suggested — bounding `Φ v ≤ α + β·ψ v`,
+`ψ = log((v+1)/3)` — FAILS: `Φ` grows super-linearly relative to `ψ`, forcing `α → ∞` (grid check:
+`α ≈ 3.0` over `[2,60]`, unbounded). (ii) The mandate's step-2(b) claim that `fseq(m−1) v ≤
+massO(m−2)/v` "kills the [4,∞) piece cleanly" is FALSE for the uniform bound: it gives
+`R ≤ massO(m−2)·∫_4^{m+1} Φ/v dv`, and `∫_4^{m+1} Φ/v dv` GROWS with the level (≈20× too loose at
+`p=12`). It DOES bound `R` per fixed head level, but not uniformly. (iii) `fseq_le` (the only landed
+per-level profile envelope) has two-level ratio `(99/100)² ≈ 0.98`, exponentially too loose vs the
+required `≈ 0.52`. Every surrogate weight (`Φ`, `ψ`, first moment) is a log-growing moment that
+provably cannot be bounded by the plain mass without the sharp per-level profile decay
+`fseq p (v) ≤ D·massE p·(fixed exp envelope)` — exactly the C1cσ/VC2 fine-knot cascade keystone,
+flagged multi-session and NOT landed. This is consistent with the MR2 flag ("profile work survives
+only here") and VC2's support-growth wall.
+
+**The exact certified-vs-true table (the closure DOES close once a certified `r` exists):**
+```
+even masses (true):  massE2=0.29364  massE4=0.13140  massE6=0.06597  massE8=0.03406
+                     massE10=0.01773 massE12=0.00925 massE14=0.00483 ... two-level ratio → 0.52239
+Σ_{even k≥2} massE = 0.5623 ;  target 43/75 = 0.57333 ;  slack 0.0110
+cflatI = 0.35541 (landed bound ≤ 1/2) ; κ = Tail/massE → 0.16698 ; r = cflatI+κ → 0.52239
+Cφ1 = 0.04403 (bound 4/5) ; Cφ2 = 0.14127 (bound 2/5)
+closure (head + geom tail, MassCert.massSum_le_head_add_geomtail), TRUE masses:
+  J=3 (head massE2+massE4=0.42504) + tail massE6/(1−r)=0.13858 @ r=0.524 = 0.56362 ≤ 0.57333  ✓
+  → so the FROZEN 43/75 closes at head-to-k=4 + a certified r ≤ 0.524; ONLY the uniform r is missing.
+```
+So MR2b = the FLOOR (Φ-moment structural layer) is landed; the residual is precisely the sharp
+contraction `r ≤ 0.524` (equivalently the profile decay). Recommend routing the remaining
+`massSum_le_A2` through the C1cσ fine-knot cascade once that keystone lands — no new blueprint
+statement touched; `43/75` is preserved. **massO note (feeds MR4):** `fseq_even_le_massO_div` and
+`massO_shift_form` are the shared machinery MR4's `massO` ledger reuses; no massO *bounds* were
+needed for FLOOR A itself.
+
+**FABLE ADJUDICATION of the MR2b flag (2026-07-13) + CATCH #37 + the MR2c design:**
+CATCH #37 — the MR2b MANDATE's two tail-closure routes were both WRONG (executor-refuted,
+numeric): (i) the coupled (massE, massO) route via Φ ≤ α + β·ψ fails (Φ super-linear, α → ∞);
+(ii) my claim that `fseq (m−1) v ≤ massO (m−2)/v` "kills the [4,∞) piece cleanly" is false
+uniformly (the Φ/v integral grows with the level; ~20× loose at p = 12). Tally: 37 catches,
+0 proofs on wrong statements.
+THE BUDGET RELAXATION (Fable re-derivation from the executor's table): the closure demand is NOT
+r ≤ 0.524 at head-4 (0.3% margin — hopeless). With head through k = 8 and the tail from 10:
+Σhead(2..8) = 0.52507 + massE10-bound/(1−r): at r = 0.58, κ-demand = r − cflatI = 0.2246 vs true
+κ = 0.16698 — a **34% margin**; at r = 0.55: 25%. The remaining object is a UNIFORM two-level
+mass contraction with double-digit tolerance, NOT the razor VC2 wall.
+**MR2c DESIGN (the certified contraction): the mass-normalized super-profile + wing.** Certify a
+fixed profile g on [2, W] (~15–25 panels; tolerance ~25%) + an exponential wing `C·e^{−6v/5}`
+from W ≈ 6, such that (a) fseq (m−1) ≤ massE (m−1)·g pointwise propagates through TWO peel levels
+(the normalized two-level operator maps g under itself × r), and (b) ∫ g·Φ ≤ κ-target. THE WING
+IS SELF-STABLE (Fable calc, to be gate-checked): the tail operator on e^{−λv} at λ = 6/5 gives
+factor e^{λ}/(λ s) ≤ 0.52 for s ≥ e^{1.2}/(1.2·0.52) ≈ 5.32 — the wing contracts FASTER than
+the 0.52 mass scaling beyond W ≈ 6, so support creep is absorbed by the wing forever. VC2's
+"no invariant profile" wall was about UN-normalized profiles at ≤ 2% tolerance; mass-normalized
+at ~25% tolerance with the wing is a different, feasible object. MR2c = design-gate the operator
+statement, then one executor. MR4 (massO ledger) reuses `fseq_even_le_massO_div` + the same
+normalized profile.
+
+## 2026-07-13 THE MR2c GATE — DOUBLE BLOCK (catches #38/#39); the numeric keystone re-architected
+
+Both lenses BLOCKED the MR2c design (constructive + fidelity, independent methods, engines
+cross-validated against all repo truths to 3–4 digits).
+
+**CATCH #38 (constructive lens — the propagation flaw):** the one-sided normalized super-profile
+does NOT self-propagate. Any finite PL+wing profile strictly dominating the true normalized
+profiles has operator self-map constant r_op ≥ the Perron eigenvalue 0.52239 STRICTLY (best in a
+full (λ, W, C) sweep: 0.580), while the true mass ratios approach 0.52239 FROM BELOW — so the
+normalized domination degrades by r_op/ratio ≈ 1.11 per two-level step and DIVERGES. The
+contraction is TRUE (the object exists; profiles converge at rate 0.32/level) but the route
+cannot prove it. Fix requires two-sided/finite-depth+asymptotic machinery — not one executor.
+
+**CATCH #39 (both lenses — the budget framing):** my "34% margin" was measured on the WRONG
+quantity. The r-tail is nearly irrelevant (r ∈ [0.52, 0.58] moves the sum < 0.001); the sum
+budget is a 2.0% RAZOR dominated by HEAD-mass precision: closure requires cflatI certified
+within ~+1% of true (≤ 0.360; the landed 1/2 gives total 0.727 — fail by 0.15), massE 2 within
+~+1% (≤ 0.297; landed 0.352 fails), per-level head tails at ~0% slack, AND (fidelity) TIGHT
+massO bounds enter the head path via the exact identities (the crude massO bound is unusable:
+0.197 > massE 6 itself). Even 5th-order Taylor majorants compose to 0.5798 > 0.57333. Needed:
+≥ 7th-order rational log-majorants, both directions.
+**CONFIRMED by the gate:** the wing (two-level factor ≈ 0.32, conservative), the Φ-machinery
+interfaces, the existence of the dominating profile, and the floor: exact constants give
+0.56172 ≤ 0.57333 with 0.0116 absolute slack — closure is POSSIBLE, just precise.
+
+**REVISED NUMERIC-KEYSTONE ARCHITECTURE (Fable):**
+- **TK1 (dispatch now, needed by EVERY route):** the high-order log-majorant toolkit — rational
+  upper AND lower bounds for log via ≥ 7th-order Taylor/Padé panels, then near-exact certified
+  constants: cflatI ∈ [tight, ≤ 0.3560], massE 2 ≤ ~0.2950, Cphi1/Cphi2 tight both sides, and
+  the per-level head-tail integral templates.
+- **TK2:** the coupled head ledger (massE 4..18 AND massO 3..17 together — the identities couple
+  them) via TK1.
+- **TK3 (the remaining research object):** the uniform tail. Candidate routes to gate: (a)
+  finite-depth profiles to P* + the 0.32/level geometric convergence argument; (b) the
+  Σ-mass integral characterization (Σ_even massE = ∫_2^∞ E, E = the total even sum, satisfying
+  the closed coupled (E,O) renewal system — C1b′'s super-solution idea aimed at the MASS not
+  pointwise); (c) two-sided sandwich + spectral gap. Gate before freeze; tally: 39 catches.
+
+## 2026-07-13 E₁c-hh2 Opus done FULL (THE h-SIDE IS CLOSED; catch #34 fixed)
+
+`Salt/Chen/SharpH2.lean` (890 lines, 6 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. LANDED: **`layer_cake_pushforward`** (the reusable discrete→integral engine:
+finsetSum/indicator exchange + master IBP `hBJS_ibp_master` with per-branch FTC-2 antiderivatives
+glued at the kinks 2, 3); **`hpush_core`** (the exact residual the SharpH scaffold expected);
+`hh_sharp_ge2` (the S ≥ 2 cells composed); `upset_mass_window_le` (catch #34's window-relative
+mass bound at D'^{1/3}); `hh_sharp_flat` (the flat cell: fixed S := 3 forces the lower limit 2,
+the 3 cancels the 1/3; closes at (1+ε)²(97/100) + 12ε(1+ε) ≤ chSharpB); and
+**`hh_sharp_of_window`** — THE SHARP h-COMPARISON at chSharpB, all cells composed by side'/S
+cases, RHS mirroring the crude ancestor exactly. Executor found+fixed a genuine mid-proof bug
+(a false `=` in the flat boundary — replaced by `≤` via 1/S ≤ 1) — the kernel catching drift
+mid-node, as designed.
+
+**WIRING RESIDUALS (precise, for E₁c-close):** (1) **VD1** — hh_sharp_of_window threads
+`h4 : Vlow ≤ (3K/σ)W`, but StepHypWPC's premise set has NO h4 — derive it internally from
+hguard/hnu via vratio at D'^{1/3} (~100-line sibling of upset_mass_window_le); (2) the
+chSharp-vs-chSharpB 4ε accounting concerns only the TERMINAL unwindowed consumers (fidelity
+lens: nothing downstream consumes them) — no action. The h-slot of the sharp per-step is
+otherwise COMPLETE.
+
+## 2026-07-13 TK3 ROUTE (b) DESIGN (Fable) — the super-solution escape from the Perron wall
+
+The total even/odd sums E(v) = Σ_even fseq k (v), O(v) = Σ_{odd≥3} fseq j (v) satisfy a CLOSED
+monotone system (sum the window equations; uniform convergence from fseq_le): E = f₂ + T_e[O],
+O = T_o[E], hence E = f₂ + T₂[E] with T₂ = T_e∘T_o positive monotone, spectral radius = the mass
+ratio 0.5224 < 1, and E = Σ T₂^k f₂ (Neumann). A SUPER-SOLUTION Ē ≥ f₂ + T₂[Ē] pointwise
+dominates: Ē ≥ E (induction over Neumann partial sums — a clean Lean lemma, no spectral theory).
+Then **Σ_even massE = ∫_2^∞ E ≤ ∫ Ē** and the massO ledger comes from the same pair (M_O from
+Ō = T_o[Ē]-dominated). WHY THIS ESCAPES catches #38/#39's walls: (i) NO normalized per-level
+propagation — one fixed inequality checked panel-wise (T₂ of a PL+wing function is explicitly
+integrable); the Perron-eigenvalue divergence never arises; (ii) the tightness demand is
+INTEGRAL not pointwise: ∫Ē − ∫E ≈ (1−ρ)^{−1}∫r ≈ 2∫r, so the residual r = Ē − f₂ − T₂Ē ≥ 0
+may be locally loose anywhere provided ∫r ≲ 0.006 (1% of the mass) — vs C1b′'s impossible
+2%-POINTWISE demand at the operating point. HEAD PRECISION (catch #39) still applies to massE 2
+and cflatI-type constants (TK1, in flight). GATE (constructive) launched: build Ē numerically
+(~25 panels + wing), check the ∫r budget, the T₂-panel arithmetic shapes, and the massO
+extraction, BEFORE any freeze.
+
+## 2026-07-13 THE TK3b GATE — PASS_WITH_CORRECTIONS: the super-solution route VALIDATED
+
+Constructive gate on TK3 route (b). The DDE engine reproduced every repo truth to machine
+precision; the system derivation is EXACT (residuals 1e−12–1e−15; the f₂-separate bookkeeping,
+the max(s,3) flat form, massO = ∫_3^∞ O — all confirmed); the Neumann domination logic verified
+discretely (iterates rise monotonically to ∫E = 0.561718, every iterate ≤ E — hard floors:
+ANY super-solution has ∫Ē ≥ 0.5617, massO ≥ 0.086584).
+
+**THE OBJECT EXISTS: a 43-knot PL + wing Ē** (0.1-spacing head [2,4], 0.25 on [4,7], 0.5 on
+[7,12], wing beyond) with ∫Ē = 0.5658 ≤ 43/75 = 0.5733 ✓ AND — the SAME object —
+∫_3^∞ T_o[Ē] = 0.087367 ≤ 11/125 = 0.088 ✓ (slack 6.3e−4, STABLE across grid refinements).
+Structural reason one object serves both: the massO weight ln((u+1)/3) VANISHES at u = 2, so
+super-solution excess parked near the head is nearly free for massO. The wing is a non-issue
+(pointwise T₂-factor ≈ 0.02 at v = 20; massO wing contribution 0.000000).
+
+**CORRECTIONS folded into the freeze:** (i) 43 knots, not ~25 — head resolution on [2,4] binds
+(17/23-knot attempts FAIL both ledgers); (ii) the massO slack is the true binding constraint;
+(iii) the Lean lift is heavy-mechanical: T₂[PL] = (poly + Σ c_k·log(s − a_k))/s per panel (same
+class as f₂'s closed form) ⟹ r ≥ 0 needs two-sided rational log-sandwiches per panel —
+hundreds of instances, gated on TK1 (in flight). **CONSEQUENCE: catch #39's head-precision
+program (per-level massE/massO certs, tight cflatI/Cphi) is OBSOLETE** — the ledger sums come
+directly from ∫Ē's exact rational panel arithmetic; TK1's TOOLKIT part is the enabler, its
+constants part is demoted to non-load-bearing. THE NUMERIC KEYSTONE'S FINAL SHAPE: TK1 (toolkit)
+→ **SS1** (the super-solution certification: the Neumann lemma + 43 × (r ≥ 0) panel checks +
+the two ledger integrals) → MR1/MR3's reductions consume the sums → the A₁/A₂ values → C5's H.
+
+## 2026-07-13 E₁c-hf Opus done FULL + VD1 (THE f-SIDE IS CLOSED) + CATCH #40 adjudicated
+
+`Salt/Chen/SharpF.lean` (810 lines, 7 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings; one inline-documented maxHeartbeats 400000 (hf_sharp_flat). LANDED:
+**`abel_pushforward`** — a DERIVATIVE-FREE discrete Abel engine (antitone g + affine up-set
+mass control ⟹ Σ m·g ≤ d·g(a) + c·∫g; pure Abel + Riemann lower sums — needed because the
+landed layer_cake engine is hBJS-kernel-specific and fseq has no uniform derivative kernel);
+`hf_cell_ge2`; `hBJS_flat_lb` (e²·S·hBJS S ≥ 1 on [1,3] — the floor that keeps the flat ledger
+under 20); **`vlow_le_of_guard` (VD1)** — h4 derived internally from hguard/hnu (E₁c-close is
+h4-free); `hf_sharp_flat`; **`hf_sharp_of_window`** — THE SHARP f-COMPARISON at cfSharpB, all
+cells. Defect ledgers (numeric self-check in the docstring): S≥2 cells 10.08 ≤ 20 (true sup
+2.68); flat 9.97 ≤ 19.8 (true sup 6.66) — the gate's cushion confirmed.
+
+**CATCH #40 (both comparison executors, adjudicated and RATIFIED by Fable):** my frozen
+hh/hf targets omitted an ε-smallness hypothesis; the flat cells' excesses are SUPER-LINEAR in ε
+((1+ε)² against the linear cfSharpB/chSharpB) so the statements are FALSE for ε ≳ 18. Both
+executors added the identical `hεsmall : ε ≤ 1/1000` and flagged it. Ratified: the amendment is
+designer-approved; ε_sieve = 2e−8 supplies it everywhere downstream. Tally: 40 catches,
+0 proofs on wrong statements.
+
+## 2026-07-13 TK1 Opus done (FULL minus Cphi1: the log-majorant toolkit + all binding constants)
+
+`Salt/Chen/LogToolkit.lean` (NEW file, 2236 lines, NOT wired into All.lean — Fable to wire).
+Sorry-free, axiom-clean (`[propext, Classical.choice, Quot.sound]` on all 17 public decls; verified
+individually), zero warnings, no `native_decide`/new axioms, default heartbeats, 13s module build.
+Numeric plan built first (exact-rational `Fraction` panels cross-checked vs mpmath dps=50), recorded
+in the module docstring.
+
+**LANDED — the reusable toolkit (Part 1):**
+- **Rational log-point sandwiches** `log_le_of_taylor` / `le_log_of_taylor`: `log q ≤ r` ⇐
+  `q ≤ Σ_{i<n} rⁱ/i!` (`Real.sum_le_exp_of_nonneg`); `r ≤ log q` ⇐ `Σ + rⁿ(n+1)/(n!·n) ≤ q`
+  (`Real.exp_bound'`, needs `0 ≤ r ≤ 1`). Pure rational `norm_num`; `n = 10` gives ≲1e-8 on `[1,2]`.
+  Points with `log > 1` (e.g. `log 3`) split as `log 2 + log(3/2)`. Concrete: `log_two_le`/`le_log_two`,
+  `log_threehalf_le`/`le_log_threehalf`, `log_three_le`/`le_log_three`.
+- **Panel log envelopes** `log_half_le_tangent` (tangent above, via `log_le_sub_one`) and
+  `log_half_ge_chord` (chord below, via `strictConcaveOn_log_Ioi`). Reusable for `log((w+1)/2)` too
+  (pass `s := w+1`, and for `log(v−1)` pass `s := 2v−2`).
+- **Rational panel quadrature** `integral_quad` (`∫(A+Bs+Cs²)` exact), `panel_le`/`panel_ge`
+  (bound `∫ f` by an exact rational given a linear×linear pointwise envelope). `integral_line`
+  (`∫(A+Bw)`) for the Φ layer.
+
+**LANDED — the certified constants (Parts 2–3). N = 16 uniform panels on [2,4]; two independent
+methods agree to ≥6 digits. Table (certified vs true vs target):**
+```
+constant   true        target(up)  certified(up)  target(lo)  certified(lo)   status
+cflatI     0.3554084   ≤0.3560     0.3557504      ≥0.3540     0.3550863       BOTH landed
+massE 2     0.2936364   ≤0.2950     0.2944997      ≥0.2900     0.2929957       BOTH landed
+Cphi2      0.1412700   ≤0.1450     0.1419371      —           —               landed
+Cphi1      0.0440300   ≤0.0460     0.0449650*     —           —               STOP/FLAG (below)
+```
+`cflatI_tight`/`cflatI_lower`, `massE_two_tight`/`massE_two_lower` (BONUS floor-C lower bounds both
+landed), `Cphi2_tight`. Route: per panel, `log(s/2)` between midpoint-tangent (upper) and chord
+(lower) with rational log knots; the rational weight (`1/(s−1)` for cflatI, `(4−s)/(s−1)` for
+massE 2) between its secant (upper) and midpoint-tangent (lower); linear×linear ⇒ exact rational
+quadratic integral, summed via `integral_add_adjacent_intervals`. massE 2 uses `massE_two_integral`
+(`massE 2 = ∫_2^4 (4−s)/(s−1)·log(s/2)`, from `massE_recursion` + `fseq_one_window`). Φ layer:
+`Phi_le_quad` (`Φ(v) ≤ a(v−2)+b((v+1)²−9)/2`, `a=2487/10000, b=−3/625`, from `h(w)=log((w+1)/2)/w ≤
+a+bw` on `[3,5]` via 16 sub-interval tangents + concavity endpoint checks); then `Cphi2` is an
+elementary outer integral (`∫ 1/v` via `integral_one_div`).
+
+**STOP-AND-FLAG (Iron Rule 4): `Cphi1_tight` not landed** (least-critical target; MR2b: "not
+load-bearing given the flag"; task allowed +4% slack). `Cphi1 = ∫_2^4 Φ(v)·(log3−log(v−1))/v dv`.
+With `Φ ≤ P` (Phi_le_quad), the residual is bounding the weight `log(3/(v−1))`. Numeric findings:
+crude `log(3/(v−1)) ≤ (4−v)/(v−1)` ⇒ 0.0579 (FAIL); `(x²−1)/2x` ⇒ 0.04652 (FAIL, x=3/(v−1));
+2-panel secant ⇒ 0.04727 (FAIL); **4-panel secant ⇒ 0.044965 ≤ 0.046 (works, 0.001 margin)**. The
+4-panel secant needs: `log(v−1)` chord lower bounds (via `log_half_ge_chord` with `s=2v−2`), a
+`le_log (5/2)` knot bound (new), and 4 cubic/v outer integrals (each with a `d0·log(vq/vp)` term
+needing `log(5/4),log(6/5),log(7/6),log(8/7)` bounds). All machinery exists; ~200 lines + ~5 new
+log lemmas remain — a clean follow-up, not a wall. The `*` in the table marks this reachable-but-
+unbuilt value.
+
+**Downstream:** TK2's coupled head ledger (massE 4..18, massO 3..17) consumes `panel_le`/`panel_ge`,
+`log_*_of_taylor`, and the envelope lemmas directly; `cflatI_tight`/`massE_two_tight` are the gate's
+stated binding requirements (cflatI ≤ 0.360 with room to spare, massE 2 ≤ 0.297). The toolkit is the
+shared substrate for every remaining MR2c route.
+
+## 2026-07-13 E₁c-close Opus done — ★ THE ANALYTIC KEYSTONE IS COMPLETE ★
+
+`Salt/Chen/SharpClose.lean` (4 keystone decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. LANDED: `stepHyp_sharpB_pointwise` (the stepHyp_pointwise sibling at the sharp
+coefficients — stepHyp_lhs_eq → split → ledger_collect, with hf_sharp_of_window + a cased hh
+part: VD1 supplies h4 in the flat branch, the h4-free hh_sharp_ge2 elsewhere — the h4-uniform
+monolith was correctly bypassed at leaf level, no statement change); **`stepHypWPC_sharpB`** —
+THE SLOT DISCHARGED (hypotheses: 0 ≤ ε ≤ 1/1000 only); `bjs_theorem6_sharpB_final_{upper,lower}`
+— the windowed sharp BJS Theorem 6 with NO per-step, NO τ-numeric, NO h249 hypotheses (derived);
+remaining hypotheses are purely structural (hguard/hnu/h4/hStop/hKe — the H-glue's Hyp4/
+operating-point discharge set). The kernel CONFIRMED the H-glue slots compose:
+`twin_A1_lower_B (hstepWPC := stepHypWPC_sharpB …)` and `twin_A2_per_prime_B (…)` elaborate.
+
+The E₁-dev arc (E₁a → E₁a-flat → E₁b → E₁d → E₁d′ → hh/hh2 → hf → close), begun as "close the
+last numeric debt," is ANALYTICALLY COMPLETE: the sharp per-step at (cfSharpB, chSharpB,
+tauSharpB) is a THEOREM, unconditional on everything except the structural sieve inputs.
+Remaining to the headline: SS1 (in flight — both mass ledgers) + the H-glue.
+
+## 2026-07-13 THE hledger GATE — BLOCK: ★ CATCH #41 ★ (the deepest catch of the project)
+
+The final-margin gate (end-to-end re-derivation of hledger at all achieved constants, launched
+BEFORE the H-glue dispatch) found the C5 assembly's A₃ glue WRONG BY A FACTOR OF log x — the
+hledger slot as shaped is FALSE at every operating point (razor/U = 0.1338 − 0.1491·log x → −∞).
+
+**ROOT CAUSE (Fable-confirmed against the Lean definitions):** `tripleSet` (TripleCount.lean:176)
+does NOT require n = prod−2 prime, so `tripleSum` ~ 0.298·x/(2 log z) sits at x/log x SCALE;
+`triplePrimeSum_le` (Assembly.lean:262) converts the Λ-weighted A₃ carrier via Λ(n) ≤ log x,
+DROPPING Λ's prime support (a 1/log x density) — the bound log x·tripleSum is x-SCALE against
+x/log x-scale main terms. My C5 design note said it out loud: "the switched-sequence sieve is
+never applied, because the C3d count (0.298) is already below the ledger line (0.363)" — the
+0.298 < 0.363 comparison is true AT COUNT LEVEL but the assembly needed the Λ-carrier, and
+bridging count → Λ-carrier without the PRIMALITY SIEVE ON THE SWITCHED SEQUENCE is precisely
+the step Chen's proof is famous for. The bypass was a normalization illusion (the gate's second
+finding: the raw count also lacks A₁/A₂'s Π₂ suppression — dissolves once A₃ comes from a sieve,
+which carries W). NO WRONG THEOREM EXISTS: chen_of_hypotheses is a true conditional; its H was
+undischargeable as shaped. Caught by the LAST gate before the final assembly — the method's
+whole design (gate before glue) exercised at maximum stakes. Every other value chain confirmed
+sound end-to-end by the same lens (fchain/Fchain/M/strip all re-derived exactly).
+
+**THE REPAIR (staged; most machinery ALREADY LANDED because keystone-2 was proven anyway):**
+1. **H-AMENDMENT (Fable, designer-tier, Assembly.lean):** the hA3 slot becomes the honest
+   Λ-carrier `triplePrimeSum x P y ≤ mainA3`; remove chen_positivity's internal
+   triplePrimeSum_le conversion. chen_of_hypotheses stays true; H becomes dischargeable.
+2. **SW-A₃ (the switched-sequence sieve, 2–4 executor nodes):** upper linear sieve applied to
+   {p₁p₂p₃ − 2} — the switched BoundingSieve instance (density/hguard/hnu at the w₀-window),
+   the upper keystone application (LANDED: the cB upper machinery), the BV remainder for the
+   switched sequence (LANDED: keystone-2's PerEEngine/ErrFold/EnergyClose/general_BV_final were
+   built for exactly this), and the c̄ ledger row (LANDED: C4a's cbar_pos +
+   two_log_three_sub_log_six_sub_cbar_pos — the budget line that was always meant to pay here;
+   the honest A₃ ~ c̄-comparable·Π₂x/(4 log z) restores the SHARED normalization).
+3. **Re-gate the margin end-to-end** at the repaired A₃ before the H-glue dispatches.
+Tally: **41 catches, 0 proofs on wrong statements** — and #41 is the existence proof for the
+gate-before-glue doctrine.
+
+## 2026-07-13 SS1 Opus done (floor A + BOTH ledger reductions composed)
+
+`Salt/Chen/SuperSolution.lean` (513 lines, 24 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. LANDED: the partial sums Xe/Xo with support/integrability; **the summed window
+identities** (`even_step`/`odd_step`/`Xe_recursion` — BJS (16)/(17) summed termwise, tops
+extended freely to K+2 by the support edges); **`superSol_dominates`** — the coupled domination
+induction (a super-solution pair (Ē, Ō) dominates every truncation; the ∀b finite-integral
+hypothesis form keeps everything in elementary intervalIntegral land); the ledger integral
+identities; and **`massSum_le_A2_of_superSolution` / `massOSum_le_A1_of_superSolution`** —
+compile-checked to feed MassLedger/MassLedgerA1 VERBATIM. The whole numeric closure is now:
+exhibit ONE concrete (Ē, Ō) discharging six hypothesis groups.
+
+**REMAINING = SS2:** the concrete profile. The gate's 43 knot values were not persisted (its
+scratch is gone) — SS2 re-derives its own LP profile (any kernel-passing profile is valid; the
+LP is search, the kernel is the referee), RECORDS the rational knot table in the docstring,
+proves ∫Ē ≤ 43/75 and ∫Ō ≤ 11/125 (the binding one: gate slack 6.3e−4) by exact panel
+quadrature + the wing integral, and discharges hSE/hSO via the 43 panel checks with TK1's
+log-sandwiches (the heavy-mechanical half; generate uniform lemmas from Python as TK1 did).
+
+## 2026-07-13 SS2 Opus — PROFILE SOLVED + EXACT-RATIONAL CERTIFIED (Python); Lean = structural
+## layer landed, the 420-panel transcription FLAGGED (below floor A in Lean, not a math risk)
+
+`Salt/Chen/SuperProfile.lean` (NEW, sorry-free, axiom-clean `[propext, Classical.choice,
+Quot.sound]` on all 6 decls, zero warnings, 2.6s build; NOT wired into All.lean — Fable to wire).
+
+**★ THE OBJECT EXISTS — a valid super-solution meeting BOTH frozen budgets, exact-rational
+certified (Python `fractions`, no floats in the certificate):**
+- Shared grid `h = 1/20`. `Ebar` PL on `{2, 2+1/20, …, 12}` (200 panels); `Obar` PL on
+  `{1, …, 12}` (220 panels; flat `[1,3)` carries the `T_o` image, does NOT enter `∫_3^∞`). Beyond
+  `W = 12`: power tail `Ebar = Obar = K/v³`, `K = 1/10000`.
+- **∫Ebar = 126695471/225000000 ≈ 0.5630910 ≤ 43/75** (even slack 1.02·10⁻²).
+- **∫_3^∞ Obar = 312655139/3600000000 ≈ 0.0868486 ≤ 11/125** (odd slack 1.15·10⁻³ — the binding
+  budget; matches the gate's ~6.3·10⁻⁴ order, safe at h=1/20; h=1/10 gives only 3.7·10⁻⁴ → too
+  thin for certification, hence 200/220 panels not ~43).
+- **hSE: all 200 panels verified ≥ 0** (per panel `Ebar(v)·v − f₂maj_num(v) − GO(v−1) ≥ 0`, a
+  rational quadratic, `nlinarith` shape à la TK1 `masseU_*`; `GO x := ∫_x^∞ Obar` exact rational,
+  `f₂maj` = chord upper bound of `sup fseq 2` via log knots). **hSO: all 220 verified ≥ 0.**
+- **Tail + seam verified:** self-domination `2(v−1)² ≥ v²` for `v ≥ 13`; seam `[12,13)` closes
+  because `K ≥ 169·(∫_{11}^{12}Obar + K/288)` (10⁻⁴ ≥ 7.56·10⁻⁵).
+
+**The profile is DETERMINISTIC/REPRODUCIBLE** (recipe in the module docstring): iterate
+`cE[a] := ⌈f₂maj(a,a+h) + GO(a−1)/a⌉`, `cO[d] := ⌈GE(max(d−1,2))/d⌉` (⌈·⌉ to denom 10⁷) to the
+fixed point (25 iters). No stored 420-value table needed — re-run the recipe to regenerate the
+identical certified table. (KEY STRUCTURAL FINDINGS: step wastes ~0.03 even / ~0.01 odd → PL is
+FORCED by the odd budget; PL needs shift-aligned grids so `GO(v−1)`/`GE(w−1)` is one quadratic per
+panel → a single SHARED uniform grid; the `∀b` tops are removed because integrands ≥ 0, so
+`∫_v^b ≤ ∫_{v−1}^∞`; a power tail `K/v³` (not exp/geometric) gives a rational improper integral
+`K/(2W²)` and self-dominates via `(v−2)²≥2`.)
+
+**LANDED in Lean (the reusable STRUCTURAL layer the transcription factors through):**
+`hSE_reduce`/`hSO_reduce` (turn SS1's `∀b` `hSE`/`hSO` into panel-local checks vs a fixed
+total-tail bound `TO`/`TE`), `fseq2_upper_of_log_lower` (the tight chord `fseq 2` majorant, reuses
+`LogToolkit.log_half_ge_chord`/`log_three_le`), `tail_integral_le` (`∫_W^b K/x³ ≤ K/(2W²)`, exact
+FTC), and `budE_le`/`budO_le` (the achieved budgets clear 43/75, 11/125 — machine-checked).
+
+**FLAGGED = the transcription (below floor A IN LEAN; NOT math risk — the certificate proves it
+goes through):** define the 200+220-panel PL `Ebar`/`Obar` + power tail in Lean; prove PL
+nonneg/integrability; the two `∫`-budgets by PL trapezoid rational sums + `tail_integral_le`
+(= floor A); the 420 per-panel domination lemmas (generate from the recipe, `nlinarith` each) via
+`hSE_reduce`/`hSO_reduce`+`fseq2_upper_of_log_lower` (= hSE/hSO); compose through SS1's
+`massSum_le_A2_of_superSolution`/`massOSum_le_A1_of_superSolution` for the two final theorems.
+Scope = multi-thousand-line code-generation grind (build time > 15 min single-lemma limits + the
+robust PL-definition/integral library) — exceeds one session; the design ALWAYS called this
+"heavy-mechanical, hundreds of instances." Iron-rule-4 stop: math done + de-risked, Lean
+transcription queued. (No `native_decide`/`decide` shortcut: 420 rationals with 10⁷ denoms.)
+
+## 2026-07-13 SW-A₃ RECON (Opus scout) + CATCH #42 — hPerE is BACK ON THE CRITICAL PATH
+
+The recon inventoried the switch route end-to-end. **CATCH #42 (scout-surfaced, against MY catch-
+#41 repair plan):** the plan claimed the switched BV remainder machinery was "LANDED (keystone-2's
+PerEEngine/…/general_BV_final built for exactly this)" — FALSE AS STATED: `general_BV_final`
+carries `hPerE` (the per-e energy glue — the α-side imprimitive dilated twist A^{(e)}(χ⋆) against
+the imprimitive B_d(χ)) as an UNDISCHARGED HYPOTHESIS, explicitly flagged D-class research core
+at its landing. The C5-era claim "keystone 2 off the critical path" was refuted by catch #41;
+consequently **the unconditional Chen headline is blocked on hPerE** — the one genuine research
+core remaining in the entire twinbar program. Tally: 42 catches, 0 proofs on wrong statements.
+
+**Recon findings folded into the plan:** (i) the α-multiplicity worry DISSOLVES (α = 0/1
+semiprime-pattern indicator; unique factorization; multiplicity is upper-bound overcount; no τ₃
+needed); (ii) the catch-#41 log-x trap does NOT recur on the sieved route (siftedSum carries W ~
+1/log); (iii) use the SHARP cB keystone (τ-debts discharged internally); (iv) hguard via the
+w₀-window exactly as TwinA1 (Q into the level); (v) SW4's numeric collapse needs Fchain(3/2) —
+thread symbolically if C1cσ hasn't certified it (the A₁/A₂ pattern).
+
+**REVISED PLAN:** SW12 (dispatched: the switched instance + the conditional Λ-carrier bound with
+`hBVswitch` NAMED — the honest A₁/A₂ pattern) → SW4 (the numeric row, after SW12 + SS2) →
+**hPerE (THE ENDGAME NODE: Fable design block + likely its own arc — the last mathematics
+between here and the unconditional Chen)**. SW3 (rem → apDiscBilin reduction, C+) can run
+parallel to the hPerE design.
+
+## 2026-07-13 THE hPerE RECON — ★ CATCH #43: hPerE AS LANDED IS FALSE ★ (and the collapse that saves it)
+
+Three-lens recon (interface + adversarial done; mathematics lens re-running after an API failure).
+
+**CATCH #43 (adversarial lens, numerically decisive).** `hPerE`'s pointwise envelope
+`EfoldTerm e ≤ Kerr·(XM/(log XM)^A)·(1/e²)` is UNPROVABLE: EfoldTerm is a cancellation-free sum
+of norm-products, and exact small-scale computation (faithful characters/conductors, the real
+coefficients) shows `EfoldTerm(e)·e²` grows ~9× across e = 2..19 while `EfoldTerm(e)·e` is flat —
+the honest decay is ~1/e (= 1/(e·φe)-fold shapes), exactly as ErrFold's own module comments
+hinted. NO fixed Kerr works; the keystone-2 composition rests on an undischargeable hypothesis.
+This was frozen by ME at the keystone-2 design; the composition's G-slot and
+`sum_inv_sq_Icc_le_one` envelope must be RESHAPED to 1/e (Σ ~ log D — absorbed by raising the
+free A by one; the adversarial lens verified Kerr/A live inside a log: a THRESHOLD phenomenon,
+not a ledger margin — the reshape is SAFE, no interaction with the E₁/S-row fixed-margin ledger).
+
+**THE STRUCTURAL COLLAPSES (both lenses agree, Lean-provable):**
+- **β-side ≡ 0**: `blockPrimeInd N (e·n')` = 0 for all e ∈ [2, D] once D < N (e·n' composite for
+  n' ≥ 2; the n' = 1 case needs e > N ≥ D). D = x^{1/2−ε′} < N ~ x^{1/2} at the operating point.
+  The flag's obstruction (ii) — the uncontrolled β-side — DOES NOT EXIST for this theorem.
+- **α-side collapses to PRIME×PRIME**: for e prime, `α(e·m')` (semiprime pattern) forces m'
+  prime — A^{(e)} is a prime twist at scale X/e; e semiprime → the single m' = 1 term; Ω(e) ≥ 3
+  → zero. The "imprimitive research core" reduces to prime-indicator energies at dilated scales,
+  where `hβSW_of_prime_indicator` + the landed two-regime engine apply (the d-dependent
+  coprimeRestrict subtlety per the interface lens: fold B_d primitive via
+  bilinTwist_coprimeRestrict_primitive + regroup_bilin (both parametric, re-instantiate), then
+  the per-f treatment needs the dilated-scale re-instantiation — the mathematics lens is
+  designing this route).
+**Side-condition findings:** add `D < N` (or ≤) to general_BV_final (holds at the operating
+point; it is what kills the β-side); SW3 must feed ODD moduli (R₀ = 2 forces Coprime 2 d);
+the scale-compat constant inflates Kβ by 2^{A+2C0} (benign). Tally: **43 catches, 0 proofs on
+wrong statements** — three of the last four caught MY freezes; the kernel-and-gates culture is
+what keeps the program honest at the exact moments the designer is most confident.
+
+**THE REVISED ENDGAME (PE nodes):** PE1 (Fable statement amendments: the 1/e envelope reshape
+through hErrSum_final/hLargeDisc_of_perE/general_BV_final + the harmonic-sum lemma + D < N) →
+PE2 (β-side ≡ 0, class B) → PE3 (the α-side per-e bound at the reshaped envelope via the
+prime×prime collapse + dilated re-instantiation of the two-regime engine, class C+) → SW3
+(rem → apDiscBilin at odd moduli) → SW4 → H-glue.
+
+## 2026-07-13 SS3a Opus done FULL (both profile budgets are Lean theorems)
+
+`Salt/Chen/SuperProfileDef.lean` (570 lines; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. The 200/220-knot PL profiles + K/v³ tail as concrete defs (ℕ-numerator knots over
+getD lists, /10⁷); the frozen panel interface on Set.Ico (SEAM DECISION: tail wins at v = 12 —
+panels tile [2,12)/[1,12), no overlap; SS3b/c must heed); **`Ebar_integral_le : ∀ b ≥ 2,
+∫_2^b Ē ≤ 43/75`** and **`Obar_integral_le : ∀ b ≥ 3, ∫_3^b Ō ≤ 11/125`** — the two ledger
+budgets, matching SS1's hypothesis shapes exactly. One maxRecDepth 4000 (the by-decide knot
+bound), no heartbeat bumps; the 200-term ℕ-sums evaluate in one simp (~3s).
+
+## 2026-07-13 PE1+PE2 Opus done FULL (the reshaped keystone-2 composition; β-side DEAD)
+
+`Salt/Chen/PerEEngine2.lean` (wired by Fable). Sorry-free, axiom-clean, zero warnings, default
+heartbeats. PE2: `EfoldTermAlpha`/`EfoldTermBeta` split; `blockPrimeInd_dilated_eq_zero`;
+**`EfoldTermBeta_eq_zero`** (2 ≤ e ≤ N) — catch #43's collapse is now a THEOREM. PE1:
+`sum_inv_Icc_le_log` (harmonic); **`general_BV_final'`** — the honest composition: per-e slot at
+`Kerr·(XM/(log XM)^{A+1})·(1/e)`, new hypothesis `D < N`, and the CONSUMER SHAPE BYTE-IDENTICAL
+to the landed general_BV_final (the log D from the harmonic sum collapses against the A+1 via
+log D ≤ log XM — the raised-input-exponent form; SW3's consumption unchanged). BONUS
+**`hPerE_reduces_to_alpha`**: under 2 ≤ e ≤ D < N the per-e obligation IS the α-side alone.
+The old general_BV_final stays as the documented superseded form. **The keystone-2 endgame is
+now exactly one lemma: EfoldTermAlpha ≤ Kerr·(XM/(log XM)^{A+1})·(1/e) — PE3, gate running.**
+
+## 2026-07-13 THE PE3 GATE — BLOCK: CATCH #44 (the discharge plan, not the statement) + PE3 v2
+
+**CATCH #44 (constructive lens):** PE3's large-conductor sub-step claimed `four_term_scale_le`
+re-instantiates at (⌊X/e⌋, M) — FALSE: its hDscale hypothesis `D ≤ √((X/e)M)/(log)^B` becomes
+`e ≤ x^{2ε′} = x^{0.0002}` at the frozen ε′ — unavailable for essentially every e. The middle
+band e ∈ (x^{0.0002}, x^{0.25}) had NO landed tool. The needed saving is the POWER x^{−ε′} (the
+BV level deficit) — invisible to four_term's log-power mechanism. The ENVELOPE IS PLAUSIBLY TRUE
+via the corrected route (gate-computed): the e-fold's conductor-regrouped density supplies an
+extra 1/φ(e) (Salt.LS.sum_inv_totient_dvd_le′, landed), giving main-LC ~ x^{1−ε′}/e^{3/2} vs the
+target x/((log)^{A+1}e) — ratio x^{−ε′}(log)^{A+1}/√e → 0 at a THRESHOLD x₀(ε′, A) (huge,
+constant, fine for Infinite). Numeric probe consistent (dilated ratios grow at accessible scales
+exactly because x^{−ε′} ≈ 1 there — the saving is asymptotic, as designed).
+**GATE'S SIMPLIFICATIONS (both verified):** (i) SW belongs to the UNDILATED β factor — the landed
+`smallConductor_energy_le` + `hβSW_of_prime_indicator` work for ALL e verbatim (no hDscale in the
+small regime; my dilated-SW Route B was unnecessary AND wrong for semiprime e); (ii) under D < N
+the imprimitive correction is IDENTICALLY ZERO (any p | d has p ≤ D < N; coprimeRestrict = id on
+blockPrimeInd) — the α-side is primitive×primitive ALREADY; the ω(d) piece VANISHES (and its
+honest decay was e^{−3/2} anyway, better than my e^{−1/2}). Tally: 44 catches, 0 wrong proofs.
+
+**PE3 v2 (frozen for dispatch):** ONE new analytic lemma + assembly:
+- PE3a: the hDscale-FREE four-term/large-sieve mean value at scale (⌊X/e⌋, M) — the landed
+  four_term_scale_le's proof with the level absorption stripped, conclusion carrying the diagonal
+  `D·√((X/e)M)`-term explicitly (raw form). Class C.
+- PE3b: the assembly — small-conductor via the landed engine (all e); large-conductor via PE3a +
+  the (e,f)-regrouped density (1+log D)/φ(lcm(e,f)) + the x^{−ε′} threshold (a new explicit
+  hypothesis `hx₀ : (log(XM))^{A+1} ≤ (XM)^{ε₀}`-shape threaded to the H-glue) →
+  `EfoldTermAlpha ≤ Kerr·(XM/(log XM)^{A+1})·(1/e)` → via hPerE_reduces_to_alpha + PE1, the
+  general_BV_final' per-e slot DISCHARGED. Class C+.
+
+## 2026-07-13 SW12 Opus done FULL (the switched sieve; the hA3 slot has its conditional shape)
+
+`Salt/Chen/SwitchSieve.lean` (15 decls; wired by Fable). Sorry-free, axiom-clean, zero warnings,
+FIRST BUILD, default heartbeats. Survived an API-timeout mid-recon (resumed from transcript —
+the recovery pattern's 4th successful use). LANDED: `switchSieve` (support = twinWindow
+UN-shifted — the congruence is q ∣ n, disambiguated from my briefing's shifted-products shape
+and documented; weights aCount, totalMass tripleSum, nu nuChen, prodPrimes = the [w₀, y) window);
+the unfolding lemmas + guards (delegating to the modulus-generic twinA1 lemmas);
+**`switch_upper_B`** (the cB keystone applied at zTop = y, slot filled by stepHypWPC_sharpB);
+**`triplePrimeSum_le_sifted`** (the Λ-carrier bridge: n prime ≥ x/2 ≥ y survives the y-window
+sieve; aCount ≥ 1; Λ ≤ log x); **`mainA3_of_hBVswitch`** — the EXACT hA3-slot shape under the
+NAMED hBVswitch. The catch-#41 repair's conditional core is COMPLETE; remaining on the switch
+line: SW3 (rem → apDiscBilin at odd moduli, consumes general_BV_final′ + PE3's discharge) and
+SW4 (the numeric row, needs SS3c's Fchain values).
+
+## 2026-07-13 SS3b Opus done FULL (all 220 hSO panels; the A₁ ledger's hSO slot is a theorem)
+
+`Salt/Chen/SuperPanelsO.lean` (3423 lines, 236 decls; wired by Fable). Sorry-free, axiom-clean
+(hSO_holds audited), zero semantic warnings (style linters disabled file-wide per the
+LogToolkit machine-generated precedent, documented). ALL 220 panels + seam + tail proven:
+`TEfun` (the ∀b removal via integral_comp_sub_right + the tail split), the cumulative head by
+ONE by-decide recurrence over the 201-entry list, per-panel exact rational quadratics
+(the step-function shortcut FAILS 100/220 panels — worst −0.048 — the exact quadratics are
+mandatory, as designed), nlinarith with product hints. Worst margins: 2.78e−10 (panels 87/88)
+— positive, kernel-checked. `hSO_holds` type-checks into massOSum_le_A1_of_superSolution's
+slot verbatim. Targeted build 66s (~0.3s/panel). Remaining for the numeric close: SS3c's hSE
++ the composition (in flight).
+
+## 2026-07-13 PE3 Opus done (floors A+B FULL + the assembly) + CATCH #45 → PE3c
+
+`Salt/Chen/AlphaSide.lean` (589 lines, 11 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. LANDED: the Step-0 identities (the α-side IS primitive×primitive under D < N — no ω(d)
+piece, as the PE3 gate found); `efold_alpha_reduce_dense` (the honest (e,f)-density reduction);
+**`efold_small_le` + `efold_small_discharge`** — the small-conductor half DISCHARGED FOR ALL e at
+the dilated scale (Ksmall = 2^{A+5}·Kβ); **`efold_large_fourterm`** (PE3a: the hDscale-free raw
+four-term, diagonal explicit); `efold_alpha_le` (the two-regime assembly);
+`general_BV_alpha_discharged` (the per-e slot filled modulo the named `hlarge`).
+
+**CATCH #45 (executor-surfaced, exact):** my PE3-v2 Step 4 assumed the regrouped density
+`4/φ(lcm(e,f))` delivers BOTH 1/φe (the e-decay) and 1/φf (the linear-D dyadic weight)
+term-by-term — FALSE: φ(lcm) = φe·φf/φ(gcd) and φ(gcd) is unbounded when e ∣ f; either factor
+alone loses (e^{−1/2} diverges on the catch-#44 middle band; or the D² diagonal returns). The
+honest residual, landed as the named `hlarge`, needs ONE missing estimate — **the δ-restricted
+large-sieve mean value**: `Σ_{f ≤ Q, δ ∣ f} (f/φf)·bilinPrimEnergy(f) ≤ [shell with Q²/δ
+diagonal]` — classically true (conductors ≡ 0 mod δ are Q/δ-many; Farey spacing δ/Q²-refined),
+NOT in the corpus. = **PE3c**, the LAST analytic node (recon dispatched: does the Salt/LS core
+admit the δ-restriction?). Tally: 45 catches, 0 proofs on wrong statements.
+
+## 2026-07-13 SW3 Opus done (floor A FULL + composition scaffold; odd-moduli DISSOLVES)
+
+`Salt/Chen/SwitchBV.lean` (18 decls; wired by Fable). Sorry-free, axiom-clean, zero warnings.
+LANDED: `switch_dvd_coprime_two` (the recon's odd-moduli warning DISSOLVES — Ps has no factor 2,
+exactly as twinA1's even-d glue dissolved); the per-d AP bridge (`switchSieve_multSum_eq_apCount`);
+`semiprimeBlockInd` + `norm_semiprimeBlockInd_le_one` (the exact ‖α‖ ≤ 1 shape); the honest
+remainder split (`switchSieve_rem_split`/`_abs_rem_le`, the bilinear twinA1_rem_eq analogue);
+the summed reduction + **`hBVswitch_of_generalBV`** — the exact hBVswitch SW12 named, from three
+obligations: **hHD** (the dyadic decomposition of switchHonestDisc into O(log²x) apDiscBilin
+boxes — the window coupling makes the per-d identity false on the nose, as anticipated; = node
+SW3b), **hCE** (the conversion-error crude sum → SW4), **hNum** (the numeric row → SW4).
+The switch line's map: PE3c (δ-restricted LS, recon in flight) → SW3b → SW4.
+
+## 2026-07-13 PE3c RECON (Opus scout) — the route is architectural, the risk is pinned
+
+The Q² diagonal is born at ONE point: `farey_spacing_core` (the whole chain
+analytic_LS → arithmetic_LS → char_LS → bilinear_LS_shell → energy_shell → the dyadic engine is
+PARAMETRIC in the point-set separation). δ ∣ q, δ ∣ q′ ⟹ δ ∣ (aq′ − a′q − nqq′) ⟹ separation
+δ/Q² — a ~20-line spacing refinement; everything else is δ-copies. The f = δg reindex
+alternative FIRMLY FAILS (primitive characters mod δg don't push to conductor g — the
+improvement lives only at the Farey root). The consumer needs δ = g for EVERY divisor g of e
+(via gcd = Σ_{g ∣ e, g ∣ f} φ(g)); no single-δ shortcut exists.
+**THE RISK (recon finding, Fable-adjudicated):** under the Σ_{g∣e} φ(g) fibering the dyadic
+TAIL term is g-independent and picks up Σφ(g) = e — vs the target's 1/e. RESOLUTION (Fable):
+the tail scales as XM/(log)^{C0-shape} with C0 a FREE parameter of general_BV_final′ and the SW
+gate uniform in every log power — raise C0 ≳ 2(A+1); a threshold, not a margin. The PE3c-4
+gate MUST verify this numerically (four-term exponent bookkeeping) before the assembly
+dispatches; if the per-block structure defeats C0-raising, the fallback is the recon's direct
+gcd-WEIGHTED mean value (carry φ(gcd) through the Farey root).
+**STAGING:** PE3c-1 (B+, DISPATCHED: farey_spacing_dvd + arithmetic_LS_dvd + char_LS_dvd) →
+PE3c-2 (C: cs_over_q_chi generalization + bilinear_LS_shell_dvd + energy_shell_dvd) →
+PE3c-3 (C: the δ-dyadic engine) → PE3c-4 (C+, GATE FIRST: the hlarge assembly with the C0
+resolution). Then SW3b → SW4 → H-glue.
+
+## 2026-07-13 SS3c Opus done FULL — ★ THE NUMERIC KEYSTONE (C1cσ) IS CLOSED ★ + CATCH #46
+
+`Salt/Chen/SuperPanelsE.lean` (7918 lines) + `Salt/Chen/SuperClose.lean` (65 lines); wired by
+Fable. Sorry-free, axiom-clean, zero warnings. ALL 200 hSE panels (chord fseq₂ majorant on
+0–39, pure rational beyond) + the suffix-cumulative ObarTailBound (one downward decide-recurrence)
++ the seam; **`hSE_holds`**; and — SS3b having landed mid-session — the UNCONDITIONAL close:
+**`massSum_le_A2_final`, `massOSum_le_A1_final`, `Fchain_A2_final` (≤ 268/100 on [4/3,3]),
+`fchain_A1_final` (≥ 9779/10000 on [3.9992, 4])** — the H-glue's A₁/A₂ value inputs, ZERO
+hypotheses. Worst margins: 5.28e−9 (even), 4.03e−8 (fseq₂ panels).
+**CATCH #46 (executor-surfaced, transcription layer):** the SS2 recipe was NOT all-clear — panel
+39 fails by −1.5e−7 at the recipe's 7-digit log knots (rounding artifact, not a real gap); fixed
+proof-side with 8-digit sandwiches, profile untouched. The C1cσ debt — open since C1b′ declared
+the value certification infeasible-by-cheap-routes — is DISCHARGED: fchain/Fchain at the
+operating points are kernel-checked theorems. Tally: 46 catches, 0 wrong proofs.
+
+## 2026-07-13 PE3c-1 Opus done FULL (the δ-Farey root: the diagonal is now parametric)
+
+`Salt/LS/DvdLS.lean` (wired into Salt/LS/All.lean by Fable). Sorry-free, axiom-clean, zero
+warnings. `farey_spacing_core_dvd` (δ ∣ k ⟹ |k| ≥ δ via explicit cofactor witnesses),
+`farey_spacing_dvd` (δ/Q²), `arithmetic_LS_dvd` (diagonal Q²/δ + 13N; three-branch on δ>Q/Q=1/
+main), `char_LS_dvd` (char_LS_perQ reused verbatim), δ=1 recovery examples. The one-line spacing
+refinement predicted by the recon is real. NEXT: PE3c-2 (the bilinear shell δ-copy).
+
+**Fable process note (2026-07-13 evening):** the SS3c+PE3c-1 commit briefly pushed with a broken
+Salt.Chen.All (cross-namespace audit names without import; caught within one minute, amended,
+force-pushed green at c4afb2b). Root cause: `lake build | tail` masks the exit code — the
+ceremony's build check now uses the explicit exit-code form. The kernel discipline held (nothing
+consumed the broken aggregate); the process hole is closed.
+
+## 2026-07-13 PE3c-2 Opus done FULL first attempt (the δ-shell reaches bilinPrimEnergy)
+
+`Salt/BV/BilinearLSDvd.lean` + `Salt/Chen/EnergyShellDvd.lean` (wired by Fable into both
+aggregates). Sorry-free, axiom-clean, zero warnings, FIRST BUILD. `cs_over_finset_chi` (the
+generalized CS core — supersedes the private cs_over_q_chi; both shells can share it in a future
+de-privating sweep); **`bilinear_LS_shell_dvd`** (the exact δ-copy, √(Q²/δ + 13·)-factors,
+consuming char_LS_dvd); `shellBoundDvd` + `shellBoundDvd_one` (δ=1 bridge — NOT defeq, carries
+Q²/1); **`energy_shell_dvd`** — the AlphaSide FLAG's target shape verbatim. Eight private
+helpers reproved byte-identical across the module boundary (private mangling ⟹ no collision).
+NEXT: PE3c-3 (the δ-dyadic engine); the PE3c-4 gate is running.
+
+## 2026-07-13 THE PE3c-4 GATE — PASS_WITH_CORRECTIONS (the assembly closes at C0 = A+5) + CATCH #47
+
+The fibered four-term bookkeeping verified end-to-end: the g-independent tail picks up Σφ(g) = e,
+cancelling the target's 1/e, leaving 104·(e/φe)·L^{A+3−C0} — closure iff **C0 > A+3 STRICTLY**.
+**CATCH #47:** my recon adjudication "raise C0 ≳ 2(A+1)" was WRONG at A = 1 (2(A+1) = A+3 exactly
+— the ratio diverges as log L). FROZEN: **C0 = A+5** (elementary e/φe ≤ C·log e) or A+4 (sharp
+loglog); **hlev must be supplied at the MATCHING exponent c = C0** (the level-deficit and D0
+exponents are COUPLED). Main/cross terms close via hlev (D·L^{C0} ≤ √(XM)); the dilated floor
+X/e ≥ x^{ε′} is uniform (no degenerate e-band); the small-conductor side is C0-uniform (SW
+supplies every log power); hscale stays satisfiable. Tally: 47 catches, 0 wrong proofs.
+**PREREQUISITE HELPERS (mathlib lacks; dispatched as PE3c-4a):** (i) `e/φe ≤ C·log e`-form
+(elementary: Σ_{p∣e} 1/(p−1) ≤ H_{ω(e)}, k-th prime ≥ k+1); (ii) `φ(lcm(e,f))·φ(gcd(e,f)) =
+φe·φf` (from Nat.totient_gcd_mul_totient_mul); (iii) `d(e) ≤ 2√e` (pair divisors with e/d);
+(iv) gcd = Σ_{g ∣ gcd} φ(g) EXISTS (Nat.sum_totient). PE3c-4 dispatches when PE3c-3 + 4a land.
+
+## 2026-07-13 PE3c-3 Opus done FULL first attempt (the δ-dyadic engine, raw four-term form)
+
+`Salt/Chen/DyadicDvd.lean` (wired by Fable). Sorry-free, axiom-clean, zero warnings.
+`dyadic_term_bound_dvd` (1/δ on main, 1/√δ on crosses, tail untouched — EXACTLY the gate's
+predicted shape), `block_energy_le_dvd`, `dyadic_large_reduction_dvd`, `geom_shell_sum_le_dvd`
+(four terms explicit), **`dyadic_energy_le_dvd`** — the RAW composed form PE3c-4 consumes
+(the catch-#44 lesson honored: no level absorption; the diagonal stays explicit). δ=1 recovery
+examples. The executor flagged the tail's δ-independence to PE3c-4 — consistent with the gate's
+C0-raising resolution, which operates on precisely that term. PE3c-4 dispatches when PE3c-4a
+(helpers) lands.
+
+## 2026-07-13 SW3b Opus done (floor A FULL + the hHD reduction) + CATCH #48
+
+`Salt/Chen/SwitchDyadic.lean` (322 lines, 7 headline decls; wired by Fable). Sorry-free,
+axiom-clean, zero warnings. LANDED: the (K+1)² box partition of the switched counts
+(`switchHonestDisc_eq_sum_box`), the window-disjoint vanishing (`boxHonestDisc_zero_of_...`),
+the surviving-box triangle bound, and **`hHD_of_generalBV_inputs`** — hHD reduced to per-box
+honest-disc sums (compile-verified to plug hBVswitch_of_generalBV's slot at bound = Q·Dlev).
+
+**CATCH #48 (executor-surfaced, TWO briefing corrections):** (i) equal-dyadic boxes span factor
+4 in the product vs the factor-2 window — NO wholly-interior box exists; my interior/boundary
+split was wrong as stated. UPSIDE: window-touching pins the product to the factor-8 band ⟹ only
+**O(log x)** boxes survive (better than my O(log²x)); the numeric plan closes at A ≥ 11 vs the
+S4 budget. (ii) tripleSet's `p₂ ≤ p₃` ordering couples the sides — NOT capturable by a product
+coefficient α(m)·β(p); needs a same-block DIAGONAL correction. The executor correctly reduced to
+the per-box interface rather than forcing a misleading apDiscBilin equality. Tally: 48 catches,
+0 wrong proofs.
+**SW3c (the residual, next):** per-box pricing — the sub-dyadic window-edge split, the p₂≤p₃
+same-block diagonal correction (crude + 1/φd savings), then general_BV_final′ per box →
+the RBox/hSum inputs of hHD_of_generalBV_inputs.
+
+## 2026-07-13 PE3c-4a Opus done FULL (the totient/divisor helpers; C = 3)
+
+`Salt/Chen/TotientHelpers.lean` (6 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings, first pass. `totient_ratio_le_log` (e/φe ≤ 3·log e, e ≥ 3 — the telescoping
+Π p/(p−1) ≤ ω+1 via induction_on_max + 2^ω ≤ e); `totient_lcm_mul_totient_gcd`
+(UNCONDITIONAL); `card_divisors_le_two_sqrt` (the √-reflection); the sum_totient forms; the
+reusable `prod_ratio_le_card_succ`. ALL PE3c-4 inputs are now landed — the assembly dispatches
+at the gate's frozen recipe (C0 = A+5, hlev coupled at c = C0, the raw four-term).
+
+## 2026-07-13 THE SW4 GATE — BLOCK: ★ CATCH #49 ★ (the carrier reconciliation + the Mertens debt)
+
+The normalization gate on SW4 (launched per the catch-#41 doctrine BEFORE dispatch) BLOCKED with
+two fatal findings and one correction:
+**CATCH #49a (the ×8):** my SW4 pre-design's "count × F-excess = 0.3366 < 0.363084" model does
+NOT survive the honest factor-trace through the LANDED mainA3_of_hBVswitch: the Λ-bridge's
+log x against the y-window Mertens product W(switchSieve) leaves an ×8 = log x/log z discrepancy
+vs the pre-design's implied carrier (the design's implied V(y) is 8× below the true Mertens
+value). The collapse identity F(3/2)e^{−γ}(3/4) = 1.00002 is VERIFIED numerically, but its
+carrier bookkeeping — where the 3/4 and the 8 reconcile against the Π₂x/(4 log z) convention —
+is nowhere written in Lean or the blueprint. The A₁-vs-A₃ comparison also needs the WINDOW
+RATIO W(y-window)/W(z-window) ~ log z/log y = 3/8 — likely exactly the reconciling factor
+(3/8 × 8 = 3... the honest chain needs writing down ONCE, carefully).
+**CATCH #49b (the Mertens debt is DUE):** the corpus has NO sharp Mertens bounds for the sieve
+products — the A₁/A₂/A₃ mains are all SYMBOLIC in W; converting to the ledger's numbers needs:
+(1) `mertens_W_switch_upper` (W over [w₀, y)); (2) the RATIO form W_y/W_z ≤ (log z/log y)(1+o(1))
+— note `WRatio.lean`'s machinery exists but is gated on the UNDISCHARGED named `hMert` from the
+P0 era (the debt was known and deferred); (3) `lambda_mass_lower` — the window PNT
+Σ_{twinWindow} Λ ≥ (1−o(1))x/2 (the SW arc's psiTot_pnt machinery is the natural source);
+(4) the nat-rounding window-membership thresholds. CONFIRMED SOUND by the same gate: hBJS(3/2) =
+e^{−2}; the switch point s = 1.4997 ∈ [4/3,3] reuses SS3c's Fchain_A2_final (no new value cert);
+the ε-slack is 0.075% noise; the count margin 17.85% stands.
+**CONSEQUENCE:** SW4 and the H-glue's hledger instantiation are BLOCKED on the Mertens/PNT
+layer (M-nodes) + the carrier-reconciliation design (a Fable block: write the full chain
+A₁/A₂/A₃ → Π₂x/(4 log z) units ONCE, numerically verified end-to-end, then freeze). This was
+always the deferred absolute-numbers layer of the C5 symbolic design; it is now the critical
+path. Tally: 49 catches, 0 proofs on wrong statements.
+
+## 2026-07-13 SW3c Opus done (pricing reduction FULL modulo the two catch-#48 residuals)
+
+`Salt/Chen/SwitchPricing.lean` (300 lines; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. LANDED: the crude per-box fallback (`abs_boxHonestDisc_le_boxCount` — covers the
+top-j boxes where m = O(1)); **`card_relevantBoxes_le`** (surviving boxes live in the band
+i+j ∈ {K−2, K−1, K} ⟹ ≤ 3(K+1) — the O(log x) count, proven); **`hHD_of_uniform_price`**
+(the closure to ONE uniform price P + the numeric threshold); `boxAlpha` + norm ≤ 1;
+**`box_price_of_apDiscBilin`** (per-box → Σ_d ‖apDiscBilin‖ + correction, R₀ = 2 coprimality
+FREE, plugs general_BV_alpha_discharged's output in one line) — modulo the two NAMED residuals
+the SW3b catch anticipated: **hIdent** (the hyperbola sub-split: fixed-p m-ranges are initial
+segments, not rectangles; dyadic m-sub-split leaves an O(1) strip per p) and **boxCorr/hCorrSum**
+(the p₂ ≤ p₃ same/adjacent-block diagonal, count ≪ x/log, absorbed with the 1/φd savings).
+= node **SW3d**, the switch line's last analytic piece. Accounting table in the module docstring
+(bulk closes at A ≥ 11; top-j crude; 3(K+1) boxes).
+
+## 2026-07-13 M-RECON (Opus scout) + FABLE ADJUDICATION — catch #49 DEEPENS: the fiber structure
+
+**The recon's verdict (trace at the landed lemmas, exact):** the ×8 does NOT reconcile via the
+window ratio alone — `A₃/A₁ = (log x·tripleSum/totalMass)·(W_y/W_z)·(F(3/2)/f(4)) =
+(8·0.29827)·(3/8)·2.4275 = 2.172`, so ½A₃/A₁ ≈ 1.086 > 1: with the CURRENT carriers the razor
+is NEGATIVE. The pre-design's 0.3366 row needs ≈ 0.153 — a ×7 gap. The collapse identity
+F(3/2)e^{−γ}(3/4) = 1 cancels only three factors; the log x bridge and W_y's absolute size were
+silently unaccounted.
+**FABLE ROOT-CAUSE ADJUDICATION (to be page-verified in the design block):** the classical
+c̄ = ∫_{1/8}^{1/3} log(2−3t)/(t(1−t))dt is a DOUBLE-INTEGRAL/PER-FIBER object — the switch sieve
+applied per p₁-fiber (level D*/(fiber), varying s), its value CORRELATED with the triple
+density; C0's own A₃ row said "PNT double-integral count". SW12's `switch_upper_B` applied ONE
+GLOBAL sieve at s = 3/2 — a legitimate bound but ~×5–7 lossy vs the c̄ structure. THE REPAIR
+(the SW-FIBER design block, FRESH CONTEXT, primary source at page level — Tao Supp. 5's switch
+/ BJS Lemma 52): re-shape the switch application per-p₁-fiber (fiber counts × per-fiber
+F(s(t))·V), the t-integral reproducing c̄; SW12's instance machinery is reusable per fiber;
+SW3b/c/d's box pricing serves the per-fiber BV identically. The M-LAYER (recon's M1–M4) is
+CONFIRMED needed and well-posed INDEPENDENT of the fiber repair: M1 = the missing LOWER window
+Mertens (window_core re-run, class B); M2 = the two-sided W-ratio over [z,y) (the w₀/Q parts
+cancel — no absolute Mertens-3rd needed; needs P ∣ Ps nesting threaded at the H-glue); M3 =
+lambda_mass_lower via psiTot_pnt two-endpoint subtraction (B/C); M4 = rounding thresholds (A/B).
+M1/M3/M4 are freezable NOW; M2's interface after the fiber shape. Precision is NOT a risk
+(1/log w₀ ~ 5e−10); the F/f value certs are LANDED (SS3c). Tally stands at 49; the fiber
+mis-shape is #49's full extent, now precisely diagnosed.
+
+## 2026-07-13 SW3d Opus done (floor A: the sub-split backbone) + ★ CATCH #50 ★
+
+`Salt/Chen/SwitchStrip.lean` (276 lines, 16 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. LANDED (all reusable regardless of the design outcome): the apDiscBilin
+ADDITIVITY backbone (`apDiscBilin_sum_alpha` — finite α-partitions split coherently;
+`_split_threshold`; `_congr`/`_add_left`/`_zero`), `restrictAlpha` + norm preservation,
+**`apDiscBilin_singleton_collapse`** (width-1 sub-blocks = single-m prime-AP discrepancies),
+and the corner-test window classification (`productInWindow_of_corners` etc.).
+
+**CATCH #50 (executor STOP-AND-FLAG, three findings):** (i) SW3c's `hIdent` slot is
+UNDER-POWERED as coded — one full-box apDiscBilin vs the windowed count leaves a Θ(x) residual
+on every generic surviving box (i+j = K−1 ⟹ the factor-2 window cuts the factor-4 box
+interior); the honest interface is a SUM over decided-in sub-boxes + strip (a slot-shape
+revision of SwitchPricing, designer-tier). (ii) My brief's singleton-α strip resolution was
+WRONG: 1-D m-splitting leaves 2^ℓ crossing sub-blocks (the COUNT grows; only the AREA decays)
+— the strip needs the 2-D m-and-p decomposition and its own apDiscBilin-type pricing.
+(iii) The tripleSet ↔ (m, p)-pair bijection bridge (the semiprimeBlockInd multiplicity
+conversion) is MISSING from the corpus — a prerequisite for ANY apDiscBilin identification.
+**ADJUDICATION: catches #49 + #50 are ONE design region** — the per-p₁-fiber re-shape and the
+window decomposition are both aspects of the classical switch treatment (BJS Lemma 52 / Tao's
+switch section handle the window INSIDE the fiber). ⟹ **THE SW-FIBER DESIGN BLOCK** (fresh
+context, page-level primary source) now owns: the fiber structure, the window/hyperbola
+handling, the pair bijection, the revised pricing interface, and the M2 interface — then
+re-gate the numeric row end-to-end, then the executor wave. Tally: 50 catches, 0 wrong proofs.
+
+## 2026-07-13 M134 Opus done (M1 + M3 LANDED) + ★ CATCH #51 ★ (the M4 A₁-edge fails by a hair)
+
+`Salt/Chen/MertensPNT.lean` (new file, namespace `Salt.Chen`; not yet in All.lean — report
+wiring). Sorry-free, axiom-clean ([propext, Classical.choice, Quot.sound]), zero warnings.
+LANDED:
+* **M1** `window_core_lower` + `sum_inv_prime_window_ge` — the LOWER windowed Mertens, exact
+  mirror of the landed upper `BrunLower.sum_inv_prime_window_le` over the identical
+  `primesInWindow w z` set. Re-ran the `window_core` Abel pass with every inequality flipped
+  (pointwise UPPER on `deriv mF · Sfun` from the two-sided `abs_Sfun_sub_log_le` lower half;
+  integral-mono reversed; boundary bounds reversed). Honest constant **C₃' = 19** (`= 18` Abel
+  `R`-terms + `1/log w` for the lone boundary prime `⌊z⌋₊` the `[⌊w⌋,⌊z⌋]` window may carry
+  outside `[w,z)`), matching the upper C₃ = 19. `w₀ = 2`.
+* **M3** `twinWindow_mass_eq` (`∑_{twinWindow x} Λ = ψ(x−2) − ψ(x/2−1)`, index alignment),
+  `lambda_mass_lower` (`x/2 − 1 − 2K·x/log x ≤ ∑`) and `lambda_mass_upper` (`∑ ≤ x/2 +
+  2K·x/log x`), both `∀ x ≥ 8`, **K = the `psiTot_pnt` constant** (K ≥ 0, A=1 saving). The
+  two endpoint PNT errors collapse to `2K·x/log x` via `self_div_log_le` (`t/log t` monotone on
+  `[e,∞)`, reciprocal of mathlib `Real.log_div_self_antitoneOn`). Threshold x ≥ 8 = min for
+  both endpoints ≥ 3 (PNT domain) and ≥ e (monotonicity domain).
+
+**CATCH #51 (executor STOP-AND-FLAG — the frozen A₁ window needs a hair of margin):** M4a as
+specified is **FALSE on a subsequence**, by exact arithmetic. Operating point
+`s = logRatio ⌊x^{1/8}⌋ ⌊x^{1/2−ε′}⌋ = log⌊x^{1/2−ε′}⌋ / log⌊x^{1/8}⌋`, ε′ = 1/10000, so the
+un-floored ratio is `(1/2−ε′)/(1/8) = 39992/10000 = 3.9992` — EXACTLY the left edge of the
+frozen `fchain_A1_final` window `[3.9992, 4]` (ZERO margin). The numerator floor
+`⌊x^{1/2−ε′}⌋ ≤ x^{1/2−ε′}` pulls `s` DOWN; the denominator floor pulls it UP; net sign depends
+on x's fractional parts. On **perfect 8th powers x = m^8** the denominator is EXACT
+(`⌊x^{1/8}⌋ = m`, slack 0) while the numerator strictly drops, so
+`s = log⌊m^{3.9992}⌋ / log m ≤ 3.9992`, STRICTLY below for essentially all m (equality only if
+`m^{3.9992}` is an integer — never). Concrete witness: **x = 10^16 (= 100^8)** gives
+`s = log⌊10^{7.9984}⌋ / log 100 = log(99632170) / log 100 = 3.99919999957 < 3.9992` — outside
+the closed window by ~4.3e−10. So `∀ x ≥ x₁, s ∈ [3.9992,4]` is unprovable as stated (fails at
+x = 10^16, 10^24, … infinitely often). The rounding lands epsilon-BELOW the frozen edge, exactly
+as the M-brief anticipated. **The frozen constants are NOT altered** (executor iron rule 1). The
+UPPER half `s ≤ 4` is robustly true (num ≤ (1/2−ε′)X = 3.9992·βX < 4·log z for large x); only
+the lower edge fails. **FIX is designer-tier (three options, do NOT pick here):** (a) shrink ε′
+strictly below 1/10000 so `4 − 8ε′ > 3.9992` with margin > the floor slop `~8x^{−(1/2−ε′)}/log x`;
+(b) round the numerator UP (`⌈x^{1/2−ε′}⌉`) so `log D ≥ (1/2−ε′)X`; or (c) drop the window's
+left edge below `4 − 8ε′`. **M4b** (`logRatio_A3_mem ∈ [4/3, 3]`) is interior-safe (s ≈ 1.4997,
+margins 0.17 / 1.5 ≫ floor slop) hence provable in principle, but its exact `z,D` floor forms
+are the A₃ operating point — entangled with the SW-FIBER design block / M2 interface (per the
+M-RECON) — so it is not cleanly statable now. **M4 → the SW-FIBER design block** (choose the
+margin fix, then the discharge is a clean class-A/B floor-bracketing). Tally: 51 catches, 0
+wrong proofs.
+
+**FABLE ADJUDICATION of catch #51 (same evening): C0 AMENDMENT 4 — ε′ = 9/100000** (chen.md).
+The un-floored A₁ point moves to 3.99928 (8e−5 margin, floors absorbed at threshold); S7
+improves; D-level/D < N preserved; the SS3c-certified window untouched. M4a restates against
+the new point (provable, interior); M4b waits on the SW-FIBER shapes. M1 (C₃′ = 19, the
+window_core sign-flip) + M3 (two-sided Λ-mass at the psiTot_pnt constant, threshold x ≥ 8,
+twinWindow_mass_eq alignment) LANDED and wired. Tally: 51 catches, 0 wrong proofs.
+
+## 2026-07-13 PE3c-4 Opus done FULL — ★★ KEYSTONE 2 IS COMPLETE ★★ + CATCH #52 → DIV1
+
+`Salt/Chen/AlphaClose.lean` (792 lines; wired by Fable). Sorry-free, axiom-clean, zero
+warnings; one documented maxHeartbeats 1600000 (the monolithic four-term discharge). LANDED:
+`sum_totient_div_sqrt_le`; `efold_large_fibered` (the gcd/fibering exchange, EXACT);
+`efold_large_reduce`; **`efold_large_discharge`** (the hlarge slot PROVEN, Klarge = 15360 =
+1536 + 4608 + 2304 + 6912, all four terms closed at the coupled C0 = A+5 chain); and
+**`general_BV_alpha_final` — THE COMPLETED KEYSTONE 2**: the general bilinear BV with NO per-e
+slot and NO hlarge, under four explicit named thresholds (hlev : D·L^{A+5} ≤ √(XM); hD0lo :
+L^{A+4} ≤ D0; hMlev : L^{A+5} ≤ √M; hdiv : d(e)·L^{A+5} ≤ √X) — all H-glue-dischargeable at
+the operating point. SwitchBV composition kernel-confirmed (#check).
+
+**CATCH #52 (executor-surfaced): the cross-M asymmetry.** My gate recipe's cross-term treatment
+(Σφg/√g ≤ 2e + hlev) is INSUFFICIENT for the β-cross: the dilation is α-side-only, so cross-M
+pairs √⌊X/e⌋ against the full √M; with only d(e) ≤ 2√e the leftover L^{(A+5)/2} diverges for
+A > 1. Resolved honestly as the named `hdiv`, whose discharge needs a SUB-POLYNOMIAL divisor
+bound (d(e) ≤ e^{c/log log e}-form — classical, elementary, NOT in the corpus) ⟹ **new node
+DIV1** (B/C: the explicit divisor bound + the operating-point hdiv discharge; queue with the
+H-glue wave). Also corrected my gate note's φ(gcd) = Σφg slip (≤ gcd — harmless direction).
+Tally: **52 catches, 0 proofs on wrong statements.**
+
+## 2026-07-13 ★ THE SW-FIBER DESIGN BLOCK RESOLVED (BJS pp. 57–59 at page level) + CATCH #53 ★
+
+**CATCH #53 (against MY catch-#49 adjudication): the per-fiber-sieve diagnosis was WRONG.**
+BJS's Theorem 51 proof applies Theorem 6 GLOBALLY per block at s_b = 3/2 − 3α₃ < 3 — (191),
+pixel-verified — exactly SW12's structure. The c̄-correlation lives ENTIRELY IN THE COUNT:
+Lemma 52 bounds |B̄| ≤ (1+ε₀+9/log N)(N/log N)[c̄ + explicit slack] via the π-bound [46, Thm 1]
+whose 1/log(N/p₁p₂) DENOMINATOR (the p₃-count's own log) rides through two Abel passes
+(their Lemmas 20/21 = our M1/PM1 window-Mertens machinery!) and the I(u)-integrals to
+c̄ = ∫_{1/8}^{1/3} log(2−3β)/(β(1−β))dβ. OUR C3d count (uniform log-denominator) is ~3.3×
+looser — THAT (× residual normalization slips in the recon's trace) is the ×7. The classical
+chain reconciles at ½A₃/A₁ ≈ 0.165 with the weighted count in place.
+**THE REPAIR PLAN (supersedes the fiber re-shape):**
+- **CNT2** (the weighted count): re-prove the triple-count bound with the log(N/p₁p₂) weight →
+  `tripleSum ≤ (c̄ + slack)·x/log x`-form, following Lemma 52's route: the Chebyshev π upper
+  bound (need: π(t) ≤ (1+9/log t)-form — check the corpus/[46 Thm 1]-equivalent; possibly a new
+  small node), two window-Abel passes (M1 + PM1 + Lemma-20/21-style partial summation — the
+  MertensPNT machinery serves), the I(u) integral evaluation, and the w = √((1+ε₀)N/p₁) cutoff
+  bookkeeping (the window handled INSIDE the count — no hyperbola boxes).
+- **CBL** (cbar_lt, NOW FEASIBLE): c̄ < 0.363084 was C4a-deferred (no dilog/no norm_num-log);
+  the TK1 LogToolkit + the SS2/SS3 exact-rational panel quadrature make the ~220-panel tangent
+  majorant route landable. CNT2 consumes it.
+- **NBL** (narrow-block remainders, REPLACES the catch-#50 dyadic boxes): BJS's B^{(j)} =
+  narrow p₁-blocks (ω_j ≤ p₁ < ω_j(1+ε₀), j₀ ~ log/ε₀ blocks); within a block the window is a
+  clean p₂p₃-cutoff (ε₀-slop into the count's (1+ε₀)); the per-block remainder R^{(j)} =
+  Σ_d |B_d^{(j)} − |B^{(j)}|/φd| feeds general_BV_alpha_final with the narrow-block semiprime α
+  (SW3d's additivity backbone + SwitchBV's bridge serve; SW3b/c's box lemmas partially
+  superseded — keep landed, unused paths documented).
+- Then M2 (the W-ratio at the P ∣ Ps nesting), the END-TO-END numeric re-gate (the honest
+  A₁/A₂/A₃ chain in Π₂-units at the weighted count — BEFORE any SW4 freeze), then SW4, DIV1,
+  H-glue. Tally: **53 catches, 0 proofs on wrong statements.**
+
+## 2026-07-13 CNT2 Opus PARTIAL (step 1 + reduction + step-6 core landed; the two Abel passes flagged)
+
+`Salt/Chen/WeightedCount.lean` (new file, 459 lines, namespace `Salt.Chen`; NOT in
+All.lean — standalone, not committed, report-only). Sorry-free, axiom-clean (all four
+decls `[propext, Classical.choice, Quot.sound]`), zero warnings. One documented
+`maxHeartbeats 1200000` (the monolithic per-pair chain). Imports the landed
+`TripleCount` + `SwitchConstant` only.
+
+**LANDED (the c̄-weighted count's two ends):**
+* **Step 1 — the corrected π-upper INPUT.** `per_pair_weighted_le`: the sharp per-pair
+  inner count keeping the honest `log(N/p₁p₂)` weight, replacing the landed
+  `per_pair_le`'s uniform `1/log⌊x/(2y√x)⌋` floor (the ~3.3× over-count catch #53
+  diagnosed). Reuses the LANDED `prime_count_Ioc_le` — NO separate Rosser–Schoenfeld
+  π-upper needed: because `L = ⌊x/(2p₁p₂)⌋` is large (`log L ≥ log(N/p₁p₂) − 2log 2`,
+  proven via `Lfun ≥ t/2`), the interval-mass count already gives the `(1+o(1))`
+  constant. Under `4 ≤ log⌊x/(2y√x)⌋` (forces `Lval ≥ 5` via `5 ≤ exp 4 ≤ Lval`); the
+  `log L`-vs-`log(N/p₁p₂)` shift is the explicit `(1+W₀)` slack, `W₀ = 4log 2/log(2·Lval)`.
+* **Step 2 — the reduction.** `tripleSum_le_weighted_pairSum`:
+  `tripleSum ≤ (1+3K/L₀)(1+W₀)(x/2)·weightedPairSum + |pairSet|/L₀`, where
+  `weightedPairSum = Σ_{pairSet} 1/(p₁p₂·log(N/p₁p₂))` — the EXACT object the two Abel
+  passes consume. Composes `triple_count_le_pairSum` (landed Fubini+projection) with step 1.
+* **Step 6 CORE — the c̄ evaluation heart (de-risks the WALL).** `cbar_inner_integral`:
+  `∫_{1/3}^{(1-β)/2} 1/(σ(1−β−σ)) dσ = log(2−3β)/(1−β)` (explicit antiderivative
+  `F(σ)=(1−β)⁻¹(log σ − log(1−β−σ))`, both factors ≥ 1/3 on the interval). And
+  `cbar_eq_double_integral`: `cbar = ∫_{1/8}^{1/3} (1/β)·(∫_{1/3}^{(1-β)/2} 1/(σ(1−β−σ)) dσ) dβ`
+  — the LANDED `SwitchConstant.cbar` IS the BJS double integral in `(β,σ)=(log_N u,log_N v)`
+  coordinates. So the c̄ side of step 6 is fully formalized; only the `(t,s)→(β,σ)`
+  change of variables (`∫·d(loglog)=∫·dβ/β`) remains.
+
+**HONEST WINDOW FACTOR (reported):** the ½ is threaded (our count is over `(L,U]`,
+length `x/(2p₁p₂)`, so the ½ is GENUINE, kept — BJS bounds the full `π(U)`, our window
+is strictly smaller). Hence `tripleSum ≤ (1+o(1))·(c̄/2)·x/log x ≤ (1+o(1))·0.1815·x/log x`
+(`c̄/2 < 0.363084/2 = 0.181542`). This is ≤ the full-π(U) route's `c̄`, so compatible with
+the recon's `½A₃/A₁ ≈ 0.165` expectation, with strictly better margin. Multiplicative
+slack `(1+3K/L₀)(1+W₀) → 1` (both `→ 0` as x→∞); `|pairSet|/L₀ = o(x/log x)`. Well inside
+the generous budget (`0.3631` target vs honest `0.363084`).
+
+**★ BELOW FLOOR A — the two Abel passes NOT landed (the true remaining core). ★**
+Floor A = π-upper input + p₂-sum Abel pass. I landed the π-upper input (step 1) + the
+reduction + the step-6 c̄ core, but NOT the p₂-sum Abel pass. Exact remaining decomposition:
+- **p₂-sum pass** (BJS Lemma 20, f = h_{p₁}(t)=1/log(N/p₁t), g=loglog, E=1/log²y):
+  `Σ_{y≤p₂<w} h_{p₁}(p₂)/p₂ ≤ ∫_y^w h_{p₁} d(loglog) + E·h_{p₁}(w)`.
+- **p₁-sum pass** (Lemma 20, f=I, E=1/log²z): `Σ_{z≤p₁<y} I(p₁)/p₁ ≤ ∫_z^y I d(loglog) + I(z)/log²z`,
+  `I(u)=∫_y^{√(N/u)} h_u d(loglog)`; plus the tail `[√(N/u),w] ≤ 10log(1+ε₀)/log²N` (BJS (187)).
+- **change of variables** `u=N^β, v=N^σ` sending `∫_z^y I d(loglog) → cbar/log N`
+  (`cbar_eq_double_integral` supplies the target; only the substitution remains).
+**Why flagged, not attempted to completion:** the honest route needs the ABSTRACT BJS
+Lemma 20 (positive monotone `f`, sub-window bound `Σ_{x≤n<y}c(n) ≤ g(y)−g(x)+E`, conclusion
+`Σ c(n)f(n) ≤ ∫ f g' + E·max(f(w),f(z))`) as the reusable enabler — a Riemann–Stieltjes
+partial-summation lemma, ~300 lines, then two ~200-line applications (h_{p₁}/I with their
+derivatives, integrability, monotonicity) + the nested-integral change of variables (~200
+lines). This is a multi-hundred-line hard-analysis effort beyond a single executor's budget;
+the corpus has the 1-D Abel identity (`sum_mul_eq_sub_integral_mul₁`) + the concrete f=1/log
+pass (`BrunLower.window_core`) as templates. **RECOMMENDATION:** dispatch the abstract
+Lemma 20 as its own node first (mirror `window_core` with arbitrary differentiable monotone
+`f`), then the two passes + change-of-variables are direct. The landed `per_pair_weighted_le`
++ `tripleSum_le_weighted_pairSum` are their input and `cbar_eq_double_integral` their target,
+so the remaining work is cleanly bracketed. Composition into SW4 unchanged: `mainA3_of_hBVswitch`
+carries `tripleSum` symbolically; the reduction here is its `Σ 1/(p₁p₂ log)` factor.
+
+## 2026-07-13 CNT2 Opus done (the π-input + reduction + the c̄ identity; the Abel core bracketed)
+
+`Salt/Chen/WeightedCount.lean` (459 lines; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. LANDED: **`per_pair_weighted_le`** — the corrected inner count at the HONEST
+log(N/p₁p₂) weight (finding: the landed `prime_count_Ioc_le` already delivers the (1+o(1))
+constant — no new π-node; mathlib's Chebyshev would cost ×2.77); `tripleSum_le_weighted_pairSum`
+(the reduction to Σ 1/(p₁p₂·log(N/p₁p₂)) with vanishing slack); **`cbar_eq_double_integral`**
+(+ the inner antiderivative) — the landed SwitchConstant.cbar IS the BJS (β,σ) double integral;
+the far end is formalized. **THE HONEST WINDOW FACTOR: c̄/2** — our (x/2, x] count gives
+tripleSum ≤ (c̄/2 + o(1))·x/log x ≈ 0.1815·x/log x — strictly better than the recon's chain.
+**REMAINING = AB1 (bracketed):** the abstract BJS-Lemma-20 partial summation (Riemann–Stieltjes
+vs d(loglog), positive monotone f, ~300 lines — mirror window_core with abstract f) + its two
+applications (p₂-sum at h_{p₁}, p₁-sum at I) + the u = N^β change of variables into
+cbar_eq_double_integral. Input and target both landed — the node is cleanly bracketed.
+
+## 2026-07-13 CBL Opus done FULL — cbar_lt LANDED (the C4a debt closed)
+
+`Salt/Chen/CbarCert.lean` (21189 generated lines, 600 panels; generator scripts/cbar_cert.py
+persisted; wired by Fable). Sorry-free, axiom-clean, zero warnings, 200s build.
+**`cbar_lt : cbar < 363084/1000000`** — margin +3.18e−8 (certified 0.363083968 vs true
+0.363083729), worst panel overshoot 1.79e−9, total 2.39e−7 < the 2.71e−7 budget. Route:
+tangent-above-log (concavity) × chord-above-convex-weight per panel, exact rational quadratic
+integrals (TK1's integral_quad), Taylor n = 12 knots with certified upward search. ENGINEERING
+PATTERN (reusable): two-level block telescoping (25-panel blocks, 1e−12 round-up, 24 block
+sums) — single-level telescoping hits the heartbeat wall at N = 600 (O(N) rw goals). The C4a
+flag's "not mechanisable" verdict is overturned by the TK1 toolkit + the SS-panel discipline.
+Consumer: CNT2/AB1's final count row.
+
+## 2026-07-13 NBL Opus done FULL (the narrow blocks; the main term is rfl-identical to SW12)
+
+`Salt/Chen/SwitchBlocks.lean` (24 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. The blockIdx floor-of-log partition (fiberwise kernel mirroring SwitchDyadic);
+blockSwitchSieve instances; **`blockSwitchSieve_W_eq`/`_maxDepth_eq` BY RFL** (prodPrimes/nu
+shared ⟹ the carrier W·(Fchain + slack) is block-independent — the main term of
+`mainA3_of_block_remainders` is LITERALLY `mainA3_of_hBVswitch`'s; SW4's numeric row is
+unchanged from the CNT2-weighted form); `block_switch_upper_B` (the cB keystone per block);
+`triplePrimeSum_le_sum_blocks`; `blockAlpha` (0/1, norm ≤ 1 — the general_BV_alpha_final
+m-side input); the composed conditional under the single named
+**`hBVblocks : Σ_j rosserRemainder(block j)(Q·Dlev) ≤ x/(log x)^10`** — the catch-#50 dyadic
+boxes fully superseded (SW3b/c/d stay landed as documented unused paths + the reusable
+backbone). REMAINING ON THE SWITCH LINE: **BVP** (price hBVblocks per block via
+general_BV_alpha_final at blockAlpha — the per-block window is CLEAN so the catch-#50
+hyperbola never appears; + the hCE conversion-error crumb), then the numeric re-gate → SW4.
+
+## 2026-07-13 BVP Opus done (block pricing composed; the pair bijection is the last bridge)
+
+`Salt/Chen/BlockPricing.lean` (wired by Fable). Sorry-free, axiom-clean, zero warnings.
+The per-block rem algebra FULLY PROVEN (multSum/apCount/rem_split/L¹ per block + summed);
+`blockPieceAlpha` (+ norm ≤ 1); `hHDblocks_of_perBlock` (the O(log²x) applications explicit);
+**`hBVblocks_of_generalBV`** — composition kernel-verified into mainA3_of_block_remainders'
+slot. The band-by-DISCREPANCY design confirmed (SW3d-ii's count-wall dissolved: decided-α +
+band-α are both 0/1 α's priced by their own apDiscBilin). Design row: A ≥ 12 + slack.
+**REMAINING NAMED = PBJ** (the per-(j,piece) pair-bijection + window identification:
+(p₁,p₂,p₃) ↦ (p₁p₂, p₃) turning blockHonestDisc into the apDiscBilin double sums — SW3d-iii,
+the known missing bridge; SwitchStrip's corner tests + additivity serve the window half) +
+the operating-point thresholds (H-glue) + hCE/hNum (SW4).
+
+## 2026-07-13 AB1 Opus done (floor B: the abstract Abel pass + Application A)
+
+`Salt/Chen/AbelPass.lean` (wired by Fable). Sorry-free, axiom-clean, zero warnings.
+**`prime_sum_abel_antitone`/`_monotone`** — the reusable BJS-Lemma-20 equivalent (abstract f,
+both monotonicities, error (21/log w)·f(endpoint) = corpus-19 + 2 boundary units; the main term
+EXACT); **`applicationA`** — the p₂-carrier fully instantiated (hbjs calculus proven: positivity,
+increasing derivative, integrability). FINDING: Application B ≡ the antitone pass at f = I —
+the sole blocker is **I(u)'s moving-boundary Leibniz derivative** (u in both the integrand and
+the upper limit √(N/u); mathlib support thin — the genuine remaining wall). **= AB2**: I's
+calculus + the (187)-tail change of variables + t = N^β into the landed cbar_eq_double_integral
++ the pairSet fibered re-index + the final composition to
+`tripleSum ≤ (1+slack)(c̄/2+slack)·x/log x`. Both brackets (input + far target) stay landed.
+Note: the 21/log-w error is weaker than BJS's 1/log²y — acceptable per the slack budget; a
+sharper windowed-Mertens (1/log²) node only if the re-gate demands it.
+
+## 2026-07-13 AB2 Opus done (Floor C + composition step 1) — THE LEIBNIZ WALL DISSOLVED
+
+`Salt/Chen/AbelPass2.lean` (487 lines; wired by Fable). Sorry-free, axiom-clean, zero warnings.
+**THE WALL DISSOLVED, not scaled:** the moving-boundary Leibniz derivative is replaced by the
+CLOSED FORM `I(u) = log(2 − 3·log u/log N)/(log N − log u)` (`Ifun_closed_form`, via the
+monotone t = N^σ change of variables — no continuity hypotheses needed — + the partial-fraction
+antiderivative); the derivative is then elementary. **FINDING: I is GLOBALLY ANTITONE on
+[z, y]** (`Ifun_deriv_nonpos` reduces to P·log P ≤ 1 + P at P = 2−3β ∈ [1, 13/8]; numerically
+verified J(β) < 0 throughout) — the antitone Abel pass applies directly. LANDED:
+`applicationB` (the p₁-pass at f = I), **`Ifun_integral_eq_cbar`** (∫_z^y I d(loglog) = c̄/log N
+— the landed cbar, exactly), `weightedPairSum_fibered`. Slack ledger verified end-to-end:
+weightedPairSum ≤ c̄/log N + O(1/log²N) ⟹ tripleSum ≤ (1+o(1))(c̄/2)x/log x ≈ 0.1815·x/log x.
+**REMAINING = AB3 (bracketed, ~330 lines):** the ℕ-window ↔ primesInWindow bridge, the (187)
+tail (∫_{√(N/p₁)}^{√x}), the slack-ledger assembly → `tripleSum_le_cbar_final`.
+
+## 2026-07-13 M2 Opus done FULL (the two-sided W-ratio; C′ = 25 / C = 38)
+
+`Salt/Chen/WRatioSharp.lean` (364 lines, 7 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. `W_switch_factor` (the P ∣ Ps factorization — W is modulus-only since both
+sieves share nuChen); the sharp pointwise bracket `1/p ≤ −log(1−ν) ≤ 1/p + 6/p²` (the executor
+correctly REJECTED my briefed 2/p-form — factor-2 lossy for the lower product — substituting
+1/(p−2)-based sharpness: a technique choice, no statement altered); the square tail;
+**`window_prod_lower/upper`** ((log z/log y)(1 ∓ C/log z), C′ = 25 unconditional, C = 38 under
+log z ≥ 38) and the composed **`W_ratio_upper/lower`** (+ literal div forms) — SW4-consumable,
+main term parametric (3/8 at the operating point), the hwin window-identification discharged by
+the H-glue from the concrete moduli. The Mertens layer (M1/M2/M3) is now COMPLETE; M4a restates
+against Amendment 4's 3.99928 point at the H-glue.
+
+## 2026-07-13 DIV1 Opus done FULL (d(e) ≤ C₃·e^{1/3}; hdiv discharged verbatim)
+
+`Salt/Chen/DivisorBound.lean` (4 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. `card_divisors_pow_le` (the multiplicative core: per-prime split at 2^m);
+`card_divisors_subpoly` (d(n) ≤ C_m·n^{1/m}, C_m = (m/log 2)^{2^m} explicit);
+`card_divisors_cube_root` (m = 3: C₃ ≈ 1.23e5); **`hdiv_discharge`** — AlphaClose's hdiv
+VERBATIM under honest operating relations (D ≤ √x, √x ≤ 4X, XM ≤ x²; the ε = 1/3 < 1/2
+exponent is exactly what closes catch #52's cross-M for ALL A; the log-power absorbed via
+isLittleO_log_rpow_rpow_atTop). The keystone-2 threshold set is now: hlev/hD0lo/hMlev
+(operating-point arithmetic at the H-glue) + hdiv ✅ DISCHARGED (modulo the relations).
+
+## 2026-07-13 AB3 Opus — floor B (bridge + honest tail) + ⚠ A LANDED DESIGN GAP FLAGGED
+
+`Salt/Chen/CountClose.lean` (new file, namespace `Salt.Chen`; NOT yet wired into `All.lean`).
+Sorry-free, axiom-clean ([propext, Classical.choice, Quot.sound]), zero warnings, `lake build
+Salt.Chen.CountClose` green. LANDED (both correct + reusable regardless of the fix below):
+
+* **Piece 1 — the ℕ-window ↔ `primesInWindow` bridges.**  `S2set_subset_primesInWindow`
+  (`S2set x yN ⊆ primesInWindow yR (√x+1)` for `yR ≤ yN+1`, direct — nonneg summands make the
+  Abel-pass subset step one-directional); `S1set_subset_insert`
+  (`S1set x zN yN ⊆ insert zN (insert yN (primesInWindow zR yR))` for `zR ≤ zN+1 ≤ … ≤ yN ≤ yR`,
+  the two boundary-prime corrections at `zN=⌊zR⌋`, `yN=⌊yR⌋`).  These reconcile the fibered
+  `weightedPairSum` (closed ℕ ranges) with `applicationA`/`applicationB` (half-open real windows).
+* **Piece 2 — the (187) tail.**  `tail_integral_le`: for `9 ≤ log x`, `1 < p₁`, `log p₁ ≤ log x/3`,
+  `∫_{√(x/p₁)}^{√x+1} h_{p₁}/(t log t) dt ≤ 6/log x + 36·log 2/log²x`, via a direct integrand
+  estimate (integrand `≤ 36 t⁻¹/log²x`; `∫ t⁻¹ = log(b/a) ≤ log 2 + log x/6`).
+
+**⚠ WHY AB3's ASSEMBLY (`tripleSum_le_cbar_final` at `c̄/2`) IS NOT PROVABLE FROM THE LANDED
+`pairSet` — a gap in CNT2/WeightedCount, not in AB3.**  The landed `pairSet`/`S2set`
+(`Salt/Chen/TripleCount.lean`) cut the inner window at `q.2*q.2 ≤ x` (`p₂ ≤ √x`), but BJS Lemma 52
+— and the landed `cbar` — correspond to the SHARP admissible cutoff `p₂ ≤ √(x/p₁)` (forced, since
+any triple has `p₁p₂² ≤ p₁p₂p₃ ≤ x`; pairs with `p₂ > √(x/p₁)` have `U = ⌊x/p₁p₂⌋ < p₂`, i.e.
+EMPTY `p₃`-fibre).  Those extra pairs carry positive weight `1/(p₁p₂ log(x/p₁p₂))` in
+`weightedPairSum`, and their mass — the (187) tail — is `Θ(1/log x)`, NOT `o(1/log x)`.  Exact
+σ-space form (`t = x^σ`, `β = log p₁/log x`): `tail = (1/log x)·(1/(1−β))·log(1/(1−2β))`, a positive
+`Θ(1)` numerator; the landed `Ifun` integrates only `σ ∈ [1/3, (1−β)/2]`, this adds `[(1−β)/2, 1/2]`.
+Summed over the outer `p₁`-loop:
+`weightedPairSum·log x → c̄ + ∫_{1/8}^{1/3}(1/β)(1/(1−β))log(1/(1−2β))dβ`
+`= 0.363084 + 0.744288 = 1.107372` (numerically verified; the `c̄` half reproduces the landed
+`cbar = 0.363083729`).  So the landed chain gives `tripleSum ≤ (1.1074/2 + o(1))·x/log x ≈
+0.554·x/log x`, NOT `c̄/2 ≈ 0.1815` — and `0.554 > 0.1815` is a genuine `~3×` overshoot that the
+AB2 slack ledger and the SW4 numeric re-gate (which expect `c̄/2`) do NOT absorb (the extra is a
+CONSTANT, not a `C/log x` slack). `tripleSum_le_cbar_final` was therefore NOT written (writing it
+at `c̄/2` would require altering a statement to force a false proof — iron rule 1).
+
+**THE FIX (Fable/design-tier — touches landed CNT2 nodes, out of Opus scope):** tighten `pairSet`
++ `S2set` to the sharp cutoff `q.1 * q.2 * q.2 ≤ x` (i.e. `p₁p₂² ≤ x`, so `p₂ ≤ √(x/p₁)`).  The
+projection `tripleSet → pairSet` STILL lands in it (`p₁p₂² ≤ p₁p₂p₃ ≤ x`), so
+`card_tripleSet_le_pairSum` re-proves with the tighter target and the tail vanishes; then
+re-derive `per_pair_weighted_le` and `tripleSum_le_weighted_pairSum` (mechanical — same proofs,
+tighter membership).  Under that fix: (a) `S2set_subset_primesInWindow` restates as
+`S2set' x p₁ ⊆ primesInWindow yR (√(x/p₁)+1)` (p₁-dependent upper — the `applicationA` window `w`
+becomes `√(x/p₁)+1`, and `p·w < N` reads `p₁·√(x/p₁) = √(x p₁) < x` ✓); (b) `S1set_subset_insert`
+is UNCHANGED (outer window untouched); (c) piece 2's tail shrinks to the honest
+`ε₀`-sliver `[√(x/p₁), √(x/p₁)+1]` (σ-width `O(1/(√(x/p₁) log x))` → genuinely `O(1/log²x)`), so
+`tail_integral_le`'s method carries over with a `log⁻²` bound.  Then the assembly composes
+`weightedPairSum_fibered → applicationA (inner) → applicationB + Ifun_integral_eq_cbar (outer)`
+with the two bridges + tail → the honest `tripleSum ≤ (1+C₁/log x)(c̄/2 + C₂/log x)·x/log x` (plus
+the `|pairSet|/L₀` remainder, which is `≤ x^{5/6}/L₀ = o(x/log x)` via `|pairSet| ≤ yN·⌊√x⌋` and a
+poly-beats-log threshold in the `∃ x₀`).
+
+**FLOOR REACHED: B** (piece 1 + piece 2, both sorry-free/axiom-clean).  FULL blocked by the above
+`pairSet` gap.  Recommendation: dispatch the `pairSet` tightening as a Fable design node, then AB3's
+assembly (with the p₁-dependent inner window) is a direct compose of the pieces here.
+
+## 2026-07-13 AB4 Opus done FULL — ★ THE COUNT LINE IS CLOSED (catch #55 fixed) ★
+
+`Salt/Chen/CountFinal.lean` (618 lines, 17 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. `pairSet′` at the sharp BJS-(185) cutoff (p₁p₂² ≤ x); CNT2's three lemmas
+re-proven (per_pair via subset-transfer, no proof copy); the p₁-dependent fibering + bridges;
+**the (187) TAIL VANISHES IDENTICALLY** (the sharp window IS Ifun's upper limit — replaced by
+one boundary prime at O(x^{−1/6}/log x) per fibre); `weightedPairSum′_le_cbar` (the analytic
+heart: ≤ c̄/log x + explicit corrections; numeric pre-flight: the sharp inner integral = the
+landed cbar to 17 digits); **`tripleSum_le_cbar_final`** — the c̄/2 leading constant MANIFEST
+(vs 0.554 at the loose cutoff), parametrized-hypothesis form (the landed triple_count_le
+convention; SW4 supplies the operating point and folds the explicit lower-order Rem).
+THE COUNT LINE (CNT2 → CBL → AB1 → AB2 → AB3 → AB4) IS COMPLETE: the catch-#53-corrected,
+catch-#55-sharpened weighted count is a kernel theorem at the honest constant.
+
+## 2026-07-13 C54-RECON (Opus scout) + FABLE FREEZE — route (i): the one-sided cutoff carrier
+
+**THE LOAD-BEARING FACT:** `Salt.BV.bilinear_LS_shell` (BilinearLS.lean:279) NATIVELY carries
+the sharp cutoff `m·n ≤ Y` inside the character sum with an IDENTICAL energy bound — the landed
+pipeline discards it via bilin_cutoff_eq one layer up. And `prime_indicator_coprime_SW` already
+prices ANY sub-interval of a dyadic block (M′ ≤ 2N inherited). CONSEQUENCES: route (ii)
+(per-singleton) is DEAD (three independent failures: fixed-β signatures, the diagonal-energy
+incomparability, the √x-application explosion); route (iii) (strip mini-BV) is DOMINATED (its
+only endgame IS route (i)'s per-m windowed SW, reached via a doomed recursion + an invasive hHD
+reshape); the hyperbola CANNOT be tiled into O(log) rectangles (SW3d-ii re-confirmed) — the
+window must live in the CARRIER. Also pinned: ε₀ is a fixed constant (not x-dependent); the
+band is Θ(box) and unshrinkable by ε₀; count-based band treatment impossible outside top-j.
+**FROZEN (the WBV wave, ~3–4 files, the recon's 9-item list):** WBV1 = `apDiscBilinCutoff`
+(the two-guard carrier) + `_orthogonality` (the cutoff rides UNfactored) + `norm_..._le` +
+`cutoffTwist_energy_le` (consume the shell KEEPING Y = T — easier than the landed lemma) [A/B].
+WBV2 = the descent port (cutoffPrimEnergy + regroup + dyadic → the cutoff Klarge) [B–C,
+mechanical; consider the generic-functional refactor to share proofs]. WBV3 =
+`smallconductor_window_perd` (THE one genuine new estimate: per-m interval-SW at exponent
+A+C0+1, summed over the band — all on landed SW) + `blockBox_windowDisc_eq` (the identification
+via blockBox_pair_card, window-in-carrier, NO corner hypotheses) [C]. WBV4 =
+`general_BV_cutoff_final` + `hHD_of_generalBV_window` feeding the EXISTING hHD slot (no reshape
+— BlockPricing untouched) [B–C]. RISKS: the ordering diagonal at low pieces (per-m lower cutoff
+n ≥ p₂, a second guard — sub-node if needed); the port volume (R2 — the generic refactor
+mitigates); the harmonic/exponent bookkeeping (matches A ≥ 12). The window = the difference of
+T = x and T = x/2+1 cutoffs (triangle).
+
+## 2026-07-14 WBV1 Opus done FULL (the cutoff carrier — SIMPLER than the landed layer)
+
+`Salt/Chen/WindowBV.lean` (321 lines, wired by Fable). Sorry-free, axiom-clean, zero warnings.
+`cutoffTwist` (the UNfactored windowed twist), `apDiscBilinCutoff` (both guards),
+`apDiscBilinCutoff_orthogonality` (STRICTLY SIMPLER than the landed proof — no sum_mul_sum
+split, no chi_cast_mul; the guard is inert per-(m,n)), `norm_..._le`, `cutoffTwist_energy_le` +
+`cutoffPrimEnergy`/`energy_shell_cutoff` (the shell consumed KEEPING the cutoff — skips
+bilin_cutoff_eq entirely; RHS = the existing shellBound VERBATIM so the WBV2 descent ports
+mechanically), degeneracy examples (T ≥ XY recovers the landed shapes). The recon's
+load-bearing fact is now kernel-verified. NEXT: WBV2 (the descent port at cutoffPrimEnergy).
+
+## 2026-07-14 WBV2 Opus done FULL (the cutoff descent, plain + δ variants)
+
+`Salt/Chen/WindowBVDescent.lean` (392 lines, 9 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. The full large-conductor descent at cutoffPrimEnergy (block/dyadic/geom/raw
+four-term — geom is cutoff-AGNOSTIC, restated; no level absorption per catch #44) + the
+δ+cutoff co-extension (bilinear_LS_shell_dvd carries BOTH natively — orthogonal extensions
+compose). STRUCTURAL FINDING: apDiscBilinCutoff's orthogonality is EXACT (no α-side
+coprimality error — the window does not factor and needs no BDH fibering) ⟹ the windowed main
+descent is PLAIN; δ-variants provided as de-risking only. NEXT: WBV3 (the per-m interval-SW
+small-conductor estimate — the wave's one genuine new estimate) + the identification.
+
+## 2026-07-14 WBV3 Opus done FULL (the window SW + the corner-free identification)
+
+`Salt/Chen/WindowSW.lean` (667 lines; wired by Fable). Sorry-free, axiom-clean, zero warnings.
+**`smallconductor_window_perd/_sum`** — THE wave's genuine estimate: the cutoff discrepancy
+regrouped BY FIXED m; each fibre = the clean-interval prime-AP discrepancy at n ≡ 2m⁻¹ (mod d),
+priced by the LANDED prime_indicator_SW (block primes > N ≥ d auto-coprime; (m,d) > 1 vanishes
+via Coprime 2 d); summed at the mirrored A+2C0 bookkeeping. **`blockBox_windowDisc_eq`** —
+apDiscBilinCutoff(x) − apDiscBilinCutoff(x/2+1) = the blockBoxHonestDisc shape, via the
+re-derived CORNER-FREE bijection `blockBox_windowed_pair_card` (the recon's "via
+blockBox_pair_card without corners" was not literally achievable — its corner hyps live in the
+surjectivity branch and its helpers are private; re-proved with the window as a class-predicate
+hypothesis + the trivial nesting hxlo). Ordering diagonal: hord (piece threshold, automatic at
+N ≥ y) kept as a hypothesis; the low-piece residual is WBV4's named object. NEXT: WBV4 —
+general_BV_cutoff_final (WBV2's large + WBV3's small) + hHD_of_generalBV_window into
+BlockPricing's EXISTING slot.
+
+## 2026-07-14 WBV4 Opus done FULL (the catch-#54 assembly; two named slots remain)
+
+`Salt/Chen/WindowClose.lean` (455 lines, 5 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. `cutoffTwist_coprimeRestrict_primitive` (the fold IS mechanical — 30 lines);
+`regroup_cutoff`; `cutoff_hLargeDisc` (SINGLE-error split: no β-side error since blockPrimeInd
+is coprime-supported at d < N; the α-side coprimality error re-appears — the recon's "exact"
+claim held only for the orthogonality, honestly corrected); **`general_BV_cutoff_final`**
+(hdiv NOT needed on the window path — confirmed; hlev/hD0lo/hMlev live downstream in
+hMainEnergy's discharge); **`hHD_of_generalBV_window`** (the per-box T-difference price; the
+composition chain #check-verified end-to-end). REMAINING (WBV5/6): discharge **hMainEnergy**
+(mechanical: the landed mainEnergy pattern at dyadic_energy_le_cutoff — WBV2's output) and
+**hErrSum** (the α-side e-fold at the cutoff carrier — the THIRD run of the twice-done
+ErrFold/PerE/AlphaSide pattern; sizable-mechanical); the O(log²x) piece decomposition +
+**hLowPieces** (the thin ordering band at low pieces — crude count or its own node).
+
+## 2026-07-14 WBV5 Opus done FULL (both slots discharged; general_BV_cutoff_closed)
+
+`Salt/Chen/WindowErrFold.lean` (1333 lines, 14 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. `hMainEnergy_cutoff_discharge` (the landed pattern at WBV2's four-term;
+Kmain = 6(Km+448+32√26)); the CUTOFF e-fold (the BDH identity with the delicate ⌊T/e⌋ reindex;
+**β ≡ 0 achieved AT THE FOLD** — cleaner than the landed split; the error is a SINGLE α-side
+norm); the α-side per-e at 1/e (regroup — already primitive, no collapse needed — + the
+δ+cutoff descent + the gcd-fibered assembly, Klarge = 15360, the C0 = A+5 chain scripted-ported
+~350 lines verbatim); **`general_BV_cutoff_closed`** — both slots fed, the alpha_final shape.
+Thresholds for the H-glue: main (A+2 ≤ B/C0 forms, L^{A+3} ≤ √X,√M) + error (hlev/hD0lo/hMlev/
+hdiv at A+5). **THE ONE RESIDUAL = WBV7:** the small cutoff-conductor SW inputs (hSmallCut at
+cutoffPrimEnergy level + the per-e hsmall) — the cutoff twist doesn't factor, so the bilinear
+small machinery doesn't route; the discharge is WBV3's per-m interval-SW technique AT THE
+χ-LEVEL (each primitive χ mod f ≤ D0 gets the interval prime twist per m — the χ-twisted SW
+prime_indicator machinery applies). The wave is 5/7; WBV6 (pieces + band) in flight.
+
+## 2026-07-14 WBV6 Opus done FULL + ★ CATCH #56: the band is NOT thin ★
+
+`Salt/Chen/PieceDecomp.lean` (466 lines, 17 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. The piece decomposition (exact + triangle; O(log x) pieces); the m-split at
+z·N+1 (ordering-clear + band); **`hBlock_of_window_prices`** — the full assembly into
+BlockPricing's hBlock slot, #check-verified through hBVblocks_of_generalBV, with the high-piece
+prices named per hHD_of_generalBV_window and the band as the named Plo.
+**CATCH #56 (executor honest-assessed, against WindowClose's design note): the p₂ ≈ p₃
+ordering band is Θ(x/log x)-THICK** — the crude count overshoots the budget by ≥ (log x)^{10}
+(band mass ~ C²x/2·Σ1/k²; the d-sum multiplies by log x). The band needs its own
+equidistribution node. **THE FIX (= BND, Fable design): the SYMMETRY SPLIT** — the ordered
+band sum = ½·(the UNORDERED block×block sum — a CLEAN RECTANGLE at the cutoff carrier, priced
+by general_BV_cutoff_final verbatim) + ½·(the diagonal p₂ = p₃ — the p₁p₂² triples, ~x^{2/3}
+total, genuinely crude-able). The ν-linearity respects the split (both counts are per-d linear).
+Tally: **56 catches, 0 proofs on wrong statements.**
+
+## 2026-07-14 BND Opus done FLOOR A + ★ CATCH #57: the band box is NOT symmetric ★
+
+`Salt/Chen/BandSplit.lean` (NEW, 191 lines, 3 decls; NOT wired into All.lean per the task).
+Sorry-free, axiom-clean (`[propext, Classical.choice, Quot.sound]` on all 3), zero warnings
+(`lake build Salt.Chen.BandSplit` green, exit 0; full `lake build` green). Delivers FLOOR A:
+**`sum_symm_ordered_split`** (the exact ½-identity `2·∑_{p≤q∈S} w = ∑_{S×S} w + ∑_{p∈S} w p p`
+for symmetric `w`, via `sum_union_inter` + the `Prod.swap` reindex + the diagonal `p↦(p,p)`
+image — general/reusable) and **`bandDiagCount`/`bandDiagCount_le_pairCard`/`bandDiagCount_le`**
+(the diagonal `p₂=p₃` triples inject into `(p₁,p₃)`, so `#diag ≤ y·(M−N)` per box; the honest
+global `x^{2/3}/log x` is `∑_{p₁≤y} π(√(x/p₁)) ≪ √x·√y/log`, item-3 arithmetic in the header).
+
+**★ CATCH #57 (executor honest-assessed against the FROZEN BND symmetry-split design; the
+designated stop-and-flag point "the symmetric-summand verification"):** the ordered band box is
+**NOT** a symmetric block×block sum. The band box (FROZEN by `PieceDecomp`'s split point) is
+`{p₃∈(N,M], p₂≤p₃, m=p₁p₂ ≥ z·N+1}`, and `m ≥ z·N+1` does **NOT** force `p₂ > N`. For pieces with
+`N > y` (present whenever `y < N < x/z`, non-empty since `z < y`), a `p₁` near `y` with `p₂∈(y,N]`
+gives `m ≥ z·N+1` yet `p₂ ≤ N < p₃` (p₂ in a STRICTLY LOWER dyadic band). Concrete witness:
+`2^k∈(x^{1/3},√(x/z))`, `p₂∈(y,2^k)`, `p₁∈(z·2^k/p₂, y]`, `p₃∈[2^k,2^{k+1})`. So
+`band box = {p₂,p₃∈(max(y,N),M], p₂≤p₃}` (SYMMETRIC — the ½-split applies) `⊔ {p₂∈(y,N], p₃∈(N,M]}`
+(**Part 2**, N>y only). Part 2 is `Θ(x·loglog/log x)` — NOT the diagonal, NOT `≤ x/(log x)^{10}`;
+it is its own oriented-semiprime rectangle `α_low(m)=[m=p₁p₂, p₁∈block j, y<p₂≤N]` (m-intrinsic
+0/1, ordering automatic since `p₂≤N<p₃`), BV-priceable by `general_BV_cutoff_final` at its own
+cutoff — but ABSENT from the frozen design. Also the symmetric part's clean range is `(max(y,N),M]`
+(the `tripleSet` threshold `y` vs the piece boundary `N` do not align), not the design's `(N,M]`.
+
+**REFINED RESOLUTION (Fable/design-tier — amends the frozen BND design):** per band box, discharge
+`Plo` = **two** BV-priced rectangles + the crude diagonal — (a) `α_sym` over `(max(y,N),M]` with
+the ½-split (`sum_symm_ordered_split` — landed), (b) `α_low` over `(y,N]` (N>y pieces; a fresh
+WBV3/WBV4-scale rectangle identification + `norm α_low ≤ 1` + BV price — the NEW work), (c) the
+diagonal (`bandDiagCount_le` — landed kernel, `x^{2/3}`). FLOOR B (band-box→rectangle bijection at
+the cutoff carrier, corner-free, both α's) and FULL (`Plo_discharge` into
+`hBlock_of_window_prices`) are BLOCKED on this amendment (adding `α_low` + the `max(y,N)`
+threshold), which is a design change, hence not attempted (rule 1/rule 4 + the explicit
+stop-and-flag). The diagonal half of the frozen design is CONFIRMED sound (crude, `x^{2/3}`); the
+½-split half is sound only for the `(max(y,N),M]` part.
+Tally: **57 catches, 0 proofs on wrong statements.**
+
+**FABLE ADJUDICATION of catch #57 (2026-07-14, same hour):** the executor's refined resolution is
+RATIFIED — and Part 2 is structurally BENIGN: on (y, N] × (N, M] the ordering p₂ ≤ p₃ is
+AUTOMATIC (p₂ ≤ N < p₃), so Part 2 is a CLEAN oriented rectangle at the cutoff carrier —
+α_low = the block-j semiprime indicator with p₂ ∈ (y, N] (m-intrinsic, oriented factorization
+unique as in PairBijection) — directly apDiscBilinCutoff/general_BV_cutoff_final-priceable, NO
+new analysis. **= BND2** (dispatched): α_low + norm ≤ 1; the three-piece band decomposition at
+the max(y, N) threshold (symmetric ½-split [landed] + the α_low rectangle + the diagonal
+[landed]); the composed Plo_discharge feeding PieceDecomp's slot. Tally: 57 catches, 0 wrong
+proofs.
+
+## 2026-07-14 WBV7 Opus done FULL — ★ general_BV_cutoff_unconditional: THE WINDOWED BV IS CLOSED ★
+
+`Salt/Chen/WindowSmallChi.lean` (574 lines, 6 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. The χ-level per-m regroup; the per-(m,ψ) interval SW (the landed
+hβSW_of_prime_indicator fits EXACTLY — interval inheritance kernel-confirmed; the mandate's
+stop-condition never triggered); `hSmallCut_discharge` + `hsmall_pere_discharge` (the D0²-cost
+folded one C0-power higher — clean bookkeeping); **`general_BV_cutoff_unconditional`** — the
+terminal theorem: the windowed bilinear BV closed at ONLY structural/operating-point thresholds
+(the full list documented in-file for the H-glue; Kerr = 2^{A+5}Kβ′ + 15360). The catch-#54
+wave: WBV1–7 ALL LANDED; the ONLY remaining piece is BND2 (the three-piece band close, in
+flight) — then the hHD/hBVblocks/mainA3 chain is complete modulo thresholds.
+
+## 2026-07-14 BND2 Opus done (floor A + Plo_discharge composed; the identifications = BND3)
+
+`Salt/Chen/BandClose.lean` (492 lines, 24 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. The m-threshold VERIFIED (automatic on the symmetric region — p₁p₂ ≥ z(N+1) ≥ zN+1;
+genuinely cuts on the low region — carried explicitly); the ½-split at the landed identity
+(cwin symmetric); `bandDisc_eq_three` + the per-d triangle; **`Plo_discharge`** — the band slot
+bounded by ½·Psym + Plow + the explicit diagonal, #check-chained through
+hBVblocks_of_generalBV → general_BV_cutoff_final. HONEST RESIDUALS (= BND3): (i) the two
+rectangle → apDiscBilinCutoff identifications (blockAlphaSym/blockAlphaLow + hord-FREE pair
+bijections — the ordering from p₂ ≤ N < p₃ (low) / the symmetry (sym); ~WindowSW-scale);
+(ii) the diagonal's analytic tightening (the finset bound landed; the ν-summability ×
+x^{2/3}-average is a downstream crumb for SW4's budget row).
+
+## 2026-07-14 BND3 Opus done FULL — ★ THE SWITCH LINE'S COMBINATORIAL CHAIN IS COMPLETE ★
+
+`Salt/Chen/BandIdent.lean` (750 lines, 11 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. `blockAlphaLow`/`blockAlphaSym` (+ norms ≤ 1, oriented uniqueness); the two
+identifications (`lowRect_eq_apDiscBilinCutoff` — ordering from p₂ ≤ N < p₃, no hord;
+`symRect_eq_apDiscBilinCutoff` — unordered, the raised lower end's dyadic hypothesis verified);
+**`Plo_discharge_priced`** — the band slot at four general_BV_cutoff_final-priceable one-sided
+sums, #check-chained end-to-end. THE CATCH #54/#56/#57 REGION IS CLOSED: bandDisc → three
+pieces → identifications → the windowed BV prices → Plo → hBlock → hHDblocks → hBVblocks →
+mainA3_of_block_remainders — every link kernel-checked, modulo operating-point thresholds only.
+**NEXT: THE END-TO-END NUMERIC RE-GATE** (the honest A₁/A₂/A₃ razor at all achieved constants),
+then SW4, then the H-glue.
+
+## 2026-07-14 ★★ THE END-TO-END RE-GATE — BLOCK (catch #58) — BUT THE CHAIN IS SOUND ★★
+
+Two lenses (forward trace + classical benchmark), both BLOCK, both agreeing EXACTLY.
+**THE HEADLINE POSITIVE: the symbolic normalization chain is VERIFIED GAP-FREE** — Row A (all
+true values) reproduces (2log3 − log6 − c̄)·e^γ/4 = catch-#20's M·e^γ/2 = +0.018871 to 8
+digits; the collapse (3/8)·F(3/2) = e^γ/2 EXACT; the count c̄/2, the W-ratio 3/8, the Λ-mass
+x/2 all compose with no unit gap. Every #41/#49-class error is dead. The strip vanishes
+(x ≳ e^100 — fine at our x₀); the ε-slacks are 1.6% of the margin (noise, not free).
+**CATCH #58 (two value-cert gaps):**
+**58a — the A₃ point cert:** the switch consumes the UNIFORM Fchain ≤ 268/100 at s = 1.4997;
+the razor needs ≤ 2.6403 there. **THE FIX IS ALREADY LANDED IN PIECES** (Fable): MR1's
+`Fchain_mass_ledger` (Fchain N s = 1 + (3−s)/s + ΣmassE/s on [1,3]) + SS3c's
+`massSum_le_A2_final` (Σ ≤ 43/75) evaluated AT the switch window: Fchain(1.4997-window) ≤
+2 + (2/3)(43/75) + rounding = **≤ ~2.383 ≪ 2.6403** — an 11% cushion. = node **FPC** (class B:
+the point-window evaluation of the landed identity).
+**58b — the A₂ aggregation:** the ONLY landed aggregation (`A2grid_le_envelope`) is **5.007×**
+the honest F-weighted value (supF × the crude +2 envelope; its docstring's "0.466% gap" claim
+was wrong by 400× — never re-gated after the sharp-B rewiring). THE FIX (same identity!):
+Fchain(s_p) = 1 + (3−s_p)/s_p + M_E/s_p pointwise (all s_p ∈ [4/3,3] ⊂ [1,3] ✓) turns A2grid
+into EXPLICIT weighted window sums (Σ(1/(p−1))·(3/s_p − 1)-forms + M_E·Σ(1/((p−1)s_p))) —
+priceable by the AbelPass abstract machinery (prime_sum_abel) + the numeric row → the honest
+(e^γ/2)log6 = 1.5956 value. = node **A2W** (class C, bracketed by AbelPass + MR1).
+**58c (correction):** Assembly's docstrings/H-glue routing still cite the discredited
+0.29827-count model — rewire to the honest carrier at the H-glue (docs, not proofs).
+WITH FPC + A2W: the projected razor = 0.9777 − 0.7978 − ½·c̄·(3/8)·2.383 = **+0.0177** (93% of
+the ideal margin). Tally: **58 catches, 0 proofs on wrong statements.**
+
+## 2026-07-14 FPC Opus done (catch #58a CLOSED: Fchain at the switch ≤ 2.43)
+
+`Salt/Chen/FchainPoint.lean` (1 decl; wired by Fable). Sorry-free, axiom-clean, zero warnings,
+first attempt. `Fchain_switch_le : ∀ s ∈ [149/100, 151/100], Fchain N s ≤ 243/100` — the MR1
+mass identity + the SS3c sum composed at the point (index sets literally identical; the ledger
+collapses to (3+M)/s, decreasing). Worst point EXACT: 1072/447 ≈ 2.39821; frozen 2.43 (1.33%
+slack — the executor correctly overrode my 2.4 hint, which had only 0.075% and would break at
+any mass-budget loosening; good judgment, not a catch). The A₃ razor row: ½·c̄·(3/8)·2.43 =
+0.16547 ≪ the 2.6403-equivalent ceiling. 58a CLOSED; A2W (58b) is the last cert gap.
+
+## 2026-07-14 A2W Opus done FULL — ★ CATCH #58 FULLY CLOSED: the last value node ★
+
+`Salt/Chen/A2Weighted.lean` (592 lines, 20 decls; wired by Fable). Sorry-free, axiom-clean,
+zero warnings. **`A2grid_sharp_le`**: A2grid ≤ (3 + Cmass)·((log 6)/4 + O(1/log z)-error) — the
+mass-ledger collapse Fchain = (3+M)/s pointwise, the ceiling domination, the smooth-carrier
+calculus, the partial-fraction (log 6)/4 integral, the z^u change of variables, the monotone
+Abel pass, the 1/(p(p−1)) crumb — all composed. PLUS `massSum_le_A2_sharp` (≈ 0.56309, derived
+from the ACHIEVED super-solution integrals WITHOUT altering the frozen 43/75 — the frozen bound
+alone breaches the soft sub-budget by 0.0008, exactly as the dispatch warned; the sharp form
+gives ½mainA2/X_W = **0.79803** ≤ 0.7995). PROJECTED RAZOR: **+0.0174** (92% of the classical
+ideal). The s_p ∈ [1,3] range + the idealized Dtot = z⁴ geometry are caller hypotheses
+(documented; the realistic-geometry O(1/log z) corrections live in SW4's x₀). CATCH #58 IS
+FULLY CLOSED — every value certification the razor consumes is now a kernel theorem.
+
+## 2026-07-14 M4F Opus done FULL (the window memberships; M4 fully closed)
+
+`Salt/Chen/WindowMembership.lean` (wired by Fable). Sorry-free, axiom-clean, zero warnings.
+`logRatio_A1_mem` (∈ [3.9992, 4] at ε′ = 9/100000 — Amendment 4's point, the catch-#51
+arithmetic settled with ≥100× slack) + `logRatio_A3_mem` (∈ [1.49, 1.51] — FPC's consumer);
+threshold x₁ = 10⁴⁸ for both (the exponents evaluate cleanly); Nat.floor-of-rpow convention
+verified against the actual consumers. The M-layer (M1/M2/M3/M4) is now COMPLETE IN FULL.
+
+## 2026-07-14 SW4 Opus done FULL — ★★★ THE RAZOR IS POSITIVE, KERNEL-CERTIFIED ★★★
+
+`Salt/Chen/RazorClose.lean` (4 decls; wired by Fable). Sorry-free, axiom-clean, zero warnings,
+FIRST attempt. **`razor_scalar_margin` : 1/100 ≤ 9779/10000 − ½(3+43/75)(log6/4) −
+½·c̄·(3/8)(243/100)** — consuming cbar_lt (the 600-panel certificate), the LogToolkit
+sandwiches, and every landed value cert; **certified margin M = 0.012151** (the sharp-mass
+variant gives 0.01444; the re-gate's projections reproduced). `razor_of_normalized` (the
+symbolic lift at the shared X_W = totalMass·W_z normalization) and **`hledger_at_certs`** —
+the EXACT chen_positivity hledger conjunct, END-TO-END TYPE-CHECKED into chen_positivity.
+The frozen 43/75 suffices for the hard ledger (the sharp mass was only the soft sub-budget's
+need). Division of labor: SW4 owns the arithmetic; the H-glue (GLU-1/2) discharges the four
+normalized per-carrier bounds + the error bundle (all O(1/log z), the x₀-home) from the landed
+carrier lemmas. Catch #20's hand-computed M ≈ 0.0212 (1966) is now a kernel-certified 0.0122.
+REMAINING: **GLU-1** (the normalized-bounds discharge), **GLU-BV** (hBVblocks at the operating
+point via the WBV chain's thresholds), **GLU-2** (the ∃-package → chen_of_hypotheses → THE
+HEADLINE), + 58c (docs rewire).
+
+## 2026-07-14 GLU-1 Opus done FULL (the normalized package; catch #49's chain is a THEOREM)
+
+`Salt/Chen/GlueNormalized.lean` (6 decls; wired by Fable). Sorry-free, axiom-clean, zero
+warnings. The four normalized discharges (hmA1 via twin_A1_lower_B + fchain_A1_final; hmA2 via
+twin_A2_upper + A2grid_sharp_le at the frozen mass; hmA3 — THE CATCH-#49 RECONCILIATION,
+machine-checked: the ×8 resolved by hWy (the 3/8 ratio) × hcount (the c̄-bridge over the
+Λ-mass), every deviation in the O(1/log z) remainder; hstrip exact) + `errorBundle_le` +
+**`normalized_package`** — composing through hledger_at_certs to the EXACT hledger conjunct;
+`chen_positivity … (normalized_package …) : 0 < p2PrimeSum` TYPECHECKED. Instance findings:
+A₂'s carrier identification (Λmass·V = X_W) lives in GLU-2's hcoef — no GLU-1 obligation.
+FLAGGED PREREQ for GLU-2: a crude W-lower for the CHEN twinA1Sieve (TwinInstance.W_twin_ge is
+the Brun-track's — same ∏(1−ν) shape, a re-run) for the R/X_W + strip shares at x₀.
+
+## 2026-07-14 GLU-BV Opus — FLOOR A + B (per-box price + crumb reductions) + ★ CATCH #59 ★
+
+`Salt/Chen/GlueBV.lean` (NEW, 9 decls; namespace `Salt.Chen`; NOT wired into `All.lean` per the
+task). Sorry-free, axiom-clean (`[propext, Classical.choice, Quot.sound]` on all 9), zero warnings
+(`lake build Salt.Chen.GlueBV` green, exit 0; the only corpus warning is the pre-existing
+`Salt/SW/Siegel.lean:217` simpa hint, not this file).
+
+**LANDED (all correct + reusable regardless of the catch below):**
+* **FLOOR A — `cutoff_BV_at_op`.** `general_BV_cutoff_unconditional` (WBV7) with its `herr_div`
+  slot (`∀ e, 2≤e≤D → d(e)·L^{A+5} ≤ √X`) discharged VERBATIM by `DivisorBound.hdiv_discharge`
+  under the operating relations `D ≤ √x`, `√x ≤ 4X`, `X·M ≤ x²` (the `d(e) ≤ C₃e^{1/3}`, `1/3<1/2`
+  absorption). The rest is the structural operating-point bundle; the conclusion is EXACTLY the
+  `hprice_hi`/`hprice_lo` shape the window/band consumers name.
+* **The `M ≤ 2N` off-by-one — RESOLVED.** `pieceM k = 2^{k+1}−1`, `pieceN k = 2^k−1` give
+  `M = 2N+1`, VIOLATING the terminal `M ≤ 2·N`. Fix (`blockPrimeInd_pieceN_eq` + `not_prime_two_pow`
+  + `pieceM_le_two_pow`/`two_pow_le_pieceM` + `sum_norm_apDiscBilinCutoff_pieceN`): apply at
+  `N' := 2^k` (`pieceM k ≤ 2·2^k` ✓) and transport the price to `blockPrimeInd (pieceN k)` — for
+  `k ≥ 2` the two indicators are EQUAL (they differ only at `n = 2^k`, not prime). `k ≤ 1` = the
+  `O(1)` crude/empty fallback.
+* **FLOOR B — the crude crumbs (the `ν ≤ 1` / ν-summability halves).** `sum_nuChen_le_card`
+  (`∑_{d∈S} ν(d) ≤ #S`); `hCE_discharge` (the conversion-error double sum `≤` the non-unit
+  triple-count double sum, VERBATIM at the guard — the crude count is the named `w₀`-scale
+  residual); `diag_nu_crumb` (the `d`-independent band-diagonal's ν-weighted sum FACTORS as
+  `(∑ν)·#diag ≤ #S·y·(M−N)` via the landed `bandDiagCount_le`). The tight forms (the crude
+  conversion count "`d` has a prime factor `≥ w₀`", the `π`-refined diagonal `∑_{p₁≤y}π(√(x/p₁)) ≪
+  x^{2/3}/log`, the Mertens `∑ 1/φd ≤ C log`) are SW4-downstream analytic NT — the named residuals.
+
+**★ CATCH #59 (executor honest-assessed against the LANDED window-BV chain; the budget row the node
+was told to close) — THE OPERATING-POINT `hNum` DOES NOT CLOSE WITH THE NOMINAL-`X·M` PRICE.★**
+The task premise "`X_box·M_piece ~ x` per box, `O(log²x)` boxes at `x/(log)^A`" is FALSE on the
+WINDOW route as landed, because the `m`-range is priced in ONE shot (PieceDecomp docstring: "`(a,b)`
+is the `m`-window, here **full**") — NOT dyadically sub-blocked in `m` (unlike the SW3 box route
+`SwitchDyadic`/`SwitchPricing`, where `X = 2^i`, `M = 2^j`, so `X·M = 2^{i+j} ~ x` on the
+`O(log x)` surviving `i+j∈{K−2,K−1,K}` boxes — that route closes fine). Concretely, both consumers
+force `X ≫ x/M`:
+* **Band (`BandIdent.Plo_discharge_priced`, `hxX : x ≤ X`)** prices `∑_k ‖apDiscBilinCutoff (…) X
+  (pieceM k) 2 d T‖` at a GLOBAL `X ≥ x`. The band is non-empty only for `N ≤ √(x/z)` (catch #57),
+  but the LARGEST such piece alone gives `X·pieceM k ≥ x·2√(x/z) = 2x^{3/2}/√z`, so its
+  `general_BV_cutoff_(final/unconditional)` price `~ x^{3/2}/√z/(log)^A ≫ x/(log)^{10}` (`≈ x^{1.44}`
+  at `z = x^{1/8}`).
+* **High piece (`WindowClose.hHD_of_generalBV_window`, `hbX : b ≤ X+1`, `b = min(z·N+1, x+1)`)** has
+  `X·M ≥ min(z·N,x)·2N`. For `N ≤ √(x/z)` this is `≤ 2x` ✓; but pieces with `√(x/z) < N ≤ x/z²` are
+  NON-EMPTY (`p₁p₂ ∈ [z², x/N]`) yet carry `X·M ~ 2z·N² ≫ x` (up to `~ x^{13/8}` at `N ~ x^{3/4}`).
+The **root cause**: `general_BV_cutoff_unconditional`'s price is the NOMINAL box area `X·M`, but the
+cutoff `m·n ≤ T = x` makes the EFFECTIVE mass `~ x/log ≪ X·M` (for the high-`N` pieces the box
+`[0, z·N)` overshoots the admissible `m ≤ x/N` by `z·N²/x`). The price is a true upper bound but is
+`(X·M)/x`-lossy, so summing it over the `O(log²x)` `(j,k)` boxes gives `~ x^{3/2}`–`x²` `≫
+x/(log)^{10}`. `hNum` (`RHD + RCE ≤ x/(log x)^{10}`) is UNPROVABLE with these prices, and
+`cutoff_BV_at_op`'s own `X·M ≤ x²` relation itself FAILS on the top pieces — the same signal.
+**Not rescuable by the crude fallback:** the `~0.3·log₂x` high pieces with
+`N ∈ (√(x/z)·polylog, x/z²·(1−o(1)))` (`≈ (x^{0.44}, x^{0.75})` at `z = x^{1/8}`) carry `~ x/log`
+triples EACH (`#m ~ x/N`, `#p₃ ~ N/log`), so the crude `|disc| ≤ count` also overshoots the
+per-box budget `x/(log)^{12}` — neither tool covers this band. The cutoff-mass price
+`≤ (const)·x/(log)^A ≤ x/(log)^{12}` (`A ≥ 12`) DOES clear it, which is why the resolution below is
+mass-based.
+
+**RESOLUTION (Fable/human/design-tier — rule 1/rule 4, NOT attempted):** the cutoff carrier must be
+priced by the cutoff MASS, i.e. `general_BV_cutoff_final` should conclude `≤ (const)·T/(log T)^A`
+(the effective `mass ~ T = x`), OR the window boxes must be dyadically `m`-sub-blocked (à la SW3) so
+`X·M ~ T` per sub-box — either is a change to the LANDED `general_BV_cutoff_final`/`PieceDecomp`
+design. `hBVblocks_at_op` (FULL) is BLOCKED on this; the per-box thresholds, the `M ≤ 2N` re-index,
+`hdiv`, and the crude crumbs are landed honestly above.
+Tally: **59 catches, 0 proofs on wrong statements.**
+
+**FABLE ADJUDICATION of catch #59 (2026-07-14 ~06:30): the m-SUB-BLOCKING fix, ratified.**
+The executor's analysis is correct: the nominal X·M price is (X·M)/x-lossy and the medium-N band
+defeats both landed tools. THE FIX (= **GBV2**, dispatched): dyadic m-sub-blocking of the window
+boxes — per (j, piece), split the m-range dyadically; under the cutoff m·n ≤ T the hyperbola
+leaves only O(log) NON-EMPTY sub-boxes per piece (the corner test at the cutoff: a sub-box with
+min-m·min-n > T has BOTH guarded counts empty ⟹ the cutoff disc vanishes identically), and
+every survivor has X_sub·M ≤ 4T ≤ 4x ⟹ O(log³x) applications at the A ≥ 14-family exponents
+clear x/(log x)^10. Machinery: the cutoff α-additivity (a WBV1-mirror of
+SwitchStrip.apDiscBilin_sum_alpha — the carrier is linear in α), restrictAlpha sub-ranges, the
+sub-box vanishing lemma, the re-summed budget, the re-composed hHD/Plo prices at the sub-box
+level. No change to general_BV_cutoff_unconditional (the per-application price is correct);
+only the SUMMATION layer re-organizes. Tally: 59 catches, 0 wrong proofs.
+
+## 2026-07-14 WLOW Opus done (W ≥ e⁻³⁵/log z — stronger than flagged)
+
+`Salt/Chen/WLower.lean` (wired by Fable). Sorry-free, axiom-clean, zero warnings.
+`W_twinA1_ge : e^{−35}/log z ≤ W(twinA1Sieve)` — the SINGLE-log-power form (the sharp
+neg_log_one_sub_nuChen_le bracket keeps the coefficient at 1 vs the Brun-crude 2 that forced
+(log z)²). GLU-2's R/X_W and strip shares now vanish against a single log. The GLU-1 prereq is
+closed.
+
+## 2026-07-14 GBV2 Opus — FLOOR A + item-3 STRUCTURAL + ★ CATCH #60 (refines #59) ★
+
+`Salt/Chen/SubBlocked.lean` (NEW, 11 decls; namespace `Salt.Chen`; NOT wired into `All.lean` per the
+task). Sorry-free, axiom-clean (`[propext, Classical.choice, Quot.sound]` on all 11), zero warnings
+(`lake build Salt.Chen.SubBlocked` exit 0; only pre-existing corpus warning is `Salt/SW/Siegel.lean:217`).
+
+**LANDED (correct + reusable — the whole summation-layer re-organization catch #59's fix names):**
+* **Item 1 — the cutoff α-additivity backbone (WBV1-carrier mirror of `SwitchStrip`):**
+  `apDiscBilinCutoff_zero`, `_congr` (depends only on `α|Icc 1 X`), `_add_left` (both guarded
+  counts LINEAR in α), `_sum_alpha` (finite α-partition ⟹ coherent sum), `_split_threshold`, and
+  `apDiscBilinCutoff_restrict_X` (the X-shrink: the carrier is independent of the m-top for
+  `X ≥ b−1`, so a survivor sub-box prices at its own top `X_sub` ⟹ reduced area).
+* **Item 2 — the sub-box vanishing (corner test AT the carrier):**
+  `apDiscBilinCutoff_eq_zero_of_over` — `T < a·(N+1)` ⟹ every summand filtered (`min-m·min-n =
+  2^i·(N+1) > T`), BOTH guarded counts empty ⟹ cutoff disc `= 0`.
+* **Item 3 — the sub-blocked price (structural / summation layer):** `dyadicSurvivors` (=
+  `{i ≤ K : 2^i·(N+1) ≤ T}`), `dyadicSurvivors_card_le` (`≤ ⌊log₂T⌋+1`, the O(log)-per-box count),
+  `restrictAlpha_dyadic_sum` (the pointwise dyadic partition), `sum_norm_apDiscBilinCutoff_dyadic_decomp`
+  (box price ≤ Σ over NON-vanishing sub-boxes), and **`subblocked_box_price`** (box price ≤ Σ of the
+  per-survivor prices — the exact re-organization "only the summation layer re-organizes"). Survivor
+  accounting verified: largest survivor has `X_sub·M ≤ 4T ≤ 4x` (`2^{i*}(N+1) ≤ T`, `X_sub =
+  2·2^{i*}`, `M ≤ 2·2^k`, `2^k ≤ N+1`).
+
+**★ CATCH #60 (executor honest-assessed against the LANDED `cutoff_BV_at_op`/`DivisorBound`; refines
+the #59 resolution) — THE m-SUB-BLOCKING ALONE DOES NOT CLOSE THE MEDIUM-N BAND. ★**  Fable's #59
+adjudication authorizes "every survivor has `X_sub·M ≤ 4T` ⟹ apply `cutoff_BV_at_op` at the
+sub-scales". The AREA bound is correct and landed, but `cutoff_BV_at_op` (via
+`DivisorBound.hdiv_discharge`'s `hsqrt4X`) ADDITIONALLY requires **`√x ≤ 4·X`** — instantiated at a
+survivor this is `X_sub ≥ √x/4`. The largest survivor of a piece at `p₃`-scale `N` has
+`X_sub ≤ 2x/(N+1)`, so `X_sub ≥ √x/4 ⟺ N ≤ 8√x−1`. For the NON-empty medium band
+`√(x/z) < N ≤ x/z²` (catch #57; `≈ (x^{0.44}, x^{0.75}]` at `z = x^{1/8}`, `N ≫ 8√x`), EVERY
+survivor sub-block has `X_sub < √x/4` and NONE is `cutoff_BV_at_op`-priceable despite `X_sub·M ≤ 4x`.
+Crude count is no rescue (already #59's finding): those boxes carry `~x/log` triples, and the
+small-block share is `Θ(x/log)` (the `∑_{m∈[2^i,2^{i+1})} T/m ≤ T` cutoff-mass), so `|disc| ≤ count`
+overshoots. The task-proposed "small-block crude `X_sub·(M/d+1)`" DOES NOT clear: summed over the
+O(log) pieces the `∑_k M_k ~ 4x` factor gives `x·polylog ≫ x/(log)^{10}`.
+**Root cause:** `general_BV_cutoff_unconditional`/`DivisorBound` extract cancellation from the
+m-side (`X`-side; the `hsqrt4X`/`√X` thresholds), needing X LONG. The medium-band survivors are
+short-m/LONG-n (n prime in (N,M], length `~2^k`); they ARE priceable by cancellation on the PRIME
+side, but the theorem hardcodes `blockPrimeInd` in the SECOND slot and a transpose
+`apDiscBilinCutoff α β X Y N₀ d T = apDiscBilinCutoff β α Y X N₀ d T` (true by `m·n = n·m`) would put
+the prime indicator in the FIRST slot, which the theorem does not accept.
+**RESOLUTION (Fable/design-tier — rule 1/rule 4, NOT attempted):** the m-sub-blocking must be PAIRED
+with a long-prime-side (`√M`) BV price — a symmetric `general_BV_cutoff` extracting from the n-side
+when `X_sub < √x/4` (or a role-swap variant of `DivisorBound.hdiv_discharge` using `√x ≤ 4M`). This
+is a change to the LANDED `general_BV_cutoff_unconditional`/`DivisorBound` design. `subblocked_box_price`
+lands the summation layer with the per-survivor price ABSTRACTED (`hprice`); it is discharged by
+`cutoff_BV_at_op` ONLY for the `X_sub ≥ √x/4` (low-N) survivors. `hHD_window_subblocked`/`Plo_subblocked`
+(item 4's re-composed sums) and **`hNum_at_op`** are BLOCKED on this residual.
+Tally: **60 catches, 0 proofs on wrong statements.**
+
+**FABLE ADJUDICATION of catch #60 (2026-07-14 ~06:50):** the diagnosis is right and the fix is
+classically guaranteed: the medium-band survivors (short-m × long-prime-n, X_sub·M ~ x at level
+D ~ √x/(log)^B) are EXACTLY the classical Bombieri bilinear regime — the cancellation must come
+from the LONG (prime) side. THE FIX (= **GBV3**, recon-first): the TRANSPOSED windowed chain —
+α (the short semiprime band, ‖α‖ ≤ 1, few m's) × the prime side as the SW carrier: the
+small-conductor half is ALREADY landed in transpose-compatible form (WBV7's per-m regroup
+`smallconductor_window_perd` bounds by X_sub·(K·M/(log M)^A) ≤ 4Kx/(log)^A ✓ — verify); the
+large-conductor half needs the shell (symmetric in the two coefficient vectors ✓) + the dyadic
+descent at the swapped roles with the boundary-regime bookkeeping (D² ~ X_sub·M — the classical
+two-regime log-power win; MANDATORY numeric feasibility check before any port). Tally: 60
+catches, 0 wrong proofs.
+
+## 2026-07-14 GBV3 Opus — FLOOR A+B (transpose backbone + small-conductor + MainEnergy verified) + ★ CATCH #61 (refines #60): the e-fold ErrSum does NOT transpose ★
+
+`Salt/Chen/TransposedBV.lean` (NEW, 6 decls; namespace `Salt.Chen`; NOT wired into `All.lean`).
+Sorry-free, axiom-clean (`[propext, Classical.choice, Quot.sound]` on all 6; `lake build
+Salt.Chen.TransposedBV` exit 0, zero warnings in-file; full `lake build` exit 0; only pre-existing
+corpus warnings are `Salt/SW/Siegel.lean:217` + `Salt/Twelve/MvJ.lean` long-lines).
+
+**STEP 0 numeric feasibility (the MANDATORY check, verified against the LANDED chain — full table
+in the file docstring).** The windowed price (`general_BV_cutoff_final`) splits at the conductor
+cut `D0` into small-conductor + large-conductor, and the large-conductor half splits (via
+`cutoff_hLargeDisc`'s per-χ triangle) into **MainEnergy** (primitive-character shell energy) +
+**ErrSum** (imprimitive→primitive difference). At the swapped medium-band scales (`X_sub ∈
+[polylog, √x/4)`, `M` long, `X_sub·M ≤ 4x`, `D ~ √x/(log)^B`, `A=12,C0=B=14`):
+* **(a) small-conductor — CLOSES ✓.** `hSmallCut_discharge` prices by the χ-level per-`m` regroup
+  (`cutoffTwist_le_sum_interval_twists`) pricing each fibre by the PRIME-side interval SW
+  (`hβSW_of_prime_indicator`, cancellation at length `N`): `‖cutoffTwist‖ ≤ X_sub·(f·K·N/(log N)^A)`
+  — NO `√X_sub` threshold. Transpose-compatible verbatim (`α := restrictAlpha`, `‖·‖ ≤ 1`).
+  **The adjudication's "already landed" claim VERIFIED.**
+* **(b.1) MainEnergy four-term — CLOSES ✓ on `X_sub ≥ L^{2(A+3)}`.** `four_term_scale_le`'s four
+  terms at `(X_sub, M)`: T1 (`2^{K+1}~2D`) clears via the LEVEL cut `D ≤ √(X_sub M)/L^B` (the
+  `D²~X_sub·M/L^{2B}` two-regime win — symmetric); T2 uses `hMsqrt : L^{A+3} ≤ √M` (M long ✓);
+  T4 uses the D0 cut `2^{k0} ≥ L^{A+4}` (symmetric); **T3** uses `hXsqrt : L^{A+3} ≤ √X_sub`,
+  holding iff `X_sub ≥ L^{2(A+3)}` (a MILDER cut than (b.2)'s `x^{1/3}`, so it never binds
+  independently). `hMainEnergy_cutoff_discharge` is already GENERIC in β — the adjudication's "shell
+  symmetric ✓" VERIFIED. **The adjudication's "shell + dyadic descent" = exactly MainEnergy, and it
+  transposes.**
+* **★ (b.2) ErrSum — DOES NOT CLOSE (the refinement the adjudication omitted). ★** The
+  imprimitive→primitive descent (`cutoffTwist_sub_efold_blockPrimeInd`) folds onto the **`α`-side**
+  because `β = blockPrimeInd` is coprime-supported mod `d < N` — so ALL non-coprimality (the whole
+  Möbius fold) lands on the SHORT semiprime `α`, NOT the prime side. `cutoffEfold_large_discharge`
+  then needs `hdiv : d(e)·L^{A+5} ≤ √X_sub` ∀`e∈[2,D]`; with the sharp `d(e) ≤ C₃·e^{1/3} ≤
+  C₃·x^{1/6}` (`DivisorBound`, `e ≤ D ≤ √x`) this forces **`X_sub ≥ C₃²·x^{1/3}·L^{2(A+5)}`** (≈
+  `x^{1/3}`; `hdiv_discharge` derives it from `√x ≤ 4·X_sub`, i.e. `X_sub ≥ √x/4`). The medium band
+  `N ∈ (8√x, x/z²]` has its LARGEST survivor at `X_sub ≤ 2x/(N+1)`, so for `N > x^{2/3}` (non-empty,
+  up to `x^{3/4}` at `z=x^{1/8}`) EVERY survivor has `X_sub < x^{1/3}` and FAILS `hdiv`. **The
+  TRANSPOSE does NOT rescue this:** swapping `α ↔ blockPrimeInd` swaps the SLOTS but not WHICH
+  coefficient is coprime-supported (the prime side is always coprime), so the fold is always on the
+  short side. Crude is no rescue (reintroduces the all-character large-sieve loss: `ErrSum ≲
+  N·D·X_sub/log ~ 2x·√x/log = x^{3/2}/log ≫ x`), so the task's three-way split has NO working
+  "tiny by crude" leg: the whole `X_sub < x^{1/3}` range is the residual, uniformly via the e-fold.
+  **Root cause: the LANDED windowed machinery has
+  ONLY the BDH `α`-fold route to reduce imprimitive→primitive; the short-`α` regime is exactly the
+  classical DISPERSION regime (Cauchy–Schwarz on the long prime variable + large sieve, NO
+  `α`-fold), which is NOT in the codebase.** The adjudication's "shell + dyadic descent" model
+  overlooked the ErrSum (the imprimitive→primitive reduction is a separate technical necessity —
+  the shell prices PRIMITIVE characters only).
+* **(c) budget — fine modulo (b.2).** Per-survivor `≤ Kβ·(X_sub·M)/L^{A+1} ~ X_sub·M/L^A`
+  (`Kβ~log N`); per box `∑_i X_sub_i·M ~ 8x` ⟹ `8x/L^A`; `O(log³x)` applications ⟹ `x/L^{A−3} ≤
+  x/L^{10}` for `A ≥ 13`.
+
+**LANDED (correct + reusable regardless of (b.2)):**
+* **The transpose backbone** — `cutoffTwist_transpose`, `apDiscBilinCutoff_transpose`: the windowed
+  carrier is `(α,X)↔(β,Y)`-invariant (Fubini + `m·n=n·m`). Verifies the adjudication's symmetry
+  premise; the identity catch #60 named ("prime indicator FIRST↔SECOND slot").
+* **`blockPrimeInd_norm_le_one`** — the prime indicator is a valid `‖·‖ ≤ 1` coefficient.
+* **`medium_smallconductor_prime_side`** (deliverable 1) — `hSmallCut_discharge` re-exposed at the
+  survivor's `restrictAlpha` coefficient: the transposed small-conductor half, prime-side SW, no
+  `√X_sub`. Confirms (a).
+* **`medium_band_price`** + **`subblocked_box_price_reduced`** (deliverable 3, summation layer) —
+  via `apDiscBilinCutoff_restrict_X` the survivor's GLOBAL-`X` carrier equals its REDUCED-top
+  carrier at `X_sub = 2^{i+1}−1` (area `X_sub·M ≤ 4T ≤ 4x`, defeating catch #59's `X·M`-lossiness);
+  composed with `SubBlocked.subblocked_box_price`, the box price ≤ the `O(log)`-survivor sum at
+  reduced area. The per-survivor reduced price supplier is `general_BV_cutoff_unconditional` at
+  `(X_sub, M)` — whose SOLE residual is the (b.2) `herr_div` slot.
+
+**BLOCKED on (b.2):** `hNum_at_op` (deliverable 3's budget) and the FULL medium-band price. The
+residual is PRECISELY the e-fold `herr_div`/`√x ≤ 4·X_sub` slot of
+`general_BV_cutoff_unconditional`/`cutoff_BV_at_op` — UNCHANGED by the transpose (catch #60 already
+pinned it; GBV3 confirms the transpose does not move it and isolates the whole medium band down to
+exactly this one slot). Needs the DISPERSION method (`√M`-side error treatment, no `α`-fold) — new
+analytic machinery, Fable/design-tier, NOT a mechanical port. Tally: **61 catches, 0 proofs on
+wrong statements.**
+
+**FABLE ADJUDICATION of catch #61 (2026-07-14 ~07:15): THE BLOCKED RANGE IS EMPTY — no
+dispersion needed.** The geometry: every triple has p₁ ≥ z (the block floor) and p₂ > y, so
+m = p₁p₂ ≥ z·y = x^{1/8}·x^{1/3} = **x^{11/24} ≈ x^{0.458}** — every NON-EMPTY survivor's
+m-scale (= X_sub-scale) sits at ≥ x^{11/24}/2, far above catch #61's x^{1/3}·polylog residual
+threshold. AND at that floor the hdiv discharges DIRECTLY: d(e) ≤ C₃·x^{1/6} = x^{8/48} ≤
+√(x^{11/24}) = x^{11/48} with power-room — no √x ≤ 4X needed (GBV3's own "partial extension",
+now sufficient since the sub-x^{1/3} range is EMPTY). The dispersion arc is UNNECESSARY.
+**= GBV4 (dispatched):** (i) the m-scale floor lemma (the box/band supports vanish below z·y —
+from the triple structure, elementary); (ii) `hdiv_direct` at X_sub ≥ x^{11/24}-forms
+(DivisorBound's machinery at the weaker relation); (iii) the completed three-way survivor split
+→ `hNum_at_op` → the hBVblocks discharge. Tally: 61 catches (the 61st adjudicated benign at
+the operating geometry), 0 wrong proofs.
+
+**2026-07-14 GBV4 ✅ FULL (MediumFloor.lean, Opus executor attempt 1, survived two API
+stream drops via transcript resume).** The catch-#61 adjudication is now kernel-checked:
+support floors at all three carriers (`blockAlpha`/`blockAlphaLow`/`blockAlphaSym` all
+force m = p₁p₂ > z·y; sym sharper at z·max(y,N)), `carrier_eq_zero_below_floor` (the
+below-floor sub-blocks vanish), `hdiv_direct` (the herr_div slot from
+`hfloor : (3/log2)^8·x^{1/6}·Lb^{A+5} ≤ √F` — GLU-2 discharges at F = z·y with x^{1/16}
+room), and the completed split: `apDiscBilinCutoff_eq_of_under` (sub-blocks with
+(2^{i+1}−1)·M ≤ x/2+1 have T-identical carriers ⟹ CANCEL in the honest T-difference —
+this also fixes GBV3's (b.1) level-cut analysis, which implicitly assumed top-survivor
+area), `dyadicBoundary_card_le_three` (≤ 3 live boundary survivors per box — budget
+upgraded to O(log²x) total applications), `medium_survivor_price` (the terminal theorem
+with herr_div ← hdiv_direct, replacing √x ≤ 4X / XM ≤ x²), feeders
+`hHD_of_box_disc`/`Plo_sym_of_box_disc`/`Plo_low_of_box_disc` at the VERBATIM landed slot
+shapes (the band route bypasses Plo_discharge_priced's per-side triangle, which would
+reintroduce the level-failing survivors), and **`hNum_at_op`** #check-chained →
+hBlock_of_window_prices → hHDblocks_of_perBlock → hBVblocks_of_generalBV, conclusion
+character-for-character the hBVblocks slot of mainA3_of_block_remainders. 20 declarations,
+all `[propext, Classical.choice, Quot.sound]`. Authoring catch: `filter (fun d => (d:ℝ) <
+bound)` type-ascribes the binder — write `fun d : ℕ => …`.
+
+**CATCH #62 (GBV4 executor, RATIFIED): the D < N structural hypothesis binds off the top
+pieces.** `general_BV_cutoff_unconditional` inherits PE2's β-side e-fold kill
+(`EfoldTermBeta_eq_zero` under D < N); chen.md's check ("D ~ x^{1/2−ε′} < N at the
+operating point") covered top pieces only. At the operating level D ~ √x/polylog: high
+boxes at √(x/(4z)) < N ≤ D and ALL band boxes (live range N ≤ √(2x/z) = x^{7/16}·√2 < D)
+FAIL it. GBV4's lemmas carry D < N explicitly, so everything landed is unconditionally
+correct — the gap is a discharge gap, not a defect. **FABLE ADJUDICATION + FIX (= GBV5):
+D < N was never the honest mechanism.** The β-e-fold kill needs only "no block prime
+divides e ≤ D"; every β-side prime exceeds y = x^{1/3} > √D (D ≤ √x), and TWO distinct
+primes > √e cannot both divide e — so at most ONE block prime divides any e, i.e. the
+e-fold correction is a SINGLE term per (d,e) instead of zero. Absorption:
+Σ_{d ≤ D} X·1/φ(d) ≤ 4X(1+log D) (landed `sum_inv_totient_le`) ≪ XM/(log)^A at
+M ≥ polylog — astronomically inside budget (M ≥ x^{1/3} here). GBV5 = (i)
+`efold_beta_le_single` (the ≤-1-term bound under √D < block-prime floor, replacing ≡ 0);
+(ii) `general_BV_cutoff_sqrtD` (the terminal variant: D < N hypothesis → hDsq : D <
+(prime floor)², ErrSum re-assembly with the extra 4X(1+log D) crumb; new threshold
+M-polylog row); (iii) re-thread GBV4's feeders at the variant. Tally: 62 catches, 0 wrong
+proofs.
+
+**2026-07-14 GBV5 ✅ FULL (SqrtDFold.lean, Opus executor attempt 1) — CATCH #62 CLOSED +
+CATCH #63 (executor catch against the adjudication's accounting, fixed in-node).** STEP 0
+traced D < N to a SINGLE root use, exactly gcd-support form (`coprimeRestrict_blockPrimeInd`:
+block primes > N > d), inherited by the whole cutoff ErrSum leg; the hMainEnergy leg never
+uses it; GBV4's hHD/Plo/hNum feeders were already D<N-free (only medium_survivor_price
+carried it). **Catch #63**: the #62 adjudication's absorption tally Σ_d X/φ(d) ≤ 4X(1+log D)
+was per-MODULUS — the crumb rides through φ(d)−1 characters per modulus (~X·D total, over
+budget by x^{1/16} on band boxes). The honest close (proved): the crumb VANISHES whenever
+the block prime divides cond χ (ψ(mp) = 0), and #{χ mod d : p ∤ cond χ} ≤ d/p (conductor
+injection + card_eq_totient — first use of that mathlib surface in the chain). Honest total
+4(1+log D)·(D/(N+1))·X, absorbed by the named row habs with x^{1/6} room. Landed:
+two_sqrt_primes_not_both_dvd, block_prime_dvd_unique, blockDrop + the hd-free fold,
+cutoffTwist_sub_efold_sqrtD (honest identity, NO hypothesis on d), efold_beta_le_single,
+card_conductor_not_dvd_le, crumb_chi_sum_le, the reorg/discharge/closed _sqrtD chain, and
+**general_BV_cutoff_sqrtD** — byte-for-byte the terminal with D < N → hDsq : D < (N+1)² +
+habs : 4(1+log D)·D ≤ N·M/L^A, Kerr = 2^(A+5)·Kβ′ + 15360 + 1. Feeders re-exported at
+_sqrtD names; hDsq automatic at sym carriers from ONE numeric row D < (y+1)² (x^{1/6} room);
+the #check chain lands character-for-character in mainA3_of_block_remainders' hBVblocks
+slot. 25 declarations, all ≤ [propext, Classical.choice, Quot.sound]. Authoring catch for
+the record: statements restating erase-sums over DirichletCharacter must keep NeZero d OUT
+of statement scope (take 1 ≤ d) or the DecidableEq instances (FunLike vs Classical) won't
+unify with the landed slots. GLU-2 obligations: hDsq row, habs row, the +1 Kerr shift in
+budget rows. Tally: 63 catches, 0 wrong proofs. **THE MEDIUM BAND IS FULLY CLOSED — the
+last node is GLU-2.**
+
+**2026-07-14 GLU-2 first run → ★ CATCH #64 (GlueFinal.lean, Opus executor attempt 1) —
+THE FIRST MACHINE-CHECKED CATCH: the D0 window is EMPTY at every boundary box.** All six
+terminal variants hypothesize, at the SAME exponent C0 (hCge : A+2 ≤ C0): hD0lo_main
+(L^{C0} ≤ 2·2^{k0}, L = log(XM), for EnergyClose.four_term_scale_le's T4 tail) AND hD0N'
+(D0 ≤ (log N)^{C0}, the SW small-conductor range). Jointly: log N ≥ L/2^{1/C0} > 0.707·L.
+But dyadicBoundary membership FORCES XM > x/2 and (N+1)·z·y < 2x ⟹ log N/L → 13/24 ≈
+0.5417 — infeasible for EVERY C0 > 2, EVERY x ≥ e^{200}, every A > 0: not threshold-
+curable. At A=12, log x = 2e10: D0 ≥ 8.2e143 required vs D0 ≤ 3.1e140 allowed (≈2680×
+empty). KERNEL-CHECKED as `catch64_op_boundary_infeasible` (from actual dyadicBoundary
+membership + the verbatim row shapes ⟹ False) + the parameter-space pinch lemmas — the
+catch is itself a theorem set, landed and wired. ROOT CAUSE: four_term_scale_le's PROOF
+only needs D0 ≥ L^{A+2}/2 (its use: 2/2^{k0} ≤ 4/L^{A+2}); its STATEMENT demands L^{C0}.
+GBV3's STEP 0 silently read the honest A+4-form — the feasibility check and the landed
+statement diverged there. **RATIFIED REPAIR (Fable warrant, = node D0W): DECOUPLE in
+place** — hD0lo_main → L^{A+2} ≤ 2·2^{k0} (hD0N' stays at C0); window restored:
+[L^{A+2}/2, (log N)^{C0}] has ratio ≈ L³·(13/24)^{A+5} ~ 1.3e26 at A=13, C0=A+5. Old
+suppliers stay valid (L^{A+2} ≤ L^{C0} at L ≥ 1). Repair chain: four_term_scale_le →
+hMainEnergy_cutoff_discharge → general_BV_cutoff_final → _closed/_unconditional →
+_closed_sqrtD/_sqrtD → medium_survivor_price(+_sqrtD) → cutoff_BV_at_op; the per-e row
+herr_D0E gets the same treatment if traced to the coupled form. This is a hypothesis
+WEAKENING of landed statements under the H-AMENDMENT-1 precedent (Iron Rule 5, Fable-
+directed). **FINDING 2 (no statement change)**: M4F's Dlev = ⌊√x⌋ violates hDscale/
+herr_lev at boundary boxes — Dlev must sit a polylog below √x; enabler landed
+(`logRatio_A3_mem_range`: membership holds for EVERY Dlev ∈ [x^{497/1000}, √x]). ALSO
+LANDED (F1 rows, convention A := 13): hyx_at_op, sievePrimorial(+_dvd) = the hPfull
+witness, hDsq_row (x^{1/9} room), hfloor_row (margin e^{178} vs 5e59, threshold e^{4000}),
+habs_row (margin e^{1221} vs 1e45), all ≤ [propext, Classical.choice, Quot.sound]. x₀
+deliberately not frozen (moot until D0W; the w₀-guard scale exp(1.6e10) will dominate).
+Tally: 64 catches, 0 wrong proofs — the estimate-vs-statement divergence was caught by
+the mandated STEP-0 inventory BEFORE any proof attempt burned against it.
+
+**2026-07-14 D0W ✅ FULL (Opus executor attempt 1, Fable statement-change warrant, survived
+one API stream drop) — CATCH #64 REPAIRED IN PLACE.** hD0lo_main weakened L^{C0} → L^{A+2}
+through the full chain (four_term_scale_le root at EnergyClose:488 with the proof patched at
+its unique use; pass-throughs WindowErrFold:82/1275, WindowSmallChi:468 + the H-glue
+threshold-list docstring, SqrtDFold:747/829/954, MediumFloor:518, GlueBV:195; the row is fed
+positionally so pass-through proofs needed NO edits). general_BV_cutoff_final carries no
+hD0lo row (verified); hMainEnergy_discharge (non-cutoff path, outside warrant) kept its
+statement — proof-body adapter only. **herr_D0E verdict: no decoupling needed or possible**
+— it is an hD0N'-family UPPER row whose C0 power is load-bearing (cancels the SW denominator
+LE^{A+1+C0}); with the lower row decoupled the pair is feasible via the landed herr_scale
+(LE ≥ L/2): 4L^17 ≤ (L/2)^18 ⟺ L ≥ 2^20 — room ~1.5e4 at op scale. **Anti-#64 certificate
+landed**: `d0_window_nonempty` (SqrtDFold §12): at A=13, C0=18, x ≥ exp(10^9), every
+dyadicBoundary box admits D0 = 2^{k0} ∈ [L^17, 4L^17] satisfying ALL D0 rows (decoupled
+hD0lo_main, herr_D0lo, hD0, hD0N' — worst row room ≈39× at threshold, growing at op scale —
+herr_D0E via herr_scale shape, hD0D chain, D0 ≤ N). GBV4/GBV5 #check chains still land
+(example blocks in the green build). All 12 edited/new declarations exactly [propext,
+Classical.choice, Quot.sound]. AUTHORING CATCH (cost 2 rebuild rounds): `set`-binding
+Nat.ceil/Nat.clog of noncomputable reals puts computational bodies in defeq reach —
+nlinarith/elaboration hit deterministic whnf timeouts; introduce such witnesses OPAQUELY via
+`obtain` on an existential, prefer linarith [explicit certificate] in rpow-heavy contexts.
+GLU-2 re-run is UNBLOCKED: terminals demand A+2 only; d0_window_nonempty is the witness.
+Tally: 64 catches, 0 wrong proofs.
+
+**2026-07-14 GLU-2 re-run → ★ CATCH #65 (Headline.lean, same executor resumed) — THE
+H-PACKAGE IS TORN AT THE hPfull/hA1 SEAM (kernel-checked).** chen_of_hypotheses demands ONE
+P with hPfull (∀ q prime < z, q ∣ P — the IsP2 extraction needs EVERY small prime, incl. 2)
+AND hA1 at the certified ledger — but every landed hA1 supplier rides twinA1Sieve's hPodd
+(∀ p ∈ P.primeFactors, 3 ≤ p), which is STRUCTURAL: ν = 1/φ has nuChen 2 = 1, so
+nu_lt_one_of_prime excludes 2 from any sieve modulus. In ℕ the unique escape is P = 0
+(everything divides 0), where A1primeSum = 0 and hledger collapses. Kernel-checked:
+`catch65_slot_torn` (hPfull + hPodd + 3 ≤ z ⟹ P = 0) and `catch65_no_H_at_odd_P` (against
+the VERBATIM H-conjunct shapes, any odd-parity instantiation is False). Deeper half (prose,
+Headline.lean docstring): even patching parity, [3, w₀) is outside the Rosser guard and a
+full-primorial carrier sits ≍ 1/log w₀ ≈ 1e-9 below the [w₀,z)-normalized X_W — no x₀
+cures a normalization ratio; Assembly's "ℚ-window bridge paid by the caller in the choice
+of P" docstring claim is REFUTED. Second consecutive Assembly-seam catch (#41 was the
+first) and second consecutive STEP-0 catch burning zero proof attempts. **RATIFIED REPAIR
+DIRECTION (= H-AMENDMENT 2, Fable design + GATE before warrant): the W-trick the corpus
+was sized for since C2a** — restrict the razor carriers to n ≡ a (mod Q), Q = ∏_{p<w₀} p,
+(a+2, Q) = 1; then 2 is free by parity, [3, w₀) by AP-membership, hPfull keeps only
+[w₀, z) and matches the suppliers; the Q·D remainder levels were sized for exactly this.
+Design pass next; after two seam catches the repaired H gets a MATH-LENS GATE against
+verbatim supplier signatures BEFORE the surgery warrant. DURABLE RECON (same report):
+Finding 3 — d0_window_nonempty's floor x^{11/24}/8 misses terminal-needing pieces down to
+√(x/(24z)) ≈ x^{7/16}/4.9; same construction covers it (room ≈83×); one-hypothesis
+amendment. Finding 4 — take ε₀ := x (maxBlock O(1)); REQUIRED at A = 13 (constant-ε₀
+exceeds the budget by a constant; O(1) blocks give ~K·e^41·x/t^11); choose x₀ = x₀(K)
+after destructuring the terminal existential (legal inside the H-proof). Finding 5 — hCE
+closable with landed inputs (p₁ ∣ d forcing + W_twinA1_ge at P := Ps + harmonic fibers;
+total x^{7/8}·polylog, room x^{1/8}). Finding 6 — twin_A1_lower_B lacks A1primeSum's
+[n prime] restriction; bridge mass ≤ √x·log₂x·log x, one small lemma. Tally: 65 catches,
+0 wrong proofs.
+
+**2026-07-14 H2-GATE (adversarial math lens on the H-AMENDMENT 2 design) — BLOCK-then-GO;
+CATCHES #66 + #67, both kernel-certain, both PRE-FREEZE (zero executor cost).** #66: the h4
+slot threaded by EVERY A₁/A₂/A₃ supplier is ∀-form false for all K (z'=1/D'=1 degenerate:
+1 ≤ 0; z'=2/D'=2^60 honest: contradicts hKe) — the discharge map's "h4 (structural): h4_base"
+line was an estimate-vs-statement divergence of the #64 genre; GLU-2's STEP 0 missed it
+because h4 is supplier-internal, not an H-conjunct. Repair = H4C (conditioned slot at the
+real use sites, both flat-cell-only with guards in scope; h4_base + thresh_mono discharge;
+new op-row (w0R ε)³ ≤ z). #67: the design's tower row Q ≤ e^{w₀} is UNPROVABLE in-corpus
+(ineffective SW K); fix Q ≤ 4^{w₀} (Nat.primorial_le_four_pow) + tower exp(exp(2·w0N ε)).
+Also ratified: C3 smooth-totalMass convention (rem d = exact Qd-discrepancy), C4 residue-
+function generalization r(d) replacing the literal 2 in the windowed chain, C5 A2W′
+re-sized as construction, C6/C7 stated. The W-trick architecture SURVIVED all eight attack
+surfaces otherwise (gcd chains, no w'-boundary gap, BoundingSieve field transparency,
+dispersion a-fortiori injection d ↦ Qd, extraction clean, findings 3–5 transfer). Tally:
+67 catches, 0 wrong proofs — three of the last four caught by gates/STEP-0 before any
+proof attempt.
+
+**2026-07-14 H4C ✅ FULL (Opus executor attempt 1, Fable warrant) — CATCH #66 REPAIRED.**
+The h4 ∀-slot conditioned (31 rows across WindowedStep/P/C, SharpClose, SharpH2 per-instance,
+TwinA1/A2/Sharp, SwitchSieve/Blocks; non-use-site rows positional, zero proof edits; 4
+use-site patches, all facts in scope). RATIFIED DEVIATIONS: (1) the slot premise is the
+hguard/hnu row bundle (the draft's w0R-floor row was UNDERIVABLE at use sites — guard only
+forces q > (w0R)^{19/40}); (2) the discharge lemma `h4_cond_of_base` (new H4Cond.lean) goes
+through VD1's vlow_le_of_guard, NOT h4_base+thresh_mono, and the proposed op-row (w0R ε)³ ≤ z
+is NOT introduced (it would live inside the ∀-premise where use sites cannot discharge it) —
+GLU-2W's total h4 obligation is hz/hguard/hnu (already discharged via twinA1_hguard/
+switch_hguard from hPlow) + 0 ≤ ε + 1+ε ≤ K. STRICTLY better than the gate's C1 sketch.
+(3) StepBound/StepBound2/TauSharp abstract-σ precursor rows NOT swapped — verified off the
+GLU-2W path (TwinA1→hlevel_w_lower; TwinSharp/Switch→WindowedStepC plugs); their {hσ1,hσ3,h4}
+bundle was already jointly uninstantiable at σ = logRatio via hσ3 alone; DISPOSITION:
+deprecation note at the 58c docs pass, keep as landed true theorems. 33 edited + 1 new
+declaration, all exactly [propext, Classical.choice, Quot.sound].
+
+**2026-07-14 W-SURG ✅ FULL (Opus executor attempt 1, Fable warrant) — H-AMENDMENT 2's
+Assembly half LANDED.** keepW + the five W-carriers + keepR-analogue lemmas;
+factors_ge_z_of_sift_W (the split bridge: mod-transfer (n+2)%Q = (a+2)%Q by one conv_lhs
+rewrite, then Nat.dvd_mod_iff twice against hQa2; total case split, NO boundary gap);
+razor_reduction_W/stripPrimeSum_le_W/aCount_ge_one_of_W/chen_positivity_W/chen_survivor_W
+(near-verbatim mirrors — hPfull was consumed only through the bridge at kept points, as
+designed); **chen_of_hypotheses_W** with H_W = ∀X ∃ x z P y Q a w' (mainA1/2/3), 12
+conjuncts (hXx/hx/hz/hw3/hyx/hQfull/hPfull'/hQa2/hA1/hA2/hA3/hledger — the GLU-2W
+discharge list, recorded verbatim in the executor report); residue_witness (gcd(Q, Q+1)=1)
++ residue_witness'. Old keepR family INTACT (catch-65 record dependencies compile). 19
+declarations, all ≤ [propext, Classical.choice, Quot.sound]; Assembly.lean only (+349/−2,
+deletions = docstring lines re-added with the catch-65 supersession pointer). Both nodes
+first-attempt, parallel execution, no build contention. Tally: 67 catches, 0 wrong proofs.
+WAVE 2 NEXT: A1W ∥ A3W ∥ CNTW, then A2W′ (needs A1W's instance pattern), then GLU-2W.
+
+**2026-07-14 WAVE 2 ✅ 4/4 FULL, ALL FIRST-ATTEMPT (A1W, A3W, CNTW, A2W′) — the W-trick
+instance layer is COMPLETE.** Every gated design decision held; three refinements found by
+executors, all benign, all kernel-checked:
+- **A1W (TwinA1W.lean, 28 decls)**: twinA1SieveW at smooth totalMass ψ/φ(Q); the CRT class
+  is the N-SIDE class (≡ a mod Q, ≡ d−2 mod d) — consumes gcd(a,Q)=1 (free at a = Q−1 via
+  residue_witness'), NOT gcd(a+2,Q); twinA1W_rem_eq EXACT (ν(d)·ψ/φ(Q) = ψ/φ(Qd) at
+  totient_mul); uniform d ∣ P incl. d = 1 ABSORBS the mod-Q SW row into the dispersion
+  family (no separate row); twin_A1_lower(_B)_W at the conditioned h4; twinA1_hBV_W a
+  fortiori (injection d ↦ Qd); Finding-6 prime-power bridge (√x·log₂x·log x); example →
+  the hA1 slot. Rows: W-LEVEL Q·(Qlev·D) ≤ √x/L^B, W-CLOSE (ω(Q) summand), hQmP, hQma.
+- **A3W (11 chain files + SwitchW.lean 815 lines, 26+31 decls)**: C4 r(d) generalization
+  in place with const-2 recovery verified (GBV4/5 examples elaborate unchanged); hcop2
+  audit: all orthogonality/coprimality-shaped; RATIFIED narrowing: Plo_discharge_priced
+  keeps its pinned residue (the literal lives in disc DEFS — α/β-level, outside warrant);
+  R₀-generalized identification cores landed (blockBox_windowDisc_eq_res); switchSieveW/
+  blockSwitchSieveW at smooth tripleSum/φ(Q); blockSwitchSieveW_rem_split EXACT
+  (ν(d)·TS/φ(Q) = ν(Qd)·TS); mainA3_of_block_remainders_W at slot hBVblocksW;
+  hBVblocksW_of_generalBV bridge; hr row DISCHARGED in-node. Rows: level Q·(QR·Dlev),
+  divisor τ(Qd) ≤ L·τ(d), crumb vs 32e⁻⁷⁰x/L³; REMAINING CONSTRUCTION: the hBlockW box
+  supplier (piece-decomp mirror at blockHonestDiscW via _eq_res at (Qd, crtClassW) +
+  medium_survivor_price_sqrtD; band/low W mirrors on the Plo_discharge pattern) = node
+  A3W2, then the numeric rows at GLU-2W.
+- **CNTW (CountW.lean, 19 decls)**: tripleSetW/tripleSumW at prod3 ≡ a+2 (mod Q)
+  (window_class_iff fixes the convention); EXACT fiber bijection (sharper than the landed
+  injection); tripleSumW_equidist with the honest wrinkle — ONE boundary point per fiber
+  can escape the M ≤ 2N SW block ⟹ +2|pairSet| ≤ 2·y√x ≈ 2x^{5/6}, a named row; honest
+  C6 recompute: block scale L/6 (not L/3), 6^A constant, STILL clears at A ≥ 3, C ≥ 2
+  (L ≥ 36); tripleSum_le_cbar_final_W = landed keystone/φ(Q) + named SW error (c̄
+  integrals NOT re-run — AP-invariant); example → the hcount slot at the smooth scale.
+- **A2W′ (TwinA2W.lean, 975 lines, 20 decls)**: twinA2SieveW at smooth ψ/(φ(Q)(p−1));
+  twinA2W_rem_eq EXACT at the FUSED divisor p·d (class ≡ a (Q), ≡ pd−2 (pd));
+  omegaPrimeSumW_decomp (Fubini at kept points; CONVENTION FINDING: the landed omegaLe
+  filter is CLOSED q ≤ y ⟹ Prange = Icc z y, grid certs take yR > y);
+  **twinA2W_hcoef is an unconditional EQUALITY** — the gate's anticipated dispersion row
+  at modulus Qp DISSOLVED at the smooth conventions (X_W^Q = totalMass·W transparent by
+  rfl); twinA2_hBVagg_W (injectivity of (p,d) ↦ Qpd by disjoint prime supports; Rosser
+  cuts collapse via p·⌈Dtot/p⌉ ≤ Dtot + y); example → hA2 ∧ hrawA2 at the SAME X_W^Q
+  (no ledger drift). Rows: W2-LEVEL (D ↦ Dtot + y), W2-CLOSE (A₂ density factor), hQmPr,
+  per-prime cdiv/logRatio rows.
+Tally: 67 catches, 0 wrong proofs. NEXT: A3W2 (the hBlockW/band/low W-mirror construction)
+→ GLU-2W (the ∃-package at the tower x₀ + findings 3–5 + the row ledger above) →
+chen_headline via chen_of_hypotheses_W.
+
+**2026-07-14 A3W2 ✅ FULL first-attempt (SwitchW2.lean, 1118 lines, 31 decls) — THE W
+BOX/BAND CLOSE IS COMPLETE; hBVblocksW is supplied.** W-disc objects at (Q·d, crtClassW);
+the WBV6 piece-decomposition mirror EXACT; blockBoxW_windowDisc_eq — the identification
+folds ON THE NOSE through blockBox_windowDisc_eq_res (no #65-genre failure); hNum_at_opW
+at the image Dset (Q*·) with r = crtClassW (reindex via sum_image, injectivity by
+eq_of_mul_eq_mul_left); the m-side support floor UNTOUCHED by the W-shift (z·y verbatim);
+the band three-piece close mirrored (class-generic band kernels applied verbatim at the
+shifted class; diagonal only shrinks); hBVblocksW_discharge #check-chained character-for-
+character into mainA3_of_block_remainders_W's slot, emitting the exact hA3 shape.
+Structural rows DISCHARGED in-node (hrW/hDge1W/hDlevW). The consolidated 10-row GLU-2W
+ledger is in the module header (level/divisor/crumb/Price/PsymK-PlowK/diagonal/hCE_W/
+budget rows; finding-3 floor caveat recorded as a NAMED-hypothesis resolution). All 31
+declarations exactly [propext, Classical.choice, Quot.sound]. Six consecutive first-
+attempt FULLs since the H2-GATE. Tally: 67 catches, 0 wrong proofs. **NEXT: GLU-2W — THE
+FINAL NODE** (the ∃-package at the tower x₀; every supplier example is landed and every
+row is named).
+
+**2026-07-14 GLU-2W attempt 1 → ★ CATCH #68 (HeadlineW.lean) — the diagonal budget row of
+hBVblocksW_discharge is infeasible; THIRD consecutive terminal-node catch at STEP 0, zero
+proof attempts burned.** The hSum/hNum rows (SwitchW2 ledger row 10) force RHD ≥ the j = 0
+diagonal summand = ½·τ(Ps)·Σ_k y·2^k > x/4 (prices ≥ 0 forced by the norm rows), against
+hNum's RHD + RCE ≤ x/(log x)^10 — contradiction for EVERY x ≥ 8, no operating point
+escapes; at the honest point the deficit is ≥ x^{1/3}·2^{3x^{1/3}/log x}. KERNEL-CHECKED:
+catch68_price_rows_nonneg + catch68_hSum_hNum_infeasible (hypotheses character-for-character
+from hBVblocksW_discharge). ROOT CAUSE: PloW_discharge (and its landed non-W ancestor
+BandClose.Plo_discharge — same defect, no longer load-bearing) aggregates the crude per-box
+diagonal kernel bandDiagCount ≤ y·(M−N) over ALL τ(Ps) divisors × ALL pieces — a triple
+over-count vs BandSplit item-3's ratified plan. A3W2's row-8 note ("the diagonal only
+shrinks") was true per-(d, box); the AGGREGATE was never priced — and #64 blocked upstream
+so the row was never exercised. THE HONEST CLOSE (classically ≲ x^{5/6+o(1)}, room
+x^{1/6−o(1)}): (i) the global diagonal (p₂ = p₃ = p ≤ √x) count ≤ 2x^{5/6}; (ii) the
+residue side takes the w₀-ROUGH DIVISOR CRUMB #{d ∣ Ps : d ∣ N} ≤ 2^{log x/log w0R} =
+x^{o(1)} (divisors of Ps are w₀-rough), NOT τ(Ps); (iii) the unit side Σ_{d∣Ps} ν(d) =
+O(log y/log w₀) via the landed W-ratio machinery. **RATIFIED REPAIR (= node PDIAG, option
+(b) — ZERO statement changes)**: hBlockW_of_window_prices' Plo slot is ABSTRACT and NOT
+infeasible — land the honest three-piece band close directly into it (½sym + ½·honest-
+diagonal + low, the sym/low legs reusing A3W2's PloW_sym/low_of_box_disc), re-emit the
+composed supplier hBVblocksW_discharge′ with the corrected hSum/hNum shapes (the diagonal
+enters as its own named x^{5/6}-scale row). hBVblocksW_discharge stays as a landed true
+theorem with infeasible aggregate rows (the triplePrimeSum_le status). Tally: 68 catches,
+0 wrong proofs.
+
+**2026-07-14 PDIAG ✅ FULL first-attempt (PDiag.lean, 902 lines, 15 decls) — CATCH #68
+REPAIRED with ZERO statement changes; GLU-2W is UNBLOCKED.** The honest diagonal close:
+(i) diagPairSet fibers EXACTLY one dyadic piece per pair (bandLargeSet_piece_eq) and injects
+into Icc 1 y ×ˢ Icc 1 √x — card ≤ y·√x (vs the crude 2xy); (ii) the w₀-rough divisor crumb
+#{d ∣ Ps : d ∣ nn} ≤ 2^{Nat.log w' x} via gcd-pinning + the powerset injection (the tower
+NOT baked in — the exponent is the named Nat.log w' x); (iii) Σ_{d∣Ps} ν(d) =
+Π(1+ν(p)) ≤ (1+ε)·log yR/log u via the LANDED Hyp4.vratio_prod_le at switchSieve's ν.
+Keystone diagAggW_le_honest: the aggregated diagonal ≤ y·√x·(2^{Nat.log w' x} + Σν) =
+x^{5/6 + log2/log w'}·polylog — closes at x^{1−c} for any c < 1/6 − log2/log w' (c = 1/7
+already at w' > 2^42; crumb exponent ≈ 3.5e−10 at the tower). NO catch #69. PloW_honest
+fills the ABSTRACT Plo slot (½Psym + Plow + ½Pdiag; sym/low legs = A3W2's verbatim);
+hBVblocksW_discharge' re-emits the composed supplier with hdiag as its OWN named row
+(row 8′: y·√x·(2^{Nat.log w' x} + Σν) ≤ Pdiag + two free structural rows); the example
+lands character-for-character in mainA3_of_block_remainders_W. KERNEL-VERIFIED
+non-applicability: catch68's certificate requires the verbatim fixed τ(Ps)-summand — the
+new hSum carries ½·Pdiag, uninstantiable against it. hBVblocksW_discharge (unprimed) stays
+landed as a true theorem with infeasible aggregate rows (triplePrimeSum_le status). All 15
+decls exactly [propext, Classical.choice, Quot.sound]. Tally: 68 catches, 0 wrong proofs.
+**GLU-2W re-run NEXT — rows 1–7, 9 already verified ready by its own STEP 0; row 8′ + rows
+10–12 + the tower freeze remain.**
+
+**2026-07-14 GLU-2W-fin (Opus executor, Fable warrant) — SCOPING FINDING, not a catch: the
+checkpoint OPPOINT+A1A2 is solid, but A3-CONT's box-PRICE rows are the never-assembled analytic
+capstone, NOT a named-supplier assembly. NO code changes; investigation-only (no proof attempts
+burned).** The checkpoint `Salt/Chen/HeadlineW2.lean` (1675 lines, 68 decls, standalone
+`lake env lean` exit 0, NOT wired into the build graph) lands the full OPPOINT fragment
+(`opf_*`, `opf_tower` — the 17-row operating bundle) and the A1A2 fragment (`a12_*` through
+`a12_hA1`:1524 / `a12_hA2`:1569, both ∃-x₁ row bundles). Solid and correct.
+**The blocker for `a12_hA3`:** the `hA3` slot needs `hBVblocksW_discharge'` →
+`mainA3_of_block_remainders_W`, whose `hprice`/`hpriceSym`/`hpriceLow` rows are the per-box
+`apDiscBilinCutoff`-norm box prices. The A3W2 ledger (SwitchW2 header, row 6) names them as
+"TWO `medium_survivor_price_sqrtD` applications per boundary survivor" — but
+`medium_survivor_price_sqrtD`/`general_BV_cutoff_sqrtD`/`cutoff_BV_at_op` are NEVER applied with
+hypotheses discharged ANYWHERE in the corpus (only `#check`/`example`/docstring). There is NO
+`hprice` discharger at an operating point in EITHER the W or non-W path — the box prices have
+always been passed as abstract hypotheses through the composition lemmas (`hNum_at_opW`,
+`hBlockW_of_window_prices`, `hBVblocksW_discharge'`), and the "does the operating point actually
+discharge them?" question was deferred at every layer (incl. HeadlineW.lean's STEP-0 inventory,
+which marked row 8 ready-mod-#68 without auditing the price inputs). **This is the analytic core
+of Chen's A₃ (bilinear/dispersion) term at the operating point — the whole GBV/SqrtD/D0W/
+SubBlocked/TransposedBV arc built the SUPPLIERS but never assembled the operating-point
+discharge.**
+**DISCHARGEABLE IN PRINCIPLE (so NOT catch #69 — no false/infeasible landed statement):** the
+#60/#61 medium-band ErrSum residual (SubBlocked/TransposedBV: `X_sub < x^{1/3}` boxes unpriceable
+by the e-fold `hdiv`, needs new √M-side dispersion) does NOT bite here — `medium_support_floor_high`
+floors the box-leg m-side at `z·y` and `carrier_eq_zero_below_floor` vanishes everything below,
+so every surviving box-leg has `X_sub > z·y = x^{11/24} = x^{0.458} > x^{1/3}`. GBV4's
+`medium_survivor_price_sqrtD` (hfloor route: `(3/log2)^8·x^{1/6}·Lb^{A+5} ≤ √F`, `F ≤ X`, cleared
+by `F = z·y` with `x^{11/24}/x^{1/3} = x^{1/8}` room) then prices the surviving boxes; the
+finding-3 lower floor `√(x/(24z)) = x^{7/16} > x^{1/3}` also clears. Per TransposedBV (c) the
+aggregate budget `O(log³x)·x/L^A ≤ x/L^{10}` holds for `A ≥ 13` once the boxes are priced.
+**SCOPE (why this is not a single finishing node):** the per-box discharge is ~35 operating-point
+rows of `medium_survivor_price_sqrtD` (the 3 SW couplings `hcoupG/hcoup3/herr_book4` with per-box
+`Kβ/Km/Kβ'`; the D0 window via `d0_window_nonempty` at its `N ≥ x^{11/24}/8` floor; `hDscale`
+level, `hfloor`, `hDsq`/`habs`, `hXsqrt`/`hMsqrt`, `herr_*`) × `O(log³x)` boxes via
+`hNum_at_opW`/`hBlockW_of_window_prices`, PLUS the sym/low band legs (`PloW_sym/low_of_box_disc`
+with their own price inputs), the finding-3 lower-floor `d0_window_nonempty` variant, and the
+`hSum`/`hCE`/`hNum` numeric closure (tracking the per-box `Kβ ~ K·(L/log N)^{...}` variation into
+the budget). Estimated multi-thousand-line construction — a WAVE, not a node.
+**RECOMMENDATION:** re-scope GLU-2W-fin. First concrete deliverable = a single uniform per-box
+operating-point price lemma (discharge `medium_survivor_price_sqrtD`'s rows for a generic
+`dyadicBoundary` survivor box at the tower `x`, box params `X = 2^{i+1}−1` with `z·y < 2^{i+1}`,
+`N = pieceN k`, `M = pieceM k`, `D = Q·QR·Dlev`); then the sym/low variants; then `hNum_at_opW`
+folding + the numeric closure; then the trivial LEDGER (needs `mainA3` concrete) + the 12-conjunct
+ASSEMBLY into `chen_headline`. Tally: 68 catches, 0 wrong proofs (this is a scoping finding, not a
+catch).
+
+**FABLE RATIFICATION of the GLU-2W-fin scoping finding (2026-07-14 ~16:45):** accepted in
+full. The finding is the #64-genre estimate-vs-statement gap at its LAST possible layer —
+the operating-point application of the box-price terminals — and the mandated STEP-0
+discipline caught it before any proof attempt, again. Node plan (= the PRICE wave):
+**PRICE-GATE first** (adversarial row-by-row feasibility of the uniform per-box lemma at a
+generic dyadicBoundary survivor: X = 2^{i+1}−1 with z·y < 2^{i+1}, N = pieceN k,
+M = pieceM k, D = Q·QR·Dlev at the tower — ALL ~35 rows of medium_survivor_price_sqrtD
+enumerated with both sides' values; the SW-coupling Kβ/Km/Kβ′ bookkeeping into hSum/hNum is
+the declared risk [TransposedBV (c) only sketched it]; BLOCK = catch #69) → **PRICE-1**
+(the uniform per-box lemma) → **PRICE-2** (sym/low variants + the finding-3 lower-floor
+d0 variant) → **PRICE-3** (hNum_at_opW folding + the hSum/hCE/hNum numeric closure) →
+**GLU-2W-fin2** (LEDGER + the 12-conjunct ASSEMBLY → chen_headline). HeadlineW2.lean's
+OPPOINT/A1A2 checkpoint (1675 lines, standalone exit 0) is the foundation; it stays
+unwired until the wave completes. Executors on Opus per the ratified budget rule. Tally
+stays 68 catches, 0 wrong proofs (a scope discovery, not a catch — no landed statement is
+false or infeasible).
+
+**2026-07-14 PRICE-GATE (adversarial, Opus) — GO_W_CORRECTIONS + ★ CATCH #69 ★.** The
+declared risk (Kβ/Km/Kβ′ aggregation) is FEASIBLE but ONLY via Finding 4 (ε₀ := x ⟹
+maxBlock = 0; x₀ = x₀(K) after destructuring): TransposedBV note (c) is an UNDER-COUNT —
+it silently dropped the c^{−(A+2C0)}·K·L per-box factor (Km, Kβ′ ≥ K·L forced by the
+couplings; honest per-box price 2^{18}c^{−50}K·XM/L^{12}, one L worse than sketched); the
+honest aggregate ≈ 3.5·10²³·K·x/t^{11} ≤ x/t^{10} ⟺ t ≥ 3.5·10²³·K — dwarfed by the
+tower (log x₀ ≥ w'^{w'}, w' ~ exp(2·10⁹)). Note (c) is DISCARDED; the gate's aggregate
+derivation replaces it. **CATCH #69 (NEW, kernel-certain): the terminal's per-e rows
+(herr_LEpos/herr_scale/herr_D0E at SqrtDFold:966–971) are FALSE for e ∈ (X, D]** — nat
+division gives ⌊X/e⌋ = 0, log(0·M) = 0, and the rows read 0 < 0 / L ≤ 0 / D0 ≤ 0^{18}.
+Every medium-band box has D ~ x^{0.497} > X (≥ z·y = x^{0.4583} at the floor, up to
+x^{0.497}) — the rows are unsatisfiable at the needed level. SOUND UNDERNEATH: for e > X
+the e-fold term cutoffEfoldTerm is IDENTICALLY 0 (the m'-range is empty at top X/e = 0) —
+the rows demand positivity of terms that vanish. The tell: d0_window_nonempty supplies
+herr_D0E in the GUARDED form (∀ LE, L ≤ 2LE → …, vacuous at e > X) but the terminal takes
+the direct form — the witness and the consumer diverged. Never fired because the terminal
+was never applied (the GLU-2W-fin scoping finding). **RATIFIED REPAIR = PRICE-0 (Fable
+warrant, BEFORE PRICE-1)**: guard the per-e rows to e ≤ X (or the d0_window guarded shape)
+through general_BV_cutoff_sqrtD/medium_survivor_price_sqrtD (+ the chain where they
+thread), re-proving hGlue with the e ≤ X / e > X split (the e > X leg = the vanishing
+lemma). ALSO RATIFIED: Finding C (pieceM = 2·pieceN + 1 vs the terminal's M ≤ 2N — bridge
+at N' = 2^k in PRICE-1, blockPrimeInd equal as functions since 2^k composite at priced k);
+Finding-3 CONFIRMED (the strip N ∈ [x^{7/16}/4.9, x^{11/24}/8) is real, carries
+non-cancelling boxes, needs the lower-floor d0 variant in PRICE-2 — binding row has ~83×
+room; it also drives the worst-c aggregate constant (16/7)^{49}, absorbed). SW couplings:
+no corpus discharger anywhere — PRICE-1 supplies them as minimal-value choices (pure
+algebra). WAVE ORDER (corrected): **PRICE-0 → PRICE-1 → PRICE-2 → PRICE-3/GLU-2W-fin2.**
+Tally: 69 catches, 0 wrong proofs — #69 found by the gate BEFORE the wave was dispatched;
+the fourth consecutive pre-construction catch.
+
+**2026-07-14 PRICE-0 ✅ FULL (Opus executor attempt 1, Fable warrant) — CATCH #69 REPAIRED
+across the WHOLE terminal family.** The three per-e rows (herr_LEpos/herr_D0E/herr_scale)
+guarded with the single premise e ≤ X at ALL FIVE terminals (general_BV_cutoff_unconditional,
+general_BV_cutoff_sqrtD, medium_survivor_price, medium_survivor_price_sqrtD, cutoff_BV_at_op)
+— the all-five scope RATIFIED (a sqrtD-only repair would have left three siblings infeasible:
+the half-repair genre). Sibling audit: herr_lev/herr_Mlev/herr_div/herr_book4 carry NO defect
+(full-X·M logs or upper rows on the vanishing term). NEW `cutoffEfoldTerm_eq_zero_of_gt`
+(WindowErrFold:328): e > X ⟹ ⌊X/e⌋ = 0 ⟹ empty m'-range ⟹ the term = 0; both hGlue proofs
+split by_cases e ≤ X (live range verbatim; dead range vanishes). ANTI-#69 WITNESS compiled
+(SqrtDFold §11b): at the medium-band shape X = 2 < D = 4 the guarded rows are provable and
+the old rows were false at e ∈ {3,4} — the repair is positively witnessed. catch-64/65/68
+records verified unaffected (abstract full-X·M shapes, no X/e). 6 edited/new declarations,
+all exactly [propext, Classical.choice, Quot.sound]. ALSO CEREMONIED: the HeadlineW2.lean
+checkpoint (OPPOINT + A1A2, 1675 lines, 68 decls — the GLU-2W fragments: the 17-row tower
+bundle opf_* and the hA1/hA2 ∃-x₁ discharge bundles a12_*) committed and WIRED (build 8903
+green; it had sat untracked through two agent interruptions — checkpoint discipline).
+Tally: 69 catches, 0 wrong proofs. NEXT: PRICE-1 (the uniform per-box lemma per the gate's
+row table: SW couplings chosen minimal, the N' = 2^k bridge, the PASS* box rows, the guarded
+per-e rows via d0_window conjunct 7).
+
+**2026-07-14 PRICE-1 ✅ FULL first-attempt (PriceOne.lean, 450 lines) — THE UNIFORM PER-BOX
+PRICE LEMMA LANDS; no catch #70.** `medium_box_price_at_op`: for a generic dyadicBoundary
+survivor at A=13/B=15/C0=18, medium_survivor_price_sqrtD applies with EVERYTHING PRICE-1-
+owned discharged — SW couplings at the minimal shapes K·L^{A+C0}/logN^{A+2C0}-family
+(hcoupG/hcoup3 with EQUALITY; herr_book4 per-e via log(⌊X/e⌋M) ≤ L), the guarded per-e rows
+via bridge_scale (L ≤ 2·log(⌊X/e⌋M) at e ≤ X from X < 2⌊X/e⌋e + e ≤ √(XM)/L^B + L^{2B} ≥ 4
+— the catch-#69 repair exercised end-to-end), the D0 family via d0_window_nonempty verbatim
+(exponent identities 15 = 13+2, 17 = 13+4), Finding C via GlueBV's ALREADY-LANDED
+blockPrimeInd_pieceN_eq (the executor found the gate's "missing" bridge in the corpus and
+de-duplicated — cutoff_BV_at_op is the D<N sibling/template of the new lemma); conclusion
+transported to blockPrimeInd (pieceN k) via sum_norm_apDiscBilinCutoff_pieceN, Kerr form the
+terminal's own. 27 named analytic rows remain (GlueFinal/opf_*-shaped, the gate's PASS*
+list — PRICE-3 discharges). SATISFIABILITY WITNESSED (the anti-#69 discipline): box
+inhabitation by decide + bridge_scale firing at a concrete shape whose e > X instance was
+#69's 0 < 0. RESTRICTION: N ≥ x^{11/24}/8 (d0_window's floor) — the finding-3 strip
+[x^{7/16}/4.9, x^{11/24}/8) is PRICE-2's. All declarations exactly [propext,
+Classical.choice, Quot.sound]. NEXT: PRICE-2 (the lower-floor d0 variant + the sym/low band
+price variants + the strip extension).
+
+**2026-07-14 PRICE-2 ✅ FULL first-attempt (PriceTwo.lean, 672 lines) — the strip is
+covered; no catch #70.** `d0_window_nonempty_lo`: the Finding-3 variant at hNfloor =
+x^{7/16}/8, IDENTICAL 9-conjunct conclusion (the x-scale conjunct stays D0 ≤ x^{11/24}/8
+via the bump); binding row hD0N' confirmed at the gate's margins (37× with the Lean
+constant 12/5, 83× at the asymptotic 16/7, t = 10⁹). `medium_box_price_core`: the
+shared-core refactor (the D0 window as a packed ∃-hypothesis; PriceOne's assembly
+verbatim), with `medium_box_price_at_op_lo` reading off the _lo witness — conclusion
+character-for-character PriceOne's. `sym_box_price_at_op`/`low_box_price_at_op`: the band
+variants at blockAlphaSym (sharp z·max(y,N) floor)/restrictAlpha∘blockAlphaLow (z·y),
+mirroring hNum_at_opW exactly, Dset/r quoted verbatim from the feeders; the composition
+example type-checks the sym conclusion into PloW_sym_of_box_disc (PsymK := Σ Price).
+Satisfiability: strip non-degeneracy + the _lo witness FIRING at a strip-shaped N where
+the old floor is inapplicable. All 5 declarations exactly [propext, Classical.choice,
+Quot.sound]. PRICE-3 remainder (consolidated in the report): the carrier bridges
+(max y (pieceN k) = pieceN k on the strip fact y ≤ pieceN k; the ≤1-norm transports), the
+image-family Dset bookkeeping (1 ≤ m / crtClassW coprimality / m ≤ D over Q/QR/Dlev/Ps),
+hDsq_at_sym_carrier wiring, the 27-row analytic list at the reduced tops, and the
+Price/PsymK/PlowK numeric closure into x/L^{10} (Finding-4 aggregate). Tally: 69 catches,
+0 wrong proofs.
+
+**2026-07-14 EXPLORATION PILOT P-A/P-B ✅ FULL first-attempt (Salt/TwinBar/Enlarged.lean)
+— the first exploration theorem + the process validation.** `twin_bar_enlarged`
+(M₂^{[δ]} ≤ 2(1+δ)log 2, all continuous F, via CoV pull-back onto the landed twin_bar) +
+**`no_twin_weight_enlarged` (the k=2 no-go persists under ε-enlargement for δ < 1/log2 − 1
+≈ 0.4427)** — believed unrecorded at k=2; hygiene corollaries twin_bar_asymmetric/_signed;
+the density-bridge Prop. THE PROCESS RESULT: the executor caught that the naive F ≡ 1
+witness would imply twin-primes-under-EH (open!), diagnosed the definitional ambiguity,
+verified Polymath8b's marginal constraint, proved the a-fortiori bound, and ESCALATED —
+the naive-executor failure mode surfaced and handled by the STOP-AND-FLAG discipline in
+its first exploration outing. Fable adjudication of OPEN 1: the gate stays 2 (the
+enlargement is paid by the marginal constraint, not gate rescaling); above δ₀ genuinely
+open at k=2. Protocol rules R1–R4 + budget calibration extracted to
+docs/exploration/pilot.md. All declarations exactly [propext, Classical.choice,
+Quot.sound]; wired into TwinBar/All.lean's audit block. Tally: 69 catches, 0 wrong proofs
+(the F≡1 alarm was caught pre-landing — the discipline generalizes to exploration).
+
+**2026-07-14 PRICE-3 ✅ floors 2/3/4-opener (PriceThree.lean, 455 lines, 12 decls) — the
+bridges, the three price legs, the single-block collapse; THE EDGE-BOX SEAM found.** Landed:
+the full PRICE-2 remainder list (max_y_pieceN_eq, the three ≤1-norm carrier transports, the
+Q-image Dset rows hd1/hcop2/hDsetD); box/sym/low_hprice_at_2pow (two medium_box_price_at_op
+applications each at T = x and x/2+1, Price := 2·Kerr, slotting character-for-character);
+maxBlock_eq_zero_of_eps_self (ε₀ := x ⟹ ONE block — Finding 4's opener). **THE SEAM
+(structural discovery, not a blocker)**: hBVblocksW_discharge' ranges over dyadicBoundary
+(pieceN k) but the terminal (via Finding C's M ≤ 2N) demands N = 2^k, and dyadicBoundary
+(2^k) ⊊ dyadicBoundary (pieceN k) — the difference is ≤ ONE edge box per piece (the window
+2^i ∈ (x/(2^k+1), x/2^k] has ratio < 2), priced separately, count ≤3 → ≤4. THE AGGREGATE
+RE-DERIVED IN-CORPUS and matching the gate: worst box 2^18·(16/7)^50·K·XM/t^12, total
+≈ 3.5·10²³·K·x/t^11 ≤ x/t^10 ⟺ hK_tower : 3.5·10²³·K ≤ L — GLU-2W-fin2 clears by x₀(K)
+after destructuring. REMAINDER (= PRICE-3b): the 27 analytic rows at PIECE parameters
+(N = 2^k, M = pieceM k — note the coupling: hDsq at piece params holds only for 2^k ≳
+x^{1/4}, exactly where the boundary is nonempty — the row lemmas must thread the boundary-
+nonemptiness), the edge-box single price, the hSum/hdiag/hCE/hNum numeric closure, and the
+hBVblocksW_at_op → mainA3_of_block_remainders_W example. All 12 decls ≤ [propext,
+Classical.choice, Quot.sound]. Tally: 69 catches, 0 wrong proofs.
+
+**2026-07-14 EXPLORATION PILOT P-C ✅ (ThreeBar.lean) — THE β-TUNING FIND: Polymath8b's
+(k/(k−1))·log k re-derived from our own atoms.** The k=2 magic w₁+w₂ ≡ 2 is the β = 1/(k−1)
+CS-base tuning in disguise; at k=3 the retuned base gives the SHARP c₃ = (3/2)log 3 ≈ 1.648
+< 2 (the pull-back route reaches only 3·log 2 — sharpness needs the retune). Kernel-checked:
+the full analytic heart + no_triple_weight_of_tripleBar (the k=3 no-go modulo the 3-D Fubini
+assembly, exposed as exactly ONE gap = node TB3-ASM, ~300–500-line port, a sprint Q2 item;
+landing it gives M₃ < 2 unconditionally — the atlas's second delimitation). R4 check: M₃ < 2
+is classically believed (Polymath8b) — no alarm. Calibration: T3 splits into cheap
+find-the-constant + expensive formal-assembly phases; budget separately. THE PILOT'S
+MATHEMATICS PHASE IS COMPLETE IN ONE EVENING (3-day timebox): two new delimitation theorems
+(enlarged-k=2, conditional-k=3), the δ₀ threshold, the β-tuning pattern generalizing the
+atlas, four protocol rules, two calibration data. All ThreeBar declarations ≤ [propext,
+Classical.choice, Quot.sound]; wired into TwinBar/All.lean. Tally: 69 catches, 0 wrong
+proofs.
+
+**2026-07-14 PRICE-3b ✅ crux + closure core (PriceClose.lean, 250 lines, 6 decls) —
+★ CATCH #70 ★: the PRICE-3 k-floor mechanism was WRONG; the honest mechanism is a
+THREE-WAY carrier split (resolved in-node, 0 wrong proofs).** The PRICE-3 finding claimed
+boundary membership supplies the k-floor (2^k ≳ x^{1/4} for hDsq) via the area clause —
+FALSE: the boundary clauses pin 2^{i+k} ∈ (x/8, x] and only UPPER-bound 2^k; the k=2
+counterexample is concrete (the pieceN-boundary at F = z·y is NONEMPTY at k = 2 for large
+x, yet hDsq demands D < 25 against D ~ x^{0.497} — off by x^{0.497}). THE HONEST
+MECHANISM: the box carrier's own upper cap c = min(z·pieceN k + 1, x+1) — EITHER 2^i ≥ c
+and the carrier VANISHES (box_carrier_eq_zero_above_cap, the upper mirror of
+carrier_eq_zero_below_floor), OR 2^i < c forces y < 2^{k+1}
+(y_lt_two_pow_succ_of_carrier) — the GENUINE k-floor 2^k > y/2 ~ x^{1/3}/2, clearing hDsq
+with x^{1/9} room (hDsq_piece_of_kfloor + hDsmall_at_op at x ≥ 10⁹⁶). The box price is a
+TRICHOTOMY (vanish / 2^k-boundary priced / edge box — the edge resists neither route),
+not a single application. All landed price lemmas remain TRUE theorems (hDsq was a
+hypothesis). ALSO LANDED: tower_budget + hNum_close_of_tower — the exact hNum slot from
+RHD, RCE ≤ Ccon·K·x/L^{11} under hK_tower : 2·Ccon·K ≤ log x (Ccon = 3.5·10²³, the gate's
+aggregate as a Lean chain; the hCE crumb folds into the factor-2 margin). Anti-vacuity
+witnesses fire for both crux lemmas. THE FULL H_W CHECKLIST recorded in the report +
+PriceClose docstring (opf_ destructuring order, the trichotomy discharger spec, hdiag/hCE
+instantiation, x₀(K) last). All 6 decls exactly [propext, Classical.choice, Quot.sound].
+Tally: 70 catches, 0 wrong proofs — the FIFTH consecutive terminal-adjacent catch found
+before assembly. REMAINING (= GLU-2W-fin2, THE FINAL NODE): the trichotomy discharger
+Price j k i, the hSum count bound (≤4 × pieces × worst), the hdiag/hCE operating
+instantiation, hBVblocksW_at_op, the hA3 example, the 12 conjuncts → chen_headline.
+
+**2026-07-14 GLU-2W-fin2 ⛔ CATCH #71 — THE PRICE-3 EDGE-BOX SEAM IS AN OPEN OBLIGATION,
+NOT ASSEMBLY (the live edge box resists both landed routes; no wrong proof written, no
+statement altered, no sorry, no file committed).** The final-assembly probe (Opus, STEP-0
+reconnaissance only) reached the hA3 route and hit the seam that PRICE-3 "found" and
+PRICE-3b's own trichotomy note pre-flagged ("edge box — the edge resists neither route").
+It is not a pricing-mechanism choice but a genuine gap in the landed corpus.
+
+THE TWO SIDES (verbatim shapes). CONSUMER — `hBVblocksW_discharge'` (PDiag.lean:691) requires
+its `hprice` for every box in `dyadicBoundary (pieceN k) (pieceM k) (x/2+1) x (z·y) K`
+(N = pieceN k = 2^k − 1). SUPPLIER — every landed box-price terminal
+(`box_hprice_at_2pow`/`sym_`/`low_box_hprice_at_2pow`, PriceThree.lean:217/302/382; underlying
+`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:278, PriceTwo.lean:438/316;
+`medium_survivor_price(_sqrtD)`, MediumFloor.lean:507/SqrtDFold.lean:956) provides a bound
+ONLY for `i ∈ dyadicBoundary (2^k) (pieceM k) (x/2+1) x F Krange` (N = 2^k, forced by the
+terminal's `M ≤ 2N` with M = pieceM k = 2·pieceN k + 1). The only bridge
+`boundary_2pow_subset_pieceN` (PriceThree.lean:187) gives `dyadicBoundary (2^k) ⊆
+dyadicBoundary (pieceN k)` — the WRONG way. Corpus-wide grep: every `dyadicBoundary (pieceN k)`
+site on the "supplier" side is a CONSUMER wrapper (`sym_`/`low_box_price_at_op`,
+`hBlock_of_window_prices`, PDiag's discharge) that takes the per-box `Price` as a hypothesis;
+NO landed lemma emits a bound for a pieceN-boundary box.
+
+THE GAP IS INHABITED AND LIVE. The edge set `dyadicBoundary (pieceN k) \ dyadicBoundary (2^k)`
+is `2^i ∈ (x/(2^k+1), x/2^k]` (ratio 1 + 2^{−k} < 2 ⟹ ≤ 1 edge box per piece). It is NOT
+priceable by either trichotomy route for the pieces with 2^k > x^{7/16}:
+  • VANISH route (`box_carrier_eq_zero_above_cap`, needs 2^i ≥ cap = min(z·pieceN k + 1, x+1)
+    ≈ x^{1/8}·2^k): the edge box has 2^i ≈ x/2^k, so 2^i ≥ cap ⟺ 2^{2k} ≤ x^{7/8} ⟺
+    2^k ≤ x^{7/16}. For 2^k > x^{7/16} the carrier is LIVE (2^i < cap) — vanish does NOT fire.
+  • 2^k-BOUNDARY route (`box_hprice_at_2pow`/`_lo`): its hypothesis `i ∈ dyadicBoundary (2^k)`
+    FAILS by construction (edge box ∉ dyadicBoundary (2^k)); concretely the terminal's corner
+    clause `2^i·(2^k+1) ≤ x` is violated (edge box: x < 2^i·(2^k+1)). The `_lo` floor relaxation
+    (x^{7/16}/8 ≤ 2^k, PriceTwo.lean:438) is met but is orthogonal — it does not restore the
+    boundary membership. So neither route covers the live edge box.
+The trivial fallback (carrier norm ≤ 1 ⟹ box sum ≤ 2·|Dset|·X·M ≈ x·τ(Ps)) overshoots the
+hSum budget Ccon·K·x/L^{11} by ~x^{1} and cannot be used.
+
+CONSEQUENCE: `hprice` cannot be proved over the full pieceN-boundary from landed atoms ⟹
+`hBVblocksW_discharge'` cannot fire ⟹ no a12_hA3 bundle ⟹ mainA3 slot open ⟹ chen_headline
+NOT dischargeable. F1 (trichotomy + hSum) BLOCKED on the edge box; F2/F3 unreached.
+
+REPAIR (Iron-Rule-1 / Fable-tier, NOT attempted): either (a) a new box-price terminal at
+pieceN-boundary membership — relax `medium_box_price_at_op`'s corner clause from
+`2^i·(2^k+1) ≤ x` to `2^i·2^k ≤ x` (the edge box satisfies the latter; the T4/energy estimate
+loses only a factor < 2), then re-thread box/sym/low_hprice_at_2pow; OR (b) a standalone
+edge-box price lemma bounding the single live edge box's two-T disc sum by an x/L^{13}-scale
+term via the bilinear/large-sieve core directly (PRICE-1-level re-derivation, not assembly).
+Both are statement-level and belong to a Fable/human-directed session.
+
+WHAT IS VERIFIED WIREABLE (so the repair unblocks the rest): the 12-conjunct skeleton →
+`chen_of_hypotheses_W` (Assembly.lean:707) with witnesses x,z=opZ,P=opP,y=opY,Q=opQ,a=opA,
+w'=opW'; the A1/A2 carriers via `a12_hA1`/`a12_hA2` (HeadlineW2.lean:1524/1569), all their
+hypotheses in the opf_*/opf_tower set; the ledger via `normalized_package`/`hledger_at_certs`
+(GlueNormalized.lean:232 / RazorClose.lean:156) at XW = (twinA1SieveW).totalMass·W =
+(∑_{twinWindow}Λ/φ(opQ))·W; the certs hcertA1 (`fchain_A1_final` ∘ `logRatio_A1_mem`),
+hcertA2 (`A2grid_sharp_le` at Cmass=43/75), hcertA3 (`Fchain_switch_le` ∘ opf_tower:383
+membership), hWy (`W_ratio_upper`, ρ→3/8); XW>0 and the R/XW crumbs via `W_twinA1_ge`
+(WLower, transfers to twinA1SieveW by defeq — W ignores totalMass) + `lambda_mass_lower`/φ(opQ).
+STILL-INLINE analytic rows (derivable but NOT packaged, GLU-2W's own): the hcount bridge
+(log x·tripleSum/φ(Q) ≤ (cbar+ecount)·totalMass, from `tripleSum_le_cbar_final` +
+`lambda_mass_lower`, choosing ecount = O(1/log z)) and hEbundle ≤ 1/200 (eight O(1/log z) /
+x^{−1/8}·polylog error shares at a concrete x₀). These are tractable once F1's edge box is
+repaired. Tally: 71 catches, 0 wrong proofs — the SIXTH consecutive terminal-adjacent catch.
+Build unchanged: `lake build Salt.Chen` exit 0 (no code written; ChenHeadline.lean NOT
+created, as it would require a sorry at the edge-box row).
+
+**2026-07-14 EDGE+fin3 Part 1 ✅ FULL (Opus executor, Fable warrant) — CATCH #71 REPAIRED
+via ratified option (a): the corner-clause relaxation.** The 6 PRICE-wave application lemmas
+carrying a `dyadicBoundary (2^k)` membership (`medium_box_price_at_op` PriceOne:278;
+`medium_box_price_core`/`medium_box_price_at_op_lo` PriceTwo:316/438; `box_/sym_/low_box_hprice_at_2pow`
+PriceThree) now take the pieceN-boundary membership directly (weak corner `2^i·2^k ≤ x`). KEY
+FINDING (sharper than the warrant's worry): there is **NO degradation** — `d0_window_nonempty`'s
+ONLY use of the corner is to bound `X·M ≤ 4x`, and the WEAK corner gives the SAME `4x`
+(`X·M ≤ 2^{i+1}·pieceM k ≤ 2^{i+1}·2·2^k = 4·2^i·2^k ≤ 4x`; the strong corner's `+1` slack was
+never used). So the ≤2× worry does not materialize; the D0-window is byte-identical. MECHANISM:
+factored two repair cores `d0_window_of_XM` (PriceOne §4b, 11/24 floor) / `d0_window_of_XM_lo`
+(PriceTwo §1b, 7/16 floor) = `d0_window_nonempty(_lo)`'s body from the raw `x/2+1 < X·M ≤ 4x`
+bounds (boundary extraction stripped); the price lemmas extract the weak corner and feed these.
+`SqrtDFold`/`d0_window_nonempty(_lo)` UNTOUCHED (out of warrant); `sym_/low_box_price_at_op` were
+already pieceN consumers (no change). The trichotomy (vanish / 2^k-priced / edge) COLLAPSES to a
+DICHOTOMY (vanish / priced) over the full pieceN-boundary; `boundary_2pow_subset_pieceN` survives
+as a historical fact. Anti-#69 witnesses updated to the pieceN shape (`1 ∈ dyadicBoundary (pieceN 2)…`
+by decide) and re-verified; composition examples unaffected. All 8 new/edited decls exactly
+[propext, Classical.choice, Quot.sound]; `lake build Salt.Chen.All` exit 0, zero new warnings
+(two preexisting long lines in the rebuilt files reflowed). diff: PriceOne/Two/Three only.
+Tally: 71 catches, 0 wrong proofs — the edge-box OBLIGATION is DISCHARGED (not a new catch).
+
+**2026-07-14 EDGE+fin3 Part 2 (the final assembly) — OPEN, deferred to a Fable design session
+(F1–F3 unbuilt; no sorry written, no file created).** Part 1 unblocks the edge box, but the F1–F3
+assembly (`ChenHeadline.lean` → `chen_headline`) is NOT completable as pure wiring — it needs the
+still-UNPACKAGED analytic corpus, and one NEW coupling obligation surfaced. STATUS BY FLOOR:
+• F1 (dichotomy discharger + hSum): the vanish/price DICHOTOMY atoms are landed
+  (`box_carrier_eq_zero_above_cap`, `y_lt_two_pow_succ_of_carrier`, `hDsq_piece_of_kfloor`,
+  `hDsmall_at_op`) and `box_hprice_at_2pow` now prices any pieceN box — BUT the **27 named analytic
+  rows** of `box_hprice_at_2pow` (hDscale/habs/hXsqrt/hMsqrt/herr_lev/herr_Mlev/hFX/hDx/hLbb/hfloor/
+  hDXM/… at piece params) are STILL NOT packaged (flags PRICE-1/PRICE-3b list them as remaining;
+  `hBVblocksW_at_op` does not exist). Each is a fresh operating-point estimate — not wiring.
+• ★ NEW COUPLING OBLIGATION (surfaced, not resolved — the Part-2 assembler MUST settle it) ★: the
+  carrier k-floor only yields `2^k > y/2 ~ x^{1/3}/2`, but `box_hprice_at_2pow` needs
+  `hNfloor : x^{11/24}/8 ≤ 2^k` and even the strip `_lo` needs `x^{7/16}/8 ≤ 2^k` — BOTH strictly
+  above `x^{1/3}/2` (11/24≈.458, 7/16=.4375, 1/3≈.333). So a non-vanishing box's carrier k-floor
+  does NOT by itself meet the price-lemma floor; pieces with `2^k ∈ (x^{1/3}/2, x^{7/16}/8)` need a
+  separate argument (band structure / boundary-emptiness / a lower-floor price variant) before the
+  dichotomy's "priced" branch fires. This is an assembly-design question (which pieces carry
+  non-cancelling medium boxes vs. which vanish or belong to another band), NOT a defect in Part 1
+  (F0 is orthogonal — hNfloor stays a named hypothesis). Flagged so it is not glossed at assembly.
+• F2 (hBVblocksW_at_op + hA3): the wiring `hBVblocksW_discharge' (PDiag:682, already pieceN) →
+  mainA3_of_block_remainders_W (SwitchW:340) → hA3` is verified-wireable, but its leaves (hSum
+  aggregation over pieces × ≤3 boxes × the F1 rows; hCE; hdiag; hNum via `hNum_close_of_tower` under
+  `hK_tower` at x₀(K)) are un-built and depend on F1.
+• F3 (chen_headline): A1/A2 slots ARE packaged (`a12_hA1`/`a12_hA2`, HeadlineW2:1524/1569); the
+  ledger conjunct (normalized_package/hledger_at_certs + the still-inline hcount + hEbundle) and the
+  12-conjunct → `chen_of_hypotheses_W` (Assembly:707) remain. NOT attempted: would require F1/F2 and
+  the 27 rows first; forcing it now risks the "0 wrong proofs" invariant given the coupling above.
+DECISION (anti-grind discipline): Part 1 is the safe warranted deliverable and it resolves the
+catch that stopped GLU-2W-fin2; Part 2 is genuine design work (un-packaged rows + the floor coupling)
+best done by a Fable session with a statement warrant for `ChenHeadline.lean`. `#print axioms
+chen_headline` NOT produced (theorem not built). Tally: 71 catches, 0 wrong proofs.
+
+**2026-07-14 EDGE (= EDGE+fin3 Part 1) ✅ FULL (Fable warrant) — CATCH #71 REPAIRED WITH
+ZERO DEGRADATION.** The six wave application lemmas' membership hypotheses weakened
+2^k-boundary → pieceN-boundary (the new d0_window_of_XM(_lo) cores rebuild the D0 window
+from the weak corner 2^i·2^k ≤ x — the strong corner's +1 slack was NEVER USED; X·M ≤ 4x
+is identical). No catch #72; the trichotomy collapses to a DICHOTOMY (vanish/priced) over
+the full pieceN-boundary; witnesses re-verified at the new shape; pre-wave terminals
+untouched. All 8 edited/new decls exactly [propext, Classical.choice, Quot.sound].
+**FABLE ADJUDICATION of fin3's surfaced coupling obligation: IT DISSOLVES.** The executor
+derived the k-floor only from the cap route (y < 2^{k+1} ⟹ 2^k > x^{1/3}/2, short of the
+_lo floor x^{7/16}/8). But a non-vanishing box ALSO satisfies the boundary cutoff clause:
+x/8 < 2^{i+k} together with 2^i ≤ z·2^k gives z·2^{2k} > x/8 ⟹ 2^k > √(x/(8z)) =
+x^{7/16}/(2√2) ≥ x^{7/16}/8 with room (2√2 < 8). The gap range (x^{1/3}/2, x^{7/16}/8) is
+EMPTY of live boundary boxes — one lemma (kfloor_of_live_box: 2^i < cap → x/2 < X·M →
+x^{7/16}/8 ≤ 2^k), not a design block. REMAINING for fin4: that lemma, the 27 piece-
+parameter rows packaged a12-style (mechanical estimates with the gate's verified margins,
+consuming boundary facts + opf_*), then the assembly per the standing checklist →
+chen_headline. Tally: 71 catches, 0 wrong proofs.
+
+**2026-07-14 fin4 ✅ F1 keystones (ChenHeadline.lean, 2 decls) — the k-floor lands exactly
+as adjudicated; the 7/16 routing refinement resolved in-node.** `kfloor_of_live_box`: live
+boundary box ⟹ x^{7/16}/8 ≤ 2^k (cutoff x/8 < 2^{i+k} + cap 2^i ≤ z·2^k ⟹ z·2^{2k} > x/8
+at z ≤ x^{1/8}; 2√2 < 8 room) — the EDGE-adjudicated gap range closed. REFINEMENT (caught
+and resolved in-node, no catch): the live boxes populate the Finding-3 strip, so the priced
+branch must route the _lo (7/16) family, not the 11/24 one — `box_hprice_at_2pow_lo` built
+(conclusion character-identical, only hNfloor relaxed). Both decls exactly [propext,
+Classical.choice, Quot.sound]. REMAINING (= fin5, enumerated to the lemma): the boundary-
+window scaffold (2^{i+k} ∈ (x/8, x] ⟹ X·M ≍ x, √· ≍ √x, log ≍ log x — ~a dozen
+rpow/sqrt/log lemmas), the box-leg 27-row a12-bundle against _lo, sym/low_box_hprice_at_
+2pow_lo + their per-band live-box kfloor analysis (their carriers have their own support
+floors — verify, not assume), then F2 (discharger/hSum/hdiag/hCE/hNum/hBVblocksW_at_op →
+hA3) and F3 (ledger + 12 conjuncts → chen_headline) — both verified wireable. Tally: 71
+catches, 0 wrong proofs.
+
+**2026-07-14 fin5 ✅ F1-rows(a) + ★ CATCH #72 ★ (ChenFinal.lean, 7 decls) — the band-carrier
+k-floor ASYMMETRY; the seventh consecutive pre-construction catch.** Landed: the boundary-
+window scaffold (x/2 < X·M ≤ 4x raw + ℝ, log(X·M) ∈ [log x − 1, log x + 3], √(X·M) ∈
+[√x/2, 2√x] — floor-independent, survives the catch) + the two band vanishing lemmas
+(blockAlphaLow ≡ 0 at pieceN ≤ y; blockAlphaSym ≡ 0 at pieceM ≤ y). THE CATCH: the band
+carriers have MIRRORED geometry — they vanish BELOW a support floor and cap ABOVE from the
+LARGE prime (p₂ ≤ pieceN/pieceM k), so a live band box gives only 2^k ≳ √(x/(8y)) ~
+x^{1/3}/2.8 — the range (y+1, x^{7/16}/8) ≈ (x^{1/3}, x^{7/16}/8), ~(5/48)log₂x pieces, is
+LIVE and unpriceable by landed atoms (vanishing needs 2^k ≤ y+1; the _lo price needs
+x^{7/16}/8; trivial fallback overshoots by x^1). There is NO band analogue of
+kfloor_of_live_box — the fin4/EDGE plan presumed the box k-floor transferred; it does not.
+**RATIFIED REPAIR (= fin6 part 1, ADDITIVE — no warrant needed, the PriceTwo core pattern
+was built for this)**: d0_window_of_XM_band — the D0-window construction at floor
+x^{1/3}/8 (binding row 4·L^{17} ≤ W^{18} at W = (1/3)log x − 7 closes at log x ≥ 4·3^{18}
+≈ 1.55·10⁹, UNDER the tower's ~2·10⁹ with margin) — fed to medium_box_price_core (which
+takes the window as a packed ∃-hypothesis precisely so new floors are witness-swaps), then
+the band price mirrors sym/low_box_hprice_at_2pow_band. All 7 decls exactly [propext,
+Classical.choice, Quot.sound]. Tally: 72 catches, 0 wrong proofs. fin6 = the band window +
+F1-rows(b,c) + F2 + F3 → chen_headline (the handoff lemma list is in the fin5 report,
+recorded in ChenFinal's docstring).
+
+**2026-07-14 fin6 ✅ F0 COMPLETE (ChenFinal2.lean, 8 decls) — CATCH #72 REPAIRED additively;
+the endgame restructures to dedicated row nodes.** d0_window_of_XM_band at floor x^{1/3}/8
+(the honest Lean threshold exp(10^{10}) — fin5's 1.55e9 was the asymptotic; the checkable
+ratio 31/10 > 3 gives 2.7e9, rounded to the clean tower with 3.7× margin; free downstream
+vs Ccon·K ~ 10²³); medium_box_price_at_op_band via the PriceTwo packed-∃ core (the pattern
+paid off exactly as designed); the band price legs _band; band_kfloor_of_live (live band
+box ⟹ y < 2^k via the vanishing contrapositive; x^{1/3}/8 ≤ y at opY). SYM SUBTLETY
+FLAGGED: the single k with pieceN k < y < pieceM k (sym live, max-collapse fails) needs
+its own treatment in the band bundle. All 8 decls exactly [propext, Classical.choice,
+Quot.sound]. THE REMAINING GAP, NAMED: the ~23-row operating-point bundle per price leg —
+every landed consumer defers them as hypotheses; each row is an a12-style tower estimate
+with a PRICE-GATE-verified margin. RESTRUCTURE (Fable): **fin7a (box rows, ChenRows1.lean)
+∥ fin7b (band rows + the sym single-k, ChenRows2.lean) → fin8 (F2 leaves + F3 assembly →
+chen_headline)**. Tally: 72 catches, 0 wrong proofs.
+
+**2026-07-14 fin7a ✅ FULL first-attempt (ChenRows1.lean, 657 lines) — the box-leg 23-row
+bundle lands; EVERY gate margin held; no catch #73.** All 18 fresh rows discharged at the
+operating point (the tight ones: hDscale/herr_lev at slack x^{1/2000} via the engine
+row_Lpow_le L^E ≤ 262144·x^{1/2000}; habs needed a fresh /64 derivation — GlueFinal's /8
+target was too weak vs 2^k·M ≥ x^{7/8}/64; hfloor transfers verbatim). The composite
+box_rows_at_op is an 18-conjunct ∃-x₁ bundle character-for-character matching
+box_hprice_at_2pow_lo's hypotheses — fin8 applies the consumer with only the structural
+hk/hi/hXsub/hN₀/hDbnd remaining. Anti-#69 witness compiled (the bundle drives the consumer
+end-to-end, no shape mismatch). All declarations exactly [propext, Classical.choice,
+Quot.sound]. Tally: 72 catches, 0 wrong proofs. fin7b (the band bundles) in flight.
+
+**2026-07-14 fin7b ✅ FULL (ChenRows2.lean, 775 lines, 16 decls) + ★ CATCH #73 ★ (the sym
+middle-k box) — ADJUDICATED SMALL.** The band bundles land (low_rows_at_op FULL — the low
+leg has NO gap, it vanishes exactly where unpriceable; sym_rows_at_op covers the collapsed
+regime; the poly3 row engines; the low-chain anti-#69 witness low_price_feeds_consumer).
+THE CATCH: the single middle k (pieceN k < y < pieceM k) has a LIVE sym box the consumer
+demands, whose carrier collapses to a low SHAPE (blockAlphaSym_eq_blockAlphaLow_of_le,
+proven) but keeps indicator blockPrimeInd y — no landed terminal prices that combination.
+**FABLE ADJUDICATION: one additive application lemma, not a redesign.** The terminal
+medium_survivor_price_sqrtD is generic in N; at the middle k, 2^k ≤ y gives M = pieceM k ≤
+2y (the M ≤ 2N guard closes at N := y DIRECTLY — no 2^k bridge); d0_window_of_XM_band
+applies verbatim at y ≥ x^{1/3}/8; the price at log y is within an additive log 2 of the
+log 2^k shape, one extra worst-magnitude term absorbed by the count slack under the
+3.5·10²³ headroom — hSum keeps its shape, count ≤ +1. Repair = fin8's `middle_k_price`
+(apply the terminal at N := y for that k; rows from fin7b's engines at the y-floors).
+Residuals threaded to fin8: rows 12 (caller QR) + 15 (habs, one more poly3 row). All 16
+decls exactly [propext, Classical.choice, Quot.sound]. Tally: 73 catches, 0 wrong proofs —
+the row layer is COMPLETE modulo one adjudicated-small application lemma; fin8 = the final
+assembly.
+
+**2026-07-14 fin8 ✅ the F1 residuals (Headline3.lean, 2 decls) — honest re-scope to three
+nodes.** band_habs_row (the habs row at the band floor — LHS·L^{13} ≤ x^{2/3}/64 ≤ (2^k)²;
+character-for-character the input fin7b threaded) + middle_k_M_le_two_y (the M ≤ 2N guard
+at N := y). RE-SCOPE (rule-4 discipline, no new catch): middle_k_price is a genuine
+terminal application at N := y — medium_box_price_core hardcodes the pieceN→2^k bridge, so
+the middle-k box needs the generic-N terminal applied directly with its ~35 hypotheses
+(the band D0 window at N := y, the generic couplings, the per-e rows, the ChenRows2
+engines at y-floors — ALL ingredients landed, a node of discharge). **fin8a
+(middle_k_price) → fin8b (F2: the three dichotomy dischargers → Price/PsymK/PlowK, hSum,
+hdiag, hCE, hNum → hBVblocksW_at_op → the hA3 bundle; the PDiag:782 CompositionSanity
+template verified to emit the exact hA3 shape) → fin8c (F3: the ledger at X_W^Q + the 12
+conjuncts → chen_of_hypotheses_W → chen_headline).** Both decls exactly [propext,
+Classical.choice, Quot.sound]. Tally: 73 catches, 0 wrong proofs.
+
+**2026-07-14 fin8a ✅ FULL first-attempt (MiddleK.lean, 460 lines, 3 decls) — the middle-k
+price lands at N := y; catch #73 FULLY CLOSED; no catch #74.** Every guard closed as
+adjudicated: hM2N ← middle_k_M_le_two_y (no 2^k bridge), the D0 family ←
+d0_window_of_XM_band verbatim at y, the couplings generic at log y, the per-e rows through
+the #69 guard, the analytic rows via the ChenRows2 y-floor engines (+ the one restatement
+hDsq_of_floor), habs weakened internally from the band shape. middle_k_price keeps the sym
+carrier (no rewrite — the conclusion IS the consumer's slot) and the anti-#69 example
+feeds sym_box_price_at_op → PloW_sym_of_box_disc character-for-character. Interface
+matches sym_rows_at_op (residuals hDbnd + habs threaded). All 3 decls exactly [propext,
+Classical.choice, Quot.sound]. Tally: 73 catches, 0 wrong proofs. **The sym dichotomy is
+now COMPLETE (vanish / collapsed / middle-k); every price input of hBVblocksW_discharge'
+has a landed supplier. fin8b = F2; fin8c = F3 → chen_headline.**
+
+**2026-07-14 fin8b ✅ the box discharger + the honest F2 map (AssembleA3.lean, 3 decls).**
+box_price_at_op LANDS the full box hprice slot (vanish/live dichotomy, closed price
+boxPriceKerr, conclusion character-for-character the consumer's). ARCHITECTURAL CATCH
+(recorded for the followers): box_hprice_at_2pow_lo fixes z/y/Ps outside its ∀x, so its
+Kc/N₀ are nominally per-x — the fix is to extract Kc/N₀ from the ARG-FREE terminal at top
+level, replicate the body inline, and fold N₀ ≤ 2^k into x₁ := max(…, (8(N₀+4))^{16/7})
+via kfloor_of_live_box; the sym/low dischargers MUST use the same trick. SCOPING FINDING
+(not a catch): hSum/hCE/hdiag-crumb are three fresh node-sized estimates with zero corpus
+tooling (the Kerr worst-case aggregation needs the L/logN ≤ 16/7 ratio work; blockConvErrW
+has only nonnegativity; the tower crumb 2^{Nat.log w' x} ≤ x^{1/7} is unbuilt) — the
+"Headline-docstring route" for hCE is prose, not a lemma. RE-SCOPE (Fable): **four
+PARALLEL nodes — SYMLOW (the sym/low dischargers, box-templated + the boundary
+reconciliation z·max ≥ z·y) ∥ HSUM (the Kerr aggregation → RHD ≤ Ccon·K·x/L^{11}) ∥ HCE
+(the blockConvErrW crumb → RCE) ∥ HDIAG (the tower crumb; the ν-side is landed) — then
+fin8c (the final wiring: hBVblocksW_at_op → a12_hA3 → the ledger → the 12 conjuncts →
+chen_headline; surviving rows hK_tower + the op_floors bundle + ε₀ := x).** All 3 decls
+exactly [propext, Classical.choice, Quot.sound]. Tally: 73 catches, 0 wrong proofs.
+
+**2026-07-15 HCE ✅ FULL first-attempt (AggCE.lean, 4 decls) — the finding-5 route
+FORMALIZED; no catch #74.** The definition ruled and cooperated: blockConvErrW =
+ν(Q·d)·(non-unit triple count), and nonunit_forces_fst_dvd proves the shared prime IS p₁
+(p₂,p₃ > y kill the d-side; p₁ ≥ z ≥ w' kills the Q-side) — so per d the crumb ≤
+ν(Q)ν(d)·#{t : t.1 ∣ d}; the divisor reindex nuChen_sum_dvd_le (d ↦ d/p on the squarefree
+lattice) + ν(p₁) ≤ 1/(z−1) give hCE_at_op: RCE ≤ ν(Q)·Σν·tripleSum/(z−1) — UNIFORM in
+QR/Dlev (the cutoff discarded, crumbs ≥ 0), honest scale x^{7/8}·polylog with x^{1/8}
+room. The slot match feeds hBVblocksW_of_generalBV character-for-character. All 4 decls
+exactly [propext, Classical.choice, Quot.sound]. Tally: 73 catches, 0 wrong proofs.
+SYMLOW/HSUM/HDIAG still in flight.
+
+**2026-07-15 HDIAG ✅ FULL first-attempt (AggDiag.lean, 6 decls) — hdiag discharged with
+x^{1/42} margin; no catch.** crumb_le_rpow_at_op (2^{Nat.log w' x} ≤ x^{1/7} for EVERY
+x ≥ 1 — threshold-free via pow_log_le_self + log w' ≥ 12 ≥ 7·log 2); the ν-side at u :=
+w0R opEps with all guards from opf_* (Σν ~ log x/(6·10⁹) ≤ log x — polylog, as
+pre-adjudicated); opPdiag := opY·√x·(x^{1/7} + log x) ≤ 2x^{41/42};
+opPdiag_compat: ≤ x/L^{11} with x^{1/42} room (the diagonal enters hSum as a 1/(2 log x)
+fraction of the budget — vanishing). hdiag_slot_at_op = the verbatim slot + the budget
+fit. All 6 decls exactly [propext, Classical.choice, Quot.sound]. Tally: 73 catches, 0
+wrong proofs. SYMLOW/HSUM still in flight.
+
+**2026-07-15 HSUM ✅ FULL first-attempt (AggSum.lean, 5 decls) + ★ CATCH #74 ★ (the honest
+aggregation constant), RESOLVED IN-NODE by parametricity.** The Kerr worst-price at the
+honest band floor c = 1/3 with the Lean-checkable ratio R = 31/10: boxPriceKerr ≤
+CconBox·Kc·x/L^{12} with CconBox = 2250816·(31/10)^50/(9/10)^{12} ≈ 2.95·10³¹; the sum
+(single block, ≤3 boxes × 2·log x pieces × 9/2 band coefficients + ½Pdiag) closes to
+RHD = (9·CconBox + Ccon_diag/2)·Kc·x/L^{11} ≈ 2.65·10³². THE CATCH: nine orders above the
+gate's 3.5·10²³ (which was computed at the pre-#72 box floor c = 7/16) — RESOLVED:
+hNum_close_of_tower takes Ccon as a FREE PARAMETER (the 3.5e23 was docstring-only) and the
+tower row 2·Ccon′·K ≤ log x holds with astronomic room (log x₀ ≥ w'^{w'} ≫ 10³²). No
+statement altered; fin8c instantiates at the honest constant. The slot-match example
+reproduces the verbatim hSum LHS. All 5 decls exactly [propext, Classical.choice,
+Quot.sound]. Tally: 74 catches, 0 wrong proofs. SYMLOW is the last F2 input in flight.
+
+**2026-07-15 SYMLOW ✅ FULL first-attempt (AssembleA3b.lean, 774 lines) — the sym/low
+dischargers land; ALL SIX consumer inputs now have landed suppliers.** low (2 regimes) +
+sym (3 regimes incl. the middle-k at log y) via the arg-free extraction trick (Kb/N₀b and
+Km/N₀m pulled before ∀x, rows replicated inline, N₀ folded into x₁ via the (8(N₀+4))³
+floor); the sym reconciliation resolved WITHOUT membership transfer (F := z·max throughout;
+the collapse F-floor via zy_floor_ge; the middle-k x^{1/3}/8 ≤ 2^k re-derived from
+opY + 1 ≤ 2^{k+1}). The anti-#69 example feeds BOTH slots into hBVblocksW_discharge'
+verbatim at the operating values. All 3 public decls exactly [propext, Classical.choice,
+Quot.sound]. Tally: 74 catches, 0 wrong proofs. **F2's input set is COMPLETE: Price
+(box_price_at_op) / PsymK+PlowK (sym/low_price_at_op) / hdiag (hdiag_slot_at_op) / hSum
+(hSum_at_op at the honest Ccon′) / hCE (hCE_at_op) / hNum (hNum_close_of_tower,
+parametric). fin8c = THE COMPOSITION: hBVblocksW_at_op → a12_hA3 → the ledger → the 12
+conjuncts → chen_headline.**
+
+**2026-07-15 fin8c ⚠️ SCOPING FINDING (Opus executor) — STEP 1 (op_floors) ✅ FULL; STEPS
+2–4 BLOCKED: the "composition" is NOT pure wiring — ~10 analytic rows are UNPACKAGED.**
+`Salt/Chen/TheHeadline.lean` created (namespace Salt.Chen). Landed sorry-free, axioms exactly
+[propext, Classical.choice, Quot.sound], zero warnings, umbrella `Salt.Chen.All` exit 0:
+`op_floors : ∃ x₁, ∀ x ≥ x₁, x^{11/24}/8 ≤ opQ·opDlev x ≤ x^{499/1000} ∧ x^{11/24}/8 ≤
+opZ·opY ∧ 2 ≤ opZ·opY ∧ x^{1/3}/8 ≤ opY` (via `opf_tower` + `a12_logpow_le_rpow 1 (1/500)`
+for the D-upper `log x ≤ x^{1/500}` + `zy_floor_ge` at exp 200). **FINDING (two independent
+Explore sweeps + corroborated by the 2026-07-14 EDGE+fin3 Part 2 entry above): the fin8b
+handoff "every input is landed, nothing remains but composition" is INACCURATE.** The F1/F2
+DICHOTOMY dischargers ARE landed (box/sym/low_price_at_op, hSum_at_op, hCE_at_op,
+hdiag_slot_at_op, hNum_close_of_tower), but composing them + the ledger needs these
+STILL-UNPACKAGED analytic rows, each a fresh operating-point estimate (NOT wiring):
+• **Step-2 hSum unification** (feed `hSum_at_op`'s uniform `W`, single `Kc`):
+  (a) `boxPriceKerrY_worst_le` — DOES NOT EXIST (only `boxPriceKerr_worst_le`, AggSum:135, for
+  the plain price; the middle-k `boxPriceKerrY` (AssembleA3b:65) has ONLY `_nonneg`). Must be
+  written (mirror of the plain one, `logN := log y`, floor `(10/31)·L ≤ log y` holds since
+  `log y ≈ (1/3)log x > (10/31)log x`).  (b) `symPriceK`/`lowPriceK` → uniform-`W` collapse
+  (sum over ≤3 boundary boxes via `dyadicBoundary_card_le_three`) — not landed.  (c) the
+  `hratio` PRODUCER `(10/31)·log((2^{i+1}−1)·pieceM k) ≤ log 2^k` from the landed k-floors
+  (`kfloor_of_live_box` x^{7/16}/8 ≤ 2^k / `band_kfloor_of_live`) — no bridge landed.
+• **Step-2 CE→RCE** (`hCE_at_op`'s product `nuChen Q·Σν·tripleSum/(z−1) → Ccon·K·x/L^{11}`):
+  ingredients LANDED (`tripleSum_le_cbar_final(_W)`, `nu_sum_le_log_at_op` AggDiag:122,
+  `nuChen_le_one`) but NOT composed — the numeric collapse is owed.
+• **Step-2 hNum tower** `2·Ccon′·K ≤ log x` (`hNum_close_of_tower` param) at x₀(K) — inline.
+• **Step-3 ledger** (`normalized_package`/`hledger_at_certs` at XW =
+  totalMass(twinA1SieveW)·W): `hcertA1` (`fchain_A1_final ∘ logRatio_A1_mem`) + `hcertA3`
+  (`Fchain_switch_le ∘ opf_tower` :486 Icc(1.49,1.51)) READY; but **hWy** (`W_ratio_upper`,
+  WRatioSharp:315 LANDED but needs at-op `hdvd opP∣opPs`/`hwin` window-primeFactors identity/
+  `hz38`/real endpoints + the UNNAMED `rfl` bridge `W(twinA1SieveW)=W(twinA1Sieve)` — no named
+  `twinA1SieveW_W_eq`, cf. `switchSieveW_W_eq` SwitchW:179), **hcount** (`log x·tripleSum/φ(Q)
+  ≤ (cbar+ecount)·totalMass` — only the SYMBOLIC typecheck `example` CountW:749 exists, and it
+  is about `tripleSumW` not `tripleSum/φ(Q)`; must compose `tripleSum_le_cbar_final` +
+  `lambda_mass_lower` MertensPNT:261), **hcertA2** (`A2grid_sharp_le` A2Weighted:461, 6 hyps to
+  discharge at op), **XW>0** + **hEbundle ≤ 1/200** (eight O(1/log z)/x^{−1/8} error shares at
+  a concrete x₀, via `W_twinA1_ge` WLower:51 through the rfl bridge) — ALL un-packaged.
+• **Step-4** 12 conjuncts: witnesses (P=opP/Q=opQ/z=opZ/y=opY/a=opA/w'=opW'/Ps=opPs) +
+  `chen_of_hypotheses_W` (Assembly:707) + `residue_witness` + `hyx_at_op`/`sievePrimorial_dvd`
+  are wireable, BUT need a12_hA1/a12_hA2's ~13/~17 hyps discharged at op + a12_hA3 (step 2).
+No existing assembly anywhere (normalized_package/hledger_at_certs/a12_hA1/a12_hA2 have ZERO
+external callers; no a12_hA3). **RECOMMENDATION (Fable/human-tier): re-scope fin8c into ~10
+packaging sub-nodes (boxPriceKerrY_worst_le ∥ sym/low collapse ∥ hratio-producer ∥ CE→RCE ∥
+hWy@op ∥ hcount@op ∥ hcertA2@op ∥ XW>0 ∥ hEbundle) THEN the final wiring — matching the
+2026-07-14 EDGE+fin3 Part 2 decision that "the F1–F3 assembly is NOT completable as pure
+wiring."** No sorry written; op_floors is the only decl. Tally unchanged: 74 catches, 0 wrong
+proofs.
+
+**2026-07-15 PACK-A ✅ FULL + PACK-B ✅ 2/5 (PackA.lean 8 decls / PackB.lean 4 decls) +
+★ CATCH #75 ★ (the A₂ exact-geometry constraint).** PACK-A: boxPriceKerrY_worst_le (window
+form, CconBox reused — the def differs only at log y, constant provably identical), the
+hratio producers at both floors (c = 1/3 needs log x ≥ 400; c = 7/16 needs ≥ 60), the
+sym/low uniform-W collapses (sym k-uniform from the opY floor; LOW CANNOT be k-uniform in
+the vanish regime — small-2^k boxes blow the closed price up, so lowPriceK_worst_le takes
+the live-regime k-floor as hypothesis, vanish routed as 0 by fin8d), hRCE_at_op (the CE
+collapse at x^{7/8}·polylog, slot-matched). PACK-B: twinA1SieveW_W_eq (rfl, as predicted),
+hWy_at_op (W_ratio_upper at op via opf_PdvdPs + the window sdiff identity + 38 ≤ log opZ
+from the w0R floor — margin ~40000), XW_pos_at_op. **CATCH #75: A2grid_sharp_le demands
+EXACT log Dtot = 4·log z (ℕ args) — unreachable at ANY operating point** (Dtot = opZ⁴
+gives exactness but breaks the A₂ BV level row by polylog factors — the floor shaves only
+x^{-1/8}; smaller Dtot misses exactness; the frozen opZ can't move without invalidating
+a12_hA1/a12_hA2). The #64 genre: an idealized identity where the op point lives in a
+window. **ADJUDICATED REPAIR (= A2WIN, additive)**: the window-perturbed A₂ cert —
+re-derive A2grid_sharp_le at log Dtot ∈ [(4−δ)·log z, 4·log z] with the deviation tracked
+(the A2weight denominators shift monotonically; at δ = 8e-4 (the SAME window as the
+A₁ certs) the bound worsens by relative ~1e-3, inside the razor's M = 0.012 with the
+2.43/2.68 slack). ALSO REMAINING: HCOUNT (hcount_at_op — PACK-B's enumerated pieces:
+the ecount extraction from tripleSum_le_cbar_final's error sums + three easy rows) and
+HEB (hEbundle, blocked on both). All 12 new decls exactly [propext, Classical.choice,
+Quot.sound]. Tally: 75 catches, 0 wrong proofs. **A2WIN ∥ HCOUNT → HEB+fin8d (the final
+wiring).**
+
+**2026-07-15 HCOUNT ✅ the packageable half (CountAtOp.lean, 6 decls).** hcount_massBridge
+(lambda_mass_lower composed via massLo monotonicity), hcount_op_geometry (ALL 8 keystone
+geometry rows EXACT at op — Real.log_rpow gives log zR = log x/8 exactly, the count
+geometry is reachable unlike #75's A₂), hcount_op_AP3, and hcount_at_op with ecount pinned
+to ecountOp C x = C/log(opZ x), honest C = cbar·(11K + 12·log2)/4 ≪ 0.01 at the tower —
+inside the razor's M ≥ 1/100. Slot example mirrors CountW:749. REMAINING (= HCOUNT-2,
+three self-contained sub-rows, enumerated in-file): Lval floors (x^{1/6}-scale, easy),
+CORR (the Abel-error bound — three missing pieces: the Ifun upper C_I/log x from Ifun_cf,
+the hbjs boundary 2/log x, the windowed-Mertens Σ1/p₁), SLACK (LF·WF−1 + the E_SW
+polylog-beats-power fold). All 6 decls exactly [propext, Classical.choice, Quot.sound].
+Tally: 75 catches, 0 wrong proofs. A2WIN still in flight.
+
+**2026-07-15 A2WIN ✅ FULL first-attempt (A2Window.lean, 7 decls) — CATCH #75 REPAIRED with
+4.5× headroom; no catch #76.** The perturbation localizes to ONE use site (the exact
+integral A2weight_integral_eq); the reference Dtot0 = z⁴ is a genuine ℕ with
+log((z⁴:ℕ)) = 4·log z EXACT (log_pow), so the landed aggregation replays at it verbatim
+and the perturbed weights route through one pointwise domination A2weight_window_dom.
+δ = 8/10000 IS the A₁ certs' frozen window (39992/10000 = 4 − 8/10000) — the arithmetic
+collapses exactly: κ = 3/4997, and razor_window_cost proves the deviation
+(3/4997)·(3+43/75)·(log6/4)/2 ≤ 0.000480 against the M − 1/100 = 0.002151 allowance
+(~22%, 4.5× headroom), folding into the e2 share with razor_scalar_margin UNTOUCHED.
+At-op geometry RESOLVED: recommend Dtot := the A₁ level D = ⌊x^{1/2−ε′}⌋ — centers at
+3.99928, satisfies W2-LEVEL, and logRatio_A1_mem discharges the window DIRECTLY (the same
+level serves both carriers); hLD_hi kept for symmetry, not load-bearing. All 7 decls
+exactly [propext, Classical.choice, Quot.sound]. Tally: 75 catches, 0 wrong proofs.
+HCOUNT-2 in flight; then HEB + fin8d (the final wiring).
+
+**2026-07-15 HCOUNT-2 ✅ the three sub-row cores (CountAtOp2.lean, 9 decls).** Lval FULLY
+CLOSED (all four keystone rows at op, threshold max(10^48, (4N₀)^6)); the CORR analytic
+core landed — Ifun_op_le ((3/2)log2/log N via the closed form; the DESIGN'S log(13/8)
+ASSUMED β ≥ 1/8 which zN's β can violate — the safe log 2 used, documented),
+hbjs_sqrt_eq/le (the design's 2/(log x + log p₁) had a SIGN SLIP — the honest value is
+2/(log N − log p), bounded 3/log N at log p ≤ log N/3), S1set_mertens (via the landed
+sum_inv_le_of_prime_window, C₃′ = 19); SLACK (slack_collapse at 6K + 4log2 — vs the
+design's 3K + 24log2, both O(1/L₀) ≪ 0.01 — + ESW_main_fold, the polylog-beats-power core
+at 6^A·L^{2−A}). REMAINING (= HCOUNT-3): the CORR sum assembly (dominant terms
+O(1/(log x)²)), the E_SW fold wiring, and the (★) composition hcount_star_at_op — a large
+but now-unblocked inequality chain with every building block landed. All 9 decls exactly
+[propext, Classical.choice, Quot.sound]. Tally: 75 catches, 0 wrong proofs.
+
+**2026-07-15 HCOUNT-3 ✅ FULL (CountAtOp3.lean, 1056 lines, 11 decls) — THE COUNT LINE IS
+CLOSED; two catch-#76-class design flaws resolved in-node.** hcount_slot_closed:
+log x·tripleSumW ≤ (cbar + ecountOp C x)·(∑Λ/φ(opQ)) UNCONDITIONAL, chained verbatim into
+hmA3_normalized (the slot example now with hcountW PROVED). Constants: C_CORR = 255·log2 +
+768 ≈ 945.7; C = (cbar·(21K + 14log2) + C_CORR + 2·cbar·Kmass + 4)/2; ecountOp ≪ 0.01 at
+the tower. THE TWO FINDINGS: (1) the keystone's inner ∃K is PER-INSTANCE — a fixed C is
+impossible from it directly; resolved by count_bound_uniformK (thread psiTot_pnt's K₀
+through per_pair_weighted_le' + weightedPairSum'_le_cbar, compose with the uniform-Ksw
+equidist) — without this HCOUNT-3 cannot close; (2) the honest op bound log Lval ≥
+log x/7 (strictly < log x/6) forces the E_SW fold at BASE 7 (7¹³ not 6¹³), and the CORR
+reciprocals carry NO cbar factor — both corrected from the design note. All 11 decls
+exactly [propext, Classical.choice, Quot.sound]. Tally: 75 catches, 0 wrong proofs.
+**EVERY INPUT OF THE FINAL WIRING NOW EXISTS. fin8d = HEB (the error-bundle shares from
+the landed pieces) + hBVblocksW_at_op (the six suppliers into hBVblocksW_discharge') +
+a12_hA3 + the ledger + the 12 conjuncts → chen_headline.**
+
+**2026-07-15 FIN-A3 Opus PARTIAL — ★ CATCH #77 ★ (the price dischargers are NOT arg-free; the
+"wire the six suppliers" handoff is blocked, and the fix is validated).** New file
+`Salt/Chen/FinA3.lean` (imports Headline4 + concrete only; All.lean NOT wired; no landed file
+edited). THE FINDING (corrects the fin8b/HCOUNT-3 "EVERY INPUT EXISTS" claim): `box_price_at_op`
+(AssembleA3), `sym_price_at_op`/`low_price_at_op` (AssembleA3b) fix `Ps`/`X`/`K`/`D` as parameters
+BEFORE their `∀ x`. At the operating point those are `opPs x` / `2x` / `Nat.log 2 (2x)` /
+`opQ·opDlev x` — ALL x-dependent. Consequence: obtaining their `∃ Kc x₁` INSIDE the bundle's `∀ x`
+gives per-`x`-OPAQUE constants and thresholds — (a) the threshold `x₁` cannot be bounded by any
+outer `x₁` (so the bound is un-applicable), and (b) the constant `Kc` cannot close the tower row
+`2·Ccon·K ≤ log x` of `hNum_close_of_tower` (which the mandate's "exp(2·Ccon′·K) ceiling" needs
+x-independent). Obtaining them OUTSIDE `∀ x` requires x-independent `Ps`/`D`, which don't exist at
+op. So the mandate's "destructure ALL supplier existentials FIRST" is NOT executable against
+box/sym/low_price_at_op. This is exactly the 2026-07-15 fin8c scoping finding ("NOT pure wiring")
+re-confirmed at the constant level.
+THE FIX (validated, sorry-free, axioms exactly [propext, Classical.choice, Quot.sound]): restate
+each discharger ARG-FREE by moving `Ps`/`X`/`K`/`D` INSIDE the `∃ Kc x₁` — legal because the
+witnesses come from the arg-free terminals `medium_box_price_at_op_lo`/`_band`/
+`middle_medium_box_price_at_y` (∃ K N₀ before ∀ args). `box_price_indep` LANDS this for the box leg
+(body copied verbatim from `box_price_at_op`, args re-bound after the `refine ⟨Kc, …⟩`); it builds
+and gives x-independent `(Kc, x₁)` usable at `opPs x`. The low/sym legs follow the SAME template
+(copy `low_price_at_op` 147–367 / `sym_price_at_op` 380–695 verbatim, move `Ps X K QR Dlev D hK
+hDbnd` before `x`).
+ALSO LANDED (all building + audited): §1 price-constant MONOTONICITY (`Kbeta_min_mono_K`/
+`Km_min_mono_K`/`Kbeta'_min_mono_K` → `box_bracket_mono` → `boxPriceKerr_mono`/`boxPriceKerrY_mono`
+→ `lowPriceK_mono`/`symPriceK_mono`) — the worst-`W` lemmas (`boxPriceKerr_worst_le` etc.) need
+`1 ≤ K` but the terminals give only `0 < K`, so the aggregate must bump each constant to `max 1 K`
+via these; §2 `tripleSum_le_16x_at_op` (`tripleSum x (opZ x)(opY x) ≤ 16·x` via
+`card_tripleSet_le_pairSum` + `primeCountIoc ≤ Ufun ≤ x/(q₁q₂)` + landed `pairSum_le_at_op ≤ 16`)
+— the `htriple` polylog input `PackA.hRCE_at_op` consumes (any `C ≥ 4` works: `16 ≤ (log x)^4`).
+THE REMAINING ASSEMBLY (fully mapped, NOT yet written): with box/low/sym_indep + `hdiag_slot_at_op`
++ `nu_sum_le_log_at_op` + `tripleSum_le_16x_at_op` + `op_floors` + `opf_tower` + two
+`a12_logpow_le_rpow` thresholds all obtained at TOP: set `x₁ := max(all thresholds, ⌈exp(2·Ccon·K)⌉)`;
+inside `∀ x` set `z:=opZ x, y:=opY x, P:=opP x, Q:=opQ, a:=opA, w':=opW', Ps:=opPs x, Dlev:=opDlev x,
+ε₀:=(x:ℝ), ε:=opEps, K_main:=1+opEps, QR:=1, X:=2x, KK:=Nat.log 2 (2x), D:=opQ·opDlev x`.
+ROUTE the box and low legs to 0 in the vanish regime (box vanish `min(opZ·pieceN k+1)(x+1) ≤ 2^i`
+→ disc=0 via `box_carrier_eq_zero_above_cap`; low vanish `pieceN k ≤ opY x` → disc=0 via
+`blockAlphaLow_eq_zero_of_pieceN_le` + `apDiscBilinCutoff_congr`/`_zero`) — small-`2^k` boxes blow
+the closed price up so they are NOT `W`-uniform; sym IS uniform (`symPriceK` prices middle boxes at
+`log y`, `symPriceK_worst_le` unconditional). `hiX`: `2^(i+1) ≤ X+1 = 2x+1` from the corner clause
+`2^i·2^k ≤ x` (2^k ≥ 1). `hSum`: `AggSum.hSum_at_op` (hmax via `maxBlock_op_eq_zero`/
+`maxBlock_eq_zero_of_eps_self` at ε₀:=x) with `Kc:=1`, `W:=3·CconBox·(K̂b+K̂c+K̂m+K̂b')·x/L^12`,
+`Ccon_box:=` that coefficient, per-leg `≤ W` via the §1 mono bump + PackA `boxPriceKerr_worst_le`/
+`symPriceK_worst_le`/`lowPriceK_worst_le` (`hratio` from `kfloor_of_live_box`/`band_kfloor_of_live`
+→ `ratio_le_of_floor` at c=7/16 (`margin_box`) / c=1/3 (`margin_cbrt`)); `Pdiag:=opPdiag x`,
+`Ccon_diag:=1`, `hPdiag` from `hdiag_slot_at_op.2`. `hCE`: `hCE_at_op ∘ hRCE_at_op` (z-bounds
+`hz1pos`/`hzlow` from `opf_tower` row2 opZ ≥ 10^6 + opZ=⌊x^{1/8}⌋; `hkey` from `a12_logpow_le_rpow`;
+`hQfac` from `opf_Q_primeFactors`; `hw'z`/`hPy` from opf_tower/`opf_Psy`). `hNum`:
+`hNum_close_of_tower` at `Ccon·K := max(RHD-coeff, RCE-coeff)`, tower row folded into x₁. Then
+`mainA3_of_block_remainders_W x (opZ x)(opY x)(opP x) opQ opA opW' (opPs x)(opDlev x)(x:ℝ) opEps
+(1+opEps) 1 …structural from opf_* + h4_cond_of_base opEps (1+opEps) …` (Ps proofs = opf_Ps_sq x /
+opf_Psodd x so the conclusion is DEFEQ to `Headline4.M3 x`) ∘ the arg-free discharge → the exact
+`hA3` shape `triplePrimeSumW opQ opA x (opP x)(opY x) ≤ M3 x`, then `chen_headline_of_A3_ledger`
+consumes it (hL left as hypothesis). Tally: 76→77 catches, 0 wrong proofs. All FinA3 decls exactly
+[propext, Classical.choice, Quot.sound]; sorry-free; zero warnings.
+
+**2026-07-15 FIN-LED ✅ the seam + the cert rows (FinLed.lean, 8 decls) + ★ CATCH #78 ★
+(the yR-top exact geometry).** THE SEAM CLOSED: hcount_seam bridges tripleSumW →
+tripleSum/φ via the base equidist + pairSum_le_at_op, the crumb e ≤ 8/log x folded into
+ecount′ = ecountOp C x + e (both → 0 at the tower), the (φ/S)(S/φ) cancellation exact —
+normalized_package's hcount slot verbatim. hcertA1_at_op (fchain_A1_final ∘
+logRatio_A1_mem + 2 ≤ maxDepth via BERTRAND×2 in (opW', 4·opW']); hcertA3_at_op
+(Fchain_switch_le ∘ the tower membership); XW_lower_at_op (e⁻³⁵·x/(4φ(opQ)·log opZ) ≤ X_W
+— unblocks the e1/e4/R-shares). Lean notes: maxRecDepth 8000; linarith only + explicit-≠0
+field_simp (the heavy op context loops nlinarith). **CATCH #78: A2grid_window_le still
+demands the EXACT top hLy : log yR = (8/3)·log z — A2WIN (#75) relaxed only the Dtot
+geometry; the independently-floored opY misses by the floor loss.** FABLE ADJUDICATION:
+the SAME A2WIN pattern at the top; the honest deviation is log(opY) − (8/3)log(opZ) =
+O(x^{-1/8}) — EXPONENTIALLY below even the 8e-4 window (log⌊u⌋ ≥ log u − 2/u), so the
+domination constant can be taken at a fixed tiny δ′ (e.g. 1/1000) with vanishing razor
+cost against the remaining 0.001671 allowance. = FIN-LED-2 (executor, A2Window.lean as
+template) + the remaining shares (slack1/slack3/aggSlack fixed-constant bounds +
+errorBundle_le) + hL_bundle. All 8 decls exactly [propext, Classical.choice, Quot.sound].
+Tally: 78 catches, 0 wrong proofs.
+
+**2026-07-15 FIN-A3b ✅ (FinA3b.lean, 594 lines) — the #77 fix completed for all three
+legs.** low_price_indep + sym_price_indep (bodies verbatim, binders moved — Kb/Km/x₁ now
+genuinely x-independent handles at opPs x) + the hA3-slot shape check (anti-#69). THE
+REMAINING ASSEMBLY (= FIN-A3c, fully mapped): instantiate PDiag:782's CompositionSanity
+~30 hypotheses at the op witnesses (conclusion DEFEQ to M3 with opf_Ps_sq/opf_Psodd);
+the LOAD-BEARING RISK named: the hSum per-leg uniform-W bound needs a PIECEWISE Price
+(0 in the box-vanish regime via box_carrier_eq_zero_above_cap / boxPriceKerr in the live
+regime via kfloor + boxPriceKerr_worst_le after the max-1 bump) with hprice AND hbox
+re-proved at the piecewise Price — the box-vanish casework at the top-level slot; sym IS
+W-uniform, low mirrors box. Everything else mapped to landed suppliers. Both decls exactly
+[propext, Classical.choice, Quot.sound]. Tally: 78 catches, 0 wrong proofs.
+
+**2026-07-15 FIN-LED-2 ✅ (FinLed2.lean, 12 decls) — CATCH #78 REPAIRED; hcertA2 at op;
+no catch #79.** The A2WIN pattern at the top: the COMBINED Dtot+top domination worsens
+5000/4997 only to 1250/1249 (κ = 24/39946); the reference split at yR0 = exp((8/3)log z)
+gives the exact (log6)/4 + the elementary crumb 1125/3997000; razor_topwindow_cost:
+(3+43/75)·wtail_fixed/2 ≤ 0.001144 ≈ 53% of the allowance — SUPERSEDES razor_window_cost
+(the 1250/1249 absorbs the Dtot part). At-op: yR := opY+1 makes the lower edge floor-free;
+the upper edge via the landed floor loss; hcertA2_at_op discharged with the NEW range rows
+(logRatio_cdiv_le_three via cdiv·opZ ≤ opD+opZ ≤ opZ⁴ — the sub-½ exponent of opD is
+load-bearing). DEFERRED (= FIN-LED-3): the hEbundle ≈ 0.0033 < 0.005 numeric assembly —
+(a) sharp per-point hBJS via DecayMass (crude e⁻² does NOT close — checked), (b) Mertens
+Σ1/(p−1) on [opZ, opY] for aggSlack, (c) the tower R/XW crumb thresholds, (d) the e3
+catch-#49 collapse (rho → 3/8, ecount → 0). All 12 decls exactly [propext,
+Classical.choice, Quot.sound]. Tally: 78 catches, 0 wrong proofs.
+
+**2026-07-15 FIN-A3c ✅ FULL (FinA3c.lean) — ★ THE hA3 BUNDLE IS COMPLETE ★; the A₃ side
+of Chen's theorem is CLOSED at the operating point.** The piecewise Price handled as
+checkpointed defs+lemmas (vanish → 0 via the carrier caps; live → the kfloors + the worst
+bounds after the max-1 bumps); the single Khat unifies the four discharger constants;
+the PDiag:782 composition instantiated at the full op witness list; hSum at W =
+6·CconBox·Khat·x/L^12 with Ccon_diag = 1; hNum at Cconst = max 1 (54·CconBox·Khat + 1/2)
+with the tower row folded into x₁ = ⌈exp(2·Cconst)⌉; h4 via h4_cond_of_base; the
+conclusion ACCEPTED BY refine against M3 — DEFEQ confirmed; the example feeds
+chen_headline_of_A3_ledger (hL hypothetical). Both sides' values reconciled end-to-end —
+NO new catch; the FIN-A3/A3b mapping held. All 5 decls exactly [propext, Classical.choice,
+Quot.sound]. Tally: 78 catches, 0 wrong proofs. **REMAINING: FIN-LED-3 (hL_bundle) — then
+chen_headline := chen_headline_of_A3_ledger hA3_bundle hL_bundle, ONE APPLICATION.**
+
+**2026-07-15 FIN-LED-3 ✅ FULL (FinLed3.lean, 805 lines, 17 decls) — THE LEDGER CLOSES;
+hL_bundle lands.** The four ingredients: (a) the SHARP hBJS route (e^{−s} at s ≥ 3.9992 —
+crude e⁻² confirmed to blow the bundle) → slack1 ≤ 0.00028; (b) aggSlack ≤ 0.0022 via the
+window Mertens (ratio 8/3 + 1/1000 < e); (c) every crumb ≤ 1/100000 via XW_lower + poly-
+beats-log; (d) the e3 catch-#49 collapse with cbar SYMBOLIC so the leading term cancels
+exactly. THE SHARE BUDGET AS PROVEN: e1 ≤ 0.00030, e2/2 ≤ 0.003276, e3/2 ≤ 0.000155,
+e4/2 ≤ 0.000005 — TOTAL ≤ 0.003736 < 1/200 (margin 0.001264). No catch #79. All 17 decls
+exactly [propext, Classical.choice, Quot.sound].
+
+═══════════════════════════════════════════════════════════════════════════════════════
+**2026-07-15 ~07:15 ★★★★★ THE HEADLINE ★★★★★**
+
+    theorem chen_headline : {p : ℕ | p.Prime ∧ IsP2 2 (p + 2)}.Infinite :=
+      chen_headline_of_A3_ledger hA3_bundle hL_bundle
+
+    'Salt.Chen.chen_headline' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+**CHEN'S THEOREM, UNCONDITIONAL, KERNEL-CHECKED** (Salt/Chen/ChenTheorem.lean; build 8936
+jobs green; the axiom audit verbatim above). There are infinitely many primes p such that
+p + 2 is prime or a product of two primes. The full chain: the unconditional Siegel–Walfisz
+(zero theory → contour → the gate) → the dispersion Bombieri–Vinogradov → the windowed/
+cutoff BV with the transpose and the carrier trichotomy → the switched sieve at the
+W-trick operating point (Q = Qval, a = Q−1, the tower threshold) → the certified razor
+(M = 0.012151, the error bundle ≤ 1/200 proven at 0.003736) → the survivor extraction.
+THE LEDGER: **78 catches, 0 proofs on wrong statements** — every catch found by a gate, a
+STEP-0 inventory, or an executor's discipline BEFORE it could cost a wrong proof. The arc
+from razor-positive to headline (catches #59–#78): the medium band, the W-trick seam, the
+per-box price layer, the exact-geometry windows, the arg-free rebindings, the share budget
+— every "obvious" classical step made honest. Tally final for the arc: 78 catches, 0 wrong
+proofs, ~130 commits on twinbar, build green throughout.
+═══════════════════════════════════════════════════════════════════════════════════════

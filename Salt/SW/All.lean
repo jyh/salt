@@ -5,6 +5,35 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.SW.Defs
 import Salt.SW.Kernel
+import Salt.SW.Psi1Identity
+import Salt.SW.ZeroCount
+import Salt.SW.Growth
+import Salt.SW.PartialFractions
+import Salt.SW.BCBound
+import Salt.SW.MaxModulus
+import Salt.SW.EulerBridge
+import Salt.SW.ThreeFourOne
+import Salt.SW.ZetaPole
+import Salt.SW.ZeroFree
+import Salt.SW.ZetaPartialFractions
+import Salt.SW.LandauPage
+import Salt.SW.ZeroFreeReal
+import Salt.SW.Page
+import Salt.SW.FourFold
+import Salt.SW.Siegel
+import Salt.SW.Estermann
+import Salt.SW.EstermannInterface
+import Salt.SW.SiegelFinal
+import Salt.SW.SiegelClose
+import Salt.SW.ContourShift
+import Salt.SW.ShiftAssembly
+import Salt.SW.ShiftVariants
+import Salt.SW.ZetaZeroFree
+import Salt.SW.ShiftTrivChar
+import Salt.SW.Psi1Transfer
+import Salt.SW.CharDispatch
+import Salt.SW.Fold
+import Salt.SW.Gate
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -49,3 +78,66 @@ open Salt.Tactic in
   Salt.SW.psi1AP_sub_lower Salt.SW.psi1AP_sub_upper
   Salt.SW.neg_logDeriv_LSeries_eq_LSeries_twist
   Salt.SW.kernel_identity Salt.SW.kernel_sum_swap
+  Salt.SW.psi1_eq_integral Salt.SW.psi1_eq_integral_logDeriv
+  Salt.SW.LFunction_center_lower Salt.SW.LFunction_zero_count_le
+  Salt.SW.norm_deriv_le_of_re_le
+  Salt.SW.LFunction_eq_growthSum Salt.SW.LFunction_growth
+  Salt.SW.LFunction_growth_sphere
+  Salt.SW.logDeriv_prod_pow Salt.SW.LFunction_exists_factorization
+  Salt.SW.LFunction_partialFraction Salt.SW.norm_logDeriv_sub_sum_le
+  Salt.SW.norm_logDeriv_sub_sum_of_blaschke
+  Salt.SW.LFunction_norm_logDeriv_sub_sum Salt.SW.neg_re_logDeriv_le
+  Salt.SW.norm_reflectedFactor_eq_on_sphere
+  Salt.SW.LFunction_norm_logDeriv_sub_sum'
+  Salt.SW.LFunction_eq_primitive_mul Salt.SW.eulerCorr_ne_zero
+  Salt.SW.logDeriv_LFunction_eq Salt.SW.LFunction_eq_zero_iff_primitive
+  Salt.SW.norm_logDeriv_LFunction_sub_primitive_le
+  Salt.SW.three_four_one_termwise Salt.SW.three_four_one
+  Salt.SW.three_four_one_logDeriv
+  Salt.SW.neg_logDeriv_zeta_le Salt.SW.neg_logDeriv_LFunction_trivChar_le
+  Salt.SW.zero_free_region_primitive Salt.SW.zero_free_region
+  Salt.SW.Zc_growth Salt.SW.entire_zero_count_le
+  Salt.SW.entire_norm_logDeriv_sub_sum'
+  Salt.SW.neg_logDeriv_zeta_split Salt.SW.zeta_neg_re_logDeriv_le
+  Salt.SW.landau_neg_logDeriv_re_lower Salt.SW.analyticOrderAt_eq_of_factorization
+  Salt.SW.landau_one_exceptional_at Salt.SW.landau_one_exceptional
+  Salt.SW.landau_one_exceptional_simple
+  Salt.SW.LFunction_conj Salt.SW.neg_re_logDeriv_trivChar_complex_le
+  Salt.SW.zero_free_region_real Salt.SW.zero_free_region_all
+  Salt.SW.zero_free_region_all'
+  Salt.SW.product_ne_one Salt.SW.page_positivity
+  Salt.SW.neg_reLogDeriv_changeLevel_le Salt.SW.page_cross_modulus
+  Salt.SW.fourfold_vonMangoldt_nonneg Salt.SW.changeLevel_quadratic
+  Salt.SW.fourfoldCoeff_nonneg Salt.SW.fourfoldCoeff_apply_one
+  Salt.SW.LSeries_fourfoldCoeff_eq Salt.SW.LSeriesSummable_fourfoldCoeff
+  Salt.SW.LFunction_pos_of_one_lt Salt.SW.LFunction_apply_one_pos
+  Salt.SW.fourfold_pos_of_one_lt Salt.SW.lambda_pos
+  Salt.SW.estermann_fourfold Salt.SW.siegel_dichotomy
+  Salt.SW.siegel_L_one_extract Salt.SW.goldfeld_L_one_lower
+  Salt.SW.siegel_zero_free_of_exceptional_case
+  Salt.SW.landau_truncation Salt.SW.estermannPositivity_core
+  Salt.SW.estermannPositivity_of_interface
+  Salt.SW.no_estermann_data_for_zero Salt.SW.zeta_nonpos
+  Salt.SW.estermannInterface' Salt.SW.estermannInterface
+  Salt.SW.estermannPositivity
+  Salt.SW.LFunction_one_re_le_mvt Salt.SW.fourfold_disk_bound
+  Salt.SW.siegel_L_one_exceptional Salt.SW.siegel_zero_free_exceptional
+  Salt.SW.LFunction_apply_one_norm_le Salt.SW.LFunction_norm_le_near_one
+  Salt.SW.norm_deriv_LFunction_near_one Salt.SW.LFunction_one_re_le_mvt_sharp
+  Salt.SW.norm_eulerCorr_one_le Salt.SW.siegel_theorem
+  Salt.SW.rectBI_eq_zero_of_differentiableOn Salt.SW.rectBI_dslope_eq_zero
+  Salt.SW.rectBI_inv_eq_two_pi_I Salt.SW.rectBI_cif_eq
+  Salt.SW.kernel_residue
+  Salt.SW.psi1_contour_shift
+  Salt.SW.norm_logDeriv_le_of_ball_dist Salt.SW.rectBI_sub_of_edge_eq
+  Salt.SW.psi1_contour_shift_exceptional
+  Salt.SW.zeta_neg_re_logDeriv_le_keep Salt.SW.zeta_zero_free_strip
+  Salt.SW.zeta_zero_free_region
+  Salt.SW.norm_logDeriv_eulerCorr_trivChar_le
+  Salt.SW.norm_logDeriv_Zc_le_of_ball_dist
+  Salt.SW.psi1_contour_shift_trivchar Salt.SW.psi1_contour_shift_trivchar_full
+  Salt.SW.psi1_transfer Salt.SW.psi1Chi_one_primitive Salt.SW.psi1_transfer_one
+  Salt.SW.sq_le_C_exp Salt.SW.E_shape_bound
+  Salt.SW.psi1_char_bound Salt.SW.psi1_trivchar_bound
+  Salt.SW.psi1AP_main_bound
+  Salt.SW.siegelWalfisz_holds Salt.SW.bounded_gaps_unconditional

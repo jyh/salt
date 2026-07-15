@@ -208,3 +208,23 @@ NON-dyadic (excluded).
   T2 early in the BV rung; T1 gates the k=105 certificate rung and can be
   probed in parallel anytime; T3 step-one lemma file cheap; T6/T7 wait
   for more evidence.
+
+## T10 (candidate, 2026-07-12): `interval_log_exp` — certified log/exp interval arithmetic
+
+Empirically motivated (the ledger doctrine: design from observed
+friction, not speculation). Three consumers already waiting:
+1. `Salt/Chen/SwitchConstant.lean`'s deferred `cbar_lt` — blocked on
+   "no norm_num log extension" (≥220 tangent panels, each a
+   log(rational) comparison).
+2. The κ₃ ≤ 0.98 sharpening (chen C1c⁵/C1c⁶ flags) — certified
+   exp-integral panel bounds.
+3. The recurring hand-rolled rational bounds on e^x across ~6 nodes
+   (`exp_pade_upper`, `exp_one_lt_d9` gymnastics, `pow99_2048`
+   repeated squaring).
+Shape: a norm_num extension (or standalone tactic) deciding goals
+`log (p/q) < r`, `exp (p/q) < r` (and ≤/> variants) for rational
+p/q, r via Taylor/Padé bounds with certified truncation error —
+rational arithmetic only, kernel-checkable, no native_decide.
+Usage census at proposal time: T5 in-build audit = 6 tracks / ~200
+decls (the ledger's best ROI); T1 = instrument-only (the 2285× probe
+gates k=105); T2/T6/T9 = zero consumers (honest verdicts stand).
