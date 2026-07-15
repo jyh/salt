@@ -110,6 +110,7 @@ import Salt.Chen.PDiag
 import Salt.Chen.HeadlineW2
 import Salt.Chen.PriceOne
 import Salt.Chen.PriceTwo
+import Salt.Chen.PriceThree
 import Salt.Chen.CountW
 import Salt.Chen.TwinA2W
 import Salt.Chen.BlockPricing
@@ -350,6 +351,9 @@ open Salt.Tactic in
   Salt.Chen.Plo_sym_of_box_disc Salt.Chen.Plo_low_of_box_disc
   Salt.Chen.hNum_at_op
   Salt.Chen.medium_box_price_at_op Salt.Chen.bridge_scale
+  Salt.Chen.box_hprice_at_2pow Salt.Chen.sym_box_hprice_at_2pow
+  Salt.Chen.low_box_hprice_at_2pow Salt.Chen.maxBlock_eq_zero_of_eps_self
+  Salt.Chen.crtClassW_coprime_of_mem
   Salt.Chen.d0_window_nonempty_lo Salt.Chen.medium_box_price_at_op_lo
   Salt.Chen.sym_box_price_at_op Salt.Chen.low_box_price_at_op
   Salt.Chen.cutoffEfoldTerm_eq_zero_of_gt

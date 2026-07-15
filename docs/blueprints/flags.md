@@ -7002,3 +7002,22 @@ open at k=2. Protocol rules R1–R4 + budget calibration extracted to
 docs/exploration/pilot.md. All declarations exactly [propext, Classical.choice,
 Quot.sound]; wired into TwinBar/All.lean's audit block. Tally: 69 catches, 0 wrong proofs
 (the F≡1 alarm was caught pre-landing — the discipline generalizes to exploration).
+
+**2026-07-14 PRICE-3 ✅ floors 2/3/4-opener (PriceThree.lean, 455 lines, 12 decls) — the
+bridges, the three price legs, the single-block collapse; THE EDGE-BOX SEAM found.** Landed:
+the full PRICE-2 remainder list (max_y_pieceN_eq, the three ≤1-norm carrier transports, the
+Q-image Dset rows hd1/hcop2/hDsetD); box/sym/low_hprice_at_2pow (two medium_box_price_at_op
+applications each at T = x and x/2+1, Price := 2·Kerr, slotting character-for-character);
+maxBlock_eq_zero_of_eps_self (ε₀ := x ⟹ ONE block — Finding 4's opener). **THE SEAM
+(structural discovery, not a blocker)**: hBVblocksW_discharge' ranges over dyadicBoundary
+(pieceN k) but the terminal (via Finding C's M ≤ 2N) demands N = 2^k, and dyadicBoundary
+(2^k) ⊊ dyadicBoundary (pieceN k) — the difference is ≤ ONE edge box per piece (the window
+2^i ∈ (x/(2^k+1), x/2^k] has ratio < 2), priced separately, count ≤3 → ≤4. THE AGGREGATE
+RE-DERIVED IN-CORPUS and matching the gate: worst box 2^18·(16/7)^50·K·XM/t^12, total
+≈ 3.5·10²³·K·x/t^11 ≤ x/t^10 ⟺ hK_tower : 3.5·10²³·K ≤ L — GLU-2W-fin2 clears by x₀(K)
+after destructuring. REMAINDER (= PRICE-3b): the 27 analytic rows at PIECE parameters
+(N = 2^k, M = pieceM k — note the coupling: hDsq at piece params holds only for 2^k ≳
+x^{1/4}, exactly where the boundary is nonempty — the row lemmas must thread the boundary-
+nonemptiness), the edge-box single price, the hSum/hdiag/hCE/hNum numeric closure, and the
+hBVblocksW_at_op → mainA3_of_block_remainders_W example. All 12 decls ≤ [propext,
+Classical.choice, Quot.sound]. Tally: 69 catches, 0 wrong proofs.
