@@ -7322,3 +7322,14 @@ reconciliation z·max ≥ z·y) ∥ HSUM (the Kerr aggregation → RHD ≤ Ccon�
 fin8c (the final wiring: hBVblocksW_at_op → a12_hA3 → the ledger → the 12 conjuncts →
 chen_headline; surviving rows hK_tower + the op_floors bundle + ε₀ := x).** All 3 decls
 exactly [propext, Classical.choice, Quot.sound]. Tally: 73 catches, 0 wrong proofs.
+
+**2026-07-15 HCE ✅ FULL first-attempt (AggCE.lean, 4 decls) — the finding-5 route
+FORMALIZED; no catch #74.** The definition ruled and cooperated: blockConvErrW =
+ν(Q·d)·(non-unit triple count), and nonunit_forces_fst_dvd proves the shared prime IS p₁
+(p₂,p₃ > y kill the d-side; p₁ ≥ z ≥ w' kills the Q-side) — so per d the crumb ≤
+ν(Q)ν(d)·#{t : t.1 ∣ d}; the divisor reindex nuChen_sum_dvd_le (d ↦ d/p on the squarefree
+lattice) + ν(p₁) ≤ 1/(z−1) give hCE_at_op: RCE ≤ ν(Q)·Σν·tripleSum/(z−1) — UNIFORM in
+QR/Dlev (the cutoff discarded, crumbs ≥ 0), honest scale x^{7/8}·polylog with x^{1/8}
+room. The slot match feeds hBVblocksW_of_generalBV character-for-character. All 4 decls
+exactly [propext, Classical.choice, Quot.sound]. Tally: 73 catches, 0 wrong proofs.
+SYMLOW/HSUM/HDIAG still in flight.
