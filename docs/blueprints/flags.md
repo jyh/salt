@@ -6966,3 +6966,23 @@ inhabitation by decide + bridge_scale firing at a concrete shape whose e > X ins
 [x^{7/16}/4.9, x^{11/24}/8) is PRICE-2's. All declarations exactly [propext,
 Classical.choice, Quot.sound]. NEXT: PRICE-2 (the lower-floor d0 variant + the sym/low band
 price variants + the strip extension).
+
+**2026-07-14 PRICE-2 ✅ FULL first-attempt (PriceTwo.lean, 672 lines) — the strip is
+covered; no catch #70.** `d0_window_nonempty_lo`: the Finding-3 variant at hNfloor =
+x^{7/16}/8, IDENTICAL 9-conjunct conclusion (the x-scale conjunct stays D0 ≤ x^{11/24}/8
+via the bump); binding row hD0N' confirmed at the gate's margins (37× with the Lean
+constant 12/5, 83× at the asymptotic 16/7, t = 10⁹). `medium_box_price_core`: the
+shared-core refactor (the D0 window as a packed ∃-hypothesis; PriceOne's assembly
+verbatim), with `medium_box_price_at_op_lo` reading off the _lo witness — conclusion
+character-for-character PriceOne's. `sym_box_price_at_op`/`low_box_price_at_op`: the band
+variants at blockAlphaSym (sharp z·max(y,N) floor)/restrictAlpha∘blockAlphaLow (z·y),
+mirroring hNum_at_opW exactly, Dset/r quoted verbatim from the feeders; the composition
+example type-checks the sym conclusion into PloW_sym_of_box_disc (PsymK := Σ Price).
+Satisfiability: strip non-degeneracy + the _lo witness FIRING at a strip-shaped N where
+the old floor is inapplicable. All 5 declarations exactly [propext, Classical.choice,
+Quot.sound]. PRICE-3 remainder (consolidated in the report): the carrier bridges
+(max y (pieceN k) = pieceN k on the strip fact y ≤ pieceN k; the ≤1-norm transports), the
+image-family Dset bookkeeping (1 ≤ m / crtClassW coprimality / m ≤ D over Q/QR/Dlev/Ps),
+hDsq_at_sym_carrier wiring, the 27-row analytic list at the reduced tops, and the
+Price/PsymK/PlowK numeric closure into x/L^{10} (Finding-4 aggregate). Tally: 69 catches,
+0 wrong proofs.
