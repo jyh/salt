@@ -320,10 +320,55 @@ whose obstruction is *different* from parity, stated precisely" — genuinely
 new mathematical knowledge, of exactly the kind cheap exploration finds
 and expensive exploration never gets to try.
 
-### Sprint parameters (to fix at question-selection time)
+### The six questions (JYH-ratified 2026-07-14; final pending pilot refinement of Q5 and the headline fixing Q2/Q6 references)
 
-Candidate shape: Tier 1 (Chen-2 + the atlas) + two Tier 2 picks + one
-Tier 3 ticket ≈ six pre-registered questions, two weeks, budgets per the
-Night Cycle protocol, executors on Opus, all under the exploration ledger.
-The exploration chapter then tells the arc: **measure (T1) → map (T2) →
-probe (T3)**, with costs attached to every claim.
+1. **T1 — Chen-2**: every large even N is p + P₂ (same switch, same BV,
+   different additive shape). Calibration: the reuse coefficient.
+2. **T1½ — the M_k delimitation atlas**: formal upper bounds for small k;
+   Polymath8b's "pure sieve arguments cannot beat H₁ ≤ 6" as a theorem.
+3. **T2 — GEH_min**: the weakest precisely-stated equidistribution package
+   yielding gaps ≤ 6 (the explicit12 branch already carries Maynard
+   variational machinery — the k=105 CertEval gates, mv_I/mv_J).
+4. **T2 — the windowed-BV variant**: state exactly what we proved; sweep
+   the literature; unrecorded ⟹ minor new theorem, recorded ⟹ confirmed
+   with explicit constants. Reportable either way.
+5. **T3 — the class-boundary question, as refined by the pilot** (absorbs
+   the earlier weight-perturbation probe of our Chen H-package).
+6. **T3 — THE PARITY PAIR**: (a) **the wall** — the Selberg-witness
+   interface theorem: two instances of our BoundingSieve interface,
+   agreeing in every field the sieve consumes (1 ± λ(n) weights), one
+   sifted set containing primes and the other none — the parity barrier
+   as a kernel-checked impossibility theorem about the interface itself
+   (needs Σλ(n) = o(x), PNT-strength, in-corpus); (b) **the door** —
+   TwinB_min: the Friedlander–Iwaniec-style extra axiom for the twin
+   sequence, precisely stated ("here is exactly what remains, as a
+   theorem"); the implication TwinB_min ⟹ twins kernel-checked as
+   stretch. Honest calibration: this makes the problem precise, not
+   solved — but precision at the frontier is the product our tooling is
+   uniquely positioned to make.
+
+(The explicit-constants audit runs as a side task, not a question.)
+
+### The pilot (JYH-ratified: run an early T3 probe to calibrate before pre-registering)
+
+**Disclosed and excluded**: the methods section reports "before
+pre-registration we ran one pilot probe to calibrate budgets and stopping
+rules"; its outcome does not count toward the pre-registered stats.
+**Question**: probe the boundary of the landed M₂ ≤ 2 log 2 no-go — which
+relaxations of the formal Maynard class move the bound? ((1+δ)-enlarged
+support simplex, symmetry dropped, sign-indefinite weights; each ends as a
+delimitation lemma, a refutation, or a precise open note.) **Runs NOW, in
+parallel with the PRICE wave** (disjoint files, landed machinery only).
+Timebox ~3 days. Deliverables: (i) the T3 experience report (executor
+behavior on open-ended questions, honest stopping rules, where the human
+decision points landed); (ii) calibrated T3 budgets for the sprint;
+(iii) the mathematics, in whichever reportable form it takes; (iv) the
+refined phrasing of Q5.
+
+### Sprint parameters
+
+Six pre-registered questions (above), two weeks, budgets per the Night
+Cycle protocol as calibrated by the pilot, executors on Opus, all under
+the exploration ledger. The exploration chapter tells the arc:
+**measure (T1) → map (T2) → probe (T3)**, with costs attached to every
+claim — and the parity pair as its centerpiece: the wall and the door.
