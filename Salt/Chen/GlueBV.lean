@@ -174,7 +174,9 @@ The remaining hypotheses are the structural operating-point bundle (the scale re
 coupled `A+2 ≤ B, C0`, the dyadic `D0 = 2^{k0}`, the level cut, the `e`-fold thresholds, and the
 three SW couplings — SW-supplied at any exponent by the landed `hβSW` machinery on the
 SW-priceable pieces).  The conclusion is exactly the `hprice_hi`/`hprice_lo` shape the window/band
-consumers name.
+consumers name.  The three dilated per-`e` rows (`herr_LEpos`/`herr_D0E`/`herr_scale`) carry the
+`e ≤ X` guard of catch #69 / node PRICE-0 (false for `e > X`, where `⌊X/e⌋ = 0`), passed straight
+through to `general_BV_cutoff_unconditional`.
 
 NOTE (see the file header + the closing flag): this is the honest PER-BOX price; the operating
 relation `X·M ≤ x²` (like the `x/(log)^{10}` budget) FAILS on the top window pieces, where the
@@ -201,11 +203,11 @@ theorem cutoff_BV_at_op {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
         ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 5) ≤ Real.sqrt (M : ℝ)) →
         -- the `hdiv` operating relations (discharge `herr_div` via `DivisorBound.hdiv_discharge`)
         (Real.sqrt x ≤ 4 * (X : ℝ)) → ((D : ℝ) ≤ Real.sqrt x) → ((X : ℝ) * (M : ℝ) ≤ x ^ 2) →
-        (∀ e, 2 ≤ e → e ≤ D → 0 < Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
-        (∀ e, 2 ≤ e → e ≤ D →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X → 0 < Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X →
             (D0 : ℝ) ≤ (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ C0) →
         ((D : ℝ) ≤ (X : ℝ) * (M : ℝ)) →
-        (∀ e, 2 ≤ e → e ≤ D →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X →
             Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
         (K * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + C0) ≤ Kβ * (Real.log N) ^ (A + 2 * C0)) →
         (K * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 1 + 2 * C0) ≤ Km * (Real.log N) ^ (A + 2 * C0)) →

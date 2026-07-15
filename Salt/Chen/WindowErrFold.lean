@@ -318,6 +318,25 @@ noncomputable def cutoffEfoldTerm (α : ℕ → ℂ) (N X Y T D0 : ℕ) (Dset : 
             χ.conductor χ.primitiveCharacter‖
 
 open Classical in
+/-- **The per-`e` term vanishes past the top (catch #69).**  For `X < e` the dilated
+`e`-fold carrier `cutoffTwist (fun m' => α (e·m')) β ⌊X/e⌋ Y ⌊T/e⌋` runs the outer index over
+the EMPTY range `Finset.Icc 1 ⌊X/e⌋ = ∅` (nat division: `⌊X/e⌋ = 0`), so every summand is `0`
+and `cutoffEfoldTerm α N X Y T D0 Dset e = 0`.  This is the soundness underneath the per-`e`
+guard: the positivity rows `herr_LEpos`/`herr_D0E`/`herr_scale` (which demand `0 < log(⌊X/e⌋·M)`
+and lower bounds on it) are only NEEDED for `e ≤ X`; past the top the term they bound is
+identically zero, so those summands are handled by this lemma, not by the rows. -/
+theorem cutoffEfoldTerm_eq_zero_of_gt (α : ℕ → ℂ) (N X Y T D0 : ℕ) (Dset : Finset ℕ)
+    {e : ℕ} (hXe : X < e) :
+    cutoffEfoldTerm α N X Y T D0 Dset e = 0 := by
+  have hIcc : Finset.Icc 1 (X / e) = (∅ : Finset ℕ) := by
+    rw [Nat.div_eq_of_lt hXe]; exact Finset.Icc_eq_empty (by omega)
+  refine Finset.sum_eq_zero (fun d _ => mul_eq_zero_of_right _ ?_)
+  refine Finset.sum_eq_zero (fun χ _ => ?_)
+  rw [norm_eq_zero]
+  unfold cutoffTwist
+  rw [hIcc, Finset.sum_empty]
+
+open Classical in
 /-- **WBV5 — the `hErrSum` cutoff reorganization (BDH `e`-fold, FULL).**  The exact `hErrSum`
 slot of `cutoff_hLargeDisc` (for `β = blockPrimeInd N`, `D < N`) is bounded by the reorganized
 per-`e` sum `∑_{e=2}^{D} cutoffEfoldTerm e`.  Per `(d,χ)` the cutoff `e`-fold `L¹` bound

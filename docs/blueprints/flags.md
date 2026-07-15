@@ -6927,3 +6927,23 @@ no corpus discharger anywhere — PRICE-1 supplies them as minimal-value choices
 algebra). WAVE ORDER (corrected): **PRICE-0 → PRICE-1 → PRICE-2 → PRICE-3/GLU-2W-fin2.**
 Tally: 69 catches, 0 wrong proofs — #69 found by the gate BEFORE the wave was dispatched;
 the fourth consecutive pre-construction catch.
+
+**2026-07-14 PRICE-0 ✅ FULL (Opus executor attempt 1, Fable warrant) — CATCH #69 REPAIRED
+across the WHOLE terminal family.** The three per-e rows (herr_LEpos/herr_D0E/herr_scale)
+guarded with the single premise e ≤ X at ALL FIVE terminals (general_BV_cutoff_unconditional,
+general_BV_cutoff_sqrtD, medium_survivor_price, medium_survivor_price_sqrtD, cutoff_BV_at_op)
+— the all-five scope RATIFIED (a sqrtD-only repair would have left three siblings infeasible:
+the half-repair genre). Sibling audit: herr_lev/herr_Mlev/herr_div/herr_book4 carry NO defect
+(full-X·M logs or upper rows on the vanishing term). NEW `cutoffEfoldTerm_eq_zero_of_gt`
+(WindowErrFold:328): e > X ⟹ ⌊X/e⌋ = 0 ⟹ empty m'-range ⟹ the term = 0; both hGlue proofs
+split by_cases e ≤ X (live range verbatim; dead range vanishes). ANTI-#69 WITNESS compiled
+(SqrtDFold §11b): at the medium-band shape X = 2 < D = 4 the guarded rows are provable and
+the old rows were false at e ∈ {3,4} — the repair is positively witnessed. catch-64/65/68
+records verified unaffected (abstract full-X·M shapes, no X/e). 6 edited/new declarations,
+all exactly [propext, Classical.choice, Quot.sound]. ALSO CEREMONIED: the HeadlineW2.lean
+checkpoint (OPPOINT + A1A2, 1675 lines, 68 decls — the GLU-2W fragments: the 17-row tower
+bundle opf_* and the hA1/hA2 ∃-x₁ discharge bundles a12_*) committed and WIRED (build 8903
+green; it had sat untracked through two agent interruptions — checkpoint discipline).
+Tally: 69 catches, 0 wrong proofs. NEXT: PRICE-1 (the uniform per-box lemma per the gate's
+row table: SW couplings chosen minimal, the N' = 2^k bridge, the PASS* box rows, the guarded
+per-e rows via d0_window conjunct 7).

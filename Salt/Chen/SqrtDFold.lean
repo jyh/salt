@@ -810,7 +810,11 @@ floor.**  Byte-for-byte `general_BV_cutoff_unconditional` with the single swap
 `Kerr = 2^{A+5}·Kβ' + 15360 + 1` (the `+ 1` is the absorbed β-crumb).  This is the variant
 GBV4's feeders re-thread through — it covers the catch-#62 strip (high boxes at
 `√(x/(4z)) < N ≤ D` and ALL live band boxes), where `D < N` fails but `D < (N+1)²` holds
-with `x^{1/6}`-scale room. -/
+with `x^{1/6}`-scale room.  The three dilated per-`e` rows (`herr_LEpos`/`herr_D0E`/`herr_scale`)
+are GUARDED to the live range `e ≤ X` (catch #69, node PRICE-0): for `e > X` we have
+`⌊X/e⌋ = 0`, so `log(⌊X/e⌋·M) = log 0 = 0` and the ungarded rows were FALSE (`0 < 0`); the
+glue splits the `e`-sum at `X` and lands `cutoffEfoldTerm_eq_zero_of_gt` (the term vanishes)
+on the `e > X` leg. -/
 theorem general_BV_cutoff_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
       ∀ (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ) (r : ℕ → ℕ) (Kβ Km Kβ' B : ℝ),
@@ -835,11 +839,11 @@ theorem general_BV_cutoff_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
         ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 5) ≤ Real.sqrt (M : ℝ)) →
         (∀ e, 2 ≤ e → e ≤ D →
             (e.divisors.card : ℝ) * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 5) ≤ Real.sqrt (X : ℝ)) →
-        (∀ e, 2 ≤ e → e ≤ D → 0 < Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
-        (∀ e, 2 ≤ e → e ≤ D →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X → 0 < Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X →
             (D0 : ℝ) ≤ (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ C0) →
         ((D : ℝ) ≤ (X : ℝ) * (M : ℝ)) →
-        (∀ e, 2 ≤ e → e ≤ D →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X →
             Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
         -- SW couplings (in the exposed `K`)
         (K * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + C0) ≤ Kβ * (Real.log N) ^ (A + 2 * C0)) →
@@ -884,15 +888,27 @@ theorem general_BV_cutoff_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
   -- the per-`e` envelope via item 4 + `cutoffEfold_alpha_le` (landed, unchanged).
   have hGlue : ∀ e, 2 ≤ e → e ≤ D → cutoffEfoldTerm α N X M T D0 Dset e ≤ G e := by
     intro e he2 heD
-    have hLE0 : (0 : ℝ) ≤ Real.log (((X / e : ℕ) : ℝ) * (M : ℝ)) := (herr_LEpos e he2 heD).le
-    have hbook4e : K₄ * (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ (A + 1 + 1 + 2 * C0)
-        ≤ Kβ' * (Real.log N) ^ (A + 1 + 2 * C0) :=
-      le_trans (mul_le_mul_of_nonneg_right hK4leK (Real.rpow_nonneg hLE0 _)) (herr_book4 e he2 heD)
-    have hsmall := hbody4 α N X M T D0 D e Kβ' hα hKβ' hN₄ hM2N (by omega) hD1
-      (herr_LEpos e he2 heD) (herr_D0E e he2 heD) hD0N' hNM hL1 hDXM (herr_scale e he2 heD) hbook4e
-    exact cutoffEfold_alpha_le α N X M T D0 D e k0 Klog Dset (A := A) (Ksmall := Ksm)
-      hα he2 heD hD1 hDge1 hDsetD h2D0 hD0D hD0eq hKlog hMpos hXpos hA.le hL1 herr_lev herr_D0lo
-      herr_Mlev (herr_div e he2 heD) hsmall
+    by_cases hleX : e ≤ X
+    · -- `e ≤ X` (the live range): the guarded per-`e` rows apply verbatim.
+      have hLE0 : (0 : ℝ) ≤ Real.log (((X / e : ℕ) : ℝ) * (M : ℝ)) :=
+        (herr_LEpos e he2 heD hleX).le
+      have hbook4e : K₄ * (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ (A + 1 + 1 + 2 * C0)
+          ≤ Kβ' * (Real.log N) ^ (A + 1 + 2 * C0) :=
+        le_trans (mul_le_mul_of_nonneg_right hK4leK (Real.rpow_nonneg hLE0 _))
+          (herr_book4 e he2 heD)
+      have hsmall := hbody4 α N X M T D0 D e Kβ' hα hKβ' hN₄ hM2N (by omega) hD1
+        (herr_LEpos e he2 heD hleX) (herr_D0E e he2 heD hleX) hD0N' hNM hL1 hDXM
+        (herr_scale e he2 heD hleX) hbook4e
+      exact cutoffEfold_alpha_le α N X M T D0 D e k0 Klog Dset (A := A) (Ksmall := Ksm)
+        hα he2 heD hD1 hDge1 hDsetD h2D0 hD0D hD0eq hKlog hMpos hXpos hA.le hL1 herr_lev herr_D0lo
+        herr_Mlev (herr_div e he2 heD) hsmall
+    · -- `e > X` (past the top): the `e`-fold term vanishes (`⌊X/e⌋ = 0`), and `G e ≥ 0`.
+      have hgtX : X < e := by omega
+      rw [cutoffEfoldTerm_eq_zero_of_gt α N X M T D0 Dset hgtX, hGdef]
+      have hLA : (0 : ℝ) < L ^ (A + 1) := Real.rpow_pos_of_pos hLpos _
+      have hKsmnn : (0 : ℝ) ≤ Ksm := by rw [hKsmdef]; positivity
+      have hmid : (0 : ℝ) ≤ (X : ℝ) * (M : ℝ) / L ^ (A + 1) := div_nonneg (by positivity) hLA.le
+      exact mul_nonneg (mul_nonneg (by linarith) hmid) (by positivity)
   -- the harmonic sum `∑ G e ≤ Kerr·XM/L^A`.
   have hC0nn : (0 : ℝ) ≤ (Ksm + 15360) * ((X : ℝ) * (M : ℝ) / L ^ (A + 1)) := by
     have : (0 : ℝ) ≤ Ksm := by rw [hKsmdef]; positivity
@@ -934,7 +950,9 @@ open Classical in
 (the two GLU-2 rows of the module header); `herr_div` discharged by the landed
 `hdiv_direct` exactly as in GBV4.  The conclusion is the same per-side price shape (the
 `hprice` slot of `box_disc_three_way`), with the β-crumb's `+ 1` in the constant.  This
-prices the catch-#62 strip: the medium/high boxes and ALL live band boxes at `N ≤ D`. -/
+prices the catch-#62 strip: the medium/high boxes and ALL live band boxes at `N ≤ D`.
+The three dilated per-`e` rows (`herr_LEpos`/`herr_D0E`/`herr_scale`) carry the `e ≤ X` guard
+of catch #69 (node PRICE-0), passed straight through to `general_BV_cutoff_sqrtD`. -/
 theorem medium_survivor_price_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
     ∃ (K : ℝ) (N₀ : ℕ), 0 < K ∧
       ∀ (x Lb : ℝ) (F : ℕ) (α : ℕ → ℂ) (X N M T D0 D k0 Klog : ℕ) (Dset : Finset ℕ)
@@ -963,11 +981,11 @@ theorem medium_survivor_price_sqrtD {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
         (Real.log ((X : ℝ) * (M : ℝ)) ≤ Lb) →
         (((3 : ℝ) / Real.log 2) ^ 8 * x ^ ((1 : ℝ) / 6) * Lb ^ (A + 5)
             ≤ Real.sqrt (F : ℝ)) →
-        (∀ e, 2 ≤ e → e ≤ D → 0 < Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
-        (∀ e, 2 ≤ e → e ≤ D →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X → 0 < Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X →
             (D0 : ℝ) ≤ (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ C0) →
         ((D : ℝ) ≤ (X : ℝ) * (M : ℝ)) →
-        (∀ e, 2 ≤ e → e ≤ D →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X →
             Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
         (K * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + C0) ≤ Kβ * (Real.log N) ^ (A + 2 * C0)) →
         (K * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 1 + 2 * C0)
@@ -1184,6 +1202,48 @@ section CompositionSanity
 #check @Salt.Chen.mainA3_of_block_remainders
 
 end CompositionSanity
+
+/-! ## 11b. The anti-#69 witness (node PRICE-0)
+
+Catch #69: the OLD per-`e` rows `herr_LEpos`/`herr_D0E`/`herr_scale` (positivity and lower
+bounds on `log(⌊X/e⌋·M)`) were UNSATISFIABLE for `e ∈ (X, D]` — there `⌊X/e⌋ = 0`, so the log
+is `log 0 = 0` and the rows read `0 < 0`.  Since every medium-band box has `D ~ x^{0.497} > X`,
+the range `(X, D]` is nonempty and the terminal was inapplicable.  The repair guards the three
+rows with `e ≤ X`; past the top the summand they bound is handled instead by
+`cutoffEfoldTerm_eq_zero_of_gt` (the term vanishes).  The two examples below positively witness
+the repair at a medium-band shape `X < D` (`X = 2`, `M = 2`, `D = 4`): the guard `e ≤ X = 2`
+leaves only `e = 2` live (`⌊2/2⌋ = 1`, so the rows are TRUE there), while `e ∈ {3, 4}` — where
+the OLD rows demanded `0 < 0` — is now vacuous.  (`herr_D0E`'s `C0`-power needs the
+operating-point log margin of `d0_window_nonempty`, PRICE-1's discharge, not a medium-band
+triviality; but its guarded shape is likewise vacuous on `(X, D]`.) -/
+
+/-- Anti-#69: the guarded `herr_LEpos` IS satisfiable at the medium-band shape `X = 2 < D = 4`
+(the OLD unguarded row was false at `e ∈ {3, 4}` where `⌊2/e⌋ = 0`, `log 0 = 0`). -/
+example : ∀ e, 2 ≤ e → e ≤ 4 → e ≤ 2 → 0 < Real.log (((2 / e : ℕ) : ℝ) * (2 : ℝ)) := by
+  intro e he2 _ hle2
+  have he : e = 2 := by omega
+  subst he
+  have hval : (((2 / 2 : ℕ) : ℝ) * (2 : ℝ)) = 2 := by norm_num
+  rw [hval]
+  exact Real.log_pos (by norm_num)
+
+/-- Anti-#69: the guarded `herr_scale` IS satisfiable at the same shape (equality at `e = 2`,
+`log 4 = 2·log 2`). -/
+example : ∀ e, 2 ≤ e → e ≤ 4 → e ≤ 2 →
+    Real.log (((2 : ℕ) : ℝ) * ((2 : ℕ) : ℝ))
+      ≤ 2 * Real.log (((2 / e : ℕ) : ℝ) * ((2 : ℕ) : ℝ)) := by
+  intro e he2 _ hle2
+  have he : e = 2 := by omega
+  subst he
+  have h1 : (((2 / 2 : ℕ) : ℝ) * ((2 : ℕ) : ℝ)) = 2 := by norm_num
+  have h2 : (((2 : ℕ) : ℝ) * ((2 : ℕ) : ℝ)) = 2 ^ 2 := by norm_num
+  rw [h1, h2, Real.log_pow]
+  exact le_of_eq (by push_cast; ring)
+
+/-- Anti-#69 (the soundness underneath): past the top (`X = 2 < e = 3`) the per-`e` term is
+identically `0`, so the guarded-away summands need no positivity. -/
+example : cutoffEfoldTerm (fun _ => (0 : ℂ)) 5 2 7 9 1 {6} 3 = 0 :=
+  cutoffEfoldTerm_eq_zero_of_gt (fun _ => 0) 5 2 7 9 1 {6} (by norm_num : (2 : ℕ) < 3)
 
 /-! ## 12. The anti-#64 certificate — the decoupled `D0`-window is NONEMPTY at the
 boundary boxes (node D0W)

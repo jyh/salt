@@ -498,7 +498,9 @@ open Classical in
 `dyadicBoundary`), `D ≤ √x`, the uniform log bound `log(X·M) ≤ Lb`, and the numeric floor
 inequality `hfloor : C₃·x^{1/6}·Lb^{A+5} ≤ √F` (GLU-2's obligation; `x^{1/16}` of room at
 `F = z·y`).  Every other hypothesis is the terminal theorem's own threshold list, passed
-through verbatim (including `D < N` — see the file header's flag for its discharge range).
+through verbatim (including `D < N` — see the file header's flag for its discharge range; and
+the three dilated per-`e` rows `herr_LEpos`/`herr_D0E`/`herr_scale`, which carry the `e ≤ X`
+guard of catch #69 / node PRICE-0 — false for `e > X` where `⌊X/e⌋ = 0`).
 The conclusion is the exact per-side price `box_disc_three_way`'s `hprice` consumes at
 `X := 2^{i+1} − 1` (note the price is `T`-independent: apply once at `T = x`, once at
 `T = x/2+1`). -/
@@ -527,11 +529,11 @@ theorem medium_survivor_price {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0) :
         (Real.log ((X : ℝ) * (M : ℝ)) ≤ Lb) →
         (((3 : ℝ) / Real.log 2) ^ 8 * x ^ ((1 : ℝ) / 6) * Lb ^ (A + 5)
             ≤ Real.sqrt (F : ℝ)) →
-        (∀ e, 2 ≤ e → e ≤ D → 0 < Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
-        (∀ e, 2 ≤ e → e ≤ D →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X → 0 < Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X →
             (D0 : ℝ) ≤ (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ C0) →
         ((D : ℝ) ≤ (X : ℝ) * (M : ℝ)) →
-        (∀ e, 2 ≤ e → e ≤ D →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X →
             Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
         (K * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + C0) ≤ Kβ * (Real.log N) ^ (A + 2 * C0)) →
         (K * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 1 + 2 * C0)

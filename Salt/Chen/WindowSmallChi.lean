@@ -439,8 +439,10 @@ constant (`K₃`/`K₄`/`Kg` the item-3 / item-4 / `general_BV_cutoff_closed` ex
   `D0 = 2^{k0}`, `2 ≤ D0 ≤ D`; `A+2 ≤ B, C0`; `Klog = ⌊log₂ D⌋`; the level cut
   `D ≤ √(XM)/L^B`; `L^{A+3} ≤ √X, √M`; `D ≤ XM`.
 * **Error-side (the `e`-fold):** `D·L^{A+5} ≤ √(XM)`, `L^{A+4} ≤ D0`, `L^{A+5} ≤ √M`, and per `e`:
-  `#div(e)·L^{A+5} ≤ √X`, `0 < log(⌊X/e⌋M)`, `D0 ≤ log(⌊X/e⌋M)^{C0}`,
-  `L ≤ 2·log(⌊X/e⌋M)`.
+  `#div(e)·L^{A+5} ≤ √X`, and — GUARDED to the live range `e ≤ X` (catch #69, node PRICE-0):
+  `0 < log(⌊X/e⌋M)`, `D0 ≤ log(⌊X/e⌋M)^{C0}`, `L ≤ 2·log(⌊X/e⌋M)`.  Past the top (`e > X`,
+  where `⌊X/e⌋ = 0` and these would demand `0 < 0`) the summand they bound is instead handled
+  by `cutoffEfoldTerm_eq_zero_of_gt` (the `e`-fold term vanishes on the empty `⌊X/e⌋`-range).
 * **SW couplings:** `K·L^{A+C0} ≤ Kβ·(log N)^{A+2C0}` (the shell),
   `K·L^{A+1+2C0} ≤ Km·(log N)^{A+2C0}` (the small-conductor `hSmallCut`), and per `e`
   `K·log(⌊X/e⌋M)^{A+1+1+2C0} ≤ Kβ'·(log N)^{A+1+2C0}` (the dilated per-`e` small core).
@@ -474,11 +476,11 @@ theorem general_BV_cutoff_unconditional {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0)
         ((Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 5) ≤ Real.sqrt (M : ℝ)) →
         (∀ e, 2 ≤ e → e ≤ D →
             (e.divisors.card : ℝ) * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + 5) ≤ Real.sqrt (X : ℝ)) →
-        (∀ e, 2 ≤ e → e ≤ D → 0 < Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
-        (∀ e, 2 ≤ e → e ≤ D →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X → 0 < Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X →
             (D0 : ℝ) ≤ (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ C0) →
         ((D : ℝ) ≤ (X : ℝ) * (M : ℝ)) →
-        (∀ e, 2 ≤ e → e ≤ D →
+        (∀ e, 2 ≤ e → e ≤ D → e ≤ X →
             Real.log ((X : ℝ) * (M : ℝ)) ≤ 2 * Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) →
         -- SW couplings (in the exposed `K`)
         (K * (Real.log ((X : ℝ) * (M : ℝ))) ^ (A + C0) ≤ Kβ * (Real.log N) ^ (A + 2 * C0)) →
@@ -523,17 +525,29 @@ theorem general_BV_cutoff_unconditional {A C0 : ℝ} (hA : 0 < A) (hC0 : 0 < C0)
   -- Slot 30: the per-`e` envelope via item 4 + `cutoffEfold_alpha_le`.
   have hGlue : ∀ e, 2 ≤ e → e ≤ D → cutoffEfoldTerm α N X M T D0 Dset e ≤ G e := by
     intro e he2 heD
-    have hLE0 : (0 : ℝ) ≤ Real.log (((X / e : ℕ) : ℝ) * (M : ℝ)) := (herr_LEpos e he2 heD).le
-    -- the dilated per-`e` small core (item 4), fed with the `K₄ ≤ K` coupling.
-    have hbook4e : K₄ * (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ (A + 1 + 1 + 2 * C0)
-        ≤ Kβ' * (Real.log N) ^ (A + 1 + 2 * C0) :=
-      le_trans (mul_le_mul_of_nonneg_right hK4leK (Real.rpow_nonneg hLE0 _)) (herr_book4 e he2 heD)
-    have hsmall := hbody4 α N X M T D0 D e Kβ' hα hKβ' hN₄ hM2N (by omega) hD1
-      (herr_LEpos e he2 heD) (herr_D0E e he2 heD) hD0N' hNM hL1 hDXM (herr_scale e he2 heD) hbook4e
-    -- feed into `cutoffEfold_alpha_le` (`Ksmall = Ksm = 2^{A+5}·Kβ'`).
-    exact cutoffEfold_alpha_le α N X M T D0 D e k0 Klog Dset (A := A) (Ksmall := Ksm)
-      hα he2 heD hD1 hDge1 hDsetD h2D0 hD0D hD0eq hKlog hMpos hXpos hA.le hL1 herr_lev herr_D0lo
-      herr_Mlev (herr_div e he2 heD) hsmall
+    by_cases hleX : e ≤ X
+    · -- `e ≤ X` (the live range): the guarded per-`e` rows apply verbatim.
+      have hLE0 : (0 : ℝ) ≤ Real.log (((X / e : ℕ) : ℝ) * (M : ℝ)) :=
+        (herr_LEpos e he2 heD hleX).le
+      -- the dilated per-`e` small core (item 4), fed with the `K₄ ≤ K` coupling.
+      have hbook4e : K₄ * (Real.log (((X / e : ℕ) : ℝ) * (M : ℝ))) ^ (A + 1 + 1 + 2 * C0)
+          ≤ Kβ' * (Real.log N) ^ (A + 1 + 2 * C0) :=
+        le_trans (mul_le_mul_of_nonneg_right hK4leK (Real.rpow_nonneg hLE0 _))
+          (herr_book4 e he2 heD)
+      have hsmall := hbody4 α N X M T D0 D e Kβ' hα hKβ' hN₄ hM2N (by omega) hD1
+        (herr_LEpos e he2 heD hleX) (herr_D0E e he2 heD hleX) hD0N' hNM hL1 hDXM
+        (herr_scale e he2 heD hleX) hbook4e
+      -- feed into `cutoffEfold_alpha_le` (`Ksmall = Ksm = 2^{A+5}·Kβ'`).
+      exact cutoffEfold_alpha_le α N X M T D0 D e k0 Klog Dset (A := A) (Ksmall := Ksm)
+        hα he2 heD hD1 hDge1 hDsetD h2D0 hD0D hD0eq hKlog hMpos hXpos hA.le hL1 herr_lev herr_D0lo
+        herr_Mlev (herr_div e he2 heD) hsmall
+    · -- `e > X` (past the top): the `e`-fold term vanishes (`⌊X/e⌋ = 0`), and `G e ≥ 0`.
+      have hgtX : X < e := by omega
+      rw [cutoffEfoldTerm_eq_zero_of_gt α N X M T D0 Dset hgtX, hGdef]
+      have hLA : (0 : ℝ) < L ^ (A + 1) := Real.rpow_pos_of_pos hLpos _
+      have hKsmnn : (0 : ℝ) ≤ Ksm := by rw [hKsmdef]; positivity
+      have hmid : (0 : ℝ) ≤ (X : ℝ) * (M : ℝ) / L ^ (A + 1) := div_nonneg (by positivity) hLA.le
+      exact mul_nonneg (mul_nonneg (by linarith) hmid) (by positivity)
   -- Slot 31: the harmonic sum `∑ G e ≤ Kerr·XM/L^A`.
   have hC0nn : (0 : ℝ) ≤ (Ksm + 15360) * ((X : ℝ) * (M : ℝ) / L ^ (A + 1)) := by
     have : (0 : ℝ) ≤ Ksm := by rw [hKsmdef]; positivity
