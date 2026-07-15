@@ -173,3 +173,24 @@ decisions per question.
   opQ ≤ log N uniformity. Q1's design pass (Fable) will freeze the
   Chen-2 blueprint from this audit; the registered reuse coefficient
   gets its measured value at execution.
+
+- 2026-07-15 ~09:15: **Q6a-recon COMPLETE** (read-only; cost ≈ 95k
+  tokens / 29 tool uses / ~9 min). THE HONEST-SHAPE FINDING (R1
+  earning its keep — the registered phrasing was unsatisfiable):
+  "agreeing in EVERY field" is impossible (weights is a real field;
+  1+λ ≠ 1−λ pointwise) and exact-rem agreement is unmeetable (needs
+  Σ_{n≡0(d)} λ = 0 ∀d) — shapes (a)/(a′) VACUOUS. The honest wall:
+  **(b) ε-agreement** (exact on {prodPrimes, nu, totalMass} — the
+  main term reads ONLY these; both errSums ≤ B) or **(c) the
+  consumer-relative metatheorem** (∀ Φ with an explicit invariance
+  hypothesis over the Agree relation, ¬(Φ certifies primes)) —
+  (c) most faithfully renders the registered "exact class of
+  consumers". The witness pair 1 ± λ is CONSTRUCTIBLE (weights ≥ 0);
+  the output gap = 2·(prime mass in (z, x]). λ INVENTORY: mathlib has
+  the bare definition + multiplicativity (2026 addition), NO
+  summatory facts anywhere; Σλ = o(x) = 2 elementary nodes (ψ-PNT →
+  M(y) = o(y) Tauberian bridge + the hyperbola fold) or a heavy
+  L(s,λ) = ζ(2s)/ζ(s) port; the λ-BV (for the unconditional
+  level-D version) is C/D-tier. THE CORPUS CONVENTION (EHall/
+  PiAsymp-style named Props) permits the wall CONDITIONAL on a
+  stated λBV Prop with zero porting — honest and idiomatic.
