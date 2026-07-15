@@ -156,3 +156,15 @@ proceed that way").** On Q2bc-recon evidence (the exploration ledger,
 3. **k=5 upper bound + the Dirichlet real-integral bridge**: recorded
    as debt, not sprint work. The sprint reports the asymmetric honest
    form (ℚ witness > 2 landed; real (5/4)log5 upper bound as debt).
+
+**A2 (2026-07-15, JYH-ratified: "Ratify as proposed").** Q5b's
+placeholder resolves to the frozen three-axis perturbation class of
+`docs/exploration/q5b-class.md` (e1ae606): **B** the twin-target
+deficit (the P₁-razor's explicit negative margin over the landed
+carriers at the landed operating point); **A** the distribution-level
+crossover θ* through the symbolic razor; **C** the weight-family /
+operating-point optimality (α knob + (z, y) grid). Execution
+commitment: B in-sprint, then one of A/C by B's findings (default C);
+the third axis is recorded debt at sprint close. The class is CLOSED
+(no fourth axis without a further amendment). R1–R4 armed; the R4
+tripwire is explicit in the class doc.
