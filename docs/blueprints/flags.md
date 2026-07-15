@@ -7247,3 +7247,14 @@ every landed consumer defers them as hypotheses; each row is an a12-style tower 
 with a PRICE-GATE-verified margin. RESTRUCTURE (Fable): **fin7a (box rows, ChenRows1.lean)
 ∥ fin7b (band rows + the sym single-k, ChenRows2.lean) → fin8 (F2 leaves + F3 assembly →
 chen_headline)**. Tally: 72 catches, 0 wrong proofs.
+
+**2026-07-14 fin7a ✅ FULL first-attempt (ChenRows1.lean, 657 lines) — the box-leg 23-row
+bundle lands; EVERY gate margin held; no catch #73.** All 18 fresh rows discharged at the
+operating point (the tight ones: hDscale/herr_lev at slack x^{1/2000} via the engine
+row_Lpow_le L^E ≤ 262144·x^{1/2000}; habs needed a fresh /64 derivation — GlueFinal's /8
+target was too weak vs 2^k·M ≥ x^{7/8}/64; hfloor transfers verbatim). The composite
+box_rows_at_op is an 18-conjunct ∃-x₁ bundle character-for-character matching
+box_hprice_at_2pow_lo's hypotheses — fin8 applies the consumer with only the structural
+hk/hi/hXsub/hN₀/hDbnd remaining. Anti-#69 witness compiled (the bundle drives the consumer
+end-to-end, no shape mismatch). All declarations exactly [propext, Classical.choice,
+Quot.sound]. Tally: 72 catches, 0 wrong proofs. fin7b (the band bundles) in flight.
