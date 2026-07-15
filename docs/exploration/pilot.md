@@ -904,3 +904,22 @@ decisions per question.
   two PEEL-OUTER reductions (j3order/j4order, consuming SimplexS);
   b2 (queued behind b1) = the two peel-inner reductions (canonical4/
   j2order). Hard per-call line limits in both briefs. b1 DISPATCHED.
+
+- 2026-07-15 ~17:55: **N4-ASM-b1 COMPLETE — the fresh-context re-cut
+  + incremental discipline lands the peel-outer half first-attempt**
+  (cost ≈ 170k tokens / 24 tools / ~17 min; the predecessor's two
+  monolithic-generation deaths cost ≈ 2 lost runs — the process
+  lesson is in the ~17:35 entry). Salt/TwinBar/Simplex4.lean (223
+  lines): Δ₄ + geometry + Δ₄_eq_R₄ (rfl — the node-c bridge), psi₄
+  (the slice-indicator identity both outer reductions consume),
+  region_integrable₄ + outer_marg₄_fst/swap, and the two peel-outer
+  keystones — **j4order_eq_region** (peel t₁ outer → w3order₃(1−t₁),
+  no swap) and **j3order_eq_region** (the (t₄,t₃) swap at size
+  1−t₁−t₂ via slice_fix_fst₃ ∘ slice_fix₄_fst, then routing THROUGH
+  j4order — an economy the design didn't mandate but is strictly
+  cleaner). Both reductions built FIRST TRY on node a's byte-locked
+  interface — the pinned-signature discipline paying again. b2's
+  interface (Δ₄/psi₄/region_integrable₄) byte-locked in the report;
+  b2 needs the integrate-t₁-out marginal (the true psi_eq analogue)
+  + slice_fix₄_snd — in its brief. Ceremony: wired + 10 keystones —
+  full build exit 0 (8960 jobs). N4-ASM-b2 DISPATCHED.

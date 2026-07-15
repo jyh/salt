@@ -82,6 +82,8 @@ min FIN-A3b at 147k — the mechanical restatements).
 | G-BAND | 187 | STOP-AND-FLAG ≥2×; band chain re-cut ×4; 2 kernels landed |
 | G-COUNT | 199 | STOP-AND-FLAG — the dyadic tear; constant survives, mechanism doesn't |
 | G-WINDOWSW-recon | 208 | NO_GO single-cutoff; two-cutoff load-bearing; Opt-A |
+| N4-ASM-b (killed ×2) | ~90* | monolithic-generation failures (*partial burn, est) |
+| N4-ASM-b1 | 170 | Δ₄ + peel-outer pair, first attempt post-re-cut |
 
 Exploration total so far ≈ **1.54 M**; recon median ≈ 100k; probe
 median ≈ 200k. (Q2-ASM in flight at recording time.)
