@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.Goldbach.Base
 import Salt.Goldbach.WeightWindow
+import Salt.Goldbach.Residue
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -24,3 +25,6 @@ wired here at its ceremony.
 open Salt.Tactic in
 #audit_axioms Salt.Goldbach.window_two_thirds_lt
   Salt.Goldbach.card_window_dvd_le Salt.Goldbach.stripSum_le
+  Salt.Goldbach.exists_crt_finset Salt.Goldbach.goldbach_residue_witness
+  Salt.Goldbach.crtClassG_modEq_left Salt.Goldbach.crtClassG_modEq_right
+  Salt.Goldbach.crtClassG_coprime Salt.Goldbach.crt_class_coprimeG

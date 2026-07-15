@@ -662,3 +662,21 @@ decisions per question.
   omega (pre-build typed bounds). Ceremony: wired + 3 keystones +
   the Goldbach #audit_axioms block created — full build exit 0.
   Slot freed → Q5b-C dispatched (queue head).
+
+- 2026-07-15 ~14:35: **G-RES (W1) COMPLETE — first attempt** (cost
+  ≈ 113k tokens / 22 tools / ~13 min vs 150k estimate).
+  Salt/Goldbach/Residue.lean (184 lines, Mathlib-only — correctly
+  upstream of the sieve files): exists_crt_finset (the reusable
+  Finset-CRT engine), **goldbach_residue_witness** (the D2.2 frozen
+  shape; per-prime choice r q = if N%q = 1 then 2 else 1; the q = 2
+  case discharged by Even N — opQ IS even), crtClassG + modEq/
+  coprime lemmas (byte-for-byte crtClassW mirror, the two "2"s
+  become "N"), crt_class_coprimeG. ADJUDICATED DEVIATIONS (both
+  accepted): (1) hQN : Q ≤ N added — MANDATORY (ℕ-truncation makes
+  Coprime Q (N−a) vacuously false for a > N); free at the consumer
+  (opQ ≤ log N). (2) Squarefree Q replaces the opf_Qfull mirror —
+  strictly weaker hypothesis; NOTE FOR G-ASM/G-OP: supply
+  Squarefree opQ at instantiation. Ceremony: wired + 6 keystones —
+  full build exit 0 (8950 jobs). Queue state: slot open but heads
+  blocked (N4-ASM-c needs b; W2 needs G-DENS — both in flight);
+  active = G-DENS, N4-ASM-b, Q5b-C.
