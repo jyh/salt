@@ -7452,3 +7452,18 @@ CORR (the Abel-error bound — three missing pieces: the Ifun upper C_I/log x fr
 the hbjs boundary 2/log x, the windowed-Mertens Σ1/p₁), SLACK (LF·WF−1 + the E_SW
 polylog-beats-power fold). All 6 decls exactly [propext, Classical.choice, Quot.sound].
 Tally: 75 catches, 0 wrong proofs. A2WIN still in flight.
+
+**2026-07-15 A2WIN ✅ FULL first-attempt (A2Window.lean, 7 decls) — CATCH #75 REPAIRED with
+4.5× headroom; no catch #76.** The perturbation localizes to ONE use site (the exact
+integral A2weight_integral_eq); the reference Dtot0 = z⁴ is a genuine ℕ with
+log((z⁴:ℕ)) = 4·log z EXACT (log_pow), so the landed aggregation replays at it verbatim
+and the perturbed weights route through one pointwise domination A2weight_window_dom.
+δ = 8/10000 IS the A₁ certs' frozen window (39992/10000 = 4 − 8/10000) — the arithmetic
+collapses exactly: κ = 3/4997, and razor_window_cost proves the deviation
+(3/4997)·(3+43/75)·(log6/4)/2 ≤ 0.000480 against the M − 1/100 = 0.002151 allowance
+(~22%, 4.5× headroom), folding into the e2 share with razor_scalar_margin UNTOUCHED.
+At-op geometry RESOLVED: recommend Dtot := the A₁ level D = ⌊x^{1/2−ε′}⌋ — centers at
+3.99928, satisfies W2-LEVEL, and logRatio_A1_mem discharges the window DIRECTLY (the same
+level serves both carriers); hLD_hi kept for symmetry, not load-bearing. All 7 decls
+exactly [propext, Classical.choice, Quot.sound]. Tally: 75 catches, 0 wrong proofs.
+HCOUNT-2 in flight; then HEB + fin8d (the final wiring).
