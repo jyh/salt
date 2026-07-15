@@ -1033,3 +1033,33 @@ decisions per question.
   full build exit 0 (8965 jobs). **THE LEAST-K CAPSTONE (Q2C-CAP)
   DISPATCHED: k = 2, 3, 4 closed + the ℚ certificate at k = 5 →
   the A1-ratified statement.** G-SW2 DISPATCHED (BandIdent landed).
+
+- 2026-07-15 ~17:55 (real ~16:45): **G-COUNT-2: the c̄/2 close LANDS
+  first-attempt + CATCH: the keystone's op-point satisfiability
+  trap** (cost ≈ 248k tokens / 29 tools / ~17 min). LANDED
+  (Salt/Goldbach/CountFinal.lean, 170 lines, 2 keystones):
+  **goldTripleSum_le_cbar_final** — the (1 + C/log y)·(c̄/2)·
+  (N/log N) close with weightedPairSum'_le_cbar consumed VERBATIM
+  (the recon/gate prediction fully realized) — and the uniform-K op
+  form. NO additive remainder (the Goldbach close is CLEANER than
+  the twin's two-factor correction). The ec-margin arithmetic
+  verified: the correction is absorbed with ~85× margin at the op
+  threshold — the twin's error budget is nowhere near the blocker.
+  **THE CATCH (executor refused to consume blind — the
+  satisfiability discipline working at the executor tier):
+  goldPerPair_pi_upper's hypothesis log N ≤ 3·log yN is JOINTLY
+  UNSATISFIABLE with the op point's yN = ⌊N^{1/3}⌋ for every
+  non-cube N** (fails by ≤ 3·N^{−1/3}) — a PROOF ARTIFACT in
+  PiUpper's hND_le_ly (the loose logND ≤ log N − log y, ignoring
+  p₁ ≥ z; the true logND ≈ (13/24)log N has room). The executor
+  did NOT write a vacuous CountOp; flagged keystone-tier. HOUSE
+  ADJUDICATION: statement-weakening fix (dropping/weakening a
+  hypothesis STRENGTHENS the theorem — permissible on the
+  exploration file with the fix note recorded); G-PIUPPER-FIX
+  dispatched (reprove hND_le_ly via p₁ ≥ z, drop hlogN, keep the
+  signature otherwise byte-stable, re-verify the regression).
+  W-side assessment recorded: the equidist fiber mirror is
+  Class-C-sized (the reflected/punctured bijection differs
+  genuinely); the recommended terminal path avoids it (the direct
+  tripleSum/φ seam via corr_le_at_op once the fix lands). Ceremony:
+  wired + 2 keystones — full build exit 0 (8966 jobs).
