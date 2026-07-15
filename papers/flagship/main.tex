@@ -56,7 +56,10 @@ and the switched linear sieve. Formalization produced a complete ledger of
 and essentially all at the interfaces between subsystems. Every defect was
 caught before a wrong proof could be built on it. We state the effective
 intermediate results, describe the architecture, and measure where
-correctness actually lives in a classical proof. Two challenges remain:
+correctness actually lives in a classical proof. To demonstrate that the
+corpus is an instrument rather than a monument, we then posed six
+pre-registered exploratory questions against it and report every outcome
+with its cost. Two challenges remain:
 [TODO: pick the two -- candidates: effective thresholds (the tower), and
 the parity frontier].
 \end{abstract}
@@ -180,9 +183,31 @@ satisfiability; the W-trick repair.]
 the hcount seam as the exhibit.]
 
 % ============================================================================
-\section{Delimitation theorems}\label{sec:atlas}
-% The wall-and-door section: the exploration results that are theorems.
+\section{The instrument turned around: six pre-registered questions}
+\label{sec:atlas}
+% The demo section (JYH framing 2026-07-15: "this is a platform for
+% exploratory math; to illustrate we posed 6 problems"). The frame is ONE
+% paragraph + ONE table; the section's mass stays the theorems themselves.
+% The full process anatomy (gates, tears, token economics) belongs to the
+% method paper; the exploration ledger in the repo is the raw artifact
+% both papers cite.
 % ============================================================================
+
+[TODO: the demo frame, one paragraph: to test whether the corpus is a
+research instrument rather than a monument, we posed six exploratory
+questions in a pre-registered commit BEFORE exploring (the hash,
+disclosed here as the tamper-evident timestamp) and report every outcome
+with its cost -- including questions that returned obstruction maps
+rather than theorems. The pre-registration is what converts "some nice
+corollaries" into a controlled demonstration: no cherry-picking, negative
+results reported.]
+
+[TODO: the table: question / outcome class (theorem; statement +
+literature verdict; obstruction map; reuse measurement) / cost. Six rows;
+costs from docs/writeup/token-data.md, outcomes from the exploration
+ledger at sprint close.]
+
+The theorems the questions returned:
 
 \begin{theorem}[The $k=2$ Maynard bound]\label{thm:m2}
 For every continuous $F$ on the simplex,
