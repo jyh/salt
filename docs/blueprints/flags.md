@@ -7551,3 +7551,22 @@ opf_Psodd x so the conclusion is DEFEQ to `Headline4.M3 x`) ∘ the arg-free dis
 `hA3` shape `triplePrimeSumW opQ opA x (opP x)(opY x) ≤ M3 x`, then `chen_headline_of_A3_ledger`
 consumes it (hL left as hypothesis). Tally: 76→77 catches, 0 wrong proofs. All FinA3 decls exactly
 [propext, Classical.choice, Quot.sound]; sorry-free; zero warnings.
+
+**2026-07-15 FIN-LED ✅ the seam + the cert rows (FinLed.lean, 8 decls) + ★ CATCH #78 ★
+(the yR-top exact geometry).** THE SEAM CLOSED: hcount_seam bridges tripleSumW →
+tripleSum/φ via the base equidist + pairSum_le_at_op, the crumb e ≤ 8/log x folded into
+ecount′ = ecountOp C x + e (both → 0 at the tower), the (φ/S)(S/φ) cancellation exact —
+normalized_package's hcount slot verbatim. hcertA1_at_op (fchain_A1_final ∘
+logRatio_A1_mem + 2 ≤ maxDepth via BERTRAND×2 in (opW', 4·opW']); hcertA3_at_op
+(Fchain_switch_le ∘ the tower membership); XW_lower_at_op (e⁻³⁵·x/(4φ(opQ)·log opZ) ≤ X_W
+— unblocks the e1/e4/R-shares). Lean notes: maxRecDepth 8000; linarith only + explicit-≠0
+field_simp (the heavy op context loops nlinarith). **CATCH #78: A2grid_window_le still
+demands the EXACT top hLy : log yR = (8/3)·log z — A2WIN (#75) relaxed only the Dtot
+geometry; the independently-floored opY misses by the floor loss.** FABLE ADJUDICATION:
+the SAME A2WIN pattern at the top; the honest deviation is log(opY) − (8/3)log(opZ) =
+O(x^{-1/8}) — EXPONENTIALLY below even the 8e-4 window (log⌊u⌋ ≥ log u − 2/u), so the
+domination constant can be taken at a fixed tiny δ′ (e.g. 1/1000) with vanishing razor
+cost against the remaining 0.001671 allowance. = FIN-LED-2 (executor, A2Window.lean as
+template) + the remaining shares (slack1/slack3/aggSlack fixed-constant bounds +
+errorBundle_le) + hL_bundle. All 8 decls exactly [propext, Classical.choice, Quot.sound].
+Tally: 78 catches, 0 wrong proofs.
