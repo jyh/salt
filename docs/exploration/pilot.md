@@ -761,3 +761,23 @@ decisions per question.
   Finset.mem_coe pattern in every sum_image. Ceremony: wired + 8
   keystones — full build exit 0 (8954 jobs). W3 remains blocked on
   G-A2/G-SW; one slot open, queue heads dependency-blocked.
+
+- 2026-07-15 ~15:45: **G-A2 (W2) COMPLETE — first attempt** (cost ≈
+  249k tokens / 34 tools / ~25 min vs 280k). Salt/Goldbach/A2W.lean
+  (572 lines): goldA2SieveW + facts, goldA2pW + per-prime bound
+  (twin_A2_per_prime_B's engine hypotheses passed VERBATIM — zero
+  Goldbach re-shaping), goldRosserRemainderW2_le_split,
+  goldA2_hBVagg_W, crtClassGA (the A₂-side fused class a(Q) ⊗
+  N(mod M) — distinct from both crtClassG and crtClassA1, the third
+  class in the family, correctly). THE SIMPLIFICATION: the
+  reflection makes d ∣ (N−n) ⟺ n ≡ N (mod d) — AP-membership of n
+  DIRECTLY, weight Λ(n) unshifted; the puncture makes the class
+  coprimality direct (divisor_cases eliminated again). BYTE-LOCK
+  DEVIATION (downstream-critical): **goldA2_hBVagg_W aggregates
+  over the PUNCTURED prime window** (p prime ∧ ¬p∣N) — the p∣N
+  fibres are provably empty but the pointwise apDiscW_le fails on
+  non-reduced classes; **G-COUNT must land on the same punctured
+  set** (baked into its brief at dispatch). P kept abstract (hPcopN
+  threaded); the GLU close rows byte-identical to the twin's.
+  Ceremony: wired + 6 keystones — full build exit 0 (8955 jobs).
+  W2 = G-A1 ✓, G-A2 ✓, G-SW in flight; W3 unblocks when G-SW lands.

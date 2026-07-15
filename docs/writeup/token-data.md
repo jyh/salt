@@ -77,6 +77,7 @@ min FIN-A3b at 147k — the mechanical restatements).
 | G-DENS | 198 | punctured keystone + the zr^9 catch; W1 closes |
 | Q5b-C | 148 | ½ optimal kernel-checked; b ≥ 1/3 constraint; Q5b closes |
 | G-A1 | 239 | A₁ pair first-attempt; divisor_cases dissolves; crtClassA1 catch |
+| G-A2 | 249 | A₂ layer first-attempt; punctured-window byte-lock for G-COUNT |
 
 Exploration total so far ≈ **1.54 M**; recon median ≈ 100k; probe
 median ≈ 200k. (Q2-ASM in flight at recording time.)
