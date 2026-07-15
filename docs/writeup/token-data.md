@@ -58,6 +58,8 @@ min FIN-A3b at 147k — the mechanical restatements).
 | Q3-recon | 97 | one-line-consumption finding |
 | Q4 | 136 | statement + literature verdict |
 | TAXONOMY | 348 | the 78-row dataset |
+| Q6a-GATE | 128 | adversarial gate (3 tears + amendment) |
+| Q6a-1 | 199 | witness pair + evaluations, first attempt |
 
 Exploration total so far ≈ **1.54 M**; recon median ≈ 100k; probe
 median ≈ 200k. (Q2-ASM in flight at recording time.)

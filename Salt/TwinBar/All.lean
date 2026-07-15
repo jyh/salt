@@ -14,6 +14,7 @@ import Salt.TwinBar.Enlarged
 import Salt.TwinBar.ThreeBar
 import Salt.TwinBar.Constrained
 import Salt.TwinBar.ThreeBarAsm
+import Salt.TwinBar.ParityWall
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -74,3 +75,6 @@ open Salt.Tactic in
   Salt.TwinBar.two_fifths_below_threshold
   Salt.TwinBar.dirichlet₂ Salt.TwinBar.no_twin_certificate
   Salt.TwinBar.twin_certificate_example Salt.TwinBar.bridge_consistency
+  Salt.TwinBar.siftedSum_sPlus Salt.TwinBar.siftedSum_sMinus
+  Salt.TwinBar.lambda_mult_sum Salt.TwinBar.sPlus_rem_bound
+  Salt.TwinBar.sMinus_rem_bound Salt.TwinBar.sieveAgree_pair

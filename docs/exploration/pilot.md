@@ -292,3 +292,22 @@ decisions per question.
   siegelWalfisz_psiTot via two bridge nodes ⟹ **THE WALL SHIPS
   UNCONDITIONAL** (the design's conditional-Prop route retired). All
   corrections applied to q6a-design.md; Q6a-1 ∥ Q6a-3 dispatched.
+
+- 2026-07-15 ~13:10: **Q6a-1 COMPLETE — the witness pair lands, first
+  attempt** (cost ≈ 199k tokens / 57 tools / ~26 min, Opus).
+  Salt/TwinBar/ParityWall.lean (439 lines): nuDiv (ν(d) = 1/d, mult,
+  0 < ν(p) < 1); **sPlus/sMinus : BoundingSieve** at the gate's ≤ z
+  fix via mathlib's `primorial` (P(⌊√x⌋) = ∏_{p ≤ ⌊√x⌋} p), weights
+  1 ± λ(n); the evaluations **siftedSum (sPlus x) = 2** and
+  **siftedSum (sMinus x) = 2·(π(x) − π(√x))** (x ≥ 2) via the
+  survivor analysis (minFac² ≤ n forces p ≤ ⌊√x⌋ ∣ P forward; p ∤ P
+  reverse; survivors = {1} ∪ primes(√x, x]); **the pointwise a = 0
+  identity lambda_mult_sum** (Σ_{n≤x, d∣n} λ(n) = λ(d)·M_λ(⌊x/d⌋), no
+  coprimality — total multiplicativity) with rem bounds |rem d| ≤
+  1 + |M_λ(⌊x/d⌋)| on BOTH instances; **SieveAgree** (D2 verbatim) +
+  sieveAgree_pair (main fields rfl-equal); D5.3 numeric sanity
+  compiled by `decide` (x = 100: 2 and 42 = 2·(25 − 4)). Ceremony:
+  wired into TwinBar/All.lean + the six keystones added to the
+  build-time #audit_axioms block — full build exit 0, all ✓
+  [3 axioms]. Q6a-2 unblocks when Q6a-3 (in flight) delivers the
+  M_λ rate.
