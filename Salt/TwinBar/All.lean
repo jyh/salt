@@ -19,6 +19,7 @@ import Salt.TwinBar.SimplexS
 import Salt.TwinBar.Simplex4
 import Salt.TwinBar.Simplex4Inner
 import Salt.TwinBar.FourBarAsm
+import Salt.TwinBar.LeastK
 import Salt.TwinBar.LambdaRate
 import Salt.TwinBar.ParityWall
 import Salt.TwinBar.Wall
@@ -122,3 +123,6 @@ open Salt.Tactic in
   Salt.TwinBar.J₃₄_bound Salt.TwinBar.J₄₄_bound
   Salt.TwinBar.four_bar Salt.TwinBar.fourBar_holds
   Salt.TwinBar.no_quad_weight
+  Salt.TwinBar.maynard_closed_at_two Salt.TwinBar.maynard_closed_at_three
+  Salt.TwinBar.maynard_closed_at_four Salt.TwinBar.maynard_open_at_five
+  Salt.TwinBar.least_k_theorem

@@ -90,6 +90,7 @@ min FIN-A3b at 147k — the mechanical restatements).
 | G-BANDIDENT | 308 | band identifications; private wall 4th time |
 | N4-ASM-c | 258 | four_bar PROVED; M₄ < 2 unconditional; Q2b closes |
 | G-COUNT-2 | 248 | c̄/2 close lands; the op-satisfiability catch |
+| Q2C-CAP | 128 | least_k_theorem; Q2 closes |
 
 Exploration total so far ≈ **1.54 M**; recon median ≈ 100k; probe
 median ≈ 200k. (Q2-ASM in flight at recording time.)

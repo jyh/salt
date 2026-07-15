@@ -1063,3 +1063,24 @@ decisions per question.
   genuinely); the recommended terminal path avoids it (the direct
   tripleSum/φ seam via corr_le_at_op once the fix lands). Ceremony:
   wired + 2 keystones — full build exit 0 (8966 jobs).
+
+- 2026-07-15 ~18:10 (real ~16:55): **Q2C-CAP COMPLETE —
+  least_k_theorem LANDS; SPRINT QUESTION Q2 CLOSES** (cost ≈ 128k
+  tokens / 21 tools / ~4 min; first-attempt, all proofs one-line
+  re-exports as designed). Salt/TwinBar/LeastK.lean (139 lines):
+  maynard_closed_at_two/three/four (the uniform-named no-go
+  re-exports with the c_k = (k/(k−1))log k caps),
+  maynard_open_at_five (2 < ΣJcal/Ical on Fstar, via M5_cert —
+  chosen over theta_ratio_cert as the headline-clean wrapper), and
+  **least_k_theorem** — the A1-ratified 4-way conjunction with the
+  carrier asymmetry documented prominently (continuous no-gos ×3 +
+  the exact ℚ certificate at k = 5; the Dirichlet bridge =
+  registered debt), the numeric atlas (1.386/1.648/1.848 < 2 <
+  2.00251), and the H₁ ≤ 12 + ≤ 6-open companion notes as
+  docstring pointers. Ceremony: wired + 5 keystones — full build
+  exit 0 (8967 jobs). **Q2 FINAL: (a) TB3-ASM ✓ M₃ < 2; (b)
+  N4-CORE + N4-ASM-a/b1/b2/c ✓ M₄ < 2 unconditional; (c) the
+  least-k theorem ✓ under amendment A1; k=5 upper bound + the
+  Dirichlet bridge = registered debt. SPRINT SCOREBOARD: Q2 ✓ Q3 ✓
+  Q4 ✓ Q5 ✓ Q6a ✓; Q1 at 12/16 nodes; Q6b design block = the
+  remaining slate item.**
