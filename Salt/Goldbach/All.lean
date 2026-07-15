@@ -13,6 +13,7 @@ import Salt.Goldbach.A2W
 import Salt.Goldbach.Switch
 import Salt.Goldbach.SwitchBV
 import Salt.Goldbach.Band
+import Salt.Goldbach.Count
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -68,3 +69,4 @@ open Salt.Tactic in
   Salt.Goldbach.norm_goldSemiprimeBlockInd_le_one
   Salt.Goldbach.gold_switch_coprime_N
   Salt.Goldbach.gold_dvd_sub_of_resG Salt.Goldbach.gold_diag_residue_crumb
+  Salt.Goldbach.goldCard_le_pairSum Salt.Goldbach.goldTripleSum_le_pairSum

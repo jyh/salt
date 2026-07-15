@@ -831,3 +831,34 @@ decisions per question.
   early waves' savings partly spent here — the honest coefficient).
   Ceremony: wired + 2 keystones — full build exit 0 (8958 jobs).
   G-WINDOWSW-recon dispatched (the de-risk pass).
+
+- 2026-07-15 ~17:00: **G-COUNT: STOP-AND-FLAG — THE DYADIC TEAR: the
+  twin's count mechanism silently depends on its lower product
+  bound; the constant survives, the MECHANISM doesn't** (cost ≈
+  199k tokens / 32 tools / ~22 min; the flag fired during design
+  analysis, before any wasted construction). THE FINDING, two-sided:
+  (1) GOOD — the leading constant is UNCHANGED: the per-pair
+  integral is byte-identical (same BJS weight, same N/2 factor,
+  σ-range identical up to a log_N 2 → 0 endpoint), c̄ N-free —
+  D1's no-recertification claim holds AT THE COUNT LEVEL and the
+  bridge carries no 𝔖_N. (2) THE TEAR — the twin prices its
+  p₃-count on a DYADIC interval (x/2p₁p₂, x/p₁p₂], forced by its
+  lower product bound (2·prod > x), where the crude
+  prime_count_Ioc_le already carries the sharp log weight. The
+  Goldbach bottom-half has NO lower product bound → the interval
+  (y, N/2p₁p₂] is non-dyadic; crude pricing overshoots by
+  3(1−β−σ) ∈ [1, 13/8] — **which BREAKS the razor margin
+  (0.4 − 1.6·0.363 < 0)**. Grinding would have landed a lemma too
+  weak for assembly — the flag is the save. THE FIX (new Class-C
+  keystone, ~150–250 lines): goldPerPair_pi_upper — the sharp count
+  via p₃-dyadic-sum + geometric series against prime_count_Ioc_le
+  (the mass concentrates at the top piece; no new PNT machinery).
+  After it: weightedPairSum'_le_cbar reuses VERBATIM (carrier-free)
+  and the chain composes to the same c̄/2. LANDED down-payment
+  (Salt/Goldbach/Count.lean, 148 lines, 2 keystones): the
+  projection reduction goldCard_le_pairSum + goldTripleSum_le_
+  pairSum (via G-SW's carriers, zero redefinitions — byte-lock (b)
+  honored; Lfun/pairSet' reused directly). RE-CUT: G-PIUPPER (C)
+  DISPATCHED → G-COUNT-2 (the compose + op chain, mostly verbatim)
+  follows. Chen-2 now ~16 nodes. Ceremony: wired + 2 keystones —
+  full build exit 0 (8959 jobs).
