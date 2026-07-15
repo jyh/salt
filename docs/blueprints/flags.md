@@ -7570,3 +7570,15 @@ cost against the remaining 0.001671 allowance. = FIN-LED-2 (executor, A2Window.l
 template) + the remaining shares (slack1/slack3/aggSlack fixed-constant bounds +
 errorBundle_le) + hL_bundle. All 8 decls exactly [propext, Classical.choice, Quot.sound].
 Tally: 78 catches, 0 wrong proofs.
+
+**2026-07-15 FIN-A3b ✅ (FinA3b.lean, 594 lines) — the #77 fix completed for all three
+legs.** low_price_indep + sym_price_indep (bodies verbatim, binders moved — Kb/Km/x₁ now
+genuinely x-independent handles at opPs x) + the hA3-slot shape check (anti-#69). THE
+REMAINING ASSEMBLY (= FIN-A3c, fully mapped): instantiate PDiag:782's CompositionSanity
+~30 hypotheses at the op witnesses (conclusion DEFEQ to M3 with opf_Ps_sq/opf_Psodd);
+the LOAD-BEARING RISK named: the hSum per-leg uniform-W bound needs a PIECEWISE Price
+(0 in the box-vanish regime via box_carrier_eq_zero_above_cap / boxPriceKerr in the live
+regime via kfloor + boxPriceKerr_worst_le after the max-1 bump) with hprice AND hbox
+re-proved at the piecewise Price — the box-vanish casework at the top-level slot; sym IS
+W-uniform, low mirrors box. Everything else mapped to landed suppliers. Both decls exactly
+[propext, Classical.choice, Quot.sound]. Tally: 78 catches, 0 wrong proofs.
