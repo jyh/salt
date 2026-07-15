@@ -1140,3 +1140,20 @@ decisions per question.
   unconditional; zero-density technology; the N1 |ζ| ≤ C log T
   reusable), and the competing queue (Night Cycle, release lane,
   writeup drafting). No commitment implied before that review.
+
+- 2026-07-15 ~18:50: **G-PIUPPER-FIX COMPLETE + the house consumer
+  retype — the op-satisfiability tension RESOLVED end-to-end** (fix
+  ≈ 129k tokens / 25 tools / ~16 min). The keystone's hypothesis is
+  now `hlogNz : log N ≤ 3·log y + log z` — hND_le_ly reproved SHARP
+  via the pairSet' bounds q₁ ≥ z, q₂ > y (logND = log N − log q₁ −
+  log q₂); satisfiability at op verified with margin ≈ (1/8)·log N
+  (the old form failed by 3·N^{−1/3}; the new form's z-term
+  dominates precisely the blocker). The executor STOP-AND-FLAGGED
+  the consumer breakage exactly as anticipated (Lean's exact-match
+  on hypothesis types — no PiUpper-only formulation avoids it);
+  the house landed the paired two-line retype in CountFinal.lean
+  (hlogNy → hlogNz at both theorems + the docstring resolution
+  note). Full build exit 0 (8967 jobs) — **the count chain is now
+  op-instantiable; the G-OP path is clear.** Fix economics: catch
+  248k + fix 129k + house edit ≈ one node's budget for a tear that
+  would have been vacuous-at-op if consumed blind.

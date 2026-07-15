@@ -91,6 +91,8 @@ min FIN-A3b at 147k — the mechanical restatements).
 | N4-ASM-c | 258 | four_bar PROVED; M₄ < 2 unconditional; Q2b closes |
 | G-COUNT-2 | 248 | c̄/2 close lands; the op-satisfiability catch |
 | Q2C-CAP | 128 | least_k_theorem; Q2 closes |
+| Q6b-recon | 168 | the door shape + the dichotomy close |
+| G-PIUPPER-FIX | 129 | hlogNz sharp fix; op tension resolved |
 
 Exploration total so far ≈ **1.54 M**; recon median ≈ 100k; probe
 median ≈ 200k. (Q2-ASM in flight at recording time.)

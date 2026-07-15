@@ -38,8 +38,10 @@ correction is a PURELY multiplicative `1 + O(1/log y)` factor — no `o(1)`-per-
 
 ## What this file lands
 
-`goldPerPair_pi_upper` : for `q ∈ pairSet' N z y` under the operating relation
-`log N ≤ 3 log y` (i.e. `y ≥ N^{1/3}`) and `y` past an explicit threshold,
+`goldPerPair_pi_upper` : for `q ∈ pairSet' N z y` under the SATISFIABLE operating relation
+`log N ≤ 3 log y + log z` (using the pairSet' bound `p₁ ≥ z`; at op `z ≈ N^{1/8}`, `y ≈ N^{1/3}`,
+so the RHS has a `~⅛ log N` margin — unlike the old `log N ≤ 3 log y`, which fails for non-cube
+`N`) and `y` past an explicit threshold,
 
   `primeCountIoc y (Lfun N q) ≤ (1 + C_K/log y)·(N/2)·1/(p₁p₂·logND N q)`,
 
@@ -359,9 +361,10 @@ set_option maxHeartbeats 1200000 in
 -- in a single proof, so it exceeds the 200000 default.
 set_option maxHeartbeats 1200000 in
 /-- **G-PIUPPER — the sharp per-pair `π`-upper count.**  For an admissible Goldbach pair
-`q = (p₁, p₂) ∈ pairSet' N z y`, under the operating relation `log N ≤ 3 log y` (`y ≥ N^{1/3}`)
-and `y ≥ 6`, the prime count on the non-dyadic Goldbach interval `(y, ⌊N/(2p₁p₂)⌋]` is bounded
-by the sharp weight `(N/2)·1/(p₁p₂·logND)` up to the explicit `1 + O(1/log y)` factor
+`q = (p₁, p₂) ∈ pairSet' N z y`, under the SATISFIABLE operating relation `log N ≤ 3 log y + log z`
+(derived through the pairSet' bound `p₁ ≥ z`; op-satisfiable since `z ≈ N^{1/8}` adds a `~⅛ log N`
+margin) and `y ≥ 6`, the prime count on the non-dyadic Goldbach interval `(y, ⌊N/(2p₁p₂)⌋]` is
+bounded by the sharp weight `(N/2)·1/(p₁p₂·logND)` up to the explicit `1 + O(1/log y)` factor
 
   `primeCountIoc y (Lfun N q) ≤ (1 + (4log2 + 16log3 + 32K)/log y)·(N/2)·1/(p₁p₂·logND N q)`,
 
@@ -369,13 +372,13 @@ by the sharp weight `(N/2)·1/(p₁p₂·logND)` up to the explicit `1 + O(1/log
 correction costs `o(1)`, NOT the `13/8` constant factor of crude `L = y` pricing. -/
 theorem goldPerPair_pi_upper {K : ℝ} (hK0 : 0 ≤ K)
     (hpsi : ∀ n : ℕ, 3 ≤ n → |psiTot n - (n : ℝ)| ≤ K * n / Real.log n)
-    {N z y : ℕ} (hy : 6 ≤ y) (hlogN : Real.log N ≤ 3 * Real.log y)
+    {N z y : ℕ} (hy : 6 ≤ y) (hlogNz : Real.log N ≤ 3 * Real.log y + Real.log z)
     {q : ℕ × ℕ} (hq : q ∈ pairSet' N z y) :
     primeCountIoc y (Lfun N q)
       ≤ (1 + (4 * Real.log 2 + 16 * Real.log 3 + 32 * K) / Real.log y)
           * ((N : ℝ) / 2) * (1 / ((q.1 : ℝ) * q.2 * logND N q)) := by
   rw [pairSet', Finset.mem_filter, Finset.mem_product] at hq
-  obtain ⟨_, _hz1, _hy1, hyq2, hsharp, hp1, hp2⟩ := hq
+  obtain ⟨_, hz1, _hy1, hyq2, hsharp, hp1, hp2⟩ := hq
   have hp1pos : 0 < q.1 := hp1.pos
   have hp2pos : 0 < q.2 := hp2.pos
   have hq2ge : 2 ≤ q.2 := by omega
@@ -473,19 +476,23 @@ theorem goldPerPair_pi_upper {K : ℝ} (hK0 : 0 ≤ K)
       _ = Real.log M + 2 * Real.log 2 := by
           rw [Real.log_mul (by norm_num) (by positivity),
             show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; push_cast; ring
+  -- The SHARP endpoint bound `logND ≤ 2·log y`, via the pairSet' lower bound `z ≤ q.1`
+  -- (not the loose `logND ≤ log N − log y`): `logND = log N − log q₁ − log q₂ ≤ log N − log z
+  -- − log y ≤ 2·log y` under the satisfiable relation `log N ≤ 3·log y + log z`.
   have hND_le_ly : logND N q ≤ 2 * Real.log y := by
-    rw [logND]
-    have hle : (N : ℝ) / ((q.1 : ℝ) * q.2) ≤ (N : ℝ) / y := by
-      apply div_le_div_of_nonneg_left (by positivity) (by exact_mod_cast (by omega : 0 < y))
-      have hyq2R : (y : ℝ) ≤ (q.2 : ℝ) := by exact_mod_cast (by omega : y ≤ q.2)
-      have hq1R : (1 : ℝ) ≤ (q.1 : ℝ) := by exact_mod_cast (by omega : 1 ≤ q.1)
-      have hq2R : (0 : ℝ) ≤ (q.2 : ℝ) := by positivity
-      nlinarith [hyq2R, hq1R, hq2R]
-    calc Real.log ((N : ℝ) / ((q.1 : ℝ) * q.2))
-        ≤ Real.log ((N : ℝ) / y) := Real.log_le_log (by positivity) hle
-      _ = Real.log N - Real.log y := by
-          rw [Real.log_div (Nat.cast_ne_zero.mpr hNpos.ne') (Nat.cast_ne_zero.mpr (by omega))]
-      _ ≤ 2 * Real.log y := by linarith [hlogN]
+    have hq1pos : (0 : ℝ) < (q.1 : ℝ) := by exact_mod_cast hp1pos
+    have hq2pos : (0 : ℝ) < (q.2 : ℝ) := by exact_mod_cast hp2pos
+    have hlogz_le : Real.log (z : ℝ) ≤ Real.log (q.1 : ℝ) := by
+      rcases Nat.eq_zero_or_pos z with hz0 | hzpos
+      · simp only [hz0, Nat.cast_zero, Real.log_zero]
+        exact Real.log_nonneg (by exact_mod_cast hp1.one_lt.le)
+      · exact Real.log_le_log (by exact_mod_cast hzpos) (by exact_mod_cast hz1)
+    have hlogy_le : Real.log (y : ℝ) ≤ Real.log (q.2 : ℝ) := by
+      apply Real.log_le_log (by exact_mod_cast (by omega : 0 < y))
+      exact_mod_cast (by omega : y ≤ q.2)
+    rw [logND, Real.log_div (Nat.cast_ne_zero.mpr hNpos.ne') (mul_ne_zero hq1pos.ne' hq2pos.ne'),
+      Real.log_mul hq1pos.ne' hq2pos.ne']
+    linarith [hlogz_le, hlogy_le, hlogNz]
   -- assemble the dyadic bound and convert
   have hPdyad : primeCountIoc y M ≤ (M : ℝ) / Real.log M
       + 2 * (M : ℝ) * Real.log 3 / (Real.log M * Real.log (dpt M J))
@@ -511,13 +518,13 @@ BYTE-IDENTICAL to the `weightedPairSum'` summand `1/(p₁p₂·logND N q)`, G-CO
 bound's shape slots into the downstream `c̄/2` chain. -/
 example {K : ℝ} (hK0 : 0 ≤ K)
     (hpsi : ∀ n : ℕ, 3 ≤ n → |psiTot n - (n : ℝ)| ≤ K * n / Real.log n)
-    {N z y : ℕ} (hy : 6 ≤ y) (hlogN : Real.log N ≤ 3 * Real.log y) :
+    {N z y : ℕ} (hy : 6 ≤ y) (hlogNz : Real.log N ≤ 3 * Real.log y + Real.log z) :
     ∑ q ∈ pairSet' N z y, primeCountIoc y (Lfun N q)
       ≤ (1 + (4 * Real.log 2 + 16 * Real.log 3 + 32 * K) / Real.log y) * ((N : ℝ) / 2)
           * weightedPairSum' N z y := by
   rw [weightedPairSum', Finset.mul_sum]
   refine Finset.sum_le_sum (fun q hq => ?_)
-  have h := goldPerPair_pi_upper hK0 hpsi hy hlogN hq
+  have h := goldPerPair_pi_upper hK0 hpsi hy hlogNz hq
   calc primeCountIoc y (Lfun N q)
       ≤ (1 + (4 * Real.log 2 + 16 * Real.log 3 + 32 * K) / Real.log y)
           * ((N : ℝ) / 2) * (1 / ((q.1 : ℝ) * q.2 * logND N q)) := h

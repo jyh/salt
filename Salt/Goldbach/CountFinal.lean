@@ -45,7 +45,8 @@ via `op_at_facts`).  So the two landed lemmas are **jointly satisfiable at the o
 for perfect-cube `N`**.  This is a proof artifact of the keystone's loose `hND_le_ly`
 (`logND ≤ log N − log y ≤ 2 log y`, which ignores `p₁ ≥ z`); the tension is design-tier and blocks
 the honest op instantiation (`x := N`) of the count seam.  This module therefore lands the
-composition PARAMETRICALLY (`hlogNy`, the `weightedPairSum'` geometry rows carried as hypotheses);
+composition PARAMETRICALLY (`hlogNz : log N ≤ 3·log yN + log zN` — the post-fix satisfiable-at-op
+form, margin ≈ (1/8)·log N — and the `weightedPairSum'` geometry rows carried as hypotheses);
 the op instantiation is left to a keystone revisit (relax `hND_le_ly` via `p₁ ≥ z`).
 
 No `sorry`, no `native_decide`, no new axioms.
@@ -66,7 +67,7 @@ constant, as in `Salt.Chen.count_bound_uniformK`.  The two extra hypotheses `6 �
 theorem goldCount_bound_uniformK {K : ℝ} (hK0 : 0 ≤ K)
     (hpsi : ∀ n : ℕ, 3 ≤ n → |psiTot n - (n : ℝ)| ≤ K * n / Real.log n)
     {N zN yN : ℕ} {zR yR : ℝ}
-    (hy6 : 6 ≤ yN) (hlogNy : Real.log N ≤ 3 * Real.log yN)
+    (hy6 : 6 ≤ yN) (hlogNz : Real.log N ≤ 3 * Real.log yN + Real.log zN)
     (hx1 : 1 < (N : ℝ))
     (hzR2 : 2 ≤ zR) (hzRyR : zR ≤ yR)
     (hlogz : Real.log zR = Real.log N / 8) (hlogy : Real.log yR = Real.log N / 3)
@@ -107,7 +108,7 @@ theorem goldCount_bound_uniformK {K : ℝ} (hK0 : 0 ≤ K)
             * ((N : ℝ) / 2) * weightedPairSum' N zN yN := by
           rw [weightedPairSum', Finset.mul_sum]
           refine Finset.sum_le_sum (fun q hq => ?_)
-          have h := goldPerPair_pi_upper hK0 hpsi hy6 hlogNy hq
+          have h := goldPerPair_pi_upper hK0 hpsi hy6 hlogNz hq
           calc primeCountIoc yN (Lfun N q)
               ≤ (1 + (4 * Real.log 2 + 16 * Real.log 3 + 32 * K) / Real.log yN)
                   * ((N : ℝ) / 2) * (1 / ((q.1 : ℝ) * q.2 * logND N q)) := h
@@ -141,10 +142,10 @@ per-pair keystone, and the VERBATIM analytic heart gives the switch count with L
 Abel identity of `goldPerPair_pi_upper` killed the piece floors), so the `Rem` here is purely the
 `o(x/log x)` Abel-error/boundary sum of `weightedPairSum'_le_cbar`.  `K` is the `psiTot_pnt`
 PNT-error constant (inner existential, as in the landed twin close).  The operating relations are
-supplied at the instance; the `hlogNy : log N ≤ 3·log yN` row is the keystone's (see the module
+supplied at the instance; the `hlogNz : log N ≤ 3·log yN + log zN` row is the keystone's (see the module
 header's op-tension flag). -/
 theorem goldTripleSum_le_cbar_final {N zN yN : ℕ} {zR yR : ℝ}
-    (hy6 : 6 ≤ yN) (hlogNy : Real.log N ≤ 3 * Real.log yN)
+    (hy6 : 6 ≤ yN) (hlogNz : Real.log N ≤ 3 * Real.log yN + Real.log zN)
     (hx1 : 1 < (N : ℝ))
     (hzR2 : 2 ≤ zR) (hzRyR : zR ≤ yR)
     (hlogz : Real.log zR = Real.log N / 8) (hlogy : Real.log yR = Real.log N / 3)
@@ -164,7 +165,7 @@ theorem goldTripleSum_le_cbar_final {N zN yN : ℕ} {zR yR : ℝ}
                           + (21 / Real.log yR)
                               * hbjs (N : ℝ) (p₁ : ℝ) (Real.sqrt ((N : ℝ) / (p₁ : ℝ))) ) ) := by
   obtain ⟨K, hK0, hpsi⟩ := psiTot_pnt
-  exact ⟨K, hK0, goldCount_bound_uniformK hK0 hpsi hy6 hlogNy hx1 hzR2 hzRyR hlogz hlogy
+  exact ⟨K, hK0, goldCount_bound_uniformK hK0 hpsi hy6 hlogNz hx1 hzR2 hzRyR hlogz hlogy
     hzN_le hzN_ge hyN_le hyN_ge⟩
 
 end Salt.Goldbach
