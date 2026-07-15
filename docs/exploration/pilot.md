@@ -538,3 +538,27 @@ decisions per question.
   level) + a W0 obligation (confirm the live spine =
   ChenTheorem ← FinA3c/FinLed3 ← Headline4 ← Assembly before
   mirroring). Design freeze (Fable) next → gate → waves.
+
+- 2026-07-15 ~15:10: **N4-ASM-a COMPLETE — the risk node lands
+  FIRST-BUILD-CLEAN at half budget** (cost ≈ 174k tokens / 24 tools
+  / ~20 min vs the 350k budget, Opus). Salt/TwinBar/SimplexS.lean
+  (380 lines): the size-s 3-D reduction layer — Δ₃ s + geometry
+  (closed/compact/measurable), Δ₃_one_eq_R₃ by rfl (as the gate
+  predicted), psi_eq₃, region_integrable₃, the two keystones
+  canonical_eq_region₃/w3order_eq_region₃, outer marginals, the two
+  gate-assigned slice-continuity lemmas (slice_fix₄_fst/snd) + the
+  public slice_fix_fst₃ engine (deliberately exposed for node b's
+  J₃₄ in-node swap). PINNED SIGNATURES CONFIRMED byte-compatible
+  (#check-verified); s = 0 regression compiled (le_refl 0 — no
+  lemma strengthens to 0 < s); s = 1 examples discharge the landed
+  size-1 shapes via Δ₃_one_eq_R₃, nothing refactored. The predicted
+  s-proliferation was 100% mechanical (the pre-parametrized 2-D
+  layer made it transcription). FLAG for node b: ThreeBarAsm's 2-D
+  Δ geometry is PRIVATE — re-derive locally if needed (node a did,
+  as private Δ_measurableSet'). FRICTION CORRECTION to the Q2a
+  note: `lake build` DOES enforce the 100-column longLine linter
+  (and unusedVariables fires on explicit hypotheses — underscore
+  them); byte-counting tools over-read Unicode lines, count
+  codepoints. Ceremony: wired + 13 keystones — full build exit 0,
+  all ✓ [3 axioms]. N4-ASM-b DISPATCHED on the byte-locked
+  interface.

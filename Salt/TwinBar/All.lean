@@ -15,6 +15,7 @@ import Salt.TwinBar.ThreeBar
 import Salt.TwinBar.Constrained
 import Salt.TwinBar.ThreeBarAsm
 import Salt.TwinBar.FourBar
+import Salt.TwinBar.SimplexS
 import Salt.TwinBar.LambdaRate
 import Salt.TwinBar.ParityWall
 import Salt.TwinBar.Wall
@@ -98,3 +99,10 @@ open Salt.Tactic in
   Salt.TwinBar.phiLowerR_tolerant Salt.TwinBar.phiLowerR_certificate
   Salt.TwinBar.rosserRemainder_sPlus_le Salt.TwinBar.rosserRemainder_sMinus_le
   Salt.TwinBar.witness_rosserRemainder_le Salt.TwinBar.sum_inv_Icc_le
+  Salt.TwinBar.canonical_eq_region₃ Salt.TwinBar.w3order_eq_region₃
+  Salt.TwinBar.psi_eq₃ Salt.TwinBar.region_integrable₃
+  Salt.TwinBar.outer_marg₃_fst Salt.TwinBar.outer_marg₃_lst
+  Salt.TwinBar.slice_fix_fst₃ Salt.TwinBar.slice_fix₄_fst
+  Salt.TwinBar.slice_fix₄_snd Salt.TwinBar.Δ₃_one_eq_R₃
+  Salt.TwinBar.Δ₃_isClosed Salt.TwinBar.Δ₃_isCompact
+  Salt.TwinBar.Δ₃_measurableSet
