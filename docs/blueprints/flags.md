@@ -7609,3 +7609,35 @@ chen_headline_of_A3_ledger (hL hypothetical). Both sides' values reconciled end-
 NO new catch; the FIN-A3/A3b mapping held. All 5 decls exactly [propext, Classical.choice,
 Quot.sound]. Tally: 78 catches, 0 wrong proofs. **REMAINING: FIN-LED-3 (hL_bundle) — then
 chen_headline := chen_headline_of_A3_ledger hA3_bundle hL_bundle, ONE APPLICATION.**
+
+**2026-07-15 FIN-LED-3 ✅ FULL (FinLed3.lean, 805 lines, 17 decls) — THE LEDGER CLOSES;
+hL_bundle lands.** The four ingredients: (a) the SHARP hBJS route (e^{−s} at s ≥ 3.9992 —
+crude e⁻² confirmed to blow the bundle) → slack1 ≤ 0.00028; (b) aggSlack ≤ 0.0022 via the
+window Mertens (ratio 8/3 + 1/1000 < e); (c) every crumb ≤ 1/100000 via XW_lower + poly-
+beats-log; (d) the e3 catch-#49 collapse with cbar SYMBOLIC so the leading term cancels
+exactly. THE SHARE BUDGET AS PROVEN: e1 ≤ 0.00030, e2/2 ≤ 0.003276, e3/2 ≤ 0.000155,
+e4/2 ≤ 0.000005 — TOTAL ≤ 0.003736 < 1/200 (margin 0.001264). No catch #79. All 17 decls
+exactly [propext, Classical.choice, Quot.sound].
+
+═══════════════════════════════════════════════════════════════════════════════════════
+**2026-07-15 ~07:15 ★★★★★ THE HEADLINE ★★★★★**
+
+    theorem chen_headline : {p : ℕ | p.Prime ∧ IsP2 2 (p + 2)}.Infinite :=
+      chen_headline_of_A3_ledger hA3_bundle hL_bundle
+
+    'Salt.Chen.chen_headline' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+**CHEN'S THEOREM, UNCONDITIONAL, KERNEL-CHECKED** (Salt/Chen/ChenTheorem.lean; build 8936
+jobs green; the axiom audit verbatim above). There are infinitely many primes p such that
+p + 2 is prime or a product of two primes. The full chain: the unconditional Siegel–Walfisz
+(zero theory → contour → the gate) → the dispersion Bombieri–Vinogradov → the windowed/
+cutoff BV with the transpose and the carrier trichotomy → the switched sieve at the
+W-trick operating point (Q = Qval, a = Q−1, the tower threshold) → the certified razor
+(M = 0.012151, the error bundle ≤ 1/200 proven at 0.003736) → the survivor extraction.
+THE LEDGER: **78 catches, 0 proofs on wrong statements** — every catch found by a gate, a
+STEP-0 inventory, or an executor's discipline BEFORE it could cost a wrong proof. The arc
+from razor-positive to headline (catches #59–#78): the medium band, the W-trick seam, the
+per-box price layer, the exact-geometry windows, the arg-free rebindings, the share budget
+— every "obvious" classical step made honest. Tally final for the arc: 78 catches, 0 wrong
+proofs, ~130 commits on twinbar, build green throughout.
+═══════════════════════════════════════════════════════════════════════════════════════
