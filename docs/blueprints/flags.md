@@ -7467,3 +7467,16 @@ At-op geometry RESOLVED: recommend Dtot := the A₁ level D = ⌊x^{1/2−ε′}
 level serves both carriers); hLD_hi kept for symmetry, not load-bearing. All 7 decls
 exactly [propext, Classical.choice, Quot.sound]. Tally: 75 catches, 0 wrong proofs.
 HCOUNT-2 in flight; then HEB + fin8d (the final wiring).
+
+**2026-07-15 HCOUNT-2 ✅ the three sub-row cores (CountAtOp2.lean, 9 decls).** Lval FULLY
+CLOSED (all four keystone rows at op, threshold max(10^48, (4N₀)^6)); the CORR analytic
+core landed — Ifun_op_le ((3/2)log2/log N via the closed form; the DESIGN'S log(13/8)
+ASSUMED β ≥ 1/8 which zN's β can violate — the safe log 2 used, documented),
+hbjs_sqrt_eq/le (the design's 2/(log x + log p₁) had a SIGN SLIP — the honest value is
+2/(log N − log p), bounded 3/log N at log p ≤ log N/3), S1set_mertens (via the landed
+sum_inv_le_of_prime_window, C₃′ = 19); SLACK (slack_collapse at 6K + 4log2 — vs the
+design's 3K + 24log2, both O(1/L₀) ≪ 0.01 — + ESW_main_fold, the polylog-beats-power core
+at 6^A·L^{2−A}). REMAINING (= HCOUNT-3): the CORR sum assembly (dominant terms
+O(1/(log x)²)), the E_SW fold wiring, and the (★) composition hcount_star_at_op — a large
+but now-unblocked inequality chain with every building block landed. All 9 decls exactly
+[propext, Classical.choice, Quot.sound]. Tally: 75 catches, 0 wrong proofs.
