@@ -7582,3 +7582,17 @@ regime via kfloor + boxPriceKerr_worst_le after the max-1 bump) with hprice AND 
 re-proved at the piecewise Price — the box-vanish casework at the top-level slot; sym IS
 W-uniform, low mirrors box. Everything else mapped to landed suppliers. Both decls exactly
 [propext, Classical.choice, Quot.sound]. Tally: 78 catches, 0 wrong proofs.
+
+**2026-07-15 FIN-LED-2 ✅ (FinLed2.lean, 12 decls) — CATCH #78 REPAIRED; hcertA2 at op;
+no catch #79.** The A2WIN pattern at the top: the COMBINED Dtot+top domination worsens
+5000/4997 only to 1250/1249 (κ = 24/39946); the reference split at yR0 = exp((8/3)log z)
+gives the exact (log6)/4 + the elementary crumb 1125/3997000; razor_topwindow_cost:
+(3+43/75)·wtail_fixed/2 ≤ 0.001144 ≈ 53% of the allowance — SUPERSEDES razor_window_cost
+(the 1250/1249 absorbs the Dtot part). At-op: yR := opY+1 makes the lower edge floor-free;
+the upper edge via the landed floor loss; hcertA2_at_op discharged with the NEW range rows
+(logRatio_cdiv_le_three via cdiv·opZ ≤ opD+opZ ≤ opZ⁴ — the sub-½ exponent of opD is
+load-bearing). DEFERRED (= FIN-LED-3): the hEbundle ≈ 0.0033 < 0.005 numeric assembly —
+(a) sharp per-point hBJS via DecayMass (crude e⁻² does NOT close — checked), (b) Mertens
+Σ1/(p−1) on [opZ, opY] for aggSlack, (c) the tower R/XW crumb thresholds, (d) the e3
+catch-#49 collapse (rho → 3/8, ecount → 0). All 12 decls exactly [propext,
+Classical.choice, Quot.sound]. Tally: 78 catches, 0 wrong proofs.
