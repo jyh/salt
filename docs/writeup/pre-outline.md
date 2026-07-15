@@ -222,6 +222,83 @@ To add before announcing:
 2. **Headline lands** → full ceremony → **MERGE (user decision, option (a))**.
 3. **Post-merge week:** skeleton drafts of papers A and B; the README /
    ONBOARDING / CI items from §5; the taxonomy becomes anatomy-paper §3.
-4. **Then** the ratified queue resumes (H-L, parity/Heath-Brown, Night
-   Cycle first nights) — which also road-tests the clone-and-continue
-   experience and feeds METHODS.md.
+4. **Then the exploration sprint (§7)** — strictly timeboxed, in parallel
+   with the writing (exploration is agent-heavy; writing is house-session
+   work). It also road-tests clone-and-continue and feeds METHODS.md.
+5. **Release** follows the sprint, with the exploration chapter included.
+
+## 7. The exploration sprint (JYH-ratified 2026-07-14: "harvest the low-hanging fruit, right now")
+
+**The strategic argument.** The papers claim exploratory mathematics is now
+cheap — but their evidence comes from verification work, where Chen was the
+answer key. A skeptic can discount that. A *demonstrated* exploration —
+questions posed without an answer key, explored, resolved or refuted in
+days, under the same ledger discipline — removes the objection: it upgrades
+the central claim from asserted to exhibited. And the asymmetry favors
+doing it before release: pre-release, we hold exclusive access to the only
+corpus where this is possible in analytic NT; post-release we are one team
+among many. Harvest-then-release is the rational order. **Discipline:
+strict timebox (~two weeks of Night Cycles), because "one more exploration"
+is an infinite regress and the corpus's release value doesn't decay.**
+
+### The demo design (the "big wow" — costs almost nothing extra)
+
+**Pre-register the questions in the repo**: a signed commit stating "we
+pose these N questions; we do not know the answers," BEFORE exploration
+begins. Run the sprint under the Night Cycle protocol with the same
+flags-ledger discipline (an exploration ledger). Report ALL outcomes —
+resolved, refuted, open — with token and wall-clock costs per question.
+"N pre-registered questions, k resolved, one refuted with a kernel-checked
+witness, one open, D days" is a result no referee can wave away,
+independent of how much gold turns up. **The process artifact IS the
+demonstration.** Question selection is a user decision (which questions we
+pose publicly commits us publicly).
+
+### The three tiers and their distinct jobs (measure → map → probe)
+
+**Tier 1 — calibration (known answer, unknown cost).** Not discovery:
+the control group. Chen's second theorem (every large even N is p + P₂ —
+same switch, same BV, different additive shape) measures the **marginal
+cost of the next theorem** from the same machinery: if Chen-1 cost the full
+arc and Chen-2 costs a few percent, that ratio is the empirical reuse
+coefficient — a number nobody has ever measured, because nobody has had
+the first theorem in reusable form. Secondary information: whether our
+renderings were overfit to the (n, n+2) shape (finding that out is real
+knowledge about what "reusable" means). Also p + 2k shifts. The M_k
+delimitation atlas (M_k bounds for small k; Polymath8b's "H₁ ≤ 6 is
+optimal for pure sieve arguments" as a formal theorem) sits between
+calibration and discovery: folklore that has never been *stated*
+precisely; the precision is the value.
+
+**Tier 2 — interface theorems (the survey markers).** The result type:
+*proofs-as-objects makes hypotheses measurable.* Informal conditionals are
+stated with generous hypotheses because sharpening buys a human nothing;
+formally, the proof tells you what it used. Deliverables: **GEH_min** —
+the weakest precisely-stated equidistribution package that yields
+H₁ ≤ 6 (converts a conditional result into an exact interface; tells
+everyone attacking the conjecture precisely what would suffice; never
+written down because it was never cheap to extract). The windowed-BV
+variant we actually proved, stated cleanly and compared against the
+literature (unrecorded ⟹ a minor-but-genuine new theorem; recorded ⟹
+confirmed with explicit constants — reportable either way). The
+explicit-constants audit (does any intermediate — BDH, the LS chain —
+beat the published explicit literature?).
+
+**Tier 3 — the frontier probe (the lottery ticket; timebox hardest).**
+Tier 1's wall (the M_k atlas) and Tier 2's GEH_min bracket the corridor
+where any twin-prime attack must live. Tier 3 probes it: formalize the
+exact boundary of what our Chen machinery needs, then let exploration
+sessions test perturbations — weight classes, switch structures — with
+the refutation engine killing bad paths in hours instead of months. The
+realistic best case is not "twin primes falls"; it is "a perturbation
+whose obstruction is *different* from parity, stated precisely" — genuinely
+new mathematical knowledge, of exactly the kind cheap exploration finds
+and expensive exploration never gets to try.
+
+### Sprint parameters (to fix at question-selection time)
+
+Candidate shape: Tier 1 (Chen-2 + the atlas) + two Tier 2 picks + one
+Tier 3 ticket ≈ six pre-registered questions, two weeks, budgets per the
+Night Cycle protocol, executors on Opus, all under the exploration ledger.
+The exploration chapter then tells the arc: **measure (T1) → map (T2) →
+probe (T3)**, with costs attached to every claim.
