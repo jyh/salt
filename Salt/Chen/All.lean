@@ -130,6 +130,7 @@ import Salt.Chen.PackB
 import Salt.Chen.CountAtOp
 import Salt.Chen.A2Window
 import Salt.Chen.CountAtOp2
+import Salt.Chen.CountAtOp3
 import Salt.Chen.CountW
 import Salt.Chen.TwinA2W
 import Salt.Chen.BlockPricing
@@ -379,6 +380,8 @@ open Salt.Tactic in
   Salt.Chen.lowPriceK_worst_le Salt.Chen.hRCE_at_op Salt.Chen.ratio_le_of_floor
   Salt.Chen.twinA1SieveW_W_eq Salt.Chen.hWy_at_op Salt.Chen.XW_pos_at_op
   Salt.Chen.hcount_at_op Salt.Chen.hcount_massBridge Salt.Chen.hcount_op_geometry
+  Salt.Chen.hcount_slot_closed Salt.Chen.hcount_star_at_op
+  Salt.Chen.count_bound_uniformK Salt.Chen.corr_le_at_op
   Salt.Chen.hcount_Lval_rows Salt.Chen.Ifun_op_le Salt.Chen.S1set_mertens
   Salt.Chen.slack_collapse Salt.Chen.ESW_main_fold
   Salt.Chen.A2grid_window_le Salt.Chen.A2grid_window_additive

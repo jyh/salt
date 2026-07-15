@@ -7480,3 +7480,19 @@ at 6^A·L^{2−A}). REMAINING (= HCOUNT-3): the CORR sum assembly (dominant term
 O(1/(log x)²)), the E_SW fold wiring, and the (★) composition hcount_star_at_op — a large
 but now-unblocked inequality chain with every building block landed. All 9 decls exactly
 [propext, Classical.choice, Quot.sound]. Tally: 75 catches, 0 wrong proofs.
+
+**2026-07-15 HCOUNT-3 ✅ FULL (CountAtOp3.lean, 1056 lines, 11 decls) — THE COUNT LINE IS
+CLOSED; two catch-#76-class design flaws resolved in-node.** hcount_slot_closed:
+log x·tripleSumW ≤ (cbar + ecountOp C x)·(∑Λ/φ(opQ)) UNCONDITIONAL, chained verbatim into
+hmA3_normalized (the slot example now with hcountW PROVED). Constants: C_CORR = 255·log2 +
+768 ≈ 945.7; C = (cbar·(21K + 14log2) + C_CORR + 2·cbar·Kmass + 4)/2; ecountOp ≪ 0.01 at
+the tower. THE TWO FINDINGS: (1) the keystone's inner ∃K is PER-INSTANCE — a fixed C is
+impossible from it directly; resolved by count_bound_uniformK (thread psiTot_pnt's K₀
+through per_pair_weighted_le' + weightedPairSum'_le_cbar, compose with the uniform-Ksw
+equidist) — without this HCOUNT-3 cannot close; (2) the honest op bound log Lval ≥
+log x/7 (strictly < log x/6) forces the E_SW fold at BASE 7 (7¹³ not 6¹³), and the CORR
+reciprocals carry NO cbar factor — both corrected from the design note. All 11 decls
+exactly [propext, Classical.choice, Quot.sound]. Tally: 75 catches, 0 wrong proofs.
+**EVERY INPUT OF THE FINAL WIRING NOW EXISTS. fin8d = HEB (the error-bundle shares from
+the landed pieces) + hBVblocksW_at_op (the six suppliers into hBVblocksW_discharge') +
+a12_hA3 + the ledger + the 12 conjuncts → chen_headline.**
