@@ -7416,3 +7416,27 @@ hWy@op ∥ hcount@op ∥ hcertA2@op ∥ XW>0 ∥ hEbundle) THEN the final wiring
 2026-07-14 EDGE+fin3 Part 2 decision that "the F1–F3 assembly is NOT completable as pure
 wiring."** No sorry written; op_floors is the only decl. Tally unchanged: 74 catches, 0 wrong
 proofs.
+
+**2026-07-15 PACK-A ✅ FULL + PACK-B ✅ 2/5 (PackA.lean 8 decls / PackB.lean 4 decls) +
+★ CATCH #75 ★ (the A₂ exact-geometry constraint).** PACK-A: boxPriceKerrY_worst_le (window
+form, CconBox reused — the def differs only at log y, constant provably identical), the
+hratio producers at both floors (c = 1/3 needs log x ≥ 400; c = 7/16 needs ≥ 60), the
+sym/low uniform-W collapses (sym k-uniform from the opY floor; LOW CANNOT be k-uniform in
+the vanish regime — small-2^k boxes blow the closed price up, so lowPriceK_worst_le takes
+the live-regime k-floor as hypothesis, vanish routed as 0 by fin8d), hRCE_at_op (the CE
+collapse at x^{7/8}·polylog, slot-matched). PACK-B: twinA1SieveW_W_eq (rfl, as predicted),
+hWy_at_op (W_ratio_upper at op via opf_PdvdPs + the window sdiff identity + 38 ≤ log opZ
+from the w0R floor — margin ~40000), XW_pos_at_op. **CATCH #75: A2grid_sharp_le demands
+EXACT log Dtot = 4·log z (ℕ args) — unreachable at ANY operating point** (Dtot = opZ⁴
+gives exactness but breaks the A₂ BV level row by polylog factors — the floor shaves only
+x^{-1/8}; smaller Dtot misses exactness; the frozen opZ can't move without invalidating
+a12_hA1/a12_hA2). The #64 genre: an idealized identity where the op point lives in a
+window. **ADJUDICATED REPAIR (= A2WIN, additive)**: the window-perturbed A₂ cert —
+re-derive A2grid_sharp_le at log Dtot ∈ [(4−δ)·log z, 4·log z] with the deviation tracked
+(the A2weight denominators shift monotonically; at δ = 8e-4 (the SAME window as the
+A₁ certs) the bound worsens by relative ~1e-3, inside the razor's M = 0.012 with the
+2.43/2.68 slack). ALSO REMAINING: HCOUNT (hcount_at_op — PACK-B's enumerated pieces:
+the ecount extraction from tripleSum_le_cbar_final's error sums + three easy rows) and
+HEB (hEbundle, blocked on both). All 12 new decls exactly [propext, Classical.choice,
+Quot.sound]. Tally: 75 catches, 0 wrong proofs. **A2WIN ∥ HCOUNT → HEB+fin8d (the final
+wiring).**
