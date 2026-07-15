@@ -294,6 +294,60 @@ The meeting line between forward-built supply and backward-refined
 demand becomes many small early meetings instead of one large late
 one — which is exactly where the interface-scaling law stops hurting.
 
+**III.3′ — The witness ladder (when the existential is hard).** The
+doctrine above says "construct the operating witness first," but for
+`∀x ∃y P(x,y)` the witness is often hard — and sometimes provably
+unknowable (Siegel's ineffective constant sits inside our own SW
+gate). Stated honestly, witness-first means **witness-accountability
+first**: what must exist from day one is not `y` but a single live
+object that stands in for it — a unified constraint store with a
+current satisfiability certificate — plus the rule that no
+decomposition freezes without being charged against it immediately.
+The failure mode this kills is never "we lack the witness"; it is
+"constraints on the witness live in five files and have never met"
+(catch #64 exactly: two D0 rows, each fine, first placed in the same
+store fifteen hours after freezing — jointly empty). Climb only as
+high as the problem permits:
+
+- **Rung 0 — name it.** Skolemize; turn witness-finding into
+  constraint accumulation against ONE ledger; re-verify the store's
+  satisfiability at every freeze. (The analyst's "choose the
+  parameters at the end," made disciplined.)
+- **Rung 1 — solve it numerically.** The satisfiability check needs
+  machine precision, not a formal term: feasibility tools (LP for
+  budget ledgers — the 1/200 share budget was one; interval
+  arithmetic for margins; numeric optimization for variational
+  witnesses) gate the freezes, and the formal proof later CERTIFIES
+  the solver's answer (the panel-certificate pattern: c̄'s 600
+  panels, the D0-window witness).
+- **Rung 2 — commit coordinatewise, hardest last.** The witness
+  tuple need not arrive atomically: freeze cheap coordinates early,
+  keep hard ones symbolic-with-constraints, and take the threshold as
+  "max of everything, chosen last." Most interface defects are
+  detectable from the rows alone, before any final coordinate exists
+  (#64, #66, #69, #71 all fell this way).
+- **Rung 3 — when unconstructible, consume instead of construct.**
+  For ineffective or purely classical existentials, use the ∃ through
+  its elimination rule only: destructure first, keep every consumer
+  UNIFORM in the unknowable value, absorb the one concrete need into
+  a function of the destructured constant (the x₀(K) pattern, used
+  six times in the Chen endgame). Triage every witness coordinate as
+  construct / solve / consume, and shape interfaces accordingly —
+  catch #77 was a triage failure.
+- **Rung ∞ — when possibly nonexistent, race search against
+  refutation.** If the constraint region may be empty, that is
+  research: run numeric witness-search and adversarial emptiness
+  probes in parallel, either outcome a first-class deliverable. The
+  twinbar no-go is this with the sad ending made rigorous (the
+  hoped-for weight provably doesn't exist); catch #64's emptiness
+  certificate is the same event at micro-scale, and it DROVE the
+  repair. Emptiness proofs are not failed hunts; they are the map of
+  the wall.
+
+(In proofs-as-programs terms: when the extract is too expensive to
+compute eagerly, make it lazy — the constraint store is the thunk's
+accumulated environment, forced once at the end.)
+
 **III.4 — Quantifier scope is architecture.** The endgame's last
 catches were all binding-structure defects: constants existentially
 quantified per-instance where a fixed constant was needed (#76's
