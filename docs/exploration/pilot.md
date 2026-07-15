@@ -244,3 +244,20 @@ decisions per question.
   sharp-windowed BV with closed-form constants + the block-prime √D
   level. Honest framing: new effective PACKAGING, not a new
   asymptotic frontier.
+
+- 2026-07-15 ~10:40: **Q2a (TB3-ASM) COMPLETE — M₃ < 2 UNCONDITIONAL,
+  the atlas's SECOND delimitation theorem** (cost ≈ 413k tokens / 73
+  tools / ~61 min / ~15 build cycles; the pilot's 300–500-line
+  estimate held at 742 incl. docs). three_bar discharges P-C's single
+  deferred gap; no_triple_weight lands via the conditional bridge.
+  THE ARCHITECTURE (the calibration lesson): region-integral combine
+  (∫_{R₃} w_m·F², one integral_add collapsed by w_sum_three ≡ 3/2)
+  avoids nested reconciliation; the genuine 3-D reversal keeps t₁ at
+  an extreme so the associativity wall is NEVER HIT — the awkward
+  middle order routes through the cheap parametrized 2-D swap. Eight
+  Lean friction notes recorded for the assembly genre (indicator_of_
+  notMem rename; obtain-clears-hypotheses; by_cases over indicator_
+  comp_right; explicit-lambda integrability types; uIcc = closed Icc
+  forcing ≤-stated slice lemmas; lake env lean skips style linters —
+  finish on lake build). Remaining Q2: (b) the k=4,5 atlas, (c) the
+  H₁ ≤ 6 delimitation statement.
