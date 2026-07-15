@@ -332,8 +332,27 @@ and expensive exploration never gets to try.
 4. **T2 — the windowed-BV variant**: state exactly what we proved; sweep
    the literature; unrecorded ⟹ minor new theorem, recorded ⟹ confirmed
    with explicit constants. Reportable either way.
-5. **T3 — the class-boundary question, as refined by the pilot** (absorbs
-   the earlier weight-perturbation probe of our Chen H-package).
+5. **T3 — the k = 2 boundary, constrained (TWO LEGS, JYH-ratified
+   2026-07-14 after the pilot).**
+   **(a)** For the marginal-CONSTRAINED enlarged k = 2 functional (the
+   honest ε-trick class — P-A's OPEN 1), prove M₂^{[δ]} < 2 for ALL
+   δ ∈ (0, 1] — the variational form of the parity expectation, never
+   established at the proof level (the pilot's unconstrained bound covers
+   only δ < δ₀ ≈ 0.4427) — or exhibit precisely where the retuned-CS
+   route fails to use the constraint. Built-in R4 tripwire: a route
+   "reaching 2" implies twins-under-GEH ⟹ definitional alarm.
+   **(b, post-headline)** Within a precisely-defined perturbation class
+   of the Chen razor, either close a P₁-razor from the landed level-½ +
+   bilinear inputs (R4 alarm: implies twins) or land the obstruction as
+   a theorem locating where parity bites machinery that already
+   TRANSCENDS the pure sieve interface (Q6a's Selberg wall covers only
+   sieve-interface consumers; Chen's switch injects bilinear information
+   — this is the instance-level question only our corpus can pose).
+   PRE-REGISTRATION PROTOCOL for (b): the commit states the question
+   with the perturbation class as a NAMED PLACEHOLDER; the class is
+   frozen in a follow-up commit after the headline (per R1/R3 — the
+   class must be stated against the final H-package), BEFORE any (b)
+   work starts; disclosed as such. Tamper-evidence preserved.
 6. **T3 — THE PARITY PAIR**: (a) **the wall** — the Selberg-witness
    interface theorem: two instances of our BoundingSieve interface,
    agreeing in every field the sieve consumes (1 ± λ(n) weights), one
