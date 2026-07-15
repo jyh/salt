@@ -154,3 +154,22 @@ Held for wave 2: Q2 (TB3-ASM + the k=4,5 atlas), Q3 (GEH_min), Q4
 (the windowed-BV literature sweep), Q5b (the class-freeze design
 pass). Cost tracking per the registration: tokens + cycles +
 decisions per question.
+
+- 2026-07-15 ~09:00: **Q1-recon COMPLETE** (read-only; cost ≈ 102k
+  tokens / 30 tool uses / ~7 min). THE STRUCTURAL REUSE DATA: corpus
+  denominator ≈ 125k lines; **~63% VERBATIM** (the shift-blind
+  backbone: LS/BV/SW/Tactic + CbarCert + SuperPanels + the Rosser/
+  β-tuning/mass-ledger machinery — the dispersion BV's
+  sup-over-residues form covers the Goldbach classes verbatim, the
+  corpus's biggest luck); **~35% PARAMETRIC/MIRROR** (the carriers
+  and operating point under the mechanical substitution n+2 ↦ N−n,
+  d−2 ↦ N mod d, odd ↦ coprime-to-N); **~1–2% RE-DERIVE** — three
+  localized items: (i) the N-dependent density ν_N(p) = 0 at p ∣ N +
+  the ∏(p−1)/(p−2) singular-series correction (the twin chain's
+  one-forbidden-prime inequality 3 ≤ p becomes an N-dependent finite
+  exclusion set — THE structural asymmetry); (ii) the N-aware residue
+  witness (a = Q−1's free gcd collapse → a CRT selection avoiding
+  N mod p, nonvacuous since p ≥ 3); (iii) the ∀-N outer quantifier +
+  opQ ≤ log N uniformity. Q1's design pass (Fable) will freeze the
+  Chen-2 blueprint from this audit; the registered reuse coefficient
+  gets its measured value at execution.
