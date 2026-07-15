@@ -642,3 +642,23 @@ decisions per question.
   4. G-A2, 5. G-SW (need G-DENS); 6. G-COUNT, 7. G-BAND (W3);
   8. G-OP; 9. G-ASM (terminal). House work (design passes,
   ceremonies, ledgers) is not throttled.
+
+- 2026-07-15 ~14:20: **G-WEIGHT (W1) COMPLETE — first attempt,
+  strong reuse** (cost ≈ 102k tokens / 20 tools / ~11 min vs 80k
+  estimate). Salt/Goldbach/WeightWindow.lean (171 lines): the three
+  window-arithmetic mirrors under n+2 ↦ N−n. ADJUDICATED DEVIATIONS
+  (both accepted): (1) the Goldbach window IS twinWindow N (the
+  finset is literally identical; the value map differs) — no new
+  def, avoiding a name collision; canonicalize goldbachWindow later
+  if G-ASM wants the symbol. (2) window_two_thirds_lt's honest
+  reflected shape: the twin's lower threshold x^{2/3} < n+2 does NOT
+  reflect (the paired value runs over the BOTTOM half [2, N/2]) —
+  the true bounds are 2 ≤ N−n ≤ (N+1)/2, verified against the
+  consumer (chen_weight_struct at m = N−n). stripSum_le mirrored in
+  full (the ∑1/p² telescope is N-free); switch_loss_le needs NO
+  mirror (already stated for general N). Friction: the reflection
+  n ↦ N−n is only InjOn the window (ℕ-subtraction saturates) —
+  unlike the twin's globally-injective shift; beta-redex opacity vs
+  omega (pre-build typed bounds). Ceremony: wired + 3 keystones +
+  the Goldbach #audit_axioms block created — full build exit 0.
+  Slot freed → Q5b-C dispatched (queue head).

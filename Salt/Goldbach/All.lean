@@ -4,6 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.Goldbach.Base
+import Salt.Goldbach.WeightWindow
+import Salt.Tactic.AuditAxioms
 
 /-!
 # The Goldbach rung (`chen_goldbach`) — aggregate import
@@ -16,3 +18,9 @@ unchanged; wave files are new siblings under `Salt/Goldbach/`. This
 aggregator is HOUSE-OWNED: executors never edit it; each wave landing is
 wired here at its ceremony.
 -/
+
+-- Build-time axiom audit: a stray axiom in the Goldbach rung fails
+-- `lake build` here.
+open Salt.Tactic in
+#audit_axioms Salt.Goldbach.window_two_thirds_lt
+  Salt.Goldbach.card_window_dvd_le Salt.Goldbach.stripSum_le
