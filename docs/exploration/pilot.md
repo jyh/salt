@@ -135,3 +135,22 @@ refined phrasing.
   marginal-CONSTRAINED enlarged M₂^{[δ]} reach 2 for δ ∈ (δ₀, 1]?" —
   the sharpest boundary the pilot exposed — plus the Chen H-package
   perturbation leg), all at the pre-registration session with JYH.
+
+## THE SPRINT IS LIVE (2026-07-15)
+
+Pre-registered at commit `7ddeb491665ac2cc82055f0552f467587ee1c494`
+(docs/exploration/preregistration.md). Wave 1 dispatched (all Opus):
+- **Q1-recon** — the Chen-2 reuse audit (the twin-shape surface, the
+  N-uniformity question, the W-trick at N, the VERBATIM/PARAMETRIC/
+  MIRROR/RE-DERIVE census).
+- **Q5a-probe** — the marginal-constrained enlarged M₂
+  (Salt/TwinBar/Constrained.lean; the constraint store opens the
+  docstring per Part III; routes: the support-edge slice split /
+  the β-tuned base; R4 tripwire armed).
+- **Q6a-recon** — the λ/Selberg-witness gap inventory (the
+  consumed-field list of BoundingSieve, the exact-vs-ε agreement
+  shapes, the Σλ = o(x) cost routes).
+Held for wave 2: Q2 (TB3-ASM + the k=4,5 atlas), Q3 (GEH_min), Q4
+(the windowed-BV literature sweep), Q5b (the class-freeze design
+pass). Cost tracking per the registration: tokens + cycles +
+decisions per question.
