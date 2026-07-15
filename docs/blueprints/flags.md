@@ -7304,3 +7304,21 @@ matches sym_rows_at_op (residuals hDbnd + habs threaded). All 3 decls exactly [p
 Classical.choice, Quot.sound]. Tally: 73 catches, 0 wrong proofs. **The sym dichotomy is
 now COMPLETE (vanish / collapsed / middle-k); every price input of hBVblocksW_discharge'
 has a landed supplier. fin8b = F2; fin8c = F3 → chen_headline.**
+
+**2026-07-14 fin8b ✅ the box discharger + the honest F2 map (AssembleA3.lean, 3 decls).**
+box_price_at_op LANDS the full box hprice slot (vanish/live dichotomy, closed price
+boxPriceKerr, conclusion character-for-character the consumer's). ARCHITECTURAL CATCH
+(recorded for the followers): box_hprice_at_2pow_lo fixes z/y/Ps outside its ∀x, so its
+Kc/N₀ are nominally per-x — the fix is to extract Kc/N₀ from the ARG-FREE terminal at top
+level, replicate the body inline, and fold N₀ ≤ 2^k into x₁ := max(…, (8(N₀+4))^{16/7})
+via kfloor_of_live_box; the sym/low dischargers MUST use the same trick. SCOPING FINDING
+(not a catch): hSum/hCE/hdiag-crumb are three fresh node-sized estimates with zero corpus
+tooling (the Kerr worst-case aggregation needs the L/logN ≤ 16/7 ratio work; blockConvErrW
+has only nonnegativity; the tower crumb 2^{Nat.log w' x} ≤ x^{1/7} is unbuilt) — the
+"Headline-docstring route" for hCE is prose, not a lemma. RE-SCOPE (Fable): **four
+PARALLEL nodes — SYMLOW (the sym/low dischargers, box-templated + the boundary
+reconciliation z·max ≥ z·y) ∥ HSUM (the Kerr aggregation → RHD ≤ Ccon·K·x/L^{11}) ∥ HCE
+(the blockConvErrW crumb → RCE) ∥ HDIAG (the tower crumb; the ν-side is landed) — then
+fin8c (the final wiring: hBVblocksW_at_op → a12_hA3 → the ledger → the 12 conjuncts →
+chen_headline; surviving rows hK_tower + the op_floors bundle + ε₀ := x).** All 3 decls
+exactly [propext, Classical.choice, Quot.sound]. Tally: 73 catches, 0 wrong proofs.

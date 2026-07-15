@@ -119,6 +119,7 @@ import Salt.Chen.ChenRows1
 import Salt.Chen.ChenRows2
 import Salt.Chen.Headline3
 import Salt.Chen.MiddleK
+import Salt.Chen.AssembleA3
 import Salt.Chen.CountW
 import Salt.Chen.TwinA2W
 import Salt.Chen.BlockPricing
@@ -360,6 +361,7 @@ open Salt.Tactic in
   Salt.Chen.hNum_at_op
   Salt.Chen.medium_box_price_at_op Salt.Chen.bridge_scale
   Salt.Chen.kfloor_of_live_box Salt.Chen.box_hprice_at_2pow_lo
+  Salt.Chen.box_price_at_op
   Salt.Chen.middle_k_price Salt.Chen.middle_medium_box_price_at_y
   Salt.Chen.band_habs_row Salt.Chen.middle_k_M_le_two_y
   Salt.Chen.box_rows_at_op Salt.Chen.low_rows_at_op Salt.Chen.sym_rows_at_op
