@@ -411,3 +411,30 @@ decisions per question.
   if Rb-4 prices D, BOTH routes are effectively D and the wall
   stays conditional on MmuRate as recorded debt (an acceptable
   registered outcome).
+
+- 2026-07-15 ~12:45: **Rb-4 SUB-RECON: VERDICT D — Q6a-4 CLOSES AS
+  RESOLVED-AS-OBSTRUCTION; the wall's MmuRate conditionality is
+  REGISTERED DEBT per the pre-declared rule** (cost ≈ 150k tokens /
+  19 tools / ~13 min, Opus). The audit PINNED the two-power loss to
+  one step: hSumNorm (ShiftTrivChar.lean:272–282) bounds the zero
+  sum by count × uniform 1/w — count O(log T) × w ~ 1/log T =
+  log²T; the reduced log-derivative itself is already one-power.
+  Beating it needs the harmonic decay of Σ 1/|t−γ|, i.e. THE LOCAL
+  ZERO DENSITY #{ρ : |Im ρ − t| ≤ u} = O(u·log T + log T) — which
+  fixed-radius Jensen STRUCTURALLY cannot give (the thin set is a
+  full-height box, not a disk; no Jensen center exists near Re = 1
+  for lack of a |ζ| lower bound), and which classically requires
+  argument-principle N(T) machinery — absent from corpus AND
+  mathlib. The Euler-product 3-4-1 base (landed) does NOT avoid it:
+  the leftward transport integral consumes the same density. Both
+  MmuRate routes are therefore effectively D. THE DEBT, PRECISELY:
+  land effective N(T)/local zero-density (a multi-node C/D wave) OR
+  any other route to MmuRate; the only opportunistic C-node worth
+  noting is N1 (|ζ| ≤ C log T near Re = 1, Titchmarsh 3.5-grade,
+  reuses the dTerm/zeta_shift scaffolding, ~200–300k) — reusable
+  but does NOT unblock the wall alone. NARRATIVE NOTE for the
+  report: the refutation engine ran three layers deep on its own
+  design (Q6a-3 flag → Q6a-4 recon killing both naive routes →
+  Rb-4 killing the honest-looking route) and terminated at ONE
+  missing classical theorem, stated exactly — total probe cost
+  ≈ 317k tokens, zero executor tokens burned on a dead route.

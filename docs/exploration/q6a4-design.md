@@ -1,4 +1,17 @@
-# Q6a-4 DESIGN BRIEF — MmuRate from the landed corpus (PRE-RECON)
+# Q6a-4 DESIGN BRIEF — MmuRate from the landed corpus (CLOSED: VERDICT D)
+
+**VERDICT (2026-07-15, Rb-4 sub-recon — the exploration ledger ~12:45):
+both routes are effectively D. The single unreachable intermediate is
+the effective local zero-density `#{ρ : |Im ρ − t| ≤ u} = O(u·log T +
+log T)` (equivalently the O(loglog) harmonic zero-sum), which needs
+argument-principle N(T) machinery absent from the corpus and mathlib;
+fixed-radius Jensen structurally cannot resolve it, and the 3-4-1
+Euler base shares the same keystone through the transport integral.
+Per the pre-declared rule: the parity wall SHIPS CONDITIONAL on
+`MmuRate`, registered as sprint debt. Opportunistic C-node for any
+future revisit: N1 (|ζ| ≤ C·log T near Re = 1) — reusable, but does
+not unblock the wall alone. The brief below is retained as the record
+of the routes considered.**
 
 *2026-07-15. Status: RECON DISPATCHED; design freeze + adversarial gate
 AFTER the recon reports. Provenance: Q6a-3's stop-and-flag (the
