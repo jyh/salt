@@ -7061,3 +7061,67 @@ Tally: 70 catches, 0 wrong proofs — the FIFTH consecutive terminal-adjacent ca
 before assembly. REMAINING (= GLU-2W-fin2, THE FINAL NODE): the trichotomy discharger
 Price j k i, the hSum count bound (≤4 × pieces × worst), the hdiag/hCE operating
 instantiation, hBVblocksW_at_op, the hA3 example, the 12 conjuncts → chen_headline.
+
+**2026-07-14 GLU-2W-fin2 ⛔ CATCH #71 — THE PRICE-3 EDGE-BOX SEAM IS AN OPEN OBLIGATION,
+NOT ASSEMBLY (the live edge box resists both landed routes; no wrong proof written, no
+statement altered, no sorry, no file committed).** The final-assembly probe (Opus, STEP-0
+reconnaissance only) reached the hA3 route and hit the seam that PRICE-3 "found" and
+PRICE-3b's own trichotomy note pre-flagged ("edge box — the edge resists neither route").
+It is not a pricing-mechanism choice but a genuine gap in the landed corpus.
+
+THE TWO SIDES (verbatim shapes). CONSUMER — `hBVblocksW_discharge'` (PDiag.lean:691) requires
+its `hprice` for every box in `dyadicBoundary (pieceN k) (pieceM k) (x/2+1) x (z·y) K`
+(N = pieceN k = 2^k − 1). SUPPLIER — every landed box-price terminal
+(`box_hprice_at_2pow`/`sym_`/`low_box_hprice_at_2pow`, PriceThree.lean:217/302/382; underlying
+`medium_box_price_at_op`/`_at_op_lo`/`_core`, PriceOne.lean:278, PriceTwo.lean:438/316;
+`medium_survivor_price(_sqrtD)`, MediumFloor.lean:507/SqrtDFold.lean:956) provides a bound
+ONLY for `i ∈ dyadicBoundary (2^k) (pieceM k) (x/2+1) x F Krange` (N = 2^k, forced by the
+terminal's `M ≤ 2N` with M = pieceM k = 2·pieceN k + 1). The only bridge
+`boundary_2pow_subset_pieceN` (PriceThree.lean:187) gives `dyadicBoundary (2^k) ⊆
+dyadicBoundary (pieceN k)` — the WRONG way. Corpus-wide grep: every `dyadicBoundary (pieceN k)`
+site on the "supplier" side is a CONSUMER wrapper (`sym_`/`low_box_price_at_op`,
+`hBlock_of_window_prices`, PDiag's discharge) that takes the per-box `Price` as a hypothesis;
+NO landed lemma emits a bound for a pieceN-boundary box.
+
+THE GAP IS INHABITED AND LIVE. The edge set `dyadicBoundary (pieceN k) \ dyadicBoundary (2^k)`
+is `2^i ∈ (x/(2^k+1), x/2^k]` (ratio 1 + 2^{−k} < 2 ⟹ ≤ 1 edge box per piece). It is NOT
+priceable by either trichotomy route for the pieces with 2^k > x^{7/16}:
+  • VANISH route (`box_carrier_eq_zero_above_cap`, needs 2^i ≥ cap = min(z·pieceN k + 1, x+1)
+    ≈ x^{1/8}·2^k): the edge box has 2^i ≈ x/2^k, so 2^i ≥ cap ⟺ 2^{2k} ≤ x^{7/8} ⟺
+    2^k ≤ x^{7/16}. For 2^k > x^{7/16} the carrier is LIVE (2^i < cap) — vanish does NOT fire.
+  • 2^k-BOUNDARY route (`box_hprice_at_2pow`/`_lo`): its hypothesis `i ∈ dyadicBoundary (2^k)`
+    FAILS by construction (edge box ∉ dyadicBoundary (2^k)); concretely the terminal's corner
+    clause `2^i·(2^k+1) ≤ x` is violated (edge box: x < 2^i·(2^k+1)). The `_lo` floor relaxation
+    (x^{7/16}/8 ≤ 2^k, PriceTwo.lean:438) is met but is orthogonal — it does not restore the
+    boundary membership. So neither route covers the live edge box.
+The trivial fallback (carrier norm ≤ 1 ⟹ box sum ≤ 2·|Dset|·X·M ≈ x·τ(Ps)) overshoots the
+hSum budget Ccon·K·x/L^{11} by ~x^{1} and cannot be used.
+
+CONSEQUENCE: `hprice` cannot be proved over the full pieceN-boundary from landed atoms ⟹
+`hBVblocksW_discharge'` cannot fire ⟹ no a12_hA3 bundle ⟹ mainA3 slot open ⟹ chen_headline
+NOT dischargeable. F1 (trichotomy + hSum) BLOCKED on the edge box; F2/F3 unreached.
+
+REPAIR (Iron-Rule-1 / Fable-tier, NOT attempted): either (a) a new box-price terminal at
+pieceN-boundary membership — relax `medium_box_price_at_op`'s corner clause from
+`2^i·(2^k+1) ≤ x` to `2^i·2^k ≤ x` (the edge box satisfies the latter; the T4/energy estimate
+loses only a factor < 2), then re-thread box/sym/low_hprice_at_2pow; OR (b) a standalone
+edge-box price lemma bounding the single live edge box's two-T disc sum by an x/L^{13}-scale
+term via the bilinear/large-sieve core directly (PRICE-1-level re-derivation, not assembly).
+Both are statement-level and belong to a Fable/human-directed session.
+
+WHAT IS VERIFIED WIREABLE (so the repair unblocks the rest): the 12-conjunct skeleton →
+`chen_of_hypotheses_W` (Assembly.lean:707) with witnesses x,z=opZ,P=opP,y=opY,Q=opQ,a=opA,
+w'=opW'; the A1/A2 carriers via `a12_hA1`/`a12_hA2` (HeadlineW2.lean:1524/1569), all their
+hypotheses in the opf_*/opf_tower set; the ledger via `normalized_package`/`hledger_at_certs`
+(GlueNormalized.lean:232 / RazorClose.lean:156) at XW = (twinA1SieveW).totalMass·W =
+(∑_{twinWindow}Λ/φ(opQ))·W; the certs hcertA1 (`fchain_A1_final` ∘ `logRatio_A1_mem`),
+hcertA2 (`A2grid_sharp_le` at Cmass=43/75), hcertA3 (`Fchain_switch_le` ∘ opf_tower:383
+membership), hWy (`W_ratio_upper`, ρ→3/8); XW>0 and the R/XW crumbs via `W_twinA1_ge`
+(WLower, transfers to twinA1SieveW by defeq — W ignores totalMass) + `lambda_mass_lower`/φ(opQ).
+STILL-INLINE analytic rows (derivable but NOT packaged, GLU-2W's own): the hcount bridge
+(log x·tripleSum/φ(Q) ≤ (cbar+ecount)·totalMass, from `tripleSum_le_cbar_final` +
+`lambda_mass_lower`, choosing ecount = O(1/log z)) and hEbundle ≤ 1/200 (eight O(1/log z) /
+x^{−1/8}·polylog error shares at a concrete x₀). These are tractable once F1's edge box is
+repaired. Tally: 71 catches, 0 wrong proofs — the SIXTH consecutive terminal-adjacent catch.
+Build unchanged: `lake build Salt.Chen` exit 0 (no code written; ChenHeadline.lean NOT
+created, as it would require a sorry at the edge-box row).
