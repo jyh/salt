@@ -7496,3 +7496,58 @@ exactly [propext, Classical.choice, Quot.sound]. Tally: 75 catches, 0 wrong proo
 **EVERY INPUT OF THE FINAL WIRING NOW EXISTS. fin8d = HEB (the error-bundle shares from
 the landed pieces) + hBVblocksW_at_op (the six suppliers into hBVblocksW_discharge') +
 a12_hA3 + the ledger + the 12 conjuncts → chen_headline.**
+
+**2026-07-15 FIN-A3 Opus PARTIAL — ★ CATCH #77 ★ (the price dischargers are NOT arg-free; the
+"wire the six suppliers" handoff is blocked, and the fix is validated).** New file
+`Salt/Chen/FinA3.lean` (imports Headline4 + concrete only; All.lean NOT wired; no landed file
+edited). THE FINDING (corrects the fin8b/HCOUNT-3 "EVERY INPUT EXISTS" claim): `box_price_at_op`
+(AssembleA3), `sym_price_at_op`/`low_price_at_op` (AssembleA3b) fix `Ps`/`X`/`K`/`D` as parameters
+BEFORE their `∀ x`. At the operating point those are `opPs x` / `2x` / `Nat.log 2 (2x)` /
+`opQ·opDlev x` — ALL x-dependent. Consequence: obtaining their `∃ Kc x₁` INSIDE the bundle's `∀ x`
+gives per-`x`-OPAQUE constants and thresholds — (a) the threshold `x₁` cannot be bounded by any
+outer `x₁` (so the bound is un-applicable), and (b) the constant `Kc` cannot close the tower row
+`2·Ccon·K ≤ log x` of `hNum_close_of_tower` (which the mandate's "exp(2·Ccon′·K) ceiling" needs
+x-independent). Obtaining them OUTSIDE `∀ x` requires x-independent `Ps`/`D`, which don't exist at
+op. So the mandate's "destructure ALL supplier existentials FIRST" is NOT executable against
+box/sym/low_price_at_op. This is exactly the 2026-07-15 fin8c scoping finding ("NOT pure wiring")
+re-confirmed at the constant level.
+THE FIX (validated, sorry-free, axioms exactly [propext, Classical.choice, Quot.sound]): restate
+each discharger ARG-FREE by moving `Ps`/`X`/`K`/`D` INSIDE the `∃ Kc x₁` — legal because the
+witnesses come from the arg-free terminals `medium_box_price_at_op_lo`/`_band`/
+`middle_medium_box_price_at_y` (∃ K N₀ before ∀ args). `box_price_indep` LANDS this for the box leg
+(body copied verbatim from `box_price_at_op`, args re-bound after the `refine ⟨Kc, …⟩`); it builds
+and gives x-independent `(Kc, x₁)` usable at `opPs x`. The low/sym legs follow the SAME template
+(copy `low_price_at_op` 147–367 / `sym_price_at_op` 380–695 verbatim, move `Ps X K QR Dlev D hK
+hDbnd` before `x`).
+ALSO LANDED (all building + audited): §1 price-constant MONOTONICITY (`Kbeta_min_mono_K`/
+`Km_min_mono_K`/`Kbeta'_min_mono_K` → `box_bracket_mono` → `boxPriceKerr_mono`/`boxPriceKerrY_mono`
+→ `lowPriceK_mono`/`symPriceK_mono`) — the worst-`W` lemmas (`boxPriceKerr_worst_le` etc.) need
+`1 ≤ K` but the terminals give only `0 < K`, so the aggregate must bump each constant to `max 1 K`
+via these; §2 `tripleSum_le_16x_at_op` (`tripleSum x (opZ x)(opY x) ≤ 16·x` via
+`card_tripleSet_le_pairSum` + `primeCountIoc ≤ Ufun ≤ x/(q₁q₂)` + landed `pairSum_le_at_op ≤ 16`)
+— the `htriple` polylog input `PackA.hRCE_at_op` consumes (any `C ≥ 4` works: `16 ≤ (log x)^4`).
+THE REMAINING ASSEMBLY (fully mapped, NOT yet written): with box/low/sym_indep + `hdiag_slot_at_op`
++ `nu_sum_le_log_at_op` + `tripleSum_le_16x_at_op` + `op_floors` + `opf_tower` + two
+`a12_logpow_le_rpow` thresholds all obtained at TOP: set `x₁ := max(all thresholds, ⌈exp(2·Ccon·K)⌉)`;
+inside `∀ x` set `z:=opZ x, y:=opY x, P:=opP x, Q:=opQ, a:=opA, w':=opW', Ps:=opPs x, Dlev:=opDlev x,
+ε₀:=(x:ℝ), ε:=opEps, K_main:=1+opEps, QR:=1, X:=2x, KK:=Nat.log 2 (2x), D:=opQ·opDlev x`.
+ROUTE the box and low legs to 0 in the vanish regime (box vanish `min(opZ·pieceN k+1)(x+1) ≤ 2^i`
+→ disc=0 via `box_carrier_eq_zero_above_cap`; low vanish `pieceN k ≤ opY x` → disc=0 via
+`blockAlphaLow_eq_zero_of_pieceN_le` + `apDiscBilinCutoff_congr`/`_zero`) — small-`2^k` boxes blow
+the closed price up so they are NOT `W`-uniform; sym IS uniform (`symPriceK` prices middle boxes at
+`log y`, `symPriceK_worst_le` unconditional). `hiX`: `2^(i+1) ≤ X+1 = 2x+1` from the corner clause
+`2^i·2^k ≤ x` (2^k ≥ 1). `hSum`: `AggSum.hSum_at_op` (hmax via `maxBlock_op_eq_zero`/
+`maxBlock_eq_zero_of_eps_self` at ε₀:=x) with `Kc:=1`, `W:=3·CconBox·(K̂b+K̂c+K̂m+K̂b')·x/L^12`,
+`Ccon_box:=` that coefficient, per-leg `≤ W` via the §1 mono bump + PackA `boxPriceKerr_worst_le`/
+`symPriceK_worst_le`/`lowPriceK_worst_le` (`hratio` from `kfloor_of_live_box`/`band_kfloor_of_live`
+→ `ratio_le_of_floor` at c=7/16 (`margin_box`) / c=1/3 (`margin_cbrt`)); `Pdiag:=opPdiag x`,
+`Ccon_diag:=1`, `hPdiag` from `hdiag_slot_at_op.2`. `hCE`: `hCE_at_op ∘ hRCE_at_op` (z-bounds
+`hz1pos`/`hzlow` from `opf_tower` row2 opZ ≥ 10^6 + opZ=⌊x^{1/8}⌋; `hkey` from `a12_logpow_le_rpow`;
+`hQfac` from `opf_Q_primeFactors`; `hw'z`/`hPy` from opf_tower/`opf_Psy`). `hNum`:
+`hNum_close_of_tower` at `Ccon·K := max(RHD-coeff, RCE-coeff)`, tower row folded into x₁. Then
+`mainA3_of_block_remainders_W x (opZ x)(opY x)(opP x) opQ opA opW' (opPs x)(opDlev x)(x:ℝ) opEps
+(1+opEps) 1 …structural from opf_* + h4_cond_of_base opEps (1+opEps) …` (Ps proofs = opf_Ps_sq x /
+opf_Psodd x so the conclusion is DEFEQ to `Headline4.M3 x`) ∘ the arg-free discharge → the exact
+`hA3` shape `triplePrimeSumW opQ opA x (opP x)(opY x) ≤ M3 x`, then `chen_headline_of_A3_ledger`
+consumes it (hL left as hypothesis). Tally: 76→77 catches, 0 wrong proofs. All FinA3 decls exactly
+[propext, Classical.choice, Quot.sound]; sorry-free; zero warnings.
