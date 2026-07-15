@@ -702,3 +702,37 @@ decisions per question.
   reuse-coefficient row: est 480k across 3 nodes, actual 413k, all
   first-attempt.** W2 UNLOCKED: G-A1 + G-A2 dispatched (cap 4:
   N4-ASM-b, Q5b-C, G-A1, G-A2); G-SW queued.
+
+- 2026-07-15 ~15:00: **Q5b-C COMPLETE, first attempt — ½ IS OPTIMAL,
+  kernel-checked; Q5b CLOSES (B + C done, Axis A → DEBT per A2's
+  commitment)** (cost ≈ 148k tokens / 24 tools / ~15 min vs 250k).
+  Salt/Chen/WeightFamily.lean (288 lines, imports TwinDeficit only).
+  THE FINDING: the ½ knob scales all three decorations identically;
+  the margin is affine M(α) = 9779/10000 − K·α with K > 0
+  (marginFn_linear/marginK_pos); admissibility (domination
+  chenWeightA α ≤ 1_{P₂} at sifted points) forces α ≥ 1/2 EXACTLY —
+  sufficiency from chen_weight_struct, necessity tight and
+  non-vacuous at the concrete witness m = 30 (decoration sum exactly
+  2). So **alpha_half_optimal: the landed ½ sits precisely on the
+  admissibility boundary; everything larger strictly costs margin**
+  (alpha_half_strict); the α = ½ regression recovers
+  razor_scalar_margin. The family dies at α ≈ 0.50629
+  (numeric-only — needs a c̄ LOWER bound the corpus lacks;
+  honestly not claimed in Lean). **retune_invisible_at_heavy**
+  (consuming Axis B's obstruction): the entire α-family collapses to
+  the landed weight at heavy semiprimes — the deficit driver is
+  identically blind to the knob. R4 clear. THE (z,y) GRID
+  (numeric-only, scope-honest): the landed c̄/W-ratio/A₃ values
+  reproduced exactly; NEW CONSTRAINT surfaced — b ≥ 1/3 is FORCED
+  by the size lemma (m < (y+1)³ at m ≤ x), so the
+  smaller-c̄ columns are inadmissible; within the admissible region
+  the A₃-direct saving at (1/7, 3/8) is offset by both cascade
+  terms moving against it — the landed (1/8, 1/3) reads as a
+  cascade balance point; no superior point claimable without
+  per-point re-derivation of f(s)/F(s)/the window cost. Ceremony:
+  wired + 10 keystones — full build exit 0 (8952 jobs). **Q5b
+  FINAL: Axis B (conditional deficit + two unconditional
+  obstructions) + Axis C (exact optimality + invisibility + the
+  b ≥ 1/3 constraint); Axis A (θ-crossover) = recorded debt.**
+  Slot freed → G-SW dispatched (W2 head); N4-ASM-b stopped after a
+  42-min hang mid-STEP-0 and RESUMED at its checkpoint.

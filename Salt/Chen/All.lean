@@ -146,6 +146,7 @@ import Salt.Chen.BlockPricing
 import Salt.Chen.PairBijection
 import Salt.Chen.SwitchConstant
 import Salt.Chen.TwinDeficit
+import Salt.Chen.WeightFamily
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -541,3 +542,9 @@ open Salt.Tactic in
   Salt.Chen.e2_lower_of_certs_twinup Salt.Chen.deficit_floor_of_certs
   Salt.Chen.e2_carrier_inhabited Salt.Chen.p1_carrier_inhabited
   Salt.Chen.e2W_carrier_inhabited
+  Salt.Chen.alpha_half_optimal Salt.Chen.alpha_half_strict
+  Salt.Chen.marginFn_half_ge Salt.Chen.marginFn_antitone
+  Salt.Chen.chenWeightA_le_indicator_of_sifted
+  Salt.Chen.admissible_necessary Salt.Chen.admissible_worst_case
+  Salt.Chen.retune_invisible_at_heavy
+  Salt.Chen.chenWeightA_eq_one_of_heavy Salt.Chen.chenWeightA_half

@@ -75,6 +75,7 @@ min FIN-A3b at 147k — the mechanical restatements).
 | G-WEIGHT | 102 | window mirrors; honest reflected bounds |
 | G-RES | 113 | CRT witness + crtClassG, first attempt |
 | G-DENS | 198 | punctured keystone + the zr^9 catch; W1 closes |
+| Q5b-C | 148 | ½ optimal kernel-checked; b ≥ 1/3 constraint; Q5b closes |
 
 Exploration total so far ≈ **1.54 M**; recon median ≈ 100k; probe
 median ≈ 200k. (Q2-ASM in flight at recording time.)
