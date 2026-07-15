@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Mathlib
 import Salt.Chen.LinearSieve
+import Salt.TwinBar.LambdaRate
 
 /-!
 # The parity wall — the Selberg witness pair (Q6a-1)
@@ -129,8 +130,9 @@ lemma primorial_squarefree (n : ℕ) : Squarefree (primorial n) :=
 
 /-! ## The witness pair -/
 
-/-- The Liouville summatory function `M_λ(y) = Σ_{1 ≤ n ≤ y} λ(n)`. -/
-noncomputable def Mlambda (y : ℕ) : ℝ := ∑ n ∈ Finset.Icc 1 y, (liouville n : ℝ)
+-- `Mlambda` is owned by `Salt.TwinBar.LambdaRate` (the Q6a-3 bridge file); the
+-- byte-identical local definition that briefly lived here was dropped at the
+-- Q6a-3 merge.
 
 /-- The upper witness `s₊`: sifts `[1, x]` by the primes `≤ ⌊√x⌋`, density `1/d`,
 weights `1 + λ(n)`, total mass `x`. -/

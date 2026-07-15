@@ -15,6 +15,7 @@ import Salt.TwinBar.ThreeBar
 import Salt.TwinBar.Constrained
 import Salt.TwinBar.ThreeBarAsm
 import Salt.TwinBar.FourBar
+import Salt.TwinBar.LambdaRate
 import Salt.TwinBar.ParityWall
 import Salt.Tactic.AuditAxioms
 
@@ -87,3 +88,6 @@ open Salt.Tactic in
   Salt.TwinBar.sliceCS₃₄ Salt.TwinBar.sliceCS₄₄
   Salt.TwinBar.four_thirds_log_four_lt_two
   Salt.TwinBar.no_quad_weight_of_fourBar
+  Salt.TwinBar.liouville_eq_chiSq_mul_moebius Salt.TwinBar.Mlambda_eq_sum_Mmu
+  Salt.TwinBar.Mmu_abs_le Salt.TwinBar.Mlambda_rate
+  Salt.TwinBar.LambdaSummatory_of_MmuRate

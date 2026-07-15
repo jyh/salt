@@ -358,3 +358,30 @@ decisions per question.
   13 keystones in #audit_axioms — full build exit 0, all ✓
   [3 axioms]. The M₄ leg of the least-k theorem (amendment A1) now
   rests only on N4-ASM-a/b/c (gated on the parity wall closing).
+
+- 2026-07-15 ~12:00: **Q6a-3 LANDS NODE 2; NODE 1 STOP-AND-FLAGGED —
+  the wall is currently CONDITIONAL on one clean Prop** (cost ≈ 340k
+  tokens / 83 tools / ~53 min, Opus; ~10 build cycles).
+  Salt/TwinBar/LambdaRate.lean (581 lines). LANDED: the identity
+  λ = 1_squares ∗ μ (liouville_eq_chiSq_mul_moebius, via
+  eq_iff_eq_on_prime_powers); the UNCONDITIONAL summatory fold
+  Mlambda_eq_sum_Mmu (M_λ(y) = Σ_{d≤√y} M_μ(⌊y/d²⌋) — derived from
+  scratch; mathlib has NO hyperbola/summatory-convolution lemma,
+  recorded as a mathlib TODO); **Mlambda_rate** (the M_μ→M_λ rate
+  fold, C' = 2C·4^A + 1, small-range/tail split at d = y^{1/4}) +
+  **LambdaSummatory_of_MmuRate** — both conditional ONLY on the new
+  Prop **MmuRate** (|M_μ(y)| ≤ C·y/(log y)^A). STOP-AND-FLAG (node
+  1): deriving MmuRate from the landed siegelWalfisz_psiTot is the
+  effective "equivalent forms of PNT" step — needs μ·log = −(Λ∗μ) +
+  an Abel/bootstrap layer, several hundred lines, its own C-node
+  (mathlib has only the bare moebius def; no summatory facts). The
+  executor landed the fold rather than sink the budget — correct
+  per the give-up-early rule. CONSEQUENCE: the wall ships
+  conditional on MmuRate until the flagged node (Q6a-4, design pass
+  = house) lands; still a massive improvement over the retired λ-BV
+  route (one clean PNT-strength Prop vs a full equidistribution
+  family). Ceremony: LambdaRate wired as the canonical owner of
+  Mmu/Mlambda/MmuRate/LambdaSummatory; ParityWall's byte-identical
+  local Mlambda dropped (the pre-mapped merge, house surgery); five
+  keystones in #audit_axioms — full build exit 0, all ✓ [3 axioms].
+  Q6a-2 DISPATCHED (the concrete core + the tolerant wall).
