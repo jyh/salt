@@ -10,6 +10,8 @@ import Salt.Goldbach.Density
 import Salt.Goldbach.A1
 import Salt.Goldbach.A1W
 import Salt.Goldbach.A2W
+import Salt.Goldbach.Switch
+import Salt.Goldbach.SwitchBV
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -50,3 +52,17 @@ open Salt.Tactic in
   Salt.Goldbach.goldRosserRemainderW2_le_split
   Salt.Goldbach.goldA2_hBVagg_W Salt.Goldbach.goldA2W_rem_eq
   Salt.Goldbach.goldApSumW_eq_psiAP
+  Salt.Goldbach.goldTripleSum_eq_card Salt.Goldbach.gold_switch_upper_B
+  Salt.Goldbach.gold_block_switch_upper_B_W
+  Salt.Goldbach.gold_mainA3_of_hBVswitch
+  Salt.Goldbach.goldSwitchSieveW_W_eq
+  Salt.Goldbach.goldBlockSwitchSieveW_maxDepth_eq
+  Salt.Goldbach.goldSwitchSieve_multSum_eq_apCount
+  Salt.Goldbach.goldSwitchSieve_rem_split
+  Salt.Goldbach.gold_hBVswitch_of_generalBV Salt.Goldbach.gold_memClassG
+  Salt.Goldbach.goldBlockMultSumW_eq_apCount
+  Salt.Goldbach.goldBlockSwitchSieveW_rem_split
+  Salt.Goldbach.gold_hBVblocksW_of_generalBV
+  Salt.Goldbach.gold_nonunit_forces_fst_dvd Salt.Goldbach.gold_hCE_at_op
+  Salt.Goldbach.norm_goldSemiprimeBlockInd_le_one
+  Salt.Goldbach.gold_switch_coprime_N

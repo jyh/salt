@@ -781,3 +781,27 @@ decisions per question.
   threaded); the GLU close rows byte-identical to the twin's.
   Ceremony: wired + 6 keystones — full build exit 0 (8955 jobs).
   W2 = G-A1 ✓, G-A2 ✓, G-SW in flight; W3 unblocks when G-SW lands.
+
+- 2026-07-15 ~16:05: **G-SW (W2) COMPLETE — W2 CLOSES; the switch
+  layer lands first-attempt with zero odd-d casework** (cost ≈ 299k
+  tokens / 56 tools / ~30 min vs 350k, the pre-gate "risk node"
+  budget). Salt/Goldbach/Switch.lean (647) + SwitchBV.lean (659):
+  the four sieve instances (base/W/block/blockW) with ALL FOUR
+  rfl-transfers holding (no carrier drift); the sharp cB keystones;
+  the BV bridge at prod ≡ N (mod d); the full block-W
+  identification chain at the landed crtClassG; the AggCE crumb +
+  gold_hCE_at_op. THE SEAM, closed: gold_switch_coprime_N
+  (hPsN → d ∣ Ps → Coprime d N) replaces switch_dvd_coprime_two —
+  the gate's vanishing prediction, realized as a 2-axiom lemma.
+  Genuinely new: goldTripleSet at the BOTTOM-half range [2, N/2]
+  (the one structural novelty vs the twin's top half). BYTE-LOCK
+  NOTES (downstream-critical): (a) G-SW OWNS the triple carriers —
+  **G-COUNT prices them via import, never redefines** (dup-def
+  clash); (b) gold_mainA3_of_hBVswitch takes the survivor bridge as
+  a hypothesis — **G-ASM supplies goldTriplePrimeSum + the bridge**;
+  (c) the a ≤ N saturation hypothesis threads the block-W chain
+  (free at consumers via the witness's hQN). Ceremony: wired + 18
+  keystones — full build exit 0 (8957 jobs). **W2 totals: est 960k
+  / actual 787k, all first-attempt. W3 UNLOCKED: G-COUNT + G-BAND
+  dispatched (active: N4-ASM-b, G-COUNT, G-BAND; one slot held for
+  N4-ASM-c).**
