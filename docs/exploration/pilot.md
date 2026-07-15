@@ -261,3 +261,15 @@ decisions per question.
   forcing ≤-stated slice lemmas; lake env lean skips style linters —
   finish on lake build). Remaining Q2: (b) the k=4,5 atlas, (c) the
   H₁ ≤ 6 delimitation statement.
+
+- 2026-07-15 ~10:50: **Q3 COMPLETE (as adjudicated: the (b) form)**
+  (cost ≈ 95k tokens / 26 tools / ~8 min — the cheapest sprint
+  question, as predicted). Salt/Twelve/GapsOfLevel.lean:
+  **gaps_le_twelve_of_hasLevel (hPNT) (hLoD : HasLevel (3999/4000))**
+  — the minimal-interface theorem; the diff from the landed chain is
+  LITERALLY one deleted line (the recon's claim confirmed by
+  construction); the EHall capstone recovered as a one-line instance
+  (anti-vacuity); the θ-caveat stated prominently in both docstrings
+  (minimality of FORM, not depth). The GEH_min-at-k=3 route's scope
+  map (multi-quarter, two new C-clusters) stands as Q3's obstruction
+  note and the explicit12 post-release triage input.

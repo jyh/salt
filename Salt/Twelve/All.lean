@@ -35,6 +35,7 @@ import Salt.Twelve.JcalPos
 import Salt.Twelve.FrontierM
 import Salt.Twelve.QdiagFloor
 import Salt.Twelve.GapsUncond
+import Salt.Twelve.GapsOfLevel
 import Salt.Twelve.WindowPNTDischarge
 
 /-!
