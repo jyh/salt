@@ -162,8 +162,8 @@ that demands the impossible, is a catch even when everything
 typechecks (#47, #64, #66, #69); satisfiability witnesses at freeze
 time (#65, #68, #71 — see Part III); constants and thresholds must be
 UNIFORM — a per-instance existential or an x-dependent parameter
-bound before its `∀` detonates at assembly (#77, HCOUNT-3's
-uniform-K rebuild); honest re-derivation beats a sketch — every
+bound before its `∀` detonates at assembly (#76's uniform-K rebuild
+at HCOUNT-3; #77's arg-free restatements at FIN-A3); honest re-derivation beats a sketch — every
 aggregate constant is recomputed when instantiated, and nine orders
 of magnitude of drift is survivable only if the consumer was built
 parametric (#74).
