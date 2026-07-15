@@ -7596,3 +7596,16 @@ load-bearing). DEFERRED (= FIN-LED-3): the hEbundle ≈ 0.0033 < 0.005 numeric a
 Σ1/(p−1) on [opZ, opY] for aggSlack, (c) the tower R/XW crumb thresholds, (d) the e3
 catch-#49 collapse (rho → 3/8, ecount → 0). All 12 decls exactly [propext,
 Classical.choice, Quot.sound]. Tally: 78 catches, 0 wrong proofs.
+
+**2026-07-15 FIN-A3c ✅ FULL (FinA3c.lean) — ★ THE hA3 BUNDLE IS COMPLETE ★; the A₃ side
+of Chen's theorem is CLOSED at the operating point.** The piecewise Price handled as
+checkpointed defs+lemmas (vanish → 0 via the carrier caps; live → the kfloors + the worst
+bounds after the max-1 bumps); the single Khat unifies the four discharger constants;
+the PDiag:782 composition instantiated at the full op witness list; hSum at W =
+6·CconBox·Khat·x/L^12 with Ccon_diag = 1; hNum at Cconst = max 1 (54·CconBox·Khat + 1/2)
+with the tower row folded into x₁ = ⌈exp(2·Cconst)⌉; h4 via h4_cond_of_base; the
+conclusion ACCEPTED BY refine against M3 — DEFEQ confirmed; the example feeds
+chen_headline_of_A3_ledger (hL hypothetical). Both sides' values reconciled end-to-end —
+NO new catch; the FIN-A3/A3b mapping held. All 5 decls exactly [propext, Classical.choice,
+Quot.sound]. Tally: 78 catches, 0 wrong proofs. **REMAINING: FIN-LED-3 (hL_bundle) — then
+chen_headline := chen_headline_of_A3_ledger hA3_bundle hL_bundle, ONE APPLICATION.**
