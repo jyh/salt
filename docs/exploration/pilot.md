@@ -311,3 +311,32 @@ decisions per question.
   build-time #audit_axioms block — full build exit 0, all ✓
   [3 axioms]. Q6a-2 unblocks when Q6a-3 (in flight) delivers the
   M_λ rate.
+
+- 2026-07-15 ~11:20: **Q2bc-RECON COMPLETE — k=4 GO, k=5 carrier
+  mismatch mapped, R3 EARLY STOP on the literal "H₁ ≤ 6"** (cost ≈
+  158k tokens / 17 tools / ~10 min, Opus). (1) **k=4**: the β-tuning
+  extends mechanically (β = 1/3, c₄ = (4/3)log4 ≈ 1.8484 < 2); the
+  analytic core is A/B-tier mirror work (N4-CORE); the assembly needs
+  a size-s parametrization of the ENTIRE 3-D reduction layer (the
+  4-simplex slices to a size-(1−t₁) 3-simplex — the 3-D file is
+  hardwired to size 1) → three nodes N4-ASM-a/b/c, riskiest =
+  N4-ASM-a (size-s 3-D reductions, C-tier, critical path for J₃/J₄);
+  est. ~1200–1700 lines / 700k–1M tokens aggregate — assembly debt
+  MAY extend past the sprint (registration permits). (2) **k=5**: the
+  landed M5_cert (Salt/Twelve/Certificate.lean:265) is an EXACT ℚ
+  bilinear ratio on Poly (191881/95820 ≈ 2.00251 > 2) — NOT the real-
+  integral functional; a single-object bracket 2 < M₅ ≤ (5/4)log5
+  needs the k-D real Dirichlet-integral bridge (does not exist in the
+  corpus) + a full 5-D real assembly (~5–8 nodes) — OUT OF SPRINT
+  SCOPE; the honest asymmetric form (ℚ witness > 2 landed; real upper
+  bound as recorded debt) recommended. (3) **Q2c**: the literal
+  "H₁ ≤ 6 delimitation" is NOT formable from landed material — it
+  conflates the no-go atlas (no gap number), the k=5 certificate
+  (gives ≤ 12 at BV, not ≤ 6), and the GEH/enlarged-k=3 floor whose
+  sharp half IS Tao's open problem (rung-∞). RECOMMENDED REFRAME
+  (user sign-off pending): the least-k theorem — "in the unmodified
+  Maynard–Selberg class the least k with M_k > 2 is 5" (needs only
+  the M₄ leg) + the honest gap companion "k=5 delivers H₁ ≤ 12 at
+  BV-level" + an open note for the ≤ 6 optimality. N4-CORE dispatched
+  (safe under every reframe); N4-ASM scheduling + k=5 debt + the Q2c
+  reframe = user decisions.
