@@ -7021,3 +7021,18 @@ x^{1/4}, exactly where the boundary is nonempty — the row lemmas must thread t
 nonemptiness), the edge-box single price, the hSum/hdiag/hCE/hNum numeric closure, and the
 hBVblocksW_at_op → mainA3_of_block_remainders_W example. All 12 decls ≤ [propext,
 Classical.choice, Quot.sound]. Tally: 69 catches, 0 wrong proofs.
+
+**2026-07-14 EXPLORATION PILOT P-C ✅ (ThreeBar.lean) — THE β-TUNING FIND: Polymath8b's
+(k/(k−1))·log k re-derived from our own atoms.** The k=2 magic w₁+w₂ ≡ 2 is the β = 1/(k−1)
+CS-base tuning in disguise; at k=3 the retuned base gives the SHARP c₃ = (3/2)log 3 ≈ 1.648
+< 2 (the pull-back route reaches only 3·log 2 — sharpness needs the retune). Kernel-checked:
+the full analytic heart + no_triple_weight_of_tripleBar (the k=3 no-go modulo the 3-D Fubini
+assembly, exposed as exactly ONE gap = node TB3-ASM, ~300–500-line port, a sprint Q2 item;
+landing it gives M₃ < 2 unconditionally — the atlas's second delimitation). R4 check: M₃ < 2
+is classically believed (Polymath8b) — no alarm. Calibration: T3 splits into cheap
+find-the-constant + expensive formal-assembly phases; budget separately. THE PILOT'S
+MATHEMATICS PHASE IS COMPLETE IN ONE EVENING (3-day timebox): two new delimitation theorems
+(enlarged-k=2, conditional-k=3), the δ₀ threshold, the β-tuning pattern generalizing the
+atlas, four protocol rules, two calibration data. All ThreeBar declarations ≤ [propext,
+Classical.choice, Quot.sound]; wired into TwinBar/All.lean. Tally: 69 catches, 0 wrong
+proofs.

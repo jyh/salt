@@ -103,3 +103,35 @@ refined phrasing.
   Budget calibration: P-A cost ≈ 1 web check + ~5 build cycles + one
   de-risking scratch; T3 sprint budgets sized to this.
 - P-C DISPATCHED (the k = 3 probe, P-A's lessons injected).
+- 2026-07-14 night: **P-C COMPLETE (Salt/TwinBar/ThreeBar.lean, 466
+  lines, first attempt).** THE FIND: the k = 2 magic identity is the
+  β = 1/(k−1) CS-base tuning — normalization log((β+1)/β), weight-sum
+  constant iff β = 1/(k−1), giving c_k = (k/(k−1))·log k = Polymath8b's
+  bound RE-DERIVED FROM OUR OWN ATOMS. At k = 3: base = (slice)/2,
+  normalization log 3, w-sum ≡ 3/2, **c₃ = (3/2)·log 3 ≈ 1.648 < 2** —
+  the SHARP constant (route (b) pull-back onto twin_bar was assessed
+  and REJECTED: it reaches only 3·log 2 ≈ 2.079; the sharp value needs
+  the retuned base — the contrast with P-A's cheap pull-back is itself
+  calibration data). Landed kernel-checked: the full analytic heart
+  (logWeight_half, log_slice_CS general-β, w_sum_three, the three
+  sliceCS, (3/2)log3 < 2, carriers) + `TripleBar` (the citable target)
+  + **`no_triple_weight_of_tripleBar`** (the k=3 no-go MODULO the
+  assembly — the gap exposed as exactly one lemma). DEFERRED with a
+  precise OPEN note: the 3-D Fubini assembly (~300–500-line
+  measure-theory port; mathlib has no turnkey simplex iterated-integral
+  lemma) = node **TB3-ASM**, a sprint work item under Q2 (lands
+  M₃ < 2 unconditionally — the atlas's second delimitation).
+- **Pilot calibration datum #2 (P-C):** T3 probes split into a CHEAP
+  find-the-sharp-constant phase (~6 build cycles, one sanity script —
+  the discovery + the analytic core) and an EXPENSIVE formal-assembly
+  phase (a rung of its own). Budget them separately in the sprint.
+  The β-tuning pattern generalizes the whole M_k atlas cheaply at the
+  pre-integration level — the reusable win.
+- **PILOT MATHEMATICS PHASE COMPLETE** (one evening vs the 3-day
+  timebox): P-A theorem + threshold δ₀; P-B hygiene + the bridge Prop;
+  P-C sharp constant + conditional no-go + TB3-ASM scoped. Remaining
+  pilot closeout (house session): the synthesized experience report,
+  the sprint T3 budget table, Q5's refined phrasing (draft: "does the
+  marginal-CONSTRAINED enlarged M₂^{[δ]} reach 2 for δ ∈ (δ₀, 1]?" —
+  the sharpest boundary the pilot exposed — plus the Chen H-package
+  perturbation leg), all at the pre-registration session with JYH.
