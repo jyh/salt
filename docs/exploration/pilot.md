@@ -736,3 +736,28 @@ decisions per question.
   b ≥ 1/3 constraint); Axis A (θ-crossover) = recorded debt.**
   Slot freed → G-SW dispatched (W2 head); N4-ASM-b stopped after a
   42-min hang mid-STEP-0 and RESUMED at its checkpoint.
+
+- 2026-07-15 ~15:25: **G-A1 (W2) COMPLETE — first attempt, both
+  files; the seam-vanishing realized; one load-bearing class
+  correction** (cost ≈ 239k tokens / 45 tools / ~23 min vs 330k).
+  Salt/Goldbach/A1.lean (372) + A1W.lean (414): the A₁ sieve pair
+  (base + W/AP-class) with multSum/siftedSum/rem facts, the ℕ-sub
+  divisibility bridge (dvd_sub_iff at n ≤ N — replaces the twin's
+  d ≥ 3 shape), gold_A1_lower(_B)(_W)(_B_W), goldBVSum(_W),
+  goldRosserRemainderW_le_split, W_goldA1_ge. REUSE CENSUS: ~75%
+  verbatim-instantiation (the whole cB numeric τ-stack, the
+  linear-sieve keystones, the BV dispersion engine, apDiscW,
+  vratio_prod_le...), ~25% mirror, 3 genuinely new items. FINDING
+  REALIZED: **divisor_cases is NOT needed at all** — the d-side
+  coprimality is the uniform Coprime d N from the threaded
+  Coprime P N; the twin's oddness disjunction AND the rem-1 special
+  case both dissolve (single uniform branches). ADJUDICATED
+  DEVIATION (load-bearing, accepted): **crtClassA1** — the A₁
+  n-side class fuses a (mod Q) with N (mod d), reduced from
+  Coprime Q a; crtClassG's N−a class is the SWITCH/A₂ class (the
+  ledger sits at N−n there). Correct catch; G-A2/G-SW briefs
+  already point at crtClassG. P stays abstract with hPN threaded
+  (G-ASM instantiates at goldPs). Friction: the reflection InjOn +
+  Finset.mem_coe pattern in every sum_image. Ceremony: wired + 8
+  keystones — full build exit 0 (8954 jobs). W3 remains blocked on
+  G-A2/G-SW; one slot open, queue heads dependency-blocked.

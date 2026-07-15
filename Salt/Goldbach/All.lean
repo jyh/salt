@@ -7,6 +7,8 @@ import Salt.Goldbach.Base
 import Salt.Goldbach.WeightWindow
 import Salt.Goldbach.Residue
 import Salt.Goldbach.Density
+import Salt.Goldbach.A1
+import Salt.Goldbach.A1W
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -39,3 +41,7 @@ open Salt.Tactic in
   Salt.Goldbach.exp_correction_le Salt.Goldbach.exp_correction_le_op
   Salt.Goldbach.window_prod_upper_punctured_folded
   Salt.Goldbach.goldPs_nu_eq Salt.Goldbach.goldPs_hnu
+  Salt.Goldbach.gold_A1_lower Salt.Goldbach.gold_A1_lower_B
+  Salt.Goldbach.goldBVSum Salt.Goldbach.W_goldA1_ge
+  Salt.Goldbach.gold_A1_lower_W Salt.Goldbach.gold_A1_lower_B_W
+  Salt.Goldbach.goldRosserRemainderW_le_split Salt.Goldbach.goldBVSum_W
