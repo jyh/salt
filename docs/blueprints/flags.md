@@ -7370,3 +7370,49 @@ Quot.sound]. Tally: 74 catches, 0 wrong proofs. **F2's input set is COMPLETE: Pr
 (hSum_at_op at the honest Ccon′) / hCE (hCE_at_op) / hNum (hNum_close_of_tower,
 parametric). fin8c = THE COMPOSITION: hBVblocksW_at_op → a12_hA3 → the ledger → the 12
 conjuncts → chen_headline.**
+
+**2026-07-15 fin8c ⚠️ SCOPING FINDING (Opus executor) — STEP 1 (op_floors) ✅ FULL; STEPS
+2–4 BLOCKED: the "composition" is NOT pure wiring — ~10 analytic rows are UNPACKAGED.**
+`Salt/Chen/TheHeadline.lean` created (namespace Salt.Chen). Landed sorry-free, axioms exactly
+[propext, Classical.choice, Quot.sound], zero warnings, umbrella `Salt.Chen.All` exit 0:
+`op_floors : ∃ x₁, ∀ x ≥ x₁, x^{11/24}/8 ≤ opQ·opDlev x ≤ x^{499/1000} ∧ x^{11/24}/8 ≤
+opZ·opY ∧ 2 ≤ opZ·opY ∧ x^{1/3}/8 ≤ opY` (via `opf_tower` + `a12_logpow_le_rpow 1 (1/500)`
+for the D-upper `log x ≤ x^{1/500}` + `zy_floor_ge` at exp 200). **FINDING (two independent
+Explore sweeps + corroborated by the 2026-07-14 EDGE+fin3 Part 2 entry above): the fin8b
+handoff "every input is landed, nothing remains but composition" is INACCURATE.** The F1/F2
+DICHOTOMY dischargers ARE landed (box/sym/low_price_at_op, hSum_at_op, hCE_at_op,
+hdiag_slot_at_op, hNum_close_of_tower), but composing them + the ledger needs these
+STILL-UNPACKAGED analytic rows, each a fresh operating-point estimate (NOT wiring):
+• **Step-2 hSum unification** (feed `hSum_at_op`'s uniform `W`, single `Kc`):
+  (a) `boxPriceKerrY_worst_le` — DOES NOT EXIST (only `boxPriceKerr_worst_le`, AggSum:135, for
+  the plain price; the middle-k `boxPriceKerrY` (AssembleA3b:65) has ONLY `_nonneg`). Must be
+  written (mirror of the plain one, `logN := log y`, floor `(10/31)·L ≤ log y` holds since
+  `log y ≈ (1/3)log x > (10/31)log x`).  (b) `symPriceK`/`lowPriceK` → uniform-`W` collapse
+  (sum over ≤3 boundary boxes via `dyadicBoundary_card_le_three`) — not landed.  (c) the
+  `hratio` PRODUCER `(10/31)·log((2^{i+1}−1)·pieceM k) ≤ log 2^k` from the landed k-floors
+  (`kfloor_of_live_box` x^{7/16}/8 ≤ 2^k / `band_kfloor_of_live`) — no bridge landed.
+• **Step-2 CE→RCE** (`hCE_at_op`'s product `nuChen Q·Σν·tripleSum/(z−1) → Ccon·K·x/L^{11}`):
+  ingredients LANDED (`tripleSum_le_cbar_final(_W)`, `nu_sum_le_log_at_op` AggDiag:122,
+  `nuChen_le_one`) but NOT composed — the numeric collapse is owed.
+• **Step-2 hNum tower** `2·Ccon′·K ≤ log x` (`hNum_close_of_tower` param) at x₀(K) — inline.
+• **Step-3 ledger** (`normalized_package`/`hledger_at_certs` at XW =
+  totalMass(twinA1SieveW)·W): `hcertA1` (`fchain_A1_final ∘ logRatio_A1_mem`) + `hcertA3`
+  (`Fchain_switch_le ∘ opf_tower` :486 Icc(1.49,1.51)) READY; but **hWy** (`W_ratio_upper`,
+  WRatioSharp:315 LANDED but needs at-op `hdvd opP∣opPs`/`hwin` window-primeFactors identity/
+  `hz38`/real endpoints + the UNNAMED `rfl` bridge `W(twinA1SieveW)=W(twinA1Sieve)` — no named
+  `twinA1SieveW_W_eq`, cf. `switchSieveW_W_eq` SwitchW:179), **hcount** (`log x·tripleSum/φ(Q)
+  ≤ (cbar+ecount)·totalMass` — only the SYMBOLIC typecheck `example` CountW:749 exists, and it
+  is about `tripleSumW` not `tripleSum/φ(Q)`; must compose `tripleSum_le_cbar_final` +
+  `lambda_mass_lower` MertensPNT:261), **hcertA2** (`A2grid_sharp_le` A2Weighted:461, 6 hyps to
+  discharge at op), **XW>0** + **hEbundle ≤ 1/200** (eight O(1/log z)/x^{−1/8} error shares at
+  a concrete x₀, via `W_twinA1_ge` WLower:51 through the rfl bridge) — ALL un-packaged.
+• **Step-4** 12 conjuncts: witnesses (P=opP/Q=opQ/z=opZ/y=opY/a=opA/w'=opW'/Ps=opPs) +
+  `chen_of_hypotheses_W` (Assembly:707) + `residue_witness` + `hyx_at_op`/`sievePrimorial_dvd`
+  are wireable, BUT need a12_hA1/a12_hA2's ~13/~17 hyps discharged at op + a12_hA3 (step 2).
+No existing assembly anywhere (normalized_package/hledger_at_certs/a12_hA1/a12_hA2 have ZERO
+external callers; no a12_hA3). **RECOMMENDATION (Fable/human-tier): re-scope fin8c into ~10
+packaging sub-nodes (boxPriceKerrY_worst_le ∥ sym/low collapse ∥ hratio-producer ∥ CE→RCE ∥
+hWy@op ∥ hcount@op ∥ hcertA2@op ∥ XW>0 ∥ hEbundle) THEN the final wiring — matching the
+2026-07-14 EDGE+fin3 Part 2 decision that "the F1–F3 assembly is NOT completable as pure
+wiring."** No sorry written; op_floors is the only decl. Tally unchanged: 74 catches, 0 wrong
+proofs.
