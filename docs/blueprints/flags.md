@@ -7196,3 +7196,18 @@ x^{7/16}/8 ≤ 2^k), not a design block. REMAINING for fin4: that lemma, the 27 
 parameter rows packaged a12-style (mechanical estimates with the gate's verified margins,
 consuming boundary facts + opf_*), then the assembly per the standing checklist →
 chen_headline. Tally: 71 catches, 0 wrong proofs.
+
+**2026-07-14 fin4 ✅ F1 keystones (ChenHeadline.lean, 2 decls) — the k-floor lands exactly
+as adjudicated; the 7/16 routing refinement resolved in-node.** `kfloor_of_live_box`: live
+boundary box ⟹ x^{7/16}/8 ≤ 2^k (cutoff x/8 < 2^{i+k} + cap 2^i ≤ z·2^k ⟹ z·2^{2k} > x/8
+at z ≤ x^{1/8}; 2√2 < 8 room) — the EDGE-adjudicated gap range closed. REFINEMENT (caught
+and resolved in-node, no catch): the live boxes populate the Finding-3 strip, so the priced
+branch must route the _lo (7/16) family, not the 11/24 one — `box_hprice_at_2pow_lo` built
+(conclusion character-identical, only hNfloor relaxed). Both decls exactly [propext,
+Classical.choice, Quot.sound]. REMAINING (= fin5, enumerated to the lemma): the boundary-
+window scaffold (2^{i+k} ∈ (x/8, x] ⟹ X·M ≍ x, √· ≍ √x, log ≍ log x — ~a dozen
+rpow/sqrt/log lemmas), the box-leg 27-row a12-bundle against _lo, sym/low_box_hprice_at_
+2pow_lo + their per-band live-box kfloor analysis (their carriers have their own support
+floors — verify, not assume), then F2 (discharger/hSum/hdiag/hCE/hNum/hBVblocksW_at_op →
+hA3) and F3 (ledger + 12 conjuncts → chen_headline) — both verified wireable. Tally: 71
+catches, 0 wrong proofs.
