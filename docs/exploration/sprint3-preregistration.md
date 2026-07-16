@@ -1,7 +1,7 @@
-# PRE-REGISTRATION — sprint 3: the boundary of feasibility (DRAFT)
+# PRE-REGISTRATION — sprint 3: the boundary of feasibility (SIGNED)
 
-**Status: DRAFT 2026-07-17, pending JYH signature. THE SIGNING
-COMMIT'S HASH IS THE REGISTRATION TIMESTAMP.** Sprint 2 closed its
+**Status: SIGNED 2026-07-17 (JYH: "signed. Raise the agent throttle
+to 6"). THIS COMMIT'S HASH IS THE REGISTRATION TIMESTAMP.** Sprint 2 closed its
 registered items (A1 + A2c RESOLVED — the parity wall unconditional;
 B1 RESOLVED wider than registered; B2/B4 resolved; B3 informative-
 failure then JYH-revived — its funded close runs under sprint-2's
@@ -82,8 +82,8 @@ blocker): the end-of-sprint dessert if the spine stalls early.
    ACCEPTANCE rule is relaxed, never the discipline).
 4. The avoid-list's monument exclusion is RELAXED for the
    registered spine ONLY; everything else on it stays binding.
-5. Agent throttle: 4 (JYH may raise it at signing given the quota
-   window).
+5. Agent throttle: 6 (raised from 4 at signing, JYH: "I'll bring it
+   down later if we spend too fast").
 6. The sprint-2 GEH close continues under its own signed clauses;
    its ceremonies interleave but its costs are accounted to
    sprint 2.

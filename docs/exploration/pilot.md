@@ -2705,3 +2705,12 @@ decisions per question.
   GehVaughan repaired body-only, ALL headline statements preserved,
   no flag. Full build exit 0 (9030 jobs), 8/8 decls 3-axiom.
   Wave 2 critical path (hdom-multiblock + N-I-mid) dispatches.
+
+- 2026-07-17 ~14:15: **SPRINT 3 SIGNED (JYH: "signed. Raise the
+  agent throttle to 6, I'll bring it down later if we spend too
+  fast"). THIS COMMIT = THE REGISTRATION TIMESTAMP.** The boundary
+  experiment opens: the log-Chowla spine (A-R0 recon already in
+  flight), Heath-Brown as the checkpoint alternate (B-recon
+  dispatches now into the raised throttle), the GEH close
+  interleaving under sprint-2 accounting. Slots → 6: TYPEI + SW +
+  MULTI + A-R0 + B-recon + hbridge-rewire.
