@@ -2899,3 +2899,46 @@ decisions per question.
   for the explicit build exit code — no exceptions, no
   pipelining. The executor's five files were correct throughout;
   the defect was 100% house.
+
+- 2026-07-17 ~18:40 (SPRINT 2): **BRIDGE LANDS — AND THE III.3‴
+  TRIPWIRE FIRES ON THE D-N2c CHAIN: HALTED** (S2-B3-BRIDGE ≈
+  287k / 44 tools, 1 attempt). GehBridge.lean (354 lines): the
+  selector-generic Abel identity (abel_prime_of_weight), the per-q
+  Λ→1_prime bound, and hasLevel_of_lambdaLevelU_of_pp : θ ≤ 1 →
+  LambdaLevelU θ → PpLevel θ → HasLevel θ — the Abel bridge is
+  MACHINE-CHECKED, consuming LambdaLevelU exactly as re-frozen.
+  THE RESIDUAL: PpLevel (the pp-in-AP sum) — the recon priced the
+  BOUND (2^{ω(q)+1}·(√x/φ(q)+1), sums verified) but its inner
+  primitive — #roots of X^k ≡ a (mod q) — is ABSENT from mathlib
+  (executor survey: no root counts mod composites, only
+  Polynomial.card_roots' over fields). The crude route provably
+  explodes (x^{θ+1/2}). ZENO ACCOUNTING: D-N2c residual #1
+  (hbridge) → BRIDGE residual #2 (PpLevel, whose dependency is
+  OUTSIDE the recon's enumeration) — TWO consecutive on ONE chain
+  = the tripwire, BY THE LETTER of the doctrine ratified today.
+  THE CHAIN HALTS: no root-counting sub-rung dispatches without
+  JYH. HOUSE ANALYSIS: the missing piece is elementary classical
+  NT (CRT + per-prime-power root counts; B/C, ~200–300k,
+  genuinely reusable mathlib-shaped asset), NOT structural — but
+  the doctrine exists precisely to force this pause. OPTIONS →
+  JYH: (a) fund the root-counting sub-rung (the door closes fully
+  modulo the OTHER named obligations); (b) accept PpLevel as a
+  PERMANENT named obligation of the door (alongside WindowPNT);
+  (c) fold the decision into the sprint-2 B3 final report.
+  Ceremony: grep clean, wired, full build exit 0 (9040 jobs).
+
+- 2026-07-17 ~18:45 (SPRINT 3): ██ **HB-R1 LANDS — THE HEATH-BROWN
+  DICHOTOMY IS STATED IN THE CORPUS** ██ (S3-HB1-EXEC ≈ 62k / 15
+  tools, 1 attempt). SiegelTwin.lean (167 lines): NoSiegelZeros /
+  InfinitelyManySiegelZeros (∀c∃, trap-safe) /
+  HeathBrownStatement (→ TwinPrimeConjecture) /
+  HeathBrownDichotomy, the exact-negation pair PROVEN, the
+  dichotomy iff PROVEN, and badHyp_false — the ∃∀ mis-freeze
+  REFUTED as a theorem (the c := (1−β)log q/2 instantiation).
+  Full R4 frame in-file with cross-refs to the wall. The first
+  formal statement of "infinitely many Siegel zeros ⟹ infinitely
+  many twin primes." HB-R2 consumption notes recorded (the NeZero
+  haveI gotcha). Ceremony: grep clean, wired + 4 keystones into
+  TwinBar/All, full build exit 0 (9041 jobs). **W1-2 + W1-3
+  dispatch (sprint-3 lanes; the halted bridge chain stays
+  halted).**
