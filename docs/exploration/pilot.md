@@ -2569,3 +2569,42 @@ decisions per question.
   residual (from D-N2a) HALTS the chain per clause 2 / III.3‴.
   Ceremony: grep clean, wired into Maynard/All, full build
   exit 0 (9027 jobs).
+
+- 2026-07-17 ~11:15 (SPRINT 2): **D-N2a LANDS (the amended
+  y-uniform target) — AND THE III.3‴ TRIPWIRE FIRES: THE D-N2
+  CHAIN HALTS** (S2-B3-DN2A ≈ 253k / 42 tools). Landed sorry-free:
+  LambdaLevelU + LambdaLevel verbatim (+ the U→pointwise
+  reduction); the FOUR-PIECE Vaughan decomposition fully certified
+  (vaughan_dconv pointwise, vP1/vP3 certified as genuine dconv,
+  vErr vanishing above V, seqDiscrepancy splitting four ways);
+  lambdaLevelU_of_pieceObligationsU (incl. the x = 2 log-reversal
+  corner handled explicitly); the GEH bridge genuinely invoking
+  GEH_min and consuming SWAt. The executor absorbed the mid-flight
+  LambdaLevelU amendment cleanly (the pointwise reduction
+  generalized). RESIDUAL: hdom — the O(log²x) dyadic block-pair
+  decomposition of Type II packaged as a hypothesis (the
+  single-block idealization). ZENO COUNT: D-N2c residual #1
+  (hbridge) → D-N2a residual #2 (hdom) — TWO CONSECUTIVE; per
+  clause 2 / III.3‴ the chain HALTS, D-N2b does NOT dispatch,
+  house analysis + JYH discussion required. THE HOUSE ANALYSIS
+  (the deeper finding the halt surfaced): the D-N2b obligations as
+  frozen (hHead/hTypeI1/hTypeI2 — the sub-x^ε small-factor
+  boundary blocks) are NOT elementary at θ = 3999/4000: the
+  O(1)-per-progression Type-I argument closes only to level ~2/3
+  (U·x^θ ≪ x fails at U = x^{1/3}, θ ≈ 1); beyond it is
+  Kloosterman/dispersion territory — OR the Heath-Brown identity
+  (which keeps ALL factors mid-range, and is exactly what P8b's
+  GEH ⟹ EH deduction uses) — NEITHER in the corpus. The Vaughan
+  route's boundary blocks likely hide a D-tier intermediate; the
+  case table's "boundary → SW-supplier" row concealed it (the
+  enumeration was complete; the DIFFICULTY CLASS of one row was
+  wrong). Ceremony: grep clean, wired, full build exit 0 (9028 jobs).
+  OPTIONS → JYH: (a) HONEST PARTIAL CLOSE — the door lands as
+  "GEH_min + 4 named obligations ⟹ H₁ ≤ 12" with the obligation
+  difficulty map (already a strong deliverable: GEH_min is in the
+  corpus, the π-side unconditional, the reduction kernel-checked);
+  (b) RE-CUT via the Heath-Brown identity (new corpus mathematics,
+  a mini-rung, big cost); (c) a focused ~100k recon FIRST on the
+  boundary blocks' honest cost (can the small-d pieces reduce to
+  the landed level-1/2 BV machinery?) — then choose (a) or (b).
+  HOUSE RECOMMENDATION: (c).
