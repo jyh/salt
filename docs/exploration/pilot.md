@@ -1954,3 +1954,25 @@ decisions per question.
   (2026-07-14, JYH) is explicitly overridden for this node by
   JYH's ratification; est. fork cost 2–4× an Opus node vs the
   5-times-paid flag-return cycle. Recorded pre-execution.
+
+- 2026-07-16 ~18:40: **G-KERRY2 LANDS — hmid DISCHARGED byte-exact;
+  EVERY analytic supplier of the A₃ chain is now in the corpus**
+  (cost ≈ 405k / 77 tools / ~65 min; 1 serious attempt). KerrY2.lean
+  (855 lines): gold_kerrY2_engine (the y-floor Y-indicator engine —
+  the window swapped to gold_d0_window_band when the y-floor
+  provably could not supply hz_ratio; the engine made PARAMETRIC in
+  abstract y so KerrY's hlo-proofs carry verbatim), gold_kerrY2_geoN
+  (cr = 4, the weakened middle floor absorbed at 4× margin),
+  **gold_hmid_discharge** (byte-exact vs Close:138-148). THE TWO
+  IN-FLIGHT CATCHES: (1) the one-point boundary (pieceM = 2·opY+1
+  breaks M ≤ 2N) resolved by blockPrimeInd(2^k'−1) =
+  blockPrimeInd(2^k') — a prime power is not prime, k' ≥ 3 from
+  opY ≥ 6; (2) the firing-crumb scope read off the consumption
+  chain (hmid carries hDwide ⟹ pure-geo, the crumb is upstream) —
+  no flag needed. The Kc-max reconciliation for the sym slot noted
+  (the standard terminal pattern). Ceremony: wired + 3 keystones —
+  full build exit 0 (9006 jobs). **PER THE RATIFIED PLAN: G-ASM
+  DISPATCHED AS A FABLE FORK** (full session context; the terminal
+  wire per Close's recipe + the Λ-bridge at the W-sieve + the
+  general-a A₁ + the structural rows + the ∀N wrapper →
+  chen_goldbach).

@@ -55,6 +55,7 @@ import Salt.Goldbach.BandClose2
 import Salt.Goldbach.BandRows
 import Salt.Goldbach.BandRows2
 import Salt.Goldbach.Close
+import Salt.Goldbach.KerrY2
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -216,3 +217,5 @@ open Salt.Tactic in
   Salt.Goldbach.gold_band_hlow_wide_at_op
   Salt.Goldbach.gold_band_hsym_wide_at_op
   Salt.Goldbach.gold_band_hlow_slot_at_op
+  Salt.Goldbach.gold_kerrY2_engine Salt.Goldbach.gold_kerrY2_geoN
+  Salt.Goldbach.gold_hmid_discharge
