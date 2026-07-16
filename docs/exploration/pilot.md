@@ -2782,3 +2782,13 @@ decisions per question.
   parallel. The registered measurement locks in: one chain at each
   end of the reuse axis, same instrument, same window. HB-R1
   design freeze next (house).
+
+- 2026-07-17 ~15:55 (SPRINT 3): **HB-R1 DESIGN FROZEN**
+  (s3-hb1-design.md): NoSiegelZeros (∃c∀) /
+  InfinitelyManySiegelZeros (∀c∃ — the trap-safe order) /
+  HeathBrownStatement / HeathBrownDichotomy, with the exact-
+  negation lemma, the badHyp_false trap-exhibition theorem (the
+  ∃∀ form refuted IN-FILE per the B-R0 mandate), the R4 docstring
+  triple mandated verbatim, and type-fidelity pinned to
+  Siegel.lean:232's canonical primitive-quadratic spelling.
+  Two nodes (~180k). **S3-HB1-GATE dispatched.**
