@@ -2461,3 +2461,38 @@ decisions per question.
   Perron budget discharging MmuRate (LambdaRate.lean:58, the ∀A
   effective |M_μ| ≤ C·y/log^A rate) — on it, parity_wall goes
   UNCONDITIONAL.**
+
+- 2026-07-17 ~07:50 (SPRINT 2): **THE B3 GATE: RE-CUT — THE GATE
+  CATCHES THE HOUSE, KERNEL-CHECKED** (S2-B3-GATE ≈ 120k / 19
+  tools; reported with prominence per the registration's honesty
+  clause 5). THE TEAR: the house-frozen SWAt binds ∃K AFTER the
+  parameter x, so at each fixed x a large-enough K discharges the
+  bound for EVERY β — the gate transcribed the frozen def verbatim
+  and KERNEL-PROVED `swat_vacuous : ∀ β M x, 1 ≤ M → 2 ≤ x → SWAt
+  β M x` (scratch probe, builds exit 0). Consequence: the frozen
+  GEH_min silently DROPS the SW hypothesis ⟹ STRONGER than P8b
+  GEH (the "min" backwards), the Motohashi anchor collapses, the
+  Prop is likely FALSE — the exact III.2/III.4 quantifier-scope
+  disease (constants inside the ∀ their consumer needs them
+  outside), caught by the gate BEFORE any executor. The fix
+  template is the corpus's own SiegelWalfisz (∃K before ∀x).
+  FURTHER FINDINGS: D-N2's reuse premise wrong (the landed Type
+  I/II/Dispersion are CHARACTER-side; only the raw
+  vaughan_sum/tail_decomp are general — D-N2 = a fresh AP-Vaughan
+  derivation); the corpus U=V=x^{1/10}, not x^{1/3} (D-N2 picks
+  its own); the case table MISSES the Vaughan head term (4 pieces,
+  not 3); PsiToPi is θ=1/2-HARDWIRED (the π-seam must be its own
+  node at 3999/4000, from the level-agnostic primesCount_abel);
+  D-N3 must carry WindowPNT (UNDISCHARGED in-corpus — the honest
+  conclusion is GEH_min → WindowPNT → H₁ ≤ 12); the Icc 1 x
+  truncation vs P8b's full-support Δ needs tail control. The π-
+  seam arithmetic and the tiny-q/q=1 probes PASS; D-N3's consumer
+  is literal; the door spine SURVIVES. RE-CUT DIRECTIVES R1–R4 on
+  file (R1a faithful-GEH families vs R1b corpus-SW relabel).
+  DECISION → JYH: (a) R1a — the honest GEH door, re-costed
+  ~600–700k (family-indexed defs + fresh AP-Vaughan + r-uniform SW
+  sub-lemma + the π-seam node + WindowPNT carried); (b) R1b —
+  cheaper (~450–550k) but NOT nameable GEH (document as the
+  classical-SW convolution-BV door); (c) terminal informative
+  failure (now enriched: TWO kernel-checked design refutations).
+  EXECUTORS NOT DISPATCHED pending the call.
