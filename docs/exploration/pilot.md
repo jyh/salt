@@ -2207,3 +2207,20 @@ decisions per question.
   simply unsatisfiable-at-op, now documented); the honest
   one-hypothesis no-go remains the landed deficit_floor_of_certs.
   **B1 (the flagship bet) OPENS: the scoping recon dispatched.**
+
+- 2026-07-17 ~02:40 (SPRINT 2): ██ **A1 IS LANDED —
+  zeta_local_density: THE FIRST EFFECTIVE LOCAL ZERO-DENSITY IN A
+  PROOF ASSISTANT** ██ (A1-BRIDGE ≈ 129k / 26 tools, first
+  attempt). BoxCompose.lean (226 lines): the count-spelling bridge
+  (Zc_order_eq_zeta off the pole), the finiteness via the compact
+  route (cheaper than the divisor plumbing), the fold fed —
+  **zeta_full_box_count : zBoxCount (zBoxFull t) ≤
+  2·zetaBoxConst·log(|t|+2)** (C = 22/log(39/37) ≈ 418, WITH
+  multiplicity, + the cardinality corollary). THE REGISTERED
+  TRACK-A A1 — the exact statement Rb-4 named as the unreachable
+  keystone eight days... one day ago — IS A THEOREM, built in 4
+  nodes / ~680k, all first-attempt: BoxCount (the pole collapse) +
+  BoxFold (the completed-FE fold) + ZetaLogBound (C = 36, no upper
+  σ-cap) + the bridge. The A1 outcome line: RESOLVED. Remaining
+  Track A: T-lo′ (in flight) → T-1ζ′ → T-Mμ → THE TROPHY.
+  Ceremony: wired + 3 keystones — full build exit 0 (9020 jobs).
