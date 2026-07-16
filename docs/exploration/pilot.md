@@ -3001,3 +3001,33 @@ decisions per question.
   (3 defects: guessed names ×2, pipe-masked exit ×1) goes to the
   sprint report — the executors' rate remains ZERO. **Wave 1.5
   (Kernel/Basic) + the HB2 gate dispatch.**
+
+- 2026-07-17 ~20:50 (SPRINT 2): **DECOMP LANDS ITS PIECES — AND
+  FIRES THE TRIPWIRE ON THE TYPE-II CHAIN: HALT #2, A HOUSE
+  COMBINATOR DEFECT** (S2-B3-DECOMP ≈ 249k / 48 tools, 1 attempt,
+  10 decls axiom-clean). Landed: the vP3 dyadic partition
+  IDENTITY (vP3_eq_dyadicPartition), the Finset-sum
+  seqDiscrepancy engine, per-block CoeffAt (μ-side k=0, tii-side
+  k=1 w/ scale hypothesis), hcount (p=1), hdecomp_dyadic. THE
+  FLAG (outside the enumerated case space ⟹ III.3‴ FIRES): the
+  house combinator pieceObligationU_of_multiblock demands every
+  block balanced AT THE GLOBAL SCALE (hwin: NM ∈ [x/4, x]) — but
+  vP3 lives on n ∈ (x^{2/3}, x], and window-blocks cannot cover
+  (x^{2/3}, x/4]: hwin ∧ hdecomp JOINTLY UNSATISFIABLE for vP3
+  (concrete witness: vP3(pq) ≠ 0 at pq ≤ x/4). THE DEFECT IS THE
+  HOUSE'S (the combinator freeze tied the window to the global x;
+  the classical treatment needs an n-dyadic outer split with GEH
+  at the LOCAL scale + the large-q trivial tail per block — a
+  combinator interface change, Fable-tier, est +150–250k). The
+  executor's partition package is exactly what the re-plumb
+  would consume. NOTE: the wave-1-commit sweep (~20:10) had
+  committed a mid-run snapshot of this file (house slip #4,
+  git add -A during an active executor — snapshot was green and
+  sorry-free, no contamination; rule: NEVER git add -A while
+  executors run). Ceremony: grep clean, wired, full build exit 0
+  (9051 jobs). **THE DOOR DECISION (JYH) NOW READS: full close =
+  PpLevel (~200–300k) + SmallQTypeII 2–4 (~300–500k) + the
+  n-dyadic combinator re-plumb (~150–250k) ≈ 0.65–1.05M; close
+  now = the door with obligations {hdom, PpLevel, SmallQTypeII}
+  + WindowPNT, all named and priced, the partial machinery landed
+  as assets.** House recommendation UNCHANGED: close now.

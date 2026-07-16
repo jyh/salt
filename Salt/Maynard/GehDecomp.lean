@@ -111,7 +111,8 @@ theorem seqDiscrepancy_congr_Icc {f g : ℕ → ℝ} {y : ℕ} (q : ℕ)
 /-- **Disjoint dyadic interval cover.**  The intervals `(2^a c, 2^{a+1} c]`,
 `a < W`, partition `(c, 2^W c]`: summing their indicators gives `1_{(c, 2^W c]}`. -/
 theorem dyadic_cover (c d W : ℕ) :
-    ∑ a ∈ Finset.range W, (if d ∈ Finset.Ioc (2 ^ a * c) (2 * (2 ^ a * c)) then (1 : ℝ) else 0)
+    ∑ a ∈ Finset.range W,
+        (if d ∈ Finset.Ioc (2 ^ a * c) (2 * (2 ^ a * c)) then (1 : ℝ) else 0)
       = if (c < d ∧ d ≤ 2 ^ W * c) then (1 : ℝ) else 0 := by
   induction W with
   | zero => simp
@@ -166,8 +167,8 @@ theorem vP3_eq_dyadicPartition {x : ℕ} (hx : 1 ≤ x) {n : ℕ} (hn : n ≤ x)
   unfold dconv
   rw [Finset.sum_comm]
   refine Finset.sum_congr rfl (fun d hd => ?_)
-  have hdx : d ≤ x :=
-    le_trans (Nat.le_of_dvd (Nat.pos_of_mem_divisors hd) (Nat.dvd_of_mem_divisors hd)) hn
+  have hd' := Nat.mem_divisors.mp hd
+  have hdx : d ≤ x := le_trans (Nat.le_of_dvd (Nat.pos_of_ne_zero hd'.2) hd'.1) hn
   rw [← Finset.sum_mul, sum_muBlock_eq hx hdx]
 
 /-- **The Type-II block subadditivity (`hdecomp`).**  The `y`-cutoff discrepancy
@@ -230,7 +231,8 @@ theorem abs_tiiBlock_le {b x m : ℕ} (hscale : 2 * nScale b x ≤ x) (hx : 2 �
   · rw [abs_of_nonneg (Salt.LS.typeIIData_nonneg _ _)]
     have hmpos : 1 ≤ m := by have := (Finset.mem_Ioc.mp hmem).1; omega
     have hmx : m ≤ x := le_trans (Finset.mem_Ioc.mp hmem).2 hscale
-    have hlogx0 : (0 : ℝ) ≤ Real.log x := Real.log_nonneg (by exact_mod_cast (by omega : 1 ≤ x))
+    have hlogx0 : (0 : ℝ) ≤ Real.log x :=
+      Real.log_nonneg (by exact_mod_cast (by omega : 1 ≤ x))
     have hcard1 : (1 : ℝ) ≤ (m.divisors.card : ℝ) := by
       have : 0 < m.divisors.card := Finset.card_pos.mpr ⟨1, Nat.one_mem_divisors.mpr (by omega)⟩
       exact_mod_cast this
