@@ -2753,3 +2753,25 @@ decisions per question.
   — adopts the A-R0 recon's §5 spec verbatim: the PFR port, the
   frozen API = (3.1)–(3.7), the 4-node wave 1, the consumer test).
   **S3-A1-GATE dispatched** into the freed slot (6th).
+
+- 2026-07-17 ~15:30 (SPRINT 3): **B-R0 ADJUDICATED:
+  PLACEABLE-NARROWED** (S3-B-R0 ≈ 92k / 21 tools). Heath-Brown
+  1983: full theorem research-scale (~85–165 nodes; D-tier at the
+  χ-twisted weight main term + assembly), BUT the substrate reuse
+  is the PROJECT'S HIGHEST (~70–85%): the linear lower sieve
+  (Chen), the ENTIRE Siegel/exceptional stack (SW), and the
+  char-large-sieve (LS) are all landed — the 2026-07-12 memo's
+  "document-don't-attempt" predates them. NARROWED 2-day target:
+  HB-R1 (the disciplined statement — the ∀c∃ hypothesis form, the
+  swat_vacuous-shaped ∃∀ trap explicitly diagnosed and banned;
+  β < 1 required; non-vacuity verified against the corpus's own
+  carve-outs) + HB-R2 (the μ↔χ correlation core — the landed
+  psi1_char_bound residue EXPLOITED instead of killed). R4 audit
+  THOROUGH: three independent non-contradiction arguments vs the
+  parity wall (certificate-blindness vs character-sightedness;
+  MmuRate is ζ-governed and stays TRUE under the hypothesis; the
+  corpus deliberately carves out the exceptional zero) — the
+  mandated docstring frame recorded. STRATEGIC: A ≈ reuse-0, B ≈
+  reuse-max — the two endpoints of the sprint's registered
+  measurement axis; the recon argues SPLIT at the checkpoint.
+  CHECKPOINT DATA COMPLETE (both recons in) → JYH.
