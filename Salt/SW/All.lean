@@ -36,6 +36,7 @@ import Salt.SW.Fold
 import Salt.SW.Gate
 import Salt.SW.BoxCount
 import Salt.SW.BoxFold
+import Salt.SW.ZetaLogBound
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -147,3 +148,4 @@ open Salt.Tactic in
   Salt.SW.Zc_sphere_bound_wide
   Salt.SW.zeta_analyticOrderAt_one_sub Salt.SW.zeta_zero_one_sub_iff
   Salt.SW.zeta_fe_factor_ne_zero Salt.SW.zeta_box_count_full
+  Salt.SW.zeta_log_bound Salt.SW.tail_psum_le

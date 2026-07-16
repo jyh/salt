@@ -2156,3 +2156,17 @@ decisions per question.
   G-U-CAP (the ONE-HYPOTHESIS deficit, B). The declared terminal:
   the sharper no-go (conditional on GAP-E alone) — B1's companion.
   The GAP-U gate dispatched.**
+
+- 2026-07-17 ~01:00 (SPRINT 2): **A2a LANDS — TRACK A WAVE 1
+  COMPLETE, four for four, all first-attempt** (cost ≈ 242k / 46
+  tools). ZetaLogBound.lean (301 lines): **zeta_log_bound —
+  ‖ζ(σ+it)‖ ≤ 36·log(|t|+2) on σ ≥ 1 − 1/log(|t|+2), |t| ≥ 2,
+  NO UPPER σ-BOUND** (stronger than briefed — the executor checked
+  honestly that the estimates hold for all σ above the line); the
+  route exactly as the recon priced (Zc_eq_series + the telescope +
+  harmonic_le_one_add_log; tail via AntitoneOn.sum_le_integral).
+  The III.3″ witness in-file. Wave-1 totals: A1-ab 181k + A1-c
+  185k + A2a 242k + the fork 144k ≈ 752k — UNDER the recon's
+  estimates, all first-attempt. **T-lo′ (the trophy chain opens) +
+  A1-BRIDGE dispatched.** Ceremony: wired + 2 keystones — full
+  build exit 0 (9019 jobs).
