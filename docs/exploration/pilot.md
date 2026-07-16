@@ -2866,3 +2866,20 @@ decisions per question.
   blocking, 5 sites) — the corpus's canonical spelling restored;
   push_neg deprecated → push Not. **HB1-EXEC dispatched** with the
   gate's corrected block + proven bodies as the brief annex.
+
+- 2026-07-17 ~18:00 (SPRINT 3): **A-R1 WAVE 1 LANDS — Salt/Entropy
+  EXISTS** (S3-A1-W1 ≈ 78k / 24 tools, first attempt, zero flags).
+  Five files: FiniteRange (the scaffolding port) + the four patch
+  residues (MeasureDirac/MeasureReal/UniformOn/
+  ConditionalProbability — all genuine ports, none aliasable;
+  grep-confirmed absent from v4.32) + the verbatim
+  LICENSE-PFR-Apache-2.0; every file carries the constructed A3
+  attribution header (PFR © 2023, commit a177b2e4, per-file
+  modification notices). Drift fixes: 2 inlined one-liners
+  (prod_apply_singleton, ncard_inter_singleton — their parent
+  residues MeasureProd/SetCard deliberately left for W1-2 to own).
+  House ceremony: Salt/Entropy/All.lean created (the aggregate +
+  #audit_axioms block, 5 keystones) and wired into Salt.lean —
+  the corpus's NINTH track. Full build exit 0 (9040 jobs). **W1-2 (the whole
+  of Measure.lean + the MeasureProd/SetCard residues) dispatches;
+  W1-3 (the kernel glue, C) queued behind the throttle.**

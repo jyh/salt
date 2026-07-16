@@ -10,4 +10,5 @@ import Salt.TwinBar.All
 import Salt.SW.All
 import Salt.Chen.All
 import Salt.Goldbach.All
+import Salt.Entropy.All
 import Salt.Tactic.All
