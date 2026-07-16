@@ -62,3 +62,4 @@ import Salt.Maynard.Lemma53Tight
 import Salt.Maynard.Complete
 import Salt.Maynard.Level
 import Salt.Maynard.LevelConsume
+import Salt.Maynard.GehDoor

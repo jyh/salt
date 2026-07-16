@@ -2519,3 +2519,26 @@ decisions per question.
   single sanctioned floor with the case product enumerated in the
   flag. **T-MU2 (the assembly) dispatches.** Ceremony: grep clean,
   wired + 3 keystones, full build exit 0 (9025 jobs), 3 axioms in-build.
+
+- 2026-07-17 ~09:30 (SPRINT 2): **D-N1 LANDED — GehDoor.lean: the
+  honest GEH_min is IN THE CORPUS, first attempt** (S2-B3-DN1 ≈
+  157k / 49 tools). The five RE-CUT defs verbatim (two cosmetic
+  coercion normalizations, both verified content-identical — the
+  verbatim forms also elaborate); seqDiscrepancy_nonneg +
+  GEH_min_antitone; the REQUIRED vacuity replay: the gate's
+  swat_vacuous strategy against the new SWAt breaks EXACTLY at the
+  ∃K-before-∀x boundary ("unknown identifier x" at the K-choice —
+  kernel-confirmed the RE-CUT excludes the defect by construction);
+  the zero-family inhabitation swat_zero_family; and — ABOVE
+  floor — the π-seam FULLY PROVEN: maxDiscrepancy ≤ seqDiscrepancy
+  (prime indicator) + ω(q)/φ(q), via three reusable lemmas
+  (residueSum_prime_eq_primesCount, primeMean_gap_le,
+  seqDiscrepancy_apply_le). Docstring honest per the design
+  (GEH_min ≤ P8b Claim 2.6, Motohashi anchor prose, WindowPNT
+  carried, ≤6 out). Executor friction notes for D-N2a/b/c
+  recorded (the seam is per-q and prime-indicator-specialized; the
+  SW-side mean-vs-x/φ(q) seam is a distinct D-N2b corner; the
+  cutoff in-door is 4·N·M). Ceremony: grep clean, wired into
+  Maynard/All, full build exit 0 (9026 jobs). **D-N2a (AP-Vaughan) + D-N2b
+  (r-uniform SW) + D-N2c (the π-seam consumer) DISPATCH — with
+  TMU2 that is 4/4 slots, the throttle ceiling.**
