@@ -2683,3 +2683,14 @@ decisions per question.
   with its obligations flagged non-elementary). RECOMMENDATION:
   amend. DECISION → JYH (the chain remains HALTED; restart +
   statement change + budget all require sign-off).
+
+- 2026-07-17 ~13:20 (SPRINT 2): **THE GEH CLOSE LAUNCHES (JYH: "I
+  sanction the amendment and fund the close").** The Zeno halt
+  lifts on sign-off. Wave 1 (3/4 slots): S2-B3-AMEND (the
+  house-authored GEH_min uniformization — SWAtData + ∃BC-before-∀
+  family + the y-uniform cutoff, with the vacuity probe re-run and
+  the ≤P8b audit as landing requirements, GehVaughan repaired in
+  the same pass), S2-B3-TYPEI (hHead + the elementary Type-I tail,
+  GehTypeI.lean), S2-B3-SW (the typeIIData SW supplier via the
+  two-range split, GehSW.lean). Wave 2 after AMEND lands:
+  hdom-multiblock + N-I-mid + the hbridge rewire + D-N3.
