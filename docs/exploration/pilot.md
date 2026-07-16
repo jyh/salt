@@ -2648,3 +2648,38 @@ decisions per question.
   (SW/All + TwinBar/All + the audit block), full build exit 0
   (9030 jobs), in-build: mmuRate_holds [3 axioms],
   parity_wall_unconditional [3 axioms].
+
+- 2026-07-17 ~12:50 (SPRINT 2): **THE BOUNDARY RECON ADJUDICATED —
+  the escape VERIFIED; the true wall is the frozen GEH_min's OWN
+  WEAKNESS; full close viable on one Fable-tier amendment**
+  (S2-B3-RECON2 ≈ 167k / 12 tools). (1) The house escape CONFIRMED
+  at θ = 3999/4000 (δ = 1/8000, ε = 1/16000: mid blocks in-window;
+  the tail at x^{7999/8000} elementary AND y-uniform-safe; the
+  smooth factors satisfy the landed SWAt at j = 1 with the ∃K-
+  before-∀x order genuinely non-vacuous) — the "beyond-2/3
+  Type-I / Kloosterman" worry is REFUTED: Type I never needs deep
+  technology (mid → GEH, tail + head → elementary counting, both
+  verified). (2) THE REAL WALL: every non-head piece needs GEH
+  applied over an x-GROWING dyadic block count with UNIFORM
+  constants and at ALL cutoffs y — the frozen GEH_min (∃ B C
+  after ∀ family; single top cutoff) supplies neither; hdom-as-
+  single-block is UNSATISFIABLE as landed. (3) Both missing
+  features are FAITHFUL to P8b Claim 2.6 (the implied constant
+  depends only on the fixed data; the bound is used at all
+  scales) — the frozen form was a mis-transcription that is too
+  WEAK; uniformizing is a correction TOWARD faithfulness, still
+  ≤ P8b (honest direction preserved), but it is a STATEMENT
+  CHANGE (Fable/human-tier) re-triggering the swat_vacuous/III.4
+  re-verification. (4) Everything else PRICED AND CLEAR: hHead
+  elementary (verified, no GEH); hbridge CLOSES (LambdaLevelU is
+  exactly the supply D-N2c lacked; the pp-in-AP sums verified:
+  √x·log² + x^θ·log ≪ x/log^A); hSW-typeIIData closes via the
+  two-range split (small q ≤ log^{A+1} → the landed
+  siegelWalfisz_holds via Möbius-over-c; large q → the trivial
+  bound BEATS M/log^A because q > log^{A+1} — no intermediate
+  gap). VERDICT: FULL-CLOSE-VIABLE on the amendment — ALL
+  remaining obligations B/C, NO D-tier, ~0.9–1.1M total (6-step
+  resume plan on file); without it, the honest partial (the door
+  with its obligations flagged non-elementary). RECOMMENDATION:
+  amend. DECISION → JYH (the chain remains HALTED; restart +
+  statement change + budget all require sign-off).
