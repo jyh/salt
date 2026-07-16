@@ -1530,3 +1530,20 @@ decisions per question.
   **G-ROWSLIVE ∥ G-BANDENG dispatched (file-disjoint, both consume
   landed material only); then G-ASM.** Ceremony: wired + 3
   keystones — full build exit 0 (8982 jobs).
+
+- 2026-07-16 ~02:55: **G-BANDENG COMPLETE, first pass — the sym/low
+  legs close structurally; everything funnels through the single
+  two-T price** (cost ≈ 142k tokens / 36 tools / ~13 min).
+  Salt/Goldbach/BandEng.lean (250 lines, 6 theorems):
+  gold_band_price_sym/low (the hdiffK pricers — the annulus
+  telescope via norm_sub_le, NOT box_disc_three_way: the Goldbach
+  band telescopes over the CUTOFF axis carrying the full carrier,
+  the twin never needs this); gold_hdiffK_sym/low_discharge
+  (kernel-typechecked INTO SW2's slots — byte-match verified, not
+  asserted); gold_band_annulus_absorb (the ^13 → ^12 log absorb);
+  gold_band_hsym_slot (gold_hSum_at_op's hsym/hlow inputs
+  VERBATIM). The one open input: the two-T single price = the SAME
+  live-geometry op work G-ROWSLIVE is doing for the box leg
+  (deliberately not duplicated). CONVERGENCE: the entire remaining
+  A₃ analytic content now funnels through G-ROWSLIVE's row bundle.
+  Ceremony: wired + 6 keystones — full build exit 0 (8983 jobs).

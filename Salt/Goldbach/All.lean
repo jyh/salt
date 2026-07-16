@@ -32,6 +32,7 @@ import Salt.Goldbach.D0Win
 import Salt.Goldbach.BoxRows2
 import Salt.Goldbach.D0Win2
 import Salt.Goldbach.BoxRows3
+import Salt.Goldbach.BandEng
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -146,3 +147,7 @@ open Salt.Tactic in
   Salt.Goldbach.gold_box_price_live_kerr
   Salt.Goldbach.gold_box_price_dead_kerr
   Salt.Goldbach.gold_hSum_discharged
+  Salt.Goldbach.gold_band_price_sym Salt.Goldbach.gold_band_price_low
+  Salt.Goldbach.gold_hdiffK_sym_discharge
+  Salt.Goldbach.gold_hdiffK_low_discharge
+  Salt.Goldbach.gold_band_annulus_absorb Salt.Goldbach.gold_band_hsym_slot
