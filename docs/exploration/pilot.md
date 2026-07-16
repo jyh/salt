@@ -1733,3 +1733,24 @@ decisions per question.
   gold_hBVblocksW_at_op. G-GLUE dispatched — pure composition, all
   pieces byte-locked. Then G-ASM. Ceremony: wired + 4 keystones —
   full build exit 0 (8991 jobs).
+
+- 2026-07-16 ~10:00: **G-GLUE: the hprice/hbox glue LANDS + CATCH-
+  THE-HOUSE #4 — the tail's Term B disproven at the claimed bound**
+  (cost ≈ 242k / 54 tools; Glue.lean 208 lines landed: goldPrice
+  piecewise + gold_box_hprice_at (the 3-way split COMPILED, slot-
+  verbatim) + gold_box_hbox_at). THE CATCH: the house's
+  "M ≤ √(2XM/z)" was BACKWARDS — the live floors force M ≈
+  4XM/(zy) ≈ N^{0.5357}; Term B = Σ M·bnd ≈ N^{1.03} per live-low
+  box (also: the live-low deficit is N^{0.006} from opDlev, not the
+  N^{2ε} the brief said — both house errors). **HOUSE FIX
+  (III.3″-verified at the worst case): the MIN-SIDE COUNT** — the
+  trivial AP bound counts over EITHER side of the bilinear pair;
+  min(X,Y) ≤ √(XM) < opQ·bnd·L^18 on live-low ⟹ Term B ≤
+  opQ·bnd²·L^18 ≈ N^{0.994}L^18 ≪ N/L^11 at e^{6·10^6} vs e^{228};
+  Term A unchanged. Executor-tier (the p-side count is symmetric to
+  Tail.lean's m-side; min² ≤ XY elementary). Band gap (2): NO
+  live-low issue — the band rectangles are top-grade (X ≈ N/2),
+  the wide window covers the conductor; the mirror is
+  RowsWide-pattern. G-FINAL dispatched (the min fix + the band
+  mirror + the terminal composition; pre-authorized split).
+  Ceremony: wired + 2 keystones — full build exit 0 (8992 jobs).
