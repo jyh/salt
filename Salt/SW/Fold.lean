@@ -267,7 +267,7 @@ theorem psi1AP_main_bound : ∀ A C : ℝ, 0 < A → 0 < C → ∃ K x₀ : ℝ,
     -- ‖ψ₁(x, χ₁)‖ ≤ (Kbig+1) x² e^{−c5√L}
     have hchip_bound : ‖psi1Chi x χ.primitiveCharacter‖
         ≤ (Kbig + 1) * x ^ 2 * Real.exp (-(c5 * Real.sqrt (Real.log x))) := by
-      rcases hdisp with hclean | ⟨β₁, hz, _horder, hsq, ⟨hβlo, hβhi⟩, hbnd⟩
+      rcases hdisp with hclean | ⟨β₁, hz, _horder, hsq, ⟨hβlo, hβhi⟩, _hβwin, hbnd⟩
       · -- clean branch
         calc ‖psi1Chi x χ.primitiveCharacter‖
             ≤ Kc * x ^ 2 * Real.exp (-(cc * Real.sqrt (Real.log x))) := hclean

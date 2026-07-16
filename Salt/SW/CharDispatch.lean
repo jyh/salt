@@ -330,6 +330,7 @@ theorem psi1_char_bound :
           ∨ (∃ β₁ : ℝ, LFunction χ (β₁ : ℂ) = 0 ∧
               analyticOrderAt (LFunction χ) (β₁ : ℂ) = 1 ∧ χ ^ 2 = 1 ∧
               (9 / 10 ≤ β₁ ∧ β₁ < 1) ∧
+              1 - (1 / 5000) / Real.log (4 * (q : ℝ)) ≤ β₁ ∧
               ‖psi1Chi x χ + (x : ℂ) ^ ((β₁ : ℂ) + 1) / ((β₁ : ℂ) * ((β₁ : ℂ) + 1))‖
                 ≤ K₄ * x ^ 2 * Real.exp (-(c₄ * Real.sqrt (Real.log x)))) := by
   obtain ⟨c₀, hc₀pos, hc₀⟩ := zero_free_region_all
@@ -524,7 +525,7 @@ theorem psi1_char_bound :
       have heqβ : ρ.re = β₁ := (landau_one_exceptional_at hχprim hχ1 hzρ hz hρwin hβwin).1
       rw [hρeq, heqβ]
     -- assemble the exceptional bound
-    refine Or.inr ⟨β₁, hz, hsimple, hsq, ⟨hβ90, hβ1lt⟩, ?_⟩
+    refine Or.inr ⟨β₁, hz, hsimple, hsq, ⟨hβ90, hβ1lt⟩, hβwin, ?_⟩
     exact le_trans
       (psi1_contour_shift_exceptional χ hχprim hq2 hx hTge2 hwpos hσ''w hσ''1 hσ''βsep hβ1lt
         hsimple hzfexc)

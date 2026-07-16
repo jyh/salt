@@ -3081,3 +3081,56 @@ decisions per question.
   (recon refutes house) — FIVE design-tier catches on one door,
   zero wrong proofs, every halt at the doctrine's letter.
   Ceremony: grep clean, wired, full build exit 0 (9053 jobs).
+
+- 2026-07-17 ~22:20 (SPRINT 3): **THE HB2 GATE: GO-WITH-APPENDIX-A
+  — the gate authored AND proved the P1 statements** (S3-HB2-GATE
+  ≈ 107k / 23 tools). The house's in-freeze self-refutation
+  CONFIRMED by independent rederivation (the window nonemptiness
+  threshold: (1−β)(log q+2)² ≤ log(3/2)/16 ≈ 0.0253); the weakest
+  sufficient coupling chosen ((1−β)(log q)² < c in ∀c∃ form,
+  auto-entailing q → ∞); the honesty bridge
+  siegelSequence_implies_infinitely PROVEN SORRY-FREE in the
+  gate's probe; the dichotomy statement elaborates. THE HONESTY
+  FINDING (binding on the writeup): SiegelSequence is STRICTLY
+  STRONGER than Tao Thm 4's first-power hypothesis — the extra
+  log power is a CORPUS ARTIFACT of the dispatcher's √log x box
+  floor, not number theory; the P1-is-a-theorem check ran and
+  FAILED honestly (Siegel's ineffective bound points the wrong
+  way); HeathBrownStatement stays DECOUPLED from HB2-c (the box
+  upgrade = the HB-R3+ door). CHARGE-3 RESOLUTION: the
+  β-identification requires exposing the already-proven Landau
+  window bound in psi1_char_bound's exceptional disjunct — the
+  3-line house amendment (CharDispatch 332/527 + Fold 270)
+  APPLIED (statement STRENGTHENING, house-tier; hβwin was in
+  scope at the assembly site as the gate said); build pending.
+  Residue arithmetic verified at x²/3 outright (the x²/4 hedge
+  unnecessary). HB2-EXEC dispatches on the build.
+
+- 2026-07-17 ~22:22 (SPRINT 3): **THE GEH FULL CLOSE → THE
+  END-OF-SPRINT REVIVAL QUEUE (JYH: "let's decide whether to
+  revive the full close at the end of the sprint").** The three
+  sub-rungs (the n-dyadic combinator re-plumb 150–250k; PpLevel
+  root-counting 200–300k; SmallQTypeII steps 2–4 300–500k) are
+  parked as revival candidate #1 at sprint-3 termination,
+  alongside the earlier queue. Decision criteria at termination:
+  remaining quota vs the spine's rung position (an A-R2/A-R4
+  push outranks the door polish; a stalled spine makes the door
+  the best use of the tail).
+
+- 2026-07-17 ~22:40 (SPRINT 2, post-close asset): **TAIL LANDS
+  tail_obligation_vP1 — and corrects the obligation map**
+  (S2-B3-TAIL ≈ 291k / 84 tools). The Type-I₁ smooth-AP tail
+  bound PROVEN at the full x^{7999/8000}·polylog saving (the
+  congCount_bound + Abel route as designed; reusable per-divisor
+  machinery landed). vP2tail FLAGGED NON-ELEMENTARY (the recon's
+  "easier, pure counting" was WRONG — catch, recon-tier): the
+  inner factor L_V(m) = Σ_{c|m, c≤V} Λ(c) has total variation
+  M·log V and its AP-cancellation is SW-strength; the honest
+  route is the SW supplier, and the vP2 tail/mid split is a
+  Fable-tier design call. MAP CORRECTION (the closed door's
+  docstring stands — hTypeI2 was already a named obligation; its
+  interior decomposition shifts): hTypeI1 = the landed tail +
+  the mid (combinator re-plumb); hTypeI2 = SW-supplier-shaped
+  end-to-end. The x = 0 seam note for pieceObligationU_add
+  recorded. Ceremony pending the in-flight amendment build (one
+  combined build + commit).
