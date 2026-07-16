@@ -2811,3 +2811,28 @@ decisions per question.
   per-block CoeffAt + the O(log²x) count). Ceremony: grep clean,
   wired, full build exit 0 (9031 jobs). TYPEI/SW/BRIDGE files all on disk;
   their reports pending — ceremonies on arrival.
+
+- 2026-07-17 ~16:30 (SPRINT 3): **THE A1 GATE: GO-WITH-AMENDMENTS**
+  (S3-A1-GATE ≈ 67k / 19 tools). All frozen API names verified at
+  PFR a177b2e4; Apache-2.0 confirmed; drift LOW (one rc). FOUR
+  CATCHES against the freeze: the dependency closure was
+  understated (~2k hidden lines; the frozen-subset port drops
+  Uniform/CondIndep, keeps the C-tier Disintegration glue); no
+  upstream headers exist (attribution CONSTRUCTED, commit-pinned);
+  the wave-1 cut had a same-file collision (re-cut to 2 lanes);
+  the consumer test pinned to the R.V. triple. Amendments applied
+  to the design; **W1 dispatches** (W1-1+W1-P combined).
+
+- 2026-07-17 ~16:35 (SPRINT 2): **TYPEI ceremonied** (grep clean,
+  wired, build pending at entry time — exit recorded on the
+  commit): hHead DISCHARGED (head_obligation — vErr = Λ on the
+  head, both q-ranges elementary); the reusable per-q machinery
+  (seqDiscrepancy_le_two_G_of_lt, power_log_absorb — explicit
+  threshold-free constants); the tail SUBTRACTION interface
+  (vP1tail/vP2tail/vP1mid + vP1_eq_tail_add_mid). The tail BOUND
+  flagged at 1 attempt (long support → needs smooth-AP
+  equidistribution: congCount_bound + Abel, C-tier ~300–500
+  lines — the recon's own route, cost corrected, NO new case).
+  **S2-B3-TAIL dispatches** (the smooth-AP supplier). Zeno note:
+  residual #1 on the post-amendment plan (the cost-corrected tail);
+  a second consecutive residual on this chain halts it again.
