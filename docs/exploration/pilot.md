@@ -3172,3 +3172,17 @@ decisions per question.
   status lines flipped; the writeup's evidence base for the
   method chapters is now two signed sprint reports + the pilot
   ledger.
+
+- 2026-07-17 ~23:45 (SPRINT 3): **A-R2 DESIGN FROZEN
+  (s3-a2-design.md) — THE BOUNDARY RUNG OPENS.** The mandatory
+  ChowlaRegime structure (every parameter + inequality in ONE
+  structure; field-to-field lemmas only; the hHtower placeholder
+  is a gate deliverable — its reaching an executor is a NO-GO
+  condition); the four frozen defs (logMeasure/liouvilleWindow/
+  PH/residueWindow) + the entropy_decrement headline; four waves
+  (~1.3M vs the recon's 1.5–2.5M) with the could-spike-D
+  concatenation node's Fable-block protocol restated; the
+  quantifier-polarity audit charged (the ∃H-vs-∀H-failure
+  negation — the swat_vacuous precedent); the auto-eta brief
+  binding. **S3-A2-GATE dispatched** (page-image transcription of
+  the regime hypothesis list is charge #1).
