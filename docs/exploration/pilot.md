@@ -1310,3 +1310,24 @@ decisions per question.
   count fold to the seam shape. Ceremony: wired + 9 keystones —
   full build exit 0 (8971 jobs). **G-OMEGA ∥ G-OP2 DISPATCHED; then
   G-ASM.**
+
+- 2026-07-15 ~21:30: **G-OMEGA COMPLETE — the accounting gap closes,
+  first attempt** (cost ≈ 256k tokens / 55 tools / ~29 min vs 300k).
+  Salt/Goldbach/Omega.lean (527 lines): goldOmegaPrimeSum (the A₂
+  omega carrier at the reflected value), goldOmegaPrimeSum_decomp
+  (over the PUNCTURED window — forced by the per-prime Coprime p N
+  split; sound because window primes exceed y, the new
+  gold_op_Yhalf fact), goldA2W_hcoef (rfl-grade),
+  gold_a12_hBV_A2, **gold_a12_hA2** (the A₂ op bundle — the
+  chen_of_hypotheses_W mainA2 slot's exact Goldbach shape). TWO
+  INTRINSIC BYTE-LOCKS FOR G-ASM: (1) **the residue is parametric
+  a, NOT opA** — the A₂ mod-transfer needs Coprime opQ (N−a), which
+  opA = opQ−1 does not satisfy; the gold_op_residue witness supplies
+  both coprimalities and must feed A₁/A₂/A₃ UNIFORMLY — and
+  gold_a12_hA1 is currently hardcoded to opA, so **G-ASM needs a
+  general-a A₁ instance** (re-invoke the A₁ chain at the witness);
+  (2) the punctured aggregation window. New helpers with no landed
+  analogue: gold_factors_ge_z_of_sift, goldOpP_pfull, gold_op_Yhalf.
+  Ceremony: wired + 7 keystones — full build exit 0 (8972 jobs).
+  G-OP2 in flight; G-ASM's brief carries both byte-locks + the
+  general-a A₁ requirement.

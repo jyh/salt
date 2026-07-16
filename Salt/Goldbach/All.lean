@@ -21,6 +21,7 @@ import Salt.Goldbach.CountFinal
 import Salt.Goldbach.SW2
 import Salt.Goldbach.PDiag
 import Salt.Goldbach.Op
+import Salt.Goldbach.Omega
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -110,3 +111,7 @@ open Salt.Tactic in
   Salt.Goldbach.gold_op_count_rows Salt.Goldbach.gold_op_hCE
   Salt.Goldbach.gold_opQ_squarefree Salt.Goldbach.gold_opQ_even
   Salt.Goldbach.gold_opQ_coprime_P
+  Salt.Goldbach.goldOmegaPrimeSum_decomp Salt.Goldbach.goldA2W_hcoef
+  Salt.Goldbach.gold_a12_hBV_A2 Salt.Goldbach.gold_a12_hA2
+  Salt.Goldbach.gold_op_Yhalf Salt.Goldbach.gold_factors_ge_z_of_sift
+  Salt.Goldbach.goldOpP_pfull

@@ -98,6 +98,7 @@ min FIN-A3b at 147k — the mechanical restatements).
 | Q6b-DOOR | 182 | TwinB_min + the dichotomy; the slate closes |
 | G-PDIAG | 235 | the terminal discharge; the band re-cut closes |
 | G-OP | 244 | the op layer; the omega accounting gap; hlogNz verified in anger |
+| G-OMEGA | 256 | the A₂ carrier; the parametric-residue byte-lock |
 
 Exploration total so far ≈ **1.54 M**; recon median ≈ 100k; probe
 median ≈ 200k. (Q2-ASM in flight at recording time.)
