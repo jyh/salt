@@ -34,6 +34,7 @@ import Salt.Goldbach.D0Win2
 import Salt.Goldbach.BoxRows3
 import Salt.Goldbach.BandEng
 import Salt.Goldbach.RowsLive
+import Salt.Goldbach.DSplit
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -155,3 +156,4 @@ open Salt.Tactic in
   Salt.Goldbach.gold_op_scales Salt.Goldbach.gold_box_zx_rows
   Salt.Goldbach.gold_box_wge Salt.Goldbach.gold_box_Mfloor
   Salt.Goldbach.gold_box_Xfloor Salt.Goldbach.gold_box_rows_at_op
+  Salt.Goldbach.gold_dsplit_head_cap_below_conductor

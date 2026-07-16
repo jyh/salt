@@ -1572,3 +1572,32 @@ decisions per question.
   N/(log N)^11 — polynomial room. G-DSPLIT dispatched (the split +
   tail bound + the final hprice packaging); then G-ASM. Ceremony:
   wired + 6 keystones — full build exit 0 (8984 jobs).
+
+- 2026-07-16 ~04:15: **G-DSPLIT: STOP-AND-FLAG WITH A KERNEL-CHECKED
+  REFUTATION OF THE HOUSE ADJUDICATION — catch-the-house #2** (cost
+  ≈ 228k tokens / 38 tools / ~26 min; recon-first, the split items
+  correctly NOT built). THE CERTIFICATE
+  (gold_dsplit_head_cap_below_conductor, landed, 186 lines): the
+  ~03:40 adjudication's premise "top annuli need no tail" is FALSE —
+  it conflated the head cap 2w ≈ N^{7/16} = N^{0.4375} with the BV
+  conductor opD N ≈ N^{0.49991}; the top annulus (X·M ≈ 2N) carries
+  a non-empty tail whose mass is ≈ N, not a crumb — no constant
+  enlargement exists. THE REAL FIX (executor-identified,
+  house-verified THIS time by re-walking the twin's own closure):
+  gold_box_rows_at_op UNDER-EXPOSES the level — the engine admits
+  the WIDE window D·L^15 ≤ √(X·M), and the TWIN closes at its
+  conductor exactly this way (the ε = 9/10⁵ saving in opD eats the
+  L^15: at the tower, N^{0.00009} = e^{90000} vs L^15 ≈ e^{311}).
+  The wide-head re-derivation does NOT need to edit RowsLive — a
+  new file supersedes (the D0Win → D0Win2 pattern), following the
+  twin's wide derivations (the top annulus ≈ the twin's global
+  scale). With the wide head, tail-carrying annuli have goldCut ≤
+  N^{1−2ε}·polylog and the trivial tail absorbs at margin
+  e^{180000} vs (log N)^11 ≈ e^{228}. **G-ROWSWIDE dispatched**
+  (the wide-window rows + the split at cap_k = √(XM_k)/L^15 + the
+  hprice packaging). LEDGER NOTE: two house adjudication errors in
+  one arc (the "no re-certification"-adjacent omega gap was an
+  accounting miss; this one a LEVEL-SCALE conflation) — both caught
+  by executors running the satisfiability discipline against the
+  house; the asymmetric-catch data the method paper needs.
+  Ceremony: wired + 1 keystone — full build exit 0 (8985 jobs).
