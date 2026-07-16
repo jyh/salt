@@ -3031,3 +3031,16 @@ decisions per question.
   now = the door with obligations {hdom, PpLevel, SmallQTypeII}
   + WindowPNT, all named and priced, the partial machinery landed
   as assets.** House recommendation UNCHANGED: close now.
+
+- 2026-07-17 ~21:20 (SPRINT 3): **WAVE 1.5 LANDS — THE KERNEL
+  CHAIN RULE IS KERNEL-CHECKED** (S3-A1-W15 ≈ 121k / 22 tools,
+  zero flags, zero drift beyond the briefed finSupport rename ×4).
+  Salt/Entropy/Kernel/Basic.lean (457 lines): Hk[κ,μ], the kernel
+  entropy_compProd + chain_rule (the C-tier keystones), the full
+  36-name consumer contract for wave 2 recorded. Smart deviation
+  accepted: KernelComp NOT imported (upstream Basic.lean never
+  uses it; wave 2 will). Ceremony: grep clean, wired + 2
+  keystones, full build exit 0 (9052 jobs). **WAVE 2 (the FINAL
+  A-R1 wave: Kernel/MutualInfo + the R.V.-level Basic.lean —
+  delivering the FULL frozen API incl. the (3.1)/(3.5)/(3.7)
+  consumer triple) dispatches.**

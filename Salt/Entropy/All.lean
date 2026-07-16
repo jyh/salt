@@ -15,6 +15,7 @@ import Salt.Entropy.Mathlib.LebesgueCountable
 import Salt.Entropy.Mathlib.KernelComp
 import Salt.Entropy.Mathlib.KernelDisintegration
 import Salt.Entropy.Measure
+import Salt.Entropy.Kernel.Basic
 import Salt.Entropy.ConsumerTest
 import Salt.Tactic.AuditAxioms
 
@@ -44,5 +45,7 @@ open Salt.Tactic in
   ProbabilityTheory.measureEntropy_dirac
   ProbabilityTheory.measureEntropy_prod
   ProbabilityTheory.measureMutualInfo_nonneg
+  ProbabilityTheory.Kernel.entropy_compProd
+  ProbabilityTheory.Kernel.chain_rule
   ProbabilityTheory.Kernel.disintegration
   ProbabilityTheory.Kernel.condKernel_prod_ae_eq
