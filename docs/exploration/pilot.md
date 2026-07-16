@@ -1357,3 +1357,32 @@ decisions per question.
   defining equations before arithmetic, and linarith only [...]
   with explicit certificates (nlinarith only does NOT exist).
   Ceremony: wired + 1 keystone — full build exit 0 (8973 jobs).
+
+- 2026-07-15 ~22:50: **G-PRICE COMPLETE — the suppliers + scaffold
+  land first-pass; TWO SEAMS remain + an honest re-estimate** (cost
+  ≈ 231k tokens / 56 tools / ~25 min vs 450k; the friction memo
+  AVOIDED the whnf hazard entirely — zero cycles lost).
+  Salt/Goldbach/Price.lean (207) + PriceClose.lean (150):
+  gold_crtClassG_coprime_of_mem (the one genuinely-Goldbach
+  bookkeeping row); **gold_box_price_engine** (the box/sym/low
+  price — medium_survivor_price_sqrtD applied DIRECTLY at the two
+  annulus cutoffs; the twin's medium_box_price_at_op is NOT
+  annulus-reusable, its D0-window is hard-tied to L ≈ log x);
+  gold_tower_budget + gold_hNum_close_of_tower (x-generic twin
+  lemmas, verbatim); gold_mainA3_at_op (the parametric composition
+  scaffold, byte-locking G-ASM). HOUSE RE-ESTIMATE (the executor's
+  "even the twin's mainA3_at_op is unproven" grep finding is
+  name-level only — chen_headline IS proven, so the twin's actual
+  A₃-at-op discharge lives in the endgame's FIN-A3/FinLed chain
+  under other names): **the remaining Chen-2 critical path is the
+  two seams — (1) the per-annulus row discharge (the Goldbach
+  AggSum/FinA3 analogue at the annulus axis) and (2) the
+  block↔switch aggregation (gold_memClassG +
+  goldBlockSwitchSieveW_abs_rem_le → the budget) — then G-ASM.
+  These mirror the twin endgame's HEAVIEST stretch (the PRICE +
+  FIN-A3 + HCOUNT waves ≈ 4M tokens there); with the suppliers
+  landed and the engine generic, est. 2–4 nodes / 600k–1.2M here.
+  Chen-2 is NOT two nodes from done; it is one seam-wave + G-ASM.**
+  G-AGG dispatched (both seams, pre-authorized split; first task:
+  trace the twin's ACTUAL hA3_bundle chain backward from Headline4).
+  Ceremony: wired + 5 keystones — full build exit 0 (8975 jobs).
