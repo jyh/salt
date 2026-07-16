@@ -2973,3 +2973,31 @@ decisions per question.
   (GEH_min honest, the reduction kernel-checked, the obligations
   named and priced); the marginal 0.6–0.9M competes directly with
   the sprint-3 spine, which is the registered priority.
+
+- 2026-07-17 ~20:10 (SPRINT 3): ██ **A-R1 WAVE 1 COMPLETE — THE
+  MEASURE-LEVEL SHANNON ENTROPY API IS KERNEL-CHECKED IN SALT** ██
+  W1-2 (S3-A1-W2 ≈ 114k / 31 tools): the WHOLE 850-line
+  Measure.lean (measureEntropy/Hm[·], FiniteSupport,
+  measureEntropy_le_log_card/dirac/prod, measureMutualInfo +
+  nonneg) + SetCard + MeasureProd + the ConsumerTest (three
+  compiled examples). ZERO port-flags; TWO drift fixes, one
+  load-bearing: mathlib v4.32 now ships a TOPOLOGICAL
+  Measure.support colliding with PFR's finite-support Finset —
+  renamed finSupport (21 sites; the single collision caused ~35
+  cascade errors in attempt 1; downstream waves BRIEFED). W1-3
+  (S3-A1-W3, resumed after a corrupted first spawn — 0 tool
+  calls, garbage result; the resume executed clean ≈ 102k / 31
+  tools): KernelDisintegration (967 lines) + KernelComp + the two
+  Lebesgue residues (a load-bearing closure discovery: 6 lintegral
+  lemmas absent from v4.32, exclusively this lane's) — ZERO drift
+  fixes, first-try verbatim; the full chain_rule consumer contract
+  for wave 1.5 verified green. HOUSE CEREMONY: two MORE
+  house-side audit-name defects caught at build (the
+  MeasureTheory-vs-ProbabilityTheory namespace guess, and the
+  piped-exit-code trap — the EXACT trap the ceremony doctrine
+  documents — masked the first failure); both fixed with REAL
+  exit codes captured this time; full build exit 0 (9050 jobs),
+  12 keystones in-build. The house's ceremony error rate today
+  (3 defects: guessed names ×2, pipe-masked exit ×1) goes to the
+  sprint report — the executors' rate remains ZERO. **Wave 1.5
+  (Kernel/Basic) + the HB2 gate dispatch.**

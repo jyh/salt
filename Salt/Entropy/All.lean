@@ -8,6 +8,14 @@ import Salt.Entropy.Mathlib.MeasureDirac
 import Salt.Entropy.Mathlib.MeasureReal
 import Salt.Entropy.Mathlib.UniformOn
 import Salt.Entropy.Mathlib.ConditionalProbability
+import Salt.Entropy.Mathlib.SetCard
+import Salt.Entropy.Mathlib.MeasureProd
+import Salt.Entropy.Mathlib.LebesgueBasic
+import Salt.Entropy.Mathlib.LebesgueCountable
+import Salt.Entropy.Mathlib.KernelComp
+import Salt.Entropy.Mathlib.KernelDisintegration
+import Salt.Entropy.Measure
+import Salt.Entropy.ConsumerTest
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -32,3 +40,9 @@ open Salt.Tactic in
   MeasureTheory.Measure.prod_real_singleton
   ProbabilityTheory.uniformOn_real_singleton
   ProbabilityTheory.cond_real_apply
+  ProbabilityTheory.measureEntropy_le_log_card
+  ProbabilityTheory.measureEntropy_dirac
+  ProbabilityTheory.measureEntropy_prod
+  ProbabilityTheory.measureMutualInfo_nonneg
+  ProbabilityTheory.Kernel.disintegration
+  ProbabilityTheory.Kernel.condKernel_prod_ae_eq
