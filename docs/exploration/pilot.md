@@ -2835,3 +2835,23 @@ decisions per question.
   **S2-B3-TAIL dispatches** (the smooth-AP supplier). Zeno note:
   residual #1 on the post-amendment plan (the cost-corrected tail);
   a second consecutive residual on this chain halts it again.
+
+- 2026-07-17 ~17:05 (SPRINT 2): **SW LANDS ITS FLOOR — the large-q
+  half PROVEN, the SW-core flagged as SmallQTypeII** (S2-B3-SW ≈
+  270k / 43 tools, 1 design attempt). GehSW.lean (340 lines):
+  swAt_typeIIData — SWAt for the block-localized typeIIData family
+  (generic in scale M and cut V), large q > log^{A+1} x fully
+  proven (explicit K = 6 + 2·((A+1)/ε₀)^{A+1}; the trivial bound
+  BEATS M/log^A above the log-power floor exactly as the recon
+  verified — no intermediate-q gap); small q ≤ log^{A+1} x =
+  SmallQTypeII M V 3 (the Möbius/CRT nested-modulus reduction to
+  the landed siegelWalfisz_holds — the recon's plan-step-3 core).
+  j = 3 rationale recorded. THE ZENO JUDGMENT (house, on the
+  record): TYPEI's tail flag + SW's SmallQTypeII flag are NOT
+  tripwire events — both residuals are INSIDE the recon's
+  enumerated 6-step resume plan (steps 2 and 3), parallel-sibling
+  floors rather than sequential one-more-supplier discovery; the
+  case space has NOT grown. The tripwire stays armed: any residual
+  OUTSIDE the recon's enumeration, or a third layer under either
+  flag, HALTS the chain. **S2-B3-SMALLQ dispatches** (the
+  SmallQTypeII discharge — the door's last unpriced-at-C piece).
