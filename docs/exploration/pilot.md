@@ -2618,3 +2618,33 @@ decisions per question.
   tail trivial per-progression; all other blocks in-window at
   ε = 1/16000) — if it verifies, the obligations discharge FROM
   GEH_min itself and the door closes fully.
+
+- 2026-07-17 ~12:10 (SPRINT 2): ██████ **THE TROPHY. mmuRate_holds
+  IS A THEOREM — THE PARITY WALL IS UNCONDITIONAL** ██████
+  (S2-TMU2 ≈ 257k / 94 tools, ONE serious attempt, no floors).
+  MobiusRateClose.lean (1063 lines): the c-line friction DISSOLVED
+  (on Re > 1 the Dirichlet series gives ‖1/ζ‖ ≤ 1 + 1/(c−1) —
+  constant in t, the ψ-shape verbatim; zeta_inv_shallow's log⁷
+  needed only on the box where it is ≤ log⁷(T+2), also constant);
+  the residue-free Goursat (differentiability THROUGH s = 1 via
+  Zc ≠ 0 — no subtraction term anywhere); the budget at
+  s = (log x)^{1/10}, T = e^s, σ₀ = 1 − c₄′/log⁹(T+2) (savings
+  e^{−(c₄′/512)s}, all constants outside ∀x per III.4); the
+  de-smoothing at doubled saving 2A+2 with h = Y/log^{A+1}Y and
+  the trivial |μ| ≤ 1 increment. `example : Salt.TwinBar.MmuRate
+  := Salt.SW.mmuRate_holds` type-checks — the frozen Prop, byte-
+  exact. HOUSE DISCHARGE PASS (WallUnconditional.lean, additive
+  only): **parity_wall_unconditional** and
+  **no_parity_beating_certificate_unconditional** — the Q6a
+  headlines with the LambdaSummatory slot discharged through the
+  landed LambdaSummatory_of_MmuRate. THE REGISTERED TRACK-A
+  OUTCOME: **A1 + A2c = RESOLVED — the trophy criterion met.** The
+  Q6a debt (the Rb-4 obstruction, "the effective local
+  zero-density is unreachable") closed in FIVE first-attempt
+  landings: BoxCount→BoxFold→ZetaLogBound→BoxCompose (A1),
+  T-lo′, T-1ζ′, T-Mμ-F1, TMU2 — the arc that defeated a recon
+  nine days ago, done in ~1.9M exec tokens under the full
+  discipline. Ceremony: grep clean (docstring hit only), wired
+  (SW/All + TwinBar/All + the audit block), full build exit 0
+  (9030 jobs), in-build: mmuRate_holds [3 axioms],
+  parity_wall_unconditional [3 axioms].

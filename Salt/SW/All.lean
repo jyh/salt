@@ -41,6 +41,7 @@ import Salt.SW.BoxCompose
 import Salt.SW.ZetaLowerShallow
 import Salt.SW.ZetaInvShallow
 import Salt.SW.MobiusRate
+import Salt.SW.MobiusRateClose
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -161,3 +162,4 @@ open Salt.Tactic in
   Salt.SW.Zc_patch_lower Salt.SW.zeta_inv_shallow
   Salt.SW.LSeries_moebius_eq_zeta_inv Salt.SW.mmu1_eq_integral
   Salt.SW.mmu_rectBI_eq_zero
+  Salt.SW.mmuRate_smoothed Salt.SW.mmuRate_holds
