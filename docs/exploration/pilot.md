@@ -1675,3 +1675,23 @@ decisions per question.
   the two live ratios at op, the carrier/Dset matching. G-OPPLUMB
   dispatched — then G-ASM. Ceremony: wired + 4 keystones — full
   build exit 0 (8988 jobs).
+
+- 2026-07-16 ~07:30: **G-OPPLUMB COMPLETE — the slot-level closure:
+  hprice AND hSum both fill the terminal verbatim on DEAD +
+  LIVE-HIGH** (cost ≈ 222k tokens / 63 tools / ~26 min; 4 keystones
+  first-pass). OpPlumb.lean (276 lines): gold_box_live_ratios (the
+  op ratios, cr = 3 with 5/4 slack), gold_box_hbox_geoN (the hbox
+  summand), gold_box_price_wide_or_dead (the per-box dichotomy
+  engine), **gold_box_hprice_op** (the terminal's hprice slot
+  CHARACTER-FOR-CHARACTER at the QImage). HOUSE CORRECTION to the
+  executor's residual framing: its DSplit-flag citation for the
+  LIVE-LOW tail is STALE — DSplit's smooth-divisor fear was the OLD
+  top-annulus case (goldCut ≈ N), superseded by the wide head; the
+  remaining tail annuli have goldCut ≤ N^{1−2ε}·polylog where the
+  CRUDE harmonic bound over ALL d ≤ conductor suffices (goldCut·log
+  ≤ N^{1−2ε}·polylog at e^{180000} margin; conductor·M ≤
+  N^{1/2}·N^{7/16} = N^{15/16} ≪ N/L^11 — M ≤ √(2XM/z) at small
+  annuli). No delicate divisor estimate needed. G-TAIL dispatched
+  (the trivial bound + the tail + the piecewise Price + the FULL
+  terminal instantiation); then G-ASM. Ceremony: wired + 4
+  keystones — full build exit 0 (8989 jobs).
