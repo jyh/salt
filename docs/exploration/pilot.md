@@ -3134,3 +3134,35 @@ decisions per question.
   end-to-end. The x = 0 seam note for pieceObligationU_add
   recorded. Ceremony pending the in-flight amendment build (one
   combined build + commit).
+
+- 2026-07-17 ~23:10 (SPRINT 3): ██ **A-R1 IS COMPLETE — THE
+  ENTROPY LIBRARY IS KERNEL-CHECKED IN SALT** ██ (S3-A1-W2F ≈
+  212k / 34 tools closes the rung). The full frozen API landed:
+  Hm[·]/H[X ; μ]/H[X | Y ; μ]/I[X : Y ; μ]/I[X : Y | Z ; μ] +
+  Hk[·,·]/Ik[·,·], the (3.1)–(3.7) toolkit COMPLETE with the
+  consumer triple compiling at generic types (chain_rule',
+  mutualInfo_eq_entropy_sub_condEntropy, entropy_le_log_card),
+  submodularity + the triple inequality at both levels. FROZEN-
+  SUBSET honesty: 6 lemmas skipped (unreachable — the dropped
+  Uniform/CondIndep deps), listed in-file. One MAJOR drift find
+  for the record: v4.32 lacks anonymous-constructor auto-eta over
+  pi types — every RV pair ⟨X,Y⟩ hand-expanded to fun ω ↦ (X ω,
+  Y ω) (~16 lines; LOAD-BEARING for A-R2's executors, briefed).
+  RUNG COST: ~630k exec (W1 78k + W2 114k + W3 102k + W15 121k +
+  W2F 212k) + ~200k recon/gate ≈ **0.85M all-in vs the 1.5–2.5M
+  re-priced estimate (0.4×) and the original "unknown, boundary"
+  class** — the reuse-≈0 cost-curve datum the sprint registered.
+  Zero flags across five port waves; the executors' defect count:
+  ZERO. Ceremony: grep clean, wired + 5 keystones (names
+  VERIFIED from the files before wiring this time), full build
+  exit 0 (9056 jobs). **A-R2 (the entropy decrement lemma — the
+  first information-theoretic argument in formalized ANT) design
+  freeze is next house work; the ChowlaRegime structure mandatory
+  per A-R0.**
+
+- 2026-07-17 ~23:15: **THE SPRINT-2 REPORT drafted**
+  (docs/exploration/sprint2-report.md, DRAFT) — all ten outcome
+  lines with costs, the 10-catch ledger delta (house process
+  defects reported at equal prominence), the two-point
+  method-compounding curve (5.3× → 0.5×), the revival queue.
+  → JYH review, alongside the still-pending sprint-1 report.
