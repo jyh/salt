@@ -2054,3 +2054,29 @@ decisions per question.
   The registered deliverable — the first cost map from a
   formalization corpus to the modern analytic frontier — is
   delivered; B4 CLOSES.
+
+- 2026-07-16 ~22:10 (SPRINT 2): **B2 COMPLETE — the attack-surface
+  map at terminal precision: FOUR routes, ZERO survive to a P₁
+  partial-progress node; R4 held at deficit_floor_of_certs** (cost
+  ≈ 153k / 20 tools / 6 min). (i) Chen's reversal: REFUTED — the
+  decoration-readable form by heavy_semiprime_obstruction (landed);
+  the bilinear pair-switch form obstructed by the deficit floor
+  (the reversal's success inequality IS the negation of the landed
+  razor deficit); pairE2_upper named. (ii) Harman alternation:
+  CORPUS-REACHABLE node map (G1 = the upper keystone at the A₁
+  carrier, B; G2 = the BV remainder, LANDED; G3 = the Fchain value
+  at s ≈ 4, C-reuse — the [1,3] mass-ledger identity does NOT
+  cover s = 4, a genuine new panel regime) — but the endpoint is
+  THE SHARPER NO-GO (p1RazorValue ≤ −δ unconditional-on-U), never
+  P₁; **the recon PRE-ARMED the Zeno tripwire on this chain per
+  the registration clause — construction awaits JYH discussion.**
+  (iii) the dispersion route: TWO named missing theorems (GAP-E =
+  the E2 lower count, genuinely new analytic content, and even
+  landing it externally completes the NO-GO not the door;
+  TwinTypeII itself at θ > 1/2 = flagship Challenge 2). (iv)
+  [census-added] the parity-blind Selberg/Rosser lower certificate:
+  REFUTED by the landed wall (MmuRate-conditional — the Track-A
+  dependency made explicit). The III.3″/case-space obligations for
+  any follow-up recorded (the F(4) DDE evaluation + the s-regime
+  enumeration). B2 CLOSES: the jackpot did not hit; the map is the
+  deliverable, at exactly the registered precision.
