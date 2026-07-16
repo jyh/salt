@@ -2268,3 +2268,30 @@ decisions per question.
   before dispatch. Five nodes, two executor files (WeightNoGo:
   N2 flagship C + N0 + N1; WeightEscape: N3 + N4), ~390k est,
   executors gated on GO. Slots: T-lo′ + B1-gate + B3-recon = 3/4.
+
+- 2026-07-17 ~04:20 (SPRINT 2): ██ **T-lo′ LANDED — zeta_lower_shallow:
+  the shallow-contour lower bound, FIRST ATTEMPT** ██ (S2-TLO ≈ 352k /
+  100 tools). ZetaLowerShallow.lean (466 lines, imports ZetaLogBound
+  only): `∃ c₄ > 0, ∃ c > 0, ∀ σ t, 2 ≤ |t| → 1 − c₄/log⁹(|t|+2) ≤ σ
+  → c/log⁷(|t|+2) ≤ ‖ζ(σ+it)‖` — the EXACT k = 7 target shape, no
+  degradation, no upper σ-cap. Route as adjudicated (C-GO-VARIANT):
+  the 3-4-1 anchor at σ₀ = 1 + a/log⁹ (via mathlib's multiplicative
+  norm_LFunction_product_ge_one reduced mod 1 — cleaner than the
+  corpus −L′/L carrier), Cauchy ζ′ on r = 1/(3L), ADDITIVE transport
+  (Convex.norm_image_sub_le_of_norm_deriv_le — ζ itself, never
+  log ζ). Constants honest and C₁-parametric (c₄ = b⁴ ≈ 2.7e−20 at
+  C₁ = 36; free — only the log-powers matter). The load-bearing
+  subtlety THE DEEP SPEC GLOSSED: the Cauchy disk near |t| = 2
+  necessarily dips below |Im| = 2 — resolved by a two-branch
+  sphere-sup (zeta_log_bound for |t| ≥ 3, the Zc pole-growth bound
+  ≤ 18 for |t| < 3); the Zc fallback is essential. III.3″ mpmath
+  witness in-file (dps 40; t = 2, 10⁶, 10⁹, 10¹² all positive
+  margin). Reusable exports: zeta_real_upper (sharp real-ζ upper,
+  uniform in σ), zeta_deriv_bound (‖ζ′‖ ≤ 6C₁L² + 54L on the
+  strip). Ceremony: grep clean, wired + 5 keystones into SW/All,
+  full build exit 0 (9021 jobs), 3 axioms in-build. **T-1ζ′
+  freezes + dispatches** (statement in the design amendment): the
+  1/ζ poly-log bound on the whole shallow half-plane — the |t| ≥ 2
+  branch a corollary of T-lo′; the new content is the |t| < 2
+  pole-patch via Zc compactness + the landed zero-free region.
+  Slots: B1-gate + B3-recon + T-1ζ′ = 3/4.

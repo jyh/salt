@@ -38,6 +38,7 @@ import Salt.SW.BoxCount
 import Salt.SW.BoxFold
 import Salt.SW.ZetaLogBound
 import Salt.SW.BoxCompose
+import Salt.SW.ZetaLowerShallow
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -152,3 +153,6 @@ open Salt.Tactic in
   Salt.SW.zeta_log_bound Salt.SW.tail_psum_le
   Salt.SW.zeta_full_box_count Salt.SW.zeta_local_density
   Salt.SW.zeta_local_density_card
+  Salt.SW.zeta_norm_le_zc Salt.SW.zeta_real_upper
+  Salt.SW.zeta_anchor Salt.SW.zeta_deriv_bound
+  Salt.SW.zeta_lower_shallow
