@@ -3186,3 +3186,34 @@ decisions per question.
   negation — the swat_vacuous precedent); the auto-eta brief
   binding. **S3-A2-GATE dispatched** (page-image transcription of
   the regime hypothesis list is charge #1).
+
+- 2026-07-18 ~00:20 (SPRINT 3): ██ **HB-R2 LANDS — TRACK B'S
+  NARROWED SCOPE IS COMPLETE** ██ (S3-HB2-EXEC ≈ 186k / 25
+  tools, essentially one pass — ONE build error total). 
+  SiegelCorr.lean (240 lines): SiegelSequence (the squared-log
+  coupling, honestly flagged STRICTLY STRONGER than the
+  literature's), the one-way honesty bridge, CorrWindow,
+  corrWindow_box, residue_lower (x²/3 outright), and
+  **siegel_correlation_dichotomy** — under SiegelSequence, at
+  every strength there are exceptional data where, on a nonempty
+  explicit window, the Siegel residue dominates (≥ x²/3) and ψ₁
+  either TRACKS it to exponential accuracy or is itself
+  exponentially small: the primes impersonate χ or fall silent,
+  no third behavior — THE FIRST FORMALIZATION OF THE
+  EXCEPTIONAL-CHARACTER CORRELATION MECHANISM. The flagged
+  identification seam CLOSED CLEANLY (the amendment's exposed
+  Landau-window bound + a derived hypothesis-side bound feed
+  landau_one_exceptional_at; β₁ ≥ 9/10 derived from the
+  coupling). The HB-R3+ door named (branch selection = the
+  polynomial-box dispatcher upgrade). PROVENANCE CATCH
+  (executor-tier, process): the gate's Appendix A was never
+  persisted to the repo — house review CONFIRMED the
+  reconstruction matches (two cosmetic deviations accepted; the
+  landed file is now authoritative); process rule appended to the
+  design doc. TRACK B TOTALS: ~546k agent spend (recon 92k +
+  HB1 gate 99k + HB1 exec 62k + HB2 gate 107k + HB2 exec 186k)
+  for the two registered deliverables — the reuse-≈-max endpoint
+  of the sprint's cost-curve measurement, vs the reuse-≈-0
+  endpoint's 0.85M for A-R1. Ceremony: grep clean, wired + 4
+  keystones (names verified from the file), full build exit 0
+  (9057 jobs).

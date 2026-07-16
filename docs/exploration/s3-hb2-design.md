@@ -229,3 +229,20 @@ if the gate confirms P1 — OR the gate may propose P1′ variants.)
    carry the correlation-or-silence honesty + the HB-R3 door.
 EOF
 echo "frozen"
+## POST-LANDING PROVENANCE NOTE (house, 2026-07-18 ~00:20)
+
+The gate's APPENDIX A was delivered in its session report but
+never persisted here — a house documentation gap the HB2 executor
+correctly flagged. The executor RECONSTRUCTED the P1 block from
+this doc's FROZEN DECISION + the ledger's gate summary; the house
+(holding the gate report in-context) has performed the requested
+review: **the reconstruction matches the gate's Appendix A in full
+mathematical content**, with two cosmetic deviations, both
+accepted: (i) SiegelSequence's final two conjuncts are in swapped
+order; (ii) CorrWindow's cap is the multiplicative form
+(1−β)·log x ≤ log(3/2) instead of the exp-quotient — equivalent
+on the domain and division-free. THE LANDED FILE
+(Salt/TwinBar/SiegelCorr.lean) IS NOW THE AUTHORITATIVE FORM of
+Appendix A. Process rule reaffirmed: a gate whose verdict includes
+authored statements must have those statements persisted to the
+design doc AT ADJUDICATION TIME, not just the ledger summary.
