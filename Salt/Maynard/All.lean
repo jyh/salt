@@ -63,3 +63,4 @@ import Salt.Maynard.Complete
 import Salt.Maynard.Level
 import Salt.Maynard.LevelConsume
 import Salt.Maynard.GehDoor
+import Salt.Maynard.GehPiSeam

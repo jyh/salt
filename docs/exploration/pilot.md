@@ -2542,3 +2542,30 @@ decisions per question.
   Maynard/All, full build exit 0 (9026 jobs). **D-N2a (AP-Vaughan) + D-N2b
   (r-uniform SW) + D-N2c (the π-seam consumer) DISPATCH — with
   TMU2 that is 4/4 slots, the throttle ceiling.**
+
+- 2026-07-17 ~10:20 (SPRINT 2): **D-N2c LANDS ITS FLOOR + CATCHES A
+  HOUSE INTERFACE DEFECT** (S2-B3-DN2C ≈ 180k / 23 tools).
+  GehPiSeam.lean: `hasLevel_of_piLevel : θ ≤ 1 → PiLevel θ →
+  HasLevel θ` PROVEN UNCONDITIONALLY (the D-N1 π-seam summed —
+  sum_seam_le/seam_le_polylog via Salt.BV.sum_omega_mul_le; the
+  small-x absorber; the PsiToPi-style assembly), and the headline
+  `hasLevel_of_lambdaDiscrepancy` consuming the LambdaLevel body
+  character-for-character. THE CATCH (executor-refutes-house, the
+  second of the sprint): the house-frozen meeting point
+  `LambdaLevel` (pointwise-in-x) is TOO WEAK for the Λ→π Abel
+  bridge — at prefix y ≤ x the transform needs the discrepancy sum
+  at the FIXED x-cutoff, which the y-scaled instance cannot supply
+  (the crude 2ψ(y) fallback loses the main term). Exactly the
+  PsiToPiTransfer y-uniform shape (∀ x y, y ≤ x → ...) — the
+  III.2 premise-latency lesson AGAIN at a house seam, caught one
+  node deep instead of at assembly. Step 1 deferred as the named
+  hbridge hypothesis (the sanctioned floor); pp-in-AP counting
+  moot behind it. HOUSE RESPONSE (mid-flight interface amendment,
+  SendMessage to the running D-N2a): the meeting point re-frozen
+  as LambdaLevelU (y-uniform; the y-truncated Λ blocks stay
+  CoeffAt; RHS stays C·x/log^A), D-N2a directed to land it, floor
+  + flag sanctioned if the truncation breaks a block. ZENO WATCH:
+  this is residual #1 on the D-N2 chain — a second consecutive
+  residual (from D-N2a) HALTS the chain per clause 2 / III.3‴.
+  Ceremony: grep clean, wired into Maynard/All, full build
+  exit 0 (9027 jobs).
