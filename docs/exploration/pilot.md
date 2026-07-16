@@ -2496,3 +2496,26 @@ decisions per question.
   classical-SW convolution-BV door); (c) terminal informative
   failure (now enriched: TWO kernel-checked design refutations).
   EXECUTORS NOT DISPATCHED pending the call.
+
+- 2026-07-17 ~08:40 (SPRINT 2): **T-Mμ: THE F1 FLOOR LANDS — the
+  two analytic keystones of the trophy, first attempt each; the
+  assembly flagged, not ground** (S2-TMU ≈ 212k / 30 tools; the
+  give-up-early discipline exercised exactly as sanctioned).
+  MobiusRate.lean: (1) `mmu1_eq_integral` — the smoothed Möbius
+  Perron identity M₁_μ(x) = (1/2π)∫ x^s/(s(s+1))·ζ(s)⁻¹ (mathlib
+  has NO packaged Σμ/n^s = 1/ζ; assembled from
+  LSeries_one_mul_Lseries_moebius + the ζ nonvanishing; the
+  arithmetic-agnostic kernel spine reused); (2)
+  `mmu_rectBI_eq_zero` — the μ-route's distinctive feature: the
+  shifted rectangle integral VANISHES WITH NO RESIDUE (1/ζ's
+  singularity at s = 1 is REMOVABLE via mmuG = (s−1)/Zc, Zc(1) =
+  1). REMAINING (the flag, 3 phases, templated by
+  psi1_contour_shift): edge/tail bounds (friction: the c-line
+  multiplier log⁷(|v|+2) GROWS, unlike ψ's constant —
+  ∫log⁷/(c²+v²) finite but not the landed one-liner); the budget
+  at log T = (log x)^{1/10} (x₀ astronomically large, finite,
+  absorbed by ∃x₀); de-smoothing via |Mmu(y+h)−Mmu(y)| ≤ h+1
+  (|μ| ≤ 1 — no monotonicity dance). NOT a Zeno signature: a
+  single sanctioned floor with the case product enumerated in the
+  flag. **T-MU2 (the assembly) dispatches.** Ceremony: grep clean,
+  wired + 3 keystones, full build exit 0 (9025 jobs), 3 axioms in-build.
