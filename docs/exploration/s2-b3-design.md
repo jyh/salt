@@ -133,3 +133,51 @@ conclusion is the landed theorem's exact statement.
 *Frozen by the house session. Statement shapes above are frozen;
 names/hypothesis-order latitude as marked. Statement changes:
 house/human only.*
+
+## RE-CUT (2026-07-17 ~08:15, JYH: "let's do R1a, the honest GEH door")
+
+The frozen body above is SUPERSEDED where it conflicts with this
+block (the gate's R1–R4, applied). Re-frozen statement — family-
+indexed, ∃-constants BEFORE ∀x (the SiegelWalfisz template), P8b's
+r-restriction AND τ(qr)-allowance kept (∃j = the O(1)), all q:
+
+```lean
+def SWAt (β : ℕ → ℕ → ℝ) (M : ℕ → ℕ) : Prop :=
+  ∃ j : ℕ, ∀ A : ℝ, 0 < A → ∃ K, 0 ≤ K ∧ ∀ x r q : ℕ,
+    2 ≤ x → 0 < r → 0 < q →
+    seqDiscrepancy (fun n => if Nat.Coprime n r then β x n else 0) x q
+      ≤ K * ((q * r).divisors.card : ℝ) ^ j * (M x : ℕ) / Real.log x ^ A
+
+def CoeffAt (α : ℕ → ℕ → ℝ) (N : ℕ → ℕ) (k : ℕ) : Prop :=
+  ∀ x n, (α x n ≠ 0 → n ∈ Finset.Ioc (N x) (2 * N x)) ∧
+    |α x n| ≤ (n.divisors.card : ℝ) ^ k * Real.log x ^ k
+
+def GEH_min (θ : ℝ) : Prop :=
+  ∀ ε A : ℝ, 0 < ε → 0 < A → ∀ k : ℕ,
+  ∀ α β : ℕ → ℕ → ℝ, ∀ N M : ℕ → ℕ,
+    CoeffAt α N k → CoeffAt β M k → SWAt β M →
+  ∃ B C : ℝ, 0 ≤ B ∧ ∀ x : ℕ, 2 ≤ x →
+    (x : ℝ) ^ ε ≤ N x → (N x : ℝ) ≤ (x : ℝ) ^ (1 - ε) →
+    (x : ℝ) ^ ε ≤ M x → (M x : ℝ) ≤ (x : ℝ) ^ (1 - ε) →
+    N x * M x ≤ x → x ≤ 4 * N x * M x →
+    (∑ q ∈ Finset.Icc 1 ⌊(x : ℝ) ^ θ / Real.log x ^ B⌋₊,
+        seqDiscrepancy (dconv (α x) (β x)) (4 * N x * M x) q)
+      ≤ C * x / Real.log x ^ A
+```
+
+(R4: the discrepancy cutoff is 4·N·M — full convolution support, no
+truncation; seqDiscrepancy/dconv unchanged from the frozen body.
+B, C may depend on (ε, A, k, α, β, N, M) but NEVER on x. The gate's
+kernel probe swat_vacuous must FAIL against this SWAt — D-N1 checks
+by attempting it and reporting the failure point.)
+
+Node re-plan: D-N1 defs + anti-vacuity (SWAt inhabited by the
+smooth family; the vacuity-probe replay) ~150k. D-N2a the AP-
+Vaughan split from vaughan_sum/tail_decomp at U = V = x^{1/3},
+FOUR pieces (head + I₁ + I₂ + II) ~300k. D-N2b the r-uniform SW
+sub-lemma (Möbius-over-d|r reduction to the landed
+siegelWalfisz_holds) ~80k. D-N2c the π-seam at θ = 3999/4000 from
+primesCount_abel (PsiToPi is 1/2-locked) ~100k. D-N3 the
+composition CARRYING WindowPNT: GEH_min(3999/4000) → WindowPNT →
+H₁ ≤ 12 ~15k. Dispatch order: D-N1 first (the defs file others
+import); D-N2a/b/c after it lands; D-N3 last.
