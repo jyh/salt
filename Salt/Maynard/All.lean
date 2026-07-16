@@ -69,3 +69,4 @@ import Salt.Maynard.GehMulti
 import Salt.Maynard.GehTypeI
 import Salt.Maynard.GehSW
 import Salt.Maynard.GehBridge
+import Salt.Maynard.GehSmallQ

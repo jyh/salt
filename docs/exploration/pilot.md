@@ -2942,3 +2942,34 @@ decisions per question.
   TwinBar/All, full build exit 0 (9041 jobs). **W1-2 + W1-3
   dispatch (sprint-3 lanes; the halted bridge chain stays
   halted).**
+
+- 2026-07-17 ~19:20 (SPRINT 2): **SMALLQ LANDS ITS FLOOR — step 1
+  (the reindex engine) proven; steps 2–4 flagged IN-SPACE; the
+  ≥2× RE-CUT RULE trips on the hSW line** (S2-B3-SMALLQ ≈ 170k /
+  22 tools, 1 attempt). GehSmallQ.lean (157 lines):
+  typeIIData_residue_reindex — the divisor-exposing double-sum
+  identity, composition-verified byte-for-byte against the
+  SmallQTypeII class-sum; the r-twist confirmed NOT a wall
+  (Λ prime-power support: ≤ 2ω(r)·log per m, absorbed by τ(qr)³).
+  Steps 2–4 (the psiAP window recognition + gcd split + the
+  double SW feed + reassembly) = contained residual, EXPLICITLY
+  inside the enumerated case space — III.3‴ does NOT fire (no new
+  supplier; the case space held). BUT the hSW line has now cost
+  270k (SW) + 170k (SMALLQ) vs the recon's 150–200k with a
+  "large C/D-tier" remainder — the ≥2× RE-CUT rule applies:
+  NO autonomous continuation. Ceremony: grep clean (the flag-word
+  hit is docstring), wired, full build exit 0 (9042 jobs).
+  **THE DOOR'S ENDGAME CONSOLIDATES TO ONE JYH DECISION** (with
+  the PpLevel halt): the open items are PpLevel (~200–300k,
+  root-counting sub-rung) + SmallQTypeII steps 2–4 (~300–500k
+  honest re-estimate) + the in-flight TAIL/DECOMP + the mid
+  composition + assembly + D-N3 (small). Fund both sub-rungs
+  (~0.6–0.9M, the door closes on WindowPNT alone) / fund one /
+  accept both as named obligations and close the door NOW as
+  "GEH_min + {PpLevel, SmallQTypeII} ⟹ H₁ ≤ 12" with the full
+  honest map. HOUSE RECOMMENDATION: close NOW with named
+  obligations + fold the sub-rung decision into the sprint-2
+  report — the door's insight value is already delivered
+  (GEH_min honest, the reduction kernel-checked, the obligations
+  named and priced); the marginal 0.6–0.9M competes directly with
+  the sprint-3 spine, which is the registered priority.
