@@ -1547,3 +1547,28 @@ decisions per question.
   (deliberately not duplicated). CONVERGENCE: the entire remaining
   A₃ analytic content now funnels through G-ROWSLIVE's row bundle.
   Ceremony: wired + 6 keystones — full build exit 0 (8983 jobs).
+
+- 2026-07-16 ~03:40: **G-ROWSLIVE COMPLETE — every residual analytic
+  row discharged at live geometry; ONE interface caveat, resolved by
+  house arithmetic** (cost ≈ 433k tokens / 95 tools / ~58 min — the
+  arc's second-heaviest run; 727 lines, 10 theorems, all
+  first-serious-attempt). Salt/Goldbach/RowsLive.lean:
+  gold_op_scales (the op floor/log bundle), gold_box_zx_rows
+  (hz1/hz_ratio/hx from the live lower bound — the N^{1/24} margin
+  in Lean), gold_box_wge/Mfloor/Xfloor (the N-power floors), the
+  local numeric engine (ChenRows1's private engine re-derived
+  public), and **gold_box_rows_at_op** — the box-price leg
+  arg-free-but-for the four carrier rows, collapsing onto
+  boxPriceKerr. THE CAVEAT (honest, documented): hDge + hDscale
+  jointly force a PER-ANNULUS level D ∈ [w, 2w], w ≈
+  √(goldCut/8z); a single global D provably cannot serve all live
+  boxes (top needs ≥ N^{21/48}; low-annulus caps are ≤ N^{19/48}).
+  **HOUSE RESOLUTION (arithmetic worked and checked): the
+  per-annulus Dset split** — annuli with goldCut ≥ N^{7/8}-grade
+  afford the global level bilinearly (√(N/2) = N^{24/48} >
+  N^{21/48}); smaller live annuli price d ≤ cap_k bilinearly and
+  the tail (cap_k, D_global] TRIVIALLY: per-d ≤ XM/(Q·d) + M, the
+  tail sum ≤ goldCut·log + D·M ≤ N^{7/8}·polylog + N^{41/48} ≪
+  N/(log N)^11 — polynomial room. G-DSPLIT dispatched (the split +
+  tail bound + the final hprice packaging); then G-ASM. Ceremony:
+  wired + 6 keystones — full build exit 0 (8984 jobs).
