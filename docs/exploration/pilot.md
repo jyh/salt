@@ -1713,3 +1713,23 @@ decisions per question.
   (G-TAIL's brief already carries its arithmetic pre-verified; the
   G-ASM gate will run the slot-witness check on the assembly
   bundle).
+
+- 2026-07-16 ~09:00: **G-TAIL COMPLETE — the harmonic tail lands;
+  the glue node is all that remains before G-ASM** (cost ≈ 314k
+  tokens / 67 tools / ~37 min; every theorem first-pass under the
+  III.3″-pre-verified arithmetic). Tail.lean (310) + Tail2.lean
+  (132): **gold_box_disc_trivial** (C = 0 — the trivial AP bound
+  2XY/d + 2Y by elementary counting, the R-unit fibre collapse via
+  ZMod cancellation); **gold_box_tail_le** (the honest harmonic
+  saving via mathlib's harmonic_floor_le_one_add_log);
+  **gold_box_price_tail** — the LIVE-LOW plug whose LHS is
+  BYTE-IDENTICAL to the terminal's hprice slot (a verbatim-goal
+  example compiles). Btail = 2(2XM/Q·(1+log bound) + 2M·bound); the
+  per-box margins landed. REMAINING (Tail2's precise lock): the
+  3-way piecewise hbox glue (DEAD/LIVE-HIGH/LIVE-LOW — all three
+  branch values landed), the htail annulus-sum close (the
+  ¬hDwide ⟹ XM ≤ N^{1−2ε}L³⁶ derivation summed against the tower),
+  and the slot wiring (band/CE/diag/Num all landed) →
+  gold_hBVblocksW_at_op. G-GLUE dispatched — pure composition, all
+  pieces byte-locked. Then G-ASM. Ceremony: wired + 4 keystones —
+  full build exit 0 (8991 jobs).
