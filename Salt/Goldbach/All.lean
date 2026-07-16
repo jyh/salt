@@ -54,6 +54,7 @@ import Salt.Goldbach.BandClose
 import Salt.Goldbach.BandClose2
 import Salt.Goldbach.BandRows
 import Salt.Goldbach.BandRows2
+import Salt.Goldbach.Close
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -212,3 +213,6 @@ open Salt.Tactic in
   Salt.Goldbach.gold_band_wide_price_at_op
   Salt.Goldbach.gold_crumb_triple_tower Salt.Goldbach.gold_box_crumb_tower
   Salt.Goldbach.gold_band_crumb_tower Salt.Goldbach.gold_crumb_tower_close
+  Salt.Goldbach.gold_band_hlow_wide_at_op
+  Salt.Goldbach.gold_band_hsym_wide_at_op
+  Salt.Goldbach.gold_band_hlow_slot_at_op

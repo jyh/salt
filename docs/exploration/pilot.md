@@ -1917,3 +1917,24 @@ decisions per question.
   opD/bnd scale rows; the aggregate feed) — the LAST node before
   G-ASM. Ceremony: wired + 5 keystones — full build exit 0
   (9004 jobs).
+
+- 2026-07-16 ~17:10: **G-CLOSE — the LOW leg closes end-to-end; the
+  SYM leg 2/3; the wall isolated to ONE named hypothesis** (cost ≈
+  380k / 70 tools; all keystones first-attempt). Close.lean (239):
+  gold_band_hlow_wide_at_op (FULL — definitional, no liveness) +
+  the slot wire; gold_band_hsym_wide_at_op (VANISH + COLLAPSE
+  inline; the MIDDLE piece exposed as hmid). ★ FLAG G-CLOSE-1: the
+  middle-piece WIDE survivors on large annuli are PROVABLY NON-LIVE
+  (2^i ≈ N^{2/3} > the liveness cap N^{11/24}) — KerrY's engine
+  copied the twin's liveness hypothesis, which the high-pass band
+  cannot supply (the twin's box leg is live; the same "sym
+  single-k" subtlety flags.md ~L7243 resolved differently there).
+  THE MISSING SUPPLIER, exactly: the Y-indicator engine at the
+  Y-FLOOR geometry — gold_band_wide_price_at_op's row derivations
+  (landed at blockPrimeInd (pieceN kp)) crossed with KerrY's
+  Y-indicator handling (landed at liveness) — ~400 lines, both
+  parents landed. G-KERRY2 dispatched; then the terminal wire (the
+  recipe is WRITTEN in Close.lean's docstring) + G-ASM. Friction
+  catches: the one-point boundary gap folded into hmid; the band
+  D-floor is a genuinely separate exposed row. Ceremony: wired + 3
+  keystones — full build exit 0 (9005 jobs).
