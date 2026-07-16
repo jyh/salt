@@ -348,6 +348,31 @@ high as the problem permits:
 compute eagerly, make it lazy — the constraint store is the thunk's
 accumulated environment, forced once at the end.)
 
+**III.3″ — Witness the slots at the operating point, not just the
+carriers (the Chen-2 amendment, 2026-07-16, user-ratified).** The
+ladder above disciplines statements-as-mathematical-objects; the
+Chen-2 endgame exposed its gap: budget-shaped hypothesis SLOTS in a
+refinement skeleton (a terminal landed with parametrized rows, filled
+upward) can be jointly unsatisfiable at the operating point while
+every carrier passes anti-vacuity and every per-statement freeze is
+mathematically true. Three consecutive designer-tier defects escaped
+the gates this way, each detected only when an executor tried to
+instantiate the slot nodes later (premise latency of hours, against
+the doctrine's promised ~0): a satisfiable-in-general hypothesis
+false at the op point for every non-cube N; a level cap conflated
+with the conductor scale; a per-annulus budget slot whose demanded
+rate was false at the top annulus because a count·max absorption
+threw away the sum's geometric structure. Rule: **when a freeze
+introduces a slot with a rate or budget shape (an `≤ C·X/L^k` row, a
+level window, an aggregation absorb), the freeze must include a
+worst-case concrete instance — the extreme annulus, the boundary
+modulus, the saturating box — evaluated numerically against the slot
+at the operating point.** The check costs a few thousand tokens; each
+escape cost a node-wave. This is Rung 1 pointed at the
+DECOMPOSITION'S OWN INTERFACES rather than at the theorem's
+witnesses — the designer is a supplier too, and its slots deserve
+the same adversarial instantiation the executors' statements get.
+
 **III.4 — Quantifier scope is architecture.** The endgame's last
 catches were all binding-structure defects: constants existentially
 quantified per-instance where a fixed constant was needed (#76's

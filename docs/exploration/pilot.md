@@ -1695,3 +1695,21 @@ decisions per question.
   (the trivial bound + the tail + the piecewise Price + the FULL
   terminal instantiation); then G-ASM. Ceremony: wired + 4
   keystones — full build exit 0 (8989 jobs).
+
+- 2026-07-16 ~08:15: **METHODS III.3″ CODIFIED (JYH-ratified):
+  "witness the slots at the operating point, not just the
+  carriers"** — the Chen-2 amendment to the witness ladder, from
+  the methodology review with the user: the arc ran refinement in
+  ARCHITECTURE (terminal-first, byte-locked slots) and in
+  DETECTION (all three house catches = stuckness at the point of
+  consumption), but analogy in DECOMPOSITION (the inventory
+  forward-mapped the twin; every tear sat where the analogy was
+  load-bearing and false), and the witness discipline stopped at
+  carriers — the budget-slot shapes were never instantiated at op
+  at freeze time (premise latency hours, not ~0). The new rule:
+  every rate/budget-shaped slot freezes WITH a worst-case concrete
+  instance evaluated numerically at the op point. Estimated
+  counterfactual: the 2.3× overrun → ~1.5×. Effective immediately
+  (G-TAIL's brief already carries its arithmetic pre-verified; the
+  G-ASM gate will run the slot-witness check on the assembly
+  bundle).
