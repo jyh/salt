@@ -3055,3 +3055,29 @@ decisions per question.
   the close. B3's sprint-2 outcome line: the honest GEH door,
   kernel-checked reduction, the named-obligation map — the
   registered insight genre, delivered.
+
+- 2026-07-17 ~22:00 (SPRINT 2): ██ **THE GEH DOOR IS CLOSED —
+  geh_door_of_obligations LANDS. THE SPRINT-2 B3 OUTCOME LINE
+  CLOSES** ██ (S2-B3-CLOSE ≈ 101k / 16 tools, first attempt, zero
+  seam friction — every landed piece composed without
+  repackaging). GehClose.lean (120 lines): GEH_min(3999/4000) +
+  {hdom, hTypeI1, hTypeI2, PpLevel} + WindowPNT ⟹ bounded gaps
+  ≤ 12 (byte-for-byte the landed gaps_le_twelve conclusion; hHead
+  discharged in-line by head_obligation). The close-now map in the
+  module docstring: obligations named + priced (~0.65–1.05M
+  documented, unspent), the unconditional path inventoried with
+  file pointers, the two III.3‴ halts cited, R4 clean. B3 FINAL
+  (the revived narrowed door): **the honest GEH_min is in the
+  corpus (gate-hardened, kernel-refuted-twice-then-fixed), the
+  reduction is kernel-checked end-to-end at the obligation level,
+  and the obligation map is itself the deliverable** — the
+  registered insight genre, plus 10 files of composable machinery
+  (GehDoor/Vaughan/PiSeam/TypeI/SW/SmallQ/Multi/Decomp/Bridge/
+  Close, ~3.3M exec total incl. gates/recons). The arc's catch
+  ledger: swat_vacuous (gate refutes house, kernel-checked), the
+  y-uniformity catch (executor refutes house), the hwin
+  combinator defect (executor refutes house, tripwire), the
+  PpLevel mathlib gap (tripwire), the GEH_min under-transcription
+  (recon refutes house) — FIVE design-tier catches on one door,
+  zero wrong proofs, every halt at the doctrine's letter.
+  Ceremony: grep clean, wired, full build exit 0 (9053 jobs).
