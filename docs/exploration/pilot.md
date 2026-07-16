@@ -1976,3 +1976,30 @@ decisions per question.
   wire per Close's recipe + the Λ-bridge at the W-sieve + the
   general-a A₁ + the structural rows + the ∀N wrapper →
   chen_goldbach).
+
+- 2026-07-16 ~19:50: **THE G-ASM FORK REPORTS — chen_goldbach is now
+  a machine-checked corollary of ONE named analytic bundle** (the
+  ratified Fable fork; cost ≈ 343k / 125 tools / ~69 min; 6 files,
+  1677 lines, ALL sorry-free/axiom-clean; full build green). LANDED:
+  the sym slot rebuilt at the unified Kc (the packaged lemma's
+  opaque constant was unusable — the fork resolved in-flight);
+  **gold_hBVblocksW_at_op_closed** (the A₃ block-BV terminal FULLY
+  discharged — all 12 op rows); the razor chain with **the puncture
+  catch** (the twin's hPfull' is FALSE at goldOpP — fixed via the
+  p∣N → p = n ≥ z escape, needing 2·opZ ≤ N, free at kept points);
+  the Even-N corner (the Λ-bridge genuinely needs it — threaded);
+  **goldbach_of_hypotheses_W**; the Λ-bridge at the W-switch;
+  the three main-term bundles at the parametric residue;
+  **chen_goldbach_of_ledger** — the frozen D0 statement (NEVER
+  weakened) from the single hL bundle. THE RESIDUAL, exact: hL =
+  the Goldbach F2 ledger (the twin's normalized_package/certs arc —
+  FIN-LED-scale): the A₁ fchain cert at the PUNCTURED W-lower
+  bounds, the A₂ grid cert at the punctured filter, the A₃ cert
+  assembly, the 1/200 error bundle at op. The dimensionless certs
+  are the SAME numbers (the X_W cancellation); the W-normalization
+  plumbing at the punctured modulus is the new content. Est. 3–5
+  nodes / 1–1.5M, or a second fork. **DECISION POINT → JYH (the
+  chime): finish the ledger arc now, or ship Chen-2 as
+  reduced-to-one-bundle (an honest publishable state) with the
+  ledger as the first sprint-2 item.** Ceremony: wired + 10
+  keystones — full build exit 0 (9012 jobs).

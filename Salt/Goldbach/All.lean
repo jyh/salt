@@ -56,6 +56,12 @@ import Salt.Goldbach.BandRows
 import Salt.Goldbach.BandRows2
 import Salt.Goldbach.Close
 import Salt.Goldbach.KerrY2
+import Salt.Goldbach.Asm
+import Salt.Goldbach.Asm2
+import Salt.Goldbach.Asm3
+import Salt.Goldbach.Asm4
+import Salt.Goldbach.Asm5
+import Salt.Goldbach.Asm6
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -219,3 +225,9 @@ open Salt.Tactic in
   Salt.Goldbach.gold_band_hlow_slot_at_op
   Salt.Goldbach.gold_kerrY2_engine Salt.Goldbach.gold_kerrY2_geoN
   Salt.Goldbach.gold_hmid_discharge
+  Salt.Goldbach.gold_band_hsym_slot_full Salt.Goldbach.gold_hBVblocksW_final
+  Salt.Goldbach.gold_hBVblocksW_at_op_closed
+  Salt.Goldbach.goldbach_of_hypotheses_W
+  Salt.Goldbach.goldTriplePrimeSumW_le_sifted
+  Salt.Goldbach.gold_hA3_bundle Salt.Goldbach.gold_hA2_bundle
+  Salt.Goldbach.gold_hA1_bundle Salt.Goldbach.chen_goldbach_of_ledger
