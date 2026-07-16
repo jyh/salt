@@ -20,6 +20,7 @@ import Salt.Goldbach.BandIdent
 import Salt.Goldbach.CountFinal
 import Salt.Goldbach.SW2
 import Salt.Goldbach.PDiag
+import Salt.Goldbach.Op
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -104,3 +105,8 @@ open Salt.Tactic in
   Salt.Goldbach.gold_diagAggW_le_honest Salt.Goldbach.gold_PloW_honest
   Salt.Goldbach.goldDiagPairSet_card_le
   Salt.Goldbach.sum_goldDiagTotal_le_goldDiagPairSet
+  Salt.Goldbach.gold_op_Zpow9 Salt.Goldbach.gold_op_residue
+  Salt.Goldbach.gold_a12_hBV_A1 Salt.Goldbach.gold_a12_hA1
+  Salt.Goldbach.gold_op_count_rows Salt.Goldbach.gold_op_hCE
+  Salt.Goldbach.gold_opQ_squarefree Salt.Goldbach.gold_opQ_even
+  Salt.Goldbach.gold_opQ_coprime_P

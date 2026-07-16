@@ -1282,3 +1282,31 @@ decisions per question.
   <open X>" framings, constant-optimization grinds. Registration
   draft comes to JYH at sprint-1 close (chen_goldbach or its
   final flag).
+
+- 2026-07-15 ~20:55: **G-OP COMPLETE — the op layer lands; ONE
+  accounting gap surfaced and adjudicated** (cost ≈ 244k tokens /
+  70 tools / ~30 min vs 400k; 1 serious attempt). Salt/Goldbach/
+  Op.lean (419 lines, 30 decls): the op definitions + the punctured
+  moduli facts; **gold_op_Zpow9** (G-DENS's discharge route,
+  landed); **gold_op_residue** (the reflected witness at Squarefree
+  opQ + Even N + opQ ≤ N — every G-RES byte-lock consumed);
+  **gold_a12_hA1** (the A₁ op bundle — ZERO new threshold lemmas:
+  z/y/D/Q are byte-shared with the twin, so the whole
+  a12_level/close/opf_tower layer reused at x := N);
+  **gold_op_count_rows** (the count seam at op — the hlogNz row
+  SATISFIABLE with margin ≥ log N/8 ≥ 12: the G-COUNT-2 catch's fix
+  verified in anger); gold_op_hCE. HOUSE CEREMONY FIX: the executor
+  imported the house aggregator (cycle on wiring) — swapped for
+  concrete imports, the known genre (fin8d's lesson recurring;
+  briefs say Chen.All, should say ANY .All). **THE ACCOUNTING GAP
+  (adjudicated): the twin's mainA2 slot consumes the omega-carrier
+  decomposition (omegaPrimeSumW_decomp, hard-wired to n+2) — in
+  the census as mirror work but ASSIGNED TO NO NODE. The razor's
+  three-term ledger needs mainA2 (the switch-only reading would
+  leave the A₂ cost undischarged) ⟹ G-OMEGA COMMISSIONED** (the
+  omega mirror + goldA2W_hcoef + gold_a12_hBV_A2 + gold_a12_hA2).
+  Also remaining, precisely flagged: the survivor-price discharge
+  (the 4-index annulus pricing into PDiag's rows — G-OP2) and the
+  count fold to the seam shape. Ceremony: wired + 9 keystones —
+  full build exit 0 (8971 jobs). **G-OMEGA ∥ G-OP2 DISPATCHED; then
+  G-ASM.**
