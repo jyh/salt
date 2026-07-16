@@ -2003,3 +2003,31 @@ decisions per question.
   reduced-to-one-bundle (an honest publishable state) with the
   ledger as the first sprint-2 item.** Ceremony: wired + 10
   keystones — full build exit 0 (9012 jobs).
+
+- 2026-07-16 ~20:55: ██ **CHEN_GOLDBACH IS KERNEL-CHECKED — SPRINT
+  QUESTION Q1 CLOSES; ALL SEVEN OUTCOMES (SIX QUESTIONS + THE
+  RATIFIED EXTENSION) ARE FINAL** ██ (the hL closing fork: ≈ 223k /
+  109 tools / ~54 min; 919 lines across 4 files; the build-time
+  audit: ✓ chen_goldbach [3 axioms], full build 9016 jobs).
+  `chen_goldbach : ∃ N₀, ∀ N ≥ N₀, Even N → ∃ p q, N = p + q ∧
+  p.Prime ∧ IsP2 2 q` — the frozen D0 statement BYTE-EXACT, never
+  weakened through 40+ nodes. THE CLOSE: totalMass twin-identical
+  by rfl (the singular-series cancellation, end to end); the A₂
+  grid at the punctured filter by filter weakening; the punctured
+  W-ratio through the landed folded form; the count seam with NO
+  equidistribution crumb; normalized_package consumed UNCHANGED.
+  THE ONE NEW MATHEMATICS: the punctured depth facts via a
+  TEN-PRIME BERTRAND CHAIN (the twin's two-step argument cannot
+  survive puncturing — nine chain primes dividing N forces
+  N < N·N^{1/8}/2^{108}, contradiction) — the arc's final elegant
+  move. MARGINS: the error bundle ≈ 0.00374 vs 1/200 budget,
+  twin-identical; the puncture costs one factor 1+16/(z−2) ≈
+  3.9·10⁻⁶ vs 10⁻⁵ headroom. THE ARC TOTALS: ~50 landings, ~15.5M
+  executor tokens (≈5.3× the 2.9M estimate — the honest reuse
+  number), 6 house catches + 1 house-refutes-executor, 2 Fable
+  forks (the ratified Zeno fix — the closing fork discharged in
+  ~54 min what projected as 3–5 briefed nodes), 0 wrong proofs,
+  the build green at every one of ~45 ceremonies. Ceremony: wired
+  + 7 keystones — full build exit 0 (9016 jobs). NEXT: the JYH
+  checkpoint — the sprint-1 report, the sprint-2 registration
+  sign-off, the writeup resumption.

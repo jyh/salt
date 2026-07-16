@@ -62,6 +62,10 @@ import Salt.Goldbach.Asm3
 import Salt.Goldbach.Asm4
 import Salt.Goldbach.Asm5
 import Salt.Goldbach.Asm6
+import Salt.Goldbach.Ledger
+import Salt.Goldbach.Ledger2
+import Salt.Goldbach.Ledger3
+import Salt.Goldbach.ChenGoldbach
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -231,3 +235,7 @@ open Salt.Tactic in
   Salt.Goldbach.goldTriplePrimeSumW_le_sifted
   Salt.Goldbach.gold_hA3_bundle Salt.Goldbach.gold_hA2_bundle
   Salt.Goldbach.gold_hA1_bundle Salt.Goldbach.chen_goldbach_of_ledger
+  Salt.Goldbach.gold_W_ge_twin Salt.Goldbach.gold_hWy_at_op
+  Salt.Goldbach.gold_hcertA1_at_op Salt.Goldbach.gold_hcertA2_at_op
+  Salt.Goldbach.gold_hcertA3_at_op Salt.Goldbach.gold_hL_bundle
+  Salt.Goldbach.chen_goldbach
