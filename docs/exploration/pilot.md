@@ -1856,3 +1856,31 @@ decisions per question.
   composition + the terminal band-crumb variant + the geoN ratios +
   the crumb tower close). Ceremony: wired + 3 keystones — full
   build exit 0 (8999 jobs).
+
+- 2026-07-16 ~14:30: **G-SURV-2: the compositional core lands + two
+  blocks — AND THE HOUSE REFUTES THE ITEM-2 BLOCK (the y-floor
+  arithmetic)** (cost ≈ 171k / 31 tools; Surv.lean 284 lines, 7
+  keystones: both legs' per-survivor discharges, the band firing
+  conversion, the leg-level tail compositions). THE EXECUTOR'S
+  BLOCKS: (item 2) the high-pass geoN ratio "provably fails" at
+  kp as small as 2; (item 4) the band crumb has no aggregation
+  home. **HOUSE ADJUDICATION on item 2 (the arithmetic worked, the
+  III.3″ check the executor skipped): the ratio HOLDS on all
+  GENUINE band survivors — the executor's kp ≈ 2 counterexample
+  ignores the p-side y-FLOOR: the sym indicator is blockPrimeInd
+  (max (opY N) (pieceN k')), so the p-support is > opY ⟹ pieces
+  with 2^{kp+1} ≤ opY have EMPTY survivors (the vanish lemma, from
+  the max-indicator support) ⟹ kp ≥ log₂(opY) − 1 ≈ (1/3)log₂N;
+  and the corner clause (2^i·2^kp ≤ goldCut ≤ N/2) with the y-floor
+  forces 2^i ≤ N/opY ≈ N^{2/3} ⟹ i ≤ (2/3)log₂N < 2.1·kp ≈
+  0.7·log₂N — the 10/31 ratio holds with margin N^{0.03}.** The low
+  leg's analogous floor: derive from its carrier (executor task).
+  THE FIX DESIGN (G-BANDCLOSE, dispatched): (A) the band kp-floor/
+  vanish lemmas (sym from the max-support; low from its carrier);
+  (B) the high-pass ratios at the floored kp (replacing the
+  liveness route); (C) the aggregation variant with the band-tail
+  slot (the ~180-line gold_hSum_geo supersession — new file,
+  established pattern); (D) the tower close for BOTH crumbs (the
+  per-box conversions landed both legs; the O(L²) count × the
+  geometric annulus sum against the tower). Ceremony: wired + 5
+  keystones — full build exit 0 (9000 jobs).
