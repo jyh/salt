@@ -3166,3 +3166,9 @@ decisions per question.
   defects reported at equal prominence), the two-point
   method-compounding curve (5.3× → 0.5×), the revival queue.
   → JYH review, alongside the still-pending sprint-1 report.
+
+- 2026-07-17 ~23:30: **SPRINT-1 AND SPRINT-2 REPORTS RATIFIED
+  FINAL (JYH: "sprint-1 and sprint-2 reports lgtm").** Both
+  status lines flipped; the writeup's evidence base for the
+  method chapters is now two signed sprint reports + the pilot
+  ledger.

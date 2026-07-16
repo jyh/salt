@@ -1,4 +1,4 @@
-# THE SPRINT-1 REPORT (DRAFT for JYH review)
+# THE SPRINT-1 REPORT (FINAL)
 
 *Registered 2026-07-15 (commit 7ddeb491665ac2cc82055f0552f467587ee1c494);
 closed 2026-07-16 with chen_goldbach kernel-checked (d68c855). This
@@ -126,5 +126,5 @@ recorded at its ceremony). The pilot remains disclosed-and-excluded.
 Every keystone audits to [propext, Classical.choice, Quot.sound];
 the full build (9016 jobs) was green at every one of ~60 ceremonies.
 
-*— drafted by the Fable house session, 2026-07-16; pending JYH
-review before FINAL.*
+*— drafted by the Fable house session, 2026-07-16; RATIFIED FINAL
+by JYH 2026-07-17 ("sprint-1 and sprint-2 reports lgtm").*

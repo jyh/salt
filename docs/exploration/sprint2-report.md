@@ -1,4 +1,4 @@
-# THE SPRINT-2 REPORT (DRAFT for JYH review)
+# THE SPRINT-2 REPORT (FINAL)
 
 *Registered 2026-07-16 (commit 9baeae5); the last outcome line
 closed 2026-07-17 (geh_door_of_obligations, the B3 conditional
@@ -129,5 +129,5 @@ house slips, both repaired within minutes. The success criterion —
 "every item terminates in a registered outcome class with costs
 reported" — is met on all ten lines above.
 
-*— drafted by the Fable house session 2026-07-17; pending JYH
-review before FINAL.*
+*— drafted by the Fable house session 2026-07-17; RATIFIED FINAL
+by JYH 2026-07-17 ("sprint-1 and sprint-2 reports lgtm").*
