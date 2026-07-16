@@ -39,6 +39,7 @@ import Salt.SW.BoxFold
 import Salt.SW.ZetaLogBound
 import Salt.SW.BoxCompose
 import Salt.SW.ZetaLowerShallow
+import Salt.SW.ZetaInvShallow
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -156,3 +157,4 @@ open Salt.Tactic in
   Salt.SW.zeta_norm_le_zc Salt.SW.zeta_real_upper
   Salt.SW.zeta_anchor Salt.SW.zeta_deriv_bound
   Salt.SW.zeta_lower_shallow
+  Salt.SW.Zc_patch_lower Salt.SW.zeta_inv_shallow

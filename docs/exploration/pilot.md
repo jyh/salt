@@ -2440,3 +2440,24 @@ decisions per question.
   D-N5 the ≤6-not-attempted prose. GATE DISPATCHED (charges:
   source fidelity, the D-N2 route audit at proof level, case
   completeness, vacuity, naming honesty).
+
+- 2026-07-17 ~07:10 (SPRINT 2): ██ **T-1ζ′ LANDED FIRST ATTEMPT —
+  zeta_inv_shallow: 1/ζ poly-log on the WHOLE shallow half-plane**
+  ██ (S2-T1Z ≈ 179k / 35 tools). `∃ c₄ > 0, ∃ C > 0, ∀ σ t,
+  1 − c₄/log⁹(|t|+2) ≤ σ → s ≠ 1 → ‖ζ(s)⁻¹‖ ≤ C·log⁷(|t|+2)` —
+  no |t|-gate, no upper σ-cap: the Perron contour integrates it
+  everywhere. The three-case route as frozen (corollary /
+  Zc-compact patch via Zc_patch_lower with the zero-free split at
+  Re = 1 / the σ > 3 branch via the landed zeta_norm_ge — cheaper
+  than the frozen tail-series, NO new case). Compatibility check
+  ran as mandated: the landed zero-free region matches the assumed
+  shape (log¹, Re ≥ 1/2); note its constant is the existential
+  c₃ = min(1/75712, ε₀·log 2), not the ledger's 1/50456 headline —
+  inert (c₄ is chosen relative to c₃). mpmath witness dps 40:
+  empirical ratio ≤ 0.51 patch / 9e−9 far region. Constants III.4-
+  clean (both existentials outside ∀). Ceremony: grep clean, wired
+  + 2 keystones, full build exit 0 (9024 jobs), 3 axioms in-build.
+  **THE TROPHY CHAIN IS ONE NODE FROM DONE: T-Mμ dispatches — the
+  Perron budget discharging MmuRate (LambdaRate.lean:58, the ∀A
+  effective |M_μ| ≤ C·y/log^A rate) — on it, parity_wall goes
+  UNCONDITIONAL.**
