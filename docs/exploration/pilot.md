@@ -2747,3 +2747,9 @@ decisions per question.
   A-R4 dies: the entropy library + the first formalized
   information-theoretic ANT argument + log-Chowla-conditional-on-
   a-named-MR-door. Three durable deliverables.
+
+- 2026-07-17 ~15:10 (SPRINT 3): **Throttle → 6 (JYH workaround;
+  registration AMENDMENT 2). A-R1 DESIGN FROZEN** (s3-a1-design.md
+  — adopts the A-R0 recon's §5 spec verbatim: the PFR port, the
+  frozen API = (3.1)–(3.7), the 4-node wave 1, the consumer test).
+  **S3-A1-GATE dispatched** into the freed slot (6th).

@@ -112,3 +112,9 @@ something"). Signature pending.*
 throttle back to 4." The six in-flight agents run to completion;
 thereafter the active ceiling is 4 (no slot refills above it). The
 frozen text above is unchanged per the amendment protocol.
+
+## AMENDMENT 2 (2026-07-17 ~15:05, JYH): throttle restored to 6
+
+"I have found a workaround, please put the throttle back to 6."
+Amendment 1's post-drain ceiling of 4 is superseded; the ceiling is
+6 effective immediately.
