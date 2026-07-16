@@ -2775,3 +2775,10 @@ decisions per question.
   reuse-max — the two endpoints of the sprint's registered
   measurement axis; the recon argues SPLIT at the checkpoint.
   CHECKPOINT DATA COMPLETE (both recons in) → JYH.
+
+- 2026-07-17 ~15:45 (SPRINT 3): **THE CHECKPOINT: SPLIT (JYH:
+  "agreed")** — Track A stays the spine (the A1 gate running, wave
+  1 on GO); Track B runs at the narrowed scope (HB-R1 + HB-R2) in
+  parallel. The registered measurement locks in: one chain at each
+  end of the reuse axis, same instrument, same window. HB-R1
+  design freeze next (house).
