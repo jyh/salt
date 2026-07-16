@@ -1816,3 +1816,23 @@ decisions per question.
   BandPrice's pure forms — the established supersession pattern.
   G-BANDWIN ∥ G-KERRY dispatched (both from the twin templates);
   then G-SURV-2 (the composition), the op/htail wiring, G-ASM.
+
+- 2026-07-16 ~13:00: **G-BANDWIN COMPLETE — the liveness-free band
+  pricer lands END-TO-END, all first-attempt** (cost ≈ 354k / 57
+  tools / ~27 min). BandWin.lean (464) + BandWin2.lean (318), 11
+  keystones: gold_d0_window_band (the band-floor D0 window — merges
+  the annulus-native scale facts with the twin's band numerics; NO
+  liveness, no z; margin ≈ 3.7× on the binding row);
+  gold_box_price_engine_at_band → gold_band_box_kerr →
+  **gold_band_survsum_geoN** (the hgeoSym/hgeoLow per-survivor
+  grade on WIDE survivors, byte-locked); the firing branch priced
+  by the min-form tail (goldBandBtailSlot — no DEAD-cap branch: the
+  high-pass band has none); **gold_band_hlow_tail/hsym_tail** (the
+  terminal shapes + the crumb routed, superseding the pure forms).
+  G-SURV-2 residuals (flagged, not blocked): the minimal-diff
+  terminal variant threading the band crumb into htail; the sym
+  max-collapse; the geoN ratios at high-pass op scales +
+  low-annulus vanish; the crumb tower close (the per-box conversion
+  landed at gold_btail_slot_firing_le). G-KERRY still in flight;
+  G-SURV-2 dispatches when it lands. Ceremony: wired + 7 keystones
+  — full build exit 0 (8998 jobs).
