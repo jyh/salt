@@ -2420,3 +2420,23 @@ decisions per question.
   stated-not-attempted; ~300–450k; gate-ready) — ABOVE — 2. GAP-U
   option (b) (decoration lower bounds) and 3. GAP-U option (c)
   (the standalone a1up/F(4) cert, B-tier).
+
+- 2026-07-17 ~06:30 (SPRINT 2): **B3 REVIVED + DESIGN FROZEN (JYH:
+  "let's do the B3 fallback, State GEH_min honestly").** The
+  narrowed door funded ahead of sprint termination. House freeze
+  (s2-b3-design.md) with THREE house catches against the recon's
+  sketch: (1) the consumable maxDiscrepancy is π-BASED (primesCount,
+  Salt/Maynard.lean:90), not ψ as the recon reported — the trap-iv
+  class caught at freeze; (2) 1_prime is NOT a convolution — the
+  "specialize α⋆β := Λ" mechanism cannot carry N-N2; the honest
+  route is the corpus's OWN landed Vaughan machinery (BV rung:
+  TypeI/TypeII/Dispersion) with the level freed; (3) the
+  honest-direction rule: GEH_min ≤ P8b-GEH enforced by the flat-K
+  SW slot + k-outside quantification. Primary source fetched (P8b
+  Claim 2.6 via ar5iv; Thm 2.8 = Motohashi anchor); the gate
+  re-verifies (transcribe-first). Nodes: D-N1 defs+anti-vacuity
+  (~120k), D-N2 the Vaughan-route implication (C, ~250k — re-costed
+  UP from the recon's 100–150k), D-N3 the H₁ ≤ 12 composition (A),
+  D-N5 the ≤6-not-attempted prose. GATE DISPATCHED (charges:
+  source fidelity, the D-N2 route audit at proof level, case
+  completeness, vacuity, naming honesty).
