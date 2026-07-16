@@ -2608,3 +2608,13 @@ decisions per question.
   boundary blocks' honest cost (can the small-d pieces reduce to
   the landed level-1/2 BV machinery?) — then choose (a) or (b).
   HOUSE RECOMMENDATION: (c).
+
+- 2026-07-17 ~11:35 (SPRINT 2): **ZENO-HALT DISPOSITION (JYH:
+  "(c)")** — the focused boundary-block recon dispatched before
+  any (a)/(b) choice; the chain stays HALTED (no D-N2b) pending
+  its verdict + JYH sign-off. The recon also tests the house's
+  candidate escape: GEH_min's ∀ε quantifier + the x^{1/4000}
+  margin from θ < 1 may fund a split at x^{1/8000} (tiny-factor
+  tail trivial per-progression; all other blocks in-window at
+  ε = 1/16000) — if it verifies, the obligations discharge FROM
+  GEH_min itself and the door closes fully.
