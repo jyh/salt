@@ -3258,3 +3258,31 @@ decisions per question.
   trio + HB3-R0. Post-drain dispatch discipline: wave II (the
   spine's critical path) takes priority over HB-R3 executor waves
   if slots contend.
+
+- 2026-07-18 ~02:00 (SPRINT 3): **HB3-R0 ADJUDICATED — THE LADDER
+  RE-SCOPED WITH THE DEATH MAP** (S3-HB3-R0 ≈ 119k / 12 tools).
+  THE HEADLINE FINDINGS: (1) HB-R3a (the box upgrade) is a
+  DEAD-END — the √log x geometry is the dVP optimum welded at
+  three points (a polynomial box degrades the saving to ≈ x²·1;
+  c₀ = 1/126848 is five orders too small), and DEEPER: ψ₁ is
+  parity-blind — no contour statement isolates the exceptional
+  zero; the parity-break is the SIEVE's (web-confirmed vs Tao/HB).
+  The HB2 gate's "box upgrade ⟹ wire HB-R1" framing is thereby
+  CORRECTED (a recon-refutes-gate catch — the audit is
+  bidirectional). (2) HB-R3b (refute the silence branch INSIDE a
+  strengthened window → the correlation STATEMENT) is the unique
+  high-value/high-feasibility rung: 300–450k, reuses the entire
+  landed exceptional-branch machinery, non-emptiness NUMERICALLY
+  CHECKED (floor exp(7.5e10), c ≤ 2.6e−12, headroom 1–2 orders).
+  (3) THE CLIMB DIES AT HB-R4: beyond-level-½ error control —
+  Kloosterman absent, dispersion-√M unbuilt, the SAME level-½
+  wall the corpus hits in Chen/Maynard/the twin door — now
+  confirmed as HB's death rung against the literature. (4) HB-R3c
+  = the boundary-entry rung (~25% reuse; node (a), the signed
+  main term ↔ L(1,χ), is the D-locus). THE COST-CURVE DATUM: the
+  reuse cliff (546k at ~90% reuse → 0.6–1.0M at ~25% → ≥2–3M at
+  ~0%) is the sprint's registered measurement, now mapped on one
+  ladder. DISPOSITION: R3a + R4 verdicts RATIFIED as deliverables
+  (s3-hb3-design.md); R3b FROZEN + **S3-HB3B-GATE dispatched**
+  (the 4th slot; the trio still runs); R3c queued behind R3b per
+  the recon; R5 unreachable.
