@@ -1771,3 +1771,25 @@ decisions per question.
   dispatched (the band rows at top-grade + the htail close + the
   op-leg wiring); then G-ASM. Ceremony: wired + 9 keystones — full
   build exit 0 (8994 jobs).
+
+- 2026-07-16 ~11:30: **G-BANDPRICE — THE FOUR BAND BINDERS DROP FROM
+  THE TERMINAL; one analytic residual + the op specialization
+  remain** (cost ≈ 413k / 92 tools / ~49 min; first-attempt
+  throughout, the two hard cores flagged not forced). BandPrice.lean
+  (281) + BandPrice2.lean (189): gold_band_geo_absorb (the Wband
+  grade via the ≤3-survivor collapse), gold_band_hpriceSym/Low
+  (UNCONDITIONAL), gold_band_hsym/hlow (modulo the per-survivor geo
+  price), **gold_hBVblocksW_at_op_band** (the terminal with the four
+  band binders DISCHARGED IN-LINE), gold_btail_slot_firing_le (the
+  per-box tail reduction at the honest opDlev exponents). DESIGN
+  FINDING (the executor corrected the brief BEFORE building wrong —
+  the census discipline maturing): "price the full band width" was
+  wrong (X·M ≈ N² blowup); the correct route is box_disc_three_way
+  on the ANNULUS DIFFERENCE, collapsing to ≤3 dyadic-boundary
+  survivors at cutoff-scale area ≤ 2N. Ccon_band = 24·Cgeo.
+  REMAINING (named in the compiled terminal): hgeoSym/hgeoLow (the
+  per-survivor geo price = the LANDED wide_or_dead pattern
+  re-derived at the band carriers), the htail summation, the op-leg
+  specialization (hCE/hNum/hdiag at concrete op values), the
+  structural rows, hbridge. G-SURV dispatched; then G-ASM.
+  Ceremony: wired + 8 keystones — full build exit 0 (8996 jobs).

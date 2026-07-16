@@ -44,6 +44,8 @@ import Salt.Goldbach.Tail2
 import Salt.Goldbach.Glue
 import Salt.Goldbach.Final
 import Salt.Goldbach.Final2
+import Salt.Goldbach.BandPrice
+import Salt.Goldbach.BandPrice2
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -178,3 +180,8 @@ open Salt.Tactic in
   Salt.Goldbach.gold_box_tail_min Salt.Goldbach.gold_box_price_tail_min
   Salt.Goldbach.min_le_sqrt_mul Salt.Goldbach.gold_box_hprice_at_min
   Salt.Goldbach.gold_box_hbox_at_min Salt.Goldbach.gold_hBVblocksW_at_op
+  Salt.Goldbach.gold_band_geo_absorb Salt.Goldbach.gold_band_hpriceLow
+  Salt.Goldbach.gold_band_hpriceSym Salt.Goldbach.gold_band_hlow
+  Salt.Goldbach.gold_band_hsym Salt.Goldbach.gold_band_sym_hiX
+  Salt.Goldbach.gold_hBVblocksW_at_op_band
+  Salt.Goldbach.gold_btail_slot_firing_le
