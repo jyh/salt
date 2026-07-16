@@ -2344,3 +2344,21 @@ decisions per question.
   genuinely strong insight deliverable); PARK the narrowed door as
   an end-of-sprint revival candidate alongside GAP-U (b)/(c);
   keep spend concentrated on the trophy chain + the B1 flagship.
+
+- 2026-07-17 ~05:20 (SPRINT 2): **B1 EXEC-2 LANDED — WeightEscape:
+  N3 + N4 both FIRST ATTEMPT** (S2-B1-ESCAPE ≈ 80k / 11 tools —
+  under the 150k estimate). N3: readableWeight_blind — the FULL
+  decoration algebra is pointwise blind (for EVERY f : ℝ³ → ℝ, a
+  window prime and a heavy semiprime both read f 0 0 0); the
+  registered candidate-(b) worry closed exactly as the recon
+  predicted (no finiteness needed). Three new prime-side vanishing
+  lemmas (omegaLe/sqStrip/not_tripleP at a prime > y). N4: the
+  escape — bigOmegaGt (the above-y factor count WITH multiplicity)
+  separates: 1 at a window prime, 2 at EVERY heavy E2 point
+  including p² (the freeze-time catch honored); proven by the
+  gate's A2 uniform cardFactors route, NO p = q split. The GAP-E
+  tie in the docstring per the honesty section; R4 clear (every
+  Lean conclusion an equality of readings). Ceremony: grep clean
+  (the one 'sorry' hit is the docstring word 'sorry-free'; stale
+  self-description line fixed at wiring), wired + 8 keystones into
+  Chen/All, full build exit 0 (9022 jobs), 3 axioms in-build.

@@ -147,6 +147,7 @@ import Salt.Chen.PairBijection
 import Salt.Chen.SwitchConstant
 import Salt.Chen.TwinDeficit
 import Salt.Chen.WeightFamily
+import Salt.Chen.WeightEscape
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -548,3 +549,8 @@ open Salt.Tactic in
   Salt.Chen.admissible_necessary Salt.Chen.admissible_worst_case
   Salt.Chen.retune_invisible_at_heavy
   Salt.Chen.chenWeightA_eq_one_of_heavy Salt.Chen.chenWeightA_half
+  Salt.Chen.omegaLe_eq_zero_of_prime_gt Salt.Chen.sqStrip_eq_zero_of_prime_gt
+  Salt.Chen.not_tripleP_of_prime
+  Salt.Chen.readableWeight_heavy Salt.Chen.readableWeight_window_prime
+  Salt.Chen.readableWeight_blind
+  Salt.Chen.bigOmegaGt_prime Salt.Chen.bigOmegaGt_heavy
