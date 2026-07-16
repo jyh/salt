@@ -1459,3 +1459,31 @@ decisions per question.
   the live/dead dichotomy + slot mapping are in the handoff.
   Ceremony: wired + 3 keystones — full build exit 0 (8979 jobs).
   G-BOXROWS2 DISPATCHED (the packagings; then G-ASM).
+
+- 2026-07-16 ~01:15: **G-BOXROWS2: STOP-AND-FLAG — the z-bound
+  mismatch is STRUCTURAL; HOUSE ADJUDICATION: the z-dependent floor
+  at the EXISTING threshold** (cost ≈ 227k tokens / 53 tools / ~28
+  min; the DEAD half + interface pins landed —
+  gold_box_price_row_dead, 115 lines; the executor correctly
+  refused to discharge ~40 rows atop a false hypothesis). THE
+  BLOCKER, exact: the Opt-A annulus decomposition made the box
+  scales LOCAL (goldCut ≤ N/2) while z = opZ N ≈ N^{1/8} stays
+  GLOBAL, and (opZ N)^8 > N/2 for N ≥ 2^40 — the landed
+  kfloor/D0-window hz hypothesis is FALSE at op on EVERY annulus
+  (the D0WIN handoff's "top annuli" belief refuted numerically;
+  the /2 in the window top is exactly what breaks it). Live boxes
+  provably exist, so vanish does not cover. Two design resolutions
+  priced by the executor; **HOUSE ADJUDICATION (the arithmetic
+  re-checked): resolution 2 — the z-DEPENDENT floor
+  2^{k'} ≥ √(goldCut/(8z)) — and the executor's "larger op
+  threshold" caveat is VACUOUS: the ratio needs goldCut ≥ (8z)^6,
+  which live boxes (goldCut ≈ N^{19/24} vs (8z)^6 ≈ 8^6·N^{3/4})
+  satisfy for N ≥ 2^{432} — and the LANDED tower threshold is
+  exp(10^9) ≈ 2^{1.4×10^9}, astronomically above. NO
+  operating-point change; option 1 (shrinking z) REJECTED — it
+  re-opens the razor/switch balance and the certificate.**
+  G-D0WIN2 dispatched: mirror D0Win at W_honest = ½·log(goldCut/
+  (8z)) with the numeric conjuncts re-verified at the tower.
+  Ceremony: wired + 1 keystone — full build exit 0 (8980 jobs).
+  The remaining path: G-D0WIN2 → G-BOXROWS3 (the packagings) →
+  G-ASM.
