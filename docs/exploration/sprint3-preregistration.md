@@ -135,3 +135,10 @@ the error control (elementary Kloosterman-3/4 or large-sieve
 substitution), the assembly toward conditional twins. Both tracks
 now run boundary pushes in parallel; the emergent-lead slot for
 Track B is hereby CONSUMED by this extension.
+
+## AMENDMENT 4 (2026-07-18 ~01:50, JYH): throttle back to 4
+
+"Let these agents run, then bring down the throttle to 4." The
+four in-flight agents (the wave-I trio + the HB3 ladder recon) run
+to completion; thereafter the active ceiling is 4 (no refills
+above it).

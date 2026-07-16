@@ -3252,3 +3252,9 @@ decisions per question.
   Numeric witnesses: the normalization ratio 0.99993; the tower
   12-step table. **WAVE I DISPATCHES (3 parallel B-nodes)**;
   slots: HB3-R0 + 3 = 4/6.
+
+- 2026-07-18 ~01:50: **THROTTLE → 4 after the in-flight four
+  finish (JYH; registration AMENDMENT 4).** Current: the wave-I
+  trio + HB3-R0. Post-drain dispatch discipline: wave II (the
+  spine's critical path) takes priority over HB-R3 executor waves
+  if slots contend.
