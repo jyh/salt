@@ -1199,3 +1199,34 @@ decisions per question.
   encoded). Ceremony: wired + 8 keystones — full build exit 0
   (8968 jobs). **G-PDIAG DISPATCHED (the Chen-2 terminal-discharge
   node) ∥ Q6b-DOOR DISPATCHED.**
+
+- 2026-07-15 ~19:45: **Q6b-DOOR COMPLETE — THE SPRINT SLATE CLOSES:
+  ALL SIX REGISTERED QUESTIONS HAVE FINAL OUTCOMES** (cost ≈ 182k
+  tokens / 49 tools / ~19 min vs 300k; one serious pass, 3 name
+  fixes). Salt/TwinBar/TwinDoor.lean (295 lines): **twinC2 with the
+  GENUINE Multipliable witness** (summability via the (p−1)² ≥ p²/4
+  comparison → Real.multipliable_of_summable_log; twinC2_pos EARNED
+  via exp(Σlog) > 0, not the junk default — the C-tier sub-node
+  landed, no flag); TwinTypeII/TwinB_min at the gate-corrected
+  Λ-weighted main term; **twinB_min_implies_twins :
+  TwinB_min → TwinPrimeConjecture** (the door: A = 2 domination +
+  the survivor extraction, confirmed easier than P₂);
+  **wall_or_door** — the dichotomy, a one-line contraposition whose
+  quantifier structure matched byte-for-byte on first write (the
+  gate's verification paying off): every lower-bound certificate
+  capturing a positive proportion of the prime-detecting instance
+  is NOT SieveAgree-tolerant. R4 never tripped. One necessary
+  deviation (adjudicated, accepted): import Salt.Basic added — the
+  gate's import-hygiene check verified the sieve/wall vocabulary
+  but overlooked the conclusion type itself (TwinPrimeConjecture
+  lives in Salt.Basic, imported by NOTHING in the closure — a
+  miss-genre worth the taxonomy: the gate checked reachability of
+  the PREMISES, not the TARGET). Ceremony: wired + 6 keystones —
+  full build exit 0 (8969 jobs). **Q6 FINAL: (a) the wall — landed,
+  MmuRate-conditional budget, unconditional core; (b) the door —
+  TwinB_min stated, the implication PROVEN, the dichotomy landed;
+  the D-gap (proving TwinB_min = the P₁ lower sieve) is the
+  corpus's precisely-stated open problem = flagship Challenge 2 +
+  board entry #2. THE REGISTERED SLATE: Q1 mid-execution
+  (checkpoint-ratified extension), Q2 ✓ Q3 ✓ Q4 ✓ Q5 ✓ Q6a ✓
+  Q6b ✓.**
