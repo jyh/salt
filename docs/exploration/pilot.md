@@ -1900,3 +1900,20 @@ decisions per question.
   (A)-(D). G-BANDROWS dispatched (#1 + #2); then G-CLOSE (#3 + the
   op legs) → G-ASM. Ceremony: wired + 7 keystones — full build
   exit 0 (9002 jobs).
+
+- 2026-07-16 ~16:15: **G-BANDROWS — BOTH residuals land: the band
+  rows at op (the y-floor routes, 8× more room than the box leg)
+  AND the tower close with Ctail_total = 240** (cost ≈ 353k / 63
+  tools; att. 1 + att. 2). BandRows.lean (518) + BandRows2.lean
+  (404): **gold_band_wide_price_at_op** (the 39-hypothesis engine
+  discharged per-survivor off the y-floor — LHS definitionally
+  goldLowSurvSum, plugging straight into BandClose's hbox →
+  Surv's hwide); **gold_crumb_tower_close** (the shared triple-sum
+  engine at honest deficits N^{−88/10⁶} dominant; box htail = 96,
+  band hbandtail = 144). NOTE: the tower RAISED to log N ≥ 3·10^10
+  (the band hx row) — N₀ inflates within tower-grade, fine.
+  G-CLOSE dispatched (the terminal re-wire: the low chain
+  definitional; the sym max-collapse boundary argument; the
+  opD/bnd scale rows; the aggregate feed) — the LAST node before
+  G-ASM. Ceremony: wired + 5 keystones — full build exit 0
+  (9004 jobs).

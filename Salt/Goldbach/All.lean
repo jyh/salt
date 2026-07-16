@@ -52,6 +52,8 @@ import Salt.Goldbach.KerrY
 import Salt.Goldbach.Surv
 import Salt.Goldbach.BandClose
 import Salt.Goldbach.BandClose2
+import Salt.Goldbach.BandRows
+import Salt.Goldbach.BandRows2
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -207,3 +209,6 @@ open Salt.Tactic in
   Salt.Goldbach.gold_band_geoN_inputs
   Salt.Goldbach.gold_band_survsum_geoN_floored
   Salt.Goldbach.gold_hSum_geo_band
+  Salt.Goldbach.gold_band_wide_price_at_op
+  Salt.Goldbach.gold_crumb_triple_tower Salt.Goldbach.gold_box_crumb_tower
+  Salt.Goldbach.gold_band_crumb_tower Salt.Goldbach.gold_crumb_tower_close
