@@ -2714,3 +2714,7 @@ decisions per question.
   dispatches now into the raised throttle), the GEH close
   interleaving under sprint-2 accounting. Slots → 6: TYPEI + SW +
   MULTI + A-R0 + B-recon + hbridge-rewire.
+
+- 2026-07-17 ~14:30: **THROTTLE AMENDMENT (JYH)**: the six
+  in-flight agents finish; the ceiling then returns to 4. No new
+  dispatch until active < 4. Registration AMENDMENT 1 appended.

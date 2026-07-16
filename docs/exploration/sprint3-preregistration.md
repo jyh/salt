@@ -105,3 +105,10 @@ is only what sprints 1–2 never produced: an unrecorded stop.
 directive ("we could really play and push very hard into the
 boundary of feasibility... if we run out of time we still get
 something"). Signature pending.*
+
+## AMENDMENT 1 (2026-07-17 ~14:30, JYH): throttle back to 4
+
+"We are going too fast, let these agents finish then bring the
+throttle back to 4." The six in-flight agents run to completion;
+thereafter the active ceiling is 4 (no slot refills above it). The
+frozen text above is unchanged per the amendment protocol.
