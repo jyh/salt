@@ -2170,3 +2170,31 @@ decisions per question.
   estimates, all first-attempt. **T-lo′ (the trophy chain opens) +
   A1-BRIDGE dispatched.** Ceremony: wired + 2 keystones — full
   build exit 0 (9019 jobs).
+
+- 2026-07-17 ~01:45 (SPRINT 2): **THE GAP-U GATE: NO_GO — the gate
+  catches BOTH the B2 census's route-(ii) framing AND a latent
+  error in the landed Q5b commentary** (cost ≈ 191k / 25 tools —
+  three vacuous nodes prevented). THE TEAR (2 lines from landed
+  definitions): e2PrimeSum ≤ A1primeSum ALWAYS (e2Ind ≤ 1,
+  term-by-term) ⟹ e2lo ≤ a1up ⟹ the deficit gate a1up + δ ≤ e2lo
+  is UNSATISFIABLE for δ > 0 — GAP-U caps the SIFTED MASS (≈
+  XW·F(4)) where the deficit needs the razor's certified VALUE
+  (≈ XW/200); the ~200× inflation is what collides. The census's
+  "the sharpened obstruction" framing was vacuous-as-stated; the
+  latent seed sits in TwinDeficit.lean:68-71's own docstring
+  ("the genuinely-new comparison e2lo > a1up" — refuted by the
+  trivial bound). **The honest one-hypothesis no-go ALREADY EXISTS,
+  LANDED: deficit_floor_of_certs (e2lo ≥ 1/200 + δ) — GAP-E vs
+  the razor VALUE, needing no GAP-U at all.** GAP-U alone is INERT
+  for the deficit; it bites only combined with decoration LOWER
+  bounds (a further named gap the design omitted). Secondary: G3's
+  DDE route was also wrong (no derivative machinery in the corpus)
+  — the mass-ledger mirror route is B-tier if the a1up cert is
+  ever wanted as a standalone asset; F(4) = 1.021642 verified;
+  G1's carrier check passed (B, one doc bug: the double-W).
+  DECISION → JYH: (a) drop GAP-U (the deliverable already exists
+  as the landed floor theorem; redirect to B1) vs (b) re-scope to
+  GAP-U + decoration-lower-bounds (a larger chain, new named gap)
+  vs (c) land the a1up cert as a cheap standalone asset. HOUSE
+  RECOMMENDATION: (a), + the TwinDeficit docstring correction
+  (house edit), + the census erratum recorded here.
