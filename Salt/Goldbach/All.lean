@@ -50,6 +50,8 @@ import Salt.Goldbach.BandWin
 import Salt.Goldbach.BandWin2
 import Salt.Goldbach.KerrY
 import Salt.Goldbach.Surv
+import Salt.Goldbach.BandClose
+import Salt.Goldbach.BandClose2
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -200,3 +202,8 @@ open Salt.Tactic in
   Salt.Goldbach.gold_band_btail_slot_firing_le
   Salt.Goldbach.gold_band_hlow_tail_discharge
   Salt.Goldbach.gold_band_hsym_tail_discharge
+  Salt.Goldbach.gold_band_low_vanish Salt.Goldbach.gold_band_sym_vanish
+  Salt.Goldbach.gold_band_low_kp_floor Salt.Goldbach.gold_band_sym_kp_floor
+  Salt.Goldbach.gold_band_geoN_inputs
+  Salt.Goldbach.gold_band_survsum_geoN_floored
+  Salt.Goldbach.gold_hSum_geo_band

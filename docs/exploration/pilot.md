@@ -1884,3 +1884,19 @@ decisions per question.
   per-box conversions landed both legs; the O(L²) count × the
   geometric annulus sum against the tower). Ceremony: wired + 5
   keystones — full build exit 0 (9000 jobs).
+
+- 2026-07-16 ~15:15: **G-BANDCLOSE — (A)+(B)+(C) land: the y-floor
+  vanish (via the p₂-cap, cleaner than the max route), the
+  liveness-free ratio at cr = 4 (the item-2 flag's refutation
+  formalized: 21·kp ≥ 10·i + 20 from the corner + the floor, T ≥
+  123 suffices vs the tower's 2·10⁹), and gold_hSum_geo_band (the
+  aggregation with the band-tail slot)** (cost ≈ 240k / 69 tools;
+  2 serious attempts, (D)+(5) flagged at the protocol boundary).
+  RESIDUALS: #1 the band WIDE pricer's analytic side-conditions at
+  op (gold_band_box_kerr's rows — the RowsLive pattern at the band
+  floors, which are STRONGER than the box's, kp ≥ log₂(opY)−1);
+  #2 (D) the tower close for both crumbs (the per-box conversions
+  landed both legs); #3 (5) the terminal re-wire consuming
+  (A)-(D). G-BANDROWS dispatched (#1 + #2); then G-CLOSE (#3 + the
+  op legs) → G-ASM. Ceremony: wired + 7 keystones — full build
+  exit 0 (9002 jobs).
