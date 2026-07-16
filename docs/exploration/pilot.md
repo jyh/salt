@@ -2102,3 +2102,31 @@ decisions per question.
   = A1-ab + A1-c + A2a (safe under every outcome) DISPATCHED; the
   T-1ζ uniformity SUB-RECON dispatched (the recon-first clause);
   the trophy executor gated on its verdict.
+
+- 2026-07-16 ~23:20 (SPRINT 2): **A1-ab LANDS first-attempt + THE
+  FORK ADJUDICATES C-GO-VARIANT — the trophy is REACHABLE by the
+  shallow contour** (A1-ab ≈ 181k; the fork recon ≈ 144k). A1-ab
+  (Salt/SW/BoxCount.lean, 219 lines): zeta_box_divisor_le +
+  zeta_box_count_half at C ≈ 209 — AND the t-split COLLAPSES (the
+  corpus counts zeros of the entire (s−1)ζ, so the pole contributes
+  divisor 0: uniform in t, no case space — a simplification the
+  design didn't see). THE FORK VERDICT: (1) the DEEP contour is
+  confirmed D — the landed c₃ = 1/50456 makes the transport
+  t^{4·10⁶}-fatal; Rb-4 was right about THE ROUTE; (2) **the
+  SHALLOW contour (Re = 1 − c₄/log⁹T) + ADDITIVE short transport
+  (Titchmarsh 3.11: transport ζ itself, never log ζ — no
+  exponentiation) delivers |1/ζ| ≤ C·log⁷T, POLY-LOG, ZERO density
+  consumed** — numerically verified at t = 10⁶/10⁹/10¹² with
+  positive margins; (3) the Perron budget closes at log T =
+  (log x)^{1/10} → |M_μ(x)| ≤ C·x·exp(−c(log x)^{1/10}) —
+  MmuRate OVER-delivered (sub-exponential); (4) the ONE load-bearing
+  dependency: A2a must hold on σ ≥ 1 − c/log t (the strip — the
+  running executor's brief already states this range); (5) the
+  BC-Harnack deep variant shelf-noted for a future sharper rate.
+  THE TROPHY RE-SPEC (amending the design): T-lo′ (the 3-4-1 anchor
+  + Cauchy-ζ′ + additive transport, C) → T-1ζ′ (the shallow-contour
+  poly-log, C) → T-Mμ (the budget, C). Rb-4's verdict-D on the
+  TROPHY is now a recorded ROUTE ARTIFACT — catch-the-house (Rb-4's
+  own analysis) by a deeper recon; the wall's discharge is in
+  reach. T-lo′ dispatches when A2a lands. Ceremony: A1-ab wired +
+  3 keystones — full build exit 0 (9017 jobs).

@@ -47,3 +47,13 @@ The chain A1-ab → A1-c is two nodes with a declared terminal; the
 trophy chain is gated at the fork per the registration clause. If
 the fork resolves D, Track A reports A1 + A2a as the landed prefix +
 the death-node map (the registered informative-failure outcome).
+
+## AMENDMENT (post-fork, ~23:20): the trophy re-spec
+The fork adjudicated C-GO-VARIANT. The deep T-1ζ is DEAD (confirmed
+D — t^{4·10⁶}). The chain is now: **T-lo′** (|ζ| ≥ c/log⁷t at σ ≥
+1 − c₄/log⁹t via the 3-4-1 anchor at σ₀ = 1 + a/log⁹t + Cauchy-ζ′
+on r ≈ 1/log t + the ADDITIVE transport — margins verified at
+a = 1, c₄ = 0.2) → **T-1ζ′** (poly-log on the shallow contour,
+uniform — never within a density scale of any zero) → **T-Mμ**
+(the Perron budget at log T = (log x)^{1/10}; the landed kernel
+spine; rectBI = 0). Dependency: A2a ON THE STRIP σ ≥ 1 − c/log t.
