@@ -1386,3 +1386,31 @@ decisions per question.
   G-AGG dispatched (both seams, pre-authorized split; first task:
   trace the twin's ACTUAL hA3_bundle chain backward from Headline4).
   Ceremony: wired + 5 keystones — full build exit 0 (8975 jobs).
+
+- 2026-07-15 ~23:30: **G-AGG COMPLETE — both seams' keystones land
+  first-pass + THE ARCHITECTURAL CATCH: the twin's real A₃ route is
+  the W/BLOCK path** (cost ≈ 274k tokens / 57 tools / ~25 min vs
+  450k; the friction memo again cost ZERO cycles). THE TRACE (the
+  brief's first task, delivered): the twin's hA3_bundle composes
+  box/low/sym_price_indep → hSum_at_op → hCE/hRCE → hdiag →
+  hNum_close → hBVblocksW_discharge' →
+  **mainA3_of_block_remainders_W (SwitchW:340) — the W-route
+  terminal, φ(Q)-normalized**. THE CATCH: gold_mainA3_of_hBVswitch/
+  gold_mainA3_at_op carry the NON-W goldSwitchSieve with no /φ(Q) —
+  the entire landed pricing chain (PDiag/SW2, all φ(Q)-normalized
+  W/CRT objects) CANNOT feed them (the non-W sifted sum over-counts
+  by φ(Q)); the Λ-bridge must target goldSwitchSieveW.siftedSum.
+  G-AGG built the faithful W-route terminal instead of the brief's
+  target — the correct deviation. LANDED: **gold_hSum_at_op**
+  (seam 1's aggregate — the hSum slot character-for-character;
+  RHD = (12·Ccon_box + 3·Ccon_band + Ccon_diag/2)·Kc·N/(log N)^11)
+  + **gold_mainA3_of_block_remainders_W** (the composed A₃ terminal)
+  + gold_log_absorb. The annulus axis enters at ^13/^12 → closes to
+  ^11 (the A+1 saving, tower-dwarfed). FINAL G-ASM BYTE-LOCK
+  recorded in Agg2 §3. THE ONE OPEN RESIDUAL: **gold_box_price_indep
+  — the ~40-row analytic discharge at per-annulus geometry** (the
+  twin's PriceOne mirror; the small-k vanish/live floor is the
+  delicate part) — G-BOXROWS dispatched (the pilot's own 600k–1.2M
+  wave estimate; pre-authorized split). Ceremony: wired + 3
+  keystones — full build exit 0 (8977 jobs). Chen-2 critical path:
+  G-BOXROWS (wave) → G-ASM.

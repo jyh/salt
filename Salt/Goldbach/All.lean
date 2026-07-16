@@ -25,6 +25,8 @@ import Salt.Goldbach.Omega
 import Salt.Goldbach.Op2
 import Salt.Goldbach.Price
 import Salt.Goldbach.PriceClose
+import Salt.Goldbach.Agg
+import Salt.Goldbach.Agg2
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -123,3 +125,6 @@ open Salt.Tactic in
   Salt.Goldbach.gold_box_price_engine
   Salt.Goldbach.gold_hNum_close_of_tower Salt.Goldbach.gold_tower_budget
   Salt.Goldbach.gold_mainA3_at_op
+  Salt.Goldbach.gold_hSum_at_op
+  Salt.Goldbach.gold_mainA3_of_block_remainders_W
+  Salt.Goldbach.gold_log_absorb
