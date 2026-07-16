@@ -148,6 +148,7 @@ import Salt.Chen.SwitchConstant
 import Salt.Chen.TwinDeficit
 import Salt.Chen.WeightFamily
 import Salt.Chen.WeightEscape
+import Salt.Chen.WeightNoGo
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -554,3 +555,8 @@ open Salt.Tactic in
   Salt.Chen.readableWeight_heavy Salt.Chen.readableWeight_window_prime
   Salt.Chen.readableWeight_blind
   Salt.Chen.bigOmegaGt_prime Salt.Chen.bigOmegaGt_heavy
+  Salt.Chen.impostor_feasible Salt.Chen.no_readable_certificate
+  Salt.Chen.p2PrimeSum_le_A1primeSum Salt.Chen.corpus_feasible
+  Salt.Chen.affine_carrier_identity
+  Salt.Chen.readableAffineWeight_chenWeightA
+  Salt.Chen.no_affine_certificate

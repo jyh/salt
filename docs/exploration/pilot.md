@@ -2374,3 +2374,49 @@ decisions per question.
   human-gated) both binding beyond sprint 2. Provenance: named at
   the Chen-2 close, ratified as sprint-2 clauses 2–3, first
   freeze-time capture = the B1 heavy-square corner.
+
+- 2026-07-17 ~05:50 (SPRINT 2): ██ **B1 IS RESOLVED — THE FLAGSHIP
+  BET LANDS: no_readable_certificate, all five nodes, all first
+  attempt** ██ (S2-B1-CORE ≈ 112k / 18 tools; B1 exec total ≈ 192k
+  vs the ~390k estimate). WeightNoGo.lean: the 12-clause Feasible
+  polytope verbatim; impostor_feasible; **no_readable_certificate
+  — ANY certificate Φ reading the four carrier-row values that is
+  valid over the corpus-certified feasible set certifies NOTHING
+  (Φ ≤ 0)** — the proof exactly as frozen (hΦ at the impostor,
+  whose p₁-slot is literally 0); the schematic III.3″ witness ON
+  the razor floor (clause 12 at equality); corpus_feasible (the
+  operating-point realization); the affine family closed
+  (affine_carrier_identity + no_affine_certificate + the
+  ring-closed chenWeightA instance per gate A3). With EXEC-2's
+  WeightEscape: the registered B1 outcome is the class-maximal
+  theorem WITH the exact boundary — candidates (a) affine, (b) the
+  full decoration algebra, (c) row-readers ALL closed; the escape
+  bigOmegaGt named with its GAP-E carrier. WIDER than registered.
+  TWO EXECUTOR DEVIATIONS ADJUDICATED, both ACCEPTED (house):
+  (1) import Salt.Chen.WeightFamily added — a BRIEF defect, not an
+  executor error: the required chenWeightA instance lives
+  downstream of TwinDeficit (the design's import note amended in
+  spirit; non-.All, re-exports TwinDeficit); (2) corpus_feasible
+  carries the minimal consumed package (+ razor_reduction's own
+  hyx : x < (y+1)^3, the landed window bound) instead of the
+  verbatim p2RazorLHS_ge_of_certs mirror — dropping binders NO
+  Feasible clause consumes (zero-warnings compliance); a STRICTLY
+  more general theorem, package still consequences-only hence
+  satisfiable. New helper: p2PrimeSum_le_A1primeSum (the erratum's
+  trivial bound, now a landed lemma). Ceremony: grep clean, wired
+  + 7 keystones into Chen/All, full build exit 0 (9023 jobs), 3 axioms
+  in-build.
+
+- 2026-07-17 ~05:52 (SPRINT 2): **B3 TERMINAL (JYH: "yes, accept
+  B3's terminal outcome, but put the fallback as higher priority
+  revival at sprint termination").** B3 closes in its registered
+  informative-failure class: the blocker located to
+  Certificate.lean's DInt/JD/M5_cert (the SIMPLEX-hardwired
+  kernel; three_bar pre-refutes the k=3 port in-corpus; H₁ ≤ 6
+  needs the inexpressible ε-enlarged M₃^[ε] > 2; no k-generic
+  layer exists to parametrize). THE END-OF-SPRINT REVIVAL QUEUE
+  (ordered, per JYH): **1. the B3 narrowed door** (GEH_min stated
+  + GEH_min ⟹ HasLevel(3999/4000) ⟹ H₁ ≤ 12 + the ≤6 sharpening
+  stated-not-attempted; ~300–450k; gate-ready) — ABOVE — 2. GAP-U
+  option (b) (decoration lower bounds) and 3. GAP-U option (c)
+  (the standalone a1up/F(4) cert, B-tier).
