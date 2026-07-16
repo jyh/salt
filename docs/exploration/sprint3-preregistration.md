@@ -118,3 +118,20 @@ frozen text above is unchanged per the amendment protocol.
 "I have found a workaround, please put the throttle back to 6."
 Amendment 1's post-drain ceiling of 4 is superseded; the ceiling is
 6 effective immediately.
+
+## AMENDMENT 3 (2026-07-18 ~00:45, JYH): Track B extends to HB-R3+
+
+"I think we should push into HB-R3+." Track B's narrowed scope
+(HB-R1 + HB-R2, both landed) EXTENDS into the full Heath-Brown
+ladder under the SAME boundary acceptance rule as the spine: the
+rungs are outcome classes, a death with the node map is a
+registered success, the halt may be called by quota. The ladder
+(from the B-R0 recon, to be re-scoped by a fresh recon against the
+post-HB-R2 corpus): the dispatcher box upgrade (polynomial box →
+the literature-faithful first-power coupling, wiring HB-R1), the
+explicit-formula consumption of the exceptional zero, the
+χ-twisted sieve weight λ ≈ χ∗1 (the genuinely-new construction),
+the error control (elementary Kloosterman-3/4 or large-sieve
+substitution), the assembly toward conditional twins. Both tracks
+now run boundary pushes in parallel; the emergent-lead slot for
+Track B is hereby CONSUMED by this extension.

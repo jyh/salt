@@ -3217,3 +3217,14 @@ decisions per question.
   endpoint's 0.85M for A-R1. Ceremony: grep clean, wired + 4
   keystones (names verified from the file), full build exit 0
   (9057 jobs).
+
+- 2026-07-18 ~00:45 (SPRINT 3): **TRACK B EXTENDS TO HB-R3+ (JYH:
+  "I think we should push into HB-R3+"; registration AMENDMENT
+  3).** The full Heath-Brown climb opens under the boundary
+  acceptance rule. **S3-HB3-R0 dispatched**: the ladder re-scope
+  against the corpus AS IT NOW STANDS (the amended dispatcher,
+  SiegelCorr, the landed Siegel/sieve stacks) — per-rung outcome
+  classes, the D-tier map, and the quota-window feasibility
+  ranking. The A-2 gate remains in flight (its regime block
+  already persisted to the design doc per the new process rule);
+  wave I dispatches on its verdict.
