@@ -57,14 +57,52 @@ structure ChowlaRegime where
   hHlo : a ≤ Hlo
   hHlohi : Hlo ≤ Hhi
   hC0 : 2 ≤ C0
-  -- the tower fits the range and the sample window: FROZEN AS
-  -- FIELDS after the gate's page-image pass pins the exact list
-  -- (the recon recorded: H_j ≤ exp(B·j·log j); H₊ ≥ the J-step
-  -- tower from H₋; x large enough that n + H₊ ≤ 2x-grade and
-  -- the log-normalization Σ 1/n ∈ [log ω − 1, log ω + 1]).
-  hHtower : True   -- PLACEHOLDER — the gate REPLACES this with the
-                   -- verified field list; executors must not see
-                   -- a placeholder (gate charge #1)
+  -- ==== GATE-VERIFIED FIELD LIST (S3-A2-GATE, pp. 11–20 page images;
+  --      replaces the hHtower placeholder; whole structure elaborates,
+  --      EXIT 0). chowlaTower / towerDropSum are the two prerequisite
+  --      defs added to the Frozen Lean shapes below. ====
+  hHlo_floor : 4000000 ≤ Hlo   -- H₋ ≥ e^{e^e} ≈ 3.814·10⁶: forces
+                               -- logloglog H₋ ≥ 1, hence the tower step
+                               -- ⌊C₀·logH·logloglogH⌋ ≥ 2 (STRICT growth)
+                               -- and the decrement 1/(2 logH logloglogH) > 0.
+                               -- CATCH: the freeze/recon "H ≥ 16-grade floor"
+                               -- STALLS the tower — at H = 16 the floor is 0
+                               -- (logloglog 16 = 0.0196; C₀=2 ⇒ ⌊2·2.77·0.02⌋=0).
+                               -- Minimal non-stall (C₀=2) is H ≳ 45; 4·10⁶ is the
+                               -- clean choice that also gives logloglog ≥ 1.
+  hheadroom  : Hhi ≤ x / ω     -- MINIMAL headroom (necessary, likely NOT
+                               -- sufficient). p.11's true hierarchy is far
+                               -- stronger: a,b,h ≪ 1/ε ≪ H₋ ≪ H₊ ≪ A ≤ ω ≤
+                               -- x/log x ≤ x AND x/ω ≥ log A ≫ H₊, i.e.
+                               -- H₊ ≪ log A ≤ log ω (ω is EXPONENTIALLY larger
+                               -- than H₊). GATE FLAG: the o_{A→∞}(1)-governing
+                               -- parameter A is MISSING from the regime; Lemma
+                               -- 2.5's (Wave II) affine-invariance error control
+                               -- needs it (or ω ≥ e^{Hhi}-grade). DEFER the exact
+                               -- headroom/A field to a Wave-II micro-freeze once
+                               -- the o_{A→∞} error-formalization route is chosen
+                               -- (this is the flagged could-spike-D node).
+  hcoprime   : (a : ℚ) ≤ eps ^ 2 * (Hlo : ℚ) / 2
+                               -- P_H coprime to a (p.16): every prime of 𝒫_H
+                               -- exceeds ε²H/2 ≥ ε²H₋/2 ≥ a. SETUP-faithful; NOT
+                               -- consumed by the entropy proof of Lemma 3.1 (it is
+                               -- used upstream in Prop 2.6). Drop only if the rung
+                               -- proves entropy_decrement in isolation.
+  hfit       : chowlaTower C0 a Hlo J ≤ Hhi
+                               -- "H₊ sufficiently large depending on H₋, C₀, J"
+                               -- (p.19): the J-step tower fits below H₊; with
+                               -- monotonicity ⇒ every H_j ∈ [H₋, H₊].
+  hJcon      : Real.log 2 < towerDropSum C0 a Hlo J
+                               -- "J sufficiently large depending on C₀, H₋, ε"
+                               -- (p.20): the telescoped decrement Σ exceeds the
+                               -- Liouville entropy ceiling ℍ(X_H)/H ≤ log 2,
+                               -- forcing the contradiction. NB the (barely-)
+                               -- divergence proof is RELOCATED to regime-
+                               -- instantiation (proving ∃ ChowlaRegime). The
+                               -- crossing J is astronomically large (at J = 10⁷
+                               -- the sum is still 0.489 < log 2 = 0.693): Wave IV
+                               -- must formalize SERIES DIVERGENCE, not a finite
+                               -- numeric margin.
 ```
 
 ## Frozen Lean shapes — Salt/Entropy/Chowla/Decrement.lean tree
@@ -87,9 +125,32 @@ def liouvilleWindow (H : ℕ) (n : ℕ) : Fin H → ℤ :=
 instance : FiniteRange (liouvilleWindow H)  -- range ⊆ {−1,1}^H
 
 /-- The prime modulus P_H and the residue datum. -/
-def primeWindow (eps : ℚ) (H : ℕ) : Finset ℕ := ...primesIn...
+def primeWindow (eps : ℚ) (H : ℕ) : Finset ℕ := ...primesIn...  -- ε²H/2 < p ≤ ε²H
 def PH (eps : ℚ) (H : ℕ) : ℕ := ∏ p ∈ primeWindow eps H, p
-def residueWindow (eps : ℚ) (H : ℕ) (n : ℕ) : ZMod (PH eps H) := n
+def residueWindow (eps : ℚ) (H : ℕ) (n : ℕ) : ZMod (PH eps H) := (n : ZMod (PH eps H))
+
+-- GATE (charge #3b): PH ≥ 1 ALWAYS (empty product = 1; primes ≥ 2). Register
+-- this NeZero instance globally; then the DEPENDENT ZMod (PH eps H) target
+-- elaborates and FiniteRange / MeasurableSingletonClass / Countable / Fintype
+-- (for entropy_le_log_card ⇒ ℍ(Y_H) ≤ log|ZMod PH| = log PH) all resolve — no
+-- sigma-type, no fixed-ambient-ℤ encoding needed. (Gate-probed, EXIT 0.)
+instance (eps : ℚ) (H : ℕ) : NeZero (PH eps H) := ⟨by
+  have : 0 < PH eps H := Finset.prod_pos (fun p hp => (by
+    simp only [primeWindow, Finset.mem_filter] at hp; exact hp.2.1.pos)); omega⟩
+
+/-- The tower recursion (Lemma 3.1, p.19): H₁ = a·H₋ (index 0),
+    H_{j+1} = H_j·⌊C₀ log H_j logloglog H_j⌋. GATE-verified to elaborate. -/
+noncomputable def chowlaTower (C0 a Hlo : ℕ) : ℕ → ℕ
+  | 0     => a * Hlo
+  | (j+1) => chowlaTower C0 a Hlo j *
+      ⌊(C0 : ℝ) * Real.log (chowlaTower C0 a Hlo j : ℝ)
+        * Real.log (Real.log (Real.log (chowlaTower C0 a Hlo j : ℝ)))⌋₊
+
+/-- The telescoped per-step entropy decrement Σ_{j<J} 1/(2 log H_j logloglog H_j). -/
+noncomputable def towerDropSum (C0 a Hlo J : ℕ) : ℝ :=
+  ∑ j ∈ Finset.range J,
+    1 / (2 * Real.log (chowlaTower C0 a Hlo j : ℝ)
+           * Real.log (Real.log (Real.log (chowlaTower C0 a Hlo j : ℝ))))
 
 /-- THE HEADLINE (Lemma 3.1, Liouville). -/
 theorem entropy_decrement (R : ChowlaRegime) :

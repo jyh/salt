@@ -3228,3 +3228,27 @@ decisions per question.
   ranking. The A-2 gate remains in flight (its regime block
   already persisted to the design doc per the new process rule);
   wave I dispatches on its verdict.
+
+- 2026-07-18 ~01:30 (SPRINT 3): **THE A-R2 GATE: GO-WITH-REGIME**
+  (S3-A2-GATE ≈ 223k / 39 tools; pp. 11–20 read as page images;
+  all probes EXIT 0; the regime persisted to the design doc AT
+  ADJUDICATION per the new rule). The hHtower placeholder replaced
+  by 5 verified fields + chowlaTower/towerDropSum. THREE catches
+  against the freeze: (1) the "H ≥ 16-grade floor" STALLS the
+  tower (⌊C₀·log16·logloglog16⌋ = 0 — H_{j+1} = 0); the honest
+  floor is H₋ ≥ 4·10⁶ (logloglog ≥ 1, step ≥ 30); (2) the
+  contradiction is ASYMPTOTIC — at J = 10⁷ the drop-sum is 0.489
+  < log 2: wave IV formalizes iterated-log SERIES DIVERGENCE
+  (Cauchy condensation; mathlib availability = a wave-IV recon
+  flag), not numerics; (3) the o_{A→∞} parameter A is MISSING
+  from the freeze — the affine-invariance headroom defers to a
+  wave-II micro-freeze (inside the pre-declared could-spike-D
+  envelope). Elaboration adjudications: the DEPENDENT ZMod (PH)
+  target VIABLE (register the global NeZero — PH ≥ 1 always;
+  entropy_le_log_card then gives ℍ(Y_H) ≤ log PH free);
+  FiniteSupport(logMeasure) NOT automatic (wave-I constructs);
+  FiniteRange(liouvilleWindow) manual; the Fin H → ℤ codomain
+  needs measureEntropy_le_log_card_of_mem (not the Fintype form).
+  Numeric witnesses: the normalization ratio 0.99993; the tower
+  12-step table. **WAVE I DISPATCHES (3 parallel B-nodes)**;
+  slots: HB3-R0 + 3 = 4/6.
