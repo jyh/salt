@@ -565,11 +565,13 @@ theorem pieceObligationU_of_GEH_single {θ ε : ℝ} (hε : 0 < ε)
             seqDiscrepancy (dconv (α x) (β x)) (4 * N x * M x) q)) :
     PieceObligationU θ w := by
   intro A hA
-  obtain ⟨B, C, hB0, hbound⟩ := hGEH ε A hε hA k α β N M hα hβ hSW
+  obtain ⟨j, KF, hSWData⟩ := sWAtData_of_sWAt hSW
+  obtain ⟨B, C, hB0, hbound⟩ := hGEH ε A hε hA k j KF
   refine ⟨B, C, hB0, fun x y hx hyx => ?_⟩
   refine (hdom B x y hx hyx).trans ?_
   obtain ⟨hN1, hN2, hM1, hM2, hNM, hx4⟩ := hwin x hx
-  exact hbound x hx hN1 hN2 hM1 hM2 hNM hx4
+  exact hbound α β N M hα hβ hSWData x (4 * N x * M x) hx (le_refl _)
+    hN1 hN2 hM1 hM2 hNM hx4
 
 /-- **The headline (amended target).**  `GEH_min (3999/4000)` plus the explicit
 SW-supplier obligations implies the `y`-uniform meeting point

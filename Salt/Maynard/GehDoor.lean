@@ -95,25 +95,79 @@ def SWAt (β : ℕ → ℕ → ℝ) (M : ℕ → ℕ) : Prop :=
     seqDiscrepancy (fun n => if Nat.Coprime n r then β x n else 0) x q
       ≤ K * ((q * r).divisors.card : ℝ) ^ j * (M x : ℝ) / Real.log x ^ A
 
-/-- **The narrowed GEH door** `GEH_min θ`.  For every `ε, A > 0`, every
-divisor-power `k`, and every coefficient/SW-admissible pair of families
-`(α, β)` on scales `(N, M)`, there is a log-power haircut `B` and constant `C`
-(uniform in `x`) with the summed AP discrepancy of `α x ⋆ β x` over moduli
-`≤ x^θ/(log x)^B` bounded by `C x/(log x)^A`, in the balanced window
-`N M ≤ x ≤ 4 N M` with both scales in `[x^ε, x^{1-ε}]`.  Discrepancy cutoff
-`4 N M` = the full convolution support (R4).  Implied by P8b GEH[θ]; see the
-module docstring for the honest-direction accounting. -/
+/-- **The SW property at EXPLICIT data** `(j, KF)` — the `x`-uniform Siegel–Walfisz
+slot with the divisor-power exponent `j` and the per-`A` constant function `KF`
+named *outside* the `∀ x`.  This is the destructured form of `SWAt`: `SWAt` says
+"there EXIST `j, KF`"; `SWAtData β M j KF` fixes them.  The constant `KF A` is
+chosen BEFORE the point `x` (the honest ordering, mirroring
+`Salt.BV.SiegelWalfisz`), so it cannot silently absorb an `x`-growing
+discrepancy.  `GEH_min` quantifies over `(j, KF)` and picks its haircut `B`,
+constant `C` uniformly in the family — matching P8b Claim 2.6's convention that
+the implied `≪`-constant depends only on the fixed data (Def 1.6). -/
+def SWAtData (β : ℕ → ℕ → ℝ) (M : ℕ → ℕ) (j : ℕ) (KF : ℝ → ℝ) : Prop :=
+  ∀ A : ℝ, 0 < A → ∀ x r q : ℕ, 2 ≤ x → 0 < r → 0 < q →
+    seqDiscrepancy (fun n => if Nat.Coprime n r then β x n else 0) x q
+      ≤ KF A * ((q * r).divisors.card : ℝ) ^ j * (M x : ℝ) / Real.log x ^ A
+
+/-- **`SWAt` destructures to `SWAtData`.**  The family-level `SWAt β M` (an
+`∃ j, ∀ A, ∃ K, …`) yields explicit data `(j, KF)` with `SWAtData β M j KF`:
+take `j` from the outer `∃`, and let `KF A` be a valid constant `K` for each
+`A > 0` (choice on the per-`A` existential; junk `0` off the positive ray).  The
+bridge that lets a consumer holding `SWAt β M` feed the `(j, KF)`-indexed
+`GEH_min`. -/
+theorem sWAtData_of_sWAt {β : ℕ → ℕ → ℝ} {M : ℕ → ℕ} (h : SWAt β M) :
+    ∃ j : ℕ, ∃ KF : ℝ → ℝ, SWAtData β M j KF := by
+  obtain ⟨j, hj⟩ := h
+  refine ⟨j, ?_⟩
+  have hchoice : ∀ A : ℝ, ∃ K : ℝ, 0 < A →
+      ∀ x r q : ℕ, 2 ≤ x → 0 < r → 0 < q →
+        seqDiscrepancy (fun n => if Nat.Coprime n r then β x n else 0) x q
+          ≤ K * ((q * r).divisors.card : ℝ) ^ j * (M x : ℝ) / Real.log x ^ A := by
+    intro A
+    by_cases hA : 0 < A
+    · obtain ⟨K, _hK0, hK⟩ := hj A hA
+      exact ⟨K, fun _ => hK⟩
+    · exact ⟨0, fun hA' => absurd hA' hA⟩
+  obtain ⟨KF, hKF⟩ := Classical.axiomOfChoice hchoice
+  exact ⟨KF, fun A hA x r q hx hr hq => hKF A hA x r q hx hr hq⟩
+
+/-- **The narrowed GEH door** `GEH_min θ` (house amendment, 2026-07-16: `x`- and
+`y`-uniform).  For every `ε, A > 0`, every divisor-power `k`, and every SW data
+`(j, KF)`, there is a single log-power haircut `B` and constant `C` — depending
+only on `(ε, A, k, j, KF)`, *uniform over the whole coefficient/SW-admissible
+family class* — such that for every balanced pair `(α, β)` on scales `(N, M)`
+and every prefix cutoff `y ≤ 4 N M`, the summed AP discrepancy of `α x ⋆ β x`
+over moduli `≤ x^θ/(log x)^B` is `≤ C x/(log x)^A`, in the window `N M ≤ x ≤ 4 N M`
+with both scales in `[x^ε, x^{1-ε}]`.
+
+Two faithfulness corrections over the earlier freeze, both toward P8b Claim 2.6
+(Def 1.6: the implied constant depends only on the fixed data) and both keeping
+`GEH_min ≤ P8b GEH[θ]` (the honest `_min` direction):
+
+* **`∃ B C` moved OUTSIDE `∀ α β N M`** — `B, C` are uniform over the sequence
+  class, not re-chosen per family.  The earlier `∃`-after-`∀` form was too weak:
+  it let each family pick its own haircut, so the `O(log² x)` dyadic block-pair
+  sum (each pair a distinct family) had no common `B` and the Type-II domination
+  `hdom` was unsatisfiable.
+* **Discrepancy cutoff is an arbitrary prefix `y ≤ 4 N M`**, not pinned at the
+  top `4 N M` — P8b's `Δ` is controlled at every scale, which the Λ→π Abel
+  bridge (`GehPiSeam`) consumes.
+
+The SW slot is `SWAtData β M j KF` (the destructured, `x`-uniform `SWAt`); a
+consumer holding `SWAt β M` feeds this via `sWAtData_of_sWAt`.  Discrepancy
+cutoff `4 N M` = the full convolution support (R4).  Implied by P8b GEH[θ]; see
+the module docstring for the honest-direction accounting. -/
 def GEH_min (θ : ℝ) : Prop :=
-  ∀ ε A : ℝ, 0 < ε → 0 < A → ∀ k : ℕ,
+  ∀ ε A : ℝ, 0 < ε → 0 < A → ∀ k j : ℕ, ∀ KF : ℝ → ℝ, ∃ B C : ℝ, 0 ≤ B ∧
   ∀ α β : ℕ → ℕ → ℝ, ∀ N M : ℕ → ℕ,
-    CoeffAt α N k → CoeffAt β M k → SWAt β M →
-  ∃ B C : ℝ, 0 ≤ B ∧ ∀ x : ℕ, 2 ≤ x →
-    (x : ℝ) ^ ε ≤ (N x : ℝ) → (N x : ℝ) ≤ (x : ℝ) ^ (1 - ε) →
-    (x : ℝ) ^ ε ≤ (M x : ℝ) → (M x : ℝ) ≤ (x : ℝ) ^ (1 - ε) →
-    N x * M x ≤ x → x ≤ 4 * N x * M x →
-    (∑ q ∈ Finset.Icc 1 ⌊(x : ℝ) ^ θ / Real.log x ^ B⌋₊,
-        seqDiscrepancy (dconv (α x) (β x)) (4 * N x * M x) q)
-      ≤ C * x / Real.log x ^ A
+    CoeffAt α N k → CoeffAt β M k → SWAtData β M j KF →
+    ∀ x y : ℕ, 2 ≤ x → y ≤ 4 * N x * M x →
+      (x : ℝ) ^ ε ≤ (N x : ℝ) → (N x : ℝ) ≤ (x : ℝ) ^ (1 - ε) →
+      (x : ℝ) ^ ε ≤ (M x : ℝ) → (M x : ℝ) ≤ (x : ℝ) ^ (1 - ε) →
+      N x * M x ≤ x → x ≤ 4 * N x * M x →
+      (∑ q ∈ Finset.Icc 1 ⌊(x : ℝ) ^ θ / Real.log x ^ B⌋₊,
+          seqDiscrepancy (dconv (α x) (β x)) y q)
+        ≤ C * x / Real.log x ^ A
 
 /-- `seqDiscrepancy` is nonnegative (a `sup'` of absolute values; junk `0` at
 `q = 0`).  Mirrors `maxDiscrepancy_nonneg`. -/
@@ -138,9 +192,10 @@ range).  Mirrors `HasLevel_antitone`: the subset argument over the `Icc` of
 moduli, closed by `seqDiscrepancy_nonneg`. -/
 theorem GEH_min_antitone {θ₁ θ₂ : ℝ} (h : θ₁ ≤ θ₂) (_hθ₁ : 0 ≤ θ₁)
     (hG : GEH_min θ₂) : GEH_min θ₁ := by
-  intro ε A hε hA k α β N M hα hβ hSW
-  obtain ⟨B, C, hB0, hC⟩ := hG ε A hε hA k α β N M hα hβ hSW
-  refine ⟨B, C, hB0, fun x hx hNlo hNhi hMlo hMhi hNM hx4 => ?_⟩
+  intro ε A hε hA k j KF
+  obtain ⟨B, C, hB0, hC⟩ := hG ε A hε hA k j KF
+  refine ⟨B, C, hB0,
+    fun α β N M hα hβ hSW x y hx hyle hNlo hNhi hMlo hMhi hNM hx4 => ?_⟩
   have hx1 : (1 : ℝ) < (x : ℝ) := by
     have : (2 : ℝ) ≤ (x : ℝ) := by exact_mod_cast hx
     linarith
@@ -155,7 +210,30 @@ theorem GEH_min_antitone {θ₁ θ₂ : ℝ} (h : θ₁ ≤ θ₂) (_hθ₁ : 0 
       (le_of_lt (inv_pos.mpr hden))
   exact (Finset.sum_le_sum_of_subset_of_nonneg hsub
     (fun q _ _ => seqDiscrepancy_nonneg _ _ _)).trans
-    (hC x hx hNlo hNhi hMlo hMhi hNM hx4)
+    (hC α β N M hα hβ hSW x y hx hyle hNlo hNhi hMlo hMhi hNM hx4)
+
+/-- **Soundness compat: the new `GEH_min` implies the OLD (pointwise, `∃`-after-`∀`,
+top-cutoff) shape.**  Recovers exactly the pre-amendment statement — for each family
+a haircut/constant `∃ B C` and the top-cutoff `4 N M` discrepancy bound — by
+destructuring `SWAt β M` to `(j, KF)` (`sWAtData_of_sWAt`) and specialising the new
+door at cutoff `y := 4 N M`.  Confirms the amendment only STRENGTHENED the door
+(nothing the old form asserted was lost): downstream soundness is preserved. -/
+theorem GEH_min_implies_pointwise {θ : ℝ} (hG : GEH_min θ) :
+    ∀ ε A : ℝ, 0 < ε → 0 < A → ∀ k : ℕ, ∀ α β : ℕ → ℕ → ℝ, ∀ N M : ℕ → ℕ,
+      CoeffAt α N k → CoeffAt β M k → SWAt β M →
+      ∃ B C : ℝ, 0 ≤ B ∧ ∀ x : ℕ, 2 ≤ x →
+        (x : ℝ) ^ ε ≤ (N x : ℝ) → (N x : ℝ) ≤ (x : ℝ) ^ (1 - ε) →
+        (x : ℝ) ^ ε ≤ (M x : ℝ) → (M x : ℝ) ≤ (x : ℝ) ^ (1 - ε) →
+        N x * M x ≤ x → x ≤ 4 * N x * M x →
+        (∑ q ∈ Finset.Icc 1 ⌊(x : ℝ) ^ θ / Real.log x ^ B⌋₊,
+            seqDiscrepancy (dconv (α x) (β x)) (4 * N x * M x) q)
+          ≤ C * x / Real.log x ^ A := by
+  intro ε A hε hA k α β N M hα hβ hSW
+  obtain ⟨j, KF, hSWData⟩ := sWAtData_of_sWAt hSW
+  obtain ⟨B, C, hB0, hbound⟩ := hG ε A hε hA k j KF
+  refine ⟨B, C, hB0, fun x hx hNlo hNhi hMlo hMhi hNM hx4 => ?_⟩
+  exact hbound α β N M hα hβ hSWData x (4 * N x * M x) hx (le_refl _)
+    hNlo hNhi hMlo hMhi hNM hx4
 
 /-- `seqDiscrepancy` of the identically-zero weight is `0` (every residue-class
 sum and coprime mean vanish).  The base fact behind the honest SW inhabitation

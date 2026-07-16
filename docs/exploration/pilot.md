@@ -2694,3 +2694,14 @@ decisions per question.
   GehTypeI.lean), S2-B3-SW (the typeIIData SW supplier via the
   two-range split, GehSW.lean). Wave 2 after AMEND lands:
   hdom-multiblock + N-I-mid + the hbridge rewire + D-N3.
+
+- 2026-07-17 ~13:55 (SPRINT 2): **AMEND LANDED FIRST ATTEMPT —
+  GEH_min uniformized** (S2-B3-AMEND ≈ 106k / 21 tools). SWAtData
+  (x-uniform, explicit (j, KF)); GEH_min: ∃BC before ∀-family +
+  the y-uniform cutoff; sWAtData_of_sWAt; GEH_min_implies_pointwise
+  (the compat lemma — the old form derivable, nothing lost); the
+  vacuity probe FAILS at exactly the x-uniformity boundary (KF A
+  fixed before x — non-vacuous, honest direction restored);
+  GehVaughan repaired body-only, ALL headline statements preserved,
+  no flag. Full build exit 0 (9030 jobs), 8/8 decls 3-axiom.
+  Wave 2 critical path (hdom-multiblock + N-I-mid) dispatches.
