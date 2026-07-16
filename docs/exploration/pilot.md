@@ -2148,3 +2148,11 @@ decisions per question.
   wave's brief). A1 as registered is now TWO composable keystones
   from done. A2a still in flight; T-lo′ gates on it. Ceremony:
   wired + 4 keystones — full build exit 0 (9018 jobs).
+
+- 2026-07-17 ~00:20 (SPRINT 2): **GAP-U RATIFIED (JYH: "yes, let's
+  do GAP-U") — the B2 tripwire discharged by user discussion; the
+  design frozen (s2-gapu-design.md): G3 (the F-continuation cert at
+  s ≈ 4, C, gated first) → G1 (the upper keystone at A₁, B) →
+  G-U-CAP (the ONE-HYPOTHESIS deficit, B). The declared terminal:
+  the sharper no-go (conditional on GAP-E alone) — B1's companion.
+  The GAP-U gate dispatched.**
