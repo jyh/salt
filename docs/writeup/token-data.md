@@ -103,6 +103,7 @@ min FIN-A3b at 147k — the mechanical restatements).
 | G-PRICE | 231 | the suppliers + scaffold; two seams remain → G-AGG |
 | G-AGG | 274 | both seams + the W-route catch; one residual → G-BOXROWS |
 | G-BOXROWS | 189 | partial + the factor-8 window collision → G-D0WIN |
+| G-D0WIN | 245 | the off-by-one dissolves; annulus window + live floor |
 
 Exploration total so far ≈ **1.54 M**; recon median ≈ 100k; probe
 median ≈ 200k. (Q2-ASM in flight at recording time.)

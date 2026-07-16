@@ -1436,3 +1436,26 @@ decisions per question.
   (G-BOXROWS2). The pilot's wave forecast confirmed: the residual =
   G-D0WIN → G-BOXROWS2 → G-ASM. Ceremony: wired + 5 keystones —
   full build exit 0 (8978 jobs).
+
+- 2026-07-16 ~00:40: **G-D0WIN COMPLETE — the off-by-one DISSOLVES:
+  the strict bound was a packaging artifact, not a mathematical
+  need** (cost ≈ 245k tokens / 28 tools / ~27 min vs 300k; every
+  deliverable first-build). Salt/Goldbach/D0Win.lean (430 lines):
+  **gold_d0_window_annulus** (the 9-conjunct window re-derived
+  annulus-natively — the twin's hL_lo only ever used the NON-strict
+  x/2+1 ≤ X·M; keyed to goldCut(k+1), reproducing the twin's
+  L-window EXACTLY); **gold_kfloor_live_annulus** (the 7/16 live
+  floor; the twin's x/2 cutoff becomes the full goldCut k, absorbing
+  the factor 2); **gold_box_price_engine_at_live_annulus** (the
+  composition — conclusion byte-identical to the engine's, dropping
+  straight into the hprice slot). Every constant change documented
+  (11/24 → 7/16 the only substantive one; all numeric closes
+  re-verified). The executor also confirmed the collision was
+  GENUINELY unsolvable via the twin lemma (the phantom-x set is
+  empty; the X·M-keyed dodge fails the floor) — re-derivation was
+  mandatory, and the flag chain (G-BOXROWS → G-D0WIN) was the
+  correct decomposition. HEADS-UP for BoxRows2: the z-bound is
+  annulus-LOCAL (holds on the top annuli where goldCut saturates);
+  the live/dead dichotomy + slot mapping are in the handoff.
+  Ceremony: wired + 3 keystones — full build exit 0 (8979 jobs).
+  G-BOXROWS2 DISPATCHED (the packagings; then G-ASM).
