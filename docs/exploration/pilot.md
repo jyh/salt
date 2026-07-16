@@ -3044,3 +3044,14 @@ decisions per question.
   A-R1 wave: Kernel/MutualInfo + the R.V.-level Basic.lean —
   delivering the FULL frozen API incl. the (3.1)/(3.5)/(3.7)
   consumer triple) dispatches.**
+
+- 2026-07-17 ~21:35 (SPRINT 2): **THE DOOR DECISION (JYH: "yes,
+  close now").** The GEH door closes as the honest conditional:
+  GEH_min + {hTypeI1, hTypeI2, hdom, PpLevel} + WindowPNT ⟹
+  H₁ ≤ 12, hHead discharged, every obligation named + priced
+  (~0.65–1.05M total, NOT spent — documented for a future
+  window). S2-B3-CLOSE (the assembly node) dispatches; TAIL (in
+  flight) ceremonies as an asset when it lands, insensitive to
+  the close. B3's sprint-2 outcome line: the honest GEH door,
+  kernel-checked reduction, the named-obligation map — the
+  registered insight genre, delivered.
