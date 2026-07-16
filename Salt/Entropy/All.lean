@@ -27,8 +27,8 @@ arXiv:1509.05422 (the entropy decrement argument, rung A-R2).
 -- Build-time axiom audit: a stray axiom in the entropy track fails
 -- `lake build` here.
 open Salt.Tactic in
-#audit_axioms MeasureTheory.Measure.real_full
-  MeasureTheory.dirac_real_apply'
+#audit_axioms FiniteRange.real_full FiniteRange.null_of_compl
+  MeasureTheory.Measure.dirac_real_apply'
   MeasureTheory.Measure.prod_real_singleton
   ProbabilityTheory.uniformOn_real_singleton
   ProbabilityTheory.cond_real_apply

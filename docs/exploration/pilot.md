@@ -2880,6 +2880,22 @@ decisions per question.
   residues MeasureProd/SetCard deliberately left for W1-2 to own).
   House ceremony: Salt/Entropy/All.lean created (the aggregate +
   #audit_axioms block, 5 keystones) and wired into Salt.lean —
-  the corpus's NINTH track. Full build exit 0 (9040 jobs). **W1-2 (the whole
+  the corpus's NINTH track. **W1-2 (the whole
   of Measure.lean + the MeasureProd/SetCard residues) dispatches;
   W1-3 (the kernel glue, C) queued behind the throttle.**
+
+- 2026-07-17 ~18:15 (SPRINT 3): **CEREMONY DEFECT + REPAIR (house,
+  on the record — catch #vs-house).** The W1 commit went out with
+  a BROKEN build: the house-authored Entropy/All.lean audit block
+  used GUESSED names (MeasureTheory.Measure.real_full) instead of
+  reading the landed files (FiniteRange.real_full) — AND the
+  commit preceded the build-exit check, the SECOND ceremony-order
+  slip today (the first at TYPEI, ~16:35, was benign; this one
+  shipped a red build to main for ~10 minutes). Repair: the audit
+  block corrected to the actual six keystones, full build exit 0
+  (9039 jobs), repair commit pushed. ROOT CAUSE: pipelining the
+  ledger/commit against a running background build. RULE
+  REAFFIRMED (CLAUDE.md step 3 / the ceremony): the commit WAITS
+  for the explicit build exit code — no exceptions, no
+  pipelining. The executor's five files were correct throughout;
+  the defect was 100% house.
