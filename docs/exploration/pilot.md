@@ -1487,3 +1487,22 @@ decisions per question.
   Ceremony: wired + 1 keystone — full build exit 0 (8980 jobs).
   The remaining path: G-D0WIN2 → G-BOXROWS3 (the packagings) →
   G-ASM.
+
+- 2026-07-16 ~01:50: **G-D0WIN2 COMPLETE, first attempt — the
+  z-dependent floor lands; the structural mismatch is FIXED at the
+  existing operating point** (cost ≈ 206k tokens / 34 tools / ~22
+  min vs 350k). Salt/Goldbach/D0Win2.lean (528 lines):
+  gold_live_annulus_lower (z·y² < 4·goldCut from pure live
+  geometry); **gold_kfloor_live_z** (√(goldCut/(8z)) ≤ 2^{k'} — the
+  false hz hypothesis is GONE, replaced by purely geometric
+  conditions); **gold_d0_window_z** (the 9 conjuncts at W =
+  ½(log goldCut − log 8z); the exp/floor bridge becomes an EXACT
+  EQUALITY — cleaner than the landed e^7 ≥ 8 slack);
+  **gold_box_price_engine_at_live_z** (conclusion byte-identical to
+  the engine slot — the PDiag mapping unchanged).
+  OP-SATISFIABILITY VERIFIED EXPLICITLY: the ratio hypothesis needs
+  2·log y − 5·log z ≈ log N/24 ≥ ~29 — true from N ≥ ~2^{432};
+  the landed tower threshold exp(10^9) dominates with margin
+  ≈ 4×10^7. The adjudication held exactly. Ceremony: wired + 4
+  keystones — full build exit 0 (8981 jobs). G-BOXROWS3 dispatched
+  (the packagings; then G-ASM).
