@@ -3286,3 +3286,14 @@ decisions per question.
   (s3-hb3-design.md); R3b FROZEN + **S3-HB3B-GATE dispatched**
   (the 4th slot; the trio still runs); R3c queued behind R3b per
   the recon; R5 unreachable.
+
+- 2026-07-18 ~02:40 (SPRINT 3): **WAVE-I Db LANDS FIRST ATTEMPT**
+  (S3-A2-Db ≈ 114k / 24 tools). Windows.lean: liouvilleWindow +
+  FiniteRange (the {−1,1}^H superset — the log 2 constant
+  SECURED, matching hJcon; the ceiling holds for ANY μ,
+  unconditional — stronger than briefed) + measurability + the
+  FULL k-block splitting identity liouvilleWindow_block (via
+  finProdFinEquiv; the two-block fallback not needed) + the
+  wave-II reindexing conventions recorded. Ceremony: grep clean,
+  wired + 2 keystones, full build exit 0 (9058 jobs). Da/Dc + the
+  HB3b gate still in flight (3 slots).
