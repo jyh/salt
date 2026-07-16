@@ -2130,3 +2130,21 @@ decisions per question.
   own analysis) by a deeper recon; the wall's discharge is in
   reach. T-lo′ dispatches when A2a lands. Ceremony: A1-ab wired +
   3 keystones — full build exit 0 (9017 jobs).
+
+- 2026-07-16 ~23:55 (SPRINT 2): **A1-c LANDS first-attempt — the
+  functional-equation fold WITH multiplicity preservation** (cost ≈
+  185k / 37 tools). BoxFold.lean (260 lines): the COMPLETED
+  functional equation as the engine (Λ(1−s) = Λ(s),
+  hypothesis-free; the Gammaℝ factor's zeros all at Re ≤ 0 —
+  outside the strip), the order transfer via analyticOrderAt_mul +
+  the affine comp (deriv −1 ≠ 0); zeta_analyticOrderAt_one_sub +
+  zeta_zero_one_sub_iff + the honest cos/Γ case enumeration
+  (zeta_fe_factor_ne_zero — the cos zeros at the odd integers,
+  outside (0,1)); **zeta_box_count_full** (parametric: 2C, no seam
+  term — the [1/2,1) left-closure partitions exactly; the Im-flip
+  free since |−t| = |t|). CEREMONY NOTE: the fold's hhalf/hfin are
+  parametric — the BoxCount disk-divisor → zBoxCount box bridge is
+  a small house-composition item (A1-BRIDGE, folded into the next
+  wave's brief). A1 as registered is now TWO composable keystones
+  from done. A2a still in flight; T-lo′ gates on it. Ceremony:
+  wired + 4 keystones — full build exit 0 (9018 jobs).

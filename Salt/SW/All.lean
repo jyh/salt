@@ -35,6 +35,7 @@ import Salt.SW.CharDispatch
 import Salt.SW.Fold
 import Salt.SW.Gate
 import Salt.SW.BoxCount
+import Salt.SW.BoxFold
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -144,3 +145,5 @@ open Salt.Tactic in
   Salt.SW.siegelWalfisz_holds Salt.SW.bounded_gaps_unconditional
   Salt.SW.zeta_box_divisor_le Salt.SW.zeta_box_count_half
   Salt.SW.Zc_sphere_bound_wide
+  Salt.SW.zeta_analyticOrderAt_one_sub Salt.SW.zeta_zero_one_sub_iff
+  Salt.SW.zeta_fe_factor_ne_zero Salt.SW.zeta_box_count_full
