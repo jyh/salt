@@ -2224,3 +2224,47 @@ decisions per question.
   σ-cap) + the bridge. The A1 outcome line: RESOLVED. Remaining
   Track A: T-lo′ (in flight) → T-1ζ′ → T-Mμ → THE TROPHY.
   Ceremony: wired + 3 keystones — full build exit 0 (9020 jobs).
+
+- 2026-07-17 ~03:10 (SPRINT 2): **B1 RECON ADJUDICATED: PLACEABLE —
+  and wider than registered** (S2-B1-RECON ≈ 111k / 19 tools). The
+  load-bearing fact: all three landed decorations are y-CAPPED, so
+  a window prime and a heavy semiprime are decoration-identical
+  (0,0,0) — the two atoms lift to a REDISTRIBUTION invariance: the
+  impostor (same four row values, all P₂ mass poured into E2, twin
+  mass ZERO) passes every carrier bound the corpus certifies. The
+  seven-row audit: every landed constraint on (a₁,a₂,a₃,s,p₁,e₂)
+  is invariant under (p₁,e₂)→(0,p₁+e₂); the corpus has NO
+  operating-point p₁ lower bound (house-verified by grep:
+  def/nonneg/split/large-side only; the x=35 inhabitation is
+  toy-point, disclaimed in-file). The flagship lands at the
+  CERTIFICATE level (Φ : ℝ⁴ → ℝ over the row VALUES; any Φ
+  certifying p₁ over the feasible set is ≤ 0), closing candidates
+  (a) affine, (b) the FULL decoration algebra (the registered
+  finiteness worry was a red herring — pointwise identity, no
+  enumeration needed), and (c) row-readers — MORE than registered.
+  The named escape: Ω_{>y} (the above-y factor count) is the
+  minimal separator, and its carrier lower bound IS GAP-E (the B2
+  census's named missing theorem) — the informative-failure
+  deliverable ties the atlas to the parity barrier. III.3″ trap
+  audit clean: VALUE-level throughout; the impostor is the primal
+  witness to deficit_floor_of_certs (e₂ ∈ [XW/200, XW·a1up], twin
+  = 0) — the erratum's ~200× inflation used correctly. Risk
+  concentrated in the Feasible predicate: HOUSE-FROZEN, not
+  executor-delegated (the recon's own recommendation).
+
+- 2026-07-17 ~03:25 (SPRINT 2): **B1 DESIGN FROZEN
+  (s2-b1-design.md) — GATE + B3 RECON DISPATCHED.** Feasible = the
+  twelve-clause constraint set (parametric row caps; the mass cap
+  p₁+e₂ ≤ a₁ INCLUDED — the erratum's trivial bound granted to the
+  certificate on purpose, the no-go survives it by construction);
+  the impostor closure checked clause-by-clause at freeze; the
+  schematic III.3″ witness hand-verified (twin-void point ON the
+  razor floor at EQUALITY: values (1, 199/300 ×3, 0, 1/200)); the
+  constraint enumeration table frozen with the gate charged to
+  check COMPLETENESS (clause 3). The N4 case enumeration CAUGHT
+  THE HEAVY-SQUARE CORNER at freeze: p² (p > y) defeats the
+  DISTINCT count (reads 1, same as a prime) — the multiplicity
+  count bigOmegaGt required (reads 2). Anti-Zeno clause 3 paying
+  before dispatch. Five nodes, two executor files (WeightNoGo:
+  N2 flagship C + N0 + N1; WeightEscape: N3 + N4), ~390k est,
+  executors gated on GO. Slots: T-lo′ + B1-gate + B3-recon = 3/4.
