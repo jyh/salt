@@ -1623,3 +1623,34 @@ decisions per question.
   boundary) + the sym/low leg instantiation. **G-HPRICE dispatched
   — the LAST pricing node; then G-ASM.** Ceremony: wired + 1
   keystone — full build exit 0 (8986 jobs).
+
+- 2026-07-16 ~06:00: **G-HPRICE: STOP-AND-FLAG — CATCH-THE-HOUSE #3:
+  the count·max annulus re-absorption is structurally wrong** (cost
+  ≈ 181k tokens / 33 tools / ~17 min; one deep-scoping attempt, NO
+  file fabricated — the firm negative per iron rule 4). THE
+  OBSTRUCTION (corroborated at source level): gold_hSum_at_op's
+  box leg carries the annulus Σ_k and demands per-box /L^13; the
+  only pricer (boxPriceKerr via gold_box_rows_wide) delivers
+  ≥ 12·Kc·XM/L^12 — at top-annulus live boxes (XM ≈ N, provably
+  live) that is Kc·N·L/L^13 ≫ any constant·N/L^13; the trivial
+  bound is bigger still. The count·max absorb (BandEng's
+  gold_band_annulus_absorb + Agg's hbk) cannot recover the log
+  from a TOP-DOMINATED GEOMETRIC sum. The twin never faces this
+  (no annulus axis — one global price at /L^12 → one piece-sum →
+  /L^11). **HOUSE REDESIGN (the arithmetic re-derived twice
+  pre-dispatch this time): the GEOMETRIC-SUM absorption** — the
+  per-annulus price is honestly ≤ C·Kc·goldCut(k+1)/L^12 (Km_min's
+  L/logN ≤ 3-ish at live boxes ⟹ the blowup is the constant 3^49,
+  absorbed into Ccon_box; XM ≤ 4·goldCut(k+1)); Σ_k goldCut(k+1) ≤
+  8N (min(2^{k+1}, N/2) geometric); the box aggregate lands at
+  ≤ C·Kc·N/L^12 — a FULL LOG inside the /L^11 terminal budget;
+  the low-annulus tails enter as a SEPARATE additive crumb
+  (≤ N^{1−2ε}·polylog·log ≪ N/L^11 at e^{180000} vs e^{228}).
+  The fix is a new hSum supplier with the SAME LHS conclusion
+  (the terminal's hSum slot consumes the aggregate bound — the
+  internal decomposition is free); no landed file re-opens.
+  G-GEOSUM dispatched with the complete design + the derivation
+  in the brief. LEDGER: three house catches in one arc — the
+  executors' satisfiability discipline is auditing the DESIGNER
+  at the same rate the gates audit the executors; the method
+  paper's most important single data series.
