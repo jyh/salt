@@ -283,3 +283,38 @@ is the above-y factor count, whose carrier is GAP-E."
 frozen content; executors may adjust names/hypothesis-spelling only
 where the text explicitly says so. Statement changes: house/human
 only (iron rule 1).*
+
+## GATE VERDICT (2026-07-17 ~04:30): GO-WITH-AMENDMENTS — applied here
+
+S2-B1-GATE (Opus, ≈ 139k / 11 tools): NO TEAR — all five charges
+PASS on substance; the impostor violates no unconditional corpus
+constraint. Three amendments, applied as APPENDMENTS (the frozen
+body above is unchanged, per the transparent-amendment protocol):
+
+- **A1 (enumeration completeness).** The pre-freeze grep was
+  Salt/Chen/-scoped; the gate's repo-wide sweep found
+  Salt/TwinBar/TwinDoor.lean carries three p1PrimeSum facts. NEW
+  DISPOSITION ROW for the constraint table:
+  `twinTypeII_eventually_pos` (:231), `twin_survivor_of_pos`
+  (:204), the `TwinTypeII` def (:184), the :192 toy re-export →
+  EXCLUDED WITH REASON: all gated on `TwinTypeII`, a class-D
+  premise that implies TwinPrimeConjecture itself — not a corpus
+  certificate; the impostor lives in a world where TwinTypeII
+  fails and violates nothing. The substantive claim (NO
+  unconditional operating-point p₁ lower bound anywhere in Salt/)
+  is CONFIRMED repo-wide by the gate.
+- **A2 (N4 route, binding on EXEC-2).** Prove bigOmegaGt_heavy
+  UNIFORMLY: heavy_semiprime_factors (TwinDeficit.lean:190) → the
+  filter keeps ALL of primeFactors → cardFactors_eq_sum_pf
+  (WeightTrivia.lean:320) → cardFactors_mul +
+  cardFactors_apply_prime. NO p = q case split (the frozen
+  statement is unchanged; p = q is covered by instantiation).
+- **A3 (N1 hint, binding on EXEC-1).** readableAffineWeight_chenWeightA
+  is a ring-closed lemma, NOT rfl (sub vs +neg are not defeq).
+- **W-mirror ruling (gate charge 1):** Feasible and the flagship
+  are abstract over six reals — the W-carriers are covered by
+  instantiation; NO separate Feasible needed. corpus_feasible_W is
+  OPTIONAL post-landing, not a node.
+
+EXEC-1 (N2 → N0 → N1, WeightNoGo.lean) and EXEC-2 (N3 → N4,
+WeightEscape.lean) DISPATCHED on this verdict.

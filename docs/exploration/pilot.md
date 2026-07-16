@@ -2295,3 +2295,52 @@ decisions per question.
   branch a corollary of T-lo′; the new content is the |t| < 2
   pole-patch via Zc compactness + the landed zero-free region.
   Slots: B1-gate + B3-recon + T-1ζ′ = 3/4.
+
+- 2026-07-17 ~04:30 (SPRINT 2): **THE B1 GATE: GO-WITH-AMENDMENTS —
+  no tear** (S2-B1-GATE ≈ 139k / 11 tools). All five charges PASS:
+  the repo-wide sweep confirms NO unconditional operating-point p₁
+  lower bound exists anywhere in Salt/ (the one hunt that
+  mattered); the impostor closure re-derived independently; both
+  III.3″ witnesses verified (the schematic witness ON the razor
+  floor at equality; corpus_feasible's package is consequences-only
+  — NOT the GAP-U mode, no deficit gate term anywhere); the VALUE/
+  MASS trap avoided throughout; the p² corner genuinely covered.
+  Three amendments applied as appendments: A1 the TwinDoor
+  disposition row (the gate caught the freeze's grep-scope gap —
+  Salt/Chen/-only; the TwinDoor p₁-positivity facts are ALL gated
+  on class-D TwinTypeII, so excluded-with-reason); A2 the uniform
+  cardFactors route for bigOmegaGt_heavy (no p=q split); A3 the
+  chenWeightA instance is ring-not-rfl. W-ruling: the abstract
+  Feasible covers the W-carriers by instantiation. **EXEC-1
+  (WeightNoGo: N2 flagship → N0 → N1) + EXEC-2 (WeightEscape:
+  N3 → N4) DISPATCHED.**
+
+- 2026-07-17 ~04:35 (SPRINT 2): **B3 RECON ADJUDICATED: the
+  registered target NOT-PLACEABLE — the blocker located to the
+  declaration; a narrowed door offered; DECISION → JYH**
+  (S2-B3-RECON ≈ 112k / 22 tools). THE RESISTING POINT (the
+  registered informative-failure deliverable, DELIVERED): the
+  moment kernel is SIMPLEX-hardwired, not merely k=5-hardwired —
+  Salt/Twelve/Certificate.lean's DInt/JD compute exact Δ_k
+  Dirichlet integrals, and the corpus's OWN LeastK.lean
+  (three_bar) machine-checks M₃ ≤ (3/2)·log 3 ≈ 1.648 < 2: the
+  k=3 SIMPLEX certificate is provably FALSE, so "port k=5 → k=3"
+  is PRE-REFUTED BY LANDED MATERIAL (the GAP-U trap caught at
+  recon, zero nodes wasted). H₁ ≤ 6 needs the ε-enlarged
+  NON-simplex Polymath8b functional M₃^[ε] > 2 — a different
+  integral operator the corpus cannot express, witness, or
+  evaluate — and there is NO k-generic explicit layer to
+  parametrize (~9k Fin-5 lines): the registration's "parametrized,
+  not rebuilt" premise is unmeetable. This IS the registered
+  informative-failure outcome, located to DInt/JD/M5_cert.
+  FALLBACK offered (PLACEABLE-NARROWED, ~300–450k): GEH_min stated
+  (the convolution-discrepancy mirror of HasLevel; Motohashi-
+  consistent at θ < 1/2; the Λ-weighting match witnessed per the
+  Q6b catch) + GEH_min ⟹ HasLevel(3999/4000) ⟹ H₁ ≤ 12 (the
+  LANDED capstone) + H₁ ≤ 6 stated-not-attempted (the TwinDoor D5
+  discipline). HOUSE RECOMMENDATION: accept the informative
+  failure as B3's terminal outcome (a registered class — and the
+  simplex-hardwiring finding + the in-corpus pre-refutation is a
+  genuinely strong insight deliverable); PARK the narrowed door as
+  an end-of-sprint revival candidate alongside GAP-U (b)/(c);
+  keep spend concentrated on the trophy chain + the B1 flagship.
