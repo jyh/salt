@@ -373,6 +373,54 @@ DECOMPOSITION'S OWN INTERFACES rather than at the theorem's
 witnesses — the designer is a supplier too, and its slots deserve
 the same adversarial instantiation the executors' statements get.
 
+**III.3‴ — The Zeno iteration: enumerate the case space at the
+freeze (the Chen-2 amendment, 2026-07-16, user-ratified as sprint-2
+clauses 2–3; codified here).** Name the failure mode: a
+decomposition whose case space is discovered branch-by-branch —
+each landing exposing exactly one more supplier the design never
+listed — converges forever without arriving. Every step is real
+progress, every executor lands its node, and the frontier stays one
+node wide indefinitely: the chain is not stuck (nothing flags), not
+done (a residual always remains), and no single landing is at
+fault. The Chen-2 close exhibited it twice before it was named (the
+KERRY2 tail; the assembly's boundary corners), and the diagnosis is
+structural, not motivational: the case PRODUCT was never a freeze
+artifact, so each case was priced only when an executor hit it —
+premise latency (III.2) applied to the decomposition's own
+branching rather than its hypotheses. The remedy has a static half
+and a runtime half, and needs both:
+
+- **At the freeze (static):** the design enumerates the full case
+  space — every m-shape, boundary corner, parameter regime the
+  target quantifies over — as an explicit table, and each case is
+  dispositioned (handled by node N / collapses into case k /
+  excluded with the reason stated). **The adversarial gate checks
+  the enumeration's COMPLETENESS as a first-class charge**: not
+  "are the listed cases right" but "is the list all of them." An
+  enumeration catch at the gate costs a table row; the same case
+  discovered downstream costs a node-wave. (First freeze-time
+  capture after codification: the B1 heavy-square corner — the p²
+  point that defeats the distinct-count escape — caught by the
+  m-shape table before any executor dispatched.)
+- **At runtime (the tripwire):** if two consecutive nodes on one
+  chain each terminate with a NEW one-more-supplier residual, or
+  any flag re-scopes a chain's case space, the chain HALTS — no
+  third dispatch. The halt is a designer-tier analysis plus a human
+  decision, because the honest readings differ in cost by an order
+  of magnitude: a missed enumeration (re-freeze the table and
+  resume), a wrong decomposition (re-cut), or integration-shaped
+  work that briefed nodes cannot see whole (escalate the tier — a
+  budget decision, never automatic).
+
+The relation to its siblings: III.3″ instantiates the freeze's
+*slots* numerically; III.3‴ enumerates its *branches* structurally.
+Both are the same discipline — the designer is a supplier, and its
+interfaces get adversarially instantiated at freeze time — pointed
+at the two places a decomposition can silently owe debt: its rates
+and its cases. A frontier that stays one node wide for two waves is
+not bad luck; it is the signature of an unfrozen case space, and it
+is now a stop condition.
+
 **III.4 — Quantifier scope is architecture.** The endgame's last
 catches were all binding-structure defects: constants existentially
 quantified per-instance where a fixed constant was needed (#76's

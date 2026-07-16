@@ -2362,3 +2362,15 @@ decisions per question.
   (the one 'sorry' hit is the docstring word 'sorry-free'; stale
   self-description line fixed at wiring), wired + 8 keystones into
   Chen/All, full build exit 0 (9022 jobs), 3 axioms in-build.
+
+- 2026-07-17 ~05:35 (SPRINT 2): **METHODS III.3‴ RATIFIED + APPLIED
+  (JYH: "I ratify the III.3‴ amendment, apply it").** The Zeno
+  iteration codified into the permanent method doc (between III.3″
+  and III.4): the failure mode named (branch-by-branch case
+  discovery = premise latency applied to the decomposition's own
+  branching); the static half (case-space enumeration as a freeze
+  artifact + gate completeness as a first-class charge) and the
+  runtime half (the two-residual/re-scope HALT, escalation
+  human-gated) both binding beyond sprint 2. Provenance: named at
+  the Chen-2 close, ratified as sprint-2 clauses 2–3, first
+  freeze-time capture = the B1 heavy-square corner.
