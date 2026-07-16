@@ -2718,3 +2718,32 @@ decisions per question.
 - 2026-07-17 ~14:30: **THROTTLE AMENDMENT (JYH)**: the six
   in-flight agents finish; the ceiling then returns to 4. No new
   dispatch until active < 4. Registration AMENDMENT 1 appended.
+
+- 2026-07-17 ~14:50 (SPRINT 3): **A-R0 ADJUDICATED — THE BOUNDARY
+  MOVED** (S3-A-R0 ≈ 132k / 37 tools, page-image fidelity; caught
+  the ar5iv citation-numbering trap live — PDF numbering is
+  authoritative: Lemma 3.1 = entropy decrement). HEADLINE: mathlib
+  has NO Shannon entropy (two 2026 PRs closed unmerged), but the
+  PFR project's Apache-licensed, mathlib-shaped clean core (~4k
+  lines: Measure/Basic/Kernel) re-prices A-R1 from "unknown
+  from-scratch" to a **1.5–2.5M structured PORT** — the riskiest
+  rung became the cheapest. The decrement lemma (Lemma 3.1:
+  I(X_H, Y_H) ≤ H/(log H·logloglog H) for some H) captured
+  verbatim with its full (3.1)–(3.7) entropy API = exactly PFR's
+  lemma names; A-R2 ≈ 1.5–2.5M, NO external math risk. The MR
+  fragment isolated: NOT the Annals theorem — MRT Thm A.1 /
+  Prop 2.4 shape suffices at c_p = 1 (Liouville), classified as a
+  NAMED DOOR (the SiegelWalfisz-gated pattern); Halász vanishes on
+  the Liouville spine. CONDITIONAL SPINE TOTAL: **7–12M — INSIDE
+  QUOTA** (B4's ≥22M floor had priced MR formalization in).
+  D-RISK relocated to quantifier discipline: the o_{A→∞}/≪_ε
+  parameter web MUST freeze as ONE `structure ChowlaRegime`
+  (the SieveAgree pattern) or the rungs won't glue — the III.3″
+  mitigation, mandatory in the R2 freeze. Section 4 (pp. 21–25)
+  is the un-read residue — pinned at the A-R3 freeze. A-R1 freeze
+  spec (the exact PFR API list + the consumer test) is IN the
+  recon report; wave 1 = 4 port nodes, dispatches when the
+  throttle drains below 4 (currently 5 active). End-state even if
+  A-R4 dies: the entropy library + the first formalized
+  information-theoretic ANT argument + log-Chowla-conditional-on-
+  a-named-MR-door. Three durable deliverables.
