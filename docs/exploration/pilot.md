@@ -1331,3 +1331,29 @@ decisions per question.
   Ceremony: wired + 7 keystones — full build exit 0 (8972 jobs).
   G-OP2 in flight; G-ASM's brief carries both byte-locks + the
   general-a A₁ requirement.
+
+- 2026-07-15 ~22:15: **G-OP2: the count seam LANDS; the survivor
+  prices STOP-AND-FLAGGED — one supplier node remains before G-ASM**
+  (cost ≈ 451k tokens / 101 tools / ~62 min — the arc's heaviest
+  run; ~8 of the build cycles spent on ONE mechanical hazard, see
+  the memo). LANDED (Salt/Goldbach/Op2.lean, 293 lines):
+  **gold_hcount_seam** — the count seam at op, byte-matching the
+  twin's shape at x := N, SIMPLER than the twin (the unrestricted
+  goldTripleSum over φ(opQ) needs NO equidistribution crumb);
+  corr_le_at_op reused VERBATIM; the concrete budget goldSeamC with
+  ec ≪ 0.01 inside the razor's 1/100. THE FLAG (deliverable 1,
+  honest and precise): the twin's survivor-price bodies HARD-WIRE
+  crtClassW across five files (FinA3/FinA3b/AggSum/PriceOne/
+  PriceClose — verified FinA3.lean:227) and carry a single
+  T-difference (no annulus axis); no Goldbach crtClassG box-price
+  supplier exists; reproducing that + the Σ_k annulus budget in one
+  file was correctly out of scope. **G-PRICE COMMISSIONED** (the
+  crtClassG price suppliers + hSum/hNum at op, the annulus axis
+  threaded; the mainA3/hBVswitch slot is the last open input to
+  G-ASM). FRICTION MEMO (recorded for all future op-point nodes):
+  the op context's rpow/floor/log/integral terms send
+  context-scanning tactics into whnf heartbeat loops — the
+  resolution pattern is set+clear_value to freeze atoms, clear the
+  defining equations before arithmetic, and linarith only [...]
+  with explicit certificates (nlinarith only does NOT exist).
+  Ceremony: wired + 1 keystone — full build exit 0 (8973 jobs).
