@@ -102,3 +102,24 @@ canonical primitive-quadratic spelling — byte-level); (3) the
 non-vacuity prose citations exist as claimed; (4) R4 frame
 completeness; (5) LFunction vs mathlib's DirichletCharacter
 LFunction at real arguments — the β : ℝ coercion corner.
+
+## GATE VERDICT (2026-07-17 ~17:30): GO-WITH-AMENDMENTS — applied
+
+S3-HB1-GATE (≈ 99k / 23 tools; two scratch probes BUILD EXIT 0 —
+the gate PROVED the negation lemma, the dichotomy iff, and
+badHyp_false in-probe). Charges: quantifier audit PASS (the ≤/<
+pairing is exactly right — the boundary belongs to the same side
+in both Props); Tao Thm 1 match PASS (+ A5: the closed-interval
+endpoint nuance, absorbed by the existential c — docstring note);
+citations PASS (the carve-out at ZeroFreeReal.lean:605-608 is
+literally (χ² ≠ 1 ∨ im ≠ 0); siegel_theorem's q^ε gap is WEAKER
+than the log-q gap, so the corpus genuinely does not decide the
+hypothesis); R4 PASS (the MmuRate ζ-vs-L(χ) honesty verified at
+the proof spine); β-semantics PASS (real-axis pinned, no off-axis
+admission). AMENDMENTS (elaboration, all build-verified): A1/A2
+the [NeZero q] binders + open Complex DirichletCharacter (the
+freeze dropped both vs Siegel.lean:228/231); A3 BadHyp same; A4
+push Not (push_neg deprecated in this mathlib); A5 the endpoint
+note. The corrected frozen block + proven lemma bodies are IN the
+gate report (the executor lifts them verbatim). HB1-EXEC
+dispatches (single executor — the gate pre-proved the hard glue).

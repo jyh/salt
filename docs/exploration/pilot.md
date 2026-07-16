@@ -2855,3 +2855,14 @@ decisions per question.
   OUTSIDE the recon's enumeration, or a third layer under either
   flag, HALTS the chain. **S2-B3-SMALLQ dispatches** (the
   SmallQTypeII discharge — the door's last unpriced-at-C piece).
+
+- 2026-07-17 ~17:30 (SPRINT 3): **THE HB1 GATE: GO-WITH-AMENDMENTS
+  — the gate PROVED the glue in-probe** (S3-HB1-GATE ≈ 99k / 23
+  tools, probes build exit 0). Logic PASS on all five charges (the
+  ≤/< negation exact; badHyp_false genuinely refutable with 1 < q
+  load-bearing; Tao Thm 1 verbatim; the MmuRate honesty claim
+  verified at the ζ-spine; β real-axis pinned). Catches: the
+  freeze dropped the [NeZero q] binders and the open (elaboration-
+  blocking, 5 sites) — the corpus's canonical spelling restored;
+  push_neg deprecated → push Not. **HB1-EXEC dispatched** with the
+  gate's corrected block + proven bodies as the brief annex.
