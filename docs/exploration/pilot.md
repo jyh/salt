@@ -1255,3 +1255,30 @@ decisions per question.
   window), ~4× multiplier on THIS chain, all first-attempt under
   the re-cut. Ceremony: wired + 5 keystones — full build exit 0
   (8970 jobs). **G-OP DISPATCHED (the penultimate node).**
+
+- 2026-07-15 ~20:40: **SPRINT 2 DIRECTION RATIFIED (JYH: "yes, this
+  sounds good")** — ~3 days of research budget after sprint 1
+  closes, two tracks, pre-registered under the sprint-1 protocol:
+  **TRACK A (depth on known-hard, ~1.5 days): the N(T)/local-zero-
+  density arc** — Riemann–von Mangoldt decomposed into gated C-nodes
+  (the SW-arc pattern), targeting the Rb-4-named keystones (the
+  argument-principle count, the one-power ζ′/ζ segment bound,
+  N1 = |ζ| ≤ C log T); trophy: MmuRate discharges ⟹ THE PARITY WALL
+  GOES UNCONDITIONAL + zero-density technology unlocked. This IS
+  the unparking decision, resolved into the sprint. **TRACK B (the
+  frontier, insight-shaped deliverables, ~1.5 days):** (1) the
+  weight no-go atlas — the class-maximal P₁-invisibility theorem
+  over the decoration-readable weights (extending heavy_semiprime_
+  obstruction + deficit_floor; the switch-side M_k-atlas analogue;
+  the flagship bet); (2) the TwinB_min attack-surface map — the
+  Q6a-4 recon pattern on the classical routes to the P₁ lower
+  sieve, each ending corpus-reachable-or-named-obstruction; (3)
+  the GEH_min door statement (the Q6b pattern at H₁ ≤ 6); (4) the
+  log-Chowla formalization cost map (recon only). STRUCTURE: hard
+  mid-sprint checkpoint (JYH rebalances between tracks); an
+  emergent-lead slot with an amendment protocol (the sprint-1
+  lesson: the dichotomy and the self-funding no-go were unregistered
+  emergents). AVOID: unfinishable monuments, "attempt to prove
+  <open X>" framings, constant-optimization grinds. Registration
+  draft comes to JYH at sprint-1 close (chen_goldbach or its
+  final flag).
