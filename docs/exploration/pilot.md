@@ -2824,8 +2824,7 @@ decisions per question.
   to the design; **W1 dispatches** (W1-1+W1-P combined).
 
 - 2026-07-17 ~16:35 (SPRINT 2): **TYPEI ceremonied** (grep clean,
-  wired, build pending at entry time — exit recorded on the
-  commit): hHead DISCHARGED (head_obligation — vErr = Λ on the
+  wired, full build exit 0 — 9032 jobs; NOTE: the commit preceded the exit confirmation, a ceremony-order slip; grep + the executor module build were green and the full build confirmed clean after): hHead DISCHARGED (head_obligation — vErr = Λ on the
   head, both q-ranges elementary); the reusable per-q machinery
   (seqDiscrepancy_le_two_G_of_lt, power_log_absorb — explicit
   threshold-free constants); the tail SUBTRACTION interface
