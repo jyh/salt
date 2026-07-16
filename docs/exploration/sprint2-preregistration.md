@@ -1,12 +1,10 @@
-# PRE-REGISTRATION — sprint 2: the limits of the method (DRAFT, pending JYH sign-off)
+# PRE-REGISTRATION — sprint 2: the limits of the method (SIGNED)
 
-**Status: DRAFT 2026-07-15. Becomes THE REGISTRATION on JYH
-ratification + the signing commit** (same protocol as sprint 1: the
-hash of the ratifying commit is the tamper-evident timestamp; the
-repository is private at registration; disclosed in full at release).
-**Not effective until sprint 1 closes** (chen_goldbach lands or its
-final honest flag is ceremonied) and JYH signs off, per the ratified
-direction (the exploration ledger, 2026-07-15 ~20:40).
+**Status: SIGNED 2026-07-16 (JYH: "I sign off, start sprint 2").
+THIS COMMIT'S HASH IS THE REGISTRATION TIMESTAMP** (the sprint-1
+protocol: private at registration, disclosed in full at release).
+Sprint 1 closed 2026-07-16 with chen_goldbach kernel-checked
+(d68c855).
 
 **Declaration.** Sprint 1 tested the instrument where answers were
 known or reachable; it went six for six. Sprint 2 deliberately tests
@@ -42,14 +40,38 @@ such. (5) The catch ledger continues; catches against the HOUSE's
 own designs are reported with particular prominence (the sprint-1
 precedent: the Q6b main-term catch).
 
-**Context at registration** (to be finalized at signing): sprint 1
-complete — the six questions closed (Q2 the least-k atlas with M₄ < 2
+**Context at registration.** Sprint 1 complete, seven for seven:
+the six questions closed (Q2 the least-k atlas with M₄ < 2
 unconditional; Q3 the interface extraction; Q4 the windowed-BV
-statement; Q5 the constrained no-go + the razor-boundary pair; Q6a
-the parity wall; Q6b the door + the wall∧door dichotomy); Chen-2
-[landed / flagged at <node>]; the corpus at ~[N] kernel-checked
-declarations, 3 standard axioms throughout; [M] catches, 0 wrong
-proofs.
+statement; Q5 the constrained no-go + the razor-boundary pair +
+alpha_half_optimal; Q6a the parity wall; Q6b the door + the
+wall∧door dichotomy) AND **chen_goldbach kernel-checked** (d68c855;
+the frozen statement byte-exact; the reuse coefficient at its honest
+5.3× with the anatomy documented; the totalMass rfl-identity as the
+lead structural finding; the ten-prime Bertrand chain as the arc's
+one new mathematics). The full build: 9016 jobs, 3 standard axioms
+throughout; the sprint catch ledger: 6 designer-tier catches + 1
+house-refutes-executor, 0 wrong proofs. METHODS III.3″ (slot
+witnessing) codified mid-sprint and in force.
+
+**Sprint-2 execution clauses (JYH-directed at signing, 2026-07-16):**
+1. **Executors run on Opus** (the standing budget rule restored; the
+   sprint-1 forks were a ratified exception, closed).
+2. **The Zeno tripwire**: if two consecutive nodes on one chain each
+   terminate with a new one-more-supplier residual, or any flag
+   re-scopes a chain's case space, the chain HALTS — house analysis
+   + user discussion; Fable escalation ONLY on explicit JYH
+   sign-off (budget-gated).
+3. **The anti-Zeno prophylactics at every freeze**: III.3″ slot
+   witnessing (every rate/budget-shaped slot frozen with a
+   numerically-evaluated worst-case instance) AND case-space
+   enumeration (the design enumerates the full case product; the
+   gate checks the enumeration's COMPLETENESS).
+4. **Recon-first everywhere**: no construction executor dispatches
+   on any Track A or Track B item until its scoping recon is
+   adjudicated. Track A opens with the argument-principle terrain
+   map; B1/B3 get scoping recons before their design passes.
+5. The 4-agent throttle stays in force.
 
 ---
 
