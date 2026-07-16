@@ -65,3 +65,4 @@ import Salt.Maynard.LevelConsume
 import Salt.Maynard.GehDoor
 import Salt.Maynard.GehPiSeam
 import Salt.Maynard.GehVaughan
+import Salt.Maynard.GehMulti

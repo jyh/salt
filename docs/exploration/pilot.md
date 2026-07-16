@@ -2792,3 +2792,22 @@ decisions per question.
   triple mandated verbatim, and type-fidelity pinned to
   Siegel.lean:232's canonical primitive-quadratic spelling.
   Two nodes (~180k). **S3-HB1-GATE dispatched.**
+
+- 2026-07-17 ~16:10 (SPRINT 2): **MULTI LANDS — hdom DISCHARGED by
+  the real multiblock summation** (S2-B3-MULTI ≈ 183k / 27 tools,
+  one serious attempt, floors EXCEEDED). GehMulti.lean:
+  pieceObligationU_of_multiblock (destructure the amended GEH_min
+  ONCE at saving A+p; one (B,C) serves all O(log^p x) blocks; the
+  top-block prefix rewired to min y (4NM) via
+  seqDiscrepancy_truncate — the y-uniform cutoff doing exactly
+  what it was amended FOR); pieceObligationU_of_GEH_multiblock
+  (the vP3 obligation, hdom GONE); lambdaLevelU_of_GEH_multiblock
+  (the assembly headline, single-block hdom REMOVED);
+  pieceObligationU_add (the tail+mid glue). Cross-checked (read-
+  only) against the parallel-landed GehSW (SWAt at j = 3 for the
+  block-localized typeIIData) and GehTypeI (head_obligation) —
+  hypothesis shapes MATCH exactly. Remaining analytic input: ONE
+  hypothesis — hdecomp (the pointwise dyadic partition of vP3 +
+  per-block CoeffAt + the O(log²x) count). Ceremony: grep clean,
+  wired, full build exit 0 (9031 jobs). TYPEI/SW/BRIDGE files all on disk;
+  their reports pending — ceremonies on arrival.
