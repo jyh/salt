@@ -1938,3 +1938,19 @@ decisions per question.
   catches: the one-point boundary gap folded into hmid; the band
   D-floor is a genuinely separate exposed row. Ceremony: wired + 3
   keystones — full build exit 0 (9005 jobs).
+
+- 2026-07-16 ~17:50: **THE FORK PLAN RATIFIED (JYH: "yes, proceed
+  that way")** — the Zeno diagnosis: the executors land their
+  briefs; the briefs (house-compressed byte-locks) keep being one
+  supplier short because no single context holds the band case
+  space (leg × piece × annulus × live/high-pass × wide/firing).
+  THE PLAN: if G-KERRY2 lands clean → the terminal wire stays
+  Opus (transcription) and **G-ASM runs as a FABLE FORK** (full
+  session context, zero STEP-0, designer-tier adjudication
+  in-loop) — the one integrative node (the Λ-bridge at the
+  W-sieve, the general-a A₁, the structural rows, the ∀N wrapper);
+  if G-KERRY2 flags → the fork takes over IMMEDIATELY (hmid + the
+  wire + G-ASM as one continuous job). The Opus-only budget rule
+  (2026-07-14, JYH) is explicitly overridden for this node by
+  JYH's ratification; est. fork cost 2–4× an Opus node vs the
+  5-times-paid flag-return cycle. Recorded pre-execution.
