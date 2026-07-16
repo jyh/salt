@@ -19,6 +19,7 @@ import Salt.Goldbach.PiUpper
 import Salt.Goldbach.BandIdent
 import Salt.Goldbach.CountFinal
 import Salt.Goldbach.SW2
+import Salt.Goldbach.PDiag
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -99,3 +100,7 @@ open Salt.Tactic in
   Salt.Goldbach.goldBlockHonestDiscW_eq_sum_pieces
   Salt.Goldbach.goldBlockBoxHonestDisc_split_m
   Salt.Goldbach.goldBlockResCountM_eq_sum_pieces
+  Salt.Goldbach.gold_hBVblocksW_discharge'
+  Salt.Goldbach.gold_diagAggW_le_honest Salt.Goldbach.gold_PloW_honest
+  Salt.Goldbach.goldDiagPairSet_card_le
+  Salt.Goldbach.sum_goldDiagTotal_le_goldDiagPairSet

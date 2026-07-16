@@ -1230,3 +1230,28 @@ decisions per question.
   board entry #2. THE REGISTERED SLATE: Q1 mid-execution
   (checkpoint-ratified extension), Q2 ✓ Q3 ✓ Q4 ✓ Q5 ✓ Q6a ✓
   Q6b ✓.**
+
+- 2026-07-15 ~20:10: **G-PDIAG COMPLETE — THE TERMINAL DISCHARGE
+  LANDS; the band-chain re-cut closes ALL-FIRST-ATTEMPT** (cost ≈
+  235k tokens / 33 tools / ~22 min vs 350k).
+  Salt/Goldbach/PDiag.lean (623 lines):
+  **gold_hBVblocksW_discharge'** (the terminal — Σ_j rosserRemainder
+  ≤ N/(log N)^10 with the diagonal entering as the HONEST Pdiag row,
+  catch #68's crude path correctly dead); gold_diagAggW_le_honest
+  (the residue leg SIMPLER than the twin's — Band.lean's crumb
+  bundles the two-step); gold_PloW_honest; the diagonal-support
+  y·√N cards. The A+1 margin as assembled: the honest diagonal row
+  is N^{5/6+o(1)} vs the N/(log N)^10 budget — N^{1/6} of room; the
+  annulus log absorbed. BYTE-LOCKS for G-OP/G-ASM: the box Price
+  carries FOUR indices (the annulus axis added — Opt-A's signature
+  in the interface); hNX : N/2 ≤ X replaces hxX; the survivor
+  prices/op rows/op point all hypothesis-parametrized and listed;
+  the block-remainder → A₃ example DEFERRED to G-OP (only
+  gold_mainA3_of_hBVswitch exists — the terminal exposes its exact
+  slot). THE RE-CUT LEDGER: G-BAND flagged 187k → WindowSW 285k +
+  BandIdent 308k + SW2 294k + PDiag 235k = 1309k for what was
+  budgeted 380k as one node pre-flag — the honest coefficient
+  (the twin's band chain ~3.3k lines re-derived at the reflected
+  window), ~4× multiplier on THIS chain, all first-attempt under
+  the re-cut. Ceremony: wired + 5 keystones — full build exit 0
+  (8970 jobs). **G-OP DISPATCHED (the penultimate node).**
