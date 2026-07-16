@@ -19,6 +19,7 @@ import Salt.Entropy.Kernel.Basic
 import Salt.Entropy.Kernel.MutualInfo
 import Salt.Entropy.Basic
 import Salt.Entropy.Chowla.Windows
+import Salt.Entropy.Chowla.PrimeWindow
 import Salt.Entropy.ConsumerTest
 import Salt.Tactic.AuditAxioms
 
@@ -49,6 +50,8 @@ open Salt.Tactic in
   ProbabilityTheory.measureEntropy_prod
   ProbabilityTheory.measureMutualInfo_nonneg
   entropy_liouvilleWindow_le liouvilleWindow_block
+  Salt.Entropy.Chowla.entropy_residueWindow_le_log_PH
+  Salt.Entropy.Chowla.log_PH_le Salt.Entropy.Chowla.coprime_PH_of_le
   ProbabilityTheory.entropy_le_log_card ProbabilityTheory.chain_rule'
   ProbabilityTheory.mutualInfo_eq_entropy_sub_condEntropy
   ProbabilityTheory.condMutualInfo_nonneg

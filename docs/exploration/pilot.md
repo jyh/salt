@@ -3297,3 +3297,21 @@ decisions per question.
   wave-II reindexing conventions recorded. Ceremony: grep clean,
   wired + 2 keystones, full build exit 0 (9058 jobs). Da/Dc + the
   HB3b gate still in flight (3 slots).
+
+- 2026-07-18 ~03:05 (SPRINT 3): **WAVE-I Dc LANDS — the SHARP PH
+  bound, no flags** (S3-A2-Dc ≈ 117k / 33 tools, 2 builds).
+  PrimeWindow.lean: primeWindow/PH/residueWindow + the global
+  NeZero (the gate's probe verbatim) + the dependent-ZMod
+  inference confirmed end-to-end + entropy_residueWindow_le_log_PH
+  (unconditional in μ) + **log_PH_le : log P_H ≤ ε²H·log 4 —
+  SHARP, via mathlib's primorial_le_four_pow** (the design's
+  crude-bound fallback unnecessary; wave III's hJcon absorption
+  gets its clean constant) + the full coprimality composite +
+  the empty-window corner AS LEMMAS. CATCH (executor vs the
+  design's case table): the empty threshold is STRICT ε²H < 2 —
+  at ε²H = 2 the prime 2 IS in (1, 2] (the case-table text
+  corrected; the frozen def was right). Minor process deviation
+  self-reported: one 162-line write vs the ≤150 guideline.
+  Ceremony: grep clean, wired + 3 keystones, full build exit 0
+  (9059 jobs). Wave I: 2 of 3 landed; Da (LogMeasure) + the HB3b
+  gate in flight.
