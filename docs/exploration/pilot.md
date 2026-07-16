@@ -2080,3 +2080,25 @@ decisions per question.
   any follow-up recorded (the F(4) DDE evaluation + the s-regime
   enumeration). B2 CLOSES: the jackpot did not hit; the map is the
   deliverable, at exactly the registered precision.
+
+- 2026-07-16 ~22:40 (SPRINT 2): **THE TRACK-A TERRAIN MAP LANDS —
+  Rb-4's verdict-D may be a ROUTE ARTIFACT** (cost ≈ 157k / 19
+  tools). THE FINDINGS: (1) A1 is ~70% LANDED — the disk-Jensen
+  count (entire_zero_count_le + M0zeta + the 1/4 center bound) gives
+  the box count at the correct log RATE (constant 45× loose at the
+  III.3″ witness — acceptable); the missing pieces are the radius
+  extension + the functional-equation fold, both C. (2) The
+  argument-principle route is STRICTLY DOMINATED: mathlib has NO
+  multi-pole argument principle (rectBI is single-pole), Backlund's
+  argument-variation is D-tier — Jensen wins outright. (3) THE
+  TROPHY RE-ROUTE: the classical |1/ζ| ≤ C·log comes from 3-4-1
+  POINTWISE (landed!) + A2a, ZERO density consumed; the left
+  transport is a SHORT segment (~1/log T) where even the landed
+  two-power bound integrates to ONE power — Rb-4's rejection
+  assumed a unit-length transport. THE FORK, isolated: T-1ζ (the
+  uniformity of the lower bound on the full vertical contour) — C
+  if uniform, D if the zero-avoiding contour's deformed sums need
+  the scale-u density. DESIGN FROZEN (s2-trackA-design.md): wave 1
+  = A1-ab + A1-c + A2a (safe under every outcome) DISPATCHED; the
+  T-1ζ uniformity SUB-RECON dispatched (the recon-first clause);
+  the trophy executor gated on its verdict.
