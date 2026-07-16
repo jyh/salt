@@ -1654,3 +1654,24 @@ decisions per question.
   executors' satisfiability discipline is auditing the DESIGNER
   at the same rate the gates audit the executors; the method
   paper's most important single data series.
+
+- 2026-07-16 ~06:45: **G-GEOSUM COMPLETE — the geometric absorption
+  lands in Lean exactly as adjudicated; the count·max flaw is
+  superseded** (cost ≈ 225k tokens / 73 tools / ~25 min; every
+  keystone first-build). GeoSum.lean (372) + GeoSum2.lean (139):
+  gold_boxPriceKerr_geo (the per-annulus honest price at the
+  annulus scale — kerr_ratio_term_le reused verbatim);
+  gold_goldCut_geosum (Σ ≤ 8N); **gold_hSum_geo** — the superseding
+  hSum supplier, LHS character-for-character the terminal's slot
+  (kernel-confirmed by the byte-lock example gold_hSum_geo_slot),
+  the box leg absorbed GEOMETRICALLY + the tail as a separate
+  additive crumb; RHD = (48·Cgeo + Ctail + 3·Ccon_band +
+  Ccon_diag/2)·Kc·N/(log N)^11 — feeding gold_hNum_close_of_tower;
+  gold_boxPriceKerr_geoN (the outer bridge at cr ≈ 24/11, Cgeo ≈
+  9.5×10^34 — astronomically inside the tower budget). THE
+  RESIDUAL (one node, precisely scoped): the terminal op-plumbing —
+  Price := boxPriceKerr + trivialTail, the hprice discharge
+  (DEAD/LIVE-high/LIVE-low), gold_box_disc_trivial + the tail sum,
+  the two live ratios at op, the carrier/Dset matching. G-OPPLUMB
+  dispatched — then G-ASM. Ceremony: wired + 4 keystones — full
+  build exit 0 (8988 jobs).

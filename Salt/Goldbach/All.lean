@@ -36,6 +36,8 @@ import Salt.Goldbach.BandEng
 import Salt.Goldbach.RowsLive
 import Salt.Goldbach.DSplit
 import Salt.Goldbach.RowsWide
+import Salt.Goldbach.GeoSum
+import Salt.Goldbach.GeoSum2
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -159,3 +161,5 @@ open Salt.Tactic in
   Salt.Goldbach.gold_box_Xfloor Salt.Goldbach.gold_box_rows_at_op
   Salt.Goldbach.gold_dsplit_head_cap_below_conductor
   Salt.Goldbach.gold_box_rows_wide
+  Salt.Goldbach.gold_boxPriceKerr_geo Salt.Goldbach.gold_goldCut_geosum
+  Salt.Goldbach.gold_hSum_geo Salt.Goldbach.gold_boxPriceKerr_geoN
