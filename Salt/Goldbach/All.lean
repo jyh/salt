@@ -31,6 +31,7 @@ import Salt.Goldbach.BoxRows
 import Salt.Goldbach.D0Win
 import Salt.Goldbach.BoxRows2
 import Salt.Goldbach.D0Win2
+import Salt.Goldbach.BoxRows3
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -142,3 +143,6 @@ open Salt.Tactic in
   Salt.Goldbach.gold_live_annulus_lower Salt.Goldbach.gold_kfloor_live_z
   Salt.Goldbach.gold_d0_window_z
   Salt.Goldbach.gold_box_price_engine_at_live_z
+  Salt.Goldbach.gold_box_price_live_kerr
+  Salt.Goldbach.gold_box_price_dead_kerr
+  Salt.Goldbach.gold_hSum_discharged

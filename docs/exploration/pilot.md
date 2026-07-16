@@ -1506,3 +1506,27 @@ decisions per question.
   ≈ 4×10^7. The adjudication held exactly. Ceremony: wired + 4
   keystones — full build exit 0 (8981 jobs). G-BOXROWS3 dispatched
   (the packagings; then G-ASM).
+
+- 2026-07-16 ~02:25: **G-BOXROWS3: the collapse + the hSum close
+  land; the HONEST residual re-scoped — the annulus mismatch has
+  ONE more layer** (cost ≈ 257k tokens / 51 tools / ~20 min).
+  LANDED (Salt/Goldbach/BoxRows3.lean, 284 lines, first-try proofs):
+  **gold_box_price_live_kerr** (the LIVE engine collapsed onto the
+  twin's boxPriceKerr BY DEFEQ — the price constant is shared with
+  the twin, verbatim); gold_box_price_dead_kerr (both dichotomy ends
+  on the SAME closed price); **gold_hSum_discharged** (the hSum row
+  of the terminal closes character-for-character). THE HONEST FLAG
+  (the executor refused the false "nothing-else-remains" example):
+  the ~17 annulus-SCALE analytic rows (hXsqrt/hDsq/habs/...) are
+  NOT landed — the twin derives them from its global window; at
+  per-annulus scale they need the LIVE-GEOMETRY derivation (the
+  D0Win2 pattern: e.g. hXsqrt holds at live boxes because 2^i >
+  zy/2 ⟹ X > z²y/2 ≈ N^{7/12}, √X ≫ (log XM)^16 — TRUE, just
+  needs the honest route); plus the sym/low band-engine analogues
+  (medium_box_price_at_op_band / middle_medium_box_price_at_y
+  mirrors). HOUSE: the residual is CONVERGING (band chain → box
+  rows → D0 window → floor → scale rows + band engines — each
+  revealed residual smaller and more precisely scoped).
+  **G-ROWSLIVE ∥ G-BANDENG dispatched (file-disjoint, both consume
+  landed material only); then G-ASM.** Ceremony: wired + 3
+  keystones — full build exit 0 (8982 jobs).
