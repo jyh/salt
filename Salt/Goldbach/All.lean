@@ -42,6 +42,8 @@ import Salt.Goldbach.OpPlumb
 import Salt.Goldbach.Tail
 import Salt.Goldbach.Tail2
 import Salt.Goldbach.Glue
+import Salt.Goldbach.Final
+import Salt.Goldbach.Final2
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -172,3 +174,7 @@ open Salt.Tactic in
   Salt.Goldbach.gold_box_disc_trivial Salt.Goldbach.gold_box_tail_le
   Salt.Goldbach.gold_box_carrier_tail Salt.Goldbach.gold_box_price_tail
   Salt.Goldbach.gold_box_hprice_at Salt.Goldbach.gold_box_hbox_at
+  Salt.Goldbach.apDiscBilinCutoff_symm Salt.Goldbach.gold_box_disc_trivial_min
+  Salt.Goldbach.gold_box_tail_min Salt.Goldbach.gold_box_price_tail_min
+  Salt.Goldbach.min_le_sqrt_mul Salt.Goldbach.gold_box_hprice_at_min
+  Salt.Goldbach.gold_box_hbox_at_min Salt.Goldbach.gold_hBVblocksW_at_op

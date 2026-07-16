@@ -1754,3 +1754,20 @@ decisions per question.
   RowsWide-pattern. G-FINAL dispatched (the min fix + the band
   mirror + the terminal composition; pre-authorized split).
   Ceremony: wired + 2 keystones — full build exit 0 (8992 jobs).
+
+- 2026-07-16 ~10:45: **G-FINAL — THE A₃ BOX LEGS CLOSE; the terminal
+  skeleton compiled with the residual list KERNEL-VERIFIED** (cost ≈
+  263k / 63 tools; item 1 first-build). Final.lean (372) + Final2
+  (182): apDiscBilinCutoff_symm (the carrier symmetry — the p-side
+  reuses the m-side VERBATIM, cleaner than briefed);
+  gold_box_disc_trivial_min (catch #4's fix, rigorous);
+  gold_box_tail_min; min_le_sqrt_mul; the min-form price/hprice/hbox
+  slots; **gold_hBVblocksW_at_op** — the terminal with the box legs
+  FILLED character-for-character, residuals named in the statement:
+  the band engine (hpriceSym/hpriceLow/hsym/hlow — the twin's band
+  pricer is sub-box-tied; the Goldbach band needs the RowsWide
+  pattern at top-grade X ≈ N/2), the htail tower close, hCE/hNum/
+  hdiag (suppliers landed), + the structural op rows. G-BANDPRICE
+  dispatched (the band rows at top-grade + the htail close + the
+  op-leg wiring); then G-ASM. Ceremony: wired + 9 keystones — full
+  build exit 0 (8994 jobs).
