@@ -1601,3 +1601,25 @@ decisions per question.
   by executors running the satisfiability discipline against the
   house; the asymmetric-catch data the method paper needs.
   Ceremony: wired + 1 keystone — full build exit 0 (8985 jobs).
+
+- 2026-07-16 ~05:00: **G-ROWSWIDE COMPLETE — the wide keystone
+  lands; the DSplit certificate's obstruction RESOLVED** (cost ≈
+  205k tokens / 44 tools / ~35 min; 1 serious attempt, 2 mechanical
+  fixes). Salt/Goldbach/RowsWide.lean (524 lines):
+  **gold_box_rows_wide** — the box-row bundle at the WIDE window
+  w ≤ D, D·L¹⁸ ≤ √(X·M) (the binding exponent is L¹⁸ via herr_lev,
+  NOT the prose's L¹⁵ — a spec refinement, the tower swallows the
+  L³); on top-grade annuli D := opD N is admissible at margin
+  e^{90000} ≫ e^{373}. Six D-upper rows re-derived (routes
+  documented); the D-independent rows reused verbatim; constant
+  delta NONE (the same boxPriceKerr/Kc — the RHD row absorbs
+  unchanged). **STRUCTURALLY CONFIRMED: the tail never touches
+  XM ≈ N under the wide head — the DSplit fatal case no longer
+  exists**; the residual tail lives only on goldCut ≤
+  N^{1−2ε}·polylog annuli with margin e^{180000} vs e^{228}.
+  Honest handoff (deliverables 3–5 scoped, not rushed): the trivial
+  per-d bound + the tail sum + gold_box_hprice_at_op + the
+  worst-W absorb mirror (boxPriceKerr_worst_le at the annulus
+  boundary) + the sym/low leg instantiation. **G-HPRICE dispatched
+  — the LAST pricing node; then G-ASM.** Ceremony: wired + 1
+  keystone — full build exit 0 (8986 jobs).
