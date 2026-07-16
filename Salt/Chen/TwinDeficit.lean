@@ -69,6 +69,12 @@ negative.  Kernel-checked shape: `p1RazorValue_eq` + `deficit_floor_of_certs` (a
 discharge needs `e2lo` strictly above the razor's whole certified margin).  The deficit therefore
 CANNOT be closed from the razor alone; it is equivalent to the genuinely-new comparison
 `e2lo > a1up`, which the frozen deliverable `twin_razor_deficit` takes as its arithmetic gate.
+(GATE ERRATUM, 2026-07-17: this gate is VACUOUS as a target — `e2PrimeSum ≤ A1primeSum` always
+(`e2Ind ≤ 1` term-by-term), so `e2lo ≤ a1up` is forced and no operating point satisfies the gate
+with `δ > 0`. The theorem stands as stated (a conditional with an unsatisfiable-at-op hypothesis
+family); the HONEST one-hypothesis no-go is `deficit_floor_of_certs` below — the E2 mass against
+the razor's certified VALUE (`e2lo ≥ 1/200 + δ`), not the sifted mass. See the sprint-2 GAP-U
+gate report in the exploration ledger.)
 
 ## THE DELIVERABLE (honest conditional form; deviation from the frozen shape reported)
 

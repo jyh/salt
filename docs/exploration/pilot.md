@@ -2198,3 +2198,12 @@ decisions per question.
   vs (c) land the a1up cert as a cheap standalone asset. HOUSE
   RECOMMENDATION: (a), + the TwinDeficit docstring correction
   (house edit), + the census erratum recorded here.
+
+- 2026-07-17 ~02:05 (SPRINT 2): **GAP-U DROPPED (JYH: "drop GAP-U,
+  consider reviving the other options at the end of the sprint, go
+  to B1")** — options (b)/(c) parked as end-of-sprint revival
+  candidates; the TwinDeficit docstring erratum applied (the house
+  edit; the theorem itself stands — its gate hypothesis family is
+  simply unsatisfiable-at-op, now documented); the honest
+  one-hypothesis no-go remains the landed deficit_floor_of_certs.
+  **B1 (the flagship bet) OPENS: the scoping recon dispatched.**
