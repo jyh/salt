@@ -2031,3 +2031,26 @@ decisions per question.
   + 7 keystones — full build exit 0 (9016 jobs). NEXT: the JYH
   checkpoint — the sprint-1 report, the sprint-2 registration
   sign-off, the writeup resumption.
+
+- 2026-07-16 ~21:40 (SPRINT 2): **B4 COMPLETE — the log-Chowla
+  distance map lands; the verdict: OFF THE CURRENT FORMALIZATION
+  MAP** (cost ≈ 45k / 10 tools / 4 min — the cheapest deliverable
+  of either sprint, and among the most quotable). THE MEASUREMENT:
+  (1) the corpus's deep assets POINT THE WRONG WAY — Tao's proof
+  and its MR input deliberately avoid zero-free regions, so the
+  entire SW investment does not transfer; (2) the corpus's Liouville
+  carriers are the WRONG AVERAGING (Cesàro vs logarithmic — and the
+  difference is load-bearing: natural-averaged 2-point Chowla is
+  still OPEN); (3) mathlib has NO discrete Shannon entropy — no
+  H(X), H(X|Y), I(X;Y); it stops at negMulLog and klDiv — the
+  entire information-theoretic chapter is unwritten; (4) the
+  deepest gap: THE ENTROPY-DECREMENT HEART — bespoke to the 2016
+  paper, no formalization at any granularity in any system, on a
+  foundation that does not exist; co-deepest by volume:
+  Matomäki–Radziwiłł (never formalized anywhere) + Halász (needs
+  the absent pretentious-distance machinery). THE TOTAL: floor ≈
+  90+ C-nodes / ≥22M tokens (3+ SW arcs), D-dominated, unbounded
+  upper tail. The ONLY landed input: λ(pn) = −λ(n) (class A).
+  The registered deliverable — the first cost map from a
+  formalization corpus to the modern analytic frontier — is
+  delivered; B4 CLOSES.
