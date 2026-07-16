@@ -27,6 +27,7 @@ import Salt.Goldbach.Price
 import Salt.Goldbach.PriceClose
 import Salt.Goldbach.Agg
 import Salt.Goldbach.Agg2
+import Salt.Goldbach.BoxRows
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -128,3 +129,6 @@ open Salt.Tactic in
   Salt.Goldbach.gold_hSum_at_op
   Salt.Goldbach.gold_mainA3_of_block_remainders_W
   Salt.Goldbach.gold_log_absorb
+  Salt.Goldbach.gold_box_carrier_vanish Salt.Goldbach.gold_box_price_vanish
+  Salt.Goldbach.gold_box_XM_scale Salt.Goldbach.gold_box_XMhi
+  Salt.Goldbach.gold_box_hcoupG

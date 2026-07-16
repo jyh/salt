@@ -1414,3 +1414,25 @@ decisions per question.
   wave estimate; pre-authorized split). Ceremony: wired + 3
   keystones — full build exit 0 (8977 jobs). Chen-2 critical path:
   G-BOXROWS (wave) → G-ASM.
+
+- 2026-07-16 ~00:05: **G-BOXROWS: PARTIAL + THE EXACT BLOCKING ROW —
+  the factor-8 window collision** (cost ≈ 189k tokens / 36 tools /
+  ~17 min; 1 serious attempt at the hard part, then the flag per
+  discipline). LANDED (Salt/Goldbach/BoxRows.lean, 260 lines, 5+
+  keystones): the row inventory (41 rows classified a/b/c); the
+  dead-annulus vanish pair (box_carrier_eq_zero_above_cap reused
+  byte-for-byte); gold_box_XM_scale/XMhi (the annulus box geometry);
+  the SW-coupling rows (verbatim at A=13/C0=18); two composition
+  examples pinning the consumer slots. THE FLAG (exact): the twin's
+  d0_window_of_XM has window (x/2, 4x] — factor 8 — and the annulus
+  box range (goldCut k, 8·goldCut k] is ALSO factor 8; hXMhi forces
+  x ≥ 2·goldCut k while hXMlo forces x < 2·goldCut k — NO single x
+  admits both strict bounds; the T₁ clause is ONE UNIT short in the
+  deep-live regime. RESOLUTION (a well-defined node, dispatched as
+  G-D0WIN): d0_window_of_XM_annulus taking the un-incremented lower
+  bound directly + the per-annulus live-box floor
+  (goldCut(k+1))^{7/16}/8 ≤ 2^{k'} (the kfloor_of_live_box
+  analogue); then the 14 box-geometry rows + the packagings
+  (G-BOXROWS2). The pilot's wave forecast confirmed: the residual =
+  G-D0WIN → G-BOXROWS2 → G-ASM. Ceremony: wired + 5 keystones —
+  full build exit 0 (8978 jobs).
