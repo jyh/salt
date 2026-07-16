@@ -1793,3 +1793,26 @@ decisions per question.
   specialization (hCE/hNum/hdiag at concrete op values), the
   structural rows, hbridge. G-SURV dispatched; then G-ASM.
   Ceremony: wired + 8 keystones — full build exit 0 (8996 jobs).
+
+- 2026-07-16 ~12:15: **G-SURV: STOP-AND-FLAG — the band carriers are
+  HIGH-PASS; gold_box_rows_wide's liveness gate prices only the
+  low-pass half** (cost ≈ 267k / 30 tools; conclusive shape
+  analysis, no file — correct per iron rule 4). THE FINDING: band
+  survivors sit at m > z·pieceN (support floors at
+  MediumFloor:144/183), spanning (5/24)·log₂N dyadic scales ABOVE
+  the box engine's hlive gate — live-but-unpriceable; the twin's
+  band route is LIVENESS-FREE (medium_box_price_at_op_band via
+  d0_window_of_XM_band from a piece floor, ChenFinal2:327; the
+  Y-variant boxPriceKerrY at AssembleA3b:634). TWO construction
+  nodes needed: (1) the liveness-free annulus band pricer (the
+  d0_window_of_XM_band analog at X·M ≤ 4·goldCut(k+1) feeding the
+  base gold_box_price_engine + the geo conversion); (2) the
+  boxPriceKerrY Y-variant for the middle piece. HOUSE ADJUDICATION
+  (the firing question, arithmetic checked): low-annulus band
+  survivors DO fire and the crumb does NOT absorb into the pure geo
+  form (Term A costs L^13 against it) ⟹ **route a band-tail slot**:
+  node (1) also delivers gold_band_hsym/hlow TAIL VARIANTS (same
+  conclusions, + Btail routed to the htail crumb) superseding
+  BandPrice's pure forms — the established supersession pattern.
+  G-BANDWIN ∥ G-KERRY dispatched (both from the twin templates);
+  then G-SURV-2 (the composition), the op/htail wiring, G-ASM.
