@@ -1836,3 +1836,23 @@ decisions per question.
   landed at gold_btail_slot_firing_le). G-KERRY still in flight;
   G-SURV-2 dispatches when it lands. Ceremony: wired + 7 keystones
   — full build exit 0 (8998 jobs).
+
+- 2026-07-16 ~13:45: **G-KERRY COMPLETE — the Y-variant chain lands
+  first-pass; BOTH construction nodes done** (cost ≈ 362k / 63
+  tools / ~39 min). KerrY.lean (783 lines): goldBoxPriceKerrY +
+  gold_kerrY_engine (the middle-piece sym price via the max-collapse
+  + the boundary transfer + gold_d0_window_z at Nb := opY N + the
+  generic pricer at N := opY — the twin's middle_medium engine was
+  UNUSABLE at the Goldbach scale, exp(10^10) + the off-by-one; the
+  native route replaced it); the geo conversions (Cgeo_Y = the box
+  constant; the firing crumb REUSES the box leg's carrier-agnostic
+  goldBtailMin verbatim). NOTE for G-SURV-2: the kerrY engine
+  carries hlive — it covers the STRADDLING boundary index; the
+  high-pass sym indices at the middle piece route through BandWin's
+  liveness-free engine with the Y-indicator reconciliation — the
+  composition node's case-split is now: DEAD-cap / straddling-live
+  (kerrY or box engines) / high-pass-wide (BandWin geo) / firing
+  (the min crumb), per leg. G-SURV-2 DISPATCHED (the full survivor
+  composition + the terminal band-crumb variant + the geoN ratios +
+  the crumb tower close). Ceremony: wired + 3 keystones — full
+  build exit 0 (8999 jobs).

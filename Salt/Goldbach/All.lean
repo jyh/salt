@@ -48,6 +48,7 @@ import Salt.Goldbach.BandPrice
 import Salt.Goldbach.BandPrice2
 import Salt.Goldbach.BandWin
 import Salt.Goldbach.BandWin2
+import Salt.Goldbach.KerrY
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -191,3 +192,5 @@ open Salt.Tactic in
   Salt.Goldbach.gold_band_box_kerr Salt.Goldbach.gold_band_survsum_geoN
   Salt.Goldbach.gold_band_hlow_tail Salt.Goldbach.gold_band_hsym_tail
   Salt.Goldbach.gold_band_geo_absorb_tail
+  Salt.Goldbach.gold_kerrY_engine Salt.Goldbach.gold_boxPriceKerrY_geoN
+  Salt.Goldbach.gold_kerrY_hbox_geoN
