@@ -5999,3 +5999,13 @@ decisions per question.
   mathlib gap, either route's critical path). DH-2b freezes
   after DH-1 + DH-STRIP land. Board: DH-1, MERT-R0, DH-STRIP,
   CI seed. Tally ~29.9M raw, house ~14%.
+
+- 2026-07-17 ~15:57 PT (GOLD WINDOW): **CI SEED ATTEMPT 1 DIED AT
+  THE 240 CAP — the cancel SKIPPED the cache save (nothing
+  seeded); the cold corpus is >4h on a 4-core runner.** Fix
+  landed: seed_cache.yml (manual-only, SOFT 200-min timeout that
+  exits SUCCESS so the post-job cache save RUNS; run_id-unique
+  keys so every dispatch saves; restore-keys compound successive
+  partials). 2–3 dispatches ⟹ fully seeded ⟹ lean_action_ci
+  restores and finishes in minutes. Seed #1 dispatched +
+  watcher. Board: DH-1, MERT-R0, DH-STRIP, seed #1.

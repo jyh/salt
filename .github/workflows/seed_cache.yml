@@ -1,0 +1,36 @@
+name: Seed build cache
+
+# Manual-only: incrementally seeds salt's .lake/build cache. The cold corpus
+# needs >4h on a hosted runner (measured 2026-07-17: two runs died at caps);
+# this workflow builds for 200 min, exits SUCCESS on partial progress so the
+# post-job cache save runs, and each dispatch compounds on the last via
+# restore-keys. 2-3 dispatches -> fully seeded; then lean_action_ci restores
+# the cache and finishes in minutes.
+on: workflow_dispatch
+
+concurrency:
+  group: lean-ci-seed
+  cancel-in-progress: false
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 235
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/cache@v4
+        with:
+          path: .lake/build
+          # run_id keeps keys unique so every dispatch SAVES (same-sha reruns
+          # would otherwise hit the primary key and skip the save).
+          key: salt-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-seed-${{ github.run_id }}
+          restore-keys: |
+            salt-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
+      - name: Install elan
+        run: |
+          curl https://elan.lean-lang.org/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Get mathlib cache
+        run: lake exe cache get
+      - name: Build (soft timeout — partial progress is the point)
+        run: timeout 200m lake build Salt || echo "partial build; cache saves progress"
