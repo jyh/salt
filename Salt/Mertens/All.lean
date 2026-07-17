@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.Mertens.PrimePower
 import Salt.Mertens.Second
+import Salt.Mertens.ZetaSide
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -18,7 +19,9 @@ adjudication in `docs/exploration/pilot.md`.
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.Mertens.mertens_second_sharp
+#audit_axioms Salt.Mertens.primeZeta_tendsto
+  Salt.Mertens.logZetaReal_eq
+  Salt.Mertens.mertens_second_sharp
   Salt.Mertens.mertensB_nonneg
   Salt.Mertens.mertensB_le_two
   Salt.Mertens.neg_log_prod_eq

@@ -1072,3 +1072,24 @@ e^{−εu}du  =[v = εu]=  ∫_{ε·log 2}^∞ log v·e^{−v}dv − log ε·
   explicit bounds — executor's choice.
 One node MERT-3b lands both. Then 3c (equate MERT-3a's ζ-side
 with 3b through MERT-1's Abel form) → 4 → 5.
+
+## OPTION-C RESOLVED: RED — Littlewood CANNOT clear the MR gate,
+## by coefficient arithmetic (house analysis, no recon needed)
+
+The pretentious-distance form is scale-free and settles it:
+D(λ, n^{it}; x)² = loglog x + log|ζ(1+it)| + O(1), and the gate
+needs D² → ∞ (fixed-δ₀ grade: D² ≥ K) at heights t ≍ x^A. A
+zero-free region of width (log t)^{−θ} gives log|ζ(1+it)| ≥
+−θ·loglog t, so D² ≥ (1−θ)·loglog x — diverges for ANY θ < 1.
+Littlewood's region has COEFFICIENT EXACTLY 1 (width
+loglog t/log t ⟹ log|ζ| ≥ −loglog t + logloglog t), so D² ≥
+logloglog x + O(1) — bounded. No re-parametrization of Tao's
+P₋/P₊ cutoffs escapes this: the coefficient arithmetic is
+invariant under cutoff choices (both loglog terms shift
+together). CONSEQUENCES: (1) the MR gate = any power region
+θ < 1 strictly — and by VK-R0's quantization (θ ∈ {1, ≤3/4},
+nothing between) that means VINOGRADOV MACHINERY, full stop;
+(2) the VMVT decision at the Littlewood checkpoint is now a
+clean GO/NO-GO with no cheap third option; (3) the Littlewood
+checkpoint's value is unchanged (historic first + infrastructure)
+but it is NOT a route to MR. Register updated.

@@ -6162,3 +6162,25 @@ decisions per question.
   stretch = ppLevel_holds itself, closing the GEH door's LAST
   named mathlib-gap obligation). Board: MERT-3a, PP3-ASSEMBLY,
   seed #2. Tally ~31.2M raw, house ~14%.
+
+- 2026-07-17 ~16:52 PT (GOLD WINDOW): ██ **MERT-3a LANDS COMPLETE —
+  P(s) + log(s−1) → −B, no residual** ██ (≈ 153k / 36 tools; one
+  design pass). Salt/Mertens/ZetaSide.lean (292 lines):
+  **primeZeta_tendsto/asymp** + logZetaReal_eq (log ζ = P + R)
+  + zeta_eq_exp + the double-Tannery R → B (absorbing MERT-2's
+  residual as designed). Five gotchas banked (the Summable
+  migration confirmed live; simp-only can't unfold unapplied
+  defs; congr' beta-redex → change-not-show; the ofReal Ne
+  reduction). Ceremony: wired + 2 keystones, full build exit 0
+  (9166 jobs). Arc: 1 ✓ 2 ✓ 3a ✓ | 3b in flight → 3c → 4 → 5.
+
+- 2026-07-17 ~16:52 PT (GOLD WINDOW): ██ **OPTION-C RESOLVED: RED
+  (house arithmetic — Littlewood cannot clear the MR gate)** ██.
+  The pretentious-distance coefficient argument (D² ≥
+  (1−θ)·loglog x needs θ < 1 STRICTLY; Littlewood's coefficient
+  is exactly 1; cutoff re-parametrization is invariant) — the MR
+  gate is Vinogradov machinery, full stop; the VMVT decision at
+  the Littlewood checkpoint is now a clean GO/NO-GO with no
+  third option. The design queue shrinks: ShiuCore prep,
+  SMALLQ-4, reports. Board: MERT-3b, PP3-ASSEMBLY, DH-2b-i,
+  seed #2. Tally ~31.5M raw, house ~14%.
