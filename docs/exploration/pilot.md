@@ -3838,3 +3838,21 @@ decisions per question.
   gated on W2T6 (Thm 6) still. Ceremony: wired + 3 keystones BY
   NAME, full build exit 0 (9080 jobs). Tally ~2.7M raw, house
   ~25%. In flight: REGIME-INST, W2T6-FREEZE, M-R0, +W5.
+
+- 2026-07-18 ~22:40 (THREAD W): **W2T6 FREEZE LANDS, house-
+  ratified** (≈ 144k / 13 tools; heavily probe-verified + p = 5
+  numerics confirming the ENTIRE chain). Headline decisions:
+  (1) Thm 6 collapses to an m-FREE statement (the per-m identity
+  = a one-line twist instantiation — the moment layer's general-
+  args form pays off); (2) **ab ≠ 0 is LOAD-BEARING** (a III.3‴
+  catch at freeze: the identity FAILS at n ≥ 2 when a or b = 0 —
+  numerically exhibited; the true statement found, not a
+  weakening); (3) the FINITE NEWTON-IDENTITY route (the
+  PowerSeries route REJECTED with cause: mathlib has no Euler
+  products over 𝔽_p[X] irreducibles — the kill-check's GREEN was
+  necessary-not-sufficient, an honest downgrade); η via
+  nextCoeff. 5 nodes ~1600 lines, all C. Riskiest: the
+  trace-tower identity (H1a, the 𝔽_{p^d} ↪ 𝔽_{p^n} inclusion).
+  **W2T6-GATE dispatches** (the standing discipline). In flight:
+  REGIME-INST, M-R0, W5, +the gate = 4. Tally ~2.85M raw, house
+  ~25%.
