@@ -6106,3 +6106,21 @@ decisions per question.
   — its design freeze is the house's next block.** Ceremony:
   wired + 2 keystones BY NAME, full build exit 0. Board: MERT-1,
   MERT-2, PP3-SUMS, seed #2. Tally ~30.6M raw, house ~14%.
+
+- 2026-07-17 ~16:24 PT (GOLD WINDOW): ██ **MERT-2 LANDS — THE
+  B-CONSTANT: defined, bounded, bridged** ██ (≈ 175k / 45 tools;
+  one write + one fix pass). Salt/Mertens/PrimePower.lean:
+  **mertensB** (the Σ_p Σ_{k≥2} p^{−k}/k constant) + summability
+  + 0 ≤ B ≤ 2 + ██ **neg_log_prod_eq** — the Euler-product
+  bridge STATED OVER ARBITRARY FINITE PRIME SETS (stronger than
+  the p ≤ x spec; directly instantiable by MERT-4 AND by any
+  sieve-density consumer) ██ + the tail |B − B_N| ≤ 2/(N−1).
+  Residual (1, per Zeno): R(s) → B (MERT-3a's ζ-side form) —
+  the dominated-convergence plumbing deferred to MERT-3a itself.
+  Catches banked: field_simp-before-ring on tsum division
+  equalities; Real.log_prod's implicit binders; the v4.32
+  Summable.-namespace migration table. Ceremony: NEW TRACK
+  Salt/Mertens/ wired to ROOT + 4 keystones BY NAME, full build
+  exit 0 (9163 jobs). Arc state: MERT-2 ✓, MERT-1 in flight →
+  3a/3b/3c → 4 → 5. Board: MERT-1, PP3-SUMS, seed #2. Tally
+  ~30.8M raw, house ~14%.
