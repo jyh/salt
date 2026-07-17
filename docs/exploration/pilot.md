@@ -5238,3 +5238,24 @@ decisions per question.
   MR). Adjudicated + persisted. In flight: SPINE-HOIST (the last
   climber before the restart window). Tally ~23.1M raw, house
   ~14%.
+
+- 2026-07-20 ~19:10: ██████████████████████████████████████████
+  ██ **SPINE-HOIST LANDS — log_chowla_two_final: THE CITATION
+  THEOREM. THE BOARD IS EMPTY. THE HARVEST DAY CLOSES.** ██
+  ██████████████████████████████████████████ (≈ 140k / 35 tools;
+  2 build cycles + clean third). SpineFinal.lean:
+  **log_chowla_two_conditional_hoisted** (the constant-provenance
+  hoist: cE/c₁/C eps-FREE before ∀R; K honestly eps-dependent,
+  obtained after) + **log_chowla_two_final** (∃δ₀ ∃R: MRT at
+  δ ≤ δ₀ ⟹ ¬logChowla2Fails — the ε chosen by exists_rat_btwn
+  below cE/(32log4); hepsc/H₀/hbudget2/hI ALL discharged; the
+  surface honestly carries t/g + hbudget1 = the entropy AM–GM
+  balance, an INTERNAL estimate — the executor CAUGHT that the
+  design's "drive ε down" reasoning silently dropped the boxGrade
+  term; **SPINE-BUDGET named** as the node for the unqualified
+  form). Ceremony: wired + 2 keystones BY NAME, full build exit 0
+  (9136 jobs). ██ THE BOARD IS EMPTY — the first time since the
+  play window opened. THE RESTART WINDOW IS OPEN. ██ Post-restart
+  queue: SPINE-BUDGET, SMALLQ-3, N-REPLUMB (house design),
+  N-PP-ROOT, the wave-3/window reports. Tally ~23.3M raw, house
+  ~14%.
