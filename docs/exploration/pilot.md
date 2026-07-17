@@ -5649,3 +5649,13 @@ decisions per question.
   JYH's call; N-PP-ROOT recon dispatches as the GEH backlog
   pickup. Board: N-SHIU-R0, N-PP-R0, CI test run. Tally ~26.9M
   raw, house ~14%.
+
+- 2026-07-17 ~3:20pm (GOLD WINDOW): **JYH RATIFIES ALL THREE
+  ("agreed to all of these"): HB-ENGINE GO at ~3.4M-center WP2;
+  MR parked VK-gated; THE H-L FRAME REVIVED** (the 07-14
+  supersession reversed by ratification). Dispatched: **HL-R0**
+  (ground the landed BJS upper side + twinC2 + the (4+ε)
+  provenance, cut HL-1/2/3) + **DH-G** (the complex-γ detector
+  grounding — Bellotti–Puglisi/Stopple/Jutila's own Thm 2 proof
+  sections; unblocks the WP2 node-table freeze). Board: N-SHIU-R0,
+  N-PP-R0, HL-R0, DH-G, CI test run — five deep.
