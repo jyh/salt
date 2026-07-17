@@ -4147,3 +4147,23 @@ decisions per question.
   Ceremony: wired + 1 keystone BY NAME, full build exit 0
   (9091 jobs). In flight: W-T7, H1, A3-W1C. Tally ~5.9M raw,
   house ~19%.
+
+- 2026-07-19 ~08:50 (THREAD A): **W1-C LANDS — LEMMA 3.2 IS IN;
+  WAVE 1 OF A-R3 IS 4-FOR-4 COMPLETE** (≈ 208k / 37 tools, first
+  attempt on every lemma). WeakUniform.lean: the Jensen atom
+  (public), measureEntropy_split_le (the mixture bound),
+  weakUniform_generic (Tao 3.2, Pinsker-free) +
+  weakUniform_spine (the instantiation, the deficiency carried
+  SYMBOLICALLY). THE SECOND REGIME MISMATCH CONFIRMED (the
+  executor's verdict, honest): the prime window MOVES with H, so
+  hPHheadroom-at-Hhi does NOT compose per-H; the majorant form
+  8·(4^{⌊ε²Hhi⌋})²·ω ≤ x WOULD (PH_le_four_pow dominates every
+  H ≤ Hhi). HOUSE RULING: re-freeze the field to the majorant
+  form — **A-REGIME-PATCH2 dispatches** (same surgical shape as
+  patch 1: Regime.lean + the RegimeInst witness; conservative
+  for all consumers). THE DECREMENT-CONSUMER CORE IS CLOSED:
+  entropy_decrement → decrement_markov → weakUniform_spine
+  composes end-to-end (W2's bridge = the two-step composition +
+  mutualInfo_comm). Ceremony: wired + 2 keystones BY NAME, full
+  build exit 0 (9092 jobs). Tally ~6.1M raw, house ~19% — **THE
+  6M CHIME.**
