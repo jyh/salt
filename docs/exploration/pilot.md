@@ -5695,3 +5695,23 @@ decisions per question.
   PrimeNumberTheoremAnd. Board: N-SHIU-R0, HL-R0, DH-G, ROOT-CYC,
   ROOT-TWO, VK-R0, CI test run — SEVEN deep, the window's
   deepest. Tally ~27.2M raw, house ~14%.
+
+- 2026-07-17 ~4:15pm (GOLD WINDOW): **HL-R0 ADJUDICATED — THE
+  FRAME IS NEARLY FREE; THE POLE IS MERTENS, NOT THE SIEVE** (≈
+  103k / 27 tools). THE FINDING: Π₂ = twinC2 (convergence +
+  positivity LANDED, TwinDoor.lean), π₂ = twinPrimeCounting
+  (LANDED, Brun), the order-sharp O(x/log²x) upper LANDED (N5_3,
+  C ≈ 25700 — Selberg route). HL-1+2+3a ≈ 150k total, dispatch
+  now (HL-FRAME, one executor: Pi2/sing2 defs, the conjecture
+  Prop as IsEquivalent mirroring PiAsymp, Pi2 < 1 new, wrappers;
+  HOUSE DECISIONS: IsEquivalent form, new dir
+  Salt/HardyLittlewood/). **HL-3b (the literal (4+ε)·2Π₂) is the
+  pole, ~0.7–1.2M, gated on MERTENS' THIRD THEOREM (∏(1−1/p) ~
+  e^{−γ}/log z — absent from mathlib AND repo; registered as its
+  own sub-arc, prime upstream candidate; also the recon exposed
+  the "maximal sieve reuse" premise as optimistic — the sieve
+  inequality reuses, the constant is delivered by Mertens +
+  count-extraction, and the F-value cert is Chen's own GAP-U).**
+  Registered, gated, not dispatched. Board: N-SHIU-R0, DH-G,
+  ROOT-CYC, ROOT-TWO, VK-R0, HL-FRAME, CI test run. Tally ~27.3M
+  raw, house ~14%.
