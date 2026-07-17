@@ -83,3 +83,4 @@ import Salt.Maynard.GehAnchor
 import Salt.Maynard.PpRootCyc
 import Salt.Maynard.PpRootTwo
 import Salt.Maynard.PpRootCrt
+import Salt.Maynard.ShiuBlocks

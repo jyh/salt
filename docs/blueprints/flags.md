@@ -7716,3 +7716,31 @@ identity predicate); must be built from `StrictMono g` by hand. That + the cross
 counting is ~200+ lines, itself a C-tier node. `kusmin_landau` is stated exactly to receive
 these good windows, so wiring is mechanical once the fibre-is-Ioc lemma lands. Deferred per
 Zeno guidance (M1-alone = success). `sum_fiberwise_of_maps_to` gives the decomposition.
+
+## 2026-07-17 N-SHIU-CORE Opus failed (named residual; milestone 1 LANDED)
+The shallow interface `hshiu` for the vP3 double-dyadic family is DISCHARGED
+conditionally in the new file `Salt/Maynard/ShiuBlocks.lean`
+(`shiu_for_blocks_of_core`, sorry-free, axioms ⊆ {propext, Classical.choice,
+Quot.sound}). It takes ONE explicit hypothesis — `ShiuCore` (the τ-in-AP bound,
+`sum_tau_in_ap_le`): `∃ C>0, ∀ z q a, 2≤z → 1≤q → q ≤ z^{1-1/8000} →
+Coprime a q → ∑_{n≤z, n≡a(q)} τ(n) ≤ C·(z/φ(q))·log z`. Everything else (pointwise
+block bound, support, per-class count, the reduced-class average trick that kills
+the ℓ¹-mass term, the crude/bulk regime via `card_divisors_le_rpow`, and the whole
+power-beats-polylog assembly with `Bsh=0`, `Csh=max(corner, 128C)`, floor `F≥A'+3`)
+is unconditional and landed.
+
+`ShiuCore` itself is Shiu 1980 (J. reine angew. Math. 313) specialized to τ — a
+GENUINE theorem, not elementary. The exact resisting band: the hyperbola bound
+τ(n)=2·#{d|n: d≤√n}−[square] gives ∑_{n≤z,n≡a(q)}τ(n) ≤ 2∑_{d≤√z,(d,q)=1}(z/(dq)+1);
+the main part (z/q)(2+log z) ≤ (z/φ(q))log z closes, but the hyperbola `+1` error is
+2·#{d≤√z,(d,q)=1} ≍ √z, which is ≤ (z/φ(q))log z ONLY for q ≤ √z (there z/φ(q) ≥
+z/q ≥ √z). For the MIDDLE BAND q ∈ (√z, z^{1-1/8000}] the `+1` spike √z dominates
+(z/φ(q) ≍ z^{1/8000} ≪ √z), and the cofactor-swap reindex spikes symmetrically —
+the honest Shiu argument needs Rankin/smooth-rough decomposition, out of tier. The
+crude τ(n)≤C_ε n^ε route also fails the middle band (z^ε ≫ log z). Low band q ≤ √z
+IS elementary but does not discharge `ShiuCore` (mile-1 needs the full range), so not
+formalized. HOUSE: design `sum_tau_in_ap_le` as its own C/D-block; also note the
+F-quantification re-plumb — `hshiu` freezes F but quantifies A' universally, whereas
+the provable form needs F ≥ A'+3, so the anchored combinator's F must become
+A'-dependent (or be applied per-A) at wire-in. `α i=muBlock a`, `β i=tiiBlock b`,
+`N i=nScale a`, `M i=nScale b`, `θ=3999/4000`; house maps `i ↦ (a i, b i)`.

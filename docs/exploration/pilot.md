@@ -5894,3 +5894,26 @@ decisions per question.
   full build green. DISPATCHED: VK-N2-M2 (the windowing build) +
   N-PP-FOLD (the ppTerm per-q bound). Board: N-SHIU, VK-N2-M2,
   N-PP-FOLD, CI seed. Tally ~28.8M raw, house ~14%.
+
+- 2026-07-17 ~8:45pm (GOLD WINDOW): ██ **N-SHIU MILESTONE 1
+  LANDS — hshiu DISCHARGED-CONDITIONAL: the GEH door's shallow
+  regime now hangs on ONE named theorem** ██ (≈ 379k / 103
+  tools — the window's biggest single node; the sanctioned Zeno
+  outcome). Salt/Maynard/ShiuBlocks.lean (692 lines, sorry-free):
+  **shiu_for_blocks_of_core** (the FULL two-regime hshiu
+  assembly for the vP3 double-dyadic family, matching GehAnchor's
+  binder shape) + all elementary suppliers + the recon's
+  simplification VINDICATED (seqDiscrepancy_le_two_classBd — the
+  coprime mean is the class average, the ℓ¹-mass bound never
+  needed). THE RESIDUAL: **ShiuCore** (Shiu-1980 τ-in-AP,
+  Σ_{n≤z,n≡a(q)}τ(n) ≤ C(z/φ(q))log z, q ≤ z^{1−1/8000}) —
+  confirmed absent from mathlib+corpus; the resisting middle
+  band q ∈ (√z, z^{1−α}] flagged research-tier (flags.md) →
+  **the ShiuCore SIEGE joins the house queue per the D-posture**.
+  ██ CATCH #54: the frozen hshiu quantifies A′ universally but
+  the provable form needs F ≥ A′+3 — the anchored combinator's
+  F must go A′-dependent at wire-in (N-HDOM design note) ██.
+  Gotchas: linarith-only vs the heartbeat wall; set-opacity via
+  obtain. Board: VK-N2-M2, N-PP-FOLD, CI seed. House queue:
+  diagonal fork, ShiuCore siege, SMALLQ-4, option-C. Tally
+  ~29.2M raw, house ~14%.
