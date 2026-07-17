@@ -4621,3 +4621,19 @@ decisions per question.
   entropy_decrement; t/g trade; hne = Bertrand-grade residual).
   Ceremony: wired + 5 keystones BY NAME, full build exit 0
   (9110 jobs). Tally ~13.5M raw, house ~16%.
+
+- 2026-07-20 ~02:50 (THREAD A): **L35-ASM LANDS — LEMMA 3.5 IS
+  SIEVE-PARAMETRIC: |Ξ_H| ≤ 16·C_d·ε⁻¹⁶, H-INDEPENDENT** (≈ 83k /
+  27 tools, 1 serious attempt). LargeSpectrumBound.lean:
+  **bigXi_bounded_of_sieve** — hpt/hsq (exactly
+  W3_AE_d_of_sieve's shapes, passed straight through) ⟹ the
+  bounded large spectrum; H₀ NOT enlarged (H ≥ 2 delivers both
+  window discharge and log H > 0); the abstract-variable algebra
+  helper sidestepped all cast-folding. SEAM CONFIRMED: `hbound H
+  hH` produces contradiction_of_mrtDoor's hXi VERBATIM; the
+  door's regime supplies heps2 from R.eps ≤ 1/2 in one line.
+  Ceremony: wired + 1 keystone BY NAME, full build exit 0 (9111
+  jobs). **W3-E-GLUE DISPATCHES — the Theorem-2.3 conditional
+  shell: outer_combine ∘ circle_method_estimate ∘
+  bigXi_bounded_of_sieve ∘ contradiction_of_mrtDoor.** In flight:
+  GB-M2, GB-HSQ-1, W3-E-GLUE. Tally ~13.8M raw, house ~16%.

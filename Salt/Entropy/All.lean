@@ -43,6 +43,7 @@ import Salt.Entropy.Chowla.MRTDoor
 import Salt.Entropy.Chowla.QuadrupleCount
 import Salt.Entropy.Chowla.LargeSpectrum
 import Salt.Entropy.Chowla.OuterCombine
+import Salt.Entropy.Chowla.LargeSpectrumBound
 import Salt.Entropy.Chowla.Windows
 import Salt.Entropy.Chowla.PrimeWindow
 import Salt.Entropy.ConsumerTest
@@ -105,6 +106,7 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.outer_badMass_le
   Salt.Entropy.Chowla.fBridgeF_abs_le_box
   Salt.Entropy.Chowla.decoupledMean_abs_le_box
+  Salt.Entropy.Chowla.bigXi_bounded_of_sieve
   Salt.Entropy.Chowla.dilation_error
   Salt.Entropy.Chowla.weakUniform_generic
   Salt.Entropy.Chowla.weakUniform_spine
