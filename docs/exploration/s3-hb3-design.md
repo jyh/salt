@@ -990,3 +990,42 @@ GO at the re-centered price.** GATE before the node-table freeze:
 one house recon-read of Bellotti–Puglisi §§2–3 (arXiv:2201.03990)
 / Pintz for the COMPLEX-γ case of the elementary detector (the
 single load-bearing uncertainty; fallbacks priced +0.3–1.0M).
+
+### DH-G adjudicated (2026-07-17 ~4:30pm): COMPLEX-ELEMENTARY-
+### CONFIRMED — and THE DIAGONAL FORK is the freeze's last item
+
+The complex-γ mechanism is GROUNDED and elementary (Pintz III/IV
+via Stopple 1201.0713 + Bellotti–Puglisi 2201.03990, full texts
+in scratchpad): the zero is consumed as the EXACT IDENTITY
+L(ρ,χ) = 0 inside a summation-by-parts step — the untwisted
+partial sums are trivially bounded, the would-be main term
+cancels exactly, and the (length)^{−β} decay IS the damping.
+γ ≠ 0 is BENIGN (enters only via |ρ| in the constant/scale
+U = |ρ|·D^{1/4}·log D; the exponent stays β). Consumes ONLY:
+Abel + Pólya–Vinogradov + hyperbola + Euler summation + the 1∗χ
+positivity floor — all corpus-native (the Siegel skeleton's own
+toolkit); NO functional equation, NO Hadamard, NO fourth moment.
+The load-bearing new Lean primitive: an Abel lemma consuming an
+`L(ρ,χ) = 0` hypothesis — LIGHTER than contour residues (DH-2
+may shed the ShiftVariants flip). Bonus: our 1∗χ detector avoids
+Stopple's t-resonance artifact (his λ_odd construction's defect,
+not ours).
+
+██ **THE DIAGONAL FORK (caveat 3 — the ONE item the WP2 freeze
+must resolve):** every grounded elementary source proves CROSS-
+repulsion (zero of L(s,χ_k) forces L(1,χ_D) up, χ_kχ_D
+non-principal). HB consumes the DIAGONAL: β₀ repels other zeros
+of the SAME L(s,χ) — where χ² = principal degenerates the
+four-L bookkeeping (Jutila's own proof falls back to a 1/L bound
+at χ = χ₀, χ₁ per eq. 6.4 — how his Thm 2 statement still covers
+the diagonal at log η quality must be read from his §§5–6).
+Grounded closures if the elementary diagonal fails: (a) the
+PRODUCT detector L_q = ∏_χ L(s,χ) (Benli–Goel–Twiss–Zaman
+2410.06082, explicit, all |γ| ≤ T, Graham weights + explicit
+convexity, NO fourth moment) — β₀ and ρ both zeros of the
+product, diagonal dissolved; price = the spike's NEEDS-MOLLIFIER
+fallback (+0.3–0.6M); (b) Jutila's 0.28/L fallback (insufficient
+alone). **HOUSE DESIGN BLOCK (next): resolve the fork — read
+Jutila §§5–6's diagonal handling + Benli Cor 1.1 against HB's
+exact consumption (ψ(y,χ) explicit-formula zeros, same χ) — then
+freeze the WP2 node table.** ██

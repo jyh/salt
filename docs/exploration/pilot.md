@@ -5715,3 +5715,17 @@ decisions per question.
   Registered, gated, not dispatched. Board: N-SHIU-R0, DH-G,
   ROOT-CYC, ROOT-TWO, VK-R0, HL-FRAME, CI test run. Tally ~27.3M
   raw, house ~14%.
+
+- 2026-07-17 ~4:30pm (GOLD WINDOW): **DH-G ADJUDICATED — COMPLEX-
+  ELEMENTARY-CONFIRMED; the mechanism is the EXACT-VANISHING
+  Abel step (lighter than contours); THE DIAGONAL FORK is the
+  freeze's one open item** (≈ 103k / 17 tools; 4 sources full-
+  read, Jutila verbatim). γ is benign; the toolkit is the Siegel
+  skeleton's own (1∗χ floor + PV + hyperbola); DH-2's new
+  primitive = an Abel lemma consuming L(ρ,χ) = 0. The fork:
+  elementary sources prove CROSS-repulsion; HB needs DIAGONAL
+  (same-χ) — closures: the product-L_q detector (Benli et al.
+  2024, explicit, mollifier route) or Jutila's §5–6 diagonal
+  handling (to be house-read). WP2 node freeze = the next house
+  design block. Board: N-SHIU-R0, ROOT-CYC, ROOT-TWO, VK-R0,
+  HL-FRAME, CI test run. Tally ~27.4M raw, house ~14%.
