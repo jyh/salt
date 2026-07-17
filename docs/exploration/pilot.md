@@ -3786,3 +3786,24 @@ decisions per question.
   composition node: entropy_decrement lands on its return.**
   Ceremony: wired + 2 keystones BY NAME, full build exit 0
   (9078 jobs). Tally ~2.3M raw, house ~27%.
+
+- 2026-07-18 ~21:00 (THREAD A): ██████ **ENTROPY_DECREMENT IS A
+  THEOREM — A-R2 COMPLETE: THE FIRST INFORMATION-THEORETIC
+  ARGUMENT IN FORMALIZED ANALYTIC NUMBER THEORY** ██████
+  (A-FINAL ≈ 50k / 11 tools, ONE attempt, the composition = a
+  5-LINE TERM — decrement_exists_of_tower ∘ tower_telescope with
+  not_le.mp at each level; every anticipated seam dissolved by
+  reducible defeq). `entropy_decrement (R : ChowlaRegime) : ∃ H ∈
+  [Hlo, Hhi], a ∣ H ∧ I[X_H : Y_H] ≤ H/(log H · logloglog H)` —
+  Tao 1509.05422 Lemma 3.1, Liouville spine, in-build audit
+  ✓ [3 axioms] (9079 jobs). THE RUNG'S ARC: A-R0 recon → the
+  regime gate (3 catches incl. the tower stall) → wave I (3
+  nodes) → the wave-II gate (the joint-invariance re-cut) → Dd0
+  the Fannes spike (first attempt) → REGIME → De (3.11) → the
+  Tower telescope → the 5-line close. ~2.6M exec total vs the
+  recon's 1.5–2.5M (the regime/headroom extras) — the BOUNDARY
+  RUNG registered as the sprint's depth probe, LANDED WHOLE.
+  Remaining on the A-ladder: the regime INSTANTIATION node (the
+  anti-vacuity ∃R — where the barely-divergence lives; the
+  A-FINAL handoff has the joint-tension analysis) — then A-R3.
+  Tally ~2.4M raw, house ~26%.
