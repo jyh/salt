@@ -1,0 +1,21 @@
+/-
+Copyright (c) 2026 Jason Hickey. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Jason Hickey, Claude
+-/
+import Salt.Weil.Kloosterman
+import Salt.Tactic.AuditAxioms
+
+/-!
+# The Weil track (`weil`) — aggregate import
+
+The gold thread: the Weil bound |S(a,b;p)| ≤ 2√p via elementary
+Stepanov (Harcos/IK Ch. 11; the ladder in docs/exploration/pilot.md
+~13:30). Wave 1 (foundations) landed 2026-07-18.
+-/
+
+open Salt.Tactic in
+#audit_axioms Salt.Weil.norm_kloosterman_le_sub_one
+  Salt.Weil.kloosterman_conj Salt.Weil.kloosterman_reindex_units
+  Salt.Weil.X_sub_C_pow_dvd_iff_hasseDeriv
+  Salt.Weil.galoisField_trace_eq_sum_frobenius

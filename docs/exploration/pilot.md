@@ -3611,3 +3611,17 @@ decisions per question.
   correspondence stays on the critical path. THE LADDER PROCEEDS:
   **W1.3′ dispatches** (independent of the in-flight W-FOUND).
   Spend tally: ~0.65M since reset.
+
+- 2026-07-18 ~14:40 (THREAD W): **W-FOUND LANDS ALL THREE RUNGS
+  FIRST ATTEMPT — Salt/Weil/ IS BORN, the corpus's TENTH track**
+  (≈ 109k / 36 tools). Kloosterman.lean (164 lines, 11 decls):
+  the Kloosterman sum (stdAddChar, [NeZero p] generality) +
+  trivial bound + symmetry + REAL-VALUEDNESS (first attempt,
+  the flagged risk) + the unit reindex; W3.1 the FULL Lemma-8
+  iff (X−Cx)^ℓ ∣ h ↔ Hasse derivatives vanish (any CommRing, no
+  h ≠ 0); W1.1 the GaloisField plumbing (card, pow_card, the
+  trace-as-Frobenius-sum). Handoff notes recorded (the Finite-
+  not-Fintype gotcha; the reindex machinery). Ceremony: All.lean
+  created + wired into Salt.lean, 5 keystones, full build exit 0
+  (9070 jobs). **W1.3′ (orbits↔irreducibles + Gauss) and
+  W1.2+W1.3 (trace + Artin–Schreier) DISPATCH.** Tally: ~0.8M.
