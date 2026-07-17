@@ -4282,3 +4282,22 @@ decisions per question.
   COR3); W-DESCENT assembles when both land.** Ceremony: wired +
   1 keystone BY NAME, full build exit 0 (9098 jobs). Tally
   ~7.7M raw, house ~18%.
+
+- 2026-07-19 ~13:50 (THREAD A): **W2-B LANDS — THE F-BRIDGE:
+  A-R3's WAVE 2 COMPLETE** (≈ 265k / 77 tools). FBridge.lean
+  (356 lines): the (3.14) definitions AT PAGE FIDELITY (the
+  recon's guessed indicator was GARBLED — the page image
+  corrected it: 1_{ay+j ≡ pb (ap)}, the (ap) a MODULUS not a
+  datum — the transcribe-first doctrine paying again), the
+  H/p + 1 box, the mean identity (the fiber-count marginal
+  re-derived — no mathlib support), and **fBridge_concentration:
+  P(|F − EF| ≥ δ) ≤ 2exp(−δ²/(2(ε²H+1)(2/ε²+1)²))** — the
+  honest exponent ε⁶H/log²H at the calibrated δ (one log off
+  Tao's ε⁷H/logH — the PNT-free prime count; the single-spot
+  Chebyshev swap noted if the feed ever needs it; BOTH grades
+  feed 3.2's g → ∞). REMAINING ON A-R3: W3-a (the decoupling
+  combine → (3.16)), W3-b (the circle method — ZMod.dft), W3-c/d
+  (the footnote-4 additive energy via the Brun track), the MRT
+  door statement, W3-e (the Theorem 2.3 assembly). Ceremony:
+  wired + 2 keystones BY NAME, full build exit 0 (9099 jobs).
+  Tally ~8.0M raw, house ~17% — **THE 8M CHIME.**

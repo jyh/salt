@@ -34,6 +34,7 @@ import Salt.Entropy.Chowla.MarkovExtract
 import Salt.Entropy.Chowla.Concentration
 import Salt.Entropy.Chowla.WeakUniform
 import Salt.Entropy.Chowla.Dilation
+import Salt.Entropy.Chowla.FBridge
 import Salt.Entropy.Chowla.Windows
 import Salt.Entropy.Chowla.PrimeWindow
 import Salt.Entropy.ConsumerTest
@@ -68,6 +69,8 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.entropy_sub_le_of_l1
   Salt.Entropy.Chowla.harmonic_shift_l1_le
   Salt.Entropy.Chowla.dvd_chowlaTower
+  Salt.Entropy.Chowla.fBridge_concentration
+  Salt.Entropy.Chowla.fBridgeG_mean
   Salt.Entropy.Chowla.dilation_error
   Salt.Entropy.Chowla.weakUniform_generic
   Salt.Entropy.Chowla.weakUniform_spine
