@@ -5983,3 +5983,19 @@ decisions per question.
   none ripe (Mertens now in flight); VMVT ripens at the
   Littlewood checkpoint; reports ripen when written. Board:
   DH-1, DH-2a, MERT-R0, CI seed. Tally ~29.7M raw, house ~14%.
+
+- 2026-07-17 ~15:54 PT (GOLD WINDOW; real clock resumed): ██
+  **DH-2a: DIAGONAL-RED — the fork resolves to DH-2b, and the
+  probe PROVED why** ██ (≈ 124k / 20 tools; paper arithmetic +
+  3 Lean probes + independent source corroboration). Floor and
+  consumable-zero mutually exclusive on the complex diagonal
+  (the χ₁² = χ₀ collapse); the real-zero case = our landed
+  Siegel/Goldfeld bound (the probe RE-DERIVED the corpus from
+  first principles — a consistency check we never ordered).
+  CATCH #57: "γ benign" was cross-case-only. GIFTS: fourfoldCoeff
+  IS the DH-2b coefficient object (the Siegel arc pre-built it);
+  DH-1's dhA is Benli's a(n) verbatim — nothing in flight is
+  wasted. DISPATCHED: **DH-STRIP** (the strip-convergence
+  mathlib gap, either route's critical path). DH-2b freezes
+  after DH-1 + DH-STRIP land. Board: DH-1, MERT-R0, DH-STRIP,
+  CI seed. Tally ~29.9M raw, house ~14%.

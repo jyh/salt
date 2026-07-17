@@ -1064,3 +1064,35 @@ one probe before paying the mollifier price.
 - Then WP2's remaining lines per HB-3: the crude density node
   (large-sieve route), the sharp-EF rebuild (DH-2-amortized),
   Lemma 3/7 assembly.
+
+### DH-2a VERDICT: DIAGONAL-RED (adjudicated) — DH-2b ACTIVATED;
+### catch #57 (the "γ benign" overstatement corrected)
+
+The elementary single-detector route FAILS at a complex zero,
+structurally: consuming L(ρ,χ₁) = 0 damps only the χ₁-side of
+the hyperbola; the ζ-side main term y^{1−ρ}/(1−ρ)·L(1,χ₁)
+survives — larger than any useful bound AND proportional to the
+very L(1,χ₁) being bounded (circular). The only L-independent
+floor (squares support, ζ(2ρ)-grade) collapses the consumable
+zero via χ₁² = χ₀ — **floor and consumable-zero are MUTUALLY
+EXCLUSIVE on the complex diagonal** (= why Bellotti–Puglisi
+require χ_kχ_D non-principal; the diagonal is forbidden, not
+rescued). The real-zero case DOES close — and is exactly the
+corpus's landed Goldfeld/Siegel lower bound. CATCH #57: DH-G's
+"γ is benign" held only for the cross case — on the diagonal the
+floor's EXISTENCE is γ-conditional. The probes also verified
+DH-2b's running start: the corpus's fourfoldCoeff family
+(FourFold.lean/Siegel.lean) IS the product-detector coefficient
+object, and DH-1's dhA = 1∗χ₁ is exactly Benli's a(n) — both
+in-flight/landed nodes remain fully on-path.
+
+**Activated: DH-2b** (the product detector F(s,χ) =
+L(s,χ)L(s,χχ₁) + Graham weights + the explicit residue at
+s = 1−ρ per Benli §§4–5; the diagonal enters via the computed
+χ₀-pole). **New named node DH-STRIP (DISPATCHED, ~0.2–0.3M):**
+for non-principal χ, Tendsto (Σ_{n≤N} χ(n)n^{−s}) → LFunction
+χ s for 0 < Re s < 1 — the strip-convergence fact ABSENT from
+mathlib (everything gated Re > 1), on the critical path of
+EITHER route; proof = Abel-vs-PV integral representation
+(analytic on Re > 0, the corpus's parametric-integral Abel
+pattern) + identity theorem against Re > 1.
