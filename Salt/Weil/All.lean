@@ -16,6 +16,7 @@ import Salt.Weil.LFunction
 import Salt.Weil.StepanovSolve
 import Salt.Weil.PrimePower
 import Salt.Weil.WeilStepanov
+import Salt.Weil.CompositeTail
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -27,7 +28,8 @@ Stepanov (Harcos/IK Ch. 11; the ladder in docs/exploration/pilot.md
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.Weil.weil_stepanov
+#audit_axioms Salt.Weil.norm_kloosterman_le_mul_of_coprime_unit
+  Salt.Weil.weil_stepanov
   Salt.Weil.norm_kloosterman_prime_pow_even
   Salt.Weil.stepanov_solution_exists
   Salt.Weil.stepanov_one_sided_card_le

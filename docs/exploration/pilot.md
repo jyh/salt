@@ -4214,3 +4214,18 @@ decisions per question.
   abs_le_sqrt_of_powerSum_bound. Ceremony: wired + 1 keystone BY
   NAME, full build exit 0 (9094 jobs). Tally ~6.65M raw, house
   ~18%.
+
+- 2026-07-19 ~11:10 (THREAD W): **W6.3 LANDS — the unit-threaded
+  recursion core** (≈ 132k / 32 tools). CompositeTail.lean: the
+  crude p=2/general placeholders + **the unit-carrying character
+  split and norm_kloosterman_le_mul_of_coprime_unit — the
+  load-bearing induction step whose per-factor hypotheses demand
+  bounds ONLY at unit first-arguments (exactly what the Salié
+  and future Weil bounds supply)**; the IsUnit-of-faithful-split
+  argument clean. A Composite.lean API lesson recorded (the
+  discarded existential witness forced a reprove — noted for the
+  eventual assembly). Odd exponents: the crude 2·p^{m+1} design
+  recorded, deferred (fine for the R4-dispersion consumer,
+  lossy for the general target — honest). Ceremony: wired + 1
+  keystone BY NAME, full build exit 0 (9095 jobs). In flight:
+  H1, H3, A3-W2B. Tally ~6.8M raw, house ~18%.
