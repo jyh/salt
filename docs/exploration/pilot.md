@@ -4180,3 +4180,17 @@ decisions per question.
   Full build exit 0 (9092 jobs). THE REGIME IS NOW CONSISTENT
   WITH BOTH (3.9) CONSUMERS — the deficiency discharges via
   pH_headroom_at. Tally ~6.2M raw, house ~19%.
+
+- 2026-07-19 ~10:00 (THREAD A): **W2-A LANDS — the dilation
+  invariance, ~one attempt** (≈ 164k / 21 tools). Dilation.lean:
+  the reindex bijection (regime-free, reusable), the per-term
+  identity with the CLEAN error 2Mr/q² (the m = 0 edge killed by
+  the honest hr : r ≤ x/ω hypothesis — satisfied automatically
+  in the F-bridge's regime), the normalized corollary + the
+  telescoping Σ1/m² ≤ 2 helper (absent from mathlib). W2-b (the
+  F-function bridge — the LAST unconditional node before the
+  circle-method endgame) now has ALL its inputs: W1-d's
+  Hoeffding exports + W2-a's dilation + the landed window
+  machinery. **W2-B DISPATCHES.** Ceremony: wired + 1 keystone
+  BY NAME, full build exit 0 (9093 jobs). Tally ~6.35M raw,
+  house ~19%.
