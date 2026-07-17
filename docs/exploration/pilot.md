@@ -4325,3 +4325,25 @@ decisions per question.
   NAME, full build exit 0 (9100 jobs). Tally ~8.3M raw, house
   ~17%. **THE WEIL BOUND NOW WAITS ON EXACTLY ONE IN-FLIGHT NODE
   + ONE ASSEMBLY.**
+
+- 2026-07-19 ~16:10 (THREAD A): **A3-W3R ADJUDICATED + W3-a-1/2 AND
+  W3-b-defs LANDED AT ADJUDICATION — the recon's kill-checks WERE
+  the proofs** (recon ≈ 111k / 17 tools; house ceremony, ZERO
+  executor dispatches for three nodes). The recon transcribed
+  (3.15)/(3.16)/Lemma 3.4 at page fidelity, froze the Lean
+  statements, and validity-probed W3-a-1/2 by PROVING them (4 + 7
+  lines from the landed API — the strongest kill-check; class A as
+  cut). House ported: Decoupled.lean (fBridgeF_mean — the y-mean IS
+  the decoupled two-point correlation; fBridge_concentration_
+  decoupled) + CircleMethod.lean (expSum (3.17), bigXi at a=1,
+  dft_is_fourier_coeff = the ZMod.dft carrier bridge). THE FINDS:
+  (i) the model collapse is EXACT — (3.18)'s LHS is verbatim
+  fBridgeF_mean's RHS, the W3-a/W3-b seam is tight; (ii) ⚠ mathlib
+  has NO Parseval for ZMod.dft — new node W3-b-parseval (C);
+  (iii) the ∃C vacuity trap identified and dodged (quantifier order
+  binding, recorded); (iv) W3-a-3 (the outer combine) = NEW DOORS
+  ((2.11) input + good-x selector + outer Fubini) — DEFERRED to a
+  house design block, NOT executor-safe. All frozen material
+  persisted to s3-a3-design.md AT adjudication. Ceremony: wired + 3
+  keystones BY NAME, full build exit 0 (9102 jobs). **W3-b-parseval
+  dispatches.** Tally ~8.8M raw, house ~17%.
