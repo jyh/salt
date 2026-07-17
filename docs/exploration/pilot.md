@@ -5966,3 +5966,20 @@ decisions per question.
   contingent) / DH-3 / DH-4. Board: DH-1, DH-2a, CI seed. House
   queue: ShiuCore siege, PP3-DESIGN, SMALLQ-4, option-C. Tally
   ~29.7M raw, house ~14%.
+
+- 2026-07-17 ~10:45pm (GOLD WINDOW): **THE MERTENS ARC OPENS
+  (JYH: "oh yes open the Mertens arc") — MERT-R0 dispatched**
+  (recon-first per doctrine). Target: Mertens' third theorem
+  (∏_{p≤x}(1−1/p) = e^{−γ}/log x·(1+O(1/log x))) — HL-3b's gate
+  + a first-class mathlib upstream. The recon's price levers:
+  (1) does mathlib now hold Mertens 1st/2nd + the ζ-Laurent
+  γ-coefficient (the ecosystem-moves lesson)? (2) the cheapest
+  e^{−γ} identification route (abelian vs M-constant vs
+  hyperbola); (3) whether HL-3b's (4+ε) truly needs γ-identified
+  Mertens or whether the e^γ·e^{−γ} RATIO cancellation lets
+  explicit two-sided bounds through. ALSO: the decision-register
+  protocol adopted (JYH: prompt periodically re pending
+  decisions; memory feedback_decision_register). OPEN DECISIONS:
+  none ripe (Mertens now in flight); VMVT ripens at the
+  Littlewood checkpoint; reports ripen when written. Board:
+  DH-1, DH-2a, MERT-R0, CI seed. Tally ~29.7M raw, house ~14%.
