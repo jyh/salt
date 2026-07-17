@@ -4850,3 +4850,22 @@ decisions per question.
   jobs). **HREDUCE DISPATCHES — the LAST node of the h211
   producer.** In flight: GB-7, HREDUCE. Tally ~17.5M raw, house
   ~15%.
+
+- 2026-07-20 ~12:10 (NIGHT SHIFT): **GB-7 LANDS ITS SIEVE CORE +
+  EXECUTOR-CATCHES-DESIGNER #2: THE PARITY SPLIT WAS FALSE** (≈
+  235k / 74 tools; 6 lemmas landed, the pole
+  goldSiftedSum_le_main_add_err at 3 iterations).
+  GoldbachEnergyHpt.lean: the odd-window lemmas, the error sum ≤
+  (z²+1)⁴ (the twin N4_2 route via 6^ω ≤ d³), **the pole**:
+  repCount(even n) ≤ n·sTrunc2/(c₀log²z) + (z²+1)⁴ at P =
+  primorial z / level = z² (M5Assembly templates mirrored),
+  c₀ = 1/64 pulled uniform-in-n. THE CATCH: the ungated hpt at the
+  if-Even rbound is FALSE — eval counterexample (eps 1, H 3,
+  window {2,3}, n = 5) — the GB-0 absorption analysis had only
+  checked the even branch. **RE-FREEZE #2 (house, in-night): the
+  parity split is DROPPED** (rbound never 0; hsq re-runs FREE —
+  the executor verified sum_sTruncW_sq_le already covers the full
+  sumset). Ceremony: wired + 4 keystones BY NAME, full build exit
+  0 (9124 jobs). **GB-15 DISPATCHES — the rebuild's TERMINAL
+  ASSEMBLY.** In flight: HREDUCE, GB-15. Tally ~17.8M raw, house
+  ~15%.
