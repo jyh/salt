@@ -4705,3 +4705,22 @@ decisions per question.
   Ceremony: wired + 1 keystone BY NAME, full build exit 0 (9114
   jobs). In flight: GB-HSQ-1, W3-F-EASY, D3, GB-6. Tally ~15.0M
   raw, house ~16% — **THE 15M CHIME.**
+
+- 2026-07-20 ~06:10 (THREAD GB): **GB-HSQ-1 LANDS — THE hsq LONG
+  POLE IS DOWN: THE EULER MAJORANT AT K = exp(9·ζ(2))** (≈ 274k /
+  59 tools; GB-11 AND GB-14 both first-attempt mathematics, only
+  mechanical fixups; NO flag needed). GoldbachEnergyHsq.lean (460
+  lines, imports Mathlib ONLY): hFac/sTrunc byte-identical to the
+  GB-0 freeze + the API (hFac_mul_of_coprime, sTrunc_le_prod) +
+  **hFac_lcm_sum_le** (the uniform-in-X double-sum majorant —
+  exactly the target shape). HONEST ROUTING: euler_tail_L was
+  UNUSABLE (its ∑ ≤ 1/2 gate fails at p = 3 where x₃ = 1) — the
+  executor reused its powerset IDEA but closed convergence via
+  add_one_le_exp + exp_sum + summable_one_div_nat_pow; the
+  per-prime factorization (1 + 2/((p−2)p) + 1/((p−2)²p)) never
+  jammed. K symbolic per the opportunistic-numeral doctrine.
+  SEAM: hFac_lcm_sum_le IS GB-13's Fubini majorant; hsq's witness
+  C := exp(9·ζ(2)) once GB-7 supplies rbound. Ceremony: wired + 3
+  keystones BY NAME, full build exit 0 (9115 jobs). **GB-12/13
+  DISPATCH (one executor, the hsq assembly pair).** In flight:
+  W3-F-EASY, D3, GB-6, GB-1213. Tally ~15.4M raw, house ~15%.
