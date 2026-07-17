@@ -4915,3 +4915,20 @@ decisions per question.
   lower-frontier fold into the tower). Ceremony: wired + 4
   keystones BY NAME, full build exit 0 (9126 jobs). In flight:
   W3-F-G12. Tally ~18.4M raw, house ~15%.
+
+- 2026-07-20 ~15:00 (NIGHT SHIFT): **W3-F-G12 LANDS — BOTH CRUX
+  CARRIERS PROVEN** (≈ 175k / 48 tools; G1 first-try, G2 zero
+  strategy rework). DilationStability.lean: **perPair_collapse**
+  (collapse-before-dilate exactly per the R0 route; the λ(pN)
+  core via Even.neg_one_pow, no primality) +
+  **dilated_window_stability** (the two-scale edge lemma,
+  C₀ = 6 — GENERALIZED to any bounded g, better API than briefed;
+  strips ≤ log p + 3 each via harmonic_Icc_le). The W3-F-A seam
+  written to the constant: per-pair |Gated/Z − (1/p)·Sbase/Z| ≤
+  [2r/p² + (2logp + 6)/p]/Z; the k→0 offset via corr_shift_le
+  (x-vanishing); then Σ_{j,p} + D3's Mertens. No hωbig needed at
+  THIS node (Z-control surfaces in A's budget — as the R0
+  adjudication predicted). Ceremony: wired + 2 keystones BY NAME,
+  full build exit 0 (9127 jobs). **W3-F-A DISPATCHES — the LAST
+  node of the h211 chain.** In flight: W3-F-A. Tally ~18.6M raw,
+  house ~15%.
