@@ -3821,3 +3821,20 @@ decisions per question.
   written down). Route 2 (the FI algebraic-break recon) parked
   cheap. **M-R0 dispatches** (the dual-theorem design recon)
   alongside the in-flight REGIME-INST/W4.1cd/W2T6.
+
+- 2026-07-18 ~22:10 (THREAD W): **W4.1cd LANDS — THE STEPANOV CORE
+  IS IN: both D-loci resolved at C, as the kill-checks promised**
+  (≈ 191k / 43 tools). StepanovCore.lean (220 lines, 16 decls):
+  the dimension-count engine (the kill-check template verbatim —
+  explicit ℕ-inequality so W5 picks parameters), the char-p
+  Hasse-derivative vanishing reduction (the (20) evaluation + the
+  multiplicity-≥-ℓ certificate — with an HONESTY CORRECTION
+  mid-build: the global-vanishing phrasing was degenerate, the
+  faithful pointwise (17) form landed), Harcos Lemma-10
+  divisibility, and the ℓ·|T| ≤ deg bound. THE REMAINING GAP TO
+  THM 7 = ONE NODE (the tight-degree bridge: the degree-drop
+  companion + the a-form (22) + the assembly). **W5 dispatches
+  into the freed slot** — Thm 7 + the descent to |S| ≤ 2√p...
+  gated on W2T6 (Thm 6) still. Ceremony: wired + 3 keystones BY
+  NAME, full build exit 0 (9080 jobs). Tally ~2.7M raw, house
+  ~25%. In flight: REGIME-INST, W2T6-FREEZE, M-R0, +W5.
