@@ -5137,3 +5137,18 @@ decisions per question.
   (BoundaryMap/All only — GEH-FIX holds the Maynard tree; full
   build at its ceremony), targeted build exit 0. In flight:
   WINPNT, PATCH-5, GEH-FIX. Tally ~21.7M raw, house ~14%.
+
+- 2026-07-20 ~15:10: ██ **MB-4 — THE BOUNDARY MAP IS WRITTEN**
+  ██ (house synthesis, docs/exploration/boundary-map.md). The
+  M-BOUNDARY deliverable: the crack's dependency map (the log at
+  TWO sites, multiplicativity at ONE, the sign INERT, the sieve
+  side fully generic), the two theorems (the log FORCED; the
+  mechanism EXACTLY the CM±1 class), the unification (dilation
+  invariance twice), and THE DOOR SPECIFICATION: any twin
+  transport must replace exactly (1) the entropy budget for
+  unbounded weights and (2) a dilation-invariant correlation
+  structure outside CM±1 — the rigidity theorem closes every
+  weakening route within the mechanism. The boundary experiment's
+  registered best-case OUTCOME ACHIEVED: not a vague "it's hard"
+  but a kernel-derived specification of the wall AND of what any
+  future door must contain. In flight: WINPNT, PATCH-5, GEH-FIX.
