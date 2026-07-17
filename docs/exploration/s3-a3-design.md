@@ -792,3 +792,75 @@ freeze) < **rung/track** (a ladder toward one theorem) <
 and closing report — e.g. the Chen arc, Sprint 2, the Gold
 Window; future: MR, HB-ENGINE, the transport door) < **the siege**
 (the project entire).
+
+## N-REPLUMB — THE ANCHORED MULTIBLOCK RE-CUT (Fable design block,
+## the Gold Window, 2026-07-20; supersedes halt #2's combinator)
+
+**The defect (halt #2, probe-verified):** `pieceObligationU_of_
+multiblock` demands every block balanced at the GLOBAL scale
+(`x ≤ 4·Nᵢ·Mᵢ`); `vP3` lives on `n ∈ (x^{2/3}, x]`, so its dyadic
+block-pairs have products spanning `[x^{2/3}, x]` — `hwin ∧
+hdecomp` jointly unsatisfiable (witness: `vP3(pq) ≠ 0` at
+`pq ≤ x/4`). GEH_min itself is faithful to P8b (two-sided CoeffAt
+boxes, balance NM ≍ x) and MUST NOT be weakened.
+
+**The re-cut: per-block ANCHORS + two regimes.** New combinator
+`pieceObligationU_of_anchored_multiblock` (new file
+Salt/Maynard/GehAnchor.lean). Each block carries its own anchor
+`s i x := 2 * N i x * M i x`; GEH_min's `∀x` is instantiated AT
+THE ANCHOR per block. Consequences:
+- **The balance hypothesis DELETES** — `N·M ≤ s = 2NM ≤ 4NM`
+  holds definitionally at the anchor. No `hwin`-vs-`hdecomp`
+  conflict can recur.
+- **hanch** (replaces hwin): scales relative to OWN anchor —
+  `(s i x)^ε ≤ N i x ≤ (s i x)^{1-ε}` (same for M), `s i x ≤ x`.
+  Satisfied by cbrt-scale blocks with ε ≈ 1/4 above an x-threshold.
+- **The proof splits blocks at the anchor floor** `s ≥ x/(log x)^F`,
+  `F := 2A + p + 4` chosen per-A inside the proof (the hypothesis
+  stays A-free):
+  1. **Deep anchors (s ≥ floor):** GEH at x := s. The modulus-range
+     deficit `s^θ < x^θ` is POLYLOG-thin and the outer haircut
+     absorbs it — `⌊x^θ/log^{B_out} x⌋ ≤ ⌊s^θ/log^B s⌋` with
+     `B_out := B + θF + 1` (THE ABSORPTION LEMMA, self-contained
+     real inequality; the same trick the old combinator used for
+     block COUNT, now applied to modulus range).
+  2. **Shallow anchors (s < floor):** support ⊆ [1, 2s] ⊆
+     [1, 2x/log^F]; per-q trivial class-mass bound. Needs the
+     per-class estimate `Σ_{n≤y, n≡a(q)} |dconv block| ≤
+     (y/q + 1)·Sp(x)·log^{pc} x` — derivable from CoeffAt boxes +
+     ONE new analytic input: **N-TAU-SPIKE** (below). Σ over
+     q ≤ x^θ: the (y/q)-part gives x·polylog/log^F ✓ (F eats it);
+     the +1-part gives x^θ·Sp(x)·polylog ✓ provided
+     Sp(x) ≤ x^{(1-θ)/2} eventually — x^{1/4000} beats polylog.
+
+**THE TWO EXECUTOR TRAPS (house-caught, MUST be in every brief):**
+- **The anchor-shift re-index k-bump.** GEH at x := s evaluates
+  families at index s, but our blocks are pinned at outer x. The
+  combinator passes CONSTANT families `α' _ := α i x`. CoeffAt
+  then demands `|α i x n| ≤ τ^k·log^k s` with s ≤ x — the WRONG
+  direction for the log factor. Fix: invoke GEH at exponent k+1;
+  above the floor `log x ≤ 2·log s`, so `log^k x ≤ log^{k+1} s`
+  once `log s ≥ 2^k` (x-threshold, folded into the corner
+  constant). SWAtData shifts in the RIGHT direction (1/log^A x ≤
+  1/log^A s) — no bump needed there.
+- **The corner regime.** x below the k-dependent threshold: crude
+  universal bound, same pattern as the landed x=2 corner.
+
+**N-TAU-SPIKE (new node, class B/C, ~150k, NO dependencies):**
+`∀ ε > 0, ∃ C, ∀ n ≥ 1, (n.divisors.card : ℝ) ≤ C * n^ε` — the
+elementary divisor bound via the prime-split `τ(n)/n^ε =
+∏(e_p+1)/p^{εe_p}`: primes ≥ 2^{1/ε} contribute ≤ 1, the finitely
+many below contribute a bounded constant. Corpus check done: only
+`card_divisors_le_two_sqrt` (√n — too weak) and the squarefree
+2^ω form exist. Consumed at ε := (1-θ)/4 = 1/16000.
+
+**Satisfiability for vP3 (the point of it all):** the double-dyadic
+family (muBlock a) × (tiiBlock b) — anti-diagonal pairs, count
+≤ D·log² x (p = 2); each pair's anchor is its own box product;
+hanch holds since both sides live in [cbrt x, x^{2/3}]-scales;
+hdecomp is hdecomp_dyadic refined to the double slicing. NO block
+is asked to be globally balanced. **Downstream re-freezes:**
+N-HDOM := anchored combinator @ the vP3 double-dyadic family
+(discharges hdom); N-TYPEI-MID := same for vP1/vP2 mid-halves.
+Dispatch order: N-TAU-SPIKE ∥ GehAnchor(combinator) → N-HDOM →
+N-TYPEI-MID.

@@ -5349,3 +5349,36 @@ decisions per question.
   parity walls + least-k atlas + boundary map + orthogonality wall
   + polarity finding. Board: HB-F-TAU (axiom checks) + the CI
   watcher.
+
+- 2026-07-20 (GOLD WINDOW): ██ **HB-F-TAU LANDS — HB-FOUND IS
+  COMPLETE: BOTH DOWN PAYMENTS BANKED** ██ (≈ 247k / 39 tools;
+  near-all first-attempt, 2 name-drift fixes). Salt/Weil/
+  CompositeFull.lean (5 keystones, audit ✓ [3 axioms], 9139
+  green): **norm_kloosterman_le_tau_sqrt** (the classical
+  ‖S(a,b;c)‖ ≤ τ(c)√c, squarefree c at unit a — THE dispersion
+  drop-in for link 4) + **norm_kloosterman_prime_pow_ge_two**
+  (the parked odd-exponent node discharged BY GENERALIZATION:
+  one j-shift lemma covers all k ≥ 2, subsuming the landed even
+  case) + norm_kloosterman_prime_pow_odd (crude 2p^{m+1}) +
+  kloosterman_zero_right (S(a,0;p) = −1) +
+  norm_kloosterman_prime_unit (all p incl. 2, all b). Summit
+  one's composite story COMPLETE for squarefree moduli; general
+  moduli reduced to two named gaps (sharp odd-k Gauss √p; sharp
+  p=2 Salié). HB-ENGINE's links 2+3 are now both in the corpus.
+
+- 2026-07-20 (GOLD WINDOW): **N-REPLUMB DESIGNED — THE ANCHORED
+  MULTIBLOCK RE-CUT (Fable design block, frozen in
+  s3-a3-design.md)**. Halt #2's global-balance defect resolved
+  WITHOUT touching GEH_min (P8b-faithful, must not weaken):
+  per-block anchors s := 2NM (balance DELETES definitionally),
+  two-regime proof (deep anchors → GEH-at-anchor + THE ABSORPTION
+  LEMMA B_out = B + θF + 1 eating the polylog modulus-range
+  deficit; shallow anchors → class-mass trivial regime).
+  House-caught executor traps: the anchor-shift k-BUMP (constant
+  families pinned at outer x flip CoeffAt's log direction —
+  invoke GEH at k+1) + the corner threshold. ONE new analytic
+  node: **N-TAU-SPIKE** (τ(n) ≤ C_ε·n^ε elementary; corpus has
+  only √n + squarefree forms — checked). Downstream re-freezes:
+  N-HDOM (vP3 double-dyadic ∥ anti-diagonal, p = 2), N-TYPEI-MID.
+  Dispatch order: N-TAU-SPIKE ∥ GehAnchor → N-HDOM → N-TYPEI-MID.
+  Board: HB-R0 + SMALLQ-3 + the CI watcher.

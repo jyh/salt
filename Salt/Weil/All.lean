@@ -24,6 +24,7 @@ import Salt.Weil.CurveBridge
 import Salt.Weil.MultiExtract
 import Salt.Weil.Descent
 import Salt.Weil.Incomplete
+import Salt.Weil.CompositeFull
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -35,7 +36,12 @@ Stepanov (Harcos/IK Ch. 11; the ladder in docs/exploration/pilot.md
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.Weil.norm_incomplete_kloosterman_le
+#audit_axioms Salt.Weil.norm_kloosterman_le_tau_sqrt
+  Salt.Weil.norm_kloosterman_prime_pow_ge_two
+  Salt.Weil.norm_kloosterman_prime_pow_odd
+  Salt.Weil.kloosterman_zero_right
+  Salt.Weil.norm_kloosterman_prime_unit
+  Salt.Weil.norm_incomplete_kloosterman_le
   Salt.Weil.norm_kloosterman_le_two_sqrt
   Salt.Weil.norm_kloosterman_le_two_sqrt'
   Salt.Weil.norm_localRoots_eq_sqrt
