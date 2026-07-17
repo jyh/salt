@@ -19,6 +19,7 @@ import Salt.Entropy.Kernel.Basic
 import Salt.Entropy.Kernel.MutualInfo
 import Salt.Entropy.Basic
 import Salt.Entropy.Chowla.LogMeasure
+import Salt.Entropy.Chowla.Fannes
 import Salt.Entropy.Chowla.Windows
 import Salt.Entropy.Chowla.PrimeWindow
 import Salt.Entropy.ConsumerTest
@@ -50,6 +51,7 @@ open Salt.Tactic in
   ProbabilityTheory.measureEntropy_dirac
   ProbabilityTheory.measureEntropy_prod
   ProbabilityTheory.measureMutualInfo_nonneg
+  Salt.Entropy.Chowla.entropy_sub_le_of_l1
   Salt.Entropy.Chowla.isProbabilityMeasure_logMeasure
   Salt.Entropy.Chowla.logMeasure_apply_singleton
   Salt.Entropy.Chowla.harmonic_window_bounds

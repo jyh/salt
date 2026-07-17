@@ -3398,3 +3398,16 @@ decisions per question.
   S3-HB3C-FREEZE dispatched (the design pass, house-ratified on
   landing per the A2-gate precedent); its adversarial gate
   follows; executors after.
+
+- 2026-07-18 ~06:10 (SPRINT 3): ██ **THE FANNES SPIKE LANDS FIRST
+  ATTEMPT — no Fable block needed** ██ (S3-A2-Dd0 ≈ 209k / 47
+  tools). Fannes.lean: entropy_sub_le_of_l1 (the discrete
+  Fannes/entropy-continuity lemma, support-Finset form — NEW to
+  the formalized literature; five private helpers: the negMulLog
+  modulus |η(a)−η(b)| ≤ η(|a−b|) + the Jensen step mirroring the
+  ported measureEntropy_le_card_aux) + B2. The wave's designated
+  could-spike-D node resolved at C. D-d consumption notes
+  recorded (the shared support finset via the residue-relabel
+  bijection; log A.card ≤ (3/2)H·log 2 via Dc). Ceremony: grep
+  clean, wired + 1 keystone, full build exit 0 (9062 jobs).
+  **D-d (the joint-invariance estimate) DISPATCHES.**
