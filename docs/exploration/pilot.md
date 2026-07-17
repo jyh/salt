@@ -3856,3 +3856,19 @@ decisions per question.
   **W2T6-GATE dispatches** (the standing discipline). In flight:
   REGIME-INST, M-R0, W5, +the gate = 4. Tally ~2.85M raw, house
   ~25%.
+
+- 2026-07-18 ~23:10 (THREAD A): **REGIME-INST lands its sanctioned
+  floor** (≈ 121k / 18 tools, 1 attempt, zero grinding — the
+  give-up-early assessment up front). RegimeInst.lean: the FULL
+  regime construction conditional on ONE input
+  (regime_exists_of_dropSum_exists : (∃ J, log 2 < towerDropSum
+  2 1 4e6 J) → ∃ R, R.a = 1 — a = 1, eps = 1/2, Hhi = the tower
+  top, x = 16·Hhi³) + the UNCONDITIONAL x-side. THE LAST PIECE
+  precisely flagged: the barely-divergent partial sums clear
+  log 2 at J ≈ 1300 (H_J ≈ e⁴⁸²⁵ — no decide reach); the route =
+  the B·j·log j induction + DOUBLE Cauchy condensation to the
+  harmonic series + the tendsto extraction; NO mathlib primitive.
+  **A-DIVERGE dispatches — the final sub-node of the decrement
+  story.** Ceremony: wired + 2 keystones BY NAME, full build
+  exit 0 (9081 jobs). Tally ~3.0M raw, house ~24% — **the 3M
+  chime.**
