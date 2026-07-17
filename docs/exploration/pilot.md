@@ -3702,3 +3702,13 @@ decisions per question.
   dvd_chowlaTower) + wave IV (the iterated-log divergence +
   the contradiction). Ceremony: wired + 3 keystones BY NAME,
   full build exit 0 (9074 jobs). Tally: ~1.55M.
+
+- 2026-07-18 ~18:15: **ATTENTIVE MODE (JYH) — fresh account, 0%
+  window. PRICING CORRECTION (JYH): Fable = 2× Opus ($10/$50 vs
+  $5/$25), NOT 4× — the tally's house-turn weighting halves;
+  effective spend lower than reported. HOT WAVE DISPATCHES (up to
+  6 active): W2 (the per-m identity — ALL substrate landed:
+  Orbits + ArtinSchreier + LocalFactor), A-III (the tower:
+  step_ineq_3_11 along chowlaTower), A-IV-PREP (the iterated-log
+  divergence — independent). W4.1cd queues behind the in-flight
+  W4.1ab.**
