@@ -5184,3 +5184,22 @@ decisions per question.
   exit 0 (9133 jobs), axioms clean. **SMALLQ-2 DISPATCHES — the
   SW proof at the amended def via the gift route.** In flight:
   PATCH-5, SMALLQ-2. Tally ~22.3M raw, house ~14%.
+
+- 2026-07-20 ~17:00: **PATCH-5 LANDS ITS CORE — THE PARAMETRIC
+  REGIME BUILDER** (≈ 247k / 37 tools). RegimeParam.lean (450
+  lines): **chowlaRegime_exists_param** (∀ ε ∈ (0, 1/2], ∀ Hlo₀:
+  a regime at exactly that eps with Hlo ≥ Hlo₀) +
+  **dropSum_exceeds_log_two_base** (the barely-divergent
+  decrement crosses log 2 at ANY base ≥ the pin — via tower
+  base-monotonicity + index shift; the pinned numerics transfer
+  verbatim). STRUCTURAL FINDING: ε and Hlo are COUPLED levers
+  (hcoprime/hPNTwindow force Hlo ≥ 4/ε⁴ — an ε-only builder at
+  the old floor is impossible). The ceiling-exponent trick killed
+  the hωbig constant-chase (N = ⌈RHS/log(Hhi+2)⌉₊ + 1). THE
+  PAYOFF BLOCKED, PRECISELY: log_chowla_two_final needs
+  SpineClose's constants HOISTED before the regime ∃ (the
+  executor correctly did not touch SpineClose) — **SPINE-HOIST
+  dispatches (the mechanical hoist + the thin final corollary)**.
+  Ceremony: wired + 2 keystones BY NAME, full build exit 0 (9134
+  jobs). In flight: SMALLQ-2, SPINE-HOIST. Tally ~22.7M raw,
+  house ~14%.
