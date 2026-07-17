@@ -6145,3 +6145,20 @@ decisions per question.
   4 → 5. Ceremony: wired + keystone BY NAME, full build exit 0
   (9164 jobs). Board: MERT-3a, PP3-SUMS, seed #2. Tally ~31.0M
   raw, house ~14%.
+
+- 2026-07-17 ~16:35 PT (GOLD WINDOW): ██ **PP3-SUMS LANDS — BOTH
+  k-UNIFORM SUMS AT C₀ = 1, ZERO RESIDUALS** ██ (≈ 220k / 53
+  tools; 1 serious attempt each). Salt/Maynard/PpSums.lean:
+  **sum_k_pow_omega_le** (Σ k^ω ≤ Q·(1+log Q)^{k−1}) +
+  **sum_k_pow_omega_div_le** (harmonic, (1+log Q)^k, k=0
+  included — STRONGER than frozen). EXECUTOR-BEATS-DESIGN: the
+  binomial identity (k+1)^ω = Σ_{d∣n sqfree} k^{ω(d)} + a
+  one-line induction telescoped the harmonic bound directly —
+  the design's Mertens-majorant route was UNNECESSARY (and would
+  have given C₀ = e^{C₂}); the in-flight-Mertens constraint
+  dissolved with it. The normalizedFactors→primeFactors
+  three-lemma bridge banked for the assembly. PP3: NK ✓ SUMS ✓ →
+  **PP3-ASSEMBLY DISPATCHED** (the three-regime k* split;
+  stretch = ppLevel_holds itself, closing the GEH door's LAST
+  named mathlib-gap obligation). Board: MERT-3a, PP3-ASSEMBLY,
+  seed #2. Tally ~31.2M raw, house ~14%.
