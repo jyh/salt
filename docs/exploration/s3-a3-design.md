@@ -777,3 +777,18 @@ landed spine: typeIIData_residue_reindex, the seqDiscrepancy
 calculus, siegelWalfisz_holds, the summation budgets) follows.
 Catch genre: LATENT FREEZE FALSITY, surfaced at first proof
 contact — two sprints after the freeze.
+
+## THE GOLD WINDOW — christened (JYH, 2026-07-20: "yes I love
+'Gold Window'!")
+
+The current campaign's official name: **Sprint 3 / the Gold
+Window** — the boundary experiment, played at full throttle
+through the 78-hour quota window ("go for the gold"). The ledger's
+`play <thread>:` commit prefix denotes this campaign. THE
+TAXONOMY (canonical, for all reports and future campaigns):
+**node** (one executor dispatch) < **wave** (a batch under one
+freeze) < **rung/track** (a ladder toward one theorem) <
+**campaign** (a registered phase with its own design docs, arc,
+and closing report — e.g. the Chen arc, Sprint 2, the Gold
+Window; future: MR, HB-ENGINE, the transport door) < **the siege**
+(the project entire).
