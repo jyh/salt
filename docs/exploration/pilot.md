@@ -5871,3 +5871,26 @@ decisions per question.
   friction. Ceremony: new track All.lean + 4 keystones BY NAME,
   wired to ROOT, full build exit 0 (9154 jobs). Board: N-SHIU,
   VK-N2, CI seed. Tally ~28.6M raw, house ~14%.
+
+- 2026-07-17 ~8pm (GOLD WINDOW): ██ **VK-N2 LANDS KUSMIN–LANDAU
+  AT C = 1 — SHARPER THAN THE CLASSICAL CONSTANT — plus CATCH
+  #53** ██ (≈ 206k / 48 tools; M1 first-design, M2 the named
+  residual per Zeno). Salt/ExpSum/Kusmin.lean (375 lines):
+  **kusmin_landau** (‖Σ eK(f n)‖ ≤ 1/δ — the real parts of the
+  telescoping weights cancel EXACTLY: Re(wK) = 1/2 constant, the
+  variation is a monotone cotangent — hence C = 1, tighter than
+  the textbook 2/(πδ)) + the wK weight API + the hand-rolled
+  Abel. ██ CATCH #53 (executor-catches-house-sketch, PROVED):
+  the "Int.fract ∈ [δ,1−δ] + monotone" hypothesis is
+  mathematically INSUFFICIENT — integer crossings each cost 1/δ,
+  degrading to O((b−a)/δ); the honest discrete form pins g into
+  ONE unit interval (∃ m) — exactly what M2's window
+  decomposition supplies, so the milestones stay consistent ██.
+  M2 (2nd-derivative test, C′ = 5) = named residual VK-N2-M2:
+  full paper arithmetic recorded in-file + flags.md; blocking
+  sub-obstacle identified (the filter→Ioc lemma from StrictMono,
+  absent from mathlib). House note: eK/eR byte-identical — unify
+  in a polish pass. Ceremony: wired + kusmin_landau BY NAME,
+  full build green. DISPATCHED: VK-N2-M2 (the windowing build) +
+  N-PP-FOLD (the ppTerm per-q bound). Board: N-SHIU, VK-N2-M2,
+  N-PP-FOLD, CI seed. Tally ~28.8M raw, house ~14%.

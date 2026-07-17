@@ -7685,3 +7685,34 @@ omits the mechanism controlling the window/stride mismatch. Both G1/G2 are Fable
 (new carriers or a redesigned per-pair route). Down payment landed: the STEP-0 probe + the
 error-budget closing lemma, isolating `hmain` as the sole residual.
 ═══════════════════════════════════════════════════════════════════════════════════════
+
+## 2026-07-17 VK-N2-M1 Opus done
+LITTLEWOOD campaign, `Salt/ExpSum/Kusmin.lean` (new file, namespace `Salt.ExpSum`).
+`kusmin_landau`: `‖∑ n ∈ Ioc a b, eK (f n)‖ ≤ 1/δ` (absolute C = 1). Clean build,
+axioms [propext, Classical.choice, Quot.sound]. Route = telescoping weight
+`wK s = (1 - eK s)⁻¹`; the crux `wK_re = 1/2` (constant real part) makes the Abel
+differences purely imaginary so the total variation telescopes through
+`wK_im = cot(π·)/2` (monotone via `wK_im_antitone`). Engine lemmas: `norm_one_sub_eK`
+(`= 2|sin πs|`, via `Complex.norm_exp_I_mul_ofReal_sub_one`), `sin_pi_mul_ge` (Jordan,
+symmetrised), `abel_range` (hand-rolled), `norm_eq_abs_im_of_re_eq_zero`.
+★ CATCH: the campaign's suggested hypothesis "`Int.fract (g n) ∈ [δ,1-δ]` + monotone"
+is MATHEMATICALLY INSUFFICIENT — without pinning `g n` into ONE unit interval the
+bound degrades to O((b-a)/δ) (each integer g crosses between samples costs ≍1/δ of
+weight variation). Honest discrete shadow used instead: `∃ m:ℤ, g n ∈ [m+δ, m+1-δ]`
+throughout (exactly the window M2's decomposition produces). Statement chosen at
+executor discretion (task spec, not a frozen blueprint node); flagged for the record.
+★ HOUSE NOTE: `eK` is a PRIVATE local character `exp(2πi x)`, identical to Basic.lean's
+`eR` — unify at wire-in.
+
+## 2026-07-17 VK-N2-M2 Opus failed (named residual, paper arithmetic recorded)
+Second-derivative test `‖∑ eK(f n)‖ ≤ 5(c·L·√λ + 1/√λ)` (C' = 5, L = b-a). Full paper
+arithmetic worked out and recorded in the `Salt/ExpSum/Kusmin.lean` docstring (Milestone
+2 section): δ=√λ; case λ>1/4 trivial (‖S‖ ≤ L), case λ≤1/4 via fibrewise-by-⌊g n⌋
+decomposition, each fibre's good part [k+δ,k+1-δ] fed to `kusmin_landau` (m=k), bad parts
+trivial (≤2δ/λ+2 each), #fibres ≤ cλL+1. NOT attempted in Lean beyond recon: the blocking
+sub-obstacle is turning the good part `(Ioc a b).filter (fun n => k+δ ≤ g n ∧ g n ≤ k+1-δ)`
+into an explicit `Finset.Ioc` — no mathlib lemma exists (only `filter_lt_le_eq_Ioc` for the
+identity predicate); must be built from `StrictMono g` by hand. That + the crossing/window
+counting is ~200+ lines, itself a C-tier node. `kusmin_landau` is stated exactly to receive
+these good windows, so wiring is mechanical once the fibre-is-Ioc lemma lands. Deferred per
+Zeno guidance (M1-alone = success). `sum_fiberwise_of_maps_to` gives the decomposition.
