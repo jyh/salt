@@ -5439,3 +5439,15 @@ decisions per question.
   (quad char sum), HB-3 (density corpus recon). Campaign opening
   awaits JYH's go. Fable access RESTORED mid-read (JYH: "resume
   how we were working") — the model-split protocol suspended.
+
+- 2026-07-20 (GOLD WINDOW, evening): ██ **HB-ENGINE OPENS** ██
+  (JYH: "we're back in business, let's go! I am attentive").
+  The campaign's toe-in-the-water: three parallel dispatches
+  against the re-frozen seven-package map — **HB-1** (WP1: the
+  Λ̃/Λ*/f twist-chain definitions + Lemma 1, new track dir
+  Salt/HB/, ~200k), **HB-2** (WP6's socket: the omitted quadratic
+  character sum, QCS-1/2/3 milestones, ~150k), **HB-3** (WP2
+  recon: Jutila density + Deuring–Heilbronn vs the landed SW
+  stack, incl. the exponent-tolerance arithmetic, ~120k). Fable
+  house restored (the split protocol suspended in memory).
+  Throttle: attentive. Board: HB-1, HB-2, HB-3, the CI watcher.
