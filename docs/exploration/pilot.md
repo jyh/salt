@@ -4461,3 +4461,29 @@ decisions per question.
   W3-a-3a/3c are now FULLY UNBLOCKED (all prereqs landed). In
   flight: W-DESCENT (resumed), W3-b-main-v2. JYH reports the 5h
   window at 25%. Tally ~10.3M raw, house ~18%.
+
+- 2026-07-19 ~20:50 (THREAD W): ██████████████████████████████████
+  ██ **THE WEIL BOUND IS A THEOREM. THE GOLD THREAD IS SUMMITED.**
+  ██ ‖S(a,b;p)‖ ≤ 2√p — MACHINE-CHECKED, ELEMENTARY, END TO END ██
+  ██████████████████████████████████ (W-DESCENT ≈ 157k / 33 tools
+  across the death-and-resume; the 64k-overflow death cost only
+  the salvaged recon). Descent.lean (235 lines):
+  **norm_kloosterman_le_two_sqrt** (the frozen shape EXACTLY) +
+  **norm_localRoots_eq_sqrt** (|α| = |β| = √p — THE RIEMANN
+  HYPOTHESIS FOR KLOOSTERMAN SUMS, equality not just bound) +
+  **norm_kloosterman_le_two_sqrt'** (hp2-free via the p = 2 crude
+  bound). The assembly: descentRoot (the 2(p−1)-eigenvalue family)
+  → sum_descentRoot_pow (Thm 6 ∘ Cor 3) → descent_int_bound (Thm 7
+  at deg 2p) → the 33p/N₀ = 6 squeeze → the multi-root extraction
+  → m = 1 → Vieta + reality. EVERY seam behaved as the friction
+  reports predicted; the deepest drift was abs_add → abs_add_le.
+  THE LADDER, COMPLETE: W-FOUND → W-TRACE → W-ORBITS → W0.2 →
+  W4.1ab/cd → W5 → W5B → **THM 7** → E1 (**THM 5**) → H1 → H3 →
+  **THM 6** → **COR 3** → DESC-EXT → **THE DESCENT** — ~15 nodes,
+  2 executor deaths (spend cap, output cap), 0 wrong proofs, the
+  hardest three faces all first-attempt post-design. As far as
+  the house knows: the FIRST machine-checked Weil-strength bound
+  for Kloosterman sums in any proof assistant, by the elementary
+  Stepanov route, kernel-audited to [propext, Classical.choice,
+  Quot.sound]. Ceremony: wired + 3 keystones BY NAME, full build
+  exit 0 (9105 jobs). Tally ~10.6M raw, house ~18%. THE FANFARE.
