@@ -4080,3 +4080,17 @@ decisions per question.
   **H1 (the orbit reorganization) + H3 (Newton) DISPATCH — the
   Thm 6 endgame: after them, the induction + the descent.**
   Tally ~5.0M raw, house ~21% — **THE 5M CHIME.**
+
+- 2026-07-19 ~06:20 (THREAD W): **W5B LANDS COMPLETE — the
+  φ-bundling closed on the multiply-don't-divide route** (≈ 180k
+  / 42 tools, ~first attempt). StepanovSolve.lean (274 lines):
+  hasseQuot (the bundled quotient LinearMap via Classical.choose
+  + left-cancellation — the dependent-motive catch documented),
+  stepanovConstraint (THE φ — the exact dimension-count
+  domain/codomain), stepanov_solution_exists (the nonzero (22)
+  solution), stepanov_one_sided_card_le (the pre-division (13)
+  bound — the rounding deliberately left to Thm 7). **THE
+  STEPANOV FACE IS ONE ASSEMBLY NODE FROM THEOREM 7.** Ceremony:
+  wired + 2 keystones BY NAME, full build exit 0 (9088 jobs).
+  **W-T7 DISPATCHES** (T := N₀ ∪ N_a, a = ±1, ℓ = ⌈√q⌉, feed
+  pointCount_abs_sub_le). Tally ~5.2M raw, house ~20%.
