@@ -3315,3 +3315,20 @@ decisions per question.
   Ceremony: grep clean, wired + 3 keystones, full build exit 0
   (9059 jobs). Wave I: 2 of 3 landed; Da (LogMeasure) + the HB3b
   gate in flight.
+
+- 2026-07-18 ~03:40 (SPRINT 3): **WAVE I COMPLETE (3/3) + the
+  WAVE-II MICRO-FREEZE.** Da lands (S3-A2-Da ≈ 149k / 19 tools,
+  1 attempt): logMeasure + IsProbabilityMeasure +
+  FiniteSupport (unconditional) + the exact singleton mass + the
+  harmonic bounds at **log ω ± 1** (sharper than the ±2 target;
+  built on mathlib harmonic, the Salt.Twelve import correctly
+  refused per the import discipline). The ℕ-division cast trap
+  recorded for downstream. Ceremony: grep clean, wired + 3
+  keystones, full build exit 0 (9060 jobs). WAVE-I TOTALS: 380k /
+  3 nodes / all ~first-attempt. THE MICRO-FREEZE (appended to the
+  design): the same-measure shifted-FUNCTION architecture
+  (subadditivity needs NO invariance); D-d0 = the NEW
+  Fannes-type entropy-comparison lemma for the library; the
+  regime field hheadroom' (shape frozen, constants gate-tunable);
+  the wave-II gate charged with the independent arithmetic redo.
+  **S3-A2-W2GATE dispatches** (2 slots in use → 3 of 4).

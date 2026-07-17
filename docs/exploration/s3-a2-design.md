@@ -228,3 +228,36 @@ toolkit is green by construction.
 5. **Case completeness** per the table; wave-II's could-spike-D
    flag protocol (2 attempts → Fable design block) restated in
    the wave-II briefs.
+
+## WAVE-II MICRO-FREEZE (house, 2026-07-18 ~03:40) — the deferred
+## A-parameter headroom + the concatenation architecture
+
+1. **Architecture (frozen):** the SAME-measure, SHIFTED-FUNCTION
+   formulation. All windows live on ONE logMeasure; X_H^{(j)} n :=
+   liouvilleWindow H (n + j*H) (Db's liouvilleWindow_block is the
+   splitting). Subadditivity (entropy_pair_le_add iterated) needs
+   NO invariance. Approximate invariance enters ONLY in
+   H[X_H^{(j)}] ≈ H[X_H^{(0)}]: the law of X_H^{(j)} is the
+   pushforward of logMeasure under a jH-shift — multiplicatively
+   (1+δ)-close on the common window (mass ratio m/(m−jH)) plus
+   edge defect η, with δ + η ≲ Hhi·ω/x + Hhi/((x/ω)·log ω).
+2. **The new library node D-d0 (B/C):** the entropy-comparison
+   lemma — for μ, ν on a finite range S with ℓ¹ distance d:
+   |Hm[μ] − Hm[ν]| ≤ d·log|S| + (the concave h(d) term) (discrete
+   Fannes; or the ratio form if cheaper). NEW to the ported
+   library; the wave-II gate adjudicates the exact form.
+3. **The regime strengthening (replaces the gate's deferral):**
+   `hheadroom' : 8 * (Hhi : ℝ) * Real.log Hhi * Real.log Hhi ≤
+   ((x / ω : ℕ) : ℝ)` — the shape: the per-shift ℓ¹ error times
+   H·log 2 (Fannes at |S| ≤ 2^H) must stay below half the per-step
+   decrement 1/(2 log H logloglog H). Witness at the floor
+   (Hlo = Hhi-grade = 4·10⁶): 8·4e6·(15.2)² ≈ 7.4e9 ≤ x/ω — sane
+   (x ≥ exp-tower anyway per hJcon's J). THE WAVE-II GATE REDOES
+   this arithmetic independently (the HB2 precedent) and may
+   retune the constant/log-powers; the FIELD SHAPE is frozen.
+4. Case table addition: the j = 0 identity case × the edge windows
+   (n + kH > x) × the ℓ¹-vs-TV factor 2 × h(d)'s domain (d ≤ 1/e).
+5. Wave-II nodes: D-d0 (Fannes, B/C ~120k) → D-d (the invariance
+   estimate, C ~150k) → D-e (the (3.8)–(3.10) inequalities +
+   (3.11) assembly, C ~150k). The 2-attempts-then-Fable-block
+   protocol on D-d and D-e (the could-spike-D pair).
