@@ -5839,3 +5839,19 @@ decisions per question.
   TWO ✓ → **N-PP-CRT dispatches** → FOLD → ASSEMBLY. Board:
   N-SHIU, VK-N1, VK-N2, N-PP-CRT, CI seed run. Tally ~28.2M raw,
   house ~14%.
+
+- 2026-07-17 ~7pm (GOLD WINDOW): ██ **N-PP-CRT LANDS — THE
+  COMPOSITE SQUARE-ROOT COUNT: N₂(a,q) ≤ 2^{ω(q)+1}** ██ (≈ 184k
+  / 39 tools; 1 design pass + 3 mechanical fixes). Salt/Maynard/
+  PpRootCrt.lean: **card_sq_eq_units_le** (the spec verbatim) +
+  the sharper odd 2^ω + **crt_sq_step** (the CRT transport
+  engine, Fintype.card route — no Finset surgery) + the parity-
+  aware **sqBound** (the load-bearing design: the +1 bonus only
+  to the even factor — the naive bound isn't multiplicative).
+  FOUR gotchas banked for the record (recOnPosPrimePosCoprime
+  hands Nat.Prime not Prime; subtypeProdEquivProd needs explicit
+  p/q; the add-defeq asymmetry self-close trap; Prod npow is
+  rfl). General-k = the named residual (structure generalizes;
+  k=2 is the consumer). Chain: CYC ✓ TWO ✓ CRT ✓ → **N-PP-FOLD
+  dispatches** → ASSEMBLY. Board: N-SHIU, VK-N1, VK-N2,
+  N-PP-FOLD, CI seed. Tally ~28.4M raw, house ~14%.
