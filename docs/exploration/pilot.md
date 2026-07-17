@@ -4013,3 +4013,20 @@ decisions per question.
   exit 0 (9084 jobs). In flight: W5B, A3-W1A, W2T6-E1, A-DIVERGE
   (LONG — poking next cycle) = 4+1 free. Tally ~4.2M raw, house
   ~21%.
+
+- 2026-07-19 ~03:50 (THREAD A): ██████ **A-DIVERGE LANDS FULL —
+  chowlaRegime_exists: THE ENTROPY-DECREMENT STORY IS
+  UNCONDITIONAL END-TO-END** ██████ (≈ 236k / 45 tools, every
+  piece ~first-attempt, the poke answered with a completion).
+  Diverge.lean (450 lines): the B = 32 tower-log induction
+  (Python-verified uniform first), **the double Cauchy
+  condensation chain — mathlib genuinely lacks Σ1/(n log n) AND
+  Σ1/(n log n loglog n) divergence; BOTH proven from scratch
+  here, upstreamable**, the extraction, and
+  **dropSum_exceeds_log_two + chowlaRegime_exists** — the
+  RegimeInst FLAG discharged. THE RUNG'S FINAL SHAPE: a
+  ChowlaRegime EXISTS (kernel-witnessed), and entropy_decrement
+  holds at every one — Tao's Lemma 3.1, Liouville spine,
+  UNCONDITIONAL, 3 axioms. Ceremony: wired + 3 keystones BY
+  NAME, full build exit 0 (9085 jobs). Tally ~4.45M raw, house
+  ~21%.

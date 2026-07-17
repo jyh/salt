@@ -28,6 +28,7 @@ import Salt.Entropy.Chowla.Endpoints
 import Salt.Entropy.Chowla.Tower
 import Salt.Entropy.Chowla.Decrement
 import Salt.Entropy.Chowla.RegimeInst
+import Salt.Entropy.Chowla.Diverge
 import Salt.Entropy.Chowla.Windows
 import Salt.Entropy.Chowla.PrimeWindow
 import Salt.Entropy.ConsumerTest
@@ -62,6 +63,9 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.entropy_sub_le_of_l1
   Salt.Entropy.Chowla.harmonic_shift_l1_le
   Salt.Entropy.Chowla.dvd_chowlaTower
+  Salt.Entropy.Chowla.chowlaRegime_exists
+  Salt.Entropy.Chowla.dropSum_exceeds_log_two
+  Salt.Entropy.Chowla.not_summable_one_div_nat_loglog
   Salt.Entropy.Chowla.entropy_decrement
   Salt.Entropy.Chowla.regime_exists_of_dropSum_exists
   Salt.Entropy.Chowla.regime_xside
