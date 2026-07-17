@@ -600,3 +600,7 @@ W3E-FINAL/PATCH-4 obligations: **PATCH-4's ω-floor is now
 ω ≥ (ε²H)^(16/ε)·e^(64/ε)** (maintaining ω ≤ x — the tower's
 hierarchy check sharpens accordingly). HBUDGET-2 (the turnkey
 proof per the closed table) dispatched.
+
+**hωbig CORRECTED FORM RE-RATIFIED BY JYH (2026-07-20 morning:
+"Yes, I reratify hwbig").** log ω ≥ (16/ε)·log(ε²H) + 64/ε + 1 is
+now the frozen obligation; the provisional adoption is confirmed.
