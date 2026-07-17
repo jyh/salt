@@ -4895,3 +4895,23 @@ decisions per question.
   page-fidelity recon — tees up the morning design block). In
   flight: GB-15, W3-F-G-R0. Tally ~18.0M raw, house ~15% — the
   18M mark (chime deferred).
+
+- 2026-07-20 ~14:00 (NIGHT SHIFT): ██████████████████████████████
+  ██ **GB-15 LANDS — bigXi_bounded IS REAL. THE GOLDBACH REBUILD
+  IS COMPLETE. TAO'S LEMMA 3.5 IS AN UNCONDITIONAL THEOREM.** ██
+  ██████████████████████████████ (≈ 269k / 47 tools; ALL THREE
+  deliverables first-attempt). GoldbachEnergyFinal.lean (510
+  lines): **hsq_holds_gen'/hsq_holds3** (no-if, strictly easier as
+  predicted), **hpt_holds** (UNGATED — every degenerate case
+  closed: n=0, H∈{0,1}, H=2-subsumed, odd-large-H, out-of-range;
+  C₁ = CL + CS with CL = 800/c₀ + 102400/ε²; the error
+  negligibility needed NO threshold — (z²+1)⁴ ≤ 256H^{4/5}
+  unconditionally, killing the grind risk; M5BigO/M5Assembly rpow
+  templates reused via a new Brun import), and **bigXi_bounded**:
+  ∃C ∃H₀ ∀H≥H₀, |Ξ_H| ≤ C — the |Ξ_H| bound with ZERO sieve
+  hypotheses. THE REBUILD: 16 nodes priced 2.0–2.5M, delivered
+  ~1.5M, 2 executor-catches-designer, every landing ≤2 attempts.
+  W3-e-final's hXi obligation: destructure + H ≥ H₀ (a
+  lower-frontier fold into the tower). Ceremony: wired + 4
+  keystones BY NAME, full build exit 0 (9126 jobs). In flight:
+  W3-F-G12. Tally ~18.4M raw, house ~15%.
