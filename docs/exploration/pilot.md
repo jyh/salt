@@ -5729,3 +5729,22 @@ decisions per question.
   handling (to be house-read). WP2 node freeze = the next house
   design block. Board: N-SHIU-R0, ROOT-CYC, ROOT-TWO, VK-R0,
   HL-FRAME, CI test run. Tally ~27.4M raw, house ~14%.
+
+- 2026-07-17 ~4:45pm (GOLD WINDOW): **N-SHIU-R0 ADJUDICATED —
+  SHIU-NEEDED, INTERFACE GREEN, THE SLIVER ISOLATED** (≈ 198k /
+  12 tools; the full modulus-range arithmetic worked to explicit
+  log powers). Routes A/B CONVERGE (the Λ-restructure hits the
+  identical τ-in-AP object — amendment 1's "or" was half-right,
+  ledgered): the bulk of shallow blocks (z < x^{1−1/8000}) closes
+  ELEMENTARILY on landed lemmas (card_divisors_le_rpow + the
+  singleton killer + harmonic/totient sums); only the almost-deep
+  SLIVER irreducibly needs the C-class **Shiu τ-in-AP bound**
+  Σ_{n≤z,n≡a(q)} τ(n) ≪ (z/φ(q))·log z for q ≤ z^{1−α} (α =
+  1/8000; NOT in corpus; LS/BDH/SW provably cannot substitute —
+  all three degenerate exactly there). The design's ε = (1−θ)/4
+  VERIFIED with margin (the bad middle regime EMPTY at α =
+  (1−θ)/2). hshiu form GREEN as frozen. **N-SHIU dispatches**:
+  milestone 1 = the two-regime assembly modulo the named Shiu
+  core; milestone 2 = the Shiu core itself (Shiu 1980 route,
+  Zeno-guarded). Board: ROOT-CYC, ROOT-TWO, VK-R0, HL-FRAME,
+  N-SHIU, CI test run. Tally ~27.6M raw, house ~14%.
