@@ -5917,3 +5917,23 @@ decisions per question.
   obtain. Board: VK-N2-M2, N-PP-FOLD, CI seed. House queue:
   diagonal fork, ShiuCore siege, SMALLQ-4, option-C. Tally
   ~29.2M raw, house ~14%.
+
+- 2026-07-17 ~9:30pm (GOLD WINDOW): ██ **VK-N2-M2 LANDS — VAN DER
+  CORPUT'S SECOND-DERIVATIVE TEST, COMPLETE, ZERO RESIDUALS** ██
+  (≈ 224k / 51 tools; one design pass + 4 compile-fix rounds).
+  Salt/ExpSum/VdCorput2.lean (386 lines): **vdC_second_derivative**
+  (‖Σ eK(f n)‖ ≤ 8·(c·L·√λ + 1/√λ)) + **fibre_is_interval** (the
+  mathlib-absent filter→Ioc lemma from strict monotonicity, built
+  first as briefed) + count_window/step_accum. The M1↔M2
+  interface (catch #53's single-unit-interval form) held with
+  ZERO friction — the milestones interlocked as designed. ██
+  CATCH #55 (executor-catches-recorded-arithmetic, PROVED): the
+  fibre count "⌊x⌋−⌊y⌋ ≤ x−y" is FALSE (x=2.1,y=1.9); honest
+  K ≤ cλL+2 forces C′ = 8 not 5 — constant adjusted honestly ██
+  ██ CATCH #56: the target is FALSE without a ≤ b (empty sum vs
+  negative RHS) — hypothesis added ██. THE A/B TOOLKIT IS
+  COMPLETE: Weyl differencing + Kusmin–Landau + the 2nd-derivative
+  test — the van der Corput method's core, first in any assistant
+  (9157 green). Next Littlewood rung: the k-th derivative test
+  (A^{k−2}B iteration) → ζ growth on the σ_k lines. Board:
+  N-PP-FOLD, CI seed. Tally ~29.4M raw, house ~14%.

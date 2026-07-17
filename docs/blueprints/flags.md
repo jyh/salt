@@ -7744,3 +7744,35 @@ F-quantification re-plumb — `hshiu` freezes F but quantifies A' universally, w
 the provable form needs F ≥ A'+3, so the anchored combinator's F must become
 A'-dependent (or be applied per-A) at wire-in. `α i=muBlock a`, `β i=tiiBlock b`,
 `N i=nScale a`, `M i=nScale b`, `θ=3999/4000`; house maps `i ↦ (a i, b i)`.
+
+## 2026-07-17 VK-N2-M2 Opus done (the M2 residual CLOSES)
+LITTLEWOOD campaign, `Salt/ExpSum/VdCorput2.lean` (new file, namespace `Salt.ExpSum`,
+imports `Salt.ExpSum.Kusmin`; wired into `Salt/ExpSum/All.lean` + its `#audit_axioms`).
+`vdC_second_derivative` (van der Corput's discrete second-derivative test):
+`‖∑ n ∈ Ioc a b, eK (f n)‖ ≤ 8·(c·(b−a)·√lam + 1/√lam)` under `a ≤ b`, `0 < lam`,
+`1 ≤ c`, and the second-difference bounds `lam ≤ g(n+1)−g n ≤ c·lam` for `a < n < b`
+(`g n := f(n+1)−f n`). Clean build (full project 9157 jobs green), axioms exactly
+[propext, Classical.choice, Quot.sound] on all 4 new decls. Route = exactly the recorded
+paper arithmetic: δ=√lam; case lam>1/4 trivial (‖S‖ ≤ b−a, absorbed via √lam>1/2);
+case lam≤1/4 fibrewise by k=⌊g n⌋ (`sum_fiberwise_of_maps_to`), each fibre split
+good/bad, good window `[k+δ,k+1−δ]` fed to `kusmin_landau` (m=k) → 1/δ, bad windows
+counted → 2/δ+2, #fibres K → cλL+2, assembled by clearing δ (lam=δ²).
+
+Engine lemmas (the down payment): `fibre_is_interval` (THE sub-obstacle — a
+`g`-monotone-predicate filter of `Ioc a b` IS a `Finset.Ioc a' b'` with `a≤a'`, `b'≤b`;
+built from `StrictMono g` by hand via `min'`/`max'` + a convexity ext, since mathlib has
+only `filter_lt_le_eq_Ioc` for the identity predicate); `count_window` (a δ-window holds
+≤ δ/lam+1 indices, via `min'`/`max'` spread against the λ-growth); `step_accum` (per-step
+→ interval accumulation by `Nat.le_induction`, reused for the lower bound via `-g`).
+
+★ CATCH #54: the recorded arithmetic's `K ≤ cλL+1` uses `⌊x⌋−⌊y⌋ ≤ x−y`, which is FALSE
+in general (x=2.1,y=1.9: LHS=1 > 0.2=RHS). The honest floor count is `K ≤ cλL+2`, which
+lands the constant at **C′ = 8** (not 5). Verified 8 closes both cases: main case needs
+`(cλL+2)(3/δ+2) ≤ 8(cLδ+1/δ)` — true after `lam=δ²`, `δ≤1/2` (so `4 ≤ 2/δ`), `δ≤1`. The
+task explicitly permits 6/8; adjusted the statement's constant honestly rather than grind.
+★ CATCH #55: the target is FALSE without `a ≤ b`. For `b<a` (Ioc empty, ‖S‖=0) the RHS
+`8(c(b−a)√lam+1/√lam)` can go negative (e.g. large `a−b` with `cλ>1`). Added `hab : a ≤ b`
+as an honest range hypothesis (engineering the range conditions, per task license).
+★ NOTE: `eK` still the private local character from Kusmin — unify with `Basic.eR` at
+wire-in (both `exp(2πi x)`). `kusmin_landau` received the good windows exactly as designed;
+the M1↔M2 interface (single-unit-interval hypotheses, catch #53) held with zero friction.

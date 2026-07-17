@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.ExpSum.Basic
 import Salt.ExpSum.Kusmin
+import Salt.ExpSum.VdCorput2
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -20,6 +21,7 @@ the van der Corput method.
 
 open Salt.Tactic in
 #audit_axioms Salt.ExpSum.kusmin_landau
+  Salt.ExpSum.vdC_second_derivative
   Salt.ExpSum.weyl_vdC_sq
   Salt.ExpSum.weyl_vdC_expSum
   Salt.ExpSum.eR_mul_conj
