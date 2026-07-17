@@ -3669,3 +3669,16 @@ decisions per question.
   directories, while executors share the tree. Ceremony: wired +
   3 keystones, full build exit 0 (9072 jobs). In flight: W0.2 +
   D-e. Tally: ~1.2M.
+
+- 2026-07-18 ~17:30 (THREAD W): **W0.2 LANDS FULL — INCLUDING
+  W5.2'S CORE, UNFLAGGED** (≈ 87k / 14 tools, ~first attempt).
+  LocalFactor.lean: the α/β root pair (Vieta), localPowerSum +
+  the Newton recurrence (P₀ = 2, P₁ = −S — the kill-check's
+  atom), reality, AND **abs_le_sqrt_of_powerSum_bound — the
+  eigenvalue-modulus extraction, one of the ladder's three heavy
+  nodes, landed early inside a cheap node** (the geometric-gap
+  route; arbitrary α β; the p > 0 corner honest). The descent
+  (W5) now needs only the curve-count feed. Ceremony: wired + 3
+  keystones (BY NAME), full build exit 0 (9073 jobs).
+  **W4.1a/b (the Stepanov ansatz + non-vanishing) dispatches**
+  (staggered; D-e + it = 2 active). Tally: ~1.3M.
