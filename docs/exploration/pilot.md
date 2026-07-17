@@ -5526,3 +5526,22 @@ decisions per question.
   Salt.lean, FULL build exit 0 (9143 jobs). Board: WP2-1,
   WP2-SPIKE (interim YELLOW), MR-R0, CI watcher. Tally ~25.4M
   raw, house ~14%.
+
+- 2026-07-20 (GOLD WINDOW, night): **MR-R0 ADJUDICATED — THE MR
+  CAMPAIGN REGISTERED AT 12–16M, GATED ON THE VK QUESTION** (≈
+  111k / 22 tools, recon-only, HB-R0 protocol). The door =
+  log-averaged Fourier-uniform MR-for-λ at fixed δ₀ (MRT-2015's
+  estimate; the deep H = x^{o(1)} regime). LARGER than HB-ENGINE;
+  multi-rung. Poles: Halász–Montgomery absent (2–5M); ██ the
+  VINOGRADOV–KOROBOV FORK: standard MR invokes VK, the corpus
+  holds only classical dVP, VK unformalized ANYWHERE (+4–8M or
+  campaign-killer) ██. GATE: the POLE-2 memo (house/Fable,
+  BLOCKING): does classical dVP + fixed δ₀ + log-averaging +
+  tower headroom evade VK? THE GIFT FOUND IN OUR OWN REPO: the
+  Xi seam (MRTUniformityXi + contradiction_of_mrtDoorXi) already
+  ships — the minor-arc package (~2M) is DROPPABLE by a Fable
+  spine-rewire coupling with SPINE-BUDGET. First milestone
+  registered: ξ=0 log-averaged cheap-MR for λ (historic
+  standalone). Openers post-gate: MR-C (Turán–Kubilius), MR-A
+  (vertical-line L²). Board: WP2-1, WP2-SPIKE (final report
+  pending), CI watcher. Tally ~25.5M raw, house ~14%.

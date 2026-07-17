@@ -892,3 +892,40 @@ log-bounded — the Λ-style route — to be decided by its own recon
 N-SHIU-R0 BEFORE commitment). N-HDOM's price re-opens
 accordingly. Dispatch order revised: N-TAU-SPIKE ∥ GehAnchor
 (deep regime + hshiu interface) → N-SHIU-R0 → N-HDOM.
+
+## MR-FORMALIZATION — REGISTERED + GATED (MR-R0 adjudicated,
+## 2026-07-20 night)
+
+**The door, grounded:** MRTUniformity (MRTDoor.lean:48) = the
+log-averaged, Fourier-uniform (∀α OUTSIDE the L¹ integral) MR-type
+bound for λ windows at fixed δ₀ = ε/(2K), in the DEEP H = x^{o(1)}
+regime (tower headroom). This is MRT-2015's central estimate
+specialized to λ — essentially the full machinery; λ saves little.
+
+**Price: central 12–16M (band 8–25M+) — LARGER than HB-ENGINE;
+multi-rung.** Corpus map: landed = large-sieve stack, classical
+dVP zero-free region, smoothed Perron/contour, λ long-sum rates,
+Mertens. Absent = Halász–Montgomery (POLE 1, 2–5M), vertical-line
+L² mean value, Saffari–Vaughan bridge, Turán–Kubilius, and — the
+campaign-killer risk — **Vinogradov–Korobov (POLE 2): the standard
+MR proof invokes VK; the corpus has ONLY classical dVP; VK has
+never been formalized in any proof assistant (+4–8M or
+infeasible-as-one-campaign if strictly required).**
+
+**GATE (blocking, Fable-tier): the POLE-2 memo** — at fixed δ₀ +
+log-averaging + tower headroom, does classical dVP suffice for
+the large-t Dirichlet-polynomial bound (slower rate acceptable),
+or is VK strictly required? GO at ~12–16M vs re-scope hangs on
+this memo. House writes it before any dispatch.
+
+**Registered structure (post-gate):** the CHEAPER honest target is
+**MRTUniformityXi** (MRTDoor.lean:109 — major-arc ξ/H frequencies
+only; the Xi seam contradiction_of_mrtDoorXi ALREADY SHIPS) —
+drops the minor-arc Kátai/BSZ package (~2M) at the cost of a
+Fable spine-rewire (couples naturally with SPINE-BUDGET, same
+surface). First milestone: the **ξ=0 untwisted log-averaged
+cheap-MR for λ** (Tao Suppl. 6 route: Turán–Kubilius + Plancherel
++ Halász-type + ZFR + Mertens — avoids large-values/duality) — a
+historic standalone. Registered openers (post-gate): MR-C
+(Turán–Kubilius, B/C, self-contained), MR-A (vertical-line L²
+from analytic_LS via gallagher_pointwise, C).
