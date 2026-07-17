@@ -6009,3 +6009,30 @@ decisions per question.
   partials). 2–3 dispatches ⟹ fully seeded ⟹ lean_action_ci
   restores and finishes in minutes. Seed #1 dispatched +
   watcher. Board: DH-1, MERT-R0, DH-STRIP, seed #1.
+
+- 2026-07-17 ~15:58 PT (GOLD WINDOW): ██ **MERT-R0 ADJUDICATED —
+  THE MERTENS ARC IS CHEAPER AND SHARPER THAN PRICED: 0.33–0.68M
+  vs the 0.7–1.2M prior, 8 nodes, ONE pole** ██ (≈ 130k / 22
+  tools). FINDINGS: Mertens 1st + 2nd already TWO-SIDED in-corpus
+  (abs_Sfun_sub_log_le; the windowed pair) — only the sharp
+  constant-pinning remains; mathlib holds the ζ Euler-product
+  exp-log form + residue + γ = −Γ′(1); the cheapest e^{−γ} route
+  is the ABELIAN comparison (M = γ − B; needs only the residue,
+  NOT the Laurent-γ — the hyped tendsto_riemannZeta_sub_one_div
+  is a red herring, route (c) via Λ rejected as MORE expensive).
+  THE POLE (MERT-3b): the exp-integral asymptotic carrying
+  Γ′(1) = −γ — house grep CONFIRMS the integral form is a mathlib
+  TODO (Digamma file), but γ = −deriv Γ 1 + Gamma_eq_integral
+  are landed ⟹ one differentiation-under-the-integral from
+  closure (C, D-risk; house design block before its dispatch).
+  SCOPING FORK resolved house-side: HL-3b likely needs only the
+  SHAPE (the e^γ·e^{−γ} ratio cancels — chen.md's V(z)-relative
+  doctrine); the full e^{−γ} stays PRIMARY per JYH's upstream
+  ratification, with MERT-0 (implicit-C waypoint) as the HL-3b
+  unblock en route. The twin-density corollary (4Π₂e^{−2γ}/log²z)
+  = MERT-4 × the LANDED twinC2. DISPATCHED: **MERT-1** (sharp
+  Mertens-2, frozen statement) ∥ **MERT-2** (the B-correction).
+  New track Salt/Mertens/. CI: seed #1-of-incremental in flight
+  (soft-timeout workflow; the 404 was GitHub indexing lag,
+  retried clean). Board: DH-1, DH-STRIP, MERT-1, MERT-2, seed.
+  Tally ~30.0M raw — THE 30M MARK. House ~14%.
