@@ -3411,3 +3411,16 @@ decisions per question.
   bijection; log A.card ≤ (3/2)H·log 2 via Dc). Ceremony: grep
   clean, wired + 1 keystone, full build exit 0 (9062 jobs).
   **D-d (the joint-invariance estimate) DISPATCHES.**
+
+- 2026-07-18 ~06:50 (SPRINT 3): **R3c FREEZE LANDS, house-ratified**
+  (S3-HB3C-FREEZE ≈ 124k / 22 tools; probes clean). Structural
+  find: mainSum/errSum are WEIGHT-GENERIC — stratum-0 re-scopes
+  DOWN to two lemma re-derivations; the sparse-product mechanism
+  concrete (the twisted main term is a product over the {χ=+1}
+  set — the Siegel-exploitation AND the death root). (a3)
+  ADJUDICATED against Tao: Reading B (the house's "smallness is
+  the friend" hope) REFUTED; the lower bound is needed and
+  LARGELY LANDED (siegel_L_one_lower_near) — the death
+  RE-ATTRIBUTED to the R4 collision (the sparse main term vs the
+  τ-error needs beyond-½ distribution). Three outcome classes
+  registered. **S3-HB3C-GATE dispatches.**
