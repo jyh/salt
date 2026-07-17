@@ -4065,3 +4065,18 @@ decisions per question.
   W1-c can consume entropy_residueWindow_ge with the correction
   term small BY A REGIME FIELD. Ceremony: full build exit 0
   (9086 jobs), committed. Tally ~4.75M raw, house ~21%.
+
+- 2026-07-19 ~05:40 (THREAD W): **W2T6-E1 LANDS FULL — η + ALL
+  FOUR THEOREM-5 VALUES** (≈ 272k / 64 tools, every piece within
+  budget). LFunction.lean (288 lines): eta + one/mul/pow
+  (nextCoeff route), aCoeff (the tuple form), **T5_a0/a1/a2/ad —
+  the L-function is the quadratic 1 + S·T + p·T², proven** (a₁ =
+  kloosterman; a₂ = p at ab ≠ 0; a_{d≥3} = 0 by pure
+  orthogonality — the gate's framing correction confirmed
+  in-build). The tuplePoly bijection infrastructure + the
+  reusable orthogonality lemmas landed for H1/H3; the ite-motive
+  trap documented (recurred twice — H3 briefing note). Ceremony:
+  wired + 4 keystones BY NAME, full build exit 0 (9087 jobs).
+  **H1 (the orbit reorganization) + H3 (Newton) DISPATCH — the
+  Thm 6 endgame: after them, the induction + the descent.**
+  Tally ~5.0M raw, house ~21% — **THE 5M CHIME.**
