@@ -506,3 +506,56 @@ For the morning brief. NODES: W3-F-G1 (B, perPair_collapse),
 W3-F-G2 (C, dilated_window_stability), W3-F-A (C, hmain_assembly
 → hreduce_close's hbudget ∧ hmain). G1+G2 dispatch as one
 executor; W3-F-A on their landing.
+
+**hωbig STRENGTHENING RATIFIED BY JYH (2026-07-20 ~05:00: "I
+ratify the strengthened hωbig").** The form log ω ≥
+(8/ε)·log(ε²H) + 1 is now the frozen obligation.
+
+## W3-e-final — THE TERMINAL GLUE (house freeze, 2026-07-20)
+
+The single theorem closing the conditional chain:
+`log_chowla_two_conditional (R : ChowlaRegime) {δ c₁ ...}
+(hdoor : MRTUniformity R δ) (htower : the budget block)
+(hfail : logChowla2Fails R.eps R.x R.ω) : False`.
+
+**The composition order (all landed unless marked):**
+1. hfail → singleCorr_of_fails → hseed (needs hlog2 : 2 ≤ log R.ω
+   ← regime).
+2. hseed + hmert (← primeWindow_sum_inv_ge, D3) + hreduce (←
+   hreduce_close ∘ W3-F-A's hmain+hbudget — **W3-F-A pending**) →
+   fBridge_of_singleCorr → hprop26 → h211_of_logChowla2Fails →
+   (c₁, h211).
+3. hcirc ← circle_method_estimate (2·log4) + the hcard chain
+   (sqrt_le_window_at + primeWindow_card_le_of_regime).
+4. hXi ← bigXi_bounded (destructure; H ≥ H₀ ← the tower's
+   H-selection).
+5. hdoor + hbudget1/2 + steps 2–4 → log_chowla_two_shell → False.
+
+**The H-threshold fold:** the tower-selected H must satisfy ALL
+floors simultaneously: bigXi_bounded's H₀, hpt's H₁(ε) (internal,
+already absorbed), 3 ≤ H, log H ≥ 1, 4 ≤ ε²H, the hωbig-linked
+forms. Strategy: ONE combined floor H* := max of the finitely many
+∃-extracted thresholds; the ChowlaRegime's Hlo must be enlargeable
+to H* — RegimeInst PATCH-4 if the current witness's Hlo = 4·10⁶
+falls below any extracted threshold (they are ∃-opaque: the patch
+takes H* as data and re-witnesses with Hlo := max(4·10⁶, H*) —
+the tower construction is Hlo-parametric, verify in
+Tower.lean/RegimeInst.lean).
+
+**The budget block (htower):** hbudget1/2 (the shell's numeric
+closures — the tower drives ERROR + Kδ below the c₁ε margins),
+ht/hg/hgle/hI (decrement budgets ← entropy_decrement at the
+selected H), hωbig (RATIFIED strengthened form ← the regime's
+ω-vs-H hierarchy — CHECK RegimeInst's ω = 2 witness: the
+strengthened hωbig needs log ω LARGE — ⚠ ω = 2 gives log ω ≈ 0.69
+— THE WITNESS MUST BE RE-BUILT with ω ≫ exp((8/ε)·log(ε²Hhi))-
+grade... the regime's hcoprime/hheadroom couple ω to x; verify
+the tower still witnesses — this is PATCH-4's real content and
+MAY be the last hard node; if the tower cannot fund the
+strengthened hωbig at the needed H the Zeno halt lands the
+conditional shell with htower explicit).
+
+**Nodes:** W3-F-A (C, on G12) → W3E-PATCH4 (B/C, the regime
+re-witness incl. the ω-hierarchy check) → W3E-FINAL (B/C, the
+composition above). Then log-Chowla-2 rests on: MRTUniformity
+(theorem-door) + htower-if-Zeno.
