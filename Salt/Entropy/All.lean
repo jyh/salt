@@ -39,6 +39,7 @@ import Salt.Entropy.Chowla.Decoupled
 import Salt.Entropy.Chowla.CircleMethod
 import Salt.Entropy.Chowla.WindowCount
 import Salt.Entropy.Chowla.Transport
+import Salt.Entropy.Chowla.MRTDoor
 import Salt.Entropy.Chowla.Windows
 import Salt.Entropy.Chowla.PrimeWindow
 import Salt.Entropy.ConsumerTest
@@ -87,6 +88,7 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.circle_method_estimate
   Salt.Entropy.Chowla.badSet_transport
   Salt.Entropy.Chowla.badSet_transport_at_calibration
+  Salt.Entropy.Chowla.contradiction_of_mrtDoor
   Salt.Entropy.Chowla.dilation_error
   Salt.Entropy.Chowla.weakUniform_generic
   Salt.Entropy.Chowla.weakUniform_spine

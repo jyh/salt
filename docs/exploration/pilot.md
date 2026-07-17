@@ -4532,3 +4532,21 @@ decisions per question.
   absent — logMeasure is finitely-supported Diracs so the fallback
   is finite-sum arithmetic). In flight: W3-cd-R0, MRT-DOOR-R0,
   W3-a-3c. Tally ~11.5M raw, house ~17%.
+
+- 2026-07-19 ~23:20 (THREAD A): **THE MRT DOOR IS IN — W3-e-door +
+  W3-e-seam LAND FIRST ATTEMPT, 54k (the wave's cheapest node)**.
+  MRTDoor.lean: **windowExpSum** + **MRTUniformity** (the
+  THEOREM-door: Tao Prop 2.4, PROVEN in MRT arXiv:1503.05121; the
+  kernel-blind sup-position invariant carried verbatim in the
+  docstring — ∀α OUTSIDE the integral, the sup-inside form is the
+  OPEN (4.1)) + **contradiction_of_mrtDoor** (the seam: door +
+  |Ξ_H| ≤ K + K·δ < c₀ε + the (3.16)∘circle-method mass ⟹ False).
+  Elegance note: 0 ≤ δ DERIVED from the door itself (test it at
+  α = 0), no hypothesis added — the frozen signature landed
+  unchanged. THE SPINE'S DOOR ARCHITECTURE IS NOW COMPLETE: one
+  theorem-door (MRT), one contradiction-hypothesis ((2.11), meant
+  to be false), zero conjectures. Ceremony: wired + 1 keystone BY
+  NAME, full build exit 0 (9107 jobs). **W3-AE-d dispatches (the
+  Brun quadruple count — feasibility STEP-0 mandated, STOP-AND-FLAG
+  authorized).** In flight: W3-a-3c, W3-AE-c, W3-AE-d. Tally
+  ~12.2M raw, house ~17%.
