@@ -18,6 +18,7 @@ import Salt.Weil.PrimePower
 import Salt.Weil.WeilStepanov
 import Salt.Weil.CompositeTail
 import Salt.Weil.MomentOrbit
+import Salt.Weil.NewtonBridge
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -29,7 +30,8 @@ Stepanov (Harcos/IK Ch. 11; the ladder in docs/exploration/pilot.md
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.Weil.kloostermanMoment_eq_cCoeff
+#audit_axioms Salt.Weil.newton_bridge
+  Salt.Weil.kloostermanMoment_eq_cCoeff
   Salt.Weil.norm_kloosterman_le_mul_of_coprime_unit
   Salt.Weil.weil_stepanov
   Salt.Weil.norm_kloosterman_prime_pow_even

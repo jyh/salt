@@ -4246,3 +4246,18 @@ decisions per question.
   (9096 jobs). **THE THM-6 INDUCTION IS NOW UNBLOCKED pending
   H3** (in flight). Tally ~7.2M raw, house ~18% — **THE 7M
   CHIME.**
+
+- 2026-07-19 ~12:30 (THREAD W): **H3 LANDS — THE NEWTON BRIDGE:
+  BOTH THM-6 HEARTS ARE IN** (≈ 285k / 54 tools, one serious
+  attempt in five verified chunks). NewtonBridge.lean (363
+  lines): newton_bridge (n·a_n = Σ_{Icc 1 n} a_{n−j}·c_j —
+  hypothesis-free in a,b, as the gate's numerics found; the
+  (k',π,r) ↔ K heart = key2 via the cofactor bijection +
+  normalizedFactors) + the reindex machinery + the n = 1, 2
+  smoke tests. The coordination item confirmed: cCoeffN vs H1's
+  cCoeff need a one-line bridge (same sum). **W-T6IND
+  DISPATCHES — THE THEOREM-6 INDUCTION: all four inputs landed
+  (H1 + H3 + T5 + the recurrence); on its landing the descent
+  (W-COR3 in flight + weil_stepanov + the extraction) closes
+  THE WEIL BOUND.** Ceremony: wired + 1 keystone BY NAME, full
+  build exit 0 (9097 jobs). Tally ~7.5M raw, house ~18%.
