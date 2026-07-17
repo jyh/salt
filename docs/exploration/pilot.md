@@ -3722,3 +3722,19 @@ decisions per question.
   house prose kept lean, no Fable forks without explicit JYH
   sign-off (standing since sprint 2). Watch item on the chimes:
   the house share reported alongside the tally.
+
+- 2026-07-18 ~18:50 (THREAD A): **A-IV-PREP LANDS COMPLETE — WAVE
+  IV IS DONE MODULO WAVE III'S TWO HYPOTHESES** (≈ 118k / 20
+  tools, 1 attempt). Endpoints.lean: the log 2 ceiling per-symbol,
+  the entropy floor (unconditional — the brief's caution was
+  unneeded), the MI floor, the extraction logic, and
+  **decrement_exists_of_tower — the CONTRADICTION ASSEMBLY,
+  hypothesis-parametric on the telescope**: the scalar close
+  0 ≤ e(H_J) ≤ e(H_0) − dropSum ≤ log2 − dropSum < 0 verified
+  mechanical via hJcon. THE (4) READING CONFIRMED: no divergence
+  proof in the theorem — hJcon carries it; the barely-divergence
+  lives in the SEPARATE regime-instantiation (anti-vacuity) node.
+  ⟹ entropy_decrement = wave III's htele + hmono, THEN one
+  composition line. Ceremony: wired + 2 keystones BY NAME, full
+  build exit 0 (9075 jobs). In flight: W2, W4.1ab, A-III. Tally
+  ~1.7M raw, house ~30%.
