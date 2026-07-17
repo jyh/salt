@@ -3454,3 +3454,14 @@ decisions per question.
   headline in the same file-pair). The joint pushforward-ℓ¹
   (the residue-relabel spike) rides with it. Ceremony: grep clean,
   wired + 1 keystone, full build exit 0 (9063 jobs).
+
+- 2026-07-18 ~09:00: **THE 78-HOUR PLAY WINDOW (JYH: quota 2–3×
+  the project's total spend, 78h; playing, no formal sprint, but
+  token accounting binding; throttle ≤4 when JYH away, faster
+  engaged).** THE PORTFOLIO (per-thread accounting in this
+  ledger): K = Kloosterman (KL-R0 recon → the 3/4-or-dispersion
+  build → **HB-R4/R5 REVIVAL: heath_brown completable**); A = the
+  decrement spine (waves II–IV → A-R3 → A-R4); G = the GEH full
+  close (revival #1 EXECUTES: PpLevel root-counting first);
+  R3c finishing. Throttle: 6 engaged (now) / 4 away. **KL-R0 +
+  G-PPLEVEL dispatch** (slots: REGIME + R3c-1 + these = 4/6).
