@@ -6086,3 +6086,23 @@ decisions per question.
   flight) → ASSEMBLY. Ceremony: wired, Maynard green. Board:
   DH-STRIP, MERT-1, MERT-2, PP3-SUMS, seed #2. Tally ~30.4M raw,
   house ~14%.
+
+- 2026-07-17 ~16:23 PT (GOLD WINDOW): ██ **DH-STRIP LANDS — THE
+  STRIP-CONVERGENCE GAP CLOSED, in DH-2b's exact shape** ██ (≈
+  202k / 59 tools; first serious attempt + 3 mechanical fixes,
+  zero blocking residuals). Salt/SW/StripConvergence.lean:
+  **tendsto_partialLSeries** (Σ_{n≤N} χ(n)n^{−s} → LFunction χ s
+  on Re s > 0 — mathlib stops at Re > 1) + the quantitative
+  tails, PARAMETRIC in the char-sum bound M with the PV
+  instantiation (√f(1+log f)), incl.
+  **norm_LFunction_sub_partial_le_strip** (C = 3M, the exact
+  (1+‖s‖/Re s)·N^{−Re s} shape). ROUTE FINDING: Growth.lean had
+  already built the whole apparatus for primitive χ — the
+  executor re-derived it M-parametrically by three surgical
+  swaps rather than building from scratch (the corpus compounds
+  again). Gotchas banked: no LFunction-API drift in v4.32;
+  Nat.Ico_succ_right gone; NeZero scoping vs the no-warnings
+  rule. **DH-2b's inputs are now BOTH landed (DH-1 + DH-STRIP)
+  — its design freeze is the house's next block.** Ceremony:
+  wired + 2 keystones BY NAME, full build exit 0. Board: MERT-1,
+  MERT-2, PP3-SUMS, seed #2. Tally ~30.6M raw, house ~14%.
