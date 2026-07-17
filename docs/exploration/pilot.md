@@ -4762,3 +4762,28 @@ decisions per question.
   Ceremony: wired + 1 keystone BY NAME, full build exit 0 (9117
   jobs). In flight: STMT2, GB-6, GB-1213. Tally ~16.1M raw,
   house ~15% — **THE 16M CHIME.**
+
+- 2026-07-20 ~08:30 (NIGHT SHIFT, JYH asleep, quiet mode): **GB-6 +
+  STMT2 LAND (batched ceremony) — BOTH ZENO-GRADE HONEST** (GB-6 ≈
+  212k / 33 tools, 1 serious attempt; STMT2 ≈ 153k / 26 tools, the
+  provisioned hypothesis-parametric fallback). GoldbachEnergyG
+  .lean: the prime split (2/(p−2) off n, 1/(p−1) on n — the
+  dimension-drop made exact), gTwin_le_sCorr_mul_selbergTerms,
+  goldSelbergBoundingSum_ge_log_sq (via the twin mainTermSum
+  engine BLACK-BOX). ⚠ FLAG ADJUDICATED IN-NIGHT: the comparison
+  costs 2^ω (breaks hsq) → HOUSE RE-FREEZE: the coprime-restriction
+  route (g_n = gTwin EXACTLY off n; sTrunc2/hFac2 majorant,
+  square-sum fundable) — GB-6c + GB-14b cut; rbound re-frozen.
+  PLUS the house lcm-SPLIT TRICK (pairs with lcm > 2ε²H count
+  ZERO) kills GB-1213's anticipated Mertens flag — sent to the
+  in-flight executor. Prop26.lean: **fBridge_of_singleCorr**
+  (c = cM/2; the consumer's hprop26 fires VERBATIM — seam-probed
+  against h211_of_logChowla2Fails + outer_combine), the 2a spine
+  (fBridgeF_liouville_apply — the (2.12) pointwise shape;
+  perPair_dilation at exact rj-mapping), and the 2b core isolated
+  as ONE residual (hreduce) blocked on a MISSING CARRIER:
+  shift-invariance for correlation integrals → node SHIFT-CORR (B)
+  + HREDUCE (C) cut; hmert ALREADY discharged by D3. Ceremony:
+  wired + 7 keystones BY NAME (batched), full build exit 0 (9119
+  jobs). Dispatching: GB-6c, SHIFT-CORR (GB-14b queued). In
+  flight: GB-1213 (+2 new). Tally ~16.6M raw, house ~15%.

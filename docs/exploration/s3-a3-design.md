@@ -428,3 +428,39 @@ anywhere in the tree). Tao's "by the prime number theorem" hides
 it; the H/logH grade of h211 is born here. **Offset note:** the
 failure Prop uses λ(n)λ(n+1); liouvilleWindow starts at λ(n+1) —
 one translation, absorbed in Stmt 2's j-sum.
+
+## Night-shift adjudications (house, 2026-07-20, JYH asleep)
+
+**GB-6 2^ω flag → RESOLUTION (c), the coprime restriction (house
+re-freeze).** The landed comparison route costs sCorr n =
+2^{ω_odd(n)}·sTrunc n (breaks hsq: Σ4^ω(n) ~ N·log³N). The fix: on
+ℓ COPRIME to n, g_n(ℓ) = gTwin(ℓ) EXACTLY (all p ∤ n); the d·m
+factorization (d ∣ rad_odd(n), (m,n) = 1) gives
+Σ_{ℓ≤z} gTwin ≤ sTrunc2(n)·Σ_{(m,n)=1} gTwin(m) where
+**hFac2 d := ∏_{p∣d} 2/((p:ℝ)−2), sTrunc2 n := Σ_{d∣n,sqfree,odd}
+hFac2 d = ∏_{p∣n,odd}(1 + 2/(p−2))** — polylog-grade AND
+square-sum-fundable (h₂(p) ~ 2/p still gives 1 + O(1/p²) local
+factors in the lcm double sum). New nodes: **GB-6c** (the
+coprime-restricted denominator bound c₀log²z/sTrunc2 n ≤
+selbergBoundingSum — reuses the landed mainTermSum engine +
+gTwin multiplicativity; GB-6's Parts 1/2/4 remain valid
+infrastructure) + **GB-14b** (hFac2_lcm_sum_le — mechanical re-run
+of GB-14's route). rbound RE-FROZEN: sTrunc → sTrunc2.
+
+**THE lcm-SPLIT TRICK (house, kills GB-1213's Mertens flag):** in
+the hsq Fubini count, pairs with lcm(d₁,d₂) > 2ε²H contribute ZERO
+(no multiples in (0, 2ε²H]); pairs with lcm ≤ 2ε²H have
+count ≤ 2ε²H/lcm + 1 ≤ 2·(2ε²H)/lcm. So the +1 term folds into a
+factor 2 on the main term — NO Σ1/p Mertens upper needed, no
+polylog chase. Sent to the in-flight GB-1213 executor.
+
+**STMT2 Zeno residual:** hreduce (the 2b main-term extraction) is
+blocked on a missing carrier — shift invariance for CORRELATION
+INTEGRALS against logMeasure (harmonic_shift_l1_le covers window
+LAWS only). New node **SHIFT-CORR** (B): |∫ f(n+1) ∂logMeasure −
+∫ f(n) ∂logMeasure| ≤ C/Z-form for |f| ≤ 1 (TV/endpoint-mass
+argument on the Dirac sum). Then **HREDUCE** (C, all carriers
+present): the 2b assembly (fBridgeF_liouville_apply +
+perPair_dilation + liouville_mul/prime + SHIFT-CORR + the
+error-below-half arithmetic at hωbig : log ω ≥ cM/ε). hmert is
+ALREADY discharged by D3's primeWindow_sum_inv_ge.
