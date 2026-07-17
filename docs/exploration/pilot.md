@@ -4132,3 +4132,18 @@ decisions per question.
   decrement-consumer core nearly closed. Ceremony: wired + 2
   keystones BY NAME, full build exit 0 (9090 jobs). Tally ~5.65M
   raw, house ~20%.
+
+- 2026-07-19 ~08:10 (THREAD W): **W6.2 LANDS — the even-exponent
+  Salié bound at the SHARP constant 2, fully elementary** (≈
+  260k / 45 tools, ~one design pass). PrimePower.lean:
+  norm_kloosterman_prime_pow_even (‖S(a,b;p^{2m})‖ ≤ 2·p^m —
+  the averaging trick keeps everything single-modulus:
+  sum_mulShift directly on ZMod p^{2m}, the critical-set count
+  via cyclic-units 2-torsion + the totient fibre identity;
+  BONUS: only IsUnit a needed — STRONGER than classical).
+  Remaining for the composite tail: the odd exponents (the
+  Gauss-sum case), p = 2, and the factorization recursion (the
+  unit-threading refinement of the reduction lemma — noted).
+  Ceremony: wired + 1 keystone BY NAME, full build exit 0
+  (9091 jobs). In flight: W-T7, H1, A3-W1C. Tally ~5.9M raw,
+  house ~19%.
