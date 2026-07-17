@@ -344,3 +344,46 @@ majorant ~100k); GB-0 = the Fable design/freeze node (~60k).
 Critical path ≈ 420k. Stop-and-flag risks: GB-5, GB-14.
 
 **DECISION: with JYH** (in-window go vs deferral).
+
+## GB-0 — THE REBUILD DESIGN FREEZE (house, 2026-07-20, JYH GO)
+
+**The parity split (resolves n-even).** Window primes are odd
+(> ε²H/2 ≥ 3 in-regime), so odd n has repCount = 0 (odd+odd=even):
+hpt is TRIVIAL for odd n. FREEZE:
+`rbound H n := if Even n then C₁·((eps:ℝ)²·H/(Real.log H)²)·sTrunc n else 0`
+— hpt splits into the parity-triviality branch + the sieve branch
+(even n only, where ν_n(2) = 1/2 < 1 is safe).
+
+**The majorant series (resolves h at p = 2).** ODD squarefree
+divisors only:
+`h (d) := ∏_{p ∈ d.primeFactors} (1/((p:ℝ) − 2))` (odd d ⟹ p ≥ 3
+⟹ p − 2 ≥ 1 > 0);
+`sTrunc n := ∑_{d ∈ n.divisors, Squarefree d ∧ Odd d} h d`
+— UNTRUNCATED (divisors of n are finite; the hsq Fubini converges
+because h(p) ~ 1/p gives Σ_{d₁,d₂} h·h/[d₁,d₂] < ∞ per
+euler_tail_L, and the +1 error carries (Σ_{d ≤ 2N} h)² ~ log² —
+negligible). No D-level needed in hsq; the sieve's own `level`
+handles hpt's truncation.
+
+**The local density (GB-1/2).** ρₙ(d) = #roots of m(n−m) ≡ 0 mod d
+(d squarefree): ρₙ(p) = 1 if p ∣ n (m ≡ 0 ≡ n coincide), else 2;
+at p = 2, n even: ρ = 1. ν_n = ρₙ/d; all ν_n(p) < 1 given n even.
+
+**The instance (GB-5).** mathlib BoundingSieve/SelbergSieve:
+support = Finset.Icc 1 n with the IDENTITY map (sift m by
+d ∣ m(n−m) — no injectivity issue), weights ≡ 1, totalMass = n,
+nu = ν_n, level = the twin template's choice (mirror M3's z; the
+log² emerges from G(z) ≥ c₀·log²z exactly as in the twin dim-2
+main term). goldA1Sieve (Goldbach/A1.lean) is the plumbing
+template; the twin Sieve.lean/M2/M3 are the mathematical template.
+
+**Interfaces (frozen).** GB tracks must produce EXACTLY
+QuadrupleCount.lean's `hpt`/`hsq` shapes at the rbound above; the
+composition target is `bigXi_bounded_of_sieve` (L35-ASM, in
+flight) → `contradiction_of_mrtDoor`. Constants stay symbolic
+(C₁, c₀, K) — pin opportunistically, never hunt.
+
+**Wave 1 (dispatched):** GB-M2 executor = GB-1..4 chained
+(GoldbachEnergyM2.lean); GB-HSQ executor = GB-11+14 (the defs +
+the Euler majorant, GoldbachEnergyHsq.lean). Wave 2 on their
+landing: GB-5/6 (Sieve), then GB-7..10 (Hpt assembly), GB-12/13/15.
