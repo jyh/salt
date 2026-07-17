@@ -5010,3 +5010,19 @@ decisions per question.
   jobs). JYH re-ratified hωbig this morning. **W3E-FINAL
   DISPATCHES — THE FINAL NODE OF THE SPINE.** Tally ~19.8M raw,
   house ~14%.
+
+- 2026-07-20 ~10:20: **W4-MAJOR-R0: VERDICT RED — THE HOUSE'S OWN
+  DOOR-DELETION HYPOTHESIS KILLED FOR 119k** (the recon ran three
+  internal subagents and inverted the premise). The category
+  error was the HOUSE'S: major-arc constrains frequency, not
+  window length; ξ = 0 ∈ Ξ_H always, and ITS instance is bare MR
+  short-interval cancellation (H ≪ log x) — SW's long-range
+  machinery cannot reach it by any route; Tao's "simpler Thm A.1"
+  is still MR. Door-deletion ≡ formalizing MR = a future
+  campaign's flagship. THE PROCESS NOTE for the method paper: the
+  recon-before-campaign discipline converted a would-be 1.5–3M
+  wrong-GREEN into a 119k precise negative + one genuine
+  deliverable (the Tao-faithful weakened door MRTUniformityXi —
+  Ξ_H-only, matching where Tao's own proof fires it — queued as
+  DOOR-MIN post-W3E-FINAL). In flight: W3E-FINAL. Tally ~20.0M
+  raw, house ~14% — the 20M mark.

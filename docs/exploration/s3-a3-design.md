@@ -604,3 +604,32 @@ proof per the closed table) dispatched.
 **hωbig CORRECTED FORM RE-RATIFIED BY JYH (2026-07-20 morning:
 "Yes, I reratify hwbig").** log ω ≥ (16/ε)·log(ε²H) + 64/ε + 1 is
 now the frozen obligation; the provisional adoption is confirmed.
+
+## W4-MAJOR-R0 — VERDICT RED: the door deletion is OFF
+(adjudicated 2026-07-20 morning; the HOUSE'S OWN hypothesis killed)
+
+**The house's category error, named:** "major-arc" constrains the
+FREQUENCY α; it does nothing to the SHORT-WINDOW structure of the
+λ-sum. The fatal facts: (1) **ξ = 0 ∈ Ξ_H always** (S_H(0) ≈
+log 2 ≫ ε²/logH), and its door instance is the bare
+E|Σ_{j≤H} λ(n+j)| = o(H) over windows H ≪ log x — the
+Matomäki–Radziwiłł SHORT-INTERVAL theorem itself; (2) Tao's
+"simpler [17, Thm A.1]" is STILL an MR theorem — the remark
+simplifies the citation, not the strength; (3) SW/zero-density
+have zero content below x^{7/12}; (4) the corpus has NO Weyl/
+Vinogradov machinery (and the spine doesn't use any — Lemma 3.5's
+L⁴ route bounds |Ξ_H| without locating frequencies); (5) the L²
+escape is circular (its off-diagonal IS the Chowla correlation).
+**Door-deletion ≡ formalizing MR (arXiv:1503.05121) — a D-grade
+multi-month program, the natural flagship of a FUTURE campaign,
+not this window.** Cost of the wrong hypothesis: 119k (the recon).
+Cost it prevented: the 1.5–3M wrong-GREEN campaign.
+
+**SALVAGE (ruled, queued as node DOOR-MIN, AFTER W3E-FINAL lands
+— no race with the in-flight composition):** the Tao-faithful
+WEAKENED door `MRTUniformityXi` (the finitely many Ξ_H
+frequencies instead of ∀α — Tao's own proof fires it exactly
+there; +0 ≤ δ side hypothesis). Landed ADDITIVELY (new def + the
+trivial implication MRTUniformity → Xi + the Xi-form final
+surface); no landed statement edited. It shrinks the door's
+formal surface honestly and future-proofs the MR campaign.
