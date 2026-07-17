@@ -5505,3 +5505,24 @@ decisions per question.
   exit 0 (2807 jobs; full build deferred — TwistChain in flight
   in the same dir). Board: HB-1, WP2-1, WP2-SPIKE, CI watcher.
   Tally ~24.9M raw, house ~14%.
+
+- 2026-07-20 (GOLD WINDOW, night): ██ **HB-1 LANDS — WP1's OBJECT
+  LAYER + LEMMA 1(a)(b): the twist chain is real, and the Salt/HB/
+  track joins the root build** ██ (≈ 240k / 68 tools; (a),(b),±
+  first-pass, (c) Zeno'd at 0 attempts WITH a documented recipe).
+  Salt/HB/TwistChain.lean (441 lines): fChiSum/LamTilde/LamStar/
+  nPlus/nMinus (faithful §2–§3 transcriptions on the corpus's
+  chiRe convention) + **LamStar_nonneg** (Lemma 1a) +
+  **vonMangoldt_le_LamTilde** (Lemma 1b) + eq_nPlus_mul_nMinus/
+  coprime_nPlus_nMinus + THE ENGINE: **Λ̃ = f∗Λ, Λ* = f*∗Λ**
+  (LamTilde_eq_fChi_conv/LamStar_eq_fStar_conv — nonneg local
+  factors; the paper's twisted-multiplicativity BYPASSED for (a),
+  cleaner than HB's own route). CATCHES: (a),(b) hold WITHOUT
+  (n,q)=1 (strict strengthening, frozen forms implied); no
+  transcription errors found (numerics checked). RESIDUAL (1):
+  Lemma 1(c), provable at C=2, three-case recipe in the report —
+  registered as node HB-1c (~C, 150–200 lines). Ceremony: wired
+  TwistChain + 6 keystones BY NAME, Salt.HB.All into ROOT
+  Salt.lean, FULL build exit 0 (9143 jobs). Board: WP2-1,
+  WP2-SPIKE (interim YELLOW), MR-R0, CI watcher. Tally ~25.4M
+  raw, house ~14%.
