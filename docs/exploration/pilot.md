@@ -4637,3 +4637,20 @@ decisions per question.
   shell: outer_combine ∘ circle_method_estimate ∘
   bigXi_bounded_of_sieve ∘ contradiction_of_mrtDoor.** In flight:
   GB-M2, GB-HSQ-1, W3-E-GLUE. Tally ~13.8M raw, house ~16%.
+
+- 2026-07-20 ~03:30 (THREAD A/GB): **GB-M2 LANDS — ALL FOUR NODES,
+  EACH FIRST-BUILD CLEAN** (≈ 104k / 25 tools). GoldbachEnergyM2
+  .lean (19 decls): rhoG + RnatG + sol_setG ({0, ↑n} — the
+  Goldbach root set), **the UNIFORM case split** (rhoG_prime_dvd:
+  p ∣ n ⟹ 1; rhoG_prime_not_dvd: p ∤ n ⟹ 2 — for EVERY prime
+  incl. 2, cleaner than the twin's p=2 special case; 5 decide
+  smoke tests), rhoG_mul_of_coprime (CRT), rhoG_squarefree_le
+  (≤ 2^ω — dimension 2 confirmed), goldProgression_count_bound
+  (the remainder atom, hN : N ≤ n honest-subtraction caveat
+  ledgered for GB-5). NEW vs the template: the ℕ-truncation ↔
+  ZMod-periodicity bridge lemmas (dvd_iff_mem_RnatG etc.) — the
+  n − m junk-subtraction demanded them. Ceremony: wired + 5
+  keystones BY NAME, full build exit 0 (9112 jobs). **GB-5
+  DISPATCHES (the sieve instance — hpt pole 1).** In flight:
+  W3-E-GLUE, GB-HSQ-1, W3-F-R0, GB-5. Tally ~14.1M raw, house
+  ~16% — **THE 14M CHIME.**
