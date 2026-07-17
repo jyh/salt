@@ -4820,3 +4820,17 @@ decisions per question.
   DISPATCHES — the hpt main term, the REBUILD'S FINAL POLE.**
   In flight: SHIFT-CORR, GB-14b, GB-7. Tally ~17.1M raw, house
   ~15% — the 17M mark (chime deferred, JYH asleep).
+
+- 2026-07-20 ~10:40 (NIGHT SHIFT): ██ **GB-14b LANDS FIRST ATTEMPT
+  — hsq_holds2: THE RE-FROZEN hsq RESIDUAL IS REAL. THE hsq SIDE
+  OF THE REBUILD IS COMPLETE** ██ (≈ 84k / 12 tools).
+  GoldbachEnergyHsq2.lean: **hFac2_lcm_sum_le** at K =
+  exp(24·ζ(2)) — SHARPER than the briefed 48 (the executor's
+  honest per-prime arithmetic: the surplus 24/p² − x_p factors as
+  4(p−3)(5p−8)/(p²(p−2)²) ≥ 0, nlinarith-closed) +
+  hFac2_pos/mul_of_coprime + **hsq_holds2** (hsq_holds_gen at
+  h := hFac2 — 13 lines). Cross-executor coordination CLEAN:
+  found GB-6c's committed hFac2, imported, no collision. Ceremony:
+  wired + 3 keystones BY NAME, full build exit 0 (9122 jobs). GB
+  STATE: hsq DONE (both freezes); hpt at GB-7 (in flight). In
+  flight: SHIFT-CORR, GB-7. Tally ~17.2M raw, house ~15%.
