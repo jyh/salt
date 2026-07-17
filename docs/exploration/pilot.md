@@ -6124,3 +6124,24 @@ decisions per question.
   exit 0 (9163 jobs). Arc state: MERT-2 ✓, MERT-1 in flight →
   3a/3b/3c → 4 → 5. Board: MERT-1, PP3-SUMS, seed #2. Tally
   ~30.8M raw, house ~14%.
+
+- 2026-07-17 ~16:30 PT (GOLD WINDOW): ██ **MERT-1 LANDS — THE SHARP
+  MERTENS SECOND THEOREM: the arc's spine stands** ██ (≈ 170k /
+  51 tools; first design attempt, ~4 mechanical fixes, ZERO
+  residuals, no cluster near the flag). Salt/Mertens/Second.lean:
+  **mertens_second_sharp** (the frozen statement CHARACTER-
+  IDENTICAL; C = 12 explicit; M defined as the honest
+  MeasureTheory improper integral 1 − loglog 2 + ∫_{Ioi 2} hInt)
+  + the reusable Abel-decomposition API (sum_inv_eq, the tail
+  bounds, ∫(t log²t)⁻¹ = 1/log a). CATCHES: the corpus held
+  near-complete templates (Maynard's aux + BrunLower's
+  window_core — "the only genuinely new engineering was the
+  improper-integral promotion"); the measurability of the step
+  function SIDESTEPPED via integrableOn_Ioi_of_intervalIntegral_
+  norm_bounded (the key simplification — banked); abs_add →
+  abs_add_le drift. Arc: MERT-1 ✓ MERT-2 ✓ → **MERT-3a
+  DISPATCHED** (the ζ-side P(s) = −log(s−1) − B + o(1),
+  absorbing MERT-2's R(s)→B residual) → 3b (house block) → 3c →
+  4 → 5. Ceremony: wired + keystone BY NAME, full build exit 0
+  (9164 jobs). Board: MERT-3a, PP3-SUMS, seed #2. Tally ~31.0M
+  raw, house ~14%.

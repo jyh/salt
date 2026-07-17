@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.Mertens.PrimePower
+import Salt.Mertens.Second
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -17,7 +18,8 @@ adjudication in `docs/exploration/pilot.md`.
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.Mertens.mertensB_nonneg
+#audit_axioms Salt.Mertens.mertens_second_sharp
+  Salt.Mertens.mertensB_nonneg
   Salt.Mertens.mertensB_le_two
   Salt.Mertens.neg_log_prod_eq
   Salt.Mertens.mertensB_tail_le
