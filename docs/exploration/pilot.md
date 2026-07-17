@@ -3646,3 +3646,10 @@ decisions per question.
   wired + 3 keystones, full build exit 0 (9071 jobs). Away-pace
   held: 2 in flight (W-ORBITS, D-e), no refill pending JYH's
   next %. **TALLY: ~1.0M SINCE RESET — the first chime fires.**
+
+- 2026-07-18 ~16:20: **SPEND: 51% (JYH)** — up only 4 pts in ~1h
+  at away-pace (2–3 active): the rolling window is shedding
+  nearly as fast as we add ⟹ SUSTAINABLE with ~50% headroom.
+  Refill authorized per the rule (landing + curve bending):
+  **W0.2 dispatches** (the α/β local-factor layer — cheap,
+  keeps the ladder's critical path warm). 3 in flight.
