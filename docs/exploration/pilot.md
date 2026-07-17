@@ -5659,3 +5659,22 @@ decisions per question.
   grounding — Bellotti–Puglisi/Stopple/Jutila's own Thm 2 proof
   sections; unblocks the WP2 node-table freeze). Board: N-SHIU-R0,
   N-PP-R0, HL-R0, DH-G, CI test run — five deep.
+
+- 2026-07-17 ~3:45pm (GOLD WINDOW): **N-PP-R0 ADJUDICATED — THE
+  PpLevel POLE DISSOLVED BY MATHLIB'S OWN GROWTH** (≈ 95k / 25
+  tools). THE FINDING: the 500–800k flag's feared "units-theory
+  development" is now IN MATHLIB (RingTheory/ZMod/UnitsCyclic
+  .lean, 2025: isCyclic_units_of_prime_pow free; orderOf_five
+  unblocks the (ZMod 2^e)ˣ ≅ C₂×C_{2^{e-2}} corner;
+  IsCyclic.card_powMonoidHom_ker = the sharp gcd count
+  off-the-shelf) — the ecosystem moved under our flag. The cut:
+  6 dispatchable C-class nodes (ROOT-CYC → ODD/TWO → CRT → FOLD
+  → ASSEMBLY), honest total 850k–1.3M — above the flag but with
+  the risk model INVERTED (units side collapses to ~330–460k;
+  the true bulk is the Salt-native analytic k-power fold, no
+  mathlib gap). ASSEMBLY's arithmetic pre-built (GehPp2's
+  primitive-2 sums landed). NO research pole anywhere.
+  DISPATCHED: N-PP-ROOT-CYC (frozen statement supplied) +
+  N-PP-ROOT-TWO (the bounded 2-corner). Board: N-SHIU-R0, HL-R0,
+  DH-G, ROOT-CYC, ROOT-TWO, CI test run. Tally ~27.1M raw,
+  house ~14%.
