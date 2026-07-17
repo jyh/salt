@@ -4869,3 +4869,29 @@ decisions per question.
   0 (9124 jobs). **GB-15 DISPATCHES — the rebuild's TERMINAL
   ASSEMBLY.** In flight: HREDUCE, GB-15. Tally ~17.8M raw, house
   ~15%.
+
+- 2026-07-20 ~13:00 (NIGHT SHIFT): **HREDUCE RESOLVES STEP-0 +
+  LANDS THE CLOSING ARITHMETIC + FLAGS THE TRUE CRUX** (≈ 142k /
+  36 tools; "give up early, loudly" executed by structural
+  analysis, not grind). HReduce.lean: **consumability_probe**
+  (STEP-0 IN LEAN: the frozen hreduce binder IS provable as-is —
+  the discharge always runs inside the failure context carrying
+  hseed : ε/2 ≤ |X|, so the ∀δ wrapping collapses to the hardest
+  case; the house's δ-free worry was right standalone, dissolved
+  at the discharge; Prop26 UNTOUCHED — "don't touch merged
+  proofs" respected over the pre-authorized edit) +
+  **hreduce_close** (hseed + hbudget + hmain ⟹ the frozen bound;
+  ONE nlinarith — the error budget arithmetic done). THE FLAG
+  (design-tier, in flags.md): hmain — the main-term
+  identification — needs TWO absent carriers: **G1** the
+  p-strided unit shift (corr_shift_le shifts the base window, not
+  a strided index) and **G2** the dilated↔base window stability
+  (the correlation over (x/pω, x/p] vs (x/ω, x] — an O(1) gap,
+  THE analytic crux; Tao's affine-invariance/log-dilation
+  machinery). Error budgets all closed symbolically (dilation ≤
+  2H·SP/Z at logω ≥ 24/ε + 1; shift x-suppressed; boundary at
+  ε ≤ 1/48). Ceremony: wired + 2 keystones BY NAME, full build
+  exit 0 (9125 jobs). **W3-F-G-R0 DISPATCHES** (the G1/G2
+  page-fidelity recon — tees up the morning design block). In
+  flight: GB-15, W3-F-G-R0. Tally ~18.0M raw, house ~15% — the
+  18M mark (chime deferred).

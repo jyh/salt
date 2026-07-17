@@ -7641,3 +7641,47 @@ per-box price layer, the exact-geometry windows, the arg-free rebindings, the sh
 — every "obvious" classical step made honest. Tally final for the arc: 78 catches, 0 wrong
 proofs, ~130 commits on twinbar, build green throughout.
 ═══════════════════════════════════════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════════════════════════════════════
+**2026-07-17 HREDUCE (STMT2 / Tao Prop 2.6 main-term extraction) — STEP-0 RESOLVED,
+assembly STOP-AND-FLAGGED on two carrier gaps.** (Salt/Entropy/Chowla/HReduce.lean, build
+8774 green; `consumability_probe` + `hreduce_close` both exactly [propext, Classical.choice,
+Quot.sound].)
+
+**STEP-0 verdict — NO re-freeze of Prop26 needed.** The night-shift worry (frozen δ-free
+`hreduce : (1/2)·SP·H·|X| ≤ |∫F|` cannot absorb the δ-INDEPENDENT dilation/shift/boundary
+errors when `|X|` is small) is real AS A STANDALONE, but dissolves at the discharge: the
+frozen binder is provable *as stated* once `hreduce_holds` carries the single-correlation
+lower bound `hseed : ε/2 ≤ |X|` (from `singleCorr_of_fails`) as a regime hypothesis —
+always available because `hreduce` is only ever needed INSIDE the `logChowla2Fails` context.
+The discharge is a FIXED δ-free term (regime + `hseed` applied before any δ), shared
+unchanged across the `∀δ` wrapping `fun {δ} hδ hseed_δ => fBridge_of_singleCorr … HRED hδ
+hseed_δ : hprop26`. `consumability_probe` machine-checks this wrapping. The `∀δ` collapses
+to the hardest case δ = |X| (= the frozen bound); tiny-δ instances hold against the fixed
+main-term floor. Prop26.lean is UNTOUCHED (safer than the proposed δ-dependent re-freeze;
+respects "don't touch merged proofs"). SEAM: fBridge_of_singleCorr → h211_of_logChowla2Fails
+unchanged by construction (no Prop26 edit); the existing ChowlaFailure seam example holds.
+
+**Regime hypotheses (W3-e-final obligations) for the full `hreduce_holds`:** `hx : 2 ≤ x`,
+`hω : 2 ≤ ω`, `hωx : ω ≤ x`, `heps : 0 < eps`, `heps1 : (eps:ℝ) ≤ 1`, `hlog : 1 ≤ log H`,
+`hseed : ε/2 ≤ |X|` (singleCorr), and the window coupling `hωbig` (Z ≥ 8/δ-grade, i.e.
+`log ω ≥ c/ε`, forcing total error ≤ (1/4)·SP·H·ε). Plus an ε-smallness `heps ≤ 1/32`-grade
+for the boundary count (|𝒫_H| ~ ε²H/log H ≤ budget). `hreduce_close` (LANDED) discharges
+the closing arithmetic from `hseed` + `hbudget : ETOT ≤ (1/4)·SP·H·ε` + the single residual
+`hmain : SP·H·|X| − ETOT ≤ |∫F|`.
+
+**FLAG — `hmain` (the main-term identification) is a CARRIER GAP, not a mechanical
+assembly.** After `perPair_dilation` the per-pair term is `(1/p)·∑_m
+λ(p(m+kⱼ)+1)·λ(p(m+kⱼ)+p+1)/m /Z`, and reaching `(1/p)·X` needs two carriers absent from the
+landed toolkit: **(G1) p-strided unit shift** — the collapse `liouville_mul`/`prime` needs
+`λ(pN)λ(pN+p)=λ(N)λ(N+1)` but the dilated term carries the inner `+1` (`λ(pN+1)λ(pN+p+1)`);
+removing it is a shift by 1 in a p-STRIDED index, whereas `corr_shift_le` only shifts the
+BASE window. **(G2) dilated-window ↔ base-window correlation comparison** — even post-collapse
+the correlation lives over `(x/pω, x/p]`, and equating it to `X` over `(x/ω, x]` is window-
+stability of the correlation: an O(1) gap, NOT an absorbable error, arguably the analytic
+crux (Tao uses the entropy/pretentious machinery, not naive comparison). The design's
+"main term = (∑1/p)·H·X" sketch (dilation + shift + multiplicativity) is INCOMPLETE — it
+omits the mechanism controlling the window/stride mismatch. Both G1/G2 are Fable/design-tier
+(new carriers or a redesigned per-pair route). Down payment landed: the STEP-0 probe + the
+error-budget closing lemma, isolating `hmain` as the sole residual.
+═══════════════════════════════════════════════════════════════════════════════════════
