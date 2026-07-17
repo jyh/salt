@@ -5327,3 +5327,25 @@ decisions per question.
   gains its frozen-exhibit paragraph. Ceremony: wired + 3
   keystones BY NAME, full build exit 0 (9138 jobs), [skip ci].
   In flight: HB-F-TAU, TD-R2a + the CI watcher.
+
+- 2026-07-20 (GOLD WINDOW): **TD-R2a VERDICT: REDESIGN-VACUOUS —
+  THE TRANSPORT DOOR CAMPAIGN CLOSES** (≈ 52k / 15 tools,
+  recon-only). The Elliott first-moment spine is determinately
+  impossible on FOUR independent lines: the information gap
+  (1-point carries no twin content), **the Halász coincidence**
+  (the first-moment entropy chain IS Halász–Wirsing — the niche
+  classically occupied), the TD-R1 category mismatch re-localized,
+  and ██ **THE POLARITY FINDING** ██ (NEW, redesign-generic:
+  entropy is an ANTI-bias/upper-bound instrument — concludes
+  ¬logChowla2Fails; twins + the oracle are PRO-bias/lower-bound.
+  Backwards for ANY entropy redesign). Family-3 mini-sweep: not a
+  door — the **sparsity sub-wall** surfaced (slot 1's real spec =
+  BALANCED bounded; 1_P is bounded-but-sparse, fuel ~0; W-trick
+  raises mean, not balance) → boundary-map slot-1 spec
+  strengthened. ADJUDICATION: verdict ACCEPTED; all 3 TD-0
+  families swept; the campaign closes with the door unminted BY
+  THEOREM along every surveyed route; oracle content routes to
+  HB-ENGINE (the constructive continuation). The wall collection:
+  parity walls + least-k atlas + boundary map + orthogonality wall
+  + polarity finding. Board: HB-F-TAU (axiom checks) + the CI
+  watcher.

@@ -191,3 +191,50 @@ both slot-derivable and detection-sufficient). Honest scope: this
 refutes slot-satisfaction alone; the strong wall (no CM±1 weight
 controls the twin carrier through the spine) is the Chowla-family
 open problem, prose-only.
+
+## TD-R2a verdict (adjudicated): REDESIGN-VACUOUS — and THE
+## POLARITY FINDING
+
+The Elliott first-moment-spine redesign is determinately
+impossible, on four independent lines:
+1. **The information gap**: a first-moment (1-point) spine carries
+   zero twin content; twins force a ≥2-point object at extraction,
+   and at that point slot 2 is back to pair-transport (CM±1,
+   closed) — the orthogonality wall survives the redesign.
+2. **The Halász coincidence** (exact, not loose): the first-moment
+   analogue of the (2.11)→(3.15) entropy chain IS the classical
+   Halász–Wirsing mean-value proof (1-point mutual-information
+   decrement = pretentious distance). The entropy method's
+   value-add is confined to ≥2-point order; the 1-point niche is
+   classically occupied, twin-free.
+3. **The category mismatch** (TD-R1, re-localized to the forced
+   reintroduction point).
+4. **THE POLARITY FINDING (new)**: the entropy method is an
+   ANTI-BIAS / upper-bound instrument — it kills persistent
+   correlations against the H·log2 budget and concludes
+   `¬logChowla2Fails`. Twins need a LOWER bound; the oracle
+   supplies a PRO-bias (the density twist). Opposite polarities:
+   entropy removes signal, the oracle supplies it, twin-counting
+   consumes it. This applies to ANY entropy redesign, not just
+   the oracle one.
+
+**Family-3 (W-trick) mini-sweep: not a door.** Mean-normalization
+fixes neither unboundedness nor a newly-surfaced **sparsity
+sub-wall**: slot 1's real requirement is *balanced* bounded (~log2
+entropy per site); the prime indicator is bounded but sparse
+(~loglog/log per site — the fuel tank empty regardless). The
+W-trick aids exactly the machinery that is already weight-generic
+(circle/sieve L² control). Slot-1 spec hereby strengthened:
+"bounded alphabet" → "balanced bounded alphabet."
+
+**THE CAMPAIGN CLOSES.** All three TD-0 families swept: family 1
+(oracle) = the orthogonality wall, kernel-frozen; family 2
+(bounded CM surrogates) = twin-inert by rigidity (χ_ℝ the sharp
+exemplar; the strong wall = the Chowla-family open problem,
+prose-only class D); family 3 (W-trick) = not a door. The
+transport door remains unminted BY THEOREM along every surveyed
+route; its specification is complete; every gram of oracle
+content routes to the sieve — **HB-ENGINE is the constructive
+continuation**. The boundary experiment's answer to "can the
+crack transport?" is: not through these walls, and now the walls
+are named, priced, and partly kernel-proved.
