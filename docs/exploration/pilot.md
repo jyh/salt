@@ -3350,3 +3350,21 @@ decisions per question.
   strength ceiling c ≤ 0.134·c₄ (witness-absorbing, no
   inversion); the anti-vacuity witness conjunct is IN the
   statement. **S3-HB3B-EXEC dispatched** (build AS WRITTEN).
+
+- 2026-07-18 ~04:40 (SPRINT 3): **THE WAVE-II GATE: GO-WITH-BLOCK**
+  (S3-A2-W2GATE ≈ 188k / 35 tools; all statements authored +
+  probe-elaborated + persisted at adjudication). hheadroom'
+  VERIFIED (C = 8, p = 2; 3.65× slack; the ℓ¹ telescopes EXACTLY
+  to 2A_j/Σ, checked to 1e-17); the O(1/k) source confirmed
+  (H(Y_H)/(kH), fed by Dc's sharp bound). THE FIDELITY CATCH
+  (gate-refutes-micro-freeze, B1): the marginal-invariance
+  formulation is INSUFFICIENT for the −I/H decrement — the route
+  is conditional subadditivity + JOINT invariance (the common
+  H(Y_H) cancels; same ℓ¹, joint range ≤ 2^H·P_H). D-d re-cut
+  accordingly. D-d0 (the Fannes-type lemma) adjudicated GENUINELY
+  NEW (no mathlib modulus; support-Finset card form frozen — the
+  Fintype form would be false on Fin H → ℤ) and named the wave's
+  REAL SPIKE — the Fable-block protocol extends to it. B2 helper
+  authored (the log-floor vacuity for ω ≤ e caught). **D-d0+B2
+  EXECUTOR DISPATCHES** (one executor, the spike protocol armed);
+  D-d → D-e sequential behind it.

@@ -261,3 +261,199 @@ toolkit is green by construction.
    estimate, C ~150k) → D-e (the (3.8)–(3.10) inequalities +
    (3.11) assembly, C ~150k). The 2-attempts-then-Fable-block
    protocol on D-d and D-e (the could-spike-D pair).
+
+## WAVE-II GATE VERDICT (S3-A2-W2GATE, 2026-07-16) — **GO-WITH-BLOCK**
+
+The node cut (D-d0 → D-d → D-e) STANDS. `hheadroom'` STANDS (C = 8,
+p = 2; verified independently, 3.65× slack). Page images pp. 16–20
+transcribed at fidelity; all five wave-II frozen shapes probe-elaborate
+against `Salt.Entropy.All` (EXIT 0). Three blocks, all authored below —
+NOT deferrals: (B1) D-d's frozen statement is the JOINT/CONDITIONAL
+invariance, NOT the marginal (micro-freeze §1 architecture note was
+incomplete — corrected here); (B2) a new normalizer-floor helper
+`logMeasure_norm_ge_half` (the log-lower-bound of `harmonic_window_bounds`
+is vacuous for ω ≤ e, but the invariance ℓ¹ needs a positive Σ floor);
+(B3) the difficulty spike is D-d0 (elementary Fannes), NOT the arithmetic
+— extend the 2-attempts-then-Fable-block protocol to D-d0 as well.
+
+### Charge 1 — the (3.8)–(3.11) fidelity pass (pp. 17–20, verbatim)
+
+Transcribed inequalities (Tao 1509.05422, PDF pp. 17–20):
+- (3.8) `0 ≤ ℍ(X_H) ≪_ε H`. (3.9) `ℍ(Y_H) = log P_H − o_{A→∞}(1)`.
+  (3.10) `ℍ(Y_H) ≪ H` for `H₋ ≤ H ≤ H₊` (from PNT).
+- p.18 concatenation heart: `X_{H₁,H₁+H₂}` = window on the SHIFTED block
+  `[H₁+1, H₁+H₂]` of the SAME `n`. Lemma 2.5 (approx. translation
+  invariance): `ℍ(X_{H₁,H₁+H₂}) = ℍ(X_{H₂}) + o_{A→∞}(1)`; subadditivity
+  (3.4) then gives `ℍ(X_{H₁+H₂}) ≤ ℍ(X_{H₁}) + ℍ(X_{H₂}) + o(1)`.
+- The MI improvement (p.18, the load-bearing step): the CONDITIONAL
+  invariance `ℍ(X_{H₁,H₁+H₂} | n+H₁(P_H)) = ℍ(X_{H₂} | n(P_H)) + o(1)`
+  PLUS the exact σ-algebra relabel (`n+H₁ (P_H)` and `n (P_H)` generate
+  the same σ-algebra) yields the RELATIVE subadditivity
+  `ℍ(X_{H₁+H₂}|Y_H) ≤ ℍ(X_{H₁}|Y_H) + ℍ(X_{H₂}|Y_H) + o(1)`, iterated to
+  `ℍ(X_{kH}|Y_H) ≤ k·ℍ(X_H|Y_H) + o(1)`.
+- (3.11) p.19, VERBATIM: `ℍ(X_{kH})/kH ≤ ℍ(X_H)/H − 𝕀(X_H,Y_H)/H + O(1/k)`,
+  for `H₋ ≤ H ≤ kH ≤ H₊`, from
+  `ℍ(X_{kH}) ≤ k·ℍ(X_H|Y_H) + ℍ(Y_H) + o(1) = k·ℍ(X_H) − k·𝕀(X_H,Y_H) + ℍ(Y_H) + o(1)`
+  (uses (3.1),(3.3),(3.5)) divided by `kH`.
+
+Recon confirmations: the **O(1/k) source IS `ℍ(Y_H)/(kH)`** and Dc's
+`log_PH_le` (`log P_H ≤ ε²H·log 4`) feeds it correctly — via (3.7)
+`ℍ(Y_H) ≤ log P_H ≤ ε²H·log 4`, so `ℍ(Y_H)/(kH) ≤ ε²·log4/k = O_ε(1/k)`.
+The MI term enters at the conditional-subadditivity step, converted to
+`ℍ(X_H) − 𝕀` by (3.5).
+
+**DIVERGENCE (B1).** Micro-freeze §1 says invariance enters "ONLY in
+`H[X_H^{(j)}] ≈ H[X_H^{(0)}]`" (MARGINAL). This is INSUFFICIENT: the
+`−𝕀/H` decrement — the whole point of Lemma 3.1 — requires the CONDITIONAL
+subadditivity `ℍ(X_{kH}|Y_H) ≤ Σ_j ℍ(X_H^{(j)}|Y_H)` (invariance-free,
+good — derivable from `entropy_triple_add_entropy_le` + `chain_rule`)
+FOLLOWED BY the CONDITIONAL invariance `ℍ(X_H^{(j)}|Y_H) ≈ ℍ(X_H|Y_H)`.
+The marginal invariance does not produce the MI gain. FIX: D-d is the
+JOINT-law invariance `|ℍ(X_H^{(j)},Y_H) − ℍ(X_H,Y_H)| ≤ err_j`; the
+conditional gap EQUALS the joint gap (the common `ℍ(Y_H)` cancels — same
+μ, same Y_H), and the joint reduces to the SAME ℓ¹ estimate via the exact
+σ-algebra relabel of the residue coordinate `r ↦ r + jH (mod P_H)`
+(bijection). Concretely `ℍ(X_H^{(j)},Y_H;μ) = ℍ(X_H,Y_H; (T_{jH})_*μ)`,
+so the gap is `≤ Fannes(TV((T_{jH})_*μ, μ))` on the JOINT range
+`(Fin H→ℤ)×ZMod P_H` (card `≤ 2^H·P_H`, `log ≤ (3/2)·H·log 2` since
+`ε²·log4 ≤ ½·log2` for `ε ≤ ½`). Otherwise the same-measure /
+shifted-function architecture IS Tao's `X_{H₁,H₁+H₂}` structure faithfully;
+Tao's `o_{A→∞}(1)` is replaced by the EXPLICIT Fannes error governed by
+`hheadroom'` (the flagged-missing A-parameter → explicit inequality).
+
+### Charge 2 — the invariance-arithmetic REDO (the kill-check)
+
+Let `μ = logMeasure x ω`, window `W = (m₀, x]`, `m₀ = x/ω`,
+`Σ = Σ_{n∈W} 1/n`, `ν = (T_{jH})_*μ` (mass `1/(m−jH)` at `m∈(m₀+jH, x+jH]`).
+Splitting `‖μ−ν‖₁` into left-edge `A = Σ_{m₀<m≤m₀+jH} 1/m`, overlap
+`B = Σ_{m₀+jH<m≤x}(1/(m−jH)−1/m)`, right-edge (the "reads past x" defect)
+`C = Σ_{x−jH<n≤x} 1/n`: the overlap telescopes **exactly** to `B = A − C`,
+so
+
+>  **ℓ¹(law X_H^{(j)}, law X_H) ≤ ‖ν−μ‖₁ = 2A_j/Σ**,   `A_j = Σ_{m₀<m≤m₀+jH} 1/m`.
+
+(Verified exactly at four `(x,ω,jH)` instances, `|ℓ¹ − 2A/Σ| ~ 1e-17`.)
+Robust floors (no ω-largeness needed): `Σ ≥ 1 − 1/ω ≥ 1/2` (each `1/n ≥ 1/x`,
+`|W| = x − m₀ ≥ x − x/ω`) and `m₀ ≥ x/(2ω)` ⟹
+`d_j := 2A_j/Σ ≤ 8·jH·ω/x`, hence `d_max ≤ 8·Hhi·ω/x` (using `kH ≤ Hhi`).
+Joint-Fannes error `err_j = d_j·(3/2)H·log2 + binEntropy(d_j)`; in (3.11) the
+total error is `(Σ_{j<k} err_j)/(kH) ≤ err_max/H` (the H cancels in the
+leading term):
+
+>  leading `E ≤ (3/2)log2·d_max ≤ 12·log2·Hhi·ω/x`;  need `E ≤ 1/(4·logH·logloglogH)`
+>  (worst at `H = Hhi`)  ⟺  **`x/ω ≥ 48·log2·Hhi·logHhi·logloglogHhi`**.
+
+At the floor `Hhi = Hlo = 4·10⁶`: `logHhi = 15.20`, `logloglogHhi = 1.001`;
+needed `x/ω ≥ 2.02·10⁹`. **Frozen `hheadroom'` `= 8·Hhi·(logHhi)² = 7.40·10⁹`
+≥ 2.02·10⁹ → 3.65× slack.** The `binEntropy(d_max)` correction: `d_max ≤
+1/(logHhi)² = 4.3·10⁻³ ≪ 1/e = 0.368`, `binEntropy(d_max) ≈ 0.028`, so
+`binEntropy(d_max)/H ≤ 7·10⁻⁹` vs budget `1/(4·logHhi·logloglogHhi) = 0.0164`
+— 6+ orders negligible. **C = 8, p = 2 PINNED, no retune.** (The `O(1/k)`
+term `ℍ(Y_H)/(kH) ≤ ε²log4/k` is handled at the tower step, wave III, by
+`k = ⌊C₀ logH logloglogH⌋` with `C₀` large.)
+
+### Charge 3 — D-d0 adjudication
+
+mathlib has NO Fannes and NO half-built entropy modulus-of-continuity;
+`NegMulLog` supplies continuity/`concaveOn_negMulLog`/`negMulLog_le_one_sub_self`/
+`negMulLog_mul`, `BinaryEntropy` supplies `Real.binEntropy` (+ concavity,
+`binEntropy_le_log_two`, `binEntropy_eq_negMulLog_add_negMulLog_one_sub`,
+monotone on `[0,½]`), and `Measure.lean` supplies the finite-sum expansion
+`measureEntropy_of_isProbabilityMeasure_finite`. So D-d0 is genuinely new.
+Honest form = ℓ¹-Fannes over a **SUPPORT FINSET** (`A.card`, NOT `Fintype.card`
+— the window codomain `Fin H → ℤ` is infinite). The frozen bound
+`|Hm[μ] − Hm[ν]| ≤ d·log(A.card) + binEntropy d` (`d = ℓ¹`, `d ≤ 1/e`) is a
+SAFE over-estimate of the sharp Fannes–Audenaert `T·log(N−1) + binEntropy T`
+(`T = d/2`): `d·log(A.card) ≥ (d/2)log(A.card−1)` and `binEntropy d ≥
+binEntropy(d/2)` for `d ≤ ½` — hence TRUE, and (Charge 2) sufficient. Its
+PROOF (the `S₋`-straddle coupling) is the real wave-II spike → B3.
+
+### Charge 4 — quantifier / case audit
+
+- **j = 0 identity**: `liouvilleWindowShift H 0 = liouvilleWindow H` (PROVEN
+  in probe, not sorry); `A_0 = 0 ⟹ d_0 = 0 ⟹ err_0 = 0`.
+- **edge windows `n + kH > x`**: `ArithmeticFunction.liouville` is TOTAL, so
+  the pattern is well-defined — NO domain corner. The LAW edge is exactly
+  region `C` (right-edge defect), fully inside the `2A/Σ` accounting.
+- **h(d) domain `d ≤ 1/e`**: frozen as `Real.exp (-1)`; `d_max ≈ 4.3·10⁻³ ≪
+  1/e` (huge margin).
+- **`k·H ≤ Hhi` coupling**: max shift `(k−1)H < kH ≤ Hhi` (regime `hfit`);
+  used in `d_max ≤ 8Hhiω/x`. MUST be a D-d/D-e hypothesis (`k*H ≤ R.Hhi`).
+- **ℓ¹-vs-TV factor 2**: pinned — `d = ℓ¹ = 2·TV`, `TV = A/Σ`; D-d0 takes ℓ¹.
+- ∃H polarity / `a ∣ H` stepping: unchanged from wave I; wave II is the
+  per-step (3.11), introduces no new quantifier.
+
+### Charge 5 — the wave-II FROZEN STATEMENTS (verbatim-ready; all probe-EXIT-0)
+
+New subtree `Salt/Entropy/Chowla/Decrement.lean` (+ `ChowlaRegime` field
+`hheadroom'`). Notation from `Salt.Entropy.Basic`/`Measure`. AUTO-ETA rule
+binding: every joint variable is `fun n ↦ (X n, Y n)`, never `⟨X, Y⟩`.
+
+```lean
+-- Regime field to ADD (replaces the wave-I `hheadroom` deferral):
+--   hheadroom' : 8 * (Hhi : ℝ) * Real.log Hhi * Real.log Hhi ≤ ((x / ω : ℕ) : ℝ)
+
+/-- The shifted window X_H^{(j)} n := liouvilleWindow H (n + j·H).  (FiniteRange +
+    measurability PROVEN in the gate probe, not sorry; j = 0 gives liouvilleWindow H.) -/
+def liouvilleWindowShift (H j : ℕ) (n : ℕ) : Fin H → ℤ := liouvilleWindow H (n + j * H)
+
+instance instFiniteRangeShift (H j : ℕ) : FiniteRange (liouvilleWindowShift H j) :=
+  finiteRange_of_finset (liouvilleWindowShift H j)
+    (Fintype.piFinset (fun _ : Fin H => ({-1, 1} : Finset ℤ)))
+    (fun n => liouvilleWindow_mem_piFinset H (n + j * H))
+
+lemma measurable_liouvilleWindowShift (H j : ℕ) : Measurable (liouvilleWindowShift H j) :=
+  measurable_of_countable _
+
+/-- **D-d0** (elementary ℓ¹-Fannes; support-Finset card, NOT Fintype.card).
+    Honest form; SAFE over-estimate of sharp Fannes–Audenaert. PROOF = the spike (B3). -/
+theorem entropy_sub_le_of_l1
+    {S : Type*} [MeasurableSpace S] [MeasurableSingletonClass S]
+    (μ ν : Measure S) [IsProbabilityMeasure μ] [IsProbabilityMeasure ν]
+    (A : Finset S) (hμ : μ Aᶜ = 0) (hν : ν Aᶜ = 0)
+    (d : ℝ) (hd : d = ∑ s ∈ A, |μ.real {s} - ν.real {s}|)
+    (hd1 : d ≤ Real.exp (-1)) :
+    |Hm[μ] - Hm[ν]| ≤ d * Real.log (A.card : ℝ) + Real.binEntropy d
+
+/-- **B2 helper**: the robust positive normalizer floor (harmonic_window_bounds'
+    log-floor is vacuous for ω ≤ e; the invariance ℓ¹ needs Σ ≥ 1/2). -/
+theorem logMeasure_norm_ge_half {x ω : ℕ} (hx : 2 ≤ x) (hω : 2 ≤ ω) (hωx : ω ≤ x) :
+    (1 : ℝ) - 1 / (ω : ℝ) ≤ ∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹
+-- corollary consumed by D-d:  (1:ℝ)/2 ≤ Σ  (since ω ≥ 2).
+
+/-- **D-d** (the JOINT/CONDITIONAL invariance — B1).  Mathematical content:
+    the conditional gap = joint gap = Fannes(2A_j/Σ) on the joint range
+    (D-d0 with A = piFinset{-1,1} ×ˢ (ZMod P_H).univ, card ≤ 2^H·P_H), and
+    2A_j/Σ ≤ 8·j·H·ω/x (Charge 2).  Consumable bound delivered to D-e (per
+    shift, uniform in j via k·H ≤ Hhi + hheadroom'): -/
+theorem condEntropy_shift_le (R : ChowlaRegime) {H k j : ℕ}
+    (hH : R.Hlo ≤ H) (hcpl : k * H ≤ R.Hhi) (hj : j < k) (ha : R.a ∣ H) :
+    H[liouvilleWindowShift H j | residueWindow R.eps H ; logMeasure R.x R.ω]
+      ≤ H[liouvilleWindow H | residueWindow R.eps H ; logMeasure R.x R.ω]
+        + (H : ℝ) / (4 * Real.log H * Real.log (Real.log (Real.log H)))
+
+/-- **D-e** (the (3.8)–(3.10) inputs + the (3.11) per-step assembly).  Keeps the
+    TWO errors explicit: ℍ(Y_H)/(kH) ≤ ε²·log4/k  (the O(1/k)); and the Fannes
+    1/(4·logH·logloglogH).  Wave-III (D-f) substitutes k = ⌊C₀ logH logloglogH⌋ to
+    fuse them into the clean −1/(2 logH logloglogH) tower step. -/
+theorem step_ineq_3_11 (R : ChowlaRegime) {H k : ℕ}
+    (hH : R.Hlo ≤ H) (hcpl : k * H ≤ R.Hhi) (ha : R.a ∣ H) (hk : 1 ≤ k) :
+    H[liouvilleWindow (k * H) ; logMeasure R.x R.ω] / ((k : ℝ) * H)
+      ≤ H[liouvilleWindow H ; logMeasure R.x R.ω] / (H : ℝ)
+        - I[liouvilleWindow H : residueWindow R.eps H ; logMeasure R.x R.ω] / (H : ℝ)
+        + ((R.eps : ℝ) ^ 2 * Real.log 4) / (k : ℝ)
+        + 1 / (4 * Real.log H * Real.log (Real.log (Real.log H)))
+```
+
+D-e assembly skeleton (all pieces landed except D-d): (1) `ℍ(X_{kH}) =
+ℍ(X_H^{(0)},…,X_H^{(k-1)})` via `liouvilleWindow_block` + `entropy_comp_of_injective`
+(the `finProdFinEquiv` reindex); (2) `ℍ(X_{kH}) ≤ ℍ(Y_H) + ℍ(X_{kH}|Y_H)`
+(`chain_rule'` + `condEntropy_nonneg`); (3) conditional subadditivity iterated
+(from `entropy_triple_add_entropy_le` + `chain_rule` — a helper lemma,
+invariance-free); (4) D-d per shift; (5) `mutualInfo_eq_entropy_sub_condEntropy`;
+(6) `entropy_residueWindow_le_log_PH` + `log_PH_le`. Divide by `kH`.
+
+**Dispatch note**: D-d0 first (spike; Fable-block if the coupling stalls at
+2 attempts), then B2 helper (trivial), then D-d (B1 joint form), then D-e.
+Executor latitude on err-term packaging (per-shift-uniform vs summed) is open;
+the SHAPES above and `hheadroom'` are frozen.
