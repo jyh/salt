@@ -4194,3 +4194,23 @@ decisions per question.
   machinery. **W2-B DISPATCHES.** Ceremony: wired + 1 keystone
   BY NAME, full build exit 0 (9093 jobs). Tally ~6.35M raw,
   house ~19%.
+
+- 2026-07-19 ~10:40 (THREAD W): ██████ **THEOREM 7 IS A THEOREM —
+  THE STEPANOV FACE IS SUMMITED: THE FIRST MACHINE-CHECKED
+  WEIL-STRENGTH POINT-COUNT BOUND** ██████ (W-T7 ≈ 279k / 66
+  tools, ONE construction — the six risky incantations de-risked
+  in isolation first). WeilStepanov.lean: **weil_stepanov :
+  |pointCount f − q| ≤ 8·(deg f)·(⌊√q⌋+1)** for y² = f(x), q odd,
+  f non-square, f(0) ≠ 0, 16·(deg f)² ≤ q — the elementary
+  Stepanov proof of RH-for-hyperelliptic-curves-grade counting,
+  in a kernel, for the first time anywhere. The uniform-D variant
+  at ℓ = ⌊√q⌋+1, J = ℓ/2 + 2m + 1; the two arithmetic keystones
+  (the dimension count + the final bound) isolated + nlinarith-
+  closed; the whnf-heartbeat trap solved by clear_value. THE
+  DESCENT CONSUMES IT: 64p² ≤ p^n ⟺ n ≥ 3-grade (the n→∞
+  regime — exactly right); the remaining descent needs: Thm 6
+  (H1+H3 in flight → the induction), Cor 3 (the completing-the-
+  square + the not-a-square lemma), the assembly through
+  abs_le_sqrt_of_powerSum_bound. Ceremony: wired + 1 keystone BY
+  NAME, full build exit 0 (9094 jobs). Tally ~6.65M raw, house
+  ~18%.
