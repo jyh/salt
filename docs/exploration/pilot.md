@@ -5855,3 +5855,19 @@ decisions per question.
   k=2 is the consumer). Chain: CYC ✓ TWO ✓ CRT ✓ → **N-PP-FOLD
   dispatches** → ASSEMBLY. Board: N-SHIU, VK-N1, VK-N2,
   N-PP-FOLD, CI seed. Tally ~28.4M raw, house ~14%.
+
+- 2026-07-17 ~7:30pm (GOLD WINDOW): ██ **VK-N1 LANDS — WEYL
+  DIFFERENCING IS IN THE KERNEL; the Salt/ExpSum/ track opens
+  (a first in any assistant)** ██ (≈ 186k / 39 tools; few
+  iterations, ZERO residuals). Salt/ExpSum/Basic.lean:
+  **weyl_vdC_sq** (abstract ℂ form) + **weyl_vdC_expSum** (the
+  A-process on eR) with the SHARP constant (N+H)/(H+1) —
+  numerically TIGHT at H=N=1 (probed before proving) — + the
+  local eR character API (5 lemmas; fourierChar rejected for
+  Circle-coercion drag, decision documented). EXECUTOR FINDING:
+  the classical hypotheses 1 ≤ H ≤ N are UNUSED — the inequality
+  holds unconditionally (kept for interface fidelity,
+  underscored). ℤ-indexed design (f : ℤ → ℝ) for zero coercion
+  friction. Ceremony: new track All.lean + 4 keystones BY NAME,
+  wired to ROOT, full build exit 0 (9154 jobs). Board: N-SHIU,
+  VK-N2, CI seed. Tally ~28.6M raw, house ~14%.
