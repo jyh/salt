@@ -5076,3 +5076,21 @@ decisions per question.
   analytic inputs deletes. WINPNT + N-SMALLQ DISPATCH.** In
   flight: W3E-TOWER, MB-1, WINPNT, N-SMALLQ. Tally ~20.7M raw,
   house ~14%.
+
+- 2026-07-20 ~13:00: **W3E-TOWER LANDS FIRST-TRY — SEVEN OF TEN
+  RESIDUALS DISCHARGED; THE THREE SURVIVORS SHARE ONE ROOT** (≈
+  177k / 28 tools, 1 attempt). TowerDischarge.lean:
+  **log_chowla_two_of_door** — the H-selection + hI discharged
+  from entropy_decrement (κ = H/(logH·logloglogH), the
+  mutualInfo-comm gap closed by a private lemma); hbudget2 FOLDED
+  into δ₀ = ε/(2K) at c₀ = 1 (the honest door-consumption shape:
+  MRT supplies δ → 0). THE STRUCTURAL FINDING: the three remaining
+  residuals (H₀-floor, hepsc, hbudget1) are all true-but-
+  undecidable for the ε-FIXED witness — the regime builder pins
+  eps = 1/2 and Hlo = 4·10⁶ opaquely; PATCH-4's "re-witness at
+  larger Hlo" is NOT available (the divergence input is
+  base-pinned). **THE LEVER: an (eps, Hlo)-PARAMETRIC regime
+  builder collapses all three — PATCH-5 DISPATCHES.** Ceremony:
+  wired + 1 keystone BY NAME, full build exit 0 (9131 jobs). In
+  flight: WINPNT, N-SMALLQ, MB-23, PATCH-5. Tally ~21.1M raw,
+  house ~14% — the 21M mark.

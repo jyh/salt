@@ -63,6 +63,7 @@ import Salt.Entropy.Chowla.HMainAssembly
 import Salt.Entropy.Chowla.HBudget
 import Salt.Entropy.Chowla.Theorem23Shell
 import Salt.Entropy.Chowla.SpineClose
+import Salt.Entropy.Chowla.TowerDischarge
 import Salt.Entropy.Chowla.Windows
 import Salt.Entropy.Chowla.PrimeWindow
 import Salt.Entropy.ConsumerTest
@@ -184,6 +185,7 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.log_chowla_two_conditional_regime
   Salt.Entropy.Chowla.mrtUniformity_implies_xi
   Salt.Entropy.Chowla.contradiction_of_mrtDoorXi
+  Salt.Entropy.Chowla.log_chowla_two_of_door
   Salt.Entropy.Chowla.dilation_error
   Salt.Entropy.Chowla.weakUniform_generic
   Salt.Entropy.Chowla.weakUniform_spine
