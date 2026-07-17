@@ -123,6 +123,23 @@ structure ChowlaRegime where
       so the field is frozen there: `√H₋ ≤ ε²H₋/2`.  It propagates upward to every
       `H ≥ H₋` by `sqrt_le_window_at` (monotonicity `√H·√H₋ ≤ H`, i.e. `H₋ ≤ H`). -/
   hPNTwindow : Real.sqrt (Hlo : ℝ) ≤ (eps : ℝ) ^ 2 * (Hlo : ℝ) / 2
+  /-- **HBUDGET window-coupling floor, ENDPOINT form** (PATCH-4; `docs/exploration/
+      s3-a3-design.md`, "HBUDGET STEP-0", the corrected `16/ε` calibration).  Funds the
+      `hbudget_holds` binder `log ω ≥ (16/ε)·log(ε²H) + 64/ε + 1` (the collapse/swap
+      slice `≤ 1/8` via `Z ≥ log ω − 1`).  The RHS `log ω` is `H`-free and the LHS is
+      INCREASING in `H` (through `log(ε²H)`, `ε² ≥ 0`), so the field is frozen at the
+      UPPER endpoint `H₊` and propagates DOWN to every admissible `H ≤ H₊` by
+      `omega_big_at` (log-monotonicity `log(ε²H) ≤ log(ε²H₊)`). -/
+  hωbig :
+    (16 / (eps : ℝ)) * Real.log ((eps : ℝ) ^ 2 * (Hhi : ℝ)) + 64 / (eps : ℝ) + 1
+      ≤ Real.log (ω : ℝ)
+  /-- **HBUDGET shift `x`-floor, ENDPOINT form** (PATCH-4).  Funds the `hbudget_holds`
+      binder `ω·H + 48·ω·(1 + 2/ε²)/ε ≤ x` (the shift slice `≤ 1/16`, and `x/ω ≥ H`).
+      The LHS is INCREASING in `H` (the `ω·H` term), so the field is frozen at the
+      UPPER endpoint `H₊` and propagates DOWN to every admissible `H ≤ H₊` by `x_big_at`
+      (`ω·H ≤ ω·H₊`, the remaining term `H`-free). -/
+  hxbig :
+    (ω : ℝ) * (Hhi : ℝ) + 48 * (ω : ℝ) * (1 + 2 / (eps : ℝ) ^ 2) / (eps : ℝ) ≤ (x : ℝ)
 
 /-! ### Smoke lemma (wave III consumer) -/
 
@@ -212,5 +229,41 @@ theorem sqrt_le_window_at (R : ChowlaRegime) {H : ℕ}
   have final : 2 * Real.sqrt (H : ℝ) ≤ e * (H : ℝ) :=
     le_of_mul_le_mul_right combined hsqrtL_pos
   linarith [final]
+
+/-! ### Per-`H` HBUDGET couplings (the endpoint→interior monotonicity) -/
+
+/-- **The per-`H` window-coupling clearance.**  The regime field `hωbig` freezes
+    `(16/ε)·log(ε²H₊) + 64/ε + 1 ≤ log ω` at the UPPER endpoint `H₊`; it propagates DOWN
+    to every admissible `H ≤ H₊`, since the RHS `log ω` is `H`-free and
+    `log(ε²H) ≤ log(ε²H₊)` (log-monotonicity, `ε²H > 0` from `h4`, and `16/ε > 0`).  The
+    `4 ≤ ε²H` positivity `h4` is what the consumer already carries (via
+    `sqrt_le_window_at`: `ε²H/2 ≥ √H ≥ √H₋ ≥ 2000`). -/
+theorem omega_big_at (R : ChowlaRegime) {H : ℕ} (hH : H ≤ R.Hhi)
+    (h4 : (4 : ℝ) ≤ (R.eps : ℝ) ^ 2 * (H : ℝ)) :
+    (16 / (R.eps : ℝ)) * Real.log ((R.eps : ℝ) ^ 2 * (H : ℝ)) + 64 / (R.eps : ℝ) + 1
+      ≤ Real.log (R.ω : ℝ) := by
+  have hepsR : (0 : ℝ) < (R.eps : ℝ) := by exact_mod_cast R.heps
+  have hεH_pos : (0 : ℝ) < (R.eps : ℝ) ^ 2 * (H : ℝ) := by linarith
+  have hHle : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast hH
+  have hεmono : (R.eps : ℝ) ^ 2 * (H : ℝ) ≤ (R.eps : ℝ) ^ 2 * (R.Hhi : ℝ) :=
+    mul_le_mul_of_nonneg_left hHle (sq_nonneg _)
+  have hlogmono : Real.log ((R.eps : ℝ) ^ 2 * (H : ℝ))
+      ≤ Real.log ((R.eps : ℝ) ^ 2 * (R.Hhi : ℝ)) := Real.log_le_log hεH_pos hεmono
+  have hmul : (16 / (R.eps : ℝ)) * Real.log ((R.eps : ℝ) ^ 2 * (H : ℝ))
+      ≤ (16 / (R.eps : ℝ)) * Real.log ((R.eps : ℝ) ^ 2 * (R.Hhi : ℝ)) :=
+    mul_le_mul_of_nonneg_left hlogmono (by positivity)
+  linarith [R.hωbig, hmul]
+
+/-- **The per-`H` shift `x`-floor clearance.**  The regime field `hxbig` freezes
+    `ω·H₊ + 48·ω·(1+2/ε²)/ε ≤ x` at the UPPER endpoint `H₊`; it propagates DOWN to every
+    admissible `H ≤ H₊`, since `ω·H ≤ ω·H₊` (`ω ≥ 0`) and the remaining term is
+    `H`-free. -/
+theorem x_big_at (R : ChowlaRegime) {H : ℕ} (hH : H ≤ R.Hhi) :
+    (R.ω : ℝ) * (H : ℝ) + 48 * (R.ω : ℝ) * (1 + 2 / (R.eps : ℝ) ^ 2) / (R.eps : ℝ)
+      ≤ (R.x : ℝ) := by
+  have hHle : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast hH
+  have hmul : (R.ω : ℝ) * (H : ℝ) ≤ (R.ω : ℝ) * (R.Hhi : ℝ) :=
+    mul_le_mul_of_nonneg_left hHle (Nat.cast_nonneg _)
+  linarith [R.hxbig, hmul]
 
 end Salt.Entropy.Chowla

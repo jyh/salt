@@ -193,7 +193,8 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.not_summable_one_div_nat_loglog
   Salt.Entropy.Chowla.entropy_decrement
   Salt.Entropy.Chowla.regime_exists_of_dropSum_exists
-  Salt.Entropy.Chowla.regime_xside
+  Salt.Entropy.Chowla.regime_outer
+  Salt.Entropy.Chowla.omega_big_at Salt.Entropy.Chowla.x_big_at
   Salt.Entropy.Chowla.tower_telescope Salt.Entropy.Chowla.tower_step
   Salt.Entropy.Chowla.entropy_per_symbol_le
   Salt.Entropy.Chowla.decrement_exists_of_tower

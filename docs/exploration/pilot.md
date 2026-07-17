@@ -4990,3 +4990,23 @@ decisions per question.
   NAME, full build exit 0 (9129 jobs). **PATCH-4 DISPATCHES — THE
   LAST HARD NODE (the regime re-witness at the exp-large ω).**
   Tally ~19.5M raw, house ~14%.
+
+- 2026-07-20 ~09:30: ██ **PATCH-4 LANDS — THE LAST HARD NODE IS
+  DOWN: THE REGIME FUNDS THE CORRECTED hωbig WITH ~30 NATS OF
+  MARGIN** ██ (≈ 192k / 55 tools; the hωbig log-arithmetic 1
+  attempt; regime_outer 3 iterations — ALL on the ^40-in-context
+  heartbeat trap, fixed by clear-after-derive; new gotcha memoed:
+  degree-40 defining equations make nlinarith ring-expand and
+  diverge — prove value-facts then clear the defs). Regime.lean:
+  fields **hωbig/hxbig** (endpoint at Hhi) + **omega_big_at/
+  x_big_at** (propagation). RegimeInst.lean: ω = 2 →
+  **(Hhi+2)⁴⁰**, x → K·ω (K = 16Hhi³+16P²); regime_xside →
+  regime_outer (8 facts); 5 field proofs re-funded, 0 weakened.
+  D3-constant verdict: ∃-opaque → the two consumer couplings
+  (H₀ ≤ H, ε ≤ c/(32log4)) carried by W3E-FINAL. **THE
+  13-HYPOTHESIS DISCHARGE TABLE for hbudget_holds's ∀-block is
+  written row by row** — W3E-FINAL is now a pure compose node.
+  Ceremony: audit renames verified, full build exit 0 (9129
+  jobs). JYH re-ratified hωbig this morning. **W3E-FINAL
+  DISPATCHES — THE FINAL NODE OF THE SPINE.** Tally ~19.8M raw,
+  house ~14%.
