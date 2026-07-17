@@ -3807,3 +3807,17 @@ decisions per question.
   anti-vacuity ∃R — where the barely-divergence lives; the
   A-FINAL handoff has the joint-tension analysis) — then A-R3.
   Tally ~2.4M raw, house ~26%.
+
+- 2026-07-18 ~21:40: **THE ROUTES-TO-SUCCESS MAP RATIFIED (JYH:
+  "i like it! let's take your recommendation").** The house's
+  6-walls/complement analysis adopted: THREAD M OPENS — the
+  MINIMAL PARITY-BREAKING INPUT theorem (route 5: the LP-dual
+  complement of the walls — "any input X with property P at
+  strength ≥ δ₀ suffices for twins, δ₀ optimal"; the corpus owns
+  both duality sides kernel-checked; the 2 − 2log2 ≈ 0.614 gap
+  is the price to quantify). THE SPINE CONTINUES route 1
+  (A-R3 the Elliott reduction toward log-Chowla + the λ→Λ
+  obstruction interface — the transfer principle nobody has
+  written down). Route 2 (the FI algebraic-break recon) parked
+  cheap. **M-R0 dispatches** (the dual-theorem design recon)
+  alongside the in-flight REGIME-INST/W4.1cd/W2T6.
