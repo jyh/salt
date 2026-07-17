@@ -3913,3 +3913,29 @@ decisions per question.
   (w2t6-design.md §10). **W2T6-E1 dispatches** (η + Thm 5 —
   LFunction.lean). In flight: A3-R0, A-DIVERGE, W5, M-GATE,
   +E1 = 5.
+
+- 2026-07-19 ~00:50 (THREAD A): **A3-R0 ADJUDICATED — THE ROAD TO
+  LOG-CHOWLA IS MAPPED, WITH EXACTLY ONE IRREDUCIBLE DOOR** (≈
+  119k / 18 tools; pp. 21–25 read at page fidelity — the A-R0
+  residue cleared). THE STRATEGIC FINDS: (1) the Liouville case
+  SKIPS Tao §2 entirely (λ is already unit-modulus completely
+  multiplicative — Tao says so; A-R3's output nearly IS
+  log-Chowla-2 and A-R4 becomes thin); (2) the decrement's
+  logloglog factor is THE load-bearing property (I < |𝒫_H| —
+  any weaker statement fails); (3) Lemma 3.2 is Pinsker-free
+  (the tree's own API + Markov + condDistrib — mathlib has it);
+  (4) Lemma 3.3 = a direct mathlib SubGaussian assembly (the
+  Hoeffding machinery verified at signature level; the content
+  is CRT-independence); (5) **THE FOOTNOTE-4 ESCAPE**: Lemma
+  3.5's Green–Tao restriction is AVOIDABLE — Ben Green's
+  additive-energy route reduces it to a Brun/Selberg upper-sieve
+  count (OUR OWN BRUN TRACK reuses!) — no second D-door; (6) the
+  ONE irreducible door: Prop 2.4 (the MR short-interval Fourier
+  uniformity) — enters as an explicit HYPOTHESIS (the
+  decrement_exists_of_tower pattern; axiom-free). GAP FLAGGED:
+  (3.9) the residue near-uniformity (H[Y] ≥ log P_H − o(1)) is
+  NOT in the tree — the riskiest unconditional node (W1-a).
+  13-node ladder; wave 1 = the four decrement-consumer nodes.
+  **A3-W1A dispatches** (the (3.9) gap — front-loading the
+  risk). In flight: 6/6 FULL (E1, W5, W6.1, M-GATE, A-DIVERGE,
+  W1A). Tally ~3.5M raw, house ~23%.
