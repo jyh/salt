@@ -23,12 +23,23 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # Billing cap: with the mathlib cache a full build is ~20-40 min; anything
-    # longer is a cache miss or a wedged runner — kill it before it burns hours.
-    timeout-minutes: 90
+    # Billing cap. The 2026-07-17 diagnosis: mathlib cache engages fine, but
+    # salt's own ~9k-job corpus needs ~2-2.5h cold on a 4-core runner. 240 min
+    # lets a seeding run COMPLETE so the .lake/build cache below gets saved;
+    # cached runs then finish in minutes. (~$1.20 per cold run at Linux rates.)
+    timeout-minutes: 240
 
     steps:
       - uses: actions/checkout@v5
+      # Salt's own build cache (mathlib comes via lake exe cache get inside
+      # lean-action). restore-keys lets any prior seed serve incrementally.
+      - name: Restore salt build cache
+        uses: actions/cache@v4
+        with:
+          path: .lake/build
+          key: salt-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-${{ github.sha }}
+          restore-keys: |
+            salt-lake-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}-
       - uses: leanprover/lean-action@v1
         with:
           # Explicit (not auto): the 2026-07-17 run 29599988363 spent 2h11m and

@@ -5801,3 +5801,22 @@ decisions per question.
   Littlewood — house design question). PARKED pending JYH's
   choice: staged / VMVT commit / stand down. Board: N-SHIU,
   ROOT-TWO, CI test run. Tally ~27.9M raw, house ~14%.
+
+- 2026-07-17 ~6pm (GOLD WINDOW): ██ **THE LITTLEWOOD CAMPAIGN
+  OPENS (JYH: "let's choose 1, but keep full VMVT as a possible
+  target")** ██ — the staged power-region road: F1+F2 → THE
+  LITTLEWOOD REGION (first beyond dVP in any assistant,
+  ~3.5–5.5M, pole-free), VMVT REGISTERED as the summit behind
+  the checkpoint (own recon VMVT-R0 + GO/NO-GO when the
+  checkpoint lands; option C — re-parametrize cheap-MR to
+  consume Littlewood — is the house design question that could
+  make VMVT unnecessary). Dispatched: **VK-N1** (the Weyl–van
+  der Corput A-process inequality, new track Salt/ExpSum/) +
+  **VK-N2** (Kusmin–Landau + the second-derivative test).
+  **CI DIAGNOSIS + SEED PLAN:** the 90-min cancel was honest —
+  the mathlib cache ENGAGED (8,564 files at 19:53); salt's own
+  corpus needs ~2–2.5h cold on 4 cores. Fix landed: actions/cache
+  on .lake/build (restore-keys incremental) + cap raised to 240
+  for the SEEDING run (~$1.20); cached runs thereafter = minutes.
+  Seeding run dispatched + watcher. Board: N-SHIU, ROOT-TWO,
+  VK-N1, VK-N2, CI seed run. Tally ~28.0M raw, house ~14%.
