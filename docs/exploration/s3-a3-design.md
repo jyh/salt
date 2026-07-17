@@ -387,3 +387,38 @@ flight) → `contradiction_of_mrtDoor`. Constants stay symbolic
 (GoldbachEnergyM2.lean); GB-HSQ executor = GB-11+14 (the defs +
 the Euler majorant, GoldbachEnergyHsq.lean). Wave 2 on their
 landing: GB-5/6 (Sieve), then GB-7..10 (Hpt assembly), GB-12/13/15.
+
+## W3-F — the (2.4)→(2.11) producer chain FROZEN (W3-F-R0,
+adjudicated 2026-07-20)
+
+**h211 IS Tao (2.11) verbatim** at the model + normalized measure;
+the producer is §2's (2.4)→(2.6)→(2.11), pp. 12–16 (NOT pp. 19–21
+— the recon corrected the house's page pointer). **The §2 collapse
+is PARTIAL:** the g_{ε²} truncation dies (λ's alphabet is {±1};
+entropy_liouvilleWindow_le already bounds H ≤ H·log2 — we also
+dodge Tao's O(ε²H/logH) truncation error) and the pretentious
+dichotomy is NOT on this path (it feeds Prop 2.4 = the MRT door,
+downstream); but **Prop 2.6 (the multiplicativity p-average:
+1_{...}g₁g₂(n) = c_p·(...)(pn), then affine pn ↦ n+j at cost 1/p,
+sum over j ≤ H and p ∈ 𝒫_H) survives as THE class-C node.**
+
+**Frozen statements** (probe ProbeW3F.lean, elaborates; seam
+byte-verified through outer_combine): `logChowla2Fails eps x ω`
+(anti-vacuity probed both directions); Stmt 1
+`singleCorr_of_fails` (A: ÷Z via harmonic_window_bounds, ε/2
+margin); Stmt 2 `fBridge_of_singleCorr` (C: Prop 2.6; sub-split 2a
+per-(p,j) reduction via the LANDED dilation_error_div — explicit
+error 2Mr/q²/Z, better than Tao's o(1) — + D2, and 2b sum + D3 +
+error control; needs hωbig regime hypothesis, weaker than hhead);
+Stmt 3 `h211_of_logChowla2Fails` (A glue; its (c₁, h211) pair IS
+outer_combine's parameter pair).
+
+**New nodes cut:** **D2** (A): port liouville_apply_mul/
+liouville_int_prime from Salt/TwinBar into the spine. **🚩 D3
+(B/C, NEW LOAD-BEARING GAP): primeWindow_sum_inv_ge — the Mertens
+LOWER bound Σ_{p∈𝒫_H} 1/p ≥ c/log H** (needs a dyadic Chebyshev
+lower count π(N)−π(N/2) ≫ N/log N; only the UPPER direction exists
+anywhere in the tree). Tao's "by the prime number theorem" hides
+it; the H/logH grade of h211 is born here. **Offset note:** the
+failure Prop uses λ(n)λ(n+1); liouvilleWindow starts at λ(n+1) —
+one translation, absorbed in Stmt 2's j-sum.
