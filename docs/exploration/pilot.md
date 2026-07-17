@@ -5313,3 +5313,17 @@ decisions per question.
   reduction; moot at public release (free runners). The billing
   rerun (29599988363) is IN PROGRESS — today's badge verdict
   pending via the watcher. In flight: HB-F-TAU, TD-R2a, TD-R2b.
+
+- 2026-07-20 (GOLD WINDOW): ██ **TD-R2b LANDS FIRST-PASS — THE
+  ORTHOGONALITY WALL IS A KERNEL THEOREM** ██ (≈ 56k / 10 tools,
+  1 design attempt). TransportWall.lean (7 theorems):
+  PmNormalized/PairCollapse/TwinDetecting (the triple as named
+  Props), **orthogonality_wall** (¬∀w, slots → detection; witness
+  w ≡ 1: slot-passing, twin-blind) + **no_slot_derived_twin_
+  linkage** (the META-form: no L can be both slot-derivable and
+  detection-sufficient) + the rigidity bridges. The honest-scope
+  fence in the 55-line module docstring (the strong wall stays
+  the Chowla-family open problem, prose-only). The boundary map
+  gains its frozen-exhibit paragraph. Ceremony: wired + 3
+  keystones BY NAME, full build exit 0 (9138 jobs), [skip ci].
+  In flight: HB-F-TAU, TD-R2a + the CI watcher.

@@ -175,3 +175,19 @@ slot-2 content? If yes, the oracle's dilation-covariant first
 moment becomes a genuine filler — the wall converts to a
 redesigned-door target. HB-ENGINE confirmed as the oracle's
 correct (sieve) home; the two doors stay orthogonal.
+
+## The orthogonality wall, frozen (TD-R2b — kernel-proved)
+
+`Salt/Entropy/Chowla/TransportWall.lean` proves the impossibility
+triple is real: `PmNormalized` (the ±1 slot-1 form) +
+`PairCollapse` (shift-1 slot 2) drop any weight into the CM±1
+class via the rigidity engine (`slots_iff_completelyMult`), and
+that class contains twin-blind members — `w ≡ 1` passes both
+slots with constant pair-correlation (`const_satisfies_slots` +
+`const_twin_blind`). Hence **`orthogonality_wall`** (the slots
+cannot force even minimal twin detection) and the meta-form
+**`no_slot_derived_twin_linkage`** (NO linkage predicate can be
+both slot-derivable and detection-sufficient). Honest scope: this
+refutes slot-satisfaction alone; the strong wall (no CM±1 weight
+controls the twin carrier through the spine) is the Chowla-family
+open problem, prose-only.

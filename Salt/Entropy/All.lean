@@ -67,6 +67,7 @@ import Salt.Entropy.Chowla.TowerDischarge
 import Salt.Entropy.Chowla.BoundaryMap
 import Salt.Entropy.Chowla.RegimeParam
 import Salt.Entropy.Chowla.SpineFinal
+import Salt.Entropy.Chowla.TransportWall
 import Salt.Entropy.Chowla.Windows
 import Salt.Entropy.Chowla.PrimeWindow
 import Salt.Entropy.ConsumerTest
@@ -198,6 +199,9 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.dropSum_exceeds_log_two_base
   Salt.Entropy.Chowla.log_chowla_two_conditional_hoisted
   Salt.Entropy.Chowla.log_chowla_two_final
+  Salt.Entropy.Chowla.orthogonality_wall
+  Salt.Entropy.Chowla.no_slot_derived_twin_linkage
+  Salt.Entropy.Chowla.slots_iff_completelyMult
   Salt.Entropy.Chowla.dilation_error
   Salt.Entropy.Chowla.weakUniform_generic
   Salt.Entropy.Chowla.weakUniform_spine
