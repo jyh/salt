@@ -3752,3 +3752,21 @@ decisions per question.
   kill-checked GREEN core — dispatches NOW into the freed slot),
   W2 (in flight), W2.3+W5 (the assembly). Tally ~1.85M raw,
   house ~29%.
+
+- 2026-07-18 ~19:55 (THREAD W): **W2 LANDS ITS FLOORS — AND THE
+  FABLE-BLOCK ARMS ON THM 6, AS THE KILL-CHECK PREDICTED** (≈
+  178k / 40 tools). Moments.lean: the trace character + the
+  twisted moment + norm + REALITY + **Thm 6 at n = 1**
+  (kloostermanMoment 1 = kloosterman = −P₁ — the convention
+  anchor) + the m-twist + **the Cor-3 orthogonality collapse**
+  (∑_m twisted moments = ∑_t the Artin–Schreier fiber count —
+  the moment layer genuinely consuming W-TRACE). THE BLOCK
+  (2-attempt protocol honored): full Thm 6 ⟺ the L-function
+  rationality — needs the η-on-monics + formal Euler product +
+  log-derivative apparatus (W1.3′'s consumers), a multi-node
+  build absent from the substrate. HOUSE RESPONSE: the Thm 6
+  sub-ladder freeze is authored via **W2T6-FREEZE (dispatched)** —
+  the established Opus-freeze-author + gate pattern (keeps the
+  Fable cap safe). Ceremony: wired + 3 keystones BY NAME, full
+  build exit 0 (9077 jobs). Tally ~2.05M raw, house ~28% —
+  **THE 2M CHIME.**
