@@ -4413,3 +4413,24 @@ decisions per question.
   This lands one hour after JYH asked "should we be skeptical?" —
   the answer demonstrated, not argued. In flight: W-DESCENT,
   W3-b-main-v2, W3-c-pnt. Tally ~9.6M raw, house ~17%.
+
+- 2026-07-19 ~19:20 (THREAD A): **W3-c-pnt LANDS FIRST ATTEMPT —
+  THE PNT WINDOW COUNT + THE KERNEL-CHECKED ANTI-VACUITY WITNESS**
+  (≈ 108k / 18 tools). WindowCount.lean:
+  **primeWindow_card_le_of_regime** (|𝒫_H| ≤ 2log4 · ε²H/log H
+  under √H ≤ ε²H/2 — the executor TIGHTENED the brief's constant
+  8× by picking the /2 regime form that kills the −log2
+  correction) + **regime_nonvacuous** (ε = 1, H = 4: the regime
+  holds with EQUALITY and 𝒫_4 = {3} is nonempty — the v1-falsity
+  lesson enforced as a kernel object). v2's hypothesis now has its
+  discharger: C₀ := 2·log4. SEAM FLAG (house-tier): the
+  ChowlaRegime does NOT yet imply √H ≤ ε²H/2 (the hcoprime field
+  gives only ε²H ≥ 2; for fixed ε it needs H ≥ 1/ε⁴) —
+  **REGIME-PATCH-3 cut**: new field hPNTwindow (endpoint form
+  √Hlo ≤ ε²Hlo/2) + propagation lemma sqrt_le_window_at (f(H) =
+  ε²H/2 − √H nondecreasing past 1/ε⁴ — the executor supplied the
+  monotonicity proof sketch), mirroring the patch-2
+  hPHheadroom/pH_headroom_at idiom; RegimeInst re-witness required.
+  Ceremony: wired + 2 keystones BY NAME, full build exit 0 (9104
+  jobs). **REGIME-PATCH-3 dispatches.** In flight: W-DESCENT,
+  W3-b-main-v2, W2-b′, R-PATCH-3. Tally ~9.9M raw, house ~18%.

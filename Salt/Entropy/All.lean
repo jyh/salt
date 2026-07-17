@@ -37,6 +37,7 @@ import Salt.Entropy.Chowla.Dilation
 import Salt.Entropy.Chowla.FBridge
 import Salt.Entropy.Chowla.Decoupled
 import Salt.Entropy.Chowla.CircleMethod
+import Salt.Entropy.Chowla.WindowCount
 import Salt.Entropy.Chowla.Windows
 import Salt.Entropy.Chowla.PrimeWindow
 import Salt.Entropy.ConsumerTest
@@ -78,6 +79,8 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.dft_is_fourier_coeff
   Salt.Entropy.Chowla.dft_parseval
   Salt.Entropy.Chowla.dft_l1_bound
+  Salt.Entropy.Chowla.primeWindow_card_le_of_regime
+  Salt.Entropy.Chowla.regime_nonvacuous
   Salt.Entropy.Chowla.dilation_error
   Salt.Entropy.Chowla.weakUniform_generic
   Salt.Entropy.Chowla.weakUniform_spine
