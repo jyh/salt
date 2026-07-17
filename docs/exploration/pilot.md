@@ -3997,3 +3997,19 @@ decisions per question.
   162k + exec 122k + house). Ceremony: wired + 4 keystones BY
   NAME, full build exit 0 (9083 jobs). **W5B dispatches into the
   slot.** Tally ~4.0M raw, house ~22% — **THE 4M CHIME.**
+
+- 2026-07-19 ~03:10 (THREAD W): **W6.1 LANDS — the composite
+  multiplicativity, first pass** (≈ 167k / 45 tools; the
+  scratch-prototype-then-write discipline). Composite.lean: the
+  character-representation lemma (Pontryagin count), the CRT
+  character SPLIT (derived from first principles — NO packaged
+  mathlib lemma exists), the EXACT twist form (derived not
+  memorized), the norm factorization + the reduction step (the
+  induction atom for the future factorization-indexed product).
+  The consumer tail now has: multiplicativity ✓; needs the k ≥ 2
+  prime-power evaluation (elementary Salié — one node) + the
+  p-level Weil (the ladder's summit) to assemble ‖S(a,b;c)‖ ≪
+  τ(c)√c. Ceremony: wired + 2 keystones BY NAME, full build
+  exit 0 (9084 jobs). In flight: W5B, A3-W1A, W2T6-E1, A-DIVERGE
+  (LONG — poking next cycle) = 4+1 free. Tally ~4.2M raw, house
+  ~21%.
