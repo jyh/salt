@@ -3505,3 +3505,23 @@ decisions per question.
   Re-price: ~400–600k as a two-node sub-rung — affordable in the
   window. **G-PP2 dispatches** (the CRT count + the sums + the
   PpLevel assembly). Ceremony: wired, full build exit 0 (9067).
+
+- 2026-07-18 ~11:40 (THREAD K): **KL-R0 REFUTES THE K-THREAD'S
+  CENTERPIECE (recon-refutes-house, the kill-check at plan
+  level)** (≈ 129k / 23 tools). THE NUMBERS: the sharp-Weil
+  beyond-½ headroom is 2ϖ = 1/584 ≈ 0.0017 in θ; the elementary
+  c^{3/4} bound is q^{1/4} weaker per sum = an x^{1/8} loss —
+  35–73× the ENTIRE headroom: net level 0.38–0.44 < ½. The
+  elementary route lands BELOW the large sieve. Dispersion mode B
+  needs Weil INSIDE. ⟹ **heath_brown is NOT completable via
+  either route** — the true beyond-½ gate is RH-for-curves
+  (Tier-1), confirming landscape.md L209. The honest yields: (1)
+  Route-2 mode A (Cauchy–Schwarz + the LANDED large-sieve energy,
+  Kloosterman-free) closes Chen's TransposedBV medium-band
+  residual AT level ½ (~0.7–1.1M, 4 C-nodes, high reuse) — the
+  one reachable door; (2) route-1's K2 (CRT multiplicativity)
+  repurposes toward the PpLevel root count — ALREADY IN FLIGHT
+  as G-PP2; (3) the τ-in-AP corner honestly checked (4/7 > ½ but
+  < the needed 2/3 — short). The play-window plan's "HB-R4/R5
+  revival" line is STRUCK; registered as a death-with-node-map.
+  DECISION → JYH: fund D1–D4 (the Chen residual) or fold thread K.
