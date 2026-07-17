@@ -3939,3 +3939,23 @@ decisions per question.
   **A3-W1A dispatches** (the (3.9) gap — front-loading the
   risk). In flight: 6/6 FULL (E1, W5, W6.1, M-GATE, A-DIVERGE,
   W1A). Tally ~3.5M raw, house ~23%.
+
+- 2026-07-19 ~01:20 (THREAD M): **THE M GATE: GO-WITH-BLOCK — and
+  the ruthlessness charge paid: THREE recon headlines DEMOTED**
+  (≈ 162k / 26 tools; the master + both instances probe-built
+  END-TO-END, exit 0). THE CORRECTIONS: (B1) the master must be
+  TOLERANT (agree + budget → |Φu − Φw| ≤ 2B — the parity content
+  LIVES in the budget; equality is the B = 0 corner); (B2) the
+  three δ₀'s are THREE DIFFERENT NUMBERS (1/200; 0.4427; the
+  A > 2 family) — a per-instance ROLE, no cross-wall constant;
+  (B3) the 0.614 "price tie" is DEFINITIONAL (the threshold
+  equation rearranged — field_simp) → prose, not theorem; (B4)
+  W1 is a CS ceiling, NOT an indistinguishability instance — the
+  honest shape: TWO walls share the tolerant master + W1 is the
+  threshold leg + the door leg. Three distinct lemmas, one
+  narrative — but the re-derivations are GENUINE (parity_wall
+  and no_readable_certificate both fall out of the master
+  EXACTLY, no extra hypotheses). The corrected freeze authored
+  (m-design.md); nodes re-cut to ~340k. **M-EXEC dispatches**
+  (Separation.lean, M1→M5). In flight: 6/6. Tally ~3.65M raw,
+  house ~23%.
