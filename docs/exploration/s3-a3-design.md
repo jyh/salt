@@ -1050,3 +1050,25 @@ via the corner pattern.
   discharge pp3Term's seqDiscrepancy sum → with the landed
   pp2 bound, N-PP-ASSEMBLY closes PpLevel (3999/4000).
 Dispatch: NK ∥ SUMS now; ASSEMBLY after both.
+
+## MERT-3b — THE γ-INTEGRAL FREEZE (house design block; the
+## D-risk DISSOLVES on inspection)
+
+The worked chain (house, verified by substitution): with ε = s−1,
+(s−1)∫₂^∞ loglog t·t^{−s}dt  =[t = e^u]=  ε∫_{log 2}^∞ log u·
+e^{−εu}du  =[v = εu]=  ∫_{ε·log 2}^∞ log v·e^{−v}dv − log ε·
+∫_{ε·log 2}^∞ e^{−v}dv  →  (−γ) − log ε·1. Two sub-lemmas:
+- **3b-α (the γ-integral):** ∫₀^∞ e^{−v}·log v dv = −γ. Proof:
+  differentiate Real.Gamma_eq_integral under the integral at
+  s = 1 (mathlib's parametric-integral machinery; dominator
+  (t^{−δ}+t^{δ})|log t|e^{−t}) ⟹ HasDerivAt Γ (∫e^{−t}log t) 1;
+  equate with the LANDED hasDerivAt_Gamma_one (−γ) by
+  derivative uniqueness. C-class — NOT the feared D; the mathlib
+  TODO (Gauss's digamma rep) is not needed, only this single
+  value.
+- **3b-β (the asymptotic):** the two-piece split above with
+  explicit tails (|∫₀^{ε·log2}| ≤ ε·log 2·(1+|log(ε log 2)|) → 0;
+  the e^{−v}-mass below ε·log 2 → 0). Dominated convergence or
+  explicit bounds — executor's choice.
+One node MERT-3b lands both. Then 3c (equate MERT-3a's ζ-side
+with 3b through MERT-1's Abel form) → 4 → 5.
