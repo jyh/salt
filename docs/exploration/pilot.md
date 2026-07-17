@@ -5394,3 +5394,26 @@ decisions per question.
   N-SHIU-R0). The deep regime (absorption + k-bump) verified
   intact. hdom's true price was under-registered — the hidden
   debt is now named. Catch direction: designer-catches-designer.
+
+- 2026-07-20 (GOLD WINDOW): **SMALLQ-3 LANDS ITS PARTIAL — 3 OF 4
+  SUB-ESTIMATES + THE GIFT, AND A LOUD DECOMPOSITION CATCH** (≈
+  210k / 58 tools; honest Zeno halt at exactly 2 named residuals).
+  Salt/Maynard/GehSmallQEst.lean (8 declarations, sorry-free,
+  house-verified [3 axioms]): **window_psiAP_diff_SW** (the
+  windowed SW differencing engine — psiAP_sub_psiTot_bound at
+  both endpoints) + **window_lambda_disc_le** (fusion 1+2) +
+  psiAP_diff_eq/window_lambda_residue_eq (the Ioc extraction) +
+  **smallQCofactor_seqDiscrepancy_le_trivial** (the unconditional
+  small-x engine carrying the crucial 1/m) + the GIFT:
+  **smallQCofactor_seqDiscrepancy_eq_zero_of_not_coprime**
+  (non-coprime cofactors give discrepancy EXACTLY 0). Residuals:
+  R1 (the gcd=1 r-twist core — Möbius over d∣r + SW at enlarged
+  qd + τ tail) and R2 (the coprime-mean seam). ██ THE CATCH
+  (executor-catches-designer #46): sub-estimate 3 is NOT one
+  step — it is a full BV-with-divisor-twist, ≥ sub-est 4 in
+  difficulty, and the four-way decomposition OMITTED the seam
+  (an implicit FIFTH sub-estimate). The briefing's "the small-x
+  split dominates" was WRONG; ledgered, SMALLQ-4 must be designed
+  against the corrected five-way map. ██ Ceremony: wired,
+  Maynard build exit 0 (8580 jobs). Board: HB-R0 ADJUDICATION
+  PENDING (RED at framing — the PDF gate), the CI watcher.

@@ -77,3 +77,4 @@ import Salt.Maynard.GehPp
 import Salt.Maynard.GehPp2
 import Salt.Maynard.GehWindowPnt
 import Salt.Maynard.GehSmallQClose
+import Salt.Maynard.GehSmallQEst
