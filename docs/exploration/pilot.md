@@ -6184,3 +6184,20 @@ decisions per question.
   third option. The design queue shrinks: ShiuCore prep,
   SMALLQ-4, reports. Board: MERT-3b, PP3-ASSEMBLY, DH-2b-i,
   seed #2. Tally ~31.5M raw, house ~14%.
+
+- 2026-07-17 ~16:55 PT (GOLD WINDOW): ██ **THE VMVT CAMPAIGN OPENS
+  (JYH: "yes, so we go for full VMVT")** ██ — the summit ratified
+  ahead of its ripening (option-C's RED made it stark: VMVT or
+  MR parks forever). THE SHARPENING from the house arithmetic:
+  any θ < 1 clears the gate ⟹ the target is the WEAKEST mean
+  value yielding any power region — Vinogradov's ORIGINAL
+  (Linnik–Karatsuba p-adic, elementary double induction), NOT
+  Wooley/BDG. **VMVT-R0 dispatched** (~170k): ground the
+  Karatsuba route, the fixed-k question (the biggest potential
+  simplification — a fixed small k for θ = 3/4-grade would
+  delete the k-uniformity engineering), the formalization map
+  (the corpus's fresh root-counting + ExpSum assets transfer),
+  the WP cut vs the 6–12M prior. The prize chain: VMVT → power
+  region → MR unlocks → UNCONDITIONAL log-Chowla-2. Board:
+  MERT-3b, PP3-ASSEMBLY, DH-2b-i, VMVT-R0, seed #2. Tally
+  ~31.6M raw, house ~14%.
