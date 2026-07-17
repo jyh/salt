@@ -5059,3 +5059,20 @@ decisions per question.
   Ceremony: wired + 2 keystones BY NAME, full build exit 0 (9130
   jobs). In flight: W3E-TOWER, GEH-REV-R0, MB-1. Tally ~20.5M
   raw, house ~14%.
+
+- 2026-07-20 ~12:10: **GEH-REV-R0 ADJUDICATED — the re-price is
+  FLAT (0.75–1.2M), all four obligations remain debt, AND THE
+  WINDOWPNT LEAD** (≈ 113k / 32 tools; the probe even exposed
+  halt-#2's defect at the TYPE level). THE HONEST FINDING: the
+  window's marquee landings are ORTHOGONAL to this door (additive
+  vs multiplicative machinery — "the corpus grew ⟹ everything got
+  cheap" is FALSE and now ledgered); only siegelWalfisz_holds
+  (proven pre-window) helps. PpLevel rose to the critical path
+  (the (ZMod 2^e)ˣ corner). N-REPLUMB confirmed Fable-tier (the
+  combinator's global-balance hypothesis provably unsatisfiable
+  for vP3 — the house designs the local-scale re-cut next). **THE
+  LEAD: WindowPNT's "mathlib has no PNT" premise is STALE — if
+  Chen's PNT-rate covers the 64N window, one of the door's TWO
+  analytic inputs deletes. WINPNT + N-SMALLQ DISPATCH.** In
+  flight: W3E-TOWER, MB-1, WINPNT, N-SMALLQ. Tally ~20.7M raw,
+  house ~14%.

@@ -680,3 +680,33 @@ multiplicativity dependency sweep — the certificate data; B/C) →
 MB-2 (the uniqueness lemma; B) ∥ MB-3 (the characterization; B) →
 MB-4 (house synthesis: the boundary map document + any door
 freeze; Fable). MB-1 dispatches now.
+
+## GEH-REV-R0 — ADJUDICATED (2026-07-20): re-price FLAT at
+0.75–1.2M; all four obligations remain DEBT; the WindowPNT lead
+
+**The honest headline: the window's marquee landings are
+ORTHOGONAL to this door** — Weil/Kloosterman/Chowla feed additive
+correlations, not multiplicative AP-discrepancies; only the SW arc
+helps (SmallQTypeII's small-q half now discharges from the PROVEN
+siegelWalfisz_holds). Composition shift: SmallQ −150k, PpLevel
++150k (the floors made the mathlib gap precise: the composite
+k-th-power root count incl. the (ZMod 2^e)ˣ 2-torsion corner
+mathlib entirely lacks). No obligation is research-open; the door
+does NOT reclassify.
+
+**The DAG (3 parallel tracks + glue):** A: N-REPLUMB (FABLE-TIER
+— the pieceObligationU_of_multiblock combinator demands global
+balance x ≤ 4NᵢMᵢ that vP3's low dyadic blocks provably violate;
+the re-cut to a local-scale variant is an interface change,
+reserved; the house designs it next) → N-HDOM + N-TYPEI-MID.
+B: N-SMALLQ (C, 150–250k — the CRT/Möbius reduction onto
+siegelWalfisz_holds; reindex landed). C: N-PP-ROOT (C→Fable,
+250–400k, THE critical path) → N-PP-ASSEMBLY. D: N-WIN glue.
+
+**🚩 THE LEAD (dispatched as WINPNT): WindowPNT may be
+DISCHARGEABLE** — it was stated as an interface "because mathlib
+has no PNT"; that premise is STALE (the corpus has PNT-with-rate
+through the SW gate: Salt.Chen.lambda_mass_lower etc.). If the
+rate covers the 64N window, ONE OF THE DOOR'S TWO GENUINE ANALYTIC
+INPUTS IS DELETED — the door becomes GEH_min + obligations, full
+stop. Verify-then-discharge, ~50–150k.
