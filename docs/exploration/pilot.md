@@ -3872,3 +3872,26 @@ decisions per question.
   story.** Ceremony: wired + 2 keystones BY NAME, full build
   exit 0 (9081 jobs). Tally ~3.0M raw, house ~24% — **the 3M
   chime.**
+
+- 2026-07-18 ~23:40 (THREAD M): **M-R0 ADJUDICATED — THE THREE
+  WALLS ARE ONE LP GAME** (≈ 164k / 19 tools; the master schema
+  KERNEL-ELABORATED in-probe). THE FINDINGS: (1) the dual
+  inventory — twinbar (value 2log2, the wing witness), parity
+  (the λ ↦ −λ involution, sPlus/sMinus SieveAgree-identical by
+  rfl×3), the impostor (the E2 pour, the razor floor at
+  equality) — ONE separation game, three costumes of ONE parity
+  witness; (2) THE PRICE TIE: δ₀·(wall value) = (1/log2 − 1)·
+  2log2 = **2 − 2log2 = 0.614** — the enlargement radius and the
+  value gap are the same price in two units; (3) the minimal
+  separators are LANDED OBJECTS (bigOmegaGt at δ₀ = 1/200 for
+  W3; TwinB_min = the ONE landed door to twins for W2; tentF/the
+  wing for W1); (4) the master (wall_of_indistinguishable +
+  input_breaks_wall + decoy_survives_below_radius)
+  probe-compiles; (5) the honest asymmetry: only W2's door is a
+  proven implication to twins; the concrete INPUTS (GAP-E,
+  TwinTypeII, λλ-2pt) stay class-D stated-not-attempted (R4).
+  Wave 1 = M1+M2 → M3 (~300k, mostly landed objects).
+  **M-GATE dispatches** (the vacuity risk is precisely the
+  master's abstractness — the gate checks the instances
+  RE-DERIVE the walls, not restate them). In flight: W5,
+  W2T6-GATE, A-DIVERGE, +M-GATE = 4.
