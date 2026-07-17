@@ -3368,3 +3368,24 @@ decisions per question.
   authored (the log-floor vacuity for ω ≤ e caught). **D-d0+B2
   EXECUTOR DISPATCHES** (one executor, the spike protocol armed);
   D-d → D-e sequential behind it.
+
+- 2026-07-18 ~05:20 (SPRINT 3): ██ **HB-R3b LANDS —
+  siegel_correlation_strong: THE CORRELATION STATEMENT IS A
+  THEOREM** ██ (S3-HB3B-EXEC ≈ 141k / 21 tools, 1 serious
+  attempt, 2 builds). Under SiegelSequence: exceptional data
+  exist at every strength with a PROVABLY NONEMPTY strong window
+  (the anti-vacuity witness conjunct IN the statement) where the
+  Siegel residue dominates (≥ x²/3) and ψ₁ TRACKS it — no
+  silence disjunct: the primes definitively impersonate χ. Route:
+  the private psi1_forced_exceptional re-runs the CharDispatch
+  case-iii template with the Siegel zero as the box witness (the
+  clean disjunct collapses); the box floor is the EXPOSED
+  3·c₄/√log x per the gate's mandatory rule; c₄ ≤ 1/60000
+  exposed for the witness margins. The executor correctly
+  resolved a task-text-vs-frozen-block tension TOWARD the frozen
+  block (the governing authority) and self-reported it. THE HB
+  LADDER'S BUILDABLE RUNGS ARE NOW ALL LANDED: R1 (the
+  dichotomy) + R2 (the correlation-or-silence core) + R3b (the
+  correlation statement); R3a documented dead-end; R4 the
+  documented death rung; R3c queued on JYH budget only. Ceremony:
+  grep clean, wired + 2 keystones, full build exit 0 (9061 jobs).
