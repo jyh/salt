@@ -929,3 +929,43 @@ cheap-MR for λ** (Tao Suppl. 6 route: Turán–Kubilius + Plancherel
 historic standalone. Registered openers (post-gate): MR-C
 (Turán–Kubilius, B/C, self-contained), MR-A (vertical-line L²
 from analytic_LS via gallagher_pointwise, C).
+
+## THE POLE-2 MEMO (house, 2026-07-17 ~3pm; grounded by MR-P2G):
+## MR IS VK-GATED — classical dVP does NOT suffice
+
+The grounded chain (Tao Suppl. 6 Thm 7, 6 fetch passes; MRT
+1503.05121 cross-check): the zero-free region enters at EXACTLY
+ONE step — bounding −ζ′/ζ(1 + 1/log Q + it) = o((log|t|)^{0.98})
+— but it is consumed UNIFORMLY AT HEIGHTS |t| UP TO ≍ X
+(polynomial in the scale: the door's additive window H ⟹
+T ≈ x/H, and H is fixed-large while x is tower-sized). At those
+heights classical dVP delivers only O(log|t|) — SHORT BY A FULL
+POWER OF LOG. The pretentious form makes it vivid:
+D(λ, n^{it}; x)² = loglog x + log|ζ(1+it)| + O(1); under dVP at
+|t| ≍ x^A this is ≥ O(1) — no divergence, and NOT even a
+guaranteed fixed-fraction cancellation, so the fixed-δ₀ slack
+does NOT rescue dVP: the Plancherel step needs |μ̂(ξ)| ≤ 1 − δ₀
+uniformly over the polynomial-height support, and dVP leaves
+"λ pretends to be n^{it} at some polynomial height" unexcluded.
+Both grounded sources spend VK on exactly this object; MRT's
+fixed 1/700-power saving is VK-coupled. (Loud residual: the
+tail-range dispatch [exp((log X)^{0.99}), X] was not verbatim-
+recovered; and any intermediate region σ > 1 − c/(log|t|)^θ,
+θ < 0.98, would also suffice — VK's 2/3 is sufficient, not
+necessary.)
+
+**VERDICT: the MR campaign stays GATED, now with the gate
+resolved AGAINST the cheap branch.** Two registered
+continuations, both requiring a dedicated design session:
+1. **MR-VK** — build Vinogradov–Korobov (or ANY intermediate
+   power-region θ < 0.98; never formalized in any assistant;
+   +4–8M ⟹ campaign ~16–24M). Historic, priced, honest.
+2. **MR-RESHAPE (D-grade)** — re-design the door/spine
+   consumption so the internal frequency support is capped below
+   polynomial heights (the Xi seam is the natural candidate home,
+   BUT whether the ξ/H major-arc restriction propagates into the
+   internal Plancherel range is exactly the open design question
+   — unresolved, do not assume).
+HB-ENGINE remains the active road. MR-C (Turán–Kubilius) and
+MR-A (vertical-line L²) stay registered as unconditionally
+useful infrastructure either way.

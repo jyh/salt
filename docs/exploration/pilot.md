@@ -5623,3 +5623,29 @@ decisions per question.
   build exit 0 (8580, olean verified). N-SHIU-R0 dispatches per
   the frozen chain. Board: WP2-SPIKE, MR-P2G, CI test run,
   N-SHIU-R0. Tally ~26.5M raw, house ~14%.
+
+- 2026-07-17 ~3pm (GOLD WINDOW): ██ **WP2-SPIKE FINAL: YELLOW —
+  THE DETECTOR APPARATUS FROZEN (DH-1..4) + CATCH #50** ██ (≈
+  241k total / 35 tools; 3 Lean probes exit 0). The house's
+  "partial-fraction best route" REFUTED — structurally capped at
+  1/L (additive apparatus cannot reach exponential content; the
+  probes prove the corpus shapes were never the blocker). The
+  attack: the reversed-form (Jutila 1.10) soft-Perron detector on
+  landed suppliers — incl. TODAY's LFunction_zero_count_near_one
+  consumed at DH-2, which ALSO amortizes catch #47's EF rebuild.
+  WP2 → 3.0–4.2M center 3.4M; HB-ENGINE GO. Gate: the complex-γ
+  source read (Bellotti–Puglisi/Pintz) before the node freeze.
+
+- 2026-07-17 ~3pm (GOLD WINDOW): ██ **THE POLE-2 MEMO: MR IS
+  VK-GATED — the cheap branch dies at polynomial heights** ██
+  (grounding ≈ 50k MR-P2G, 6 fetch passes + MRT cross-check;
+  memo house/Fable). The ZFR is spent at ONE step but at heights
+  |t| ≲ X; dVP is short a FULL log-power there, and the fixed-δ₀
+  slack does NOT rescue it (no uniform band-cancellation).
+  Registered continuations: MR-VK (+4–8M, historic) vs MR-RESHAPE
+  (D-grade, the Xi-propagation question OPEN). HB-ENGINE stays
+  the active road. Backlog answer grounded: H-L was SUPERSEDED
+  2026-07-14 (→ the public open-problems board) — revival is
+  JYH's call; N-PP-ROOT recon dispatches as the GEH backlog
+  pickup. Board: N-SHIU-R0, N-PP-R0, CI test run. Tally ~26.9M
+  raw, house ~14%.

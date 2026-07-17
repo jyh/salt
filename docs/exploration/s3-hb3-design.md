@@ -954,3 +954,39 @@ Halász–Montgomery; we do not need it).
   YELLOW/RED (the D-posture siege prep). Local copy:
   scratchpad/jutila_linnik.pdf (session) — re-curl the URL above
   in future sessions.
+
+### WP2-SPIKE FINAL (adjudicated 2026-07-17 ~3pm): YELLOW — THE
+### DETECTOR APPARATUS; the partial-fraction route is DEAD
+
+**CATCH #50 (the spike refutes the house route-call):** the WP2
+amendment named partial-fraction/positivity "best route" — WRONG.
+The spike proved (symbolically + 3 Lean probes, exit 0) that the
+additive Re 1/(σ−ρ) apparatus caps at 1−β ≫ 1/L STRUCTURALLY
+(recovering exactly the landed zero_free_region_primitive; σ-
+ladders don't amplify — scale-local, no cross-rung coupling). The
+log η is exponential content (x^{−(1−β)} at log x ≍ L); no finite
+additive combination reaches it. The corpus shapes instantiate
+fine (probes green) — the ROUTE was incapable, not the library.
+
+**THE FROZEN ATTACK: DH-1..4, the reversed-form soft-Perron
+detector** (targets Jutila (1.10)'s shape δ₁ ≥ c·D^{−b(1−β)}/
+polylog — a LOWER bound on the Siegel gap given another zero,
+the polarity of the landed Siegel machinery):
+- DH-1 (C, 0.3–0.5M): the 1∗χ-type detector + Mellin repr. (on
+  the landed Kernel/Psi1Identity stack).
+- DH-2 (C, 0.5–0.8M, load-bearing): the upper contour estimate
+  retaining the complex zero — kernel_residue probe-verified at
+  a complex pole; consumes LFunction_zero_count_near_one (landed
+  TODAY — used exactly here); flips ShiftVariants' hzf
+  architecture to enumerated near-1 residues. OVERLAPS catch
+  #47's EF rebuild: ~0.3–0.5M amortization credit.
+- DH-3 (B, 0.15–0.3M): the nonneg competing lower estimate (the
+  landed Siegel skeleton's 1∗χ pattern).
+- DH-4 (A/B, ~0.1M): balance + the landed
+  LFunction_one_re_le_mvt_sharp bridge + logs (log η born here).
+NOT needed: Turán power-sums, Hadamard products, sharp Perron,
+Jutila Thm 1. **WP2 re-priced 3.0–4.2M, center ~3.4M; HB-ENGINE
+GO at the re-centered price.** GATE before the node-table freeze:
+one house recon-read of Bellotti–Puglisi §§2–3 (arXiv:2201.03990)
+/ Pintz for the COMPLEX-γ case of the elementary detector (the
+single load-bearing uncertainty; fallbacks priced +0.3–1.0M).
