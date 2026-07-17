@@ -3592,3 +3592,22 @@ decisions per question.
   nodes (W0.1 Kloosterman def, W3.1 hasseDeriv wiring, W1.1
   GaloisField plumbing). **W-KC (both kill-checks) + W-FOUND
   (the foundations) DISPATCH.** Spend tally: ~0.45M since reset.
+
+- 2026-07-18 ~14:10 (THREAD W): ██ **BOTH KILL-CHECKS GREEN — THE
+  GOLD LADDER'S D-LOCI DE-RISK TO C** ██ (W-KC ≈ 112k / 30 tools,
+  COMPILING Lean probes, clean axioms). W4.1d GREEN: the Stepanov
+  dimension count carries on mathlib rank-nullity
+  (ker_ne_bot_of_finrank_lt + degreeLT.basis + finrank_prod); the
+  feared degree-arithmetic swamp is 4 LINES; a full miniature of
+  the constraint-map-into-degreeLT-products COMPILES. Honest
+  finding: the count is pure finite-dim linear algebra — q never
+  enters. W2.2 GREEN: the formal PowerSeries route confirmed (the
+  local factor is a unit in R⟦X⟧; PowerSeries.log/derivativeFun
+  exist; the Newton recurrence P_{n+2} = −S·P_{n+1} − p·P_n is
+  the clean extraction atom). ONE RED SUB-FINDING (honest): the
+  hope of deleting W1.3′ (Thm 3/Cor 2) is REFUTED — the
+  cross-level recurrence is EQUIVALENT to zeta rationality
+  (𝔽_{p^n} ⊄ 𝔽_{p^{n+1}}); the Frobenius-orbit ↔ irreducible
+  correspondence stays on the critical path. THE LADDER PROCEEDS:
+  **W1.3′ dispatches** (independent of the in-flight W-FOUND).
+  Spend tally: ~0.65M since reset.
