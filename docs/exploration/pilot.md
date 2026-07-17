@@ -3552,3 +3552,20 @@ decisions per question.
   genuinely opens + HB-R4 revives. JYH manages quota; the spend
   watch chimes per 1M as armed. **W-R0 dispatched** (the Stepanov
   ladder recon, page-fidelity + mathlib substrate audit).
+
+- 2026-07-18 ~12:50 (THREAD G): **G-PP2 lands primitive 2 IN FULL
+  + a SPEC-ERROR CATCH on primitive 1** (≈ 160k / 35 tools). All
+  three multiplicative sums landed sorry-free (2^ω ≤ τ + the
+  divisor swap; sum 3 was already in Salt.LS — reuse found). THE
+  CATCH (executor-refutes-recon, concrete counterexample): the
+  frozen root-count bound is FALSE for non-unit a (r² = 0 in
+  ZMod p² has p roots > 2^{ω+1} for p ≥ 5) — the honest form
+  restricts to units; AND the load-bearing gap is the
+  (ZMod 2^e)ˣ 2-torsion structure (absent from mathlib) + the
+  k ≥ 3 X^k root counts (the crude tail explodes at x^{θ+1/3}).
+  PpLevel'S HONEST REMAINING PRICE: ~500–800k (a units-theory
+  development + the k-power fold). PpLevel STAYS a named
+  obligation; thread G holds pending the W-R0 verdict (heavy
+  nodes sequential per the spend watch). SPEND TALLY since reset:
+  ~0.3M (G-PP2 160k + house). Ceremony: wired, full build exit 0
+  (9068 jobs).
