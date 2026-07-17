@@ -54,6 +54,7 @@ import Salt.Entropy.Chowla.Prop26
 import Salt.Entropy.Chowla.GoldbachEnergyHsqAsm
 import Salt.Entropy.Chowla.GoldbachEnergyGc
 import Salt.Entropy.Chowla.GoldbachEnergyHsq2
+import Salt.Entropy.Chowla.ShiftCorr
 import Salt.Entropy.Chowla.Theorem23Shell
 import Salt.Entropy.Chowla.Windows
 import Salt.Entropy.Chowla.PrimeWindow
@@ -154,6 +155,9 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.hFac2_lcm_sum_le
   Salt.Entropy.Chowla.hFac2_mul_of_coprime
   Salt.Entropy.Chowla.hsq_holds2
+  Salt.Entropy.Chowla.integral_logMeasure_eq
+  Salt.Entropy.Chowla.integral_shift_le
+  Salt.Entropy.Chowla.corr_shift_le
   Salt.Entropy.Chowla.dilation_error
   Salt.Entropy.Chowla.weakUniform_generic
   Salt.Entropy.Chowla.weakUniform_spine

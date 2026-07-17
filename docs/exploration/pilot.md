@@ -4834,3 +4834,19 @@ decisions per question.
   wired + 3 keystones BY NAME, full build exit 0 (9122 jobs). GB
   STATE: hsq DONE (both freezes); hpt at GB-7 (in flight). In
   flight: SHIFT-CORR, GB-7. Tally ~17.2M raw, house ~15%.
+
+- 2026-07-20 ~11:20 (NIGHT SHIFT): **SHIFT-CORR LANDS — THE
+  MISSING CARRIER IS REAL** (≈ 246k / 45 tools, 1 serious
+  attempt, 6 mechanical fixes incl. the VARIABLE-DIVISION OMEGA
+  TRAP ledgered: omega abstracts ↑x/↑ω as a possibly-negative
+  atom — new gotcha for the briefs). ShiftCorr.lean:
+  **integral_logMeasure_eq** (the Dirac reduction, now PUBLIC
+  API), **integral_shift_le** (C-form 3·s·ω/x — SHARP, ω/x per
+  edge point not 2ω/x; hωx genuinely unused, kept for shape),
+  **corr_shift_le** (the s = 1 consumer form). The seam report
+  pre-computes HREDUCE's summed-error budget: Σ_{p,j} errors
+  collapse to O(H/(PH·logω))-grade, ω/x-suppressed under hheadC.
+  Ceremony: wired + 3 keystones BY NAME, full build exit 0 (9123
+  jobs). **HREDUCE DISPATCHES — the LAST node of the h211
+  producer.** In flight: GB-7, HREDUCE. Tally ~17.5M raw, house
+  ~15%.
