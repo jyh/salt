@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.Weil.Kloosterman
+import Salt.Weil.ArtinSchreier
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -15,7 +16,10 @@ Stepanov (Harcos/IK Ch. 11; the ladder in docs/exploration/pilot.md
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.Weil.norm_kloosterman_le_sub_one
+#audit_axioms Salt.Weil.trace_surjective
+  Salt.Weil.range_artinSchreier_eq_ker_trace
+  Salt.Weil.card_artinSchreier_solutions
+  Salt.Weil.norm_kloosterman_le_sub_one
   Salt.Weil.kloosterman_conj Salt.Weil.kloosterman_reindex_units
   Salt.Weil.X_sub_C_pow_dvd_iff_hasseDeriv
   Salt.Weil.galoisField_trace_eq_sum_frobenius

@@ -3634,3 +3634,15 @@ decisions per question.
   JYH is ATTENTIVE and rotating; he announces attentiveness.
   Protocol: attentive+rotating → up to 6 active, hot cadence;
   away → 3–4, paced to a single window.**
+
+- 2026-07-18 ~15:50 (THREAD W): **W-TRACE LANDS FULL — the
+  Artin–Schreier count is a theorem** (≈ 133k / 33 tools, ~first
+  attempt). ArtinSchreier.lean: trace_surjective; δ = x^p − x as
+  a genuine linear map; ker δ = the prime field (card p);
+  Tr∘δ = 0 (Frobenius telescoping); im δ = ker Tr (rank–nullity);
+  **card_artinSchreier_solutions — Harcos Thm 4 exactly** (the
+  coset bijection; Nat.card form, W2 consumption notes recorded:
+  ∑_x f(x^p−x) = p·∑_{Tr y=0} f(y) falls out directly). Ceremony:
+  wired + 3 keystones, full build exit 0 (9071 jobs). Away-pace
+  held: 2 in flight (W-ORBITS, D-e), no refill pending JYH's
+  next %. **TALLY: ~1.0M SINCE RESET — the first chime fires.**
