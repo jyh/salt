@@ -353,4 +353,120 @@ lemma fBridgeG_mean {v : Fin H → ℤ} (p : primeWindow eps H) :
     field_simp
   rw [← mul_assoc, harith]
 
+/-! ## The sharp concentration corollary (W2-b′, log-Chowla spine upgrade) -/
+
+/-- **The sharp variance-proxy bound** (W2-b′, the single spot).  Replacing the trivial
+window count `card ≤ ε²H + 1` used by `fBridge_var_le` with the Chebyshev/PNT-grade count
+`card ≤ C₀·ε²H/log H` (hypothesis `hcard`, the output shape of node W3-c-pnt) sharpens the
+Hoeffding denominator sum `∑_p (H/p+1)²` to `C₀·(ε²H/log H)·(2/ε²+1)²` — one power of
+`log H` lighter than `(ε²H+1)·(2/ε²+1)²`.  The per-prime bound `(H/p+1)² ≤ (2/ε²+1)²`
+(from `p > ε²H/2`) is reused verbatim; only the final cardinality factor changes. -/
+lemma fBridge_var_le_sharp (heps : 0 < eps) {C₀ : ℝ}
+    (hcard : ((primeWindow eps H).card : ℝ)
+        ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))) :
+    ((∑ p : primeWindow eps H,
+        (‖((H : ℝ) / (p : ℝ) + 1) - -((H : ℝ) / (p : ℝ) + 1)‖₊ / 2) ^ 2 : ℝ≥0) : ℝ)
+      ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))
+          * (2 / (eps : ℝ) ^ 2 + 1) ^ 2 := by
+  have heps2 : (0 : ℝ) < (eps : ℝ) ^ 2 := by positivity
+  have hB0 : (0 : ℝ) ≤ (2 / (eps : ℝ) ^ 2 + 1) ^ 2 := by positivity
+  rw [NNReal.coe_sum]
+  have hterm : ∀ p : primeWindow eps H,
+      (((‖((H : ℝ) / (p : ℝ) + 1) - -((H : ℝ) / (p : ℝ) + 1)‖₊ / 2) ^ 2 : ℝ≥0) : ℝ)
+        ≤ (2 / (eps : ℝ) ^ 2 + 1) ^ 2 := by
+    intro p
+    rw [fBridge_varTerm eps H p]
+    have hp0 : (0 : ℝ) < (p : ℝ) := by exact_mod_cast (prime_of_mem_primeWindow p.2).pos
+    have hle : (H : ℝ) / (p : ℝ) ≤ 2 / (eps : ℝ) ^ 2 := by
+      rw [div_le_div_iff₀ hp0 heps2]
+      nlinarith [window_lb eps H p]
+    exact pow_le_pow_left₀ (by positivity) (by linarith) 2
+  calc ∑ p : primeWindow eps H,
+        (((‖((H : ℝ) / (p : ℝ) + 1) - -((H : ℝ) / (p : ℝ) + 1)‖₊ / 2) ^ 2 : ℝ≥0) : ℝ)
+      ≤ ∑ _p : primeWindow eps H, (2 / (eps : ℝ) ^ 2 + 1) ^ 2 :=
+        Finset.sum_le_sum (fun p _ => hterm p)
+    _ = ((primeWindow eps H).card : ℝ) * (2 / (eps : ℝ) ^ 2 + 1) ^ 2 := by
+        rw [Finset.sum_const, Finset.card_univ, Fintype.card_coe, nsmul_eq_mul]
+    _ ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)) * (2 / (eps : ℝ) ^ 2 + 1) ^ 2 :=
+        mul_le_mul_of_nonneg_right hcard hB0
+
+/-- **The sharp usable concentration bound** (W2-b′): the Tao-grade exponent.  With the
+PNT-grade window count `hcard : |𝒫_H| ≤ C₀·ε²H/log H` (node W3-c-pnt's output shape) and
+`1 ≤ log H`, the F-bridge concentrates as
+`P_y(|F(v,y) − E_y F| ≥ δ) ≤ 2·exp(−δ²·log H / (2 C₀ ε²H (2/ε²+1)²))`.  At the calibrated
+threshold `δ = ε²H/log H` the exponent equals `ε²H / (2 C₀ log H (2/ε²+1)²)`, which is
+`≥ ε⁶H/(18·C₀·log H)` for `0 < ε ≤ 1` (absolute `c = 18`, via `(2/ε²+1)² ≤ 9/ε⁴`): ONE
+power of `log H`, not the `log²H` of `fBridge_concentration`.  This is the grade the tower
+telescope can fund (`Σ 1/(n log n)` diverges, `Σ 1/(n log²n)` converges). -/
+theorem fBridge_concentration_sharp {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1) (heps : 0 < eps)
+    (hne : (primeWindow eps H).Nonempty) {δ : ℝ} (hδ : 0 ≤ δ)
+    {C₀ : ℝ} (hC₀ : 0 < C₀)
+    (hcard : ((primeWindow eps H).card : ℝ)
+        ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)))
+    (hlog : 1 ≤ Real.log (H : ℝ)) :
+    (uniformOn (Set.univ : Set (ZMod (PH eps H)))).real
+        {ω | δ ≤ |fBridgeF eps H v ω - ∑ p : primeWindow eps H,
+            (uniformOn (Set.univ : Set (ZMod (PH eps H))))[fun ω =>
+              fBridgeG eps H v p (residueProj eps H p ω)]|}
+      ≤ 2 * Real.exp (-δ ^ 2 * Real.log (H : ℝ) /
+          (2 * C₀ * (eps : ℝ) ^ 2 * (H : ℝ) * (2 / (eps : ℝ) ^ 2 + 1) ^ 2)) := by
+  refine le_trans (fBridge_concentration_raw eps H hv hδ) ?_
+  set D := 2 * C₀ * (eps : ℝ) ^ 2 * (H : ℝ) * (2 / (eps : ℝ) ^ 2 + 1) ^ 2 with hDdef
+  set S := ((∑ p : primeWindow eps H,
+      (‖((H : ℝ) / (p : ℝ) + 1) - -((H : ℝ) / (p : ℝ) + 1)‖₊ / 2) ^ 2 : ℝ≥0) : ℝ) with hSdef
+  have hepsne : (eps : ℝ) ≠ 0 := by exact_mod_cast heps.ne'
+  have hlogpos : (0 : ℝ) < Real.log (H : ℝ) := zero_lt_one.trans_le hlog
+  have hlogne : Real.log (H : ℝ) ≠ 0 := hlogpos.ne'
+  have hHpos : (0 : ℝ) < (H : ℝ) := by
+    rcases Nat.eq_zero_or_pos H with h | h
+    · exfalso; rw [h, Nat.cast_zero, Real.log_zero] at hlog; linarith
+    · exact_mod_cast h
+  have hSpos : 0 < S := by
+    rw [hSdef, NNReal.coe_sum]
+    haveI : Nonempty (primeWindow eps H) := ⟨⟨hne.choose, hne.choose_spec⟩⟩
+    refine Finset.sum_pos (fun p _ => ?_) Finset.univ_nonempty
+    rw [fBridge_varTerm eps H p]; positivity
+  have hDpos : 0 < D := by rw [hDdef]; positivity
+  have hSle : S ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))
+      * (2 / (eps : ℝ) ^ 2 + 1) ^ 2 := by
+    rw [hSdef]; exact fBridge_var_le_sharp eps H heps hcard
+  have hkey : 2 * S * Real.log (H : ℝ) ≤ D := by
+    have hmul : 2 * S * Real.log (H : ℝ)
+        ≤ 2 * (C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))
+            * (2 / (eps : ℝ) ^ 2 + 1) ^ 2) * Real.log (H : ℝ) := by
+      apply mul_le_mul_of_nonneg_right _ hlogpos.le
+      exact mul_le_mul_of_nonneg_left hSle (by norm_num)
+    refine hmul.trans_eq ?_
+    rw [hDdef]; field_simp
+  refine mul_le_mul_of_nonneg_left (Real.exp_le_exp.mpr ?_) (by norm_num)
+  rw [div_le_div_iff₀ (mul_pos (by norm_num) hSpos) hDpos]
+  nlinarith [sq_nonneg δ, hkey]
+
+/-- **The sharp decoupled-mean corollary** (W2-b′, mirroring `fBridge_concentration_decoupled`).
+Substituting the decoupled `y`-mean `∑_p (1/p) ∑_j v_j v_{j+p}` (via `fBridgeG_mean`) into
+`fBridge_concentration_sharp`: `F` deviates from the two-point correlation by `≥ δ` with
+probability `≤ 2·exp(−δ²·log H / (2 C₀ ε²H (2/ε²+1)²))`, the one-log Tao grade. -/
+theorem fBridge_concentration_decoupled_sharp
+    {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1) (heps : 0 < eps)
+    (hne : (primeWindow eps H).Nonempty) {δ : ℝ} (hδ : 0 ≤ δ)
+    {C₀ : ℝ} (hC₀ : 0 < C₀)
+    (hcard : ((primeWindow eps H).card : ℝ)
+        ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)))
+    (hlog : 1 ≤ Real.log (H : ℝ)) :
+    (uniformOn (Set.univ : Set (ZMod (PH eps H)))).real
+        {ω | δ ≤ |fBridgeF eps H v ω - ∑ p : primeWindow eps H, (1 / (p : ℝ)) *
+            ∑ j ∈ Finset.range H,
+              (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ)) : ℝ)|}
+      ≤ 2 * Real.exp (-δ ^ 2 * Real.log (H : ℝ) /
+          (2 * C₀ * (eps : ℝ) ^ 2 * (H : ℝ) * (2 / (eps : ℝ) ^ 2 + 1) ^ 2)) := by
+  have hmean : (∑ p : primeWindow eps H,
+        (uniformOn (Set.univ : Set (ZMod (PH eps H))))[fun ω =>
+          fBridgeG eps H v p (residueProj eps H p ω)])
+      = ∑ p : primeWindow eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+          (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ)) : ℝ) :=
+    Finset.sum_congr rfl (fun p _ => fBridgeG_mean eps H p)
+  have h := fBridge_concentration_sharp eps H hv heps hne hδ hC₀ hcard hlog
+  rw [hmean] at h
+  exact h
+
 end Salt.Entropy.Chowla

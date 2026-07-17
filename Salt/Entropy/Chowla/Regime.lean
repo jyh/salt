@@ -115,6 +115,14 @@ structure ChowlaRegime where
       `8·(P_H at H)²·ω ≤ x` for every `H ≤ H₊` is then `pH_headroom_at`. -/
   hPHheadroom :
     8 * ((4 ^ ⌊eps ^ 2 * (Hhi : ℚ)⌋₊ : ℕ) : ℝ) ^ 2 * (ω : ℝ) ≤ (x : ℝ)
+  /-- **PNT prime-window gate, ENDPOINT form** (the `~W3-c-pnt` re-freeze).  Tao's
+      circle-method estimate (Lemma 3.4, p.22) cites `|𝒫_H| ≪ ε²H/log H` only "as ε
+      is small and H is large"; `primeWindow_card_le_of_regime` makes this explicit
+      under `√H ≤ ε²H/2` at each admissible `H`.  Since `t ↦ √t/t = t^(−1/2)` is
+      decreasing, the strongest (hardest) instance sits at the LOWER endpoint `H₋`,
+      so the field is frozen there: `√H₋ ≤ ε²H₋/2`.  It propagates upward to every
+      `H ≥ H₋` by `sqrt_le_window_at` (monotonicity `√H·√H₋ ≤ H`, i.e. `H₋ ≤ H`). -/
+  hPNTwindow : Real.sqrt (Hlo : ℝ) ≤ (eps : ℝ) ^ 2 * (Hlo : ℝ) / 2
 
 /-! ### Smoke lemma (wave III consumer) -/
 
@@ -154,5 +162,55 @@ lemma pH_headroom_at (R : ChowlaRegime) {H : ℕ} (hH : H ≤ R.Hhi) :
         apply mul_le_mul_of_nonneg_right _ hωnn
         nlinarith [hsq]
     _ ≤ (R.x : ℝ) := R.hPHheadroom
+
+/-! ### Per-`H` PNT-window gate (the endpoint monotonicity) -/
+
+/-- **The per-`H` PNT-window clearance.**  The regime field `hPNTwindow` freezes
+    `√H ≤ ε²H/2` at the LOWER endpoint `H₋`; this propagates to every admissible
+    `H ≥ H₋`.  Route (elementary): from the endpoint field and `H₋ = √H₋·√H₋`,
+    `2 ≤ ε²·√H₋` (divide by `√H₋ > 0`); and `√H·√H₋ = √(H·H₋) ≤ √(H·H) = H`
+    (from `H₋ ≤ H`).  Multiplying `2 ≤ ε²·√H₋` by `H` and `√H·√H₋ ≤ H` by `2`
+    gives `2·√H·√H₋ ≤ 2H ≤ ε²H·√H₋`, and dividing by `√H₋ > 0` yields
+    `2·√H ≤ ε²H`, i.e. `√H ≤ ε²H/2`.  The `hhi` argument matches the house
+    single-bound idiom of `pH_headroom_at` (here the LOWER bound is the binding
+    one); it is carried for the consumer seam but the monotonicity needs only
+    `hlo`. -/
+theorem sqrt_le_window_at (R : ChowlaRegime) {H : ℕ}
+    (hlo : R.Hlo ≤ H) (_hhi : H ≤ R.Hhi) :
+    Real.sqrt (H : ℝ) ≤ (R.eps : ℝ) ^ 2 * (H : ℝ) / 2 := by
+  have hfloorN : 4000000 ≤ R.Hlo := R.hHlo_floor
+  have hHfloorN : 4000000 ≤ H := le_trans hfloorN hlo
+  have hf := R.hPNTwindow
+  have hLpos : (0 : ℝ) < (R.Hlo : ℝ) := by exact_mod_cast (show 0 < R.Hlo by omega)
+  have hHpos : (0 : ℝ) < (H : ℝ) := by exact_mod_cast (show 0 < H by omega)
+  have hHL : (R.Hlo : ℝ) ≤ (H : ℝ) := by exact_mod_cast hlo
+  set L := (R.Hlo : ℝ)
+  set e := (R.eps : ℝ) ^ 2
+  have hsqrtL_pos : 0 < Real.sqrt L := Real.sqrt_pos.mpr hLpos
+  have hLeq : Real.sqrt L * Real.sqrt L = L := Real.mul_self_sqrt (le_of_lt hLpos)
+  -- (i) `√H·√L ≤ H` (i.e. `√(H·L) ≤ √(H·H) = H`, from `L ≤ H`).
+  have hi : Real.sqrt (H : ℝ) * Real.sqrt L ≤ (H : ℝ) := by
+    have e1 : Real.sqrt (H : ℝ) * Real.sqrt L = Real.sqrt ((H : ℝ) * L) :=
+      (Real.sqrt_mul (le_of_lt hHpos) L).symm
+    rw [e1]
+    have e2 : Real.sqrt ((H : ℝ) * L) ≤ Real.sqrt ((H : ℝ) * (H : ℝ)) :=
+      Real.sqrt_le_sqrt (mul_le_mul_of_nonneg_left hHL (le_of_lt hHpos))
+    rwa [Real.sqrt_mul_self (le_of_lt hHpos)] at e2
+  -- (ii) `2 ≤ e·√L` (from the endpoint field, dividing by `√L > 0`).
+  have key : 2 * Real.sqrt L ≤ e * Real.sqrt L * Real.sqrt L := by
+    calc 2 * Real.sqrt L
+        ≤ 2 * (e * L / 2) := by linarith [hf]
+      _ = e * L := by ring
+      _ = e * (Real.sqrt L * Real.sqrt L) := by rw [hLeq]
+      _ = e * Real.sqrt L * Real.sqrt L := by ring
+  have he_sqrtL : (2 : ℝ) ≤ e * Real.sqrt L := le_of_mul_le_mul_right key hsqrtL_pos
+  -- assemble: `2·√H·√L ≤ 2H ≤ e·H·√L`, divide by `√L`.
+  have a1 : 2 * Real.sqrt (H : ℝ) * Real.sqrt L ≤ 2 * (H : ℝ) := by nlinarith [hi]
+  have a2 : 2 * (H : ℝ) ≤ e * (H : ℝ) * Real.sqrt L := by nlinarith [he_sqrtL, hHpos]
+  have combined : 2 * Real.sqrt (H : ℝ) * Real.sqrt L ≤ e * (H : ℝ) * Real.sqrt L :=
+    le_trans a1 a2
+  have final : 2 * Real.sqrt (H : ℝ) ≤ e * (H : ℝ) :=
+    le_of_mul_le_mul_right combined hsqrtL_pos
+  linarith [final]
 
 end Salt.Entropy.Chowla

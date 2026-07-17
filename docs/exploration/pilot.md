@@ -4434,3 +4434,30 @@ decisions per question.
   Ceremony: wired + 2 keystones BY NAME, full build exit 0 (9104
   jobs). **REGIME-PATCH-3 dispatches.** In flight: W-DESCENT,
   W3-b-main-v2, W2-b′, R-PATCH-3. Tally ~9.9M raw, house ~18%.
+
+- 2026-07-19 ~20:10 (THREAD A): ██ **W2-b′ + REGIME-PATCH-3 LAND
+  (joint ceremony) — THE PINCH IS CLOSED END-TO-END** ██ (W2-b′ ≈
+  120k / 16 tools, 2 attempts; R-PATCH-3 ≈ 84k / 17 tools, 1
+  attempt). FBridge.lean: **fBridge_concentration_sharp +
+  _decoupled_sharp** — the Tao-grade exponent δ²·logH/(2C₀ε²H·
+  (2/ε²+1)²) ≥ ε⁶H/(18·C₀·logH) at calibration — ONE log,
+  tower-fundable; the single spot was exactly the card·max² →
+  hcard swap the W2-b executor predicted; hypothesis-parametric
+  on W3-c-pnt's exact output shape (drift-checked). Regime.lean +
+  RegimeInst.lean: **hPNTwindow** (endpoint) + **sqrt_le_window_at**
+  (propagation via √H·√L ≤ H — the patch-2 idiom); the EXISTING
+  witness already satisfies the field (2000 ≤ 500000) — no
+  enlargement, no other field touched; the full seam probe
+  typechecks: sqrt_le_window_at + primeWindow_card_le_of_regime +
+  3 ≤ H ⟹ v2's hypothesis at C₀ = 2log4. PROCESS: (i) build RACE
+  observed (house ceremony build vs the patch executor's full
+  build sharing .lake) — RULE: serialize; hold ceremonies while a
+  structure-patch executor holds the tree; (ii) W-DESCENT died to
+  the 64k OUTPUT ceiling (2nd occurrence, JYH confirms precedent)
+  — RULE promoted to STANDING BRIEF DOCTRINE: write files in
+  chunks ≤200 lines, build between sections, grep-don't-dump;
+  W-DESCENT resumed from transcript with the amendment. Ceremony:
+  wired + 2 keystones BY NAME, full build exit 0 (9104 jobs).
+  W3-a-3a/3c are now FULLY UNBLOCKED (all prereqs landed). In
+  flight: W-DESCENT (resumed), W3-b-main-v2. JYH reports the 5h
+  window at 25%. Tally ~10.3M raw, house ~18%.

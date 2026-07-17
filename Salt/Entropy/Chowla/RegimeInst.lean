@@ -115,7 +115,12 @@ theorem regime_exists_of_dropSum (J : ℕ)
            hHlo := by norm_num, hHlohi := hHhi, hC0 := le_refl 2,
            hHlo_floor := le_refl _, hheadroom := hhead,
            hcoprime := by norm_num, hfit := le_refl _,
-           hJcon := hJ, hheadroom' := hhead', hPHheadroom := hPH }, rfl⟩
+           hJcon := hJ, hheadroom' := hhead', hPHheadroom := hPH,
+           hPNTwindow := by
+             have hsqrt : Real.sqrt ((4000000 : ℕ) : ℝ) = 2000 := by
+               rw [show ((4000000 : ℕ) : ℝ) = (2000 : ℝ) ^ 2 by norm_num]
+               exact Real.sqrt_sq (by norm_num)
+             rw [hsqrt]; push_cast; norm_num }, rfl⟩
 
 /-- **The anti-vacuity witness (existential form).**  As soon as the
     barely-divergent series clears `log 2` at SOME finite length, a regime

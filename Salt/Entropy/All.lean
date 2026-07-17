@@ -73,6 +73,8 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.harmonic_shift_l1_le
   Salt.Entropy.Chowla.dvd_chowlaTower
   Salt.Entropy.Chowla.fBridge_concentration
+  Salt.Entropy.Chowla.fBridge_concentration_sharp
+  Salt.Entropy.Chowla.fBridge_concentration_decoupled_sharp
   Salt.Entropy.Chowla.fBridgeG_mean
   Salt.Entropy.Chowla.fBridgeF_mean
   Salt.Entropy.Chowla.fBridge_concentration_decoupled
