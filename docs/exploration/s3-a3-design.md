@@ -633,3 +633,50 @@ there; +0 ≤ δ side hypothesis). Landed ADDITIVELY (new def + the
 trivial implication MRTUniformity → Xi + the Xi-form final
 surface); no landed statement edited. It shrinks the door's
 formal surface honestly and future-proofs the MR campaign.
+
+## M-BOUNDARY — THE DEEP PLAY (house design block, 2026-07-20,
+JYH: "I love it, let's go for it, together")
+
+The question: what, precisely, separates the proven crack
+(log-Chowla-2) from the twin conjecture? Two probes, each with
+kernel-checked deliverables.
+
+**PROBE 1 — THE LOG-LOCALIZATION MAP.** Audit the landed spine
+for every logMeasure-SPECIFIC property consumed. The house's
+candidate inventory: (a) the dilation covariance (Lemma 2.5's
+1/q change of variables, carried by dilation_error_div) — the
+load-bearing log-specific step: the density 1/n is scaling-
+covariant (1/(qm) = (1/q)·(1/m)); the UNIFORM measure fails this
+constitutively; (b) harmonic_window_bounds (Z ≈ log ω — the
+normalization that turns ε·log ω into ε); (c) everything else
+(integral_logMeasure_eq etc.) is weight-GENERIC — verify.
+**Crown deliverable (MB-2): the dilation-covariance UNIQUENESS
+lemma** — a weight w : ℕ → ℝ≥0 satisfying the q-dilation
+covariance for all q is proportional to 1/n (the multiplicative
+functional equation) — i.e. a kernel-checked theorem that
+**logarithmic averaging is FORCED by dilation covariance**: the
+first formal explanation of WHY the log is there. Nobody has
+this.
+
+**PROBE 2 — THE Λ-TRANSPORT BREAK-POINT AUDIT.** Attempt-map the
+spine with Λ-grade weights in place of λ; formalize each break as
+a precise statement. The house's candidate break-points: (a) THE
+COLLAPSE ENGINE — λ(pN)λ(pN+p) = λ(N)λ(N+1) needs complete
+multiplicativity + unit modulus; Λ is supported on prime powers —
+the identity fails constitutively. Deliverable (MB-3): the
+CHARACTERIZATION lemma — the class of f admitting a p-collapse
+identity IS the completely multiplicative unit-modulus class — a
+wall-statement connecting to the landed parity-wall family;
+(b) the entropy alphabet ({±1}^H → H·log2 ceiling — the
+decrement's fuel; Λ unbounded breaks the Fannes/box machinery);
+(c) the F-bridge box (|λ| ≤ 1 load-bearing). **Best-case output:
+a NEW DOOR — the minimal hypothesis on a weight system making the
+entropy argument run (the "transport door") — possibly weaker or
+incomparable to TwinB_min. Honest-case output: new named
+obstruction theorems (publishable walls).**
+
+**Nodes:** MB-1 (recon: the spine-wide logMeasure/|λ|≤1/
+multiplicativity dependency sweep — the certificate data; B/C) →
+MB-2 (the uniqueness lemma; B) ∥ MB-3 (the characterization; B) →
+MB-4 (house synthesis: the boundary map document + any door
+freeze; Fable). MB-1 dispatches now.
