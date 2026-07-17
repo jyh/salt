@@ -5568,3 +5568,18 @@ decisions per question.
   full build exit 0 (9144 jobs). Board: WP2-SPIKE (final report
   pending), HB-1c, N-TAU-SPIKE, GehAnchor, CI watcher. Tally
   ~25.8M raw, house ~14%.
+
+- 2026-07-20 (GOLD WINDOW, night): ██ **N-TAU-SPIKE LANDS
+  FIRST-COMPILE — τ(n) ≪_ε n^ε, AND MATHLIB DIDN'T HAVE IT** ██
+  (≈ 89k / 28 tools; attempt count: 1, zero residuals).
+  Salt/Maynard/TauSpike.lean: **card_divisors_le_rpow** (the
+  frozen statement VERBATIM; explicit constant C =
+  (1 + 1/(ε·log2))^⌈2^{1/ε}⌉) + the local-factor lemmas
+  (tau_factor_large/small, tau_threshold). Mathlib finding: NO
+  τ = O(n^ε) in any form existed — a genuine gap filled, prime
+  upstreaming candidate. The N-REPLUMB dispatch chain's first
+  brick is banked; GehAnchor (in flight) states its hshiu
+  interface against exactly this shape. Ceremony: wired into
+  Maynard/All, Maynard build exit 0 (8580 jobs, olean verified).
+  Board: WP2-SPIKE (report pending), HB-1c, GehAnchor, CI test
+  run (cache fix). Tally ~25.9M raw, house ~14%.
