@@ -5820,3 +5820,22 @@ decisions per question.
   for the SEEDING run (~$1.20); cached runs thereafter = minutes.
   Seeding run dispatched + watcher. Board: N-SHIU, ROOT-TWO,
   VK-N1, VK-N2, CI seed run. Tally ~28.0M raw, house ~14%.
+
+- 2026-07-17 ~6:30pm (GOLD WINDOW): ██ **N-PP-ROOT-TWO LANDS —
+  THE 2^e CORNER, ZERO RESIDUALS, AND THE ⟨-1⟩×⟨5⟩ PLAN PROVED
+  UNNECESSARY** ██ (≈ 189k / 38 tools; essentially first-attempt).
+  Salt/Maynard/PpRootTwo.lean (5 results, [3 axioms]): the
+  primary gcd(k,2)·gcd(k,2^{e−2}) bound (e ≥ 3) + ██ the uniform
+  k=2 bound **card_sq_eq_units_two_pow_le_four** (≤ 4 ALL e — the
+  CRT-fold consumer) ██ + the ABSTRACT KEYSTONE
+  **card_ker_le_of_cyclic_ext** (any surjection onto cyclic with
+  cyclic kernel ⟹ submultiplicative k-torsion — REUSABLE for any
+  prime-power corner). EXECUTOR-SIMPLIFIES-RECON: no ⟨-1⟩
+  disjointness, no internal product — C₂ realized as the
+  (ZMod 4)ˣ reduction QUOTIENT (unitsMap surjective), C_{2^{e−2}}
+  as its kernel (cyclic via orderOf-5 + Lagrange). The flagged
+  "mathlib entirely lacks" corner: CLOSED, all-e, first-attempt.
+  Executor pre-wired All.lean (accepted). PpLevel chain: CYC ✓
+  TWO ✓ → **N-PP-CRT dispatches** → FOLD → ASSEMBLY. Board:
+  N-SHIU, VK-N1, VK-N2, N-PP-CRT, CI seed run. Tally ~28.2M raw,
+  house ~14%.
