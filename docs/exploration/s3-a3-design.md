@@ -481,3 +481,28 @@ assembly: hsq_holds_gen' (no-if, mechanical) + the hpt final
 (the z = ⌊H^(1/10)⌋ rpow seam per the M5Assembly templates + the
 small-H absorption + the composition) + the |Ξ_H| hookup through
 W3_AE_d_of_sieve → bigXi_bounded_of_sieve.
+
+**W3-F-G-R0 ADJUDICATED (night, 2026-07-20): G1 DISSOLVES, G2 IS
+ELEMENTARY, hωbig STRENGTHENED.** (1) G1 is a NON-GAP: reorder
+collapse-BEFORE-dilate — on the residue class p ∣ n+j+1 the
+identity λ(pN)λ(pN+p) = λ(N)λ(N+1) applies exactly (needs only
+λ(p)² = 1, NO primality; core proven in the recon probe, ~8
+lines); dilation_error_div then receives the pre-collapsed f. No
+strided-shift carrier needed; corr_shift_le is not on this path.
+(2) G2 = ONE new elementary carrier, the two-scale edge lemma
+(sibling of edge_sum_le at a scale JUMP): the dilated window
+(x/pω, x/p] vs the base (x/ω, x] differ by two strips of harmonic
+mass ≈ log p each — per-pair error (2·log p)/(p·Z), summed
+2H·log(ε²H)·SP/Z. Tao's Lemma 2.5 (transcribed verbatim in the
+recon) bundles the reindex + this swap into one o(1) — elementary,
+NO entropy/pretentious input (the flags' contrary note was a
+misread). (3) ⚠ REGIME CORRECTION: the hωbig obligation was
+UNDER-BUDGETED (Z ≥ 8/ε covered only the dilation defect and
+missed the swap error, which is Z-controlled and does NOT vanish
+in x). STRENGTHENED FORM (house amendment; the obligation is
+design-doc-only, no landed statement touched): **hωbig: log ω ≥
+(8/ε)·log(ε²H) + 1** — compatible with Tao's hierarchy (H ≪ ω).
+For the morning brief. NODES: W3-F-G1 (B, perPair_collapse),
+W3-F-G2 (C, dilated_window_stability), W3-F-A (C, hmain_assembly
+→ hreduce_close's hbudget ∧ hmain). G1+G2 dispatch as one
+executor; W3-F-A on their landing.
