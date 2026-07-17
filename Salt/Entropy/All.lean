@@ -45,6 +45,7 @@ import Salt.Entropy.Chowla.LargeSpectrum
 import Salt.Entropy.Chowla.OuterCombine
 import Salt.Entropy.Chowla.LargeSpectrumBound
 import Salt.Entropy.Chowla.GoldbachEnergyM2
+import Salt.Entropy.Chowla.GoldbachEnergySieve
 import Salt.Entropy.Chowla.Windows
 import Salt.Entropy.Chowla.PrimeWindow
 import Salt.Entropy.ConsumerTest
@@ -113,6 +114,11 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.rhoG_mul_of_coprime
   Salt.Entropy.Chowla.rhoG_squarefree_le
   Salt.Entropy.Chowla.goldProgression_count_bound
+  Salt.Entropy.Chowla.nuG_mult
+  Salt.Entropy.Chowla.nuG_lt_one_of_prime
+  Salt.Entropy.Chowla.goldEnergySieve_abs_rem_le
+  Salt.Entropy.Chowla.goldEnergySieve_siftedSum
+  Salt.Entropy.Chowla.repCount_le_siftedSum
   Salt.Entropy.Chowla.dilation_error
   Salt.Entropy.Chowla.weakUniform_generic
   Salt.Entropy.Chowla.weakUniform_spine

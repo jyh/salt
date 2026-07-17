@@ -369,9 +369,15 @@ handles hpt's truncation.
 (d squarefree): ρₙ(p) = 1 if p ∣ n (m ≡ 0 ≡ n coincide), else 2;
 at p = 2, n even: ρ = 1. ν_n = ρₙ/d; all ν_n(p) < 1 given n even.
 
-**The instance (GB-5).** mathlib BoundingSieve/SelbergSieve:
-support = Finset.Icc 1 n with the IDENTITY map (sift m by
-d ∣ m(n−m) — no injectivity issue), weights ≡ 1, totalMass = n,
+**The instance (GB-5). [AMENDED at landing — the executor caught a
+design-mechanics error in the original freeze: mathlib's multSum
+tests d ∣ (support element) with NO sift-function hook, and
+m ↦ m(n−m) is symmetric, so identity-map + weights ≡ 1 would
+UNDER-count. Faithful realization:]** support = (Icc 1 n).image
+(m ↦ m(n−m)), weights v = the fibre multiplicity
+#{m ∈ [1,n] : m(n−m) = v}, totalMass = n — multSum d then counts
+#{m : d ∣ m(n−m)} EXACTLY and siftedSum over-counts ordered reps
+(what repCount ≤ siftedSum needs).
 nu = ν_n, level = the twin template's choice (mirror M3's z; the
 log² emerges from G(z) ≥ c₀·log²z exactly as in the twin dim-2
 main term). goldA1Sieve (Goldbach/A1.lean) is the plumbing

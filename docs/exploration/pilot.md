@@ -4654,3 +4654,28 @@ decisions per question.
   DISPATCHES (the sieve instance — hpt pole 1).** In flight:
   W3-E-GLUE, GB-HSQ-1, W3-F-R0, GB-5. Tally ~14.1M raw, house
   ~16% — **THE 14M CHIME.**
+
+- 2026-07-20 ~04:40 (THREAD GB): ██ **GB-5 LANDS FULL — THE
+  GOLDBACH SIEVE INSTANCE + THE GB-9 CONSUMER, EVERY FIELD
+  FIRST-BUILD-CLEAN — AND AN EXECUTOR-CATCHES-DESIGNER: THE GB-0
+  FREEZE HAD A MECHANICS ERROR** ██ (≈ 167k / 28 tools, ZERO
+  flags). GoldbachEnergySieve.lean (227 lines, 9 decls): nuG
+  (ArithmeticFunction, twin idiom), the three field proofs (the
+  n-even guard fires EXACTLY where designed: p = 2 ∧ p ∤ n vs
+  hn : 2 ∣ n), goldEnergySieve (BoundingSieve), the
+  multSum/siftedSum/rem identifications (rem ≤ rhoG via
+  goldProgression_count_bound at N = n per the GB-M2 caveat), and
+  **repCount_le_siftedSum** (GB-9, landed EARLY — ordered-pair
+  injection via Prod.fst). THE CATCH: GB-0's "identity map +
+  weights ≡ 1" is NOT realizable (mathlib multSum has no
+  sift-function hook; m(n−m) symmetric ⟹ under-count) — the
+  executor implemented the faithful multiplicity-weighted image
+  and the freeze is AMENDED at landing (designer-error genre: the
+  house froze mechanics it hadn't probed; the executor's fidelity
+  discipline caught it). GB-6's seam fully written: selbergTerms
+  splits g_n(p) = 2/(p−2) off n / 1/(p−1) on n — the 𝔖(n)
+  correction IS the p ∣ n local ratio; hFac's 1/(p−2) majorant
+  confirmed compatible. Ceremony: wired + 5 keystones BY NAME,
+  full build exit 0 (9113 jobs). **GB-6 DISPATCHES.** In flight:
+  W3-E-GLUE, GB-HSQ-1, W3-F-EASY, D3, GB-6. Tally ~14.7M raw,
+  house ~16%.
