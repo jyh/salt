@@ -8,13 +8,15 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 This file supplies the anti-vacuity obligation: an actual inhabitant
 `∃ R : ChowlaRegime`.  Every field is pinned to a concrete constant —
 `a = 1`, `ε = 1/2`, `H₋ = 4·10⁶`, `C₀ = 2`, `H₊ = chowlaTower 2 1 4·10⁶ J`,
-`ω = 2`, `x = 2·(8·H₊³ + 8·P_H²)` (the house re-freeze bumped `x` up from
-`16·H₊³` so it ALSO clears the new (3.9) field `8·P_H²·ω ≤ x`) — so the
-arithmetic side-conditions (`hx … hcoprime`, `hfit`, `hheadroom`, `hheadroom'`,
-`hPHheadroom`) discharge by pure computation.  The outer-scale half is
+`ω = 2`, `x = 2·(8·H₊³ + 8·M²)` with the (3.9) MAJORANT `M = 4^⌊ε²H₊⌋₊`
+(`ε = 1/2` ⇒ `M = 4^⌊H₊/4⌋`) — the `~08:50` ruling restated `hPHheadroom` at the
+`H`-uniform majorant `8·(4^⌊ε²H₊⌋₊)²·ω ≤ x` so it composes per-`H`
+(`pH_headroom_at`), so the witness clears it by taking `P := M`.  Every
+arithmetic side-condition (`hx … hcoprime`, `hfit`, `hheadroom`, `hheadroom'`,
+`hPHheadroom`) discharges by pure computation.  The outer-scale half is
 `regime_xside`: given ANY admissible `H₊ ≥ 4·10⁶` and any `P` (instantiated to
-`P_H`), the choice `x = 2·(8·H₊³ + 8·P²)`, `ω = 2` fulfils
-`hheadroom`/`hheadroom'`/`hωx` (`x/ω = 8·H₊³ + 8·P² ≥ H₊` and
+the majorant `M` at the call site), the choice `x = 2·(8·H₊³ + 8·P²)`, `ω = 2`
+fulfils `hheadroom`/`hheadroom'`/`hωx` (`x/ω = 8·H₊³ + 8·P² ≥ H₊` and
 `≥ 8·H₊·(log H₊)²`, using `log H₊ ≤ H₊`) plus `hPHheadroom`
 (`8·P²·ω = 16·P² ≤ x`).
 
@@ -68,8 +70,8 @@ lemma chowlaTower_two_one_base_le (j : ℕ) : 4000000 ≤ chowlaTower 2 1 400000
 
 /-- **The outer-scale construction** (`hheadroom`/`hheadroom'`/`hωx`/`hPHheadroom`,
     unconditional).  Given any admissible upper endpoint `Hhi ≥ 4·10⁶` and any `P`
-    (instantiated to `P_H` at the call site), the choice `x = 2·(8·Hhi³ + 8·P²)`,
-    `ω = 2` fits: `x/ω = 8·Hhi³ + 8·P²` dominates `Hhi` and
+    (instantiated to the (3.9) majorant `4^⌊ε²Hhi⌋₊` at the call site), the choice
+    `x = 2·(8·Hhi³ + 8·P²)`, `ω = 2` fits: `x/ω = 8·Hhi³ + 8·P²` dominates `Hhi` and
     `8·Hhi·(log Hhi)² ≤ 8·Hhi³` (using `Real.log Hhi ≤ Hhi`), and the house-re-freeze
     term `8·P²·ω = 16·P² ≤ x`. -/
 lemma regime_xside (Hhi P : ℕ) (hHhi : 4000000 ≤ Hhi) :
@@ -105,7 +107,7 @@ theorem regime_exists_of_dropSum (J : ℕ)
     ∃ R : ChowlaRegime, R.a = 1 := by
   have hHhi : 4000000 ≤ chowlaTower 2 1 4000000 J := chowlaTower_two_one_base_le J
   obtain ⟨x, ω, hx2, hω2, hωx, hhead, hhead', hPH⟩ :=
-    regime_xside _ (PH (1 / 2) (chowlaTower 2 1 4000000 J)) hHhi
+    regime_xside _ (4 ^ ⌊(1 / 2 : ℚ) ^ 2 * (chowlaTower 2 1 4000000 J : ℚ)⌋₊) hHhi
   exact ⟨{ x := x, ω := ω, a := 1, eps := 1 / 2, Hlo := 4000000,
            Hhi := chowlaTower 2 1 4000000 J, C0 := 2, J := J,
            hx := hx2, hω := hω2, hωx := hωx, ha := le_refl 1,

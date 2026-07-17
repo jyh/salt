@@ -18,8 +18,10 @@ This file also freezes the two prerequisite recursion defs the structure's
 Field list transcribed at page-image fidelity (S3-A2-GATE, pp. 11–20; whole
 structure elaborates EXIT 0), with the wave-II strengthening `hheadroom'`
 (S3-A2-W2GATE: `C = 8`, `p = 2` verified independently at 3.65× slack) and the
-house re-freeze field `hPHheadroom` (the `~04:30` ledger ruling: Tao's (3.9)
-shift-average control `8·P_H²·ω ≤ x`; provenance in the field docstring).
+house re-freeze field `hPHheadroom` (the `~04:30` ledger ruling, amended `~08:50`
+to the `H`-uniform MAJORANT form `8·(4^⌊ε²H₊⌋₊)²·ω ≤ x` — since the prime window
+moves with `H`, `P_H` is not monotone, so the bound is stated at the primorial
+majorant and composed per-`H` by `pH_headroom_at`; provenance in the docstrings).
 -/
 import Mathlib
 import Salt.Entropy.Chowla.PrimeWindow
@@ -99,14 +101,20 @@ structure ChowlaRegime where
       (Fannes at `|S| ≤ 2^H`) stays below half the per-step decrement — the
       explicit replacement for Tao's `o_{A→∞}(1)`. -/
   hheadroom' : 8 * (Hhi : ℝ) * Real.log Hhi * Real.log Hhi ≤ ((x / ω : ℕ) : ℝ)
-  /-- **house re-freeze** (the `~04:30` ledger ruling).  Tao's (3.9) demands the
-      shift-average error `8·P_H²·ω/x → 0`, i.e. `P_H²·ω ≪ x` — the A2-GATE's
-      deferred A-parameter (Tao p.11's hierarchy: `P_H` is exponential in `H`,
-      the window scale `ω` sits a further tier above `H`; the W1-a tension left
-      it as headroom).  It is now confirmed BINDING by the landed
-      `entropy_residueWindow_ge`, whose correction term is exactly
-      `8·P_H²·ω/x`.  The explicit clearance: `8·P_H²·ω ≤ x`. -/
-  hPHheadroom : 8 * ((PH eps Hhi : ℕ) : ℝ) ^ 2 * (ω : ℝ) ≤ (x : ℝ)
+  /-- **house re-freeze, MAJORANT form** (the `~04:30` ledger ruling, amended by
+      the `~08:50` ruling).  Tao's (3.9) demands the shift-average error
+      `8·P_H²·ω/x → 0`, i.e. `P_H²·ω ≪ x` — the A2-GATE's deferred A-parameter
+      (Tao p.11's hierarchy: `P_H` is exponential in `H`, the window scale `ω`
+      sits a further tier above `H`).  It is confirmed BINDING by the landed
+      `entropy_residueWindow_ge`, whose correction term is exactly `8·P_H²·ω/x`.
+      Because the prime window `𝒫_H` MOVES with `H`, `P_H` is NOT monotone in
+      `H`, so a field stated at `(P_H at H₊)²` does not compose to the
+      decrement's `H ≤ H₊`.  The field is therefore stated at the honest
+      `H`-uniform MAJORANT `4^⌊ε²H₊⌋₊ ≥ 4^⌊ε²H⌋₊ ≥ P_H` (the primorial bound,
+      floor-monotone in `H`): `8·(4^⌊ε²H₊⌋₊)²·ω ≤ x`.  The per-`H` clearance
+      `8·(P_H at H)²·ω ≤ x` for every `H ≤ H₊` is then `pH_headroom_at`. -/
+  hPHheadroom :
+    8 * ((4 ^ ⌊eps ^ 2 * (Hhi : ℚ)⌋₊ : ℕ) : ℝ) ^ 2 * (ω : ℝ) ≤ (x : ℝ)
 
 /-! ### Smoke lemma (wave III consumer) -/
 
@@ -116,5 +124,35 @@ lemma dvd_chowlaTower (C0 a Hlo : ℕ) (j : ℕ) : a ∣ chowlaTower C0 a Hlo j 
   induction j with
   | zero => exact ⟨Hlo, rfl⟩
   | succ n ih => exact ih.mul_right _
+
+/-! ### Per-`H` headroom composition (the majorant route) -/
+
+/-- **The per-`H` (3.9) clearance.**  The regime field `hPHheadroom` is stated at
+    the `H`-uniform majorant `4^⌊ε²H₊⌋₊`.  For every admissible `H ≤ H₊` the honest
+    per-`H` bound `8·(P_H at H)²·ω ≤ x` follows, because the primorial bound
+    `PH eps H ≤ 4^⌊ε²H⌋₊` (`PH_le_four_pow`) composes with the floor-monotonicity
+    `⌊ε²H⌋₊ ≤ ⌊ε²H₊⌋₊` (as `ε² ≥ 0` and `H ≤ H₊`).  This is the form every consumer
+    (the deficiency `8·P_H²·ω/x` of `weakUniform_spine`) actually runs at. -/
+lemma pH_headroom_at (R : ChowlaRegime) {H : ℕ} (hH : H ≤ R.Hhi) :
+    8 * ((PH R.eps H : ℕ) : ℝ) ^ 2 * (R.ω : ℝ) ≤ (R.x : ℝ) := by
+  -- floor-monotonicity of the exponent: ⌊ε²H⌋₊ ≤ ⌊ε²H₊⌋₊
+  have hfloor : ⌊R.eps ^ 2 * (H : ℚ)⌋₊ ≤ ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ := by
+    apply Nat.floor_mono
+    have hHle : (H : ℚ) ≤ (R.Hhi : ℚ) := by exact_mod_cast hH
+    exact mul_le_mul_of_nonneg_left hHle (sq_nonneg R.eps)
+  -- the ℕ majorant chain P_H ≤ 4^⌊ε²H⌋₊ ≤ 4^⌊ε²H₊⌋₊
+  have hmaj : PH R.eps H ≤ 4 ^ ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ :=
+    (PH_le_four_pow R.eps H).trans (Nat.pow_le_pow_right (by norm_num) hfloor)
+  -- lift to ℝ, square, and apply the field
+  have hmajR : ((PH R.eps H : ℕ) : ℝ) ≤ ((4 ^ ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) := by
+    exact_mod_cast hmaj
+  have hnn : (0 : ℝ) ≤ ((PH R.eps H : ℕ) : ℝ) := Nat.cast_nonneg _
+  have hωnn : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
+  have hsq := mul_le_mul hmajR hmajR hnn (le_trans hnn hmajR)
+  calc 8 * ((PH R.eps H : ℕ) : ℝ) ^ 2 * (R.ω : ℝ)
+      ≤ 8 * ((4 ^ ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) ^ 2 * (R.ω : ℝ) := by
+        apply mul_le_mul_of_nonneg_right _ hωnn
+        nlinarith [hsq]
+    _ ≤ (R.x : ℝ) := R.hPHheadroom
 
 end Salt.Entropy.Chowla

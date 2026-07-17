@@ -4167,3 +4167,16 @@ decisions per question.
   mutualInfo_comm). Ceremony: wired + 2 keystones BY NAME, full
   build exit 0 (9092 jobs). Tally ~6.1M raw, house ~19% — **THE
   6M CHIME.**
+
+- 2026-07-19 ~09:20 (THREAD A): **REGIME PATCH 2 LANDS FIRST
+  ATTEMPT** (≈ 78k / 23 tools). hPHheadroom re-frozen to the
+  4^⌊ε²Hhi⌋ majorant form + **pH_headroom_at — the per-H
+  composition lemma every consumer wants** (floor-monotonicity +
+  PH_le_four_pow + the field); the witness swap was one argument
+  (regime_xside was generic in P — the patch-1 design paying
+  off). Diverge untouched; entropy_decrement +
+  chowlaRegime_exists re-audited [3 axioms]. The stale
+  WeakUniform module note updated (house edit, per the flag).
+  Full build exit 0 (9092 jobs). THE REGIME IS NOW CONSISTENT
+  WITH BOTH (3.9) CONSUMERS — the deficiency discharges via
+  pH_headroom_at. Tally ~6.2M raw, house ~19%.
