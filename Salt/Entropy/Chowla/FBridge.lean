@@ -10,7 +10,9 @@ Liouville model instantiation `a = 1, b = 0, h = 1, c_p = 1`.  Tao (3.14) reads
 with `F = ∑_{p ∈ 𝒫_H} F_p`.  At the model values, and reading both factors from a
 single window pattern `v : Fin H → ℤ` (`x_{1,j} = v_j`, `x_{2,j+p} = v_{j+p}`), the
 indicator collapses to `1_{y ≡ -j (mod p)}`, i.e. at the residue coordinate
-`r = residueProj p y = y mod p`, `1_{(j : ZMod p) = -r}`.
+`r = residueProj p y = y mod p`, `1_{(j+1 : ZMod p) = -r}` (gate index = product base
+index, matching Tao's 1-indexed `[1,H]` convention against the 1-indexed window value
+`windowVal … j = λ(n+j+1)`).
 
 ## Contents
 
@@ -83,10 +85,10 @@ lemma abs_liouvilleWindow_le_one (H n : ℕ) (i : Fin H) : |liouvilleWindow H n 
 
 /-- **The per-prime component `G_p(v)` of Tao's F-function (3.14)** at the Liouville
 model (`a=1,b=0,h=1,c_p=1`).  For a residue value `r : ZMod p`, the residue-gated
-double product `∑_{j} 1_{(j : ZMod p) = -r} · v_j · v_{j+p}` over the window. -/
+double product `∑_{j} 1_{(j+1 : ZMod p) = -r} · v_j · v_{j+p}` over the window. -/
 noncomputable def fBridgeG (v : Fin H → ℤ) (p : primeWindow eps H) : ZMod (p : ℕ) → ℝ :=
   fun r => ∑ j ∈ Finset.range H,
-    if (j : ZMod (p : ℕ)) = -r then
+    if ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r then
       (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ)) : ℝ) else 0
 
 /-- **The assembly `F(v) : ZMod P_H → ℝ`** (Tao (2.12)): `∑_{p ∈ 𝒫_H} G_p(v) ∘ residueProj p`.
@@ -131,22 +133,30 @@ lemma fBridgeG_abs_le {v : Fin H → ℤ} (hv : ∀ i, |v i| ≤ 1) (p : primeWi
     |fBridgeG eps H v p r| ≤ (H : ℝ) / (p : ℝ) + 1 := by
   classical
   unfold fBridgeG
-  calc |∑ j ∈ Finset.range H, if (j : ZMod (p : ℕ)) = -r then
+  calc |∑ j ∈ Finset.range H, if ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r then
             (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ)) : ℝ) else 0|
-      ≤ ∑ j ∈ Finset.range H, |if (j : ZMod (p : ℕ)) = -r then
+      ≤ ∑ j ∈ Finset.range H, |if ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r then
             (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ)) : ℝ) else 0| :=
         Finset.abs_sum_le_sum_abs _ _
-    _ ≤ ∑ j ∈ Finset.range H, if (j : ZMod (p : ℕ)) = -r then (1 : ℝ) else 0 := by
+    _ ≤ ∑ j ∈ Finset.range H, if ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r then (1 : ℝ) else 0 := by
         apply Finset.sum_le_sum
         intro j _
         split_ifs with h
         · exact windowVal_prod_abs_le hv j (j + (p : ℕ))
         · simp
-    _ = (((Finset.range H).filter (fun j : ℕ => (j : ZMod (p : ℕ)) = -r)).card : ℝ) := by
+    _ = (((Finset.range H).filter
+          (fun j : ℕ => ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r)).card : ℝ) := by
         rw [Finset.sum_boole]
     _ ≤ (H : ℝ) / (p : ℝ) + 1 := by
-        have hcard := card_filter_natCast_eq_le H (-r)
-        have hcast : (((Finset.range H).filter (fun j : ℕ => (j : ZMod (p : ℕ)) = -r)).card : ℝ)
+        have hset : (Finset.range H).filter (fun j : ℕ => ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r)
+            = (Finset.range H).filter (fun j : ℕ => (j : ZMod (p : ℕ)) = -r - 1) := by
+          apply Finset.filter_congr
+          intro j _
+          rw [Nat.cast_add, Nat.cast_one, eq_sub_iff_add_eq]
+        rw [hset]
+        have hcard := card_filter_natCast_eq_le H (-r - 1)
+        have hcast : (((Finset.range H).filter
+            (fun j : ℕ => (j : ZMod (p : ℕ)) = -r - 1)).card : ℝ)
             ≤ ((H / (p : ℕ) + 1 : ℕ) : ℝ) := by exact_mod_cast hcard
         have hdiv : ((H / (p : ℕ) : ℕ) : ℝ) ≤ (H : ℝ) / (p : ℝ) := Nat.cast_div_le
         push_cast at hcast
@@ -170,15 +180,16 @@ lemma fBridgeG_sum_over_residues {v : Fin H → ℤ} (p : primeWindow eps H) :
   unfold fBridgeG
   rw [Finset.sum_comm]
   refine Finset.sum_congr rfl (fun j _ => ?_)
-  have hcond : ∀ r : ZMod (p : ℕ), ((j : ZMod (p : ℕ)) = -r) ↔ (r = -(j : ZMod (p : ℕ))) := by
+  have hcond : ∀ r : ZMod (p : ℕ),
+      (((j + 1 : ℕ) : ZMod (p : ℕ)) = -r) ↔ (r = -((j + 1 : ℕ) : ZMod (p : ℕ))) := by
     intro r; constructor <;> (intro h; rw [h, neg_neg])
-  calc ∑ r : ZMod (p : ℕ), (if (j : ZMod (p : ℕ)) = -r then
+  calc ∑ r : ZMod (p : ℕ), (if ((j + 1 : ℕ) : ZMod (p : ℕ)) = -r then
           (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ)) : ℝ) else 0)
-      = ∑ r : ZMod (p : ℕ), (if r = -(j : ZMod (p : ℕ)) then
+      = ∑ r : ZMod (p : ℕ), (if r = -((j + 1 : ℕ) : ZMod (p : ℕ)) then
           (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ)) : ℝ) else 0) := by
         refine Finset.sum_congr rfl (fun r _ => ?_); rw [if_congr (hcond r) rfl rfl]
     _ = (windowVal H v j : ℝ) * (windowVal H v (j + (p : ℕ)) : ℝ) := by
-        rw [Finset.sum_ite_eq' Finset.univ (-(j : ZMod (p : ℕ)))]; simp
+        rw [Finset.sum_ite_eq' Finset.univ (-((j + 1 : ℕ) : ZMod (p : ℕ)))]; simp
 
 /-! ## The variance proxy (piece 4, exponent substrate) -/
 

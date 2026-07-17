@@ -4952,3 +4952,21 @@ decisions per question.
   dissolves at the root.** Ceremony: wired + 1 keystone BY NAME,
   full build exit 0 (9128 jobs). **GATE-FIX DISPATCHES.** In
   flight: GATE-FIX. Tally ~18.8M raw, house ~15%.
+
+- 2026-07-20 ~16:50 (NIGHT SHIFT): ██ **GATE-FIX LANDS — THE
+  OFF-BY-ONE IS DEAD; THE G12 CHAIN COMPOSES AT THE ROOT** ██
+  (≈ 111k / 34 tools; FBridge 1 attempt, Prop26 2). EXACTLY 2
+  files touched (+32/−19): the fBridgeG gate → ((j+1) : ZMod p) =
+  −r; the shift lived entirely in fBridgeG_sum_over_residues
+  (fBridgeG_mean recompiled BYTE-UNCHANGED — even less ripple than
+  planned); fBridgeG_abs_le reused the count lemma at c = −r−1 via
+  one filter_congr; fBridgeF_liouville_apply now gates p ∣ n+j+1.
+  ALL downstream statements byte-identical (diff evidence);
+  **the payoff probe FULLY PROVEN, zero sorry: gate fires ∧
+  perPair_collapse attaches with exactly the hdvd the gate
+  encodes.** Full build REAL exit 0, 9128 jobs, 1498 audit lines
+  all [3 axioms]. Ceremony: committed (statement-correction
+  exception, ground truth = pg-22). **HBUDGET DISPATCHES — the
+  LAST node of the h211 producer (the unfold + budget arithmetic,
+  now attachable).** In flight: HBUDGET. Tally ~18.9M raw, house
+  ~15%.

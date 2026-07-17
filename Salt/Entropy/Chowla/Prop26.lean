@@ -80,14 +80,14 @@ lemma windowVal_liouvilleWindow (H n j : ℕ) (hj : j < H) :
 
 /-- **STMT2, structural spine (2a): the pointwise F-bridge unfold.**  At the Liouville
 model the integrand is the residue-gated double product: for each window prime `p`
-and each `j < H`, the gate `p ∣ n+j` selects `λ(n+j+1)·(windowVal … (j+p))` (the
+and each `j < H`, the gate `p ∣ n+j+1` selects `λ(n+j+1)·(windowVal … (j+p))` (the
 second factor carries the junk-zero boundary convention, i.e. `λ(n+j+p+1)` when
 `j+p < H`, else `0`).  This is Tao's (2.12)/(3.14) shape read at
 `v = liouvilleWindow H n`, `y = residueWindow eps H n`. -/
 lemma fBridgeF_liouville_apply (eps : ℚ) (H n : ℕ) :
     fBridgeF eps H (liouvilleWindow H n) (residueWindow eps H n)
       = ∑ p : primeWindow eps H, ∑ j ∈ Finset.range H,
-          if ((n + j : ℕ) : ZMod (p : ℕ)) = 0 then
+          if ((n + j + 1 : ℕ) : ZMod (p : ℕ)) = 0 then
             (ArithmeticFunction.liouville (n + j + 1) : ℝ)
               * (windowVal H (liouvilleWindow H n) (j + (p : ℕ)) : ℝ)
           else 0 := by
@@ -97,10 +97,12 @@ lemma fBridgeF_liouville_apply (eps : ℚ) (H n : ℕ) :
   unfold fBridgeG
   refine Finset.sum_congr rfl (fun j hj => ?_)
   have hjH : j < H := Finset.mem_range.mp hj
-  have hgate : ((j : ℕ) : ZMod (p : ℕ)) = -((n : ℕ) : ZMod (p : ℕ))
-      ↔ ((n + j : ℕ) : ZMod (p : ℕ)) = 0 := by
-    rw [Nat.cast_add, add_comm, add_eq_zero_iff_eq_neg]
-  by_cases hc : ((n + j : ℕ) : ZMod (p : ℕ)) = 0
+  have hgate : ((j + 1 : ℕ) : ZMod (p : ℕ)) = -((n : ℕ) : ZMod (p : ℕ))
+      ↔ ((n + j + 1 : ℕ) : ZMod (p : ℕ)) = 0 := by
+    rw [show ((n + j + 1 : ℕ) : ZMod (p : ℕ))
+          = ((j + 1 : ℕ) : ZMod (p : ℕ)) + ((n : ℕ) : ZMod (p : ℕ)) from by push_cast; ring,
+        add_eq_zero_iff_eq_neg]
+  by_cases hc : ((n + j + 1 : ℕ) : ZMod (p : ℕ)) = 0
   · rw [if_pos (hgate.mpr hc), if_pos hc, windowVal_liouvilleWindow H n j hjH]
   · rw [if_neg (fun h => hc (hgate.mp h)), if_neg hc]
 
