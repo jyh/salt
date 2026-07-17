@@ -7,6 +7,7 @@ import Salt.Weil.Kloosterman
 import Salt.Weil.ArtinSchreier
 import Salt.Weil.Orbits
 import Salt.Weil.LocalFactor
+import Salt.Weil.Stepanov
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -18,7 +19,10 @@ Stepanov (Harcos/IK Ch. 11; the ladder in docs/exploration/pilot.md
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.Weil.localPowerSum_rec Salt.Weil.localPowerSum_im
+#audit_axioms Salt.Weil.stepanovAux_ne_zero
+  Salt.Weil.X_pow_dvd_of_range_sum_eq_zero
+  Salt.Weil.stepanovAux_natDegree_le
+  Salt.Weil.localPowerSum_rec Salt.Weil.localPowerSum_im
   Salt.Weil.abs_le_sqrt_of_powerSum_bound
   Salt.Weil.irreducible_monic_dvd_X_pow_card_pow_sub_X_iff
   Salt.Weil.squarefree_X_pow_card_pow_sub_X

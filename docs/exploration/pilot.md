@@ -3738,3 +3738,17 @@ decisions per question.
   composition line. Ceremony: wired + 2 keystones BY NAME, full
   build exit 0 (9075 jobs). In flight: W2, W4.1ab, A-III. Tally
   ~1.7M raw, house ~30%.
+
+- 2026-07-18 ~19:20 (THREAD W): **W4.1ab LANDS FULL — the
+  non-vanishing INCLUDED (beyond the sanctioned floor)** (≈ 146k
+  / 31 tools, ~1 attempt). Stepanov.lean: stepanovAux (Harcos
+  (18), q baked as Fintype.card F), the degree bookkeeping
+  (tighter than Harcos: (J−1)q), the band-separation lemma, and
+  **stepanovAux_ne_zero — the FULL UFD square-contradiction
+  argument**. Consumer notes: the not-a-square hypothesis for
+  f = (X^p−X)²−4ab is a separate small lemma (Harcos p.12);
+  Odd(p^n) needed. Ceremony: wired + 3 keystones BY NAME, full
+  build exit 0 (9076 jobs). REMAINING ON THE LADDER: W4.1c/d (the
+  kill-checked GREEN core — dispatches NOW into the freed slot),
+  W2 (in flight), W2.3+W5 (the assembly). Tally ~1.85M raw,
+  house ~29%.
