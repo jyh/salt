@@ -5787,3 +5787,17 @@ decisions per question.
   wired, Maynard 8580 green, olean verified. PpLevel chain: CYC ✓
   → TWO (in flight) → CRT → FOLD → ASSEMBLY. Board: N-SHIU,
   ROOT-TWO, VK-R0, CI test run. Tally ~27.8M raw, house ~14%.
+
+- 2026-07-17 ~5:45pm (GOLD WINDOW): ██ **VK-R0: RE-SCOPE — CATCH
+  #52, THE CHUDAKOV MYTH KILLED; θ IS QUANTIZED {1, ≤3/4};
+  every power region needs VMVT (unformalized anywhere); honest
+  price 10–18M vs the 2–3.5M prior** ██ (≈ 99k / 18 tools;
+  grounded: Ford Table 1, Yang 2024, VMVT-formalization sweep,
+  corpus/mathlib/PNT+ reads). The recon did its job: the prior
+  was priced on a myth and died BEFORE dispatch, not after 3M.
+  Staged option registered (F1+F2 → THE LITTLEWOOD REGION,
+  first-in-any-prover checkpoint, ~3.5–5.5M, pole-free, VK-N1/2/3
+  frozen) + option C (re-parametrize cheap-MR to consume
+  Littlewood — house design question). PARKED pending JYH's
+  choice: staged / VMVT commit / stand down. Board: N-SHIU,
+  ROOT-TWO, CI test run. Tally ~27.9M raw, house ~14%.

@@ -969,3 +969,44 @@ continuations, both requiring a dedicated design session:
 HB-ENGINE remains the active road. MR-C (Turán–Kubilius) and
 MR-A (vertical-line L²) stay registered as unconditionally
 useful infrastructure either way.
+
+## VK-R0 ADJUDICATED (2026-07-17 ~5:45pm): RE-SCOPE — THE
+## CHUDAKOV MYTH KILLED (catch #52); the exponent is QUANTIZED
+
+**CATCH #52 (recon-kills-house-hypothesis, exactly as tasked):**
+"Chudakov θ≈3/4 via van der Corput, no VMVT" is a MYTH. Grounded
+(Ford 1910.08205 Table 1 + Yang 2301.03165): Chudakov 1938 used
+VINOGRADOV'S METHOD; the van der Corput/Weyl route PROVABLY tops
+out at Littlewood (1−σ ≪ loglog t/log t = θ 1−o(1)) — the 2^k
+loss per differencing step forces λ=1; only Vinogradov's
+polynomial-in-k loss buys λ>1 (θ = 1/λ: VK λ=3/2→2/3, Chudakov
+λ=4/3→3/4). **θ is quantized: {1, ≤3/4} — nothing in (3/4, 1);
+Littlewood FAILS the θ<0.98 gate** (loglog ≪ (log)^{0.02}).
+Every power region requires VMVT — unformalized in ANY assistant
+(grounded search). Honest price to clear the gate: **~10–18M**
+(4–6× the 2–3.5M prior), pole = the D-tier VMVT slice (6–12M,
+widest error bars; needs additive-comb/p-adic infra mathlib
+lacks at 0%). Corpus back-half: 3 structural locks (fixed-disk
+geometry, the hardcoded dVP balance, poly-only growth) — a
+rebuild-on-scaffolding, not a plug-in (the HB-ENGINE
+radius-resolved work is the right starter shape). PNT+ has
+portable analytic scaffolding, 0% exp-sum core.
+
+**The recon's staged option (registered as the house
+recommendation): F1+F2 (~3.5–5.5M) → THE LITTLEWOOD REGION as a
+first-in-any-prover CHECKPOINT** (vdC A/B processes + k-th
+derivative test + Littlewood balance; pole-free; every lemma
+upstreamable exp-sum infrastructure) — banks historic value
+regardless, de-risks the pipeline end-to-end, then VMVT gets its
+own dedicated recon + GO/NO-GO. Pole-free first nodes frozen by
+the recon: VK-N1 (Weyl–vdC A-process inequality), VK-N2 (the
+second-derivative test via Poisson), VK-N3 (the parametrized
+growth→region back-half, de-locking zero_free_extraction).
+**Registered option C (D-grade design question): can the
+cheap-MR chain be RE-PARAMETRIZED to consume Littlewood's
+loglog saving** (the 0.98 came from Tao's P₋ cutoff choice —
+whether a loglog-scaled cutoff closes is unexamined by any
+source; the house examines before VMVT is priced as
+load-bearing). **PARKED pending JYH: (A) staged Littlewood
+(~3.5–5.5M, recommended) / (B) full VMVT commit (~10–18M) /
+(C) stand down.**
