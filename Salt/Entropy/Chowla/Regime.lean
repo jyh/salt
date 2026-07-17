@@ -17,9 +17,12 @@ This file also freezes the two prerequisite recursion defs the structure's
 
 Field list transcribed at page-image fidelity (S3-A2-GATE, pp. 11–20; whole
 structure elaborates EXIT 0), with the wave-II strengthening `hheadroom'`
-(S3-A2-W2GATE: `C = 8`, `p = 2` verified independently at 3.65× slack).
+(S3-A2-W2GATE: `C = 8`, `p = 2` verified independently at 3.65× slack) and the
+house re-freeze field `hPHheadroom` (the `~04:30` ledger ruling: Tao's (3.9)
+shift-average control `8·P_H²·ω ≤ x`; provenance in the field docstring).
 -/
 import Mathlib
+import Salt.Entropy.Chowla.PrimeWindow
 
 open scoped BigOperators
 
@@ -96,6 +99,14 @@ structure ChowlaRegime where
       (Fannes at `|S| ≤ 2^H`) stays below half the per-step decrement — the
       explicit replacement for Tao's `o_{A→∞}(1)`. -/
   hheadroom' : 8 * (Hhi : ℝ) * Real.log Hhi * Real.log Hhi ≤ ((x / ω : ℕ) : ℝ)
+  /-- **house re-freeze** (the `~04:30` ledger ruling).  Tao's (3.9) demands the
+      shift-average error `8·P_H²·ω/x → 0`, i.e. `P_H²·ω ≪ x` — the A2-GATE's
+      deferred A-parameter (Tao p.11's hierarchy: `P_H` is exponential in `H`,
+      the window scale `ω` sits a further tier above `H`; the W1-a tension left
+      it as headroom).  It is now confirmed BINDING by the landed
+      `entropy_residueWindow_ge`, whose correction term is exactly
+      `8·P_H²·ω/x`.  The explicit clearance: `8·P_H²·ω ≤ x`. -/
+  hPHheadroom : 8 * ((PH eps Hhi : ℕ) : ℝ) ^ 2 * (ω : ℝ) ≤ (x : ℝ)
 
 /-! ### Smoke lemma (wave III consumer) -/
 

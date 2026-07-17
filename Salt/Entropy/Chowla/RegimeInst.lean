@@ -8,12 +8,15 @@ License, Version 2.0; see `Salt/Entropy/LICENSE-PFR-Apache-2.0`.
 This file supplies the anti-vacuity obligation: an actual inhabitant
 `∃ R : ChowlaRegime`.  Every field is pinned to a concrete constant —
 `a = 1`, `ε = 1/2`, `H₋ = 4·10⁶`, `C₀ = 2`, `H₊ = chowlaTower 2 1 4·10⁶ J`,
-`ω = 2`, `x = 16·H₊³` — so the arithmetic side-conditions (`hx … hcoprime`,
-`hfit`, `hheadroom`, `hheadroom'`) discharge by pure computation.  The
-outer-scale half is `regime_xside`: given ANY admissible `H₊ ≥ 4·10⁶`, the
-choice `x = 16 H₊³`, `ω = 2` fulfils `hheadroom`/`hheadroom'`/`hωx`
-(`x/ω = 8 H₊³` dominates both `H₊` and `8 H₊ (log H₊)² ≤ 8 H₊³`, using
-`log H₊ ≤ H₊`).
+`ω = 2`, `x = 2·(8·H₊³ + 8·P_H²)` (the house re-freeze bumped `x` up from
+`16·H₊³` so it ALSO clears the new (3.9) field `8·P_H²·ω ≤ x`) — so the
+arithmetic side-conditions (`hx … hcoprime`, `hfit`, `hheadroom`, `hheadroom'`,
+`hPHheadroom`) discharge by pure computation.  The outer-scale half is
+`regime_xside`: given ANY admissible `H₊ ≥ 4·10⁶` and any `P` (instantiated to
+`P_H`), the choice `x = 2·(8·H₊³ + 8·P²)`, `ω = 2` fulfils
+`hheadroom`/`hheadroom'`/`hωx` (`x/ω = 8·H₊³ + 8·P² ≥ H₊` and
+`≥ 8·H₊·(log H₊)²`, using `log H₊ ≤ H₊`) plus `hPHheadroom`
+(`8·P²·ω = 16·P² ≤ x`).
 
 ## The barely-divergent series (the ONE remaining input)
 
@@ -63,24 +66,31 @@ lemma chowlaTower_two_one_base_le (j : ℕ) : 4000000 ≤ chowlaTower 2 1 400000
 
 /-! ### The outer-scale `(x, ω)` half — unconditional -/
 
-/-- **The outer-scale construction** (`hheadroom`/`hheadroom'`/`hωx`,
-    unconditional).  Given any admissible upper endpoint `Hhi ≥ 4·10⁶`, the
-    choice `x = 16·Hhi³`, `ω = 2` fits: `x/ω = 8·Hhi³` dominates both `Hhi`
-    and `8·Hhi·(log Hhi)² ≤ 8·Hhi³` (using `Real.log Hhi ≤ Hhi`). -/
-lemma regime_xside (Hhi : ℕ) (hHhi : 4000000 ≤ Hhi) :
+/-- **The outer-scale construction** (`hheadroom`/`hheadroom'`/`hωx`/`hPHheadroom`,
+    unconditional).  Given any admissible upper endpoint `Hhi ≥ 4·10⁶` and any `P`
+    (instantiated to `P_H` at the call site), the choice `x = 2·(8·Hhi³ + 8·P²)`,
+    `ω = 2` fits: `x/ω = 8·Hhi³ + 8·P²` dominates `Hhi` and
+    `8·Hhi·(log Hhi)² ≤ 8·Hhi³` (using `Real.log Hhi ≤ Hhi`), and the house-re-freeze
+    term `8·P²·ω = 16·P² ≤ x`. -/
+lemma regime_xside (Hhi P : ℕ) (hHhi : 4000000 ≤ Hhi) :
     ∃ x ω : ℕ, 2 ≤ x ∧ 2 ≤ ω ∧ ω ≤ x ∧ Hhi ≤ x / ω ∧
-      8 * (Hhi : ℝ) * Real.log Hhi * Real.log Hhi ≤ ((x / ω : ℕ) : ℝ) := by
+      8 * (Hhi : ℝ) * Real.log Hhi * Real.log Hhi ≤ ((x / ω : ℕ) : ℝ) ∧
+      8 * (P : ℝ) ^ 2 * (ω : ℝ) ≤ (x : ℝ) := by
   have hcube : Hhi ≤ Hhi ^ 3 := Nat.le_self_pow (by norm_num) Hhi
-  have hdiv : (2 * (8 * Hhi ^ 3)) / 2 = 8 * Hhi ^ 3 := by omega
-  refine ⟨2 * (8 * Hhi ^ 3), 2, by omega, le_refl 2, by omega, by omega, ?_⟩
-  rw [hdiv]
-  have hHhiR : (4000000 : ℝ) ≤ (Hhi : ℝ) := by exact_mod_cast hHhi
-  have hLnn : 0 ≤ Real.log (Hhi : ℝ) := Real.log_nonneg (by linarith)
-  have hL : Real.log (Hhi : ℝ) ≤ (Hhi : ℝ) := Real.log_le_self (by linarith)
-  have hsq : Real.log (Hhi : ℝ) * Real.log (Hhi : ℝ) ≤ (Hhi : ℝ) * (Hhi : ℝ) :=
-    mul_le_mul hL hL hLnn (by linarith)
-  push_cast
-  nlinarith [mul_le_mul_of_nonneg_left hsq (show (0 : ℝ) ≤ 8 * (Hhi : ℝ) by positivity)]
+  have hdiv : (2 * (8 * Hhi ^ 3 + 8 * P ^ 2)) / 2 = 8 * Hhi ^ 3 + 8 * P ^ 2 := by omega
+  refine ⟨2 * (8 * Hhi ^ 3 + 8 * P ^ 2), 2, by omega, le_refl 2, by omega, by omega, ?_, ?_⟩
+  · rw [hdiv]
+    have hHhiR : (4000000 : ℝ) ≤ (Hhi : ℝ) := by exact_mod_cast hHhi
+    have hLnn : 0 ≤ Real.log (Hhi : ℝ) := Real.log_nonneg (by linarith)
+    have hL : Real.log (Hhi : ℝ) ≤ (Hhi : ℝ) := Real.log_le_self (by linarith)
+    have hsq : Real.log (Hhi : ℝ) * Real.log (Hhi : ℝ) ≤ (Hhi : ℝ) * (Hhi : ℝ) :=
+      mul_le_mul hL hL hLnn (by linarith)
+    push_cast
+    nlinarith [mul_le_mul_of_nonneg_left hsq (show (0 : ℝ) ≤ 8 * (Hhi : ℝ) by positivity),
+      sq_nonneg (P : ℝ)]
+  · push_cast
+    nlinarith [sq_nonneg (P : ℝ),
+      pow_nonneg (show (0 : ℝ) ≤ (Hhi : ℝ) from Nat.cast_nonneg Hhi) 3]
 
 /-! ### The instantiation, conditional on the barely-divergent series -/
 
@@ -94,7 +104,8 @@ theorem regime_exists_of_dropSum (J : ℕ)
     (hJ : Real.log 2 < towerDropSum 2 1 4000000 J) :
     ∃ R : ChowlaRegime, R.a = 1 := by
   have hHhi : 4000000 ≤ chowlaTower 2 1 4000000 J := chowlaTower_two_one_base_le J
-  obtain ⟨x, ω, hx2, hω2, hωx, hhead, hhead'⟩ := regime_xside _ hHhi
+  obtain ⟨x, ω, hx2, hω2, hωx, hhead, hhead', hPH⟩ :=
+    regime_xside _ (PH (1 / 2) (chowlaTower 2 1 4000000 J)) hHhi
   exact ⟨{ x := x, ω := ω, a := 1, eps := 1 / 2, Hlo := 4000000,
            Hhi := chowlaTower 2 1 4000000 J, C0 := 2, J := J,
            hx := hx2, hω := hω2, hωx := hωx, ha := le_refl 1,
@@ -102,7 +113,7 @@ theorem regime_exists_of_dropSum (J : ℕ)
            hHlo := by norm_num, hHlohi := hHhi, hC0 := le_refl 2,
            hHlo_floor := le_refl _, hheadroom := hhead,
            hcoprime := by norm_num, hfit := le_refl _,
-           hJcon := hJ, hheadroom' := hhead' }, rfl⟩
+           hJcon := hJ, hheadroom' := hhead', hPHheadroom := hPH }, rfl⟩
 
 /-- **The anti-vacuity witness (existential form).**  As soon as the
     barely-divergent series clears `log 2` at SOME finite length, a regime

@@ -4052,3 +4052,16 @@ decisions per question.
   entropy_decrement untouched). Ceremony: wired + 2 keystones BY
   NAME, full build exit 0 (9086 jobs). Tally ~4.65M raw, house
   ~21%.
+
+- 2026-07-19 ~05:00 (THREAD A): **THE REGIME RE-FREEZE LANDS —
+  hPHheadroom is IN, the pipeline green end-to-end** (≈ 97k / 21
+  tools, 2 attempts). Regime.lean: the exponential-headroom
+  field with the full provenance docstring (no import cycle);
+  RegimeInst: the constructor re-witnessed at x = 2·(8·Hhi³ +
+  8·P_H²) — every prior obligation still closes ("x ≥ …"-shaped,
+  as ruled); Diverge UNTOUCHED (signatures stable, as
+  predicted). entropy_decrement + chowlaRegime_exists both
+  re-audited [3 axioms]. THE (3.9) CONSUMPTION IS NOW FUNDED:
+  W1-c can consume entropy_residueWindow_ge with the correction
+  term small BY A REGIME FIELD. Ceremony: full build exit 0
+  (9086 jobs), committed. Tally ~4.75M raw, house ~21%.
