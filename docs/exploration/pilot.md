@@ -3682,3 +3682,23 @@ decisions per question.
   keystones (BY NAME), full build exit 0 (9073 jobs).
   **W4.1a/b (the Stepanov ansatz + non-vanishing) dispatches**
   (staggered; D-e + it = 2 active). Tally: ~1.3M.
+
+- 2026-07-18 ~18:10 (THREAD A): ██ **D-e LANDS COMPLETE — WAVE II
+  OF THE ENTROPY DECREMENT IS DONE: TAO'S (3.11) IS A THEOREM**
+  ██ (S3-A2-De ≈ 222k / 76 tools / 4.5h — the long-runner
+  delivered everything, all pieces ~first attempt, the
+  Fable-block never armed). Step.lean (12 decls): BOTH D-d
+  obligations closed (the pushforward-ℓ¹ contraction + the
+  edge/overlap telescoping = joint_l1_le ≤ 8jHω/x; the 2^H·P_H
+  budget with budget_real self-contained), the frozen
+  condEntropy_shift_le, the conditional-subadditivity spine
+  (condEntropy_finPi_le + condEntropy_kwindow_le), and
+  **step_ineq_3_11 — the per-step entropy decrement inequality,
+  the heart of the argument**. WAVE II TOTAL: ~830k (gate 188k +
+  Dd0 209k + Dd 135k + REGIME 137k + De 222k... incl. the 
+  spike + regime work) — the could-spike-D wave resolved
+  entirely at C. REMAINING for entropy_decrement: wave III (the
+  tower: instantiate (3.11) along chowlaTower via
+  dvd_chowlaTower) + wave IV (the iterated-log divergence +
+  the contradiction). Ceremony: wired + 3 keystones BY NAME,
+  full build exit 0 (9074 jobs). Tally: ~1.55M.
