@@ -3978,3 +3978,22 @@ decisions per question.
   Ceremony: wired + 3 keystones BY NAME, full build exit 0
   (9082 jobs). **W5B (the φ-bundling) queues for the next free
   slot** (6/6 now). Tally ~3.85M raw, house ~22%.
+
+- 2026-07-19 ~02:40 (THREAD M): ██ **THREAD M LANDS COMPLETE —
+  THE SEPARATION MASTER IS IN, ALL FIVE NODES, ONE PASS** ██
+  (M-EXEC ≈ 122k / 39 tools). Separation.lean (272 lines, 12
+  keystones): the tolerant master wall_of_indistinguishable +
+  the B = 0 corollary; **no_readable_certificate AND parity_wall
+  BOTH RE-DERIVED byte-identical through the master** (the
+  genuine unification — two impossibility walls are instances of
+  one 3-line theorem + their landed decoy witnesses); the
+  IndistWall packaging (per-instance radii, NO cross-wall
+  equation, inhabited); the door board (input_breaks_wall :=
+  TwinB_min → TwinPrimeConjecture, the ONE open premise; the W1
+  threshold leg re-exported; the price-tie as the decorative
+  example the gate mandated). R4 fully honored. THREAD M's
+  registered outcome: the walls-unification theorem + the honest
+  asymmetry board — LANDED at ~830k all-in (recon 164k + gate
+  162k + exec 122k + house). Ceremony: wired + 4 keystones BY
+  NAME, full build exit 0 (9083 jobs). **W5B dispatches into the
+  slot.** Tally ~4.0M raw, house ~22% — **THE 4M CHIME.**
