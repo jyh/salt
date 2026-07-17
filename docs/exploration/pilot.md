@@ -5169,3 +5169,18 @@ decisions per question.
   GehSW.lean), house axiom check [3 axioms], Maynard build exit 0
   (8786 jobs). In flight: PATCH-5, GEH-FIX. Tally ~22.1M raw,
   house ~14% — the 22M mark.
+
+- 2026-07-20 ~16:20: **GEH-FIX LANDS (post-watchdog-resume, the
+  window's 3rd clean checkpoint-recovery) — SmallQTypeII IS TRUE
+  AGAIN** (≈ 78k / 21 tools; every site first-pass). GehSW.lean
+  (+16/−8, the ONLY file): the rpow guard `x^(1/3) ≤ V x` in the
+  def; swAt_typeIIData re-threaded via hV (the sole consumer;
+  ZERO code callers downstream — the re-thread terminated
+  immediately); geh_door_of_obligations surface delta NONE.
+  HONESTY GEM: the ℕ-cube guard form would be FALSE at the
+  floor-based cbrt (⌊x^{1/3}⌋³ < x generically) — the rpow choice
+  was correctness, not style; the floor-vs-rpow slack is the
+  documented instantiation-time choice for SMALLQ-2. Full build
+  exit 0 (9133 jobs), axioms clean. **SMALLQ-2 DISPATCHES — the
+  SW proof at the amended def via the gift route.** In flight:
+  PATCH-5, SMALLQ-2. Tally ~22.3M raw, house ~14%.

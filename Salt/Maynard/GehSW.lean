@@ -206,13 +206,19 @@ private lemma log_pow_le_scale {ε₀ : ℝ} (hε₀ : 0 < ε₀) {A : ℝ} (hA 
     _ ≤ ((A + 1) / ε₀) ^ (A + 1) * (M : ℝ) := mul_le_mul_of_nonneg_left hMlo (by positivity)
 
 /-- **The small-modulus Type-II obligation** (the flagged Siegel–Walfisz floor).
-For `q ≤ (log x)^{A+1}`, the `r`-twisted discrepancy of the Type-II block family
-is `≤ K · τ(qr)^j · M x / (log x)^A`.  Discharged by `siegelWalfisz_holds` through
-the Möbius/CRT reduction of `typeIIData` over the divisor `c > V x`; taken here as
-a hypothesis pending that node (see the module docstring / `flags.md`). -/
+For `q ≤ (log x)^{A+1}` and under the **polynomial-scale guard** `x^{1/3} ≤ V x`
+(the divisor threshold is a genuine power of `x`, not polylog — without it the
+block collapses to pure `Λ` and the mod-`q` discrepancy is `Ω`-large, so the
+estimate is FALSE; house ruling N-SMALLQ, 2026-07-20), the `r`-twisted
+discrepancy of the Type-II block family is `≤ K · τ(qr)^j · M x / (log x)^A`.
+Discharged by `siegelWalfisz_holds` through the Möbius/CRT reduction of
+`typeIIData` over the divisor `c > V x` (`gcd(a,q)=1 ⟹ gcd(m,q)=1` makes the
+reindex a clean `m⁻¹`-bijection); taken here as a hypothesis pending that node
+(see the module docstring / `flags.md`). -/
 def SmallQTypeII (M V : ℕ → ℕ) (j : ℕ) : Prop :=
   ∀ A : ℝ, 0 < A → ∃ K : ℝ, 0 ≤ K ∧ ∀ x r q : ℕ,
     2 ≤ x → 0 < r → 0 < q → (q : ℝ) ≤ Real.log x ^ (A + 1) →
+    (x : ℝ) ^ ((1 : ℝ) / 3) ≤ (V x : ℝ) →
     seqDiscrepancy (fun n => if Nat.Coprime n r then
         (if n ∈ Finset.Ioc (M x) (2 * M x) then Salt.LS.typeIIData (V x) n else 0)
         else 0) x q
@@ -221,12 +227,14 @@ def SmallQTypeII (M V : ℕ → ℕ) (j : ℕ) : Prop :=
 /-- **The Type-II SW supplier** (single-scale, node S2-B3-SW).  The balanced
 Type-II block family `β x m = 1_{Ioc (M x) (2 M x)}(m) · typeIIData (V x) m`
 satisfies `GEH_min`'s `SWAt` slot at `j = 3`, given the polynomial-scale window
-`x^{ε₀} ≤ M x ≤ x` and the small-`q` obligation `SmallQTypeII M V 3`.  The
-large-`q` half is proven here; the small-`q` half is the flagged Siegel–Walfisz
-floor. -/
+`x^{ε₀} ≤ M x ≤ x`, the polynomial-scale threshold `hV : x^{1/3} ≤ V x` (fed to
+`SmallQTypeII`'s guard — see the N-SMALLQ ruling), and the small-`q` obligation
+`SmallQTypeII M V 3`.  The large-`q` half is proven here; the small-`q` half is
+the flagged Siegel–Walfisz floor. -/
 theorem swAt_typeIIData (M V : ℕ → ℕ) {ε₀ : ℝ} (hε₀ : 0 < ε₀)
     (hMlo : ∀ x : ℕ, 2 ≤ x → (x : ℝ) ^ ε₀ ≤ (M x : ℝ))
     (hMhi : ∀ x : ℕ, 2 ≤ x → (M x : ℝ) ≤ (x : ℝ))
+    (hV : ∀ x : ℕ, 2 ≤ x → (x : ℝ) ^ ((1 : ℝ) / 3) ≤ (V x : ℝ))
     (hSmall : SmallQTypeII M V 3) :
     SWAt (fun x m =>
         if m ∈ Finset.Ioc (M x) (2 * M x) then Salt.LS.typeIIData (V x) m else 0) M := by
@@ -247,7 +255,7 @@ theorem swAt_typeIIData (M V : ℕ → ℕ) {ε₀ : ℝ} (hε₀ : 0 < ε₀)
     exact one_le_pow₀ (by exact_mod_cast hpos)
   by_cases hsmall : (q : ℝ) ≤ L ^ (A + 1)
   · -- SMALL q: the flagged hypothesis, relaxed `Ks → max Ks Kl`.
-    have hb := hKs x r q hx hr hq hsmall
+    have hb := hKs x r q hx hr hq hsmall (hV x hx)
     rw [← hLdef] at hb
     refine le_trans hb ((div_le_div_iff_of_pos_right hLApos).mpr ?_)
     exact mul_le_mul_of_nonneg_right
