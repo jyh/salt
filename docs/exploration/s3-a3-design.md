@@ -1010,3 +1010,43 @@ source; the house examines before VMVT is priced as
 load-bearing). **PARKED pending JYH: (A) staged Littlewood
 (~3.5–5.5M, recommended) / (B) full VMVT commit (~10–18M) /
 (C) stand down.**
+
+## PP3-DESIGN — the k ≥ 3 prime-power tail (Fable design block,
+## 2026-07-17 evening; discharges N-PP-FOLD's named residual)
+
+**Why it's genuinely hard at θ = 3999/4000:** classical BV
+treatments wave the k ≥ 3 tail through because their moduli stop
+at x^{1/2} — x^{θ+1/3} ≤ x^{5/6} is harmless there. At GEH-grade
+θ ≈ 1, ANY per-q additive x^{1/3} breaks (Σ_q = x^{θ+1/3} ≫ x).
+The class/root structure must run deep into k — but the naive
+per-factor root bound gcd(k, φ(p^e)) ≤ k gives N_k ≤ 2k·k^{ω(q)},
+and Σ_q k^{ω(q)} ≈ Q·(log Q)^{k−1} grows in k. THE RESOLUTION:
+the k-regimes cross at **k*(x) := ⌈√(log x / loglog x)⌉** —
+below k*, the (log Q)^{k−1} growth loses to x^θ's headroom
+(e^{√(log x·loglog x)} = x^{o(1)} ≤ x^{(1−θ)/2} eventually);
+above k*, the TOTAL prime-power mass x^{1/k} ≤ x^{1/k*} =
+e^{√(log x·loglog x)} is itself x^{o(1)}, so the crude
+(no-class-structure) bound closes: Σ_q Q·x^{o(1)} ≤ x^{θ+o(1)}
+≤ x/log^A eventually. All x-thresholds fold into the constant
+via the corner pattern.
+
+**The three frozen nodes:**
+- **PP3-NK** (C, ~150–250k): the general-k root count
+  N_k(a,q) ≤ 2k·k^{ω(q)} for unit a — the general-k CRT fold
+  (PpRootCrt's named residual: crt_sq_step's structure
+  generalizes; per-factor inputs LANDED: card_pow_eq_le_gcd
+  gives gcd(k,φ(p^e)) ≤ k odd-side; PpRootTwo's general form
+  gives gcd(k,2)·gcd(k,2^{e−2}) ≤ 2k two-side; the parity-aware
+  product mirrors sqBound).
+- **PP3-SUMS** (C, ~150–250k): the k-uniform divisor-power sums
+  Σ_{q≤Q} k^{ω(q)} ≤ Q·(C₀·log(Q+1))^{k−1}·C₁^k and the harmonic
+  variant Σ k^{ω(q)}/q ≤ (C₀·log(Q+1))^k·C₁^k — the GehPp2
+  pattern (sum_two_pow_omega_le) generalized with EXPLICIT
+  k-tracking (the e^{O(k)} must be explicit; induction over
+  primes ≤ Q via the Euler-product majorant ∏(1 + k/(p−1))).
+- **PP3-ASSEMBLY** (C, ~200–300k): the three-regime split (k=2
+  landed sharp; 3 ≤ k ≤ k* via NK+SUMS; k > k* crude via
+  π(x^{1/k}) ≤ x^{1/k*}) + the eventual-x threshold folding →
+  discharge pp3Term's seqDiscrepancy sum → with the landed
+  pp2 bound, N-PP-ASSEMBLY closes PpLevel (3999/4000).
+Dispatch: NK ∥ SUMS now; ASSEMBLY after both.

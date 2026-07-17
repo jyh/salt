@@ -6058,3 +6058,16 @@ decisions per question.
   WP2 state: DH-1 ✓, DH-2a RED→DH-2b, DH-STRIP in flight, DH-3
   next (cheap), DH-4 after. Board: DH-STRIP, MERT-1, MERT-2,
   seed. Tally ~30.2M raw, house ~14%.
+
+- 2026-07-17 ~16:04 PT (GOLD WINDOW): **PP3-DESIGN FROZEN (house
+  design block, the lull used)** — the k ≥ 3 tail's honest
+  resolution: the **k* = √(log x/loglog x) crossover** (below:
+  root counts + explicit-k^ω sums beat the headroom; above: the
+  total pp-mass is x^{o(1)} and crude closes). Why hard: at
+  θ = 3999/4000 classical hand-waving breaks — this regime is
+  GEH-specific Fable content, as three executors correctly
+  flagged. Nodes: PP3-NK (general-k CRT fold, inputs all landed)
+  ∥ PP3-SUMS (k-uniform GehPp2 generalization, explicit e^{O(k)})
+  → PP3-ASSEMBLY. NK + SUMS DISPATCHED. Board: DH-STRIP, MERT-1,
+  MERT-2, PP3-NK, PP3-SUMS, seed #2. Tally ~30.3M raw, house
+  ~14%.
