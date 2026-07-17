@@ -779,3 +779,106 @@ the incomplete-sum bound) + HB-F-TAU (the composite τ(c)√c
 assembly: the odd-prime-power crude bound + the factorization
 iteration over Nat.factorization — ALSO completes summit one's
 parked polish).
+
+## HB-ENGINE RE-FREEZE (Fable, 2026-07-20 evening) — THE PAPER
+## READ AT SOURCE; the five-link registration RE-CUT to seven
+## grounded work packages
+
+House read the actual PDF (Proc. LMS (3) 47 (1983) 193–224, all
+32 pages; JYH supplied). Every claim below is GROUNDED at the
+source. HB-R0's Tao-mediated recon was right about the hypothesis
+shapes and WRONG (because Tao streamlined) about the exponential-
+sum machinery.
+
+### THE PIVOTAL ANSWERS (HB-R0 low-confidence list resolved)
+
+1. **Kloosterman: YES, incomplete AND complete — our banked links
+   are ON-TARGET.** §1 p.196: "bounds for the Kloosterman sum
+   will be needed." §7 (7.1): the tool is **ESTERMANN's elementary
+   bound** S(k;u,v) ≪ d(k)·k^{1/2}·(k,u,v)^{1/2} — complete sums
+   at COMPOSITE modulus, the exact τ(c)√c shape of our landed
+   norm_kloosterman_le_tau_sqrt, NOT Weil (weaker than Weil; our
+   Weil-grade per-prime input over-satisfies it). And Lemma 10
+   (§7) is precisely an INCOMPLETE-sum estimate: Σ'_{n∈I}ψ(f(n))
+   over subintervals with congruence conditions, completed via
+   the sawtooth Fourier expansion (7.2)–(7.4) into complete
+   S(k;s,Cm) — the same completion genre as our BV fourierCutoff
+   / HB-F-COMP. Tao's r^{3/4} remark replaced Estermann; the
+   original uses d(k)√k. **Links (a)+(b) banked-and-central, not
+   sunk.** Remaining deltas: (i) the gcd factor (k,u,v)^{1/2}
+   (our τ√c is unit-a only); (ii) CUBE-FREE moduli (χ real
+   primitive ⟹ q cube-free, p.212) — corpus has k=1 sharp (Weil)
+   + k=2 sharp (even prime-power); cube-free assembly is a modest
+   CompositeFull extension; (iii) Lemma 10's congruence-
+   conditioned interval variant of the completion.
+2. **Hypothesis (1.11): FIRST-POWER confirmed at source** —
+   1−β₀ ≤ (3 log q)^{-1}, η := {(1−β₀)L}^{-1} ≥ 3. Matches
+   InfinitelyManySiegelZeros, NOT SiegelSequence (squared-log).
+   Window (1.13): q^250 ≤ x ≤ q^500 (Corollary 1 at q^300).
+   WINDOWED, so the TwinTypeII re-point stands: target Corollary
+   2's shape (∃ effective C^(1): η ≥ C^(1) infinitely often ⟹
+   infinitely many twin representations), consumed through
+   twin_survivor_of_pos, replacing twinB_min_implies_twins.
+3. **Zero-density IS needed — HB-R0's kill-question (i) answer
+   was WRONG.** (4.9) uses Jutila's N(σ,T,χ) ≪ (qT)^{(5/2)(1−σ)}
+   (σ ≥ 4/5) AND the Deuring–Heilbronn repulsion r₀ ≫ L^{-1}log η
+   (Jutila Thm 2) — both in Lemmas 3 & 7 (§4). Corpus check
+   needed: the SW stack has the explicit formula ψ(y,χ) (landed);
+   Jutila-grade density + D-H repulsion are NOT believed landed.
+   This is the campaign's biggest unpriced analytic debt.
+4. **The sieve is IWANIEC's ROSSER SIEVE, DIMENSION 4** (λ_d^±,
+   D = z³ = q^{1/3}, the S-set/P(δ) structure, S₁′−S₁ ≪
+   exp(−z₀/4)S₁ from [Iwaniec, Rosser's sieve, Thm 4]) — (2.2),
+   Lemma 6. Tao streamlined this away; the registration never
+   mentioned it. Import honestly or re-derive the needed
+   fundamental-lemma consequence over our Selberg machinery —
+   a design decision for the campaign opener.
+5. **The quadratic character sum** Σ_t χ(ut+u′)χ(vt+v′) ≪
+   (q, uv′−vu′) (p.217, "straightforward. We shall omit it") is
+   real and UNBANKED — B-class node.
+6. **No Cauchy–Schwarz dispersion anywhere** — confirmed at
+   source. The §§5–6 core is congruence elimination
+   (5.4)–(5.17): the two-variable lattice count reduced to
+   v₂w₂ ≡ C (mod Dδ₁w₁) via CRT consistency (5.13), then counted
+   by sawtooth ψ → Lemma 10. Intricate but ELEMENTARY.
+
+### The seven grounded work packages (replacing the five links)
+
+- **WP1 — the twist chain** (Lemmas 1, 2, 4; §§2–3): Λ̃ = μ²χ∗log,
+  Λ* with the ∑* star condition, S⁽⁰⁾→S⁽³⁾ transfer; elementary
+  convolution identities + crude bounds. ~0.5–1M.
+- **WP2 — the pretense sum + L-machinery** (Lemmas 3, 7; §4):
+  Σ_{χ(p)=1} p^{-1}log p ≪ L(log η)^{-1/4}; L′/L(1,χ) = ηL +
+  O(L(log η)^{-1/4}); κS₁ → 𝔖C(α)(ηL)^{-2}. NEEDS Jutila density
+  (4.9) + Deuring–Heilbronn + the landed explicit-formula stack.
+  ~1.5–3M (the density theorem dominates; recon the corpus first).
+- **WP3 — the Rosser sieve import** (dimension 4, λ±, Lemma 6 +
+  the [10, Thm 4] consequence). ~1–2M or a Selberg re-derivation.
+- **WP4 — the Kloosterman completion** (Lemma 10, §7): banked
+  HB-F-COMP/HB-F-TAU + the three deltas above. ~0.3–0.7M.
+- **WP5 — THE CORE congruence reduction** (Lemmas 9, 11, §5):
+  the Λ* Mellin expansion, dyadic S(δ₁,δ₂;V₁,V₂), the
+  (5.4)–(5.17) elimination to a single congruence + ψ-counting.
+  ~1.5–3M. THE POLE.
+- **WP6 — the leading terms** (§6): the a_i,b_i character
+  averaging (incl. the unbanked quadratic character sum), the
+  Euler products F(u,v)/G(u,v), the log-differentiation to
+  (L′/L)² + additive functions A_i(d). ~1–2M.
+- **WP7 — assembly + the windowed door** (§§2, 8): Lemma 5 →
+  S⁽³⁾ → Theorem 1 → Corollary 2; the twin door re-point
+  (windowed positivity via twin_survivor_of_pos + a new
+  arbitrarily-large-x door lemma; retire the TwinTypeII target).
+  ~0.5–1M.
+
+**Revised campaign price: 6.5–12.5M** (recon band confirmed,
+now with grounded structure). Biggest swing: WP2's density
+theorem (if a corpus recon finds usable zero-density
+infrastructure, −1M). Target statement: `InfinitelyManySiegelZeros
+→ TwinPrimeConjecture` = the landed HeathBrownStatement, exactly
+— the first-power hypothesis is what the paper needs, no
+squared-log strengthening, and the mis-aimed SiegelSequence
+bridge is bypassed. **First executable nodes (freezable now):
+HB-1 = WP1's Λ̃/Λ*/f(n) definitions + Lemma 1 (B-class, ~150k);
+HB-2 = the quadratic character sum (B, ~100–150k); HB-3 = WP2's
+corpus recon for density/repulsion (recon, ~100k).** Campaign
+opening awaits JYH's go.

@@ -5417,3 +5417,25 @@ decisions per question.
   against the corrected five-way map. ██ Ceremony: wired,
   Maynard build exit 0 (8580 jobs). Board: HB-R0 ADJUDICATION
   PENDING (RED at framing — the PDF gate), the CI watcher.
+
+- 2026-07-20 (GOLD WINDOW, evening): ██ **THE PAPER READ AT
+  SOURCE — HB-ENGINE RE-FROZEN ON GROUND TRUTH** ██ (house/Fable;
+  JYH supplied the 1983 PDF; all 32 pages read). THE PIVOTAL
+  REVERSAL: Tao's exposition SIMPLIFIED the paper — HB-original
+  DOES run on Kloosterman sums, incomplete (Lemma 10, sawtooth
+  completion) and complete (Estermann's d(k)√k(k,u,v)^{1/2} at
+  cube-free composite moduli). **Our banked HB-F-COMP + HB-F-TAU
+  are ON-TARGET AND CENTRAL, not sunk** — the down payments were
+  right. Confirmed at source: first-power hypothesis (1.11) ⟹
+  HeathBrownStatement is EXACTLY the right target; window
+  q^250–q^500 ⟹ the windowed-door re-point stands. NEW debts the
+  recon missed (Tao streamlined them away): Jutila zero-density
+  (4.9) + Deuring–Heilbronn repulsion (WP2), Iwaniec's Rosser
+  sieve DIMENSION 4 (WP3), the quadratic character sum (p.217,
+  unbanked, B-class). No dispersion anywhere — the core is
+  congruence elimination (5.4)–(5.17) + ψ-counting. Registration
+  RE-CUT: five links → SEVEN grounded work packages, 6.5–12.5M;
+  first freezable nodes HB-1 (twist chain defs + Lemma 1), HB-2
+  (quad char sum), HB-3 (density corpus recon). Campaign opening
+  awaits JYH's go. Fable access RESTORED mid-read (JYH: "resume
+  how we were working") — the model-split protocol suspended.
