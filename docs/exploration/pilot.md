@@ -3770,3 +3770,19 @@ decisions per question.
   Fable cap safe). Ceremony: wired + 3 keystones BY NAME, full
   build exit 0 (9077 jobs). Tally ~2.05M raw, house ~28% —
   **THE 2M CHIME.**
+
+- 2026-07-18 ~20:30 (THREAD A): ██ **A-III LANDS COMPLETE — THE
+  TOWER TELESCOPE IS DONE. WAVES I–IV ARE ALL LANDED** ██ (≈ 235k
+  / 30 tools, ~first attempt, the 2-attempt protocol never
+  exhausted). Tower.lean (268 lines): the tower arithmetic
+  (mult ≥ 2 at the floor — with a FAVORABLE deviation: the
+  logloglog ≥ 1/2 route avoids the razor-thin e^{e^e} bound),
+  towerEntropy/towerMI, tower_step (the (3.11) instantiation),
+  and **tower_telescope: e_J ≤ e_0 − towerDropSum under the
+  ∀-failure branch** — with the (ε²log4)/k absorption verified at
+  C₀ ≥ 2. THE DECREMENT NOW COMPOSES: decrement_exists_of_tower
+  (landed, wave IV) + tower_telescope + hmono (= chowlaTower_ge +
+  chowlaTower_le_Hhi, both landed). **A-FINAL dispatches — the
+  composition node: entropy_decrement lands on its return.**
+  Ceremony: wired + 2 keystones BY NAME, full build exit 0
+  (9078 jobs). Tally ~2.3M raw, house ~27%.
