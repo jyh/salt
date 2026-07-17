@@ -206,3 +206,39 @@ designed — do not dispatch 3c before b′ lands.
 assumption (the contradiction hypothesis; it is SUPPOSED to be
 false); the MR Prop 2.4 door is downstream of this block (feeds
 W3-e, not W3-a-3).
+
+## The MRT door — FROZEN (MRT-DOOR-R0, adjudicated 2026-07-19)
+
+**THE HEADLINE: this is a THEOREM-door.** Tao Prop 2.4 (p. 12) is
+PROVEN from [17] = Matomäki–Radziwiłł–Tao, arXiv:1503.05121 ("An
+averaged form of Chowla's conjecture") — the strongest honesty
+class. The OPEN object is (4.1) (§4, p. 26): the sup-INSIDE-the-
+integral variant, "not currently covered by the existing
+literature" (Tao), the sole k=3 obstacle.
+
+**Frozen door** (elaboration-checked; lands in MRTDoor.lean):
+`windowExpSum H n α := ∑ i : Fin H, (liouvilleWindow H n i : ℂ) ·
+exp(2πiα(i+1))` and
+`MRTUniformity (R : ChowlaRegime) (δ : ℝ) : Prop := ∀ H, R.Hlo ≤ H
+→ H ≤ R.Hhi → ∀ α : ℝ, ∫ n, ‖windowExpSum H n α‖ ∂(logMeasure R.x
+R.ω) ≤ δ · H`.
+
+**⚠ NON-NEGOTIABLE INVARIANT (kernel cannot police it):** the
+`∀ α` stays OUTSIDE the integral. Moving it inside (`∫ ⨆ α ...`)
+elaborates identically but silently swaps the proven Prop 2.4 for
+the OPEN (4.1). Any future edit to this def must preserve the
+quantifier position; the docstring carries this warning verbatim.
+
+**Anti-vacuity:** trivially true iff δ ≥ 1 (unit-modulus box);
+teeth live in the consumer smallness `K·δ < c₀·ε` (a regime-style
+inequality at W3-e-glue). δ is DATA (∃-inside is vacuous,
+∀-inside is false — both probed).
+
+**Seam (probe-PROVEN sorry-free):** hdoor + hXi (|Ξ_H| ≤ K, Lemma
+3.5 = W3-c/d) + hsmall (K·δ < c₀·ε) + hlower (the (3.16)∘circle-
+method mass ≥ c₀·ε) ⟹ False. The door fires once, at α = −ξ/H.
+
+**Node cuts:** W3-e-door (A, the defs) + W3-e-seam (B,
+contradiction_of_mrtDoor — probe-proven) — both landing now via
+the resumed recon agent; W3-e-glue (C) waits on W3-c/d constants
+(c₀, K) + the (2.11) reduction.
