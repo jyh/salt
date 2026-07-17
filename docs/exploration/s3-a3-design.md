@@ -242,3 +242,47 @@ method mass ≥ c₀·ε) ⟹ False. The door fires once, at α = −ξ/H.
 contradiction_of_mrtDoor — probe-proven) — both landing now via
 the resumed recon agent; W3-e-glue (C) waits on W3-c/d constants
 (c₀, K) + the (2.11) reduction.
+
+## The additive-energy escape — FROZEN (W3-cd-R0, adjudicated 2026-07-19)
+
+**RENAME RULING (house): the escape nodes are W3-AE-c / W3-AE-d**
+(the recon flagged the collision with W3-c-pnt; renamed throughout).
+
+**Transcriptions at page fidelity:** Lemma 3.5 (`|Ξ_H| ≪_{a,h,ε} 1`,
+p. 24) + footnote 4 verbatim (the Ben Green quadruple-sum escape) +
+the consuming passage. **🚩 PAPER TYPO CAUGHT:** p. 25's Markov line
+reads `ε²/H`; the Ξ_H definition and the L⁴ bound require
+`ε²/log H`. Our landed `bigXi` already carries the correct
+threshold — recorded so no executor "fixes" the carrier to match
+the paper. (Catch-against-the-paper #3 this sprint.)
+
+**The chain (S1–S7, provenance per step in the recon report):**
+L⁴ = additive energy (Parseval) → triangle → window lower bound
+(2/N)⁴ → **the sieve count E[𝒫_H] ≪ N³/log⁴N** (binary-Goldbach
+upper sieve, r(n) ≪ (N/log²N)·𝔖(n), Σ𝔖² ≪ N; order TIGHT) →
+1/(ε²log⁴H) → Markov at 4th power → |Ξ_H| ≤ ~16·C_d·ε⁻¹⁶,
+H-independent. Green–Tao restriction [11] fully bypassed.
+
+**Frozen statements (elaboration-checked; probe at
+scratchpad/W3cd_freeze_probe.lean):** W3-AE-d =
+`Finset.addEnergy (primeWindow eps H) (primeWindow eps H) ≤
+C·H³/log⁴H` (∃C ∃H₀ ∀H ≥ H₀ — the regime is MANDATORY: the crude
+E ≤ |𝒫|⁴ ~ ε⁸H⁴ fails against H³/log⁴H; single-prime falsity probe
+run); W3-AE-c = the unconditional L⁴/Markov inequality
+`|Ξ_H|·(ε²/logH)⁴ ≤ H·(2/ε²H)⁴·E[𝒫_H]`; Lemma_3_5 assembly =
+`|Ξ_H| ≤ C(ε)` (B-grade compose). Helpers: W3-AE-bridge (expSum =
+dft of the 1/p-weighted window; needs p < H), W3-AE-l4 (the L⁴
+Parseval extension of the landed L² dft_sum_mul_conj), W3-AE-markov.
+
+**Carriers:** mathlib `Finset.addEnergy` + `card_sq_le_card_mul_
+addEnergy` (ℕ-safe); ⚠ `addEnergy_eq_sum_sq` needs [Fintype] — sum
+over a finite carrier instead. Brun track: `congCount_bound`
+(generic), `Salt.SelbergPort.selberg_bound_simple`,
+`Salt.BrunLower.brun_upper`, `sum_inv_prime_window_le`; the twin-
+hard-wired lemmas need re-instantiation for the additive constraint.
+
+**Node cuts:** W3-AE-d (C, 60–90k, the Brun re-instantiation —
+generous STOP-AND-FLAG), W3-AE-c cluster (l4 + bridge + markov +
+the C-grade combine, one executor), Lemma_3_5 assembly (B, after
+both). MRT door lands separately (W3-e-door/seam, from the
+MRT-DOOR-R0 freeze above).
