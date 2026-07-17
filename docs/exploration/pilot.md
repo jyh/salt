@@ -4301,3 +4301,27 @@ decisions per question.
   door statement, W3-e (the Theorem 2.3 assembly). Ceremony:
   wired + 2 keystones BY NAME, full build exit 0 (9099 jobs).
   Tally ~8.0M raw, house ~17% — **THE 8M CHIME.**
+
+- 2026-07-19 ~14:40 (THREAD W): **W-COR3 LANDS — COROLLARY 3:
+  THE MOMENT ↔ CURVE BRIDGE IS IN, AND IT IS EXACT** (≈ 251k /
+  43 tools). CurveBridge.lean (307 lines):
+  card_kloosterman_fiber (the completing-the-square bijection
+  t ↦ 2At − c, general field, char ≠ 2 — NO correction terms:
+  b ≠ 0 kills the t = 0 corner, a ≠ 0 + oddness make 2A a unit),
+  curvePoly = (X^p − X)² − C(4ab) with natDegree = 2p and
+  coeff₀ ≠ 0 (weil_stepanov's hm/hf0 discharged),
+  curvePoly_not_isSquare (the gating lemma: g² = f forces
+  (P−g)(P+g) = 4ab constant → both unit → deg 2P ≤ 0,
+  contradiction), and **sum_kloostermanMoment_eq_pointCount:
+  Σ_{m ∈ 𝔽_p} M_n(ma, mb) = #{(x,y) : y² = f(x)}** + the m = 0
+  extraction (= p^n − 1) in sum_kloostermanMoment_erase_zero_eq.
+  Friction for the descent CONFIRMS T6IND's seam: Cor 3 is the
+  SUMMED identity over p − 1 twists (2(p−1) eigenvalues, each
+  pair with αβ = p) — character orthogonality cannot peel one m;
+  the multi-root modulus lemma (W-DESC-EXT, in flight) is the
+  required key, then specialize to m = 1. Remaining
+  weil_stepanov feeds the descent supplies: Odd(p^n), 64p² ≤ p^n
+  (n large), GaloisField.card. Ceremony: wired + 8 keystones BY
+  NAME, full build exit 0 (9100 jobs). Tally ~8.3M raw, house
+  ~17%. **THE WEIL BOUND NOW WAITS ON EXACTLY ONE IN-FLIGHT NODE
+  + ONE ASSEMBLY.**
