@@ -5094,3 +5094,27 @@ decisions per question.
   wired + 1 keystone BY NAME, full build exit 0 (9131 jobs). In
   flight: WINPNT, N-SMALLQ, MB-23, PATCH-5. Tally ~21.1M raw,
   house ~14% — the 21M mark.
+
+- 2026-07-20 ~13:50: **MB-23 LANDS — THE BOUNDARY THEOREMS + THE
+  HUNT'S PLOT TWIST: NO WALL, A RIGIDITY** (≈ 117k / 19 tools;
+  all theorems first-build). BoundaryMap.lean:
+  **dilation_forces_log** (THE CROWN — "why the logarithm is
+  there": exact dilation covariance forces the harmonic weight;
+  proof 1 line, content priceless) + approx_covariance_not_unique
+  (the honest sharpness companion — bounded oscillation survives
+  the approximate form) + **completelyMult_pm_one_collapse** (the
+  collapse engine for the whole real-CM±1 class — the sign inert)
+  + collapseCharacterization_candidate (the frozen Prop). **THE
+  HUNT (GF(2) linear algebra + exhaustive brute force): NO
+  counterexample exists — collapse ∧ f(1)=1 ≡ complete
+  multiplicativity at every N ≤ 80** (dim-exact; exhaustive
+  N ≤ 14; the naive first pass's "counterexample" was the
+  degenerate f(1) = −1 freedom, exposed by normalization). THE
+  EXPECTED WALL IS A RIGIDITY: the crack's multiplicative
+  mechanism has NO wiggle room — a twin-transport door cannot
+  weaken the CM±1 hypothesis; it must REPLACE the mechanism. The
+  finite-level statement is now a provable-looking induction
+  target — **MB-5 DISPATCHES (upgrade the candidate to a
+  THEOREM)**. Ceremony: wired + 3 keystones BY NAME, full build
+  exit 0 (9132 jobs). In flight: WINPNT, N-SMALLQ, PATCH-5, MB-5.
+  Tally ~21.4M raw, house ~14%.
