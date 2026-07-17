@@ -52,6 +52,7 @@ import Salt.Entropy.Chowla.WindowMertensLower
 import Salt.Entropy.Chowla.GoldbachEnergyG
 import Salt.Entropy.Chowla.Prop26
 import Salt.Entropy.Chowla.GoldbachEnergyHsqAsm
+import Salt.Entropy.Chowla.GoldbachEnergyGc
 import Salt.Entropy.Chowla.Theorem23Shell
 import Salt.Entropy.Chowla.Windows
 import Salt.Entropy.Chowla.PrimeWindow
@@ -145,6 +146,10 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.hsq_holds
   Salt.Entropy.Chowla.hsq_holds_gen
   Salt.Entropy.Chowla.sum_sTruncW_sq_le
+  Salt.Entropy.Chowla.goldCarrierSum_ge_log_sq_div_sTrunc2
+  Salt.Entropy.Chowla.goldSelbergBoundingSum_ge_log_sq_div_sTrunc2
+  Salt.Entropy.Chowla.sTrunc2_pos
+  Salt.Entropy.Chowla.selbergTerms_eq_gTwin_of_coprime
   Salt.Entropy.Chowla.dilation_error
   Salt.Entropy.Chowla.weakUniform_generic
   Salt.Entropy.Chowla.weakUniform_spine

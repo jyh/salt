@@ -4803,3 +4803,20 @@ decisions per question.
   **GB-14b DISPATCHES** (hFac2 lcm bound — the last hsq-side
   piece). In flight: GB-6c, SHIFT-CORR, GB-14b. Tally ~16.9M raw,
   house ~15%.
+
+- 2026-07-20 ~10:00 (NIGHT SHIFT): **GB-6c LANDS — THE COPRIME
+  DENOMINATOR BOUND: THE 2^ω POISON IS PURGED FROM THE CRITICAL
+  PATH** (≈ 167k / 34 tools; the flagged-grind step took 2
+  attempts, plan held). GoldbachEnergyGc.lean: hFac2/sTrunc2
+  (defined here — GB-14b hadn't landed), **THE KEY COLLAPSE:
+  hFac2 = gTwin BY rfl** (definitionally identical products — the
+  coprime exactness selbergTerms_eq_gTwin_of_coprime fell out
+  free), the gcd/cofactor factorization (image + ×ˢ reindex, NOT
+  nbij'), mainTermSum_le_sTrunc2_mul_coprimeSum, and the headline
+  **goldSelbergBoundingSum_ge_log_sq_div_sTrunc2** (c₀ = 1/64
+  inherited from the twin engine; GB-6's Parts 1/2/4 reused
+  verbatim; sCorr superseded but untouched). Ceremony: wired + 4
+  keystones BY NAME, full build exit 0 (9121 jobs). **GB-7
+  DISPATCHES — the hpt main term, the REBUILD'S FINAL POLE.**
+  In flight: SHIFT-CORR, GB-14b, GB-7. Tally ~17.1M raw, house
+  ~15% — the 17M mark (chime deferred, JYH asleep).
