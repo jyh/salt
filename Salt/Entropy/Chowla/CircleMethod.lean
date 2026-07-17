@@ -199,15 +199,18 @@ example {N : ℕ} [NeZero N] :
   simp only [norm_one, one_pow, Finset.sum_const, Finset.card_univ, ZMod.card, nsmul_eq_mul,
     mul_one]
 
-/-! ### The Lemma 3.4 circle-method estimate (spine node W3-b-main-v2)
+/-! ### The Lemma 3.4 circle-method estimate (spine node W3-b-main, v3 re-freeze)
 
-The v2 re-freeze of Tao's Lemma 3.4 (1509.05422 (3.18)) at the Liouville model
+The v3 form of Tao's Lemma 3.4 (1509.05422 (3.18)) at the Liouville model
 (`a = 1, b = 0, h = 1, c_p = 1`): the truncated prime-window correlation is bounded by the
 `Ξ_H` Fourier mass, with the PNT input `|𝒫_H| ≤ C₀·ε²H/log H` externalised as an explicit
 hypothesis (the v1 uniform freeze was false — see `docs/exploration/s3-a3-design.md`).  The
 proof periodises the correlation onto `ZMod H` (wraparound error `≤ |𝒫_H|`, funded by the
 hypothesis), Fourier-expands via `ZMod.dft`, then splits `Ξ_H` into minor arcs (`dft_l1_bound`)
-and major arcs (`window_lb` + the hypothesis).  Constants pin to `C = 2, C₀ = 1`. -/
+and major arcs (`window_lb` + the hypothesis).  Quantifier form (v3, house-ratified): the
+PNT constant `C₀` is UNIVERSAL and outermost, so the consumer can instantiate it with a
+specific constant — `C₀ := 2·log 4` from `primeWindow_card_le_of_regime` (node W3-c-pnt) —
+and the output constant pins uniformly to `C = 1 + 2·C₀`. -/
 
 -- inversion pointwise
 private lemma inv_pt {H : ℕ} [NeZero H] (Φ : ZMod H → ℂ) (m : ZMod H) :
@@ -568,8 +571,8 @@ private lemma periodization_total {eps : ℚ} {H : ℕ} [NeZero H] {x1 x2 : Fin 
     _ = ((primeWindow eps H).card : ℝ) := by
         rw [Finset.sum_const, Finset.card_univ, Fintype.card_coe, nsmul_eq_mul, mul_one]
 
-theorem circle_method_estimate :
-    ∃ C C₀ : ℝ, 0 < C ∧ 0 < C₀ ∧
+theorem circle_method_estimate (C₀ : ℝ) (hC₀ : 0 < C₀) :
+    ∃ C : ℝ, 0 < C ∧
       ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 x2 : Fin H → ℤ),
       (∀ i, |x1 i| ≤ 1) → (∀ i, |x2 i| ≤ 1) →
       ((primeWindow eps H).card : ℝ)
@@ -580,7 +583,7 @@ theorem circle_method_estimate :
         ≤ C * ((H : ℝ) / Real.log (H : ℝ)) *
             ((eps : ℝ) ^ 2 + ∑ ξ ∈ bigXi eps H, (1 / (H : ℝ)) *
               ‖(ZMod.dft (fun j : ZMod H => (windowVal H x1 (ZMod.val j) : ℂ))) ξ‖) := by
-  refine ⟨2, 1, by norm_num, by norm_num, ?_⟩
+  refine ⟨1 + 2 * C₀, by positivity, ?_⟩
   intro eps H _ x1 x2 hx1 hx2 hcard
   by_cases hH2 : 2 ≤ H
   · -- main regime: H ≥ 2, so log H > 0
@@ -602,11 +605,9 @@ theorem circle_method_estimate :
     have hWT : (H : ℂ) * T = W := T_collapse Φ₁ Φ₂
     have hTnorm : (H : ℝ) * ‖T‖ = ‖W‖ := by
       rw [← hWT, norm_mul, Complex.norm_natCast]
-    have hcard' : ((primeWindow eps H).card : ℝ)
-        ≤ 1 * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)) := hcard
     have hnormW : ‖W‖ ≤ (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ)
-        + (2 * 1 * (H : ℝ) / Real.log (H : ℝ)) * S :=
-      fourier_split Φ₁ Φ₂ h1 h2 one_pos hlog hcard'
+        + (2 * C₀ * (H : ℝ) / Real.log (H : ℝ)) * S :=
+      fourier_split Φ₁ Φ₂ h1 h2 hC₀ hlog hcard
     -- cast L and periodization
     have hLcast : ((L : ℝ) : ℂ) = ∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
         ((∑ j ∈ Finset.range H, (windowVal H x1 j : ℝ) *
@@ -634,26 +635,31 @@ theorem circle_method_estimate :
     have hH0 : (H : ℝ) ≠ 0 := ne_of_gt hHpos
     have hLe0 : Real.log (H : ℝ) ≠ 0 := ne_of_gt hlog
     have hTle : ‖T‖ ≤ (eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)
-        + 2 / Real.log (H : ℝ) * S := by
+        + 2 * C₀ / Real.log (H : ℝ) * S := by
       have hHTle : (H : ℝ) * ‖T‖ ≤ (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ)
-          + (2 * 1 * (H : ℝ) / Real.log (H : ℝ)) * S := hTnorm ▸ hnormW
+          + (2 * C₀ * (H : ℝ) / Real.log (H : ℝ)) * S := hTnorm ▸ hnormW
       have key : (H : ℝ) * ‖T‖ ≤ (H : ℝ) * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)
-          + 2 / Real.log (H : ℝ) * S) := by
+          + 2 * C₀ / Real.log (H : ℝ) * S) := by
         refine hHTle.trans (le_of_eq ?_)
         ring
       exact le_of_mul_le_mul_left key hHpos
-    have hcardbound : ((primeWindow eps H).card : ℝ)
-        ≤ (eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ) := by
-      rw [one_mul] at hcard'; exact hcard'
     rw [← Finset.mul_sum, ← hS]
-    have heq : 2 * ((H : ℝ) / Real.log (H : ℝ)) * ((eps : ℝ) ^ 2 + 1 / (H : ℝ) * S)
-        = ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ) + 2 / Real.log (H : ℝ) * S)
-          + (eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ) := by
+    have hS_nn : 0 ≤ S := Finset.sum_nonneg (fun ξ _ => norm_nonneg _)
+    have hquot_nn : 0 ≤ (eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ) := by positivity
+    have hrem_nn : 0 ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))
+        + S / Real.log (H : ℝ) :=
+      add_nonneg (mul_nonneg hC₀.le hquot_nn) (div_nonneg hS_nn hlog.le)
+    have heq : (1 + 2 * C₀) * ((H : ℝ) / Real.log (H : ℝ))
+          * ((eps : ℝ) ^ 2 + 1 / (H : ℝ) * S)
+        = ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ) + 2 * C₀ / Real.log (H : ℝ) * S)
+          + C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))
+          + (C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)) + S / Real.log (H : ℝ)) := by
       field_simp
       ring
     calc |L| ≤ ‖T‖ + ((primeWindow eps H).card : ℝ) := hLT
-      _ ≤ 2 * ((H : ℝ) / Real.log (H : ℝ)) * ((eps : ℝ) ^ 2 + 1 / (H : ℝ) * S) := by
-          rw [heq]; linarith [hTle, hcardbound]
+      _ ≤ (1 + 2 * C₀) * ((H : ℝ) / Real.log (H : ℝ))
+            * ((eps : ℝ) ^ 2 + 1 / (H : ℝ) * S) := by
+          rw [heq]; linarith [hTle, hcard, hrem_nn]
   · -- degenerate: H = 1
     have hH1 : H = 1 := by have := NeZero.pos H; omega
     have hlog0 : Real.log (H : ℝ) = 0 := by rw [hH1]; simp

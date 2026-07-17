@@ -4507,3 +4507,28 @@ decisions per question.
   fBridgeF_mean. Ceremony: wired + 1 keystone BY NAME, full build
   exit 0 (9105 jobs). In flight: W3-a-3a, main-v2 (v3 resume).
   Tally ~11.0M raw, house ~17% — **THE 11M CHIME.**
+
+- 2026-07-19 ~22:10 (THREAD A): **W3-a-3a + v3 LAND (batched
+  ceremony) — THE TRANSPORT IS IN; THE CIRCLE METHOD IS
+  CONSUMER-READY** (3a ≈ 132k / 50 tools, keystone compose
+  first-attempt; v3 ≈ 188k / 13 tools, ONE compile — mechanical
+  exactly as the executor scoped). Transport.lean: **badSet** (the
+  deviation event as a Finset) + **badSet_transport** (uniform
+  exp-smallness → card gap → weakUniform_spine → conditional mass
+  ≤ (t + (3.9)-corr + log2)/g) + **badSet_transport_at_calibration**
+  (δ = ε²H/logH, budget ε⁶H/(18C₀logH) − log2 — the tower-fundable
+  grade handed to the Fubini directly; landed, not skipped). Honest
+  bookkeeping deviations (all pre-blessed): hgle ≤-form, ht : 0 ≤ t
+  (empty-branch only), heps1 for the (2+ε²)² ≤ 9 fold.
+  CircleMethod.lean: **circle_method_estimate v3** (∀C₀>0 ∃C=1+2C₀;
+  the ∀ body byte-identical; the consumer probe
+  `circle_method_estimate (2·log4) + primeWindow_card_le_of_regime`
+  fires VERBATIM, zero cast massaging). Ceremony: wired + 3
+  keystones BY NAME (Transport import + 2 audit adds), full build
+  exit 0 (9106 jobs). **W3-a-3c DISPATCHES — the outer Fubini
+  assembly, the FINAL analytic node of wave 3** (3b folds in as the
+  decrement_markov application; mandatory STEP-0 carrier check on
+  the condDistrib total-expectation identity, STOP-AND-FLAG if
+  absent — logMeasure is finitely-supported Diracs so the fallback
+  is finite-sum arithmetic). In flight: W3-cd-R0, MRT-DOOR-R0,
+  W3-a-3c. Tally ~11.5M raw, house ~17%.
