@@ -3625,3 +3625,12 @@ decisions per question.
   created + wired into Salt.lean, 5 keystones, full build exit 0
   (9070 jobs). **W1.3′ (orbits↔irreducibles + Gauss) and
   W1.2+W1.3 (trace + Artin–Schreier) DISPATCH.** Tally: ~0.8M.
+
+- 2026-07-18 ~15:10: **SPEND CALIBRATION (JYH): 47% of the 5h
+  window in 2h20m ⟹ pacing ≈ 100% of window — zero headroom;
+  window size ≈ 2.5–3.5M/5h (single account). MITIGATION: hold
+  3–4 active, stagger heavy dispatches ≥20min apart.
+  MULTIPLIER (JYH): THREE accounts, swappable — 3× capacity when
+  JYH is ATTENTIVE and rotating; he announces attentiveness.
+  Protocol: attentive+rotating → up to 6 active, hot cadence;
+  away → 3–4, paced to a single window.**
