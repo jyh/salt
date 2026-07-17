@@ -60,6 +60,7 @@ import Salt.Entropy.Chowla.HReduce
 import Salt.Entropy.Chowla.GoldbachEnergyFinal
 import Salt.Entropy.Chowla.DilationStability
 import Salt.Entropy.Chowla.HMainAssembly
+import Salt.Entropy.Chowla.HBudget
 import Salt.Entropy.Chowla.Theorem23Shell
 import Salt.Entropy.Chowla.Windows
 import Salt.Entropy.Chowla.PrimeWindow
@@ -176,6 +177,8 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.perPair_collapse
   Salt.Entropy.Chowla.dilated_window_stability
   Salt.Entropy.Chowla.hreduce_holds
+  Salt.Entropy.Chowla.hbudget_holds
+  Salt.Entropy.Chowla.hreduce_holds_final
   Salt.Entropy.Chowla.dilation_error
   Salt.Entropy.Chowla.weakUniform_generic
   Salt.Entropy.Chowla.weakUniform_spine

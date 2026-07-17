@@ -4970,3 +4970,23 @@ decisions per question.
   LAST node of the h211 producer (the unfold + budget arithmetic,
   now attachable).** In flight: HBUDGET. Tally ~18.9M raw, house
   ~15%.
+
+- 2026-07-20 ~18:30 (NIGHT SHIFT): ██████████████████████████████
+  ██ **HBUDGET-2 COMPLETE — THE h211 PRODUCER CHAIN IS DONE** ██
+  ██████████████████████████████ (≈ 530k / 130 tools — the
+  window's biggest single node; the turnkey table realized in
+  full). HBudget.lean (727 lines): **hbudget_holds** (the ∃c-∃H₀-∀
+  idiom; |∫F − Σ(H/p)X| ≤ ¼·SP·H·ε at the CORRECTED hωbig; 11
+  private lemmas incl. the gate_residue hard seam ~5 attempts and
+  the assembly ~6) + **hreduce_holds_final** (the frozen hreduce
+  from hseed + the regime — THE CAPSTONE). The executor CAUGHT and
+  fixed the predecessor's hxbig gap (didn't fund x/ω ≥ H → the
+  ω·H term added). New gotcha memoed: omega can't reason about
+  % p at symbolic modulus — use Nat.ModEq. THE CHAIN NOW RUNS
+  UNBROKEN: logChowla2Fails → singleCorr → hreduce_holds_final →
+  consumability_probe → h211 — all modulo the regime block.
+  PATCH-4's ω-floor: ω ≥ (ε²H)^{16/ε}·e^{64/ε+1}, and hxbig's ω·H
+  term makes ω ≤ x automatic. Ceremony: wired + 2 keystones BY
+  NAME, full build exit 0 (9129 jobs). **PATCH-4 DISPATCHES — THE
+  LAST HARD NODE (the regime re-witness at the exp-large ω).**
+  Tally ~19.5M raw, house ~14%.
