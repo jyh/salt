@@ -5285,3 +5285,31 @@ decisions per question.
   the surviving gold vein) DISPATCH.** In flight: HB-F-COMP,
   HB-F-TAU, TD-R2a, TD-R2b + the CI watcher (billing FIXED —
   the rerun is past setup and building).
+
+- 2026-07-20 (GOLD WINDOW): ██ **HB-F-COMP LANDS — THE INCOMPLETE
+  KLOOSTERMAN BOUND: HB-ENGINE's LINK 3 IS BANKED** ██ (≈ 152k /
+  37 tools; ≤2 iterations per cluster, no flags).
+  Salt/Weil/Incomplete.lean: **norm_incomplete_kloosterman_le**
+  (‖Σ_{t ≤ Z} e(at + bt̄)‖ ≤ 2√p·(2 + log p)) — the BV
+  Fourier-cutoff reused VERBATIM (the Dirichlet-mismatch flag
+  never fired — the cutoff was character-agnostic all along);
+  FEWER hypotheses than briefed (no a ≠ 0, no p ≠ 2): the
+  degenerate frequency computed EXACTLY (S(0,b;p) = −1, the
+  Ramanujan value — the crude p−1 route would have DESTROYED the
+  bound; the executor caught it and did it right). The link-2
+  socket documented (CRT-factorable modulus + anchored-cutoff
+  intervals). Ceremony: wired + 1 keystone BY NAME, full build
+  exit 0 (9137 jobs).
+
+- 2026-07-20 (GOLD WINDOW): **THE CI COST POLICY LANDS (JYH: "oh
+  yes, please")** — pushes stay per-ceremony (the recovery spine
+  untouched); CI runs drop to rung-ends + nightly:
+  (1) routine ceremony commits carry **[skip ci]** (native GitHub
+  skip; rung/campaign-end pushes omit it); (2) lean_action_ci.yml
+  gains **concurrency cancel-in-progress** (bursts bill ~1 run)
+  + **the 09:00-UTC nightly cron backstop**; (3) ci.yml already
+  push-disabled (the hygiene report's prior consolidation),
+  update.yml manual — no other leaks. Est. ~90–95% Actions cost
+  reduction; moot at public release (free runners). The billing
+  rerun (29599988363) is IN PROGRESS — today's badge verdict
+  pending via the watcher. In flight: HB-F-TAU, TD-R2a, TD-R2b.

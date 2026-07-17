@@ -4,6 +4,15 @@ on:
   push:
   pull_request:
   workflow_dispatch:
+  schedule:
+    # Nightly backstop build (09:00 UTC) so the badge never goes >24h stale.
+    # Routine ceremony pushes carry [skip ci]; rung/campaign-end pushes omit it.
+    - cron: '0 9 * * *'
+
+# Rapid ceremony bursts supersede each other: cancel the stale run, bill ~1.
+concurrency:
+  group: lean-ci-${{ github.ref }}
+  cancel-in-progress: true
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
