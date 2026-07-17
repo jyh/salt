@@ -5152,3 +5152,20 @@ decisions per question.
   registered best-case OUTCOME ACHIEVED: not a vague "it's hard"
   but a kernel-derived specification of the wall AND of what any
   future door must contain. In flight: WINPNT, PATCH-5, GEH-FIX.
+
+- 2026-07-20 ~15:40: ██ **WINPNT DISCHARGED — WindowPNT IS A
+  THEOREM; DOOR 2 LOSES AN ANALYTIC INPUT** ██ (≈ 220k / 36
+  tools; 1 real attempt + 4 name fixes). GehWindowPnt.lean:
+  **windowPNT_holds : WindowPNT** — unconditional, from
+  psiTot_pnt (the SW-gated PNT-with-rate) via the D3 ψ→θ→count
+  strip run as a LOWER bound (psi_sub_theta_le_mul_sqrt chosen to
+  drop the log factor); the 63 honored EXACTLY (log N/log 64N → 1
+  — no lossy constant); the ∀ᶠ threshold honest. CONSUMERS
+  VERIFIED: geh_door_of_obligations now needs **GEH_min +
+  obligations ALONE**; the Twelve track's gaps_le_twelve fires
+  with only EHall remaining. The stale-premise lead paid in full
+  — the "mathlib has no PNT" era is formally over in this corpus.
+  Ceremony: wired into Maynard/All BY NAME (GEH-FIX holds
+  GehSW.lean), house axiom check [3 axioms], Maynard build exit 0
+  (8786 jobs). In flight: PATCH-5, GEH-FIX. Tally ~22.1M raw,
+  house ~14% — the 22M mark.
