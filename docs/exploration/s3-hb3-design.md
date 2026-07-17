@@ -722,3 +722,35 @@ ONE executor (subagent named `R3c-1`, model opus), single file
 The registered deliverable is the partial landing (R3c-1 + b + a1 [+ a2 tail]);
 (a3) is the honest death. Docstrings carry the R4 death-rung pointer and the
 no-twin-claim / SiegelSequence-honesty framing [Charge 5].
+
+## HB-R4-R0 — THE REVIVAL HEARING (2026-07-20, post-Weil):
+VERDICT RED, RE-ATTRIBUTED
+
+The death certificate's stated cause ("Kloosterman/Weil is absent
+entirely") is NOW FALSE — the genuine 2√p Weil bound landed via
+Stepanov descent this window. The rung stays RED for the CORRECTED
+reason: the certificate mis-diagnosed which absence was fatal. The
+missing object is the ENGINE, not the tool — the bridge
+**SiegelSequence ⟹ TwinTypeII** (= Heath-Brown's paper): the
+Vaughan-twist decomposition → the dispersion reduction → the
+incomplete-Kloosterman completion → the composite τ(c)√c assembly
+(parked) → the singular-series reassembly. Five links; the first
+four unbuilt; a Chen/BV-scale multi-month track. No landed
+dispersion frame has a Kloosterman socket (typeII_disc_le closes
+via the large sieve; the Maynard door is parity-limited to
+bounded gaps at ANY level — never twins).
+
+**THE NARROWING (the hearing's gift):** the sorry-free twin door
+`twinB_min_implies_twins : TwinTypeII → TwinPrimeConjecture`
+means R5 = "prove SiegelSequence ⟹ TwinTypeII", FULL STOP — the
+death map never noticed. **THE LIGHTNESS FINDING:** HB is
+genuinely lighter than Zhang — one-variable Weil (IN HAND), not
+Deligne; single-layer dispersion; the Siegel zero supplies the
+parity break free. The corpus has HB's tool where it could never
+have had Zhang's. **THE FIRST NODE for whoever opens the track:**
+re-point BV/Completion.lean's Fourier-cutoff machinery (currently
+Dirichlet-aimed) at the Kloosterman complete sums — a bounded
+port. STATUS: **HB-ENGINE = a NAMED FUTURE CAMPAIGN** (peer of
+the MR formalization), not a this-window play. Distinction from
+W4-MAJOR's RED: a SCALE verdict, not a category error — opening
+a track, not flipping a switch.

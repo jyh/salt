@@ -5221,3 +5221,20 @@ decisions per question.
   Maynard/All BY NAME, house axiom checks [3 axioms], Maynard
   build exit 0 (8787 jobs). In flight: SPINE-HOIST, HB-R4-R0.
   Tally ~23.0M raw, house ~14% — the 23M mark.
+
+- 2026-07-20 ~18:30: **HB-R4-R0: VERDICT RED, RE-ATTRIBUTED — THE
+  DEATH WAS REAL BUT THE CAUSE WAS WRONG** (≈ 94k / 27 tools; the
+  second ruthless RED of the day, both together < 220k, both
+  preventing multi-M wrong-GREENs). The death premise
+  ("Kloosterman/Weil absent entirely") is FALSE — but the fatal
+  absence is the ENGINE: SiegelSequence ⟹ TwinTypeII (=
+  Heath-Brown's dispersion analysis, 5 links, 4 unbuilt,
+  Chen/BV-scale). THE GIFTS: (1) the landed twin door NARROWS R5
+  to exactly that bridge (the death map never noticed); (2) HB is
+  GENUINELY LIGHTER than Zhang — one-variable Weil (in hand), not
+  Deligne — the corpus holds HB's tool forever; (3) the concrete
+  first node named (the BV/Completion Fourier-cutoff port).
+  **HB-ENGINE registered as a named future campaign** (peer of
+  MR). Adjudicated + persisted. In flight: SPINE-HOIST (the last
+  climber before the restart window). Tally ~23.1M raw, house
+  ~14%.
