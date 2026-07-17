@@ -5769,3 +5769,21 @@ decisions per question.
   ~150k estimate; HL-3b stays Mertens-gated. Board: N-SHIU,
   ROOT-CYC, ROOT-TWO, VK-R0, CI test run. Tally ~27.7M raw,
   house ~14%.
+
+- 2026-07-17 ~5:30pm (GOLD WINDOW): ██ **N-PP-ROOT-CYC LANDS —
+  THE CYCLIC ROOT COUNT, PpLevel's ROOT, ZERO RESIDUALS** ██ (≈
+  103k / 36 tools; ~2 attempts). Salt/Maynard/PpRootCyc.lean (4
+  keystones, [3 axioms]): **card_pow_eq_le_gcd** (#{x : x^k = a}
+  ≤ gcd(k,|G|) in finite cyclic G — the frozen statement + route
+  EXACTLY) + the (ZMod p^e)ˣ wrapper + gcd_two_totient_eq_two +
+  **card_sq_eq_le_two_units_prime_pow** (≤ 2 square roots at odd
+  prime powers — the k=2 consumer case). ██ CATCH #51 (executor-
+  catches-recon): the recon's frozen WRAPPER signature does NOT
+  elaborate — Fintype (ZMod (p^e))ˣ needs NeZero (p^e), which a
+  bare signature cannot derive from hp; fixed via letI in the
+  signature (zero new hypotheses, no math change) — the pattern
+  is now on record for every future ZMod-units statement ██.
+  All recon mathlib citations confirmed drift-free. Ceremony:
+  wired, Maynard 8580 green, olean verified. PpLevel chain: CYC ✓
+  → TWO (in flight) → CRT → FOLD → ASSEMBLY. Board: N-SHIU,
+  ROOT-TWO, VK-R0, CI test run. Tally ~27.8M raw, house ~14%.
