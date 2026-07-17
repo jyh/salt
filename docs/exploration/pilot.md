@@ -4787,3 +4787,19 @@ decisions per question.
   wired + 7 keystones BY NAME (batched), full build exit 0 (9119
   jobs). Dispatching: GB-6c, SHIFT-CORR (GB-14b queued). In
   flight: GB-1213 (+2 new). Tally ~16.6M raw, house ~15%.
+
+- 2026-07-20 ~09:20 (NIGHT SHIFT): ██ **GB-1213 LANDS — THE hsq
+  RESIDUAL IS REAL (at the hFac freeze) + PARAMETRIC-READY for the
+  re-freeze** ██ (≈ 166k / 34 tools; GB-12/13 structure
+  first-attempt; the mid-flight house amendment consumed).
+  GoldbachEnergyHsqAsm.lean: **hsq_holds** (Σ(rbound)² ≤
+  2K·C₁²·ε⁶·H³/log⁴H at H₀ = 2 — W3_AE_d_of_sieve's hsq binder
+  VERBATIM) + **hsq_holds_gen** (parametric in the weight h — the
+  hFac2 plug-in waits only on GB-14b) + sTruncW/sumset_subset_Ioc.
+  EVEN CLEANER THAN THE HOUSE TRICK: the exact Ioc divisor count
+  (Nat.Ioc_filter_dvd_card_eq_div: #= M/L, zero slack) killed the
+  +1 term outright — no lcm-split, no Mertens, nothing. Ceremony:
+  wired + 3 keystones BY NAME, full build exit 0 (9120 jobs).
+  **GB-14b DISPATCHES** (hFac2 lcm bound — the last hsq-side
+  piece). In flight: GB-6c, SHIFT-CORR, GB-14b. Tally ~16.9M raw,
+  house ~15%.
