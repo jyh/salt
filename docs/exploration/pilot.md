@@ -4742,3 +4742,23 @@ decisions per question.
   SPINE** (Mertens lower taken as hypothesis to decouple from D3,
   in flight). In flight: D3, GB-6, GB-1213, STMT2. Tally ~15.7M
   raw, house ~15%.
+
+- 2026-07-20 ~07:40 (THREAD A): **D3 LANDS FIRST ATTEMPT — THE
+  MERTENS LOWER BOUND, c = 1/4, VIA THE FIRST ENTROPY→CHEN EDGE**
+  (≈ 188k / 36 tools; survived the account swap mid-flight).
+  WindowMertensLower.lean: **primeWindow_sum_inv_ge** (Σ 1/p ≥
+  (1/4)/log H under the standard regime + eps² ≤ 1; smoke test at
+  the regime_nonvacuous point). THE FINDING: the numeric honesty
+  check PROVED no elementary route exists — the dyadic difference
+  of mathlib's Chebyshev bounds cancels EXACTLY at main order
+  (log2 − log4/2 = 0, verified at N = 10⁴..10¹²) — so the node
+  consumed **Salt.Chen.lambda_mass_lower** (the SW-gated PNT-rate
+  dyadic mass bound): the Siegel–Walfisz arc now feeds the
+  log-Chowla spine (no import cycle, verified). Prime powers
+  stripped via psi_sub_theta_le; the H₀ gate folds the PNT
+  constant. NEW regime obligation for W3-e-final: eps² ≤ 1
+  (trivially regime-fundable). JYH swapped accounts at 80% —
+  fresh window at 2%; the in-flight agents SURVIVED the swap.
+  Ceremony: wired + 1 keystone BY NAME, full build exit 0 (9117
+  jobs). In flight: STMT2, GB-6, GB-1213. Tally ~16.1M raw,
+  house ~15% — **THE 16M CHIME.**

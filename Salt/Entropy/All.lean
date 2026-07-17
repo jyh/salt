@@ -48,6 +48,7 @@ import Salt.Entropy.Chowla.GoldbachEnergyM2
 import Salt.Entropy.Chowla.GoldbachEnergySieve
 import Salt.Entropy.Chowla.GoldbachEnergyHsq
 import Salt.Entropy.Chowla.ChowlaFailure
+import Salt.Entropy.Chowla.WindowMertensLower
 import Salt.Entropy.Chowla.Theorem23Shell
 import Salt.Entropy.Chowla.Windows
 import Salt.Entropy.Chowla.PrimeWindow
@@ -130,6 +131,7 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.liouville_mul
   Salt.Entropy.Chowla.liouville_prime
   Salt.Entropy.Chowla.h211_of_logChowla2Fails
+  Salt.Entropy.Chowla.primeWindow_sum_inv_ge
   Salt.Entropy.Chowla.dilation_error
   Salt.Entropy.Chowla.weakUniform_generic
   Salt.Entropy.Chowla.weakUniform_spine
