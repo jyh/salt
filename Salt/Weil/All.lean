@@ -10,6 +10,7 @@ import Salt.Weil.LocalFactor
 import Salt.Weil.Stepanov
 import Salt.Weil.Moments
 import Salt.Weil.StepanovCore
+import Salt.Weil.PointCount
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -21,7 +22,10 @@ Stepanov (Harcos/IK Ch. 11; the ladder in docs/exploration/pilot.md
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.Weil.stepanov_dimension_count
+#audit_axioms Salt.Weil.pointCount_sub_card
+  Salt.Weil.stepanov_locus_card_le
+  Salt.Weil.exists_quotient_hasseDeriv_mul_pow
+  Salt.Weil.stepanov_dimension_count
   Salt.Weil.stepanovAux_dvd_of_reduced_eval_zero
   Salt.Weil.stepanov_multiplicity_card_le
   Salt.Weil.kloostermanMoment_one

@@ -3959,3 +3959,22 @@ decisions per question.
   (m-design.md); nodes re-cut to ~340k. **M-EXEC dispatches**
   (Separation.lean, M1→M5). In flight: 6/6. Tally ~3.65M raw,
   house ~23%.
+
+- 2026-07-19 ~02:00 (THREAD W): **W5 LANDS — floors EXCEEDED: the
+  tight-degree bridge + the a-form + Harcos (12)** (≈ 177k / 33
+  tools). PointCount.lean: (21) divisibility-style (first
+  attempt), the (22) a-linear collapse + the (13) count bound
+  (first attempt), pointCount_sub_card (the quadratic-character
+  fiber route via quadraticChar_card_sqrts) + the combine glue +
+  a Lean-checked example at Harcos's own numbers. TWO honest
+  flags: (i) the (22)-solution needs the Hasse-quotients bundled
+  as LINEAR MAPS (φ for stepanov_dimension_count — existence is
+  landed, the LinearMap packaging is the remaining D-tier
+  bundling — ONE node); (ii) the uniform-D count fails at
+  Harcos's optimal J (10·141 = 1410 vs 1350) — bump J by one and
+  it closes (verified) — the CONSTANT is not load-bearing.
+  THE STEPANOV FACE STATUS: Thm 7 = the φ-bundling node away;
+  the descent = Thm 6 (the η ladder, E1 in flight) + Cor 3 away.
+  Ceremony: wired + 3 keystones BY NAME, full build exit 0
+  (9082 jobs). **W5B (the φ-bundling) queues for the next free
+  slot** (6/6 now). Tally ~3.85M raw, house ~22%.
