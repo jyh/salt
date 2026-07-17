@@ -5026,3 +5026,23 @@ decisions per question.
   Ξ_H-only, matching where Tao's own proof fires it — queued as
   DOOR-MIN post-W3E-FINAL). In flight: W3E-FINAL. Tally ~20.0M
   raw, house ~14% — the 20M mark.
+
+- 2026-07-20 ~10:50: ████████████████████████████████████████████
+  ██ **THE LOG-CHOWLA SPINE IS CLOSED — SUMMIT TWO IS TAKEN.** ██
+  ██ log_chowla_two_conditional + the quotable _regime surface: ██
+  ██ Tao's log-Chowla-2, machine-checked end to end, resting on ██
+  ██ EXACTLY: the MRT theorem-door (arXiv:1503.05121), the      ██
+  ██ tower numerics (ours, rung W3E-TOWER), the regime range.   ██
+  ████████████████████████████████████████████████ (W3E-FINAL ≈
+  171k / 34 tools; ALL FOUR CHAINS FIRST-ATTEMPT: h211 with c₁ =
+  cD3/4 pinned by inlining, hcirc at 2log4, hXi destructured, the
+  13-row regime discharge row by row; PATCH-4's funding CONFIRMED
+  in action — omega_big_at/x_big_at discharged cleanly; 10 of the
+  shell's 19 binders discharged internally, 9 stay = exactly the
+  design's htower block + range). SpineClose.lean. Ceremony:
+  wired + 2 keystones BY NAME, full build exit 0 (9130 jobs).
+  THE WAVE-3 ARC, COMPLETE: from the A3-R0 road map through the
+  falsity catches, the re-freezes, the rebuilt sieve, the gate
+  excavation, to the close — every step ledgered. THE PLAY
+  WINDOW'S TWO SUMMITS: THE WEIL BOUND + THE LOG-CHOWLA SPINE.
+  Tally ~20.2M raw, house ~14%. THE FANFARE.
