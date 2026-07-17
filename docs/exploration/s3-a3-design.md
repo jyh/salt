@@ -751,3 +751,29 @@ likely false/hard — collapse constrains only pair-correlations)
 pair-correlation, not CM — a counterexample IS the publishable
 wall). Node MB-23 dispatches (all four pieces, one executor).
 MB-4 (house synthesis: the boundary-map document) after.
+
+## N-SMALLQ STOP-AND-FLAG — SmallQTypeII IS FALSE AS FROZEN
+(house ruling, 2026-07-20)
+
+The sprint-2 freeze dropped the polynomial-scale condition every
+textbook Type-II estimate carries: with V = M = polylog(x) the
+typeIIData block collapses to pure Λ (only divisor > M of
+n ∈ (M, 2M] is n itself — numerically verified), and the Λ-in-AP
+discrepancy at mod 3 grows like 0.3·√M (prime-race Ω-behavior)
+while the budget shrinks — ∃K ∀x refuted. ROOT CAUSE: SW saves
+powers of log(SCALE); polylog scale gives log log x. **RULING
+(exploration-track def, house tier): amend SmallQTypeII with the
+scale guard** — the inner ∀-block gains the hypothesis
+`(x:ℝ)^(1/3) ≤ (V x : ℝ)` (the form every real caller satisfies:
+V = cbrt x; M = 2^a·x^(1/3)-grade) — making the Prop true and
+SW-provable; re-thread swAt_typeIIData + its GehDecomp/GehMulti
+call sites. THE GIFT (kills the flagged hard seam): the CRT/
+solvability machinery is UNNECESSARY — gcd(a,q) = 1 forces
+gcd(m,q) = 1 (else the per-cofactor discrepancy VANISHES), so the
+reindex is a clean m⁻¹-bijection at the same modulus. Node
+**GEH-FIX** (B/C: the amendment + re-thread + repair) dispatches;
+**SMALLQ-2** (the SW proof at the fixed def, using the gift + the
+landed spine: typeIIData_residue_reindex, the seqDiscrepancy
+calculus, siegelWalfisz_holds, the summation budgets) follows.
+Catch genre: LATENT FREEZE FALSITY, surfaced at first proof
+contact — two sprints after the freeze.
