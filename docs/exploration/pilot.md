@@ -5954,3 +5954,15 @@ decisions per question.
   house queue as **PP3-DESIGN**. PpLevel chain: CYC ✓ TWO ✓ CRT
   ✓ FOLD ✓(k=2) → ASSEMBLY awaits PP3-DESIGN. Board: CI seed +
   the WP2 freeze (house, now). Tally ~29.6M raw, house ~14%.
+
+- 2026-07-17 ~10:15pm (GOLD WINDOW): **THE WP2 NODE TABLE FREEZES
+  — the diagonal fork resolved BY DESIGN (two routes, one probe)**
+  (house; Benli grounded at the staged text: the product
+  detector handles the diagonal EXPLICITLY — the 1−ρ pole
+  computed; + the house's cheap door: on the diagonal the
+  elementary detector's own χ₁-factor vanishes at ρ). Frozen:
+  DH-1 (detector+Mellin+floor, DISPATCHED) / DH-2a (the diagonal
+  elementary probe, DISPATCHED) / DH-2b (product+Graham,
+  contingent) / DH-3 / DH-4. Board: DH-1, DH-2a, CI seed. House
+  queue: ShiuCore siege, PP3-DESIGN, SMALLQ-4, option-C. Tally
+  ~29.7M raw, house ~14%.

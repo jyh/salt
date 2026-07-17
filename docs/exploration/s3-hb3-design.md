@@ -1029,3 +1029,38 @@ alone). **HOUSE DESIGN BLOCK (next): resolve the fork — read
 Jutila §§5–6's diagonal handling + Benli Cor 1.1 against HB's
 exact consumption (ψ(y,χ) explicit-formula zeros, same χ) — then
 freeze the WP2 node table.** ██
+
+### THE WP2 NODE TABLE — FROZEN (house, 2026-07-17 ~10:15pm; the
+### diagonal fork resolved BY DESIGN)
+
+The fork's ground truth (Benli et al. 2410.06082, read at the
+staged text): their detector is the PRODUCT F(s,χ) =
+L(s,χ)·L(s,χχ₁) with Graham/Selberg weights, and the DIAGONAL
+cases χ ∈ {χ₀, χ₁} are handled EXPLICITLY — the extra simple
+pole at s = 1−ρ is computed (Res_{s=1} L(s,χ₀) = φ(q)/q;
+G(1,χ₁) = G(1,χ₀)). So the mollifier route covers HB's same-χ
+consumption, grounded. House observation (the cheap door): on
+the diagonal the elementary detector 1∗χ₁ has its OWN χ₁-factor
+vanish at ρ (L(ρ,χ₁) = 0) — the exact-vanishing Abel mechanism
+may apply directly, no cross-character structure needed. Worth
+one probe before paying the mollifier price.
+
+**The frozen nodes:**
+- **DH-1** (C, ~0.3–0.5M): the 1∗χ detector + its Mellin/kernel
+  representation on the landed Kernel/Psi1Identity stack; the
+  positivity floor (the Siegel skeleton's 1∗χ pattern). DISPATCH.
+- **DH-2a — THE DIAGONAL PROBE** (spike, ~0.15M): attempt the
+  elementary same-χ damping — consume L(ρ,χ₁) = 0 via Abel in
+  the χ₁-side partial sums of the hyperbola split (catch #53's
+  single-interval discipline applies). GREEN ⟹ DH-2 stays
+  elementary C-class. RED ⟹ DH-2b. DISPATCH.
+- **DH-2b** (C, +0.3–0.6M, CONTINGENT on DH-2a RED): the product
+  detector L(s,χ)L(s,χχ₁) + Graham weights + the diagonal pole
+  bookkeeping per Benli §4; explicit convexity from the landed
+  growth stack.
+- **DH-3** (B, 0.15–0.3M): the competing lower estimate (floor).
+- **DH-4** (A/B, ~0.1M): balance + LFunction_one_re_le_mvt_sharp
+  + logs → Jutila-(1.10)-shape → the inversion corollary.
+- Then WP2's remaining lines per HB-3: the crude density node
+  (large-sieve route), the sharp-EF rebuild (DH-2-amortized),
+  Lemma 3/7 assembly.
