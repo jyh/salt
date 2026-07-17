@@ -5203,3 +5203,21 @@ decisions per question.
   Ceremony: wired + 2 keystones BY NAME, full build exit 0 (9134
   jobs). In flight: SMALLQ-2, SPINE-HOIST. Tally ~22.7M raw,
   house ~14%.
+
+- 2026-07-20 ~17:50: **SMALLQ-2 LANDS ITS PARTIAL — THE GIFTS ARE
+  REAL, THE CRT MACHINERY IS FORMALLY DEAD** (≈ 181k / 32 tools;
+  the honest Zeno partial per doctrine). GehSmallQClose.lean:
+  **smallQ_class_vanish** (¬Coprime m q ⟹ the class is empty —
+  ZMod-unit calculus) + **smallQ_class_reindex** (the m⁻¹
+  bijection at the SAME modulus — no CRT, no modulus change) +
+  **seqDiscrepancy_block_le_sum_cofactor** (the block reduced to
+  per-cofactor discrepancies, UNCONDITIONAL — zero extra
+  hypotheses). The residual (SMALLQ-3, HELD for post-restart):
+  four named sub-estimates (the windowed SW differencing via
+  psiAP_sub_psiTot_bound; the Ioc extraction; the r-correction +
+  τ absorption; the small-x threshold split — the last dominates);
+  the exponent bookkeeping WORKED: SW at A′ = A+1 delivers A via
+  the guard's log L ≥ (1/3)·log x. Ceremony: wired into
+  Maynard/All BY NAME, house axiom checks [3 axioms], Maynard
+  build exit 0 (8787 jobs). In flight: SPINE-HOIST, HB-R4-R0.
+  Tally ~23.0M raw, house ~14% — the 23M mark.
