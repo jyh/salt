@@ -4724,3 +4724,21 @@ decisions per question.
   keystones BY NAME, full build exit 0 (9115 jobs). **GB-12/13
   DISPATCH (one executor, the hsq assembly pair).** In flight:
   W3-F-EASY, D3, GB-6, GB-1213. Tally ~15.4M raw, house ~15%.
+
+- 2026-07-20 ~06:50 (THREAD A): **W3-F-EASY LANDS — THE PRODUCER'S
+  A-CLUSTER: logChowla2Fails → h211 IS GLUED, MODULO ONLY STMT 2**
+  (≈ 136k / 36 tools; design first-attempt, 3 mechanical fixes).
+  ChowlaFailure.lean: **logChowla2Fails** (the failure Prop, probe-
+  exact), **singleCorr_of_fails** (the ε/2 normalization; hlog2 :
+  2 ≤ log ω does double duty — positivity + the 2·logω margin),
+  **liouville_mul** (mathlib's liouville_apply_mul is
+  UNCONDITIONAL — the D2 port was a one-line wrapper),
+  **liouville_prime**, **h211_of_logChowla2Fails** (the glue,
+  hypothesis-parametric on Stmt 2) + a landed seam kill-check
+  example threading (c₁, h211) through outer_combine. The Stmt-2
+  seam shape is now written EXACTLY (the hprop26 binder). Ceremony:
+  wired + 4 keystones BY NAME, full build exit 0 (9116 jobs).
+  **STMT2 DISPATCHES — Prop 2.6, THE LAST CLASS-C NODE OF THE
+  SPINE** (Mertens lower taken as hypothesis to decouple from D3,
+  in flight). In flight: D3, GB-6, GB-1213, STMT2. Tally ~15.7M
+  raw, house ~15%.
