@@ -6071,3 +6071,18 @@ decisions per question.
   → PP3-ASSEMBLY. NK + SUMS DISPATCHED. Board: DH-STRIP, MERT-1,
   MERT-2, PP3-NK, PP3-SUMS, seed #2. Tally ~30.3M raw, house
   ~14%.
+
+- 2026-07-17 ~16:11 PT (GOLD WINDOW): ██ **PP3-NK LANDS FIRST-
+  ATTEMPT, EVERY LEMMA — the general-k root count N_k ≤
+  2k·k^{ω(q)}** ██ (≈ 66k / 12 tools — the window's fastest;
+  zero rework, zero residuals). Salt/Maynard/PpRootGeneral.lean:
+  **card_pow_eq_units_le_general** (the frozen statement
+  VERBATIM) + crt_pow_step (the k-generic transport — "^2 → ^k
+  literally"; all four banked PpRootCrt gotchas applied verbatim
+  and needed NO change — the gotcha bank is now demonstrably
+  compounding across executors) + the parity-aware nkBound
+  mirroring sqBound + the all-e 2-part uniform ≤ 2k. PpRootCrt's
+  general-k residual: DISCHARGED. PP3 chain: NK ✓ ∥ SUMS (in
+  flight) → ASSEMBLY. Ceremony: wired, Maynard green. Board:
+  DH-STRIP, MERT-1, MERT-2, PP3-SUMS, seed #2. Tally ~30.4M raw,
+  house ~14%.
