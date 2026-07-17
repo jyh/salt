@@ -4390,3 +4390,26 @@ decisions per question.
   at page fidelity FIRST; STOP-AND-FLAG if it doesn't port to the
   frozen statement.** In flight: W-DESCENT (the summit), W3-b-main.
   Tally ~9.4M raw, house ~17%.
+
+- 2026-07-19 ~18:30 (THREAD A): ⛔→✅ **W3-b-main STOP-AND-FLAG —
+  THE v1 FREEZE WAS FALSE; A NEW CATCH GENRE: ANTI-VACUITY
+  OVERCORRECTION** (≈ 108k / 13 tools, ZERO proof attempts wasted —
+  the pre-proof kill-check terminated at the freeze exactly as
+  designed). The executor transcribed Tao p. 24 at page fidelity,
+  found the truncation seam is a NON-issue (periodization error
+  absorbs into the ε² budget), but the freeze's uniform-C-over-all-
+  (ε,H) — chosen to dodge the per-H vacuity trap — is FALSE:
+  explicit counterexample ε = 1/k, H = 5k² (𝒫_H = {3,5}, all-ones
+  windows), LHS/RHS = Θ(log H) → ∞ (violated at k = 10 for C = 1).
+  Tao's Lemma 3.4 is regime-gated on the p. 22 PNT bound
+  |𝒫_H| ≪ ε²H/log H, which the uniform quantifier discarded. THE
+  DUAL TRAP is now named: per-H constants are vacuously true;
+  all-(ε,H) constants are false; the honest shape EXTERNALIZES the
+  regime as a hypothesis. HOUSE RE-FREEZE v2 (s3-a3-design.md): the
+  PNT bound as an explicit hypothesis (LHS/RHS byte-identical, C₀
+  added); its anti-vacuity witness = NEW node **W3-c-pnt** (carrier
+  verified in-house: mathlib HAS Chebyshev.theta_le_log4_mul_x —
+  class B/C, regime-qualified ε² ≥ H^(-1/2)). Both re-dispatched.
+  This lands one hour after JYH asked "should we be skeptical?" —
+  the answer demonstrated, not argued. In flight: W-DESCENT,
+  W3-b-main-v2, W3-c-pnt. Tally ~9.6M raw, house ~17%.

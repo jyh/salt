@@ -44,25 +44,55 @@ W3-a produces. The seam is tight.
   (3.17), `bigXi` (Ξ_H at `a=1`), `dft_is_fourier_coeff` (the
   carrier bridge, = `ZMod.dft_apply`).
 
-## The frozen W3-b-main statement (NOT yet landed — proof pending)
+## The frozen W3-b-main statement — RE-FROZEN v2 (2026-07-19)
+
+**⛔ THE v1 FREEZE WAS FALSE** (W3-b-main executor STOP-AND-FLAG,
+zero proof attempts wasted). Counterexample family: `eps = 1/k`,
+`H = 5k²` (so ε²H = 5, 𝒫_H = {3,5}), `x1 = x2 ≡ 1`: LHS = Θ(H) but
+RHS = Θ(H/log H); LHS/RHS = Θ(log H) unbounded — violated at k = 10
+for C = 1, at k = 10⁶⁰ for C = 100. ROOT CAUSE: the v1 vacuity
+guard (uniform C over ALL (eps,H)) over-corrected into falsity —
+Tao's Lemma 3.4 is regime-gated: his p. 22 uses the PNT bound
+`|𝒫_H| ≪ ε²H/log H` ("as ε is small and H is large"), which fails
+when ε²H is bounded. The catch genre: ANTI-VACUITY OVERCORRECTION
+(the dual trap to the per-H vacuity trap — recorded for the method
+paper).
+
+**v2 (house re-freeze): externalize Tao's PNT input as an explicit
+hypothesis** — LHS/RHS byte-identical to v1, one hypothesis added,
+quantifier discipline unchanged:
 
 ```lean
 theorem circle_method_estimate :
-    ∃ C : ℝ, 0 < C ∧ ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 x2 : Fin H → ℤ),
+    ∃ C C₀ : ℝ, 0 < C ∧ 0 < C₀ ∧
+      ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 x2 : Fin H → ℤ),
       (∀ i, |x1 i| ≤ 1) → (∀ i, |x2 i| ≤ 1) →
+      ((primeWindow eps H).card : ℝ)
+          ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)) →
       |∑ p : primeWindow eps H, (1 / (p : ℝ)) *
           ∑ j ∈ Finset.range H,
             (windowVal H x1 j : ℝ) * (windowVal H x2 (j + (p : ℕ)) : ℝ)|
         ≤ C * ((H : ℝ) / Real.log (H : ℝ)) *
             ((eps : ℝ) ^ 2 + ∑ ξ ∈ bigXi eps H, (1 / (H : ℝ)) *
               ‖(ZMod.dft (fun j : ZMod H => (windowVal H x1 (ZMod.val j) : ℂ))) ξ‖) := by
-  sorry -- lands in CircleMethod.lean via W3-b-parseval → W3-b-main
+  sorry -- lands in CircleMethod.lean via W3-b-main-v2
 ```
 
-**VACUITY GUARD (binding):** `eps, H, x1, x2` are quantified INSIDE
-the `∃ C` — a per-`(eps,H)` constant is trivially true by finiteness
-of the bounded-window set. Any executor restatement must preserve
-this quantifier order. Elaboration-checked (recon probe `ProbeW3.lean`).
+**VACUITY GUARD (v2 form):** `eps, H, x1, x2` stay INSIDE the ∃;
+the new hypothesis is satisfiable non-trivially (PNT: for any fixed
+eps, all large H — the WITNESS obligation is node **W3-c-pnt**,
+which must also produce the anti-vacuity instance; until it lands,
+v2's non-vacuity rests on Tao p. 22, flagged not proven).
+
+**The proof device (transcribed at page fidelity by the flag
+report):** periodize x_i with period H — the wraparound error is
+O(Σ_p (1/p)·p) = O(|𝒫_H|) ≤ C₀ε²H/log H by the NEW HYPOTHESIS
+(the truncated-vs-cyclic seam is a non-issue once the hypothesis
+exists); Fourier-expand; minor arcs (ξ ∉ Ξ_H): |S_H| < ε²/log H by
+the bigXi filter + `dft_l1_bound` (M = 1); major arcs (ξ ∈ Ξ_H):
+bound G₂ crudely by O(1) (box: ‖𝓕‖ ≤ H) and |S_H| ≤ Σ_p 1/p ≤
+card·2/(ε²H) ≤ 2C₀/log H via `window_lb` (p > ε²H/2) + the
+hypothesis.
 
 ## Carrier inventory (`Mathlib/Analysis/Fourier/ZMod.lean`)
 
