@@ -710,3 +710,44 @@ through the SW gate: Salt.Chen.lambda_mass_lower etc.). If the
 rate covers the 64N window, ONE OF THE DOOR'S TWO GENUINE ANALYTIC
 INPUTS IS DELETED — the door becomes GEH_min + obligations, full
 stop. Verify-then-discharge, ~50–150k.
+
+## MB-1 — ADJUDICATED (2026-07-20): THE BOUNDARY MAP
+
+**The headline: the crack runs on DILATION INVARIANCE, twice.**
+The sweep (37 keystone files, classified by actual consumption not
+mention): **the log enters at exactly TWO load-bearing places** —
+(a) the dilation covariance 1/(qm) = (1/q)(1/m) (Dilation →
+DilationStability/Prop26) and (b) the harmonic normalizer value
+Z ≈ log ω (LogMeasure → ChowlaFailure/HBudget); a third
+normalizer-floor use is weight-generic. **Complete multiplicativity
+enters at ONE mechanism** — the collapse identity — and the
+SURPRISE: it consumes λ(p)² = 1, NEVER the sign λ(p) = −1
+(liouville_prime has zero proof-term uses!) — the collapse works
+for ANY real completely-multiplicative ±1 function (real Dirichlet
+characters, λ·χ, ...). And the recon's reframing: **the collapse
+IS pair-correlation dilation-invariance** — the ±1-sign analogue
+of (a). So the two "different" mechanisms are ONE principle in two
+guises. **The unit-box**: the {±1}^H → H·log2 ceiling is the
+decrement's fuel (the load-bearing log 2 threshold in Diverge/
+SpineClose); the |λ| ≤ 1 boxing elsewhere is hypothesis-generic.
+**The sieve side (~21 files incl. all GoldbachEnergy*) is FULLY
+weight- and box-generic.**
+
+**What separates log-Chowla from twins, stated by the map:** not
+"λ-ness" — the crack needs (i) dilation-covariant weighting (the
+log, forced — see MB-2), (ii) a bounded ±1-grade alphabet (entropy
+fuel), (iii) pair-correlation dilation-invariance (the CM±1
+class). Λ fails (ii) and (iii) constitutively; any twin-transport
+door must state what replaces them.
+
+**MB-2/MB-3 adjudication:** mb2_exact (the crown: w(qn) = w(n)/q
+⟹ w = w(1)/n — "the log is FORCED"; class A, probe-PROVEN; the
+approximate form is an honest NON-uniqueness — bounded
+multiplicative oscillation survives, noted as a remark) +
+mb3_forward (real-CM±1 ⟹ collapse; A, probe-proven) + the
+candidate biconditional FROZEN AS AN OPEN WALL (the converse
+likely false/hard — collapse constrains only pair-correlations)
++ THE NUMERIC HUNT (search ±1 sequences with dilation-invariant
+pair-correlation, not CM — a counterexample IS the publishable
+wall). Node MB-23 dispatches (all four pieces, one executor).
+MB-4 (house synthesis: the boundary-map document) after.
