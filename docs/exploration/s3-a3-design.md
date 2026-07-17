@@ -317,3 +317,30 @@ door input). Both named, both scoped, both believed-true (Tao
 p. 25 / MRT). The remaining wave nodes (the Lemma-3.5 assembly,
 the Theorem-2.3 shell) compose everything landed against these
 two residuals.
+
+## GB-SIEVE-R0 — the rebuild PRICED (adjudicated 2026-07-20)
+
+**Verdict: in-window feasible, ~16 nodes, raw ~1.0M / expected
+2.0–2.5M loaded (range 1.6–3.2M).** Cheaper than the W3-AE-d
+scoping because: (1) MertensWindow + CongruenceCounting + the
+Selberg/brun_upper engines reuse VERBATIM (the priciest assets,
+cost zero); (2) upper-bound-only DELETES the twin build's whole
+endgame/discharge half; (3) **hsq is class-B, not C**: we need a
+MAJORANT, not the true Σ𝔖² ≪ N — euler_tail_L + prod_one_add_le +
+Σ1/p² < ∞ carry it, both former class-C gaps (sharp 𝒫+𝒫 count,
+exact constant) are OFF the critical path; (4) the twin Brun sieve
+is ALREADY dimension-2 (ρ(p) = 2), so M2/M3 param-substitute — the
+only genuinely new structure is ρₙ(p) = 1 at p ∣ n, which IS the
+singular series. The two former HIGH blockers evaporate
+(identity-map sifting kills non-injectivity; no infinitude
+needed). goldA1Sieve's shifted-support plumbing is a live template
+(wrong dimension, right scaffolding).
+
+**Node DAG** (see the recon report in the session tasks for the
+full table): hpt track GB-1..10 (poles: GB-5 the n-even dim-2
+instance ~110k, GB-6 the 𝔖(n) split ~110k, GB-7 main term ~100k);
+hsq track GB-11..15 fully parallel (pole: GB-14 the Euler-product
+majorant ~100k); GB-0 = the Fable design/freeze node (~60k).
+Critical path ≈ 420k. Stop-and-flag risks: GB-5, GB-14.
+
+**DECISION: with JYH** (in-window go vs deferral).

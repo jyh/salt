@@ -4586,3 +4586,16 @@ decisions per question.
   large_spectrum_energy ∘ W3_AE_d_of_sieve). In flight: W3-a-3c,
   GB-SIEVE-R0, L35-ASM. Tally ~13.0M raw, house ~17% — **THE 13M
   CHIME.**
+
+- 2026-07-20 ~01:30 (THREAD A): **GB-SIEVE-R0 ADJUDICATED — THE
+  REBUILD PRICED: IN-WINDOW FEASIBLE, ~2.0–2.5M** (≈ 74k / 18
+  tools; the recon ran THREE subagents internally and
+  cross-checked them). THE DE-RISKINGS: hsq drops to class B (the
+  majorant route via euler_tail_L — the design doc's "no analogue,
+  research-grade" was TOO PESSIMISTIC); the twin sieve is already
+  dim-2 so hpt is mostly param-subst; both HIGH blockers evaporate
+  (identity-map sifting; upper-bound-only deletes the endgame);
+  goldA1Sieve donates the shifted-support plumbing. 16-node DAG
+  persisted (poles GB-5/GB-6/GB-7/GB-14; critical path ~420k).
+  **DECISION WITH JYH: go in-window or defer.** In flight:
+  W3-a-3c, L35-ASM. Tally ~13.1M raw, house ~17%.
