@@ -917,3 +917,40 @@ THREE downstream items, buildable on the landed Jensen count) and
 in the any-radius partial fraction, attempt the log η gain on a
 bounded range; its verdict decides WP2 ≈ 2.5M vs >4M — the
 campaign's true go/no-go).
+
+### WP2 SOURCE REFERENCES (grounded 2026-07-20 night; house read)
+
+**Jutila, "On Linnik's constant", Math. Scand. 41 (1977) 45–62 —
+HB's [11], BOTH consumed theorems. OPEN ACCESS:**
+PDF https://www.mscand.dk/article/download/11701/9717
+(DOI 10.7146/math.scand.a-11701). NOT to be confused with
+Jutila's OTHER 1977 paper (Acta Arith. 32, "Zero-density
+estimates for L-functions" — sharper A₁=2 density via
+Halász–Montgomery; we do not need it).
+
+- **Theorem 1** (p.46): N(α,T,q) ≪_ε (qT)^{(2+ε)(1−α)} for
+  4/5 ≤ α ≤ 1 (summed over χ mod q — implies the per-character
+  form; HB quotes the safer 5/2). Proof via Selberg
+  pseudocharacters + Halász; per HB-3's tolerance (~33× slack)
+  we may instead land ANY crude polynomial density from the
+  landed large sieve.
+- **Theorem 2** (p.47, THE REPULSION, exact statement): χ₁ real
+  non-principal mod q, β₁ = 1−δ₁ real zero of L(s,χ₁); χ any
+  character mod q, ρ = 1−δ+iτ a zero of L(s,χ), δ < 1/6,
+  β ≤ β₁; D = q(|τ|+1) ≥ D₀(ε). Then
+  **δ₁ ≥ (1−6δ)·D^{−(2+ε)δ/(1−6δ)}/(8 log D)**. (1.10)
+  INVERSION to HB's form: δ₁ tiny ⟹ for τ bounded,
+  δ ≥ c·log(1/(δ₁ log D))/log D ≈ c·(log η)/L — exactly
+  r₀ ≫ L⁻¹ log η. The formalization may target (1.10)'s shape
+  directly (a LOWER bound on δ₁ given another zero — possibly
+  friendlier to Lean than the min-over-zeros form).
+- **BONUS (effectivity):** "We do not appeal to Siegel's theorem,
+  so that everything can be made explicit" (p.47) — matches HB's
+  effective C^(1) in Corollary 2; the repulsion route keeps the
+  campaign's final theorem effective.
+- Jutila's own Thm 2 proof is NEW (not Turán power-sum; via the
+  Graham/Halász lemma apparatus) — §§ later in the paper; house
+  reads the proof section IF the in-flight spike returns
+  YELLOW/RED (the D-posture siege prep). Local copy:
+  scratchpad/jutila_linnik.pdf (session) — re-curl the URL above
+  in future sessions.
