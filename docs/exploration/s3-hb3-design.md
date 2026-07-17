@@ -1096,3 +1096,49 @@ mathlib (everything gated Re > 1), on the critical path of
 EITHER route; proof = Abel-vs-PV integral representation
 (analytic on Re > 0, the corpus's parametric-integral Abel
 pattern) + identity theorem against Re > 1.
+
+### DH-2b — THE PRODUCT-DETECTOR FREEZE (house design block,
+### 2026-07-17 evening)
+
+**The collapse that simplifies everything:** for HB's diagonal
+need, BOTH relevant characters give the SAME product — F(s,χ₀) =
+ζ_q(s)·L(s,χ₁) = F(s,χ₁) (since χ₀χ₁ = χ₁ and χ₁² = χ₀). So the
+detector is ONE object: F(s) := ζ(s)·L(s,χ₁) restricted to
+(n,q) = 1, whose coefficients on coprime n are EXACTLY the landed
+dhA (DH-1). A zero ρ of L(s,χ₁) is a zero of F — the vanishing
+survives into the product frame, and the ζ-pole at s = 1 carries
+L(1,χ₁) in its residue: the two competing terms of the argument.
+
+**The mechanism (Benli §§4–5, grounded):** weighted detector
+D := Σ_n dhA(n)·(Σ_{d ∣ n, d ≤ z} θ_d)²·K(n/x) with
+Graham/Barban–Vehov weights θ_d := μ(d)·log(z/d)/log z (θ₁ = 1).
+Mellin: D = (1/2πi)∫ F(s+ρ)·G(s+ρ)·x^s·K̂(s) ds evaluated at the
+shift ρ. Contour shift collects: (i) the pole at s = 1−ρ —
+residue ≍ L(1,χ₁)·x^{1−β}·|kernel| (SMALL when L(1,χ₁) small;
+kernel_residue landed, probe-verified at complex points); (ii)
+the s = 0 term F(ρ)G(ρ)·K̂(0) = 0 — THE VANISHING CONSUMED; (iii)
+shifted-line error via the landed growth stack (LFunction_growth
+on Re ≥ 1/2 is convexity-grade — sufficient, constants free) +
+DH-STRIP's tails. The floor: D ≥ the n = 1 term = θ₁²·K(1/x) ≳ 1
+(dhA_one + weight positivity... the SQUARE of the d-sum is the
+positivity — no sieve-positivity theorem needed, the square does
+it; dhA ≥ 0 landed). Balance floor vs residue+error ⟹
+L(1,χ₁) ≳ x^{−b(1−β)}/polylog at log x ≍ log D ⟹ Jutila-(1.10)
+⟹ DH-4's inversion.
+
+**The nodes:**
+- **DH-2b-i (C, ~0.2–0.35M, DISPATCH NOW):** the Graham weights —
+  θ_d, θ₁ = 1, |θ_d| ≤ 1, the square-expansion identity
+  (Σ_{d∣n}θ_d)² = Σ_{d,e} θ_dθ_e·[lcm(d,e) ∣ n]-shaped, and the
+  TWO G-sums the contour needs: the crude upper Σ_{d≤z}|θ_d|/d^σ
+  bounds and G at 1 (the Benli-4.1 shape; crude polylog versions
+  suffice — constants free).
+- **DH-2b-ii (C, ~0.4–0.6M):** the contour assembly per the
+  mechanism above (after i; consumes Kernel/ContourShift/
+  DH-STRIP/Growth — all landed).
+- **DH-3′ (B, folded):** the floor is DH-1's dhA_one + the square
+  — absorbed into ii.
+- **DH-4 (A/B, ~0.1M):** balance + LFunction_one_re_le_mvt_sharp
+  + logs → the inversion corollary (unchanged from the table).
+**CEREMONY POLICY (JYH-prompted, adopted): design blocks take
+priority; landing ceremonies BATCH at natural breaks.**
