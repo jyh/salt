@@ -3424,3 +3424,19 @@ decisions per question.
   RE-ATTRIBUTED to the R4 collision (the sparse main term vs the
   τ-error needs beyond-½ distribution). Three outcome classes
   registered. **S3-HB3C-GATE dispatches.**
+
+- 2026-07-18 ~07:30 (SPRINT 3): **THE R3c GATE: GO-WITH-BLOCK —
+  the kill-check fires TWICE more** (S3-HB3C-GATE ≈ 122k / 22
+  tools; probes in-kernel). BLOCK-1: (a1)/lamChi_mult FALSE as
+  frozen without χ² = 1 (an order-4 mod-5 COUNTEREXAMPLE — the
+  hypothesis added, always available); BLOCK-2: (a3) is a PROVEN
+  swat_vacuous trap (the ∃cLow conclusion provable from
+  positivity alone — kernel probe, no sorry); the fix: a
+  q-explicit floor or prose-only (the honest death record);
+  BLOCK-3: the IsMultiplicative shape mistypes (coprime-product
+  form). The charge-1 arithmetic, the (a2) direction honesty, and
+  the R4 framing all PASS. Wave-1 cut adopted: ONE executor,
+  TwistedSieve.lean, R3c-1 → {b ∥ a1} → a2 → a3-declare.
+  **R3C-1 EXECUTOR DISPATCHES.** CI note: GitHub Actions failing
+  on ACCOUNT BILLING (jobs never start) — not code; local kernel
+  ceremonies unaffected; JYH notified.

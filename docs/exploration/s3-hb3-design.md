@@ -570,3 +570,155 @@ recon-refutes-gate AND gate-refutes-recon have both fired this sprint):
 
 **Est.** partial landing 0.6–1.0M / 6 nodes; ONE executor after this gate;
 (a3) declared at the collision per Amendment 3.
+
+---
+
+## GATE VERDICT — S3-HB3C-GATE (2026-07-16)
+
+**VERDICT: GO-WITH-BLOCK.** The R3c architecture is STRUCTURALLY SOUND and the
+death map is HONEST: the "reuse seam" (twisted main/err sums = the mathlib
+`BoundingSieve.mainSum`/`errSum` combinators AT the signed weight `lamChi χ`)
+elaborates at the REAL API (probe-confirmed); the substrate inadmissibility is
+correct; the direction (a3 = LOWER bound) is honest and SiegelClose's UPPER bound
+is not sign-flip-smuggled; `siegel_L_one_lower_near`'s distinct-target shape is
+characterized accurately; Charge-1 arithmetic re-checks in-kernel. BUT the standing
+kill-check fires on TWO frozen statements — **build with BLOCK-1/2/3 applied, not
+verbatim.** One is a hypothesis omission that makes a REQUIRED node's frozen
+statement FALSE (a1); the other is the `swat_vacuous` trap latent in the (a3)
+schematic (proven vacuous in-kernel). Both fixes are surgical (no re-cut of the
+wave plan, node set, or estimates), hence GO-WITH-BLOCK not RE-CUT.
+
+Adjudication probes (kept in scratch, reproduced by the gate):
+`ProbeR3c.lean` (the design's own frozen-def probe — re-run, clean: 4 expected
+`sorry`s only) and the gate's `ProbeGate.lean` (Charge-1 `decide` arithmetic +
+the in-kernel (a3) vacuity witness).
+
+### Charge 1 — arithmetic REDONE (in-kernel, `decide`-confirmed)
+
+`quadraticChar (ZMod 3)`: `1↦1, 2↦−1, 0↦0`; `quadraticChar (ZMod 5)`:
+`1↦1, 2↦−1, 3↦−1, 4↦1`; `(7 : ZMod 5) = 2` — all `by decide` (ProbeGate).
+Hence, redone independently:
+- **χ mod 3:** `λ_χ(1)=1`, `λ_χ(2)=1+(−1)=0`, `λ_χ(3)=1+0=1`, `λ_χ(6)=1−1+0+0=0`;
+  `τ(6)=4`, `|λ_χ(6)|=0 ≤ 4` ✓ (loose — the twist cancels; the looseness IS the
+  parity signal, NOT a masked error). Matches the design table (L513–516).
+- **χ mod 5, `P=2·3·7`:** `χ(2)=χ(3)=χ(7 mod 5=2)=−1` ⟹ every local factor
+  `1+(1+χ_ℝ(p))ν(p) = 1+0·ν(p) = 1`; twisted main sum `= 1` (empty `{χ=+1}`
+  product). Matches L517–522. **The `(1+χ(p))` collapse** verified: `χ(p)=−1 ⟹`
+  factor `1`; `χ(p)=+1 ⟹` factor `1+2ν(p)`. RESULT: no arithmetic defect.
+
+### Charge 2 — elaboration probes: PASS at the LANDED API
+
+`BoundingSieve` is a **mathlib** structure (confirmed — `Salt/BrunLower/Defs.lean:49`
+comment "mathlib's `BoundingSieve.nu`"; opened, not salt-defined). `mainSum`/`errSum`
+are `BoundingSieve` members of type `(ℕ → ℝ) → ℝ` (weight-generic; used as
+`s.mainSum S.lam` throughout `LinearSieve.lean`). Therefore the §0 load-bearing
+seam holds AT the real API: `twistedMainSum s χ := s.mainSum (lamChi χ)` and
+`twistedErrSum s χ := s.errSum (lamChi χ)` elaborate with `lamChi χ : ℕ → ℝ`
+(ProbeR3c, clean). All §1 defs and the (b.1)/(b.2)/(a1)/(a3) statement SHAPES
+type-check. `errSum` unfolds to `Σ_{d∈divisors P} |w d|·|rem d|`
+(`LinearSieve.lean:316`), so (b.2)'s RHS index (`s.prodPrimes.divisors`) and abs
+structure match; (b.1)+(b.2) are termwise-sound as frozen (and correctly carry NO
+reality hypothesis — see BLOCK-1 for why (b) is right where (a1) is wrong).
+
+### Charge 3 — quantifier / vacuity: **BLOCK-2** (the swat_vacuous trap fires on a3)
+
+The frozen (a3) conclusion (L449),
+`∃ cLow : ℝ, 0 < cLow ∧ cLow * (LFunction χ 1).re ≤ twistedMainSum s χ`,
+is **VACUOUS**: the gate proved IN-KERNEL (`ProbeGate.lean`, no `sorry`) that it
+follows from `0 < twistedMainSum s χ` ALONE, with NO information about the actual
+size relationship (case `L≤0`: take `cLow=1`; case `L>0`: take `cLow=M/(2L)`, giving
+`cLow·L = M/2 < M`). Since the twisted main term IS positive generically (via a1,
+each factor `≥ 1`), a proof of the frozen (a3) would be a trivial swat and would
+let outcome **O2/O3 masquerade as O1** — exactly what the standing charge forbids.
+The design's own Charge-3 mitigation ("force `cLow > 0`") is **INSUFFICIENT** —
+forcing `0 < cLow` does not remove the vacuity (the in-kernel witness has
+`0 < cLow`). **BLOCK-2:** if (a3) is committed as a Lean statement at all, `cLow`
+must be pinned to a `q`-explicit floor (e.g. `∃ A > 0, (q:ℝ)^(−A) ≤ cLow ∧ …`, the
+Dirichlet √q / Goldfeld floor that (a2) must land), so that "O1" is defined against
+a NON-vacuous statement. Otherwise keep (a3) **prose-only** ("declare at the
+collision" per Amendment 3) and record the R4-collision obstruction note WITHOUT a
+Lean theorem. No `∀`-strength inversion is introduced by R3c's own statements
+(the R3b `∀c∃` lives behind the imported correlation, not in §1–§4).
+
+### Charge 4 — direction kill-check: HONEST
+
+`LFunction_one_re_le_mvt_sharp` (`SiegelClose.lean:458–461`) is the UPPER bound
+`(LFunction χ 1).re ≤ (1−β)·25e·(1+log f)²` — matches the design's L461 citation.
+The frozen (a3) uses `cLow·(LFunction χ 1).re ≤ twistedMainSum` — the LOWER
+direction. `siegel_L_one_lower_near` (`SiegelClose.lean:582–590`) carries the zero
+on `χ₁` (`hz₁`), the lower bound on the DISTINCT target `χ`, and the distinctness
+hypothesis `hdist : ∀ (h : q₁ = q), (h ▸ χ₁) ≠ χ` (L586). So the freeze's
+characterization — "the landed effective lower bound requires a distinct target and
+does NOT apply to the self-same exceptional χ" — is ACCURATE; Reading B is correctly
+refuted; the upper bound is not smuggled with a flipped sign.
+
+### Charge 5 — R4 framing: HONEST
+
+(b) STOPS at level ½ (the char_LS τ-coverage ceiling); the beyond-½ push is R4
+(the Kloosterman wall). No twin claim; the deliverable is the partial landing +
+the (a3) obstruction note; the SiegelSequence honesty block is inherited. The
+executor MUST carry these pointers into the actual `.lean` docstrings (the design
+prose is correct; verify it survives into code).
+
+### BLOCK-1 — (a1) `twistedMainSum_euler` (and `lamChi_mult`) are MISSING `χ² = 1` — FALSE as frozen
+
+The frozen (a1) (L421) quantifies over ALL `χ : DirichletCharacter ℂ q` with NO
+constraint. But `chiRe χ = Re ∘ χ` is multiplicative ONLY when `χ` is real; for
+complex `χ`, `Re(zw) ≠ Re(z)·Re(w)`, so `lamChi χ = χ_ℝ ∗ 1` is NOT multiplicative
+and the Euler factorization `Σ_{d∣P} λ_χ(d)ν(d) = ∏_p (1+(1+χ_ℝ(p))ν(p))` FAILS.
+**Concrete counterexample** (order-4 `χ` mod 5, `χ(2)=i`, a legal instance of the
+frozen quantifier): `χ(3)=χ(2³)=−i`, so `χ_ℝ(2)=χ_ℝ(3)=0`, `χ_ℝ(6)=Re χ(1)=1`;
+then `λ_χ(2)=1+0=1`, `λ_χ(3)=1+0=1`, but `λ_χ(6)=χ_ℝ(1)+χ_ℝ(2)+χ_ℝ(3)+χ_ℝ(6)
+=1+0+0+1=2 ≠ 1 = λ_χ(2)·λ_χ(3)` — non-multiplicative, and `twistedMainSum` at
+`P=2·3` misses the product by `ν(2)ν(3) > 0`. (For a QUADRATIC `χ`, `χ_ℝ = χ ∈
+{−1,0,1}` is completely multiplicative and (a1) is exactly right — that is why the
+FIX is precise.) **BLOCK-1:** add `(hsq : χ ^ 2 = 1)` to `twistedMainSum_euler`
+AND to `lamChi_mult`. This is ALWAYS available downstream (the SiegelSequence χ is
+quadratic), does not change the node's B/C tier or estimates, and is the reason (b)
+is stated correctly without it: `|λ_χ(d)| ≤ τ(d)` (b.1) needs only `|Re χ(e)| ≤ 1`,
+which holds for any χ — the reality hypothesis is a MULTIPLICATIVITY requirement,
+not a boundedness one. Adding it blanket-everywhere would be wrong; add it to
+(a1)+`lamChi_mult` ONLY.
+
+### BLOCK-3 — `lamChi_mult`'s `.IsMultiplicative` shape does not typecheck on a bare `ℕ → ℝ`
+
+The frozen node-R3c-1 shape `(fun d => lamChi χ d).IsMultiplicative` (L346)
+references `ArithmeticFunction.IsMultiplicative`, a projection on `ArithmeticFunction`,
+not on a plain function. **BLOCK-3:** the executor picks the multiplicativity vehicle
+— either state it as `∀ m n, Nat.Coprime m n → lamChi χ (m*n) = lamChi χ m * lamChi χ n`
+(the directly-usable form for the (a1) factorization), or wrap `lamChi χ` in an
+`ArithmeticFunction`. Either is class-B and inherits the R3c-1 budget.
+
+### Node (c) sign-flow sub-charge: DEFERRAL ACCEPTED
+
+`linear_sieve_lower` (`LinearSieve.lean:349`) rides on
+`Salt.BrunLower.siftedSum_ge_mainSum_errSum_of_lowerMoebius` via `S.isLowerMoebius`
+(a Möbius-truncation SIGN lemma) + `abs_lam_le_one` — both FALSE for `λ_χ`
+(`λ_χ` is neither a Möbius truncation nor `|·| ≤ 1`). The design flags this correctly:
+node (c) is NOT a mechanical mirror, is gated behind (a3) (which dies first), is
+SCHEMATIC (placeholders, not frozen), and the density-twist-vs-weight-twist decision
+is deferred to (c) design time. The gate accepts the deferral: DO NOT commit the
+schematic `twisted_sieve_lower` via the `…_lowerMoebius` route (it does not apply);
+(c) is unreached this sprint.
+
+### THE WAVE-1 EXECUTOR CUT (on GO)
+
+ONE executor (subagent named `R3c-1`, model opus), single file
+`Salt/TwinBar/TwistedSieve.lean` (imports `Salt.Chen.LinearSieve` +
+`Salt.TwinBar.SiegelCorrStrong`; NO `.All`). Node order:
+
+1. **R3c-1** (wave-1 cut, the foundation): `chiRe`, `lamChi`, `twistedMainSum`,
+   `twistedErrSum` VERBATIM (probe-clean) + `lamChi_mult` **with `(hsq : χ^2 = 1)`
+   [BLOCK-1] as a coprime-product equation [BLOCK-3]**. Class B, 60–100k.
+2. **R3c-b ∥ R3c-a1** (independent, after R3c-1): (b.1) `abs_lamChi_le_tau`
+   (verbatim, no reality hyp) + (b.2) `twistedErrSum_le_tauRemainder` (verbatim) +
+   the level-½ packaging that STOPS at ½; and (a1) `twistedMainSum_euler` **with
+   `(hsq : χ^2 = 1)` added [BLOCK-1]**. Classes B / B-C.
+3. **R3c-a2** (tail): the L(1,χ) finite→infinite identification (C/D).
+4. **R3c-a3** (declare, per Amendment 3): DO NOT commit a vacuous Lean statement
+   [BLOCK-2]; if committed, pin `cLow ≥ q^{−O(1)}`; else record the R4-collision
+   obstruction note in prose. (c) unreached.
+
+The registered deliverable is the partial landing (R3c-1 + b + a1 [+ a2 tail]);
+(a3) is the honest death. Docstrings carry the R4 death-rung pointer and the
+no-twin-claim / SiegelSequence-honesty framing [Charge 5].
