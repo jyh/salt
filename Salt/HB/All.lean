@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.HB.QuadCharSum
 import Salt.HB.TwistChain
+import Salt.HB.TwistChainC
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -26,6 +27,8 @@ open Salt.Tactic in
   Salt.HB.LamStar_eq_fStar_conv
   Salt.HB.eq_nPlus_mul_nMinus
   Salt.HB.coprime_nPlus_nMinus
+  Salt.HB.LamTilde_sub_vonMangoldt_le
+  Salt.HB.LamTilde_eq_sum_nPlus
   Salt.HB.quadraticChar_sum_two_forms_bound
   Salt.HB.quadraticChar_sum_mul_shift
   Salt.HB.quadraticChar_sum_two_forms_trivial

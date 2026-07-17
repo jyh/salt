@@ -5583,3 +5583,20 @@ decisions per question.
   Maynard/All, Maynard build exit 0 (8580 jobs, olean verified).
   Board: WP2-SPIKE (report pending), HB-1c, GehAnchor, CI test
   run (cache fix). Tally ~25.9M raw, house ~14%.
+
+- 2026-07-20 (GOLD WINDOW, night): ██ **HB-1c LANDS — LEMMA 1 IS
+  COMPLETE: Heath-Brown's parity-escape lemma fully in the
+  kernel** ██ (≈ 171k / 33 tools; no cluster reached the 3-attempt
+  stop, zero residuals). Salt/HB/TwistChainC.lean:
+  **LamTilde_sub_vonMangoldt_le** (the frozen 1(c) EXACTLY, C = 2)
+  via the enabling keystone **LamTilde_eq_sum_nPlus** (the
+  convolution collapsed onto n₊'s divisors — CLEANER than both
+  the paper's route and the recipe's prime-power indexing; the
+  divisor involution Σ_{d∣n}Λ(d) = log n unifies case 3). The
+  recipe KILL-CHECKED correct (re-derived + 5 numeric probes;
+  two simplifications found, no errors). With 1(a)+(b) landed
+  by HB-1, **WP1's Lemma 1 milestone is DONE** — the S⁰→S³
+  transfer chain's foundation stands. Ceremony: executor
+  pre-wired All.lean (accepted), full build exit 0 (9146 jobs),
+  audit ✓. Board: WP2-SPIKE (report pending), GehAnchor, CI test
+  run. Tally ~26.1M raw, house ~14%.
