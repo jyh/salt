@@ -79,3 +79,4 @@ import Salt.Maynard.GehWindowPnt
 import Salt.Maynard.GehSmallQClose
 import Salt.Maynard.GehSmallQEst
 import Salt.Maynard.TauSpike
+import Salt.Maynard.GehAnchor

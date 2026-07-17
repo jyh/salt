@@ -5600,3 +5600,26 @@ decisions per question.
   pre-wired All.lean (accepted), full build exit 0 (9146 jobs),
   audit ✓. Board: WP2-SPIKE (report pending), GehAnchor, CI test
   run. Tally ~26.1M raw, house ~14%.
+
+- 2026-07-17 ~2:15pm (GOLD WINDOW — timestamps corrected to real
+  time per JYH): ██ **GehAnchor LANDS — THE ANCHORED MULTIBLOCK
+  COMBINATOR: halt #2's defect is DEAD, the deep regime PROVEN**
+  ██ (≈ 341k / 78 tools; the window's heavyweight).
+  Salt/Maynard/GehAnchor.lean (581 lines, 11 results, all [3
+  axioms]): **pieceObligationU_of_anchored_multiblock** — per-
+  block anchors s = 2NM, hanch replaces hwin (NO global balance —
+  the provably-unsatisfiable defect gone), deep regime FULLY
+  proven, shallow routed through the FROZEN **hshiu** (summed,
+  A-free, F-parametric form — N-SHIU designs against exactly
+  this; both Shiu and Λ-style routes left open). KILL-CHECKS:
+  **anchor_modulus_absorb needs NO large-x threshold** (design
+  fear overturned — log x ≥ 1 + the floor suffice); **the k-bump
+  trap was REAL** (k=0 blind to n; fixed via hτ1 from block
+  support, invoked at k+1 as designed). ██ STRUCTURAL CATCH
+  (#49): anchoring at s ≤ x makes the deep regime intrinsically
+  need x ≥ X0 — the corner becomes a RANGE [2, XC) closed by a
+  Finset.sup' constant, machinery the design never called out ██.
+  Interface addition (honest): hKFnn. Ceremony: wired, Maynard
+  build exit 0 (8580, olean verified). N-SHIU-R0 dispatches per
+  the frozen chain. Board: WP2-SPIKE, MR-P2G, CI test run,
+  N-SHIU-R0. Tally ~26.5M raw, house ~14%.
