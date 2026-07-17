@@ -583,3 +583,20 @@ Node GATE-FIX (B/C). W3-F-A itself LANDED sound: hreduce_holds
 (hseed + hbudget ⟹ the frozen hreduce — hmain proven FREE via
 reverse-triangle; the node's whole content collapsed onto ONE
 residual hbudget, dischargeable post-GATE-FIX via the G12 chain).
+
+**HBUDGET STEP-0: THE RATIFIED hωbig IS INSUFFICIENT — CORRECTED
+FORM PROVISIONALLY ADOPTED (night, 2026-07-20; ⚠ MORNING
+RE-RATIFICATION ITEM FOR JYH).** The 8/ε calibration allocated the
+ENTIRE (1/4)·SP·H·ε budget to the swap term's 2L coefficient
+alone — zero room for the collapse total, the landed +6, the
+shift, or the boundary (verified two ways against
+DilationStability's landed constants). CORRECTED (tight, adopted):
+**hωbig: log ω ≥ (16/ε)·log(ε²H) + 64/ε + 1** (clean alternative:
+(64/ε)·log(ε²H) + 1). Slice allocation: Z-controlled ≤ 1/8,
+shift ≤ 1/16 (hxbig, x-only), boundary ≤ 1/16 (heps tied to D3's
+c: eps ≤ c/(32·log 4)). The full regime block + budget table are
+in the HBUDGET STEP-0 report (session tasks) and become
+W3E-FINAL/PATCH-4 obligations: **PATCH-4's ω-floor is now
+ω ≥ (ε²H)^(16/ε)·e^(64/ε)** (maintaining ω ≤ x — the tower's
+hierarchy check sharpens accordingly). HBUDGET-2 (the turnkey
+proof per the closed table) dispatched.
