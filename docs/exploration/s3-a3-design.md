@@ -464,3 +464,20 @@ present): the 2b assembly (fBridgeF_liouville_apply +
 perPair_dilation + liouville_mul/prime + SHIFT-CORR + the
 error-below-half arithmetic at hωbig : log ω ≥ cM/ε). hmert is
 ALREADY discharged by D3's primeWindow_sum_inv_ge.
+
+**GB-7 CATCH + RE-FREEZE #2 (night, 2026-07-20): THE PARITY SPLIT
+IS DROPPED.** The ungated hpt at the `if Even n` rbound is FALSE
+(eval counterexample: eps = 1, H = 3, 𝒫 = {2,3}, n = 5 odd has
+repCount = 2 > 0 = rbound — small-H windows may contain 2; the
+GB-0 absorption analysis covered only the even branch). RE-FREEZE:
+`rbound H n := C₁·((eps:ℝ)²·H/(log H)²)·sTrunc2 n` for ALL n (no
+if). Consequences: (i) hpt becomes true+ungated — odd-large-H is
+trivial (all-odd window ⟹ repCount = 0 ≤ rbound ≥ 0), small-H
+absorbs into C₁(ε) for BOTH parities (rbound never 0), even-large-H
+is the landed sieve core; (ii) hsq re-runs FREE — sum_sTruncW_sq_le
+already bounds the FULL sumset (the if was discarding odd terms);
+the no-if variant is strictly easier. GB-15 = the terminal
+assembly: hsq_holds_gen' (no-if, mechanical) + the hpt final
+(the z = ⌊H^(1/10)⌋ rpow seam per the M5Assembly templates + the
+small-H absorption + the composition) + the |Ξ_H| hookup through
+W3_AE_d_of_sieve → bigXi_bounded_of_sieve.
