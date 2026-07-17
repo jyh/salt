@@ -182,6 +182,8 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.hreduce_holds_final
   Salt.Entropy.Chowla.log_chowla_two_conditional
   Salt.Entropy.Chowla.log_chowla_two_conditional_regime
+  Salt.Entropy.Chowla.mrtUniformity_implies_xi
+  Salt.Entropy.Chowla.contradiction_of_mrtDoorXi
   Salt.Entropy.Chowla.dilation_error
   Salt.Entropy.Chowla.weakUniform_generic
   Salt.Entropy.Chowla.weakUniform_spine

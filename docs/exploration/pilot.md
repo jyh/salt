@@ -5046,3 +5046,16 @@ decisions per question.
   excavation, to the close — every step ledgered. THE PLAY
   WINDOW'S TWO SUMMITS: THE WEIL BOUND + THE LOG-CHOWLA SPINE.
   Tally ~20.2M raw, house ~14%. THE FANFARE.
+
+- 2026-07-20 ~11:40: **DOOR-MIN LANDS FIRST-PASS — THE MINIMAL
+  DOOR SURFACE IS REAL** (≈ 48k / 20 tools; 1 attempt per decl).
+  MRTDoor.lean (append-only): **MRTUniformityXi** (the door at the
+  finitely many Ξ_H frequencies — Tao-faithful; docstring carries
+  the sup-position warnings + the shrinks-surface-not-depth
+  honesty note) + mrtUniformity_implies_xi +
+  **contradiction_of_mrtDoorXi** (explicit hδ : 0 ≤ δ replacing
+  the α = 0 firing). Downstream recompiled untouched; the future
+  MR campaign gets a near drop-in seam (one-line adapter noted).
+  Ceremony: wired + 2 keystones BY NAME, full build exit 0 (9130
+  jobs). In flight: W3E-TOWER, GEH-REV-R0, MB-1. Tally ~20.5M
+  raw, house ~14%.

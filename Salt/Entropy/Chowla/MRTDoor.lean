@@ -92,4 +92,68 @@ theorem contradiction_of_mrtDoor (R : ChowlaRegime) {δ c₀ ε K : ℝ} {H : �
     le_trans hlower (le_trans hsum (le_of_eq hconst))
   linarith [h1, hcard, hsmall]
 
+/-- **The weakened MRT uniformity door** (Tao 1509.05422, Prop 2.4, p. 12; the
+Tao-faithful Ξ_H-restricted surface).
+
+THE `∀ ξ ∈ Ξ_H` STAYS OUTSIDE THE INTEGRAL. The sup-inside form is Tao
+1509.05422 (4.1), which is OPEN — moving this quantifier silently downgrades a
+theorem-door (Prop 2.4, PROVEN in Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into
+an open conjecture. Any edit must preserve the quantifier position; the kernel
+cannot police this. Fires once in the spine, at α := −ξ.val/H (Tao p. 24).
+
+This is the weakened, Tao-faithful surface: Tao's proof (p. 24) fires Prop 2.4
+only at the finitely many large-spectrum frequencies ξ ∈ Ξ_H; |Ξ_H| ≤ C is
+Lemma 3.5 (landed as `bigXi_bounded`). Note ξ = 0 ∈ Ξ_H always, and its instance
+is already full Matomäki–Radziwiłł short-interval strength — the weakening
+shrinks the door's surface, not its depth (see the W4-MAJOR-R0 RED verdict). -/
+noncomputable def MRTUniformityXi (R : ChowlaRegime) (δ : ℝ) : Prop :=
+  ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ ξ ∈ bigXi R.eps H,
+    (∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖ ∂(logMeasure R.x R.ω)) ≤ δ * (H : ℝ)
+
+/-- **The door weakening** (W3-e-door, SALVAGE): the full `∀ α`-outside door
+implies its Ξ_H-restricted form. Trivial — instantiate at `α := −ξ.val/H` for
+each `ξ ∈ Ξ_H`; the frequency restriction only discards instances. -/
+theorem mrtUniformity_implies_xi (R : ChowlaRegime) (δ : ℝ) :
+    MRTUniformity R δ → MRTUniformityXi R δ := by
+  intro h H _ hlo hhi ξ _
+  exact h H hlo hhi (-(ξ.val : ℝ) / (H : ℝ))
+
+/-- **The weakened MRT seam** (W3-e-seam, SALVAGE variant). Identical collision to
+`contradiction_of_mrtDoor`, but consuming the Ξ_H-restricted door `MRTUniformityXi`.
+Because the weakened door no longer speaks at `α = 0`, nonnegativity of `δ` can no
+longer be derived from the door (that derivation fired Prop 2.4 at `α = 0`); it is
+taken as the explicit hypothesis `hδ : 0 ≤ δ`, per the SALVAGE ruling. The chain is
+unchanged: `c₀ε ≤ Σ_{ξ∈Ξ}(1/H)∫‖…‖ ≤ Σ_{ξ∈Ξ}(1/H)(δH) = card·δ ≤ K·δ < c₀ε`. -/
+theorem contradiction_of_mrtDoorXi (R : ChowlaRegime) {δ c₀ ε K : ℝ} {H : ℕ} [NeZero H]
+    (hlo : R.Hlo ≤ H) (hhi : H ≤ R.Hhi) (hH : 0 < H) (hδ : 0 ≤ δ)
+    (hdoor : MRTUniformityXi R δ)
+    (hXi : ((bigXi R.eps H).card : ℝ) ≤ K)
+    (hsmall : K * δ < c₀ * ε)
+    (hlower : c₀ * ε ≤ ∑ ξ ∈ bigXi R.eps H,
+        (1 / (H : ℝ)) * ∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖
+          ∂(logMeasure R.x R.ω)) :
+    False := by
+  have hHR : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH
+  -- Termwise: (1/H)∫‖…‖ ≤ (1/H)(δH) = δ, now firing the door at each ξ ∈ Ξ_H.
+  have hsum : (∑ ξ ∈ bigXi R.eps H,
+      (1 / (H : ℝ)) * ∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖
+        ∂(logMeasure R.x R.ω)) ≤ ∑ _ξ ∈ bigXi R.eps H, δ := by
+    apply Finset.sum_le_sum
+    intro ξ hξ
+    have hb := hdoor H hlo hhi ξ hξ
+    calc (1 / (H : ℝ)) * ∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖
+            ∂(logMeasure R.x R.ω)
+        ≤ (1 / (H : ℝ)) * (δ * (H : ℝ)) :=
+          mul_le_mul_of_nonneg_left hb (by positivity)
+      _ = δ * ((H : ℝ) / (H : ℝ)) := by ring
+      _ = δ := by rw [div_self hHR.ne', mul_one]
+  -- Σ_{ξ∈Ξ} δ = card·δ ≤ K·δ (δ ≥ 0).
+  have hconst : (∑ _ξ ∈ bigXi R.eps H, δ) = ((bigXi R.eps H).card : ℝ) * δ := by
+    rw [Finset.sum_const, nsmul_eq_mul]
+  have hcard : ((bigXi R.eps H).card : ℝ) * δ ≤ K * δ :=
+    mul_le_mul_of_nonneg_right hXi hδ
+  have h1 : c₀ * ε ≤ ((bigXi R.eps H).card : ℝ) * δ :=
+    le_trans hlower (le_trans hsum (le_of_eq hconst))
+  linarith [h1, hcard, hsmall]
+
 end Salt.Entropy.Chowla
