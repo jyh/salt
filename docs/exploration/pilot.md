@@ -3465,3 +3465,19 @@ decisions per question.
   close (revival #1 EXECUTES: PpLevel root-counting first);
   R3c finishing. Throttle: 6 engaged (now) / 4 away. **KL-R0 +
   G-PPLEVEL dispatch** (slots: REGIME + R3c-1 + these = 4/6).
+
+- 2026-07-18 ~09:50 (THREAD A): **REGIME + the D-d SPINE LAND**
+  (S3-A2-REGIME ≈ 137k / 38 tools). ChowlaRegime IS IN LEAN
+  (Regime.lean, the gate block verbatim + hheadroom' added +
+  dvd_chowlaTower); InvarianceHead.lean: the joint-window infra,
+  the residue-relabel isometry, condEntropy_shift_reduction (the
+  chain_rule cancellation + injective relabel — the D-d spine,
+  sorry-free) and condEntropy_shift_le_of_l1 (the Fannes bridge).
+  The frozen headline honestly REDUCED to exactly TWO obligations
+  (the spike protocol honored, no sorry committed): (1) the
+  pushforward-ℓ¹ contraction + the base telescoping = 2A/Σ (then
+  the landed harmonic_shift_l1_le closes); (2) the budget
+  arithmetic (card_product + log_PH_le + hheadroom'). **D-e
+  dispatches with both obligations + the (3.11) assembly.**
+  Ceremony: grep clean, wired + 3 keystones, full build exit 0
+  (9065 jobs).
