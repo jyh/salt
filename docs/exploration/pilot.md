@@ -5484,3 +5484,24 @@ decisions per question.
   YELLOW→attack and RED→house design siege, not defer. Tally
   ~24.7M raw, house ~14% (restored to the ledger per JYH's
   tally query).
+
+- 2026-07-20 (GOLD WINDOW, late evening): ██ **HB-2 LANDS — THE
+  OMITTED LEMMA IS OMITTED NO MORE: the Salt/HB/ track opens with
+  its first theorems** ██ (≈ 121k / 58 tools; each milestone 1
+  design attempt + 2 trivial fixes). Salt/HB/QuadCharSum.lean (6
+  keystones, audit ✓ [3 axioms], new track All.lean):
+  **quadraticChar_sum_mul_shift** (Σ χ(t)χ(t+e) = −1, QCS-1, via
+  mathlib's jacobiSum_nontrivial_inv — no direct lemma existed;
+  the Jacobi-sum engine was the find) +
+  **quadraticChar_sum_two_forms_bound** (|Σ χ(at+b)χ(ct+d)| ≤ 2
+  for ad−bc ≠ 0) + trivial/Legendre forms. CATCH: the bound is
+  SHARPER than briefed — degenerate cases vanish EXACTLY and the
+  non-degenerate value is exactly −χ(a)χ(c), so ≤ 1 truly (docstring
+  notes it; ≤ 2 delivered as frozen). QCS-3 residual precisely
+  named in-file (composite = Jacobi-symbol route: CRT reindex +
+  jacobiSym multiplicativity + this per-prime input). HB 1983
+  p.217's "straightforward, we shall omit it" is now 6 kernel
+  theorems. Ceremony: new track aggregate BY NAME, scoped build
+  exit 0 (2807 jobs; full build deferred — TwistChain in flight
+  in the same dir). Board: HB-1, WP2-1, WP2-SPIKE, CI watcher.
+  Tally ~24.9M raw, house ~14%.
