@@ -5469,3 +5469,18 @@ decisions per question.
   HB-WP2-2-SPIKE (repulsion feasibility — the true go/no-go for
   the whole campaign). Board: HB-1, HB-2, WP2-1, WP2-SPIKE, the
   CI watcher.
+
+- 2026-07-20 (GOLD WINDOW, late evening): **SPEND POSTURE RATIFIED
+  (JYH): UNDERSPENDING, HEADROOM AMPLE — CLASS-D NODES IN SCOPE.**
+  "We should not shy away from class D nodes" — the D-avoidance
+  bias (a budget artifact) is lifted: C→D poles get ATTACKED on
+  YELLOW/RED feasibility (house-led design siege + executor
+  waves), D-grade campaigns may be registered and priced (MR
+  formalization; SPINE-BUDGET's delicate design), the house
+  spends liberally on design depth. Iron rules UNCHANGED (frozen
+  statements, flags-as-success, Zeno per node — "attack" means
+  better design and more waves, never grinding). Immediate
+  consequence: the WP2 repulsion spike's verdict now routes
+  YELLOW→attack and RED→house design siege, not defer. Tally
+  ~24.7M raw, house ~14% (restored to the ledger per JYH's
+  tally query).
