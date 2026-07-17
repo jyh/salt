@@ -3539,3 +3539,16 @@ decisions per question.
   under a 5M window with margin ~2×; heavy parallel waves could
   approach it, so heavy nodes run sequentially while the window
   size is unconfirmed. In flight: D-e (~350k) + G-PP2 (~450k).
+
+- 2026-07-18 ~12:10: **THREAD W OPENS — GO FOR THE GOLD (JYH:
+  "push hard into that scary space... go for the gold... let me
+  manage the quota, let's go for it, together").** The target:
+  THE WEIL BOUND FOR KLOOSTERMAN SUMS |S(a,b;p)| ≤ 2√p via
+  STEPANOV'S METHOD (the elementary auxiliary-polynomial proof of
+  RH-for-curves-grade bounds — Bombieri's simplification; NO
+  cohomology; the substrate is finite-field polynomial algebra,
+  mathlib's strength). Never formalized anywhere. If it lands:
+  the first machine-checked Weil bound + the level-½ wall
+  genuinely opens + HB-R4 revives. JYH manages quota; the spend
+  watch chimes per 1M as armed. **W-R0 dispatched** (the Stepanov
+  ladder recon, page-fidelity + mathlib substrate audit).
