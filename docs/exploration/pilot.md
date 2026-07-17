@@ -4094,3 +4094,27 @@ decisions per question.
   wired + 2 keystones BY NAME, full build exit 0 (9088 jobs).
   **W-T7 DISPATCHES** (T := N₀ ∪ N_a, a = ±1, ℓ = ⌈√q⌉, feed
   pointCount_abs_sub_le). Tally ~5.2M raw, house ~20%.
+
+- 2026-07-19 ~07:00 (THREAD A): **W1-B LANDS — WITH A CATCH
+  AGAINST THE PAPER ITSELF** (≈ 176k / 33 tools). THE FIND
+  (executor-refutes-source, exhibit included): Tao p.20 asserts
+  the per-x entropy defects are "non-negative by (3.3)" — FALSE
+  per-x (the binary counterexample: conditioning can RAISE
+  entropy pointwise); (3.3) gives only the average. The honest
+  rescue (the executor's, within latitude): the surrogate
+  s(x) = L − Hm[cond x] ≥ 0 (nonneg by log-card), giving the
+  Markov bound with the CORRECTION TERM (κ + (L − H[Y]))/t —
+  which degrades to Tao's κ/t exactly when Y is near-uniform,
+  i.e. the deficiency IS (3.9)'s output — the paper's implicit
+  dependency made EXPLICIT and kernel-checked. The recon's
+  literal κ/t target was thereby unconditionally FALSE as
+  stated — corrected in-flight. MarkovExtract.lean: the generic
+  real Markov, the defect-integral identity, decrement_markov +
+  the Fintype form. THE WRITEUP NOTE: a formalization catching a
+  nonnegativity abuse in the prose of a landmark paper (the
+  argument survives — via its own (3.9) — but the DEPENDENCY
+  STRUCTURE is now honest). Ceremony: wired + 2 keystones BY
+  NAME, full build exit 0 (9089 jobs). **W1-C DISPATCHES**
+  (Lemma 3.2 — both prerequisites landed: W1-a's (3.9) supplies
+  exactly the deficiency W1-b's correction term consumes; the
+  circle closes). Tally ~5.4M raw, house ~20%.
