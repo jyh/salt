@@ -43,6 +43,7 @@ import Salt.SW.ZetaInvShallow
 import Salt.SW.MobiusRate
 import Salt.SW.MobiusRateClose
 import Salt.SW.ZeroCountNearOne
+import Salt.SW.DHDetector
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -82,7 +83,11 @@ Siegel's intrinsic ineffective constant.
 -- Build-time axiom audit (T5 adoption): a stray axiom in the SW track fails
 -- `lake build` here, not only at out-of-band lint time.
 open Salt.Tactic in
-#audit_axioms Salt.SW.LFunction_zero_count_near_one
+#audit_axioms Salt.SW.dhA_nonneg
+  Salt.SW.dhA_square_ge_one
+  Salt.SW.dhA_mass_floor_real
+  Salt.SW.dhA_hyperbola
+  Salt.SW.LFunction_zero_count_near_one
   Salt.SW.LFunction_zero_count_near_one_guarded
   Salt.SW.psi1Chi_eq_sum_psi1AP Salt.SW.psi1_fold
   Salt.SW.psi1AP_nonneg Salt.SW.psi1AP_sandwich

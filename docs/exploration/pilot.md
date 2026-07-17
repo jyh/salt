@@ -6036,3 +6036,25 @@ decisions per question.
   (soft-timeout workflow; the 404 was GitHub indexing lag,
   retried clean). Board: DH-1, DH-STRIP, MERT-1, MERT-2, seed.
   Tally ~30.0M raw — THE 30M MARK. House ~14%.
+
+- 2026-07-17 ~15:59 PT (GOLD WINDOW): ██ **DH-1 LANDS — THE
+  DETECTOR FOUNDATION: both floors + the exact hyperbola** ██
+  (≈ 179k / 30 tools; 3 build iterations, no mathematical
+  dead-ends). Salt/SW/DHDetector.lean (365 lines): **dhA**
+  (1∗χ_ℝ) + **dhA_nonneg** (the positivity floor — the elementary
+  route's one arithmetic input) + **dhA_square_ge_one** +
+  **dhA_mass_floor_real** (Σ ≥ √N−1) + log-average floors +
+  **dhA_hyperbola** (the EXACT mass identity — the executor
+  rejected the sketch's termwise upper bound as unclean for
+  signed χ/d and landed the honest reindex instead). Mellin seam
+  documented as dhLSeries_target (amortized into DH-2 per the
+  table). ARCHITECTURE FLAG (ledgered): TwinBar.lamChi ≡ SW.dhA
+  — deliberate duplicate across the import boundary (TwinBar
+  sits ABOVE SW); the definitional bridge goes wherever both are
+  in scope; do not let them diverge. Residuals (2, documented
+  seams): the /n-weighted hyperbola (DH-4's antidiagonal
+  reindex); the composed LSeries identity (DH-2's). Ceremony:
+  wired + 4 keystones BY NAME, full build exit 0 (9158 jobs).
+  WP2 state: DH-1 ✓, DH-2a RED→DH-2b, DH-STRIP in flight, DH-3
+  next (cheap), DH-4 after. Board: DH-STRIP, MERT-1, MERT-2,
+  seed. Tally ~30.2M raw, house ~14%.
