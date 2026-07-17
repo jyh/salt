@@ -5545,3 +5545,26 @@ decisions per question.
   standalone). Openers post-gate: MR-C (Turán–Kubilius), MR-A
   (vertical-line L²). Board: WP2-1, WP2-SPIKE (final report
   pending), CI watcher. Tally ~25.5M raw, house ~14%.
+
+- 2026-07-20 (GOLD WINDOW, night): ██ **HB-WP2-1 LANDS CLEAN —
+  THE PRACHAR COUNT, ZERO RESIDUALS, AND THE EXECUTOR OUT-DERIVED
+  THE HOUSE** ██ (≈ 285k / 54 tools; ~1 serious pass, no cluster
+  near the attempt limit). Salt/SW/ZeroCountNearOne.lean:
+  **LFunction_zero_count_near_one** (#zeros in ball(1,r) ≤
+  C·(1 + r·log(q+2)), C = 7200 EXPLICIT, primitive χ, r < 1/2)
+  + the guarded density form (C = 14400). ██ CATCH #48
+  (executor-catches-designer): the house's Jensen re-centering
+  sketch was INSUFFICIENT — it yields log q + log(1/r) which
+  cannot cancel to r·log q; the executor switched to the LANDAU
+  PARTIAL-FRACTION route (each near-1 zero ≥ 1/(5r) at σ = 1+r
+  against the L′/L ≤ 1/r + O(log q) budget) and landed the CLEAN
+  form the brief had hedged to fallback on ██. Reuse win:
+  LandauPage.lean already held the two riskiest pieces
+  (landau_neg_logDeriv_re_lower + the analyticOrderAt bridge).
+  Scope deltas (downstream-safe): r < 1/2 (HB consumes r ≈ 1/L),
+  primitive χ (the SW stack's own convention). WP2 ingredient 1
+  is BANKED; the repulsion spike's σ-side budget lemma now
+  exists in landed form. Ceremony: wired + 2 keystones BY NAME,
+  full build exit 0 (9144 jobs). Board: WP2-SPIKE (final report
+  pending), HB-1c, N-TAU-SPIKE, GehAnchor, CI watcher. Tally
+  ~25.8M raw, house ~14%.
