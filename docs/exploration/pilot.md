@@ -4679,3 +4679,29 @@ decisions per question.
   full build exit 0 (9113 jobs). **GB-6 DISPATCHES.** In flight:
   W3-E-GLUE, GB-HSQ-1, W3-F-EASY, D3, GB-6. Tally ~14.7M raw,
   house ~16%.
+
+- 2026-07-20 ~05:30 (THREAD A): ██████████████████████████████
+  ██ **THE THEOREM-2.3 SHELL IS IN — log_chowla_two_shell:
+  WAVE 3 IS STRUCTURALLY COMPLETE** ██
+  ██████████████████████████████ (W3-E-GLUE ≈ 206k / 46 tools;
+  Bridge A 3 fixes, main 2 fixes, ZERO seam mismatches).
+  Theorem23Shell.lean (229 lines): **log_chowla_two_shell** — the
+  pure composition ⟹ False, fully kernel-checked: outer_combine
+  INVOKED (the (3.15) mass), circle_method_estimate as hcirc,
+  bigXi_bounded_of_sieve as hXi, contradiction_of_mrtDoor INVOKED
+  as the closer. **Bridge A PROVEN with norm EQUALITY** (the door's
+  windowExpSum vs the circle method's dft: the i+1 offset factors
+  as a unimodular exp(2πiα) — the door fires at α = −ξ.val/H with
+  ZERO bookkeeping, the conventions agreed everywhere). Bridge B
+  (the integral swap) proven inline via integrable_of_finiteSupport.
+  THE HYPOTHESIS TABLE (each with its discharger): regime bounds ←
+  R fields; t/g/κ budgets ← the tower; h211 ← W3-F (producer chain,
+  in flight); hcirc ← circle_method_estimate (landed, needs hcard ←
+  landed); hXi ← bigXi_bounded_of_sieve (landed, needs the GB pair,
+  in flight); hdoor ← the MRT THEOREM-door; hbudget1/2 ←
+  W3-e-final (the numeric closure). WHAT THIS MEANS: log-Chowla-2
+  is now ONE theorem whose remaining distance is exactly the
+  enumerated hypothesis list — no plumbing left, only inputs.
+  Ceremony: wired + 1 keystone BY NAME, full build exit 0 (9114
+  jobs). In flight: GB-HSQ-1, W3-F-EASY, D3, GB-6. Tally ~15.0M
+  raw, house ~16% — **THE 15M CHIME.**
