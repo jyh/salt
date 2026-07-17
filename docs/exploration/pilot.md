@@ -4347,3 +4347,25 @@ decisions per question.
   persisted to s3-a3-design.md AT adjudication. Ceremony: wired + 3
   keystones BY NAME, full build exit 0 (9102 jobs). **W3-b-parseval
   dispatches.** Tally ~8.8M raw, house ~17%.
+
+- 2026-07-19 ~16:50 (THREAD W): ██ **W-DESC-EXT LANDS — THE
+  MULTI-ROOT EXTRACTION: THE LAST LEMMA BEFORE THE SUMMIT** ██
+  (≈ 162k / 29 tools, master 1 serious attempt on the frozen
+  Cesàro route — the re-dispatch after the spend-crash death cost
+  exactly the salvaged recon). MultiExtract.lean (235 lines,
+  standalone import Mathlib): **forall_norm_le_of_powerSum_bound**
+  (general finite family, N₀-thresholded — ‖Σ zᵢⁿ‖ ≤ Cρⁿ for
+  n ≥ N₀ forces EVERY ‖zᵢ‖ ≤ ρ; fully finite, no limits, explicit
+  N contradiction) + **norm_eq_sqrt_of_pair_of_le** (the equality
+  upgrade: ‖αβ‖ = q + both ≤ √q ⟹ both = √q — RH-for-Kloosterman
+  equality, not just the bound) + norm_add_le_two_mul_sqrt.
+  Name drift ledgered (Complex.abs REMOVED: normSq_eq_norm_sq /
+  norm_of_nonneg / Complex.abs_re_le_norm; Fintype.sum_prod_type'
+  not rw-matchable forward). The executor's friction report IS the
+  descent brief: family = {m ≠ 0} × Bool over localAlpha/localBeta,
+  ρ = √p, N₀ = 6 uniform (p ≥ 3 ⟹ p⁶ ≥ 81p² ≥ 64p²), C = 33p
+  absorbs Thm 7's constants, Vieta (localRootPair_mul: αβ = p)
+  feeds the equality. Ceremony: wired + 3 keystones BY NAME, full
+  build exit 0 (9103 jobs). **W-DESCENT DISPATCHES — THE SUMMIT
+  ASSEMBLY: Thm 6 + Cor 3 + Thm 7 + the master → |S(a,b;p)| ≤
+  2√p.** Tally ~9.1M raw, house ~17% — **THE 9M CHIME.**

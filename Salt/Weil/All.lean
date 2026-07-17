@@ -21,6 +21,7 @@ import Salt.Weil.MomentOrbit
 import Salt.Weil.NewtonBridge
 import Salt.Weil.MomentEigen
 import Salt.Weil.CurveBridge
+import Salt.Weil.MultiExtract
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -32,7 +33,10 @@ Stepanov (Harcos/IK Ch. 11; the ladder in docs/exploration/pilot.md
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.Weil.sum_kloostermanMoment_eq_pointCount
+#audit_axioms Salt.Weil.forall_norm_le_of_powerSum_bound
+  Salt.Weil.norm_eq_sqrt_of_pair_of_le
+  Salt.Weil.norm_add_le_two_mul_sqrt
+  Salt.Weil.sum_kloostermanMoment_eq_pointCount
   Salt.Weil.sum_kloostermanMoment_erase_zero_eq
   Salt.Weil.card_kloosterman_fiber
   Salt.Weil.curvePoly_not_isSquare
