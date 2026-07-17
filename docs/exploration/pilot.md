@@ -4567,3 +4567,22 @@ decisions per question.
   wired + 3 keystones BY NAME, full build exit 0 (9108 jobs). JYH
   reports 5h window 47%. In flight: W3-a-3c, W3-AE-c. Tally
   ~12.5M raw, house ~17%.
+
+- 2026-07-20 ~00:50 (THREAD A): ██ **W3-AE-c LANDS COMPLETE — THE
+  L⁴ SPECTRUM CHAIN IS IN, ALL FOUR PIECES** ██ (≈ 191k / 42
+  tools; every piece ≤2 attempts). LargeSpectrum.lean: windowPhi +
+  **expSum_eq_dft_windowPhi** (the bridge — sign conventions AGREE,
+  no flip) + **card_bigXi_mul_thresh_le** (Markov at the 4th power)
+  + private dft_conv_sq (𝓕(Φ⋆Φ) = (𝓕Φ)² — ANOTHER upstreamable) +
+  **dft_windowPhi_l4_le** (the L⁴ heart: Parseval on the
+  self-convolution → addEnergy) + **large_spectrum_energy** (the
+  combine). DESIGN DEVIATION ADJUDICATED (accepted): the probe's
+  "no regime hypothesis" claim was WRONG — the periodizing route
+  needs heps + hwin (p < H) + hwrap (p+q < H, the no-wrap guard,
+  from ε² < 1/2); all three are regime-discharged in the assembly.
+  The seam arithmetic verified: log⁴'s cancel, |Ξ_H| ≤ 16C·ε⁻¹⁶
+  H-independent. Ceremony: wired + 5 keystones BY NAME, full build
+  exit 0 (9109 jobs). **THE LEMMA-3.5 ASSEMBLY DISPATCHES** (B:
+  large_spectrum_energy ∘ W3_AE_d_of_sieve). In flight: W3-a-3c,
+  GB-SIEVE-R0, L35-ASM. Tally ~13.0M raw, house ~17% — **THE 13M
+  CHIME.**
