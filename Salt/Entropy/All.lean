@@ -76,6 +76,8 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.fBridgeF_mean
   Salt.Entropy.Chowla.fBridge_concentration_decoupled
   Salt.Entropy.Chowla.dft_is_fourier_coeff
+  Salt.Entropy.Chowla.dft_parseval
+  Salt.Entropy.Chowla.dft_l1_bound
   Salt.Entropy.Chowla.dilation_error
   Salt.Entropy.Chowla.weakUniform_generic
   Salt.Entropy.Chowla.weakUniform_spine

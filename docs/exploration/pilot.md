@@ -4369,3 +4369,24 @@ decisions per question.
   build exit 0 (9103 jobs). **W-DESCENT DISPATCHES — THE SUMMIT
   ASSEMBLY: Thm 6 + Cor 3 + Thm 7 + the master → |S(a,b;p)| ≤
   2√p.** Tally ~9.1M raw, house ~17% — **THE 9M CHIME.**
+
+- 2026-07-19 ~17:40 (THREAD A): **W3-b-parseval LANDS — PLANCHEREL
+  FOR ZMod.dft: THE CARRIER GAP IS CLOSED, AND IT'S UPSTREAMABLE**
+  (≈ 150k / 26 tools, 1 serious attempt, route A only). Appended to
+  CircleMethod.lean: **dft_parseval** (∑_ξ ‖𝓕Φ ξ‖² = N·∑_j ‖Φ j‖²
+  — the unnormalized-dft factor N pinned to the TIME side by a
+  delta-function smoke test, exactly the anti-flip discipline the
+  brief demanded) + **dft_l1_bound** (∑_ξ ‖𝓕Φ ξ‖·‖𝓕Ψ(ξ+t)‖ ≤ N²M²
+  — the CS corollary Tao p. 24 cites as "Plancherel"). THE FIND:
+  the recon's carrier note was WRONG in our favor — character
+  orthogonality IS exported (AddChar.sum_mulShift +
+  ZMod.isPrimitive_stdAddChar); nothing had to be hand-rolled;
+  design doc corrected. Privates available for promotion:
+  dft_sum_mul_conj (ℂ-valued Plancherel), dft_normSq_sum_le.
+  Ceremony: wired + 2 keystones BY NAME, full build exit 0 (9103
+  jobs). **W3-b-main DISPATCHES with ONE FLAGGED SEAM: the
+  truncated-vs-cyclic correlation mismatch (windowVal junk-zero vs
+  ZMod H wraparound) — the executor reads Tao p. 24's actual device
+  at page fidelity FIRST; STOP-AND-FLAG if it doesn't port to the
+  frozen statement.** In flight: W-DESCENT (the summit), W3-b-main.
+  Tally ~9.4M raw, house ~17%.

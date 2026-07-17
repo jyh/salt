@@ -71,13 +71,18 @@ this quantifier order. Elaboration-checked (recon probe `ProbeW3.lean`).
 `𝓕(𝓕Φ) = fun j => (N:ℂ) • Φ (−j)`), `invDFT_apply`,
 `dft_const_smul/-mul`, `dft_comp_neg`, `dft_comp_unitMul`;
 `ZMod.stdAddChar` with `stdAddChar_apply` = `exp(2πi·/N)`; character
-orthogonality exists only INLINE in `auxDFT_auxDFT` (not exported).
-`dft_eq_fourier` bridges to the continuous FT.
+orthogonality IS exported (the recon's inline-only finding was
+wrong): `AddChar.sum_mulShift` + `ZMod.isPrimitive_stdAddChar`
+(found by the W3-b-parseval executor). `dft_eq_fourier` bridges to
+the continuous FT.
 
-**⚠ CARRIER GAP:** mathlib has NO Parseval/Plancherel for `ZMod.dft`.
-`∑_ξ ‖𝓕Φ ξ‖² = N · ∑_j ‖Φ j‖²` and the Cauchy–Schwarz corollary that
-Lemma 3.4's proof cites must be newly derived (from `dft_dft` /
-re-proved orthogonality). This is node **W3-b-parseval** (class C).
+**⚠ CARRIER GAP (CLOSED 2026-07-19):** mathlib has NO
+Parseval/Plancherel for `ZMod.dft` — node **W3-b-parseval** LANDED
+it in `CircleMethod.lean`: `dft_parseval`
+(`∑_ξ ‖𝓕Φ ξ‖² = N · ∑_j ‖Φ j‖²`, factor N on the time side, pinned
+by a delta-function smoke test) + `dft_l1_bound`
+(`∑_ξ ‖𝓕Φ ξ‖·‖𝓕Ψ (ξ+t)‖ ≤ N²M²`, the CS corollary Lemma 3.4's
+proof cites; shift in the SECOND factor). Both upstreamable.
 
 ## House rulings (adjudication 2026-07-19)
 
