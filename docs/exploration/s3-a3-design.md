@@ -143,3 +143,56 @@ instance collapses both sides to 0; W3-b small-`H` consistent
 (`H=1`: Lean's `log 1 = 0` zeroes both sides); the per-`H` vacuity
 trap identified and dodged (see the guard above). Deprecation note:
 use `integral_finsetSum` (not `integral_finset_sum`).
+
+## W3-a-3 — the outer combine (HOUSE DESIGN BLOCK, 2026-07-19)
+
+Page-fidelity source: p. 22 (read in-house). The chain from (2.11)
+to (3.15):
+
+1. Lemma 3.3 concentration (PRODUCT world, uniform y) — landed as
+   `fBridge_concentration_decoupled`.
+2. Lemma 3.2 transport: the deviation event E_bad ⊂ ZMod P_H has
+   exp-small UNIFORM measure ⟹ log|E_bad| ≤ log P_H − g′ + log 2;
+   `weakUniform_spine` then bounds its CONDITIONAL measure (given
+   liouvilleWindow = x₀) by (t + corr + log 2)/g′ where t = the
+   per-x₀ entropy deficiency. "Good x" = x₀ with small t.
+3. Markov selection of good x₀ — landed as `decrement_markov` (t ≤
+   (κ + defect)/θ for logMeasure-most x₀; κ from the decrement at
+   the tower-selected H, defect funded by (3.9) =
+   `entropy_residueWindow_ge`).
+4. Deterministic box |F| ≪ H/log H on the bad set — needs
+   `fBridgeG_abs_le` (H/p + 1) summed via **W3-c-pnt** (the SECOND
+   consumer of that node: Σ_p (H/p+1) ≤ H·Σ1/p + |𝒫_H| ≪ H/log H).
+5. Fubini + take E over logMeasure; (2.11-model) as the DOOR input:
+   `|∫ fBridgeF eps H (liouvilleWindow H n) ((n : ZMod (PH eps H)))
+   ∂(logMeasure x ω)| ≥ c·ε·H/log H` ⟹ (3.15-model), then
+   `fBridgeF_mean` rewrites the y-mean as the two-point correlation.
+
+**⚠ THE MARGIN CHECK (house, confirmed at design level): the
+honest-exponent pinch is REAL.** The transport (step 2) needs the
+deficiency budget t ≪ g′. Our landed exponent is g′ ≈ ε⁶H/(8·log²H)
+(the PNT-free prime count in W2-b), one log below Tao's ε⁷H/log H.
+The tower telescope selects H against budgets whose tower-sum
+diverges: Σ 1/(n log n) diverges (landed,
+`not_summable_one_div_nat_log`) but **Σ 1/(n log² n) CONVERGES** —
+a two-log budget is NOT fundable by widening the tower. Tao's
+one-log grade sits exactly on the divergence boundary; ours is
+across it. REMEDY (mandatory prerequisite): **node W2-b′ — the
+single-spot Chebyshev swap** in FBridge.lean's prime-count step,
+pre-identified by the W2-b executor as a local upgrade, restoring
+g′ to the ε⁷H/log H grade. Without W2-b′, W3-a-3c is UNPROVABLE as
+designed — do not dispatch 3c before b′ lands.
+
+**Node cuts:**
+| node | content | class | prereq |
+|---|---|---|---|
+| W2-b′ | the Chebyshev swap: fBridge_concentration at Tao-grade exponent ε⁷H/log H | B | none (local to FBridge) |
+| W3-a-3a | bad-set transport: Hoeffding card bound + weakUniform_spine compose, per-x₀ | B | W2-b′ |
+| W3-a-3b | good-x₀ selection | A (≈ decrement_markov applied) | none |
+| W3-a-3c | the outer Fubini assembly → (3.15/3.16-model), (2.11) as hypothesis | C | ALL of: W2-b′, 3a, 3b, W3-c-pnt, the v2 circle method |
+
+**Doors (explicit hypotheses, believed-true, no new axioms):**
+(2.11-model) — discharged later by W3-e from the log-Chowla-failure
+assumption (the contradiction hypothesis; it is SUPPOSED to be
+false); the MR Prop 2.4 door is downstream of this block (feeds
+W3-e, not W3-a-3).
