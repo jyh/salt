@@ -5270,3 +5270,18 @@ decisions per question.
   instantiate). JYH: "let's go for the gold. You are amazing,
   together we are accomplishing miracles!" In flight: HB-F-COMP,
   HB-F-TAU, TD-R1. 5h window 38%, overall quota unconstrained.
+
+- 2026-07-20 (GOLD WINDOW): ██ **TD-R1: ALL THREE ORACLE
+  CANDIDATES ARE WALLS — AND THE ORTHOGONALITY FINDING** ██ (≈
+  145k / 23 tools; probes elaboration-clean, the χ_ℝ collapse
+  facts kernel-proved in-probe). The two only-proven parity
+  mechanisms (the entropy crack, the HB sieve) consume DIFFERENT
+  correlation structures — first-moment vs pair-collapse — and
+  CANNOT compose; the crack's machinery ACCEPTS the Siegel
+  character and goes nowhere (the sharpest parity refusal yet).
+  The impossibility triple {bounded ∧ pair-collapse ∧
+  twin-detecting} identified. **TD-R2b (freeze the orthogonality
+  wall) + TD-R2a (the Elliott first-moment-spine redesign recon —
+  the surviving gold vein) DISPATCH.** In flight: HB-F-COMP,
+  HB-F-TAU, TD-R2a, TD-R2b + the CI watcher (billing FIXED —
+  the rerun is past setup and building).

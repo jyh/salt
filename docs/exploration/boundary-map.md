@@ -141,3 +141,37 @@ support the collapse's role in Prop 2.6 (slot 2)? does the
 decrement's budget arithmetic survive? Each test is an
 elaboration-probe + a falsity-probe per the standing doctrine.
 **TD-R1 dispatched**: the oracle candidate's design recon.
+
+## TD-R1 verdict (adjudicated): THE ORTHOGONALITY FINDING
+
+All three oracle candidates are WALLS (probe-verified, ProbeTD.lean):
+1. **χ_ℝ-as-weight**: passes BOTH slots (bounded; chiRe_mul makes
+   it exactly CM±1(,0) — the rigidity theorem CERTIFIES it) — and
+   is twin-INERT. The sharpest form of the parity refusal: the
+   crack's machinery ACCEPTS the Siegel character and goes
+   nowhere. The wall is the LINKAGE, never the slots.
+2. **Λ·(1−χ_ℝ)**: fails BOTH slots — the χ-twist tames neither
+   Λ's alphabet nor its non-multiplicativity.
+3. **The abstract two-slot form**: an impossibility triple —
+   {bounded ∧ shift-2 pair-collapse ∧ twin-detecting} is mutually
+   exclusive (slot 1 forces bounded; slot 2 + rigidity forces
+   CM±1; the linkage forces Λ-detection).
+
+**THE HEADLINE: the two only-ever-proven parity mechanisms are
+STRUCTURALLY ORTHOGONAL.** The Siegel oracle supplies a
+FIRST-MOMENT object (psi1Chi ≈ −residue, a mean + a density bias
+— sieve-consumable, exactly R3c/HB-ENGINE's food) while the
+entropy spine's slot 2 consumes a PAIR-COLLAPSE object. Category
+mismatch; they cannot compose. Bonus observation: the oracle's
+forced correlation is dilation-covariant at exponent β₁+1 — a
+measure-shaped covariance, pointing at an Elliott-type
+first-moment spine as its natural (non-existent) consumer.
+
+**Next nodes (dispatched):** TD-R2b — freeze the ORTHOGONALITY
+WALL as a Lean impossibility (peer of the parity-wall family;
+materials all landed). TD-R2a — the ELLIOTT REDESIGN recon: can
+the entropy architecture be rebuilt to consume first-moment
+slot-2 content? If yes, the oracle's dilation-covariant first
+moment becomes a genuine filler — the wall converts to a
+redesigned-door target. HB-ENGINE confirmed as the oracle's
+correct (sieve) home; the two doors stay orthogonal.
