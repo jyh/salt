@@ -3389,3 +3389,12 @@ decisions per question.
   correlation statement); R3a documented dead-end; R4 the
   documented death rung; R3c queued on JYH budget only. Ceremony:
   grep clean, wired + 2 keystones, full build exit 0 (9061 jobs).
+
+- 2026-07-18 ~05:35 (SPRINT 3): **R3c FUNDED (JYH: "Yes start R3c
+  please")** — the χ-twisted sieve weight, the deliberate
+  boundary-entry rung, dispatched in full knowledge of the
+  expected death at node (a) (the signed main term ↔ L(1,χ)
+  bridge — a registered success either way under Amendment 3).
+  S3-HB3C-FREEZE dispatched (the design pass, house-ratified on
+  landing per the A2-gate precedent); its adversarial gate
+  follows; executors after.
