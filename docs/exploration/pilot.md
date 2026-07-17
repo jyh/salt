@@ -4599,3 +4599,25 @@ decisions per question.
   persisted (poles GB-5/GB-6/GB-7/GB-14; critical path ~420k).
   **DECISION WITH JYH: go in-window or defer.** In flight:
   W3-a-3c, L35-ASM. Tally ~13.1M raw, house ~17%.
+
+- 2026-07-20 ~02:10 (THREAD A): ██████ **W3-a-3c LANDS COMPLETE —
+  THE OUTER FUBINI ASSEMBLY: (2.11) → (3.15)/(3.16), NO FLAG.
+  WAVE 3'S ANALYTIC SPINE IS DONE.** ██████ (≈ 305k / 66 tools —
+  the wave's heaviest node, as designed). OuterCombine.lean (~380
+  lines): **outer_combine** (the keystone: c₁·εH/logH − ERROR ≤
+  |∫ decoupled-two-point ∂logMeasure| — the honest subtraction
+  surface, grade (c₁ − O(ε))·εH/logH VERIFIED, no unkillable
+  term), **outer_badMass_eq** (the total-expectation identity —
+  built from map_compProd_condDistrib + Measure.integral_compProd;
+  the finite-sum fallback NOT needed), **outer_badMass_le** (3b
+  folded in: decrement_markov_fintype + badSet_transport_at_
+  calibration; the (3.9) correction ≤ log2 via pH_headroom_at),
+  the box lemmas (boxGrade = 2log4·(2+ε²)·H/logH — W3-c-pnt's
+  THIRD consumer). The (3.16) integrand is BYTE-IDENTICAL to
+  circle_method_estimate's LHS at x1 = x2 = liouvilleWindow.
+  Name-drift ledgered (Measure.integral_compProd namespace;
+  probReal_univ; abs_add → abs_add_le). W3-e's discharge list
+  named in the seam report (h211 = the contradiction door; κ ←
+  entropy_decrement; t/g trade; hne = Bertrand-grade residual).
+  Ceremony: wired + 5 keystones BY NAME, full build exit 0
+  (9110 jobs). Tally ~13.5M raw, house ~16%.

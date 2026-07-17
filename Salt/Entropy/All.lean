@@ -42,6 +42,7 @@ import Salt.Entropy.Chowla.Transport
 import Salt.Entropy.Chowla.MRTDoor
 import Salt.Entropy.Chowla.QuadrupleCount
 import Salt.Entropy.Chowla.LargeSpectrum
+import Salt.Entropy.Chowla.OuterCombine
 import Salt.Entropy.Chowla.Windows
 import Salt.Entropy.Chowla.PrimeWindow
 import Salt.Entropy.ConsumerTest
@@ -99,6 +100,11 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.dft_windowPhi_l4_le
   Salt.Entropy.Chowla.large_spectrum_energy
   Salt.Entropy.Chowla.windowPhi_norm_le
+  Salt.Entropy.Chowla.outer_combine
+  Salt.Entropy.Chowla.outer_badMass_eq
+  Salt.Entropy.Chowla.outer_badMass_le
+  Salt.Entropy.Chowla.fBridgeF_abs_le_box
+  Salt.Entropy.Chowla.decoupledMean_abs_le_box
   Salt.Entropy.Chowla.dilation_error
   Salt.Entropy.Chowla.weakUniform_generic
   Salt.Entropy.Chowla.weakUniform_spine
