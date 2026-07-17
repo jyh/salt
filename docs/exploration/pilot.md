@@ -5678,3 +5678,20 @@ decisions per question.
   N-PP-ROOT-TWO (the bounded 2-corner). Board: N-SHIU-R0, HL-R0,
   DH-G, ROOT-CYC, ROOT-TWO, CI test run. Tally ~27.1M raw,
   house ~14%.
+
+- 2026-07-17 ~4pm (GOLD WINDOW): ██ **THE POWER-REGION CAMPAIGN
+  OPENS ITS RECON — VK-R0 DISPATCHED (JYH: "yes, dispatch VK-R0,
+  let's go for it")** ██. Strategic re-prioritization ratified:
+  the power zero-free region (ANY θ < 0.98 — the Chudakov-grade
+  hypothesis, ~2–3.5M house prior) supersedes H-L as the flagship
+  headroom commitment; H-L continues as cheap parallel. The prize
+  chain: power region → MR's VK-fork resolves → the road to
+  UNCONDITIONAL log-Chowla-2 unblocks; would be the FIRST region
+  beyond dVP in any assistant. VK-R0 must kill-or-confirm the
+  house's UNVERIFIED Chudakov-power recollection (if Weyl/vdC
+  tops out at Littlewood loglog-type, the price re-opens), map
+  the front half (exp sums) vs the back half (our LANDED SW
+  conversion pattern — the home-turf advantage), sweep mathlib +
+  PrimeNumberTheoremAnd. Board: N-SHIU-R0, HL-R0, DH-G, ROOT-CYC,
+  ROOT-TWO, VK-R0, CI test run — SEVEN deep, the window's
+  deepest. Tally ~27.2M raw, house ~14%.
