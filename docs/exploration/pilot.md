@@ -5748,3 +5748,24 @@ decisions per question.
   core; milestone 2 = the Shiu core itself (Shiu 1980 route,
   Zeno-guarded). Board: ROOT-CYC, ROOT-TWO, VK-R0, HL-FRAME,
   N-SHIU, CI test run. Tally ~27.6M raw, house ~14%.
+
+- 2026-07-17 ~5:15pm (GOLD WINDOW): ██ **HL-FRAME LANDS — THE
+  HARDY–LITTLEWOOD CONJECTURE IS FORMALLY STATED; the
+  Salt/HardyLittlewood/ track opens** ██ (≈ 75k / 20 tools;
+  first-attempt except pi2_lt_one at 2 rounds; ZERO residuals).
+  Frame.lean: **HardyLittlewoodTwin** (π₂ ~ 𝔖·x/log²x as
+  IsEquivalent — the conjecture ELABORATES, a Prop the corpus can
+  now name, cite, and one day consume) + **Pi2** := twinC2 with
+  pi2_pos/pi2_multipliable (reuse) + **pi2_lt_one** (NEW — the
+  exp-sum route) + 𝔖 = twinSingularSeries ∈ (0,2) +
+  **twinCounting_upper_order** (C = 25700 wrapper of the Brun
+  bound; the docstring records the 𝔖 ≈ 1.32 target and the
+  Mertens-gated HL-3b arc). Executor catches for the gotcha file:
+  bare `le_tsum` is gone in this mathlib (→ Summable.le_tsum via
+  to_additive), namespace corrections (twinPrimeCounting at
+  ROOT), the rw-redex beta trap. Ceremony: new track All.lean +
+  6 keystones BY NAME, wired to ROOT Salt.lean, full build exit
+  0 (9149 jobs). The rung's cheap half is DONE at ~75k of the
+  ~150k estimate; HL-3b stays Mertens-gated. Board: N-SHIU,
+  ROOT-CYC, ROOT-TWO, VK-R0, CI test run. Tally ~27.7M raw,
+  house ~14%.

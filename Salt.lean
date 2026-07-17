@@ -13,4 +13,5 @@ import Salt.Goldbach.All
 import Salt.Entropy.All
 import Salt.Weil.All
 import Salt.HB.All
+import Salt.HardyLittlewood.All
 import Salt.Tactic.All
