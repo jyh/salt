@@ -3525,3 +3525,17 @@ decisions per question.
   < the needed 2/3 — short). The play-window plan's "HB-R4/R5
   revival" line is STRUCK; registered as a death-with-node-map.
   DECISION → JYH: fund D1–D4 (the Chen residual) or fold thread K.
+
+- 2026-07-18 ~11:55: **THREAD K DROPPED entirely (JYH: "drop it")**
+  — mode A included; the refutation report is the thread's
+  terminal deliverable. **THE SPEND WATCH (JYH):** Fable ≈ 4×
+  Opus; the binding constraint is a ~5-hour rolling window
+  (~5M tokens est., unconfirmed). PROTOCOL: the house keeps a
+  running agent-token tally (from the per-task usage blocks,
+  Fable house turns weighted 4×) and CHIMES JYH at every ~1M
+  crossing; JYH reports back against the dashboard to calibrate.
+  TALLY RESET: 0 at this entry. Current burn estimate: ~2–3M
+  Opus-equiv per 5h at throttle 4–6 with ~150–300k executors —
+  under a 5M window with margin ~2×; heavy parallel waves could
+  approach it, so heavy nodes run sequentially while the window
+  size is unconfirmed. In flight: D-e (~350k) + G-PP2 (~450k).
