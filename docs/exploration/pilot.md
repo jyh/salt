@@ -4229,3 +4229,20 @@ decisions per question.
   lossy for the general target — honest). Ceremony: wired + 1
   keystone BY NAME, full build exit 0 (9095 jobs). In flight:
   H1, H3, A3-W2B. Tally ~6.8M raw, house ~18%.
+
+- 2026-07-19 ~11:50 (THREAD W): ██ **H1 LANDS — THE ORBIT
+  REORGANIZATION: THM 6's CRITICAL-PATH NODE CLOSED** ██ (≈ 371k
+  / 88 tools — the window's biggest single node).
+  MomentOrbit.lean (482 lines): kloostermanMoment_eq_cCoeff (the
+  moment = Σ_{d∣n} d·Σ_{irred deg d} η^{n/d} — NO ab≠0, as the
+  gate's numerics predicted); H1a the trace-tower via the
+  Frobenius-sum route; H1b the fiber card via the REVERSE Thm 3;
+  the reciprocal-Vieta closed on the ORBIT-PRODUCT route (the
+  reverse-polynomial route confirmed dead — the gate's residual
+  risk resolved by a third path: derivative_prod + the sign
+  identity). A COLLISION WATCH raised: H3's NewtonBridge may
+  duplicate irredMonicOfDeg/cCoeff — the assembly resolves.
+  Ceremony: wired + 1 keystone BY NAME, full build exit 0
+  (9096 jobs). **THE THM-6 INDUCTION IS NOW UNBLOCKED pending
+  H3** (in flight). Tally ~7.2M raw, house ~18% — **THE 7M
+  CHIME.**
