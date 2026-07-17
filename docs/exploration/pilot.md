@@ -3332,3 +3332,21 @@ decisions per question.
   regime field hheadroom' (shape frozen, constants gate-tunable);
   the wave-II gate charged with the independent arithmetic redo.
   **S3-A2-W2GATE dispatches** (2 slots in use → 3 of 4).
+
+- 2026-07-18 ~04:10 (SPRINT 3): **THE HB3B GATE: GO-WITH-BLOCK —
+  and the kill-check FIRES AGAIN (gate-refutes-recon)** (S3-HB3B-
+  GATE ≈ 115k / 26 tools; probes exit 0; the frozen block
+  persisted at adjudication). The construction is sound (every
+  case-iii hypothesis sourced — box entry is the ONE new input,
+  supplied by the strong window). THE CATCH: the recon's pinned
+  numeric floor (a ≈ 9.85e−7 read from the proof) is UNSOUND —
+  a = c₀'/8 with c₃ = min(1/75712, ε₀·log 2) and ε₀ OPAQUE: the
+  constant is not a provable literal, and the pinned window's
+  q = 2 margin is 0.47% — a 0.7× shift in the true a EMPTIES it
+  (the HB2 self-refutation, latent in the recon's own numbers).
+  THE FIX (gate-authored, frozen): the window floor is
+  3·c₄/√log x with c₄ THE EXPOSED existential — non-emptiness
+  margin 30Q² − 4(Q+2) = 3.64 > 0, c₄-INDEPENDENT. Honest
+  strength ceiling c ≤ 0.134·c₄ (witness-absorbing, no
+  inversion); the anti-vacuity witness conjunct is IN the
+  statement. **S3-HB3B-EXEC dispatched** (build AS WRITTEN).
