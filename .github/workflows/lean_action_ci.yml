@@ -23,10 +23,17 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Billing cap: with the mathlib cache a full build is ~20-40 min; anything
+    # longer is a cache miss or a wedged runner — kill it before it burns hours.
+    timeout-minutes: 90
 
     steps:
       - uses: actions/checkout@v5
       - uses: leanprover/lean-action@v1
+        with:
+          # Explicit (not auto): the 2026-07-17 run 29599988363 spent 2h11m and
+          # died starved — the signature of building mathlib from source.
+          use-mathlib-cache: true
       # Blueprint lint: docs↔code consistency + repo-wide axiom audit (CLAUDE.md
       # iron rule 3). Runs AFTER lean-action so the oleans it built are on disk:
       # the lint's phase-1/phase-3 `lake env lean` invocations elaborate a tiny
