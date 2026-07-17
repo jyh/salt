@@ -4550,3 +4550,20 @@ decisions per question.
   Brun quadruple count — feasibility STEP-0 mandated, STOP-AND-FLAG
   authorized).** In flight: W3-a-3c, W3-AE-c, W3-AE-d. Tally
   ~12.2M raw, house ~17%.
+
+- 2026-07-20 ~00:00 (THREAD A): **W3-AE-d LANDS SIEVE-PARAMETRIC +
+  THE HONEST FLAG — THE WAVE'S ZENO BOUNDARY FOUND** (≈ 69k / 21
+  tools; reduction + seam BOTH first-attempt; Route A correctly
+  NOT ground). QuadrupleCount.lean: repCount, the ℕ-safe Σr(n)²
+  identity, addEnergy_le_of_r_bound (sieve content isolated), and
+  **W3_AE_d_of_sieve** (the frozen H³/log⁴H conclusion from TWO
+  named hypotheses: hpt = the Goldbach upper sieve, hsq = the
+  squared-majorant second moment). STEP-0 verdict with precise
+  scoping: the sieve is a REBUILD (n-dependent nu — the twin +2 is
+  hard-wired; MertensWindow analogue; Σ𝔖² ≪ N has NO track
+  analogue — research-grade); Route B provably one log short.
+  HOUSE RULING (III.3‴ Zeno halt): wave 3 closes parametrically at
+  TWO residuals — the sieve pair + the (2.11) reduction. Ceremony:
+  wired + 3 keystones BY NAME, full build exit 0 (9108 jobs). JYH
+  reports 5h window 47%. In flight: W3-a-3c, W3-AE-c. Tally
+  ~12.5M raw, house ~17%.

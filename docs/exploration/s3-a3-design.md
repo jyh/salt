@@ -286,3 +286,34 @@ generous STOP-AND-FLAG), W3-AE-c cluster (l4 + bridge + markov +
 the C-grade combine, one executor), Lemma_3_5 assembly (B, after
 both). MRT door lands separately (W3-e-door/seam, from the
 MRT-DOOR-R0 freeze above).
+
+## W3-AE-d — SIEVE-PARAMETRIC LANDING + the flagged design block
+(adjudicated 2026-07-19)
+
+The executor's STEP-0 verdict: Route A (the full binary-Goldbach
+sieve) is a REBUILD, not an instantiation — correctly flagged, not
+ground. LANDED (QuadrupleCount.lean, 9108 green): repCount +
+addEnergy_eq_sum_repCount_sq (ℕ-safe Σr(n)² identity) +
+addEnergy_le_of_r_bound (the isolation) + **W3_AE_d_of_sieve** —
+the frozen conclusion from exactly TWO named sieve hypotheses:
+`hpt` (r(n) ≤ rbound H n — the Goldbach upper sieve) and `hsq`
+(Σ (rbound)² ≤ C·H³/log⁴H — the squared main term × Σ𝔖² ≪ N).
+
+**THE FLAGGED DESIGN BLOCK (deferred; research-grade):** a new
+BoundingSieve instance with n-DEPENDENT nu (the twin rho's +2 is
+hard-wired; no parameter substitution possible), its three field
+proofs (new degenerate case at p ∣ n), the m(n−m) support
+injectivity, the main-term extraction (a MertensWindow analogue
+for the n-dependent density), and — with NO analogue anywhere in
+the track — the singular-series second moment Σ_{n~2N} 𝔖(n)² ≪ N.
+Estimated: a twin-sieve-build-sized multi-node block PLUS the
+second-moment sub-block. Route B is provably one log short (max-r
+crude bound reaches only log³; log⁴ REQUIRED for |Ξ_H| = O(1)).
+
+**WAVE-3 ZENO HALT (house ruling, III.3‴):** wave 3 closes
+HYPOTHESIS-PARAMETRICALLY with exactly TWO residuals: (1) the
+sieve pair (hpt, hsq) above; (2) the (2.11) reduction (W3-e-glue's
+door input). Both named, both scoped, both believed-true (Tao
+p. 25 / MRT). The remaining wave nodes (the Lemma-3.5 assembly,
+the Theorem-2.3 shell) compose everything landed against these
+two residuals.
