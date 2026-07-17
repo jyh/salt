@@ -864,3 +864,31 @@ N-HDOM := anchored combinator @ the vP3 double-dyadic family
 (discharges hdom); N-TYPEI-MID := same for vP1/vP2 mid-halves.
 Dispatch order: N-TAU-SPIKE ∥ GehAnchor(combinator) → N-HDOM →
 N-TYPEI-MID.
+
+### N-REPLUMB AMENDMENT 1 (house SELF-CATCH, same session, before
+### any dispatch)
+
+**The shallow regime as frozen above is WRONG.** Kill-check
+re-derivation: the crude class-mass bound `(z/q + 1)·Sp(x)` summed
+over a long modulus range gives `Σ_q (z/q)·Sp ≈ z·Sp·log` — and
+`Sp = x^{c/loglog x}` (the true τ-spike scale) BEATS every log
+power, so shallow blocks with `s ∈ (x^θ, x/log^F)` yield
+`x^{1+o(1)}/log^F ≫ x/log^A`. N-TAU-SPIKE is necessary (the
++1/tail parts) but NOT sufficient: the (z/q)-part needs the max
+class to track the AVERAGE (polylog) with the spike appearing
+only additively — i.e., a **Shiu-shaped class-moment bound**
+`Σ_{n≤z, n≡a(q)} |block coeffs| ≤ (z/q)·C·log^{pc} x + Sp x`
+(Shiu 1980 / Wolke-type; coprimality + range conditions; C-class,
+a real analytic theorem). The registration's 150–250k for the
+re-plumb hid this debt.
+
+**The corrected freeze:** `pieceObligationU_of_anchored_multiblock`
+takes the Shiu-shaped bound as an explicit per-block HYPOTHESIS
+(`hshiu`), discharges the deep regime fully (that half is
+verified: GEH-at-anchor + absorption lemma + k-bump), and routes
+every shallow block through `hshiu`. New named node **N-SHIU**
+(C, ~250–400k, or a restructure making sub-scale coefficients
+log-bounded — the Λ-style route — to be decided by its own recon
+N-SHIU-R0 BEFORE commitment). N-HDOM's price re-opens
+accordingly. Dispatch order revised: N-TAU-SPIKE ∥ GehAnchor
+(deep regime + hshiu interface) → N-SHIU-R0 → N-HDOM.

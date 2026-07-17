@@ -5382,3 +5382,15 @@ decisions per question.
   N-HDOM (vP3 double-dyadic ∥ anti-diagonal, p = 2), N-TYPEI-MID.
   Dispatch order: N-TAU-SPIKE ∥ GehAnchor → N-HDOM → N-TYPEI-MID.
   Board: HB-R0 + SMALLQ-3 + the CI watcher.
+
+- 2026-07-20 (GOLD WINDOW): **N-REPLUMB AMENDMENT 1 — HOUSE
+  SELF-CATCH before dispatch** (house, ~0 marginal). The frozen
+  shallow regime was WRONG: `(z/q)·Sp` over a long q-range is
+  `x^{1+o(1)}` (the τ-spike `x^{c/loglog}` beats all polylogs) —
+  caught by the standing kill-check re-derivation BEFORE any
+  executor built against it. The honest input is Shiu-shaped
+  class-moment control; frozen as the combinator hypothesis
+  `hshiu` + new node **N-SHIU** (C, ~250–400k, recon-gated via
+  N-SHIU-R0). The deep regime (absorption + k-bump) verified
+  intact. hdom's true price was under-registered — the hidden
+  debt is now named. Catch direction: designer-catches-designer.
