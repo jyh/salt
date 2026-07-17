@@ -5259,3 +5259,14 @@ decisions per question.
   queue: SPINE-BUDGET, SMALLQ-3, N-REPLUMB (house design),
   N-PP-ROOT, the wave-3/window reports. Tally ~23.3M raw, house
   ~14%.
+
+- 2026-07-20 (GOLD WINDOW, post-restart): **HB-ENGINE REGISTERED
+  as a future campaign (8–14M, five links, the pricing table
+  persisted) + HB-FOUND dispatched (the links-3+4 down payment:
+  HB-F-COMP + HB-F-TAU) + THE TRANSPORT DOOR CAMPAIGN OPENS**
+  (TD-0 house design: three candidate families + the mechanical
+  sweep protocol; TD-R1 = the abstract Siegel-oracle recon,
+  dispatched — the HB triangle: the door HB-ENGINE would
+  instantiate). JYH: "let's go for the gold. You are amazing,
+  together we are accomplishing miracles!" In flight: HB-F-COMP,
+  HB-F-TAU, TD-R1. 5h window 38%, overall quota unconstrained.

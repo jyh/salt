@@ -110,3 +110,34 @@ specification any future door must meet.
   variables itself, not the bookkeeping around it.
 - The characterization is at the normalized ±1 level; complex
   unit-modulus analogues (Elliott-type) are unexplored formally.
+
+---
+
+## Addendum — THE TRANSPORT DOOR CAMPAIGN OPENS (the Gold Window,
+2026-07-20, JYH: "let's go for the gold")
+
+**TD-0 (house): the candidate families + the sweep protocol.**
+Three candidate genres for filling the two slots:
+1. **The abstract Siegel-oracle** (the HB triangle): axiomatize
+   what a Siegel zero provides — a real CM±1 character χ with
+   L(1,χ) anomalously small, forcing λ/μ to pretend to be χ —
+   restated as fillers for the two slots (the correlation
+   structure via the χ-twist; the budget via the induced bias).
+   HB-ENGINE would later INSTANTIATE this door.
+2. **Bounded CM surrogates** (the classical route): λ·χ-family /
+   pretentious approximants to twin-relevant weights — slot 2
+   free (they ARE CM±1), the question is whether any carries
+   twin information (the parity wall's classical refusal —
+   candidate walls live here).
+3. **W-tricked normalizations**: Green–Tao-style residue-class
+   restriction taming Λ's alphabet — slot 1 partially free, slot
+   2 the open question.
+
+**The sweep protocol** (the unique instrument): each frozen
+candidate is mechanically tested against the skeleton's named
+consumption sites (the boundary map's dependency table): does it
+fund Fannes/the box (slot 1)? does its correlation structure
+support the collapse's role in Prop 2.6 (slot 2)? does the
+decrement's budget arithmetic survive? Each test is an
+elaboration-probe + a falsity-probe per the standing doctrine.
+**TD-R1 dispatched**: the oracle candidate's design recon.

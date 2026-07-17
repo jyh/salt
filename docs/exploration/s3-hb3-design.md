@@ -754,3 +754,28 @@ port. STATUS: **HB-ENGINE = a NAMED FUTURE CAMPAIGN** (peer of
 the MR formalization), not a this-window play. Distinction from
 W4-MAJOR's RED: a SCALE verdict, not a category error — opening
 a track, not flipping a switch.
+
+## HB-ENGINE — REGISTERED AS A FUTURE CAMPAIGN (JYH, 2026-07-20)
+
+Target: **SiegelSequence ⟹ TwinTypeII** (the twin door then gives
+TwinPrimeConjecture — Heath-Brown 1983, formal-first). Pricing
+(the HB-R4-R0 hearing + house link table): five links — the
+completion port (~0.2–0.3M), the composite Weil assembly
+(~0.3–0.5M), the tailored Vaughan/HB decomposition (~0.8–1.5M),
+THE DISPERSION CORE (~1.5–3M, pole #1), the reassembly (~1–2M,
+pole #2, the Chen-5.3× genre) — raw ~4–7M, realistic **8–14M**,
+2–5 focused days at Gold-Window intensity. Discounts banked: the
+periphery landed (R1/R2/R3b/R3c bookkeeping, the sorry-free twin
+door, the FULL Weil toolkit, the completion infra); the method's
+current first-attempt rate. Risk: the dispersion core's structure
+(the hearing's flagged reconstruction uncertainty) — the
+campaign's opening recon must verify HB-1983's skeleton
+section-by-section before the freeze.
+
+**HB-FOUND (the down payment, THIS window — dispatched):** links
+3+4 as independent bounded nodes: HB-F-COMP (re-point
+BV/Completion's Fourier-cutoff at the Kloosterman complete sums —
+the incomplete-sum bound) + HB-F-TAU (the composite τ(c)√c
+assembly: the odd-prime-power crude bound + the factorization
+iteration over Nat.factorization — ALSO completes summit one's
+parked polish).
