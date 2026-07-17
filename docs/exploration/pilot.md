@@ -3569,3 +3569,26 @@ decisions per question.
   nodes sequential per the spend watch). SPEND TALLY since reset:
   ~0.3M (G-PP2 160k + house). Ceremony: wired, full build exit 0
   (9068 jobs).
+
+- 2026-07-18 ~13:30 (THREAD W): **W-R0 ADJUDICATED — THE GOLD
+  LADDER IS REAL** (≈ 79k / 15 tools). The Harcos exposition
+  (14pp, IK Ch. 11, self-contained elementary) is the porting
+  spec (PDF cached); the chain: Artin–Schreier → the degree-2
+  L-function per-m (FORMAL power series mandate — no complex
+  analysis) → Cor 3 (the moment↔curve identity, y² = (x^p−x)²
+  −4ab) → the Stepanov core (the auxiliary polynomial (18), the
+  Hasse-derivative reduction, THE DIMENSION COUNT — the D-locus)
+  → the descent (eigenvalue extraction) → **|S(a,b;p)| ≤ 2√p
+  EXACTLY** (not (1+o(1))). Substrate: hasseDeriv/expand/
+  card_roots'/Newton psum ALL MATURE in mathlib (~80% of the
+  operators free); Kloosterman def + curve counts + the
+  construction = from scratch; NO proof-assistant precedent
+  anywhere. TOTAL: ~2.2–2.8M core+tail. THE HONEST PAYOFF CHAIN:
+  Weil → the R4 dispersion rung (separate, consumes it) →
+  δ = 2ϖ = 1/584 > 0 (a provable positive literal — the
+  swat_vacuous discipline satisfied) → beyond-½. WAVE 1 per the
+  recon: TWO KILL-CHECKS FIRST (W4.1d the rank-nullity dimension
+  count; W2.2 the PowerSeries route) + the three cheap foundation
+  nodes (W0.1 Kloosterman def, W3.1 hasseDeriv wiring, W1.1
+  GaloisField plumbing). **W-KC (both kill-checks) + W-FOUND
+  (the foundations) DISPATCH.** Spend tally: ~0.45M since reset.
