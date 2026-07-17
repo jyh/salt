@@ -391,4 +391,131 @@ serious scouting.
 5. **Coercion hygiene.** `(kloosterman a b).re : ℝ` vs `kloosterman a b : ℂ` — a₁ produces a ℂ value
    equal to `↑(…).re` only after `kloosterman_im`. Match the substrate's `S := (kloosterman a b).re`
    convention exactly (as Moments.lean already does at `n=1`) to avoid a real/complex seam in H4.
+
+---
+
+## 10. GATE VERDICT — W2T6-GATE (adversarial adjudication, persist-at-adjudication)
+
+**VERDICT: GO-WITH-BLOCK.** The design is mathematically sound (numerically triple-confirmed at
+p=3,5,7 with an independently-written script — NOT the freeze's), every frozen statement elaborates
+against the live substrate, and every critical mathlib lever exists. No kill; the blocks below are
+name/spec corrections, not a re-cut. Executors MUST apply BLOCK-1..3 before proving.
+
+### Findings by charge (gate's own numbers)
+
+**Charge 1 — numerics (independent rebuild, p=3/5/7).** PASS.
+- p=5 reproduced EXACTLY: (a,b)=(1,1) → `a_d = (1, 0.38197=S, 5, 0, 0)`; `M_n = (0.38197, 9.85410,
+  −5.67376, −47.1033) = −(αⁿ+βⁿ)` all n; ab=0 exhibits match the §6 table verbatim ((0,1)/(1,0) →
+  `M_n≡−1`, `−(αⁿ+βⁿ)=(−1,9,14,−31)`, fail n≥2; (0,0) → `M_n=(4,24,124,624)` vs `(4,−6,4,14)`).
+- p=3 (1,1) → `a_d=(1,−1=S,3,0,0)`, Thm6 all n. p=7 (1,1) → `a_d=(1,2.04892=S,7,0,0)`, Thm6 all n
+  (degree-4 field, 2401 elts enumerated). Both ab=0 sets fail n≥2. Single-prime thinness resolved.
+- TWO structural confirmations beyond the freeze: (i) **H1 (`M_n=c_n`) holds for ALL (a,b) incl.
+  ab=0** — True in every case, so H1 correctly needs no ab≠0. (ii) **Newton holds for ALL (a,b)
+  incl. (0,0)** — H3 is a hypothesis-free combinatorial identity. The ab≠0 requirement enters ONLY
+  through `a₂=p` and `a_{d≥3}=0`. Also: `a₁=kloosterman` holds universally (even (0,0): =p−1).
+
+**Charge 2 — m-free reduction + m=0 exclusion.** SOUND (numerically closed).
+- The twist `(a,b)↦(ma,mb)` makes `kloostermanMoment (ma)(mb) n` literally `Σₜ e_p(m·Trₙ(at+bt⁻¹))`
+  (= Harcos eq 8 RHS, via the landed `kloostermanMoment_twist`), and the RHS `−localPowerSum
+  (kloosterman(ma)(mb)).re p n = −(αₘⁿ+βₘⁿ)` because `localRootPair` is built from `S(ma,mb)`. The
+  m-free core AT `(ma,mb)` reconstructs Harcos eq 8 exactly.
+- m=0 exclusion is CORRECT: `M_n(0,0)=p^n−1` exactly (verified p=3/5/7, n=1..4), which is Cor 3's
+  standalone `(p^n−1)` term, NOT covered by Thm 6 (needs m≠0). Verified for all p∈{3,5,7}, n∈{1,2,3}:
+  `Σ_{m=0}^{p−1} M_n(ma,mb) = [p^n−1 − Σ_{m=1}^{p−1}(αₘⁿ+βₘⁿ)] = p·#{t:Trₙ=0}` — all three equal.
+  So per-m Thm 6 (m=1..p−1) + the trivial m=0 term reconstruct Cor 3's LHS, and the reconstruction
+  matches the substrate's already-landed `sum_kloostermanMoment_twist` fiber-count RHS. This node is
+  correctly scoped to per-m Thm 6; Cor 3 assembly + m=0 stay downstream (gate charge #4 holds).
+
+**Charge 3 — η / H2 audit.** SOUND, one lever misnamed.
+- `Monic.nextCoeff_mul (hp : Monic p)(hq : Monic q) : (p*q).nextCoeff = p.nextCoeff + q.nextCoeff`
+  — EXACT, both-monic required (matches `eta_mul`'s two Monic hyps). `nextCoeff(1)=0` (natDegree 0)
+  gives `eta_one` for free. Complete-multiplicativity map in §3 is correct.
+- `a_{d≥3}=0` proof is PURE additive orthogonality (`AddChar.sum_mulShift`, `a≠0` kills the free `c₁`
+  sum), NOT "Artin–Schreier + orthogonality" — the CHARGE's framing is the inaccurate one; the
+  freeze §4 is correct. `a₂=p` needs BOTH a≠0 and b≠0 (the `c₂=−b/a` term; b=0 ⇒ a₂=0), confirmed.
+- **BLOCK-1 (lever name):** freeze §3 cites `AddChar.map_add_mul` as "probe-verified" — that constant
+  does NOT exist. Correct name is **`AddChar.map_add_eq_mul (ψ)(x y) : ψ(x+y)=ψ x * ψ y`**. Also
+  `nextCoeff_pow` is `Polynomial.Monic.nextCoeff_pow (hp : Monic p) : (p^n).nextCoeff = n•p.nextCoeff`
+  (a bonus that gives `eta_pow` directly). All other §8 levers confirmed present:
+  `Polynomial.nextCoeff`, `coeff_mul`, `mul_coeff_zero`, `AddChar.sum_mulShift`
+  (`Σ x, ψ(x*b) = ↑(if b=0 then card R else 0)`), `ZMod.isPrimitive_stdAddChar`,
+  `natDegree_multiset_prod`, `UniqueFactorizationMonoid.factors`.
+
+**Charge 4 — H1a / H1 lemma list + the reverse-direction question.** ACHIEVABLE; reverse IS needed.
+- H1 needs the **REVERSE** direction of Orbits' Thm 3 (the FORWARD `orbit ⊆ rootSet` alone is
+  insufficient): H1b's partition completeness + fiber-size both require that every irreducible of
+  degree d∣n has ALL d of its roots in 𝔽_{p^n}. Available: `irreducible_monic_dvd_X_pow_card_pow_sub_X_iff`
+  (⟸ direction, landed) + **BLOCK-2:** name the packaging lemma `Polynomial.card_rootSet_eq_natDegree
+  (hsep : Separable)(hsplit : Splits (map (algebraMap) k)) : card (rootSet K) = natDegree` (the freeze
+  says "fiber size = deg k from separability + splitting" but never names it; it is the cheap lever the
+  Orbits friction note anticipates).
+- H1a is achievable via the Frobenius-sum FALLBACK (avoids the intermediate-field inclusion):
+  `galoisField_trace_eq_sum_frobenius` (landed) gives `algebraMap(Trₙ t)=Σ_{i<n}t^{p^i}`; group n/d
+  period copies using `t^{p^d}=t` (from the ⟸ iff at n:=d, since deg k = d ∣ d); identify the
+  orbit-sum with `−nextCoeff` via **`Splits.nextCoeff_eq_neg_sum_roots_of_monic (hf)(hm) :
+  nextCoeff = −roots.sum`** (landed in mathlib — the key H1a Vieta lever, name it).
+- **BLOCK-3 (residual highest risk):** the RECIPROCAL side `Σ tⱼ⁻¹ = −coeff₁/coeff₀` has NO single
+  mathlib lemma — compose via `Polynomial.reverse` (roots = reciprocals; k≠X ⇒ all roots ≠0) + the
+  same Vieta on the reversed poly, or `Splits.coeff_zero_eq_prod_roots_of_monic` + coeff-1 product
+  relations. This multi-step reciprocal-Vieta is the single riskiest sub-proof; scout it FIRST, as §7
+  already recommends. Note the fallback route ALSO leans on the reverse direction (for `t^{p^d}=t`),
+  not only the "orbit-period fact" as §9 friction #1 phrases it.
+- Exact H1 lemma list (landed signatures): `galoisField_minpoly_irreducible`,
+  `galoisField_minpoly_natDegree_dvd`, `irreducible_monic_dvd_X_pow_card_pow_sub_X_iff`,
+  `squarefree_X_pow_card_pow_sub_X`, `card_rootSet_eq_natDegree`, `Finset.sum_fiberwise`/`sum_partition`
+  (H1b); `galoisField_trace_eq_sum_frobenius`, `Splits.nextCoeff_eq_neg_sum_roots_of_monic`,
+  `Splits.coeff_zero_eq_prod_roots_of_monic`+`reverse`, `Algebra.trace` linearity (`map_add`/`map_smul`,
+  cf. `trace_smul_arg`), `AddChar.map_add_eq_mul` (H1a).
+
+**Charge 5 — node plan / quantifier order / wave-1 cut.** SOUND.
+- Every frozen statement PROBE-ELABORATES against the live substrate (gate re-ran the §2/§3/§5
+  signatures; only `sorry`, zero elaboration errors). Quantifier/vacuity audit clean: `n≠0` guards the
+  n=0 seam; `aCoeff a b 0 = η(1) = 1` (Fin 0 → singleton, non-vacuous); `cCoeff a b 0 = 0`
+  (`Nat.divisors 0 = ∅`) but c₀ is never consumed (Newton/induction start at n≥1); `Icc 1 n` at n=1 is
+  `{1}` giving `c₁=a₁`; `eta_mul` carries both Monic; H1/`newton` carry NO ab≠0 (correct — both hold
+  ∀ a,b, confirmed); `T5-ad` a≠0 is sufficient (not tight — also holds a=0,b≠0 via the c_{d−1} sum —
+  but keep as-is, main has both). `a₁=kloosterman a b` (NOT −S): the RHS sign is correct.
+- Estimates (~1600 L, 5 C-nodes + B endgame) are reasonable vs the 150–210 L/file substrate baseline;
+  H1 (~500) and H3 (~420) may run over given mathlib Multiset/`factors` verbosity (freeze already says
+  "budget generously"). Wave-1 cut `eta → {T5, H3, H1 parallel} → main → twist` is correct: `eta` is the
+  shared dependency; H1/H3 independent; main+twist cheap. H1a (reciprocal-Vieta) is the correct first
+  scouting target.
+
+### Verbatim-ready frozen statements (GATE-elaborated, BLOCK corrections folded in)
+
+```lean
+open Polynomial in
+noncomputable def eta (a b : ZMod p) (k : (ZMod p)[X]) : ℂ :=
+  if k.coeff 0 = 0 then 0
+  else ZMod.stdAddChar (-(a * k.nextCoeff)) * ZMod.stdAddChar (-(b * (k.coeff 1 / k.coeff 0)))
+
+noncomputable def aCoeff (a b : ZMod p) (d : ℕ) : ℂ :=
+  ∑ c : Fin d → ZMod p, eta a b (X^d + ∑ i : Fin d, C (c i) * X^(i:ℕ))
+
+noncomputable def cCoeff (a b : ZMod p) (n : ℕ) : ℂ :=          -- irredMonicOfDeg shared with H1/H3
+  ∑ d ∈ n.divisors, (d : ℂ) * ∑ k ∈ (irredMonicOfDeg p d), eta a b k ^ (n / d)
+
+theorem eta_one    (a b : ZMod p) : eta a b 1 = 1
+theorem norm_eta_le_one (a b : ZMod p) (k : (ZMod p)[X]) : ‖eta a b k‖ ≤ 1
+theorem eta_mul (a b : ZMod p) {k₁ k₂ : (ZMod p)[X]} (h₁ : k₁.Monic) (h₂ : k₂.Monic) :
+    eta a b (k₁ * k₂) = eta a b k₁ * eta a b k₂                 -- uses AddChar.map_add_eq_mul
+theorem eta_pow (a b : ZMod p) {k : (ZMod p)[X]} (h : k.Monic) (r : ℕ) :
+    eta a b (k ^ r) = eta a b k ^ r
+theorem T5_a0 (a b : ZMod p) : aCoeff a b 0 = 1
+theorem T5_a1 (a b : ZMod p) : aCoeff a b 1 = kloosterman a b
+theorem T5_a2 (a b : ZMod p) (ha : a ≠ 0) (hb : b ≠ 0) : aCoeff a b 2 = (p : ℂ)
+theorem T5_ad (a b : ZMod p) (ha : a ≠ 0) {d : ℕ} (hd : 3 ≤ d) : aCoeff a b d = 0
+theorem kloostermanMoment_eq_cCoeff (a b : ZMod p) {n : ℕ} (hn : n ≠ 0) :   -- NO ab≠0
+    kloostermanMoment a b n = cCoeff a b n
+theorem newton_aCoeff_cCoeff (a b : ZMod p) {n : ℕ} (hn : n ≠ 0) :          -- NO ab≠0
+    (n : ℂ) * aCoeff a b n = ∑ j ∈ Finset.Icc 1 n, aCoeff a b (n - j) * cCoeff a b j
+theorem kloostermanMoment_eq_neg_localPowerSum
+    (a b : ZMod p) (ha : a ≠ 0) (hb : b ≠ 0) {n : ℕ} (hn : n ≠ 0) :
+    kloostermanMoment a b n = - localPowerSum (kloosterman a b).re p n
+theorem kloostermanMoment_twist_eq_neg_localPowerSum
+    (a b m : ZMod p) (hm : m ≠ 0) (ha : a ≠ 0) (hb : b ≠ 0) {n : ℕ} (hn : n ≠ 0) :
+    kloostermanMoment (m*a) (m*b) n = - localPowerSum (kloosterman (m*a) (m*b)).re p n
 ```
+(All above elaborated by the gate against `Salt.Weil.Moments` + mathlib; `irredMonicOfDeg` is the one
+object still to be constructed — build from the `Fin d → ZMod p` tuple equiv + `Irreducible` filter,
+Classical/`Fintype.ofFinite` for axiom-cleanliness, and SHARE it across `cCoeff`, H1, H3.)

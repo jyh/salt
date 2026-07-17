@@ -3895,3 +3895,21 @@ decisions per question.
   master's abstractness — the gate checks the instances
   RE-DERIVE the walls, not restate them). In flight: W5,
   W2T6-GATE, A-DIVERGE, +M-GATE = 4.
+
+- 2026-07-19 ~00:20 (THREAD W): **THE W2T6 GATE: GO-WITH-BLOCK —
+  the η-ladder verified at THREE primes** (≈ 158k / 31 tools; a
+  from-scratch numeric rebuild, not the freeze's script). All
+  five charges PASS; two structural facts BEYOND the freeze
+  (H1 = the orbit reorganization holds for ALL (a,b) incl. ab=0;
+  Newton is hypothesis-free — ab ≠ 0 enters ONLY through a₂ = p);
+  the m = 0 term = p^n − 1 exactly (Cor 3's standalone term,
+  numerically closed at 3 primes × 3 levels). THREE BLOCKS (all
+  lever-grade): AddChar.map_add_eq_mul (the freeze misnamed it),
+  card_rootSet_eq_natDegree named for the H1b fiber size (the
+  REVERSE Thm 3 direction IS needed, as Orbits' friction
+  predicted), Splits.nextCoeff_eq_neg_sum_roots_of_monic for the
+  H1a Vieta; the reciprocal-Vieta Σt⁻¹ = the residual risk
+  (scout-first order). The frozen statements + blocks persisted
+  (w2t6-design.md §10). **W2T6-E1 dispatches** (η + Thm 5 —
+  LFunction.lean). In flight: A3-R0, A-DIVERGE, W5, M-GATE,
+  +E1 = 5.
