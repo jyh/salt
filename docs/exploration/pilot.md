@@ -3492,3 +3492,16 @@ decisions per question.
   partial landing — the outcome line stays OPEN pending KL-R0
   (a Kloosterman build revives a2/a3+R4 → heath_brown). Ceremony:
   wired + 4 keystones, full build exit 0 (9066 jobs).
+
+- 2026-07-18 ~11:10 (THREAD G): **G-PPLEVEL lands its floor + the
+  honest re-price** (≈ 121k / 23 tools). GehPp.lean: the uniform
+  per-q bound + the crude route's x^{θ+1/2} explosion made
+  EXPLICIT (a theorem, not a remark). THE FLAG (precise): PpLevel
+  needs (1) the composite-modulus square-root count ≤ 2^{ω(q)+1}
+  (mathlib has ONLY prime-modulus ZMod.card_sqrts — a CRT
+  assembly build) AND (2) three absent multiplicative sums
+  (Σ2^{ω(q)}/q ≪ log², Σ2^{ω(q)} ≪ Q log, Σ1/φ(q) ≪ log). No
+  crude peel-off exists (every k ≥ 2 needs the per-class count).
+  Re-price: ~400–600k as a two-node sub-rung — affordable in the
+  window. **G-PP2 dispatches** (the CRT count + the sums + the
+  PpLevel assembly). Ceremony: wired, full build exit 0 (9067).
