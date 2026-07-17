@@ -3653,3 +3653,19 @@ decisions per question.
   Refill authorized per the rule (landing + curve bending):
   **W0.2 dispatches** (the α/β local-factor layer — cheap,
   keeps the ladder's critical path warm). 3 in flight.
+
+- 2026-07-18 ~16:50 (THREAD W): **W-ORBITS LANDS — LAYER 1 OF THE
+  WEIL LADDER IS COMPLETE** (≈ 160k / 36 tools). Orbits.lean:
+  Thm 3 forward (minpoly irreducible, degree ∣ n, the Frobenius
+  orbit ⊆ the root set) + Cor 2 in the HONEST form (squarefree +
+  the divisibility iff — jointly determining the irreducible-
+  factor multiset of X^{p^n} − X; mathlib has NO Gauss product —
+  the pair is the right substitute, W2 consumption notes
+  recorded). HOUSE SLIP #6 (ledgered at equal prominence): the
+  W-TRACE ceremony's `git add Salt/Weil/` DIRECTORY sweep
+  committed the then-in-flight Orbits.lean mid-run — it happened
+  to compile (luck, not process); the executor's cosmetic diff
+  accepted. RULE TIGHTENED: ceremonies add FILES BY NAME, never
+  directories, while executors share the tree. Ceremony: wired +
+  3 keystones, full build exit 0 (9072 jobs). In flight: W0.2 +
+  D-e. Tally: ~1.2M.

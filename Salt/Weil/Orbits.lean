@@ -50,7 +50,8 @@ variable {p : ℕ} [h_prime : Fact p.Prime] (n : ℕ)
 theorem galoisField_isIntegral (x : GaloisField p n) : IsIntegral (ZMod p) x :=
   Algebra.IsIntegral.isIntegral x
 
-/-- **Theorem 3 (part 1).** The minimal polynomial of `x ∈ 𝔽_{p^n}` over `𝔽_p` is irreducible. -/
+/-- **Theorem 3 (part 1).** The minimal polynomial of `x ∈ 𝔽_{p^n}` over `𝔽_p` is
+irreducible. -/
 theorem galoisField_minpoly_irreducible (x : GaloisField p n) :
     Irreducible (minpoly (ZMod p) x) :=
   minpoly.irreducible (galoisField_isIntegral n x)

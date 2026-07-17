@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.Weil.Kloosterman
 import Salt.Weil.ArtinSchreier
+import Salt.Weil.Orbits
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -16,7 +17,10 @@ Stepanov (Harcos/IK Ch. 11; the ladder in docs/exploration/pilot.md
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.Weil.trace_surjective
+#audit_axioms Salt.Weil.irreducible_monic_dvd_X_pow_card_pow_sub_X_iff
+  Salt.Weil.squarefree_X_pow_card_pow_sub_X
+  Salt.Weil.galoisField_minpoly_natDegree_dvd
+  Salt.Weil.trace_surjective
   Salt.Weil.range_artinSchreier_eq_ker_trace
   Salt.Weil.card_artinSchreier_solutions
   Salt.Weil.norm_kloosterman_le_sub_one
