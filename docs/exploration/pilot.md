@@ -4261,3 +4261,24 @@ decisions per question.
   (W-COR3 in flight + weil_stepanov + the extraction) closes
   THE WEIL BOUND.** Ceremony: wired + 1 keystone BY NAME, full
   build exit 0 (9097 jobs). Tally ~7.5M raw, house ~18%.
+
+- 2026-07-19 ~13:20 (THREAD W): ██████ **THEOREM 6 IS PROVEN —
+  THE η LADDER IS COMPLETE. FIRST ATTEMPT.** ██████ (W-T6IND ≈
+  172k / 37 tools — ONE build, ONE axiom check, both clean).
+  MomentEigen.lean: **kloostermanMoment_eq_neg_localPowerSum —
+  M_n = −(α^n + β^n) for all n ≥ 1 at ab ≠ 0** — the node that
+  Fable-blocked five hours ago, conquered through the full
+  freeze→3-prime-gate→4-node ladder (E1: η + the quadratic
+  L-function; H1: the orbit reorganization; H3: the Newton
+  bridge; the induction). The cCoeff bridge was frictionless
+  (identical membership lemmas); the Icc-peel solved by
+  have-pinning; ab ≠ 0 enters ONLY via T5_a2/ad — the gate's
+  structural finding confirmed in the final proof. THE DESCENT
+  SEAMS NAMED (the report): the moment bound from Cor 3 +
+  weil_stepanov feeds a MULTI-pair modulus extraction (the
+  landed abs_le_sqrt is single-pair — the 2(p−1)-family
+  generalization is a genuine small node) + the coercion bridge.
+  **W-DESC-EXT dispatches NOW (independent of the in-flight
+  COR3); W-DESCENT assembles when both land.** Ceremony: wired +
+  1 keystone BY NAME, full build exit 0 (9098 jobs). Tally
+  ~7.7M raw, house ~18%.
