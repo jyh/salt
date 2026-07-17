@@ -4030,3 +4030,25 @@ decisions per question.
   UNCONDITIONAL, 3 axioms. Ceremony: wired + 3 keystones BY
   NAME, full build exit 0 (9085 jobs). Tally ~4.45M raw, house
   ~21%.
+
+- 2026-07-19 ~04:30 (THREAD A): **W1-A LANDS FULL — AND CONFIRMS
+  THE REGIME TENSION: A HOUSE RE-FREEZE IS REQUIRED** (≈ 206k /
+  58 tools). ResidueUniform.lean: the pairwise-shift class-mass
+  comparison + entropy_ge_of_mass_ub (clean reusable) +
+  **entropy_residueWindow_ge — Tao's (3.9) with the EXPLICIT
+  correction term** (log P_H − log(1 + 8·P_H²·ω/x)). THE VERDICT
+  (executor arithmetic, house-confirmed): P_H ≤ 2^{H/2} is
+  EXPONENTIAL in H while the landed regime gives only
+  H-POLYNOMIAL x/ω (hheadroom/hheadroom') — the correction is
+  astronomically LARGE generically; Tao's own hierarchy (p.11,
+  the A2-GATE's deferred A-parameter: ω exponentially larger
+  than H₊) is what (3.9) actually needs. THE HOUSE RULING: add
+  the field `hPHheadroom : 8·(PH eps Hhi)²·(ω:ℝ) ≤ (x:ℝ)`-shaped
+  to ChowlaRegime — CONSERVATIVE for all landed consumers (they
+  only project fields; the sole CONSTRUCTOR is RegimeInst, which
+  patches by choosing x larger — same shape, bigger witness).
+  **A-REGIME-PATCH dispatches** (Regime.lean + RegimeInst.lean +
+  the Diverge re-verify — the decrement story stays intact,
+  entropy_decrement untouched). Ceremony: wired + 2 keystones BY
+  NAME, full build exit 0 (9086 jobs). Tally ~4.65M raw, house
+  ~21%.
