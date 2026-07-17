@@ -28,6 +28,7 @@ import Salt.TwinBar.WallUnconditional
 import Salt.TwinBar.SiegelTwin
 import Salt.TwinBar.SiegelCorr
 import Salt.TwinBar.SiegelCorrStrong
+import Salt.TwinBar.TwistedSieve
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -65,7 +66,9 @@ square, and weighted-square integrability) that T3/T4 consume.
 -- Build-time axiom audit: a stray axiom in the twinbar track fails `lake build`
 -- here, not only at out-of-band lint time.
 open Salt.Tactic in
-#audit_axioms Salt.TwinBar.siegel_correlation_strong
+#audit_axioms Salt.TwinBar.lamChi_mult Salt.TwinBar.abs_lamChi_le_tau
+  Salt.TwinBar.twistedErrSum_le_tauRemainder Salt.TwinBar.twistedMainSum_euler
+  Salt.TwinBar.siegel_correlation_strong
   Salt.TwinBar.boxEntry_reduces
   Salt.TwinBar.siegelSequence_implies_infinitely
   Salt.TwinBar.corrWindow_box Salt.TwinBar.residue_lower

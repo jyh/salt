@@ -3481,3 +3481,14 @@ decisions per question.
   dispatches with both obligations + the (3.11) assembly.**
   Ceremony: grep clean, wired + 3 keystones, full build exit 0
   (9065 jobs).
+
+- 2026-07-18 ~10:30 (THREAD B): **R3c WAVE 1 LANDS near-first-
+  attempt** (R3c-1 ≈ 151k / 47 tools). TwistedSieve.lean: the §1
+  defs + lamChi_mult (χ²=1, coprime-product per BLOCKS 1/3;
+  the ArithmeticFunction ζ-convolution route) + node (b) (the
+  τ-remainder) + (a1) twistedMainSum_euler (the sparse-product
+  Euler factorization, hsq added). (a2) = the prose C/D tail;
+  (a3) prose-only per BLOCK-2. R3c stands at its registered
+  partial landing — the outcome line stays OPEN pending KL-R0
+  (a Kloosterman build revives a2/a3+R4 → heath_brown). Ceremony:
+  wired + 4 keystones, full build exit 0 (9066 jobs).
