@@ -5451,3 +5451,21 @@ decisions per question.
   stack, incl. the exponent-tolerance arithmetic, ~120k). Fable
   house restored (the split protocol suspended in memory).
   Throttle: attentive. Board: HB-1, HB-2, HB-3, the CI watcher.
+
+- 2026-07-20 (GOLD WINDOW, late evening): **HB-3 ADJUDICATED —
+  WP2 RE-PRICED AT THE UPPER BAND (~3M center) + CATCH #47** (≈
+  96k / 14 tools, recon-only). ██ CATCH #47 (executor-catches-
+  designer): "the explicit formula is landed" was FALSE — the
+  corpus holds the SMOOTHED Riesz ψ₁ with zeros ASSUMED AWAY;
+  HB needs the sharp truncated ZERO SUM (architecture flip,
+  +0.8M) ██. The good news: the −1M density discount is REAL
+  (large-sieve stack fully landed + THE TOLERANCE ARITHMETIC:
+  ~33× slack on the density constant — any crude polynomial
+  density closes the tail; the window's q^250 does the work).
+  The pole: Deuring–Heilbronn REPULSION absent and indispensable
+  (zero-free regions give NO η-decay); partial-fraction route
+  best-fits the corpus. DISPATCHED: HB-WP2-1 (Prachar
+  radius-resolved count, B–C ~0.2M, triple prerequisite) +
+  HB-WP2-2-SPIKE (repulsion feasibility — the true go/no-go for
+  the whole campaign). Board: HB-1, HB-2, WP2-1, WP2-SPIKE, the
+  CI watcher.

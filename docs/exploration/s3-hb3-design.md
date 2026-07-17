@@ -882,3 +882,38 @@ HB-1 = WP1's Λ̃/Λ*/f(n) definitions + Lemma 1 (B-class, ~150k);
 HB-2 = the quadratic character sum (B, ~100–150k); HB-3 = WP2's
 corpus recon for density/repulsion (recon, ~100k).** Campaign
 opening awaits JYH's go.
+
+### WP2 AMENDMENT (HB-3 adjudicated, 2026-07-20 late evening)
+
+HB-3's corpus recon re-prices WP2 at **2.4–4.3M, center ~3M**
+(the old band's UPPER edge), MEDIUM confidence, with a corrected
+composition:
+- **CATCH #47 (executor-catches-designer):** the house belief
+  "the explicit-formula stack is landed" was WRONG. What is
+  landed is the SMOOTHED Riesz mean ψ₁ with zeros ASSUMED AWAY
+  (hzf-hypothesis architecture) — HB needs the sharp ψ(y,χ) with
+  the ENUMERATED truncated zero sum Σ_{|ρ|≤T} y^ρ/ρ. The rebuild
+  (+~0.8M) reuses Perron/kernel_residue/contour calculus but
+  flips the architecture. Under-budgeted in the re-freeze.
+- **The density discount is REAL (−1M):** the entire large-sieve
+  input stack is landed (char_LS/analytic_LS/bdh/gallagher/
+  parseval) and the TOLERANCE ARITHMETIC gives ~33× slack — the
+  tail needs only 3D < c_win ≈ 250, so ANY crude polynomial
+  density (qT)^{O(1)(1−σ)} works; no Jutila reproduction.
+- **Deuring–Heilbronn is THE POLE** (C→D risk, 0.6–1.2M+):
+  genuinely absent, indispensable (a zero-free region gives NO
+  η-decay — the log η repulsion is what manufactures η^{-A});
+  best route = partial-fraction/positivity (footholds landed:
+  any-radius LFunction_partialFraction, page_positivity, 3-4-1).
+- Ingredient prices: L′/L+Prachar 0.3–0.5M; repulsion 0.6–1.2M⚠;
+  crude density 0.5–0.9M; EF rebuild 0.6–1.0M; Lemma 3/7
+  assembly 0.4–0.7M.
+
+**Campaign total re-centered: ~7–13M** (WP2 at upper band).
+**Dispatched on adjudication: HB-WP2-1** (the Prachar
+radius-resolved zero count near s=1, B–C ~0.2M — prerequisite to
+THREE downstream items, buildable on the landed Jensen count) and
+**HB-WP2-2-SPIKE** (the repulsion feasibility spike: isolate β₀
+in the any-radius partial fraction, attempt the log η gain on a
+bounded range; its verdict decides WP2 ≈ 2.5M vs >4M — the
+campaign's true go/no-go).
