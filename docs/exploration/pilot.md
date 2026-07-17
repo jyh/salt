@@ -5118,3 +5118,22 @@ decisions per question.
   THEOREM)**. Ceremony: wired + 3 keystones BY NAME, full build
   exit 0 (9132 jobs). In flight: WINPNT, N-SMALLQ, PATCH-5, MB-5.
   Tally ~21.4M raw, house ~14%.
+
+- 2026-07-20 ~14:40: ██ **MB-5 LANDS FIRST ATTEMPT — THE RIGIDITY
+  THEOREM: collapse ⟺ COMPLETE MULTIPLICATIVITY** ██ (≈ 70k / 14
+  tools; the hand-proof-first discipline made it iteration-free).
+  BoundaryMap.lean (append-only, +86/−0):
+  **collapse_forces_completelyMult** (the pN-rule by ORDINARY
+  induction — a SINGLE collapse relation at the predecessor
+  suffices, no telescope; then strong induction on the
+  factorization) + **collapse_iff_completelyMult** (the
+  biconditional). The f(1) = 1 normalization is exactly MB-23's
+  degenerate dimension; the sign stays inert (f(p)² = 1 only).
+  THE BOUNDARY MAP'S CENTRAL CLAIM IS NOW AN EQUIVALENCE: the
+  crack's multiplicative mechanism is EXACTLY the real-CM±1
+  class — characterized, not contained. A new small theorem the
+  literature doesn't have, born from a numeric hunt that inverted
+  the design's expectation. Ceremony: wired + 2 keystones BY NAME
+  (BoundaryMap/All only — GEH-FIX holds the Maynard tree; full
+  build at its ceremony), targeted build exit 0. In flight:
+  WINPNT, PATCH-5, GEH-FIX. Tally ~21.7M raw, house ~14%.

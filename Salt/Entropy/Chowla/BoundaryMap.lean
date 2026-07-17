@@ -139,4 +139,90 @@ def collapseCharacterization_candidate : Prop :=
     ((∀ p N : ℕ, p.Prime → f (p * N) * f (p * N + p) = f N * f (N + 1))
       ↔ (∀ a b : ℕ, f (a * b) = f a * f b))
 
+/-! ### MB-5 — the wall falls: collapse `⟹` complete multiplicativity (THEOREM) -/
+
+/-- **The converse, PROVED.**  For a real `±1` weight `f` normalized by `f(1) = 1`,
+the `p`-collapse identity `f(pN)·f(p(N+1)) = f(N)·f(N+1)` (all primes `p`, all
+`N ≥ 1`) *forces* complete multiplicativity `f(ab) = f(a)·f(b)` (`a, b ≥ 1`).
+This upgrades `collapseCharacterization_candidate` from documented conjecture
+(finite evidence through `N ≤ 80`) to theorem — the MB-23 hunt's rank data was
+right: the collapse relations generate multiplicativity outright.
+
+The generating argument has two moves, and *no* telescope or extra seed is needed:
+
+1. **The `pN`-rule** `f(pN) = f(p)·f(N)` (fixed prime `p`, by ordinary induction
+   on `N ≥ 1`).  Base `N = 1` is `f(1) = 1`.  For the step, collapse at `(p, n)`
+   reads `f(pn)·f(p(n+1)) = f(n)·f(n+1)`; substitute the hypothesis
+   `f(pn) = f(p)·f(n)` and cancel with `f(pn)² = f(n)² = 1` (every value is `±1`),
+   leaving `f(p(n+1)) = f(p)·f(n+1)`.  A *single* collapse relation at the
+   predecessor suffices — the mechanism is local, not telescopic.
+2. **General multiplicativity** by strong induction on `a`.  For `a = 1` use
+   `f(1) = 1`; for `a ≥ 2` write `a = p·a'` with `p` prime and `a' < a`, then
+   `f(ab) = f(p·(a'b)) = f(p)·f(a'b) = f(p)·f(a')·f(b)` (`pN`-rule + strong IH)
+   and `f(a) = f(p·a') = f(p)·f(a')` (`pN`-rule) give `f(ab) = f(a)·f(b)`.
+
+The sign `f(p) = −1` is never used beyond `f(p)² = 1`: the same inert-sign
+phenomenon as the forward engine (`completelyMult_pm_one_collapse`).  So the
+crack's multiplicative mechanism is *exactly* the real completely-multiplicative
+`±1` class — characterized, not merely contained (the MB-4 seam). -/
+theorem collapse_forces_completelyMult (f : ℕ → ℝ)
+    (hpm : ∀ n, 1 ≤ n → f n = 1 ∨ f n = -1) (h1 : f 1 = 1)
+    (hcol : ∀ p N, p.Prime → 1 ≤ N → f (p * N) * f (p * N + p) = f N * f (N + 1)) :
+    ∀ a b, 1 ≤ a → 1 ≤ b → f (a * b) = f a * f b := by
+  have hsq : ∀ n, 1 ≤ n → f n * f n = 1 := by
+    intro n hn; rcases hpm n hn with h | h <;> rw [h] <;> norm_num
+  have pN : ∀ p, p.Prime → ∀ N, 1 ≤ N → f (p * N) = f p * f N := by
+    intro p hp N hN
+    induction N, hN using Nat.le_induction with
+    | base => rw [Nat.mul_one, h1, mul_one]
+    | succ n hn ih =>
+      have hc := hcol p n hp hn
+      rw [show p * n + p = p * (n + 1) by ring] at hc
+      have hsqpn : f (p * n) * f (p * n) = 1 := hsq (p * n) (mul_pos hp.pos hn)
+      have key : f (p * (n + 1)) = f (p * n) * f n * f (n + 1) := by
+        linear_combination f (p * n) * hc - f (p * (n + 1)) * hsqpn
+      rw [key, ih]
+      linear_combination (f p * f (n + 1)) * hsq n hn
+  have mult : ∀ a, 1 ≤ a → ∀ b, 1 ≤ b → f (a * b) = f a * f b := by
+    intro a
+    induction a using Nat.strong_induction_on with
+    | _ a ih =>
+      intro ha b hb
+      rcases eq_or_ne a 1 with rfl | ha1
+      · rw [Nat.one_mul, h1, one_mul]
+      · obtain ⟨p, hp, hpa⟩ := Nat.exists_prime_and_dvd ha1
+        obtain ⟨a', rfl⟩ := hpa
+        have ha'ne : a' ≠ 0 := by rintro rfl; simp at ha
+        have ha'pos : 1 ≤ a' := Nat.one_le_iff_ne_zero.mpr ha'ne
+        have hlt : a' < p * a' := by
+          have h2 := hp.two_le
+          have hpos : 0 < a' := ha'pos
+          nlinarith
+        have hab1 : 1 ≤ a' * b := Nat.one_le_iff_ne_zero.mpr (Nat.mul_ne_zero ha'ne (by omega))
+        rw [mul_assoc, pN p hp (a' * b) hab1, ih a' hlt ha'pos b hb, pN p hp a' ha'pos]
+        ring
+  intro a b ha hb
+  exact mult a ha b hb
+
+/-- **The MB-5 biconditional.**  Assembling `collapse_forces_completelyMult` (`→`)
+with the collapse engine (`←`, the `f(p)² = 1` computation) yields the full
+characterization on the normalized real `±1` class: collapse (all primes `p`, all
+`N ≥ 1`) is *equivalent* to complete multiplicativity (`a, b ≥ 1`).  This is the
+theorem the `collapseCharacterization_candidate` `def` conjectured; the `f(1) = 1`
+normalization is exactly the hypothesis the MB-23 hunt isolated as necessary (the
+lone extra collapse dimension was the degenerate `f(1) = −1` freedom). -/
+theorem collapse_iff_completelyMult (f : ℕ → ℝ)
+    (hpm : ∀ n, 1 ≤ n → f n = 1 ∨ f n = -1) (h1 : f 1 = 1) :
+    (∀ p N, p.Prime → 1 ≤ N → f (p * N) * f (p * N + p) = f N * f (N + 1))
+      ↔ (∀ a b, 1 ≤ a → 1 ≤ b → f (a * b) = f a * f b) := by
+  constructor
+  · exact collapse_forces_completelyMult f hpm h1
+  · intro hCM p N hp hN
+    have hp1 : 1 ≤ p := hp.pos
+    have e : p * N + p = p * (N + 1) := by ring
+    rw [e, hCM p N hp1 hN, hCM p (N + 1) hp1 (by omega)]
+    have hsqp : f p * f p = 1 := by
+      rcases hpm p hp1 with h | h <;> rw [h] <;> norm_num
+    linear_combination (f N * f (N + 1)) * hsqp
+
 end Salt.Entropy.Chowla

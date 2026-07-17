@@ -190,6 +190,8 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.dilation_forces_log
   Salt.Entropy.Chowla.approx_covariance_not_unique
   Salt.Entropy.Chowla.completelyMult_pm_one_collapse
+  Salt.Entropy.Chowla.collapse_forces_completelyMult
+  Salt.Entropy.Chowla.collapse_iff_completelyMult
   Salt.Entropy.Chowla.dilation_error
   Salt.Entropy.Chowla.weakUniform_generic
   Salt.Entropy.Chowla.weakUniform_spine
