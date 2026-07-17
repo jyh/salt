@@ -3440,3 +3440,17 @@ decisions per question.
   **R3C-1 EXECUTOR DISPATCHES.** CI note: GitHub Actions failing
   on ACCOUNT BILLING (jobs never start) — not code; local kernel
   ceremonies unaffected; JYH notified.
+
+- 2026-07-18 ~08:10 (SPRINT 3): **D-d lands its FLOOR + a
+  FABLE-BLOCK on a house gap** (S3-A2-Dd ≈ 135k / 29 tools).
+  Landed: liouvilleWindowShift (+instances) + the machine-checked
+  arithmetic kernel harmonic_shift_l1_le (2A_j/Σ ≤ 8jHω/x). THE
+  BLOCK (executor-correct): **ChowlaRegime WAS NEVER LANDED IN
+  LEAN** — it exists only in the design doc; the frozen headline
+  cannot typecheck. HOUSE RULING: placement = a new upstream
+  Salt/Entropy/Chowla/Regime.lean lifting the GATE-VERIFIED block
+  (chowlaTower + towerDropSum + the structure) verbatim;
+  **REGIME executor dispatched** (Regime.lean, then the D-d
+  headline in the same file-pair). The joint pushforward-ℓ¹
+  (the residue-relabel spike) rides with it. Ceremony: grep clean,
+  wired + 1 keystone, full build exit 0 (9063 jobs).
