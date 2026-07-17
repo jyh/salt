@@ -5937,3 +5937,20 @@ decisions per question.
   (9157 green). Next Littlewood rung: the k-th derivative test
   (A^{k−2}B iteration) → ζ growth on the σ_k lines. Board:
   N-PP-FOLD, CI seed. Tally ~29.4M raw, house ~14%.
+
+- 2026-07-17 ~10pm (GOLD WINDOW): ██ **N-PP-FOLD LANDS — THE k=2
+  ppTerm BOUND IN ASSEMBLY SHAPE; the k≥3 tail honestly named
+  Fable-tier** ██ (≈ 238k / 67 tools; one serious attempt per
+  lemma, no cluster near the stop). Salt/Maynard/PpFold.lean
+  (376 lines): **seqDiscrepancy_pp2Term_bound** (the target
+  verbatim, C = 2/log 2) + the clean 2^{ω+1}(√x/q+1) form + the
+  FOLD **seqDiscrepancy_ppTerm_le_pp2_add_tail** (full ppTerm ≤
+  the sharp k=2 part + the named pp3Term residual). CATCHES: the
+  mean term UNNECESSARY (ShiuBlocks' class-average connector
+  absorbed it — cross-node reuse within hours of landing);
+  coprimality automatic for unit residues. THE RESIDUAL (correct
+  per-tier): pp3Term needs the general-k CRT fold + Σ 3^ω/q sums
+  — exactly GehPp2's ledgered Fable obligation; goes to the
+  house queue as **PP3-DESIGN**. PpLevel chain: CYC ✓ TWO ✓ CRT
+  ✓ FOLD ✓(k=2) → ASSEMBLY awaits PP3-DESIGN. Board: CI seed +
+  the WP2 freeze (house, now). Tally ~29.6M raw, house ~14%.
