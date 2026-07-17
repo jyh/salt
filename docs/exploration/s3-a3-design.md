@@ -559,3 +559,27 @@ conditional shell with htower explicit).
 re-witness incl. the ω-hierarchy check) → W3E-FINAL (B/C, the
 composition above). Then log-Chowla-2 rests on: MRTUniformity
 (theorem-door) + htower-if-Zeno.
+
+**W3-F-A + THE GATE CATCH (night, 2026-07-20): the fBridgeF gate
+is OFF BY ONE — a W2-b transcription slip, load-bearing only now.**
+The landed gate `(j : ZMod p) = −r` (0-indexed j) pairs with the
+1-indexed window values λ(n+j+1); Tao (3.14) has gate index =
+product index (house-verified against FBridge.lean:89 + pg-22).
+Every count-based consumer (boxes, means, Hoeffding, the decoupled
+chain) is residue-independent — hence ten nodes of silence; the
+multiplicativity collapse is the FIRST alignment-sensitive
+consumer, and W3-F-A proved no r-choice can reconcile (the
+executor's p=2 witness). The G-R0 "G1 dissolves" adjudication
+implicitly assumed the aligned gate. **HOUSE RULING (Fable-tier
+statement correction, ground truth = the page image): fix the
+gate to `((j+1 : ℕ) : ZMod p) = −r` in fBridgeG; repair the
+unfolding consumers (fBridgeG_mean's fiber count — residue-
+independent, mechanical; fBridgeF_liouville_apply → gate
+p ∣ n+j+1, EXACTLY perPair_collapse's class — the blocker
+dissolves at the root); full-build re-verification of the entire
+Chowla cone; all downstream STATEMENTS unchanged in shape
+(fBridgeF_mean's RHS, the concentration forms, the shell).**
+Node GATE-FIX (B/C). W3-F-A itself LANDED sound: hreduce_holds
+(hseed + hbudget ⟹ the frozen hreduce — hmain proven FREE via
+reverse-triangle; the node's whole content collapsed onto ONE
+residual hbudget, dischargeable post-GATE-FIX via the G12 chain).

@@ -4932,3 +4932,23 @@ decisions per question.
   full build exit 0 (9127 jobs). **W3-F-A DISPATCHES — the LAST
   node of the h211 chain.** In flight: W3-F-A. Tally ~18.6M raw,
   house ~15%.
+
+- 2026-07-20 ~16:00 (NIGHT SHIFT): ██ **W3-F-A LANDS (hmain FREE
+  via reverse-triangle; ONE residual hbudget) + THE GATE CATCH:
+  fBridgeF's gate is OFF BY ONE — a W2-b transcription slip
+  caught by the TYPE SYSTEM ten nodes downstream** ██ (≈ 157k /
+  24 tools; the composition seam first-try; the collapse seam
+  resolved by ANALYSIS not grind — the carriers provably don't
+  attach). HMainAssembly.lean: **hreduce_holds** (hseed + hbudget
+  ⟹ the frozen hreduce; the HReduce "carrier-gap" hmain is FREE —
+  reverse-triangle on the explicit MAIN). THE CATCH
+  (house-verified at FBridge.lean:89 vs Tao pg-22): the gate uses
+  0-indexed j against 1-indexed window values — complementary to
+  the collapse class; every count-based consumer was
+  residue-INDEPENDENT (ten nodes of silence); the p=2 witness
+  nails it. The G-R0 "G1 dissolves" ruling implicitly assumed the
+  aligned gate. **HOUSE RULING: GATE-FIX (statement correction,
+  ground truth = page image) — gate → (j+1); the blocker then
+  dissolves at the root.** Ceremony: wired + 1 keystone BY NAME,
+  full build exit 0 (9128 jobs). **GATE-FIX DISPATCHES.** In
+  flight: GATE-FIX. Tally ~18.8M raw, house ~15%.
