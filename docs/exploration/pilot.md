@@ -3712,3 +3712,13 @@ decisions per question.
   step_ineq_3_11 along chowlaTower), A-IV-PREP (the iterated-log
   divergence — independent). W4.1cd queues behind the in-flight
   W4.1ab.**
+
+- 2026-07-18 ~18:25: **CONSTRAINT (JYH): ≤ 50% of budget on
+  Fable.** House compliance: all executors/gates/recons run Opus
+  (standing policy — Fable spend = the house session only). The
+  house's share of the tally ≈ 25–35% at 2× weighting — INSIDE
+  the cap with margin. Mitigations while hot: ceremonies stay
+  batched (one build per landing group where dependency-safe),
+  house prose kept lean, no Fable forks without explicit JYH
+  sign-off (standing since sprint 2). Watch item on the chimes:
+  the house share reported alongside the tally.
