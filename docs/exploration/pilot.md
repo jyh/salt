@@ -4118,3 +4118,17 @@ decisions per question.
   (Lemma 3.2 — both prerequisites landed: W1-a's (3.9) supplies
   exactly the deficiency W1-b's correction term consumes; the
   circle closes). Tally ~5.4M raw, house ~20%.
+
+- 2026-07-19 ~07:40 (THREAD A): **W1-D LANDS FULL — the CRT
+  independence + Hoeffding, unconditional** (≈ 232k / 60 tools).
+  Concentration.lean: iIndepFun_residueProj (the packaged-pi CRT
+  route: ZMod.prodEquivPi + the joint-law-is-product proof via
+  singleton extensionality — the node's real content), the
+  generic two-sided Hoeffding, and hoeffding_residueProj (the
+  unconditional export — Tao's Lemma 3.3 substrate COMPLETE:
+  W2-b feeds the (3.14) F_p family and gets the tail). WAVE 1 OF
+  A-R3 IS NOW 4-FOR-4 (W1-a the (3.9) + the regime patch; W1-b
+  the Markov + the paper catch; W1-c in flight; W1-d this) — the
+  decrement-consumer core nearly closed. Ceremony: wired + 2
+  keystones BY NAME, full build exit 0 (9090 jobs). Tally ~5.65M
+  raw, house ~20%.

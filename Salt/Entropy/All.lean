@@ -31,6 +31,7 @@ import Salt.Entropy.Chowla.RegimeInst
 import Salt.Entropy.Chowla.Diverge
 import Salt.Entropy.Chowla.ResidueUniform
 import Salt.Entropy.Chowla.MarkovExtract
+import Salt.Entropy.Chowla.Concentration
 import Salt.Entropy.Chowla.Windows
 import Salt.Entropy.Chowla.PrimeWindow
 import Salt.Entropy.ConsumerTest
@@ -65,6 +66,8 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.entropy_sub_le_of_l1
   Salt.Entropy.Chowla.harmonic_shift_l1_le
   Salt.Entropy.Chowla.dvd_chowlaTower
+  Salt.Entropy.Chowla.iIndepFun_residueProj
+  Salt.Entropy.Chowla.hoeffding_residueProj
   Salt.Entropy.Chowla.decrement_markov
   Salt.Entropy.Chowla.mutualInfo_eq_integral_condDistrib_defect
   Salt.Entropy.Chowla.entropy_residueWindow_ge
