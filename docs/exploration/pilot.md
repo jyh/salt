@@ -4487,3 +4487,23 @@ decisions per question.
   Stepanov route, kernel-audited to [propext, Classical.choice,
   Quot.sound]. Ceremony: wired + 3 keystones BY NAME, full build
   exit 0 (9105 jobs). Tally ~10.6M raw, house ~18%. THE FANFARE.
+
+- 2026-07-19 ~21:30 (THREAD A): ██ **LEMMA 3.4 IS PROVEN —
+  W3-b-main-v2 LANDS BYTE-IDENTICAL TO THE RE-FREEZE, CONSTANTS
+  PINNED C = 2, C₀ = 1** ██ (≈ 297k / 94 tools — the wave's
+  biggest node; all steps ≤2 attempts, the flagged-painful
+  periodization FIRST TRY via Finset.sum_nbij' + the Ico wraparound
+  count). CircleMethod.lean: **circle_method_estimate** (Tao Lemma
+  3.4 at the model) + 17 private helpers (the Fourier collapse, the
+  bigXi split, the reflect/crude dft bounds, the periodization
+  pair). The v1 counterexample now fails the HYPOTHESIS (card = 2
+  vs C₀·5/logH → 0) — the honest regime gate doing exactly its job;
+  degenerate H = 1 handled by log 1 = 0 zeroing BOTH sides (~15
+  lines). CONSUMER-SEAM FLAG (executor, accepted by house ruling):
+  the ∃C₀ is OPAQUE — W3-c-pnt's specific 2log4 cannot fire it —
+  **v3 RE-FREEZE RATIFIED: ∀C₀>0 ∃C>0 form, C = 1+2C₀ (mechanical
+  per the executor's own scoping); same executor RESUMED for the
+  conversion.** LHS seam re-confirmed byte-tight against
+  fBridgeF_mean. Ceremony: wired + 1 keystone BY NAME, full build
+  exit 0 (9105 jobs). In flight: W3-a-3a, main-v2 (v3 resume).
+  Tally ~11.0M raw, house ~17% — **THE 11M CHIME.**

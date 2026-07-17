@@ -84,6 +84,16 @@ eps, all large H — the WITNESS obligation is node **W3-c-pnt**,
 which must also produce the anti-vacuity instance; until it lands,
 v2's non-vacuity rests on Tao p. 22, flagged not proven).
 
+**v2 LANDED 2026-07-19 (byte-identical, C = 2, C₀ = 1 pinned).
+v3 RE-FREEZE RATIFIED (house, same day): the executor's
+consumer-seam flag is accepted — the existential C₀ is opaque, so
+W3-c-pnt's specific constant (2·log 4) cannot fire the hypothesis
+through the ∃. v3 form: `∀ C₀ > 0, ∃ C > 0, ∀ eps H x1 x2, hyp(C₀)
+→ concl(C)` with C = 1 + 2·C₀ (the executor's own proof supports
+it mechanically). Strictly stronger; quantifier discipline
+preserved (eps/H/x1/x2 inside, C uniform). The consumer then
+instantiates C₀ := 2·log 4 directly.**
+
 **The proof device (transcribed at page fidelity by the flag
 report):** periodize x_i with period H — the wraparound error is
 O(Σ_p (1/p)·p) = O(|𝒫_H|) ≤ C₀ε²H/log H by the NEW HYPOTHESIS
