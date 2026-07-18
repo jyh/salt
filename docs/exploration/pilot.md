@@ -7879,3 +7879,26 @@ decisions per question.
   healed in this commit. **BOTH T-BAL suppliers in →
   T-BAL-2 (R3–R8) DISPATCHED.** Board: T-BAL-2 + LITT-STRIP +
   VMVT-VK wf.
+
+- 2026-07-18 07:20 PT: ██ **THE VMVT-VK FREEZE — dispatch-ready,
+  0 refutations across 10 agents** ██ (wf_ec075a51, ≈ 1.31M /
+  237 tools — the biggest design block of the window). SYNTHESIS
+  CHOSE MINIMAL-POWER: the lazy k(t) = ⌈(log t)^α⌉ short-block
+  shift-averaging route to a POWER zero-free region θ = 3/4
+  (all the MR gate needs; truly-fixed-k proven to FAIL — the
+  linear-exponent barrier; α < 1/3 free). Full-Korobov ALSO
+  survived 0 refutations (kept as the registered sharp
+  follow-up). THE CONVERGENCE: the freeze's R7 IS LITT-LANDAU
+  (parametric-radius Landau core — the maps proved convexity is
+  baked into the landed region via FIXED DISC GEOMETRY, radii
+  hardcoded, so a parametric re-derivation was always the real
+  work) and R10 IS LITT-COVER stone-3 — the Littlewood and VK
+  campaigns MERGE. Maps banked (vk_map_{vmvt,zero,theory}.md in
+  the scratchpad; MV3 + Ford grounded, OCR-dropped exponents
+  re-derived, port-cautions P-1/P-2 named); the freeze verbatim
+  in docs/exploration/vk-freeze.md (judge-applied refuter
+  repairs; the numeric check script to ship as
+  scripts/vk_minpow_check.py in the first commit). Held for
+  JYH's wake (~08:10) per the desk plan — dispatch_ready, no
+  early chime (sleep > 50 min of latency). Board: T-BAL-2 +
+  LITT-STRIP + the VK freeze awaiting ratification.
