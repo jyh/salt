@@ -6672,3 +6672,23 @@ decisions per question.
   wired + keystone (9189 green). Board: SHIU-S1, LITT-F2b,
   HB-L8, VMVT-R2, BV-SHARP, badge run. Tally ~38.9M raw, house
   ~14%.
+
+- 2026-07-18 ~20:35 PT (GOLD WINDOW day 2): ██ **SHIU-S1 LANDS
+  COMPLETE — THE RUNG'S POLE: rough_count_in_ap_le at C₀ = 25,
+  FULLY UNIFORM; W1 IS DONE (S1 ✓ S2 ✓ S3a ✓)** ██ (≈ 519k / 167
+  tools — the window's second-biggest node; zero residuals, no
+  flags). Salt/Maynard/ShiuSieve.lean: the AP Selberg instance
+  (ν = 1/d, |rem| ≤ 1 via CRT singleton) + the S1c remainder via
+  PpSums' k=3 sums + ██ S1b BEYOND SPEC: the corpus's
+  copHarmonic_lower loses −log q exactly where Selberg is
+  mandatory (verified at q = nextprime(t)) — the executor built
+  the MISSING PRIMITIVE: coPart/qPart unique factorization +
+  qsmoothSum_le (truncated Euler) + **copHarmonic_uniform_lower**
+  ((φq/q)·log x ≤ the coprime harmonic, ALL q — new to
+  mathlib+corpus, reusable) ██. Gotchas: the a ≥ q density
+  mismatch; the frozen-filter decidability (catch #64's sibling);
+  log t ≤ 2√t mandatory (crude blows t⁶). **SHIU-W2 DISPATCHED**
+  (S3b Rankin corollaries + Mertens-1st helper + S4-II capped
+  powers). Ceremony: wired, Maynard green. Board: LITT-F2b,
+  VMVT-R2, BV-SHARP, SHIU-W2, badge run. Tally ~39.4M raw,
+  house ~14%.
