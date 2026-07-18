@@ -6510,3 +6510,14 @@ decisions per question.
   executor pre-wired the aggregator (accepted), full build exit
   0 (9180 jobs). Board: VMVT-N4, LITT-F2, MOEB-DIV, SHIU-G
   (finishing), seed #2. Tally ~35.5M raw, house ~14%.
+
+- 2026-07-17 ~19:15 PT (GOLD WINDOW): **SHIU-G ADJUDICATED — the
+  ShiuCore honestly re-priced as A RUNG (440–660k, 11 nodes; the
+  2025 Wright paper carries Shiu's full proof); W1 DISPATCHED**
+  (SHIU-S1: the Selberg AP instance + φ-saving + remainder;
+  SHIU-S2: the smooth-prefix decomposition API; SHIU-S3a: the
+  smooth Euler/Rankin sum). Recon total ≈ 330k incl. two stall
+  nudges (the sub-agent-wait anti-pattern recurred — 2nd
+  instance; the supplier map routed to main and was house-
+  forwarded). Board: VMVT-N4, LITT-F2, MOEB-DIV, SHIU-S1/S2/S3a,
+  seed #2 — SEVEN deep. Tally ~36.1M raw, house ~14%.

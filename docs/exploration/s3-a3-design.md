@@ -1130,3 +1130,27 @@ case via mathlib Newton/Vieta) → **N3 = LINNIK'S LEMMA (the gate
 node: its outcome converts 6–13M into a tight ~6–9M commit or an
 early honest re-scope)**. WP-A runs parallel to Littlewood (no
 contention — different machinery).
+
+## SHIU-G ADJUDICATED (accepted): N-SHIU-CORE = A RUNG (~440–660k,
+## 11 nodes, 4 waves) — the honest re-price above the 250–400k prior
+
+GROUNDED via Wright arXiv:2508.17217 (reproduces Shiu 1980's full
+class-partition proof; the 1980 original paywalled, bibliographic-
+confirmed). The τ-case skeleton re-derived in our z-normalization,
+exponents verified at α = 1/8000: the greedy smooth-prefix
+decomposition n = c·d (c ≤ w = z^{α/40}); classes I/II/III/IV_r;
+the CAPPED-prime-powers trick killing every √z spike; Rankin at
+graded λ_r = ½log r; the φ(q)-saving manufactured ONLY in the
+rough-cofactor sieve count. THE POLE: S1 = rough_count_in_ap_le
+(frozen statement delivered) via the LANDED selberg_bound_simple
++ the φ-saving harmonic lemma. Supplier-map addendum (collected
+by the house): Rankin.lean's rankin_bound EXISTS (squarefree
+Euler form — different shape than S3a's smooth-sum Rankin, so
+S3a still builds, but rFac machinery helps); GehPp2's τ-swap +
+sum_card_divisors_div_le + PhiSum's totient sums all confirm the
+recon's consumption list. Waves: W1 = {S1(a+b+c), S2, S3a} →
+W2 = {S3b, S4-II} → W3 = {S4-I/III/IV} → W4 = S5 =
+sum_tau_in_ap_le : ShiuCore. Fable pre-flight items honored: S2's
+definitional API frozen per the recon's spec; S3b's exponent
+arithmetic gets adversarial review at its dispatch. W1 DISPATCHED
+(3 grouped executors).
