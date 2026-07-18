@@ -7018,3 +7018,20 @@ decisions per question.
   side). Ceremony: wired + 2 keystones (green). Board:
   VMVT-HOLDER2, HB-R2C, LITT-F5, SHIU-W3b, DH-TRUNC, seed #3.
   Tally ~46.5M raw, house ~14%.
+
+- 2026-07-18 ~22:26 PT (NIGHT WATCH): ██ **VMVT-HOLDER2 LANDS THE
+  NODE — Ncount(pairEq) ≤ x²·J^{1−2/(kr)}: the S₂ branch is
+  FULLY SUPPLIED** ██ (≈ 278k / 66 tools; zero residuals).
+  Salt/Vmvt/HolderTwo.lean: the factorization stone (the
+  doubled-indicator pin AVOIDED the predicted 150-line
+  complement gymnastics — the flag over-estimated) + the p+q=1
+  ENNReal Hölder (the q=0 branch handles kr=2 uniformly — no
+  case split) + the assembly. Catch #74 confirmed load-bearing
+  at exactly one point. THE VMVT LARDER IS FULL: base ✓
+  invariances ✓ Linnik ✓ shifts ✓ transversal split ✓ S₂
+  fractional ✓ prime supply ✓ recursion arithmetic ✓ →
+  **VMVT-R3R4 DISPATCHED** (the range→ZMod bridge feeding
+  linnik_lemma + the one-step recursion — the induction step
+  itself; R5's unwind follows). Ceremony: pre-wired (accepted),
+  green (9207). Board: HB-R2C, LITT-F5, SHIU-W3b, DH-TRUNC,
+  VMVT-R3R4, seed #3. Tally ~47.1M raw, house ~14%.

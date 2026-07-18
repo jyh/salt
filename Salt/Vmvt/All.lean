@@ -12,6 +12,7 @@ import Salt.Vmvt.PrimeCount
 import Salt.Vmvt.Transversal
 import Salt.Vmvt.Holder
 import Salt.Vmvt.Fourier
+import Salt.Vmvt.HolderTwo
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -56,3 +57,7 @@ open Salt.Tactic in
   Salt.Vmvt.integral_setGen_mul_conj
   Salt.Vmvt.integral_norm_pow_eq_Jk
   Salt.Vmvt.pairEqBox_Ncount_eq_integral
+  Salt.Vmvt.sum_prod_filter_eq
+  Salt.Vmvt.setGen_pairEqBox_factor
+  Salt.Vmvt.holder_step
+  Salt.Vmvt.pairEq_Ncount_le_frac
