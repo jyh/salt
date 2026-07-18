@@ -68,6 +68,7 @@ import Salt.SW.DHExtract
 import Salt.SW.Hyperbola
 import Salt.SW.ZetaEM
 import Salt.SW.DHCore
+import Salt.SW.DHClose2
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -250,3 +251,6 @@ open Salt.Tactic in
   Salt.SW.natSqrt_mul_rpow_le Salt.SW.sqrt_lt_two_natSqrt Salt.SW.sqrt_pow_bound
   Salt.SW.rpow_sub_le_tangent Salt.SW.dhAbel_hyperbola Salt.SW.dhAbel_leg1_le
   Salt.SW.dhAbel_inner_le Salt.SW.unmoll_extraction_real Salt.SW.L1_lower_siegel
+  Salt.SW.selH_local_split Salt.SW.one_sub_inv_pos Salt.SW.one_sub_chiRe_div_pos
+  Salt.SW.one_add_selG_eq_local_inv Salt.SW.selHblock_divisors_eq
+  Salt.SW.dhExtractionW_regroup

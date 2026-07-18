@@ -8340,3 +8340,32 @@ decisions per question.
   LITTLEWOOD; zeta_growth_pow → THE POWER REGION).
   **VK-6 DISPATCHED — the final climb.** Board: VK-6 +
   T-BAL-ENDGAME. Tally ~68M raw.
+
+- 2026-07-18 12:45 PT: **T-BAL-ENDGAME returns an HONEST
+  partial — the walls localized, not closed** (≈ 195k / 60
+  tools; house-verified SW.All 8808 green, 6 decls
+  [3 axioms]). Salt/SW/DHClose2.lean: the ζ_p·L_p gift
+  FORMALIZED (1+g(p) = ζ_p·L_p exact, no case split needed),
+  selHblock_divisors_eq (the H-block IS the truncated ζ·L
+  Euler product), dhExtractionW_regroup (R6's opening gcW-swap,
+  generic in f). The full q=3/10⁶ ledgers RECORDED in-repo
+  (binding corner passes at 10^{−10.52}, margin 0.153; the R5
+  amended form numerically safe at ratio 1.009). THE WALLS
+  (3 same-tier executors now concur): R6 = the per-m inner sum
+  is a genuine THIRD convolution with SIGNED gcW collection —
+  a weighted symmetric-hyperbola, ~300+ ln, C/D; R5 = needs a
+  Rankin tail + an EFFECTIVE truncated Euler product for real
+  χ (mathlib's eulerProduct is asymptotic-only); R7/R8 purely
+  gated on R6 (M4 + the floor landed; the inversion
+  arithmetically certified). PROCESS FIX (the executor caught
+  my brief citing nonexistent catches): **flags.md numbering
+  is now THE single authority** — the pilot register-numbering
+  practice is RETIRED; briefs cite flags numbers only. The
+  executor opened the real #175–180. ESCALATION (per the
+  2-assessment rule): **R6 gets a design workflow**
+  (1 designer + refuters on the weighted-hyperbola plan, the
+  hardened checklist) **+ R5's effective-Euler supplier
+  dispatched as an executor in parallel**. NB the Calendar MCP
+  re-auth failed (server not found) — the bell channel is
+  dead for now; pushes remain the mobile channel. Board:
+  VK-6 + the R6 design wf + R5-EULER.

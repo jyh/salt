@@ -10103,3 +10103,97 @@ leaves an un-β-reduced `B p.1` redex that `Finset.mem_filter` can't match — u
 (β-reduces) for hyps and `Finset.mem_sigma.mpr ⟨_,_⟩` for goals. (#174) `div_mul_eq_mul_div` rewrites the
 LEFTMOST `a/b*c`, not the one you mean — fold the target subterm to an atom first (`rw [hlocal]`) so the
 rewrite has a unique site.
+
+## 2026-07-18 T-BAL S₀ THE CLOSE — R5 gift + H-block + R6 regroup LAND; R5/R6/R7/R8 full closes FLAGGED as genuine walls — T-BAL-ENDGAME/Opus
+
+New file `Salt/SW/DHClose2.lean` (~160 ln), axiom-clean (`[propext, Classical.choice, Quot.sound]`
+per the build-time `#audit_axioms` gate in `Salt.SW.All`), registered in `Salt.SW.All`. Fully green
+(8808 jobs). NO git ops (catch #174 — house owns the tree). The task's framing ("every gate open,
+close R6/R5/R7/R8") is optimistic vs ground truth: the SAME-TIER W3a/W3b executors already flagged R5
+BLOCKED (euler_b_one design-tier) and R6 "the next wall, not this executor's" hours earlier; landing
+`selberg_opt_eq` (W3b-2) opened R6's R4-gate but the R6 CRUX itself (the weighted per-m collection)
+remains a wall. Honest verdict: none of R5/R6/R7/R8 is closeable sorry-free this session; the three
+stones below are the reachable cascade progress + precise wall localization.
+
+**CATCH-NUMBERING CORRECTION (banked).** The T-BAL-ENDGAME dispatch prompt referenced a catch set
+"#59–#182" and "W3a's #175–182 (symmetric-hyperbola idioms, MVT floor-error, exp_one_lt_d9 sharpness)".
+**Those catch numbers DO NOT EXIST** — flags.md ended at #174 before this entry. The topics attributed to
+"#175–182" are the REAL catches #163 (symmetric √N hyperbola), #168 (MVT floor-error tangent), #170
+(`exp_one_lt_d9` sharpness), all in the W3a entry. The prompt's catch range was aspirational. This entry
+opens the real #175+.
+
+**LANDED — 3 stones (`Salt/SW/DHClose2.lean`).**
+* **`selH_local_split` + `one_add_selG_eq_local_inv` [the banked GIFT, catch #161].** `1 − h(p)/p =
+  (1−1/p)(1−χ_ℝ(p)/p)` EXACT (pure field algebra, no char case split — `selH` unfolds and `field_simp;
+  ring` closes), whence `1 + g(p) = p/(p−h(p)) = 1/((1−1/p)(1−χ_ℝ(p)/p)) = ζ_p·L_p(χ)`. Plus the two
+  positivity stones `one_sub_inv_pos` (ζ-factor `>0`) and `one_sub_chiRe_div_pos` (L-factor `>0`, via the
+  product `= (p−h)/p > 0` from `selH_lt_of_prime` and the ζ-factor). THIS unblocks R5's designer: it is
+  the ~10-line identity W3b flagged as the load-bearing gift for `H_lower`/`euler_b_one`.
+* **`selHblock_divisors_eq` [R5 stepping stone].** For squarefree `m`, `Σ_{a∣m} g(a) = ∏_{p∣m}
+  1/((1−1/p)(1−χ_ℝ(p)/p))` — the H-block over divisors IS the truncated ζ·L Euler product. Route:
+  DIVPROD (`sum_divisors_prod_primeFactors` at `f=selG`, LANDED) gives `Σ_{a∣m}g(a) = ∏_{p∣m}(1+g(p))`,
+  then the gift rewrites each factor. `H(z) = Σ_{r≤z,sf} g(r)` is the `r≤z` TRUNCATION of this block at
+  `m = ∏_{p≤z}p`; this identity is the clean bridge from H(z) to the (ζ·L)-product structure.
+* **`dhExtractionW_regroup` [R6 first step].** For any weight `λ`, factor `f`, bound `Y`:
+  `Σ_{n≤Y} dhCoeffW χ λ n · f n = Σ_{m≤Y} gcW λ m · Σ_{n≤Y, m∣n} dhA χ n · f n` — the exact gcW-swap
+  the freeze's R6 route opens with (`dhWeightSqW_eq_sum_gcW` + the divisor↔multiples `Finset.sum_comm'`).
+  Generic in `f`, so it serves BOTH s∈{ρ,β₀}. This localizes R6's wall precisely to the per-`m` inner sum.
+
+**LEDGER (mandated small-q discipline, RECORDED; `scripts/tbal_ledgers/`).** Binding corner q=3 PASSES:
+master total at τ=10^−114.5 gives lg RHS = −10.52 ≪ lg(3/4)=−0.12; trivial split c·L₂^−14=10^−83.4 ≤
+u*=0.0066; E(β₀)-amp 10^−8.86, E(ρ) 10^−7.19, δ_d=0.431u=0.00284, δ_b-in-master 10^−10.52 (BINDING,
+margin exp 0.8−11/17=0.153), R3 floor (3/4)/e=0.2759≥0.27. Large q=10⁶: E(β₀) 10^−270, E(ρ) 10^−276,
+δ_d 2.7e−64, δ_b raw 9.5e−31, τ 10^−344 — all pass (the `ledger.py` large-q branch then crashes on a
+pre-existing `log(1/ut)` div-by-zero SCRIPT bug, not a math failure; `refute_tbal5b.py` covers the same
+corners cleanly, all `trivial True`). `refuter_partB_check.py`: δ_opt=+0.047 (z=36,χ=−1), the Benli-BV
+deficit e^9.7/e^69.5 confirming the support-native redesign (not the BV route) is the live one.
+**R5 z-form ratio 1.009 (q=3) / 1.032 (q=10⁶)** — the AMENDED `H_lower` form (z^{1−β₀} DROPPED) is
+numerically safe (z-free form 150.7/659.3 well under the claimed 185.5/875.3). `s0_check.py`: the
+`selWeight` identity checks match to 1e−6 over the freeze's 12-case battery (incl. #163 off-d=1 cases).
+
+**FLAG — R6 `dh_extraction_upper_W` [C/D] — STOP-AND-FLAG (the per-`m` triple-convolution wall).** The
+regroup (above) is banked; the residual is the per-`m` inner sum `Σ_{n≤Y, m∣n} dhA χ n · n^{−s} ·
+(1−n/Y)₊` and its SIGNED collection `Σ_m gcW(m)·[·] = L₁·selMainTerm·Y^{1−s}/((1−s)(2−s)) + E`. Two
+walls confirmed: (a) `dhA(mk)` (n=mk) is NOT `dhA(m)dhA(k)` off coprimality, so the per-`m` sum is a
+genuine THIRD convolution layer over the trivial-weight `A(t)=χ_ℝ∗1` that `unmoll_extraction_real`
+handled — W3a's flag ("becomes a triple convolution, the symmetric-hyperbola-on-A(t) does not
+generalize") is correct and re-confirmed; (b) `gcW(m)` is SIGNED, so per-`m` upper bounds do NOT sum to
+the main term — the L₁·selMainTerm main term arises only from the signed collection (via
+`selberg_opt_eq` turning `selMainTerm=1/H` EXACT, which IS now landed). The honest route is a
+weighted symmetric-hyperbola on the per-`m` sum with the ν(m)-main-coefficient bookkeeping (~300+ ln,
+the freeze's R6 estimate), genuinely downstream and not bankable in this session. `dhA_mass_mul_le`
+(DHBal2) gives the multiples MASS (s=0) but not the `n^{−s}`-weighted kernel form.
+
+**FLAG — R5 `H_lower` [C] — STOP-AND-FLAG (Euler-product bridge + Rankin tail absent).** Gift +
+H-block banked (above). Residual, all genuinely multi-part: (1) the truncation `H(z) = Σ_{r≤z,sf}g(r) ≥
+(1−δ_b)·∏_{p≤z}(1+g(p))` needs a RANKIN tail `Σ_{r∣rad, r>z}g(r) ≤ z^{−α}∏(1+g(p)p^α)` with the
+`δ_b ≤ 300z^{−0.4}` (α≈0.4 structural: `log₂(4/3)=0.415`) — no mathlib Rankin-for-multiplicative-g
+lemma; (2) `∏_{p≤z}1/(1−1/p) ~ e^γ log z ~ 1/u` (effective Mertens 3rd) and `∏_{p≤z}1/(1−χ/p) ~ L(1,χ)`
+(effective truncated Euler product for a real char) — mathlib's `eulerProduct` is asymptotic, NOT the
+effective-constant truncation this needs (W3b: "eulerProduct_hasProd/euler_b absent, ~150 hand-rolled
+ln"); (3) the δ_d defect couples R2's `C_w` extraction error. `euler_b_one`'s CORRECT form (the freeze's
+literal Σb/c=1 is FALSE, ∏(1−χ/p²)=1/L(2,χ)≠1) is the truncated `∏_{p≤z}(1−χ/p²)`-vs-`1/L(2,χ)` bound;
+its precise statement is pinned only by (2), so it remains design-tier until the Mertens/Euler bridge is
+built. NOT bankable this session.
+
+**FLAG — R7 `dh_balance_beta0` [B/C] + R8 `dh_repulsion_ordered` [C] — BLOCKED on R6.** Both consume the
+R6 extraction bound to assemble the master `3/4 ≤ 2x^{β₀−σ}[uX₁logx+2δX₁+1/x+E(β₀)] + 4ux^{1−σ}L₂/c₀ +
+E(ρ)`. Without R6's `D₀ ≤ L₁·V·x^{1−β₀}/(u(2−β₀))+E`, the master cannot be formed, so R8's
+DHRepulsion.lean:267–275 contract (the 16/17 ordered target) cannot be discharged. The M4 inverter
+(`dh_repulsion_of_LFunction_one_lower`, LANDED) and the shifted floor (`norm_dhDetectorShift_ge`, LANDED)
+are ready; the monotone-cap inversion at τ=cQ^{−b(1−σ)}L₂^{−k} is arithmetically certified (ledger, all
+turning points ≥10^{−39.3} ≫ τ=10^{−114.5}) — so R8 is PURELY gated on R6. Do NOT edit the
+DHRepulsion.lean:267 contract prose (unchanged; the 16/17 window ratification stands).
+
+**Catches (LOUD).** (#175) `Finset.sum_comm'` (EXISTS, one `h`-arg) expects the iff `x∈s ∧ y∈t x ↔
+x∈s' y ∧ y∈t'` — the RHS order is `(outer-becomes-inner ∈ s' y) ∧ (new-outer ∈ t')`, NOT `y∈t' ∧ x∈s'
+y`; also `rw [sum_comm' h]` chokes on the higher-order `∑∑f x y` pattern (metavar `f`) — use it as a
+`calc`-step TERM (`_ = … := Finset.sum_comm' h`) so the expected type fixes all implicits. (#176)
+`div_le_div_iff` is GONE in this mathlib (v4.32.0-rc1) — use `one_div_le_one_div_of_le (0<a) (a≤b)` for
+`1/b ≤ 1/a`. (#177) product-positivity `0<a → 0<a*b → 0<b`: no clean one-shot; `rcases mul_pos_iff.mp
+hprod with ⟨_,hb⟩|⟨ha,_⟩` then `absurd ha (not_lt.mpr ha_pos.le)`. (#178) `sum_divisors_prod_primeFactors`
+lives in `SelOpt`, NOT transitively imported by `DHCore` — `import Salt.SW.SelOpt` explicitly. (#179)
+the ζ_p·L_p gift needs NO character case split — `selH`-unfold + `field_simp; ring` closes
+`1−h/p=(1−1/p)(1−χ/p)` directly (the three-branch `chiRe_values` route the sketch implied is unneeded).
+(#180) `selGmul χ a = ∏_{p∈a.primeFactors} selG χ p` is DEFEQ, so `Σ_a selGmul χ a = Σ_a ∏_p selG χ p`
+is `rfl` — lets DIVPROD (`sum_divisors_prod_primeFactors`) apply without a rewrite bridge.
