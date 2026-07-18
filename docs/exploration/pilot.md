@@ -7703,3 +7703,30 @@ decisions per question.
   **wf3 (tbal-design-backfill-retune) LAUNCHED** anti-spiral,
   with the maps' divergence note baked into its brief. Board:
   T-BAL wf2 (2 designers) + wf3 (retune) + VMVT-SUMMIT-2.
+
+- 2026-07-18 05:32 PT: ████ **THE VINOGRADOV MEAN VALUE
+  THEOREM IS MACHINE-CHECKED** ████ (VMVT-SUMMIT-2, ≈ 414k /
+  90 tools; the summit campaign JYH ratified as "we go for
+  full VMVT" CLOSES its main line). House-verified:
+  `Salt.Vmvt.vmvt : ∀ k r x, 2 ≤ k → 1 ≤ r → 1 ≤ x →
+  VmvtBound k r x` — J_k(x, kr) ≤ k^{24k²r}·x^{2rk−½k(k+1)+η},
+  the source-exact exponent — axioms [propext, Classical.choice,
+  Quot.sound]; Vmvt.All 8753 green, zero warnings. Stone A:
+  `primes_in_Ioc_eff` at EXPLICIT y₁ = 2²² (the entire #102
+  repair: no e^{6K} PNT existential; the Erdős three-block
+  decomposition rebuilt from the unconditional valuation
+  lemmas + four_pow_lt_mul_centralBinom, exactly the refuters'
+  grounded route; lossiest step = the nested-sqrt log bound,
+  honestly pinning y₁ at 2²² — INSIDE the amended ≤ 2²⁴ cap;
+  catch #107's false-stop repair PAID OFF: under the original
+  freeze text this run would have STOPPED). Stone B: vmvtC0 →
+  k^{24k²} (2nd authorized re-grade), the two-arm pure-nat
+  bridge, hreg from x > Xmed. No stop-and-flags, no residuals.
+  Catches: executor-local #103–106 = register **#109–112**
+  (push_cast vs nat-sub k−1 — obtain ⟨m,rfl⟩; heartbeat
+  overruns in cast-heavy megaproofs — extract the nat backbone;
+  parenthesise nonlinear linarith atoms; gcongr auto-discharge
+  then "no goals"). CONSEQUENCE: the VMVT → power zero-free
+  region → MR chain's FIRST LINK is kernel-checked; VMVT-VK
+  (the region derivation) is now the campaign's next design
+  block. Board: T-BAL wf2 + wf3. Tally ~57.6M raw.

@@ -9073,3 +9073,64 @@ hx''` in `anchorSW` renames `sx → x''`, so the new transport code must referen
 — banked as the one iteration).  The cluster has NO external callers (`GehShiuWire`
 references the combinator in prose only), so the added hypotheses (`h2B`, inflated `KF`)
 broke nothing downstream; `hshiu`/shallow branch UNAFFECTED as predicted.
+
+## 2026-07-18 VMVT-SUMMIT-2: THE SUMMIT LANDS — R5b flag CLOSED (the effective prime supply + the induction; the Vinogradov Mean Value Theorem is machine-checked) (Opus)
+
+Executed the house VMVT-SUMMIT-2 freeze (`docs/exploration/s3-a3-design.md`,
+"VMVT-SUMMIT-2 FREEZE" + the mid-run refuter amendment). The R5b stone-3
+STOP-AND-FLAG (above) is **RESOLVED**: the `k`-independent, non-explicit prime
+supply is replaced and the summit induction closes. `Salt.Vmvt.vmvt` and
+`Salt.Vmvt.primes_in_Ioc_eff` are axiom-clean `[propext, Classical.choice,
+Quot.sound]`; `lake build Salt.Vmvt.All` EXIT 0.
+
+**Stone A — `primes_in_Ioc_eff` (`Salt/Vmvt/PrimeEff.lean`, class C).**
+`∃ y₁ ≤ 2²⁴, ∀ y ≥ y₁, y/(8 log y) ≤ #{p prime : y < p ≤ 2y}` — an EXPLICIT
+threshold, achieved at **y₁ = 4194304 = 2²²** (no `e^{6K}` PNT existential). The
+Erdős/Bertrand central-binomial route, rebuilt from the unconditional valuation
+lemmas (`Nat.pow_factorization_choose_le`, `factorization_choose_le_one`,
+`factorization_centralBinom_of_two_mul_self_lt_three_mul`; NOT the conditional
+`centralBinom_factorization_small`): `centralBinom y ≤ (2y)^{√(2y)}·4^{2y/3}·P`,
+`P = ∏_{y<p≤2y} p ∣ centralBinom y`, `P ≤ (2y)^{count}`, with
+`4^y < y·centralBinom y` (`four_pow_lt_mul_centralBinom`, the stronger amendment
+form). Lossiest step: the nested-sqrt bound `log u ≤ 4u^{1/4}` (sole analytic
+input, `ten_log_le_sqrt`) pins the threshold at `2y ≥ 2560000` (⟹ `y₁ = 2²²`);
+`log(2y) ≤ 1.5 log y` and `10 log(2y) ≤ √(2y)` give ~1.8× margin at `y₁`.
+
+**Stone B — the re-grade + the induction.**
+- **vmvtC0 re-grade (SECOND authorized statement change):** `k^{8k²} → k^{24k²}`
+  (`MeanValue.vmvtC0`, docstring recorded); `Xmed → k^{24·max(k,r)}`,
+  `vmvtConst_eq`/`old_c0_le`/`vmvt_trivial_branch` re-run verbatim at 24 (the
+  deficit chain is exponent-uniform; `old_c0_le`'s type `… ≤ vmvtC0 k` is
+  re-grade-stable, so all consumers re-close through the bridge untouched).
+- **Stone A2 — `exists_transversal_prime_set'`** (`Summit2.lean`): the landed
+  pigeonhole re-supplied by stone A, threshold `Y ≤ 2²⁴ ⊔ 64k⁶`.
+- **`vmvt (k r x) (hk : 2 ≤ k) (hr : 1 ≤ r) (hx : 1 ≤ x) : VmvtBound k r x`**
+  (`Summit2.lean`) — induction on `r`: base `r=1` = `vmvt_base`; step splits at
+  `Xmed`. Large branch discharges `vmvt_step_transversal_large` via the two-arm
+  bridge (per the refuter amendment, PURE NAT, no rpow): `x > Xmed` and
+  `x ≤ y^k` (`le_scale_pow`) give `y^k > Xmed ≥ Y'^k` ⟹ `y > Y'` (both arms
+  `2²⁴ ≤ k²⁴` and `64k⁶ ≤ k²⁴` clear at `k ≥ 2` — this is WHY the re-grade to 24);
+  `hreg` from `(k²+4E)^k ≤ (9k²r)^k ≤ k^{8·max} ≤ Xmed < x` (helper
+  `nine_ksq_r_pow_le`, resting on the tight `pow_le_pow_base : n^k ≤ k^{2n}` for
+  `2 ≤ k ≤ n`, proved by induction + `(1+1/a)^b ≤ e < 4 ≤ b²`).
+
+**Margin deltas vs the freeze.** Freeze targeted `y₁ ≤ 2¹⁴` (factor 2.6);
+actual `y₁ = 2²²`. This is the honest cost of the robust nested-sqrt bound
+(`log u ≤ 4u^{1/4}`, tight at `u = 2⁵.⁶M`) rather than chasing a sharper log
+bound to hit 2¹⁴ — and the mid-run house amendment explicitly relaxed the cap to
+`2²⁴` (any `y₁ ≤ 2²⁴` closes stone B, since the `x > Xmed` split is strict), so
+`2²² < 2²⁴` proceeds without a flag. Bridge arms verified at `k = 2` exactly
+(`2²⁴ ≤ 2²⁴`, equality, closed by the strict split).
+
+**Catches.** (#103) `push_cast` refuses to split `↑(k·k·(k−1))` (nat subtraction
+`k−1` blocks `Nat.cast_sub` without `1 ≤ k`); kill `k−1` first via
+`obtain ⟨m, rfl⟩ : ∃ m, k = m+1` then `Nat.add_sub_cancel`, or use
+`Nat.cast_add, Nat.cast_one` targeted rather than `push_cast`. (#104) a single
+big theorem with ~12 real-analysis `have`s + `convert` overruns the default
+heartbeat budget (`whnf`/`isDefEq` timeouts) — extract the nat backbone to its
+own lemma and drop `convert`/`set` (fold mismatches) so `exact_mod_cast`/`ring`
+carry the casts; heartbeats reset per lemma. (#105) group the nonlinear atom
+consistently for `linarith`: write `1/3 * ((y:ℝ) * Real.log 4)` (parenthesised),
+never `1/3 * (y:ℝ) * Real.log 4`, or the monomial `y·log4` splits and linarith
+misses it. (#106) `gcongr` on `x^b ≤ y^b` auto-discharges `x ≤ y` from context
+(a trailing explicit `positivity`/`exact h` then errors "no goals").

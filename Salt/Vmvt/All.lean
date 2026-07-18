@@ -17,6 +17,8 @@ import Salt.Vmvt.HolderTwo
 import Salt.Vmvt.Transversal3
 import Salt.Vmvt.StepFull
 import Salt.Vmvt.Summit
+import Salt.Vmvt.PrimeEff
+import Salt.Vmvt.Summit2
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -102,3 +104,8 @@ open Salt.Tactic in
   Salt.Vmvt.vmvtEta_ge
   Salt.Vmvt.b_le_vmvtExp
   Salt.Vmvt.vmvt_trivial_branch
+  Salt.Vmvt.primes_in_Ioc_eff
+  Salt.Vmvt.exists_transversal_prime_set'
+  Salt.Vmvt.pow_le_pow_base
+  Salt.Vmvt.nine_ksq_r_pow_le
+  Salt.Vmvt.vmvt
