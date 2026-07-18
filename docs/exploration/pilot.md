@@ -8065,3 +8065,15 @@ decisions per question.
   zero-density budget re-check; register entry OPEN.
   **WAVE 1 DISPATCHED** (R0 re-founding + R1 shift + R3
   Siegel-lower — ungated stones). Board: VK-3 + S₀-W1.
+
+- 2026-07-18 ~11:25 PT: JYH — **"yes approve, contingent on the
+  budget analysis."** The σ-window gate is CONDITIONALLY OPEN;
+  the budget analysis workflow launched (wf_b116a106: 1 analyst
+  grounding every consumer of the repulsion window — WP2's
+  log-η chain, the zero-count windows, the VMVT/N-HDOM
+  references from the gate text — + 1 adversarial refuter; the
+  key structural check: does the trivial 1/17-strip on
+  [9/10, 16/17) dominate every consumer's needed savings). If
+  TOLERATES-unrefuted → the contract edit + R8 unlock
+  automatically per the contingent approval; if BREAKS →
+  back to JYH. Board: VK-3 + S₀-W1 + the budget wf.
