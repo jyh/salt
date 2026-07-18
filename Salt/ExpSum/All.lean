@@ -11,6 +11,7 @@ import Salt.ExpSum.DerivTestK
 import Salt.ExpSum.ZetaBlock
 import Salt.ExpSum.ZetaGrowth
 import Salt.ExpSum.ZetaApprox
+import Salt.ExpSum.Window
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -41,3 +42,6 @@ open Salt.Tactic in
   Salt.ExpSum.vdC_third_derivative
   Salt.ExpSum.vdC_2nd_ZR
   Salt.ExpSum.vdC_kth_derivative
+  Salt.ExpSum.zeta_block_window
+  Salt.ExpSum.zeta_block_window_meet
+  Salt.ExpSum.zeta_block_window_three

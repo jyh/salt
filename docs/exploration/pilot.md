@@ -7617,3 +7617,23 @@ decisions per question.
   (tiiBlock CoeffAt/SW cluster; GEH_min/hTypeI/WindowPNT
   interfaces). Board: T-BAL workflow + LITT-COVER +
   VMVT-SUMMIT-2 (+ refuters). Tally ~56.4M raw.
+
+- 2026-07-18 04:52 PT: **LITT-COVER lands all three stones on
+  the amended target** (≈ 216k / 59 tools; house-verified
+  ExpSum.All 8596 green, three theorems [3 axioms]).
+  Salt/ExpSum/Window.lean (305 ln): `zeta_block_window` (k ≥ 4,
+  the shifted factorial windows, N₀ = (k!)^6 — the amendment
+  honored exactly; the executor found a TIGHTER lower-edge
+  route keeping the (k−1)! numerator: ~27× at the binding
+  corner vs the freeze's 13.6×), `zeta_block_window_meet`
+  (adjacent windows meet exactly — rfl-grade, LITT-STRIP's
+  gluing hook), `zeta_block_window_three` (the k=3 seam at
+  edge 27π·N, conclusion C·N^{5/6}). RESIDUAL (flagged, honest):
+  the bounded strip t ∈ [N, 27π·N] between kusmin and the k=3
+  floor — closable later via vdC_second on phi's 2nd
+  differences. Catch **#106** (Lean): `hue ▸ hhi` produces a
+  motive-opaque term linarith cannot atom-match — use
+  `rw [hue] at hhi` when the result feeds linarith/nlinarith.
+  The Littlewood chain is now: COVER ✓ → STRIP (unblocked,
+  needs its freeze) → LANDAU (the crux design block). Board:
+  T-BAL workflow + VMVT-SUMMIT-2 (+ refuters).
