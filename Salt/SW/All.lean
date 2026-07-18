@@ -62,6 +62,8 @@ import Salt.SW.DHTrunc
 import Salt.SW.DHBal
 import Salt.SW.DHBal2
 import Salt.SW.SelWeight
+import Salt.SW.SelAlgebra
+import Salt.SW.DHExtract
 import Salt.SW.Hyperbola
 import Salt.SW.ZetaEM
 import Salt.Tactic.AuditAxioms
@@ -236,3 +238,6 @@ open Salt.Tactic in
   Salt.SW.selH_pos Salt.SW.selH_le_two Salt.SW.selH_lt_of_prime Salt.SW.selG_pos
   Salt.SW.selGmul_pos Salt.SW.selHSum_pos Salt.SW.selWeight_apply_one
   Salt.SW.tail_shift_to_beta0
+  Salt.SW.selberg_diag Salt.SW.selberg_diag_nonneg Salt.SW.rescale_inv_ge
+  Salt.SW.sum_mul_index_eq Salt.SW.kernel_abel_sum Salt.SW.sum_Icc_one_shift
+  Salt.SW.sum_rpow_le_integral Salt.SW.chiRe_partial_at_zero_le

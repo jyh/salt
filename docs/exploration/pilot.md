@@ -8160,3 +8160,28 @@ decisions per question.
   R5/R6 assembly + R7 = LITT-LANDAU + R10 = LITT-COVER
   stone-3). PushNotification fired (JYH mobile). Board: VK-4 +
   S₀-W2. Tally ~64.5M raw.
+
+- 2026-07-18 11:05 PT: **S₀-W2 lands 8 exact stones + the
+  R2≡R6 structural discovery** (≈ 264k / 70 tools;
+  house-verified SW.All 8805 green, all [3 axioms]).
+  Salt/SW/{SelAlgebra,DHExtract}.lean: R4's selberg_diag
+  (graham_diagonalisation ports verbatim to generic λ), the
+  pole-cancellation stone chiRe_partial_at_zero_le (6M·m^{−β₀}),
+  the DISCRETE kernel-Abel identity (no MeasureTheory — catch
+  #160), the SHARP power-cap (the exact 1/(2−β₀); mathlib's
+  crude form loses it), rescale + shifts. ZERO constant drift
+  (ledgers re-run green). THE DISCOVERY (catch **#162**,
+  executor-local #157): R2 was freeze-classed C~250 but its
+  assembly is the SAME swamping-error C/D crux as R6 — the
+  per-d EM remainder is same-order as the main term until
+  by-parts'd against the zero-killed stream; R2 = R6's
+  trivial-weight case, indivisible, co-dispatch mandated.
+  Flags updated with exact walls (selberg_opt_eq NOT in
+  mathlib — SelbergSieve stops at diagonalization, ~380 ln to
+  build; euler_b_one ~150 hand-rolled; R3 confirmed NOT the
+  open effective-Siegel — the zero-dependent form). Register
+  #159–162 = local #153–157. **WAVE 3 DISPATCHED, two prongs:
+  W3a = THE CRUX (the unified R2/R6 extraction + R3 if it
+  falls) + W3b = the algebra suppliers (selberg_opt_eq +
+  selweight_abs_le_one + euler_b_one)**. Board: VK-4 + S₀-W3a
+  + S₀-W3b.

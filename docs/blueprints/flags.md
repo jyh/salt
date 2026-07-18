@@ -9655,3 +9655,99 @@ intro r _; simp` (plain `simp`, NOT `simp [Nat.coprime_one_right]` — the arg i
 `linter.unusedSimpArgs`). (#152) PROCESS: a rung whose ledger ERROR term shares another rung's
 extraction shape IS that rung downstream — check the `ledger.py` error formulas for shared shapes
 BEFORE classifying a stone as standalone (would have caught R3's R2-dependency at freeze time).
+
+## 2026-07-18 T-BAL S₀ 5th-design WAVE 2 (R2/R4/R5 CORE STONES land; R2-assembly + selberg_opt_eq + R3/R5-H_lower flagged) — S0-W2/Opus
+
+Executed WAVE 2 of the JYH-ratified **T-BAL S₀ synthesis freeze**
+(`docs/exploration/tbal-s0-freeze.md`). The σ-window gate is OPEN (contract at DHRepulsion.lean now
+`dh_repulsion_ordered @ 16/17`). Two new files: `Salt/SW/SelAlgebra.lean` (R4 diagonalization + R5
+rescale), `Salt/SW/DHExtract.lean` (R2 kernel-Abel + power-sum + zero-killed toolkit). Both
+registered in `Salt/SW/All.lean`, ALL 8 new decls audit-clean (`[3 axioms]` =
+`propext, Classical.choice, Quot.sound`), full `Salt.SW.All` green (8805 jobs). No `sorry`/`admit`/
+`native_decide`. Ledger UNCHANGED (my stones are exact identities / sharp caps — zero constant drift;
+q=3 corner still `R3 err 10^{-48.8}`, `(3/4)/e = 0.2759 ≥ 0.27`, `δ_d = 0.431u` @ C_w=100).
+
+**LANDED — R4 `selberg_diag` [C, done as generic port].** `selberg_diag (lam : ℕ→ℝ) (z) :
+Σ_{d,e≤z} λ_d λ_e/lcm(d,e) = Σ_{g≤z} φ(g)·(selInnerG λ z g)²`, `selInnerG λ z g = Σ_{d≤z, g∣d} λ_d/d`
+— the Barban–Vehov/Selberg gcd-totient diagonalization for an ARBITRARY real weight (the
+`graham_diagonalisation` proof PORTS verbatim to generic λ: only `sum_totient_indicator_eq_gcd` +
+field algebra; grahamTheta was never used as anything but a coefficient). Plus `selberg_diag_nonneg`
+(L²-positivity). NB this is the **totient/lcm** diagonal form; `selberg_opt_eq` wants the
+**nu(gcd)** form (mathlib `mainSum_lambdaSquared_eq_sum_mul_sum_sq`) — see the FLAG below.
+
+**LANDED — R5 `rescale_inv_ge` [A] + `chiRe_partial_at_zero_le` [C, the pole-cancellation stone].**
+(i) `rescale_inv_ge (hβ:β₀≤1) (hn:1≤n) (hnz:n≤z) : z^{β₀−1}·n^{−β₀} ≤ n^{−1}` — the freeze's named R5
+rescale (via `Real.rpow_le_rpow_of_nonpos`). (ii) `chiRe_partial_at_zero_le` — **the zero-killed
+stream in usable real form**: for real primitive χ and a REAL zero β₀ (L(β₀,χ)=0, 0<β₀≤1),
+`|Σ_{d≤m} χ_ℝ(d)·d^{−β₀}| ≤ 6·√q(1+log q)·m^{−β₀}` (the real `chiRe`-sum is the real cast of the
+complex `Σχ(d)d^{−ρ}` at ρ=β₀; landed `partial_sum_at_zero_small` gives `3M(1+‖β₀‖/β₀)=6M`). This is
+the `L(β₀,χ)=0` pole-cancellation the whole extraction rests on — it makes the `ζ(β₀)·Σχ_ℝd^{−β₀}`
+cross-term small, exactly as the freeze E-SHAPE demands.
+
+**LANDED — R2 CORE `kernel_abel_sum` + `sum_rpow_le_integral` + helpers [C].** The freeze's
+R2/R6 rung card MANDATES the *kernel-Abel exact form* (a bare `ζ(β₀)`/`1/(1−s)` box "re-breaks the
+u^{−9} ledger"). Landed the two exact stones it rests on: (i) `kernel_abel_sum (a) (hy:1≤y) :
+Σ_{n≤y} a_n·(1−n/y) = (1/y)·Σ_{t≤y−1} A(t)`, A(t)=Σ_{n≤t}a_n — the exact DISCRETE kernel-Abel
+identity (via `sum_mul_index_eq`, a from-scratch summation-by-parts; NO integration needed — the
+`(2−β₀)` double-∫ structure moves to the OUTER Σ_t, so the inner sum never touches a positive-power
+EM). (ii) `sum_rpow_le_integral (hr:0≤r) : Σ_{t≤y} t^r ≤ ((y+1)^{r+1}−1)/(r+1)` — the SHARP
+positive-power cap (via `MonotoneOn.sum_le_integral` + `integral_rpow`), giving the exact
+`1/(2−β₀)` factor at r=1−β₀ (the crude landed `sum_rpow_pos_le` loses this constant). Plus
+`sum_Icc_one_shift` (Icc↔range reindex).
+
+**FLAG — R2 full `unmoll_extraction_real` [C/D] — BLOCKED on the by-parts-against-zero-killed-stream
+(the SWAMPING-ERROR crux; shared with R6).** With the kernel-Abel D₀ = (1/y)Σ_{t<y}A(t) and
+A(t) = Σ_{d≤t} χ_ℝ(d)d^{−β₀}·T(t/d), T(m)=Σ_{e≤m}e^{−β₀}, the NAIVE split T = m^{1−β₀}/(1−β₀) + ζ(β₀)
++ O(m^{−β₀}) [zeta_partial_em] gives main = L₁·t^{1−β₀}/(1−β₀) [good], ζ-term small [killed by
+`chiRe_partial_at_zero_le`, good], BUT the per-d remainder `Σ_d χ_ℝ(d)d^{−β₀}·O((t/d)^{−β₀}) =
+O(t^{−β₀}·Σ_{d≤t}1) = O(t^{1−β₀})` — SAME ORDER as the main term. This is EXACTLY the freeze R6-card
+wall ("swamps the budget"). The honest close needs the freeze's mandated route: Abel-sum the d-error
+against the ZERO-KILLED partial sums (`Σ_{d≤D}χ_ℝ(d)d^{−β₀} ≤ 6M·D^{−β₀}`, now landed) so the
+slowly-varying `zetaFracInt`-remainder gains the taming M/t^{β₀} factor down to the ledger's
+δ_d ≤ 9.3C_wP(1+log z)³(1+1/u)/z. That summation-by-parts of the error stream (likely via
+`norm_bsum_kernel_zero_decay` / a bespoke ranged Abel like `norm_sum_smul_antitone_ranged_le`) is
+~150 lines of delicate C/D work and is the genuine crux — NOT closed this wave. **C_w NOT pinned in a
+landed statement** (the pin requires the full extraction; the ledger's C_w=100 → δ_d=0.431u, survives
+to 1.89e4, is the target). R2 is analytically the SAME crux as R6 (unmollified special case) — the
+two should likely be co-dispatched, not split across waves.
+
+**FLAG — R3 `L1_lower_siegel` [B once R2 lands] — BLOCKED on R2 (consumes the full extraction).**
+Confirmed (again) R3 is R2 specialized at R=e^{1/u}, trivial weight: floor `1−1/R ≤ D₀(R)` (n=1 term,
+R huge) + R2's `D₀(R) ≤ L₁·R^{1−β₀}/(u(2−β₀)) + E` inverts to `L₁ ≥ (3/4−E)·u(2−β₀)/e ≈ 0.27u(2−β₀)`
+(NOT the open effective-Siegel problem — the (1−β₀) factor is the effectively-provable zero-dependent
+form). ~40 lines once R2's extraction inequality exists; the CORE stones (kernel_abel_sum,
+sum_rpow_le_integral, chiRe_partial_at_zero_le) are landed and ready.
+
+**FLAG — R4 `selberg_opt_eq` [C ~380] — NOT in mathlib; the full Selberg optimization.** mathlib's
+`SelbergSieve` gives the diagonalization `mainSum_lambdaSquared_eq_sum_mul_sum_sq` (Σ_l g(l)⁻¹·(Σ_{l∣d}
+νd·wd)²) but STOPS there — the optimization (min over w with w(1)=1 equals 1/H, achieved at the
+Selberg-optimal weight) is NOT in mathlib and must be built: the y↔w Möbius change-of-variables +
+Cauchy-Schwarz min = 1/Σg(l) + matching the optimizer to salt's `selWeight`. salt's `selG(p) =
+h(p)/(p−h(p))` = mathlib `selbergTerms` at `nu(p)=h(p)/p`, and salt's `selHSum` = the Selberg bounding
+sum — so the bridge is a BoundingSieve instance with `nu(p)=selH(p)/p` (0<nu<1 holds: h∈(0,2], h<p).
+`selweight_abs_le_one` (|θ_d|≤1) likewise flagged (the Halberstam–Richert coprime-g-sum bound).
+`selweight_one` is already `selWeight_apply_one` (wave 1). Est ~380+100 lines finite algebra — a
+genuine standalone sub-campaign, not a bounded executor stone.
+
+**FLAG — R5 `H_lower` [C ~300] — BLOCKED on R2 + `euler_b_one`.** The AMENDED form H(z) ≥
+(1−δ_d−δ_b)L₁/(u(2−β₀)) needs the extraction (R2, for δ_d) and `euler_b_one` (Σb(c)/c=1, b(p)=−χ(p)/p)
+which salt lacks a mathlib Euler-product bridge for (`eulerProduct_hasProd`/`euler_b` absent —
+freeze authorizes ~150 hand-rolled lines). `rescale_inv_ge` + `chiRe_partial_at_zero_le` (both landed)
+are the two named R5 helpers; the Zeno fallback `dh_repulsion_of_H_lower` (conditional) remains the
+ratified partial.
+
+**Catches (LOUD).** (#153) `Complex.norm_real` is `‖↑r‖ = ‖r‖` (real norm), NOT `= |r|` — chain with
+`Real.norm_eq_abs`; and the `↑(realSum)=complexSum` cast bridge is MUCH more robust in term mode
+(`hnorm.symm.trans (congrArg (‖·‖) hcast)`) than `rw [← hcast, Complex.norm_real]` (the post-rw
+coercion head fails to match `‖↑r‖` under a binder). (#154) `open Complex in` on a lemma BREAKS an
+otherwise-identical `rw` chain that works standalone (name-resolution shift under the open); drop it
+and fully-qualify. (#155) the R2 kernel handling is DISCRETE, not integral: `Σa_n(1−n/y) =
+(1/y)Σ_{t<y}A(t)` (kernel-Abel) — no MeasureTheory; the `(2−β₀)` comes from the OUTER `Σt^{1−β₀}`
+capped SHARPLY by `MonotoneOn.sum_le_integral`+`integral_rpow` (mathlib's crude `sum_rpow_pos_le`
+`H·H^α` loses the 1/(2−β₀) — do NOT use it for the main term). (#156) `Nat.Ico_succ_right` is GONE in
+this mathlib; for Icc→range reindex prove `sum_Icc_one_shift` by induction with `sum_Icc_succ_top`+
+`sum_range_succ` (version-robust). (#157) PROCESS/SCOPING: R2 was freeze-classified C~250 but is
+analytically the SAME swamping-error C/D crux as R6 (it IS R6 for the trivial weight) — the per-term
+error genuinely swamps, so R2 is NOT a bounded-effort win independent of R6. The core sub-lemmas
+(kernel-Abel, sharp power-cap, zero-killed stream) DO factor out cleanly and are the right unit of
+progress; the assembly by-parts is the indivisible crux.
