@@ -14,6 +14,7 @@ import Salt.Vk.Core
 import Salt.Vk.Landau
 import Salt.Vk.Strip
 import Salt.Vk.Scale
+import Salt.Vk.Region
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -87,3 +88,9 @@ open Salt.Tactic in
   Salt.Vk.zeta_block_strip
   Salt.Vk.vk_sum_Ioc_split
   Salt.Vk.vk_sum_Ioc_split_norm_le
+  Salt.Vk.riemannZeta_conj
+  Salt.Vk.riemannZeta_conj_zero
+  Salt.Vk.Zc_ratio_sphere_bound
+  Salt.Vk.zeta_keep_one_disc
+  Salt.Vk.zeta_drop_all_disc
+  Salt.Vk.zeta_zero_free_of_disc

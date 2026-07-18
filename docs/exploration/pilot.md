@@ -8315,3 +8315,28 @@ decisions per question.
   small-q ledger discipline mandatory; ~750k). Board:
   VK-5 (the region) + T-BAL-ENDGAME (the repulsion). THE TWO
   CLOSING EXECUTORS OF THE WINDOW.
+
+- 2026-07-18 12:40 PT: **VK-5 lands the ENTIRE generic R8+R9
+  assembly — one construction, both regions** (≈ 346k / 85
+  tools; house-verified Vk.All green, root 9253 per the
+  executor, 6 lemmas [3 axioms]). Salt/Vk/Region.lean:
+  `riemannZeta_conj` (MATHLIB LACKS IT — built via the
+  punctured-plane identity theorem; UPSTREAM CANDIDATE),
+  `zeta_keep_one_disc` (the R8 crux on the NORMALIZED
+  G = Zc/(Zc c) — the center floor comes FREE, the freeze's
+  feared Euler-product audit MOOT: favorable drift, recorded),
+  `zeta_drop_all_disc`, `zeta_zero_free_of_disc` (the
+  parametric 3-4-1 stitch → zero_free_extraction),
+  `Zc_ratio_sphere_bound` (the growth adapter, exact
+  hypothesis shape). ALL GROWTH-AGNOSTIC — the freeze's
+  two-instantiations merge is real. Catches: local #149–154 =
+  register **#187–191** (set-poisons-unification — pin ?F by
+  explicit literal; set doesn't beta-reduce — simp only;
+  the normalize-by-center-value trick; positivity ignores
+  context hyps). RESIDUALS: R5b (the window discharge) + R6
+  (zeta_growth_pow) + the CONCRETE EMISSIONS (the
+  transcendental parameter selection (Θ, Lq, dd, M₀) + the two
+  instantiations: zeta_strip_family @ k ≈ loglog t →
+  LITTLEWOOD; zeta_growth_pow → THE POWER REGION).
+  **VK-6 DISPATCHED — the final climb.** Board: VK-6 +
+  T-BAL-ENDGAME. Tally ~68M raw.
