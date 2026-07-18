@@ -8162,3 +8162,60 @@ landed (`abs_sum_grahamTheta_div_le_inv_log`, i.e. `|innerG z 1| ≤ C/log z`).
 NOT close the consumer `Σ_{g≤z}φ(g)·innerG² ≍ 1/log z`: `Σφ(g)·9^ω/g²` diverges (`Σ9^ω/g ≤
 (1+log z)^9` by PpSums k=9 → `log⁷z`, wrong shape). The sharp mean needs Graham's on-average
 Euler cancellation (a `d`-grade effective `h(g)`), a genuinely separate estimate. Flagged.
+
+## SHIU-W3b — NEW-1/NEW-2 LANDED; S4-III/S4-IV assemblies FLAGGED (2026-07-17)
+
+**LANDED (sorry-free, axioms ⊆ [propext, Classical.choice, Quot.sound]),
+`Salt/Maynard/ShiuTuned.lean`, per the SHIU-G2 tuned-shift adjudication:**
+- **NEW-1 `sum_tau_smooth_gt_tuned_le`** — the tuned graded Rankin (Shiu Lemma 4,
+  eq. 25). For `W=z^{1/2}` (`log W=½log z`), `v=z^{1/r}` (`r·log v=log z`), and the
+  tuned shift `σ=δ=1−r·log r/(4·log z)`, in the honest range `r·log r ≤ log z` (⟹
+  `δ ≥ 3/4`, threaded), `2 ≤ r`, `3 ≤ v`, `1 < z`, `1 ≤ W`:
+  `Σ_{c>W, v-smooth, c≤N} τ(c)/c ≤ exp(−(1/8)·r·log r + r^{1/4}·(log r/2 + C₀))
+   · exp(2·Σ_{p≤z}1/p + Ce)` with `Ce=8·ζ(3/2)`, `C₀=(log4+4)/2`.
+  Mechanism as designed: W-cut (landed `sum_tau_smooth_gt_rankin_le`) × the *tight*
+  Euler bound `prod_one_sub_rpow_neg_sq_le_exp_tight` (factor **2** not the lossy 8 —
+  linear coeff correct, `Σp^{−2σ}≤ζ(3/2)` absorbs the quadratic tail for σ≥3/4) ×
+  the correction telescope `sum_rpow_neg_sub_inv_le` (`e^t−1≤t·e^t` + landed Mertens-1
+  `sum_log_div_prime_le`). The tuning arithmetic: `W^{δ−1}=exp(−(1/8)r log r)`,
+  `v^{1−δ}=r^{1/4}`, `(1−δ)log v=log r/4`, all derived in-proof.
+- **NEW-2 `sum_smooth_gt_tuned_le`** — the smooth-prefix tail (class III's kill).
+  Same RHS for the UNWEIGHTED `Σ_{c>W,v-smooth,c≤N} 1/c` (corollary via `1≤τ(c)`). At
+  `v=y₀` polylog, `r=u=log z/log y₀` and `exp(−(1/8)r log r)=u^{−u/8}` IS the de Bruijn
+  `ρ(u)`-grade power-of-z saving. The `u^{−u}` structure the design flagged emerges for
+  free from NEW-1 (r·log r = u·log u) — no separate optimization needed.
+- Helpers (all landed): `one_sub_rpow_neg_sq_le_exp_tight`, `rpow_neg_sq_le_rpow_three_half`,
+  `sum_rpow_neg_sq_le_zeta`, `prod_one_sub_rpow_neg_sq_le_exp_tight`, `rpow_sub_one_le`,
+  `sum_rpow_neg_sub_inv_le`. Registered in `Salt/Maynard/All.lean`.
+
+**FLAGGED — S4-III / S4-IV assemblies (the two-attempt give-up, honest scope call):**
+The stones are done; the *assemblies* need substantial NEW infrastructure NOT present
+in the landed tree, in two clusters:
+
+1. **The r-sum convergence (the "geometric-vs-factorial" lemma).** The class-IV bound is
+   `Σ_{r} A₅^r·(r+1)·[NEW-1 c-sum]·(main/φq/log z)`; uniformity in z (the sum is over
+   `2≤r≤r_max(z)`) REQUIRES `Summable (fun r ↦ A₅^r·(r+1)·exp(−(1/8)r log r +
+   r^{1/4}(log r/2+C₀)))` (a z-independent finite — astronomically large but fixed — const,
+   since `A₅=2^{640000}`-grade). OBSTRUCTION: the ratio test's exp-argument is a *difference*
+   of the slowly-growing correction `r^{1/4}(log r/2+C₀)` (MVT-grade to bound). CLEAN ROUTE
+   (recommended, ~80–120 lines): (a) subpolynomial domination `r^{1/4}(log r/2+C₀) ≤
+   (1/16)r log r` for `r ≥ (8+16C₀)^{4/3}` (via `r^{3/4}→∞`), reducing the decay to the
+   clean `exp(−(1/16)r log r)`; (b) ratio test on `A₅^r(r+1)exp(−(1/16)r log r)` — ratio
+   `≤ 2A₅·r^{−1/16} ≤ 1/2` for `r ≥ (4A₅)^{16}`, using the CLEAN bound
+   `(r+1)log(r+1)−r log r ≥ log r` (no difference-of-slowly-growing needed). Then partial
+   sums `≤ tsum` (`Summable.sum_le_tsum`). C-level, self-contained, reusable.
+
+2. **The r-binning of the combined class III/IV.** `ShiuDecomp` provides only the COMBINED
+   `shiuClassIIIIV` (`1<d ∧ d.minFac≤W ∧ W<c`); there is NO III/IV split predicate landed.
+   S4-IV needs: (i) a bin predicate on `(shiuD w n).minFac ∈ (v_{r+1}, v_r]` (v_r=z^{1/r}-grade),
+   (ii) the per-bin `Ω(d) ≤ 20r/(ακ)` ⟹ `τ(d) ≤ A₅^r` (mirror `tau_rough_le` at scale
+   `v_{r+1}`; `tau_rough_le` is landed and reusable), (iii) the per-bin d-count via the landed
+   `rough_count_in_ap_le` at `t=v_{r+1}` (compose exactly as S4-I did via `inner_count_le` +
+   `class_tau_sum_le_prod` + `bigT_sum_split`), (iv) the per-bin c-sum via NEW-1 at `v=v_r`,
+   (v) fold (i)–(iv) + cluster-1 into the `C·(z/φq)·log z` target (`exp(2Σ_{p≤z}1/p)≍(log z)²`
+   via `mertens_second_sharp`, then `(log z)²/log z=log z`). S4-III is the same skeleton with
+   the UNWEIGHTED d-count × NEW-2 (zero τ(d)) on the `d.minFac ≤ y₀` sub-class. Estimated
+   ~200 lines each on top of cluster 1; firmly C-level; the S4-I proof (ShiuClasses.lean) is
+   the line-by-line template. All ingredients now EXIST (NEW-1/2 + the landed S4-I infra) —
+   this is composition + the r-sum, not new mathematics. Budget exhausted on the stones;
+   dispatch as a fresh executor (or two: cluster-1 warm-up, then the assembly).

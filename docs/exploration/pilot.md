@@ -7053,3 +7053,18 @@ decisions per question.
   falls with it). Ceremony: pre-wired (accepted), full build
   green (9209). Board: LITT-F5, SHIU-W3b, DH-TRUNC, VMVT-R3R4,
   HB-L2b, seed #3. Tally ~47.7M raw, house ~14%.
+
+- 2026-07-18 ~22:45 PT (NIGHT WATCH): ██ **SHIU-W3b LANDS NEW-1 +
+  NEW-2 — the tuned-δ Rankin at EXACTLY the designed arithmetic
+  (W^{δ−1} = exp(−r·log r/8), v^{1−δ} = r^{1/4})** ██ (≈ 307k /
+  64 tools). Salt/Maynard/ShiuTuned.lean:
+  **sum_tau_smooth_gt_tuned_le** + the smooth-tail corollary +
+  ██ THE LOAD-BEARING CATCH (#77): the landed factor-8 Euler
+  bound would overshoot the grade by (log z)⁶ — the executor
+  built the TIGHT factor-2 replacement (δ ≥ 3/4 supplied by the
+  honest range) ██ + the u^{−u} worry DISSOLVED (it IS r^{−r/8}
+  at v = y₀ — the house's class-III fear was a non-issue).
+  Remaining: S4-III/IV + S5 — composition-only, all ingredients
+  exist → **SHIU-W4 DISPATCHED (the ShiuCore CLOSE)**. Ceremony:
+  wired (accepted), green. Board: LITT-F5, DH-TRUNC, VMVT-R3R4,
+  HB-L2b, SHIU-W4, seed #3. Tally ~48.3M raw, house ~14%.
