@@ -6432,3 +6432,28 @@ decisions per question.
   HL-3b consumer) Zeno'd → dispatch queue. Ceremony: audit ✓
   (9177 green). Board: PP3-ASSEMBLY, seed #2 + MERT-5/DH-MAIN/
   VMVT-N4 queued. Tally ~34.0M raw, house ~14%.
+
+- 2026-07-17 ~18:38 PT (GOLD WINDOW): ████████ **ppLevel_holds IS
+  PROVEN — THE GEH DOOR'S PpLevel OBLIGATION CLOSES; the halt-#1
+  flag ("mathlib entirely lacks") is DEAD** ████████
+  (PP3-ASSEMBLY ≈ 552k / 143 tools / ~2h — the window's biggest
+  node; BOTH milestones, zero residuals). Salt/Maynard/
+  PpAssembly.lean (950 lines): **sum_seqDiscrepancy_pp3_le** (the
+  k≥3 tail, byte-matching the freeze) + ██ **ppLevel_holds :
+  PpLevel (3999/4000)** ██ (B = 0 haircut). The six-node chain
+  (CYC → TWO → CRT → FOLD → SUMS ∥ NK → ASSEMBLY) closed in ONE
+  DAY from N-PP-R0's re-recon. EXECUTOR-SIMPLIFIES-DESIGNER
+  (again): my k* = √(log/loglog) crossover was OVER-ENGINEERED —
+  a CONSTANT k* = 8000 closes at θ = 3999/4000 (the 1/4000
+  headroom eats both regimes; the landed eventually_poly_beats_
+  polylog reused; no loglog machinery). GOLD-GRADE gotchas
+  banked: ██ ring/linarith EXPAND literal-large powers
+  ((1+log x)^8000 → degree-8000 polynomial → heartbeat death;
+  abstract-as-parameter is the reliable fix; linarith only +
+  hypothesis-ordering to keep heavy terms out of context ██ +
+  the unpinned-Icc-binder ℝ-resolution trap + the decidable
+  isPrimePowExp pattern + the self-rewriting rw. THE DOOR NOW:
+  GEH_min + {hdom (ShiuCore + N-HDOM), hTypeI1/2, hSW residuals}
+  — PpLevel is GONE from the list. Ceremony: wired, Maynard
+  green, olean ✓. Board: MERT-5, DH-MAIN, seed #2. Tally ~34.7M
+  raw, house ~14%.
