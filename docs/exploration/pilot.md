@@ -7682,3 +7682,24 @@ decisions per question.
   Benli–Goel–Twiss–Zaman arXiv:2410.06082 (dh_explicit_2410.txt
   already staged in the scratchpad). Board: T-BAL wf1 (1
   designer) + T-BAL wf2 (2 designers) + VMVT-SUMMIT-2.
+
+- 2026-07-18 05:15 PT: **wf1 CLOSED — the maps are gold, all
+  three designers (incl. both relaunches) died at the 64k
+  per-turn output cap; the synthesis ran vacuous.** The maps'
+  yield beyond the banked file: (1) T-BAL has NO hypothesis
+  slot — it must STATE dh_repulsion itself (prose spec
+  DHRepulsion.lean:261–270; M4 waits to consume the Λ-bound);
+  (2) the Benli 2410.06082 chain is fully explicit AND
+  numerically re-verified by the reader, with a PORT TRAP
+  caught: the paper's printed rounded J-constant 1.6e8
+  overshoots its own N-budget by 3% — only the unrounded 5.4e7
+  closes; (3) structural divergence: our Barban–Vehov weights
+  admit NO Benli L(1,χ)-cancellation — keep L(1,χ) explicit,
+  feed M4; P-V grade inflates q^{2θ} → q^{1/2}; (4) DH-TRUNC-A
+  is a prerequisite stone; ZeroCountNearOne is UNWIRED. JYH
+  caught the coverage gap ("should we also backfill the
+  third?") — the RETUNE angle was dead and uncovered (my
+  backfill assumed the relaunch was carrying it) →
+  **wf3 (tbal-design-backfill-retune) LAUNCHED** anti-spiral,
+  with the maps' divergence note baked into its brief. Board:
+  T-BAL wf2 (2 designers) + wf3 (retune) + VMVT-SUMMIT-2.
