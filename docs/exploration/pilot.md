@@ -8077,3 +8077,31 @@ decisions per question.
   TOLERATES-unrefuted → the contract edit + R8 unlock
   automatically per the contingent approval; if BREAKS →
   back to JYH. Board: VK-3 + S₀-W1 + the budget wf.
+
+- 2026-07-18 ~11:50 PT: ██ **THE σ-WINDOW GATE OPENS — budget
+  analysis TOLERATES, refuter-unrefuted; the contingent
+  approval discharges** ██ (wf_b116a106, 2 agents ≈ 241k).
+  THE FINDING (elegant): at witness grade b=680 the removed
+  band [9/10, 16/17) was VACUOUS-IN-USE — the repulsion's
+  content zone is 1−σ ≤ ~1/1360, deep inside the new window;
+  everywhere below 16/17 the trivial 1/17-strip already
+  dominated (per-zero q^{−14.7} vs repulsion-grade q^{−0.18}
+  at s=250 — the strip is 80× stronger). All 7 consumers
+  checked numerically (WP2's log-η chain margin 2.8e10 at the
+  q=20 anchor; the η^{−A} budget covered to A ≤ 19 vs HB's max
+  A=2; VMVT/VK and N-HDOM confirmed FALSE ALARMS; zfr_harvest's
+  9/10 is an input hypothesis, implied by 16/17; M4/partial
+  window only β). The refuter's independent sweep reproduced
+  the inventory exactly (the extra 9/10 hits are unrelated SW
+  contour abscissas). FOUR REGISTERED CONDITIONS (in the
+  analysis doc): WP2 executes at s ≥ 250; q₀ ~ 20 folded into
+  the effective constant (free under InfinitelyManySiegelZeros);
+  the crude density node valid to 16/17; T-BAL-BUDGET stays a
+  separate pre-consumer audit; PLUS the re-audit trigger if
+  dh_repulsion is ever re-proved at literature grade b ~ 2.
+  EXECUTED: the DHRepulsion.lean prose contract amended
+  (dh_repulsion_ordered, 16/17, the ordering hyp; provenance
+  note in place; module rebuilds green). Analysis banked
+  (docs/exploration/sigma_window_budget_analysis.md). R8 is
+  UNGATED — waves 2/3 dispatch as wave 1 lands. Board: VK-3 +
+  S₀-W1.

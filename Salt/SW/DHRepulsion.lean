@@ -256,15 +256,20 @@ theorem dhLSeries_identity [NeZero q] (χ : DirichletCharacter ℂ q) (hsq : χ 
 M1 (`dhLSeries_identity` + `dhDetector_mellin`) and M2 (`dhDetector_floor`,
 `dhDetector_pos`) are LANDED above. M3 (the upper contour) and M4 (the balance +
 inversion) are the multi-session core; below is the precise obstruction map so the
-next session resumes without re-deriving it. The target contract is (constants FREE):
+next session resumes without re-deriving it. The target contract is (constants FREE;
+window amended 9/10 → 16/17 by the S₀-redesign ratification 2026-07-18, JYH-approved
+contingent on the σ-window budget analysis, which returned TOLERATES-unrefuted — the
+removed band [9/10, 16/17) is vacuous-in-use at witness grade and covered by the trivial
+1/17-strip for every WP2 consumer; analysis in the session ledger + pilot.md; the
+ordering hypothesis ρ.re ≤ β₀ is the named T-BAL-UNORDERED deviation, grounded harmless):
 
 ```
-theorem dh_repulsion : ∃ b c k : ℝ, 0 < b ∧ 0 < c ∧ 0 ≤ k ∧
+theorem dh_repulsion_ordered : ∃ b c k : ℝ, 0 < b ∧ 0 < c ∧ 0 ≤ k ∧
   ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
     χ.IsPrimitive → χ ≠ 1 → χ^2 = 1 → 2 ≤ q →
     ∀ β₀ : ℝ, LFunction χ β₀ = 0 → 1/2 < β₀ → β₀ < 1 →
     ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ.im ≠ 0 → |ρ.im| ≤ 1 →
-      9/10 ≤ ρ.re → ρ.re < 1 →
+      16/17 ≤ ρ.re → ρ.re < 1 → ρ.re ≤ β₀ →
       (1 - β₀) ≥ c * (q * (|ρ.im| + 2) : ℝ)^(-(b * (1 - ρ.re)))
                     / (Real.log (q * (|ρ.im| + 2)) + 2)^k
 ```
