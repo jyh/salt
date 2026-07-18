@@ -219,6 +219,8 @@ open Salt.Tactic in
   Salt.SW.mmu_rectBI_eq_zero
   Salt.SW.mmuRate_smoothed Salt.SW.mmuRate_holds
   Salt.SW.norm_bsum_kernel_zero_decay Salt.SW.zfr_harvest
+  Salt.SW.dhA_mass_upper Salt.SW.sum_hyperbola_comm
+  Salt.SW.sum_abs_grahamGc_div_le
   Salt.SW.sum_divisors_eq_hyperbola_symm Salt.SW.dhA_hyperbola_symm
   Salt.SW.zeta_partial_em Salt.SW.zetaHol_bound
   Salt.SW.zetaApprox_strip Salt.SW.norm_zeta_sub_approx_le_strip

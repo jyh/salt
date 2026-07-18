@@ -9292,3 +9292,85 @@ stands). No witness drift: R2/R2' pin nothing.
 
 **Attempt count.** First attempt landed both (2 trivial build fixes: a redundant `tauto`
 after a closing `simp only`, and dropping the then-unused `and_assoc` simp arg).
+
+## 2026-07-18 T-BAL R3 LANDS (the u-carrier; the symmetric-√N-hyperbola wall falls) + R4/R5 prereqs — T-BAL-2/Opus
+
+The blocker the prior session flagged (R3 needs the symmetric √N Dirichlet hyperbola, an
+unfulfilled mathlib-TODO) is SUPPLIED (`Salt.SW.dhA_hyperbola_symm`, Hyperbola.lean). This
+session LANDS R3(a) and two forward-prerequisites. All in `Salt/SW/DHBal.lean`, registered in
+`Salt/SW/All.lean` `#audit_axioms`; `lake build Salt.SW.All` EXIT 0; all axiom-clean
+`[propext, Classical.choice, Quot.sound]` (`✓ … [3 axioms]`).
+
+**LANDED — R3(a) `dhA_mass_upper` [C] (DHBal.lean:203) — THE u-carrier (design key K2).**
+Exact statement: for `[NeZero q]`, `χ.IsPrimitive`, `2 ≤ q`, `1 ≤ y`,
+`Σ_{n∈Icc 1 y} dhA χ n ≤ (LFunction χ 1).re · y + 20·(√q·(1+log q))·√y`.
+Proof: `dhA_hyperbola_symm` splits the mass at `r = ⌊√y⌋` into (A) the `d`-leg
+`Σ_{d≤r} chiRe(d)⌊y/d⌋`, (B) the transposed leg `Σ_{e≤r} Σ_{d≤y/e} chiRe(d)`, (C) the corner
+`(Σ_{d≤r}chiRe(d))·r`. A's main term `y·Σ_{d≤r}chiRe(d)/d = y·Re(Σ_{d≤r}χ(d)d⁻¹)` is
+pinned to `(L(1,χ)).re + 6M/r` by `norm_LFunction_sub_partial_le_strip` at `s = 1` (`‖1‖=1`,
+`(1:ℂ).re=1` ⟹ constant `6M/r`); A's fractional block ≤ r, B and C ≤ M√y each by
+Pólya–Vinogradov (`Salt.BV.polya_vinogradov` on `|Re(Σ_{Icc 1 t} χ)| ≤ ‖·‖ ≤ M`). Net
+`(14M+1)√y ≤ 20M√y`. **WITNESS NOTE:** ρ-free and STRONGER than the freeze's `20P√y`
+(`P = 3M(1+‖ρ‖/ρ.re) ≥ 3M`, so `20M ≤ 20P`); moreover `χ²=1` and `LFunction_apply_one_pos`
+are **NOT needed** — the upper bound is pure `Re(P_r−L₁) ≤ ‖P_r−L₁‖`, no L(1,χ) positivity.
+Downstream may weaken `20M ≤ 20P` freely.
+
+**LANDED — R5-prereq `sum_hyperbola_comm` [B] (DHBal.lean:404).** The transposed (b-outer)
+hyperbola: for any `AddCommMonoid` and `F`,
+`Σ_{a≤N}Σ_{b≤N/a} F a b = Σ_{b≤N}Σ_{a≤N/b} F a b` (both sum over `{(a,b):1≤a,1≤b,ab≤N}`).
+`Finset.sum_comm'` over the hyperbola region — the `sum_comm` twin R5 uses to expose the inner
+`a`-sum as `zeta_partial_em`'s ζ-partial object.
+
+**LANDED — R4-prereq `sum_abs_grahamGc_div_le` [C] (DHBal.lean:444).** The Barban–Vehov `gc`
+harmonic moment: for `2 ≤ z`, any `M`, `Σ_{m∈Icc 1 M} |grahamGc z m|/m ≤ (1+log M)³`. Restrict
+to the squarefree support (`grahamGc_eq_zero_of_not_squarefree`), bound `|gc| ≤ 3^ω`
+(`abs_grahamGc_le`), and apply the landed **`Salt.HardyLittlewood.tau6W_le`** (Sharp.lean:248,
+`Σ_{d≤L,sqfree} k^ω(d)/d ≤ (1+log L)^k`) at `k = 3`. **This RETIRES the R4 Mertens-moment
+sub-wall the prior analysis feared:** mathlib has no quantitative Mertens, but the project's
+`tau6W_le` supplies the `(log z)^k`-grade divisor moment directly. The σ₀-loaded R4 form
+`Σ_{m≤z²} |gc|·σ₀(m)/m ≤ (1+2 log z)⁶` follows the SAME pattern at `k = 6` plus
+`σ₀(m)=2^ω(m)` on squarefree m (so `3^ω·2^ω = 6^ω`), with `M = z²` (`log z² = 2 log z`).
+Required import `Salt.HardyLittlewood.Sharp` (verified cycle-free — HL does not import SW;
+surfaces pre-existing `Salt/Mertens/TwinDensity.lean` style-lint warnings, NOT new).
+
+**Small-q checking discipline — NOT run this session.** The mandated q=3 ∧ q≈10³ ∧ q=10⁶ ×
+(w=c₀/L ∧ w=1/10) chain checks apply at R8 assembly, which was NOT reached. R3(a) carries no ρ
+and no chain constants (it is a pure mass bound), so there was nothing to check at the small-q
+edge yet. The freeze's q=3 margin (E≈6e-3 at b=40) and the (b,k,c)=(40,9,2⁻²⁶) witnesses remain
+numeric-only, to be verified-in-Lean at R8.
+
+**REMAINING (the multi-session bulk; R5 the crux gating R7 — the named campaign success):**
+- **R3(b) `dhA_mass_upper_mul` [C]** — the multiples mass `Σ_{n≤N,m∣n} dhA χ n` with the honest
+  σ₀(m)·2^ω-grade loss (Euler factors `(1−χ(p)/p)` can exceed 1). Exact shape crystallizes with
+  R4. Uses the landed `dvd_mul_iff_div_gcd_dvd` + `chiRe_mul` (multiplicativity).
+- **R4 `tail_sum_le_mollified` [C]** — S₀ = `Σ_{2≤n≤N}|dhCoeff|n^{−β}·(1−n/x)₊` (which for real
+  χ equals `Σ dhA·dhWeightSq·n^{−β}·kernel ≥ 0`). Route: `dhDetectorShift_regroup`/gc-regroup
+  (but on the ABSOLUTE tail — `Σ_m |gc(m)|·(inner_m)`, inner_m ≥ 0) → per-m inner Abel of the
+  weight `n^{−β}·kernel` against R3(b)'s mass partial sums, carrying the L(1,χ)-proportional main
+  term + the (1+log x) Abel t-factor → sum the moment `sum_abs_grahamGc_div_le` (σ₀ version). The
+  inner-Abel-with-mass (summation-by-parts against a two-term mass bound `σ₀·L₁·T + √T`) is the
+  genuine ~100-line piece; the moment prefactor is now landed.
+- **R5 `dh_extraction_upper` [C/D — THE CRUX].** `‖D_ρ‖ ≤ L₁.re·x^{1−ρ.re}·(L/c₀) + E`. Regroup
+  → `sum_hyperbola_comm` (landed) to b-outer → `zeta_partial_em` (landed) per inner a-sum → pole
+  completion by strip tails (`‖dhGpoly z 1‖≤1` via `dhGlin_one_eq`+`abs_sum_grahamTheta_div_le_one`)
+  → ζ(ρ)-block killed by THE ZERO (`sum_range_filter_dvd_char_eq`+`partial_sum_at_zero_small`) →
+  EM remainders Abel'd by the landed R1 `norm_bsum_kernel_zero_decay`. Multi-session.
+- **R7 `dh_balance` [B/C]** (needs R4+R5) → Λ ≤ (L(1,χ)).re — the named Zeno success.
+- **R8 `dh_repulsion` [B/C]** (needs R7) → the DHRepulsion.lean:262 contract; run the small-q checks FIRST.
+
+**Catches (LOUD).** (#119) R3(a) needs NO reality/positivity — the mass UPPER bound is
+`Re(P_r−L₁) ≤ ‖P_r−L₁‖`; `LFunction_apply_one_pos` is a red herring for the upper direction
+(the freeze's design over-specified). (#120) strip@s=1: `(1:ℂ).re=1`, `‖(1:ℂ)‖=1` collapse the
+constant to `6M/r`; turn `(r:ℝ)^(-(1:ℂ).re)` into `r⁻¹` via `Real.rpow_neg (Nat.cast_nonneg r),
+Real.rpow_one` (NOT `Real.rpow_neg_one`). (#121) `(d:ℂ)^(-(1:ℂ)) = ((d:ℝ)⁻¹:ℂ)` must land as
+ofReal-of-inverse (`Complex.cpow_neg, cpow_one, Complex.ofReal_inv, Complex.ofReal_natCast`
+FORWARD on RHS) — the `←ofReal_inv` direction leaves inverse-of-ofReal, blocking `ofReal_re/im`.
+(#122) `χ ↑(0:ℕ)`: insert `Nat.cast_zero` BEFORE `MulChar.map_nonunit`/`hchi0` (the coercion
+`↑0` isn't syntactically `(0:ZMod q)`). (#123) `Finset.sum_comm'`'s RHS conjunct order is
+`x ∈ s' y ∧ y ∈ t` (dependent-membership FIRST), not `y ∈ t ∧ x ∈ s' y` — needed a second
+characterization with matching order to `rw`. (#124) `div_le_div_of_nonneg_right` wants `0 ≤ c`
+(not `0 < c`). (#125) `ArithmeticFunction.cardDistinctFactors_apply` gives
+`.primeFactorsList.dedup.length`; bridge to `.primeFactors.card` via `(List.card_toFinset _).symm`
+(defeq `primeFactors = primeFactorsList.toFinset`). (#126) THE MERTENS MOMENT IS NOT A WALL:
+`Salt.HardyLittlewood.tau6W_le` supplies `Σ_{d≤L,sqfree} k^ω/d ≤ (1+log L)^k` for all k
+(mathlib has only `Σ1/p` divergence) — R4's polylog moment is a 3-line application.

@@ -7902,3 +7902,17 @@ decisions per question.
   JYH's wake (~08:10) per the desk plan — dispatch_ready, no
   early chime (sleep > 50 min of latency). Board: T-BAL-2 +
   LITT-STRIP + the VK freeze awaiting ratification.
+
+- 2026-07-18 07:40 PT: **T-BAL-2 lands R3(a) — THE u-CARRIER
+  (design key K2) + two forward suppliers** (≈ 357k / 64 tools;
+  house-verified SW.All green, all [3 axioms]).
+  `dhA_mass_upper` (Σ dhA ≤ L(1,χ).re·y + 20M√y — STRONGER
+  than frozen: ρ-free, no χ²=1, no positivity needed; the
+  hyperbola TODO-wall consumed), `sum_hyperbola_comm` (R5's
+  transpose), `sum_abs_grahamGc_div_le` (≤ (1+log M)³ via our
+  own HL tau6W_le — catch #126: the Mertens-moment sub-wall
+  was never a wall). Catches #119–126 banked. Residuals:
+  R3(b)+R4 (the Abel-with-mass ~100 ln), R5 (crux — ALL
+  suppliers now exist), R7 (Λ), R8 (contract). **T-BAL-3
+  DISPATCHED on R4+R5** (R7/R8 if they fall). Board: T-BAL-3 +
+  LITT-STRIP + the VK freeze on the desk.
