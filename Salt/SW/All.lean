@@ -54,6 +54,7 @@ import Salt.SW.DHMain
 import Salt.SW.MoebiusDiv
 import Salt.SW.MoebiusRateSharp
 import Salt.SW.MoebiusLog
+import Salt.SW.DHFinal
 import Salt.Tactic.AuditAxioms
 
 /-!

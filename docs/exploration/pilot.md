@@ -6852,3 +6852,19 @@ decisions per question.
   pre-wired (accepted), full build green (9196). Board: LITT-F3,
   HB-L2, DH-FINAL, SHIU-W3, VMVT-FOURIER, badge run. Tally
   ~42.0M raw, house ~14%.
+
+- 2026-07-18 ~21:20 PT (NIGHT WATCH): ██ **DH-FINAL LANDS RUNG 1 —
+  the shifted finite floor + the sharp Graham bridge (tonight's
+  BV consumed within hours of landing)** ██ (≈ 189k / 31 tools;
+  first-attempt, 2 mechanical fixes). Salt/SW/DHFinal.lean (7
+  lemmas): **norm_dhDetectorShift_ge** (the honest finite floor
+  (1−1/x) − tail ≤ ‖D_ρ‖) + **norm_dhGlin_one_le** (‖G₁(z,1)‖ ≤
+  C/log z — the sharp mollifier value AT THE POLE, the exact
+  quantity the 1−ρ residue carries) + the n^{−Re ρ} twist
+  calculus. The TWO remaining walls named: (1) the J-truncation
+  bookkeeping (the several-hundred-line uniform-in-t grind);
+  (2) THE LCM-REGROUP tail cancellation (GrahamWeights residual
+  (1) — the analytic heart) → **DH-LCM DISPATCHED** (the regroup
+  identity + Graham's L² mean bound). Ceremony: wired (accepted),
+  full build green (9197). Board: LITT-F3, HB-L2, SHIU-W3,
+  VMVT-FOURIER, DH-LCM, badge run. Tally ~42.4M raw, house ~14%.
