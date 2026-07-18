@@ -8536,3 +8536,14 @@ decisions per question.
   flight) → the R5 crush wave → R7 (Λ) + R8 (the 16/17 contract) =
   WP2'S ANALYTIC CORE. Fanfare + push fired. Board: VK-8 + the
   W=14 pass (the sole T-BAL gate).
+
+- 2026-07-18 14:40 PT: JYH directive — **the FABLE WORKFLOW GATE**:
+  Fable-tier design workflows drain the 5h quota; from now on any
+  NEW Fable workflow needs JYH's approval FIRST (he preps quota;
+  the ask carries an honest token estimate from this window's
+  actuals: refuter pass ≈ 200–420k, full panel ≈ 800k–1.3M). The
+  in-flight W=14 pass runs to completion per JYH. Opus executors
+  and house solo work NOT gated. Banked to memory
+  (feedback_fable_workflow_gate); supersedes the blanket D-posture
+  spend freedom for workflows specifically. Board: VK-8 + the
+  W=14 pass.
