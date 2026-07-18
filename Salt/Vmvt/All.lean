@@ -14,6 +14,7 @@ import Salt.Vmvt.Transversal2
 import Salt.Vmvt.Holder
 import Salt.Vmvt.Fourier
 import Salt.Vmvt.HolderTwo
+import Salt.Vmvt.Transversal3
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -65,3 +66,17 @@ open Salt.Tactic in
   Salt.Vmvt.residue_distinctModP
   Salt.Vmvt.residue_mem_LinnikSol
   Salt.Vmvt.desigFibre_card_le
+  Salt.Vmvt.powerSumEq_sub_const
+  Salt.Vmvt.sum_prod_transRestBox
+  Salt.Vmvt.setGen_transBox_factor
+  Salt.Vmvt.setGen_mixBox_factor
+  Salt.Vmvt.genFun_eq_sum_residue
+  Salt.Vmvt.transBox_Ncount_le_sum_mixBox
+  Salt.Vmvt.ndFibre_card_le
+  Salt.Vmvt.gradedPairs_card_le
+  Salt.Vmvt.powerSum_split
+  Salt.Vmvt.Jk_restSet_le
+  Salt.Vmvt.mixBox_fibre_le
+  Salt.Vmvt.proj_mem_gradedPairs
+  Salt.Vmvt.mixBox_Ncount_le
+  Salt.Vmvt.transBox_Ncount_le

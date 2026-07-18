@@ -7405,3 +7405,25 @@ decisions per question.
   memory token does not exist in sources — the real token is
   N-REPLUMB (GehAnchor.lean:9); memory corrected here. Board:
   VMVT-R3c + T-BAL workflow + N-HDOM.
+
+- 2026-07-18 ~03:50 PT: ██ **VMVT-R3c LANDS COMPLETE — all six
+  rungs, ZERO residuals** ██ (≈ 510k / 109 tools).
+  Salt/Vmvt/Transversal3.lean (811 lines, 33 decls):
+  **transBox_Ncount_le** proven VERBATIM to the frozen c-6
+  statement. House-verified: Salt.Vmvt.All green (8748 jobs),
+  audit `transBox_Ncount_le [3 axioms]` (13 names added).
+  Executor design deltas (both SIMPLIFICATIONS, banked): (1) the
+  Ioc-generalized fibre (R3-b′) was unnecessary — at x < p^k the
+  residue map is directly injective, so the nd-fibre injects
+  into LinnikSol via landed R3-a (~40 ln vs the budgeted ~90);
+  (2) the rest kept at shift-form (C_j = Σnd^j − Σmd^j, no p^j
+  division) with the x→x/p drop via Jk_restSet_le
+  (affine-invariance on the AP {p·w + a%p}) — cleaner than the
+  frozen reparametrization. r=1 handled, not flagged. Catch NOTE
+  (house): my `lake build Salt.Vmvt` verify failed — the target
+  is `Salt.Vmvt.All` (no Salt/Vmvt.lean root); briefs now say
+  so. **THE INDUCTION UNLOCKED → VMVT-R4 DISPATCHED** (stone 1 =
+  the quantitative S₁ step from transBox_Ncount_le, the
+  exponent collector vs kernel-verified vmvtExp_succ; stone 2 =
+  R5, THE INDUCTION — VmvtBound ∀r, the summit theorem). Board:
+  T-BAL workflow + N-HDOM + VMVT-R4. Tally ~54.9M raw.
