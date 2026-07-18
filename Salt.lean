@@ -17,4 +17,5 @@ import Salt.HardyLittlewood.All
 import Salt.ExpSum.All
 import Salt.Mertens.All
 import Salt.Vmvt.All
+import Salt.Vk.All
 import Salt.Tactic.All

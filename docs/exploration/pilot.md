@@ -7945,3 +7945,25 @@ decisions per question.
   sum_Ico_eq_sub is not telescoping). THE LITTLEWOOD CHAIN:
   COVER ✓ → STRIP ✓ → LANDAU = VK's R7, in flight NOW. Board:
   VMVT-VK-1 + T-BAL-3.
+
+- 2026-07-18 ~09:30 PT: **VMVT-VK-1 lands the opening wave —
+  the Vk track is BORN** (≈ 349k / 85 tools; house-verified
+  Vk.All 8754 green, 11 decls [3 axioms]; full root build 9239
+  per the executor). Salt/Vk/{Taylor,Shift,BoxAvg,Pointwise,
+  All}.lean + scripts/vk_minpow_check.py (PASS) + the Salt.lean
+  import. R1 VK-TAYLOR (log_series_remainder — the SHARP
+  u^{k+1}/(k+1) form via FTC/geom_sum; catch #128: mathlib's
+  series lemma provably too weak at the block boundary, and the
+  freeze's Lagrange route worse), R2 VK-SHIFT (eR_lipschitz 2π
+  + block_reduction + the shift identity), R3-core
+  (genFun_box_variation — the Slack), R4-orbit
+  (poly_shift_orbit — the binomial orbit). Residuals in
+  dependency order: R3-measure (the mod-1 box → torusMeasure
+  fold — the heavy stone, pre-authorized Zeno), R4-assembly
+  (vk_block_core — Jensen → orbit → vmvt; blocked only on
+  R3-measure), then R5–R10. Catches #127–133 banked (Integrals
+  is a directory now; HasDerivAt.sum funext; ofRealCLM diamond;
+  neg_pow first-match; norm_real; ℤ-Ioc consecutive).
+  **VK-2 DISPATCHED on R3-measure + R4-assembly** (the block
+  core = the bridge's heart). Board: VK-2 + T-BAL-3
+  (DHBal2.lean sighted — mid-work). Tally ~61.6M raw.

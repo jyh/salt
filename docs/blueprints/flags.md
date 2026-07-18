@@ -9374,3 +9374,68 @@ characterization with matching order to `rw`. (#124) `div_le_div_of_nonneg_right
 (defeq `primeFactors = primeFactorsList.toFinset`). (#126) THE MERTENS MOMENT IS NOT A WALL:
 `Salt.HardyLittlewood.tau6W_le` supplies `Σ_{d≤L,sqfree} k^ω/d ≤ (1+log L)^k` for all k
 (mathlib has only `Σ1/p` divergence) — R4's polylog moment is a 3-line application.
+
+---
+
+## Node `VMVT-VK` — the power zero-free region (θ = 3/4, minimal-power route)
+
+Freeze: `docs/exploration/vk-freeze.md`; numeric refuter shipped `scripts/vk_minpow_check.py`
+(W2b=1/6, hW1 radius P+Y applied; PASS, crossover-vs-landed at L~1e37 as the freeze predicts).
+Track: `Salt/Vk/*.lean` + `Salt/Vk/All.lean` (`#audit_axioms`, all decls [3 axioms]), imported
+from `Salt.lean`. Opening wave = R1, R2, R3-core, R4-orbit.
+
+**LANDED (sorry-free, axioms ⊆ {propext, Classical.choice, Quot.sound}):**
+- **R1 `VK-TAYLOR`** (`Salt/Vk/Taylor.lean`): `log_series_remainder` (the sharp truncated-log
+  bound `|log(1+u) − ∑_{j=1}^k (−1)^{j−1}u^j/j| ≤ u^{k+1}/(k+1)`, `u ≥ 0`), `phi_taylor_block`
+  (real core, remainder `≤ (|t|/2π)(m/N₀)^{k+1}`), `phi_taylor_block_PY` (freeze form
+  `≤ 2(t/2π)((P+Y)/N₀)^{k+1}`), `vkCoef`.
+- **R2 `VK-SHIFT`** (`Salt/Vk/Shift.lean`): `eR_lipschitz` (`‖eR x − eR y‖ ≤ 2π|x−y|`,
+  FTC + `norm_integral_le_of_norm_le_const`), `norm_sum_eR_sub_le` + `block_reduction`
+  (log-phase → Taylor cost `≤ 2π·#·R`), `sum_Ioc_shift_boundary` (shift identity `≤ 2y`).
+- **R3-core `VK-BOX-AVG` pointwise** (`Salt/Vk/BoxAvg.lean`): `genFun_eq_eR_sum`
+  (`∏_j eR(α_j n^j)=eR(∑_j α_j n^j)`), `genFun_lipschitz`, `genFun_box_variation`
+  (the Slack `‖genFun α − genFun β‖ ≤ 2π·P·∑_j δ_j P^j`).
+- **R4-orbit `VK-POINTWISE`** (`Salt/Vk/Pointwise.lean`): `vkOrbit`, `poly_shift_orbit`
+  (`∑_j c_j (m+y)^j = ∑_i β_i(y) m^i`, `β_i(y)=∑_{j≥i}C(j,i)c_j y^{j−i}` — the binomial orbit).
+
+**RESIDUALS (named, in dependency order — the recorded stall points):**
+- **`VMVT-VK/R3-measure` [C, the heaviest]** — the disjoint-box → `Jk` measure fold of
+  `vk_box_disjoint_avg`: `Y` coordinate boxes of half-widths `δ`, centers `α^{(y)}` with
+  `j*`-coords pairwise `2δ_{j*}`-separated mod 1 inside a length-1/4 window, disjoint in
+  `torusMeasure`; then `∑_y ∫_{B_y}‖genFun‖^{2b} ≤ ∫_{torus}‖genFun‖^{2b} = Jk`
+  (`integral_norm_pow_eq_Jk` RIGHT-to-LEFT), combined with the landed `genFun_box_variation`
+  Slack and `(a+c)^{2b} ≤ 2^{2b−1}(a^{2b}+c^{2b})`, yields
+  `(1/Y)∑_y‖genFun(α^{(y)})‖^{2b} ≤ 2^{2b−1}[(∏_jδ_j⁻¹)/Y·Jk + Slack^{2b}]`. The genuine work
+  is the mod-1 box construction as literal subsets of `[0,1]^{Deg k}` (the length-1/4 window
+  prevents wrapping), `torusMeasure(B_y)=∏δ_j` (via `Measure.pi_pi`), and disjoint-union
+  integral monotonicity (`MeasureTheory.integral_finset_biUnion` for disjoint + nonneg
+  integrand ⊆ univ). All of `genFun`'s per-coordinate 1-periodicity (`eR(integer)=1`) is
+  available. STALL: mod-1 measure-bookkeeping blowup, exactly as the freeze anticipated —
+  Zeno partial per the freeze's own greenlight.
+- **`VMVT-VK/R4-assembly` [C, THE stone]** — `vk_block_core` (freeze MID TARGET): the
+  R2 shift-average (Jensen) over `y=1..Y` producing the orbit (landed `poly_shift_orbit`),
+  the `j*`-step `s = t/(2πN₀^{j*+1}) ∈ [4δ_{j*}, 1/(6Y)]` ⟹ boxes disjoint (feeds R3-measure)
+  ⟹ `vmvt` (`Salt.Vmvt.vmvt`, Summit2.lean:151) + `Jk_mono`. Blocked on R3-measure; the
+  ledger `2bρ=1/8 | kρ ≤ 1/8 | η ≤ 1/8 | log_P(D) ≤ 1/8` (Σ=1/2) is refuter-verified
+  (`scripts/vk_minpow_check.py`, k∈{19,562,5623414}).
+- Downstream R5–R10 (VK-SCALE/GROWTH/LANDAU-SCALED/ZETA-DISC/341/STRIP-PATCH) untouched this
+  wave — later waves per the freeze's ORDER. R7 (=LITT-LANDAU) and R10 (=LITT-COVER stone-3)
+  are independently valuable Zeno partials there.
+
+**Catches (LOUD).** (#127) `Mathlib.Analysis.SpecialFunctions.Integrals` is now a DIRECTORY;
+`integral_pow`/interval-integral basics live in `...Integrals.Basic`. (#128) `Real.abs_log_sub_add_sum_range_le`
+carries a `1/(1−|x|)` blow-up factor — provably too weak at the block boundary `m→N₀` (the freeze
+hypothesis only gives `m<N₀`); the sharp `u^{k+1}/(k+1)` needs the FTC/geometric route
+(`R(u)=∫₀ᵘ(−1)ᵏsᵏ/(1+s)ds`, `|R′(s)|=sᵏ/(1+s)≤sᵏ` via `geom_sum_mul`), NOT
+`taylor_mean_remainder_lagrange` (which needs painful `iteratedDerivWithin` endpoint bookkeeping;
+the freeze's suggested route is avoidable). (#129) `HasDerivAt.sum` yields a sum-OF-FUNCTIONS
+`∑ i, (fun s => g i s)`, not `fun s => ∑ i, g i s`; convert with `funext s; simp only [Finset.sum_apply]`
+BEFORE `.sub`. (#130) `Complex.ofRealCLM.hasDerivAt` carries the real-inner-product `AddCommGroup`
+instance that DIAMONDS against plain `Complex.addCommGroup`; use `(hasDerivAt_id t).ofReal_comp`.
+(#131) `neg_pow` rewrites the FIRST `(-a)^n` occurrence — it grabs `(-1)^n` before the intended
+`(-s)^n`; always pass explicit args `(neg_pow s n).symm`. (#132) `Complex.norm_ofReal` does NOT
+exist; pattern is `Complex.norm_real` then `Real.norm_eq_abs`. (#133) `Finset.sum_Ioc_consecutive`
+is ℕ-ONLY here (`prod_Ioc_consecutive (f : ℕ → M) {m n k : ℕ}` + to_additive); for ℤ-interval
+splits use `Finset.Ioc_union_Ioc_eq_Ioc h₁ h₂` + `Finset.sum_union (Finset.Ioc_disjoint_Ioc_of_le
+(le_refl _))`. (Re-confirms #123: `Finset.sum_comm'` wants the dependent membership `x ∈ s' y`
+FIRST on the RHS iff.)
