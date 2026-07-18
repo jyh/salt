@@ -1425,3 +1425,64 @@ k r) (ℕ-power). THE ARITHMETIC (all margins checked):
 Est ~400–500 ln incl. patches. Zeno: stone 1 = re-grade +
 bridge + all patches green; stone 2 = trivial branch; ██ stone
 3 = vmvt — THE VINOGRADOV MEAN VALUE THEOREM ██.
+
+## LITT-COVER FREEZE (house, 04:10 gate honored): the per-k
+## window discharge of the block sandwich
+
+The consumer chain (LITT-COVER → LITT-STRIP → LITT-LANDAU, see
+the RE-PRICING section). This node: discharge `zeta_block_bound`'s
+sandwich hypothesis (ZetaBlock.lean:367 — λ := t/(2π)·(k−1)!·
+(2N+k)^{−k} ∈ [N^{−3+8/2^k}, N^{−1}]) from clean WINDOW
+inequalities in (t, N) alone. THE HONEST MARGIN FINDING (house,
+checked): the naive window t ∈ [N^{k−2}, N^{k−1}] FAILS the
+upper edge for k ≥ 8 — λ ≤ N^{−1} at t = N^{k−1} forces
+(k−1)! ≤ 2π·2^k, false from k = 8 (5040 > 1608). The factorial
+must be absorbed by an N-floor, NOT window-edge constants (which
+would break the k↔k+1 overlap). THE FREEZE:
+
+- Target: `theorem zeta_block_window (k : ℕ) (hk : 3 ≤ k) :
+  ∃ C N₀ : ℝ, 1 ≤ C ∧ ∀ (t : ℝ) (N : ℕ), N₀ ≤ N →
+  (N:ℝ)^(k−2:ℝ) ≤ t → t ≤ (N:ℝ)^(k−1:ℝ)/((k−1).factorial) →
+  ‖Σ_{n ∈ Ioc N (2N)} eR (phi t n)‖ ≤ C·N^{1−1/(2^k−2)}`
+  with N₀ := (k.factorial : ℝ)^3 (generous; any explicit
+  factorial power works — the executor may tune).
+- Upper edge: λ ≤ t·(k−1)!/(2π·(2N)^k) ≤ [t ≤ N^{k−1}/(k−1)!]
+  ≤ N^{−1}/(2π·2^k) ≤ N^{−1} ✓ (the factorial cancels by
+  CONSTRUCTION of the edge; 2π·2^k ≥ 1).
+- Lower edge: λ ≥ t·(k−1)!/(2π·(2N+k)^k) ≥ t/(2π·(3N)^k)
+  (k ≤ N₀ ≤ N kills the +k; (k−1)! ≥ 1) ≥ N^{k−2}/(2π·3^k·N^k)
+  = N^{−2}/(2π·3^k) ≥ N^{−3+8/2^k} ⟸ N^{1−8/2^k} ≥ 2π·3^k ⟸
+  [k ≥ 3 → 1−8/2^k ≥ 0 at k=3 exactly 0 — CARE: at k=3 the
+  exponent is 0, need 1 ≥ 2π·27 FALSE!] — k = 3 needs its own
+  margin: at k=3, 8/2³ = 1, lower sandwich is λ ≥ N^{−2}, and
+  λ ≥ N^{−2}/(2π·27) MISSES by the constant. RESOLUTION: run
+  the k=3 window as t ∈ [c₃·N, N²/2] with the DerivTest
+  (vdC_third_derivative) directly, or start the ladder at k=4
+  and cover the k=3 regime by vdC_second_derivative
+  (VdCorput2's C'=8, its own window t ≈ N²-grade — RECON which
+  landed second/third-derivative form spans t ∈ [N^{1+δ}, N²];
+  the executor picks the seam and records it). For k ≥ 4:
+  1 − 8/2^k ≥ 1/2, so N^{1/2} ≥ 2π·3^k ⟸ N ≥ (2π·3^k)² —
+  absorbed by N₀ = (k!)³ for k ≥ 4 ((k!)^{3/2} ≥ 2π·3^k ⟸
+  k ≥ 4: 24^{1.5}=117 ≥ 6.28·81=509 FALSE at k=4! → take
+  N₀ := (k.factorial)^6: 24³ = 13824 ≥ 509 ✓ k=4; k=5:
+  120³ ≫ 1527 ✓; grows factorially vs exponentially ✓).
+  FREEZE N₀ := (k.factorial : ℝ)^6.
+- Window overlap (for LITT-STRIP's gluing, prove as a side
+  lemma): windows k and k+1 overlap in t for N ≥ N₀:
+  N^{k−1}/k! ≥ N^{k−1}·[need ≥ (k+1)-window lower = N^{k−1}] —
+  window k+1 lower edge is N^{(k+1)−2} = N^{k−1} vs window k
+  upper N^{k−1}/(k−1)!: OVERLAP FAILS by the factorial!
+  RESOLUTION (design decision): make the window LOWER edge also
+  factorial-shifted: window k := {N^{k−2}/(k−2)! ≤ t ≤
+  N^{k−1}/(k−1)!}. Lower-edge margin re-check: λ ≥
+  t/(2π(3N)^k) ≥ N^{k−2}/((k−2)!·2π·3^k·N^k) — the (k−2)! now
+  hurts the lower margin: need N^{1−8/2^k} ≥ 2π·3^k·(k−2)! —
+  still factorial-vs-N₀ = (k!)^6: (k!)^{6(1/2)} = (k!)^3 ≥
+  2π·3^k·(k−2)! ✓ trivially k ≥ 4. Adjacent windows now MEET
+  exactly (k-upper = N^{k−1}/(k−1)! = (k+1)-lower). ✓
+- Consumers downstream (NOT this node): LITT-STRIP glues over
+  k with partial summation; the k=3 seam per above.
+Est ~300–450 ln, class C, one new file Salt/ExpSum/Window.lean.
+Zeno: stone 1 = the k ≥ 4 window theorem; stone 2 = the k=3
+seam + the overlap lemma.

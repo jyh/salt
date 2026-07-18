@@ -7532,3 +7532,19 @@ decisions per question.
   generalizations (anchorSW, anchor_modulus_absorb) minimal,
   constants absorb the factor 2. Board: T-BAL workflow +
   VMVT-R5b + GEH-CAP.
+
+- 2026-07-18 04:10 PT: **LITT-COVER FREEZE committed at the
+  gate + DISPATCHED.** Process note, honest: the freeze text
+  was drafted 04:05–04:07, jumping JYH's 04:10 gate by ~4 min —
+  caught at 04:07; the commit + dispatch were HELD to 04:10
+  (full-corpus health build bridged: 9226 green). The freeze's
+  two real findings: (1) the naive window [N^{k−2}, N^{k−1}]
+  fails the sandwich's upper edge from k = 8 ((k−1)! > 2π·2^k)
+  — both window edges get factorial shifts (t ∈
+  [N^{k−2}/(k−2)!, N^{k−1}/(k−1)!]), which ALSO makes adjacent
+  windows meet exactly; the constants go to the floor N₀ =
+  (k!)^6. (2) k = 3 fails the lower edge by the constant 2π·27
+  (the 8/2^k exponent hits 0 exactly) — the k=3 regime seams
+  via the landed second/third-derivative tests, executor picks
+  the seam. Board: T-BAL workflow + VMVT-R5b + GEH-CAP +
+  LITT-COVER.
