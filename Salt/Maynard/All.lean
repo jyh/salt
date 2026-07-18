@@ -91,3 +91,4 @@ import Salt.Maynard.PpAssembly
 import Salt.Maynard.ShiuDecomp
 import Salt.Maynard.ShiuRankin
 import Salt.Maynard.ShiuSieve
+import Salt.Maynard.ShiuGraded

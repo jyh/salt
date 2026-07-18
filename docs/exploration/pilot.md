@@ -6809,3 +6809,22 @@ decisions per question.
   wired + 2 keystones (9194 green). Board: SHIU-W2, VMVT-HOLDER,
   LITT-F3, HB-L2, DH-FINAL, badge run. Tally ~41.0M raw, house
   ~14%.
+
+- 2026-07-18 ~21:08 PT (NIGHT WATCH): ██ **SHIU-W2 LANDS — the
+  graded Rankin (calibrated, CLEANER than design) + the
+  capped-power sums at 4/√W; W2 DONE + CATCH #70** ██ (≈ 256k /
+  46 tools; 3 build iterations total). Salt/Maynard/
+  ShiuGraded.lean: **sum_tau_smooth_gt_calibrated_le**
+  (exp(−(r/2)log r)·exp(8√r(loglog v + C)) — the single-exp form
+  DOMINATES the design's (log v)² peel-off; the r-sum convergence
+  is cleaner for S4-IV) + **sum_cappedPow_inv_le** (≤ 4/√W = the
+  4w^{−1/4} grade) + the count form. ██ CATCH #70 (executor-
+  refuses-to-fabricate): the naive "class-II n is divisible by a
+  capped prime power" is FALSE (squarefree counterexample) — the
+  true reduction runs through the greedy overflow's COMPOSITE
+  divisor (shiuC_mul_minFac_pow_gt); the honest ingredient
+  landed, the structural reduction delegated to S5 EXPLICITLY ██.
+  **SHIU-W3 DISPATCHED** (S4-I/III/IV — the class assemblies on
+  the landed W1+W2 stones). Ceremony: wired, Maynard green
+  (8598). Board: VMVT-HOLDER, LITT-F3, HB-L2, DH-FINAL, SHIU-W3,
+  badge run. Tally ~41.6M raw, house ~14%.
