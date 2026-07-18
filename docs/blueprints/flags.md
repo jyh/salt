@@ -9580,3 +9580,78 @@ rfl rfl` inside a `Finset.sum_congr` instead of simp for the `if (d∣t ∧ cop)
 (#132) THE PROCESS LESSON: price EVERY error term's LEADING (smallest-index) contribution at a
 SMALL anchor before freezing — the √-error's m=1,t=1 term (≥20M) was invisible to main-term and
 E-term checks; a `20M ≤ 1/4` sanity line at q=3 would have caught it three angles ago.
+
+## 2026-07-18 T-BAL S₀ 5th-design WAVE 1 (R0 weight-refounding + R1 shift LAND; R3 blocked on R2) — S0-W1/Opus
+
+Executed WAVE 1 of the JYH-ratified **T-BAL S₀ synthesis freeze**
+(`docs/exploration/tbal-s0-freeze.md`, the 5th design — support-native with Selberg-optimal
+weights; the FIRST design with a proven foundation, both candidates UNREFUTED by their panels).
+New file `Salt/SW/SelWeight.lean` (registered in `Salt/SW/All.lean`, audit-clean).
+
+**F1 — THE FLAGS ENTRY (why the re-founding; grafted from benli-faithful).** BV `grahamTheta`
+weights in the Benli balance are PROVABLY unclosable at PV grade: the H7 u-free defect needs
+≤ e^{−13.1} (q=3) / e^{−77.1} (q=10⁶), tightening WITHOUT BOUND as u→0; BV truth δ_opt = +0.0473
+EXACT at z=36 (adversarially certified global min over χ-patterns; the +1-extreme GROWS with z),
+fitted-model figures UNDERSTATE it, so deficit ≥ e^{9.7} / ≥ e^{69.5} — a power of Q vs a polylog;
+no tuning closes. Certifying χ-pretense at PV grade is 4-fold circular (prose-grade; no fifth route
+named). Benli's Lemma 4.1 is an EXACT identity for χ-BUILT weights (δ≡0) — HENCE the weight
+re-founding (R0). Also record: pointwise-absolute S₀ dead (band primes 6–7, worst-case P1 0.96,
+re-confirmed by `s0_refuter_check.py`); z≫x escape dead (the z–x circle: S₀ wants log z ≥ 2·log x,
+E wants x ≥ z^{4.4}). This closes the "why not BV weights" question: the answer is the χ-dependent
+Selberg-optimal weight, whose `θ_1=1` and local factors this wave builds.
+
+**R0 `SelWeight` [B] — DONE (weight-generic re-founding).** The `*W` family over a generic real
+weight `λ : ℕ → ℝ`: `dhWeightSqW λ n = (Σ_{d∣n} λ_d)²`, `gcW λ = BoundingSieve.lambdaSquared λ`,
+`dhCoeffW χ λ n = dhA χ n · dhWeightSqW λ n` (beside the RETAINED `grahamTheta`/`dhCoeff` — no
+removals). All six generic-λ ports kernel-verified: floor (`dhWeightSqW_one`, `dhCoeffW_one`
+`= (λ 1)²`), regroup (`dhWeightSqW_eq_sum_gcW`, ported from `grahamW_eq_sum_grahamGc`),
+`abs_gcW_le` (`|gcW| ≤ 3^ω`), the k=12 moment `sum_abs_gcW_sigmaSq_div_le` (`≤ (1+log M)¹²` via
+the landed `tau6W_le`), cpow-reality `norm_dhCoeffW_term`, and `dhCoeffW_nonneg`. Plus the Selberg
+local factors: `selH χ p = 1+χ_ℝ(p)−χ_ℝ(p)/p` with the h-range PROVEN (`selH_pos`/`selH_le_two`
+`∈(0,2]`, `selH_lt_of_prime` `< p`), `selG = h/(p−h) > 0` (`selG_pos`), the multiplicative
+`selHmul`/`selGmul`/`selHSum` (`H(z)=Σ_{r≤z,sqfree} g(r)`, `selHSum_pos`), and the Selberg-optimal
+`selWeight` (Benli–Goel–Twiss–Zaman (4.8), `arXiv:2410.06082`, in the freeze `g=1/g_Benli`
+convention: `θ_d = μ(d)h(d)g(d)/H(z)·Σ_{r≤z/d,(r,d)=1,sqfree} g(r)`), VALIDATED by
+`selWeight_apply_one = 1`. NOTE FOR R4: `selWeight`'s optimality (`selberg_opt_eq`),
+`selweight_abs_le_one`, and R5's `H_lower` are NOT proven here — R4 must verify the (4.8)
+`g`-convention against `selberg_opt_eq`; `selWeight_apply_one` de-risks the normalization.
+
+**R1 `tail_shift_to_beta0` [A] — DONE (the exact termwise shift; T-BAL-UNORDERED, carried+named).**
+For a nonneg `c` with `c 1 = 1`, `x ≥ 1`, `N ≥ 1`, `0 < σ ≤ β₀`:
+`Σ_{2≤n≤N} c_n n^{−σ}(1−n/x)₊ ≤ N^{β₀−σ}(Σ_{1≤n≤N} c_n n^{−β₀}(1−n/x)₊ − (1−1/x))`, from
+`n^{−σ} ≤ n^{−β₀}N^{β₀−σ}` (`σ ≤ β₀`) + `c_n ≥ 0`. EXACT — no √-error mechanism (the OLD-R4 flaw
+that killed the 4th design is structurally ABSENT; there is no Abel-vs-mass step on this route).
+The `*W`-detector instantiates `c = dhCoeffW χ λ`.
+
+**R3 `L1_lower_siegel` [B] — BLOCKED ON R2 (a genuine wave-mis-sequencing; DO NOT grind).**
+The target `L(1,χ).re ≥ 0.27·u·(2−β₀)` at a real zero β₀ is an effective Siegel LOWER bound for a
+SINGLE character. It is NOT standalone-provable in WAVE 1: (i) the constant `0.27 = (3/4)/e` with
+`R^u = e` at `R = e^{1/u}` shows the bound is the residue `L₁·N^u/(u(1+u))` extracted from the β₀
+DETECTOR (floor 3/4 ÷ `R^{1−β₀}=e`), i.e. it CONSUMES the pole-cancelled EM extraction; (ii) the
+freeze ledger's own R3 error term (`ledger.py` line 49: `9.3·Cw·P·(1+lnR)³·R^{−σ}·(1+1/u)`) is
+BYTE-FOR-BYTE δ_d's extraction-error shape — R3 = R2 `unmoll_extraction_real` at scale `R=e^{1/u}`
+with the trivial weight, NOT an independent stone; (iii) `unmoll_extraction_real` is WAVE 2 and
+UNBUILT. All FIVE elementary routes fail to produce u-proportionality without the contour: mass at
+`n⁰` (floor √y loses to 20M√y), weighted-mass Abel (no u-pole without the zero-killed s=0 residue),
+MVT-lower (L′ not sign-definite), partial-sum-lower (circular), Abel-against-the-zero (yields
+`L₁=O(M)`, an upper bound). Landed single-character lower bounds are Goldfeld-only
+(`goldfeld_L_one_lower`/`siegel_L_one_lower_near` REQUIRE a DISTINCT target character); the cited
+Bordignon "Lemma 2.8" (`0.72 ≤ L(1,χ)/(1−β)`) is unbuilt. **RECOMMENDATION: re-sequence R3 to
+WAVE 2, dispatched AFTER R2 `unmoll_extraction_real` lands — R3 is then a ~40-line specialization
+(trivial weight `λ ≡ 0`-support / `dhA` mass, `R = e^{1/u}`, invert the residue).** The stated
+constant is refuter-cleared: `(3/4)/e = 0.2759 ≥ 0.27` and the R3 error is `10^{−48.8}` at q=3.
+
+**Catches (LOUD).** (#148) `BoundingSieve.lambdaSquared` is the mathlib-generic Selberg Λ²
+(`open BoundingSieve` to use bare); mathlib has NO divisor-form regroup
+`Σ_{m∣n} lambdaSquared w m = (Σ_{d∣n} w_d)²` (only the sieve-structure `mainSum` forms), so the
+salt `grahamW_eq_sum_grahamGc` proof PORTS directly to generic λ. (#149) the generic `|gcW| ≤ 3^ω`
+and the k=12 moment need BOTH `|λ_d| ≤ 1` AND squarefree-support `λ_d ≠ 0 → Squarefree d` as
+hypotheses — the `grahamTheta` versions got squarefree-support FREE from μ; a bare λ must carry it
+(else `gcW` can be nonzero off squarefree m and `Nat.card_pair_lcm_eq` does not apply). (#150) R1's
+shift `n^{−σ} = n^{−β₀}·n^{β₀−σ}`: `rw [← Real.rpow_add hn0]; congr 1; ring` (the exponent identity
+`−σ = −β₀+(β₀−σ)`; `Real.rpow_add` needs `0 < (n:ℝ)`). (#151) the coprime-1 filter collapse
+`filter (Squarefree · ∧ Coprime · 1) = filter Squarefree`: `congr 1; apply Finset.filter_congr;
+intro r _; simp` (plain `simp`, NOT `simp [Nat.coprime_one_right]` — the arg is redundant and trips
+`linter.unusedSimpArgs`). (#152) PROCESS: a rung whose ledger ERROR term shares another rung's
+extraction shape IS that rung downstream — check the `ledger.py` error formulas for shared shapes
+BEFORE classifying a stone as standalone (would have caught R3's R2-dependency at freeze time).

@@ -61,6 +61,7 @@ import Salt.SW.DHFinal
 import Salt.SW.DHTrunc
 import Salt.SW.DHBal
 import Salt.SW.DHBal2
+import Salt.SW.SelWeight
 import Salt.SW.Hyperbola
 import Salt.SW.ZetaEM
 import Salt.Tactic.AuditAxioms
@@ -229,3 +230,9 @@ open Salt.Tactic in
   Salt.SW.dhA_mul_eq_sum Salt.SW.inner_cop_swap
   Salt.SW.dhA_mass_mul_eq_group Salt.SW.dhA_mass_mul_le
   Salt.SW.sqfree_card_divisors Salt.SW.sum_abs_grahamGc_sigmaSq_div_le
+  Salt.SW.dhWeightSqW_one Salt.SW.dhCoeffW_one Salt.SW.dhCoeffW_nonneg
+  Salt.SW.dhWeightSqW_eq_sum_gcW Salt.SW.gcW_eq_zero_of_not_squarefree
+  Salt.SW.abs_gcW_le Salt.SW.sum_abs_gcW_sigmaSq_div_le Salt.SW.norm_dhCoeffW_term
+  Salt.SW.selH_pos Salt.SW.selH_le_two Salt.SW.selH_lt_of_prime Salt.SW.selG_pos
+  Salt.SW.selGmul_pos Salt.SW.selHSum_pos Salt.SW.selWeight_apply_one
+  Salt.SW.tail_shift_to_beta0

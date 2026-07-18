@@ -8105,3 +8105,25 @@ decisions per question.
   (docs/exploration/sigma_window_budget_analysis.md). R8 is
   UNGATED — waves 2/3 dispatch as wave 1 lands. Board: VK-3 +
   S₀-W1.
+
+- 2026-07-18 ~12:10 PT: **S₀-W1 lands R0+R1; R3 correctly
+  re-sequenced by a ledger-shape proof** (≈ 258k / 53 tools;
+  house-verified SW.All 8803 green, all decls [3 axioms]).
+  Salt/SW/SelWeight.lean (414 ln): R0 — the generic-λ *W
+  family (dhWeightSqW/gcW/dhCoeffW on mathlib's
+  BoundingSieve.lambdaSquared) + ALL SIX ports (floor, regroup,
+  |gcW| ≤ 3^ω, the k=12 σ₀²-moment, cpow-reality, nonneg) +
+  the Selberg locals (selH ∈ (0,2] PROVEN, selG, H(z) > 0,
+  selWeight in the (4.8) g-convention, VALIDATED by
+  selWeight_apply_one = 1); R1 — tail_shift_to_beta0 EXACT
+  (and more general than frozen: the 0 < σ hyp dropped). R3
+  FLAGGED not landed (0 attempts, give-up-loudly): its ledger
+  error term is byte-for-byte R2's EM-extraction shape ⟹ R3 =
+  R2 at scale R = e^{1/u} on the trivial weight — all five
+  elementary routes ruled out; re-sequenced to wave 2 as a
+  ~40-line specialization. Catches #148–152 (LOUD: #152 =
+  the ledger-shape dependency rule — shared error shapes mean
+  downstream, check at freeze time). **WAVE 2 DISPATCHED**
+  (R2 parametric extraction + R3-specialization + R4 Selberg
+  algebra + R5 H_lower; the gate is OPEN so wave 3 = R6/R7/R8
+  rides on W2's landing). Board: VK-3 + S₀-W2.
