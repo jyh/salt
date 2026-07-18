@@ -8567,3 +8567,23 @@ decisions per question.
   → R7/R8 composition. Board: VK-8 + R5-CRUSH. The Fable
   workflow queue: EMPTY (the gate holds; no new asks pending —
   the happy path needs none).
+
+- 2026-07-18 15:20 PT: ██ **VK-8: WALL 1 (R5b, the
+  transcendental discharge) IS DOWN — end-to-end** ██ (≈ 379k /
+  134 tools; house-verified Vk.All green, 9 decls [3 axioms],
+  refuter script PASS). Salt/Vk/{Window,Mid}.lean:
+  `vk_window_mid` — the freeze's dyadic window bound
+  ‖Σ_{(N,2N]} eR(phi t n)‖ ≤ 10·N·exp(−vkTheta t·log N) from
+  (t,N) + the k(t)-schedule ALONE, zero residual hypotheses;
+  the t-window recorded (the mid band 693·A³ℓ² ≤ j < L/10,
+  log t ≥ e^{100} — the "VK fires" regime). THE OBSTRUCTION
+  (flags #206, RESOLVED): an integer-corner sliver (L/j ∈ ℤ)
+  where the ceil+Y overhead defeats the Taylor window — fixed
+  by the witness β = (m+2)/(k+1), a full j of slack, NO
+  statement change. Catches #207–216 (the heartbeat-defeat
+  extraction discipline #211 esp.). REMAINING: WALL 2 ONLY —
+  the R6 body (~250 ln: the trichotomy routing Kušmin-low /
+  vk_window_mid-mid / vdC-high + the K·log t summation; front
+  end + mid block both LANDED). **VK-9 DISPATCHED — the LAST
+  WALL of the power-region campaign; if it lands, the compose
+  fires.** Board: VK-9 + R5-CRUSH.

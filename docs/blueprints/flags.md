@@ -9748,6 +9748,106 @@ intermediate (`have hexp2 : 3≤exp 2 := by linarith [Real.add_one_le_exp 2]`) B
 directly (dropping the `t`) makes the error `(σ+t)·t^{−1/2}~t^{1/2}` DIVERGE; use `N^{−σ}≤t^{−3/2}` and
 `t·t^{−3/2}=t^{−1/2}` via `Real.rpow_add`.
 
+**LANDED — VK-8 wave (WALL 1 CLOSED END-TO-END for the mid branch; 2026-07-18, all sorry-free,
+axioms ⊆ {propext, Classical.choice, Quot.sound}, registered in `Salt/Vk/All.lean`; new files
+`Salt/Vk/Window.lean`, `Salt/Vk/Mid.lean`). `lake build Salt.Vk.All` EXIT 0.** WALL 1 (R5b
+transcendental) is **fully discharged for the mid routing branch** — `vk_window_mid` produces the
+actual dyadic window bound from just `(t, N)` + the freeze `k(t)`-schedule + two routing predicates,
+with **no residual hypotheses about the window-select parameters** (all five `vk_block_core`
+hypotheses established from the schedule). The **#206 integer-corner obstruction is RESOLVED** at
+witness level by the amendment `β = (m+2)/(k+1)` (one notch above the freeze's `(m+1)/(k+1)`); no
+frozen statement (`vk_block_core`, `zeta_growth_pow`, the region) changes. The campaign's flagged
+heaviest bookkeeping is now machine-checked for the mid branch. WALL 2 (R6 body) and the low/high
+routing branches remain.
+- **`vk_window_bound` [C, ~70] (`Window.lean`) — THE R5b SPINE.** Assembles `vk_block_core` at every
+  block `N₀ = min(N+iP)(2N) ∈ [N, 2N)` of the equal-length partition through the landed ladder
+  `vk_ladder_bound` into the freeze's `‖∑_{(N,2N]} eR(phi t n)‖ ≤ 10·N·P^{−ρ}`. Consumes the five
+  `vk_block_core` hypotheses only in their per-scale **worst-case** forms over `N₀ ∈ [N, 2N)` —
+  reducing the per-block Diophantine system to five scale-level inequalities. KEY REDUCTION (proved,
+  `vk_block_at` helper): `hD` is `N₀`-independent; `hW1`/`W2b`/`W2c` are monotone-worst at `N₀ = N`,
+  `W2a` worst at `N₀ = 2N`. The block-endpoint `min/toNat` plumbing (`c i = min(N+iP)(2N)`, `N₀ = a.toNat`,
+  `P' = (b−a).toNat`) closes by `Int.toNat_of_nonneg` + `omega` (on ℤ `min`).
+- **`vk_hW2c_form`/`vk_hW2b_form`/`vk_hW1_form`/`vk_hW2a_form` [B, ~25 ea] (`Window.lean`) — the FIVE
+  HYPOTHESIS DISCHARGES.** Each converts a clean log-form margin (exactly the refuter's `w2c/w2b/w1/w2a`
+  checks) into `vk_block_core`'s exact rpow/pow/π form: `W2c` `4k²Y ≤ N` from `log8+2logk+½logP ≤ logN`
+  (`Y ≤ 2√P`); `W2b` `tY/(2πN^{js+1}) ≤ 1/6` from `logt+logY ≤ (js+1)logN` (exp + `π ≥ 3`); `W1`
+  the cross-multiplied `t·(P+Y)^{k+1} ≤ N^k` from `logt+(k+1)log(P+Y) ≤ k·logN`; `W2a`
+  `P^{−js−ρ}/(4k) ≤ t/(2π(2N)^{js+1})` from its expanded additive-log margin. These land the
+  Lean-painful NONLINEAR content (ceils, rpow, π); the residual is the linear-in-logs margins.
+- **`vk_logP_ge`/`vk_logP_ub` [A, ~10 ea] (`Window.lean`) — the ceil'd-power log floor/ceiling.**
+  `P = ⌈N^q⌉ ⟹ q·logN ≤ logP ≤ log2 + q·logN` (`Nat.le_ceil`/`Nat.ceil_lt_add_one` + `Real.log_rpow`).
+  Reusable for every margin.
+- **`vk_window_scale` [C, ~140] (`Window.lean`) — THE PER-SCALE DISCHARGE.** Instantiates the whole
+  R5b system at the amended witness `β=(m+2)/(k+1)`, `P=⌈N^{1−β}⌉`, `Y=⌈√P⌉`, `js=m+2` on the band
+  `11 ≤ m`, `m+8 ≤ k`: from the `hD` P-floor (in `(1−β)logN` form) and the `j`-floor
+  `2(k+1)log2+4logk+8 ≤ logN`, every `t ∈ (N^{m−1}, N^m]` obeys `‖∑_{(N,2N]} eR(phi t n)‖ ≤ 10·N·P^{−ρ}`.
+  The five margins hold with explicit slack; the W2a corner is the quadratic
+  `(m+2)(k−m−1) = 1+2.5u+8.5v+uv ≥ (9/2)(k+1)` (`u=m−11`, `v=k−m−8`), `nlinarith [mul_nonneg u v]`.
+- **`vk_window_mid` [C, ~230] (`Mid.lean`) — WALL 1 END-TO-END (mid branch).** The freeze `k(t)`-schedule
+  (`k=max(19,⌈L^{1/4}⌉)`, `r=⌈k log4k²⌉`, `m=⌈L/j⌉`) discharges `vk_window_scale`'s hypotheses from
+  `(t,N)` alone: for `logt ≥ e^100`, `N ≥ 2` in the mid band (`N^Θ ≥ 2` and `10·logN < logt`),
+  `‖∑_{(N,2N]} eR(phi t n)‖ ≤ 10·N·exp(−vkTheta t · logN)` — the exact σ-weightable shape R6 consumes
+  (the `P^{−ρ}` saving folded into `exp(−Θj)` via `ρ·logP ≥ Θ·j`). All parameters internal; NO residual
+  parameter hypotheses. Ledger (extracted lemmas `vk_lnD_budget`, `vk_theta_saving`, `vk_Aℓ_cube`): at the
+  routing floor `j = 693·A³ℓ²` (`A=L^{1/4}`, `ℓ=logL`), `k ≤ 1.1A`, `logk ≤ 0.28ℓ`, `r ≤ 0.6kℓ` give
+  `8·lnD ≤ 52·A³ℓ² ≤ 0.346·j ≤ (1−β)j` (margin ≈ 4.6×) and `ρ·logP ≥ j/(24A²ℓ) ≥ Θj·(5·10⁴ℓ³)`.
+
+**RESIDUALS — VK-8 (WALL 1 mid CLOSED; WALL 2 + the outer branches remain).**
+- **R6 body (`zeta_growth_pow`) — WALL 2, the remaining wall.** Front end LANDED
+  (`zeta_sub_dirichlet_bound`, VK-7); mid-block phase bound LANDED (`vk_window_mid`, this wave). The
+  dyadic σ-weighted assembly is unbuilt: `dyadic_sum_split_gen` (`Salt/ExpSum/Strip.lean:979`) →
+  per-block `zeta_weighted_block` (`Salt/ExpSum/Strip.lean:762`, `‖∑n^{−s}‖ ≤ M^{−σ}·B`) fed by the
+  trichotomy — Kušmin `zeta_block_kusmin` (`ZetaGrowth.lean:278`, `t ≤ M`), the mid tile `vk_window_mid`
+  (this wave), the vdC tiles `zeta_block_window(_three)`/`zeta_block_strip` (large `M`) — then the
+  `~2L` dyadic contributions sum to `K·log t` (`∃ K t₀` existential). The routing predicates
+  `vk_window_mid` consumes (`N^Θ ≥ 2`, `10 logN < logt`) partition the dyadic scales; establishing the
+  boundary-scale coverage (low → Kušmin, high → vdC) is the remaining ~250-line grind.
+- **WALL 1 outer branches — the low/high routing.** `vk_window_mid` covers the mid band
+  (`N^Θ ≥ 2 ∧ 10 logN < logt`, i.e. `693·A³ℓ² ≤ j ≤ L/10`); the trivial-low (`j` small, direct bound)
+  and the high (`j > L/10`, `m ≤ 10`, landed vdC/Kušmin tiles) are R6's job, not R5b's — no new R5b
+  discharge needed there.
+
+**Catches — VK-8 wave (LOUD).** (#206) **THE hW1 INTEGER-CORNER OBSTRUCTION — FOUND AND RESOLVED
+(witness amendment, no frozen-statement change).** With `β=(m+1)/(k+1)` the hW1 base is `L − m·j`
+(the "+1 edge-slack" turns `(k+1)lnP − k·lnN` into `−m·j`, so hW1 `t(P+Y)^{k+1} ≤ N^k` needs
+`L ≤ m·j = ⌈L/j⌉·j`). BUT the ceil `P=⌈N^q⌉ > N^q` and `Y>0` add an overhead `~3(k+1)/√P` that pushes
+the base positive in an `exp(−huge)`-thin sliver around the **integer corners `L/j ∈ ℤ`**; the refuter
+samples non-corner `j` and MISSES it. **FIX (applied in `vk_window_scale`/`vk_window_mid`):
+`β := (m+2)/(k+1)`** — one notch up. Then hW1 base = `L − (m+1)j ≤ −j + slack`, a full `j` of slack
+absorbs the corner. This is a WITNESS change only: `js=m+2`, the `t`-window `N^{m−1}<t≤N^m`, and the
+frozen `vk_block_core`/`zeta_growth_pow`/region statements are ALL unchanged. Cost: hD floor tightens
+`8m/(k+1) → ` the `(m+2)`-form, ledger margin `4.6×` (was `~3.8×`), W2a corner needs
+`(m+2)(k−m−1) ≥ (9/2)(k+1)` (holds on `m∈[11,k−8]`, worst `k=19` margin 1). The `vk_minpow_check.py`
+`β=(r₀+1)` is now superseded by the Lean-proven `(m+2)` witness. (#207) `gcongr` on `t·X ≤ t·Y` and `t/A ≤ t/B` auto-discharges
+BOTH the monotone side-goal (`N₀ ≤ 2N` etc. by `assumption`) AND `0 ≤ t` / `0 < denom` from context —
+a trailing `exact htpos.le`/`positivity` then errors "No goals"; DROP it. (#208) the monotone worst-case
+of `hW1 : t·((P+Y)/N₀)^{k+1} ≤ N₀⁻¹` over `N₀∈[N,2N)` is the CROSS-MULTIPLIED `t·(P+Y)^{k+1} ≤ N^k`
+(NOT `≤ (2N)⁻¹`): `LHS(N₀)·N₀ = t(P+Y)^{k+1}·N₀^{−k}` is DECREASING in `N₀`, so worst at `N₀=N`;
+the `(2N)⁻¹` form is both 0.69-too-strong AND fails the corner. Derive `hW1(N₀)` via
+`t(P+Y)^{k+1} ≤ N^k ≤ N₀^k` then `div_le_iff₀` + `pow_succ`/`inv_mul_cancel₀`. (#209) ℤ block-width
+`min(N+(i+1)P)(2N) − min(N+iP)(2N) ≤ P`: `omega` handles it directly (ℤ `min` supported) given the
+ring fact `(i+1)P = iP+P`. (#210) `Real.log_pow` in TERM mode (`Real.log_pow (js+1) N`) mismatches;
+use `by rw [Real.log_pow]`. `nlinarith` on a `(k+1)`-weighted log goal needs `((k+1:ℕ):ℝ)=(k:ℝ)+1`
+rewritten in BOTH hyp and goal first (`rw [hcast] at hm ⊢`) — else `↑(k+1)` and `↑k` are unrelated atoms.
+(#211) **CONTEXT-SCANNING IS THE HEARTBEAT KILLER in a ~55-hyp schedule proof.** `nlinarith`/`linarith`
+scan the WHOLE local context by default; with ~55 log/rpow bound hyps every call re-atomizes them and
+the shared per-declaration `maxHeartbeats` budget is exhausted mid-proof (cascading `whnf` timeouts).
+FIXES that worked: (a) extract every heavy PURE-arithmetic block into a standalone `private lemma` with
+a MINIMAL hypothesis list (`vk_lnD_budget`, `vk_theta_saving`, `vk_Aℓ_cube`) — the killer win; (b)
+`linarith only [...]` on the final assembly steps; (c) `set_option maxHeartbeats 4000000`. (#212)
+**OPAQUE SCALARS via `obtain ⟨x, hx⟩ : ∃ x, x = <expr> := ⟨_, rfl⟩` then `rw [← hx] at …`** stops the
+defeq engine from unfolding `L^{1/4}`, `1−β`, `log t` etc. into the goal during `nlinarith` — a plain
+`set q := …` still `whnf`-storms; the existential-obtain makes `q` genuinely atomic. (#213) high-degree
+monomials (`A³ℓ²`, `A²ℓ`) are UNREACHABLE by `nlinarith` from linear facts (it only multiplies pairs) —
+supply the exact product as a hint: `mul_le_mul_of_nonneg_left h1 (mul_nonneg …)` or
+`mul_nonneg (…) (… by linarith)`; e.g. `A·ℓ ≤ A³ℓ²` needs `1 ≤ A²ℓ` fed as a product, not raw bounds.
+(#214) `positivity` cannot prove `0 < 16·(k:ℝ)·r` for `k r : ℕ` (Nat casts, possibly 0) even with
+`hk0R : 0 < k` in context — `positivity` ignores hypotheses; build it as `mul_pos (mul_pos … hk0R) hr0R`.
+(#215) `Real.pi_lt_315` does NOT exist (`Real.pi_le_four`/`pi_gt_three` do); for `log(2π) ≤ 7` use
+`Real.log_le_sub_one_of_pos` (`log x ≤ x−1`) with `2π ≤ 8` — much lazier than any `π`-numeral bound.
+(#216) `P^{−ρ} = exp(−(ρ·logP))`: `Real.rpow_def_of_pos hPpos` gives `exp(logP · −ρ)`; close with
+`congr 1; ring` (NOT `ring_nf`, which won't normalize inside the `exp` atom).
+
 **Catches — VK-5 wave (LOUD).** (#149) **`set G := fun z => Zc z/Zc c` POISONS R7 unification:** the
 sphere hypotheses carry the beta-redex `‖Zc z/Zc c‖` which `set` does NOT fold (it folds the lambda,
 not applications), so R7 infers `?F := fun z=>Zc z/Zc c` (the literal), and later `logDeriv G` vs
