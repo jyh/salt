@@ -8127,3 +8127,11 @@ decisions per question.
   (R2 parametric extraction + R3-specialization + R4 Selberg
   algebra + R5 H_lower; the gate is OPEN so wave 3 = R6/R7/R8
   rides on W2's landing). Board: VK-3 + S₀-W2.
+
+- 2026-07-18 10:36 PT (REAL clock; timestamp correction): the
+  four preceding entries stamped ~11:10–~12:10 PT drifted ~90
+  min ahead (the house estimated instead of running `date` —
+  the same slip as night-1, recurrence noted). True times: the
+  S₀ verdict ≈ 09:40, the contingent approval ≈ 09:55, the
+  gate opening ≈ 10:15, W1's landing + W2 dispatch ≈ 10:25.
+  Sequence and content unaffected.
