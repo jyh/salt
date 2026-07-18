@@ -6233,3 +6233,29 @@ decisions per question.
   Lemma 24.1's dilation invariance — the campaign's first stone).
   Board: MERT-3b, PP3-ASSEMBLY, DH-2b-ii, VMVT-N1, seed #2.
   Tally ~31.9M raw, house ~14%.
+
+- 2026-07-17 ~17:26 PT (GOLD WINDOW): ██ **DH-2b-ii LANDS M1+M2 —
+  the detector's Mellin representation + the positivity floor;
+  AND CATCH #59, THE WINDOW'S MOST IMPORTANT** ██ (≈ 236k / 60
+  tools; every fix mechanical, no design retreat).
+  Salt/SW/DHRepulsion.lean: **dhLSeries_identity** (Σ dhA·n^{−s}
+  = ζ·L — DH-1's seam CLOSED via the chiRe_ofReal quadratic
+  bridge + LSeries_convolution′) + **dhDetector_mellin** (the
+  EXACT finite Mellin rep — summability-free, no abscissa
+  side-conditions) + **dhDetector_floor/pos** (DH-3′ absorbed:
+  grahamTheta_floor × dhA_nonneg × kernel ≥ 0). M3 (the contour)
+  precisely named in THREE pieces: the ζ Laurent split feeding
+  kernel_residue; the horizontal-edge vanishing + continuation;
+  the shifted-line J bound. ██ CATCH #59 (LATENT-VACUITY CLASS):
+  without `open Complex`, Lean AUTO-BOUND `I` as a fresh
+  implicit — statements elaborated and BUILT GREEN while being
+  silently generic over an arbitrary I. Surfaced only when ring
+  unified I with a coefficient. THE LESSON FOR THE DOCTRINE: the
+  kernel certifies the statement AS ELABORATED, and auto-bound
+  implicits can make the elaborated statement weaker than the
+  read one — every SW file MUST open Complex; add
+  autoImplicit-audit to the release checklist ██. Ceremony:
+  wired + 3 keystones (9168 green). **DH-2b-iii DISPATCHED**
+  (M3's three named pieces + M4, Zeno-laddered). Board: MERT-3b,
+  PP3-ASSEMBLY, VMVT-N1, DH-2b-iii, seed #2. Tally ~32.1M raw,
+  house ~14%.
