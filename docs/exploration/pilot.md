@@ -7088,3 +7088,19 @@ decisions per question.
   wired (accepted), green (8734→full). Board: LITT-F5,
   VMVT-R3R4, HB-L2b, SHIU-W4, DH-M, seed #3. Tally ~48.9M raw,
   house ~14%.
+
+- 2026-07-18 ~22:53 PT (NIGHT WATCH): ██ **HB-L2b LANDS —
+  hb_lemma2 ASSEMBLED: the transfer with the PretenseSum slot;
+  the resisting sum precisely named — AND IT IS SHIUCORE-SHAPED**
+  ██ (≈ 142k / 14 tools; 1 attempt per rung). Salt/HB/
+  TransferFull.lean: LamTilde_le_tau_log + the master transfer
+  S⁽²⁾−S⁽¹⁾ ≤ overshootMajorant + the four-way HB split + the
+  parametric **hb_lemma2**. THE RESISTING SUM: the τ-weighted
+  AP inner sum Σ_m τ(vm+2) — ██ EXACTLY the object ShiuCore
+  provides (Σ_{m≡a(q)}τ(m) ≤ C(y/φ)log y) — the ShiuCore rung
+  being CLOSED BY SHIU-W4 right now serves BOTH the GEH door AND
+  Heath-Brown's transfer: the two flagship campaigns CONVERGE ON
+  ONE THEOREM ██. HB-L2c (the v-fibration + the ShiuCore
+  consumption) HELD until SHIU-W4 lands. Ceremony: wired
+  (accepted), green (9210). Board: LITT-F5, VMVT-R3R4, SHIU-W4,
+  DH-M, seed #3 (+1 held). Tally ~49.2M raw, house ~14%.
