@@ -1142,3 +1142,22 @@ L(1,χ₁) ≳ x^{−b(1−β)}/polylog at log x ≍ log D ⟹ Jutila-(1.10)
   + logs → the inversion corollary (unchanged from the table).
 **CEREMONY POLICY (JYH-prompted, adopted): design blocks take
 priority; landing ceremonies BATCH at natural breaks.**
+
+### DH state after the v-wave (house adjudication): the campaign
+### narrows to ONE named node — DH-MAIN
+
+Landed chain (all kernel-checked): the detector + floors (ii) →
+the Laurent split + the shifted residue + the L(1,χ)·x²/2 main
+term (iii) → the integrand core + THE UNCONDITIONAL M4 INVERSION
+(iv) → the finite-truncation L(1,χ) lower bound + the composed
+dh_repulsion_partial (v — a genuine unconditional repulsion once
+the main term beats the error). THE SOLE RESIDUAL: **DH-MAIN** —
+the mollified ρ-shift: evaluate the detector at the shift ρ so
+the residue carries x^{−b(1−Re ρ)} (the ρ-dependence enters ONLY
+here — v PROVED q-only bounds cannot reach the target shape),
+with the Barban–Vehov 1/log z cancellation (GrahamWeights
+residual (2)) as its supplier. All contour pieces for the shifted
+frame are LANDED (rectBI_zeta_shift_mul et al.); the missing
+mathematics is the BV cancellation + the shifted-frame assembly
+at the finite level. Priced ~0.3–0.5M, ONE node. The WP2 pole is
+no longer a pole — it is a single well-specified brick.

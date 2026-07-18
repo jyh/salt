@@ -6369,3 +6369,21 @@ decisions per question.
   J bound → the balance → dh_repulsion). Ceremony: audit lines
   added (9175 green). Board: MERT-FIN, PP3-ASSEMBLY, VMVT-N3,
   DH-2b-v, seed #2. Tally ~33.2M raw, house ~14%.
+
+- 2026-07-17 ~18:21 PT (GOLD WINDOW): ██ **DH-2b-v LANDS FIRST-
+  ATTEMPT — dh_repulsion_partial IS A THEOREM; the campaign
+  narrows to ONE node** ██ (≈ 153k / 23 tools; 1 attempt, 0 new
+  catches). Salt/SW/DHClose.lean: **LFunction_one_re_ge_partial**
+  (the unconditional truncation bound: Σ_{n≤N}χ/n − 6√q(1+log q)/N
+  ≤ L(1,χ).re — no contour, no subconvexity, the route that
+  sidesteps #61's wall entirely) + **dh_repulsion_partial** (the
+  composed unconditional repulsion) + the explicit floor. THE
+  CRUX ISOLATED WITH PROOF: the ρ-dependent target NEEDS the
+  mollified ρ-shift (q-only bounds provably insufficient — as
+  Re ρ → 1 the target beats Siegel) — registered as **DH-MAIN**
+  (~0.3–0.5M, one node: the BV 1/log z cancellation + the
+  shifted-frame finite assembly; ALL contour suppliers landed).
+  The WP2 "pole" is now a single specified brick. Ceremony:
+  audit lines (9176 green). Board: MERT-FIN, PP3-ASSEMBLY,
+  VMVT-N3, seed #2 + DH-MAIN to the dispatch queue. Tally
+  ~33.4M raw, house ~14%.
