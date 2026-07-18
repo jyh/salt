@@ -7288,3 +7288,16 @@ decisions per question.
   astronomical corner (z ≥ e^{e^{25000}}-grade absorbed; below =
   crude + large-q care) — **SHIU-S5 DISPATCHED (the final ~180
   lines)**. Board: SHIU-S5. Tally ~53.3M raw, house ~14%.
+
+- 2026-07-18 ~01:47 PT (NIGHT WATCH): **SHIU-S5 lands the Zeno
+  partial — the 5-way partition spine + the corner + 3/5
+  discharges (deg/I/II)** (≈ 259k / 64 tools). Salt/Maynard/
+  ShiuS5.lean (544 lines, 20 decls): **shiu_partition** +
+  shiu_corner_le + the existential-discharge shape (catch #85:
+  it defeats the norm_num-exponent gotcha) + catches #86 (the
+  calibrated Rankin inapplicable at pinned scales — use raw +
+  the constructed σ) / #87 (Class IV's junk needs the
+  double-exponential z₀). Remaining: III/IV discharges + the
+  final glue (~600–800 ln, recipe complete) → **SHIU-S5b
+  DISPATCHED** (the last stretch of the convergence stone).
+  Board: SHIU-S5b. Tally ~53.9M raw, house ~14%.

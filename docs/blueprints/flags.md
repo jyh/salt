@@ -8595,3 +8595,119 @@ Class IV supplies the one genuinely hard estimate. A dedicated S5 wave closes it
   leaves the goal's floor atom in the OTHER form → `linarith` sees two atoms. FIX:
   `rw [hcast] at hfl ⊢` (rewrite BOTH), or state the helper (`rpow_lt_vCut_succ`) in
   `↑(r+1)` form and convert once.
+
+## SHIU-S5 — the spine + corner + 3 discharges LANDED; III/IV/assembly the residual (2026-07-18)
+
+Opus executor SHIU-S5, closing (partially) the `N-SHIU-CORE` rung. New file
+`Salt/Maynard/ShiuS5.lean` (namespace `Salt.Maynard`), sorry-free, all decls
+axioms ⊆ `[propext, Classical.choice, Quot.sound]`, full project build EXIT 0
+(9220 jobs), no new warnings, lines ≤100. Registered in `Salt/Maynard/All.lean`.
+**A Zeno partial: the partition + the corner + 3 of 5 discharges (deg, I, II).**
+The rung does NOT close (S5's III + IV discharges + the final assembly remain);
+Class IV's double-exponential junk is the true crux and is multi-session.
+
+**LANDED (10 decls, ~544 lines):**
+- **`sum_union_le`** — the nonneg two-set union bound `Σ_{s∪t} f ≤ Σ_s f + Σ_t f`
+  (via `union_sdiff_self_eq_union` + `sum_union disjoint_sdiff`).
+- **`shiu_partition`** — THE SPINE. `Σ_{n≤z,n≡a} τ ≤ Σ_deg + Σ_I + Σ_II + Σ_III +
+  Σ_IV` for every `w W P₀`. `shiu_class_cover` routes each `n` to deg∨I∨II∨IIIIV,
+  then `lt_or_ge P₀ ρ` splits IIIIV → IV (`ρ>P₀`, `shiuClassIV = IIIIV ∧ ¬III`) vs
+  III (`ρ≤P₀`); a 5-fold `sum_union_le` + `sum_le_sum_of_subset_of_nonneg` folds it.
+  First try (after `le_or_lt`→`lt_or_ge` fix). ~55 ln.
+- **Pinned scales** `Wp z := ⌊z^{1/48000}⌋`, `wp z := ⌊z^{1/24000}⌋`, `P0p z :=
+  ⌊log z⌋` (noncomputable; `α=1/8000`, `α/6=1/48000`, `α/3=1/24000`).
+- **Scale facts** `one_le_Wp/one_le_wp`, `Wp_le/wp_le` (floor `≤`), **`WpSq_le_wp`**
+  (the key integer relation `W²≤w`: `W²` is an integer `≤ z^{1/24000}`, so `≤⌊⌋`),
+  `logWp_le/logwp_le`, **`Wp_ge`** (`z^{1/96000} ≤ W`, via `W ≥ z^{1/48000}−1` and
+  `u²−1 ≥ u` for `u=z^{1/96000}≥2`, threshold `log z ≥ 96000 log 2`), **`logWp_ge`**
+  (`(1/96000)log z ≤ log W`), **`z_rpow_le_div_phi`** (THE universal denominator
+  bound `z^{1/8000} ≤ z/φ(q)` from `φ(q)≤q≤z^{1−1/8000}`), `one_le_two_log`.
+- **`shiu_corner_le`** — THE CORNER. For `z < z₀`: crude `Σ_{n≤z} τ ≤ z(1+log z)`
+  (`BV.sum_card_divisors_le`) folds into `3·z₀·(z/φq)·log z` because `φ(q)≤q≤z<z₀`
+  and `1+log z ≤ 3 log z` (`one_le_two_log`). `C₀ = 3z₀`.
+- **`classDeg_discharge`** (`Cdeg=3`, z≥2), **`classI_discharge`** (∃-form,
+  `CI = C₁·2^96000·(1+1)`, `BI = max(96000 log2, 24000 log(w₀+1))`),
+  **`classII_discharge`** (∃-form, `CII = 5Cε`, `BII = 192000 log2`).
+  All three fold the class bound to `Cx·(z/φq)·log z` for `log z ≥ Bx`. The
+  discharge pattern (satisfy each class-bound hyp at the pinned scale via
+  floor/rpow arithmetic; junk `z^{power+ε}·polylog ≤ z^{1/8000}log z ≤ (z/φq)log z`)
+  worked cleanly — Class I first try, Class II after 3 mechanical fixes.
+
+**KEY DESIGN WINS (banked for III/IV):**
+- **The discharge is existential** `∃ Cx Bx, 0≤Cx ∧ ∀ z q a, Bx ≤ log z → … →
+  Σ_x ≤ Cx(z/φq)log z`, so each threshold `Bx` is chosen INSIDE (obtain the class
+  lemma's `w₀/C₁/Cε` first). This dodges the astronomical-literal gotcha entirely:
+  thresholds live in `Real.log z ≥ (modest constant)` form, and the final assembly
+  sets `z₀ := ⌈exp(max Bx)⌉₊+1` (nat) so `z≥z₀ ⟹ log z ≥ max Bx`. NEVER a literal
+  power of 2. This is the right shape for the whole close.
+- **`K=96000`, `Kmain=1` pin Class I** (from `W ≥ z^{1/96000}`: `z ≤ W^96000`,
+  `(log w)² ≤ (1/24000)²(logz)² ≤ (1/96000)(logz)² ≤ log W·log z`, junk collapses
+  to `3 z^{1−1/48000} log z ≤ z log z` for `z^{1/48000}≥3`).
+- **`ε=1/192000` pins Class II** (`√W ≥ z^{1/192000}` ⟹ `z/q·4/√W → 4(z/φq)`;
+  `z^ε·W ≤ z^{5/192000} ≤ z^{1/8000} ≤ z/φq`).
+
+**RESIDUAL — S5 remaining (NOT attempted, est. ~600–800 ln, multi-session):**
+
+1. **`classIII_discharge`** (∃-form, ~250–350 ln). Supply `RankBd` to
+   `shiu_classIII_le` (`δ = 1/1536000`, `Cδ` from `card_divisors_le_rpow`). The
+   Rankin bound is `sum_tau_smooth_gt_rankin_le w P₀ (Wp z) σ` (RAW, no calibration
+   needed — the CALIBRATED corollary `sum_tau_smooth_gt_calibrated_le` is
+   INAPPLICABLE: it forces `log W = r·log v` with natural `r`, impossible at pinned
+   `W=⌊z^{1/48000}⌋`, `v=P₀`). **THE KEY INSIGHT: choose `r := ⌊√P₀⌋` and DEFINE
+   `σ := 1 − (log r)/(2 log P₀)`** — then the calibration `(1−σ)log P₀ = ½log r`
+   needed by `sum_rpow_neg_prime_le_sqrt` holds by CONSTRUCTION, and `r ≈ √P₀` makes
+   `σ ≈ 3/4`, `1−σ ≈ 1/4`. Bound the raw `RankBd = W^{−(1−σ)}·∏_{p≤P₀}(1−p^{−σ})^{−2}`:
+   `∏ ≤ exp(8 Σ_{p≤P₀} p^{−σ})` (`prod_one_sub_rpow_neg_sq_le_exp`, needs `½≤σ`)
+   `≤ exp(8√r·Σ_{p≤P₀}1/p)` (`sum_rpow_neg_prime_le_sqrt`, calibration ✓)
+   `≤ exp(8√r(loglog P₀ + Cmert))` (`Mertens.sum_inv_prime_le` at `n=P₀`); and
+   `W^{−(1−σ)} ≤ z^{−1/768000}` (from `1−σ ≥ 1/8` for `P₀≥16` since `r=⌊√P₀⌋≥√P₀/2`,
+   AND `logWp_ge`). The main term `Cδ z^δ (z/q) RankBd ≤ (CIII/2)(z/φq)log z` then
+   needs the **poly-beats-polylog threshold**: with `y := log z`, `√r ≤ (log z)^{1/4}`
+   and `loglog P₀ ≤ log(log y) ≤ log y`, so `8√r(loglogP₀+C) ≤ 8y^{1/4}(log y+C)`;
+   `eventually_poly_beats_polylog 1 (3/4) K` (FrontierDischarge) gives
+   `K(1+log y) ≤ y^{3/4}` eventually ⟹ `8y^{1/4}(log y+C) ≤ (1/1536000)y` ⟹
+   `exp(…) ≤ z^{1/1536000}` ⟹ `z^δ·z^{−1/768000}·exp(…) ≤ 1 ≤ log z`. Obtain the
+   threshold from the `eventually` and fold into `BIII`. Junk `Cδ z^δ w(1+log w) ≤
+   3Cδ z^{9/1536000} log z ≤ (CIII/2)(z/φq)log z` as in deg/I/II.
+2. **`classIV_discharge`** (∃-form, ~250–300 ln). Fire `shiu_classIV_le` with
+   **`Kd = 48000`** (satisfies `log z ≤ Kd·log(W²)` since `2 log W ≥ (1/48000)log z`
+   by `logWp_ge`; and `2 log W ≤ (1/24000)log z` gives `Kd ≥ log z/(2logW) ≥ 24000`,
+   `≤ 48000` ✓). Discharge the 7 scale hyps (`2≤Rbin`, `3≤vCut W R`, `2≤vCut W (R+1)`,
+   `R log R ≤ 2 log W` — these are the fiddly `vCut/Rbin` floor facts). **The MAIN
+   term folds CLEANLY (no astronomical threshold): the Mertens fold**
+   `exp(2 Σ_{p≤W²}1/p) ≤ exp(2C)(log W²)²` (`sum_inv_prime_le` at `n=W²`,
+   `exp(2 loglog W²)=(log W²)²`), so `Cmain·exp(2Σ)/log(W²)·(z/φq) ≤
+   Cmain·e^{2C}·log(W²)·(z/φq) ≤ Cmain·e^{2C}·log z·(z/φq)` (`log W² = 2logW ≤
+   (1/24000)log z ≤ log z`). **The JUNK is the DOUBLE-EXPONENTIAL crux:**
+   `Cjunk·W³·w(1+log w)·Σ_{r=2}^{R} A5^{r+1}` with `A5 = 2^48000`, `R = Rbin =
+   ⌊2logW/log P₀⌋`. `Σ ≤ R·A5^{R+1} = exp((R+1)·48000·log2)`; this is `z^{o(1)}`
+   ONLY because `R ≤ 2logW/log P₀ ≤ (1/24000)log z/log P₀` and **`log P₀ ≥ loglog z −
+   log 2`** (`P₀=⌊log z⌋ ≥ (log z)/2`), so `A5^{R+1} ≤ z^{2log2/(loglog z − log2)}`.
+   For junk `≤ z^{5/48000+o(1)}log z ≤ z^{1/8000}log z ≤ (z/φq)log z` need `o(1) <
+   1/48000`, i.e. `loglog z ≥ 48000·2log2 ≈ 66542`, i.e. **`z ≥ e^{e^{66542}}`
+   (double-exponential)** — `BIV` is a double-exp constant (fine, it lives in
+   `Real.log z ≥ BIV` = `log z ≥ e^{66542}`, a single-exp real, no literal power).
+3. **`sum_tau_in_ap_le : ShiuCore`** (~60–100 ln). Obtain `(CI,BI),(CII,BII),
+   (CIII,BIII),(CIV,BIV)` from the discharges; set `z₀ := ⌈Real.exp (max BI BII BIII
+   BIV)⌉₊+1`, `C := max (3·z₀) (3 + CI + CII + CIII + CIV)`. `refine ⟨C, _, _⟩;
+   intro z q a hz hq hqz ha; rcases lt_or_ge z z₀`: corner (`shiu_corner_le`, `≤
+   3z₀(z/φq)logz ≤ C…`) vs main (`log z ≥ log z₀ ≥ max Bx` ⟹ all discharges fire;
+   `shiu_partition` + add the five; `deg` via `classDeg_discharge`).
+
+**CATCHES:**
+- **#77 (the existential-discharge shape defeats the astronomical-literal gotcha)** —
+  phrasing each discharge as `∃ Cx Bx, … ∀ z, Bx ≤ log z → …` lets the threshold be
+  a `Real.log z ≥ const` bound (never a nat power literal), and lets `Bx` reference
+  the class lemma's own `w₀/C₁/Cε` (obtained inside). The `norm_num`-refuses-exp>256
+  problem never arises: `z₀ = ⌈exp(max Bx)⌉₊` is built by `Nat.ceil ∘ Real.exp`, not
+  a literal. Standing pattern for all pinned-scale composition closes.
+- **#78 (the CALIBRATED Rankin corollary is a trap for Class III)** — `sum_tau_
+  smooth_gt_calibrated_le` needs `log W = r·log v` with NATURAL `r`; at the pinned
+  `W=⌊z^{1/48000}⌋`, `v=P₀` no natural `r` satisfies it. Use the RAW `sum_tau_smooth_
+  gt_rankin_le` + bound the Euler product by hand, and get the calibration ONLY for
+  `sum_rpow_neg_prime_le_sqrt` by DEFINING `σ := 1−log r/(2 log P₀)` (calibration by
+  construction) with `r := ⌊√P₀⌋` ⟹ `σ ≈ 3/4`. The two constraints decouple.
+- **#79 (Class IV main folds clean, junk is double-exp)** — do not conflate. The
+  `exp(2Σ_{p≤W²}1/p)/log(W²)` main term folds to `C·log z·(z/φq)` with NO threshold
+  beyond `W≥2` (pure Mertens). Only the `Σ_r A5^{r+1}` junk needs the double-exp
+  `z₀`; it hinges on `log P₀ ≥ loglog z − log 2` to make `A5^{R+1} = z^{o(1)}`.

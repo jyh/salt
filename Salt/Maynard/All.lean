@@ -97,3 +97,4 @@ import Salt.Maynard.ShiuTuned
 import Salt.Maynard.ShiuClose
 import Salt.Maynard.ShiuFinal
 import Salt.Maynard.ShiuIV
+import Salt.Maynard.ShiuS5
