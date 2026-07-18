@@ -11,6 +11,7 @@ import Salt.Vmvt.MeanValue
 import Salt.Vmvt.PrimeCount
 import Salt.Vmvt.Transversal
 import Salt.Vmvt.Holder
+import Salt.Vmvt.Fourier
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -51,3 +52,7 @@ open Salt.Tactic in
   Salt.Vmvt.Jk_image_mul
   Salt.Vmvt.Jk_ge_card_pow
   Salt.Vmvt.Jk_mono
+  Salt.Vmvt.integral_eR_unit
+  Salt.Vmvt.integral_setGen_mul_conj
+  Salt.Vmvt.integral_norm_pow_eq_Jk
+  Salt.Vmvt.pairEqBox_Ncount_eq_integral

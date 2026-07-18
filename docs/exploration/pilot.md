@@ -6925,3 +6925,24 @@ decisions per question.
   wired + 3 keystones (green). Board: SHIU-W3, VMVT-FOURIER,
   HB-R2, LITT-F4, DH-COPBV, seed #3. Tally ~43.8M raw, house
   ~14%.
+
+- 2026-07-18 ~21:48 PT (NIGHT WATCH): ██ **VMVT-FOURIER LANDS THE
+  KEYSTONE — ∫|F|^{2b} = J_k: the Parseval counting identity is
+  in the kernel (first anywhere)** ██ (≈ 272k / 67 tools; the
+  Pi-measure representation made the k-fold orthogonality a
+  single Fubini). Salt/Vmvt/Fourier.lean:
+  **integral_norm_pow_eq_Jk** + the bilinear α↔h bridge +
+  **pairEqBox_Ncount_eq_integral** (Vaughan's entry point). ██
+  CATCHES #73–#75: the task's θ = 1/(kr), γ = 1 sketch was WRONG
+  (the honest crude form: Ncount ≤ x²·J^{1−2/(kr)}, γ = 2);
+  PairEqFracBound is FALSE without e-injectivity (pairEq
+  degenerates to the full box); the x-free form needs the
+  doubling CoV (D-level, correctly deferred) ██. HOUSE
+  RE-VERIFICATION: the γ = 2 crude form STILL closes R4's
+  S₂-dominant branch (J ≤ C·x^{kr}, and kr ≤ E(k,r) ⟺ r ≥
+  (k+1)/2 ✓ in the induction's range) — the x-free refinement is
+  UNNECESSARY. **VMVT-HOLDER2 DISPATCHED** (the factorization +
+  ENNReal Hölder → the γ = 2 bound, e-injective). Ceremony:
+  wired (accepted), green (9202). Board: SHIU-W3, HB-R2,
+  LITT-F4, DH-COPBV, VMVT-HOLDER2, seed #3. Tally ~44.3M raw,
+  house ~14%.
