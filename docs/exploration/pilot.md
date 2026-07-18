@@ -8486,3 +8486,33 @@ decisions per question.
   transcendental first at full budget; R6 body second; the
   emission composes on landing). Board: VK-8 + R6-EXEC + the
   R5 redesign wf.
+
+- 2026-07-18 14:15 PT: **THE R5 VERDICT: NEEDS_RETUNE — the
+  crush mechanism survives, the judge catches the refuters,
+  then flags itself** (wf_f456f775, 8/8 ≈ 1.15M). BOTH
+  candidates refuted 2/2, BUT: (1) R5-HC part I is
+  CONFIRMED+BANKED as a permanent stone — unconditional
+  H-evaluation CANNOT close R5 at any tuning (products
+  0.097–0.505 vs 1; graft G1 = the H ≤ P ceiling lemma);
+  (2) THE CRUSH MECHANISM is UNREFUTED by both panels:
+  H(z) = Σ_{rad(n)≤z} dhA(n)/n ≥ Σ_{n≤z} dhA(n)/n ≥
+  z^{−u}·A(z) — the H-lower bound from the detector's OWN
+  landed partial sums (all three χ-cases verified); direction
+  right, no renormalization, catches #187–189 bypassed;
+  honest q=3 stream margin 20.1x at the retuned z. (3) THE
+  JUDGE'S CATCH (the wrong-corner genre's THIRD instance —
+  flags G6): the refuters' shared W=13 repair DIVERGES on the
+  contradiction ray (η_E = −0.765 < 0; 10^{+102} at τ) — they
+  priced at u* only, the exact sin they convicted the
+  candidates of; the σ-window law forces W=14. THE RETUNE
+  (freeze-tuning amendment, contract UNTOUCHED — witnesses/
+  σ₀/τ unchanged): z := ⌈Q¹²u^{−3}⌉ (a=3, crush-forced),
+  x := Q^{104}u^{−14}, X₁ := 2330, σ-floor 13/14, δ_d = δ_b =
+  0 (the Bb/Bd rows DELETED — the refuted δ_b posit dies
+  entirely). Rungs ~1130 ln single-wing (R5b–R5h; two Zeno
+  stones unconditional). GATES before dispatch: (i) the
+  judge's W=14 re-ledger is SOLO arithmetic → the catch-#98
+  refuter pass LAUNCHED NOW; (ii) X₁ 770→2330 propagation
+  audit (R6-EXEC's statements are z-PARAMETRIC — verified
+  unaffected; R7/R8 not yet landed — clean). Board: VK-8 +
+  R6-EXEC + the W=14 refuter pass.
