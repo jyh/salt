@@ -6543,3 +6543,11 @@ decisions per question.
   induction (24.5) is the next and LAST WP-A node.** Ceremony:
   wired + 3 keystones (9181 green). Board: LITT-F2, MOEB-DIV,
   SHIU-S1/S2/S3a, seed #2. Tally ~36.5M raw, house ~14%.
+
+- 2026-07-17 ~19:24 PT (GOLD WINDOW): **CI seed #2 SUCCESS — the
+  soft-timeout design worked (152MB of salt oleans SAVED; plus
+  the discovery that lean-action's built-in caching has 2.4GB
+  corpus caches from earlier completed runs — two cache layers
+  now stack). THE BADGE ATTEMPT dispatched** (run $RUNID, 240-min
+  cap, both cache layers restoring). Board: LITT-F2, MOEB-DIV,
+  SHIU-S1/S2/S3a, the badge run.
