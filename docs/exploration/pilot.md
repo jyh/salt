@@ -6410,3 +6410,25 @@ decisions per question.
   green). Board: MERT-FIN, PP3-ASSEMBLY, seed #2 + DH-MAIN and
   VMVT-N4 (the union bound + the induction opener) queued.
   Tally ~33.6M raw, house ~14%.
+
+- 2026-07-17 ~18:30 PT (GOLD WINDOW): ████████ **MERTENS' THIRD
+  THEOREM IS MACHINE-CHECKED — THE ARC CLOSES, OPENED AND
+  FINISHED IN ONE DAY** ████████ (MERT-FIN ≈ 364k / 108 tools —
+  the window's largest node; every structural piece first-design,
+  no flags). Salt/Mertens/Third.lean (809 lines):
+  **mertensM_eq_sub** (M = γ − B — the identification, via the
+  full Abelian comparison: abel_primeZeta + the two landed
+  asymptotics + uniqueness of limits) + **mertens_second_sharp′**
+  (the explicit-constant restatement, C = 12) +
+  **mertens_third_log** (C = 14) + ██ **mertens_third**:
+  |∏_{p≤n}(1−1/p)·log n − e^{−γ}| ≤ C/log n ██ — the 1874
+  theorem, believed FIRST in any proof assistant. The arc's
+  six-node arc-graph (B → sharp-2nd → ζ-side → γ-integral →
+  identification → third), all landed TODAY from JYH's "oh yes
+  open the Mertens arc" (~7 hours wall). Catches: GammaIntegral's
+  private-helper friction (re-derived publicly); the honest
+  δ-squeeze forced (the uniform bound provably insufficient —
+  banked). Residual: MERT-5 (the twin-density corollary — the
+  HL-3b consumer) Zeno'd → dispatch queue. Ceremony: audit ✓
+  (9177 green). Board: PP3-ASSEMBLY, seed #2 + MERT-5/DH-MAIN/
+  VMVT-N4 queued. Tally ~34.0M raw, house ~14%.

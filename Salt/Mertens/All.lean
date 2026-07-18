@@ -7,6 +7,7 @@ import Salt.Mertens.PrimePower
 import Salt.Mertens.Second
 import Salt.Mertens.ZetaSide
 import Salt.Mertens.GammaIntegral
+import Salt.Mertens.Third
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -29,3 +30,9 @@ open Salt.Tactic in
   Salt.Mertens.mertensB_le_two
   Salt.Mertens.neg_log_prod_eq
   Salt.Mertens.mertensB_tail_le
+  Salt.Mertens.mertensM_eq_sub
+  Salt.Mertens.mertens_M_unique
+  Salt.Mertens.mertens_second_sharp'
+  Salt.Mertens.abel_primeZeta
+  Salt.Mertens.mertens_third_log
+  Salt.Mertens.mertens_third
