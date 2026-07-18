@@ -6791,3 +6791,21 @@ decisions per question.
   (accepted), full build green (9193). Board: SHIU-W2, MOEB-LOG,
   VMVT-HOLDER, LITT-F3, HB-L2, badge run. Tally ~40.6M raw,
   house ~14%.
+
+- 2026-07-18 ~21:06 PT (NIGHT WATCH): ██ **MOEB-LOG LANDS BOTH
+  TARGETS — THE SHARP BARBAN–VEHOV IS DONE: |Σθ_d/d| ≤ C/log z**
+  ██ (≈ 206k / 36 tools; 1 serious attempt each). Salt/SW/
+  MoebiusLog.lean: **abs_sum_moebius_div_mul_log_le** (the O(1)
+  log-weighted constant — the BOUNDED form needed only
+  integrability, strictly lighter than the sharp template) +
+  **abs_sum_grahamTheta_div_le_inv_log** (the mollifier
+  cancellation, C = C_mw + C_s). The repulsion chain's mollifier
+  input is COMPLETE. LEDGER CORRECTION: the previous entry's
+  "HB-L2 DISPATCHED" was ledger-ahead-of-fact (the recurring
+  slip) — HB-L2 genuinely dispatches NOW, alongside **DH-FINAL**
+  (the shifted truncation balance — the repulsion's LAST node;
+  all suppliers landed: the shifted Mellin, the sharp BV, the
+  strip tails, the residue extraction, the floor, M4). Ceremony:
+  wired + 2 keystones (9194 green). Board: SHIU-W2, VMVT-HOLDER,
+  LITT-F3, HB-L2, DH-FINAL, badge run. Tally ~41.0M raw, house
+  ~14%.
