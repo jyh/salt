@@ -69,6 +69,7 @@ import Salt.SW.Hyperbola
 import Salt.SW.ZetaEM
 import Salt.SW.DHCore
 import Salt.SW.DHClose2
+import Salt.SW.EulerEff
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -254,3 +255,8 @@ open Salt.Tactic in
   Salt.SW.selH_local_split Salt.SW.one_sub_inv_pos Salt.SW.one_sub_chiRe_div_pos
   Salt.SW.one_add_selG_eq_local_inv Salt.SW.selHblock_divisors_eq
   Salt.SW.dhExtractionW_regroup
+  Salt.SW.sqfree_rpow_prod Salt.SW.alpha_weighted_divprod Salt.SW.rankin_tail_le
+  Salt.SW.squarefree_primorial Salt.SW.sqfree_le_eq_primorial_divisors
+  Salt.SW.selHSum_eq_primorial_le Salt.SW.selHFull_eq_zetaL Salt.SW.selHFull_eq_add_tail
+  Salt.SW.selHSum_ge_full_sub_rankin Salt.SW.selHSum_ge_zetaL_sub_rankin
+  Salt.SW.primorial_primeFactors Salt.SW.selHFull_eq_zeta_mul_L

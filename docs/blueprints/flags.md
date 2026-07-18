@@ -10197,3 +10197,100 @@ the ζ_p·L_p gift needs NO character case split — `selH`-unfold + `field_simp
 `1−h/p=(1−1/p)(1−χ/p)` directly (the three-branch `chiRe_values` route the sketch implied is unneeded).
 (#180) `selGmul χ a = ∏_{p∈a.primeFactors} selG χ p` is DEFEQ, so `Σ_a selGmul χ a = Σ_a ∏_p selG χ p`
 is `rfl` — lets DIVPROD (`sum_divisors_prod_primeFactors`) apply without a rewrite bridge.
+
+## 2026-07-18 T-BAL R5-EULER — the EFFECTIVE truncated Euler product supplier LANDS (Rankin tail + primorial bridge + ζ·L product form + ζ/L factorisation); the L-side effective link is the SOLE residual wall, its exact statement recorded — R5-EULER/Opus
+
+New file `Salt/SW/EulerEff.lean` (~210 ln), registered in `Salt.SW.All` (import + 12 audit names),
+axiom-clean (all 12 lemmas `[propext, Classical.choice, Quot.sound]` per the build-time
+`#audit_axioms` gate). Full project green (9255 jobs). NO git ops (catch #174 — house owns the tree).
+This node supplies the EFFECTIVE (explicit-error) Euler-product tools R5 (`H_lower`) needs and that
+the ENDGAME flag (#167) localised as absent: mathlib's `eulerProduct` is asymptotic-only. Verdict:
+the three bottom-up stones + the ζ/L factorisation ALL land clean; the assembly to the freeze's
+amended `H_lower` is now gated on exactly ONE undesigned analytic input — the L-side effective link,
+whose exact statement is pinned below. The Rankin+bridge pair alone unblocks the next design pass.
+
+**LANDED — the Rankin machinery (§1, `f`-generic, the flagged-absent lemma).**
+* **`rankin_tail_le` [C].** For squarefree `m`, structural exponent `α ≥ 0`, cut `z > 0`, nonneg
+  `f` on `m`'s primes: `Σ_{a∣m, a>z} (∏_{p∣a} f p) ≤ z^{−α}·∏_{p∣m}(1 + f(p)·p^α)`. THIS is the
+  "Rankin-for-multiplicative-`g`" lemma the ENDGAME flag said mathlib lacks. Route: for `a>z`,
+  `1 ≤ (a/z)^α = z^{−α}a^α`; drop the `a>z` filter (all terms `≥ 0`); the α-weighted DIVPROD.
+* **`alpha_weighted_divprod` [B].** `Σ_{a∣m} (∏_{p∣a} f p)·a^α = ∏_{p∣m}(1 + f(p)·p^α)` — DIVPROD
+  (`sum_divisors_prod_primeFactors`, `SelOpt`) at `f' p = f p·p^α`, using
+* **`sqfree_rpow_prod` [A].** `a^α = ∏_{p∣a} p^α` for squarefree `a` (`prod_primeFactors_of_squarefree`
+  + `Real.finsetProd_rpow` over nonnegatives).
+
+**LANDED — the primorial support bridge (§2, `selHSum` ↔ smooth-squarefree divisor sum).**
+* **`selHSum_ge_full_sub_rankin` [B, stone-2 core].** `H(z) ≥ P(z) − z^{−α}·∏_{p≤z}(1+g(p)p^α)` for
+  `z ≥ 1`, `α ≥ 0`, where `P(z) := selHFull χ z = Σ_{a∣z#} g(a)` is the FULL `z`-smooth product. The
+  truncation defect `P(z) − H(z)` IS the `z`-smooth tail (`selHFull_eq_add_tail`), Rankin-bounded by §1.
+* **`sqfree_le_eq_primorial_divisors` [B].** `{r≤z sqfree} = {a∣z# : a≤z}` (the index-set bridge): a
+  squarefree `r≤z` divides `z#` (`Squarefree.dvd_primorial` + `primorial_dvd_primorial`), and a divisor
+  of the squarefree `z#` is squarefree.
+* **`squarefree_primorial` [A/B].** `Squarefree (z#)` via `Finset.squarefree_prod_of_pairwise_isCoprime`
+  + the helper `isRelPrime_of_primes_ne` (distinct primes are `IsRelPrime`, from `Nat.dvd_prime`).
+* helpers `selHSum_eq_primorial_le`, `selHFull` (def), `selHFull_eq_add_tail`.
+
+**LANDED — the ζ·L product form + the ζ/L factorisation (§3–§4, stone-3 easy half + the Mertens hook).**
+* **`selHFull_eq_zetaL` [A].** `P(z) = ∏_{p≤z} 1/((1−1/p)(1−χ_ℝ(p)/p))` — the landed gift
+  (`selHblock_divisors_eq`, catch #161) at the squarefree `m = z#`. This is the effective ζ·L supply.
+* **`selHSum_ge_zetaL_sub_rankin` [B, HEADLINE].** `H(z) ≥ ∏_{p≤z}1/((1−1/p)(1−χ_ℝ(p)/p)) −
+  z^{−α}·∏_{p≤z}(1+g(p)p^α)` — the effective truncated Euler product lower bound, the R5 supply.
+* **`primorial_primeFactors` [A].** `(z#).primeFactors = (range(z+1)).filter Prime` (`Nat.primeFactors_prod`)
+  — the re-index that hooks the corpus `Salt.Mertens.mertens_third` (SAME prime index) onto the ζ-side.
+* **`selHFull_eq_zeta_mul_L` [A].** `P(z) = (∏_{p≤z}(1−1/p)⁻¹)·(∏_{p≤z}(1−χ_ℝ(p)/p)⁻¹)` — the clean
+  ζ-side × L-side split exposing the two remaining links.
+
+**THE u-DEPENDENCE SHAPE — RECORDED (the freeze's open question resolved).** The freeze target
+`H(z) ≥ (1−δ_d−δ_b)·L₁/(u(2−β₀))`. Factor `P(z) = ζ-side · L-side`:
+* **ζ-side `∏_{p≤z}(1−1/p)⁻¹` ~ e^γ·log z** (Mertens 3rd, reciprocal of `mertens_third`): at the
+  deep-regime scale `z = e^{1/u}` (freeze `R = e^{1/u}`), `log z ≈ 1/u`, so **the `1/u` pole is
+  ENTIRELY ζ-side.** e^γ(2−β₀) > 1 (e^γ≈1.78, 2−β₀>1) ⟹ `e^γ log z ≥ 1/(u(2−β₀))`, so the ζ-side
+  alone clears the target's `1/(u(2−β₀))` once L-side ≥ L₁·(1−o(1)).
+* **L-side `∏_{p≤z}(1−χ_ℝ(p)/p)⁻¹` → L(1,χ) = L₁, u-FREE.** The truncation error is `O(z^{−1/2}·√q log q)`
+  (the "√-level"), NOT u-dependent. (Siegel smallness of L₁ itself is a SEPARATE input, discharged by
+  the landed R3 `L1_lower_siegel` `L₁ ≥ 0.27u(2−β₀)` — it is NOT a truncation-error u-pole.)
+  **Conclusion: the honest L-side link is u-FREE; the freeze's `1/u` comes from the ζ-side Mertens, not
+  the L-side comparison.** The `(1+1/u)` in `δ_d` is R2's `C_w` coupling, orthogonal to this evaluation.
+
+**FLAG — R5 `H_lower` L-side link [C, ~120] — STOP-AND-FLAG (the sole residual wall; exact statement
+pinned).** The effective truncated Euler product for a real character — no mathlib/corpus lemma
+(`eulerProduct` asymptotic). EXACT statement to supply (u-free, `√`-level, the effective-Euler wall):
+
+  `∃ C ≥ 0, ∃ z₀, ∀ z ≥ z₀, (LFunction χ 1).re · (1 − C·(√q(1+log q))·z^{−1/2})`
+  `    ≤ ∏ p ∈ (primorial z).primeFactors, (1 − chiRe χ p/p)⁻¹`.
+
+Route (the ~120-ln design, downstream not bankable here): `log(L-side) = Σ_{p≤z} −log(1−χ(p)/p) =
+Σ_{p≤z} χ(p)/p + Σ_{p≤z,k≥2} χ(p)^k/(k p^k)`; the `k≥2` prime-power part converges effectively
+(Mertens-tail, corpus `mertensB_tail_le`-grade); `Σ_{p≤z} χ(p)/p` vs `log L(1,χ) − (prime-power corr)`
+has tail `Σ_{p>z} χ(p)/p` controlled by Abel/partial-summation against the character partial sums —
+the landed `norm_LFunction_sub_partial_le_strip` at `s → 1` (`C(1+‖s‖/Re s)N^{−Re s}` = `O(z^{−1})`)
+supplies the Dirichlet-partial side, and the Euler-vs-Dirichlet gap (non-squarefree/prime-power) is the
+`√`-level. The wall is precisely the `log`-Euler expansion + the prime-power Mertens tail glue; the
+strip tool + `mertens_third` are the two landed inputs it composes. **The parallel ζ-side effective
+lower bound `∏(1−1/p)⁻¹ ≥ e^γ log z·(1 − 14/log z)`-grade IS corpus-bankable** (reciprocal of
+`mertens_third` + `primorial_primeFactors`, ~40 ln real-analysis) — flagged bankable-next-pass, not a
+wall. Once both land, `selHSum_ge_zetaL_sub_rankin` + the ζ/L factorisation assemble the freeze's
+amended `H_lower` mechanically (the δ_b numerical `≤ 300z^{−0.4}` bound = `rankin_tail_le` at α≈0.4
+with the ∏-ratio `∏(1+g(p)p^α)/(1+g(p)) ≤ 300 z^{0.4−α}` cap — a finite-prime effective estimate,
+also next-pass).
+
+**Attempts/residuals.** Stones §1–§4: 1 first-attempt cluster each (§1 one build-fix — catch #181;
+§2–§4 clean). Residuals: (a) the L-side effective link [C ~120, the wall above]; (b) the ζ-side
+Mertens reciprocal [B ~40, bankable]; (c) the δ_b `300z^{−0.4}` finite-prime ∏-ratio cap [B/C ~60,
+bankable]; (d) the final `H_lower` assembly [B ~40, mechanical once (a)–(c) land]. NONE touches the
+landed stones — the Rankin+bridge+product-form are the permanent supply.
+
+**Catches (LOUD).** (#181) an inline `Finset.filter (fun a => z < (a:ℝ))` with `z : ℝ` mis-infers the
+sum-binder `a : ℝ` (the `(a:ℝ)` coercion collapses to identity) — ANNOTATE the lambda domain
+`fun a : ℕ => z < (a:ℝ)`, else every `a.primeFactors` in the body fails with `Real.primeFactors`.
+(#182) `Real.finsetProd_rpow s f (hs : ∀i∈s, 0≤f i) r : ∏ f i^r = (∏ f i)^r` (note: `∏ f^r = (∏ f)^r`,
+so use `← Real.finsetProd_rpow` to PUSH the rpow inside a product); `finset_prod_rpow` is the
+deprecated alias. (#183) `Squarefree (primorial z)` has NO one-shot in mathlib —
+`Finset.squarefree_prod_of_pairwise_isCoprime` needs `Set.Pairwise ↑s (IsRelPrime on id)` (prove
+`IsRelPrime p r` from `Nat.dvd_prime` + `Nat.prime_dvd_prime_iff_eq`, NOT via a Coprime→IsRelPrime
+bridge, which is absent for ℕ) and `∀ p∈s, Squarefree p` (`hp.prime.irreducible.squarefree`). (#184)
+`Squarefree.squarefree_of_dvd (hdvd : x∣y) (hsq : Squarefree y)` takes hdvd FIRST — dot notation
+`hsq.squarefree_of_dvd hdvd` still works (hsq lands in the `Squarefree`-typed slot). (#185)
+`Squarefree.dvd_primorial : n ∣ n#` (self-primorial) — compose with `primorial_dvd_primorial (h:r≤z)`
+for `r ∣ z#`; `primorial` is ROOT-level (not `Nat.primorial`), from `Mathlib.NumberTheory.Primorial`
+(NOT transitively imported by the SW track — `import` it explicitly).

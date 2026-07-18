@@ -8369,3 +8369,24 @@ decisions per question.
   re-auth failed (server not found) — the bell channel is
   dead for now; pushes remain the mobile channel. Board:
   VK-6 + the R6 design wf + R5-EULER.
+
+- 2026-07-18 13:15 PT: **R5-EULER lands 12/12 — the effective
+  Euler supplier built + the u-question RESOLVED** (≈ 191k /
+  55 tools; house-verified SW.All green, root 9255 per the
+  executor, 12 lemmas [3 axioms]). Salt/SW/EulerEff.lean: the
+  f-generic Rankin tail (rankin_tail_le — the absent-from-
+  mathlib lemma the ENDGAME flag localized), the primorial
+  support bridge (H(z) ≥ P(z) − the z-smooth tail), the ζ·L
+  product form (selHSum_ge_zetaL_sub_rankin HEADLINE), the
+  ζ/L factorisation hooking corpus mertens_third. THE FREEZE'S
+  OPEN QUESTION RESOLVED: the 1/u pole is ENTIRELY ζ-side
+  (∏(1−1/p)⁻¹ ~ e^γ log z ≈ e^γ/u at z = e^{1/u}; e^γ(2−β₀) >
+  1 clears the target); the L-side is u-FREE (√-level
+  truncation, Siegel-smallness separate = the landed R3).
+  Catches #181–185 (flags authority). RESIDUALS (pinned exact):
+  the L-side effective link (~120 C, statement in the flag,
+  route = log-Euler + prime-power Mertens composing two landed
+  inputs) + three small stones (ζ-side Mertens reciprocal ~40B;
+  the δ_b cap ~60B/C; the assembly ~40B). **R5-FINISH
+  DISPATCHED** (the four remaining stones → H_lower COMPLETE).
+  Board: VK-6 + the R6 design wf + R5-FINISH.
