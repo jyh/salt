@@ -8266,3 +8266,92 @@ construction — choose `y = ⌈x^{1/k}⌉₊` with `y^k ≥ x` and `y ≥ Y(k)`
 tractable but not yet done); (b) the IH must apply at `x' = ⌊x/p⌋`-grade boxes, wired through
 `Jk_image_affine`; (c) the exponent collector matching `vmvtExp_succ` (paper-verified in
 `MeanValue.lean`, needs its Lean incarnation over the `p`-sum). Blocked on R3.
+
+## SHIU-W4 — W4-1 + structural reductions LANDED; the normalization RESOLVED; full assembly scoped as multi-session (2026-07-17)
+
+Opus executor SHIU-W4, closing the `N-SHIU-CORE` rung. New file
+`Salt/Maynard/ShiuClose.lean` (namespace `Salt.Maynard`), sorry-free, all decls
+axioms ⊆ `[propext, Classical.choice, Quot.sound]`, full project build EXIT 0
+(9211 jobs), no new warnings, lines ≤100. Registered in `Salt/Maynard/All.lean`.
+**The rung does NOT close this session** — `ShiuCore` is an all-or-nothing ∃-Prop
+needing the full 4-class sum, and the assembly is 600–1000 lines across the classes
+with delicate multi-scale junk threading (honest scope call, see below). But the
+KEY DESIGN GAP that SHIU-W3/W3b left open ("does the route even close, and with what
+single normalization?") is now RESOLVED on paper, and three load-bearing stones are
+banked.
+
+**LANDED (3 stones):**
+- **W4-1 `rsum_tuned_le`** (the Zeno "stone" — the r-sum convergence lemma):
+  `∀ A C₀, 1≤A → 0≤C₀ → ∃ B≥0, ∀ r₀, Σ_{r∈Icc 2 r₀} rsumTerm A C₀ r ≤ B`, where
+  `rsumTerm A C₀ r = A^r·exp(−(1/8)·r·log r + r^{1/4}·(log r/2 + C₀))` — NEW-1's exact
+  RHS shape with an abstract geometric weight `A^r` (`A` = the `τ(d)≤A^r`-grade,
+  NEVER evaluated). Also `rsumTerm_summable` (`Summable (rsumTerm A C₀)`),
+  `rsumTerm_le_geom` (eventual `rsumTerm ≤ 2^{−r}`), `log_le_two_rpow_half`. Route:
+  subpolynomial domination `r^{1/4}(log r/2+C₀) ≤ 2r^{3/4}` (via `log t ≤ 2√t`) +
+  `A^r = exp(r log A) = exp(o(r log r))` ⟹ eventual `≤2^{−r}`, geometric comparison
+  (`summable_nat_add_iff` + `summable_geometric_two`) for `Summable`, then
+  `Summable.sum_le_tsum` gives the uniform `B = Σ' rsumTerm`. C-level, self-contained,
+  reusable. First attempt.
+- **`classII_dvd_cappedPow`** (THE class-II reduction — catch #70 VERDICT: HOLDS):
+  `n≠0 → 2≤W → W²≤w → shiuClassII w W n → cappedPow W ((shiuD w n).minFac) ∣ n`.
+  Greediness `shiuC_mul_minFac_pow_gt` gives `w<c·ρ^{e_ρ}≤W·ρ^{e_ρ}`, so
+  `W²≤w<W·ρ^{e_ρ}` forces `ρ^{e_ρ}>W` ⟹ `e_ρ≥u_ρ=Nat.log ρ W+1` ⟹
+  `cappedPow W ρ=ρ^{u_ρ}∣ρ^{e_ρ}∣n`. THE THRESHOLD IS `W` (not `w`), and catch #70's
+  squarefree counterexample fails HERE: squarefree ⟹ `e_ρ=1` ⟹ `ρ^{e_ρ}=ρ>W` forces
+  `ρ>W`, contradicting class-II's `ρ≤W`. The reduction is honest and requires `w≥W²`.
+- **`classDeg_tau_le`** (the degenerate d=1 class): `1≤w → Σ_{n≤z,n≡a(q),deg}τ(n) ≤
+  w(1+log w)` — deg ⟹ `n=c≤w`, so the class ⊆ `[1,w]`; `Salt.BV.sum_card_divisors_le`.
+
+**THE RESOLVED NORMALIZATION (the design unblock — SINGLE (w,W), all classes checked).**
+`α=1/8000`. Take **`w=z^{α/3}` (budget), `W=z^{α/6}` (cut)** — so `w=W²` (exactly what
+`classII_dvd_cappedPow` needs), and `NEW-1`'s tuning reference is the DERIVED
+`z̃:=z^{α/3}=w` with `log z̃=2·log W=(α/3)log z` (so NEW-1's `log W=½log z̃` holds — NEW-1's
+`z` is a tuning REFERENCE, NOT the ShiuCore `z`; this is the key that was missing).
+`v_r:=z̃^{1/r}=z^{α/(3r)}`. Split classIIIIV (`ρ≤W ∧ c>W`) at **`P₀=log z`**:
+ • **Degenerate**: `n≤w=z^{α/3}`, `Στ≤w log w≤z^{α/3}log z ≤ (z/φq)log z` since
+   `z/φq≥z^α` (`φq≤q≤z^{1−α}`). ✓ [classDeg_tau_le landed]
+ • **Class I** (`ρ>W`): `shiu_classI_le` at `K=6/α=48000` (`z≤W^K`✓, const `2^{48000}`),
+   `Kmain=2α/3` (`(log w)²=(α/3)²(log z)²≤Kmain·(α/6)(log z)²`✓), junk
+   `W³w·q=z^{5α/6}z^{1−α}=z^{1−α/6}≤z`✓. ✓ [shiu_classI_le landed; needs instantiation]
+ • **Class II** (`ρ≤W`, `c≤W`): `classII_dvd_cappedPow` (`w=W²`✓) ⟹ `n` div by
+   `K_ρ=cappedPow W ρ`. `Σ_II τ ≤ Σ_{ρ≤W} d(K_ρ)·Σ_{m≤z/K_ρ, K_ρm≡a(q)} τ(m)` with crude
+   `τ≤C_δ·(·)^δ` (`δ=α/24`), AP count `z/(K_ρq)+1`, and `Σ_ρ d(K_ρ)/K_ρ ≤ (log z)·4/√W`
+   (`sum_cappedPow_inv_le`, `d(K_ρ)=u_ρ+1≤log W+2`). Main `z^δ/√W=z^{α/24−α/12}=z^{−α/24}≤1`✓;
+   junk `W·z^δ=z^{5α/24}≤z^α`✓. [reduction landed; full τ-bound is the TODO here — needs
+   a τ-weighted cappedPow-count-in-AP, ~120 lines: `sum_cappedPow_count_le` is UNWEIGHTED,
+   the crude-τ×AP wrapper + coprime CRT routing is new]
+ • **Class IV** (`ρ∈(P₀,W]`, i.e. bins `r∈[2,r*]`, `r*≈(α/3)log z/loglog z`, where
+   `r*log r*=log z̃`): per bin, `τ(d)≤A₅^{r+1}` (`A₅=2^{24000}`, from `Ω(d)≤(r+1)·3/α`,
+   `d` `v_{r+1}`-rough ≤z — mirror `tau_rough_le`), d-count via `rough_count_in_ap_le` at
+   `t=v_{r+1}` (`inner_count_le`), c-sum `Σ_{c>W,v_r-smooth}τ(c)/c` via NEW-1 at `v=v_r`
+   (decay `exp(−(1/8)r log r + r^{1/4}(log r/2+C₀))`). Per-bin main `= (z/φq)log z ·
+   [(α/3)·const·A₅^{r+1}(r+1)·rsumTerm]`; Σ_r closed by **W4-1** with `A=2A₅` (folding
+   `(r+1)≤2^r`). The `t³=v_{r+1}³` junk sums to `z^{α/3+o(1)}(log z)^5 ≤ z^α log z`
+   (A₅^{r*}=z^{o(1)}, v_{r*}³≈(log z)³). ✓ [W4-1 landed; the bin predicate + per-bin
+   assembly is the TODO — mirror S4-I's `class_tau_sum_le_prod`/`bigT_sum_split`/
+   `inner_count_le` chain but binned by `ρ`; ~250 lines]
+ • **Class III** (`ρ≤P₀=log z`): SINGLE NEW-1 at `v=P₀` (`r_P≈r*`, range `r_P log r_P≈
+   log z̃`✓, decay `exp(−(1/8)r_P log r_P)=z^{−α/24}`), crude `τ(d)≤C_δ d^δ` (`δ=α/48`):
+   main `z^{1+δ−α/24}(log z)²/q = z^{1−α/48}(log z)²/q`, `z^{−α/48}log z→0`. ✓ [NEW-1 landed;
+   assembly ~120 lines]
+ • **Corner** (small z, below the astronomical asymptotic threshold `z≥e^{e^{~25000}}`
+   where `A₅^{r*}=z^{o(1)}≤z^{2α/3}` finally holds): fold into `C` via the crude universal
+   `Στ≤z(1+log z)` — exactly the `shiu_for_blocks_of_core` "corner `x<XC`" mechanism.
+   The final `C` is astronomically large but FINITE and z-independent, consistent with the
+   whole rung's constant regime.
+
+CONCLUSION: the route CLOSES with this normalization — no missing mathematics, only
+composition + the four per-class assemblies + the corner. The SHIU-W3/W3b "missing
+τ-weighted rough count in AP" obstruction is DISSOLVED: class IV uses the *pointwise*
+`τ(d)≤A₅^{r+1}` per bin (valid, since `d` is `v_{r+1}`-rough) and lets NEW-1's factorial
+decay `exp(−(1/8)r log r)` kill `A₅^{r+1}` bin-by-bin (W4-1); class III uses crude `τ(d)`
+with the z^{−α/24} tuned decay repaying the z^δ crude cost. No ShiuCore-strength
+τ-weighted d-count is needed after all.
+
+REMAINING WORK (dispatch as a follow-up, ideally split): (1) class-II full τ-bound
+(~120 ln: crude-τ × cappedPow-count-in-AP + coprime CRT); (2) class-IV bin predicate +
+per-bin assembly (~250 ln, S4-I template binned by ρ, W4-1 the r-sum); (3) class-III
+single-NEW-1 assembly (~120 ln); (4) the S5 partition `sum_tau_in_ap_le : ShiuCore`
+gluing deg+I+II+III+IV+corner via `shiu_class_cover` (~100 ln). Budget exhausted on
+W4-1 + the reductions + the design resolution; ~3-attempt give-up on the FULL close
+(honest all-or-nothing scope), stones + recipe banked.

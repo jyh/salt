@@ -7159,3 +7159,22 @@ decisions per question.
   full-budget dedicated session). Ceremony: wired + 2 keystones
   (9212 green). Board: SHIU-W4, VMVT-R3, seed #3. Tally ~50.5M
   raw, house ~14%.
+
+- 2026-07-18 ~23:19 PT (NIGHT WATCH): ██ **SHIU-W4 BANKS THE STONES
+  + PINS THE NORMALIZATION — the rung's close is now COMPOSITION
+  ONLY** ██ (≈ 234k / 36 tools; the honest scope call per iron
+  rule 4). Salt/Maynard/ShiuClose.lean: **rsum_tuned_le** (the
+  geometric-vs-factorial r-sum, A abstract) +
+  **classII_dvd_cappedPow** (catch #70's VERDICT: the reduction
+  HOLDS at threshold W with w = W² — the squarefree
+  counterexample dissolves) + the degenerate class. THE CROWN:
+  the normalization PINNED (w = z^{α/3}, W = z^{α/6}, the tuning
+  reference z̃ = w — the missing key W3/W3b left open) and the
+  grade chain VERIFIED for all four classes — the SHIU-W3b
+  "missing τ-weighted rough count" obstruction DISSOLVED (per-bin
+  pointwise τ × NEW-1's factorial decay suffices). Remaining:
+  four assemblies (~590 lines, recipes in flags.md) →
+  **SHIU-W5 DISPATCHED** (the final composition:
+  sum_tau_in_ap_le : ShiuCore). Ceremony: wired (accepted),
+  green (9212). Board: VMVT-R3, SHIU-W5, seed #3. Tally ~50.9M
+  raw, house ~14%.

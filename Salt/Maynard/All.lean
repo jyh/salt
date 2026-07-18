@@ -94,3 +94,4 @@ import Salt.Maynard.ShiuSieve
 import Salt.Maynard.ShiuGraded
 import Salt.Maynard.ShiuClasses
 import Salt.Maynard.ShiuTuned
+import Salt.Maynard.ShiuClose
