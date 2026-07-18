@@ -527,7 +527,15 @@ theorem vmvt_step_transversal_large {k r : ℕ} (x : ℕ) (e : Fin k → Fin (k 
           * (D * (x : ℝ) ^ (vmvtExp k (r + 1))) := by
         apply mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_right h4sq (by positivity))
         rw [hDdef]; have := vmvtConst_nonneg k r; positivity
-    _ = vmvtC0 k * (D * (x : ℝ) ^ (vmvtExp k (r + 1))) := by rw [vmvtC0]; ring
+    -- re-grade: the old fixed value `k⁶·k!·2^{k²}·3` fits under `vmvtC0 = k^{8k²}`
+    _ ≤ vmvtC0 k * (D * (x : ℝ) ^ (vmvtExp k (r + 1))) := by
+        have hbridge := old_c0_le hk
+        have hDx : (0 : ℝ) ≤ D * (x : ℝ) ^ (vmvtExp k (r + 1)) := by
+          rw [hDdef]; have := vmvtConst_nonneg k r; positivity
+        have hrw : (k : ℝ) ^ 6 * ((k.factorial : ℝ) * ((2 : ℝ) ^ (k ^ 2) * 3))
+            = (k : ℝ) ^ 6 * (k.factorial : ℝ) * (2 : ℝ) ^ (k ^ 2) * 3 := by ring
+        rw [hrw]
+        exact mul_le_mul_of_nonneg_right hbridge hDx
     _ = vmvtC0 k * D * (x : ℝ) ^ (vmvtExp k (r + 1)) := by ring
 
 end Salt.Vmvt

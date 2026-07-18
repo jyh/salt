@@ -145,10 +145,17 @@ This matches the source EXACTLY (the exponent is what makes VMVT nontrivial). -/
 noncomputable def vmvtExp (k r : ℕ) : ℝ :=
   2 * (r : ℝ) * (k : ℝ) - (1 / 2) * (k : ℝ) * ((k : ℝ) + 1) + vmvtEta k r
 
-/-- The per-step constant `C₀(k) = k⁶·k!·2^{k²}·3` the induction produces
-(`r`-independent; see the D-recursion in the file header). -/
-noncomputable def vmvtC0 (k : ℕ) : ℝ :=
-  (k : ℝ) ^ 6 * (k.factorial : ℝ) * (2 : ℝ) ^ (k ^ 2) * 3
+/-- The per-step constant `C₀(k) = k^{8k²}` the induction produces (`r`-independent).
+
+**Re-grade (2026-07-18 house authorization; VMVT-R5b).**  Source-faithful free
+constant: Vaughan PSU Theorem 24.5's `D(k,r) = exp(C·r·k²·log k)` has `C` FREE, so
+`C₀(k)` is unconstrained (only the exponent `E(k,r)` is load-bearing).  The former
+value `k⁶·k!·2^{k²}·3` is exp-grade too small for the medium-`x` regime — the
+trivial small-`x` bound could not reach the prime-pigeonhole threshold (R4 flag,
+`docs/blueprints/flags.md`, VMVT-R4 tail).  We take the source's own free-constant
+grade `k^{8k²} = exp(8k²·log k)`.  The old value survives as a lower bound through
+`old_c0_le`, so every landed proof that consumed it re-closes through the bridge. -/
+noncomputable def vmvtC0 (k : ℕ) : ℝ := (k : ℝ) ^ (8 * k ^ 2)
 
 /-- The constant `D(k,r) = (C₀ k)^r`.  A closed form the induction produces;
 `D` is unconstrained by the source (only `E` is load-bearing). -/
@@ -201,20 +208,46 @@ theorem vmvtConst_succ (k r : ℕ) : vmvtConst k (r + 1) = vmvtC0 k * vmvtConst 
   rw [pow_succ]
   ring
 
+/-- **The re-grade bridge (VMVT-R5b).**  The former per-step constant
+`k⁶·k!·2^{k²}·3` sits below the re-graded `vmvtC0 k = k^{8k²}` for `k ≥ 2`.  Proof:
+`k! ≤ k^k`, `2^{k²} ≤ k^{k²}`, `3 ≤ k²`, so the product is `≤ k^{6+k+k²+2} ≤ k^{8k²}`
+(exponents: `k²+k+8 ≤ 8k²` for `k ≥ 2`).  Every landed proof that consumed the old
+value re-closes THROUGH this bridge. -/
+theorem old_c0_le {k : ℕ} (hk : 2 ≤ k) :
+    (k : ℝ) ^ 6 * (k.factorial : ℝ) * (2 : ℝ) ^ (k ^ 2) * 3 ≤ vmvtC0 k := by
+  have hnat : k ^ 6 * k.factorial * 2 ^ (k ^ 2) * 3 ≤ k ^ (8 * k ^ 2) := by
+    have hf : k.factorial ≤ k ^ k := Nat.factorial_le_pow k
+    have h2 : 2 ^ (k ^ 2) ≤ k ^ (k ^ 2) := Nat.pow_le_pow_left hk (k ^ 2)
+    have h3 : 3 ≤ k ^ 2 := by nlinarith [hk]
+    have step : k ^ 6 * k.factorial * 2 ^ (k ^ 2) * 3 ≤ k ^ 6 * k ^ k * k ^ (k ^ 2) * k ^ 2 :=
+      Nat.mul_le_mul (Nat.mul_le_mul (Nat.mul_le_mul (le_refl _) hf) h2) h3
+    calc k ^ 6 * k.factorial * 2 ^ (k ^ 2) * 3
+        ≤ k ^ 6 * k ^ k * k ^ (k ^ 2) * k ^ 2 := step
+      _ = k ^ (6 + k + k ^ 2 + 2) := by rw [← pow_add, ← pow_add, ← pow_add]
+      _ ≤ k ^ (8 * k ^ 2) := Nat.pow_le_pow_right (by omega) (by nlinarith [hk])
+  calc (k : ℝ) ^ 6 * (k.factorial : ℝ) * (2 : ℝ) ^ (k ^ 2) * 3
+      = ((k ^ 6 * k.factorial * 2 ^ (k ^ 2) * 3 : ℕ) : ℝ) := by push_cast; ring
+    _ ≤ ((k ^ (8 * k ^ 2) : ℕ) : ℝ) := by exact_mod_cast hnat
+    _ = vmvtC0 k := by rw [vmvtC0]; push_cast; ring
+
 /-! ## The base case `r = 1` (Lemma 24.3(a)) -/
 
 /-- `k! ≤ D(k,1) = C₀(k) = k⁶·k!·2^{k²}·3`.  The factorial sits under the whole
 per-step constant — trivially, since the cofactor `k⁶·2^{k²}·3 ≥ 1`. -/
 theorem factorial_le_vmvtConst_one {k : ℕ} (hk : 2 ≤ k) :
     (k.factorial : ℝ) ≤ vmvtConst k 1 := by
-  unfold vmvtConst vmvtC0
+  unfold vmvtConst
   rw [pow_one]
+  have hbridge := old_c0_le hk
   have hk1 : (1 : ℝ) ≤ (k : ℝ) := by exact_mod_cast (by omega : 1 ≤ k)
   have hp6 : (1 : ℝ) ≤ (k : ℝ) ^ 6 := one_le_pow₀ hk1
   have hp2 : (1 : ℝ) ≤ (2 : ℝ) ^ (k ^ 2) := one_le_pow₀ (by norm_num)
   have hfac0 : (0 : ℝ) ≤ (k.factorial : ℝ) := by positivity
-  nlinarith [hp6, hp2, hfac0, mul_nonneg hfac0 (le_trans zero_le_one hp2),
-    mul_nonneg (mul_nonneg hfac0 (le_trans zero_le_one hp6)) (le_trans zero_le_one hp2)]
+  have hcof : (k.factorial : ℝ)
+      ≤ (k : ℝ) ^ 6 * (k.factorial : ℝ) * (2 : ℝ) ^ (k ^ 2) * 3 := by
+    nlinarith [hp6, hp2, hfac0, mul_nonneg hfac0 (le_trans zero_le_one hp2),
+      mul_nonneg (mul_nonneg hfac0 (le_trans zero_le_one hp6)) (le_trans zero_le_one hp2)]
+  linarith [hcof, hbridge]
 
 /-- **Theorem 24.5, base case `r = 1`.**  `VmvtBound k 1 x`, i.e.
 `J_k(x, k) ≤ D(k,1)·x^{E(k,1)}`.  Since `E(k,1) = k` (`vmvtExp_one`) this is the

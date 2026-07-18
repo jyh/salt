@@ -8927,3 +8927,96 @@ residue-count exponent `k*(k-1)/2` (ℕ-division) casts to `(k:ℝ)*((k:ℝ)-1)/
 `Nat.cast_div` + `2 ∣ k*(k-1)` (from `Nat.even_mul_succ_self (k-1)` after
 `Nat.sub_add_cancel`). (#VMVT-COLLECT-4) `field_simp` fully closes several
 `(2+2/t)*t = 2t+2`-shape goals — a trailing `ring` then errors "no goals".
+
+## 2026-07-18 VMVT-R5b THE SUMMIT: re-grade + trivial branch LAND (stones 1–2); Stone 3 (the induction) STOP-AND-FLAG — the k-independent prime-supply constant survives the re-grade (Opus)
+
+Executed the house VMVT-R5b freeze (`docs/exploration/s3-a3-design.md`, "VMVT-R5b
+FREEZE"): the authorized `vmvtC0` re-grade + the medium-x trivial branch + the
+summit induction. **Stones 1–2 landed green + axiom-clean; stone 3 does NOT close
+under the frozen `C₀`, for the same k-independent-constant reason the R4 flag
+identified — the re-grade shifts but does not remove it.**
+
+**STONE 1 — the re-grade + bridge + patches (LANDED).** Authorized Fable-tier
+statement change (the ONLY one): `vmvtC0 (k) := (k:ℝ)^(8*k^2)` (was
+`k⁶·k!·2^{k²}·3`), docstring updated. `vmvtExp`/`vmvtEta`/`vmvtExp_succ`/
+`vmvtConst`-form/`VmvtBound`-form UNTOUCHED. New bridge `old_c0_le : 2 ≤ k →
+k⁶·k!·2^{k²}·3 ≤ vmvtC0 k` (`k! ≤ k^k`, `2^{k²} ≤ k^{k²}`, `3 ≤ k²`, exps
+`k²+k+8 ≤ 8k²`). All three landed consumers re-closed THROUGH the bridge, mechanical:
+`factorial_le_vmvtConst_one` (MeanValue), `mul_pred_pow_le_vmvtC0` (Step),
+`vmvt_step_transversal_large`'s final `k⁶·…`→`C₀` fold (StepFull; the `=` step
+became a `≤`-through-bridge step). `lake build Salt.Vmvt.All` EXIT 0, no new
+warnings; `old_c0_le` + all re-graded consumers `[propext, Classical.choice,
+Quot.sound]`.
+
+**STONE 2 — the medium-x trivial branch (LANDED, new file `Salt/Vmvt/Summit.lean`).**
+- `JkI_crude : JkI k b x ≤ x^{2b}` — solSet ⊆ box×box, `card_filter_le` +
+  `card_piFinset_const` + `card_Ioc_zero`.
+- `vmvtEta_ge : ½k² − ½kr ≤ η(k,r)` — Bernoulli via `one_add_mul_le_pow` at
+  `a = −1/k` (`(1−1/k)^r ≥ 1 − r/k`).
+- `b_le_vmvtExp : k·r ≤ E(k,r)` (the `hrange` input) — discrete `Nat.le_induction`,
+  base `E(k,1)=k`, step-diff `k − η/k ≥ 0` (`η ≤ ½k(k−1) < k²`).
+- `vmvt_trivial_branch : x ≤ Xmed k r → VmvtBound k r x`, `Xmed k r := k^{8·max(k,r)}`.
+  Deficit `2kr − E = ½k(k+1) − η`; bounds `≤ k²` (η≥0) and `≤ kr` (Bernoulli); the
+  key `max(k,r)·deficit ≤ rk²` by the `r ≤ k / k < r` case split; then
+  `x^{deficit} ≤ k^{8·max(k,r)·deficit} ≤ k^{8rk²} = D(k,r)`. All `[3 axioms]`.
+
+**STONE 3 — the summit induction `vmvt`: STOP-AND-FLAG (design-tier; the freeze's
+route provably does not close).** NOT an exponent problem (collector matches;
+b_le_vmvtExp gives hrange). The obstruction is the **prime-supply reachability**,
+and it is the SAME k-independent-constant gap as the R4 flag — the re-grade to
+`k^{8k²}` shifts the trivial-branch reach but does not cover it.
+
+*The margin delta (freeze-vs-actual, as instructed to VERIFY).* The freeze:
+"y ≥ k⁸ ⟹ primes_in_Ioc_ge gives #(y,2y] ≥ ½k³+1". RECON of the ACTUAL lemmas:
+`vmvt_step_transversal_large`'s `hpig` is supplied by `exists_transversal_prime_set`,
+whose threshold is `Y(k) = max(y₀, 64(k²(k−1)+1)², 2)` with
+`y₀ = max(⌈e^{6K}⌉, 1280000)` from `primes_in_Ioc_ge` (c = 1/8). Crucially **`y₀`
+is k-INDEPENDENT** — `K` is the Siegel–Walfisz PNT error constant of
+`Salt.Chen.psiTot_pnt`, an existential with NO concrete magnitude bound, and the
+`1280000` floor is hard (from `sqrt_one_add_log_le` needing `t ≥ 2560000`). The
+freeze conflated "the *bound* `y/(8 log y)` is big enough at `y = k⁸`" (true) with
+"the bound *holds* at `y = k⁸`" (FALSE — it is only proven for `y ≥ y₀`). For
+`x > Xmed = k^{8·max(k,r)}` one gets only `y = vmvtScale k x ≥ k⁸`, and
+`k⁸ < y₀` for small `k` (`k⁸ ≥ 1.28M` needs `k ≥ 6`; the `e^{6K}` term can push it
+to arbitrarily large `k`).
+
+*Why the trivial branch cannot cover the shortfall.* To reach the prime supply the
+split would need `Xmed ≥ y₀^k`, but the trivial branch under the frozen
+`C₀ = k^{8k²}` only reaches `x ≤ k^{8rk²/deficit}`. Concrete unbridgeable witness
+(best case `y₀ = 1.28M`, ignoring `e^{6K}`): `(k,r') = (2,2)` — trivial reaches
+`x ≤ 2^{25.6}`, large needs `x > 2^{40.6}`; also `(2,3)` `2^{34.9}..2^{40.6}` and
+`(3,2)` `2^{57.1}..2^{60.9}`. `VmvtBound` is TRUE there (loose; the diagonal
+`x^{kr}` dominates) but this induction does not reach it. As `r → ∞` (fixed k) the
+trivial reach `~k^{16rk/(k+1)}` overtakes the fixed `y₀^k`, so only a FINITE set of
+small `(k,r')` is bad — but that set is unenumerable in Lean (its x-range is `y₀^k`,
+astronomically large) and its extent depends on the unknown `K`.
+
+*Attempts (3, all fail on the same root cause).* (1) `Xmed = k^{8·max}`, discharge
+`hpig` via `exists_transversal_prime_set`: cannot prove `y ≥ Y(k)` from `y ≥ k⁸`.
+(2) `Xmed = max(k^{8·max}, y₀^k)`, trivial covers `x ≤ Xmed`: fails, trivial caps at
+`k^{8rk²/deficit} < y₀^k` for small k. (3) Direct `hpig` for `y ∈ [k⁸, y₀)`: no
+corpus prime bound below the 1.28M/`e^{6K}` threshold. Also considered the R4
+flag's option (D) — iterate the degenerate S₂ self-improvement
+(`vmvt_step_degen_branch`, unconditional, gives `x^{kr}` which beats target since
+`E ≥ kr`): closes only the S₂-DOMINANT case; the S₁ (transversal) case genuinely
+needs primes (`crude_exp_ge_vmvtExp`: the S₁ crude/CS route lands `2kr−2 ≥ E`, wrong
+side), so it cannot cover medium-x + S₁-dominant.
+
+*NEEDED (Fable/design), unchanged from R4 in essence.* EITHER (i) an effective
+interval prime bound with a `k^{O(1)}`-grade threshold (replacing the 1.28M/`e^{6K}`
+floor of `primes_in_Ioc_ge` — a real analytic strengthening, e.g. Nagura/Ramanujan-
+grade or an explicit Chebyshev `θ(y) ≥ c·y` valid from small y), OR (ii) a sharper
+unconditional medium-x bound than `x^{2kr}` covering `(k^{8·max(k,r)}, y₀^k]` for the
+S₁-dominant case. The re-grade + trivial branch (stones 1–2) are correct and reusable
+under either fix; the large-x machinery (`vmvt_step_transversal_large`) is unchanged.
+
+**Catches.** (#96) `Nat.cast_nonneg (n := ℝ) r` is WRONG — `n` is the nat, type is
+implicit; use `Nat.cast_nonneg r` / an in-context `1 ≤ (r:ℝ)`. (#97) `field_simp`
+NON-determinism across two same-file goals: `he2` (`1 + r·(−1/k) = 1 − r/k`)
+`field_simp` leaves `↑k+−↑r = ↑k−↑r` needing `ring` — but this identity is a formal
+field identity, so plain `ring` proves it directly (no field_simp); meanwhile `heq`
+(`½k² − ½kr = ½k²(1−r/k)`, needs `k²·k⁻¹ = k`, i.e. `k ≠ 0`) `field_simp` fully
+closes and a trailing `ring` errors "no goals" — split them. (#98) after `set E`/
+`set D`, rewrite `x^{(2kr:ℝ)} = x^{E+D}` via `congr 1; rw [hDdef]; ring` (`ring`
+treats the set-atoms E,D opaquely — fine). (#99, banked-#92 confirmed) pin
+`vmvtEta_le (k := k) (r := n)` / `vmvtEta_nonneg (k := k)` — implicit `k` mis-unifies.

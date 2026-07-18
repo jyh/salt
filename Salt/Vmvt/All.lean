@@ -16,6 +16,7 @@ import Salt.Vmvt.Fourier
 import Salt.Vmvt.HolderTwo
 import Salt.Vmvt.Transversal3
 import Salt.Vmvt.StepFull
+import Salt.Vmvt.Summit
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -43,6 +44,7 @@ open Salt.Tactic in
   Salt.Vmvt.pairEqDominant_JkI_le_const
   Salt.Vmvt.crude_exp_ge_vmvtExp
   Salt.Vmvt.vmvt_base
+  Salt.Vmvt.old_c0_le
   Salt.Vmvt.vmvtExp_succ
   Salt.Vmvt.Jk_shift_le
   Salt.Vmvt.Ncount_union_le
@@ -95,3 +97,8 @@ open Salt.Tactic in
   Salt.Vmvt.transBox_le_const
   Salt.Vmvt.n0_bounds
   Salt.Vmvt.vmvt_step_transversal_large
+  Salt.Vmvt.vmvtConst_eq
+  Salt.Vmvt.JkI_crude
+  Salt.Vmvt.vmvtEta_ge
+  Salt.Vmvt.b_le_vmvtExp
+  Salt.Vmvt.vmvt_trivial_branch

@@ -7568,3 +7568,27 @@ decisions per question.
   arithmetic get a parallel refuter pass by default; the
   full multi-candidate treatment stays for open-shape design.
   Board unchanged.
+
+- 2026-07-18 04:35 PT: **VMVT-R5b lands stones 1+2; stone 3
+  (the summit) STOP-AND-FLAG — my freeze conflated
+  inequality-truth with lemma-proven-range** (≈ 217k / 45
+  tools; executor-catches-designer, catch **#102**). LANDED
+  (house-verified, Vmvt.All 8751 green, axioms clean): the
+  vmvtC0 re-grade to k^{8k²} + old_c0_le bridge + all 3
+  consumers patched; new Salt/Vmvt/Summit.lean (JkI_crude,
+  Bernoulli vmvtEta_ge, b_le_vmvtExp — hrange PROVEN,
+  vmvt_trivial_branch at Xmed = k^{8max}). THE FLAG: my freeze
+  checked y/(8 log y) ≥ ½k³ AT y = k⁸ — true — but
+  primes_in_Ioc_ge only PROVES its bound for y ≥ y₀ =
+  max(⌈e^{6K}⌉, 1280000), K a bare PNT existential,
+  k-INDEPENDENT; concrete unbridgeable gap at (k,r)=(2,2):
+  trivial ≤ 2^{25.6} vs large needs > 2^{40.6}. Repair mapped
+  (route i): an EFFECTIVE Chebyshev interval count from
+  mathlib's Bertrand machinery (small explicit threshold) →
+  Y(k) polynomial → bridge closes at C₀ = k^{24k²}-grade.
+  Catches #99–101 (Nat.cast_nonneg arg is the nat; the
+  field_simp/ring split on formal-vs-k⁻¹ identities; congr-ring
+  with set-atoms). NB the executor's local #96–99 = register
+  #99–102. Also noted: GehAnchor mid-edit by GEH-CAP (expected;
+  Vmvt-independent). Board: T-BAL workflow + GEH-CAP +
+  LITT-COVER; VMVT-SUMMIT-2 freeze next.

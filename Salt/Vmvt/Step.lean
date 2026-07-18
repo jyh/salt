@@ -189,16 +189,19 @@ theorem mul_pred_pow_le_vmvtC0 {k : ℕ} (hk : 2 ≤ k) :
   have h1 : (((k * (k - 1)) ^ k : ℕ) : ℝ) ≤ ((2 ^ (k ^ 2) : ℕ) : ℝ) := by
     exact_mod_cast hnat
   refine h1.trans ?_
-  unfold vmvtC0
   rw [Nat.cast_pow, Nat.cast_ofNat]
+  -- route the old `2^{k²} ≤ C₀`-fold through the re-grade bridge `old_c0_le`
+  have hbridge := old_c0_le hk
   have hbase : (0 : ℝ) ≤ (2 : ℝ) ^ (k ^ 2) := by positivity
   have hk1 : (1 : ℝ) ≤ (k : ℝ) ^ 6 := one_le_pow₀ (by exact_mod_cast (by omega : 1 ≤ k))
   have hf1 : (1 : ℝ) ≤ (k.factorial : ℝ) := Nat.one_le_cast.mpr k.factorial_pos
   have hcof : (1 : ℝ) ≤ (k : ℝ) ^ 6 * (k.factorial : ℝ) * 3 := by nlinarith [hk1, hf1]
-  have hrw : (k : ℝ) ^ 6 * (k.factorial : ℝ) * (2 : ℝ) ^ (k ^ 2) * 3
-      = (2 : ℝ) ^ (k ^ 2) * ((k : ℝ) ^ 6 * (k.factorial : ℝ) * 3) := by ring
-  rw [hrw]
-  exact le_mul_of_one_le_right hbase hcof
+  have hstep : (2 : ℝ) ^ (k ^ 2)
+      ≤ (k : ℝ) ^ 6 * (k.factorial : ℝ) * (2 : ℝ) ^ (k ^ 2) * 3 := by
+    have hrw : (k : ℝ) ^ 6 * (k.factorial : ℝ) * (2 : ℝ) ^ (k ^ 2) * 3
+        = (2 : ℝ) ^ (k ^ 2) * ((k : ℝ) ^ 6 * (k.factorial : ℝ) * 3) := by ring
+    rw [hrw]; exact le_mul_of_one_le_right hbase hcof
+  linarith [hstep, hbridge]
 
 /-! ## R4, the `S₂`-dominant branch to the target `VmvtBound` -/
 
