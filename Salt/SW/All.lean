@@ -72,6 +72,10 @@ import Salt.SW.DHClose2
 import Salt.SW.EulerEff
 import Salt.SW.EulerLink
 import Salt.SW.DHExtractW
+import Salt.SW.Crush
+import Salt.SW.CrushC
+import Salt.SW.CrushE
+import Salt.SW.CrushH
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -271,3 +275,9 @@ open Salt.Tactic in
   Salt.SW.selHmul_collection Salt.SW.sum_gcW_selNu_eq_selMainTerm Salt.SW.omega_eq_primeFactors_card
   Salt.SW.paircount Salt.SW.pairkernel_per_m Salt.SW.sum_gcW_pairkernel_le
   Salt.SW.dh_extraction_per_m Salt.SW.dh_extraction_upper_W
+  Salt.SW.selHSum_ge_one Salt.SW.selHSum_le_primorial Salt.SW.crush_pointwise
+  Salt.SW.selG_ge_partial_geom Salt.SW.H_lower_of_parts Salt.SW.crush_coverage
+  Salt.SW.selHSum_ge_dhA_div_sum
+  Salt.SW.sum_divisors_eq_hyperbola_asymm Salt.SW.dhAbel_hyperbola_asymm
+  Salt.SW.dhAbel_leg1_cut_abs_le Salt.SW.dhAbel_inner_ge
+  Salt.SW.dhAbel_inner_ge_err Salt.SW.H_lower

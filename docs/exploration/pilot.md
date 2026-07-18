@@ -8587,3 +8587,28 @@ decisions per question.
   end + mid block both LANDED). **VK-9 DISPATCHED — the LAST
   WALL of the power-region campaign; if it lands, the compose
   fires.** Board: VK-9 + R5-CRUSH.
+
+- 2026-07-18 16:00 PT: ██ **R5 IS COMPLETE — H_lower
+  machine-checked; T-BAL IS PURE COMPOSITION** ██ (R5-CRUSH,
+  ≈ 186k own + subagents / 96 tools; house-verified SW.All 8815
+  green, 13 decls [3 axioms], coverage ledger PASS).
+  Salt/SW/Crush{,C,E,H}.lean: the whole crush chain — R5b the
+  per-prime geometric floor, R5c the unconditional
+  Σ dhA(n)/n ≤ H(z) (the radical-fiber partition), R5d, R5e
+  dhAbel_inner_ge (THE MEAT — the free-cut hyperbola D ~
+  √(z/u); PERMANENT BONUS STONES:
+  sum_divisors_eq_hyperbola_asymm mathlib-clean → the upstream
+  registry), R5f coverage, R5h **H_lower** in the amended form
+  VERBATIM (δ = 0; guards = R8's inversion arithmetic, as
+  designed) + H_lower_of_parts (the mechanism as reusable
+  algebra). CONSTANT DRIFT (recorded, supersession-safe —
+  catch #220's law): the landed crushErr is STRICTLY SMALLER
+  than the sketched shape — linear margins 114x/1753x/1.4e11/
+  6.5e31 at q=3/5/150/10⁶ vs the amendment's 1.76x-grade.
+  Catches #217–220 (the grep-misses-warnings trap #219 nearly
+  shipped lint warnings — banked). **T-BAL-CLOSE DISPATCHED**
+  (R7 the Λ-balance + R8 the 16/17 contract — the M4 inverter
+  + the floor + ALL suppliers landed; the small-q ledger
+  discipline + the on-ray law binding). ██ IF R8 LANDS: WP2'S
+  ANALYTIC CORE CLOSES ██. Board: VK-9 (the last VK wall) +
+  T-BAL-CLOSE (the last T-BAL rung). THE TWO FINAL EXECUTORS.

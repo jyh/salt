@@ -10638,3 +10638,72 @@ loses a constant factor to the full Euler product; design margins must budget fo
 away. (#189) the strip tool `norm_LFunction_sub_partial_le_strip` bridges `Σ_{n≤N}χ(n)/n` (all n, PV-
 controlled), NOT `Σ_{p≤N}χ(p)/p` (primes); any "truncated-Euler vs L(1,χ)" route through the prime
 sum needs an extra prime-character-sum input the corpus/mathlib lacks.
+
+## 2026-07-18 T-BAL R5-CRUSH — THE CRUSH WAVE LANDS COMPLETE: `H_lower` machine-checked (all six rungs + both grafts, guard-gated freeze:11 δ=0 form); R5 IS CLOSED — R5-CRUSH/Fable+2×Opus
+
+Executed the full crush wave on the twice-verified W=14 retune (AMENDMENT 1, audit 0/2). New files
+`Salt/SW/Crush.lean` (~260 ln), `Salt/SW/CrushC.lean` (170 ln, R5c executor), `Salt/SW/CrushE.lean`
+(553 ln, R5e executor), `Salt/SW/CrushH.lean` (~85 ln); all registered in `Salt.SW.All` (imports +
+13 audit names, every one ✓ `[propext, Classical.choice, Quot.sound]`); `lake build Salt.SW.All`
+EXIT 0 (8815 jobs), zero warnings. Audit scripts shipped: `scripts/tbal_ledgers/refuter1_reledger.py`,
+`refuter1_streams_fix.py` (the W=14 refuters) + NEW `r5_crush_ledger.py` (the landed-error coverage
+validation, analytic per the ON-RAY LEDGER LAW, PASS). NO git ops (#174). `Salt/Vk/` untouched.
+
+**LANDED (the rung list, with attempt counts):**
+- **G2 `selHSum_ge_one` / G1 `selHSum_le_primorial` [A]** — 1 attempt each.
+- **R5b `selG_ge_partial_geom` [B]** `Σ_{e=1}^{K} dhA(p^e)·p^{−e} ≤ selG χ p` — 1 attempt,
+  3 build-fix rounds. Route: `a_{e+1} = 1 + χ_ℝ(p)·a_e` + the EXACT truncation identity
+  `(1−x)(1−χx)·Σ_{e≤K}a_e x^e = 1 − x^{K+1}(a_{K+1} − χ·a_K·x)` (induction), bracket ≥ 0, then
+  `one_add_selG_eq_local_inv`. NeZero-free (omitted).
+- **R5c `selHSum_ge_dhA_div_sum` [C, Zeno stone]** `Σ_{n≤z} dhA(n)/n ≤ H(z)` — 1 attempt
+  (subagent). Radical-fiber partition (`Finset.sum_fiberwise_of_maps_to` under `n ↦ ∏_{p∣n}p`) +
+  Pi-box domination (`Finset.prod_sum` box = `∏_p Σ_{e≤z}`, each factor by R5b). Numerically
+  validated in-file at z=20, q=3 (2.857 ≥ 2.385). Unconditional.
+- **R5d `crush_pointwise` [A]** `z^{−(1−β₀)}·n^{−β₀} ≤ n^{−1}` on `n ≤ z` — 1 attempt.
+- **R5e `dhAbel_inner_ge` [C, THE MEAT, Zeno stone]** — 1 design attempt, 3 build rounds
+  (subagent). THE FREE CUT `D = Nat.sqrt(z·min ⌈1/(1−β₀)⌉₊ z) ~ √(z/u)` with the min-cap
+  guaranteeing `D ≤ z` unconditionally (the symmetric-cut `36M/u` corner is NEVER incurred);
+  explicit error `crushErr = 34D·z^{−β₀} + 12M·z^{1−β₀}/(uD) + 12M·z^{1−β₀}/D +
+  6M(Z₀+1/u)·D^{−β₀}` — ONE clean power of `u` after the crush (the half-power gain vs `√z`).
+  Bonus permanent stones: `sum_divisors_eq_hyperbola_asymm` (the FREE-CUT generalization of the
+  symmetric hyperbola, mathlib-clean), `dhAbel_hyperbola_asymm`, `dhAbel_leg1_cut_abs_le`.
+- **R5f `crush_coverage` [B core]** — 1 attempt. Reduces `hcov` to `crushErr ≤ 0.27·u·z^{1−β₀}` +
+  the `L1_lower_siegel` floor (`0.27u(2−β₀) ≤ L₁ ⟹ 0.27u ≤ L₁/(2−β₀)`).
+- **R5h `H_lower` [B glue] — R5 COMPLETE.** `L₁/((1−β₀)(2−β₀)) ≤ selHSum χ z`, guard-gated like
+  `L1_lower_siegel` (Siegel-scale guards at `N` + the coverage guard at `z`; both discharged by
+  R8's ledger at `N=⌊e^{1/u}⌋`, `z=⌈Q¹²u^{−3}⌉`). 1 attempt, first build. Plus the reusable
+  algebra `H_lower_of_parts` (the whole mechanism from the three parts) and `dhAbel_inner_ge_err`
+  (the `crushErr`-packaged R5e). Feeds R6's `selMainTerm = 1/H` via `selberg_opt_eq`: T-BAL is
+  pure composition (R7/R8) from here.
+
+**CONSTANT DRIFT vs AMENDMENT 1 (recorded).** The amendment's u*-corner coverage margins
+(1.76x/2.44x/5.80x/10.63x at q=3/5/150/10⁶) price the JUDGE'S log-form condition
+`12β₀²ln q ≥ 3(1−β₀²)ln(1/u) + ln(6M) + 4.1` for the SKETCHED error. The LANDED `crushErr` is
+strictly smaller (the free cut sharpens the corner stream): linear margins 114x/1753x/1.4e11x/
+6.5e31x at the honest u*-corner (Z₀=100), growing into the deep ray — the amendment's condition is
+SUPERSEDED-SAFE (both hold; zero failures). Z₀-dust: q=3 corner still 9.0x at Z₀=10⁴
+(`r5_crush_ledger.py`, closed forms, no grids). X₁=2330 not consumed by R5 (an R6/R7 constant).
+
+**Residuals.** (i) The two guards of `H_lower` (Siegel-scale + coverage) are HYPOTHESES — their
+discharge at the ledger scales is R8's inversion arithmetic, as designed (same pattern as
+`L1_lower_siegel`). (ii) `crushErr`'s `Z₀` stays existential-compactness (`zetaHol_bound`), per
+the freeze's Z₀-dust treatment. (iii) R5c retains `[NeZero q]` in its signature (harmless;
+inherited from the wave-order of the R5b omit-fix — a NeZero-free restatement is a 2-line
+follow-up if ever wanted).
+
+**Catches (LOUD).** (#217) `Finset.sum_image` as a TERM (`(Finset.sum_image hinj).symm`) can
+deterministic-whnf-timeout even at 1M heartbeats when the summand unifies `?f (φ n)` with `φ n`
+non-Miller-pattern (Pi-box reindexing); fix: tactic-mode `rw [Finset.sum_image hinj]` (first-order
+match against the bound-variable form), and keep the reindex map `let`-transparent, NOT `set`.
+(#218) `omit [NeZero q] in` must precede the DOCSTRING, not sit between docstring and lemma
+(`unexpected token 'omit'`). And: an auto-included unused `[NeZero q]` warning does NOT fire until
+the section variable is actually unused — after de-NeZero-ing a dependency, re-check the whole
+file. (#219) grep-filtering build logs with `<file>.*warning` MISSES Lean warnings (they print
+`warning: <file>:…` — the filename comes AFTER the keyword); filter `warning: Salt/SW/<file>` or
+you ship lint warnings, as this wave nearly did. (#220) the amendment margin-quote discipline cuts
+BOTH ways: quoted margins are tied to a SPECIFIC error shape; when the landed shape is smaller,
+record the supersession explicitly (this entry + the ledger header) so later audits do not "fail"
+the reproduction of the old numbers.
+
+Budget used ~700k total (spine ~165k + R5c 214k + R5e 320k). Zero flags-worthy dead ends; no
+statement altered; the freeze's amended R5 form reached VERBATIM (δ = 0).
