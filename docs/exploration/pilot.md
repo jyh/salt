@@ -6387,3 +6387,26 @@ decisions per question.
   audit lines (9176 green). Board: MERT-FIN, PP3-ASSEMBLY,
   VMVT-N3, seed #2 + DH-MAIN to the dispatch queue. Tally
   ~33.4M raw, house ~14%.
+
+- 2026-07-17 ~18:23 PT (GOLD WINDOW): ████ **VMVT-N3: LINNIK'S
+  LEMMA IS MACHINE-CHECKED — THE GATE OPENS; the summit campaign
+  COMMITS at the tight band** ████ (≈ 172k / 30 tools; ONE
+  design pass, 4 mechanical rounds, no mathematical dead-ends).
+  Salt/Vmvt/Linnik.lean (382 lines): **linnik_lemma**
+  ((LinnikSol p k h).card ≤ k!·p^{k(k−1)/2}) — the graded
+  congruence system encoded via castHom at per-equation
+  precision (the j.2-defeq trick sidestepping dependent-j
+  friction); the Newton transfer in ZMod p^k via UNIT
+  cancellation (N2's k-cancellation move, exactly as predicted);
+  the rigidity through the RESIDUE FIELD (the C-not-D crux:
+  ZMod p^k is no domain — distinctness-mod-p makes non-matching
+  factors units, lifting the match from p to p^k); the fibred
+  count via equinumerous castHom fibres. Four catches banked
+  (the Fintype-at-statement-time trap = catch #51's deeper
+  sibling; the dependent-motive rw trap). ██ THE GATE VERDICT
+  PER VMVT-R0's OWN CRITERION: clean C-tier ⟹ **the campaign
+  commits at ~6–9M** — the induction (24.5) is now a known-shape
+  grind on landed stones ██. Ceremony: wired + keystone (9177
+  green). Board: MERT-FIN, PP3-ASSEMBLY, seed #2 + DH-MAIN and
+  VMVT-N4 (the union bound + the induction opener) queued.
+  Tally ~33.6M raw, house ~14%.
