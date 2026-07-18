@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.HB.QuadCharSum
 import Salt.HB.TwistChain
 import Salt.HB.TwistChainC
+import Salt.HB.PairSieve
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -21,7 +22,9 @@ in `Salt/SW/`; the Kloosterman/Weil inputs are banked in
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.HB.LamStar_nonneg
+#audit_axioms Salt.HB.pairSieve_lemma8
+  Salt.HB.boundingSum_ge_log_sq_of_twinDensity
+  Salt.HB.LamStar_nonneg
   Salt.HB.vonMangoldt_le_LamTilde
   Salt.HB.LamTilde_eq_fChi_conv
   Salt.HB.LamStar_eq_fStar_conv
