@@ -63,6 +63,7 @@ import Salt.SW.DHBal
 import Salt.SW.DHBal2
 import Salt.SW.SelWeight
 import Salt.SW.SelAlgebra
+import Salt.SW.SelOpt
 import Salt.SW.DHExtract
 import Salt.SW.Hyperbola
 import Salt.SW.ZetaEM
@@ -240,6 +241,8 @@ open Salt.Tactic in
   Salt.SW.selGmul_pos Salt.SW.selHSum_pos Salt.SW.selWeight_apply_one
   Salt.SW.tail_shift_to_beta0
   Salt.SW.selberg_diag Salt.SW.selberg_diag_nonneg Salt.SW.rescale_inv_ge
+  Salt.SW.selberg_opt_eq Salt.SW.selweight_abs_le_one Salt.SW.selMainTerm_diag
+  Salt.SW.selY_collapse Salt.SW.selNu_inv_eq Salt.SW.selCore_collapse Salt.SW.partial_H_bound
   Salt.SW.sum_mul_index_eq Salt.SW.kernel_abel_sum Salt.SW.sum_Icc_one_shift
   Salt.SW.sum_rpow_le_integral Salt.SW.chiRe_partial_at_zero_le
   Salt.SW.sum_rpow_neg_le Salt.SW.T_em_real Salt.SW.abs_zeta_re_le

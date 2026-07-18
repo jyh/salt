@@ -9444,12 +9444,17 @@ from `Salt.lean`. Opening wave = R1, R2, R3-core, R4-orbit.
   `‖∑_{(N,2N]} eR(phi t n)‖ ≤ 10·N·P^{−ρ}` (arithmetic: `⌈N/P⌉·8P^{1−ρ} ≤ 10N·P^{−ρ}` under `4P ≤ N`).
   The abstract split (`vk_sum_Ioc_split`) is LANDED; the residual is the per-block `VkSpaced`
   discharge — the freeze's flagged heaviest window bookkeeping.
-- **R6 (VK-GROWTH) ← R5, R10**; **R8 (VK-ZETA-DISC) ← R6, R7**; **R9 (VK-341) ← R8**; then the region
-  target `zeta_zero_free_region_pow`. Untouched — later waves per the freeze's ORDER. R6 consumes
-  `zeta_weighted_block` (Strip.lean:762, σ-shift Abel) + `norm_zeta_sub_approx_le`
-  (ZetaApprox.lean:542); R8 consumes R7's `entire_norm_logDeriv_sub_sum_scaled` + `zeta_real_upper`;
-  R9 consumes `zero_free_extraction` (ZeroFree.lean:142). Sibling shape: `zeta_strip_family`
-  (Strip.lean:1301).
+- **R8/R9 GENERIC ASSEMBLY LANDED this wave (VK-5, 2026-07-18) — `Salt/Vk/Region.lean`; see the
+  VK-5 report below.** `zeta_keep_one_disc` + `zeta_drop_all_disc` (R8, growth-agnostic disc bounds)
+  + `zeta_zero_free_of_disc` (R9, the per-zero 3-4-1 stitch at parametric disc width, mirroring
+  `zeta_zero_free_region`) + the neg-γ shim `riemannZeta_conj`. The sphere bounds are HYPOTHESES, so
+  the same lemmas instantiate BOTH the power region and the Littlewood sibling.
+- **R6 (VK-GROWTH) ← R5, R10** — the power-region growth input, UNTOUCHED. R6 consumes
+  `zeta_weighted_block` (Strip.lean:762, σ-shift Abel) + `norm_zeta_sub_approx_le` (ZetaApprox.lean:542).
+- **The concrete-region emission** (both power and Littlewood) needs, on top of the landed R8/R9
+  assembly: the `Zc_ratio_sphere_bound` growth-to-sphere adapter + the `(Θ,Lq,dd,M₀)` parameter
+  selection + the `∃ c T₀` strip-wrapping (see the VK-5 RESIDUALS below). Sibling growth input:
+  `zeta_strip_family` (Strip.lean:1301, LANDED).
 
 **Catches (LOUD).** (#127) `Mathlib.Analysis.SpecialFunctions.Integrals` is now a DIRECTORY;
 `integral_pow`/interval-integral basics live in `...Integrals.Basic`. (#128) `Real.abs_log_sub_add_sum_range_le`
@@ -9548,6 +9553,83 @@ then `Real.log_inv`). `vdC_2nd_ZR` is ALREADY ℤ/`eR` (folds `eR_eq_eK` interna
 `Real.sqrt_mul` + `√16=4` (`Real.sqrt_sq` on `4²`). (#148) phi-unfold in the 2nd-diff identity:
 `simp only [Salt.ExpSum.phi, ← hA]; push_cast; ring` folds `t/(2π)` back to the local `set A` (with
 #140: phi noncomputable, `simp only` not `rw`).
+
+**LANDED — VK-5 wave (the R8/R9 generic assembly + the neg-γ shim; 2026-07-18, all sorry-free,
+axioms ⊆ {propext, Classical.choice, Quot.sound}, registered in `Salt/Vk/All.lean`; new file
+`Salt/Vk/Region.lean`).** The entire analytic heart of R8+R9, built GROWTH-AGNOSTIC (the sphere
+bounds are hypotheses), so it serves BOTH the power region and the Littlewood sibling — the freeze's
+"one assembly, two instantiations". `lake build Salt.Vk.All` EXIT 0.
+- **`riemannZeta_conj` [B, ~55] (freeze `[G]` neg-γ shim) — `Salt/Vk/Region.lean`.**
+  `ζ(conj s) = conj(ζ s)` for `s ≠ 1`. NO `riemannZeta_conj`/`_star` exists in mathlib (confirmed
+  by cache grep); built from the punctured-plane identity theorem: `z ↦ conj(ζ(conj z))` and `ζ` are
+  both `AnalyticOnNhd ℂ · {1}ᶜ` (`analyticOn_riemannZeta`, `differentiableAt_riemannZeta`,
+  `DifferentiableAt.conj_conj`) and agree on `Re s > 1` (`zeta_eq_tsum_one_div_nat_cpow` +
+  `Complex.conj_tsum` + `Complex.cpow_conj`; `1/nˢ` real), extended by
+  `eqOn_of_preconnected_of_frequently_eq` on `{1}ᶜ` (preconnected via
+  `isConnected_compl_singleton_of_one_lt_rank (by simp) 1`). Plus `riemannZeta_conj_zero`.
+- **`zeta_keep_one_disc` [C, ~110] — THE R8 CRUX — `Salt/Vk/Region.lean`.** The keep-one ζ
+  log-derivative bound at a NEAR-1-LINE disc `c = (1+Θ/2)+iγ`, radius `λ = 6Θ/7`. **KEY INSIGHT
+  (makes the region improve):** apply the scaled Landau core R7 (`entire_norm_logDeriv_sub_sum_scaled`)
+  to the NORMALIZED `G = Zc/(Zc c)` (not `Zc`): the `‖s−1‖ ≈ ‖c−1‖ ≈ |γ|` factor of `Zc = (s−1)ζ`
+  CANCELS in the ratio, so the center floor is `‖G c‖ = 1` (free, no Euler-product audit) and
+  `log(4M₀)` is `O(log log t)`-grade, not `O(log t)`. Output
+  `Re(−ζ'/ζ(σ+iγ)) ≤ Re(1/(s−1)) + (120/λ)·log(4M₀) − 1/(σ−Re ρ)`; the zero `ρ` is retained when
+  `Re ρ > 1 − (11/14)Θ` (ball membership), pulled in via `mem_zeros_of_factorization_gen`. Sphere
+  bounds on `G` are hypotheses.
+- **`zeta_drop_all_disc` [B/C, ~55] — `Salt/Vk/Region.lean`.** The drop-all analogue at the doubled
+  height `τ` (used at `2γ`): every partial-fraction zero contributes `≥ 0` (`term_re_nonneg`,
+  `Finset.sum_nonneg`), so `Re(−ζ'/ζ(σ+iτ)) ≤ Re(1/(s−1)) + (120/λ)·log(4M₀)`. Parametric in `τ`.
+- **`zeta_zero_free_of_disc` [C, ~90] — R9 GENERIC ASSEMBLY — `Salt/Vk/Region.lean`.** The per-zero
+  3-4-1 stitch: keep-one at `s₁=σ+iγ` + drop-all at `s₂=σ+2iγ` + real-`σ` pole (`neg_logDeriv_zeta_le`)
+  + `three_four_one_logDeriv` (trivial char mod 1, via `neg_logDeriv_LSeries_eq`+`LFunction_modOne_eq`)
+  + pole real-parts `≤ 1` → the Davenport chain `4/(σ−β) ≤ 3/(σ−1) + 8 + 5·Cnum`
+  (`Cnum = (120/λ)log(4M₀)`), then `zero_free_extraction` → `Re ρ ≤ 1 − dd/(7 Lq)`. MIRRORS
+  `Salt.SW.zeta_zero_free_region` at the new disc width; the chain closes when
+  `8 + 5·Cnum ≤ Lq/(2 dd)` (`hchainC`, with `C = 1/(2dd)` so `C·dd = 1/2` exact), `σ = 1 + dd/Lq`.
+  Parametric in `(Θ, M₀, Lq, dd)` with the sphere bounds + `hσΘ` (`dd/Lq ≤ Θ/2`) + `hwΘ`
+  (`dd/(7Lq) ≤ (11/14)Θ`) hypotheses. Case-splits on ball membership (outside ⟹ goal trivial).
+
+- **`Zc_ratio_sphere_bound` [B/C, ~60] — the growth-to-sphere ADAPTER — `Salt/Vk/Region.lean`
+  (LANDED VK-5).** Growth-agnostic bridge: on the disc `c=(1+Θ/2)+iτ` (radius `R ≤ (3/2)Θ`, `Θ ≤ 1/2`,
+  `|τ| ≥ 1`), `‖ζ z‖ ≤ Mζ` on the sphere ⟹ `‖Zc z/Zc c‖ ≤ 5·Mζ/Θ` (the exact hypothesis shape the
+  disc lemmas consume). Center floor `‖ζ c‖ ≥ (Θ/2)/(1+Θ/2)` from `Salt.SW.norm_zeta_inv_cline_le`
+  (LANDED, MobiusRateClose.lean:114 — the Euler-product-lower content); `‖z−1‖ ≤ R+‖c−1‖`,
+  `‖c−1‖ ≥ |τ|`, `z ≠ 1` since `‖z−1‖ ≥ 1−(3/2)Θ ≥ 1/4`.
+
+**RESIDUALS — VK-5 (the concrete-region instantiation and R5b/R6 stay open).**
+- **`VMVT-VK/R8-R9-region` — the parameter selection + growth instantiation + `∃`-wrapping.**
+  The analytic assembly AND the growth-to-sphere adapter are DONE; to emit an ACTUAL region theorem
+  one must (a) discharge the four disc sphere hypotheses via `Zc_ratio_sphere_bound` fed by a growth
+  input (`zeta_strip_family` for Littlewood at `k ≈ log log t` — needs the `k`-choice + its `σ ≥
+  1−1/2^{k+2}`, `t ≥ 4(k!)^6` constraints; or `zeta_growth_pow` for the power region), (b) select
+  `(Θ,Lq,dd,M₀=5Mζ/Θ)` as functions of the height verifying `hσΘ ∧ hwΘ ∧ hchainC` (the numerics
+  PASS — `vk_minpow_check.py` checks `ln(4M₀')≤7 lnL`, `dd/Lq ≤ 0.486Θ`, `5C4+8 ≤ 5e6`), (c) the
+  `∃ c T₀`-wrapping mirroring `zeta_zero_free_region`'s `|γ|<1` strip + `min`-witness. The parameter
+  selection is the hard part (analogous to R5b/R6's transcendental juggling).
+- **R5b (`VkSpaced` window discharge) and R6 (`zeta_growth_pow`) UNTOUCHED** — the power-region growth
+  input. R5b is the flagged heaviest bookkeeping (per-block hD/hW1/W2a/W2b/W2c discharge for the
+  window-select params over all `N₀ ∈ (N,2N]`); `vk_block_core` LANDED (commit cb7cfc9, the flags text
+  above calling R4-assembly residual is STALE). The ladder half (`vk_sum_Ioc_split_norm_le`) is LANDED.
+
+**Catches — VK-5 wave (LOUD).** (#149) **`set G := fun z => Zc z/Zc c` POISONS R7 unification:** the
+sphere hypotheses carry the beta-redex `‖Zc z/Zc c‖` which `set` does NOT fold (it folds the lambda,
+not applications), so R7 infers `?F := fun z=>Zc z/Zc c` (the literal), and later `logDeriv G` vs
+`logDeriv (literal)` MISMATCH in `rw`. FIX: never `set G`; pin `?F` by passing `hFdiff` with the
+explicit literal `fun z => Zc z / Zc c` — R7 then works on the literal throughout. (#150) `set`
+beta-non-reduction: after `set G with hG`, `rw [hG]` leaves `(fun z=>…) c` UN-beta'd so downstream
+`rw`s fail "pattern not found"; `exact`/application succeed (defeq beta) but `rw` does not — use
+`simp only [hG]` (beta-reduces) or the explicit-literal route. (#151) `logDeriv G = logDeriv Zc` for
+`G = Zc/(Zc c)`: rewrite `(fun w => Zc w / Zc c) = fun w => (Zc c)⁻¹ * Zc w` by `funext w; ring`, then
+`logDeriv_const_mul z (Zc c)⁻¹ (inv_ne_zero …)` (unconditional, catch #144). (#152-vk) the center
+floor `1/4 ≤ ‖G c‖` is FREE (`G c = 1`, `div_self`) — the freeze's Euler-product-lower audit surface
+is SIDESTEPPED by the ratio normalization; only the growth-to-sphere adapter needs
+`norm_zeta_inv_cline_le` (LANDED), so R8's flagged `riemannZeta_eulerProduct` +80 fallback is MOOT.
+(#153-vk) `positivity` does NOT use context hyps (`hΘ0 : 0<Θ` ignored for `0 < 6*Θ/7`); use
+`linarith [hΘ0]` or explicit `div_pos`. (#154-vk) three_four_one → ζ conversion MIRRORS
+`zeta_zero_free_region` exactly: `three_four_one_logDeriv (1:DirichletCharacter ℂ 1) hσ1 γ`,
+`one_pow 2` for `χ²=1`, three `neg_logDeriv_LSeries_eq` rewrites at the `1<re` facts, then
+`simp only [LFunction_modOne_eq]`; align the drop-all `s₂` via `push_cast; ring` on
+`(σ)+((2γ:ℝ):ℂ)*I = (σ)+2*(γ:ℂ)*I`.
 
 ## 2026-07-18 T-BAL R3(b) LANDS (the multiples mass, honest 4^ω) — R4 REFUTED at the √-error (a THIRD design flaw); R5 blocked — T-BAL-3/Opus
 
@@ -9976,3 +10058,48 @@ only on `[1,·]` (at 0, `0^{-β}=0 < ∞`); split the `e=1` term off, `Icc 2 m �
 — the latter is a monotone `∀a, a*x≤a*y` form here). (#170) `Real.exp_one_lt_d9` (`e<2.7182818286`)
 is exactly sharp enough for `0.27`: `1728·e=4697.2 ≤ 4700`, margin `(47/64)/e=0.27016`; do NOT round
 `e≈2.72` (that gives `1728·2.72=4700.16 > 4700`, breaks 0.27).
+
+## 2026-07-18 T-BAL S₀ WAVE 3b-2: `selberg_opt_eq` + `selweight_abs_le_one` LAND on the corrected def — S0-W3b-2/Opus
+
+The two Selberg-optimization stones the W3b refutation flagged FALSE-as-stated (against the
+mis-defined wave-1 `selWeight`) are now PROVEN against the HOUSE-CORRECTED `selWeight` (local factor
+`(d:ℝ)/selHmul χ d`). New file `Salt/SW/SelOpt.lean` (~600 ln), axiom-clean
+(`[propext, Classical.choice, Quot.sound]`), registered in `Salt.SW.All`. `Salt.SW.All` fully green.
+
+**STONES (exact statements).**
+* `selberg_opt_eq (hsq : χ²=1) (hz : 1 ≤ z) : selMainTerm χ z = 1 / selHSum χ z`, where the DH main
+  term is stated in the **ν(lcm) form the R6/R7 consumers want** (the flags' `V = Σ w_d w_e ν([d,e])`):
+  `selMainTerm χ z := Σ_{d,e ∈ (Icc 1 z).filter Squarefree} selWeight χ z d · selWeight χ z e ·
+  selNu χ (Nat.lcm d e)`, `selNu χ n := selHmul χ n / n` (`= ∏_{p∣n} h(p)/p`).
+* `selweight_abs_le_one (hsq : χ²=1) : |selWeight χ z d| ≤ 1`.
+
+**ROUTE (hand-rolled, support-native — NOT the mathlib `BoundingSieve` instantiation).** The ROUTING
+NOTE said route via mathlib's ν(gcd) diagonalization; I found the cleaner path is to hand-roll the
+diagonalization directly on `(Icc 1 z).filter Squarefree`, because mathlib's
+`prodPrimeFactors_add_of_squarefree` gives the squarefree-divisor product-sum (DIVPROD) for free, which
+powers the ν-inversion `ν(m)⁻¹ = Σ_{l∣m} g(l)⁻¹` (`selNu_inv_eq`) AND the abs-bound regrouping — with
+NO primorial, NO `ArithmeticFunction` ν instance, NO `divisors prodPrimes` cutoff bridges (the friction
+the flag anticipated). `selMainTerm_diag`: `V = Σ_l g(l)⁻¹ y_l²` via `ν(lcm)=ν_d ν_e ν(gcd)⁻¹` + swap.
+The corrected def telescopes: `ν(d)·θ_d = μ(d)g(d)G_d/H` (`selNu_mul_selWeight`, the `h(d)/d·d/h(d)`
+cancellation), so the collapse `y_l = μ(l)g(l)/H` (`selCore_collapse`, the crux `(d,r)↦(n=dr,d)` sigma
+reindex + `Σ_{l∣e∣n}μ(e)=[n=l]μ(l)`), whence `V = Σ_l g(l)/H² = H/H² = 1/H`. Abs bound: partial-`H`
+monotonicity `(Σ_{a∣d}g(a))·G_d ≤ H` (`partial_H_bound`, injection `(a,b)↦a·b` of the d-part×coprime
+factorization into the sf support) + `|μ(d)|≤1`.
+
+**NUMERIC CERT (scratchpad `collapse_check.py`, freeze defs verbatim).** `y_l=μ(l)g(l)/H` and `V=1/H`
+exact to `~1e-16` over χ∈{triv,mixed}, z∈{6..30}, and `l∈{1,2,3,6,10,30}` — catch #163 honored
+(collapse validated OFF l=1, where the bug hid). `max_d|θ_d|=1.000000` at d=1 (partial-`H` tight there).
+
+**Catches (LOUD).** (#171) The ROUTING NOTE's "route via mathlib `BoundingSieve`" is sound but the
+mathlib instance carries THREE `divisors prodPrimes ↔ (Icc 1 z).filter Squarefree` cutoff bridges +
+an `ArithmeticFunction ν` construction; the hand-roll avoids ALL of it because mathlib's
+`prodPrimeFactors_add_of_squarefree` (`ArithmeticFunction/Misc.lean`) already supplies the one hard
+generic identity (the sf-divisor product-sum = the selbergTerms Möbius inversion). Prefer the hand-roll
+for THIS support geometry. (#172) The corrected `selWeight` was BUILT so `ν(d)·θ_d` telescopes: the
+`selHmul(d)/d` from ν cancels the `d/selHmul(d)` in the fixed local factor, leaving `μ(d)g(d)G_d/H` —
+this is the exact mechanism that makes `y_l=μ(l)g(l)/H`, and it is why the wave-1 (inverted) factor gave
+V=0.51≠1/H. (#173) `Finset.sum_bij'`/`nbij'` over `set`-abstracted fiber finsets: `rw [memBridge] at h`
+leaves an un-β-reduced `B p.1` redex that `Finset.mem_filter` can't match — use `simp only [hBdef, ...]`
+(β-reduces) for hyps and `Finset.mem_sigma.mpr ⟨_,_⟩` for goals. (#174) `div_mul_eq_mul_div` rewrites the
+LEFTMOST `a/b*c`, not the one you mean — fold the target subterm to an atom first (`rw [hlocal]`) so the
+rewrite has a unique site.
