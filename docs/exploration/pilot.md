@@ -6946,3 +6946,22 @@ decisions per question.
   wired (accepted), green (9202). Board: SHIU-W3, HB-R2,
   LITT-F4, DH-COPBV, VMVT-HOLDER2, seed #3. Tally ~44.3M raw,
   house ~14%.
+
+- 2026-07-18 ~21:57 PT (NIGHT WATCH): ██ **HB-R2 LANDS THE
+  RESISTING ESTIMATE — the φ-restricted floor + hb_lemma8′ in
+  HB's (3.3) shape** ██ (≈ 297k / 46 tools; the floor first-try
+  via the copHarmonic reuse). Salt/HB/PairSieveMixed.lean (531
+  lines): **boundingSum_ge_phi_log_sq** (the (φ(M)/M)²(log Z)²/16
+  floor — "the resisting R2 estimate" turned into ~250 lines of
+  REUSE: 2 ∣ M makes oddness free and the whole M3 twin-floor
+  chain transfers; copHarmonic_uniform_lower the exact tool —
+  ShiuSieve's primitive serving HB within a day of landing) +
+  **hb_lemma8′** (S′ ≤ 64·(d₁d₂/φ)²·(x/d₁d₂)/(log Z)² + E; NO
+  roughness — the (3.3) consumer shape) + the mixed instance
+  (nuMix, the cofactor sift, the t-reparametrization exactly as
+  designed). RESIDUAL (1, atomic): the mixed residue count on
+  the NON-squarefree modulus — the route fully worked (no
+  modular inverses needed; the p = 2 collapse verified) →
+  **HB-R2C DISPATCHED** (~300 lines ZMod/CRT). Ceremony: wired +
+  2 keystones (9203 green). Board: SHIU-W3, LITT-F4, DH-COPBV,
+  VMVT-HOLDER2, HB-R2C, seed #3. Tally ~44.9M raw, house ~14%.

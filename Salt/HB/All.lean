@@ -9,6 +9,7 @@ import Salt.HB.TwistChainC
 import Salt.HB.Transfer
 import Salt.HB.PairSieve
 import Salt.HB.PairInstance
+import Salt.HB.PairSieveMixed
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -24,7 +25,9 @@ in `Salt/SW/`; the Kloosterman/Weil inputs are banked in
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.HB.pairSieve_lemma8
+#audit_axioms Salt.HB.boundingSum_ge_phi_log_sq
+  Salt.HB.pairSieveMixed_lemma8
+  Salt.HB.pairSieve_lemma8
   Salt.HB.hb_lemma8
   Salt.HB.hbPairSieve
   Salt.HB.card_apResidues
