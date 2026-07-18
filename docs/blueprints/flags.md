@@ -8257,6 +8257,50 @@ residue/quotient change of variables on the designated block; (c) the integer-po
 graded-`ZMod p^j`-congruence bridge (the LinnikSol graded system arises from the pairing's
 p-adic structure, NOT directly present). This is a fresh multi-wave node.
 
+## 2026-07-17 VMVT-R3 partial: R3-a + R3-b LANDED, R3-c obstruction pinned (Opus)
+
+`Salt/Vmvt/Transversal2.lean` (sorry-free, axioms `[propext, Classical.choice,
+Quot.sound]`, in `Vmvt/All.lean` + its `#audit_axioms`). Two of the three R3
+rungs land — the source-independent STONES:
+
+- **R3-a — the graded-congruence bridge** (flags' "needed machinery (c)",
+  the piece the residual note called "NOT directly present"):
+  - `residue_distinctModP` — integer entries `m_q` pairwise-distinct mod `p`
+    ⟹ the residue tuple `ρ_q = (m_q : ZMod (p^k))` is `DistinctModP`
+    (via `castHom_eq_val_cast` + `map_intCast` + `intCast_zmod_eq_zero_iff_dvd`).
+  - `residue_mem_LinnikSol` — `ρ` moreover lands in `LinnikSol p k h` whenever
+    `m`'s graded power sums match `h` mod `p^{j+1}` (the graded congruence is
+    exactly `LinnikSol`'s defining condition; DistinctModP from R3-a-1).
+- **R3-b — the fibre bound** `desigFibre_card_le`:
+  `#{m : Fin k → ℤ | m ∈ (0,x]^k, distinct mod p, graded sums ≡ h} ≤
+   k!·p^{k(k−1)/2}·(x/p^k+1)^k`. The injection `m ↦ (ρ, μ)` (residue, quotient
+  `μ_q = (m_q).toNat / p^k`) with `m_q` recovered as `ρ_q.val + p^k·μ_q`
+  (`Nat.mod_add_div`); `linnik_lemma` bounds the `ρ`-image, `(x/p^k+1)^k` the
+  `μ`-box (`Nat.card_Icc`). `desigFibre` is defined on the designated `k` coords
+  standalone (no block-projection needed).
+
+**R3-c — STOP-AND-FLAG (design/Fable-tier, obstruction now PRECISE from
+`psu_dedup.txt`).** The transversal count `I(p) = Ncount 0 (transBox) (transBox)
+= Σ_h R₄(h,p)²` reaches the source form
+`≤ p^{2rk−2k}·x^k·k!·p^{k(k−1)/2}·Jk(x/p, k(r−1))` (PSU 24.5, pp. 24–25) ONLY
+through a **Hölder-over-residues** step `I(p) ≤ p^{2rk−2k}·max_a I₁(p,a)`: it
+restricts the rest-block coords to a single residue class `a mod p`, and *only
+then* does the designated congruence `(m_i−a)^j ≡ (n_i−a)^j (mod p^j)` emerge
+(after the `−a` translation the rest becomes `p·u`, whose `j`-th powers carry
+`p^j`). This `p^{k(k−1)/2}` savings + `x→x/p` scale drop are ENTANGLED with the
+Hölder step. Every combinatorial-frame route loses one or the other: bounding
+`I(p) = Σ_h R₄(h)²` via R3-b + the convolution
+`R₄(h) = Σ_w R_desig(h − sig w)` + the shift-correlation bound (`24.1(e)`-style)
+gives `I(p) ≤ x^{2k(r−1)}·k!·p^{k(k−1)/2}·(x/p^k+1)^k·x^k ≈ x^{2kr − k/2 − 1/2}`
+— the WRONG SIDE of the target `x^{2kr − k(k+1)/2 + η}` for `k ≥ 2` (the
+`x^{2k(r−1)}` factor should be `Jk(x/p, k(r−1))` with savings, unreachable once
+the rest is decoupled uniformly). NEEDED (design/Fable): (i) the block
+projection `Fin (kr) ≃ Fin k ⊕ Fin (k(r−1))` respecting `solBox`/`Ncount`;
+(ii) a **power-mean on counts** over residue classes (mathlib
+`Finset.inner_le_Lp_mul_Lq` on the `p`-way residue partition of the rest block)
+— the combinatorial mirror of `|Σ_a g(·,a)|^{2rk−2k} ≤ p^{2rk−2k−1} Σ_a |g(·,a)|`.
+R3-a/R3-b are the reusable heart and are done; R3-c waits on that machinery.
+
 RESIDUAL 2 — **R4-`S₁` assembly** (consumes R3): from `J ≤ 4·Ncount(distinctBox)`,
 `distinctBox_le_card_mul_sum` (`≤ #P·∑_p Ncount(transBox p)`) + R3 + the IH `VmvtBound k r`,
 convert `p`-powers to `x`-powers using `p ∈ (x^{1/k}, 2x^{1/k}]` (the `θ = p/x^{1/k} ∈ (1,2]`

@@ -7178,3 +7178,23 @@ decisions per question.
   sum_tau_in_ap_le : ShiuCore). Ceremony: wired (accepted),
   green (9212). Board: VMVT-R3, SHIU-W5, seed #3. Tally ~50.9M
   raw, house ~14%.
+
+- 2026-07-18 ~23:28 PT (NIGHT WATCH): ██ **VMVT-R3 LANDS R3-a/b —
+  the Linnik bridge + the fibre bound; R3-c honestly flagged
+  with a PROVEN frame obstruction (catch #78)** ██ (≈ 195k / 34
+  tools). Salt/Vmvt/Transversal2.lean: **residue_mem_LinnikSol**
+  (the graded-congruence bridge — the campaign's "needed
+  machinery (c)" DONE) + **desigFibre_card_le** (≤ k!·
+  p^{k(k−1)/2}·(x/p^k+1)^k — linnik_lemma consumed). ██ CATCH
+  #78 (+#79 the design's frozen R3-c form WRONG — the p^{2rk−2k}
+  Hölder factor omitted, the scale x-vs-x/p): the source's
+  savings are ENTANGLED with the Hölder-over-residues decoupling
+  — the combinatorial frame PROVABLY tops at x^{2kr−k/2−1/2}
+  (the wrong side); R3-c needs the block projection Fin(kr) ≃
+  Fin k ⊕ Fin(k(r−1)) + the power-mean-over-residues — a
+  Fable-tier design pair ██ → the R3-c DESIGN BLOCK queued for
+  the morning house session (fresh context; the deepest design
+  on the map alongside T-BAL). Ceremony: wired (accepted),
+  green (8747). Board: SHIU-W5, seed #3 (+the morning design
+  queue: R3-c, T-BAL, the Littlewood region, HB-L2c). Tally
+  ~51.1M raw, house ~14%.

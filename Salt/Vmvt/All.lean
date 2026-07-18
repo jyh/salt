@@ -10,6 +10,7 @@ import Salt.Vmvt.Shifted
 import Salt.Vmvt.MeanValue
 import Salt.Vmvt.PrimeCount
 import Salt.Vmvt.Transversal
+import Salt.Vmvt.Transversal2
 import Salt.Vmvt.Holder
 import Salt.Vmvt.Fourier
 import Salt.Vmvt.HolderTwo
@@ -61,3 +62,6 @@ open Salt.Tactic in
   Salt.Vmvt.setGen_pairEqBox_factor
   Salt.Vmvt.holder_step
   Salt.Vmvt.pairEq_Ncount_le_frac
+  Salt.Vmvt.residue_distinctModP
+  Salt.Vmvt.residue_mem_LinnikSol
+  Salt.Vmvt.desigFibre_card_le
