@@ -7967,3 +7967,15 @@ decisions per question.
   **VK-2 DISPATCHED on R3-measure + R4-assembly** (the block
   core = the bridge's heart). Board: VK-2 + T-BAL-3
   (DHBal2.lean sighted — mid-work). Tally ~61.6M raw.
+
+- 2026-07-18 ~09:50 PT (housekeeping while VK-2 + T-BAL-3
+  grind): **the Gold Window report written**
+  (docs/reports/gold-window-report.md — headline results, the
+  doors/walls map at four tiers, process results, spend,
+  ratification recommendations) — subsumes the owed wave-3
+  report (its content = the report's history sections). **The
+  upstream registry written** (docs/upstream-candidates.md —
+  tier 1: the hyperbola TODO-fill + log_series_remainder +
+  primes_in_Ioc_eff; tier 2: vmvt the milestone; tier 3: the
+  toolkit). Both on JYH's desk, ripe not blocking. Board
+  unchanged: VK-2 + T-BAL-3.
