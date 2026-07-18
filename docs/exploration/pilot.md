@@ -7926,3 +7926,22 @@ decisions per question.
   stone-3 as independently valuable partials). THE CLIMB FROM
   THE SUMMIT TOWARD MR OPENS. Board: VMVT-VK-1 + T-BAL-3 +
   LITT-STRIP.
+
+- 2026-07-18 ~09:15 PT: ██ **LITT-STRIP LANDS COMPLETE — the
+  full flagship, no fallback** ██ (≈ 550k / 149 tools;
+  house-verified ExpSum.All 8597 green, zeta_strip_family
+  [3 axioms]). Salt/ExpSum/Strip.lean (1464 ln, all 8 rungs /
+  3 stones): `zeta_strip_family` — ‖ζ(σ+it)‖ ≤
+  4096·t^{1/(2^{k+2}(k−1))}·(1+log t) on σ ≥ 1−2^{−(k+2)},
+  t ≥ 4(k!)^6, **C = 4096 ABSOLUTE outside the k-quantifier**
+  — the 1/(k−1) subconvexity ratio that fuels LANDAU. Constant
+  drift RECORDED honestly: head coefficient 8 (not the freeze's
+  razor-thin 1.7; grand total 4077 ≤ 4096, margin preserved);
+  one REAL BUG caught by the σ≤2 range (‖s‖ ≤ 2+t, not the
+  template's 1+t). The razor-thin patch constants honored
+  exactly (1347.84 ≤ 1348). Catches banked (#127-grade:
+  open Real or π is a free variable; positivity can't sign
+  bare (k:ℝ)−1 — set-atom it; le_or_gt/pi_lt_d6 renames;
+  sum_Ico_eq_sub is not telescoping). THE LITTLEWOOD CHAIN:
+  COVER ✓ → STRIP ✓ → LANDAU = VK's R7, in flight NOW. Board:
+  VMVT-VK-1 + T-BAL-3.

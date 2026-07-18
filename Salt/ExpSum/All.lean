@@ -12,6 +12,7 @@ import Salt.ExpSum.ZetaBlock
 import Salt.ExpSum.ZetaGrowth
 import Salt.ExpSum.ZetaApprox
 import Salt.ExpSum.Window
+import Salt.ExpSum.Strip
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -45,3 +46,23 @@ open Salt.Tactic in
   Salt.ExpSum.zeta_block_window
   Salt.ExpSum.zeta_block_window_meet
   Salt.ExpSum.zeta_block_window_three
+  Salt.ExpSum.isVdCBound_16
+  Salt.ExpSum.zeta_block_kusmin_prefix
+  Salt.ExpSum.zeta_block_vdC_prefix
+  Salt.ExpSum.zeta_block_prefix_collapse
+  Salt.ExpSum.zeta_window_prefix
+  Salt.ExpSum.zeta_seam_prefix
+  Salt.ExpSum.zeta_patch_prefix
+  Salt.ExpSum.cpow_weight_split
+  Salt.ExpSum.abel_antitone_prefix
+  Salt.ExpSum.zeta_weighted_block
+  Salt.ExpSum.window_coverage
+  Salt.ExpSum.zeta_block_dispatch
+  Salt.ExpSum.dyadic_sum_split_gen
+  Salt.ExpSum.sum_Icc_rpow_neg_le'
+  Salt.ExpSum.sq_le_two_pow
+  Salt.ExpSum.head_coeff_le
+  Salt.ExpSum.zeta_ladder_bound
+  Salt.ExpSum.m0_guard
+  Salt.ExpSum.zeta_head_bound
+  Salt.ExpSum.zeta_strip_family
