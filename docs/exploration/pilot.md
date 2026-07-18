@@ -7142,3 +7142,20 @@ decisions per question.
   → held for the post-checkpoint wave with the R3 design.
   Ceremony: wired + 2 keystones (9211 green). Board: SHIU-W4,
   DH-M, seed #3. Tally ~50.0M raw — THE 50M MARK. House ~14%.
+
+- 2026-07-18 ~23:17 PT (NIGHT WATCH): ██ **DH-M LANDS THE MOLLIFIED
+  CAPSTONE — and the arithmetic seam CLEANER than designed:
+  m ∣ ab ⟺ (m/gcd(m,a)) ∣ b, ALL m, no splittings** ██ (≈ 255k /
+  35 tools; 1-2 tries per rung). Salt/SW/DHMollified.lean (7
+  declarations): **norm_shifted_detector_mollified_le** (‖D_ρ‖ ≤
+  Σ|gc|·P·(1+N^{1−β}/(1−β)) — the error-side assembly whole) +
+  the gc-regroup in the twisted frame + the RANGED Abel primitive
+  (the sharp inner core). The banked omega-division catch fired
+  exactly as warned and was dodged by the generalize-first
+  pattern — the gotcha bank at full compounding. RESIDUALS: the
+  decay assembly + ██ THE MAIN-TERM EXTRACTION / T-BAL — the
+  repulsion's FINAL crux, the deep Benli balance ██ → held for
+  the fresh-context wave (the deepest analysis on the map; a
+  full-budget dedicated session). Ceremony: wired + 2 keystones
+  (9212 green). Board: SHIU-W4, VMVT-R3, seed #3. Tally ~50.5M
+  raw, house ~14%.
