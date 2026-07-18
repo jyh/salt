@@ -6692,3 +6692,21 @@ decisions per question.
   powers). Ceremony: wired, Maynard green. Board: LITT-F2b,
   VMVT-R2, BV-SHARP, SHIU-W2, badge run. Tally ~39.4M raw,
   house ~14%.
+
+- 2026-07-18 ~20:38 PT (GOLD WINDOW day 2): ██ **BV-SHARP:
+  STOP-AND-FLAG — the flag system's finest hour: the briefing's
+  sketch REFUTED, the true prerequisite isolated** ██ (≈ 107k /
+  17 tools; 2 serious attempts then the honest stop; NO file
+  with a sorry written). CATCHES #67/#68 (flags.md #80/#81): my
+  K₀-threshold conflation (√z vs 3 contradictory — the sketch
+  was WRONG); no size-only route reaches 1/log z (the executor
+  COMPUTED Σ(1/log k)·inc_k = loglog z divergence; the target
+  needs the SIGN CANCELLATION Σ(μ(d)/d)log d = O(1) — DHMain's
+  own Residual A, which my "every supplier landed" premise
+  missed). Numerics: the target is TRUE (the weighted sum →
+  1.0000). THE HONEST ROUTE: **MOEB-LOG DISPATCHED** (|Σ_{d≤z}
+  (μ(d)/d)log d| ≤ C via Abel against mmuRate at A = 3 — the
+  house re-worked the integral: A = 2 diverges, A = 3 converges;
+  mirrors MOEB-RATE's landed pattern) → then the sharp BV is a
+  one-line composition. Board: LITT-F2b, VMVT-R2, HB-L8,
+  SHIU-W2, MOEB-LOG, badge run. Tally ~39.5M raw, house ~14%.

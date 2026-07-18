@@ -7776,3 +7776,60 @@ as an honest range hypothesis (engineering the range conditions, per task licens
 ★ NOTE: `eK` still the private local character from Kusmin — unify with `Basic.eR` at
 wire-in (both `exp(2πi x)`). `kusmin_landau` received the good windows exactly as designed;
 the M1↔M2 interface (single-unit-interval hypotheses, catch #53) held with zero friction.
+
+## 2026-07-17 BV-SHARP Opus FAILED (target unreachable from landed inputs; precise obstruction)
+HB-ENGINE campaign. Target: `abs_sum_grahamTheta_div_le_inv_log`
+(`∃ C>0, ∀ z≥3, |∑_{d∈Icc 1 z} grahamTheta z d / d| ≤ C/log z`) — GrahamWeights
+residual (2), DHMain rung 1d, the sharp Barban–Vehov cancellation. NO file written
+(would require a `sorry`); no proof exists from the currently-landed inputs.
+
+**Verdict: the sharp `1/log z` is NOT provable from {telescoping identity, |Mw|≤1,
+the sharp L∞ rate |Mw(n)|≤C/log n}. The task's "clean one-pager" route is flawed.**
+
+Route recap. `∑ θ_d/d = (1/log z)·∑_{d≤z}(μ(d)/d)log(z/d)` (grahamTheta def);
+the LANDED Abel identity `sum_moebius_div_mul_log_eq` converts the log-weighted
+sum to `S := ∑_{k∈Ico 1 z} Mw(k)·inc_k`, `inc_k = log(k+1)−log k`. So
+`|∑ θ_d/d| = |S|/log z`. To hit `C/log z` we need `|S| ≤ C` (a constant).
+
+★ CATCH #80 (the task's arithmetic error): the task sketch's "Recompute" bounds
+`|S| ≤ ∑_{k<K₀} 1·inc_k + ∑_{k≥K₀}(2C/log z)·inc_k` with **K₀ = 3 an absolute
+constant**, concluding `|S| ≤ log 3 + 2C`. INVALID: the step `|Mw(k)| ≤ 2C/log z`
+requires `log k ≥ ½ log z`, i.e. `k ≥ √z` — it is FALSE for the small `k ≥ 3` the
+sum actually starts at (e.g. `Mw(3)=1/6`, but `2C/log z → 0`). The threshold that
+makes the tail-bound valid (`√z`) and the threshold that makes the head-sum a
+constant (`3`) are contradictory; you cannot have both. Reading `K₀=√z`
+consistently gives `|S| ≤ ½ log z + 2C`, i.e. `|∑θ/d| ≤ ½ + 2C/log z = O(1)` — no
+better than the already-landed Rung 1c `abs_sum_grahamTheta_div_le_one` (`≤ 1`).
+
+★ CATCH #81 (why NO size-only route reaches `1/log z`): with only the pointwise
+sizes `|Mw(k)| ≤ min(1, C/log k)`, the best possible bound is the triangle sum
+`∑|Mw(k)|·inc_k`. But `∑_{k≥3}(1/log k)·inc_k = log log z − log log 3` **DIVERGES**
+(numerically: 1.49, 2.19, 2.59, 2.94, 3.22 at z=1e2..1e12; = ∫_3^z dt/(t log t)).
+So the L∞ rate proves only `|S| ≤ 2 + C(log log z − log log 3)`, giving
+`|∑θ/d| ≤ C·(log log z)/log z` — strictly WEAKER than `C/log z` (log log z → ∞).
+The `1/log z` requires the SIGN CANCELLATION in `S`, i.e. the constant-order value
+`∑_{d≤z}(μ(d)/d)log d = O(1)` (equivalently `∑_{d≤z}(μ(d)/d)log(z/d) → 1`), which
+the L∞ rate does NOT supply. Numerics confirm the TARGET IS TRUE — the true
+`∑_{d≤z}(μ(d)/d)log(z/d) → 1.0000` (bounded), so `|∑θ/d| ≈ 1/log z` — but its proof
+needs that missing analytic constant, not the rate.
+
+This is EXACTLY DHMain's own Residual A (`DHMain.lean:319–331`): the sharp bound
+"needs BOTH `|Mw(z)| ≤ C/log z` AND `|∑_{d≤z}(μ(d)/d)log d| ≤ C`." Today's
+`abs_mwWeighted_le_div_log` (MoebiusRateSharp) supplies the FIRST; the SECOND
+remains the open PNT-strength stone (`tsum_moebius_div_eq_zero` / the log-weighted
+value at the ζ-pole), scoped OUT there and NOT closed by the rate. Corpus search
+(all of `Salt/`) confirms: no landed O(1) bound on any log-weighted Möbius sum, no
+`HasSum … 0` tail. The rate alone cannot cross this wall.
+
+Honest reachable frontier (BEYOND Rung 1c's O(1), all using today's sharp rate):
+(a) **`1/√log z`** — the two-range split at `m = ⌈exp√log z⌉` gives
+`|∑θ/d| ≤ log m/log z + C/log m`, optimized `≤ (1+C)/√log z`. CLEAN (no integral
+comparison), ~150–250 lines (exp/floor threshold juggling). (b) **`(log log z)/log z`**
+— the fine k-dependent split, needs a `∑ 1/(k log k) ≤ log log + O(1)` integral-
+comparison sub-lemma (itself C-tier, not in mathlib). Neither is the fixed target;
+both would be new differently-named lemmas, NOT alterations of the blueprint
+statement. NOT built here (unasked; the lead should choose whether a weaker
+mollifier bound is acceptable downstream, or whether to prioritize the missing
+`∑(μ(d)/d)log d = O(1)` stone). HOUSE: design that stone as its own C/D-block —
+it is the true rung-1d prerequisite, and it also directly yields `1/log z` via
+`∑θ/d = Mw(z) − (1/log z)·∑(μ(d)/d)log d`.
