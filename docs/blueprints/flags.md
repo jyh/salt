@@ -8046,3 +8046,63 @@ R1+R2 alone — the self-improvement in `rpow_self_improve` still collapses beca
 `E(k,r)` by a controlled amount that the r≥k regime absorbs, cf. the guide's E(k,r) budget); or
 (b) accept the sharp route as a stated analytic input with the paper pointer. The keystone
 counting identity (now landed) is the prerequisite for BOTH and was the true blocker.
+
+## 2026-07-17 SHIU-W3 (S4-I/III/IV) Opus done+statement-concern
+ShiuCore rung, wave W3 (class assemblies). New file `Salt/Maynard/ShiuClasses.lean`
+(namespace `Salt.Maynard`), sorry-free, axioms ⊆ {propext, Classical.choice,
+Quot.sound} on all decls; full project build exit 0 (8701 jobs), no new warnings.
+
+**S4-I LANDED** — `shiu_classI_le`:
+`∃ C w₀, 0<C ∧ ∀ z q a w W K (Kmain:ℝ), w₀≤w → 2≤W → 1≤q → 2≤z → Coprime a q →
+ z ≤ W^K → 0≤Kmain → (log w)² ≤ Kmain·(log W·log z) →
+ W³·w·(1+log w)·q ≤ z·log z →
+ ∑_{n≤z, n≡a(q), classI} τ(n) ≤ C·2^K·(Kmain+1)·(z/φ(q))·log z`.
+Class I (`shiuClassI w W n` = `1 < d ∧ W < d.minFac`, `d = shiuD w n`): `d` is
+`W`-rough, so `τ(d) ≤ 2^K` for `z ≤ W^K` (the FIXED constant — at scale `K =
+log z/log W = 80/α` is `z`-independent). Route: greedy reindex `n ↦ (c,d)` (inj,
+`c·d=n`), `τ(n)=τ(c)τ(d)`, `τ(d)≤2^K`, fibre-split by `c`, inner `d`-count via
+`rough_count_in_ap_le` at `t=W` in the CRT inverse residue `d≡c⁻¹a (q)`, then the
+smooth `Σ_{c≤w} τ(c)/c ≤ (C₁ log w)²` (`sum_tau_smooth_div_log_le`, `N=v=w`, all
+`c≤w` are `w`-smooth) and `Σ_{c≤w} τ(c) ≤ w(1+log w)` (`Salt.BV.sum_card_divisors_le`).
+Main term collapses via `(log w)²/log W ↦ Kmain·log z`; `W³·w` junk absorbed by the
+modulus hyp. Kill-check PASSES: constant is `z`-independent. First attempt.
+
+**Shared infrastructure LANDED** (reusable for a future correct III/IV):
+`tau_rough_le` (`τ(d) ≤ 2^K` for `W`-rough `d ≤ z ≤ W^K`, via `τ≤2^Ω` +
+`(W+1)^Ω≤d`), `exists_inv_residue` (CRT inverse residue class, `ZMod q` units),
+`class_tau_sum_le_prod` (the greedy reindex → product sum), `bigT_sum_split`
+(fibre split `Σ_{(c,d)} → Σ_c τ(c)·#fibre`), `inner_count_le` (per-`c` `d`-count).
+
+★ STATEMENT/DESIGN CONCERN (S4-III, S4-IV): NOT LANDED. The skeleton's per-class
+route for classes III/IV (`c > W`) does NOT reach the `C·(z/φq)·log z` target from
+the landed stones. The statements are TRUE (each class ⊆ the true `≤ C(z/φq)log z`),
+but the ROUTE is too lossy. Precise obstruction (house-derived arithmetic
+kill-checked):
+ • S4-IV route bounds `τ(d)` POINTWISE `≤ A^{r+1}` (`A = 2^{80/α}`, `ρ ∈ (v_{r+1},
+   v_r]`, `Ω(d) ≤ log z/log v_{r+1} = 2(r+1)·40/α`) and pairs it with the UNWEIGHTED
+   `rough_count_in_ap_le` at `t=v_{r+1}`. Per-`r`:
+   `main_r ≈ (const/log z)(z/φq)·A^{r+1}(r+1)·exp(-(r/2)log r + 8√r(loglog v_r+C))`.
+   The r-sum `Σ_{r=1}^{r_max} A^{r+1}(r+1)exp(-(r/2)log r + 8√r loglog v_r)`, with
+   `r_max = ⌊log w/(16 loglog w)⌋`, is maximized near `r* ≈ (8 loglog z/loglog^2)²`
+   (the √r-Euler term vs the Rankin decay), where `A^{r*}·exp(8√r* loglog z) =
+   exp(Θ((loglog z)²))`. This is SUPER-POLYLOG: `exp((loglog z)²) ≫ (log z)^C` for
+   every `C` (since `(loglog z)² ≫ C·loglog z`). So `Σ_r main_r ≈
+   (z/φq)·exp(Θ((loglog z)²))/log z`, and vs target `(z/φq)log z` we need
+   `exp(Θ((loglog z)²)) ≤ (log z)²` — FALSE for all large z. The Rankin decay
+   `exp(-(r/2)log r)` only overtakes `A^r` past the crossover `r₁ = A² = 2^{2·80/α}
+   ≫ r_max`, so on `[1,r_max]` there is NO decay to kill `A^r`, AND the √r-Euler
+   correction independently forces the `(loglog z)²` exponent. So it misses even the
+   asymptotic `∃z₀,∀z≥z₀` target.
+ • S4-III route (`ρ ≤ P₀`, `c` `P₀`-smooth, `c>W`) is worse: `d`'s minFac `≤ P₀ =
+   (log w)^8` so `d` is barely rough (`τ(d)` unbounded); crude `τ(d) ≤ C_ε d^ε`
+   loses `z^{ε'}` (`ε'=1/16000`) that the tiny fixed-power Rankin gain
+   `W^{-(1-σ)} = z^{-Θ(α)}` (`Θ(α) = 1/5.12M ≪ ε'`) cannot repay.
+ • Dropping the AP constraint on `d` (to use the plain `Σ_{d≤Y}τ(d) ≤ Y(1+log Y)`)
+   loses the whole `1/φ(q)` saving; needs `1-σ ≥ 80/α`, impossible for `σ > 1/2`.
+ THE MISSING STONE: a τ-WEIGHTED rough count in AP, `Σ_{d≤Y, d≡b(q), d t-rough}
+ τ(d) ≤ C·(Y/φ(q))·(log-grade)` (ShiuCore-strength for the `d`-variable). The
+ unweighted `rough_count_in_ap_le` + pointwise `τ(d)` cannot substitute for it —
+ the pointwise `τ(d)` overestimates the τ-average over rough numbers by the fatal
+ `A^{r+1}` / `d^ε`. HOUSE: design the τ-weighted rough-count-in-AP as its own
+ C/D-block (it is the genuine III/IV prerequisite); then S4-III/IV assemble from
+ the landed reindex/split/inner-count infrastructure exactly as S4-I does.

@@ -6965,3 +6965,23 @@ decisions per question.
   **HB-R2C DISPATCHED** (~300 lines ZMod/CRT). Ceremony: wired +
   2 keystones (9203 green). Board: SHIU-W3, LITT-F4, DH-COPBV,
   VMVT-HOLDER2, HB-R2C, seed #3. Tally ~44.9M raw, house ~14%.
+
+- 2026-07-18 ~21:59 PT (NIGHT WATCH): ██ **SHIU-W3: S4-I LANDS
+  (first attempt) + THE KILL-CHECK CATCHES THE HOUSE SKELETON
+  (#76): the S4-III/IV route PROVABLY overshoots** ██ (≈ 376k /
+  73 tools). Salt/Maynard/ShiuClasses.lean: **shiu_classI_le**
+  (the class-I assembly, genuine constants — the K = 80/α
+  z-independence verified) + the reusable infrastructure (the
+  greedy reindex, the CRT inverse residue, the fibre split, the
+  inner rough-count bridge). ██ CATCH #76: the pointwise
+  τ(d) ≤ A^{r+1} × unweighted-count route produces
+  exp(Θ((loglog z)²)) — SUPER-polylog; the Rankin decay's
+  crossover r₁ = A² ≫ r_max sits far beyond the class range; the
+  missing stone is a τ-WEIGHTED rough count in AP (ShiuCore-
+  strength on the d-variable) ██ → **SHIU-G2 DISPATCHED** (the
+  grounding recon: Wright §8's ACTUAL class-III/IV mechanism —
+  how the source avoids the pointwise-τ loss; the house skeleton
+  was MEMORY-tier exactly here, as SHIU-G's pre-flight warned).
+  Ceremony: wired, Maynard green (8701). Board: LITT-F4,
+  DH-COPBV, VMVT-HOLDER2, HB-R2C, SHIU-G2, seed #3. Tally
+  ~45.3M raw, house ~14%.
