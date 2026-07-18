@@ -1189,3 +1189,77 @@ S4-III/IV assemble on S4-I's landed infrastructure per the
 grounded 6-step route. The 1/(j−1)! prime-product count is
 explicitly NOT the route (recommended against). SHIU-W3b
 DISPATCHED (NEW-1 + NEW-2 + the corrected assemblies).
+
+**SHIU-W3b PARTIAL LANDING (2026-07-17): the STONES are in;
+the assemblies FLAGGED.** `Salt/Maynard/ShiuTuned.lean` (sorry-free,
+axioms clean, in `All.lean`): **NEW-1 `sum_tau_smooth_gt_tuned_le`**
+(the tuned graded Rankin at δ=1−r·log r/(4 log z), factor-2 tight
+Euler + `e^t−1≤t·e^t` correction telescope + Mertens-1; RHS =
+`exp(−(1/8)r log r + r^{1/4}(log r/2+C₀))·exp(2Σ_{p≤z}1/p+Ce)`) and
+**NEW-2 `sum_smooth_gt_tuned_le`** (the unweighted 1/c tail via 1≤τ;
+`u^{−u}` de Bruijn grade for free, r·log r=u·log u). The design's
+NEW-2 "extra factorial log" worry DISSOLVED — the u^{−u} structure IS
+NEW-1's r^{−r/8} at v=y₀. S4-III/IV assemblies FLAGGED (see
+flags.md "SHIU-W3b"): two clusters remain — (1) the r-sum
+convergence (geometric-vs-factorial; clean route documented,
+~80–120 ln, C), (2) the r-binning of the COMBINED shiuClassIIIIV
+(ShiuDecomp has no III/IV split predicate; ~200 ln each on the S4-I
+template, composition-only, no new math). All ingredients now
+exist; dispatch as a fresh executor.
+
+## VMVT-R3 DESIGN (house, night watch): the block change of
+## variables — the residue/quotient split
+
+The obstruction (Step.lean's flag): the whole-tuple Ncount/sig
+frame has no block decomposition. THE DESIGN: don't decompose
+the frame — decompose the COUNTING MAP. For the transversal box
+at prime p: each designated coordinate m_i (i < k) splits
+UNIQUELY as m_i = ρ_i + p^k·μ_i (ρ_i = m_i mod p^k ∈ ZMod-lift,
+μ_i the quotient, 0 ≤ μ_i ≤ x/p^k); each rest coordinate stays
+whole. THE COUNTING FACTORIZATION (an injection, not a
+bijection — upper bounds suffice):
+Ncount 0 (transBox x e p) ≤ Σ_{(rest data)} #{(ρ, μ) : the
+graded congruences pin ρ ∈ LinnikSol p k h(rest); μ free in the
+box} ≤ (the rest-count) × k!·p^{k(k−1)/2} × (x/p^k + 1)^k
+— via THREE lemmas:
+- R3-a (the split injection): the map m ↦ (designated residues,
+  designated quotients, rest) is injective; the transversality
+  (distinct mod p) transfers to ρ (distinctness descends mod p);
+  the power-sum system at precision p^j (j ≤ k) DEPENDS ONLY ON
+  ρ (μ contributes multiples of p^k ≥ p^j) — the graded system
+  h(rest) := (the targets minus the rest's power sums) mod p^j
+  is well-defined from the rest alone. [The piFinset injection +
+  ZMod.castHom arithmetic; the Linnik.lean encoding patterns.]
+- R3-b (the fibre bound): for FIXED rest and h: the ρ-count ≤
+  linnik_lemma's k!·p^{k(k−1)/2} (the LinnikSol membership is
+  R3-a's conclusion); the μ-count ≤ (x/p^k + 1)^k trivially.
+- R3-c (the rest-count): Σ over rest-tuples of 1 — the rest
+  ranges in the box: ≤ x^{(r−1)k}... NO — the honest form: the
+  rest is UNCONSTRAINED in the fibre bound (the constraints
+  moved into h(rest)) — the rest-sum is the FULL box count
+  x^{k(r−1)}?? That loses the J-structure. THE CORRECT
+  BOOKKEEPING (the source's): the rest carries ITS OWN pair
+  structure — the transBox counts PAIRS (m, n) with the joint
+  system; the split applies to BOTH sides; for fixed (ρ_m, ρ_n,
+  μ-boxes) the REST PAIR satisfies the SHIFTED system (shift =
+  the designated blocks' contribution) ⟹ the rest-pair count ≤
+  JkShift ≤ Jk (24.1e!) at (r−1)k variables and scale... the
+  rest lives in (0, x] — but the IH is at x/p: THE DILATION: the
+  designated μ's range in (0, x/p^k]-boxes and the ρ-classes
+  fix the arithmetic — the source dilates by writing the
+  designated m_i = ρ_i + p^k μ_i with the μ-box A' of size
+  x/p^k, and applies the IH to THE REST at the ORIGINAAL scale
+  via... [re-read the source's step at dispatch; the safe
+  frozen form: Ncount(transBox p) ≤ k!·p^{k(k−1)/2}·(x/p^k+1)^k
+  · Jk k (k(r−1)) (Icc 1 x) — with the p-power savings carried
+  by the ρ/μ split and the IH consumed at the SAME scale x but
+  FEWER variables (the exponent arithmetic: vmvtExp_succ was
+  verified against exactly this shape: x^k·p^{k(k−1)/2}·
+  p^{−k·k}-ish·J(x, k(r−1)) — CHECK the resume map's accounting:
+  "Linnik m-freedom x^k + Hölder p^{2rk−2k} + Linnik residues
+  p^{k(k−1)/2} + IH at x/p" — the IH at x/p comes from μ-box
+  dilation of the REST?? — RESOLVE AT DISPATCH against
+  psu_dedup.txt; freeze R3-a/b as stated (they are source-
+  independent) and let R3-c follow the source verbatim.]
+DISPATCH: R3-a + R3-b now (source-independent); R3-c with the
+source open.
