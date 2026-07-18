@@ -6335,3 +6335,13 @@ decisions per question.
   the campaign band 6–13M into ~6–9M-commit or re-scope. Board:
   MERT-FIN, PP3-ASSEMBLY, DH-2b-iv, VMVT-N3, seed #2. Tally
   ~33.0M raw, house ~14%.
+
+- 2026-07-17 ~17:57 PT: **CORRECTION to the previous entry (the
+  ledger keeps itself honest): catch #60 was FALSE** — the house
+  ls confirms psu_dedup.txt + ford_zeros.txt EXIST in the
+  scratchpad; VMVT-N2's "file absent" grep was wrong (likely a
+  relative-path miss from the executor's cwd). N2's output was
+  unaffected (it worked from the brief's math, correctly). The
+  catch renumbers to a PROCESS note: executors must use ABSOLUTE
+  scratchpad paths. VMVT-N3's brief carries the confirmed
+  absolute paths.
