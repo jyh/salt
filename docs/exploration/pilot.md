@@ -7035,3 +7035,21 @@ decisions per question.
   itself; R5's unwind follows). Ceremony: pre-wired (accepted),
   green (9207). Board: HB-R2C, LITT-F5, SHIU-W3b, DH-TRUNC,
   VMVT-R3R4, seed #3. Tally ~47.1M raw, house ~14%.
+
+- 2026-07-18 ~22:42 PT (NIGHT WATCH): ██ **HB-R2C LANDS COMPLETE —
+  hb_lemma8′ IS UNCONDITIONAL: HB's (3.3) IS FULLY SUPPLIED** ██
+  (≈ 306k / 57 tools; one continuous pass, no flags). Salt/HB/
+  MixedCount.lean (618 lines): the rhoK CRT stone + the four
+  ZMod-p field cases + **card_mixResidues** (the exact product
+  count on the NON-squarefree modulus — the tempting
+  collapse-shortcut PROVEN wrong for the mixed case, catch
+  banked) + **hb_lemma8'_unconditional** (S′ ≤ 64·(d₁d₂/φ)²·
+  (x/d₁d₂)/(log Z)² + 2Z⁸ — no roughness, the honest twin-pair
+  sieve bound Heath-Brown's (3.3) consumes; root distinctness
+  riding the clean a₂d₂ = a₁d₁ + 2). **HB-L2b DISPATCHED** (the
+  Lemma 2 assembly: the exceptional-set decomposition +
+  (3.3)-via-hb_lemma8′ + the Mertens sums → the transfer
+  COMPLETE with the parametric pretense slot — WP1's pole
+  falls with it). Ceremony: pre-wired (accepted), full build
+  green (9209). Board: LITT-F5, SHIU-W3b, DH-TRUNC, VMVT-R3R4,
+  HB-L2b, seed #3. Tally ~47.7M raw, house ~14%.

@@ -10,6 +10,7 @@ import Salt.HB.Transfer
 import Salt.HB.PairSieve
 import Salt.HB.PairInstance
 import Salt.HB.PairSieveMixed
+import Salt.HB.MixedCount
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -33,6 +34,11 @@ open Salt.Tactic in
   Salt.HB.card_apResidues
   Salt.HB.hbPairSieve_rem_abs_le
   Salt.HB.hbPairSieve_errSum_le
+  Salt.HB.hb_lemma8'_unconditional
+  Salt.HB.card_mixResidues
+  Salt.HB.rhoK_prime
+  Salt.HB.mixPairSieve_rem_abs_le
+  Salt.HB.mixPairSieve_errSum_le
   Salt.HB.boundingSum_ge_log_sq_of_twinDensity
   Salt.HB.LamStar_nonneg
   Salt.HB.vonMangoldt_le_LamTilde
