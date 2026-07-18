@@ -8390,3 +8390,26 @@ decisions per question.
   the δ_b cap ~60B/C; the assembly ~40B). **R5-FINISH
   DISPATCHED** (the four remaining stones → H_lower COMPLETE).
   Board: VK-6 + the R6 design wf + R5-FINISH.
+
+- 2026-07-18 13:30 PT: ██ **THE R6 WALL BREAKS ON PAPER — the
+  design survives 0/2, conf 0.85, both refuters independently
+  re-certified the numerics** ██ (wf_676be061, 3 agents ≈
+  423k). THE WALL-BREAKER: the (†)∘Möbius EXACT reduction —
+  the per-m inner sum equals Σ_{g∣m}Σ_{k∣m/g}
+  χ(g)χ(k)μ(k)(mk)^{−β₀}·D₀(Y/(mk)), an IDENTITY (certified
+  1.4e-16): the third convolution NEVER MATERIALIZES, the sign
+  cancellation is preserved (triangle only on the residual),
+  and the collection Σ gcW·selNu = selMainTerm = 1/H lands
+  EXACTLY (certified 1.8e-16). The error closes at the FROZEN
+  z with 10.2 orders at the q=3 binding corner (BEATS the
+  ledger's budget by 2.3 orders). 8 rungs, NO D-class, ~970
+  ln. The frame refuter's 6 binding repairs folded (the
+  proof-local hLeg blocks to copy; consume the LANDED
+  abs_gcW_le; the one un-landed micro-lemma named w/ mechanism
+  from CoprimeBV; state R6-4 for ALL m — certified
+  off-squarefree; the floor bridge; the explicit import list).
+  Freeze banked (docs/exploration/r6-freeze.md).
+  **R6-EXEC DISPATCHED** (~970 ln, Salt/SW/DHExtractW.lean).
+  When R6-EXEC + R5-FINISH both land → T-BAL-CLOSE (R7+R8,
+  certified composition) = WP2'S CORE. Board: VK-6 + R5-FINISH
+  + R6-EXEC.
