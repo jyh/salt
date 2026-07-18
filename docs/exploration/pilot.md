@@ -7516,3 +7516,19 @@ decisions per question.
   rpow-collapse recipe; rw-with-self-referencing-eq blows up —
   calc instead. Board: T-BAL workflow; house edits queued:
   VMVT re-grade freeze + GEH cap relax. Tally ~55.4M raw.
+
+- 2026-07-18 04:05 PT: both repairs frozen + dispatched. (1)
+  **VMVT-R5b FREEZE** (s3-a3-design.md): vmvtC0 re-graded to
+  k^{8k²} (the source's free D(k,r) = exp(Crk²log k), PSU 24.5
+  trivial-branch arithmetic; vmvtExp/vmvtExp_succ/VmvtBound
+  form untouched); Xmed = k^{8·max(k,r)}; the deficit ≤
+  min(k², kr) via Bernoulli; prime-supply margins at y ≥ k⁸
+  checked incl. k=2; hrange b ≤ E proven-in-freeze (f(1)=0,
+  f(r+1)−f(r) ≥ k/2). **VMVT-R5b DISPATCHED** (stones: re-grade
+  + bridge + patches → trivial branch → ██ vmvt, THE SUMMIT ██).
+  (2) **GEH-CAP DISPATCHED** (catch #96 repair): the cap relax
+  2NM ≤ x → ≤ 2x through deep_perblock (4 sites mapped) +
+  the combinator's ha5 + anch_balance_of_le, helper
+  generalizations (anchorSW, anchor_modulus_absorb) minimal,
+  constants absorb the factor 2. Board: T-BAL workflow +
+  VMVT-R5b + GEH-CAP.

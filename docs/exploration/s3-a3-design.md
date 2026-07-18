@@ -1373,3 +1373,55 @@ CHAIN (re-priced):
   the landed fixed-strip 3-4-1 assembly parametrizes cleanly or
   needs a fresh log-derivative chain is THE design question for
   the dedicated block.
+
+## VMVT-R5b FREEZE (house, post-R4): the vmvtC0 re-grade + the
+## medium-x trivial branch + THE SUMMIT INDUCTION
+
+R4's stone-2 flag is correct: the fixed C₀ = k⁶·k!·2^{k²}·3 is
+exp-grade too small for the trivial branch to reach the
+pigeonhole threshold. The source's D(k,r) = exp(Crk²log k) with
+C FREE is the designed absorber (PSU 24.5 lines 290–311: "if
+x ≤ exp(C max(k,r) log k) ... the trivial estimate gives the
+Theorem"). AUTHORIZED STATEMENT CHANGE (Fable): redefine
+
+  vmvtC0 (k : ℕ) : ℝ := (k : ℝ) ^ (8 * k ^ 2)
+
+(vmvtConst = C₀^r and VmvtBound keep their FORM; vmvtExp/
+vmvtEta/vmvtExp_succ UNTOUCHED — the exponent is the
+load-bearing content, the constant is free per the source and
+the file's own docstring). Threshold: Xmed k r := k ^ (8 * max
+k r) (ℕ-power). THE ARITHMETIC (all margins checked):
+
+- Bridge: k ≥ 2 → k⁶·k!·2^{k²}·3 ≤ k^{8k²} (k! ≤ k^k, 2^{k²} ≤
+  k^{k²}, 3 ≤ k², exponents 6+k+k²+2 ≤ 8k² ⟸ k ≥ 2). Every
+  landed proof that consumed the old value (mul_pred_pow_le_
+  vmvtC0, vmvt_base, the degen branch, StepFull's
+  transBox_le_const fold) re-closes THROUGH the bridge — patch
+  mechanically, do not re-derive.
+- Trivial branch (vmvt_trivial_branch): x ≤ Xmed k r →
+  VmvtBound k r x. JkI ≤ (x^{kr})² = x^{2kr} crude; deficit
+  2kr − E = ½k(k+1) − η with (i) ≤ k² (η ≥ 0), (ii) ≤ kr via
+  Bernoulli (1−1/k)^r ≥ 1 − r/k (mathlib one_add_mul_le_pow at
+  x := −1/k) → η ≥ ½k² − ½kr. Then x^{deficit} ≤
+  k^{8·max(k,r)·min(k²,kr)} ≤ k^{8rk²} = C₀^r (max·min ≤ rk²
+  by the r ≤ k / r > k case split).
+- Prime supply at x > Xmed: y = vmvtScale ≥ x^{1/k} ≥
+  k^{8·max(k,r)/k} ≥ k⁸; primes_in_Ioc_ge (c = 1/8; RECON its
+  own thresholds) gives #(y,2y] ≥ y/(8 log y) ≥ ½k³ + 1-grade
+  at y ≥ k⁸ (k^5 ≥ 32·ln k·-grade, k=2: 32 ≥ 22.2 ✓) ⟹ hpig
+  k·k·(k−1) < 2·#P. hreg k² + 4E ≤ y: E ≤ 2rk + η ≤ 2rk + ½k²,
+  exponential y beats linear ✓.
+- hrange b ≤ E: PROVABLE ∀ r ≥ 1, k ≥ 2 (equality at r=1):
+  discrete induction, f(r+1) − f(r) = k − η(k,r)/k ≥ k/2 ≥ 0
+  with f(1) = 0. Side lemma, ~20 ln.
+- THE INDUCTION (vmvt, the summit): induct on r ≥ 1 for fixed
+  k ≥ 2, ∀x. Base: vmvt_base through the bridge. Step: given
+  IH ∀x' (VmvtBound k r x'), for x at r+1: x ≤ Xmed k (r+1) →
+  trivial branch; x > Xmed → discharge the landed
+  vmvt_step_transversal_large's hypotheses (hpig/hreg/hrange/
+  scale facts per above) and apply it with the IH. Target:
+  `theorem vmvt (k r x : ℕ) (hk : 2 ≤ k) (hr : 1 ≤ r)
+  (hx : 1 ≤ x) : VmvtBound k r x`.
+Est ~400–500 ln incl. patches. Zeno: stone 1 = re-grade +
+bridge + all patches green; stone 2 = trivial branch; ██ stone
+3 = vmvt — THE VINOGRADOV MEAN VALUE THEOREM ██.
