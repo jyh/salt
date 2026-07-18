@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.Vmvt.Defs
+import Salt.Vmvt.BaseCase
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -21,7 +22,10 @@ Lemma (VMVT-N3).
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.Vmvt.Jk_image_affine
+#audit_axioms Salt.Vmvt.Jk_le_of_le
+  Salt.Vmvt.multiset_map_eq_of_powerSum_eq
+  Salt.Vmvt.exists_perm_of_powerSum_eq
+  Salt.Vmvt.Jk_image_affine
   Salt.Vmvt.Jk_image_add
   Salt.Vmvt.Jk_image_mul
   Salt.Vmvt.Jk_ge_card_pow

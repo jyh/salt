@@ -6316,3 +6316,22 @@ decisions per question.
   audit keystones added (9172 green). Board: MERT-FIN,
   PP3-ASSEMBLY, VMVT-N2, DH-2b-iv, seed #2. Tally ~32.8M raw,
   house ~14%.
+
+- 2026-07-17 ~17:56 PT (GOLD WINDOW): ██ **VMVT-N2 LANDS — THE BASE
+  CASE OVER ℤ: equal power sums force a permutation; J_k(A,b) ≤
+  b!·|A|^b** ██ (≈ 165k / 37 tools; one design pass). Salt/Vmvt/
+  BaseCase.lean: **multiset_map_eq_of_powerSum_eq** (the Newton–
+  Girard keystone — the k-CANCELLATION-IN-ℤ move deleted the
+  whole anticipated ℚ-cast layer) + the permutation form (the
+  reverse multiset→perm bridge built from scratch — CONFIRMED
+  absent from mathlib, via Tuple.sort; upstream candidate) +
+  **Jk_le_of_le** + JkI_le. PROCESS CATCH (#60): the recon's
+  staged porting file psu_dedup.txt DOES NOT EXIST (never
+  written or cleaned) — the executor worked from the brief's
+  mathematical content, correctly; the GATE node's brief now
+  carries self-service fetch instructions + the full inline
+  spec. Ceremony: wired + 3 keystones (9174 green). **VMVT-N3
+  DISPATCHED — LINNIK'S LEMMA, THE GATE**: its outcome converts
+  the campaign band 6–13M into ~6–9M-commit or re-scope. Board:
+  MERT-FIN, PP3-ASSEMBLY, DH-2b-iv, VMVT-N3, seed #2. Tally
+  ~33.0M raw, house ~14%.
