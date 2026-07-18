@@ -6736,3 +6736,21 @@ decisions per question.
   needs JYH. The aim unchanged: the gold — twin primes.** Board
   at the protocol start: LITT-F2b, VMVT-R2, SHIU-W2, MOEB-LOG,
   HB-L8b, badge run. Fresh 5h quota at 1%.
+
+- 2026-07-18 ~20:50 PT (NIGHT WATCH): ██ **VMVT-R2 LANDS R2-1 +
+  R2-2 FULL, R2-3 DECOMPOSED — the pigeonhole holds at catch
+  #66's corrected count** ██ (≈ 226k / 46 tools). Salt/Vmvt/
+  Transversal.lean: **transversal_prime_exists** (the strict-i<j
+  product gives #bad ≤ ½k²(k−1) < the ½k(k²−1) supply — the file
+  header warns against the off-diagonal "simplification" that
+  breaks it) + the J ≤ 2(S₁+S₂) split + **distinctBox_le_card_
+  mul_sum** (S₁ ≤ #P·Σ_p I(p) — R3's consumer shape) + the
+  degenerate pair-collapse union bound. THE HONEST FLAG (2
+  verified dead-ends: crude x^{2kr−2} lands the WRONG side of
+  E(k,r); the linear-in-J route is CIRCULAR): S₂ needs the
+  self-improving fractional Hölder S₂ ≤ k⁴·J^{1−2/(kr)} —
+  **VMVT-HOLDER DISPATCHED** (conjugate exponents p = kr/2
+  supplied; inner_le_Lp_mul_Lq per the design note). Ceremony:
+  pre-wired (accepted), full build green (9191). Board:
+  LITT-F2b, SHIU-W2, MOEB-LOG, HB-L8b, VMVT-HOLDER, badge run.
+  Tally ~40.0M raw — THE 40M MARK. House ~14%.

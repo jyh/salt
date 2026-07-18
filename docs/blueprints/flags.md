@@ -7833,3 +7833,49 @@ mollifier bound is acceptable downstream, or whether to prioritize the missing
 `∑(μ(d)/d)log d = O(1)` stone). HOUSE: design that stone as its own C/D-block —
 it is the true rung-1d prerequisite, and it also directly yields `1/log z` via
 `∑θ/d = Mw(z) − (1/log z)·∑(μ(d)/d)log d`.
+
+## VMVT-R2-3 — the degenerate S₂ closure needs the self-improving fractional Hölder (the "second named gap") — FLAGGED 2026-07-17
+
+**Node**: VMVT R2-3 (the degenerate-count half of the transversality split).
+**Executor**: VMVT-R2 (Opus). **Rungs R2-1, R2-2 LANDED** (Salt/Vmvt/Transversal.lean,
+axioms clean); R2-3 landed PARTIAL (the decomposition) + this flag.
+
+**What LANDED for R2-3**: `degenBox_Ncount_le` — the degenerate box `D₂` (block not
+distinct) decomposes as the union over pairs `a<b` of the pair-collapse boxes
+`D_{a=b} = {m ∈ (0,x]^{kr} : m(e a)=m(e b)}`, giving
+`S₂ = Ncount(D₂) ≤ #offPairs · ∑_{a<b} Ncount(D_{a=b})` via the landed
+`Ncount_union_le`. This is the source's "collapse two variables" step, faithful and
+reusable.
+
+**The GAP** (exact arithmetic): closing each `Ncount(D_{a=b})` term against the
+target exponent `E(k,r) = 2rk − ½k(k+1) + η(k,r)` requires the source's SELF-IMPROVING
+fractional Hölder (Vaughan PSU Ch.24, the S₂ ≥ S₁ case, p.~24):
+`R₂(h) ≤ k²·R₃(h)` (symmetrise to one collapsed pair) ⟹ `S₂ ≤ k⁴·∑_h R₃(h)²`, and
+then by Hölder on `∑_h R₃(h)²` (the count `∫|f(2α)|²|f(α)|^{2kr−4}`),
+**`S₂ ≤ k⁴·J_k(x,kr)^{1−2/(kr)}`** — STRICTLY sublinear in `J_k`. In the S₂-dominant
+case `J_k ≤ 4S₂`, this self-improves to the x-independent `J_k ≤ (4k⁴)^{kr/2}`.
+
+**Why crude/linear routes PROVABLY do not close** (verified, ~3 attempts):
+1. `S₂ ≤ |D₂|²`: with `|D₂| ≤ (k−1)^k·x^{kr−1}`, gives `S₂ ≲ x^{2kr−2}`. But
+   `2kr−2 − E(k,r) = 2kr−2 − (2rk − ½k(k+1) + η) = ½k(k+1) − η − 2 ≥ k − 2 ≥ 0`
+   for `k ≥ 2` (using `η ≤ ½k(k−1)` for `r ≥ 1`). So `x^{2kr−2} ≥ x^{E}` — the crude
+   bound sits on the WRONG side of the target. The `½k(k+1)` exponent savings come
+   exactly from the power-sum constraints the crude count discards.
+2. `Ncount(D_{a=b}) ≤ x²·J_k(x,kr−2) ≤ J_k(x,kr)` (fix the two equal coords `u=v`,
+   the remaining `kr−2` coords form a shifted system with shift `ℓ_j = 2v^j−2u^j`,
+   bounded by `Jk_shift_le`; then extend `x²·J_k(x,kr−2) ≤ J_k(x,kr)` by appending
+   two equal pairs): LINEAR in `J_k`. So `J_k ≤ 4S₂ ≤ 4·#offPairs²·J_k` is vacuous
+   (`1 ≤ 4·#offPairs²`). Circular — only the strictly-sublinear power self-improves.
+
+**The route the closure needs** (per the VMVT-R2 DESIGN NOTE, house day 2): the
+combinatorial Hölder-on-counts `Finset.inner_le_Lp_mul_Lq`
+(Mathlib.Analysis.MeanInequalities) on the `rcount` signature sums — general
+conjugate-exponent Hölder. The conjugate pair is `p = kr/2`, `q = kr/(kr−2)` (from
+splitting the `2 + (2kr−4)` powers of `|f|` in `∫|f(2α)|²|f(α)|^{2kr−4}`), each
+`L^{2kr}` factor equal to `J_k^{1/kr}`, netting the `1 − 2/(kr)` power. This is
+genuine C-grade design (setting up the count↔`L^p`-norm correspondence for the
+DOUBLED variable, the change-of-variables `α ↦ 2α` invariance `∫|f(2α)|^{2kr}=J_k`
+combinatorially, and the fractional-power arithmetic against `E(k,r)`) — recommend
+its own node (R2-3-Hölder, C) or fold into R4's S₂-dominant branch. It is the SAME
+gap the MeanValue resume map flagged: "the S₂ ≥ S₁ sub-case needs a genuine
+Hölder-on-counts (self-improving J ≤ 4k⁴ J^{1−1/(kr)}) that is NOT in the toolkit."

@@ -9,6 +9,7 @@ import Salt.Vmvt.Linnik
 import Salt.Vmvt.Shifted
 import Salt.Vmvt.MeanValue
 import Salt.Vmvt.PrimeCount
+import Salt.Vmvt.Transversal
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -27,6 +28,11 @@ Lemma (VMVT-N3).
 
 open Salt.Tactic in
 #audit_axioms Salt.Vmvt.primes_in_Ioc_ge
+  Salt.Vmvt.transversal_prime_exists
+  Salt.Vmvt.Jk_le_two_mul_filter_split
+  Salt.Vmvt.JkI_le_two_mul_split
+  Salt.Vmvt.distinctBox_le_card_mul_sum
+  Salt.Vmvt.degenBox_Ncount_le
   Salt.Vmvt.vmvt_base
   Salt.Vmvt.vmvtExp_succ
   Salt.Vmvt.Jk_shift_le
