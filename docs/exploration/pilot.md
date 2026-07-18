@@ -6623,3 +6623,21 @@ decisions per question.
   dh_repulsion chain). Ceremony: wired + keystone (9183 green).
   Board: SHIU-S1, LITT-F2b, VMVT-N5, MOEB-RATE, badge run.
   Tally ~37.9M raw, house ~14%.
+
+- 2026-07-18 ~20:04 PT (GOLD WINDOW day 2): ██ **VMVT-N5 LANDS R1
+  OVER-DELIVERED — the 24.5 statement + base + THE RECURSION
+  ARITHMETIC KERNEL-VERIFIED** ██ (≈ 130k / 24 tools; essentially
+  first-attempt — "a strong cross-check that the hand-derivation
+  was right"). Salt/Vmvt/MeanValue.lean: VmvtBound/vmvtEta/
+  vmvtExp/vmvtConst + **vmvtExp_succ** (the per-step exponent
+  identity E(k,r+1) = 3k/2 + 2(r+1) − 5/2 + (1−1/k)E(k,r) — the
+  induction's engine, PROVEN) + **vmvt_base** (r = 1 via the
+  landed JkI_le). ██ CATCH #66 (source-kills-trap): the notes'
+  OCR reads ½k(k−1) primes but the pigeonhole NEEDS ½k(k²−1) =
+  Θ(k³) — the dropped ² would have wrecked R2; corrected in the
+  docstring ██. R2's two named gaps: **VMVT-CHEB** (the interval
+  prime count π(2y)−π(y) ≥ Θ(k³) via psiTot_pnt — DISPATCHED)
+  + the Hölder-on-counts (house design at the R2 continuation).
+  Ceremony: wired + 2 keystones (9187 green). Board: SHIU-S1,
+  LITT-F2b, MOEB-RATE, VMVT-CHEB, badge run. Tally ~38.2M raw,
+  house ~14%.
