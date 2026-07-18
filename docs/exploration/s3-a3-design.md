@@ -1263,3 +1263,113 @@ box} ≤ (the rest-count) × k!·p^{k(k−1)/2} × (x/p^k + 1)^k
   independent) and let R3-c follow the source verbatim.]
 DISPATCH: R3-a + R3-b now (source-independent); R3-c with the
 source open.
+
+## VMVT R3-c FREEZE (house, night watch 2, post-catch-#78): the
+## Hölder-over-residues step goes through the INTEGRAL side
+
+Catch #78 proved the combinatorial frame cannot reach the source
+bound: the p^{k(k−1)/2} savings + x→x/p scale drop emerge ONLY
+inside the single-residue-class restriction, entangled with the
+Hölder step. RESOLUTION: the landed Fourier machinery
+(`integral_setGen_mul_conj` is fully general in D, E) carries the
+Hölder step on integrals, exactly as the S₂ branch did. Source:
+PSU 24.5 (psu_dedup.txt ll. 363–457). New file
+`Salt/Vmvt/Transversal3.lean`. THE SIX RUNGS:
+
+- **c-1 (system translation)** `powerSumEq_sub_const`:
+  `PowerSumEq k b m n ↔ PowerSumEq k b (·−a) (·−a)` — binomial
+  triangular: Σ(m−a)^j = Σ_{i≤j} C(j,i)(−a)^{j−i}Σm^i, the i=0
+  term b·(−a)^j equal on both sides; prove one direction ∀a, get
+  iff via a ↦ −a. (Also its ShiftEq analogue if convenient.)
+- **c-2 (block factorization over an injective e)**: for the
+  per-coordinate character `gcoord` (HolderTwo), and a filter
+  touching ONLY the designated block:
+  `setGen(transBox x e p) = Gdesig(α) · f(α)^(kr−k)` and
+  `setGen(mixBox x e p a) = Gdesig(α) · g_a(α)^(kr−k)`, where
+  `Gdesig = Σ_{desig k-tuples ∈ Ioc(0,x]^k, distinct mod p} ∏ gcoord`,
+  `f = genFun k (Ioc 0 x)`, `g_a = genFun` over the residue-a
+  subset `(Ioc 0 x).filter (· ≡ a mod p)`, and
+  `mixBox x e p a := (solBox).filter (blockDistinctMod e p ∧
+  ∀ q ∉ Set.range e, (m q − a) ≡ 0 mod p)`. Route: reindex the
+  piFinset sum via `Fin (kr) ≃ range-e ⊕ complement`
+  (mirror `sum_prod_filter_eq`'s collapsed-sum pattern).
+- **c-3 (pointwise power-mean + swap)**: `f = Σ_{a<p} g_a`
+  (residue fiberwise partition of Ioc(0,x]); pointwise
+  `‖f‖^{2b} ≤ (Σ_a ‖g_a‖)^{2b} ≤ p^{2b−1}·Σ_a ‖g_a‖^{2b}`
+  (power-mean/Jensen; mathlib `Finset.pow_sum_div_card_le_sum_pow`
+  — MEMORY, verify; hand fallback ~30 ln). Multiply by ‖Gdesig‖²,
+  integrate, swap ∫/Σ (finite sum, integrable: all finite trig
+  polys, the `integrable_gterm`/fun_prop pattern):
+  `I(p) ≤ p^{2b−1} Σ_a ∫‖Gdesig‖²‖g_a‖^{2b}`, b := kr−k.
+- **c-4 (mixed Parseval)**: `∫‖Gdesig‖²‖g_a‖^{2b} =
+  Ncount k (kr) 0 (mixBox a) (mixBox a)` via c-2 +
+  `integral_setGen_mul_conj` (B = C = mixBox).
+- **c-5 (the fibration — the meat, ~250 ln)**:
+  `Ncount 0 (mixBox a) (mixBox a) ≤ x^k · k!·p^{k(k−1)/2} ·
+  Jk k (k(r−1)) (Icc 1 (x/p+1))` under `x < p^k`:
+  (i) bijection `mixBox ≃ desigMod × uboxProd` (rest = p·u + a,
+  ubox an explicit Ioc of card ≤ x/p+1; recovery linear);
+  (ii) fibrate the pair count over designated pairs (md, nd);
+  (iii) by c-1 translate by a: the inner system is
+  `p^j·Σv^j − p^j·Σu^j = D_j(md,nd)` with
+  `D_j = Σ(md−a)^j − Σ(nd−a)^j` ⟹ inner count = 0 unless
+  `∀j, p^j ∣ D_j` (the graded set B(p,a)), else
+  `= Ncount k (k(r−1)) ℓ uboxProd uboxProd`, `ℓ j = D_j/p^j`;
+  (iv) `Ncount_shift_le` + `Ncount_zero_eq_Jk` + `Jk_image_add`
+  → inner ≤ `Jk k (k(r−1)) (Icc 1 (x/p+1))`;
+  (v) `card B(p,a) ≤ x^k·k!·p^{k(k−1)/2}`: md free (box count);
+  nd−a in an **Ioc-generalized desigFibre** (R3-b′, ~90 ln:
+  re-run `desigFibre_card_le` over `Ioc lo (lo+len)` with
+  `μ_q = ((ñ_q − lo).toNat)/p^k`; at `x < p^k` the μ-box is a
+  point, factor `(len/p^k+1)^k = 1`); the LinnikSol targets
+  `h_j := (D-pinned c_{j+1} : ZMod (p^k))`, castHom-compatible.
+- **c-6 (assembly)** — THE FROZEN TARGET:
+  `theorem transBox_Ncount_le {k r : ℕ} (x p : ℕ)
+    (e : Fin k → Fin (k*r)) (he : Function.Injective e)
+    (hp : p.Prime) (hkp : k < p) (hk : 0 < k) (hr : 1 ≤ r)
+    (hpx : x < p^k) :
+    Ncount k (k*r) 0 (transBox x e p) (transBox x e p)
+      ≤ p^(2*(k*r) − 2*k) * (x^k * k.factorial * p^(k*(k−1)/2))
+        * Jk k (k*(r−1)) (Finset.Icc 1 (x/p + 1))`
+  via chaining c-3/c-4/c-5 with the a-sum bounded by p × the
+  uniform c-5 bound (NO max — Σ_a ≤ p·uniform, dodging ∫-max).
+  (r = 1: rest empty, f^0 = 1 — handle or flag; the consumer
+  R4-S₁ always has r ≥ 2.)
+Matches the R4 accounting "m-freedom x^k + Hölder p^{2rk−2k} +
+Linnik p^{k(k−1)/2} + IH at x/p". Est ~700 ln. Zeno: stone 1 =
+c-1+c-2+c-3+c-4 (I(p) ≤ p^{2b}·mixCount uniform); stone 2 = c-5;
+close = c-6.
+
+## LITT-REGION RE-PRICING (house, night watch 2): convexity
+## cannot give the loglog region — the conversion is THREE nodes
+
+Design finding (recorded before any freeze; full design deferred
+to a dedicated block, same treatment as T-BAL). The landed
+`zeta_growth_strip` (ZetaApprox) is CONVEXITY-grade:
+‖ζ(σ+it)‖ ≤ 10·t^{1−σ}(1+log t). The Landau-method arithmetic:
+with circles of radius r near 1+it, the growth input gives
+log M ≈ r·log t + loglog t, and the resulting zero-free width
+r/log M saturates at ≈ 1/log t for EVERY choice of r (optimum
+r ≈ loglog t/log t gives width 1/(2 log t)). So the convexity
+bound can only reproduce the landed c₃/log t region
+(`zeta_zero_free_region`) — Littlewood's loglog/log upgrade
+PROVABLY needs the Weyl-strip subconvexity input near σ = 1,
+i.e. the vdC-k phase saving. The landed phase machinery
+(`zeta_partial_growth`, `zeta_dyadic_assembly`) is
+window-CONDITIONED (each dyadic block needs the k-dependent
+sandwich on t/(2π)·(k−1)!/(2N+k)^k) — the un-conditioned strip
+bound is exactly the flagged LITT-COVER residual. THE HONEST
+CHAIN (re-priced):
+- **LITT-COVER** (C): the k-per-window coverage assembly — for
+  every dyadic N ≤ t choose k(N) so the sandwich holds; output
+  an UNCONDITIONED phase-sum bound on (N₀, t]-grade windows.
+- **LITT-STRIP** (C): partial summation → the Weyl strip bound
+  ζ(σ+it) ≪ (log t)·t^{b·2^{−k}} for σ ≥ 1 − a·2^{−k}-grade,
+  k free (the per-k family; Titchmarsh 5.13 shape).
+- **LITT-LANDAU** (C/D, the crux): re-run the SW 3-4-1/Davenport
+  chain (`ZetaZeroFree.lean` machinery) with the per-k strip
+  family via Borel–Carathéodory, optimize k ≈ loglog t →
+  σ ≥ 1 − c·loglog t/(log t) — THE HISTORIC CHECKPOINT. Whether
+  the landed fixed-strip 3-4-1 assembly parametrizes cleanly or
+  needs a fresh log-derivative chain is THE design question for
+  the dedicated block.

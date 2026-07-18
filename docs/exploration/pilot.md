@@ -7301,3 +7301,39 @@ decisions per question.
   final glue (~600–800 ln, recipe complete) → **SHIU-S5b
   DISPATCHED** (the last stretch of the convergence stone).
   Board: SHIU-S5b. Tally ~53.9M raw, house ~14%.
+
+- 2026-07-18 ~02:05 PT (NIGHT WATCH): **VMVT R3-c DESIGN FROZEN
+  + DISPATCHED** (house design block, the catch-#78 resolution).
+  The key move: the Hölder-over-residues step goes through the
+  INTEGRAL side — `integral_setGen_mul_conj` is fully general,
+  so the mixed-box Parseval is an instance, and the S₂ branch's
+  factorization/Hölder machinery (HolderTwo) carries the p-way
+  residue split. Six rungs frozen in s3-a3-design.md ("VMVT R3-c
+  FREEZE"): c-1 translation invariance (binomial triangular),
+  c-2 block factorization over injective e (transBox AND the new
+  mixBox), c-3 pointwise power-mean + ∫/Σ swap, c-4 mixed
+  Parseval, c-5 the fibration (rest = p·u + a; graded
+  divisibility trichotomy; Ncount_shift_le → Jk; the
+  Ioc-generalized R3-b′ fibre at x < p^k), c-6 the frozen target
+  `transBox_Ncount_le` matching the R4 accounting (m-freedom x^k
+  + Hölder p^{2rk−2k} + Linnik p^{k(k−1)/2} + IH box x/p). Est
+  ~700 ln, new Salt/Vmvt/Transversal3.lean. After it: R4-S₁ +
+  R5 assemble the induction. Board: SHIU-S5b + VMVT-R3c (+ the
+  S5b signature recon). Tally ~53.9M raw, house ~14%.
+
+- 2026-07-18 ~02:20 PT (NIGHT WATCH): **LITT-REGION re-priced by
+  house design recon — convexity provably cannot give the loglog
+  region** (design finding recorded in s3-a3-design.md,
+  "LITT-REGION RE-PRICING"; no freeze yet). The Landau-method
+  arithmetic shows `zeta_growth_strip`'s t^{1−σ}·log t input
+  saturates at width 1/log t for every circle radius — i.e. it
+  can only reproduce the landed c₃/log t region. Littlewood
+  needs the Weyl-strip subconvexity near σ = 1, whose supplier
+  is exactly the flagged LITT-COVER residual (the landed phase
+  machinery is window-conditioned). The conversion is honestly
+  THREE nodes: LITT-COVER (window coverage) → LITT-STRIP (Weyl
+  strip family, per-k) → LITT-LANDAU (the parametrized 3-4-1 +
+  k ≈ loglog t optimization — the crux; dedicated design block,
+  same treatment as T-BAL). No executor dispatched on this arc
+  tonight — the crux deserves fresh house attention. Board
+  unchanged: SHIU-S5b + VMVT-R3c (+ recon).
