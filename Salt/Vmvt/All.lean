@@ -8,6 +8,7 @@ import Salt.Vmvt.BaseCase
 import Salt.Vmvt.Linnik
 import Salt.Vmvt.Shifted
 import Salt.Vmvt.MeanValue
+import Salt.Vmvt.PrimeCount
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -25,7 +26,8 @@ Lemma (VMVT-N3).
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.Vmvt.vmvt_base
+#audit_axioms Salt.Vmvt.primes_in_Ioc_ge
+  Salt.Vmvt.vmvt_base
   Salt.Vmvt.vmvtExp_succ
   Salt.Vmvt.Jk_shift_le
   Salt.Vmvt.Ncount_union_le

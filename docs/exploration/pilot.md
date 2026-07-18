@@ -6641,3 +6641,19 @@ decisions per question.
   Ceremony: wired + 2 keystones (9187 green). Board: SHIU-S1,
   LITT-F2b, MOEB-RATE, VMVT-CHEB, badge run. Tally ~38.2M raw,
   house ~14%.
+
+- 2026-07-18 ~20:20 PT (GOLD WINDOW day 2): ██ **VMVT-CHEB LANDS
+  FIRST-ATTEMPT — π(2y) − π(y) ≥ y/(8 log y); R2's prime-count
+  gap CLOSED, the SW gate now feeds the summit campaign** ██ (≈
+  126k / 30 tools; zero residuals). Salt/Vmvt/PrimeCount.lean:
+  **primes_in_Ioc_ge** (c = 1/8, the target verbatim) via
+  psiTot_pnt + Chen's stripMass_le (the ψ−θ bridge SKIPPED — the
+  strip split is direct) + the NESTED-SQRT crossover trick
+  (log t ≤ 4·t^{1/4} via log t = 2log√t — no rpow, threshold
+  exactly 40⁴). CATCHES: the corpus's count↔ψ bridge points the
+  WRONG WAY for lower bounds (reversed per-prime cap + strip
+  subtraction — banked); the naive strip bound provably too weak.
+  R2's remaining gap: the Hölder-on-counts (house design).
+  Ceremony: wired + keystone (9188 green). Board: SHIU-S1,
+  LITT-F2b, MOEB-RATE, HB-L8, badge run. Tally ~38.5M raw,
+  house ~14%.
