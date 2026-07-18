@@ -19,3 +19,40 @@ LEDGER (twice-scripted, q=3 | q=10^6, binding corner q=3): old sqrt-error ABSENT
 
 ## DISPATCH (staged)
 WAVE 1 (σ-deviation-INDEPENDENT, dispatch now): R0, R1, R3, R4 + F1 flags entry + card update. WAVE 2 (after C_w pin): R2, then R5, R6, R7. GATED: R8 + contract edit (ratification). Reserve stones (refuter-cleared, dispatch only if R6's executor requests): inner_gcd_trisect [B ~110], coprime_char_partial_at_zero/_at_one [B ~100] (benli-faithful S3/S4, weight-free). Est ~2350 lines total.
+
+---
+
+# AMENDMENT 1 (2026-07-18 ~15:00 PT): THE W=14 RETUNE — VERIFIED 0/2
+
+The R5 judge's retune, audited by two independent refuters (both
+re-derived from the freeze structure, ~14k grid points, zero
+failures; scripts refuter1_reledger.py + the corner hunter's, in
+the session scratchpad — ship with the crush wave). SUPERSEDES the
+TUNING line and the R5/δ rows above:
+
+- **z := ⌈Q¹²·u^{−3}⌉** (a=3, crush-forced); **x := Q^{104}·u^{−14}**
+  (W=14 — the UNIQUE integer with η_E = η_A at every σ; forced by
+  E-grade G = 4a+1 = 13 ⟹ W ≥ 13·17/16); **X₁ := 2330**
+  (conservative ~189x; honest deep-branch sup e^{2.51});
+  witnesses b=680/k=14/c=2^{−250}, σ₀ = 16/17, τ UNCHANGED.
+- **δ_d = δ_b = 0**: the Bb/Bd master rows are DELETED (the
+  δ_b ≤ 300z^{−0.4} posit is dead — flags R5-FINISH).
+- All master-row u-grades positive (η_E = η_A = 3/17, η_Eρ =
+  26/17), monotone-decaying on the ray; at-τ rows vs 1/8:
+  E(β₀)-amp 10^{−5.7} (q=3, thinnest, 4.75 decades spare) →
+  10^{−310.6} (q=10⁶). q swept ALL integers 3..200 + spot checks
+  to 10⁹; q=4 IS admissible (conductor-4 real primitive) and
+  passes.
+- Crush coverage margins AT THE HONEST u*-CORNER: 1.76x (q=3),
+  2.44x (q=5), 5.80x (q=150), 10.63x (q=10⁶) — quote THESE, not
+  the deep-limit values.
+- **EXECUTION-TIME LEDGER LAW (binding, from the audit):** the
+  "rows at u*" convention is DEAD — rows are capped ON THE RAY
+  u < τ only (at u* some rows read 10^{+10}; that is NOT a
+  failure — only u < τ is consumed by the by_contra inversion;
+  E-amp's turning point 10^{−33} sits far above τ = 10^{−114.5}).
+  And: stream minimizations over D are convex log-sum-exp —
+  minimize EXACTLY (ternary/analytic), NEVER coarse grids (a
+  22.5-nat grid produced a spurious FAIL in audit).
+- The σ-sweep is stated on [16/17, 1) with max-at-the-16/17-edge
+  (verified to σ = 1−10⁻⁶).
