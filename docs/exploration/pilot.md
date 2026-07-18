@@ -6457,3 +6457,15 @@ decisions per question.
   — PpLevel is GONE from the list. Ceremony: wired, Maynard
   green, olean ✓. Board: MERT-5, DH-MAIN, seed #2. Tally ~34.7M
   raw, house ~14%.
+
+- 2026-07-17 ~18:48 PT (GOLD WINDOW): **FULL THROTTLE RATIFIED
+  (JYH: "I trust you my friend, let's do (a) now, but keep full
+  throttle until I tell you I am sleeping")** — autonomous
+  dispatch down the queue. Away: **VMVT-N4** (the union bound +
+  ℓ-shifted counts → the induction's toolkit), **LITT-F2** (the
+  k-th derivative test — the Littlewood checkpoint's next rung),
+  **SHIU-G** (the ShiuCore grounding recon — Shiu 1980's
+  smooth/rough route for the τ case; the last hard debt on the
+  gaps ≤ 12 road). Board: MERT-5, DH-MAIN, seed #2, VMVT-N4,
+  LITT-F2, SHIU-G — SIX deep. House holds: adjudications +
+  SMALLQ-4 design + the reports.
