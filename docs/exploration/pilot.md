@@ -6259,3 +6259,23 @@ decisions per question.
   (M3's three named pieces + M4, Zeno-laddered). Board: MERT-3b,
   PP3-ASSEMBLY, VMVT-N1, DH-2b-iii, seed #2. Tally ~32.1M raw,
   house ~14%.
+
+- 2026-07-17 ~17:33 PT (GOLD WINDOW): ██ **MERT-3b LANDS COMPLETE —
+  ∫₀^∞ e^{−v}log v = −γ IS A THEOREM; the arc's former pole is
+  dead** ██ (≈ 293k / 81 tools; no STOP-AND-FLAG).
+  Salt/Mertens/GammaIntegral.lean (393 lines): **integral_exp_
+  neg_log** (the spec verbatim) + **loglog_integral_asymp** (the
+  exact 3c-consumable shape, parenthesization honest per the
+  freeze's warning). THE ECOSYSTEM GIFT (the day's third):
+  mathlib's Complex.hasDerivAt_GammaIntegral had ALREADY
+  differentiated Γ under the integral — the feared dominated-
+  convergence build was zero lines; the executor evaluated at 1,
+  transferred to ℝ, and equated with hasDerivAt_Gamma_one by
+  uniqueness. CoV gifts named: integral_comp_mul_deriv_Ioi (t =
+  e^u one-shot), integral_comp_mul_left_Ioi (no side-conditions).
+  Arc: 1 ✓ 2 ✓ 3a ✓ 3b ✓ → **MERT-FIN DISPATCHED** (3c: M = γ−B
+  by equating the two P(s) asymptotics; 4: THE THIRD THEOREM by
+  exponentiating; 5 stretch: the twin density 4Π₂e^{−2γ}/log²z).
+  Ceremony: wired + 2 keystones (9169 green). Board: MERT-FIN,
+  PP3-ASSEMBLY, VMVT-N1, DH-2b-iii, seed #2. Tally ~32.4M raw,
+  house ~14%.
