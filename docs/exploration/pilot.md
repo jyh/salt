@@ -8293,3 +8293,25 @@ decisions per question.
   breaks the clean-convolution route — co-dispatch on W3b-2's
   landing). T-BAL remaining: R6(weighted) → R5 H_lower micro
   → R7 Λ → R8. Board: VK-5 + W3b-2 (the T-BAL gate).
+
+- 2026-07-18 12:20 PT: **W3b-2 lands both optimizer stones +
+  the branch consolidated to main** (≈ 387k / 101 tools;
+  house-verified SW.All 8807 green). Salt/SW/SelOpt.lean:
+  `selberg_opt_eq` (selMainTerm = 1/selHSum EXACT, stated in
+  the ν(lcm) CONSUMER form; the hand-roll beat the mathlib
+  BoundingSieve route — prodPrimeFactors_add_of_squarefree
+  supplies the one hard identity free, catch #183-reg) +
+  `selweight_abs_le_one` (≤ 1, max at d=1 exactly 1.000000);
+  the collapse VALIDATED OFF d=1 per catch #163 (l ∈
+  {2,3,6,10,30} numerically). The telescoping mechanism
+  recorded (#184-reg): ν(d)·θ_d = μ(d)g(d)G_d/H — the
+  corrected local factor cancels EXACTLY, which is WHY wave-1's
+  inverted def was fatal. Catches #183–186 (reg. = local
+  #171–174). Branch tbal-s0-w3a merged to main (ff, 80b59b9) +
+  deleted local/remote — the tree is HOME on main.
+  ██ **T-BAL-ENDGAME DISPATCHED** ██ (R6 weighted extraction →
+  R5 H_lower w/ the ζ_p·L_p gift → R7 Λ → R8 the 16/17
+  contract; every supplier landed, every gate open, the
+  small-q ledger discipline mandatory; ~750k). Board:
+  VK-5 (the region) + T-BAL-ENDGAME (the repulsion). THE TWO
+  CLOSING EXECUTORS OF THE WINDOW.
