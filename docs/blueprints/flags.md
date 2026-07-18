@@ -8106,3 +8106,59 @@ kill-checked):
  `A^{r+1}` / `d^ε`. HOUSE: design the τ-weighted rough-count-in-AP as its own
  C/D-block (it is the genuine III/IV prerequisite); then S4-III/IV assemble from
  the landed reindex/split/inner-count infrastructure exactly as S4-I does.
+
+## DH-COPBV — the g-restricted Barban–Vehov identity machinery + crude bound, 2026-07-17
+
+New file `Salt/SW/CoprimeBV.lean` (namespace `Salt.SW`), all sorry-free and axiom-clean
+`[propext, Classical.choice, Quot.sound]`, builds standalone via
+`lake build Salt.SW.CoprimeBV` (NOT wired into `Salt/SW/All.lean` — left to the integrating
+session per "don't edit landed files"; other executors active there). Discharges the DH-LCM
+residual's "the Möbius-over-gcd expansion identity = a stone".
+
+**LANDED (6 theorems):**
+- **`sum_dvd_reindex`** (reindex stone) — `Σ_{d≤N, k∣d} F d = Σ_{e≤N/k} F(k·e)` for `k≥1`
+  (the bijection `e ↦ k·e` via `Finset.sum_image`, `Nat.le_div_iff_mul_le`).
+- **`sum_divisors_moebius_real`** — the divisor Möbius identity `Σ_{k∣m} μ(k) = [m=1]` in `ℝ`
+  (via `coe_mul_zeta_apply` + `moebius_mul_coe_zeta` + `one_apply`, the DHMain pattern).
+- **`sum_coprime_eq_moebius_multiples`** (THE Möbius-over-gcd expansion STONE) — for `g≥1`, any
+  `F`: `Σ_{d≤N, (d,g)=1} F d = Σ_{k∣g} μ(k)·Σ_{e≤N/k} F(k·e)`. The classical coprimality
+  unfolding `[(d,g)=1] = Σ_{k∣gcd(d,g)} μ(k)` (Stone B). The designated combinatorial heart.
+- **`innerG_eq_reindex`** (factorization stone A) — `innerG z g = Σ_{e≤z/g} θ_{g·e}/(g·e)`
+  (`sum_dvd_reindex` at `k=g`; coprimality carried inside `μ(g·e)`).
+- **`innerG_eq_coprime_sum`** (factorization stone B) — for squarefree `g`:
+  `innerG z g = (μ(g)/(g·log z))·Σ_{e≤z/g,(e,g)=1} (μ(e)/e)·log(z/(g·e))`. Non-coprime terms
+  vanish (`μ(g·e)=0` via `Nat.squarefree_mul_iff`); on `(e,g)=1`, `μ(g·e)=μ(g)μ(e)`
+  (`isMultiplicative_moebius.map_mul_of_coprime`). THE exact object the sharp decay operates on.
+- **`abs_innerG_le_crude`** — `|innerG z g| ≤ (1 + log(z/g))/g` (triangle + `|θ_d|≤1` +
+  `sum_inv_Icc_le`). CRUDE: no `1/log z` decay. Serves DH-FINAL's g-truncated regimes (where
+  `z/g` is bounded); the seam is documented in the module header.
+
+**THE RESIDUAL (the sharp pointwise `|innerG z g| ≤ C·3^ω(g)/(g·log z)`) — NOT attempted, flagged
+after a full obstruction analysis (this IS the ~3-attempt give-up):**
+The sharp `1/log z` decay reduces (via `innerG_eq_coprime_sum`) to bounding the g-COPRIME
+log-weighted Möbius sum `Lg(w) := Σ_{e≤⌊w⌋,(e,g)=1}(μ(e)/e)·log(w/e)` uniformly in `w=z/g`, i.e.
+`|Lg(w)| ≤ C·h(g)`. THE OBSTRUCTION (confirmed, not a missing lemma): coprimality REGENERATES
+under every elementary expansion. Applying Stone B (or the direct `μ(k·e)` split) to `Lg` yields
+`Lg(w) = Σ_{k∣g}(1/k)·Lk(w/k)` — a sum of coprime-to-`k` sums for `k∣g` (NOT unrestricted). The
+`k=g` term `(1/g)Lg(w/g)` is self-referential (same modulus, smaller level). The landed O(1)/rate
+lemmas (`abs_mwWeighted_le_div_log`, `abs_sum_moebius_div_mul_log_le`) bound ONLY unrestricted
+sums, so no single expansion reaches them. The correct route is a NESTED strong induction:
+  (i) strong induction on `ω(g)` over the divisor lattice (the `k<g` proper-divisor terms drop
+      `ω` by ≥1), with
+  (ii) an inner level-telescope for the `k=g` self-term:
+      `Lg(w) = Σ_{i≥0}(1/g^i)·[proper part](w/g^i)`, geometric-summed to `≤ (g/(g-1))·(...)`,
+      bottoming out on the base window `w<3` (crude finite bound),
+plus (iii) a real-parameter transfer of the landed ℕ-indexed unrestricted bound `|L₁(w)| ≤ C`
+      (the `ω=0` base) — `L₁(w)=log w·mwWeighted(⌊w⌋) − Σ(μ/e)log e`, both landed, with the
+      `log w` vs `log⌊w⌋` gap absorbed as in `norm_logDivPhi_le`.
+The multiplicative `h(g)=3^ω(g)` target needs the tight step `H(r) ≤ 2·(Σ_{k∣g,k<g} H(ω(k))/k)`
+matched to `3^r`; an `∃ C_g` (g-unspecified) variant is cheaper but still needs (i)+(ii)+(iii).
+Estimated 350–500 lines, firmly C/D-level. PRIME-`g` warm-up: `Lp(w) = L₁(w) + (1/p)Lp(w/p)`
+telescopes to `|Lp(w)| ≤ 2·C_{L₁}`, giving `|innerG z p| ≤ 2C/(p·log z)` (h(p)=2 ≤ 3) — the
+cheapest genuine sharp instance, if a follow-up wants a demonstrator. The `g=1` base is ALREADY
+landed (`abs_sum_grahamTheta_div_le_inv_log`, i.e. `|innerG z 1| ≤ C/log z`).
+
+**GRAHAM AVERAGE — separate node (as instructed):** even the sharp pointwise `3^ω` bound does
+NOT close the consumer `Σ_{g≤z}φ(g)·innerG² ≍ 1/log z`: `Σφ(g)·9^ω/g²` diverges (`Σ9^ω/g ≤
+(1+log z)^9` by PpSums k=9 → `log⁷z`, wrong shape). The sharp mean needs Graham's on-average
+Euler cancellation (a `d`-grade effective `h(g)`), a genuinely separate estimate. Flagged.

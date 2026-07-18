@@ -55,6 +55,7 @@ import Salt.SW.MoebiusDiv
 import Salt.SW.MoebiusRateSharp
 import Salt.SW.MoebiusLog
 import Salt.SW.GrahamL2
+import Salt.SW.CoprimeBV
 import Salt.SW.DHFinal
 import Salt.Tactic.AuditAxioms
 
@@ -95,7 +96,9 @@ Siegel's intrinsic ineffective constant.
 -- Build-time axiom audit (T5 adoption): a stray axiom in the SW track fails
 -- `lake build` here, not only at out-of-band lint time.
 open Salt.Tactic in
-#audit_axioms Salt.SW.grahamW_eq_sum_grahamGc
+#audit_axioms Salt.SW.innerG_eq_coprime_sum
+  Salt.SW.sum_coprime_eq_moebius_multiples
+  Salt.SW.grahamW_eq_sum_grahamGc
   Salt.SW.graham_diagonalisation
   Salt.SW.abs_grahamGc_le
   Salt.SW.abs_sum_grahamTheta_div_le_inv_log

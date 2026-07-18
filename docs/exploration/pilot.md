@@ -7002,3 +7002,19 @@ decisions per question.
   the region conversion's input). Ceremony: wired + 3 keystones
   (green). Board: DH-COPBV, VMVT-HOLDER2, HB-R2C, SHIU-G2,
   LITT-F5, seed #3. Tally ~45.8M raw, house ~14%.
+
+- 2026-07-18 ~22:10 PT (NIGHT WATCH): **DH-COPBV lands its stones
+  honestly** (≈ 174k / 29 tools): the Möbius-over-gcd expansion +
+  both innerG factorizations + the crude bound; THE SHARP decay
+  FLAGGED with the obstruction proven real (coprimality
+  REGENERATES under the expansion — no single pass reaches the
+  unrestricted lemmas; nested induction 350–500 lines C/D) and
+  the consumer gap confirmed (even sharp 3^ω → log⁷z ≠ the
+  Graham average — genuinely separate nodes). STRATEGIC RE-ROUTE
+  (house): the repulsion's tail branch is 2+ C/D nodes deep; the
+  J-TRUNCATION branch is ONE well-understood grind →
+  **DH-TRUNC DISPATCHED** (the shifted-frame finite-N balance,
+  DHClose's template at the single frame — the walls' shorter
+  side). Ceremony: wired + 2 keystones (green). Board:
+  VMVT-HOLDER2, HB-R2C, LITT-F5, SHIU-W3b, DH-TRUNC, seed #3.
+  Tally ~46.5M raw, house ~14%.
