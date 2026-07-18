@@ -7860,3 +7860,22 @@ decisions per question.
   absent riemannZeta_conj and the pole). ~90-line reuse, not
   a research node. T-BAL-2's R2 dependency: CLEAR. Remaining
   gate: DHYP (R3/R4). Board: DHYP + LITT-STRIP + VMVT-VK wf.
+
+- 2026-07-18 07:10 PT: **DHYP lands — the mathlib TODO filled**
+  (≈ 207k / 63 tools; house-verified SW.All 8746 green, both
+  decls [3 axioms]). Salt/SW/Hyperbola.lean:
+  `sum_divisors_eq_hyperbola_symm` (the EXACT symmetric √N
+  Dirichlet hyperbola, CommRing-general, mathlib-clean —
+  UPSTREAM CANDIDATE, fills ArithmeticFunction/Misc.lean:428)
+  + `dhA_hyperbola_symm` (T-BAL R3's exact shape). Catches
+  **#117–118**: the primed sum_product' forms fail kabstract
+  HO-unification on filter-ite summands (use non-primed +
+  dsimp); sorry-recovery masks earlier errors — a `have` in a
+  context dump does NOT mean it typechecked, build top-down.
+  CEREMONY CORRECTION (mine): the summit commit missed
+  Salt/Vmvt/Summit.lean's re-grade patches (Xmed 8→24) —
+  git-add-by-name slip; the committed tree was briefly
+  inconsistent (local builds green from the working tree);
+  healed in this commit. **BOTH T-BAL suppliers in →
+  T-BAL-2 (R3–R8) DISPATCHED.** Board: T-BAL-2 + LITT-STRIP +
+  VMVT-VK wf.

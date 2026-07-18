@@ -10,7 +10,7 @@ import Salt.Vmvt.PrimeCount
 # Theorem 24.5 — THE SUMMIT (VMVT-R5b)
 
 The medium-`x` trivial branch and the induction scaffolding for the full
-Vinogradov Mean Value Theorem, atop the re-graded constant `vmvtC0 k = k^{8k²}`
+Vinogradov Mean Value Theorem, atop the re-graded constant `vmvtC0 k = k^{24k²}`
 (`MeanValue.lean`, VMVT-R5b re-grade) and the large-`x` transversal step
 `vmvt_step_transversal_large` (`StepFull.lean`).
 
@@ -21,26 +21,20 @@ Vinogradov Mean Value Theorem, atop the re-graded constant `vmvtC0 k = k^{8k²}`
   (`one_add_mul_le_pow` at `a = −1/k`).
 * `b_le_vmvtExp` — the range side lemma `k·r ≤ E(k,r)` (discrete induction,
   `f(r+1) − f(r) = k − η/k ≥ 0`).
-* `vmvt_trivial_branch` — the medium-`x` branch: for `x ≤ Xmed k r = k^{8·max(k,r)}`,
+* `vmvt_trivial_branch` — the medium-`x` branch: for `x ≤ Xmed k r = k^{24·max(k,r)}`,
   the crude `x^{2kr}` bound already gives `VmvtBound k r x` under the re-graded
   `C₀`, via the deficit split `½k(k+1) − η ≤ min(k², kr)` and
   `max(k,r)·min(k²,kr) ≤ r·k²`.
 
-## Stone 3 (`vmvt`, THE SUMMIT INDUCTION): FLAGGED — see `docs/blueprints/flags.md`
+## Stone 3 (`vmvt`, THE SUMMIT INDUCTION): CLOSED in `Summit2.lean` (VMVT-SUMMIT-2)
 
-The induction on `r` does NOT close under the re-graded `C₀ = k^{8k²}`.  The
-large-`x` step (`vmvt_step_transversal_large`) needs the pigeonhole prime supply
-`k²(k−1) < 2·#{p ∈ (y,2y] : prime}`, supplied only by `exists_transversal_prime_set`
-above a threshold `y₀ = max(⌈e^{6K}⌉, 1280000)` that is **`k`-independent** (`K` is
-the unbounded Siegel–Walfisz PNT error constant of `psiTot_pnt`).  The freeze
-assumed `y ≥ k⁸` suffices, but `primes_in_Ioc_ge`'s bound `y/(8 log y)` is only
-*proven* above `y₀`, not at `y = k⁸`.  For small `k` the trivial branch (reaching
-`x ≤ k^{8rk²/deficit}`) cannot bridge to `x ≥ y₀^k`: concrete unbridgeable gap at
-`(k,r) = (2,2)` — trivial reaches `x ≤ 2^{25.6}`, large needs `x > 2^{40.6}` — even
-in the best case `y₀ = 1.28·10⁶`.  This is the same k-independent-constant
-obstruction the R4 flag identified; the re-grade does not remove it.  NEEDED
-(Fable/design): an effective prime bound with a `k^{O(1)}`-grade threshold, or a
-sharper medium-`x` bound covering `(k^{8·max(k,r)}, y₀^k]`. -/
+The R5b flag (the `k`-independent, non-explicit prime-supply threshold
+`y₀ = max(⌈e^{6K}⌉, 1280000)` of `primes_in_Ioc_ge`) is repaired by the effective
+interval count `primes_in_Ioc_eff` (`PrimeEff.lean`, Erdős/Bertrand central-binomial
+route, threshold `y₁ ≤ 2²⁴`) and the SUMMIT-2 re-grade to `C₀ = k^{24k²}` above.
+The induction `vmvt` and its pigeonhole re-supply `exists_transversal_prime_set'`
+live in `Summit2.lean`; the two-arm bridge `Xmed = k^{24·max(k,r)} ≥ Y'(k)^k` clears
+at `k ≥ 2`. -/
 
 namespace Salt.Vmvt
 
@@ -48,8 +42,8 @@ open Finset
 
 /-! ## The re-graded constant in closed power form -/
 
-/-- `D(k,r) = (C₀ k)^r = k^{8k²r}` with the re-graded `vmvtC0 k = k^{8k²}`. -/
-lemma vmvtConst_eq (k r : ℕ) : vmvtConst k r = (k : ℝ) ^ (8 * k ^ 2 * r) := by
+/-- `D(k,r) = (C₀ k)^r = k^{24k²r}` with the re-graded `vmvtC0 k = k^{24k²}`. -/
+lemma vmvtConst_eq (k r : ℕ) : vmvtConst k r = (k : ℝ) ^ (24 * k ^ 2 * r) := by
   unfold vmvtConst vmvtC0
   rw [← pow_mul]
 
@@ -123,15 +117,15 @@ theorem b_le_vmvtExp {k : ℕ} (hk : 2 ≤ k) {r : ℕ} (hr : 1 ≤ r) :
 
 /-! ## The medium-`x` threshold and the trivial branch -/
 
-/-- The medium-`x` threshold `Xmed k r = k^{8·max(k,r)}`.  Below it the crude count
-already gives `VmvtBound` under the re-graded `C₀ = k^{8k²}`. -/
-noncomputable def Xmed (k r : ℕ) : ℕ := k ^ (8 * max k r)
+/-- The medium-`x` threshold `Xmed k r = k^{24·max(k,r)}`.  Below it the crude count
+already gives `VmvtBound` under the re-graded `C₀ = k^{24k²}`. -/
+noncomputable def Xmed (k r : ℕ) : ℕ := k ^ (24 * max k r)
 
-/-- **The trivial (medium-`x`) branch.**  For `x ≤ Xmed k r = k^{8·max(k,r)}` the
+/-- **The trivial (medium-`x`) branch.**  For `x ≤ Xmed k r = k^{24·max(k,r)}` the
 crude count `J_k(x, kr) ≤ x^{2kr}` already lands `VmvtBound k r x`.  The deficit
 `2kr − E(k,r) = ½k(k+1) − η(k,r)` is `≤ min(k², kr)` (from `η ≥ 0` and the
 Bernoulli `η ≥ ½k² − ½kr`), and `max(k,r)·min(k²,kr) ≤ r·k²` (case split), so
-`x^{deficit} ≤ k^{8·max(k,r)·deficit} ≤ k^{8rk²} = D(k,r)`. -/
+`x^{deficit} ≤ k^{24·max(k,r)·deficit} ≤ k^{24rk²} = D(k,r)`. -/
 theorem vmvt_trivial_branch {k r x : ℕ} (hk : 2 ≤ k) (hr : 1 ≤ r) (hx : 1 ≤ x)
     (hxmed : x ≤ Xmed k r) : VmvtBound k r x := by
   have hk0 : (k : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr (by omega)
@@ -140,7 +134,7 @@ theorem vmvt_trivial_branch {k r x : ℕ} (hk : 2 ≤ k) (hr : 1 ≤ r) (hx : 1 
   have hxR1 : (1 : ℝ) ≤ (x : ℝ) := by exact_mod_cast hx
   have hxR0 : (0 : ℝ) < (x : ℝ) := by linarith
   have hrR1 : (1 : ℝ) ≤ (r : ℝ) := by exact_mod_cast hr
-  have hxmed' : x ≤ k ^ (8 * max k r) := hxmed
+  have hxmed' : x ≤ k ^ (24 * max k r) := hxmed
   -- the crude count, in ℝ, as an rpow
   have hcrudeN : JkI k (k * r) x ≤ x ^ (2 * (k * r)) := JkI_crude k (k * r) x
   have hcrude : (JkI k (k * r) x : ℝ) ≤ (x : ℝ) ^ ((2 * (k * r) : ℕ) : ℝ) := by
@@ -158,23 +152,23 @@ theorem vmvt_trivial_branch {k r x : ℕ} (hk : 2 ≤ k) (hr : 1 ≤ r) (hx : 1 
   have hDksq : D ≤ (k : ℝ) ^ 2 := by rw [hDform]; nlinarith [hη0, hk1R, hkpos]
   have hDkr : D ≤ (k : ℝ) * (r : ℝ) := by
     rw [hDform]; nlinarith [hηge, hkpos, hrR1]
-  have hxmedR : (x : ℝ) ≤ (k : ℝ) ^ ((8 * max k r : ℕ) : ℝ) := by
+  have hxmedR : (x : ℝ) ≤ (k : ℝ) ^ ((24 * max k r : ℕ) : ℝ) := by
     rw [Real.rpow_natCast]
-    calc (x : ℝ) ≤ ((k ^ (8 * max k r) : ℕ) : ℝ) := by exact_mod_cast hxmed'
-      _ = (k : ℝ) ^ (8 * max k r) := by push_cast; ring
+    calc (x : ℝ) ≤ ((k ^ (24 * max k r) : ℕ) : ℝ) := by exact_mod_cast hxmed'
+      _ = (k : ℝ) ^ (24 * max k r) := by push_cast; ring
   -- x^deficit ≤ D(k,r)
   have hkey : (x : ℝ) ^ D ≤ vmvtConst k r := by
-    have h1 : (x : ℝ) ^ D ≤ ((k : ℝ) ^ ((8 * max k r : ℕ) : ℝ)) ^ D :=
+    have h1 : (x : ℝ) ^ D ≤ ((k : ℝ) ^ ((24 * max k r : ℕ) : ℝ)) ^ D :=
       Real.rpow_le_rpow (by positivity) hxmedR hD0
-    have h2 : ((k : ℝ) ^ ((8 * max k r : ℕ) : ℝ)) ^ D
-        = (k : ℝ) ^ (((8 * max k r : ℕ) : ℝ) * D) := by
+    have h2 : ((k : ℝ) ^ ((24 * max k r : ℕ) : ℝ)) ^ D
+        = (k : ℝ) ^ (((24 * max k r : ℕ) : ℝ) * D) := by
       rw [← Real.rpow_mul (by positivity)]
     rw [h2] at h1
     refine h1.trans ?_
-    rw [vmvtConst_eq, ← Real.rpow_natCast (k : ℝ) (8 * k ^ 2 * r)]
+    rw [vmvtConst_eq, ← Real.rpow_natCast (k : ℝ) (24 * k ^ 2 * r)]
     apply Real.rpow_le_rpow_of_exponent_le hk1R
-    rw [show ((8 * max k r : ℕ) : ℝ) = 8 * ((max k r : ℕ) : ℝ) by push_cast; ring,
-      show ((8 * k ^ 2 * r : ℕ) : ℝ) = 8 * (k : ℝ) ^ 2 * (r : ℝ) by push_cast; ring]
+    rw [show ((24 * max k r : ℕ) : ℝ) = 24 * ((max k r : ℕ) : ℝ) by push_cast; ring,
+      show ((24 * k ^ 2 * r : ℕ) : ℝ) = 24 * (k : ℝ) ^ 2 * (r : ℝ) by push_cast; ring]
     rcases le_total r k with hrk | hkr
     · have hmax : (max k r : ℕ) = k := by omega
       rw [hmax]; nlinarith [hDkr, hkpos]
