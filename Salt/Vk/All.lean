@@ -11,6 +11,9 @@ import Salt.Vk.Pointwise
 import Salt.Vk.Block
 import Salt.Vk.Spacing
 import Salt.Vk.Core
+import Salt.Vk.Landau
+import Salt.Vk.Strip
+import Salt.Vk.Scale
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -22,10 +25,15 @@ THE VMVT-VK CAMPAIGN (JYH ratified 2026-07-18: the power zero-free region
 route θ = 3/4 < 1, MR-gate-satisfying). Freeze: `docs/exploration/vk-freeze.md`;
 numeric refuter `scripts/vk_minpow_check.py`.
 
-Opening wave (this file): R1 `VK-TAYLOR` (block Taylor of the ζ-phase),
-R2 `VK-SHIFT` (the `2π`-Lipschitz character + block reduction + shift identity),
-R3 `VK-BOX-AVG` pointwise core (the box-variation Slack, feeding the measure fold).
-Residuals: `docs/blueprints/flags.md` node `VMVT-VK`.
+Opening wave: R1 `VK-TAYLOR` (block Taylor of the ζ-phase), R2 `VK-SHIFT` (the `2π`-Lipschitz
+character + block reduction + shift identity), R3 `VK-BOX-AVG` + R4 `VK-POINTWISE` (`vk_block_core`,
+the bridge from `Salt.Vmvt.vmvt`).
+
+VK-4 wave (`Landau`/`Strip`/`Scale`): R7 `VK-LANDAU-SCALED` (`entire_norm_logDeriv_sub_sum_scaled`,
+the parametric-radius Landau core = LITT-LANDAU), R10 `VK-STRIP-PATCH` (`zeta_block_strip`, the
+diagonal-strip `√N` bound = LITT-COVER stone-3), R5-assembly (`vk_sum_Ioc_split`(`_norm_le`), the
+general-partition block split). Residuals (R5b window discharge, R6/R8/R9, region):
+`docs/blueprints/flags.md` node `VMVT-VK`.
 -/
 
 open Salt.Tactic in
@@ -73,3 +81,9 @@ open Salt.Tactic in
   Salt.Vk.vk_exp_ineq
   Salt.Vk.vk_two_Y_le
   Salt.Vk.vk_block_core
+  Salt.Vk.entire_norm_logDeriv_sub_sum_scaled
+  Salt.Vk.log_2diff_upper
+  Salt.Vk.log_2diff_lower
+  Salt.Vk.zeta_block_strip
+  Salt.Vk.vk_sum_Ioc_split
+  Salt.Vk.vk_sum_Ioc_split_norm_le

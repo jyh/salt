@@ -8214,3 +8214,31 @@ decisions per question.
   **W3b-2 DISPATCHED** (selberg_opt_eq + selweight_abs_le_one
   on the CORRECTED def, via the mathlib ν(gcd) route). Board:
   VK-4 + S₀-W3a + W3b-2.
+
+- 2026-07-18 11:28 PT: ██ **VK-4 lands THREE stones — R7 =
+  LITT-LANDAU (the parametric Landau core) + R10 = LITT-COVER
+  stone-3 + the scale split** ██ (≈ 286k / 74 tools;
+  house-verified Vk.All 8769 green, root 9250 per the
+  executor, all [3 axioms]). Salt/Vk/{Landau,Strip,Scale}.lean:
+  `entire_norm_logDeriv_sub_sum_scaled` — the FULL affine
+  transport of the SW Landau core to a FREE radius λ ∈ (0,1]
+  at cost (120/λ)·log(4M₀), the ∃(Z,m,h) structure preserved
+  EXACTLY (the ∏λ^m scalar absorbed into h — catch trick
+  #171-reg), ZERO drift — the hardcoded-disc wall (the maps'
+  discovery) is DOWN; with zeta_strip_family, Littlewood is
+  now assembly-only. `zeta_block_strip` (112·√N on
+  [N, 27πN] — the COVER residual CLOSED via the 2nd-difference
+  ladder). `vk_sum_Ioc_split(_norm_le)` (the equal-length
+  partition primitive ExpSum lacked). Residuals in EXACT
+  dependency order: R5b (the VkSpaced window discharge, the
+  freeze's flagged heaviest bookkeeping — parameters
+  pre-computed by VK-4) → R6 (zeta_growth_pow) → R8 (needs the
+  [G] riemannZeta_conj shim) → R9 → ██
+  zeta_zero_free_region_pow ██. Catches: executor-local
+  #142–148 = register **#167–173** (the phantom
+  .differentiableAt; the ℤ-Ioc consecutive re-confirm; the
+  unconditional logDeriv chain rules; the affine-transport
+  absorb trick; one-log_le_sub_one-two-bounds). PushNotif
+  fired. **VK-5 DISPATCHED on the region chain** (R5b → R6 →
+  R8 → R9 → the region; the Littlewood assembly named as its
+  Zeno sibling). Board: VK-5 + S₀-W3a + W3b-2. Tally ~66M raw.

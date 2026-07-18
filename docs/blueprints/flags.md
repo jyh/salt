@@ -9436,9 +9436,20 @@ from `Salt.lean`. Opening wave = R1, R2, R3-core, R4-orbit.
   `Slack=(π/8)P^{1−ρ}`, `vmvt` `Jk ≤ vmvtConst·P^{vmvtExp}` (b=kr), power-mean root `^{1/(2b)}`
   bookkeeping collapsing to `8·P^{1−ρ}`. STALL: the ledger's delicate exponent tracking through
   `rpow` — Zeno partial per the freeze's own greenlight (`R4 orbit algebra … fiddly in Lean`).
-- Downstream R5–R10 (VK-SCALE/GROWTH/LANDAU-SCALED/ZETA-DISC/341/STRIP-PATCH) untouched this
-  wave — later waves per the freeze's ORDER. R7 (=LITT-LANDAU) and R10 (=LITT-COVER stone-3)
-  are independently valuable Zeno partials there.
+- **R7/R10/R5-assembly LANDED this wave (VK-4, 2026-07-18) — see the VK-4 report below.**
+- **`VMVT-VK/R5b` [C] — the `VkSpaced` window discharge** (the freeze's window arithmetic): choose
+  `j := log N`, `r₀ := ⌈L/j⌉`, `β := (r₀+1)/(k+1)`, `P := ⌈N^{1−β}⌉`, `j* := r₀+2` so that
+  `hD ∧ hW1 ∧ hW2` (W2a/W2b/W2c) of `vk_block_core` hold for each `N₀ ∈ (N, 2N]`; instantiate
+  `vk_sum_Ioc_split_norm_le` with `c i = min (N+iP) (2N)`, `Q = ⌈N/P⌉` to get the freeze's
+  `‖∑_{(N,2N]} eR(phi t n)‖ ≤ 10·N·P^{−ρ}` (arithmetic: `⌈N/P⌉·8P^{1−ρ} ≤ 10N·P^{−ρ}` under `4P ≤ N`).
+  The abstract split (`vk_sum_Ioc_split`) is LANDED; the residual is the per-block `VkSpaced`
+  discharge — the freeze's flagged heaviest window bookkeeping.
+- **R6 (VK-GROWTH) ← R5, R10**; **R8 (VK-ZETA-DISC) ← R6, R7**; **R9 (VK-341) ← R8**; then the region
+  target `zeta_zero_free_region_pow`. Untouched — later waves per the freeze's ORDER. R6 consumes
+  `zeta_weighted_block` (Strip.lean:762, σ-shift Abel) + `norm_zeta_sub_approx_le`
+  (ZetaApprox.lean:542); R8 consumes R7's `entire_norm_logDeriv_sub_sum_scaled` + `zeta_real_upper`;
+  R9 consumes `zero_free_extraction` (ZeroFree.lean:142). Sibling shape: `zeta_strip_family`
+  (Strip.lean:1301).
 
 **Catches (LOUD).** (#127) `Mathlib.Analysis.SpecialFunctions.Integrals` is now a DIRECTORY;
 `integral_pow`/interval-integral basics live in `...Integrals.Basic`. (#128) `Real.abs_log_sub_add_sum_range_le`
@@ -9489,6 +9500,54 @@ type-mismatches ℕ vs ℤ; then `Finset.sum_map` + `simp [addLeftEmbedding_appl
 `0+…` patterns — `zero_add` fires first and invalidates them). `genFun` 1-periodicity:
 `Int.fract` split via `he : (fun j => Int.fract (α j) + (⌊α j⌋:ℝ)) = α` (`rw [Int.fract]; ring`)
 fed to `genFun_add_int`.
+
+**LANDED — VK-4 wave (R7, R10, R5-assembly; 2026-07-18, all sorry-free, axioms ⊆ {propext,
+Classical.choice, Quot.sound}, registered in `Salt/Vk/All.lean`).** All three the freeze's
+independently-valuable Zeno partials; the `⌈N/P⌉` chain (R5b→R6→R8→R9→region) stays residual.
+- **R7 `VK-LANDAU-SCALED` [C, ~150] — `Salt/Vk/Landau.lean`** (`entire_norm_logDeriv_sub_sum_scaled`,
+  = **LITT-LANDAU**): the FULL parametric-radius affine transport of
+  `Salt.SW.entire_norm_logDeriv_sub_sum'` — sphere/ball radii `7/4, 3/2, 23/20` all scaled by a free
+  `λ ∈ (0,1]`, cost scaled to `(120/λ)·log(4M₀)`. With `A w = c+λw`, `B s = (s−c)/λ`, `G = F∘A` at
+  center 0; the WHOLE `∃(Z,m,h)` structure transports (zeros by `Z.image A`, mults `mG∘B`,
+  remainder `h = (∏ λ^{mG})⁻¹·(hG∘B)` — the product scalar absorbed into `h` keeps EqOn EXACT, so
+  `mem_zeros_of_factorization_gen` still pulls a zero in for R8's keep-one). `logDeriv F s =
+  λ⁻¹·logDeriv G(Bs)` (chain rule) ⟹ both the `logDeriv h` identity and the numeric scale by `λ⁻¹`.
+  NO margin drift vs the freeze. Freeze's "elided-existential risk RETIRED" confirmed — all conjuncts
+  transfer.
+- **R10 `VK-STRIP-PATCH` [B, ~130] — `Salt/Vk/Strip.lean`** (`zeta_block_strip`, = **LITT-COVER
+  stone-3**): the diagonal-strip second-derivative bound `‖∑_{(N,2N]} eR(phi t n)‖ ≤ 112·√N` for
+  `N ≤ t ≤ 27π·N`. ζ-phase second difference `d²(n) = (t/2π)(2log(n+1)−log(n+2)−log n) ∈
+  [(t/2π)/(n+1)², (t/2π)/(n(n+2))]` (helpers `log_2diff_lower/upper`), `μ=(t/2π)/(4N²)`, spread `c=4`
+  → `vdC_2nd_ZR`; output `16√(t/2π)+16N/√(t/2π) ≤ 112√N`. Constant `112` is my choice (freeze only
+  specified "`N^{−1/2}`-grade"); `√(t/2π)≤4√N` (from `t/2π≤16N`) and `N/√(t/2π)≤3√N` (from `N≤9·t/2π`).
+- **R5-assembly `VK-SCALE` (geometric half) [B, ~55] — `Salt/Vk/Scale.lean`** (`vk_sum_Ioc_split` +
+  `vk_sum_Ioc_split_norm_le`): the general-partition block split `∑_{(c 0, c Q]} f =
+  ∑_{i<Q} ∑_{(c i, c(i+1)]} f` for any monotone `c : ℕ → ℤ`, + triangle `‖·‖ ≤ Q·B`. Generic
+  `f : ℤ → G`/`E` — the equal-length analogue of `dyadic_sum_split` the ExpSum track LACKED. R5b (the
+  `VkSpaced` per-block window discharge that instantiates it) remains the residual.
+
+**Catches — VK-4 wave (LOUD).** (#142) **THE PHANTOM `.differentiableAt`:** `Differentiable ℂ f`
+applied at a point (`hf x`) IS ALREADY `DifferentiableAt ℂ f x` — appending `.differentiableAt`
+errors as `Invalid field: Exists.differentiableAt`; DROP it. But `AnalyticOnNhd` applied
+(`hana x hx : AnalyticAt`) DOES need `.differentiableAt`. (#143) **`sum_Ioc_consecutive` is ℕ-ONLY**
+(re-confirms #133 in the R5 context): for ℤ-endpoint block splits use `← Finset.sum_union
+(Finset.Ioc_disjoint_Ioc_of_le (le_refl _))` then `Finset.Ioc_union_Ioc_eq_Ioc (hc h₁) (hc h₂)` —
+and pass the succ bound as `hc (show Q ≤ Q+1 by omega)` (NOT `Nat.le_succ Q`, whose `Q.succ` fails to
+unify with the goal's `Q+1`). (#144) `logDeriv_comp (hf : DifferentiableAt 𝕜' f (g x)) (hg :
+DifferentiableAt 𝕜 g x) : logDeriv (f∘g) x = logDeriv f (g x) * deriv g x` and `logDeriv_const_mul x
+a (ha : a≠0)` are BOTH unconditional given differentiability (no non-vanishing needed) — the affine
+`logDeriv` transport is pure chain rule. (#145) The affine Landau transport: absorb the product
+scalar `∏ λ^{m}` (NOT `λ^{∑m}` — avoids the missing `prod_pow_eq_pow_sum`) into the remainder to keep
+EqOn exact; zeros via `Finset.sum_image`/`prod_image` (`A` injective by `mul_left_cancel₀`);
+`s − A ρ = λ·(B s − ρ)` makes `1/(s−Aρ) = λ⁻¹/(Bs−ρ)` (holds even at the pole, `0⁻¹=0`). (#146)
+Both ζ-phase 2nd-diff bounds come from ONE lemma `Real.log_le_sub_one_of_pos`: upper on the ratio
+`R=(m+1)²/(m(m+2))` (`log R ≤ R−1 = 1/(m(m+2))`), lower on `R⁻¹` (`log R⁻¹ ≤ R⁻¹−1 = −1/(m+1)²`,
+then `Real.log_inv`). `vdC_2nd_ZR` is ALREADY ℤ/`eR` (folds `eR_eq_eK` internally) — the freeze's [G]
+`eR_eq_eK` shim for R10 is pre-handled by the engine. (#147) `a ≤ b` from `a²≤b²` (both `≥0`):
+`rw [← Real.sqrt_sq ha, ← Real.sqrt_sq hb]; exact Real.sqrt_le_sqrt h`; `√(16N)=4√N` via
+`Real.sqrt_mul` + `√16=4` (`Real.sqrt_sq` on `4²`). (#148) phi-unfold in the 2nd-diff identity:
+`simp only [Salt.ExpSum.phi, ← hA]; push_cast; ring` folds `t/(2π)` back to the local `set A` (with
+#140: phi noncomputable, `simp only` not `rw`).
 
 ## 2026-07-18 T-BAL R3(b) LANDS (the multiples mass, honest 4^ω) — R4 REFUTED at the √-error (a THIRD design flaw); R5 blocked — T-BAL-3/Opus
 
