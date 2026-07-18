@@ -7658,3 +7658,27 @@ decisions per question.
   redirected mid-run. The refuter-pass rule is now 2-for-2 on
   real catches (#98 stale-target, #107 false-stop). Board:
   T-BAL workflow + VMVT-SUMMIT-2.
+
+- 2026-07-18 05:05 PT: **T-BAL designer deaths DIAGNOSED +
+  backfilled** (JYH asked "do we know why they are failing?" —
+  the autopsy is definitive). Catch **#108** (workflow-design
+  tier): all three original designers + one relaunch died the
+  SAME death — a max_output_tokens THINKING SPIRAL: the
+  ~83k-char prompt (three maps inlined) + a schema forcing one
+  big structured emission + "produce the complete inequality
+  chain" ⟹ 4 consecutive turns of ~150k chars pure thinking,
+  no tool calls, then terminal error. They produced NOTHING
+  recoverable (thinking only). THE LESSON (banked): pass big
+  context BY FILE PATH (read selectively), and mandate
+  incremental tool-grounded composition (draft file, short
+  thinking passes, deliverable-size caps) for schema-forced
+  big-deliverable agents. Recovery with zero loss: the maps
+  extracted from the run journal to scratchpad/tbal_maps.json
+  (89.9k); the healthy second relaunch rides in workflow 1;
+  workflow 2 (tbal-design-backfill, wf_e9a36374) re-runs the
+  two dead angles anti-spiral + their verify pairs; house
+  adjudicates across all surviving candidates. GIFT from the
+  maps: T-BAL is FULLY covered by a staged source —
+  Benli–Goel–Twiss–Zaman arXiv:2410.06082 (dh_explicit_2410.txt
+  already staged in the scratchpad). Board: T-BAL wf1 (1
+  designer) + T-BAL wf2 (2 designers) + VMVT-SUMMIT-2.
