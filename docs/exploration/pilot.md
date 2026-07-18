@@ -8185,3 +8185,32 @@ decisions per question.
   falls) + W3b = the algebra suppliers (selberg_opt_eq +
   selweight_abs_le_one + euler_b_one)**. Board: VK-4 + S₀-W3a
   + S₀-W3b.
+
+- 2026-07-18 11:15 PT: **W3b FIRES THE R4 CHECKPOINT — wave-1's
+  selWeight def was WRONG; house fix executed same-hour** (W3b
+  ≈ 127k / 19 tools — zero Lean written, CORRECTLY: you cannot
+  prove a false statement). THE BUG: the local factor shipped
+  as h(d); the Selberg optimizer needs 1/ν(d) = d/h(d) — the
+  two agree at d=1, so selWeight_apply_one = 1 validated
+  nothing (catch **#163**: a weight def is not validated by
+  its value at 1). W3b certified numerically (freeze defs
+  verbatim, 200 random (z,χ)): the shipped form makes
+  selberg_opt_eq FALSE (V = 0.514 vs 1/H = 0.308) and
+  selweight_abs_le_one LITERALLY FALSE (max|θ| = 1.1217); the
+  corrected form lands both EXACTLY (residual 3.3e-16, max|θ|
+  = 1.000000). HOUSE FIX (Fable-tier def edit): selWeight's
+  factor → (d:ℝ)/selHmul, provenance docstring, apply_one
+  patched (one Nat.cast_one); SW.All 8805 GREEN. Catches
+  #163–166 (reg. = W3b #158–161): the d=1 trap; mathlib
+  SelbergSieve stops before the optimization; the landed
+  selberg_diag is the WRONG quadratic form for the optimizer
+  (totient/lcm vs ν(gcd) — route via mathlib's
+  mainSum_lambdaSquared_eq_sum_mul_sum_sq at ν(p) = h(p)/p);
+  the ζ_p·L_p local split 1+g(p) = ζ_p·L_p(χ) EXACT (banked
+  for R5's designer — ~10 ln when needed). euler_b_one
+  re-classed DESIGN-TIER (the freeze's literal Σb/c = 1 is
+  false as an Euler product; the true form is pinned by R5's
+  undesigned route — held for the R5 micro-design after W3a).
+  **W3b-2 DISPATCHED** (selberg_opt_eq + selweight_abs_le_one
+  on the CORRECTED def, via the mathlib ν(gcd) route). Board:
+  VK-4 + S₀-W3a + W3b-2.

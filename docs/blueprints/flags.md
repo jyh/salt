@@ -9751,3 +9751,90 @@ analytically the SAME swamping-error C/D crux as R6 (it IS R6 for the trivial we
 error genuinely swamps, so R2 is NOT a bounded-effort win independent of R6. The core sub-lemmas
 (kernel-Abel, sharp power-cap, zero-killed stream) DO factor out cleanly and are the right unit of
 progress; the assembly by-parts is the indivisible crux.
+
+## 2026-07-18 T-BAL S₀ WAVE 3b: the R4 checkpoint FIRES — wave-1 `selWeight` is MIS-DEFINED (selberg_opt_eq + selweight_abs_le_one BOTH FALSE as stated); euler_b_one underspecified — S0-W3b/Opus
+
+Dispatched as the "algebra suppliers" (three no-analysis stones: `selberg_opt_eq`,
+`selweight_abs_le_one`, `euler_b_one`). The freeze's own R4 checkpoint — "R4 must verify the (4.8)
+`g`-convention against `selberg_opt_eq`; if it MISMATCHES the diagonalization's expected shape,
+STOP-AND-FLAG with the exact discrepancy — do not force" — FIRES. Two of the three stones are
+provably FALSE for the landed wave-1 `selWeight`; the third is blocked on an undesigned consumer.
+NO Lean written (nothing to land against a false statement); NO landed decl altered (Iron Rule 1:
+`selWeight` is a load-bearing wave-1 def wired into detector R0 `dhWeightSqW λ=selWeight` and R6 —
+its reconciliation is Fable/human tier). Numerics: `scratchpad/selcheck.py`, `scratchpad/idcheck.py`
+(pure-python, verbatim freeze defs `h=1+χ−χ/p`, `g=h/(p−h)`, `H=Σ_{r≤z,sf}g(r)`, `selWeight` per
+the wave-1 def).
+
+**THE BUG — `selWeight`'s local factor is the reciprocal of what the optimizer needs.** Landed def
+`selWeight χ z d = μ(d)·selHmul(d)·selGmul(d)/H(z)·G_d` with `G_d = Σ_{r≤z/d,(r,d)=1,sf}g(r)`,
+`selHmul(d)=h(d)=∏h(p)`. The Selberg-optimal weight for the h-density form (the ONLY form the
+arithmetic can produce — see below) is `optWeight χ z d = μ(d)·(d/h(d))·selGmul(d)/H(z)·G_d`
+= `μ(d)·(1/ν(d))·g(d)·G_d/H` with `ν(p)=h(p)/p`, `1/ν(d)=d/h(d)`. **The factor should be `d/selHmul χ d`
+(= `1/ν(d)`), NOT `selHmul χ d`.** Cleaner still, using the identity below, `(d/h(d))·g(d)=∏_{p|d}(1+g(p))`,
+so `optWeight χ z d = μ(d)·∏_{p|d}(1+selG χ p)·G_d/H(z)`. Both weights agree at `d=1` (h(1)=1), so
+`selWeight_apply_one` did NOT catch it — the normalization was the only thing checked in wave 1.
+
+**DECISIVE NUMERICS (freeze defs verbatim).**
+* `V(w) := Σ_{d,e≤z,sf} w_d w_e·ν(lcm(d,e))` (the h-weighted nu(gcd) form = the actual DH main term).
+  `V(selWeight)`: **0.5144** (z=6,h≡1), **0.5058** (z=12,h≡1), **0.3948** (z=12,mixed ±1 χ) — vs
+  target `1/H` = 0.3077 / 0.2655 / 0.2920. **NOT 1/H.** Also the plain-lcm form `Σ w_d w_e/lcm`
+  gives 0.5144 / 0.5058 / 0.5737 — also not 1/H. So `selberg_opt_eq` (`V(λ^opt)=1/H`) is FALSE for
+  the landed `selWeight` in BOTH the nu(gcd) and the plain-lcm reading.
+* `V(optWeight) = 1/H` **EXACTLY**: residual `3.3e-16` (float roundoff) across **200 random (z,χ)**
+  cases (z∈{8..30}, χ(p)∈{−1,0,1}). `optWeight` matches the `selHmul→d/selHmul` fix to `3.3e-16`.
+* `max_d |selWeight_d|` reaches **1.1217 > 1** in the 200-case stress test — so `selweight_abs_le_one`
+  (`|selWeight_d|≤1`) is LITERALLY FALSE for the landed def. `max_d |optWeight_d| = 1.000000`
+  exactly (achieved at d=1) in all 200 — the classical Halberstam–Richert `|λ_d|≤1` holds for the
+  CORRECT optimizer, as expected.
+
+Derivation cross-check (matches the numerics): diagonalize `V(w)=Σ_l g(l)⁻¹ y_l²`, `y_l=Σ_{l|d}ν(d)w_d`
+(mathlib `mainSum_lambdaSquared_eq_sum_mul_sum_sq` at `ν(p)=h(p)/p`, whose `selbergTerms`=`selG`).
+Constraint `w_1=Σ_l μ(l)y_l=1`; Cauchy–Schwarz min at `y_l=μ(l)g(l)/H`, `V_min=1/H`, recovered
+`w_d = μ(d)g(d)G_d/(ν(d)H)` = optWeight. The landed `selWeight` = optWeight scaled pointwise by
+`h(d)²/d` (NOT a constant), so it is neither the optimizer nor a rescaling of it.
+
+**STONE-BY-STONE.**
+* **`selberg_opt_eq` — FLAG (false as stated; blocked on the `selWeight` def fix).** Once `selWeight`
+  is reconciled to `optWeight`, this is a clean ~380-ln finite-multiplicative-algebra build: route via
+  mathlib `SelbergSieve.mainSum_lambdaSquared_eq_sum_mul_sum_sq` (the nu(gcd) diagonalization mathlib
+  DOES have; it STOPS before the optimization) with a `BoundingSieve` instance at `ν(p)=selH χ p/p`
+  (`0<ν<1` holds: `selH∈(0,2]`, `selH<p`; `selbergTerms=selG`), OR a from-scratch nu(gcd)
+  diagonalization (the LANDED `selberg_diag` is the **totient/lcm** form `ν=1/p` — WRONG form, do not
+  use it here), then Cauchy–Schwarz min + optimizer-identification. NB the mathlib route needs a cutoff
+  bridge (mathlib sums over `divisors prodPrimes`; salt's `selHSum`/`G_d` sum over `≤z` / `≤z/d`
+  coprime) — this bridge is the main friction and part of why the freeze rated R4 a ~380+100 standalone
+  sub-campaign, not a bounded stone.
+* **`selweight_abs_le_one` — FLAG (false as stated; same root cause).** `|λ_d|≤1` is the classical
+  optimizer bound; it holds for `optWeight` (numerically exact) via the partial-`H` monotonicity
+  `(g(d)/ν(d))·G_d ≤ H` (i.e. `∏_{p|d}(1+g(p))·G_d ≤ H(z)`), NOT for the landed `selWeight`.
+* **`euler_b_one` — FLAG (independent of the bug, but statement UNDERSPECIFIED).** The freeze's literal
+  "`Σ b(c)/c = 1`" with `b(p)=−χ(p)/p` is false as an Euler product: `∏_p(1−χ(p)/p²)=1/L(2,χ)≠1`. The
+  precise truncated/local form `euler_b_one` must deliver is pinned by the R5 `H_lower` route, which is
+  itself flagged BLOCKED/undesigned (wave 2). Inventing the statement + validating it against an
+  undesigned consumer is design (Fable) tier, not an executor stone. **GIFT for that designer (verified,
+  `idcheck.py`): `1 − selH χ p/p = (1−1/p)(1−χ(p)/p)` EXACTLY, hence `1 + selG χ p = p/(p−selH χ p) =
+  1/((1−1/p)(1−χ(p)/p)) = ζ_p·L_p(χ)`** — the H-local factor splits exactly into the local ζ and L(χ)
+  factors. THIS is the structural fact that lets `H(z)=Σg(r)` carry the `L(1,χ)=L₁` main term (the
+  `1/(1−1/p)` gives the `log z` growth, the `1/(1−χ/p)` gives `L₁`); the `b`-correction removes the
+  `ζ`-part. Proving that identity in Lean is ~10 lines (`selH`-unfold + `field_simp`/`ring` over the
+  three `chiRe_values` branches, `p≥2`).
+
+**RECOMMENDATION (Fable/human).** Reconcile the wave-1 `selWeight` def: replace `selHmul χ d` with
+`(d:ℝ)/selHmul χ d` (equivalently `μ(d)·∏_{p|d}(1+selG χ p)·G_d/selHSum χ z`). Then re-verify
+`selWeight_apply_one` (unchanged: h(1)=1 so `d/h(d)=1`), and propagate to detector R0
+(`dhWeightSqW λ=selWeight` in `SelWeight.lean`) and R6 (`DHExtract.lean`) — those consume the weight
+directly, so the fix is load-bearing beyond R4. After the fix, `selberg_opt_eq` and
+`selweight_abs_le_one` are true and buildable as above.
+
+**Catches (LOUD).** (#158) The freeze's R4 "verify the g-convention" checkpoint is REAL and FIRED:
+`selWeight_apply_one=1` de-risks ONLY the `d=1` normalization; the `d>1` shape (the `h(d)` vs `1/ν(d)`
+factor) was never checked in wave 1 and is WRONG. A weight def is not validated by its value at 1 — a
+2-point numeric check (any squarefree `d≥2`, or `V(w)` on `z=6`) catches it instantly. (#159) mathlib
+`SelbergSieve` HAS the nu(gcd) diagonalization (`mainSum_lambdaSquared_eq_sum_mul_sum_sq`, at
+`selbergTerms d = nu d·∏(1−nu p)⁻¹`) but STOPS before any optimization — so `selberg_opt_eq`'s
+Cauchy–Schwarz min + optimizer identity is genuinely absent and must be built. (#160) The LANDED
+`selberg_diag` (SelAlgebra.lean) is the **totient/lcm** form (`ν=1/p`, `Σλλ/lcm=Σφ(g)·innerG²`) — it
+is the WRONG quadratic form for `selberg_opt_eq` (which needs `ν(p)=h(p)/p`); the wave-2 flag already
+noted this ("wants the nu(gcd) form"). Do not try to route `selberg_opt_eq` through `selberg_diag`.
+(#161) The clean H-local split `1+selG χ p = 1/((1−1/p)(1−χ/p))` (via `1−selH/p=(1−1/p)(1−χ/p)`, exact)
+is the load-bearing gift for R5/`H_lower`/`euler_b_one` — bank it.

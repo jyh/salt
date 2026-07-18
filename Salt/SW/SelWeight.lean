@@ -327,12 +327,20 @@ lemma selHSum_pos {q : ℕ} (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {
 /-! ## §6 — the Selberg-optimal weight `selWeight` (Benli (4.8)) -/
 
 /-- **The Selberg-optimal weight** `θ_d` (Benli–Goel–Twiss–Zaman (4.8), freeze `g`-convention):
-`θ_d = μ(d)·h(d)·g(d)/H(z)·Σ_{r ≤ z/d, (r,d)=1, sqfree} g(r)` for squarefree `d ≤ z`, else `0`.
-A DEF (properties `selweight_one`/`selweight_abs_le_one`/optimality are R4). Validated by
-`selWeight_apply_one`. -/
+`θ_d = μ(d)·(d/h(d))·g(d)/H(z)·Σ_{r ≤ z/d, (r,d)=1, sqfree} g(r)` for squarefree `d ≤ z`,
+else `0`.
+
+HOUSE CORRECTION (2026-07-18, catch #163/W3b-#158): wave 1 shipped the local factor as
+`h(d)`; the Selberg optimizer needs `1/ν(d) = d/h(d)` there. The two agree at `d = 1`
+(`h(1) = 1`), which is why `selWeight_apply_one = 1` did not catch it; W3b certified the
+inverted form makes `selberg_opt_eq` and `selweight_abs_le_one` FALSE (V = 0.514 vs 1/H =
+0.308; max|θ| = 1.1217) and the corrected form exact to 3.3e-16 over 200 random (z, χ).
+A weight def is not validated by its value at 1.
+
+A DEF (properties `selweight_one`/`selweight_abs_le_one`/optimality are R4). -/
 def selWeight {q : ℕ} (χ : DirichletCharacter ℂ q) (z d : ℕ) : ℝ :=
   if d ≤ z ∧ Squarefree d then
-    (moebius d : ℝ) * selHmul χ d * selGmul χ d / selHSum χ z
+    (moebius d : ℝ) * ((d : ℝ) / selHmul χ d) * selGmul χ d / selHSum χ z
       * ∑ r ∈ (Finset.Icc 1 (z / d)).filter (fun r => Squarefree r ∧ Nat.Coprime r d),
           selGmul χ r
   else 0
@@ -354,7 +362,7 @@ lemma selWeight_apply_one {q : ℕ} (χ : DirichletCharacter ℂ q) (hsq : χ ^ 
     apply Finset.filter_congr
     intro r _
     simp
-  rw [hμ, hHmul, hGmul, hinner]
+  rw [hμ, hHmul, hGmul, hinner, Nat.cast_one]
   field_simp
 
 /-! ## §7 — R1: the exact termwise shift to the real zero (`tail_shift_to_beta0`)
