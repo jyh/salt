@@ -9,6 +9,8 @@ import Salt.Vk.BoxAvg
 import Salt.Vk.BoxMeasure
 import Salt.Vk.Pointwise
 import Salt.Vk.Block
+import Salt.Vk.Spacing
+import Salt.Vk.Core
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -55,3 +57,19 @@ open Salt.Tactic in
   Salt.Vk.vk_shift_average
   Salt.Vk.vk_shift_to_orbit
   Salt.Vk.vk_block_taylor_reduce
+  Salt.Vk.fract_sub_abs_ge
+  Salt.Vk.vkCoef_abs
+  Salt.Vk.choose_mul_sub_le
+  Salt.Vk.pow_diff_abs_le
+  Salt.Vk.orbit_term_bound
+  Salt.Vk.orbit_tail_geom_le
+  Salt.Vk.vkOrbit_diff_sub_linear_bound
+  Salt.Vk.vkOrbit_linear_abs
+  Salt.Vk.vk_orbit_fract_sep
+  Salt.Vk.vk_eta_le
+  Salt.Vk.vk_const_le
+  Salt.Vk.vkDelta_prod_inv
+  Salt.Vk.vkDelta_slack_le
+  Salt.Vk.vk_exp_ineq
+  Salt.Vk.vk_two_Y_le
+  Salt.Vk.vk_block_core

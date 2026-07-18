@@ -8135,3 +8135,28 @@ decisions per question.
   S₀ verdict ≈ 09:40, the contingent approval ≈ 09:55, the
   gate opening ≈ 10:15, W1's landing + W2 dispatch ≈ 10:25.
   Sequence and content unaffected.
+
+- 2026-07-18 10:48 PT: ████ **THE BRIDGE IS COMPLETE —
+  vk_block_core LANDS: the first pointwise Weyl bound from a
+  machine-checked mean value theorem** ████ (VK-3, ≈ 610k /
+  153 tools; house-verified Vk.All 8766 green, 52 audited
+  decls [3 axioms]; vk_minpow_check.py ALL PASS; the frozen
+  signature VERBATIM). ‖Σ eR(φ)‖ ≤ 8·P^{1−ρ} from
+  Salt.Vmvt.vmvt — R4-assembly fully closed, constant exactly
+  8. Salt/Vk/Spacing.lean (391 ln: vk_orbit_fract_sep — the
+  freeze's per-step [s/2,3s/2] machinery REPLACED by the
+  cleaner aggregate (2/3)s|Δw| ≤ |Δβ| ≤ (4/3)s|Δw| geometric
+  tail + the floor-trichotomy no-collision; VkSpaced DEFINED
+  faithfully W2a/b/c) + Core.lean (513 ln: the rpow ledger by
+  raising to the 2b power — no root-subadditivity needed).
+  Catches: executor-local #148–153 = register **#153–158**
+  (THE PHANTOM PATTERN-FAIL #153: an implicit arg appearing
+  only inside a `by omega` term stays a metavariable — no
+  error at the have, downstream rw fails mysteriously; pin
+  (P := P). Plus conv_rhs for nested rpow_add; div_le_div_iff₀;
+  set_option-before-doc-comment parse order; positivity's
+  1 ≤ ↑n+1 and opaque-def gaps; postfix ! misparse).
+  **VK-4 DISPATCHED** (the region rungs per the freeze order:
+  R5/R6 assembly + R7 = LITT-LANDAU + R10 = LITT-COVER
+  stone-3). PushNotification fired (JYH mobile). Board: VK-4 +
+  S₀-W2. Tally ~64.5M raw.
