@@ -8516,3 +8516,23 @@ decisions per question.
   audit (R6-EXEC's statements are z-PARAMETRIC — verified
   unaffected; R7/R8 not yet landed — clean). Board: VK-8 +
   R6-EXEC + the W=14 refuter pass.
+
+- 2026-07-18 14:50 PT: ██ **R6 IS COMPLETE — dh_extraction_upper_W,
+  T-BAL's LAST HARD RUNG, machine-checked** ██ (R6-EXEC, ≈ 571k /
+  130 tools; house-verified SW.All green; DHExtractW.lean 1004 ln,
+  all 8 rungs, [3 axioms]; both numeric certs shipped to
+  scripts/tbal_ledgers/ and re-run green). The target EXACT to the
+  freeze: |Σ dhCoeffW·n^{−β₀}·K − L₁·selMainTerm·Y^{1−β₀}/(u(2−β₀))|
+  ≤ (136+48M+48M·Z₀+144M/u)·z·(1+log z²)⁹·Y^{1/2−β₀} — C₂ = 4C_w
+  BIT-IDENTICAL, zero drift; the exact (†)∘Möbius reduction for ALL
+  m ≥ 1 (the third convolution never materialized, as designed);
+  the signed collection = selMainTerm = 1/H exactly; the 10.2-order
+  q=3 margin refuter-re-confirmed. Notable: R6-5's cleanest route
+  was the arithmetic-function convolution engine
+  (prodPrimeFactors_add_of_squarefree), not the planned reindex —
+  banked in flags (executor's #186–191 appended there; flags = the
+  authority). NO flags-worthy dead ends, no sorries. T-BAL'S
+  REMAINING PATH (all design-verified): the W=14 verdict (in
+  flight) → the R5 crush wave → R7 (Λ) + R8 (the 16/17 contract) =
+  WP2'S ANALYTIC CORE. Fanfare + push fired. Board: VK-8 + the
+  W=14 pass (the sole T-BAL gate).

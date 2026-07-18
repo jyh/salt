@@ -71,6 +71,7 @@ import Salt.SW.DHCore
 import Salt.SW.DHClose2
 import Salt.SW.EulerEff
 import Salt.SW.EulerLink
+import Salt.SW.DHExtractW
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -262,3 +263,11 @@ open Salt.Tactic in
   Salt.SW.selHSum_ge_full_sub_rankin Salt.SW.selHSum_ge_zetaL_sub_rankin
   Salt.SW.primorial_primeFactors Salt.SW.selHFull_eq_zeta_mul_L
   Salt.SW.zeta_side_prod_eq Salt.SW.mertens_prod_pos Salt.SW.zeta_side_ge
+  Salt.SW.kernel_abel_sum_real Salt.SW.rpow_sub_le_tangent_upper Salt.SW.dhAbel_inner_abs_le
+  Salt.SW.sum_rpow_ge Salt.SW.sum_rpow_sandwich Salt.SW.unmoll_extraction_abs_real
+  Salt.SW.inner_cop_swap_wt Salt.SW.weighted_char_count Salt.SW.dhA_kernel_reduction_inner
+  Salt.SW.dhA_kernel_reduction Salt.SW.selWeight_ne_zero_squarefree Salt.SW.selWeight_ne_zero_le
+  Salt.SW.gcW_selWeight_eq_zero_of_gt_sq Salt.SW.dhD0_scale_main Salt.SW.dhD0_scale_err
+  Salt.SW.selHmul_collection Salt.SW.sum_gcW_selNu_eq_selMainTerm Salt.SW.omega_eq_primeFactors_card
+  Salt.SW.paircount Salt.SW.pairkernel_per_m Salt.SW.sum_gcW_pairkernel_le
+  Salt.SW.dh_extraction_per_m Salt.SW.dh_extraction_upper_W
