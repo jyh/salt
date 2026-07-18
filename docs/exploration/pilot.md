@@ -6492,3 +6492,21 @@ decisions per question.
   Ceremony: audit lines (green). Board: MERT-5, VMVT-N4,
   LITT-F2, SHIU-G, MOEB-DIV, seed #2. Tally ~35.2M raw, house
   ~14%.
+
+- 2026-07-17 ~19:13 PT (GOLD WINDOW): ██ **MERT-5 LANDS — THE
+  TWIN-DENSITY COROLLARY: |∏_{2<p≤n}(1−2/p)·log²n − 4Π₂e^{−2γ}|
+  ≤ C/log n; THE MERTENS ARC IS WHOLLY CLOSED, stretch included**
+  ██ (≈ 288k / 66 tools; first serious pass, no flags).
+  Salt/Mertens/TwinDensity.lean (402 lines):
+  **mertens_twin_density** (byte-matching the target) + the
+  singular-series convenience form (2·twinSingularSeries — the
+  HL consumer's exact constant) + the partial-vs-twinC2 rate
+  ((8/3)/(n−1)) + the tail machinery. The p=2 factor restores
+  the 4; explicit constants throughout (C₃ = 14 inherited).
+  **HL-3b's ANALYTIC SIDE IS COMPLETE** — the sharp (4+ε)·2Π₂
+  constant now needs only the sieve count-extraction (registered
+  as HL-3b-SIEVE). Five gotchas banked (the sum_image f-vs-g
+  binding trap; the empty-case-before-Ioc split). Ceremony:
+  executor pre-wired the aggregator (accepted), full build exit
+  0 (9180 jobs). Board: VMVT-N4, LITT-F2, MOEB-DIV, SHIU-G
+  (finishing), seed #2. Tally ~35.5M raw, house ~14%.

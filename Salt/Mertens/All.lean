@@ -8,6 +8,7 @@ import Salt.Mertens.Second
 import Salt.Mertens.ZetaSide
 import Salt.Mertens.GammaIntegral
 import Salt.Mertens.Third
+import Salt.Mertens.TwinDensity
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -36,3 +37,6 @@ open Salt.Tactic in
   Salt.Mertens.abel_primeZeta
   Salt.Mertens.mertens_third_log
   Salt.Mertens.mertens_third
+  Salt.Mertens.abs_prodFactor_sub_twinC2_le
+  Salt.Mertens.mertens_twin_density
+  Salt.Mertens.mertens_twin_density_singularSeries
