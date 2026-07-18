@@ -7779,3 +7779,12 @@ decisions per question.
   the consumer). AWAITING JYH RATIFICATION → then the executor
   dispatch (~1000 ln, Salt/SW/DHBal.lean). Board: LITT-STRIP
   design wf. Tally ~58.5M raw, catches #112, wrong proofs 0.
+
+- 2026-07-18 ~06:05 PT: JYH — **"ratified, dispatch it my
+  friend." T-BAL DISPATCHED** (Opus, ~650k budget, new
+  Salt/SW/DHBal.lean; the brief carries the freeze pointer,
+  the verbatim-contract rule with witness-drift-allowed, the
+  binding small-q checking discipline, the pre-grounded lemma
+  list + the retune candidate JSON for per-rung detail, and
+  the R7-Λ-alone-is-success Zeno framing). Board: T-BAL
+  executor + LITT-STRIP design wf.
