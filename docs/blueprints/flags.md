@@ -8399,3 +8399,98 @@ single-NEW-1 assembly (~120 ln); (4) the S5 partition `sum_tau_in_ap_le : ShiuCo
 gluing deg+I+II+III+IV+corner via `shiu_class_cover` (~100 ln). Budget exhausted on
 W4-1 + the reductions + the design resolution; ~3-attempt give-up on the FULL close
 (honest all-or-nothing scope), stones + recipe banked.
+
+## SHIU-W5 — Class II + Class III assemblies LANDED + NEW-1′ (the IV enabler); IV/S5 flagged (2026-07-17)
+
+Opus executor SHIU-W5, closing the `N-SHIU-CORE` rung. New file
+`Salt/Maynard/ShiuFinal.lean` (namespace `Salt.Maynard`), sorry-free, all decls
+axioms ⊆ `[propext, Classical.choice, Quot.sound]`, full project build EXIT 0
+(9214 jobs), no new warnings, lines ≤100. Registered in `Salt/Maynard/All.lean`.
+**The rung does NOT close this session** — Class IV (the r-binned assembly) and S5
+(the scale-instantiation + corner glue) remain — but **two of the four class
+assemblies are now landed** and the KEY mathematical obstruction that W3/W3b/W4 kept
+flagging ("does III/IV close, and with what tuned Rankin?") is DISSOLVED by NEW-1′.
+
+**LANDED (3 stones + reusable infra):**
+- **Class II `shiu_classII_le`** (~130 ln, the cleanest — its reduction was fully
+  landed): `{z q a w W}(ε Cε), 1≤q → 4≤W → W²≤w → Coprime a q → 0<Cε → 0≤ε →
+  (∀n≥1, τ(n)≤Cε·nᵋ) → Σ_{II, n≡a(q)} τ(n) ≤ Cε·zᵋ·((z/q)·(4/√W) + W)`. Route: the
+  landed `classII_dvd_cappedPow` fibres class-II `n` over the prime `ρ≤W`
+  (`n ∈ ⋃_{p≤W} {cappedPow W p ∣ n}`, `sum_biUnion_le_of_nonneg`), crude τ≤Cε·zᵋ, the
+  divisibility-in-AP count `divis_ap_count_le` (≤ z/(K·q)+1, CRT via
+  `exists_inv_residue`+`card_ap_le`), summed by `sum_cappedPow_inv_le` (≤4/√W). The
+  raw bound (no spurious C); S5 folds `zᵋ/√W = z^{−α/24}`, `zᵋ·W = z^{5α/24} ≤ z^α`.
+  First attempt.
+- **Class III `shiu_classIII_le`** (~90 ln): sub-class `shiuClassIII w W P₀ n :=
+  shiuClassIIIIV ∧ (shiuD w n).minFac ≤ P₀`. `{z q a w W P₀}(δ Cδ RankBd), 1≤q →
+  1≤w → Coprime a q → 0<Cδ → 0≤δ → (∀n≥1, τ(n)≤Cδ·nᵟ) → (Σ_{c>W, P₀-smooth, c≤w}
+  τ(c)/c ≤ RankBd) → Σ_{III, n≡a(q)} τ(n) ≤ Cδ·zᵟ·((z/q)·RankBd + w(1+log w))`. Route:
+  the smoothness-carrying reindex `class_tau_sum_le_prod'` (carries `c` `P₀`-smooth via
+  `shiuC_prime_lt_minFac`), crude τ(d)≤Cδ·zᵟ, the trivial d-count
+  `inner_count_triv_le` (≤ z/c/q+1), `bigT_sum_split'`. `RankBd` = the caller's raw
+  Rankin (`sum_tau_smooth_gt_rankin_le` at `v=P₀`, `σ=3/4`: `W^{−1/4}·EulerProd`, the
+  Euler product over `p≤P₀=log z` subpolynomial ⟹ `z^{−α/24}·z^{o(1)}`); S5 repays
+  `zᵟ·z^{−α/24}`. First attempt.
+- **NEW-1′ `sum_tau_smooth_gt_tuned_le'`** (~120 ln, THE crux): the **inequality-form**
+  tuned graded Rankin. Same statement as NEW-1 but the rigid `r·log v = log z̃`
+  is **RELAXED to `r·log v ≤ log z̃`**; `log W = ½·log z̃` KEPT (exact, `z̃ = W²`). Proof
+  is NEW-1's with the three tuning EQUALITIES `(1−σ)log v = log r/4`, `v^{1−σ} = r^{1/4}`
+  weakened to `≤` (the correct direction — the correction is *upper*-bounded, and the
+  gain `W^{−(1−σ)} = exp(−⅛r log r)` is unaffected since it uses only `log W = ½log z̃`).
+  Reuses `sum_tau_smooth_gt_rankin_le`, `prod_one_sub_rpow_neg_sq_le_exp_tight`,
+  `sum_rpow_neg_sub_inv_le`. First attempt.
+- **Reusable infra**: `sum_biUnion_le_of_nonneg`, `divis_ap_count_le`,
+  `inner_count_triv_le`, `class_tau_sum_le_prod'` (Sc-parametrized reindex WITH
+  `c`-smoothness — the piece S4-I's `class_tau_sum_le_prod` LACKED, the W3/W3b
+  III/IV blocker), `bigT_sum_split'`.
+
+**THE OBSTRUCTION RESOLVED (why W3/W3b/W4 couldn't instantiate NEW-1).** NEW-1's
+`(r:ℝ)·log v = log z̃` (an EQUALITY) forces `z̃ = v^r` — a perfect nat power. At the
+pinned `z̃ = W² = z^{α/3}`, the class-IV bins need `v_r = z̃^{1/r}` (irrational for
+fixed nat `z̃`), so **NEW-1 is literally un-instantiable across bins** — NOT a proof
+gap, a STATEMENT rigidity. The fix is NOT a Fable statement change to NEW-1 (landed,
+untouched) but the fresh inequality-form **NEW-1′** re-derived from the same landed
+helpers: with `v_r := ⌈z̃^{1/r}⌉ ≤ z̃^{1/r}`-grade, `r·log v_r ≤ log z̃` holds, and the
+decay `exp(−⅛·r log r)` is intact (uses only `log W = ½log z̃`, exact at `z̃=W²`).
+Class III side-stepped this entirely (single fixed `σ=3/4`, no tuned family).
+
+**RESIDUAL 1 — Class IV (the r-binned assembly, the hardest, NOT attempted — honest
+scope call, est. ~300 ln).** All ingredients now EXIST: NEW-1′ (c-sum per bin at
+`v=v_r`, `σ_r=1−r log r/(4 log z̃)`), `tau_rough_le` (τ(d)≤A₅^{r+1} at roughness
+`v_{r+1}`), `rough_count_in_ap_le` (d-count at `t=v_{r+1}`), `class_tau_sum_le_prod'`
++ `bigT_sum_split'` (binned reindex/split), `rsum_tuned_le` (W4-1, the r-sum). What
+remains is COMPOSITION (not new math): (i) the bin predicate `ρ=(shiuD w n).minFac ∈
+(v_{r+1}, v_r]` with `v_r := ⌈z̃^{1/r}⌉`; (ii) IIIIV\III ⊆ ⊔_{r=2}^{r*} bin_r (a
+`biUnion` over `r`, `r* ≈ (α/3)log z/loglog z`); (iii) per-bin: reindex → τ(d)≤A₅^{r+1}
+× NEW-1′ c-sum × rough d-count → fold to `const·rsumTerm(2A₅, C₀, r)·(z/φq/log z)`;
+(iv) Σ_r via `rsum_tuned_le`; (v) the `v_{r+1}³` junk sums (`A₅^{r*}=z^{o(1)}`,
+`v_{r*}³≈(log z)³`). The intricacy is real (nat `⌈z̃^{1/r}⌉` bookkeeping, the r*
+upper-limit, per-bin junk) — a dedicated wave.
+
+**RESIDUAL 2 — S5 (the composition + corner, NOT attempted, est. ~150 ln, needs IV).**
+Partition `Σ_{n≤z,n≡a(q)} τ = deg + I + II + III + IV` via `shiu_class_cover`/
+`shiu_class_disjoint` (mechanical). Instantiate at `α=1/8000`, `w=⌊z^{α/3}⌋`,
+`W=⌊z^{α/6}⌋`, `K=48000`, `P₀=⌊log z⌋`; discharge each class's scale hyps (Class I's
+`z≤W^K`, `(log w)²≤Kmain·log W·log z`, `W³w(1+log w)q≤z log z`; II/III's `zᵋ/√W`,
+`zᵟ·z^{−α/24}` folds; the RankBd from `sum_tau_smooth_gt_rankin_le` at `σ=3/4`). The
+corner (small `z` below the astronomical asymptotic threshold) folds via the crude
+`Στ≤z(1+log z)` into the finite `C` (the `shiu_for_blocks_of_core` "x<XC" mechanism).
+Blocked on IV.
+
+**CATCHES:**
+- **#71 (the NEW-1 exactness rigidity)** — `(r:ℝ)·log v = log z̃` as an EQUALITY is
+  un-instantiable across class-IV bins (`z̃` a fixed nat can't be `v_r^r` for all `r`).
+  This is the real reason III/IV stalled — the paper's `v_r=z̃^{1/r}` is real-valued,
+  NEW-1 demands nat exactness. VERDICT: re-derive with `≤` (NEW-1′, LANDED), do NOT
+  touch NEW-1. Class III avoids the family altogether (fixed `σ`).
+- **#72 (the reindex loses c-smoothness)** — S4-I's `class_tau_sum_le_prod` ranges `c`
+  over ALL of `[1,w]`; III/IV NEED the `c`-smoothness (the Rankin decay lives on the
+  smooth prefix) — dropping it over-approximates by non-smooth `c` where raw Rankin
+  fails. FIX: `class_tau_sum_le_prod'` carries the `c`-domain as a filtered `Finset Sc`
+  (`shiuC w n ∈ Sc`), landed. This was the un-named W3/W3b infra gap.
+- **#73 (Decidable-instance mismatch, `open Classical` vs concrete)** — a `set BigT`
+  under `classical` picks CONCRETE `Nat.decLe`/`decEq` for the pair filter, but an
+  `open Classical in` helper emits `Classical.propDecidable` → "identical types" that
+  fail to unify. FIX: give the primed helpers concrete decidability
+  (`[DecidablePred Npred]` + `classical` in-proof), so downstream calcs match without a
+  `convert` bridge (S4-I used `convert…ext…simp`). Standing gotcha for the tree.

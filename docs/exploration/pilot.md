@@ -7223,3 +7223,16 @@ decisions per question.
   catch #80 resolved at adjudication). **HB-L4b DISPATCHED**
   (discharge hstar on the honest window: the p ≥ z fibration).
   Board: SHIU-W5, HB-L4b. Tally ~51.6M raw, house ~14%.
+
+- 2026-07-18 ~23:58 PT (NIGHT WATCH): ██ **SHIU-W5 LANDS CLASSES
+  II + III + NEW-1′ (the exactness rigidity dissolved — catch
+  #81: the equality-calibrated NEW-1 is literally
+  un-instantiable across nat-ceiling bins; the inequality form
+  re-derived)** ██ (≈ 284k / 65 tools; first-attempt).
+  Salt/Maynard/ShiuFinal.lean: **shiu_classII_le** +
+  **shiu_classIII_le** + **sum_tau_smooth_gt_tuned_le′** + the
+  smoothness-carrying reindex (the W3/W3b un-named infra gap
+  closed). Remaining: Class IV (~300 ln, ALL ingredients exist)
+  + S5 (~150 ln) → **SHIU-W6 DISPATCHED (the true final
+  composition)**. Board: HB-L4b, SHIU-W6. Tally ~52.0M raw,
+  house ~14%.
