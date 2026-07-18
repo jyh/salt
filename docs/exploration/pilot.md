@@ -7198,3 +7198,15 @@ decisions per question.
   green (8747). Board: SHIU-W5, seed #3 (+the morning design
   queue: R3-c, T-BAL, the Littlewood region, HB-L2c). Tally
   ~51.1M raw, house ~14%.
+
+- 2026-07-18 ~23:29 PT (NIGHT WATCH): **CI seed #3 FAILED at the
+  build step** (the soft-timeout || guard did not rescue — the
+  failure mode needs the log read; the post-cache save was
+  skipped, only the original 152MB seed exists). HOUSE JUDGMENT:
+  CI seeding PARKED for the night (each attempt ≈ $1 of runner
+  time; the badge is cosmetic — the kernel referee runs locally
+  and every landing tonight is locally green). Morning queue
+  gains the seed diagnosis. **HB-L4 DISPATCHED** onto the free
+  slot (the S⁽²⁾→S⁽³⁾ step — the star-condition transition, the
+  transfer chain's next lemma; the Λ* machinery landed since
+  HB-1). Board: SHIU-W5, HB-L4. Tally ~51.2M raw, house ~14%.
