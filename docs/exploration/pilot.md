@@ -8612,3 +8612,36 @@ decisions per question.
   discipline + the on-ray law binding). ██ IF R8 LANDS: WP2'S
   ANALYTIC CORE CLOSES ██. Board: VK-9 (the last VK wall) +
   T-BAL-CLOSE (the last T-BAL rung). THE TWO FINAL EXECUTORS.
+
+- 2026-07-18 16:40 PT: **T-BAL-CLOSE: an HONEST STOP — one more
+  stone was missing, and the house's "pure composition" premise
+  was WRONG** (≈ 224k / 42 tools; house-verified SW.All 8816
+  green). Catch **#224 (SCOPE-NARROWING, house-owned)**: the
+  S₀-freeze's R6 spec said "at BOTH s ∈ {ρ, β₀}"; the R6 wall
+  design block silently narrowed to β₀; the refuters verified
+  the β₀ arithmetic; the dispatch premise inherited the
+  narrowing — THREE verification layers missed a dropped
+  half-scope. New law: freeze-to-freeze scope diffs are a
+  mandatory refuter checklist item. BANKED
+  (Salt/SW/TBalClose.lean): `dhW_detector_floor_beta0` (the
+  selWeight floor — catch #221: the graham floor does NOT
+  compose across weight systems) + `dh_balance_beta0_real`
+  (the composed β₀-half WITH the L₁-cancellation carried out —
+  the structural gem: the β₀-balance is L(1,χ)-FREE; the
+  entire repulsion content lives in the ρ-detector's main
+  term). The master arithmetic + τ-inversion verified READY
+  on-ray (10^{−5.65}..10^{−14.39}, turning points ≫ τ). THE
+  MISSING NODE (flagged T-BAL-R6RHO, C/~350): the R6
+  extraction at complex ρ — the SAME (†)∘Möbius architecture
+  (the reduction is an identity in n, exponent-indifferent;
+  the collection rungs are exponent-FREE and reusable); the
+  new work = the inner template at complex s, whose suppliers
+  ARE landed (zeta_partial_em at complex s,
+  partial_sum_at_zero_small at ρ, the hyperbola, zfr_harvest's
+  width); the u-carrier at ρ = the SAME L₁/H ≤ u(2−β₀). The
+  ρ-row's arithmetic was fully priced in the W=14 audit
+  (η_Eρ = 26/17 verified) — the missing thing is the Lean
+  supplier, not the design. **T-BAL-R6RHO DISPATCHED** (Opus,
+  ungated — the R6 architecture is a proven design; a Fable
+  ask goes to JYH only if the executor hits a genuine design
+  wall). Catches #221–224. Board: VK-9 + T-BAL-R6RHO.

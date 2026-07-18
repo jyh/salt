@@ -76,6 +76,7 @@ import Salt.SW.Crush
 import Salt.SW.CrushC
 import Salt.SW.CrushE
 import Salt.SW.CrushH
+import Salt.SW.TBalClose
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -281,3 +282,4 @@ open Salt.Tactic in
   Salt.SW.sum_divisors_eq_hyperbola_asymm Salt.SW.dhAbel_hyperbola_asymm
   Salt.SW.dhAbel_leg1_cut_abs_le Salt.SW.dhAbel_inner_ge
   Salt.SW.dhAbel_inner_ge_err Salt.SW.H_lower
+  Salt.SW.dhW_detector_floor_beta0 Salt.SW.dh_balance_beta0_real

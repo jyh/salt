@@ -10707,3 +10707,90 @@ the reproduction of the old numbers.
 
 Budget used ~700k total (spine ~165k + R5c 214k + R5e 320k). Zero flags-worthy dead ends; no
 statement altered; the freeze's amended R5 form reached VERBATIM (δ = 0).
+
+## 2026-07-18 T-BAL THE CLOSE — R7/R8 do NOT compose: the ρ-side (the u-carrying complex-detector extraction, "R6@ρ") is a GENUINE MISSING supplier; the β₀-half LANDS (`dh_balance_beta0_real`) — T-BAL-CLOSE/Opus
+
+The dispatch premise ("every supplier landed; T-BAL is pure composition (R7/R8)") is FALSE at the
+**ρ-side**. The composable β₀-half lands as a bankable stone; R7 (`dh_balance_beta0`, Λ ≤
+L(1,χ).re) and R8 (`dh_repulsion_ordered`, the contract) are BLOCKED on one genuinely absent
+analytic supplier — recorded here precisely so the next session dispatches the right rung, not
+another R7/R8 composer.
+
+**THE MASTER (ledger ground truth, `scripts/tbal_ledgers/refuter1_reledger.py:9`, δ = 0):**
+`3/4 ≤ 2·x^{β₀−σ}[u·X₁·ln x + 1/x + E(β₀)] + 4·u·x^{1−σ}·L₂/c₀ + E(ρ)`, `u := 1−β₀`, `σ := Re ρ`.
+The term `4·u·x^{1−σ}·L₂/c₀ + E(ρ)` (ledger rows `R_r`, `R_Er`) is an **upper bound on the complex
+detector** `‖D_ρ‖ = ‖Σ_{n≤N} dhCoeffW χ (selWeight χ z) n · n^{−ρ} · (1−n/x)₊‖`. The `u = (1−β₀)`
+factor (equivalently `L(1,χ).re ≤ u·25e(1+log q)²`) is LOAD-BEARING: it is what gives the ray
+u-grades `η_A = η_r = W·s₀ − (W−1) = 3/17 > 0`, i.e. the rows DECAY as `u → 0`. Without it the row
+grade is `−14/17 < 0` and the master diverges — no contradiction, no repulsion.
+
+**WHY IT IS NOT LANDED (searched the whole tree; two disjoint flavors, neither is the target):**
+- `norm_shifted_detector_mollified_le` (`DHMollified.lean:356`) and
+  `norm_shifted_detector_unmollified_le` (`DHTrunc.lean:370`) DO bound the complex-ρ detector norm,
+  but as the **trivial Pólya–Vinogradov** form: main term `N^{1−σ}` (truncation length, `N ≈ x`),
+  prefactor `√q(1+log q)(1+‖ρ‖/σ)` (× the ℓ¹ mollifier mass `Σ_m|grahamGc z m|` in the mollified
+  case), and **NO `(1−β₀)` / `L(1,χ)` factor**. On the ray `‖D_ρ‖ ≲ x^{1−σ}/(1−σ) ∝ u^{−14/17−1} →
+  ∞`. They CANNOT close the master (and are graham-weighted, not selWeight).
+- `dh_extraction_upper_W` (`DHExtractW.lean:1163`, R6) has the right `L(1,χ)·x^{1−β}/((1−β)(2−β))`
+  main-term shape — but only at a **REAL** zero (needs `LFunction χ (β₀:ℂ) = 0`, real exponent
+  `n^{−β₀}`). It does NOT apply at complex ρ: ρ is a zero of `LFunction χ ρ`, not of the
+  real-abscissa `LFunction χ (σ:ℂ)`, so the pole-cancellation that carries `L(1,χ)` in the residue
+  is at the complex point, structurally different from the β₀ template.
+- `norm_bsum_kernel_zero_decay` (`DHBal.lean:116`) is ONE inner-Abel ingredient
+  (`‖Σ_b χ(b)b^{−ρ}kern‖`), not the assembled detector bound. `zfr_harvest` (`DHBal.lean:62`)
+  supplies only the ZFR constants (`c₀/log X ≤ 1−σ`, i.e. the `1/(1−σ) ≤ L₂/c₀` conversion), no
+  detector sum.
+
+**THE L₁-CANCELLATION — why the ρ-side is ESSENTIAL, not optional (the structural finding).** The
+β₀-detector main term is `L₁·selMainTerm·x^{1−β₀}/(u(2−β₀))`. Via `selberg_opt_eq`
+(`selMainTerm = 1/H`) and `H_lower` (`L₁/(u(2−β₀)) ≤ H`) this equals `L₁·x^{1−β₀}/(H·u(2−β₀)) ≤
+x^{1−β₀}` **exactly**, so the β₀-balance reads `1 − 1/Y ≤ Y^{1−β₀} + E(β₀)` — completely
+`L(1,χ)`-FREE. The β₀-side alone carries ZERO information about `L(1,χ)`. The repulsion's entire
+L₁-content lives in the ρ-detector main term `∝ L₁·x^{1−σ}`, which is NOT divided by `H` — that
+asymmetry is the whole mechanism. Hence NEITHER R7 (whose Λ ≤ L(1,χ).re requires lower-bounding
+L₁) NOR R8 can be formed from the β₀-side + the landed pieces; both fundamentally need the ρ-side.
+
+**LANDED this session (bankable, `Salt/SW/TBalClose.lean`, registered in `Salt.SW.All` + 2 audit
+names, both `✓ [propext, Classical.choice, Quot.sound]`, `lake build Salt.SW.All` EXIT 0, my file
+warning-free):**
+- `dhW_detector_floor_beta0` [A] — the selWeight β₀-detector floor `1 − 1/Y ≤ Σ dhCoeffW·n^{−β₀}·
+  (1−n/Y)₊` (n=1 term `= θ₁² = 1`, rest ≥ 0). NOTE: `norm_dhDetectorShift_ge` (DHFinal) is
+  GRAHAM-weighted (`dhCoeff = dhCoeffW·grahamTheta`), so it does NOT compose with the selWeight R6
+  — a fresh selWeight floor was required (the task's "recon the exact floor form").
+- `dh_balance_beta0_real` [B, the composable half of the master] — `1 − 1/Y ≤ Y^{1−β₀} + E(β₀)`,
+  `E(β₀) = C₂·z·(1+log z²)⁹·Y^{1/2−β₀}`, guard-gated exactly like `H_lower` (the
+  `hN`/`hscale`/`hguard`/`hcov` Siegel-scale + coverage guards pass through). The full β₀-side of
+  the master, with the L₁-cancellation carried out. 1 design attempt, 2 build rounds.
+
+**READY (all landed; would slot in the moment the ρ-side lands):** the M4 inverter
+`dh_repulsion_of_LFunction_one_lower` (Siegel-MVT, needs `β ∈ [1−1/(4(1+log q)),1)` — the deep
+branch); `tail_shift_to_beta0` (R1, generic in the coefficient — works for selWeight); the ZFR
+constants (`zfr_harvest`); the trivial split (`u ≥ 1/(40L₂)`; `tau < u*` globally, ledger extras);
+the monotone-cap τ-inversion (turning points ≥ 10^{−39.3} ≫ τ = 10^{−114.5}, `refuter1_reledger.py`
+CLAIM 2 PASS; re-ran this session: master total at τ = 10^{−10.5} ≪ lg(3/4), all rows decay).
+
+**THE MISSING SUPPLIER — register as node `T-BAL-R6RHO` ("R6@ρ", class C/D, ~300 ln, the true
+remaining wall of the sixth design).** A theorem of the shape
+`‖Σ_{n≤N} dhCoeffW χ (selWeight χ z) n · (n:ℂ)^{−ρ} · dhKernR(n/x)‖ ≤ C·(1−β₀)·x^{1−ρ.re}·L₂/c₀ +
+E(ρ)` (equivalently carrying `L(1,χ).re` in place of `(1−β₀)`), for a complex zero ρ (ρ.im ≠ 0,
+16/17 ≤ ρ.re < 1, ρ.re ≤ β₀), via the pole-cancelled extraction at the COMPLEX zero — the residue
+carrying `L(1,χ)` as in the β₀ template, with `zfr_harvest`'s width giving `1/(1−ρ.re) ≤ L₂/c₀`,
+and the zero-cancellation at ρ (seeded by `norm_bsum_kernel_zero_decay`) killing the divergent PV
+term. This is the genuine analog of the R6 CRUX (`dh_extraction_upper_W`, ~1000 ln at β₀) but at
+the complex zero. DO NOT re-dispatch R7/R8 composers until it lands. The contract prose
+`DHRepulsion.lean:267` is UNCHANGED (16/17 window stands; no statement altered — Iron Rule 1).
+
+**Catches (LOUD).** (#221) a LANDED floor is not automatically the RIGHT floor: check the WEIGHT
+SYSTEM. `norm_dhDetectorShift_ge`/`dhDetector_floor` are graham-weighted (`dhCoeff χ z n =
+dhCoeffW χ (grahamTheta z) n`, per the `SelWeight.lean:87` comment); the selWeight chain (R6/R4/R5)
+needs a selWeight-coefficient floor (`dhW_detector_floor_beta0`, a 15-line reverse-triangle /
+single-term-domination, trivial). Two weight families (`dhCoeff`/graham vs `dhCoeffW`/selWeight)
+coexist in the SW tree; a composition silently type-checks against the wrong one only if you don't
+read the coefficient. (#222) `field_simp` on a cleared-denominator EQUALITY can fully close the
+goal by itself — a trailing `ring` then errors `No goals to be solved`. After `field_simp` on an
+identity, try without `ring` first. (#223) a build's warning set is only as complete as what
+actually RE-COMPILED: a fully-replayed cache prints ZERO `warning: Salt` even for files with latent
+deprecation/style warnings. Per #219, a "zero warnings" line from a replayed build does NOT prove a
+warning-free tree — grep the build that recompiles the closure and attribute each warning to its
+file (this session: 4 pre-existing warnings in Siegel/SelOpt/TwinDensity surfaced only when a
+concurrent Vk edit invalidated their cache; none in the new file).
