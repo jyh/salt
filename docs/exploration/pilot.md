@@ -6727,3 +6727,12 @@ decisions per question.
   → **HB-L8b DISPATCHED**. Ceremony: wired + 2 keystones (9190
   green). Board: LITT-F2b, VMVT-R2, SHIU-W2, MOEB-LOG, HB-L8b,
   badge run. Tally ~39.7M raw, house ~14%.
+
+- 2026-07-18 ~20:46 PT (GOLD WINDOW day 2): **NIGHT PROTOCOL (JYH
+  sleeping ~3h): full throttle continues on house judgment;
+  CHIMES SILENCED (no afplay on ceremonies); batch ceremonies +
+  autonomous dispatch down the queue; ONE chime + summary when
+  the results have trickled in (~3h) or if a decision genuinely
+  needs JYH. The aim unchanged: the gold — twin primes.** Board
+  at the protocol start: LITT-F2b, VMVT-R2, SHIU-W2, MOEB-LOG,
+  HB-L8b, badge run. Fresh 5h quota at 1%.
