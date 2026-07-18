@@ -8494,3 +8494,104 @@ Blocked on IV.
   fail to unify. FIX: give the primed helpers concrete decidability
   (`[DecidablePred Npred]` + `classical` in-proof), so downstream calcs match without a
   `convert` bridge (S4-I used `convert…ext…simp`). Standing gotcha for the tree.
+
+## SHIU-W6 — Class IV LANDED (the stone); S5 the remaining residual (2026-07-18)
+
+Opus executor SHIU-W6, closing the `N-SHIU-CORE` rung. New file
+`Salt/Maynard/ShiuIV.lean` (namespace `Salt.Maynard`), sorry-free, all decls
+axioms ⊆ `[propext, Classical.choice, Quot.sound]`, full project build EXIT 0
+(9219 jobs), no new warnings, lines ≤100. Registered in `Salt/Maynard/All.lean`.
+**Class IV — the last hard composition, "the stone" — is COMPLETE.** The rung
+does NOT close this session (S5, the pinned-scale composition + corner, remains),
+but the hardest cluster is banked in full.
+
+**THE KEY DESIGN WIN (banked): bin by `⌊log z̃/log ρ⌋`, not a `v_r`-ladder.**
+The W5 residual-1 recipe binned by comparing `ρ` against a `⌊z̃^{1/r}⌋` ladder,
+which forces ladder-monotonicity + telescoping + a "rung exists in `[3,P₀]`"
+discrete-IVT argument (and the flags text's `v_r=⌈z̃^{1/r}⌉ ≤ z̃^{1/r}` is
+BACKWARDS — ceiling gives `≥`, breaking NEW-1′'s `r log v ≤ log z̃`). The fix:
+`binIdx w W n := ⌊2·log W / log ρ⌋` (`z̃ = W²`, `log z̃ = 2 log W`) assigns each `n`
+to exactly ONE bin, so the cover `class IV ⊆ ⋃_{r=2}^{R} bin r`
+(`R := ⌊2 log W/log P₀⌋`) is AUTOMATIC — no ladder comparison, no telescope, no
+rung-existence. In bin `r`: `r ≤ 2logW/logρ < r+1` gives `ρ ≤ W^{2/r}` (⟹ `c` is
+`v_r`-smooth, `v_r := ⌊W^{2/r}⌋`, `r log v_r ≤ log z̃` by FLOOR) AND
+`ρ > W^{2/(r+1)}` (⟹ `d` is `v_{r+1}`-rough, `v_{r+1}+1 > z̃^{1/(r+1)}` ⟹
+`Ω(d) ≤ (r+1)·log z/log z̃`, clean, no golden-ratio needed for τ(d)).
+
+**LANDED (7 decls, ~490 lines):**
+- **`class_tau_sum_le_prod''` / `bigT_sum_split''`** — the dual-predicate reindex +
+  split carrying BOTH the `c`-domain `Sc` (smoothness) AND `Dpred` (roughness);
+  neither the W5 `'` (Sc only) nor S4-I unprimed (Dpred only) had both. First try.
+- **`tau_rough_bin_le`** — the per-bin `τ(d)` bound: `(t+1)^{Ω d} ≤ d ≤ z` +
+  `log z ≤ (r+1)K log(t+1)` ⟹ `Ω d ≤ (r+1)K` ⟹ `τ(d) ≤ exp((r+1)K log 2)`
+  (`= A₅^{r+1}`). Reproves the two `private` ShiuClasses helpers locally.
+- **`shiuClassIV` / `binIdx` / `Rbin` / `binIV` + `shiu_classIV_cover`** — the bin
+  predicate (decidable, `binIV` instance NEEDS `noncomputable` — it wraps a
+  `Real.log`-floor) and the automatic cover, `2 ≤ binIdx ≤ Rbin` from
+  `ρ ≤ W`, `ρ > P₀`. The cover was the feared part; the `⌊log z̃/log ρ⌋` binning
+  made it ~40 clean lines. First try.
+- **`shiu_classIV_bin_le`** — the per-bin fold: reindex → `τ(d) ≤ A₅^{r+1}` on
+  `BigT` → split → `inner_count_le` (rough `d`-count at `t=v_{r+1}`) → NEW-1′
+  `c`-sum (passed as `hNew`/`RankIV`, decoupled) → per-bin bound. `v,t,Sc` defined
+  internally; only the scale ≤'s are hyps.
+- **`vCut` + helpers** (`vCut_le_rpow`, `rpow_lt_vCut_succ`, `vCut_antitone`,
+  `r_mul_log_vCut_le`, `log_le_two_log_floor`) — the `⌊W^{2/r}⌋` ladder API. The
+  grade bound `log(W²) ≤ 2(r+1) log(vCut W (r+1))` uses `⌊x⌋² ≥ x` for `⌊x⌋ ≥ 2`.
+- **`shiu_classIV_bin_collapse`** — instantiates NEW-1′ at `v=vCut W r`, `σ_r`,
+  feeds `shiu_classIV_bin_le`, and COLLAPSES the main term to `rsumTerm (2A₅) Cnk r`
+  via the grade bound (`1/log t ≤ 2(r+1)/log(W²)`) and `2(r+1)A₅^{r+1} ≤ 4A₅(2A₅)^r`
+  (`r+1 ≤ 2^{r+1}`). Junk: `t³ ≤ W³`. The `hnew` (NEW-1′ `∀`-body) is a parameter.
+- **`shiu_classIV_le`** — THE Class IV close. Cover + `sum_biUnion_le_of_nonneg` +
+  per-bin collapse over `r ∈ [2,R]` + `rsum_tuned_le` (the r-sum → constant `B`).
+  Conclusion: `Σ_IV τ ≤ Cmain·exp(2 Σ_{p≤W²}1/p)·(z/φq)/log(W²) +
+  Cjunk·W³·w(1+log w)·Σ_{r=2}^{R} A₅^{r+1}` with `Cmain = Crc·e^{Cek}·4·A₅·B`,
+  `Cjunk = Crc` (z-independent given `Kd`). Parametric in `Kd ≈ log z/log z̃`; the
+  scale hyps (`2≤W`, `2≤P₀`, `2≤R`, `3≤vCut W R`, `2≤vCut W (R+1)`,
+  `R log R ≤ 2logW`, `log z ≤ Kd log(W²)`) are S5's to discharge.
+
+**RESIDUAL — S5 (`sum_tau_in_ap_le : ShiuCore`, NOT attempted, est. ~180 ln).**
+The 5-class composition at the pinned scale. Precise recipe:
+1. **Partition** `Σ_{n≤z,n≡a} τ ≤ Σ_deg + Σ_I + Σ_II + Σ_III + Σ_IV` via
+   `shiu_class_cover` (deg∨I∨II∨IIIIV) routing IIIIV → III(`ρ≤P₀`)∨IV(`ρ>P₀`), a
+   nonneg union bound (mechanical, ~40 ln).
+2. **Instantiate** at `α=1/8000`, `W=⌊z^{α/6}⌋`, `w=⌊z^{α/3}⌋` (so `W²≤w`),
+   `P₀=⌊log z⌋`, `Kd=3/α` (CONSTANT: `log z/log(W²)=log z/(2·(α/6)logz)=3/α`), and
+   discharge each class's scale hyps. This is the bulk: the pinned scales must be
+   shown to satisfy Class I's `z≤W^K`/`(logw)²≤Kmain logW logz`/`W³w..≤z logz`;
+   II/III's `zᵋ/√W`,`zᵟ·z^{−α/24}` folds; IV's `3≤vCut W R`,`2≤vCut W(R+1)`,
+   `R log R ≤ 2logW`, `log z ≤ Kd log(W²)`. Each is a rpow/floor mini-proof.
+3. **Mertens step** (IV main term): `exp(2 Σ_{p≤W²}1/p)/log(W²) ≤ e^{2C}·log(W²) ≤
+   C'·log z` via `Mertens.sum_inv_prime_le` (`Σ_{p≤W²}1/p ≤ loglog(W²)+C`), so IV's
+   main folds to `C·(z/φq)·log z`. ✓ grade.
+4. **Junk + corner**: IV's junk `W³w(1+logw)·Σ_{r≤R} A₅^{r+1} = z^{2α/3+o(1)}·polylog`
+   (`A₅^{R+1}=z^{o(1)}`, `Σ≤R·A₅^{R+1}`); with `φ≤q≤z^{1-1/8000}` this is
+   `≤ z^{1−1/24000+o(1)} ≤ z·log z` only BEYOND the astronomical threshold
+   `z≥e^{e^{~25000}}`. Below it, the corner: crude `Στ ≤ z(1+logz)` folded into `C`
+   (the `shiu_for_blocks_of_core` `x<XC` mechanism, but here INSIDE
+   `sum_tau_in_ap_le` since ShiuCore must hold ∀z≥2 — the large-`q` regime needs
+   `τ≤Cε zᵋ·(z/q+1)` care).
+The obstruction is honest bookkeeping volume + the corner, not missing mathematics —
+Class IV supplies the one genuinely hard estimate. A dedicated S5 wave closes it.
+
+**CATCHES:**
+- **#74 (the W5 ladder-direction error / the binning fix)** — W5 residual-1's
+  `v_r=⌈z̃^{1/r}⌉ ≤ z̃^{1/r}` is impossible (ceiling ≥). NEW-1′ genuinely needs
+  `v_r ≤ z̃^{1/r}` (FLOOR) for `r log v_r ≤ log z̃`. The clean resolution is not
+  floor-vs-ceiling on a shared ladder but binning by `⌊log z̃/log ρ⌋`, which makes
+  the cover automatic and lets `c` use `⌊W^{2/r}⌋` (floor, calibration ✓) while `d`
+  uses `⌊W^{2/(r+1)}⌋` with the `+1` (`v_{r+1}+1 > z̃^{1/(r+1)}`, roughness ✓) — the
+  two directions on DIFFERENT rungs, no conflict.
+- **#75 (catch #73 recurrence, the `set`-opacity of `DecidablePred`)** — passing a
+  `set Dpred` filter to a lemma proved under `open Classical in` fails: an EXPLICIT
+  `haveI : DecidablePred Dpred := Classical.decPred _` emits a DIFFERENT instance
+  than the ambient `Classical.propDecidable`, so `Finset.filter` args don't unify
+  (`inner_count_le`'s conclusion ≠ the goal's fibre). FIX: DELETE the explicit
+  `haveI` and rely on the ambient `open Classical in` (theorem-level) — the
+  instances then coincide, `have hcount : <Dpred form> := inner_count_le …` typechecks
+  by defeq. Standing rule: never mix explicit `Classical.decPred` with ambient
+  `open Classical` for the SAME predicate.
+- **#76 (`⌊W^{2/(r+1)}⌋` cast mismatch)** — `vCut W (r+1)` unfolds with exponent
+  `2/((r+1:ℕ):ℝ)`; hand-written bounds use `2/((r:ℝ)+1)`. `rw [hcast] at hfl` alone
+  leaves the goal's floor atom in the OTHER form → `linarith` sees two atoms. FIX:
+  `rw [hcast] at hfl ⊢` (rewrite BOTH), or state the helper (`rpow_lt_vCut_succ`) in
+  `↑(r+1)` form and convert once.

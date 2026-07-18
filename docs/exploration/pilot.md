@@ -7271,3 +7271,20 @@ decisions per question.
   error anchor). CATCH: norm_num refuses exponents > 256
   (banked). Ceremony: wired + 2 keystones (9219 green). Board:
   SHIU-W6. Tally ~52.9M raw, house ~14%.
+
+- 2026-07-18 ~01:09 PT (NIGHT WATCH): ██ **SHIU-W6 LANDS CLASS IV —
+  THE RUNG'S LAST HARD ESTIMATE; ShiuCore awaits only S5 (pure
+  bookkeeping, recipe complete)** ██ (≈ 394k / 95 tools — the
+  night's biggest node; first-design on every stone). Salt/
+  Maynard/ShiuIV.lean (841 lines, 10 declarations):
+  **shiu_classIV_le** + the dual-predicate reindex + the
+  binIdx = ⌊2 log W/log ρ⌋ DESIGN WIN (catch #82: the W5
+  recipe's ceiling-ladder was BACKWARDS for NEW-1′ — binning by
+  the index instead of the ladder made the cover automatic and
+  put floor/ceiling on different rungs; ~40 lines where the
+  ladder fight would have been hundreds) + catches #83/#84
+  (the Classical.decPred instance recurrence; the two-floor-atom
+  rw). S5: ~180 lines of pinned-scale composition + the
+  astronomical corner (z ≥ e^{e^{25000}}-grade absorbed; below =
+  crude + large-q care) — **SHIU-S5 DISPATCHED (the final ~180
+  lines)**. Board: SHIU-S5. Tally ~53.3M raw, house ~14%.
