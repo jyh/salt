@@ -8,6 +8,7 @@ import Salt.ExpSum.Kusmin
 import Salt.ExpSum.VdCorput2
 import Salt.ExpSum.DerivTest
 import Salt.ExpSum.DerivTestK
+import Salt.ExpSum.ZetaBlock
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -22,7 +23,9 @@ the van der Corput method.
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.ExpSum.kusmin_landau
+#audit_axioms Salt.ExpSum.zeta_block_bound
+  Salt.ExpSum.zeta_block_vdC
+  Salt.ExpSum.kusmin_landau
   Salt.ExpSum.vdC_second_derivative
   Salt.ExpSum.weyl_vdC_sq
   Salt.ExpSum.weyl_vdC_expSum

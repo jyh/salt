@@ -6890,3 +6890,21 @@ decisions per question.
   Ceremony: wired (accepted), full build green (9199). Board:
   LITT-F3, SHIU-W3, VMVT-FOURIER, DH-LCM, HB-R2, seed #3. Tally
   ~42.9M raw, house ~14%.
+
+- 2026-07-18 ~21:29 PT (NIGHT WATCH): ██ **LITT-F3 LANDS — the
+  ζ-phase block bound N^{1−1/(2^k−2)}, and THE FINITE-DIFFERENCE
+  MVT BUILT FROM SCRATCH (mathlib has NO such bridge — another
+  genuine first)** ██ (≈ 270k / 44 tools). Salt/ExpSum/
+  ZetaBlock.lean: **zeta_block_vdC** (raw, F4 balances per
+  block) + **zeta_block_bound** (collapsed, the honest range) +
+  **dk_bound_of_deriv_tower** (the peel-from-inside induction
+  with one MVT per level — the abstract tower trick closing the
+  induction). ██ CATCH #72 (executor-corrects-range-guide): my
+  t ∈ [N^{k−1}, N^k] was off — the honest upper end is N^{k−1}
+  (λ ~ 1 at t ~ N^k degrades to trivial); k = 2's range
+  degenerates to a point ██ + the HasDerivAt instance-diamond
+  catch banked. **LITT-F4 DISPATCHED** (the dyadic assembly →
+  the ζ growth bound — the checkpoint's second-to-last rung).
+  Ceremony: wired + 2 keystones (green). Board: SHIU-W3,
+  VMVT-FOURIER, DH-LCM, HB-R2, LITT-F4, seed #3. Tally ~43.4M
+  raw, house ~14%.
