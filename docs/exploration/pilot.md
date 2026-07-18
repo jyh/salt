@@ -8462,3 +8462,27 @@ decisions per question.
   that re-routes to a z-retune or a V-two-sided design).
   R6-EXEC unaffected (independent). Board: VK-7 + R6-EXEC +
   the R5 redesign wf.
+
+- 2026-07-18 13:55 PT: **VK-7 lands THE POWER EMISSION — the
+  region is now one growth input from unconditional** (≈ 310k
+  / 69 tools; house-verified Vk.All 8789 green, 3 stones
+  [3 axioms]). Salt/Vk/PowRegion.lean:
+  `zeta_zero_free_region_pow_of_growth : ZetaGrowthPow →
+  ∃ c T₀, … ρ.re ≤ 1 − c/((log|γ|)^{3/4}·(loglog|γ|)³)` — the
+  freeze target VERBATIM, θ = 3/4 EXACTLY (< 1 strictly: the
+  MR gate is satisfied BY THE SHAPE, modulo the growth).
+  Structural finding (flags #198): the power region needs NO
+  bracket — the k-schedule lives inside the growth; the
+  emission is core + one threshold + sign-handling. Plus:
+  Windows.lean (vk_ladder_bound — R5b's geometric half) and
+  Growth.lean (zeta_sub_dirichlet_bound — R6's approximate-
+  formula front end, O(1) on the strip). Catches #198–205
+  (flags). THE TWO REMAINING WALLS (honest): R5b's
+  transcendental per-block discharge (multi-session-grade,
+  the pre-computed params + the ladder half now waiting) and
+  R6's ~300-ln dyadic body (confirmed NOT derivable from the
+  landed log-width bound — the VK saving is genuinely
+  needed). **VK-8 DISPATCHED on the two walls** (R5b
+  transcendental first at full budget; R6 body second; the
+  emission composes on landing). Board: VK-8 + R6-EXEC + the
+  R5 redesign wf.

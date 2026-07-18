@@ -9668,6 +9668,86 @@ trailing `; ring` then errors "no goals"; drop it (but `2L/((1/2)ℓ)=4·(L/ℓ)
 discharge (R5b). A `littlewood_bracket`-analogue for the power growth would then instantiate the SAME
 bridge. R5b + R6 UNTOUCHED (the flagged heaviest bookkeeping).
 
+**LANDED — VK-7 wave (THE POWER EMISSION + the R5b ladder half + the R6 front end; 2026-07-18,
+all sorry-free, axioms ⊆ {propext, Classical.choice, Quot.sound}, registered in `Salt/Vk/All.lean`;
+new files `Salt/Vk/PowRegion.lean`, `Salt/Vk/Windows.lean`, `Salt/Vk/Growth.lean`).**
+`lake build Salt.Vk.All` EXIT 0. THE HONEST θ RECORDED: **exactly 3/4** in the log-power, with a
+**(log log)³** factor and `c = 1/10⁹` — the freeze's target shape `(log t)^{3/4}(log log t)³`, MR-gate
+satisfying. The unconditional region does NOT land this wave (still gated on R6 ⇐ R5b); the emission
+is the whole content of the power region MODULO the growth input, exactly as Littlewood is modulo
+`zeta_strip_family`.
+- **`zeta_zero_free_region_pow_of_growth` [C, ~230] (`PowRegion.lean`) — THE EMISSION.** Given the VK
+  power growth `ZetaGrowthPow` (= `zeta_growth_pow`, the freeze MID TARGET as a `Prop`), emits
+  `∃ c T₀, 0<c ∧ 3≤T₀ ∧ ∀ρ, ζρ=0 → T₀≤|ρ.im| → ρ.re ≤ 1 − c/((log|ρ.im|)^{3/4}(log log|ρ.im|)³)`,
+  `c=1/10⁹`, `T₀=exp(exp(8·log(20000K)+1100))+t₀+3`. **KEY: the power region is SIMPLER than
+  Littlewood — NO free degree `k` to balance** (the `k(t)`-schedule is baked into `zeta_growth_pow`),
+  so the emission is a single strip-wrapping, not a bracket. Chain: `pow_uniform_growth` (box bound
+  `‖ζ z‖ ≤ K·log 3γ` on `Re z∈[1−Θ,2]`, `Im z∈[γ−1,3γ]` at `Θ=vkTheta(3γ)`, via `vkTheta_anti`: the
+  min of `vkTheta` on the box is at `3γ`, so `1−Θ≤z.re ⟹ 1−vkTheta(z.im)≤z.re`) → `region_of_uniform_growth`
+  at `Θ=vkTheta(3γ)`, `Mζ=K·log 3γ`, `dd=1/2`, `Lq=8+700·Pinv·log(20·Pinv·Mζ)`, `Pinv=1/Θ=1000·L3^{3/4}·ℓ3²`.
+  The three gates reduce to `Pinv≤Lq` (`hchainC` by DEFN of Lq, `le_of_eq`); width `1/(14Lq)` bounded
+  below via `Lq ≤ 2.25e7·L^{3/4}·ℓ³` (`L=log ρ.im`, `ℓ=log L`), using `log(20 Pinv Mζ)≤2ℓ3`,
+  `log 3γ≤2L`, `log log 3γ≤2ℓ`. Negative-γ via `riemannZeta_conj_zero`. `zeta_zero_free_pow_core`
+  is the abstract-height core (height thresholds as hyps); the region does the threshold discharge
+  (`8·log(20000K)+1100 ≤ log log γ` binding) + sign handling inline (no bracket).
+- **`vk_ladder_bound` [B, ~65] (`Windows.lean`) — R5b LADDER HALF.** The `⌈N/P⌉`-block window
+  assembly: given the uniform per-block Weyl bound `‖∑_{(c i,c(i+1)]} f‖ ≤ 8·P^{1−ρ}` over
+  `c i = min(N+iP)(2N)`, `Q=⌈N/P⌉`, produces `‖∑_{(N,2N]} f‖ ≤ 10·N·P^{−ρ}` under `4P≤N`. Generic in
+  `f`; built on the landed `vk_sum_Ioc_split_norm_le`. Arithmetic: `⌈N/P⌉·P ≤ N+P`, `4P≤N ⟹ 4P·Q≤5N`,
+  `P^{1−ρ}=P·P^{−ρ}`, so `Q·8P^{1−ρ}=8P·Q·P^{−ρ}≤10N·P^{−ρ}`. This is the freeze's `⌈N/P⌉·8P^{1−ρ}≤10N·P^{−ρ}`.
+- **`zeta_sub_dirichlet_bound` [B/C, ~110] (`Growth.lean`) — R6 FRONT END.** At `N=⌈t²⌉`, on
+  `3/4≤σ≤3`, `t≥100`, `‖ζ(σ+it) − ∑_{n≤⌈t²⌉} n^{−(σ+it)}‖ ≤ 4` — the approximate-formula O(1)
+  reduction isolating R6's analytic head from its arithmetic body. Via `norm_zeta_sub_approx_le`:
+  error `‖s‖·N^{−σ}/σ ≤ 2` (`N≥t²`, `σ≥3/4` ⟹ `N^{−σ}≤t^{−3/2}`, cancels `‖s‖≤σ+t≤2t` to `t^{−1/2}≤1/10`),
+  pole `‖N^{1−s}/(s−1)‖=N^{1−σ}/‖s−1‖ ≤ 2` (`‖s−1‖≥t`, `N^{1−σ}≤(2t²)^{1/4}=2t^{1/2}`).
+
+**RESIDUALS — VK-7 (the region stays gated; two named walls).** The unconditional
+`zeta_zero_free_region_pow` needs `zeta_growth_pow` (R6) which needs the per-block `VkSpaced` discharge
+(R5b transcendental half). BOTH remain the flagged heaviest bookkeeping:
+- **R5b transcendental half (the per-block `VkSpaced` discharge) — WALL.** For the pre-computed window
+  params (`k=k(t)=max(19,⌈L^{1/4}⌉)`, `r=⌈k·log 4k²⌉`, `ρ=1/(16kr)`, `j=log N`, `r₀=⌈L/j⌉`,
+  `β=(r₀+1)/(k+1)`, `P=⌈N^{1−β}⌉`, `Y=⌈P^{1/2}⌉`, `j*=r₀+2`), prove `vk_block_core`'s `hD ∧ hW1 ∧ hW2`
+  (W2a/b/c) hold for EVERY `N₀∈(N,2N]` — a tightly-coupled transcendental system (the refuter's
+  `W1'(P+Y)≤0`, `W2a−slack≥0`, `W2b(1/6)≤0`, `W2c≤0`, `ρ·lnP−2Θj≥0` checks, `scripts/vk_minpow_check.py`
+  PASS). This is genuinely multi-session; picking off a single hyp still needs ALL the parameter
+  definitions set up (most of the work). `vk_ladder_bound` (this wave) consumes the discharge output.
+- **R6 body (`zeta_growth_pow`, the dyadic ladder) — WALL.** Front end LANDED (`zeta_sub_dirichlet_bound`);
+  the body dyadically decomposes `∑_{n≤⌈t²⌉} n^{−s}` into blocks `(M,2M]`, bounds each via
+  `zeta_weighted_block` (Abel σ-shift, `‖∑ n^{−s}‖≤M^{−σ}·B`) fed by the phase bound `B` — Kušmin
+  (`zeta_block_kusmin`, `t≤M`), the VK window (R5b `10M·M^{−ρ}`, `j_cut<j≤L/10`), the vdC tiles
+  (`zeta_block_window(_three)`, `zeta_block_strip`) — then sums the `~2L` dyadic contributions to
+  `K·log t`. The σ-weighting + the trichotomy routing + the `K,t₀` existential assembly are the
+  ~300-line grind. **NOTE: `zeta_growth_pow` is NOT derivable from the landed `zeta_log_bound`**
+  (`Salt/SW/ZetaLogBound.lean`, `K·log t` on the DVP LOG-width strip `1−1/log t≤σ`) — the VK strip
+  `1−vkTheta(t)≤σ` with `vkTheta(t)~1/((log t)^{3/4}(log log t)²) ≫ 1/log t` extends strictly further
+  left, so the power strip genuinely requires the VK block saving (R5b). Confirmed by grep: no
+  power-shaped-strip pure-log ζ growth exists in mathlib or `Salt/`.
+
+**Catches — VK-7 wave (LOUD).** (#198) **THE POWER REGION NEEDS NO BRACKET.** Unlike Littlewood
+(`littlewood_bracket` picks a balanced `k=⌊log log γ⌋`), the power emission has NO free degree — the
+`k(t)`-schedule lives inside `zeta_growth_pow`. So `zeta_zero_free_region_pow_of_growth` is
+`core + threshold-discharge + sign`, no bracket lemma; the transcendental content is the ONE binding
+threshold `8·log(20000K)+1100 ≤ log log γ` (⟹ `T₀=exp(exp(…))`). (#199) `vkTheta_anti` (monotone
+decrease of `vkTheta` above `e`) is the crux making the box bound uniform: on `Im z∈[γ−1,3γ]`,
+`vkTheta(z.im) ≥ vkTheta(3γ)=Θ`, so `1−Θ≤z.re ⟹ 1−vkTheta(z.im)≤z.re` — the strip hyp of the growth
+transfers to the whole box. (#200) The gate identity `120/(6Θ/7)=140·Pinv`, `4·(5Mζ/Θ)=20·Pinv·Mζ`
+(`Pinv=1/Θ`) closes `hchainC` by `le_of_eq (by ring)` ONLY after `field_simp [ne_of_gt hPinvpos]` in
+the two helper rewrites — `field_simp` needs `Pinv≠0` explicitly (it does not read `hPinvpos` from
+context). (#201) `Θ=1/Pinv` from `Θ=vkTheta(3γ)` via `eq_div_iff (ne_of_gt hPinvpos)` THEN
+`field_simp [ne_of_gt hL34pos, ne_of_gt hℓ30]` (the rpow `L3^{3/4}` and `ℓ3²` denominators each need
+their own `≠0`; `positivity` alone inside `field_simp` does not discharge them). (#202) the loose
+`L3^{3/4}≤2·L^{3/4}` (via `2^{3/4}≤2`, `Real.rpow_le_rpow_of_exponent_le` to `2^1` THEN `Real.rpow_one`
+— NOT `≤2` directly, which leaves an unresolved base metavariable) gives `Pinv≤8000·L^{3/4}ℓ²` (NOT
+6800; the `2^{3/4}≈1.68` is thrown away), pushing the final constant to `Lq≤2.25e7·L^{3/4}ℓ³` and
+`c=1/10⁹` (margin: `14·Lq/(10⁹·L^{3/4}ℓ³) < 1`). (#203) `le_trans (by linarith) (Real.exp_le_exp.mpr …)`
+FAILS: the `le_trans` middle metavariable is undetermined when the first `by linarith` runs — split the
+intermediate (`have hexp2 : 3≤exp 2 := by linarith [Real.add_one_le_exp 2]`) BEFORE the `le_trans`.
+(#204) name churn: `Complex.abs_im_le_abs`→`Complex.abs_im_le_norm`; `Complex.abs_le_abs_re_add_abs_im`
+→`Complex.norm_le_abs_re_add_abs_im`; `Complex.norm_natCast_cpow_of_pos (0<n)` gives `‖(n:ℂ)^z‖=(n:ℝ)^z.re`
+(the pole-norm split). (#205) `t·t^{−3/2}=t^{−1/2}` MUST keep the cancellation — bounding `N^{−σ}≤t^{−1/2}`
+directly (dropping the `t`) makes the error `(σ+t)·t^{−1/2}~t^{1/2}` DIVERGE; use `N^{−σ}≤t^{−3/2}` and
+`t·t^{−3/2}=t^{−1/2}` via `Real.rpow_add`.
+
 **Catches — VK-5 wave (LOUD).** (#149) **`set G := fun z => Zc z/Zc c` POISONS R7 unification:** the
 sphere hypotheses carry the beta-redex `‖Zc z/Zc c‖` which `set` does NOT fold (it folds the lambda,
 not applications), so R7 infers `?F := fun z=>Zc z/Zc c` (the literal), and later `logDeriv G` vs

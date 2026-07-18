@@ -17,6 +17,9 @@ import Salt.Vk.Scale
 import Salt.Vk.Region
 import Salt.Vk.RegionGrowth
 import Salt.Vk.Littlewood
+import Salt.Vk.Windows
+import Salt.Vk.Growth
+import Salt.Vk.PowRegion
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -101,3 +104,10 @@ open Salt.Tactic in
   Salt.Vk.zeta_zero_free_littlewood_core
   Salt.Vk.littlewood_bracket
   Salt.Vk.zeta_zero_free_region_littlewood
+  Salt.Vk.vk_ladder_bound
+  Salt.Vk.zeta_sub_dirichlet_bound
+  Salt.Vk.vkTheta_anti
+  Salt.Vk.vkTheta_pos
+  Salt.Vk.pow_uniform_growth
+  Salt.Vk.zeta_zero_free_pow_core
+  Salt.Vk.zeta_zero_free_region_pow_of_growth
