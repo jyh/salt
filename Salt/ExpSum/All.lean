@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.ExpSum.Basic
 import Salt.ExpSum.Kusmin
 import Salt.ExpSum.VdCorput2
+import Salt.ExpSum.DerivTest
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -26,3 +27,5 @@ open Salt.Tactic in
   Salt.ExpSum.weyl_vdC_expSum
   Salt.ExpSum.eR_mul_conj
   Salt.ExpSum.norm_eR
+  Salt.ExpSum.vdC_third_derivative
+  Salt.ExpSum.vdC_2nd_ZR

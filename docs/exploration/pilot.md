@@ -6551,3 +6551,19 @@ decisions per question.
   now stack). THE BADGE ATTEMPT dispatched** (run $RUNID, 240-min
   cap, both cache layers restoring). Board: LITT-F2, MOEB-DIV,
   SHIU-S1/S2/S3a, the badge run.
+
+- 2026-07-17 ~19:40 PT (GOLD WINDOW): ██ **LITT-F2 LANDS THE k=3
+  STONE — vdC_third_derivative at 12√c·(N·λ^{1/6} + √N·λ^{−1/6})**
+  ██ (≈ 340k / 88 tools; no flags). Salt/ExpSum/DerivTest.lean
+  (599 lines, 12 results): the A-process applied onto the landed
+  base — the ℤ/eR reindex wrapper paying the eK↔eR impedance
+  once, the H-optimization at H = ⌊λ^{−1/3}⌋ with the u,t,p
+  abstraction (2^k NEVER meets ring — the PP3 lesson holding),
+  conjugation symmetry for negative shifts, the √-power-sum
+  lemmas. The GENERAL-k residual precisely specced (fwdDiff +
+  Nat.le_induction + the ∫-comparison power sums) → **LITT-F2b
+  DISPATCHED**. Gotcha gold: rpow ^ is RIGHT-associative (λ^(-1/3)^(1/2)
+  parses wrong); nlinarith times out on ambient context alone;
+  the division-atom mismatch. Ceremony: pre-wired (accepted),
+  full build green (9182). Board: MOEB-DIV, SHIU-S1/S2/S3a,
+  LITT-F2b, badge run. Tally ~37.0M raw, house ~14%.
