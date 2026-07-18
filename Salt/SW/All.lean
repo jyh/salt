@@ -57,6 +57,7 @@ import Salt.SW.MoebiusLog
 import Salt.SW.GrahamL2
 import Salt.SW.CoprimeBV
 import Salt.SW.DHFinal
+import Salt.SW.DHTrunc
 import Salt.Tactic.AuditAxioms
 
 /-!

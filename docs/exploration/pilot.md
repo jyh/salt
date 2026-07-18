@@ -7068,3 +7068,23 @@ decisions per question.
   exist → **SHIU-W4 DISPATCHED (the ShiuCore CLOSE)**. Ceremony:
   wired (accepted), green. Board: LITT-F5, DH-TRUNC, VMVT-R3R4,
   HB-L2b, SHIU-W4, seed #3. Tally ~48.3M raw, house ~14%.
+
+- 2026-07-18 ~22:47 PT (NIGHT WATCH): ██ **DH-TRUNC LANDS T1 + THE
+  UNMOLLIFIED CAPSTONE — THE ZERO CONSUMED IN ONE LINE, NO
+  CONTOUR** ██ (≈ 290k / 52 tools; near-all first-attempt).
+  Salt/SW/DHTrunc.lean (9 results):
+  **partial_sum_at_zero_small** (the breakthrough stone: L(ρ,χ)
+  = 0 + the strip engine ⟹ ‖Σ_{n≤N}χ(n)n^{−ρ}‖ ≤ 3√q(1+log q)
+  (1+‖ρ‖/β)·N^{−β} — literally rwa [hzero]) + the ζ-partial
+  elementary lemma + **shifted_detector_hyperbola** (the exact
+  factorization — the inner b-sums are T1 objects) + the Abel
+  primitive + **norm_shifted_detector_unmollified_le** (the
+  O(N^{1−β}) competing estimate assembled). Residuals precisely
+  named: DH-TRUNC-M (the mollified capstone via the gc-regroup +
+  the sharp G — the crux the mollifier exists for) + DH-TRUNC-A
+  (the sharp inner Abel) → **DH-M DISPATCHED** (both, the
+  repulsion's true last analytics). The omega-on-N/a gotcha
+  banked (generalize division to a fresh variable). Ceremony:
+  wired (accepted), green (8734→full). Board: LITT-F5,
+  VMVT-R3R4, HB-L2b, SHIU-W4, DH-M, seed #3. Tally ~48.9M raw,
+  house ~14%.
