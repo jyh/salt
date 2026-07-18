@@ -9439,3 +9439,94 @@ is ℕ-ONLY here (`prod_Ioc_consecutive (f : ℕ → M) {m n k : ℕ}` + to_addi
 splits use `Finset.Ioc_union_Ioc_eq_Ioc h₁ h₂` + `Finset.sum_union (Finset.Ioc_disjoint_Ioc_of_le
 (le_refl _))`. (Re-confirms #123: `Finset.sum_comm'` wants the dependent membership `x ∈ s' y`
 FIRST on the RHS iff.)
+
+## 2026-07-18 T-BAL R3(b) LANDS (the multiples mass, honest 4^ω) — R4 REFUTED at the √-error (a THIRD design flaw); R5 blocked — T-BAL-3/Opus
+
+New file `Salt/SW/DHBal2.lean` (namespace `Salt.SW`), registered in `Salt/SW/All.lean`
+(import + 8 lemmas in `#audit_axioms`). `lake build Salt.SW.All` EXIT 0; all 8 axiom-clean
+`[propext, Classical.choice, Quot.sound]` (`✓ … [3 axioms]`). No commit (main; house ceremony).
+
+**LANDED — R3(b) `dhA_mass_mul_le` [C] (DHBal2.lean).** The multiples mass, HONEST constant:
+for real `χ` (`χ²=1`), `m ≥ 1`, `Σ_{t∈Icc 1 y} dhA χ (m·t) ≤ (σ₀ m)²·Σ_{n∈Icc 1 y} dhA χ n`
+(`σ₀ m = m.divisors.card`; on gc's squarefree support `σ₀(m)² = 4^{ω(m)}`). This RESOLVES the
+freeze's vague "σ₀-loss" and both refuters' concern about the R3(b) constant — the honest grade
+is `4^{ω(m)}`, clean, NO coprime-restricted L-function needed. The KEY that opened it:
+
+**THE (★★)/(†) IDENTITY (the linchpin, reduces R3(b) to the landed R3(a)+Möbius).**
+Per-element split (†) `dhA_mul_eq_sum`: for real `χ`, `m ≥ 1`,
+`dhA χ (m·t) = Σ_{g|m} chiRe χ g · Σ_{d|t,(d,m/g)=1} chiRe χ d`, proven by the divisor
+BIJECTION `a ↦ (gcd(a,m), a/gcd(a,m))` on `(m·t).divisors` (inverse `(g,d)↦g·d`), using
+`a∣m·t ↔ (a/gcd(a,m))∣t` (`dvd_mul_iff_div_gcd_dvd`, landed), `gcd(g·d,m)=g·gcd(d,m/g)=g`
+(`Nat.gcd_mul_left` + coprimality), `Nat.coprime_div_gcd_div_gcd`, via `Finset.sum_nbij'` over
+`Finset.sigma`. Summing (†) over `t`, swapping, and `inner_cop_swap` gives the g-grouping
+`dhA_mass_mul_eq_group`; then the coprime identity (★) `inner_coprime_eq`
+(`Σ_{d≤y,(d,κ)=1} chiRe χ d·⌊y/d⌋ = Σ_{k|κ} μ(k)chiRe χ k·mass(⌊y/k⌋)`, via the landed
+`sum_coprime_eq_moebius_multiples` from CoprimeBV) puts everything over the R3(a) mass. Since
+`mass ≥ 0` (dhA positivity) and every Dirichlet coefficient is `≤ 1` in absolute value, the
+signed sum is dominated termwise by `mass(y)`, and there are `≤ σ₀(m)²` pairs `(g,k)`. Verified
+(†) by hand at `m=4,t=2` and the peeling recursion `mass_{pm'}=dhA(p)mass_{m'}−chiRe(p)mass_{m'}(⌊·/p⌋)`
+numerically (χ mod 3, m=6) before formalizing.
+
+**LANDED — supporting (all DHBal2.lean, axiom-clean):** `dhA_mass_nonneg`, `dhA_mass_mono`,
+`dhA_mass_eq_char_count` (`mass(Y)=Σ_{e≤Y}chiRe χ e·⌊Y/e⌋`, the divisor swap), `inner_cop_swap`,
+`sqfree_card_divisors` (`Squarefree m → σ₀(m)=2^{ω(m)}`, via `Nat.card_divisors` +
+`factorization_eq_one_of_squarefree`), and the R4 MOMENT `sum_abs_grahamGc_sigmaSq_div_le`:
+`Σ_{m≤M} |grahamGc z m|·σ₀(m)²/m ≤ (1+log M)^{12}` (on squarefree, `|gc|σ₀² ≤ 3^ω·4^ω = 12^ω`;
+landed `tau6W_le` at `k=12`). The moment prefactor R4 needs is therefore READY.
+
+**⛔ R4 `tail_sum_le_mollified` — REFUTED at the √-error (a THIRD design flaw; the freeze's
+`P'z²x^{−2/5}` error term is WRONG by ~89 orders). Fable/human-tier (Iron Rule 1).**
+S₀ = `Σ_{n∈Icc 2 N} |dhCoeff χ z n|·n^{−β}·K(n/x)` = `Σ_n dhA(n)grahamW(n)n^{−β}K` (real χ).
+gc-regroup + reindex `n=m·t` gives `S₀ ≤ Σ_m |gc(m)|·J_m`, `J_m = Σ_{t≤N/m} dhA(m·t)(m·t)^{−β}K`.
+The design's route is Abel-with-mass: `A_m(u)=Σ_{t≤u}dhA(m·t) ≤ σ₀(m)²·mass(u) ≤ σ₀(m)²(L₁u+20M√u)`
+(R3(b)+R3(a), M=√q(1+log q)), Abel'd against the antitone weight `W_t=(m·t)^{−β}K(m·t/x)`. This
+splits `J_m ≤ σ₀²[ L₁·Σ_t W_t  +  20M·Σ_t W_t(√t−√(t−1)) ]`. The FIRST block is the L₁-carrier
+(design K2, fine: `≤ L₁·x^{1−β}(1+log x)·moment`, the `(1+log x)` from `t^{−β}≤t^{−1}(x/m)^{1−β}`,
+the moment from `sum_abs_grahamGc_sigmaSq_div_le` — this half is real and landable).
+
+**The SECOND block (the √-error) is fatal and non-fixable via this route.** It is the
+Pólya–Vinogradov mass fluctuation, and it has NO x-decay. Its LEADING term (m=1, gc(1)=1,
+σ₀(1)=1, t=1: `W_1=(1−1/x)≈1`, `√1−√0=1`) forces, in any bound derived from R3(a)'s honest
+`20M√u` error, `error_S₀ ≥ 20M`. Numerically `20M ≥ 72` at q=3 and `≈ 3.0e5` at the anchor
+q=10⁶ — but the R7 floor `(1−1/x) − E − error_S₀ ≥ ½` REQUIRES `error_S₀ < 1` (it sits on the
+LHS, subtracted from 1, NOT compared to the huge `x^{1−β}` main term). The freeze claims
+`error_S₀ = P'z²x^{−2/5} ≈ 6.1e−84` at the anchor; the provable value is `≥ 3.0e5`. **Off by
+~89 orders.** The `x^{1/2−β}=x^{−2/5}` decay the designer expected lives ONLY in the Abel
+BOUNDARY term `√T·W_T ~ x^{1/2−β}m^{−1/2}` (tiny), but the Abel INCREMENT sum
+`Σ_t W_t(√t−√(t−1))` is dominated by small `t` (`~m^{−β}·ζ(β+½)`), x-independent, and DWARFS the
+boundary. All three panel angles + both refutations checked the MAIN coefficient and the E-term
+(R5's extraction error) but NEVER priced the √-error's leading term.
+
+Root cause: design key **K2** ("S₀ needs no absolute smallness, it is L₁-proportional") is the
+flaw — the NON-L₁ part of S₀ (the PV fluctuation) is `≥ 20M ≫ 1` and cannot be folded into
+`L₁·main` (M = √q log q is not L₁; L₁ can be tiny — it is exactly what we bound). The standard
+route needs S₀ genuinely SMALL via the mollifier's `1/log z` cancellation, which the crude
+`|gc| ≤ 3^ω` (design K3, "sharp-G is dead weight") THROWS AWAY. **Both K2 and K3 are implicated.**
+Verified: `/private/tmp/.../scratchpad` python — `error_S₀ ≥ 20M` at q∈{3,10,10³,10⁶}, all `≫ 1/4`.
+
+**Needed to unblock (Fable/human-tier redesign):** either (a) a sharper S₀ error that captures
+the mollifier cancellation (the sharp Barban–Vehov `(1/log z)`-grade `norm_dhGpoly` route the
+design deliberately abandoned — but even `(1/log z)²·20M ≈ 1.4e3` at the anchor still `≫ 1/4`,
+so this alone is INSUFFICIENT), or (b) a fundamentally different (non-Abel-of-PV) treatment of the
+absolute tail, or (c) reconsider whether the shifted-detector floor can carry a repulsion at all
+without a genuinely small tail. Do NOT re-dispatch R4/R5/R7/R8 executors until the S₀ error
+mechanism is redesigned and the √-error leading term is priced at the two anchors (q=3 AND q=10⁶).
+
+**R5 `dh_extraction_upper` [C/D crux] — NOT ATTEMPTED (blocked in spirit by the R4 refutation).**
+R5's own `‖D_ρ‖ ≤ L₁x^{1−β}(L/c₀)+E` upper bound might be independently provable (it does not use
+S₀), but the BALANCE it feeds (R7) is dead until R4's S₀ error is fixed, so R5 has no consumer.
+Its R1/R2/R3(b) suppliers are all landed; if the redesign keeps R5's shape, it is dispatch-ready.
+
+**Catches (LOUD).** (#127) `Finset.sum_sigma` (NOT `sum_sigma'`) rewrites a sigma-sum → nested
+double sum; `sum_sigma'` (nested → sigma) fails HO-unification on `chiRe χ (p.1*p.2)`. (#128)
+`Finset.sum_nbij'` arg order that compiled: `i j hi hj left_inv right_inv h` (maps, then the four
+side conditions, VALUE-compat `h` LAST). (#129) the antitone-weight Abel primitive
+`norm_sum_smul_antitone_ranged_le` CANNOT take `w_t=(m·t)^{−β}·K` directly: at `t=0`,
+`(0)^{−β}=0` (rpow convention) but `w_1>0`, so `w` DIPS and is NOT antitone — reindex `t=j+1`
+(`v_j=(m(j+1))^{−β}K`) so the weight is antitone on all of `range`. (#130) `simp only [hcop,…]`
+for a hypothesis `hcop : Nat.Coprime d κ` "made no progress" — use `if_congr (and_iff_left hcop)
+rfl rfl` inside a `Finset.sum_congr` instead of simp for the `if (d∣t ∧ cop) …` collapse.
+(#131) `((2^k:ℕ):ℝ)^2 = 4^k`: `push_cast; rw [pow_two, ← mul_pow]; norm_num` (NOT `pow_mul`).
+(#132) THE PROCESS LESSON: price EVERY error term's LEADING (smallest-index) contribution at a
+SMALL anchor before freezing — the √-error's m=1,t=1 term (≥20M) was invisible to main-term and
+E-term checks; a `20M ≤ 1/4` sanity line at q=3 would have caught it three angles ago.

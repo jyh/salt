@@ -60,6 +60,7 @@ import Salt.SW.DHMollified
 import Salt.SW.DHFinal
 import Salt.SW.DHTrunc
 import Salt.SW.DHBal
+import Salt.SW.DHBal2
 import Salt.SW.Hyperbola
 import Salt.SW.ZetaEM
 import Salt.Tactic.AuditAxioms
@@ -224,3 +225,7 @@ open Salt.Tactic in
   Salt.SW.sum_divisors_eq_hyperbola_symm Salt.SW.dhA_hyperbola_symm
   Salt.SW.zeta_partial_em Salt.SW.zetaHol_bound
   Salt.SW.zetaApprox_strip Salt.SW.norm_zeta_sub_approx_le_strip
+  Salt.SW.dhA_mass_eq_char_count Salt.SW.inner_coprime_eq
+  Salt.SW.dhA_mul_eq_sum Salt.SW.inner_cop_swap
+  Salt.SW.dhA_mass_mul_eq_group Salt.SW.dhA_mass_mul_le
+  Salt.SW.sqfree_card_divisors Salt.SW.sum_abs_grahamGc_sigmaSq_div_le

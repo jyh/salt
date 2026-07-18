@@ -7979,3 +7979,35 @@ decisions per question.
   primes_in_Ioc_eff; tier 2: vmvt the milestone; tier 3: the
   toolkit). Both on JYH's desk, ripe not blocking. Board
   unchanged: VK-2 + T-BAL-3.
+
+- 2026-07-18 ~10:00 PT: **T-BAL-3: R3(b) LANDS + R4 REFUTED AT
+  THE DESIGN LEVEL — the ratified freeze's third and deepest
+  flaw** (≈ 383k / 56 tools; house-verified SW.All 8802 green,
+  8 lemmas [3 axioms]). LANDED (DHBal2.lean): `dhA_mass_mul_le`
+  (multiples mass ≤ σ₀(m)²·mass — the honest 4^ω via the NEW
+  divisor bijection (†) dhA_mul_eq_sum; + the σ₀²-moment at
+  (1+log M)^12 via tau6W_le k=12; 3 build iterations). THE
+  REFUTATION (executor-catches-designer, the most important of
+  the window): S₀'s √-error = the PV mass fluctuation Abel'd
+  against (mt)^{−β}K has NO x-decay — dominated by SMALL t,
+  leading term (m=t=1) ≥ 20M (≥ 72 at q=3, ~3e5 at q=10⁶) vs
+  the floor's requirement error < 1. The freeze claimed
+  ~6e-84: off ~89 ORDERS. Root cause: design key K2 ("S₀ needs
+  no absolute smallness") is FALSE for the non-L₁ PV part; K3
+  (crude 3^ω) implicated — even sharp-G leaves 1.4e3. ALL
+  THREE panel angles + both refuter passes missed the
+  smallest-index term. Catch **#139** (T-BAL-3 local #132;
+  NB local #127–132 = register #134–139, colliding with VK-1's
+  #127–133): PRICE EVERY ERROR TERM'S SMALLEST-INDEX TERM AT A
+  SMALL ANCHOR BEFORE FREEZING — now a standing refuter
+  checklist item. R5 blocked pending the S₀ redesign
+  (suppliers all landed); R4/R7/R8 held. The S₀ mechanism that
+  must be used (grounded): the POINTWISE BV cancellation —
+  dhWeightSq z n vanishes for squarefree n with ω ≥ 2 and all
+  divisors ≤ z (log-linearity kills it); the true S₀ lives on
+  prime-power-ish + z-straddling support = Benli's actual S0
+  step (the maps flagged it "currently missing from the salt
+  map"). **S₀ REDESIGN WORKFLOW LAUNCHING** (reader re-extracts
+  Benli §S0 + grounds the pointwise support in our defs; 2
+  designers; refuters with the hardened checklist). Board:
+  VK-2 + the S₀ redesign wf.
