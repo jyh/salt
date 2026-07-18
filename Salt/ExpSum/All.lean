@@ -7,6 +7,7 @@ import Salt.ExpSum.Basic
 import Salt.ExpSum.Kusmin
 import Salt.ExpSum.VdCorput2
 import Salt.ExpSum.DerivTest
+import Salt.ExpSum.DerivTestK
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -29,3 +30,4 @@ open Salt.Tactic in
   Salt.ExpSum.norm_eR
   Salt.ExpSum.vdC_third_derivative
   Salt.ExpSum.vdC_2nd_ZR
+  Salt.ExpSum.vdC_kth_derivative

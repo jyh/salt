@@ -6754,3 +6754,21 @@ decisions per question.
   pre-wired (accepted), full build green (9191). Board:
   LITT-F2b, SHIU-W2, MOEB-LOG, HB-L8b, VMVT-HOLDER, badge run.
   Tally ~40.0M raw — THE 40M MARK. House ~14%.
+
+- 2026-07-18 ~20:53 PT (NIGHT WATCH): ██ **LITT-F2b LANDS COMPLETE
+  — THE GENERAL k-TH DERIVATIVE TEST; F2 CLOSES: the van der
+  Corput method is FULLY in the kernel** ██ (≈ 396k / 87 tools;
+  no flags, zero residuals). Salt/ExpSum/DerivTestK.lean (677
+  lines): **vdC_kth_derivative** (∀ k ≥ 2, the exact
+  Graham–Kolesnik shape: c^{2^{2−k}}·(L·λ^{1/(2^k−2)} +
+  L^{1−2^{2−k}}·λ^{−1/(2^k−2)}); C(2) = 8, C(k+1) = 4√C(k)) via
+  the custom dk recursion (fwdDiff rejected — the landed-pattern
+  mirror composes) + the sharp Σh^{−α} via weighted AM–GM. THE
+  GOLD GOTCHA (the definitive form of ring-vs-2^k): context-bloat
+  is the enemy — **clear_value every set atom before heavy
+  tactics** (but AFTER extracting defeq-dependent bounds — the
+  ordering matters and is now documented). Ceremony: pre-wired
+  (accepted), full build green (9192). **LITT-F3 DISPATCHED**
+  (ζ growth on the σ_k lines — the checkpoint's next rung).
+  Board: SHIU-W2, MOEB-LOG, HB-L8b, VMVT-HOLDER, LITT-F3, badge
+  run. Tally ~40.4M raw, house ~14%.
