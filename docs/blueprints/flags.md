@@ -9020,3 +9020,56 @@ closes and a trailing `ring` errors "no goals" — split them. (#98) after `set 
 `set D`, rewrite `x^{(2kr:ℝ)} = x^{E+D}` via `congr 1; rw [hDdef]; ring` (`ring`
 treats the set-atoms E,D opaquely — fine). (#99, banked-#92 confirmed) pin
 `vmvtEta_le (k := k) (r := n)` / `vmvtEta_nonneg (k := k)` — implicit `k` mis-unifies.
+
+## 2026-07-18 GEH-CAP: catch #96 RESOLVED — the factor-2 anchor-cap relax lands (Opus)
+
+The GEH-DOOR-2 anchor-cap obstruction (rung 3 `hanch`'s fifth conjunct `2·N·M ≤ x`
+jointly unsatisfiable with `hdecomp_double` at the top anti-diagonal `N·M ∈ [x/2,x)`)
+is **CLOSED** by the Fable-authorized relax to `2·N·M ≤ 2x`, threaded through the
+whole chain (`Salt/Maynard/GehDecomp2.lean` + `GehAnchor.lean`).  `lake build
+Salt.Maynard.All` EXIT 0 (8817 jobs, no new warnings); `deep_perblock`, the
+combinator, `anchorSW`, `anchor_modulus_absorb`, `anch_balance_of_le` all
+`#print axioms` = `[propext, Classical.choice, Quot.sound]`.
+
+**Statement diffs (old → new), all Fable-tier authorized by the GEH-CAP brief:**
+- `anch_balance_of_le` (GehDecomp2): `hle : 2·N·M ≤ x` → `≤ 2x`; threshold `27 → 64`
+  (conj. 1/3 `s^{1/4} ≤ N` need `2x ≤ (cbrt x)⁴`, i.e. `2(c+1)³ ≤ c⁴`, valid `c ≥ 4`
+  ⟺ `x ≥ 64`; new helpers `cbrt_ge_four_of_le`, `two_x_le_cbrt_pow4`).  Conj. 2/4
+  `N ≤ s^{3/4}` re-routed cap-value-independently via `N ≤ N·M ≤ x ≤ 8(cbrt x)³ ≤ 8M³`.
+- `deep_perblock` (GehAnchor): `hsxx : 2·Nb·Mb ≤ x` → `≤ 2x`; conclusion constant
+  `2^{A+p}·max C 0` → `2^{A+p+1}·max C 0` (the `sx ≤ 2x` rescaling doubles); NEW hyp
+  `h2B : 2^B ≤ log x`; `hbound`'s SW data `KF` → `fun A' => 2^A'·KF A'`.
+- `pieceObligationU_of_anchored_multiblock` (GehAnchor): `hanch` fifth conjunct
+  `2·N·M ≤ x` → `≤ 2x`; `GEH_min` instantiated at `fun A' => 2^A'·KF A'`; threshold
+  gains `2^B`; `Cblk` exponent `A+p` → `A+p+1`.
+- `anchor_modulus_absorb` (GehAnchor): `hsx : s ≤ x` → `≤ 2x`; NEW hyp `h2B : 2^B ≤ log x`.
+- `anchorSW` (GehAnchor): `hlogsx_le_x : log sx ≤ log x` → `log sx ≤ 2 log x`; output
+  SW constant `KF` → `fun A' => 2^A'·KF A'`.
+
+**THREE catches the brief's "mechanical" use-site map did NOT anticipate (LOUD):**
+- **#GEH-CAP-1 (the SW slot DIRECTION FLIPS, not a passive factor).** For the top
+  anti-diagonal `sx ∈ [x, 2x)`, `log sx ≥ log x`, so the `anchorSW` transport step
+  `disc ≤ KF·#·Mb/(log x)^{A'}` ⟹ `≤ KF·#·Mb/(log sx)^{A'}` is now the WRONG direction
+  (`div_le_div_of_nonneg_left` needs `(log sx)^{A'} ≤ (log x)^{A'}`, FALSE).  The block's
+  SW fact is available ONLY at scale `x` (coefficients `βb = β i x` are at the outer
+  scale; `hSW i` at scale `sx` is about `β i sx ≠ βb`), so no cleverness recovers the
+  `(log sx)` denominator.  The bound is genuinely FALSE at the base `KF`; it holds only
+  after inflating the SW constant to `2^{A'}·KF A'` — which must thread through
+  `GEH_min`'s DATA slot (the combinator instantiates `hGEH … (fun A' => 2^A'·KF A')`,
+  legal since `GEH_min` is `∀ KF`).  This is a structural constant-threading, beyond the
+  brief's "log(2x) ≤ 2 log x picks up a bounded factor" reading.
+- **#GEH-CAP-2 (the absorption's `(log s)^B` step ALSO flips).**  Same `log s > log x`
+  cause; the `+1` in the haircut `B+Fθ+1` absorbs it via `(log s)^B ≤ (2 log x)^B =
+  2^B(log x)^B ≤ (log x)^{B+1}`, which needs the NEW hypothesis `2^B ≤ log x` (added to
+  `deep_perblock`/`anchor_modulus_absorb`, supplied by the combinator's log threshold).
+- **#GEH-CAP-3 (`2Mb ≤ x` is threshold-FREE — the balance forces `Nb ≥ 2`).**  The
+  x-side truncation in `anchorSW` needs `2Mb ≤ x` (TIGHT, not `≤ 2x`), which naively
+  wants an ε-threshold.  Avoided: `haNlo` (`sx^ε ≤ Nb`) with `sx ≥ 2 > 1`, `ε > 0` gives
+  `sx^ε > 1`, so `Nb ≥ 2`; hence `sx = 2·Nb·Mb ≥ 4Mb`, and `4Mb ≤ sx ≤ 2x ⟹ 2Mb ≤ x`.
+  (Nb=1 is impossible under balance: `sx^ε ≤ 1` would force `sx ≤ 1 < 2`.)
+
+Attempts: `anch_balance_of_le` 2 (calc `<`-vs-`≤`); GehAnchor SW-slot 2 (the `subst
+hx''` in `anchorSW` renames `sx → x''`, so the new transport code must reference `x''`
+— banked as the one iteration).  The cluster has NO external callers (`GehShiuWire`
+references the combinator in prose only), so the added hypotheses (`h2B`, inflated `KF`)
+broke nothing downstream; `hshiu`/shallow branch UNAFFECTED as predicted.

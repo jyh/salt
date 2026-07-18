@@ -7592,3 +7592,28 @@ decisions per question.
   #99–102. Also noted: GehAnchor mid-edit by GEH-CAP (expected;
   Vmvt-independent). Board: T-BAL workflow + GEH-CAP +
   LITT-COVER; VMVT-SUMMIT-2 freeze next.
+
+- 2026-07-18 04:45 PT: **GEH-CAP lands — catch #96 RESOLVED**
+  (≈ 258k / 50 tools; house-verified Maynard.All 8817 green,
+  all five touched lemmas axiom-clean). The relax threaded:
+  anch_balance_of_le (hle ≤ 2x, threshold 27→64, conj 2/4
+  re-routed cap-independently), deep_perblock (hsxx ≤ 2x,
+  constant 2^{A+p+1}, new h2B : 2^B ≤ log x), the combinator
+  (hanch fifth conjunct ≤ 2x; GEH_min instantiated at
+  2^{A'}·KF), anchor_modulus_absorb + anchorSW (minimal
+  generalizations). EXECUTOR-CATCHES-DESIGNER ×3: catch
+  **#103** — the SW transport DIRECTION FLIPS for sx ∈ [x,2x)
+  ((log sx)^{A'} ≤ (log x)^{A'} becomes FALSE; the bound is
+  genuinely false at base KF — the fix inflates KF to
+  2^{A'}·KF THROUGH GEH_min's data slot; structural, not a
+  bounded factor as my brief claimed); catch **#104** — the
+  absorption's (log s)^B step also flips, absorbed by the
+  pre-existing +1 haircut via the new h2B; catch **#105** —
+  2Mb ≤ x recovered threshold-free from the balance (Nb ≥ 2 ⟹
+  4Mb ≤ sx ≤ 2x). The anchored-door plumbing is now
+  CONSISTENT: hdecomp_double + blockCount2_le +
+  anch_balance_of_le + hshiu_wire_sharp all compose against
+  the relaxed combinator. Remaining door hinges unchanged
+  (tiiBlock CoeffAt/SW cluster; GEH_min/hTypeI/WindowPNT
+  interfaces). Board: T-BAL workflow + LITT-COVER +
+  VMVT-SUMMIT-2 (+ refuters). Tally ~56.4M raw.

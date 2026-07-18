@@ -144,44 +144,54 @@ lemma divisors_card_one_le_of_mem {N : ℕ} {n : ℕ} (hmem : n ∈ Finset.Ioc N
 
 /-! ## §2  The absorption lemma (the heart of the deep regime) -/
 
-/-- **The modulus-range absorption.**  Above the anchor floor `s ≥ x/(log x)^F`,
-the outer haircut `B_out := B + Fθ + 1` swallows the `s^θ < x^θ` deficit:
-`⌊x^θ/(log x)^{B+Fθ+1}⌋ ≤ ⌊s^θ/(log s)^B⌋`.  Self-contained real inequality —
-the deep-regime engine that lets `GEH_min`-at-the-anchor's modulus range
-(`q ≤ s^θ/log^B s`) cover the outer range (`q ≤ x^θ/log^{B_out} x`).  Needs only
-`log x ≥ 1` (i.e. `x ≥ 3`), `s ∈ [2, x]`, and the floor — NO large-`x` threshold. -/
+/-- **The modulus-range absorption** (relaxed cap `s ≤ 2x`, catch #96).  Above the
+anchor floor `s ≥ x/(log x)^F`, the outer haircut `B_out := B + Fθ + 1` swallows
+BOTH the `s^θ < x^θ` deficit AND the relaxed-cap factor `log s ≤ 2 log x`:
+`⌊x^θ/(log x)^{B+Fθ+1}⌋ ≤ ⌊s^θ/(log s)^B⌋`.  With `s` now up to `2x`, `log s` can
+EXCEED `log x` (by up to `log 2`), so the `(log s)^B ≤ (log x)^B` step of the
+tight-cap proof FLIPS; the `+1` haircut absorbs the deficit via
+`(log s)^B ≤ (2 log x)^B = 2^B (log x)^B ≤ (log x)^{B+1}`, which needs the extra
+hypothesis `2^B ≤ log x` (`h2B`, supplied by the combinator's log threshold). -/
 lemma anchor_modulus_absorb {θ F B : ℝ} (hθ : 0 ≤ θ) (_hF : 0 ≤ F) (hB : 0 ≤ B)
-    {x s : ℕ} (hlx : 1 ≤ Real.log x) (hs2 : (2 : ℝ) ≤ (s : ℝ)) (hsx : (s : ℝ) ≤ (x : ℝ))
+    {x s : ℕ} (hlx : 1 ≤ Real.log x) (hs2 : (2 : ℝ) ≤ (s : ℝ))
+    (hsx : (s : ℝ) ≤ 2 * (x : ℝ)) (h2B : (2 : ℝ) ^ B ≤ Real.log x)
     (hdeep : (x : ℝ) / Real.log x ^ F ≤ (s : ℝ)) :
     ⌊(x : ℝ) ^ θ / Real.log x ^ (B + F * θ + 1)⌋₊ ≤ ⌊(s : ℝ) ^ θ / Real.log s ^ B⌋₊ := by
   have hlxpos : (0 : ℝ) < Real.log x := by linarith
   have hxpos : (0 : ℝ) < (x : ℝ) := by linarith
   have hs_pos : (0 : ℝ) < (s : ℝ) := by linarith
   have hls_pos : (0 : ℝ) < Real.log s := Real.log_pos (by linarith)
-  have hlsx : Real.log s ≤ Real.log x := Real.log_le_log hs_pos hsx
+  have hlogs2x : Real.log s ≤ 2 * Real.log x := by
+    have h1 : Real.log s ≤ Real.log (2 * (x : ℝ)) := Real.log_le_log hs_pos hsx
+    rw [Real.log_mul two_ne_zero (ne_of_gt hxpos)] at h1
+    have hlog2 : Real.log 2 ≤ Real.log x :=
+      le_trans (le_of_lt Real.log_two_lt_d9) (le_trans (by norm_num) hlx)
+    linarith
   have hlogFxpos : (0 : ℝ) < Real.log x ^ F := Real.rpow_pos_of_pos hlxpos F
   have hquot_pos : (0 : ℝ) < (x : ℝ) / Real.log x ^ F := div_pos hxpos hlogFxpos
   have hxθnn : (0 : ℝ) ≤ (x : ℝ) ^ θ := Real.rpow_nonneg (le_of_lt hxpos) θ
   have hlogsB : (0 : ℝ) < Real.log s ^ B := Real.rpow_pos_of_pos hls_pos B
-  have hlogxFθ : (0 : ℝ) < Real.log x ^ (F * θ) := Real.rpow_pos_of_pos hlxpos (F * θ)
+  have hlogxFθpos : (0 : ℝ) < Real.log x ^ (F * θ) := Real.rpow_pos_of_pos hlxpos (F * θ)
+  have hlogxB_nn : (0 : ℝ) ≤ Real.log x ^ B := Real.rpow_nonneg (le_of_lt hlxpos) B
   have hstep1 : (x : ℝ) ^ θ / Real.log x ^ (F * θ) ≤ (s : ℝ) ^ θ := by
     have h := Real.rpow_le_rpow (le_of_lt hquot_pos) hdeep hθ
     rw [Real.div_rpow (le_of_lt hxpos) (le_of_lt hlogFxpos),
       ← Real.rpow_mul (le_of_lt hlxpos) F θ] at h
     exact h
-  have e1 : Real.log x ^ (F * θ + B) ≤ Real.log x ^ (B + F * θ + 1) :=
-    Real.rpow_le_rpow_of_exponent_le hlx (by linarith)
-  have e2 : Real.log x ^ (F * θ + B) = Real.log x ^ (F * θ) * Real.log x ^ B :=
-    Real.rpow_add hlxpos (F * θ) B
-  have e3 : Real.log s ^ B ≤ Real.log x ^ B := Real.rpow_le_rpow (le_of_lt hls_pos) hlsx hB
+  have e2' : Real.log x ^ (B + F * θ + 1) = Real.log x ^ (F * θ) * Real.log x ^ (B + 1) := by
+    rw [← Real.rpow_add hlxpos]; congr 1; ring
+  have e3' : Real.log s ^ B ≤ Real.log x ^ (B + 1) := by
+    calc Real.log s ^ B ≤ (2 * Real.log x) ^ B :=
+          Real.rpow_le_rpow (le_of_lt hls_pos) hlogs2x hB
+      _ = 2 ^ B * Real.log x ^ B := by rw [Real.mul_rpow (by norm_num) (le_of_lt hlxpos)]
+      _ ≤ Real.log x * Real.log x ^ B := mul_le_mul_of_nonneg_right h2B hlogxB_nn
+      _ = Real.log x ^ (B + 1) := by rw [Real.rpow_add hlxpos, Real.rpow_one]; ring
   have hreal : (x : ℝ) ^ θ / Real.log x ^ (B + F * θ + 1)
       ≤ (s : ℝ) ^ θ / Real.log s ^ B := by
-    calc (x : ℝ) ^ θ / Real.log x ^ (B + F * θ + 1)
-        ≤ (x : ℝ) ^ θ / Real.log x ^ (F * θ + B) :=
-          div_le_div_of_nonneg_left hxθnn (Real.rpow_pos_of_pos hlxpos (F * θ + B)) e1
-      _ = (x : ℝ) ^ θ / Real.log x ^ (F * θ) / Real.log x ^ B := by rw [e2, div_div]
-      _ ≤ (x : ℝ) ^ θ / Real.log x ^ (F * θ) / Real.log s ^ B :=
-          div_le_div_of_nonneg_left (div_nonneg hxθnn (le_of_lt hlogxFθ)) hlogsB e3
+    rw [e2', ← div_div]
+    calc (x : ℝ) ^ θ / Real.log x ^ (F * θ) / Real.log x ^ (B + 1)
+        ≤ (x : ℝ) ^ θ / Real.log x ^ (F * θ) / Real.log s ^ B :=
+          div_le_div_of_nonneg_left (div_nonneg hxθnn (le_of_lt hlogxFθpos)) hlogsB e3'
       _ ≤ (s : ℝ) ^ θ / Real.log s ^ B := (div_le_div_iff_of_pos_right hlogsB).mpr hstep1
   exact Nat.floor_le_floor hreal
 
@@ -245,19 +255,25 @@ lemma anchorCoeff {k : ℕ} {x sx Nb : ℕ} {αb : ℕ → ℝ}
     · simp only [if_neg hx'']; rw [abs_zero]
       exact mul_nonneg (pow_nonneg (Nat.cast_nonneg _) _) (pow_nonneg (log_nat_nonneg x'') _)
 
-/-- **`SWAtData` of the anchor-spike family.**  Off the anchor the family (and its
-scale `Mb`) is `0`, so the SW bound is `0 ≤ 0`.  On the anchor, the block's own
-`SWAtData` at the OUTER `x` (cutoff `x`) is transported to cutoff `sx` (the block
-vanishes above `2Mb ≤ sx ≤ x`, `seqDiscrepancy_truncate`), and the denominator
-shifts the RIGHT way: `1/(log x)^{A'} ≤ 1/(log sx)^{A'}` since `sx ≤ x`. -/
+/-- **`SWAtData` of the anchor-spike family** (relaxed cap `sx ≤ 2x`, catch #96).
+Off the anchor the family (and its scale `Mb`) is `0`, so the SW bound is `0 ≤ 0`.
+On the anchor, the block's own `SWAtData` at the OUTER `x` (cutoff `x`) is
+transported to cutoff `sx` (the block vanishes above `2Mb ≤ sx` and above
+`2Mb ≤ x`, `seqDiscrepancy_truncate`).  With `sx` now up to `2x`, `log sx` can
+EXCEED `log x` (by up to `log 2`), so the denominator shift `1/(log x)^{A'} ≤
+1/(log sx)^{A'}` no longer holds; instead `(log sx)^{A'} ≤ (2 log x)^{A'} =
+2^{A'}(log x)^{A'}`, so the transported bound carries an extra factor `2^{A'}` —
+the output SW constant is `2^{A'}·KF A'`.  (The combinator instantiates `GEH_min`
+at this inflated `KF`.) -/
 lemma anchorSW {j : ℕ} {x sx Mb : ℕ} {βb : ℕ → ℝ} {KF : ℝ → ℝ}
     (hMb_le : 2 * Mb ≤ sx) (hMb_le_x : 2 * Mb ≤ x) (hlogsx0 : 0 < Real.log sx)
-    (hlogsx_le_x : Real.log sx ≤ Real.log x) (hKFnn : ∀ A', 0 ≤ KF A')
+    (hlogsx_le_2x : Real.log sx ≤ 2 * Real.log x) (hKFnn : ∀ A', 0 ≤ KF A')
     (hβsupp : ∀ n, βb n ≠ 0 → n ∈ Finset.Ioc Mb (2 * Mb))
     (hSWx : ∀ A' : ℝ, 0 < A' → ∀ r q : ℕ, 0 < r → 0 < q →
       seqDiscrepancy (fun n => if Nat.Coprime n r then βb n else 0) x q
         ≤ KF A' * (((q * r).divisors.card : ℝ)) ^ j * (Mb : ℝ) / Real.log x ^ A') :
-    SWAtData (fun y n => if y = sx then βb n else 0) (fun y => if y = sx then Mb else 0) j KF := by
+    SWAtData (fun y n => if y = sx then βb n else 0) (fun y => if y = sx then Mb else 0) j
+      (fun A' => 2 ^ A' * KF A') := by
   intro A' hA' x'' r q _hx''2 hr hq
   by_cases hx'' : x'' = sx
   · subst hx''
@@ -272,12 +288,24 @@ lemma anchorSW {j : ℕ} {x sx Mb : ℕ} {βb : ℕ → ℝ} {KF : ℝ → ℝ}
       rw [seqDiscrepancy_truncate hsupp_tw x'' q hMb_le,
         seqDiscrepancy_truncate hsupp_tw x q hMb_le_x]
     rw [heq]
-    refine (hSWx A' hA' r q hr hq).trans ?_
-    apply div_le_div_of_nonneg_left
-    · exact mul_nonneg (mul_nonneg (hKFnn A') (pow_nonneg (Nat.cast_nonneg _) _))
-        (Nat.cast_nonneg _)
-    · exact Real.rpow_pos_of_pos hlogsx0 A'
-    · exact Real.rpow_le_rpow (le_of_lt hlogsx0) hlogsx_le_x (le_of_lt hA')
+    have hlogx0 : (0 : ℝ) < Real.log x := by linarith
+    have hnum : (0 : ℝ) ≤ KF A' * ((q * r).divisors.card : ℝ) ^ j * (Mb : ℝ) :=
+      mul_nonneg (mul_nonneg (hKFnn A') (pow_nonneg (Nat.cast_nonneg _) _)) (Nat.cast_nonneg _)
+    have hLx_pos : (0 : ℝ) < Real.log x ^ A' := Real.rpow_pos_of_pos hlogx0 A'
+    have hLsx_pos : (0 : ℝ) < Real.log x'' ^ A' := Real.rpow_pos_of_pos hlogsx0 A'
+    have hlogfac : Real.log x'' ^ A' ≤ 2 ^ A' * Real.log x ^ A' := by
+      calc Real.log x'' ^ A' ≤ (2 * Real.log x) ^ A' :=
+            Real.rpow_le_rpow (le_of_lt hlogsx0) hlogsx_le_2x (le_of_lt hA')
+        _ = 2 ^ A' * Real.log x ^ A' := Real.mul_rpow (by norm_num) (le_of_lt hlogx0)
+    have hstep : KF A' * ((q * r).divisors.card : ℝ) ^ j * (Mb : ℝ) / Real.log x ^ A'
+        ≤ 2 ^ A' * KF A' * ((q * r).divisors.card : ℝ) ^ j * (Mb : ℝ) / Real.log x'' ^ A' := by
+      rw [div_le_div_iff₀ hLx_pos hLsx_pos]
+      calc (KF A' * ((q * r).divisors.card : ℝ) ^ j * (Mb : ℝ)) * Real.log x'' ^ A'
+          ≤ (KF A' * ((q * r).divisors.card : ℝ) ^ j * (Mb : ℝ)) * (2 ^ A' * Real.log x ^ A') :=
+            mul_le_mul_of_nonneg_left hlogfac hnum
+        _ = 2 ^ A' * KF A' * ((q * r).divisors.card : ℝ) ^ j * (Mb : ℝ) * Real.log x ^ A' := by
+            ring
+    exact le_trans (hSWx A' hA' r q hr hq) hstep
   · simp only [if_neg hx'']
     have hz : (fun n => if Nat.Coprime n r then (0 : ℝ) else 0) = (fun _ => (0 : ℝ)) := by
       funext n; simp
@@ -286,12 +314,17 @@ lemma anchorSW {j : ℕ} {x sx Mb : ℕ} {βb : ℕ → ℝ} {KF : ℝ → ℝ}
 
 /-! ## §3  The deep-regime per-block bound (GEH at the anchor + absorption) -/
 
-/-- **The deep-regime per-block bound.**  For a block whose anchor `sx := 2·Nb·Mb`
-is DEEP (`x/(log x)^F ≤ sx`) and past the log threshold, `GEH_min` (destructured
-as `hbound` at exponent `k+1`, saving `A+p`, haircut `B`) applied to the
-anchor-spike family, plus the absorption lemma (outer range `⌊x^θ/log^{B+Fθ+1} x⌋`
-covered by `⌊sx^θ/log^B sx⌋`) and the `s`-rescaling (`log sx ≥ ½ log x`), give the
-per-block bound `≤ 2^{A+p}·max C 0·x/(log x)^{A+p}` at the outer scale. -/
+/-- **The deep-regime per-block bound** (relaxed cap `2·Nb·Mb ≤ 2x`, catch #96).
+For a block whose anchor `sx := 2·Nb·Mb` is DEEP (`x/(log x)^F ≤ sx`) and past the
+log threshold, `GEH_min` (destructured as `hbound` at exponent `k+1`, saving `A+p`,
+haircut `B`, SW data `(j, 2^{·}·KF)`) applied to the anchor-spike family, plus the
+absorption lemma and the `s`-rescaling, give the per-block bound at the outer scale.
+The relaxed cap (`sx` up to `2x`, resolving the factor-2 boundary vs `hdecomp`)
+costs: (i) an extra `2^{A'}` in the SW constant (`log sx` up to `log x + log 2`, so
+`GEH_min` is fed `SWAtData … (2^{·}·KF)`); (ii) the `2^B ≤ log x` hypothesis for the
+absorption's flipped `(log s)^B` step; (iii) the output constant grows to
+`2^{A+p+1}·max C 0` (the `sx ≤ 2x` rescaling doubles).  `2Mb ≤ x` is recovered
+threshold-free: the balance forces `Nb ≥ 2`, so `sx = 2Nb·Mb ≥ 4Mb ⟹ 2Mb ≤ x`. -/
 lemma deep_perblock {θ ε A p C B F : ℝ} {k j : ℕ} {KF : ℝ → ℝ} {x : ℕ}
     (hθ : 0 ≤ θ) (hε : 0 < ε) (hApos : 0 < A + p) (hF : 0 ≤ F) (hB0 : 0 ≤ B)
     {αb βb : ℕ → ℝ} {Nb Mb : ℕ} {y : ℕ}
@@ -304,7 +337,8 @@ lemma deep_perblock {θ ε A p C B F : ℝ} {k j : ℕ} {KF : ℝ → ℝ} {x : 
         ≤ KF A' * (((q * r).divisors.card : ℝ)) ^ j * (Mb : ℝ) / Real.log x ^ A')
     (hKFnn : ∀ A' : ℝ, 0 ≤ KF A')
     (hbound : ∀ α' β' : ℕ → ℕ → ℝ, ∀ N' M' : ℕ → ℕ,
-      CoeffAt α' N' (k + 1) → CoeffAt β' M' (k + 1) → SWAtData β' M' j KF →
+      CoeffAt α' N' (k + 1) → CoeffAt β' M' (k + 1) →
+        SWAtData β' M' j (fun A' => 2 ^ A' * KF A') →
       ∀ x' yy : ℕ, 2 ≤ x' → yy ≤ 4 * N' x' * M' x' →
         (x' : ℝ) ^ ε ≤ (N' x' : ℝ) → (N' x' : ℝ) ≤ (x' : ℝ) ^ (1 - ε) →
         (x' : ℝ) ^ ε ≤ (M' x' : ℝ) → (M' x' : ℝ) ≤ (x' : ℝ) ^ (1 - ε) →
@@ -315,13 +349,13 @@ lemma deep_perblock {θ ε A p C B F : ℝ} {k j : ℕ} {KF : ℝ → ℝ} {x : 
     (haNhi : (Nb : ℝ) ≤ ((2 * Nb * Mb : ℕ) : ℝ) ^ (1 - ε))
     (haMlo : ((2 * Nb * Mb : ℕ) : ℝ) ^ ε ≤ (Mb : ℝ))
     (haMhi : (Mb : ℝ) ≤ ((2 * Nb * Mb : ℕ) : ℝ) ^ (1 - ε))
-    (hsxx : 2 * Nb * Mb ≤ x)
+    (hsxx : 2 * Nb * Mb ≤ 2 * x)
     (hlogx1 : 1 ≤ Real.log x) (hthrA : 16 * F ^ 2 ≤ Real.log x)
-    (hthrB : (2 : ℝ) ^ (k + 1) ≤ Real.log x)
+    (hthrB : (2 : ℝ) ^ (k + 1) ≤ Real.log x) (h2B : (2 : ℝ) ^ B ≤ Real.log x)
     (hdeepF : (x : ℝ) / Real.log x ^ F ≤ ((2 * Nb * Mb : ℕ) : ℝ)) :
     (∑ q ∈ Finset.Icc 1 ⌊(x : ℝ) ^ θ / Real.log x ^ (B + F * θ + 1)⌋₊,
         seqDiscrepancy (dconv αb βb) y q)
-      ≤ (2 : ℝ) ^ (A + p) * max C 0 * (x : ℝ) / Real.log x ^ (A + p) := by
+      ≤ (2 : ℝ) ^ (A + p + 1) * max C 0 * (x : ℝ) / Real.log x ^ (A + p) := by
   set sx : ℕ := 2 * Nb * Mb with hsxdef
   have hlogx0 : (0 : ℝ) < Real.log x := by linarith
   have hlxs : Real.log x ≤ 2 * Real.log sx := deep_log_two_mul hF hlogx1 hdeepF hthrA
@@ -342,22 +376,39 @@ lemma deep_perblock {θ ε A p C B F : ℝ} {k j : ℕ} {KF : ℝ → ℝ} {x : 
     linarith
   have hsx2 : 2 ≤ sx := by exact_mod_cast hsx2R
   have hsxpos : (0 : ℝ) < (sx : ℝ) := by linarith
-  have hlogsx_le_x : Real.log sx ≤ Real.log x := Real.log_le_log hsxpos (by exact_mod_cast hsxx)
-  have hNbR1 : (1 : ℝ) ≤ (Nb : ℝ) := by
-    have h1e : (1 : ℝ) ≤ (sx : ℝ) ^ ε := by
+  have hxpos : (0 : ℝ) < (x : ℝ) := by
+    rcases Nat.eq_zero_or_pos x with h | h
+    · exfalso; subst h; simp only [Nat.cast_zero, Real.log_zero] at hlogx1; linarith
+    · exact_mod_cast h
+  -- Relaxed-cap log bound: `sx ≤ 2x` gives `log sx ≤ log(2x) ≤ 2 log x` (`log 2 ≤ log x`).
+  have hlogsx_le_2x : Real.log sx ≤ 2 * Real.log x := by
+    have h2xR : (sx : ℝ) ≤ 2 * (x : ℝ) := by exact_mod_cast hsxx
+    have h1 : Real.log sx ≤ Real.log (2 * (x : ℝ)) := Real.log_le_log hsxpos h2xR
+    rw [Real.log_mul two_ne_zero (ne_of_gt hxpos)] at h1
+    have hlog2 : Real.log 2 ≤ Real.log x :=
+      le_trans (le_of_lt Real.log_two_lt_d9) (le_trans (by norm_num) hlogx1)
+    linarith
+  -- The balance conjunct `sx^ε ≤ Nb` forces `Nb ≥ 2` (since `sx ≥ 2 > 1`, `ε > 0`
+  -- give `sx^ε > 1`), hence `sx = 2·Nb·Mb ≥ 4Mb`, so `4Mb ≤ sx ≤ 2x ⟹ 2Mb ≤ x`.
+  have hNbR2 : (1 : ℝ) < (Nb : ℝ) := by
+    have h1lt : (1 : ℝ) < (sx : ℝ) ^ ε := by
       rw [show (1 : ℝ) = (sx : ℝ) ^ (0 : ℝ) from (Real.rpow_zero _).symm]
-      exact Real.rpow_le_rpow_of_exponent_le (by linarith) (le_of_lt hε)
-    linarith [haNlo, h1e]
-  have hNb1 : 1 ≤ Nb := by exact_mod_cast hNbR1
+      exact Real.rpow_lt_rpow_of_exponent_lt (by linarith : (1 : ℝ) < sx) hε
+    linarith [haNlo, h1lt]
+  have hNb2 : 2 ≤ Nb := by
+    have : 1 < Nb := by exact_mod_cast hNbR2
+    omega
   have h2Mb_le_sx : 2 * Mb ≤ sx := by
     rw [hsxdef]; exact Nat.mul_le_mul (show (2 : ℕ) ≤ 2 * Nb by omega) (le_refl Mb)
-  have h2Mb_le_x : 2 * Mb ≤ x := le_trans h2Mb_le_sx hsxx
+  have h4Mb_le_sx : 4 * Mb ≤ sx := by
+    rw [hsxdef]; exact Nat.mul_le_mul (show (4 : ℕ) ≤ 2 * Nb by omega) (le_refl Mb)
+  have h2Mb_le_x : 2 * Mb ≤ x := by omega
   have hCα' := anchorCoeff (x := x) (sx := sx) (Nb := Nb) (αb := αb)
     (le_of_lt hlogx0) hlxs h2ksx hαsupp hαbd
   have hCβ' := anchorCoeff (x := x) (sx := sx) (Nb := Mb) (αb := βb)
     (le_of_lt hlogx0) hlxs h2ksx hβsupp hβbd
   have hSW' := anchorSW (x := x) (sx := sx) (Mb := Mb) (βb := βb) (KF := KF)
-    h2Mb_le_sx h2Mb_le_x hlogsx0 hlogsx_le_x hKFnn hβsupp hSWx
+    h2Mb_le_sx h2Mb_le_x hlogsx0 hlogsx_le_2x hKFnn hβsupp hSWx
   have haNsx : (if sx = sx then Nb else 0) = Nb := if_pos rfl
   have haMsx : (if sx = sx then Mb else 0) = Mb := if_pos rfl
   have haαsx : (fun n => if sx = sx then αb n else 0) = αb := by funext n; simp
@@ -382,7 +433,8 @@ lemma deep_perblock {θ ε A p C B F : ℝ} {k j : ℕ} {KF : ℝ → ℝ} {x : 
     · rw [min_eq_left hle]
   have habs : ⌊(x : ℝ) ^ θ / Real.log x ^ (B + F * θ + 1)⌋₊
       ≤ ⌊(sx : ℝ) ^ θ / Real.log sx ^ B⌋₊ :=
-    anchor_modulus_absorb hθ hF hB0 hlogx1 hsx2R (by exact_mod_cast hsxx) hdeepF
+    anchor_modulus_absorb hθ hF hB0 hlogx1 hsx2R
+      (by exact_mod_cast hsxx : (sx : ℝ) ≤ 2 * (x : ℝ)) h2B hdeepF
   have hsub : Finset.Icc 1 ⌊(x : ℝ) ^ θ / Real.log x ^ (B + F * θ + 1)⌋₊
       ⊆ Finset.Icc 1 ⌊(sx : ℝ) ^ θ / Real.log sx ^ B⌋₊ := Finset.Icc_subset_Icc_right habs
   have hLsx_pos : (0 : ℝ) < Real.log sx ^ (A + p) := Real.rpow_pos_of_pos hlogsx0 (A + p)
@@ -392,21 +444,29 @@ lemma deep_perblock {θ ε A p C B F : ℝ} {k j : ℕ} {KF : ℝ → ℝ} {x : 
     have h1 : Real.log x ^ (A + p) ≤ (2 * Real.log sx) ^ (A + p) :=
       Real.rpow_le_rpow (le_of_lt hlogx0) hlxs (le_of_lt hApos)
     rwa [Real.mul_rpow (by norm_num) (le_of_lt hlogsx0)] at h1
+  have hsx_le_2xR : (sx : ℝ) ≤ 2 * (x : ℝ) := by exact_mod_cast hsxx
+  have h2exp : (2 : ℝ) ^ (A + p + 1) = 2 ^ (A + p) * 2 := by
+    rw [show A + p + 1 = (A + p) + 1 by ring, Real.rpow_add (by norm_num : (0 : ℝ) < 2),
+      Real.rpow_one]
+  -- With `sx ≤ 2x` (not `sx ≤ x`) the rescaling picks up an extra factor 2, so the
+  -- per-block constant is `2^{A+p+1}·max C 0` (was `2^{A+p}·max C 0`).
   have hscaling : C * (sx : ℝ) / Real.log sx ^ (A + p)
-      ≤ 2 ^ (A + p) * max C 0 * (x : ℝ) / Real.log x ^ (A + p) := by
+      ≤ 2 ^ (A + p + 1) * max C 0 * (x : ℝ) / Real.log x ^ (A + p) := by
     calc C * (sx : ℝ) / Real.log sx ^ (A + p)
         ≤ max C 0 * (sx : ℝ) / Real.log sx ^ (A + p) :=
           (div_le_div_iff_of_pos_right hLsx_pos).mpr
             (mul_le_mul_of_nonneg_right (le_max_left _ _) (Nat.cast_nonneg _))
-      _ ≤ max C 0 * (x : ℝ) / Real.log sx ^ (A + p) :=
+      _ ≤ max C 0 * (2 * (x : ℝ)) / Real.log sx ^ (A + p) :=
           (div_le_div_iff_of_pos_right hLsx_pos).mpr
-            (mul_le_mul_of_nonneg_left (by exact_mod_cast hsxx) hmax0)
-      _ ≤ 2 ^ (A + p) * max C 0 * (x : ℝ) / Real.log x ^ (A + p) := by
+            (mul_le_mul_of_nonneg_left hsx_le_2xR hmax0)
+      _ ≤ 2 ^ (A + p + 1) * max C 0 * (x : ℝ) / Real.log x ^ (A + p) := by
           rw [div_le_div_iff₀ hLsx_pos hLx_pos]
-          calc max C 0 * (x : ℝ) * Real.log x ^ (A + p)
-              ≤ max C 0 * (x : ℝ) * (2 ^ (A + p) * Real.log sx ^ (A + p)) :=
-                mul_le_mul_of_nonneg_left hLx_le (mul_nonneg hmax0 (Nat.cast_nonneg _))
-            _ = 2 ^ (A + p) * max C 0 * (x : ℝ) * Real.log sx ^ (A + p) := by ring
+          calc max C 0 * (2 * (x : ℝ)) * Real.log x ^ (A + p)
+              ≤ max C 0 * (2 * (x : ℝ)) * (2 ^ (A + p) * Real.log sx ^ (A + p)) :=
+                mul_le_mul_of_nonneg_left hLx_le
+                  (mul_nonneg hmax0 (by positivity))
+            _ = 2 ^ (A + p + 1) * max C 0 * (x : ℝ) * Real.log sx ^ (A + p) := by
+                rw [h2exp]; ring
   calc (∑ q ∈ Finset.Icc 1 ⌊(x : ℝ) ^ θ / Real.log x ^ (B + F * θ + 1)⌋₊,
           seqDiscrepancy (dconv αb βb) y q)
       = ∑ q ∈ Finset.Icc 1 ⌊(x : ℝ) ^ θ / Real.log x ^ (B + F * θ + 1)⌋₊,
@@ -416,15 +476,21 @@ lemma deep_perblock {θ ε A p C B F : ℝ} {k j : ℕ} {KF : ℝ → ℝ} {x : 
           seqDiscrepancy (dconv αb βb) (min y (4 * Nb * Mb)) q :=
         Finset.sum_le_sum_of_subset_of_nonneg hsub (fun q _ _ => seqDiscrepancy_nonneg _ _ _)
     _ ≤ C * (sx : ℝ) / Real.log sx ^ (A + p) := hgeh
-    _ ≤ (2 : ℝ) ^ (A + p) * max C 0 * (x : ℝ) / Real.log x ^ (A + p) := hscaling
+    _ ≤ (2 : ℝ) ^ (A + p + 1) * max C 0 * (x : ℝ) / Real.log x ^ (A + p) := hscaling
 
 /-! ## §4  The anchored multiblock combinator -/
 
 /-- **The anchored multiblock combinator** (`N-REPLUMB`).  Like the landed
 `pieceObligationU_of_multiblock`, but each block carries its OWN anchor
 `s i x := 2·N i x·M i x` and `GEH_min` is instantiated at that anchor — deleting the
-provably-unsatisfiable global-balance demand.  `hanch` replaces `hwin`
-(own-anchor balance, `s ≤ x`, NO global `x ≤ 4NM`).  `hshiu` is the amendment-1
+provably-unsatisfiable global-balance demand.  `hanch` replaces `hwin` (own-anchor
+balance, cap `s ≤ 2x`, NO global `x ≤ 4NM`).  **Catch #96 (relaxed anchor cap):**
+the cap is `2·N·M ≤ 2x` (was `≤ x`), TRUE for every nonzero double-dyadic block
+(support ⟹ `N·M < x`) whereas `≤ x` was jointly unsatisfiable with `hdecomp_double`
+at the top anti-diagonal `N·M ∈ [x/2, x)`.  The relaxation costs bounded constants:
+`GEH_min` is fed the `2^{·}`-inflated `KF` (the `log sx ≤ log x + log 2` SW shift),
+the threshold carries `2^B ≤ log x` (the absorption's flipped step), and the
+per-block constant is `2^{A+p+1}·max C 0`.  `hshiu` is the amendment-1
 shallow interface (see the module docstring): shallow blocks (`s < x/(log x)^{F A'}`)
 are routed through it; deep blocks are discharged by `deep_perblock`
 (`GEH_min`-at-anchor + `k`-bump + absorption).
@@ -450,7 +516,7 @@ theorem pieceObligationU_of_anchored_multiblock {θ ε : ℝ}
       (N i x : ℝ) ≤ ((2 * N i x * M i x : ℕ) : ℝ) ^ (1 - ε) ∧
       ((2 * N i x * M i x : ℕ) : ℝ) ^ ε ≤ (M i x : ℝ) ∧
       (M i x : ℝ) ≤ ((2 * N i x * M i x : ℕ) : ℝ) ^ (1 - ε) ∧
-      2 * N i x * M i x ≤ x)
+      2 * N i x * M i x ≤ 2 * x)
     (hcount : ∀ x, 3 ≤ x → (m x : ℝ) ≤ D * Real.log x ^ p)
     (hdecomp : ∀ x, 3 ≤ x → ∀ y q : ℕ, y ≤ x →
       seqDiscrepancy (w x) y q
@@ -462,13 +528,18 @@ theorem pieceObligationU_of_anchored_multiblock {θ ε : ℝ}
     PieceObligationU θ w := by
   intro A hA
   have hApos : 0 < A + p := by linarith
-  obtain ⟨B, C, hB0, hbound⟩ := hGEH ε (A + p) hε hApos (k + 1) j KF
+  -- The anchor SW transport (relaxed cap, catch #96) inflates `KF` by `2^{A'}`, so
+  -- `GEH_min` is instantiated at `fun A' => 2^A' * KF A'`.
+  obtain ⟨B, C, hB0, hbound⟩ := hGEH ε (A + p) hε hApos (k + 1) j (fun A' => 2 ^ A' * KF A')
   obtain ⟨Bsh, Csh, hBsh0, hshiubd⟩ := hshiu (A + p) hApos
-  obtain ⟨X0, hX0⟩ := exists_log_ge (max (max (16 * F (A + p) ^ 2) ((2 : ℝ) ^ (k + 1))) 1)
+  -- `(2:ℝ)^B ≤ log x` added to the threshold: the absorption's flipped `(log s)^B`
+  -- step (relaxed cap) needs it.
+  obtain ⟨X0, hX0⟩ := exists_log_ge
+    (max (max (max (16 * F (A + p) ^ 2) ((2 : ℝ) ^ (k + 1))) ((2 : ℝ) ^ B)) 1)
   set Bout : ℝ := max (B + F (A + p) * θ + 1) Bsh with hBout
   have hBout0 : 0 ≤ Bout := le_trans hBsh0 (le_max_right _ _)
   set XC : ℕ := max X0 3 with hXC
-  set Cblk : ℝ := max ((2 : ℝ) ^ (A + p) * max C 0) Csh with hCblk
+  set Cblk : ℝ := max ((2 : ℝ) ^ (A + p + 1) * max C 0) Csh with hCblk
   have hne_ico : (Finset.Ico 2 XC).Nonempty :=
     Finset.nonempty_Ico.mpr (by omega)
   set cornerC : ℝ := (Finset.Ico 2 XC).sup' hne_ico (fun x' =>
@@ -515,12 +586,15 @@ theorem pieceObligationU_of_anchored_multiblock {θ ε : ℝ}
   · -- Main regime: x ≥ XC ≥ 3, per-block deep/shallow, block-count absorbed at A+p.
     have hge3 : 3 ≤ x := le_trans (le_max_right X0 3) hxge
     have hX0x : X0 ≤ x := le_trans (le_max_left X0 3) hxge
-    have hlogM : max (max (16 * F (A + p) ^ 2) ((2 : ℝ) ^ (k + 1))) 1 ≤ Real.log x :=
+    have hlogM :
+        max (max (max (16 * F (A + p) ^ 2) ((2 : ℝ) ^ (k + 1))) ((2 : ℝ) ^ B)) 1 ≤ Real.log x :=
       hX0 x hX0x
     have hlogx1 : 1 ≤ Real.log x := le_trans (le_max_right _ 1) hlogM
     have hthrA : 16 * F (A + p) ^ 2 ≤ Real.log x :=
-      le_trans (le_trans (le_max_left _ _) (le_max_left _ 1)) hlogM
+      le_trans (le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) (le_max_left _ 1)) hlogM
     have hthrB : (2 : ℝ) ^ (k + 1) ≤ Real.log x :=
+      le_trans (le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) (le_max_left _ 1)) hlogM
+    have hthrB2 : (2 : ℝ) ^ B ≤ Real.log x :=
       le_trans (le_trans (le_max_right _ _) (le_max_left _ 1)) hlogM
     have hxR3 : (3 : ℝ) ≤ (x : ℝ) := by exact_mod_cast hge3
     have hxpos : (0 : ℝ) < (x : ℝ) := by linarith
@@ -560,7 +634,7 @@ theorem pieceObligationU_of_anchored_multiblock {θ ε : ℝ}
           (fun n => (hα i x n).1) (fun n => (hα i x n).2)
           (fun n => (hβ i x n).1) (fun n => (hβ i x n).2)
           (fun A' hA'' r q hr hq => (hSW i) A' hA'' x r q (by omega) hr hq)
-          hKFnn hbound ha1 ha2 ha3 ha4 ha5 hlogx1 hthrA hthrB hdeep
+          hKFnn hbound ha1 ha2 ha3 ha4 ha5 hlogx1 hthrA hthrB hthrB2 hdeep
         refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg
           (mkSub (B + F (A + p) * θ + 1) (le_max_left _ _))
           (fun q _ _ => seqDiscrepancy_nonneg _ _ _))
