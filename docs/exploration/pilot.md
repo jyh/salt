@@ -7548,3 +7548,23 @@ decisions per question.
   via the landed second/third-derivative tests, executor picks
   the seam. Board: T-BAL workflow + VMVT-R5b + GEH-CAP +
   LITT-COVER.
+
+- 2026-07-18 04:23 PT: **the LITT-COVER verify pass returns —
+  0/3 refutations, one STALE-TARGET catch** (JYH's "didn't we
+  need the adversarial design?" prompted the parallel 3-refuter
+  pass — vindicated). Every freeze margin confirmed numerically
+  (binding corner k=4 lower edge at N₀: true factor ~412, chain
+  factor 13.6×; the k=8 crossover 5040 > 1608.5 exact; k=3's
+  miss is 1/(8π), N-independent — the seam is mandatory). THE
+  CATCH (**#98**): the freeze's Target bullet was stale against
+  the section's own later findings (hk : 3 ≤ k, unshifted lower
+  edge, N₀ = (k!)³ — the last provably failing the section's
+  own chain at k=4). Freeze bullet AMENDED in place; the
+  LITT-COVER executor redirected mid-run via message with the
+  amendment + three verified proof gifts (upper edge needs no
+  N-floor; k=4 exponent step is exact equality — non-strict
+  rpow; the 7-for-2π non-inductive factorial route). NEW HOUSE
+  RULE (banked): solo freezes with nontrivial constant
+  arithmetic get a parallel refuter pass by default; the
+  full multi-candidate treatment stays for open-shape design.
+  Board unchanged.

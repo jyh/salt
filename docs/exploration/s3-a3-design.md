@@ -1440,12 +1440,24 @@ upper edge for k ≥ 8 — λ ≤ N^{−1} at t = N^{k−1} forces
 must be absorbed by an N-floor, NOT window-edge constants (which
 would break the k↔k+1 overlap). THE FREEZE:
 
-- Target: `theorem zeta_block_window (k : ℕ) (hk : 3 ≤ k) :
+- Target (AMENDED post-verify 04:23 — the original bullet was
+  stale vs the section's own later findings; a 3-refuter pass
+  confirmed every margin, 0 refutations, and flagged the
+  staleness): `theorem zeta_block_window (k : ℕ) (hk : 4 ≤ k) :
   ∃ C N₀ : ℝ, 1 ≤ C ∧ ∀ (t : ℝ) (N : ℕ), N₀ ≤ N →
-  (N:ℝ)^(k−2:ℝ) ≤ t → t ≤ (N:ℝ)^(k−1:ℝ)/((k−1).factorial) →
+  (N:ℝ)^(k−2:ℝ)/((k−2).factorial) ≤ t →
+  t ≤ (N:ℝ)^(k−1:ℝ)/((k−1).factorial) →
   ‖Σ_{n ∈ Ioc N (2N)} eR (phi t n)‖ ≤ C·N^{1−1/(2^k−2)}`
-  with N₀ := (k.factorial : ℝ)^3 (generous; any explicit
-  factorial power works — the executor may tune).
+  with N₀ := (k.factorial : ℝ)^6 — NOT (k!)³, which fails this
+  section's own absorption chain at k=4 (117.6 < 508.9); do not
+  tune N₀ below (k!)^6 without re-running the k-sweep. k = 3 is
+  EXCLUDED here (stone 2's seam). Verified gifts for the
+  executor: the upper edge needs NO N-floor (λ ≤ N^{−1}/(2π·2^k)
+  by edge construction); k=4's exponent step 1−8/2⁴ = 1/2 is
+  exact EQUALITY — use non-strict rpow monotonicity; the
+  factorial absorption has a clean non-inductive route
+  (k!)³/(k−2)! = (k!)²·k(k−1) ≥ 3·4^k ≥ 7·3^k ≥ 2π·3^k via
+  k! ≥ 2^{k−1} (replace 2π by 7 to dodge pi estimates).
 - Upper edge: λ ≤ t·(k−1)!/(2π·(2N)^k) ≤ [t ≤ N^{k−1}/(k−1)!]
   ≤ N^{−1}/(2π·2^k) ≤ N^{−1} ✓ (the factorial cancels by
   CONSTRUCTION of the edge; 2π·2^k ≥ 1).
