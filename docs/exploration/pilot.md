@@ -7755,3 +7755,27 @@ decisions per question.
   the house synthesis repairs-or-rejects with the full panel.
   NO EXECUTOR BURN on a broken freeze — the entire point.
   Board: T-BAL wf3 + the pending adjudication.
+
+- 2026-07-18 ~06:00 PT: ██ **THE T-BAL FREEZE IS ADJUDICATED**
+  ██ (wf3 retune in; house synthesis over the full 3-angle
+  panel; the freeze written to s3-hb3-design.md "T-BAL
+  FREEZE"). RETUNE WINS: refuted at the frozen-constants layer
+  ONLY — both refuters verified the SAME repairs (b := 40
+  fixing the small-q E-failure at the binding case q=3; the
+  missing Abel t-factor (1+log x) in R4 with re-witnessed
+  k := 9, c := 2⁻²⁶ passing the generic chain; the honest
+  2^ω R3(b) constant; 2P not 3P in R1) and all 22 consumed
+  lemmas grounded. Its target hits the DHRepulsion contract
+  VERBATIM (witness drift only — no statement change). Killer
+  design keys: the ZFR harvest (K1), the L(1,χ)-proportional
+  S₀ mass-carrier dissolving the z–x circle (K2), the
+  real-shift-S₀ route adjudicated a MIRAGE. FAITHFUL rejected
+  (endgame + false verification label + contract deviation;
+  its Cesàro ζ-partial form kept as R2's alternate).
+  FRAME-FIRST rejected (structural). New checking discipline
+  banked: small-q anchors mandatory (q=3 binds when z-powers
+  beat P's √q). T-BAL-BUDGET registered (Λ ~6 orders below
+  Benli grade by design — WP2's log-η budget re-audit before
+  the consumer). AWAITING JYH RATIFICATION → then the executor
+  dispatch (~1000 ln, Salt/SW/DHBal.lean). Board: LITT-STRIP
+  design wf. Tally ~58.5M raw, catches #112, wrong proofs 0.

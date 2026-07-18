@@ -1178,3 +1178,80 @@ exactly as the paper says. The landed coprimeSupport_window
 consumes the window's P-part. The flagged def change is
 CANCELLED; HB-L4b discharges hstar on the honest window (the
 p ≥ z fibration + the landed sq counts).
+
+## T-BAL FREEZE (house synthesis over the 3-angle panel,
+## 2026-07-18 ~06:00; ADJUDICATION: retune WINS with the
+## refuters' verified repairs applied)
+
+Panel: FAITHFUL (Benli §5 port) — REJECTED: R8 endgame fails
+~10 orders at small Q + a false "python-verified" label + a
+contract deviation (added ρ.re ≤ β₀); its R1–R6 architecture
+was sound and its Cesàro-kernel ζ-partial form is the named
+ALTERNATE for our R2 if EM resists. FRAME-FIRST — REJECTED
+structurally (an unearned (1−β₀)K₀ addend). RETUNE — REFUTED
+at the frozen-constants layer ONLY; both refuters verified the
+same repairs; all 22 consumed lemmas grounded with compatible
+signatures. THE FREEZE = retune + repairs:
+
+**Target (VERBATIM the DHRepulsion.lean:262–269 contract; no
+statement change): `dh_repulsion`** with witnesses
+**b := 40, k := 9, c := 2⁻²⁶** (post-repair; the contract is
+existential in b,c,k — witness drift only).
+Parameters: T := |ρ.im|+2; X := qT; L := log X + 2;
+z := ⌈X⌉ (SHORT mollifier — K2 kills the z–x circle);
+x := X^40 (the repair of small-q E; q=3 is the BINDING case,
+verified E ≈ 6e-3 ≤ 1/4 at w=1/10); N := ⌈x⌉;
+P := 3√q(1+log q)(1+‖ρ‖/ρ.re); c₀ := 1/126848 (landed ZFR).
+
+Design keys: K1 — zero_free_region_all harvests w ≥ c₀/L,
+1/‖1−ρ‖ ≤ L/c₀, ‖ζ(ρ)‖ ≤ L/c₀ + Z₀ (no new ZFR work; polylog
+absorbed in k=9). K2 — S₀ carried by the dhA MASS bound
+(hyperbola + strip@1 + PV), making S₀ L(1,χ)-PROPORTIONAL (the
+u-carrier); no absolute smallness needed, z stays short. The
+real-shift-S₀ route is adjudicated a MIRAGE (its floor forces
+error ≥ 3/4) — do not resurrect without confronting that
+check. K3 — O(1)-G only (abs_sum_grahamTheta_div_le_one);
+sharp-G is dead weight here. K4 — R5 is a DIRECT upper on
+‖D_ρ‖ (no identity-minus-main).
+
+Rungs (~1000 ln; new Salt/SW/DHBal.lean; classes per rung):
+- R1 [B ~50] norm_bsum_kernel_zero_decay — DH-TRUNC-A:
+  norm_sum_smul_antitone_ranged_le with Q(k) := 2P·k^{−ρ.re}
+  (2P per partial_sum_at_zero_small_range, NOT 3P) + the
+  linear-kernel weights → the (N/a)^{−ρ.re} inner grade.
+- R2 [C ~120; class-D FLAG if EM resists] zeta_partial_em:
+  ‖Σ_{a≤y}a^{−s} − (y^{1−s}/(1−s) + ζ(s))‖ ≤ 8(1+‖s‖)y^{−Re s}
+  on the strip; + R2' zetaHol_bound [B/C] (compactness).
+  ALTERNATE: faithful's Cesàro/(1+log y) form.
+- R3 [C ~100] dhA_mass_upper (+_mul): Σ_{n≤y}dhA ≤ L₁.re·y +
+  20P√y; multiples version with the HONEST 2^ω-grade constant
+  on gc's squarefree support (the refuters' R3(b) repair —
+  Euler factors (1−χ(p)/p) can exceed 1).
+- R4 [C ~120] tail_sum_le_mollified — WITH the Abel t-factor
+  (the repair): S₀ ≤ L₁.re·x^{1−ρ.re}·(1+log x)·C₆(2log z)⁶ +
+  P'z²x^{−2/5}.
+- R5 [C/D ~250, THE CRUX] dh_extraction_upper:
+  ‖D_ρ‖ ≤ L₁.re·x^{1−ρ.re}·(L/c₀) + E, E ≤ Cₑ·P·z⁴·
+  x^{(1−ρ.re)−2/5}·log x. Regroup → transposed hyperbola
+  (b-outer sum_comm twin) → R2 per inner a-sum → pole
+  completion by strip tails (‖dhGpoly z 1‖ ≤ 1) → ζ(ρ)-block
+  KILLED BY THE ZERO (mollified partials = L(ρ)-tails = 0 +
+  T1 tails) → EM remainders Abel'd by R1.
+- R6 [B ~60] zfr_harvest. R7 [B/C ~150] dh_balance →
+  Λ := ½·x^{−(1−ρ.re)}/(L/c₀ + (1+log x)·C₆(2log z)⁶) ≤
+  L(1,χ).re — THE NAMED ZENO PARTIAL (a success alone).
+- R8 [B/C ~150] dh_repulsion: trivial branch (β₀ below the M4
+  threshold) + M4 (dh_repulsion_of_LFunction_one_lower);
+  generic bracket ≤ 172032·L⁷; k=9, c=2⁻²⁶ VERIFIED to pass
+  the generic chain (0.5/(68L²·172032L⁷) ≥ c/L⁹).
+
+CHECKING DISCIPLINE (mandated by both refuters — the
+anchor-only check is what masked the small-q failure): the
+FULL chain at q=3 AND q=10⁶ AND the crossover q ~ 10³, each at
+w = c₀/L (ZFR edge) AND w = 1/10. Rule: any error term whose
+z-power beats P's √q growth binds at SMALL q.
+Zeno: R1–R6 stones; R7 = Λ ██ R8 = dh_repulsion — WP2's
+ANALYTIC CORE CLOSES ██. Residual note for WP2: Λ's grade is
+~6 orders below Benli (PV inflation + short mollifier, by
+design); re-audit WP2's log-η budget against k=9 BEFORE the
+consuming node (registered as T-BAL-BUDGET).
