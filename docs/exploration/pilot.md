@@ -7730,3 +7730,28 @@ decisions per question.
   region → MR chain's FIRST LINK is kernel-checked; VMVT-VK
   (the region derivation) is now the campaign's next design
   block. Board: T-BAL wf2 + wf3. Tally ~57.6M raw.
+
+- 2026-07-18 05:45 PT: **T-BAL wf2 returns — the anti-spiral
+  fix WORKED (6/6 agents, 0 errors), and the refuters KILLED
+  both candidates on coefficient arithmetic** (T-BAL's known
+  failure mode, caught pre-burn — the machine working).
+  FAITHFUL (conf 0.6, ~1550 ln, the Benli §5 port with an
+  8-rung architecture + the honest class-D R7 declaration):
+  arithmetic-REFUTED — the R8 small-Q absorption fails by ~10
+  orders at the adversarial corner, and the candidate's
+  "python-verified" checkpoint mislabels (stream-2 log −51.6,
+  not −125.4 — still clears the checkpoint but the label is
+  false); frame verdict: buildable, one repairable C₈ gap
+  (log(1/(1−β₀)) unbounded in Q — needs a (1−β₀)-power
+  absorption, standard). FRAME-FIRST (conf 0.62, ~1250 ln):
+  STRUCTURALLY refuted — the (1−β₀)·K₀ addend is unearned
+  (the design's own rungs cannot produce it), witnesses fail
+  at its own q=3 corner. HOUSE READ: the faithful R1–R6
+  architecture (partial-ζ asymptotic → gcd-trisect → coprime
+  partials → mass toolkit → inner extraction → main
+  extraction) looks SOUND — the kills are in the R8 endgame
+  arithmetic; candidates banked
+  (scratchpad/tbal_candidates.json). Await wf3 (retune), then
+  the house synthesis repairs-or-rejects with the full panel.
+  NO EXECUTOR BURN on a broken freeze — the entire point.
+  Board: T-BAL wf3 + the pending adjudication.
