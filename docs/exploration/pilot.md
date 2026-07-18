@@ -6985,3 +6985,20 @@ decisions per question.
   Ceremony: wired, Maynard green (8701). Board: LITT-F4,
   DH-COPBV, VMVT-HOLDER2, HB-R2C, SHIU-G2, seed #3. Tally
   ~45.3M raw, house ~14%.
+
+- 2026-07-18 ~22:00 PT (NIGHT WATCH): ██ **LITT-F4 LANDS — THE
+  DYADIC ASSEMBLY: partial sums of n^{−it} at the power saving
+  X^{1−1/(2^k−2)} (k = 3: X^{5/6}); the K-L large-block stone
+  (≤ 2π(2N+1)/t)** ██ (≈ 253k / 59 tools; no cluster near the
+  stop). Salt/ExpSum/ZetaGrowth.lean: **zeta_dyadic_assembly** +
+  **zeta_partial_growth** (the consumable; catch #72 discharged
+  at the call site by design) + **zeta_block_kusmin** (the
+  landed kusmin_landau consumed with the honest log-difference
+  sandwich). Gotcha banked: Finset.sum_Ioc_consecutive is
+  ℕ-ONLY (the ℤ-dyadic telescope needs the manual union route).
+  The Littlewood chain: toolkit ✓ blocks ✓ assembly ✓ →
+  **LITT-F5 DISPATCHED** (the approximate formula ζ = Σ_{n≤X} +
+  tail + the σ-weighted balance → the |ζ(σ+it)| growth bound —
+  the region conversion's input). Ceremony: wired + 3 keystones
+  (green). Board: DH-COPBV, VMVT-HOLDER2, HB-R2C, SHIU-G2,
+  LITT-F5, seed #3. Tally ~45.8M raw, house ~14%.
