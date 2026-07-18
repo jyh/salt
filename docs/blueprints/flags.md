@@ -8219,3 +8219,50 @@ in the landed tree, in two clusters:
    the line-by-line template. All ingredients now EXIST (NEW-1/2 + the landed S4-I infra) —
    this is composition + the r-sum, not new mathematics. Budget exhausted on the stones;
    dispatch as a fresh executor (or two: cluster-1 warm-up, then the assembly).
+
+---
+
+**VMVT-R3R4 — the one-step recursion (`Salt/Vmvt/Step.lean`, this session):**
+
+LANDED (all sorry-free, axioms `[propext, Classical.choice, Quot.sound]`):
+- `degen_dominant_self_improve` — `S₂`-dominant self-improvement: `J ≤ 4·(#offPairs)²·x²·
+  J^{1−2/b}` ⟹ (via `rpow_self_improve`) `J ≤ (4·(#offPairs)²·x²)^{b/2}`, `b = k(r+1)`.
+- `mul_pred_le_two_pow` (`k(k−1) ≤ 2^k`), `mul_pred_pow_le_vmvtC0` (`(k(k−1))^k ≤ C₀(k)` via
+  `≤ (2^k)^k = 2^{k²} ≤ C₀`) — the `S₂` constant fits under `D(k,r+1)=C₀^{r+1}`.
+- `vmvt_step_degen_branch` — the COMPLETE `S₂`-dominant branch → `VmvtBound k (r+1) x`, under
+  the exponent range `((k*(r+1):ℕ):ℝ) ≤ vmvtExp k (r+1)` (the `r+1 ≥ (k+1)/2` regime). This
+  DISCHARGES the previously-flagged "second named gap" (the self-improving `S₂` Hölder) at the
+  step level.
+- `vmvt_step_of_transversal_dominant` — reduces the full step to the transversal-dominant
+  premise `J ≤ 4·Ncount(distinctBox)` (degenerate case discharged internally by the above).
+  So `vmvt_step` is complete MODULO the `S₁`/Linnik route.
+- `exists_transversal_prime_set` — for `y ≥ Y(k)`, `(y,2y]` holds `> ½k²(k−1)` primes
+  (division-free `k*k*(k-1) < 2*#P`); the pigeonhole input to `distinctBox_le_card_mul_sum`.
+  Chains `primes_in_Ioc_ge` through `log y ≤ 2√y` (`Salt.SW.log_le_two_sqrt`), so
+  `#P ≥ c√y/2 > ½k²(k−1)` once `√y > (k²(k−1)+1)/c`.
+
+RESIDUAL 1 — **R3, the transversal count** (the real stone; multi-session, design-tier):
+`Ncount k (k(r+1)) 0 (transBox x e p) (transBox x e p) ≤ k!·p^{k(k−1)/2}·x^k·[J_k-box at kr
+coords, scale x/p]`. The RESISTING STEP is that the landed `Ncount`/`sig`/`rcount` frame
+(`Shifted.lean`) is deliberately whole-tuple and has NO block-decomposition: there is no
+machinery splitting a `Fin (k(r+1))`-tuple into the designated-`k` block (the `e`-image) and
+the rest-`kr` block, and the power-sum-equality condition couples all coordinates, so the
+split is NOT a plain product — it requires the p-adic reduction (write each designated coord
+`= p·quotient + residue`) to decouple. That reduction is what lands the designated block's
+mod-`p^k` image in `LinnikSol` (feeding the landed `linnik_lemma`: `≤ k!·p^{k(k−1)/2}` residue
+classes, each `≤ (x/p^k+1)^k` lifts) and the rest in an affine box reducible by the landed
+`Jk_image_affine` at scale `x/p`. NEEDED NEW MACHINERY (design/Fable-tier): (a) a block
+projection `Fin (k(r+1)) ≃ Fin k ⊕ Fin (kr)` respecting `solBox`/`Ncount`; (b) the
+residue/quotient change of variables on the designated block; (c) the integer-power-sum ⟹
+graded-`ZMod p^j`-congruence bridge (the LinnikSol graded system arises from the pairing's
+p-adic structure, NOT directly present). This is a fresh multi-wave node.
+
+RESIDUAL 2 — **R4-`S₁` assembly** (consumes R3): from `J ≤ 4·Ncount(distinctBox)`,
+`distinctBox_le_card_mul_sum` (`≤ #P·∑_p Ncount(transBox p)`) + R3 + the IH `VmvtBound k r`,
+convert `p`-powers to `x`-powers using `p ∈ (x^{1/k}, 2x^{1/k}]` (the `θ = p/x^{1/k} ∈ (1,2]`
+gives `θ^B ≤ 2^{k²}`; the residual prime power `B = k² − η(k,r) ∈ [½k²,k²]`) and the IH at
+scale `x/p`, matching the KERNEL-VERIFIED `vmvtExp_succ`. RESISTING STEPS: (a) the `x^{1/k}`
+construction — choose `y = ⌈x^{1/k}⌉₊` with `y^k ≥ x` and `y ≥ Y(k)` (rpow bookkeeping,
+tractable but not yet done); (b) the IH must apply at `x' = ⌊x/p⌋`-grade boxes, wired through
+`Jk_image_affine`; (c) the exponent collector matching `vmvtExp_succ` (paper-verified in
+`MeanValue.lean`, needs its Lean incarnation over the `p`-sum). Blocked on R3.

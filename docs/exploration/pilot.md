@@ -7104,3 +7104,21 @@ decisions per question.
   consumption) HELD until SHIU-W4 lands. Ceremony: wired
   (accepted), green (9210). Board: LITT-F5, VMVT-R3R4, SHIU-W4,
   DH-M, seed #3 (+1 held). Tally ~49.2M raw, house ~14%.
+
+- 2026-07-18 ~22:59 PT (NIGHT WATCH): ██ **VMVT-R3R4 LANDS THE
+  ENTIRE S₂ SIDE — vmvt_step_degen_branch : VmvtBound k (r+1) x;
+  the campaign's second named gap DISCHARGED at the step level**
+  ██ (≈ 269k / 52 tools). Salt/Vmvt/Step.lean (7 theorems): the
+  degenerate self-improvement chained end-to-end (degenBox →
+  pairEq → rpow_self_improve → the x-free constant UNDER vmvtC0)
+  + **vmvt_step_of_transversal_dominant** (the full step reduced
+  to the S₁/Linnik route alone) + the pigeonhole prime input.
+  The subtraction-coercion trap banked (k−1 elaborating as
+  Int.subNatNat poisons mod_cast — force ℕ first). THE RESIDUAL
+  (Fable-design-tier, precisely flagged): R3's transversal count
+  needs the p-adic residue/quotient CHANGE OF VARIABLES (the
+  whole-tuple frame has no block split — the designated-k/rest
+  decomposition is genuinely new machinery) → the house R3
+  design block QUEUED (post-checkpoint). Ceremony: green.
+  Board: LITT-F5, SHIU-W4, DH-M, seed #3 (+2 held). Tally
+  ~49.5M raw, house ~14%.
