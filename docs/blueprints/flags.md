@@ -7946,3 +7946,103 @@ discharge it there are exactly two honest routes: (a) build torus integration +
 Parseval in a new `Vmvt/Fourier` module and port the α-domain Hölder (large, C/D);
 (b) accept `PairEqFracBound` as a stated analytic axiom-lemma with a paper-proof
 pointer (the source's p.24 Hölder step). The combinatorial frame will NOT yield it.
+
+---
+
+## DH-LCM — the lcm-collection regroup + Graham's L² mean (HB-ENGINE WP2), 2026-07-17
+
+New file `Salt/SW/GrahamL2.lean` (namespace `Salt.SW`), all sorry-free and axiom-clean
+`[propext, Classical.choice, Quot.sound]`, builds standalone via
+`lake build Salt.SW.GrahamL2` (NOT yet wired into `Salt/SW/All.lean` — left to the
+integrating session per the "don't edit landed files" rule; other executors active there).
+
+**LANDED (7 theorems + defs):**
+- **L1 `grahamW_eq_sum_grahamGc`** — the lcm-collection regroup
+  `(Σ_{d∣n} θ_d)² = Σ_{m∣n} gc(m)`, `gc(m) := lambdaSquared (grahamTheta z) m` (mathlib's
+  Selberg Λ² coefficient). This CLOSES GrahamWeights' named residual (1) and DHFinal's
+  obstruction-2 crux stone ("the lcm-collection regroup of the Graham double sum"). Proof:
+  reindex the raw double sum by `m = lcm(d,e)`, expanding `m.divisors → n.divisors` via two
+  `sum_subset` and collapsing the inner `m`-sum by `sum_ite_eq'`.
+- **L2a `grahamGc_eq_zero_of_not_squarefree`**, **L2b `abs_grahamGc_le`** (`|gc(m)| ≤ 3^ω(m)`,
+  via `Nat.card_pair_lcm_eq` + `abs_grahamTheta_le_one`; template `selberg_bound_muPlus`).
+  Helpers `sqfree_of_grahamTheta_ne_zero`, `squarefree_lcm`.
+- **L3 (structural stone) `graham_diagonalisation`** — the Selberg gcd/totient diagonal form
+  `Σ_{d,e≤z} θ_dθ_e/lcm(d,e) = Σ_{g≤z} φ(g)·(innerG z g)²`, `innerG z g := Σ_{d≤z, g∣d} θ_d/d`.
+  Via `1/lcm = gcd/(d·e)` (`Nat.gcd_mul_lcm`) and `gcd = Σ_{g∣d∧g∣e} φ(g)`
+  (`sum_totient_indicator_eq_gcd`, from `Nat.sum_totient`). Plus `graham_diagonalisation_nonneg`
+  (the L² positivity) and `innerG_one_eq` (the `g=1` factor IS the landed sharp BV sum
+  `Σ_{d≤z} θ_d/d`). The prompt credits this diagonal form as an alternative "stone".
+- **L3a `grahamW_mean_eq`** — the harmonic reduction
+  `Σ_{n≤N} w(n)/n = Σ_{m≤N} gc(m)·(Σ_{n≤N, m∣n} 1/n)` (divisor-sum swap via L1).
+
+**THE RESIDUAL (the sharp mean `Σ_{n≤N} w(n)/n ≍ log N/log z`) — precisely named, NOT attempted:**
+The gap is the `g ≥ 2` coprime-restricted Barban–Vehov decay `|innerG z g| ≤ C·h(g)/(g·log z)`.
+For `g ∣ d`, `d = g·d'`: `θ_d = μ(g)μ(d')·log((z/g)/d')/log z` on `(d',g)=1`, so
+`innerG z g = (μ(g)/g)·Σ_{d'≤z/g,(d',g)=1}(μ(d')/d')·log((z/g)/d')/log z` — a coprime-to-`g`,
+level-`z/g` copy of the BV sum. The `g=1` term is ALREADY sharp (landed
+`MoebiusLog.abs_sum_grahamTheta_div_le_inv_log`). The `g≥2` case needs the coprimality-Euler
+variant of the MoebiusLog Abel machinery (Möbius partial sums restricted to `(·,g)=1`), which
+is genuinely research-grade (the Euler factor `∏_{p∣g}(1−1/p)` corrections + the convergence
+of `Σ_g φ(g)·(decay)²`). Flagged per doctrine as the balloon point; the crude route (drop the
+sign / `1/g` factor) provably gives only `log³z` (wrong shape), so the signed diagonal is
+mandatory. Everything UP TO the analytic `innerG` bound is now mechanized.
+
+## 2026-07-17 VMVT-FOURIER Opus done
+**THE MINIMAL TORUS MODULE — the α-domain counting identity is LANDED (`Salt/Vmvt/Fourier.lean`,
+sorry-free, [3 axioms]).** This is the Parseval extension the R2-3 flag demanded ("the whole
+`Vmvt` frame must be extended with torus integration + Parseval"); it unblocks the VMVT critical
+path's analytic gap. Rungs reached: STONE (1-D orthogonality + k=1) and STRONG (full k-D identity,
+both bilinear and diagonal, + the two named consumers). THE NODE (+ the self-improving Hölder) is
+reduced to a single precisely-stated combinatorial residual, flagged below.
+
+**LANDED (all [propext, Classical.choice, Quot.sound]):**
+- `integral_eR_unit (h : ℤ) : ∫ t, eR (t·h) ∂unitMeasure = if h = 0 then 1 else 0` — the 1-D
+  orthogonality (the atom). Via `integral_exp_mul_complex` + `Complex.exp_int_mul_two_pi_mul_I`.
+- `integral_gterm` — the k-fold orthogonality `∫ ∏_j e(α_j·Δ_j) = ∏_j [Δ_j=0]`, by Fubini
+  (`MeasureTheory.integral_fintype_prod_eq_prod`) over `torusMeasure k = Measure.pi (fun _:Deg k
+  => unitMeasure)`, `unitMeasure = volume.restrict (0,1]` a probability measure.
+- `integral_setGen_mul_conj (D E) : ∫ F_D(α)·conj F_E(α) ∂torus = (Ncount k b 0 D E : ℂ)` — the
+  general **α-domain ⇆ h-domain bridge** (bilinear). `F_D(α) = ∑_{m∈D} ∏_j e(α_j·s_j(m))`.
+- `integral_setGen_normSq (D) : ∫ ‖F_D(α)‖² ∂torus = (Ncount k b 0 D D : ℝ)` — diagonal form.
+- `integral_norm_pow_eq_Jk (k b A) : ∫ ‖genFun k A α‖^{2b} ∂torus = (Jk k b A : ℝ)` — **THE
+  KEYSTONE COUNTING IDENTITY** (deliverable 1). `genFun = F(α) = ∑_{n∈A} ∏_j e(α_j·n^j)`;
+  `F^b = F_{A^b}` via `Finset.sum_pow'` + `eR_sum`.
+- `pairEqBox_Ncount_eq_integral (x e ab) : (Ncount(pairEqBox) : ℝ) = ∫ ‖F_{pairEqBox}(α)‖² ∂torus`
+  — **THE PAIREQ INTEGRAL IDENTITY** (deliverable 2); the α-domain entry point for Vaughan's
+  Hölder. Free from `integral_setGen_normSq`.
+- Scaffolding: `norm_setGen_le`, `norm_genFun_le` (`‖F_D‖ ≤ |D|`, `‖F‖ ≤ |A|`), `eR_sum`,
+  `eR_zero`, `continuous_eR`, `integrable_gterm`, `prod_ite_eq_forall`.
+
+★ RESIDUAL (deliverable 3, THE NODE — the self-improving Hölder). Two honestly-separate gaps
+remain between `pairEqBox_Ncount_eq_integral` and `PairEqFracBound`:
+
+  (R1) **The factorization** `F_{pairEqBox}(α) = G(α)·F(α)^{kr-2}` where `G(α) = ∑_{v∈(0,x]}
+  ∏_j e(2α_j·v^j)` is the doubled generating function (the tied pair `m(ea)=m(eb)=v` contributes
+  `e(α_j·2v^j)`; the other `kr-2` coordinates each contribute `F`). REQUIRES `e ab.1 ≠ e ab.2`
+  (i.e. `Function.Injective e` on the off-pair — NOT in `PairEqFracBound`'s signature; if `e` is
+  non-injective the bound is FALSE, since `pairEqBox = solBox` and `Ncount = JkI`). This is a
+  ~100–150-line combinatorial reindexing of `Fin (kr) → ℤ` tuples splitting `univ` into
+  `{ea,eb} ⊎ compl` (the `Fin (kr)`-complement subtype gymnastics is the cost). Then
+  `Ncount(pairEqBox) = ∫ |G|²|F|^{2kr-4}` — matching Vaughan's `∫|f(2α)|²|f(α)|^{2kr-4}` EXACTLY.
+
+  (R2) **The Hölder + G-moment.** `∫|G|²|F|^{2b-4} ≤ (∫|G|^b)^{2/b}·(∫|F|^{2b})^{(b-2)/b}`
+  (`b=kr`, conjugate `p=b/2, q=b/(b-2)`), via `ENNReal.lintegral_mul_le_Lp_mul_Lq`
+  (Bochner→lintegral conversion + rpow/HolderConjugate bookkeeping). `∫|F|^{2b} = J` is the
+  landed keystone.
+
+★★ SHAPE DELTA (LOUD — re-verified honestly, corrects the task's `θ=1/(kr), γ=1` sketch): the
+CRUDE G-moment `∫|G|^b ≤ x^b` (from `‖G‖≤x`, `norm_genFun`-style) gives `(∫|G|^b)^{2/b} ≤ x²`,
+hence the honest crude bound is
+    `Ncount(pairEqBox) ≤ x²·J_k(x,kr)^{1 − 2/(kr)}`  (θ = 2/(kr), γ = 2, Cc = 1).
+This is `θ = 2/(kr)` (the source-OCR value), NOT `1/(kr)`, and carries `x²` — so it does **NOT**
+match `PairEqFracBound k r x e θ Cc`, whose `Cc` is x-FREE. `PairEqFracBound`'s x-free form needs
+the SHARP G-moment `(∫|G|^b)^{2/b} ≤ J^{1/b}` (giving `Ncount ≤ J^{1−1/(kr)}`, Cc=1, θ=1/(kr)),
+which routes through `∫|G|^b = ∫|f(2α)|^b = J_k(x, kr/2)` (**a torus doubling change-of-variables**
+using 1-periodicity of `e(α·n^j)` in each `α_j` — a THIRD measure-theory gap) then a moment
+Cauchy–Schwarz `J_k(x,kr/2) ≤ J_k(x,kr)^{1/2}`. So the fully x-free `PairEqFracBound` discharge =
+R1 + R2 + doubling-CoV + moment-CS: firmly multi-session D-level. RECOMMENDATION for R4/lead:
+either (a) weaken `PairEqFracBound` to carry a `γ`-power `x^γ` (then the crude route closes it via
+R1+R2 alone — the self-improvement in `rpow_self_improve` still collapses because the +x^γ shifts
+`E(k,r)` by a controlled amount that the r≥k regime absorbs, cf. the guide's E(k,r) budget); or
+(b) accept the sharp route as a stated analytic input with the paper pointer. The keystone
+counting identity (now landed) is the prerequisite for BOTH and was the true blocker.

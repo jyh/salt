@@ -6908,3 +6908,20 @@ decisions per question.
   Ceremony: wired + 2 keystones (green). Board: SHIU-W3,
   VMVT-FOURIER, DH-LCM, HB-R2, LITT-F4, seed #3. Tally ~43.4M
   raw, house ~14%.
+
+- 2026-07-18 ~21:45 PT (NIGHT WATCH): ██ **DH-LCM LANDS — the lcm
+  regroup (GrahamWeights residual (1) CLOSED) + the SELBERG
+  DIAGONALIZATION: Σθθ/lcm = Σ_g φ(g)·(innerG g)²** ██ (≈ 203k /
+  44 tools; L1 first-try — mathlib's lambdaSquared IS the lcm
+  pair-sum, no new def needed). Salt/SW/GrahamL2.lean (8
+  theorems): **grahamW_eq_sum_grahamGc** + |gc| ≤ 3^ω +
+  **graham_diagonalisation** (+nonneg — the L² positivity) + the
+  harmonic mean reduction. THE RESIDUAL flagged precisely: the
+  g ≥ 2 coprime-restricted BV decay |innerG z g| ≤ C·h(g)/(g·log
+  z) — the crude route PROVABLY gives log³z (wrong shape); the
+  signed diagonal is mandatory → **DH-COPBV DISPATCHED** (the
+  coprime-Euler variant of the MoebiusLog Abel machinery,
+  parametric in g — the repulsion chain's next link). Ceremony:
+  wired + 3 keystones (green). Board: SHIU-W3, VMVT-FOURIER,
+  HB-R2, LITT-F4, DH-COPBV, seed #3. Tally ~43.8M raw, house
+  ~14%.
