@@ -10,6 +10,9 @@ import Salt.HB.Transfer
 import Salt.HB.PairSieve
 import Salt.HB.PairInstance
 import Salt.HB.PairSieveMixed
+import Salt.HB.TransferFull
+import Salt.HB.StarStep
+import Salt.HB.StarWindow
 import Salt.HB.MixedCount
 import Salt.Tactic.AuditAxioms
 
@@ -26,7 +29,11 @@ in `Salt/SW/`; the Kloosterman/Weil inputs are banked in
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.HB.boundingSum_ge_phi_log_sq
+#audit_axioms Salt.HB.S2_sub_S3_honestWindow
+  Salt.HB.hstar_window
+  Salt.HB.hb_lemma2
+  Salt.HB.S2_sub_S1_le
+  Salt.HB.boundingSum_ge_phi_log_sq
   Salt.HB.pairSieveMixed_lemma8
   Salt.HB.pairSieve_lemma8
   Salt.HB.hb_lemma8

@@ -7236,3 +7236,21 @@ decisions per question.
   + S5 (~150 ln) → **SHIU-W6 DISPATCHED (the true final
   composition)**. Board: HB-L4b, SHIU-W6. Tally ~52.0M raw,
   house ~14%.
+
+- 2026-07-18 ~00:22 PT (NIGHT WATCH): ██ **HB-L4b LANDS — the star
+  residual DISCHARGED on the honest window; the p=2 gap closed
+  by the MINIMAL modulus (excPrimorial — no def change, no
+  oddness hypothesis: the executor's construction BEATS both of
+  the house's suggested fixes)** ██ (≈ 201k / 30 tools;
+  first-attempt). Salt/HB/StarWindow.lean:
+  **S2_sub_S3_honestWindow** (|S²−S³| ≤ C·x^{1+2ε}log²x/z +
+  x^{1/2+2ε}-junk — the paper's x/z grade) + excSq_ge_z_of_window
+  (the support collapse) + the honest-window instances. THE
+  TRANSFER CHAIN S⁽¹⁾→S⁽²⁾→S⁽³⁾ IS NOW PARAMETRICALLY COMPLETE
+  (hb_lemma2 + S2_sub_S3 both discharged-or-slotted; the
+  remaining WP1 sums = the PretenseSum consumer (Lemma 3's
+  object, = WP2's territory) + the τ-AP sums (= ShiuCore, W6 in
+  flight)). Ceremony: the HB reconciliation sweep (TransferFull
+  + StarStep + StarWindow all wired to All.lean + 4 keystones),
+  full build green (9215). Board: SHIU-W6. Tally ~52.4M raw,
+  house ~14%.
