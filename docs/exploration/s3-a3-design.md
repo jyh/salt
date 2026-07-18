@@ -1426,6 +1426,94 @@ Est ~400–500 ln incl. patches. Zeno: stone 1 = re-grade +
 bridge + all patches green; stone 2 = trivial branch; ██ stone
 3 = vmvt — THE VINOGRADOV MEAN VALUE THEOREM ██.
 
+## VMVT-SUMMIT-2 FREEZE (house, post-R5b flag / catch #102):
+## the effective prime supply + the final bridge
+
+R5b's flag: primes_in_Ioc_ge only PROVES y/(8 log y) for y ≥
+y₀ = max(⌈e^{6K}⌉, 1280000), K a bare PNT existential — the
+threshold is k-independent and non-explicit, so no fixed-power
+trivial branch bridges it. LESSON (catch #102, now standing):
+freeze margins must be checked against the LEMMA'S PROVEN
+RANGE, never the inequality's truth. THE REPAIR — two stones:
+
+**Stone A (VMVT-PRIME, class C): the effective interval count.**
+New Salt/Vmvt/PrimeEff.lean. Target shape:
+  `theorem primes_in_Ioc_eff : ∃ y₁ : ℕ, y₁ ≤ 2^24 ∧
+   ∀ y : ℕ, y₁ ≤ y →
+   (y : ℝ) / (8 * Real.log y) ≤
+   (((Finset.Ioc y (2*y)).filter Nat.Prime).card : ℝ)`
+(∃-form deliberately: the executor proves it at WHATEVER
+explicit y₁ the argument honestly yields, ≤ 2^24; smaller is
+fine, do not chase.) Route: the Erdős/Bertrand central-binomial
+argument, whose machinery mathlib ALREADY CARRIES
+(Mathlib.NumberTheory.Bertrand: centralBinom bounds; primorial
+bounds in Mathlib.NumberTheory.Primorial) — RECON FIRST what
+exists (Nat.centralBinom_le_..., Nat.primorial_le_4_pow /
+primorial_lt_..., the Bertrand proof's decomposition of
+C(2y,y) into prime-power factors). The count extraction:
+∏_{y<p≤2y} p divides C(2y,y); each such p ≤ 2y ⟹
+∏ ≤ (2y)^{count}; lower-bound ∏ from C(2y,y) ≥ 4^y/(2y+1)
+divided by the ≤-√(2y)-powers block ((2y)^{√(2y)}) and the
+≤-2y/3 primorial block (4^{2y/3}) ⟹ (2y)^{count} ≥
+4^{y/3}/((2y+1)(2y)^{√(2y)}) ⟹ count ≥ (y·log 4/3 −
+√(2y)·log(2y) − log(2y+1))/log(2y). Then count ≥ y/(8 log y)
+⟸ y(log4)/3 − √(2y)log(2y) − log(2y+1) ≥ y·log(2y)/(8 log y)
+— CARE: log(2y)/log y ≤ 1 + 1/log y ≤ 1.1-grade at y ≥ 2^10,
+so RHS ≤ 0.1375·y·... honest check at y = 2^20: LHS ≈
+0.462·1.05M − 1448·14.6 − 14.6 ≈ 485k − 21.1k ≈ 464k; RHS =
+1.05M·14.6/(8·13.9) ≈ 137.6k ✓ factor 3.4 margin; at y = 2^14:
+LHS ≈ 7568 − 181·10.4 − 10.4 ≈ 5674; RHS = 16384·10.4/(8·9.7)
+≈ 2196 ✓ factor 2.6; at y = 2^12: LHS ≈ 1892 − 90.5·9.0 − 9 ≈
+1069; RHS = 4096·9.0/(8·8.3) ≈ 555 ✓ factor 1.9. y₁ = 2^12 =
+4096 has margin; freeze y₁ target ≤ 2^14 with 2^24 as the
+formal cap. (If mathlib's primorial/centralBinom forms force
+lossier constants, y₁ grows — anything ≤ 2^24 closes stone B.)
+**Stone A2**: `exists_transversal_prime_set'` — re-run the
+landed exists_transversal_prime_set (Step.lean) with the
+effective supply: Y'(k) := max(y₁, 64·(k²·(k−1)+1)², 2) —
+now EXPLICIT with Y'(k) ≤ max(2^24, 64·(k³+1)²) ≤ 2^24·k⁶-crude.
+Do NOT edit the landed one; a new primed decl beside it.
+
+**Stone B: the bridge + THE SUMMIT.** Second authorized
+re-grade (same source justification, C free): vmvtC0 :=
+k^{24·k²}, Xmed := k^{24·max k r}. Bridge arithmetic
+(house-checked): (a) old k^{8k²} ≤ k^{24k²} — the R5b bridge
+composes (patch old_c0_le's consumers by transitivity, or
+re-point the bridge constant — executor's choice, mechanical);
+(b) the trivial branch re-runs verbatim at 24 (the deficit
+chain max·min ≤ rk² is exponent-uniform); (c) THE NEW BRIDGE
+CHECK (the R5b gap, now closing): need Xmed ≥ Y'(k)^k-grade,
+i.e. k^{24·max(k,r)} ≥ (2^24·k⁶)^k = 2^{24k}·k^{6k}:
+k^{24k} = k^{6k}·k^{18k} and k^{18k} ≥ 2^{24k} ⟺ k^{18} ≥
+2^{24} ⟺ 18·log₂k ≥ 24 ⟺ k ≥ 2^{4/3} ≈ 2.52 — **FAILS at
+k = 2!** k=2: Xmed = 2^{48} vs Y'(2)^2 ≤ (2^24·64)² = 2^{60}.
+RESOLUTION for k = 2: Y'(2) = max(y₁, 64·(4·1+1)², 2) =
+max(y₁, 1600) = y₁ (y₁ ≥ 4096) — the k⁶-crude bound is lossy
+at k=2; use Y'(2) = y₁ ≤ 2^{14} (the stone-A target, NOT the
+2^{24} cap): Y'(2)² ≤ 2^{28} vs Xmed = 2^{48} ✓✓. GENERAL
+honest form: Xmed ≥ (max(y₁, 64(k³+1)²))^k with y₁ ≤ 2^{14}:
+(i) y₁-arm: k^{24k} ≥ 2^{14k} ⟺ k^{24} ≥ 2^{14} ✓ k ≥ 2
+(2^{24} ≥ 2^{14}); (ii) polynomial arm: k^{24k} ≥ (256k⁶)^k ⟺
+k^{18} ≥ 256 = 2^8 ✓ k ≥ 2 (2^{18}). BOTH ARMS CLEAR at
+y₁ ≤ 2^{14}. [CORRECTED post-refuter 05:00: the "2^{24} cap is
+dead" conclusion here was WRONG — an artifact of the lossy
+product bound Y' ≤ 2^{24}·k⁶. Under the honest max-form arms,
+the y₁-arm at cap 2^{24} needs k^{24} ≥ 2^{24}, which holds
+for ALL k ≥ 2 (equality at k=2; non-strict suffices — the
+split supplies strict x > Xmed, so y^k ≥ x > Xmed ≥ Y'^k gives
+y > Y' strictly). ⟹ stone A targets y₁ ≤ 2^{14} (margin
+factor 2.6 at the corner; the real inequality holds from
+y ≈ 1200) but ANY y₁ ≤ 2^{24} still closes stone B — do NOT
+stop-and-flag on overshooting 2^{14}.] Then the
+induction assembles exactly as the R5b freeze specified
+(trivial ∨ large by x vs Xmed; the large branch's y ≥ Y'(k)
+from x > Xmed ⟹ y ≥ x^{1/k}-grade ≥ Xmed^{1/k} =
+k^{24·max/k} ≥ both arms per the same two-arm check). Target:
+`theorem vmvt (k r x : ℕ) (hk : 2 ≤ k) (hr : 1 ≤ r)
+(hx : 1 ≤ x) : VmvtBound k r x` ██ THE SUMMIT ██.
+Est: A ~350 ln, A2 ~80, B ~250 (mostly re-runs). Zeno: A → A2
+→ B-regrade → ██ vmvt ██.
+
 ## LITT-COVER FREEZE (house, 04:10 gate honored): the per-k
 ## window discharge of the block sandwich
 

@@ -7637,3 +7637,24 @@ decisions per question.
   The Littlewood chain is now: COVER ✓ → STRIP (unblocked,
   needs its freeze) → LANDAU (the crux design block). Board:
   T-BAL workflow + VMVT-SUMMIT-2 (+ refuters).
+
+- 2026-07-18 05:00 PT: **SUMMIT-2 refuter pass returns — 0/3
+  refuted; one freeze claim corrected IN THE EXECUTOR'S FAVOR**
+  (catch **#107**, the inverse of #98: an over-TIGHT freeze
+  constraint that would have caused a FALSE STOP). My "the
+  2^{24} cap is dead" was an artifact of the lossy product
+  bound Y' ≤ 2^{24}·k⁶ — under the honest max-form arms ANY
+  y₁ ≤ 2^{24} closes stone B (k^{24} ≥ 2^{24} at equality
+  k=2; strictness from x > Xmed). All Erdős margins reproduced
+  to 3 s.f. (worst point IS y=2^{12}, ratio 1.93, monotone —
+  zero dips on a 61441-point sweep; the true inequality holds
+  from y ≈ 1200); the deficit/bridge/hreg sweeps all clean
+  (hreg NOT covered by the two-arm check — discharged from
+  x > Xmed directly, noted to the executor). Mathlib gifts
+  grounded: the three UNCONDITIONAL valuation lemmas
+  (Choose/Factorization.lean:196/201/236), the stronger
+  four_pow_lt_mul_centralBinom, the primorial_le_four_pow
+  deprecation trap. Freeze amended in place; executor
+  redirected mid-run. The refuter-pass rule is now 2-for-2 on
+  real catches (#98 stale-target, #107 false-stop). Board:
+  T-BAL workflow + VMVT-SUMMIT-2.
