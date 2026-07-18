@@ -1154,3 +1154,17 @@ sum_tau_in_ap_le : ShiuCore. Fable pre-flight items honored: S2's
 definitional API frozen per the recon's spec; S3b's exponent
 arithmetic gets adversarial review at its dispatch. W1 DISPATCHED
 (3 grouped executors).
+
+## VMVT-R2 DESIGN NOTE (house, day 2): the Hölder gap is an
+## IMPORT — mathlib's Finset.inner_le_Lp_mul_Lq (MeanInequalities)
+## is general finite-sum Hölder; on N4's rcount signature frame it
+## IS Hölder-on-counts. R2's remaining structure: (a) the P(m) =
+## ∏_{i<j}(m_i − m_j) pigeonhole (|P| ≤ x^{k(k−1)/2-grade} bounds
+## its prime divisors > y by ½k²(k−1)-grade < the CHEB-supplied
+## ½k(k²−1) primes ⟹ some selected p has the coordinates
+## k-distinct mod p — catch #66's corrected count is exactly what
+## makes this close); (b) the truly-degenerate (few distinct
+## INTEGER values) count bounded via the choose-and-assign crude
+## form where sufficient, else the Hölder re-symmetrization per
+## the source's S₁/S₂ split. VMVT-R2 dispatched with the source +
+## this note; STOP-AND-FLAG discipline on the S₂ regime.
