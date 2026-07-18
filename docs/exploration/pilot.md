@@ -8256,3 +8256,15 @@ decisions per question.
   with his nephew — night-protocol autonomy, pushes for named
   theorems/blockers only, evening summary owed. Board: VK-5 +
   S₀-W3a + W3b-2.
+
+- 2026-07-18 11:50 PT (on branch tbal-s0-w3a): **process catch
+  #174** — W3a created + switched the SHARED working tree to a
+  branch for its WIP commit (a creative-but-legal reading of
+  the commit policy; the house ceremony commit rode onto the
+  branch). No harm: the branch diverges from main only in docs
+  + W3a's own DHCore.lean; concurrent builds unaffected. House
+  ruling: tree STAYS on the branch until the SW executors land
+  (no mid-run checkouts), then consolidate to main. NEW
+  STANDING RULE for briefs: executors NEVER git-checkout/
+  branch/commit — the working tree's branch state belongs to
+  the house; deliver via the tree only.
