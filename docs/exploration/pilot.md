@@ -6772,3 +6772,22 @@ decisions per question.
   (ζ growth on the σ_k lines — the checkpoint's next rung).
   Board: SHIU-W2, MOEB-LOG, HB-L8b, VMVT-HOLDER, LITT-F3, badge
   run. Tally ~40.4M raw, house ~14%.
+
+- 2026-07-18 ~21:05 PT (NIGHT WATCH): ██ **HB-L8b LANDS — hb_lemma8
+  IS A WORKING THEOREM: S(d₁,d₂;z) ≤ 64·(x/(d₁d₂))/(log z)² +
+  2z⁸; HEATH-BROWN'S LEMMA 8 IS DONE** ██ (≈ 203k / 47 tools;
+  first-attempt on the CRT/counting core). Salt/HB/
+  PairInstance.lean (437 lines): the concrete Selberg instance
+  (TwinSieve.nu REUSED — the Brun track's density serving HB;
+  primorial z; the CRT residue count ρ(d) via card_bij to the
+  landed Rnat) + totalMass + |rem| ≤ 2ρ(d) + the assembly.
+  INTERFACE CLEANER than spec: z-roughness FORCES oddness —
+  fewer hypotheses. Catch (binder coercion): (d : ℝ) in a filter
+  lambda parses as type ascription → filters Finset ℝ; annotate
+  the binder. **WP1's Lemma 2 (the S⁰→S³ transfer) NOW
+  DISPATCHABLE → HB-L2 DISPATCHED** (the campaign's WP1 pole:
+  the exceptional-set decomposition + the hb_lemma8-powered
+  error bounds + the assembled transfer). Ceremony: pre-wired
+  (accepted), full build green (9193). Board: SHIU-W2, MOEB-LOG,
+  VMVT-HOLDER, LITT-F3, HB-L2, badge run. Tally ~40.6M raw,
+  house ~14%.
