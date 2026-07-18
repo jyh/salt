@@ -7254,3 +7254,20 @@ decisions per question.
   + StarStep + StarWindow all wired to All.lean + 4 keystones),
   full build green (9215). Board: SHIU-W6. Tally ~52.4M raw,
   house ~14%.
+
+- 2026-07-18 ~01:04 PT (NIGHT WATCH): ██ **HL-3b LANDS — π₂(N) ≤
+  90·N/(log N)²: THE 25700 BEATEN BY 285×** ██ (≈ 315k / 57
+  tools; the loss-budget audit found 25600 = 64 × 400 — the tiny
+  level z = N^{1/10} (forced by the crude d³ error bound) × the
+  degraded harmonic square). Salt/HardyLittlewood/Sharp.lean
+  (794 lines): **twinCounting_upper_sharp** (C = 90, threshold
+  2^240) via **sum_six_pow_omega_le** (the divisor-power mean
+  value Σ 6^ω ≤ L(1+log L)⁶ — the linchpin that raised the level
+  to N^{9/10}) + the fresh twinSieveSharp + the un-degraded
+  denominator. HONEST CEILING DOCUMENTED: the harmonic-square
+  method asymptotes to 64 bare (≈ 97Π₂); the single-digit prize
+  (8Π₂) needs the true singular-series density mean value — the
+  named next node (HL-3c, registered; sum_six_pow_omega is its
+  error anchor). CATCH: norm_num refuses exponents > 256
+  (banked). Ceremony: wired + 2 keystones (9219 green). Board:
+  SHIU-W6. Tally ~52.9M raw, house ~14%.

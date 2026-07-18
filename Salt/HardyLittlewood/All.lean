@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.HardyLittlewood.Frame
+import Salt.HardyLittlewood.Sharp
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -19,7 +20,9 @@ Mertens' third theorem (see `docs/exploration/pilot.md`).
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.HardyLittlewood.pi2_pos
+#audit_axioms Salt.HardyLittlewood.twinCounting_upper_sharp
+  Salt.HardyLittlewood.sum_six_pow_omega_le
+  Salt.HardyLittlewood.pi2_pos
   Salt.HardyLittlewood.pi2_lt_one
   Salt.HardyLittlewood.pi2_multipliable
   Salt.HardyLittlewood.twinSingularSeries_pos
