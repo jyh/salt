@@ -6521,3 +6521,25 @@ decisions per question.
   instance; the supplier map routed to main and was house-
   forwarded). Board: VMVT-N4, LITT-F2, MOEB-DIV, SHIU-S1/S2/S3a,
   seed #2 — SEVEN deep. Tally ~36.1M raw, house ~14%.
+
+- 2026-07-17 ~19:17 PT (GOLD WINDOW): ██ **VMVT-N4 LANDS — Lemma
+  24.1 COMPLETE, and THE TORUS FORK IS DEAD: the combinatorial
+  frame suffices** ██ (≈ 182k / 26 tools; first design, zero
+  flags). Salt/Vmvt/Shifted.lean: **Ncount** (the general
+  two-box N(B,C,ℓ) — box-generality FORCED by (c), correctly
+  spotted) + **Ncount_shift_le** (24.1b) + **Ncount_union_le**
+  (24.1c) + **Jk_shift_le** (24.1e) + Ncount_zero_eq_Jk. THE
+  CAMPAIGN FINDING: the source leaves 24.1 as "homework" and
+  proves the shifts analytically — the executor found the
+  signature-convolution identity N = Σ_h r_B(h+ℓ)r_C(h) + the
+  discrete Cauchy–Schwarz carries (b)(c)(e) COMBINATORIALLY. The
+  widest WP-A error bar (torus-Parseval vs counts, VMVT-R0's
+  fork) RESOLVES to counts — no T^k harmonic analysis, ~0.6–1.2M
+  of feared infrastructure DELETED from the campaign. Gotcha
+  gold: the whnf/200k-heartbeat trap on Deg-instance sums (hoist
+  aggregate arithmetic into abstract-index lemmas; never feed
+  instance-bearing sums to omega). **WP-A's toolkit is COMPLETE:
+  J_k + invariances + base case + Linnik + shifts — the p-adic
+  induction (24.5) is the next and LAST WP-A node.** Ceremony:
+  wired + 3 keystones (9181 green). Board: LITT-F2, MOEB-DIV,
+  SHIU-S1/S2/S3a, seed #2. Tally ~36.5M raw, house ~14%.

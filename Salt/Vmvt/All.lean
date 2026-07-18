@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.Vmvt.Defs
 import Salt.Vmvt.BaseCase
 import Salt.Vmvt.Linnik
+import Salt.Vmvt.Shifted
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -23,7 +24,10 @@ Lemma (VMVT-N3).
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.Vmvt.linnik_lemma
+#audit_axioms Salt.Vmvt.Jk_shift_le
+  Salt.Vmvt.Ncount_union_le
+  Salt.Vmvt.Ncount_shift_le
+  Salt.Vmvt.linnik_lemma
   Salt.Vmvt.Jk_le_of_le
   Salt.Vmvt.multiset_map_eq_of_powerSum_eq
   Salt.Vmvt.exists_perm_of_powerSum_eq
