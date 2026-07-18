@@ -425,12 +425,20 @@ lemma deep_perblock {θ ε A p C B F : ℝ} {k j : ℕ} {KF : ℝ → ℝ} {x : 
 `s i x := 2·N i x·M i x` and `GEH_min` is instantiated at that anchor — deleting the
 provably-unsatisfiable global-balance demand.  `hanch` replaces `hwin`
 (own-anchor balance, `s ≤ x`, NO global `x ≤ 4NM`).  `hshiu` is the amendment-1
-shallow interface (see the module docstring): shallow blocks (`s < x/(log x)^F`)
+shallow interface (see the module docstring): shallow blocks (`s < x/(log x)^{F A'}`)
 are routed through it; deep blocks are discharged by `deep_perblock`
-(`GEH_min`-at-anchor + `k`-bump + absorption).  `F ≥ 0` is a parameter; `hKFnn`
+(`GEH_min`-at-anchor + `k`-bump + absorption).
+
+**Catch-#54 replumb (2026-07-18):** the shallow floor is `F : ℝ → ℝ`, a FUNCTION of
+the saving — a fixed `F : ℝ` caps the honest Shiu bound at saving `F − 3` while
+`PieceObligationU` quantifies over all savings `A`, making the fixed-`F` `hshiu`
+unprovable (N-HDOM re-discovery).  Every use of `F` sits inside the `intro A` scope,
+so the combinator reads the floor at `F (A + p)`; the honest instantiation is
+`F A' := A' + 3` (see `Salt.Maynard.hshiu_wire_sharp`).  `hKFnn`
 asks the SW constant be nonnegative (the honest `KF` always is). -/
-theorem pieceObligationU_of_anchored_multiblock {θ ε F : ℝ}
-    (hθ : 0 ≤ θ) (hε : 0 < ε) (hF : 0 ≤ F) (hGEH : GEH_min θ) (w : ℕ → ℕ → ℝ)
+theorem pieceObligationU_of_anchored_multiblock {θ ε : ℝ}
+    (hθ : 0 ≤ θ) (hε : 0 < ε) (F : ℝ → ℝ) (hF : ∀ A' : ℝ, 0 ≤ F A')
+    (hGEH : GEH_min θ) (w : ℕ → ℕ → ℝ)
     (k j : ℕ) (KF : ℝ → ℝ) (hKFnn : ∀ A' : ℝ, 0 ≤ KF A')
     (p D : ℝ) (hp : 0 ≤ p) (_hD : 0 ≤ D)
     (m : ℕ → ℕ) (α β : ℕ → ℕ → ℕ → ℝ) (N M : ℕ → ℕ → ℕ)
@@ -448,7 +456,7 @@ theorem pieceObligationU_of_anchored_multiblock {θ ε F : ℝ}
       seqDiscrepancy (w x) y q
         ≤ ∑ i ∈ Finset.range (m x), seqDiscrepancy (dconv (α i x) (β i x)) y q)
     (hshiu : ∀ A' : ℝ, 0 < A' → ∃ Bsh Csh : ℝ, 0 ≤ Bsh ∧ ∀ x, 3 ≤ x → ∀ i, i < m x →
-      ((2 * N i x * M i x : ℕ) : ℝ) < (x : ℝ) / Real.log x ^ F → ∀ y : ℕ, y ≤ x →
+      ((2 * N i x * M i x : ℕ) : ℝ) < (x : ℝ) / Real.log x ^ F A' → ∀ y : ℕ, y ≤ x →
         (∑ q ∈ Finset.Icc 1 ⌊(x : ℝ) ^ θ / Real.log x ^ Bsh⌋₊,
             seqDiscrepancy (dconv (α i x) (β i x)) y q) ≤ Csh * (x : ℝ) / Real.log x ^ A') :
     PieceObligationU θ w := by
@@ -456,8 +464,8 @@ theorem pieceObligationU_of_anchored_multiblock {θ ε F : ℝ}
   have hApos : 0 < A + p := by linarith
   obtain ⟨B, C, hB0, hbound⟩ := hGEH ε (A + p) hε hApos (k + 1) j KF
   obtain ⟨Bsh, Csh, hBsh0, hshiubd⟩ := hshiu (A + p) hApos
-  obtain ⟨X0, hX0⟩ := exists_log_ge (max (max (16 * F ^ 2) ((2 : ℝ) ^ (k + 1))) 1)
-  set Bout : ℝ := max (B + F * θ + 1) Bsh with hBout
+  obtain ⟨X0, hX0⟩ := exists_log_ge (max (max (16 * F (A + p) ^ 2) ((2 : ℝ) ^ (k + 1))) 1)
+  set Bout : ℝ := max (B + F (A + p) * θ + 1) Bsh with hBout
   have hBout0 : 0 ≤ Bout := le_trans hBsh0 (le_max_right _ _)
   set XC : ℕ := max X0 3 with hXC
   set Cblk : ℝ := max ((2 : ℝ) ^ (A + p) * max C 0) Csh with hCblk
@@ -507,9 +515,10 @@ theorem pieceObligationU_of_anchored_multiblock {θ ε F : ℝ}
   · -- Main regime: x ≥ XC ≥ 3, per-block deep/shallow, block-count absorbed at A+p.
     have hge3 : 3 ≤ x := le_trans (le_max_right X0 3) hxge
     have hX0x : X0 ≤ x := le_trans (le_max_left X0 3) hxge
-    have hlogM : max (max (16 * F ^ 2) ((2 : ℝ) ^ (k + 1))) 1 ≤ Real.log x := hX0 x hX0x
+    have hlogM : max (max (16 * F (A + p) ^ 2) ((2 : ℝ) ^ (k + 1))) 1 ≤ Real.log x :=
+      hX0 x hX0x
     have hlogx1 : 1 ≤ Real.log x := le_trans (le_max_right _ 1) hlogM
-    have hthrA : 16 * F ^ 2 ≤ Real.log x :=
+    have hthrA : 16 * F (A + p) ^ 2 ≤ Real.log x :=
       le_trans (le_trans (le_max_left _ _) (le_max_left _ 1)) hlogM
     have hthrB : (2 : ℝ) ^ (k + 1) ≤ Real.log x :=
       le_trans (le_trans (le_max_right _ _) (le_max_left _ 1)) hlogM
@@ -540,19 +549,21 @@ theorem pieceObligationU_of_anchored_multiblock {θ ε F : ℝ}
       intro i hi
       have hi' : i < m x := Finset.mem_range.mp hi
       obtain ⟨ha1, ha2, ha3, ha4, ha5⟩ := hanch x hge3 i hi'
-      rcases lt_or_ge ((2 * N i x * M i x : ℕ) : ℝ) ((x : ℝ) / Real.log x ^ F) with hshallow | hdeep
+      rcases lt_or_ge ((2 * N i x * M i x : ℕ) : ℝ) ((x : ℝ) / Real.log x ^ F (A + p))
+        with hshallow | hdeep
       · refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg
           (mkSub Bsh (le_max_right _ _)) (fun q _ _ => seqDiscrepancy_nonneg _ _ _))
           ((hshiubd x hge3 i hi' hshallow y hyx).trans ?_)
         exact (div_le_div_iff_of_pos_right hlogA'pos).mpr
           (mul_le_mul_of_nonneg_right (le_max_right _ _) hx0)
-      · have hdp := deep_perblock (y := y) hθ hε hApos hF hB0
+      · have hdp := deep_perblock (y := y) hθ hε hApos (hF (A + p)) hB0
           (fun n => (hα i x n).1) (fun n => (hα i x n).2)
           (fun n => (hβ i x n).1) (fun n => (hβ i x n).2)
           (fun A' hA'' r q hr hq => (hSW i) A' hA'' x r q (by omega) hr hq)
           hKFnn hbound ha1 ha2 ha3 ha4 ha5 hlogx1 hthrA hthrB hdeep
         refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg
-          (mkSub (B + F * θ + 1) (le_max_left _ _)) (fun q _ _ => seqDiscrepancy_nonneg _ _ _))
+          (mkSub (B + F (A + p) * θ + 1) (le_max_left _ _))
+          (fun q _ _ => seqDiscrepancy_nonneg _ _ _))
           (hdp.trans ?_)
         exact (div_le_div_iff_of_pos_right hlogA'pos).mpr
           (mul_le_mul_of_nonneg_right (le_max_left _ _) hx0)

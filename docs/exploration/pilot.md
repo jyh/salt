@@ -7427,3 +7427,28 @@ decisions per question.
   exponent collector vs kernel-verified vmvtExp_succ; stone 2 =
   R5, THE INDUCTION — VmvtBound ∀r, the summit theorem). Board:
   T-BAL workflow + N-HDOM + VMVT-R4. Tally ~54.9M raw.
+
+- 2026-07-18 ~04:15 PT: **N-HDOM lands the wire + house replumb
+  closes catch #54** (≈ 117k / 25 tools + house edit). (1) The
+  wire: Salt/Maynard/GehShiuWire.lean — `hshiu_shallow_of_core`
+  + `hshiu_wire_sharp` (the A'-quantified form at floor A'+3)
+  discharge the GEH door's shallow interface from
+  sum_tau_in_ap_le, first-try green, axioms clean
+  (house-verified). The α/β alignment risk EVAPORATED — the vP3
+  family IS muBlock/tiiBlock at θ = 3999/4000 (ShiuBlocks:20
+  verbatim). (2) The executor RE-DISCOVERED catch #54 live: the
+  combinator's fixed F : ℝ caps the saving at F−3 while
+  PieceObligationU quantifies all A — hshiu unprovable as
+  stated. The memory token was right in substance (the earlier
+  "not in sources" recon finding was about comment text only).
+  (3) HOUSE REPLUMB (Fable-tier edit of landed GehAnchor.lean,
+  ~7 edits): F : ℝ → ℝ read at F (A+p); every F-use sits inside
+  the intro-A scope and Bout/Cblk were already A-dependent, so
+  the re-cut is purely local. Salt.Maynard.All green (8816),
+  combinator axioms clean. **Catch #54 RESOLVED.** Door residual
+  map (recon table in the N-HDOM report): double-dyadic hdecomp
+  (~B/C, dispatchable), tiiBlock CoeffAt/SWAtData (flagged,
+  SmallQTypeII-coupled), hanch + hcount p=2 (elementary), open
+  interfaces GEH_min / hTypeI (N-TYPEI-MID) / WindowPNT. Queued
+  as GEH-DOOR-2 (elementary block first). Board: T-BAL workflow
+  + VMVT-R4.
