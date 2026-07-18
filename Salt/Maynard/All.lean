@@ -88,3 +88,4 @@ import Salt.Maynard.PpFold
 import Salt.Maynard.PpRootGeneral
 import Salt.Maynard.PpSums
 import Salt.Maynard.PpAssembly
+import Salt.Maynard.ShiuDecomp

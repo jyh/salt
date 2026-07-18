@@ -6567,3 +6567,20 @@ decisions per question.
   the division-atom mismatch. Ceremony: pre-wired (accepted),
   full build green (9182). Board: MOEB-DIV, SHIU-S1/S2/S3a,
   LITT-F2b, badge run. Tally ~37.0M raw, house ~14%.
+
+- 2026-07-17 ~19:41 PT (GOLD WINDOW): ██ **SHIU-S2 LANDS COMPLETE —
+  the greedy smooth-prefix decomposition, ALL SEVEN API items
+  first-pass** ██ (≈ 148k / 62 tools). Salt/Maynard/
+  ShiuDecomp.lean (406 lines): the BUDGET-DIVIDING FOLD
+  representation (include chunk iff ≤ budget, recurse with
+  budget/q — making prefix-ness, coprimality, overflow and
+  ordering all structural-induction provable; the design's
+  Finset-cut alternative correctly rejected) + shiuC/shiuD +
+  τ-multiplicativity + THE OVERFLOW PROPERTY + the class
+  trichotomy with cover+disjoint. Sibling-race discipline
+  honored (All.lean left for the house — wired now). HOUSE SLIP
+  CORRECTED: the previous entry claimed LITT-F2b dispatched — it
+  was NOT (ledger error, now true: dispatched with this
+  ceremony). ShiuCore W1: S2 ✓, S1 + S3a in flight. Board:
+  MOEB-DIV, SHIU-S1, SHIU-S3a, LITT-F2b, badge run. Tally
+  ~37.2M raw, house ~14%.
