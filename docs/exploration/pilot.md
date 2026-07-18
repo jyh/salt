@@ -6469,3 +6469,26 @@ decisions per question.
   gaps ≤ 12 road). Board: MERT-5, DH-MAIN, seed #2, VMVT-N4,
   LITT-F2, SHIU-G — SIX deep. House holds: adjudications +
   SMALLQ-4 design + the reports.
+
+- 2026-07-17 ~19:05 PT (GOLD WINDOW): ██ **DH-MAIN LANDS RUNGS 1–2
+  — THE O(1) BARBAN–VEHOV CANCELLATION (PNT-FREE!) + the shifted
+  detector; the sharp form gated on ONE clean node** ██ (≈ 245k /
+  60 tools). Salt/SW/DHMain.lean (7 results):
+  **abs_sum_grahamTheta_div_le_one** (|Σθ_d/d| ≤ 1 — beating the
+  crude 1+log z by the elementary Möbius floor identity route,
+  no PNT) + **abs_mwWeighted_le_one** (|Σ_{d≤n}μ(d)/d| ≤ 1 — NEW
+  to the corpus, from the also-absent classical floor identity
+  Σμ(d)⌊n/d⌋ = 1) + the Abel telescoping seam +
+  **dhDetectorShift(_mellin)** (the ρ-twisted finite Mellin).
+  ██ CATCH #63 (executor-catches-briefing): my brief conflated
+  mmuRate_holds (the UNWEIGHTED |Σμ(n)| rate) with a weighted
+  Σμ(d)/d bound — NO weighted bound existed anywhere in Salt/;
+  the executor built the O(1) from scratch and PROVED the sharp
+  C/log z needs genuine tail cancellation (Σμ/d = 0,
+  PNT-strength — forward Abel provably tops at O(1)) ██.
+  RESIDUALS precisely named: **MOEB-DIV** (tsum μ(d)/d = 0 from
+  mmuRate_holds + Abel — DISPATCHED) → sharp BV → the shifted
+  truncation balance (rung 3, mirrors DHClose) → dh_repulsion.
+  Ceremony: audit lines (green). Board: MERT-5, VMVT-N4,
+  LITT-F2, SHIU-G, MOEB-DIV, seed #2. Tally ~35.2M raw, house
+  ~14%.
