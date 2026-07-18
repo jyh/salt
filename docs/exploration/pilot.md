@@ -8242,3 +8242,17 @@ decisions per question.
   fired. **VK-5 DISPATCHED on the region chain** (R5b → R6 →
   R8 → R9 → the region; the Littlewood assembly named as its
   Zeno sibling). Board: VK-5 + S₀-W3a + W3b-2. Tally ~66M raw.
+
+- 2026-07-18 11:45 PT: JYH — **"yes let's preauthorize that
+  plan, let's go for it."** THE MR GATE IS PRE-AUTHORIZED: if
+  the power region lands, the MR design workflow launches
+  house-side (the standing pattern: maps → designers →
+  refuters → synthesis w/ dispatch_ready), the freeze banks to
+  the ledger, and executors dispatch on a refuter-survived
+  freeze WITHOUT waiting — JYH's evening review is the audit,
+  not the gate. (The MR campaign itself was ratified at the
+  "we go for full VMVT" decision; this pre-authorizes the
+  execution cadence.) JYH: ~1h working, then the afternoon
+  with his nephew — night-protocol autonomy, pushes for named
+  theorems/blockers only, evening summary owed. Board: VK-5 +
+  S₀-W3a + W3b-2.
