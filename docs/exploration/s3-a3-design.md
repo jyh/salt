@@ -1093,3 +1093,40 @@ nothing between) that means VINOGRADOV MACHINERY, full stop;
 clean GO/NO-GO with no cheap third option; (3) the Littlewood
 checkpoint's value is unchanged (historic first + infrastructure)
 but it is NOT a route to MR. Register updated.
+
+## VMVT-R0 ADJUDICATED (2026-07-17): GO — STAGED AND GATED;
+## catch #58 (the fixed-k hope is provably dead)
+
+**CATCH #58 (recon-kills-house-hypothesis):** the fixed-small-k
+simplification does NOT exist — GROUNDED via the dyadic
+optimization in the growth step (Vaughan PSU Ch. 24, Cor. 24.16):
+the optimal depth r* ∝ (1−σ)^{−1/2}, degree k = 100r* → ∞; a
+fixed k truncates the maximization and degrades the growth
+exponent to α = 1 = Littlewood only. The VK-R0 quantization gap
+(3/4, 1) IS this phenomenon — there is no "a little Vinogradov."
+Consolation: crude Linnik–Karatsuba η suffices (η(k,r) =
+½k²(1−1/k)^r, NOT Wooley/BDG), and θ = 2/3 costs the same as any
+worse θ — target it directly.
+
+**The campaign structure (accepted):** WP-A (the VMVT core:
+J_k + Newton base case + LINNIK'S LEMMA + the k-uniform p-adic
+induction; 2.5–4.5M, the pole; the torus-Parseval vs
+combinatorial-count FORK is the widest error bar — Fable design
+call at the fork point) / WP-B (the k-dim Weyl chain, 2–4M,
+joins onto the Littlewood A-process) / WP-C (growth→region
+re-parametrization of the SW seam, 1.3–2.3M, shares the
+Littlewood back-half). Total 6.3–11.8M, central ~8.5M —
+CONFIRMS the prior. Reclassification that matters: LARGE-C
+PORTING, not D-open (the math is 70-years-settled; Vaughan's
+Ch. 24 is the porting target, decoded in the scratchpad:
+psu_dedup.txt + ford_zeros.txt).
+
+**THE GATE (accepted; executes JYH's "full VMVT" ratification as
+staged spend):** the first ~2M buys (a) the Littlewood checkpoint
+close-out (the shared spine is real: the A-process feeds WP-B,
+the back-half seam feeds WP-C) + (b) the VMVT-FOUNDATION PROBE =
+VMVT-N1 (J_k + Lemma 24.1, DISPATCHED) → N2 (the k!·x^k base
+case via mathlib Newton/Vieta) → **N3 = LINNIK'S LEMMA (the gate
+node: its outcome converts 6–13M into a tight ~6–9M commit or an
+early honest re-scope)**. WP-A runs parallel to Littlewood (no
+contention — different machinery).

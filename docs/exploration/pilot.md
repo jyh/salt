@@ -6218,3 +6218,18 @@ decisions per question.
   ZeroCountNearOne — every supplier LANDED). Ceremony: wired + 2
   keystones (9167 jobs green). Board: MERT-3b, PP3-ASSEMBLY,
   DH-2b-ii, VMVT-R0, seed #2. Tally ~31.8M raw, house ~14%.
+
+- 2026-07-17 ~17:11 PT (GOLD WINDOW): ██ **VMVT-R0 ADJUDICATED —
+  GO, STAGED, GATED ON LINNIK'S LEMMA; catch #58: the fixed-k
+  hope PROVABLY DEAD** ██ (≈ 119k / 22 tools; Vaughan's full
+  elementary chain + Ford's region paper fetched and decoded —
+  the porting targets staged in the scratchpad). The verdict:
+  large-C porting (NOT D-open), 6.3–11.8M central 8.5M, the
+  crude Linnik–Karatsuba η suffices, θ = 2/3 free once any power
+  lands. Corpus transfer ~35–45% (the fresh ExpSum A-process +
+  PpRoot* root-counting + mathlib's Newton identities all
+  load-bearing — the corpus has been preparing for this without
+  knowing). **VMVT-N1 DISPATCHED** (J_k as a Finset card +
+  Lemma 24.1's dilation invariance — the campaign's first stone).
+  Board: MERT-3b, PP3-ASSEMBLY, DH-2b-ii, VMVT-N1, seed #2.
+  Tally ~31.9M raw, house ~14%.
