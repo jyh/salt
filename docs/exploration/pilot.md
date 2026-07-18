@@ -6279,3 +6279,21 @@ decisions per question.
   Ceremony: wired + 2 keystones (9169 green). Board: MERT-FIN,
   PP3-ASSEMBLY, VMVT-N1, DH-2b-iii, seed #2. Tally ~32.4M raw,
   house ~14%.
+
+- 2026-07-17 ~17:34 PT (GOLD WINDOW): ██ **VMVT-N1 LANDS — J_k
+  EXISTS: the NINTH track opens, the summit campaign's first
+  stone** ██ (≈ 149k / 49 tools; no cluster near the stop).
+  Salt/Vmvt/Defs.lean (258 lines): **Jk/solSet/PowerSumEq** (the
+  Vinogradov counting object, ℤ-valued, piFinset representation
+  — the load-bearing choice, documented) + **Jk_image_affine**
+  (J_k(qA+r) = J_k(A) — the symmetry the p-adic induction rides)
+  + translation/dilation halves + the diagonal floor. Residuals
+  honest: 24.1(c) union bound (a real C-design piece) + the
+  ℓ-shifted counts — next node's work. Five gotchas banked
+  (piFinset decidability factoring; the beta-redex rw trap;
+  noncomputable JkI via Int order). Ceremony: NEW TRACK wired to
+  ROOT + 5 keystones (9171 green). **VMVT-N2 DISPATCHED** (the
+  k!·x^k base case via mathlib Newton/Vieta — the identification
+  that equal power sums force a permutation). Board: MERT-FIN,
+  PP3-ASSEMBLY, DH-2b-iii, VMVT-N2, seed #2. Tally ~32.6M raw,
+  house ~14%.
