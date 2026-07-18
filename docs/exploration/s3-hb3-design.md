@@ -1161,3 +1161,20 @@ frame are LANDED (rectBI_zeta_shift_mul et al.); the missing
 mathematics is the BV cancellation + the shifted-frame assembly
 at the finite level. Priced ~0.3–0.5M, ONE node. The WP2 pole is
 no longer a pole — it is a single well-specified brick.
+
+### HB-L4 adjudicated (night watch) + THE HOUSE RESOLUTION of its
+### direction flag (catch #80-resolution)
+
+The executor's finding is correct as far as it goes: the landed
+Admissible (matching HB's ∑* verbatim — small χ=−1 primes) makes
+the raw Λ̃-vs-Λ* exceptional set include small χ=+1 squares, an
+O(x) residual — and it flagged a Λ* def change. THE HOUSE
+RESOLUTION: NO def change is needed. HB's S⁽²⁾/S⁽³⁾ sums run
+over the support (l, qP) = 1 with P = ∏_{2<p<z, χ(p)=1} p — the
+P-coprimality KILLS every n with a small χ=+1 prime factor, so
+on the honest window the exceptional set collapses to p ≥ z
+exactly as the paper says. The landed coprimeSupport_window
+(Transfer.lean) already carries the bridge; the S3-step's hres
+consumes the window's P-part. The flagged def change is
+CANCELLED; HB-L4b discharges hstar on the honest window (the
+p ≥ z fibration + the landed sq counts).

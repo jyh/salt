@@ -7210,3 +7210,16 @@ decisions per question.
   slot (the S⁽²⁾→S⁽³⁾ step — the star-condition transition, the
   transfer chain's next lemma; the Λ* machinery landed since
   HB-1). Board: SHIU-W5, HB-L4. Tally ~51.2M raw, house ~14%.
+
+- 2026-07-18 ~23:57 PT (NIGHT WATCH): ██ **HB-L4 LANDS the star
+  step (S⁽²⁾→S⁽³⁾) — the characterization, the master
+  inequality, the p-sum machinery, the composed S¹→S³** ██ (≈
+  185k / 47 tools; first-attempt mathematics). Salt/HB/
+  StarStep.lean: LamTilde_eq_LamStar_of_no_exc_sq +
+  S2_sub_S3_le/bound + sq_dvd_count_le + sq_recip_tail_le (≤
+  2/z). The executor's direction flag (small +1 squares = O(x))
+  RESOLVED BY THE HOUSE: the P-coprimality of HB's actual window
+  kills those n — no Λ* def change needed (the design-doc note;
+  catch #80 resolved at adjudication). **HB-L4b DISPATCHED**
+  (discharge hstar on the honest window: the p ≥ z fibration).
+  Board: SHIU-W5, HB-L4b. Tally ~51.6M raw, house ~14%.
