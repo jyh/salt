@@ -6603,3 +6603,23 @@ decisions per question.
   usable; banked). W1: S2 ✓ S3a ✓, S1 in flight. Ceremony:
   wired, Maynard green (8596). Board: MOEB-DIV, SHIU-S1,
   LITT-F2b, badge run. Tally ~37.4M raw, house ~14%.
+
+- 2026-07-18 ~19:56 PT (GOLD WINDOW, day 2): ██ **MOEB-DIV LANDS —
+  Σμ(d)/d = 0 IS A THEOREM (1/ζ(1) = 0)** ██ (≈ 342k / 67 tools;
+  first-pass architecture; the executor ran INTERNAL FORK AGENTS
+  for the three hard sub-lemmas — a first). Salt/SW/
+  MoebiusDiv.lean (483 lines): **mwWeighted_tendsto_zero** (the
+  DH-consumable form) via the Abelian chain: mathlib's
+  tendsto_sum_mul_atTop for existence, LSeries_eq_mul_integral
+  for the (★) identity 1/ζ(1+ε) = ε∫Mw⌊t⌋t^{−1−ε}, the ζ-residue
+  for → 0, uniqueness for L = 0. ██ CATCH #65 (executor-corrects-
+  briefing): my "Mw → 0 falls out of the rate directly" was
+  FALSE — the integral tends to L, not 0; the identification IS
+  the node ██. Gotchas: the SumCoeff Abelian lemma is the wrong
+  shape (LSeries_eq_mul_integral is right); no PNT/Mertens-o(x)/
+  log²-integrability in mathlib (all built). RESIDUAL → 
+  **MOEB-RATE dispatched** (the quantitative |Mw| ≤ C/log y —
+  now cheap with L = 0 in hand; feeds the SHARP BV → the
+  dh_repulsion chain). Ceremony: wired + keystone (9183 green).
+  Board: SHIU-S1, LITT-F2b, VMVT-N5, MOEB-RATE, badge run.
+  Tally ~37.9M raw, house ~14%.
