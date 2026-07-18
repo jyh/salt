@@ -6828,3 +6828,27 @@ decisions per question.
   the landed W1+W2 stones). Ceremony: wired, Maynard green
   (8598). Board: VMVT-HOLDER, LITT-F3, HB-L2, DH-FINAL, SHIU-W3,
   badge run. Tally ~41.6M raw, house ~14%.
+
+- 2026-07-18 ~21:14 PT (NIGHT WATCH): ██ **VMVT-HOLDER ADJUDICATES
+  THE GAP — the fractional S₂ bound is an α-DOMAIN fact (the
+  Fourier-free frame PROVABLY cannot supply it); the machinery
+  around it fully mechanized** ██ (≈ 168k / 34 tools; the grind
+  cut after 3 verified conceptual dead-ends — the stop-and-flag
+  working as designed). Salt/Vmvt/Holder.lean:
+  **rpow_self_improve** (the x-free-constant engine) +
+  **PairEqFracBound** (the named analytic hypothesis) +
+  **pairEqDominant_JkI_le_const** (the R4 plug-in: the whole
+  S₂-dominant case = a one-liner once the bound is discharged) +
+  the sharp negative **crude_exp_ge_vmvtExp** (the CS ½-power
+  fallback CANNOT close at ANY η′ — 2kr−2 is the wrong side of
+  E(k,r) at every parameter). ██ CATCH #71: the source's
+  exponent 1−2/kr is OCR-drift — the honest generalized-Hölder
+  exponent is 1−1/(kr) (matches the resume map); θ kept abstract
+  so either slots in ██. THE SCOPED RE-OPENING: the torus fork
+  returns for ONE inequality only — **VMVT-FOURIER DISPATCHED**
+  (the minimal module: the 1-D orthogonality → the k-D counting
+  identity ∫|F|^{2b} = J_k → the single Hölder → PairEqFracBound
+  discharged; far below the ~1M full-fork price). Ceremony:
+  pre-wired (accepted), full build green (9196). Board: LITT-F3,
+  HB-L2, DH-FINAL, SHIU-W3, VMVT-FOURIER, badge run. Tally
+  ~42.0M raw, house ~14%.

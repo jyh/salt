@@ -10,6 +10,7 @@ import Salt.Vmvt.Shifted
 import Salt.Vmvt.MeanValue
 import Salt.Vmvt.PrimeCount
 import Salt.Vmvt.Transversal
+import Salt.Vmvt.Holder
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -33,6 +34,9 @@ open Salt.Tactic in
   Salt.Vmvt.JkI_le_two_mul_split
   Salt.Vmvt.distinctBox_le_card_mul_sum
   Salt.Vmvt.degenBox_Ncount_le
+  Salt.Vmvt.rpow_self_improve
+  Salt.Vmvt.pairEqDominant_JkI_le_const
+  Salt.Vmvt.crude_exp_ge_vmvtExp
   Salt.Vmvt.vmvt_base
   Salt.Vmvt.vmvtExp_succ
   Salt.Vmvt.Jk_shift_le

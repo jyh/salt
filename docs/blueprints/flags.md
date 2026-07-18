@@ -7879,3 +7879,70 @@ combinatorially, and the fractional-power arithmetic against `E(k,r)`) — recom
 its own node (R2-3-Hölder, C) or fold into R4's S₂-dominant branch. It is the SAME
 gap the MeanValue resume map flagged: "the S₂ ≥ S₁ sub-case needs a genuine
 Hölder-on-counts (self-improving J ≤ 4k⁴ J^{1−1/(kr)}) that is NOT in the toolkit."
+
+## 2026-07-17 VMVT-HOLDER Opus — R2-3 Hölder gap ADJUDICATED: the fractional bound is an ANALYTIC input, not a combinatorial toolkit lemma (self-improvement engine + consumer plug-in LANDED)
+
+Node VMVT R2-3-Hölder (the S₂-regime engine). New file `Salt/Vmvt/Holder.lean`
+(namespace `Salt.Vmvt`), sorry-free, all deliverables `[3 axioms]`, wired into
+`Salt/Vmvt/All.lean` (import + audit list). NOT committed (main; commit policy).
+
+**VERDICT: the strictly-sublinear fractional bound `S₂ ≤ k⁴·J_k^{1−1/(kr)}` has NO
+proof in the combinatorial `rcount` frame; it is a genuine ANALYTIC input.** The
+gain lives in the α-domain (the exponential sum `f`, via Hölder on
+`∫|f(2α)|²|f(α)|^{2kr−4}`), Fourier-dual to the h-domain (signatures) the frame
+inhabits. `Shifted.lean` was *deliberately* built Fourier-free ("no Parseval/
+generating-function machinery") — so it structurally cannot mirror the α-domain
+Hölder. R4 must carry the bound as a named hypothesis (landed: `PairEqFracBound`),
+OR the whole `Vmvt` frame must be extended with torus integration + Parseval.
+
+★ CATCH (exponent correction): the source OCR reads `1 − 2/kr`, but the honest
+generalized-Hölder exponent — and the campaign's OWN resume map (`MeanValue.lean`
+lines 122–123) — is **`1 − 1/(kr)`**. Derivation: `Σ_h r_D(h)²` is the
+`(2kr−2)`-degree mixed moment `∫|f(2α)|²|f(α)|^{2kr−4}`; generalized Hölder (θ₁ =
+1/(kr) on the doubled slot, θ₂ = (kr−2)/(kr) on the rest, deficit 1/(kr) filled by
+the unit measure) gives `≤ J^{(kr−1)/kr} = J^{1−1/(kr)}`. The sharper `p=kr/2,
+q=kr/(kr−2)` conjugate split routes through `(∫|f(2α)|^{kr})^{2/kr} ≤ J^{1/kr}`
+(Cauchy–Schwarz on the counts) and lands at the SAME `1−1/(kr)`. Both `1/kr` and
+`2/kr` self-improve to x-free constants — `Holder.lean` keeps θ abstract so either
+slots in. The landed `pairEqDominant_JkI_le_const` is parametric in θ.
+
+★ CATCH (why the CS/crude fallback provably CANNOT close R4 — the re-derived η′):
+the two crude TRUE bounds `S₂ ≤ J_k` (linear, `pairEq_Ncount_le_JkI`) and
+`S₂ ≤ |D|²` (`Ncount_le_card_sq`) combine to the Cauchy–Schwarz ½-power form
+`S₂² ≤ J_k·|D|²` (`pairEq_Ncount_sq_le`). This IS sublinear in `J_k`, but `|D| ~
+x^{kr−1}` makes its effective x-exponent under self-improvement `2(kr−1) = 2kr−2`,
+and `crude_exp_ge_vmvtExp` proves `E(k,r) ≤ 2kr−2` for ALL `k ≥ 2, r ≥ 1` (indeed
+`2kr−2 − E = ½k(k+1) − η − 2 ≥ k − 2 ≥ 0`, using `vmvtEta_le : η ≤ ½k(k−1)`). So
+the CS route sits on the WRONG side of the target exponent at every parameter —
+no η′ rescues it. The full sublinear-in-J fractional form is genuinely required.
+
+★ WHY every combinatorial route is dead (3 verified dead-ends, all in the h-domain):
+(1) pointwise `r_D ≤ r_A` (D ⊆ A^{kr}) feeds any Hölder split back into `Σ r_D²` on
+the right → self-referential, recovers only the linear `S₂ ≤ J`; (2) geometric
+interpolation of the two crude bounds → `J^{1−1/kr}·x^{+2−2/kr}` (POSITIVE x-power,
+breaks self-improvement — gives `x^{2kr−2}`); (3) Cauchy–Schwarz on the collapsed-
+variable sum `Σ_{u,v} N_B(2σv−2σu)` with `N_B(ℓ) ≤ N_B(0)` (the landed
+`Ncount_shift_le`) → linear in `J_k(x,kr−2)`, circular. The sparsity gain is
+carried by the shift decay `N_B(ℓ) ≪ N_B(0)` for large ℓ, which only the analytic
+moment nesting captures.
+
+**LANDED (sorry-free, [3 axioms], the provable core of Vaughan's S₂ ≥ S₁ case):**
+- `rpow_self_improve` — the engine: `J ≥ 0, 4K ≥ 1, 0 < θ, J ≤ 4K·J^{1−θ} ⟹
+  J ≤ (4K)^{1/θ}` (pure `Real.rpow`). This is *why* the fractional power is
+  "self-improving": it collapses `J_k` to an x-free constant.
+- `PairEqFracBound k r x e θ Cc` — the per-pair fractional bound as a named Prop
+  hypothesis for R4 to carry (the consumer-shaped analytic input).
+- `degen_Ncount_le_frac` — lifts `PairEqFracBound` through the landed
+  `degenBox_Ncount_le` to `S₂ ≤ (#offPairs)²·Cc·J_k^{1−θ}`.
+- `pairEqDominant_JkI_le_const` — THE R4 PLUG-IN: `PairEqFracBound` + the
+  S₂-dominant `J ≤ 4·Ncount(D₂)` ⟹ `J_k ≤ (4·(#offPairs)²·Cc)^{1/θ}`, an x-free
+  constant. The entire `S₂ ≥ S₁` case mechanized modulo the analytic input.
+- True weaker forms: `pairEq_Ncount_le_JkI` (linear), `Ncount_le_card_sq` (crude),
+  `pairEq_Ncount_sq_le` (CS ½-power), `vmvtEta_le`, `crude_exp_ge_vmvtExp`.
+
+**RECOMMENDATION for R4 / the lead**: R4's S₂-dominant branch is now a one-liner —
+`exact pairEqDominant_JkI_le_const …` — once `PairEqFracBound` is discharged. To
+discharge it there are exactly two honest routes: (a) build torus integration +
+Parseval in a new `Vmvt/Fourier` module and port the α-domain Hölder (large, C/D);
+(b) accept `PairEqFracBound` as a stated analytic axiom-lemma with a paper-proof
+pointer (the source's p.24 Hölder step). The combinatorial frame will NOT yield it.
