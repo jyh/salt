@@ -9397,27 +9397,45 @@ from `Salt.lean`. Opening wave = R1, R2, R3-core, R4-orbit.
   (the Slack `‖genFun α − genFun β‖ ≤ 2π·P·∑_j δ_j P^j`).
 - **R4-orbit `VK-POINTWISE`** (`Salt/Vk/Pointwise.lean`): `vkOrbit`, `poly_shift_orbit`
   (`∑_j c_j (m+y)^j = ∑_i β_i(y) m^i`, `β_i(y)=∑_{j≥i}C(j,i)c_j y^{j−i}` — the binomial orbit).
+- **R3-measure `VK-BOX-AVG` (COMPLETE, 2026-07-18 VK-2)** (`Salt/Vk/BoxMeasure.lean`): the
+  disjoint-box → `Jk` measure fold, FULLY LANDED (both the abstract fold and the from-centers
+  construction — the mod-1 blowup the freeze anticipated is DEFEATED). `vk_box_disjoint_avg`
+  (abstract fold: `Y` pairwise-disjoint measurable boxes of mass `≥ ∏δ` ⟹
+  `∑_y‖genFun(c_y)‖^{2b} ≤ 2^{2b−1}[(∏δ)⁻¹·Jk + Y·S^{2b}]`, via `integral_iUnion_fintype` +
+  `setIntegral_le_integral` + `setIntegral_ge_of_const_le_real` + `add_pow_le` +
+  `integral_norm_pow_eq_Jk`); `vk_box_disjoint_avg_of_centers` (from-centers: `vkBox` clipped
+  boxes, KEY INSIGHT = the inner half survives clipping so mass `≥ ∏δ` with NO torus
+  translation invariance needed; disjointness from `j*`-separation ALONE via `vkBox_disjoint`;
+  measure via `vkBox_measureReal_ge`/`unitMeasure_Ioc_toReal`/`Measure.pi_pi`); `clip_width_ge`,
+  `vkBox_measurable`. Plus `genFun_add_int`/`eR_intCast` (`genFun` 1-periodicity, the mod-1
+  reduction tool).
+- **R4-machinery `VK-POINTWISE` (analytic reduction, 2026-07-18 VK-2)** (`Salt/Vk/Block.lean`):
+  the COMPLETE block-sum → orbit-`genFun`-moments reduction, 7 stones. `norm_vk_shift_sum` (THE
+  orbit → `genFun` norm bridge — the pointwise-from-mean-value crux: the shifted polynomial-phase
+  block sum has the same norm as `genFun` at the orbit point); `vk_shift_genFun_phase`/
+  `vkOrbitPoint` (the constant-term split off `poly_shift_orbit`); `vk_shift_to_orbit`
+  (`Y·‖S‖ ≤ ∑_y‖genFun(orbit y)‖ + 2Y²`, via `sum_Ioc_shift_boundary` + bridge +
+  `vk_shift_average`); `vk_pow_sum_le` (power-mean, Chebyshev `pow_sum_le_card_mul_sum_pow`);
+  `vk_shift_average`; `vk_block_taylor_reduce` (front end: ζ-phase block sum ↦ polynomial Weyl
+  sum + R1 Taylor cost, via `phi_taylor_block_PY`+`block_reduction`+reindex); `genFun_fract`/
+  `fract_mem_Icc` (mod-1 center reduction feeding R3). Chain
+  `vk_block_taylor_reduce → vk_shift_to_orbit → vk_pow_sum_le → vk_box_disjoint_avg_of_centers →
+  vmvt` = the whole measure/analytic machinery of the bridge.
 
-**RESIDUALS (named, in dependency order — the recorded stall points):**
-- **`VMVT-VK/R3-measure` [C, the heaviest]** — the disjoint-box → `Jk` measure fold of
-  `vk_box_disjoint_avg`: `Y` coordinate boxes of half-widths `δ`, centers `α^{(y)}` with
-  `j*`-coords pairwise `2δ_{j*}`-separated mod 1 inside a length-1/4 window, disjoint in
-  `torusMeasure`; then `∑_y ∫_{B_y}‖genFun‖^{2b} ≤ ∫_{torus}‖genFun‖^{2b} = Jk`
-  (`integral_norm_pow_eq_Jk` RIGHT-to-LEFT), combined with the landed `genFun_box_variation`
-  Slack and `(a+c)^{2b} ≤ 2^{2b−1}(a^{2b}+c^{2b})`, yields
-  `(1/Y)∑_y‖genFun(α^{(y)})‖^{2b} ≤ 2^{2b−1}[(∏_jδ_j⁻¹)/Y·Jk + Slack^{2b}]`. The genuine work
-  is the mod-1 box construction as literal subsets of `[0,1]^{Deg k}` (the length-1/4 window
-  prevents wrapping), `torusMeasure(B_y)=∏δ_j` (via `Measure.pi_pi`), and disjoint-union
-  integral monotonicity (`MeasureTheory.integral_finset_biUnion` for disjoint + nonneg
-  integrand ⊆ univ). All of `genFun`'s per-coordinate 1-periodicity (`eR(integer)=1`) is
-  available. STALL: mod-1 measure-bookkeeping blowup, exactly as the freeze anticipated —
-  Zeno partial per the freeze's own greenlight.
-- **`VMVT-VK/R4-assembly` [C, THE stone]** — `vk_block_core` (freeze MID TARGET): the
-  R2 shift-average (Jensen) over `y=1..Y` producing the orbit (landed `poly_shift_orbit`),
-  the `j*`-step `s = t/(2πN₀^{j*+1}) ∈ [4δ_{j*}, 1/(6Y)]` ⟹ boxes disjoint (feeds R3-measure)
-  ⟹ `vmvt` (`Salt.Vmvt.vmvt`, Summit2.lean:151) + `Jk_mono`. Blocked on R3-measure; the
-  ledger `2bρ=1/8 | kρ ≤ 1/8 | η ≤ 1/8 | log_P(D) ≤ 1/8` (Σ=1/2) is refuter-verified
-  (`scripts/vk_minpow_check.py`, k∈{19,562,5623414}).
+**RESIDUALS (named — the recorded stall points):**
+- **`VMVT-VK/R4-assembly` [C, THE stone] — the FINAL STITCH only** — `vk_block_core` (freeze
+  MID TARGET, exact signature). Everything analytic is LANDED (R3-measure + the 7 R4-machinery
+  stones above); the two remaining pieces are the freeze's own "verified numerically but fiddly
+  in Lean" content: (b) DERIVE the `j*`-coordinate Diophantine spacing of the fract-reduced
+  orbit centers `fract(β_{j*}(y))` from the `VkSpaced`/`hW2` hypothesis (the `j*`-step
+  `s = t/(2πN₀^{j*+1}) ∈ [4δ_{j*}, 1/(6Y)]` ⟹ consecutive steps `∈ [s/2, 3s/2]` ⟹ `2δ_{j*}`
+  separated in a length-1/4 window — an orbit-polynomial analysis feeding
+  `vk_box_disjoint_avg_of_centers`'s `hsep`); (c) the closing `ρ`-ledger `rpow` arithmetic
+  `2bρ=1/8 | kρ ≤ 1/8 | η ≤ 1/8 | log_P(D) ≤ 1/8` (Σ=1/2, refuter-verified
+  `scripts/vk_minpow_check.py`, k∈{19,562,5623414}) — the `(∏δ)⁻¹=(16k)^k P^{ρk+k(k+1)/2}`,
+  `Slack=(π/8)P^{1−ρ}`, `vmvt` `Jk ≤ vmvtConst·P^{vmvtExp}` (b=kr), power-mean root `^{1/(2b)}`
+  bookkeeping collapsing to `8·P^{1−ρ}`. STALL: the ledger's delicate exponent tracking through
+  `rpow` — Zeno partial per the freeze's own greenlight (`R4 orbit algebra … fiddly in Lean`).
 - Downstream R5–R10 (VK-SCALE/GROWTH/LANDAU-SCALED/ZETA-DISC/341/STRIP-PATCH) untouched this
   wave — later waves per the freeze's ORDER. R7 (=LITT-LANDAU) and R10 (=LITT-COVER stone-3)
   are independently valuable Zeno partials there.
@@ -9439,6 +9457,38 @@ is ℕ-ONLY here (`prod_Ioc_consecutive (f : ℕ → M) {m n k : ℕ}` + to_addi
 splits use `Finset.Ioc_union_Ioc_eq_Ioc h₁ h₂` + `Finset.sum_union (Finset.Ioc_disjoint_Ioc_of_le
 (le_refl _))`. (Re-confirms #123: `Finset.sum_comm'` wants the dependent membership `x ∈ s' y`
 FIRST on the RHS iff.)
+
+**Catches — VK-2, the R3-measure + R4-machinery wave (2026-07-18).** (#134) THE R3-MEASURE
+UNLOCK: the anticipated mod-1 measure blowup is AVOIDABLE — do NOT need torus translation
+invariance. Use half-open clipped boxes `Ioc (max 0 (c−δ)) (min 1 (c+δ))`; the INNER half always
+survives clipping to `(0,1]`, so `unitMeasure(box) ≥ δ` for ANY center `c ∈ [0,1]` (four-case
+`rcases le_total (c+δ) 1 <;> rcases le_total 0 (c−δ) <;> simp [min/max_eq_…] <;> linarith`). The
+fold needs only a LOWER bound `measure ≥ ∏δ` (so `measure⁻¹ ≤ (∏δ)⁻¹`), which clipping gives free;
+and disjointness needs the `j*` coordinate ALONE (clipped ⊆ unclipped, separated). (#135)
+`add_pow_le (ha : 0 ≤ a)(hb : 0 ≤ b) : ∀ n, (a+b)^n ≤ 2^(n−1)*(a^n+b^n)` — EXACT convexity, root
+namespace, `n` a TRAILING explicit arg. (#136) `MeasureTheory.setIntegral_ge_of_const_le_real
+(hs : MeasurableSet s)(hμs : μ s ≠ ∞)(hf : ∀ x∈s, c ≤ f x)(hfint : IntegrableOn f s μ) :
+c * μ.real s ≤ ∫ x in s, f x ∂μ` — the const-lower on a box; pair with `integral_iUnion_fintype`
+(Fintype disjoint union = ∑, wants `Pairwise (Disjoint on s)`) and `setIntegral_le_integral (hfi :
+Integrable f μ)(hf : 0 ≤ᵐ f)` (box ⊆ torus monotonicity). `∫_s (r*(f+const))` via
+`integral_const_mul`+`integral_add hFint.integrableOn (integrable_const _).integrableOn`+
+`setIntegral_const` (`= μ.real s • c`). `Measure.pi_pi` box measure needs `MeasureTheory.measureReal_def`
+to expose `.toReal`, then `ENNReal.toReal_prod`; `unitMeasure(Ioc a b)=b−a` via `restrict_apply
+measurableSet_Ioc`+`Set.inter_eq_self_of_subset_left (Ioc_subset_Ioc ha hb)`+`Real.volume_Ioc`+
+`ENNReal.toReal_ofReal`. (#137) `Pairwise (Disjoint on box)` MISPARSES (`on` precedence grabs
+`Disjoint` alone → `Prop`); write `Pairwise (Function.onFun Disjoint box)`. (#138) Power-mean =
+Chebyshev `pow_sum_le_card_mul_sum_pow (hf : ∀ i∈s, 0 ≤ f i) : ∀ n, (∑ f)^(n+1) ≤ #s^n·∑ f^(n+1)`;
+for exponent `2b` use `n := 2b−1` + `Nat.sub_add_cancel (hb : 1 ≤ 2b)`. (#139) ℤ-block reindex:
+`Finset.map_add_left_Ioc a b c : (Ioc a b).map (addLeftEmbedding c) = Ioc (c+a)(c+b)` (and
+`map_add_right_Ioc … (·+c)`) — MUST cast the shift `(N₀:ℤ)`/`((y:ℕ)+1:ℤ)` explicitly or `map`
+type-mismatches ℕ vs ℤ; then `Finset.sum_map` + `simp [addLeftEmbedding_apply]`. (#140)
+`phi t n` is a NONCOMPUTABLE `def` — `rw [Salt.ExpSum.phi]` FAILS ("no equation theorems"); use
+`simp only [Salt.ExpSum.phi]` then `push_cast; ring`. (#141) `Fin Y` shift-cast hygiene: after
+`sum_Ioc_shift_boundary` the `0+↑P'`/`↑(↑y+1)` casts fight `↑P'`/`↑↑y+1`; normalize hyp with
+`simp only [zero_add, Nat.cast_add, Nat.cast_one] at hbd` (do NOT hand-`rw` stale
+`0+…` patterns — `zero_add` fires first and invalidates them). `genFun` 1-periodicity:
+`Int.fract` split via `he : (fun j => Int.fract (α j) + (⌊α j⌋:ℝ)) = α` (`rw [Int.fract]; ring`)
+fed to `genFun_add_int`.
 
 ## 2026-07-18 T-BAL R3(b) LANDS (the multiples mass, honest 4^ω) — R4 REFUTED at the √-error (a THIRD design flaw); R5 blocked — T-BAL-3/Opus
 

@@ -8011,3 +8011,26 @@ decisions per question.
   Benli §S0 + grounds the pointwise support in our defs; 2
   designers; refuters with the hardened checklist). Board:
   VK-2 + the S₀ redesign wf.
+
+- 2026-07-18 ~10:40 PT: **VK-2 lands R3-measure COMPLETE — the
+  anticipated heaviest stone DEFEATED — + the full R4 bridge
+  machinery** (≈ 277k / 64 tools; house-verified Vk.All green,
+  20 decls [3 axioms], root 9242 per the executor).
+  Salt/Vk/{BoxMeasure,Block}.lean. THE UNLOCK (register catch
+  **#140**, executor-local #134): NO torus translation
+  invariance needed — half-open CLIPPED boxes keep their inner
+  half at the (0,1] seam, so measure ≥ ∏δ for any center and
+  disjointness rides the j* coordinate alone; the pre-
+  authorized Zeno stop never happened. Headliners:
+  `vk_box_disjoint_avg_of_centers` (the disjoint-box → Jk
+  fold) and `norm_vk_shift_sum` (THE structural gem: the
+  shifted Weyl sum IS a genFun value — the pointwise-from-mean
+  bridge made literal), + the taylor-reduce / shift-to-orbit /
+  power-mean chain to vmvt. NB executor-local #134–141 =
+  register #140–147 (2nd collision; the per-executor local
+  numbering is now standing practice, house renumbers at
+  ceremony). RESIDUAL (the final stitch only): vk_block_core =
+  the j* Diophantine spacing from VkSpaced/hW2 + the closing
+  rpow ledger (Σ=1/2, refuter-verified numerically).
+  **VK-3 DISPATCHED on the stitch.** Board: VK-3 + the S₀
+  redesign wf.

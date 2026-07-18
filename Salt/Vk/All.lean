@@ -6,7 +6,9 @@ Authors: Jason Hickey, Claude
 import Salt.Vk.Taylor
 import Salt.Vk.Shift
 import Salt.Vk.BoxAvg
+import Salt.Vk.BoxMeasure
 import Salt.Vk.Pointwise
+import Salt.Vk.Block
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -35,4 +37,21 @@ open Salt.Tactic in
   Salt.Vk.genFun_eq_eR_sum
   Salt.Vk.genFun_lipschitz
   Salt.Vk.genFun_box_variation
+  Salt.Vk.eR_intCast
+  Salt.Vk.genFun_add_int
+  Salt.Vk.vk_box_disjoint_avg
+  Salt.Vk.unitMeasure_Ioc_toReal
+  Salt.Vk.vkBox_measurable
+  Salt.Vk.clip_width_ge
+  Salt.Vk.vkBox_measureReal_ge
+  Salt.Vk.vkBox_disjoint
+  Salt.Vk.vk_box_disjoint_avg_of_centers
   Salt.Vk.poly_shift_orbit
+  Salt.Vk.genFun_fract
+  Salt.Vk.fract_mem_Icc
+  Salt.Vk.vk_shift_genFun_phase
+  Salt.Vk.norm_vk_shift_sum
+  Salt.Vk.vk_pow_sum_le
+  Salt.Vk.vk_shift_average
+  Salt.Vk.vk_shift_to_orbit
+  Salt.Vk.vk_block_taylor_reduce
