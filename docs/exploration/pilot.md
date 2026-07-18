@@ -7337,3 +7337,30 @@ decisions per question.
   same treatment as T-BAL). No executor dispatched on this arc
   tonight — the crux deserves fresh house attention. Board
   unchanged: SHIU-S5b + VMVT-R3c (+ recon).
+
+- 2026-07-18 ~02:40 PT (NIGHT WATCH): ██ **SHIU-S5b LANDS —
+  SHIUCORE CLOSED** ██ (≈ 464k / 122 tools). Salt/Maynard/
+  ShiuS5b.lean (702 lines, 5 decls): `classIII_discharge`,
+  `classIV_discharge`, and **`sum_tau_in_ap_le : ShiuCore`** —
+  Σ_{n≤z, n≡a(q)} τ(n) ≤ C·(z/φq)·log z for q ≤ z^{1−1/8000},
+  sorry-free. Full build 9222 jobs EXIT 0; house-verified axioms
+  [propext, Classical.choice, Quot.sound] on all three. THE
+  CONVERGENCE STONE IS DONE — one theorem now serves BOTH
+  flagships (HB's transfer τ-AP sums + the GEH door's hdom).
+  EXECUTOR-CATCHES-DESIGNER, catch **#88** (flags-local #80; NB
+  flags.md's Shiu sections run a local numbering, register =
+  local + 8): the constructed-σ recipe (#86) was an
+  overcomplication — σ = 3/4 FIXED works via the two-lemma
+  decomposition Σp^{−3/4} = Σ(p^{−3/4}−p^{−1}) + Σp^{−1}
+  (`sum_rpow_neg_sub_inv_le` + Mertens, no calibration),
+  eliminating the ⌊√P₀⌋ floor bookkeeping wholesale. Catches
+  **#89–91** (flags-local #81–83): the `set y := log z` folding
+  trap; nlinarith's simplex blows up at ~100 context hyps (use
+  `linarith only [...]` + pre-ring-expanded `have`s); ring/
+  positivity choke on the 2^48000 literal (share the ring atom,
+  `generalize`, `pow_nonneg`). Class IV was the grind (~370 ln,
+  the double-exp junk via TWO clean poly-beats thresholds);
+  the glue landed first try. UNLOCKED: HB-L2c (transfer
+  v-fibration) + N-HDOM (shiu_for_blocks_of_core + catch #54's
+  F-replumb). Board: VMVT-R3c (+ recon). Tally ~54.4M raw,
+  house ~14%.

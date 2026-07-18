@@ -8711,3 +8711,75 @@ Class IV's double-exponential junk is the true crux and is multi-session.
   `exp(2Σ_{p≤W²}1/p)/log(W²)` main term folds to `C·log z·(z/φq)` with NO threshold
   beyond `W≥2` (pure Mertens). Only the `Σ_r A5^{r+1}` junk needs the double-exp
   `z₀`; it hinges on `log P₀ ≥ loglog z − log 2` to make `A5^{R+1} = z^{o(1)}`.
+
+## SHIU-S5b — SHIUCORE CLOSES: III + IV discharges + the glue LANDED (2026-07-18)
+
+Opus executor SHIU-S5b, closing the `N-SHIU-CORE` rung. New file
+`Salt/Maynard/ShiuS5b.lean` (namespace `Salt.Maynard`, 702 lines), sorry-free, the
+three public decls (`classIII_discharge`, `classIV_discharge`, `sum_tau_in_ap_le`)
+axioms ⊆ `[propext, Classical.choice, Quot.sound]`, full project build EXIT 0
+(9222 jobs), no warnings, lines ≤100. Registered in `Salt/Maynard/All.lean`.
+**`sum_tau_in_ap_le : ShiuCore` is PROVEN — the last stretch of the Shiu core is
+done; the board's ShiuCore residual is closed.**
+
+**LANDED (5 decls, ~660 lines):**
+- **`quarter_poly_beats`** (private) — the reusable threshold `∃ Y0, ∀ y ≥ Y0,
+  K·(y^{1/4}·(1+log y)) ≤ y`, division-free packaging of
+  `eventually_poly_beats_polylog 1 (3/4)`.
+- **`classIII_discharge`** (∃-form, ~150 ln) — fires `shiu_classIII_le` at
+  `δ=1/1536000` with the RAW `sum_tau_smooth_gt_rankin_le` at **`σ = 3/4` FIXED**
+  (NOT the constructed `⌊√P₀⌋`-σ the S5 recipe/#78 feared — see catch #80). Euler
+  sum `Σ_{p≤P₀}p^{-3/4}` bounded by `sum_rpow_neg_sub_inv_le` (ShiuTuned) + Mertens,
+  W-gain `W^{-1/4} ≤ z^{-1/384000}`, threshold via `quarter_poly_beats` → `z^δ·RB ≤ 1`.
+  `CIII = 3Cδ`. First serious design; ~4 mechanical build fixes.
+- **`classIV_discharge`** (∃-form, ~370 ln) — fires `shiu_classIV_le 48000`.
+  Discharges the 7 `Rbin`/`vCut` floor hyps via `hkey : 2logW ≤ P₀·logP₀` and
+  `R·logP₀ ≤ 2logW` (the `vCut ≥ 3/≥2` via `W^{2/R} ≥ P₀ ≥ 3`, `W^{2/(R+1)} ≥ 2`).
+  Main term: Mertens fold `exp(2Σ)/log(W²) ≤ e^{2C}·log(W²) ≤ C·log z`. Junk: the
+  double-exp — `R ≤ y/(24000(loglog z − log2))`, `A5^{R+1} ≤ 2^{48000}·z^{1/96000}`,
+  `(log z)² ≤ z^{1/96000}` (all from the master poly-beats + `loglog z ≥ 192001 log2`),
+  giving junk `≤ Cjunk·2^{48001}·z^{1/8000} ≤ (z/φq)`. `CIV = Cmain·e^{2C} + Cjunk·2^{48001}`.
+- **`sum_tau_in_ap_le`** (~90 ln) — the glue. `z₀ := ⌈exp(max Bx)⌉₊+1`,
+  `C := max (3z₀) (3+CI+CII+CIII+CIV)`; `z<z₀` → corner (`shiu_corner_le`),
+  `z≥z₀` → `shiu_partition` + `classDeg_discharge` + the four ∃-discharges. First try.
+
+**KEY DESIGN WINS (banked):**
+- **σ = 3/4 FIXED beats the constructed-σ (catch #80).** The S5 recipe (and #78)
+  said Class III needs `σ := 1−log⌊√P₀⌋/(2 log P₀)` for the calibration in
+  `sum_rpow_neg_prime_le_sqrt`. But `sum_rpow_neg_sub_inv_le v` (ShiuTuned) bounds
+  `Σ(p^{-σ}−p^{-1}) ≤ (1−σ)v^{1−σ}(log v + C)` with NO calibration, so `σ=3/4`
+  works directly (`Σp^{-3/4} = Σ(p^{-3/4}−p^{-1}) + Σp^{-1}` ≤ subpoly + Mertens),
+  eliminating ALL the nat-`⌊√P₀⌋` floor bookkeeping the recipe budgeted 100+ lines
+  for. The two-lemma decomposition is the win.
+- **The junk closes with TWO clean poly-beats thresholds, not one messy one.**
+  Master `192000(1+log y) ≤ y` (`eventually_poly_beats_polylog 1 1 192000`, `y=log z`)
+  handles `R≥2` and `(log z)² ≤ z^{1/96000}`; the double-exp
+  `loglog z ≥ 192001 log2` (`Real.tendsto_log_atTop.eventually_ge_atTop`) handles the
+  `A5^{R+1}` decay. Separating them keeps each an ordinary inequality.
+
+**CATCHES:**
+- **#80 (constructed-σ is a TRAP for Class III; use σ=3/4 + the sub-inv lemma)** —
+  #78 said "use the RAW Rankin + DEFINE σ from ⌊√P₀⌋". That works but drags in nat
+  `⌊√P₀⌋` floor/log bookkeeping (`log r ≥ ½logP₀−log2`, `√r ≤ P₀^{1/4}`, `r<P₀`…).
+  The clean route: `σ=3/4` constant, bound `Σ_{p≤P₀}p^{-3/4}` via
+  `sum_rpow_neg_sub_inv_le` (the `Σ(p^{-σ}−p^{-1})` telescope, no calibration) +
+  `sum_inv_prime_le`. The calibrated `sum_rpow_neg_prime_le_sqrt` is UNNEEDED. Saves
+  a whole sub-wave.
+- **#81 (`set y := Real.log z` folding trap)** — freshly-applied lemmas
+  (`rpow_def_of_pos`, `log_pow`, `logwp_le`) emit `Real.log z`, NOT the folded `y`;
+  `rw [← hydef]`/`rw [hydef] at *` needed to reconcile, or `set` is a net loss. And
+  `hmaster` must be `192000(1+Real.log y) ≤ y` (poly-beats at `x=y`), NOT `…(1+y)…`
+  — the `log` of the substituted variable, easy to drop.
+- **#82 (`nlinarith` with ~100 ctx hyps times out the simplex; use `linarith only`)**
+  — the pinned-scale composition accumulates a huge context; every `nlinarith`/`linarith`
+  re-runs the LP over all of it (`getTableauImp` heartbeat blow-up). FIX: `linarith only
+  [exact hyps]`, and for the genuinely-nonlinear steps pre-`ring`-expand the product
+  into a `have` then `linarith only`. Also split the fold into `hRexp`/`hRlogz`/etc.
+  so no single tactic sees the whole proof. `maxHeartbeats 1200000`/`1600000` needed
+  even so (comment goes AFTER `set_option … in`, per the DeprecatedSyntax linter).
+- **#83 (`ring`/`positivity` choke on `2^48000`)** — `ring` tries to EVALUATE the
+  literal `2^48000` (14000 digits) → `exponentiation exceeds threshold` warning;
+  `positivity` on `Cjunk·2^48001·…` recurses. FIX: use `2*2^48000` (shared `ring`
+  atom, avoids the `2^48001` mismatch), `generalize (2:ℝ)^48000 = c; ring` to make it
+  opaque, `pow_nonneg (by norm_num) _` instead of `positivity` for `0 ≤ 2^n`, and
+  `← mul_assoc`/`mul_comm` instead of `ring` for pure reassociation.

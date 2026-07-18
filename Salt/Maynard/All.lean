@@ -98,3 +98,4 @@ import Salt.Maynard.ShiuClose
 import Salt.Maynard.ShiuFinal
 import Salt.Maynard.ShiuIV
 import Salt.Maynard.ShiuS5
+import Salt.Maynard.ShiuS5b
