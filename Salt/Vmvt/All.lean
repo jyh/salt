@@ -15,6 +15,7 @@ import Salt.Vmvt.Holder
 import Salt.Vmvt.Fourier
 import Salt.Vmvt.HolderTwo
 import Salt.Vmvt.Transversal3
+import Salt.Vmvt.StepFull
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -80,3 +81,17 @@ open Salt.Tactic in
   Salt.Vmvt.proj_mem_gradedPairs
   Salt.Vmvt.mixBox_Ncount_le
   Salt.Vmvt.transBox_Ncount_le
+  Salt.Vmvt.collector_rpow
+  Salt.Vmvt.vmvtResid_eq
+  Salt.Vmvt.vmvt_collect_exp
+  Salt.Vmvt.vmvtExp_step_diff
+  Salt.Vmvt.Jk_Icc_eq_JkI
+  Salt.Vmvt.transBox_le_ih
+  Salt.Vmvt.le_scale_pow
+  Salt.Vmvt.vmvtExp_ge_k
+  Salt.Vmvt.bracket_le
+  Salt.Vmvt.one_add_rpow_le_exp
+  Salt.Vmvt.correction_le
+  Salt.Vmvt.transBox_le_const
+  Salt.Vmvt.n0_bounds
+  Salt.Vmvt.vmvt_step_transversal_large

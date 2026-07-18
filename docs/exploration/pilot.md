@@ -7428,8 +7428,9 @@ decisions per question.
   R5, THE INDUCTION — VmvtBound ∀r, the summit theorem). Board:
   T-BAL workflow + N-HDOM + VMVT-R4. Tally ~54.9M raw.
 
-- 2026-07-18 ~04:15 PT: **N-HDOM lands the wire + house replumb
-  closes catch #54** (≈ 117k / 25 tools + house edit). (1) The
+- 2026-07-18 ~03:15 PT (timestamp corrected — the house clock
+  drifted ~50 min ahead; `date` re-grounded 03:39): **N-HDOM
+  lands the wire + house replumb closes catch #54** (≈ 117k / 25 tools + house edit). (1) The
   wire: Salt/Maynard/GehShiuWire.lean — `hshiu_shallow_of_core`
   + `hshiu_wire_sharp` (the A'-quantified form at floor A'+3)
   discharge the GEH door's shallow interface from
@@ -7452,3 +7453,66 @@ decisions per question.
   interfaces GEH_min / hTypeI (N-TYPEI-MID) / WindowPNT. Queued
   as GEH-DOOR-2 (elementary block first). Board: T-BAL workflow
   + VMVT-R4.
+
+- 2026-07-18 ~03:30 PT (corrected): JYH — "keep driving my
+  friend, wake me for the T-BAL freeze" (the chime is now
+  RESERVED for the T-BAL synthesis return). **GEH-DOOR-2 DISPATCHED** (Opus; the
+  elementary door block: double-dyadic hdecomp with explicit
+  pair enumeration, hcount p=2, hanch for the cbrt-scale
+  family; the flagged CoeffAt/SW cluster + open interfaces
+  explicitly out of scope; new Salt/Maynard/GehDecomp2.lean).
+  LITT-COVER checked and NOT dispatched — no worked design
+  exists (only the re-pricing note + the ZetaApprox docstring
+  flag); the k-per-window overlap arithmetic (window k covers
+  log-exponent [1/(k−1), 1/(k−3+8/2^k)], consecutive windows
+  overlap for k ≥ 3) needs a house pass; queued behind the
+  T-BAL ratification. Board: T-BAL workflow + VMVT-R4 +
+  GEH-DOOR-2.
+
+- 2026-07-18 03:41 PT (real clock): JYH directive — **defer the
+  LITT-COVER design; earliest start 04:10 PT**. Registered as a
+  hard gate on top of the existing queue position (behind the
+  T-BAL ratification). Decision-register entry added.
+
+- 2026-07-18 04:01 PT: ██ **VMVT-R4 lands STONE 1 — THE
+  COLLECTOR IS PROVEN, no exponent obstruction** ██ (≈ 301k /
+  91 tools). Salt/Vmvt/StepFull.lean: `collector_rpow` — the
+  EXACT rpow identity x^k·p^{2kr+k(k−1)/2}·(x/p)^{E(k,r)} =
+  (p/x^{1/k})^{k²−η}·x^{E(k,r+1)}, keyed to the untouched
+  kernel-verified vmvtExp_succ — plus the machine-checked
+  large-x step `vmvt_step_transversal_large` (VmvtBound k r →
+  VmvtBound k (r+1) given the prime supply + regime bound;
+  house-verified [3 axioms], Vmvt.All 8750 green). Stone 2
+  STOP-AND-FLAGGED correctly (the cascade working): a
+  CONSTANT-insufficiency, not an exponent mismatch — the fixed
+  vmvtC0 = k⁶·k!·2^{k²}·3 is exp(Θ(k² log k))-grade too small
+  to let the trivial branch cover the medium-x gap up to the
+  pigeonhole threshold X₁ ~ k^{3k} (numerics: k=10 gives
+  log X_C ≈ 13.7 vs log X₁ ≈ 177.6). The source's own D(k,r) =
+  exp(Crk²·log k) with C free is the designed absorber —
+  **vmvtC0 re-grade = Fable statement change, freeze next**.
+  Catches #92–95 (COLLECT-1..4: vmvtEta_le silent k:=r
+  unification — pin named args; omega chokes on trivial ℕ goals
+  amid ℝ hyps; k(k−1)/2 cast needs even_mul_succ_self;
+  field_simp-closes + trailing ring errors).
+
+- 2026-07-18 04:03 PT: **GEH-DOOR-2 lands rungs 1+2 + the
+  balance stone; the anchor CAP flagged** (≈ 236k / 42 tools).
+  Salt/Maynard/GehDecomp2.lean: `hdecomp_double` (vP3
+  discrepancy ≤ Σ over the full-square enumeration m2 = dCount²
+  of muBlock×tiiBlock dconv discrepancies; via sum_tiiBlock_eq
+  + dconv 2nd-arg linearity + the div/mod flatten) +
+  `blockCount2_le` (m2 ≤ (2/log 2)²·log²x, the hcount p=2 form)
+  + `anch_balance_of_le` (the four ε=1/4 balance conjuncts
+  under the cap, x ≥ 27). House-verified axioms clean,
+  Maynard.All 8817 green. Catch **#96** (GEH-DOOR-2a): hanch's
+  FIFTH conjunct 2NM ≤ x is jointly UNSATISFIABLE with
+  hdecomp_double — nonzero blocks need NM < x but the top
+  anti-diagonal sits at NM ∈ [x/2, x); the factor-2
+  hanch-vs-hdecomp tension recurring at anchor scale. Fix
+  (Fable): relax the combinator + deep_perblock cap to
+  2NM ≤ 2x (each hsxx use absorbs a bounded factor). Catch #97
+  (GEH-DOOR-2b, Lean): pow_lt_pow_left₀ rename; N^4^(1/4)
+  rpow-collapse recipe; rw-with-self-referencing-eq blows up —
+  calc instead. Board: T-BAL workflow; house edits queued:
+  VMVT re-grade freeze + GEH cap relax. Tally ~55.4M raw.

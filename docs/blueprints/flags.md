@@ -8783,3 +8783,147 @@ done; the board's ShiuCore residual is closed.**
   atom, avoids the `2^48001` mismatch), `generalize (2:ℝ)^48000 = c; ring` to make it
   opaque, `pow_nonneg (by norm_num) _` instead of `positivity` for `0 ≤ 2^n`, and
   `← mul_assoc`/`mul_comm` instead of `ring` for pure reassociation.
+
+## 2026-07-18 GEH-DOOR-2 Opus — rungs 1+2 LANDED; rung 3 (hanch) STRUCTURAL OBSTRUCTION flagged + balance Zeno stone (Salt/Maynard/GehDecomp2.lean)
+
+**Node:** the ELEMENTARY residual block of the GEH door's anchored path — the
+double-dyadic decomposition + the block count + the anchor-window facts, mapped
+open-but-elementary by the N-HDOM recon. New file `Salt/Maynard/GehDecomp2.lean`
+(namespace `Salt.Maynard`). Consumer: `pieceObligationU_of_anchored_multiblock`
+(`GehAnchor.lean`) via the vP3 family `α i=muBlock (aIdx i), β i=tiiBlock (bIdx i),
+N i=nScale (aIdx i), M i=nScale (bIdx i)` (`GehShiuWire.lean` convention).
+
+**LANDED (sorry-free, axioms ⊆ [propext, Classical.choice, Quot.sound]):**
+- **Rung 1 — `hdecomp_double`** (the meat): `seqDiscrepancy (vP3 (cbrt x) (cbrt x)) y q
+  ≤ ∑ i ∈ range (m2 x), seqDiscrepancy (dconv (muBlock (aIdx i x) x) (tiiBlock (bIdx i x) x)) y q`
+  for `1 ≤ x`, `y ≤ x`. Route: `hdecomp_dyadic` (μ-side split, landed) → per-`a`
+  co-divisor split `hdecomp_typeII_split` → flatten. Supporting:
+  `sum_tiiBlock_eq` (∑_b tiiBlock = typeIIData for m ≤ x, the `sum_muBlock_eq` twin),
+  `dconv_typeIIData_eq_sum_tiiBlock` (dconv linear in 2nd arg over the cover),
+  `double_range_flatten` (the pair enumeration reindex, induction + Nat div/mod).
+- **Enumeration (concrete):** `m2 x := dCount x * dCount x`, `aIdx i x := i / dCount x`,
+  `bIdx i x := i % dCount x` — the FULL square `range(dCount x)×range(dCount x)`,
+  matching the design's "count ≤ D·log²x" (p=2). No product cap (see obstruction).
+- **Rung 2 — `blockCount2_le`**: `(m2 x : ℝ) ≤ (2/log 2)²·(log x)²` for `x ≥ 2`
+  (`blockCount_le` squared; rpow-`2` form matching `hcount`'s `Real.log x ^ p`, p=2).
+- **Rung 3 PARTIAL — `anch_balance_of_le` (the Zeno stone):** for `x ≥ 27` and any
+  block with `2·N·M ≤ x`, the FOUR balance conjuncts of `hanch` hold at **ε = 1/4**.
+  Proof: `N, M ≥ cbrt x`, so `s=2NM ≤ x ≤ (cbrt x)⁴ ≤ N⁴` ⟹ `s^{1/4} ≤ N`; and
+  `N ≤ x ≤ 8(cbrt x)³ ≤ 8M³` ⟹ `N⁴ ≤ 8N³M³ = s³` ⟹ `N ≤ s^{3/4}` (sym for M).
+  Support facts `cbrt_cube_le`, `lt_cbrt_add_one_cube`, `x_le_cbrt_pow4` (needs
+  `cbrt x ≥ 3`, i.e. x ≥ 27), `x_le_eight_cbrt_pow3`, + rpow helpers
+  `rpow_quarter_le`/`le_rpow_three_quarter`.
+
+**★ THE OBSTRUCTION (rung 3 `hanch` does NOT close — factor-2 anchor-cap boundary) ★**
+`hanch` (GehAnchor.lean:448-453) demands FIVE conjuncts for EVERY `i < m x`; the
+fifth, **`2·N·M ≤ x`**, is jointly UNSATISFIABLE with `hdecomp_double`:
+- `hdecomp_double` needs the family to include every block that is NONZERO on
+  `[1, x]`. A block `(a,b)` has convolution support `n ∈ (N·M, 4·N·M]`
+  (`dconv_block_eq_zero`), so it is nonzero on `[1,x]` iff `N·M < x`.
+- `hanch`'s cap `2·N·M ≤ x` ⟺ `N·M ≤ x/2`.
+- The topmost nonzero anti-diagonal has `N·M = 2^{a+b}(cbrt x)² ∈ [x/2, x)` (as
+  `N·M` doubles per `a+b` step, the largest value below `x` is ≥ x/2), so its
+  `2·N·M ∈ [x, 2x)` VIOLATES the cap, yet it carries genuine vP3 mass for
+  `n ∈ (N·M, x]` and cannot be dropped. Excluding it breaks `hdecomp`; keeping it
+  breaks `hanch`. No index set S satisfies both: `{N·M < x} ⊆ S ⊆ {N·M ≤ x/2}` is
+  empty on the band `N·M ∈ [x/2, x)`.
+
+This is the SAME hanch-vs-hdecomp factor-2 tension that N-REPLUMB fixed at the
+GLOBAL scale, reappearing at the ANCHOR scale. The design's `hanch` justification
+("both sides live in [cbrt x, x^{2/3}]-scales", s3-a3-design.md:860) is INSUFFICIENT:
+it gives only `2NM ≤ 2·x^{4/3}`, never `≤ x`. Recon (N-HDOM recon report) confirmed
+NO product-cap restriction and NO boundary reconciliation exists in any design doc.
+
+**THE FIX (Fable/design-tier, out of this executor's scope):** relax the combinator's
+anchor cap from `2·N·M ≤ x` to `2·N·M ≤ 2x` (or `N·M ≤ x`). `deep_perblock`
+(`GehAnchor.lean:318`) uses `hsxx : 2*Nb*Mb ≤ x` at three points — `log sx ≤ log x`
+(:345), `2Mb ≤ x` (:354), and the rescaling `max C 0·sx ≤ ·x` (:401-403); with
+`sx ≤ 2x` each picks up only a bounded factor (`log(2x) ≤ 2 log x`, `sx ≤ 2x`), so
+the repair is mechanical but touches a LANDED file. Once relaxed, `anch_balance_of_le`
+(proven here, ε=1/4) supplies the four balance conjuncts verbatim and the cap conjunct
+becomes `2NM ≤ 2x`, TRUE for all nonzero blocks (support ⟹ `NM < x` ⟹ `2NM < 2x`).
+
+**CATCHES:**
+- **#GEH-DOOR-2a (the anchor cap is the wall, not the balance).** The natural read of
+  "open-but-elementary hanch" is that the ε-balance is the hard part; it is NOT — the
+  balance is a clean ε=1/4 stone under the cap. The wall is the cap `2NM ≤ x` itself,
+  a structural factor-2 with `hdecomp`, invisible until you compute the top anti-diagonal.
+- **#GEH-DOOR-2b (rpow/npow exponent bridging).** `(N^(4:ℕ))^((1:ℝ)/4) = N` needs
+  `← Real.rpow_natCast` then `← Real.rpow_mul` then `show ((4:ℕ):ℝ)*(1/4)=1` + `Real.rpow_one`;
+  `pow_lt_pow_left` is renamed `pow_lt_pow_left₀`; and `rw [hNeq] at h1` where
+  `hNeq : N = f N` blows up (rewrites N inside f N) — use a `calc` chain instead.
+
+## 2026-07-18 VMVT-R4-S₁ / SUMMIT ASSEMBLY: the collector PROVEN + the large-x transversal step COMPLETE; Stone 2 (induction) STOP-AND-FLAG on a constant-insufficiency (Opus)
+
+New file `Salt/Vmvt/StepFull.lean` (sorry-free, every top decl axioms
+`[propext, Classical.choice, Quot.sound]`, registered in `Vmvt/All.lean` with
+`#audit_axioms`; `lake build Salt.Vmvt.All` EXIT 0, no warnings). This closes the
+**mathematical heart** of RESIDUAL 2 (R4-S₁) and resolves the iron-rule crux
+question — *does the collector match `vmvtExp_succ`?* — **YES, exactly**.
+
+**STONE 1 — the transversal-dominant step: the LARGE-x branch is COMPLETE.**
+`vmvt_step_transversal_large` : for `k ≥ 2`, `r ≥ 1`, given the pigeonhole prime
+supply in `(y, 2y]` (`y = ⌈x^{1/k}⌉₊ = vmvtScale k x`), the large-x regime
+`x^{1/k} ≥ k² + 4·E(k,r)`, and the IH `∀ x', 1 ≤ x' → VmvtBound k r x'`, one
+Linnik–Karatsuba step lands `VmvtBound k (r+1) x`. It feeds
+`vmvt_step_of_transversal_dominant` (the degenerate S₂ case is internal), selects
+a **k-bounded** prime subset `P₀` of size `n₀ = ⌊k²(k−1)/2⌋+1` via
+`Finset.exists_subset_card_eq` (so `4·#P₀² ≤ k⁶`, `n0_bounds`), sums the per-prime
+bound over `P₀`, and folds `#P₀²` into `C₀`'s `k⁶`. The landed ladder:
+- `collector_rpow` — **THE COLLECTOR (the crux)**. `x^k · p^{2kr+k(k−1)/2} ·
+  (x/p)^{E(k,r)} = (p/x^{1/k})^{B(k,r)} · x^{E(k,r+1)}`, an *exact* rpow identity
+  keyed to the kernel-verified `vmvtExp_succ`. Validated by two pure-ℝ identities:
+  `vmvtExp_step_diff` (`E(k,r+1) = E(k,r) + 2k − η(k,r)/k`) and `vmvtResid_eq`
+  (`2kr + k(k−1)/2 − E(k,r) = k² − η(k,r) =: B(k,r) = vmvtResidExp`). The residual
+  x-exponent lands on `E(k,r+1)` on the nose — **the collector matches; there is NO
+  exponent obstruction.**
+- `transBox_le_ih` — R3 (`transBox_Ncount_le`) with `Jk_Icc_eq_JkI` (residue box =
+  IH object at `⌊x/p⌋+1`) + IH substituted.
+- `bracket_le` — the collector applied through the `+1` box correction
+  `(⌊x/p⌋+1)^E ≤ (x/p)^E·(1+p/x)^E`.
+- `correction_le` — **the regime constant.** In `x^{1/k} ≥ k²+4E(k,r)`,
+  `(p/x^{1/k})^{B}·(1+p/x)^{E} ≤ 2^{k²}·3` (the `(1+1/t)^{k²}` and `(1+p/x)^{E}`
+  corrections fold to `exp((k²+4E)/t) ≤ e < 3`, via `one_add_rpow_le_exp` +
+  `Real.exp_one_lt_d9`). So the per-step constant is exactly `4·#P₀²·k!·2^{k²}·3
+  ≤ k⁶·k!·2^{k²}·3 = C₀(k)` — **the per-step constant fits under the fixed C₀.**
+- `transBox_le_const` — the three above glued: per prime,
+  `Ncount(D₄(p)) ≤ k!·D(k,r)·(2^{k²}·3)·x^{E(k,r+1)}`.
+- scale infra: `vmvtScale`, `le_scale_pow` (`x ≤ y^k`), `scale_lt` (`y < x^{1/k}+1`),
+  `vmvtExp_ge_k`/`vmvtExp_nonneg` (`E(k,r) ≥ k > 0`), `vmvtResidExp_{nonneg,le}`
+  (`0 ≤ B ≤ k²`).
+
+**STONE 2 — THE INDUCTION: STOP-AND-FLAG (constant-insufficiency, Fable/design-tier).**
+NOT an exponent mismatch — the collector matches exactly. The obstruction is the
+**small-x / large-x regime reconciliation under the FIXED `C₀ = k⁶·k!·2^{k²}·3`.**
+`vmvt_step_transversal_large` needs `x` above the large-x threshold `X₁ = y^k` where
+`y ≥ Y(k)` is forced by the prime pigeonhole (Θ(k³) primes in `(y,2y]` needed, so
+`Y(k) ≳ k³`; `exists_transversal_prime_set`'s `log y ≤ 2√y` route gives the cruder
+`Y ≳ k⁶`). Hence `X₁ ≳ k^{3k}` (`log X₁ ≳ 3k·log k`). Below `X₁`, the only fallback
+is the trivial `J_k(x,kr) ≤ x^{2k(r+1)}`, which beats `D·x^{E}` only for
+`x ≤ X_C = (C₀^{r+1})^{1/(2b−E)}`, `2b−E = ½k(k+1)−η ∈ [k, ½k²]`; with the fixed C₀,
+`log X_C ~ (r+1)·(log C₀)/(2b−E) ~ O(r + log k)` — **independent of the k^k growth
+`X₁` demands.** For large k (fixed r) `X₁ ≫ X_C`, leaving a **medium-x gap
+`(X_C, X₁)` covered by NEITHER branch.** Numerics (r=1→2): k=2 `log X_C≈7.0`,
+`log X₁≈13.9`; k=10 `log X_C≈13.7`, `log X₁≈177.6` — gap widens with k. The source
+(Vaughan PSU 24.5) closes this because its `D = exp(C·r·k²·log k)` has C **free** and
+chosen large enough that `X_C ≥ X₁`; our landed `vmvtConst k r = (k⁶·k!·2^{k²}·3)^r`
+is exponentially (in k²) smaller than `exp(C·k²·log k) = k^{Ck²}`, so the trivial
+small-x bound cannot reach the prime threshold. `VmvtBound` itself is TRUE (the bound
+is loose in the medium region, where the diagonal `x^{k(r+1)}` dominates), but this
+recursion does not prove it there. NEEDED (Fable/design): EITHER (i) a **sharper
+medium-x bound** than `x^{2k(r+1)}` (e.g. a Newton/near-diagonal count, or iterating
+the degenerate S₂ self-improvement `degen_dominant_self_improve` — unconditional, no
+prime needed — to bridge `(X_C, X₁)`), OR (ii) enlarge the blueprint `vmvtC0` to
+`exp(Θ(k²log k))`-grade (a statement change — `MeanValue.lean` `vmvtConst`/`vmvtC0`,
+Fable-tier; the exponent `vmvtExp` stays untouched). The large-x machinery above is
+correct and reusable as-is under either fix. `#audit_axioms` clean on all decls.
+
+**Catches.** (#VMVT-COLLECT-1) `vmvtEta_le (by omega) hr` infers `k := r` (wrong
+implicit unification) — pin `(k := k) (r := r)`. (#VMVT-COLLECT-2) omega chokes on a
+*trivial* nat goal (`1 ≤ x/p+1`, `⌊m/2⌋+1 ≤ C` from `m < 2C`) when ℝ-valued
+hypotheses (`hreg`, `hrange`) are in context — extract to a helper lemma
+(`card_ge_of_pig`) or use a direct term (`Nat.le_add_left`). (#VMVT-COLLECT-3) the
+residue-count exponent `k*(k-1)/2` (ℕ-division) casts to `(k:ℝ)*((k:ℝ)-1)/2` only via
+`Nat.cast_div` + `2 ∣ k*(k-1)` (from `Nat.even_mul_succ_self (k-1)` after
+`Nat.sub_add_cancel`). (#VMVT-COLLECT-4) `field_simp` fully closes several
+`(2+2/t)*t = 2t+2`-shape goals — a trailing `ring` then errors "no goals".
