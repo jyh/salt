@@ -20,19 +20,27 @@ process lesson, none a kernel error).
    C·(z/φq)·log z for q ≤ z^{1−1/8000}. The convergence stone:
    consumed by BOTH flagship conditionals (HB transfer + GEH
    door), wired into both within hours of landing.
-3. **The Weyl strip family** — `zeta_strip_family`: ‖ζ(σ+it)‖ ≤
+3. **LITTLEWOOD'S ZERO-FREE REGION** —
+   `zeta_zero_free_region_littlewood`: Re ρ ≤ 1 −
+   c·loglog|γ|/log|γ| for every ζ-zero above T₀. The 1922
+   theorem; believed the FIRST Littlewood-strength region in
+   any proof assistant. Built on the strip family + the
+   parametric Landau core + the growth-agnostic region bridge
+   (which now awaits only the VK growth input to emit the
+   POWER region).
+4. **The Weyl strip family** — `zeta_strip_family`: ‖ζ(σ+it)‖ ≤
    4096·t^{1/(2^{k+2}(k−1))}·(1+log t) on σ ≥ 1−2^{−(k+2)},
    C absolute. The subconvexity input (power/width ratio
    1/(k−1) → 0) that Littlewood's region needs.
-4. **Mertens' third theorem** (∏_{p≤n}(1−1/p)·log n → e^{−γ},
+5. **Mertens' third theorem** (∏_{p≤n}(1−1/p)·log n → e^{−γ},
    explicit rate) + the twin-density corollary — believed first
    formalizations.
-5. **The DH repulsion apparatus** — the truncation-route
+6. **The DH repulsion apparatus** — the truncation-route
    detector chain complete through `dh_repulsion_partial`, the
    M4 inversion, the sharp Barban–Vehov cancellation; the final
    balance (T-BAL) designed via adversarial panel, R1/R3(a)/R6
    + suppliers landed, R4–R8 in flight.
-6. **Supporting firsts:** the symmetric √N Dirichlet hyperbola
+7. **Supporting firsts:** the symmetric √N Dirichlet hyperbola
    (fills an explicit mathlib TODO); the sharp strip
    Euler–Maclaurin for ζ-partials; the effective interval prime
    count; π₂(N) ≤ 90·N/log²N; the H-L frame with Pi2 theory.

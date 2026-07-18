@@ -9611,6 +9611,63 @@ bounds are hypotheses), so it serves BOTH the power region and the Littlewood si
   window-select params over all `N₀ ∈ (N,2N]`); `vk_block_core` LANDED (commit cb7cfc9, the flags text
   above calling R4-assembly residual is STALE). The ladder half (`vk_sum_Ioc_split_norm_le`) is LANDED.
 
+**LANDED — VK-6 wave (THE LITTLEWOOD ZERO-FREE REGION — the historic checkpoint; 2026-07-18,
+all sorry-free, axioms ⊆ {propext, Classical.choice, Quot.sound}, registered in `Salt/Vk/All.lean`;
+new files `Salt/Vk/RegionGrowth.lean` + `Salt/Vk/Littlewood.lean`). `lake build Salt.Vk.All` EXIT 0.**
+The first machine-checked Littlewood-strength region `Re ρ ≤ 1 − c·log log|γ| / log|γ|` (strictly
+wider than de la Vallée Poussin's `1/log t`). Five stones, growth-agnostic bridge + Littlewood
+instantiation of the VK-5 R8/R9 disc assembly:
+- **`region_of_uniform_growth` [C, ~75] (`RegionGrowth.lean`) — THE GROWTH-TO-REGION BRIDGE
+  (growth-agnostic, serves BOTH regions).** A positive-height zero (`ρ.im ≥ 2`) + a UNIFORM box
+  growth `‖ζ z‖ ≤ Mζ` on `Re z∈[1−Θ,2]`, `Im z∈[ρ.im−1, 3ρ.im]` (contains every keep/drop sphere)
+  + the three gates at `M₀=5Mζ/Θ` ⟹ `ρ.re ≤ 1 − dd/(7Lq)`, discharging the four sphere hyps of
+  `zeta_zero_free_of_disc` via `Zc_ratio_sphere_bound`. **Box lower-Im is `ρ.im−1` NOT `1`** — the
+  growth input needs `Im z ≥ 4(k!)^6`, and the spheres never dip below `γ−3/4`.
+- **`littlewood_uniform_growth` [B, ~45] (`Littlewood.lean`) — the growth discharge.** `zeta_strip_family`
+  at fixed `k` ⟹ the uniform box bound `Mζ = C·(3γ)^{1/(2^{k+2}(k−1))}·(1+log 3γ)` (base/log
+  monotonicity over `Im z ≤ 3γ`), the exact `hgrowth` shape the bridge consumes.
+- **`zeta_zero_free_littlewood_core` [C, ~145] (`Littlewood.lean`) — the abstract-`k` gate+width
+  algebra.** Feeds the two above through the bridge at `Θ=2^{−(k+2)}`, `dd=1/2`,
+  `Lq=8+700·2^{k+2}·log(20·2^{k+2}·Mζ)`; the three gates reduce to `2^{k+2}≤Lq` (`hchainC` holds by
+  DEFN of Lq, equality), width `= 1/(14Lq)`, bounded via the 4-term split `Lq ≤ 6301·L/ℓ`
+  (`T1..T4`, `L=log γ`, `ℓ=log L`), giving `ρ.re ≤ 1 − (1/88214)·ℓ/L`. Takes the balance bracket
+  (`2^{k+2}≤L/ℓ²`, `k+2≤2ℓ`, `(1/2)ℓ≤k−1`) + factorial + height thresholds as HYPS.
+- **`littlewood_bracket` [C, ~110] (`Littlewood.lean`) — the degree construction.** For `γ ≥
+  exp(exp(log C+400))`, the SIMPLE choice `k=⌊log log γ⌋` (NOT the optimal `⌊log₂(L/ℓ²)⌋`) makes the
+  LOWER bracket `(1/2)ℓ≤k−1` and `k+2≤2ℓ` trivial floor bounds (the core lemma's width bound stays
+  valid — smaller `2^{k+2}` only helps), leaving ONE transcendental `2^{k+2}≤L/ℓ²` (via `log 2<0.7`
+  + `log ℓ≤2√ℓ`) and the factorial `4(k!)^6≤γ−1` (via `k!≤k^k`, `log(k!)≤k log k≤ℓ²`, `7ℓ²≤L/2`,
+  `ℓ³/27≤exp ℓ=L`). Helpers `log_le_two_sqrt`, `cube_le_exp`.
+- **`zeta_zero_free_region_littlewood` [B, ~40] (`Littlewood.lean`) — THE REGION.**
+  `∃ c T₀, 0<c ∧ 3≤T₀ ∧ ∀ρ, ζρ=0 → T₀≤|ρ.im| → ρ.re ≤ 1 − c·(log log|ρ.im| / log|ρ.im|)`,
+  `c=1/88214`, `T₀=exp(exp(log C+400))`. Neg-γ via `riemannZeta_conj_zero` (conj the zero; `.re`
+  fixed, `.im↦|γ|>0`). `∃T₀` absorbs the low-height strip (no `zeta_zero_free_strip` needed).
+
+**Catches — VK-6 wave (LOUD).** (#192) **THE KEY SIMPLIFICATION: k need NOT be optimal.** The
+disc-region width the core proves (`1/(14Lq)`, `Lq` UPPER-bounded via `2^{k+2}≤L/ℓ²`) is a LOWER
+bound on the true width; a SMALLER `2^{k+2}` (larger Θ) only widens the actual region, so any `k`
+in the bracket gives the Littlewood shape. Picking `k=⌊ℓ⌋` (Θ(ℓ), NOT `⌊log₂(L/ℓ²)⌋≈log₂ L`) makes
+`(1/2)ℓ≤k−1` and `k+2≤2ℓ` FREE floor bounds — the two-sided `Nat.log` sandwich the "optimal" route
+needs is AVOIDED; only the single upper `2^{k+2}≤L/ℓ²` stays transcendental. (#193) **`ℓ=log L` gives
+`exp ℓ = L` EXACTLY** (`Real.exp_log hL0`) — so the factorial's `14ℓ²≤L` is `14ℓ²≤exp ℓ`, discharged
+by `cube_le_exp` (`ℓ³/27≤exp ℓ`) with `ℓ≥378`, NO explicit `L≥…` numeric needed. (#194) `set Θ`/`Mζ`
+in the core do NOT poison the bridge (contrast #149): the bridge is PLAIN-real parametric (Θ,Mζ,Lq,dd
+scalars, no `logDeriv G` lambda), so passing the growth hyp via `exact`/defeq works; construct the
+`hgrowth` term with the `1−Θ`-shaped type and `rw [hΘdef]` internally to apply `littlewood_uniform_growth`.
+(#195) `hchainC` is `le_of_eq (by ring)` after `rw [hcoef,hlogarg,div_one,hLqdef]` — DEFINE `Lq` as the
+clean form `8+700·P·log(20·P·Mζ)` and identify the messy `120/(6Θ/7)=140P`, `4·(5Mζ/Θ)=20·P·Mζ` by
+`field_simp;ring`; the `log(…)` atoms must match syntactically for `ring`. (#196-vk) name churn: `div_le_div`
+→ nothing (use `div_le_iff₀`+`linarith`); `div_le_div_iff` → `div_le_div_iff₀`; `pow_le_pow_left` →
+`pow_le_pow_left₀`; `Real.log_exp A` rewrites the `A` INSIDE `exp A` (use `← Real.log_exp (Real.exp A)`
+to fold the whole `exp A`). (#197) `field_simp` often CLOSES the `(L/ℓ²)·ℓ=L/ℓ`-grade goals fully — a
+trailing `; ring` then errors "no goals"; drop it (but `2L/((1/2)ℓ)=4·(L/ℓ)` needs `field_simp; ring`).
+
+**RESIDUALS — VK-6 (the power region stays blocked on R5b/R6).** `region_of_uniform_growth` +
+`littlewood_uniform_growth` are the reusable half; the POWER region
+`zeta_zero_free_region_pow` (θ=3/4) needs `zeta_growth_pow` (R6) which needs the `VkSpaced` window
+discharge (R5b). A `littlewood_bracket`-analogue for the power growth would then instantiate the SAME
+bridge. R5b + R6 UNTOUCHED (the flagged heaviest bookkeeping).
+
 **Catches — VK-5 wave (LOUD).** (#149) **`set G := fun z => Zc z/Zc c` POISONS R7 unification:** the
 sphere hypotheses carry the beta-redex `‖Zc z/Zc c‖` which `set` does NOT fold (it folds the lambda,
 not applications), so R7 infers `?F := fun z=>Zc z/Zc c` (the literal), and later `logDeriv G` vs

@@ -8413,3 +8413,26 @@ decisions per question.
   When R6-EXEC + R5-FINISH both land → T-BAL-CLOSE (R7+R8,
   certified composition) = WP2'S CORE. Board: VK-6 + R5-FINISH
   + R6-EXEC.
+
+- 2026-07-18 13:12 PT: ██████ **LITTLEWOOD IS MACHINE-CHECKED —
+  THE HISTORIC CHECKPOINT** ██████ (VK-6, ≈ 344k / 91 tools;
+  house-verified Vk.All 8786 green, 5 theorems [3 axioms]).
+  `zeta_zero_free_region_littlewood : ∃ c T₀, 0 < c ∧ 3 ≤ T₀ ∧
+  ∀ ρ, riemannZeta ρ = 0 → T₀ ≤ |ρ.im| → ρ.re ≤ 1 −
+  c·loglog|ρ.im|/log|ρ.im|` — the 1922 theorem, the first
+  Littlewood-strength region in any proof assistant, STRICTLY
+  wider than the classical 1/log t. c = 1/88214, T₀ double-exp
+  (design-grade lazy — the SHAPE is the content). Files:
+  Salt/Vk/{RegionGrowth,Littlewood}.lean. THE DESIGN WIN
+  (catch #192, flags): k need NOT be optimal — k = ⌊loglog γ⌋
+  with one-sided floor bounds (the width formula is already a
+  lower bound; a lazier k only widens the true region) — the
+  two-sided Nat.log sandwich AVOIDED. And the bridge
+  `region_of_uniform_growth` is GROWTH-AGNOSTIC — the power
+  region's assembly half is DONE (it needs only R5b + R6 =
+  zeta_growth_pow, then a littlewood_bracket analogue).
+  Catches #192–197 (flags). First-pass design, zero
+  stop-and-flags. Fanfare + push fired. **VK-7 DISPATCHED**
+  (R5b the window discharge → R6 the power growth → the power
+  region through the landed bridge). Board: VK-7 + R5-FINISH +
+  R6-EXEC. Tally ~70M raw.

@@ -15,6 +15,8 @@ import Salt.Vk.Landau
 import Salt.Vk.Strip
 import Salt.Vk.Scale
 import Salt.Vk.Region
+import Salt.Vk.RegionGrowth
+import Salt.Vk.Littlewood
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -94,3 +96,8 @@ open Salt.Tactic in
   Salt.Vk.zeta_keep_one_disc
   Salt.Vk.zeta_drop_all_disc
   Salt.Vk.zeta_zero_free_of_disc
+  Salt.Vk.region_of_uniform_growth
+  Salt.Vk.littlewood_uniform_growth
+  Salt.Vk.zeta_zero_free_littlewood_core
+  Salt.Vk.littlewood_bracket
+  Salt.Vk.zeta_zero_free_region_littlewood
