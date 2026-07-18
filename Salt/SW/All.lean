@@ -66,6 +66,7 @@ import Salt.SW.SelAlgebra
 import Salt.SW.DHExtract
 import Salt.SW.Hyperbola
 import Salt.SW.ZetaEM
+import Salt.SW.DHCore
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -241,3 +242,8 @@ open Salt.Tactic in
   Salt.SW.selberg_diag Salt.SW.selberg_diag_nonneg Salt.SW.rescale_inv_ge
   Salt.SW.sum_mul_index_eq Salt.SW.kernel_abel_sum Salt.SW.sum_Icc_one_shift
   Salt.SW.sum_rpow_le_integral Salt.SW.chiRe_partial_at_zero_le
+  Salt.SW.sum_rpow_neg_le Salt.SW.T_em_real Salt.SW.abs_zeta_re_le
+  Salt.SW.floor_div_mul_ge Salt.SW.term_rpow_le Salt.SW.natSqrt_le_sqrt
+  Salt.SW.natSqrt_mul_rpow_le Salt.SW.sqrt_lt_two_natSqrt Salt.SW.sqrt_pow_bound
+  Salt.SW.rpow_sub_le_tangent Salt.SW.dhAbel_hyperbola Salt.SW.dhAbel_leg1_le
+  Salt.SW.dhAbel_inner_le Salt.SW.unmoll_extraction_real Salt.SW.L1_lower_siegel

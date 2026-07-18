@@ -372,7 +372,8 @@ theorem dhAbel_leg1_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
     refine Finset.sum_congr rfl (fun d hd => ?_)
     rw [Finset.mem_Icc] at hd
     have hd0 : (0 : ℝ) < (d : ℝ) := by exact_mod_cast (by omega : 0 < d)
-    have hrp : (d : ℝ) ^ (-β₀) * ((t : ℝ) / (d : ℝ)) ^ (1 - β₀) = (t : ℝ) ^ (1 - β₀) * (d : ℝ)⁻¹ := by
+    have hrp : (d : ℝ) ^ (-β₀) * ((t : ℝ) / (d : ℝ)) ^ (1 - β₀)
+        = (t : ℝ) ^ (1 - β₀) * (d : ℝ)⁻¹ := by
       rw [Real.div_rpow ht0.le hd0.le,
         show (d : ℝ) ^ (-β₀) * ((t : ℝ) ^ (1 - β₀) / (d : ℝ) ^ (1 - β₀))
           = (t : ℝ) ^ (1 - β₀) * ((d : ℝ) ^ (-β₀) / (d : ℝ) ^ (1 - β₀)) from by ring,
@@ -394,8 +395,10 @@ theorem dhAbel_leg1_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
       simp only [chiRe]; rw [div_eq_mul_inv]
     have hstrip := norm_LFunction_sub_partial_le_strip χ hne' hq hPV (s := (1 : ℂ))
       (by rw [Complex.one_re]; norm_num) (le_of_eq Complex.one_re) hr1
-    have hval : 3 * M * (1 + ‖(1 : ℂ)‖ / (1 : ℂ).re) * (r : ℝ) ^ (-(1 : ℂ).re) = 6 * M / (r : ℝ) := by
-      rw [Complex.one_re, norm_one, Real.rpow_neg (Nat.cast_nonneg r), Real.rpow_one, div_eq_mul_inv]
+    have hval : 3 * M * (1 + ‖(1 : ℂ)‖ / (1 : ℂ).re) * (r : ℝ) ^ (-(1 : ℂ).re)
+        = 6 * M / (r : ℝ) := by
+      rw [Complex.one_re, norm_one, Real.rpow_neg (Nat.cast_nonneg r), Real.rpow_one,
+        div_eq_mul_inv]
       ring
     rw [hval] at hstrip
     rw [hMainRe]
@@ -566,6 +569,301 @@ theorem dhAbel_leg1_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
     _ ≤ 12 * M / (1 - β₀) * D + (34 * D + 12 * M * (Z₀ + 1 / (1 - β₀)) * D) := by
         linarith [hCM, hGbound, hZrBr]
     _ = (34 + 12 * M * Z₀ + 24 * M / (1 - β₀)) * D := harith
+
+/-- **The per-`t` inner bound.** For real primitive `χ` at a real zero `β₀`,
+`A(t) = Σ_{n≤t} dhA χ n · n^{−β₀} ≤ L(1,χ).re·t^{1−β₀}/(1−β₀) + K·t^{1/2−β₀}`,
+`K = 34 + 12M + 12M·Z₀ + 36M/(1−β₀)`, `M = √q(1+log q)`. The symmetric-hyperbola long leg
+(`dhAbel_leg1_le`) carries the `L(1,χ)` main term; the two short legs and the corner are
+zero-killed (`chiRe_partial_at_zero_le`) hence `≤ C·t^{1/2−β₀}` (no swamping). -/
+theorem dhAbel_inner_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hsq : χ ^ 2 = 1) (hq : 2 ≤ q) {β₀ : ℝ}
+    (hzero : DirichletCharacter.LFunction χ (β₀ : ℂ) = 0) (hlo : 1 / 2 ≤ β₀) (hhi : β₀ < 1)
+    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Z₀)
+    {t : ℕ} (ht : 1 ≤ t) :
+    ∑ n ∈ Finset.Icc 1 t, dhA χ n * (n : ℝ) ^ (-β₀)
+      ≤ (DirichletCharacter.LFunction χ 1).re * (t : ℝ) ^ (1 - β₀) / (1 - β₀)
+        + (34 + 12 * (Real.sqrt q * (1 + Real.log q))
+            + 12 * (Real.sqrt q * (1 + Real.log q)) * Z₀
+            + 36 * (Real.sqrt q * (1 + Real.log q)) / (1 - β₀)) * (t : ℝ) ^ (1 / 2 - β₀) := by
+  set M : ℝ := Real.sqrt q * (1 + Real.log q) with hMdef
+  set r : ℕ := Nat.sqrt t with hrdef
+  set D : ℝ := (t : ℝ) ^ (1 / 2 - β₀) with hDdef
+  have hβ0 : 0 < β₀ := by linarith
+  have hu : 0 < 1 - β₀ := by linarith
+  have ht0 : (0 : ℝ) < (t : ℝ) := by exact_mod_cast ht
+  have hDnn : 0 ≤ D := Real.rpow_nonneg ht0.le _
+  have hlogq : 0 ≤ Real.log q :=
+    Real.log_nonneg (by exact_mod_cast le_trans (by norm_num : (1 : ℕ) ≤ 2) hq)
+  have hMnn : 0 ≤ M := by rw [hMdef]; positivity
+  have hr1 : 1 ≤ r := by
+    rw [hrdef]; calc 1 = Nat.sqrt 1 := Nat.sqrt_one.symm
+      _ ≤ Nat.sqrt t := Nat.sqrt_le_sqrt ht
+  have hrt : r ≤ t := by rw [hrdef]; exact Nat.sqrt_le_self t
+  -- the two short-leg partial-sum bound (`chiRe_partial_at_zero_le`) at index `m`
+  have hB : ∀ m : ℕ, 1 ≤ m →
+      |∑ d ∈ Finset.Icc 1 m, chiRe χ d * (d : ℝ) ^ (-β₀)| ≤ 6 * M * (m : ℝ) ^ (-β₀) :=
+    fun m hm => chiRe_partial_at_zero_le χ hχ hsq hq hzero hβ0 (by linarith) hm
+  rw [dhAbel_hyperbola χ t, ← hrdef]
+  -- LEG 2 bound : `|Σ_{e≤r} e^{−β₀}·B(⌊t/e⌋)| ≤ 12M·D`
+  have hLeg2 : |∑ e ∈ Finset.Icc 1 r, (e : ℝ) ^ (-β₀)
+        * ∑ d ∈ Finset.Icc 1 (t / e), chiRe χ d * (d : ℝ) ^ (-β₀)| ≤ 12 * M * D := by
+    have hstep : ∀ e ∈ Finset.Icc 1 r,
+        |(e : ℝ) ^ (-β₀) * ∑ d ∈ Finset.Icc 1 (t / e), chiRe χ d * (d : ℝ) ^ (-β₀)|
+          ≤ 6 * M * (2 * (t : ℝ) ^ (-β₀)) := by
+      intro e he
+      rw [Finset.mem_Icc] at he
+      have het : e ≤ t := le_trans he.2 hrt
+      have hte1 : 1 ≤ t / e := (Nat.one_le_div_iff (by omega)).mpr het
+      rw [abs_mul, abs_of_nonneg (Real.rpow_nonneg (by positivity) _)]
+      calc (e : ℝ) ^ (-β₀) * |∑ d ∈ Finset.Icc 1 (t / e), chiRe χ d * (d : ℝ) ^ (-β₀)|
+          ≤ (e : ℝ) ^ (-β₀) * (6 * M * ((t / e : ℕ) : ℝ) ^ (-β₀)) :=
+            mul_le_mul_of_nonneg_left (hB (t / e) hte1) (Real.rpow_nonneg (by positivity) _)
+        _ = 6 * M * ((e : ℝ) ^ (-β₀) * ((t / e : ℕ) : ℝ) ^ (-β₀)) := by ring
+        _ ≤ 6 * M * (2 * (t : ℝ) ^ (-β₀)) := by
+            apply mul_le_mul_of_nonneg_left
+              (term_rpow_le (by linarith) (by linarith) he.1 het) (by positivity)
+    calc |∑ e ∈ Finset.Icc 1 r, (e : ℝ) ^ (-β₀)
+            * ∑ d ∈ Finset.Icc 1 (t / e), chiRe χ d * (d : ℝ) ^ (-β₀)|
+        ≤ ∑ e ∈ Finset.Icc 1 r, |(e : ℝ) ^ (-β₀)
+            * ∑ d ∈ Finset.Icc 1 (t / e), chiRe χ d * (d : ℝ) ^ (-β₀)| :=
+          Finset.abs_sum_le_sum_abs _ _
+      _ ≤ ∑ _e ∈ Finset.Icc 1 r, 6 * M * (2 * (t : ℝ) ^ (-β₀)) := Finset.sum_le_sum hstep
+      _ = (r : ℝ) * (12 * M * (t : ℝ) ^ (-β₀)) := by
+          rw [Finset.sum_const, Nat.card_Icc, Nat.add_sub_cancel, nsmul_eq_mul]; ring
+      _ ≤ 12 * M * D := by
+          rw [hDdef, hrdef]
+          have := natSqrt_mul_rpow_le (β := β₀) ht
+          nlinarith [this, hMnn, natSqrt_le_sqrt t, Real.sqrt_nonneg (t : ℝ)]
+  -- CORNER bound : `|B(⌊√t⌋)·T(⌊√t⌋)| ≤ 12M/(1−β₀)·D`
+  have hCorner : |(∑ d ∈ Finset.Icc 1 r, chiRe χ d * (d : ℝ) ^ (-β₀))
+        * ∑ e ∈ Finset.Icc 1 r, (e : ℝ) ^ (-β₀)| ≤ 12 * M / (1 - β₀) * D := by
+    rw [abs_mul]
+    have hTr : |∑ e ∈ Finset.Icc 1 r, (e : ℝ) ^ (-β₀)| ≤ (r : ℝ) ^ (1 - β₀) / (1 - β₀) := by
+      rw [abs_of_nonneg (Finset.sum_nonneg (fun e _ => Real.rpow_nonneg (by positivity) _))]
+      exact sum_rpow_neg_le (by linarith) hhi r
+    have hr1m2 : (r : ℝ) ^ (-β₀) * (r : ℝ) ^ (1 - β₀) ≤ 2 * D := by
+      have hb := sqrt_pow_bound (a := (1 - 2 * β₀)) (by linarith) (by linarith) (t := t) ht
+      rw [← hrdef] at hb
+      have hcomb : (r : ℝ) ^ (-β₀) * (r : ℝ) ^ (1 - β₀) = (r : ℝ) ^ (1 - 2 * β₀) := by
+        rw [← Real.rpow_add (by exact_mod_cast (by omega : 0 < r))]; congr 1; ring
+      rw [hcomb]
+      have hhalf : (1 - 2 * β₀) / 2 = 1 / 2 - β₀ := by ring
+      rw [hhalf] at hb; rw [hDdef]; exact hb
+    calc |∑ d ∈ Finset.Icc 1 r, chiRe χ d * (d : ℝ) ^ (-β₀)|
+            * |∑ e ∈ Finset.Icc 1 r, (e : ℝ) ^ (-β₀)|
+        ≤ (6 * M * (r : ℝ) ^ (-β₀)) * ((r : ℝ) ^ (1 - β₀) / (1 - β₀)) :=
+          mul_le_mul (hB r hr1) hTr (abs_nonneg _) (by positivity)
+      _ = 6 * M / (1 - β₀) * ((r : ℝ) ^ (-β₀) * (r : ℝ) ^ (1 - β₀)) := by ring
+      _ ≤ 6 * M / (1 - β₀) * (2 * D) := by
+          apply mul_le_mul_of_nonneg_left hr1m2 (by positivity)
+      _ = 12 * M / (1 - β₀) * D := by ring
+  -- LEG 1 : the main term
+  have hLeg1 := dhAbel_leg1_le χ hχ hsq hq hzero hlo hhi hZ ht
+  rw [← hrdef, ← hMdef] at hLeg1
+  set L₁ : ℝ := (DirichletCharacter.LFunction χ 1).re with hL1def
+  -- assemble : `Leg₁ + Leg₂ − Corner ≤ main + K·D`
+  have hLeg1' : (∑ d ∈ Finset.Icc 1 r, (chiRe χ d * (d : ℝ) ^ (-β₀))
+        * ∑ e ∈ Finset.Icc 1 (t / d), (e : ℝ) ^ (-β₀))
+      ≤ L₁ * (t : ℝ) ^ (1 - β₀) / (1 - β₀)
+        + (34 + 12 * M * Z₀ + 24 * M / (1 - β₀)) * D := by
+    have := abs_le.mp hLeg1; rw [← hDdef] at this; linarith [this.2]
+  have harith : L₁ * (t : ℝ) ^ (1 - β₀) / (1 - β₀)
+        + (34 + 12 * M * Z₀ + 24 * M / (1 - β₀)) * D + 12 * M * D + 12 * M / (1 - β₀) * D
+      = L₁ * (t : ℝ) ^ (1 - β₀) / (1 - β₀)
+        + (34 + 12 * M + 12 * M * Z₀ + 36 * M / (1 - β₀)) * D := by ring
+  have hL2 : (∑ e ∈ Finset.Icc 1 r, (e : ℝ) ^ (-β₀)
+        * ∑ d ∈ Finset.Icc 1 (t / e), chiRe χ d * (d : ℝ) ^ (-β₀)) ≤ 12 * M * D :=
+    le_trans (le_abs_self _) hLeg2
+  have hCabs := abs_le.mp hCorner
+  rw [← harith]
+  linarith [hLeg1', hL2, hCabs.1]
+
+/-! ## §6 — R2 : the unmollified detector extraction at the real zero -/
+
+/-- **T-BAL R2 — `unmoll_extraction_real` (the pinned extraction).** For a real primitive `χ`
+(`χ²=1`) at a real zero `β₀` (`L(β₀,χ)=0`, `1/2 ≤ β₀ < 1`) and `y ≥ 2`, the unmollified
+`β₀`-detector
+`D₀(y) = Σ_{n≤y} dhA χ n · n^{−β₀}·(1−n/y)₊` satisfies
+`D₀(y) ≤ L(1,χ).re · y^{1−β₀}/((1−β₀)(2−β₀)) + 2·C_w·y^{1/2−β₀}`,
+`C_w = 34 + 12M + 12M·Z₀ + 36M/(1−β₀)`, `M = √q(1+log q)`, `Z₀` the `zetaHol` compactness constant.
+The kernel-Abel identity `D₀ = (1/y)Σ_{t<y} A(t)` (`kernel_abel_sum`) + the per-`t` bound
+`dhAbel_inner_le` + the sharp power caps. Pole-cancelled (the zero kills the constant stream); the
+error decays as `y^{1/2−β₀}` — no swamping. -/
+theorem unmoll_extraction_real {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hsq : χ ^ 2 = 1) (hq : 2 ≤ q) {β₀ : ℝ}
+    (hzero : DirichletCharacter.LFunction χ (β₀ : ℂ) = 0) (hlo : 1 / 2 ≤ β₀) (hhi : β₀ < 1)
+    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Z₀)
+    {y : ℕ} (hy : 2 ≤ y) :
+    ∑ n ∈ Finset.Icc 1 y, dhA χ n * (n : ℝ) ^ (-β₀) * dhKernR ((n : ℝ) / (y : ℝ))
+      ≤ (DirichletCharacter.LFunction χ 1).re * (y : ℝ) ^ (1 - β₀) / ((1 - β₀) * (2 - β₀))
+        + 2 * (34 + 12 * (Real.sqrt q * (1 + Real.log q))
+            + 12 * (Real.sqrt q * (1 + Real.log q)) * Z₀
+            + 36 * (Real.sqrt q * (1 + Real.log q)) / (1 - β₀)) * (y : ℝ) ^ (1 / 2 - β₀) := by
+  set M : ℝ := Real.sqrt q * (1 + Real.log q) with hMdef
+  set Kw : ℝ := 34 + 12 * M + 12 * M * Z₀ + 36 * M / (1 - β₀) with hKwdef
+  set L₁ : ℝ := (DirichletCharacter.LFunction χ 1).re with hL1def
+  have hβ0 : 0 < β₀ := by linarith
+  have hu : 0 < 1 - β₀ := by linarith
+  have hu2 : 0 < 2 - β₀ := by linarith
+  have hyR : (0 : ℝ) < (y : ℝ) := by exact_mod_cast (by omega : 0 < y)
+  have hlogq : 0 ≤ Real.log q :=
+    Real.log_nonneg (by exact_mod_cast le_trans (by norm_num : (1 : ℕ) ≤ 2) hq)
+  have hMnn : 0 ≤ M := by rw [hMdef]; positivity
+  have hZ0nn : 0 ≤ Z₀ := le_trans (norm_nonneg _)
+    (hZ (β₀ : ℂ) (by rw [Complex.ofReal_re]; linarith) (by rw [Complex.ofReal_re]; linarith)
+      (by rw [Complex.ofReal_im]; simp))
+  have hKwnn : 0 ≤ Kw := by rw [hKwdef]; positivity
+  have hne' : χ ≠ 1 := ne_one_of_isPrimitive χ hχ hq
+  have hL1nn : 0 ≤ L₁ := by
+    rw [hL1def]
+    have hpos := LFunction_apply_one_pos hne' hsq
+    exact le_of_lt ((Complex.lt_def.mp hpos).1)
+  -- kernel-Abel: `D₀ = (1/y)·Σ_{t<y} A(t)`
+  have hker : ∀ n ∈ Finset.Icc 1 y, dhA χ n * (n : ℝ) ^ (-β₀) * dhKernR ((n : ℝ) / (y : ℝ))
+      = (dhA χ n * (n : ℝ) ^ (-β₀)) * (1 - (n : ℝ) / (y : ℝ)) := by
+    intro n hn; rw [Finset.mem_Icc] at hn
+    rw [dhKernR_eq (by rw [div_le_one hyR]; exact_mod_cast hn.2)]
+  rw [Finset.sum_congr rfl hker, kernel_abel_sum (fun n => dhA χ n * (n : ℝ) ^ (-β₀)) (by omega)]
+  -- per-`t` bound
+  have hAt : ∀ t ∈ Finset.Icc 1 (y - 1), (∑ n ∈ Finset.Icc 1 t, dhA χ n * (n : ℝ) ^ (-β₀))
+      ≤ L₁ * (t : ℝ) ^ (1 - β₀) / (1 - β₀) + Kw * (t : ℝ) ^ (1 / 2 - β₀) := by
+    intro t ht; rw [Finset.mem_Icc] at ht
+    have := dhAbel_inner_le χ hχ hsq hq hzero hlo hhi hZ (by omega : 1 ≤ t)
+    rw [← hMdef, ← hL1def] at this
+    calc (∑ n ∈ Finset.Icc 1 t, dhA χ n * (n : ℝ) ^ (-β₀))
+        ≤ L₁ * (t : ℝ) ^ (1 - β₀) / (1 - β₀)
+            + (34 + 12 * M + 12 * M * Z₀ + 36 * M / (1 - β₀)) * (t : ℝ) ^ (1 / 2 - β₀) := this
+      _ = L₁ * (t : ℝ) ^ (1 - β₀) / (1 - β₀) + Kw * (t : ℝ) ^ (1 / 2 - β₀) := by rw [hKwdef]
+  -- the two power-sum caps over `Icc 1 (y−1)`
+  have hcap1 : ∑ t ∈ Finset.Icc 1 (y - 1), (t : ℝ) ^ (1 - β₀) ≤ (y : ℝ) ^ (2 - β₀) / (2 - β₀) := by
+    have h := sum_rpow_le_integral (r := 1 - β₀) (by linarith) (y - 1)
+    have hyc : (((y - 1 : ℕ) : ℝ) + 1) = (y : ℝ) := by
+      rw [Nat.cast_sub (by omega : 1 ≤ y)]; push_cast; ring
+    rw [hyc, show (1 - β₀) + 1 = 2 - β₀ from by ring] at h
+    have hle : ((y : ℝ) ^ (2 - β₀) - 1) / (2 - β₀) ≤ (y : ℝ) ^ (2 - β₀) / (2 - β₀) := by
+      rw [show ((y : ℝ) ^ (2 - β₀) - 1) / (2 - β₀)
+        = (y : ℝ) ^ (2 - β₀) / (2 - β₀) - 1 / (2 - β₀) from by ring]
+      have : (0 : ℝ) ≤ 1 / (2 - β₀) := by positivity
+      linarith
+    exact le_trans h hle
+  have hcap2 : ∑ t ∈ Finset.Icc 1 (y - 1), (t : ℝ) ^ (1 / 2 - β₀) ≤ 2 * (y : ℝ) ^ (3 / 2 - β₀) := by
+    have h := sum_rpow_neg_le (β := β₀ - 1 / 2) (by linarith) (by linarith) (y - 1)
+    have hexp : -(β₀ - 1 / 2) = 1 / 2 - β₀ := by ring
+    have hexp2 : 1 - (β₀ - 1 / 2) = 3 / 2 - β₀ := by ring
+    rw [hexp, hexp2] at h
+    have hym1 : ((y - 1 : ℕ) : ℝ) ≤ (y : ℝ) := by
+      rw [Nat.cast_sub (by omega : 1 ≤ y)]; push_cast; linarith
+    have hbase : ((y - 1 : ℕ) : ℝ) ^ (3 / 2 - β₀) ≤ (y : ℝ) ^ (3 / 2 - β₀) :=
+      Real.rpow_le_rpow (by positivity) hym1 (by linarith)
+    have h32 : (0 : ℝ) < 3 / 2 - β₀ := by linarith
+    calc ∑ t ∈ Finset.Icc 1 (y - 1), (t : ℝ) ^ (1 / 2 - β₀)
+        ≤ ((y - 1 : ℕ) : ℝ) ^ (3 / 2 - β₀) / (3 / 2 - β₀) := h
+      _ ≤ (y : ℝ) ^ (3 / 2 - β₀) / (3 / 2 - β₀) := by
+          rw [show ((y - 1 : ℕ) : ℝ) ^ (3 / 2 - β₀) / (3 / 2 - β₀)
+            = ((y - 1 : ℕ) : ℝ) ^ (3 / 2 - β₀) * (1 / (3 / 2 - β₀)) from by ring,
+            show (y : ℝ) ^ (3 / 2 - β₀) / (3 / 2 - β₀)
+            = (y : ℝ) ^ (3 / 2 - β₀) * (1 / (3 / 2 - β₀)) from by ring]
+          exact mul_le_mul_of_nonneg_right hbase (by positivity)
+      _ ≤ 2 * (y : ℝ) ^ (3 / 2 - β₀) := by
+          rw [div_le_iff₀ h32]
+          nlinarith [mul_nonneg (Real.rpow_nonneg hyR.le (3 / 2 - β₀)) hu.le]
+  -- assemble
+  have hsum_le : (∑ t ∈ Finset.Icc 1 (y - 1), ∑ n ∈ Finset.Icc 1 t, dhA χ n * (n : ℝ) ^ (-β₀))
+      ≤ L₁ / (1 - β₀) * ((y : ℝ) ^ (2 - β₀) / (2 - β₀)) + Kw * (2 * (y : ℝ) ^ (3 / 2 - β₀)) := by
+    calc (∑ t ∈ Finset.Icc 1 (y - 1), ∑ n ∈ Finset.Icc 1 t, dhA χ n * (n : ℝ) ^ (-β₀))
+        ≤ ∑ t ∈ Finset.Icc 1 (y - 1),
+            (L₁ * (t : ℝ) ^ (1 - β₀) / (1 - β₀) + Kw * (t : ℝ) ^ (1 / 2 - β₀)) :=
+          Finset.sum_le_sum hAt
+      _ = L₁ / (1 - β₀) * (∑ t ∈ Finset.Icc 1 (y - 1), (t : ℝ) ^ (1 - β₀))
+            + Kw * (∑ t ∈ Finset.Icc 1 (y - 1), (t : ℝ) ^ (1 / 2 - β₀)) := by
+          rw [Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib]
+          exact Finset.sum_congr rfl (fun t _ => by ring)
+      _ ≤ L₁ / (1 - β₀) * ((y : ℝ) ^ (2 - β₀) / (2 - β₀)) + Kw * (2 * (y : ℝ) ^ (3 / 2 - β₀)) := by
+          apply add_le_add
+          · exact mul_le_mul_of_nonneg_left hcap1 (by positivity)
+          · exact mul_le_mul_of_nonneg_left hcap2 hKwnn
+  -- multiply by `1/y` and simplify the powers
+  rw [one_div]
+  have hyinv : (0 : ℝ) ≤ (y : ℝ)⁻¹ := by positivity
+  calc (y : ℝ)⁻¹ * ∑ t ∈ Finset.Icc 1 (y - 1), ∑ n ∈ Finset.Icc 1 t, dhA χ n * (n : ℝ) ^ (-β₀)
+      ≤ (y : ℝ)⁻¹ * (L₁ / (1 - β₀) * ((y : ℝ) ^ (2 - β₀) / (2 - β₀))
+          + Kw * (2 * (y : ℝ) ^ (3 / 2 - β₀))) :=
+        mul_le_mul_of_nonneg_left hsum_le hyinv
+    _ = L₁ * (y : ℝ) ^ (1 - β₀) / ((1 - β₀) * (2 - β₀)) + 2 * Kw * (y : ℝ) ^ (1 / 2 - β₀) := by
+        have hp1 : (y : ℝ)⁻¹ * (y : ℝ) ^ (2 - β₀) = (y : ℝ) ^ (1 - β₀) := by
+          rw [← Real.rpow_neg_one, ← Real.rpow_add hyR]; congr 1; ring
+        have hp2 : (y : ℝ)⁻¹ * (y : ℝ) ^ (3 / 2 - β₀) = (y : ℝ) ^ (1 / 2 - β₀) := by
+          rw [← Real.rpow_neg_one, ← Real.rpow_add hyR]; congr 1; ring
+        rw [← hp1, ← hp2]
+        field_simp
+
+/-! ## §7 — R3 : the effective-Siegel lower bound `L(1,χ).re ≥ 0.27·u·(2−β₀)` -/
+
+/-- **T-BAL R3 — `L1_lower_siegel` (the standalone Zeno stone).** At a real zero `β₀` and a scale
+`N ≥ 4` in the deep regime (`N^{1−β₀} ≤ e` and the extraction error `≤ 1/64`),
+`(27/100)·(1−β₀)·(2−β₀) ≤ L(1,χ).re` — a PV-grade effective Siegel lower bound for a single
+character. The floor `D₀(N) ≥ 3/4` (the `n=1` term, all terms `≥ 0`) meets the R2 upper bound at
+`N`; inverting gives `L(1,χ).re ≥ (47/64)/e·u(2−β₀) ≥ 0.27·u(2−β₀)` (`Real.exp_one_lt_d9`). The
+deep-regime guard is discharged at `N = ⌊e^{1/u}⌋` by the freeze ledger. -/
+theorem L1_lower_siegel {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hsq : χ ^ 2 = 1) (hq : 2 ≤ q) {β₀ : ℝ}
+    (hzero : DirichletCharacter.LFunction χ (β₀ : ℂ) = 0) (hlo : 1 / 2 ≤ β₀) (hhi : β₀ < 1)
+    {Z₀ : ℝ} (hZ : ∀ s : ℂ, 1 / 2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Z₀)
+    {N : ℕ} (hN : 4 ≤ N) (hscale : (N : ℝ) ^ (1 - β₀) ≤ Real.exp 1)
+    (hguard : 2 * (34 + 12 * (Real.sqrt q * (1 + Real.log q))
+        + 12 * (Real.sqrt q * (1 + Real.log q)) * Z₀
+        + 36 * (Real.sqrt q * (1 + Real.log q)) / (1 - β₀)) * (N : ℝ) ^ (1 / 2 - β₀) ≤ 1 / 64) :
+    27 / 100 * ((1 - β₀) * (2 - β₀)) ≤ (DirichletCharacter.LFunction χ 1).re := by
+  set M : ℝ := Real.sqrt q * (1 + Real.log q) with hMdef
+  set L₁ : ℝ := (DirichletCharacter.LFunction χ 1).re with hL1def
+  have hu : 0 < 1 - β₀ := by linarith
+  have hu2 : 0 < 2 - β₀ := by linarith
+  have hβ0 : 0 < β₀ := by linarith
+  have hD : 0 < (1 - β₀) * (2 - β₀) := mul_pos hu hu2
+  have hNR : (0 : ℝ) < (N : ℝ) := by exact_mod_cast (by omega : 0 < N)
+  have hne' : χ ≠ 1 := ne_one_of_isPrimitive χ hχ hq
+  have hL1nn : 0 ≤ L₁ := by
+    rw [hL1def]; exact le_of_lt ((Complex.lt_def.mp (LFunction_apply_one_pos hne' hsq)).1)
+  -- floor : `D₀(N) ≥ 3/4`
+  have hfloor : (3 : ℝ) / 4
+      ≤ ∑ n ∈ Finset.Icc 1 N, dhA χ n * (n : ℝ) ^ (-β₀) * dhKernR ((n : ℝ) / (N : ℝ)) := by
+    have hterm1 : dhA χ 1 * ((1 : ℕ) : ℝ) ^ (-β₀) * dhKernR (((1 : ℕ) : ℝ) / (N : ℝ))
+        = 1 - 1 / (N : ℝ) := by
+      rw [dhA_one, Nat.cast_one, Real.one_rpow, one_mul, one_mul,
+        dhKernR_eq (by rw [div_le_one hNR]; exact_mod_cast (by omega : 1 ≤ N))]
+    have h1mem : (1 : ℕ) ∈ Finset.Icc 1 N := by rw [Finset.mem_Icc]; omega
+    have hnn : ∀ n ∈ Finset.Icc 1 N,
+        0 ≤ dhA χ n * (n : ℝ) ^ (-β₀) * dhKernR ((n : ℝ) / (N : ℝ)) := by
+      intro n hn; rw [Finset.mem_Icc] at hn
+      exact mul_nonneg (mul_nonneg (dhA_nonneg χ hsq (by omega))
+        (Real.rpow_nonneg (by positivity) _)) (dhKernR_nonneg _)
+    have hinvle : (1 : ℝ) / (N : ℝ) ≤ 1 / 4 :=
+      one_div_le_one_div_of_le (by norm_num) (by exact_mod_cast hN)
+    calc (3 : ℝ) / 4 ≤ 1 - 1 / (N : ℝ) := by linarith [hinvle]
+      _ = dhA χ 1 * ((1 : ℕ) : ℝ) ^ (-β₀) * dhKernR (((1 : ℕ) : ℝ) / (N : ℝ)) := hterm1.symm
+      _ ≤ ∑ n ∈ Finset.Icc 1 N, dhA χ n * (n : ℝ) ^ (-β₀) * dhKernR ((n : ℝ) / (N : ℝ)) :=
+          Finset.single_le_sum hnn h1mem
+  -- R2 upper bound at `N`
+  have hR2 := unmoll_extraction_real χ hχ hsq hq hzero hlo hhi hZ (by omega : 2 ≤ N)
+  rw [← hMdef, ← hL1def] at hR2
+  -- meet floor and upper bound
+  have hscale' : L₁ * (N : ℝ) ^ (1 - β₀) / ((1 - β₀) * (2 - β₀))
+      ≤ L₁ * Real.exp 1 / ((1 - β₀) * (2 - β₀)) := by
+    rw [div_eq_mul_one_div, div_eq_mul_one_div (L₁ * Real.exp 1)]
+    exact mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left hscale hL1nn) (by positivity)
+  have hkey : (3 : ℝ) / 4 ≤ L₁ * Real.exp 1 / ((1 - β₀) * (2 - β₀)) + 1 / 64 :=
+    le_trans hfloor (le_trans hR2 (add_le_add hscale' hguard))
+  -- invert : `L₁·e ≥ (47/64)·(1−β₀)(2−β₀)`
+  have hinv : 47 / 64 ≤ L₁ * Real.exp 1 / ((1 - β₀) * (2 - β₀)) := by linarith [hkey]
+  have hmul : 47 / 64 * ((1 - β₀) * (2 - β₀)) ≤ L₁ * Real.exp 1 := (le_div_iff₀ hD).mp hinv
+  -- `e < 2.7182818286 ⟹ (47/64)/e ≥ 27/100`
+  have hepos : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
+  have hexp : Real.exp 1 * 1728 ≤ 4700 := by nlinarith [Real.exp_one_lt_d9]
+  have hstep : 27 / 100 * ((1 - β₀) * (2 - β₀)) * Real.exp 1
+      ≤ 47 / 64 * ((1 - β₀) * (2 - β₀)) := by nlinarith [hD, hexp]
+  have hcancel : 27 / 100 * ((1 - β₀) * (2 - β₀)) * Real.exp 1 ≤ L₁ * Real.exp 1 :=
+    le_trans hstep hmul
+  exact le_of_mul_le_mul_right hcancel hepos
 
 end Salt.SW
 

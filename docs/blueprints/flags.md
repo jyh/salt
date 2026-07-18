@@ -9897,3 +9897,82 @@ is the WRONG quadratic form for `selberg_opt_eq` (which needs `ν(p)=h(p)/p`); t
 noted this ("wants the nu(gcd) form"). Do not try to route `selberg_opt_eq` through `selberg_diag`.
 (#161) The clean H-local split `1+selG χ p = 1/((1−1/p)(1−χ/p))` (via `1−selH/p=(1−1/p)(1−χ/p)`, exact)
 is the load-bearing gift for R5/`H_lower`/`euler_b_one` — bank it.
+
+## 2026-07-18 T-BAL S₀ 5th-design WAVE 3a — THE CRUX LANDS: R2 unmollified extraction + R3 effective-Siegel (the swamping error resolved) — S0-W3a/Opus
+
+Executed the CRUX node of the T-BAL S₀ redesign. New file `Salt/SW/DHCore.lean` (registered in
+`Salt/SW/All.lean`, import + audit line appended; concurrent W3b untouched). Full `Salt.SW.All`
+GREEN (8806 jobs); ALL 18 new decls audit-clean `[3 axioms]` (`propext, Classical.choice,
+Quot.sound`). No `sorry`/`native_decide`/new axioms. Ledger UNCHANGED (exact identities / sharp
+caps): q=3 corner still `R3 err@R 10^-48.8`, `(3/4)/e=0.2759≥0.27`.
+
+**THE RESOLUTION OF THE FLAGGED SWAMPING-ERROR CRUX (catch #157/#162).** W2 flagged the
+per-divisor remainder `Σχ(b)b^{-β₀}·O_b(1) ~ y^{1-β₀}log y` as the indivisible wall and proposed a
+by-parts of the error stream against the zero-killed partials (~150 ln C/D). THE ACTUAL FIX is
+cleaner and does NOT need a bespoke error-stream Abel: apply the ALREADY-LANDED **symmetric √t
+Dirichlet hyperbola** (`sum_divisors_eq_hyperbola_symm`) to `A(t) = Σ_{n≤t} dhA χ n·n^{-β₀}` with
+`a_d = χ_ℝ(d)d^{-β₀}`, `b_e = e^{-β₀}` (this IS `A(t)` since `dhA = χ_ℝ ∗ 1` and
+`d^{-β₀}(n/d)^{-β₀} = n^{-β₀}`). BOTH legs are confined to `d,e ≤ √t`, so the naive term-by-term
+bound on the remainder legs `Σ_{d≤√t} d^{-β₀}·6M·⌊t/d⌋^{-β₀} ≤ 6M·2^{β₀}·t^{-β₀}·√t = O(M·t^{1/2-β₀})`
+— the `√t` (not `t`) count kills the swamp (`t^{1/2-β₀} ≤ 1`, β₀≥1/2). No error-stream by-parts
+needed; the zero-killed `chiRe_partial_at_zero_le` controls the two short legs + the corner, and the
+long leg carries the `L(1,χ)` main term via `norm_LFunction_sub_partial_le_strip` + the tangent
+(concavity) floor bound. **Process catch #163: when a per-divisor error swamps under the ASYMMETRIC
+hyperbola, try the SYMMETRIC √N split FIRST — it halves the effective summation length to √t and the
+naive bound then closes; a bespoke error-stream Abel was NOT the minimal route.**
+
+**LANDED — R2 `unmoll_extraction_real` [C, THE crux stone].** For real primitive χ (χ²=1) at a real
+zero β₀ (1/2≤β₀<1) and y≥2:
+`Σ_{n≤y} dhA χ n·n^{-β₀}·(1-n/y)₊ ≤ L(1,χ).re·y^{1-β₀}/((1-β₀)(2-β₀)) + 2·C_w·y^{1/2-β₀}`,
+`C_w = 34 + 12M + 12M·Z₀ + 36M/(1-β₀)`, `M = √q(1+log q)`, `Z₀` the `zetaHol_bound` compactness
+constant (hypothesis `∀ s in the box, ‖zetaHol s‖ ≤ Z₀`). Route (all landed suppliers): kernel-Abel
+`D₀ = (1/y)Σ_{t<y}A(t)` → per-`t` symmetric hyperbola (`dhAbel_hyperbola`) → long-leg main-term
+(`dhAbel_leg1_le`: strip@1 for L₁, `T_em_real` EM-split, `rpow_sub_le_tangent` MVT floor-error,
+`chiRe_partial_at_zero_le` kills the ζ(β₀) stream) → short legs + corner zero-killed → outer power
+caps (`sum_rpow_le_integral`, `sum_rpow_neg_le`). Error decays `y^{1/2-β₀}` (pole-cancelled; the ONE
+`1/u` dust lives in `C_w`).
+
+**C_w — THE NUMBER (pinned, RECORDED).** Honest `C_w(u*) ≈ 2.0×10⁴` at the q=3 binding corner
+(`M=3.635`, `u*=0.00659`, `Z₀~2.5`), dominated by `36M/u ≈ 1.98×10⁴`. **This EXCEEDS the freeze's
+1.8e4 "retune z" threshold — but that threshold governs the MOLLIFIED δ_d shape
+(`9.3·C_w·P·(1+logz)³(1+1/u)/z`), NOT this unmollified extraction.** My extraction carries the
+`y^{1/2-β₀}` decay directly (cleaner than the z-mollified `y^{-β₀}` form the freeze anticipated), so
+NO z-retune is warranted for R2/R3: the R3 deep-regime guard `2·C_w·N^{1/2-β₀} ≈ 1.3×10^{-28} ≪ 1/64`
+holds at `N=⌊e^{1/u}⌋` with **26 orders of headroom**. (The `36M/u` is 3× the freeze's "one u^{-1}
+dust" — from Corner + Leg1-tail + Leg1-ζ each carrying a `1/u`; tightenable to `~12M/u` but cosmetic
+given the 26-order decay margin. The z-retune concern is W3b's mollified-R6 δ_d, not this stone.)
+
+**LANDED — R3 `L1_lower_siegel` [B, standalone Zeno stone].** `27/100·(1-β₀)·(2-β₀) ≤ L(1,χ).re` at
+a real zero, given a deep-regime scale `N≥4` with `N^{1-β₀}≤e` and the guard `2·C_w·N^{1/2-β₀}≤1/64`.
+Floor `D₀(N)≥3/4` (n=1 term, all terms ≥0, N≥4) meets R2's upper bound at N; inverting with `R^u=e`
+gives `L₁ ≥ (3/4-1/64)/e·(1-β₀)(2-β₀) = (47/64)/e·u(2-β₀)`, and `(47/64)/e = 0.27016 ≥ 0.27` EXACTLY
+(via `Real.exp_one_lt_d9`: `1728·e = 4697.2 ≤ 4700`). The deep-regime guard (hscale + hguard) is the
+freeze's "deep-regime guard," discharged at `N=⌊e^{1/u}⌋` by the master (R8); the guard has 26 orders
+of headroom at u* so the discharge is trivial arithmetic. **This is the effective-Siegel lower bound
+the whole S₀ chain hangs on — no distinct target character, unlike the Goldfeld-only landed bounds.**
+
+**FLAG — the FULLY-GENERIC-λ / weighted R6 [C/D] — STOP-AND-FLAG (needs W3b's `selberg_opt_eq`).**
+The task's `unmoll_extraction_W` for a GENERIC weight λ was NOT built: `dhCoeffW χ λ n = dhA χ n·
+(Σ_{d∣n}λ_d)²` carries a SQUARED divisor-sum weight, so the coefficient is NOT the clean 2-fold
+convolution `χ_ℝ ∗ 1` — the symmetric-hyperbola-on-A(t) route does not generalize (it becomes a
+triple convolution). The weighted main term is `L₁·V(λ)·y^{1-β₀}/(u(2-β₀))` where `V(λ)` is the
+Selberg volume; for the optimal weight `V(λ^opt)=1/H(z)` is exactly R4's `selberg_opt_eq` (flagged
+W2, un-built, needs the nu(gcd) mathlib form + the y↔w Möbius CoV). **The generic/weighted R6 is
+therefore genuinely downstream of `selberg_opt_eq` + `H_lower` (R4/R5) — co-dispatch with W3b.** The
+R2 (trivial-weight `V=1`) + R3 delivered here are the campaign-grade Zeno success the task scoped;
+the weighted instance is the next wall, not this executor's.
+
+**Catches (LOUD).** (#163) symmetric √N hyperbola beats the asymmetric one for swamping remainders
+(above). (#164) `abs_add` is `abs_add_le` in this mathlib (`|a+b|≤|a|+|b|`); `abs_add` is unknown.
+(#165) `ne_one_of_isPrimitive χ hχ hq` takes BOTH hχ AND hq (Growth.lean:271), not just hq. (#166)
+`ring` does NOT merge `(1-β₀)⁻¹·(2-β₀)⁻¹` into `((1-β₀)(2-β₀))⁻¹` (leaves distinct poly-inverse
+atoms) — use `field_simp` after `rw [← rpow_add-facts]` to clear denominators for the final scale
+algebra. (#167) `AntitoneOn.sum_le_integral` needs `x₀=1` (not 0) for `x^{-β}` — the base is antitone
+only on `[1,·]` (at 0, `0^{-β}=0 < ∞`); split the `e=1` term off, `Icc 2 m ↔ range (m-1)` via
+`sum_Ico_eq_sum_range`. (#168) the floor-error `(t/d)^{1-β₀} - ⌊t/d⌋^{1-β₀} ≤ (1-β₀)⌊t/d⌋^{-β₀}`
+(tangent/concavity) has NO direct mathlib lemma — prove via MVT `exists_hasDerivAt_eq_slope` on
+`z^{1-β₀}` + `ξ^{c-1}≤x^{c-1}` (ξ≥x, c-1≤0); subadditivity `b^c-a^c≤(b-a)^c` is TOO crude (loses the
+`⌊⌋^{-β₀}` decay, re-swamps). (#169) `le_of_mul_le_mul_right hab hc` (NOT `(mul_le_mul_right hc).mp`
+— the latter is a monotone `∀a, a*x≤a*y` form here). (#170) `Real.exp_one_lt_d9` (`e<2.7182818286`)
+is exactly sharp enough for `0.27`: `1728·e=4697.2 ≤ 4700`, margin `(47/64)/e=0.27016`; do NOT round
+`e≈2.72` (that gives `1728·2.72=4700.16 > 4700`, breaks 0.27).

@@ -8268,3 +8268,28 @@ decisions per question.
   STANDING RULE for briefs: executors NEVER git-checkout/
   branch/commit — the working tree's branch state belongs to
   the house; deliver via the tree only.
+
+- 2026-07-18 12:15 PT: ██ **S₀-W3a lands THE CRUX — R2 + R3,
+  the swamping error resolved by the hyperbola** ██ (≈ 467k /
+  112 tools; house-verified SW.All 8806 green, 18 decls
+  [3 axioms]). Salt/SW/DHCore.lean (870 ln):
+  `unmoll_extraction_real` (the extraction at the real zero —
+  the W2-flagged ~150-ln by-parts wall DISSOLVED: the
+  symmetric √t hyperbola (DHYP's mathlib-TODO fill!) applied
+  to A(t) confines both legs to d,e ≤ √t, so the remainder is
+  O(M·t^{1/2−β₀}) by COUNTING — t^{1/2−β₀} ≤ 1 kills the
+  swamp) + `L1_lower_siegel` (L(1,χ).re ≥ 0.27·u·(2−β₀) —
+  the PV-grade effective Siegel stone, margin (47/64)/e =
+  0.27016 via exp_one_lt_d9 exactly sharp). C_w PINNED:
+  34 + 12M + 12M·Z₀ + 36M/u ≈ 2.0e4 at the q=3 corner —
+  exceeds the freeze's 1.8e4 threshold BUT that threshold
+  governs the mollified δ_d shape; this route carries
+  y^{1/2−β₀} decay directly, R3-guard headroom 26 ORDERS, no
+  z-retune warranted (recorded). Ledgers unchanged. Catches
+  #175–182 (reg.; local #163–170: the symmetric-beats-
+  asymmetric lesson; MVT floor-error not subadditivity;
+  exp_one_lt_d9 sharpness). RESIDUAL: the weighted R6 needs
+  W3b-2's selberg_opt_eq (the squared divisor-sum weight
+  breaks the clean-convolution route — co-dispatch on W3b-2's
+  landing). T-BAL remaining: R6(weighted) → R5 H_lower micro
+  → R7 Λ → R8. Board: VK-5 + W3b-2 (the T-BAL gate).
