@@ -8034,3 +8034,34 @@ decisions per question.
   rpow ledger (Σ=1/2, refuter-verified numerically).
   **VK-3 DISPATCHED on the stitch.** Board: VK-3 + the S₀
   redesign wf.
+
+- 2026-07-18 ~11:10 PT: ██ **THE S₀ VERDICT — the fifth T-BAL
+  design, and the first with a PROVEN foundation** ██
+  (wf_eecc6650: 8/8 agents, ≈ 1.21M; both candidates
+  UNREFUTED — one is the cannot-close PROOF, the other the
+  redesign; synthesis chose support-native, dispatch_ready).
+  THE GROUND TRUTH (s0_ground.md, hand-verified numerics):
+  pointwise-absolute S₀ is DEAD (band primes carry weight 6–7;
+  the straddling band is {rad(n) > z} up to x, NOT (z,z²] —
+  counterexample n=105); the z≫x escape re-enters the fatal
+  z–x circle; Benli's REAL mechanism is the β₀-SELF-BALANCE
+  whose exact L(1,χ)-residue cancellation works ONLY for
+  χ-BUILT (Selberg-optimal) weights. THE PROOF (benli-faithful,
+  conf 0.85, → flags as F1): BV grahamTheta weights are
+  PROVABLY unclosable at PV grade — the defect is a POWER of Q
+  vs a polylog (adversarially certified at the χ-pattern
+  level); no tuning closes. THE REDESIGN (support-native +
+  10 grafts): re-found the mollifier on χ-dependent
+  Selberg-optimal weights (R0, internal defs; grahamTheta
+  retained for existing consumers), the β₀-self-balance chain
+  R1–R8, witnesses b=680/k=14/c=2^{−250}, the σ-window
+  HONESTLY narrowed to 16/17 (the u^{−9} E-grade forces it —
+  9/10 has exactly-zero margins). Freeze banked
+  (docs/exploration/tbal-s0-freeze.md) + the five ledger
+  scripts (scripts/tbal_ledgers/). RATIFICATION GATE (blocks
+  R8 + the contract edit ONLY): σ 9/10 → 16/17 vs the PROSE
+  contract (DHRepulsion.lean:267; grounded NO landed Lean
+  consumer) — JYH decision, jointly with the downstream
+  zero-density budget re-check; register entry OPEN.
+  **WAVE 1 DISPATCHED** (R0 re-founding + R1 shift + R3
+  Siegel-lower — ungated stones). Board: VK-3 + S₀-W1.
