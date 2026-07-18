@@ -8547,3 +8547,23 @@ decisions per question.
   (feedback_fable_workflow_gate); supersedes the blanket D-posture
   spend freedom for workflows specifically. Board: VK-8 + the
   W=14 pass.
+
+- 2026-07-18 14:50 PT: ██ **THE W=14 AUDIT: 0/2 — VERIFIED TO
+  THE DECIMAL** ██ (wf_6e7fed04, 2 refuters ≈ 287k; both
+  wrote independent scripts; ~14,000 grid points, ZERO
+  failures; every judge claim reproduced, several EXTENDED:
+  W=14 is the UNIQUE integer equalizing η_E = η_A at every σ;
+  q swept ALL of 3..200 — q=4 IS admissible and passes; the
+  σ-sweep verified to 1−10⁻⁶). Marginal corrections folded
+  into AMENDMENT 1 (the freeze doc): the honest u*-corner
+  crush margins (2.44x not 2.52x at q=5 etc.), THE ON-RAY
+  LEDGER LAW (the u* row convention is DEAD — rows cap on
+  u < τ only; 10^{+10} at u* is NOT a failure), the
+  convex-minimization law (ternary/analytic, never grids —
+  the audit itself produced and caught a spurious grid FAIL).
+  **R5-CRUSH DISPATCHED** (Opus, ungated; ~1130 ln:
+  R5b/c/d/e/f/h + grafts G1/G2 + the audit scripts shipped;
+  R5c and R5e standalone Zeno stones). T-BAL's path: R5-CRUSH
+  → R7/R8 composition. Board: VK-8 + R5-CRUSH. The Fable
+  workflow queue: EMPTY (the gate holds; no new asks pending —
+  the happy path needs none).
