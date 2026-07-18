@@ -6201,3 +6201,20 @@ decisions per question.
   region → MR unlocks → UNCONDITIONAL log-Chowla-2. Board:
   MERT-3b, PP3-ASSEMBLY, DH-2b-i, VMVT-R0, seed #2. Tally
   ~31.6M raw, house ~14%.
+
+- 2026-07-17 ~17:01 PT (GOLD WINDOW): **DH-2b-i LANDS — the Graham
+  weights** (≈ 149k / 37 tools; effectively first-attempt).
+  Salt/SW/GrahamWeights.lean: grahamTheta (squarefree guard
+  DROPPED — μ's support makes it automatic, documented) + θ₁ = 1
+  + |θ| ≤ 1 + the square-expansion + the n=1 floor + all three
+  crude G-sums (harmonic, σ-weighted contour variant, the
+  Benli-4.1 value bound). Residuals (2, per the freeze): the
+  lcm-regroup + the sharp 1/log z Barban–Vehov cancellation —
+  both documented bonuses, not blockers. Gotchas: le_or_lt gone
+  (by_cases); div_eq_div_iff wants ne-not-lt. **DH-2b-ii
+  DISPATCHED** — the contour assembly, the repulsion attack's
+  load-bearing node (Benli §§4–5 mirrored on: dhA + grahamTheta
+  + Kernel/ContourShift + DH-STRIP + LFunction_growth +
+  ZeroCountNearOne — every supplier LANDED). Ceremony: wired + 2
+  keystones (9167 jobs green). Board: MERT-3b, PP3-ASSEMBLY,
+  DH-2b-ii, VMVT-R0, seed #2. Tally ~31.8M raw, house ~14%.
