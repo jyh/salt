@@ -6345,3 +6345,27 @@ decisions per question.
   catch renumbers to a PROCESS note: executors must use ABSOLUTE
   scratchpad paths. VMVT-N3's brief carries the confirmed
   absolute paths.
+
+- 2026-07-17 ~18:07 PT (GOLD WINDOW): ██ **DH-2b-iv LANDS THE M3-3
+  INTEGRAND CORE + M4 INVERSION — AND CATCHES THE DESIGN (#61)**
+  ██ (≈ 137k / 42 tools; 1 attempt each). Salt/SW/DHBalance.lean:
+  norm_dhGpoly_le (the Graham factor) + norm_riemannZeta_le
+  (clean ζ bound, corpus-reusable) + **norm_dhIntegrand_le** (the
+  pointwise J core: ζ×L×G×kernel) + **dh_repulsion_of_LFunction_
+  one_lower** (M4: the UNCONDITIONAL inversion — given ANY
+  L(1,χ) lower bound Λ, gives 1−β ≥ Λ/(25e(1+log q)²); the
+  repulsion's endgame is DONE, waiting only for its Λ). ██ CATCH
+  #61 (executor-corrects-design, PROVED): my "crude poly-t bound
+  suffices, kernel gives t⁻²" was FALSE — the landed ζ and L
+  growth are LINEAR in t, product t² exactly cancels the kernel
+  ⟹ the J-integrand is O(1), NOT integrable. The fix is the
+  finite-N TRUNCATION route (dhDetector_mellin + the strip
+  tails, staying in-corpus — no subconvexity needed) ██. ██
+  CATCH #62 (a NeZero variant of #59): LFunction without
+  [NeZero q] silently elaborates the instance to `sorry` — a
+  def can CARRY a sorry with no error; the axiom audit catches
+  it downstream but the lesson is verify instance args on every
+  LFunction def ██. **DH-2b-v DISPATCHED** (the truncation-route
+  J bound → the balance → dh_repulsion). Ceremony: audit lines
+  added (9175 green). Board: MERT-FIN, PP3-ASSEMBLY, VMVT-N3,
+  DH-2b-v, seed #2. Tally ~33.2M raw, house ~14%.
