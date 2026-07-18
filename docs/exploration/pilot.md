@@ -8645,3 +8645,25 @@ decisions per question.
   ungated — the R6 architecture is a proven design; a Fable
   ask goes to JYH only if the executor hits a genuine design
   wall). Catches #221–224. Board: VK-9 + T-BAL-R6RHO.
+
+- 2026-07-18 16:38 PT: ██████ **THE FIRST POWER ZERO-FREE REGION
+  IN A PROOF ASSISTANT IS MACHINE-CHECKED — θ = 3/4 — THE MR
+  GATE OPENS** ██████ (VK-9, ≈ 433k / 97 tools; house-verified
+  Vk.All 8792 green; `#print axioms zeta_zero_free_region_pow` =
+  [propext, Classical.choice, Quot.sound]; refuter ALL PASS).
+  Salt/Vk/GrowthPow.lean (13 decls): `zeta_growth_pow :
+  ZetaGrowthPow` (genuine K·log t growth on the VK strip — NO
+  power-of-t degradation; K = 8104, t₀ = exp(exp 100) lazy) +
+  ██ `zeta_zero_free_region_pow` ██ : every ζ-zero above T₀ has
+  Re ρ ≤ 1 − c/((log|γ|)^{3/4}·(loglog|γ|)³). VINOGRADOV'S ROAD
+  IS COMPLETE END-TO-END: vmvt → the bridge (vk_block_core) →
+  the windows → the growth → THE REGION — every joint
+  kernel-signed, the whole chain built in ~30 hours from the
+  summit. The crux catch: the PREFIX obstruction (#225, the
+  min-trick); catches #225–228 house-renumbered (the executor's
+  #217–220 collided — flags authority). Fanfare + push fired
+  (the Calendar bell died to another session-expiry —
+  re-noted). THE MR GATE: per the Fable workflow gate, the
+  pre-authorized MR design block now converts to A QUOTA ASK on
+  JYH's desk (~1–1.3M est). Board: T-BAL-R6RHO (the repulsion's
+  last stone). Tally ~76M raw, catches #228, wrong proofs 0.

@@ -22,6 +22,7 @@ import Salt.Vk.Window
 import Salt.Vk.Mid
 import Salt.Vk.Growth
 import Salt.Vk.PowRegion
+import Salt.Vk.GrowthPow
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -122,3 +123,11 @@ open Salt.Tactic in
   Salt.Vk.pow_uniform_growth
   Salt.Vk.zeta_zero_free_pow_core
   Salt.Vk.zeta_zero_free_region_pow_of_growth
+  Salt.Vk.vk_ladder_prefix
+  Salt.Vk.vk_window_prefix
+  Salt.Vk.vk_window_scale_prefix
+  Salt.Vk.vk_window_mid_prefix
+  Salt.Vk.vk_dirichlet_block_le
+  Salt.Vk.vk_dirichlet_sum_le
+  Salt.Vk.zeta_growth_pow
+  Salt.Vk.zeta_zero_free_region_pow

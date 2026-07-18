@@ -9,6 +9,14 @@ process lesson, none a kernel error).
 
 ## Headline results (kernel-checked)
 
+0. **THE POWER ZERO-FREE REGION** — `zeta_zero_free_region_pow`:
+   every ζ-zero above T₀ has Re ρ ≤ 1 −
+   c/((log|γ|)^{3/4}·(loglog|γ|)³). θ = 3/4 < 1 — believed the
+   FIRST power zero-free region in any proof assistant; opens
+   the Matomäki–Radziwiłł gate toward unconditional
+   log-Chowla-2. Vinogradov's road machine-checked end-to-end
+   (VMVT → the mean-value-to-pointwise bridge → the window
+   ladder → the growth → the region) in ~30 hours.
 1. **THE VINOGRADOV MEAN VALUE THEOREM** — `Salt.Vmvt.vmvt :
    ∀ k r x, 2 ≤ k → 1 ≤ r → 1 ≤ x → VmvtBound k r x`
    (J_k(x,kr) ≤ k^{24k²r}·x^{2rk−½k(k+1)+η(k,r)}, the

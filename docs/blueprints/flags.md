@@ -10794,3 +10794,24 @@ deprecation/style warnings. Per #219, a "zero warnings" line from a replayed bui
 warning-free tree — grep the build that recompiles the closure and attribute each warning to its
 file (this session: 4 pre-existing warnings in Siegel/SelOpt/TwinDensity surfaced only when a
 concurrent Vk edit invalidated their cache; none in the new file).
+
+## VK-9 catches (house-numbered at ceremony; the executor proposed
+## #217–220 which R5-CRUSH had taken — flags is the authority)
+
+- **#225 (THE PREFIX OBSTRUCTION + the min-trick)** — Abel weighting
+  needs EVERY prefix of a dyadic window, not just the full window;
+  the min-trick (c' i = min (c i) y) re-telescopes any prefix into
+  clipped sub-blocks each a vk_block_core prefix, preserving the
+  10·N·P^{−ρ} bound. Cost: private/monolithic helpers forced a
+  ~350-line mechanical copy — EXPORT margin-derivation helpers in
+  future window chains.
+- **#226 (high regime = ONE dispatch at fixed k=12)** — at
+  log t ≥ e^100 the whole high band M ≥ t^{1/10} clears a single
+  zeta_block_dispatch guard (t ≤ M^{11}/11!, (12!)^6 ≤ M); no
+  per-block k-selection.
+- **#227 (the σ ≤ 3 vs ≤ 2 split)** — split at σ = 1: harmonic for
+  σ ≥ 1, trichotomy below; sidesteps the (2,3] dispatch gap.
+- **#228 (the ℂ-endpoint elaboration trap)** — Finset.Ioc with a
+  (n:ℂ)-summand back-propagates endpoint types to ℂ when neither
+  endpoint is a ℕ-variable ("failed to synthesize
+  LocallyFiniteOrder ℂ"); annotate (1:ℕ) or use insert-head.
