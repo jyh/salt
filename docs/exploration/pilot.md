@@ -7788,3 +7788,16 @@ decisions per question.
   list + the retune candidate JSON for per-rung detail, and
   the R7-Λ-alone-is-success Zeno framing). Board: T-BAL
   executor + LITT-STRIP design wf.
+
+- 2026-07-18 ~06:20 PT: JYH sleeping 2h ("keep the forge
+  hot"). Memory consolidated (project_gold_window rewritten
+  post-summit). **VMVT-VK design workflow LAUNCHED**
+  (wf_ec075a51: 3 maps (Vmvt surface / zero-machinery / VK
+  conversion theory w/ staged-source recon) → 2 anti-spiral
+  designers (full-Korobov vs minimal-power-for-the-MR-gate) →
+  refuter pairs → synthesis w/ dispatch_ready; the log-phase
+  Taylor-block bridge pre-flagged as the crux for both
+  designers AND refuters; the k^{24k²r} constant-vs-saving
+  balance mandated at two anchors). The freeze lands on JYH's
+  desk at wake (~08:10). Board: T-BAL executor + LITT-STRIP
+  design wf + VMVT-VK design wf.
