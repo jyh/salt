@@ -8436,3 +8436,29 @@ decisions per question.
   (R5b the window discharge → R6 the power growth → the power
   region through the landed bridge). Board: VK-7 + R5-FINISH +
   R6-EXEC. Tally ~70M raw.
+
+- 2026-07-18 13:45 PT: **R5-FINISH refutes the freeze's δ_b —
+  R5/H_lower needs a Fable-tier redesign** (≈ 189k / 52 tools;
+  house-verified SW.All 8810 green). BANKED: `zeta_side_ge`
+  (the Mertens-third reciprocal, e^γ·log z·(1−C/log z) ≤ the
+  ζ-side — EulerLink.lean, axiom-clean). REFUTED (numerically,
+  worst-χ-pattern — flags #187): the primorial-Rankin δ_b ≤
+  300z^{−0.4} is FALSE at the landed machinery (actual δ_b ~
+  10²¹–10⁴⁶: the +1-primes' Σ2p^{α−1} diverges at any fixed
+  α > 0; the "0.4 structural" belonged to the ABANDONED
+  b-convolution route). THE DEEP FACT (flags #188): H(z)/P(z) →
+  a positive CONSTANT ≈ e^{−γ} (0.57 at q=3), NOT 1−o(1) —
+  the amended H_lower shape was asymptotically wrong; R5
+  reduces to the razor-thin constant condition
+  (H/P)·e^γ(2−β₀) ≥ 1 (the ledger's 1.009 — 0.9% margin),
+  needing effective Selberg–Delange-grade input. ALSO (flags
+  #189): the L-side link's prime-vs-all-integer gap is a real
+  wall (mathlib lacks the Euler product at s=1). **THE R5
+  REDESIGN WORKFLOW LAUNCHED** (grounding-first: the exact
+  consumption DIRECTION in R7/R8 + the honest H/P structure +
+  the 1.009 anatomy; 2 designers incl. a
+  restructure-the-consumption angle; hardened refuters; a
+  proven cannot-close-at-this-margin is a legitimate verdict
+  that re-routes to a z-retune or a V-two-sided design).
+  R6-EXEC unaffected (independent). Board: VK-7 + R6-EXEC +
+  the R5 redesign wf.

@@ -10351,3 +10351,110 @@ bridge, which is absent for ℕ) and `∀ p∈s, Squarefree p` (`hp.prime.irredu
 `Squarefree.dvd_primorial : n ∣ n#` (self-primorial) — compose with `primorial_dvd_primorial (h:r≤z)`
 for `r ∣ z#`; `primorial` is ROOT-level (not `Nat.primorial`), from `Mathlib.NumberTheory.Primorial`
 (NOT transitively imported by the SW track — `import` it explicitly).
+
+## 2026-07-18 T-BAL R5-FINISH — the four `H_lower` stones: ONE lands (ζ-side reciprocal), TWO are HARD walls, and δ_b `≤ 300 z^{−0.4}` is NUMERICALLY FALSE. R5 does NOT complete as framed — R5-FINISH/Opus
+
+New file `Salt/SW/EulerLink.lean` (~95 ln, registered in `Salt.SW.All`: import + 3 audit names), full
+project green (8810 jobs, full `lake build` exit 0), all 3 lemmas axiom-clean
+`[propext, Classical.choice, Quot.sound]`. NO git ops (catch #174). Task was to close `H_lower` via the
+four stones the R5-EULER flag (2026-07-18) recorded as residuals: (1) L-side effective link [C ~120],
+(2) ζ-side Mertens reciprocal [B ~40], (3) δ_b cap [B/C ~60], (4) assembly [B ~40]. **Verdict: stone
+2 LANDS clean and permanent; stone 3 as stated is FALSE (refuted numerically, factor 10^46); stone 1
+is a genuine wall with a route-gap the R5-EULER flag mis-stated; stone 4 cannot reach the freeze's
+amended form. R5 (`H_lower`) is NOT complete, and cannot be via these four stones + the landed
+primorial-Rankin machinery. The 1.009 ledger margin is a razor-thin CONSTANT condition, not a decaying
+δ_b — its certification is an effective Selberg–Delange estimate, [C/D] / Fable-design-tier.**
+
+**LANDED — stone 2, the ζ-side effective reciprocal (`zeta_side_ge`) [B, clean first attempt].**
+`∃ C ≥ 0, ∀ z ≥ 3, e^γ·log z·(1 − C/log z) ≤ ∏_{p∈(z#).primeFactors}(1−1/p)⁻¹`, `C = C₀·e^γ` with
+`C₀` the corpus `Salt.Mertens.mertens_third` constant. Route: `∏(1−1/p)⁻¹ = (∏(1−1/p))⁻¹`
+(`zeta_side_prod_eq`, `Finset.prod_inv_distrib` + `primorial_primeFactors`); the reciprocal of
+`mertens_third`'s upper half `P₀·log z ≤ e^{−γ}+C₀/log z`, via the exact value
+`(e^γ·log z·(1−C₀e^γ/log z))·(e^{−γ}+C₀/log z) = log z − (e^γ C₀)²/log z ≤ log z` (the `e^γe^{−γ}=1`
+cancellation). This is the TRUE ζ-side supply (`e^γ log z ~ 1/u` at `z=e^{1/u}`); composes with
+`selHFull_eq_zeta_mul_L`. Helpers `zeta_side_prod_eq`, `mertens_prod_pos`.
+
+**REFUTED — stone 3, the δ_b cap `z^{−α}·∏(1+g p^α)/∏(1+g) ≤ 300 z^{−0.4}` at α=0.4 (FALSE).** The
+landed `selHSum_ge_zetaL_sub_rankin` Rankins the FULL smooth product `P(z)=∏_{p≤z}(1+g(p))` — a
+DIMENSION-1-mass object (`P(z) ~ c·log z` DIVERGES). At the fixed Rankin exponent α=0.4 the tail bound
+`z^{−α}∏(1+g(p)p^α)` does NOT beat `P(z)`; the ratio EXPLODES. Direct numerics (real `selG`, exact
+per-prime `log1p`; script in session scratch `rankin_check.py`):
+* q=3 Legendre pattern (χ(p)=±1 by p mod 3): δ_b = **5.5×10³** at z=10⁴, **5.5×10²¹** at z=10⁶ — vs
+  the claimed `300 z^{−0.4} ≈ 1.2`. Grows without bound.
+* χ(p)=+1-heavy extreme: δ_b = 1.9×10⁹ (z=10⁴), **1.2×10⁴⁶** (z=10⁶).
+* only the (non-character) χ(p)=−1-everywhere case decays (g(p)~1/p², mass CONVERGES). Real characters
+  are ~half +1 (g(p)~2/p) — the +1 primes give `Σ 2 p^{α−1}` with `α−1=−0.6 > −1`, DIVERGENT, so
+  `∏(1+g p^α) ~ exp(c z^{0.4}/log z)` swamps `z^{−0.4}`. **No fixed α > 0 gives polynomial decay on a
+  dimension-1 g; the optimal α ~ c/log z gives only δ_b ~ e^{−c}·log z, still not → 0.**
+* The ledger `scripts/tbal_ledgers/ledger.py` merely POSITS `db=300*z**-0.4` (line 37) — it never
+  derives it from the Rankin ratio; its "in-master at τ = 10^{−10.5}" (line 45) rests on this false
+  decay. The freeze's "0.4 structural: log2(4/3)=0.415" refers to the ABANDONED `b`-convolution route
+  (freeze line 13: `h̃=b⋆(1*χRe)`, prime-power k≥2 tail at exponent 0.6), NOT the primorial-Rankin
+  machinery that actually landed. The R5-EULER flag's claim that δ_b is "a finite-prime effective
+  estimate, also next-pass" is WRONG — it was never numerically checked.
+
+**THE DEEPER STRUCTURAL FINDING (why R5 as framed is unsound).** The honest truncation defect is
+`δ_b = 1 − H(z)/P(z)`, and `H(z)/P(z) → a POSITIVE CONSTANT, not 1` (script `hp_ratio.py`, exact
+enumeration of squarefree `r≤z`):
+* q=3 mod-3 pattern: H/P = 0.783 (z=50) → 0.704 (z=10³) → 0.663 (z=2×10⁴), decreasing; linear-in-
+  `1/log z` extrapolation → **limit ≈ 0.57**.
+* χ=+1-heavy (dim κ=2): H/P → ≈ 0.26 (much smaller — `e^{−2γ}`-grade).
+So the truncation defect is a Θ(1) CONSTANT (~0.43 for q=3), NOT `o(1)`. The freeze's amended R5
+`H(z) ≥ (1−δ_d−δ_b)·L₁/(u(2−β₀))` with `δ_b → 0` is asymptotically FALSE if read as `H ≥ (1−o(1))P`.
+It is only salvageable by ABSORBING the constant `H/P` into the leading factor: `H(z)/(L₁/(u(2−β₀)))
+= (H/P)·e^γ(2−β₀)·(1−effective-errors)`, so R5 reduces to the **CONSTANT margin condition
+`(H/P)·e^γ·(2−β₀) ≥ 1`** — the ledger's razor-thin 1.009. At q=3, β₀→1: needs `H/P ≥ 1/e^γ = 0.5615`;
+the extrapolated limit ≈ 0.57 clears by ~1%, matching 1.009. **This margin is genuine but tiny and can
+be certified only by a SHARP effective mean-value bound `H(z) ≥ c·log z` with `c` pinned to <1% — a
+Selberg–Delange / effective-singular-series estimate. No crude Rankin tail can deliver it (Rankin gives
+`H ≥ P − (huge tail) < 0`, vacuous).** The real "δ_b, δ_d" that DO decay are the second-order effective
+errors (Mertens `C/log z ~ u`, the L-side `z^{−1/2}`, the H/P convergence rate) — the freeze conflated
+these decaying errors with the non-decaying leading constant into one false `300 z^{−0.4}`.
+
+**WALL CONFIRMED — stone 1, the L-side effective link [C, the R5-EULER pinned wall].** Independent of
+the δ_b issue; would be TRUE and useful, but it is a genuine wall, NOT the ~120-ln glue the R5-EULER
+flag claimed. The flag's route (its lines 10262-10269) has a GAP: `log(∏_{p≤z}(1−χ(p)/p)⁻¹) =
+Σ_{p≤z}χ(p)/p + (k≥2 prime-power tail)` produces a **PRIME sum** `Σ_{p≤z}χ(p)/p`, but the landed
+`norm_LFunction_sub_partial_le_strip` (at s→1, M=√q(1+log q) via Pólya–Vinogradov) controls the
+**ALL-INTEGER** partial sum `Σ_{n≤z}χ(n)/n → L(1,χ)`. Converting prime↔all-integer IS the Euler
+product at s=1 (circular), or needs `Σ_{p≤t}χ(p)` (prime character sums) which PV does NOT bound
+(PV is over all n). Mathlib survey (Explore, mathlib v4.32): NO Euler product at/continuable-to s=1
+(all `dirichletLSeries_eulerProduct*`, `LSeries_eulerProduct_exp_log` require `1<re s`, absolute
+convergence — fails at 1); `LFunction_apply_one_pos` (Siegel) and `prod_primesBelow_geometric_eq_
+tsum_smoothNumbers` (finite product = z-smooth tsum, abs-convergent at 1) exist but neither bridges
+the oscillating non-smooth tail. **Stone 1 needs a genuinely new analytic input (prime-character-sum
+bound, or a from-scratch conditionally-convergent Euler-product-at-1 with effective error), not
+composition of two landed lemmas.** Not attempted in Lean (would not close R5 regardless of stone 3).
+
+**Stone 4 (assembly) — cannot reach the freeze's amended form.** Mechanical composition of
+`selHSum_ge_zetaL_sub_rankin` + `selHFull_eq_zeta_mul_L` + stones (1)(2)(3) gives `H(z) ≥
+ζ-side·L-side − Rankin`, but with the Rankin tail vacuous (stone 3 false) and the L-side unproven
+(stone 1 wall), it yields no usable lower bound. The correct assembly target is the CONSTANT-margin
+form above, gated on the effective Selberg-mean bound — a redesign, Fable/human-tier (Iron Rule 1).
+
+**REDIRECT for the R5 design (Fable-tier).** (a) Replace stone 3 by an effective Selberg-mean lower
+bound `H(z) = Σ_{r≤z}μ²g(r) ≥ c·∏_{p≤z}(1+g(p))` with `c` an explicit constant `> 1/(e^γ(2−β₀))`
+(the singular-series `∏(1+g(p))(1−1/p)`-type product, Selberg–Delange with effective error) — this is
+the real δ_b. (b) Stone 1 needs a prime-character-sum or s=1-Euler input. (c) Re-audit the master:
+the ledger's `db=300 z^{−0.4}` and its `10^{−10.5}` in-master fold are built on the false decay; the
+honest constant `H/P` at q=3 (~0.57) must be re-checked to still clear `(H/P)e^γ(2−β₀) ≥ 1` with the
+effective errors folded in (the 1.009 has NO room for a wrong leading constant). Until (a)(b) land, R5
+`H_lower` is OPEN and the T-BAL master is not closable at q=3.
+
+**Attempts/residuals.** Stone 2: 1 attempt, LANDED (1 build-fix, catch #186). Stone 3: REFUTED before
+any Lean attempt (numerics decisive — forcing it would violate Iron Rule 1). Stone 1: assessed as wall
+(Explore survey + the prime/all-integer gap), not attempted. Stone 4: blocked. Budget used ~120k.
+
+**Catches (LOUD).** (#186) `div_le_div_iff` is GONE in mathlib v4.32 (was `a/b ≤ c/d ↔ a*d ≤ c*b`).
+Replacements: `div_le_div_iff'` (`Order.Group.Unbundled.Basic`) for the group form, or the field chain
+`rw [div_le_iff₀ hD, inv_mul_eq_div, le_div_iff₀ hP]` (both `div_le_iff₀`/`le_div_iff₀` current). Also
+`div_le_div_iff_of_pos_left` / `_of_pos_right` for one-sided. (#187) THE δ_b refutation above — the
+primorial-Rankin `selHSum_ge_zetaL_sub_rankin` at any fixed α > 0 gives a VACUOUS `H`-lower bound for
+real characters (tail ≫ P); a Selberg-truncation lower bound is a mean-value estimate, NOT a Rankin
+tail. Always numerically check a posited effective constant on the WORST χ-pattern (χ(p)=+1-heavy)
+before flagging it "bankable next-pass". (#188) for a dimension-1 multiplicative `g`, `Σ_{r≤z}μ²g(r)`
+is a Θ(1) FRACTION (~e^{−γ}·correction) of `∏_{p≤z}(1+g(p))`, never `1−o(1)` — the Selberg diagonal
+loses a constant factor to the full Euler product; design margins must budget for it, not assume it
+away. (#189) the strip tool `norm_LFunction_sub_partial_le_strip` bridges `Σ_{n≤N}χ(n)/n` (all n, PV-
+controlled), NOT `Σ_{p≤N}χ(p)/p` (primes); any "truncated-Euler vs L(1,χ)" route through the prime
+sum needs an extra prime-character-sum input the corpus/mathlib lacks.

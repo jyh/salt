@@ -70,6 +70,7 @@ import Salt.SW.ZetaEM
 import Salt.SW.DHCore
 import Salt.SW.DHClose2
 import Salt.SW.EulerEff
+import Salt.SW.EulerLink
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -260,3 +261,4 @@ open Salt.Tactic in
   Salt.SW.selHSum_eq_primorial_le Salt.SW.selHFull_eq_zetaL Salt.SW.selHFull_eq_add_tail
   Salt.SW.selHSum_ge_full_sub_rankin Salt.SW.selHSum_ge_zetaL_sub_rankin
   Salt.SW.primorial_primeFactors Salt.SW.selHFull_eq_zeta_mul_L
+  Salt.SW.zeta_side_prod_eq Salt.SW.mertens_prod_pos Salt.SW.zeta_side_ge
