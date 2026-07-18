@@ -1168,3 +1168,24 @@ arithmetic gets adversarial review at its dispatch. W1 DISPATCHED
 ## form where sufficient, else the Hölder re-symmetrization per
 ## the source's S₁/S₂ split. VMVT-R2 dispatched with the source +
 ## this note; STOP-AND-FLAG discipline on the S₂ regime.
+
+## SHIU-G2 ADJUDICATED: catch #76's fix is THE TUNED SHIFT —
+## δ = 1 − r·log r/(4 log z) (Shiu's own Lemma 4)
+
+The grounded mechanism (Wright §§6–8, verbatim displays): the
+r-decay is manufactured on the LARGE SMOOTH PREFIX c-sum, NOT
+the d-side — Rankin with the tuned shift turns W^{δ−1} into
+exp(−(1/10)·r·log r) = r^{−r/10}, factorial-scale, beating the
+pointwise A₅^r term-by-term in the r-sum (Σ (A₅/r^{1/10})^r =
+O(1)). Catch #76's route failed ONLY because it Rankin'd at a
+FIXED shift (no r-decay). Class III kills by SMOOTH-NUMBER
+SPARSITY (the c > W, y₀-smooth prefix is x^{−ε}-sparse — zero
+τ(d) paid). For f = τ (bounded at primes) the J-split and ε-loss
+of Wright's generalization are UNNECESSARY — pure Shiu suffices.
+NEW STONES: NEW-1 the tuned graded Rankin (small C — the shift
+choice on the landed smooth-Euler bound + the correction
+telescope); NEW-2 the dyadic smooth-prefix tail (B). Then
+S4-III/IV assemble on S4-I's landed infrastructure per the
+grounded 6-step route. The 1/(j−1)! prime-product count is
+explicitly NOT the route (recommended against). SHIU-W3b
+DISPATCHED (NEW-1 + NEW-2 + the corrected assemblies).
