@@ -59,6 +59,7 @@ import Salt.SW.CoprimeBV
 import Salt.SW.DHMollified
 import Salt.SW.DHFinal
 import Salt.SW.DHTrunc
+import Salt.SW.DHBal
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -215,3 +216,4 @@ open Salt.Tactic in
   Salt.SW.LSeries_moebius_eq_zeta_inv Salt.SW.mmu1_eq_integral
   Salt.SW.mmu_rectBI_eq_zero
   Salt.SW.mmuRate_smoothed Salt.SW.mmuRate_holds
+  Salt.SW.norm_bsum_kernel_zero_decay Salt.SW.zfr_harvest

@@ -1514,6 +1514,30 @@ k^{24·max/k} ≥ both arms per the same two-arm check). Target:
 Est: A ~350 ln, A2 ~80, B ~250 (mostly re-runs). Zeno: A → A2
 → B-regrade → ██ vmvt ██.
 
+## LITT-STRIP FREEZE (house-adjudicated 06:45; the wf candidate
+## SURVIVED both refuters 0/2, conf 0.78; repairs folded in)
+
+The full freeze = the banked candidate
+(scratchpad/littstrip_candidate.json) + the refuters' repairs,
+ALL BINDING: (1) the head-coefficient claim ≤ 1.7 must be
+proven by the DIRECT route (the written chain 2^ε·e^{6k ln k/
+2^{k+2}} is FALSE at k=4 by 1.1e-4 — use ln k! honestly, not
+k ln k); (2) patch constants are razor-thin (1348 = 144·9.36
+etc.) — do NOT re-round upward; (3) zeta_block_dispatch needs
+the hypothesis (M:ℝ) ≤ t² (case-i is false without it);
+(4) window_coverage needs (k:ℝ) ≤ M; (5) dyadic_sum_split
+needs a summand-generic (g : ℤ → ℂ) variant (the landed one is
+eR-specific — same proof); (6) degenerate endpoints: top
+prefix x = N_t exactly (case-split empty Ioc), and
+abel_antitone_prefix needs 0 ≤ B; (7) the phantom
+natCast_cpow_eq_rpow_mul_eR does NOT exist (docstring mention
+only) — R5's cpow_weight_split is the real bridge. Target:
+`zeta_strip_family` with C = 4096 ABSOLUTE outside the
+k-quantifier; fallback STRIP-WEAK (∃C inside k) is a ratified
+Zeno partial. New Salt/ExpSum/Strip.lean, ~1000 ln, rungs
+R1–R8 per the candidate (stones A = R1–R4 prefix surface,
+B = R5–R6 dispatch, C = R7–R8 family).
+
 ## LITT-COVER FREEZE (house, 04:10 gate honored): the per-k
 ## window discharge of the block sandwich
 

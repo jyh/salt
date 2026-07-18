@@ -7801,3 +7801,46 @@ decisions per question.
   balance mandated at two anchors). The freeze lands on JYH's
   desk at wake (~08:10). Board: T-BAL executor + LITT-STRIP
   design wf + VMVT-VK design wf.
+
+- 2026-07-18 06:36 PT: **T-BAL lands a THIN Zeno partial (R1 +
+  R6) + a REAL supplier gap discovered** (≈ 207k / 47 tools;
+  house-verified SW.All 8736 green, both lemmas [3 axioms]).
+  Salt/SW/DHBal.lean: R1 `norm_bsum_kernel_zero_decay`
+  (DH-TRUNC-A — the decaying-Q ranged Abel, on the faithful
+  unshifted character) + R6 `zfr_harvest` (K1 wiring). THE
+  BLOCKER (correct stop, not a grind): R3's √y error term
+  needs the SYMMETRIC √N Dirichlet hyperbola — verified an
+  explicit unfulfilled mathlib TODO (ArithmeticFunction/
+  Misc.lean:428) and absent from the corpus; the executor
+  proved on paper that layer-cake/Abel give only the trivial
+  N·M. The freeze's R3 sketch presumed it — a frame gap the
+  refuters missed (they grounded the 22 consumed lemmas; the
+  hyperbola hid inside R3's prose). R2's sharp complex-EM form
+  also confirmed absent (only crude norm_sum_Icc_cpow_neg_le).
+  Catches #113–115 (Nat.Ico_succ_right gone in v4.32.0-rc1;
+  the drop-index-0 reindex recipe; Complex.pos_iff conjunct
+  order). RESPONSE: two SUPPLIER dispatches in parallel —
+  **DHYP** (the symmetric √N hyperbola, ~150 ln, B/C,
+  UPSTREAMABLE — a mathlib TODO) and **ZEM** (zeta_partial_em
+  + zetaHol_bound, the sharp strip EM with the Cesàro
+  alternate); T-BAL-2 (R3–R8) re-dispatches on their landing.
+  Board: DHYP + ZEM + LITT-STRIP wf + VMVT-VK wf.
+
+- 2026-07-18 06:50 PT: **LITT-STRIP freeze SURVIVES the panel
+  (0/2 refuted, conf 0.78) + THREE dispatches.** The candidate:
+  `zeta_strip_family` with C = 4096 ABSOLUTE (the vdC-constant
+  fixed point 16: C(k+1) = 4√C(k)), the 1/(k−1) power/width
+  ratio = LANDAU's fuel, the k=2 patch CLOSING the COVER
+  residual [N, 27πN], honest floor-shadow analysis. Refuter
+  gifts folded as 7 BINDING repairs (frozen in s3-a3-design.md
+  "LITT-STRIP FREEZE"): the k=4 head-coefficient chain false by
+  1.1e-4 (direct ln k! route mandated), razor-thin patch
+  constants (no re-rounding), two missing hypotheses (M ≤ t²,
+  k ≤ M), the summand-generic dyadic_sum_split, degenerate
+  endpoints, the PHANTOM natCast_cpow lemma (docstring only!).
+  DISPATCHED: LITT-STRIP (~550k, Salt/ExpSum/Strip.lean,
+  STRIP-WEAK fallback ratified), DHYP (the symmetric √N
+  hyperbola, Salt/SW/Hyperbola.lean, UPSTREAMABLE mathlib
+  TODO), ZEM (zeta_partial_em + zetaHol_bound,
+  Salt/SW/ZetaEM.lean, Cesàro fallback ratified). Board: 3
+  executors + VMVT-VK wf. Tally ~59.6M raw.

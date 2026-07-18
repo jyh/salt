@@ -9134,3 +9134,112 @@ consistently for `linarith`: write `1/3 * ((y:ℝ) * Real.log 4)` (parenthesised
 never `1/3 * (y:ℝ) * Real.log 4`, or the monomial `y·log4` splits and linarith
 misses it. (#106) `gcongr` on `x^b ≤ y^b` auto-discharges `x ≤ y` from context
 (a trailing explicit `positivity`/`exact h` then errors "no goals").
+
+## 2026-07-18 T-BAL: R1 + R6 LAND (the two self-contained Zeno stones); R2–R8 flagged with precise walls — R3 blocked on a mathlib-TODO (Opus)
+
+Executed the JYH-ratified T-BAL FREEZE (`docs/exploration/s3-hb3-design.md`,
+"T-BAL FREEZE", witnesses b=40, k=9, c=2⁻²⁶). New file `Salt/SW/DHBal.lean`
+(namespace `Salt.SW`), registered in `Salt/SW/All.lean` (import + both landed
+lemmas added to the `#audit_axioms` block). `lake build Salt.SW.All` EXIT 0,
+warning-free; both lemmas axiom-clean `[propext, Classical.choice, Quot.sound]`.
+
+**LANDED — R1 `norm_bsum_kernel_zero_decay` [B, DH-TRUNC-A].** The sharp inner
+Abel: instantiates `norm_sum_smul_antitone_ranged_le` (DHMollified.lean:395) with
+the decaying partial-sum bound `Q(n)=P·(n−1)^{−ρ.re}` (from
+`partial_sum_at_zero_small`, `P=3√q(1+log q)(1+‖ρ‖/ρ.re)`) and the antitone
+linear-kernel weights `w_b=(1−a·b/x)₊`. Exact statement: for `[NeZero q]`,
+`χ.IsPrimitive`, `2≤q`, a zero `ρ` with `0<Re ρ≤1`, `1≤a`, `0<x`, `B:ℕ`,
+`‖Σ_{b∈Icc 1 B} χ(b)·b^{−ρ}·(dhKernR((a·b)/x):ℂ)‖ ≤ dhKernR((a·B)/x)·(P·B^{−ρ.re})
++ Σ_{i∈range B} (dhKernR((a·i)/x)−dhKernR((a·(i+1))/x))·(P·i^{−ρ.re})`. Faithful
+primitive: stated on the UNSHIFTED character `χ(·:ZMod q)` (matching
+`partial_sum_at_zero_small`); the `chiRe`/`d`-shift bridge belongs to R5's
+assembly (`chiRe_ofReal` + `sum_range_filter_dvd_char_eq`).
+
+**LANDED — R6 `zfr_harvest` [B].** The ZFR harvest wiring `zero_free_region_all`
+(ZeroFreeReal.lean:605) to the contract hypotheses. Exact statement: for a real
+primitive `χ≠1` and a non-real zero `ρ` (`9/10≤Re ρ<1`), `∃ c₀>0` with
+`c₀/log(q(|ρ.im|+2)) ≤ 1−ρ.re`, `1/‖1−ρ‖ ≤ log(q(|ρ.im|+2))/c₀`, `1≤‖2−ρ‖`.
+Existential in `c₀` (the landed region hides `c₀=1/126848`); the disjunct fed is
+`Or.inr ρ.im≠0`. Design key K1, no new ZFR work.
+
+**Witness drift: NONE at the landed level.** R1/R6 do not pin `b,c,k`; the frozen
+witnesses (40, 9, 2⁻²⁶) remain the unconsumed target. The small-q CHECKING
+DISCIPLINE (q=3 ∧ q=10⁶ ∧ q~10³, each at w=c₀/L ∧ 1/10) applies at R8 assembly,
+which was NOT reached — so no chain-constant checks were run this session. The
+freeze's q=3 margin (E≈6e-3≤1/4 at b=40) and the refuters' repairs stand
+unverified-in-Lean (they were numeric-only).
+
+**WALLS (R2–R8), give-up-early per doctrine — the success chain is linear and
+gated; R7/R8 both consume R5, R5 consumes R2):**
+
+- **R2 `zeta_partial_em` [C / class-D risk] — WALL.** Complex Euler–Maclaurin for
+  ζ-partials on the strip: `‖Σ_{a≤y}a^{−s} − (y^{1−s}/(1−s)+ζ(s))‖ ≤ 8(1+‖s‖)y^{−Re s}`.
+  The repo has only the CRUDE `norm_sum_Icc_cpow_neg_le` (DHTrunc, `≤1+M^{1−β}/(1−β)`),
+  NOT the sharp EM form with the `ζ(s)` constant (needs Abel/sawtooth against `t^{−s}`
+  with the constant identified via `riemannZeta_eq_add_zetaHol` + a new compactness
+  lemma R2' `zetaHol_bound`). The freeze pre-flags this as the class-D risk; the
+  ALTERNATE (faithful panel's Cesàro/(1+log y) kernel form) is comparably hard.
+
+- **R3 `dhA_mass_upper` [C] — WALL: needs a mathlib TODO.** The u-carrier's honest
+  form `Σ_{n≤y}dhA ≤ (L₁).re·y + 20P√y` splits as (main) `y·Re(Σ_{d≤y}χ(d)/d)` —
+  EASY via `norm_LFunction_sub_partial_le_strip` at s=1 (error 6M/y) plus L(1,χ)
+  real/positive (`LFunction_apply_one_pos` ⟹ `im=0∧re>0`) — plus (error)
+  `Σ_{d≤y}chiRe(d){y/d}`, which requires the **symmetric √N Dirichlet hyperbola**
+  `Σ_{de≤N}f(d)=Σ_{d≤√N}f(d)⌊N/d⌋+Σ_{e≤√N}(Σ_{d≤N/e}f(d))−(Σ_{d≤√N}f(d))·⌊√N⌋`.
+  VERIFIED ABSENT: mathlib has only the ASYMMETRIC length-N form
+  (`ArithmeticFunction/Misc.lean:405,421` `sum_Ioc_mul_zeta_eq_sum` = our landed
+  `dhA_hyperbola`), and the symmetric √N method is an explicit unfulfilled TODO at
+  `Misc.lean:428` (`--TODO: Dirichlet hyperbola method to get sums of length sqrt N`).
+  The repo has no symmetric form and no real-floor bridge (`(N/d:ℕ)` vs real `N/d`).
+  PROVEN INSUFFICIENT (this session): layer-cake `⌊N/d⌋=Σ_m[d≤N/m]` alone gives only
+  the trivial `Σ_m S(N/m)`, `|·|≤N·M`; Abel of `S(t)` against `⌊y/d⌋` gives `M·y`
+  (total variation of `⌊y/d⌋` is ~y). The √N needs cancellation in BOTH hyperbola
+  variables — the symmetric split is irreducible. Building it from scratch (the
+  method mathlib itself defers) is ~130–150 lines of antidiagonal/Nat-division
+  bookkeeping + inclusion–exclusion on the region `{de≤N}=A∪B`, `A∩B={d≤√N,e≤√N}`
+  (using `(⌊√N⌋+1)²>N`). Recommend the next session either build this symmetric
+  hyperbola as a standalone reusable lemma FIRST, or reconsider whether R3's error
+  grade can be relaxed (witness drift) to avoid it.
+
+- **R4 `tail_sum_le_mollified` [C] — blocked on R3(b)** (the σ₀·2^ω-grade multiples
+  mass) + the Mertens `Σ_{m≤z²} 3^ω σ₀/m` moment (C₆(2log z)⁶). The gc-regroup
+  (`grahamW_eq_sum_grahamGc`, `abs_grahamGc_le`) and the (1+log x) Abel t-factor
+  (the refuters' repair) are ready to consume R3(b) once it exists.
+
+- **R5 `dh_extraction_upper` [C/D, THE CRUX] — blocked on R2 + R1 + R3/R4.** The
+  transposed hyperbola (sum_comm twin of `dhA_hyperbola_shift`) → R2 per inner
+  a-sum → pole completion by strip tails (‖dhGpoly z 1‖≤1 via `dhGlin_one_eq` +
+  `abs_sum_grahamTheta_div_le_one`) → ζ(ρ)-block killed by the zero
+  (`sum_range_filter_dvd_char_eq` + `partial_sum_at_zero_small`) → EM remainders
+  Abel'd by the landed R1. Multi-session.
+
+- **R7 `dh_balance` [B/C] — the NAMED ZENO success — blocked on R4+R5.** Would
+  combine the landed floor `norm_dhDetectorShift_ge` (DHFinal.lean:132) +
+  `dhCoeff_one` + R4 + R5 into `Λ := ½·x^{−(1−ρ.re)}/(L/c₀+(1+log x)C₆(2log z)⁶) ≤
+  (L(1,χ)).re`. Anchor lemmas (floor, `dhCoeff_one`) are landed and verified this
+  session; the balance cannot assemble without R4/R5.
+
+- **R8 `dh_repulsion` [B/C] — the CAPSTONE — blocked on R7.** M4 inversion
+  `dh_repulsion_of_LFunction_one_lower` (DHBalance.lean:196, threshold
+  1−1/(4(1+log q)), divisor 25e(1+log q)²) is landed and ready; the trivial branch
+  (β₀ below threshold) + generic bracket ≤172032·L⁷ are arithmetic once Λ exists.
+  WP2's analytic core does NOT close this session.
+
+**Registration note.** The task directed adding `dh_repulsion` and the R7 Λ-lemma
+to the `#audit_axioms` block; since neither exists yet, I registered the two
+landed lemmas (`norm_bsum_kernel_zero_decay`, `zfr_harvest`) instead — faithful
+adaptation (audit what landed). Add the target names when R7/R8 land.
+
+**Catches.** (#113) `Nat.Ico_succ_right` does NOT exist in this mathlib
+(v4.32.0-rc1); prove `Finset.Icc 1 m = Finset.Ico 1 (m+1)` inline via
+`ext k; simp only [Finset.mem_Icc, Finset.mem_Ico, Nat.lt_succ_iff]`, then
+`Finset.sum_Ico_eq_sum_range` + `Nat.add_sub_cancel`. (#114) drop-index-0 reindex
+`Σ_{i∈range n} g i = Σ_{i∈Icc 1 (n−1)} g i` (when `g 0 = 0`): `cases n`,
+`Finset.sum_range_succ'` peels `g 0`, then the Icc↔range shift above — robust and
+handles n=0,1 uniformly (the decaying `Q(n)=P·(n−1)^{−ρ.re}` is `0` at n≤1 via
+`Real.rpow` of `(0:ℝ)^{neg}`, so `Q` is nonneg unconditionally via `mul_nonneg` —
+no `zero_rpow` gymnastics needed; bound the empty-sum case by `0 ≤ Q n` directly).
+(#115) `Complex.pos_iff` orders the conjuncts `0 < z.re` FIRST then `0 = z.im`
+(NOT `z.im = 0`) — feed `⟨hre_pos, hreal.symm⟩`; this is how `L(1,χ)` positivity
+destructures for the "‖L(1,χ)‖ = (L(1,χ)).re" step (no such norm-equality lemma
+exists — destructure directly).
