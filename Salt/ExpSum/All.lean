@@ -10,6 +10,7 @@ import Salt.ExpSum.DerivTest
 import Salt.ExpSum.DerivTestK
 import Salt.ExpSum.ZetaBlock
 import Salt.ExpSum.ZetaGrowth
+import Salt.ExpSum.ZetaApprox
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -24,7 +25,9 @@ the van der Corput method.
 -/
 
 open Salt.Tactic in
-#audit_axioms Salt.ExpSum.zeta_partial_growth
+#audit_axioms Salt.ExpSum.zeta_growth_strip
+  Salt.ExpSum.norm_zeta_sub_approx_le
+  Salt.ExpSum.zeta_partial_growth
   Salt.ExpSum.zeta_dyadic_assembly
   Salt.ExpSum.zeta_block_kusmin
   Salt.ExpSum.zeta_block_bound

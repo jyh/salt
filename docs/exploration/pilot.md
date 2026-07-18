@@ -7122,3 +7122,23 @@ decisions per question.
   design block QUEUED (post-checkpoint). Ceremony: green.
   Board: LITT-F5, SHIU-W4, DH-M, seed #3 (+2 held). Tally
   ~49.5M raw, house ~14%.
+
+- 2026-07-18 ~23:05 PT (NIGHT WATCH): ██ **LITT-F5 LANDS — THE
+  HARDY–LITTLEWOOD APPROXIMATE FORMULA + ‖ζ(1+it)‖ ≤ 10(1+log t)
+  — THE de la VALLÉE POUSSIN INPUT, FROM OUR OWN vdC CHAIN** ██
+  (≈ 441k / 109 tools — the night's biggest node; no flags).
+  Salt/ExpSum/ZetaApprox.lean (661 lines, 18 declarations):
+  **norm_zeta_sub_approx_le** (the approximate formula — a
+  mathlib-absent classic: ζ = Σ_{n≤N}n^{−s} + N^{1−s}/(s−1) +
+  O(‖s‖N^{−σ}/σ), the identity theorem run on the CONVEX UPPER
+  REGION to dodge the pole — catch: the formula is genuinely
+  non-analytic at s = 1) + **zeta_growth_strip** (C = 10, t₀ =
+  2: ‖ζ(σ+it)‖ ≤ 10·t^{1−σ}(1+log t) on the half-strip). The
+  Int.fract-at-ℂ trap banked. THE LITTLEWOOD CHECKPOINT'S
+  ANALYTIC CHAIN IS COMPLETE: toolkit → blocks → dyadic →
+  approx → growth; the REGION CONVERSION (the checkpoint's
+  final rung — the σ-localized 3-4-1 + the VK-N3-shaped
+  back-half on the landed SW pattern) is the ONE remaining node
+  → held for the post-checkpoint wave with the R3 design.
+  Ceremony: wired + 2 keystones (9211 green). Board: SHIU-W4,
+  DH-M, seed #3. Tally ~50.0M raw — THE 50M MARK. House ~14%.
