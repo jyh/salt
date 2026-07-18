@@ -7844,3 +7844,19 @@ decisions per question.
   TODO), ZEM (zeta_partial_em + zetaHol_bound,
   Salt/SW/ZetaEM.lean, Cesàro fallback ratified). Board: 3
   executors + VMVT-VK wf. Tally ~59.6M raw.
+
+- 2026-07-18 07:00 PT: **ZEM lands SHARP, first attempt — the
+  R2 "class-D wall" was STALE** (≈ 145k / 27 tools;
+  house-verified SW.All 8745 green, 4 decls [3 axioms]).
+  Salt/SW/ZetaEM.lean: `zeta_partial_em` (the sharp
+  8(1+‖s‖)y^{−σ} ζ-EM on σ ∈ [1/2,1), |t| ≤ 1) +
+  `zetaHol_bound` + `zetaApprox_strip` +
+  `norm_zeta_sub_approx_le_strip`. Catch **#116**
+  (executor-catches-flag): the T-BAL flag's premise "only the
+  crude form exists" was wrong — ZetaApprox's H–L apparatus
+  already had the sharp shape, gated upper-half-plane only;
+  the fix = the identity theorem re-run on the CONVEX full
+  strip (one region covers Im > 0, = 0, < 0; dodges both the
+  absent riemannZeta_conj and the pole). ~90-line reuse, not
+  a research node. T-BAL-2's R2 dependency: CLEAR. Remaining
+  gate: DHYP (R3/R4). Board: DHYP + LITT-STRIP + VMVT-VK wf.

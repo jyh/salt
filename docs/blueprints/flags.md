@@ -9243,3 +9243,52 @@ no `zero_rpow` gymnastics needed; bound the empty-sum case by `0 ≤ Q n` direct
 (NOT `z.im = 0`) — feed `⟨hre_pos, hreal.symm⟩`; this is how `L(1,χ)` positivity
 destructures for the "‖L(1,χ)‖ = (L(1,χ)).re" step (no such norm-equality lemma
 exists — destructure directly).
+
+## 2026-07-18 T-BAL R2 + R2' LAND (the class-D risk falls) — ZEM/Opus
+
+The pre-flagged class-D risk R2 (`zeta_partial_em`) and its compactness companion
+R2' (`zetaHol_bound`) both LAND, SHARP form (not the Cesàro fallback). New file
+`Salt/SW/ZetaEM.lean` (namespace `Salt.SW`), registered in `Salt/SW/All.lean`
+(import + all four lemmas in the `#audit_axioms` block). `lake build Salt.SW.All`
+EXIT 0, no new warnings; all four axiom-clean `[propext, Classical.choice, Quot.sound]`.
+
+**The key that opened the wall.** The flag said "the repo has only the CRUDE
+`norm_sum_Icc_cpow_neg_le`" — but `Salt.ExpSum.norm_zeta_sub_approx_le`
+(ZetaApprox.lean, F5-1) ALREADY proves the exact sharp shape
+`‖ζ(s) − ∑_{n≤N} n^{−s} − N^{1−s}/(s−1)‖ ≤ ‖s‖·N^{−σ}/σ` with the ζ-constant
+identified — the Hardy–Littlewood fractional-part apparatus (`zetaFracInt`,
+`zetaApprox`) was already landed for the ζ-growth rung. The ONLY gap: its identity
+`zetaApprox` was continued into the UPPER half-plane `{0<Re s, 0<Im s}` only, so it
+gates on `0 < Im s`; the T-BAL regime `|t| ≤ 1` includes `Im s ≤ 0`.
+
+**The extension (one shot, no conjugation).** `zetaApprox_strip` re-runs the identity
+theorem (`AnalyticOnNhd.eqOn_of_preconnected_of_frequently_eq`) on the CONVEX open
+critical strip `S = {0<Re s<1}` (`convex_halfSpace_re_gt 0 ∩ convex_halfSpace_re_lt 1`,
+convex ⟹ preconnected, avoids the pole `s=1` since Re<1), seeded from the landed
+upper-region `zetaApprox` at the point `1/2 + i` (frequent equality on the overlap
+`S ∩ {upper}`). One convex region covers `Im s > 0`, `= 0`, `< 0` uniformly — the
+real-axis boundary that blocked a conjugation-only argument is interior to the strip.
+
+**Bound derivation.** `norm_zeta_sub_approx_le_strip` = `zetaApprox_strip` + the
+landed `zetaFracInt_bound` (`‖·‖ ≤ N^{−σ}/σ`). Then `zeta_partial_em`: the target
+inner expression `∑ − (y^{1−s}/(1−s)+ζ)` is `−(ζ − ∑ − y^{1−s}/(s−1))` via
+`s−1 = −(1−s)` (`div_neg`), norm-invariant; the constant `‖s‖·y^{−σ}/σ ≤ 8(1+‖s‖)y^{−σ}`
+follows from `σ ≥ 1/2 ⟹ ‖s‖/σ ≤ 2‖s‖ ≤ 8(1+‖s‖)` (`div_le_iff₀` + `nlinarith`).
+`‖s‖ ≤ 3` is NOT needed and was dropped; `|s.im| ≤ 1` retained (underscored) to match
+the shape R5 will supply.
+
+**Exact statements landed (both SHARP):**
+- `zeta_partial_em {s} (1/2 ≤ s.re) (s.re < 1) (|s.im| ≤ 1) {y} (1 ≤ y) :`
+  `‖(∑ a ∈ Icc 1 y, (a:ℂ)^(-s)) − ((y:ℂ)^(1-s)/(1-s) + riemannZeta s)‖`
+  `≤ 8*(1+‖s‖)*(y:ℝ)^(-s.re)`.
+- `zetaHol_bound : ∃ Z₀, ∀ s, 1/2 ≤ s.re → s.re ≤ 1 → |s.im| ≤ 1 → ‖zetaHol s‖ ≤ Z₀`
+  (compactness: `zetaHol_differentiable.continuous.continuousOn` on the closed+bounded
+  rectangle `K ⊆ closedBall 0 2`, `Metric.isCompact_of_isClosed_isBounded`,
+  `IsCompact.exists_bound_of_continuousOn`).
+
+**Consequence for the chain.** R5 (`dh_extraction_upper`, the CRUX) is now unblocked on
+its R2 dependency; still blocked on R3/R4 (the symmetric √N hyperbola mathlib-TODO wall
+stands). No witness drift: R2/R2' pin nothing.
+
+**Attempt count.** First attempt landed both (2 trivial build fixes: a redundant `tauto`
+after a closing `simp only`, and dropping the then-unused `and_assoc` simp arg).
