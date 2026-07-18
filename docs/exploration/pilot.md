@@ -6297,3 +6297,22 @@ decisions per question.
   that equal power sums force a permutation). Board: MERT-FIN,
   PP3-ASSEMBLY, DH-2b-iii, VMVT-N2, seed #2. Tally ~32.6M raw,
   house ~14%.
+
+- 2026-07-17 ~17:50 PT (GOLD WINDOW): ██ **DH-2b-iii LANDS M3-1 +
+  THE ENTIRE RESIDUE SIDE — the L(1,χ) main term is extracted**
+  ██ (≈ 168k / 76 tools; first mathematical pass, ~6 mechanics
+  iterations). Salt/SW/DHContour.lean: **zetaHol** (the ζ Laurent
+  split — THE FOURTH ECOSYSTEM GIFT: mathlib's
+  tendsto_riemannZeta_sub_one_div made it a 15-line
+  removable-singularity wrap mirroring the corpus's own Zc
+  pattern) + **rectBI_zeta_mul** (general ζ-residue extraction)
+  + **rectBI_zeta_shift_mul** (the DH-ready SHIFTED residue at
+  s = 1−ρ) + **rectBI_zeta_LFunction_kernel** (the concrete
+  L(1,χ)·x²/2 main term — what the floor competes against). NEW
+  CATCH banked: open Finset shadows Set.left_mem_uIcc (the
+  rectangle-edge trap — ContourShift dodged it invisibly).
+  Remaining: M3-3 (the J-bound bulk), M3-2 (the rectangle
+  close), M4 (balance) — **DH-2b-iv DISPATCHED**. Ceremony:
+  audit keystones added (9172 green). Board: MERT-FIN,
+  PP3-ASSEMBLY, VMVT-N2, DH-2b-iv, seed #2. Tally ~32.8M raw,
+  house ~14%.
