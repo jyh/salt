@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.HB.QuadCharSum
 import Salt.HB.TwistChain
 import Salt.HB.TwistChainC
+import Salt.HB.Transfer
 import Salt.HB.PairSieve
 import Salt.HB.PairInstance
 import Salt.Tactic.AuditAxioms
@@ -38,6 +39,13 @@ open Salt.Tactic in
   Salt.HB.coprime_nPlus_nMinus
   Salt.HB.LamTilde_sub_vonMangoldt_le
   Salt.HB.LamTilde_eq_sum_nPlus
+  Salt.HB.S1_le_S2
+  Salt.HB.S2_sub_S1_le
+  Salt.HB.overshoot_sum_nonneg
+  Salt.HB.twin_termwise_le
+  Salt.HB.overshootLog_eq_zero_of_nMinus_ne_one
+  Salt.HB.overshootPP_eq_zero_of_not_isPrimePow
+  Salt.HB.coprimeSupport_window
   Salt.HB.quadraticChar_sum_two_forms_bound
   Salt.HB.quadraticChar_sum_mul_shift
   Salt.HB.quadraticChar_sum_two_forms_trivial

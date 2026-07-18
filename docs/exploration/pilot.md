@@ -6868,3 +6868,25 @@ decisions per question.
   identity + Graham's L² mean bound). Ceremony: wired (accepted),
   full build green (9197). Board: LITT-F3, HB-L2, SHIU-W3,
   VMVT-FOURIER, DH-LCM, badge run. Tally ~42.4M raw, house ~14%.
+
+- 2026-07-18 ~21:22 PT (NIGHT WATCH): ██ **HB-L2 LANDS RUNG 1 —
+  the S⁽¹⁾→S⁽²⁾ transfer inequality + the support decomposition;
+  AND THE R2 GATE PRECISELY OPENED** ██ (≈ 165k / 28 tools;
+  sorry-free, 7 theorems). Salt/HB/Transfer.lean: **S2_sub_S1_le**
+  (0 ≤ S⁽²⁾−S⁽¹⁾ ≤ Σ overshoot·Λ̃ — Lemma 1c consumed termwise)
+  + the vanishing lemmas (the log-part off n = n₊; the pp-part
+  off χ=−1 prime powers — HB's L₂–L₄ shapes) +
+  coprimeSupport_window (the honest HB window bridge). ██ THE
+  RUNG-2 FINDING (the deliverable): hb_lemma8's z-roughness
+  GENUINELY blocks HB (3.3) — the v's are z-SMOOTH; TWO precise
+  consumer shapes specced: R2-φ (the mixed-density cofactor-sift
+  S′ with the φ_twin(d₁d₂) floor — the honest object) or
+  R2-reducedsift. The freeze's R2 flag CONFIRMED, not refuted ██
+  → **HB-R2 DISPATCHED** (the mixed-density variant on the
+  landed PairSieve machinery). CI: the badge attempt FAILED at
+  ~1h55m (cache restored but the corpus outran the runner again)
+  — badge attempts SUSPENDED, **seed #3 dispatched** (compounds
+  the 152MB; badge resumes when seeds cover the corpus).
+  Ceremony: wired (accepted), full build green (9199). Board:
+  LITT-F3, SHIU-W3, VMVT-FOURIER, DH-LCM, HB-R2, seed #3. Tally
+  ~42.9M raw, house ~14%.
