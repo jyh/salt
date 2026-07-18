@@ -89,3 +89,4 @@ import Salt.Maynard.PpRootGeneral
 import Salt.Maynard.PpSums
 import Salt.Maynard.PpAssembly
 import Salt.Maynard.ShiuDecomp
+import Salt.Maynard.ShiuRankin

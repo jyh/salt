@@ -6584,3 +6584,22 @@ decisions per question.
   ceremony). ShiuCore W1: S2 ✓, S1 + S3a in flight. Board:
   MOEB-DIV, SHIU-S1, SHIU-S3a, LITT-F2b, badge run. Tally
   ~37.2M raw, house ~14%.
+
+- 2026-07-17 ~19:48 PT (GOLD WINDOW): ██ **SHIU-S3a LANDS COMPLETE
+  — the smooth Euler bound + the Mertens (C·log v)² bridge; the
+  FIFTH ecosystem gift** ██ (≈ 239k / 61 tools; 2 iterations, no
+  flags). Salt/Maynard/ShiuRankin.lean: **sum_tau_smooth_rpow_le**
+  (Σ_{c v-smooth} τ(c)/c^σ ≤ ∏(1−p^{−σ})^{−2} — via mathlib's
+  EulerProduct.summable_and_hasSum_smoothNumbers machinery, hand
+  induction unnecessary) + the σ=1 form + the exponentiated
+  mertens_third bridge (C = 2e^γ — TODAY'S theorem consumed
+  within hours of landing) + the composed S4-I consumer form. ██
+  CATCH #64 (statement-level, the frozen-form class): the brief's
+  "∀ p prime, p ∣ c → p ≤ v" has NO computable decidability
+  (unbounded ∀) — the literal target FAILS TO ELABORATE; the
+  decidable equivalent ∀ p ∈ c.primeFactors is the honest form;
+  the assembly bridges against it ██ + the convergence catch (the
+  global Σ τ/n^σ diverges at σ ≤ 1 — only the PARTIAL Euler form
+  usable; banked). W1: S2 ✓ S3a ✓, S1 in flight. Ceremony:
+  wired, Maynard green (8596). Board: MOEB-DIV, SHIU-S1,
+  LITT-F2b, badge run. Tally ~37.4M raw, house ~14%.
