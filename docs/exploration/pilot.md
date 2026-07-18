@@ -7364,3 +7364,44 @@ decisions per question.
   v-fibration) + N-HDOM (shiu_for_blocks_of_core + catch #54's
   F-replumb). Board: VMVT-R3c (+ recon). Tally ~54.4M raw,
   house ~14%.
+
+- 2026-07-18 ~03:00 PT: JYH awake at the checkpoint — "Really
+  great progress! agreed on T-BAL, keep driving." **T-BAL
+  ratified as the next dedicated design slot** (over
+  LITT-LANDAU). Ultracode ON this session → the design block
+  runs as a 13-agent workflow (run wf_93efc9b2-3c6): 3 parallel
+  recon maps (docs / Lean surface / staged sources incl.
+  montgomery3.pdf) → 3 independent design candidates
+  (source-faithful, frame-first-minimal, re-parametrize) → 2
+  adversarial refuters each (arithmetic + Lean-frame; the
+  catch-#67/#78 failure class is the explicit target) → a
+  synthesis judge with graft authority. House ratifies the
+  surviving freeze before any executor burn. Meanwhile the sig
+  recon delivered ShiuCore's consumer surface verified
+  (shiu_for_blocks_of_core exact) and was sent back for the
+  HB-L2c / N-HDOM surfaces (TransferFull, GehAnchor) — the two
+  consumer dispatches follow. Board: VMVT-R3c + the T-BAL
+  workflow + recon.
+
+- 2026-07-18 ~03:20 PT: consumer recon COMPLETE (exact surfaces,
+  file:line, verbatim). Findings: (1) the HB transfer has NO
+  literal ShiuCore slot — the τ-in-AP content sits inside
+  `overshootMajorant` (hb_lemma2's `hres`; the star-step hres is
+  already discharged by S2_sub_S3_honestWindow). overshoot =
+  2·f(n)·log n + 2·(f(n₊)−1)·Λ(n₋) (Transfer.lean:60–71), so the
+  divisor fibration of f meets ShiuCore at residue 2 mod d and
+  the Λ(n₋) piece feeds PretenseSum — but NO L2c design exists
+  in the docs (the "v-fibration" label was memory-tier, not
+  grounded). **HB-L2c re-classed: UNDESIGNED (C+), queues for
+  its own design block after T-BAL** — no executor burn on it
+  tonight. (2) The Maynard side is grounded composition:
+  `hshiu` (GehAnchor.lean:450) is shape-identical to
+  `shiu_for_blocks_of_core`'s conclusion (ShiuBlocks.lean:312),
+  θ = 3999/4000 matching ppLevel_holds; the block-alignment
+  (α/β vs muBlock/tiiBlock) is the one risk. **N-HDOM
+  DISPATCHED** (Opus; recon-first brief; new
+  Salt/Maynard/GehShiuWire.lean; Zeno: wire → obligation → the
+  door). NB the recon also grounded: the "catch #54 F-replumb"
+  memory token does not exist in sources — the real token is
+  N-REPLUMB (GehAnchor.lean:9); memory corrected here. Board:
+  VMVT-R3c + T-BAL workflow + N-HDOM.
