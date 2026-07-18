@@ -6657,3 +6657,18 @@ decisions per question.
   Ceremony: wired + keystone (9188 green). Board: SHIU-S1,
   LITT-F2b, MOEB-RATE, HB-L8, badge run. Tally ~38.5M raw,
   house ~14%.
+
+- 2026-07-18 ~20:27 PT (GOLD WINDOW day 2): ██ **MOEB-RATE LANDS —
+  |Σ_{d≤n}μ(d)/d| ≤ C/log n, the sharp weighted-Möbius rate** ██
+  (≈ 187k / 36 tools; one pass, zero residuals). Salt/SW/
+  MoebiusRateSharp.lean: **abs_mwWeighted_le_div_log** via the
+  keystone ∫_{Ioi 1}φ = 0 (matched against yesterday's
+  mwWeighted_tendsto_zero by uniqueness — the L = 0 payoff
+  consumed within hours). Four API gotchas banked (the finiteness
+  autoparam breaking dot-notation; the implicit-limit inference
+  trap). THE REPULSION CHAIN: decay ✓ rate ✓ → **BV-SHARP
+  DISPATCHED** (|Σθ_d/d| ≤ C/log z via DHMain's Abel identity +
+  the rate) → the shifted balance → dh_repulsion. Ceremony:
+  wired + keystone (9189 green). Board: SHIU-S1, LITT-F2b,
+  HB-L8, VMVT-R2, BV-SHARP, badge run. Tally ~38.9M raw, house
+  ~14%.
