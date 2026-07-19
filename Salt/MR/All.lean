@@ -15,6 +15,7 @@ import Salt.MR.HalaszCore
 import Salt.MR.PrimeTail
 import Salt.MR.OneLinePowGrowth
 import Salt.MR.ShiuMoment
+import Salt.MR.MVHilbert
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -109,3 +110,5 @@ open Salt.Tactic in
   Salt.MR.euler_osc_bridge_unconditional
   Salt.MR.one_line_pow_growth
   Salt.MR.shiu_moment_sq
+  Salt.MR.l2_duality
+  Salt.MR.dirichlet_poly_l2_mvt

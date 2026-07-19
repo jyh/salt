@@ -9973,3 +9973,22 @@ decisions per question.
   drift; zero heartbeat bumps; self-contained (imports Mathlib
   only). Wired+audited (8823 green). S8 wave-1: E1 ✅ E2 ✅ E4 ✅
   R0.2 ✅ E5-salvage ✅ (K1 pending); E3 + H1-w2 in flight.
+
+- 2026-07-19 14:17 PDT: ██ **S8-E3 LANDS — the sin-kernel
+  obstruction DISSOLVED; K2 fires with maximal isolation** ██
+  (Opus, 293k): MVHilbert.lean, 397 ln, axioms clean, wired
+  (8824 green). THE MATHEMATICAL FIND: L2MVT's flagged
+  "irreducible" sin-kernel gap is NOT an obstruction — twisted
+  coefficients c_k = a_k·k^{iT} split the off-diagonal as
+  i·OD = H(c) − H(d), two PURE Hilbert forms, no sin. The
+  (T+N)-shape stone dirichlet_poly_l2_mvt lands (C_MV = 2π ≤ 20,
+  T-sign-free — stronger than briefed) conditional on ONE
+  self-contained hypothesis: MVHilbertUniform (the MV bilinear
+  inequality itself — absent from mathlib, no elementary route:
+  the Schur norm is ≍ N log N, cancellation mandatory; D-class
+  ~500-2000 ln). l2_duality UNCONDITIONAL (the wave-2
+  LargeValues gate opens). **S8 DAY-ONE VERDICT: both designed
+  kill-checks fired precisely (K1 = HALASZ-INFRA: Perron+Λ_f;
+  K2 = MV-HILBERT-CORE: the bilinear inequality), each isolated
+  to a single named D-block; EVERYTHING else landed (E1 E2 E4
+  R0.2 + salvages). Both decisions ripe for JYH at 16:00.**
