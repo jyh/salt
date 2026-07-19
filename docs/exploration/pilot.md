@@ -9065,3 +9065,27 @@ decisions per question.
   the commit waits on S1 for the track's registration —
   committed together). Board: R8c + FULCRUM-S1 + the 02:13
   fuse.
+
+- 2026-07-18 22:50 PT: ██ **THE FULCRUM IS KERNEL-CHECKED —
+  the Salt/Fulcrum track is born and COMMITTED** ██
+  (FULCRUM-S1 ≈ 175k / 29 tools + S2's gadget; house-verified
+  Fulcrum.All 8603 green, all [3 axioms]).
+  `FulcrumQualityMin C` VERBATIM to the verdict;
+  `fulcrum_zero_real` — reality + β < 1 + ½ ≤ β DERIVED (the
+  R5-strictness exactly as the verdict specified: the ball
+  forces |Im|+2 < 3 ≤ q, the ZFR forces q ≤ |Im|+2 for
+  non-real ρ — strict contradiction, no equality corner; and
+  the lemma is STRICTLY MORE GENERAL than asked — χ²=1
+  genuinely unused in the reality argument, dropped);
+  `imsz_implies_fulcrum_of_gadget` + S2's 4-theorem gadget =
+  the IMSZ ⟹ F direction COMPLETE. Recorded deviations:
+  hc₀le : c₀ ≤ 1 (true for 1/126848; awaits the A-class
+  numeral extraction); SiegelModulusUnbounded as the named
+  interface (S2 fills it — the wiring reconciliation is a
+  ~5-line morning stone). THE ARTIFACT: the weakest
+  twin-prime hypothesis ever formulated, kernel-signed, with
+  the weakening ledger in its docstring. NB the tree carries
+  R8c's in-flight TBal edits + scratch files (committed by
+  name around them — the no-scratch-commit discipline).
+  Board: R8c (grinding, its scratch trail visible) + the
+  02:13 fuse.
