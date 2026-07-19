@@ -10090,3 +10090,17 @@ decisions per question.
   squarefull predicate — the seam defines one). Five mathlib
   traps banked (the rpow-summability false friend; Nat.Prime
   open-namespace binders; norm_prod). Board: I1a last out.
+
+- 2026-07-19 16:36 PDT: **HAL-I1a LANDS K1'–K3'** (Opus, 436k):
+  HalaszKernel.lean, 513 ln, wired (8834 green) — hatK +
+  hat_desmooth (w/ the #254 repair), hat_contour_rep (the EXACT
+  full-line vertical rep, two landed kernel_identity instances,
+  no truncation), hat_mellin_bound + hat_tail, and
+  tsplit_ledger MACHINE-CHECKING the refuter's repair (L³/L⁴ ≤
+  L⁻¹ at grade AND the old T0=(logX)² provably overruns —
+  the panel catch verified in the kernel). Catch #254 ratified
+  (hat_desmooth false-as-frozen w/o ha0; counterexample
+  concrete; the freeze's own cover list had it). K4' the named
+  residual (cos_int_pair mathlib-absent-confirmed; route
+  documented in-file). **THE BOARD IS QUIET — every executor
+  of Dichotomy Day has landed.**

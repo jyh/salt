@@ -11610,3 +11610,17 @@ families exhausted); the ℝ³ sphere-lift underestimates in the
 argument (C-class node, queued) — needed by R2.5/R3.1 recentering
 (f = λχ̄ has |f(p)| ∈ {0,1}). dist_mul_half rides on it. R1.2/R1.3/
 R1.4 landed independently — no cascade.
+
+**Catch #254 (freeze transcription slip, executor-repaired,
+house-RATIFIED; 2026-07-19 HAL-I1a).** The HALASZ freeze's K1'
+hat_desmooth omitted `ha0 : a 0 = 0` — FALSE as frozen (concrete
+counterexample X=1.9, h=0.5, a0=a2=1: error 1.8 > 1.5). The
+freeze's own DEGEN cover list includes "n=0 (ha0)" and K2' carries
+ha0 explicitly — a pure line-13 transcription slip, not a design
+fault. Executor restored the hypothesis and flagged for
+ratification per iron rule 1: RATIFIED (the #247 pattern —
+counterexample-backed, cover-list-consistent). Also banked: K4'
+(cos_int_pair) is mathlib-absent-confirmed (exhaustive search);
+the contour build is a dedicated-rung residual with the route
+documented in the module docstring; hat_tail's two-sided form
+follows from the landed one-sided by evenness.

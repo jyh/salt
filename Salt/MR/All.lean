@@ -22,6 +22,7 @@ import Salt.MR.Decomp
 import Salt.MR.MVCore
 import Salt.MR.TypicalDensity
 import Salt.MR.HalaszLambda
+import Salt.MR.HalaszKernel
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -129,3 +130,6 @@ open Salt.Tactic in
   Salt.MR.lambdaLin_norm_le
   Salt.MR.lambdaLin_convolution
   Salt.MR.ellLin_lseries_deriv
+  Salt.MR.hat_desmooth
+  Salt.MR.hat_contour_rep
+  Salt.MR.hat_mellin_bound
