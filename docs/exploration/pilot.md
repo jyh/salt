@@ -9935,3 +9935,14 @@ decisions per question.
   E2/E3/E4/R02 + the A/P lanes UNAFFECTED (grinding). Residual
   banked: ball_mvt's elementary remainder (~200 ln, clean
   follow-up).
+
+- 2026-07-19 14:06 PDT: ██ **S8-R02 DISCHARGES R0.2 — the
+  Euler-oscillation bridge UNCONDITIONAL; LOG-EULER-OSC fully
+  closed** ██ (Opus, 257k, first route): Salt/MR/PrimeTail.lean,
+  8 decls axioms-clean, wired+audited (8800 green).
+  prime_tail_shift at certified ≈26.2 — HALF-OPEN TILING beat
+  the scout's staging (no boundary-prime correction, exact
+  subset relation). Three unconditional exit wrappers landed.
+  Five Lean traps banked (greedy one_div; lambda-cast Finset
+  unification; InjOn beta; range_subset). S8 wave-1 board:
+  E1 ✅ R0.2 ✅ E5-K1-fired (salvage ✅); E2/E3/E4 in flight.

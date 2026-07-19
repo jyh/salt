@@ -11591,3 +11591,12 @@ below the kernel): #246 route, #248 absorption direction, #250 tail
 count, #253 regime growth — the worst-corner law now explicitly
 includes ASYMPTOTIC corners (large-parameter limits), not only
 numeric ones.
+
+**LOG-EULER-OSC node: FULLY CLOSED (2026-07-19, S8-R02).**
+PrimeTailShiftBounded discharged (Salt.MR.prime_tail_shift, dyadic
+route, certified constant 2e⁻¹(log2+24)/log2 ≈ 26.2; half-open
+tiling eliminated the scout's boundary term). The H0 bridge exports
+are unconditional: log_euler_osc_zeta_unconditional /
+euler_osc_bridge(_le)_unconditional. Downstream: NonPret.lean:114's
+hbridge consumers can now route hypothesis-free (wave-2 R1.3's
+remaining glue is the ~40-line λ-side piece per the scout).

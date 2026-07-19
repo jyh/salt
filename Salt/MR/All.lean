@@ -12,6 +12,7 @@ import Salt.MR.ZetaLowerAllT
 import Salt.MR.ZetaPowLower
 import Salt.MR.PrimeSigmaShift
 import Salt.MR.HalaszCore
+import Salt.MR.PrimeTail
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -101,3 +102,6 @@ open Salt.Tactic in
   Salt.MR.halasz_cosh_ineq
   Salt.MR.halasz_cosh_ineq_complex
   Salt.MR.offdiag_int_bound
+  Salt.MR.prime_tail_shift
+  Salt.MR.log_euler_osc_zeta_unconditional
+  Salt.MR.euler_osc_bridge_unconditional
