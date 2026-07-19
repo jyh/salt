@@ -10975,6 +10975,67 @@ h |>.2` is `0 = z.im` (Siegel's `.mpr ⟨_, hreal.symm⟩` orientation) — need
 ledger re-price law is now DISCHARGED for the ρ-side: the actual C₂ρ (one L₂/c₀ power, η=54/17)
 absorbs at q=3/10³/10⁶ — R8 need not re-price, only consume.
 
+## 2026-07-18 T-BAL THE COMPOSE — R6-4@ρ + collection + E(ρ) assembly + **R7 (`dh_balance`)** LAND (the whole analytic composition chain to the balance); R8 (the contract) is the remaining ledger-inversion endgame — T-BAL-FINAL/Opus
+
+**LANDED (bankable, `Salt/SW/TBalCompose.lean` + `Salt/SW/TBalR7.lean`, registered in
+`Salt.SW.All` + audit, all `✓ [propext, Classical.choice, Quot.sound]`, `lake build Salt.SW.All`
+EXIT 0, both files warning-free — recompiled fresh per #223).** The genuinely-final composition
+rungs; each mirrors the β₀ template in `DHExtractW.lean` re-run at the complex weight `n^{−ρ}`:
+
+- **R6-4@ρ (`dhA_kernel_reduction_rho`, private) + the ℂ reindex primitives.** The EXACT reduction
+  of the `m`-restricted complex detector to the `dhD0rho` template at rescaled real scales
+  `Y/(m·k)`. Needed ℂ re-runs of the ℝ-weight infra: `sum_dvd_reindex_C`,
+  `sum_divisors_moebius_C`, `sum_coprime_eq_moebius_multiples_C`, `inner_cop_swap_wt_C`,
+  `weighted_char_count_C` — all mechanical mirrors (the proofs are pure Finset identities, ℂ-cast).
+  The `(†)` `dhA_mul_eq_sum` is coefficient-generic (cast to ℂ, reused). Confirms #227.
+- **Collection R6-5/6/7@ρ (in `dh_extraction_per_m_rho`, private).** The REAL, exponent-free
+  collection lemmas (`selHmul_collection`, `sum_gcW_selNu_eq_selMainTerm`, `sum_gcW_pairkernel_le`)
+  apply as-is — cast to ℂ where they hit the complex main. `clean_cpow_term` (LANDED in
+  `DHExtractRho`) IS the ℂ scale-main (`(mk)^{−ρ}·(Y/(mk))^{1−ρ}=Y^{1−ρ}/(mk)`); `dhD0_scale_err`
+  reuses DIRECTLY at `β₀ := ρ.re` (the error grade is `‖(mk)^{−ρ}‖=(mk)^{−σ}`, no ρ-specific err).
+- **E(ρ) assembly (`dh_extraction_upper_rho`, PUBLIC — the "next wall" cleared).**
+  `‖Σ_{n≤Y} dhCoeffW·n^{−ρ}·dhKernR(n/Y) − L(1,χ)·selMainTerm·Y^{1−ρ}/((1−ρ)(2−ρ))‖ ≤
+  C₂ρ·z·(1+log z²)⁹·Y^{1/2−σ}` — the EXACT ℂ/norm analog of `dh_extraction_upper_W`. The FULL
+  complex `L`-value carries (not `.re`); the signed complex main collects EXACTLY (the `/((1−ρ)(2−ρ))`
+  coefficient of `unmoll_extraction_rho` is load-bearing). C₂ρ = the LANDED `C2Rho` (consume per #234).
+- **R7 (`dh_balance`, PUBLIC — ██ THE ZENO SUCCESS ██).** `Λ ≤ (L(1,χ)).re` with the master bracket
+  `Λ = (1−1/Y − E(ρ) − Y^{β₀−σ}(Y^{1−β₀}+E(β₀)))·‖1−ρ‖·‖2−ρ‖/(selMainTerm·Y^{1−σ})`. The chain
+  (all guards threaded): floor (`dhW_detector_floor_rho`, NEW: `Re D_ρ ≥ (1−1/Y)−S₀`, `Re≤‖·‖`,
+  `norm_dhCoeffW_term`) → R1 shift (`tail_shift_to_beta0`, the σ≤β₀ deviation) → β₀-cancellation
+  (`dh_extraction_upper_W`+`H_lower`+`selberg_opt_eq`, exactly `dh_balance_beta0_real`'s `hcancel`)
+  → ρ-norm (`dh_extraction_upper_rho`+`norm_LFunction_one_eq_re`:
+  `‖main_ρ‖=L₁·selMainTerm·Y^{1−σ}/(‖1−ρ‖‖2−ρ‖)`). The u-mechanism's L₁ carries UNDIVIDED on the
+  ρ-side (asymmetry per T-BAL-CLOSE) — this is the balance whose `Λ` M4 inverts.
+
+**REMAINING — R8 (`dh_repulsion_ordered`, the contract, `DHRepulsion.lean:267` VERBATIM).** All the
+COMPOSITION is done; R8 is the PARAMETER-SELECTION + LEDGER-INVERSION endgame, a distinct large
+effort (NOT a compose). The precise resume map:
+- Witnesses `b=680, k=14, c=2^{−250}`, `σ₀=16/17` (drift allowed + RECORDED per the contract).
+- Trivial split: `u ≥ 1/(40L₂)` case — the RHS `c(qT)^{−b(1−σ)}/L₂^k` is ≤ that floor directly.
+- Deep branch (`u < τ = cQ^{−b(1−σ)}L₂^{−k}`): instantiate `dh_balance` at the witness scales
+  `z=⌈Q¹²u^{−3}⌉`, `x=Q^{104}u^{−14}`, `N=⌈x⌉`, `Y` (2z⁴≤Y); DISCHARGE its guards
+  (`hN`/`hscale` `N^{1−β₀}≤e`/`hguard`/`hcov`) at those scales — EACH is a transcendental
+  real-analysis inequality (the AMENDMENT-1 ledger, DISCHARGED numerically but NOT yet Lean-proven);
+  then `Λ ≥ 25e(1+log q)²·c(qT)^{−b(1−σ)}/L₂^k` (bracket ≈ floor 3/4 minus the 10^{−300} dust;
+  `‖1−ρ‖≥1−σ≥c₀/L₂` via `zfr_harvest`; `selMainTerm`/`Y^{1−σ}` bounds) → M4
+  (`dh_repulsion_of_LFunction_one_lower`, LANDED: `Λ≤L₁.re ⟹ Λ/(25e(1+log q)²)≤1−β₀`). The
+  τ-inversion via monotone `t^η log(e/t)^j` caps (turning points ≥10^{−39.3} ≫ τ,
+  `refuter1_reledger.py`). This is ~260 ln of delicate rpow/log/exp `nlinarith`, a from-scratch
+  analytic derivation — dispatch as its OWN rung, not another composer.
+
+**Catches (LOUD).** (#235) the ℂ reindex primitives (`sum_dvd_reindex`,
+`sum_coprime_eq_moebius_multiples`, `inner_cop_swap_wt`, `weighted_char_count`) are ℝ-stated in the
+codebase but the proofs are pure Finset identities — the ℂ re-runs are line-for-line copies with
+`(chiRe χ d : ℂ)`/`(moebius k : ℂ)` casts (the char values ride as a ℂ weight); DO NOT try to
+generalize the landed ℝ versions in place (Iron Rule 5) — write fresh private ℂ copies (~150 ln
+total, all first-attempt). (#236) `clean_cpow_term` (`DHExtractRho`) IS the ℂ scale-main and
+`dhD0_scale_err` reuses at `β₀:=ρ.re` — no ρ-specific rescaling lemmas needed (the norm kills the
+imaginary part: `‖(mk)^{−ρ}‖=(mk)^{−σ}`). (#237) the ρ-floor is `Re`-based not modulus: the n=1
+term is REAL `1−1/Y`, `Re D_ρ ≥ (1−1/Y)−S₀` (S₀ the real σ-tail, `|Re(a·n^{−ρ}·k)|≤a·n^{−σ}·k`),
+then `Re D_ρ ≤ ‖D_ρ‖` — this is what makes the master floor `1−1/Y ≤ ‖D_ρ‖+S₀` (NOT a modulus
+floor). (#238) `set L₁re/Eβ/Eρ` at a proof's TOP folds the GOAL immediately — a later `rw [← hEρ]`
+then finds NO occurrence (already folded); drop the re-fold before the final `div_le_iff₀`.
+
 ## VK-9 catches (house-numbered at ceremony; the executor proposed
 ## #217–220 which R5-CRUSH had taken — flags is the authority)
 

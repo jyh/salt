@@ -79,6 +79,8 @@ import Salt.SW.CrushH
 import Salt.SW.TBalClose
 import Salt.SW.DHExtractRho
 import Salt.SW.TBalFinal
+import Salt.SW.TBalCompose
+import Salt.SW.TBalR7
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -290,3 +292,5 @@ open Salt.Tactic in
   Salt.SW.norm_LFunction_one_eq_re Salt.SW.sum_mul_index_eq_rho Salt.SW.kernel_abel_sum_rho
   Salt.SW.cpow_unit_tangent_bound Salt.SW.norm_ofReal_cpow_seg_le Salt.SW.sum_cpow_sandwich_rho
   Salt.SW.unmoll_extraction_rho
+  Salt.SW.dh_extraction_upper_rho
+  Salt.SW.dhW_detector_floor_rho Salt.SW.dh_balance

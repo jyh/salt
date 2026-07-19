@@ -8809,3 +8809,26 @@ decisions per question.
   rotations clip in-flight executors; the house will flag
   "board quiet, safe to rotate" windows. Board: T-BAL-FINAL
   (pending) + MR-W1 (resumed) + S0.
+
+- 2026-07-18 19:10 PT: ██ **R7 LANDS — THE BALANCE: Λ ≤
+  L(1,χ).re — THE T-BAL ZENO SUCCESS, the Deuring–Heilbronn
+  mechanism composed end-to-end** ██ (T-BAL-FINAL, ≈ 347k / 89
+  tools, THROUGH the account-switch turbulence; house-verified
+  SW.All green, warning-free, all [3 axioms]).
+  Salt/SW/TBalCompose.lean: R6-4@ρ (5 ℂ mirror-primitives —
+  catch #235: fresh private copies, landed ℝ versions
+  untouched per Iron Rule 5) + the collection (the exponent-
+  free rungs applied AS-IS; dhD0_scale_err reused at β₀ := σ —
+  the norm kills the imaginary part) +
+  ██ `dh_extraction_upper_rho` ██ (the full weighted complex
+  extraction, C₂ρ consumed per #234). Salt/SW/TBalR7.lean:
+  ██ `dh_balance` ██ — Λ (the master bracket) ≤ L(1,χ).re via
+  the NEW Re-based floor (catch #237) + the shift + the
+  β₀-cancellation + the ρ-extraction + the reality lemma. NO
+  witness drift (Λ is witness-free; b/k/c belong to R8).
+  Catches #235–238. THE RESIDUAL: **R8 alone** — the
+  parameter-selection + ledger-inversion endgame (~260 ln of
+  rpow/log/exp bookkeeping; the ledgers confirm TRUE with
+  >320 decades; correctly refused as a partial — no sorry on
+  main). **T-BAL-R8 DISPATCHED — the single-rung endgame.**
+  Board: T-BAL-R8 + MR-W1 (resumed) + S0.
