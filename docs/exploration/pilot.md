@@ -9576,3 +9576,21 @@ decisions per question.
   (EL_T1, EL_Tsw, ER_T2', ER_T3', Junk×3) + T1'-mixed +
   Tsw'-conditional; remaining: F-T2 (in flight), even-corner
   (in flight), EL_T3 re-dispatch. W3 assembly nears.
+
+- 2026-07-19 10:40 PT: ██ **L2c-F-T2 LANDS COMPLETE — the
+  weighted T2 fibration, the heaviest family row** ██ (Opus,
+  321k, through THREE interruptions): Salt/HB/L2cELT2.lean,
+  1383 ln, 44 decls, axioms clean, EL_T2_bound verbatim at
+  Cmain = 17915904, the REPAIRED modulus law realized
+  (t2_modulus_law w/ the c∣n₊ export added precisely for the
+  Zz-sift soundness), Aexp=5 closes at z0³, legality 64×
+  headroom, zero residuals, every cluster ≤2 iterations. The
+  W3 cover accounting stated loudly in-file (T2Set complement =
+  even row + junk row + vanishing classes exactly). Six Lean
+  traps banked for siblings. **THE E_L/E_R FAMILY CAMPAIGN IS
+  ONE ROW FROM COMPLETE**: 8 full rows landed (EL_T1, EL_T2,
+  EL_Tsw, ER_T2', ER_T3', Junk×3) + ER_T1'-mixed (ruled) +
+  ER_Tsw'-conditional (hcount, engine-blocked) + EL_T3
+  (reduction landed; bound needs the fibration re-dispatch) +
+  even-corner (in flight). W3 ASSEMBLY UNBLOCKS when even +
+  EL_T3 close.
