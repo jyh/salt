@@ -9780,3 +9780,17 @@ decisions per question.
   Salt/Parity/All.lean manifest created (house), audit ✓ 14
   names, 3 axioms each. THE D4 ARC IS WHOLE: Z exists, the
   census is in, the gap is a theorem.
+
+- 2026-07-19 09:32 PDT: **SB-W1a LANDS — wave 1 complete** (Opus,
+  252k, every rung first-attempt): BudgetCore.lean, 296 ln —
+  budgetFloor (the triple-exp tower) + the logloglog transfer,
+  budget_facts (the FIVE frozen conclusions w/ the literal
+  18·(2·log4) grouping — le_refl-form verified against
+  entropy_decrement's own RHS), bracket_close. X UNCHANGED
+  (margins 3000-vs-2304, cleaner than the freeze's 1.30); the
+  exp t ≥ t²/4 route beat the hinted √H path. Axioms clean.
+  **W2 DISPATCHED under ratified A1** (the SpineFinal append:
+  R5 hbudget1_witness, R6 the ∀extraFloor head, R7 the
+  door-only terminals) **+ W2-R refuter riding parallel**
+  (read-only, independent re-derivation of the slice table +
+  margins, catch-#98 posture).
