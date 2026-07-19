@@ -9794,3 +9794,17 @@ decisions per question.
   door-only terminals) **+ W2-R refuter riding parallel**
   (read-only, independent re-derivation of the slice table +
   margins, catch-#98 posture).
+
+- 2026-07-19 09:41 PDT: **SB-W2-R CLEARS THE DESIGN — 6/6 checks,
+  no kill, HIGH confidence** (Opus rider, 100k, independent
+  symbolic re-derivation from the landed defs): S1's
+  C-cancellation EXACT (c₀ = cD3/(16C) ⟹ slice at equality);
+  CC1's four-term exhaustion confirmed defeq (no fifth term);
+  the bracket's D-vs-log2 mismatch correctly internalized
+  (κD ≤ κ+log2 ⟺ R4); **the 144 boundary EXACT** (64·(2+ε²) ≤
+  144 ⟺ ε ≤ 1/2, equality at the corner, safe direction); the
+  ∀extraFloor head acyclic; ε-min positive (binding cap ≈
+  1/419); F0's death re-confirmed a 4th way (ε,Λ cancel:
+  6.545 ≤ 0.0625 false universally). No redirect needed — W2
+  proceeds on a fully verified design. The #248 verify-posture
+  law, working as ratified.
