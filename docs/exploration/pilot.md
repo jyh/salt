@@ -9618,3 +9618,18 @@ decisions per question.
   Ω-notation avoided (cardFactors written full); root-namespace
   catch (BrunStatement/TwinCountingBigO) handled. Axioms clean,
   8938 green.
+
+- 2026-07-19 11:10 PT: ██ **WALL3-W1 LANDS COMPLETE — the
+  transfer chain is now character-free** ██ (Opus, 197k, every
+  theorem a first-attempt port, ZERO residuals): Salt/HB/
+  SignChain.lean, 753 ln, 59 decls (IsSignFunction + 12 defs +
+  26 DES-W theorems + the TCC helper block), axioms clean, no
+  warnings. The hcop-erasure certificate HELD exactly as
+  ratified (both consumers had p.Prime in hand; prime_pm
+  replaced the character lemma hypothesis-free). No ±1 line
+  drift anywhere — 40+ citations all exact. The W2 gate is
+  satisfied. **W2 (SignLiouville) + W3 (SignRate) DISPATCHED
+  in parallel.** THE EXCHANGE-RATE WALL now has its formal
+  footing: S2−S1 as an identity over arbitrary real sign
+  functions — strictly wider than characters, as the wall
+  demands.
