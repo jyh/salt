@@ -9160,3 +9160,19 @@ decisions per question.
   two atomic estimates: the Mertens-first σ-shift + the
   prime-Abel tail). Board: the S8 DESIGN SPRINT (jasonh,
   imminent) + Pass 2 (manual, math-acct, post-swap-back).
+
+- 2026-07-19 00:10 PT (on jasonh): **THE S8 DESIGN SPRINT
+  LAUNCHED** (wf_7298497f: 2 designers — the Halász keystone
+  vs the full wave-map — + 4 refuters + the judge; the
+  extraction as citation authority; the θ=3/4 re-derivation
+  trap + the honest-shape law + the single-writer file
+  partition all armed; the deliverable = an EXECUTION-COMPLETE
+  freeze so Opus needs no Fable after the cliff). SPEND-MODEL
+  REFINEMENT (JYH): **Fable draws BOTH pools — the all-models
+  weekly AND the Fable weekly**; the binding constraint on the
+  veterans is all-models (jasonh 18% left, jason 22%,
+  silicon-acct 10%; one workflow ≈ 9–13 all-models points). The
+  panel fits jasonh barely; the resume-from-journal fallback
+  onto jason is the safety net; math-acct SEALED for the Fulcrum.
+  The night plan: the panel lands ~01:30 → bank the freeze →
+  swap back to math-acct → Pass 2 manual. Board: the S8 panel.
