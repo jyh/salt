@@ -11109,6 +11109,68 @@ EXACT produced form: after `← Real.rpow_mul`, `(Q^a)^b → Q^(a*b)` but `-14*w
 — insert `rw [show … = … by ring]` per exponent, and prove `A·A^E = A^{1+E}` by rewriting the RHS
 (`rw [Real.rpow_add, Real.rpow_one]`), never the LHS.
 
+## 2026-07-18 T-BAL-R8c (THE CLOSER) — ██ THE CONTRACT LANDS: `dh_repulsion_ordered` PROVEN, KERNEL-CHECKED, AXIOM-CLEAN — WP2'S ANALYTIC CORE IS CLOSED, THE HEATH-BROWN REPULSION IS MACHINE-CHECKED ██ — T-BAL-R8c/Opus
+
+**LANDED (sorry-free, `Salt/SW/TBalR8.lean`; `lake build Salt.SW.All` EXIT 0 = 8821 jobs, warning-free;
+`#audit_axioms` ✓ `[propext, Classical.choice, Quot.sound]` on ALL, incl. the contract):**
+- **`dh_repulsion_ordered`** — THE VERBATIM CONTRACT (DHRepulsion.lean:267), `b`/`k` existential in the
+  body. Witnesses **b=680, c=c₁⁸, k=14, σ₀=16/17**.
+- The 2 remaining row caps + companion: **`row_Eβ_cap`, `row_Eρ_cap`, `logz_factor_pow9_le`** (both
+  E-rows via `ray_pow_bound`; γ = 291/100−14w resp. 391/100−14w, ε = 10/11; collapse to `c^{1/8}`).
+- **`C2Rho_le`** (`C2Rho ≤ (564+72Z₀)·√Q·L₂²/c₀`; distribute the `18M/‖1−ρ‖·(5+4‖1−ρ‖/(1−σ))` extra
+  BEFORE bounding — the ‖1−ρ‖ cancels to 72M/(1−σ), else a fatal r²).
+- The 3 guards: **`tbal_hguard`** (`2G·N^{1/2−β₀}≤1/64`), **`tbal_hscale`** (`N^{1−β₀}≤e` log-crush,
+  1/3+1/3+1/3 margin split), **`tbal_hcov`** THE CRUX (`crushErr ≤ 0.27u·z^{1−β₀}`,
+  `D=crushCut∈[¾Q⁶u⁻², 2Q⁶u⁻²]` Nat.sqrt; 4 terms to 2/7/7/7-per-100 < 27/100; Z₀-robust via the ray
+  `hZray:Z₀u≤1` because Z₀ from `zetaHol_bound` is a NONCONSTRUCTIVE compactness existential).
+- Private glue: `ceil_dbl`, `dh_repulsion_inst` (the whole per-instance body: setup + trivial split +
+  deep contradiction through `dh_master_ray` + the 5 row caps).
+
+**██ THE c REALIZED (catch #242) ██:** `c := c₁⁸`, `c₁ := min(2⁻²⁵⁰, 1/(16(328+48Z₀)627⁹),
+c₀/(16(564+72Z₀)627⁹), c₀/32, 1/(Z₀+1), 1/(3(log2+4log(256(82+12Z₀)))))`. The `^8` trick is the
+keystone: `c^{p/8}=c₁^p≤c₁` for p≥1, so EVERY row's `c^γ` constraint linearizes to a c₁-threshold
+(2⁻²⁵⁰ covers the trivial branch AND the A-row's 805/1610e constants; the rest one threshold each).
+c₀ from `zero_free_region_all` WLOG'd ≤1 as `min c₀' 1`. Obtained ONCE at the top from BOTH
+existentials (c₀, Z₀), per #242.
+
+**THE MECHANISM (freeze + AMENDMENT 1, realized).** Trivial split `u≥1/(40L₂)` [`tbal_tau_le_split`,
+`c≤2⁻²⁵⁰`]; deep `by_contra u<τ` → the tight master `dh_master_ray` gives `1−1/Y ≤` five rows, each
+capped `≤1/8` on the ray, `Σ ≤ 5/8 < 3/4 ≤ 1−1/Y` (Y≥4) — the contradiction. Scales `z:=⌈Q¹²u⁻³⌉`,
+`Y:=⌈Q¹⁰⁴u⁻¹⁴⌉`, `N:=⌈(256G)⁴⌉` (N decoupled per #241). ROW3 split via `Y^{β₀−σ}·(1/Y)=Y^{β₀−σ−1}`.
+
+**Catches (LOUD; house-number at ceremony — flags is the authority).**
+- **(R8c-A) THE ONE-DECLARATION HEARTBEAT WALL + the `linarith only` cure.** A ~430-line assembly
+  exceeds Lean's per-declaration budget as one theorem (>40M htbt). Split into a per-instance lemma +
+  a thin outer (c-management only). AND — decisive — convert EVERY `linarith`/`nlinarith` in the big
+  lemma to `... only [hyps]`: plain linarith re-scans the ~55-hyp context (`SimplexAlgorithm.Gauss`
+  blows up, timeouts surface FAR from the true cost center); `only` ignores it. This alone dropped the
+  per-instance lemma from >6.4M (timeout) to <3.2M. The assembly-genre analog of #211.
+- **(R8c-B) `clear_value c c₀` before the outer's refine/intro.** The `c:=c₁⁸` min is a giant
+  let-value; `whnf` reduces it during the `exact dh_repulsion_inst` unification → timeout. `clear_value`
+  makes c/c₀ opaque (the c-facts survive as hypotheses). But do NOT clear KEβ/KEρ/A₀ — the inst's
+  threshold params want their LITERAL forms, matched by defeq only while those stay let-vars.
+- **(R8c-C) `nlinarith` won't chain an equality hyp** (`Q⁶=Q⁵·Q`) with a product hint — pre-multiply
+  and pass `1024·Q ≤ Q⁶` outright. Bit two independent forks on the same line.
+- **(R8c-D) THE hY_nat OFF-BY-FACTOR.** `z ≤ 2Q¹²u⁻³ ⟹ 2z⁴ ≤ 2·(2Q¹²u⁻³)⁴ = 32·Q⁴⁸u⁻¹²` (NOT 16 —
+  the outer factor 2 doubles it); the comparison then needs `32 ≤ Q⁵⁶u⁻²`, not 16.
+- **(R8c-E) positivity is context-blind** on `1/(3·A₀)` (can't prove `log2>0`) and on `.../c₀` (c₀
+  sign) — supply `div_pos`/`Real.rpow_pos_of_pos` with explicit hyps; the nested-min `hcpos` needs each
+  of 11 leaves proven by hand. Also: `div_le_div_of_nonneg_right` renamed (use `gcongr`); `field_simp`
+  can close a goal wholesale, making a trailing `ring` fail "no goals".
+- **(R8c-F) SINGLE-WRITER DISCIPLINE (reaffirms the forks' R8c-D).** Multiple context-inheriting
+  workers on the shared scratch/TBalR8 files caused duplicate-lemma corruption (two `tbal_hguard`s),
+  mid-build kills, and a stale-extraction bug (`hL₂def` referenced where L₂ is a lemma parameter).
+  Partition future multi-agent waves by FILE, not by lemma.
+
+**Provenance.** The analytic surface (E-rows, `C2Rho_le`, the three guards, the crux `hcov`) was
+co-developed with two context-inheriting forks (the `tbal_hscale`/`C2Rho_le` dispatches that ran ahead
+into the assembly); the finisher reconciled their `tbal_deep` combine into the `linarith only`
+per-instance architecture and closed the c-management + the full verification. The ledgers
+(`scripts/tbal_ledgers/refuter1_reledger.py` + AMENDMENT 1) certified every row's u-grade and margin
+true before dispatch; the honest thinnest margin at the q=4/u* corner is the hcov 1.32x, all rows
+positive-grade on the ray. NO git operations (flags #174).
+
+
 ## 2026-07-18 T-BAL-R8b (`dh_repulsion_ordered` deep branch) — PARTIAL: the on-ray monomial ENGINE + 3 of the 5 row caps + the polylog helper LAND (the analytic core proven Lean-tractable); the remaining 2 rows + 6 guards + assembly are the honest residual — T-BAL-R8b/Opus
 
 **LANDED (bankable, `Salt/SW/TBalR8.lean`, registered in `Salt.SW.All` `#audit_axioms`, all

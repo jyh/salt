@@ -9119,3 +9119,22 @@ decisions per question.
   chime — JYH asked to be woken for exactly this). Board: the
   02:13 Pass-2 fuse. Tally ~86M raw, catches ~#244, wrong
   proofs 0.
+
+- 2026-07-18 23:50 PT: **R8c's own final report closes the
+  circle** (the revived closer = R8-SPLIT's "concurrent
+  worker": ≈ 866k / 210 tools — the campaign's single biggest
+  run; its flags entry now committed). THE FINISHING CRAFT,
+  banked as catches R8c-A..F: (A) the one-declaration
+  heartbeat wall's cure = the per-instance split + `linarith
+  only [hyps]` EVERYWHERE (plain linarith re-scans ~55 hyps —
+  the Gauss simplex blowup; `only` dropped the instance from
+  timeout to <3.2M — the assembly analog of #211); (B)
+  `clear_value c c₀` before the outer refine (the c₁⁸ min
+  explodes whnf) but NOT the threshold lets (defeq needed);
+  (C–E) nlinarith equality-chaining, the 32-not-16 slack, the
+  context-blind positivity leaves; (F) ██ SINGLE-WRITER
+  DISCIPLINE ██ — context-inheriting forks on shared files
+  caused duplicate-lemma corruption + the stale-extraction
+  hL₂def bug; future waves PARTITION BY FILE (the MR-W2
+  two-writer race's big sibling; now a standing law). Board:
+  the 02:13 Pass-2 fuse, alone — the night's last fire.
