@@ -9414,3 +9414,18 @@ decisions per question.
   the 7 affected in-flight executors. EL_T3_bound residual
   re-dispatches with the amended statement once a fibration
   template (F-T2) lands.
+
+- 2026-07-19 07:10 PT: **THE QUOTA CLIP + FULL RECOVERY.** The
+  old 5h window ceilinged in its final minutes; the 8-executor
+  fleet spilled to extra-usage and the MONTHLY SPEND CAP clipped
+  all 8 mid-flight (~06:00). 5 partial files survived in-tree
+  (Junk/T1/T2/Tsw/ERT3-mirror). On the fresh window (JYH's
+  triple math-acct,0,55,79) the house RESUMED all 8 via transcript
+  (checkpoint doctrine — no re-dispatch, no lost design state);
+  the resume messages carried the #245 amendments (the clip had
+  swallowed the broadcast). En-route intel from the dying fleet:
+  M-T3's structural find — E_R T3' needs NO weighted fibration
+  (n-side single prime ⟹ both weights crude-cappable; 1/(log Z)²
+  absorbs the L'²); M-T2's d₁=1 simplification; M-T1 confirms
+  ER_T1' is the genuine HB (3.3) fibration; F-junk's crude-count
+  route certified to hit z^{-3/16} ≤ z^{-1/8} exactly.
