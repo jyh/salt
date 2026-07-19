@@ -9559,3 +9559,20 @@ decisions per question.
   W3 ∥ D4 chain. Also this hour: THE GLITCHED SWITCH — the
   compiler-acct account's ToS 400 killed F-T2/M-T2/even mid-flight
   (partials safe in-tree); resumed post-acceptance.
+
+- 2026-07-19 10:25 PT: ██ **L2c-M-T2 LANDS COMPLETE** ██ (Opus,
+  357k, through THREE interruptions — quota clip, ToS glitch):
+  Salt/HB/L2cERT2.lean, 1075 ln, 38 decls, axioms clean,
+  ER_T2'_bound to the frozen J2 shape at Cmain = 2²², both
+  guards baked, Zz-floor everywhere, d₁=1 route as ratified,
+  Aexp=5 with e^{1.3z0} headroom. Zero residuals, every cluster
+  attempt-1. CATCH (freeze NOTES discrepancy, conclusion
+  unaffected): the §5 T2' line "PS via Σ1/p" is unimplementable
+  — the n-side prime has unconstrained sign; the sound source
+  is p'' = minFac((n+2)₊) (as freeze S4's E_L line already has
+  it). W3 must read PS-from-p''. Bonus: the E_R parity gift
+  (n prime > x ⟹ n, n+2, w all odd — #246 free on all E_R
+  prime families). Family board: SEVEN rows fully landed
+  (EL_T1, EL_Tsw, ER_T2', ER_T3', Junk×3) + T1'-mixed +
+  Tsw'-conditional; remaining: F-T2 (in flight), even-corner
+  (in flight), EL_T3 re-dispatch. W3 assembly nears.
