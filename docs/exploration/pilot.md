@@ -9022,3 +9022,9 @@ decisions per question.
   cost ~15-20% of a NORMAL Fable week; math-acct's current "77%
   left" ≈ 51% of a normal week. Plan windows accordingly;
   re-calibrate at the cliff.
+
+- 2026-07-18 22:25 PT (spend-model correction, JYH): **the 5h
+  window is NOT affected by the +50% promotion** — only the
+  WEEKLY quota carries the bonus. Post-Aug-19: window planning
+  unchanged (a workflow ≈ half a window forever); weekly
+  planning scales by 2/3. Memory updated.
