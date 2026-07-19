@@ -9730,3 +9730,11 @@ decisions per question.
   docstring annotations HELD for W2's landing commit per the
   judge's sequencing (no citation gap). W2 dispatches on
   W1a+W1b landing.
+
+- 2026-07-19 08:56 PDT: **SB-W1b LANDS first-attempt** (Opus, 62k):
+  Salt/Entropy/Chowla/BudgetDeficit.lean, 66 ln —
+  deficit_le_log_two verbatim (the entropy-deficit cap ≤ log 2
+  via the frozen chain: entropy_residueWindow_ge + pH_headroom
+  ⟹ u ≤ 1 ⟹ log(1+u) ≤ log 2). Zero line-anchor drift; CC2
+  honored (no phantom ≥0 leg). Axioms clean. W2 waits only on
+  W1a (BudgetCore, the constant-heavy rung — in flight).
