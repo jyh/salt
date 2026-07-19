@@ -19,6 +19,7 @@ import Salt.MR.MVHilbert
 import Salt.MR.NonPretClose
 import Salt.MR.DistHalasz
 import Salt.MR.Decomp
+import Salt.MR.MVCore
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -120,3 +121,5 @@ open Salt.Tactic in
   Salt.MR.Mrange_one_floor
   Salt.MR.ramare_weight_sum
   Salt.MR.ramare_decomp
+  Salt.MR.mvHilbertUniform_of_l2
+  Salt.MR.sep_inv_sq_sum_le

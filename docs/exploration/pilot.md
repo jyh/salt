@@ -10021,3 +10021,19 @@ decisions per question.
   low-value-deferred. [REVIEW NOTE for JYH: the false-witness
   belongs in the draft §2 — "the corpus kernel-verified a
   published erratum" — one sentence, big signal.]
+
+- 2026-07-19 15:11 PDT: **MV-CORE lands the K2 reduction** (Opus,
+  180k, every stone ≤1 attempt): Salt/MR/MVCore.lean, 269 ln,
+  axioms clean, wired (8830 green). SOURCE VERDICT: MNT-III's
+  Appendix G (the sharp π/δ proof + Beurling–Selberg) is
+  PHYSICALLY UNSTAGED (all cross-refs render "Theorem ??");
+  per doctrine no memory-port attempted. THE REDUCTION:
+  MVHilbertUniform ⟸ L2KernelUniform π (Cauchy–Schwarz,
+  loss-free — the frozen π ACHIEVABLE); the DIAGONAL part
+  proven (sep_inv_sq_sum_le ≤ π²/3δ² via Basel); the residual
+  is exactly the off-diagonal cancellation (Beurling–Selberg /
+  Hilbert-transform L² theory — neither in mathlib). CONSUMER
+  SLACK verified: any C ≤ 10 serves via a 2-line wrapper.
+  STAGING DEBT registered: MNT-III App. G or MV-1974 (JYH-
+  assisted). K2 board: wall smaller, named sharper, no rework
+  path anywhere.
