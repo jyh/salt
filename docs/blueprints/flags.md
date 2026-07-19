@@ -11056,3 +11056,58 @@ then finds NO occurrence (already folded); drop the re-fold before the final `di
   (n:ℂ)-summand back-propagates endpoint types to ℂ when neither
   endpoint is a ℕ-variable ("failed to synthesize
   LocallyFiniteOrder ℂ"); annotate (1:ℕ) or use insert-head.
+
+## MR-W1 catches + residuals (wave-1 executor sweep, 2026-07-18;
+## UNNUMBERED — house numbers at ceremony, per the VK-9 ruling)
+
+- **(S6a SUPPLIER MISMATCH — the MV-Hilbert gap)** — the freeze's S6a
+  sourcing "(gallagher_pointwise + analytic_LS)" does NOT reach the
+  continuous-`t` Dirichlet-polynomial L² MVT: Gallagher is the wrong
+  direction (pointwise ≤ local integral), analytic_LS is
+  integer-frequency/discrete-points.  The `(T+N)` shape provably needs
+  the Montgomery–Vaughan generalized Hilbert inequality (absent from
+  mathlib AND the corpus; naive triangle bound gives `T + N·log N` —
+  a SHAPE change, no large-C rescue).  Landed instead: the exact L²
+  frequency expansion + diagonal split (`dirichlet_poly_l2_expand`/
+  `_diagonal`, `Salt/MR/L2MVT.lean`), reducing S6a to that single
+  named prerequisite stone.  Register MV-HILBERT as a new node ahead
+  of S6a's closure.
+- **(S2 DESIGN CORRECTIONS ×2 + Block A/keystones LANDED)** — (a) the
+  freeze's S2 `(3/4)ℓ + 4logℓ` budget is dominated by the FAR
+  real-axis piece, NOT the Landau transport — and it is ELEMENTARY:
+  the antitone `φ(v) = log‖ζ(v+it)‖ + log‖ζ(v)‖` monotonicity gives
+  `‖ζ((1+d')+it)‖ ≥ d'/32` unconditionally (`zeta_pow_lower_far`,
+  GREEN — no region, no growth bound; the region enters ONLY in the
+  near block `[1,1+w]`); (b) the Landau core must run on the
+  NORMALIZED `Zc/Zc(c)` — raw `Zc` gives `M₀ ~ (|t|+2)·K·log t`,
+  `V·w ~ L/ℓ → ∞` (diverges); the corpus ratio bound
+  `Salt.Vk.Zc_ratio_sphere_bound` (Region.lean:104) is the repair.
+  BOTH KEYSTONES LANDED GREEN (`Salt/MR/ZetaPowLower.lean`):
+  `zeta_dirichlet_re_le` (`Re(ζ′/ζ)(u+it) ≤ −ζ′/ζ(u)`, `u > 1`) and
+  `hasDerivAt_log_norm_zeta` — the log-modulus FTC derivative
+  (`HasDerivAt (v ↦ log‖ζ(v+it)‖) (Re logDeriv ζ)`, built
+  component-wise around the branch cut; an earlier sweep wrongly
+  priced this as corpus-absent).  `zeta_pow_lower` remains OPEN on
+  **Block B only**: `zeta_near_re_logDeriv_abs_le`
+  (`|Re(ζ′/ζ)(u+it)| ≤ C_L·ℓ/η` on `[1,1+w]`, the ~400–600-line
+  zero-counting block) + `zeta_near_bridge` + `pow_cut_shape`;
+  exact statements in the module docstring.  Constants: Block A
+  realizes `c′ = 1/32` on `d' ≥ w`; assembled `c′ = e^{−C_L}/32`-grade
+  (design C_L ≈ 7, corpus-literal ≈ 30); loglog power
+  4 = 3(region) + 1(cut) CONFIRMED.  (The 3-4-1+Cauchy template tops
+  out at θ_eff = 13/16 — insufficient for `L^{3/4}ℓ⁴`; route retired.)
+- **(S1 RESIDUAL — the twisted log-L bridge)** — `𝔻(λ,χn^{it};x)² =
+  loglog x + Re log L(1+1/logx+it,χ) + O(1)` needs the Euler
+  log-of-`L` prime-sum bridge (mathlib/corpus hold only the
+  log-DERIVATIVE bridge, `Salt.SW.logDeriv_LFunction_eq`).  Landed:
+  the Liouville split `𝔻² = Σ(1+Re g(p))/p` (any twist), the `t = 0`
+  Mertens evaluation, the Euler `k≥2` tail `≤ Σ 1/(p(p−1))` (audit
+  value 0.773 ≤ 0.78 ✓).  The chain-G additive 5.00-EXACT audit
+  CANNOT be pinned until the bridge lands.
+- **(S6b THRESHOLD NOTE)** — a naive Turán–Kubilius statement at fixed
+  threshold `2 ≤ x` is FALSE (`loglog x < 0` below `x = e` makes the
+  RHS negative); the landed `turan_kubilius`
+  (`Salt/MR/TuranKubilius.lean`) is the classical asymptotic form
+  `∃ C x₀` (C = 4; x₀ nonconstructive via the Mertens constant — the
+  registered asymptotic-only posture).  The freeze pinned no literal
+  S6b statement, so no statement was altered.

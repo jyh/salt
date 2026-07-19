@@ -8851,3 +8851,27 @@ decisions per question.
   S9/S10/S11 → MRTUniformityXi → log_chowla_two_final_xi →
   UNCONDITIONAL LOG-CHOWLA-2 (mod SPINE-BUDGET). Board:
   T-BAL-R8 (the contract) + MR-W1 (S2/S3 finishing).
+
+- 2026-07-18 19:35 PT: **MR-W1 completes its wave — the Salt/MR
+  track is BORN: 27 decls audited clean** (≈ 242k / 111 tools
+  across the clip+resume; house-verified MR.All 8813 green;
+  root 9282 per the executor). The wave: S10a
+  (regime_W_headroom_of_floor), S6b (turan_kubilius), S1-core
+  (the pretentious-distance bookkeeping), S3-parametric (the
+  all-t assembly, its hpow slot statement-identical to S2's
+  open target — a 3-line closer when Block B lands), S2 Block
+  A + BOTH KEYSTONES (zeta_dirichlet_re_le; the log-modulus
+  FTC derivative hasDerivAt_log_norm_zeta — SELF-CORRECTION:
+  the executor's own earlier flag had priced this
+  corpus-absent, then landed it; zeta_pow_lower_far — the
+  far-half UNCONDITIONAL, no region needed, c' = 1/32).
+  RESIDUALS (precise): S2 Block B (the ~400–600-ln
+  zero-counting block on the normalized Zc — the one real
+  remaining C-piece of the wave), the MV-Hilbert node (S6a's
+  deep half), the log-L bridge. NB Salt.lean + SW/All.lean
+  edits in the tree are MR-W1's import + T-BAL executors'
+  registrations — reconciled at this ceremony; TBalR8.lean
+  sighted (R8 mid-work). Board: T-BAL-R8 + the quiet-hours
+  consolidation queue (the report refresh, memory, upstream
+  entries; MR-W2 = Block B + MV-Hilbert queues for the fresh
+  quota).

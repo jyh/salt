@@ -81,6 +81,7 @@ import Salt.SW.DHExtractRho
 import Salt.SW.TBalFinal
 import Salt.SW.TBalCompose
 import Salt.SW.TBalR7
+import Salt.SW.TBalR8
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -294,3 +295,6 @@ open Salt.Tactic in
   Salt.SW.unmoll_extraction_rho
   Salt.SW.dh_extraction_upper_rho
   Salt.SW.dhW_detector_floor_rho Salt.SW.dh_balance
+  Salt.SW.tbal_tau_le_split Salt.SW.dh_master_ray
+  Salt.SW.exp_sub_one_le_e_mul Salt.SW.rpow_sub_one_le Salt.SW.neg_log_le_rpow
+  Salt.SW.rho_row_power_bound
