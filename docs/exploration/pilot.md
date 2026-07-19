@@ -8667,3 +8667,20 @@ decisions per question.
   pre-authorized MR design block now converts to A QUOTA ASK on
   JYH's desk (~1–1.3M est). Board: T-BAL-R6RHO (the repulsion's
   last stone). Tally ~76M raw, catches #228, wrong proofs 0.
+
+- 2026-07-18 16:55 PT: JYH — **"yes let's go on the MR design
+  block"** (5h quota at 40%, JYH monitoring — the gate honored:
+  the ask carried the ~1–1.3M estimate). ██ **THE MR-GATE
+  DESIGN WORKFLOW LAUNCHED** ██ (wf_63b55005: 3 grounding maps
+  FIRST — MR is the longest-parked campaign, nothing trusted
+  from memory: the spine's ACTUAL interface Prop (Entropy
+  track + the Option-C D²-arithmetic + the Xi-rewire coupling),
+  the region interface (the T₀ = exp(exp 100) range hole vs
+  the classical-region union — a pre-flagged C2 checklist
+  item), the sources (WHERE the region actually enters the
+  log-Chowla chain — the λ-non-pretentiousness trace) → 2
+  designers (faithful-MR vs minimal-for-the-gate) → refuter
+  pairs w/ the hardened checklist incl. catch #224's
+  scope-diff item → synthesis w/ dispatch_ready). THE CAMPAIGN:
+  the region → the MR gate → UNCONDITIONAL LOG-CHOWLA-2.
+  Board: T-BAL-R6RHO + the MR design wf.
