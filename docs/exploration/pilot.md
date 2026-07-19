@@ -9721,3 +9721,12 @@ decisions per question.
   A2 (mr-freeze δ₀ pins shrink ≈1/419; gates S11) — surfaced.
   **W1a ∥ W1b DISPATCHED** (amendment-independent: BudgetCore
   R1–R3, BudgetDeficit R4 — freestanding true lemmas).
+
+- 2026-07-19 08:54 PDT: **A1 + A2 RATIFIED (JYH: "ratify both").**
+  A2's mr-freeze.md pin edits LANDED (delta0 -> c0·eps/2K at
+  TARGET/S9/S11; S11 re-pointed at the ∀extraFloor head; the
+  dead t/g/hbudget1 residual line replaced w/ the F0 pointer).
+  A1's flags entry (#249) + the SpineFinal/TowerDischarge
+  docstring annotations HELD for W2's landing commit per the
+  judge's sequencing (no citation gap). W2 dispatches on
+  W1a+W1b landing.
