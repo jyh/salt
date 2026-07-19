@@ -8875,3 +8875,30 @@ decisions per question.
   consolidation queue (the report refresh, memory, upstream
   entries; MR-W2 = Block B + MV-Hilbert queues for the fresh
   quota).
+
+- 2026-07-18 20:10 PT: **T-BAL-R8: an honest partial + a
+  CRITICAL mechanism catch — the briefed compose was BROKEN**
+  (≈ 300k / 69 tools; house-verified SW.All 8821 green, 6
+  lemmas [3 axioms]). Catch **#239 (house-owned, the resume
+  map's error)**: "dh_balance + M4" cannot close — the R7
+  bracket contains Y^{β₀−σ}·Y^{1−β₀} = Y^{1−σ} ≥ 1, so the
+  bracket is NEGATIVE at witness scales; Λ ≤ L₁.re is
+  true-but-VACUOUS and M4 inverts to nothing. THE CORRECT
+  mechanism (always was): the freeze's five-row master 3/4 ≤
+  rows via H_lower/selberg_opt_eq — M4 PLAYS NO ROLE in this
+  design (it belonged to the 4th design's architecture; a
+  fossil in my brief). LANDED (Salt/SW/TBalR8.lean):
+  `dh_master_ray` (the CORRECTED tight master — the u·ln Y
+  cancellation retained), the trivial branch, three
+  transcendental helpers, `rho_row_power_bound` (the row-cap
+  TEMPLATE — the analytic core proven Lean-tractable). Catch
+  #242: c = 2^{−250} as a bare literal cannot close (c₀/Z₀
+  existential — c must be a function of them; b/k/σ₀ stand).
+  Catches #239–243. THE RESIDUAL (multi-session honest):
+  6 guards (hcov the crux ~100 ln) + 4 row caps on the
+  template + the 5-row sum — ~400–500 ln. **T-BAL-R8b
+  DISPATCHED on the corrected mechanism** (fresh quota, the
+  full map in flags). R7's vacuity note: dh_balance stays
+  LANDED (true, kernel-checked) — its Zeno-success status is
+  re-graded to "the composition exercise"; the CONTENT lives
+  in the five-row master. Board: T-BAL-R8b + MR-W2.

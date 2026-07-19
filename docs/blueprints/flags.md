@@ -11036,6 +11036,79 @@ then `Re D_ρ ≤ ‖D_ρ‖` — this is what makes the master floor `1−1/Y �
 floor). (#238) `set L₁re/Eβ/Eρ` at a proof's TOP folds the GOAL immediately — a later `rw [← hEρ]`
 then finds NO occurrence (already folded); drop the re-fold before the final `div_le_iff₀`.
 
+## 2026-07-18 T-BAL R8 (`dh_repulsion_ordered`) — PARTIAL: the scaffolding + the CORRECTED master land; the deep branch is a genuine MULTI-SESSION effort (NOT "260 ln of bookkeeping"); a design bug in R7's stated bracket surfaced — T-BAL-R8/Opus
+
+**LANDED (bankable, `Salt/SW/TBalR8.lean`, registered in `Salt.SW.All` audit, all
+`✓ [propext, Classical.choice, Quot.sound]`, `lake build Salt.SW.All` EXIT 0, warning-free):**
+- **`tbal_tau_le_split`** — the TRIVIAL branch: `τ = c·Q^{−680w}/L₂^{14} ≤ 1/(40 L₂)` for `Q ≥ 1`,
+  `w > 0` (so in `u ≥ 1/(40 L₂)` the target `u ≥ τ` is immediate). Pure `rpow` arithmetic.
+- **`dh_master_ray`** — ██ THE CORRECTED R7 ██. Same guards as `dh_balance` but the balance kept
+  in TIGHT form: `1 − 1/Y ≤ (ρ-row)·+ (Eρ) + Y^{β₀−σ}((Y^{1−β₀}+Eβ) − (1−1/Y))`, with the
+  `tail_shift_to_beta0` `−(1−1/Y)` RETAINED and the ρ-main `u`-injected via `H_lower`
+  (`L₁·selMainTerm ≤ (1−β₀)(2−β₀)`). Reuses `dhW_detector_floor_rho`/`tail_shift_to_beta0`/
+  `dh_extraction_upper_W`/`H_lower`/`selberg_opt_eq`/`dh_extraction_upper_rho`/
+  `norm_LFunction_one_eq_re` (the exact `dh_balance` chain, one line changed).
+- **`exp_sub_one_le_e_mul`, `rpow_sub_one_le`, `neg_log_le_rpow`** — the on-ray transcendental
+  helpers. `a^t − 1 ≤ e·(t·log a)` (the `Y^u−1 ≈ u·ln Y` cancellation) and `−log u ≤ u^{−δ}/δ`
+  (mathlib `Real.log_le_rpow_div`; THE crude-δ trick — turns every `log(1/u)` into a pure power
+  `u^{−δ}`, converting calculus-grade log-monotonicity into trivial `rpow_le_rpow` base-monotonicity).
+- **`rho_row_power_bound`** — the ρ-row on-ray cap TEMPLATE (proof the analytic core is
+  Lean-tractable): `2u·Y^{w}·(log Q/c₀) ≤ (4/c₀)·c^{1−14w}` for `Y ≤ 2Q^{104}u^{−14}`, `u ≤ τ`.
+  The window law made explicit: `Y^w ≤ 2^w Q^{104w}u^{−14w}`; `u^{1−14w} ≤ τ^{1−14w}`
+  (`1−14w ≥ 3/17 > 0`); then the Q-power `104w−680w(1−14w) = w(−576+9520w) ≤ 0` AND the L₂-power
+  `1−14(1−14w) = −13+196w ≤ 0` are BOTH `≤ 0` on `w ≤ 1/17` — this IS why `b=680/k=14/σ₀=16/17`.
+
+**██ CRITICAL FINDING — the T-BAL-FINAL resume map's mechanism is BROKEN. ██** The flag said R8 =
+"compose `dh_balance` + M4 (`dh_repulsion_of_LFunction_one_lower`): `Λ ≤ L₁.re ⟹ Λ/(25e(1+log q)²)
+≤ 1−β₀`, with `Λ ≥ 25e(1+log q)²·τ` (bracket ≈ 3/4)." This does NOT work: `dh_balance`'s stated
+bracket is `B = 1 − 1/Y − Eρ − Y^{β₀−σ}(Y^{1−β₀}+Eβ)`, and `Y^{β₀−σ}·Y^{1−β₀} = Y^{1−σ} ≥ 1` for
+ANY detector length `Y > 1` (`1−σ > 0`), so `B ≤ 1 − Y^{1−σ} < 0`. Hence `Λ = B·(pos) < 0`, and
+`dh_balance`'s `Λ ≤ L₁.re` is TRUE-BUT-VACUOUS (M4 then gives `1−β₀ ≥ negative`). The tight bound
+`S₀ ≤ Y^{β₀−σ}((Y^{1−β₀}+Eβ) − (1−1/Y))` (the `Y^u−1 ≈ u ln Y` cancellation) IS available mid-proof
+of `dh_balance` (TBalR7.lean:191) but is DISCARDED at :193. **The CORRECT mechanism is the freeze
+master `3/4 ≤ (five rows)` (`docs/exploration/tbal-s0-freeze.md`:11), each row `u`-small on the ray
+via `H_lower` (NOT M4 — M4 is NOT USED).** `dh_master_ray` implements it. (Confirmed against the
+ledgers: `refuter1_reledger.py` master TOTAL at τ = 10^{−5.65} < 3/4 for q=3/5/150/1e6; the rows are
+UPPER bounds on `S₀ + ‖D_ρ‖`, small ONLY on `u < τ` — at u* they read 10^{+10}, the on-ray law.)
+
+**c₀ / Z₀ ARE EXISTENTIAL — the witness `c` must be a function of BOTH.** `zero_free_region_all`
+(`c₀`, docstring `1/126848`) and `zetaHol_bound` (`Z₀`, compactness — no explicit constant) are
+`∃`-bound. `zfr_harvest` RE-existentializes `c₀` per call, so obtain BOTH ONCE at the top (before
+`refine ⟨b,c,k,…⟩`) from `zero_free_region_all` (universally-quantified region, usable inside the
+`∀`) and `zetaHol_bound`. The ρ-row cap needs `c^{3/17} ≤ c₀/8`; each of the 5 rows imposes
+`c ≤ (num/(const·f(Z₀,c₀)))^{17/3}`, so the witness DRIFTS to `c := (a positive expression in
+Z₀,c₀)` (freeze's `2^{−250}` was the `c₀`-independent grade). `b=680, k=14, σ₀=16/17` UNCHANGED.
+
+**THE REMAINING DEEP BRANCH (the honest scope — a distinct multi-session rung, ~400–500 ln):**
+Under `by_contra u < τ`, at scales `z = ⌈Q^{12}u^{−3}⌉` (crush/hcov), `Y = ⌈Q^{104}u^{−14}⌉`
+(detector; note `N` for the `L₁`/`H` guards DECOUPLES from `Y` — pick `N = ⌈(256(34+12M+12MZ₀+
+36M/u))^4⌉` ≈ `q(log q)²/u²`, which eases `hscale N^u ≤ e` and `hguard`): (1) discharge the six
+guards — `hz/hN/hY` (ceil monotonicity, easy); `hscale`/`hguard` (`neg_log_le_rpow` handles the
+`u·ln N` terms); `hcov` THE CRUX (`crushErr ≤ 0.27u·z^{1−β₀}` at `z`, with `crushCut = Nat.sqrt(z·
+min(⌈1/(1−β₀)⌉,z))` — Nat.sqrt lower/upper bounds + 4 rpow term caps, ~100 ln); (2) apply
+`dh_master_ray`; (3) the other 4 row caps (Eρ, A, Eβ, 1/x) via the `rho_row_power_bound` template +
+`rpow_sub_one_le` (A-row `Y^u−1`) + `neg_log_le_rpow` (the `(1+log z²)⁹` factors) — each ~40 ln,
+Q/L₂-exponents `≤ 0` per the window law, INCLUDING `M ≤ √Q·L₂`; (4) sum of 5 rows `< 3/4 ≤ 1−1/Y`
+(Y≥4) contradicts `dh_master_ray`'s `1−1/Y ≤ masterRHS`. The `reprice_rho_r6rho2.py` grades
+(η_E=η_A=3/17, η_Eρ=54/17 actual) are the u-exponents each cap must extract.
+
+**Catches (LOUD).** (#239) `dh_balance`'s conclusion is UNUSABLE for R8 (bracket `< 0` at witness
+scales) — do NOT feed it to M4; use `dh_master_ray` (tight). The whole "R8 = compose + M4" premise
+of the T-BAL-FINAL flag is wrong; M4 (`dh_repulsion_of_LFunction_one_lower`) plays NO role — the
+`u`-injection is `H_lower`'s `L₁·selMainTerm ≤ (1−β₀)(2−β₀)`, both β₀-side AND ρ-side. (#240) the
+crude-δ trick (`neg_log_le_rpow`, `−log u ≤ u^{−δ}/δ` at e.g. `δ = 3/34`) AVOIDS the freeze's
+"turning-point monotonicity of `t^η log(e/t)^j`" entirely — no calculus, pure `rpow_le_rpow`
+base-monotonicity, with ≫ enough margin (rows are 10^{−300} deep on the ray). (#241) `N` (the
+`L₁`/`H`-guard scale) and `Y` (detector, `2z⁴ ≤ Y`) are SEPARATE args of `dh_balance`/`dh_master_ray`
+— pick `N` SMALL (poly/u²) to satisfy `hscale`/`hguard` cheaply, `Y` LARGE (`Q^{104}u^{−14}`) for
+row decay; do NOT couple them (the freeze's `N := ⌈x⌉ = Y` needlessly hardens `hscale`). (#242)
+`c := 2^{−250}` (a bare literal, `c₀`/`Z₀`-independent) CANNOT close — the ρ-row's linear `1/c₀`
+and the E-rows' `Z₀`-inflated constants force `c` to depend on the existential `c₀, Z₀`; obtain both
+at the top, define `c` from them. (#243) `Real.rpow` equational steps need the exponent in the
+EXACT produced form: after `← Real.rpow_mul`, `(Q^a)^b → Q^(a*b)` but `-14*w ≠ -(14*w)` syntactically
+— insert `rw [show … = … by ring]` per exponent, and prove `A·A^E = A^{1+E}` by rewriting the RHS
+(`rw [Real.rpow_add, Real.rpow_one]`), never the LHS.
+
 ## VK-9 catches (house-numbered at ceremony; the executor proposed
 ## #217–220 which R5-CRUSH had taken — flags is the authority)
 
