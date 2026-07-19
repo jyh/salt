@@ -9502,3 +9502,19 @@ decisions per question.
   bytes≠chars). All clusters first-attempt. Family board:
   EL_T1 ✅ + ER_T3' ✅ + Junk×3 ✅ + ER_Tsw' cond.; in flight
   F-T2/F-Tsw/M-T1/M-T2/even + the ratification panel.
+
+- 2026-07-19 09:40 PT: ██ **L2c-F-Tsw LANDS COMPLETE — the swap
+  family (the S₂⁴-block repair) fully discharged** ██ (Opus,
+  297k, ~128 min through 2 clips): Salt/HB/L2cELTsw.lean, 1030
+  ln, 44 decls, axioms clean, EL_Tsw_bound VERBATIM at Cmain =
+  4718592 = 4608·1024, Aexp=5 with room (e^{3.39z0} ≤ e^{5z0}).
+  Both amendments encoded (#245 guard on v; #246 Odd n). Six
+  catches banked incl.: case B BEATS the freeze sketch (the
+  crude Λ(v) ≤ log z cancels the U-sum's 1/log z — z0² not z0³);
+  legality at Zz rpow-free (Zz¹⁶ ≤ z + log t ≤ t in plain ℕ);
+  Odd v derivable in-slice; the W3 cover note (w-roughness
+  complement routes to corners' squarefull-≥z class, as the
+  freeze table assigns). Toolchain trap-list for siblings
+  banked. Family board: EL_T1 ✅ EL_Tsw ✅ ER_T3' ✅ Junk×3 ✅
+  ER_Tsw' cond; in flight F-T2/M-T1/M-T2/even; queued: EL_T3
+  re-dispatch (post-template), ER_T1'/T2' completions.
