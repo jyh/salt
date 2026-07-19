@@ -9946,3 +9946,22 @@ decisions per question.
   Five Lean traps banked (greedy one_div; lambda-cast Finset
   unification; InjOn beta; range_subset). S8 wave-1 board:
   E1 ✅ R0.2 ✅ E5-K1-fired (salvage ✅); E2/E3/E4 in flight.
+
+- 2026-07-19 14:07 PDT: ██ **S8-E2 LANDS H1.0 — one_line_pow_growth
+  at the frozen ℓ⁴** ██ (Opus, 284k, 1 serious attempt, 353 ln
+  vs 700 priced): C = 8000005, T₀ = e^{e^{100}}. ROUTE DE-RISK
+  (executor, in-discretion): the freeze's "k=12 + Abel"
+  high-block sketch is O(log t)-FATAL as written (constant per
+  block × ~2.7 log t blocks); replaced by vk_dirichlet_block_le
+  at σ₀ = 1−Θ/2 + ONE abel_antitone_prefix — uniform
+  1348·M^{−Θ/2} per block, no low/mid/high split at all.
+  Lands ℓ⁴ IN-STATEMENT (internal ℓ²-grade — R1.2 inherits
+  "−4 achievable"). K3 ≈ NIL (the fallback essentially already
+  built at ZetaPowLower:781/:843 — no Fable ping needed on
+  A.6). Zero drift. Wired+audited (8822 green). **THE H0+H1.0
+  GATE OPENS: wave-2 H1 (DistHalasz+NonPretClose) DISPATCHED —
+  R1.1 triangle, R1.2 dist floor, R1.3 UNCONDITIONAL
+  lambda_nonpret (the S5 residual closes), R1.4 M_range.**
+  S8 board: E1 ✅ E2 ✅ R0.2 ✅ E5-salvage ✅ (K1 pending JYH);
+  E3/E4 + H1-w2 in flight; A-lane dispatches held for the
+  16:00 council.

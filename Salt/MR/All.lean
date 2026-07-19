@@ -13,6 +13,7 @@ import Salt.MR.ZetaPowLower
 import Salt.MR.PrimeSigmaShift
 import Salt.MR.HalaszCore
 import Salt.MR.PrimeTail
+import Salt.MR.OneLinePowGrowth
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -105,3 +106,4 @@ open Salt.Tactic in
   Salt.MR.prime_tail_shift
   Salt.MR.log_euler_osc_zeta_unconditional
   Salt.MR.euler_osc_bridge_unconditional
+  Salt.MR.one_line_pow_growth
