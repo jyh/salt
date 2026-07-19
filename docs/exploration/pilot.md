@@ -8968,3 +8968,37 @@ decisions per question.
   the terminal ✓ — remaining: MV-Hilbert, the bridge, S4/S5/S7,
   S8 (the priced mountain), S9/S10b/S11. Board: the FULCRUM
   HUNT + T-BAL-R8c.
+
+- 2026-07-18 22:10 PT: ██ **THE FULCRUM EXISTS — Pass 1
+  delivers F_min, refuter-survived** ██ (wf_216c3cbb, 11/11
+  agents ≈ 1.32M, ENTIRELY IN-WINDOW per JYH's live quota
+  telemetry — the split never fired). THE VERDICT:
+  `FulcrumQualityMin C` — ∀Q ∃q>Q, a primitive quadratic χ and
+  ONE complex zero ρ with ‖1−ρ‖·(C·log q) ≤ 1 — at ONE FIXED
+  effective constant C⋆ = max(C⁽¹⁾, 2/c₀). THE GENUINE
+  WEAKENING (W1): the frozen IMSZ demands witnesses at EVERY
+  quality c > 0 (the ∀c binder); the chain consumes ONE fixed
+  strength — the binder collapses. STRIPPED AS DERIVED (W4,
+  the elegant one): reality, β < 1, β > 1/2 are NOT assumed —
+  the norm ball at C ≥ 2/c₀ + our LANDED zero_free_region_all
+  FORCES the zero real (complex witnesses would violate the
+  ZFR; the carve-out χ²=1 ∧ Im=0 is exactly where F's
+  witnesses live); β < 1 via mathlib's nonvanishing. Also
+  dropped: HB's asymptotic (η→∞ — only infinitude needs the
+  fixed floor), the normalization 3, maximality/uniqueness/
+  multiplicity. AUDIT GOLD: WP1 consumes ZERO Siegel input in
+  landed form (χ²=1 is arbitrary — the zero enters only at
+  the glue); the 1983 proof read ALL 32 pages (hypothesis
+  (1.11) η ≥ 3; only η ≥ C⁽¹⁾ consumed for infinitude); the
+  conductor shape corrected (2^a·m, a∈{0,2,3}, m odd sqfree —
+  NOT cube-free, both refuters' repair). THE STRUCTURE
+  CANDIDATE (VirtualSiegelPackage — manufacture the zeros)
+  REFUTED 1/2: the zero-deletion dies at the q^500-truncation
+  vs the zero's reach (heights to q^{O(η)}); its insight
+  recorded as unharvested slack. RESIDUALS: the B-class
+  compactness gadget (IMSZ ⟹ F, load-bearing twice); the
+  A-class c₀ extraction; C⁽¹⁾ unfrozen until WP2 witnesses +
+  WP7 land. Everything banked: docs/exploration/
+  fulcrum-pass1.md + the four audits. **PASS 2 (the supply
+  ledger on ¬F) queues for the 02:09 reset or JYH's morning.**
+  Board: T-BAL-R8c + the fulcrum on the desk.
