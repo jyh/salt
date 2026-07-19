@@ -9671,3 +9671,16 @@ decisions per question.
   formal (EngineBound), its unconditional leg proven, its
   neutrality point certified, its scope strictly wider than
   characters.
+
+- 2026-07-19 08:30 PDT (TRUE CLOCK): **TIMESTAMP CORRECTION —
+  the drift law violated again (3rd occurrence).** Ledger
+  entries above stamped "09:15"–"11:55 PT" this morning are
+  ~90 min AHEAD of reality; git commit times are authoritative
+  (F-T1 07:43, F-Tsw 07:45, M-T1 07:46, gate#1 ~07:58, Z 08:05,
+  census 08:10, SignChain 08:15, SignRate 08:21, #248 08:23,
+  W2/series-complete 08:26). Everything LANDED as described —
+  only the wall-clock labels drifted. Law reaffirmed + hardened:
+  timestamps come from `date` IN THE SAME command that writes
+  the entry, never from the house's running sense of time.
+  CONSEQUENCE (good): the morning is ~90 min YOUNGER than
+  managed — true runway to the 12:30 council is ~4h.
