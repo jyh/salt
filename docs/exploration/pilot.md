@@ -9700,3 +9700,24 @@ decisions per question.
   COMPLETE (T1/T2/T3F/Tsw + junk×2-sides + corners), E_R at
   T2'/T3' full + T1'-mixed + Tsw'-conditional; ONLY even-2
   remains before W3 ASSEMBLY.
+
+- 2026-07-19 08:51 PDT: ██ **THE SPINE-BUDGET FREEZE LANDS — the
+  last Fable panel of the subscription era** ██ (wf_510dc64d,
+  7/7, ~735k, dispatch_ready). THE FINDING (F0, triple-
+  confirmed): the REGISTERED residual (t/g/hbudget1 downstream
+  of log_chowla_two_final) is UNSATISFIABLE — c₀ = 1 baked into
+  the landed terminals (the literal 1·R.eps at :423/:515) vs
+  C ≈ 6.545 and margin cD3/4 = 1/16; the first LHS term alone
+  busts every witness. THE GRAFT: DES-A's chassis (FORCED — the
+  spine cores are private, W2 must append inside SpineFinal)
+  + DES-B's δ₀-first ∀extraFloor head + Xi-primary interface
+  (dissolves S11's δ₀-vs-floor circularity). Re-target via the
+  c₀ lever: c₀ := cD3/(16·C), new terminals log_chowla_two_
+  budget_head / _door_only_xi / _door_only — the spine becomes
+  DOOR-ONLY-conditional (SB-DOOR = MRTUniformityXi at δ₀ =
+  c₀ε/2K, exactly S8's lane). Rungs R1–R7, ceiling C, ZERO D.
+  Banked: docs/exploration/spine-budget-freeze.md. AMENDMENTS
+  PENDING-JYH: A1 (the re-target + flags text; gates W2) and
+  A2 (mr-freeze δ₀ pins shrink ≈1/419; gates S11) — surfaced.
+  **W1a ∥ W1b DISPATCHED** (amendment-independent: BudgetCore
+  R1–R3, BudgetDeficit R4 — freestanding true lemmas).
