@@ -8832,3 +8832,22 @@ decisions per question.
   >320 decades; correctly refused as a partial — no sorry on
   main). **T-BAL-R8 DISPATCHED — the single-rung endgame.**
   Board: T-BAL-R8 + MR-W1 (resumed) + S0.
+
+- 2026-07-18 19:30 PT: ██ **S0 LANDS — THE XI-REWIRE, first-pass
+  clean through the account switch** ██ (≈ 132k / 22 tools;
+  house-verified ROOT build green (9280), both terminals
+  [3 axioms]). Salt/Entropy/Chowla/{Theorem23Shell,SpineFinal}
+  .lean: `log_chowla_two_final_xi` — the SAME log-Chowla-2
+  conclusion conditional on the CHEAPER `MRTUniformityXi` door;
+  the diff vs the landed terminal is EXACTLY ONE BINDER
+  (verified by diff); the extra 0 ≤ δ discharged internally;
+  the δ-threading margin factor 2 unchanged; the originals
+  untouched (additive, Iron-Rule clean). The Plancherel
+  question honestly still-open (the restriction never
+  propagates inward — flagged, not owed). ZERO new catches,
+  zero stop-and-flags, 1 attempt per lemma. THE CONSEQUENCE:
+  the MR campaign's road now ends at a TERMINAL surface — the
+  chain reads: S1–S7 stones → S8 (MR-CORE, priced 14–22k) →
+  S9/S10/S11 → MRTUniformityXi → log_chowla_two_final_xi →
+  UNCONDITIONAL LOG-CHOWLA-2 (mod SPINE-BUDGET). Board:
+  T-BAL-R8 (the contract) + MR-W1 (S2/S3 finishing).

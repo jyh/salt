@@ -142,6 +142,7 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.goldEnergySieve_siftedSum
   Salt.Entropy.Chowla.repCount_le_siftedSum
   Salt.Entropy.Chowla.log_chowla_two_shell
+  Salt.Entropy.Chowla.log_chowla_two_shell_xi
   Salt.Entropy.Chowla.hFac_lcm_sum_le
   Salt.Entropy.Chowla.hFac_mul_of_coprime
   Salt.Entropy.Chowla.sTrunc_le_prod
@@ -199,6 +200,7 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.dropSum_exceeds_log_two_base
   Salt.Entropy.Chowla.log_chowla_two_conditional_hoisted
   Salt.Entropy.Chowla.log_chowla_two_final
+  Salt.Entropy.Chowla.log_chowla_two_final_xi
   Salt.Entropy.Chowla.orthogonality_wall
   Salt.Entropy.Chowla.no_slot_derived_twin_linkage
   Salt.Entropy.Chowla.slots_iff_completelyMult
