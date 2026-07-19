@@ -9,6 +9,18 @@ process lesson, none a kernel error).
 
 ## Headline results (kernel-checked)
 
+-2. **THE HEATH-BROWN REPULSION (T-BAL COMPLETE)** —
+   `dh_repulsion_ordered`: the Deuring–Heilbronn contract,
+   witnesses b=680/k=14, every zero-pair in the 16/17 window
+   obeys (1−β₀) ≥ c·(qT)^{−b(1−σ)}/polylog. Six designs, nine
+   waves, zero wrong proofs; WP2's analytic core closed
+   2026-07-18 23:28.
+-1. **THE FULCRUM** — `FulcrumQualityMin C` (Salt/Fulcrum/):
+   the weakest twin-prime hypothesis ever formulated — ONE
+   fixed quality, ONE complex zero per unbounded moduli, with
+   REALITY DERIVED from the corpus's own zero-free region; the
+   ∀c binder of the classical statement collapsed; IMSZ ⟹ F
+   proven (the compactness gadget). The "place to stand."
 0. **THE POWER ZERO-FREE REGION** — `zeta_zero_free_region_pow`:
    every ζ-zero above T₀ has Re ρ ≤ 1 −
    c/((log|γ|)^{3/4}·(loglog|γ|)³). θ = 3/4 < 1 — believed the
@@ -114,3 +126,15 @@ entries) is the reusable yield beyond the theorems.
    last HB analytic slot); the GEH tiiBlock cluster + SMALLQ-4
    redesign; LITT-LANDAU via VK R7.
 3. **CI seeding**: keep parked (badge cosmetic, ~$1/attempt).
+
+## Night-shift addendum (2026-07-18/19)
+
+The Fulcrum Hunt opened (Pass 1 complete: F_min + the four
+audits + the negation brief; Pass 2 fused for the 02:15 window;
+Pass 3 = the seam attack, JYH-attentive). The S8 MR-CORE freeze
+landed EXECUTION-COMPLETE before the Fable price cliff (6 waves,
+15 disjoint files, ~16k lines of pure-Opus execution; the
+LOG-EULER-OSC node subsumed; S5's bridge discharged inside wave
+1). S5's cash-out landed (lambda_nonpret_of_bridge, coefficient
+exactly 1/4). The MR road now reads: everything through S5 done
+or frozen; S8 designed; S9–S11 + SPINE-BUDGET remaining.
