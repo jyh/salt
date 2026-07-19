@@ -1,0 +1,333 @@
+% ============================================================================
+% THE FLAGSHIP — a machine-checked proof of Chen's theorem
+% Target: arXiv (math.NT, cross math.LO/cs.LO) -> Forum of Mathematics, Pi
+% Voice: docs/writeup/pre-outline.md §2½ (the ten rules + rule 11).
+% Convention: every stated result carries its Lean name via \leanname{};
+% the back-matter table maps statement -> declaration -> axiom audit.
+% Skeleton 2026-07-15; [TODO] marks drafting sites. No local LaTeX toolchain
+% on the build machine — compile checks happen on the author's side/arXiv.
+% ============================================================================
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
+\usepackage{microtype}
+
+% --- The Lean-anchor convention -------------------------------------------
+% Every formal statement in the paper carries its corpus declaration name.
+\newcommand{\leanname}[1]{\par\noindent{\small\texttt{#1}}}
+\newcommand{\leaninline}[1]{{\small\texttt{#1}}}
+% ---------------------------------------------------------------------------
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{A machine-checked proof of Chen's theorem}
+\author{Jason Hickey}
+% Personal capacity; standard disclaimer in the acknowledgments (approval
+% positioning per the 2026-07-15 decision). Claude's role: Methods, not
+% authorship, per journal AI policies; the commit-level attribution is part
+% of the artifact.
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+% The §2½ calibration sample, to be refined at drafting. The seven-sentence
+% arc: problem -> difficulty -> recourse -> honest state of the art ->
+% "here we present" -> mechanism -> quantified result. Rule 3: every strong
+% adjective paid by a number in this paragraph.
+The correctness of classical analytic number theory rests on proofs whose
+critical details are checked by referee trust; verifying them formally has
+been notoriously laborious, and for the hardest genre---sieve theory with
+explicit constants---essentially never done. Here we present a
+machine-checked proof of Chen's theorem: there are infinitely many primes
+$p$ such that $p+2$ is prime or a product of two primes, unconditional,
+verified by the Lean kernel from three standard axioms. The proof was
+constructed by an AI-orchestrated method in days of wall-clock time, on a
+corpus of roughly 190{,}000 lines that includes the first formalizations of
+an unconditional Siegel--Walfisz theorem, a Bombieri--Vinogradov theorem,
+and the switched linear sieve. Formalization produced a complete ledger of
+78 corrections to the working presentation, none in the celebrated ideas
+and essentially all at the interfaces between subsystems. Every defect was
+caught before a wrong proof could be built on it. We state the effective
+intermediate results, describe the architecture, and measure where
+correctness actually lives in a classical proof. To demonstrate that the
+corpus is an instrument rather than a monument, we then posed six
+pre-registered exploratory questions against it and report every outcome
+with its cost. Two challenges remain:
+[TODO: pick the two -- candidates: effective thresholds (the tower), and
+the parity frontier].
+\end{abstract}
+
+\maketitle
+
+% ============================================================================
+\section{Introduction}
+% Rule 1: problem-first. No history-of-the-field throat-clearing.
+% ============================================================================
+
+[TODO: opening paragraph -- the problem: the details of sieve-theoretic
+proofs are trusted, not checked; what "checked" would even mean at this
+scale. One paragraph.]
+
+[TODO: "Here we present" paragraph -- the headline theorem, the corpus, the
+method in one sentence each. The numbers: 78/0; $\sim$190k lines; the
+day-count; axioms.]
+
+\begin{theorem}[Chen's theorem, machine-checked]\label{thm:chen}
+There are infinitely many primes $p$ such that $p+2$ is prime or a product
+of two primes.
+\leanname{Salt.Chen.chen\_headline :
+  \{p | p.Prime \wedge IsP2 2 (p + 2)\}.Infinite ---
+  axioms: [propext, Classical.choice, Quot.sound]}
+\end{theorem}
+
+[TODO: what "machine-checked" means here -- the kernel, the axiom audit,
+what the reader must trust (the statement rendering + three axioms +
+the toolchain) and what they need not trust (everything else). One
+paragraph, plain.]
+
+[TODO: the contribution list, enumerated, each one sentence:
+(1) the theorem and its stack (Thm~\ref{thm:chen}, \S\ref{sec:stack});
+(2) the effective intermediates (\S\ref{sec:effective});
+(3) the ledger and its taxonomy (\S\ref{sec:ledger});
+(4) the delimitation theorems (\S\ref{sec:atlas});
+(5) the method, summarized here and detailed in the companion
+(\S\ref{sec:method}); the artifact (\S\ref{sec:artifact}).]
+
+[TODO: the honesty paragraph, per §1½: no new headline theorem is claimed;
+what IS new (the formalizations-first, the minor new statements, the
+measurement); the Kepler precedent \cite{HalesKepler} for the genre.]
+
+% ============================================================================
+\section{The theorem and its stack}\label{sec:stack}
+% ============================================================================
+
+[TODO: the mathematical statement unpacked: IsP2, the history one paragraph
+(Chen 1966/1973 \cite{Chen1973}, the switching idea), what unconditional
+means here (no GRH, no Siegel-zero case split surviving to the statement).]
+
+\subsection{The analytic spine}
+[TODO: one subsection per layer, each with the formal statement + Lean
+anchor + a mechanism paragraph:]
+
+\begin{theorem}[Unconditional Siegel--Walfisz]\label{thm:sw}
+[TODO: the statement with explicit constants.]
+\leanname{Salt.SW.siegelWalfisz\_holds}
+\end{theorem}
+
+\begin{theorem}[Bombieri--Vinogradov]\label{thm:bv}
+[TODO: the dispersion form; the maxDiscrepancy convention.]
+\leanname{Salt.BV.psi\_BV\_of\_siegelWalfisz'}
+\end{theorem}
+
+\begin{theorem}[The windowed bilinear Bombieri--Vinogradov]\label{thm:wbv}
+[TODO: from Salt/Chen/WindowedBVStatement.lean -- the literature-facing
+form; the Q4 verdict: the conjunction (bilinear + sharp window + explicit
+constants + the block-prime $\sqrt{D}$ level) is unrecorded. State both the
+general form and the clean corollary.]
+\leanname{Salt.Chen.windowed\_bilinear\_BV\_sqrtD}
+\end{theorem}
+
+[TODO: the sieve layer: the linear sieve at the Rosser--Iwaniec chain, the
+switch, the weighted count at $\bar c/2$, the razor with
+$M = 0.012151$; each anchored.]
+
+\subsection{The operating point}
+[TODO: the witness: $z = x^{1/8}$, $y = x^{1/3}$, the $W$-trick modulus,
+the tower threshold -- and the honest sentence about effectivity: the
+threshold is astronomically large; the theorem is about existence, the
+effective-threshold problem is Challenge 1 in \S\ref{sec:challenges}.]
+
+% ============================================================================
+\section{Effective intermediate results}\label{sec:effective}
+% The dividend section: statements a classical reader can cite without Lean.
+% ============================================================================
+
+[TODO: the table of effective statements with constants: the SW constants,
+the BV level and constants, the windowed-BV Kerr form, the razor margin,
+the $\bar c$ certificate (600 panels, error $3.18\times 10^{-8}$), the
+mass-ledger values. Each row: statement, constant, Lean anchor.]
+
+% ============================================================================
+\section{The ledger: where correctness lives}\label{sec:ledger}
+% The anatomy section, condensed. The Notices companion carries the long
+% form; here: the data + the three case studies.
+% ============================================================================
+
+[TODO: the setup paragraph: statements were frozen before proof; every
+failed freeze is a recorded catch; 78 catches, 0 proofs on wrong
+statements; the discovery-mechanism split (executor 47\%, gate 31\%,
+inventory 12\%, kernel 0) -- the kernel confirms, never discovers.]
+
+[TODO: the taxonomy table (from docs/writeup/taxonomy.md): categories x
+phase; the headline correlation: integration-phase catches are 91\%
+interface-shaped; build-phase 60\% local (80\% excluding embedded
+mini-integrations).]
+
+\subsection{Case study: the one-sentence lemma}
+[TODO: "by dyadic decomposition we may assume..." -> the pricing layer:
+catches \#59--\#78 in three paragraphs.]
+
+\subsection{Case study: shape-correct but uninhabitable}
+[TODO: catch \#65 -- the H-package tear; typechecking vs joint
+satisfiability; the W-trick repair.]
+
+\subsection{Case study: the modal failure}
+[TODO: carrier mismatch -- the most common integration defect (11 of 23);
+the hcount seam as the exhibit.]
+
+% ============================================================================
+\section{The instrument turned around: six pre-registered questions}
+\label{sec:atlas}
+% The demo section (JYH framing 2026-07-15: "this is a platform for
+% exploratory math; to illustrate we posed 6 problems"). The frame is ONE
+% paragraph + ONE table; the section's mass stays the theorems themselves.
+% The full process anatomy (gates, tears, token economics) belongs to the
+% method paper; the exploration ledger in the repo is the raw artifact
+% both papers cite.
+% ============================================================================
+
+[TODO: the demo frame, one paragraph: to test whether the corpus is a
+research instrument rather than a monument, we posed six exploratory
+questions in a pre-registered commit BEFORE exploring (the hash,
+disclosed here as the tamper-evident timestamp) and report every outcome
+with its cost -- including questions that returned obstruction maps
+rather than theorems. The pre-registration is what converts "some nice
+corollaries" into a controlled demonstration: no cherry-picking, negative
+results reported.]
+
+[TODO: the table: question / outcome class (theorem; statement +
+literature verdict; obstruction map; reuse measurement) / cost. Six rows;
+costs from docs/writeup/token-data.md, outcomes from the exploration
+ledger at sprint close.]
+
+The theorems the questions returned:
+
+\begin{theorem}[The $k=2$ Maynard bound]\label{thm:m2}
+For every continuous $F$ on the simplex,
+$J_1(F)+J_2(F) \le 2\log 2 \cdot I(F)$; in particular no admissible weight
+crosses the twin gate.
+\leanname{Salt.TwinBar.twin\_bar, no\_twin\_weight}
+\end{theorem}
+
+\begin{theorem}[Enlargement does not help at $k=2$]\label{thm:m2e}
+[TODO: the $(1+\delta)$ statement with $\delta_0 = 1/\log 2 - 1$; the
+constrained form and Tao's open problem \cite{Polymath8bVII}; the numeric
+map of $c(\delta)$.]
+\leanname{Salt.TwinBar.no\_twin\_weight\_enlarged,
+no\_twin\_weight\_constrained}
+\end{theorem}
+
+\begin{theorem}[$M_3 < 2$]\label{thm:m3}
+[TODO: the $(3/2)\log 3$ statement, unconditional.]
+\leanname{Salt.TwinBar.three\_bar, no\_triple\_weight}
+\end{theorem}
+
+[TODO if landed by drafting: the parity wall (the Selberg-witness interface
+theorem) and the interface extraction gaps\_le\_twelve\_of\_hasLevel with
+the $\theta$-caveat stated plainly.]
+
+% ============================================================================
+\section{The method, in brief}\label{sec:method}
+% One page. The companion paper carries the full treatment.
+% ============================================================================
+
+[TODO: the roles (designer/executors/kernel), the freeze-gate-wave-ceremony
+loop, witness-first refinement (one paragraph on premise latency), the
+stats that matter here: 468 commits / 8.44 days; 178/178 first-attempt
+landings with the honest caveat; the endgame economics (13.0M output
+tokens, $\approx$650k/catch). Cite the companion.]
+
+% ============================================================================
+\section{The artifact}\label{sec:artifact}
+% ============================================================================
+
+[TODO: the repo, the tagged release, clone-and-continue (the build in two
+commands), the audit instructions (\#print axioms), the machine-readable
+ledger, the open-problems board. "The proof is not attached to this paper;
+this paper is attached to the proof."]
+
+% ============================================================================
+\section{Limitations, and two challenges}\label{sec:challenges}
+% Rule 7: enumerated, actionable, at the end.
+% ============================================================================
+
+[TODO: the limitations paragraph: the tower threshold (ineffective-in-
+practice operating point); the constants are explicit but not competitive;
+the statement-rendering trust boundary; what the 78-catch measurement can
+and cannot generalize to.]
+
+\textbf{Challenge 1.} [TODO: effective thresholds -- bring the operating
+point down from the tower; what blocks it (the $w_0$-window guards).]
+
+\textbf{Challenge 2.} [TODO: the parity frontier -- TwinB\_min as the
+precisely-stated door; what a formal assault would need.]
+
+% ============================================================================
+\section*{Acknowledgments}
+% ============================================================================
+[TODO: the personal-capacity disclaimer (the approved formula); the Claude
+role statement (orchestration + proof construction per the Methods;
+commit-level attribution in the artifact; not an author per journal
+policy); mathlib and its community; the classical sources (BJS, Tao's
+expositions) whose renderings this work audits.]
+
+% ============================================================================
+% Back matter: the statement -> declaration -> audit table
+% ============================================================================
+\appendix
+\section{The formal-statement index}\label{app:index}
+
+[TODO: the full table. Columns: paper statement, Lean declaration, file,
+axiom audit result. Generated from Salt/Chen/All.lean's audit block +
+Salt/TwinBar/All.lean; keep in sync by script at release.]
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lll}
+\toprule
+Statement & Declaration & Axioms \\
+\midrule
+Thm~\ref{thm:chen} & \leaninline{Salt.Chen.chen\_headline} &
+  \leaninline{propext, Classical.choice, Quot.sound} \\
+Thm~\ref{thm:sw} & \leaninline{Salt.SW.siegelWalfisz\_holds} & (same) \\
+Thm~\ref{thm:bv} & \leaninline{Salt.BV.psi\_BV\_of\_siegelWalfisz'} & (same) \\
+Thm~\ref{thm:wbv} & \leaninline{Salt.Chen.windowed\_bilinear\_BV\_sqrtD} & (same) \\
+Thm~\ref{thm:m2} & \leaninline{Salt.TwinBar.no\_twin\_weight} & (same) \\
+Thm~\ref{thm:m3} & \leaninline{Salt.TwinBar.no\_triple\_weight} & (same) \\
+\bottomrule
+\end{tabular}
+\caption{[TODO: the complete index at release.]}
+\end{table}
+
+\begin{thebibliography}{99}
+\bibitem{Chen1973} J.~R. Chen, \emph{On the representation of a larger even
+integer as the sum of a prime and the product of at most two primes},
+Sci.\ Sinica \textbf{16} (1973), 157--176.
+\bibitem{BJS} [TODO: Bordignon--Johnston--Starichkova, the explicit Chen
+source, arXiv:2207.09452.]
+\bibitem{TaoExp} [TODO: Tao's expository treatment(s) used for the
+transcription.]
+\bibitem{HalesKepler} T.~Hales et al., \emph{A formal proof of the Kepler
+conjecture}, Forum of Mathematics, Pi \textbf{5} (2017), e2.
+\bibitem{Gonthier} G.~Gonthier, \emph{Formal proof---the four-color
+theorem}, Notices Amer.\ Math.\ Soc.\ \textbf{55} (2008), 1382--1393.
+\bibitem{Polymath8b} D.~H.~J. Polymath, \emph{Variants of the Selberg
+sieve, and bounded intervals containing many primes}, Res.\ Math.\ Sci.\
+\textbf{1} (2014).
+\bibitem{Polymath8bVII} [TODO: the Polymath8b VII post/paper for the k=2
+GEH problem (Q5a/Tao's suspicion).]
+\bibitem{AkbaryHambrook} [TODO: Akbary--Hambrook, the explicit BV,
+arXiv:1309.2730.]
+\bibitem{mathlib} The mathlib community, \emph{The Lean mathematical
+library}, CPP 2020.
+\bibitem{companion} [TODO: the method companion paper, in preparation.]
+\end{thebibliography}
+
+\end{document}

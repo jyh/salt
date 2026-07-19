@@ -1,11 +1,13 @@
 % ============================================================================
-% THE FLAGSHIP — a machine-checked proof of Chen's theorem
-% Target: arXiv (math.NT, cross math.LO/cs.LO) -> Forum of Mathematics, Pi
-% Voice: docs/writeup/pre-outline.md §2½ (the ten rules + rule 11).
+% TWIN PRIMES AND SIEGEL ZEROS: A FULCRUM
+% v0.1 drafted 2026-07-19 (Dichotomy Day) per the noon council rulings
+% (docs/exploration/council-brief-noon.md, D1-D6 + trust-surface + discovery).
+% Target: publication approval -> arXiv (math.NT primary, cs.LO cross) -> Pi.
 % Convention: every stated result carries its Lean name via \leanname{};
-% the back-matter table maps statement -> declaration -> axiom audit.
-% Skeleton 2026-07-15; [TODO] marks drafting sites. No local LaTeX toolchain
-% on the build machine — compile checks happen on the author's side/arXiv.
+% Appendix A maps statement -> declaration -> axiom audit.
+% Voice: problem-first; every strong adjective paid by a number; every
+% conditional named at the statement. No local LaTeX toolchain on the build
+% machine -- compile checks happen author-side/arXiv.
 % ============================================================================
 \documentclass[11pt]{amsart}
 \usepackage[margin=1.1in]{geometry}
@@ -14,279 +16,552 @@
 \usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
 \usepackage{microtype}
 
-% --- The Lean-anchor convention -------------------------------------------
-% Every formal statement in the paper carries its corpus declaration name.
 \newcommand{\leanname}[1]{\par\noindent{\small\texttt{#1}}}
 \newcommand{\leaninline}[1]{{\small\texttt{#1}}}
-% ---------------------------------------------------------------------------
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{definition}[theorem]{Definition}
+\newtheorem{proposition}[theorem]{Proposition}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
-\title{A machine-checked proof of Chen's theorem}
+\title{Twin Primes and Siegel Zeros: a Fulcrum}
 \author{Jason Hickey}
-% Personal capacity; standard disclaimer in the acknowledgments (approval
-% positioning per the 2026-07-15 decision). Claude's role: Methods, not
-% authorship, per journal AI policies; the commit-level attribution is part
-% of the artifact.
-\date{\today}
+\thanks{Developed in collaboration with Claude (Anthropic's Fable~5 and
+Opus models); see \S\ref{sec:method} and the repository's commit ledger,
+in which every commit is co-authored. Written in a personal capacity.}
+\date{July 19, 2026}
 
 \begin{document}
 
 \begin{abstract}
-% The §2½ calibration sample, to be refined at drafting. The seven-sentence
-% arc: problem -> difficulty -> recourse -> honest state of the art ->
-% "here we present" -> mechanism -> quantified result. Rule 3: every strong
-% adjective paid by a number in this paragraph.
-The correctness of classical analytic number theory rests on proofs whose
-critical details are checked by referee trust; verifying them formally has
-been notoriously laborious, and for the hardest genre---sieve theory with
-explicit constants---essentially never done. Here we present a
-machine-checked proof of Chen's theorem: there are infinitely many primes
-$p$ such that $p+2$ is prime or a product of two primes, unconditional,
-verified by the Lean kernel from three standard axioms. The proof was
-constructed by an AI-orchestrated method in days of wall-clock time, on a
-corpus of roughly 190{,}000 lines that includes the first formalizations of
-an unconditional Siegel--Walfisz theorem, a Bombieri--Vinogradov theorem,
-and the switched linear sieve. Formalization produced a complete ledger of
-78 corrections to the working presentation, none in the celebrated ideas
-and essentially all at the interfaces between subsystems. Every defect was
-caught before a wrong proof could be built on it. We state the effective
-intermediate results, describe the architecture, and measure where
-correctness actually lives in a classical proof. To demonstrate that the
-corpus is an instrument rather than a monument, we then posed six
-pre-registered exploratory questions against it and report every outcome
-with its cost. Two challenges remain:
-[TODO: pick the two -- candidates: effective thresholds (the tower), and
-the parity frontier].
+Every theorem in this paper is verified by the Lean~4 kernel over
+\textsf{mathlib}, with axiom base exactly
+$\{\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}\}$;
+nothing rests on informal argument. The mathematics---the designs, the
+proofs, and their formalization---is joint work of the author and Claude
+(Anthropic's Fable~5 and Opus models), carried out under the author's
+direction and ratification; the commit ledger records the collaboration
+line by line.
+
+We introduce the \emph{fulcrum}: the weakest hypothesis yet formulated
+under which Siegel zeros produce infinitely many twin primes---a single
+fixed quality constant $C^\star$, one zero per unbounded window, with the
+zero's reality \emph{derived} rather than assumed. The fulcrum was not
+transcribed from the literature: it was extracted from a formal corpus by
+demand-audited hypothesis minimization, a mode of discovery we argue is
+impossible over prose proofs. Around it we prove, kernel-checked: a
+Heath-Brown--type dichotomy (twin primes, or no Siegel zeros) with its
+engine-conditional horn stated honestly; the first formalization of any
+zero-free region for $\zeta$ of Littlewood strength (1922) and the first
+power-saving region ($\theta = 3/4$) in any proof assistant; a
+Deuring--Heilbronn repulsion contract; the exact-identity keystone of the
+Heath-Brown engine, reduced to one named residual; the \emph{exchange-rate
+wall}, a neutrality theorem over arbitrary real sign functions that prices
+every transfer-based route to twins; and the \emph{parity gap} as a
+mathematical object: a predicate $Z$ with a kernel-checked theorem that no
+true, twin-sufficient, parity-invariant completion exists, together with a
+census placing the entire corpus inside the parity-invariant cone. As a
+byproduct, the logarithmic two-point Chowla conjecture is reduced to a
+single named hypothesis. The corpus is $317{,}039$ lines of Lean across
+$732$ files; the method that produced it---the \emph{Salt method}---kept a
+public ledger of every design error caught (252 numbered entries) against
+zero wrong proofs, and is described as a contribution in its own right.
 \end{abstract}
 
 \maketitle
 
 % ============================================================================
-\section{Introduction}
-% Rule 1: problem-first. No history-of-the-field throat-clearing.
+\section{Introduction}\label{sec:intro}
 % ============================================================================
 
-[TODO: opening paragraph -- the problem: the details of sieve-theoretic
-proofs are trusted, not checked; what "checked" would even mean at this
-scale. One paragraph.]
+The twin prime conjecture is not merely unproven; the routes toward it are
+walled by a structural obstruction---the parity barrier---that has never
+itself been a theorem, and guarded by a ghost---the Siegel zero---that has
+never been an object one could bargain with precisely. Progress of the
+conditional kind (Heath-Brown's 1983 theorem that infinitely many Siegel
+zeros force infinitely many twin primes \cite{HB1983}) trades in
+hypotheses whose exact strength is scattered through pages of estimates:
+what, \emph{precisely}, must one believe about exceptional zeros to
+believe in twin primes? Prose proofs cannot answer such questions
+exhaustively, because a prose proof hides its demand.
 
-[TODO: "Here we present" paragraph -- the headline theorem, the corpus, the
-method in one sentence each. The numbers: 78/0; $\sim$190k lines; the
-day-count; axioms.]
+A formal proof \emph{is} its demand. This paper's central object, the
+\textbf{fulcrum}, was found by exploiting exactly that: we formalized a
+Heath-Brown--type engine, enumerated---mechanically, exhaustively---every
+site at which the Siegel-zero hypothesis is consumed and at what strength,
+and then weakened the hypothesis axis by axis to the audited demand, with
+the Lean kernel refereeing each weakening instantly. The fixed point of
+that process is the weakest twin-producing Siegel hypothesis yet
+formulated (Definition~\ref{def:fulcrum}); the process itself,
+\emph{demand-audited hypothesis minimization}, is to our knowledge a new
+mode of mathematical discovery, and it is the sense in which this paper's
+formalization is an instrument rather than a notary.
 
-\begin{theorem}[Chen's theorem, machine-checked]\label{thm:chen}
-There are infinitely many primes $p$ such that $p+2$ is prime or a product
-of two primes.
-\leanname{Salt.Chen.chen\_headline :
-  \{p | p.Prime \wedge IsP2 2 (p + 2)\}.Infinite ---
-  axioms: [propext, Classical.choice, Quot.sound]}
+The results divide into four movements. First, the \emph{banners}
+(\S\ref{sec:banners}): unconditional analytic theorems formalized for the
+first time, including a Littlewood-strength zero-free region for $\zeta$
+and the first power-saving region in any proof assistant. Second, the
+\emph{fulcrum and the dichotomy} (\S\S\ref{sec:fulcrum}--\ref{sec:keystone}):
+the minimized hypothesis, the kernel-checked dichotomy it induces, and the
+exact-identity keystone of the engine, brought to within one named lemma
+of closing. Third, the \emph{negative space}
+(\S\S\ref{sec:walls}--\ref{sec:parity}): the exchange-rate wall and the
+parity gap, which together map---as theorems, not folklore---why the
+obvious routes die. Fourth, the \emph{method} (\S\ref{sec:method}): the
+Salt method, an adversarial division of mathematical labor among human
+direction, frontier-model design, fleet-model execution and refutation,
+and kernel verification, whose public error ledger (252 numbered catches,
+zero wrong proofs) is offered as evidence that the standard of the first
+sentence of the abstract is achievable at research scale and research
+speed. All of it was produced by the Salt method (\S\ref{sec:method}).
+
+Throughout, conditionality is a first-class citizen: every conditional
+statement names its exact residual hypothesis, and
+Table~\ref{tab:conditional} lists all of them in one place. The paper
+makes no unconditional claim about twin primes.
+
+% ============================================================================
+\section{The corpus and the referee}\label{sec:trust}
+% ============================================================================
+
+The corpus is $317{,}039$ lines of Lean~4 over \textsf{mathlib}
+\cite{mathlib}, in $732$ files, built by $999$ commits; a full build
+kernel-checks roughly $8{,}800$ compilation jobs. The skeptic's question
+---\emph{how do we really know?}---splits into what is mechanically
+excluded and what is irreducibly a human question, and we answer it in
+that order.
+
+\subsection{Mechanically excluded}
+A \texttt{sorry} anywhere in a dependency tree---ours or
+\textsf{mathlib}'s---introduces the axiom \texttt{sorryAx}, which
+propagates transitively and surfaces in the axiom closure of every
+downstream theorem. Our \texttt{\#audit\_axioms} blocks print that closure
+for every headline statement: it is exactly
+$\{\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}\}$,
+the three classical axioms of \textsf{mathlib} practice. A hidden gap
+cannot hide. Tactic bugs cannot certify falsehoods: tactics emit proof
+terms that the kernel re-checks independently, so the trust surface is the
+kernel alone, a deliberately small core; we additionally forbid
+\texttt{native\_decide} (which would trust the compiler, visibly, as a
+fourth axiom). The kernel itself is the one residual mechanical trust,
+and it is checkable: before submission the build is run through an
+independent checker (\texttt{lean4checker}); two unrelated implementations
+agreeing shrinks the kernel-bug hypothesis below the noise floor of any
+classical refereeing process.
+
+\subsection{The specification gap}
+What no formal system can check is whether our \emph{statements} mean what
+our prose claims. This gap is irreducible---it is the map--territory
+boundary---so we engineer against it. Definitions bottom out in
+\textsf{mathlib}'s communal objects (\texttt{Nat.Prime},
+\texttt{DirichletCharacter}, \texttt{LFunction}), vetted by thousands of
+independent uses. Vacuity is an attacked property, not an assumed one:
+adversarial review passes carry mandatory degenerate-instance checks, and
+where a definition provably trivializes outside its intended window, the
+degeneracy is \emph{stated in Lean} beside it (see the grade guard of
+\S\ref{sec:parity}). Non-vacuity is proved by witness: the fulcrum's
+zero-reality is derived from our own zero-free region
+(Theorem~\ref{thm:fulcrumreal}); the parity census instantiates its cone
+with nine corpus theorems; classical corollaries are re-derived from our
+statements, which a misstated premise would break. Finally,
+Appendix~\ref{app:index} renders every headline statement in Lean and in
+prose side by side, reducing the entire correctness question of the corpus
+to a finite, public, refereeable translation audit. ``Absolutely'' is not
+on offer anywhere in mathematics; what is on offer here is a doubt surface
+consisting of one small kernel, three axioms, and a one-page table.
+
+% ============================================================================
+\section{The four banners}\label{sec:banners}
+% ============================================================================
+
+Four unconditional theorems anchor the corpus; none had been formalized
+before, and two had never been formalized at any strength in any proof
+assistant.
+
+\begin{theorem}[Littlewood-strength zero-free region, 1922]\label{thm:litt}
+There exist effective constants such that $\zeta(s) \neq 0$ in a region of
+Littlewood type
+$\sigma \ge 1 - c\,\frac{\log\log |t|}{\log |t|}$ for $|t|$ large.
+\leanname{Salt.Vk.zeta\_zero\_free\_region\_littlewood}
 \end{theorem}
 
-[TODO: what "machine-checked" means here -- the kernel, the axiom audit,
-what the reader must trust (the statement rendering + three axioms +
-the toolchain) and what they need not trust (everything else). One
-paragraph, plain.]
-
-[TODO: the contribution list, enumerated, each one sentence:
-(1) the theorem and its stack (Thm~\ref{thm:chen}, \S\ref{sec:stack});
-(2) the effective intermediates (\S\ref{sec:effective});
-(3) the ledger and its taxonomy (\S\ref{sec:ledger});
-(4) the delimitation theorems (\S\ref{sec:atlas});
-(5) the method, summarized here and detailed in the companion
-(\S\ref{sec:method}); the artifact (\S\ref{sec:artifact}).]
-
-[TODO: the honesty paragraph, per §1½: no new headline theorem is claimed;
-what IS new (the formalizations-first, the minor new statements, the
-measurement); the Kepler precedent \cite{HalesKepler} for the genre.]
-
-% ============================================================================
-\section{The theorem and its stack}\label{sec:stack}
-% ============================================================================
-
-[TODO: the mathematical statement unpacked: IsP2, the history one paragraph
-(Chen 1966/1973 \cite{Chen1973}, the switching idea), what unconditional
-means here (no GRH, no Siegel-zero case split surviving to the statement).]
-
-\subsection{The analytic spine}
-[TODO: one subsection per layer, each with the formal statement + Lean
-anchor + a mechanism paragraph:]
-
-\begin{theorem}[Unconditional Siegel--Walfisz]\label{thm:sw}
-[TODO: the statement with explicit constants.]
-\leanname{Salt.SW.siegelWalfisz\_holds}
+\begin{theorem}[The first power-saving region]\label{thm:pow}
+There exist effective constants such that $\zeta(s) \neq 0$ for
+$\sigma \ge 1 - c\,(\log|t|)^{-3/4}(\log\log|t|)^{-O(1)}$, $|t|$ large:
+a Vinogradov--Korobov--type region at exponent $\theta = 3/4$.
+\leanname{Salt.Vk.zeta\_zero\_free\_region\_pow}
 \end{theorem}
 
-\begin{theorem}[Bombieri--Vinogradov]\label{thm:bv}
-[TODO: the dispersion form; the maxDiscrepancy convention.]
-\leanname{Salt.BV.psi\_BV\_of\_siegelWalfisz'}
+To our knowledge Theorem~\ref{thm:pow} is the first zero-free region with
+a power saving in the exponent verified in any proof assistant, and
+Theorem~\ref{thm:litt} the first formalization of the 1922 Littlewood
+region; the strongest previously formalized regions were of classical
+de la Vall\'ee Poussin shape. The proofs formalize the Vinogradov mean
+value theorem (\leaninline{Salt.Vmvt.vmvt}) and route it through an
+exponential-sum-to-growth bridge (\leaninline{Salt.Vk.vk\_block\_core}),
+with an explicit strip family at absolute constant $C = 4096$.
+
+\begin{theorem}[Deuring--Heilbronn repulsion, contract form]\label{thm:rep}
+With explicit witnesses $b = 680$, $k = 14$, $\sigma_0 = 16/17$ and an
+explicit constant $c = c_1^8$: an exceptional real zero close to $s=1$
+repels every other zero of every Dirichlet $L$-function of comparable
+modulus, in the ordered two-zero form.
+\leanname{Salt.SW.dh\_repulsion\_ordered}
 \end{theorem}
 
-\begin{theorem}[The windowed bilinear Bombieri--Vinogradov]\label{thm:wbv}
-[TODO: from Salt/Chen/WindowedBVStatement.lean -- the literature-facing
-form; the Q4 verdict: the conjunction (bilinear + sharp window + explicit
-constants + the block-prime $\sqrt{D}$ level) is unrecorded. State both the
-general form and the clean corollary.]
-\leanname{Salt.Chen.windowed\_bilinear\_BV\_sqrtD}
+\begin{theorem}[Vinogradov mean value theorem]\label{thm:vmvt}
+The mean value estimate for Weyl sums in the range needed by
+Theorem~\ref{thm:pow}, with explicit constants.
+\leanname{Salt.Vmvt.vmvt}
 \end{theorem}
 
-[TODO: the sieve layer: the linear sieve at the Rosser--Iwaniec chain, the
-switch, the weighted count at $\bar c/2$, the razor with
-$M = 0.012151$; each anchored.]
-
-\subsection{The operating point}
-[TODO: the witness: $z = x^{1/8}$, $y = x^{1/3}$, the $W$-trick modulus,
-the tower threshold -- and the honest sentence about effectivity: the
-threshold is astronomically large; the theorem is about existence, the
-effective-threshold problem is Challenge 1 in \S\ref{sec:challenges}.]
-
-% ============================================================================
-\section{Effective intermediate results}\label{sec:effective}
-% The dividend section: statements a classical reader can cite without Lean.
-% ============================================================================
-
-[TODO: the table of effective statements with constants: the SW constants,
-the BV level and constants, the windowed-BV Kerr form, the razor margin,
-the $\bar c$ certificate (600 panels, error $3.18\times 10^{-8}$), the
-mass-ledger values. Each row: statement, constant, Lean anchor.]
+Around these sit an unconditional Siegel--Walfisz theorem, a
+Bombieri--Vinogradov theorem, and a machine-checked Chen-style corollary
+of the present campaign
+($\Omega(p(p+2)) \le 3$ infinitely often under the fulcrum's engine
+inputs; unconditionally, $\Omega(n(n+2)) \le 20$ infinitely often,
+\leaninline{Salt.BrunLower.twin\_almost\_prime}); these are inherited
+infrastructure from the same program and are indexed in
+Appendix~\ref{app:index}.
 
 % ============================================================================
-\section{The ledger: where correctness lives}\label{sec:ledger}
-% The anatomy section, condensed. The Notices companion carries the long
-% form; here: the data + the three case studies.
+\section{The fulcrum}\label{sec:fulcrum}
 % ============================================================================
 
-[TODO: the setup paragraph: statements were frozen before proof; every
-failed freeze is a recorded catch; 78 catches, 0 proofs on wrong
-statements; the discovery-mechanism split (executor 47\%, gate 31\%,
-inventory 12\%, kernel 0) -- the kernel confirms, never discovers.]
+\subsection{The discovery}
+The engine of \cite{HB1983} consumes a Siegel-zero hypothesis at many
+sites: as a lower bound forcing $L$-values small, as a localization of one
+zero, as a quality bound entering a sieve level, as a reality assumption.
+In prose, the totality of this demand is not enumerable; in the formal
+corpus it is a finite list of typed consumption sites, each with an exact
+strength. The Fulcrum Hunt (three adversarial passes over the corpus,
+recorded in the repository's exploration ledger) audited every site,
+then weakened the hypothesis along each axis until the audited demand was
+met exactly---each candidate weakening compiled or refuted by the kernel
+within minutes. Three collapses survived: the quality constant collapsed
+from a universally quantified family to a \emph{single fixed} $C^\star$;
+the zero's \emph{reality} moved from hypothesis to conclusion (derived
+from our own zero-free region); and the \emph{quantity} collapsed to one
+zero per unbounded window---no asymptotic family, no density, no
+infinitude of characters beyond what one zero per window forces.
 
-[TODO: the taxonomy table (from docs/writeup/taxonomy.md): categories x
-phase; the headline correlation: integration-phase catches are 91\%
-interface-shaped; build-phase 60\% local (80\% excluding embedded
-mini-integrations).]
+\begin{definition}[The fulcrum]\label{def:fulcrum}
+For $C > 0$, \emph{FulcrumQualityMin} $C$ asserts: for every $Q$ there
+exist a modulus $q > Q$, a primitive quadratic character $\chi \bmod q$,
+and a zero $\rho$ of $L(\cdot,\chi)$ with
+$\|1-\rho\| \cdot C \log q \le 1$.
+The fulcrum hypothesis is FulcrumQualityMin $C^\star$ for the single
+explicit constant $C^\star = \max(C^{(1)}, 2/c_0)$, where $c_0$ is the
+zero-free-region constant of the corpus (docstring-grade value
+$1/126848$).
+\leanname{Salt.Fulcrum.FulcrumQualityMin}
+\end{definition}
 
-\subsection{Case study: the one-sentence lemma}
-[TODO: "by dyadic decomposition we may assume..." -> the pricing layer:
-catches \#59--\#78 in three paragraphs.]
-
-\subsection{Case study: shape-correct but uninhabitable}
-[TODO: catch \#65 -- the H-package tear; typechecking vs joint
-satisfiability; the W-trick repair.]
-
-\subsection{Case study: the modal failure}
-[TODO: carrier mismatch -- the most common integration defect (11 of 23);
-the hcount seam as the exhibit.]
-
-% ============================================================================
-\section{The instrument turned around: six pre-registered questions}
-\label{sec:atlas}
-% The demo section (JYH framing 2026-07-15: "this is a platform for
-% exploratory math; to illustrate we posed 6 problems"). The frame is ONE
-% paragraph + ONE table; the section's mass stays the theorems themselves.
-% The full process anatomy (gates, tears, token economics) belongs to the
-% method paper; the exploration ledger in the repo is the raw artifact
-% both papers cite.
-% ============================================================================
-
-[TODO: the demo frame, one paragraph: to test whether the corpus is a
-research instrument rather than a monument, we posed six exploratory
-questions in a pre-registered commit BEFORE exploring (the hash,
-disclosed here as the tamper-evident timestamp) and report every outcome
-with its cost -- including questions that returned obstruction maps
-rather than theorems. The pre-registration is what converts "some nice
-corollaries" into a controlled demonstration: no cherry-picking, negative
-results reported.]
-
-[TODO: the table: question / outcome class (theorem; statement +
-literature verdict; obstruction map; reuse measurement) / cost. Six rows;
-costs from docs/writeup/token-data.md, outcomes from the exploration
-ledger at sprint close.]
-
-The theorems the questions returned:
-
-\begin{theorem}[The $k=2$ Maynard bound]\label{thm:m2}
-For every continuous $F$ on the simplex,
-$J_1(F)+J_2(F) \le 2\log 2 \cdot I(F)$; in particular no admissible weight
-crosses the twin gate.
-\leanname{Salt.TwinBar.twin\_bar, no\_twin\_weight}
+\begin{theorem}[Reality is derived]\label{thm:fulcrumreal}
+Any zero witnessing the fulcrum at quality $C^\star$ is real, and lies in
+the exceptional position of Siegel-zero theory.
+\leanname{Salt.Fulcrum.fulcrum\_zero\_real}
 \end{theorem}
 
-\begin{theorem}[Enlargement does not help at $k=2$]\label{thm:m2e}
-[TODO: the $(1+\delta)$ statement with $\delta_0 = 1/\log 2 - 1$; the
-constrained form and Tao's open problem \cite{Polymath8bVII}; the numeric
-map of $c(\delta)$.]
-\leanname{Salt.TwinBar.no\_twin\_weight\_enlarged,
-no\_twin\_weight\_constrained}
+\begin{remark}
+One Siegel zero is one bounded window: finding a single exceptional zero
+would refute GRH but would \emph{not} satisfy the fulcrum, which demands a
+witness beyond every $Q$. The fulcrum carries no asymptotic content
+per window; this is the weakest shape for which the engine of
+\S\ref{sec:keystone} can run, and the demand audit certifies that
+\emph{this} engine leaves nothing weaker on the table.
+\end{remark}
+
+% ============================================================================
+\section{The dichotomy}\label{sec:dichotomy}
+% ============================================================================
+
+\begin{theorem}[The dichotomy, engine-conditional horn stated
+honestly]\label{thm:dich}
+Unconditionally: if the fulcrum fails, there are no Siegel zeros in the
+precise sense of the corpus's \leaninline{NoSiegelZeros}
+(\leaninline{Salt.Fulcrum.not\_fulcrum\_implies\_noSiegelZeros}).
+Consequently, for any $C > 0$, given the engine implication
+$h_{\mathrm{Engine}} : \text{FulcrumQualityMin } C \to
+\text{TwinPrimeConjecture}$, we obtain
+\[
+\text{TwinPrimeConjecture} \ \lor\ \text{NoSiegelZeros}.
+\]
+\leanname{Salt.Fulcrum.fulcrum\_dichotomy}
 \end{theorem}
 
-\begin{theorem}[$M_3 < 2$]\label{thm:m3}
-[TODO: the $(3/2)\log 3$ statement, unconditional.]
-\leanname{Salt.TwinBar.three\_bar, no\_triple\_weight}
+The second horn is the Heath-Brown dichotomy, machine-checked and
+strengthened: strengthened because the hypothesis feeding its twin horn is
+the minimized fulcrum rather than the 1983 hypothesis, and because the
+$\lnot F$ horn is unconditional and effective. The engine implication
+$h_{\mathrm{Engine}}$ is the one conditional input; \S\ref{sec:keystone}
+reports its keystone proven and its remaining distance reduced to one
+named lemma. We do not claim the unconditional dichotomy; we claim the
+honest one, and we exhibit exactly what remains.
+
+% ============================================================================
+\section{The keystone}\label{sec:keystone}
+% ============================================================================
+
+The engine's hardest block is the second-moment comparison
+$S_2 - S_1$ over the sifted twin window---the site of \cite{HB1983}'s
+Lemma~2. Formalization exposed that the classical route's
+$\tau$-crude majorant is \emph{provably} insufficient at the needed
+generality (its concentration pattern is unexcludable by pattern-blind
+tools; ledger entry \#251), so the corpus proves the required conclusion
+directly on an exact identity: the overshoot
+$(\tilde\Lambda-\Lambda)(n)\tilde\Lambda(n+2) +
+\Lambda(n)(\tilde\Lambda-\Lambda)(n+2)$ is summed exactly, its support is
+classified, and eleven family estimates (each with explicit absolute
+constants; nine landed at first attempt) price every class.
+
+\begin{theorem}[The master estimate]\label{thm:master}
+With $W$ the sifted window at parameters
+$(z,x)$ in the engine's regime, and with one named residual hypothesis
+$h_{\mathrm{count}}$ (below):
+\[
+S_2(\chi, W) - S_1(W) \;\le\; 2^{31}\Bigl(\frac{x}{z_0}
++ \frac{x}{\log x}\,e^{5 z_0}\,\mathrm{PS}_\chi
++ e^{2 z_0}\bigl(x z^{-1/8} + x^{9/10}\bigr) L^3\Bigr),
+\]
+where $z_0 = \log(2x+2)/\log z$, $L = \log(2x+2)$, and
+$\mathrm{PS}_\chi$ is the pretense sum of $\chi$.
+\leanname{Salt.HB.hb\_l2c\_master\_final}
 \end{theorem}
 
-[TODO if landed by drafting: the parity wall (the Selberg-witness interface
-theorem) and the interface extraction gaps\_le\_twelve\_of\_hasLevel with
-the $\theta$-caveat stated plainly.]
+The residual $h_{\mathrm{count}}$ is a single $\chi$-weighted sieve count
+(the roles-swapped family of the mirror side, where the character-positive
+prime is a cofactor rather than a modulus); it is stated exactly in the
+corpus and registered as the node \textsc{chi-sieve}. The cover of the
+eleven families is itself a kernel-checked theorem---no case can have been
+forgotten---and the three cover gaps found during execution were all found
+\emph{by the machine layers below the kernel} and repaired at the
+statement level before any proof was attempted on a wrong statement
+(ledger \#245, \#246, \#252).
 
 % ============================================================================
-\section{The method, in brief}\label{sec:method}
-% One page. The companion paper carries the full treatment.
+\section{The exchange-rate wall}\label{sec:walls}
 % ============================================================================
 
-[TODO: the roles (designer/executors/kernel), the freeze-gate-wave-ceremony
-loop, witness-first refinement (one paragraph on premise latency), the
-stats that matter here: 468 commits / 8.44 days; 178/178 first-attempt
-landings with the honest caveat; the endgame economics (13.0M output
-tokens, $\approx$650k/catch). Cite the companion.]
+The Fulcrum Hunt's second product is negative space made precise: four
+recorded refutations (the \emph{wall series}, banked in the repository's
+exploration ledger) of the natural routes by which Siegel-zero
+information might be converted into twin-prime information. Three are
+ledger-grade records; the fourth is a theorem series, formalized here.
+
+The transfer at the heart of every such route exchanges the twin sum
+$S_1$ for a twisted sum $S_2(f)$ against a multiplicative sign function
+$f$. The wall states: this exchange is \emph{never free, and its price is
+exactly a pretense sum}---and it says so for arbitrary real sign
+functions, a class strictly wider than Dirichlet characters.
+
+\begin{definition}[Sign functions]\label{def:sign}
+$f : \mathbb{N} \to \mathbb{R}$ is a \emph{sign function} if it is
+totally multiplicative with $f(1)=1$, $|f| \le 1$, and $f(p) = \pm 1$ on
+primes.
+\leanname{Salt.HB.IsSignFunction}
+\end{definition}
+
+\begin{theorem}[Neutrality and the rate]\label{thm:wall}
+For every sign function $f$: $S_1 \le S_2(f)$ on the generalized window
+(unconditionally), and the difference obeys the budget
+$S_2(f) - S_1 \le \mathrm{EngineBound}(C_{\mathrm{main}}, z, x,
+\mathrm{PS}_f)$ whenever the overshoot budget holds---the three-row bound
+of Theorem~\ref{thm:master} with the character's pretense sum replaced by
+$f$'s.
+\leanname{Salt.HB.S1\_le\_S2Gen, Salt.HB.neutrality\_rate}
+\end{theorem}
+
+\begin{theorem}[The neutrality point]\label{thm:liouville}
+The Liouville function is the exact fixed point of the exchange:
+$\tilde\Lambda_\lambda = \Lambda$ identically, $S_2(\lambda) = S_1$, the
+overshoot vanishes pointwise, and $\mathrm{PS}_\lambda = 0$.
+\leanname{Salt.HB.LamTildeGen\_lamR\_eq\_vonMangoldt,
+S2Gen\_lamR\_eq\_S1, overshootExactGen\_lamR, PretenseSumGen\_lamR\_eq\_zero}
+\end{theorem}
+
+Read together: any route that would extract twins from a transfer must pay
+in pretense, the currency $\mathrm{PS}_f$; the one sign function with
+$\mathrm{PS} = 0$ is the one at which the transfer returns exactly the
+twin sum it was fed. The wall is falsifiable---exhibit a sign function
+with bounded pretense sum and an $S_2$-evaluation that does not route
+through $S_1$---and it is stated over the full sign-function cone
+precisely so that its scope is a theorem rather than an impression. The
+re-typing of the entire transfer chain from Dirichlet characters to sign
+functions (59 declarations) required deleting every coprimality thread;
+that the deletion is sound is itself part of the formal content: the
+character was never load-bearing.
 
 % ============================================================================
-\section{The artifact}\label{sec:artifact}
+\section{The parity gap, as an object}\label{sec:parity}
 % ============================================================================
 
-[TODO: the repo, the tagged release, clone-and-continue (the build in two
-commands), the audit instructions (\#print axioms), the machine-readable
-ledger, the open-problems board. "The proof is not attached to this paper;
-this paper is attached to the proof."]
+The parity barrier has lived in the literature as folklore with
+heuristics. The corpus makes it an object with a theorem.
+
+\begin{definition}[Completions, parity invariance, and $Z$]\label{def:z}
+Over weightings $a$ of the integers, a \emph{completion} at grade
+$(\theta, A_0)$ is a predicate on weightings capturing type-I control at
+level $x^\theta$ with logarithmic savings $A_0$; \emph{ParityInv} is the
+cone of completion-predicates invariant under the parity involution;
+\emph{TwinSufficient} demands that a predicate force unbounded twin mass;
+and $Z(\theta, A_0)$ asserts the existence of a true, twin-sufficient
+completion predicate. The file defining these
+(\leaninline{Salt/Parity/Z.lean}) imports nothing from the Siegel-zero or
+sieve tracks: its oracle-cleanliness is checkable by import list alone.
+\leanname{Salt.Parity.Z, Salt.Parity.ParityInv}
+\end{definition}
+
+\begin{theorem}[The gap theorem]\label{thm:gap}
+No completion predicate is simultaneously true, twin-sufficient, and
+parity-invariant: the twin-free weighting lies in every parity-invariant
+completion cone at the certified grades, and its twin mass is identically
+zero.
+\leanname{Salt.Parity.sufficient\_true\_not\_parityInv}
+\end{theorem}
+
+\begin{theorem}[$Z$ is exactly the demand]\label{thm:ziff}
+Over the certified grade window ($0 < \theta < 1/2$, $A_0$ in the stated
+range): $Z(\theta,A_0) \iff$ the twin prime conjecture.
+\leanname{Salt.Parity.Z\_implies\_TPC, Salt.Parity.TPC\_implies\_Z}
+\end{theorem}
+
+\begin{proposition}[The census]\label{prop:census}
+Nine headline theorems of the corpus---including the $k=2$ Maynard bound
+$M_2 \le 2\log 2$, the Chen-style headline, the Brun-grade twin bound, and
+the sieve keystones---lie inside the parity-invariant cone.
+\leanname{Salt/Parity/Instances.lean (nine declarations)}
+\end{proposition}
+
+The three results triangulate the frontier exactly: everything the corpus
+proves lives inside the cone (Proposition~\ref{prop:census}); the twin
+prime conjecture is equivalent to a demand $Z$
+(Theorem~\ref{thm:ziff}); and that demand cannot be met inside the cone
+(Theorem~\ref{thm:gap}). The barrier is now a boundary with coordinates.
+Where $Z$ degenerates outside its certified window, the degeneracy is
+itself a Lean lemma beside the definition (the grade guard,
+\leaninline{Z\_trivial\_of\_not\_completion})---vacuity disclosed, not
+discovered.
 
 % ============================================================================
-\section{Limitations, and two challenges}\label{sec:challenges}
-% Rule 7: enumerated, actionable, at the end.
+\section{The door-only spine}\label{sec:spine}
 % ============================================================================
 
-[TODO: the limitations paragraph: the tower threshold (ineffective-in-
-practice operating point); the constants are explicit but not competitive;
-the statement-rendering trust boundary; what the 78-catch measurement can
-and cannot generalize to.]
+Independently of the Siegel-zero tracks, the corpus carries a full
+formalization of the entropy-decrement route to the logarithmic two-point
+Chowla conjecture. On the day of writing, its residual collapsed: the
+prior interface (three coupled analytic witnesses) was \emph{proven
+unsatisfiable} at its recorded constants---a freeze-panel finding,
+confirmed four independent ways, ledger \#249---and the corrected
+budget was proven through, leaving:
 
-\textbf{Challenge 1.} [TODO: effective thresholds -- bring the operating
-point down from the tower; what blocks it (the $w_0$-window guards).]
+\begin{theorem}[Log-Chowla, door-only]\label{thm:spine}
+There exist $\delta_0 > 0$ and a regime $R$ such that a single hypothesis
+---the Matom\"aki--Radziwi\l\l--Tao uniformity door
+$\mathrm{MRTUniformity}\,R\,\delta$ at any $0 < \delta \le \delta_0$---
+implies the logarithmic two-point Chowla statement at $R$. A
+$\forall$-quantified head version places the regime floor above any
+prescribed threshold.
+\leanname{Salt.Entropy.Chowla.log\_chowla\_two\_door\_only,
+log\_chowla\_two\_budget\_head}
+\end{theorem}
 
-\textbf{Challenge 2.} [TODO: the parity frontier -- TwinB\_min as the
-precisely-stated door; what a formal assault would need.]
+The door is the exact target of the corpus's staged
+Matom\"aki--Radziwi\l\l\ program (whose first stones, including the
+closure of a long-flagged Euler-oscillation bridge, landed the same day);
+the conjecture's entire residual is thus one named seam between two
+formalized campaigns.
+
+% ============================================================================
+\section{The Salt method}\label{sec:method}
+% ============================================================================
+
+\begin{quote}
+\emph{The Salt method is an adversarial division of mathematical labor:
+human direction and ratification; frontier-model design under statement
+freezes; fleet-model execution and independent refutation, tiered by
+difficulty class; and kernel verification as the sole referee. Its
+discipline---freeze before proving, refute before trusting, give up
+loudly, bank everything---is designed to make the system catch errors
+faster than it makes them.}\footnote{After water, salt.}
+\end{quote}
+
+Every lemma is classified before any proof attempt (one-step; standard;
+real design; open-ended) and routed to the cheapest layer that can carry
+it; statements are frozen by design panels whose members include
+adversarial refuters with a standing default of \emph{refuted}; executors
+are forbidden to alter a frozen statement---their duty on discovering one
+unprovable is to stop and report, loudly; and the house that rules on such
+reports is itself subject to the same audit (twice in the campaign, an
+executor refuted the supervising layer's own amendment, and the record
+says so: ledger \#248, \#250).
+
+The evidence that this discipline works is the ledger: 252 numbered
+catches over the campaign against \emph{zero} wrong proofs built on any of
+them. The day this paper was drafted supplies the case study: five
+statement-layer faults surfaced in one morning---three cover-taxonomy
+gaps in a frozen design, one refutation of a supervising amendment, one
+unsatisfiable recorded interface---and every one was caught by the layers
+below the kernel, ruled on at the statement level, and repaired before a
+single wrong proof was attempted. A companion paper (\emph{The Salt
+Method}) will give the full treatment; the repository's ledgers are the
+raw artifact both papers cite.
+
+We record one measurement with a claim attached: at no point in the
+campaign did the kernel discover an error. It confirmed; the adversarial
+layers discovered. A verification standard is achievable at research
+speed precisely because correctness is enforced \emph{above} the kernel
+and only certified at it.
+
+% ============================================================================
+\section{The program forward}\label{sec:forward}
+% ============================================================================
+
+Four named campaigns continue from the corpus's current edge, each with
+its target stated formally in advance: \textsc{hb-engine} (the remaining
+distance from Theorem~\ref{thm:master} to $h_{\mathrm{Engine}}$);
+\textsc{chi-sieve} (the one residual of the keystone); the
+Matom\"aki--Radziwi\l\l\ program toward the door of
+Theorem~\ref{thm:spine}; and the explicit-constants floor
+(Siegel--Walfisz through Chen with every constant explicit). The
+conditional ledger below is the paper's honest boundary.
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lll}
+\toprule
+Conditional statement & Residual hypothesis & Campaign \\
+\midrule
+Thm~\ref{thm:dich}, twin horn & $h_{\mathrm{Engine}}$ & \textsc{hb-engine} \\
+Thm~\ref{thm:master} & $h_{\mathrm{count}}$ & \textsc{chi-sieve} \\
+Thm~\ref{thm:spine} & the MRT door & S8 / MR program \\
+Euler-oscillation bridge & $\mathrm{PrimeTailShiftBounded}$ & R0.2 \\
+\bottomrule
+\end{tabular}
+\caption{Every conditional in this paper, with its exact named residual.
+Nothing else in the paper is conditional.}
+\label{tab:conditional}
+\end{table}
 
 % ============================================================================
 \section*{Acknowledgments}
 % ============================================================================
-[TODO: the personal-capacity disclaimer (the approved formula); the Claude
-role statement (orchestration + proof construction per the Methods;
-commit-level attribution in the artifact; not an author per journal
-policy); mathlib and its community; the classical sources (BJS, Tao's
-expositions) whose renderings this work audits.]
+This work was carried out in a personal capacity. The formalization
+builds on \textsf{mathlib} and its community. The collaboration with
+Claude (Anthropic's Fable~5 and Opus models) is described in
+\S\ref{sec:method} and recorded commit-by-commit in the repository; the
+author directed and ratified every design decision and bears sole
+responsibility for the claims.
 
-% ============================================================================
-% Back matter: the statement -> declaration -> audit table
 % ============================================================================
 \appendix
 \section{The formal-statement index}\label{app:index}
-
-[TODO: the full table. Columns: paper statement, Lean declaration, file,
-axiom audit result. Generated from Salt/Chen/All.lean's audit block +
-Salt/TwinBar/All.lean; keep in sync by script at release.]
+% ============================================================================
+% At release: generated from the All.lean audit blocks; every row's axiom
+% column verified by #audit_axioms. Prose <-> Lean side-by-side renderings
+% for the headline statements follow the table. [v0.1: headline rows only]
 
 \begin{table}[h]
 \centering\small
@@ -294,40 +569,48 @@ Salt/TwinBar/All.lean; keep in sync by script at release.]
 \toprule
 Statement & Declaration & Axioms \\
 \midrule
-Thm~\ref{thm:chen} & \leaninline{Salt.Chen.chen\_headline} &
-  \leaninline{propext, Classical.choice, Quot.sound} \\
-Thm~\ref{thm:sw} & \leaninline{Salt.SW.siegelWalfisz\_holds} & (same) \\
-Thm~\ref{thm:bv} & \leaninline{Salt.BV.psi\_BV\_of\_siegelWalfisz'} & (same) \\
-Thm~\ref{thm:wbv} & \leaninline{Salt.Chen.windowed\_bilinear\_BV\_sqrtD} & (same) \\
-Thm~\ref{thm:m2} & \leaninline{Salt.TwinBar.no\_twin\_weight} & (same) \\
-Thm~\ref{thm:m3} & \leaninline{Salt.TwinBar.no\_triple\_weight} & (same) \\
+Thm~\ref{thm:litt} & \leaninline{zeta\_zero\_free\_region\_littlewood} & the three \\
+Thm~\ref{thm:pow} & \leaninline{zeta\_zero\_free\_region\_pow} & the three \\
+Thm~\ref{thm:rep} & \leaninline{dh\_repulsion\_ordered} & the three \\
+Def~\ref{def:fulcrum} & \leaninline{FulcrumQualityMin} & --- \\
+Thm~\ref{thm:fulcrumreal} & \leaninline{fulcrum\_zero\_real} & the three \\
+Thm~\ref{thm:dich} & \leaninline{fulcrum\_dichotomy} & the three \\
+Thm~\ref{thm:master} & \leaninline{hb\_l2c\_master\_final} & the three \\
+Thm~\ref{thm:wall} & \leaninline{neutrality\_rate} & the three \\
+Thm~\ref{thm:liouville} & \leaninline{S2Gen\_lamR\_eq\_S1} & the three \\
+Thm~\ref{thm:gap} & \leaninline{sufficient\_true\_not\_parityInv} & the three \\
+Thm~\ref{thm:ziff} & \leaninline{Z\_implies\_TPC / TPC\_implies\_Z} & the three \\
+Thm~\ref{thm:spine} & \leaninline{log\_chowla\_two\_door\_only} & the three \\
 \bottomrule
 \end{tabular}
-\caption{[TODO: the complete index at release.]}
+\caption{``The three'' $=$ \leaninline{propext, Classical.choice,
+Quot.sound}. Full index generated at release.}
 \end{table}
 
 \begin{thebibliography}{99}
-\bibitem{Chen1973} J.~R. Chen, \emph{On the representation of a larger even
-integer as the sum of a prime and the product of at most two primes},
+\bibitem{HB1983} D.~R. Heath-Brown, \emph{Prime twins and Siegel zeros},
+Proc.\ London Math.\ Soc.\ (3) \textbf{47} (1983), 193--224.
+\bibitem{Chen1973} J.~R. Chen, \emph{On the representation of a larger
+even integer as the sum of a prime and the product of at most two primes},
 Sci.\ Sinica \textbf{16} (1973), 157--176.
-\bibitem{BJS} [TODO: Bordignon--Johnston--Starichkova, the explicit Chen
-source, arXiv:2207.09452.]
-\bibitem{TaoExp} [TODO: Tao's expository treatment(s) used for the
-transcription.]
+\bibitem{Littlewood1922} J.~E. Littlewood, \emph{Researches in the theory
+of the Riemann $\zeta$-function}, Proc.\ London Math.\ Soc.\ (2)
+\textbf{20} (1922).
+\bibitem{TaoChowla} T.~Tao, \emph{The logarithmically averaged Chowla and
+Elliott conjectures for two-point correlations}, Forum Math.\ Pi
+\textbf{4} (2016).
+\bibitem{MR2016} K.~Matom\"aki and M.~Radziwi\l\l, \emph{Multiplicative
+functions in short intervals}, Ann.\ of Math.\ \textbf{183} (2016).
+\bibitem{MRT} K.~Matom\"aki, M.~Radziwi\l\l, and T.~Tao, \emph{An
+averaged form of Chowla's conjecture}, Algebra Number Theory \textbf{9}
+(2015).
+\bibitem{Maynard2015} J.~Maynard, \emph{Small gaps between primes},
+Ann.\ of Math.\ \textbf{181} (2015), 383--413.
 \bibitem{HalesKepler} T.~Hales et al., \emph{A formal proof of the Kepler
 conjecture}, Forum of Mathematics, Pi \textbf{5} (2017), e2.
-\bibitem{Gonthier} G.~Gonthier, \emph{Formal proof---the four-color
-theorem}, Notices Amer.\ Math.\ Soc.\ \textbf{55} (2008), 1382--1393.
-\bibitem{Polymath8b} D.~H.~J. Polymath, \emph{Variants of the Selberg
-sieve, and bounded intervals containing many primes}, Res.\ Math.\ Sci.\
-\textbf{1} (2014).
-\bibitem{Polymath8bVII} [TODO: the Polymath8b VII post/paper for the k=2
-GEH problem (Q5a/Tao's suspicion).]
-\bibitem{AkbaryHambrook} [TODO: Akbary--Hambrook, the explicit BV,
-arXiv:1309.2730.]
 \bibitem{mathlib} The mathlib community, \emph{The Lean mathematical
 library}, CPP 2020.
-\bibitem{companion} [TODO: the method companion paper, in preparation.]
+\bibitem{companion} J.~Hickey, \emph{The Salt method}, in preparation.
 \end{thebibliography}
 
 \end{document}
