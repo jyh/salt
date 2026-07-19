@@ -8738,3 +8738,14 @@ decisions per question.
   Vk.All green). **MR-W1 DISPATCHED** (Opus: S1/S2/S3/S6a/S6b/
   S10a — the route-shared ungated stones). Board: R6RHO-2 +
   MR-W1. Tally ~79M raw.
+
+- 2026-07-18 18:12 PT: **JYH stages the MR papers**
+  (1501.04585v4 + 1503.05121v3 → docs/sources/, beside the
+  H-B 1983 lineage). **MR-STAGE DISPATCHED** (Opus, the
+  Benli-grade extraction treatment: the full dependency chains
+  with OCR-verified exponents; MUST resolve the freeze's
+  [17]-A-arm open risk (MRT Lemma 2.2/Thm 2.3/Thm A.1
+  quantifier structures) + the elementary-Halász question +
+  narrow the S8 pricing band from 8–20k). On its landing, S8
+  (MR-CORE) de-classes from freeze-forbidden to freezable.
+  Board: R6RHO-2 + MR-W1 + MR-STAGE.
