@@ -4,6 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.Fulcrum.Basic
+import Salt.Fulcrum.Dichotomy
+import Salt.Fulcrum.ChenCorollary
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -31,6 +33,18 @@ The compactness gadget is stated here as `Salt.Fulcrum.SiegelModulusUnbounded`
 (importing `Salt.Fulcrum.Basic`); feeding it to `imsz_implies_fulcrum_of_gadget`
 then yields `InfinitelyManySiegelZeros → FulcrumQualityMin C` unconditionally,
 recovering `HeathBrownStatement` as a corollary.
+
+## Landed (FULCRUM-D1 — the dichotomy, kernel-real)
+
+Design: `docs/exploration/fulcrum-pass3.md` (verdict commission D1).
+
+* `not_fulcrum_implies_noSiegelZeros` — `¬ FulcrumQualityMin C → NoSiegelZeros`
+  (`Salt/Fulcrum/Dichotomy.lean`), the contrapositive of the landed compactness
+  gadget. The campaign stone; makes the dichotomy kernel-real.
+* `fulcrum_dichotomy` — the honest composite: given the Heath-Brown engine at
+  threshold `C` as a hypothesis, `HeathBrownDichotomy` (`TPC ∨ NoSiegelZeros`).
+* `chen_omega_prod_le_three` — the A-class Chen corollary `Ω(p·(p+2)) ≤ 3`
+  infinitely often (`Salt/Fulcrum/ChenCorollary.lean`).
 -/
 
 -- Build-time axiom audit: a stray axiom in the fulcrum track fails `lake build`
@@ -38,3 +52,6 @@ recovering `HeathBrownStatement` as a corollary.
 open Salt.Tactic in
 #audit_axioms Salt.Fulcrum.fulcrum_zero_real Salt.Fulcrum.fulcrum_zero_real_zfr
   Salt.Fulcrum.imsz_implies_fulcrum_of_gadget
+  Salt.Fulcrum.siegel_zeros_isolated_below Salt.Fulcrum.imsz_gives_fulcrum_witnesses
+  Salt.Fulcrum.not_fulcrum_implies_noSiegelZeros Salt.Fulcrum.fulcrum_dichotomy
+  Salt.Fulcrum.chen_omega_prod_le_three

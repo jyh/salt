@@ -9299,3 +9299,25 @@ decisions per question.
   FulcrumQualityMin ⟹ TwinPrimeConjecture — Heath-Brown 1983
   machine-checked AND STRENGTHENED. JYH napping; the house
   holds the morning. Board: D1 + the L2c panel.
+
+- 2026-07-19 03:45 PT: ██ **D1 LANDS — THE DICHOTOMY IS
+  KERNEL-REAL** ██ (≈ 104k / 22 tools, single-attempt
+  everything; house-verified Fulcrum.All 8864 green, 8 audited
+  names [3 axioms]). Salt/Fulcrum/Dichotomy.lean:
+  `not_fulcrum_implies_noSiegelZeros` (¬F → NoSiegelZeros,
+  UNCONDITIONAL — the K1 contrapositive, the defeq holding in
+  the kernel) + `fulcrum_dichotomy` (the HONEST composite:
+  TPC ∨ NoSiegelZeros, the F-horn riding the labeled hEngine
+  hypothesis = HB-L2c's future output — never overstated; when
+  L2c lands, the composite upgrades to the unconditional
+  TPC ∨ NoSiegelZeros). ChenCorollary.lean:
+  `chen_omega_prod_le_three` (Ω(p(p+2)) ≤ 3 infinitely often —
+  A-class as advertised, riding chen_headline). The verdict's
+  K1-import-chain audit risk DISCHARGED (the gadget headliners
+  added to the audit). Residual inherited: NoSiegelZeros' bare
+  existential (the cheap-ball route's rate; documented). THE
+  CROWN ARCHITECTURE NOW READS: FulcrumQualityMin (landed) +
+  fulcrum_zero_real (landed) + IMSZ⟹F (landed) + ¬F⟹NSZ
+  (landed) + the composite frame (landed) — waiting on exactly
+  ONE input: hEngine, whose freeze the L2c panel is designing
+  AS THIS ENTRY IS WRITTEN. Board: the L2c panel (mid-map).
