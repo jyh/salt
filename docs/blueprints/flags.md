@@ -11109,6 +11109,106 @@ EXACT produced form: after `← Real.rpow_mul`, `(Q^a)^b → Q^(a*b)` but `-14*w
 — insert `rw [show … = … by ring]` per exponent, and prove `A·A^E = A^{1+E}` by rewriting the RHS
 (`rw [Real.rpow_add, Real.rpow_one]`), never the LHS.
 
+## 2026-07-18 T-BAL-R8b (`dh_repulsion_ordered` deep branch) — PARTIAL: the on-ray monomial ENGINE + 3 of the 5 row caps + the polylog helper LAND (the analytic core proven Lean-tractable); the remaining 2 rows + 6 guards + assembly are the honest residual — T-BAL-R8b/Opus
+
+**LANDED (bankable, `Salt/SW/TBalR8.lean`, registered in `Salt.SW.All` `#audit_axioms`, all
+`✓ [propext, Classical.choice, Quot.sound]`, `lake build Salt.SW.All` EXIT 0 = 8821 jobs,
+warning-free):**
+- **`ray_pow_bound`** — ██ THE ON-RAY MONOMIAL ENGINE ██ (the abstracted exponent-balance of
+  `rho_row_power_bound`). For `Q ≥ 1`, `L₂ ≥ 1`, on the ray `u ≤ τ = c·Q^{−680w}/L₂^{14}`
+  (`0 < c`, `0 < u`), any monomial `Q^α·u^γ·L₂^ε` with `0 < γ`, `α ≤ 680wγ`, `ε ≤ 14γ` is
+  `≤ c^γ`. Proof: `u^γ ≤ τ^γ = c^γ Q^{−680wγ}L₂^{−14γ}`, then the residual `Q`/`L₂` powers `≤ 1`.
+  THIS is the reusable tool every row cap + guard funnels through.
+- **`row_1x_cap`** — the 1/x row: `Y^{β₀−σ−1} ≤ 1/8` on the ray (needs only `c ≤ 1/2`). Net
+  `u`-power `14(σ+u) ≥ 13`; `ray_pow_bound` → `c^{14(σ+u)} ≤ c^{13} ≤ (1/2)^{13} ≤ 1/8`.
+- **`row_A_cap`** — ██ THE `Y^u−1 ≈ u·ln Y` CANCELLATION ██, the full log-crush demonstrated
+  end-to-end: `Y^{β₀−σ}·(Y^{1−β₀}−1) ≤ 1/8`. `rpow_sub_one_le` (landed) turns `Y^u−1` into
+  `e·u·ln Y`; `ln Y ≤ ln2+104 logQ−14 log u ≤ 805·u^{−1/50}·L₂` via `neg_log_le_rpow` (landed) +
+  `log Q ≤ L₂`; the `u·ln Y ≤ 1` guard AND the final bound both close through `ray_pow_bound`.
+  Net `u`-power `1−14(w−u)−1/50 ≥ 3/17−1/50 > 1/8`. Clean `c`-hyps: `hg1 : 805 c^{49/50} ≤ 1`,
+  `hg2 : 1610·e·c^{1/8} ≤ 1/8`.
+- **`row_rho_main_cap`** — ██ THE RESIDUE ROW, where the ZFR `c₀` enters ██:
+  `u(2−β₀)·Y^{1−σ}/(‖1−ρ‖‖2−ρ‖) ≤ 1/8`. Consumes `1/‖1−ρ‖ ≤ L₂/c₀` (the pole-distance floor)
+  and `‖2−ρ‖ ≥ 1` → `(2/c₀)·u·Y^w·L₂`; `ray_pow_bound` (α=104w, γ=1−14w, ε=1) → `(4/c₀)c^{1−14w}
+  ≤ (4/c₀)c^{3/17}`. Clean `c`-hyp: `hg : (4/c₀)·c^{3/17} ≤ 1/8` (i.e. `c^{3/17} ≤ c₀/32`).
+- **`logz_factor_le`** — the polylog factor: `1 + log(z²) ≤ 627·u^{−1/100}·L₂` at `z ≤ 2Q^{12}u^{−3}`
+  (`log z ≤ log2+12 logQ−3 log u`, crude-δ at `δ=1/100`). Feeds the (still-TODO) Eβ/Eρ rows'
+  `(1+log z²)^9` factor.
+
+**THE MECHANISM IS PROVEN.** All three row archetypes are now machine-checked exemplars: pure power
+(`row_1x_cap`), log-crush (`row_A_cap`), ZFR/`c₀` (`row_rho_main_cap`). The freeze's
+`rho_row_power_bound` template is realized abstractly + reused. Every step is symbolic
+(`rpow_le_rpow` base/exponent monotonicity, `Real.rpow_le_one_of_one_le_of_nonpos`), no calculus,
+per catch #240's crude-δ law.
+
+**██ THE c-SHAPE RECORDED (catch #242) ██.** `b = 680, k = 14, σ₀ = 16/17` UNCHANGED. `c` is a
+positive MIN of per-cluster thresholds, EACH a power of the existentials `c₀` (from
+`zero_free_region_all`) / `Z₀` (from `zetaHol_bound`) — NOT the bare `2^{−250}`:
+- trivial branch (`tbal_tau_le_split`, landed): `c ≤ 2^{−250}`;
+- ρ-main row: `c^{3/17} ≤ c₀/32`, i.e. `c ≤ (c₀/32)^{17/3}` — the LINEAR-in-`1/c₀` poison;
+- A-row: `c ≤ (1/(1610 e))^8` (from `1610 e c^{1/8} ≤ 1/8`) and `c ≤ (1/805)^{50/49}`;
+- 1/x row: `c ≤ 1/2`;
+- Eβ/Eρ rows (projected): `c ≤ 1/(8·(328+48Z₀)·627^9)^8` (Eβ) and an analogous
+  `(c₀/poly(Z₀))`-power (Eρ, via `C2Rho ≤ poly(M,Z₀)·L₂/c₀`) — the `Z₀`-INFLATED, `1/c₀` grades;
+- hscale guard (projected): `c ≤ 1/(2(C₂(Z₀)+3))`, `C₂(Z₀) = ln2 + 2 ln(192(164+24Z₀)) + …`.
+So `c := min(2^{−250}, (c₀/32)^{17/3}, (1/(1610e))^8, 1/(8(328+48Z₀)627^9)^8, 1/(2(C₂(Z₀)+3)), …)`
+— obtained ONCE at the top (before `refine ⟨b,c,k,…⟩`) from BOTH existentials, per #242. Every
+threshold is a POSITIVE real (c₀ > 0, Z₀ ≥ 0 from a plug-in point), so the min is positive.
+
+**THE SCALE CHOICES (frozen for the assembly, all `Nat.ceil`, `npow` args to dodge rpow in the
+ceil):** `z := ⌈Q^{12}/u^3⌉₊`, `Y := ⌈Q^{104}/u^{14}⌉₊`, `N := ⌈(256·G)^4⌉₊` with
+`G := 34+12M+12MZ₀+36M/u` (the `hguard` constant); `N` DECOUPLED from `Y` per #241. Real bounds the
+rows consume: `Q^{104}u^{−14} ≤ (Y:ℝ) ≤ 2Q^{104}u^{−14}` (`Nat.le_ceil` / `Nat.ceil_lt_add_one`,
+`+1 ≤ 2·(Q^{104}u^{−14})` since the arg `≥ 1`), sim. for `z`.
+
+**THE HONEST RESIDUAL (a distinct future span, ~350 ln + the crux):**
+1. **Eβ row** (`Y^{β₀−σ}·Eβ ≤ 1/8`): `K := 136+48M+48MZ₀+144M/u ≤ (328+48Z₀)√Q L₂/u` (fold via
+   `u<1`, then `M ≤ √Q L₂`); `(1+log z²)^9 ≤ 627^9 u^{−9/100}L₂^9` (`logz_factor_le` +
+   `pow_le_pow_left`); collect `Y^{β₀−σ}Y^{1/2−β₀}=Y^{1/2−σ}=Y^{w−1/2}` (neg exp → LOWER `Y`
+   bound). Monomial α=104w−39.5 (<0), γ=291/100−14w (≥2), ε=10; `ray_pow_bound` → `c^γ ≤ c^{1/8}`.
+   ~120 ln; the SNAG is the npow↔rpow juggling on `627^9·(u^{−1/100})^9·L₂^9` (isolate in a
+   companion `logz_factor_pow9_le` stated in pure rpow).
+2. **Eρ row** (`C2Rho·z·(1+log z²)^9·Y^{1/2−σ} ≤ 1/8`): as Eβ but first `C2Rho q Z₀ ρ ≤
+   C₃(M,Z₀)·L₂/c₀` — unpack the 6-term `CwRho`/`C2Rho` def (`TBalFinal.lean:415/424`), bounding
+   `1/‖1−ρ‖ ≤ L₂/c₀`, `1/(1−σ) ≤ L₂/c₀`, `‖ρ‖ ≤ √2`, `‖ρ‖/σ ≤ 2/(16/17)`. ~150 ln.
+3. **The 6 guards** for `dh_master_ray` at the concrete `N/z/Y`: `hz`/`hN` (`Nat.lt_ceil.mpr`),
+   `hY` (`2z^4 ≤ Y` via `(2z^4:ℝ) ≤ (Y:ℝ)`, `32Q^{48}u^{−12} ≤ Q^{104}u^{−14}` ⟺ `32 ≤ Q^{56}u^2`),
+   `hscale` (`N^u ≤ e` ⟺ `u ln N ≤ 1`; `ln N ≤ ln2+4 ln(256G)`, `G ≤ G'/u`, then `u·L₂^{14} < c`
+   [KEY-A: `u·L₂^{14} ≤ c·Q^{−680w} ≤ c`] crushes `u ln(256G')` via `ln(256G') ≤ C₂(Z₀)+1.5L₂` +
+   `u ln(1/u) ≤ 2√u < 2√c`), `hguard` (`2G·N^{1/2−β₀} = 2G·N^u·N^{−1/2} ≤ 2G·e/(256G)^2 =
+   2e/(65536G) ≤ 1/64`; reduces to `hscale`+algebra), **`hcov` THE CRUX** (`crushErr ≤
+   0.27u·z^u` at `z`, `crushCut = Nat.sqrt(z·min(⌈1/u⌉,z))`; `D ~ √(z/u)`, each of 4 terms
+   `~ Q^{−6}`-small vs target; ~120 ln of `Nat.sqrt` lower/upper bounds + 4 rpow term caps).
+4. **The assembly + contract `dh_repulsion_ordered`** (VERBATIM `DHRepulsion.lean:267`): obtain
+   `⟨c₀,…⟩`/`⟨Z₀,…⟩`, define `c` (the min above), `refine ⟨680,c,14,…⟩`; intro; `by_cases
+   1/(40L₂) ≤ u` [trivial: `tbal_tau_le_split` with `c ≤ 2^{−250}`] / deep [`by_contra u<τ`, apply
+   `dh_master_ray`, split `ROW3 = P3+P4+P5` by `ring`, the 5 caps → `Σ ≤ 5/8 < 3/4 ≤ 1−1/Y`
+   (`Y≥4`), `linarith`]. ~100 ln.
+
+**Catches (LOUD; house-number at ceremony — flags is the authority; do NOT reuse taken numbers).**
+- **(R8b-A) the ray monomial ENGINE generalizes cleanly.** `ray_pow_bound` (α,γ,ε free) is the
+  single chokepoint; every row/guard is "massage into `Q^α u^γ L₂^ε` then apply". The massage
+  (collect all Q-powers→α, u→γ, L₂→ε via `Real.rpow_add`/`Real.mul_rpow`/`← Real.rpow_mul`) is the
+  per-row bulk, NOT the estimate.
+- **(R8b-B) keep `log Q` as an `L₂` factor, NEVER as a `Q`-power.** Bounding `log Y ≤ Y^δ/δ`
+  (`Real.log_le_rpow_div`) is FATAL: it injects `Q^{104δ}` whose `Q`-power (a CONSTANT `104δ`) is
+  NOT matched by the ray's `680wγ` at small `w` (`w ≥ c₀/L₂` can be `≪ δ`), so `hα` FAILS. The
+  correct crude-δ is on `−log u` ONLY (`neg_log_le_rpow` → `u^{−δ}`); `log Q ≤ L₂` stays an `ε`
+  (L₂-power). Then every row's `α` scales `∝ w` (matches `680wγ ∝ w`) and `hα` holds for ALL `w>0`.
+- **(R8b-C) each row's `c`-constraint is cleanly SEPARABLE** as an `hg : K·c^{γ} ≤ 1/8`
+  hypothesis; the assembly discharges them by defining `c := min(…)` and clearing the rpow via
+  `c ≤ (1/(K·8))^{1/γ}` ⟺ (raise to `1/γ`-power) — use `Real.pow_rpow_inv_natCast` when `1/γ` is a
+  nat-reciprocal, else `Real.rpow_le_rpow` + `Real.rpow_natCast`. This is why the row lemmas take
+  the `hg`-form (NOT a bare `c ≤ …`): keeps the transcendental `c`-arithmetic in ONE place.
+- **(R8b-D) `set_option maxHeartbeats … in` must precede the docstring**, not sit between it and
+  the `lemma` (else `unexpected token 'set_option'`); and it triggers the
+  `linter.style.maxHeartbeats` warning unless a `-- comment` explaining it follows. All three
+  heavy row lemmas need `1600000`/`800000` (nested `rpow`-atom `nlinarith`/`ring`).
+- **(R8b-E) the polylog^9 npow↔rpow snag (resume note).** `(1+log z²)^9` is `npow 9`; to reach
+  `ray_pow_bound`'s rpow monomial, convert `(u^{−1/100})^9 → u^{−9/100}` (`← Real.rpow_natCast`
+  then `← Real.rpow_mul`) and `L₂^9 (npow) → L₂^{(9:ℝ)}` — isolate in a companion lemma stated in
+  pure rpow to avoid re-deriving inside the row proof.
+
 ## VK-9 catches (house-numbered at ceremony; the executor proposed
 ## #217–220 which R5-CRUSH had taken — flags is the authority)
 

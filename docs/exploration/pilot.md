@@ -8902,3 +8902,23 @@ decisions per question.
   LANDED (true, kernel-checked) — its Zeno-success status is
   re-graded to "the composition exercise"; the CONTENT lives
   in the five-row master. Board: T-BAL-R8b + MR-W2.
+
+- 2026-07-18 20:50 PT: **R8b banks the engine + 3/5 rows — the
+  deep branch is Lean-tractable, all three row-archetypes
+  exemplared** (≈ 293k / 79 tools; house-verified SW.All 8821
+  green, all [3 axioms], warning-free). TBalR8.lean:
+  `ray_pow_bound` (THE ENGINE — every on-ray monomial cap
+  funnels through it), `row_1x_cap` (pure power), `row_A_cap`
+  (the log-crush end-to-end), `row_rho_main_cap` (the ZFR/c₀
+  archetype), `logz_factor_le` (the polylog feeder). The
+  c-shape RECORDED per #242 (c := min of per-cluster powers of
+  the existential c₀/Z₀ — the full anatomy in flags). New
+  catches R8b-A..E (house numbers at the next flags pass) —
+  notably R8b-B: log Y ≤ Y^δ/δ is FATAL (an unmatched Q^{104δ}
+  breaks the α-budget at small w); crude-δ applies to −log u
+  ONLY, log Q stays an L₂ factor. RESIDUAL (fully templated):
+  the Eβ/Eρ rows (skeletons recorded), the 6 guards (hcov the
+  Nat.sqrt crux ~120 ln), the assembly + the contract.
+  **T-BAL-R8c DISPATCHED — the closer** (every remaining piece
+  has a landed template or a recorded skeleton). Board:
+  T-BAL-R8c + MR-W2.
