@@ -14,6 +14,9 @@ import Salt.HB.TransferFull
 import Salt.HB.StarStep
 import Salt.HB.StarWindow
 import Salt.HB.MixedCount
+import Salt.HB.SignChain
+import Salt.HB.SignLiouville
+import Salt.HB.SignRate
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -68,3 +71,10 @@ open Salt.Tactic in
   Salt.HB.legendre_sum_mul_shift
   Salt.HB.legendre_sum_two_forms_bound
   Salt.HB.legendre_sum_two_forms_trivial
+  Salt.HB.S1_le_S2Gen
+  Salt.HB.S2Gen_sub_S1_eq
+  Salt.HB.LamTildeGen_lamR_eq_vonMangoldt
+  Salt.HB.S2Gen_lamR_eq_S1
+  Salt.HB.overshootExactGen_lamR
+  Salt.HB.PretenseSumGen_lamR_eq_zero
+  Salt.HB.neutrality_rate

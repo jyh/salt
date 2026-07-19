@@ -9657,3 +9657,17 @@ decisions per question.
   verify-posture lesson extended to house rulings (quantitative
   freezes get worst-corner passes). Completion executor
   DISPATCHED on the re-frozen row.
+
+- 2026-07-19 11:55 PT: ██ **WALL3-W2 LANDS — THE WALL-3 LEAN
+  SERIES IS COMPLETE** ██ (Opus, 109k, all nine first-attempt,
+  zero mathlib drift): Salt/HB/SignLiouville.lean — λ certified
+  as THE NEUTRALITY POINT: Λ̃Gen(λ) = Λ (the pole, via mathlib's
+  μ·log = Λ at the ratified line), S2Gen(λ) = S1, overshoot ≡ 0,
+  PretenseSum(λ) = 0 — the zero-overshoot, perfect-pretense sign
+  function, exactly the wall's pivot. W1+W2+W3 all green; W4 =
+  prose (the draft). The Sign series + neutrality_rate REGISTERED
+  in Salt.HB.All (#audit_axioms ✓ 3 axioms). THE EXCHANGE-RATE
+  WALL now exists in the kernel: the transfer's exchange rate is
+  formal (EngineBound), its unconditional leg proven, its
+  neutrality point certified, its scope strictly wider than
+  characters.
