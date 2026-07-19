@@ -13,7 +13,7 @@ THE POWER REGION.  The Vinogradov–Korobov strip growth `zeta_growth_pow`
 fed through the growth-to-region bridge `region_of_uniform_growth` at `Θ = vkTheta(3γ)`, produces a
 zero-free region of power shape `θ = 3/4 < 1` — strictly wider than de la Vallée Poussin's `1/log t`
 AND than the Littlewood `log log t/log t`, and (crucially) the first region with the **power** shape
-the Montgomery–Renyi (MR) gate consumes.
+the Matomäki–Radziwiłł (MR) gate consumes.
 
 This file is the *emission*: given `zeta_growth_pow` (R6, produced from the machine-checked
 Vinogradov mean value theorem via the block ladder R5b), the region follows.  The emission is
@@ -350,7 +350,7 @@ This is the *emission*: the whole content of the power region modulo the growth 
 `zeta_growth_pow` (rung R6) is what the block ladder R5b feeds; this theorem shows the region follows.
 `c = 1/10⁹`, `T₀ = exp(exp(8·log(20000K) + 1100)) + t₀ + 3` are design-grade and astronomically lazy;
 only the width SHAPE `1/((log t)^{3/4}(log log t)³)` (`θ = 3/4`) is the content — and that shape is
-what the Montgomery–Renyi gate consumes.  Negative-height zeros via `riemannZeta_conj_zero`. -/
+what the Matomäki–Radziwiłł gate consumes.  Negative-height zeros via `riemannZeta_conj_zero`. -/
 theorem zeta_zero_free_region_pow_of_growth (hgrow : ZetaGrowthPow) :
     ∃ c T₀ : ℝ, 0 < c ∧ 3 ≤ T₀ ∧ ∀ ρ : ℂ, riemannZeta ρ = 0 → T₀ ≤ |ρ.im| →
       ρ.re ≤ 1 - c / ((Real.log |ρ.im|) ^ ((3 : ℝ) / 4)

@@ -8707,3 +8707,34 @@ decisions per question.
   entry. **T-BAL-R6RHO-2 DISPATCHED** (the finish: the
   sandwich + the mechanical rungs + the RE-PRICED ledger +
   R7/R8; Opus, ungated). Board: T-BAL-R6RHO-2 + the MR wf.
+
+- 2026-07-18 18:05 PT: ██ **THE MR-GATE FREEZE — dispatch_ready,
+  10/10 agents, minimal-gate + faithful grafts** ██
+  (wf_63b55005 ≈ 1.24M — the biggest block since VK). THE MAPS'
+  RE-GROUNDING YIELD (all file:line): (1) the spine's interface
+  is EXACTLY `MRTUniformity R δ` (MRTDoor.lean:48) at a FIXED
+  δ — no o(1) needed; the cheaper `MRTUniformityXi` door ships
+  its seam but needs the Fable-tier Xi-rewire (= the registered
+  SPINE-BUDGET-coupled S0); (2) the REGION threshold is honestly
+  exp(exp ~1251) (not the remembered exp(exp 100) — that's the
+  growth's), BUT the classical region has NO height threshold
+  and fills below at the cost of one absorbed constant —
+  T₀-FILL is a compactness one-liner; (3) the sources CORRECTED
+  a memory error against staged text (heights A·x not x^A) and
+  found the minimal-port key: Tao's λ-case needs Prop 2.4 only
+  at MAJOR-ARC α, reducing to MRT Thm A.1 — matching our Xi
+  door; the region enters at exactly ONE load-bearing gate (the
+  λ-non-pretentiousness (1.6)), with θ = 3/4 giving coefficient
+  1/4. THE FREEZE (banked docs/exploration/mr-freeze.md + the 3
+  maps + THE SOURCES DURABLY STAGED to docs/sources/ — a risk
+  item closed at ceremony): the S1–S11 wave (new Salt/MR/
+  track), with THE HOLD-BACKS honored: S0 (the Xi-rewire) needs
+  JYH sign-off (the Fable gate); S8 (MR-CORE, class D) is
+  freeze-FORBIDDEN until arXiv:1501.04585/1503.05121 are
+  staged — JYH sourcing ask registered; S4a (the χ-twist of the
+  Vk ladder) = the biggest sub-D execution risk, check-first
+  ordered. Also fixed at ceremony: PowRegion.lean's
+  "Montgomery–Renyi" misnomer → Matomäki–Radziwiłł (docstring;
+  Vk.All green). **MR-W1 DISPATCHED** (Opus: S1/S2/S3/S6a/S6b/
+  S10a — the route-shared ungated stones). Board: R6RHO-2 +
+  MR-W1. Tally ~79M raw.
