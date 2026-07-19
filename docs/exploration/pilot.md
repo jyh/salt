@@ -9429,3 +9429,26 @@ decisions per question.
   absorbs the L'²); M-T2's d₁=1 simplification; M-T1 confirms
   ER_T1' is the genuine HB (3.3) fibration; F-junk's crude-count
   route certified to hit z^{-3/16} ≤ z^{-1/8} exactly.
+
+- 2026-07-19 08:20 PT: **L2c-M-Tsw lands the mirror swap row
+  (conditional) + THE ROLES-SWAP ENGINE-BLOCK** (Opus, 224k,
+  survived 2 quota clips): Salt/HB/L2cERTsw.lean, 459 ln, 15
+  decls, axioms clean, 8739 green. Landed: the #245-compliant
+  guarded family def, the sharp identity Λ̃(n+2) = 2Λ((n+2)₋),
+  the U-fibration ψ-route count (unconditional, (log z)¹:
+  ER_Tsw'_pretense_bound ≤ 56·x·z0·PS), and the FROZEN J2 row
+  ER_Tsw'_bound_of_count conditional on the named residual
+  hcount (the (log z)² joint count), interface uniform with the
+  E_L sibling. THE CATCH (iron-rule-1 record): the roles-swap
+  INVERTS the T-sw modulus law — the χ=+1 prime is the huge
+  cofactor U > x/z, never a legal modulus; every landed-engine
+  assignment loses one ingredient. HOUSE ADJUDICATION (the
+  fallback question): the (log z)¹ row CANNOT substitute
+  downstream — under the fulcrum witness PS = Θ(1) (HB's
+  pretense bound c(1−β)L' + O(1) has the O(1) floor), so
+  x·z0·PS ≫ x/z0 = the main term, while J2's /L' kills it;
+  hcount is LOAD-BEARING. New node registered: **HB-L2C-CHI-SIEVE**
+  (a χ-weighted one-form sieve lemma, MixedCount-grade,
+  statement-layer) — the single missing engine piece; W3
+  proceeds with the uniform _of_count interface (master
+  conditional on the named residuals, Zeno discipline).
