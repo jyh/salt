@@ -17,6 +17,21 @@ import Salt.HB.MixedCount
 import Salt.HB.SignChain
 import Salt.HB.SignLiouville
 import Salt.HB.SignRate
+import Salt.HB.L2cCore
+import Salt.HB.L2cEL
+import Salt.HB.L2cELT1
+import Salt.HB.L2cELT2
+import Salt.HB.L2cELT3
+import Salt.HB.L2cELT3F
+import Salt.HB.L2cELTsw
+import Salt.HB.L2cELJunk
+import Salt.HB.L2cEven
+import Salt.HB.L2cER
+import Salt.HB.L2cERT1
+import Salt.HB.L2cERT2
+import Salt.HB.L2cERT3
+import Salt.HB.L2cERTsw
+import Salt.HB.L2cMaster
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -78,3 +93,17 @@ open Salt.Tactic in
   Salt.HB.overshootExactGen_lamR
   Salt.HB.PretenseSumGen_lamR_eq_zero
   Salt.HB.neutrality_rate
+  Salt.HB.EL_T1_bound
+  Salt.HB.EL_T2_bound
+  Salt.HB.EL_T3F_bound
+  Salt.HB.EL_Tsw_bound
+  Salt.HB.EL_cJunk_bound
+  Salt.HB.ER_wJunk_bound
+  Salt.HB.EL_corners_bound
+  Salt.HB.EL_evenCorner_bound
+  Salt.HB.ER_squarefull_junk
+  Salt.HB.ER_T1'_bound_mixed
+  Salt.HB.ER_T2'_bound
+  Salt.HB.ER_T3'_bound
+  Salt.HB.ER_Tsw'_bound_of_count
+  Salt.HB.hb_l2c_master_of_count

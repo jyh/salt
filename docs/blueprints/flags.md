@@ -11530,3 +11530,19 @@ unnecessary for this row (kept in the frozen signature). The #248
 lesson re-confirmed: house route sketches are hypotheses, not
 verified designs — the license language ("the shape is what's
 frozen, not the method") is what kept this catch non-blocking.
+
+**Catch #249 (SPINE-BUDGET F0: landed terminal residual unsatisfiable at c₀=1; freeze-panel finding, 2026-07-19).** The t/g/hbudget1 residual of `log_chowla_two_final` (SpineFinal.lean:416) and `log_chowla_two_final_xi` (:508) is unsatisfiable as stated: the statements bake c₀ = 1 (the literal `1 * (R.eps)`), and at the landed witnesses C = 1 + 2·C₀ = 1 + 4·log 4 ≈ 6.545 (CircleMethod.lean:586 at C₀ = 2·log 4) vs c₁ = cD3/4 = 1/16 (WindowMertensLower.lean:62), the first LHS term alone exceeds the whole margin for all t, g (shellError strictly positive). Not rescuable by re-proving either producer (honestly cD3 ≲ log 2 while any triangle-inequality C ≥ 1). TowerDischarge.lean:88-89's hedge 'cD3 ≳ 2(C+1)' is resolved FALSE (0.25 vs ≈15.1). Both terminals remain true, landed, and untouched; they are superseded-as-citation by the SPINE-BUDGET head, which discharges t/g/hbudget1 inside the head at c₀ := cD3/(16·C). Confirmed independently by both panel refuters and by judge witness-extraction. No future consumer should attempt the landed ∀t,g block.
+
+**Catch #251 (the hres over-reduction — the L2c freeze's frozen record,
+landed at W3 per the freeze's W3 spec; 2026-07-19).** hb_lemma2/hres =
+over-reduction: the tau-crude majorant is L^2-inflated at the worst
+pattern (chi=+1-prime class, floor 8L^2*R_A; provability-level — the
+concentration pattern is unexcludable by the pattern-blind L2c
+toolkit; note q=3 degeneracy majLogL == 0); at FulcrumQualityMin any
+verbatim chain forces log eta >~ L^4. Superseded by
+hb_l2c_master_of_count (same conclusion shape, exact identity);
+hb_lemma2 stays green, zero consumers. Companion record: the master
+is conditional on TWO named residuals — hcount (ER_Tsw', engine-
+blocked, node HB-L2C-CHI-SIEVE) and hEL_uncov (the E_L two-gap
+class: the never-landed T2-mirror family + the middle-squarefull
+orphan; both characterized, mop-up dispatched).

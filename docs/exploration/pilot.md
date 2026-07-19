@@ -9808,3 +9808,20 @@ decisions per question.
   6.545 ≤ 0.0625 false universally). No redirect needed — W2
   proceeds on a fully verified design. The #248 verify-posture
   law, working as ratified.
+
+- 2026-07-19 09:48 PDT: ██ **L2c-W3 LANDS THE MASTER —
+  hb_l2c_master_of_count, the Horn A keystone** ██ (Opus, 379k):
+  Salt/HB/L2cMaster.lean, 456 ln + the full manifest (15 L2c
+  imports, 14 audit names ✓ 3 axioms), 9306 green. Cmain = 2³¹
+  (tally: J1 2³⁰+4, J2 40345603, junk 35/24580). BOTH pre-
+  flagged suspects REAL: (a) the freeze's T2-mirror family was
+  NEVER LANDED (the R5/R6 open risk realized exactly as
+  registered); (b) the middle-squarefull orphan (junk-priceable
+  4x/√z). Both isolated in L2cELuncov — characterized by the
+  support classification, bounded at the exact J2+junk shape.
+  E_R cover COMPLETE (no residual). The master is honest-
+  conditional on TWO named hypotheses: hcount (CHI-SIEVE) +
+  hEL_uncov (mop-up DISPATCHED). Flags #249 (SPINE F0) + #251
+  (the hres record w/ the _of_count correction) landed.
+  Executor catch: the z0-fallback for Tsw' provably cannot
+  substitute (off-J2 by z0²log z/e^{5z0} — re-verified).
