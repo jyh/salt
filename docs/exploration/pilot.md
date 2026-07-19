@@ -9203,3 +9203,34 @@ decisions per question.
   design layer — S8's execution is now pure Opus. Board: swap
   to math-acct next (the Fulcrum track: Pass 2 → Pass 3 → HB-L2c);
   jason in reserve.
+
+- 2026-07-19 02:45 PT: ██ **PASS 2 LANDS — THE SUPPLY LEDGER +
+  Z, both syntheses refuter-survived** ██ (wf_390ae941, 9/9 ≈
+  1.04M, a LEAN 28 window-points — Pass 1's audits made the
+  enumeration cheap; the passes compound). THE YIELD (all in
+  fulcrum-pass2.md + pass2_e1..e4.md, committed): the ¬F
+  supply ledger in tiers (K1 = ¬F⟹NoSiegelZeros
+  KERNEL-COMPOSABLE TODAY via one contrapositive of the landed
+  gadget; C1 = the effective-SW headline — the landed chain
+  has EXACTLY ONE ineffective input and ¬F kills it; the
+  ANTI-SUPPLY: ¬F deletes the exceptional-character Möbius
+  surrogate — the only family-uniform parity oracle classical
+  math ever had). **Z, THE GAP STATEMENT**: "¬F pays entirely
+  in a currency Z is insensitive to" — every deliverable
+  parity-inert by orientation; 6 missed-combination probes all
+  negative; the sharpest localization of the parity barrier
+  ever written. THE SEAMS (ranked, kill-checks-first): S1
+  surrogate-exchange (the pair-sieve half is CHARACTER-FREE —
+  a genuine audit surprise; ~2% twin-mechanism / ~20-25%
+  exchange-rate WALL theorem), S2 the C⁽¹⁾ dial (shared
+  between horns), S3 q-range (<1%), S4 the deflation audit
+  (runs first; near-certain payoff).
+
+- 2026-07-19 02:50 PT: ██ **PASS 3 LOOSED — THE SEAM ATTACK**
+  ██ (wf_5b2bbf48 on math-acct, JYH attentive): 4 kill-checkers
+  (T1 deflation / T2 q-range / T3 the exchange-rate at the
+  three poles / T4 the C⁽¹⁾ ledger + the 250-vs-300
+  adjudication) → assault on survivors → refuters (the C⁽³⁾
+  vacuity benchmark binding) → THE HUNT JUDGE (walls banked,
+  survivors commissioned, the campaign re-priced — the
+  verdict to JYH directly). The hunt's climax.
