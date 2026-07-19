@@ -335,15 +335,22 @@ $\mathrm{PS}_\chi$ is the pretense sum of $\chi$.
 \leanname{Salt.HB.hb\_l2c\_master\_final}
 \end{theorem}
 
-The residual $h_{\mathrm{count}}$ is a single $\chi$-weighted sieve count
-(the roles-swapped family of the mirror side, where the character-positive
-prime is a cofactor rather than a modulus); it is stated exactly in the
-corpus and registered as the node \textsc{chi-sieve}. The cover of the
-eleven families is itself a kernel-checked theorem---no case can have been
-forgotten---and the three cover gaps found during execution were all found
-\emph{by the machine layers below the kernel} and repaired at the
-statement level before any proof was attempted on a wrong statement
-(ledger \#245, \#246, \#252).
+The residual $h_{\mathrm{count}}$ is a $\chi$-weighted sieve count (the
+roles-swapped family of the mirror side, where the character-positive
+prime is a cofactor rather than a modulus); at the engine's own witness
+scale one boundary family requires a second count of the same shape, and
+both are stated exactly in the corpus and registered together as the
+single node \textsc{chi-sieve}---the engine's entire remaining
+sieve-theoretic content. The cover of the eleven families is itself a
+kernel-checked theorem---no case can have been forgotten---and the three
+cover gaps found during execution were all found \emph{by the machine
+layers below the kernel} and repaired at the statement level before any
+proof was attempted on a wrong statement (ledger \#245, \#246, \#252).
+The theorem as stated holds in the $z = x^{o(1)}$ regime, where its full
+hypothesis packet is discharged by explicit witnesses
+(\leaninline{Salt.HB.glue\_master}); the regime bookkeeping itself
+produced one of the campaign's sharpest catches, an amendment refuted by
+its own executor at the asymptotic corner (ledger \#253).
 
 % ============================================================================
 \section{The exchange-rate wall}\label{sec:walls}
