@@ -9738,3 +9738,18 @@ decisions per question.
   ⟹ u ≤ 1 ⟹ log(1+u) ≤ log 2). Zero line-anchor drift; CC2
   honored (no phantom ≥0 leg). Axioms clean. W2 waits only on
   W1a (BudgetCore, the constant-heavy rung — in flight).
+
+- 2026-07-19 08:59 PDT: ██ **L2c-even-2 LANDS THE LAST ROW — THE
+  FAMILY CAMPAIGN IS COMPLETE** ██ (Opus, 255k, 1 serious
+  attempt): EL_evenCorner_bound at Cmain = 2 (!), J2+junk shape
+  verbatim, via the p ≤ x single-prime fibration (evenness ⟹
+  2p ∣ n ⟹ the +1 absorbed — no tail). Catch #250 (house):
+  Amendment 4's 2x/(2^e z) tail bound false by ~30 orders; the
+  route-license made it non-blocking; executor's route strictly
+  simpler. hz8 unnecessary (signature preserved). ALL ELEVEN
+  ROWS + THE MIXED ROW ARE PROVEN: EL T1/T2/T3F/Tsw, ER
+  T1'-mixed/T2'/T3', Tsw'-conditional(hcount), cJunk/wJunk/
+  corners/squarefull/even. **W3 ASSEMBLY DISPATCHED** —
+  hb_l2c_master (the _of_count conditional form), the disjoint
+  cover, the manifest, A1's held flags text reported for house
+  landing.

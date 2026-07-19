@@ -11516,3 +11516,17 @@ shape get the same 3-attempt/refuter discipline as designs — the
 #245/#246 rulings were verified by budget arithmetic; #246's ROUTE
 was not (the route sketch was written directly into the amendment
 without a worst-corner pass). Verify posture applies to the house.
+
+**Catch #250 (house route arithmetic, 2nd on the even row; conclusion
+unaffected; 2026-07-19 L2c-even-2).** Amendment 4's +1-tail bound
+("primes p ≥ z with 2^e·p ≤ 2x number ≤ 2x/(2^e z)") is FALSE — the
+true count is PNT-grade (2x/2^e)/log 2x, ~30 orders larger at the
+floor, and its sum busts the junk row downstream. The executor
+repaired in-flight under the route-license (shape frozen, route
+free): fiber on the single witness prime p = (n₊).minFac; evenness
+gives 2p ∣ n so p ≤ x and window_dvd_count's +1 is ABSORBED
+(x/p + 1 ≤ 2x/p) — no tail exists at all; Cmain = 2. Also: hz8
+unnecessary for this row (kept in the frozen signature). The #248
+lesson re-confirmed: house route sketches are hypotheses, not
+verified designs — the license language ("the shape is what's
+frozen, not the method") is what kept this catch non-blocking.
