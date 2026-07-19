@@ -9345,3 +9345,19 @@ decisions per question.
   (Opus, per the ratified day plan — the waves grind through
   the morning/afternoon).** Board: L2c-W1 + the morning gates
   (WALL-3+D4, SPINE-BUDGET) awaiting JYH's wake.
+
+- 2026-07-19 05:20 PT: **L2c-W1 LANDS** (Opus, 254k, ~32 min,
+  ALL FIRST-ATTEMPT): Salt/HB/L2cCore.lean, 447 ln, 24 decls,
+  axioms clean, 8737 green on main. The stones: S2_sub_S1_eq
+  proven as an EQUALITY (pure ring on the Transfer identity —
+  stronger than the freeze's ≤; the ≤ export S2_sub_S1_exact
+  matches hb_lemma2's conclusion template verbatim), the four
+  Λ̃−Λ=0 vanishing kills + the support classification, l2cWindow
+  + coprime glue + the ω/Λ̃ caps (z0/Lwin exported defs), the
+  128-form pair count l2c_pair_count_clean with the Zz=⌊z^{1/16}⌋
+  / Zf=⌊x^{1/48}⌋ gates, the PretenseSum/Chebyshev-χ/Mertens
+  counters. All freeze line-citations verified exact (no #224
+  drift). Catch #244 filed (house brief omission — no-git law
+  now a mandatory brief field; executor's branch squash-merged).
+  **W2a ∥ W2b DISPATCHED** (L2cEL.lean families / L2cER.lean
+  mirrors, disjoint files, both import L2cCore).

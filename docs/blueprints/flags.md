@@ -11449,3 +11449,11 @@ rows consume: `Q^{104}u^{−14} ≤ (Y:ℝ) ≤ 2Q^{104}u^{−14}` (`Nat.le_ceil
   closure.  (Note: the `t = 0` case IS closable now via `ZetaSide` +
   `mertens_second_sharp` + `primeZeta_asymp`, but is measure-zero for the campaign
   — the split's small-`t` seam still needs the oscillating bridge for `0 < |t|`.)
+
+**Catch #244 (house brief omission; benign; 2026-07-19 L2c-W1).** The W1
+dispatch brief omitted the executors-never-git law (#174). The executor —
+correctly, per CLAUDE.md's default workflow — created a track branch
+`hb-l2c` and committed there. Main was never touched; the house
+squash-merged and deleted the branch. LAW: the no-git line ("you do NOT
+run git; the house owns all commits") is a MANDATORY verbatim field in
+every executor brief, alongside single-writer and the doctrine block.
