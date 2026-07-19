@@ -9176,3 +9176,30 @@ decisions per question.
   onto jason is the safety net; math-acct SEALED for the Fulcrum.
   The night plan: the panel lands ~01:30 → bank the freeze →
   swap back to math-acct → Pass 2 manual. Board: the S8 panel.
+
+- 2026-07-19 00:45 PT: ██ **THE S8 FREEZE LANDS — the mountain
+  is designed, EXECUTION-COMPLETE, before the cliff** ██
+  (wf_7298497f, 7/7 ≈ 883k on jasonh — the panel fit the tank
+  exactly as modeled). BOTH candidates refuted 2/2; the judge
+  MERGED (halasz-first skeleton + wave-architecture grafts,
+  every verified repair applied). THE CONVERGENT CATCH: all
+  four verdicts found the SAME deepest flaw — the un-landed
+  σ=1 (log t)^{3/4}(loglog)⁴ ζ UPPER bound — repaired as the
+  new rung H1.0 with BOTH routes grounded (the vk-window
+  primary + the region-integration fallback). THE STRUCTURE:
+  6 waves, 15 DISJOINT new files (the single-writer law honored
+  by construction; All.lean CEREMONY-OWNED — executors never
+  touch it, D6), ~16k lines, target thm_A1' at θ=3/4
+  qualitative fixed-δ. THE GIFTS: **LOG-EULER-OSC is SUBSUMED**
+  (H0's two-sided bridge = the named node — one pantry item
+  frozen for free) and **R0.5's ζ-corollary discharges S5's
+  bridge hypothesis → unconditional lambda_nonpret** (the
+  S5-shadow closes inside wave 1). Numerals repaired per the
+  S5 honest-shape law (N1–N4: the T0 revert with the divergence
+  arithmetic shown; the halving cascade CARRIED; c₀
+  existential). Source pins: MR v4 / MRT v3 ONLY (the known
+  published errors). Freeze banked verbatim:
+  docs/exploration/s8-freeze.md. THE CLIFF RACE: WON at the
+  design layer — S8's execution is now pure Opus. Board: swap
+  to math-acct next (the Fulcrum track: Pass 2 → Pass 3 → HB-L2c);
+  jason in reserve.
