@@ -10075,3 +10075,18 @@ decisions per question.
   the decomposition + both mean-value legs in place; K1
   designed + wave I-1 climbing; K2 reduced to one staged-source
   lemma. In flight: HAL-I1a/I1b.
+
+- 2026-07-19 16:22 PDT: **HAL-I1b LANDS the λ-calculus core**
+  (Opus, 373k): HalaszLambda.lean, 445 ln, wired (8833 green).
+  L0' (the squarefree-linearized ℓ + inverse + δ-telescope),
+  L1' (κ=1 disarmed: ‖λ_lin‖ ≤ Λ at ALL n, first try), L2'
+  (log·ℓ = λ∗ℓ unconditional), L4' (**the PRODUCT-form
+  derivative — F-zero-set verified never-entered**; one freeze
+  route gap bridged: mathlib's logMul is Complex.log, cast
+  step added). L3' honestly SPLIT: the backbone + explicit
+  C_sq corner landed; the analytic Euler-form half is
+  seam-coupled (needs the CONCRETE GHS fg_J — correctly I-2
+  territory, GHS-staging-gated; also: mathlib lacks a
+  squarefull predicate — the seam defines one). Five mathlib
+  traps banked (the rpow-summability false friend; Nat.Prime
+  open-namespace binders; norm_prod). Board: I1a last out.
