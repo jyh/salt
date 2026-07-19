@@ -10037,3 +10037,26 @@ decisions per question.
   STAGING DEBT registered: MNT-III App. G or MV-1974 (JYH-
   assisted). K2 board: wall smaller, named sharper, no rework
   path anywhere.
+
+- 2026-07-19 15:27 PDT: ██ **THE HALASZ-INFRA FREEZE LANDS — the
+  K1 wall designed; the LAST Fable panel of the subscription
+  era** ██ (wf_648a4200, 7/7, ~708k, dispatch_ready). VERDICT:
+  minimal-seam + REF-B repairs R1-R7 + two DES-A grafts.
+  THE ARCHITECTURE KILLS THE CLASSIC WALL BY CONSTRUCTION:
+  log·ℓ = λ_lin ∗ ℓ in PRODUCT form — no division by any
+  L-series anywhere; the F-zero-set problem does not exist in
+  this design. Also: hatK = two instances of the LANDED
+  kernel_identity (DEBT-3 deleted not discharged); the exit
+  stone verified center-t₀/infimum-free (Wall 3 was vacuous —
+  M-ball scope dropped); κ=1 disarmed by |λ_lin| ≤ Λ at ALL n;
+  the Plancherel leg consumes NO MVHilbert (zero new K2 load);
+  Tsplit=(logX)⁴ ledger explicit; the judge's own catch: Tsplit
+  renamed away from the parent's T0 (numeral-confusion hazard).
+  PARTIAL on ONE named residual (S1' until GHS [9] staged —
+  the only critical-path staging debt). Files: HalaszKernel
+  (~800) + HalaszLambda (~650) [wave I-1, UNGATED] →
+  HalaszSeam (~800) [I-2, gated on staging] → HalaszCore
+  resumption (~1240) [I-3, gated on R1.1 + I-2]. ZERO class D.
+  Banked: docs/exploration/halasz-infra-freeze.md. AMENDMENT
+  A1 PENDING-JYH: stage GHS arXiv:1706.03749 + ratify the
+  source-pin extension. **WAVE I-1 DISPATCHED (2 Opus).**
