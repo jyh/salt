@@ -9765,3 +9765,18 @@ decisions per question.
   general-A₀ absorber (3-branch); L1's hA unused-but-kept.
   D4-c DISPATCHED (L3 THE GAP + L5 Z⟹TPC — the chain's last
   wave).
+
+- 2026-07-19 09:12 PDT: ██ **D4-c LANDS — THE Z CHAIN IS COMPLETE
+  (L0–L6); THE GAP THEOREM IS KERNEL-REAL** ██ (Opus, 101k, both
+  first-attempt): sufficient_true_not_parityInv (Z.lean:670) —
+  a TRUE, TWIN-SUFFICIENT, PARITY-INVARIANT completion predicate
+  CANNOT EXIST (the route: ParityInv carries E to twinFree; the
+  keystone certifies twinFree ∈ Completion; sufficiency forces
+  0 < twinMass twinFree = 0) — the parity barrier as a
+  kernel-checked demand, not folklore. Z_implies_TPC (:687):
+  with L6, **Z ⟺ TPC over the certified window.** J6 honored
+  (unused frozen hyps kept + silenced; ht : E oneWeight also
+  unused — the contradiction never needs it, noted loudly).
+  Salt/Parity/All.lean manifest created (house), audit ✓ 14
+  names, 3 axioms each. THE D4 ARC IS WHOLE: Z exists, the
+  census is in, the gap is a theorem.

@@ -24,6 +24,15 @@ definition's formal claim to carrying no exceptional-character oracle: no
 inputs to `Z`. The `Salt.HB`/`Salt.TwinBar` insensitivity instantiations of the
 `L0` closure schema live in the sibling file `Salt/Parity/Instances.lean`,
 keeping this demand-spec module oracle-clean by construction.
+
+## The Z chain, complete (L0–L6)
+
+`L5` (`Z_implies_TPC`) with `L6` (`TPC_implies_Z`) makes the demand exact —
+`Z θ A₀ ⟺ TwinPrimeConjecture` over the certified window `θ ∈ (0, 1/2)`, `A₀ ≥ 0`.
+The corpus census sits in `ParityInv` (the `L0` schema, `Salt/Parity/Instances.lean`),
+and the gap theorem `L3` (`sufficient_true_not_parityInv`) places every true,
+twin-sufficient completion predicate outside `ParityInv` at Brun grade: `Z` is
+exactly the demand the parity-invariant cone cannot meet.
 -/
 
 namespace Salt.Parity
@@ -648,5 +657,38 @@ theorem twinFree_mem {θ A₀ : ℝ} (h0 : 0 < θ) (h : θ < 1 / 2) (hA : A₀ �
         · exact mul_le_mul_of_nonneg_left (hCbound x hx) (by norm_num)
         · exact hC2bound x hx
     _ = (3 * C + C2) * x / (Real.log x) ^ A₀ := by ring
+
+/-! ## D4-c — the final wave: THE GAP THEOREM (L3) and the demand lemma (L5) -/
+
+/-- **L3 — THE GAP THEOREM [B].**  A twin-sufficient, true, parity-invariant
+    completion predicate CANNOT exist at Brun grade (`θ ∈ (0,1/2)`, `A₀ ≤ 2`).
+    Route: `ParityInv` carries `E` off `oneWeight`'s cone onto the twin-free
+    witness `twinFree` (itself a completion, `L2`); `TwinSufficient` then forces
+    `twinMass twinFree` unbounded, contradicting `twinFree_twinMass` (it is `≡ 0`).
+    This is the parity barrier's formal content as a demand on `E`: every true
+    twin-sufficient estimate must break parity-invariance. -/
+theorem sufficient_true_not_parityInv {θ A₀ : ℝ} (h0 : 0 < θ) (h : θ < 1 / 2)
+    (h1 : 1 ≤ A₀) (h2 : A₀ ≤ 2) {E}
+    (hs : TwinSufficient θ A₀ E) (ht : E oneWeight) : ¬ ParityInv θ A₀ E := by
+  have _ := h1  -- frozen hypothesis (amendment J6); unused in the proof
+  have _ := ht  -- frozen hypothesis; the gap uses ParityInv, not `E oneWeight`
+  intro hinv
+  have htf_comp : Completion θ A₀ twinFree := twinFree_mem h0 h h2
+  have htf_E : E twinFree := hinv twinFree htf_comp
+  obtain ⟨x, hx⟩ := hs twinFree htf_comp htf_E (0 : ℝ)
+  rw [twinFree_twinMass x] at hx
+  exact absurd hx (lt_irrefl _)
+
+/-- **L5 — the demand lemma [B].**  On the certified window `θ ∈ (0,1/2)`,
+    `A₀ ≥ 0`, `Z θ A₀` forces the Twin Prime Conjecture.  `Z`'s witness `E`
+    holds at `oneWeight` and `oneWeight` is a completion (`L1`), so
+    `TwinSufficient` yields the unboundedness of `twinMass oneWeight`, which
+    `L4` (`twinMass_oneWeight_unbounded_iff`) converts to `TwinPrimeConjecture`. -/
+theorem Z_implies_TPC {θ A₀ : ℝ} (h0 : 0 < θ) (h : θ < 1 / 2) (hA : 0 ≤ A₀) :
+    Z θ A₀ → TwinPrimeConjecture := by
+  rintro ⟨E, hsuff, hone⟩
+  have hcomp : Completion θ A₀ oneWeight := oneWeight_mem h0 h hA
+  have hunb : ∀ C : ℝ, ∃ x : ℕ, C < twinMass oneWeight x := hsuff oneWeight hcomp hone
+  exact twinMass_oneWeight_unbounded_iff.mp hunb
 
 end Salt.Parity
