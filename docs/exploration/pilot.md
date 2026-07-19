@@ -8922,3 +8922,24 @@ decisions per question.
   **T-BAL-R8c DISPATCHED — the closer** (every remaining piece
   has a landed template or a recorded skeleton). Board:
   T-BAL-R8c + MR-W2.
+
+- 2026-07-18 21:40 PT: ██ **THE FULCRUM HUNT OPENS — Pass 1
+  (the demand ledger) LAUNCHED** ██ (JYH: "go"; the night-shift
+  brainstorm ratified: finish Horn A + hunt the fulcrum; the
+  fleet decoded — math-acct IS the deep tank, 87% in-window / 77%
+  Fable weekly; the hunt fully funded on one account, veterans
+  = Opus reserve). wf_216c3cbb, 11 agents: 4 AUDITORS (the
+  1983 source's demand chain page-by-page; the WP1 landed
+  surface; the WP2/repulsion surface + what it delivers; the
+  consumers/glue gap incl. the artillery inventory + the
+  TwinBar dead-door guard) → 2 FULCRUM DESIGNERS
+  (weaken-quality/quantity vs restructure-the-hypothesis — the
+  L₁-smallness factorization question) → 2 REFUTERS each
+  (sufficiency: every link on the weakened input; minimality+
+  sanity: really weaker, not provably false, the negation has
+  content) → THE FULCRUM JUDGE (F_min + the weakening ledger +
+  the demand map + the negation brief = Pass 2's foundation).
+  THE PLAN: Pass 2 (the supply ledger) on the 02:09 reset or
+  JYH's morning; Pass 3 (the seam attack) tomorrow with Horn A
+  complete; HB-L2c's panel queued. Board: the hunt + T-BAL-R8c
+  + MR-W2.
