@@ -9234,3 +9234,46 @@ decisions per question.
   vacuity benchmark binding) → THE HUNT JUDGE (walls banked,
   survivors commissioned, the campaign re-priced — the
   verdict to JYH directly). The hunt's climax.
+
+- 2026-07-19 03:10 PT: ██████ **THE HUNT VERDICT — FOUR KILLS,
+  FOUR WALLS, THE CAMPAIGN RE-PRICED** ██████ (Pass 3,
+  wf_5b2bbf48, 5 agents ≈ 338k — the LEANEST pass: the
+  kill-check-first discipline meant ZERO wasted assaults; the
+  judge re-grounded every load-bearing anchor independently).
+  ALL FOUR seams KILLED as twin routes; the priced wall payoff
+  PAID. THE WALL SERIES (banked, fulcrum-pass3-records/ + the
+  verdict in fulcrum-pass3.md): WALL-1 the exceptional-
+  conductor band (the Siegel wall enters at conductor exponent
+  EXACTLY 2; unconditional effective BV caps at A < 2−ε vs the
+  landed Maynard demand A ≥ 9·3072² — C1 HOLDS, the deflation
+  risk resolved NEGATIVE, explicit12's floor loses its
+  asterisk); WALL-2 the triple-log conductor ceiling (the
+  entropy spine consults characters only at q ≤ (loglog x)⁵-
+  grade where q^{−1/2} overserves by two iterated exponentials
+  — the spine's q-free shape is CORRECT, not a simplification;
+  Siegel supply has zero marginal content for log-Chowla,
+  permanently); WALL-3 ██ THE EXCHANGE-RATE WALL ██ (the
+  flagship theorem candidate: for real multiplicative f²=1,
+  the transfer trades twins for twisted sums at rate
+  pret(f,N), and the staircase + neutrality close EVERY
+  evaluable f — pretQ·evalQ = o(1) over the corpus's entire
+  evaluation cone; falsifiable, non-vacuous); WALL-4 the
+  forced exp-exp (C⁽¹⁾'s shape survives EVERY constants
+  improvement; the only shape-changer is the unbuilt HB-ENGINE
+  redesign; the 250-vs-300 discrepancy ADJUDICATED: Thm-1
+  window 250 engine-interior, Cor-1 window 300 twin-yield).
+  THE RE-PRICED MAP: Horn A alive-but-frozen (exp-exp forced);
+  Horn ¬F pays only in effectivity (theorem-grade at every
+  audited exit); NEITHER branch crosses Z; the value
+  concentrates in THE FLOOR (the first fully explicit
+  SW→BV→Maynard→Chen chain, unconditional, asterisk-free),
+  THE WALL SERIES (publishable negative-space map), Z (the
+  entire twin frontier = one parity-breaking bilinear demand),
+  and K1/D1 (the dichotomy kernel-real for a day's work).
+  COMMISSIONS: D1 the K1 contrapositive (Opus, ungated, ripe);
+  the WALL-3 Lean series (W2 A/B → W1 B → W3 C, the
+  ratification block Fable-gated); the floor campaign; D4 (Z's
+  Lean-grade definition) = a JYH decision. THE FULCRUM HUNT IS
+  COMPLETE: three passes, ~2.7M, the twin-prime problem
+  re-priced with certified eyes for the first time in its
+  history. Board: the verdict on JYH's desk.
