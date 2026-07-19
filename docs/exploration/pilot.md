@@ -9089,3 +9089,33 @@ decisions per question.
   name around them — the no-scratch-commit discipline).
   Board: R8c (grinding, its scratch trail visible) + the
   02:13 fuse.
+
+- 2026-07-18 23:28 PT: ██████ **WP2'S ANALYTIC CORE IS CLOSED —
+  THE HEATH-BROWN REPULSION IS MACHINE-CHECKED:
+  dh_repulsion_ordered LANDS** ██████ (R8-SPLIT ≈ 254k / 53
+  tools, reconciling with the revived R8c's concurrent landing;
+  house-verified SW.All 8821 green, the audit prints
+  ✓ dh_repulsion_ordered [3 axioms]). THE CONTRACT VERBATIM
+  (DHRepulsion.lean:267–279): ∃ b c k — witnesses b=680, k=14,
+  c = c₁⁸ with c₁ the min over the six existential-composed
+  thresholds (the realized #242 shape); every ζ/L-zero pair in
+  the 16/17 window obeys (1−β₀) ≥ c·(qT)^{−680(1−σ)}/L₂¹⁴.
+  NINE WAVES: the panel → the S₀ refutation → the redesign →
+  the crush → the extraction → R7 → the corrected mechanism →
+  the row engine → the split+reconcile. THE SAGA'S LAST CATCH
+  (#244-grade, LOUD): scratch_final.lean was NOT the verified
+  monolith — R8-SPLIT found 3 latent bugs in it (a false
+  factor-16 slack near z's cap; a 2≤z vs 1≤z mismatch; an
+  OfNat-vs-Nat.cast rpow pattern) that never surfaced because
+  the hL₂def bug masked them; the CONCURRENT worker's cleaner
+  dh_repulsion_inst route (from scratch_contract) sidestepped
+  all three — the reconciliation doctrine (never overwrite,
+  adopt+verify) delivered the correct one. Staging cleaned.
+  THE CONSEQUENCE: T-BAL IS COMPLETE. The Heath-Brown engine
+  now reads: WP1 ✓ (transfer, zero Siegel input) + WP2 ✓ (the
+  repulsion CONTRACT) + the fulcrum ✓ (IMSZ⟹F) — remaining to
+  the FULL CONDITIONAL: HB-L2c (the one design block) + the
+  glue (B-class, audited thin). Fanfare fired (the promised
+  chime — JYH asked to be woken for exactly this). Board: the
+  02:13 Pass-2 fuse. Tally ~86M raw, catches ~#244, wrong
+  proofs 0.

@@ -300,3 +300,6 @@ open Salt.Tactic in
   Salt.SW.rho_row_power_bound
   Salt.SW.ray_pow_bound Salt.SW.row_1x_cap Salt.SW.row_A_cap Salt.SW.row_rho_main_cap
   Salt.SW.logz_factor_le
+  Salt.SW.logz_factor_pow9_le Salt.SW.row_Eβ_cap Salt.SW.row_Eρ_cap
+  Salt.SW.tbal_hguard Salt.SW.tbal_hscale Salt.SW.tbal_hcov Salt.SW.C2Rho_le
+  Salt.SW.dh_repulsion_ordered
