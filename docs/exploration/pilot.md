@@ -8794,3 +8794,18 @@ decisions per question.
   major-arc route is CONFIRMED with grounded quantifiers — S0
   is safe, ~300k Opus, awaiting JYH's sign-off** (the ask as
   promised). Board: T-BAL-FINAL + MR-W1 (+ S0 pending).
+
+- 2026-07-18 ~18:55 PT: JYH — **"go on S0."** THE XI-REWIRE
+  DISPATCHED (Opus ~350k; the extraction-confirmed route:
+  ADDITIVE terminal `log_chowla_two_final_xi` conditional on
+  MRTUniformityXi via the shipped seam; the landed full-door
+  terminal UNTOUCHED; the Entropy track exclusively this
+  executor's; the hypothesis-diff must be door-only). Earlier:
+  the account switch clipped MR-W1 mid-audit (login gap) —
+  RESUMED from transcript with grounded surviving state
+  (Salt/MR/ 5 files green, turan_kubilius audited; S2/S3
+  remaining); T-BAL-FINAL's tree shows TBalR7 + TBalCompose
+  in progress — status pending. Process note: account
+  rotations clip in-flight executors; the house will flag
+  "board quiet, safe to rotate" windows. Board: T-BAL-FINAL
+  (pending) + MR-W1 (resumed) + S0.
