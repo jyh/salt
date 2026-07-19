@@ -11546,3 +11546,19 @@ is conditional on TWO named residuals — hcount (ER_Tsw', engine-
 blocked, node HB-L2C-CHI-SIEVE) and hEL_uncov (the E_L two-gap
 class: the never-landed T2-mirror family + the middle-squarefull
 orphan; both characterized, mop-up dispatched).
+
+**Catch #252 (cover gap #3 — the residual taxonomy incomplete;
+2026-07-19 L2c-mop).** The W3 master's hEL_uncov characterization
+(classes (a) ∪ (b)) omits class (c): n+2 = single χ=−1 prime with
+(n+2)₊ = 1 — nonzero in L2cELuncov, outside every slice and both
+classes, CHI-SIEVE-shaped at full sharpness. Executor landed class
+(b), refused to improvise on (a)+(c) (coeff-1 also unreachable —
+class (a) mirrors EL_T2's constant), stopped at tier. House ruling
+(Amendment 5, worst-corner-passed): the hLz0 regime hypothesis
+(trivial downstream) + chebyshev-crude closes (c) at C = 8; J2
+coeff re-tallied to 2^26; the master's hypothesis amended under the
+#247 precedent. NOTE the pattern: today's THREE taxonomy gaps
+(#245 junk corner, #246 even blocks, #252 the pure-minus-prime
+boundary) are all boundary-of-classification classes — the W5-style
+lesson for future freezes: enumerate the DEGENERATE values (1, unit,
+pure-power, even) of every classification coordinate FIRST.

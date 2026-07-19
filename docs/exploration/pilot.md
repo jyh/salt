@@ -9842,3 +9842,16 @@ decisions per question.
   by structural add_le_add (reusable); TowerDischarge's
   cD3 ≳ 2(C+1) hedge resolved-FALSE and annotated (house edit).
   Axioms clean, 9308 green.
+
+- 2026-07-19 10:29 PDT: **L2c-mop lands class (b) + finds cover gap
+  #3** (Opus, 350k): L2cMop.lean — L2cMid_bound at coeff 1
+  (z^{−3/8} surplus absorbs everything, 64/z^{1/4} headroom).
+  CLASS (c) surfaced (n+2 = pure χ=−1 prime): real, CHI-SIEVE-
+  shaped sharp, but regime-closable. HOUSE RULING #252/Amendment
+  5 (worst-corner-passed per the #248 law): hLz0 packet
+  hypothesis (trivial downstream — the glue unaffected) + the
+  8·chebyshev route; J2 coeff → 2^26; Cmain = 2³¹ survives.
+  mop-2 DISPATCHED (the amended hypothesis + class (a) mirror +
+  class (c) + hb_l2c_master_final at hcount-only). The taxonomy
+  lesson banked: enumerate degenerate classification values
+  FIRST.

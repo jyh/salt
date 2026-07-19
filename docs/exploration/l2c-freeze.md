@@ -262,3 +262,32 @@ weight e^{2z0}·2z0 ≤ e^{5z0}. The +1 tail: p ≤ 2x/2^e and p ≥ z ⟹
 W3 LEDGER NOTE: the even row contributes to the J2 and junk lines
 (NOT an x^{9/10} line). Composes with the landed
 evenCornerSum_le_survivor_card layer.
+
+## HOUSE AMENDMENT 5 (Fable ruling, worst-corner-passed; catch #252)
+
+L2c-mop landed class (b) (L2cMid_bound, junk row at coeff 1, huge
+headroom) and surfaced: (i) CLASS (c) — n₊ prime ∧ n₋ = v pp < z ∧
+n+2 = q a single χ=−1 prime ((n+2)₊ = 1) — real, nonzero
+(2Λ(v)·log q), escapes all six slices + (a) + (b); its sharp pricing
+is CHI-SIEVE-shaped (both q-primality and P-χ needed), BUT the
+crude chebyshev route closes IN THE RESTRICTED REGIME; (ii) the
+coeff-1 J2 line of hEL_uncov is unreachable (class (a) mirrors
+EL_T2's 17915904). THE RULING: (1) new packet hypothesis
+`hLz0 : Lwin x ≤ Real.exp (z0 z x)` — excludes only the
+intermediate regime (z ≈ x^{1/3}, z0 ≈ 3); trivially true at the
+downstream instantiation (z0 ≥ 250-grade), so the Horn A glue is
+unaffected. Under hLz0, class (c) closes at C = 8 on the J2 line:
+per-v count via chebyshev_chi_count (P = n/v is the χ=+1 prime ≥ z,
+range 2x/v, floor log z), weight e^{(log2)z0}·Λ(v)·L' via
+lamTilde_single_block_le, Σ Λ(v)/v ≤ 2 log z; total
+8x·L'·PS·e^{z0} ≤ 8·(x/L')·e^{5z0}·PS ⟸ 8L'²e^{z0} ≤ 8e^{4z0}·e^{z0}
+⟸ L'² ≤ e^{4z0} (hLz0, z0 ≥ 3 from hzx). WORST-CORNER PASSED:
+z0 ≥ 3 forced by hzx; the chain holds at every packet corner.
+(2) hEL_uncov's J2 coefficient re-tallied 1 → 2^26 (mirror ~2^25 +
+class (c) 8 + margin); the landed master's hypothesis is amended
+accordingly (house-authorized statement edit, #247 precedent);
+Cmain = 2^31 SURVIVES the re-tally (J2 total ≈ 1.1e8 ≪ 2^31).
+(3) mop-2 lands: the amended hypothesis, class (a) via the
+EL_T2-mirror fibration, class (c) as above, EL_uncov_bound (hLz0)
+composed, and the corollary hb_l2c_master_final (hLz0 + hcount
+only). The freeze's residual taxonomy is (a) ∪ (b) ∪ (c), closed.
