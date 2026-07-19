@@ -9607,3 +9607,14 @@ decisions per question.
   on L4/L6) resolved: folded into D4-b's sequenced handoff.
   D4-b (L1/L2 KEYSTONE + L4/L6) + D4-inst (Instances.lean,
   parallel) DISPATCHED.
+
+- 2026-07-19 11:00 PT: **D4-inst LANDS — the census** (Opus,
+  108k, all nine, zero residuals): Salt/Parity/Instances.lean —
+  the kernel-visible certificate that the ENTIRE landed corpus
+  (S1≤S2, twin_bar, twin_gate_fails, no_twin_weight,
+  noSiegelZeros_iff, chen_headline, twin_almost_prime, N6_2,
+  N5_3) sits inside the parity-invariant cone, one line each
+  via parityInv_of_closed. No name drift on re-grep; the
+  Ω-notation avoided (cardFactors written full); root-namespace
+  catch (BrunStatement/TwinCountingBigO) handled. Axioms clean,
+  8938 green.
