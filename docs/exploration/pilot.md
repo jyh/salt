@@ -8749,3 +8749,23 @@ decisions per question.
   narrow the S8 pricing band from 8–20k). On its landing, S8
   (MR-CORE) de-classes from freeze-forbidden to freezable.
   Board: R6RHO-2 + MR-W1 + MR-STAGE.
+
+- 2026-07-18 18:40 PT: **R6RHO-2 lands the complex extraction +
+  the discharged ledger law** (≈ 429k / 117 tools;
+  house-verified SW.All green, 10 decls [3 axioms],
+  warning-free). Salt/SW/TBalFinal.lean:
+  `unmoll_extraction_rho` (R6-3@ρ FULL — the per-scale complex
+  detector extraction with C₂ρ carrying EXACTLY ONE L₂/c₀
+  power), `sum_cpow_sandwich_rho` (the double-MVT telescoping —
+  catch #229's dust confirmed and priced),
+  `norm_LFunction_one_eq_re` (the #230 reality lemma —
+  nearly-free via Complex.pos_iff), kernel-Abel@ρ. THE
+  RE-PRICED LEDGER (reprice_rho_r6rho2.py, BINDING law
+  discharged = catch #234): the ACTUAL η = 54/17 BEATS the
+  freeze's 26/17 — E(ρ)@τ = 10^{−356.8} (q=3) / 10^{−776}
+  (10³) / 10^{−1266} (10⁶) vs the 1/8 budget — R8 need only
+  consume. Catches #231–234. REMAINING (mechanical-grade, all
+  suppliers ready): R6-4@ρ (ℂ re-runs of the three reduction
+  lemmas), the collection reuse, E(ρ), R7/R8.
+  **T-BAL-FINAL DISPATCHED — the compose.** Board: T-BAL-FINAL
+  + MR-W1 + MR-STAGE.

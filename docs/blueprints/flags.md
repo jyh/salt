@@ -10887,6 +10887,94 @@ with an inner `:ℝ` (`(((t:ℝ)/(d:ℝ):ℝ):ℂ)`) or state everything in `(t:
 FIRST `‖a−b‖` — with `‖1−ρ‖` present it flips the wrong one; pass explicit args
 `norm_sub_rev Sr L₁`.
 
+## 2026-07-18 T-BAL-R6RHO-2 — R6-1@ρ + R6-3@ρ LAND (the complex extraction chain); the reality micro-lemma + the BINDING ledger re-price DONE; R6-4@ρ/collection/E(ρ)/R7/R8 REMAIN — T-BAL-R6RHO/Opus
+
+**LANDED (bankable, `Salt/SW/TBalFinal.lean`, registered in `Salt.SW.All` + audit, all 10
+`✓ [propext, Classical.choice, Quot.sound]`, `lake build Salt.SW.All` EXIT 0, file warning-free —
+recompiled fresh per #223).** The flagged ρ-side analytic residuals, now machine-checked:
+
+- **`norm_LFunction_one_eq_re` [B, the reality micro-lemma, catch #226/#230].** `‖L(1,χ)‖ =
+  (L(1,χ)).re` for a real primitive `χ` (`χ≠1`, `χ²=1`). FREE: `LFunction_apply_one_pos` already
+  gives `0 < L(1,χ)` in the `Complex.lt_def` order, i.e. `L(1,χ).im = 0 ∧ 0 < L(1,χ).re`
+  (`Complex.pos_iff.mp`; NOTE the `.2` is `0 = im`, needs `.symm`). ~12 ln, 1 attempt. This is the
+  load-bearing u-fact (turns `‖L(1,χ)‖·…` → `L₁·… ≤ u·25e(1+log q)²`), now PINNED.
+- **`sum_mul_index_eq_rho` / `kernel_abel_sum_rho` [B, R6-1@ρ].** The complex-scale kernel-Abel
+  `D₀^ρ(x)=(1/x)[(x−T)A_ρ(T)+Σ_{t<T}A_ρ(t)]` (a ℂ re-run of `sum_mul_index_eq`/
+  `kernel_abel_sum_real`, pure summation-by-parts; the kernel is the real `1−s/x` cast to ℂ).
+  Mechanical, 1 attempt.
+- **`sum_cpow_sandwich_rho` [C, R6-3@ρ's NEW analytic sub-lemma, catch #225] + supports
+  `cpow_unit_tangent_bound` / `norm_ofReal_cpow_seg_le`.** THE genuine remaining residual. For
+  `0<Re ρ<1`, `x≥2`, `T=⌊x⌋≥2`: `‖((x−T)T^{1−ρ}+Σ_{t≤T−1}t^{1−ρ})−x^{2−ρ}/(2−ρ)‖ ≤
+  (5+4‖1−ρ‖/(1−σ))·x^{1−σ}`. THE MECHANISM (verified in Lean): telescope `φ(t)=t^{2−ρ}/(2−ρ)`
+  (`φ'=t^{1−ρ}`, `ψ 0 = 0`) — the unit tangents `e(t)=φ(t)−φ(t−1)−t^{1−ρ}` bounded by
+  `2‖1−ρ‖(t−1)^{−σ}` via a DOUBLE-MVT on `ψ(u)=φ(u)−u·t^{1−ρ}` (`ψ'=u^{1−ρ}−t^{1−ρ}`), summed by
+  `sum_rpow_neg_le` (peeling t=1 by `Finset.add_sum_erase`, `(t−1)^{−σ}≤2t^{−σ}`), plus the corner
+  and the `(T−1)→x` gap (the general `norm_ofReal_cpow_seg_le`). ★ CONFIRMS catch #225: the error
+  carries the `1/(1−σ)=L₂/c₀` factor (the `4‖1−ρ‖/(1−σ)` term) — ABSENT from the β₀
+  `sum_rpow_sandwich` (pure `2x^{1−β₀}`). ~3 attempts (double-MVT + cast/`ofReal`-deriv per #130,
+  telescoping via induction).
+- **`unmoll_extraction_rho` [C, R6-3@ρ FULL] + `dhD0rho`/`CwRho`/`C2Rho`.** The complex-scale
+  two-sided extraction: `‖D₀^ρ(x) − L(1,χ)·x^{1−ρ}/((1−ρ)(2−ρ))‖ ≤ C₂ρ·x^{1/2−σ}`. The exact
+  analog of `unmoll_extraction_abs_real`, `‖·‖`-level: kernel-Abel (R6-1@ρ) reduces `D₀^ρ`, the
+  per-`t` heart (`dhAbel_inner_rho`) gives the `3Cwρ` error legs, the sandwich (+ `‖L(1,χ)‖≤18M`,
+  `LFunction_apply_one_norm_le`) gives the main leg. **THE ρ-TEMPLATE CONSTANT (derived, C₂Rho):**
+  `C₂ρ = 3·Cwρ + (18M/‖1−ρ‖)·(5+4‖1−ρ‖/(1−σ)) = 3·Cwρ + 90M/‖1−ρ‖ + 72M/(1−σ)`,
+  `Cwρ = 12M/‖1−ρ‖+2(9+8‖ρ‖)+2(Z₀+1/‖1−ρ‖)P+2P+2P/(1−σ)` (the heart), `P=3M(1+‖ρ‖/σ)`,
+  `M=√q(1+log q)`. 3 attempts (the systemic `set σ := ρ.re` trap — it abstracts the HYPOTHESES so
+  `rw [h : ρ=1] at hhi` and the `dhAbel_inner_rho`/`CwRho`-unfold break; DROP `set σ`, use `ρ.re`).
+
+**THE RE-PRICED LEDGER (catch #229, BINDING — DONE; `scripts/tbal_ledgers/reprice_rho_r6rho2.py`,
+new, ship it).** The ρ-row priced with the ACTUAL landed `C₂ρ` (NOT the freeze's crude E-SHAPE),
+on-ray, at q=3/10³/10⁶. Rows (`E(ρ)=C₂ρ·z·(1+log z²)⁹·x^{1/2−σ}`, the LANDED z^1·polylog shape, vs
+the 1/8 budget, `lg`):
+
+| q | C₂ρ/M @16/17 | ln(1/τ) | lg E(ρ)@τ (actual) | lg E(ρ)@τ (freeze) | vs lg(1/8) | verdict |
+|---|---|---|---|---|---|---|
+| 3 | 5390.8 | 263.6 | **−356.84** | −156.22 | −0.903 | **PASS** (355.9 dec spare) |
+| 10³ | 5358.3 | 509.0 | **−776.29** | −441.85 | −0.903 | **PASS** |
+| 10⁶ | 5357.9 | 792.9 | **−1266.03** | −779.31 | −0.903 | **PASS** |
+
+★ FINDINGS (LOUD): (a) actual u-grade **η = 54/17 ≈ 3.18 > freeze's η_Er = 26/17 ≈ 1.53** (z^1,
+x^{1/2−σ} vs the crude z^{2+2σ}, x^{−σ}): the ACTUAL row decays FASTER. (b) C₂ρ carries EXACTLY
+**ONE power of L₂/c₀** (via `1/‖1−ρ‖`, `1/(1−σ)`; no product of two → no L₂²/c₀² divergence),
+confirming catch #225. (c) At the σ=16/17 edge `1/(1−σ)=1/‖1−ρ‖=17` (1−σ=1/17 FIXED) so C₂ρ~O(M),
+NO dust; the dust surfaces only as σ→1 (C₂ρ/M→2.8e8, `1/(1−σ)→L₂/c₀` by zfr_harvest) where the σ-
+sweep finds the max-row — BUT there `x^{1/2−σ}→x^{−1/2}` kills it (row 10^{−327} at q=3). (d) NB
+the actual model's max-over-σ is at the σ→1 edge, NOT 16/17 (freeze's crude x^{−σ} peaked at
+16/17) — a modeling artifact; BOTH pass with >320 decades margin at every σ ∈ [16/17, 1). VERDICT:
+**the ρ-row ABSORBS on-ray at all three q; R8 may consume it once assembled.** No STOP-AND-FLAG.
+
+**REMAINING (the chain to the contract, unchanged shape from T-BAL-R6RHO):**
+- **R6-4@ρ [C, ~200, the next wall].** The EXACT reduction `dhA_kernel_reduction` at `n^{−ρ}·kernel`
+  → `D₀^ρ` at rescaled real scales. Needs ℂ re-runs of the ℝ-weight infra: `inner_cop_swap_wt`,
+  `weighted_char_count` (both `DHExtractW`, stated for ℝ-weights), `dhExtractionW_regroup`
+  (`DHClose2`, for `f:ℕ→ℝ`) — re-state for `f n = n^{−ρ}·dhKernR(n/Y)` at ℂ. The `(†)`
+  `dhA_mul_eq_sum` is coefficient-generic; `dhD0rho`/`unmoll_extraction_rho` are READY as the
+  per-scale target. Plus ℂ analogs of `dhD0_scale_main`/`_err`.
+- **Collection R6-5/6/7@ρ [B, reuse].** EXPONENT-FREE — `selHmul_collection`,
+  `sum_gcW_selNu_eq_selMainTerm`, `sum_gcW_pairkernel_le`, `gcW_selWeight_eq_zero_of_gt_sq` apply
+  as-is (real-valued, never touch the exponent). BUT the signed collection must hit the EXACT
+  complex per-m main `selNu(m)·L(1,χ)·Y^{1−ρ}/((1−ρ)(2−ρ))` — `unmoll_extraction_rho`'s exact
+  `/((1−ρ)(2−ρ))` coefficient is load-bearing (why the two-sided sandwich, not a crude bound).
+- **E(ρ) assembly + u-mechanism [C].** `‖main‖ = ‖L(1,χ)‖·selMainTerm·Y^{1−σ}/(‖1−ρ‖‖2−ρ‖)`;
+  `selMainTerm=1/H`, `H_lower`, **`norm_LFunction_one_eq_re`** (LANDED) + `1/‖1−ρ‖≤L₂/c₀`
+  (zfr_harvest), `1/‖2−ρ‖≤1` ⟹ `‖main‖ ≤ 4u·Y^{1−σ}·L₂/c₀` = the R_r master row. The `dh_extraction_
+  upper_W`-analog assembly gives `E(ρ)=C₂ρ·z·(1+log z²)⁹·Y^{1/2−σ}` (re-priced above, PASSES).
+- **R7/R8 [B/C then C].** UNCHANGED from T-BAL-CLOSE: `dh_balance_beta0_real` (LANDED), the M4
+  inverter `dh_repulsion_of_LFunction_one_lower`, `tail_shift_to_beta0`, trivial split, τ-inversion
+  are READY; R8 = the contract `dh_repulsion_ordered` (`DHRepulsion.lean:267`, 16/17 window, verbatim).
+  BLOCKED only on the E(ρ) full ρ-bound (needs R6-4@ρ + collection + E(ρ) assembly above).
+
+**Catches (LOUD).** (#231) `set σ := ρ.re` at the TOP of a ρ-proof ABSTRACTS the hypotheses
+(`hlo`/`hhi` become `σ`-facts): then `rw [h:ρ=1] at hhi` finds no `ρ`, `dhAbel_inner_rho`'s output
+(with `ρ.re`) won't `exact` against a `σ`-goal, and `simp only [CwRho]` unfolds to `ρ.re` not `σ`.
+DROP the `set σ` (or place it AFTER all `ρ`-rewrites); use `ρ.re` throughout. (#232) `Complex.pos_iff.mp
+h |>.2` is `0 = z.im` (Siegel's `.mpr ⟨_, hreal.symm⟩` orientation) — needs `.symm` for `z.im = 0`.
+(#233) the ρ sandwich's tangent needs the `ofReal`-derivative `HasDerivAt (fun v:ℝ=>(v:ℂ)) 1 u` —
+`Complex.ofRealCLM.hasDerivAt` DIAMONDS (catch #130); use `(hasDerivAt_id u).ofReal_comp`. (#234) the
+ledger re-price law is now DISCHARGED for the ρ-side: the actual C₂ρ (one L₂/c₀ power, η=54/17)
+absorbs at q=3/10³/10⁶ — R8 need not re-price, only consume.
+
 ## VK-9 catches (house-numbered at ceremony; the executor proposed
 ## #217–220 which R5-CRUSH had taken — flags is the authority)
 
