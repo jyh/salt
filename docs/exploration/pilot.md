@@ -9825,3 +9825,20 @@ decisions per question.
   (the hres record w/ the _of_count correction) landed.
   Executor catch: the z0-fallback for Tsw' provably cannot
   substitute (off-J2 by z0²log z/e^{5z0} — re-verified).
+
+- 2026-07-19 10:05 PDT: ██ **SB-W2 LANDS ALL FOUR — THE SPINE IS
+  DOOR-ONLY; THE SPINE-BUDGET CAMPAIGN IS COMPLETE** ██ (Opus,
+  248k; frozen 09:10, executed by 10:45 — same morning):
+  SpineFinal.lean 576→861, purely additive + 2 licensed imports
+  + the #249 docstring annotations. hbudget1_witness (S1 exact
+  at c₀ = cD3/(16C); the four-slice calc; g = gcap by le_rfl —
+  both syntax traps held byte-for-byte), log_chowla_two_budget_
+  head (the δ₀-first ∀extraFloor head), _door_only_xi,
+  _door_only. **The t/g/hbudget1 residual no longer exists on
+  any door-only surface: MRTUniformityXi at δ₀ = c₀ε/2K is now
+  THE SOLE HYPOTHESIS of the log-Chowla spine — S8's lane,
+  nothing else.** Catches: #211-pattern heartbeat wall on set-
+  lets (clear_value fix); linarith over measure atoms replaced
+  by structural add_le_add (reusable); TowerDischarge's
+  cD3 ≳ 2(C+1) hedge resolved-FALSE and annotated (house edit).
+  Axioms clean, 9308 green.

@@ -20,6 +20,8 @@ PATCH-5 — and then, feeding the parametric regime builder
 terminal quotable surface `log_chowla_two_final`.
 -/
 import Salt.Entropy.Chowla.RegimeParam
+import Salt.Entropy.Chowla.BudgetCore
+import Salt.Entropy.Chowla.BudgetDeficit
 import Mathlib
 
 open MeasureTheory ProbabilityTheory
@@ -390,7 +392,13 @@ theorem log_chowla_two_conditional_hoisted :
   exact spine_False_core R hdoor cE hcE H₀red hred cD3 hcD3 H₀D3 hD3 C hC hcm
     K hK H₀xi hxi H hlo hhi hH₀ hepsc t g κ c₀ ht hg hgle hI hbudget1 hbudget2 hfail
 
-/-- **THE terminal log-Chowla-2 surface.**  Tao's logarithmically-averaged
+/-- **THE terminal log-Chowla-2 surface.**
+
+SUPERSEDED AS CITATION (A1, 2026-07-19): the `t`/`g`/`hbudget1` residual is
+unsatisfiable at `c₀ = 1` (F0, catch #249); cite `log_chowla_two_door_only(_xi)` /
+`log_chowla_two_budget_head` instead.
+
+Tao's logarithmically-averaged
 two-point Chowla theorem (Tao 1509.05422, the `a=1,b=0,h=1,g₁=g₂=λ` model form),
 machine-checked: there is a witnessed regime `R` and a door-smallness threshold
 `δ₀ > 0` at which log-Chowla-2 does NOT fail, conditional ONLY on the
@@ -479,6 +487,10 @@ theorem log_chowla_two_final :
     ht hg hgle hI hbud1 hbudget2 hfail
 
 /-- **THE terminal log-Chowla-2 surface, Ξ_H-restricted door** (S0 XI-REWIRE).
+
+SUPERSEDED AS CITATION (A1, 2026-07-19): the `t`/`g`/`hbudget1` residual is
+unsatisfiable at `c₀ = 1` (F0, catch #249); cite `log_chowla_two_door_only(_xi)` /
+`log_chowla_two_budget_head` instead.
 
 Identical conclusion and hypothesis list to `log_chowla_two_final`, differing in
 EXACTLY ONE binder: the MR obligation is the Tao-faithful `MRTUniformityXi R δ`
@@ -572,5 +584,278 @@ theorem log_chowla_two_final_xi :
     K hK H₀xi hxiR H hlo hhi hH₀ hepscR t g
     ((H : ℝ) / (Real.log H * Real.log (Real.log (Real.log H)))) 1
     ht hg hgle hI hbud1 hbudget2 hfail
+
+/-- **The `hbudget1` witness (SPINE-BUDGET rung R5).**  At `c₀ := cD3 / (16·C)`,
+the entropy-decrement AM–GM residual of the spine budget is DISCHARGED: there are
+decrement parameters `t`, `g` (`0 < t`, `0 < g`, `g` at the `hgle` cap) for which
+the four-slice `shellError` margin holds at the frozen mutual-information budget
+`κ = H / (log H · logloglog H)`.  Each of the four slices shares
+`cD3/16 · εH/log H`: `S1` exact (the `c₀ = cD3/(16·C)` choice), `S2 ⟸ ε ≤ cD3/(16·C)`,
+`S3 ⟸ ε ≤ cD3/16`, and `S4 = 2·boxGrade·((t+2log2)/g + (κ+D)/t) ≤ slice` via
+`bracket_close` (R3) and `deficit_le_log_two` (R4) at `β = cD3·ε/(144·log 4)`,
+with `t = √(g·(κ+log2))`, `g = gcap`.  Public for the SPINE-BUDGET head (R6). -/
+theorem hbudget1_witness (R : ChowlaRegime) (H : ℕ) [NeZero H]
+    (cD3 C : ℝ) (hcD3 : 0 < cD3) (hC : 0 < C)
+    (hε_half : (R.eps : ℝ) ≤ 1 / 2)
+    (hε_D3 : (R.eps : ℝ) ≤ cD3 / 16)
+    (hε_D3C : (R.eps : ℝ) ≤ cD3 / (16 * C))
+    (hhi : H ≤ R.Hhi)
+    (hfloor : budgetFloor (R.eps : ℝ)
+        (cD3 * (R.eps : ℝ) / (144 * Real.log 4)) ≤ H) :
+    ∃ (t g : ℝ), 0 < t ∧ 0 < g ∧
+      g ≤ (R.eps : ℝ) ^ 6 * (H : ℝ)
+          / (18 * (2 * Real.log 4) * Real.log (H : ℝ)) - Real.log 2 ∧
+      C * ((H : ℝ) / Real.log (H : ℝ)) * (cD3 / (16 * C) * (R.eps : ℝ))
+          + C * ((H : ℝ) / Real.log (H : ℝ)) * (R.eps : ℝ) ^ 2
+          + shellError R H t g
+              ((H : ℝ) / (Real.log H * Real.log (Real.log (Real.log H))))
+        ≤ cD3 / 4 * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ)) := by
+  classical
+  have hlog4_pos : 0 < Real.log 4 := log_four_pos_aux
+  have hlog2_pos : 0 < Real.log 2 := log_two_pos_aux
+  have hlog4ne : Real.log 4 ≠ 0 := hlog4_pos.ne'
+  have hεpos : (0 : ℝ) < (R.eps : ℝ) := by exact_mod_cast R.heps
+  have hHRpos : (0 : ℝ) < (H : ℝ) := by
+    exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne H)
+  set β : ℝ := cD3 * (R.eps : ℝ) / (144 * Real.log 4) with hβ_def
+  have hβpos : 0 < β := by
+    rw [hβ_def]
+    exact div_pos (mul_pos hcD3 hεpos) (mul_pos (by norm_num) hlog4_pos)
+  obtain ⟨hlogH1, hgcap_pos, hL3pos, hiv, hv⟩ :=
+    budget_facts (R.eps : ℝ) β hεpos hε_half hβpos H hfloor
+  have hlogHpos : 0 < Real.log (H : ℝ) := by linarith [hlogH1]
+  have hLne : Real.log (H : ℝ) ≠ 0 := hlogHpos.ne'
+  have hΛpos : (0 : ℝ) < (H : ℝ) / Real.log (H : ℝ) := div_pos hHRpos hlogHpos
+  set gcap : ℝ := (R.eps : ℝ) ^ 6 * (H : ℝ)
+      / (18 * (2 * Real.log 4) * Real.log (H : ℝ)) - Real.log 2 with hgcap_def
+  set κ : ℝ := (H : ℝ) / (Real.log H * Real.log (Real.log (Real.log H))) with hκ_def
+  have hκpos : 0 < κ := by
+    rw [hκ_def]; exact div_pos hHRpos (mul_pos hlogHpos hL3pos)
+  have hs : 0 < κ + Real.log 2 := by linarith [hκpos, hlog2_pos]
+  set tcap : ℝ := Real.sqrt (gcap * (κ + Real.log 2)) with htcap_def
+  have htcap_pos : 0 < tcap := by
+    rw [htcap_def]; exact Real.sqrt_pos.mpr (mul_pos hgcap_pos hs)
+  have hdef : Real.log (PH R.eps H : ℝ)
+      - H[residueWindow R.eps H ; logMeasure R.x R.ω] ≤ Real.log 2 :=
+    deficit_le_log_two R hhi
+  have hbr : (tcap + 2 * Real.log 2) / gcap
+      + (κ + (Real.log (PH R.eps H : ℝ)
+          - H[residueWindow R.eps H ; logMeasure R.x R.ω])) / tcap ≤ β := by
+    have hbc := bracket_close gcap β κ
+      (κ + (Real.log (PH R.eps H : ℝ)
+        - H[residueWindow R.eps H ; logMeasure R.x R.ω]))
+      hgcap_pos hβpos hs (by linarith [hdef]) hiv hv
+    rw [← htcap_def] at hbc
+    exact hbc
+  clear_value tcap gcap κ β
+  refine ⟨tcap, gcap, htcap_pos, hgcap_pos, le_rfl, ?_⟩
+  set W : ℝ := cD3 / 16 * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ)) with hW_def
+  clear_value W
+  have hCne : C ≠ 0 := hC.ne'
+  -- slice S1 (exact)
+  have hS1 : C * ((H : ℝ) / Real.log (H : ℝ)) * (cD3 / (16 * C) * (R.eps : ℝ)) = W := by
+    rw [hW_def]; field_simp
+  -- the coupling `C·ε ≤ cD3/16`
+  have hCε : C * (R.eps : ℝ) ≤ cD3 / 16 := by
+    have h16C : (0 : ℝ) < 16 * C := mul_pos (by norm_num) hC
+    have h := (le_div_iff₀ h16C).mp hε_D3C
+    rw [le_div_iff₀ (by norm_num : (0 : ℝ) < 16)]
+    nlinarith [h]
+  -- slice S2
+  have hS2 : C * ((H : ℝ) / Real.log (H : ℝ)) * (R.eps : ℝ) ^ 2 ≤ W := by
+    have key : C * (R.eps : ℝ) ^ 2 ≤ cD3 / 16 * (R.eps : ℝ) := by nlinarith [hCε, hεpos]
+    rw [hW_def]
+    calc C * ((H : ℝ) / Real.log (H : ℝ)) * (R.eps : ℝ) ^ 2
+        = ((H : ℝ) / Real.log (H : ℝ)) * (C * (R.eps : ℝ) ^ 2) := by ring
+      _ ≤ ((H : ℝ) / Real.log (H : ℝ)) * (cD3 / 16 * (R.eps : ℝ)) :=
+          mul_le_mul_of_nonneg_left key hΛpos.le
+      _ = cD3 / 16 * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ)) := by ring
+  -- the shellError two-slice bound
+  have hshellbd : shellError R H tcap gcap κ ≤ W + W := by
+    simp only [shellError, boxGrade]
+    have hS3 : (R.eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ) ≤ W := by
+      have key : (R.eps : ℝ) ^ 2 ≤ cD3 / 16 * (R.eps : ℝ) := by nlinarith [hε_D3, hεpos]
+      rw [hW_def]
+      calc (R.eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)
+          = ((H : ℝ) / Real.log (H : ℝ)) * ((R.eps : ℝ) ^ 2) := by ring
+        _ ≤ ((H : ℝ) / Real.log (H : ℝ)) * (cD3 / 16 * (R.eps : ℝ)) :=
+            mul_le_mul_of_nonneg_left key hΛpos.le
+        _ = cD3 / 16 * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ)) := by ring
+    have hbox_nn : (0 : ℝ) ≤ 2 * Real.log 4 * (2 + (R.eps : ℝ) ^ 2)
+        * ((H : ℝ) / Real.log (H : ℝ)) := by
+      apply mul_nonneg
+      · exact mul_nonneg (mul_nonneg (by norm_num) hlog4_pos.le) (by positivity)
+      · exact hΛpos.le
+    have hcoeff_nn : (0 : ℝ) ≤ 2 * (2 * Real.log 4 * (2 + (R.eps : ℝ) ^ 2)
+        * ((H : ℝ) / Real.log (H : ℝ))) := by linarith [hbox_nn]
+    have hS4a : 2 * (2 * Real.log 4 * (2 + (R.eps : ℝ) ^ 2)
+          * ((H : ℝ) / Real.log (H : ℝ)))
+        * ((tcap + 2 * Real.log 2) / gcap
+            + (κ + (Real.log (PH R.eps H : ℝ)
+                - H[residueWindow R.eps H ; logMeasure R.x R.ω])) / tcap)
+      ≤ 2 * (2 * Real.log 4 * (2 + (R.eps : ℝ) ^ 2)
+          * ((H : ℝ) / Real.log (H : ℝ))) * β :=
+      mul_le_mul_of_nonneg_left hbr hcoeff_nn
+    have hS4b : 2 * (2 * Real.log 4 * (2 + (R.eps : ℝ) ^ 2)
+          * ((H : ℝ) / Real.log (H : ℝ))) * β ≤ W := by
+      have h2e : (R.eps : ℝ) ^ 2 ≤ 1 / 4 := by nlinarith [hε_half, hεpos]
+      have hcD3εA : (0 : ℝ) ≤ cD3 * (R.eps : ℝ) * ((H : ℝ) / Real.log (H : ℝ)) :=
+        mul_nonneg (mul_nonneg hcD3.le hεpos.le) hΛpos.le
+      have hLHSeq : 2 * (2 * Real.log 4 * (2 + (R.eps : ℝ) ^ 2)
+            * ((H : ℝ) / Real.log (H : ℝ))) * β
+          = (2 + (R.eps : ℝ) ^ 2)
+              * (cD3 * (R.eps : ℝ) * ((H : ℝ) / Real.log (H : ℝ))) / 36 := by
+        rw [hβ_def]; field_simp; ring
+      have hWeq : W = cD3 * (R.eps : ℝ) * ((H : ℝ) / Real.log (H : ℝ)) / 16 := by
+        rw [hW_def]; ring
+      have h94 : (2 + (R.eps : ℝ) ^ 2) ≤ 9 / 4 := by linarith [h2e]
+      have hPQ : (2 + (R.eps : ℝ) ^ 2)
+            * (cD3 * (R.eps : ℝ) * ((H : ℝ) / Real.log (H : ℝ)))
+          ≤ 9 / 4 * (cD3 * (R.eps : ℝ) * ((H : ℝ) / Real.log (H : ℝ))) :=
+        mul_le_mul_of_nonneg_right h94 hcD3εA
+      rw [hLHSeq, hWeq]
+      linarith [hPQ]
+    have hS4 : 2 * (2 * Real.log 4 * (2 + (R.eps : ℝ) ^ 2)
+          * ((H : ℝ) / Real.log (H : ℝ)))
+        * ((tcap + 2 * Real.log 2) / gcap
+            + (κ + (Real.log (PH R.eps H : ℝ)
+                - H[residueWindow R.eps H ; logMeasure R.x R.ω])) / tcap) ≤ W :=
+      le_trans hS4a hS4b
+    exact add_le_add hS3 hS4
+  have hRHS : cD3 / 4 * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ)) = 4 * W := by
+    rw [hW_def]; ring
+  calc C * ((H : ℝ) / Real.log (H : ℝ)) * (cD3 / (16 * C) * (R.eps : ℝ))
+          + C * ((H : ℝ) / Real.log (H : ℝ)) * (R.eps : ℝ) ^ 2
+          + shellError R H tcap gcap κ
+      ≤ W + W + (W + W) := by
+        rw [hS1]; exact add_le_add (add_le_add le_rfl hS2) hshellbd
+    _ = 4 * W := by ring
+    _ = cD3 / 4 * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ)) := hRHS.symm
+
+/-- **The SPINE-BUDGET head (rung R6, T-HEAD).**  The full log-Chowla-2 spine
+contradiction with the AM–GM residual `t`/`g`/`hbudget1` DISCHARGED internally at
+`c₀ := cD3/(16·C)` (via `hbudget1_witness`): there is an honestly chosen
+`ε : ℚ` and a door threshold `δ₀ = (cD3/(16·C))·ε/(2K) > 0` such that, for EVERY
+extra regime-floor demand `extraFloor`, a regime `R` at that `ε` with
+`extraFloor ≤ R.Hlo` makes log-Chowla-2 not fail, conditional ONLY on the
+Ξ_H-restricted Matomäki–Radziwiłł–Tao door `MRTUniformityXi R δ` at any `δ ≤ δ₀`.
+
+This SUPERSEDES the `t/g/hbudget1` residual of `log_chowla_two_final(_xi)` (which
+is unsatisfiable at the baked `c₀ = 1`, freeze finding F0 / catch #249): the
+budget rebalance `c₀ := cD3/(16·C)`, the two extra `ε`-arms (`ε ≤ cD3/16`,
+`ε ≤ cD3/(16·C)`), and the `budgetFloor`/`extraFloor` floor arms discharge the
+four-slice margin unconditionally.  The `∀ extraFloor` interface is what the
+short-interval MR compose (S11) consumes to place `H₀door(δ₀)` under `R.Hlo`. -/
+theorem log_chowla_two_budget_head :
+    ∃ (ε : ℚ) (δ₀ : ℝ), 0 < ε ∧ 0 < δ₀ ∧
+      ∀ extraFloor : ℕ, ∃ R : ChowlaRegime, R.eps = ε ∧ extraFloor ≤ R.Hlo ∧
+        ∀ δ : ℝ, 0 < δ → δ ≤ δ₀ → MRTUniformityXi R δ →
+          ¬ logChowla2Fails R.eps R.x R.ω := by
+  classical
+  obtain ⟨cE, hcE, H₀red, hred⟩ := hreduce_holds_final
+  obtain ⟨cD3, hcD3, H₀D3, hD3⟩ := primeWindow_sum_inv_ge
+  obtain ⟨C, hC, hcm⟩ := circle_method_estimate (2 * Real.log 4)
+    (by have := Real.log_pos (by norm_num : (1 : ℝ) < 4); linarith)
+  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  -- choose ε below `min(min(min (cE/(32·log4)) (1/2)) (cD3/16)) (cD3/(16·C))`
+  have hbound_pos : (0 : ℝ) < min (min (min (cE / (32 * Real.log 4)) (1 / 2))
+      (cD3 / 16)) (cD3 / (16 * C)) := by
+    refine lt_min (lt_min (lt_min ?_ ?_) ?_) ?_
+    · exact div_pos hcE (mul_pos (by norm_num) hlog4)
+    · norm_num
+    · exact div_pos hcD3 (by norm_num)
+    · exact div_pos hcD3 (mul_pos (by norm_num) hC)
+  obtain ⟨ε, hε0, hεlt⟩ := exists_rat_btwn hbound_pos
+  have hεR0 : (0 : ℝ) < (ε : ℝ) := hε0
+  have hεQpos : 0 < ε := by exact_mod_cast hεR0
+  have hεcE : (ε : ℝ) ≤ cE / (32 * Real.log 4) := le_of_lt (lt_of_lt_of_le hεlt
+    (le_trans (le_trans (min_le_left _ _) (min_le_left _ _)) (min_le_left _ _)))
+  have hε_half_lt : (ε : ℝ) < 1 / 2 := lt_of_lt_of_le hεlt
+    (le_trans (le_trans (min_le_left _ _) (min_le_left _ _)) (min_le_right _ _))
+  have hε_D3 : (ε : ℝ) ≤ cD3 / 16 := le_of_lt (lt_of_lt_of_le hεlt
+    (le_trans (min_le_left _ _) (min_le_right _ _)))
+  have hε_D3C : (ε : ℝ) ≤ cD3 / (16 * C) := le_of_lt (lt_of_lt_of_le hεlt (min_le_right _ _))
+  have hεQ1 : ε ≤ 1 / 2 := by
+    have h2 : (2 : ℝ) * (ε : ℝ) < 1 := by linarith [hε_half_lt]
+    have h2Q : (2 : ℚ) * ε < 1 := by exact_mod_cast h2
+    linarith
+  have hε2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith [hεR0, hε_half_lt]
+  obtain ⟨K, hK, H₀xi, _hH₀xi2, hxi⟩ := bigXi_bounded ε hεQpos hε2
+  refine ⟨ε, cD3 / (16 * C) * (ε : ℝ) / (2 * K), hεQpos,
+    div_pos (mul_pos (div_pos hcD3 (mul_pos (by norm_num) hC)) hεR0)
+      (mul_pos (by norm_num) hK), ?_⟩
+  intro extraFloor
+  obtain ⟨R, hReps, hRHlo⟩ := chowlaRegime_exists_param ε hεQpos hεQ1
+    (max (max (max (max H₀red H₀D3) H₀xi)
+      (budgetFloor (ε : ℝ) (cD3 * (ε : ℝ) / (144 * Real.log 4)))) extraFloor)
+  refine ⟨R, hReps, le_trans (le_max_right _ _) hRHlo, ?_⟩
+  intro δ hδpos hδ hdoor hfail
+  obtain ⟨H, hlo, hhi, _hdvd, hMI⟩ := entropy_decrement R
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  haveI : NeZero H := ⟨by omega⟩
+  have hI : I[residueWindow R.eps H : liouvilleWindow H ; logMeasure R.x R.ω]
+      ≤ (H : ℝ) / (Real.log H * Real.log (Real.log (Real.log H))) := by
+    rw [mutualInfo_window_comm']; exact hMI
+  have hxiR : ∀ (H' : ℕ) [NeZero H'], H₀xi ≤ H'
+      → ((bigXi R.eps H').card : ℝ) ≤ K := by
+    intro H' hne hh
+    haveI := hne
+    rw [hReps]; exact hxi H' hh
+  have hepscR : (R.eps : ℝ) ≤ cE / (32 * Real.log 4) := by rw [hReps]; exact hεcE
+  have hH₀ : max (max H₀red H₀D3) H₀xi ≤ H :=
+    le_trans (le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) hRHlo) hlo
+  have hfloorH : budgetFloor (R.eps : ℝ)
+      (cD3 * (R.eps : ℝ) / (144 * Real.log 4)) ≤ H := by
+    rw [hReps]
+    exact le_trans (le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hRHlo) hlo
+  obtain ⟨t, g, ht, hg, hgle, hbudget1⟩ :=
+    hbudget1_witness R H cD3 C hcD3 hC
+      (by rw [hReps]; exact le_of_lt hε_half_lt)
+      (by rw [hReps]; exact hε_D3)
+      (by rw [hReps]; exact hε_D3C) hhi hfloorH
+  have hbudget2 : K * δ < cD3 / (16 * C) * (R.eps : ℝ) := by
+    rw [hReps]
+    have hc0pos : (0 : ℝ) < cD3 / (16 * C) := div_pos hcD3 (mul_pos (by norm_num) hC)
+    have hle : K * δ ≤ K * (cD3 / (16 * C) * (ε : ℝ) / (2 * K)) :=
+      mul_le_mul_of_nonneg_left hδ hK.le
+    have heq : K * (cD3 / (16 * C) * (ε : ℝ) / (2 * K)) = cD3 / (16 * C) * (ε : ℝ) / 2 := by
+      field_simp
+    rw [heq] at hle
+    have hpos : (0 : ℝ) < cD3 / (16 * C) * (ε : ℝ) := mul_pos hc0pos hεR0
+    linarith [hle, hpos]
+  exact spine_False_core_xi R (le_of_lt hδpos) hdoor cE hcE H₀red hred cD3 hcD3 H₀D3 hD3
+    C hC hcm K hK H₀xi hxiR H hlo hhi hH₀ hepscR t g
+    ((H : ℝ) / (Real.log H * Real.log (Real.log (Real.log H)))) (cD3 / (16 * C))
+    ht hg hgle hI hbudget1 hbudget2 hfail
+
+/-- **THE Ξ_H door-only terminal (rung R7, T-XI).**  The SPINE-BUDGET head at
+`extraFloor := 0`: there is a witnessed regime `R` and a door threshold `δ₀ > 0`
+at which log-Chowla-2 does NOT fail, conditional ONLY on the Ξ_H-restricted
+Matomäki–Radziwiłł–Tao door `MRTUniformityXi R δ` at any `δ ≤ δ₀`.  Unlike
+`log_chowla_two_final_xi`, there is NO residual `t`/`g`/`hbudget1` block — it is
+discharged inside the head (`hbudget1_witness`).  This is the surface S8's door
+lane should now cite; `log_chowla_two_final_xi` is superseded as citation (F0). -/
+theorem log_chowla_two_door_only_xi :
+    ∃ (δ₀ : ℝ) (R : ChowlaRegime), 0 < δ₀ ∧
+      ∀ δ : ℝ, 0 < δ → δ ≤ δ₀ → MRTUniformityXi R δ →
+        ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨_ε, δ₀, _hεpos, hδ₀pos, hbody⟩ := log_chowla_two_budget_head
+  obtain ⟨R, _hReps, _h0Hlo, hδbody⟩ := hbody 0
+  exact ⟨δ₀, R, hδ₀pos, hδbody⟩
+
+/-- **THE full door-only terminal (rung R7, T-FULL).**  Identical to
+`log_chowla_two_door_only_xi` but consuming the full `∀ α`-outside door
+`MRTUniformity R δ`, derived from the Ξ_H-restricted terminal via the landed
+kernel-checked implication `mrtUniformity_implies_xi` (MRTDoor).  The full door
+implies its Ξ_H restriction, so this is a strict corollary — no second core
+replay, no statement change.  Both Chowla terminals are now door-only-conditional
+with the `t`/`g`/`hbudget1` residual gone from every surface. -/
+theorem log_chowla_two_door_only :
+    ∃ (δ₀ : ℝ) (R : ChowlaRegime), 0 < δ₀ ∧
+      ∀ δ : ℝ, 0 < δ → δ ≤ δ₀ → MRTUniformity R δ →
+        ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨δ₀, R, hδ₀pos, hδbody⟩ := log_chowla_two_door_only_xi
+  exact ⟨δ₀, R, hδ₀pos, fun δ hδpos hδ hdoor =>
+    hδbody δ hδpos hδ (mrtUniformity_implies_xi R δ hdoor)⟩
 
 end Salt.Entropy.Chowla

@@ -86,7 +86,9 @@ and the door is small (`δ ≤ δ₀`):
 * `ε ≤ cE/(32·log 4)`  — the fixed `ε = 1/2` clears the reduce coupling
   [OPAQUE `ε`-smallness];
 * the `hbudget1` inequality  — the tower error is beaten by the `c₁·εH/log H`
-  margin [OPAQUE `ε`-smallness, `≈ cD3 ≳ 2(C+1)` at `ε = 1/2`].
+  margin [OPAQUE `ε`-smallness; the old hedge `cD3 ≳ 2(C+1)` is resolved-FALSE
+  (cD3 = 1/4 vs 2(C+1) ≈ 15.1) — F0/catch #249: discharged at `c₀ = cD3/(16·C)`
+  via `hbudget1_witness`, see `log_chowla_two_budget_head`].
 
 Discharged here (no longer inputs): the window range `H₋ ≤ H ≤ H₊`, the mutual
 information budget `hI` (with `κ = H/(log H · logloglog H)`), and `hbudget2`
