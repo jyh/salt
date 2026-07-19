@@ -9594,3 +9594,16 @@ decisions per question.
   (reduction landed; bound needs the fibration re-dispatch) +
   even-corner (in flight). W3 ASSEMBLY UNBLOCKS when even +
   EL_T3 close.
+
+- 2026-07-19 10:55 PT: ██ **Z EXISTS — D4-a lands the gap object**
+  ██ (Opus, 86k, first-attempt everything): Salt/Parity/Z.lean,
+  124 ln, 13 decls (11 frozen defs + parityInv_of_closed +
+  Z_trivial_of_not_completion), axioms clean, build green. The
+  oracle-cleanliness invariant HOLDS BY IMPORT LIST (exactly
+  Mathlib + Salt.Basic + Salt.Brun.M5BigO — no HB, no TwinBar);
+  the grade guard kernel-visible; ParityBarrier stated-never-
+  assumed. The program's entire twin frontier is now a Prop in
+  the kernel's language. Scope catch (house brief vs judge brief
+  on L4/L6) resolved: folded into D4-b's sequenced handoff.
+  D4-b (L1/L2 KEYSTONE + L4/L6) + D4-inst (Instances.lean,
+  parallel) DISPATCHED.
