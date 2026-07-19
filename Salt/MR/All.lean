@@ -11,6 +11,7 @@ import Salt.MR.TuranKubilius
 import Salt.MR.ZetaLowerAllT
 import Salt.MR.ZetaPowLower
 import Salt.MR.PrimeSigmaShift
+import Salt.MR.HalaszCore
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -97,3 +98,6 @@ open Salt.Tactic in
   Salt.MR.euler_osc_bridge
   Salt.MR.log_euler_osc_zeta
   Salt.MR.euler_osc_bridge_le
+  Salt.MR.halasz_cosh_ineq
+  Salt.MR.halasz_cosh_ineq_complex
+  Salt.MR.offdiag_int_bound

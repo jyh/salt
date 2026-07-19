@@ -9915,3 +9915,23 @@ decisions per question.
   Real.log(2^32) (also a power); linarith failing on
   log-bignumeral atoms (set-abstract them first — broadcast-
   worthy). The worst-corner law extended to ASYMPTOTIC corners.
+
+- 2026-07-19 13:54 PDT: ██ **S8-E5: K1 FIRED — the fail-fast worked
+  on day one** ██ (Opus, 186k): HalaszCore.lean, 220 ln, 6 thms
+  axioms-clean, wired+audited (MR/All green). LANDED: R2.2
+  halasz_cosh_ineq (MRT A.8, 1 attempt — the MVT route beat the
+  freeze's series sketch), the A.11/A.12 Euler-product heart
+  (halasz_cosh_ineq_complex), offdiag_int_bound (R2.1 kernel).
+  R2.3 VERDICT: FAIL-FAST at 3 attempts — a STRUCTURAL wall:
+  three named missing surfaces (general Λ_f log-derivative;
+  sharp-kernel general Perron + vertical-line PRODUCT contour;
+  the M(f;X) infimum). CATCH C (decisive): the freeze's
+  classical-Montgomery fallback needs the SAME infra — both
+  routes D through one terrain. Per the freeze: K1 = watcher
+  decision, NOT executor discretion. **DECISION REGISTER:
+  HALASZ-INFRA — how to fund the Perron+Λ_f block (a designed
+  Fable panel, post-cliff pricing, OR re-scope S8's H-lane) —
+  RIPE AT 16:00 with JYH.** Wave impact: R2.4/R2.5 + H3 blocked;
+  E2/E3/E4/R02 + the A/P lanes UNAFFECTED (grinding). Residual
+  banked: ball_mvt's elementary remainder (~200 ln, clean
+  follow-up).
