@@ -9045,3 +9045,23 @@ decisions per question.
   may sleep through it). (5) The HB-L2c panel + Pass 3 = the
   morning's attentive session, per the plan. Board: R8c
   (revived) + FULCRUM-S1 + FULCRUM-S2 + the 02:13 fuse.
+
+- 2026-07-18 22:45 PT: **FULCRUM-S2 lands THE GADGET — first
+  attempt, cheap-ball route** (≈ 118k / 25 tools;
+  house-verified Gadget.lean green, 4 theorems [3 axioms]).
+  `isolation_char` (per-χ: a ball at 1 free of real zeros, via
+  L(1,χ) ≠ 0 + continuity — NO identity-theorem machinery),
+  `isolation_single` (finite-family min per modulus),
+  ██ `siegel_zeros_isolated_below` ██ (THE GADGET: ∀Q ∃c > 0,
+  no primitive quadratic χ of modulus ≤ Q has a real zero in
+  (1−c, 1)), `imsz_gives_fulcrum_witnesses` (IMSZ → ∀C > 0,
+  FulcrumQualityMin C — conclusion verified DEFEQ to the
+  verdict's def; the log-q cancellation clean). BONUS
+  (pre-noted by the executor): the gadget is EXACTLY the
+  isolation fact the ¬F dichotomy-sharpening needs — Pass 2
+  gains a landed weapon. Standalone module (S1 concurrent —
+  the All.lean wiring lands with S1; no collision by design).
+  Ceremony held QUIET per the night protocol (routine landing;
+  the commit waits on S1 for the track's registration —
+  committed together). Board: R8c + FULCRUM-S1 + the 02:13
+  fuse.
