@@ -11457,3 +11457,17 @@ correctly, per CLAUDE.md's default workflow — created a track branch
 squash-merged and deleted the branch. LAW: the no-git line ("you do NOT
 run git; the house owns all commits") is a MANDATORY verbatim field in
 every executor brief, alongside single-writer and the doctrine block.
+
+**Catch #245 (iron-rule-1 STOP, resolved by house ruling; 2026-07-19
+L2c-F-T3).** The freeze's R5/R6 cover-completeness risk surfaced at
+Lean time: family filters vs the small-base squarefull z^{1/4}-corner
+(junk blocks p^e, p ≤ Zz, e ≥ 2, > z^{1/4}) — under-specified
+include/exclude. Executor STOPPED correctly (did not improvise a
+statement). House ruling: EXCLUDE — forced by budget arithmetic (the
+class totals e^{cz0}L'²·x·z^{−1/8} = the junkExpr row exactly; J2
+cannot absorb it since PretenseSum may vanish). All family slices
+gain an inline ¬junkBlock guard on their z^{1/4}-routed block; the
+junk row owns the class on both sides of both sums. Companion
+proof-layer catch: sift at Zz (not Zf) when cofactors are only ≥ z
+(Zf may exceed z in-regime — a naive Zf-sift is UNSOUND). Full text:
+docs/exploration/l2c-freeze.md HOUSE AMENDMENTS.

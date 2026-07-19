@@ -9397,3 +9397,20 @@ decisions per question.
   **THE MIRROR CAMPAIGN DISPATCHED** — 4 more Opus executors,
   disjoint files L2cERT1/T2/T3/Tsw, briefed to template off the
   sibling E_L family files if landed. Fleet: 9 Opus in flight.
+
+- 2026-07-19 06:20 PT: **L2c-F-T3 lands the T3 exact reduction +
+  a GENUINE IRON-RULE-1 STOP** (Opus, 135k): L2cELT3.lean, 4
+  decls axioms-clean (lamTilde_sub_eq_two_mul_of_biprime — the
+  exact 2Λ(n₋) identity on biprime support, EL_T3, EL_T3_eq,
+  EL_T3_le_capped). THREE catches: (1) crude route PROVABLY
+  insufficient (diverges z0·L'²·e^{−4.3z0} — design vindicated);
+  (2) Zf-sift UNSOUND where cofactors only ≥ z (Zf may exceed z
+  in-regime) — sift at Zz; (3) the cover-completeness risk
+  surfaced: family-filter vs junk-corner under-specified —
+  executor stopped, did NOT improvise. HOUSE RULING (catch #245,
+  freeze AMENDMENTS): EXCLUDE, forced by budget arithmetic —
+  guards on all family slices, junk row owns both sides of both
+  sums (+ ER_wJunk_bound), sift-floor correction broadcast to
+  the 7 affected in-flight executors. EL_T3_bound residual
+  re-dispatches with the amended statement once a fibration
+  template (F-T2) lands.

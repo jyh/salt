@@ -152,3 +152,38 @@ subagent_type = node name; commit on track branch, never main.
 ## EXECUTOR NOTES
 
 WAVE-1 BRIEF SKELETON (dispatch now; model: "opus"; subagent_type: "hb-l2c-core"; one executor, one file). FILE Salt/HB/L2cCore.lean (new; touch NO landed file, All.lean manifest waits for W3). Imports: Salt.HB.TransferFull, Salt.HB.MixedCount, Salt.HB.StarWindow, Salt.Maynard.Mertens. DELIVERABLES: R1 — def overshootExact chi n := (LamTilde chi n - Lambda n)*LamTilde chi (n+2) + Lambda n*(LamTilde chi (n+2) - Lambda (n+2)); theorem S2_sub_S1_exact (hsq) (hA : CoprimeSupport q A) : S2 chi A - S1 A <= Sum_{n in A} overshootExact chi n [per-term ring identity — mirror Transfer.lean:163-165 + LamTilde_nonneg + vonMangoldt_le_LamTilde]; vanishing: LamTilde_sub_vonMangoldt_eq_zero_of_prime / _of_one / _of_pure_minus [TwistChainC :121 divisor collapse, :268 single-block with f(1)=1, :252 two-block kill]; overshootExact_support_classification (nonzero => n composite AND (n_minus=1 OR (IsPrimePow n_minus AND 1 < n_plus))). R2 — def l2cWindow (filter Coprime (n*(n+2)) (q*excPrimorial chi z) on Ioc x (2x)); l2cWindow_coprimeSupport [coprimeSupport_window Transfer.lean:223 + dvd_mul_right]; l2cWindow_roughness (chi!=-1 prime of n(n+2) => >= z; mirror excSq_ge_z_of_window StarWindow.lean:79, confirm excPrimorial def at :72-73 incl. p=2 clause); l2cWindow_omega_cap (2^omega(n_plus) <= Real.exp((Real.log 2)*z0), z0 := log(2x+2)/log z); lamTilde_cap_single_block (:268 + fChiArith_eq_two_pow :67 + nPlus_sign :111 — re-grep exact lines/hyps first); lamTilde_cap_all_plus (:293); l2cWindow_parity_link. R3 — l2c_pair_count (fiber subset baseSet PairInstance.lean:64 -> hb_lemma8'_unconditional MixedCount.lean:609-616; REMEMBER both hZ : 100 <= Z and hZ1 : 1 <= Z; Odd d1, Odd d2, Coprime d1 d2 side conditions; sifts PRODUCT of cofactors); l2c_pair_count_clean (hyp d1*d2*Z^8*(log Z)^2 <= 32*x, conclusion 128-form); wrappers lemma8'_Zz at Z := floor(z^{1/16}) [gate: 100 <= Z_z iff z >= 100^16 = hz100 exactly] and lemma8'_Zf at Z := floor(x^{1/48}) [gate from hz100+hzx: x >= 100^48]. R4 — sum_inv_plusprime_le_pretense (Sum_{z<=p<=N, chiRe=1} 1/p <= PretenseSum chi N / Real.log z; PretenseSum TransferFull.lean:183-185, termwise log p/p >= (log z)/p); chebyshev_chi_count (#{p in Ioc a b, prime, chiRe=1} <= (b/Real.log a)*PretenseSum chi N via log p <= b*log p/p); re-export sum_vonMangoldt_div_le (Maynard/Mertens.lean:97) + sum_log_div_prime_le (:152). VERIFY: lake build clean (no new warnings); #print axioms on every new theorem (must be within propext/Classical.choice/Quot.sound; no native_decide); commit on the track branch (NEVER main) msg "hb-l2c W1: L2cCore lands (R1-R4)" + model + attempt count. RULES: helpers inherit B/C class — if one feels D-shaped STOP and flag (docs/blueprints/flags.md); do not alter any frozen statement; budget ~3 serious attempts per rung then flag. WAVE 2 SKELETONS (dispatch after W1 green; two parallel executors): W2a "hb-l2c-el" Salt/HB/L2cEL.lean — EL_T1_bound, EL_T2_bound (REPAIRED law d1 = n/c <= 2x/z via >=z cofactor; w-split at z^{1/4}), EL_T3_bound, EL_Tsw_bound (NEW family), EL_corners_bound (even-block e-split at sqrt x; (c)-junk 4x*z^{-1/8} priced FIRST; m=1, squarefull, >x^{1/4} corners); per-family budgets and modulus laws verbatim from freeze S4. W2b "hb-l2c-er" Salt/HB/L2cER.lean — ER_squarefull_junk (k>=2, <= 2*sqrt(2x)*L'^2*e^{0.7z0}) + ER_T1'/T2'/T3'/Tsw' with roles swapped, restated in full. WAVE 3 "hb-l2c-master" Salt/HB/L2cMaster.lean — exact_overshoot_bound + hb_l2c_master + S1/S2-preservation glue + All.lean manifest + the FROZEN flags.md text (verbatim from freeze S5; no rewording). WAVE 4 "horna-glue" Salt/Fulcrum/HornAGlue.lean — G1/G2/G3 per freeze S6; GATED on WP2 export names being green; twin_survivor_of_pos at TwinDoor.lean:204-223, plumbing template Chen/Assembly.lean:425-440. Chime protocol on wave completions; PushNotification suppressed while JYH at terminal.
+
+## HOUSE AMENDMENTS (Fable ruling, 2026-07-19 06:20 PT — catch #245)
+
+The T3 executor surfaced the freeze's own R5/R6 COVER-COMPLETENESS
+open risk as a concrete statement-layer under-specification: the
+natural family filters (no structure condition on the z^{1/4}-routed
+block) CONTAIN the small-base squarefull corner terms — blocks
+m = p^e with p prime, p ≤ Zz z, e ≥ 2, (z:ℝ)^{1/4} < m ("junk
+blocks") — which cannot fit the J2 row (PretenseSum may be
+arbitrarily small) but total ≤ e^{c·z0}·L'²·x·z^{−1/8} (per-p
+geometric tails, ≤ Zz primes, Σ ≤ 2z^{−3/16} ≤ z^{−1/8}), i.e.
+exactly the junkExpr shape. THE RULING (forced, not discretionary):
+
+1. **Every family slice carries the inline guard** ¬junkBlock on
+   whichever block that family routes at z^{1/4} (E_L: T2/T3 guard
+   w = (n+2)₋, Tsw guards v = n₋; E_R mirrors: roles swapped).
+   Guard stated INLINE per family with a family-prefixed local
+   predicate (no shared def across in-flight files — the
+   single-writer law extends to names); W3 reconciles via trivial
+   iff-lemmas.
+2. **The junk row owns the excluded class on BOTH sides of BOTH
+   sums**: EL_cJunk_bound extends to (v-junk ∨ w-junk), and the
+   E_R w-side corner gets its own row ER_wJunk_bound (junkExpr
+   shape); L2cELJunk may import Salt.HB.L2cER for it. Conclusion
+   shapes UNCHANGED (constants absorb the factor 2).
+3. **Sift-floor correction (T3 catch 2, proof-layer, broadcast):**
+   where a fibration's cofactor is only guaranteed ≥ z (or
+   ≥ z^{1/4}), sift at Zz = ⌊z^{1/16}⌋, NOT Zf — in-regime
+   Zf = ⌊x^{1/48}⌋ may EXCEED z, making a Zf-sift unsound.
+   Legality at Zz holds comfortably (d₁d₂·Zz⁸(log Zz)² ≪ z³ ≤ x).
+   Zf remains correct where cofactors are genuinely ≥ Zf.
+4. T3 catch 1 recorded as confirmation: the crude capped route
+   provably diverges from J2 by z0·L'²·e^{−4.3z0} → ∞ in-regime —
+   the sharp single-block cap + weighted pair-count fibration are
+   mandatory. The freeze's design is vindicated, not repaired.
