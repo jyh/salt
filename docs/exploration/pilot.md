@@ -8684,3 +8684,26 @@ decisions per question.
   scope-diff item → synthesis w/ dispatch_ready). THE CAMPAIGN:
   the region → the MR gate → UNCONDITIONAL LOG-CHOWLA-2.
   Board: T-BAL-R6RHO + the MR design wf.
+
+- 2026-07-18 17:20 PT: **T-BAL-R6RHO lands THE ANALYTIC HEART —
+  the L(1,χ) residue emerges at the complex zero,
+  machine-verified** (≈ 378k / 78 tools; house-verified SW.All
+  green, 7 lemmas [3 axioms], warning-free fresh recompile per
+  #223). Salt/SW/DHExtractRho.lean: `dhAbel_inner_rho` —
+  ‖Σ dhA·n^{−ρ} − L(1,χ)·t^{1−ρ}/(1−ρ)‖ ≤ C_{w,ρ}·t^{1/2−σ} —
+  THE MECHANISM ITSELF: the hyperbola's long leg + the EM pole
+  SHIFT the character sum from s=ρ (killed by the zero) to s=1
+  (strip@1 → L(1,χ)); the ζ(ρ)-stream killed by T1. Norm-level
+  throughout; the CommRing-generic hyperbola instantiated at ℂ
+  with NO re-proof (the generic investment paying again). ONE
+  design pass, no wall. REMAINING (exact statements flagged):
+  R6-1@ρ mechanical, R6-3@ρ (ONE new lemma — the complex
+  power-sum sandwich, with catch **#229**: its error carries
+  L₂/c₀ dust unlike the β₀ case — THE MASTER LEDGER MUST BE
+  RE-PRICED with C₂ρ, do not reuse the β₀ scripts), R6-4@ρ
+  mechanical, collection reuse, E(ρ), R7/R8; catch **#230**:
+  the ‖L(1,χ)‖ = L₁ reality micro-lemma is load-bearing (else
+  the main is O(1) not O(u)). Catches #225–230 per the flags
+  entry. **T-BAL-R6RHO-2 DISPATCHED** (the finish: the
+  sandwich + the mechanical rungs + the RE-PRICED ledger +
+  R7/R8; Opus, ungated). Board: T-BAL-R6RHO-2 + the MR wf.

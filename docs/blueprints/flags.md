@@ -10795,6 +10795,98 @@ warning-free tree — grep the build that recompiles the closure and attribute e
 file (this session: 4 pre-existing warnings in Siegel/SelOpt/TwinDensity surfaced only when a
 concurrent Vk edit invalidated their cache; none in the new file).
 
+## 2026-07-18 T-BAL-R6RHO — THE ANALYTIC HEART LANDS: `dhAbel_inner_rho`, the complex pole-cancelled extraction (the `L(1,χ)` residue AT the complex zero ρ); R6-1/R6-3/R6-4/collection/E(ρ)/R7/R8 REMAIN (partial) — T-BAL-R6RHO/Opus
+
+**LANDED (bankable, `Salt/SW/DHExtractRho.lean`, registered in `Salt.SW.All` + audit, all 7
+`✓ [propext, Classical.choice, Quot.sound]`, `lake build Salt.SW.All` EXIT 0, my file
+warning-free — recompiled fresh, per #223).** The complex analog of the DHCore `dhAbel` chain
+(`dhAbel_inner_le`/`dhAbel_leg1_le`) at a NON-REAL zero ρ, `‖·‖`-level throughout (catch #119:
+norm-level needs no positivity/reality tricks):
+- **`dhAbel_inner_rho` [C] — R6-2@ρ, THE ANALYTIC HEART.** For a primitive real χ at a zero ρ of
+  `LFunction χ ρ` with `1/2 ≤ Re ρ < 1`, `|Im ρ| ≤ 1`:
+  `‖Σ_{n≤t} (dhA χ n:ℂ)·n^{−ρ} − L(1,χ)·t^{1−ρ}/(1−ρ)‖ ≤ C_{w,ρ}·t^{1/2−Re ρ}`,
+  `C_{w,ρ} = 12M/‖1−ρ‖ + 2(9+8‖ρ‖) + 2(Z₀+1/‖1−ρ‖)P + 2P + 2P/(1−Re ρ)`,
+  `P = 3M(1+‖ρ‖/Re ρ)`, `M = √q(1+log q)`. The main term is the FULL COMPLEX L-value
+  `L(1,χ)·t^{1−ρ}/(1−ρ)` (not a real part). THE MECHANISM (verified in Lean): the symmetric √t
+  hyperbola's long leg carries the residue — the a-sum pole (`zeta_partial_em`:
+  `T_ρ(m)=m^{1−ρ}/(1−ρ)+ζ(ρ)+O(m^{−σ})`) SHIFTS the effective character sum from `s=ρ` (killed:
+  `L(ρ,χ)=0`) to `s=1` (`Σ_{d≤√t} χ(d)/d ≈ L(1,χ)`, strip@1 `norm_LFunction_sub_partial_le_strip`);
+  the `ζ(ρ)` stream and the two short legs are killed by `partial_sum_at_zero_small`. This is
+  exactly "the residue carrying L(1,χ) as in the β₀ template" the T-BAL-CLOSE flag named as the
+  wall — PROVEN at the complex zero.
+- Support (all landed, bankable): `norm_zeta_rho_le` (‖ζ(ρ)‖ ≤ Z₀+1/‖1−ρ‖, complex `abs_zeta_re_le`);
+  `norm_cpow_pos_floor_sub_le` (the complex floor/tangent bound `‖y^{1−ρ}−m^{1−ρ}‖ ≤ ‖1−ρ‖·m^{−σ}`
+  via MVT `Convex.norm_image_sub_le_of_norm_hasDerivWithin_le` + `hasDerivAt_ofReal_cpow_const`);
+  `dhAbel_hyperbola_rho` (complex symmetric √t hyperbola, `sum_divisors_eq_hyperbola_symm` at ℂ —
+  it is GENERIC over `CommRing`); `emrho_perterm` (per-d EM split, pole + floor correction);
+  `clean_cpow_term` (the clean-main cpow algebra `d^{−ρ}·(t/d)^{1−ρ}=t^{1−ρ}/d` via
+  `mul_cpow_ofReal_nonneg`+`inv_cpow`+`cpow_add`); `dhAbel_leg1_rho` (the long-leg extraction).
+
+**WHY THIS IS NOT YET THE R8-CONSUMABLE ρ-BOUND (the honest scope).** `dhAbel_inner_rho` is the
+per-`t` INNER template (R6-2@ρ); the T-BAL-R6RHO target from the T-BAL-CLOSE flag is the FULL
+mollified-detector bound `‖Σ_{n≤Y} dhCoeffW χ (selWeight χ z) n·n^{−ρ}·dhKernR(n/Y)‖ ≤
+C·(1−β₀)·Y^{1−σ}·L₂/c₀ + E(ρ)`. The remaining chain (all mirror the LANDED β₀ template rungs in
+`DHExtractW.lean`, but at complex ρ):
+- **R6-1@ρ [B, ~40 ln, mechanical]** complex kernel-Abel `D₀^ρ(x)=(1/x)[(x−T)A_ρ(T)+Σ_{t<T}A_ρ(t)]`,
+  `D₀^ρ(x)=Σ_{s≤⌊x⌋} dhA(s)s^{−ρ}(1−s/x)` (a ℂ re-run of `kernel_abel_sum_real`/`sum_mul_index_eq`,
+  pure summation-by-parts; generic over ℂ).
+- **R6-3@ρ [C, the GENUINE remaining analytic residual, ~180 ln]** the two-sided template
+  extraction `‖D₀^ρ(x) − L(1,χ)·x^{1−ρ}/((1−ρ)(2−ρ))‖ ≤ C₂ρ·x^{?}`. NEEDS a NEW sub-lemma the β₀
+  side got for free: **the COMPLEX power-sum sandwich** `‖(x−T)T^{1−ρ}+Σ_{t≤T−1}t^{1−ρ} −
+  x^{2−ρ}/(2−ρ)‖ ≤ C·x^{1−σ}·(1/(1−σ))` — the complex analog of `sum_rpow_sandwich`, provable by
+  telescoping the complex tangent `‖t^{2−ρ}/(2−ρ)−(t−1)^{2−ρ}/(2−ρ)−t^{1−ρ}‖ ≤ ‖1−ρ‖(t−1)^{−σ}`
+  (norm-level, via `norm_cpow_pos_floor_sub_le`'s MVT technique) and summing (Σ(t−1)^{−σ} ≤
+  1+n^{1−σ}/(1−σ), from t=2). ★ NEW FINDING / CONSTANT-SHAPE DIVERGENCE (catch #225): the ρ R6-3
+  sandwich error carries a `1/(1−σ) = L₂/c₀` factor (from the oscillation of `t^{1−ρ}`), UNLIKE the
+  β₀ `sum_rpow_sandwich` whose error is the pure `2x^{1−β₀}`. Propagated through the main
+  `(L(1,χ)/((1−ρ)x))·[sandwich]`, this gives an R6-3@ρ error `∝ ‖L(1,χ)‖·x^{−σ}·L₂/c₀`, i.e. the
+  ρ template constant C₂ρ carries `L₂/c₀`, whereas the frozen β₀ `C₂=136+48M+48MZ₀+144M/u` is
+  `L₂/c₀`-free. This is CONSISTENT with the freeze's E(ρ)-row shape (`E(ρ) ∝ …·L₂/c₀` dust,
+  `refuter1_reledger.py:18`), so it should absorb — but the E(ρ)/master ledger MUST be re-verified
+  with the ρ-template constant (the freeze's r6_verify.py priced only the β₀ template). Grade check:
+  x^{−σ} ≤ x^{1/2−σ} so the ρ error is SMALLER-grade than β₀'s x^{1/2−β₀} (good), but the L₂/c₀
+  dust is new — do not assume the frozen C₂ closes at ρ.
+- **R6-4@ρ [C, ~150 ln, mechanical]** the EXACT reduction `dhA_kernel_reduction` at the complex
+  weight `n^{−ρ}·kernel`, reducing the per-m detector to `D₀^ρ` at rescaled real scales. The (†)
+  `dhA_mul_eq_sum` is coefficient-generic; `inner_cop_swap_wt`/`weighted_char_count` are stated for
+  ℝ-weights and need ℂ re-runs (or a codomain generalization). `dhExtractionW_regroup`
+  (`DHClose2.lean`) is stated for `f:ℕ→ℝ` — needs a ℂ regroup for `f n = n^{−ρ}·dhKernR(n/Y)`.
+- **Collection R6-5/6/7@ρ [B, reuse]** EXPONENT-FREE — `selHmul_collection`, `sum_gcW_selNu_eq_
+  selMainTerm`, `sum_gcW_pairkernel_le` apply as-is (they never touch the exponent). BUT the signed
+  collection must be applied to the EXACT complex per-m main (`selNu(m)·L(1,χ)·Y^{1−ρ}/((1−ρ)(2−ρ))`)
+  to preserve sign cancellation — a triangle over m with `|gcW|` LOSES the cancellation and kills
+  the `selMainTerm=1/H` route (hence the u-factor). So R6-3@ρ's EXACT `/(2−ρ)` coefficient is
+  load-bearing (this is WHY the two-sided sandwich, not a crude norm upper bound, is required).
+- **E(ρ) assembly + u-mechanism [C].** The u-factor emerges as: `‖main‖ = ‖L(1,χ)‖·selMainTerm·
+  Y^{1−σ}/(‖1−ρ‖·‖2−ρ‖)`; `selMainTerm=1/H` and `H_lower` (`L₁/((1−β₀)(2−β₀)) ≤ H`) give
+  `selMainTerm ≤ (1−β₀)(2−β₀)/L₁`; with **`‖L(1,χ)‖ = L₁`** and `1/‖1−ρ‖ ≤ L₂/c₀` (`zfr_harvest`),
+  `1/‖2−ρ‖ ≤ 1`, this yields `‖main‖ ≤ (1−β₀)(2−β₀)·Y^{1−σ}·L₂/c₀ ≤ 4u·Y^{1−σ}·L₂/c₀` = the R_r
+  master row. ★ NEEDED MICRO-LEMMA (catch #226): `‖L(1,χ)‖ = (L(1,χ)).re` i.e. `L(1,χ).im = 0` for
+  a real primitive χ (χ²=1). L(1,χ)=Σχ(n)/n with each χ(n) real (`chiRe_ofReal`), so the LSeries at
+  s=1 is real; provable ~30 ln via `LFunction_eq_LSeries`+`chiRe_ofReal`. Without it the main carries
+  `‖L(1,χ)‖` (O(1), NO u) instead of `L₁≤u·25e(1+log q)²` — the master diverges. This is the SAME
+  load-bearing u-fact the T-BAL-CLOSE flag flagged; now pinned to a concrete micro-lemma.
+- **R7/R8** still BLOCKED on the full ρ-bound (unchanged from T-BAL-CLOSE; the M4 inverter,
+  `tail_shift_to_beta0`, the trivial split, τ-inversion are READY per that flag).
+
+**Catches (LOUD).** (#225) the ρ-side complex power-sum sandwich error carries `1/(1−σ)=L₂/c₀`
+dust (from `t^{1−ρ}` oscillation), so the ρ template constant C₂ρ is NOT the frozen β₀ `C₂` — the
+E(ρ)/master ledger needs re-verification with the ρ constant before R8 composes (do NOT reuse
+r6_verify.py's β₀ pricing). (#226) the u-factor at ρ needs `‖L(1,χ)‖=L₁` (real-character reality
+`L(1,χ).im=0`), a concrete ~30-ln micro-lemma, not automatic — without it the main is O(1) not
+O(u) and the master diverges. (#227) `sum_divisors_eq_hyperbola_symm`/`_asymm`, the (†)
+`dhA_mul_eq_sum`, `Complex.mul_cpow_ofReal_nonneg`/`inv_cpow`/`cpow_add` are all the exact tools the
+complex re-run needs — the codebase's hyperbola is CommRing-generic (instantiates at ℂ with no
+re-proof), a genuine reuse win. (#228) the complex floor/tangent `norm_cpow_pos_floor_sub_le` via
+`Convex.norm_image_sub_le_of_norm_hasDerivWithin_le` + `hasDerivAt_ofReal_cpow_const` is the
+reusable primitive for ALL `⌊·⌋→·` and integral-sandwich corrections at ℂ (used in emrho_perterm;
+the R6-3 sandwich should reuse its MVT technique). (#229) the `((t:ℝ)/(d:ℝ) : ℂ)` ascription
+elaborates as ℂ-DIVISION `↑↑t/↑↑d` (the `:ℂ` propagates inward), NOT `ofReal(↑t/↑d)` — force ofReal
+with an inner `:ℝ` (`(((t:ℝ)/(d:ℝ):ℝ):ℂ)`) or state everything in `(t:ℂ)/(d:ℂ)` form and bridge
+`hFE` once (this session: cost 2 build rounds). (#230) `norm_sub_rev` in a `rw` list flips the
+FIRST `‖a−b‖` — with `‖1−ρ‖` present it flips the wrong one; pass explicit args
+`norm_sub_rev Sr L₁`.
+
 ## VK-9 catches (house-numbered at ceremony; the executor proposed
 ## #217–220 which R5-CRUSH had taken — flags is the authority)
 
