@@ -9321,3 +9321,27 @@ decisions per question.
   (landed) + the composite frame (landed) — waiting on exactly
   ONE input: hEngine, whose freeze the L2c panel is designing
   AS THIS ENTRY IS WRITTEN. Board: the L2c panel (mid-map).
+
+- 2026-07-19 04:15 PT: ██ **THE L2C FREEZE LANDS —
+  execution-complete, and the hres slot is DEAD** ██
+  (wf_a3609935, 9/9 ≈ 1.42M; faithful refuted 1/2, shiu-native
+  refuted 2/2 BUT with all repairs verified — the judge chose
+  shiu-native + every repair). THE DISCOVERY: hres
+  (hb_lemma2's hypothesis slot) is an OVER-REDUCTION —
+  undischargeable at constant witnesses (Wall A: the
+  minus-prime family's Euler-factor inflation; Wall B: the
+  both-prime pairs where the majorant lies at 12L² vs truth
+  0); hb_lemma2 has ZERO landed consumers (grep-verified) so
+  the BYPASS strands nothing: the freeze proves the CONCLUSION
+  shape verbatim on overshootExact (the exact ring identity —
+  both-prime pairs contribute EXACTLY 0, the τ-crude majorant's
+  lie never enters). The architecture: hb_l2c_master (the
+  hb_lemma2-conclusion interface on the l2cWindow), the exact
+  support classification, hb_lemma8'_unconditional as the count
+  engine (ShiuCore DE-SCOPED — not needed!), the T1/T2/T3/T-sw
+  families + corners with the (c)-junk priced FIRST, Aexp=5,
+  ~1230 ln across 4 files, waves W1 → W2a∥W2b → W3, NO CLASS
+  D. Banked: docs/exploration/l2c-freeze.md. **W1 DISPATCHED
+  (Opus, per the ratified day plan — the waves grind through
+  the morning/afternoon).** Board: L2c-W1 + the morning gates
+  (WALL-3+D4, SPINE-BUDGET) awaiting JYH's wake.
