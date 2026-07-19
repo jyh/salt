@@ -9518,3 +9518,20 @@ decisions per question.
   banked. Family board: EL_T1 ✅ EL_Tsw ✅ ER_T3' ✅ Junk×3 ✅
   ER_Tsw' cond; in flight F-T2/M-T1/M-T2/even; queued: EL_T3
   re-dispatch (post-template), ER_T1'/T2' completions.
+
+- 2026-07-19 09:55 PT: **L2c-M-T1 lands the all-plus row REPAIRED
+  + refutes the frozen J1 shape at truth level** (Opus, 293k,
+  ~121 min): Salt/HB/L2cERT1.lean, 785 ln, 27 decls, axioms
+  clean. The frozen ER_T1'_bound is FALSE (principal-χ
+  counterexample — Λ̃ exponential in ω on all-plus; x·log z0 ≫
+  x/z0 at the z≍L'⁸ corner); executor STOPPED per iron rule 1
+  and landed the repair: ER_T1'_split (exact cover) +
+  pp-slice ≤ 4x/z0 (true J1, √-count) + composite slice ≤
+  2^19·(x/L')·e^{5z0}·PS (exact J2 shape, minFac-fibration at
+  Zz w/ d₁ trivialized) + ER_T1'_bound_mixed (the headline).
+  HOUSE RULING #247: mixed row ADOPTED, replaces the frozen row;
+  W3 budget lines unchanged (pp→J1, composite→J2). The meta-
+  lesson banked in flags: all three statement catches are
+  E_L→E_R seam cover faults — never derive a mirror's cover by
+  symmetry. Family board: 6 full + T1'-mixed + Tsw' cond.;
+  in flight F-T2/M-T2/even + the panel.

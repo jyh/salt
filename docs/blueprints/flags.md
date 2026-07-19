@@ -11482,3 +11482,21 @@ EL_evenCorner_bound at the corners shape via a (1,1)/Zz-sift pair
 count (house-verified PS-free arithmetic — the two-block kill forces
 both minus-parts pure 2-powers, both weights constant). Full text:
 l2c-freeze.md HOUSE AMENDMENT 2.
+
+**Catch #247 (frozen-statement refutation, resolved by house ruling;
+2026-07-19 L2c-M-T1).** The E_R all-plus J1 row (ER_T1'_bound) is
+FALSE as frozen — principal-χ truth-level counterexample (Λ̃
+exponential in ω on the all-plus class; mass x·log z0 vs budget
+x/z0 at the legal z ≍ L'⁸ corner). Root cause: the roles-swap
+orphaned the composite-plus-part class into J1 (E_L's analogue
+lives in T2's J2 row) — the freeze's R6 cover risk realized. The
+executor STOPPED correctly (did not state the false theorem),
+landed the exact-cover repair (ER_T1'_split + pp ≤ 4x/z0 + composite
+in the J2 shape + ER_T1'_bound_mixed), and the house adopted it:
+the mixed row replaces the frozen row, W3 budget lines unchanged.
+Note the pattern across #245/#246/#247: all three L2c statement
+catches are cover-classification faults at the E_L→E_R seam —
+freeze-tier lesson for future mirror campaigns: never re-derive a
+mirror's cover by symmetry; re-run the classification from the
+vanishing lemmas on the mirrored side. Full text: l2c-freeze.md
+HOUSE AMENDMENT 3.

@@ -213,3 +213,22 @@ geometric Σ over e gives ≤ C·z0²·x/L'² which fits the x^{9/10} line
 absolutely (z0²e^{2log2·z0} ≤ 25e^{2z0}; x^{1/10} ≥ L'² from
 hz100/hzx). NO PretenseSum — the class is character-blind; the
 freeze's old √x-chebyshev sketch is superseded.
+
+## HOUSE AMENDMENT 3 (Fable ruling, 2026-07-19 09:55 PT — catch #247)
+
+M-T1 refuted the frozen ER_T1'_bound J1 shape AT TRUTH LEVEL
+(principal χ counterexample: the all-plus class contains the
+primes p with p+2 = QR, Q,R ≥ z — Λ̃ exponential in ω, mass
+x·log z0 ≫ x/z0 at the z ≍ L'⁸ packet corner). Provenance: the
+roles-swap orphaned the composite-plus-part class (w = 1,
+(n+2) composite all-plus) into J1, where E_L routes its analogue
+through T2's J2 row — the R6 cover risk realized a second time.
+THE RULING (the executor's recommended repair, adopted verbatim):
+**ER_T1'_bound is REPLACED by the landed ER_T1'_bound_mixed** —
+the exact-cover split ER_T1'_split with (a) the pp-slice ≤ 4·(x/z0)
+(true J1) and (b) the composite slice ≤ 2^19·(x/L')·e^{5z0}·PS
+(the exact J2 row shape). W3's ledger absorbs it with budget
+shapes UNCHANGED: the pp part sums into the J1 line, the
+composite part into the J2 line. No other row affected. The
+freeze's W3 assembly spec is amended accordingly: the E_R
+all-plus row contributes to BOTH ledger lines.
