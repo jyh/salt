@@ -9002,3 +9002,23 @@ decisions per question.
   fulcrum-pass1.md + the four audits. **PASS 2 (the supply
   ledger on ¬F) queues for the 02:09 reset or JYH's morning.**
   Board: T-BAL-R8c + the fulcrum on the desk.
+
+- 2026-07-18 22:20 PT: **THE SPEND MODEL (calibrated on live
+  telemetry, JYH's triples through Pass 1)** — recorded for
+  all future planning. (1) THE BILLING SHAPE: charges land
+  when an agent COMPLETES (its whole output bill at once),
+  not while it thinks — burn is step-wise; a stop mid-flight
+  wastes the in-flight agent's spend; cuts go after landing
+  clusters. (2) THE CALIBRATION: the 11-agent Fulcrum Pass 1
+  (~1.32M tokens) cost 46 points of a 5h window and ~13
+  points of weekly Fable (23→36 across the evening incl.
+  overhead) — i.e. ONE full design workflow ≈ half a 5h
+  window ≈ ~10-13% weekly Fable AT CURRENT QUOTA. Opus
+  executors + builds ≈ 1-2 window-points per ceremony; a long
+  Opus wave barely dents the 5h cap. (3) ██ THE BONUS CLIFF
+  ██: the CURRENT weekly quota carries a +50% bonus UNTIL
+  AUGUST 19 — normal weekly is 2/3 of what we now see. All
+  post-Aug-19 planning must scale: a design workflow will
+  cost ~15-20% of a NORMAL Fable week; math-acct's current "77%
+  left" ≈ 51% of a normal week. Plan windows accordingly;
+  re-calibrate at the cliff.
