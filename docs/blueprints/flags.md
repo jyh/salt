@@ -11397,3 +11397,55 @@ rows consume: `Q^{104}u^{−14} ≤ (Y:ℝ) ≤ 2Q^{104}u^{−14}` (`Nat.le_ceil
   chunk-2 executor ran ~390k).  `L2MVT.lean` stands as wave 1 left it
   (expansion + diagonal split); S1's twisted log-L bridge residual also
   untouched.
+
+## MR-W3 catches + residuals (wave-3 executor MR-S5, 2026-07-18;
+## UNNUMBERED — house numbers at ceremony, per the VK-9 ruling)
+
+- **(S5 CASH-OUT LANDED — the A-arm carrier's downstream logic)** — new file
+  `Salt/MR/NonPret.lean` (namespace `Salt.MR`, sorry-free, axioms exactly
+  `[propext, Classical.choice, Quot.sound]`; in the `Salt.MR.All` audit).
+  `lambda_nonpret_of_bridge`: the RANGE/QUALITY SPLIT (freeze S5), pure `χ = 1`
+  (Liouville) case consumed by the ζ-only region.  Given the λ-Euler bridge as a
+  NAMED hypothesis `𝔻(λ,n^{it};x)² ≥ loglog x + log‖ζ(1+1/logx+it)‖ − K`, it
+  composes `zeta_lower_all_t` (all-`t` region bound) + `loglog_height_le` (the
+  range side, `|t| ≤ Q·x`) to land, for every `Q ≥ 1`, `∃ x₀ C, ∀ x ≥ x₀,
+  |t| ≤ Q·x`: `(1/4)·loglog x − 4·logloglog(|t|+16) − C ≤ 𝔻²`.  Heights `|t| ≤ Q·x`
+  GROUNDED (chowla.txt:212-218), NOT weakened to the level-A form.  This is the
+  parametric `lambda_nonpret_of_bridge` pattern (cf. `zeta_lower_all_t_of_pow`);
+  the unconditional `lambda_nonpret` discharges the bridge hypothesis once the
+  bridge stone lands.
+- **(HONEST COEFFICIENT + o(1) SHAPE — RECORDED)** — the freeze's one-line
+  compression `(1/4)·loglog x − C(Q)` with `C(Q)` constant is NOT the provable
+  shape: the region bound `zeta_lower_all_t` carries the LOAD-BEARING
+  `(loglog(|t|+16))⁴` denominator factor (power 4 = 3 region + 1 cut, MR-W2
+  confirmed), so `log‖ζ‖ ≥ … − 4·logloglog(|t|+16)` and the provable bound is
+  `(1/4)·loglog x − 4·logloglog(|t|+16) − C(Q)`.  The `−4·logloglog` term is
+  o(loglog x) but NOT a constant — it CANNOT be absorbed into `C(Q)`.  The
+  **coefficient is exactly 1/4** (the height drift `−(3/4)[loglog(|t|+3) − loglog
+  x]` is a genuine `Q`-constant `≤ (3/4)log(1+log(Q+3))`).  This matches the
+  prompt's own STONE-(2) shape (`… − C·(logloglog x)-grade`) and the S10b pricing
+  (`(1/4)log Hhi beats ~26 loglog Hhi + opaque const`).  NO blueprint statement
+  altered — the freeze line is a compression; the honest shape is recorded here.
+- **(S5 BRIDGE — the single residual, DOWN-PAYMENT LANDED, truncation BLOCKED)** —
+  the λ-Euler bridge `𝔻(λ,n^{it};x)² ≥ loglog x + log‖ζ(1+1/logx+it)‖ − K` is the
+  one unproven input.  DOWN-PAYMENT: `log_norm_zeta_eq_re_tsum` (LANDED) —
+  `log‖ζ(s)‖ = ∑'_p Re(−log(1−p^{−s}))` for `Re s > 1`, from mathlib's
+  `riemannZeta_eulerProduct_exp_log` via `‖exp z‖ = exp(Re z)` + `Complex.re_tsum`.
+  This is the FULL log-Euler prime-sum side, holding at any `σ > 1`.  It reduces
+  the residual to the SINGLE missing piece: comparing the full sum
+  `∑'_p Re(−log(1−p^{−s}))` (= `∑'_p cos(t·log p)·p^{−σ} + O(1)` after a Mercator
+  `k≥2` peel) against the TRUNCATED `∑_{p≤x} cos(t·log p)/p` at `σ = 1+1/log x`.
+  BLOCKER (confirmed by an Explore corpus sweep + MR-W1 S1): there is NO
+  prime partial-sum→full-sum bridge at `σ = 1` for the OSCILLATING case anywhere
+  in mathlib or the corpus — `StripConvergence` is all-INTEGER (not prime),
+  `ZetaSide` (`zeta_eq_exp`, `primeZeta_asymp`) is REAL-`s` only, and EulerLink's
+  own docstring flags this as the R5-FINISH open gap.  The two atomic estimates
+  needed are (i) the `σ`-shift `∑_{p≤x}(p^{−1}−p^{−1−δ})|cos| ≤ δ·∑_{p≤x}(log p)/p
+  = O(1)` (needs Mertens-first `∑_{p≤x}(log p)/p ≤ log x + O(1)`, presence
+  UNVERIFIED) and (ii) the prime tail `∑_{p>x} p^{−1−δ} = O(1)` (needs
+  prime-density / prime-Abel-summation — `abel_primeZeta` is the partial scaffold,
+  real-`s` only).  Estimated ~400–700 lines, C/D-grade; NOT a 3-attempt stone.
+  Recommend a dedicated LOG-EULER-OSC bridge node ahead of `lambda_nonpret`'s
+  closure.  (Note: the `t = 0` case IS closable now via `ZetaSide` +
+  `mertens_second_sharp` + `primeZeta_asymp`, but is measure-zero for the campaign
+  — the split's small-`t` seam still needs the oscillating bridge for `0 < |t|`.)

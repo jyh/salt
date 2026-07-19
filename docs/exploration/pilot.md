@@ -9138,3 +9138,25 @@ decisions per question.
   hL₂def bug; future waves PARTITION BY FILE (the MR-W2
   two-writer race's big sibling; now a standing law). Board:
   the 02:13 Pass-2 fuse, alone — the night's last fire.
+
+- 2026-07-19 00:00 PT: **S5 lands THE CASH-OUT — the
+  non-pretentiousness theorem, first-attempt** (≈ 158k / 27
+  tools; house-verified MR.All 8814 green, 4 decls
+  [3 axioms]). Salt/MR/NonPret.lean:
+  `lambda_nonpret_of_bridge` — 𝔻(λ, n^{it}; x)² ≥
+  (1/4)·loglog x − 4·logloglog(|t|+16) − C on the FULL height
+  range |t| ≤ Q·x (grounded chowla.txt:212-218; NOT weakened
+  to level-A) — the power region's purpose realized,
+  coefficient EXACTLY 1/4. Parametric on the λ-Euler bridge
+  (the corpus's _of_X pattern) + the bridge DOWN-PAYMENT
+  `log_norm_zeta_eq_re_tsum` (the full log-Euler prime-sum
+  identity, mathlib's eulerProduct_exp_log). HONEST SHAPE
+  catch: the freeze's −C(Q) compression was NOT provable —
+  the (loglog)⁴ factor forces the −4·logloglog term
+  (unbounded, o(loglog x)); recorded, no statement forced.
+  THE RESIDUAL (flagged MR-W3, a NAMED NODE): LOG-EULER-OSC —
+  the σ=1 oscillating prime truncation (~400–700 ln, C/D; a
+  confirmed corpus gap, EulerLink's own R5-FINISH sibling;
+  two atomic estimates: the Mertens-first σ-shift + the
+  prime-Abel tail). Board: the S8 DESIGN SPRINT (jasonh,
+  imminent) + Pass 2 (manual, math-acct, post-swap-back).

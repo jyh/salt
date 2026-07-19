@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.Dist
 import Salt.MR.DoorDischarge
 import Salt.MR.L2MVT
+import Salt.MR.NonPret
 import Salt.MR.TuranKubilius
 import Salt.MR.ZetaLowerAllT
 import Salt.MR.ZetaPowLower
@@ -41,6 +42,15 @@ per stone after the MR-W1 executor wave (residual detail: the MR-W1 section of
   from mathlib/corpus).
 * S6b `TuranKubilius` — LANDED: `turan_kubilius` (asymptotic form, `C = 4`)
   + the moment/counting helper set.
+* S5  `NonPret`       — CASH-OUT LANDED (MR-W3): `lambda_nonpret_of_bridge`, the
+  RANGE/QUALITY SPLIT (heights `|t| ≤ Q·x`, coefficient EXACTLY `1/4`) composing
+  the λ-Euler bridge hypothesis with `zeta_lower_all_t` + the height absorption
+  `loglog_height_le`.  Honest o(1) shape RECORDED: the freeze's `−C(Q)` carries a
+  `−4·logloglog(|t|+16)` correction (the load-bearing `(loglog)⁴` region factor).
+  Bridge down-payment: `log_norm_zeta_eq_re_tsum`
+  (`log‖ζ(s)‖ = ∑'_p Re(−log(1−p^{−s}))`, `Re s > 1`).  RESIDUAL (single, flagged
+  MR-W3): the `σ = 1` oscillating prime truncation `∑_{p≤x} cos(t·log p)/p` vs the
+  full log-Euler sum (EulerLink R5-FINISH open gap) — closes `lambda_nonpret`.
 -/
 
 open Salt.Tactic in
@@ -76,3 +86,7 @@ open Salt.Tactic in
   Salt.MR.zeta_near_logDeriv_bound
   Salt.MR.zeta_near_bridge
   Salt.MR.zeta_pow_lower
+  Salt.MR.costwist_re
+  Salt.MR.loglog_height_le
+  Salt.MR.lambda_nonpret_of_bridge
+  Salt.MR.log_norm_zeta_eq_re_tsum
