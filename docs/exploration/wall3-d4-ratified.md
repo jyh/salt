@@ -109,3 +109,340 @@ Your gates: sign-off before any merge toward main; HL/Selberg/Bombieri staging d
 Ledger complete: W#1-12 + J1-J3, Z#1-6 + J4-J6; one refuter misattribution corrected (pass2 had already pinned g) and three citation paths fixed.
 
 dispatch_ready: True
+
+# APPENDIX — THE AUTHORITATIVE FROZEN TEXT (designer records the verdict cites)
+
+## DES-W
+
+### statements
+
+FROZEN STATEMENT SET (namespace Salt.HB; 3 NEW single-writer files, no landed-file edits, All.lean lines wait for landing). Source legend: TC=Salt/HB/TwistChain.lean, TCC=TwistChainC.lean, TR=Transfer.lean, TF=TransferFull.lean, LC=L2cCore.lean, SW=StarWindow.lean. Common: `variable {f : ℕ → ℝ} {n m p : ℕ}`.
+
+== W1 — Salt/HB/SignChain.lean (imports Salt.HB.L2cCore) ==
+```lean
+/-- W1 PACKET: replaces `χ : DirichletCharacter ℂ q` + `hsq : χ^2 = 1`; record ℱ = f²=1 at EVERY prime, NO modulus (pass3_t3.md:29). -/
+structure IsSignFunction (f : ℕ → ℝ) : Prop where
+  map_one    : f 1 = 1
+  map_mul    : ∀ a b : ℕ, f (a * b) = f a * f b
+  abs_le_one : ∀ n : ℕ, |f n| ≤ 1
+  prime_pm   : ∀ p : ℕ, p.Prime → f p = 1 ∨ f p = -1
+
+noncomputable def fGenSum (f : ℕ → ℝ) (n : ℕ) : ℝ := ∑ d ∈ n.divisors, (μ d : ℝ) ^ 2 * f d  -- TC:94
+noncomputable def LamTildeGen (f : ℕ → ℝ) (n : ℕ) : ℝ :=
+  ∑ d ∈ n.divisors, (μ d : ℝ) ^ 2 * f d * Real.log ((n / d : ℕ) : ℝ)  -- TC:98-99 (keep ℕ-division cast)
+noncomputable def gGen (f : ℕ → ℝ) : ArithmeticFunction ℝ := ⟨fun n => (μ n : ℝ) ^ 2 * f n, by simp⟩  -- TC:118
+noncomputable def fGenArith (f : ℕ → ℝ) : ArithmeticFunction ℝ := ζ * gGen f  -- TC:136
+open Classical in
+noncomputable def nPlusGen (f : ℕ → ℝ) (n : ℕ) : ℕ :=
+  ∏ p ∈ n.primeFactors.filter (fun p => f p = 1), p ^ (n.factorization p)  -- TC:388
+open Classical in
+noncomputable def nMinusGen (f : ℕ → ℝ) (n : ℕ) : ℕ :=
+  ∏ p ∈ n.primeFactors.filter (fun p => f p = -1), p ^ (n.factorization p)  -- TC:393
+noncomputable def S2Gen (f : ℕ → ℝ) (A : Finset ℕ) : ℝ := ∑ n ∈ A, LamTildeGen f n * LamTildeGen f (n + 2)  -- TR:179
+noncomputable def overshootExactGen (f : ℕ → ℝ) (n : ℕ) : ℝ :=
+  (LamTildeGen f n - Λ n) * LamTildeGen f (n + 2) + Λ n * (LamTildeGen f (n + 2) - Λ (n + 2))  -- LC:68
+open Classical in
+noncomputable def PretenseSumGen (f : ℕ → ℝ) (N : ℕ) : ℝ :=
+  ∑ p ∈ (Finset.range (N + 1)).filter (fun p => Nat.Prime p ∧ f p = 1), Real.log (p : ℝ) / p  -- TF:183-185; = pret f N
+open Classical in
+noncomputable def excPrimorialGen (f : ℕ → ℝ) (z : ℕ) : ℕ :=
+  ∏ p ∈ (Finset.range z).filter (fun p => p.Prime ∧ f p ≠ -1), p  -- SW:72, q-part GONE
+noncomputable def l2cWindowGen (f : ℕ → ℝ) (z x : ℕ) : Finset ℕ :=
+  (Finset.Ioc x (2 * x)).filter (fun n => Nat.Coprime (n * (n + 2)) (excPrimorialGen f z))  -- LC:159, q DROPPED
+
+lemma fGen_pow (hf : IsSignFunction f) (a k : ℕ) : f (a ^ k) = f a ^ k  -- TC:55
+lemma gGen_mult (hf : IsSignFunction f) : (gGen f).IsMultiplicative  -- TC:181
+lemma fGenArith_mult (hf : IsSignFunction f) : (fGenArith f).IsMultiplicative  -- TC:211
+lemma fGenArith_nonneg (hf : IsSignFunction f) (n : ℕ) : 0 ≤ fGenArith f n  -- TC:251
+lemma LamTildeGen_eq_conv (f : ℕ → ℝ) (n : ℕ) : LamTildeGen f n = (gGen f * ArithmeticFunction.log) n  -- TC:324, packet-free
+theorem vonMangoldt_le_LamTildeGen (hf : IsSignFunction f) (n : ℕ) : Λ n ≤ LamTildeGen f n  -- TC:368, Lemma 1(b)
+theorem eq_nPlusGen_mul_nMinusGen (hf : IsSignFunction f) (hn : n ≠ 0) : n = nPlusGen f n * nMinusGen f n  -- TC:408, hcop DROPPED
+theorem coprime_nPlusGen_nMinusGen (f : ℕ → ℝ) (n : ℕ) : Nat.Coprime (nPlusGen f n) (nMinusGen f n)  -- TC:424
+lemma fGenArith_eq_two_pow (hf : IsSignFunction f) (hn : n ≠ 0) (hall : ∀ p ∈ n.primeFactors, f p = 1) :
+    fGenArith f n = 2 ^ n.primeFactors.card  -- TCC:67
+lemma fGenSum_n_eq_zero (hf : IsSignFunction f) (hn : n ≠ 0) (hM : nMinusGen f n ≠ 1) : fGenSum f n = 0  -- TCC:184, hcop DROPPED
+lemma LamTildeGen_eq_zero_of_two_le_card (hf : IsSignFunction f) (hn : n ≠ 0)
+    (hM : 2 ≤ (nMinusGen f n).primeFactors.card) : LamTildeGen f n = 0  -- TCC:252, hcop DROPPED
+lemma LamTildeGen_eq_single_of_card_one (hf : IsSignFunction f) (hn : n ≠ 0) (hM : IsPrimePow (nMinusGen f n)) :
+    LamTildeGen f n = fGenSum f (nPlusGen f n) * Λ (nMinusGen f n)  -- TCC:268, hcop DROPPED
+lemma LamTildeGen_le_of_nMinus_one (hf : IsSignFunction f) (hn : n ≠ 0) (hM : nMinusGen f n = 1) :
+    LamTildeGen f n ≤ fGenSum f n * Real.log n  -- TCC:293, hcop DROPPED
+theorem LamTildeGen_sub_vonMangoldt_le (hf : IsSignFunction f) (hn : n ≠ 0) :
+    LamTildeGen f n - Λ n ≤ 2 * (fGenSum f n * Real.log n + (fGenSum f (nPlusGen f n) - 1) * Λ (nMinusGen f n))  -- TCC:317, Lemma 1(c), hcop DROPPED
+-- + nPlusGen/nMinusGen sign/pos helper block, signatures verbatim mod chiRe↦f (TCC:89-161)
+theorem S1_le_S2Gen (hf : IsSignFunction f) (A : Finset ℕ) : S1 A ≤ S2Gen f A  -- TR:189-192; S1 (TR:176) reused VERBATIM
+theorem S2Gen_sub_S1_eq (f : ℕ → ℝ) (A : Finset ℕ) : S2Gen f A - S1 A = ∑ n ∈ A, overshootExactGen f n  -- LC:76, packet-free
+lemma lamTildeGen_sub_eq_zero_of_prime (hf : IsSignFunction f) (hp : p.Prime) : LamTildeGen f p - Λ p = 0  -- LC:89
+lemma lamTildeGen_sub_eq_zero_of_one (f : ℕ → ℝ) : LamTildeGen f 1 - Λ 1 = 0  -- LC:98
+lemma lamTildeGen_sub_eq_zero_of_pure_minus (hf : IsSignFunction f) (hn : n ≠ 0) (hP1 : nPlusGen f n = 1)
+    (hM : IsPrimePow (nMinusGen f n)) : LamTildeGen f n - Λ n = 0  -- LC:107, hcop DROPPED
+lemma lamTildeGen_sub_eq_zero_of_two_le_card (hf : IsSignFunction f) (hn : n ≠ 0)
+    (hM : 2 ≤ (nMinusGen f n).primeFactors.card) : LamTildeGen f n - Λ n = 0  -- LC:118, hcop DROPPED
+lemma lamTildeGen_sub_support_classification (hf : IsSignFunction f) (hn : n ≠ 0)
+    (hne : LamTildeGen f n - Λ n ≠ 0) :
+    ¬ n.Prime ∧ n ≠ 1 ∧ (nMinusGen f n = 1 ∨ (IsPrimePow (nMinusGen f n) ∧ 1 < nPlusGen f n))  -- LC:130
+lemma l2cWindowGen_roughness {z x : ℕ} (hn : n ∈ l2cWindowGen f z x) (hp : p.Prime)
+    (hpd : p ∣ n * (n + 2)) (hf1 : f p ≠ -1) : z ≤ p  -- LC:180, packet-free
+lemma omega_capGen (hf : IsSignFunction f) (z x : ℕ) (hz2 : 2 ≤ z) (hm0 : m ≠ 0) (hmle : m ≤ 2 * x + 2)
+    (hrough : ∀ p ∈ (nPlusGen f m).primeFactors, z ≤ p) :
+    (2 : ℝ) ^ (nPlusGen f m).primeFactors.card ≤ Real.exp (Real.log 2 * z0 z x)  -- LC:196, hcop DROPPED
+lemma lamTildeGen_cap (hf : IsSignFunction f) (z x : ℕ) (hz2 : 2 ≤ z) (hm0 : m ≠ 0) (hmle : m ≤ 2 * x + 2)
+    (hrough : ∀ p, p.Prime → p ∣ m → f p ≠ -1 → z ≤ p) :
+    LamTildeGen f m ≤ Real.exp (Real.log 2 * z0 z x) * Lwin x  -- LC:227, hcop DROPPED
+lemma sum_inv_plusprime_le_pretenseGen (f : ℕ → ℝ) (z N : ℕ) (hz : 1 < z) :
+    (∑ p ∈ (Finset.range (N + 1)).filter (fun p => Nat.Prime p ∧ f p = 1 ∧ z ≤ p), (1 : ℝ) / p)
+      ≤ PretenseSumGen f N / Real.log z  -- LC:372, packet-free
+lemma chebyshev_chi_countGen (f : ℕ → ℝ) {a b N : ℕ} (ha : 1 < a) (hbN : b ≤ N) :
+    (((Finset.Ioc a b).filter (fun p => Nat.Prime p ∧ f p = 1)).card : ℝ)
+      ≤ ((b : ℝ) / Real.log a) * PretenseSumGen f N  -- LC:396, packet-free
+-- NOT re-typed (already χ-free, consumed as-is): geomSum_nonneg/sum_ite_lt_pow_nonneg TC:63/78;
+-- l2c_pair_count/_clean, Zz/Zf + 100-gates, Mertens re-exports LC:285-366+ (the KC1 layer).
+-- NOT re-typed (BYPASSED, zero consumers): overshoot/overshootLog/overshootPP TR:60-71,
+-- overshootMajorant/majLogL../hb_lemma2 TF (all but PretenseSum) — see diffs #1.
+```
+
+== W2 — Salt/HB/SignLiouville.lean (imports Salt.HB.SignChain; mathlib Liouville) ==
+```lean
+noncomputable def lamR : ℕ → ℝ := fun n => ((ArithmeticFunction.liouville n : ℤ) : ℝ)
+theorem lamR_prime {p : ℕ} (hp : p.Prime) : lamR p = -1
+theorem isSignFunction_lamR : IsSignFunction lamR
+lemma moebius_sq_mul_lamR (d : ℕ) : (μ d : ℝ) ^ 2 * lamR d = (μ d : ℝ)
+lemma gGen_lamR_eq_moebius : gGen lamR = (μ : ArithmeticFunction ℝ)
+theorem LamTildeGen_lamR_eq_vonMangoldt (n : ℕ) : LamTildeGen lamR n = Λ n   -- THE λ-POLE
+theorem S2Gen_lamR_eq_S1 (A : Finset ℕ) : S2Gen lamR A = S1 A
+lemma overshootExactGen_lamR (n : ℕ) : overshootExactGen lamR n = 0
+theorem PretenseSumGen_lamR_eq_zero (N : ℕ) : PretenseSumGen lamR N = 0     -- perfect pretense
+```
+
+== W3 — Salt/HB/SignRate.lean (imports Salt.HB.SignChain) ==
+```lean
+/-- Frozen engine-bound shape (l2c-freeze.md:27-33): Aexp = 5 pinned, junk in rpow form,
+    scales z0/Lwin landed at LC:54-57. NOT a function of P alone: P-independent floor. -/
+noncomputable def EngineBound (Cmain : ℝ) (z x : ℕ) (P : ℝ) : ℝ :=
+  Cmain * ((x : ℝ) / z0 z x)
+    + Cmain * ((x : ℝ) / Real.log x) * Real.exp (5 * z0 z x) * P
+    + Cmain * Real.exp (2 * z0 z x)
+        * ((x : ℝ) / (z : ℝ) ^ ((1 : ℝ) / 8) + (x : ℝ) ^ ((9 : ℝ) / 10)) * Lwin x ^ 3
+
+/-- W3 RATIFIED FORM — the neutrality rate, budget-conditional (provable NOW given W1). -/
+theorem neutrality_rate (f : ℕ → ℝ) (hf : IsSignFunction f) (z x : ℕ) (Cmain : ℝ)
+    (hbudget : ∑ n ∈ l2cWindowGen f z x, overshootExactGen f n
+        ≤ EngineBound Cmain z x (PretenseSumGen f (2 * x + 2))) :
+    0 ≤ S2Gen f (l2cWindowGen f z x) - S1 (l2cWindowGen f z x) ∧
+      S2Gen f (l2cWindowGen f z x) - S1 (l2cWindowGen f z x)
+        ≤ EngineBound Cmain z x (PretenseSumGen f (2 * x + 2))
+
+/-- W3 DISCHARGE TARGET (frozen shape ONLY — DO NOT ATTEMPT until the generic EL/ER
+    families + the character hb_l2c_master land; D-shaped today, scope diff #2). -/
+theorem hb_l2c_masterGen :
+    ∃ Cmain : ℝ, 0 < Cmain ∧
+      ∀ (f : ℕ → ℝ), IsSignFunction f → ∀ z x : ℕ,
+        100 ^ 16 ≤ z → Lwin x ^ 8 ≤ (z : ℝ) → (z : ℝ) ^ 3 ≤ (x : ℝ) →
+        S2Gen f (l2cWindowGen f z x) - S1 (l2cWindowGen f z x)
+          ≤ EngineBound Cmain z x (PretenseSumGen f (2 * x + 2))
+```
+N is PINNED to 2x+2 (window top) throughout; horn B (staircase, HL) has NO Lean statement — W4 prose only.
+
+### routes
+
+W2 (A/B, after W1's def slice). lamR_prime: liouville_apply (mathlib Liouville.lean:31, NEEDS h : p ≠ 0 — from hp.pos) + cardFactors_apply_prime (Ω(p)=1) gives (-1)^1; cast to ℝ. isSignFunction_lamR: map_one = liouville_apply_one (:37); map_mul = liouville_apply_mul (:40 — unconditionally completely multiplicative, push_cast); abs_le_one: n=0 → liouville 0 = 0 (def :27); n≠0 → |(-1)^Ω| = 1; prime_pm: right disjunct via lamR_prime. moebius_sq_mul_lamR: case Squarefree d → moebius_apply_of_squarefree (Moebius.lean:60) makes μ d = (-1)^cardFactors d = liouville d (liouville_apply), and (μ d)² = 1; case ¬Squarefree → moebius_eq_zero_of_not_squarefree (:64), both sides 0; d = 0 → μ 0 = 0. gGen_lamR_eq_moebius: ArithmeticFunction.ext + moebius_sq_mul_lamR. THE POLE: LamTildeGen_eq_conv (W1, mirror of TC:324) + gGen_lamR_eq_moebius + moebius_mul_log_eq_vonMangoldt (mathlib VonMangoldt.lean:130, the CONVOLUTION half — NOT sum_moebius_mul_log_eq :133, wrong shape per map). S2Gen_lamR_eq_S1: Finset.sum_congr, rewrite both factors by the pole; simpler than the map's pure-minus-vanishing route (no hcop machinery). overshootExactGen_lamR: rewrite both differences to 0 by the pole, ring. PretenseSumGen_lamR_eq_zero: the filter predicate is everywhere-false (lamR_prime gives -1 ≠ 1), Finset.sum_eq_zero over filter membership.
+
+W1 (B, real re-derivation ~600-800 lines, no design content). Mechanical substitution table: chiRe_mul χ hsq ↦ hf.map_mul; chiRe_one ↦ hf.map_one; chiRe_abs_le_one (TC:49) ↦ hf.abs_le_one; chiRe_eq_one_or_neg_one (TC:397, needed Coprime p q) ↦ hf.prime_pm (hypothesis-FREE — this single swap erases every downstream hcop). (a) Local-factor/nonneg layer TC:63-314 survives verbatim: geomSum_nonneg is already generic; 1 + f p ≥ 0 and |f p| ≤ 1 from abs_le_one (map obstacle iii). (b) ± factorization TC:407-439: filter-congr step at TC:414-420 consumes prime_pm directly; hn : n ≠ 0 is the sole hypothesis. (c) TCC re-types: proofs mirror TCC:67-317 with hcop threads deleted; re-grep TCC lines before citing (±1 drift, memory flag). (d) Transfer layer: S1_le_S2Gen via re-typed twin_termwise_nonneg (TR:143-152 shape, 1(b)-only); S2Gen_sub_S1_eq is unfold + sum_sub_distrib + ring (LC:76-80 verbatim). (e) Window: l2cWindowGen drops q; roughness mirrors LC:180-192 (Finset.dvd_prod_of_mem on excPrimorialGen); NO CoprimeSupport analogue exists anywhere generic — the only consumer of q-coprimality was 1(c)'s hcop, now gone. (f) Counters LC:372-408: chiRe appears only inside filter predicates — pure substitution. Decidability: `open Classical in` on every f-filter def (corpus precedent TC:386, TF:177).
+
+W3 (ratified form: B given W1; target: frozen only). neutrality_rate: left conjunct = S1_le_S2Gen f (l2cWindowGen f z x); right conjunct = rw [S2Gen_sub_S1_eq] then exact hbudget — the exact spine (landed LC:76) replaces the bypassed majorant, à la hb_lemma2's hres slot (TF:204-214) but on the EQUALITY. hb_l2c_masterGen discharge plan (NOT now): generic re-run of the frozen L2c program — re-typed EL_T1/T2/T3/Tsw + ER mirrors + catch-#245 junk rows and inline ¬junkBlock guards (l2c-freeze.md S4 + :156-189) + master assembly; mirror the character hb_l2c_master AFTER it lands (it does not exist yet — no L2cMaster.lean, no All.lean L2c line), so the generic proof copies a proven artifact, not a plan.
+
+### diffs
+
+CATCH-#224 DIFFS (pass3 record / mission brief vs frozen set; corpus followed in each):
+1. MAJORANT→EXACT SPINE. Record routes W3 through hb_lemma2/hres (pass3_t3.md:17-19, :100-101); the L2c freeze BYPASSED that layer (l2c-freeze.md:5,12-18, zero consumers grep-verified). W1 therefore does NOT re-type overshoot/overshootLog/overshootPP (TR:60-71) nor TransferFull's majorant chain — of TransferFull only PretenseSum re-types. This narrows the mission phrase "re-typing of the Transfer/TransferFull chain": the live chain is Transfer §3 + TwistChain/TwistChainC + L2cCore, with TF:183-185 as the sole TF survivor.
+2. W3 SHAPE. Record: `|S2(f) − S1| ≤ EngineBound(pret(f,N))` (pass3_t3.md:140), EngineBound abstract in pret, N free. Frozen: conjunction 0 ≤ · ∧ · ≤ · (abs redundant given S1_le_S2Gen; corpus style); EngineBound is NOT a function of pret alone — pret-independent floor Cmain·x/z₀ + junkExpr, pret coefficient Cmain·(x/log x)·e^{5z₀}; constants pinned per freeze (Aexp=5, junk (x/z^{1/8}+x^{9/10})·L'³ in rpow form); N PINNED to 2x+2. Consequence (honest-shape law): at pret = 0 the bound is NOT 0 — "evaluating S2(f) IS evaluating S1" and pretQ·evalQ = o(1) remain W4 PROSE (W5 law: no o(1)/staircase/cone content in any Lean statement). For f = λ alone, S2−S1 = 0 EXACTLY via W2 + S2Gen_sub_S1_eq, bypassing EngineBound.
+3. W3 SPLIT (ratified vs target). Record priced one C-class theorem; but hb_l2c_master is frozen-UNLANDED (no L2cMaster.lean; All.lean has no L2c line — scope diff #2). Frozen set: neutrality_rate = budget-conditional, provable now (hres-style hypothesis on the EXACT sum, memory-flag-#3 discipline); hb_l2c_masterGen = the ∃-Cmain-absolute discharge shape, statement frozen, proof forbidden until the generic families + character master land.
+4. DEPENDENCY ORDER. Verdict/commissions listed W2 before W1 (pricing artifact); true order is W1-defs < W2 (chiRe is DirichletCharacter-locked, TwistedSieve.lean:63 — "Λ̃_λ" is untypeable against LamTilde χ). Mitigation: W2 consumes only the W1 def slice + LamTildeGen_eq_conv, so W2 may dispatch immediately after W1 §defs, before the full W1 chain.
+5. GATES MOVED. The freeze's hyp-set (hz100/hz8/hzx, l2c-freeze.md:28) does no work in the conditional proof; carrying them on neutrality_rate would be dead hypotheses (lint + dishonest bulk). They live ONLY on hb_l2c_masterGen. Types on the target unchanged — interface-safe.
+6. MATHLIB GROUNDING CORRECTIONS vs MAP-W: liouville_apply is `{n : ℕ} (h : n ≠ 0)` (Liouville.lean:31) — NOT unconditional as the map's citation reads; and liouville_apply_mul (:40) gives complete multiplicativity unconditionally — map_mul for lamR is one cast, cheaper than the map's squarefree case split (that split is still the route for μ²λ=μ).
+7. WINDOW DROPS q. l2cWindowGen/excPrimorialGen filter on f alone (record ℱ "no modulus", pass3_t3.md:29; scope diff #7). CoprimeSupport q A has NO generic analogue anywhere — the record's re-typing of it is vacuous, deleted rather than re-typed. The generic window is load-bearing beyond W3 (future generic S2_sub_S3_window / WP3 parallel — NOT commissioned here).
+8. CATCH #245 (post-record amendment): the ¬junkBlock family guards and Zz-vs-Zf sift-floor correction (l2c-freeze.md:156-189) live inside the future generic EL/ER files; zero impact on these frozen statement texts (reconciliation iff-lemmas travel with the discharge).
+9. PACKET REDUNDANCY: abs_le_one is derivable (n ≥ 1) from map_one+map_mul+prime_pm but is carried per the map's packet spec — an extra hypothesis weakens, never falsely strengthens (honest); it keeps the TC:63 geomSum route verbatim.
+10. NO SUBSUMPTION: `IsSignFunction (chiRe χ)` is FALSE for q > 1 (χ vanishes at p ∣ q) — the generic chain does not instantiate to characters; pole (b) stays on the landed χ-typed chain. Record's ℱ honored exactly; the two chains reconcile only in W4 prose.
+
+### risks
+
+1. TARGET FROZEN AGAINST AN UNLANDED MASTER: hb_l2c_masterGen mirrors a character theorem that exists only as a frozen plan (l2c-freeze.md:27-33). If character Wave-3 assembly repairs any constant (Aexp, junk exponents, gate set), EngineBound must be RE-frozen — a mandatory catch-#224 freeze-to-freeze diff at that landing. Until then hb_l2c_masterGen is D-shaped: no automated attempt (iron-rule discipline); the provable-now W3 deliverable is neutrality_rate only.
+2. W1 VOLUME: a genuine re-derivation (~600-800 lines), B-class throughout but with grind risk; TwistChainC line drift ±1 (freeze S7) — executors must re-grep every cited line; any helper that turns C-shaped ⇒ STOP and flag per iron rule 4. "KC1 already discharged" covers ONLY the pair-sieve/count layer — do not let an executor skip the LamTilde/Transfer re-proofs on that basis.
+3. ELABORATION TRAPS: (a) every filter over `f p = 1` / `f p ≠ -1` needs `open Classical in` (precedent TC:386, TF:177); (b) keep `Real.log ((n / d : ℕ) : ℝ)` with ℕ-division exactly as TC:99 — "fixing" to real division is statement drift; (c) gGen's map_zero' `by simp` must close (μ 0 = 0); give an explicit term if simp regresses.
+4. NAME HYGIENE: all frozen names grep-clean in Salt/ today, but files are in flight elsewhere; single-writer law extends to NAMES (catch-#245 amendment 1) — re-grep at dispatch. Packet-free lemmas are marked packet-free deliberately; executors must not add (hf) "for uniformity" (lint/interface drift).
+5. FALSIFIABILITY POSTURE: the corollary pretQ·evalQ = o(1), the staircase, and Hoffstein–Lockhart are NOT stated (W5 law; HL unstaged — no Lean statement may depend on it). The Lean-fixed consequences are exactly: S2Gen_lamR_eq_S1 + PretenseSumGen_lamR_eq_zero (the tautology corner, exact) and neutrality_rate (the priced rate). Flags-wording guard (l2c-freeze.md:146) applies: statements land verbatim, no strengthening at Lean time.
+6. RATIFICATION GATE: this set is statement-layer and blueprint-adjacent — JYH sign-off required before any merge toward main (l2c-freeze.md:145; Fable workflow gate; commit-policy memory). Opus executors for W1/W2 on the track branch are not gated. Suggested classes for dispatch: W2 = A/B (post W1-defs), W1 = B (volume-flagged), neutrality_rate = B (given W1), hb_l2c_masterGen = frozen/unattempted.
+7. VERIFY POSTURE (catch #98): the EngineBound constant arithmetic (5·z0, 2·z0, 1/8, 9/10, L'³) is a solo freeze of pinned numerals — warrant a parallel refuter pass on the EngineBound expression against l2c-freeze.md:27-33 before W3 dispatch (cheap; the transcription is the risk, not the math).
+8. AXIOM/BUILD: all statements use only landed types + mathlib; expected axiom profile propext/Classical.choice/Quot.sound (Classical via filter decidability); no native_decide anywhere.
+
+## DES-Z
+
+### verdict
+
+define
+
+### definition
+
+FROZEN Lean text (new module, suggested Salt/Parity/Z.lean; namespace Salt.Parity; imports Mathlib + Salt.Basic + Salt.Brun):
+
+```lean
+namespace Salt.Parity
+
+/-- ρ(d): #{r < d : d ∣ r(r+2)} — the local twin density numerator.
+    PINNED, not quantified: completions must share the TRUE twin Type-I
+    main term (fixes the pass2 sketch's ∀g bug, which admitted a ≡ 0
+    with g ≡ 0 as a completion). -/
+def twinRho (d : ℕ) : ℕ :=
+  ((Finset.range d).filter (fun r => d ∣ r * (r + 2))).card
+
+/-- The (n,n+2) Type-I congruence sum of weight `a` at level `d`, window `x`.
+    NOTE: this is the ONLY functional through which the class reads `a` —
+    pure Type-I is pinned by the TYPE, so Type-II bilinear data (M5 knob,
+    fulcrum-pass2.md:82) is structurally inexpressible, not merely excluded. -/
+noncomputable def typeISum (a : ℕ → ℝ) (d x : ℕ) : ℝ :=
+  ∑ n ∈ Finset.Icc 1 x, if d ∣ n * (n + 2) then a n else 0
+
+/-- Pure Type-I error norm at divisor level x^θ. -/
+noncomputable def typeIError (a : ℕ → ℝ) (θ : ℝ) (x : ℕ) : ℝ :=
+  ∑ d ∈ Finset.Icc 1 ⌊(x : ℝ) ^ θ⌋₊,
+    |typeISum a d x - (twinRho d : ℝ) / d * x|
+
+/-- 𝒞(θ,A₀): nonnegative completions carrying the true twin Type-I data at
+    level x^θ, quality (log x)^(−A₀), with a per-completion constant. -/
+def Completion (θ A₀ : ℝ) (a : ℕ → ℝ) : Prop :=
+  (∀ n, 0 ≤ a n) ∧
+  ∃ C : ℝ, 0 < C ∧ ∀ x : ℕ, 2 ≤ x →
+    typeIError a θ x ≤ C * x / Real.log x ^ A₀
+
+/-- ParityInv at grade (θ,A₀): E holds in EVERY completion.  Semantic
+    (model-class) invariance — quantifies over the mechanism, not the method. -/
+def ParityInv (θ A₀ : ℝ) (E : (ℕ → ℝ) → Prop) : Prop :=
+  ∀ a : ℕ → ℝ, Completion θ A₀ a → E a
+
+/-- Twin mass of a completion (consumers use the W5 shape ∀C ∃x). -/
+noncomputable def twinMass (a : ℕ → ℝ) (x : ℕ) : ℝ :=
+  ∑ n ∈ Finset.Icc 1 x, if n.Prime ∧ (n + 2).Prime then a n else 0
+
+/-- Twin-sufficiency: E semantically FORCES unbounded twin mass in every
+    completion satisfying it.  The load-bearing lower-bound clause. -/
+def TwinSufficient (θ A₀ : ℝ) (E : (ℕ → ℝ) → Prop) : Prop :=
+  ∀ a : ℕ → ℝ, Completion θ A₀ a → E a →
+    ∀ C : ℝ, ∃ x : ℕ, C < twinMass a x
+
+def oneWeight : ℕ → ℝ := fun _ => 1
+
+/-- The Brun-grade twin-free completion 𝒜⁻ (the landable witness). -/
+noncomputable def twinFree : ℕ → ℝ :=
+  fun n => if n.Prime ∧ (n + 2).Prime then 0 else 1
+
+/-- **Z — the demand specification, frozen.**  A twin proof must supply a
+    predicate on completions that forces unbounded twin mass across the whole
+    pure-Type-I model class AND holds for the true sequence.  No
+    DirichletCharacter, no L-function, no exceptional-character oracle
+    appears anywhere in the inputs. -/
+def Z (θ A₀ : ℝ) : Prop :=
+  ∃ E : (ℕ → ℝ) → Prop, TwinSufficient θ A₀ E ∧ E oneWeight
+
+/-- The OPEN full-quality parity barrier (stated, never assumed): a bounded-
+    twin completion at EVERY quality.  M1/M2-grade target, D-class. -/
+def ParityBarrier (θ : ℝ) : Prop :=
+  ∀ A₀ : ℝ, 1 ≤ A₀ → ∃ a : ℕ → ℝ, Completion θ A₀ a ∧
+    ∃ M : ℝ, ∀ x : ℕ, twinMass a x ≤ M
+
+end Salt.Parity
+```
+
+CATCH #224 FREEZE-TO-FREEZE SCOPE DIFFS vs the pass2 sketch (fulcrum-pass2.md:37-39) — all six are deliberate:
+1. g PINNED to twinRho d / d (sketch quantified ∀g — a bug: admits the zero completion, voiding the model class).
+2. θ ∈ (0,1) open, instances landed at θ < 1/2 (sketch said θ ≤ 1; at θ = 1 the TRUE sequence fails its own norm: Σ_{d≤x} ρ(d) ≍ x·log x ≫ x·log⁻ᴬx — arithmetic catch, this session).
+3. Quality A₀ is a GRADE PARAMETER, not ∀A (the sketch's ∀A form makes non-vacuity M1-hard; grading makes it Brun-landable at A₀ ≤ 2 while keeping ∀A₀ as the flagged open ParityBarrier).
+4. Completions pinned nonnegative (blocks signed pathologies that would make TwinSufficient unsatisfiable even under TPC — the graver vacuity pole).
+5. Z stated as TwinSufficient ∧ E(oneWeight); ¬ParityInv is DERIVED (lemma L3), not primitive — closes the trivial-satisfiability hole (E := "a = oneWeight" fails TwinSufficient).
+6. Twin functional = indicator twinMass over actual prime pairs, NOT Λ-weighted B(x): the M4 bridge (MEMORY, unlanded, fulcrum-pass2.md:88) is DODGED entirely; the repo TPC (Salt/Basic.lean:25-26) is already ∀∃-shaped and bridges to twinMass oneWeight by A/B Finset arithmetic.
+
+### lemma_shapes
+
+INSENSITIVITY (bar ii — cheap Opus nodes):
+L0 schema [A]: theorem parityInv_of_closed (θ A₀ : ℝ) {P : Prop} (hP : P) : ParityInv θ A₀ (fun _ => P) := fun _ _ => hP. Instantiations (each one line, `parityInv_of_closed _ _ <landed>`): parityInv_S1_le_S2 (P := ∀ q (χ : DirichletCharacter ℂ q), χ^2 = 1 → ∀ A, Salt.HB.S1 A ≤ Salt.HB.S2 χ A; Transfer.lean:189-192); parityInv_twin_bar (Impossibility.lean:173); parityInv_twin_gate_fails (:262); parityInv_no_twin_weight (:276); parityInv_noSiegel_iff (SiegelTwin.lean:129-131, the 𝒟(¬F)-cone anchor; the K1 contrapositive instance lands when D1 lands); parityInv_chen_headline (ChenTheorem.lean:32); parityInv_twin_almost_prime (BrunLower/TwinInstance.lean:16); parityInv_brun (N5_3, M5BigO.lean:295; N6_2, N6.lean:231). Honest label: these certify that every listed landed theorem is a CLOSED proposition — it never reads the completion — which is exactly the formal content of "𝒟(¬F) ⊆ ParityInv" under semantic invariance. Optional C-class upgrades (relativized in-model Selberg/Brun ceilings, e.g. ∀ a, Completion θ 2 a → sieve upper bound on twinMass a) are follow-on nodes, NOT required by the bar.
+
+MODEL-CLASS LEMMAS:
+L1 true-completion membership [B at θ<1/2; C-node for θ<1]: theorem oneWeight_mem {θ A₀ : ℝ} (h0 : 0 < θ) (h : θ < 1/2) (hA : 0 ≤ A₀) : Completion θ A₀ oneWeight. Proof: |typeISum 1 d x − ρ(d)x/d| ≤ ρ(d) ≤ d, Σ_{d≤x^θ} d ≪ x^{2θ} = o(x·log⁻ᴬ⁰x). The θ<1 extension needs ρ(d) ≤ 2·τ(d)² (roots of r(r+2) ≡ 0 pinned by divisor pairs via gcd(r,r+2) ∣ 2 + CRT) — a separate flagged C-node.
+L2 Brun witness [B/C — the keystone, consumes GROUNDED N5_3]: theorem twinFree_mem {θ A₀ : ℝ} (h0 : 0 < θ) (h : θ < 1/2) (hA : A₀ ≤ 2) : Completion θ A₀ twinFree. Proof: the diff from oneWeight at each d is ≤ #{twins n ≤ x with d ∣ n(n+2)}; each twin n contributes to at most its 4 divisors {1, n, n+2, n(n+2)}, so the level-summed diff is ≤ 4·twinPrimeCounting x, and N5_3 : TwinCountingBigO (M5BigO.lean:295) gives O(x/log²x). Companion [A]: theorem twinFree_twinMass : ∀ x, twinMass twinFree x = 0.
+
+THE GAP (necessity) THEOREM [B given L2]:
+L3: theorem sufficient_true_not_parityInv {θ A₀ : ℝ} (h0 : 0 < θ) (h : θ < 1/2) (h1 : 1 ≤ A₀) (h2 : A₀ ≤ 2) {E} (hs : TwinSufficient θ A₀ E) (ht : E oneWeight) : ¬ ParityInv θ A₀ E. Proof: ParityInv gives E twinFree; TwinSufficient + L2 forces twinMass twinFree unbounded; L2-companion says it is 0. THIS is Z's gap statement made kernel-real: every twin-sufficient true estimate must break parity-invariance at Brun grade.
+
+THE DEMAND LEMMA (bar iii — honest landing point: full TwinPrimeConjecture, no weakening needed):
+L4 bridge [A/B]: theorem twinMass_oneWeight_unbounded_iff : (∀ C : ℝ, ∃ x : ℕ, C < twinMass oneWeight x) ↔ TwinPrimeConjecture (repo form Basic.lean:25-26; Finset counting, no Λ, no M4).
+L5 demand [B given L1+L4]: theorem Z_implies_TPC {θ A₀ : ℝ} (h0 : 0 < θ) (h : θ < 1/2) (hA : 0 ≤ A₀) : Z θ A₀ → TwinPrimeConjecture.
+L6 non-degeneracy converse [A]: theorem TPC_implies_Z {θ A₀ : ℝ} : TwinPrimeConjecture → Z θ A₀ (witness E := fun a => ∀ C, ∃ x, C < twinMass a x — tautologically sufficient; E oneWeight ⟺ TPC via L4). So Z θ A₀ ⟺ TPC: Z is exactly a demand specification, and L3 proves every way of meeting it is parity-breaking.
+
+OPEN TARGET (stated in the freeze, never assumed): ParityBarrier θ — D-class, M1/M2-flagged; see risks.
+
+### rationale
+
+VERDICT: define. The refined Boundary A′ passes all four bars where the map's raw candidates each failed one, and the deadlock the map priced (non-vacuity resting on MEMORY M1) dissolves under quality grading.
+
+Bar (i) — precise demand spec, oracle-free: Z θ A₀ is a Prop family in real corpus types (ℕ → ℝ weights, Finset sums, Real.log); no DirichletCharacter, LamTilde, L-function, or ¬F anywhere in its inputs (GROUNDED: the frozen text above is self-contained modulo Salt.Basic + Salt.Brun). It states exactly what a twin-sufficient parity-breaking estimate IS: a predicate on pure-Type-I completions forcing twin mass, true of the real sequence.
+
+Bar (ii) — all mapped inside theorems provably insensitive: discharged by the L0 schema + one-line instantiations (every listed inside object — S1_le_S2, the 𝒟(¬F) anchors, twin_bar family, chen_headline, twin_almost_prime, Brun — is a closed proposition; all names/lines re-verified this session). Semantic invariance is the honest formalization: a proof-theoretic "derivable-from-Type-I" ParityInv would need a deep-embedded proof system (D-class) and would ossify the method — precisely failure (iv). The model-class rendering is the standard analytic-number-theory meaning of the parity phenomenon (two completions, same data, different twin counts), and it puts the content where it belongs: in the witness completions.
+
+Bar (iii) — twin-sufficiency provably outside: L3 lands it at grade A₀ ≤ 2, θ < 1/2, using ONLY in-house theorems — the decisive grounding find is N5_3 : TwinCountingBigO (Salt/Brun/M5BigO.lean:295, proven and imported on main via Salt.lean:2-4), which certifies the twin-free completion twinFree ∈ 𝒞(θ,2) because a twin pair n has exactly 4 divisors of n(n+2). Honest landing point of the demand lemma: full TwinPrimeConjecture (L5) — no weaker surrogate needed, because freezing twinMass as an indicator functional against the repo's ∀∃-form TPC (Basic.lean:25-26) removes the Λ-weighted B(x) object and with it the unlanded M4 bridge entirely.
+
+Bar (iv) — anti-ossification: E quantifies over ALL predicates on completions — a future Friedlander–Iwaniec-style bilinear estimate in the (n,n+2) configuration enters as the semantic consequence class of whatever it proves, with zero reference to Selberg weights, LamTilde, or characters (the map's ossification failure modes for B and C are structurally impossible here). Boundaries B and C become PROVEN in-cone instances (parityInv_twin_bar, parityInv_S1_le_S2), never the boundary. Type-II smuggling (M5) is closed by the type of typeIError, not by a side condition — the definitional cliff the map flagged as swinging both risk poles is welded shut in the only direction that keeps 𝒜⁻ a model.
+
+Why the map's DEFER-shaped deadlock dissolves: the map treated non-vacuity as resting wholly on M1 (Selberg/Bombieri twin-free completion, MEMORY, unstaged). Quality grading splits that claim: at A₀ ≤ 2 the barrier certificate is SPARSITY-grade and Brun-landable now (L2/L3); the full parity grade (∀A₀ — the λ-biased completion) is exactly the frozen open ParityBarrier target. Z's demand shape, the demand lemma, and the inside cone are all A₀-uniform, so nothing in the freeze waits on M1. The freeze also caught and repaired two outright bugs in the pass2 sketch (∀g; θ = 1 falsified by the true sequence) — recorded as catch #224 scope diffs 1-2.
+
+Node pricing for the ratification block: L0 instances A-class (Opus/Sonnet); L1 B; L2 B/C (keystone, consumes N5_3); L3 B; L4 A/B; L5 B; L6 A. The τ²-density node (θ < 1 extension) and any relativized-ceiling upgrades are optional follow-ons. ParityBarrier is D-class, not commissioned.
+
+### risks
+
+R1 (dominant, honest-shape law) — GRADE INFLATION HAZARD: the landable L3 certificate at A₀ ≤ 2 is BRUN-grade (twins are sparse), NOT the parity barrier proper. It must never be presented as "the parity problem formalized" — the parity-grade statement is exactly ParityBarrier (∀A₀), which remains OPEN. Every writeup line about L3 needs the grade qualifier.
+
+R2 (sharpens fulcrum-pass2.md:81, MEMORY→concrete) — the full ParityBarrier may be beyond current mathematics in the (n,n+2) configuration, not merely unstaged: the λ-biased completion a = 1 − λ(n)λ(n+2) requires two-point λ-correlation cancellation in arithmetic progressions UNIFORMLY to level x^θ; the staged log-Chowla corpus (1503.05121/chowla.txt, and the landed log_chowla_two) is fixed-coefficient and log-averaged, and Tao's disclaimer (chowla.txt:196-200, GROUNDED) is verbatim that it does not transport to twin-type sums. The classical Selberg 1949/Bombieri examples (M1/M2, MEMORY, unstaged) are single-variable; staging Opera de Cribro ch.16 may NOT mechanically discharge the twin-config case. Consequence if ParityBarrier is unprovable: Z and all frozen lemmas survive unchanged (nothing depends on it); only the barrier's GRADE stays Brun+kernel-k=2 — the honest state, already labeled.
+
+R3 (referee-facing) — Z θ A₀ ⟺ TPC (L5+L6) is BY DESIGN (demand specification): the content is L3 (every satisfaction breaks invariance) plus the model class itself, not Z's raw satisfiability. A reader mistaking Z for "new content beyond TPC" must be pointed at L3; a reader calling Z circular must be pointed at L6's tautological witness — the W5 law is what makes the ∀C∃x shape non-degenerate.
+
+R4 (semantic-vs-derivability, priced in rationale) — semantic invariance makes the L0 inside lemmas trivial. This is honest (closed props cannot read a completion) but means the inside cone certification carries no arithmetic information; the map's derivability intuition is captured only by the optional relativized-ceiling C-nodes. Accepted trade: the alternative (deep-embedded derivability) is D-class and ossifies.
+
+R5 (instance-range debt) — L1/L2/L3/L5 land at θ < 1/2 (crude ρ(d) ≤ d). The θ < 1 extension needs the ρ(d) ≤ 2τ(d)² node (C-class). Until it lands, barrier instances cover level < x^{1/2} — which already includes every level the corpus's sieves actually use, but the θ-range must be stated in any claim.
+
+R6 (formal fit) — small Lean frictions to expect at execution: the ∃C ∀x≥2 constant-slot form must absorb small-x and the atTop-only force of N5_3 (choose C after an x₀-split — B-grade fiddle, not a design risk); twinRho at d ∈ {1,2} and the n=1 window edge need the usual norm_num edge lemmas; Real.log x ^ A₀ needs rpow vs pow discipline (the corpus's GEH-FIX catch — use rpow).
+
+MEMORY-LABEL SUMMARY: everything in the frozen definition and lemmas L0-L6 is GROUNDED-buildable (all cited names/lines re-verified this session, including N5_3 on main). MEMORY items remaining load-bearing ONLY for the open ParityBarrier target: M1/M2 (Selberg/Bombieri, unstaged), the R2 two-point-Chowla-in-APs obstruction analysis (this session's arithmetic, unrefereed). M4 is dodged, M5 is welded shut by the type, M3 is honored (nothing encodes "no such bilinear structure exists"), M6/M7 do not touch Z.
+
+## REFW (refuter record)
+
+### verdicts
+
+{
+"W1_SignChain": {"verdict": "SURVIVES", "certificate": "TYPE-CHECK: every cited corpus line verified exact this pass (GROUNDED): TC:94/98-99/118/136/388/393 defs, TC:55/181/211/251/324/368/408/424 lemmas; TCC:67/184/252/268/293/317 + helper block TCC:89-161; TR:176/179/189-192; TF:183-185; LC:68/76/89/98/107/118/130/159/180/196/227/372/396; SW:72-73. No ±1 drift in any citation used. UNPROVABILITY: the hcop-erasure checked at its load-bearing point — the SOLE hcop consumer in the whole chain is chiRe_eq_one_or_neg_one (TC:397, consumed at TC:414-420 and TCC:136-150); prime_pm replaces it hypothesis-free; every downstream hcop-drop (eq_nPlusGen_mul_nMinusGen through omega_capGen/lamTildeGen_cap) reduces to that one swap — sound. vonMangoldt_le_LamTildeGen re-derivation priced: gGen local factor via fGen_pow (map_one+map_mul induction) + sum_ite_lt_pow_nonneg with hf.abs_le_one — B-class as claimed. Decidability: open Classical precedent TC:386/TF:177 GROUNDED. VACUITY: cleared — map_one blocks f≡0; witnesses f≡1 and λ exist. Packet note: complete multiplicativity (∀ a b) vs record's 'multiplicative' is the record's own WLOG (pass3_t3.md:29-32 'determined by ε: Primes → {±1}'; engine reads f only at squarefree d, :11-12) — not a silent scope change. NAME HYGIENE: all frozen names grep-clean in Salt/ at this pass; SignChain/SignLiouville/SignRate files do not exist. Minor: l2cWindowGen_roughness binds {z x} implicit vs LC:180 explicit — elaborates (inferable from hn), cosmetic only."},
+"W2_SignLiouville": {"verdict": "SURVIVES", "certificate": "MATHLIB GROUNDING verified at exact lines: liouville : ArithmeticFunction ℤ (Liouville.lean:27-29); liouville_apply {n}(h : n ≠ 0) :31 — DES-W's correction of MAP-W CONFIRMED; apply_one :37; apply_mul UNCONDITIONAL :40 — confirmed; cardFactors_apply_prime Misc.lean:303; moebius_apply_of_squarefree Moebius.lean:60; moebius_eq_zero_of_not_squarefree :64; moebius_mul_log_eq_vonMangoldt VonMangoldt.lean:130 = (μ : ArithmeticFunction ℝ) * log = Λ — the convolution half, correct shape; sum_moebius_mul_log_eq :133 is indeed the wrong shape (∑ μ(d)·log d = −Λ). POLE route case-complete: moebius_sq_mul_lamR holds at d=0/non-squarefree/squarefree (squarefree ⇒ d≠0 unlocks liouville_apply); gGen_lamR ext incl. n=0 via map_zero. lamR carries the required noncomputable (Int.cast into ℝ). λ-CORNER consistency: excPrimorialGen lamR z = 1 (empty filter), window unsifted, but S2Gen−S1 ≡ 0 exactly — no falsity, matches diff #2's bypass note. PretenseSumGen_lamR: filter everywhere-false via lamR_prime — provable. All A/B pricing confirmed."},
+"W3_SignRate_neutrality_rate": {"verdict": "SURVIVES (with recorded notes)", "certificate": "Provable now given W1: left conjunct = sub_nonneg.mpr (S1_le_S2Gen hf W); right = rw [S2Gen_sub_S1_eq]; exact hbudget. Diff #5 correct: the freeze gates do no work here — carrying them would be dead hypotheses; total-function degeneracies at z≤1 (z0=0, x/0=0) are semantic only, no falsity. NOTE for the minutes: its UNCONDITIONAL content is exactly S1_le_S2Gen; the priced-rate content lives in hbudget until masterGen — declared (diff #3, hres precedent TF:204-214), acceptable as ratified interface."},
+"W3_SignRate_EngineBound_and_masterGen": {"verdict": "SURVIVES (with recorded notes)", "certificate": "TRANSCRIPTION (catch #98 refuter pass, the declared risk): term-by-term vs l2c-freeze.md:27-33 — Cmain·x/z0 ✓; Cmain·(x/log x)·e^{5·z0}·P, Aexp=5 ✓; junk Cmain·e^{2·z0}·(x/z^{1/8}+x^{9/10})·L'³ rpow form ✓; N pinned 2x+2 ✓; gates hz100/hz8/hzx verbatim (Lwin x^8 ≤ z ⇔ (log(2x+2))^8 ≤ z, LC:54) ✓. POST-FREEZE SURFACE: landed junk rows (L2cELJunk: 16·e^{2z0}·x/z^{1/8}·L'³, 24576·e^{2z0}·x^{9/10}·L'³) fit the shape, constants Cmain-absorbable — no drift yet; character master still unlanded (no L2cMaster.lean, All.lean L2c-line absent — verified), so risk #1's mandatory re-diff at that landing stands. QUANTIFIER: ∃Cmain ∀f∀z∀x is the ONLY non-vacuous reading of the freeze's 'EXISTS Cmain > 0 ABSOLUTE' — ∃ inside the context would be trivially dischargeable by Cmain-monotonicity of EngineBound (the vacuity trap; DES-W avoided it). VACUITY: gate region nonempty (z=100^16, x ∈ [10^96, e^{10^4}] approx). WORST CORNERS run: f=λ (S2−S1=0, EngineBound ≥ 0 at pret=0 — holds, bypass per diff #2); f≡1 (pret ≈ L maximal; pretense term ~Cmain·x·e^{5z0} dominates the capped/sifted S2 since 5 > 2log2, z0² absorbable); adversarial f (all p<z at −1, window-scale primes +1: window UNSIFTED, pret=O(1), but overshoot support is empty in-window — n₊·n₋ needs n₊ > x, n₋ ≥ 2 ⇒ n > 2x; the general adversary is λ-pretender-grade, exactly what the freeze's χ-uniform rows price; T1-corner arithmetic re-run: Σ_v 2Λ(v)·L·x/(v·log²x) ≈ 2Cx/z0 fits the no-PS row). No falsifying instance found. D-freeze discipline on masterGen correct."},
+"cross_cutting": {"verdict": "SURVIVES", "certificate": "CATCH #224: all 10 declared diffs check out against BOTH surfaces (pass3_t3.md:17-19/29/100-101/137-141; l2c-freeze.md:5/12-18/21-33/145-146/156-189). Independent sweep found two additional diffs, neither silent-fatal: (i) record §5(A) arbitrary-A/abstract EngineBound(pret) → window-pinned 3-term concrete — a freeze-level decision (l2c-freeze.md:21-31), DES-W follows the operative surface; (ii) the roughness binder cosmetics. W5 LAW: no Q/q, no o(1)/staircase/HL in any Lean text; horn B prose-only ✓. HONEST-SHAPE: pret-independent floor kept, no compression ✓. Diff #4 verified: chiRe is DirichletCharacter-locked at TwistedSieve.lean:63. Diff #10 verified: IsSignFunction (chiRe χ) false for q>1 (χ vanishes on p∣q vs prime_pm) — no false subsumption claimed."}
+}
+
+### repairs
+
+NONE BLOCKING. Four non-blocking hardenings for the ratification minutes: (1) RECORD the quantifier ruling — hb_l2c_masterGen's ∃Cmain-OUTSIDE-∀ is the ratified reading of the freeze's 'ABSOLUTE'; guard against any future 'faithful' transcription moving ∃ inside the hypothesis context, which is trivially provable (Cmain-monotonicity) = vacuous. (2) Land neutrality_rate with a docstring line stating its unconditional content = S1_le_S2Gen and that the rate content is hbudget-conditional pending masterGen (flags-wording guard, l2c-freeze.md:146 discipline — no strengthening at Lean time). (3) Risk #1 is confirmed live: the character hb_l2c_master is unlanded (no L2cMaster.lean; All.lean L2c-line absent); at that landing a mandatory catch-#224 EngineBound re-diff must run before any masterGen attempt — landed junk-row constants (16, 24576) already show Cmain must absorb ≥ 2.5e4-grade factors, shape unchanged. (4) Cosmetic: the `(… : ℤ)` ascription in lamR is redundant (liouville n is already ℤ); harmless either way. Executors: re-grep all frozen names at dispatch (8 executors in flight on L2c* files; single-writer-on-names law, catch #245 am.1).
+
+### overall
+
+survives
+
+## REFZ (refuter record)
+
+### verdicts
+
+(1) BOUNDARY BOTH SIDES — SURVIVES. Side A (wrongly-satisfying landed theorem): impossible. Every landed theorem is a closed prop P; for E := fun _ => P with P TRUE, TwinSufficient fails at a := twinFree (twinFree ∈ 𝒞(θ,A₀≤2) via L2/Salt.M5BigO.N5_3 [GROUNDED M5BigO.lean:294-295, verified; nat_absorb :227-229 gives explicit 25700]; twinMass twinFree ≡ 0 refutes ∀C∃x); with P FALSE, E oneWeight fails. So no closed prop witnesses Z — double-locked by L5 (Z→TPC at certified grades; no landed theorem implies TPC). Side B (wrongly-excluded route): impossible. L6's tautological witness E := fun a => ∀C ∃x, C < twinMass a x is TwinSufficient at EVERY grade with no hypotheses (verified: statement elaborates; E a IS the conclusion), so any TPC proof of any technique — bilinear/FI, exceptional-character, circle method — satisfies Z. M3 honored; pass2's no-go warning (fulcrum-pass2.md:~92) respected. Both attacks fail for the same reason: Z ⟺ TPC carries no methodological content — R3 declares this honestly; the content is the model class + L2 + L3. (2) VACUITY — SURVIVES WITH ONE REAL FINDING. Not over-strong (L6 grade-free). Not satisfiable-by-non-twin at certified grades θ∈(0,1/2), A₀≥0 (L5 via L1: per-d error ≤ ρ(d) ≤ d, Σ_{d≤x^θ}d ≪ x^{2θ} = o(x·log^{−A₀}x) — arithmetic checked). FINDING: at grades where oneWeight ∉ 𝒞 (plausibly θ=1, A₀=3), Z is TRIVIALLY satisfied by E := (· = oneWeight) — TwinSufficient vacuous, E oneWeight definitional. Z's docstring has no grade guard. Repair 2, not a kill: every commissioned lemma carries explicit θ<1/2 packets and R5 flags the range. (3) ORACLE LEAK — CLEAN, elaboration-verified: the frozen module compiles from Mathlib+Salt.Basic+Salt.Brun alone (Basic.lean is 32 pure lines, verified); no DirichletCharacter/LamTilde/L-function/¬F in any input. Characters appear only in L0-INSTANCE content (SiegelTwin.lean:129-131, verified) — the inside cone, which is the point. (4) DEMAND LEMMA — PLAUSIBLE AS STATED. Repo TPC verified ∀∃-shaped (Basic.lean:25-26: ∀n ∃p, n ≤ p ∧ p.Prime ∧ (p+2).Prime); twinMass oneWeight x = twin count on [1,x]; L4 is pure Finset/Nat.count arithmetic, A/B as priced. The M4 bridge (fulcrum-pass2.md:88, verified: "TPC ⟺ B(x)-unbounded-mod-dust... unlanded") is GENUINELY dodged — no Λ anywhere. Diff-6 claim TRUE. (5) OSSIFICATION — NONE. The only technique-shaped constraint (pure-Type-I class type) binds the BARRIER side; E reads a directly (Type-II expressible in the demand), and L6 admits every route. The M5 weld (fulcrum-pass2.md:82, verified) is in the correct direction. Residual (R4, honestly priced): ParityInv contains EVERY true closed prop — including TPC itself if ever proven — so cone membership of theorems is type-level, not arithmetic; the boundary bites only at predicate level. GROUNDING SWEEP: all cited names/lines verified against files — S1_le_S2 (HB/Transfer.lean:189-192; S1 is q-free, :176, so the design's P text is well-typed — elaborated), twin_bar (Impossibility.lean:173), twin_gate_fails (:262), no_twin_weight (:276), noSiegelZeros_iff_not_infinitely (SiegelTwin.lean:129-131), chen_headline (ChenTheorem.lean:32), twin_almost_prime (TwinInstance.lean:16 doc/:771 thm), N6_2 (N6.lean:231), Tao disclaimer verbatim (chowla.txt:196-200), no Salt.Parity collisions, twinRho/typeISum/ParityInv/TwinSufficient names fresh. KERNEL CHECK: frozen module + L0 (with the design's exact proof term) + L1-L6 statement shapes all elaborate via lake env lean --stdin (sorry-warnings only on the statement stubs). L2's 4-divisor argument verified sound (twin n ⇒ n(n+2) has exactly divisors {1,n,n+2,n(n+2)}; twinPrimeCounting def Brun.lean:19 matches). TWO ELABORATION-VERIFIED DEFECTS (repair 1): (a) the frozen import list cannot see N5_3 — Salt/Brun.lean does NOT import M5BigO (that path is Salt.Brun.All); (b) the name is Salt.M5BigO.N5_3, not bare N5_3 (namespace Salt.M5BigO, M5BigO.lean:25); likewise the L0 instantiations need corpus imports absent from the frozen list (Salt.HB.S1 unknown — reproduced). ONE MISATTRIBUTION (repair 3): fulcrum-pass2.md:37 (verified) PINS g ("g the twin singular-series density") — diff-1's "sketch quantified ∀g" is false as history; the freeze's pinning is faithful, the diff table is wrong. Diff-2's stated reason (Σρ(d) ≍ x log x) is upper-bound-shaped and does not PROVE θ=1 failure of the true sequence — non-membership needs a typeIError LOWER bound (fractional-part non-cancellation, C-grade, unproven; conclusion plausible — my check: error_p ≈ −({x/p}+{(x+2)/p}) for primes p, no cancellation, heuristically ≍ x/log x ≫ x/log³x). Nothing frozen depends on it. Diff-4's rationale overstated (the tautological witness is sign-insensitive, so signed classes never make Z unsatisfiable); the nonneg pin is still correct for barrier-side naturality and provably harmless (λ-biased weight 1−λ(n)λ(n+2) ∈ {0,2} ✓ nonneg; L5/L6 insensitive to the pin). Nits: L3's h1 : 1 ≤ A₀ and L1/L2/L3's h0 : 0 < θ are unnecessary hypotheses (harmless; L5 in fact holds at θ ≤ 0 too since the level window empties).
+
+### repairs
+
+R-1 (MANDATORY, elaboration-verified): fix the module's import/name plumbing. Z.lean must import Salt.Brun.All (or Salt.Brun.M5BigO) for L2's keystone — the frozen "Salt.Basic + Salt.Brun" list cannot see it; cite the keystone as Salt.M5BigO.N5_3 (namespace at M5BigO.lean:25), not bare N5_3. Put the L0 instantiations in a separate Salt/Parity/Instances.lean importing the corpus (Salt.HB.All, Salt.TwinBar.All, Salt.Chen.All, Salt.BrunLower.All, Salt.Brun.All) — verified working with qualified names Salt.HB.S1_le_S2, Salt.TwinBar.{twin_bar,twin_gate_fails,no_twin_weight,noSiegelZeros_iff_not_infinitely}, Salt.Chen.chen_headline (IsP2 is Salt.Chen.IsP2), Salt.BrunLower.twin_almost_prime, Salt.N6.N6_2; keep Z.lean's demand-spec module oracle-clean by NOT importing HB/TwinBar there (the clean-inputs claim then stays checkable by import list alone — recommend stating this as the module invariant). R-2 (MANDATORY, doc-level): grade-guard Z. At any (θ,A₀) with oneWeight ∉ Completion θ A₀, Z is trivially satisfied by E := (· = oneWeight) (TwinSufficient vacuous) — zero twin content. Docstring must say the demand-force is conditional on true-sequence membership (certified window θ ∈ (0,1/2), any A₀ ≥ 0); optionally land the A-class lemma Z_trivial_of_not_completion : ¬ Completion θ A₀ oneWeight → Z θ A₀ to make the degeneracy kernel-visible. Every downstream Z-claim carries the window (extends R5). R-3 (catch #224 diff-table corrections, before the freeze is banked): diff-1 rewrite — the pass2 sketch (fulcrum-pass2.md:37) already pins g to the twin singular-series density; the freeze's contribution is FORMALIZING it as twinRho d / d and foreclosing the ∀g misreading, not fixing a sketch bug. Diff-2 relabel — "true sequence fails its own norm at θ=1" is MEMORY/heuristic-grade (needs a typeIError lower bound via fractional-part equidistribution, C-class, unproven); the load-bearing fact is only that L1's route caps at θ<1/2 (crude ρ(d) ≤ d) resp. θ<1 (the τ² node) — the freeze correctly claims nothing at θ=1. Diff-4 relabel — rationale is barrier-side naturality, not TwinSufficient-satisfiability (which the sign-insensitive tautological witness protects at every grade). R-4 (writeup discipline, extends R1/R4): mandatory language — the parity boundary separates completion-PREDICATES, not theorems; every true closed proposition (TPC itself included, if proven) sits in ParityInv by L0, so inside-cone certificates are type-level facts; arithmetic insensitivity content lives only in the witness completions (L2) and the optional relativized-ceiling C-nodes. Nits (optional): drop L3's h1 and the unused h0's, or keep for interface fidelity — statement-text choice, no math risk.
+
+### overall
+
+survives-with-repairs
+
