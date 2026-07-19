@@ -27,15 +27,15 @@ per stone after the MR-W1 executor wave (residual detail: the MR-W1 section of
 * S1  `Dist`          — CORE LANDED: `pretDistSq` + Liouville split + principal
   Mertens evaluation + Euler `k≥2` tail.  Residual: the twisted
   `Re log L(1+1/logx+it,χ)` identity (needs an Euler-log-of-`L` bridge).
-* S2  `ZetaPowLower`  — BLOCK A + KEYSTONES LANDED: the full `d' ≥ w` half
-  (`zeta_pow_lower_far`, unconditional `d'/32` floor) plus both analytic
-  keystones (`zeta_dirichlet_re_le`, `hasDerivAt_log_norm_zeta` — the
-  log-modulus FTC derivative).  `zeta_pow_lower` OPEN on Block B only (the
-  `~400–600`-line near-region zero-counting bridge; decomposition in the
-  module docstring).
-* S3  `ZetaLowerAllT` — LANDED PARAMETRIC: compact-mid fill + `Zc` small-`t`
-  patch + all-`t` head `zeta_lower_all_t_of_pow` (named slot `hpow` = S2's
-  statement; the thin closer lands with S2).
+* S2  `ZetaPowLower`  — LANDED (MR-W2): Block A + keystones + Block B
+  (`near_norm_logDeriv_Zc_le` the normalized scaled-Landau zero count,
+  `zeta_near_bound_core`/`zeta_near_logDeriv_bound` the pow-region
+  discharge at honest `C_L = 400`, `zeta_near_bridge` the FTC bridge) →
+  `zeta_pow_lower`, `c' = e^{-400}/(32·10⁹)`-grade, shape `L^{3/4}ℓ⁴`.
+* S3  `ZetaLowerAllT` — LANDED + CLOSED (MR-W2): compact-mid fill + `Zc`
+  small-`t` patch + head `zeta_lower_all_t_of_pow`; the closer
+  `zeta_lower_all_t` discharges `hpow` with S2 — the all-`t` uniform
+  bound `c''/((log(|t|+3))^{3/4}(loglog(|t|+16))⁴) ≤ ‖ζ(1+d'+it)‖`.
 * S6a `L2MVT`         — PARTIAL: `dpoly` L² expansion + diagonal split; the
   `(T+N)` close needs a Montgomery–Vaughan Hilbert-inequality stone (absent
   from mathlib/corpus).
@@ -65,9 +65,14 @@ open Salt.Tactic in
   Salt.MR.zeta_lower_compact_mid
   Salt.MR.zeta_lower_small_t
   Salt.MR.zeta_lower_all_t_of_pow
+  Salt.MR.zeta_lower_all_t
   Salt.MR.zeta_pow_anchor
   Salt.MR.pow_region_width
   Salt.MR.zeta_dirichlet_re_le
   Salt.MR.hasDerivAt_log_norm_zeta
   Salt.MR.zeta_horiz_lower
   Salt.MR.zeta_pow_lower_far
+  Salt.MR.near_norm_logDeriv_Zc_le
+  Salt.MR.zeta_near_logDeriv_bound
+  Salt.MR.zeta_near_bridge
+  Salt.MR.zeta_pow_lower

@@ -3,6 +3,7 @@ Copyright (c) 2026 Jason Hickey. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
+import Salt.MR.ZetaPowLower
 import Salt.SW.ZetaPartialFractions
 import Mathlib
 
@@ -265,5 +266,16 @@ theorem zeta_lower_all_t_of_pow {c' T₁ : ℝ} (hc' : 0 < c') (hT₁ : 3 ≤ T�
         _ ≤ c' * ((Real.log (|t| + 3)) ^ ((3 : ℝ) / 4)
               * (Real.log (Real.log (|t| + 16))) ^ (4 : ℕ)) :=
             mul_le_mul_of_nonneg_left hdenle hc'.le
+
+/-- **S3 — the all-`t` uniform ζ lower bound (the wave's crown).**  The `hpow` slot discharged
+by the landed S2 `zeta_pow_lower`: for all `d' ∈ [0,1]` and ALL `t` (excluding only the pole
+point `d' = 0 ∧ t = 0`), `c''/((log(|t|+3))^{3/4}·(loglog(|t|+16))⁴) ≤ ‖ζ(1+d'+it)‖`. -/
+theorem zeta_lower_all_t : ∃ c'' : ℝ, 0 < c'' ∧ ∀ d' t : ℝ, 0 ≤ d' → d' ≤ 1 →
+    ¬(d' = 0 ∧ t = 0) →
+    c'' / ((Real.log (|t| + 3)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (|t| + 16))) ^ (4 : ℕ))
+      ≤ ‖riemannZeta ((1 + d' : ℝ) + (t : ℝ) * Complex.I)‖ := by
+  obtain ⟨c', T₁, hc', hT₁, hpow⟩ := zeta_pow_lower
+  exact zeta_lower_all_t_of_pow hc' hT₁ hpow
 
 end Salt.MR

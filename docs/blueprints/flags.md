@@ -11284,3 +11284,54 @@ rows consume: `Q^{104}u^{−14} ≤ (Y:ℝ) ≤ 2Q^{104}u^{−14}` (`Nat.le_ceil
   `∃ C x₀` (C = 4; x₀ nonconstructive via the Mertens constant — the
   registered asymptotic-only posture).  The freeze pinned no literal
   S6b statement, so no statement was altered.
+
+## MR-W2 catches + residuals (wave-2 executor, 2026-07-18;
+## UNNUMBERED — house numbers at ceremony, per the VK-9 ruling)
+
+- **(S2 CLOSED + S3 CLOSED — the wave's stone and crown)** — Block B
+  landed in four chunks (`Salt/MR/ZetaPowLower.lean`):
+  `near_norm_logDeriv_Zc_le` (the normalized scaled-Landau NORM bound —
+  `entire_norm_logDeriv_sub_sum_scaled` on `F = Zc/Zc(c₀)` at the
+  `Θ = vkTheta(3γ)` disc + `entire_zero_count_le` at ratio `7/6` +
+  min-distance; the direct normalized analog of
+  `Salt.SW.norm_logDeriv_Zc_le_of_ball_dist`), `zeta_near_bound_core` +
+  `zeta_near_logDeriv_bound` (the pow-region discharge; min-distance
+  `w = cR/((log 2γ)^{3/4}(loglog 2γ)³)` from
+  `zeta_zero_free_region_pow`; spheres via `pow_uniform_growth` +
+  `Zc_ratio_sphere_bound`; negative `t` by `riemannZeta_conj`),
+  `zeta_near_bridge` (keystone-K FTC:
+  `intervalIntegral.integral_eq_sub_of_hasDerivAt` + `integral_mono_on`),
+  and the assembly `zeta_pow_lower`.  The S3 closer `zeta_lower_all_t`
+  (`ZetaLowerAllT.lean`) discharges `hpow` — the all-`t` uniform bound
+  is GREEN.  **HONEST `C_L = 400`** (140·Pinv·W term ≤ 1·S, pole `≤ 1·S`,
+  Blaschke-count term `≤ 398·S` at `1/log(7/6) ≤ 7`; freeze design ≈ 7,
+  corpus-literal estimate ≈ 30 — the 400 is the crude-but-green audit
+  value; only the shape `L^{3/4}ℓ⁴` is load-bearing).  Realized
+  `c' = e^{−400}·(1/10⁹)/32`; `T₁ = exp(exp(8·log(20000·K)+1100))+t₀+4`.
+  All five new public decls in the `Salt.MR.All` audit; axioms exactly
+  `[propext, Classical.choice, Quot.sound]`; no new warnings.
+- **(CATCH: per-decl heartbeat exhaustion masquerades as tactic
+  failure)** — the ~200-line `zeta_near_bound_core` died at `nlinarith`
+  sites that are individually cheap: the 3.2M budget is CUMULATIVE per
+  declaration, so the timeout surfaces at whichever tactic the budget
+  runs dry on (and moves downstream as earlier sites are cheapened).
+  `nlinarith` mixing `1/10⁹` numeral products is the main sink — replace
+  with explicit `calc` chains of `mul_le_mul_of_nonneg_*` (linear
+  scaling), and raise the decl to `maxHeartbeats 12800000` (comment goes
+  AFTER `set_option … in`, per the linter).  Corollary catch: under a
+  raised budget `gcongr` discharges MORE side goals (via `assumption`) —
+  a trailing `exact h` that compiled at low budget becomes "No goals to
+  be solved".
+- **(CATCH: two-writer file race on executor delegation)** — parent and
+  executor both re-inserted the same missing lemma into
+  `ZetaPowLower.lean` (the executor's monitor resumed it after the
+  parent had already read the file as broken), yielding a duplicate
+  declaration.  One file = one writer at a time; on delegation the
+  parent must not hot-fix the executor's file until the executor is
+  confirmed stopped.
+- **(S6a NOT ATTEMPTED — budget)** — the MV-HILBERT prerequisite stone
+  (registered by MR-W1; the `(T+N)` close provably needs it) was not
+  attempted this wave: the wave budget was consumed by Block B (the
+  chunk-2 executor ran ~390k).  `L2MVT.lean` stands as wave 1 left it
+  (expansion + diagonal split); S1's twisted log-L bridge residual also
+  untouched.

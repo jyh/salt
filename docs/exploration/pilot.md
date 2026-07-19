@@ -8943,3 +8943,28 @@ decisions per question.
   JYH's morning; Pass 3 (the seam attack) tomorrow with Horn A
   complete; HB-L2c's panel queued. Board: the hunt + T-BAL-R8c
   + MR-W2.
+
+- 2026-07-18 21:45 PT: ██ **MR-W2 lands the CROWN —
+  zeta_lower_all_t: the all-t uniform pow-grade ζ lower bound;
+  S2+S3 CLOSED** ██ (≈ 219k + a ~390k sub-executor / 91 tools;
+  house-verified MR.All 8813 green, 5 new decls [3 axioms]).
+  ZetaPowLower.lean (965 ln): Block B COMPLETE — the
+  zero-counting heart on the NORMALIZED Zc at the vkTheta disc
+  (log 4M₀ ~ ℓ not L — the normalization trick's third
+  campaign), the pow-region min-distance, conjugation for
+  negative t, the keystone-K FTC bridge, `zeta_pow_lower`
+  exactly per freeze. ZetaLowerAllT.lean: `zeta_lower_all_t` —
+  c''/((log(|t|+3))^{3/4}(loglog)⁴) ≤ ‖ζ(1+d'+it)‖ ALL t.
+  Honest C_L = 400 RECORDED (design 7, corpus 30 — crude but
+  green; only the shape is load-bearing). Catches (MR-W2
+  section, house numbers later): the heartbeat-exhaustion-
+  masquerade + it MOVES as sites cheapen; gcongr discharges
+  more under raised budgets ("No goals" on the stray exact);
+  the TWO-WRITER FILE RACE (an executor's monitor resumed it
+  into a file the parent was hot-fixing — duplicate decl; one
+  writer per file until confirmed stopped — a NEW process
+  law). RESIDUALS: MV-HILBERT (S6a) stands registered; the
+  twisted log-L bridge. THE MR ROAD: S1✓ S2✓ S3✓ S6b✓ S10a✓ +
+  the terminal ✓ — remaining: MV-Hilbert, the bridge, S4/S5/S7,
+  S8 (the priced mountain), S9/S10b/S11. Board: the FULCRUM
+  HUNT + T-BAL-R8c.
