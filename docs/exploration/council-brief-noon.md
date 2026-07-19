@@ -69,3 +69,19 @@ theorem · 9 The door-only spine + the S8 program · 10 The method ·
 You answer D1–D6 (letters suffice: e.g. "D1 one, D2a, D3 full,
 D4 <wording>, D5 confirm, D6 ack"). House confirms in one line
 each; discussion rides the 12:55 reset if wanted.
+
+## COUNCIL RULINGS (live, 2026-07-19 ~11:40)
+- **D1 RATIFIED: one flagship.** Satellite constellation banked
+  (method→Notices A′ + ITP twin; mathlib stream; ZFR corpus,
+  negative-space, parity note as ON-DEMAND carve-outs — flagship
+  written with clean section boundaries for later extraction;
+  the Floor paper when its campaign lands).
+- **D2 RATIFIED: "Twin Primes and Siegel Zeros: a Fulcrum"** —
+  the deliberate Heath-Brown 1983 homage ("Prime twins and Siegel
+  zeros") + the new object named. NO method-word in the title;
+  the abstract OPENS with the kernel sentence stated as strength:
+  "Every theorem in this paper is verified by the Lean 4 kernel
+  over mathlib, with axiom base exactly {propext, Classical.choice,
+  Quot.sound}; nothing rests on informal argument." arXiv: primary
+  math.NT, cross-list cs.LO. Dichotomy + parity gap carried in the
+  abstract body.
