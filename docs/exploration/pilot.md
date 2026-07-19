@@ -10060,3 +10060,18 @@ decisions per question.
   Banked: docs/exploration/halasz-infra-freeze.md. AMENDMENT
   A1 PENDING-JYH: stage GHS arXiv:1706.03749 + ratify the
   source-pin extension. **WAVE I-1 DISPATCHED (2 Opus).**
+
+- 2026-07-19 16:02 PDT: **S8-A4a LANDS COMPLETE** (Opus, 234k):
+  TypicalDensity.lean, 906 ln, 38 decls, 0 sorries, wired (8831
+  green) — typical_density_le (MR Lemma 2.2) UNCONDITIONAL at
+  the SHARP (log P/log Q)·X. THE FIND: Salt/Brun/SelbergPort's
+  selberg_bound_simple is fully GENERAL dimension-1 sieve
+  infrastructure (the twin-specific reputation undeserved) —
+  instantiated directly; Rankin correctly placed as the tail
+  engine on the bounding sum. Two route-corrections banked for
+  the fleet: the union bound computes the WRONG set (complement
+  confusion); direct Rankin on the count is a dead end (loses
+  the full log). S8 board EOD: 9 modules landed, Lemma 2.2 +
+  the decomposition + both mean-value legs in place; K1
+  designed + wave I-1 climbing; K2 reduced to one staged-source
+  lemma. In flight: HAL-I1a/I1b.

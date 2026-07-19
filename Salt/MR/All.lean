@@ -20,6 +20,7 @@ import Salt.MR.NonPretClose
 import Salt.MR.DistHalasz
 import Salt.MR.Decomp
 import Salt.MR.MVCore
+import Salt.MR.TypicalDensity
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -123,3 +124,4 @@ open Salt.Tactic in
   Salt.MR.ramare_decomp
   Salt.MR.mvHilbertUniform_of_l2
   Salt.MR.sep_inv_sq_sum_le
+  Salt.MR.typical_density_le
