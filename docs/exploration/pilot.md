@@ -9469,3 +9469,20 @@ decisions per question.
   fiber inclusion). Family board: ER_T3' ✅ FULL; ER_Tsw'
   conditional (hcount); E_L T3 reduction+STOP; Junk/T1/T2/Tsw
   E_L + ER_T1'/T2' in flight.
+
+- 2026-07-19 08:50 PT: **L2c-F-junk lands ALL THREE junk rows
+  first-attempt** (Opus, 228k): L2cELJunk.lean, 715 ln, 19
+  decls, axioms clean — EL_cJunk_bound (Cmain=16, the crude
+  count hits z^{−3/16} ≤ z^{−1/8} exactly, no geometric series),
+  ER_wJunk_bound (Cmain=16, ⊆-reuse of the shared card bound),
+  EL_corners_bound (Cmain=24576, the spare L' absorbed via
+  log y ≤ 96y^{1/96}, 43/48 ≤ 9/10 tight at 430≤432). PLUS
+  cover gap #2 flagged: the small even-block class (χ_ℝ(2)=−1)
+  outside all rows. HOUSE RULING #246: families guard n odd;
+  sixth row EL_evenCorner_bound at the corners shape — house
+  arithmetic verified the (1,1)/Zz route is PS-FREE (both
+  minus-parts forced pure 2-powers, weights constant, count
+  z0²x/L'² fits x^{9/10} absolutely). Even-corner executor
+  DISPATCHED; odd-guard broadcast to the 5 in-flight family
+  executors. Family board: Junk ✅ (3 rows) + ER_T3' ✅ FULL +
+  ER_Tsw' conditional; in flight: F-T1/T2/Tsw, M-T1/T2, even.

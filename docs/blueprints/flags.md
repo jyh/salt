@@ -11471,3 +11471,14 @@ junk row owns the class on both sides of both sums. Companion
 proof-layer catch: sift at Zz (not Zf) when cofactors are only ≥ z
 (Zf may exceed z in-regime — a naive Zf-sift is UNSOUND). Full text:
 docs/exploration/l2c-freeze.md HOUSE AMENDMENTS.
+
+**Catch #246 (cover gap #2, resolved by house ruling; 2026-07-19
+L2c-F-junk).** Even window elements (χ_ℝ(2) = −1 ⟹ 2 ∉
+excPrimorial) carry 2-power blocks ≤ z^{1/4} outside every junk row
+and every odd-modulus family route — the freeze's corners line had
+priced them J2-shaped, inconsistent with the frozen x^{9/10}-only
+corners conclusion. Ruling: families guard n odd; new sixth row
+EL_evenCorner_bound at the corners shape via a (1,1)/Zz-sift pair
+count (house-verified PS-free arithmetic — the two-block kill forces
+both minus-parts pure 2-powers, both weights constant). Full text:
+l2c-freeze.md HOUSE AMENDMENT 2.

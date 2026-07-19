@@ -187,3 +187,29 @@ exactly the junkExpr shape. THE RULING (forced, not discretionary):
    provably diverges from J2 by z0·L'²·e^{−4.3z0} → ∞ in-regime —
    the sharp single-block cap + weighted pair-count fibration are
    mandatory. The freeze's design is vindicated, not repaired.
+
+## HOUSE AMENDMENT 2 (Fable ruling, 2026-07-19 08:50 PT — catch #246)
+
+F-junk surfaced the second cover gap: when χ_ℝ(2) = −1 the window
+admits EVEN elements (2 ∉ excPrimorial by its def, StarWindow :72),
+whose χ=−1 blocks 2^e ≤ z^{1/4} are neither junk (fail the z^{1/4}
+threshold) nor family-eligible (the engine needs odd moduli). THE
+RULING: (1) **all family slices guard n ODD** (one predicate; by the
+parity link n even ⟺ n+2 even this excises the whole class from
+both sums; landed files needing no rework: M-T3's junk guard already
+excises its even corner since IsPrimePow w ∧ z ≤ w forces w = 2^e
+junk; M-Tsw's landed rows are unconditional/parity-blind — but the
+future hcount discharge must handle or excise even w, filed under
+HB-L2C-CHI-SIEVE). (2) **THE EVEN-CORNER ROW** (sixth line,
+EL_evenCorner_bound): the even class of BOTH overshoot summands,
+frozen conclusion = the corners shape Cmain·exp(2·z0)·x^{9/10}·L'³.
+House-verified route: even survivors have BOTH n₋ = 2^{e₁} and
+(n+2)₋ = 2^{e₂} pure (the two-block kill applies on each side —
+any odd χ=−1 block alongside 2^e kills Λ̃), so both weights ≤
+e^{(log2)z0}·log2; count per (e₁,e₂) fiber (e₂ ∈ {1, free-at-e₁=1})
+via l2c_pair_count_clean at (d₁,d₂) = (1,1) sifted at Zz (cofactors
+z-rough by l2cWindow_roughness hence Zz-rough; legality trivial);
+geometric Σ over e gives ≤ C·z0²·x/L'² which fits the x^{9/10} line
+absolutely (z0²e^{2log2·z0} ≤ 25e^{2z0}; x^{1/10} ≥ L'² from
+hz100/hzx). NO PretenseSum — the class is character-blind; the
+freeze's old √x-chebyshev sketch is superseded.
