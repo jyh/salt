@@ -9535,3 +9535,27 @@ decisions per question.
   E_L→E_R seam cover faults — never derive a mirror's cover by
   symmetry. Family board: 6 full + T1'-mixed + Tsw' cond.;
   in flight F-T2/M-T2/even + the panel.
+
+- 2026-07-19 10:00 PT: ██ **GATE #1 LANDS — WALL-3 + D4 BOTH
+  RATIFIED, dispatch-ready** ██ (wf_8308a21e, 7/7, ~720k; the
+  judge independently re-verified every load-bearing citation).
+  WALL-3: W1 (SignChain — IsSignFunction packet replacing χ+hsq,
+  ~24 thm re-typings, hcop-erasure certified sound), W2
+  (SignLiouville — λ instantiation: Λ̃_λ = Λ, S2Gen λ = S1,
+  overshoot ≡ 0, PS_λ = 0; THE POLE = the mathlib μ·log = Λ
+  line, :130 not :133), W3 (SignRate — EngineBound def +
+  neutrality_rate; hb_l2c_masterGen COMMENT-frozen only, no
+  sorried decl; ∃Cmain OUTSIDE ∀f — the inside reading is
+  vacuous, FORBIDDEN). D4: **DEFINE** — Salt/Parity/Z.lean
+  ratified (twinRho/Completion/ParityInv/TwinSufficient/Z/
+  ParityBarrier-as-def) w/ refuter repairs: minimal imports as
+  an ORACLE-CLEANLINESS INVARIANT (never imports Salt.HB/
+  TwinBar — checkable by import list alone), the grade guard
+  (Z trivializes outside the certified window — docstring +
+  Z_trivial lemma), L0–L6 commissioned (L3 = THE GAP theorem at
+  Brun grade via N5_3; L5 Z⟹TPC; ParityBarrier stays D).
+  Banked: docs/exploration/wall3-d4-ratified.md. **Z IS ABOUT
+  TO BECOME A MATHEMATICAL OBJECT.** Dispatch order: W1 → W2 →
+  W3 ∥ D4 chain. Also this hour: THE GLITCHED SWITCH — the
+  compiler-acct account's ToS 400 killed F-T2/M-T2/even mid-flight
+  (partials safe in-tree); resumed post-acceptance.
