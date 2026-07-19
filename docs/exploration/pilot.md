@@ -8769,3 +8769,28 @@ decisions per question.
   lemmas), the collection reuse, E(ρ), R7/R8.
   **T-BAL-FINAL DISPATCHED — the compose.** Board: T-BAL-FINAL
   + MR-W1 + MR-STAGE.
+
+- 2026-07-18 18:45 PT: **MR-STAGE lands — the A-arm RESOLVED
+  (10.4× margin), the Halász question SETTLED, S8 honestly
+  re-priced** (≈ 231k / 16 tools; docs/sources/{mr,mrt}_
+  extract.md = the citation authority, both PDFs clean LaTeX
+  layers, no OCR risk). THE VERDICTS: (1) the A-arm — the
+  required quality is 3·log W = 15·loglog H (LOG-grade, not
+  W-grade; the faithful-route "hole" was a range-vs-level
+  misread, factor (log H)⁴); Thm A.1 has NO threshold
+  hypothesis at all; the discharge is AUTOMATIC from the
+  region's coefficient 1/4 vs the needed 3/125 — 10.4×; the
+  Hlo-floor arm ships SIMPLIFIED, the g-triple-exp arm is
+  DEAD. (2) "elementary-Halász-only" is FALSE — the ζ VK
+  region is consumed at THREE grounded points inside the MR
+  proof (Lemma 2, Lemma 11, MRT A.6) — all served by our
+  landed θ=3/4. (3) S8 re-priced 14–22k lines (the freeze's
+  8k floor UNREACHABLE — revised); Halász-from-scratch is the
+  dominant sub-block, zero corpus. (4) Port traps banked: the
+  Prop-A.3 published-proof error (Fei Wei; use the v3
+  corrected route), the Sedunova–Wang footnote correction,
+  the θ=2/3-tied exponents (do not silently carry — the
+  Benli-trap discipline). **THE S0 VERDICT IS IN: the Xi/
+  major-arc route is CONFIRMED with grounded quantifiers — S0
+  is safe, ~300k Opus, awaiting JYH's sign-off** (the ask as
+  promised). Board: T-BAL-FINAL + MR-W1 (+ S0 pending).
