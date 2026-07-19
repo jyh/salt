@@ -11500,3 +11500,19 @@ freeze-tier lesson for future mirror campaigns: never re-derive a
 mirror's cover by symmetry; re-run the classification from the
 vanishing lemmas on the mirrored side. Full text: l2c-freeze.md
 HOUSE AMENDMENT 3.
+
+**Catch #248 (HOUSE ERROR refuted by executor; 2026-07-19 L2c-even).**
+Amendment 2's even-row freeze (catch #246) was wrong three ways: a
+backwards absorption inequality, a route through an engine that
+excludes even n by construction (primorial ∋ 2), and a truth-level
+mass undercount (the class is χ=+1-cofactored, x/polylog, NOT
+character-blind). The executor invoked iron rule 1 after a full
+magnitude audit, landed the structural layer (survivor forcing,
+exponent split, term caps, the Zeno cut) WITHOUT stating the false
+theorem, and identified the honest J2 home. House re-froze (Amendment
+4) at J2 + junk with a crude-count route avoiding the engine
+entirely. LESSON (binding): house rulings that freeze a QUANTITATIVE
+shape get the same 3-attempt/refuter discipline as designs — the
+#245/#246 rulings were verified by budget arithmetic; #246's ROUTE
+was not (the route sketch was written directly into the amendment
+without a worst-corner pass). Verify posture applies to the house.

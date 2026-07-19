@@ -9643,3 +9643,17 @@ decisions per question.
   ∃Cmain outside ∀f∀z∀x per J3). Axioms clean, no residuals.
   WALL-3 Lean series: W1 ✅ W3 ✅, W2 in flight, W4 = house
   prose (the draft). THE WALL'S FORMAL SKELETON IS UP.
+
+- 2026-07-19 11:40 PT: **L2c-even REFUTES THE HOUSE (catch #248)
+  + lands the structural layer** (Opus, 240k, 3 serious attempts
+  per iron rule 1): Salt/HB/L2cEven.lean, 452 ln, 19 decls,
+  axioms clean — evenCorner_survivor (both blocks forced pure
+  2-powers), the exponent split (e₁≥2 ⟹ e₂=1), the e^{2z0} term
+  cap, the Zeno cut (sum ≤ #survivors·e^{2z0}). Amendment 2's
+  x^{9/10} shape PROVEN UNREACHABLE (backwards absorption; the
+  engine's primorial excludes even n; truth-level x/polylog
+  mass). House error acknowledged, Amendment 4 re-freezes at
+  J2 + junk w/ a verified engine-free crude-count route; the
+  verify-posture lesson extended to house rulings (quantitative
+  freezes get worst-corner passes). Completion executor
+  DISPATCHED on the re-frozen row.

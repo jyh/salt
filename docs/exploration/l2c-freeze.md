@@ -232,3 +232,33 @@ shapes UNCHANGED: the pp part sums into the J1 line, the
 composite part into the J2 line. No other row affected. The
 freeze's W3 assembly spec is amended accordingly: the E_R
 all-plus row contributes to BOTH ledger lines.
+
+## HOUSE AMENDMENT 4 (Fable ruling, 2026-07-19 11:40 PT — catch #248;
+SUPERSEDES Amendment 2's even-row conclusion and route)
+
+The even-corner executor refuted Amendment 2's frozen x^{9/10} shape
+on three independent grounds (all house-verified): (1) the
+absorption inequality was written BACKWARDS (x^{1/10} ≥ Lwin² gives
+x^{9/10} ≤ x/Lwin², not the needed direction); (2) the (1,1)/Zz
+pair-count route is unsound for even n (the engine's primorial
+coprimality contains 2 — even fibers do not embed at all); (3) truth
+level: survivors n = 2^{e}·(χ=+1-rough) carry Hardy–Littlewood-grade
+x/polylog mass ≫ x^{9/10}. The class is NOT character-blind. THE
+RE-FROZEN ROW (the pre-Amendment-2 J2 intuition, now with a
+house-verified route):
+`EL_evenCorner_bound : evenCornerSum χ z x ≤ Cmain·((x:ℝ)/Lwin x)·
+Real.exp (5·z0 z x)·PretenseSum χ (2x+2) + Cmain·Real.exp (2·z0 z x)
+·((x:ℝ)/(z:ℝ)^(1/8:ℝ))·(Lwin x)^3` — J2 + standard junk, Cmain
+absolute. Route (house-verified arithmetic, NO pair-count engine —
+crude divisor counting only): by the landed evenCorner_survivor +
+exponent split, fiber on e₁ (resp. e₂); the odd cofactor m = n₊ > 1
+is z-rough with all prime factors χ_ℝ = +1 (window q-coprimality
+kills χ_ℝ = 0); pick p | m, p ≥ z, χ=+1; count multiples of 2^{e}·p
+in (x, 2x] crudely (≤ 2x/(2^e p) + 1); Σ_p 1/p → PretenseSum/log z =
+z0·PS/Lwin via sum_inv_plusprime_le_pretense; Σ_e 2^{−e} ≤ 1; the
+weight e^{2z0}·2z0 ≤ e^{5z0}. The +1 tail: p ≤ 2x/2^e and p ≥ z ⟹
+≤ 2x/(2^e z) values ⟹ Σ ≤ 2x/z ≤ x/z^{1/8} junk. The n₊ = 1 corner
+(n a pure 2-power): ≤ Lwin terms ≤ e^{2z0}·Lwin — junk-absorbed.
+W3 LEDGER NOTE: the even row contributes to the J2 and junk lines
+(NOT an x^{9/10} line). Composes with the landed
+evenCornerSum_le_survivor_card layer.
