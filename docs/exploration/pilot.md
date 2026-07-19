@@ -9633,3 +9633,13 @@ decisions per question.
   footing: S2−S1 as an identity over arbitrary real sign
   functions — strictly wider than characters, as the wall
   demands.
+
+- 2026-07-19 11:25 PT: **WALL3-W3 LANDS first-attempt** (Opus,
+  60k): Salt/HB/SignRate.lean — EngineBound (the three-row
+  budget verbatim) + neutrality_rate (3-line proof off the W1
+  surface: the unconditional leg IS S1_le_S2Gen, the rate leg
+  hbudget-conditional per amendment J2) + hb_l2c_masterGen
+  COMMENT-FROZEN as ratified (a docstring block, never a decl,
+  ∃Cmain outside ∀f∀z∀x per J3). Axioms clean, no residuals.
+  WALL-3 Lean series: W1 ✅ W3 ✅, W2 in flight, W4 = house
+  prose (the draft). THE WALL'S FORMAL SKELETON IS UP.
