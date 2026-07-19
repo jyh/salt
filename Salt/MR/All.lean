@@ -10,6 +10,7 @@ import Salt.MR.NonPret
 import Salt.MR.TuranKubilius
 import Salt.MR.ZetaLowerAllT
 import Salt.MR.ZetaPowLower
+import Salt.MR.PrimeSigmaShift
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -90,3 +91,9 @@ open Salt.Tactic in
   Salt.MR.loglog_height_le
   Salt.MR.lambda_nonpret_of_bridge
   Salt.MR.log_norm_zeta_eq_re_tsum
+  Salt.MR.mertens_first_upper
+  Salt.MR.sigma_shift
+  Salt.MR.euler_osc_truncation
+  Salt.MR.euler_osc_bridge
+  Salt.MR.log_euler_osc_zeta
+  Salt.MR.euler_osc_bridge_le

@@ -11562,3 +11562,15 @@ coeff re-tallied to 2^26; the master's hypothesis amended under the
 boundary) are all boundary-of-classification classes — the W5-style
 lesson for future freezes: enumerate the DEGENERATE values (1, unit,
 pure-power, even) of every classification coordinate FIRST.
+
+**LOG-EULER-OSC node update (2026-07-19, S8-E1 scout).** The flagged
+oscillating-bridge gap (see the R5-FINISH entry above) is now CLOSED
+CONDITIONAL: log_euler_osc_zeta + euler_osc_bridge_le landed in
+Salt/MR/PrimeSigmaShift.lean, threaded on the ONE named residual
+PrimeTailShiftBounded (R0.2: ∃C, Σ'_{p>x} p^{−1−1/log x} ≤ C —
+math-verified ≈9.2 by integral-Abel; re-priced B→C-in-Lean, two
+staged routes recorded in the scout report; a dedicated rung, not a
+wave-1 one-shot). Discharge upgrades the whole H0 bridge to
+unconditional via one-line exacts. Scout verdict on the S8 freeze:
+ZERO anchor drift on all five citations; 4 brief frictions + 5
+heartbeat/defeq traps banked for Monday's fleet (pilot.md).

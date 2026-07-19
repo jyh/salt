@@ -9855,3 +9855,23 @@ decisions per question.
   class (c) + hb_l2c_master_final at hcount-only). The taxonomy
   lesson banked: enumerate degenerate classification values
   FIRST.
+
+- 2026-07-19 11:08 PDT: ██ **S8-E1 SCOUT RETURNS — the mountain's
+  first stones + a validated playbook** ██ (Opus, 328k):
+  Salt/MR/PrimeSigmaShift.lean, 487 ln, axioms clean, wired +
+  audited in Salt.MR.All (8815 green). ZERO ANCHOR DRIFT (all 5
+  freeze citations exact at HEAD). Landed: mertens_first_upper +
+  sigma_shift UNCONDITIONAL; euler_osc_truncation +
+  euler_osc_bridge + the exit stones log_euler_osc_zeta /
+  euler_osc_bridge_le — **the LOG-EULER-OSC flagged node closes
+  conditional on ONE residual** (PrimeTailShiftBounded, R0.2,
+  honestly re-priced B→C-in-Lean w/ two staged routes — a
+  dedicated rung for Monday, not a solo one-shot). Frictions for
+  the fleet: the peel is CLEANER via mathlib's
+  norm_log_one_sub_inv_sub_self_le (prime_power_tail_le
+  unneeded); no Mertens-1 upper in mathlib (reuse ours); the
+  λ-side hbridge glue is ~40 ln of wave-2 R1.3. Five
+  heartbeat/defeq traps banked (set-vs-literal isDefEq; the
+  Nat.Primes tsum bridge; norm/abs whnf; def-defeq unfold-first;
+  linarith ≠). **Monday's 5-executor wave-1 dispatch inherits a
+  field-tested machine.**
