@@ -9965,3 +9965,11 @@ decisions per question.
   S8 board: E1 ✅ E2 ✅ R0.2 ✅ E5-salvage ✅ (K1 pending JYH);
   E3/E4 + H1-w2 in flight; A-lane dispatches held for the
   16:00 council.
+
+- 2026-07-19 14:08 PDT: **S8-E4 LANDS P2** (Opus, 297k, 1 serious
+  attempt, 463 ln vs 700): shiu_moment_sq at ABSOLUTE C = 2e^{14}
+  via Route 2 (Rankin/Euler at σ=1 — no rpow, block primes ≥ 2),
+  the full blockDiv/blockPart API exposed for wave-4's A2. Zero
+  drift; zero heartbeat bumps; self-contained (imports Mathlib
+  only). Wired+audited (8823 green). S8 wave-1: E1 ✅ E2 ✅ E4 ✅
+  R0.2 ✅ E5-salvage ✅ (K1 pending); E3 + H1-w2 in flight.
