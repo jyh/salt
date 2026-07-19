@@ -9887,3 +9887,16 @@ decisions per question.
   M5 EL_uncov_bound verbatim (J2 total 17915908 ≤ 2^26, junk
   stays 1); M6 **hb_l2c_master_final** — conditional on hLz0
   (trivial downstream) + hcount ONLY. Audit green 8757.
+
+- 2026-07-19 13:19 PDT: **c0-numeral LANDS — the paper's constant
+  is kernel-true** (Opus, 115k, 1 serious attempt): Salt/Fulcrum/
+  CZeroNumeral.lean — zero_free_region_all_numeral (the region at
+  the explicit 1/126848; the existential form provably CANNOT
+  yield the bound — opaque min-of-∃ witness, the executor took
+  the design doc's own R6 remedy), c_star_second_arm (2/c₀ =
+  253696), fulcrum_zero_real_numeral (reality at bare threshold
+  C ≥ 253696, no residual hcal). Wired + audited in Fulcrum/All
+  (8865 green). The draft upgraded: "docstring-grade" →
+  kernel-certified w/ both numerals cited. Catch: per-decl
+  heartbeat budgets don't survive copying (the 800k set_option
+  must ride along). In flight: L2c-glue.
