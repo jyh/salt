@@ -18,6 +18,7 @@ import Salt.MR.ShiuMoment
 import Salt.MR.MVHilbert
 import Salt.MR.NonPretClose
 import Salt.MR.DistHalasz
+import Salt.MR.Decomp
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -117,3 +118,5 @@ open Salt.Tactic in
   Salt.MR.lambda_nonpret
   Salt.MR.dist_one_floor_pow
   Salt.MR.Mrange_one_floor
+  Salt.MR.ramare_weight_sum
+  Salt.MR.ramare_decomp

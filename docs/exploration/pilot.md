@@ -10007,3 +10007,17 @@ decisions per question.
   13.1 port queued). S8 day one closes at: 6 modules landed,
   2 kill-checks fired+isolated, 1 residual discharged, the S5
   hypothesis retired.
+
+- 2026-07-19 15:01 PDT: **S8-A1 LANDS the v4-corrected Ramaré/
+  Buchstab decomposition** (Opus, 141k, near-first-build): Salt/
+  MR/Decomp.lean, 277 ln, 9 stones axioms-clean, wired (8829
+  green). THE GEM: ramare_weight_bad — a KERNEL-VERIFIED FALSE-
+  WITNESS for the published (uncorrected) weight (P=Q=2, n=4
+  gives 1/2 ≠ 1): the formalization doesn't just apply MR's v4
+  erratum, it PROVES the erratum was necessary. The correction
+  step proven at the atom in both branches; the weights sum to
+  exactly 1. Residuals honest: Lemma-12's mean-square is wave-4
+  A2's (holds the MVT machinery); the QR factored re-index
+  low-value-deferred. [REVIEW NOTE for JYH: the false-witness
+  belongs in the draft §2 — "the corpus kernel-verified a
+  published erratum" — one sentence, big signal.]
