@@ -85,3 +85,33 @@ each; discussion rides the 12:55 reset if wanted.
   Quot.sound}; nothing rests on informal argument." arXiv: primary
   math.NT, cross-list cs.LO. Dichotomy + parity gap carried in the
   abstract body.
+- **D3 RATIFIED: full method section — §10 "The Salt Method"**
+  (JYH intent: THE name of the whole enterprise — "we are using
+  the Salt method" as a term of art). Boxed citable definition;
+  the five-catch tape as case study; etymology footnote: "After
+  water, salt." The Notices satellite titled "The Salt Method".
+- **D4 RATIFIED**: JYH sole author of record (accountability);
+  the JOINT-WORK sentence second in the abstract ("The
+  mathematics — the designs, the proofs, and their formalization
+  — is joint work of the author and Claude (Anthropic's Fable 5
+  and Opus models), carried out under the author's direction and
+  ratification; the commit ledger records the collaboration line
+  by line."); first-page footnote → the commit ledger; §10 = the
+  technical credit record. The "Salt Collaboration" entity-form
+  noted as the future shape, not used in this paper.
+- **D5 CONFIRMED**: publication approval → arXiv (math.NT primary,
+  cs.LO cross) → Pi track; Notices A′ satellite after freeze.
+- **D6 ACKED + EXTENDED**: the conditional ledger table; walls
+  as refutation records; W5 language; PLUS §2 = the trust-surface
+  analysis (mechanically-excluded vs the specification gap + the
+  shrinking machinery: communal definitions, attacked vacuity,
+  non-vacuity by witness, the prose↔Lean table; the independent-
+  checker ceremony (lean4checker) added to the pre-submission
+  list); PLUS the DISCOVERY NARRATIVE: "demand-audited hypothesis
+  minimization" — §4 opens with the Hunt as method-in-action, the
+  intro carries the one-paragraph form (a prose proof hides its
+  demand; a formal proof IS its demand; F_min = the certified
+  fixed point; impossible for Chen in prose).
+
+COUNCIL COMPLETE 2026-07-19 ~12:00. Drafting 13:00–16:00 on the
+fresh window; review council ~16:00.
