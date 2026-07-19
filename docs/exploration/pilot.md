@@ -9486,3 +9486,19 @@ decisions per question.
   DISPATCHED; odd-guard broadcast to the 5 in-flight family
   executors. Family board: Junk ✅ (3 rows) + ER_T3' ✅ FULL +
   ER_Tsw' conditional; in flight: F-T1/T2/Tsw, M-T1/T2, even.
+
+- 2026-07-19 09:15 PT: ██ **L2c-F-T1 LANDS COMPLETE — the J1
+  family budget, the first WEIGHTED fibration** ██ (Opus, 297k,
+  ~126 min through 2 clips): Salt/HB/L2cELT1.lean, 817 ln, 30
+  decls, axioms clean, EL_T1_bound ≤ 2^30·(x/z0) VERBATIM — no
+  PretenseSum, no e^{z0}, the J1 row as frozen. Both amendments
+  baked: #245 sift-floor soundness proven explicitly
+  (Zf·z ≤ x^{17/48} < P·v), #246 Odd-n guard with Odd v/w
+  DERIVED. The design gift for W3: T1slice imposes no block
+  structure beyond size/parity (ω≥2 terms vanish in-slice via
+  the two-block kill) — it is the exact cover class the W3
+  splitter produces. 4 catches banked (single-step calc parse
+  hazard; two stale mathlib names; the pow-metavar trap; awk
+  bytes≠chars). All clusters first-attempt. Family board:
+  EL_T1 ✅ + ER_T3' ✅ + Junk×3 ✅ + ER_Tsw' cond.; in flight
+  F-T2/F-Tsw/M-T1/M-T2/even + the ratification panel.
