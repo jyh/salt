@@ -9361,3 +9361,20 @@ decisions per question.
   now a mandatory brief field; executor's branch squash-merged).
   **W2a ∥ W2b DISPATCHED** (L2cEL.lean families / L2cER.lean
   mirrors, disjoint files, both import L2cCore).
+
+- 2026-07-19 05:45 PT: **L2c-W2a lands a ZENO PARTIAL + a sizing
+  catch** (Opus, 160k, ~17 min): Salt/HB/L2cEL.lean, 281 ln, 20
+  decls, axioms clean, 8738 green — the E_L REDUCTION LAYER
+  complete (EL + nonneg, the 8 window-hypothesis extractors, the
+  window caps + the SHARP single-block cap lamTilde_single_block_le
+  ≤ e^{(log2)z0}·Λ(m₋), EL_le_cap, leftOvershoot_support,
+  window_dvd_count ≤ x/d+1). The FIVE frozen S4 family budgets =
+  named residuals with exact W3 interface shapes in §5 NOTES (NOT
+  stubbed). CATCH (executor-catches-designer): the freeze's
+  "~380 ln R5" sizing unrealistic — each family is a several-
+  hundred-line fibration; house AMENDS the file layout (math
+  unchanged, no frozen statement touched): **the family campaign
+  — 5 parallel Opus executors, one budget each, disjoint new
+  files** L2cELJunk (cJunk+corners) / L2cELT1 / L2cELT2 /
+  L2cELT3 / L2cELTsw, all importing L2cEL. DISPATCHED. W2b
+  (mirrors) still in flight; W3 waits on the full set.
