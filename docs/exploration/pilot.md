@@ -9753,3 +9753,15 @@ decisions per question.
   hb_l2c_master (the _of_count conditional form), the disjoint
   cover, the manifest, A1's held flags text reported for house
   landing.
+
+- 2026-07-19 09:05 PDT: ██ **D4-b LANDS ALL FIVE — the twin-free
+  keystone in** ██ (Opus, 386k, zero residuals): L1 oneWeight ∈
+  Completion (θ<1/2), **L2 twinFree ∈ Completion — the KEYSTONE:
+  the twin-free completion is certified against the Brun bound
+  (Salt.M5BigO.nat_absorb, the explicit-constant 25700·N/log²N
+  shape — B-class, the C-contingency never triggered)**,
+  twinFree_twinMass ≡ 0, L4 twinMass-unbounded ↔ TPC, L6
+  TPC ⟹ Z. The J4 import invariant intact. Catches: the
+  general-A₀ absorber (3-branch); L1's hA unused-but-kept.
+  D4-c DISPATCHED (L3 THE GAP + L5 Z⟹TPC — the chain's last
+  wave).
