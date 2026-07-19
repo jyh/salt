@@ -9378,3 +9378,22 @@ decisions per question.
   files** L2cELJunk (cJunk+corners) / L2cELT1 / L2cELT2 /
   L2cELT3 / L2cELTsw, all importing L2cEL. DISPATCHED. W2b
   (mirrors) still in flight; W3 waits on the full set.
+
+- 2026-07-19 06:05 PT: **L2c-W2b lands the E_R mirror layer +
+  the FIRST family-row theorem** (Opus, 194k, ~26 min):
+  Salt/HB/L2cER.lean, 342 ln, 12 decls, axioms clean —
+  ER_squarefull_junk PROVEN to the exact frozen shape
+  (2√(2x)·L'²·e^{0.7z0}, via properPrimePow_count ≤ ⌊√(2x)⌋ by
+  minFac-injectivity), E_R_split, and **ER_prime_cover — the
+  freeze's R6 COVER-COMPLETENESS open risk DISCHARGED at Lean
+  time** (all-plus ⊔ single-block, disjoint + complete). Three
+  catches: (i) dependency inversion resolved (self-contained on
+  L2cCore, interface names mirrored for W3's symmetric surface);
+  (ii) E_R ≠ symmetric to E_L confirmed — the crude cap flips
+  sides (Λ(n) ≤ L' needs no exponential); (iii) no-shortcut
+  verified: the crude E_R ≤ x·L' bound BUSTS every budget row —
+  the families are irreducibly the HB (3.3) core. Residuals:
+  ER_T1'/T2'/T3'/Tsw'_bound (frozen shapes in §5 NOTES).
+  **THE MIRROR CAMPAIGN DISPATCHED** — 4 more Opus executors,
+  disjoint files L2cERT1/T2/T3/Tsw, briefed to template off the
+  sibling E_L family files if landed. Fleet: 9 Opus in flight.
