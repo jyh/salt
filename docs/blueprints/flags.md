@@ -11574,3 +11574,20 @@ wave-1 one-shot). Discharge upgrades the whole H0 bridge to
 unconditional via one-line exacts. Scout verdict on the S8 freeze:
 ZERO anchor drift on all five citations; 4 brief frictions + 5
 heartbeat/defeq traps banked for Monday's fleet (pilot.md).
+
+**Catch #253 (house regime error in Amendment 5, refuted by the glue
+executor at truth level; 2026-07-19 L2c-glue).** "z0 ≥ 250-grade ⟹
+hLz0 trivial" conflated a large constant with a growing quantity —
+at the engine witness z0 is bounded, Lwin unbounded, hLz0 fails for
+large q (verified numerically and by the failed-inequality chain).
+Executor followed iron rule 1 exactly: proved the obstruction, found
+and PROVED the corrected z = x^{o(1)} regime (zwit = ⌈exp(Lwin^{2/3})⌉,
+full packet + glue_master kernel-checked), and flagged the wording
+for house correction. Ruling: correction appended to the freeze;
+CHI-SIEVE's scope grows to two sibling counts (hcount + class (c)
+at engine regime); the paper's §6 residual language updated to
+match. THE PATTERN (4th house quantitative slip today, all caught
+below the kernel): #246 route, #248 absorption direction, #250 tail
+count, #253 regime growth — the worst-corner law now explicitly
+includes ASYMPTOTIC corners (large-parameter limits), not only
+numeric ones.

@@ -9900,3 +9900,18 @@ decisions per question.
   kernel-certified w/ both numerals cited. Catch: per-decl
   heartbeat budgets don't survive copying (the 800k set_option
   must ride along). In flight: L2c-glue.
+
+- 2026-07-19 13:48 PDT: **L2c-glue lands + REFUTES Amendment 5's
+  hLz0-triviality (catch #253)** (Opus, 297k): Salt/HB/
+  L2cGlue.lean, 369 ln, axioms clean — the corrected z = x^{o(1)}
+  witness (zwit = ⌈exp(Lwin^{2/3})⌉, exponent forced into
+  (1/2,1)), all four packet discharges + glue_junk_le (o(x),
+  the freeze's own form) + glue_master (the master specialized,
+  kernel-confirming the packet exactly). THE CONSEQUENCE:
+  at the ENGINE witness (z0 bounded) class (c) is CHI-SIEVE-
+  shaped — the node now carries TWO sibling counts; Horn A's
+  residual set = exactly that node. Freeze correction appended;
+  paper §6 updated honestly. Executor catches: rw hitting
+  Real.log(2^32) (also a power); linarith failing on
+  log-bignumeral atoms (set-abstract them first — broadcast-
+  worthy). The worst-corner law extended to ASYMPTOTIC corners.

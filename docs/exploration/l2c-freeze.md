@@ -291,3 +291,26 @@ Cmain = 2^31 SURVIVES the re-tally (J2 total ≈ 1.1e8 ≪ 2^31).
 EL_T2-mirror fibration, class (c) as above, EL_uncov_bound (hLz0)
 composed, and the corollary hb_l2c_master_final (hLz0 + hcount
 only). The freeze's residual taxonomy is (a) ∪ (b) ∪ (c), closed.
+
+## AMENDMENT 5 CORRECTION (catch #253; the glue executor's refutation,
+house-ratified 2026-07-19 ~13:55)
+
+Amendment 5's claim "hLz0 trivially true at the downstream
+instantiation (z0 ≥ 250-grade)" is FALSE — a large/growing
+conflation: at z = q^{1/z0*} (z0* constant), z0 ∈ [250·z0*, 500·z0*]
+is a BOUNDED constant while Lwin x → ∞, so hLz0 : Lwin ≤ e^{z0}
+fails once Lwin > e^{500·z0*} (numerically: past q ≈ exp(exp(250))).
+CONSEQUENCES, all ratified: (1) hb_l2c_master_final is a true
+theorem in the z = x^{o(1)} regime (log z ≈ Lwin^{2/3}, the glue's
+zwit witness — packet PROVEN there incl. glue_master, kernel-
+confirmed); (2) at the ENGINE's own witness (z0 bounded — the
+regime where e^{5z0} is constant and J2 beats the main term) the
+class-(c) discharge is NOT available via hLz0; its engine-regime
+pricing is CHI-SIEVE-shaped (q-primality sieve savings + χ-weight
+jointly — the same missing engine as hcount, per the mop-2 §NOTES
+arithmetic); (3) THE NODE HB-L2C-CHI-SIEVE now carries TWO sibling
+counts of one shape: hcount (ER_Tsw') and the class-(c) engine-
+regime count; Horn A's honest residual set is exactly that node;
+(4) the junk-at-x/q^c sharpening (the glue brief's invention, not
+the freeze's) is jointly unreachable with hLz0 — the freeze's own
+o(x) form stands and is proven (glue_junk_le).
