@@ -9452,3 +9452,20 @@ decisions per question.
   statement-layer) — the single missing engine piece; W3
   proceeds with the uniform _of_count interface (master
   conditional on the named residuals, Zeno discipline).
+
+- 2026-07-19 08:35 PT: ██ **L2c-M-T3 LANDS COMPLETE — the first
+  family budget proven to the frozen shape, NO residuals** ██
+  (Opus, 248k, ~107 min wall through 2 clips): Salt/HB/
+  L2cERT3.lean, 552 ln, 19 decls, axioms clean. ER_T3'_bound
+  verbatim at Cmain = 2^19 (128 pair-count × 4 totient × 1024
+  floor-log), both #245 amendments folded (inline guard;
+  Zz-sift with soundness lemmas), the fibration core first-try.
+  The single-prime n-side route (M-T3's own en-route find,
+  house-confirmed) closed with no weighted fibration — the
+  crude cap + 1/(log Zz)² absorbed everything. Catch: rw
+  rewrote both occurrences of n+2 (nMinus corrupted) — THE
+  KERNEL CAUGHT IT; fixed via Nat.div_eq_of_eq_mul_right.
+  W3 notes banked (PS_nonneg dedupe, keep hzx feeding the
+  fiber inclusion). Family board: ER_T3' ✅ FULL; ER_Tsw'
+  conditional (hcount); E_L T3 reduction+STOP; Junk/T1/T2/Tsw
+  E_L + ER_T1'/T2' in flight.
