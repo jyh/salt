@@ -9875,3 +9875,15 @@ decisions per question.
   Nat.Primes tsum bridge; norm/abs whnf; def-defeq unfold-first;
   linarith ≠). **Monday's 5-executor wave-1 dispatch inherits a
   field-tested machine.**
+
+- 2026-07-19 11:41 PDT: ██ **mop-2 CLOSES THE E_L RESIDUAL — THE
+  L2C CAMPAIGN STANDS AT ONE RESIDUAL (hcount/CHI-SIEVE)** ██
+  (Opus, 528k, all six rungs): M1 the one-line 2^26 amendment
+  (Cmain = 2³¹ absorbed, no growth); M4 **the cover taxonomy
+  PROVEN COMPLETE at Lean time — the freeze's R5/R6 open risk
+  RESOLVED, no micro-subclass can exist** (ELodd_cover');
+  M2 the T2-mirror at 17915904 ≤ 2^25; M3 class (c) at C = 4
+  (beat Amendment 5's own 8 — both weight caps + L'² ≤ e^{2z0});
+  M5 EL_uncov_bound verbatim (J2 total 17915908 ≤ 2^26, junk
+  stays 1); M6 **hb_l2c_master_final** — conditional on hLz0
+  (trivial downstream) + hcount ONLY. Audit green 8757.

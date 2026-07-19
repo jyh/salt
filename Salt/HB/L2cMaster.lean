@@ -372,7 +372,7 @@ theorem hb_l2c_master_of_count (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1
         Λ (nMinus χ (n + 2))
         ≤ 524288 * x * PretenseSum χ (2 * x + 2) / (Real.log z) ^ 2)
     (hEL_uncov : L2cELuncov χ z x
-        ≤ (x : ℝ) / Lwin x * Real.exp (5 * z0 z x) * PretenseSum χ (2 * x + 2)
+        ≤ 2 ^ 26 * ((x : ℝ) / Lwin x) * Real.exp (5 * z0 z x) * PretenseSum χ (2 * x + 2)
           + Real.exp (2 * z0 z x) * ((x : ℝ) / (z : ℝ) ^ (1 / 8 : ℝ)) * Lwin x ^ 3) :
     S2 χ (l2cWindow χ z x) - S1 (l2cWindow χ z x)
       ≤ L2cCmain * ((x : ℝ) / z0 z x)
