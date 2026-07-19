@@ -11600,3 +11600,13 @@ are unconditional: log_euler_osc_zeta_unconditional /
 euler_osc_bridge(_le)_unconditional. Downstream: NonPret.lean:114's
 hbridge consumers can now route hypothesis-free (wave-2 R1.3's
 remaining glue is the ~40-line λ-side piece per the scout).
+
+**R1.1 re-price (S8-H1, 2026-07-19): the pretentious triangle at
+1-bounded generality is C/D, not [B].** The GS pointwise lemma
+√(1−Re(ac̄)) ≤ √(1−Re(ab̄)) + √(1−Re(bc̄)) for non-unit 1-bounded
+a,b,c has a rank-2 Gram SOS core nlinarith cannot certify (3 hint
+families exhausted); the ℝ³ sphere-lift underestimates in the
+|b| < 1 case. Routed: port the Koukoulopoulos Lemma 13.1 analytic
+argument (C-class node, queued) — needed by R2.5/R3.1 recentering
+(f = λχ̄ has |f(p)| ∈ {0,1}). dist_mul_half rides on it. R1.2/R1.3/
+R1.4 landed independently — no cascade.

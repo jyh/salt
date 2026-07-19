@@ -9992,3 +9992,18 @@ decisions per question.
   K2 = MV-HILBERT-CORE: the bilinear inequality), each isolated
   to a single named D-block; EVERYTHING else landed (E1 E2 E4
   R0.2 + salvages). Both decisions ripe for JYH at 16:00.**
+
+- 2026-07-19 14:51 PDT: ██ **S8-H1: THE S5 RESIDUAL CLOSES —
+  lambda_nonpret UNCONDITIONAL** ██ (Opus, 308k): NonPretClose
+  .lean + DistHalasz.lean, 6 named results axioms-clean, wired
+  (8827 green). R1.3 attempt-1 (hbridge discharged verbatim via
+  the afternoon's unconditional bridge; the anticipated
+  floor-gap lemma auto-absorbed by mertens_second_sharp_real);
+  R1.2 dist_one_floor_pow at the FULL 1≤|b| statement (the
+  small-|b| branch closed WITHOUT compactness via the landed
+  norm_riemannZeta_le — new import edge DistHalasz→SW.DHBalance,
+  no cycle); R1.4 M_range + the (1/4−o(1)) floor. R1.1 FLAGGED
+  honestly (B→C/D re-price; the rank-2 SOS wall; Koukoulopoulos
+  13.1 port queued). S8 day one closes at: 6 modules landed,
+  2 kill-checks fired+isolated, 1 residual discharged, the S5
+  hypothesis retired.

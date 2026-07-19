@@ -16,6 +16,8 @@ import Salt.MR.PrimeTail
 import Salt.MR.OneLinePowGrowth
 import Salt.MR.ShiuMoment
 import Salt.MR.MVHilbert
+import Salt.MR.NonPretClose
+import Salt.MR.DistHalasz
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -112,3 +114,6 @@ open Salt.Tactic in
   Salt.MR.shiu_moment_sq
   Salt.MR.l2_duality
   Salt.MR.dirichlet_poly_l2_mvt
+  Salt.MR.lambda_nonpret
+  Salt.MR.dist_one_floor_pow
+  Salt.MR.Mrange_one_floor
