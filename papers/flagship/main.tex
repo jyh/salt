@@ -15,6 +15,7 @@
 \usepackage{booktabs}
 \usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
 \usepackage{microtype}
+\usepackage{xcolor}
 
 \newcommand{\leanname}[1]{\par\noindent{\small\texttt{#1}}}
 \newcommand{\leaninline}[1]{{\small\texttt{#1}}}
@@ -57,16 +58,16 @@ engine-conditional horn stated honestly; the first formalization of any
 zero-free region for $\zeta$ of Littlewood strength (1922) and the first
 power-saving region ($\theta = 3/4$) in any proof assistant; a
 Deuring--Heilbronn repulsion contract; the exact-identity keystone of the
-Heath-Brown engine, reduced to one named residual; the \emph{exchange-rate
+Heath-Brown engine, proven unconditional; the \emph{exchange-rate
 wall}, a neutrality theorem over arbitrary real sign functions that prices
 every transfer-based route to twins; and the \emph{parity gap} as a
 mathematical object: a predicate $Z$ with a kernel-checked theorem that no
 true, twin-sufficient, parity-invariant completion exists, together with a
 census placing the entire corpus inside the parity-invariant cone. As a
 byproduct, the logarithmic two-point Chowla conjecture is reduced to a
-single named hypothesis. The corpus is $319{,}639$ lines of Lean across
-$739$ files; the method that produced it---the \emph{Salt method}---kept a
-public ledger of every design error caught (253 numbered entries) against
+single named hypothesis. The corpus is $324{,}724$ lines of Lean across
+$751$ files; the method that produced it---the \emph{Salt method}---kept a
+public ledger of every design error caught (255 numbered entries) against
 zero wrong proofs, and is described as a contribution in its own right.
 \end{abstract}
 
@@ -105,14 +106,14 @@ first time, including a Littlewood-strength zero-free region for $\zeta$
 and the first power-saving region in any proof assistant. Second, the
 \emph{fulcrum and the dichotomy} (\S\S\ref{sec:fulcrum}--\ref{sec:keystone}):
 the minimized hypothesis, the kernel-checked dichotomy it induces, and the
-exact-identity keystone of the engine, brought to within one named lemma
-of closing. Third, the \emph{negative space}
+exact-identity keystone of the engine, now proven unconditional. Third,
+the \emph{negative space}
 (\S\S\ref{sec:walls}--\ref{sec:parity}): the exchange-rate wall and the
 parity gap, which together map---as theorems, not folklore---why the
 obvious routes die. Fourth, the \emph{method} (\S\ref{sec:method}): the
 Salt method, an adversarial division of mathematical labor among human
 direction, frontier-model design, fleet-model execution and refutation,
-and kernel verification, whose public error ledger (253 numbered catches,
+and kernel verification, whose public error ledger (255 numbered catches,
 zero wrong proofs) is offered as evidence that the standard of the first
 sentence of the abstract is achievable at research scale and research
 speed. All of it was produced by the Salt method (\S\ref{sec:method}).
@@ -126,9 +127,9 @@ makes no unconditional claim about twin primes.
 \section{The corpus and the referee}\label{sec:trust}
 % ============================================================================
 
-The corpus is $319{,}639$ lines of Lean~4 over \textsf{mathlib}
-\cite{mathlib}, in $739$ files, built by $1007$ commits; a full build
-kernel-checks roughly $9{,}300$ compilation jobs. The skeptic's question
+The corpus is $324{,}724$ lines of Lean~4 over \textsf{mathlib}
+\cite{mathlib}, in $751$ files, built by $1034$ commits; a full build
+kernel-checks roughly $9{,}400$ compilation jobs. The skeptic's question
 ---\emph{how do we really know?}---splits into what is mechanically
 excluded and what is irreducibly a human question, and we answer it in
 that order.
@@ -327,9 +328,10 @@ strengthened: strengthened because the hypothesis feeding its twin horn is
 the minimized fulcrum rather than the 1983 hypothesis, and because the
 $\lnot F$ horn is unconditional and effective. The engine implication
 $h_{\mathrm{Engine}}$ is the one conditional input; \S\ref{sec:keystone}
-reports its keystone proven and its remaining distance reduced to one
-named lemma. We do not claim the unconditional dichotomy; we claim the
-honest one, and we exhibit exactly what remains.
+proves its exact-identity keystone unconditionally, leaving the remaining
+Heath-Brown assembly as the named campaign \textsc{hb-engine}. We do not
+claim the unconditional dichotomy; we claim the honest one, and we
+exhibit exactly what remains.
 
 % ============================================================================
 \section{The keystone}\label{sec:keystone}
@@ -370,10 +372,8 @@ $(\tilde\Lambda-\Lambda)(n)\tilde\Lambda(n+2) +
 classified, and eleven family estimates (each with explicit absolute
 constants; nine landed at first attempt) price every class.
 
-\begin{theorem}[The master estimate]\label{thm:master}
-With $W$ the sifted window at parameters
-$(z,x)$ in the engine's regime, and with one named residual hypothesis
-$h_{\mathrm{count}}$ (below):
+\begin{theorem}[The master estimate, unconditional]\label{thm:master}
+With $W$ the sifted window at parameters $(z,x)$ in the engine's regime:
 \[
 S_2(\chi, W) - S_1(W) \;\le\; 2^{31}\Bigl(\frac{x}{z_0}
 + \frac{x}{\log x}\,e^{5 z_0}\,\mathrm{PS}_\chi
@@ -381,25 +381,25 @@ S_2(\chi, W) - S_1(W) \;\le\; 2^{31}\Bigl(\frac{x}{z_0}
 \]
 where $z_0 = \log(2x+2)/\log z$, $L = \log(2x+2)$, and
 $\mathrm{PS}_\chi$ is the pretense sum of $\chi$.
-\leanname{Salt.HB.hb\_l2c\_master\_final}
+\leanname{Salt.HB.hb\_l2c\_master\_unconditional}
 \end{theorem}
 
-The residual $h_{\mathrm{count}}$ is a $\chi$-weighted sieve count (the
-roles-swapped family of the mirror side, where the character-positive
-prime is a cofactor rather than a modulus); at the engine's own witness
-scale one boundary family requires a second count of the same shape, and
-both are stated exactly in the corpus and registered together as the
-single node \textsc{chi-sieve}---the engine's entire remaining
-sieve-theoretic content. The cover of the eleven families is itself a
-kernel-checked theorem---no case can have been forgotten---and the three
-cover gaps found during execution were all found \emph{by the machine
-layers below the kernel} and repaired at the statement level before any
-proof was attempted on a wrong statement (ledger \#245, \#246, \#252).
-The theorem as stated holds in the $z = x^{o(1)}$ regime, where its full
-hypothesis packet is discharged by explicit witnesses
-(\leaninline{Salt.HB.glue\_master}); the regime bookkeeping itself
-produced one of the campaign's sharpest catches, an amendment refuted by
-its own executor at the asymptotic corner (ledger \#253).
+What briefly appeared to be a residual---a $\chi$-weighted sieve count
+(the roles-swapped mirror family, where the character-positive prime is a
+cofactor rather than a modulus, together with one boundary family of the
+same shape at the engine's witness scale)---was \emph{proven
+unnecessary}: both counts route through the already-established
+pair-count engine \emph{character-blind}, landing in the leading budget
+row, so the estimate holds from its four explicit hypotheses alone. The
+cover of the eleven families is itself a kernel-checked theorem---no case
+can have been forgotten---and the three cover gaps found during execution
+were all found \emph{by the machine layers below the kernel} and repaired
+at the statement level before any proof was attempted on a wrong
+statement (ledger \#245, \#246, \#252). The regime bookkeeping produced
+one of the campaign's sharpest catches, an amendment refuted by its own
+executor at the asymptotic corner (ledger \#253); at the downstream
+witnesses the full hypothesis packet is discharged by explicit constants
+(\leaninline{Salt.HB.glue\_master}).
 
 % ============================================================================
 \section{The exchange-rate wall}\label{sec:walls}
@@ -632,12 +632,11 @@ and only certified at it.
 \section{The program forward}\label{sec:forward}
 % ============================================================================
 
-Four named campaigns continue from the corpus's current edge, each with
+Three named campaigns continue from the corpus's current edge, each with
 its target stated formally in advance: \textsc{hb-engine} (the remaining
-distance from Theorem~\ref{thm:master} to $h_{\mathrm{Engine}}$);
-\textsc{chi-sieve} (the one residual of the keystone); the
-Matom\"aki--Radziwi\l\l\ program toward the door of
-Theorem~\ref{thm:spine}; and the explicit-constants floor
+distance from Theorem~\ref{thm:master}, now unconditional, to
+$h_{\mathrm{Engine}}$); the Matom\"aki--Radziwi\l\l\ program toward the
+door of Theorem~\ref{thm:spine}; and the explicit-constants floor
 (Siegel--Walfisz through Chen with every constant explicit). The
 conditional ledger below is the paper's honest boundary.
 
@@ -648,9 +647,7 @@ conditional ledger below is the paper's honest boundary.
 Conditional statement & Residual hypothesis & Campaign \\
 \midrule
 Thm~\ref{thm:dich}, twin horn & $h_{\mathrm{Engine}}$ & \textsc{hb-engine} \\
-Thm~\ref{thm:master} & $h_{\mathrm{count}}$ & \textsc{chi-sieve} \\
 Thm~\ref{thm:spine} & the MRT door & S8 / MR program \\
-Euler-oscillation bridge & $\mathrm{PrimeTailShiftBounded}$ & R0.2 \\
 \bottomrule
 \end{tabular}
 \caption{Every conditional in this paper, with its exact named residual.
@@ -694,7 +691,7 @@ Thm~\ref{thm:rep} & \leaninline{dh\_repulsion\_ordered} & the three \\
 Def~\ref{def:fulcrum} & \leaninline{FulcrumQualityMin} & --- \\
 Thm~\ref{thm:fulcrumreal} & \leaninline{fulcrum\_zero\_real} & the three \\
 Thm~\ref{thm:dich} & \leaninline{fulcrum\_dichotomy} & the three \\
-Thm~\ref{thm:master} & \leaninline{hb\_l2c\_master\_final} & the three \\
+Thm~\ref{thm:master} & \leaninline{hb\_l2c\_master\_unconditional} & the three \\
 Thm~\ref{thm:wall} & \leaninline{neutrality\_rate} & the three \\
 Thm~\ref{thm:liouville} & \leaninline{S2Gen\_lamR\_eq\_S1} & the three \\
 Thm~\ref{thm:gap} & \leaninline{sufficient\_true\_not\_parityInv} & the three \\
