@@ -10309,3 +10309,13 @@ decisions per question.
   A3a-R2 (the U/V split + assembly, C, blocked on R1). Lemma 14
   itself untouched (iron rule 1 clean). **THE DAY'S LAST
   LANDING — drain proceeding.**
+
+- 2026-07-20 13:47 PDT: **THE CENSUS GROWS TO TEN (JYH round-2
+  read):** parityInv_chen_second appended to Salt/Parity/
+  Instances.lean — Chen's SECOND theorem (chen_goldbach: every
+  large even N = p + P₂, landed unconditional in Salt/Goldbach/,
+  axioms clean) certified inside the parity-invariant cone;
+  wired + audited (9025 green). Prop 8.4 updated nine → ten
+  w/ the entry named per the house convention ("Chen's second
+  theorem", the identifier merely describing the form); the §2
+  witness count updated. Round-2 paper refinements now 18.

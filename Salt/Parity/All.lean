@@ -33,3 +33,4 @@ outside `ParityInv`. `ParityBarrier` is stated, never assumed.
   parityInv_chen_headline
   parityInv_twin_almost_prime
   parityInv_N5_3
+  parityInv_chen_second

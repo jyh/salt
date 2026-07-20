@@ -9,6 +9,7 @@ import Salt.TwinBar.All
 import Salt.Chen.All
 import Salt.BrunLower.All
 import Salt.Brun.All
+import Salt.Goldbach.All
 
 /-!
 # Parity — L0 instances: the landed corpus sits inside the parity-invariant cone
@@ -98,3 +99,11 @@ theorem parityInv_N6_2 (θ A₀ : ℝ) :
 theorem parityInv_N5_3 (θ A₀ : ℝ) :
     Salt.Parity.ParityInv θ A₀ (fun _ => TwinCountingBigO) :=
   Salt.Parity.parityInv_of_closed θ A₀ Salt.M5BigO.N5_3
+
+/-- Chen's second theorem `chen_goldbach` (every sufficiently large even `N`
+    is `p + q` with `p` prime and `q` a `P₂`) sits in the parity-invariant
+    cone. -/
+theorem parityInv_chen_second (θ A₀ : ℝ) :
+    Salt.Parity.ParityInv θ A₀ (fun _ => ∃ N₀ : ℕ, ∀ N : ℕ, N₀ ≤ N → Even N →
+      ∃ p q : ℕ, N = p + q ∧ p.Prime ∧ Salt.Chen.IsP2 2 q) :=
+  Salt.Parity.parityInv_of_closed θ A₀ Salt.Goldbach.chen_goldbach
