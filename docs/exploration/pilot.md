@@ -10129,3 +10129,11 @@ decisions per question.
   RESERVED TOKEN under LSeries.notation. HALASZ board:
   I-1 ✅ I-2 ✅; I-3 gates on R1.1; the two residuals named for
   Monday's queue.
+
+- 2026-07-19 19:48 PDT: **MV 1974 STAGED** (JYH hunted the JLMS
+  original: docs/sources/mv1974-hilbert.pdf — Thm 1 (1.2) the
+  sharp δ⁻¹π csc form + (1.3) the weighted 3π/2 form, both ≤
+  the consumer's C ≤ 10 tolerance). The K2 staging debt is
+  CLEARED. **MV-CORE-2 DISPATCHED** — discharge L2KernelUniform
+  from the staged proof; the (T+N) stone goes unconditional on
+  landing. Board: the CHI-SIEVE panel + MV-CORE-2.
