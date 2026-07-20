@@ -10104,3 +10104,9 @@ decisions per question.
   residual (cos_int_pair mathlib-absent-confirmed; route
   documented in-file). **THE BOARD IS QUIET — every executor
   of Dichotomy Day has landed.**
+
+- 2026-07-19 17:35 PDT: **A1 RATIFIED — GHS staged** (JYH provided
+  1706.03749v1.pdf; copied to docs/sources/; the source-pin set
+  extended). **HAL-I2 (HalaszSeam) DISPATCHED** — S1' frozen at
+  dispatch against the staged text per the freeze; S2' behind it.
+  The last staging gate of the K1 design is open.

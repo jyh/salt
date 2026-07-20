@@ -74,3 +74,11 @@ A1 [PENDING-JYH, staging, load-bearing]: add GHS [9] Granville-Harper-Soundarara
 5. FROZEN INTERFACES UNTOUCHED: halasz_ball_decay verbatim, R3.1, prop_A3', grade exp(-M/2); freeze is PARTIAL with exactly one named residual (S1' = the GHS Prop-2.1 analog) until staging lands.
 
 dispatch_ready: True
+
+## A1 RATIFIED (JYH, 2026-07-19 ~16:50 PDT)
+GHS staged: docs/sources/1706.03749v1.pdf (Granville–Harper–
+Soundararajan, "A new proof of Halász's theorem, and its
+consequences", arXiv v1). The D1 source-pin set is EXTENDED to
+include GHS 1706.03749 (v1) for the HALASZ-INFRA campaign. Wave
+I-2 (HalaszSeam: S1' + S2') is UNGATED; per the freeze, S1's exact
+statement is frozen AT DISPATCH against the staged text.
