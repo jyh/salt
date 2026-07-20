@@ -10319,3 +10319,24 @@ decisions per question.
   w/ the entry named per the house convention ("Chen's second
   theorem", the identifier merely describing the form); the §2
   witness count updated. Round-2 paper refinements now 18.
+
+- 2026-07-20 16:35 PDT: **A3a-R1 scoper: the D RELOCATES and
+  SHRINKS** (Opus, 113k, all first-attempt): PerronSharp.lean,
+  3 stones wired+audited (8841 green). THE VERDICT (page-
+  anchored): MR §7 NEVER consumes the raw sharp Perron as an
+  absolutely-convergent object — p.22 truncates at T0
+  immediately (U_j finite integral) and p.22-23 kills V_j by
+  x-AVERAGING into Parseval (MV p.32 verbatim: "we avoided that
+  problem by averaging over x"); the V_j analytic core is
+  ALREADY LANDED (lpoly_mean_sq_bound). Brief-hypothesis
+  REFUTED as designed: the SV w-average is tautological (the
+  smooth parts cancel — sv_average_kernel proves it), NOT a
+  1/t² smoothing; zero budget wasted on the dead route. Landed:
+  cpow_ratio_seg_bound, sv_smooth_kernel_bound (= MR p.23's
+  min{h/X, 1/|t|} kernel), sharp_kernel_factor (the take-out-x^s
+  bridge). **THE ZENO FRONTIER OF A3a IS NOW ONE STONE:
+  TRUNC-PERRON — the discontinuous truncated kernel
+  (1/2πi)∫ y^s/s = 1(y>1) + O(y^c/(T|log y|)) (MV Thm 5.1;
+  mathlib-absent, scout-confirmed; SW.ContourShift-class
+  contour work, honestly D).** A3a-R2 re-scoped onto it;
+  roadmap updated. In flight: S1-ASM.

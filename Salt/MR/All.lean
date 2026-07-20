@@ -29,6 +29,7 @@ import Salt.MR.MVCore2
 import Salt.MR.PretentiousTriangle
 import Salt.MR.HalaszContour
 import Salt.MR.ParsevalSL
+import Salt.MR.PerronSharp
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -158,3 +159,5 @@ open Salt.Tactic in
   Salt.MR.dirichlet_plancherel
   Salt.MR.sv_average_identity
   Salt.MR.lpoly_mean_sq_bound
+  Salt.MR.sv_smooth_kernel_bound
+  Salt.MR.sharp_kernel_factor
