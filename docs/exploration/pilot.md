@@ -10218,3 +10218,16 @@ decisions per question.
   item. THE DAY: opened with the dichotomy kernel-real, closed
   with its keystone unconditional. 30 executor missions, 3
   panels, 12 catches (#244–#255), zero wrong proofs.
+
+- 2026-07-19 21:45 PDT: **Manifest repair (house):** the CS-W2
+  wiring hit two traps — a python-quoting break on the prime
+  character in ER_Tsw'_bound_unconditional, then a SILENT NO-OP
+  string-replace (W3's inserted imports split my anchor) that a
+  masked pipe exit let reach main broken for ~10 min. Repaired:
+  the four missing imports (L2cMop/Glue/EngineRoute/MasterUncond)
+  added, audit GREEN — hb_l2c_master_unconditional ✓ 3 axioms on
+  main. LESSONS (conductor-ritual addenda): (1) heredoc'd
+  scripts never single-quote Lean names (primes!); (2) string-
+  replace wiring must VERIFY the substring landed (the 'wired'
+  print lied); (3) never pipe a gate build through tail without
+  checking exit status — pipefail or separate the gate.
