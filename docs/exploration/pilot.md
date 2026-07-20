@@ -10231,3 +10231,12 @@ decisions per question.
   replace wiring must VERIFY the substring landed (the 'wired'
   print lied); (3) never pipe a gate build through tail without
   checking exit status — pipefail or separate the gate.
+
+- 2026-07-20 09:26 PDT: **A4 EXECUTED (JYH-ratified):** glue_master
+  now consumes hb_l2c_master_unconditional — hcount AND hLz0
+  GONE from its signature (the Horn-A glue takes only hsq + the
+  scale hypothesis); the import switched to L2cMasterUncond
+  (acyclic); superseded-pointers added on hb_l2c_master_final
+  (docstring-merged — a stacked-docstring parse trap caught in
+  build) and _of_count (comment). Audit green (8760). PAUSED
+  per JYH for the Opus conductor switch.

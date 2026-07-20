@@ -366,6 +366,8 @@ open Classical in
     * `hEL_uncov` — the `E_L` odd-cover residual `L2cELuncov` (the two freeze gaps, the
       never-landed `T2`-mirror family and the mid-range squarefull corner; both priceable
       at the `J2` and junk shapes — see the module NOTES). -/
+-- SUPERSEDED as the campaign surface (A4, ratified 2026-07-20): use
+-- `hb_l2c_master_unconditional` (`Salt/HB/L2cMasterUncond.lean`).  Kept as landed.
 theorem hb_l2c_master_of_count (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : ℕ}
     (hz100 : 100 ^ 16 ≤ z) (hz8 : Lwin x ^ 8 ≤ z) (hzx : (z : ℝ) ^ 3 ≤ x)
     (hcount : ∑ n ∈ (l2cWindow χ z x).filter (fun n => IsERTsw χ z n),

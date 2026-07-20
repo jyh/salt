@@ -3,7 +3,7 @@ Copyright (c) 2026 Jason Hickey. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
-import Salt.HB.L2cMop
+import Salt.HB.L2cMasterUncond
 
 /-!
 # HB-L2c — the downstream instantiation of the master (node HB-L2c, Horn A glue)
@@ -347,16 +347,15 @@ lemma glue_scale {x : ℕ} (hx : Real.exp ((20 : ℝ) ^ 6) ≤ 2 * (x : ℝ) + 2
 /-! ## §4 — the assembled master at the witness -/
 
 open Classical in
-/-- **`glue_master` — the L2c master specialised to the downstream witness `zwit x`.**  The
-    frozen packet (`hz100`/`hz8`/`hzx`/`hLz0`) is discharged by G1–G4 from the single scale
-    hypothesis `Lwin x ≥ 20^6`; only the character input `hsq` and the `CHI-SIEVE` count
-    residual `hcount` remain as inputs.  This is the exact `hb_lemma2`-shape conclusion the
-    Horn-A composition (WP1∘WP2, `S(3)` main term) consumes on the window `l2cWindow`. -/
+/-- **`glue_master` — the L2c master specialised to the downstream witness `zwit x`.**
+    A4 (ratified 2026-07-20): now consumes `hb_l2c_master_unconditional` — the packet
+    (`hz100`/`hz8`/`hzx`) is discharged by G1–G3 from the single scale hypothesis
+    `Lwin x ≥ 20^6`, and **no residual remains**: `hcount` and `hLz0` are gone (the
+    CHI-SIEVE freeze proved both unnecessary; see `Salt/HB/L2cMasterUncond.lean`).
+    Only the character input `hsq` remains.  This is the exact `hb_lemma2`-shape
+    conclusion the Horn-A composition (WP1∘WP2, `S(3)` main term) consumes. -/
 theorem glue_master (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {x : ℕ}
-    (hL : (20 : ℝ) ^ 6 ≤ Lwin x)
-    (hcount : ∑ n ∈ (l2cWindow χ (zwit x) x).filter (fun n => IsERTsw χ (zwit x) n),
-        Λ (nMinus χ (n + 2))
-        ≤ 524288 * x * PretenseSum χ (2 * x + 2) / (Real.log (zwit x)) ^ 2) :
+    (hL : (20 : ℝ) ^ 6 ≤ Lwin x) :
     S2 χ (l2cWindow χ (zwit x) x) - S1 (l2cWindow χ (zwit x) x)
       ≤ L2cCmain * ((x : ℝ) / z0 (zwit x) x)
         + L2cCmain * ((x : ℝ) / Real.log x) * Real.exp (5 * z0 (zwit x) x)
@@ -364,6 +363,6 @@ theorem glue_master (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {x : ℕ}
         + L2cCmain * Real.exp (2 * z0 (zwit x) x)
             * ((x : ℝ) / (zwit x : ℝ) ^ (1 / 8 : ℝ) + (x : ℝ) ^ ((9 : ℝ) / 10))
             * Lwin x ^ 3 :=
-  hb_l2c_master_final χ hsq (glue_hz100 hL) (glue_hz8 hL) (glue_hzx hL) (glue_hLz0 hL) hcount
+  hb_l2c_master_unconditional χ hsq (glue_hz100 hL) (glue_hz8 hL) (glue_hzx hL)
 
 end Salt.HB

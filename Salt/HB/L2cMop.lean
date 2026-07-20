@@ -1658,7 +1658,11 @@ open Classical in
 /-- **`hb_l2c_master_final` — the L2c master, residual-closed** (M6).  The `hb_lemma2`
     conclusion shape on the exact identity, conditional on the SINGLE remaining residual
     `hcount` (the `ER_Tsw'` `CHI-SIEVE` count).  The `E_L` odd-cover residual is discharged
-    by `EL_uncov_bound` under the Amendment-5 packet hypothesis `hLz0` (trivial downstream). -/
+    by `EL_uncov_bound` under the Amendment-5 packet hypothesis `hLz0` (trivial downstream).
+
+    SUPERSEDED as the campaign surface (A4, ratified 2026-07-20): use
+    `hb_l2c_master_unconditional` (`Salt/HB/L2cMasterUncond.lean`) — same conclusion,
+    bare packet, no `hLz0`/`hcount`.  Kept as a landed intermediate. -/
 theorem hb_l2c_master_final (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) {z x : ℕ}
     (hz100 : 100 ^ 16 ≤ z) (hz8 : Lwin x ^ 8 ≤ z) (hzx : (z : ℝ) ^ 3 ≤ x)
     (hLz0 : Lwin x ≤ Real.exp (z0 z x))
