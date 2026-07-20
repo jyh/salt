@@ -2,3 +2,11 @@
 /LintScratch.lean
 /LintScratchHeadliners.lean
 /Scratch.lean
+# LaTeX build artifacts (author-side compiles)
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.synctex.gz
+main.pdf
