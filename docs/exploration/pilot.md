@@ -10172,3 +10172,19 @@ decisions per question.
   **W1 (L2cEngineRoute) DISPATCHED; W2 (L2cMasterUncond) on its
   landing. When W2 lands: THE L2C CAMPAIGN IS FULLY
   UNCONDITIONAL and the paper's conditional table loses a row.**
+
+- 2026-07-19 20:59 PDT: ██ **MV-CORE-2: K2 IS DOWN AT THE SHARP π**
+  ██ (Opus, 445k): MVCore2.lean, 625 ln, wired (8837 green) —
+  mvHilbertUniform_holds (the FULL Montgomery–Vaughan generalized
+  Hilbert inequality, plausibly a proof-assistant FIRST) +
+  dirichlet_poly_l2_mvt_final (2T+20N, UNCONDITIONAL). THE
+  STRATEGY CATCH: the paper's Thm 2 IS the frozen statement;
+  porting §3's eigenvector method to the λ-kernel degenerates
+  every csc to a rational — Lemmata 1–5 + the contour + the ε→0
+  limit ALL BYPASSED; the only analytic input = the landed
+  diagonal stone (π²/3δ²). L2KernelUniform + its reduction are
+  now dead code (kept, annotated — true and green, zero
+  consumers). Every step page-anchored (pp. 74/79-80). **S8
+  waves 4–6 + P3 UNLOCKED. Both kill-check walls of the S8
+  campaign are now DOWN — K1 designed-and-half-built, K2
+  proven — on the same day they fired.**

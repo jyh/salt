@@ -25,6 +25,7 @@ import Salt.MR.HalaszLambda
 import Salt.MR.HalaszKernel
 import Salt.MR.HalaszSeam
 import Salt.MR.HalaszRep
+import Salt.MR.MVCore2
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -141,3 +142,5 @@ open Salt.Tactic in
   Salt.MR.s2_tail_ledger
   Salt.MR.shifted_dirichlet_ftc
   Salt.MR.line_integral_tsum_swap
+  Salt.MR.mvHilbertUniform_holds
+  Salt.MR.dirichlet_poly_l2_mvt_final
