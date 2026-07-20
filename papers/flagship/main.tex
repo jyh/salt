@@ -632,9 +632,21 @@ loudly, bank everything---is designed to make the system catch errors
 faster than it makes them.}\footnote{After water, salt.}
 \end{quote}
 
-Every lemma is classified before any proof attempt (one-step; standard;
-real design; open-ended) and routed to the cheapest layer that can carry
-it; statements are frozen by design panels whose members include
+Language models of differing proving ability come at sharply differing
+inference cost, and most of a formalized proof is mechanical; the
+division of labor exploits exactly that asymmetry. Every lemma is
+classified before any proof attempt into one of four difficulty
+classes---\emph{mechanical} (one tactic or a known lemma),
+\emph{standard} (a routine multi-step argument), \emph{design}
+(genuine proof architecture), \emph{open}---and routed to the cheapest
+tier of model that can reliably discharge it: the most capable model
+(here Fable~5) designs the campaigns, freezes the statements, and
+classifies the components; executor models (here Claude Opus) prove
+them at their tier. Misclassification is safe rather than fatal: an
+under-tiered executor is required to stop and report---give up early,
+loudly---and the obligation re-routes upward carrying the map of where
+it broke, so a grading error costs a bounded retry, never a wrong
+proof. Statements are frozen by design panels whose members include
 adversarial refuters with a standing default of \emph{refuted}; executors
 are forbidden to alter a frozen statement---their duty on discovering one
 unprovable is to stop and report, loudly; and the house that rules on such
