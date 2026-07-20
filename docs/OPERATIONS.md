@@ -1,6 +1,21 @@
 # OPERATIONS — the daily routine and the confidence contract
 ### (ratified 2026-07-19 evening; the post-cliff operating ritual)
 
+## OPERATING SEAT — FABLE MAESTRO (ratified 2026-07-20, supersedes the Opus-conductor split)
+
+The default daily seat is **Fable maestro**: one session that designs,
+rules statement-tier questions, orchestrates (dispatches Opus executors +
+Fable panels), and ceremonies — no model-switching. The earlier
+"Opus-conductor + Fable-on-credits surgeon" split was a BILLING artifact
+(a cliff that turned out not to exist — Fable is included with Max); it is
+retired. What is UNCHANGED is the discipline: the escalation laws below,
+the worst-corner law (incl. asymptotic corners), the workflow-gate (now
+ordinary QUOTA prudence for heavy panels, not a price emergency), Zeno /
+give-up-loudly, and — load-bearing — **never silently alter a frozen
+statement or merge to main without JYH**. The maestro rules house-tier
+inline and surfaces only genuinely JYH-tier calls: merge-to-main, a new
+heavy design panel (quota-aware nod), a blueprint statement change.
+
 ## The four properties this document guarantees
 
 **P1 — WHERE WE ARE is always in the repo, never in a head.** The
