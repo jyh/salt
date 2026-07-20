@@ -10200,3 +10200,21 @@ decisions per question.
   relaxation. J1 tally verified for W2: 2³⁰+4+2²² < 2³¹ ✓.
   Zero residuals. **CS-W2 DISPATCHED — the final wave:
   hb_l2c_master_unconditional.**
+
+- 2026-07-19 21:43 PDT: ██████ **CS-W2 LANDS FIRST ATTEMPT — THE
+  L2C CAMPAIGN CLOSES FULLY UNCONDITIONAL** ██████ (Opus, 119k,
+  ~10 min): Salt/HB/L2cMasterUncond.lean, 173 ln —
+  **hb_l2c_master_unconditional: the Heath-Brown Lemma-2
+  conclusion BYTE-IDENTICAL to the landed master, from
+  {hsq, hz100, hz8, hzx} ALONE. No hcount. No hLz0. No residual
+  anywhere in the campaign.** J1 tally exact as certified
+  (2³⁰+4+2²² < 2³¹, ~50% headroom). Executor catch #A banked:
+  the freeze's R4 note said nonnegativity facts where a bare-vs-
+  e^{2z0} monomial COMPARISON was load-bearing — closed in-flight
+  with the explicit bridge (freeze-note lesson: linarith fact
+  lists need comparisons, not just signs). Wired + audited
+  (8842 green). A4 (the glue call-site switch _final →
+  _unconditional + doc pointers) = tomorrow's first Fable/JYH
+  item. THE DAY: opened with the dichotomy kernel-real, closed
+  with its keystone unconditional. 30 executor missions, 3
+  panels, 12 catches (#244–#255), zero wrong proofs.
