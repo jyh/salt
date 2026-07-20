@@ -54,7 +54,7 @@ transcribed from the literature: it was extracted from a formal corpus by
 demand-audited hypothesis minimization, a mode of discovery we argue is
 impossible over prose proofs. Around it we prove, kernel-checked: a
 Heath-Brown--type dichotomy (twin primes, or no Siegel zeros) with its
-engine-conditional horn stated honestly; the first formalization of any
+engine-conditional horn stated explicitly; the first formalization of any
 zero-free region for $\zeta$ of Littlewood strength (1922) and the first
 power-saving region ($\theta = 3/4$) in any proof assistant; a
 Deuring--Heilbronn repulsion contract; the exact-identity keystone of the
@@ -306,8 +306,8 @@ $\forall n\, \exists p \ge n$ with $p$ and $p+2$ prime
 (\leaninline{Salt.Basic: TwinPrimeConjecture}) --- the dichotomy trades
 one unboundedness for another.
 
-\begin{theorem}[The dichotomy, engine-conditional horn stated
-honestly]\label{thm:dich}
+\begin{theorem}[The dichotomy, with the engine hypothesis
+explicit]\label{thm:dich}
 Unconditionally: if the fulcrum fails ($\lnot F$), there are no Siegel
 zeros in the precise sense of the corpus's \leaninline{NoSiegelZeros}
 (\leaninline{Salt.Fulcrum.not\_fulcrum\_implies\_noSiegelZeros}).
@@ -343,8 +343,8 @@ $\lnot F$ horn is unconditional and effective. The engine implication
 $h_{\mathrm{Engine}}$ is the one conditional input; \S\ref{sec:keystone}
 proves its exact-identity keystone unconditionally, leaving the remaining
 Heath-Brown assembly as the named campaign \textsc{hb-engine}. We do not
-claim the unconditional dichotomy; we claim the honest one, and we
-exhibit exactly what remains.
+claim the unconditional dichotomy; we exhibit exactly what
+remains.
 
 % ============================================================================
 \section{The keystone}\label{sec:keystone}
@@ -370,7 +370,7 @@ is
 which is $O(1)$ exactly when $\chi$ pretends to be the Liouville pattern
 on primes. The window $W = W(\chi, z, x)$ is the set of $n \in (x, 2x]$
 with $n(n+2)$ coprime to $q$ and to every prime $p < z$ with
-$\chi(p) \ne -1$: the honest sifted support on which
+$\chi(p) \ne -1$: the exact sifted support on which
 $\tilde\Lambda \ge \Lambda \ge 0$ termwise, so $S_1 \le S_2$ and the
 engine's content is entirely in bounding the overshoot $S_2 - S_1$.
 
@@ -651,7 +651,7 @@ distance from Theorem~\ref{thm:master}, now unconditional, to
 $h_{\mathrm{Engine}}$); the Matom\"aki--Radziwi\l\l\ program toward the
 door of Theorem~\ref{thm:spine}; and the explicit-constants floor
 (Siegel--Walfisz through Chen with every constant explicit). The
-conditional ledger below is the paper's honest boundary.
+conditional ledger below is the paper's exact boundary.
 
 \begin{table}[h]
 \centering\small
