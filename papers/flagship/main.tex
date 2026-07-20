@@ -347,18 +347,18 @@ exhibit exactly what remains.
 The objects: for a primitive quadratic $\chi \bmod q$, the twisted von
 Mangoldt function is
 \[
-\tilde\Lambda(n) \;=\; \sum_{d \mid n} \mu^2(d)\,\chi(d)\,\log(n/d),
+\tilde\Lambda(n) \;:=\; \sum_{d \mid n} \mu^2(d)\,\chi(d)\,\log(n/d),
 \]
 a majorant-with-sign of $\Lambda$ that agrees with it when $\chi$ is
 $\lambda$-like on the divisors of $n$; over a finite window $A$,
 \[
-S_1(A) = \sum_{n \in A} \Lambda(n)\Lambda(n+2), \qquad
-S_2(\chi, A) = \sum_{n \in A} \tilde\Lambda(n)\tilde\Lambda(n+2),
+S_1(A) := \sum_{n \in A} \Lambda(n)\Lambda(n+2), \qquad
+S_2(\chi, A) := \sum_{n \in A} \tilde\Lambda(n)\tilde\Lambda(n+2),
 \]
 and the \emph{pretense sum} --- the price currency of the whole chapter ---
 is
 \[
-\mathrm{PS}_\chi(N) \;=\; \sum_{\substack{p \le N \\ \chi(p) = 1}}
+\mathrm{PS}_\chi(N) \;:=\; \sum_{\substack{p \le N \\ \chi(p) = 1}}
 \frac{\log p}{p},
 \]
 which is $O(1)$ exactly when $\chi$ pretends to be the Liouville pattern
@@ -473,14 +473,14 @@ Let $\rho(d) = \#\{0 \le r < d : d \mid r(r+2)\}$ be the true twin local
 density. For a weighting $a : \mathbb{N} \to \mathbb{R}$, the type-I sum
 at level $d$ and window $x$ and its error at exponent $\theta$ are
 \[
-A_d(a; x) = \sum_{\substack{1 \le n \le x \\ d \mid n(n+2)}} a(n),
+A_d(a; x) := \sum_{\substack{1 \le n \le x \\ d \mid n(n+2)}} a(n),
 \qquad
-E_\theta(a; x) = \sum_{d \le x^{\theta}}
+E_\theta(a; x) := \sum_{d \le x^{\theta}}
   \Bigl|\,A_d(a;x) - \frac{\rho(d)}{d}\,x\,\Bigr|.
 \]
 The \emph{completion class} at grade $(\theta, A_0)$ is
 \[
-\mathcal{C}(\theta, A_0) \;=\; \Bigl\{\, a \ge 0 \;:\; \exists\, C > 0,\
+\mathcal{C}(\theta, A_0) \;:=\; \Bigl\{\, a \ge 0 \;:\; \exists\, C > 0,\
 \forall x \ge 2,\ E_\theta(a; x) \le \frac{C\,x}{(\log x)^{A_0}} \Bigr\}
 \]
 --- the nonnegative weightings indistinguishable from the truth by pure
@@ -490,10 +490,10 @@ carry the true twin main term. Type-II bilinear information is
 structurally inexpressible in the class, not merely excluded.) A
 predicate $E$ on weightings is \emph{parity-invariant} at grade
 $(\theta, A_0)$ if it holds for \emph{every} completion:
-$\mathrm{ParityInv}(E) \iff \forall a \in \mathcal{C}(\theta, A_0),\ E(a)$
+$\mathrm{ParityInv}(E) :\iff \forall a \in \mathcal{C}(\theta, A_0),\ E(a)$
 --- semantic invariance over the model class, quantifying over the
 mechanism rather than any method. With the twin mass
-$T(a; x) = \sum_{n \le x,\ n,\,n+2 \text{ prime}} a(n)$, the predicate
+$T(a; x) := \sum_{n \le x,\ n,\,n+2 \text{ prime}} a(n)$, the predicate
 $E$ is \emph{twin-sufficient} if for every $a \in \mathcal{C}(\theta,
 A_0)$ satisfying $E$, the mass $T(a; \cdot)$ is unbounded. Writing
 $\mathbf{1}$ for the constant weighting $1$ (the true sequence), the gap
