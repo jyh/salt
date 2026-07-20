@@ -10152,3 +10152,23 @@ decisions per question.
   Opus mission for Monday). The Fable consult CANCELLED unneeded;
   the scoper-before-escalation law banked. Board: CHI-SIEVE
   judge + MV-CORE-2.
+
+- 2026-07-19 20:34 PDT: ██ **THE CHI-SIEVE FREEZE LANDS — THE
+  RESIDUAL PROVEN UNNECESSARY** ██ (wf_7a96d497, 7/7, ~966k):
+  RESTRUCTURE wins — both sibling counts route through the
+  FROZEN engine (hb_lemma8'_unconditional) at the small-pp
+  modulus (d₂=w for ER, d₁=v for (c)), χ-BLIND, into the J1
+  row; **hb_l2c_master_unconditional reproves the master
+  conclusion VERBATIM from {hsq, hz100, hz8, hzx} — hcount AND
+  hLz0 both leave the surface. NO residual, no class D, ~900 ln
+  C-ladder, two new files.** Kills adjudicated: engine-variant
+  (the refuter's free-q witness: hcount-as-frozen plausibly
+  FALSE — honest-shape saved us from building on it); imports
+  (mean-square walls); Chen graft (character-free); DES-B's own
+  heavy design superseded by its referee's Repair B (the engine
+  has NO legality hypothesis + general-N Mertens ⟹ W0 := z —
+  ~1900 lines deleted). Enemy arithmetic re-derived, margins
+  ≥40%. Banked: docs/exploration/chi-sieve-freeze.md.
+  **W1 (L2cEngineRoute) DISPATCHED; W2 (L2cMasterUncond) on its
+  landing. When W2 lands: THE L2C CAMPAIGN IS FULLY
+  UNCONDITIONAL and the paper's conditional table loses a row.**
