@@ -304,7 +304,9 @@ per window; this is the weakest shape for which the engine of
 
 Here \emph{TwinPrimeConjecture} is the expected statement, in the same
 unbounded-threshold form as the fulcrum's own quantifier:
-$\forall n\, \exists p \ge n$ with $p$ and $p+2$ prime
+\[
+\forall\, n\ \exists\, p \ge n:\ p \text{ and } p+2 \text{ prime}
+\]
 (\leaninline{Salt.Basic: TwinPrimeConjecture}) --- the dichotomy trades
 one unboundedness for another.
 
@@ -323,12 +325,12 @@ $h_{\mathrm{Engine}} : \text{FulcrumQualityMin } C \to
 \end{theorem}
 
 Here \emph{NoSiegelZeros} is precisely the statement
-\[
+\begin{gather*}
 \exists\, c > 0:\ \forall\, q > 1,\ \forall\, \chi \bmod q
-\text{ primitive quadratic},\ \forall\, \beta \in \mathbb{R}:\quad
+\text{ primitive quadratic},\ \forall\, \beta \in \mathbb{R}:\\
 L(\beta, \chi) = 0 \ \wedge\ \beta < 1
 \ \Longrightarrow\ \beta \le 1 - \frac{c}{\log q},
-\]
+\end{gather*}
 i.e.\ some single effective constant pushes every real zero of every
 primitive quadratic character---all moduli, no exceptions---away from
 $s = 1$ at the scale $1/\log q$. Since ``Siegel zero'' is inherently a
@@ -442,9 +444,12 @@ primes.
 \begin{theorem}[Neutrality and the rate]\label{thm:wall}
 For every sign function $f$: $S_1 \le S_2(f)$ on the generalized window
 (unconditionally), and the difference obeys the budget
-$S_2(f) - S_1 \le \mathrm{EngineBound}(C_{\mathrm{main}}, z, x,
-\mathrm{PS}_f)$ whenever the overshoot budget holds---the three-row bound
-of Theorem~\ref{thm:master} with the character's pretense sum replaced by
+\[
+S_2(f) - S_1 \;\le\; \mathrm{EngineBound}(C_{\mathrm{main}}, z, x,
+\mathrm{PS}_f)
+\]
+whenever the overshoot budget holds---the three-row bound of
+Theorem~\ref{thm:master} with the character's pretense sum replaced by
 $f$'s.
 \leanname{Salt.HB.S1\_le\_S2Gen, Salt.HB.neutrality\_rate}
 \end{theorem}
@@ -454,7 +459,8 @@ The Liouville function is the exact fixed point of the exchange:
 $\tilde\Lambda_\lambda = \Lambda$ identically, $S_2(\lambda) = S_1$, the
 overshoot vanishes pointwise, and $\mathrm{PS}_\lambda = 0$.
 \leanname{Salt.HB.LamTildeGen\_lamR\_eq\_vonMangoldt,
-S2Gen\_lamR\_eq\_S1, overshootExactGen\_lamR, PretenseSumGen\_lamR\_eq\_zero}
+S2Gen\_lamR\_eq\_S1, overshootExactGen\_lamR,\\
+PretenseSumGen\_lamR\_eq\_zero}
 \end{theorem}
 
 Read together: any route that would extract twins from a transfer must pay
