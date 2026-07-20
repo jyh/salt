@@ -10240,3 +10240,18 @@ decisions per question.
   (docstring-merged — a stacked-docstring parse trap caught in
   build) and _of_count (comment). Audit green (8760). PAUSED
   per JYH for the Opus conductor switch.
+
+- 2026-07-20 10:04 PDT: ██ **R1.1 LANDS — the last flagged C/D rung;
+  I-3 UNBLOCKED** ██ (Opus, 218k): Salt/MR/PretentiousTriangle.lean,
+  228 ln, 5 public results axioms-clean, wired+audited (8838
+  green). The pretentious triangle at 1-bounded generality —
+  (a) pointwise + (b) 𝔻-triangle + (c) dist_mul_half. THE WALL
+  DISSOLVED: the S8-H1 "rank-2 SOS" flag was a mis-diagnosis
+  (embedding dimension, not tactic strength); each point gets its
+  OWN defect coordinate s=√(1−|·|²) → 5-dim Euclidean embedding →
+  10-minor Gram SOS, nlinarith first-try. Source NOT staged
+  (reconstructed, doctrine-clean). New trap banked: set-over-sqrt
+  whnf-explodes nlinarith (introduce sqrt-defects opaquely).
+  **The last C/D flag on the board is retired — the summit path
+  is now all crank-turnable C with routes named.** Board: nothing
+  in flight; the maestro handoff (restart → Fable) is clean.

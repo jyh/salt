@@ -26,6 +26,7 @@ import Salt.MR.HalaszKernel
 import Salt.MR.HalaszSeam
 import Salt.MR.HalaszRep
 import Salt.MR.MVCore2
+import Salt.MR.PretentiousTriangle
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -144,3 +145,6 @@ open Salt.Tactic in
   Salt.MR.line_integral_tsum_swap
   Salt.MR.mvHilbertUniform_holds
   Salt.MR.dirichlet_poly_l2_mvt_final
+  Salt.MR.pretentious_pointwise_triangle
+  Salt.MR.pretDist_triangle
+  Salt.MR.dist_mul_half

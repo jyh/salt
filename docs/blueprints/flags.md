@@ -11639,3 +11639,24 @@ concrete domination discharges, window algebra). LAW: end-of-session
 D-for-Lean pricings are HYPOTHESES — before any escalation (Fable
 consult, staging hunt), spend one fresh Opus scoper on the ladder
 attempt; the resistance map either kills the D or aims the consult.
+
+**R1.1 LANDED (2026-07-20) — the "rank-2 SOS wall" was a mis-diagnosis,
+now RETIRED.** Salt/MR/PretentiousTriangle.lean:
+pretentious_pointwise_triangle (a) + pretDist_triangle (b) + dist_mul_half
+(c), sorry-free, axioms clean, wired+audited. The prior S8-H1 flag called
+it a "rank-2 Gram SOS nlinarith cannot certify" — WRONG diagnosis: the
+obstruction was EMBEDDING DIMENSION, not tactic strength. The ℝ³
+sphere-lift shares one defect coordinate across all three points and thus
+proves a strictly weaker (false-for-the-target) inequality. The fix: give
+each point its OWN private defect coordinate s = √(1−|·|²) — a 5-dim
+embedding φ making ‖φ(a)−φ(c)‖² = 2(1−Re(a c̄)) EXACTLY, so the triangle
+is Euclidean-in-ℝ⁵; the 10-minor Gram SOS then nlinarith-certifies first
+try. LESSON: a "constrained positivity, false without the constraints"
+crux is an embedding problem — hunt the right metric space, not a bigger
+hint set. NEW fleet trap: `set` over Real.sqrt whnf-explodes nlinarith
+(deterministic 200k-heartbeat timeout) — introduce sqrt-defects OPAQUELY
+via obtain ⟨s, hs⟩ : ∃ s, s^2 = … . Note: dist_mul_half's shape is not yet
+pinned by a Lean consumer (R3.1/dist_split_A4 is a future wave) — the
+general squared reverse-triangle halving shipped; the R3.1 executor
+confirms orientation against the concrete fg_J. R1.1 source NOT staged
+(Koukoulopoulos not in corpus) — reconstructed elementarily per doctrine.
