@@ -107,3 +107,8 @@ open Salt.Tactic in
   Salt.HB.ER_T3'_bound
   Salt.HB.ER_Tsw'_bound_of_count
   Salt.HB.hb_l2c_master_of_count
+  Salt.HB.engineRoute_card_right
+  Salt.HB.ER_Tsw'_bound_unconditional
+  Salt.HB.cPairSum_bound_unconditional
+  Salt.HB.EL_uncov_bound_unconditional
+  Salt.HB.hb_l2c_master_unconditional
