@@ -10110,3 +10110,22 @@ decisions per question.
   extended). **HAL-I2 (HalaszSeam) DISPATCHED** — S1' frozen at
   dispatch against the staged text per the freeze; S2' behind it.
   The last staging gate of the K1 design is open.
+
+- 2026-07-19 18:00 PDT: **HAL-I2 LANDS the GHS seam** (Opus, 185k,
+  everything ≤1 attempt): HalaszSeam.lean, 339 ln, 17 decls,
+  wired (8835 green). S1' FROZEN VERBATIM at dispatch against
+  the staged GHS (the 4 seam-diffs recorded: exact-line rep
+  replaces truncation; product-form λ_lin; hatKernel; the
+  center-twist carried from the start). **THE S2' LEDGER GATE
+  PASSES** (head = X·(1+M)e^{−M}·L^{κ−1} via the crucial
+  α-integration 1/L; tail at Tsplit=L⁴ lands AT grade —
+  s2_tail_ledger machine-checks it; the L²-overrun audit
+  reproduced). Squarefull defined (mathlib-absent); fgJ + the
+  L3' factorization landed; the S2' head composition CONDITIONAL
+  on K4' as designed. RESIDUALS re-priced honestly: S1's α,β
+  double-integral rep is D-FOR-LEAN (mathlib lacks the
+  multivariable Perron/Fubini apparatus — C-for-math, real infra
+  for Lean); K4' unchanged. Fleet catch broadcast: 'L' is a
+  RESERVED TOKEN under LSeries.notation. HALASZ board:
+  I-1 ✅ I-2 ✅; I-3 gates on R1.1; the two residuals named for
+  Monday's queue.
