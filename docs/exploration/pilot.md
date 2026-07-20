@@ -10340,3 +10340,20 @@ decisions per question.
   mathlib-absent, scout-confirmed; SW.ContourShift-class
   contour work, honestly D).** A3a-R2 re-scoped onto it;
   roadmap updated. In flight: S1-ASM.
+
+- 2026-07-20 16:53 PDT: ██ **S1-ASM LANDS — the residual
+  CONCENTRATES to one hypothesis** ██ (Opus, 232k of 600k, every
+  rung first-attempt): HalaszRepAsm.lean, 435 ln, 26 decls,
+  wired+audited (8842 green). T1 WHOLE (restrictBelow + the
+  ellLin_split product law + 𝒮/𝓛/P defs + summability); T2 WHOLE
+  (integrable_hatKernel and both domination discharges — the
+  swap-rung gates CLOSED); T3: prop21_contour_leg FULLY
+  DISCHARGED (residual-free hat_contour_rep instance) +
+  prop21_analog (the S1' capstone) conditional on ONE hypothesis:
+  **hfactor — the inner (α,β) coefficient identity (GHS
+  Lemma 2.1/2.2 core)**. hsplit verdict: consumer-side trivial.
+  TWO statement catches: A (restrictBelow = p ≤ y, exactness-
+  required — ratified) and B (P must use the LARGE-part λ —
+  maestro-ruled #256, amended, worst-corner passed). **HFACTOR
+  SCOPER DISPATCHED per the #255 law** (T0 = the amendment's
+  def-fix; then the ladder + resistance map before any panel).

@@ -11660,3 +11660,15 @@ pinned by a Lean consumer (R3.1/dist_split_A4 is a future wave) — the
 general squared reverse-triangle halving shipped; the R3.1 executor
 confirms orientation against the concrete fg_J. R1.1 source NOT staged
 (Koukoulopoulos not in corpus) — reconstructed elementarily per doctrine.
+
+**Catch #256 (at-dispatch-freeze transcription slip, maestro-ruled;
+2026-07-20 S1-ASM).** The S1' frozen P_beta wrote `lambdaLin g` where
+GHS Prop 2.1's Λ_ℓ is the von Mangoldt of the LARGE part —
+`lambdaLin (restrictAbove y g)`. Exactness-required correction (the
+g-form's small-base extras are not in the derivative identity), the
+#254 pattern; worst-corner passed (smaller mass ⟹ bounds a
+fortiori). Amended (halasz-infra-freeze.md AMENDMENT S1-B); the
+windowSum def-fix = T0 of the hfactor campaign. Companion record:
+S1-ASM landed T1+T2 whole + the contour leg RESIDUAL-FREE; the
+HALASZ campaign's sole residual is now hfactor — the inner (α,β)
+coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).

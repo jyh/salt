@@ -30,6 +30,7 @@ import Salt.MR.PretentiousTriangle
 import Salt.MR.HalaszContour
 import Salt.MR.ParsevalSL
 import Salt.MR.PerronSharp
+import Salt.MR.HalaszRepAsm
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -161,3 +162,6 @@ open Salt.Tactic in
   Salt.MR.lpoly_mean_sq_bound
   Salt.MR.sv_smooth_kernel_bound
   Salt.MR.sharp_kernel_factor
+  Salt.MR.ellLin_split
+  Salt.MR.prop21_contour_leg
+  Salt.MR.prop21_analog

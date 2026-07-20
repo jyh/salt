@@ -82,3 +82,19 @@ consequences", arXiv v1). The D1 source-pin set is EXTENDED to
 include GHS 1706.03749 (v1) for the HALASZ-INFRA campaign. Wave
 I-2 (HalaszSeam: S1' + S2') is UNGATED; per the freeze, S1's exact
 statement is frozen AT DISPATCH against the staged text.
+
+## AMENDMENT S1-B (maestro ruling, 2026-07-20 — catch #256)
+The at-dispatch S1' freeze wrote P_beta with `lambdaLin g`; the
+GHS-faithful and EXACTNESS-REQUIRED object is
+`lambdaLin (restrictAbove y g)` (the derivative identity
+ellLin_lseries_deriv is exact at the LARGE datum; the g-form
+overcounts small-base powers p^k, p ≤ y < p^k in the window, which
+GHS routes into the smooth part — the extras are NOT in 𝓛's
+derivative). Worst-corner: the restricted form has strictly smaller
+mass; every downstream bound (lambdaLin_window_bound, the Plancherel
+legs) survives a fortiori. RULING: the frozen P is amended to the
+restricted form; HalaszRepAsm's `windowSum` def is corrected as the
+FIRST rung (T0) of the hfactor campaign; `prop21_analog`'s hfactor
+residual is stated against the corrected form. Also ratified:
+CATCH A (restrictBelow = p ≤ y, the exact complement — required for
+the unconditional product law; executor-adjudicated, correct).
