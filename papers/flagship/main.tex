@@ -263,8 +263,11 @@ For $C > 0$, \emph{FulcrumQualityMin} $C$ asserts: for every natural
 number $Q$ there exist a modulus $q > Q$, a primitive quadratic
 character $\chi \bmod q$, and a zero $\rho$ of $L(\cdot,\chi)$ with
 $\|1-\rho\| \cdot C \log q \le 1$.
-The fulcrum hypothesis is FulcrumQualityMin $C^\star$ for the single
-explicit constant $C^\star = \max(C^{(1)}, 2/c_0)$, where
+The \emph{fulcrum hypothesis} is
+\[
+F \;:=\; \text{FulcrumQualityMin } C^\star
+\]
+for the single explicit constant $C^\star = \max(C^{(1)}, 2/c_0)$, where
 $c_0 = 1/126848$ is the zero-free-region constant of the corpus,
 kernel-certified at that numeral
 (\leaninline{zero\_free\_region\_all\_numeral}); the $2/c_0$ arm of
@@ -299,8 +302,8 @@ per window; this is the weakest shape for which the engine of
 
 \begin{theorem}[The dichotomy, engine-conditional horn stated
 honestly]\label{thm:dich}
-Unconditionally: if the fulcrum fails, there are no Siegel zeros in the
-precise sense of the corpus's \leaninline{NoSiegelZeros}
+Unconditionally: if the fulcrum fails ($\lnot F$), there are no Siegel
+zeros in the precise sense of the corpus's \leaninline{NoSiegelZeros}
 (\leaninline{Salt.Fulcrum.not\_fulcrum\_implies\_noSiegelZeros}).
 Consequently, for any $C > 0$, given the engine implication
 $h_{\mathrm{Engine}} : \text{FulcrumQualityMin } C \to
