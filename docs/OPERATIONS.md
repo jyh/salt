@@ -83,6 +83,9 @@ triggers are enumerated and each has a tape-proven precedent:
    SCOUT/CATCH in pilot.md, Zeno = success).
 5. Ceremony loop: verify build → wire manifests → #audit_axioms →
    ledger w/ `date`-stamped entry → commit by name → push.
+6. At CAMPAIGN transitions (open/close/major-status-change): update
+   docs/CAMPAIGNS.md — the curated annals; one row + short entry,
+   never fine grain (pilot's job).
 
 ## The drift tripwires (JYH's weekly 5-minute audit)
 - flags.md new entries: every statement-layer item should read
