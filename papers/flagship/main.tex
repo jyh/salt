@@ -204,10 +204,20 @@ exponential-sum-to-growth bridge (\leaninline{Salt.Vk.vk\_block\_core}),
 with an explicit strip family at absolute constant $C = 4096$.
 
 \begin{theorem}[Deuring--Heilbronn repulsion, contract form]\label{thm:rep}
-With explicit witnesses $b = 680$, $k = 14$, $\sigma_0 = 16/17$ and an
-explicit constant $c = c_1^8$: an exceptional real zero close to $s=1$
-repels every other zero of every Dirichlet $L$-function of comparable
-modulus, in the ordered two-zero form.
+There are explicit constants $b = 680$, $k = 14$, $c > 0$ (with $c = c_1^8$
+for an explicit $c_1$) such that: for every primitive quadratic character
+$\chi \bmod q$, $q \ge 2$, every real zero $\beta_0 \in (\tfrac12, 1)$ of
+$L(s,\chi)$, and every non-real zero $\rho$ of $L(s,\chi)$ with
+$|\mathrm{Im}\,\rho| \le 1$ and $\tfrac{16}{17} \le \mathrm{Re}\,\rho \le
+\beta_0$,
+\[
+1 - \beta_0 \;\ge\;
+  \frac{c\,\bigl(q(|\mathrm{Im}\,\rho| + 2)\bigr)^{-b(1 - \mathrm{Re}\,\rho)}}
+       {\bigl(\log\bigl(q(|\mathrm{Im}\,\rho| + 2)\bigr) + 2\bigr)^{k}}.
+\]
+The closer the real zero sits to $1$, the farther every companion zero is
+pushed from the $1$-line: the Deuring--Heilbronn repulsion phenomenon, in
+ordered two-zero contract form with every constant explicit.
 \leanname{Salt.SW.dh\_repulsion\_ordered}
 \end{theorem}
 
@@ -296,7 +306,23 @@ $h_{\mathrm{Engine}} : \text{FulcrumQualityMin } C \to
 \leanname{Salt.Fulcrum.fulcrum\_dichotomy}
 \end{theorem}
 
-The second horn is the Heath-Brown dichotomy, machine-checked and
+Here \emph{NoSiegelZeros} is precisely the statement
+\[
+\exists\, c > 0:\ \forall\, q > 1,\ \forall\, \chi \bmod q
+\text{ primitive quadratic},\ \forall\, \beta \in \mathbb{R}:\quad
+L(\beta, \chi) = 0 \ \wedge\ \beta < 1
+\ \Longrightarrow\ \beta \le 1 - \frac{c}{\log q},
+\]
+i.e.\ some single effective constant pushes every real zero of every
+primitive quadratic character---all moduli, no exceptions---away from
+$s = 1$ at the scale $1/\log q$. Since ``Siegel zero'' is inherently a
+threshold-relative notion, this $\exists c$ form is the exact formal
+content of the phrase ``there are no Siegel zeros'' as used in the
+literature (it is Tao's formulation); it is far weaker than GRH, and it
+speaks only of real zeros of quadratic characters---the classical
+exceptional configuration, which is the only one that can occur.
+
+The second horn is thus the Heath-Brown dichotomy, machine-checked and
 strengthened: strengthened because the hypothesis feeding its twin horn is
 the minimized fulcrum rather than the 1983 hypothesis, and because the
 $\lnot F$ horn is unconditional and effective. The engine implication
@@ -309,9 +335,32 @@ honest one, and we exhibit exactly what remains.
 \section{The keystone}\label{sec:keystone}
 % ============================================================================
 
-The engine's hardest block is the second-moment comparison
-$S_2 - S_1$ over the sifted twin window---the site of \cite{HB1983}'s
-Lemma~2. Formalization exposed that the classical route's
+The objects: for a primitive quadratic $\chi \bmod q$, the twisted von
+Mangoldt function is
+\[
+\tilde\Lambda(n) \;=\; \sum_{d \mid n} \mu^2(d)\,\chi(d)\,\log(n/d),
+\]
+a majorant-with-sign of $\Lambda$ that agrees with it when $\chi$ is
+$\lambda$-like on the divisors of $n$; over a finite window $A$,
+\[
+S_1(A) = \sum_{n \in A} \Lambda(n)\Lambda(n+2), \qquad
+S_2(\chi, A) = \sum_{n \in A} \tilde\Lambda(n)\tilde\Lambda(n+2),
+\]
+and the \emph{pretense sum} --- the price currency of the whole chapter ---
+is
+\[
+\mathrm{PS}_\chi(N) \;=\; \sum_{\substack{p \le N \\ \chi(p) = 1}}
+\frac{\log p}{p},
+\]
+which is $O(1)$ exactly when $\chi$ pretends to be the Liouville pattern
+on primes. The window $W = W(\chi, z, x)$ is the set of $n \in (x, 2x]$
+with $n(n+2)$ coprime to $q$ and to every prime $p < z$ with
+$\chi(p) \ne -1$: the honest sifted support on which
+$\tilde\Lambda \ge \Lambda \ge 0$ termwise, so $S_1 \le S_2$ and the
+engine's content is entirely in bounding the overshoot $S_2 - S_1$.
+
+The engine's hardest block is exactly that second-moment comparison
+$S_2 - S_1$---the site of \cite{HB1983}'s Lemma~2. Formalization exposed that the classical route's
 $\tau$-crude majorant is \emph{provably} insufficient at the needed
 generality (its concentration pattern is unexcludable by pattern-blind
 tools; ledger entry \#251), so the corpus proves the required conclusion
@@ -413,23 +462,56 @@ The parity barrier has lived in the literature as folklore with
 heuristics. The corpus makes it an object with a theorem.
 
 \begin{definition}[Completions, parity invariance, and $Z$]\label{def:z}
-Over weightings $a$ of the integers, a \emph{completion} at grade
-$(\theta, A_0)$ is a predicate on weightings capturing type-I control at
-level $x^\theta$ with logarithmic savings $A_0$; \emph{ParityInv} is the
-cone of completion-predicates invariant under the parity involution;
-\emph{TwinSufficient} demands that a predicate force unbounded twin mass;
-and $Z(\theta, A_0)$ asserts the existence of a true, twin-sufficient
-completion predicate. The file defining these
-(\leaninline{Salt/Parity/Z.lean}) imports nothing from the Siegel-zero or
-sieve tracks: its oracle-cleanliness is checkable by import list alone.
-\leanname{Salt.Parity.Z, Salt.Parity.ParityInv}
+Let $\rho(d) = \#\{0 \le r < d : d \mid r(r+2)\}$ be the true twin local
+density. For a weighting $a : \mathbb{N} \to \mathbb{R}$, the type-I sum
+at level $d$ and window $x$ and its error at exponent $\theta$ are
+\[
+A_d(a; x) = \sum_{\substack{1 \le n \le x \\ d \mid n(n+2)}} a(n),
+\qquad
+E_\theta(a; x) = \sum_{d \le x^{\theta}}
+  \Bigl|\,A_d(a;x) - \frac{\rho(d)}{d}\,x\,\Bigr|.
+\]
+The \emph{completion class} at grade $(\theta, A_0)$ is
+\[
+\mathcal{C}(\theta, A_0) \;=\; \Bigl\{\, a \ge 0 \;:\; \exists\, C > 0,\
+\forall x \ge 2,\ E_\theta(a; x) \le \frac{C\,x}{(\log x)^{A_0}} \Bigr\}
+\]
+--- the nonnegative weightings indistinguishable from the truth by pure
+type-I information at level $x^\theta$, quality $(\log x)^{-A_0}$. (The
+local density $\rho$ is \emph{pinned}, not quantified: completions must
+carry the true twin main term. Type-II bilinear information is
+structurally inexpressible in the class, not merely excluded.) A
+predicate $E$ on weightings is \emph{parity-invariant} at grade
+$(\theta, A_0)$ if it holds for \emph{every} completion:
+$\mathrm{ParityInv}(E) \iff \forall a \in \mathcal{C}(\theta, A_0),\ E(a)$
+--- semantic invariance over the model class, quantifying over the
+mechanism rather than any method. With the twin mass
+$T(a; x) = \sum_{n \le x,\ n,\,n+2 \text{ prime}} a(n)$, the predicate
+$E$ is \emph{twin-sufficient} if for every $a \in \mathcal{C}(\theta,
+A_0)$ satisfying $E$, the mass $T(a; \cdot)$ is unbounded. Writing
+$\mathbf{1}$ for the constant weighting $1$ (the true sequence), the gap
+statement is
+\[
+Z(\theta, A_0) \;:\iff\; \exists\, E \ \text{twin-sufficient with}\
+E(\mathbf{1}).
+\]
+No Dirichlet character, $L$-function, or exceptional-zero oracle appears
+in any of these inputs; in the formal corpus this is enforced
+syntactically---the defining file imports nothing from the Siegel-zero or
+sieve tracks, checkable by its import list alone.
+\leanname{Salt.Parity.Z, Salt.Parity.ParityInv (Salt/Parity/Z.lean)}
 \end{definition}
 
 \begin{theorem}[The gap theorem]\label{thm:gap}
-No completion predicate is simultaneously true, twin-sufficient, and
-parity-invariant: the twin-free weighting lies in every parity-invariant
-completion cone at the certified grades, and its twin mass is identically
-zero.
+For $0 < \theta < \tfrac12$ and the certified $A_0$ range, no predicate
+$E$ is simultaneously true ($E(\mathbf{1})$), twin-sufficient, and
+parity-invariant. The witness is the twin-free weighting
+$a^-(n) = 0$ if $n, n+2$ are both prime and $1$ otherwise: a
+Brun-grade argument (using the corpus's explicit
+$\pi_2(x) \ll x/\log^2 x$ bound) places $a^- \in
+\mathcal{C}(\theta, A_0)$, parity-invariance carries $E$ from the truth
+to $a^-$, twin-sufficiency then forces $T(a^-;\cdot)$ unbounded --- but
+$T(a^-; x) = 0$ identically.
 \leanname{Salt.Parity.sufficient\_true\_not\_parityInv}
 \end{theorem}
 
@@ -479,11 +561,31 @@ prescribed threshold.
 log\_chowla\_two\_budget\_head}
 \end{theorem}
 
-The door is the exact target of the corpus's staged
+Here the logarithmic two-point Chowla statement at scale $x$ is the
+standard one,
+\[
+\frac{1}{\log x} \sum_{n \le x} \frac{\lambda(n)\,\lambda(n+2)}{n}
+\;\longrightarrow\; 0,
+\]
+rendered in the corpus as the failure of a quantified
+$\varepsilon$-deviation over the regime's windows. The door is the
+Matom\"aki--Radziwi\l\l--Tao uniformity property restricted to the
+bounded large-spectrum frequency set $\Xi_H$ (of size $\le K$,
+independent of $H$): for every window length $H$ in the regime's range
+and every $\xi \in \Xi_H$,
+\[
+\int \Bigl\| \sum_{h \le H} \lambda(n + h)\, e\bigl(-\xi h / H\bigr)
+\Bigr\| \, d\mu_{\log}(n) \;\le\; \delta H,
+\]
+where $\mu_{\log}$ is the logarithmic measure of the regime --- the
+short-interval uniformity of $\lambda$ that
+Matom\"aki--Radziwi\l\l--Tao's Proposition~2.4 provides in prose
+mathematics, at finitely many frequencies only, which is all the proof
+fires. The door is the exact target of the corpus's staged
 Matom\"aki--Radziwi\l\l\ program (whose first stones, including the
-closure of a long-flagged Euler-oscillation bridge, landed the same day);
-the conjecture's entire residual is thus one named seam between two
-formalized campaigns.
+closure of a long-flagged Euler-oscillation bridge, landed the same
+day); the conjecture's entire residual is thus one named seam between
+two formalized campaigns.
 
 % ============================================================================
 \section{The Salt method}\label{sec:method}
