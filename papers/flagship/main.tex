@@ -641,8 +641,10 @@ classes---\emph{mechanical} (one tactic or a known lemma),
 (genuine proof architecture), \emph{open}---and routed to the cheapest
 tier of model that can reliably discharge it: the most capable model
 (here Fable~5) designs the campaigns, freezes the statements, and
-classifies the components; executor models (here Claude Opus) prove
-them at their tier. Misclassification is safe rather than fatal: an
+classifies the components; \emph{executor agents}---independent
+instances of a mid-tier model (here Claude Opus), dispatched one per
+proof obligation with a self-contained brief, hereafter
+\emph{executors}---prove them at their tier. Misclassification is safe rather than fatal: an
 under-tiered executor is required to stop and report---give up early,
 loudly---and the obligation re-routes upward carrying the map of where
 it broke, so a grading error costs a bounded retry, never a wrong
