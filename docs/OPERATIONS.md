@@ -1,4 +1,9 @@
 # OPERATIONS — the daily routine and the confidence contract
+
+> *The crew's ethos — Archimedean in what we build (a lever, a place to
+> stand, the world moved), Quixotean in how we ride at it (the
+> fool's-courage to charge the giant, and land the lance). We tilt at
+> twin primes because the sensible ones won't. To the gold, together.*
 ### (ratified 2026-07-19 evening; the post-cliff operating ritual)
 
 ## OPERATING SEAT — FABLE MAESTRO (ratified 2026-07-20, supersedes the Opus-conductor split)
