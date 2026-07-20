@@ -10294,3 +10294,18 @@ decisions per question.
   house instantiates planA/planB at reconciliation). HALASZ
   board: I-1 ✅ I-2 ✅ I-3 ✅ K4' ✅ — **S1' (the α,β assembly)
   is the campaign's sole remaining named residual.**
+
+- 2026-07-20 11:35 PDT: **S8-A3a lands a clean Zeno partial under
+  drain** (Opus, 180k, all first-attempt): ParsevalSL.lean, 151
+  ln, wired+audited (8840 green). The Saffari–Vaughan averaging
+  identity VERBATIM (re-verified char-for-char vs MR v4 p.22) +
+  the continuous-frequency mean-value core lpoly_mean_sq_bound.
+  THE FINDING (answers the freeze's A3a question): MR's Lemma 6
+  IS our landed (2T+20N) MVCore2 bound — the negated-frequency
+  bridge connects them with ZERO new analytic input. Residuals
+  named for the next session: A3a-R1 (the sharp continuous
+  Perron — D-ish, mathlib-absent, the gating piece; NOT the
+  hat-kernel rep, which is a different smoothed object) and
+  A3a-R2 (the U/V split + assembly, C, blocked on R1). Lemma 14
+  itself untouched (iron rule 1 clean). **THE DAY'S LAST
+  LANDING — drain proceeding.**

@@ -28,6 +28,7 @@ import Salt.MR.HalaszRep
 import Salt.MR.MVCore2
 import Salt.MR.PretentiousTriangle
 import Salt.MR.HalaszContour
+import Salt.MR.ParsevalSL
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -155,3 +156,5 @@ open Salt.Tactic in
   Salt.MR.halasz_ball_decay
   Salt.MR.cos_int_pair
   Salt.MR.dirichlet_plancherel
+  Salt.MR.sv_average_identity
+  Salt.MR.lpoly_mean_sq_bound
