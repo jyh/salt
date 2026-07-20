@@ -4,7 +4,9 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.MR.L2MVT
+import Salt.MR.MVCore2
 import Salt.MR.Dist
+import Salt.MR.PretentiousTriangle
 
 /-!
 # MR-gate S8/MR-CORE wave 1, stone H2 — the Halász core (`HalaszCore`)
@@ -217,5 +219,215 @@ theorem offdiag_int_bound (θ T : ℝ) (hθ : θ ≠ 0) :
             + ‖Complex.exp (Complex.I * (θ : ℂ) * ((-T : ℝ) : ℂ))‖ := norm_sub_le _ _
       _ = 2 := by rw [e1, e2]; norm_num
   gcongr
+
+/-! ## R2.4 grade — the `E(M)` collapse (`grade_EM`, DES-A graft)
+
+The frozen grade of the whole A-chain is `E(M) := exp(-M/2)` (S8 freeze).  The
+raw output of the Halász moment bound is `(1 + M)·exp(-M)` (the `1 + M` from the
+`∫₀^η (1/σ) dσ ≍ M` accumulation of the `Λ`-window integral, per the S2' head
+ledger).  This lemma is the DES-A stone certifying `(1 + M)·exp(-M) ≤ 2·exp(-M/2)`
+for `M ≥ 0` — a genuine constant `2` (the interior maximum of
+`M ↦ (1 + M)·exp(-M/2)` is `≈ 1.213` at `M = 1`, comfortably `≤ 2`), NOT an
+`o(1)`.  It buys the `√`-slack consumed at each Cauchy–Schwarz downstream. -/
+
+/-- **R2.4 grade collapse (`grade_EM`, DES-A graft).**  For `M ≥ 0`,
+`(1 + M)·exp(-M) ≤ 2·exp(-M/2)`.  Route: `Real.add_one_le_exp` at `M/2` gives
+`1 + M/2 ≤ exp(M/2)`, whence `1 + M ≤ 2·exp(M/2)`; multiplying by `exp(-M) > 0`
+and folding `exp(M/2)·exp(-M) = exp(-M/2)` closes it.  (The paper's `interior
+max 1.213` is a fortiori `≤ 2`.) -/
+theorem grade_EM {M : ℝ} (_hM : 0 ≤ M) :
+    (1 + M) * Real.exp (-M) ≤ 2 * Real.exp (-M / 2) := by
+  have hkey : 1 + M ≤ 2 * Real.exp (M / 2) := by
+    have := Real.add_one_le_exp (M / 2); linarith
+  have hpos : (0 : ℝ) ≤ Real.exp (-M) := (Real.exp_pos _).le
+  calc (1 + M) * Real.exp (-M)
+      ≤ (2 * Real.exp (M / 2)) * Real.exp (-M) := mul_le_mul_of_nonneg_right hkey hpos
+    _ = 2 * Real.exp (-M / 2) := by
+        rw [mul_assoc, ← Real.exp_add, show M / 2 + -M = -M / 2 by ring]
+
+/-! ## R2.1 — the short-ball L² mean value (`ball_mvt`)
+
+The Halász ball contribution is an L² mean value of a Dirichlet polynomial over
+the ball `|t − t₀| ≤ T₀` (here `T₀ = (log X)^{1/16}`, the frozen ball radius).
+
+**Anchor observation (ANCHOR DRIFT, recorded):** the freeze priced R2.1 as the
+harmonic `(T + N log N)` route over `offdiag_int_bound` + `dirichlet_poly_l2_diagonal`.
+Since the freeze was written, `dirichlet_poly_l2_mvt_final` (`MVCore2`) has landed
+the SHARP `(2T + 20N)·∑‖aₙ‖²` mean value UNCONDITIONALLY (the Montgomery–Vaughan /
+Hilbert route, `mvHilbertUniform_holds` discharged).  This strictly supersedes the
+harmonic route (no `log N` factor).  `ball_mvt` therefore recenters the sharp bound
+to the ball; the elementary harmonic kernel `offdiag_int_bound` (landed above) and
+the per-pair log lower bound (`log_diff_ge`, below) remain the honest grains of the
+superseded route. -/
+
+/-- The center-twisted coefficient `n ↦ a n · exp(i·t₀·log n)` (the ball-center
+twist `n^{it₀}` folded into the Dirichlet-polynomial coefficient). -/
+private noncomputable def twistCoeff (a : ℕ → ℂ) (t₀ : ℝ) : ℕ → ℂ :=
+  fun n => a n * Complex.exp (Complex.I * (t₀ : ℂ) * (Real.log n : ℂ))
+
+/-- The center twist is modulus-preserving: `‖twistCoeff a t₀ n‖ = ‖a n‖` (the
+twist `exp(i·t₀·log n)` is unimodular, its exponent being purely imaginary). -/
+private lemma norm_twistCoeff (a : ℕ → ℂ) (t₀ : ℝ) (n : ℕ) :
+    ‖twistCoeff a t₀ n‖ = ‖a n‖ := by
+  rw [twistCoeff, norm_mul, Complex.norm_exp]
+  have hre : (Complex.I * (t₀ : ℂ) * (Real.log n : ℂ)).re = 0 := by
+    simp only [Complex.mul_re, Complex.mul_im, Complex.I_re, Complex.I_im,
+      Complex.ofReal_re, Complex.ofReal_im]; ring
+  rw [hre, Real.exp_zero, mul_one]
+
+/-- Recentering the Dirichlet polynomial: `F_a(u + t₀) = F_{twistCoeff a t₀}(u)`. -/
+private lemma dpoly_shift (N : ℕ) (a : ℕ → ℂ) (t₀ u : ℝ) :
+    dpoly N a (u + t₀) = dpoly N (twistCoeff a t₀) u := by
+  unfold dpoly twistCoeff
+  refine Finset.sum_congr rfl fun n _ => ?_
+  have hexp : Complex.exp (Complex.I * ((u + t₀ : ℝ) : ℂ) * (Real.log n : ℂ))
+      = Complex.exp (Complex.I * (t₀ : ℂ) * (Real.log n : ℂ))
+        * Complex.exp (Complex.I * (u : ℂ) * (Real.log n : ℂ)) := by
+    rw [← Complex.exp_add]; congr 1; push_cast; ring
+  rw [hexp]; ring
+
+/-- **R2.1 — the short-ball L² mean value (`ball_mvt`).**  For the ball
+`|t − t₀| ≤ T₀`, the L² mean value of the Dirichlet polynomial `dpoly N a` is
+bounded by `(2 T₀ + 20 N)·∑_{1≤n≤N} ‖aₙ‖²` — the sharp `(T + N)` grade, recentered
+from `dirichlet_poly_l2_mvt_final` by the change of variables `t = u + t₀` (the
+center twist `n^{it₀}` is modulus-free, so the coefficient `ℓ²`-mass is unchanged). -/
+theorem ball_mvt (N : ℕ) (a : ℕ → ℂ) (t₀ T₀ : ℝ) :
+    (∫ t in (t₀ - T₀)..(t₀ + T₀), ‖dpoly N a t‖ ^ 2)
+      ≤ (2 * T₀ + 20 * (N : ℝ)) * ∑ n ∈ Finset.Icc 1 N, ‖a n‖ ^ 2 := by
+  have hshift : (∫ t in (t₀ - T₀)..(t₀ + T₀), ‖dpoly N a t‖ ^ 2)
+      = ∫ u in (-T₀)..(T₀), ‖dpoly N (twistCoeff a t₀) u‖ ^ 2 := by
+    rw [show t₀ - T₀ = -T₀ + t₀ by ring, show t₀ + T₀ = T₀ + t₀ by ring,
+      ← intervalIntegral.integral_comp_add_right (fun t => ‖dpoly N a t‖ ^ 2) t₀]
+    refine intervalIntegral.integral_congr fun u _ => ?_
+    simp only [dpoly_shift N a t₀ u]
+  rw [hshift]
+  refine (dirichlet_poly_l2_mvt_final N (twistCoeff a t₀) T₀).trans ?_
+  have hnorms : (∑ n ∈ Finset.Icc 1 N, ‖twistCoeff a t₀ n‖ ^ 2)
+      = ∑ n ∈ Finset.Icc 1 N, ‖a n‖ ^ 2 :=
+    Finset.sum_congr rfl fun n _ => by rw [norm_twistCoeff a t₀ n]
+  rw [hnorms]
+
+/-- **The spacing kernel** (step 1 of the harmonic `ball_mvt` remainder, the honest
+grain of the superseded route).  For `1 ≤ n, m ≤ N`, the log-spacing dominates the
+scaled linear spacing: `|m − n|/N ≤ |log m − log n|`.  This is the elementary
+`|log(m/n)| ≥ (m−n)/N` kernel (companion to the oscillatory kernel
+`offdiag_int_bound`); the harmonic double sum `∑_{m≠n} 1/|log(m/n)| ≪ N log N`
+follows by summing `N/|m−n|` over the two harmonic tails.  Route: for `b ≤ a`,
+`log(a/b) ≥ 1 − b/a = (a−b)/a ≥ (a−b)/N` (`Real.one_sub_inv_le_log_of_pos`).
+Not consumed downstream — `ball_mvt` uses the sharp `(2T+20N)` route; landed as the
+elementary residual kernel the freeze names. -/
+theorem log_diff_ge {n m N : ℕ} (hn : 1 ≤ n) (hm : 1 ≤ m) (hnN : n ≤ N) (hmN : m ≤ N) :
+    |(m : ℝ) - (n : ℝ)| / (N : ℝ) ≤ |Real.log m - Real.log n| := by
+  have hord : ∀ a b : ℕ, 1 ≤ b → b ≤ a → a ≤ N →
+      ((a : ℝ) - (b : ℝ)) / (N : ℝ) ≤ Real.log a - Real.log b := by
+    intro a b hb hba haN
+    have hb0 : (0 : ℝ) < (b : ℝ) := by exact_mod_cast hb
+    have ha0 : (0 : ℝ) < (a : ℝ) := by exact_mod_cast lt_of_lt_of_le hb hba
+    have haNr : (a : ℝ) ≤ (N : ℝ) := by exact_mod_cast haN
+    have hbar : (b : ℝ) ≤ (a : ℝ) := by exact_mod_cast hba
+    have hab_nn : (0 : ℝ) ≤ (a : ℝ) - (b : ℝ) := by linarith
+    have hlb : 1 - ((a : ℝ) / (b : ℝ))⁻¹ ≤ Real.log ((a : ℝ) / (b : ℝ)) :=
+      Real.one_sub_inv_le_log_of_pos (div_pos ha0 hb0)
+    have hrw : 1 - ((a : ℝ) / (b : ℝ))⁻¹ = ((a : ℝ) - (b : ℝ)) / (a : ℝ) := by
+      rw [inv_div]; field_simp
+    rw [Real.log_div (ne_of_gt ha0) (ne_of_gt hb0), hrw] at hlb
+    exact le_trans (div_le_div_of_nonneg_left hab_nn ha0 haNr) hlb
+  rcases le_total m n with hmn | hnm
+  · have hmnr : (m : ℝ) ≤ (n : ℝ) := by exact_mod_cast hmn
+    have hlogle : Real.log m ≤ Real.log n := Real.log_le_log (by exact_mod_cast hm) hmnr
+    rw [abs_of_nonpos (show (m : ℝ) - (n : ℝ) ≤ 0 by linarith),
+      abs_of_nonpos (show Real.log m - Real.log n ≤ 0 by linarith), neg_sub, neg_sub]
+    exact hord n m hm hmn hnN
+  · have hnmr : (n : ℝ) ≤ (m : ℝ) := by exact_mod_cast hnm
+    have hlogle : Real.log n ≤ Real.log m := Real.log_le_log (by exact_mod_cast hn) hnmr
+    rw [abs_of_nonneg (show (0 : ℝ) ≤ (m : ℝ) - (n : ℝ) by linarith),
+      abs_of_nonneg (show (0 : ℝ) ≤ Real.log m - Real.log n by linarith)]
+    exact hord m n hn hnm hmN
+
+/-! ## R2.4 / R2.5 — the exit stone `halasz_ball_decay` (the frozen interface)
+
+**R2.4 GATE-CHECK VERDICT — HELD (GS[10] Lemma-7.1 NOT needed; no staging debt).**
+The freeze (`halasz-infra-freeze.md`, scope-diff (2); OPEN_RISK #5) flagged a latent
+dependency on Granville–Soundararajan [10] Lemma 7.1 — the Lipschitz /
+renormalization step that MRT (A.8) uses to control the variation of
+`M(t) = 𝔻(f, p^{it}; X)²` across the ball — with a DECLARED replacement:
+"center-`t₀` exit + `R1.1` triangle recentering", and a STOP-and-flag if the
+replacement proved irreplaceable.  Examining the assembly need:
+
+* The seam (S1'/S2', `HalaszSeam`) is CONSTRUCTED centered at `t₀`: the represented
+  sum is twisted by `n^{-it₀}` (`seamCoeff`) and the contour kernel is
+  `hatKernel X h c₀ (t − t₀)` (centered at `t₀`).  Hence the S2' head main term
+  `X·(1+M)·e^{-M}` carries `M = 𝔻(f, p^{it₀}; X)²` at the CENTER directly — the
+  `exp(-M(t₀)/2)` grade emerges from the centered Euler/`F` factor, NOT from a
+  sup-over-ball argument that would require `M(t) ≥ M(t₀) − o(1)` uniformly.
+* The exit stone is verified center-`t₀`/infimum-free (`s8-freeze.md:25`), so no
+  `inf_{ball} M` machinery ("Wall 3") and no continuity-of-`M` estimate is invoked.
+* The only distance-recentering the ladder needs (windowed `f·g_J → f`) is exactly
+  `dist_mul_half` / `pretDist_triangle` (`R1.1`, `PretentiousTriangle`, LANDED),
+  applied by H3's `R3.1`, not a Lipschitz bound.
+
+CONCLUSION: the declared replacement holds; GS[10] Lemma 7.1 is dissolved by the
+seam's centered construction plus the landed R1.1 triangle.  GS[10] does NOT join
+staging debt; there is NO second named residual `R2.4-Lipschitz`.
+
+**R2.5 conditionality.**  The full A.6/A.7 → exit-stone assembly consumes the S1'
+`α,β` Perron representation (the campaign's single NAMED RESIDUAL — a multi-thousand
+line formalization, `HalaszSeam` module docstring) and the S2' head
+(`contour_A13_A14_head`), itself CONDITIONAL on the K4' Plancherel leg
+(`dirichlet_plancherel`, the wave-I-1 named residual, mathlib-absent contour).
+Per the freeze ("the K4'-conditional exit form is a legitimate landing"),
+`halasz_ball_decay` therefore lands as the ASSEMBLY of the seam contributions into
+the frozen shape, carrying those two analytic inputs as EXPLICIT hypotheses
+(`hhead` — the S1'/S2'-produced centered head, K4'-conditional; `htail` — the S2'
+tail ledger, `s2_tail_ledger`; `hsplit` — the S1' head/tail decomposition of the
+ball contribution `U`).  The frozen CONCLUSION shape (`s8-freeze.md:25`) is served
+verbatim; `grade_EM` performs the `(1+M)e^{-M} → 2e^{-M/2}` collapse; the tail
+`ε`-bump uses `Real.rpow_le_rpow_of_exponent_le`. -/
+
+/-- **R2.5 — the exit stone `halasz_ball_decay`** (frozen interface,
+`s8-freeze.md:25`, served in K4'/S1'-conditional assembly form).  For a 1-bounded
+`f` and center `t₀` (carried through `g`, the character `n ↦ n^{it₀}` restricted to
+primes, with `M = 𝔻(f, g; X)² = pretDistSq f g X` the CENTER squared-distance), the
+ball `|t − t₀| ≤ (log X)^{1/16}` contributes
+`U ≪ X·(exp(-M/2) + (log X)^{-1/2+ε})`.
+
+The heavy analytic inputs are the hypotheses: `hsplit` is the S1' representation's
+head/tail split of `U`; `hhead` is the S2' head (centered at `t₀`, K4'-conditional
+via `contour_A13_A14_head`) in its raw `(1+M)e^{-M}` grade; `htail` is the S2' tail
+ledger (`s2_tail_ledger`).  `grade_EM` collapses the head to `2·e^{-M/2}` and the
+frozen shape assembles.  See the section GATE-CHECK verdict above (R1.1 replaces
+GS[10]). -/
+theorem halasz_ball_decay
+    {f g : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (hg : ∀ n, ‖g n‖ ≤ 1)
+    {X ε U Uhead Utail C₁ C₂ : ℝ}
+    (hX : Real.exp 1 ≤ X) (hε : 0 ≤ ε) (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
+    (hsplit : U = Uhead + Utail)
+    (hhead : Uhead ≤ C₁ * X * ((1 + pretDistSq f g X) * Real.exp (-(pretDistSq f g X))))
+    (htail : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2)) :
+    U ≤ (2 * C₁ + C₂) * X
+        * (Real.exp (-(pretDistSq f g X) / 2) + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) := by
+  have hX0 : 0 < X := lt_of_lt_of_le (Real.exp_pos 1) hX
+  have hX0' : 0 ≤ X := hX0.le
+  have hlogX : 1 ≤ Real.log X := (Real.le_log_iff_exp_le hX0).mpr hX
+  set M := pretDistSq f g X with hMdef
+  have hM0 : 0 ≤ M := pretDistSq_nonneg f g X hf hg
+  have hE : (0 : ℝ) ≤ Real.exp (-M / 2) := (Real.exp_pos _).le
+  have hT : (0 : ℝ) ≤ (Real.log X) ^ (-(1 : ℝ) / 2 + ε) :=
+    Real.rpow_nonneg (by linarith) _
+  have hhead' : Uhead ≤ 2 * C₁ * X * Real.exp (-M / 2) := by
+    refine hhead.trans ?_
+    calc C₁ * X * ((1 + M) * Real.exp (-M))
+        ≤ C₁ * X * (2 * Real.exp (-M / 2)) :=
+          mul_le_mul_of_nonneg_left (grade_EM hM0) (by positivity)
+      _ = 2 * C₁ * X * Real.exp (-M / 2) := by ring
+  have htail' : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2 + ε) := by
+    refine htail.trans (mul_le_mul_of_nonneg_left ?_ (by positivity))
+    exact Real.rpow_le_rpow_of_exponent_le hlogX (by linarith)
+  rw [hsplit]
+  calc Uhead + Utail
+      ≤ 2 * C₁ * X * Real.exp (-M / 2) + C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2 + ε) :=
+        add_le_add hhead' htail'
+    _ ≤ (2 * C₁ + C₂) * X * (Real.exp (-M / 2) + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) := by
+        nlinarith [mul_nonneg (mul_nonneg hC₁ hX0') hT, mul_nonneg (mul_nonneg hC₂ hX0') hE]
 
 end Salt.MR

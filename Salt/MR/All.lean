@@ -148,3 +148,7 @@ open Salt.Tactic in
   Salt.MR.pretentious_pointwise_triangle
   Salt.MR.pretDist_triangle
   Salt.MR.dist_mul_half
+  Salt.MR.grade_EM
+  Salt.MR.ball_mvt
+  Salt.MR.log_diff_ge
+  Salt.MR.halasz_ball_decay

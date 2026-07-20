@@ -10255,3 +10255,25 @@ decisions per question.
   **The last C/D flag on the board is retired — the summit path
   is now all crank-turnable C with routes named.** Board: nothing
   in flight; the maestro handoff (restart → Fable) is clean.
+
+- 2026-07-20 10:48 PDT: ██ **HAL-I3 LANDS — THE EXIT STONE
+  halasz_ball_decay IS ASSEMBLED; the Lemma-7.1 gate-check HELD**
+  ██ (Opus, 218k, every rung 1 attempt): HalaszCore.lean 222→433
+  ln (the E5 salvage byte-identical), 4 public rungs audited
+  (8838 green). grade_EM; ball_mvt — WRAPPING THE SHARP MV
+  (2T+20N) instead of rebuilding the freeze's weaker harmonic
+  route (legitimate anchor-drift adaptation: MVCore2 superseded
+  the priced route); log_diff_ge; **halasz_ball_decay at the
+  frozen s8-freeze:25 shape, in the sanctioned K4'/S1'-
+  conditional form** (hhead/htail/hsplit as honest named
+  hypotheses; htail already discharged by s2_tail_ledger).
+  **GATE-CHECK: GS[10] Lemma 7.1 DISSOLVED — the seam is
+  center-t₀ BY CONSTRUCTION (the n^{-it₀} twist + the
+  (t−t₀)-kernel), so no sup-over-ball Lipschitz control is ever
+  needed; NO staging debt, NO second residual. The third
+  windmill in 24 hours.** Two cycle-free imports added
+  (MVCore2, PretentiousTriangle). Two Lean traps banked
+  (simp pulling ofReal_log; the by-have-linarith parse-swallow).
+  H-lane board: the exit stone stands; its full
+  unconditionality = K4' (in flight NOW) + S1' (the one named
+  residual). Next: H3/R3.1 consumes it with the R1.1 triangle.
