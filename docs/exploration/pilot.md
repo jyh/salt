@@ -10277,3 +10277,20 @@ decisions per question.
   H-lane board: the exit stone stands; its full
   unconditionality = K4' (in flight NOW) + S1' (the one named
   residual). Next: H3/R3.1 consumes it with the R1.1 triangle.
+
+- 2026-07-20 11:19 PDT: ██ **K4' CLEARED — both contour stones at
+  the frozen statements; ONE residual remains in all of HALASZ**
+  ██ (Opus, 397k): Salt/MR/HalaszContour.lean, 552 ln, both
+  public stones audited (8839 green). cos_int_pair via the
+  rectangle-CIF on a growing square (residue at ci; three edges
+  squeezed; bottom edge → ℝ; uniqueness closes); dirichlet_
+  plancherel via the per-pair cpow→exp split + finite Fubini —
+  MVHilbert NOT consumed (the freeze law held; imports verified
+  minimal). CATCH (route-map correction): the freeze's ODE
+  fallback is analytically NON-VIABLE (the derivative's
+  dominator |t|/(c²+t²) is non-integrable — dominated-deriv
+  cannot fire); the fallback is RETIRED, CIF is the route.
+  hCS interface confirmed abstract (nothing to reshape; the
+  house instantiates planA/planB at reconciliation). HALASZ
+  board: I-1 ✅ I-2 ✅ I-3 ✅ K4' ✅ — **S1' (the α,β assembly)
+  is the campaign's sole remaining named residual.**

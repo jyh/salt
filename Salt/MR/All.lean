@@ -27,6 +27,7 @@ import Salt.MR.HalaszSeam
 import Salt.MR.HalaszRep
 import Salt.MR.MVCore2
 import Salt.MR.PretentiousTriangle
+import Salt.MR.HalaszContour
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -152,3 +153,5 @@ open Salt.Tactic in
   Salt.MR.ball_mvt
   Salt.MR.log_diff_ge
   Salt.MR.halasz_ball_decay
+  Salt.MR.cos_int_pair
+  Salt.MR.dirichlet_plancherel
