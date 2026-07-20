@@ -11624,3 +11624,18 @@ counterexample-backed, cover-list-consistent). Also banked: K4'
 the contour build is a dedicated-rung residual with the route
 documented in the module docstring; hat_tail's two-sided form
 follows from the landed one-sided by evenness.
+
+**Catch #255 (a D-price refuted by scoping; 2026-07-19 HAL-REP).**
+The seam executor's S1'-representation D-for-Lean rationale
+("mathlib has no multivariable Perron/Fubini apparatus;
+multi-thousand-line") is FALSE: mathlib's
+intervalIntegral_integral_swap + integral_tsum_of_summable_
+integral_norm are exactly the apparatus, and the latter was ALREADY
+CONSUMED by the campaign's own hat_contour_rep. A fresh ladder-scoper
+landed part (a) outright (shifted_dirichlet_ftc, first attempt) +
+all four single-interchange rungs; the residual re-priced to
+C-laborious assembly (~1-2k ln: restrictBelow + the 𝒮/𝓛/P defs,
+concrete domination discharges, window algebra). LAW: end-of-session
+D-for-Lean pricings are HYPOTHESES — before any escalation (Fable
+consult, staging hunt), spend one fresh Opus scoper on the ladder
+attempt; the resistance map either kills the D or aims the consult.

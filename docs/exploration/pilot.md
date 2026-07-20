@@ -10137,3 +10137,18 @@ decisions per question.
   CLEARED. **MV-CORE-2 DISPATCHED** — discharge L2KernelUniform
   from the staged proof; the (T+N) stone goes unconditional on
   landing. Board: the CHI-SIEVE panel + MV-CORE-2.
+
+- 2026-07-19 20:15 PDT: ██ **HAL-REP: THE S1' "D" EVAPORATES —
+  C-ladder confirmed** ██ (Opus, 191k, every rung first-attempt):
+  HalaszRep.lean, 235 ln, 10 decls, wired (8836 green).
+  shifted_dirichlet_ftc LANDED UNCONDITIONALLY (part (a) whole,
+  via the landed product-form derivative + FTC-2 + comp_ofReal);
+  the four Fubini rungs (α↔β domination DISCHARGED by compact
+  continuity; β↔n, β↔t, t↔n as reusable hypothesis-carrying
+  lemmas). Catch #255: the freeze's no-apparatus D-rationale
+  refuted — mathlib HAS both swaps and hat_contour_rep already
+  uses one. Residual = C-assembly (restrictBelow + object defs,
+  domination discharges, window algebra; ~1-2k ln, an ordinary
+  Opus mission for Monday). The Fable consult CANCELLED unneeded;
+  the scoper-before-escalation law banked. Board: CHI-SIEVE
+  judge + MV-CORE-2.
