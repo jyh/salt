@@ -75,3 +75,25 @@ triggers are enumerated and each has a tape-proven precedent:
 
 The kernel remains the referee; the ledger remains the memory; the
 laws remain the judgment. Sessions come and go.
+
+## The paper-editing protocol (ratified 2026-07-19 evening)
+
+Editing rounds (the approvers, colleagues, referees) run under
+the code discipline — statements frozen, routes free:
+
+- **FROZEN-TIER (Opus proposes, never applies):** the title, the
+  abstract, every theorem/definition statement, the conditional
+  table (Table tab:conditional), and any "first/only/weakest"
+  superlative. Diffs marked PENDING-JYH; claim-reframing requests
+  from reviewers get ONE Fable-credits turn each — that is where
+  the honest-shape law lives.
+- **FREE-TIER (Opus applies, diff shown):** mechanical + local
+  prose, LaTeX, references, tables, notation consistency.
+- **THE ROUND RITUAL (every round ends with):** the number-refresh
+  (lines/files/commits/jobs/catches), author-side compile, the
+  CLAIMS LINT (grep superlatives + conditional language; cross-
+  check every conditional against the table; any claim not backed
+  by a ledgered theorem = flag), commit with the round's punch
+  list summarized.
+- Reviewer punch lists are triaged M/P/C (mechanical / prose /
+  claims) before any edit; C-items never merge same-turn.
