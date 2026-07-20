@@ -6,6 +6,28 @@
 > twin primes because the sensible ones won't. To the gold, together.*
 ### (ratified 2026-07-19 evening; the post-cliff operating ritual)
 
+## THE DAILY RHYTHM (steady-state, ratified 2026-07-20)
+
+JYH's normal workday: **sleep 21:00–05:00** · possible downtime
+05:00–07:00 (commute/morning; DRAIN ONLY IF ANNOUNCED that day) ·
+office hours inattentive w/ periodic check-ins · possible afternoon
+downtime ~14:00–17:00 (timing varies; DRAIN ONLY IF ANNOUNCED) ·
+**family 19:00–21:00** (inattentive).
+
+- **The daily planning discussion** happens somewhere in 07:00–19:00
+  (JYH's timing); the maestro keeps a standing agenda ready: the
+  night's tape, the day's queue, any PENDING-JYH items, panel-firing
+  decisions (timed together, per the quota strategy).
+- **Night runs continue through sleep** unless JYH announces
+  drain-by-05:00 BEFORE the night run starts. No announcement =
+  keep the forge burning through 05:00.
+- Drain periods are ANNOUNCED DAILY by JYH — never assumed. The
+  drain playbook: dispatch cutoff ~90 min before the deadline,
+  ceremony everything landed, tree clean, close-of-board posted.
+- Quota (through mid-Aug): 5 accounts, veterans refreshing weekly;
+  steady state after: ONE account to 100%. Fable design panels =
+  the only nail-biters; fired by joint decision at planning time.
+
 ## OPERATING SEAT — FABLE MAESTRO (ratified 2026-07-20, supersedes the Opus-conductor split)
 
 The default daily seat is **Fable maestro**: one session that designs,
