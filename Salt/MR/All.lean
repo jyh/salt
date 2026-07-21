@@ -34,6 +34,7 @@ import Salt.MR.HalaszRepAsm
 import Salt.MR.HalaszFactor
 import Salt.MR.DistSplit
 import Salt.MR.PerronTrunc
+import Salt.MR.ParsevalAsm
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -173,3 +174,6 @@ open Salt.Tactic in
   Salt.MR.dist_split_fgJ
   Salt.MR.dist_recenter
   Salt.MR.perron_trunc
+  Salt.MR.perron_trunc_trivial
+  Salt.MR.perron_trunc_min
+  Salt.MR.Aperron_representation

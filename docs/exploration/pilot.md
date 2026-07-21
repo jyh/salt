@@ -10424,3 +10424,18 @@ decisions per question.
   NIGHT WAVE 2 DISPATCHED: A3a-R4 (the Lemma-14 U/V assembly —
   could CLOSE A3a) + PropA3Core (R3.2/R3.3/R3.4 — the thm_A1'
   approach, MULT-SHIU carried abstractly).
+
+- 2026-07-20 (night shift, ~22:30): ██ A3a-R4 CLOSES THE LANE'S
+  REPRESENTATION ██ (Opus, 186k): ParsevalAsm.lean, 313 ln, 5
+  thms, wired+audited (8846 green). R4a perron_trunc_trivial
+  (the named crossover stone: ≤ 4y^c·log(1+T/c), LOG-grade, no
+  |log y|); R4b the min-device; R4c the summed-error bound; R4d
+  Aperron_representation — MR's S_j(x) = truncated integral +
+  error, REALIZED. The zone arithmetic RECORDED (delta ~ 1/T
+  balance ⟹ (x/T)·log-grade total) w/ its formalization named
+  A3a-R4e (C-tier: harmonic sums + zone counting; the lane's
+  one remaining stone besides the U_j Taylor bonus). FIVE new
+  Lean traps banked (div_le_div_iff -> _iff0;
+  integral_finsetSum implicit-s; the double-cast atom;
+  mul_cpow LHS shape; awk-bytes CONFIRMED live w/ 8 false
+  positives). In flight: PropA3Core.
