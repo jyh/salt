@@ -29,7 +29,11 @@ Explicit SW→BV→Maynard→Chen (its own paper); mathlib upstream tier 1
 Modernize ../metaprl/{metaprl, libmojave, omake} — JYH's ancestral
 provers/toolchain (~15 years unmaintained): (1) compile on modern
 OCaml; (2) evaluate a dune migration (feasibility unknown — scope
-first); (3) add tests. Gate: BEFORE the salt repo goes public.
+first); (3) add tests. Gate: BEFORE the salt repo goes public. **PLUS the COPYRIGHT
+PURGE (hard gate, same moment): git-filter-repo the full history
+to remove all docs/sources external PDFs/texts (the known-offender
+list in pilot 2026-07-20) — copyrighted material may live on the
+local disk only, never in the public history.**
 First step when ripe: an Opus scoping pass (build the three on the
 current toolchain, map the breakage, price the dune question).
 
