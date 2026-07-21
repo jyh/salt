@@ -38,6 +38,7 @@ import Salt.MR.ParsevalAsm
 import Salt.MR.PropA3Core
 import Salt.MR.PerronZones
 import Salt.MR.MomentsA2
+import Salt.MR.RamareDpoly
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -188,3 +189,5 @@ open Salt.Tactic in
   Salt.MR.moment_core_bound
   Salt.MR.lemma12_meansq_conditional
   Salt.MR.lemma13_moment
+  Salt.MR.ramare_decomp_pm
+  Salt.MR.spoly_ramare_eq16

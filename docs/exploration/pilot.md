@@ -10517,3 +10517,21 @@ decisions per question.
   reconciliation, the U_j Taylor, the G4/section-8.3 terminal
   assembly. Six A2 traps banked. NIGHT WAVE 4: P3/LargeValues +
   the RAMARE-DPOLY scoper.
+
+- 2026-07-20 19:25 PDT (night shift): ██ WINDMILL #6 — RAMARE-DPOLY DISSOLVES
+  D→C ██ (Opus scoper, 132k): RamareDpoly.lean, 4 thms,
+  wired+audited (8850 green). THE VERDICT: the seam was
+  pre-decoupled — hdecomp (pure algebraic identity) vs herr
+  (analytic pricing, discharged by the ALREADY-LANDED
+  moment_core_bound); no D-content remains. LANDED: the A1
+  executor's deferred "fiddly sum_bij'" (ramare_decomp_pm — the
+  (n,p)→(p,m) reindex), spoly_ramare_eq16 (the honest eq(16) as
+  a Dirichlet-polynomial identity), both Ramaré-weight
+  coefficient lemmas. THE MAP: R1c (the dyadic regroup +
+  overcount windows, fiddly-C ~300 ln) + R2 (the error-row
+  pricing via the landed keystone, hard-C) + R3 (trivial
+  assembly) ⟹ Lemma 12 UNCONDITIONAL. Seam board: RAMARE-DPOLY
+  reclassified C. Three new Lean idioms banked (sigma-projection
+  dsimp; the Sigma.mk.injEq→True collapse + the rw-through-
+  constructor idiom; rwa-on-conjunct). R1C-R2 FOLLOW-ON
+  DISPATCHED. In flight: P3.
