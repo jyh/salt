@@ -225,3 +225,5 @@ open Salt.Tactic in
   Salt.MR.clean_dyadic_sub_main
   Salt.MR.ramErr_window_decomp
   Salt.MR.ramCopTail_moment
+  Salt.MR.kconv_sup_le_window
+  Salt.MR.kconv_l2_le_window

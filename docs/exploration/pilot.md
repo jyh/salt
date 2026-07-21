@@ -10773,3 +10773,17 @@ decisions per question.
   package.** Council agenda locked: panels (MULT-SHIU,
   L11-CORE) + quota timing + Antigravity/SaltBench (JYH-added).
   In flight: UFD scoper, L12-FINAL.
+
+- 2026-07-21 08:06 PDT: ██ WINDMILL #8 — the k!-UFD "D-core" DISSOLVES
+  ██ (Opus UFD scoper, 113k, 1 attempt/rung): +4 lemmas in
+  LargeValueCount.lean, audited (8861 green). THE INSIGHT: no
+  permutation machinery — induct on kconv's own nested
+  antidiagonal via Nat.primeFactors_mul; the fibre's first
+  coordinate injects into primeFactors; f(k+1) ≤ (k+1)f(k) ⟹
+  k! from factorial_succ alone. kconv_sup_le_window (k!/P^k) +
+  kconv_l2_le_window (the exact wellspaced_l2_pow input) —
+  piece (b) CLOSED end-to-end; hypotheses strictly WEAKER than
+  briefed (lower window only — a strengthening, no overclaim).
+  Two traps banked (factorial-notation scope; inv_anti₀).
+  Windmill count: EIGHT. L8-PACK (piece c, the k-instantiation)
+  dispatched. In flight: L12-FINAL, L8-PACK.
