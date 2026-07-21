@@ -47,6 +47,7 @@ import Salt.MR.VanDerCorput
 import Salt.MR.MidBand
 import Salt.MR.LargeValueCount
 import Salt.MR.MultShiu
+import Salt.MR.HalaszPrimesCore
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -235,3 +236,9 @@ open Salt.Tactic in
   Salt.MR.lambda_partial_alpha
   Salt.MR.lambda_tail_shift
   Salt.MR.rough_prime_tail
+  Salt.MR.hall_tenenbaum_core
+  Salt.MR.ht_valuation_partition
+  Salt.MR.primeWindow_contour_rep
+  Salt.MR.lambda_window_rep
+  Salt.MR.rep_truncated
+  Salt.MR.norm_logDeriv_zeta_cline_le
