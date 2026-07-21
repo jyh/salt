@@ -50,3 +50,5 @@ give-up-early compliance). Zero training contamination (private,
 post-cutoff). Model-vs-harness separable (multi-model harnesses).
 A satellite paper candidate. Origin: JYH's Google-objectivity
 question, 2026-07-21 morning. **Review dispatched 2026-07-21; integration on the council/portfolio table.**
+
+**THE LANE FENCE (ratified 2026-07-21, the firewall council):** SaltBench is SALT-lane. The wall, per direction: ideas may flow freely; CODE/content crosses only with license + provenance — SaltBench builds its OWN thin harness, reimplementing only field-standard methodology (pre-registration, memory-reset counterfactuals, mutation-tested oracles, admission probes). Tier-E cells (salt's git history) stay salt-side always. Sequencing: SaltBench design may bank any evening; BUILD waits for the flagship arXiv — it competes with nothing.
