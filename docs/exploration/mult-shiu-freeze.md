@@ -1,11 +1,28 @@
 # MULT-SHIU freeze — the hfactor secondary bound (GHS Lemma 2.4 at κ=1)
 
 *Maestro design block, 2026-07-21 morning council (JYH nod: "let's do it!").
-Status: DESIGNED, awaiting refuter pass. Source: GHS 1706.03749v1.pdf pp.8–11
-(read directly this session). Consumer: `hfactor`'s E budget in
-`Salt/MR/HalaszRepAsm.lean:450` (`prop21_analog`) — the "Shiu/Lemma-2.4
-secondary term O(X/log X·(log y)^κ)" at κ=1, per the HFACTOR scoper re-price
-(pilot 2026-07-20 17:09).*
+Status: **REFUTER PASS COMPLETE — REPAIR-THEN-FIRE applied, FROZEN** (MS-REF-A
++ MS-REF-B verdicts digested ~10:50; binding repairs folded in below, marked
+⟦R⟧). Source: GHS 1706.03749v1.pdf pp.8–11 (read directly this session).
+Consumer: `hfactor`'s E budget in `Salt/MR/HalaszRepAsm.lean:450`
+(`prop21_analog`) — the "Shiu/Lemma-2.4 secondary term O(X/log X·(log y)^κ)"
+at κ=1, per the HFACTOR scoper re-price (pilot 2026-07-20 17:09).*
+
+## ⟦R⟧ SCOPE (binding — MS-REF-B R-4)
+
+This freeze closes **hfactor's E only**. The codebase names "MULT-SHIU" at a
+SECOND site — the `hloss`/W seam (`DistSplit.lean:172`, `PropA3Core.lean:33/
+:167`): `pretDistSq f (fgJ f t₀ y Y) X ≤ W`, a per-prime pretentious window
+mass (loglog-scale), a DIFFERENT object at a DIFFERENT layer. It is NOT
+discharged here. Registered as the separate residual **HLOSS-WINDOW**:
+out-of-window mass = Mertens-second (LANDED, `mertens_second_sharp`);
+in-window twist-defect `Σ_{y<p<X/y}(1−Re(|f p|²p^{it₀}))/p` = a ball-center
+quantity, its own design block. Landing this freeze does NOT retire hloss.
+Additionally (MS-REF-A #3): GHS Lemma 2.6 (classical Brun–Titchmarsh, prime
+counts in intervals — NOT Shiu-multiplicative) is a downstream Thm-1.1
+main-integral tool, outside hfactor's E; if the campaign ever consumes it,
+it is a Brun-track-shaped separate stone. The dissolution headline reads:
+"GHS never uses Shiu on the Prop-2.1 representation route (= hfactor's E)."
 
 ## THE DISSOLUTION CLAIM (windmill candidate #9)
 
@@ -40,8 +57,11 @@ exp(Σ_{p≤x}F(p)/p + B₂) and Mertens closes.
 
 ## FROZEN TARGETS (statement layer — iron rule 1; carriers = corpus-native)
 
-Setting: g : ℕ → ℂ the prime datum (‖g p‖ ≤ 1), y ≥ 2 the GHS smooth/rough
-cut, η = 1/log y, x ≥ x₀. Corpus carriers: s = the y-smooth part
+Setting: g : ℕ → ℂ the prime datum (‖g p‖ ≤ 1), **y ≥ 8** the GHS smooth/rough
+cut ⟦R: floor raised from 3 — both refuters caught 1/log 3 ≈ 0.910 > 1/2;
+y ≥ 8 gives η = 1/log y ≤ 0.481 < 1/2, restoring every α ≤ 1/2 claim; free
+since hfactor's y is (log X)-power-sized⟧, η = 1/log y, x ≥ x₀. Corpus
+carriers: s = the y-smooth part
 (`restrictBelow`-side coefficients), ℓ = the y-rough part (`restrictAbove`),
 Λ_ℓ = `lambdaLin (restrictAbove y g)` (mass ≤ Λ pointwise — Amendment S1-B).
 All constants HONEST-EXPLICIT or ∃-packaged (house law); nothing absorbed
@@ -49,8 +69,8 @@ silently (#253).
 
 - **MS-A (Term 1 of GHS (2.4)):**
   `Σ_{m·n ≤ x} ‖s m‖·‖ℓ n‖/n^η ≤ C_A·(x/log x)·log y`
-  for x ≥ x₀, 2 ≤ y ≤ x (∃ C_A, x₀ — or explicit if the executor's Mertens
-  constants permit; the shape at κ=1 is `(x/log x)·(log y)¹`).
+  for x ≥ x₀, **8 ≤ y ≤ x** (∃ C_A, x₀ — or explicit if the executor's
+  Mertens constants permit; the shape at κ=1 is `(x/log x)·(log y)¹`).
 - **MS-B (Term 2 of GHS (2.4)):**
   `∫₀^η Σ_{m·k·n ≤ x} ‖s m‖·(Λ_ℓ k/k^α)·‖ℓ n‖/n^{2η+α} dα
      ≤ C_B·(x/log x)·log y` (same regime).
@@ -64,17 +84,33 @@ pass confirms; internal helper shapes are the executor's.
 ## THE STONE LADDER (single writer, `Salt/MR/MultShiu.lean`, ~900–1300 ln)
 
 - **HT-1** [C, 300] `hall_tenenbaum_core`: F : ℕ → ℝ, 0 ≤ F, F multiplicative,
-  F ≤ 1 (1-bounded suffices for κ=1 — do NOT port the d_κ version), x ≥ 2:
-  `(Σ_{n≤x} F n)·log x ≤ (1 + A + B)·x·(Σ_{n≤x} F n / n)` with A = the
+  F ≤ 1 (1-bounded suffices for κ=1 — do NOT port the d_κ version), F 1 = 1,
+  x ≥ 2: `(Σ_{n≤x} F n)·log x ≤ (1 + A + B)·x·(Σ_{n≤x} F n / n)` with A = the
   θ-Chebyshev constant, B = the prime-power tail constant. Route: the
   swap-order argument above. Wirsing input: `Σ_{p≤t} F(p)·log p ≤ θ(t) ≤
-  c_θ·t` — from mathlib `Nat.primorial_le_4_pow` (θ(t) ≤ t·log 4; the
-  Brun/Maynard corpus has adjacent stones, see `Salt/Maynard/
-  ChebyshevInterval.lean` π-Chebyshev). Prime-power tail: reuse the
-  `Salt/Mertens/PrimePower.lean` apparatus (`mertensB ≤ 2` pattern).
+  c_θ·t` — from mathlib `Nat.primorial_le_four_pow` ⟦R: NON-deprecated name;
+  `_le_4_pow` is a deprecated alias and trips the warnings gate⟧ (θ(t) ≤
+  t·log 4; adjacent corpus stones: `Salt/Maynard/ChebyshevInterval.lean`
+  π-Chebyshev, `Salt.Maynard.sum_log_div_prime_le`).
+  ⟦R (MS-REF-A R-2, BINDING — the √y-divergence trap): the ν≥2 mass is
+  handled by `S(x/p^ν) ≤ x/p^ν` — which NEEDS F ≤ 1 — giving
+  `Σ_p Σ_{ν≥2} ν·log p·F(p^ν)·S(x/p^ν) ≤ x·Σ_{p,ν≥2} ν·log p/p^ν = B·x`,
+  then reattach the `Σ_{m≤x}F(m)/m` factor via `F(1) = 1 ⟹ Σ F(m)/m ≥ 1`.
+  Do NOT instead bound `F(p^ν) ≤ 1` and drop the `p^{-ν}` weight — that
+  path hits ψ(y)−θ(y) ~ √y and DIVERGES. The prime-power constant
+  `Σ_{p,ν≥2} ν log p/p^ν` rides the `Salt/Mertens/PrimePower.lean`
+  apparatus (`mertensB ≤ 2` pattern). Alternate route (executor's option
+  if cleaner in Lean): group ν≥2 by m with `ψ(t)−θ(t)` bounds — commit to
+  ONE route in the file docstring.⟧
 - **HT-2** [B/C, 200] `euler_exp_bound`: Σ_{n≤x} F(n)/n ≤
   Π_{p≤x}(1 + Σ_{ν≥1} F(p^ν)p^{-ν}) ≤ exp(Σ_{p≤x} F(p)/p + B₂), B₂ explicit
   from the prime-power tail (1-boundedness ⟹ Σ_ν≥2 p^{-ν} = 1/(p(p-1))).
+  ⟦R (MS-REF-B gap 1): MS-B-ASM consumes this at SHIFTED exponent — the
+  smooth-side tail `Σ_{p≤y} Σ_{ν≥2} p^{ν(α-1)}` for α ∈ [0, η], η ≤ 1/2:
+  uniformly bounded (`p^{α-1} ≤ p^{-1/2}`, geometric tail
+  `p^{2(α-1)}/(1-p^{α-1}) ≤ 2·p^{-1}`-grade), but it is a SEPARATE small
+  stone — state and prove `euler_exp_bound_shifted` alongside, do not
+  silently reuse the exponent-1 version.⟧
 - **CHEB-Λ** [B/C, 150] `lambda_partial_alpha`: Σ_{k≤K} Λ(k)/k^α ≤
   c_ψ·K^{1-α}/(1-α) for α ∈ [0, 1/2] (partial summation over ψ(t) ≤ c_ψ·t;
   ψ from θ + the elementary prime-power correction ≤ √t·(log t)²-grade —
@@ -84,10 +120,16 @@ pass confirms; internal helper shapes are the executor's.
   ≤ (1/log y)·Σ_n Λ(n)n^{-1-η} ≤ (1/log y)·(c_ψ'/η + c'') = c_R-grade
   (consumes CHEB-Λ's partial-summation machinery at exponent 1+η, NOT the
   K^{1-α} form — a sibling stone, same technique).
-- **MERT** [named input] `mertens_second_sharp` (`Salt/Mertens/Second.lean:216`
-  — VERIFIED present) for Σ_{p≤y} 1/p ≤ loglog y + c_M; Mertens FIRST
-  (Σ_{p≤y} log p/p ≤ log y + c) — grep `Salt/Mertens/` first; if absent it is
-  a [B, 80] in-file stone from θ ≤ c_θ·t by partial summation.
+- **MERT** [named input — ⟦R: COLLAPSES TO WRAPPERS, MS-REF-A inventory
+  find⟧] `mertens_second_sharp` (`Salt/Mertens/Second.lean:216` — VERIFIED)
+  for Σ_{p≤y} 1/p ≤ loglog y + c_M; Mertens FIRST is **ALREADY LANDED
+  SHARP**: `mertens_first_upper` (`Salt/MR/PrimeSigmaShift.lean:46`,
+  `Σ_{p≤x}(log p)/p ≤ log x + (log 4 + 4)`, coefficient 1, wraps
+  `Salt.Maynard.sum_log_div_prime_le`). AND the MS-B exponent-shift device
+  is pre-landed: `sigma_shift_term_le` / `sigma_shift`
+  (`PrimeSigmaShift.lean:62/:95`: `p^{-1}−p^{-1-δ} ≤ δ·(log p)/p` and the
+  summed form at δ = 1/log x). The executor CONSUMES these (δ↔α, x↔y),
+  never rebuilds them.
 - **SPLIT** [B/C, 250] `smooth_rough_split`: the mn ≤ x smooth×rough
   factorization bijection: every N has unique N = m·n with m y-smooth, n
   y-rough; the Finset.sum reindex `Σ_{N≤x} F N = Σ_{mn≤x} (smooth m)(rough n)`
@@ -106,22 +148,25 @@ pass confirms; internal helper shapes are the executor's.
   where η = 1/log y is load-bearing); then ∫₀^η x^{1-α}dα ≤ x/log x.
 - **MS-EXIT** [B, 100]: package for hfactor.
 
-Total ~1.6k ln band, one file, one executor (serial rungs) — or split
-(HT-1/HT-2/CHEB-Λ/ROUGH-TAIL) ∥ (SPLIT) into two writers if quota favors
-parallelism; single-writer is the default (shared helpers).
+Total ⟦R: re-priced ~1.2–1.5k ln — MERT + the exponent-shift device are
+pre-landed wrappers (PrimeSigmaShift.lean)⟧, one file, ONE executor (serial
+rungs; single-writer).
 
 ## CORNER LEDGER (worst-corner pass, incl. asymptotic — #253)
 
-- **y small (y < y₀, e.g. y < 16 so loglog y < 1 or η > 1/log 2):** MS-A/B
-  still true — log y bounded below by log 2; the exp-argument's loglog y + c
-  degrades to a constant; the (x/log x)·log y RHS stays ≥ (x/log x)·log 2.
-  The freeze RESTRICTS to y ≥ 3 (hfactor's y is a power of log X — always
-  large); executor carries `3 ≤ y`.
+- **y small:** ⟦R — REPAIRED (both refuters): the original ledger claimed
+  `η ≤ 1/log 3 < 1/2` — FALSE (1/log 3 ≈ 0.910). The freeze now RESTRICTS
+  to **y ≥ 8**: η = 1/log y ≤ 1/log 8 ≈ 0.481 < 1/2, so `1/(1−α) ≤ 2` for
+  all α ∈ [0, η] and CHEB-Λ's domain α ∈ [0, 1/2] covers the consumed
+  range. Free restriction — hfactor's y is (log X)-power-sized. Executor
+  carries `8 ≤ y`.⟧
 - **y near x (y > √x, say):** the rough range (y, x] thins; ROUGH-TAIL and
   the Euler products only shrink. No corner. (hfactor consumes y ≪ x^{o(1)};
   the freeze allows y ≤ x for robustness.)
-- **α → η endpoint (Term 2):** 1/(1-α) ≤ 2 for α ≤ 1/2 — η ≤ 1/log 3 < 1/2
-  given y ≥ 3. ✓
+- **α → η endpoint (Term 2):** 1/(1-α) ≤ 2 for α ≤ 1/2 — η ≤ 1/log 8 < 1/2
+  given y ≥ 8 ⟦R⟧. ✓ (The exponent device is refuter-CONFIRMED valid at the
+  edge p = y, α = η exactly: `y^η = e`, `p^α − 1 = e−1 ≤ e·α·log p` tight
+  with room.)
 - **x moderate (x < x₀):** ∃-packaged x₀ (house pattern); hfactor's X → ∞.
 - **η-weight direction:** n^{-η} ≤ 1 used only as F ≤ 1 in HT-1; the SAVING
   from n^{-η} enters only via ROUGH-TAIL (p^{-1-η} summable-grade). The

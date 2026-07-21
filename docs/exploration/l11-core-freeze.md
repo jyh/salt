@@ -45,7 +45,7 @@ Then per pair, u := t−t' (well-spaced ⟹ |u| ≥ 1 off-diagonal):
    the shifted line; ×∫|f̃| = O(1) ⟹ error P·exp(−(c/2)logP/D₃)·(log T)^{7/4}
    ·(loglog)³ ≤ P·exp(−log P/D₄)·(log T)² for T ≥ T₀ ((loglog)³ ≤ (log T)^{1/4}).
    The frozen (log T)² SURVIVES.
-2. **AMENDMENT L11-T (RATIFIED by JYH at the council, 2026-07-21 ~10:45):** the
+2. **AMENDMENT L11-T (RATIFIED by JYH at the council, 2026-07-21 10:33):** the
    corpus kernel is the hat/ramp kernel (quadratic Mellin decay), not MR's
    C^∞ f (super-polynomial decay). The truncation tail is then honest
    P·log P/T-grade, negligible against the frozen RHS only under a largeness
