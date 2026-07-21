@@ -41,6 +41,7 @@ import Salt.MR.MomentsA2
 import Salt.MR.RamareDpoly
 import Salt.MR.LargeValues
 import Salt.MR.RamareWindows
+import Salt.MR.HalaszPrimes
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -198,3 +199,6 @@ open Salt.Tactic in
   Salt.MR.spoly_ram_decomp
   Salt.MR.lemma12_meansq_of_windowErr
   Salt.MR.window_card_le
+  Salt.MR.primes_dual_iff
+  Salt.MR.zeta_near_strip_growth
+  Salt.MR.primePoly_wellspaced_l2

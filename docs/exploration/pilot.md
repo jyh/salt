@@ -10570,3 +10570,21 @@ decisions per question.
   Seven catches banked (mul_cpow retired as natCast_mul_cpow;
   sum_filter predicate-pinning; open-Classical-before-docstring).
   WINDOW-SWAP closer DISPATCHED (∥ L9, L11 in flight).
+
+- 2026-07-20 19:56 PDT (night shift): **S8-L11 lands the four-stone
+  partial** (Opus, 127k, every stone first-compile):
+  HalaszPrimes.lean, 191 ln, wired+audited (8853 green). The
+  duality gateway (primes_dual_iff — and the executor found
+  l2_duality WAS landed, un-flagged by the P3 map); the region
+  price at ABSOLUTE 400 (zeta_near_strip_growth — the L^(3/4)ℓ⁴
+  cancels the strip width); the frozen decay shape; the L7
+  summation half. The top-level correctly UN-STATED (no sorry).
+  THE RESIDUAL NAMED: **L11-CORE** — the Perron rep of Σ p^(iu)
+  + the LEFT contour shift (the right-strip wrapper doesn't
+  reach; needs the raw disc-core + the zero-free region's hdist)
+  — the freeze's own Fable-tier earmark, honored. New linter
+  catch: maxHeartbeats-without-comment now WARNS. **THE COUNCIL
+  AGENDA (tomorrow 07:00-19:00) now carries TWO panel
+  candidates: MULT-SHIU (H-lane) + L11-CORE (P-lane) — both
+  scoped, both honest D-cores, the quota-timed joint decision.**
+  In flight: L9, WINDOW-SWAP.
