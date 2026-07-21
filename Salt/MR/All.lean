@@ -44,6 +44,7 @@ import Salt.MR.RamareWindows
 import Salt.MR.HalaszPrimes
 import Salt.MR.HalaszIntegers
 import Salt.MR.VanDerCorput
+import Salt.MR.MidBand
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -213,3 +214,5 @@ open Salt.Tactic in
   Salt.MR.socketBlock_strip
   Salt.MR.halasz_integers_log_split
   Salt.MR.halasz_socket_large
+  Salt.MR.zeta_block_secondDeriv
+  Salt.MR.halasz_socket_midHigh

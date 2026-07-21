@@ -10683,3 +10683,24 @@ decisions per question.
   kernel-caught) — check occurrence counts. Audited (8857
   green). In flight: WINDOW-SWAP (3.5h — long but within its
   budget class), MIDBAND scoper.
+
+- 2026-07-20 23:36 PDT (night shift): ██ WINDMILL #7 — the LITT-COVER
+  inheritance DISSOLVES ██ (Opus MIDBAND scoper, 280k):
+  MidBand.lean, wired+audited (8858 green). M1 verdict: the
+  debts DIFFER (LITT-COVER = the log-free power-saving
+  zeta_partial_growth w/ per-scale k-windows; the socket = Ten
+  Lectures (33), log-tolerant) — the VDC-ASM inheritance claim
+  was a stale-target overclaim (CATCH-M2, the #98 posture
+  confirmed). THE ARTIFACT: zeta_block_secondDeriv — the
+  general k=2 tile 16√A + 16U/√A with NO regime hypothesis
+  (Strip.lean's k-window was inessential — spent only to
+  prettify). STONE 5: the socket discharged UNCONDITIONALLY on
+  the whole high half N ≤ u ≤ N² (Cvdc = 137). The M2
+  arithmetic: the log = the block COUNT (√A is
+  length-independent), never √U-per-block — the geometric-sum
+  misread corrected. RESIDUAL (no wall): the mixed low band
+  1 ≤ u < N (Kušmin geometric tail + case-split, ~150 ln) +
+  the sign wrapper (~30 ln). **L9-CLOSE dispatched — L9
+  UNCONDITIONAL is one small executor away.** Two new Lean
+  traps banked (ℤ-default bound-variable anchoring;
+  norm_add_le metavariable unification — explicit args).
