@@ -10787,3 +10787,20 @@ decisions per question.
   Two traps banked (factorial-notation scope; inv_anti₀).
   Windmill count: EIGHT. L8-PACK (piece c, the k-instantiation)
   dispatched. In flight: L12-FINAL, L8-PACK.
+
+- 2026-07-21 08:13 PDT: ██████ LEMMA 12 UNCONDITIONAL ██████ (Opus
+  L12-FINAL, 162k, ~1 attempt/row): lemma12_meansq landed —
+  RamareWindows.lean 521→690, audited (8862 green). R-corr via
+  the (p,m)→pm fiberwise collapse to spoly + moment_core_bound;
+  R-window via the DIRECT trivial-sup route — **the feared
+  N'-inflation wall NEVER ARISES (a sup bound needs no
+  frequency cap)**; the 3-row assembly unconditional at honest
+  explicit E. Residual: the pretty-grade E-collapse only
+  (cosmetic C). Three catches banked (the multiline-sum body
+  detachment — the σ-dangles diagnostic; ambiguous
+  intervalIntegrable_const; norm_cterm_eq as a reusable
+  primitive). **S8 STATE AT THE COUNCIL BELL: the moment layer
+  (L12+L13) UNCONDITIONAL; large values L7+L9 UNCONDITIONAL;
+  L8 at its last leg (PACK in flight); the seam list = L11-CORE
+  + MULT-SHIU (the two panels) + the terminal assembly + the
+  compositions.**

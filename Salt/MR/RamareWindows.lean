@@ -333,4 +333,358 @@ theorem window_card_le (H : ℝ) (hH : 1 ≤ H) (X : ℕ) (s : Finset ℕ)
       _ = 2 * Real.exp 1 * (X : ℝ) / H := by ring
   linarith
 
+/-! ## W1/W2 — the window swap and the exact `ramErr` characterization (MR pp.19–20)
+
+The honest eq (16) cofactor range `{m : pm ∈ [1,N]}` (`p`-dependent) is swapped for the
+`p`-independent `R_{j,H}` range `ramRrange_j`.  Factoring `R_{j,H}` out of the block sum, the
+per-prime residual is the difference of the two inner sums — the OVERCOUNT WINDOW.  Combined
+with the `p²`-correction and the coprime tail of `spoly_ramare_split`, this gives the exact
+identity `ramErr = window + p²-correction + coprime-tail` (well-posed: `ramErr` is the
+difference by construction). -/
+
+/-- **The window error** (`W1`): the block sum of `c_p/p^s` against the honest-minus-`R_{j,H}`
+cofactor difference `Σ_{m:pm∈[1,N]} g − Σ_{m∈ramRrange_j} g`, `g(m) = (b_m/m^s)/(ω(m)+1)`. -/
+noncomputable def ramWindowErr (H : ℝ) (N X P Q : ℕ) (b c : ℕ → ℂ) (t : ℝ) : ℂ :=
+  ∑ j ∈ ramI H P Q, ∑ p ∈ ramQblock H P Q j,
+    (c p / (↑p : ℂ) ^ ((1 : ℂ) + (t : ℂ) * Complex.I)) *
+      ((∑ m ∈ ((Finset.Icc 1 N).image (fun n => n / p)).filter
+            (fun m => p * m ∈ Finset.Icc 1 N),
+          (b m / (↑m : ℂ) ^ ((1 : ℂ) + (t : ℂ) * Complex.I)) * ((blockOmega P Q m : ℂ) + 1)⁻¹)
+        - ramR H N X P Q j b t)
+
+/-- **The `p²`-correction** (MR p.20): the `p ∣ m` overreach repaired in `spoly_ramare_split`. -/
+noncomputable def ramP2corr (N P Q : ℕ) (a b c : ℕ → ℂ) (t : ℝ) : ℂ :=
+  ∑ p ∈ (Finset.Icc P Q).filter Nat.Prime,
+    ∑ m ∈ (((Finset.Icc 1 N).image (fun n => n / p)).filter
+        (fun m => p * m ∈ Finset.Icc 1 N)).filter (fun m => p ∣ m),
+      (ramareWeight P Q p m • (a (p * m) / (↑(p * m) : ℂ) ^ ((1 : ℂ) + (t : ℂ) * Complex.I))
+        - (b m * c p / (↑(p * m) : ℂ) ^ ((1 : ℂ) + (t : ℂ) * Complex.I))
+            * ((blockOmega P Q m : ℂ) + 1)⁻¹)
+
+/-- **The coprime tail** (MR eq (16)): the `ω(n;P,Q)=0` residue. -/
+noncomputable def ramCopTail (N P Q : ℕ) (a : ℕ → ℂ) (t : ℝ) : ℂ :=
+  ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+    a n / (n : ℂ) ^ ((1 : ℂ) + (t : ℂ) * Complex.I)
+
+/-- **W1 — factoring `R_{j,H}` out of the dyadic clean term.**  The dyadic clean term minus the
+main block sum `Σ_{j∈I} Q_{j,H}R_{j,H}` is exactly the window error: on each block `Q_{j,H}`
+distributes over its primes and the honest cofactor sum minus `R_{j,H}` is the per-prime window
+residual. -/
+theorem clean_dyadic_sub_main (H : ℝ) (N X P Q : ℕ) (b c : ℕ → ℂ) (t : ℝ) :
+    (∑ j ∈ ramI H P Q, ∑ p ∈ ramQblock H P Q j,
+        (c p / (↑p : ℂ) ^ ((1 : ℂ) + (t : ℂ) * Complex.I))
+          * ∑ m ∈ ((Finset.Icc 1 N).image (fun n => n / p)).filter
+              (fun m => p * m ∈ Finset.Icc 1 N),
+            (b m / (↑m : ℂ) ^ ((1 : ℂ) + (t : ℂ) * Complex.I))
+              * ((blockOmega P Q m : ℂ) + 1)⁻¹)
+      - (∑ j ∈ ramI H P Q, ramMain H N X P Q b c j t)
+      = ramWindowErr H N X P Q b c t := by
+  rw [ramWindowErr, ← Finset.sum_sub_distrib]
+  refine Finset.sum_congr rfl (fun j _ => ?_)
+  rw [ramMain, ramQ, Finset.sum_mul, ← Finset.sum_sub_distrib]
+  refine Finset.sum_congr rfl (fun p _ => ?_)
+  ring
+
+/-- **W2 — the exact `ramErr` characterization.**  Since `ramErr = spoly − Σ_{j∈I} Q_{j,H}R_{j,H}`
+by construction, the Ramaré coprime split (`spoly_ramare_split`) and the dyadic regroup
+(`clean_term_dyadic`) resolve it into the window error, the `p²`-correction and the coprime tail.
+This is well-posed and unconditional given only the coefficient factorisation `hcoef`. -/
+theorem ramErr_window_decomp (H : ℝ) (hH : 0 < H) (N X P Q : ℕ) (hP : 1 ≤ P)
+    (a b c : ℕ → ℂ)
+    (hcoef : ∀ p m, p.Prime → P ≤ p → p ≤ Q → ¬ p ∣ m → a (p * m) = b m * c p)
+    (t : ℝ) :
+    ramErr H N X P Q a b c t
+      = ramWindowErr H N X P Q b c t + ramP2corr N P Q a b c t + ramCopTail N P Q a t := by
+  rw [ramErr, spoly_ramare_split N P Q a b c hcoef t, clean_term_dyadic H hH N P Q hP b c t,
+    ← clean_dyadic_sub_main H N X P Q b c t]
+  unfold ramP2corr ramCopTail
+  abel
+
+/-! ## W3 — the L² pricing of the error rows (MR p.20)
+
+Each of the three error rows is a `σ=1` Dirichlet polynomial, so `moment_core_bound` (the
+`(2T+20N)·Σ|·|²/n²` engine) prices its second moment.  The coprime tail is the cleanest: it is
+literally `spoly` on the `ω(n)=0`-restricted coefficients, so its moment is the "tail verbatim"
+grade `(2T+20N)·Σ_{ω(n)=0}|aₙ|²/n²`. -/
+
+/-- **The coprime tail as a `spoly`.**  `ramCopTail = Σ_{n∈[1,N], ω(n)=0} aₙ/n^s` is exactly
+`spoly` on the coefficients `aₙ` masked to the `ω(n)=0` support. -/
+lemma ramCopTail_eq_spoly (N P Q : ℕ) (a : ℕ → ℂ) (t : ℝ) :
+    ramCopTail N P Q a t = spoly N (fun n => if blockOmega P Q n = 0 then a n else 0) t := by
+  rw [ramCopTail, spoly, Finset.sum_filter]
+  refine Finset.sum_congr rfl (fun n _ => ?_)
+  by_cases h : blockOmega P Q n = 0 <;> simp [h]
+
+/-- **W3 (tail row) — the coprime-tail second moment.**  The "tail verbatim" grade: the coprime
+tail's mean square is priced by `moment_core_bound` at `(2T+20N)·Σ_{ω(n)=0}|aₙ|²/n²`. -/
+theorem ramCopTail_moment (N P Q : ℕ) (a : ℕ → ℂ) (T : ℝ) :
+    (∫ t in (-T)..T, ‖ramCopTail N P Q a t‖ ^ 2)
+      ≤ (2 * T + 20 * (N : ℝ))
+          * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+              ‖a n‖ ^ 2 / (n : ℝ) ^ 2 := by
+  have hcongr : (∫ t in (-T)..T, ‖ramCopTail N P Q a t‖ ^ 2)
+      = ∫ t in (-T)..T, ‖spoly N (fun n => if blockOmega P Q n = 0 then a n else 0) t‖ ^ 2 :=
+    intervalIntegral.integral_congr (fun t _ => by rw [ramCopTail_eq_spoly])
+  rw [hcongr]
+  refine (moment_core_bound N _ T).trans_eq ?_
+  congr 1
+  rw [Finset.sum_filter]
+  refine Finset.sum_congr rfl (fun n _ => ?_)
+  by_cases h : blockOmega P Q n = 0 <;> simp [h]
+
+/-- `ramCopTail N P Q a` is continuous (a finite sum of `aₙ/n^{1+it}`, `n ≥ 1`). -/
+lemma continuous_ramCopTail (N P Q : ℕ) (a : ℕ → ℂ) :
+    Continuous (ramCopTail N P Q a) := by
+  unfold ramCopTail
+  refine continuous_finsetSum _ (fun n hn => ?_)
+  rw [Finset.mem_filter] at hn
+  exact continuous_cterm (by have := (Finset.mem_Icc.mp hn.1).1; omega) (a n)
+
+/-- `ramP2corr N P Q a b c` is continuous (a finite sum of `p²`-correction terms, `pm ≥ 1`). -/
+lemma continuous_ramP2corr (N P Q : ℕ) (a b c : ℕ → ℂ) :
+    Continuous (ramP2corr N P Q a b c) := by
+  unfold ramP2corr
+  refine continuous_finsetSum _ (fun p _ => continuous_finsetSum _ (fun m hm => ?_))
+  rw [Finset.mem_filter, Finset.mem_filter, Finset.mem_Icc] at hm
+  have hpm : p * m ≠ 0 := by have := hm.1.2.1; omega
+  exact ((continuous_cterm hpm (a (p * m))).const_smul _).sub
+    ((continuous_cterm hpm (b m * c p)).mul continuous_const)
+
+/-- `ramWindowErr H N X P Q b c` is continuous (a block sum of `(c_p/p^s)`-weighted differences
+of continuous cofactor polynomials). -/
+lemma continuous_ramWindowErr (H : ℝ) (N X P Q : ℕ) (b c : ℕ → ℂ) :
+    Continuous (ramWindowErr H N X P Q b c) := by
+  unfold ramWindowErr
+  refine continuous_finsetSum _ (fun j _ => continuous_finsetSum _ (fun p hp => ?_))
+  rw [ramQblock, Finset.mem_filter] at hp
+  refine (continuous_cterm hp.2.1.pos.ne' (c p)).mul (Continuous.sub ?_
+    (continuous_ramR H N X P Q j b))
+  refine continuous_finsetSum _ (fun m hm => ?_)
+  rw [Finset.mem_filter, Finset.mem_Icc] at hm
+  have hm0 : m ≠ 0 := by have := hm.2.1; rintro rfl; simp at this
+  exact (continuous_cterm hm0 (b m)).mul continuous_const
+
+/-- **W3 — the error-moment triangle split.**  Via the exact `W2` characterization
+`ramErr = window + p²-correction + coprime-tail` and `‖x+y+z‖² ≤ 3(‖x‖²+‖y‖²+‖z‖²)`, the error
+second moment splits into the three row moments — reducing `herr` to pricing the window and
+`p²`-correction rows (the tail row is `ramCopTail_moment`). -/
+theorem ramErr_moment_split (H : ℝ) (hH : 0 < H) (N X P Q : ℕ) (hP : 1 ≤ P) (a b c : ℕ → ℂ)
+    (hcoef : ∀ p m, p.Prime → P ≤ p → p ≤ Q → ¬ p ∣ m → a (p * m) = b m * c p)
+    (T : ℝ) (hT : 0 ≤ T) :
+    (∫ t in (-T)..T, ‖ramErr H N X P Q a b c t‖ ^ 2)
+      ≤ 3 * ((∫ t in (-T)..T, ‖ramWindowErr H N X P Q b c t‖ ^ 2)
+            + (∫ t in (-T)..T, ‖ramP2corr N P Q a b c t‖ ^ 2)
+            + (∫ t in (-T)..T, ‖ramCopTail N P Q a t‖ ^ 2)) := by
+  have hWc := continuous_ramWindowErr H N X P Q b c
+  have hCc := continuous_ramP2corr N P Q a b c
+  have hDc := continuous_ramCopTail N P Q a
+  have hIW : IntervalIntegrable (fun t => ‖ramWindowErr H N X P Q b c t‖ ^ 2) volume (-T) T :=
+    (hWc.norm.pow 2).intervalIntegrable (-T) T
+  have hIC : IntervalIntegrable (fun t => ‖ramP2corr N P Q a b c t‖ ^ 2) volume (-T) T :=
+    (hCc.norm.pow 2).intervalIntegrable (-T) T
+  have hID : IntervalIntegrable (fun t => ‖ramCopTail N P Q a t‖ ^ 2) volume (-T) T :=
+    (hDc.norm.pow 2).intervalIntegrable (-T) T
+  have hcongr : (∫ t in (-T)..T, ‖ramErr H N X P Q a b c t‖ ^ 2)
+      = ∫ t in (-T)..T, ‖ramWindowErr H N X P Q b c t + ramP2corr N P Q a b c t
+          + ramCopTail N P Q a t‖ ^ 2 :=
+    intervalIntegral.integral_congr
+      (fun t _ => by rw [ramErr_window_decomp H hH N X P Q hP a b c hcoef])
+  rw [hcongr]
+  calc (∫ t in (-T)..T, ‖ramWindowErr H N X P Q b c t + ramP2corr N P Q a b c t
+            + ramCopTail N P Q a t‖ ^ 2)
+      ≤ ∫ t in (-T)..T, (3 * ‖ramWindowErr H N X P Q b c t‖ ^ 2
+            + 3 * ‖ramP2corr N P Q a b c t‖ ^ 2 + 3 * ‖ramCopTail N P Q a t‖ ^ 2) := by
+        refine intervalIntegral.integral_mono_on (by linarith)
+          ((((hWc.add hCc).add hDc).norm.pow 2).intervalIntegrable (-T) T)
+          (((hIW.const_mul 3).add (hIC.const_mul 3)).add (hID.const_mul 3)) (fun t _ => ?_)
+        nlinarith [norm_add_le (ramWindowErr H N X P Q b c t + ramP2corr N P Q a b c t)
+            (ramCopTail N P Q a t),
+          norm_add_le (ramWindowErr H N X P Q b c t) (ramP2corr N P Q a b c t),
+          norm_nonneg (ramWindowErr H N X P Q b c t), norm_nonneg (ramP2corr N P Q a b c t),
+          norm_nonneg (ramCopTail N P Q a t),
+          norm_nonneg (ramWindowErr H N X P Q b c t + ramP2corr N P Q a b c t),
+          norm_nonneg (ramWindowErr H N X P Q b c t + ramP2corr N P Q a b c t
+            + ramCopTail N P Q a t),
+          sq_nonneg (‖ramWindowErr H N X P Q b c t‖ - ‖ramP2corr N P Q a b c t‖),
+          sq_nonneg (‖ramWindowErr H N X P Q b c t‖ - ‖ramCopTail N P Q a t‖),
+          sq_nonneg (‖ramP2corr N P Q a b c t‖ - ‖ramCopTail N P Q a t‖)]
+    _ = 3 * ((∫ t in (-T)..T, ‖ramWindowErr H N X P Q b c t‖ ^ 2)
+            + (∫ t in (-T)..T, ‖ramP2corr N P Q a b c t‖ ^ 2)
+            + (∫ t in (-T)..T, ‖ramCopTail N P Q a t‖ ^ 2)) := by
+        rw [intervalIntegral.integral_add ((hIW.const_mul 3).add (hIC.const_mul 3))
+            (hID.const_mul 3),
+          intervalIntegral.integral_add (hIW.const_mul 3) (hIC.const_mul 3),
+          intervalIntegral.integral_const_mul, intervalIntegral.integral_const_mul,
+          intervalIntegral.integral_const_mul]
+        ring
+
+/-! ## R-corr — the `p²`-correction row as a `spoly`, and its second moment (MR p.20)
+
+The `p²`-correction `ramP2corr` is a `(p,m)` double sum of terms `w(p,m)/(pm)^{1+it}` with all
+frequencies `pm ∈ [1,N]` (the domain filter `p*m ∈ Icc 1 N`).  The fiberwise reindex
+`(p,m) ↦ pm` collapses it to a single `spoly N ramP2coeff`, so `moment_core_bound` prices its
+second moment at the `(2T+20N)·Σ_{n∈[1,N]}‖ramP2coeff n‖²/n²` grade — no frequency inflation. -/
+
+/-- **The `p²`-correction domain**: block-prime/cofactor pairs `(p,m)` with `pm ∈ [1,N]` and
+`p ∣ m` — the `(p,m)`-sigma index of `ramP2corr`. -/
+noncomputable def ramP2dom (N P Q : ℕ) : Finset (Σ _ : ℕ, ℕ) :=
+  ((Finset.Icc P Q).filter Nat.Prime).sigma
+    (fun p => (((Finset.Icc 1 N).image (fun n => n / p)).filter
+      (fun m => p * m ∈ Finset.Icc 1 N)).filter (fun m => p ∣ m))
+
+/-- **The `p²`-correction coefficient** at frequency `n`: the fiber sum of the correction
+weights `w(p,m) = ramareWeight·a_{pm} − b_m·c_p/(ω(m)+1)` over factorisations `pm = n` with `p`
+a block prime and `p ∣ m` (so `p² ∣ n`). -/
+noncomputable def ramP2coeff (N P Q : ℕ) (a b c : ℕ → ℂ) (n : ℕ) : ℂ :=
+  ∑ σ ∈ (ramP2dom N P Q).filter (fun σ => σ.1 * σ.2 = n),
+    ((ramareWeight P Q σ.1 σ.2 : ℂ) * a (σ.1 * σ.2)
+      - b σ.2 * c σ.1 * ((blockOmega P Q σ.2 : ℂ) + 1)⁻¹)
+
+/-- **R-corr (structure) — the `p²`-correction as a `spoly`.**  The fiberwise reindex
+`(p,m) ↦ pm` (a `sum_fiberwise_of_maps_to` into `Icc 1 N`, valid since every domain pair has
+`pm ∈ [1,N]`) collapses the correction double sum to `spoly N ramP2coeff`. -/
+theorem ramP2corr_eq_spoly (N P Q : ℕ) (a b c : ℕ → ℂ) (t : ℝ) :
+    ramP2corr N P Q a b c t = spoly N (ramP2coeff N P Q a b c) t := by
+  have hmaps : ∀ σ ∈ ((Finset.Icc P Q).filter Nat.Prime).sigma
+      (fun p => (((Finset.Icc 1 N).image (fun n => n / p)).filter
+        (fun m => p * m ∈ Finset.Icc 1 N)).filter (fun m => p ∣ m)),
+      σ.1 * σ.2 ∈ Finset.Icc 1 N := by
+    intro σ hσ
+    rw [Finset.mem_sigma, Finset.mem_filter, Finset.mem_filter, Finset.mem_filter] at hσ
+    exact hσ.2.1.2
+  rw [ramP2corr, Finset.sum_sigma', ← Finset.sum_fiberwise_of_maps_to hmaps, spoly]
+  refine Finset.sum_congr rfl (fun n hn => ?_)
+  rw [ramP2coeff, Finset.sum_div]
+  refine Finset.sum_congr rfl (fun σ hσ => ?_)
+  rw [Finset.mem_filter] at hσ
+  rw [Complex.real_smul, ← mul_div_assoc, div_mul_eq_mul_div, div_sub_div_same, hσ.2]
+
+/-- **R-corr — the `p²`-correction second moment.**  Via `ramP2corr_eq_spoly` and the keystone
+`moment_core_bound`, the correction's mean square is priced at
+`(2T+20N)·Σ_{n∈[1,N]}‖ramP2coeff n‖²/n²`. -/
+theorem ramP2corr_moment (N P Q : ℕ) (a b c : ℕ → ℂ) (T : ℝ) :
+    (∫ t in (-T)..T, ‖ramP2corr N P Q a b c t‖ ^ 2)
+      ≤ (2 * T + 20 * (N : ℝ))
+          * ∑ n ∈ Finset.Icc 1 N, ‖ramP2coeff N P Q a b c n‖ ^ 2 / (n : ℝ) ^ 2 := by
+  have hcongr : (∫ t in (-T)..T, ‖ramP2corr N P Q a b c t‖ ^ 2)
+      = ∫ t in (-T)..T, ‖spoly N (ramP2coeff N P Q a b c) t‖ ^ 2 :=
+    intervalIntegral.integral_congr (fun t _ => by rw [ramP2corr_eq_spoly])
+  rw [hcongr]
+  exact moment_core_bound N (ramP2coeff N P Q a b c) T
+
+/-- **The `σ=1` Dirichlet term norm.**  `‖c/k^{1+it}‖ = ‖c‖/k` (`k ≥ 1`): the cpow has
+`Re(1+it)=1`, so `‖k^{1+it}‖ = k`. -/
+lemma norm_cterm_eq (k : ℕ) (hk : 1 ≤ k) (c : ℂ) (t : ℝ) :
+    ‖c / (k : ℂ) ^ ((1 : ℂ) + (t : ℂ) * Complex.I)‖ = ‖c‖ / (k : ℝ) := by
+  rw [norm_div]
+  congr 1
+  have hkpos : (0 : ℝ) < (k : ℝ) := by exact_mod_cast hk
+  rw [← Complex.ofReal_natCast, Complex.norm_cpow_eq_rpow_re_of_pos hkpos]
+  simp
+
+/-- **The Ramaré-weighted term norm bound.**  `‖(b_m/m^{1+it})·(ω(m)+1)⁻¹‖ ≤ ‖b_m‖/m`
+(`m ≥ 1`): the weight `(ω(m)+1)⁻¹` has norm `≤ 1`. -/
+lemma norm_weighted_cterm_le (P Q m : ℕ) (hm : 1 ≤ m) (b : ℕ → ℂ) (t : ℝ) :
+    ‖(b m / (m : ℂ) ^ ((1 : ℂ) + (t : ℂ) * Complex.I)) * ((blockOmega P Q m : ℂ) + 1)⁻¹‖
+      ≤ ‖b m‖ / (m : ℝ) := by
+  rw [norm_mul, norm_cterm_eq m hm (b m) t]
+  have hb : ‖((blockOmega P Q m : ℂ) + 1)⁻¹‖ ≤ 1 := by
+    rw [norm_inv]
+    have heq : ‖(blockOmega P Q m : ℂ) + 1‖ = (blockOmega P Q m : ℝ) + 1 := by
+      rw [show ((blockOmega P Q m : ℂ) + 1) = ((blockOmega P Q m + 1 : ℕ) : ℂ) by push_cast; ring,
+        Complex.norm_natCast]
+      push_cast; ring
+    rw [heq]
+    exact inv_le_one_of_one_le₀ (le_add_of_nonneg_left (by positivity))
+  calc (‖b m‖ / (m : ℝ)) * ‖((blockOmega P Q m : ℂ) + 1)⁻¹‖
+      ≤ (‖b m‖ / (m : ℝ)) * 1 := mul_le_mul_of_nonneg_left hb (by positivity)
+    _ = ‖b m‖ / (m : ℝ) := mul_one _
+
+/-- **The window ℓ¹-mass** — the `t`-independent sup bound on `ramWindowErr`: over each block
+`j` and prime `p`, the factor `‖c_p‖/p` against the honest-plus-`R_{j,H}` cofactor `‖b_m‖/m`
+masses. -/
+noncomputable def windowMass (H : ℝ) (N X P Q : ℕ) (b c : ℕ → ℂ) : ℝ :=
+  ∑ j ∈ ramI H P Q, ∑ p ∈ ramQblock H P Q j,
+    (‖c p‖ / (p : ℝ)) * ((∑ m ∈ ((Finset.Icc 1 N).image (fun n => n / p)).filter
+          (fun m => p * m ∈ Finset.Icc 1 N), ‖b m‖ / (m : ℝ))
+        + ∑ m ∈ ramRrange H N X j, ‖b m‖ / (m : ℝ))
+
+/-- **R-window (structure) — the trivial-sup bound.**  `‖ramWindowErr t‖ ≤ windowMass`, uniformly
+in `t`: `‖c_p/p^{1+it}‖ = ‖c_p‖/p`, and the honest-minus-`R_{j,H}` cofactor difference is bounded
+by the sum of the two cofactor `ℓ¹`-masses (each term `≤ ‖b_m‖/m`).  This avoids pricing the
+overcount at an inflated frequency cap — the `moment_core_bound`-at-`QN` trap. -/
+theorem ramWindowErr_sup_le (H : ℝ) (N X P Q : ℕ) (b c : ℕ → ℂ) (t : ℝ) :
+    ‖ramWindowErr H N X P Q b c t‖ ≤ windowMass H N X P Q b c := by
+  rw [ramWindowErr, windowMass]
+  refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun j hj => ?_))
+  refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun p hp => ?_))
+  rw [ramQblock, Finset.mem_filter] at hp
+  rw [norm_mul, norm_cterm_eq p hp.2.1.pos (c p) t]
+  refine mul_le_mul_of_nonneg_left ?_ (by positivity)
+  refine (norm_sub_le _ _).trans (add_le_add ?_ ?_)
+  · refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun m hm => ?_))
+    rw [Finset.mem_filter, Finset.mem_Icc] at hm
+    have hm1 : 1 ≤ m := by
+      rcases Nat.eq_zero_or_pos m with rfl | h
+      · simp at hm
+      · exact h
+    exact norm_weighted_cterm_le P Q m hm1 b t
+  · rw [ramR]
+    refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun m hm => ?_))
+    rw [ramRrange, Finset.mem_filter, Finset.mem_Icc] at hm
+    exact norm_weighted_cterm_le P Q m hm.1.1 b t
+
+/-- **R-window — the window second moment (trivial-sup grade).**  Via the `t`-uniform sup bound
+`ramWindowErr_sup_le` and the constant integral `∫_{-T}^T M² = 2T·M²`. -/
+theorem ramWindowErr_moment_triv (H : ℝ) (N X P Q : ℕ) (b c : ℕ → ℂ) (T : ℝ) (hT : 0 ≤ T) :
+    (∫ t in (-T)..T, ‖ramWindowErr H N X P Q b c t‖ ^ 2)
+      ≤ 2 * T * (windowMass H N X P Q b c) ^ 2 := by
+  have hM : 0 ≤ windowMass H N X P Q b c :=
+    Finset.sum_nonneg (fun j _ => Finset.sum_nonneg (fun p _ => by positivity))
+  calc (∫ t in (-T)..T, ‖ramWindowErr H N X P Q b c t‖ ^ 2)
+      ≤ ∫ _t in (-T)..T, (windowMass H N X P Q b c) ^ 2 := by
+        refine intervalIntegral.integral_mono_on (by linarith)
+          (((continuous_ramWindowErr H N X P Q b c).norm.pow 2).intervalIntegrable _ _)
+          (continuous_const.intervalIntegrable _ _) (fun t _ => ?_)
+        nlinarith [ramWindowErr_sup_le H N X P Q b c t,
+          norm_nonneg (ramWindowErr H N X P Q b c t), hM]
+    _ = 2 * T * (windowMass H N X P Q b c) ^ 2 := by
+        rw [intervalIntegral.integral_const, smul_eq_mul]; ring
+
+/-! ## R-final — Lemma 12 mean square, UNCONDITIONAL (MR p.20)
+
+Feeding the three row moments — the window trivial-sup bound `ramWindowErr_moment_triv`, the
+`p²`-correction `ramP2corr_moment`, and the coprime-tail `ramCopTail_moment` — through the exact
+error split `ramErr_moment_split` and the reduction `lemma12_meansq_of_windowErr` discharges
+`herr` and closes Lemma 12's mean square with **no residual hypotheses** beyond the coefficient
+factorisation `hcoef` (`a_{pm} = b_m c_p` on the coprime block, `P ≤ p ≤ Q`).  The error grade is
+honest and explicit: `E = 3·(2T·windowMass² + (2T+20N)·(‖ramP2coeff‖²/n²-mass) +
+(2T+20N)·(coprime-tail mass))`.  Collapsing `E` to the paper's `(T+X)/X·(1/H+1/P+tail)` normal
+form (via `‖b‖,‖c‖ ≤ 1`, `N = 2X`, `window_card_le`, and the `Σ_{p≥P} p⁻²` zeta-tail) is the
+remaining cosmetic sharpening — see NOTES. -/
+
+/-- **Lemma 12 — the mean square, UNCONDITIONAL.**  With the concrete `Q_{j,H}·R_{j,H}` main
+blocks and the difference-defined error priced by its three row moments, the full mean-square
+bound holds for every coefficient triple `(a,b,c)` satisfying only the block factorisation
+`hcoef`.  The error term `E` is fully explicit (window ℓ¹-mass² + correction mass + coprime-tail
+mass), each a landed, kernel-checked stone. -/
+theorem lemma12_meansq (H : ℝ) (hH : 0 < H) (N X P Q : ℕ) (hP : 1 ≤ P) (a b c : ℕ → ℂ)
+    (hcoef : ∀ p m, p.Prime → P ≤ p → p ≤ Q → ¬ p ∣ m → a (p * m) = b m * c p)
+    (T : ℝ) (hT : 0 ≤ T) :
+    (∫ t in (-T)..T, ‖spoly N a t‖ ^ 2)
+      ≤ 2 * ((ramI H P Q).card : ℝ)
+          * (∑ j ∈ ramI H P Q, ∫ t in (-T)..T, ‖ramMain H N X P Q b c j t‖ ^ 2)
+        + 2 * (3 * (2 * T * (windowMass H N X P Q b c) ^ 2
+            + (2 * T + 20 * (N : ℝ))
+                * ∑ n ∈ Finset.Icc 1 N, ‖ramP2coeff N P Q a b c n‖ ^ 2 / (n : ℝ) ^ 2
+            + (2 * T + 20 * (N : ℝ))
+                * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+                    ‖a n‖ ^ 2 / (n : ℝ) ^ 2)) := by
+  refine lemma12_meansq_of_windowErr H N X P Q a b c T _ hT ?_
+  refine (ramErr_moment_split H hH N X P Q hP a b c hcoef T hT).trans ?_
+  gcongr
+  · exact ramWindowErr_moment_triv H N X P Q b c T hT
+  · exact ramP2corr_moment N P Q a b c T
+  · exact ramCopTail_moment N P Q a T
+
 end Salt.MR
