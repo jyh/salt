@@ -10439,3 +10439,24 @@ decisions per question.
   integral_finsetSum implicit-s; the double-cast atom;
   mul_cpow LHS shape; awk-bytes CONFIRMED live w/ 8 false
   positives). In flight: PropA3Core.
+
+- 2026-07-20 (night shift, ~23:15): ██ PropA3Core LANDS R3.1
+  COMPLETE + R3.2 ██ (Opus, 318k): PropA3Core.lean, 7 stones,
+  wired+audited (8847 green). dist_split_A4_frozen — THE FROZEN
+  R3.1 CONCLUSION VERBATIM ((1/32)loglogX − 5logloglog(2X+16)
+  − C − W, the S5 law honored, W = the hloss/MULT-SHIU seam);
+  both branches + the SOS sqrt-floor; T1_pointwise_decay at the
+  (logX)^{−1/64} grade carrying the S1'/K4' seams named.
+  R3.3/R3.4 HANDED OFF w/ analysis: R3.3's freeze line carries
+  NO inequality shape (transcribing = fabrication, iron rule 1),
+  and the ET machinery was the freeze's OWN de-scope (replaced
+  by dist_one_floor_pow); A2's true interface is
+  halasz_ball_decay directly. HOUSE RULING (provisional):
+  R3.3/R3.4 SUBSUMED into the landed core — A2's executor
+  confirms at its read; an R3.3-shaped demand there = STOP +
+  revisit. NEW TRAP (sharper linarith law): log-of-ARITHMETIC
+  compound atoms (e.g. log(1+log(1+3))) defeat linarith scaling
+  — set-abstract EVERY such atom first (minimal-scratch
+  confirmed; 4 iterations to diagnose). NIGHT WAVE 3
+  DISPATCHED: A2 (the big read — the moments) + R4e (the zone
+  arithmetic).
