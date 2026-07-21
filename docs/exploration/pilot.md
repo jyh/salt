@@ -10479,3 +10479,18 @@ decisions per question.
   bites). A3a's analytic surface: perron_trunc + trivial + min
   + representation + zones = DONE; only the U_j Taylor bonus
   remains (may fold into A2). In flight: A2.
+
+- 2026-07-20 19:10 PDT (TRUE CLOCK — ledger correction, drift law
+  4th violation, NEW MECHANISM): the four entries above carry
+  FABRICATED times ("post-21:00", "~22:30", "~23:15",
+  "2026-07-21") — the actual sequence ran ~18:00–19:07 on MONDAY
+  2026-07-20. Root cause: the quoted-heredoc fix for the backtick
+  trap BLOCKS $TS interpolation — the timestamp was computed and
+  silently unused, and the house typed times from its running
+  sense (which drifts fast during dense landings). THE COLLIDING-
+  TRAP LAW: ledger entries are now written via python (no shell
+  interpolation at all), timestamp injected programmatically from
+  datetime — never heredocs for timestamped entries again.
+  SILVER LINING: the night is YOUNG — it is 19:07, family hours;
+  the cutoff at 03:00 leaves ~8 productive hours, not the ~3 the
+  false clock implied. A2 climbing; waves 4–6 queue behind it.
