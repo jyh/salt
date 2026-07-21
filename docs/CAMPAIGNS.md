@@ -23,7 +23,7 @@
 | 15 | [Z / D4](../Salt/Parity/) | the parity gap as object | ✅ | `Z ⟺ TPC` (window); `sufficient_true_not_parityInv` (THE GAP THM); [census of ten](../Salt/Parity/Instances.lean) |
 | 16 | [SPINE-BUDGET](exploration/spine-budget-freeze.md) | kill the t/g residual | ✅ | F0 (old residual proven unsatisfiable); `log_chowla_two_budget_head` (∀extraFloor) |
 | 17 | [CHI-SIEVE](exploration/chi-sieve-freeze.md) | the L2c residual | ✅(dissolved) | both counts proven χ-blind through the frozen engine — the residual was unnecessary |
-| 18 | [HALASZ-INFRA (K1)](exploration/halasz-infra-freeze.md) | Perron+λ_f infrastructure | 🔶 1 residual | [`halasz_ball_decay`](../Salt/MR/HalaszCore.lean) assembled; F-zero-set dead by construction; S1′-ASM in flight |
+| 18 | [HALASZ-INFRA (K1)](exploration/halasz-infra-freeze.md) | Perron+λ_f infrastructure | 🔶 1 named core | [`halasz_ball_decay`](../Salt/MR/HalaszCore.lean) + the S1′ spine assembled (5 windmills dissolved); sole residual = **MULT-SHIU** (the multiplicative Shiu/Brun–Titchmarsh bound, GHS Lemma 2.4 — panel candidate) |
 | 19 | [S8 / MR-CORE](exploration/s8-freeze.md) | thm_A1′ → the MRT door | 🔶 climbing | 19 [MR modules](../Salt/MR/) landed; K1/K2 walls down ([`mvHilbertUniform_holds`](../Salt/MR/MVCore2.lean) at sharp π — plausible PA-first); frontier: H3→A2→waves 4–6 + TRUNC-PERRON |
 | 20 | [THE PAPER](../papers/flagship/main.tex) | "Twin Primes and Siegel Zeros: a Fulcrum" | 🔶 in approval | submitted 2026-07-20; 19 round-2 refinements; [council rulings](exploration/council-brief-noon.md) |
 

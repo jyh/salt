@@ -10357,3 +10357,25 @@ decisions per question.
   maestro-ruled #256, amended, worst-corner passed). **HFACTOR
   SCOPER DISPATCHED per the #255 law** (T0 = the amendment's
   def-fix; then the ladder + resistance map before any panel).
+
+- 2026-07-20 17:09 PDT: ██ **HFACTOR scoper: WINDMILL #5 — the
+  spine dissolves; the campaign's residual is ONE CLASSICAL
+  THEOREM** ██ (Opus, 142k): T0 green (#256 applied, windowSum
+  → the large-part λ; dependents survived as ruled);
+  HalaszFactor.lean landed w/ the spine witness
+  largeSeries_ftc_double_beta (the β-leg of GHS's double
+  integral = shifted_dirichlet_ftc verbatim; the α-leg
+  likewise via the product-form derivative — page-anchored
+  p.8/p.11). RE-PRICE: hfactor = C-ladder + ONE named C/D
+  core: **MULT-SHIU** (GHS Lemma 2.4's Shiu/Brun–Titchmarsh
+  for 1-bounded multiplicative f at the 1/log-SAVING direction
+  — the corpus's τ-Shiu is the WRONG direction, log-growth).
+  Bonus catches: GHS (2.3)'s 𝓛'/𝓛 is a PDF-render artifact
+  (plain 𝓛'; the frozen RHS consistent); Lemma 2.5's truncation
+  term DISSOLVES (the hat kernel is exact — the campaign
+  correctly dropped it); the abscissa concern is a non-issue
+  (𝒮/P finite-entire). R2 mapped (the private twistCoeff
+  template must be rebuilt — noted). Annals updated. **MULT-SHIU
+  = the panel candidate on tomorrow's planning agenda** (joint
+  decision per the quota law). Wired+audited (8843 green).
+  Night queue: H3 + TRUNC-PERRON dispatching.

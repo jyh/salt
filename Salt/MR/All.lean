@@ -31,6 +31,7 @@ import Salt.MR.HalaszContour
 import Salt.MR.ParsevalSL
 import Salt.MR.PerronSharp
 import Salt.MR.HalaszRepAsm
+import Salt.MR.HalaszFactor
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -165,3 +166,4 @@ open Salt.Tactic in
   Salt.MR.ellLin_split
   Salt.MR.prop21_contour_leg
   Salt.MR.prop21_analog
+  Salt.MR.largeSeries_ftc_double_beta

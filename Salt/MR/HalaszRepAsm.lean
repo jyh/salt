@@ -167,11 +167,20 @@ the L-series of the above-cutoff linearized twist.  Abscissa `≤ 1`. -/
 def largeSeries (y : ℝ) (g : ℕ → ℂ) : ℂ → ℂ := LSeries (ellLin (restrictAbove y g))
 
 /-- **T1 — the window Dirichlet polynomial `P_β`** (GHS `∑_{y<n<x/y} Λ_ℓ(n)/n^s`,
-(2.1), the linearized analog with `Λ_ℓ = lambdaLin g`): a FINITE sum over the open
-window `(y, X/y)`.  For `0 ≤ y` the index set `Ioo ⌊y⌋₊ ⌈X/y⌉₊` is exactly
-`{n : y < n < X/y}` (`mem_window_iff`). -/
+(2.1), the linearized analog with `Λ_ℓ = lambdaLin (restrictAbove y g)`): a FINITE
+sum over the open window `(y, X/y)`.  For `0 ≤ y` the index set `Ioo ⌊y⌋₊ ⌈X/y⌉₊` is
+exactly `{n : y < n < X/y}` (`mem_window_iff`).
+
+**AMENDMENT S1-B (catch #256, maestro ruling 2026-07-20).**  The coefficient is the
+GHS-faithful large-part von Mangoldt analog `lambdaLin (restrictAbove y g)` — the
+`Λ_ℓ` whose derivative `ellLin_lseries_deriv` is exact at the LARGE datum `𝓛`.  The
+naive `lambdaLin g` overcounts small-base powers `p^k` with `p ≤ y < p^k` that GHS
+routes into the smooth part; those extras are NOT in `𝓛`'s derivative.  Exactness
+requires the restricted form; the restricted coefficient has strictly smaller mass
+(`‖lambdaLin (restrictAbove y g) n‖ ≤ Λ n` a fortiori), so every downstream bound
+survives.  See `docs/exploration/halasz-infra-freeze.md` AMENDMENT S1-B. -/
 def windowSum (g : ℕ → ℂ) (X y : ℝ) (s : ℂ) : ℂ :=
-  ∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊, lambdaLin g n / (n : ℂ) ^ s
+  ∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊, lambdaLin (restrictAbove y g) n / (n : ℂ) ^ s
 
 /-- The window index set is exactly `{n : y < n < X/y}` (for `0 ≤ y`). -/
 lemma mem_window_iff {X y : ℝ} (hy : 0 ≤ y) (n : ℕ) :
@@ -434,9 +443,10 @@ Shiu/Lemma-2.4 secondary term `O(X/log X·(log y)^κ)` plus the desmooth
 the SAME conditional landing form as `contour_A13_A14_head`/`halasz_ball_decay`.
 
 DEVIATIONS RECORDED (iron rule 1): (1) `restrictBelow = p ≤ y` (module docstring);
-(2) the window `P_β` here uses `lambdaLin g` (mission/freeze-literal) — the
-GHS-faithful object is `lambdaLin (restrictAbove y g)` (see the executor NOTE:
-they agree on the support of `Λ_ℓ`, prime powers `p > y`). -/
+(2) RESOLVED by AMENDMENT S1-B (catch #256, T0 of the hfactor campaign): the window
+`P_β` now uses the GHS-faithful large-part coefficient `lambdaLin (restrictAbove y g)`
+(see `windowSum`'s docstring) — exactness at `𝓛`'s derivative, restricted-form mass
+`≤ Λ` a fortiori so all downstream bounds survive. -/
 theorem prop21_analog {f g : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1)
     (t₀ : ℝ) {X h c₀ y η E : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc₀ : 1 < c₀)
     (hfactor :
