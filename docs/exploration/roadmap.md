@@ -49,4 +49,4 @@ ground truth), Tier-D (freeze refutability), + the honesty axis
 give-up-early compliance). Zero training contamination (private,
 post-cutoff). Model-vs-harness separable (multi-model harnesses).
 A satellite paper candidate. Origin: JYH's Google-objectivity
-question, 2026-07-21 morning.
+question, 2026-07-21 morning. **Review dispatched 2026-07-21; integration on the council/portfolio table.**
