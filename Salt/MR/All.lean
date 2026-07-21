@@ -43,6 +43,7 @@ import Salt.MR.LargeValues
 import Salt.MR.RamareWindows
 import Salt.MR.HalaszPrimes
 import Salt.MR.HalaszIntegers
+import Salt.MR.VanDerCorput
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -207,3 +208,6 @@ open Salt.Tactic in
   Salt.MR.dualPoly_diagonal
   Salt.MR.wellspaced_harmonic_double
   Salt.MR.halasz_integers_of_vanDerCorput
+  Salt.MR.norm_socketSum_eq_eR
+  Salt.MR.socketBlock_kusmin
+  Salt.MR.socketBlock_strip

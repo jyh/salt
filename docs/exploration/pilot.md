@@ -10641,3 +10641,26 @@ decisions per question.
   (33)/(34) via Poisson/Thm 3.8) — and the SOURCE IS STAGED,
   so this is a PORT not a panel (the MV-CORE-2 precedent).
   VDC PORT DISPATCHED. In flight: WINDOW-SWAP, VDC.
+
+- 2026-07-20 22:27 PDT (night shift): ██ VDC: THE PORT WAS MOOT — the
+  machinery is OURS ██ (Opus, 153k): VanDerCorput.lean, 7
+  stones, wired+audited (8856 green). V1: mathlib EMPTY of vdC;
+  **Salt/ExpSum/ already holds the full block-tile arsenal**
+  (kusmin U/t-half, the strip √U-half, the general-k
+  seam/window tiles, the dyadic assemblers — the VMVT track's
+  gift). Landed: the socket↔eR bridge (exp(iu·log n) =
+  conj(eR) — every tile now feeds the socket), the |u| ≤ 1
+  partial at √2, both block halves in socket form. CATCH
+  (statement-level): the hZ socket was STRONGER than Ten
+  Lectures (33) — the √t·log t log is irreducible at this
+  process level; the L9-FINISH docstring misattributed.
+  MAESTRO RULING (worst-corner passed): (1) the socket
+  restates w/ its honest log; (2) the FROZEN single-log L9
+  shape REMAINS REACHABLE — the vdC log and harmonic log live
+  in DIFFERENT terms (N·log + |𝒯|√T·log: they ADD; the
+  split-row assembly keeps them apart; no freeze amendment
+  needed). VDC-ASM dispatched: T0 socket restate → the dyadic
+  assembly from OUR tiles (kusmin/strip/general-k/trivial-at-
+  u≥N²) → the split-row refinement → halasz_integers
+  UNCONDITIONAL at the frozen shape. In flight: WINDOW-SWAP,
+  VDC-ASM.
