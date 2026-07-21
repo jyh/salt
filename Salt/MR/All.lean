@@ -33,6 +33,7 @@ import Salt.MR.PerronSharp
 import Salt.MR.HalaszRepAsm
 import Salt.MR.HalaszFactor
 import Salt.MR.DistSplit
+import Salt.MR.PerronTrunc
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -171,3 +172,4 @@ open Salt.Tactic in
   Salt.MR.dist_split_A4
   Salt.MR.dist_split_fgJ
   Salt.MR.dist_recenter
+  Salt.MR.perron_trunc

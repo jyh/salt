@@ -10405,3 +10405,22 @@ decisions per question.
   unquoted heredocs execute backticks — ledger entries with code
   words use quoted heredocs ('EOF') and date-stamping via a
   pre-computed variable.]
+
+- 2026-07-20 (night shift, post-21:00): ██ THE A-LANE D-CORE FALLS
+  — perron_trunc LANDED ██ (Opus, 228k, design-first-attempt
+  throughout): PerronTrunc.lean, 10 decls, wired+audited (8845
+  green). The classical discontinuous truncated Perron formula:
+  norm(perronContour − 2πi·indicator(y>1)) ≤ 2y^c/(T|log y|),
+  proven WITHOUT improper integrals (the finite-rectangle
+  identity uniform in R + an explicit-R discard via
+  add_one_le_exp — no tendsto anywhere; the HalaszContour
+  rectangle template char-for-char). CATCH (anchor correction):
+  the pilot's montgomery3.txt ~14313 anchor is an APPLICATION
+  site, not Thm 5.1's statement (which is untranscribed there);
+  the load-bearing MV anchor is the kernel-decay remark at
+  :3530-3531. R4 hand-off mapped: one named small lemma
+  (perron_trunc_trivial — the unconditional no-residue crossover
+  bound) + the summed-error assembly. Annals updated.
+  NIGHT WAVE 2 DISPATCHED: A3a-R4 (the Lemma-14 U/V assembly —
+  could CLOSE A3a) + PropA3Core (R3.2/R3.3/R3.4 — the thm_A1'
+  approach, MULT-SHIU carried abstractly).
