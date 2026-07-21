@@ -86,7 +86,11 @@ question, 2026-07-21 morning. **Review dispatched 2026-07-21; integration on the
   process artifacts are answer keys for Tiers S/D/F and the memory
   store for the gap experiments). Ratified in principle; the
   operational cut joins the pre-public hard gate alongside the
-  copyright purge.
+  copyright purge. ⟦GATE ITEM ADDED 2026-07-21: the SAME
+  git-filter-repo pass also rewrites the author/committer email across salt's full history
+  (1,108 commits carried a stale identity via the global
+  gitconfig — the jas audit surfaced it; configs fixed 15:25,
+  history rewrite deferred to the gate).⟧
 - **The store law:** with-memory arms are defined RELATIVE TO EACH
   MODEL'S CUTOFF — the store an agent receives is the slice of
   catches minted after that model's training data closed.
