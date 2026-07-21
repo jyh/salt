@@ -13,24 +13,26 @@ This file bridges the from-scratch van der Corput / exponential-sum corpus in
 …) to the socket shape demanded by
 `Salt.MR.halasz_integers_of_vanDerCorput`, namely
 
-  `hZ : ‖∑_{n=1}^N n^{iu}‖ ≤ Cvdc·(N/√(1+u²) + √(1+|u|))`   (`n^{iu} = exp(i·u·log n)`).
+  `hZ : ‖∑_{n=1}^N n^{iu}‖ ≤ Cvdc·(N/√(1+u²) + √(1+|u|)·(1+log(2+|u|)))`
+      (`n^{iu} = exp(i·u·log n)`).
 
-## Provenance / the socket–source gap (reported to the council)
+## Provenance / the socket–source gap (RESOLVED at the statement level)
 
-The socket asks for `√(1+|u|)` with **no logarithm**.  The source route
-(Montgomery, *Ten Lectures*, p. 141, display (33)) proves only
+VDC's SCOUT found the earlier log-free socket `Cvdc·(N/√(1+u²) + √(1+|u|))`
+**strictly stronger than the source**: Montgomery, *Ten Lectures*, p. 141 (33)
+proves only
 
   `Z(it) ≪ N/t + t^{1/2}·log t`,
 
-i.e. a `log t` sits on the middle term: display (34) gives `t^{1/2}` per dyadic
-block on `√t ≤ U ≤ t`, and "(33) follows by summing over dyadic blocks", which
-introduces `≈ ½log₂ t` such blocks.  The socket is therefore **strictly stronger
-than the source** and cannot be discharged as frozen from the *Ten Lectures*
-route (nor from the current corpus, whose sharpest middle tile is the same
-second-derivative `√U`-per-block, giving `√t·log t` under summation).  See the
-session NOTES: the exact socket is routed to the council for a statement
-decision (restate with the honest `log`, or supply a sharper — Poisson B-process
-— block bound).
+with a `log t` on the middle term — (34) gives `t^{1/2}` per dyadic block on
+`√t ≤ U ≤ t`, and (33) sums `≈ ½log₂ t` such blocks.  The **maestro ruling** (banked)
+restates the socket to its honest shape (the `·(1+log(2+|u|))` tail above), which
+`Salt.MR.halasz_integers_log_split` / `halasz_integers_of_vanDerCorput` now consume;
+the frozen single-log L9 grade survives because the vdC log and the harmonic log live
+in *different* terms (they add, never multiply).  The remaining analytic residual is
+the middle band `1 ≤ |u| ≤ N²`: the dyadic assembly of the block tiles inherits the
+ExpSum track's own **LITT-COVER** residual (no single global `k` covers all dyadic
+scales; the second-derivative tile is `√U`-per-block, summing to `√t·log t`).
 
 ## What this file lands (Zeno partials — reusable corpus stones)
 
@@ -38,8 +40,9 @@ decision (restate with the honest `log`, or supply a sharper — Poisson B-proce
   `exp(i·u·log n) = conj(eR (phi u n))`, so each socket term has norm `1`.
 * `norm_socketSum_eq_eR` — norm-level bridge from a socket sum to the corpus
   ζ-phase sum `∑ eR (phi u n)` over any `Finset ℕ`.
-* `halasz_socket_small` — the socket, **unconditionally**, on `|u| ≤ 1`
-  (constant `Cvdc = √2`, via the trivial bound `‖∑‖ ≤ N`).
+* `halasz_socket_small` / `halasz_socket_large` — the honest-log socket,
+  **unconditionally**, on the two frequency corners `|u| ≤ 1` (`Cvdc = √2`) and
+  `|u| ≥ N²` (`Cvdc = 1`), both via the trivial bound `‖∑‖ ≤ N`.
 -/
 
 noncomputable section
@@ -104,12 +107,13 @@ lemma norm_socketSum_le_card (u : ℝ) (N : ℕ) :
       Finset.sum_const, Nat.card_Icc]
   simp
 
-/-- **STONE 2 — the socket for small frequencies.**  For `|u| ≤ 1` the socket
-holds unconditionally with `Cvdc = √2`, straight from the trivial bound
-`‖∑‖ ≤ N` and `√(1+u²) ≤ √2`. -/
+/-- **STONE 2 — the socket for small frequencies.**  For `|u| ≤ 1` the honest-log
+socket holds unconditionally with `Cvdc = √2`, straight from the trivial bound
+`‖∑‖ ≤ N` and `√(1+u²) ≤ √2` (the tail's extra `·(1+log(2+|u|))` only enlarges the RHS). -/
 theorem halasz_socket_small (N : ℕ) (u : ℝ) (hu : |u| ≤ 1) :
     ‖∑ n ∈ Finset.Icc 1 N, Complex.exp (Complex.I * (u : ℂ) * (Real.log (n : ℝ) : ℂ))‖
-      ≤ Real.sqrt 2 * ((N : ℝ) / Real.sqrt (1 + u ^ 2) + Real.sqrt (1 + |u|)) := by
+      ≤ Real.sqrt 2 * ((N : ℝ) / Real.sqrt (1 + u ^ 2)
+          + Real.sqrt (1 + |u|) * (1 + Real.log (2 + |u|))) := by
   have hu2 : u ^ 2 ≤ 1 := by
     have := abs_le.mp hu
     nlinarith [this.1, this.2]
@@ -122,15 +126,49 @@ theorem halasz_socket_small (N : ℕ) (u : ℝ) (hu : |u| ≤ 1) :
     rw [le_div_iff₀ hden_pos]
     have hNnn : (0 : ℝ) ≤ (N : ℝ) := Nat.cast_nonneg N
     nlinarith [mul_le_mul_of_nonneg_left hden_le hNnn]
-  have hsqrt_nn : 0 ≤ Real.sqrt (1 + |u|) := Real.sqrt_nonneg _
   have h2nn : (0 : ℝ) ≤ Real.sqrt 2 := Real.sqrt_nonneg _
+  have htail_nn : 0 ≤ Real.sqrt (1 + |u|) * (1 + Real.log (2 + |u|)) := by
+    have hlog : 0 ≤ 1 + Real.log (2 + |u|) := by
+      have := Real.log_nonneg (show (1 : ℝ) ≤ 2 + |u| by have := abs_nonneg u; linarith)
+      linarith
+    exact mul_nonneg (Real.sqrt_nonneg _) hlog
   calc ‖∑ n ∈ Finset.Icc 1 N,
           Complex.exp (Complex.I * (u : ℂ) * (Real.log (n : ℝ) : ℂ))‖
       ≤ (N : ℝ) := norm_socketSum_le_card u N
     _ ≤ Real.sqrt 2 * ((N : ℝ) / Real.sqrt (1 + u ^ 2)) := hN_le
-    _ ≤ Real.sqrt 2 * ((N : ℝ) / Real.sqrt (1 + u ^ 2) + Real.sqrt (1 + |u|)) := by
+    _ ≤ Real.sqrt 2 * ((N : ℝ) / Real.sqrt (1 + u ^ 2)
+          + Real.sqrt (1 + |u|) * (1 + Real.log (2 + |u|))) := by
         apply mul_le_mul_of_nonneg_left _ h2nn
-        linarith [hsqrt_nn]
+        linarith [htail_nn]
+
+/-- **STONE 2b — the socket for large frequencies.**  For `(N:ℝ)² ≤ |u|` the honest-log
+socket holds unconditionally with `Cvdc = 1`, straight from the trivial bound `‖∑‖ ≤ N`:
+here `N = √(N²) ≤ √(1+|u|) ≤ √(1+|u|)·(1+log(2+|u|))`, so the tail term alone already
+dominates the whole sum.  Together with `halasz_socket_small` (`|u| ≤ 1`) this discharges
+the socket unconditionally on the two frequency **corners**; the middle band
+`1 ≤ |u| ≤ N²` is the dyadic-assembly residual (see the file header). -/
+theorem halasz_socket_large (N : ℕ) (u : ℝ) (hu : (N : ℝ) ^ 2 ≤ |u|) :
+    ‖∑ n ∈ Finset.Icc 1 N, Complex.exp (Complex.I * (u : ℂ) * (Real.log (n : ℝ) : ℂ))‖
+      ≤ 1 * ((N : ℝ) / Real.sqrt (1 + u ^ 2)
+          + Real.sqrt (1 + |u|) * (1 + Real.log (2 + |u|))) := by
+  have hNnn : (0 : ℝ) ≤ (N : ℝ) := Nat.cast_nonneg N
+  have hN_le : (N : ℝ) ≤ Real.sqrt (1 + |u|) := by
+    rw [show (N : ℝ) = Real.sqrt ((N : ℝ) ^ 2) from (Real.sqrt_sq hNnn).symm]
+    exact Real.sqrt_le_sqrt (by linarith [abs_nonneg u])
+  have hsqrt_nn : 0 ≤ Real.sqrt (1 + |u|) := Real.sqrt_nonneg _
+  have hlog : (1 : ℝ) ≤ 1 + Real.log (2 + |u|) := by
+    have := Real.log_nonneg (show (1 : ℝ) ≤ 2 + |u| by have := abs_nonneg u; linarith)
+    linarith
+  have hhead_nn : 0 ≤ (N : ℝ) / Real.sqrt (1 + u ^ 2) := by positivity
+  calc ‖∑ n ∈ Finset.Icc 1 N,
+          Complex.exp (Complex.I * (u : ℂ) * (Real.log (n : ℝ) : ℂ))‖
+      ≤ (N : ℝ) := norm_socketSum_le_card u N
+    _ ≤ Real.sqrt (1 + |u|) := hN_le
+    _ ≤ Real.sqrt (1 + |u|) * (1 + Real.log (2 + |u|)) := le_mul_of_one_le_right hsqrt_nn hlog
+    _ ≤ (N : ℝ) / Real.sqrt (1 + u ^ 2)
+          + Real.sqrt (1 + |u|) * (1 + Real.log (2 + |u|)) := by linarith [hhead_nn]
+    _ = 1 * ((N : ℝ) / Real.sqrt (1 + u ^ 2)
+          + Real.sqrt (1 + |u|) * (1 + Real.log (2 + |u|))) := by rw [one_mul]
 
 /-! ### STONE 3 — the single-dyadic-block halves in socket form (V2)
 

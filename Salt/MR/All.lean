@@ -211,3 +211,5 @@ open Salt.Tactic in
   Salt.MR.norm_socketSum_eq_eR
   Salt.MR.socketBlock_kusmin
   Salt.MR.socketBlock_strip
+  Salt.MR.halasz_integers_log_split
+  Salt.MR.halasz_socket_large

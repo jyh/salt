@@ -606,18 +606,34 @@ theorem wellspaced_harmonic_double (𝒯 : Finset ℝ) (T : ℝ) (hT : 1 ≤ T)
 
 `exp_sum_decay` cannot reach the frozen `√T` (its defect is linear in `|u|`; see the
 scope note above).  We instead abstract the exponential-sum control into a **van der
-Corput socket** `hZ : ‖Σ_{n≤N} n^{iu}‖ ≤ Cvdc·(N/√(1+u²) + √(1+|u|))` — exactly the
-`Z(iu) ≪ N/|u| + √|u|` bound of Ten Lectures (33) — and land the *entire* duality +
-diagonal + range-split assembly on top of it.  The residual for the unconditional L9
-is then precisely this one honest analytic input (Poisson/van der Corput, Ten Lectures
-(34)), which `exp_sum_decay` does not supply. -/
+Corput socket** `hZ : ‖Σ_{n≤N} n^{iu}‖ ≤ Cvdc·(N/√(1+u²) + √(1+|u|)·(1+log(2+|u|)))`
+— the **honest** shape of Montgomery, *Ten Lectures* p. 141 (33), `Z(it) ≪ N/t +
+√t·log t` (the `log` on the middle term is irreducible at this process level: (34)
+gives `√U` per dyadic block on `√t ≤ U ≤ t`, and (33) sums `≈ ½log₂ t` such blocks;
+VDC's SCOUT corrected the earlier log-free misattribution).  We land the *entire*
+duality + diagonal + split-row assembly on top of it.  The residual for the
+unconditional L9 is then precisely this one honest analytic input over the middle
+frequency band `1 ≤ |u| ≤ N²` (the `|u| ≤ 1` and `|u| ≥ N²` corners are discharged
+unconditionally in `Salt/MR/VanDerCorput.lean`). -/
 
-/-- The van der Corput kernel envelope `K'(r,s) = N/√(1+(r−s)²) + √(1+|r−s|)`. -/
+/-- The van der Corput kernel envelope, **honest-log form**
+`K'(r,s) = N/√(1+(r−s)²) + √(1+|r−s|)·(1+log(2+|r−s|))`.  The tail carries the
+`log` of *Ten Lectures* (33) (`Z(it) ≪ N/t + √t·log t`); the socket–source gap
+scouted by VDC is thereby closed at the statement level (the socket is no longer
+strictly stronger than the source). -/
 noncomputable def vdcKernel (N : ℕ) (r s : ℝ) : ℝ :=
-  (N : ℝ) / Real.sqrt (1 + (r - s) ^ 2) + Real.sqrt (1 + |r - s|)
+  (N : ℝ) / Real.sqrt (1 + (r - s) ^ 2)
+    + Real.sqrt (1 + |r - s|) * (1 + Real.log (2 + |r - s|))
 
 lemma vdcKernel_nonneg (N : ℕ) (r s : ℝ) : 0 ≤ vdcKernel N r s := by
-  unfold vdcKernel; positivity
+  unfold vdcKernel
+  have hlog : 0 ≤ 1 + Real.log (2 + |r - s|) := by
+    have := Real.log_nonneg (show (1 : ℝ) ≤ 2 + |r - s| by have := abs_nonneg (r - s); linarith)
+    linarith
+  have h1 : 0 ≤ (N : ℝ) / Real.sqrt (1 + (r - s) ^ 2) := by positivity
+  have h2 : 0 ≤ Real.sqrt (1 + |r - s|) * (1 + Real.log (2 + |r - s|)) :=
+    mul_nonneg (Real.sqrt_nonneg _) hlog
+  linarith
 
 lemma vdcKernel_symm (N : ℕ) (r s : ℝ) : vdcKernel N r s = vdcKernel N s r := by
   unfold vdcKernel
@@ -628,7 +644,8 @@ lemma vdcKernel_symm (N : ℕ) (r s : ℝ) : vdcKernel N r s = vdcKernel N s r :
 theorem dualPoly_offdiag_vdc_le (𝒯 : Finset ℝ) (b : ℝ → ℂ) (N : ℕ) (Cvdc : ℝ)
     (hZ : ∀ u : ℝ, ‖∑ n ∈ Finset.Icc 1 N,
             Complex.exp (Complex.I * (u : ℂ) * (Real.log (n : ℝ) : ℂ))‖
-          ≤ Cvdc * ((N : ℝ) / Real.sqrt (1 + u ^ 2) + Real.sqrt (1 + |u|))) :
+          ≤ Cvdc * ((N : ℝ) / Real.sqrt (1 + u ^ 2)
+              + Real.sqrt (1 + |u|) * (1 + Real.log (2 + |u|)))) :
     ‖∑ r ∈ 𝒯, ∑ s ∈ 𝒯.erase r, (starRingEnd ℂ) (b r) * b s
         * ∑ n ∈ Finset.Icc 1 N,
             Complex.exp (Complex.I * (((r:ℝ) - (s:ℝ)) : ℂ) * (Real.log (n:ℝ) : ℂ))‖
@@ -640,12 +657,16 @@ theorem dualPoly_offdiag_vdc_le (𝒯 : Finset ℝ) (b : ℝ → ℂ) (N : ℕ) 
   gcongr
   simpa only [Complex.ofReal_sub] using hZ ((r:ℝ) - (s:ℝ))
 
-/-- **Row bound (consumes `F1`).** The full `𝒯`-row of `vdcKernel` (head via `F1`,
-tail trivially by `|r−s| ≤ 2T`) is `≤ N(3 + 2 log 2T) + |𝒯|√(1+2T)`. -/
+/-- **Row bound (consumes `F1`), honest-log form.** The full `𝒯`-row of `vdcKernel`
+(head via `F1`, tail by the per-term max `|r−s| ≤ 2T`) is
+`≤ N(3 + 2 log 2T) + |𝒯|·√(1+2T)·(1+log(2+2T))`.  The two logarithms sit in
+**separate** terms — the head's `log 2T` and the tail's `log(2+2T)` add, never
+multiply (the maestro's "single-log grade"): the `√T`-term's log is confined to it. -/
 theorem vdcKernel_row_le (𝒯 : Finset ℝ) (T : ℝ) (hT : 1 ≤ T)
     (hws : WellSpaced 𝒯) (hsub : ∀ t ∈ 𝒯, t ∈ Set.Icc (-T) T) (N : ℕ) (r : ℝ) (hr : r ∈ 𝒯) :
     ∑ s ∈ 𝒯, vdcKernel N r s
-      ≤ (N : ℝ) * (1 + 2 * (1 + Real.log (2 * T))) + (𝒯.card : ℝ) * Real.sqrt (1 + 2 * T) := by
+      ≤ (N : ℝ) * (1 + 2 * (1 + Real.log (2 * T)))
+        + (𝒯.card : ℝ) * (Real.sqrt (1 + 2 * T) * (1 + Real.log (2 + 2 * T))) := by
   have hhead : ∑ s ∈ 𝒯, (N : ℝ) / Real.sqrt (1 + (r - s) ^ 2)
       ≤ (N : ℝ) * (1 + 2 * (1 + Real.log (2 * T))) := by
     have h1 : ∑ s ∈ 𝒯, (N : ℝ) / Real.sqrt (1 + (r - s) ^ 2)
@@ -657,18 +678,27 @@ theorem vdcKernel_row_le (𝒯 : Finset ℝ) (T : ℝ) (hT : 1 ≤ T)
     have hrr : (1 : ℝ) / Real.sqrt (1 + (r - r) ^ 2) = 1 := by rw [sub_self]; norm_num
     rw [hrr]
     linarith [wellspaced_recip_row 𝒯 T hT hws hsub r hr]
-  have htail : ∑ s ∈ 𝒯, Real.sqrt (1 + |r - s|) ≤ (𝒯.card : ℝ) * Real.sqrt (1 + 2 * T) := by
-    calc ∑ s ∈ 𝒯, Real.sqrt (1 + |r - s|)
-        ≤ ∑ _s ∈ 𝒯, Real.sqrt (1 + 2 * T) := by
+  have htail : ∑ s ∈ 𝒯, Real.sqrt (1 + |r - s|) * (1 + Real.log (2 + |r - s|))
+      ≤ (𝒯.card : ℝ) * (Real.sqrt (1 + 2 * T) * (1 + Real.log (2 + 2 * T))) := by
+    calc ∑ s ∈ 𝒯, Real.sqrt (1 + |r - s|) * (1 + Real.log (2 + |r - s|))
+        ≤ ∑ _s ∈ 𝒯, Real.sqrt (1 + 2 * T) * (1 + Real.log (2 + 2 * T)) := by
           apply Finset.sum_le_sum
           intro s hs
-          apply Real.sqrt_le_sqrt
           have hr𝒯 := Set.mem_Icc.mp (hsub r hr)
           have hs𝒯 := Set.mem_Icc.mp (hsub s hs)
           have hd : |r - s| ≤ 2 * T := by
             rw [abs_le]; constructor <;> linarith [hr𝒯.1, hr𝒯.2, hs𝒯.1, hs𝒯.2]
-          linarith
-      _ = (𝒯.card : ℝ) * Real.sqrt (1 + 2 * T) := by rw [Finset.sum_const, nsmul_eq_mul]
+          have hsqrt_le : Real.sqrt (1 + |r - s|) ≤ Real.sqrt (1 + 2 * T) :=
+            Real.sqrt_le_sqrt (by linarith)
+          have hlog_le : Real.log (2 + |r - s|) ≤ Real.log (2 + 2 * T) :=
+            Real.log_le_log (by positivity) (by linarith)
+          have h2 : 0 ≤ 1 + Real.log (2 + |r - s|) := by
+            have := Real.log_nonneg (show (1 : ℝ) ≤ 2 + |r - s| by
+              have := abs_nonneg (r - s); linarith)
+            linarith
+          exact mul_le_mul hsqrt_le (by linarith) h2 (Real.sqrt_nonneg _)
+      _ = (𝒯.card : ℝ) * (Real.sqrt (1 + 2 * T) * (1 + Real.log (2 + 2 * T))) := by
+          rw [Finset.sum_const, nsmul_eq_mul]
   unfold vdcKernel
   rw [Finset.sum_add_distrib]
   exact add_le_add hhead htail
@@ -712,7 +742,8 @@ AM–GM collapse (`F3`): `Σ_{n≤N} ‖dualPoly‖² ≤ (N + Cvdc·B)·Σ_r �
 theorem dualsq_le_of_vdc (𝒯 : Finset ℝ) (b : ℝ → ℂ) (N : ℕ) (Cvdc : ℝ) (hCvdc : 0 ≤ Cvdc)
     (hZ : ∀ u : ℝ, ‖∑ n ∈ Finset.Icc 1 N,
             Complex.exp (Complex.I * (u : ℂ) * (Real.log (n : ℝ) : ℂ))‖
-          ≤ Cvdc * ((N : ℝ) / Real.sqrt (1 + u ^ 2) + Real.sqrt (1 + |u|)))
+          ≤ Cvdc * ((N : ℝ) / Real.sqrt (1 + u ^ 2)
+              + Real.sqrt (1 + |u|) * (1 + Real.log (2 + |u|))))
     (B : ℝ) (hrow : ∀ r ∈ 𝒯, ∑ s ∈ 𝒯, vdcKernel N r s ≤ B) :
     ∑ n ∈ Finset.Icc 1 N, ‖dualPoly 𝒯 b n‖ ^ 2
       ≤ ((N : ℝ) + Cvdc * B) * ∑ r ∈ 𝒯, ‖b r‖ ^ 2 := by
@@ -762,62 +793,67 @@ theorem dualsq_le_of_vdc (𝒯 : Finset ℝ) (b : ℝ → ℂ) (N : ℕ) (Cvdc :
   rw [add_mul]
   linarith [key, hoff]
 
-/-- **`F4` — the conditional `halasz_integers`.**  Given the van der Corput socket
-`hZ`, the frozen L9 shape holds with an explicit absolute constant:
-`Σ_{t∈𝒯} ‖A(it)‖² ≤ 3(Cvdc+1)·(N + |𝒯|√T)·(1 + log 2T)·Σ‖aₙ‖²`
-for well-spaced `𝒯 ⊆ [−T,T]`, `T ≥ 1`.  Route: `l2_duality` (primal ← dual) with the
-kernel `φ r n = n^{ir}` (so `dpoly` is the primal and `dualPoly` the l²-adjoint), the
-dual bound `dualsq_le_of_vdc`, and the row bound `vdcKernel_row_le` at `B`.  The **only**
-input beyond the landed corpus is `hZ` — the `Z(iu) ≪ N/|u| + √|u|` bound of Ten
-Lectures (33), which `exp_sum_decay` does not supply (see the scope note): the unbuilt
-van der Corput/Poisson estimate is the campaign's named residual for L9. -/
-theorem halasz_integers_of_vanDerCorput (N : ℕ) (a : ℕ → ℂ) (T : ℝ) (hT : 1 ≤ T)
+/-- **`halasz_integers_log_split` (T1) — the split-log primal grade.**  The honest
+intermediate before the frozen collapse: the two logarithms stay in **separate** terms
+(`log 2T` on the `N`-head, `log(2+2T)` on the `|𝒯|·√(1+2T)`-tail — they *add*, never
+multiply; the maestro's "single-log grade"):
+`Σ_{t∈𝒯} ‖A(it)‖²
+   ≤ (3(Cvdc+1)·N·(1+log 2T) + (Cvdc+1)·|𝒯|·√(1+2T)·(1+log(2+2T)))·Σ‖aₙ‖²`,
+for well-spaced `𝒯 ⊆ [−T,T]`, `T ≥ 1`.  Route: `dualsq_le_of_vdc` at the split `F1`-row
+(`vdcKernel_row_le`), through `l2_duality` (`dpoly` primal ← `dualPoly` l²-adjoint).  The
+frozen `(N+|𝒯|√T)·log` shape (`halasz_integers_of_vanDerCorput`) is its collapse.  The
+sole analytic input is the honest-log socket `hZ` (see the section note). -/
+theorem halasz_integers_log_split (N : ℕ) (a : ℕ → ℂ) (T : ℝ) (hT : 1 ≤ T)
     (𝒯 : Finset ℝ) (hws : WellSpaced 𝒯) (hsub : ∀ t ∈ 𝒯, t ∈ Set.Icc (-T) T)
     (Cvdc : ℝ) (hCvdc : 0 ≤ Cvdc)
     (hZ : ∀ u : ℝ, ‖∑ n ∈ Finset.Icc 1 N,
             Complex.exp (Complex.I * (u : ℂ) * (Real.log (n : ℝ) : ℂ))‖
-          ≤ Cvdc * ((N : ℝ) / Real.sqrt (1 + u ^ 2) + Real.sqrt (1 + |u|))) :
+          ≤ Cvdc * ((N : ℝ) / Real.sqrt (1 + u ^ 2)
+              + Real.sqrt (1 + |u|) * (1 + Real.log (2 + |u|)))) :
     ∑ t ∈ 𝒯, ‖dpoly N a t‖ ^ 2
-      ≤ 3 * (Cvdc + 1) * ((N : ℝ) + (𝒯.card : ℝ) * Real.sqrt T) * (1 + Real.log (2 * T))
+      ≤ (3 * (Cvdc + 1) * (N : ℝ) * (1 + Real.log (2 * T))
+          + (Cvdc + 1) * (𝒯.card : ℝ)
+              * (Real.sqrt (1 + 2 * T) * (1 + Real.log (2 + 2 * T))))
           * ∑ n ∈ Finset.Icc 1 N, ‖a n‖ ^ 2 := by
   classical
   set L := Real.log (2 * T) with hLdef
   have hLnn : 0 ≤ L := Real.log_nonneg (by linarith)
   set S := (𝒯.card : ℝ) with hSdef
   have hSnn : 0 ≤ S := Nat.cast_nonneg _
-  have hsqrtT : 0 ≤ Real.sqrt T := Real.sqrt_nonneg _
-  set B := (N : ℝ) * (1 + 2 * (1 + L)) + S * Real.sqrt (1 + 2 * T) with hBdef
+  set B := (N : ℝ) * (1 + 2 * (1 + L))
+      + S * (Real.sqrt (1 + 2 * T) * (1 + Real.log (2 + 2 * T))) with hBdef
   have hrow : ∀ r ∈ 𝒯, ∑ s ∈ 𝒯, vdcKernel N r s ≤ B := by
     intro r hr; rw [hBdef, hLdef, hSdef]; exact vdcKernel_row_le 𝒯 T hT hws hsub N r hr
-  set Δ := 3 * (Cvdc + 1) * ((N : ℝ) + S * Real.sqrt T) * (1 + L) with hΔdef
+  set Δ := 3 * (Cvdc + 1) * (N : ℝ) * (1 + L)
+      + (Cvdc + 1) * S * (Real.sqrt (1 + 2 * T) * (1 + Real.log (2 + 2 * T))) with hΔdef
+  have hMnn : 0 ≤ 1 + Real.log (2 + 2 * T) := by
+    have := Real.log_nonneg (show (1 : ℝ) ≤ 2 + 2 * T by linarith); linarith
+  have hSMnn : 0 ≤ S * (Real.sqrt (1 + 2 * T) * (1 + Real.log (2 + 2 * T))) :=
+    mul_nonneg hSnn (mul_nonneg (Real.sqrt_nonneg _) hMnn)
   have hΔnn : 0 ≤ Δ := by
     rw [hΔdef]
-    exact mul_nonneg (mul_nonneg (mul_nonneg (by norm_num) (by linarith)) (by positivity))
-      (by linarith)
-  have hsq : Real.sqrt (1 + 2 * T) ≤ 2 * Real.sqrt T := by
-    rw [show (2 : ℝ) * Real.sqrt T = Real.sqrt (4 * T) by
-      rw [Real.sqrt_mul (by norm_num) T, show Real.sqrt 4 = 2 by
-        rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.sqrt_sq (by norm_num)]]]
-    exact Real.sqrt_le_sqrt (by linarith)
+    have h1 : 0 ≤ 3 * (Cvdc + 1) * (N : ℝ) * (1 + L) :=
+      mul_nonneg (mul_nonneg (mul_nonneg (by norm_num) (by linarith)) (Nat.cast_nonneg N))
+        (by linarith)
+    have h2 : 0 ≤ (Cvdc + 1) * S * (Real.sqrt (1 + 2 * T) * (1 + Real.log (2 + 2 * T))) :=
+      mul_nonneg (mul_nonneg (by linarith) hSnn) (mul_nonneg (Real.sqrt_nonneg _) hMnn)
+    linarith
   have hconst : (N : ℝ) + Cvdc * B ≤ Δ := by
     have part_a : (N : ℝ) * (1 + Cvdc * (1 + 2 * (1 + L)))
         ≤ 3 * (Cvdc + 1) * (N : ℝ) * (1 + L) := by
       have inner : 1 + Cvdc * (1 + 2 * (1 + L)) ≤ 3 * (Cvdc + 1) * (1 + L) := by
         nlinarith [mul_nonneg hCvdc hLnn, hCvdc, hLnn]
       nlinarith [mul_le_mul_of_nonneg_left inner (Nat.cast_nonneg N : (0 : ℝ) ≤ (N : ℝ))]
-    have part_b : Cvdc * (S * Real.sqrt (1 + 2 * T))
-        ≤ 3 * (Cvdc + 1) * (S * Real.sqrt T) * (1 + L) := by
-      have hst : 0 ≤ S * Real.sqrt T := mul_nonneg hSnn hsqrtT
-      have step1 : Cvdc * (S * Real.sqrt (1 + 2 * T)) ≤ 2 * Cvdc * (S * Real.sqrt T) := by
-        nlinarith [mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left hsq hSnn) hCvdc]
-      have hc : 2 * Cvdc ≤ 3 * (Cvdc + 1) * (1 + L) := by
-        nlinarith [hCvdc, hLnn, mul_nonneg hCvdc hLnn]
-      nlinarith [step1, mul_le_mul_of_nonneg_right hc hst]
+    have part_b : Cvdc * (S * (Real.sqrt (1 + 2 * T) * (1 + Real.log (2 + 2 * T))))
+        ≤ (Cvdc + 1) * (S * (Real.sqrt (1 + 2 * T) * (1 + Real.log (2 + 2 * T)))) :=
+      mul_le_mul_of_nonneg_right (by linarith) hSMnn
     have hLHS : (N : ℝ) + Cvdc * B
         = (N : ℝ) * (1 + Cvdc * (1 + 2 * (1 + L)))
-          + Cvdc * (S * Real.sqrt (1 + 2 * T)) := by rw [hBdef]; ring
+          + Cvdc * (S * (Real.sqrt (1 + 2 * T) * (1 + Real.log (2 + 2 * T)))) := by
+      rw [hBdef]; ring
     have hRHS : Δ = 3 * (Cvdc + 1) * (N : ℝ) * (1 + L)
-        + 3 * (Cvdc + 1) * (S * Real.sqrt T) * (1 + L) := by rw [hΔdef]; ring
+        + (Cvdc + 1) * (S * (Real.sqrt (1 + 2 * T) * (1 + Real.log (2 + 2 * T)))) := by
+      rw [hΔdef]; ring
     rw [hLHS, hRHS]; exact add_le_add part_a part_b
   -- the dual bound (via dualsq_le_of_vdc), phrased for `l2_duality`
   have hdual : ∀ b : ℝ → ℂ,
@@ -858,5 +894,67 @@ theorem halasz_integers_of_vanDerCorput (N : ℕ) (a : ℕ → ℂ) (T : ℝ) (h
           Complex.exp (Complex.I * (r : ℂ) * (Real.log (n : ℝ) : ℂ)) * a n‖ ^ 2 := by
         apply Finset.sum_congr rfl; intro r _; rw [hdp r]
     _ ≤ Δ * ∑ n ∈ Finset.Icc 1 N, ‖a n‖ ^ 2 := hprimal
+
+/-- **`F4` — the conditional `halasz_integers` (frozen √T shape).**  The
+`halasz_integers_log_split` grade collapsed to the frozen shape at the honest absolute
+constant **4** (was `3` on VDC's earlier log-free socket; the extra `(1+log(2+2T))` tail
+costs a bare `O(1)` factor — noted loudly, per the maestro's convention):
+`Σ_{t∈𝒯} ‖A(it)‖² ≤ 4(Cvdc+1)·(N + |𝒯|√T)·(1 + log 2T)·Σ‖aₙ‖²`, for well-spaced
+`𝒯 ⊆ [−T,T]`, `T ≥ 1`, via `√(1+2T) ≤ 2√T` and `1+log(2+2T) ≤ 2(1+log 2T)` (both honest).
+The **only** input beyond the landed corpus is `hZ` — the *Ten Lectures* (33) van der
+Corput bound `Z(iu) ≪ N/|u| + √|u|·log|u|` — discharged unconditionally on `|u| ≤ 1` and
+`|u| ≥ N²` (`Salt/MR/VanDerCorput.lean`); the middle band `1 ≤ |u| ≤ N²` is the
+campaign's named residual for L9 (the dyadic assembly / ExpSum LITT-COVER). -/
+theorem halasz_integers_of_vanDerCorput (N : ℕ) (a : ℕ → ℂ) (T : ℝ) (hT : 1 ≤ T)
+    (𝒯 : Finset ℝ) (hws : WellSpaced 𝒯) (hsub : ∀ t ∈ 𝒯, t ∈ Set.Icc (-T) T)
+    (Cvdc : ℝ) (hCvdc : 0 ≤ Cvdc)
+    (hZ : ∀ u : ℝ, ‖∑ n ∈ Finset.Icc 1 N,
+            Complex.exp (Complex.I * (u : ℂ) * (Real.log (n : ℝ) : ℂ))‖
+          ≤ Cvdc * ((N : ℝ) / Real.sqrt (1 + u ^ 2)
+              + Real.sqrt (1 + |u|) * (1 + Real.log (2 + |u|)))) :
+    ∑ t ∈ 𝒯, ‖dpoly N a t‖ ^ 2
+      ≤ 4 * (Cvdc + 1) * ((N : ℝ) + (𝒯.card : ℝ) * Real.sqrt T) * (1 + Real.log (2 * T))
+          * ∑ n ∈ Finset.Icc 1 N, ‖a n‖ ^ 2 := by
+  refine (halasz_integers_log_split N a T hT 𝒯 hws hsub Cvdc hCvdc hZ).trans ?_
+  refine mul_le_mul_of_nonneg_right ?_ (Finset.sum_nonneg fun n _ => by positivity)
+  set L := Real.log (2 * T) with hLdef
+  set S := (𝒯.card : ℝ) with hSdef
+  have hLnn : 0 ≤ L := Real.log_nonneg (by linarith)
+  have hSnn : 0 ≤ S := Nat.cast_nonneg _
+  have hsqrtT : 0 ≤ Real.sqrt T := Real.sqrt_nonneg _
+  have hst : 0 ≤ S * Real.sqrt T := mul_nonneg hSnn hsqrtT
+  have h1L : (0 : ℝ) ≤ 1 + L := by linarith
+  have hsq : Real.sqrt (1 + 2 * T) ≤ 2 * Real.sqrt T := by
+    rw [show (2 : ℝ) * Real.sqrt T = Real.sqrt (4 * T) by
+      rw [Real.sqrt_mul (by norm_num) T, show Real.sqrt 4 = 2 by
+        rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.sqrt_sq (by norm_num)]]]
+    exact Real.sqrt_le_sqrt (by linarith)
+  have hMnn : 0 ≤ 1 + Real.log (2 + 2 * T) := by
+    have := Real.log_nonneg (show (1 : ℝ) ≤ 2 + 2 * T by linarith); linarith
+  have hM : 1 + Real.log (2 + 2 * T) ≤ 2 * (1 + L) := by
+    have hTpos : (0 : ℝ) < 2 * T := by linarith
+    have h2 : Real.log (2 + 2 * T) ≤ Real.log (2 * (2 * T)) :=
+      Real.log_le_log (by linarith) (by linarith)
+    have h3 : Real.log (2 * (2 * T)) = Real.log 2 + L := by
+      rw [Real.log_mul (by norm_num) (ne_of_gt hTpos), ← hLdef]
+    have hlog2 : Real.log 2 ≤ 1 := by
+      have := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num); linarith
+    linarith
+  have hhead : 3 * (Cvdc + 1) * (N : ℝ) * (1 + L) ≤ 4 * (Cvdc + 1) * (N : ℝ) * (1 + L) := by
+    have hbase : 0 ≤ (Cvdc + 1) * (N : ℝ) * (1 + L) :=
+      mul_nonneg (mul_nonneg (by linarith) (Nat.cast_nonneg N)) h1L
+    nlinarith [hbase]
+  have hprod : Real.sqrt (1 + 2 * T) * (1 + Real.log (2 + 2 * T)) ≤ 4 * Real.sqrt T * (1 + L) := by
+    calc Real.sqrt (1 + 2 * T) * (1 + Real.log (2 + 2 * T))
+        ≤ (2 * Real.sqrt T) * (2 * (1 + L)) := mul_le_mul hsq hM hMnn (by positivity)
+      _ = 4 * Real.sqrt T * (1 + L) := by ring
+  have htail : (Cvdc + 1) * S * (Real.sqrt (1 + 2 * T) * (1 + Real.log (2 + 2 * T)))
+      ≤ 4 * (Cvdc + 1) * (S * Real.sqrt T) * (1 + L) := by
+    calc (Cvdc + 1) * S * (Real.sqrt (1 + 2 * T) * (1 + Real.log (2 + 2 * T)))
+        ≤ (Cvdc + 1) * S * (4 * Real.sqrt T * (1 + L)) := by
+          apply mul_le_mul_of_nonneg_left hprod
+          exact mul_nonneg (by linarith) hSnn
+      _ = 4 * (Cvdc + 1) * (S * Real.sqrt T) * (1 + L) := by ring
+  nlinarith [hhead, htail]
 
 end Salt.MR

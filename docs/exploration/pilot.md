@@ -10664,3 +10664,22 @@ decisions per question.
   u≥N²) → the split-row refinement → halasz_integers
   UNCONDITIONAL at the frozen shape. In flight: WINDOW-SWAP,
   VDC-ASM.
+
+- 2026-07-20 22:56 PDT (night shift): ██ VDC-ASM — L9 at the frozen shape,
+  const 4; the residual traces to an OLD DEBT ██ (Opus, 226k):
+  T0 the honest-log socket in all four carriers; T1 the
+  split-row machine (halasz_integers_log_split — the two logs
+  in separate terms as ruled) + halasz_integers_of_vanDerCorput
+  at the frozen (N+|𝒯|√T)·(1+log 2T), const honestly 4 (3
+  unreachable — the tail collapse forces it; the O(1)
+  convention noted). T2: BOTH corners discharged unconditionally
+  (|u| ≤ 1 at √2; |u| ≥ N² at 1, the crossover proven). T3
+  BLOCKED honestly: the middle band 1 ≤ |u| ≤ N² INHERITS the
+  ExpSum track's open LITT-COVER residual (no assembled
+  pure-phase full-range bound; the strip tile sums to √t·log t
+  but no single k-window covers [1,N]). **MID-BAND joins the
+  council pile; a scoper dispatched tonight to inform it**
+  (#255). New trap: replace_all near-miss (2-of-3 occurrences,
+  kernel-caught) — check occurrence counts. Audited (8857
+  green). In flight: WINDOW-SWAP (3.5h — long but within its
+  budget class), MIDBAND scoper.
