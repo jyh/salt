@@ -10736,3 +10736,20 @@ decisions per question.
   dissolved → UNCONDITIONAL.** The large-values board: L7 ✅
   L9 ✅; L8 + L11-CORE mapped for the council. BOARD EMPTY —
   the night's work is complete.
+
+- 2026-07-21 07:51 PDT: **S8-L8 lands the amplification skeleton** (Opus,
+  114k, all first-compile): LargeValueCount.lean, 7 stones,
+  wired+audited (8859 green) — dpoly_mul/dpoly_pow (the k-fold
+  product identity), large_value_count_pre (the amplification
+  inequality on L7), the L¹ + support-floor coefficient bounds.
+  CATCH #A (map repair): the b(n)-vs-b(n)/n conflation — with
+  c_p = a_p/p pre-folded, the source's (Σ1/p)^k and 1/P^k
+  factors fall out FREE. CATCH #B: the sign convention flag
+  (dpoly = P(1−it); instantiate at −𝒯). RESIDUALS: the k!-UFD
+  sup bound (executor priced D — WINDMILL-CANDIDATE #8: unique
+  factorization + permutations may be a mathlib C-ladder;
+  scoper dispatched per #255) + the k-instantiation packaging
+  (C-long, gated). ALSO: **Road 6 SALTBENCH registered**
+  (the replayable benchmark from our git history; the
+  objectivity answer to the Google question; council-agenda
+  optional item). In flight: WINDOW-SWAP, UFD scoper.

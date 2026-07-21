@@ -39,3 +39,14 @@ current toolchain, map the breakage, price the dune question).
 
 One line: one week to the flag, three to the spine, six to the crown;
 every day crank except the decisions that are properly JYH's.
+
+## Road 6 — SALTBENCH (registered 2026-07-21; portfolio/satellite; not urgent)
+The replayable research-formalization benchmark from our own git
+history: Tier-E (executor replay of landed nodes from pre-state
+commits, kernel-judged), Tier-S (the windmill set — dissolution
+ground truth), Tier-D (freeze refutability), + the honesty axis
+(wrong-proof / statement-drift / fabrication-under-pressure /
+give-up-early compliance). Zero training contamination (private,
+post-cutoff). Model-vs-harness separable (multi-model harnesses).
+A satellite paper candidate. Origin: JYH's Google-objectivity
+question, 2026-07-21 morning.

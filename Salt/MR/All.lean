@@ -45,6 +45,7 @@ import Salt.MR.HalaszPrimes
 import Salt.MR.HalaszIntegers
 import Salt.MR.VanDerCorput
 import Salt.MR.MidBand
+import Salt.MR.LargeValueCount
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -218,3 +219,6 @@ open Salt.Tactic in
   Salt.MR.halasz_socket_midHigh
   Salt.MR.halasz_socket
   Salt.MR.halasz_integers
+  Salt.MR.dpoly_pow
+  Salt.MR.large_value_count_pre
+  Salt.MR.kconv_l1_le
