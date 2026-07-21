@@ -37,6 +37,7 @@ import Salt.MR.PerronTrunc
 import Salt.MR.ParsevalAsm
 import Salt.MR.PropA3Core
 import Salt.MR.PerronZones
+import Salt.MR.MomentsA2
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -184,3 +185,6 @@ open Salt.Tactic in
   Salt.MR.log_ratio_ge
   Salt.MR.harmonic_zone_bound
   Salt.MR.perron_sum_error_collapsed
+  Salt.MR.moment_core_bound
+  Salt.MR.lemma12_meansq_conditional
+  Salt.MR.lemma13_moment

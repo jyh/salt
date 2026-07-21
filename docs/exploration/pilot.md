@@ -10494,3 +10494,26 @@ decisions per question.
   SILVER LINING: the night is YOUNG — it is 19:07, family hours;
   the cutoff at 03:00 leaves ~8 productive hours, not the ~3 the
   false clock implied. A2 climbing; waves 4–6 queue behind it.
+
+- 2026-07-20 19:09 PDT (night shift): ██ S8-A2 LANDS THE BIG READ ██ (Opus, 266k,
+  every rung first-attempt): MomentsA2.lean, 405 ln, wired+audited
+  (8849 green). G1: moment_core_bound — THE DEFERRED LEMMA-12
+  KEYSTONE (the (2T+20N) mean-square on Σ a_n/n^(1+it), riding the
+  unconditional MVT) + CS-over-j + the full Lemma-12 assembly
+  conditional on the RAMARE-DPOLY seam. G2: lemma13_moment whole
+  (the new uniform dyadic-Shiu induction blockDiv_sq_div_sq_sum_le
+  ≤ 3C/X uniform-in-M — a genuinely new analytic stone) w/ the
+  coefficient seam. G3: T-uniform large-T subsumed by construction.
+  SUBSUMPTION CONFIRMED (sections 5-6 consume only MVT+Shiu; the
+  R3.3 ruling HOLDS, no revisit). HOUSE REGISTRY CORRECTION: the
+  A2 report named its Lemma-13 coefficient seam "MULT-SHIU" —
+  COLLIDES with the HALASZ node of that name (the GHS Lemma-2.4
+  1/log-saving bound; a DIFFERENT object). The A2 seam is
+  RENAMED IN THE REGISTRY: **QLA-COEFF** (the Q^l·A convolution
+  coefficient identity + l!·g(n) count, combinatorial C-class;
+  Lean hyps hsupp/hcoeff unchanged). Seam board after A2:
+  RAMARE-DPOLY (D — scoper next per #255), QLA-COEFF (C),
+  MULT-SHIU (the HALASZ one — the council item), S1'/K4'
+  reconciliation, the U_j Taylor, the G4/section-8.3 terminal
+  assembly. Six A2 traps banked. NIGHT WAVE 4: P3/LargeValues +
+  the RAMARE-DPOLY scoper.
