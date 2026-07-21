@@ -216,3 +216,5 @@ open Salt.Tactic in
   Salt.MR.halasz_socket_large
   Salt.MR.zeta_block_secondDeriv
   Salt.MR.halasz_socket_midHigh
+  Salt.MR.halasz_socket
+  Salt.MR.halasz_integers

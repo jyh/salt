@@ -10718,3 +10718,21 @@ decisions per question.
   risk note, a half-finished grind at the drain is worse than a
   fresh morning mission; it heads tomorrow's Opus queue. TRUE
   BOARD: L9-CLOSE alone in flight.
+
+- 2026-07-21 00:08 PDT (night shift): ██████ THE NIGHT'S PRIZE — L9
+  UNCONDITIONAL ██████ (Opus L9-CLOSE, 244k, one serious attempt
+  per rung): halasz_integers at the frozen (N + |𝒯|·√T)·(1+log 2T)
+  shape, explicit constant 844 (global Cvdc = 210 — the low-band
+  straddle stacks honestly above the scout's 137); halasz_socket
+  for ALL real u (the three-regime glue + the conjugation
+  wrapper); the Kušmin geometric head at 12π. Wired+audited
+  (8858 green). One import added (MidBand → HalaszIntegers,
+  cycle-checked). Four traps banked (linarith-only in set-heavy
+  contexts — the 200k blowout; the real-cast atom dress of the
+  ℤ-anchoring trap; calc-over-rw for sign bridges; three name
+  corrections). **THE L9 ARC, one night, end to end: the socket
+  named → the source staged (JYH bedtime) → the assembly built →
+  the log caught → the tiles found IN-CORPUS → two windmills
+  dissolved → UNCONDITIONAL.** The large-values board: L7 ✅
+  L9 ✅; L8 + L11-CORE mapped for the council. BOARD EMPTY —
+  the night's work is complete.
