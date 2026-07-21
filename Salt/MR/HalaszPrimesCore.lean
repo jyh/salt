@@ -525,4 +525,293 @@ theorem rep_truncated (a : ℕ → ℂ) (ha0 : a 0 = 0) {P c T' : ℝ}
           * (2 / T') :=
         mul_le_mul_of_nonneg_left (integral_compl_Icc_inv_c_sq_le hc hT') (by positivity)
 
+/-! ## ZFREE-RECT — the shifted rectangle is ζ-zero-free
+
+The rectangle `[σ₀, c]×[−T', T']` shifted by `iu` (`|u| ≤ 2T`, `T' = 3T`, so the ζ argument
+reaches height `≤ T' + 2T = 5T` EXACTLY — the R-3 refuter-audited budget) avoids every ζ-zero,
+with `σ₀ = 1 − (c_vk/2)/D₃(5T)`, `D₃(t) = (log t)^{3/4}(loglog t)³`.
+
+Two mathlib inputs (verified): `zeta_zero_free_region_pow` (`Vk/GrowthPow.lean`, the power region
+`Re ρ ≤ 1 − c/D₃(|Im ρ|)` for `|Im ρ| ≥ T₀^pow`) covers the high heights via the monotonicity
+`logD3_mono`; the compact `Re = 1` segment at height `≤ M := T₀^pow` is a positive `infDist`
+from the closed zero set (`zeta_zero_free_strip_height`, the height-`M` generalization of the
+landed `Salt.SW.zeta_zero_free_strip`) — REF-A's "compactness ALONE closes it".  The threshold
+`T₁` makes `(c_vk/2)/D₃(5T)` finer than the fixed strip margin `ε₀`. -/
+
+section ZFreeRect
+open Metric
+
+/-- **`D₃` monotonicity.**  `D₃(t) = (log t)^{3/4}(loglog t)³` is increasing above `e`
+(both factors nonnegative and monotone once `log t > 1`).  The `vkTheta_anti` pattern,
+non-reciprocated. -/
+private lemma logD3_mono {t₁ t₂ : ℝ} (h1 : Real.exp 1 < t₁) (h12 : t₁ ≤ t₂) :
+    (Real.log t₁) ^ ((3 : ℝ) / 4) * (Real.log (Real.log t₁)) ^ (3 : ℕ)
+      ≤ (Real.log t₂) ^ ((3 : ℝ) / 4) * (Real.log (Real.log t₂)) ^ (3 : ℕ) := by
+  have ht1pos : 0 < t₁ := lt_trans (Real.exp_pos 1) h1
+  have hlog1 : 1 < Real.log t₁ := by
+    rw [← Real.log_exp 1]; exact Real.log_lt_log (Real.exp_pos 1) h1
+  have hlog12 : Real.log t₁ ≤ Real.log t₂ := Real.log_le_log ht1pos h12
+  have hll1 : 0 < Real.log (Real.log t₁) := Real.log_pos hlog1
+  have hll12 : Real.log (Real.log t₁) ≤ Real.log (Real.log t₂) :=
+    Real.log_le_log (by linarith) hlog12
+  have hbase : (Real.log t₁) ^ ((3 : ℝ) / 4) ≤ (Real.log t₂) ^ ((3 : ℝ) / 4) :=
+    Real.rpow_le_rpow (by linarith) hlog12 (by norm_num)
+  have hll3 : (Real.log (Real.log t₁)) ^ (3 : ℕ) ≤ (Real.log (Real.log t₂)) ^ (3 : ℕ) :=
+    pow_le_pow_left₀ hll1.le hll12 3
+  exact mul_le_mul hbase hll3 (by positivity) (Real.rpow_nonneg (by linarith) _)
+
+/-- **The fixed zero-free strip at height `M`** (the compactness sub-stone).  For any `M ≥ 0`
+there is `ε₀ > 0` with `Re ρ ≤ 1 − ε₀` for every ζ-zero `ρ` of height `|Im ρ| ≤ M`.  The
+compact `Re = 1` segment `{1 + it : |t| ≤ M}` is disjoint from the closed zero set
+(`riemannZeta_ne_zero_of_one_le_re`), so its continuous positive `infDist` to the zero set
+attains a positive minimum `ε₀`; any low-height zero is at horizontal distance `1 − Re ρ ≥ ε₀`.
+The height-`M` generalization of the landed `Salt.SW.zeta_zero_free_strip` (`M = 1`). -/
+lemma zeta_zero_free_strip_height {M : ℝ} (hM : 0 ≤ M) :
+    ∃ ε₀ : ℝ, 0 < ε₀ ∧ ∀ {ρ : ℂ}, riemannZeta ρ = 0 → |ρ.im| ≤ M → ρ.re ≤ 1 - ε₀ := by
+  have hZne : riemannZetaZeros.Nonempty := by
+    refine ⟨-2, ?_⟩
+    rw [mem_riemannZetaZeros]
+    have h := riemannZeta_neg_two_mul_nat_add_one 0
+    simpa using h
+  set L₀ : Set ℂ := (fun t : ℝ => (1 : ℂ) + (t : ℂ) * I) '' Set.Icc (-M : ℝ) M with hL₀
+  have hL₀compact : IsCompact L₀ :=
+    isCompact_Icc.image (continuous_const.add (Complex.continuous_ofReal.mul continuous_const))
+  have hL₀ne : L₀.Nonempty := (Set.nonempty_Icc.mpr (by linarith)).image _
+  have hpos : ∀ x ∈ L₀, 0 < infDist x riemannZetaZeros := by
+    intro x hx
+    obtain ⟨t, _, rfl⟩ := hx
+    have hxre : ((1 : ℂ) + (t : ℂ) * I).re = 1 := by simp
+    have hne : (1 : ℂ) + (t : ℂ) * I ∉ riemannZetaZeros := by
+      rw [mem_riemannZetaZeros]
+      exact riemannZeta_ne_zero_of_one_le_re (le_of_eq hxre.symm)
+    exact (isClosed_riemannZetaZeros.notMem_iff_infDist_pos hZne).mp hne
+  obtain ⟨x₀, hx₀L, hx₀min⟩ := hL₀compact.exists_isMinOn hL₀ne
+    (continuous_infDist_pt (s := riemannZetaZeros)).continuousOn
+  refine ⟨infDist x₀ riemannZetaZeros, hpos x₀ hx₀L, ?_⟩
+  intro ρ hρ0 hγ
+  have hρZ : ρ ∈ riemannZetaZeros := mem_riemannZetaZeros.mpr hρ0
+  have hxL : (1 : ℂ) + (ρ.im : ℂ) * I ∈ L₀ := ⟨ρ.im, Set.mem_Icc.mpr (abs_le.mp hγ), rfl⟩
+  have hmin : infDist x₀ riemannZetaZeros ≤ infDist ((1 : ℂ) + (ρ.im : ℂ) * I) riemannZetaZeros :=
+    isMinOn_iff.mp hx₀min _ hxL
+  have hle : infDist ((1 : ℂ) + (ρ.im : ℂ) * I) riemannZetaZeros
+      ≤ dist ((1 : ℂ) + (ρ.im : ℂ) * I) ρ := infDist_le_dist_of_mem hρZ
+  have hρre : ρ.re < 1 := by
+    by_contra h; exact riemannZeta_ne_zero_of_one_le_re (not_lt.mp h) hρ0
+  have hdist : dist ((1 : ℂ) + (ρ.im : ℂ) * I) ρ = 1 - ρ.re := by
+    rw [Complex.dist_eq]
+    have hsub : ((1 : ℂ) + (ρ.im : ℂ) * I) - ρ = ((1 - ρ.re : ℝ) : ℂ) := by
+      apply Complex.ext <;>
+        simp [Complex.sub_re, Complex.sub_im, Complex.add_re, Complex.add_im,
+          Complex.mul_re, Complex.mul_im, Complex.I_re, Complex.I_im,
+          Complex.ofReal_re, Complex.ofReal_im, Complex.one_re, Complex.one_im]
+    rw [hsub, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (by linarith : (0 : ℝ) ≤ 1 - ρ.re)]
+  rw [hdist] at hle
+  linarith [hmin, hle]
+
+/-- **ZFREE-RECT (the zero margin).**  There are `c_vk > 0`, `T₁ ≥ 3` such that for `T ≥ T₁`
+the denominator `D₃(5T)` is positive, and every ζ-zero `ρ` of height `|Im ρ| ≤ 5T` obeys the
+uniform region margin `Re ρ ≤ 1 − c_vk/D₃(5T)`.  High heights `|Im ρ| ≥ M := T₀^pow` come from
+`zeta_zero_free_region_pow` + `logD3_mono` (`D₃(|Im ρ|) ≤ D₃(5T)`); low heights `|Im ρ| ≤ M`
+from `zeta_zero_free_strip_height` (`Re ρ ≤ 1 − ε₀ ≤ 1 − c_vk/D₃(5T)`, the threshold `T₁`
+forcing `c_vk/D₃(5T) ≤ ε₀`).  This is the deliverable EDGE rides for its `hdist` min-distance. -/
+theorem rect_zero_free_margin :
+    ∃ (c_vk T₁ : ℝ), 0 < c_vk ∧ 3 ≤ T₁ ∧
+      ∀ (T : ℝ), T₁ ≤ T →
+        0 < (Real.log (5 * T)) ^ ((3 : ℝ) / 4) * (Real.log (Real.log (5 * T))) ^ (3 : ℕ) ∧
+        ∀ ρ : ℂ, riemannZeta ρ = 0 → |ρ.im| ≤ 5 * T →
+          ρ.re ≤ 1 - c_vk / ((Real.log (5 * T)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T))) ^ (3 : ℕ)) := by
+  obtain ⟨c_pow, M, hc_pow, hM3, hregion⟩ := Salt.Vk.zeta_zero_free_region_pow
+  obtain ⟨ε₀, hε₀, hstrip⟩ := zeta_zero_free_strip_height (M := M) (by linarith : (0 : ℝ) ≤ M)
+  set B : ℝ := c_pow / ε₀ with hBdef
+  have hB0 : 0 ≤ B := by rw [hBdef]; positivity
+  set E : ℝ := Real.exp (Real.exp 1 + B ^ ((4 : ℝ) / 3)) with hEdef
+  set T₁ : ℝ := max 3 (max M E) with hT₁def
+  refine ⟨c_pow, T₁, hc_pow, le_max_left _ _, ?_⟩
+  intro T hT
+  have hMle : M ≤ T := le_trans (le_trans (le_max_left M E) (le_max_right 3 _)) hT
+  have hEle : E ≤ T := le_trans (le_trans (le_max_right M E) (le_max_right 3 _)) hT
+  have hT0 : (0 : ℝ) < T := by linarith [le_trans (le_max_left 3 _) hT]
+  have hE5T : E ≤ 5 * T := by linarith
+  -- the key height fact: log(5T) ≥ e + B^{4/3}
+  have hL5 : Real.exp 1 + B ^ ((4 : ℝ) / 3) ≤ Real.log (5 * T) := by
+    rw [← Real.log_exp (Real.exp 1 + B ^ ((4 : ℝ) / 3)), ← hEdef]
+    exact Real.log_le_log (Real.exp_pos _) hE5T
+  have hB43nn : (0 : ℝ) ≤ B ^ ((4 : ℝ) / 3) := Real.rpow_nonneg hB0 _
+  have hexp1_2 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
+  have hL5e : Real.exp 1 ≤ Real.log (5 * T) := by linarith
+  have hL5_1 : (1 : ℝ) < Real.log (5 * T) := by linarith
+  have hL5pos : (0 : ℝ) < Real.log (5 * T) := by linarith
+  have hℓ5 : (1 : ℝ) ≤ Real.log (Real.log (5 * T)) := by
+    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hL5e
+  have hℓ5cube : (1 : ℝ) ≤ (Real.log (Real.log (5 * T))) ^ (3 : ℕ) := one_le_pow₀ hℓ5
+  have hL534pos : (0 : ℝ) < (Real.log (5 * T)) ^ ((3 : ℝ) / 4) := Real.rpow_pos_of_pos hL5pos _
+  set D : ℝ := (Real.log (5 * T)) ^ ((3 : ℝ) / 4)
+      * (Real.log (Real.log (5 * T))) ^ (3 : ℕ) with hDdef
+  have hDpos : 0 < D := by rw [hDdef]; positivity
+  -- L5^{3/4} ≥ B  (so D ≥ B)
+  have hBrpow : B = (B ^ ((4 : ℝ) / 3)) ^ ((3 : ℝ) / 4) := by
+    rw [← Real.rpow_mul hB0]; norm_num
+  have hL534geB : B ≤ (Real.log (5 * T)) ^ ((3 : ℝ) / 4) := by
+    rw [hBrpow]
+    exact Real.rpow_le_rpow hB43nn (by linarith) (by norm_num)
+  have hDgeB : B ≤ D := by
+    rw [hDdef]
+    calc B = B * 1 := (mul_one B).symm
+      _ ≤ (Real.log (5 * T)) ^ ((3 : ℝ) / 4) * (Real.log (Real.log (5 * T))) ^ (3 : ℕ) :=
+          mul_le_mul hL534geB hℓ5cube (by norm_num) hL534pos.le
+  -- c_pow / D ≤ ε₀
+  have hcpowD : c_pow / D ≤ ε₀ := by
+    rw [div_le_iff₀ hDpos]
+    have hcε : c_pow = ε₀ * B := by rw [hBdef]; field_simp
+    calc c_pow = ε₀ * B := hcε
+      _ ≤ ε₀ * D := mul_le_mul_of_nonneg_left hDgeB hε₀.le
+  refine ⟨hDpos, ?_⟩
+  intro ρ hρ0 hρim
+  by_cases hcase : M ≤ |ρ.im|
+  · -- high height: the power region + `D₃` monotonicity
+    have hργ : Real.exp 1 < |ρ.im| := by
+      have h3 : Real.exp 1 < 3 := lt_trans Real.exp_one_lt_d9 (by norm_num)
+      exact lt_of_lt_of_le h3 (le_trans hM3 hcase)
+    have hreg := hregion ρ hρ0 hcase
+    have hmono := logD3_mono hργ hρim
+    have hden_ρ_pos : 0 < (Real.log |ρ.im|) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ) := by
+      have hlρ : 1 < Real.log |ρ.im| := by
+        rw [← Real.log_exp 1]; exact Real.log_lt_log (Real.exp_pos 1) hργ
+      have : 0 < Real.log (Real.log |ρ.im|) := Real.log_pos hlρ
+      positivity
+    have hstep : c_pow / D ≤ c_pow / ((Real.log |ρ.im|) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ)) :=
+      div_le_div_of_nonneg_left hc_pow.le hden_ρ_pos (by rw [hDdef]; exact hmono)
+    linarith [hreg, hstep]
+  · -- low height: the fixed strip
+    have hlow : |ρ.im| < M := not_le.mp hcase
+    have hst := hstrip hρ0 (le_of_lt hlow)
+    linarith [hst, hcpowD]
+
+/-- **ZFREE-RECT.**  There are `c_vk > 0`, `T₁ ≥ 3` such that for `T ≥ T₁`, every point `w`
+with `Re w ≥ σ₀ := 1 − (c_vk/2)/D₃(5T)` and `|Im w| ≤ 5T` has `ζ(w) ≠ 0`: the shifted rectangle
+is ζ-zero-free.  Strict corollary of `rect_zero_free_margin` (a zero would have
+`Re w ≤ 1 − c_vk/D₃(5T) < 1 − (c_vk/2)/D₃(5T) = σ₀`, contradicting `Re w ≥ σ₀`). -/
+theorem rect_zero_free :
+    ∃ (c_vk T₁ : ℝ), 0 < c_vk ∧ 3 ≤ T₁ ∧
+      ∀ (T : ℝ), T₁ ≤ T → ∀ w : ℂ,
+        1 - (c_vk / 2) / ((Real.log (5 * T)) ^ ((3 : ℝ) / 4)
+            * (Real.log (Real.log (5 * T))) ^ (3 : ℕ)) ≤ w.re →
+        |w.im| ≤ 5 * T → riemannZeta w ≠ 0 := by
+  obtain ⟨c_vk, T₁, hc, hT₁, hmargin⟩ := rect_zero_free_margin
+  refine ⟨c_vk, T₁, hc, hT₁, ?_⟩
+  intro T hT w hwre hwim hw0
+  obtain ⟨hDpos, hmarg⟩ := hmargin T hT
+  set D : ℝ := (Real.log (5 * T)) ^ ((3 : ℝ) / 4)
+      * (Real.log (Real.log (5 * T))) ^ (3 : ℕ) with hDdef
+  have hmr := hmarg w hw0 hwim
+  -- (c_vk/2)/D < c_vk/D since c_vk/2 < c_vk and D > 0
+  have hlt : (c_vk / 2) / D < c_vk / D := by
+    have h1 : c_vk / D - (c_vk / 2) / D = (c_vk / 2) / D := by ring
+    have h2 : 0 < (c_vk / 2) / D := div_pos (by linarith) hDpos
+    linarith [h1, h2]
+  linarith [hwre, hmr, hlt]
+
+end ZFreeRect
+
+/-! ## POLE-ROW — the convergent pole-row sum
+
+For a fixed shift `t'`, summing the pole main term `‖W(1 + i(t − t'))‖` over ALL `t ∈ 𝒯`
+(INCLUDING the diagonal `t = t'`, per REF-A's no-split repair — `W(1) ≍ P`, one finite entry)
+is `≤ c_W·P`.  The Mellin kernel decays quadratically (`‖windowKernel P 1 u‖ ≤ 22P/(1+u²)`,
+`norm_windowKernel_le` at abscissa `1`); well-spacing (`1`-separation) makes
+`Σ_{t∈𝒯} 1/(1+(t−t')²)` convergent, bounded by `2π` via the unit-window integral comparison
+`sum_intervalIntegral_le` and `∫_ℝ 1/(1+x²) = π`.  A NEW convergent-series stone (not
+`primePoly_wellspaced_l2`, whose bound is `T`-linear and would blow the frozen `P`-term). -/
+
+section PoleRow
+open intervalIntegral
+
+/-- **POLE-ROW.**  For a well-spaced `𝒯 ⊆ [−T, T]`, a fixed shift `t'`, and `2 ≤ P`, the pole-row
+sum of the window Mellin kernel over the diagonal-inclusive set is `≤ 44π·P`:
+`Σ_{t∈𝒯} ‖windowKernel P 1 (t − t')‖ ≤ 44·π·P`.  The `P·Σ|η|²` pole contribution of the ASM
+assembly. -/
+theorem pole_row_sum {P T : ℝ} (hP : 2 ≤ P) (hT : 0 ≤ T) (𝒯 : Finset ℝ)
+    (hws : WellSpaced 𝒯) (hsub : ∀ t ∈ 𝒯, t ∈ Set.Icc (-T) T) (t' : ℝ) :
+    ∑ t ∈ 𝒯, ‖windowKernel P 1 (t - t')‖ ≤ 44 * Real.pi * P := by
+  have hP0 : 0 < P := by linarith
+  have hPne : P ≠ 0 := hP0.ne'
+  -- the kernel constant `Cₖ(P,1) = 22P`
+  have hexp : ((1 : ℝ) + 1) = ((2 : ℕ) : ℝ) := by norm_num
+  have hCk : 2 * (2 * P + P) ^ ((1 : ℝ) + 1) / P + 2 * (P / 2 + P / 2) ^ ((1 : ℝ) + 1) / (P / 2)
+      = 22 * P := by
+    rw [hexp, Real.rpow_natCast, Real.rpow_natCast]; field_simp; ring
+  -- per-term quadratic norm bound
+  have hnorm : ∀ t : ℝ, ‖windowKernel P 1 (t - t')‖ ≤ 22 * P * (1 + (t - t') ^ 2)⁻¹ := by
+    intro t
+    have h := norm_windowKernel_le (P := P) (c := 1) hP (by norm_num) (t - t')
+    refine h.trans (le_of_eq ?_)
+    rw [one_pow, hCk]
+  -- the continuous nonneg cutoff `g s = 1/(1+(s-t')²)`
+  set g : ℝ → ℝ := fun s => (1 + (s - t') ^ 2)⁻¹ with hgdef
+  have hg_cont : Continuous g := by
+    rw [hgdef]; apply Continuous.inv₀
+    · fun_prop
+    · intro s; exact (by positivity : (0 : ℝ) < 1 + (s - t') ^ 2).ne'
+  have hg_nonneg : ∀ s, 0 ≤ g s := fun s => by rw [hgdef]; positivity
+  -- per-term lower bound: `1/(1+(t-t')²) ≤ 2·∫_{t-½}^{t+½} g`
+  have hlb : ∀ t : ℝ, (1 + (t - t') ^ 2)⁻¹ ≤ 2 * ∫ s in (t - 1 / 2)..(t + 1 / 2), g s := by
+    intro t
+    have hle : (1 / 2) * (1 + (t - t') ^ 2)⁻¹ ≤ ∫ s in (t - 1 / 2)..(t + 1 / 2), g s := by
+      have hconst : ∫ _s in (t - 1 / 2)..(t + 1 / 2), (1 / 2) * (1 + (t - t') ^ 2)⁻¹
+          ≤ ∫ s in (t - 1 / 2)..(t + 1 / 2), g s := by
+        refine intervalIntegral.integral_mono_on (by linarith)
+          intervalIntegral.intervalIntegrable_const
+          (hg_cont.intervalIntegrable _ _) (fun s hs => ?_)
+        rw [Set.mem_Icc] at hs
+        change (1 / 2) * (1 + (t - t') ^ 2)⁻¹ ≤ (1 + (s - t') ^ 2)⁻¹
+        have hb : 1 + (s - t') ^ 2 ≤ 2 * (1 + (t - t') ^ 2) := by
+          nlinarith [sq_nonneg (s - 2 * t + t'),
+            mul_nonneg (by linarith [hs.1] : (0 : ℝ) ≤ s - (t - 1 / 2))
+              (by linarith [hs.2] : (0 : ℝ) ≤ (t + 1 / 2) - s)]
+        have hpos_s : (0 : ℝ) < 1 + (s - t') ^ 2 := by positivity
+        rw [show (1 / 2) * (1 + (t - t') ^ 2)⁻¹ = (2 * (1 + (t - t') ^ 2))⁻¹ from by
+          rw [mul_inv]; ring]
+        exact inv_anti₀ hpos_s hb
+      rw [intervalIntegral.integral_const, smul_eq_mul] at hconst
+      have : (t + 1 / 2 - (t - 1 / 2)) = 1 := by ring
+      rw [this, one_mul] at hconst
+      exact hconst
+    linarith
+  -- the interval integral `∫_A^B g ≤ π`
+  set A : ℝ := -T - 1 / 2 with hA
+  set B : ℝ := T + 1 / 2 with hB
+  have hAB : A ≤ B := by rw [hA, hB]; linarith
+  have hInt_le : ∫ s in A..B, g s ≤ Real.pi := by
+    have hcomp : (∫ s in A..B, g s) = ∫ x in (A - t')..(B - t'), (1 + x ^ 2)⁻¹ := by
+      rw [hgdef]; exact intervalIntegral.integral_comp_sub_right (fun x => (1 + x ^ 2)⁻¹) t'
+    rw [hcomp, integral_inv_one_add_sq]
+    have h1 : Real.arctan (B - t') ≤ Real.pi / 2 := (Real.arctan_lt_pi_div_two _).le
+    have h2 : -(Real.pi / 2) ≤ Real.arctan (A - t') := (Real.neg_pi_div_two_lt_arctan _).le
+    linarith
+  -- the well-spaced window sum
+  have hwin : ∀ t ∈ 𝒯, Set.Ioc (t - 1 / 2) (t + 1 / 2) ⊆ Set.Ioc A B := by
+    intro t ht
+    have h := Set.mem_Icc.mp (hsub t ht)
+    exact Set.Ioc_subset_Ioc (by rw [hA]; linarith [h.1]) (by rw [hB]; linarith [h.2])
+  have hsum_int : ∑ t ∈ 𝒯, (∫ s in (t - 1 / 2)..(t + 1 / 2), g s) ≤ ∫ s in A..B, g s :=
+    sum_intervalIntegral_le g hg_cont hg_nonneg 𝒯 A B hAB hws hwin
+  -- assemble
+  have hseries : ∑ t ∈ 𝒯, (1 + (t - t') ^ 2)⁻¹ ≤ 2 * Real.pi := by
+    calc ∑ t ∈ 𝒯, (1 + (t - t') ^ 2)⁻¹
+        ≤ ∑ t ∈ 𝒯, 2 * ∫ s in (t - 1 / 2)..(t + 1 / 2), g s :=
+          Finset.sum_le_sum (fun t _ => hlb t)
+      _ = 2 * ∑ t ∈ 𝒯, (∫ s in (t - 1 / 2)..(t + 1 / 2), g s) := by rw [Finset.mul_sum]
+      _ ≤ 2 * Real.pi := by linarith [hsum_int, hInt_le]
+  calc ∑ t ∈ 𝒯, ‖windowKernel P 1 (t - t')‖
+      ≤ ∑ t ∈ 𝒯, 22 * P * (1 + (t - t') ^ 2)⁻¹ := Finset.sum_le_sum (fun t _ => hnorm t)
+    _ = 22 * P * ∑ t ∈ 𝒯, (1 + (t - t') ^ 2)⁻¹ := by rw [Finset.mul_sum]
+    _ ≤ 22 * P * (2 * Real.pi) := by
+        apply mul_le_mul_of_nonneg_left hseries (by positivity)
+    _ = 44 * Real.pi * P := by ring
+
+end PoleRow
+
 end Salt.MR
