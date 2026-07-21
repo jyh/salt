@@ -40,6 +40,7 @@ import Salt.MR.PerronZones
 import Salt.MR.MomentsA2
 import Salt.MR.RamareDpoly
 import Salt.MR.LargeValues
+import Salt.MR.RamareWindows
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -194,3 +195,6 @@ open Salt.Tactic in
   Salt.MR.spoly_ramare_eq16
   Salt.MR.wellspaced_l2
   Salt.MR.wellspaced_card_le
+  Salt.MR.spoly_ram_decomp
+  Salt.MR.lemma12_meansq_of_windowErr
+  Salt.MR.window_card_le

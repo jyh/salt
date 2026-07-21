@@ -10552,3 +10552,21 @@ decisions per question.
   without this entry) — timestamped entries now use plain-string
   concatenation, NEVER f-strings. NIGHT WAVE 5: L9 + L11
   dispatched (∥ R1C-R2 in flight).
+
+- 2026-07-20 19:55 PDT (night shift): ██ R1C-R2 LANDS — hdecomp DISCHARGED;
+  Lemma 12 reduced to ONE concrete obligation ██ (Opus, 203k,
+  all first-attempt): RamareWindows.lean, 336 ln, 12 thms,
+  wired+audited (8852 green). The concrete Q_(j,H)/R_(j,H) defs +
+  spoly_ram_decomp (definitional) + lemma12_meansq_of_windowErr
+  (L12 at just herr); the identity chain to MR p.19-bottom
+  (spoly_ramare_split, prime_sum_dyadic_partition,
+  clean_term_dyadic); the 1/H-row count at explicit 2e
+  (window_card_le). SOURCE CATCH (load-bearing): MR's TWO block
+  conventions — the definition is closed-≤ but the proof regroup
+  is HALF-OPEN (the floor-fiber partition); half-open built,
+  closed would double-count. The seam narrows: RAMARE-DPOLY →
+  **WINDOW-SWAP** (the p-range symmetric-difference swap + the
+  final L² assembly, ~300-600 ln concrete Finset/real-exp work).
+  Seven catches banked (mul_cpow retired as natCast_mul_cpow;
+  sum_filter predicate-pinning; open-Classical-before-docstring).
+  WINDOW-SWAP closer DISPATCHED (∥ L9, L11 in flight).
