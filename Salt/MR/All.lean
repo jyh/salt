@@ -222,3 +222,6 @@ open Salt.Tactic in
   Salt.MR.dpoly_pow
   Salt.MR.large_value_count_pre
   Salt.MR.kconv_l1_le
+  Salt.MR.clean_dyadic_sub_main
+  Salt.MR.ramErr_window_decomp
+  Salt.MR.ramCopTail_moment

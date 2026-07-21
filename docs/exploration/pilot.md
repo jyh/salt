@@ -10753,3 +10753,23 @@ decisions per question.
   (the replayable benchmark from our git history; the
   objectivity answer to the Google question; council-agenda
   optional item). In flight: WINDOW-SWAP, UFD scoper.
+
+- 2026-07-21 07:52 PDT: ██ WINDOW-SWAP lands — herr at TWO row-moments;
+  the hard stone fell in SIX lines ██ (Opus, 130k, ~1 attempt/
+  rung): RamareWindows.lean 337→521, audited (8860 green). W1
+  clean_dyadic_sub_main (the swap — sum_mul + sum_sub_distrib +
+  ring; the copy-summands-verbatim law made it trivial); W2
+  ramErr = window + p²-corr + tail EXACT; the tail row FULLY
+  DISCHARGED (ramCopTail_moment at the frozen verbatim grade);
+  the 3-way moment split. Executor stopped at the E-shape
+  (statement-adjacent) — MAESTRO RULING: the E-shape = MR's
+  frozen error row at the TRANSCRIBED hypothesis package
+  (norms ≤ 1, N = 2X, the a_pm = b_m·c_p law — a transcription,
+  not an invention); worst-corner passed (window: 2eX/H count ×
+  coeff-sup² × (2T+40eX) → (T+X)/X·(1/H) ✓; corr: Σp⁻² → 1/P ✓).
+  Five catches banked (the implicit-μ metavar; sum_inter_add_
+  sum_sdiff as THE sdiff primitive; omega-atomic p*m;
+  unfold-to-match-abel). **L12-FINAL dispatched w/ the ruled
+  package.** Council agenda locked: panels (MULT-SHIU,
+  L11-CORE) + quota timing + Antigravity/SaltBench (JYH-added).
+  In flight: UFD scoper, L12-FINAL.
