@@ -1,7 +1,10 @@
 # L11-CORE freeze — the Perron rep of the pairwise prime sum + LEFT shift
 
 *Maestro design block, 2026-07-21 morning council (JYH nod). Status:
-DESIGNED, awaiting refuter pass. Source: MR 1501.04585v4.pdf pp.17–18 (Lemma
+**REFUTER PASS COMPLETE — REPAIR-THEN-FIRE applied, FROZEN** (L11-REF-A +
+L11-REF-B verdicts digested ~10:55; binding repairs marked ⟦R⟧; both
+refuters converge on T' := 3T; the diagonal-routing bug and the EDGE-grade
+imprecision repaired per REF-A). Source: MR 1501.04585v4.pdf pp.17–18 (Lemma
 11's proof, READ DIRECTLY this session — the sketch below is transcription,
 not memory). Target: close `halasz_primes_pow` (S8 [P3]/L11) at the frozen
 header shape of `Salt/MR/HalaszPrimes.lean` (BINDING). The four sub-stones
@@ -39,7 +42,10 @@ Then per pair, u := t−t' (well-spaced ⟹ |u| ≥ 1 off-diagonal):
    decay's **(loglog T)⁴** is one full loglog power WEAKER — the ε-slack
    slot, exactly MR's (log T)^{2/3+ε} device at θ=3/4. Contour at depth
    (c/2)/D₃ gives decay exp(−(c/2)·log P/D₃) ≤ exp(−log P/D₄) once
-   (c/2)·loglog T ≥ 1, i.e. T ≥ exp(exp(2/c)) — absorbed into the ∃ T₀.
+   (c/2)·loglog T ≥ 1, i.e. T ≥ exp(exp(2/c)) — absorbed into the ∃ T₀
+   ⟦R (REF-A): with the honest 5T-slack (log 5T ≤ 2 log T) the true
+   threshold is exp(exp(~27/c_vk)) — larger but finite, same posture; the
+   T₀ ledger carries the honest value⟧.
    (Notation: D₃(T) = (log T)^{3/4}(loglog T)³, D₄ = (log T)^{3/4}(loglog T)⁴.)
    Likewise the edge price: local-Landau gives ‖ζ'/ζ‖ ≪ (log T)·D₃-grade on
    the shifted line; ×∫|f̃| = O(1) ⟹ error P·exp(−(c/2)logP/D₃)·(log T)^{7/4}
@@ -56,6 +62,12 @@ Then per pair, u := t−t' (well-spaced ⟹ |u| ≥ 1 off-diagonal):
    since log P/D₄ ≤ 10·log T/D₄(T) = 10(log T)^{1/4}/(loglog T)⁴ ≪ log T. ✓
    The ∃ C c T₀ packaging (house pattern, scope-diff (6)) is NOT an
    amendment — it is the sanctioned existential-constant posture.
+   ⟦R (REF-B consumption pin): the amendment is safe BECAUSE §8.3
+   instantiates T = X/h with h ≤ X^{1/6} (so T ≥ X^{5/6} ≫ P^{1/10};
+   P, Q = X^{o(1)}). Recorded so no future composition wires this stone
+   at degenerate small T (h = X^{1−o(1)} long intervals — a regime §8.3
+   never needs). Quantifier order (REF-B): ∃ C c T₀ OUTERMOST, then
+   ∀ P T 𝒯 a with T₀ ≤ T and P ≤ T^10 as inner hypotheses.⟧
 
 ## THE STONE LADDER (single writer, `Salt/MR/HalaszPrimesCore.lean`, ~1.6–2.2k ln)
 
@@ -76,35 +88,58 @@ Then per pair, u := t−t' (well-spaced ⟹ |u| ≥ 1 off-diagonal):
   W = the window's Mellin kernel; via `neg_logDeriv_LSeries_eq_LSeries_twist`
   (SW) + hat_contour_rep's integrability apparatus. (The twist n^{iu}
   re-indexes the series: LSeries Λ at s−iu.)
-- **TRUNC** [C, 250] `rep_truncated`: cut at |Im s| = T' := 5T; tail ≤
+- **TRUNC** [C, 250] `rep_truncated`: cut at |Im s| = **T' := 3T** ⟦R (both
+  refuters, the R-3 height fix): max ζ-argument height = T' + 2T = 5T
+  EXACTLY, making every D₃(5T)/log(5T) evaluation in this freeze correct;
+  the pole s = 1+iu is captured with margin (|u| ≤ 2T < 3T = T')⟧; tail ≤
   c'·P·log P/T-grade via the quadratic kernel decay + ‖ζ'/ζ(c+·)‖ ≤
-  1/(c−1)-grade = log P-grade on the c-line. (This stone consumes Amendment
-  L11-T's headroom; carries the honest tail in-statement.)
+  1/(c−1)-grade = log P-grade on the c-line, uniform in u. (This stone
+  consumes Amendment L11-T's headroom; carries the honest tail
+  in-statement.)
 - **ZFREE-RECT** [B/C, 300] `rect_zero_free`: the closed rectangle
   [σ₀, c]×[−T', T'] SHIFTED by iu is ζ-zero-free, σ₀ := 1 − (c_vk/2)/D₃(5T):
   heights |Im| ≥ T₀^pow by the region (monotone D₃ at the max height 5T —
   `vkTheta_anti` pattern); heights |Im| ≤ T₀^pow by the COMPACTNESS stone:
   ζ ≠ 0 on the compact segment {Re = 1}×[−T₀^pow, T₀^pow] (pole at 1 exempt:
   (s−1)ζ(s) nonvanishing there) ⟹ ∃ δ₀ > 0 zero-free margin
-  [1−δ₀, 1]×[−T₀^pow, T₀^pow] (continuity/isolated-zeros; mathlib
-  analyticity of ζ); then T ≥ T₁ ⟹ (c_vk/2)/D₃(5T) ≤ δ₀. ∃-packaged.
+  [1−δ₀, 1]×[−T₀^pow, T₀^pow] ⟦R (REF-A): compactness ALONE closes it — no
+  isolated-zeros/finiteness needed. The two mathlib inputs, verified:
+  `riemannZeta_ne_zero_of_one_le_re` (nonvanishing on Re ≥ 1 INCLUDING the
+  pole point — no s ≠ 1 side condition) and `riemannZeta_residue_one`
+  (|ζ| → ∞ near 1 ⟹ a zero-free ball reaching Re < 1); cover the compact
+  segment minus the pole-ball by continuity + min-attained m > 0⟧; then
+  T ≥ T₁ ⟹ (c_vk/2)/D₃(5T) ≤ δ₀. ∃-packaged.
 - **EDGE** [C, 400] `shifted_edge_price`: on the left edge + horizontals,
-  ‖ζ'/ζ(s−iu)‖ ≤ C_E·(log(5T))·D₃(5T)/c_vk + C₀ — the LEFT-strip Landau
-  bound: rides `near_norm_logDeriv_Zc_le` (ZetaPowLower:301 disc core) with
-  hdist = (c_vk/2)/D₃(5T) from ZFREE-RECT, on discs centered on the shifted
-  spine (the :641 hdist-construction TEMPLATE, re-run at the left spine);
-  moderate heights by the compact max-bound C₀ (∃); the pole vicinity
-  |s−iu−1| ≥ (c_vk/2)/D₃ priced 1/dist-grade (same D₃-budget). The
-  (log·D₃)-grade TOTAL is the (log T)²-budget's input (ruling 1).
+  the LEFT-strip Landau bound: rides `near_norm_logDeriv_Zc_le`
+  (ZetaPowLower:301 disc core) with hdist = (c_vk/2)/D₃(5T) from
+  ZFREE-RECT ⟦R (REF-A): the disc-core centers at 1 + Θ/2 + iτ — RIGHT of
+  Re = 1 per the lemma's own shape, reaching the whole edge at scale
+  Θ ≍ 2c_vk/D₃; do NOT literally center on the shifted spine. Honest
+  price: the disc-core's evaluation is **D₄(5T)-grade** =
+  (log 5T)^{3/4}(loglog 5T)⁴ (the w-term dominates: loglog·D₃ = D₄ —
+  exactly matching the landed zeta_near_logDeriv_bound :787), NOT the
+  naive (log)^{7/4}(loglog)³ — an over-estimate correction, the (log T)²
+  absorption holds a fortiori⟧; moderate heights by the compact max-bound
+  C₀ (∃); the pole vicinity |s−iu−1| ≥ (c_vk/2)/D₃ priced 1/dist-grade
+  (same budget). Horizontals additionally carry the kernel's quadratic
+  decay |W| ≍ P-grade/T'² — negligible.
 - **RES** [B/C, 200] `pole_residue_term`: the rectangle identity with the one
   interior pole s = 1+iu (residue of −ζ'/ζ = +1): PerronTrunc's finite-
   rectangle + residue pattern (perron_trunc's 2πi·indicator device);
-  main term = W(1+iu), with ‖W(1+iu)‖ ≪ P/(1+|u|²)-grade (quadratic kernel
-  decay — this replaces MR's f̃(1+iu)/(1+iu), and the EXTRA decay only helps).
+  main term = W(1+iu), with ‖W(1+iu)‖ ≪ P/(1+|u|²)-grade ⟦R (both
+  refuters): QUADRATIC decay SUFFICES here — it is strictly LESS than MR's
+  super-polynomial f̃, not "extra"; the deficit's entire cost is confined
+  to TRUNC (= Amendment L11-T). REF-A verified the grade honestly:
+  numerator P²-grade, h ≍ P cancels one power — P/(1+v²) stands.⟧
 - **POLE-ROW** [B/C, 200] `pole_row_sum`: Σ_{t∈𝒯} ‖W(1+i(t−t'))‖ ≤ c_W·P
-  per fixed t' (well-spacing: the j-th nearest neighbor at distance ≥ j ⟹
-  Σ_j P/(1+j²) — the SAME summation shape as `wellspaced_l2`'s spacing
-  arithmetic). Gives the diagonal-grade P·Σ|η|² pole contribution.
+  per fixed t', **over ALL t INCLUDING the diagonal** ⟦R (REF-A R-1, the
+  diagonal fix): MR's no-split — the u = 0 entry is W(1) ≍ P, finite and
+  bounded, one row entry; do NOT split the diagonal out to
+  `primePoly_wellspaced_l2` (its bound is T-LINEAR and would blow the
+  frozen P-term)⟧. Well-spacing: the j-th nearest neighbor at distance
+  ≥ j ⟹ Σ_j P/(1+j²) < 3.3·P — a NEW small convergent-series stone (not
+  literally wellspaced_l2's arithmetic). Gives the P·Σ|η|² pole
+  contribution.
 - **ASM** [C, 400] `halasz_primes_pow`: assemble — per-pair estimate
   (RES + TRUNC + EDGE ∘ ZFREE-RECT decay: P^{σ₀} = P·exp(−(c_vk/2)·log P/D₃(5T)));
   |η_t η_{t'}| ≤ |η_t|²+|η_{t'}|²; POLE-ROW for the P-term; the error row
@@ -114,19 +149,26 @@ Then per pair, u := t−t' (well-spaced ⟹ |u| ≥ 1 off-diagonal):
 
 ## CORNER LEDGER (worst-corner incl. asymptotic — #253)
 
-- **u = 0 (diagonal):** never enters the pairwise machinery — the diagonal
-  is the landed `primePoly_wellspaced_l2`/window-count side; the off-diagonal
-  route only consumes |u| ≥ 1 (well-spacing). The ASM stone must split
-  diagonal/off-diagonal BEFORE invoking REP. ✓
-- **|u| large (up to 2T):** heights in the shifted rectangle reach 5T =
-  T' + 2T at worst; every D₃-evaluation in the freeze is at 5T with
+- **u = 0 (diagonal):** ⟦R — REPAIRED (REF-A R-1): the original ledger
+  routed the diagonal to `primePoly_wellspaced_l2` — WRONG, that bound is
+  T-linear and blows the frozen P-term. The repair is MR's own no-split:
+  REP is valid at u = 0 (pole at s = 1, residue W(1) ≍ P finite), so the
+  pole row runs over ALL t and the diagonal is simply its u = 0 entry. No
+  pre-REP split exists. (If an executor prefers an explicit diagonal stone:
+  the window-count Chebyshev Σ_{P≤p≤2P} log p ≍ P — NEVER
+  primePoly_wellspaced_l2.)⟧
+- **|u| large (up to 2T):** heights in the shifted rectangle reach
+  T' + 2T = 3T + 2T = **5T** at worst ⟦R: consistent now that T' := 3T —
+  the refuter-audited fix⟧; every D₃-evaluation in the freeze is at 5T with
   monotonicity (`vkTheta_anti` pattern) — NEVER at |u| or T alone (the #253
   conflation corner: an executor evaluating the region at height T while u
-  pushes the argument to 3T is a BUG the freeze forbids by construction).
+  pushes the argument higher is a BUG the freeze forbids by construction).
 - **T moderate (T < T₁ from ZFREE-RECT):** absorbed by the ∃ T₀ in the
-  frozen statement (T₀ := max(T₁, exp(exp(2/c_vk)), the (loglog)³≤(logT)^{1/4}
-  threshold, the √P-absorption threshold)). The freeze's T₀ is the MAX of
-  four named thresholds — the executor lists all four in the docstring.
+  frozen statement (T₀ := max(T₁, exp(exp(~27/c_vk)) ⟦R: the honest
+  5T-slack-inclusive threshold, REF-A⟧, the (loglog)⁴≤(logT)^{5/4}
+  threshold ⟦R: EDGE's honest D₄ grade⟧, the √P-absorption threshold, the
+  P=T^10 tail threshold ⟦R: REF-B R-4⟧)). The freeze's T₀ is the MAX of
+  five named thresholds — the executor lists all five in the docstring.
 - **P small (P < 100, say):** the window may hold O(1) primes;
   √P-absorption needs D₄(T₀) ≥ 3 ✓ and the ≪-constant absorbs; the frozen
   statement's `2 ≤ P` side condition suffices (verify at ASM).
