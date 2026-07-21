@@ -52,3 +52,46 @@ A satellite paper candidate. Origin: JYH's Google-objectivity
 question, 2026-07-21 morning. **Review dispatched 2026-07-21; integration on the council/portfolio table.**
 
 **THE LANE FENCE (ratified 2026-07-21, the firewall council):** SaltBench is SALT-lane. The wall, per direction: ideas may flow freely; CODE/content crosses only with license + provenance — SaltBench builds its OWN thin harness, reimplementing only field-standard methodology (pre-registration, memory-reset counterfactuals, mutation-tested oracles, admission probes). Tier-E cells (salt's git history) stay salt-side always. Sequencing: SaltBench design may bank any evening; BUILD waits for the flagship arXiv — it competes with nothing.
+
+**TIER-F REGISTERED + THE LEAKAGE ARCHITECTURE (JYH-ratified
+2026-07-21, the SaltBench council — "yes, exactly"):**
+- The four tiers now mirror the method's four seats: Tier-E the
+  executor, Tier-S the scoper, Tier-D the refuter, **Tier-F the
+  maestro** (freeze authorship). Tier-F's three measurement rungs:
+  (1) lemma-invention — design-in-the-small, KERNEL-judged (design-in-the-small families; carriable by an outside benchmark);
+  (2) route/corner-prediction — history-anchored rubric; flags.md
+  IS a labeled dataset of design-time-miss → execution-time-bite
+  events, the amendment history a labeled set of statement-layer
+  rulings; (3) freeze authorship, EXECUTION-judged (standardized
+  executor fleet attempts the agent's freeze; landing rate + cost
+  + residual quality) — small-n demonstration cells only.
+- **Leakage, conceded and designed for:** a leaked Tier-E cell
+  reduces to retrieval (the erosion law; proof structure
+  transfers under renaming — surface randomization does not save
+  mathematics). The blank-floor probe is the leak detector; burned
+  cells retire into curriculum + contamination diagnostics.
+- **The saving property:** kernel-judged ground truth is
+  SELF-CERTIFYING — no answer-key author needed — so the mint
+  outpaces the burn. "Verification doesn't beat retrieval by being
+  hard; it beats it by making novelty cheap to judge." SaltBench
+  is a PIPELINE, not a corpus: rolling private waves released
+  N-months delayed (the FrontierMath pattern), fed by ongoing
+  campaigns.
+- **The wave boundary cuts the WHOLE repo:** proofs + flags +
+  freezes + ledger + refuter verdicts trail public together (the
+  process artifacts are answer keys for Tiers S/D/F and the memory
+  store for the gap experiments). Ratified in principle; the
+  operational cut joins the pre-public hard gate alongside the
+  copyright purge.
+- **The store law:** with-memory arms are defined RELATIVE TO EACH
+  MODEL'S CUTOFF — the store an agent receives is the slice of
+  catches minted after that model's training data closed.
+- **Honest floor-grading (state in print):** catches are an
+  EFFICIENCY floor (expensive-to-derive, erodes as derivation
+  cheapens); invented conventions are a POSSIBILITY floor
+  (underivable). The non-eroding mint is only the novel-work
+  frontier — which the forge produces weekly.
+- **The happy burn:** flags.md leaking = a safety curriculum —
+  models internalizing give-up-early, frozen-statement discipline,
+  honest residuals. The proofs teach the field mathematics; the
+  catches teach it conduct. The leak we want.
