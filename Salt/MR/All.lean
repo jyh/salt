@@ -205,3 +205,5 @@ open Salt.Tactic in
   Salt.MR.primePoly_wellspaced_l2
   Salt.MR.exp_sum_decay
   Salt.MR.dualPoly_diagonal
+  Salt.MR.wellspaced_harmonic_double
+  Salt.MR.halasz_integers_of_vanDerCorput

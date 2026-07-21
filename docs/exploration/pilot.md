@@ -10623,3 +10623,21 @@ decisions per question.
   montgomery3.txt (+ the briefly-tracked CBMS 84).** Private-repo
   research use in the interim is the accepted posture. Gate filed
   alongside Road 5 in the public-release checklist.
+
+- 2026-07-20 22:06 PDT (night shift): ██ L9-FINISH — the assembly lands
+  whole on ONE honest socket ██ (Opus, 264k, near-all
+  first-attempt): +33 decls in HalaszIntegers.lean, audited
+  (8855 green). Thm 9.6 LOCATED (= Ten Lectures Ch.7 §6 Thm 8,
+  pp. 140-141 — the book numbers per-lecture); F1 the
+  well-spaced harmonic double sum UNCONDITIONAL;
+  halasz_integers_of_vanDerCorput — the frozen √T shape at
+  constant 3 via l2_duality, socketed on hZ. CATCH
+  (executor-catches-brief, source-grounded): the F2 sketch
+  ("far pairs eat the defect → √T") MISREAD the proof — the
+  book splits the EXP SUM dyadically (van der Corput (34)),
+  not the pairs; exp_sum_decay's linear defect is off by a
+  full √T; the prior "√N optimism" retracted. THE RESIDUAL,
+  EXACT: **VDC** — Z(iu) ≪ N/|u| + √|u| (Ten Lectures
+  (33)/(34) via Poisson/Thm 3.8) — and the SOURCE IS STAGED,
+  so this is a PORT not a panel (the MV-CORE-2 precedent).
+  VDC PORT DISPATCHED. In flight: WINDOW-SWAP, VDC.
