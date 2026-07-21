@@ -10819,3 +10819,5 @@ decisions per question.
   of the S8 campaign is UNCONDITIONAL.** The board at the
   council: the two panels (L11-CORE, MULT-SHIU) + the terminal
   assemblies + the pretty-grade collapses. Nothing in flight.
+
+- 2026-07-21 09:02 PDT: AN OUTSIDE-LANE REVIEW returned (Opus general-purpose, 139k, read-only); the salt-side takeaway is the kernel-judge framing and iron rule #1 rediscovered empirically.
