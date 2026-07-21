@@ -10399,3 +10399,9 @@ decisions per question.
   correctly factored: R3.2 (T1 decay), R3.3 (halasz_R_poly),
   R3.4 (ball packaging) = the PropA3Core stones, queued.
   In flight: TRUNC-PERRON.
+  [ledger repair: the trap line above lost its backticked words to
+  shell substitution — it should read: a goal-CHANGING show trips
+  the style.show linter, use change instead. House trap banked:
+  unquoted heredocs execute backticks — ledger entries with code
+  words use quoted heredocs ('EOF') and date-stamping via a
+  pre-computed variable.]
