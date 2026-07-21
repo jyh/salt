@@ -10603,3 +10603,23 @@ decisions per question.
   staging hunt (JYH PDF errand — CBMS 84, Thm 9.6/§9).** The
   ℂ-module-diamond convert trap banked (rewrite-the-value,
   never convert). In flight: WINDOW-SWAP (the night's last).
+
+- 2026-07-20 21:28 PDT (night shift): **TEN LECTURES STAGED** (JYH's
+  bedtime delivery: docs/sources/montgomery-ten-lectures-cbms84
+  .pdf — the full CBMS 84). The L9 staging errand CLOSES the
+  same hour it opened; the L9-FINISH executor dispatched w/ the
+  faithful Thm 9.6 source (the harmonic double sum + the √T
+  split assembly). The morning agenda drops to: the two panel
+  candidates + the cloud-trial verdict.
+
+- 2026-07-20 21:30 PDT: **COPYRIGHT GUARD (JYH catch, pre-sleep):** the
+  Ten Lectures PDF was briefly committed — REMOVED from git (kept
+  on local disk for executors; the pushed commit rewritten).
+  docs/sources binaries + external texts now GITIGNORED. **HARD
+  GATE registered: before the repo goes public, purge the full
+  history (git-filter-repo) of ALL docs/sources external material
+  — known offenders: mv1974-hilbert.pdf, 1501.04585v4.pdf,
+  1503.05121v3.pdf, 1706.03749v1.pdf, chowla.txt,
+  montgomery3.txt (+ the briefly-tracked CBMS 84).** Private-repo
+  research use in the interim is the accepted posture. Gate filed
+  alongside Road 5 in the public-release checklist.

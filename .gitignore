@@ -10,3 +10,8 @@
 *.out
 *.synctex.gz
 main.pdf
+# External source material (copyrighted; local-only, NEVER tracked.
+# Pre-public-release gate: purge ALL docs/sources binaries + external
+# texts from the FULL git history (git-filter-repo) -- see OPERATIONS.
+docs/sources/*.pdf
+docs/sources/*.txt
