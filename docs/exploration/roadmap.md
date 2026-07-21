@@ -25,5 +25,13 @@ design consults at credits expected) → hEngine →
 Explicit SW→BV→Maynard→Chen (its own paper); mathlib upstream tier 1
 (the ZFR corpus); small stones as filler.
 
+## Road 5 — THE LINEAGE (no urgency; pride before the public release)
+Modernize ../metaprl/{metaprl, libmojave, omake} — JYH's ancestral
+provers/toolchain (~15 years unmaintained): (1) compile on modern
+OCaml; (2) evaluate a dune migration (feasibility unknown — scope
+first); (3) add tests. Gate: BEFORE the salt repo goes public.
+First step when ripe: an Opus scoping pass (build the three on the
+current toolchain, map the breakage, price the dune question).
+
 One line: one week to the flag, three to the spine, six to the crown;
 every day crank except the decisions that are properly JYH's.
