@@ -10535,3 +10535,20 @@ decisions per question.
   dsimp; the Sigma.mk.injEq→True collapse + the rw-through-
   constructor idiom; rwa-on-conjunct). R1C-R2 FOLLOW-ON
   DISPATCHED. In flight: P3.
+
+- 2026-07-20 19:40 PDT (night shift): ██ S8-P3 LANDS L7 — the well-spaced
+  L² keystone, UNCONDITIONAL ██ (Opus, 223k): LargeValues.lean,
+  388 ln, wired+audited (8851 green). wellspaced_l2 (≤ 84(T+N)·
+  log(2N)·Σ‖a‖², via gallagher_pointwise + the MV mean value on F
+  AND F' + the AM-GM collapse; the freeze's LS/Spacing DROP
+  honored — the disjointness helper rebuilt in-file) +
+  wellspaced_card_le + the dpoly-derivative package. L8/L9/L11
+  flagged w/ resistance maps + estimates (L8: the k-fold
+  convolution L²-control, 400-600; L9: the exponential-sum decay
+  n^(iu) + duality, 250-400; L11: the θ=3/4 ζ'/ζ contour port,
+  400+, artillery confirmed present). Five traps banked. LEDGER
+  TRAP #2 (house): f-strings eat curly-brace math notation
+  (n^{iu} = a format field ⟹ NameError; the prior commit shipped
+  without this entry) — timestamped entries now use plain-string
+  concatenation, NEVER f-strings. NIGHT WAVE 5: L9 + L11
+  dispatched (∥ R1C-R2 in flight).
