@@ -39,6 +39,7 @@ import Salt.MR.PropA3Core
 import Salt.MR.PerronZones
 import Salt.MR.MomentsA2
 import Salt.MR.RamareDpoly
+import Salt.MR.LargeValues
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -191,3 +192,5 @@ open Salt.Tactic in
   Salt.MR.lemma13_moment
   Salt.MR.ramare_decomp_pm
   Salt.MR.spoly_ramare_eq16
+  Salt.MR.wellspaced_l2
+  Salt.MR.wellspaced_card_le
