@@ -10379,3 +10379,23 @@ decisions per question.
   = the panel candidate on tomorrow's planning agenda** (joint
   decision per the quota law). Wired+audited (8843 green).
   Night queue: H3 + TRUNC-PERRON dispatching.
+
+- 2026-07-20 17:23 PDT (night shift): ██ **S8-H3 LANDS the
+  recentering layer — every lemma first-attempt** ██ (Opus,
+  142k): DistSplit.lean, wired+audited (8844 green). The R3.1
+  keystone: dist_split_A4 (the abstract halved split),
+  dist_split_A4_recentered (branch b: recenter ∘ halve),
+  dist_split_fgJ (landing literally on 𝔻(fg_J, n^{it})² — the
+  frozen target shape); the center-to-center transfer
+  (pretDistSq_costwist_shift + dist_recenter). The 1/32
+  coefficient realized STRUCTURALLY; the numerals left to
+  PropA3Core as designed. dist_mul_half orientation CONFIRMED
+  at consumption (middle slot g_J, third slot costwist — the
+  loss slot 𝔻(f,g_J)² IS the MULT-SHIU window mass, surfaced
+  as the clean hloss seam). GS-Lipschitz posture honored (no
+  [10] import). NEW fleet trap banked: a goal-CHANGING 
+  trips the style.show linter — use  (beyond the prior
+  show/change note: this is the linter enforcing it). Residuals
+  correctly factored: R3.2 (T1 decay), R3.3 (halasz_R_poly),
+  R3.4 (ball packaging) = the PropA3Core stones, queued.
+  In flight: TRUNC-PERRON.
