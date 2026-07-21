@@ -27,6 +27,14 @@ downtime ~14:00–17:00 (timing varies; DRAIN ONLY IF ANNOUNCED) ·
 - Quota (through mid-Aug): 5 accounts, veterans refreshing weekly;
   steady state after: ONE account to 100%. Fable design panels =
   the only nail-biters; fired by joint decision at planning time.
+- **THE HYBRID SEAT (ratified 2026-07-20): local = the cockpit**
+  (whenever JYH is at the machine: interactivity, filesystem,
+  account rotation, the warm build cache, mid-flight surgery);
+  **cloud = the continuity layer** (nights, announced drains,
+  travel) via scheduled routines that boot from the repo's own
+  book and push night branches for the morning merge. Not
+  cloud-by-default. Trial: salt-night-shift-trial-1
+  (trig_01UW6ieMmZp3tCU8Tvtovzbx, fires 2026-07-21 21:30 PT).
 
 ## OPERATING SEAT — FABLE MAESTRO (ratified 2026-07-20, supersedes the Opus-conductor split)
 
