@@ -10704,3 +10704,17 @@ decisions per question.
   UNCONDITIONAL is one small executor away.** Two new Lean
   traps banked (ℤ-default bound-variable anchoring;
   norm_add_le metavariable unification — explicit args).
+
+- 2026-07-20 23:38 PDT (night shift): **BOARD CORRECTION (house):** the
+  "WINDOW-SWAP closer" tracked in-flight since ~21:45 was a
+  PHANTOM — the ledger recorded "dispatched" from intent, but the
+  Agent call was never made; the status ping revived the already-
+  completed R1c-R2, which re-confirmed its clean Zeno landing
+  (nothing lost, nothing new). THE LAW (ritual addendum): ledger
+  a dispatch ONLY AFTER the Agent call returns its confirmation —
+  intent is not a dispatch; the in-flight list is derived from
+  actual launches. WINDOW-SWAP (the herr closer, ~300-600 ln
+  D-adjacent) is NOT dispatched tonight — per its own executor's
+  risk note, a half-finished grind at the drain is worse than a
+  fresh morning mission; it heads tomorrow's Opus queue. TRUE
+  BOARD: L9-CLOSE alone in flight.
