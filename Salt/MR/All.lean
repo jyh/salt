@@ -46,6 +46,7 @@ import Salt.MR.HalaszIntegers
 import Salt.MR.VanDerCorput
 import Salt.MR.MidBand
 import Salt.MR.LargeValueCount
+import Salt.MR.MultShiu
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -230,3 +231,7 @@ open Salt.Tactic in
   Salt.MR.lemma12_meansq
   Salt.MR.ramP2corr_moment
   Salt.MR.large_value_count
+  Salt.MR.abel_master
+  Salt.MR.lambda_partial_alpha
+  Salt.MR.lambda_tail_shift
+  Salt.MR.rough_prime_tail
