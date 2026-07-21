@@ -26,7 +26,11 @@ Explicit SW→BV→Maynard→Chen (its own paper); mathlib upstream tier 1
 (the ZFR corpus); small stones as filler.
 
 ## Road 5 — THE LINEAGE (no urgency; pride before the public release)
-Modernize ../metaprl/{metaprl, libmojave, omake} — JYH's ancestral
+Modernize ../{metaprl, libmojave, omake} (flattened 2026-07-21; survey
+verdicts: banner all three NOW [all already public]; libmojave = the
+"it lives" demonstrator ~4-6 sessions; omake = banner-with-upstream-pointer
+only [fork of living ocaml-omake]; metaprl = crown-jewel framing, revival
+is D-tier research ~20-40 sessions, NOT a sprint) — JYH's ancestral
 provers/toolchain (~15 years unmaintained): (1) compile on modern
 OCaml; (2) evaluate a dune migration (feasibility unknown — scope
 first); (3) add tests. Gate: BEFORE the salt repo goes public. **PLUS the COPYRIGHT
