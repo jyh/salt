@@ -848,4 +848,480 @@ theorem hall_tenenbaum_core {F : ℕ → ℝ} (hF0 : ∀ n, 0 ≤ F n)
   have hid : (1 + Real.log 4 + 36) * x * W = x * W + (Real.log 4 + 36) * x * W := by ring
   linarith [hfirst, hsecond, hcomb, hid]
 
+/-! ## HT-2 — the truncated-Euler exponential bound (`euler_exp_bound`)
+
+The `∑_{n≤N} F(n)/n` sum is bounded by an Euler product over the primes `≤ N`, then
+by `exp(∑_{p≤N} F(p)/p + B₂)`.  The wall — the first inequality — is dissolved by
+`N!`: every `n ≤ N` is a divisor of `N!`, and the divisor sum of the multiplicative
+`n ↦ F(n)/n` factors as `∏_{p ∣ N!} ∑_{j} F(p^j)/p^j` (`mult_divisor_sum_prod`, from
+mathlib's `(ζ ⍟ ·)`-multiplicativity).  The `primeFactors` of `N!` are exactly the
+primes `≤ N`.  The second inequality is `Real.prod_one_add_le_exp_sum`, with the
+`ν ≥ 2` tail summed geometrically (`geom_tail_sq`) to the explicit `B₂ = 4`. -/
+
+/-- `∑_{n≤N} 1/n² ≤ 2`, via the sum/integral engine (`sum_range_rpow_neg_le_integral`)
+at `β = 2` (`∫₁ᴺ t^{-2} = 1 − 1/N ≤ 1`).  Bounds the `∑_p 2/p²` prime-power constant. -/
+theorem sum_inv_sq_le (N : ℕ) : (∑ n ∈ Finset.Icc 1 N, 1 / (n : ℝ) ^ 2) ≤ 2 := by
+  rcases Nat.eq_zero_or_pos N with h0 | h1
+  · subst h0; simp
+  rw [sum_Icc_one_eq_sum_range (fun n => 1 / (n : ℝ) ^ 2)]
+  have hconv : (∑ i ∈ Finset.range N, 1 / ((i + 1 : ℕ) : ℝ) ^ 2)
+      = ∑ i ∈ Finset.range N, ((i + 1 : ℕ) : ℝ) ^ (-2 : ℝ) := by
+    apply Finset.sum_congr rfl; intro i _
+    rw [Real.rpow_neg (by positivity), show (2 : ℝ) = ((2 : ℕ) : ℝ) from by norm_num,
+      Real.rpow_natCast, one_div]
+  rw [hconv]
+  refine (sum_range_rpow_neg_le_integral (by norm_num) h1).trans ?_
+  have hN1 : (1 : ℝ) ≤ (N : ℝ) := by exact_mod_cast h1
+  have hint : (∫ t in (1 : ℝ)..(N : ℝ), t ^ (-2 : ℝ)) = ((N : ℝ) ^ (-1 : ℝ) - 1) / (-1) := by
+    rw [integral_rpow (Or.inr ⟨by norm_num, by
+        rw [Set.uIcc_of_le hN1]; intro h; rw [Set.mem_Icc] at h; linarith [h.1]⟩),
+      show (-2 + 1 : ℝ) = -1 from by ring, Real.one_rpow]
+  rw [hint]
+  have hNn : (0 : ℝ) ≤ (N : ℝ) ^ (-1 : ℝ) := Real.rpow_nonneg (by positivity) _
+  rw [div_neg, ← neg_div, neg_sub]
+  have : (1 - (N : ℝ) ^ (-1 : ℝ)) / 1 ≤ 1 := by rw [div_one]; linarith
+  linarith
+
+/-- **Divisor-sum-product for a multiplicative real arithmetic function.**  For
+multiplicative `ĝ : ArithmeticFunction ℝ` and `M ≠ 0`,
+
+  `∑_{d ∣ M} ĝ d = ∏_{p ∣ M} ∑_{j ≤ v_p(M)} ĝ(p^j)`.
+
+The Dirichlet convolution `ζ ⍟ ĝ` is multiplicative (`isMultiplicative_zeta.natCast.mul`),
+so `multiplicative_factorization` gives the product over `M.primeFactors`, and each
+factor `(ζ ⍟ ĝ)(p^k) = ∑_{d ∣ p^k} ĝ d = ∑_{j ≤ k} ĝ(p^j)` (`sum_divisors_prime_pow`). -/
+theorem mult_divisor_sum_prod (ĝ : ArithmeticFunction ℝ) (hĝ : ĝ.IsMultiplicative)
+    {M : ℕ} (hM : M ≠ 0) :
+    (∑ d ∈ M.divisors, ĝ d)
+      = ∏ p ∈ M.primeFactors, ∑ j ∈ Finset.range (M.factorization p + 1), ĝ (p ^ j) := by
+  have hmult : ((ArithmeticFunction.zeta : ArithmeticFunction ℝ) * ĝ).IsMultiplicative :=
+    (ArithmeticFunction.isMultiplicative_zeta.natCast).mul hĝ
+  rw [← ArithmeticFunction.coe_zeta_mul_apply, hmult.multiplicative_factorization _ hM,
+    Finsupp.prod, Nat.support_factorization]
+  apply Finset.prod_congr rfl
+  intro p hp
+  have hpp : p.Prime := Nat.prime_of_mem_primeFactors hp
+  rw [ArithmeticFunction.coe_zeta_mul_apply, Nat.sum_divisors_prime_pow hpp]
+
+/-- Partial geometric tail shifted by `2`: `∑_{i<m} r^{i+2} ≤ 2 r²` for `0 ≤ r ≤ 1/2`.
+`∑_{i<m} r^{i+2} = r²·∑_{i<m} r^i ≤ r²·(1−r)⁻¹ ≤ 2 r²` (`geom_sum_eq`, `(1−r)⁻¹ ≤ 2`). -/
+theorem geom_tail_sq {r : ℝ} (hr0 : 0 ≤ r) (hr : r ≤ 1 / 2) (m : ℕ) :
+    (∑ i ∈ Finset.range m, r ^ (i + 2)) ≤ 2 * r ^ 2 := by
+  have hr1 : r < 1 := by linarith
+  have h1r : (0 : ℝ) < 1 - r := by linarith
+  have hgeom : (∑ i ∈ Finset.range m, r ^ i) ≤ (1 - r)⁻¹ := by
+    rw [geom_sum_eq (ne_of_lt hr1) m, div_le_iff_of_neg (by linarith : r - 1 < 0)]
+    have heq : (1 - r)⁻¹ * (r - 1) = -1 := by
+      rw [inv_mul_eq_div, div_eq_iff h1r.ne']; ring
+    rw [heq]; nlinarith [pow_nonneg hr0 m]
+  have hle2 : (1 - r)⁻¹ ≤ 2 := by rw [inv_le_comm₀ h1r (by norm_num)]; linarith
+  calc (∑ i ∈ Finset.range m, r ^ (i + 2))
+      = r ^ 2 * ∑ i ∈ Finset.range m, r ^ i := by
+        rw [Finset.mul_sum]; exact Finset.sum_congr rfl (fun i _ => by rw [pow_add, mul_comm])
+    _ ≤ r ^ 2 * (1 - r)⁻¹ := mul_le_mul_of_nonneg_left hgeom (by positivity)
+    _ ≤ 2 * r ^ 2 := by nlinarith [mul_le_mul_of_nonneg_left hle2 (sq_nonneg r)]
+
+/-- **HT-2 (`euler_exp_bound`).**  For non-negative multiplicative `F ≤ 1` with
+`F 1 = 1`, the truncated `F(n)/n` sum is bounded by the exponential of the prime
+reciprocal sum plus the honest-explicit prime-power constant `B₂ = 4`:
+
+  `∑_{n≤N} F n / n ≤ exp((∑_{p≤N} F p / p) + 4)`.
+
+Route (freeze HT-2): `N!` collects every `n ≤ N` as a divisor; the divisor sum of
+the multiplicative `n ↦ F n / n` factors as an Euler product over the primes `≤ N`
+(`mult_divisor_sum_prod`); each local factor `1 + f_p` is bounded by `exp(f_p)`
+(`Real.prod_one_add_le_exp_sum`), and `f_p ≤ F p / p + 2/p²` splits off the `ν = 1`
+term (`F p / p`) from the geometric `ν ≥ 2` tail (`geom_tail_sq`), with
+`∑_p 2/p² ≤ 4` (`sum_inv_sq_le`). -/
+theorem euler_exp_bound {F : ℕ → ℝ} (hF0 : ∀ n, 0 ≤ F n)
+    (hmul : ∀ a b, Nat.Coprime a b → F (a * b) = F a * F b)
+    (hF1 : ∀ n, F n ≤ 1) (hFone : F 1 = 1) (N : ℕ) :
+    (∑ n ∈ Finset.Icc 1 N, F n / n)
+      ≤ Real.exp ((∑ p ∈ (Finset.Icc 1 N).filter Nat.Prime, F p / p) + 4) := by
+  set ĝ : ArithmeticFunction ℝ := ⟨fun n => if n = 0 then 0 else F n / n, by simp⟩ with hĝdef
+  have hĝ_apply : ∀ n, ĝ n = if n = 0 then 0 else F n / n := fun n => by rw [hĝdef]; rfl
+  have hĝ_val : ∀ n, n ≠ 0 → ĝ n = F n / (n : ℝ) := fun n hn => by rw [hĝ_apply, if_neg hn]
+  have hĝnn : ∀ n, 0 ≤ ĝ n := by
+    intro n; rw [hĝ_apply]; split
+    · exact le_refl 0
+    · exact div_nonneg (hF0 n) (by positivity)
+  have hĝmult : ĝ.IsMultiplicative := by
+    refine ArithmeticFunction.IsMultiplicative.iff_ne_zero.mpr ⟨?_, ?_⟩
+    · rw [hĝ_apply, if_neg (one_ne_zero), hFone]; norm_num
+    · intro m n hm hn hmn
+      rw [hĝ_val _ (mul_ne_zero hm hn), hĝ_val _ hm, hĝ_val _ hn, hmul m n hmn]
+      push_cast; rw [mul_div_mul_comm]
+  set N' := Nat.factorial N with hN'def
+  have hN'0 : N' ≠ 0 := Nat.factorial_ne_zero N
+  set P := (Finset.Icc 1 N).filter Nat.Prime with hPdef
+  have hPF : N'.primeFactors = P := by
+    ext p
+    rw [Nat.mem_primeFactors, hPdef, Finset.mem_filter, Finset.mem_Icc]
+    constructor
+    · rintro ⟨hpp, hpdvd, _⟩
+      exact ⟨⟨hpp.one_lt.le, hpp.dvd_factorial.mp hpdvd⟩, hpp⟩
+    · rintro ⟨⟨_, hpN⟩, hpp⟩
+      exact ⟨hpp, hpp.dvd_factorial.mpr hpN, hN'0⟩
+  have hstep1 : (∑ n ∈ Finset.Icc 1 N, F n / (n : ℝ)) ≤ ∑ d ∈ N'.divisors, ĝ d := by
+    have hsub : Finset.Icc 1 N ⊆ N'.divisors := by
+      intro n hn; rw [Finset.mem_Icc] at hn; rw [Nat.mem_divisors]
+      exact ⟨Nat.dvd_factorial (by omega) hn.2, hN'0⟩
+    have hL : (∑ n ∈ Finset.Icc 1 N, F n / (n : ℝ)) = ∑ n ∈ Finset.Icc 1 N, ĝ n := by
+      apply Finset.sum_congr rfl; intro n hn; rw [Finset.mem_Icc] at hn
+      rw [hĝ_val n (by omega)]
+    rw [hL]
+    exact Finset.sum_le_sum_of_subset_of_nonneg hsub (fun d _ _ => hĝnn d)
+  rw [mult_divisor_sum_prod ĝ hĝmult hN'0, hPF] at hstep1
+  refine hstep1.trans ?_
+  have hfactor_eq : ∀ p ∈ P, (∑ j ∈ Finset.range (N'.factorization p + 1), ĝ (p ^ j))
+      = 1 + ∑ i ∈ Finset.range (N'.factorization p), ĝ (p ^ (i + 1)) := by
+    intro p hp
+    rw [Finset.sum_range_succ', pow_zero, hĝmult.map_one, add_comm]
+  rw [Finset.prod_congr rfl hfactor_eq]
+  refine (Real.prod_one_add_le_exp_sum P
+    (fun p => Finset.sum_nonneg (fun i _ => hĝnn _))).trans ?_
+  apply Real.exp_le_exp.mpr
+  have hper : ∀ p ∈ P, (∑ i ∈ Finset.range (N'.factorization p), ĝ (p ^ (i + 1)))
+      ≤ F p / (p : ℝ) + 2 / (p : ℝ) ^ 2 := by
+    intro p hp
+    have hpp : p.Prime := (Finset.mem_filter.mp hp).2
+    have hppos : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hpp.pos
+    have hp2 : 2 ≤ p := hpp.two_le
+    have hr0 : (0 : ℝ) ≤ 1 / (p : ℝ) := by positivity
+    have hr : (1 : ℝ) / (p : ℝ) ≤ 1 / 2 := by
+      rw [div_le_div_iff₀ hppos (by norm_num)]; norm_num; exact_mod_cast hp2
+    have hpdvd : p ∣ N' := Nat.dvd_of_mem_primeFactors (hPF ▸ hp)
+    have hvp : 1 ≤ N'.factorization p := hpp.factorization_pos_of_dvd hN'0 hpdvd
+    obtain ⟨w, hw⟩ : ∃ w, N'.factorization p = w + 1 := ⟨N'.factorization p - 1, by omega⟩
+    rw [hw, Finset.sum_range_succ']
+    have hg1 : ĝ (p ^ (0 + 1)) = F p / (p : ℝ) := by
+      rw [zero_add, pow_one, hĝ_val p hpp.pos.ne']
+    rw [hg1]
+    have htail : (∑ i ∈ Finset.range w, ĝ (p ^ (i + 1 + 1))) ≤ 2 / (p : ℝ) ^ 2 := by
+      have hbnd : (∑ i ∈ Finset.range w, ĝ (p ^ (i + 1 + 1)))
+          ≤ ∑ i ∈ Finset.range w, (1 / (p : ℝ)) ^ (i + 2) := by
+        apply Finset.sum_le_sum; intro i _
+        rw [hĝ_val _ (pow_ne_zero _ hpp.pos.ne'), show i + 1 + 1 = i + 2 from rfl,
+          div_pow, one_pow, Nat.cast_pow]
+        gcongr
+        exact hF1 _
+      refine hbnd.trans ?_
+      have := geom_tail_sq hr0 hr w
+      rw [div_pow, one_pow, mul_one_div] at this
+      linarith
+    linarith
+  refine (Finset.sum_le_sum hper).trans ?_
+  rw [Finset.sum_add_distrib]
+  have htail2 : (∑ p ∈ P, 2 / (p : ℝ) ^ 2) ≤ 4 := by
+    have heq : (∑ p ∈ P, 2 / (p : ℝ) ^ 2) = 2 * ∑ p ∈ P, 1 / (p : ℝ) ^ 2 := by
+      rw [Finset.mul_sum]; exact Finset.sum_congr rfl (fun p _ => by ring)
+    rw [heq]
+    have hsub : (∑ p ∈ P, 1 / (p : ℝ) ^ 2) ≤ ∑ n ∈ Finset.Icc 1 N, 1 / (n : ℝ) ^ 2 :=
+      Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
+        (fun n _ _ => by positivity)
+    nlinarith [hsub, sum_inv_sq_le N]
+  linarith [htail2]
+
+/-- **Hall–Tenenbaum ∘ Euler (`hall_tenenbaum_euler`).**  The composition of HT-1 and
+HT-2 into the shape the `MS-A` assembly consumes: for non-negative multiplicative `F ≤ 1`
+with `F 1 = 1` and `x ≥ 2`,
+
+  `∑_{n≤x} F n ≤ (1 + log 4 + 36)·(x/log x)·exp((∑_{p≤x} F p / p) + 4)`.
+
+`hall_tenenbaum_core` supplies `(∑ F)·log x ≤ (1+log4+36)·x·∑ F/n`; dividing by
+`log x > 0` and closing the tail sum `∑ F/n` with `euler_exp_bound` yields the product
+`(x/log x)·exp(prime sum)`.  With `∑_{p≤x} F p/p ≤ loglog y + O(1)` (Mertens-second on the
+smooth range plus `rough_prime_tail` on the rough range), the exponential is `O(log y)` —
+the `(x/log x)·log y` shape of GHS (2.4) Term 1. -/
+theorem hall_tenenbaum_euler {F : ℕ → ℝ} (hF0 : ∀ n, 0 ≤ F n)
+    (hmul : ∀ a b, Nat.Coprime a b → F (a * b) = F a * F b)
+    (hF1 : ∀ n, F n ≤ 1) (hFone : F 1 = 1) {x : ℝ} (hx : 2 ≤ x) :
+    (∑ n ∈ Finset.Icc 1 ⌊x⌋₊, F n)
+      ≤ (1 + Real.log 4 + 36) * (x / Real.log x)
+          * Real.exp ((∑ p ∈ (Finset.Icc 1 ⌊x⌋₊).filter Nat.Prime, F p / p) + 4) := by
+  have hlogx : 0 < Real.log x := Real.log_pos (by linarith)
+  have hlog4 : (0 : ℝ) ≤ Real.log 4 := Real.log_nonneg (by norm_num)
+  have hxpos : (0 : ℝ) < x := by linarith
+  have hHT1 := hall_tenenbaum_core hF0 hmul hF1 hFone hx
+  have hHT2 := euler_exp_bound hF0 hmul hF1 hFone ⌊x⌋₊
+  have hW0 : 0 ≤ ∑ n ∈ Finset.Icc 1 ⌊x⌋₊, F n / n :=
+    Finset.sum_nonneg (fun n _ => div_nonneg (hF0 n) (by positivity))
+  have hstep : (∑ n ∈ Finset.Icc 1 ⌊x⌋₊, F n) ≤ (1 + Real.log 4 + 36) * x
+      * (∑ n ∈ Finset.Icc 1 ⌊x⌋₊, F n / n) / Real.log x := by
+    rw [le_div_iff₀ hlogx]; linarith [hHT1]
+  refine hstep.trans ?_
+  have hCx : (0 : ℝ) ≤ (1 + Real.log 4 + 36) * (x / Real.log x) := by positivity
+  calc (1 + Real.log 4 + 36) * x * (∑ n ∈ Finset.Icc 1 ⌊x⌋₊, F n / n) / Real.log x
+      = (1 + Real.log 4 + 36) * (x / Real.log x) * (∑ n ∈ Finset.Icc 1 ⌊x⌋₊, F n / n) := by
+        ring
+    _ ≤ (1 + Real.log 4 + 36) * (x / Real.log x)
+          * Real.exp ((∑ p ∈ (Finset.Icc 1 ⌊x⌋₊).filter Nat.Prime, F p / p) + 4) :=
+        mul_le_mul_of_nonneg_left hHT2 hCx
+
+/-- Geometric tail with ratio bound `3/4`: `∑_{i<m} r^{i+2} ≤ 4 r²` for `0 ≤ r ≤ 3/4`.
+The shifted-exponent sibling of `geom_tail_sq` (`(1−r)⁻¹ ≤ 4` at the `p^{α-1} ≤ 3/4`
+ratio, `p ≥ 2`, `α ≤ 1/2`). -/
+theorem geom_tail_four {r : ℝ} (hr0 : 0 ≤ r) (hr : r ≤ 3 / 4) (m : ℕ) :
+    (∑ i ∈ Finset.range m, r ^ (i + 2)) ≤ 4 * r ^ 2 := by
+  have hr1 : r < 1 := by linarith
+  have h1r : (0 : ℝ) < 1 - r := by linarith
+  have hgeom : (∑ i ∈ Finset.range m, r ^ i) ≤ (1 - r)⁻¹ := by
+    rw [geom_sum_eq (ne_of_lt hr1) m, div_le_iff_of_neg (by linarith : r - 1 < 0)]
+    have heq : (1 - r)⁻¹ * (r - 1) = -1 := by
+      rw [inv_mul_eq_div, div_eq_iff h1r.ne']; ring
+    rw [heq]; nlinarith [pow_nonneg hr0 m]
+  have hle4 : (1 - r)⁻¹ ≤ 4 := by rw [inv_le_comm₀ h1r (by norm_num)]; linarith
+  calc (∑ i ∈ Finset.range m, r ^ (i + 2))
+      = r ^ 2 * ∑ i ∈ Finset.range m, r ^ i := by
+        rw [Finset.mul_sum]; exact Finset.sum_congr rfl (fun i _ => by rw [pow_add, mul_comm])
+    _ ≤ r ^ 2 * (1 - r)⁻¹ := mul_le_mul_of_nonneg_left hgeom (by positivity)
+    _ ≤ 4 * r ^ 2 := by nlinarith [mul_le_mul_of_nonneg_left hle4 (sq_nonneg r)]
+
+/-- **HT-2 shifted (`euler_exp_bound_shifted`).**  The exponent-shifted analogue of
+`euler_exp_bound` (freeze HT-2 ⟦R⟧, a SEPARATE stone — never a silent reuse of the
+`ν = 1` version): for `α ∈ [0,1/2]` the `F(n)·n^{α-1}` sum is bounded by the
+exponential of the shifted prime sum plus the geometric `ν ≥ 2` tail, kept EXPLICIT
+in-statement (a growing / `α`-dependent quantity, house law #253 — the consuming
+`MS-B` layer supplies the `p ≤ y` smoothness that makes `∑_p p^{2(α-1)}` an absolute
+constant, via `α · log p ≤ α · log y ≤ 1`):
+
+  `∑_{n≤N} F n·n^{α-1} ≤ exp((∑_{p≤N} F p·p^{α-1}) + 4·∑_{p≤N} p^{2(α-1)})`.
+
+Same `N!`-divisor Euler-product route as `euler_exp_bound`; the local `ν ≥ 2` tail is
+geometric with ratio `r = p^{α-1} ≤ p^{-1/2} ≤ 2^{-1/2} ≤ 3/4` (`geom_tail_four`),
+so `∑_{ν≥2} F(p^ν)p^{ν(α-1)} ≤ 4·p^{2(α-1)}`. -/
+theorem euler_exp_bound_shifted {F : ℕ → ℝ} (hF0 : ∀ n, 0 ≤ F n)
+    (hmul : ∀ a b, Nat.Coprime a b → F (a * b) = F a * F b)
+    (hF1 : ∀ n, F n ≤ 1) (hFone : F 1 = 1)
+    {α : ℝ} (_hα0 : 0 ≤ α) (hα : α ≤ 1 / 2) (N : ℕ) :
+    (∑ n ∈ Finset.Icc 1 N, F n * (n : ℝ) ^ (α - 1))
+      ≤ Real.exp ((∑ p ∈ (Finset.Icc 1 N).filter Nat.Prime, F p * (p : ℝ) ^ (α - 1))
+          + 4 * ∑ p ∈ (Finset.Icc 1 N).filter Nat.Prime, (p : ℝ) ^ (2 * (α - 1))) := by
+  set ĝ : ArithmeticFunction ℝ :=
+    ⟨fun n => if n = 0 then 0 else F n * (n : ℝ) ^ (α - 1), by simp⟩ with hĝdef
+  have hĝ_apply : ∀ n, ĝ n = if n = 0 then 0 else F n * (n : ℝ) ^ (α - 1) :=
+    fun n => by rw [hĝdef]; rfl
+  have hĝ_val : ∀ n, n ≠ 0 → ĝ n = F n * (n : ℝ) ^ (α - 1) := fun n hn => by
+    rw [hĝ_apply, if_neg hn]
+  have hĝnn : ∀ n, 0 ≤ ĝ n := by
+    intro n; rw [hĝ_apply]; split
+    · exact le_refl 0
+    · exact mul_nonneg (hF0 n) (Real.rpow_nonneg (by positivity) _)
+  have hĝmult : ĝ.IsMultiplicative := by
+    refine ArithmeticFunction.IsMultiplicative.iff_ne_zero.mpr ⟨?_, ?_⟩
+    · rw [hĝ_apply, if_neg (one_ne_zero), hFone, Nat.cast_one, Real.one_rpow]; norm_num
+    · intro m n hm hn hmn
+      rw [hĝ_val _ (mul_ne_zero hm hn), hĝ_val _ hm, hĝ_val _ hn, hmul m n hmn, Nat.cast_mul,
+        Real.mul_rpow (by positivity) (by positivity)]
+      ring
+  set N' := Nat.factorial N with hN'def
+  have hN'0 : N' ≠ 0 := Nat.factorial_ne_zero N
+  set P := (Finset.Icc 1 N).filter Nat.Prime with hPdef
+  have hPF : N'.primeFactors = P := by
+    ext p
+    rw [Nat.mem_primeFactors, hPdef, Finset.mem_filter, Finset.mem_Icc]
+    constructor
+    · rintro ⟨hpp, hpdvd, _⟩
+      exact ⟨⟨hpp.one_lt.le, hpp.dvd_factorial.mp hpdvd⟩, hpp⟩
+    · rintro ⟨⟨_, hpN⟩, hpp⟩
+      exact ⟨hpp, hpp.dvd_factorial.mpr hpN, hN'0⟩
+  have hstep1 : (∑ n ∈ Finset.Icc 1 N, F n * (n : ℝ) ^ (α - 1)) ≤ ∑ d ∈ N'.divisors, ĝ d := by
+    have hsub : Finset.Icc 1 N ⊆ N'.divisors := by
+      intro n hn; rw [Finset.mem_Icc] at hn; rw [Nat.mem_divisors]
+      exact ⟨Nat.dvd_factorial (by omega) hn.2, hN'0⟩
+    have hL : (∑ n ∈ Finset.Icc 1 N, F n * (n : ℝ) ^ (α - 1)) = ∑ n ∈ Finset.Icc 1 N, ĝ n := by
+      apply Finset.sum_congr rfl; intro n hn; rw [Finset.mem_Icc] at hn
+      rw [hĝ_val n (by omega)]
+    rw [hL]
+    exact Finset.sum_le_sum_of_subset_of_nonneg hsub (fun d _ _ => hĝnn d)
+  rw [mult_divisor_sum_prod ĝ hĝmult hN'0, hPF] at hstep1
+  refine hstep1.trans ?_
+  have hfactor_eq : ∀ p ∈ P, (∑ j ∈ Finset.range (N'.factorization p + 1), ĝ (p ^ j))
+      = 1 + ∑ i ∈ Finset.range (N'.factorization p), ĝ (p ^ (i + 1)) := by
+    intro p hp
+    rw [Finset.sum_range_succ', pow_zero, hĝmult.map_one, add_comm]
+  rw [Finset.prod_congr rfl hfactor_eq]
+  refine (Real.prod_one_add_le_exp_sum P
+    (fun p => Finset.sum_nonneg (fun i _ => hĝnn _))).trans ?_
+  apply Real.exp_le_exp.mpr
+  rw [Finset.mul_sum, ← Finset.sum_add_distrib]
+  apply Finset.sum_le_sum
+  intro p hp
+  have hpp : p.Prime := (Finset.mem_filter.mp hp).2
+  have hppos : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hpp.pos
+  have hp2 : 2 ≤ p := hpp.two_le
+  have hr0 : (0 : ℝ) ≤ (p : ℝ) ^ (α - 1) := Real.rpow_nonneg hppos.le _
+  have hr34 : (p : ℝ) ^ (α - 1) ≤ 3 / 4 := by
+    have h1 : (p : ℝ) ^ (α - 1) ≤ (2 : ℝ) ^ (α - 1) :=
+      Real.rpow_le_rpow_of_nonpos (by norm_num) (by exact_mod_cast hp2) (by linarith)
+    have h2 : (2 : ℝ) ^ (α - 1) ≤ (2 : ℝ) ^ (-1 / 2 : ℝ) :=
+      Real.rpow_le_rpow_of_exponent_le (by norm_num) (by linarith)
+    have h3 : (2 : ℝ) ^ (-1 / 2 : ℝ) ≤ 3 / 4 := by
+      have hsq : ((2 : ℝ) ^ (-1 / 2 : ℝ)) ^ 2 = 1 / 2 := by
+        rw [← Real.rpow_natCast ((2 : ℝ) ^ (-1 / 2 : ℝ)) 2, ← Real.rpow_mul (by norm_num)]
+        norm_num
+      nlinarith [Real.rpow_nonneg (by norm_num : (0 : ℝ) ≤ 2) (-1 / 2 : ℝ), hsq]
+    linarith
+  have hpdvd : p ∣ N' := Nat.dvd_of_mem_primeFactors (hPF ▸ hp)
+  have hvp : 1 ≤ N'.factorization p := hpp.factorization_pos_of_dvd hN'0 hpdvd
+  obtain ⟨w, hw⟩ : ∃ w, N'.factorization p = w + 1 := ⟨N'.factorization p - 1, by omega⟩
+  rw [hw, Finset.sum_range_succ']
+  have hg1 : ĝ (p ^ (0 + 1)) = F p * (p : ℝ) ^ (α - 1) := by
+    rw [zero_add, pow_one, hĝ_val p hpp.pos.ne']
+  rw [hg1]
+  have htail : (∑ i ∈ Finset.range w, ĝ (p ^ (i + 1 + 1))) ≤ 4 * (p : ℝ) ^ (2 * (α - 1)) := by
+    have hbnd : (∑ i ∈ Finset.range w, ĝ (p ^ (i + 1 + 1)))
+        ≤ ∑ i ∈ Finset.range w, ((p : ℝ) ^ (α - 1)) ^ (i + 2) := by
+      apply Finset.sum_le_sum; intro i _
+      rw [hĝ_val _ (pow_ne_zero _ hpp.pos.ne'), show i + 1 + 1 = i + 2 from rfl]
+      have hpow : (((p ^ (i + 2) : ℕ)) : ℝ) ^ (α - 1) = ((p : ℝ) ^ (α - 1)) ^ (i + 2) := by
+        rw [Nat.cast_pow, ← Real.rpow_natCast ((p : ℝ) ^ (α - 1)) (i + 2),
+          ← Real.rpow_natCast (p : ℝ) (i + 2), ← Real.rpow_mul hppos.le,
+          ← Real.rpow_mul hppos.le, mul_comm]
+      rw [hpow]
+      calc F (p ^ (i + 2)) * ((p : ℝ) ^ (α - 1)) ^ (i + 2)
+          ≤ 1 * ((p : ℝ) ^ (α - 1)) ^ (i + 2) :=
+            mul_le_mul_of_nonneg_right (hF1 _) (by positivity)
+        _ = ((p : ℝ) ^ (α - 1)) ^ (i + 2) := one_mul _
+    refine hbnd.trans ?_
+    have hgt := geom_tail_four hr0 hr34 w
+    have hsq : ((p : ℝ) ^ (α - 1)) ^ 2 = (p : ℝ) ^ (2 * (α - 1)) := by
+      rw [← Real.rpow_natCast ((p : ℝ) ^ (α - 1)) 2, ← Real.rpow_mul hppos.le,
+        show ((2 : ℕ) : ℝ) = (2 : ℝ) from by norm_num, mul_comm]
+    rw [hsq] at hgt
+    linarith
+  linarith
+
+/-! ## SPLIT — the smooth×rough factorization bijection (`smooth_rough_split`)
+
+Every `n ≥ 1` factors uniquely as `n = m·k` with `m` `P`-smooth (all prime factors satisfy
+`P`) and `k` `¬P`-smooth, coprime by construction.  At the GHS cutoff `P p := (p:ℝ) ≤ y`,
+`m` is the `y`-smooth part and `k` the `y`-rough part.  This block builds the split part
+`splitPart` (a `factorization`-filter product) and lands the `Finset.sum` reindex that MS-A
+consumes: a single-variable sum over `n ≤ X` becomes the antidiagonal pair sum over
+`(m,k)` with `m·k ≤ X`. -/
+
+/-- The `P`-part of `n`: the product of the prime powers `p^{v_p(n)}` over primes `p` with
+`P p`.  A `Finsupp.filter` of the factorization, then `prod (· ^ ·)`. -/
+noncomputable def splitPart (P : ℕ → Prop) [DecidablePred P] (n : ℕ) : ℕ :=
+  (n.factorization.filter P).prod (· ^ ·)
+
+variable (P : ℕ → Prop) [DecidablePred P]
+
+/-- The `P`- and `¬P`-parts multiply back to `n` (for `n ≠ 0`). -/
+theorem splitPart_mul_splitPart_not {n : ℕ} (hn : n ≠ 0) :
+    splitPart P n * splitPart (fun p => ¬ P p) n = n := by
+  rw [splitPart, splitPart, Finsupp.prod_filter_mul_prod_filter_not,
+    Nat.prod_factorization_pow_eq_self hn]
+
+/-- The `P`-part is nonzero. -/
+theorem splitPart_ne_zero (n : ℕ) : splitPart P n ≠ 0 := by
+  rw [splitPart, Finsupp.prod]
+  refine Finset.prod_ne_zero_iff.mpr (fun p hp => ?_)
+  rw [Finsupp.support_filter, Finset.mem_filter, Nat.support_factorization] at hp
+  exact pow_ne_zero _ (Nat.prime_of_mem_primeFactors hp.1).pos.ne'
+
+/-- The factorization of the `P`-part is the `P`-filtered factorization. -/
+theorem factorization_splitPart (n : ℕ) :
+    (splitPart P n).factorization = n.factorization.filter P := by
+  have hne : ∀ p ∈ (n.factorization.filter P).support, p ^ ((n.factorization.filter P) p) ≠ 0 := by
+    intro p hp
+    rw [Finsupp.support_filter, Finset.mem_filter, Nat.support_factorization] at hp
+    exact pow_ne_zero _ (Nat.prime_of_mem_primeFactors hp.1).pos.ne'
+  rw [splitPart, Finsupp.prod, Nat.factorization_prod hne]
+  conv_rhs => rw [← Finsupp.sum_single (n.factorization.filter P), Finsupp.sum]
+  apply Finset.sum_congr rfl
+  intro p hp
+  rw [Finsupp.support_filter, Finset.mem_filter, Nat.support_factorization] at hp
+  rw [Nat.Prime.factorization_pow (Nat.prime_of_mem_primeFactors hp.1)]
+
+/-- The `P`- and `¬P`-parts are coprime (disjoint prime supports). -/
+theorem splitPart_coprime (n : ℕ) : Nat.Coprime (splitPart P n) (splitPart (fun p => ¬ P p) n) := by
+  rw [← Nat.disjoint_primeFactors (splitPart_ne_zero P n) (splitPart_ne_zero _ n),
+    ← Nat.support_factorization, ← Nat.support_factorization,
+    factorization_splitPart, factorization_splitPart, Finsupp.support_filter,
+    Finsupp.support_filter, Finset.disjoint_left]
+  intro q hq1 hq2
+  rw [Finset.mem_filter] at hq1 hq2
+  exact hq2.2 hq1.2
+
+/-- The `P`-part is `P`-smooth: all its prime factors satisfy `P`. -/
+theorem splitPart_smooth (n : ℕ) : ∀ p ∈ (splitPart P n).primeFactors, P p := by
+  intro p hp
+  rw [← Nat.support_factorization, factorization_splitPart, Finsupp.support_filter,
+    Finset.mem_filter] at hp
+  exact hp.2
+
+/-- Reconstruction: if `m` is `P`-smooth and `k` is `¬P`-smooth, then `splitPart P (m·k) = m`. -/
+theorem splitPart_mul_left {m k : ℕ} (hm : m ≠ 0) (hk : k ≠ 0)
+    (hmP : ∀ p ∈ m.primeFactors, P p) (hkP : ∀ p ∈ k.primeFactors, ¬ P p) :
+    splitPart P (m * k) = m := by
+  have hmem : ∀ j q : ℕ, j.factorization q ≠ 0 → q ∈ j.primeFactors := fun j q hjq => by
+    rw [← Nat.support_factorization]; exact Finsupp.mem_support_iff.mpr hjq
+  have hself : m.factorization.filter P = m.factorization :=
+    (Finsupp.filter_eq_self_iff P m.factorization).mpr (fun p hp => hmP p (hmem m p hp))
+  have hzero : k.factorization.filter P = 0 :=
+    (Finsupp.filter_eq_zero_iff P k.factorization).mpr fun p hpP => by
+      by_contra hkp; exact hkP p (hmem k p hkp) hpP
+  have hfact : (splitPart P (m * k)).factorization = m.factorization := by
+    rw [factorization_splitPart, Nat.factorization_mul hm hk, Finsupp.filter_add, hself,
+      hzero, add_zero]
+  exact Nat.factorization_inj (splitPart_ne_zero P (m * k)) hm hfact
+
+/-- **SPLIT (`smooth_rough_split`).**  The smooth×rough factorization bijection.  For a
+decidable prime predicate `P` and any weights `a b : ℕ → ℝ`, the single-variable sum over
+`n ≤ X` of `a(P-part n)·b(¬P-part n)` reindexes as the pair sum over `(m,k)` with `m`
+`P`-smooth, `k` `¬P`-smooth and `m·k ≤ X`, the bijection being `n ↦ (splitPart P n,
+splitPart ¬P n)` with inverse `(m,k) ↦ m·k` (`splitPart_mul_splitPart_not`,
+`splitPart_mul_left`).  This is the UFD scoper's antidiagonal split at the smooth/rough
+cutoff — the shape MS-A consumes to assemble a single multiplicative `F` from the two
+carriers. -/
+theorem smooth_rough_split (a b : ℕ → ℝ) (X : ℕ) :
+    (∑ n ∈ Finset.Icc 1 X, a (splitPart P n) * b (splitPart (fun p => ¬ P p) n))
+      = ∑ q ∈ (Finset.Icc 1 X ×ˢ Finset.Icc 1 X).filter
+          (fun q => (∀ p ∈ q.1.primeFactors, P p) ∧ (∀ p ∈ q.2.primeFactors, ¬ P p)
+            ∧ q.1 * q.2 ≤ X),
+        a q.1 * b q.2 := by
+  apply Finset.sum_nbij' (i := fun n => (splitPart P n, splitPart (fun p => ¬ P p) n))
+    (j := fun q => q.1 * q.2)
+  · -- hi : forward maps into the codomain
+    intro n hn
+    rw [Finset.mem_Icc] at hn
+    have hn0 : n ≠ 0 := by omega
+    have hmul : splitPart P n * splitPart (fun p => ¬ P p) n = n :=
+      splitPart_mul_splitPart_not P hn0
+    have hsmdvd : splitPart P n ∣ n := ⟨_, hmul.symm⟩
+    have hrhdvd : splitPart (fun p => ¬ P p) n ∣ n := ⟨_, by rw [mul_comm]; exact hmul.symm⟩
+    rw [Finset.mem_filter, Finset.mem_product, Finset.mem_Icc, Finset.mem_Icc]
+    refine ⟨⟨⟨Nat.one_le_iff_ne_zero.mpr (splitPart_ne_zero P n),
+        le_trans (Nat.le_of_dvd (by omega) hsmdvd) hn.2⟩,
+      ⟨Nat.one_le_iff_ne_zero.mpr (splitPart_ne_zero _ n),
+        le_trans (Nat.le_of_dvd (by omega) hrhdvd) hn.2⟩⟩,
+      splitPart_smooth P n, splitPart_smooth (fun p => ¬ P p) n, ?_⟩
+    rw [hmul]; exact hn.2
+  · -- hj : inverse maps into the domain
+    intro q hq
+    rw [Finset.mem_filter, Finset.mem_product, Finset.mem_Icc, Finset.mem_Icc] at hq
+    obtain ⟨⟨⟨hm1, _⟩, hk1, _⟩, _, _, hmk⟩ := hq
+    rw [Finset.mem_Icc]
+    exact ⟨by nlinarith [hm1, hk1], hmk⟩
+  · -- left_inv : j (i n) = n
+    intro n hn
+    rw [Finset.mem_Icc] at hn
+    exact splitPart_mul_splitPart_not P (by omega)
+  · -- right_inv : i (j q) = q
+    intro q hq
+    rw [Finset.mem_filter, Finset.mem_product, Finset.mem_Icc, Finset.mem_Icc] at hq
+    obtain ⟨⟨⟨hm1, _⟩, hk1, _⟩, hmP, hkP, _⟩ := hq
+    have hm0 : q.1 ≠ 0 := by omega
+    have hk0 : q.2 ≠ 0 := by omega
+    have h1 : splitPart P (q.1 * q.2) = q.1 := splitPart_mul_left P hm0 hk0 hmP hkP
+    have h2 : splitPart (fun p => ¬ P p) (q.1 * q.2) = q.2 := by
+      rw [mul_comm]
+      exact splitPart_mul_left (fun p => ¬ P p) hk0 hm0 hkP (fun p hp => not_not.mpr (hmP p hp))
+    exact Prod.ext h1 h2
+  · -- summand match
+    intro n _
+    rfl
+
 end Salt.MR

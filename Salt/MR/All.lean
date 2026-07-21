@@ -238,6 +238,12 @@ open Salt.Tactic in
   Salt.MR.rough_prime_tail
   Salt.MR.hall_tenenbaum_core
   Salt.MR.ht_valuation_partition
+  Salt.MR.euler_exp_bound
+  Salt.MR.euler_exp_bound_shifted
+  Salt.MR.hall_tenenbaum_euler
+  Salt.MR.smooth_rough_split
+  Salt.MR.rect_zero_free
+  Salt.MR.pole_row_sum
   Salt.MR.primeWindow_contour_rep
   Salt.MR.lambda_window_rep
   Salt.MR.rep_truncated
