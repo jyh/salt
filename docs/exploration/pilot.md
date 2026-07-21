@@ -10460,3 +10460,22 @@ decisions per question.
   confirmed; 4 iterations to diagnose). NIGHT WAVE 3
   DISPATCHED: A2 (the big read — the moments) + R4e (the zone
   arithmetic).
+
+- 2026-07-21 (night shift): ██ R4e COMPLETE — the Perron
+  infrastructure is WHOLE ██ (Opus, 217k, no residuals):
+  PerronZones.lean, 459 ln, 11 thms, wired+audited (8848
+  green). log_ratio_ge; harmonic_zone_bound (≤ 1 + log(N/K));
+  the zone counting; perron_sum_error_collapsed — the explicit
+  end-to-end bound 12(π + 2log(1+T)) + (32X/T)(1 + log 3X),
+  the (x/T)(log T + log X) grade EXACT, valid all T > 0.
+  Design deviation recorded honestly (radius-1 split, integer-
+  clean reindex; grade unchanged; the δ-form delivered
+  separately). SEVEN new traps banked (le_or_lt gone; push_neg
+  deprecated-warns; field_simp-closes-fully ×2; the
+  binder-ascription retype — fun m : ℕ mandatory in ℝ-mixed
+  filters; sum_image HO-unification forward-stating; the
+  simp-order membership trap; div_div_div side goal). The
+  log-of-arithmetic law held (opaque atoms throughout — zero
+  bites). A3a's analytic surface: perron_trunc + trivial + min
+  + representation + zones = DONE; only the U_j Taylor bonus
+  remains (may fold into A2). In flight: A2.

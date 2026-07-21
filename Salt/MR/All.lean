@@ -36,6 +36,7 @@ import Salt.MR.DistSplit
 import Salt.MR.PerronTrunc
 import Salt.MR.ParsevalAsm
 import Salt.MR.PropA3Core
+import Salt.MR.PerronZones
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -180,3 +181,6 @@ open Salt.Tactic in
   Salt.MR.Aperron_representation
   Salt.MR.dist_split_A4_frozen
   Salt.MR.T1_pointwise_decay
+  Salt.MR.log_ratio_ge
+  Salt.MR.harmonic_zone_bound
+  Salt.MR.perron_sum_error_collapsed
