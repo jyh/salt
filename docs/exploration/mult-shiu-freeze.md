@@ -152,6 +152,18 @@ Total ⟦R: re-priced ~1.2–1.5k ln — MERT + the exponent-shift device are
 pre-landed wrappers (PrimeSigmaShift.lean)⟧, one file, ONE executor (serial
 rungs; single-writer).
 
+## ⟦AMENDMENT MS-B-ROUGH (maestro-ruled 2026-07-21 evening, from
+MS-CLOSE's in-session catch)⟧ The naive MS-B decoupling — ‖ℓ n‖ ≤ 1 and
+Σ n^{-1-2η} = O(log y) — combined with the smooth factor's O(log y)
+yields (log y)², BREAKING κ=1. The honest route: the rough n-factor is
+O(1) ABSOLUTE, because ℓ vanishes on p ≤ y so its Euler product closes
+via rough_prime_tail (landed as `ms_b_rough_factor` ≤ exp(2(log4+4)+4)).
+The (log y)¹ lives ONLY in the smooth m-factor (euler_exp_bound_shifted
++ the e^t ≤ 1+(e-1)t linearization at α·log y ≤ 1). The carriers, pinned:
+s = ellLin (restrictBelow y g); ℓ = ellLin (restrictAbove y g); Λ_ℓ =
+lambdaLin (restrictAbove y g) — NOTE the corpus's `smoothPart`
+(HalaszLambda:402) is the smoothing CONVOLUTION, not the s-carrier.
+
 ## CORNER LEDGER (worst-corner pass, incl. asymptotic — #253)
 
 - **y small:** ⟦R — REPAIRED (both refuters): the original ledger claimed

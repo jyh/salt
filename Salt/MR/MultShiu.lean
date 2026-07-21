@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Mathlib
+import Salt.MR.HalaszRepAsm
 
 /-!
 # MULT-SHIU — the `hfactor` secondary bound (GHS Lemma 2.4 at `κ = 1`)
@@ -1323,5 +1324,498 @@ theorem smooth_rough_split (a b : ℕ → ℝ) (X : ℕ) :
   · -- summand match
     intro n _
     rfl
+
+end Salt.MR
+
+/-! ## MULT-SHIU CLOSING PASS — carrier study + MS-A / MS-B / MS-EXIT
+
+The engines above (`hall_tenenbaum_euler`, `euler_exp_bound_shifted`, `smooth_rough_split`,
+`lambda_partial_alpha`, `rough_prime_tail`) are abstract.  This block wires them to the
+**corpus-native carriers** determined by the freeze:
+
+* `s = ellLin (restrictBelow y g)`  — the `y`-smooth part (GHS small-prime datum, `p ≤ y`);
+  1-bounded (`ellLin_norm_le_one`), multiplicative (`ellLin_mul_coprime`), squarefree-supported.
+* `ℓ = ellLin (restrictAbove y g)` — the `y`-rough part (`p > y`); same three properties.
+* `Λ_ℓ = lambdaLin (restrictAbove y g)` — mass `‖Λ_ℓ n‖ ≤ Λ n` (`lambdaLin_norm_le`).
+
+`restrictBelow`, `restrictAbove`, `ellLin`, `lambdaLin` live in `HalaszRepAsm`/`HalaszLambda`
+(imported above).  The **carrier study** proves the assembled
+`F N = ‖s(smooth N)‖·‖ℓ(rough N)‖·(rough N)^{-η}` satisfies exactly the hypotheses of
+`hall_tenenbaum_euler` (multiplicative, `0 ≤ F ≤ 1`, `F 1 = 1`); no carrier fails, so no
+iron-rule-1 STOP arises. -/
+
+namespace Salt.MR
+
+open scoped BigOperators
+open Finset ArithmeticFunction
+
+/-! ### Carrier study — `splitPart` at 0/1/prime, divisibility, and coprime multiplicativity -/
+
+section Carrier
+
+variable {P : ℕ → Prop} [DecidablePred P]
+
+/-- The `P`-part of `0` is `1` (empty factorization). -/
+lemma splitPart_zero : splitPart P 0 = 1 := by
+  rw [splitPart, Nat.factorization_zero, Finsupp.filter_zero, Finsupp.prod_zero_index]
+
+/-- The `P`-part of `1` is `1`. -/
+lemma splitPart_one : splitPart P 1 = 1 := by
+  rw [splitPart, Nat.factorization_one, Finsupp.filter_zero, Finsupp.prod_zero_index]
+
+/-- At a prime `p`, the `P`-part is `p` if `P p` and `1` otherwise. -/
+lemma splitPart_prime {p : ℕ} (hp : p.Prime) : splitPart P p = if P p then p else 1 := by
+  rw [splitPart, hp.factorization]
+  by_cases h : P p
+  · rw [Finsupp.filter_single_of_pos _ h, Finsupp.prod_single_index (pow_zero p), pow_one, if_pos h]
+  · rw [Finsupp.filter_single_of_neg _ h, Finsupp.prod_zero_index, if_neg h]
+
+lemma splitPart_prime_pos {p : ℕ} (hp : p.Prime) (h : P p) : splitPart P p = p := by
+  rw [splitPart_prime hp, if_pos h]
+
+lemma splitPart_prime_neg {p : ℕ} (hp : p.Prime) (h : ¬ P p) : splitPart P p = 1 := by
+  rw [splitPart_prime hp, if_neg h]
+
+/-- The `P`-part always divides `n`. -/
+lemma splitPart_dvd (n : ℕ) : splitPart P n ∣ n := by
+  rcases eq_or_ne n 0 with rfl | hn
+  · rw [splitPart_zero]; exact one_dvd 0
+  · exact ⟨splitPart (fun p => ¬ P p) n, (splitPart_mul_splitPart_not P hn).symm⟩
+
+/-- The `P`-part is multiplicative across a coprime factorization. -/
+lemma splitPart_mul_coprime {M N : ℕ} (h : Nat.Coprime M N) :
+    splitPart P (M * N) = splitPart P M * splitPart P N := by
+  rcases eq_or_ne M 0 with rfl | hM
+  · rw [Nat.coprime_zero_left] at h; subst h; rw [mul_one, splitPart_one, mul_one]
+  rcases eq_or_ne N 0 with rfl | hN
+  · rw [Nat.coprime_zero_right] at h; subst h; rw [mul_zero, splitPart_one, one_mul]
+  · have hfact : (splitPart P (M * N)).factorization
+        = (splitPart P M * splitPart P N).factorization := by
+      rw [Nat.factorization_mul (splitPart_ne_zero P M) (splitPart_ne_zero P N),
+          factorization_splitPart, factorization_splitPart, factorization_splitPart,
+          Nat.factorization_mul hM hN, Finsupp.filter_add]
+    exact Nat.factorization_inj (splitPart_ne_zero P (M * N))
+      (Nat.mul_ne_zero (splitPart_ne_zero P M) (splitPart_ne_zero P N)) hfact
+
+/-- **Support-vanishing.**  If some prime factor of `m` sends the datum `d` to `0`, then
+the linearized twist `ellLin d m` vanishes (squarefree product hits a `0` factor, or `m` is
+not squarefree). -/
+lemma ellLin_eq_zero_of_mem_factor {d : ℕ → ℂ} {m p : ℕ}
+    (hp : p ∈ m.primeFactors) (hd : d p = 0) : ellLin d m = 0 := by
+  have hm : m ≠ 0 := (Nat.mem_primeFactors.mp hp).2.2
+  simp only [ellLin, if_neg hm]
+  split_ifs with hsq
+  · exact Finset.prod_eq_zero hp hd
+  · rfl
+
+end Carrier
+
+/-! ### MS-A — Term 1 of GHS (2.4): `∑_{m·n ≤ x} ‖s m‖·‖ℓ n‖/n^η ≤ C_A·(x/log x)·log y` -/
+
+/-- **MS-A (FROZEN, freeze §FROZEN TARGETS).**  For the corpus carriers `s = ellLin
+(restrictBelow y g)`, `ℓ = ellLin (restrictAbove y g)`, and `η = 1/log y`, the smooth×rough
+antidiagonal sum of `‖s m‖·‖ℓ n‖/n^η` over `m·n ≤ x` is `O((x/log x)·log y)` uniformly on
+`8 ≤ y ≤ x` (constant `∃`-packaged per house law; it absorbs the Meissel–Mertens constant
+`M` of `mertens_second_sharp`).
+
+Route (freeze MS-A-ASM): assemble `F N = ‖s(smooth N)‖·‖ℓ(rough N)‖·(rough N)^{-η}`
+(multiplicative, `0 ≤ F ≤ 1`, `F 1 = 1` — the carrier study); `smooth_rough_split` turns the
+`(m,n)` sum into `∑_{N≤x} F N`; `hall_tenenbaum_euler` bounds it by `C·(x/log x)·exp(prime
+sum + 4)`; the prime sum splits `∑_{p≤y}‖s p‖/p + ∑_{y<p≤x}‖ℓ p‖p^{-1-η} ≤ (loglog y + M +
+c) + 2(log 4 + 4)` via `mertens_second_sharp` + `rough_prime_tail`; `exp(loglog y + O(1)) =
+O(log y)`. -/
+theorem mult_shiu_MS_A (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) :
+    ∃ C_A : ℝ, ∀ (x y : ℝ), 8 ≤ y → y ≤ x →
+      (∑ q ∈ (Finset.Icc 1 ⌊x⌋₊ ×ˢ Finset.Icc 1 ⌊x⌋₊).filter (fun q => q.1 * q.2 ≤ ⌊x⌋₊),
+          ‖ellLin (restrictBelow y g) q.1‖ * ‖ellLin (restrictAbove y g) q.2‖
+            / (q.2 : ℝ) ^ (1 / Real.log y))
+        ≤ C_A * (x / Real.log x) * Real.log y := by
+  obtain ⟨M, Cm, hCm0, hM⟩ := Salt.Mertens.mertens_second_sharp
+  refine ⟨(1 + Real.log 4 + 36)
+      * Real.exp (M + Cm / Real.log 8 + 2 * (Real.log 4 + 4) + 4), fun x y hy hyx => ?_⟩
+  classical
+  -- basic positivity
+  have hy1 : (1 : ℝ) < y := by linarith
+  have hylog : 0 < Real.log y := Real.log_pos hy1
+  have hypos : (0 : ℝ) < y := by linarith
+  set η : ℝ := 1 / Real.log y with hηdef
+  have hηpos : 0 < η := by rw [hηdef]; positivity
+  have hη0 : 0 ≤ η := hηpos.le
+  have hx2 : (2 : ℝ) ≤ x := by linarith
+  have hxpos : (0 : ℝ) < x := by linarith
+  have hlogx : 0 < Real.log x := Real.log_pos (by linarith)
+  -- the smooth/rough cutoff predicate and the two carriers
+  set P : ℕ → Prop := fun p => (p : ℝ) ≤ y with hPdef
+  set a : ℕ → ℝ := fun m => ‖ellLin (restrictBelow y g) m‖ with hadef
+  set b : ℕ → ℝ := fun n => ‖ellLin (restrictAbove y g) n‖ * (n : ℝ) ^ (-η) with hbdef
+  set F : ℕ → ℝ := fun N => a (splitPart P N) * b (splitPart (fun p => ¬ P p) N) with hFdef
+  -- carrier study: pointwise sign/bounds for `a`, `b`
+  have hann : ∀ m, 0 ≤ a m := fun m => by rw [hadef]; exact norm_nonneg _
+  have hale1 : ∀ m, a m ≤ 1 := fun m => by
+    rw [hadef]; exact ellLin_norm_le_one (restrictBelow y g) (restrictBelow_norm_le hg) m
+  have hbnn : ∀ k, 0 ≤ b k := fun k => by
+    rw [hbdef]; exact mul_nonneg (norm_nonneg _) (Real.rpow_nonneg (by positivity) _)
+  have hble1 : ∀ k, 1 ≤ k → b k ≤ 1 := fun k hk => by
+    rw [hbdef]
+    have h1 : ‖ellLin (restrictAbove y g) k‖ ≤ 1 :=
+      ellLin_norm_le_one (restrictAbove y g) (restrictAbove_norm_le hg) k
+    have h2 : (k : ℝ) ^ (-η) ≤ 1 :=
+      Real.rpow_le_one_of_one_le_of_nonpos (by exact_mod_cast hk) (by linarith)
+    calc ‖ellLin (restrictAbove y g) k‖ * (k : ℝ) ^ (-η)
+        ≤ 1 * 1 := mul_le_mul h1 h2 (Real.rpow_nonneg (by positivity) _) zero_le_one
+      _ = 1 := mul_one 1
+  -- carrier study: `F` is `0 ≤ F ≤ 1`, multiplicative, `F 1 = 1`
+  have hFnn : ∀ N, 0 ≤ F N := fun N => by rw [hFdef]; exact mul_nonneg (hann _) (hbnn _)
+  have hF1 : ∀ N, F N ≤ 1 := fun N => by
+    rw [hFdef]
+    have hk1 : 1 ≤ splitPart (fun p => ¬ P p) N :=
+      Nat.one_le_iff_ne_zero.mpr (splitPart_ne_zero _ N)
+    calc a (splitPart P N) * b (splitPart (fun p => ¬ P p) N)
+        ≤ 1 * 1 := mul_le_mul (hale1 _) (hble1 _ hk1) (hbnn _) zero_le_one
+      _ = 1 := mul_one 1
+  have hFone : F 1 = 1 := by
+    rw [hFdef]
+    simp only [splitPart_one, hadef, hbdef, ellLin_one, norm_one, Nat.cast_one, Real.one_rpow,
+      mul_one]
+  have hFmul : ∀ u v : ℕ, Nat.Coprime u v → F (u * v) = F u * F v := by
+    intro u v huv
+    have hcopP : Nat.Coprime (splitPart P u) (splitPart P v) :=
+      (Nat.Coprime.coprime_dvd_left (splitPart_dvd u) huv).coprime_dvd_right (splitPart_dvd v)
+    have hcopN : Nat.Coprime (splitPart (fun p => ¬ P p) u) (splitPart (fun p => ¬ P p) v) :=
+      (Nat.Coprime.coprime_dvd_left (splitPart_dvd u) huv).coprime_dvd_right (splitPart_dvd v)
+    have haM : a (splitPart P u * splitPart P v) = a (splitPart P u) * a (splitPart P v) := by
+      simp only [hadef]
+      rw [ellLin_mul_coprime (restrictBelow y g) (splitPart_ne_zero P u) (splitPart_ne_zero P v)
+        hcopP, norm_mul]
+    have hbM : b (splitPart (fun p => ¬ P p) u * splitPart (fun p => ¬ P p) v)
+        = b (splitPart (fun p => ¬ P p) u) * b (splitPart (fun p => ¬ P p) v) := by
+      simp only [hbdef]
+      rw [ellLin_mul_coprime (restrictAbove y g) (splitPart_ne_zero _ u) (splitPart_ne_zero _ v)
+        hcopN, norm_mul, Nat.cast_mul, Real.mul_rpow (by positivity) (by positivity)]
+      ring
+    simp only [hFdef]
+    rw [splitPart_mul_coprime (P := P) huv, splitPart_mul_coprime (P := fun p => ¬ P p) huv,
+      haM, hbM]
+    ring
+  -- ENGINE 1: Hall–Tenenbaum ∘ Euler
+  have hHTE := hall_tenenbaum_euler hFnn hFmul hF1 hFone hx2
+  -- ENGINE 2: smooth×rough reindex `∑_{N≤x} F N = ∑_{filtered pairs} a·b`
+  have hFsum_eq : (∑ N ∈ Finset.Icc 1 ⌊x⌋₊, F N)
+      = ∑ q ∈ (Finset.Icc 1 ⌊x⌋₊ ×ˢ Finset.Icc 1 ⌊x⌋₊).filter
+          (fun q => (∀ p ∈ q.1.primeFactors, P p) ∧ (∀ p ∈ q.2.primeFactors, ¬ P p)
+            ∧ q.1 * q.2 ≤ ⌊x⌋₊),
+        a q.1 * b q.2 := by
+    rw [show (∑ N ∈ Finset.Icc 1 ⌊x⌋₊, F N)
+          = ∑ N ∈ Finset.Icc 1 ⌊x⌋₊, a (splitPart P N) * b (splitPart (fun p => ¬ P p) N)
+        from Finset.sum_congr rfl (fun N _ => rfl)]
+    exact smooth_rough_split P a b ⌊x⌋₊
+  -- prime-sum bound: split the prime reciprocal sum at the cutoff `y`
+  have hsmooth : (∑ p ∈ ((Finset.Icc 1 ⌊x⌋₊).filter Nat.Prime).filter P, F p / (p : ℝ))
+      ≤ Real.log (Real.log y) + M + Cm / Real.log 8 := by
+    have h8y_nat : 8 ≤ ⌊y⌋₊ := Nat.le_floor (by exact_mod_cast hy)
+    have h8y : (8 : ℝ) ≤ (⌊y⌋₊ : ℝ) := by exact_mod_cast h8y_nat
+    have hlogfloor_pos : 0 < Real.log (⌊y⌋₊ : ℝ) := Real.log_pos (by linarith)
+    have hle1 : (∑ p ∈ ((Finset.Icc 1 ⌊x⌋₊).filter Nat.Prime).filter P, F p / (p : ℝ))
+        ≤ ∑ p ∈ ((Finset.Icc 1 ⌊x⌋₊).filter Nat.Prime).filter P, (1 : ℝ) / (p : ℝ) := by
+      apply Finset.sum_le_sum
+      intro p hp
+      simp only [Finset.mem_filter] at hp
+      have hp0 : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hp.1.2.pos
+      gcongr
+      exact hF1 p
+    have hle2 : (∑ p ∈ ((Finset.Icc 1 ⌊x⌋₊).filter Nat.Prime).filter P, (1 : ℝ) / (p : ℝ))
+        ≤ ∑ p ∈ (Finset.range (⌊y⌋₊ + 1)).filter Nat.Prime, (1 : ℝ) / (p : ℝ) := by
+      apply Finset.sum_le_sum_of_subset_of_nonneg
+      · intro p hp
+        simp only [Finset.mem_filter, Finset.mem_range] at hp ⊢
+        obtain ⟨⟨_, hpp⟩, hPp⟩ := hp
+        have hple : p ≤ ⌊y⌋₊ := Nat.le_floor (show (p : ℝ) ≤ y from hPp)
+        exact ⟨by omega, hpp⟩
+      · intro p _ _; positivity
+    have h2y : 2 ≤ ⌊y⌋₊ := by omega
+    have hmert := (abs_le.mp (hM ⌊y⌋₊ h2y)).2
+    have hll : Real.log (Real.log (⌊y⌋₊ : ℝ)) ≤ Real.log (Real.log y) := by
+      apply Real.log_le_log hlogfloor_pos
+      exact Real.log_le_log (by linarith) (Nat.floor_le hypos.le)
+    have hcm : Cm / Real.log (⌊y⌋₊ : ℝ) ≤ Cm / Real.log 8 := by
+      have h8pos : (0 : ℝ) < Real.log 8 := Real.log_pos (by norm_num)
+      have hinv : (Real.log (⌊y⌋₊ : ℝ))⁻¹ ≤ (Real.log 8)⁻¹ :=
+        inv_anti₀ h8pos (Real.log_le_log (by norm_num) h8y)
+      rw [div_eq_mul_inv, div_eq_mul_inv]
+      exact mul_le_mul_of_nonneg_left hinv hCm0
+    linarith [hle1, hle2, hmert, hll, hcm]
+  have hrough : (∑ p ∈ ((Finset.Icc 1 ⌊x⌋₊).filter Nat.Prime).filter (fun p => ¬ P p),
+        F p / (p : ℝ)) ≤ 2 * (Real.log 4 + 4) := by
+    calc (∑ p ∈ ((Finset.Icc 1 ⌊x⌋₊).filter Nat.Prime).filter (fun p => ¬ P p), F p / (p : ℝ))
+        ≤ ∑ p ∈ ((Finset.Icc 1 ⌊x⌋₊).filter Nat.Prime).filter (fun p => ¬ P p),
+            (p : ℝ) ^ (-1 - η) := by
+          apply Finset.sum_le_sum
+          intro p hp
+          simp only [Finset.mem_filter] at hp
+          have hpp : p.Prime := hp.1.2
+          have hnP : ¬ P p := hp.2
+          have hp0 : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hpp.pos
+          have hsN : splitPart (fun p' => ¬ P p') p = p := splitPart_prime_pos hpp hnP
+          have hsP : splitPart P p = 1 := splitPart_prime_neg hpp hnP
+          have hFp : F p ≤ (p : ℝ) ^ (-η) := by
+            rw [hFdef]
+            simp only [hsN, hsP, hadef, hbdef, ellLin_one, norm_one, one_mul]
+            calc ‖ellLin (restrictAbove y g) p‖ * (p : ℝ) ^ (-η)
+                ≤ 1 * (p : ℝ) ^ (-η) :=
+                  mul_le_mul_of_nonneg_right
+                    (ellLin_norm_le_one (restrictAbove y g) (restrictAbove_norm_le hg) p)
+                    (Real.rpow_nonneg (by positivity) _)
+              _ = (p : ℝ) ^ (-η) := one_mul _
+          have hpow : (p : ℝ) ^ (-η) / (p : ℝ) = (p : ℝ) ^ (-1 - η) := by
+            rw [show (-1 - η : ℝ) = (-η) + (-1) from by ring, Real.rpow_add hp0,
+              Real.rpow_neg_one, div_eq_mul_inv]
+          rw [← hpow, div_eq_mul_inv, div_eq_mul_inv]
+          exact mul_le_mul_of_nonneg_right hFp (by positivity)
+      _ ≤ ∑ p ∈ (Finset.Ioc ⌊y⌋₊ ⌊x⌋₊).filter Nat.Prime, (p : ℝ) ^ (-1 - η) := by
+          apply Finset.sum_le_sum_of_subset_of_nonneg
+          · intro p hp
+            simp only [Finset.mem_filter, Finset.mem_Icc, Finset.mem_Ioc] at hp ⊢
+            obtain ⟨⟨⟨_, hpx⟩, hpp⟩, hnP⟩ := hp
+            have hpy : ⌊y⌋₊ < p := by
+              by_contra h
+              exact hnP (show (p : ℝ) ≤ y from
+                le_trans (by exact_mod_cast (not_lt.mp h)) (Nat.floor_le hypos.le))
+            exact ⟨⟨hpy, hpx⟩, hpp⟩
+          · intro p _ _; exact Real.rpow_nonneg (by positivity) _
+      _ ≤ 2 * (Real.log 4 + 4) := rough_prime_tail hy hηdef
+  -- combine the prime-sum halves
+  have hprime : (∑ p ∈ (Finset.Icc 1 ⌊x⌋₊).filter Nat.Prime, F p / (p : ℝ))
+      ≤ Real.log (Real.log y) + M + Cm / Real.log 8 + 2 * (Real.log 4 + 4) := by
+    have hsplitsum := Finset.sum_filter_add_sum_filter_not
+      ((Finset.Icc 1 ⌊x⌋₊).filter Nat.Prime) P (fun p => F p / (p : ℝ))
+    linarith [hsplitsum, hsmooth, hrough]
+  -- push through `exp`: `exp(prime + 4) ≤ log y · exp(Ctot)`
+  have hexp : Real.exp ((∑ p ∈ (Finset.Icc 1 ⌊x⌋₊).filter Nat.Prime, F p / (p : ℝ)) + 4)
+      ≤ Real.log y * Real.exp (M + Cm / Real.log 8 + 2 * (Real.log 4 + 4) + 4) := by
+    calc Real.exp ((∑ p ∈ (Finset.Icc 1 ⌊x⌋₊).filter Nat.Prime, F p / (p : ℝ)) + 4)
+        ≤ Real.exp (Real.log (Real.log y)
+            + (M + Cm / Real.log 8 + 2 * (Real.log 4 + 4) + 4)) :=
+          Real.exp_le_exp.mpr (by linarith [hprime])
+      _ = Real.exp (Real.log (Real.log y))
+            * Real.exp (M + Cm / Real.log 8 + 2 * (Real.log 4 + 4) + 4) := Real.exp_add _ _
+      _ = Real.log y * Real.exp (M + Cm / Real.log 8 + 2 * (Real.log 4 + 4) + 4) := by
+          rw [Real.exp_log hylog]
+  -- bridge: the stated plain antidiagonal equals the smooth×rough filtered `a·b` sum
+  have hCnn : (0 : ℝ) ≤ (1 + Real.log 4 + 36) * (x / Real.log x) := by positivity
+  set S : Finset (ℕ × ℕ) := (Finset.Icc 1 ⌊x⌋₊ ×ˢ Finset.Icc 1 ⌊x⌋₊).filter
+    (fun q => q.1 * q.2 ≤ ⌊x⌋₊) with hSdef
+  set T : Finset (ℕ × ℕ) := (Finset.Icc 1 ⌊x⌋₊ ×ˢ Finset.Icc 1 ⌊x⌋₊).filter
+    (fun q => (∀ p ∈ q.1.primeFactors, P p) ∧ (∀ p ∈ q.2.primeFactors, ¬ P p)
+      ∧ q.1 * q.2 ≤ ⌊x⌋₊) with hTdef
+  have hTS : T ⊆ S := by
+    intro q hq; rw [hTdef, Finset.mem_filter] at hq; rw [hSdef, Finset.mem_filter]
+    exact ⟨hq.1, hq.2.2.2⟩
+  have hzero : ∀ q ∈ S, q ∉ T → a q.1 * b q.2 = 0 := by
+    intro q hqS hqT
+    rw [hSdef, Finset.mem_filter] at hqS
+    rw [hTdef, Finset.mem_filter] at hqT
+    have hnsr : ¬ ((∀ p ∈ q.1.primeFactors, P p) ∧ (∀ p ∈ q.2.primeFactors, ¬ P p)) := by
+      intro hsr; exact hqT ⟨hqS.1, hsr.1, hsr.2, hqS.2⟩
+    rw [not_and_or] at hnsr
+    rcases hnsr with hns | hnr
+    · obtain ⟨p, hpmem, hnle⟩ : ∃ p ∈ q.1.primeFactors, ¬ ((p : ℝ) ≤ y) := by
+        by_contra hc
+        exact hns fun p hp => by by_contra hnp; exact hc ⟨p, hp, hnp⟩
+      have hrb0 : restrictBelow y g p = 0 := by unfold restrictBelow; rw [if_neg hnle]
+      have hz : ellLin (restrictBelow y g) q.1 = 0 := ellLin_eq_zero_of_mem_factor hpmem hrb0
+      simp only [hadef, hz, norm_zero, zero_mul]
+    · obtain ⟨p, hpmem, hle⟩ : ∃ p ∈ q.2.primeFactors, (p : ℝ) ≤ y := by
+        by_contra hc
+        exact hnr fun p hp hPp => hc ⟨p, hp, hPp⟩
+      have hnlt : ¬ (y < (p : ℝ)) := by intro hlt; linarith
+      have hra0 : restrictAbove y g p = 0 := by unfold restrictAbove; rw [if_neg hnlt]
+      have hz : ellLin (restrictAbove y g) q.2 = 0 := ellLin_eq_zero_of_mem_factor hpmem hra0
+      simp only [hbdef, hz, norm_zero, zero_mul, mul_zero]
+  have hbridge : (∑ q ∈ S, ‖ellLin (restrictBelow y g) q.1‖ * ‖ellLin (restrictAbove y g) q.2‖
+        / (q.2 : ℝ) ^ η) = ∑ q ∈ T, a q.1 * b q.2 := by
+    have hcongr : (∑ q ∈ S, ‖ellLin (restrictBelow y g) q.1‖ * ‖ellLin (restrictAbove y g) q.2‖
+          / (q.2 : ℝ) ^ η) = ∑ q ∈ S, a q.1 * b q.2 := by
+      apply Finset.sum_congr rfl
+      intro q hq
+      simp only [hSdef, Finset.mem_filter, Finset.mem_product, Finset.mem_Icc] at hq
+      have hq2 : (0 : ℝ) < (q.2 : ℝ) := by exact_mod_cast (by omega : 0 < q.2)
+      simp only [hadef, hbdef, Real.rpow_neg hq2.le]
+      ring
+    rw [hcongr]
+    exact (Finset.sum_subset hTS hzero).symm
+  -- assemble
+  rw [hbridge, ← hFsum_eq]
+  calc (∑ N ∈ Finset.Icc 1 ⌊x⌋₊, F N)
+      ≤ (1 + Real.log 4 + 36) * (x / Real.log x)
+          * Real.exp ((∑ p ∈ (Finset.Icc 1 ⌊x⌋₊).filter Nat.Prime, F p / (p : ℝ)) + 4) := hHTE
+    _ ≤ (1 + Real.log 4 + 36) * (x / Real.log x)
+          * (Real.log y * Real.exp (M + Cm / Real.log 8 + 2 * (Real.log 4 + 4) + 4)) :=
+        mul_le_mul_of_nonneg_left hexp hCnn
+    _ = (1 + Real.log 4 + 36)
+          * Real.exp (M + Cm / Real.log 8 + 2 * (Real.log 4 + 4) + 4)
+          * (x / Real.log x) * Real.log y := by ring
+
+/-! ### MS-B supply — the `α`-integral `∫₀^η x^{1-α} dα ≤ x/log x` (freeze MS-B-ASM)
+
+The last analytic step of the GHS (2.4) Term-2 bound: after the `k`-partial-summation
+(`lambda_partial_alpha`) contributes `x^{1-α}/(1-α)` and the smooth/rough Euler factors are
+pulled out, the outer `α`-integral collapses to `x/log x`.  `∫₀^η x^{1-α} dα =
+(x - x^{1-η})/log x ≤ x/log x` via FTC with antiderivative `-x^{1-α}/log x`. -/
+theorem ms_b_integral_bound {x η : ℝ} (hx : 2 ≤ x) (_hη : 0 ≤ η) :
+    (∫ α in (0 : ℝ)..η, x ^ (1 - α)) ≤ x / Real.log x := by
+  have hxpos : (0 : ℝ) < x := by linarith
+  have hL : 0 < Real.log x := Real.log_pos (by linarith)
+  set L := Real.log x with hLdef
+  have hval : ∀ α : ℝ, x ^ (1 - α) = Real.exp ((1 - α) * L) := by
+    intro α; rw [hLdef, Real.rpow_def_of_pos hxpos]; congr 1; ring
+  have hderiv : ∀ α ∈ Set.uIcc (0 : ℝ) η,
+      HasDerivAt (fun α => -(Real.exp ((1 - α) * L) / L)) (x ^ (1 - α)) α := by
+    intro α _
+    have h1 : HasDerivAt (fun α : ℝ => (1 - α) * L) (-L) α := by
+      simpa using ((hasDerivAt_id α).const_sub (1 : ℝ)).mul_const L
+    have h2 : HasDerivAt (fun α : ℝ => Real.exp ((1 - α) * L))
+        (Real.exp ((1 - α) * L) * (-L)) α := (Real.hasDerivAt_exp _).comp α h1
+    have h3 : HasDerivAt (fun α : ℝ => -(Real.exp ((1 - α) * L) / L))
+        (-(Real.exp ((1 - α) * L) * (-L) / L)) α := (h2.div_const L).neg
+    have hEq : -(Real.exp ((1 - α) * L) * (-L) / L) = x ^ (1 - α) := by
+      rw [hval, mul_neg, neg_div, neg_neg, mul_div_assoc, div_self hL.ne', mul_one]
+    rw [hEq] at h3
+    exact h3
+  have hcont : Continuous (fun α : ℝ => x ^ (1 - α)) := by
+    have he : (fun α : ℝ => x ^ (1 - α)) = fun α => Real.exp ((1 - α) * L) := funext hval
+    rw [he]; exact Real.continuous_exp.comp (by fun_prop)
+  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv (hcont.intervalIntegrable 0 η),
+    ← hval, ← hval]
+  have hx1 : x ^ (1 - (0 : ℝ)) = x := by rw [sub_zero, Real.rpow_one]
+  have hxη : (0 : ℝ) ≤ x ^ (1 - η) := Real.rpow_nonneg hxpos.le _
+  rw [hx1]
+  have hrw : -(x ^ (1 - η) / L) - -(x / L) = (x - x ^ (1 - η)) / L := by ring
+  rw [hrw, div_eq_mul_inv, div_eq_mul_inv]
+  exact mul_le_mul_of_nonneg_right (by linarith [hxη]) (inv_nonneg.mpr hL.le)
+
+/-! ### MS-B supply — the rough Euler factor is an ABSOLUTE constant (freeze MS-B-ASM)
+
+The `n`-side factor `∑_{n≤N} ‖ℓ n‖·n^{-1-2η}` (ℓ the `y`-rough carrier) is `O(1)`, NOT
+`O(log y)`: this is the load-bearing correction of the `(log y)²`-vs-`(log y)¹` trap.  The
+naive `‖ℓ n‖ ≤ 1` bound would give `∑ n^{-1-2η} ≈ 1 + 1/(2η) = O(log y)`; instead the rough
+support (ℓ vanishes on `p ≤ y`) makes the Euler product `∏_{p>y}(1 + ‖ℓ p‖p^{-1-2η})` close
+to an absolute constant via `rough_prime_tail`.  Route: `G n = ‖ℓ n‖·n^{-2η}` is
+multiplicative, `0 ≤ G ≤ 1`, `G 1 = 1`; `euler_exp_bound` gives `∑ G n/n ≤ exp(∑_{p≤N} G p/p
++ 4)`, and `∑_{p≤N} G p/p = ∑_{y<p≤N} ‖ℓ p‖p^{-1-2η} ≤ ∑_{y<p≤N} p^{-1-η} ≤ 2(log 4 + 4)`. -/
+theorem ms_b_rough_factor (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) {y : ℝ}
+    (hy : 8 ≤ y) (N : ℕ) :
+    (∑ n ∈ Finset.Icc 1 N, ‖ellLin (restrictAbove y g) n‖
+        * (n : ℝ) ^ (-1 - 2 * (1 / Real.log y)))
+      ≤ Real.exp (2 * (Real.log 4 + 4) + 4) := by
+  classical
+  have hy1 : (1 : ℝ) < y := by linarith
+  have hylog : 0 < Real.log y := Real.log_pos hy1
+  set η : ℝ := 1 / Real.log y with hηdef
+  have hηpos : 0 < η := by rw [hηdef]; positivity
+  set G : ℕ → ℝ := fun n => ‖ellLin (restrictAbove y g) n‖ * (n : ℝ) ^ (-(2 * η)) with hGdef
+  -- carrier study for `G`
+  have hGone : G 1 = 1 := by
+    simp only [hGdef, ellLin_one, norm_one, Nat.cast_one, Real.one_rpow, mul_one]
+  have hGnn : ∀ n, 0 ≤ G n := fun n => by
+    simp only [hGdef]; exact mul_nonneg (norm_nonneg _) (Real.rpow_nonneg (by positivity) _)
+  have hGle1 : ∀ n, G n ≤ 1 := fun n => by
+    rcases eq_or_ne n 0 with rfl | hn0
+    · have h0 : ‖ellLin (restrictAbove y g) 0‖ = 0 := by
+        rw [show ellLin (restrictAbove y g) 0 = 0 from by simp [ellLin]]; exact norm_zero
+      simp only [hGdef, h0, zero_mul]; exact zero_le_one
+    · simp only [hGdef]
+      have h1 : ‖ellLin (restrictAbove y g) n‖ ≤ 1 :=
+        ellLin_norm_le_one (restrictAbove y g) (restrictAbove_norm_le hg) n
+      have h2 : (n : ℝ) ^ (-(2 * η)) ≤ 1 :=
+        Real.rpow_le_one_of_one_le_of_nonpos
+          (by exact_mod_cast Nat.one_le_iff_ne_zero.mpr hn0) (by linarith [hηpos])
+      calc ‖ellLin (restrictAbove y g) n‖ * (n : ℝ) ^ (-(2 * η))
+          ≤ 1 * 1 := mul_le_mul h1 h2 (Real.rpow_nonneg (by positivity) _) zero_le_one
+        _ = 1 := mul_one 1
+  have hGmul : ∀ u v, Nat.Coprime u v → G (u * v) = G u * G v := by
+    intro u v huv
+    rcases eq_or_ne u 0 with rfl | hu
+    · rw [Nat.coprime_zero_left] at huv; subst huv; rw [mul_one, hGone, mul_one]
+    rcases eq_or_ne v 0 with rfl | hv
+    · rw [Nat.coprime_zero_right] at huv; subst huv; rw [mul_zero, hGone, one_mul]
+    · simp only [hGdef]
+      rw [ellLin_mul_coprime (restrictAbove y g) hu hv huv, norm_mul, Nat.cast_mul,
+        Real.mul_rpow (by positivity) (by positivity)]
+      ring
+  -- `∑ ‖ℓ n‖ n^{-1-2η} = ∑ G n / n`
+  have hconv : (∑ n ∈ Finset.Icc 1 N, ‖ellLin (restrictAbove y g) n‖
+          * (n : ℝ) ^ (-1 - 2 * η))
+      = ∑ n ∈ Finset.Icc 1 N, G n / (n : ℝ) := by
+    apply Finset.sum_congr rfl
+    intro n hn
+    rw [Finset.mem_Icc] at hn
+    have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast (by omega : 0 < n)
+    simp only [hGdef]
+    rw [mul_div_assoc]
+    congr 1
+    rw [div_eq_mul_inv, ← Real.rpow_neg_one, ← Real.rpow_add hn0]
+    congr 1; ring
+  rw [hconv]
+  -- Euler bound and the prime-sum control
+  refine (euler_exp_bound hGnn hGmul hGle1 hGone N).trans ?_
+  apply Real.exp_le_exp.mpr
+  have hprime : (∑ p ∈ (Finset.Icc 1 N).filter Nat.Prime, G p / (p : ℝ))
+      ≤ 2 * (Real.log 4 + 4) := by
+    set P : ℕ → Prop := fun p => (p : ℝ) ≤ y with hPdef
+    have hsmoothzero : (∑ p ∈ ((Finset.Icc 1 N).filter Nat.Prime).filter P, G p / (p : ℝ)) = 0 := by
+      apply Finset.sum_eq_zero
+      intro p hp
+      simp only [Finset.mem_filter] at hp
+      have hple : (p : ℝ) ≤ y := hp.2
+      have hra0 : ellLin (restrictAbove y g) p = 0 := by
+        apply ellLin_eq_zero_of_mem_factor (p := p)
+        · rw [Nat.mem_primeFactors]; exact ⟨hp.1.2, dvd_refl p, hp.1.2.pos.ne'⟩
+        · unfold restrictAbove; rw [if_neg (by intro hlt; linarith)]
+      simp only [hGdef, hra0, norm_zero, zero_mul, zero_div]
+    have hroughle : (∑ p ∈ ((Finset.Icc 1 N).filter Nat.Prime).filter (fun p => ¬ P p),
+          G p / (p : ℝ))
+        ≤ ∑ p ∈ (Finset.Ioc ⌊y⌋₊ N).filter Nat.Prime, (p : ℝ) ^ (-1 - η) := by
+      calc (∑ p ∈ ((Finset.Icc 1 N).filter Nat.Prime).filter (fun p => ¬ P p), G p / (p : ℝ))
+          ≤ ∑ p ∈ ((Finset.Icc 1 N).filter Nat.Prime).filter (fun p => ¬ P p),
+              (p : ℝ) ^ (-1 - η) := by
+            apply Finset.sum_le_sum
+            intro p hp
+            simp only [Finset.mem_filter] at hp
+            have hpp : p.Prime := hp.1.2
+            have hp0 : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hpp.pos
+            have hp1 : (1 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hpp.one_lt.le
+            have hG2η : G p / (p : ℝ) ≤ (p : ℝ) ^ (-1 - 2 * η) := by
+              have hGle : G p ≤ (p : ℝ) ^ (-(2 * η)) := by
+                simp only [hGdef]
+                calc ‖ellLin (restrictAbove y g) p‖ * (p : ℝ) ^ (-(2 * η))
+                    ≤ 1 * (p : ℝ) ^ (-(2 * η)) :=
+                      mul_le_mul_of_nonneg_right
+                        (ellLin_norm_le_one (restrictAbove y g) (restrictAbove_norm_le hg) p)
+                        (Real.rpow_nonneg (by positivity) _)
+                  _ = (p : ℝ) ^ (-(2 * η)) := one_mul _
+              have hpow : (p : ℝ) ^ (-(2 * η)) / (p : ℝ) = (p : ℝ) ^ (-1 - 2 * η) := by
+                rw [div_eq_mul_inv, ← Real.rpow_neg_one, ← Real.rpow_add hp0]; congr 1; ring
+              rw [← hpow, div_eq_mul_inv, div_eq_mul_inv]
+              exact mul_le_mul_of_nonneg_right hGle (by positivity)
+            refine hG2η.trans ?_
+            apply Real.rpow_le_rpow_of_exponent_le hp1
+            linarith [hηpos]
+        _ ≤ ∑ p ∈ (Finset.Ioc ⌊y⌋₊ N).filter Nat.Prime, (p : ℝ) ^ (-1 - η) := by
+            apply Finset.sum_le_sum_of_subset_of_nonneg
+            · intro p hp
+              simp only [Finset.mem_filter, Finset.mem_Icc, Finset.mem_Ioc] at hp ⊢
+              obtain ⟨⟨⟨_, hpx⟩, hpp⟩, hnP⟩ := hp
+              refine ⟨⟨?_, hpx⟩, hpp⟩
+              by_contra h
+              exact hnP (le_trans (by exact_mod_cast (not_lt.mp h)) (Nat.floor_le (by linarith)))
+            · intro p _ _; exact Real.rpow_nonneg (by positivity) _
+    have hrt : (∑ p ∈ (Finset.Ioc ⌊y⌋₊ N).filter Nat.Prime, (p : ℝ) ^ (-1 - η))
+        ≤ 2 * (Real.log 4 + 4) := by
+      have := rough_prime_tail (x := (N : ℝ)) hy hηdef
+      rwa [Nat.floor_natCast] at this
+    have hsplit := Finset.sum_filter_add_sum_filter_not
+      ((Finset.Icc 1 N).filter Nat.Prime) P (fun p => G p / (p : ℝ))
+    linarith [hsmoothzero, hroughle, hrt, hsplit]
+  linarith [hprime]
 
 end Salt.MR
