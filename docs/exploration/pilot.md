@@ -10804,3 +10804,18 @@ decisions per question.
   L8 at its last leg (PACK in flight); the seam list = L11-CORE
   + MULT-SHIU (the two panels) + the terminal assembly + the
   compositions.**
+
+- 2026-07-21 08:31 PDT: ██████ L8 COMPLETE — THE LARGE-VALUES + MOMENT
+  BLOCK STANDS WHOLE ██████ (Opus L8-PACK, 168k, near-all
+  first-compile): large_value_count at the frozen shape,
+  explicit constant 840, k = ⌈log T/log P⌉ instantiated
+  internally; the transcendental heart (pack_exp_core) closed
+  under generous honest thresholds (κ ≥ 30, loglog T ≥ 5 —
+  the qualitative ≪'s asymptotic regime made explicit, no
+  weakening). Both prior catches honored by design (#A the
+  pre-folded coefficients; #B the sign absorbed in the
+  hypothesis). Audited (8863 green). **THE BLOCK: L7 ✅ L8 ✅
+  L9 ✅ L12 ✅ L13 ✅ — every mean-value and large-value lemma
+  of the S8 campaign is UNCONDITIONAL.** The board at the
+  council: the two panels (L11-CORE, MULT-SHIU) + the terminal
+  assemblies + the pretty-grade collapses. Nothing in flight.

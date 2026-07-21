@@ -229,3 +229,4 @@ open Salt.Tactic in
   Salt.MR.kconv_l2_le_window
   Salt.MR.lemma12_meansq
   Salt.MR.ramP2corr_moment
+  Salt.MR.large_value_count
