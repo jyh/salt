@@ -814,4 +814,288 @@ theorem pole_row_sum {P T : ℝ} (hP : 2 ≤ P) (hT : 0 ≤ T) (𝒯 : Finset �
 
 end PoleRow
 
+/-! ## RES infrastructure — the window Mellin kernel as a holomorphic function of `s`
+
+The landed `windowKernel P c t` is the per-abscissa/height boundary trace; to shift the
+contour it must be recognised as the boundary value of a function `windowMellin P s`
+holomorphic in the complex variable `s` away from its own poles `{0, −1}` (which sit far to
+the LEFT of the shifted rectangle `Re s ∈ [σ₀, c]`, `σ₀ ≈ 1`).  `hatMellin X h s` is the
+Mellin factor of a single hat; `windowMellin` the difference. -/
+
+section WindowMellin
+
+/-- The hat Mellin factor as a holomorphic function of `s`:
+`hatMellin X h s = ((X+h)^{s+1} − X^{s+1})/(h·s·(s+1))`.  Definitionally
+`hatKernel X h c t = hatMellin X h (c + it)`. -/
+noncomputable def hatMellin (X h : ℝ) (s : ℂ) : ℂ :=
+  (((X + h : ℝ) : ℂ) ^ (s + 1) - ((X : ℝ) : ℂ) ^ (s + 1)) / ((h : ℂ) * (s * (s + 1)))
+
+/-- The window Mellin factor `windowMellin P s = hatMellin(2P,P,s) − hatMellin(P/2,P/2,s)`. -/
+noncomputable def windowMellin (P : ℝ) (s : ℂ) : ℂ :=
+  hatMellin (2 * P) P s - hatMellin (P / 2) (P / 2) s
+
+/-- `hatKernel X h c t = hatMellin X h (c + it)` (definitional). -/
+lemma hatKernel_eq_hatMellin (X h c t : ℝ) :
+    hatKernel X h c t = hatMellin X h ((c : ℂ) + (t : ℂ) * I) := rfl
+
+/-- `windowKernel P c t = windowMellin P (c + it)` (definitional). -/
+lemma windowKernel_eq_windowMellin (P c t : ℝ) :
+    windowKernel P c t = windowMellin P ((c : ℂ) + (t : ℂ) * I) := rfl
+
+/-- `hatMellin X h` is differentiable at every `s ∉ {0, −1}` (given `X, h > 0`). -/
+lemma hatMellin_differentiableAt {X h : ℝ} (hX : 0 < X) (hh : 0 < h) {s : ℂ}
+    (hs0 : s ≠ 0) (hs1 : s + 1 ≠ 0) : DifferentiableAt ℂ (hatMellin X h) s := by
+  have hXhC : ((X + h : ℝ) : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr (by positivity)
+  have hXC : ((X : ℝ) : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr hX.ne'
+  have hhC : (h : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr hh.ne'
+  apply DifferentiableAt.div
+  · exact ((differentiableAt_id.add_const 1).const_cpow (Or.inl hXhC)).sub
+      ((differentiableAt_id.add_const 1).const_cpow (Or.inl hXC))
+  · exact (differentiableAt_id.mul (differentiableAt_id.add_const 1)).const_mul (h : ℂ)
+  · exact mul_ne_zero hhC (mul_ne_zero hs0 hs1)
+
+/-- `windowMellin P` is differentiable at every `s ∉ {0, −1}` (given `P > 0`). -/
+lemma windowMellin_differentiableAt {P : ℝ} (hP : 0 < P) {s : ℂ}
+    (hs0 : s ≠ 0) (hs1 : s + 1 ≠ 0) : DifferentiableAt ℂ (windowMellin P) s :=
+  (hatMellin_differentiableAt (by linarith) (by linarith) hs0 hs1).sub
+    (hatMellin_differentiableAt (by linarith) (by linarith) hs0 hs1)
+
+end WindowMellin
+
+/-! ## RES — the pole residue term of the shifted rectangle
+
+The shifted rectangle `[σ₀, c] × [−T', T']`, ζ-zero-free on the argument `s − iu`, carries a
+SINGLE interior pole of `−ζ′/ζ(s − iu)` at `s = 1 + iu` (residue `+1`).  The boundary integral
+extracts it: `∮ = 2πi·windowMellin P (1 + iu) = 2πi·windowKernel P 1 u`.
+
+Route (the `perron_trunc` residue device, generalised): write the integrand
+`(−ζ′/ζ)(s − iu)·windowMellin P s` as `φ(s)/(s − p)` with
+`φ(s) = windowMellin P s − (s − p)·logDeriv Zc(s − iu)·windowMellin P s` analytic on the closed
+rectangle (`Zc = (·−1)ζ` entire, nonvanishing on the zero-free argument; `windowMellin` analytic
+away from its poles `{0,−1}`), then `rectBI_cif_eq` gives `2πi·φ(p) = 2πi·windowMellin P p`. -/
+
+section PoleResidue
+open Complex Salt.SW
+
+/-- `Zc w ≠ 0` whenever `ζ w ≠ 0` (the pole point `w = 1` has `Zc 1 = 1 ≠ 0`). -/
+lemma Zc_ne_zero_of_zeta_ne {w : ℂ} (h : riemannZeta w ≠ 0) : Zc w ≠ 0 := by
+  rcases eq_or_ne w 1 with rfl | hw
+  · rw [Zc_one]; norm_num
+  · rw [Zc_eq_of_ne hw]; exact mul_ne_zero (sub_ne_zero.mpr hw) h
+
+/-- `logDeriv Zc` is analytic at every `w` with `Zc w ≠ 0` (`Zc` entire, `deriv Zc` entire). -/
+lemma logDeriv_Zc_analyticAt {w : ℂ} (hw : Zc w ≠ 0) : AnalyticAt ℂ (logDeriv Zc) w := by
+  have hZana : AnalyticOnNhd ℂ Zc univ :=
+    Zc_differentiable.differentiableOn.analyticOnNhd isOpen_univ
+  have hdana : AnalyticOnNhd ℂ (deriv Zc) univ := hZana.deriv
+  have h : AnalyticAt ℂ (fun z => deriv Zc z / Zc z) w :=
+    (hdana w (mem_univ _)).div (hZana w (mem_univ _)) hw
+  rw [show logDeriv Zc = fun z => deriv Zc z / Zc z from rfl]; exact h
+
+/-- `s ↦ logDeriv Zc (s − iu)` is differentiable on any set where `ζ(s − iu) ≠ 0`. -/
+lemma logDeriv_Zc_shift_differentiableOn {u : ℝ} {K : Set ℂ}
+    (hK : ∀ s ∈ K, riemannZeta (s - (u : ℂ) * I) ≠ 0) :
+    DifferentiableOn ℂ (fun s => logDeriv Zc (s - (u : ℂ) * I)) K := by
+  intro s hs
+  have hZne : Zc (s - (u : ℂ) * I) ≠ 0 := Zc_ne_zero_of_zeta_ne (hK s hs)
+  have h1 : DifferentiableAt ℂ (logDeriv Zc) (s - (u : ℂ) * I) :=
+    (logDeriv_Zc_analyticAt hZne).differentiableAt
+  exact (h1.comp s (differentiableAt_id.sub_const _)).differentiableWithinAt
+
+/-- `windowMellin P` is differentiable on any set whose real parts stay `≥ σ₀ > 0`. -/
+lemma windowMellin_differentiableOn {P σ₀ : ℝ} (hP : 0 < P) (hσ₀ : 0 < σ₀) {K : Set ℂ}
+    (hK : ∀ s ∈ K, σ₀ ≤ s.re) : DifferentiableOn ℂ (windowMellin P) K := by
+  intro s hs
+  have hsre : 0 < s.re := lt_of_lt_of_le hσ₀ (hK s hs)
+  have hs0 : s ≠ 0 := fun h => by rw [h] at hsre; simp at hsre
+  have hs1 : s + 1 ≠ 0 := fun h => by
+    have : (s + 1).re = 0 := by rw [h]; simp
+    rw [Complex.add_re, Complex.one_re] at this; linarith
+  exact (windowMellin_differentiableAt hP hs0 hs1).differentiableWithinAt
+
+/-- **RES — the pole residue term.**  For the shifted rectangle `[σ₀, c] × [−T', T']`
+(`0 < σ₀ < 1 < c`, `|u| < T'`) that is ζ-zero-free on the shifted argument `s − iu`, the
+boundary integral of `(−ζ′/ζ)(s − iu)·windowMellin P s` equals `2πi·windowMellin P (1 + iu)`
+(the residue of `−ζ′/ζ` at its single interior pole `s = 1 + iu` is `+1`, and
+`windowMellin P (1 + iu) = windowKernel P 1 u`). -/
+theorem pole_residue_term {P σ₀ c u T' : ℝ} (hP : 0 < P)
+    (hσ₀0 : 0 < σ₀) (hσ₀1 : σ₀ < 1) (h1c : 1 < c) (hu : |u| < T')
+    (hzf : ∀ s : ℂ, s ∈ closedRect ((σ₀ : ℂ) + ((-T' : ℝ) : ℂ) * I) ((c : ℂ) + (T' : ℂ) * I) →
+        riemannZeta (s - (u : ℂ) * I) ≠ 0) :
+    rectBI ((σ₀ : ℂ) + ((-T' : ℝ) : ℂ) * I) ((c : ℂ) + (T' : ℂ) * I)
+        (fun s => (-logDeriv riemannZeta (s - (u : ℂ) * I)) * windowMellin P s)
+      = 2 * (Real.pi : ℂ) * I * windowMellin P ((1 : ℂ) + (u : ℂ) * I) := by
+  set z : ℂ := (σ₀ : ℂ) + ((-T' : ℝ) : ℂ) * I with hz
+  set w : ℂ := (c : ℂ) + (T' : ℂ) * I with hw
+  set p : ℂ := (1 : ℂ) + (u : ℂ) * I with hp
+  have hzre : z.re = σ₀ := by rw [hz]; simp
+  have hzim : z.im = -T' := by rw [hz]; simp
+  have hwre : w.re = c := by rw [hw]; simp
+  have hwim : w.im = T' := by rw [hw]; simp
+  have hpre : p.re = 1 := by rw [hp]; simp
+  have hpim : p.im = u := by rw [hp]; simp
+  have hT'0 : 0 < T' := lt_of_le_of_lt (abs_nonneg u) hu
+  have hσ₀c : σ₀ < c := lt_trans hσ₀1 h1c
+  obtain ⟨hulb, huub⟩ := abs_lt.mp hu
+  -- the analytic numerator φ
+  set φ : ℂ → ℂ :=
+    fun s => windowMellin P s - (s - p) * logDeriv Zc (s - (u : ℂ) * I) * windowMellin P s
+    with hφdef
+  -- coordinate helpers for the boundary points
+  have hre_pt : ∀ a b : ℝ, ((a : ℂ) + (b : ℂ) * I).re = a := fun a b => by simp
+  have him_pt : ∀ a b : ℝ, ((a : ℂ) + (b : ℂ) * I).im = b := fun a b => by simp
+  -- membership: closedRect real parts lie in [σ₀, c]
+  have hmem_re : ∀ s ∈ closedRect z w, σ₀ ≤ s.re := by
+    intro s hs
+    rw [closedRect, Complex.mem_reProdIm] at hs
+    have h := hs.1
+    rw [hzre, hwre, Set.uIcc_of_le hσ₀c.le, Set.mem_Icc] at h
+    exact h.1
+  -- windowMellin analytic on the rectangle
+  have hWM_diff : DifferentiableOn ℂ (windowMellin P) (closedRect z w) :=
+    windowMellin_differentiableOn hP hσ₀0 hmem_re
+  -- logDeriv Zc (·−iu) differentiable on the rectangle
+  have hLD_diff : DifferentiableOn ℂ (fun s => logDeriv Zc (s - (u : ℂ) * I)) (closedRect z w) :=
+    logDeriv_Zc_shift_differentiableOn hzf
+  -- φ analytic on the rectangle
+  have hφ_diff : DifferentiableOn ℂ φ (closedRect z w) := by
+    rw [hφdef]
+    exact hWM_diff.sub
+      ((((differentiableOn_id.sub_const p).mul hLD_diff).mul hWM_diff))
+  -- the pointwise split off the pole
+  have hsplit_pt : ∀ s : ℂ, riemannZeta (s - (u : ℂ) * I) ≠ 0 → s ≠ p →
+      (-logDeriv riemannZeta (s - (u : ℂ) * I)) * windowMellin P s = φ s / (s - p) := by
+    intro s hζ hsp
+    have hw1 : s - (u : ℂ) * I ≠ 1 := by
+      intro h
+      apply hsp
+      rw [hp]; rw [sub_eq_iff_eq_add] at h; rw [h]
+    have hspne : s - p ≠ 0 := sub_ne_zero.mpr hsp
+    have hsub : (s - (u : ℂ) * I) - 1 = s - p := by rw [hp]; ring
+    have hpole := logDeriv_zeta_eq hw1 hζ
+    rw [hpole, hsub, hφdef]
+    field_simp
+    ring
+  -- edge-agreement EqOn facts (beta-reduced, matching the `simp only [rectBI]` shape)
+  have hbot : Set.EqOn
+      (fun x : ℝ => (-logDeriv riemannZeta (((x : ℂ) + (z.im : ℂ) * I) - (u : ℂ) * I))
+        * windowMellin P ((x : ℂ) + (z.im : ℂ) * I))
+      (fun x : ℝ => φ ((x : ℂ) + (z.im : ℂ) * I) / (((x : ℂ) + (z.im : ℂ) * I) - p))
+      (Set.uIcc z.re w.re) := by
+    intro x hx
+    have hmem : ((x : ℂ) + (z.im : ℂ) * I) ∈ closedRect z w := by
+      rw [closedRect, Complex.mem_reProdIm]
+      exact ⟨by rw [hre_pt x z.im]; exact hx, by rw [him_pt x z.im]; exact left_mem_uIcc⟩
+    refine hsplit_pt _ (hzf _ hmem) (fun h => ?_)
+    have hne := congrArg Complex.im h; rw [him_pt x z.im, hzim, hpim] at hne; linarith
+  have htop : Set.EqOn
+      (fun x : ℝ => (-logDeriv riemannZeta (((x : ℂ) + (w.im : ℂ) * I) - (u : ℂ) * I))
+        * windowMellin P ((x : ℂ) + (w.im : ℂ) * I))
+      (fun x : ℝ => φ ((x : ℂ) + (w.im : ℂ) * I) / (((x : ℂ) + (w.im : ℂ) * I) - p))
+      (Set.uIcc z.re w.re) := by
+    intro x hx
+    have hmem : ((x : ℂ) + (w.im : ℂ) * I) ∈ closedRect z w := by
+      rw [closedRect, Complex.mem_reProdIm]
+      exact ⟨by rw [hre_pt x w.im]; exact hx, by rw [him_pt x w.im]; exact right_mem_uIcc⟩
+    refine hsplit_pt _ (hzf _ hmem) (fun h => ?_)
+    have hne := congrArg Complex.im h; rw [him_pt x w.im, hwim, hpim] at hne; linarith
+  have hright : Set.EqOn
+      (fun y : ℝ => (-logDeriv riemannZeta (((w.re : ℂ) + (y : ℂ) * I) - (u : ℂ) * I))
+        * windowMellin P ((w.re : ℂ) + (y : ℂ) * I))
+      (fun y : ℝ => φ ((w.re : ℂ) + (y : ℂ) * I) / (((w.re : ℂ) + (y : ℂ) * I) - p))
+      (Set.uIcc z.im w.im) := by
+    intro y hy
+    have hmem : ((w.re : ℂ) + (y : ℂ) * I) ∈ closedRect z w := by
+      rw [closedRect, Complex.mem_reProdIm]
+      exact ⟨by rw [hre_pt w.re y]; exact right_mem_uIcc, by rw [him_pt w.re y]; exact hy⟩
+    refine hsplit_pt _ (hzf _ hmem) (fun h => ?_)
+    have hne := congrArg Complex.re h; rw [hre_pt w.re y, hwre, hpre] at hne; linarith
+  have hleft : Set.EqOn
+      (fun y : ℝ => (-logDeriv riemannZeta (((z.re : ℂ) + (y : ℂ) * I) - (u : ℂ) * I))
+        * windowMellin P ((z.re : ℂ) + (y : ℂ) * I))
+      (fun y : ℝ => φ ((z.re : ℂ) + (y : ℂ) * I) / (((z.re : ℂ) + (y : ℂ) * I) - p))
+      (Set.uIcc z.im w.im) := by
+    intro y hy
+    have hmem : ((z.re : ℂ) + (y : ℂ) * I) ∈ closedRect z w := by
+      rw [closedRect, Complex.mem_reProdIm]
+      exact ⟨by rw [hre_pt z.re y]; exact left_mem_uIcc, by rw [him_pt z.re y]; exact hy⟩
+    refine hsplit_pt _ (hzf _ hmem) (fun h => ?_)
+    have hne := congrArg Complex.re h; rw [hre_pt z.re y, hzre, hpre] at hne; linarith
+  -- assemble the rectBI congruence
+  have hcongr : rectBI z w (fun s => (-logDeriv riemannZeta (s - (u : ℂ) * I)) * windowMellin P s)
+      = rectBI z w (fun s => φ s / (s - p)) := by
+    simp only [rectBI]
+    rw [intervalIntegral.integral_congr hbot, intervalIntegral.integral_congr htop,
+      intervalIntegral.integral_congr hright, intervalIntegral.integral_congr hleft]
+  rw [hcongr]
+  -- the residue extraction
+  have hcif := rectBI_cif_eq (z := z) (w := w) (p := p) (φ := φ) hφ_diff
+    (by rw [hzre, hwre]; exact hσ₀c)
+    (by rw [hzim, hwim]; linarith)
+    ⟨by rw [hzre, hpre]; exact hσ₀1, by rw [hwre, hpre]; exact h1c⟩
+    ⟨by rw [hzim, hpim]; exact hulb, by rw [hwim, hpim]; exact huub⟩
+  rw [hcif]
+  -- φ p = windowMellin P p
+  have hφp : φ p = windowMellin P p := by rw [hφdef]; simp
+  rw [hφp, hp]
+
+end PoleResidue
+
+/-! ## EDGE support — the compact-max bound on `logDeriv Zc`
+
+The moderate-height regime of the left edge (`|Im| ≤ M`, the strip threshold): via
+`logDeriv ζ = logDeriv Zc − 1/(z−1)` the entire nonvanishing factor `logDeriv Zc` is continuous
+on the compact box `[1−δ₀, c] × [−M, M]` (zero-free by the fixed strip; pole point `z = 1` exempt
+via `Zc 1 = 1 ≠ 0`), hence bounded by a constant `C₀`.  The `1/(z−1)` pole is priced separately
+(`1/dist`-grade, `≤ D₃`-grade on the left edge) in the ASM assembly. -/
+
+section EdgeSupport
+open Complex Set Salt.SW
+
+/-- **EDGE moderate-height max.**  For any height cap `M ≥ 0` and abscissa cap `c ≥ 1` there are
+`δ₀ > 0`, `C₀` with `‖logDeriv Zc z‖ ≤ C₀` for every `z` with `1 − δ₀ ≤ Re z ≤ c`, `|Im z| ≤ M`:
+`Zc = (·−1)ζ` is entire and (by the fixed zero-free strip at height `M`, `δ₀` finer than its
+margin `ε₀`) nonvanishing on the box, so `logDeriv Zc` is continuous on the compact box and
+attains a finite bound. -/
+lemma logDeriv_Zc_compact_bound {M c : ℝ} (hM : 0 ≤ M) (_hc : 1 ≤ c) :
+    ∃ (δ₀ C₀ : ℝ), 0 < δ₀ ∧
+      ∀ z : ℂ, 1 - δ₀ ≤ z.re → z.re ≤ c → |z.im| ≤ M → ‖logDeriv Zc z‖ ≤ C₀ := by
+  obtain ⟨ε₀, hε₀, hstrip⟩ := zeta_zero_free_strip_height hM
+  set δ₀ : ℝ := ε₀ / 2 with hδ₀def
+  have hδ₀pos : 0 < δ₀ := by rw [hδ₀def]; linarith
+  set K : Set ℂ := (fun q : ℝ × ℝ => (q.1 : ℂ) + (q.2 : ℂ) * I)
+    '' (Set.Icc (1 - δ₀) c ×ˢ Set.Icc (-M) M) with hKdef
+  have hKcompact : IsCompact K := (isCompact_Icc.prod isCompact_Icc).image (by fun_prop)
+  -- Zc nonvanishing on K
+  have hZne : ∀ z ∈ K, Zc z ≠ 0 := by
+    intro z hz
+    obtain ⟨⟨a, b⟩, hab, rfl⟩ := hz
+    rw [Set.mem_prod, Set.mem_Icc, Set.mem_Icc] at hab
+    obtain ⟨⟨ha1, _ha2⟩, hb1, hb2⟩ := hab
+    have hzre : ((a : ℂ) + (b : ℂ) * I).re = a := by simp
+    have hzim : ((a : ℂ) + (b : ℂ) * I).im = b := by simp
+    apply Zc_ne_zero_of_zeta_ne
+    by_cases h1 : 1 ≤ a
+    · exact riemannZeta_ne_zero_of_one_le_re (by rw [hzre]; exact h1)
+    · intro hζ0
+      have hb' : |((a : ℂ) + (b : ℂ) * I).im| ≤ M := by rw [hzim, abs_le]; exact ⟨hb1, hb2⟩
+      have hstr := hstrip hζ0 hb'
+      rw [hzre] at hstr
+      linarith
+  -- logDeriv Zc continuous on K
+  have hLD_cont : ContinuousOn (logDeriv Zc) K := by
+    have hderiv_cont : Continuous (deriv Zc) := continuousOn_univ.mp
+      (Zc_differentiable.differentiableOn.analyticOnNhd isOpen_univ).deriv.continuousOn
+    have h : ContinuousOn (fun z => deriv Zc z / Zc z) K :=
+      hderiv_cont.continuousOn.div Zc_differentiable.continuous.continuousOn hZne
+    exact h
+  obtain ⟨C₀, hC₀⟩ := hKcompact.exists_bound_of_continuousOn hLD_cont
+  refine ⟨δ₀, C₀, hδ₀pos, ?_⟩
+  intro z hre1 hre2 him
+  refine hC₀ z ⟨(z.re, z.im), ?_, Complex.re_add_im z⟩
+  rw [Set.mem_prod, Set.mem_Icc, Set.mem_Icc]
+  exact ⟨⟨hre1, hre2⟩, (abs_le.mp him).1, (abs_le.mp him).2⟩
+
+end EdgeSupport
+
 end Salt.MR

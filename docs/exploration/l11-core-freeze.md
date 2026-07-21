@@ -147,6 +147,16 @@ Then per pair, u := t−t' (well-spaced ⟹ |u| ≥ 1 off-diagonal):
   into ∃C); divide by log P (log p ≥ log P on the window); close the frozen
   header shape + `P ≤ T^10` (Amendment L11-T) + ∃ C c T₀ packaging.
 
+## ⟦AMENDMENT L11-W′ (maestro-ruled 2026-07-21 evening, from L11-CLOSE's
+in-session catch)⟧ The "5T exactly" gloss has one honest corner: EDGE's
+disc at spine height γ = 5T holds zeros up to |ρ.im| ≤ 5T + 9/14 —
+beyond rect_zero_free_margin's 5T. The disc-core consumes the honest
+min-distance w′ = c_vk/D₃(5T+1) − (c_vk/2)/D₃(5T) (feed
+near_norm_logDeriv_Zc_le via zeta_zero_free_pow_core at ρ.im's ACTUAL
+height, never the idealized w). Same D₄-grade (D₃(5T+1)/D₃(5T) → 1);
+the (log T)² absorption survives a fortiori; RES unaffected (closed
+rect, no disc). No frozen conclusion shape changes.
+
 ## CORNER LEDGER (worst-corner incl. asymptotic — #253)
 
 - **u = 0 (diagonal):** ⟦R — REPAIRED (REF-A R-1): the original ledger
