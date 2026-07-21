@@ -10588,3 +10588,18 @@ decisions per question.
   candidates: MULT-SHIU (H-lane) + L11-CORE (P-lane) — both
   scoped, both honest D-cores, the quota-timed joint decision.**
   In flight: L9, WINDOW-SWAP.
+
+- 2026-07-20 20:12 PDT (night shift): **S8-L9 lands the kernel + diagonal**
+  (Opus, 227k, first-pass): HalaszIntegers.lean, 428 ln,
+  wired+audited (8854 green). exp_sum_decay — w/ THE STATEMENT
+  CORRECTION (the map's N/(1+|u|) was FALSE at N=1; the honest
+  bound carries the Euler–Maclaurin defect 1+|u|(1+log N); the
+  N-grade holds only for |u| ≲ √N — **which is exactly where
+  the frozen √T is born**, the range-split threshold identified)
+  + the dual-form diagonal + the off-diagonal wiring. RESIDUAL:
+  the harmonic double sum + the √T split assembly — NEEDS
+  MONTGOMERY *TEN LECTURES* THM 9.6, **NOT STAGED** (mr_extract
+  flags it "none — port"). **MORNING AGENDA += the Ten Lectures
+  staging hunt (JYH PDF errand — CBMS 84, Thm 9.6/§9).** The
+  ℂ-module-diamond convert trap banked (rewrite-the-value,
+  never convert). In flight: WINDOW-SWAP (the night's last).

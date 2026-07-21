@@ -42,6 +42,7 @@ import Salt.MR.RamareDpoly
 import Salt.MR.LargeValues
 import Salt.MR.RamareWindows
 import Salt.MR.HalaszPrimes
+import Salt.MR.HalaszIntegers
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -202,3 +203,5 @@ open Salt.Tactic in
   Salt.MR.primes_dual_iff
   Salt.MR.zeta_near_strip_growth
   Salt.MR.primePoly_wellspaced_l2
+  Salt.MR.exp_sum_decay
+  Salt.MR.dualPoly_diagonal
