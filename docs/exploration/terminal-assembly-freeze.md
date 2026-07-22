@@ -1,8 +1,11 @@
 # THE TERMINAL ASSEMBLY FREEZE — S8's last design block
 
 *Maestro design block, 2026-07-22 morning (JYH-ratified: lift-first, the
-thm_A1′ boundary). Status: DESIGNED, refuter pass launching (the
-refuter-pass workflow's first passenger). Inputs: THE LIFT MAP (pilot
+thm_A1′ boundary). Status: **REFUTER PASS COMPLETE — repairs applied,
+marked ⟦R⟧, FROZEN** (4/4 verdicts ~08:15: HF-REF-A=HOLD [the H-1 fatal
++ the factor-2 hazard — both repaired below], HF-REF-B/ASM-REF/TERM-REF
+= REPAIR-THEN-FIRE; JYH's unanchored read had accepted all parts — the
+verify-posture law's finest hour, banked as culture). Inputs: THE LIFT MAP (pilot
 2026-07-21 18:16 — the hypothesis census with verbatim binders), the
 L11-EDGE handoff (the ASM 4-step wall), MULT-SHIU CLOSED (MS-EXIT =
 the budget), K4-WIRE landed, W-DOM landed, HalaszFactor's dissolution
@@ -38,46 +41,80 @@ coefficient sums = `kernel_sum_swap`'s hypothesis shape (absolute
 summability from the c₀ > 1 line + 1-boundedness — the
 `summable_bounded_weight` gate, landed).
 
-### The ladder (order fixed; ~2.0-2.8k ln total)
+### ⟦R — THE H-1 FATAL, REPAIRED (HF-REF-A's kill, the pass's crown)⟧
 
-- **H-1** [C, 300] `seam_four_factor_pointwise`: at s = c₀+it, the seam
-  series factorizes: seamDirichlet f gJ t₀ s = (the four-factor product
-  at the α=β=0 corner) via `ellLin_split` + `lseries_ellLin_eq_smooth_mul_large`
-  (LANDED) + the window's f = s ⋆ ℓ decomposition; the t₀-twist carried
-  as the coefficient twist (norm_twist, landed).
-- **H-2** [C, 350] `seam_double_ftc`: the (α,β) double-integral collapse —
-  the β-leg IS `largeSeries_ftc_double_beta` (LANDED witness,
-  HalaszFactor:109); the α-leg is its mirror (`shifted_dirichlet_ftc` at
-  the α-variable, same landed engine); combined:
-  ∫∫ (four-factor with 𝓛′-slots) dβ dα = the endpoint-difference form
-  that recovers H-1's corner. (GHS p.8's two FTC steps, exactly.)
-- **H-3** [B/C, 400] `seam_centering`: the n^{-it₀} centering
-  change-of-variables (the full-line t-translation: ∫_t F(t)·hatKernel(t−t₀)
-  = ∫_t F(t+t₀)·hatKernel(t) — measure-preserving, `intervalIntegral`/
-  `MeasureTheory.integral_comp_add_right`) + the β→2β substitution +
-  c_{α,β} = c₀−α−β/2 symmetric-shift bookkeeping (GHS p.10; the scoper's
-  resistance #3, priced landable; the private twistCoeff template
-  re-derived in-file as `seamShift`).
-- **H-4** [C, 600, THE RISK STONE] `four_factor_hat_rep`: prop21RHS's
-  inner t-integral = the hat-smoothed sum of the four-fold convolved
-  coefficients, per the design insight above. Route: express each factor
-  as a finite/absolutely-convergent Dirichlet series on the c₀-line
-  (𝒮, P finite — entire; 𝓛 convergent at Re > 1); the product's
-  coefficients via the convolution algebra (`Finset.Nat.sum_divisors`-
-  family / the kconv pattern); `hat_contour_rep` + `kernel_sum_swap` for
-  the ∫_t ↔ Σ swap. FAIL-FAST: if the four-fold convolution algebra
-  exceeds ~3 helper layers, STOP and report — the fallback is the
-  scoper's original multivariable-Perron port (D, campaign-gate).
-- **H-5** [C, 450] `hfactor_bridge`: the triangle-inequality assembly:
-  the EXACT identity (H-1..H-4) reduces the hfactor difference to the
-  WINDOW-TRUNCATION DEFECT (the y < n < x/y support cut on the Λ_ℓ
-  window — GHS §2.2's tailoring), whose coefficient-norm mass is
-  TERM-FOR-TERM the GHS-(2.4) secondary terms (MS-REF-B's R-4 verdict:
-  "FIT EXACT") = `mult_shiu_MS_EXIT`'s LHS. Consume MS-EXIT; the
-  regime hypotheses (8 ≤ y, η = 1/log y) supplied by the seam's own
-  y-regime (10 ≤ y ≤ √X per HalaszSeam:31 — covers).
-- **H-EXIT** [B, 150] `prop21_unconditional`: `prop21_analog` with
-  hfactor DISCHARGED. The S1′ representation stands hypothesis-free.
+The original H-1 claimed an EXACT identity between the f-dependent seam
+and the g-only four-factor product — but `prop21_analog` encodes NO f↔g
+relationship (concrete falsifier: f = δ), and ellLin drops prime-power
+values. THE REPAIR (statement-design tier, maestro-ruled): the campaign's
+intent "g is f's prime datum" is MADE FORMAL, and the identity is
+APPROXIMATE with every gap accounted in E:
+
+- **H-0** [NEW, C, 250, FIRST] `seam_carrier_audit`: derive the exact
+  relation between seamCoeff f (windowIndicator y (X/y)) t₀ and the
+  g-built carriers, starting from `fgJ_factorization` (HalaszSeam:284)
+  and `smoothPart` (HalaszLambda:402). Deliverable: the STATEMENT of
+  H-EXIT — either (route i) `prop21_unconditional` carrying the
+  hypothesis f = ellLin g (the tools become exact; consumers
+  instantiate at the linearized datum), or (route ii) f generic with
+  the prime-power LINEARIZATION defect (GHS's Λ_f/log n term) bounded
+  and added to E. The executor lands the audit and PROPOSES the
+  statement; the maestro ratifies before H-EXIT is stated
+  (statement-layer law). STOP on any surprise.
+- The ladder below is REORDERED (HF-REF-A's H-2 verdict): the
+  realignment (old H-3) now precedes the FTC (old H-2), so the collapse
+  runs on the aligned GHS-(2.3) form (𝒮 fixed at s), never on
+  prop21RHS's mixed arguments directly.
+
+### The ladder (order fixed; ~2.3-3.1k ln total)
+
+- **H-0** as above [C, 250].
+- **H-1** [B/C, 400] `seam_centering` (was H-3): the n^{-it₀} centering
+  c-o-v (the full-line t-translation — SOUND per HF-REF-A's twist
+  verdict: seamDirichlet's twist at c₀+it equals the untwisted series
+  at c₀+(t+t₀)i; `MeasureTheory.integral_comp_add_right`) + the
+  c_{α,β} = c₀−α−β/2 realignment + the β→2β substitution.
+  ⟦R — THE FACTOR-2 MANDATE (iron-rule-1 tier): GHS's own printed (2.1)
+  is arguably off by a factor 2 from (2.4) (the β→2β Jacobian; immaterial
+  to GHS's upper bound, MATERIAL to our two-sided hfactor). The executor
+  MUST track the Jacobian explicitly through this stone. If the factor 2
+  is confirmed, the frozen `prop21RHS` definition is defective: STOP,
+  report the exact arithmetic, and the maestro amends prop21RHS (a
+  landed-definition surgery) before anything downstream is stated. Do
+  NOT absorb the factor into E.⟧
+- **H-2** [C, 350] `seam_double_ftc` (was H-2, now on the ALIGNED form):
+  the (α,β) collapse on the (2.3)-form with 𝒮 genuinely fixed at s —
+  the β-leg via `largeSeries_ftc_double_beta` (LANDED witness), the
+  α-leg via `shifted_dirichlet_ftc` with the 𝒮-prefactor pulled out
+  ONLY where constant (the aligned form guarantees it); the windowSum
+  truncation (full 𝓛′ vs finite P) is NOT collapsed here — it is
+  routed to H-5's defect (the freeze's old exact/defect split is
+  redrawn per HF-REF-A: the truncation is woven, and lives in H-5).
+- **H-4** [C, 700, THE RISK STONE — SURVIVED THE LOAD TEST]
+  `four_factor_hat_rep`: ⟦R (HF-REF-B): the finite×infinite step rides
+  the LANDED `LSeries_convolution'` (HalaszRepAsm:314) — NOT
+  kconv/dpoly_pow (finite×finite only; usable solely for pre-convolving
+  the finite 𝒮·P·P legs). The ~5 expected helper layers, ENUMERATED so
+  the executor recognizes them as anticipated: (1) shifted-coefficient
+  LSeriesSummable at c₀ (trivial via finite support; smoothSeries_summable
+  :205 is Re>1-stated — restate); (2) iterated LSeries_convolution'
+  (𝒮·𝓛·P·P); (3) the norm-convolution summability for the
+  hat_contour_rep gate; (4) reverse hat_contour_rep; (5) the
+  t₀-centering compatibility. FAIL-FAST now trips on NEW sublemmas
+  beyond this set (~6), not at 3. Fallback unchanged (multivariable-
+  Perron port, D, campaign-gate).⟧
+- **H-5** [C, 550] `hfactor_bridge`: ⟦R (HF-REF-B): TWO reconciliations,
+  not one: (a) the SECONDARY terms — sound as designed, term-for-term
+  MS-EXIT's LHS at x := X+h (re-verified: hatK ∈ [0,1], support ≤ X+h,
+  the floor boundary clean, carriers exact); (b) NEW — the MAIN-TERM
+  reconciliation: the seam is WINDOWED (1_{y<n<X/y}) while prop21RHS
+  is full-F: the out-of-window main mass + the f-vs-ellLin(g)
+  linearization defect must each be bounded-and-added-to-E or
+  explicitly routed (coordinate with H-0's ruling). A survivor routed
+  to HLOSS must be named, never silent.⟧
+- **H-EXIT** [B, 150] `prop21_unconditional` — stated per H-0's
+  ratified shape. The S1′ representation stands with the prime-datum
+  relation explicit and every defect priced.
 
 ### Corner ledger (Part 1)
 
@@ -98,7 +135,17 @@ summability from the c₀ > 1 line + 1-boundedness — the
   bounds a shifted coefficient crudely.
 - **η vs 2η:** GHS's β→2β doubles the β-range; MS-B's exponents are
   stated at (2η+α) — consistent with the freeze's frozen targets ✓;
-  the α-range after substitution is [0, η] ✓. Verify at H-3.
+  the α-range after substitution is [0, η] ✓. Verify at H-1 (the
+  Jacobian mandate).
+- ⟦R (HF-REF-B)⟧ **summability-Prop admissibility:** a crude
+  primorial(y)^{2η}-grade constant is admissible ONLY inside the
+  summability Prop (the hat_contour_rep gate — a Prop, not a bound);
+  it is FORBIDDEN in the defect-mass bound, which uses MS-EXIT
+  verbatim.
+- ⟦R (HF-REF-B)⟧ **the y-floor is doubly load-bearing:** y ≥ 8 serves
+  MS-B's 1/(1−α) ≤ 2, AND the seam's y ≥ 10 keeps c₀−2η ≥ ~0.13 > 1's
+  margin for the shifted smooth evaluations — future consumers must
+  not lower y toward e².
 
 ═══════════════════════════════════════════════════════════════════
 ## PART 2 — L11-ASM (the keystone choreography)
@@ -108,18 +155,28 @@ GOAL: `halasz_primes_pow` at the FROZEN header (HalaszPrimes.lean) +
 P ≤ T^10 + ∃ C c T₀ outermost. EVERY ingredient is landed. Extends
 `Salt/MR/HalaszPrimesCore.lean` (single writer, disjoint from Part 1).
 
-- **A-1** [C, 400] `per_pair_contour`: the reconciliation (L11-EDGE's
-  step 1): rep_truncated's Icc-truncated vertical line vs pole_residue_term's
-  rectBI — the rectangle identity rearranged to: (truncated line) =
-  2πi·windowMellin(1+iu) − (left edge) − (horizontals) + (truncation
-  defect), then priced: left edge by `shifted_edge_price` × the P^{σ₀}
-  kernel mass (norm_windowKernel_le at abscissa σ₀; ∫(σ₀²+v²)⁻¹ ≤ π/σ₀);
-  horizontals by the kernel quadratic decay (P-grade/T′²); the tail by
-  TRUNC. Exit shape: ‖Σ_n Λ(n)n^{iu}·w(n) − windowKernel P 1 u‖ ≤
-  C₁·P·exp(−(c_vk/2)·log P/D₃(5T+1))·D₄(5T+1) + C₂·P·log P/T + C₃·P/T².
-  ORIENTATION AUDIT MANDATORY: rectBI's sign convention
-  (bottom−top+I·right−I·left) against the desired line integral —
-  L11-EDGE's beta-reduction trap notes apply.
+- **A-1** [C, 500 ⟦R: re-priced from 400⟧] `per_pair_contour`: the
+  reconciliation (L11-EDGE's step 1): rep_truncated's Icc-truncated
+  vertical line vs pole_residue_term's rectBI — the rearrangement
+  I·V_right = 2πi·windowMellin(1+iu) − (B_bot−B_top) + I·V_left
+  ⟦R (ASM-REF): the orientation is VERIFIED correct as the freeze read
+  it — signs independently derived and confirmed⟧. Pricing: left edge
+  by `shifted_edge_price` × the P^{σ₀} kernel mass (∫(σ₀²+v²)⁻¹ ≤ π/σ₀
+  ≤ 2π — σ₀ ≥ 1/2 guaranteed by the SIXTH threshold, see A-3);
+  ⟦R (ASM-REF's kill): the HORIZONTALS cross Re = 1 where ζ′/ζ has NO
+  crude bound (Σ Λ/n^x diverges at x < 1) — the original "kernel decay
+  only" under-scoped. REPAIR: price the horizontals' ζ′/ζ by the region
+  bound ‖ζ′/ζ‖ ≤ C_E·D₄(5T+1) uniform on Re ∈ [σ₀, 2] at heights
+  ∈ [T, 5T] — moving RIGHT of the spine only increases the min-distance
+  to zeros, so the spine disc-core bound holds a fortiori; realize via
+  near_norm_logDeriv_Zc_le / a small edge-agnostic generalization of
+  shifted_edge_disc_core. The horizontal total ≤ C_E·D₄·(c−σ₀)·kernel/T′²
+  ~ D₄·P/T² — dominated by the C₂·P·log P/T term.⟧ The tail by TRUNC.
+  Exit shape: ‖Σ_n Λ(n)n^{iu}·w(n) − windowKernel P 1 u‖ ≤
+  C₁·P·exp(−(c_vk/2)·log P/D₃(5T+1))·D₄(5T+1) + C₂·P·log P/T + C₃·D₄·P/T².
+  ⟦R note: on the left edge ζ′/ζ = logDeriv Zc − 1/(s−iu−1) — the pole
+  part priced 1/dist per the l11 freeze; the stale :530-532 docstring
+  (pre-W′ 5T) should be corrected in-comment while there.⟧
 - **A-2** [B/C, 350] `dual_assembly`: window_dominates → the tsum→Finset
   split (finite support [1,⌊3P⌋]) → the prime-power discard
   (prime_power_discard at B = |𝒯|·Σ‖η‖² via inner_sum_sq_le) → open the
@@ -128,11 +185,24 @@ P ≤ T^10 + ∃ C c T₀ outermost. EVERY ingredient is landed. Extends
   divide by log P (the direction chain: division on [P,2P] only).
 - **A-3** [C, 400] `halasz_primes_pow`: the absorption + packaging:
   D₃(5T+1) → D₄(T) (ruling 1 + Amendment W′: log(5T+1) ≤ 2 log T at
-  T ≥ 5; the (loglog)⁴-vs-³ slack eats every constant incl. 44π, C₁-C₃,
-  the √P discard at D₄ ≥ 3); the FIVE T₀ thresholds enumerated in the
-  docstring (the strip T₁; exp(exp(~27/c_vk)); (loglog)⁴ ≤ (log)^{5/4};
-  the √P-absorption; the P = T^10 tail corner); P ≤ T^10 inner; ∃ C c T₀
-  outermost. THE FROZEN HEADER IS LAW — any resistance = STOP + report.
+  T ≥ 5; the (loglog)⁴-vs-³ slack + the outermost ∃C eat every constant
+  incl. 44π, C₁-C₃, the √P discard at D₄ ≥ 3); the T₀ thresholds
+  enumerated in the docstring — ⟦R (ASM-REF): SIX, not five: the strip
+  T₁; exp(exp(~27/c_vk)); (loglog)⁴ ≤ (log)^{5/4}; the √P-absorption;
+  the P = T^10 tail corner; and THE SIXTH — shifted_edge_price's own
+  T₀ = max(max T₁ 3, exp(exp(9000·c_vk + c_vk/(2δ₀) + 1))), which is
+  what actually guarantees σ₀ ≥ 1/2 for LARGE c_vk (the named #2
+  SHRINKS as c_vk grows and cannot). Auto-inherited by destructuring
+  shifted_edge_price — documentation, not proof change.⟧ P ≤ T^10
+  inner; ∃ C c T₀ outermost (ASM-REF: all three existentials verified
+  absolute — no quantifier forcing). The executor states the decay as
+  exp(−c·log P/D₄(T)) with the ∃c per the freeze (the header's prose
+  c = 1 is a prose gap, not the binding shape). THE FROZEN HEADER IS
+  LAW — any resistance = STOP + report. ⟦R note: prime_power_discard
+  may prove redundant (the pole/error rows already carry the full
+  Λ-mass per window_dominates' structure) — the executor may discover
+  the assembly needs no separate discard subtraction; either shape is
+  acceptable, document which.⟧
 
 ### Corner ledger (Part 2)
 All height evaluations at 5T+1 (Amendment W′) — never T, never |u|.
@@ -150,23 +220,42 @@ The truncation-tail corner at P = T^10 exactly (REF-B's R-4 audit).
   Uhead/Utail/hsplit discharging `halasz_ball_decay`'s three binders
   (HalaszCore:404-406) ⟹ **`halasz_ball_decay_unconditional`** ⟹
   `T1_pointwise_decay` unconditional. New file `Salt/MR/HalaszHead.lean`.
-  NOTE the K4-WIRE scope finding: the wired head's diagA is the
-  coefficient-mass² majorant; if the R2.4-sharp diagonal is demanded
-  here, the wave-I-3 offdiag stone (ball_mvt remainder,
-  offdiag_int_bound landed in L2MVT) is the named supplement — priced
-  [C, 300] as T-0b, dispatched only if T-0's assembly demands it
-  (fail-fast will tell).
-- **T-1** [DESIGN-FIRST, scouted in the refuter pass] HLOSS-WINDOW:
-  the in-window twist-defect Σ_{y<p<X/y}(1−Re(|f p|²p^{it₀}))/p. The
-  OPEN question (honest): the trivial bound is 2·(loglog X)-grade,
-  which would DESTROY the (1/32)loglog floor in dist_split_A4_frozen —
-  so the consumption must absorb W differently (branch structure,
-  recentering, or W entering only in regimes where the floor has
-  slack). TERM-REF's assignment: the consumption study (how do the
-  dist_split branches actually use W; what W-grade does the frozen
-  R3.1 conclusion tolerate; is the twist-defect ≤ 𝔻-distance algebra
-  that the branch hypotheses already dominate?). T-1's design lands as
-  a freeze AMENDMENT after the verdict — NOT guessed here.
+  ⟦R (TERM-REF's power-counting kill): **T-0b IS MANDATORY**, not
+  conditional — the wired head's crude coefficient-mass² diagA has
+  ZERO M-dependence (crude/sharp ~ (X/y)², and no supF can rescue
+  e^{−M}); hhead is unreachable without the sharp diagonal.
+  **T-0b** [C, 300]: sharpen k4_plan_le_diag to Σ‖bₙ‖²/n^{2c} using
+  the exp(−c|log(m/n)|) off-diagonal decay ALREADY in
+  dirichlet_plancherel; the landed grains: `dirichlet_poly_l2_mvt_final`
+  (MVCore2:620 — the SHARP 2T+20N unconditional MVT, a strengthening
+  the freeze didn't know it had) + `offdiag_int_bound` (⟦R citation
+  fix: HalaszCore:195, NOT L2MVT⟧) + log_diff_ge. T-0b lands BEFORE
+  T-0's assembly.⟧ ⟦R architecture note (verify at dispatch): ball_decay
+  is applied with its f-slot = fgJ (1-bounded via norm_fgJ_le,
+  non-multiplicative — type-checks); the analytic hhead/htail/hsplit
+  must be established FOR fgJ through the prop21 seam, which is exactly
+  what the S1′ chain supplies. State the target instantiation
+  explicitly in the file docstring.⟧
+- **T-1** [C, 400 — ⟦R: DESIGNED, the TERM-REF amendment, replacing
+  design-first⟧] HLOSS RESOLVED — THE W VANISHES: TERM-REF's
+  counterexample (f = costwist t₀: center distance 0 yet in-window
+  defect ~ loglog X) kills the halve-minus-W route at resonant t₀ —
+  AND exposes an iron-rule-1 drift: the landed dist_split_A4_frozen
+  carries "−W" while the s8-freeze N2 FROZEN conclusion has NO W (the
+  landed lemma is weaker than its frozen statement). THE AMENDED ROUTE
+  (additive supersession, no landed edits): (i) BIND y = (log X)^{O(1)}
+  (GHS p.11's own y = (log X)⁴; compatible with the seam's 10 ≤ y ≤ √X
+  and hfactor's regime); (ii) re-derive the R3.1 floor AT THE FROZEN N2
+  SHAPE via the window-restriction identity:
+  𝔻(fgJ, costwist t)² ≥ 𝔻(f, costwist(t+t₀))² − (out-of-window mass),
+  DROPPING the nonneg in-window part on the ≥ side; (iii) the
+  out-of-window mass = Σ_{p≤y} 1/p + Σ_{X/y≤p≤X} 1/p = O(logloglog X)
+  at polylog y (mertens_second_sharp twice) — absorbed by the frozen
+  −5·logloglog slack. W disappears from the chain entirely; the
+  frequency bookkeeping (the t in 𝔻(fgJ, costwist t) is already
+  t₀-recentered) stated per the branch hypotheses. New lemmas in
+  `Salt/MR/DistWindow.lean`; the −W versions remain landed but
+  superseded.
 - **T-2** [C, 700] the §8.3/A2 assembly (`Salt/MR/Prop1Assembly.lean`,
   NEW — the s8-freeze wave-4 shape re-validated against the landed
   corpus): int_U at P = exp((logX)^{1−1/48}), Q = exp(logX/loglogX),
@@ -175,13 +264,25 @@ The truncation-tail corner at P = T^10 exactly (REF-B's R-4 audit).
   (trivial MVT + prefactor absorption, [200]); terminal `prop_A3′`
   (M_range form, capped domain — the frozen statement from the
   s8-freeze/halasz sub-freeze).
+- **T-2b** [B, 150 ⟦R (TERM-REF)⟧] `T1_pointwise_decay_corrected`: the
+  composition variant taking the R3.1 CORRECTED floor ((1/32)loglogX −
+  5logloglog − C, W now absent per T-1) and concluding the
+  (logX)^{−1/64+o(1)} grade — the landed T1_pointwise_decay demands the
+  clean floor and does not compose with the corrected one without this
+  absorption lemma. (TERM-REF also confirms: the wave-4 parameters
+  SURVIVE re-validation; the sharp MVT (dirichlet_poly_l2_mvt_final)
+  is a strengthening over the freeze's feared T+NlogN.)
 - **T-3** [C, 500] `thm_A2′` (`Salt/MR/ThmA2.lean`, NEW): the f-arm +
   f = 1-arm via R1.4's capped M_range (landed, DistHalasz:262).
-- **T-4** [B, 300] `thm_A1′` (`Salt/MR/ThmA1.lean`, NEW): the S9
-  interface, the s8-freeze's frozen statement verbatim: (1/X)∫|…|² ≤
+- **T-4** [B, 300] `thm_A1′` (`Salt/MR/ThmA1.lean`, NEW): ⟦R (TERM-REF):
+  built to the s8-freeze's PROVISIONAL shape — (1/X)∫|…|² ≤
   C(exp(−M/2) + (480 loglog h/log h)² + (logX)^{−c₀}), P₁ = (log h)^{480},
-  Q₁ = h, η = 1/12. **THE BLOCK'S BOUNDARY** — S9→S10→S11 is the next
-  block.
+  Q₁ = h, η = 1/12 — with the honest caveat that S9's socket is a
+  standing decision-register item (mr-freeze scope-diff 9 ratifies the
+  qualitative general-f grade and FORBIDS pre-staging S9 statement
+  pinning), so A4's final wording may adapt at the S9 block; the shape
+  here is the ratified provisional target, not "verbatim-forever".⟧
+  **THE BLOCK'S BOUNDARY** — S9→S10→S11 is the next block.
 
 ### Dispatch plan (post-refuters, the pipeline)
 Wave α (parallel): H-1..H-3 (HalaszIdentity) ∥ A-1..A-3 (the keystone —
