@@ -1,10 +1,45 @@
 # PP-0/PP-1 DESIGN SKELETON — the line move (the port's analytic core)
 
-*Maestro design block, 2026-07-22 ~10:40, per PERRON-SCOPE's ladder
-(its report: appended to the consult brief's record; GO-confidence
-MEDIUM as pure Opus, HIGH with this skeleton first — hence this
-skeleton). Refuter pass fires at the quota reset, wave on verdicts.
-JYH pre-approved fire-tonight-post-reset.*
+*Maestro design block, 2026-07-22 ~10:40. Status: **HOLD (refuted
+at the PP-2 seam, ~12:30) — wave NOT fired; redesign in progress.**
+STRIP-REF: UNFOUNDED — the clean-strip claim is SOUND (the corpus's
+real pattern puts the L-leg at w+alpha+2*beta, Re >= c0 always; the
+kernel pole strictly left; shiftCoeff-compatibility exact). PP-0 is
+a correct C-tier lemma (banked as shelf inventory, NOT dispatched).
+EDGE-REF: CONFIRMED-FATAL one stone downstream — hat_contour_rep
+RIGIDLY ties kernel-line to series-line, so the FTC-able aligned form
+forces an (alpha,beta)-DEPENDENT kernel (hatKernel at c0+alpha+beta),
+which destroys seam_double_ftc's telescoping; the matching-kernel
+alternative computes the WRONG sum (drops N^{alpha+beta}, which at
+y=sqrt(X) is ~e^4 — main-term-sized, as fatal as the P21-2X factor
+2). The conservation law, now proven three ways (WFTC-REF, the H-1b
+note, EDGE-REF): the (alpha,beta)-dependence must live somewhere —
+legs (no telescoping), kernel (no telescoping), or... NEITHER: see
+the redesign below.*
+
+## ⟦THE REDESIGN DIRECTION — the coefficient route (third design;
+## refuters mandatory before any wave)⟧
+
+The kernel-rigidity wall EXISTS ONLY IN THE INTEGRAL PICTURE. In the
+coefficient picture (prop21RHS_hat_rep, LANDED) the object is
+2*int-int Sum_N C_N(alpha,beta)*hatK_N — and hatK_N is an
+(alpha,beta)-FREE constant weight per N. Fubini the finite (alpha,
+beta)-square past the sum: Sum_N hatK_N * [2*int-int C_N dalpha
+dbeta]. The task is then PURE COEFFICIENT COMBINATORICS: compute the
+per-N closed form of the (alpha,beta)-integral (the only integral
+fact needed: int_0^eta t^beta dbeta = (t^eta - 1)/log t — the coupled
+logs are the 1/log-RECONSTRUCTION that turns Lambda-type convolution
+weights into the linearized (lambda_lin/fgJ) datum: BETA's
+index-coupling wall read POSITIVELY — the coupling IS the mechanism);
+compare per-N with fgJ_N (the difference = eta-truncation defects
+(t^eta - 1 vs 1) + window defects, expected MS-A/MS-B-shaped, priced
+by MS-EXIT at x := X+h). No series-level FTC is ever attempted; no
+contour is ever moved; the line move (PP-0) leaves the critical path
+entirely. Stones R-1 (the per-N closed form), R-2 (the fgJ
+comparison + defect classification — THE RISK STONE: read GHS pp.8-9
+Lemma 2.1's forward derivation against fgJ_factorization's actual
+Lean form), R-3 (hat-weighted assembly + pricing), H-EXIT. Full
+design block + refuter pass: after the 13:15 fork.
 
 ## The load-bearing geometric claim (verify FIRST — the C-0 stone)
 
