@@ -427,7 +427,28 @@ Prop 2.1 proof (p.11 "finally replace β by 2β": `∫₀^{2η} G(β/2) dβ =
 one-sided `≪`, fatal for the two-sided `hfactor` identity: without it,
 `prop21RHS ≈ ½·(Σf(n) − secondary)` and the defect is main-term-sized.
 The original transcription was faithful to the printed display; the
-amendment restores fidelity to the *derivation*. -/
+amendment restores fidelity to the *derivation*.
+
+**AMENDMENT P21-3K (2026-07-22 ~16:20, maestro-ruled; audit: NUM-REF dissent /
+TRANS-REF + SAT-REF confirm, 2-1; the P21-2X sibling).**  The kernel line is
+CENTERED on the four-factor argument shift: `hatKernel X h c₀ (t−t₀)` becomes
+`hatKernel X h (c₀−α−β) (t−t₀)` (one token, the `c`-slot).  R-SCOPE's cosh
+counterexample (confirmed to machine precision by NUM-REF) exposed that the
+frozen object was a HYBRID — GHS (2.5)'s post-line-move symmetric FACTORS against
+the pre-move, `(α,β)`-free kernel; SAT-REF: as frozen, `hfactor` is UNSATISFIABLE
+at MS-EXIT-sized `E` (worst-case positive coefficients, no cancellation —
+`prop21_analog` vacuous).  The freeze's own mapping note (`HalaszSeam:59-60`)
+shows the intended object is GHS (2.5) carrying its moved-line kernel
+`x^{s−α−β}/(s−α−β)` — in hat form, exactly this shifted `c`-line.  Series legs
+UNCHANGED (the `𝓛`-leg keeps `re > 1` everywhere; the kernel poles sit at the
+shifted argument, strictly left, clean).  Consequence (audited numerically): the
+kernel deposits `N^{−(α+β)}` per coefficient, cancelling `seam_realignment_hat`'s
+`N^{α+β}` EXACTLY — `prop21RHS = 2·∫∫ Σ_N alignedCoeff·hatK`, GHS's genuine
+Prop-2.1 object (`prop21RHS_hat_rep_aligned`, the H-5 v4 foundation).  NUM-REF's
+dissent is honored as the STANDING TRIPWIRE: any bridge reaching secondary-sized
+`E` without producing the `N^{−(α+β)}` compensation is provably wrong.  Cone
+repaired by `P21-3K-EXEC`; `prop21_analog`'s statement text is UNCHANGED
+(mention-only, the P21-2X precedent). -/
 def prop21RHS (g : ℕ → ℂ) (t₀ X h c₀ y η : ℝ) : ℂ :=
   (2 : ℝ) • ∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η, (1 / (2 * Real.pi)) •
     ∫ t : ℝ,
@@ -435,7 +456,7 @@ def prop21RHS (g : ℕ → ℂ) (t₀ X h c₀ y η : ℝ) : ℂ :=
         * largeSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
         * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))
         * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
-        * hatKernel X h c₀ (t - t₀)
+        * hatKernel X h (c₀ - α - β) (t - t₀)
 
 /-- **T3 CAPSTONE — the S1' representation** (`prop21_analog`, the campaign's last
 named residual, in the sanctioned conditional-assembly form).  For a 1-bounded `f`,

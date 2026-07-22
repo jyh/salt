@@ -616,23 +616,147 @@ theorem four_factor_hat_rep (y : ℝ) (g : ℕ → ℂ) (hg : ∀ p, p.Prime →
   rw [show (2 * Real.pi) * (1 / (2 * Real.pi)) = 1 by
     field_simp, one_smul]
 
-/-- **H-4 corollary — `prop21RHS` AS a coefficient sum.**  The frozen `prop21RHS`
-(the `(α,β)` double integral of the four-factor product, with its leading `2`-Jacobian
-and the centered hat kernel) equals `2·∫∫` of the hat-smoothed four-fold convolution
-coefficient sum.  This is the exact object H-5's bridge reconciles against the seam
-coefficient sum `∑ fgJ·hatK`. -/
+/-! ## P21-3K — the mismatched-line hat rep (the amendment's cone repair)
+
+AMENDMENT P21-3K (`docs/exploration/terminal-assembly-freeze.md`, `⟦A — AMENDMENT
+P21-3K⟧`) centered the hat kernel's line on the four-factor argument shift:
+`prop21RHS` now integrates against `hatKernel X h (c₀−α−β) (t−t₀)`, so its inner
+integral pairs a Dirichlet series on the line `c₀` with a kernel on the line
+`c₀−α−β`.  `hat_contour_rep` (`HalaszKernel`) requires a MATCHED line; this block
+generalizes it — the line-gap `N^{c₀−(c₀−α−β)} = N^{α+β}` is absorbed into the
+coefficient as `shiftCoeff (c'−c)`, depositing exactly the `N^{−(α+β)}`
+compensation the audit demands (NUM-REF's standing tripwire). -/
+
+/-- **P21-3K step 1 — the mismatched-line hat rep.**  Generalizes `hat_contour_rep`
+to a kernel whose line `c'` differs from the series line `c`.  The gap is carried
+by `shiftCoeff (c'−c)` (weight `N^{c'−c}`); the summability at `c'` reduces to the
+ORIGINAL `c`-line gate because `‖shiftCoeff (c'−c) a N‖·((X+h)/N)^{c'} =
+(X+h)^{c'−c}·(‖a N‖·((X+h)/N)^c)` (the shift and the kernel-line change cancel to a
+constant).  Gate `0 < c'` is the regime `c₀−2η > 0` (the `y ≥ 10` floor) carried,
+not proved, here. -/
+theorem hat_contour_rep_mismatch (a : ℕ → ℂ) (ha0 : a 0 = 0) {X h c c' : ℝ}
+    (hX : 1 ≤ X) (hh : 0 < h) (hc' : 0 < c')
+    (hsum : Summable fun n => ‖a n‖ * ((X + h) / (n : ℝ)) ^ c) :
+    (∑' N, shiftCoeff ((c' : ℂ) - (c : ℂ)) a N * (hatK X h N : ℂ))
+      = (1 / (2 * Real.pi)) •
+          ∫ u : ℝ, LSeries a ((c : ℂ) + (u : ℂ) * I) * hatKernel X h c' u := by
+  have hb0 : shiftCoeff ((c' : ℂ) - (c : ℂ)) a 0 = 0 := shiftCoeff_zero _ a ha0
+  have hXh0 : (0 : ℝ) < X + h := by linarith
+  -- the shifted summability at line `c'` reduces to the original `c`-line gate
+  have hsum' : Summable
+      (fun n => ‖shiftCoeff ((c' : ℂ) - (c : ℂ)) a n‖ * ((X + h) / (n : ℝ)) ^ c') := by
+    refine (hsum.mul_left ((X + h) ^ (c' - c))).congr (fun n => ?_)
+    rcases Nat.eq_zero_or_pos n with rfl | hn
+    · simp [shiftCoeff, ha0]
+    · have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
+      have hXhc := (Real.rpow_pos_of_pos hXh0 c).ne'
+      have hnc := (Real.rpow_pos_of_pos hn0 c).ne'
+      have hnc' := (Real.rpow_pos_of_pos hn0 c').ne'
+      rw [shiftCoeff, norm_mul, Complex.norm_natCast_cpow_of_pos hn,
+        show ((c' : ℂ) - (c : ℂ)).re = c' - c by simp,
+        Real.div_rpow hXh0.le hn0.le, Real.div_rpow hXh0.le hn0.le,
+        Real.rpow_sub hXh0, Real.rpow_sub hn0]
+      field_simp
+  have hrep := hat_contour_rep (shiftCoeff ((c' : ℂ) - (c : ℂ)) a) hb0 hX hh hc' hsum'
+  rw [hrep]
+  congr 1
+  refine integral_congr_ae (Filter.Eventually.of_forall (fun u => ?_))
+  dsimp only
+  rw [tsum_div_eq_LSeries hb0, LSeries_shiftCoeff,
+    show ((c' : ℂ) + (u : ℂ) * I) - ((c' : ℂ) - (c : ℂ)) = (c : ℂ) + (u : ℂ) * I by ring]
+  rfl
+
+/-- **P21-3K step 2 — the shifted four-factor hat rep.**  The amended `prop21RHS`
+inner `t`-integral (kernel on the line `c₀−α−β`) equals `2π` times the hat-smoothed
+sum of `fourFactorCoeff` carrying the `N^{−(α+β)}` line-compensation.  Route: the
+`t₀`-centering (`integral_add_right_eq_self`) + `four_factor_LSeries` (the product is
+one Dirichlet series on `c₀`) + `hat_contour_rep_mismatch` (the `c₀ → c₀−α−β`
+line-gap deposits `N^{−(α+β)}`).  The gate `0 < c₀−α−β` is the carried regime. -/
+theorem four_factor_hat_rep_shifted (y : ℝ) (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    (α : ℝ) {β : ℝ} (hβ : 0 ≤ β) {t₀ X h c₀ : ℝ}
+    (hX : 1 ≤ X) (hh : 0 < h) (hc₀ : 1 < c₀) (hc' : 0 < c₀ - α - β) :
+    (∫ t : ℝ,
+        smoothSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (α : ℂ) - (β : ℂ))
+          * largeSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * hatKernel X h (c₀ - α - β) (t - t₀))
+      = (2 * Real.pi) • ∑' N, fourFactorCoeff y g X α β N
+          * (N : ℂ) ^ (-(α : ℂ) - (β : ℂ)) * (hatK X h N : ℂ) := by
+  set C := fourFactorCoeff y g X α β with hCdef
+  have hC0 : C 0 = 0 := fourFactorCoeff_zero y g X α β
+  -- centering: the integrand is `Ψ (t - t₀)`
+  set Ψ : ℝ → ℂ := fun u =>
+      smoothSeries y g (((c₀ : ℂ) + (u : ℂ) * I) - (α : ℂ) - (β : ℂ))
+        * largeSeries y g (((c₀ : ℂ) + (u : ℂ) * I) + (β : ℂ))
+        * windowSum g X y (((c₀ : ℂ) + (u : ℂ) * I) - (β : ℂ))
+        * windowSum g X y (((c₀ : ℂ) + (u : ℂ) * I) + (β : ℂ))
+        * hatKernel X h (c₀ - α - β) u with hΨdef
+  have hcenter : (∫ t : ℝ,
+        smoothSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (α : ℂ) - (β : ℂ))
+          * largeSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * hatKernel X h (c₀ - α - β) (t - t₀))
+      = ∫ u : ℝ, Ψ u := by
+    have h1 : (fun t : ℝ =>
+        smoothSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (α : ℂ) - (β : ℂ))
+          * largeSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * hatKernel X h (c₀ - α - β) (t - t₀)) = fun t : ℝ => Ψ (t - t₀) := rfl
+    rw [h1]
+    have := integral_add_right_eq_self (μ := volume) Ψ (-t₀)
+    simpa [sub_eq_add_neg] using this
+  rw [hcenter]
+  -- align the four-factor product to the single Dirichlet series `LSeries C`
+  have halign : (∫ u : ℝ, Ψ u)
+      = ∫ u : ℝ, LSeries C ((c₀ : ℂ) + (u : ℂ) * I) * hatKernel X h (c₀ - α - β) u := by
+    refine integral_congr_ae (Filter.Eventually.of_forall (fun u => ?_))
+    rw [hΨdef]
+    dsimp only
+    rw [four_factor_LSeries y g hg X α hβ (s := (c₀ : ℂ) + (u : ℂ) * I) (by simpa using hc₀)]
+  rw [halign]
+  -- the mismatched-line rep at series line `c₀`, kernel line `c₀−α−β`
+  have hgate : Summable (fun N => ‖C N‖ * ((X + h) / (N : ℝ)) ^ c₀) :=
+    fourFactor_weight_summable y g hg X α hβ (by linarith : (0 : ℝ) < X + h) hc₀
+  have hmm := hat_contour_rep_mismatch C hC0 (c := c₀) (c' := c₀ - α - β) hX hh hc' hgate
+  have hSeq : (∑' N, shiftCoeff (((c₀ - α - β : ℝ) : ℂ) - ((c₀ : ℝ) : ℂ)) C N * (hatK X h N : ℂ))
+      = ∑' N, C N * (N : ℂ) ^ (-(α : ℂ) - (β : ℂ)) * (hatK X h N : ℂ) := by
+    refine tsum_congr (fun N => ?_)
+    rw [shiftCoeff,
+      show (((c₀ - α - β : ℝ) : ℂ) - ((c₀ : ℝ) : ℂ)) = -(α : ℂ) - (β : ℂ) by push_cast; ring]
+  have hI : (∫ u : ℝ, LSeries C ((c₀ : ℂ) + (u : ℂ) * I) * hatKernel X h (c₀ - α - β) u)
+      = (2 * Real.pi) •
+          (∑' N, shiftCoeff (((c₀ - α - β : ℝ) : ℂ) - ((c₀ : ℝ) : ℂ)) C N * (hatK X h N : ℂ)) := by
+    rw [hmm, smul_smul, show (2 * Real.pi) * (1 / (2 * Real.pi)) = 1 by field_simp, one_smul]
+  rw [hI, hSeq]
+
+/-- **H-4 corollary — `prop21RHS` AS a coefficient sum (P21-3K, the COMPENSATED
+form).**  The amended `prop21RHS` (the `(α,β)` double integral of the four-factor
+product, with its leading `2`-Jacobian and the LINE-CENTERED hat kernel
+`hatKernel X h (c₀−α−β)`) equals `2·∫∫` of the hat-smoothed four-fold convolution
+coefficient sum, EACH coefficient carrying the `N^{−(α+β)}` line-compensation the
+amendment deposits (P21-3K).  NUM-REF's standing tripwire is manifest here: the
+`(N:ℂ)^{−(α+β)}` factor is the audit's required compensation.  Re-proved at the
+corrected definition via `four_factor_hat_rep_shifted`.  The regime gate
+`0 < c₀−2η` (the `y ≥ 10` floor; `c₀−2η ≥ ~0.13`) is carried, not proved. -/
 theorem prop21RHS_hat_rep (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
-    {t₀ X h c₀ y η : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc₀ : 1 < c₀) (hη : 0 ≤ η) :
+    {t₀ X h c₀ y η : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc₀ : 1 < c₀) (hη : 0 ≤ η)
+    (hc' : 0 < c₀ - 2 * η) :
     prop21RHS g t₀ X h c₀ y η
       = (2 : ℝ) • ∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η,
-          ∑' N, fourFactorCoeff y g X α β N * (hatK X h N : ℂ) := by
+          ∑' N, fourFactorCoeff y g X α β N * (N : ℂ) ^ (-(α : ℂ) - (β : ℂ))
+            * (hatK X h N : ℂ) := by
   rw [prop21RHS]
   congr 1
-  refine intervalIntegral.integral_congr (fun α _ => ?_)
+  refine intervalIntegral.integral_congr (fun α hαmem => ?_)
+  have hαη : α ≤ η := by rw [Set.uIcc_of_le hη] at hαmem; exact (Set.mem_Icc.mp hαmem).2
   refine intervalIntegral.integral_congr (fun β hβmem => ?_)
-  have hβ0 : 0 ≤ β := by
-    rw [Set.uIcc_of_le hη] at hβmem; exact (Set.mem_Icc.mp hβmem).1
-  rw [four_factor_hat_rep y g hg α hβ0 hX hh hc₀, smul_smul,
+  have hβ0 : 0 ≤ β := by rw [Set.uIcc_of_le hη] at hβmem; exact (Set.mem_Icc.mp hβmem).1
+  have hβη : β ≤ η := by rw [Set.uIcc_of_le hη] at hβmem; exact (Set.mem_Icc.mp hβmem).2
+  have hc'αβ : 0 < c₀ - α - β := by linarith
+  rw [four_factor_hat_rep_shifted y g hg α hβ0 hX hh hc₀ hc'αβ, smul_smul,
     show (1 / (2 * Real.pi)) * (2 * Real.pi) = 1 by field_simp, one_smul]
 
 /-! ## H-1b — `seam_realignment` (THE HAT-REP SANDWICH — validated)
@@ -673,7 +797,19 @@ GHS's Lemma 2.5 (truncate the integral at height `T`, move the line, price the P
 truncation error) — the multivariable-Perron / line-moving analytic core, i.e. the
 CAMPAIGN-GATE fallback the brief instructs never to attempt in an executor loop.  H-1b lands
 here (the sandwich's algebra + the explicit residual); H-5/H-EXIT are STOPPED at this wall
-per the fail-fast mandate.  See the executor's final report. -/
+per the fail-fast mandate.  See the executor's final report.
+
+### ⟦P21-3K CODA (2026-07-22, maestro-ruled) — THE WALL IS DISSOLVED⟧
+
+The wall this note records is DISSOLVED by AMENDMENT P21-3K (`HalaszRepAsm`'s `prop21RHS`
+docstring; `docs/exploration/terminal-assembly-freeze.md`, `⟦A — AMENDMENT P21-3K⟧`).  The
+`N^{α+β}` residual `seam_realignment_hat` pins was an artifact of the frozen HYBRID object
+(post-line-move FACTORS against a pre-move, `(α,β)`-free kernel).  The amended definition
+centers the kernel line on the shift — `hatKernel X h (c₀−α−β)` — so the kernel deposits
+`N^{−(α+β)}` per coefficient, cancelling the `N^{α+β}` EXACTLY.  There is no shifted-line
+residual and no line-moving fallback: `prop21RHS = 2·∫∫ Σ_N alignedCoeff·hatK` UNCONDITIONALLY
+(`prop21RHS_hat_rep_aligned`, the H-5 v4 foundation, below).  This note STANDS as the
+historical record of the pre-amendment wall — it is NOT rewritten (additive supersession). -/
 
 /-- `shiftCoeff` distributes over Dirichlet convolution: the shift weight `n^w` splits along
 the antidiagonal `p.1·p.2 = n` by base multiplicativity of `cpow`. -/
@@ -774,5 +910,51 @@ lemma norm_window_truncation_defect_le (g : ℕ → ℂ) (X y : ℝ) (n : ℕ) :
   rw [window_truncation_defect]; split_ifs with h
   · simp
   · exact le_refl _
+
+/-! ## P21-3K — the aligned foundation (`prop21RHS_hat_rep_aligned`, H-5 v4)
+
+The amendment's CONSEQUENCE, landed: the `N^{−(α+β)}` line-compensation the amended
+`prop21RHS` deposits (`prop21RHS_hat_rep`) cancels `seam_realignment`'s `N^{α+β}` reweighting
+EXACTLY, collapsing the object to the CLEAN aligned coefficient sum.  This is GHS's genuine
+Prop-2.1 object and the foundation the H-5 v4 design block consumes. -/
+
+/-- The aligned four-fold coefficient vanishes at `0` (convolution over the empty
+antidiagonal). -/
+@[simp] lemma alignedCoeff_zero (y : ℝ) (g : ℕ → ℂ) (X α β : ℝ) :
+    alignedCoeff y g X α β 0 = 0 := by
+  rw [alignedCoeff, LSeries.convolution_def]; simp
+
+/-- **P21-3K — `prop21RHS_hat_rep_aligned` (THE H-5 v4 FOUNDATION).**  The amended
+`prop21RHS` equals `2·∫∫` of the hat-smoothed ALIGNED coefficient sum — GHS's genuine
+Prop-2.1 object, with `𝒮` fixed and the shifts on the log-derivative/large legs.  Route:
+`prop21RHS_hat_rep` (the compensated `N^{−(α+β)}` form) composed with `seam_realignment`
+(`fourFactorCoeff = shiftCoeff (α+β) alignedCoeff`), whose `N^{α+β}` reweighting the
+amendment's `N^{−(α+β)}` compensation cancels EXACTLY (the audit's verified centerpiece;
+NUM-REF's tripwire satisfied).  The pre-amendment wall (`seam_realignment_hat`'s `N^{α+β}`
+residual, the H-1b module note) is thereby DISSOLVED: the main term is the clean aligned sum,
+unconditionally, no line-moving fallback.  H-5 v4 fires `seam_double_ftc` on THIS object.  The
+regime gate `0 < c₀−2η` (the `y ≥ 10` floor) is carried, not proved. -/
+theorem prop21RHS_hat_rep_aligned (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    {t₀ X h c₀ y η : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc₀ : 1 < c₀) (hη : 0 ≤ η)
+    (hc' : 0 < c₀ - 2 * η) :
+    prop21RHS g t₀ X h c₀ y η
+      = (2 : ℝ) • ∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η,
+          ∑' N, alignedCoeff y g X α β N * (hatK X h N : ℂ) := by
+  rw [prop21RHS_hat_rep g hg hX hh hc₀ hη hc']
+  congr 1
+  refine intervalIntegral.integral_congr (fun α _ => ?_)
+  refine intervalIntegral.integral_congr (fun β _ => ?_)
+  refine tsum_congr (fun N => ?_)
+  have hrel : fourFactorCoeff y g X α β N
+      = alignedCoeff y g X α β N * (N : ℂ) ^ ((α : ℂ) + (β : ℂ)) := by
+    have := congrFun (seam_realignment y g X α β) N
+    simpa [shiftCoeff] using this
+  rw [hrel]
+  rcases eq_or_ne N 0 with rfl | hN
+  · simp
+  · have hcancel : (N : ℂ) ^ ((α : ℂ) + (β : ℂ)) * (N : ℂ) ^ (-(α : ℂ) - (β : ℂ)) = 1 := by
+      rw [← Complex.cpow_add _ _ (Nat.cast_ne_zero.mpr hN),
+        show ((α : ℂ) + (β : ℂ)) + (-(α : ℂ) - (β : ℂ)) = 0 by ring, Complex.cpow_zero]
+    rw [mul_assoc (alignedCoeff y g X α β N), hcancel, mul_one]
 
 end Salt.MR
