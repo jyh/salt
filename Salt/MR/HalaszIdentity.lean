@@ -635,4 +635,144 @@ theorem prop21RHS_hat_rep (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ �
   rw [four_factor_hat_rep y g hg α hβ0 hX hh hc₀, smul_smul,
     show (1 / (2 * Real.pi)) * (2 * Real.pi) = 1 by field_simp, one_smul]
 
+/-! ## H-1b — `seam_realignment` (THE HAT-REP SANDWICH — validated)
+
+The amendment's design (freeze §⟦A⟧): `prop21RHS`'s symmetric four-factor form and the
+ALIGNED GHS-(2.3) form (`𝒮` fixed, the shifts on the log-derivative/large legs) differ by
+multiplicative reweightings `n^{±α}, n^{±β}` of the convolved coefficients.  This block
+lands the SHIFTCOEFF ALGEBRA that is the sandwich's provable core: two reusable
+distribution laws (`shiftCoeff_convolution`, `shiftCoeff_shiftCoeff`) and the regrouping
+`fourFactorCoeff = shiftCoeff (α+β) alignedCoeff`.
+
+### ⟦SANDWICH VALIDATION OUTCOME — the tripwire, reported (iron-rule-1 tier)⟧
+
+The regrouping is EXACT and pure algebra (zero analysis), exactly as the design predicted.
+But the validation also PINS the residual precisely: the global reweighting is
+`shiftCoeff (α+β)`, and `α+β` is *not* zero, so under the hat-smoothed sum it does NOT
+collapse:
+`∑_N fourFactorCoeff·hatK = ∑_N alignedCoeff_N · N^{α+β} · hatK`  (`seam_realignment_hat`).
+The `N^{α+β}` factor is `LSeries alignedCoeff` read on the SHIFTED argument `c₀−(α+β)+it`
+(= GHS's `c_{α,β} = c₀−α−β/2` contour, with our `β↔2β` convention).  Consequently the
+downstream stone H-5 (fire `seam_double_ftc` on the aligned form) is BLOCKED as designed:
+
+* `seam_double_ftc` consumes the FULL log-derivative `LSeries (lambdaLin (restrictAbove))`,
+  which converges only on `re > 1`; but `alignedCoeff`'s windowed `winCoeff` legs sit at
+  arguments `w+α` with `re = c₀−β < 1` on the shifted line, where the window→full
+  replacement (H-5a) is INVALID (the full log-derivative diverges there).
+* Equivalently: after regrouping, `seam_double_ftc`'s FIXED base `s` is replaced by the
+  `(α,β)`-DEPENDENT base `s−(α+β)`; the fixed-base FTC cannot fire, and removing the
+  `(α,β)`-dependence is precisely the CONTOUR SHIFT the amendment forbade ("do NOT shift
+  contours, do NOT touch Cauchy").
+* The coefficient-level shortcut is also closed (BETA's wall, re-confirmed): the `β`-integral
+  `∫₀^η (mk/(jn))^β dβ = ((mk/(jn))^η−1)/log(mk/(jn))` couples the four convolution indices —
+  no telescoping.  The main term telescopes ONLY through the analytic FTC, which needs the
+  convergent line.
+
+The bridge from `∑_N alignedCoeff_N N^{α+β} hatK` to the telescoped main term is therefore
+GHS's Lemma 2.5 (truncate the integral at height `T`, move the line, price the Perron
+truncation error) — the multivariable-Perron / line-moving analytic core, i.e. the
+CAMPAIGN-GATE fallback the brief instructs never to attempt in an executor loop.  H-1b lands
+here (the sandwich's algebra + the explicit residual); H-5/H-EXIT are STOPPED at this wall
+per the fail-fast mandate.  See the executor's final report. -/
+
+/-- `shiftCoeff` distributes over Dirichlet convolution: the shift weight `n^w` splits along
+the antidiagonal `p.1·p.2 = n` by base multiplicativity of `cpow`. -/
+lemma shiftCoeff_convolution (w : ℂ) (a b : ℕ → ℂ) :
+    shiftCoeff w (a ⍟ b) = shiftCoeff w a ⍟ shiftCoeff w b := by
+  funext n
+  simp only [shiftCoeff, LSeries.convolution_def]
+  rw [Finset.sum_mul]
+  refine Finset.sum_congr rfl (fun p hp => ?_)
+  rw [Nat.mem_divisorsAntidiagonal] at hp
+  have hbase : ((p.1 : ℂ)) ^ w * ((p.2 : ℂ)) ^ w = (n : ℂ) ^ w := by
+    rw [← Complex.natCast_mul_natCast_cpow, ← Nat.cast_mul, hp.1]
+  calc a p.1 * b p.2 * (n : ℂ) ^ w
+      = a p.1 * b p.2 * (((p.1 : ℂ)) ^ w * ((p.2 : ℂ)) ^ w) := by rw [hbase]
+    _ = a p.1 * (p.1 : ℂ) ^ w * (b p.2 * (p.2 : ℂ) ^ w) := by ring
+
+/-- `shiftCoeff` is additive in the shift (for a sequence vanishing at `0`, which every
+carrier here satisfies — the `n=0` term is `0` on both sides). -/
+lemma shiftCoeff_shiftCoeff (w v : ℂ) {a : ℕ → ℂ} (ha0 : a 0 = 0) :
+    shiftCoeff w (shiftCoeff v a) = shiftCoeff (w + v) a := by
+  funext n
+  rcases eq_or_ne n 0 with rfl | hn
+  · simp [shiftCoeff, ha0]
+  · simp only [shiftCoeff]
+    rw [mul_assoc, ← Complex.cpow_add _ _ (Nat.cast_ne_zero.mpr hn), add_comm v w]
+
+/-- `ellLin` vanishes at `0` (the linearized twist has no constant term). -/
+lemma ellLin_zero (g : ℕ → ℂ) : ellLin g 0 = 0 := by simp [ellLin]
+
+/-- **The ALIGNED four-fold coefficient** (GHS-(2.3) form).  The smooth carrier `𝒮 = ℓ_below`
+is UNSHIFTED (fixed at `s`); the two window legs and the large leg carry the `−α`, `−α−2β`
+shifts (the `2β` is GHS's `β→2β` doubling in our post-Jacobian convention).  This is the
+coefficient `seam_double_ftc` would consume — with `winCoeff` first replaced by the full
+`lambdaLin (restrictAbove)` (the H-5a defect) and on a line where that replacement is valid. -/
+def alignedCoeff (y : ℝ) (g : ℕ → ℂ) (X α β : ℝ) : ℕ → ℂ :=
+  ((ellLin (restrictBelow y g)
+      ⍟ shiftCoeff (-(α : ℂ)) (winCoeff g X y))
+      ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (winCoeff g X y))
+      ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (ellLin (restrictAbove y g))
+
+/-- **H-1b — `seam_realignment` (THE HAT-REP SANDWICH).**  The symmetric-form convolved
+coefficient `fourFactorCoeff` equals the ALIGNED coefficient globally reweighted by
+`shiftCoeff (α+β)`.  Pure `shiftCoeff` algebra: push the global shift through the three
+convolutions (`shiftCoeff_convolution`) and fuse it into each leg (`shiftCoeff_shiftCoeff`);
+the four resulting shifts `(α+β, β, −β, −β)` match `fourFactorCoeff`'s by `ring`.  The
+`α+β` reweighting is the residual the design must (and, at H-5, cannot algebraically)
+remove — see the module note. -/
+theorem seam_realignment (y : ℝ) (g : ℕ → ℂ) (X α β : ℝ) :
+    fourFactorCoeff y g X α β
+      = shiftCoeff ((α : ℂ) + (β : ℂ)) (alignedCoeff y g X α β) := by
+  rw [fourFactorCoeff, alignedCoeff]
+  rw [shiftCoeff_convolution, shiftCoeff_convolution, shiftCoeff_convolution]
+  rw [shiftCoeff_shiftCoeff _ _ (winCoeff_zero g X y),
+      shiftCoeff_shiftCoeff _ _ (winCoeff_zero g X y),
+      shiftCoeff_shiftCoeff _ _ (ellLin_zero (restrictAbove y g))]
+  congr 1
+  · congr 1
+    · congr 1
+      · congr 1; ring
+    · congr 1; ring
+  · congr 1; ring
+
+/-- **H-1b corollary — the residual made explicit.**  The symmetric hat-smoothed coefficient
+sum equals the ALIGNED sum reweighted by `N^{α+β}`.  This is the exact object H-5 would feed
+to `seam_double_ftc`; the visible `N^{α+β}` is the shifted-line factor that walls the
+fixed-base FTC (module note). -/
+theorem seam_realignment_hat (y : ℝ) (g : ℕ → ℂ) (X α β : ℝ) {h : ℝ} :
+    (∑' N, fourFactorCoeff y g X α β N * (hatK X h N : ℂ))
+      = ∑' N, alignedCoeff y g X α β N * (N : ℂ) ^ ((α : ℂ) + (β : ℂ)) * (hatK X h N : ℂ) := by
+  rw [seam_realignment]
+  refine tsum_congr (fun N => ?_)
+  simp only [shiftCoeff, mul_assoc]
+
+/-! ## H-5a — `window_truncation_defect` (the coefficient-level defect, routed to MS-B)
+
+The window polynomial `windowSum = P` truncates the full log-derivative
+`𝓛(λ_ℓ) = LSeries (lambdaLin (restrictAbove y g))` to the open window `(⌊y⌋, ⌈X/y⌉)`.  At the
+COEFFICIENT level the defect is the full coefficient supported OFF the window; its norm is
+dominated by the full coefficient's, so its mass is `≤` the full `lambdaLin (restrictAbove)`
+mass — exactly the shape `mult_shiu_MS_B` bounds (`MS-B`'s triple sum carries
+`‖lambdaLin (restrictAbove y g) q.2.1‖` with the shifted exponents; `MultShiu:2214`).  This is
+the freeze's woven-truncation ruling landed at the coefficient level.  (Its analytic consumer
+is H-5, walled above; the defect object is banked for the campaign-gate continuation.) -/
+
+/-- **H-5a (a) — the defect decomposition.**  `𝓛(λ_ℓ) − P` at the coefficient level is the
+full `lambdaLin (restrictAbove y g)` coefficient restricted to the complement of the window. -/
+theorem window_truncation_defect (g : ℕ → ℂ) (X y : ℝ) (n : ℕ) :
+    lambdaLin (restrictAbove y g) n - winCoeff g X y n
+      = if n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊ then 0 else lambdaLin (restrictAbove y g) n := by
+  rw [winCoeff]; split_ifs with h <;> ring
+
+/-- **H-5a (b) — the defect is dominated by the full coefficient.**  Each defect coefficient
+has norm `≤ ‖lambdaLin (restrictAbove y g) n‖`, so the truncation mass is bounded by the full
+`𝓛(λ_ℓ)` mass — the `MS-B` budget shape (freeze corner ledger: the defect carries exactly the
+`2η+α` shifted exponents `MS-B` already bounds). -/
+lemma norm_window_truncation_defect_le (g : ℕ → ℂ) (X y : ℝ) (n : ℕ) :
+    ‖lambdaLin (restrictAbove y g) n - winCoeff g X y n‖ ≤ ‖lambdaLin (restrictAbove y g) n‖ := by
+  rw [window_truncation_defect]; split_ifs with h
+  · simp
+  · exact le_refl _
+
 end Salt.MR
