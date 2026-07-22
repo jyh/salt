@@ -3165,6 +3165,149 @@ lemma error_double_row {𝒯 : Finset ℝ} {ε : ℝ} (b : ℝ → ℂ)
     ring
   rw [hide]; linarith [hAe, hBe]
 
+
+/-- conj of a natural-power cpow (n ≥ 1). -/
+lemma conj_ncast_cpow {n : ℕ} (hn : 1 ≤ n) (w : ℂ) :
+    (starRingEnd ℂ) ((n : ℂ) ^ w) = (n : ℂ) ^ ((starRingEnd ℂ) w) := by
+  have harg : (n : ℂ).arg ≠ Real.pi := by
+    rw [← Complex.ofReal_natCast, Complex.arg_ofReal_of_nonneg (by positivity)]
+    exact ne_of_lt Real.pi_pos
+  have h := Complex.cpow_conj (n : ℂ) w harg
+  rw [map_natCast] at h
+  exact h.symm
+
+lemma summable_window_pair {P : ℝ} (hP0 : 0 < P) (u : ℝ) :
+    Summable (fun n =>
+      ((vonMangoldt n : ℂ) * (n : ℂ) ^ ((u : ℂ) * I)) * (primeWindow P n : ℂ)) := by
+  apply summable_of_ne_finset_zero (s := Finset.range (⌊3 * P⌋₊ + 1))
+  intro n hn
+  rw [Finset.mem_range, not_lt] at hn
+  have hge : 3 * P ≤ (n : ℝ) := by
+    have h1 : (3 * P : ℝ) < (⌊3 * P⌋₊ : ℝ) + 1 := Nat.lt_floor_add_one _
+    have h2 : ((⌊3 * P⌋₊ : ℕ) + 1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn
+    linarith
+  rw [primeWindow_eq_zero_upper hP0 hge, Complex.ofReal_zero, mul_zero]
+
+/-- **A-2 core (dual bound).** -/
+lemma dual_core {P : ℝ} (hP : 2 ≤ P) {T : ℝ} (hT : 0 ≤ T) {𝒯 : Finset ℝ}
+    (hws : WellSpaced 𝒯) (hsub : ∀ t ∈ 𝒯, t ∈ Set.Icc (-T) T)
+    {S : Finset ℕ} (hSprime : ∀ n ∈ S, n.Prime ∧ P ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * P)
+    {ε : ℝ}
+    (hinner : ∀ u : ℝ, |u| ≤ 2 * T →
+        ‖(∑' n, ((vonMangoldt n : ℂ) * (n : ℂ) ^ ((u : ℂ) * I)) * (primeWindow P n : ℂ))
+              - windowKernel P 1 u‖ ≤ ε)
+    (b : ℝ → ℂ) :
+    ∑ p ∈ S, ‖∑ t ∈ 𝒯, (starRingEnd ℂ) ((p : ℂ) ^ (-(t : ℂ) * I)) * b t‖ ^ 2
+      ≤ (44 * Real.pi * P + ε * (𝒯.card : ℝ)) / Real.log P * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by
+  have hP0 : 0 < P := by linarith
+  have hlogP : 0 < Real.log P := Real.log_pos (by linarith)
+  set G : ℕ → ℝ := fun n => ‖∑ t ∈ 𝒯, (n : ℂ) ^ ((t : ℂ) * I) * b t‖ ^ 2 with hGdef
+  have hG0 : ∀ n, 0 ≤ G n := fun n => sq_nonneg _
+  have hLHS : ∀ p ∈ S, ‖∑ t ∈ 𝒯, (starRingEnd ℂ) ((p : ℂ) ^ (-(t : ℂ) * I)) * b t‖ ^ 2 = G p := by
+    intro p hp
+    have hp1 : 1 ≤ p := le_trans (by norm_num) (hSprime p hp).1.two_le
+    have hXY : ∑ t ∈ 𝒯, (starRingEnd ℂ) ((p : ℂ) ^ (-(t : ℂ) * I)) * b t
+        = ∑ t ∈ 𝒯, (p : ℂ) ^ ((t : ℂ) * I) * b t := by
+      refine Finset.sum_congr rfl (fun t _ => ?_)
+      congr 1
+      rw [conj_ncast_cpow hp1]
+      congr 1
+      rw [map_mul, map_neg, Complex.conj_ofReal, Complex.conj_I]; ring
+    simp only [hGdef]
+    rw [hXY]
+  have htt' : ∀ t ∈ 𝒯, ∀ t' ∈ 𝒯, |t - t'| ≤ 2 * T := by
+    intro t ht t' ht'
+    have h1 := Set.mem_Icc.mp (hsub t ht)
+    have h2 := Set.mem_Icc.mp (hsub t' ht')
+    rw [abs_le]; constructor <;> linarith [h1.1, h1.2, h2.1, h2.2]
+  have hwd := window_dominates hP hG0 hSprime
+  set RHSr : ℝ := ∑' n, vonMangoldt n * primeWindow P n * G n with hRHSr
+  have hRHSr0 : 0 ≤ RHSr :=
+    tsum_nonneg fun n =>
+      mul_nonneg (mul_nonneg vonMangoldt_nonneg (primeWindow_nonneg hP0 n)) (hG0 n)
+  have hterm : ∀ (t t' : ℝ) (n : ℕ),
+      ((vonMangoldt n : ℂ) * (primeWindow P n : ℂ))
+        * (((n : ℂ) ^ ((t : ℂ) * I) * b t) * (starRingEnd ℂ) ((n : ℂ) ^ ((t' : ℂ) * I) * b t'))
+        = b t * (starRingEnd ℂ) (b t')
+            * (((vonMangoldt n : ℂ) * (n : ℂ) ^ (((t - t' : ℝ) : ℂ) * I))
+                * (primeWindow P n : ℂ)) := by
+    intro t t' n
+    rcases Nat.eq_zero_or_pos n with hn | hn
+    · subst hn
+      rw [show (vonMangoldt 0 : ℂ) = 0 by rw [ArithmeticFunction.map_zero]; norm_num]
+      ring
+    · have hn1 : 1 ≤ n := hn
+      have hn0 : (n : ℂ) ≠ 0 := by exact_mod_cast hn.ne'
+      rw [map_mul, conj_ncast_cpow hn1]
+      have hcomb : (n : ℂ) ^ ((t : ℂ) * I) * (n : ℂ) ^ ((starRingEnd ℂ) ((t' : ℂ) * I))
+          = (n : ℂ) ^ (((t - t' : ℝ) : ℂ) * I) := by
+        rw [← Complex.cpow_add _ _ hn0]
+        congr 1
+        rw [map_mul, Complex.conj_I, Complex.conj_ofReal]; push_cast; ring
+      linear_combination ((vonMangoldt n : ℂ) * (primeWindow P n : ℂ) * b t
+        * (starRingEnd ℂ) (b t')) * hcomb
+  -- summability of the fixed-t inner sum (finite support)
+  have hsummstep : ∀ t : ℝ, Summable (fun n => ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t')
+      * (((vonMangoldt n : ℂ) * (n : ℂ) ^ (((t - t' : ℝ) : ℂ) * I)) * (primeWindow P n : ℂ))) := by
+    intro t
+    apply summable_of_ne_finset_zero (s := Finset.range (⌊3 * P⌋₊ + 1))
+    intro n hn
+    rw [Finset.mem_range, not_lt] at hn
+    have hge : 3 * P ≤ (n : ℝ) := by
+      have h1 : (3 * P : ℝ) < (⌊3 * P⌋₊ : ℝ) + 1 := Nat.lt_floor_add_one _
+      have h2 : ((⌊3 * P⌋₊ : ℕ) + 1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn
+      linarith
+    refine Finset.sum_eq_zero (fun t' _ => ?_)
+    rw [primeWindow_eq_zero_upper hP0 hge, Complex.ofReal_zero, mul_zero, mul_zero]
+  have hexp : (RHSr : ℂ) = ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t')
+        * (∑' n, ((vonMangoldt n : ℂ) * (n : ℂ) ^ (((t - t' : ℝ) : ℂ) * I))
+            * (primeWindow P n : ℂ)) := by
+    rw [hRHSr, Complex.ofReal_tsum]
+    have hstep : ∀ n, ((vonMangoldt n * primeWindow P n * G n : ℝ) : ℂ)
+        = ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t')
+            * (((vonMangoldt n : ℂ) * (n : ℂ) ^ (((t - t' : ℝ) : ℂ) * I))
+                * (primeWindow P n : ℂ)) := by
+      intro n
+      simp only [hGdef]
+      rw [Complex.ofReal_mul, Complex.ofReal_mul, Complex.ofReal_pow,
+        ← Complex.mul_conj', map_sum, Finset.sum_mul_sum, Finset.mul_sum]
+      refine Finset.sum_congr rfl (fun t _ => ?_)
+      rw [Finset.mul_sum]
+      refine Finset.sum_congr rfl (fun t' _ => hterm t t' n)
+    rw [tsum_congr hstep, Summable.tsum_finsetSum (fun t _ => hsummstep t)]
+    refine Finset.sum_congr rfl (fun t _ => ?_)
+    rw [Summable.tsum_finsetSum (fun t' _ => (summable_window_pair hP0 (t - t')).mul_left _)]
+    refine Finset.sum_congr rfl (fun t' _ => ?_)
+    rw [tsum_mul_left]
+  set Wk : ℝ → ℝ → ℂ := fun t t' =>
+    (∑' n, ((vonMangoldt n : ℂ) * (n : ℂ) ^ (((t - t' : ℝ) : ℂ) * I)) * (primeWindow P n : ℂ))
+      - windowKernel P 1 (t - t') with hWk
+  have hWbound : ∀ t ∈ 𝒯, ∀ t' ∈ 𝒯, ‖Wk t t'‖ ≤ ε :=
+    fun t ht t' ht' => hinner (t - t') (htt' t ht t' ht')
+  have hsplit : (RHSr : ℂ)
+      = (∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t') * windowKernel P 1 (t - t'))
+        + (∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t') * Wk t t') := by
+    rw [hexp, ← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl (fun t _ => ?_)
+    rw [← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl (fun t' _ => ?_)
+    rw [hWk]; ring
+  have hnorm : RHSr ≤ 44 * Real.pi * P * (∑ t ∈ 𝒯, ‖b t‖ ^ 2)
+      + ε * (𝒯.card : ℝ) * (∑ t ∈ 𝒯, ‖b t‖ ^ 2) := by
+    have hcast : RHSr = ‖(RHSr : ℂ)‖ := by rw [Complex.norm_real, Real.norm_of_nonneg hRHSr0]
+    rw [hcast, hsplit]
+    refine (norm_add_le _ _).trans ?_
+    exact add_le_add (pole_double_row hP hT hws hsub b) (error_double_row b Wk hWbound)
+  have hGsum : ∑ p ∈ S, ‖∑ t ∈ 𝒯, (starRingEnd ℂ) ((p : ℂ) ^ (-(t : ℂ) * I)) * b t‖ ^ 2
+      = ∑ p ∈ S, G p := Finset.sum_congr rfl hLHS
+  rw [hGsum, div_mul_eq_mul_div, le_div_iff₀ hlogP]
+  have hfin : Real.log P * ∑ p ∈ S, G p
+      ≤ (44 * Real.pi * P + ε * (𝒯.card : ℝ)) * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by
+    calc Real.log P * ∑ p ∈ S, G p ≤ RHSr := hwd
+      _ ≤ _ := hnorm
+      _ = (44 * Real.pi * P + ε * (𝒯.card : ℝ)) * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by ring
+  linarith [hfin]
+
 end L11Assembly
 
 end Salt.MR
