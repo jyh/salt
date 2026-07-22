@@ -1604,4 +1604,188 @@ theorem shifted_edge_price :
 
 end ShiftedEdge
 
+/-! ## W-DOM — window domination + the prime-power discard
+
+The two stones ASM consumes to pass from the log-weighted RESTRICTED prime sum
+`Σ_{P≤p≤2P} log p·|Σ_t η_t p^{it}|²` to the full von Mangoldt window sum
+`Σ_n Λ(n)·w(n)·|Σ_t η_t n^{it}|²`, then discard the `k ≥ 2` prime powers.  The
+nonnegative weight `|Σ_t η_t n^{it}|²` is carried ABSTRACTLY as `g n` (ASM plugs the
+honest square — `inner_sum_sq_le` below supplies its uniform bound `B = |𝒯|·Σ|η|²`).
+
+* **`window_dominates`** — the REF-B R-6 direction chain (blessed):
+    `log P · Σ_{p∈S} g p`
+      `≤ Σ_{p∈S} log p · g p`     (step 1: `log p ≥ log P` on `[P,2P]`, `g ≥ 0`)
+      `= Σ_{p∈S} Λ(p)·w(p)·g p`    (on the plateau `Λ(p) = log p`, `w(p) = 1`)
+      `≤ Σ'_n Λ(n)·w(n)·g n`.      (step 2: every dropped term — ramp zones AND prime
+                                     powers — is `≥ 0`, they ADD, never subtract)
+  The `≥ log P` step (R-6 kill-check) touches ONLY the restricted `[P,2P]` sum, so the
+  `P/2`-supported ramp mass never enters it.
+* **`prime_power_count_le`** — the count of proper prime powers `p^k` (`k ≥ 2`) in
+  `[1, M]` is `≤ √M · log₂ M` (each `n = p^k ≤ M` has `p ≤ √M` from `p² ≤ p^k`, and
+  `k ≤ log₂ M` from `2^k ≤ p^k`; `n ↦ (minFac n, factorization)` is injective by unique
+  factorisation).
+* **`inner_sum_sq_le`** — Cauchy–Schwarz on the inner sum: `‖Σ_t ψ_t·b_t‖² ≤ |𝒯|·Σ‖b_t‖²`
+  for unit-modulus multipliers (`norm_conj_prime_cpow`: `‖conj(n^{-it})‖ = 1`).
+* **`prime_power_discard`** — the weighted-sum discard shape ASM subtracts:
+  `Σ Λ(n)·w(n)·g n ≤ log(3P)·(√⌊3P⌋·log₂⌊3P⌋)·B` for any uniform `g ≤ B` (`Λ ≤ log(3P)`,
+  `w ≤ 1` on `n ≤ 3P`, folding the count). -/
+
+section WindowDominate
+open Finset
+
+/-- **W-DOM — window domination** (REF-B R-6 direction chain).  For `2 ≤ P`, a nonnegative
+weight `g` (ASM: `g n = ‖Σ_t η_t n^{it}‖²`), and a prime set `S ⊆ [P, 2P]`,
+`log P · Σ_{p∈S} g p ≤ Σ'_n Λ(n)·(primeWindow P n)·g n`.  Step 1 (`log p ≥ log P` on the
+window, `g ≥ 0`) is fused with step 2 (`Λ(p) = log p`, `primeWindow P p = 1` on the plateau)
+into the per-prime identity `log P · g p ≤ Λ(p)·w(p)·g p`; the passage to the full sum drops
+only nonnegative terms (`Λ, w, g ≥ 0`), so `S`'s finite sum is `≤` the total `tsum`. -/
+theorem window_dominates {P : ℝ} (hP : 2 ≤ P) {g : ℕ → ℝ} (hg : ∀ n, 0 ≤ g n)
+    {S : Finset ℕ} (hS : ∀ n ∈ S, n.Prime ∧ P ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * P) :
+    Real.log P * ∑ p ∈ S, g p
+      ≤ ∑' n, vonMangoldt n * primeWindow P n * g n := by
+  have hP0 : (0 : ℝ) < P := by linarith
+  -- the full sum is summable (finite support: `primeWindow P n = 0` past `3P`)
+  have hsumm : Summable (fun n => vonMangoldt n * primeWindow P n * g n) := by
+    apply summable_of_ne_finset_zero (s := Finset.range (⌊3 * P⌋₊ + 1))
+    intro n hn
+    rw [Finset.mem_range, not_lt] at hn
+    have hge : 3 * P ≤ (n : ℝ) := by
+      have h1 : (3 * P : ℝ) < (⌊3 * P⌋₊ : ℝ) + 1 := Nat.lt_floor_add_one (3 * P)
+      have h2 : ((⌊3 * P⌋₊ : ℕ) + 1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn
+      linarith
+    rw [primeWindow_eq_zero_upper hP0 hge, mul_zero, zero_mul]
+  -- steps 1+2: the per-prime domination
+  have hstep : Real.log P * ∑ p ∈ S, g p
+      ≤ ∑ p ∈ S, vonMangoldt p * primeWindow P p * g p := by
+    rw [Finset.mul_sum]
+    refine Finset.sum_le_sum (fun p hp => ?_)
+    obtain ⟨hpp, hlb, hub⟩ := hS p hp
+    rw [primeWindow_eq_one hP0 hlb hub, vonMangoldt_apply_prime hpp, mul_one]
+    exact mul_le_mul_of_nonneg_right (Real.log_le_log hP0 hlb) (hg p)
+  -- step 3: the restricted sum ≤ the total (nonnegative terms)
+  refine hstep.trans (hsumm.sum_le_tsum S (fun n _ => ?_))
+  exact mul_nonneg (mul_nonneg vonMangoldt_nonneg (primeWindow_nonneg hP0 n)) (hg n)
+
+/-- **W-DOM — the prime-power count.**  The number of proper prime powers `p^k` (`k ≥ 2`,
+i.e. `IsPrimePow n ∧ ¬ n.Prime`) in `[1, M]` is at most `√M · log₂ M`.  Each such `n = p^k ≤ M`
+has `p = minFac n ≤ √M` (from `p² ≤ p^k = n ≤ M`) and `k = n.factorization p ≤ log₂ M` (from
+`2^k ≤ p^k = n ≤ M`); the map `n ↦ (minFac n, n.factorization (minFac n))` is injective by
+`IsPrimePow.minFac_pow_factorization_eq` (unique factorisation), so the count is bounded by the
+product-set cardinality. -/
+theorem prime_power_count_le (M : ℕ) :
+    ((Finset.Icc 1 M).filter (fun n => IsPrimePow n ∧ ¬ Nat.Prime n)).card
+      ≤ Nat.sqrt M * Nat.log 2 M := by
+  have hcard : (Finset.Icc 1 (Nat.sqrt M) ×ˢ Finset.Icc 1 (Nat.log 2 M)).card
+      = Nat.sqrt M * Nat.log 2 M := by
+    rw [Finset.card_product, Nat.card_Icc, Nat.card_Icc, Nat.add_sub_cancel, Nat.add_sub_cancel]
+  refine le_trans (Finset.card_le_card_of_injOn
+    (fun n => (n.minFac, n.factorization n.minFac)) ?_ ?_) (le_of_eq hcard)
+  · -- MapsTo: the (minFac, exponent) pair lands in `[1, √M] × [1, log₂ M]`
+    intro n hn
+    simp only [Finset.mem_coe, Finset.mem_filter, Finset.mem_Icc] at hn
+    obtain ⟨⟨_, hnM⟩, hpp, hnp⟩ := hn
+    have hne1 : n ≠ 1 := hpp.ne_one
+    have hpprime : (n.minFac).Prime := Nat.minFac_prime hne1
+    have hp2 : 2 ≤ n.minFac := hpprime.two_le
+    have hpk : n.minFac ^ n.factorization n.minFac = n := hpp.minFac_pow_factorization_eq
+    have hk1 : n.factorization n.minFac ≠ 0 := by
+      intro h; rw [h, pow_zero] at hpk; exact hne1 hpk.symm
+    have hkne1 : n.factorization n.minFac ≠ 1 := by
+      intro h; rw [h, pow_one] at hpk; exact hnp (hpk ▸ hpprime)
+    have hk2 : 2 ≤ n.factorization n.minFac := by omega
+    have hMpos : M ≠ 0 := by have := hpp.two_le; omega
+    have hp_bound : n.minFac ≤ Nat.sqrt M := by
+      rw [Nat.le_sqrt']
+      calc n.minFac ^ 2 ≤ n.minFac ^ n.factorization n.minFac :=
+            Nat.pow_le_pow_right (by omega) hk2
+        _ = n := hpk
+        _ ≤ M := hnM
+    have hk_bound : n.factorization n.minFac ≤ Nat.log 2 M := by
+      rw [Nat.le_log_iff_pow_le Nat.one_lt_two hMpos]
+      calc 2 ^ n.factorization n.minFac ≤ n.minFac ^ n.factorization n.minFac :=
+            Nat.pow_le_pow_left hp2 _
+        _ = n := hpk
+        _ ≤ M := hnM
+    simp only [Finset.mem_coe, Finset.mem_product, Finset.mem_Icc]
+    exact ⟨⟨by omega, hp_bound⟩, ⟨by omega, hk_bound⟩⟩
+  · -- InjOn: unique factorisation
+    intro a ha b hb hab
+    simp only [Finset.mem_coe, Finset.mem_filter] at ha hb
+    simp only [Prod.mk.injEq] at hab
+    obtain ⟨h1, h2⟩ := hab
+    calc a = a.minFac ^ a.factorization a.minFac := ha.2.1.minFac_pow_factorization_eq.symm
+      _ = b.minFac ^ b.factorization b.minFac := by rw [h2, h1]
+      _ = b := hb.2.1.minFac_pow_factorization_eq
+
+/-- Unit modulus of the twist multiplier: `‖conj(p^{-it})‖ = 1` for `p ≥ 1` (the exponent
+`-(t)·I` is purely imaginary, so the norm is `p^0 = 1`).  Supplies the `‖ψ t‖ ≤ 1` hypothesis
+of `inner_sum_sq_le` for the honest `ψ t = conj((p:ℂ)^(-it))` of `primes_dual_iff`. -/
+lemma norm_conj_prime_cpow {p : ℕ} (hp : 1 ≤ p) (t : ℝ) :
+    ‖(starRingEnd ℂ) ((p : ℂ) ^ (-(t : ℂ) * I))‖ = 1 := by
+  have hre : (-(t : ℂ) * I).re = 0 := by simp [Complex.mul_re]
+  rw [Complex.norm_conj, ← Complex.ofReal_natCast,
+    Complex.norm_cpow_eq_rpow_re_of_pos (by exact_mod_cast (show 0 < p by omega)), hre,
+    Real.rpow_zero]
+
+/-- **W-DOM — Cauchy–Schwarz on the inner sum.**  For unit-modulus multipliers `ψ`
+(`‖ψ t‖ ≤ 1`), `‖Σ_{t∈𝒯} ψ_t·b_t‖² ≤ |𝒯|·Σ_{t∈𝒯}‖b_t‖²`.  The uniform bound `B = |𝒯|·Σ|η|²`
+that `prime_power_discard` consumes: `‖Σ_t p^{it} η_t‖² ≤ |𝒯|·Σ|η_t|²` (via
+`norm_conj_prime_cpow`). -/
+lemma inner_sum_sq_le {ψ : ℝ → ℂ} (hψ : ∀ t, ‖ψ t‖ ≤ 1) (𝒯 : Finset ℝ) (b : ℝ → ℂ) :
+    ‖∑ t ∈ 𝒯, ψ t * b t‖ ^ 2 ≤ (𝒯.card : ℝ) * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by
+  have hnorm : ‖∑ t ∈ 𝒯, ψ t * b t‖ ≤ ∑ t ∈ 𝒯, ‖b t‖ := by
+    refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun t _ => ?_))
+    rw [norm_mul]
+    calc ‖ψ t‖ * ‖b t‖ ≤ 1 * ‖b t‖ := mul_le_mul_of_nonneg_right (hψ t) (norm_nonneg _)
+      _ = ‖b t‖ := one_mul _
+  calc ‖∑ t ∈ 𝒯, ψ t * b t‖ ^ 2
+      ≤ (∑ t ∈ 𝒯, ‖b t‖) ^ 2 := pow_le_pow_left₀ (norm_nonneg _) hnorm 2
+    _ ≤ (𝒯.card : ℝ) * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by
+        simpa using sq_sum_le_card_mul_sum_sq (s := 𝒯) (f := fun t => ‖b t‖)
+
+/-- **W-DOM — the prime-power discard.**  For `2 ≤ P`, a nonnegative weight `g` with a uniform
+bound `g ≤ B` on the proper prime powers of `[1, ⌊3P⌋]` (ASM: `g n = ‖Σ_t η_t n^{it}‖²`,
+`B = |𝒯|·Σ|η|²` from `inner_sum_sq_le`), the `k ≥ 2` contribution to the window sum is
+`Σ_n Λ(n)·(primeWindow P n)·g n ≤ log(3P)·(√⌊3P⌋·log₂⌊3P⌋)·B`: each term is `≤ log(3P)·B`
+(`Λ(n) ≤ log n ≤ log(3P)` on `n ≤ 3P`, `primeWindow P n ≤ 1`, `g n ≤ B`), and the count is
+folded by `prime_power_count_le`.  This is the error row ASM subtracts. -/
+theorem prime_power_discard {P : ℝ} (hP : 2 ≤ P) {g : ℕ → ℝ} {B : ℝ} (hB : 0 ≤ B)
+    (hg0 : ∀ n, 0 ≤ g n)
+    (hgB : ∀ n ∈ (Finset.Icc 1 ⌊3 * P⌋₊).filter (fun n => IsPrimePow n ∧ ¬ Nat.Prime n),
+        g n ≤ B) :
+    ∑ n ∈ (Finset.Icc 1 ⌊3 * P⌋₊).filter (fun n => IsPrimePow n ∧ ¬ Nat.Prime n),
+        vonMangoldt n * primeWindow P n * g n
+      ≤ Real.log (3 * P) * ((Nat.sqrt ⌊3 * P⌋₊ * Nat.log 2 ⌊3 * P⌋₊ : ℕ) : ℝ) * B := by
+  have hP0 : (0 : ℝ) < P := by linarith
+  have hlog3P : 0 ≤ Real.log (3 * P) := Real.log_nonneg (by linarith)
+  have hfloor : (⌊3 * P⌋₊ : ℝ) ≤ 3 * P := Nat.floor_le (by linarith)
+  set PP := (Finset.Icc 1 ⌊3 * P⌋₊).filter (fun n => IsPrimePow n ∧ ¬ Nat.Prime n) with hPPdef
+  -- per-term bound `Λ(n)·w(n)·g n ≤ log(3P)·B`
+  have hterm : ∀ n ∈ PP, vonMangoldt n * primeWindow P n * g n ≤ Real.log (3 * P) * B := by
+    intro n hn
+    have hmem := (Finset.mem_filter.mp hn).1
+    rw [Finset.mem_Icc] at hmem
+    have hnpos : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hmem.1
+    have hnle : (n : ℝ) ≤ 3 * P := le_trans (by exact_mod_cast hmem.2) hfloor
+    have hΛ : vonMangoldt n ≤ Real.log (3 * P) :=
+      le_trans (vonMangoldt_le_log (n := n)) (Real.log_le_log hnpos hnle)
+    have hΛw : vonMangoldt n * primeWindow P n ≤ Real.log (3 * P) := by
+      calc vonMangoldt n * primeWindow P n
+          ≤ Real.log (3 * P) * 1 :=
+            mul_le_mul hΛ (primeWindow_le_one hP0 n) (primeWindow_nonneg hP0 n) hlog3P
+        _ = Real.log (3 * P) := mul_one _
+    exact mul_le_mul hΛw (hgB n hn) (hg0 n) hlog3P
+  -- sum ≤ card·(log3P·B), then fold the count
+  calc ∑ n ∈ PP, vonMangoldt n * primeWindow P n * g n
+      ≤ ∑ _n ∈ PP, Real.log (3 * P) * B := Finset.sum_le_sum hterm
+    _ = (PP.card : ℝ) * (Real.log (3 * P) * B) := by rw [Finset.sum_const, nsmul_eq_mul]
+    _ ≤ ((Nat.sqrt ⌊3 * P⌋₊ * Nat.log 2 ⌊3 * P⌋₊ : ℕ) : ℝ) * (Real.log (3 * P) * B) := by
+        refine mul_le_mul_of_nonneg_right ?_ (mul_nonneg hlog3P hB)
+        have hcnt := prime_power_count_le ⌊3 * P⌋₊
+        rw [← hPPdef] at hcnt
+        exact_mod_cast hcnt
+    _ = Real.log (3 * P) * ((Nat.sqrt ⌊3 * P⌋₊ * Nat.log 2 ⌊3 * P⌋₊ : ℕ) : ℝ) * B := by ring
+
+end WindowDominate
+
 end Salt.MR
