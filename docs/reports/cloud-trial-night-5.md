@@ -99,7 +99,35 @@ from the lean4 release, extract it, and put its `bin/` on `PATH`. A standalone
 `lake`/`lean` with no elan present uses its own bundled toolchain, which **is**
 v4.32.0-rc1 — matching `lean-toolchain` exactly. Attempting now.
 
-_Workaround result: pending (this step)._
+**Workaround result: ✅ SUCCESS.** The elan-less path works end to end:
+
+| Sub-step | Wall-clock |
+|---|---:|
+| `elan-init.sh` attempt (fails at elan bootstrap 403) | ~1 s |
+| `apt-get install -y zstd` (`.tar.zst` needs zstd; not preinstalled; Ubuntu mirror reachable) | 3 s |
+| Download `lean-4.32.0-rc1-linux.tar.zst` (538 MB) from the in-scope lean4 release | **10 s** |
+| Extract (`zstd -dc | tar -x`) into `~/.elan/toolchains/leanprover--lean4---v4.32.0-rc1/` | **32 s** |
+| **Toolchain acquisition total (mechanical)** | **≈ 46 s** |
+
+Checksum of the download **matches the GitHub asset digest exactly**
+(`sha256:ce6e79dd…b5b3`). The extracted binaries report:
+
+```
+Lean (version 4.32.0-rc1, x86_64-unknown-linux-gnu, commit b4812ae53eea93439ad5dce5a5c26591c31cb697, Release)
+Lake version 5.0.0-src+b4812ae (Lean version 4.32.0-rc1)
+```
+
+Kernel build commit **`b4812ae5`** is **identical** to the one in
+`lean4checker-local-1.md` — the cloud checker will be literally the same kernel
+build as the local audit. With no `elan` on `PATH`, `lake`/`lean`/`leanchecker`
+run standalone against their own bundled toolchain, which equals `lean-toolchain`
+(`leanprover/lean4:v4.32.0-rc1`), so nothing is version-mismatched.
+
+**Bottom line for the night economics:** the per-session toolchain cost is **not**
+the multi-minute elan+GitHub-releases dance — it collapses to a **~46 s direct
+tarball fetch+extract**, *provided* `leanprover/lean4` is in session scope (it is)
+and `zstd` is apt-installable (it is). The only casualty is `elan` itself
+(`leanprover/elan` out of scope); it is not needed.
 
 ## 3. Mathlib cache (`lake exe cache get`)
 
@@ -125,7 +153,7 @@ _pending (Step 6)_
 |---|---|---|---|
 | 0 | Skeleton report + branch | — | ✅ done |
 | 1 | Freshness + environment | ~1 min | ✅ done |
-| 2 | Toolchain (elan + first lake) | — | pending |
+| 2 | Toolchain (elan-less workaround) | ~46 s | ✅ done |
 | 3 | Cache get | — | pending |
 | 4 | Build | — | pending |
 | 5 | Checker | — | pending |
