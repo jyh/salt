@@ -30,6 +30,16 @@ jobs:
     timeout-minutes: 240
 
     steps:
+      # Disk headroom: the corpus (~9,400 jobs) + mathlib cache (~5.7GB) +
+      # docgen outgrew the runner's ~14GB free disk (2026-07-22: runs died
+      # at 9,267/9,351 with "no space left on device"). Reclaim ~25-30GB of
+      # preinstalled cruft before anything heavy runs.
+      - name: Free runner disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+            /usr/local/.ghcup /usr/share/swift /opt/hostedtoolcache/CodeQL
+          sudo docker image prune --all --force 2>/dev/null || true
+          df -h /
       - uses: actions/checkout@v5
       # Salt's own build cache (mathlib comes via lake exe cache get inside
       # lean-action). restore-keys lets any prior seed serve incrementally.
