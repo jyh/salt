@@ -417,9 +417,19 @@ theorem prop21_contour_leg {f gJ : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1)
 
 /-- The **frozen S1' main integral** — the `α,β` double integral of the four-series
 product `𝒮(s-α-β)·𝓛(s+β)·P(s-β)·P(s+β)` against the centered hat kernel, with
-`s = c₀ + (t-t₀)·I` on the exact vertical line (Seam docstring, GHS Prop 2.1). -/
+`s = c₀ + (t-t₀)·I` on the exact vertical line (Seam docstring, GHS Prop 2.1).
+
+**AMENDMENT P21-2X (2026-07-22, maestro-ruled from HID-ALPHA's confirmed
+factor-2 verdict):** the leading factor `2` is the β→2β Jacobian of GHS's
+Prop 2.1 proof (p.11 "finally replace β by 2β": `∫₀^{2η} G(β/2) dβ =
+2·∫₀^η G(β′) dβ′`, the Lean witness `beta_double_jacobian` in
+`HalaszIdentity`). GHS's *printed* (2.1) omits the 2 — harmless for their
+one-sided `≪`, fatal for the two-sided `hfactor` identity: without it,
+`prop21RHS ≈ ½·(Σf(n) − secondary)` and the defect is main-term-sized.
+The original transcription was faithful to the printed display; the
+amendment restores fidelity to the *derivation*. -/
 def prop21RHS (g : ℕ → ℂ) (t₀ X h c₀ y η : ℝ) : ℂ :=
-  ∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η, (1 / (2 * Real.pi)) •
+  (2 : ℝ) • ∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η, (1 / (2 * Real.pi)) •
     ∫ t : ℝ,
       smoothSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (α : ℂ) - (β : ℂ))
         * largeSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
