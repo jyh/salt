@@ -131,7 +131,27 @@ and `zstd` is apt-installable (it is). The only casualty is `elan` itself
 
 ## 3. Mathlib cache (`lake exe cache get`)
 
-_pending (Step 3)_
+**Second scope discovery — the git protocol is NOT repo-scope-gated, only the
+web/API/releases surface is.** Salt depends on `leanprover-community/mathlib4`
+(+ plausible, LeanSearchClient, …), none of which are in session scope, and no
+deps were materialized at boot (`.lake/packages` absent). Probing the boundary:
+
+| Endpoint on out-of-scope `leanprover-community/mathlib4` | HTTP |
+|---|---|
+| `github.com/leanprover-community/mathlib4` (web page) | **403** (repo-scope gate) |
+| `github.com/leanprover-community/mathlib4.git/info/refs?service=git-upload-pack` (git smart-HTTP) | **200** — serves refs |
+
+So `git clone` / `lake` dependency fetch of out-of-scope public repos **works**; the
+proxy gates the GitHub *API/web/releases* surface but passes the raw git
+upload-pack protocol. This is why the toolchain needed the tarball workaround
+(releases-download is gated for `elan`) yet Mathlib *source* can be cloned normally.
+
+`lake exe cache get` then pulls precompiled Mathlib oleans from Azure blob storage
+(`…blob.core.windows.net`), which Night 4 already found reachable in this
+environment.
+
+_Running now (dependency clone + cache download, backgrounded with logging).
+Result: pending._
 
 ## 4. Corpus build (`lake build`)
 
