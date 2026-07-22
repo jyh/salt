@@ -251,6 +251,9 @@ open Salt.Tactic in
   Salt.MR.pole_residue_term
   Salt.MR.shifted_edge_price
   Salt.MR.lemma12_meansq_pretty
+  Salt.MR.window_dominates
+  Salt.MR.prime_power_discard
+  Salt.MR.contour_A13_A14_head_wired
   Salt.MR.primeWindow_contour_rep
   Salt.MR.lambda_window_rep
   Salt.MR.rep_truncated

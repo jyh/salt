@@ -6,6 +6,7 @@ import Mathlib.NumberTheory.Chebyshev
 import Salt.MR.HalaszKernel
 import Salt.MR.HalaszLambda
 import Salt.MR.HalaszCore
+import Salt.MR.HalaszContour
 
 /-!
 # HALASZ-INFRA wave I-2, FILE C — the seam (S1' + S2')
@@ -335,5 +336,214 @@ theorem contour_A13_A14_head {X supF crossInt planA planB diagA diagB : ℝ}
   refine hCS.trans ?_
   exact mul_le_mul (Real.sqrt_le_sqrt hDiagA) (Real.sqrt_le_sqrt hDiagB)
     (Real.sqrt_nonneg _) (Real.sqrt_nonneg _)
+
+/-! ## K4' RECONCILIATION — wiring the landed `dirichlet_plancherel` +
+`lambdaLin_window_bound` into the S2' head (`contour_A13_A14_head_wired`)
+
+The landed head `contour_A13_A14_head` carries `hCS`/`hDiagA`/`hDiagB` as bare real
+hypotheses.  Here we DISCHARGE all three at the concrete Dirichlet-polynomial
+instantiation, CONSUMING the two wave-I-1 K4' stones (which until now were consumed
+by nothing):
+
+* `hCS` — the weighted `L²` Cauchy–Schwarz (mathlib Hölder
+  `integral_mul_le_Lp_mul_Lq_of_nonneg` at `p = q = 2`) against the Poisson weight
+  `(c²+t²)⁻¹`: the cross integral `∫ ‖P_A‖·‖P_B‖/(c²+t²)` is bounded by the geometric
+  mean of the two Plancherel integrals `planA = ∫‖P_A‖²/(c²+t²)`,
+  `planB = ∫‖P_B‖²/(c²+t²)`.  The CS step is EXACT — it costs no `log` (S2' ledger law).
+* `hDiagA`/`hDiagB` — `dirichlet_plancherel` rewrites each Plancherel integral to its
+  diagonal double sum, which the crude majorant `Re(bₘb̄ₙ) ≤ ‖bₘ‖‖bₙ‖`, `(mn)^{-c} ≤ 1`,
+  `e^{-c|…|} ≤ 1` bounds by `(π/c)·(Σ‖bₙ‖)²`; `lambdaLin_window_bound` then bounds the
+  coefficient mass `Σ‖lambdaLin g n‖ ≤ (log 4 + 4)·b` on the window `(a, b]`.
+
+**Scope note (crude vs. ledger-sharp `diagA`).**  The in-seam majorant delivers the
+COEFFICIENT-MASS² form `diagA = (π/c)·((log 4+4)·b)²`.  The ledger-SHARP diagonal
+`(π/c)·Σ‖bₙ‖²/n^{2c}` (GHS `min(L,1/β)`, the input to the `X·(1+M)e^{-M}` main term)
+requires the off-diagonal cancellation `Σ_{m≠n} 1/|log(m/n)| ≪ N·log N` — the wave-I-3
+`ball_mvt` remainder (`offdiag_int_bound`), which is NOT an in-seam surface.  The
+reconciliation therefore CONSUMES both stones and discharges all three hypotheses;
+sharpening `diagA`/`diagB` to the ledger form is the separate I-3 off-diagonal stone.
+The CS step itself is exact (no log leak). -/
+
+/-- The seam's Cauchy–Schwarz Dirichlet polynomial `∑_{n∈F} bₙ · n^{-(c+it)}` on the
+exact vertical line `Re = c` (the `s = c + t·I` convention).  Distinct from the
+unweighted moment `dpoly` (`L2MVT`): here the `n^{-c}` decay is carried, matching the
+`dirichlet_plancherel` shape. -/
+noncomputable def k4Poly (F : Finset ℕ) (b : ℕ → ℂ) (c t : ℝ) : ℂ :=
+  ∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (t : ℂ) * I)
+
+lemma k4Poly_eq (F : Finset ℕ) (b : ℕ → ℂ) (c t : ℝ) :
+    k4Poly F b c t = ∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (t : ℂ) * I) := rfl
+
+/-- `k4Poly F b c` is continuous in `t` (a finite sum of continuous terms; each base
+`(n:ℂ)^(c+it)` is nonzero for `n ≥ 1`). -/
+private lemma k4Poly_continuous (F : Finset ℕ) (b : ℕ → ℂ) {c : ℝ}
+    (hF : ∀ n ∈ F, 1 ≤ n) : Continuous (fun t : ℝ => k4Poly F b c t) := by
+  simp only [k4Poly_eq]
+  refine continuous_finsetSum _ (fun n hn => ?_)
+  have hn1 : 1 ≤ n := hF n hn
+  have hnpos : 0 < n := hn1
+  have hn0 : (n : ℂ) ≠ 0 := by exact_mod_cast Nat.one_le_iff_ne_zero.mp hn1
+  have hbase : Continuous (fun t : ℝ => (n : ℂ) ^ ((c : ℂ) + (t : ℂ) * I)) :=
+    (by fun_prop : Continuous fun t : ℝ => (c : ℂ) + (t : ℂ) * I).const_cpow (Or.inl hn0)
+  refine continuous_const.div hbase (fun t => ?_)
+  have hne : ‖(n : ℂ) ^ ((c : ℂ) + (t : ℂ) * I)‖ ≠ 0 := by
+    rw [Complex.norm_natCast_cpow_of_pos hnpos]
+    exact (Real.rpow_pos_of_pos (by exact_mod_cast hnpos) _).ne'
+  exact fun h => hne (by rw [h, norm_zero])
+
+/-- Pointwise: the Dirichlet polynomial is bounded by its coefficient mass (each
+`n^{-c} ≤ 1` for `n ≥ 1`, `c ≥ 0`). -/
+private lemma k4Poly_norm_le {F : Finset ℕ} {b : ℕ → ℂ} {c : ℝ} (hc : 0 ≤ c)
+    (hF : ∀ n ∈ F, 1 ≤ n) (t : ℝ) :
+    ‖k4Poly F b c t‖ ≤ ∑ n ∈ F, ‖b n‖ := by
+  refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun n hn => ?_))
+  have hn1 : 1 ≤ n := hF n hn
+  have hnpos : 0 < n := hn1
+  rw [norm_div, Complex.norm_natCast_cpow_of_pos hnpos]
+  have hre : ((c : ℂ) + (t : ℂ) * I).re = c := by simp
+  rw [hre]
+  exact div_le_self (norm_nonneg _) (Real.one_le_rpow (by exact_mod_cast hn1) hc)
+
+/-- The Poisson-weighted square `‖k4Poly F b c‖²/(c²+t²)` is integrable (dominated by
+the constant `(Σ‖bₙ‖)²` times the integrable Cauchy kernel). -/
+private lemma k4Poly_sq_integrable {F : Finset ℕ} {b : ℕ → ℂ} {c : ℝ} (hc : 0 < c)
+    (hF : ∀ n ∈ F, 1 ≤ n) :
+    Integrable (fun t : ℝ => ‖k4Poly F b c t‖ ^ 2 / (c ^ 2 + t ^ 2)) := by
+  have hcont : Continuous (fun t : ℝ => ‖k4Poly F b c t‖ ^ 2 / (c ^ 2 + t ^ 2)) :=
+    (((k4Poly_continuous (c := c) F b hF).norm).pow 2).div (by fun_prop)
+      (fun t => by positivity)
+  refine ((Salt.SW.integrable_inv_c_sq_add_sq hc).const_mul ((∑ n ∈ F, ‖b n‖) ^ 2)).mono'
+    hcont.aestronglyMeasurable ?_
+  filter_upwards with t
+  rw [Real.norm_of_nonneg (by positivity), div_eq_mul_inv]
+  refine mul_le_mul_of_nonneg_right ?_ (by positivity)
+  exact pow_le_pow_left₀ (norm_nonneg _) (k4Poly_norm_le hc.le hF t) 2
+
+/-- **`hCS` discharge** — the weighted `L²` Cauchy–Schwarz on the Poisson kernel.
+The cross integral is bounded by the geometric mean of the two Plancherel integrals.
+Consumes mathlib's Hölder inequality at `p = q = 2`; EXACT (no log). -/
+private lemma k4_cross_le_sqrt {F G : Finset ℕ} {bA bB : ℕ → ℂ} {c : ℝ} (hc : 0 < c)
+    (hF : ∀ n ∈ F, 1 ≤ n) (hG : ∀ n ∈ G, 1 ≤ n) :
+    (∫ t : ℝ, ‖k4Poly F bA c t‖ * ‖k4Poly G bB c t‖ / (c ^ 2 + t ^ 2))
+      ≤ Real.sqrt (∫ t : ℝ, ‖k4Poly F bA c t‖ ^ 2 / (c ^ 2 + t ^ 2))
+        * Real.sqrt (∫ t : ℝ, ‖k4Poly G bB c t‖ ^ 2 / (c ^ 2 + t ^ 2)) := by
+  have hwpos : ∀ t : ℝ, (0 : ℝ) < c ^ 2 + t ^ 2 := fun t => by positivity
+  have hden : Continuous (fun t : ℝ => Real.sqrt (c ^ 2 + t ^ 2)) := by fun_prop
+  set u : ℝ → ℝ := fun t => ‖k4Poly F bA c t‖ / Real.sqrt (c ^ 2 + t ^ 2) with hu
+  set v : ℝ → ℝ := fun t => ‖k4Poly G bB c t‖ / Real.sqrt (c ^ 2 + t ^ 2) with hv
+  have huv : ∀ t : ℝ, u t * v t
+      = ‖k4Poly F bA c t‖ * ‖k4Poly G bB c t‖ / (c ^ 2 + t ^ 2) := by
+    intro t; simp only [hu, hv, div_mul_div_comm, Real.mul_self_sqrt (hwpos t).le]
+  have husq : ∀ t : ℝ, u t ^ (2 : ℝ) = ‖k4Poly F bA c t‖ ^ 2 / (c ^ 2 + t ^ 2) := by
+    intro t; simp only [hu, Real.rpow_two, div_pow, Real.sq_sqrt (hwpos t).le]
+  have hvsq : ∀ t : ℝ, v t ^ (2 : ℝ) = ‖k4Poly G bB c t‖ ^ 2 / (c ^ 2 + t ^ 2) := by
+    intro t; simp only [hv, Real.rpow_two, div_pow, Real.sq_sqrt (hwpos t).le]
+  have husq2 : ∀ t : ℝ, u t ^ 2 = ‖k4Poly F bA c t‖ ^ 2 / (c ^ 2 + t ^ 2) := by
+    intro t; simp only [hu, div_pow, Real.sq_sqrt (hwpos t).le]
+  have hvsq2 : ∀ t : ℝ, v t ^ 2 = ‖k4Poly G bB c t‖ ^ 2 / (c ^ 2 + t ^ 2) := by
+    intro t; simp only [hv, div_pow, Real.sq_sqrt (hwpos t).le]
+  have hcontu : Continuous u :=
+    (k4Poly_continuous (c := c) F bA hF).norm.div hden
+      (fun t => (Real.sqrt_pos.mpr (hwpos t)).ne')
+  have hcontv : Continuous v :=
+    (k4Poly_continuous (c := c) G bB hG).norm.div hden
+      (fun t => (Real.sqrt_pos.mpr (hwpos t)).ne')
+  have humem : MemLp u 2 volume := by
+    rw [memLp_two_iff_integrable_sq hcontu.aestronglyMeasurable]
+    exact (k4Poly_sq_integrable hc hF).congr
+      (Filter.Eventually.of_forall (fun t => (husq2 t).symm))
+  have hvmem : MemLp v 2 volume := by
+    rw [memLp_two_iff_integrable_sq hcontv.aestronglyMeasurable]
+    exact (k4Poly_sq_integrable hc hG).congr
+      (Filter.Eventually.of_forall (fun t => (hvsq2 t).symm))
+  have humem2 : MemLp u (ENNReal.ofReal 2) volume := by
+    rw [show ENNReal.ofReal 2 = 2 from by simp]; exact humem
+  have hvmem2 : MemLp v (ENNReal.ofReal 2) volume := by
+    rw [show ENNReal.ofReal 2 = 2 from by simp]; exact hvmem
+  have hunn : (0 : ℝ → ℝ) ≤ᵐ[volume] u :=
+    Filter.Eventually.of_forall (fun t => by simp only [hu, Pi.zero_apply]; positivity)
+  have hvnn : (0 : ℝ → ℝ) ≤ᵐ[volume] v :=
+    Filter.Eventually.of_forall (fun t => by simp only [hv, Pi.zero_apply]; positivity)
+  have hholder := integral_mul_le_Lp_mul_Lq_of_nonneg
+    Real.HolderConjugate.two_two hunn hvnn humem2 hvmem2
+  have eLHS : (∫ t : ℝ, ‖k4Poly F bA c t‖ * ‖k4Poly G bB c t‖ / (c ^ 2 + t ^ 2))
+      = ∫ t : ℝ, u t * v t :=
+    integral_congr_ae (Filter.Eventually.of_forall (fun t => (huv t).symm))
+  have eA : (∫ t : ℝ, u t ^ (2 : ℝ)) = ∫ t : ℝ, ‖k4Poly F bA c t‖ ^ 2 / (c ^ 2 + t ^ 2) :=
+    integral_congr_ae (Filter.Eventually.of_forall husq)
+  have eB : (∫ t : ℝ, v t ^ (2 : ℝ)) = ∫ t : ℝ, ‖k4Poly G bB c t‖ ^ 2 / (c ^ 2 + t ^ 2) :=
+    integral_congr_ae (Filter.Eventually.of_forall hvsq)
+  rw [eLHS, ← eA, ← eB, Real.sqrt_eq_rpow, Real.sqrt_eq_rpow]
+  exact hholder
+
+/-- **`hDiag` discharge** — `dirichlet_plancherel` + the crude coefficient-mass²
+majorant.  Each Plancherel integral is at most `(π/c)·(Σ‖bₙ‖)²`. -/
+private lemma k4_plan_le_diag {F : Finset ℕ} {b : ℕ → ℂ} {c : ℝ} (hc : 0 < c)
+    (hF : ∀ n ∈ F, 1 ≤ n) :
+    (∫ t : ℝ, ‖k4Poly F b c t‖ ^ 2 / (c ^ 2 + t ^ 2))
+      ≤ Real.pi / c * (∑ n ∈ F, ‖b n‖) ^ 2 := by
+  simp only [k4Poly_eq]
+  rw [dirichlet_plancherel F b hc hF, pow_two, Finset.sum_mul_sum]
+  refine mul_le_mul_of_nonneg_left ?_ (by positivity)
+  refine Finset.sum_le_sum (fun m hm => Finset.sum_le_sum (fun n hn => ?_))
+  have hmn1 : (1 : ℝ) ≤ ((m * n : ℕ) : ℝ) := by
+    have : 1 ≤ m * n := by simpa using Nat.mul_le_mul (hF m hm) (hF n hn)
+    exact_mod_cast this
+  have hD1 : (1 : ℝ) ≤ ((m * n : ℕ) : ℝ) ^ c := Real.one_le_rpow hmn1 hc.le
+  have hDinv : (((m * n : ℕ) : ℝ) ^ c)⁻¹ ≤ 1 := inv_le_one_of_one_le₀ hD1
+  have hE1 : Real.exp (-(c * |Real.log m - Real.log n|)) ≤ 1 :=
+    Real.exp_le_one_iff.mpr (neg_nonpos.mpr (by positivity))
+  have hE0 : (0 : ℝ) ≤ Real.exp (-(c * |Real.log m - Real.log n|)) := (Real.exp_pos _).le
+  have hre : (b m * starRingEnd ℂ (b n)).re ≤ ‖b m‖ * ‖b n‖ := by
+    have h1 : (b m * starRingEnd ℂ (b n)).re ≤ ‖b m * starRingEnd ℂ (b n)‖ :=
+      Complex.re_le_norm _
+    rwa [norm_mul, Complex.norm_conj] at h1
+  calc (b m * starRingEnd ℂ (b n)).re / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(c * |Real.log m - Real.log n|))
+      = (b m * starRingEnd ℂ (b n)).re
+          * ((((m * n : ℕ) : ℝ) ^ c)⁻¹ * Real.exp (-(c * |Real.log m - Real.log n|))) := by
+        rw [div_eq_mul_inv]; ring
+    _ ≤ ‖b m‖ * ‖b n‖
+          * ((((m * n : ℕ) : ℝ) ^ c)⁻¹ * Real.exp (-(c * |Real.log m - Real.log n|))) :=
+        mul_le_mul_of_nonneg_right hre (mul_nonneg (by positivity) hE0)
+    _ ≤ ‖b m‖ * ‖b n‖ * 1 := by
+        refine mul_le_mul_of_nonneg_left ?_ (by positivity)
+        calc (((m * n : ℕ) : ℝ) ^ c)⁻¹ * Real.exp (-(c * |Real.log m - Real.log n|))
+            ≤ 1 * 1 := mul_le_mul hDinv hE1 hE0 (by norm_num)
+          _ = 1 := by norm_num
+    _ = ‖b m‖ * ‖b n‖ := by rw [mul_one]
+
+/-- **THE K4' RECONCILIATION** (`contour_A13_A14_head_wired`).  The S2' head
+`contour_A13_A14_head` with `hCS`/`hDiagA`/`hDiagB` DISCHARGED — the two wave-I-1 K4'
+stones (`dirichlet_plancherel`, `lambdaLin_window_bound`) are now CONSUMED.
+
+For two prime data `gA`/`gB` (`‖g p‖ ≤ 1`) and two windows `(aA, bA]`, `(aB, bB]`,
+`crossInt := ∫ ‖P_A‖·‖P_B‖/(c²+t²)` (with `P_· = k4Poly (window) (lambdaLin g) c`) is
+bounded by the geometric mean of the coefficient-mass² diagonals
+`(π/c)·((log 4+4)·b)²`.  See the section docstring for the CS-exactness / crude-vs-sharp
+ledger note (the sharp `diagA` is the separate I-3 off-diagonal stone). -/
+theorem contour_A13_A14_head_wired
+    {gA gB : ℕ → ℂ} (hgA : ∀ p, p.Prime → ‖gA p‖ ≤ 1) (hgB : ∀ p, p.Prime → ‖gB p‖ ≤ 1)
+    {c X supF : ℝ} (hc : 0 < c) (hX : 0 ≤ X) (hsupF : 0 ≤ supF)
+    (aA bA aB bB : ℕ) :
+    X * supF * (∫ t : ℝ, ‖k4Poly (Finset.Ioc aA bA) (lambdaLin gA) c t‖
+        * ‖k4Poly (Finset.Ioc aB bB) (lambdaLin gB) c t‖ / (c ^ 2 + t ^ 2))
+      ≤ X * supF * (Real.sqrt (Real.pi / c * ((Real.log 4 + 4) * (bA : ℝ)) ^ 2)
+          * Real.sqrt (Real.pi / c * ((Real.log 4 + 4) * (bB : ℝ)) ^ 2)) := by
+  have hFmem : ∀ n ∈ Finset.Ioc aA bA, 1 ≤ n := fun n hn => by
+    have := (Finset.mem_Ioc.mp hn).1; omega
+  have hGmem : ∀ n ∈ Finset.Ioc aB bB, 1 ≤ n := fun n hn => by
+    have := (Finset.mem_Ioc.mp hn).1; omega
+  refine contour_A13_A14_head hX hsupF
+    (k4_cross_le_sqrt (F := Finset.Ioc aA bA) (G := Finset.Ioc aB bB)
+      (bA := lambdaLin gA) (bB := lambdaLin gB) hc hFmem hGmem) ?_ ?_
+  · refine (k4_plan_le_diag (F := Finset.Ioc aA bA) (b := lambdaLin gA) hc hFmem).trans ?_
+    refine mul_le_mul_of_nonneg_left ?_ (by positivity)
+    exact pow_le_pow_left₀ (Finset.sum_nonneg (fun _ _ => norm_nonneg _))
+      (lambdaLin_window_bound hgA) 2
+  · refine (k4_plan_le_diag (F := Finset.Ioc aB bB) (b := lambdaLin gB) hc hGmem).trans ?_
+    refine mul_le_mul_of_nonneg_left ?_ (by positivity)
+    exact pow_le_pow_left₀ (Finset.sum_nonneg (fun _ _ => norm_nonneg _))
+      (lambdaLin_window_bound hgB) 2
 
 end Salt.MR
