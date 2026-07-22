@@ -3037,4 +3037,134 @@ theorem per_pair_contour :
 
 end PerPairContour
 
+/-! ## A-2 — the dual assembly (`dual_assembly`) and its helpers
+
+The keystone choreography: `window_dominates` opens `Σ_{p∈S} g(p)` into the full
+Λ-window sum; the square is expanded pairwise; each pair is priced by `per_pair_contour`
+(`inner = windowKernel P 1 (t−t') + δ`, `‖δ‖ ≤ ε`); the pole row (`pole_row_sum`, 44π,
+diagonal-inclusive) and the error row (`≤ ε·|𝒯|`) close after dividing by `log P`. -/
+
+section L11Assembly
+open Complex Salt.SW Salt.Vk
+
+/-- conj-symmetry of the hat Mellin factor (real positive bases). -/
+lemma hatMellin_conj {X h : ℝ} (hX : 0 < X) (hh : 0 < X + h) (s : ℂ) :
+    hatMellin X h ((starRingEnd ℂ) s) = (starRingEnd ℂ) (hatMellin X h s) := by
+  have hb : ∀ a : ℝ, 0 < a →
+      (starRingEnd ℂ) ((a : ℂ) ^ (s + 1)) = (a : ℂ) ^ ((starRingEnd ℂ) s + 1) := by
+    intro a ha
+    have harg : (a : ℂ).arg ≠ Real.pi := by
+      rw [Complex.arg_ofReal_of_nonneg ha.le]; exact ne_of_lt Real.pi_pos
+    have h := Complex.cpow_conj (a : ℂ) (s + 1) harg
+    rw [Complex.conj_ofReal, map_add, map_one] at h
+    exact h.symm
+  simp only [hatMellin, map_div₀, map_sub, map_mul, map_add, map_one, Complex.conj_ofReal,
+    hb (X + h) hh, hb X hX]
+
+/-- The window Mellin kernel at conjugate height. -/
+lemma windowKernel_neg {P : ℝ} (hP : 0 < P) (c t : ℝ) :
+    windowKernel P c (-t) = (starRingEnd ℂ) (windowKernel P c t) := by
+  have hs : ((c : ℂ) + ((-t : ℝ) : ℂ) * I) = (starRingEnd ℂ) ((c : ℂ) + (t : ℂ) * I) := by
+    rw [map_add, map_mul, Complex.conj_I, Complex.conj_ofReal, Complex.conj_ofReal]
+    push_cast; ring
+  rw [windowKernel, hatKernel_eq_hatMellin, hatKernel_eq_hatMellin, hs,
+    hatMellin_conj (by linarith : (0:ℝ) < 2 * P) (by linarith : (0:ℝ) < 2 * P + P),
+    hatMellin_conj (by linarith : (0:ℝ) < P / 2) (by linarith : (0:ℝ) < P / 2 + P / 2),
+    windowKernel, hatKernel_eq_hatMellin, hatKernel_eq_hatMellin, map_sub]
+
+/-- Norm-evenness of the window kernel. -/
+lemma norm_windowKernel_neg {P : ℝ} (hP : 0 < P) (c t : ℝ) :
+    ‖windowKernel P c (-t)‖ = ‖windowKernel P c t‖ := by
+  rw [windowKernel_neg hP, Complex.norm_conj]
+
+/-- **Pole double-row.**  `‖Σ_{t,t'} b_t·conj(b_{t'})·W(t-t')‖ ≤ 44π·P·Σ‖b‖²`. -/
+lemma pole_double_row {P T : ℝ} (hP : 2 ≤ P) (hT : 0 ≤ T) {𝒯 : Finset ℝ}
+    (hws : WellSpaced 𝒯) (hsub : ∀ t ∈ 𝒯, t ∈ Set.Icc (-T) T) (b : ℝ → ℂ) :
+    ‖∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t') * windowKernel P 1 (t - t')‖
+      ≤ 44 * Real.pi * P * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by
+  have hP0 : 0 < P := by linarith
+  have h1 : ‖∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t') * windowKernel P 1 (t - t')‖
+      ≤ ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t‖ * ‖b t'‖ * ‖windowKernel P 1 (t - t')‖ := by
+    refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun t _ => ?_))
+    refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun t' _ => ?_))
+    rw [norm_mul, norm_mul, Complex.norm_conj]
+  have h2 : ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t‖ * ‖b t'‖ * ‖windowKernel P 1 (t - t')‖
+      ≤ ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯,
+          ((‖b t‖ ^ 2 + ‖b t'‖ ^ 2) / 2) * ‖windowKernel P 1 (t - t')‖ := by
+    refine Finset.sum_le_sum (fun t _ => Finset.sum_le_sum (fun t' _ => ?_))
+    apply mul_le_mul_of_nonneg_right _ (norm_nonneg _)
+    nlinarith [sq_nonneg (‖b t‖ - ‖b t'‖)]
+  have hrowA : ∀ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖windowKernel P 1 (t - t')‖ ≤ 44 * Real.pi * P := by
+    intro t _
+    have heq : ∑ t' ∈ 𝒯, ‖windowKernel P 1 (t - t')‖
+        = ∑ t' ∈ 𝒯, ‖windowKernel P 1 (t' - t)‖ :=
+      Finset.sum_congr rfl (fun t' _ => by rw [← neg_sub t' t, norm_windowKernel_neg hP0])
+    rw [heq]; exact pole_row_sum hP hT 𝒯 hws hsub t
+  have hrowB : ∀ t' ∈ 𝒯, ∑ t ∈ 𝒯, ‖windowKernel P 1 (t - t')‖ ≤ 44 * Real.pi * P :=
+    fun t' _ => pole_row_sum hP hT 𝒯 hws hsub t'
+  set M : ℝ := 44 * Real.pi * P with hM
+  have hA : ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t‖ ^ 2 * ‖windowKernel P 1 (t - t')‖
+      ≤ M * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 :=
+    calc ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t‖ ^ 2 * ‖windowKernel P 1 (t - t')‖
+        = ∑ t ∈ 𝒯, ‖b t‖ ^ 2 * ∑ t' ∈ 𝒯, ‖windowKernel P 1 (t - t')‖ :=
+          Finset.sum_congr rfl (fun t _ => (Finset.mul_sum _ _ _).symm)
+      _ ≤ ∑ t ∈ 𝒯, ‖b t‖ ^ 2 * M :=
+          Finset.sum_le_sum (fun t ht => mul_le_mul_of_nonneg_left (hrowA t ht) (sq_nonneg _))
+      _ = M * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by rw [← Finset.sum_mul, mul_comm]
+  have hB : ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t'‖ ^ 2 * ‖windowKernel P 1 (t - t')‖
+      ≤ M * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by
+    rw [Finset.sum_comm]
+    calc ∑ t' ∈ 𝒯, ∑ t ∈ 𝒯, ‖b t'‖ ^ 2 * ‖windowKernel P 1 (t - t')‖
+        = ∑ t' ∈ 𝒯, ‖b t'‖ ^ 2 * ∑ t ∈ 𝒯, ‖windowKernel P 1 (t - t')‖ :=
+          Finset.sum_congr rfl (fun t' _ => (Finset.mul_sum _ _ _).symm)
+      _ ≤ ∑ t' ∈ 𝒯, ‖b t'‖ ^ 2 * M :=
+          Finset.sum_le_sum (fun t' ht' => mul_le_mul_of_nonneg_left (hrowB t' ht') (sq_nonneg _))
+      _ = M * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by rw [← Finset.sum_mul, mul_comm]
+  have hid : ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ((‖b t‖ ^ 2 + ‖b t'‖ ^ 2) / 2) * ‖windowKernel P 1 (t - t')‖
+      = (∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t‖ ^ 2 * ‖windowKernel P 1 (t - t')‖
+         + ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t'‖ ^ 2 * ‖windowKernel P 1 (t - t')‖) / 2 := by
+    rw [eq_div_iff (by norm_num : (2 : ℝ) ≠ 0), Finset.sum_mul, ← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl (fun t _ => ?_)
+    rw [Finset.sum_mul, ← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl (fun t' _ => ?_)
+    ring
+  calc ‖∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t') * windowKernel P 1 (t - t')‖
+      ≤ ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t‖ * ‖b t'‖ * ‖windowKernel P 1 (t - t')‖ := h1
+    _ ≤ ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ((‖b t‖ ^ 2 + ‖b t'‖ ^ 2) / 2) * ‖windowKernel P 1 (t - t')‖ := h2
+    _ = _ := hid
+    _ ≤ M * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by linarith [hA, hB]
+
+/-- **Error double-row.** -/
+lemma error_double_row {𝒯 : Finset ℝ} {ε : ℝ} (b : ℝ → ℂ)
+    (K : ℝ → ℝ → ℂ) (hK : ∀ t ∈ 𝒯, ∀ t' ∈ 𝒯, ‖K t t'‖ ≤ ε) :
+    ‖∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t') * K t t'‖
+      ≤ ε * (𝒯.card : ℝ) * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by
+  have h1 : ‖∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t') * K t t'‖
+      ≤ ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, (‖b t‖ ^ 2 + ‖b t'‖ ^ 2) / 2 * ε := by
+    refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun t ht => ?_))
+    refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun t' ht' => ?_))
+    rw [norm_mul, norm_mul, Complex.norm_conj]
+    calc ‖b t‖ * ‖b t'‖ * ‖K t t'‖
+        ≤ (‖b t‖ ^ 2 + ‖b t'‖ ^ 2) / 2 * ‖K t t'‖ :=
+          mul_le_mul_of_nonneg_right (by nlinarith [sq_nonneg (‖b t‖ - ‖b t'‖)]) (norm_nonneg _)
+      _ ≤ (‖b t‖ ^ 2 + ‖b t'‖ ^ 2) / 2 * ε :=
+          mul_le_mul_of_nonneg_left (hK t ht t' ht') (by positivity)
+  refine h1.trans ?_
+  have hAe : ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t‖ ^ 2 * ε = ε * (𝒯.card : ℝ) * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by
+    simp_rw [Finset.sum_const, nsmul_eq_mul]
+    rw [← Finset.mul_sum, ← Finset.sum_mul]; ring
+  have hBe : ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t'‖ ^ 2 * ε = ε * (𝒯.card : ℝ) * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by
+    have hin : ∑ t' ∈ 𝒯, ‖b t'‖ ^ 2 * ε = (∑ t' ∈ 𝒯, ‖b t'‖ ^ 2) * ε := (Finset.sum_mul _ _ _).symm
+    rw [Finset.sum_congr rfl (fun t _ => hin), Finset.sum_const, nsmul_eq_mul]; ring
+  have hide : ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, (‖b t‖ ^ 2 + ‖b t'‖ ^ 2) / 2 * ε
+      = (∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t‖ ^ 2 * ε + ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t'‖ ^ 2 * ε) / 2 := by
+    rw [eq_div_iff (by norm_num : (2 : ℝ) ≠ 0), Finset.sum_mul, ← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl (fun t _ => ?_)
+    rw [Finset.sum_mul, ← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl (fun t' _ => ?_)
+    ring
+  rw [hide]; linarith [hAe, hBe]
+
+end L11Assembly
+
 end Salt.MR
