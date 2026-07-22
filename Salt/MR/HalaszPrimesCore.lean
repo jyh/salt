@@ -1098,4 +1098,510 @@ lemma logDeriv_Zc_compact_bound {M c : ℝ} (hM : 0 ≤ M) (_hc : 1 ≤ c) :
 
 end EdgeSupport
 
+/-! ## EDGE (STONE 1) — the disc-core high-height price on the left spine
+
+The high-height half of `shifted_edge_price`: for the shifted rectangle's LEFT spine point
+`z = σ₀ + iγ` (`σ₀ = 1 − (c_vk/2)/D₃(5T+1)`) at a height `γ ≤ 5T` above the strip threshold,
+the entire factor `logDeriv Zc` is priced at the honest `D₄(5T+1)`-grade
+`(log(5T+1))^{3/4}(loglog(5T+1))⁴`.  The tuned mirror of `zeta_near_bound_core`
+(`ZetaPowLower.lean:449`) at the LEFT point: same sphere discharge (`Zc_ratio_sphere_bound`),
+same `Pinv/W/Mζ` region numerics, but the point sits LEFT of the 1-line, so `hZcs`/`hdist` come
+from the shifted-rectangle margin (`rect_zero_free_margin`, supplied as `hmargin`) and the
+centering `hsc` runs the honest `(17/35)` constant-chase.  Amendment L11-W′: the disc at height
+`γ ≤ 5T` reaches zeros up to `|ρ.im| ≤ 5T + 9/14 ≤ 5T+1`, so the margin is fed at height `5T+1`
+(the caller invokes `rect_zero_free_margin` at `T + 1/5`); the honest min-distance is
+`(c_vk/2)/D₃(5T+1)`.  `hsc_thr` is the T-threshold of the constant-chase
+(`9000·c_vk ≤ loglog(5T+1)`). -/
+
+section ShiftedEdge
+open Complex Salt.SW Salt.Vk Metric Set
+
+set_option maxHeartbeats 12800000 in
+-- The tuned disc-core mirror threads the sphere discharge, the region `Pinv/W/Mζ` numerics, the
+-- LEFT-point constant-chase and the closing `D₄` assembly through one declaration; the default
+-- heartbeat budget dies in the closing arithmetic (the template `zeta_near_bound_core` needs 12.8M).
+/-- **EDGE disc-core high half** (STONE 1).  At the left spine point `s = σ₀ + iγ`, `σ₀ =
+1 − (c_vk/2)/D₃(5T+1)`, height `γ ≤ 5T` above the astronomically-lazy strip threshold, the entire
+factor `logDeriv Zc` is `D₄(5T+1)`-grade: `‖logDeriv Zc s‖ ≤ (10⁸ + 200/c_vk)·(log(5T+1))^{3/4}
+(loglog(5T+1))⁴`.  Rides `near_norm_logDeriv_Zc_le` on the pow-region disc (scale
+`Θ = vkTheta(3γ)`); the sphere discharge / region numerics mirror `zeta_near_bound_core`; the
+`hsc`/`hZcs`/`hdist`
+adapt to the LEFT point via the supplied margin `hmargin`. -/
+lemma shifted_edge_disc_core {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3 ≤ t₀K)
+    (hg : ∀ σ t : ℝ, t₀K ≤ t → 1 - vkTheta t ≤ σ → σ ≤ 3 →
+      ‖riemannZeta ((σ : ℂ) + (t : ℂ) * Complex.I)‖ ≤ K * Real.log t)
+    (hc_vk : 0 < c_vk)
+    {T γ : ℝ}
+    (hγ : Real.exp (Real.exp (8 * Real.log (20000 * K) + 1100)) + t₀K + 3 ≤ γ)
+    (hγT : γ ≤ 5 * T)
+    (hsc_thr : 9000 * c_vk ≤ Real.log (Real.log (5 * T + 1)))
+    (hmargin : ∀ ρ : ℂ, riemannZeta ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
+        ρ.re ≤ 1 - c_vk / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+          * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ))) :
+    ‖logDeriv Zc ((1 - (c_vk / 2) / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+          * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)) : ℝ) + (γ : ℂ) * Complex.I)‖
+      ≤ (10 ^ 8 + 200 / c_vk) * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+          * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) := by
+  -- the 5T+1 denominators (fold the goal)
+  set LT : ℝ := Real.log (5 * T + 1) with hLTdef
+  set ℓT : ℝ := Real.log LT with hℓTdef
+  set D3T : ℝ := LT ^ ((3 : ℝ) / 4) * ℓT ^ (3 : ℕ) with hD3Tdef
+  set w : ℝ := (c_vk / 2) / D3T with hwdef
+  set s : ℂ := ((1 - w : ℝ) : ℂ) + (γ : ℂ) * Complex.I with hsdef
+  -- === template height thresholds (γ-only, verbatim + inlined `pow_height_facts`) ===
+  have hKpos : 0 < K := lt_of_lt_of_le one_pos hK
+  set A : ℝ := 8 * Real.log (20000 * K) + 1100 with hAdef
+  have hA1100 : 1100 ≤ A := by
+    have : (0:ℝ) ≤ Real.log (20000 * K) := Real.log_nonneg (by nlinarith [hK])
+    rw [hAdef]; linarith
+  have hEpos : 0 < Real.exp (Real.exp A) := Real.exp_pos _
+  have hγim : Real.exp (Real.exp A) + t₀K + 3 ≤ γ := hγ
+  have hσimE : Real.exp (Real.exp A) ≤ γ := by linarith [ht₀K, hγim]
+  have hγpos : 0 < γ := lt_of_lt_of_le hEpos hσimE
+  have hγ2 : (2:ℝ) ≤ γ := by linarith [hEpos, ht₀K, hγim]
+  have hexpA1 : 1 < Real.exp A := by
+    rw [← Real.exp_zero]; exact Real.exp_lt_exp.mpr (by linarith [hA1100])
+  have hEe : Real.exp 1 < Real.exp (Real.exp A) := Real.exp_lt_exp.mpr hexpA1
+  have hγe : Real.exp 1 < γ - 1 := by linarith [hEe, hγim, ht₀K, hEpos]
+  have hγt₀ : t₀K ≤ γ - 1 := by linarith [hEpos, hγim]
+  have hfactsγ : 3 ≤ Real.log γ ∧ A ≤ Real.log (Real.log γ) := by
+    have hlogE : Real.log (Real.exp (Real.exp A)) = Real.exp A := Real.log_exp _
+    have hlogx : Real.exp A ≤ Real.log γ := by rw [← hlogE]; exact Real.log_le_log hEpos hσimE
+    have hexp2 : (3:ℝ) ≤ Real.exp 2 := by linarith [Real.add_one_le_exp (2:ℝ)]
+    have hexpA3 : (3:ℝ) ≤ Real.exp A := le_trans hexp2 (Real.exp_le_exp.mpr (by linarith [hA1100]))
+    refine ⟨le_trans hexpA3 hlogx, ?_⟩
+    calc A = Real.log (Real.exp A) := (Real.log_exp A).symm
+      _ ≤ Real.log (Real.log γ) := Real.log_le_log (Real.exp_pos A) hlogx
+  -- abbreviations
+  set Lg : ℝ := Real.log γ with hLdef
+  set ℓ : ℝ := Real.log Lg with hℓdef
+  have hL3 : (3:ℝ) ≤ Lg := hfactsγ.1
+  have hℓA : A ≤ ℓ := hfactsγ.2
+  have hℓ1100 : (1100:ℝ) ≤ ℓ := le_trans hA1100 hℓA
+  have hL0 : 0 < Lg := by linarith [hL3]
+  have hℓ0 : 0 < ℓ := by linarith [hℓ1100]
+  -- log 3γ facts
+  set L3 : ℝ := Real.log (3 * γ) with hL3def
+  have hlog3le2 : Real.log 3 ≤ 2 := by
+    linarith [Real.log_le_sub_one_of_pos (show (0:ℝ) < 3 by norm_num)]
+  have hL3eq : L3 = Real.log 3 + Lg := by rw [hL3def, Real.log_mul (by norm_num) hγpos.ne']
+  have hL3lb : Lg ≤ L3 := by rw [hL3eq]; linarith [Real.log_nonneg (show (1:ℝ) ≤ 3 by norm_num)]
+  have hL3ub : L3 ≤ 2 * Lg := by rw [hL3eq]; linarith [hlog3le2, hL3]
+  have hL30 : 0 < L3 := by linarith [hL3lb, hL0]
+  set ℓ3 : ℝ := Real.log L3 with hℓ3def
+  have hℓ3lb : ℓ ≤ ℓ3 := by rw [hℓ3def, hℓdef]; exact Real.log_le_log hL0 hL3lb
+  have hlog2le1 : Real.log 2 ≤ 1 := by
+    linarith [Real.log_le_sub_one_of_pos (show (0:ℝ) < 2 by norm_num)]
+  have hℓ3ub : ℓ3 ≤ 2 * ℓ := by
+    rw [hℓ3def]
+    calc Real.log L3 ≤ Real.log (2 * Lg) := Real.log_le_log hL30 hL3ub
+      _ = Real.log 2 + ℓ := by rw [Real.log_mul (by norm_num) hL0.ne', ← hℓdef]
+      _ ≤ 2 * ℓ := by linarith [hlog2le1, hℓ1100]
+  have hℓ30 : 0 < ℓ3 := by linarith [hℓ3lb, hℓ0]
+  have hℓ31100 : (1100:ℝ) ≤ ℓ3 := by linarith [hℓ3lb, hℓ1100]
+  -- region parameters (verbatim)
+  set Θ : ℝ := vkTheta (3 * γ) with hΘdef
+  set Pinv : ℝ := 1000 * L3 ^ ((3:ℝ)/4) * ℓ3 ^ (2:ℕ) with hPinvdef
+  have hL34pos : 0 < L3 ^ ((3:ℝ)/4) := Real.rpow_pos_of_pos hL30 _
+  have hPinvpos : 0 < Pinv := by rw [hPinvdef]; positivity
+  have hΘval : Θ = 1 / 1000 / (L3 ^ ((3:ℝ)/4) * ℓ3 ^ (2:ℕ)) := by
+    rw [hΘdef, vkTheta, ← hL3def, ← hℓ3def]
+  have hΘPinv : Θ = 1 / Pinv := by
+    rw [eq_div_iff (ne_of_gt hPinvpos), hΘval, hPinvdef]
+    field_simp [ne_of_gt hL34pos, ne_of_gt hℓ30]
+  have hΘ0 : 0 < Θ := by rw [hΘPinv]; positivity
+  set Mζ : ℝ := K * L3 with hMζdef
+  have hMζpos : 0 < Mζ := by rw [hMζdef]; positivity
+  have hMζ1 : (1:ℝ) ≤ Mζ := by rw [hMζdef]; nlinarith [hK, hL3lb, hL3]
+  have hPinv2 : (2:ℝ) ≤ Pinv := by
+    rw [hPinvdef]
+    have h1 : (1:ℝ) ≤ L3 ^ ((3:ℝ)/4) := Real.one_le_rpow (by linarith [hL3lb, hL3]) (by norm_num)
+    have h2 : (1:ℝ) ≤ ℓ3 ^ (2:ℕ) := one_le_pow₀ (by linarith [hℓ31100])
+    nlinarith [h1, h2]
+  have hΘ12 : Θ ≤ 1 / 2 := by
+    rw [hΘPinv]; rw [div_le_div_iff₀ hPinvpos (by norm_num)]; linarith [hPinv2]
+  have hgrowth : ∀ z : ℂ, 1 - Θ ≤ z.re → z.re ≤ 2 → γ - 1 ≤ z.im → z.im ≤ 3 * γ →
+      ‖riemannZeta z‖ ≤ Mζ := by
+    intro z h1 h2 h3 h4
+    rw [hΘdef] at h1; rw [hMζdef]
+    exact pow_uniform_growth hK ht₀K hg hγe hγt₀ z h1 h2 h3 h4
+  set W : ℝ := Real.log (20 * Pinv * Mζ) with hWdef
+  have hWeq : W = Real.log (20000 * K) + (7 / 4) * ℓ3 + 2 * Real.log ℓ3 := by
+    have hPinvne : Pinv ≠ 0 := ne_of_gt hPinvpos
+    have hL3ne : L3 ≠ 0 := ne_of_gt hL30
+    have hℓ3ne : ℓ3 ≠ 0 := ne_of_gt hℓ30
+    have h20000 : Real.log (20000 * K) = Real.log 20 + Real.log 1000 + Real.log K := by
+      rw [show (20000:ℝ) * K = 20 * 1000 * K by ring, Real.log_mul (by norm_num) hKpos.ne',
+        Real.log_mul (by norm_num) (by norm_num)]
+    rw [hWdef, Real.log_mul (by positivity) (ne_of_gt hMζpos),
+      Real.log_mul (by norm_num) hPinvne, hMζdef, Real.log_mul hKpos.ne' hL3ne,
+      hPinvdef, Real.log_mul (by positivity) (pow_ne_zero 2 hℓ3ne),
+      Real.log_mul (by norm_num) (ne_of_gt hL34pos), Real.log_rpow hL30, Real.log_pow,
+      ← hℓ3def, h20000]
+    push_cast; ring
+  have hlog20K : Real.log (20000 * K) ≤ ℓ / 8 := by rw [hAdef] at hℓA; linarith
+  have hlogℓ3le : Real.log ℓ3 ≤ ℓ3 := by linarith [Real.log_le_sub_one_of_pos hℓ30]
+  have hWub : W ≤ 8 * ℓ := by
+    rw [hWeq]; linarith [hlog20K, hℓ3ub, hlogℓ3le]
+  have hW0 : 0 ≤ W := by
+    rw [hWdef]; apply Real.log_nonneg
+    nlinarith [hPinv2, hMζ1, hMζpos, hPinvpos]
+  have hγ1 : (1:ℝ) ≤ |γ| := by rw [abs_of_nonneg hγpos.le]; linarith [hγ2]
+  -- sphere discharge (verbatim, height γ)
+  have hsph : ∀ R : ℝ, 0 ≤ R → R ≤ 3 / 2 * Θ →
+      ∀ z ∈ sphere (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I) R,
+        ‖Zc z / Zc (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I)‖ ≤ 5 * Mζ / Θ := by
+    intro R hR0 hR z hz
+    have hzc : ‖z - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I)‖ = R := by
+      rw [← dist_eq_norm, ← mem_sphere]; exact hz
+    have hcre : (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I).re = 1 + Θ / 2 := by simp
+    have hcim : (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I).im = γ := by simp
+    have hreb : |z.re - (1 + Θ / 2)| ≤ R := by
+      have h := Complex.abs_re_le_norm (z - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I))
+      rw [Complex.sub_re, hcre, hzc] at h; exact h
+    have himb : |z.im - γ| ≤ R := by
+      have h := Complex.abs_im_le_norm (z - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I))
+      rw [Complex.sub_im, hcim, hzc] at h; exact h
+    have hre1 : 1 - Θ ≤ z.re := by have := (abs_le.mp hreb).1; nlinarith [hR, hΘ12]
+    have hre2 : z.re ≤ 2 := by have := (abs_le.mp hreb).2; nlinarith [hR, hΘ12]
+    have him1 : γ - 1 ≤ z.im := by have := (abs_le.mp himb).1; nlinarith [hR, hΘ12]
+    have him2 : z.im ≤ 3 * γ := by have := (abs_le.mp himb).2; nlinarith [hR, hΘ12, hγ2]
+    exact Zc_ratio_sphere_bound hΘ0 hΘ12 hγ1 hMζ1 hR0 hR hz (hgrowth z hre1 hre2 him1 him2)
+  have hR74 : (7:ℝ) / 4 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by nlinarith [hΘ0]
+  have hR32 : (3:ℝ) / 2 * (6 * Θ / 7) ≤ 3 / 2 * Θ := by nlinarith [hΘ0]
+  have hsphere74 := hsph (7 / 4 * (6 * Θ / 7)) (by positivity) hR74
+  have hsphere32 := hsph (3 / 2 * (6 * Θ / 7)) (by positivity) hR32
+  have hM₀1 : (1:ℝ) ≤ 5 * Mζ / Θ := by rw [le_div_iff₀ hΘ0]; nlinarith [hMζ1, hΘ12, hΘ0]
+  -- === the 5T+1 denominators: positivity + monotonicity ===
+  have hγ5T1 : γ ≤ 5 * T + 1 := by linarith [hγT]
+  have hLTpos : 0 < LT := by rw [hLTdef]; exact Real.log_pos (by linarith [hγ2, hγT])
+  have hLgLT : Lg ≤ LT := by rw [hLdef, hLTdef]; exact Real.log_le_log hγpos hγ5T1
+  have hℓTpos : 0 < ℓT := by rw [hℓTdef]; exact Real.log_pos (by linarith [hL3, hLgLT])
+  have hℓℓT : ℓ ≤ ℓT := by rw [hℓdef, hℓTdef]; exact Real.log_le_log hL0 hLgLT
+  have hℓT1100 : (1100:ℝ) ≤ ℓT := le_trans hℓ1100 hℓℓT
+  have hℓT1 : (1:ℝ) ≤ ℓT := by linarith [hℓT1100]
+  have hD3Tpos : 0 < D3T := by rw [hD3Tdef]; positivity
+  have hw0 : 0 < w := by rw [hwdef]; exact div_pos (by linarith [hc_vk]) hD3Tpos
+  have hsre : s.re = 1 - w := by rw [hsdef]; simp
+  have hsim : s.im = γ := by rw [hsdef]; simp
+  -- L3 ≤ 2 LT, ℓ3 ≤ 2 ℓT (the constant-chase monotonicity)
+  have hTpos : 0 < T := by linarith [hγpos, hγT]
+  have hL3_2LT : L3 ≤ 2 * LT := by
+    have h1 : (3:ℝ) * γ ≤ (5 * T + 1) ^ 2 := by nlinarith [hγT, hTpos, sq_nonneg (5 * T - 1)]
+    have h2 : Real.log (3 * γ) ≤ Real.log ((5 * T + 1) ^ 2) := Real.log_le_log (by positivity) h1
+    rw [hL3def]
+    calc Real.log (3 * γ) ≤ Real.log ((5 * T + 1) ^ 2) := h2
+      _ = 2 * LT := by rw [Real.log_pow, ← hLTdef]; push_cast; ring
+  have hℓ3_2ℓT : ℓ3 ≤ 2 * ℓT := by
+    rw [hℓ3def]
+    calc Real.log L3 ≤ Real.log (2 * LT) := Real.log_le_log hL30 hL3_2LT
+      _ = Real.log 2 + ℓT := by rw [Real.log_mul (by norm_num) hLTpos.ne', ← hℓTdef]
+      _ ≤ 2 * ℓT := by linarith [hlog2le1, hℓT1]
+  -- Pinv ≤ 8000 · LT^{3/4} · ℓT²
+  have hPinv5 : Pinv ≤ 8000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (2:ℕ)) := by
+    have hL34 : L3 ^ ((3:ℝ)/4) ≤ 2 * LT ^ ((3:ℝ)/4) := by
+      calc L3 ^ ((3:ℝ)/4) ≤ (2 * LT) ^ ((3:ℝ)/4) := Real.rpow_le_rpow hL30.le hL3_2LT (by norm_num)
+        _ = 2 ^ ((3:ℝ)/4) * LT ^ ((3:ℝ)/4) := Real.mul_rpow (by norm_num) hLTpos.le
+        _ ≤ 2 * LT ^ ((3:ℝ)/4) := by
+            have h2 : (2:ℝ) ^ ((3:ℝ)/4) ≤ 2 := by
+              calc (2:ℝ) ^ ((3:ℝ)/4) ≤ (2:ℝ) ^ (1:ℝ) :=
+                    Real.rpow_le_rpow_of_exponent_le (by norm_num) (by norm_num)
+                _ = 2 := Real.rpow_one 2
+            nlinarith [h2, Real.rpow_nonneg hLTpos.le ((3:ℝ)/4)]
+    have hℓ3sq : ℓ3 ^ (2:ℕ) ≤ 4 * ℓT ^ (2:ℕ) := by
+      calc ℓ3 ^ (2:ℕ) ≤ (2 * ℓT) ^ (2:ℕ) := pow_le_pow_left₀ hℓ30.le hℓ3_2ℓT 2
+        _ = 4 * ℓT ^ (2:ℕ) := by ring
+    calc Pinv = 1000 * (L3 ^ ((3:ℝ)/4) * ℓ3 ^ (2:ℕ)) := by rw [hPinvdef]; ring
+      _ ≤ 1000 * ((2 * LT ^ ((3:ℝ)/4)) * (4 * ℓT ^ (2:ℕ))) := by
+          apply mul_le_mul_of_nonneg_left _ (by norm_num)
+          exact mul_le_mul hL34 hℓ3sq (by positivity) (by positivity)
+      _ = 8000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (2:ℕ)) := by ring
+  -- === centering, zero-freeness, min-distance (the LEFT-point adaptations) ===
+  have hsc : ‖s - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I)‖ ≤ 23 / 20 * (6 * Θ / 7) := by
+    have hsub : s - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I)
+        = (((1 - w) - (1 + Θ / 2) : ℝ) : ℂ) := by
+      rw [hsdef]; push_cast; ring
+    rw [hsub, Complex.norm_real, Real.norm_eq_abs]
+    have hnp : (1 - w) - (1 + Θ / 2) ≤ 0 := by nlinarith [hw0, hΘ0]
+    rw [abs_of_nonpos hnp]
+    -- goal: -(1 - w - (1 + Θ/2)) ≤ 23/20*(6Θ/7), i.e. w + Θ/2 ≤ 69Θ/70; use w ≤ 17Θ/35
+    have hwPinv : w * Pinv ≤ 17 / 35 := by
+      rw [hwdef, div_mul_eq_mul_div, div_le_iff₀ hD3Tpos, hD3Tdef]
+      have hcc : (4000:ℝ) * c_vk ≤ 17 / 35 * ℓT := by nlinarith [hsc_thr, hc_vk]
+      have hAle : c_vk / 2 * Pinv ≤ c_vk / 2 * (8000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (2:ℕ))) :=
+        mul_le_mul_of_nonneg_left hPinv5 (by linarith [hc_vk])
+      nlinarith [hAle, hcc, Real.rpow_nonneg hLTpos.le ((3:ℝ)/4), pow_nonneg hℓTpos.le 2,
+        mul_nonneg (Real.rpow_nonneg hLTpos.le ((3:ℝ)/4)) (pow_nonneg hℓTpos.le 2), hℓTpos]
+    have hsc_key : w ≤ 17 * Θ / 35 := by
+      rw [hΘPinv, show (17:ℝ) * (1 / Pinv) / 35 = 17 / (35 * Pinv) by field_simp]
+      rw [le_div_iff₀ (by positivity)]
+      nlinarith [hwPinv, hPinvpos]
+    nlinarith [hsc_key, hΘ0]
+  have hs1 : s ≠ 1 := by
+    rw [hsdef]; intro h
+    have := congrArg Complex.im h; simp at this; linarith [hγ2, this]
+  have hζs : riemannZeta s ≠ 0 := by
+    intro hζ0
+    have him : |s.im| ≤ 5 * T + 1 := by
+      rw [hsim, abs_of_nonneg hγpos.le]; linarith [hγT]
+    have hmr := hmargin s hζ0 him
+    rw [hsre] at hmr
+    have hlt : w < c_vk / D3T := by
+      rw [hwdef, div_lt_div_iff₀ hD3Tpos hD3Tpos]; nlinarith [hc_vk, hD3Tpos]
+    linarith [hmr, hlt]
+  have hZcs : Zc s ≠ 0 := Zc_ne_zero_of_zeta_ne hζs
+  have hdist : ∀ ρ : ℂ, Zc ρ = 0 →
+      ρ ∈ ball (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I) (3 / 2 * (6 * Θ / 7)) →
+        w ≤ ‖s - ρ‖ := by
+    intro ρ hZcρ hρball
+    rw [mem_ball, dist_eq_norm] at hρball
+    have hcim : (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I).im = γ := by simp
+    have himb : |ρ.im - γ| ≤ 3 / 2 * (6 * Θ / 7) := by
+      have h := Complex.abs_im_le_norm (ρ - (((1 + Θ / 2 : ℝ) : ℂ) + (γ : ℂ) * Complex.I))
+      rw [Complex.sub_im, hcim] at h; linarith [h, hρball]
+    have hrad : 3 / 2 * (6 * Θ / 7) ≤ 9 / 14 := by nlinarith [hΘ12, hΘ0]
+    have hρim_lb : γ - 9 / 14 ≤ ρ.im := by have := (abs_le.mp himb).1; linarith [hrad]
+    have hρim_ub : ρ.im ≤ γ + 9 / 14 := by have := (abs_le.mp himb).2; linarith [hrad]
+    have hρimpos : 0 < ρ.im := by linarith [hρim_lb, hγ2]
+    have hρ1 : ρ ≠ 1 := by intro h; rw [h] at hρimpos; simp at hρimpos
+    have hζρ : riemannZeta ρ = 0 := by
+      rw [Zc_eq_of_ne hρ1] at hZcρ
+      exact (mul_eq_zero.mp hZcρ).resolve_left (sub_ne_zero.mpr hρ1)
+    have hρimabs : |ρ.im| ≤ 5 * T + 1 := by
+      rw [abs_of_nonneg hρimpos.le]; linarith [hρim_ub, hγT]
+    have hmr := hmargin ρ hζρ hρimabs
+    have hdist_re : w ≤ s.re - ρ.re := by
+      rw [hsre]
+      have hww : w = c_vk / D3T - (c_vk / 2) / D3T := by rw [hwdef]; field_simp; ring
+      linarith [hmr, hww]
+    have h := Complex.abs_re_le_norm (s - ρ)
+    rw [Complex.sub_re] at h
+    linarith [h, le_abs_self (s.re - ρ.re), hdist_re]
+  -- === run the near-region lemma + the rewrites (verbatim) ===
+  have hnear := near_norm_logDeriv_Zc_le hΘ0 hM₀1 hw0 hsc hZcs hsphere74 hsphere32 hdist
+  have h140 : (120:ℝ) / (6 * Θ / 7) = 140 * Pinv := by
+    rw [hΘPinv]; field_simp [ne_of_gt hPinvpos]; ring
+  have h4M : (4:ℝ) * (5 * Mζ / Θ) = 20 * Pinv * Mζ := by
+    rw [hΘPinv]; field_simp [ne_of_gt hPinvpos]; ring
+  have hlog4M : Real.log (4 * (5 * Mζ / Θ)) = W := by rw [h4M]
+  rw [h140, hlog4M] at hnear
+  -- hnear : ‖logDeriv Zc s‖ ≤ 140 * Pinv * W + W / Real.log (7/6) / w
+  -- === the final D₄(5T+1) numeric ===
+  have hD4nn : (0:ℝ) ≤ LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ) :=
+    mul_nonneg (Real.rpow_nonneg hLTpos.le _) (pow_nonneg hℓTpos.le _)
+  have hℓT34 : LT ^ ((3:ℝ)/4) * ℓT ^ (3:ℕ) ≤ LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ) := by
+    apply mul_le_mul_of_nonneg_left _ (Real.rpow_nonneg hLTpos.le _)
+    exact pow_le_pow_right₀ hℓT1 (by norm_num)
+  have hW8ℓT : W ≤ 8 * ℓT := le_trans hWub (by linarith [hℓℓT])
+  have hterm1 : 140 * Pinv * W ≤ 10 ^ 8 * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by
+    have hPW : Pinv * W ≤ 64000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (3:ℕ)) := by
+      calc Pinv * W ≤ (8000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (2:ℕ))) * (8 * ℓT) :=
+            mul_le_mul hPinv5 hW8ℓT hW0 (by positivity)
+        _ = 64000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (3:ℕ)) := by ring
+    calc 140 * Pinv * W = 140 * (Pinv * W) := by ring
+      _ ≤ 140 * (64000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (3:ℕ))) :=
+          mul_le_mul_of_nonneg_left hPW (by norm_num)
+      _ = 8960000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (3:ℕ)) := by ring
+      _ ≤ 8960000 * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := mul_le_mul_of_nonneg_left hℓT34 (by norm_num)
+      _ ≤ 10 ^ 8 * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by nlinarith [hD4nn]
+  have h76pos : 0 < Real.log (7 / 6) := Real.log_pos (by norm_num)
+  have h76ge : (1:ℝ) / 7 ≤ Real.log (7 / 6) := by
+    have h := Real.log_le_sub_one_of_pos (show (0:ℝ) < 6 / 7 by norm_num)
+    rw [show (6:ℝ) / 7 = (7 / 6)⁻¹ by norm_num, Real.log_inv] at h
+    linarith
+  have hWlog : W / Real.log (7 / 6) ≤ 56 * ℓT := by
+    rw [div_le_iff₀ h76pos]
+    nlinarith [hW8ℓT, mul_nonneg (by positivity : (0:ℝ) ≤ 56 * ℓT) (sub_nonneg.mpr h76ge), hℓTpos]
+  have h1overw : (1:ℝ) / w = 2 * D3T / c_vk := by
+    rw [hwdef]; field_simp
+  have hterm2 : W / Real.log (7 / 6) / w ≤ 200 / c_vk * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by
+    rw [div_eq_mul_one_div (W / Real.log (7 / 6)) w, h1overw]
+    have hstep : W / Real.log (7 / 6) * (2 * D3T / c_vk) ≤ 56 * ℓT * (2 * D3T / c_vk) :=
+      mul_le_mul_of_nonneg_right hWlog (by positivity)
+    refine le_trans hstep ?_
+    rw [hD3Tdef]
+    have hXc : (0:ℝ) ≤ (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) / c_vk := div_nonneg hD4nn hc_vk.le
+    calc 56 * ℓT * (2 * (LT ^ ((3:ℝ)/4) * ℓT ^ (3:ℕ)) / c_vk)
+        = 112 * ((LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) / c_vk) := by ring
+      _ ≤ 200 * ((LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) / c_vk) :=
+          mul_le_mul_of_nonneg_right (by norm_num) hXc
+      _ = 200 / c_vk * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by ring
+  calc ‖logDeriv Zc s‖ ≤ 140 * Pinv * W + W / Real.log (7 / 6) / w := hnear
+    _ ≤ 10 ^ 8 * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) + 200 / c_vk * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by
+        linarith [hterm1, hterm2]
+    _ = (10 ^ 8 + 200 / c_vk) * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by ring
+
+/-- `Zc` commutes with complex conjugation (`Zc = (·−1)ζ` has real Taylor coefficients;
+`riemannZeta_conj` off the pole, `Zc 1 = 1` real at it). -/
+lemma Zc_conj (w : ℂ) : Zc ((starRingEnd ℂ) w) = (starRingEnd ℂ) (Zc w) := by
+  rcases eq_or_ne w 1 with rfl | hw
+  · simp [Zc_one]
+  · have hcw : (starRingEnd ℂ) w ≠ 1 := fun h => hw (by
+      have := congrArg (starRingEnd ℂ) h; rwa [Complex.conj_conj, map_one] at this)
+    rw [Zc_eq_of_ne hcw, Zc_eq_of_ne hw, riemannZeta_conj hw, map_mul, map_sub, map_one]
+
+/-- The `logDeriv Zc` norm is conjugation-invariant: `‖logDeriv Zc (conj w)‖ = ‖logDeriv Zc w‖`.
+Rides `Zc_conj` + `HasDerivAt.conj_conj` (so `deriv Zc (conj w) = conj (deriv Zc w)`). -/
+lemma logDeriv_Zc_norm_conj (w : ℂ) :
+    ‖logDeriv Zc ((starRingEnd ℂ) w)‖ = ‖logDeriv Zc w‖ := by
+  have hderiv : deriv Zc ((starRingEnd ℂ) w) = (starRingEnd ℂ) (deriv Zc w) := by
+    have hw' : HasDerivAt Zc (deriv Zc w) w := (Zc_differentiable w).hasDerivAt
+    have href := hw'.conj_conj
+    have hEq : (⇑(starRingEnd ℂ) ∘ Zc ∘ ⇑(starRingEnd ℂ)) = Zc := by
+      funext z; simp only [Function.comp_apply]; rw [Zc_conj, Complex.conj_conj]
+    rw [hEq] at href
+    exact href.deriv
+  rw [logDeriv_apply, logDeriv_apply, hderiv, Zc_conj, ← map_div₀, Complex.norm_conj]
+
+set_option maxHeartbeats 800000 in
+-- The glue case-splits on `|γ|` (disc-core high / conjugation / compact moderate) after several
+-- exp/log threshold discharges (the `δ₀`, `hsc` and margin thresholds); the default budget is tight.
+/-- **EDGE — the full shifted-edge price** (STONE 1, glued).  Packages the disc-core high half
+(`shifted_edge_disc_core`) with the moderate-height compact bound (`logDeriv_Zc_compact_bound`)
+and the sign symmetry (`logDeriv_Zc_norm_conj`): there are `c_vk > 0`, `CE > 0`, `T₀ ≥ 3` such that
+for `T ≥ T₀`, the shifted rectangle is ζ-zero-free with margin `c_vk/D₃(5T+1)` (the first clause,
+the `rect_zero_free_margin` at height `5T+1` that RES/ASM reuse), and `logDeriv Zc` on the entire
+LEFT spine `s = σ₀ + iγ`, `σ₀ = 1 − (c_vk/2)/D₃(5T+1)`, `|γ| ≤ 5T`, is `D₄(5T+1)`-graded:
+`‖logDeriv Zc s‖ ≤ CE·(log(5T+1))^{3/4}(loglog(5T+1))⁴`. -/
+theorem shifted_edge_price :
+    ∃ (c_vk CE T₀ : ℝ), 0 < c_vk ∧ 0 < CE ∧ 3 ≤ T₀ ∧
+      (∀ (T : ℝ), T₀ ≤ T → ∀ ρ : ℂ, riemannZeta ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
+          ρ.re ≤ 1 - c_vk / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+            * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ))) ∧
+      ∀ (T γ : ℝ), T₀ ≤ T → |γ| ≤ 5 * T →
+        ‖logDeriv Zc ((1 - (c_vk / 2) / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)) : ℝ) + (γ : ℂ) * Complex.I)‖
+          ≤ CE * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) := by
+  obtain ⟨c_vk, T₁, hc_vk0, hT₁, hmarg⟩ := rect_zero_free_margin
+  obtain ⟨K, t₀K, hK, ht₀K, hg⟩ := Salt.Vk.zeta_growth_pow
+  set H : ℝ := Real.exp (Real.exp (8 * Real.log (20000 * K) + 1100)) + t₀K + 3 with hHdef
+  have hH0 : 0 ≤ H := by
+    rw [hHdef]; have := Real.exp_pos (Real.exp (8 * Real.log (20000 * K) + 1100)); linarith [ht₀K]
+  obtain ⟨δ₀, C₀, hδ₀0, hcpt⟩ := logDeriv_Zc_compact_bound (M := H) (c := 1) hH0 (le_refl 1)
+  set Cbig : ℝ := 9000 * c_vk + c_vk / (2 * δ₀) + 1 with hCbigdef
+  set CE : ℝ := (10 ^ 8 + 200 / c_vk) + (|C₀| + 1) with hCEdef
+  set T₀ : ℝ := max (max T₁ 3) (Real.exp (Real.exp Cbig)) with hT₀def
+  have hCE0 : 0 < CE := by rw [hCEdef]; positivity
+  refine ⟨c_vk, CE, T₀, hc_vk0, hCE0, le_trans (le_max_right _ _) (le_max_left _ _), ?_, ?_⟩
+  · -- the margin clause (used by RES/ASM): rect_zero_free_margin at T + 1/5 (so 5(T+1/5) = 5T+1)
+    intro T hT ρ hρ0 hρim
+    have hTT₁ : T₁ ≤ T + 1 / 5 := by
+      have := le_trans (le_trans (le_max_left T₁ 3) (le_max_left _ _)) hT; linarith
+    have h := (hmarg (T + 1 / 5) hTT₁).2 ρ hρ0
+    rw [show 5 * (T + 1 / 5) = 5 * T + 1 by ring] at h
+    exact h hρim
+  · -- the edge bound
+    intro T γ hT hγ5T
+    have hTT₁ : T₁ ≤ T + 1 / 5 := by
+      have := le_trans (le_trans (le_max_left T₁ 3) (le_max_left _ _)) hT; linarith
+    have hTexp : Real.exp (Real.exp Cbig) ≤ T := le_trans (le_max_right _ _) hT
+    have hTpos : 0 < T := lt_of_lt_of_le (Real.exp_pos _) hTexp
+    have h5T1exp : Real.exp (Real.exp Cbig) ≤ 5 * T + 1 := by linarith [hTexp, hTpos]
+    have ha5 : 0 < Real.log (5 * T + 1) :=
+      lt_of_lt_of_le (Real.exp_pos _) (by
+        rw [← Real.log_exp (Real.exp Cbig)]; exact Real.log_le_log (Real.exp_pos _) h5T1exp)
+    have hlog5T1 : Real.exp Cbig ≤ Real.log (5 * T + 1) := by
+      rw [← Real.log_exp (Real.exp Cbig)]; exact Real.log_le_log (Real.exp_pos _) h5T1exp
+    have hloglog : Cbig ≤ Real.log (Real.log (5 * T + 1)) := by
+      rw [← Real.log_exp Cbig]; exact Real.log_le_log (Real.exp_pos _) hlog5T1
+    -- the reused margin fact at 5T+1
+    have hmargT : ∀ ρ : ℂ, riemannZeta ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
+        ρ.re ≤ 1 - c_vk / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+          * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)) := by
+      intro ρ hρ0 hρim
+      have h := (hmarg (T + 1 / 5) hTT₁).2 ρ hρ0
+      rw [show 5 * (T + 1 / 5) = 5 * T + 1 by ring] at h
+      exact h hρim
+    -- the hsc threshold for the disc
+    have hsc_thr : 9000 * c_vk ≤ Real.log (Real.log (5 * T + 1)) := by
+      have hnn : (0:ℝ) ≤ c_vk / (2 * δ₀) := by positivity
+      have hle : 9000 * c_vk ≤ Cbig := by rw [hCbigdef]; linarith [hnn]
+      linarith [hle, hloglog]
+    -- D₃(5T+1), D₄(5T+1) facts
+    set LT : ℝ := Real.log (5 * T + 1) with hLTdef
+    set ℓT : ℝ := Real.log LT with hℓTdef
+    have hℓTge : (1:ℝ) ≤ ℓT := by
+      have hnn : (0:ℝ) ≤ 9000 * c_vk + c_vk / (2 * δ₀) := by positivity
+      have hle : (1:ℝ) ≤ Cbig := by rw [hCbigdef]; linarith [hnn]
+      linarith [hle, hloglog]
+    have hℓTpos : 0 < ℓT := by linarith [hℓTge]
+    have hLTge : Real.exp 1 ≤ LT := by
+      have h1 : Real.exp 1 ≤ Real.exp ℓT := Real.exp_le_exp.mpr hℓTge
+      rwa [hℓTdef, Real.exp_log ha5] at h1
+    have hLT1 : (1:ℝ) ≤ LT := le_trans (by linarith [Real.add_one_le_exp (1:ℝ)]) hLTge
+    have hLTpos : 0 < LT := by linarith [hLT1]
+    set D3T : ℝ := LT ^ ((3 : ℝ) / 4) * ℓT ^ (3 : ℕ) with hD3Tdef
+    have hLT34ge : (1:ℝ) ≤ LT ^ ((3 : ℝ) / 4) := Real.one_le_rpow hLT1 (by norm_num)
+    have hℓT4ge : (1:ℝ) ≤ ℓT ^ (4 : ℕ) := one_le_pow₀ hℓTge
+    have hD3Tpos : 0 < D3T := by rw [hD3Tdef]; positivity
+    have hD4nn : (0:ℝ) ≤ LT ^ ((3 : ℝ) / 4) * ℓT ^ (4 : ℕ) :=
+      mul_nonneg (Real.rpow_nonneg hLTpos.le _) (pow_nonneg hℓTpos.le _)
+    have hD41 : (1:ℝ) ≤ LT ^ ((3 : ℝ) / 4) * ℓT ^ (4 : ℕ) := by nlinarith [hLT34ge, hℓT4ge]
+    -- the δ₀ condition: (c_vk/2)/D₃(5T+1) ≤ δ₀
+    have hδcond : (c_vk / 2) / D3T ≤ δ₀ := by
+      have hbase : c_vk / (2 * δ₀) ≤ ℓT := by
+        have hnn : (0:ℝ) ≤ 9000 * c_vk := by positivity
+        have hle : c_vk / (2 * δ₀) ≤ Cbig := by rw [hCbigdef]; linarith [hnn]
+        linarith [hle, hloglog]
+      have hcube3 : ℓT ≤ ℓT ^ (3 : ℕ) := by
+        have h2 : (1:ℝ) ≤ ℓT ^ (2:ℕ) := one_le_pow₀ hℓTge
+        nlinarith [mul_le_mul_of_nonneg_left h2 hℓTpos.le]
+      have hD3ge : c_vk / (2 * δ₀) ≤ D3T := by
+        rw [hD3Tdef]
+        calc c_vk / (2 * δ₀) ≤ ℓT ^ (3 : ℕ) := le_trans hbase hcube3
+          _ = 1 * ℓT ^ (3 : ℕ) := (one_mul _).symm
+          _ ≤ LT ^ ((3 : ℝ) / 4) * ℓT ^ (3 : ℕ) :=
+              mul_le_mul_of_nonneg_right hLT34ge (pow_nonneg hℓTpos.le _)
+      have hδpos : 0 < 2 * δ₀ := by linarith [hδ₀0]
+      rw [div_le_iff₀ hδpos] at hD3ge
+      rw [div_le_iff₀ hD3Tpos]
+      nlinarith [hD3ge, hδ₀0, hD3Tpos]
+    -- case split on |γ| vs H
+    by_cases hcase : H ≤ |γ|
+    · -- high height: disc-core (+ conjugation for γ < 0)
+      by_cases hsign : (0:ℝ) ≤ γ
+      · have hγH : H ≤ γ := by rwa [abs_of_nonneg hsign] at hcase
+        have hγT5 : γ ≤ 5 * T := by rwa [abs_of_nonneg hsign] at hγ5T
+        have hbound := shifted_edge_disc_core hK ht₀K hg hc_vk0 (by rw [hHdef] at hγH; exact hγH)
+          hγT5 hsc_thr hmargT
+        rw [← hLTdef, ← hℓTdef, ← hD3Tdef] at hbound
+        refine le_trans hbound ?_
+        exact mul_le_mul_of_nonneg_right (by rw [hCEdef]; linarith [abs_nonneg C₀]) hD4nn
+      · have hsignlt : γ < 0 := not_le.mp hsign
+        have hγH : H ≤ -γ := by rw [abs_of_neg hsignlt] at hcase; exact hcase
+        have hγT5 : -γ ≤ 5 * T := by rw [abs_of_neg hsignlt] at hγ5T; exact hγ5T
+        have hbound := shifted_edge_disc_core hK ht₀K hg hc_vk0 (by rw [hHdef] at hγH; exact hγH)
+          hγT5 hsc_thr hmargT
+        rw [← hLTdef, ← hℓTdef, ← hD3Tdef] at hbound
+        have hconj : ((1 - (c_vk / 2) / D3T : ℝ) : ℂ) + (γ : ℂ) * Complex.I
+            = (starRingEnd ℂ) (((1 - (c_vk / 2) / D3T : ℝ) : ℂ) + ((-γ : ℝ) : ℂ) * Complex.I) := by
+          rw [map_add, map_mul, Complex.conj_ofReal, Complex.conj_ofReal, Complex.conj_I]
+          push_cast; ring
+        rw [hconj, logDeriv_Zc_norm_conj]
+        refine le_trans hbound ?_
+        exact mul_le_mul_of_nonneg_right (by rw [hCEdef]; linarith [abs_nonneg C₀]) hD4nn
+    · -- moderate height: the compact bound
+      rw [not_le] at hcase
+      set z : ℂ := ((1 - (c_vk / 2) / D3T : ℝ) : ℂ) + (γ : ℂ) * Complex.I with hzdef
+      have hzre : z.re = 1 - (c_vk / 2) / D3T := by rw [hzdef]; simp
+      have hzim : z.im = γ := by rw [hzdef]; simp
+      have hσ₀ge : 1 - δ₀ ≤ z.re := by rw [hzre]; linarith [hδcond]
+      have hσ₀le : z.re ≤ 1 := by
+        rw [hzre]; have hnn : 0 ≤ (c_vk / 2) / D3T := by positivity
+        linarith
+      have himle : |z.im| ≤ H := by rw [hzim]; exact le_of_lt hcase
+      have hcptb := hcpt z hσ₀ge hσ₀le himle
+      refine le_trans hcptb ?_
+      calc C₀ ≤ |C₀| := le_abs_self _
+        _ ≤ CE := by
+          rw [hCEdef]
+          have h200 : (0:ℝ) ≤ 200 / c_vk := by positivity
+          linarith [h200]
+        _ = CE * 1 := (mul_one _).symm
+        _ ≤ CE * (LT ^ ((3 : ℝ) / 4) * ℓT ^ (4 : ℕ)) :=
+            mul_le_mul_of_nonneg_left hD41 hCE0.le
+
+end ShiftedEdge
+
 end Salt.MR

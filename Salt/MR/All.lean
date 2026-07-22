@@ -244,6 +244,12 @@ open Salt.Tactic in
   Salt.MR.smooth_rough_split
   Salt.MR.rect_zero_free
   Salt.MR.pole_row_sum
+  Salt.MR.mult_shiu_MS_A
+  Salt.MR.mult_shiu_MS_B
+  Salt.MR.mult_shiu_MS_EXIT
+  Salt.MR.ms_b_rough_factor
+  Salt.MR.pole_residue_term
+  Salt.MR.shifted_edge_price
   Salt.MR.primeWindow_contour_rep
   Salt.MR.lambda_window_rep
   Salt.MR.rep_truncated
