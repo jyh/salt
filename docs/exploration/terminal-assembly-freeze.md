@@ -116,6 +116,40 @@ APPROXIMATE with every gap accounted in E:
   ratified shape. The S1′ representation stands with the prime-datum
   relation explicit and every defect priced.
 
+### ⟦A — THE H-WALL AMENDMENT (maestro-ruled, 2026-07-22 09:30; announce-then-fire)⟧
+
+HID-BETA landed H-4 + the bonus `prop21RHS_hat_rep` (prop21RHS as the
+hat-smoothed fourFactorCoeff sum, Jacobian-2 handled) and found the
+main-term wall: the reconciliation CANNOT go per-coefficient (the
+beta-integral couples the four convolution indices — verified against
+GHS pp.8-11); the main term is extracted ONLY by the series-level FTC
+collapse (= the landed seam_double_ftc), which requires the ALIGNED
+(2.3)-form. Two stones are INSERTED before H-5:
+
+- **H-1b** [C, ~400] `seam_realignment`: prop21RHS's symmetric form →
+  the aligned (2.3)-form. DESIGN — THE HAT-REP SANDWICH: do NOT shift
+  contours. The aligned form differs from the symmetric form by
+  argument shifts in each factor = multiplicative reweightings
+  n^{±alpha}, n^{±beta} of the CONVOLVED COEFFICIENTS (H-4's shiftCoeff
+  infra); pass through the coefficient sum (line-independent by the
+  exact kernel K2') — prop21RHS_hat_rep on one side, four_factor_hat_rep
+  FORWARD on the realigned factors on the other; the identity is
+  shiftCoeff algebra, zero analysis. Summability: the corner ledger's
+  law (weights <= n^{2eta}; crude primorial-grade constants admissible
+  INSIDE summability Props only). Validate the sandwich in scratch
+  BEFORE building; STOP on any surprise (fail-fast ~3 new sublemmas).
+- **H-5a** [B/C, ~300] `window_truncation_defect`: the P(s±beta) vs
+  L(lambda_ell)(s±beta) truncation defect at the coefficient level,
+  its mass routed to MS-B's budget (the freeze's woven-truncation
+  ruling stands: the defect lives HERE, consumed by H-5(a)).
+
+H-5 then fires seam_double_ftc on the realigned form (main term
+telescopes; secondaries = MS-EXIT at x := X+h); H-EXIT unchanged.
+The multivariable-Perron port remains the campaign-gate fallback if
+the sandwich fails validation. (No dedicated refuter pass: the stone
+reuses landed machinery and the sandwich is kernel-validated in
+scratch before use — the tripwire is the refuter.)
+
 ### Corner ledger (Part 1)
 
 - **x↔X truncation:** MS-EXIT sums over ⌊x⌋; the seam's hat-smoothed sum

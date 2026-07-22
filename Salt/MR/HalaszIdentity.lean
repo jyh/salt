@@ -302,4 +302,337 @@ theorem seam_double_ftc (y : ℝ) (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖
   simpa only [largeSeries] using
     shifted_dirichlet_ftc (restrictAbove y g) (restrictAbove_norm_le hg) hsα hη
 
+
+/-! ## H-4 — `four_factor_hat_rep` (THE RISK STONE)
+
+The exact coefficient representation of `prop21RHS`'s inner `t`-integral.  The design
+insight (freeze §H-4) realized: the `(α,β)`-shifted four-factor product
+`𝒮(s-α-β)·𝓛(s+β)·P(s-β)·P(s+β)` is ONE Dirichlet series with the four-fold *convolved*
+coefficients `fourFactorCoeff` (three finite legs — the `y`-smooth `𝒮` and the two window
+polynomials `P` — convolved first, the infinite `𝓛` leg last, on the `LSeries_convolution'`
+rail, never `kconv`/`dpoly_pow`); `hat_contour_rep` applied in REVERSE reads the inner
+integral off as the hat-smoothed sum of those coefficients.  No sharp Perron, no
+multivariable analysis: Finset convolution algebra + the landed hat kernel.
+
+The five anticipated helper layers (freeze-enumerated): (1) shifted-coefficient
+`LSeriesSummable` at `c₀` via FINITE SUPPORT for the `𝒮·P·P` legs (`𝒮` is supported on the
+`y`-smooth squarefree numbers — a divisor set of `primorial ⌊y⌋₊`; `smoothSeries_summable`
+restated off `re > 1`); (2) iterated `LSeries_convolution'`; (3) the norm-convolution
+summability gate (via absolute `LSeriesSummable` of the convolution — no crude `n^{2η}`);
+(4) reverse `hat_contour_rep`; (5) the `t₀`-centering compatibility
+(`integral_add_right_eq_self`). -/
+
+
+/-- Shift a coefficient sequence: `a(n)·n^w`; makes `L(shiftCoeff w a) s = L a (s-w)`. -/
+def shiftCoeff (w : ℂ) (a : ℕ → ℂ) : ℕ → ℂ := fun n => a n * (n : ℂ) ^ w
+
+@[simp] lemma shiftCoeff_zero (w : ℂ) (a : ℕ → ℂ) (ha : a 0 = 0) : shiftCoeff w a 0 = 0 := by
+  simp [shiftCoeff, ha]
+
+/-- Termwise, the shifted coefficient at `s` matches the original at the shifted point `s - w`. -/
+lemma term_shiftCoeff (w : ℂ) (a : ℕ → ℂ) (s : ℂ) (n : ℕ) :
+    LSeries.term (shiftCoeff w a) s n = LSeries.term a (s - w) n := by
+  rcases eq_or_ne n 0 with rfl | hn
+  · simp [LSeries.term]
+  · rw [LSeries.term_of_ne_zero hn, LSeries.term_of_ne_zero hn, shiftCoeff,
+      Complex.cpow_sub _ _ (Nat.cast_ne_zero.mpr hn)]
+    field_simp
+
+lemma LSeries_shiftCoeff (w : ℂ) (a : ℕ → ℂ) (s : ℂ) :
+    LSeries (shiftCoeff w a) s = LSeries a (s - w) :=
+  tsum_congr (term_shiftCoeff w a s)
+
+lemma LSeriesSummable_shiftCoeff {w : ℂ} {a : ℕ → ℂ} {s : ℂ}
+    (h : LSeriesSummable a (s - w)) : LSeriesSummable (shiftCoeff w a) s := by
+  rw [LSeriesSummable, funext (term_shiftCoeff w a s)]; exact h
+
+/-- Finite support of a sequence lifts to `LSeriesSummable` at every `s`. -/
+lemma LSeriesSummable_of_finite_support {a : ℕ → ℂ}
+    (h : (Function.support a).Finite) (s : ℂ) : LSeriesSummable a s := by
+  refine summable_of_hasFiniteSupport (h.subset ?_)
+  intro n hn
+  rw [Function.mem_support] at hn ⊢
+  intro ha
+  apply hn
+  rcases eq_or_ne n 0 with rfl | hne
+  · simp [LSeries.term]
+  · rw [LSeries.term_of_ne_zero hne, ha, zero_div]
+
+/-- The smooth (`p ≤ y`) linearized twist has FINITE support: every nonzero value is at a
+squarefree number whose prime factors are all `≤ y`, hence a divisor of `primorial ⌊y⌋₊`. -/
+lemma finite_support_ellLin_restrictBelow (y : ℝ) (g : ℕ → ℂ) :
+    (Function.support (ellLin (restrictBelow y g))).Finite := by
+  apply Set.Finite.subset (Finset.finite_toSet (primorial ⌊y⌋₊).divisors)
+  intro n hn
+  rw [Function.mem_support] at hn
+  -- unpack `ellLin (restrictBelow y g) n ≠ 0`
+  have hn0 : n ≠ 0 := by rintro rfl; simp [ellLin] at hn
+  have hsq : Squarefree n := by
+    by_contra hsq
+    simp only [ellLin, if_neg hn0, if_neg hsq, ne_eq, not_true_eq_false] at hn
+  have hprod : ∏ p ∈ n.primeFactors, restrictBelow y g p ≠ 0 := by
+    simpa only [ellLin, if_neg hn0, if_pos hsq] using hn
+  have hple : ∀ p ∈ n.primeFactors, p ≤ ⌊y⌋₊ := by
+    intro p hp
+    have hpne : restrictBelow y g p ≠ 0 := (Finset.prod_ne_zero_iff.mp hprod) p hp
+    have : (p : ℝ) ≤ y := by
+      by_contra hlt
+      simp only [restrictBelow, if_neg hlt] at hpne; exact hpne rfl
+    exact Nat.le_floor this
+  -- membership in the primorial's divisor set
+  have hsub : n.primeFactors ⊆ (Finset.range (⌊y⌋₊ + 1)).filter (fun p => Nat.Prime p) := by
+    intro p hp
+    rw [Finset.mem_filter, Finset.mem_range]
+    exact ⟨Nat.lt_succ_of_le (hple p hp), Nat.prime_of_mem_primeFactors hp⟩
+  have hdvd : n ∣ primorial ⌊y⌋₊ := by
+    rw [← Nat.prod_primeFactors_of_squarefree hsq, primorial]
+    exact Finset.prod_dvd_prod_of_subset _ _ _ hsub
+  rw [Finset.mem_coe, Nat.mem_divisors]
+  exact ⟨hdvd, (primorial_pos _).ne'⟩
+
+/-- The window Dirichlet-polynomial coefficient: the windowed large von Mangoldt analog. -/
+def winCoeff (g : ℕ → ℂ) (X y : ℝ) : ℕ → ℂ :=
+  fun n => if n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊ then lambdaLin (restrictAbove y g) n else 0
+
+@[simp] lemma winCoeff_zero (g : ℕ → ℂ) (X y : ℝ) : winCoeff g X y 0 = 0 := by
+  simp only [winCoeff, Finset.mem_Ioo]
+  rw [if_neg]; rintro ⟨h, _⟩; exact absurd h (by omega)
+
+lemma finite_support_winCoeff (g : ℕ → ℂ) (X y : ℝ) :
+    (Function.support (winCoeff g X y)).Finite := by
+  apply Set.Finite.subset (Finset.finite_toSet (Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊))
+  intro n hn
+  rw [Function.mem_support] at hn
+  by_contra hmem
+  rw [Finset.mem_coe] at hmem
+  simp only [winCoeff, if_neg hmem] at hn
+  exact hn rfl
+
+/-- The window Dirichlet polynomial is the L-series of its (finite-support) coefficient. -/
+lemma windowSum_eq_LSeries (g : ℕ → ℂ) (X y : ℝ) (s : ℂ) :
+    windowSum g X y s = LSeries (winCoeff g X y) s := by
+  rw [windowSum, LSeries]
+  rw [tsum_eq_sum (s := Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊) (fun n hn => ?_)]
+  · refine Finset.sum_congr rfl (fun n hn => ?_)
+    have hn0 : n ≠ 0 := by rw [Finset.mem_Ioo] at hn; omega
+    rw [LSeries.term_of_ne_zero hn0, winCoeff, if_pos hn]
+  · rcases eq_or_ne n 0 with rfl | hne
+    · simp [LSeries.term]
+    · rw [LSeries.term_of_ne_zero hne, winCoeff, if_neg hn, zero_div]
+
+/-- `shiftCoeff` preserves finite support. -/
+lemma finite_support_shiftCoeff (w : ℂ) {a : ℕ → ℂ} (h : (Function.support a).Finite) :
+    (Function.support (shiftCoeff w a)).Finite := by
+  refine h.subset (fun n hn => ?_)
+  rw [Function.mem_support] at hn ⊢
+  intro ha; exact hn (by simp [shiftCoeff, ha])
+
+/-- The large (`p > y`) shifted coefficient is `1`-bounded at each `n ≥ 1` (for `β ≥ 0`). -/
+lemma largeC_norm_le {y : ℝ} {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) {β : ℝ}
+    (hβ : 0 ≤ β) {n : ℕ} (hn : 1 ≤ n) :
+    ‖shiftCoeff (-(β : ℂ)) (ellLin (restrictAbove y g)) n‖ ≤ 1 := by
+  have hn0 : 0 < n := hn
+  rw [shiftCoeff, norm_mul, Complex.norm_natCast_cpow_of_pos hn0]
+  have hre : (-(β : ℂ)).re = -β := by simp
+  rw [hre]
+  have h1 : ‖ellLin (restrictAbove y g) n‖ ≤ 1 :=
+    ellLin_norm_le_one (restrictAbove y g) (restrictAbove_norm_le hg) n
+  have h2 : (n : ℝ) ^ (-β) ≤ 1 :=
+    Real.rpow_le_one_of_one_le_of_nonpos (by exact_mod_cast hn) (by linarith)
+  calc ‖ellLin (restrictAbove y g) n‖ * (n : ℝ) ^ (-β)
+      ≤ 1 * 1 := mul_le_mul h1 h2 (Real.rpow_nonneg (by positivity) _) zero_le_one
+    _ = 1 := mul_one 1
+
+/-- The four-fold convolution coefficient of the `(α,β)`-shifted four-factor product.
+The three finite legs (smooth `𝒮`, both windows `P`) are convolved first; the infinite
+`𝓛` leg is convolved last (matching the freeze's "finite×infinite" instruction). -/
+def fourFactorCoeff (y : ℝ) (g : ℕ → ℂ) (X α β : ℝ) : ℕ → ℂ :=
+  ((shiftCoeff ((α : ℂ) + (β : ℂ)) (ellLin (restrictBelow y g))
+      ⍟ shiftCoeff (β : ℂ) (winCoeff g X y))
+      ⍟ shiftCoeff (-(β : ℂ)) (winCoeff g X y))
+      ⍟ shiftCoeff (-(β : ℂ)) (ellLin (restrictAbove y g))
+
+/-- **H-4 layer (2) — the four-factor product IS a single Dirichlet series.**  On `1 < re s`
+(and `β ≥ 0`), the `(α,β)`-shifted four-factor product `𝒮(s-α-β)·𝓛(s+β)·P(s-β)·P(s+β)`
+equals the L-series of the four-fold convolution `fourFactorCoeff`.  Route: each factor is
+the L-series of a shifted coefficient (`LSeries_shiftCoeff`); the three finite legs are
+`LSeriesSummable` everywhere (finite support), the `𝓛` leg on `re > 1` (bounded); the
+product factors by `LSeries_convolution'`. -/
+theorem four_factor_LSeries (y : ℝ) (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    (X α : ℝ) {β : ℝ} (hβ : 0 ≤ β) {s : ℂ} (hs : 1 < s.re) :
+    smoothSeries y g (s - (α : ℂ) - (β : ℂ)) * largeSeries y g (s + (β : ℂ))
+        * windowSum g X y (s - (β : ℂ)) * windowSum g X y (s + (β : ℂ))
+      = LSeries (fourFactorCoeff y g X α β) s := by
+  -- the four shifted coefficient legs
+  set A := shiftCoeff ((α : ℂ) + (β : ℂ)) (ellLin (restrictBelow y g)) with hA
+  set Cc := shiftCoeff (β : ℂ) (winCoeff g X y) with hCc
+  set D := shiftCoeff (-(β : ℂ)) (winCoeff g X y) with hD
+  set B := shiftCoeff (-(β : ℂ)) (ellLin (restrictAbove y g)) with hB
+  -- summabilities
+  have hAsum : ∀ z, LSeriesSummable A z := fun z =>
+    LSeriesSummable_of_finite_support
+      (finite_support_shiftCoeff _ (finite_support_ellLin_restrictBelow y g)) z
+  have hCsum : ∀ z, LSeriesSummable Cc z := fun z =>
+    LSeriesSummable_of_finite_support
+      (finite_support_shiftCoeff _ (finite_support_winCoeff g X y)) z
+  have hDsum : ∀ z, LSeriesSummable D z := fun z =>
+    LSeriesSummable_of_finite_support
+      (finite_support_shiftCoeff _ (finite_support_winCoeff g X y)) z
+  have hBsum : LSeriesSummable B s :=
+    LSeriesSummable_of_bounded_of_one_lt_re (m := 1)
+      (fun n hn => largeC_norm_le hg hβ (Nat.one_le_iff_ne_zero.mpr hn)) hs
+  -- the convolution product
+  rw [fourFactorCoeff, ← hA, ← hCc, ← hD, ← hB,
+    LSeries_convolution' ((hAsum s).convolution (hCsum s) |>.convolution (hDsum s)) hBsum,
+    LSeries_convolution' ((hAsum s).convolution (hCsum s)) (hDsum s),
+    LSeries_convolution' (hAsum s) (hCsum s)]
+  -- identify each leg
+  rw [hA, LSeries_shiftCoeff, hCc, LSeries_shiftCoeff, hD, LSeries_shiftCoeff,
+    hB, LSeries_shiftCoeff]
+  rw [← windowSum_eq_LSeries, ← windowSum_eq_LSeries]
+  simp only [smoothSeries, largeSeries]
+  rw [show s - ((α : ℂ) + (β : ℂ)) = s - (α : ℂ) - (β : ℂ) by ring,
+    show s - -(β : ℂ) = s + (β : ℂ) by ring]
+  ring
+
+@[simp] lemma fourFactorCoeff_zero (y : ℝ) (g : ℕ → ℂ) (X α β : ℝ) :
+    fourFactorCoeff y g X α β 0 = 0 := by
+  rw [fourFactorCoeff, LSeries.convolution_def]; simp
+
+/-- `fourFactorCoeff` is `LSeriesSummable` on `1 < re s` (three finite legs + the bounded
+`𝓛` leg). -/
+lemma LSeriesSummable_fourFactorCoeff (y : ℝ) (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    (X α : ℝ) {β : ℝ} (hβ : 0 ≤ β) {s : ℂ} (hs : 1 < s.re) :
+    LSeriesSummable (fourFactorCoeff y g X α β) s := by
+  have hAsum : LSeriesSummable (shiftCoeff ((α : ℂ) + (β : ℂ)) (ellLin (restrictBelow y g))) s :=
+    LSeriesSummable_of_finite_support
+      (finite_support_shiftCoeff _ (finite_support_ellLin_restrictBelow y g)) s
+  have hCsum : LSeriesSummable (shiftCoeff (β : ℂ) (winCoeff g X y)) s :=
+    LSeriesSummable_of_finite_support
+      (finite_support_shiftCoeff _ (finite_support_winCoeff g X y)) s
+  have hDsum : LSeriesSummable (shiftCoeff (-(β : ℂ)) (winCoeff g X y)) s :=
+    LSeriesSummable_of_finite_support
+      (finite_support_shiftCoeff _ (finite_support_winCoeff g X y)) s
+  have hBsum : LSeriesSummable (shiftCoeff (-(β : ℂ)) (ellLin (restrictAbove y g))) s :=
+    LSeriesSummable_of_bounded_of_one_lt_re (m := 1)
+      (fun n hn => largeC_norm_le hg hβ (Nat.one_le_iff_ne_zero.mpr hn)) hs
+  exact (((hAsum.convolution hCsum).convolution hDsum).convolution hBsum)
+
+/-- **H-4 layer (3) — the `hat_contour_rep` summability gate.**  The weighted coefficient
+sum `∑ ‖C_N‖((X+h)/N)^c` converges: it equals `(X+h)^c` times the *absolute* L-series
+summability of `fourFactorCoeff` at `c` (a convolution of summable legs — no crude
+`n^{2η}` absorption). -/
+theorem fourFactor_weight_summable (y : ℝ) (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    (X α : ℝ) {β : ℝ} (hβ : 0 ≤ β) {h c : ℝ} (hXh : 0 < X + h) (hc : 1 < c) :
+    Summable (fun N => ‖fourFactorCoeff y g X α β N‖ * ((X + h) / (N : ℝ)) ^ c) := by
+  have hCsum : LSeriesSummable (fourFactorCoeff y g X α β) (c : ℂ) :=
+    LSeriesSummable_fourFactorCoeff y g hg X α hβ (by simpa using hc)
+  have hnorm : Summable (fun N => ‖LSeries.term (fourFactorCoeff y g X α β) (c : ℂ) N‖) :=
+    hCsum.norm
+  refine (hnorm.mul_left ((X + h) ^ c)).congr (fun N => ?_)
+  rcases eq_or_ne N 0 with rfl | hN
+  · simp [LSeries.term]
+  · rw [LSeries.term_of_ne_zero hN, norm_div,
+      Complex.norm_natCast_cpow_of_pos (Nat.pos_of_ne_zero hN), Complex.ofReal_re,
+      Real.div_rpow hXh.le (Nat.cast_nonneg N)]
+    have hNc : (0 : ℝ) < (N : ℝ) ^ c :=
+      Real.rpow_pos_of_pos (by exact_mod_cast Nat.pos_of_ne_zero hN) c
+    field_simp
+
+/-- Convert the naive tsum `∑ a(n)/n^s` (with `a 0 = 0`) into the mathlib `LSeries`. -/
+lemma tsum_div_eq_LSeries {a : ℕ → ℂ} (ha0 : a 0 = 0) (s : ℂ) :
+    (∑' n, a n / (n : ℂ) ^ s) = LSeries a s := by
+  rw [LSeries]; refine tsum_congr (fun n => ?_)
+  rcases eq_or_ne n 0 with rfl | hn
+  · simp [LSeries.term, ha0]
+  · rw [LSeries.term_of_ne_zero hn]
+
+/-- **H-4 — `four_factor_hat_rep` (THE RISK STONE).**  `prop21RHS`'s inner `t`-integral
+(per `(α,β)`, `β ≥ 0`) equals `2π` times the hat-smoothed sum of the four-fold convolved
+coefficients `fourFactorCoeff`.  Route: the `t₀`-centering change-of-variables
+(`integral_add_right_eq_self`, layer 5) aligns the kernel; `four_factor_LSeries` (layer 2)
+turns the product into one Dirichlet series; `hat_contour_rep` applied in REVERSE (layer 4),
+with the summability gate `fourFactor_weight_summable` (layer 3), reads off the coefficient
+sum. -/
+theorem four_factor_hat_rep (y : ℝ) (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    (α : ℝ) {β : ℝ} (hβ : 0 ≤ β) {t₀ X h c₀ : ℝ}
+    (hX : 1 ≤ X) (hh : 0 < h) (hc₀ : 1 < c₀) :
+    (∫ t : ℝ,
+        smoothSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (α : ℂ) - (β : ℂ))
+          * largeSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * hatKernel X h c₀ (t - t₀))
+      = (2 * Real.pi) • ∑' N, fourFactorCoeff y g X α β N * (hatK X h N : ℂ) := by
+  set C := fourFactorCoeff y g X α β with hCdef
+  have hC0 : C 0 = 0 := fourFactorCoeff_zero y g X α β
+  -- centering: the integrand is `Ψ (t - t₀)`
+  set Ψ : ℝ → ℂ := fun u =>
+      smoothSeries y g (((c₀ : ℂ) + (u : ℂ) * I) - (α : ℂ) - (β : ℂ))
+        * largeSeries y g (((c₀ : ℂ) + (u : ℂ) * I) + (β : ℂ))
+        * windowSum g X y (((c₀ : ℂ) + (u : ℂ) * I) - (β : ℂ))
+        * windowSum g X y (((c₀ : ℂ) + (u : ℂ) * I) + (β : ℂ))
+        * hatKernel X h c₀ u with hΨdef
+  have hcenter : (∫ t : ℝ,
+        smoothSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (α : ℂ) - (β : ℂ))
+          * largeSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * hatKernel X h c₀ (t - t₀))
+      = ∫ u : ℝ, Ψ u := by
+    have h1 : (fun t : ℝ =>
+        smoothSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (α : ℂ) - (β : ℂ))
+          * largeSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * hatKernel X h c₀ (t - t₀)) = fun t : ℝ => Ψ (t - t₀) := rfl
+    rw [h1]
+    have := integral_add_right_eq_self (μ := volume) Ψ (-t₀)
+    simpa [sub_eq_add_neg] using this
+  rw [hcenter]
+  -- align the four-factor product to the single Dirichlet series `LSeries C`
+  have halign : (∫ u : ℝ, Ψ u)
+      = ∫ u : ℝ, LSeries C ((c₀ : ℂ) + (u : ℂ) * I) * hatKernel X h c₀ u := by
+    refine integral_congr_ae (Filter.Eventually.of_forall (fun u => ?_))
+    rw [hΨdef]
+    dsimp only
+    rw [four_factor_LSeries y g hg X α hβ (s := (c₀ : ℂ) + (u : ℂ) * I) (by simpa using hc₀)]
+  rw [halign]
+  -- reverse hat_contour_rep
+  have hgate : Summable (fun N => ‖C N‖ * ((X + h) / (N : ℝ)) ^ c₀) :=
+    fourFactor_weight_summable y g hg X α hβ (by linarith : (0 : ℝ) < X + h) hc₀
+  have hrep := hat_contour_rep C hC0 hX hh (by linarith : (0 : ℝ) < c₀) hgate
+  -- rewrite hrep's inner tsum as `LSeries C` and its kernel expression as `hatKernel`
+  have hrep' : (∑' N, C N * (hatK X h N : ℂ))
+      = (1 / (2 * Real.pi)) •
+          ∫ u : ℝ, LSeries C ((c₀ : ℂ) + (u : ℂ) * I) * hatKernel X h c₀ u := by
+    rw [hrep]
+    congr 1
+    refine integral_congr_ae (Filter.Eventually.of_forall (fun u => ?_))
+    dsimp only
+    rw [tsum_div_eq_LSeries hC0]
+    rfl
+  rw [hrep', smul_smul]
+  rw [show (2 * Real.pi) * (1 / (2 * Real.pi)) = 1 by
+    field_simp, one_smul]
+
+/-- **H-4 corollary — `prop21RHS` AS a coefficient sum.**  The frozen `prop21RHS`
+(the `(α,β)` double integral of the four-factor product, with its leading `2`-Jacobian
+and the centered hat kernel) equals `2·∫∫` of the hat-smoothed four-fold convolution
+coefficient sum.  This is the exact object H-5's bridge reconciles against the seam
+coefficient sum `∑ fgJ·hatK`. -/
+theorem prop21RHS_hat_rep (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    {t₀ X h c₀ y η : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc₀ : 1 < c₀) (hη : 0 ≤ η) :
+    prop21RHS g t₀ X h c₀ y η
+      = (2 : ℝ) • ∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η,
+          ∑' N, fourFactorCoeff y g X α β N * (hatK X h N : ℂ) := by
+  rw [prop21RHS]
+  congr 1
+  refine intervalIntegral.integral_congr (fun α _ => ?_)
+  refine intervalIntegral.integral_congr (fun β hβmem => ?_)
+  have hβ0 : 0 ≤ β := by
+    rw [Set.uIcc_of_le hη] at hβmem; exact (Set.mem_Icc.mp hβmem).1
+  rw [four_factor_hat_rep y g hg α hβ0 hX hh hc₀, smul_smul,
+    show (1 / (2 * Real.pi)) * (2 * Real.pi) = 1 by field_simp, one_smul]
+
 end Salt.MR
