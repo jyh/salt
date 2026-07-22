@@ -366,3 +366,31 @@ halasz_primes_pow header, prop_A3′/thm_A2′/thm_A1′ per the s8-freeze —
 iron rule 1 absolute. Growing quantities in-statement (#253). The full
 trap bank in every brief. Zeno partials = success. Single writer per
 file. NO-GIT (#244).
+
+### ⟦A — AMENDMENT P21-3K: the kernel-line compensation (maestro-ruled
+### 2026-07-22 ~16:20; the audit: NUM-REF dissent / TRANS-REF + SAT-REF
+### confirm, 2-1; the P21-2X species and precedent)⟧
+
+R-SCOPE's cosh counterexample (arithmetic CONFIRMED independently to
+machine precision by NUM-REF) exposed that the frozen prop21RHS was a
+HYBRID: GHS (2.5)'s post-line-move symmetric FACTORS against the
+pre-move, (alpha,beta)-free hat kernel. The freeze's own mapping note
+(HalaszSeam:59-60) shows the intended object was GHS (2.5) WITH its
+kernel x^{s-alpha-beta}/(s-alpha-beta); the transcription dropped the
+kernel's argument shift. SAT-REF: hfactor as frozen is UNSATISFIABLE
+at MS-EXIT-sized E (worst-case positive coefficients, no cancellation
+-- prop21_analog vacuous as stated). THE AMENDMENT (one token, :438):
+hatKernel X h c0 (t-t0) becomes hatKernel X h (c0 - alpha - beta)
+(t-t0). Series legs UNCHANGED (the L-leg keeps Re > 1 everywhere; the
+kernel poles sit at the shifted argument, strictly left, clean).
+Consequence (audited numerically): the kernel deposits N^{-(alpha+
+beta)}, cancelling seam_realignment_hat's N^{alpha+beta} EXACTLY --
+prop21RHS = 2*intint Sum alignedCoeff*hatK, GHS's genuine Prop-2.1
+object; the wall under all three dead H-5 designs vanishes by
+definition. NUM-REF's dissent honored as the STANDING TRIPWIRE: any
+bridge reaching secondary-sized E without producing the N^{-(alpha+
+beta)} compensation is provably wrong. Cone repair (P21-3K-EXEC):
+the mismatched-line hat rep variant; prop21RHS_hat_rep re-proved to
+the ALIGNED coefficient form; prop21_contour_leg; prop21_analog's
+proof (statement text unchanged -- mention-only, the P21-2X
+precedent). H-5 v4 design block follows ON the corrected object.
