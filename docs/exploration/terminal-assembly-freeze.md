@@ -230,7 +230,12 @@ The truncation-tail corner at P = T^10 exactly (REF-B's R-4 audit).
   (MVCore2:620 — the SHARP 2T+20N unconditional MVT, a strengthening
   the freeze didn't know it had) + `offdiag_int_bound` (⟦R citation
   fix: HalaszCore:195, NOT L2MVT⟧) + log_diff_ge. T-0b lands BEFORE
-  T-0's assembly.⟧ ⟦R architecture note (verify at dispatch): ball_decay
+  T-0's assembly.⟧ ⟦R2 (T-WAVE's in-session correction): the literal
+  target Σ‖bₙ‖²/n^{2c} is FALSE (the kernel exp(−c|log(m/n)|)(mn)^{−c}
+  = max(m,n)^{−2c} has row-sum ≍ N — the MVT's intrinsic +N cannot
+  vanish); the TRUE sharpening landed instead: (π/c)·(Σ‖bₙ‖/n^c)²,
+  M-independent, retaining the separable (mn)^{−c}. Flagged, not
+  forced — the honest-refusal law.⟧ ⟦R architecture note (verify at dispatch): ball_decay
   is applied with its f-slot = fgJ (1-bounded via norm_fgJ_le,
   non-multiplicative — type-checks); the analytic hhead/htail/hsplit
   must be established FOR fgJ through the prop21 seam, which is exactly
