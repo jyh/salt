@@ -23,7 +23,11 @@ downtime ~14:00–17:00 (timing varies; DRAIN ONLY IF ANNOUNCED) ·
   keep the forge burning through 05:00.
 - Drain periods are ANNOUNCED DAILY by JYH — never assumed. The
   drain playbook: dispatch cutoff ~90 min before the deadline,
-  ceremony everything landed, tree clean, close-of-board posted.
+  ceremony everything landed, tree clean, close-of-board posted,
+  SEAT SYNC run (memory mirror -> the private seat-archive repo; see the
+  seat README — added 2026-07-21 with the hybrid cloud posture: seat
+  local by default, night layer cloud once GO, transfer commands
+  'push to cloud' / 'bring it home' = drain-then-transfer).
 - Quota (through mid-Aug): 5 accounts, veterans refreshing weekly;
   steady state after: ONE account to 100%. Fable design panels =
   the only nail-biters; fired by joint decision at planning time.
