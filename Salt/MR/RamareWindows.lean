@@ -687,4 +687,54 @@ theorem lemma12_meansq (H : ℝ) (hH : 0 < H) (N X P Q : ℕ) (hP : 1 ≤ P) (a 
   · exact ramP2corr_moment N P Q a b c T
   · exact ramCopTail_moment N P Q a T
 
+/-! ## R-pretty — the publication-grade E-collapse (cosmetic, MR p.20 normal form)
+
+`lemma12_meansq`'s honest error is the three-row assembly
+
+  `E = 2·(3·(2T·windowMass² + (2T+20N)·‖ramP2coeff‖²-mass + (2T+20N)·tail-mass))`,
+
+carrying **two** coefficient shapes: the sharp `2T` on the trivial-sup window row (no
+`N`-inflation — the feature `lemma12_meansq` preserves) and `2T+20N` on the moment-priced
+correction and tail rows.  MR p.20 states the error at a **single** common coefficient
+`(T+X)/X` multiplying the summed row-masses `1/H + 1/P + tail`.  This corollary is the
+pure-real-arithmetic step to that normal form: since `2T ≤ 2T+20N` (`0 ≤ N`), the window
+coefficient rises to the common `2T+20N`, and the three rows factor into
+
+  `E ≤ 6·(2T+20N)·(windowMass² + ‖ramP2coeff‖²-mass + tail-mass)`
+
+— **one** product, the fewest terms, with every growing quantity (`T`, `N`, `windowMass`,
+the two ℓ²-masses) still in-statement per #253; the single absorbed constant is `6`.  The
+domination residual is exactly `120·N·windowMass² ≥ 0`.
+
+NOTE (scope — the residual analytic collapse, NOT this stone).  Turning the three symbolic
+row-masses into the paper's literal `(T+X)/X·(1/H + 1/P + Σ_{(n,Π)=1}|aₙ|²/n)` is a
+*separate* analytic stone, not a cosmetic one: it prices `windowMass²` down to the `1/H`
+grade via `window_card_le` (the `2eX/H` count) and `‖ramP2coeff‖²`-mass down to `1/P` via
+the `Σ_{p≥P} p⁻²` zeta-tail, and it needs the MR hypothesis package `‖bₘ‖,‖cₚ‖ ≤ 1` and
+`N = 2X` — none of which appear in `lemma12_meansq`'s signature.  The common-coefficient
+form below is the honest cosmetic endpoint reachable with no added hypotheses. -/
+
+/-- **Lemma 12 — the mean square, publication normal form (pretty).**  The honest three-row
+error of `lemma12_meansq` collapsed by pure real-arithmetic domination to the paper's single
+common coefficient `2T+20N` times the summed row-masses — fewest terms, no added hypotheses,
+every growing quantity in-statement (#253).  The one absorbed constant is `6`; the collapse
+costs only the sharp window row's `2T`-grade, rising to the common `2T+20N` (residual
+`120·N·windowMass² ≥ 0`).  `lemma12_meansq` remains available for the sharp window grade. -/
+theorem lemma12_meansq_pretty (H : ℝ) (hH : 0 < H) (N X P Q : ℕ) (hP : 1 ≤ P) (a b c : ℕ → ℂ)
+    (hcoef : ∀ p m, p.Prime → P ≤ p → p ≤ Q → ¬ p ∣ m → a (p * m) = b m * c p)
+    (T : ℝ) (hT : 0 ≤ T) :
+    (∫ t in (-T)..T, ‖spoly N a t‖ ^ 2)
+      ≤ 2 * ((ramI H P Q).card : ℝ)
+          * (∑ j ∈ ramI H P Q, ∫ t in (-T)..T, ‖ramMain H N X P Q b c j t‖ ^ 2)
+        + 6 * (2 * T + 20 * (N : ℝ))
+            * ((windowMass H N X P Q b c) ^ 2
+              + (∑ n ∈ Finset.Icc 1 N, ‖ramP2coeff N P Q a b c n‖ ^ 2 / (n : ℝ) ^ 2)
+              + (∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+                  ‖a n‖ ^ 2 / (n : ℝ) ^ 2)) := by
+  have hW2 : (0 : ℝ) ≤ (windowMass H N X P Q b c) ^ 2 := sq_nonneg _
+  have hN : (0 : ℝ) ≤ (N : ℝ) := Nat.cast_nonneg N
+  -- the shared main-block term cancels; the collapse residual is `120·N·windowMass² ≥ 0`
+  refine (lemma12_meansq H hH N X P Q hP a b c hcoef T hT).trans ?_
+  nlinarith [mul_nonneg hN hW2, hW2, hN]
+
 end Salt.MR

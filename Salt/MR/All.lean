@@ -250,6 +250,7 @@ open Salt.Tactic in
   Salt.MR.ms_b_rough_factor
   Salt.MR.pole_residue_term
   Salt.MR.shifted_edge_price
+  Salt.MR.lemma12_meansq_pretty
   Salt.MR.primeWindow_contour_rep
   Salt.MR.lambda_window_rep
   Salt.MR.rep_truncated
