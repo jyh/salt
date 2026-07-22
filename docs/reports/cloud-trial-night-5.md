@@ -25,11 +25,38 @@ mid-run.
 
 ## 0. Freshness check
 
-_pending (Step 1)_
+| Ref | Value |
+|---|---|
+| Checkout HEAD at container boot | `b41d51f play: evening wake -- cloud sweep empty …` (2026-07-22 15:36 -0700) |
+| `git ls-remote origin main` | `cfe59c6…` (`play: SOURCES-ARRAY CONFIRMED (probe 200) …`, 2026-07-22 15:49 -0700) |
+| Staleness | **1 commit / ~13 min behind.** The boot checkout was one commit stale; `origin/main` had advanced `b41d51f → cfe59c6`. Negligible and content-irrelevant (the newer commit is the trial-armed play note itself). This branch was cut from the fresh `origin/main` (`cfe59c6`), so the report works from current tip. |
+
+**Egress hypothesis re-confirmed independently** (probe at Step 1, 22:49 UTC):
+
+| Host | HTTP |
+|---|---|
+| `github.com/leanprover/lean4/releases` | **200** |
+| `elan.lean-lang.org/elan-init.sh` | **200** |
+| `release.lean-lang.org` | **200** |
+
+The Night-1…4 blocker (GitHub-releases 403 repo-scope) is gone. The sources-array
+fix is live. Ladder is clear to run.
 
 ## 1. Environment
 
-_pending (Step 1)_
+| Property | Value | Δ vs Night 4 |
+|---|---|---|
+| OS / kernel | Linux 6.18.5 `#1 SMP PREEMPT_DYNAMIC`, x86_64 | same |
+| CPU count | **4 vCPU** | same |
+| RAM | 16.46 GB (`MemTotal 16461176 kB`) | same |
+| Disk | `/dev/vda` 252 G, **30 G available**, 22% used | same |
+| Working dir | `/home/user/salt` (cloned fresh at boot) | same |
+| Target toolchain | `leanprover/lean4:v4.32.0-rc1` (from `lean-toolchain`) | same |
+| Pre-installed | `curl` (`/usr/bin/curl`); **no `elan`, no `lake`** at boot | same — toolchain must be acquired |
+
+The 4-vCPU / 16 GB profile is unchanged from Night 4, so build+checker timings
+here are directly comparable to the M5-Pro/18-core numbers in
+`lean4checker-local-1.md` as a cloud-vs-workstation contrast.
 
 ## 2. Toolchain acquisition (elan + first `lake`)
 
@@ -58,7 +85,7 @@ _pending (Step 6)_
 | Step | What | Wall-clock | Status |
 |---|---|---|---|
 | 0 | Skeleton report + branch | — | ✅ done |
-| 1 | Freshness + environment | — | pending |
+| 1 | Freshness + environment | ~1 min | ✅ done |
 | 2 | Toolchain (elan + first lake) | — | pending |
 | 3 | Cache get | — | pending |
 | 4 | Build | — | pending |
