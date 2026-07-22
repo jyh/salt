@@ -150,8 +150,24 @@ upload-pack protocol. This is why the toolchain needed the tarball workaround
 (`…blob.core.windows.net`), which Night 4 already found reachable in this
 environment.
 
-_Running now (dependency clone + cache download, backgrounded with logging).
-Result: pending._
+**Result: ✅ SUCCESS — `EXITCODE=0`.** Single `lake exe cache get` invocation did
+the whole thing: cloned all 9 git deps (mathlib4, batteries, aesop, Qq/quote4,
+proofwidgets, importGraph, plausible, LeanSearchClient, Cli) via the git protocol,
+built `cache:exe` (3.6 s), then downloaded + decompressed **8564/8564** Mathlib
+olean files from `lakecache.blob.core.windows.net/mathlib4-master`.
+
+| Metric | Value |
+|---|---:|
+| Wall-clock (clone + cache-exe build + 8564-file download+decompress) | **158 s** (2 m 38 s) |
+| Files fetched | 8564 / 8564 (100%, 0 failures) |
+| Mathlib build tree (`packages/mathlib/.lake/build`) | 6.3 GB |
+| Total `.lake/` footprint after cache | 7.3 GB |
+| Disk after cache | 19 GB used / 19 GB free (was 30 GB free at boot) |
+
+Azure throughput was bursty (spikes to ~2.9 MB/s, dips to ~40 KB/s) but the whole
+prebuilt-Mathlib corpus landed in well under 3 minutes — the previously-feared
+"dominant recurring cost" is a non-issue in this environment. No repo-scope
+friction at any point: git clones and Azure downloads both flow.
 
 ## 4. Corpus build (`lake build`)
 
@@ -174,7 +190,7 @@ _pending (Step 6)_
 | 0 | Skeleton report + branch | — | ✅ done |
 | 1 | Freshness + environment | ~1 min | ✅ done |
 | 2 | Toolchain (elan-less workaround) | ~46 s | ✅ done |
-| 3 | Cache get | — | pending |
+| 3 | Cache get | 158 s | ✅ done |
 | 4 | Build | — | pending |
 | 5 | Checker | — | pending |
 | 6 | Finalize | — | pending |
