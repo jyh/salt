@@ -2239,6 +2239,802 @@ lemma shifted_edge_disc_core_gen {K t₀K c_vk : ℝ} (hK : 1 ≤ K) (ht₀K : 3
         linarith [hterm1, hterm2]
     _ = (10 ^ 8 + 200 / c_vk) * (LT ^ ((3:ℝ)/4) * ℓT ^ (4:ℕ)) := by ring
 
+
+set_option maxHeartbeats 800000 in
+-- The strip generalization threads the same threshold/disc-core assembly as `shifted_edge_price`
+-- across `x ∈ [1−w, 1+w]`; the default budget is tight for the packaged case split.
+theorem shifted_edge_price_strip :
+    ∃ (c_vk CE T₀ : ℝ), 0 < c_vk ∧ 0 < CE ∧ 3 ≤ T₀ ∧
+      (∀ (T : ℝ), T₀ ≤ T → ∀ ρ : ℂ, riemannZeta ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
+          ρ.re ≤ 1 - c_vk / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+            * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ))) ∧
+      ∀ (T x γ : ℝ), T₀ ≤ T →
+          1 - (c_vk / 2) / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)) ≤ x →
+          x ≤ 1 + (c_vk / 2) / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)) →
+          |γ| ≤ 5 * T →
+        ‖logDeriv Zc ((x : ℂ) + (γ : ℂ) * Complex.I)‖
+          ≤ CE * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) := by
+  obtain ⟨c_vk, T₁, hc_vk0, hT₁, hmarg⟩ := rect_zero_free_margin
+  obtain ⟨K, t₀K, hK, ht₀K, hg⟩ := Salt.Vk.zeta_growth_pow
+  set H : ℝ := Real.exp (Real.exp (8 * Real.log (20000 * K) + 1100)) + t₀K + 3 with hHdef
+  have hH0 : 0 ≤ H := by
+    rw [hHdef]; have := Real.exp_pos (Real.exp (8 * Real.log (20000 * K) + 1100)); linarith [ht₀K]
+  obtain ⟨δ₀, C₀, hδ₀0, hcpt⟩ := logDeriv_Zc_compact_bound (M := H) (c := 2) hH0 (by norm_num)
+  set Cbig : ℝ := 9000 * c_vk + c_vk / (2 * δ₀) + 1 with hCbigdef
+  set CE : ℝ := (10 ^ 8 + 200 / c_vk) + (|C₀| + 1) with hCEdef
+  set T₀ : ℝ := max (max T₁ 3) (Real.exp (Real.exp Cbig)) with hT₀def
+  have hCE0 : 0 < CE := by rw [hCEdef]; positivity
+  refine ⟨c_vk, CE, T₀, hc_vk0, hCE0, le_trans (le_max_right _ _) (le_max_left _ _), ?_, ?_⟩
+  · -- the margin clause (used by RES/ASM)
+    intro T hT ρ hρ0 hρim
+    have hTT₁ : T₁ ≤ T + 1 / 5 := by
+      have := le_trans (le_trans (le_max_left T₁ 3) (le_max_left _ _)) hT; linarith
+    have h := (hmarg (T + 1 / 5) hTT₁).2 ρ hρ0
+    rw [show 5 * (T + 1 / 5) = 5 * T + 1 by ring] at h
+    exact h hρim
+  · -- the strip bound
+    intro T x γ hT hxlb hxub hγ5T
+    have hTT₁ : T₁ ≤ T + 1 / 5 := by
+      have := le_trans (le_trans (le_max_left T₁ 3) (le_max_left _ _)) hT; linarith
+    have hTexp : Real.exp (Real.exp Cbig) ≤ T := le_trans (le_max_right _ _) hT
+    have hTpos : 0 < T := lt_of_lt_of_le (Real.exp_pos _) hTexp
+    have h5T1exp : Real.exp (Real.exp Cbig) ≤ 5 * T + 1 := by linarith [hTexp, hTpos]
+    have ha5 : 0 < Real.log (5 * T + 1) :=
+      lt_of_lt_of_le (Real.exp_pos _) (by
+        rw [← Real.log_exp (Real.exp Cbig)]; exact Real.log_le_log (Real.exp_pos _) h5T1exp)
+    have hlog5T1 : Real.exp Cbig ≤ Real.log (5 * T + 1) := by
+      rw [← Real.log_exp (Real.exp Cbig)]; exact Real.log_le_log (Real.exp_pos _) h5T1exp
+    have hloglog : Cbig ≤ Real.log (Real.log (5 * T + 1)) := by
+      rw [← Real.log_exp Cbig]; exact Real.log_le_log (Real.exp_pos _) hlog5T1
+    -- the reused margin fact at 5T+1
+    have hmargT : ∀ ρ : ℂ, riemannZeta ρ = 0 → |ρ.im| ≤ 5 * T + 1 →
+        ρ.re ≤ 1 - c_vk / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+          * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)) := by
+      intro ρ hρ0 hρim
+      have h := (hmarg (T + 1 / 5) hTT₁).2 ρ hρ0
+      rw [show 5 * (T + 1 / 5) = 5 * T + 1 by ring] at h
+      exact h hρim
+    -- the hsc threshold for the disc
+    have hsc_thr : 9000 * c_vk ≤ Real.log (Real.log (5 * T + 1)) := by
+      have hnn : (0:ℝ) ≤ c_vk / (2 * δ₀) := by positivity
+      have hle : 9000 * c_vk ≤ Cbig := by rw [hCbigdef]; linarith [hnn]
+      linarith [hle, hloglog]
+    -- D₃(5T+1), D₄(5T+1) facts
+    set LT : ℝ := Real.log (5 * T + 1) with hLTdef
+    set ℓT : ℝ := Real.log LT with hℓTdef
+    have hℓTge : (1:ℝ) ≤ ℓT := by
+      have hnn : (0:ℝ) ≤ 9000 * c_vk + c_vk / (2 * δ₀) := by positivity
+      have hle : (1:ℝ) ≤ Cbig := by rw [hCbigdef]; linarith [hnn]
+      linarith [hle, hloglog]
+    have hℓTpos : 0 < ℓT := by linarith [hℓTge]
+    have hLTge : Real.exp 1 ≤ LT := by
+      have h1 : Real.exp 1 ≤ Real.exp ℓT := Real.exp_le_exp.mpr hℓTge
+      rwa [hℓTdef, Real.exp_log ha5] at h1
+    have hLT1 : (1:ℝ) ≤ LT := le_trans (by linarith [Real.add_one_le_exp (1:ℝ)]) hLTge
+    have hLTpos : 0 < LT := by linarith [hLT1]
+    set D3T : ℝ := LT ^ ((3 : ℝ) / 4) * ℓT ^ (3 : ℕ) with hD3Tdef
+    have hLT34ge : (1:ℝ) ≤ LT ^ ((3 : ℝ) / 4) := Real.one_le_rpow hLT1 (by norm_num)
+    have hℓT4ge : (1:ℝ) ≤ ℓT ^ (4 : ℕ) := one_le_pow₀ hℓTge
+    have hD3Tpos : 0 < D3T := by rw [hD3Tdef]; positivity
+    have hD4nn : (0:ℝ) ≤ LT ^ ((3 : ℝ) / 4) * ℓT ^ (4 : ℕ) :=
+      mul_nonneg (Real.rpow_nonneg hLTpos.le _) (pow_nonneg hℓTpos.le _)
+    have hD41 : (1:ℝ) ≤ LT ^ ((3 : ℝ) / 4) * ℓT ^ (4 : ℕ) := by nlinarith [hLT34ge, hℓT4ge]
+    -- the δ₀ condition: (c_vk/2)/D₃(5T+1) ≤ δ₀
+    have hδcond : (c_vk / 2) / D3T ≤ δ₀ := by
+      have hbase : c_vk / (2 * δ₀) ≤ ℓT := by
+        have hnn : (0:ℝ) ≤ 9000 * c_vk := by positivity
+        have hle : c_vk / (2 * δ₀) ≤ Cbig := by rw [hCbigdef]; linarith [hnn]
+        linarith [hle, hloglog]
+      have hcube3 : ℓT ≤ ℓT ^ (3 : ℕ) := by
+        have h2 : (1:ℝ) ≤ ℓT ^ (2:ℕ) := one_le_pow₀ hℓTge
+        nlinarith [mul_le_mul_of_nonneg_left h2 hℓTpos.le]
+      have hD3ge : c_vk / (2 * δ₀) ≤ D3T := by
+        rw [hD3Tdef]
+        calc c_vk / (2 * δ₀) ≤ ℓT ^ (3 : ℕ) := le_trans hbase hcube3
+          _ = 1 * ℓT ^ (3 : ℕ) := (one_mul _).symm
+          _ ≤ LT ^ ((3 : ℝ) / 4) * ℓT ^ (3 : ℕ) :=
+              mul_le_mul_of_nonneg_right hLT34ge (pow_nonneg hℓTpos.le _)
+      have hδpos : 0 < 2 * δ₀ := by linarith [hδ₀0]
+      rw [div_le_iff₀ hδpos] at hD3ge
+      rw [div_le_iff₀ hD3Tpos]
+      nlinarith [hD3ge, hδ₀0, hD3Tpos]
+    -- the strip's upper endpoint: (c_vk/2)/D₃(5T+1) ≤ 1, so 1+w ≤ 2
+    have hwle1 : (c_vk / 2) / D3T ≤ 1 := by
+      rw [div_le_one hD3Tpos]
+      have hchalf : c_vk / 2 ≤ ℓT := by linarith [hsc_thr, hc_vk0]
+      have hcube3 : ℓT ≤ ℓT ^ (3 : ℕ) := by
+        have h2 : (1:ℝ) ≤ ℓT ^ (2:ℕ) := one_le_pow₀ hℓTge
+        nlinarith [mul_le_mul_of_nonneg_left h2 hℓTpos.le]
+      have hD3ge : ℓT ^ (3 : ℕ) ≤ D3T := by
+        rw [hD3Tdef]
+        calc ℓT ^ (3 : ℕ) = 1 * ℓT ^ (3 : ℕ) := (one_mul _).symm
+          _ ≤ LT ^ ((3 : ℝ) / 4) * ℓT ^ (3 : ℕ) :=
+              mul_le_mul_of_nonneg_right hLT34ge (pow_nonneg hℓTpos.le _)
+      linarith [hchalf, hcube3, hD3ge]
+    -- case split on |γ| vs H
+    by_cases hcase : H ≤ |γ|
+    · -- high height: disc-core-gen (+ conjugation for γ < 0)
+      by_cases hsign : (0:ℝ) ≤ γ
+      · have hγH : H ≤ γ := by rwa [abs_of_nonneg hsign] at hcase
+        have hγT5 : γ ≤ 5 * T := by rwa [abs_of_nonneg hsign] at hγ5T
+        have hbound := shifted_edge_disc_core_gen (T := T) (x := x) hK ht₀K hg hc_vk0 hxlb hxub
+          (by rw [hHdef] at hγH; exact hγH) hγT5 hsc_thr hmargT
+        rw [← hLTdef, ← hℓTdef] at hbound
+        refine le_trans hbound ?_
+        exact mul_le_mul_of_nonneg_right (by rw [hCEdef]; linarith [abs_nonneg C₀]) hD4nn
+      · have hsignlt : γ < 0 := not_le.mp hsign
+        have hγH : H ≤ -γ := by rw [abs_of_neg hsignlt] at hcase; exact hcase
+        have hγT5 : -γ ≤ 5 * T := by rw [abs_of_neg hsignlt] at hγ5T; exact hγ5T
+        have hbound := shifted_edge_disc_core_gen (T := T) (x := x) hK ht₀K hg hc_vk0 hxlb hxub
+          (by rw [hHdef] at hγH; exact hγH) hγT5 hsc_thr hmargT
+        rw [← hLTdef, ← hℓTdef] at hbound
+        have hconj : (x : ℂ) + (γ : ℂ) * Complex.I
+            = (starRingEnd ℂ) ((x : ℂ) + ((-γ : ℝ) : ℂ) * Complex.I) := by
+          rw [map_add, map_mul, Complex.conj_ofReal, Complex.conj_ofReal, Complex.conj_I]
+          push_cast; ring
+        rw [hconj, logDeriv_Zc_norm_conj]
+        refine le_trans hbound ?_
+        exact mul_le_mul_of_nonneg_right (by rw [hCEdef]; linarith [abs_nonneg C₀]) hD4nn
+    · -- moderate height: the compact bound
+      rw [not_le] at hcase
+      set z : ℂ := (x : ℂ) + (γ : ℂ) * Complex.I with hzdef
+      have hzre : z.re = x := by rw [hzdef]; simp
+      have hzim : z.im = γ := by rw [hzdef]; simp
+      have hσ₀ge : 1 - δ₀ ≤ z.re := by rw [hzre]; linarith [hδcond, hxlb]
+      have hσ₀le : z.re ≤ 2 := by rw [hzre]; linarith [hwle1, hxub]
+      have himle : |z.im| ≤ H := by rw [hzim]; exact le_of_lt hcase
+      have hcptb := hcpt z hσ₀ge hσ₀le himle
+      refine le_trans hcptb ?_
+      calc C₀ ≤ |C₀| := le_abs_self _
+        _ ≤ CE := by
+          rw [hCEdef]
+          have h200 : (0:ℝ) ≤ 200 / c_vk := by positivity
+          linarith [h200]
+        _ = CE * 1 := (mul_one _).symm
+        _ ≤ CE * (LT ^ ((3 : ℝ) / 4) * ℓT ^ (4 : ℕ)) :=
+            mul_le_mul_of_nonneg_left hD41 hCE0.le
+
+set_option maxHeartbeats 12800000 in
+-- The full contour assembly (four sub-bounds + orientation glue) is heavy; the disc-core-grade
+-- 12.8M budget is warranted for the whole-theorem elaboration.
+theorem per_pair_contour :
+    ∃ (c_vk C₁ C₂ C₃ T₀ : ℝ), 0 < c_vk ∧ 0 < C₁ ∧ 0 < C₂ ∧ 0 < C₃ ∧ 3 ≤ T₀ ∧
+      ∀ (T P u : ℝ), T₀ ≤ T → 2 ≤ P → |u| ≤ 2 * T →
+        ‖(∑' n, ((vonMangoldt n : ℂ) * (n : ℂ) ^ ((u : ℂ) * I)) * (primeWindow P n : ℂ))
+              - windowKernel P 1 u‖
+          ≤ C₁ * P * Real.exp (-(c_vk / 2) * Real.log P
+                / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                    * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)))
+              * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                  * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ))
+            + C₂ * P * Real.log P / T
+            + C₃ * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                  * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) * P / T ^ 2 := by
+  obtain ⟨c_vk, CE, T₀s, hc_vk0, hCE0, hT₀s3, hmargin, hstrip⟩ := shifted_edge_price_strip
+  obtain ⟨C₀, hC₀0, hcline⟩ := sum_vonMangoldt_cline_bound
+  -- constants
+  have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  set Kc : ℝ := (2 * 9 * (3 : ℝ) ^ ((Real.log 2)⁻¹) + 4) * Real.exp 1 with hKcdef
+  have hKcpos : 0 < Kc := by rw [hKcdef]; positivity
+  set Cζ : ℝ := 2 / c_vk + CE + 1 with hCζdef
+  have hCζpos : 0 < Cζ := by rw [hCζdef]; positivity
+  set CL : ℝ := 44 * Real.pi * (2 / c_vk + CE) with hCLdef
+  have hCLpos : 0 < CL := by rw [hCLdef]; positivity
+  set CH : ℝ := Cζ * Kc * (1 / Real.log 2 + 1 / 2) / 9 with hCHdef
+  have hCHpos : 0 < CH := by rw [hCHdef]; positivity
+  set CT : ℝ := 2 / 3 * Kc * (1 + C₀ / Real.log 2) with hCTdef
+  have hCTpos : 0 < CT := by rw [hCTdef]; positivity
+  refine ⟨c_vk, CL / (2 * Real.pi), CT / (2 * Real.pi), 2 * CH / (2 * Real.pi),
+    max (max T₀s 3) (Real.exp (Real.exp (c_vk + 1))), hc_vk0,
+    div_pos hCLpos (by positivity), div_pos hCTpos (by positivity),
+    div_pos (by positivity) (by positivity), ?_, ?_⟩
+  · exact le_trans (le_max_right _ _) (le_max_left _ _)
+  intro T P u hT hP hu
+  -- unpack the T-threshold
+  have hTT₀s : T₀s ≤ T := le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) hT
+  have hTexp : Real.exp (Real.exp (c_vk + 1)) ≤ T := le_trans (le_max_right _ _) hT
+  have hT3 : (3 : ℝ) ≤ T := le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hT
+  have hT0 : (0 : ℝ) < T := by linarith
+  have hP0 : (0 : ℝ) < P := by linarith
+  have hlogP : 0 < Real.log P := Real.log_pos (by linarith)
+  -- abbreviations D3, D4, w, σ₀, c, T'
+  set LT : ℝ := Real.log (5 * T + 1) with hLTdef
+  set ℓT : ℝ := Real.log LT with hℓTdef
+  set D3 : ℝ := LT ^ ((3 : ℝ) / 4) * ℓT ^ (3 : ℕ) with hD3def
+  set D4 : ℝ := LT ^ ((3 : ℝ) / 4) * ℓT ^ (4 : ℕ) with hD4def
+  have h5T1 : (1 : ℝ) < 5 * T + 1 := by linarith
+  have hLTpos : 0 < LT := Real.log_pos h5T1
+  -- loglog bound from the threshold
+  have hTlogexp : Real.exp (c_vk + 1) ≤ Real.log T := by
+    rw [← Real.log_exp (Real.exp (c_vk + 1))]; exact Real.log_le_log (Real.exp_pos _) hTexp
+  have hLTge : Real.exp (c_vk + 1) ≤ LT := by
+    rw [hLTdef]; exact le_trans hTlogexp (Real.log_le_log hT0 (by linarith))
+  have hℓTge : c_vk + 1 ≤ ℓT := by
+    rw [hℓTdef, ← Real.log_exp (c_vk + 1)]; exact Real.log_le_log (Real.exp_pos _) hLTge
+  have hℓT1 : (1 : ℝ) ≤ ℓT := by linarith
+  have hℓTpos : 0 < ℓT := by linarith
+  have hD3pos : 0 < D3 := by rw [hD3def]; positivity
+  have hD4pos : 0 < D4 := by rw [hD4def]; positivity
+  set w : ℝ := (c_vk / 2) / D3 with hwdef
+  have hw0 : 0 < w := by rw [hwdef]; positivity
+  -- D3 ≥ c_vk (so w ≤ 1/2, σ₀ ≥ 1/2)
+  have hLT34ge : (1 : ℝ) ≤ LT ^ ((3 : ℝ) / 4) :=
+    Real.one_le_rpow (by linarith [hLTge, Real.exp_pos (c_vk+1), Real.add_one_le_exp (c_vk+1)])
+      (by norm_num)
+  have hℓT3ge : c_vk ≤ ℓT ^ (3 : ℕ) := by
+    have : c_vk + 1 ≤ ℓT ^ (3 : ℕ) := by
+      calc c_vk + 1 ≤ ℓT := hℓTge
+        _ = ℓT ^ 1 := (pow_one _).symm
+        _ ≤ ℓT ^ (3 : ℕ) := pow_le_pow_right₀ hℓT1 (by norm_num)
+    linarith
+  have hD3gecvk : c_vk ≤ D3 := by
+    rw [hD3def]
+    calc c_vk ≤ ℓT ^ (3 : ℕ) := hℓT3ge
+      _ = 1 * ℓT ^ (3 : ℕ) := (one_mul _).symm
+      _ ≤ LT ^ ((3 : ℝ) / 4) * ℓT ^ (3 : ℕ) := by
+          apply mul_le_mul_of_nonneg_right hLT34ge (by positivity)
+  have hwle : w ≤ 1 / 2 := by
+    rw [hwdef, div_le_div_iff₀ hD3pos (by norm_num)]; nlinarith [hD3gecvk, hc_vk0]
+  set σ₀ : ℝ := 1 - w with hσ₀def
+  have hσ₀_eq : σ₀ = 1 - (c_vk / 2) / D3 := by rw [hσ₀def, hwdef]
+  have hσ₀half : (1 : ℝ) / 2 ≤ σ₀ := by rw [hσ₀def]; linarith
+  have hσ₀0 : 0 < σ₀ := by linarith
+  have hσ₀1 : σ₀ < 1 := by rw [hσ₀def]; linarith
+  have hσ₀xlb : 1 - (c_vk / 2) / D3 ≤ σ₀ := le_of_eq hσ₀_eq.symm
+  have hσ₀xub : σ₀ ≤ 1 + (c_vk / 2) / D3 := by
+    rw [hσ₀_eq]
+    have hpos : (0 : ℝ) < (c_vk / 2) / D3 := by positivity
+    linarith
+  set c : ℝ := 1 + (Real.log P)⁻¹ with hcdef
+  have hc1 : 1 < c := by rw [hcdef]; have := inv_pos.mpr hlogP; linarith
+  have hcpos : 0 < c := by linarith
+  set Tp : ℝ := 3 * T with hTpdef
+  have hTp0 : 0 < Tp := by rw [hTpdef]; linarith
+  have huTp : |u| < Tp := by rw [hTpdef]; linarith [hu, abs_nonneg u]
+  -- the contour integrand F
+  set F : ℂ → ℂ := fun s => (- logDeriv riemannZeta (s - (u : ℂ) * I)) * windowMellin P s with hFdef
+  -- the rectangle corners
+  set zc : ℂ := (σ₀ : ℂ) + ((-Tp : ℝ) : ℂ) * I with hzc
+  set wc : ℂ := (c : ℂ) + (Tp : ℂ) * I with hwc
+  have hzc_re : zc.re = σ₀ := by rw [hzc]; simp
+  have hzc_im : zc.im = -Tp := by rw [hzc]; simp
+  have hwc_re : wc.re = c := by rw [hwc]; simp
+  have hwc_im : wc.im = Tp := by rw [hwc]; simp
+  -- ζ zero-freeness on the shifted rectangle
+  have hzf : ∀ s : ℂ, s ∈ closedRect zc wc → riemannZeta (s - (u : ℂ) * I) ≠ 0 := by
+    intro s hs
+    rw [closedRect, hzc_re, hzc_im, hwc_re, hwc_im, Complex.mem_reProdIm,
+      Set.uIcc_of_le (by linarith : σ₀ ≤ c),
+      Set.uIcc_of_le (by linarith : -Tp ≤ Tp)] at hs
+    obtain ⟨hsre, hsim⟩ := hs
+    simp only [Set.mem_Icc] at hsre hsim
+    have hshim : |(s - (u : ℂ) * I).im| ≤ 5 * T + 1 := by
+      have him : (s - (u : ℂ) * I).im = s.im - u := by simp
+      have hb := abs_le.mp hu
+      rw [hTpdef] at hsim
+      rw [him, abs_le]
+      constructor <;> nlinarith [hsim.1, hsim.2, hb.1, hb.2]
+    intro hz0
+    by_cases h1 : (1 : ℝ) ≤ (s - (u : ℂ) * I).re
+    · exact riemannZeta_ne_zero_of_one_le_re h1 hz0
+    · have hsre' : (s - (u : ℂ) * I).re = s.re := by simp
+      have hmr := hmargin T hTT₀s (s - (u : ℂ) * I) hz0 hshim
+      rw [hsre'] at hmr
+      have : s.re < 1 := by rw [hsre'] at h1; linarith [not_le.mp h1]
+      have hlt : (c_vk / 2) / D3 < c_vk / D3 := by
+        rw [div_lt_div_iff₀ hD3pos hD3pos]; nlinarith [hc_vk0, hD3pos]
+      rw [← hD3def] at hmr
+      have : σ₀ ≤ s.re := hsre.1
+      rw [hσ₀def, hwdef] at this
+      linarith [hmr, hlt]
+  -- pole residue term
+  have hpr0 := pole_residue_term (P := P) (σ₀ := σ₀) (c := c) (u := u) (T' := Tp)
+    hP0 hσ₀0 hσ₀1 hc1 huTp hzf
+  -- the four edges
+  set BOT : ℂ := ∫ x in σ₀..c, F ((x : ℂ) + ((-Tp : ℝ) : ℂ) * I) with hBOTdef
+  set TOP : ℂ := ∫ x in σ₀..c, F ((x : ℂ) + (Tp : ℂ) * I) with hTOPdef
+  set RIGHT : ℂ := ∫ v in (-Tp)..Tp, F ((c : ℂ) + (v : ℂ) * I) with hRIGHTdef
+  set LEFT : ℂ := ∫ v in (-Tp)..Tp, F ((σ₀ : ℂ) + (v : ℂ) * I) with hLEFTdef
+  set wK : ℂ := windowKernel P 1 u with hwKdef
+  have hwM : windowMellin P ((1 : ℂ) + (u : ℂ) * I) = wK := by
+    rw [hwKdef, windowKernel_eq_windowMellin]; norm_num
+  rw [hwM] at hpr0
+  -- unfold rectBI to the four edges
+  have hunf : rectBI zc wc F = BOT - TOP + I * RIGHT - I * LEFT := by
+    rw [rectBI, hzc_re, hzc_im, hwc_re, hwc_im, hBOTdef, hTOPdef, hRIGHTdef, hLEFTdef]
+  rw [hunf] at hpr0
+  -- hpr0 : BOT - TOP + I * RIGHT - I * LEFT = 2 * ↑π * I * wK
+  -- residue rearrangement
+  have hrearr : RIGHT - (2 * (Real.pi : ℂ)) * wK = LEFT - I * (TOP - BOT) := by
+    have key : I * (RIGHT - (2 * (Real.pi : ℂ)) * wK) = I * (LEFT - I * (TOP - BOT)) := by
+      have expand : I * (LEFT - I * (TOP - BOT)) = I * LEFT + (TOP - BOT) := by
+        have hII : I * (I * (TOP - BOT)) = -(TOP - BOT) := by
+          rw [← mul_assoc, Complex.I_mul_I]; ring
+        rw [mul_sub, hII]; ring
+      rw [expand]; linear_combination hpr0
+    exact mul_left_cancel₀ Complex.I_ne_zero key
+  -- the REP bridge
+  set a : ℕ → ℂ := fun n => (vonMangoldt n : ℂ) * (n : ℂ) ^ ((u : ℂ) * I) with hadef
+  have ha0 : a 0 = 0 := by rw [hadef]; simp
+  have hnorm_a : ∀ n : ℕ, ‖a n‖ = vonMangoldt n := by
+    intro n
+    rcases Nat.eq_zero_or_pos n with rfl | hn
+    · rw [ha0]; simp
+    · rw [hadef]
+      simp only [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg vonMangoldt_nonneg]
+      rw [← Complex.ofReal_natCast (n := n),
+        Complex.norm_cpow_eq_rpow_re_of_pos (by exact_mod_cast hn)]
+      simp
+  have hsum : Summable (fun n => ‖a n‖ / (n : ℝ) ^ c) := by
+    refine (summable_vonMangoldt_div_rpow hc1).congr (fun n => ?_)
+    rw [hnorm_a n]
+  -- Dirichlet ↔ ζ conversion (per t)
+  have hdir : ∀ v : ℝ, (∑' n, a n / (n : ℂ) ^ ((c : ℂ) + (v : ℂ) * I))
+      = - logDeriv riemannZeta ((c : ℂ) + (v : ℂ) * I - (u : ℂ) * I) := by
+    intro v
+    set wv : ℂ := (c : ℂ) + (v : ℂ) * I - (u : ℂ) * I with hwvdef
+    have hwvre : 1 < wv.re := by rw [hwvdef]; simp; linarith
+    have hterm : ∀ n : ℕ, a n / (n : ℂ) ^ ((c : ℂ) + (v : ℂ) * I)
+        = LSeries.term ↗vonMangoldt wv n := by
+      intro n
+      rw [LSeries.term_def₀ (by simp) wv n]
+      rcases Nat.eq_zero_or_pos n with rfl | hn
+      · rw [ha0]; simp
+      · have hne : (n : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr hn.ne'
+        rw [hadef]; simp only; rw [mul_div_assoc]; congr 1
+        rw [div_eq_mul_inv, ← Complex.cpow_neg, ← Complex.cpow_add _ _ hne]
+        congr 1; rw [hwvdef]; ring
+    have hLSeries : (∑' n, a n / (n : ℂ) ^ ((c : ℂ) + (v : ℂ) * I)) = LSeries ↗vonMangoldt wv :=
+      tsum_congr hterm
+    rw [hLSeries, LSeries_vonMangoldt_eq_deriv_riemannZeta_div hwvre, logDeriv_apply, neg_div]
+  -- F(c+vI) equals the Dirichlet integrand
+  have hFdir : ∀ v : ℝ, F ((c : ℂ) + (v : ℂ) * I)
+      = (∑' n, a n / (n : ℂ) ^ ((c : ℂ) + (v : ℂ) * I)) * windowKernel P c v := by
+    intro v
+    rw [hFdef, hdir v, windowKernel_eq_windowMellin]
+  -- the bridge
+  have hbridge : (∑' n, ((vonMangoldt n : ℂ) * (n : ℂ) ^ ((u : ℂ) * I)) * (primeWindow P n : ℂ))
+      = (1 / (2 * Real.pi)) • ∫ v : ℝ, F ((c : ℂ) + (v : ℂ) * I) := by
+    rw [show (∑' n, ((vonMangoldt n : ℂ) * (n : ℂ) ^ ((u : ℂ) * I)) * (primeWindow P n : ℂ))
+        = ∑' n, a n * (primeWindow P n : ℂ) from rfl,
+      primeWindow_contour_rep a ha0 hP hcpos hsum]
+    congr 1
+    refine integral_congr_ae (Filter.Eventually.of_forall (fun v => ?_))
+    exact (hFdir v).symm
+  -- truncation via rep_truncated
+  have htrunc := rep_truncated a ha0 hP hcpos hTp0 hsum
+  -- identify the two integrals in htrunc with ∫F and RIGHT
+  have hI1 : (∫ t : ℝ, (∑' n, a n / (n : ℂ) ^ ((c : ℂ) + (t : ℂ) * I)) * windowKernel P c t)
+      = ∫ v : ℝ, F ((c : ℂ) + (v : ℂ) * I) := by
+    refine integral_congr_ae (Filter.Eventually.of_forall (fun v => ?_)); exact (hFdir v).symm
+  have hI2 : (∫ t in Set.Icc (-Tp) Tp,
+        (∑' n, a n / (n : ℂ) ^ ((c : ℂ) + (t : ℂ) * I)) * windowKernel P c t) = RIGHT := by
+    rw [hRIGHTdef, intervalIntegral.integral_of_le (by linarith : (-Tp : ℝ) ≤ Tp),
+      ← integral_Icc_eq_integral_Ioc]
+    refine setIntegral_congr_fun measurableSet_Icc (fun v _ => ?_); exact (hFdir v).symm
+  rw [hI1, hI2] at htrunc
+  set TAILval : ℂ := (∫ v : ℝ, F ((c : ℂ) + (v : ℂ) * I)) - RIGHT with hTAILdef
+  have hInt_split : (∫ v : ℝ, F ((c : ℂ) + (v : ℂ) * I)) = RIGHT + TAILval := by
+    rw [hTAILdef]; ring
+  -- htrunc : ‖TAILval‖ ≤ tailbound  (after rewriting)
+  have hTAILnorm : ‖TAILval‖ ≤ (∑' n, ‖a n‖ / (n : ℝ) ^ c)
+      * (2 * (2 * P + P) ^ (c + 1) / P + 2 * (P / 2 + P / 2) ^ (c + 1) / (P / 2)) * (2 / Tp) := by
+    rw [hTAILdef]; exact htrunc
+  -- SUB-BOUNDS (to be proven)
+  have hLEFTb : ‖LEFT‖
+      ≤ CL * P * Real.exp (-(c_vk / 2) * Real.log P / D3) * D4 := by
+    have hPσ0nn : (0 : ℝ) ≤ (P : ℝ) ^ σ₀ := Real.rpow_nonneg hP0.le σ₀
+    have hPσ₀ : (P : ℝ) ^ σ₀ = P * Real.exp (-(c_vk / 2) * Real.log P / D3) := by
+      rw [Real.rpow_def_of_pos hP0, hσ₀_eq,
+        show Real.log P * (1 - (c_vk / 2) / D3)
+          = Real.log P + (-(c_vk / 2) * Real.log P / D3) by ring, Real.exp_add]
+      congr 1; exact Real.exp_log hP0
+    set Bσ : ℝ := 1 / w + CE * D4 with hBσdef
+    have hBσ0 : 0 ≤ Bσ := by rw [hBσdef]; positivity
+    -- kernel bound
+    have hkerL : ∀ v : ℝ, ‖windowMellin P ((σ₀ : ℂ) + (v : ℂ) * I)‖
+        ≤ 22 * (P : ℝ) ^ σ₀ * (σ₀ ^ 2 + v ^ 2)⁻¹ := by
+      intro v
+      rw [← windowKernel_eq_windowMellin]
+      refine le_trans (norm_windowKernel_le hP hσ₀0 v) ?_
+      refine mul_le_mul_of_nonneg_right ?_ (by positivity)
+      have h3Pσ : ((3 : ℝ) * P) ^ (σ₀ + 1) = (3 : ℝ) ^ (σ₀ + 1) * (P : ℝ) ^ (σ₀ + 1) :=
+        Real.mul_rpow (by norm_num) hP0.le
+      have hPσ1 : (P : ℝ) ^ (σ₀ + 1) = (P : ℝ) ^ σ₀ * P := by
+        rw [Real.rpow_add hP0, Real.rpow_one]
+      have e1 : 2 * (2 * P + P) ^ (σ₀ + 1) / P = 2 * (3 : ℝ) ^ (σ₀ + 1) * (P : ℝ) ^ σ₀ := by
+        rw [show 2 * P + P = 3 * P by ring, h3Pσ, hPσ1]; field_simp
+      have e2 : 2 * (P / 2 + P / 2) ^ (σ₀ + 1) / (P / 2) = 4 * (P : ℝ) ^ σ₀ := by
+        rw [show P / 2 + P / 2 = P by ring, hPσ1]; field_simp; ring
+      rw [e1, e2]
+      have h3 : (3 : ℝ) ^ (σ₀ + 1) ≤ 9 := by
+        rw [show (9 : ℝ) = (3 : ℝ) ^ (2 : ℝ) by
+          rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]; norm_num]
+        exact Real.rpow_le_rpow_of_exponent_le (by norm_num) (by linarith [hσ₀1])
+      nlinarith [h3, hPσ0nn]
+    -- ζ'/ζ bound on the left edge
+    have hzetaL : ∀ v : ℝ, v ∈ Set.Icc (-Tp) Tp →
+        ‖(- logDeriv riemannZeta (((σ₀ : ℂ) + (v : ℂ) * I) - (u : ℂ) * I))‖ ≤ Bσ := by
+      intro v hv
+      simp only [Set.mem_Icc] at hv
+      set s' : ℂ := ((σ₀ : ℂ) + (v : ℂ) * I) - (u : ℂ) * I with hs'def
+      have hs'eq : s' = (σ₀ : ℂ) + ((v - u : ℝ) : ℂ) * I := by rw [hs'def]; push_cast; ring
+      have hs're : s'.re = σ₀ := by rw [hs'eq]; simp
+      have hvu5T : |v - u| ≤ 5 * T := by
+        have hb := abs_le.mp hu; rw [hTpdef] at hv; rw [abs_le]; constructor <;> nlinarith [hv.1, hv.2, hb.1, hb.2]
+      have hmem : ((σ₀ : ℂ) + (v : ℂ) * I) ∈ closedRect zc wc := by
+        rw [closedRect, hzc_re, hzc_im, hwc_re, hwc_im, Complex.mem_reProdIm,
+          Set.uIcc_of_le (by linarith : σ₀ ≤ c), Set.uIcc_of_le (by linarith : -Tp ≤ Tp)]
+        refine ⟨?_, ?_⟩
+        · rw [Set.mem_Icc]; exact ⟨by simp, by simp; linarith [hσ₀1]⟩
+        · rw [Set.mem_Icc]; simp; exact ⟨hv.1, hv.2⟩
+      have hζs' : riemannZeta s' ≠ 0 := hzf _ hmem
+      have hs'ne1 : s' ≠ 1 := by
+        intro h; rw [h] at hs're; simp at hs're; linarith [hσ₀1]
+      have hsplit : (- logDeriv riemannZeta s') = 1 / (s' - 1) - logDeriv Zc s' := by
+        rw [logDeriv_zeta_eq hs'ne1 hζs']; ring
+      rw [hsplit]
+      refine le_trans (norm_sub_le _ _) ?_
+      have hpole : ‖(1 : ℂ) / (s' - 1)‖ ≤ 1 / w := by
+        rw [norm_div, norm_one]
+        have hge : w ≤ ‖s' - 1‖ := by
+          have h := Complex.abs_re_le_norm (s' - 1)
+          rw [Complex.sub_re, hs're, Complex.one_re,
+            show σ₀ - 1 = -w by rw [hσ₀def]; ring, abs_neg, abs_of_pos hw0] at h
+          exact h
+        exact one_div_le_one_div_of_le hw0 hge
+      have hZc : ‖logDeriv Zc s'‖ ≤ CE * D4 := by
+        rw [hs'eq]
+        have h := hstrip T σ₀ (v - u) hTT₀s hσ₀xlb hσ₀xub hvu5T
+        rw [← hLTdef, ← hℓTdef, ← hD4def] at h
+        exact h
+      rw [hBσdef]; linarith [hpole, hZc]
+    -- pointwise ‖F‖ bound and the integral
+    have hg_int : Integrable (fun v : ℝ => Bσ * (22 * (P : ℝ) ^ σ₀) * (σ₀ ^ 2 + v ^ 2)⁻¹) :=
+      (Salt.SW.integrable_inv_c_sq_add_sq hσ₀0).const_mul _
+    have hgnn : ∀ v : ℝ, (0 : ℝ) ≤ Bσ * (22 * (P : ℝ) ^ σ₀) * (σ₀ ^ 2 + v ^ 2)⁻¹ :=
+      fun v => by positivity
+    have hpt : ∀ v ∈ Set.Icc (-Tp) Tp,
+        ‖F ((σ₀ : ℂ) + (v : ℂ) * I)‖ ≤ Bσ * (22 * (P : ℝ) ^ σ₀) * (σ₀ ^ 2 + v ^ 2)⁻¹ := by
+      intro v hv
+      rw [hFdef]
+      simp only
+      rw [norm_mul]
+      calc ‖(- logDeriv riemannZeta (((σ₀ : ℂ) + (v : ℂ) * I) - (u : ℂ) * I))‖
+              * ‖windowMellin P ((σ₀ : ℂ) + (v : ℂ) * I)‖
+          ≤ Bσ * (22 * (P : ℝ) ^ σ₀ * (σ₀ ^ 2 + v ^ 2)⁻¹) :=
+            mul_le_mul (hzetaL v hv) (hkerL v) (norm_nonneg _) hBσ0
+        _ = Bσ * (22 * (P : ℝ) ^ σ₀) * (σ₀ ^ 2 + v ^ 2)⁻¹ := by ring
+    have hFleft_ii : IntervalIntegrable (fun v : ℝ => F ((σ₀ : ℂ) + (v : ℂ) * I)) volume (-Tp) Tp := by
+      have hζAON : AnalyticOnNhd ℂ riemannZeta (({(1 : ℂ)} : Set ℂ)ᶜ) := by
+        apply DifferentiableOn.analyticOnNhd _ isOpen_compl_singleton
+        intro z hz; exact (differentiableAt_riemannZeta (by simpa using hz)).differentiableWithinAt
+      apply ContinuousOn.intervalIntegrable
+      intro v hv
+      rw [Set.uIcc_of_le (by linarith : (-Tp : ℝ) ≤ Tp), Set.mem_Icc] at hv
+      have hs0mem : ((σ₀ : ℂ) + (v : ℂ) * I) ∈ closedRect zc wc := by
+        rw [closedRect, hzc_re, hzc_im, hwc_re, hwc_im, Complex.mem_reProdIm,
+          Set.uIcc_of_le (by linarith : σ₀ ≤ c), Set.uIcc_of_le (by linarith : (-Tp : ℝ) ≤ Tp)]
+        refine ⟨?_, ?_⟩
+        · rw [Set.mem_Icc]; exact ⟨by simp, by simp; linarith [hσ₀1]⟩
+        · rw [Set.mem_Icc]; simp; exact hv
+      have hs0re : ((σ₀ : ℂ) + (v : ℂ) * I).re = σ₀ := by simp
+      have hζ : riemannZeta (((σ₀ : ℂ) + (v : ℂ) * I) - (u : ℂ) * I) ≠ 0 := hzf _ hs0mem
+      have hne1 : ((σ₀ : ℂ) + (v : ℂ) * I) - (u : ℂ) * I ≠ 1 := by
+        intro h; have hre := congrArg Complex.re h
+        simp only [Complex.sub_re, Complex.one_re, Complex.mul_re, Complex.I_re, Complex.I_im,
+          Complex.ofReal_re, Complex.ofReal_im, Complex.add_re, mul_zero, mul_one, sub_zero,
+          add_zero] at hre
+        linarith [hσ₀1]
+      have hw_mem : (((σ₀ : ℂ) + (v : ℂ) * I) - (u : ℂ) * I) ∈ (({(1 : ℂ)} : Set ℂ)ᶜ) := by
+        simp only [Set.mem_compl_iff, Set.mem_singleton_iff]; exact hne1
+      have hlogDζ : AnalyticAt ℂ (logDeriv riemannZeta) (((σ₀ : ℂ) + (v : ℂ) * I) - (u : ℂ) * I) := by
+        rw [show logDeriv riemannZeta = fun z => deriv riemannZeta z / riemannZeta z from rfl]
+        exact (hζAON.deriv _ hw_mem).div (hζAON _ hw_mem) hζ
+      have hldζ : DifferentiableAt ℂ
+          (fun z => - logDeriv riemannZeta (z - (u : ℂ) * I)) ((σ₀ : ℂ) + (v : ℂ) * I) := by
+        have hg : DifferentiableAt ℂ (fun z : ℂ => z - (u : ℂ) * I) ((σ₀ : ℂ) + (v : ℂ) * I) := by
+          fun_prop
+        exact (DifferentiableAt.comp ((σ₀ : ℂ) + (v : ℂ) * I) (hlogDζ.differentiableAt) hg).neg
+      have hWM : DifferentiableAt ℂ (windowMellin P) ((σ₀ : ℂ) + (v : ℂ) * I) := by
+        apply windowMellin_differentiableAt hP0
+        · intro h; rw [h] at hs0re; simp at hs0re; linarith [hσ₀0]
+        · intro h; have hre : (((σ₀ : ℂ) + (v : ℂ) * I) + 1).re = 0 := by rw [h]; simp
+          rw [Complex.add_re, Complex.one_re, hs0re] at hre; linarith [hσ₀0]
+      have hFdiffC : DifferentiableAt ℂ F ((σ₀ : ℂ) + (v : ℂ) * I) := by
+        rw [hFdef]; exact hldζ.mul hWM
+      have hgdiff : DifferentiableAt ℝ (fun v : ℝ => (σ₀ : ℂ) + (v : ℂ) * I) v := by
+        apply DifferentiableAt.const_add
+        exact (Complex.ofRealCLM.differentiable.differentiableAt).mul_const I
+      exact (((hFdiffC.restrictScalars ℝ).comp v hgdiff).continuousAt).continuousWithinAt
+    calc ‖LEFT‖
+        = ‖∫ v in (-Tp)..Tp, F ((σ₀ : ℂ) + (v : ℂ) * I)‖ := by rw [hLEFTdef]
+      _ ≤ ∫ v in (-Tp)..Tp, ‖F ((σ₀ : ℂ) + (v : ℂ) * I)‖ :=
+          intervalIntegral.norm_integral_le_integral_norm (by linarith)
+      _ ≤ ∫ v in (-Tp)..Tp, Bσ * (22 * (P : ℝ) ^ σ₀) * (σ₀ ^ 2 + v ^ 2)⁻¹ :=
+          intervalIntegral.integral_mono_on (by linarith) hFleft_ii.norm
+            hg_int.intervalIntegrable hpt
+      _ ≤ ∫ v : ℝ, Bσ * (22 * (P : ℝ) ^ σ₀) * (σ₀ ^ 2 + v ^ 2)⁻¹ := by
+          rw [intervalIntegral.integral_of_le (by linarith : (-Tp : ℝ) ≤ Tp)]
+          exact setIntegral_le_integral hg_int (Filter.Eventually.of_forall hgnn)
+      _ = Bσ * (22 * (P : ℝ) ^ σ₀) * (Real.pi / σ₀) := by
+          rw [MeasureTheory.integral_const_mul, Salt.SW.integral_inv_sq_add hσ₀0]
+      _ ≤ CL * P * Real.exp (-(c_vk / 2) * Real.log P / D3) * D4 := by
+          have hD3leD4 : D3 ≤ D4 := by
+            rw [hD3def, hD4def]
+            apply mul_le_mul_of_nonneg_left _ (Real.rpow_nonneg hLTpos.le _)
+            exact pow_le_pow_right₀ hℓT1 (by norm_num)
+          have hBσle : Bσ ≤ (2 / c_vk + CE) * D4 := by
+            rw [hBσdef, add_mul]
+            have he : (1 : ℝ) / w = 2 * D3 / c_vk := by rw [hwdef, one_div_div]; ring
+            have h1 : (1 : ℝ) / w ≤ 2 / c_vk * D4 := by
+              rw [he, show (2 : ℝ) / c_vk * D4 = 2 * D4 / c_vk by ring,
+                div_le_div_iff₀ hc_vk0 hc_vk0]
+              nlinarith [hD3leD4, hc_vk0]
+            linarith [h1]
+          have hπσ₀ : Real.pi / σ₀ ≤ 2 * Real.pi := by
+            rw [div_le_iff₀ hσ₀0]; nlinarith [Real.pi_pos, hσ₀half]
+          have hexpnn : (0 : ℝ) ≤ Real.exp (-(c_vk / 2) * Real.log P / D3) := (Real.exp_pos _).le
+          rw [hPσ₀]
+          have hfac_nn : (0 : ℝ) ≤ 22 * (P * Real.exp (-(c_vk / 2) * Real.log P / D3)) := by
+            apply mul_nonneg (by norm_num); exact mul_nonneg hP0.le hexpnn
+          have hD4nn : (0 : ℝ) ≤ D4 := hD4pos.le
+          have hCEfac_nn : (0 : ℝ) ≤ (2 / c_vk + CE) * D4 :=
+            mul_nonneg (by positivity) hD4nn
+          calc Bσ * (22 * (P * Real.exp (-(c_vk / 2) * Real.log P / D3))) * (Real.pi / σ₀)
+              ≤ ((2 / c_vk + CE) * D4) * (22 * (P * Real.exp (-(c_vk / 2) * Real.log P / D3)))
+                  * (2 * Real.pi) := by
+                apply mul_le_mul (mul_le_mul_of_nonneg_right hBσle hfac_nn) hπσ₀
+                  (div_nonneg Real.pi_pos.le hσ₀0.le)
+                  (mul_nonneg hCEfac_nn hfac_nn)
+            _ = CL * P * Real.exp (-(c_vk / 2) * Real.log P / D3) * D4 := by rw [hCLdef]; ring
+  -- === HORIZONTAL sub-bound infrastructure ===
+  have hD41 : (1 : ℝ) ≤ D4 := by
+    rw [hD4def]; nlinarith [hLT34ge, one_le_pow₀ hℓT1 (n := 4), Real.rpow_nonneg hLTpos.le ((3:ℝ)/4)]
+  have hTle : (1 : ℝ) ≤ T := by linarith [hT3]
+  have hD3leD4' : D3 ≤ D4 := by
+    rw [hD3def, hD4def]
+    apply mul_le_mul_of_nonneg_left _ (Real.rpow_nonneg hLTpos.le _)
+    exact pow_le_pow_right₀ hℓT1 (by norm_num)
+  have h1w_inv : (1 : ℝ) / w ≤ 2 / c_vk * D4 := by
+    have he : (1 : ℝ) / w = 2 * D3 / c_vk := by rw [hwdef, one_div_div]; ring
+    rw [he, show (2 : ℝ) / c_vk * D4 = 2 * D4 / c_vk by ring, div_le_div_iff₀ hc_vk0 hc_vk0]
+    nlinarith [hD3leD4', hc_vk0]
+  -- ζ'/ζ bound on both horizontals
+  have hζhoriz : ∀ x τ : ℝ, σ₀ ≤ x → x ≤ c → |τ| = Tp →
+      ‖(- logDeriv riemannZeta (((x : ℂ) + (τ : ℂ) * I) - (u : ℂ) * I))‖ ≤ Cζ * D4 := by
+    intro x τ hxl hxu hτ
+    set s' : ℂ := ((x : ℂ) + (τ : ℂ) * I) - (u : ℂ) * I with hs'def
+    have hs'eq : s' = (x : ℂ) + ((τ - u : ℝ) : ℂ) * I := by rw [hs'def]; push_cast; ring
+    have hs're : s'.re = x := by rw [hs'eq]; simp
+    have hs'im : s'.im = τ - u := by rw [hs'eq]; simp
+    have hτuge : (T : ℝ) ≤ |τ - u| := by
+      have h1 : |τ| - |u| ≤ |τ - u| := abs_sub_abs_le_abs_sub τ u
+      rw [hτ, hTpdef] at h1
+      linarith [hu]
+    have hτule : |τ - u| ≤ 5 * T := by
+      have hb := abs_le.mp hu
+      rw [abs_le]; rw [abs_eq (by linarith [hTp0] : (0:ℝ) ≤ Tp)] at hτ
+      rcases hτ with h | h <;> rw [hTpdef] at h <;> constructor <;> nlinarith [hb.1, hb.2]
+    by_cases hx1w : x ≤ 1 + w
+    · have hmem : ((x : ℂ) + (τ : ℂ) * I) ∈ closedRect zc wc := by
+        rw [closedRect, hzc_re, hzc_im, hwc_re, hwc_im, Complex.mem_reProdIm,
+          Set.uIcc_of_le (by linarith : σ₀ ≤ c), Set.uIcc_of_le (by linarith : -Tp ≤ Tp)]
+        refine ⟨?_, ?_⟩
+        · rw [Set.mem_Icc]; exact ⟨by simp; linarith, by simp; linarith⟩
+        · rw [Set.mem_Icc]
+          rw [abs_eq (by linarith [hTp0] : (0:ℝ) ≤ Tp)] at hτ
+          rcases hτ with h | h <;> simp <;> constructor <;> linarith
+      have hζs' : riemannZeta s' ≠ 0 := hzf _ hmem
+      have hs'ne1 : s' ≠ 1 := by
+        intro h; have := congrArg Complex.im h; rw [hs'im] at this; simp at this
+        rw [this] at hτuge; simp at hτuge; linarith [hTle]
+      have hsplit : (- logDeriv riemannZeta s') = 1 / (s' - 1) - logDeriv Zc s' := by
+        rw [logDeriv_zeta_eq hs'ne1 hζs']; ring
+      rw [hsplit]
+      refine le_trans (norm_sub_le _ _) ?_
+      have hpole : ‖(1 : ℂ) / (s' - 1)‖ ≤ 1 / T := by
+        rw [norm_div, norm_one]
+        have hge : T ≤ ‖s' - 1‖ := by
+          have h := Complex.abs_im_le_norm (s' - 1)
+          rw [Complex.sub_im, hs'im, Complex.one_im, sub_zero] at h
+          linarith [h, hτuge, le_abs_self (τ - u), neg_abs_le (τ - u)]
+        exact one_div_le_one_div_of_le hT0 hge
+      have hZc : ‖logDeriv Zc s'‖ ≤ CE * D4 := by
+        rw [hs'eq]
+        have h := hstrip T x (τ - u) hTT₀s (le_trans hσ₀xlb hxl)
+          (by rw [← hwdef]; exact hx1w) hτule
+        rw [← hLTdef, ← hℓTdef, ← hD4def] at h
+        exact h
+      have hTinv : (1 : ℝ) / T ≤ D4 := le_trans (by rw [div_le_one hT0]; linarith [hTle]) hD41
+      have hchain : ‖(1 : ℂ) / (s' - 1)‖ ≤ D4 := le_trans hpole hTinv
+      have h2cD4 : (0 : ℝ) ≤ 2 / c_vk * D4 := mul_nonneg (by positivity) hD4pos.le
+      rw [hCζdef, show (2 / c_vk + CE + 1) * D4 = 2 / c_vk * D4 + CE * D4 + D4 by ring]
+      linarith [hchain, hZc, h2cD4]
+    · rw [not_le] at hx1w
+      have hx1 : (1 : ℝ) < x := by linarith [hw0]
+      rw [norm_neg]
+      have hcl := norm_logDeriv_zeta_cline_le hx1 (τ - u)
+      have hmatch : ((x : ℂ) + ((τ - u : ℝ) : ℂ) * I) = s' := hs'eq.symm
+      rw [hmatch] at hcl
+      -- Σ Λ/n^x ≤ Σ Λ/n^{1+w}
+      have h1w1 : (1 : ℝ) < 1 + w := by linarith [hw0]
+      have hmono : (∑' n, vonMangoldt n / (n : ℝ) ^ x)
+          ≤ ∑' n, vonMangoldt n / (n : ℝ) ^ (1 + w) := by
+        refine (summable_vonMangoldt_div_rpow hx1).tsum_le_tsum (fun n => ?_)
+          (summable_vonMangoldt_div_rpow h1w1)
+        rcases Nat.eq_zero_or_pos n with rfl | hn
+        · simp
+        · have hle : (n : ℝ) ^ (1 + w) ≤ (n : ℝ) ^ x :=
+            Real.rpow_le_rpow_of_exponent_le (by exact_mod_cast hn) (by linarith)
+          exact div_le_div_of_nonneg_left vonMangoldt_nonneg
+            (Real.rpow_pos_of_pos (by exact_mod_cast hn) _) hle
+      have hpole1w := sum_vonMangoldt_le_pole_add_Zc h1w1
+      have hZc1w : ‖logDeriv Zc ((1 + w : ℝ) : ℂ)‖ ≤ CE * D4 := by
+        have h := hstrip T (1 + w) 0 hTT₀s
+          (by rw [← hwdef]; linarith [hw0]) (by rw [← hwdef])
+          (by rw [abs_zero]; linarith [hT0])
+        rw [← hLTdef, ← hℓTdef, ← hD4def] at h
+        simpa using h
+      have hpole1w2 : (1 : ℝ) / ((1 + w) - 1) = 1 / w := by ring_nf
+      refine le_trans hcl ?_
+      calc (∑' n, vonMangoldt n / (n : ℝ) ^ x)
+          ≤ ∑' n, vonMangoldt n / (n : ℝ) ^ (1 + w) := hmono
+        _ ≤ 1 / ((1 + w) - 1) + ‖logDeriv Zc ((1 + w : ℝ) : ℂ)‖ := hpole1w
+        _ ≤ 1 / w + CE * D4 := by rw [hpole1w2]; linarith [hZc1w]
+        _ ≤ 2 / c_vk * D4 + CE * D4 := by linarith [h1w_inv]
+        _ ≤ Cζ * D4 := by rw [hCζdef]; nlinarith [hD41, hc_vk0, hCE0]
+  -- kernel bound on both horizontals
+  have hkerhoriz : ∀ x τ : ℝ, σ₀ ≤ x → x ≤ c → |τ| = Tp →
+      ‖windowMellin P ((x : ℂ) + (τ : ℂ) * I)‖ ≤ Kc * P / (9 * T ^ 2) := by
+    intro x τ hxl hxu hτ
+    rw [← windowKernel_eq_windowMellin]
+    have hx0 : 0 < x := by linarith [hσ₀0]
+    refine le_trans (norm_windowKernel_le hP hx0 τ) ?_
+    have hτ2 : τ ^ 2 = 9 * T ^ 2 := by
+      have : |τ| ^ 2 = τ ^ 2 := sq_abs τ
+      rw [← this, hτ, hTpdef]; ring
+    have hCkx : 2 * (2 * P + P) ^ (x + 1) / P + 2 * (P / 2 + P / 2) ^ (x + 1) / (P / 2) ≤ Kc * P := by
+      have h3Px : ((3 : ℝ) * P) ^ (x + 1) = (3 : ℝ) ^ (x + 1) * (P : ℝ) ^ (x + 1) :=
+        Real.mul_rpow (by norm_num) hP0.le
+      have hPx1 : (P : ℝ) ^ (x + 1) = (P : ℝ) ^ x * P := by rw [Real.rpow_add hP0, Real.rpow_one]
+      have e1 : 2 * (2 * P + P) ^ (x + 1) / P = 2 * (3 : ℝ) ^ (x + 1) * (P : ℝ) ^ x := by
+        rw [show 2 * P + P = 3 * P by ring, h3Px, hPx1]; field_simp
+      have e2 : 2 * (P / 2 + P / 2) ^ (x + 1) / (P / 2) = 4 * (P : ℝ) ^ x := by
+        rw [show P / 2 + P / 2 = P by ring, hPx1]; field_simp; ring
+      rw [e1, e2]
+      have hlog2P : Real.log 2 ≤ Real.log P := Real.log_le_log (by norm_num) hP
+      have hxc : x + 1 ≤ 2 + (Real.log 2)⁻¹ := by
+        have : (Real.log P)⁻¹ ≤ (Real.log 2)⁻¹ := inv_anti₀ hlog2 hlog2P
+        rw [hcdef] at hxu; linarith
+      have h3x : (3 : ℝ) ^ (x + 1) ≤ 9 * (3 : ℝ) ^ ((Real.log 2)⁻¹) := by
+        rw [show (9 : ℝ) * (3 : ℝ) ^ ((Real.log 2)⁻¹) = (3 : ℝ) ^ (2 + (Real.log 2)⁻¹) by
+          rw [Real.rpow_add (by norm_num),
+            show (3 : ℝ) ^ (2 : ℝ) = 9 by
+              rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]; norm_num]]
+        exact Real.rpow_le_rpow_of_exponent_le (by norm_num) hxc
+      have hPxc : (P : ℝ) ^ x ≤ Real.exp 1 * P := by
+        have hPc : (P : ℝ) ^ c = Real.exp 1 * P := by
+          rw [hcdef, Real.rpow_add hP0, Real.rpow_one, mul_comm]; congr 1
+          rw [Real.rpow_def_of_pos hP0, mul_inv_cancel₀ hlogP.ne']
+        calc (P : ℝ) ^ x ≤ (P : ℝ) ^ c := Real.rpow_le_rpow_of_exponent_le (by linarith [hP]) hxu
+          _ = Real.exp 1 * P := hPc
+      have hPxnn : (0 : ℝ) ≤ (P : ℝ) ^ x := Real.rpow_nonneg hP0.le x
+      rw [hKcdef]
+      nlinarith [h3x, hPxc, hPxnn, Real.rpow_nonneg (by norm_num : (0:ℝ) ≤ 3) ((Real.log 2)⁻¹),
+        mul_nonneg (Real.rpow_nonneg (by norm_num : (0:ℝ) ≤ 3) ((Real.log 2)⁻¹)) hP0.le]
+    have hinv : (x ^ 2 + τ ^ 2)⁻¹ ≤ (9 * T ^ 2)⁻¹ := by
+      rw [hτ2]; apply inv_anti₀ (by positivity); nlinarith [sq_nonneg x]
+    calc (2 * (2 * P + P) ^ (x + 1) / P + 2 * (P / 2 + P / 2) ^ (x + 1) / (P / 2))
+            * (x ^ 2 + τ ^ 2)⁻¹
+        ≤ (Kc * P) * (9 * T ^ 2)⁻¹ :=
+          mul_le_mul hCkx hinv (by positivity) (by positivity)
+      _ = Kc * P / (9 * T ^ 2) := by ring
+  -- pointwise F bound on the horizontals
+  have hFhoriz : ∀ τ : ℝ, |τ| = Tp → ∀ x ∈ Set.uIoc σ₀ c,
+      ‖F ((x : ℂ) + (τ : ℂ) * I)‖ ≤ Cζ * D4 * (Kc * P / (9 * T ^ 2)) := by
+    intro τ hτ x hx
+    rw [Set.uIoc_of_le (by linarith : σ₀ ≤ c), Set.mem_Ioc] at hx
+    rw [hFdef]; simp only; rw [norm_mul]
+    exact mul_le_mul (hζhoriz x τ (le_of_lt hx.1) hx.2 hτ) (hkerhoriz x τ (le_of_lt hx.1) hx.2 hτ)
+      (norm_nonneg _) (by positivity)
+  -- c − σ₀ width
+  have hcσ₀w : c - σ₀ ≤ 1 / Real.log 2 + 1 / 2 := by
+    have hlogPinv : (Real.log P)⁻¹ ≤ (Real.log 2)⁻¹ :=
+      inv_anti₀ hlog2 (Real.log_le_log (by norm_num) hP)
+    rw [hcdef, hσ₀def, one_div]; linarith [hlogPinv, hwle]
+  have hCbnd_nn : (0 : ℝ) ≤ Cζ * D4 * (Kc * P / (9 * T ^ 2)) := by positivity
+  have hTOPb : ‖TOP‖ ≤ CH * D4 * P / T ^ 2 := by
+    rw [hTOPdef]
+    have hτ : |Tp| = Tp := abs_of_pos hTp0
+    calc ‖∫ x in σ₀..c, F ((x : ℂ) + (Tp : ℂ) * I)‖
+        ≤ (Cζ * D4 * (Kc * P / (9 * T ^ 2))) * |c - σ₀| :=
+          intervalIntegral.norm_integral_le_of_norm_le_const (hFhoriz Tp hτ)
+      _ ≤ (Cζ * D4 * (Kc * P / (9 * T ^ 2))) * (1 / Real.log 2 + 1 / 2) := by
+          apply mul_le_mul_of_nonneg_left _ hCbnd_nn
+          rw [abs_of_nonneg (by linarith : (0:ℝ) ≤ c - σ₀)]; exact hcσ₀w
+      _ = CH * D4 * P / T ^ 2 := by rw [hCHdef]; field_simp
+  have hBOTb : ‖BOT‖ ≤ CH * D4 * P / T ^ 2 := by
+    rw [hBOTdef]
+    have hτ : |(-Tp : ℝ)| = Tp := by rw [abs_neg]; exact abs_of_pos hTp0
+    calc ‖∫ x in σ₀..c, F ((x : ℂ) + ((-Tp : ℝ) : ℂ) * I)‖
+        ≤ (Cζ * D4 * (Kc * P / (9 * T ^ 2))) * |c - σ₀| :=
+          intervalIntegral.norm_integral_le_of_norm_le_const (hFhoriz (-Tp) hτ)
+      _ ≤ (Cζ * D4 * (Kc * P / (9 * T ^ 2))) * (1 / Real.log 2 + 1 / 2) := by
+          apply mul_le_mul_of_nonneg_left _ hCbnd_nn
+          rw [abs_of_nonneg (by linarith : (0:ℝ) ≤ c - σ₀)]; exact hcσ₀w
+      _ = CH * D4 * P / T ^ 2 := by rw [hCHdef]; field_simp
+  have hTAILb : ‖TAILval‖ ≤ CT * P * Real.log P / T := by
+    have hsuma : (∑' n, ‖a n‖ / (n : ℝ) ^ c) ≤ Real.log P + C₀ := by
+      have hcong : (∑' n, ‖a n‖ / (n : ℝ) ^ c) = ∑' n, vonMangoldt n / (n : ℝ) ^ c :=
+        tsum_congr (fun n => by rw [hnorm_a n])
+      rw [hcong, hcdef]; exact hcline hP
+    have hsuma0 : (0 : ℝ) ≤ ∑' n, ‖a n‖ / (n : ℝ) ^ c := tsum_nonneg (fun n => by positivity)
+    have hCk : (2 * (2 * P + P) ^ (c + 1) / P + 2 * (P / 2 + P / 2) ^ (c + 1) / (P / 2)) ≤ Kc * P := by
+      rw [hcdef, hKcdef]; exact truncKernel_const_le hP
+    have hCk0 : (0 : ℝ) ≤ 2 * (2 * P + P) ^ (c + 1) / P + 2 * (P / 2 + P / 2) ^ (c + 1) / (P / 2) := by
+      have : (0 : ℝ) < P := hP0; positivity
+    have h2Tp : (2 : ℝ) / Tp = 2 / (3 * T) := by rw [hTpdef]
+    have hstep : (∑' n, ‖a n‖ / (n : ℝ) ^ c)
+          * (2 * (2 * P + P) ^ (c + 1) / P + 2 * (P / 2 + P / 2) ^ (c + 1) / (P / 2)) * (2 / Tp)
+        ≤ (Real.log P + C₀) * (Kc * P) * (2 / (3 * T)) := by
+      rw [h2Tp]
+      exact mul_le_mul_of_nonneg_right
+        (mul_le_mul hsuma hCk hCk0 (by linarith [hlogP, hC₀0])) (by positivity)
+    have hkeylog : Real.log P + C₀ ≤ (1 + C₀ / Real.log 2) * Real.log P := by
+      have hlog2P : Real.log 2 ≤ Real.log P := Real.log_le_log (by norm_num) hP
+      have hh : C₀ * Real.log 2 ≤ C₀ * Real.log P := by nlinarith [hC₀0, hlog2P]
+      rw [add_mul, one_mul, div_mul_eq_mul_div]
+      have : C₀ ≤ C₀ * Real.log P / Real.log 2 := by rw [le_div_iff₀ hlog2]; linarith [hh]
+      linarith
+    refine le_trans hTAILnorm (le_trans hstep ?_)
+    calc (Real.log P + C₀) * (Kc * P) * (2 / (3 * T))
+        ≤ ((1 + C₀ / Real.log 2) * Real.log P) * (Kc * P) * (2 / (3 * T)) := by
+          apply mul_le_mul_of_nonneg_right
+            (mul_le_mul_of_nonneg_right hkeylog (by positivity)) (by positivity)
+      _ = CT * P * Real.log P / T := by rw [hCTdef]; field_simp
+  -- assemble
+  rw [hbridge, hInt_split]
+  have hval : (1 / (2 * Real.pi)) • (RIGHT + TAILval) - wK
+      = (1 / (2 * Real.pi) : ℝ) • (LEFT - I * (TOP - BOT) + TAILval) := by
+    rw [Complex.real_smul, Complex.real_smul]
+    have hrw : wK = (↑(1 / (2 * Real.pi)) : ℂ) * ((2 * (Real.pi : ℂ)) * wK) := by
+      have hπ : (Real.pi : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr Real.pi_ne_zero
+      push_cast; field_simp
+    rw [hrw, ← mul_sub]
+    congr 1
+    rw [show (RIGHT + TAILval) - (2 * (Real.pi : ℂ)) * wK
+        = (RIGHT - (2 * (Real.pi : ℂ)) * wK) + TAILval by ring, hrearr]
+  rw [hval, norm_smul, Real.norm_eq_abs, abs_of_pos (by positivity : (0 : ℝ) < 1 / (2 * Real.pi))]
+  have htri : ‖LEFT - I * (TOP - BOT) + TAILval‖ ≤ ‖LEFT‖ + ‖TOP‖ + ‖BOT‖ + ‖TAILval‖ := by
+    calc ‖LEFT - I * (TOP - BOT) + TAILval‖
+        ≤ ‖LEFT - I * (TOP - BOT)‖ + ‖TAILval‖ := norm_add_le _ _
+      _ ≤ (‖LEFT‖ + ‖I * (TOP - BOT)‖) + ‖TAILval‖ := by linarith [norm_sub_le LEFT (I * (TOP - BOT))]
+      _ = ‖LEFT‖ + ‖TOP - BOT‖ + ‖TAILval‖ := by rw [norm_mul, Complex.norm_I, one_mul]
+      _ ≤ ‖LEFT‖ + ‖TOP‖ + ‖BOT‖ + ‖TAILval‖ := by linarith [norm_sub_le TOP BOT]
+  -- final arithmetic
+  have hN : ‖LEFT - I * (TOP - BOT) + TAILval‖
+      ≤ CL * P * Real.exp (-(c_vk / 2) * Real.log P / D3) * D4
+        + CT * P * Real.log P / T + 2 * CH * D4 * P / T ^ 2 := by
+    calc ‖LEFT - I * (TOP - BOT) + TAILval‖
+        ≤ ‖LEFT‖ + ‖TOP‖ + ‖BOT‖ + ‖TAILval‖ := htri
+      _ ≤ (CL * P * Real.exp (-(c_vk / 2) * Real.log P / D3) * D4)
+            + (CH * D4 * P / T ^ 2) + (CH * D4 * P / T ^ 2) + (CT * P * Real.log P / T) := by
+          linarith [hLEFTb, hTOPb, hBOTb, hTAILb]
+      _ = CL * P * Real.exp (-(c_vk / 2) * Real.log P / D3) * D4
+            + CT * P * Real.log P / T + 2 * CH * D4 * P / T ^ 2 := by ring
+  calc (1 / (2 * Real.pi)) * ‖LEFT - I * (TOP - BOT) + TAILval‖
+      ≤ (1 / (2 * Real.pi)) * (CL * P * Real.exp (-(c_vk / 2) * Real.log P / D3) * D4
+          + CT * P * Real.log P / T + 2 * CH * D4 * P / T ^ 2) :=
+        mul_le_mul_of_nonneg_left hN (by positivity)
+    _ = CL / (2 * Real.pi) * P * Real.exp (-(c_vk / 2) * Real.log P / D3) * D4
+          + CT / (2 * Real.pi) * P * Real.log P / T
+          + 2 * CH / (2 * Real.pi) * D4 * P / T ^ 2 := by ring
+
+
 end PerPairContour
 
 end Salt.MR
