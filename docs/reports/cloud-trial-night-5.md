@@ -171,7 +171,9 @@ friction at any point: git clones and Azure downloads both flow.
 
 ## 4. Corpus build (`lake build`)
 
-_pending (Step 4)_
+_Launched 22:59 UTC, backgrounded with logging. Total job graph **9351** (matches
+the local report's job count), salt modules compiling on top of the cached Mathlib
+oleans on 4 vCPU. Result: pending — polling._
 
 ## 5. Kernel re-verification (built-in `leanchecker`)
 
