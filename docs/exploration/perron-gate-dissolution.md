@@ -1,8 +1,10 @@
 # THE PERRON-GATE DISSOLUTION — the windowed route
 
-*Maestro design block, 2026-07-22 ~10:05. Status: DRAFT — refuter pass
-dispatched (mandatory; verdicts land here). Supersedes the "GHS Lemma
-2.5 port" framing of the H-wall if it survives. Inputs: HID-BETA's wall
+*Maestro design block, 2026-07-22 ~10:05. Status: **REFUTED — HOLD
+(4/4 CONFIRMED-FATAL, ~10:20). The dissolution is DEAD; the Lemma-2.5
+port is the route.** Verdict digest below; the block is preserved as
+the record of a wrong design correctly killed before dispatch — the
+verify-posture law applied to the maestro's own work. Inputs: HID-BETA's wall
 (the β-integral couples the convolution indices; main term extracts
 only via the series-level FTC), HID-GAMMA's landed sandwich algebra
 (`seam_realignment`, `seam_realignment_hat`) + landed defect object
@@ -145,3 +147,42 @@ Dirichlet series against the exact kernel): D-tier, JYH-consulted
 before dispatch, with H-5a's banked defect and H-4's single-series
 reduction still applying. The dissolution failing does not un-land
 anything; every stone above that survives refutation stays valuable.
+
+
+## ⟦REFUTED — the verdict digest (4/4 CONFIRMED-FATAL, 2026-07-22)⟧
+
+- **REP-REF**: the landed hat weight `hatK X h N` carries NO c — the
+  hat-smoothed coefficient sum is line-INDEPENDENT, so a line move can
+  never remove the N^{α+β} reweighting. Observation 1 mischaracterized
+  the landed object ("the weight is the reinterpretation" was the
+  error: it is a genuine reweighting of a line-blind sum). Salvage:
+  hat rep for finite support at any c > 0 (not "every real c": false
+  at c ≤ 0 by the s = 0 pole) — sound B-tier, does not rescue the
+  design.
+- **SWAP-REF**: the swap 𝓛→𝓛_w "at line c₀" is invalid where it
+  matters: the swapped leg's ARGUMENT is c₀−β < 1 for all
+  β > 1/log X, and the band (1/log X, 1/log y] is most of the
+  integration range (η = 1/log y ≥ 2/log X). The design conflated the
+  line with the argument each factor sees.
+- **WFTC-REF (the deepest)**: the collapse's single load-bearing
+  ingredient is `ellLin_lseries_deriv` (−𝓛′ = L(λ_lin)·𝓛), powered by
+  `lambdaLin_convolution` (log·ℓ = λ_lin ⍟ ℓ), which REQUIRES
+  multiplicativity — an Euler-product fact. Window indicators are not
+  multiplicatively closed; truncated Euler products have no
+  log-derivative identity (a theorem, not a missing hypothesis). The
+  design's false dichotomy: telescoping needs the FULL series;
+  shifted-line convergence needs the WINDOWED one; mutually exclusive.
+  The would-be defect is main-term-sized and a two-Λ quadruple
+  convolution MS-B cannot price.
+- **END-REF**: no collapse ⇒ no endpoints to reconcile. Bonus
+  verifications banked: the P21-2X factor-2 bookkeeping is SOUND (the
+  2 lands exactly once — the "likeliest silent error" was a red
+  herring); MS-EXIT's regime admits x := X+h.
+
+**Ruling**: HOLD honored. Nothing landed is touched (all stones cited
+are kernel-checked and remain load-bearing — the refuters repeatedly
+cited the landed module notes as the ground truth that killed the
+design). The single-series truncated-Perron port (Lemma 2.5 against
+the exact kernel) is PROMOTED to the main route: JYH-consulted before
+port dispatch per this block's own fallback clause; a read-only
+PERRON-SCOPE reconnaissance flies now to ground the consult.
