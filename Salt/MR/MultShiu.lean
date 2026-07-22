@@ -1818,4 +1818,647 @@ theorem ms_b_rough_factor (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ �
     linarith [hsmoothzero, hroughle, hrt, hsplit]
   linarith [hprime]
 
+/-! ### MS-B supply — the smooth Euler factor carries the single `log y` (freeze MS-B-ASM)
+
+The `m`-side factor `∑_{m≤N} ‖s m‖·m^{α-1}` (s the `y`-smooth carrier) is `O(log y)`,
+uniformly for `α ∈ [0, η]`, `η = 1/log y`, `y ≥ 8`.  This is where the ONLY `(log y)¹`
+of GHS (2.4) Term-2 lives (the rough factor being `O(1)` absolute, `ms_b_rough_factor`).
+Route (freeze): `euler_exp_bound_shifted` at `F = ‖s‖` (1-bounded multiplicative,
+`F 1 = 1`); the shifted prime sum truncates at `y` (`s` vanishes on `p > y`) and
+linearizes `p^{α-1} = p^{-1}·e^{α log p} ≤ p^{-1} + (e-1)·α·(log p)/p` via the convexity
+bound `e^t ≤ 1 + (e-1)t` on `t = α log p ∈ [0,1]` (`α log p ≤ α log y ≤ 1`); Mertens-2
+(`mertens_second_sharp`) closes `∑_{p≤y} 1/p ≤ loglog y + O(1)` and Mertens-1
+(`mertens_first_upper`) closes `∑_{p≤y}(log p)/p ≤ log y + O(1)`; the shifted `ν≥2` tail
+`∑_p p^{2(α-1)}` is absolute (`2(α-1) ≤ -(2-2/log 8) < -1`).  `exp(loglog y + O(1)) =
+O(log y)`. -/
+
+/-- **Convexity linearization of `exp` on `[0,1]`.**  For `0 ≤ t ≤ 1`,
+`exp t ≤ 1 + (exp 1 − 1)·t`.  The secant bound from `convexOn_exp` at the endpoints
+`0, 1` (`exp` convex ⟹ below-chord on `[0,1]`). -/
+theorem exp_le_one_add_expm1_mul {t : ℝ} (ht0 : 0 ≤ t) (ht1 : t ≤ 1) :
+    Real.exp t ≤ 1 + (Real.exp 1 - 1) * t := by
+  have h := convexOn_exp.2 (Set.mem_univ (0 : ℝ)) (Set.mem_univ (1 : ℝ))
+    (by linarith : (0 : ℝ) ≤ 1 - t) ht0 (by ring : (1 - t) + t = 1)
+  simp only [smul_eq_mul, mul_zero, mul_one, Real.exp_zero, zero_add] at h
+  nlinarith [h]
+
+/-- **Convergent `p`-series tail at exponent `> 1`.**  For `1 < β` and any `N`,
+`∑_{n≤N} n^{-β} ≤ 1 + 1/(β−1)`.  The sum/integral engine
+(`sum_range_rpow_neg_le_integral`) with `∫₁ᴺ t^{-β} = (N^{1-β}−1)/(1−β) ≤ 1/(β−1)`. -/
+theorem sum_Icc_rpow_neg_le {β : ℝ} (hβ : 1 < β) (N : ℕ) :
+    (∑ n ∈ Finset.Icc 1 N, (n : ℝ) ^ (-β)) ≤ 1 + 1 / (β - 1) := by
+  rcases Nat.eq_zero_or_pos N with h0 | h1
+  · subst h0
+    have hd : (0 : ℝ) < β - 1 := by linarith
+    have hpos : (0 : ℝ) < 1 / (β - 1) := div_pos one_pos hd
+    rw [Finset.Icc_eq_empty (by norm_num), Finset.sum_empty]; linarith
+  rw [sum_Icc_one_eq_sum_range (fun n => (n : ℝ) ^ (-β))]
+  refine (sum_range_rpow_neg_le_integral (by linarith : (0 : ℝ) ≤ β) h1).trans ?_
+  have hN1 : (1 : ℝ) ≤ (N : ℝ) := by exact_mod_cast h1
+  have hint : (∫ t in (1 : ℝ)..(N : ℝ), t ^ (-β)) = ((N : ℝ) ^ (1 - β) - 1) / (1 - β) := by
+    rw [integral_rpow (Or.inr ⟨by linarith, by
+        rw [Set.uIcc_of_le hN1]; intro h; rw [Set.mem_Icc] at h; linarith [h.1]⟩),
+      show (-β + 1 : ℝ) = 1 - β from by ring, Real.one_rpow]
+  rw [hint]
+  set A := (N : ℝ) ^ (1 - β) with hA
+  have hAnn : (0 : ℝ) ≤ A := Real.rpow_nonneg (by positivity) _
+  have hd : (0 : ℝ) < β - 1 := by linarith
+  have h1β : (1 : ℝ) - β ≠ 0 := by intro h; linarith
+  have hβ1 : (β : ℝ) - 1 ≠ 0 := by intro h; linarith
+  have hval : (A - 1) / (1 - β) = (1 - A) / (β - 1) := by field_simp; ring
+  rw [hval]
+  have hfin : (1 - A) / (β - 1) ≤ 1 / (β - 1) := by
+    rw [div_le_div_iff₀ hd hd]; nlinarith [hAnn, hd]
+  linarith [hfin]
+
+/-- **MS-B smooth factor (freeze MS-B-ASM).**  For the corpus smooth carrier
+`s = ellLin (restrictBelow y g)`, the shifted `m`-sum is `O(log y)` uniformly for
+`α ∈ [0, 1/log y]`, `y ≥ 8`:
+
+  `∑_{m≤N} ‖s m‖·m^{α-1} ≤ C·log y`  (`∃ C`, absolute).
+
+This is the sole `(log y)¹` of GHS (2.4) Term-2. -/
+theorem ms_b_smooth_factor (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) :
+    ∃ C : ℝ, ∀ (y : ℝ), 8 ≤ y → ∀ (N : ℕ) (α : ℝ), 0 ≤ α → α ≤ 1 / Real.log y →
+      (∑ m ∈ Finset.Icc 1 N, ‖ellLin (restrictBelow y g) m‖ * (m : ℝ) ^ (α - 1))
+        ≤ C * Real.log y := by
+  classical
+  obtain ⟨M, Cm, hCm0, hM⟩ := Salt.Mertens.mertens_second_sharp
+  -- log 8 > 2  (⟹ 1/log 8 ≤ 1/2 and 2 - 2/log 8 > 1)
+  have hexp2lt8 : Real.exp 2 < 8 := by
+    have h := Real.exp_one_lt_d9
+    have he : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
+    rw [he]; nlinarith [Real.exp_pos 1, h]
+  have hlog8 : (2 : ℝ) < Real.log 8 := by
+    have h2 : Real.log (Real.exp 2) < Real.log 8 := Real.log_lt_log (Real.exp_pos 2) hexp2lt8
+    rwa [Real.log_exp] at h2
+  have hlog8pos : (0 : ℝ) < Real.log 8 := by linarith
+  set β₀ : ℝ := 2 - 2 / Real.log 8 with hβ₀def
+  have hβ₀ : (1 : ℝ) < β₀ := by
+    rw [hβ₀def]
+    have h : 2 / Real.log 8 < 1 := by rw [div_lt_one hlog8pos]; linarith
+    linarith
+  have he1pos : (1 : ℝ) < Real.exp 1 := by
+    rw [← Real.exp_zero]; exact Real.exp_lt_exp.mpr (by norm_num)
+  have he10 : (0 : ℝ) ≤ Real.exp 1 - 1 := by linarith
+  have hlog44 : (0 : ℝ) ≤ Real.log 4 + 4 := by
+    have : (0 : ℝ) ≤ Real.log 4 := Real.log_nonneg (by norm_num); linarith
+  set C₁ : ℝ := M + Cm / Real.log 8 + (Real.exp 1 - 1)
+      + (Real.exp 1 - 1) * (Real.log 4 + 4) / Real.log 8
+      + 4 * (1 + 1 / (β₀ - 1)) with hC₁def
+  refine ⟨Real.exp C₁, fun y hy N α hα0 hαη => ?_⟩
+  have hy1 : (1 : ℝ) < y := by linarith
+  have hypos : (0 : ℝ) < y := by linarith
+  have hylog : 0 < Real.log y := Real.log_pos hy1
+  have hlogy8 : Real.log 8 ≤ Real.log y := Real.log_le_log (by norm_num) hy
+  have hαlog8 : α ≤ 1 / Real.log 8 := le_trans hαη (one_div_le_one_div_of_le hlog8pos hlogy8)
+  have hα12 : α ≤ 1 / 2 := by
+    have h2 : (1 : ℝ) / Real.log 8 ≤ 1 / 2 := by
+      rw [div_le_div_iff₀ hlog8pos (by norm_num)]; linarith
+    linarith [hαlog8, h2]
+  have hαlogy : α * Real.log y ≤ 1 := by
+    have h := mul_le_mul_of_nonneg_right hαη hylog.le
+    rwa [one_div, inv_mul_cancel₀ hylog.ne'] at h
+  -- carrier study for `F = ‖ellLin (restrictBelow y g)‖`
+  have hF0 : ∀ n, (0 : ℝ) ≤ ‖ellLin (restrictBelow y g) n‖ := fun n => norm_nonneg _
+  have hF1 : ∀ n, ‖ellLin (restrictBelow y g) n‖ ≤ 1 := fun n =>
+    ellLin_norm_le_one (restrictBelow y g) (restrictBelow_norm_le hg) n
+  have hFone : ‖ellLin (restrictBelow y g) 1‖ = 1 := by simp only [ellLin_one, norm_one]
+  have hFmul : ∀ u v : ℕ, Nat.Coprime u v →
+      ‖ellLin (restrictBelow y g) (u * v)‖
+        = ‖ellLin (restrictBelow y g) u‖ * ‖ellLin (restrictBelow y g) v‖ := by
+    intro u v huv
+    rcases eq_or_ne u 0 with rfl | hu
+    · rw [Nat.coprime_zero_left] at huv; subst huv; rw [mul_one, ellLin_one, norm_one, mul_one]
+    rcases eq_or_ne v 0 with rfl | hv
+    · rw [Nat.coprime_zero_right] at huv; subst huv; rw [mul_zero, ellLin_one, norm_one, one_mul]
+    · rw [ellLin_mul_coprime (restrictBelow y g) hu hv huv, norm_mul]
+  have hEuler := euler_exp_bound_shifted (F := fun n => ‖ellLin (restrictBelow y g) n‖)
+    hF0 hFmul hF1 hFone hα0 hα12 N
+  -- Part A: the shifted prime sum ≤ loglog y + O(1)
+  have hpartA : (∑ p ∈ (Finset.Icc 1 N).filter Nat.Prime,
+        ‖ellLin (restrictBelow y g) p‖ * (p : ℝ) ^ (α - 1))
+      ≤ Real.log (Real.log y) + M + Cm / Real.log 8 + (Real.exp 1 - 1)
+          + (Real.exp 1 - 1) * (Real.log 4 + 4) / Real.log 8 := by
+    set P : ℕ → Prop := fun p => (p : ℝ) ≤ y with hPdef
+    have hnotP_zero : (∑ p ∈ ((Finset.Icc 1 N).filter Nat.Prime).filter (fun p => ¬ P p),
+        ‖ellLin (restrictBelow y g) p‖ * (p : ℝ) ^ (α - 1)) = 0 := by
+      apply Finset.sum_eq_zero
+      intro p hp
+      simp only [Finset.mem_filter] at hp
+      have hpp : p.Prime := hp.1.2
+      have hnP : ¬ ((p : ℝ) ≤ y) := hp.2
+      have hz : ellLin (restrictBelow y g) p = 0 := by
+        rw [ellLin_apply_prime (restrictBelow y g) hpp]
+        unfold restrictBelow; rw [if_neg hnP]
+      rw [hz, norm_zero, zero_mul]
+    set S := ((Finset.Icc 1 N).filter Nat.Prime).filter P with hSdef
+    have h8y_nat : 8 ≤ ⌊y⌋₊ := Nat.le_floor (by exact_mod_cast hy)
+    have h8y : (8 : ℝ) ≤ (⌊y⌋₊ : ℝ) := by exact_mod_cast h8y_nat
+    have hlogfloor_pos : 0 < Real.log (⌊y⌋₊ : ℝ) := Real.log_pos (by linarith)
+    -- termwise linearization on the smooth primes
+    have hterm : ∀ p ∈ S, ‖ellLin (restrictBelow y g) p‖ * (p : ℝ) ^ (α - 1)
+        ≤ 1 / (p : ℝ) + (Real.exp 1 - 1) * α * (Real.log p / (p : ℝ)) := by
+      intro p hp
+      rw [hSdef, Finset.mem_filter, Finset.mem_filter] at hp
+      obtain ⟨⟨_, hpp⟩, hpP⟩ := hp
+      have hple : (p : ℝ) ≤ y := hpP
+      have hp0 : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hpp.pos
+      have hpne : (p : ℝ) ≠ 0 := hp0.ne'
+      have hp1 : (1 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hpp.one_lt.le
+      have hlogp0 : (0 : ℝ) ≤ Real.log p := Real.log_nonneg hp1
+      have ht0 : 0 ≤ α * Real.log p := mul_nonneg hα0 hlogp0
+      have hlogpy : Real.log p ≤ Real.log y := Real.log_le_log hp0 hple
+      have ht1 : α * Real.log p ≤ 1 :=
+        le_trans (mul_le_mul_of_nonneg_left hlogpy hα0) hαlogy
+      have hpα : (p : ℝ) ^ (α - 1) = Real.exp (α * Real.log p) * (p : ℝ)⁻¹ := by
+        rw [show (α - 1 : ℝ) = α + (-1) from by ring, Real.rpow_add hp0, Real.rpow_neg_one,
+          Real.rpow_def_of_pos hp0, mul_comm (Real.log p) α]
+      have hexpbd : Real.exp (α * Real.log p) ≤ 1 + (Real.exp 1 - 1) * (α * Real.log p) :=
+        exp_le_one_add_expm1_mul ht0 ht1
+      have hnorm1 : ‖ellLin (restrictBelow y g) p‖ ≤ 1 :=
+        ellLin_norm_le_one (restrictBelow y g) (restrictBelow_norm_le hg) p
+      calc ‖ellLin (restrictBelow y g) p‖ * (p : ℝ) ^ (α - 1)
+          ≤ 1 * (p : ℝ) ^ (α - 1) :=
+            mul_le_mul_of_nonneg_right hnorm1 (Real.rpow_nonneg hp0.le _)
+        _ = (p : ℝ) ^ (α - 1) := one_mul _
+        _ = Real.exp (α * Real.log p) * (p : ℝ)⁻¹ := hpα
+        _ ≤ (1 + (Real.exp 1 - 1) * (α * Real.log p)) * (p : ℝ)⁻¹ :=
+            mul_le_mul_of_nonneg_right hexpbd (by positivity)
+        _ = 1 / (p : ℝ) + (Real.exp 1 - 1) * α * (Real.log p / (p : ℝ)) := by
+            field_simp
+    -- ∑ 1/p ≤ loglog y + M + Cm/log 8
+    have hsum1 : (∑ p ∈ S, (1 : ℝ) / (p : ℝ)) ≤ Real.log (Real.log y) + M + Cm / Real.log 8 := by
+      have hle2 : (∑ p ∈ S, (1 : ℝ) / (p : ℝ))
+          ≤ ∑ p ∈ (Finset.range (⌊y⌋₊ + 1)).filter Nat.Prime, (1 : ℝ) / (p : ℝ) := by
+        apply Finset.sum_le_sum_of_subset_of_nonneg
+        · intro p hp
+          rw [hSdef] at hp
+          simp only [Finset.mem_filter, Finset.mem_range] at hp ⊢
+          obtain ⟨⟨_, hpp⟩, hPp⟩ := hp
+          have hple : p ≤ ⌊y⌋₊ := Nat.le_floor (show (p : ℝ) ≤ y from hPp)
+          exact ⟨by omega, hpp⟩
+        · intro p _ _; positivity
+      have h2y : 2 ≤ ⌊y⌋₊ := by omega
+      have hmert := (abs_le.mp (hM ⌊y⌋₊ h2y)).2
+      have hll : Real.log (Real.log (⌊y⌋₊ : ℝ)) ≤ Real.log (Real.log y) := by
+        apply Real.log_le_log hlogfloor_pos
+        exact Real.log_le_log (by linarith) (Nat.floor_le hypos.le)
+      have hcm : Cm / Real.log (⌊y⌋₊ : ℝ) ≤ Cm / Real.log 8 := by
+        have hinv : (Real.log (⌊y⌋₊ : ℝ))⁻¹ ≤ (Real.log 8)⁻¹ :=
+          inv_anti₀ hlog8pos (Real.log_le_log (by norm_num) h8y)
+        rw [div_eq_mul_inv, div_eq_mul_inv]
+        exact mul_le_mul_of_nonneg_left hinv hCm0
+      linarith [hle2, hmert, hll, hcm]
+    -- ∑ (log p)/p ≤ log y + (log 4 + 4)
+    have hsum2 : (∑ p ∈ S, Real.log p / (p : ℝ)) ≤ Real.log y + (Real.log 4 + 4) := by
+      have hle : (∑ p ∈ S, Real.log p / (p : ℝ))
+          ≤ ∑ p ∈ (Finset.range (⌊y⌋₊ + 1)).filter Nat.Prime, Real.log p / (p : ℝ) := by
+        apply Finset.sum_le_sum_of_subset_of_nonneg
+        · intro p hp
+          rw [hSdef] at hp
+          simp only [Finset.mem_filter, Finset.mem_range] at hp ⊢
+          obtain ⟨⟨_, hpp⟩, hPp⟩ := hp
+          have hple : p ≤ ⌊y⌋₊ := Nat.le_floor (show (p : ℝ) ≤ y from hPp)
+          exact ⟨by omega, hpp⟩
+        · intro p hp _
+          simp only [Finset.mem_filter, Finset.mem_range] at hp
+          exact div_nonneg (Real.log_nonneg (by exact_mod_cast hp.2.one_lt.le)) (by positivity)
+      have hmert1 : (∑ p ∈ (Finset.range (⌊y⌋₊ + 1)).filter Nat.Prime, Real.log p / (p : ℝ))
+          ≤ Real.log y + (Real.log 4 + 4) := by
+        have hfloor : 1 ≤ ⌊y⌋₊ := Nat.floor_pos.mpr (by linarith : (1 : ℝ) ≤ y)
+        have hbase := Salt.Maynard.sum_log_div_prime_le hfloor
+        have hfl_pos : (0 : ℝ) < (⌊y⌋₊ : ℝ) := by exact_mod_cast (by omega : 0 < ⌊y⌋₊)
+        have hlog : Real.log (⌊y⌋₊ : ℝ) ≤ Real.log y :=
+          Real.log_le_log hfl_pos (Nat.floor_le hypos.le)
+        linarith [hbase, hlog]
+      exact hle.trans hmert1
+    -- assemble Part A
+    have hsplit := Finset.sum_filter_add_sum_filter_not
+      ((Finset.Icc 1 N).filter Nat.Prime) P
+      (fun p => ‖ellLin (restrictBelow y g) p‖ * (p : ℝ) ^ (α - 1))
+    have hPsum : (∑ p ∈ S, ‖ellLin (restrictBelow y g) p‖ * (p : ℝ) ^ (α - 1))
+        ≤ Real.log (Real.log y) + M + Cm / Real.log 8 + (Real.exp 1 - 1)
+            + (Real.exp 1 - 1) * (Real.log 4 + 4) / Real.log 8 := by
+      refine (Finset.sum_le_sum hterm).trans ?_
+      rw [Finset.sum_add_distrib, ← Finset.mul_sum]
+      have hstep2 : (Real.exp 1 - 1) * α * (∑ p ∈ S, Real.log p / (p : ℝ))
+          ≤ (Real.exp 1 - 1) + (Real.exp 1 - 1) * (Real.log 4 + 4) / Real.log 8 := by
+        have hmul : (Real.exp 1 - 1) * α * (∑ p ∈ S, Real.log p / (p : ℝ))
+            ≤ (Real.exp 1 - 1) * α * (Real.log y + (Real.log 4 + 4)) :=
+          mul_le_mul_of_nonneg_left hsum2 (mul_nonneg he10 hα0)
+        have h1 : (Real.exp 1 - 1) * α * Real.log y ≤ (Real.exp 1 - 1) := by
+          calc (Real.exp 1 - 1) * α * Real.log y
+              = (Real.exp 1 - 1) * (α * Real.log y) := by ring
+            _ ≤ (Real.exp 1 - 1) * 1 := mul_le_mul_of_nonneg_left hαlogy he10
+            _ = Real.exp 1 - 1 := mul_one _
+        have h2 : (Real.exp 1 - 1) * α * (Real.log 4 + 4)
+            ≤ (Real.exp 1 - 1) * (Real.log 4 + 4) / Real.log 8 := by
+          have hc : (0 : ℝ) ≤ (Real.exp 1 - 1) * (Real.log 4 + 4) := mul_nonneg he10 hlog44
+          calc (Real.exp 1 - 1) * α * (Real.log 4 + 4)
+              = (Real.exp 1 - 1) * (Real.log 4 + 4) * α := by ring
+            _ ≤ (Real.exp 1 - 1) * (Real.log 4 + 4) * (1 / Real.log 8) :=
+                mul_le_mul_of_nonneg_left hαlog8 hc
+            _ = (Real.exp 1 - 1) * (Real.log 4 + 4) / Real.log 8 := by rw [mul_one_div]
+        have hexpand : (Real.exp 1 - 1) * α * (Real.log y + (Real.log 4 + 4))
+            = (Real.exp 1 - 1) * α * Real.log y + (Real.exp 1 - 1) * α * (Real.log 4 + 4) := by
+          ring
+        linarith [hmul, h1, h2, hexpand]
+      linarith [hsum1, hstep2]
+    linarith [hsplit, hnotP_zero, hPsum]
+  -- Part B: the shifted ν≥2 prime tail is absolute
+  have hpartB : (∑ p ∈ (Finset.Icc 1 N).filter Nat.Prime, (p : ℝ) ^ (2 * (α - 1)))
+      ≤ 1 + 1 / (β₀ - 1) := by
+    have h1 : (∑ p ∈ (Finset.Icc 1 N).filter Nat.Prime, (p : ℝ) ^ (2 * (α - 1)))
+        ≤ ∑ p ∈ (Finset.Icc 1 N).filter Nat.Prime, (p : ℝ) ^ (-β₀) := by
+      apply Finset.sum_le_sum
+      intro p hp
+      simp only [Finset.mem_filter] at hp
+      have hp1 : (1 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp.2.one_lt.le
+      apply Real.rpow_le_rpow_of_exponent_le hp1
+      rw [hβ₀def, show (2 : ℝ) / Real.log 8 = 2 * (1 / Real.log 8) from by rw [mul_one_div]]
+      linarith [hαlog8]
+    have h2 : (∑ p ∈ (Finset.Icc 1 N).filter Nat.Prime, (p : ℝ) ^ (-β₀))
+        ≤ ∑ n ∈ Finset.Icc 1 N, (n : ℝ) ^ (-β₀) :=
+      Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
+        (fun n _ _ => Real.rpow_nonneg (by positivity) _)
+    exact (h1.trans h2).trans (sum_Icc_rpow_neg_le hβ₀ N)
+  -- assemble
+  have hexp_bound : (∑ p ∈ (Finset.Icc 1 N).filter Nat.Prime,
+        ‖ellLin (restrictBelow y g) p‖ * (p : ℝ) ^ (α - 1))
+        + 4 * (∑ p ∈ (Finset.Icc 1 N).filter Nat.Prime, (p : ℝ) ^ (2 * (α - 1)))
+      ≤ Real.log (Real.log y) + C₁ := by
+    have hB4 : 4 * (∑ p ∈ (Finset.Icc 1 N).filter Nat.Prime, (p : ℝ) ^ (2 * (α - 1)))
+        ≤ 4 * (1 + 1 / (β₀ - 1)) := mul_le_mul_of_nonneg_left hpartB (by norm_num)
+    rw [hC₁def]; linarith [hpartA, hB4]
+  refine hEuler.trans ?_
+  refine (Real.exp_le_exp.mpr hexp_bound).trans ?_
+  rw [Real.exp_add, Real.exp_log hylog]
+  exact le_of_eq (mul_comm (Real.log y) (Real.exp C₁))
+
+/-! ### MS-B assembly — the triple-sum k-fiber bound (freeze MS-B-ASM)
+
+The heart of the (2.4) Term-2 reindex: fibering the `{(m,k,n) : mkn ≤ X}` sum by
+`(m,n)`, the inner `k`-sum is Chebyshev-`Λ` partial-summed to
+`3(log4+4)·(X/(mn))^{1-α}`, distributing as `X^{1-α}·m^{α-1}·n^{α-1}` (the `α`
+cancels against the rough weight `n^{-(2η+α)}` downstream). -/
+
+/-- **The inner `k`-sum bound.**  For `m, n ≥ 1` and `α ∈ [0, 1/2]`,
+`∑_{k : mkn ≤ X} Λ(k)/k^α ≤ 3(log4+4)·X^{1-α}·m^{α-1}·n^{α-1}`.  Route: subset into
+`Icc 1 (X/(mn))`, `lambda_partial_alpha`, and `K^{1-α} ≤ (X/(mn))^{1-α}` from
+`K·mn ≤ X`.  The `mn > X` (empty-fiber) corner is handled separately. -/
+theorem ms_b_ksum_bound {α : ℝ} (hα0 : 0 ≤ α) (hα12 : α ≤ 1 / 2) (X m n : ℕ)
+    (hm : 1 ≤ m) (hn : 1 ≤ n) :
+    (∑ k ∈ (Finset.Icc 1 X).filter (fun k => m * k * n ≤ X), (Λ k : ℝ) / (k : ℝ) ^ α)
+      ≤ 3 * (Real.log 4 + 4) * (X : ℝ) ^ (1 - α) * (m : ℝ) ^ (α - 1) * (n : ℝ) ^ (α - 1) := by
+  have hlog44 : (0 : ℝ) ≤ Real.log 4 + 4 := by
+    have := Real.log_nonneg (by norm_num : (1 : ℝ) ≤ 4); linarith
+  have hα1 : α < 1 := by linarith
+  have h1α : (0 : ℝ) ≤ 1 - α := by linarith
+  have hmpos : (0 : ℝ) < (m : ℝ) * (n : ℝ) := by exact_mod_cast Nat.mul_pos hm hn
+  have hmn0 : (0 : ℝ) ≤ (m : ℝ) * (n : ℝ) := hmpos.le
+  have hRHS0 : (0 : ℝ) ≤ 3 * (Real.log 4 + 4) * (X : ℝ) ^ (1 - α)
+      * (m : ℝ) ^ (α - 1) * (n : ℝ) ^ (α - 1) := by
+    have h3 : (0 : ℝ) ≤ 3 * (Real.log 4 + 4) := by nlinarith [hlog44]
+    have hX0 : (0 : ℝ) ≤ (X : ℝ) ^ (1 - α) := Real.rpow_nonneg (Nat.cast_nonneg X) _
+    have hm0 : (0 : ℝ) ≤ (m : ℝ) ^ (α - 1) := Real.rpow_nonneg (Nat.cast_nonneg m) _
+    have hn0 : (0 : ℝ) ≤ (n : ℝ) ^ (α - 1) := Real.rpow_nonneg (Nat.cast_nonneg n) _
+    exact mul_nonneg (mul_nonneg (mul_nonneg h3 hX0) hm0) hn0
+  by_cases hmnX : m * n ≤ X
+  · -- `m*n ≤ X`: the fiber is `Icc 1 (X/(mn))` with `K = X/(mn) ≥ 1`
+    set K := X / (m * n) with hKdef
+    have hmn_pos : 0 < m * n := Nat.mul_pos hm hn
+    have hK1 : 1 ≤ K := (Nat.one_le_div_iff hmn_pos).mpr hmnX
+    have hKR1 : (1 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK1
+    have hK0 : (0 : ℝ) ≤ (K : ℝ) := Nat.cast_nonneg K
+    have hsubset : (Finset.Icc 1 X).filter (fun k => m * k * n ≤ X) ⊆ Finset.Icc 1 K := by
+      intro k hk
+      rw [Finset.mem_filter, Finset.mem_Icc] at hk
+      obtain ⟨⟨hk1, _⟩, hmkn⟩ := hk
+      rw [Finset.mem_Icc]
+      refine ⟨hk1, ?_⟩
+      rw [hKdef, Nat.le_div_iff_mul_le hmn_pos]
+      calc k * (m * n) = m * k * n := by ring
+        _ ≤ X := hmkn
+    have hsum_le : (∑ k ∈ (Finset.Icc 1 X).filter (fun k => m * k * n ≤ X), (Λ k : ℝ) / (k : ℝ) ^ α)
+        ≤ ∑ k ∈ Finset.Icc 1 K, (Λ k : ℝ) / (k : ℝ) ^ α :=
+      Finset.sum_le_sum_of_subset_of_nonneg hsubset
+        (fun k _ _ => div_nonneg vonMangoldt_nonneg (Real.rpow_nonneg (Nat.cast_nonneg k) _))
+    have hpartial : (∑ k ∈ Finset.Icc 1 K, (Λ k : ℝ) / (k : ℝ) ^ α)
+        ≤ (Real.log 4 + 4) * (1 + (K : ℝ) ^ (1 - α) / (1 - α)) := by
+      rw [sum_Icc_one_eq_sum_range (fun k => (Λ k : ℝ) / (k : ℝ) ^ α)]
+      exact lambda_partial_alpha hα0 hα1 K
+    have hK1α : (1 : ℝ) ≤ (K : ℝ) ^ (1 - α) := by
+      calc (1 : ℝ) = (1 : ℝ) ^ (1 - α) := (Real.one_rpow _).symm
+        _ ≤ (K : ℝ) ^ (1 - α) := Real.rpow_le_rpow zero_le_one hKR1 h1α
+    have hinv2 : 1 / (1 - α) ≤ 2 := by
+      rw [div_le_iff₀ (by linarith : (0 : ℝ) < 1 - α)]; linarith
+    have hle3 : (Real.log 4 + 4) * (1 + (K : ℝ) ^ (1 - α) / (1 - α))
+        ≤ 3 * (Real.log 4 + 4) * (K : ℝ) ^ (1 - α) := by
+      have hbr : 1 + (K : ℝ) ^ (1 - α) / (1 - α) ≤ 3 * (K : ℝ) ^ (1 - α) := by
+        rw [show (K : ℝ) ^ (1 - α) / (1 - α) = (K : ℝ) ^ (1 - α) * (1 / (1 - α)) from by
+          rw [mul_one_div]]
+        nlinarith [hK1α, mul_le_mul_of_nonneg_left hinv2 (Real.rpow_nonneg hK0 (1 - α))]
+      calc (Real.log 4 + 4) * (1 + (K : ℝ) ^ (1 - α) / (1 - α))
+          ≤ (Real.log 4 + 4) * (3 * (K : ℝ) ^ (1 - α)) := mul_le_mul_of_nonneg_left hbr hlog44
+        _ = 3 * (Real.log 4 + 4) * (K : ℝ) ^ (1 - α) := by ring
+    have hKmn : (K : ℝ) * ((m : ℝ) * (n : ℝ)) ≤ (X : ℝ) := by
+      have hle : K * (m * n) ≤ X := Nat.div_mul_le_self X (m * n)
+      calc (K : ℝ) * ((m : ℝ) * (n : ℝ)) = ((K * (m * n) : ℕ) : ℝ) := by push_cast; ring
+        _ ≤ (X : ℝ) := by exact_mod_cast hle
+    have hmnrpow_pos : (0 : ℝ) < ((m : ℝ) * (n : ℝ)) ^ (1 - α) := Real.rpow_pos_of_pos hmpos _
+    have hKle : (K : ℝ) ^ (1 - α)
+        ≤ (X : ℝ) ^ (1 - α) * (m : ℝ) ^ (α - 1) * (n : ℝ) ^ (α - 1) := by
+      have hmn_eq : (m : ℝ) ^ (α - 1) * (n : ℝ) ^ (α - 1) = ((m : ℝ) * (n : ℝ)) ^ (α - 1) :=
+        (Real.mul_rpow (Nat.cast_nonneg m) (Nat.cast_nonneg n)).symm
+      rw [mul_assoc, hmn_eq, show (α - 1 : ℝ) = -(1 - α) from by ring, Real.rpow_neg hmn0,
+        ← div_eq_mul_inv, le_div_iff₀ hmnrpow_pos, ← Real.mul_rpow hK0 hmn0]
+      exact Real.rpow_le_rpow (by positivity) hKmn h1α
+    calc (∑ k ∈ (Finset.Icc 1 X).filter (fun k => m * k * n ≤ X), (Λ k : ℝ) / (k : ℝ) ^ α)
+        ≤ ∑ k ∈ Finset.Icc 1 K, (Λ k : ℝ) / (k : ℝ) ^ α := hsum_le
+      _ ≤ (Real.log 4 + 4) * (1 + (K : ℝ) ^ (1 - α) / (1 - α)) := hpartial
+      _ ≤ 3 * (Real.log 4 + 4) * (K : ℝ) ^ (1 - α) := hle3
+      _ ≤ 3 * (Real.log 4 + 4) * ((X : ℝ) ^ (1 - α) * (m : ℝ) ^ (α - 1) * (n : ℝ) ^ (α - 1)) :=
+          mul_le_mul_of_nonneg_left hKle (by nlinarith [hlog44])
+      _ = 3 * (Real.log 4 + 4) * (X : ℝ) ^ (1 - α) * (m : ℝ) ^ (α - 1) * (n : ℝ) ^ (α - 1) := by
+          ring
+  · -- `m*n > X`: the fiber is empty
+    have hempty : (Finset.Icc 1 X).filter (fun k => m * k * n ≤ X) = ∅ := by
+      rw [Finset.filter_eq_empty_iff]
+      intro k hk
+      rw [Finset.mem_Icc] at hk
+      have h1 : m * n ≤ m * k * n := by
+        calc m * n = m * 1 * n := by ring
+          _ ≤ m * k * n := by gcongr; exact hk.1
+      omega
+    rw [hempty, Finset.sum_empty]
+    exact hRHS0
+
+/-- **MS-B (FROZEN, freeze §FROZEN TARGETS).**  Term 2 of GHS (2.4): for the corpus
+carriers `s = ellLin (restrictBelow y g)`, `ℓ = ellLin (restrictAbove y g)`,
+`Λ_ℓ = lambdaLin (restrictAbove y g)`, and `η = 1/log y`,
+
+  `∫₀^η ∑_{mkn ≤ x} ‖s m‖·(‖Λ_ℓ k‖/k^α)·‖ℓ n‖/n^{2η+α} dα ≤ C_B·(x/log x)·log y`
+
+uniformly on `8 ≤ y ≤ x` (`∃ C_B`).  Route (freeze MS-B-ASM): fiber the triple sum
+by `(m,n)`; the inner `k`-sum is `ms_b_ksum_bound` (`3(log4+4)·X^{1-α}·m^{α-1}·n^{α-1}`);
+the `α` cancels on the rough side (`n^{α-1}/n^{2η+α} = n^{-1-2η}`); the `(m,n)`-grid
+decouples into `ms_b_smooth_factor` (`≤ C_s·log y`) times `ms_b_rough_factor`
+(`≤ C_r`, absolute — the `(log y)²` trap dissolved); finally
+`∫₀^η x^{1-α} dα ≤ x/log x` (`ms_b_integral_bound`). -/
+theorem mult_shiu_MS_B (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) :
+    ∃ C_B : ℝ, ∀ (x y : ℝ), 8 ≤ y → y ≤ x →
+      (∫ α in (0 : ℝ)..(1 / Real.log y),
+          ∑ q ∈ (Finset.Icc 1 ⌊x⌋₊ ×ˢ Finset.Icc 1 ⌊x⌋₊ ×ˢ Finset.Icc 1 ⌊x⌋₊).filter
+              (fun q => q.1 * q.2.1 * q.2.2 ≤ ⌊x⌋₊),
+            ‖ellLin (restrictBelow y g) q.1‖
+              * (‖lambdaLin (restrictAbove y g) q.2.1‖ / (q.2.1 : ℝ) ^ α)
+              * ‖ellLin (restrictAbove y g) q.2.2‖ / (q.2.2 : ℝ) ^ (2 * (1 / Real.log y) + α))
+        ≤ C_B * (x / Real.log x) * Real.log y := by
+  classical
+  obtain ⟨C_s, hC_s⟩ := ms_b_smooth_factor g hg
+  refine ⟨3 * (Real.log 4 + 4) * C_s * Real.exp (2 * (Real.log 4 + 4) + 4),
+      fun x y hy hyx => ?_⟩
+  set C_r : ℝ := Real.exp (2 * (Real.log 4 + 4) + 4) with hCrdef
+  have hCr0 : (0 : ℝ) ≤ C_r := (Real.exp_pos _).le
+  have hlog44 : (0 : ℝ) ≤ Real.log 4 + 4 := by
+    have := Real.log_nonneg (by norm_num : (1 : ℝ) ≤ 4); linarith
+  -- y / x facts
+  have hy1 : (1 : ℝ) < y := by linarith
+  have hypos : (0 : ℝ) < y := by linarith
+  have hylog : 0 < Real.log y := Real.log_pos hy1
+  have hx2 : (2 : ℝ) ≤ x := by linarith
+  have hxpos : (0 : ℝ) < x := by linarith
+  have hlogx : 0 < Real.log x := Real.log_pos (by linarith)
+  have hlog8pos : (0 : ℝ) < Real.log 8 := Real.log_pos (by norm_num)
+  have hlog8ge2 : (2 : ℝ) < Real.log 8 := by
+    have hexp2lt8 : Real.exp 2 < 8 := by
+      have h := Real.exp_one_lt_d9
+      have he : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
+      rw [he]; nlinarith [Real.exp_pos 1, h]
+    have h2 : Real.log (Real.exp 2) < Real.log 8 := Real.log_lt_log (Real.exp_pos 2) hexp2lt8
+    rwa [Real.log_exp] at h2
+  have hlogy8 : Real.log 8 ≤ Real.log y := Real.log_le_log (by norm_num) hy
+  set X : ℕ := ⌊x⌋₊ with hXdef
+  set η : ℝ := 1 / Real.log y with hηdef
+  have hη0 : (0 : ℝ) ≤ η := by rw [hηdef]; positivity
+  have hη12 : η ≤ 1 / 2 := by
+    have h1 : η ≤ 1 / Real.log 8 := by
+      rw [hηdef]; exact one_div_le_one_div_of_le hlog8pos hlogy8
+    have h2 : (1 : ℝ) / Real.log 8 ≤ 1 / 2 := by
+      rw [div_le_div_iff₀ hlog8pos (by norm_num)]; linarith
+    linarith
+  have hXlex : (X : ℝ) ≤ x := by rw [hXdef]; exact Nat.floor_le hxpos.le
+  -- C_s · log y ≥ 0 (via the empty smooth sum)
+  have hcoeff_part : (0 : ℝ) ≤ C_s * Real.log y := by
+    have h := hC_s y hy 0 0 le_rfl (div_nonneg zero_le_one hylog.le)
+    simpa using h
+  have hcoeff0 : (0 : ℝ) ≤ 3 * (Real.log 4 + 4) * (C_s * Real.log y) * C_r :=
+    mul_nonneg (mul_nonneg (by nlinarith [hlog44]) hcoeff_part) hCr0
+  -- ENGINE: pointwise integrand bound
+  have hpoint : ∀ α ∈ Set.Icc (0 : ℝ) η,
+      (∑ q ∈ (Finset.Icc 1 X ×ˢ Finset.Icc 1 X ×ˢ Finset.Icc 1 X).filter
+          (fun q => q.1 * q.2.1 * q.2.2 ≤ X),
+        ‖ellLin (restrictBelow y g) q.1‖
+          * (‖lambdaLin (restrictAbove y g) q.2.1‖ / (q.2.1 : ℝ) ^ α)
+          * ‖ellLin (restrictAbove y g) q.2.2‖ / (q.2.2 : ℝ) ^ (2 * η + α))
+        ≤ 3 * (Real.log 4 + 4) * (C_s * Real.log y) * C_r * x ^ (1 - α) := by
+    intro α hαmem
+    rw [Set.mem_Icc] at hαmem
+    obtain ⟨hα0, hαη⟩ := hαmem
+    have hα12 : α ≤ 1 / 2 := le_trans hαη hη12
+    have hαlogy : α ≤ 1 / Real.log y := hηdef ▸ hαη
+    have h1α : (0 : ℝ) ≤ 1 - α := by linarith
+    -- reindex the triple sum
+    have hΦeq : (∑ q ∈ (Finset.Icc 1 X ×ˢ Finset.Icc 1 X ×ˢ Finset.Icc 1 X).filter
+            (fun q => q.1 * q.2.1 * q.2.2 ≤ X),
+          ‖ellLin (restrictBelow y g) q.1‖
+            * (‖lambdaLin (restrictAbove y g) q.2.1‖ / (q.2.1 : ℝ) ^ α)
+            * ‖ellLin (restrictAbove y g) q.2.2‖ / (q.2.2 : ℝ) ^ (2 * η + α))
+        = ∑ m ∈ Finset.Icc 1 X, ∑ n ∈ Finset.Icc 1 X, ∑ k ∈ Finset.Icc 1 X,
+            (if m * k * n ≤ X then
+              ‖ellLin (restrictBelow y g) m‖
+                * (‖lambdaLin (restrictAbove y g) k‖ / (k : ℝ) ^ α)
+                * ‖ellLin (restrictAbove y g) n‖ / (n : ℝ) ^ (2 * η + α) else 0) := by
+      rw [Finset.sum_filter, Finset.sum_product]
+      refine Finset.sum_congr rfl fun m _ => ?_
+      rw [Finset.sum_product, Finset.sum_comm]
+    rw [hΦeq]
+    refine le_trans (b := ∑ m ∈ Finset.Icc 1 X, ∑ n ∈ Finset.Icc 1 X,
+        3 * (Real.log 4 + 4) * (X : ℝ) ^ (1 - α)
+          * (‖ellLin (restrictBelow y g) m‖ * (m : ℝ) ^ (α - 1))
+          * (‖ellLin (restrictAbove y g) n‖ * (n : ℝ) ^ (-1 - 2 * η)))
+      (Finset.sum_le_sum fun m hm => Finset.sum_le_sum fun n hn => ?_) ?_
+    · -- inner (m,n) bound
+      have hm1 : 1 ≤ m := (Finset.mem_Icc.mp hm).1
+      have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1
+      have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast (by omega : 0 < n)
+      have hCmn0 : (0 : ℝ) ≤ ‖ellLin (restrictBelow y g) m‖
+          * ‖ellLin (restrictAbove y g) n‖ / (n : ℝ) ^ (2 * η + α) := by positivity
+      have hkey : (∑ k ∈ Finset.Icc 1 X,
+            (if m * k * n ≤ X then
+              ‖ellLin (restrictBelow y g) m‖
+                * (‖lambdaLin (restrictAbove y g) k‖ / (k : ℝ) ^ α)
+                * ‖ellLin (restrictAbove y g) n‖ / (n : ℝ) ^ (2 * η + α) else 0))
+          = (‖ellLin (restrictBelow y g) m‖ * ‖ellLin (restrictAbove y g) n‖
+              / (n : ℝ) ^ (2 * η + α))
+            * ∑ k ∈ (Finset.Icc 1 X).filter (fun k => m * k * n ≤ X),
+                (‖lambdaLin (restrictAbove y g) k‖ / (k : ℝ) ^ α) := by
+        rw [Finset.mul_sum, Finset.sum_filter]
+        refine Finset.sum_congr rfl fun k _ => ?_
+        by_cases hc : m * k * n ≤ X
+        · rw [if_pos hc, if_pos hc]; ring
+        · rw [if_neg hc, if_neg hc]
+      rw [hkey]
+      have hkbound : (∑ k ∈ (Finset.Icc 1 X).filter (fun k => m * k * n ≤ X),
+            (‖lambdaLin (restrictAbove y g) k‖ / (k : ℝ) ^ α))
+          ≤ 3 * (Real.log 4 + 4) * (X : ℝ) ^ (1 - α) * (m : ℝ) ^ (α - 1) * (n : ℝ) ^ (α - 1) := by
+        refine le_trans (Finset.sum_le_sum fun k hk => ?_)
+          (ms_b_ksum_bound hα0 hα12 X m n hm1 hn1)
+        have hk1 : 1 ≤ k := (Finset.mem_Icc.mp (Finset.mem_filter.mp hk).1).1
+        have hkpos : (0 : ℝ) < (k : ℝ) := by exact_mod_cast (by omega : 0 < k)
+        have hd0 : (0 : ℝ) < (k : ℝ) ^ α := Real.rpow_pos_of_pos hkpos α
+        rw [div_eq_mul_inv, div_eq_mul_inv]
+        exact mul_le_mul_of_nonneg_right
+          (lambdaLin_norm_le (restrictAbove y g) (restrictAbove_norm_le hg) k)
+          (inv_nonneg.mpr hd0.le)
+      have hncancel : (n : ℝ) ^ (α - 1) / (n : ℝ) ^ (2 * η + α) = (n : ℝ) ^ (-1 - 2 * η) := by
+        rw [← Real.rpow_sub hn0, show (α - 1) - (2 * η + α) = -1 - 2 * η from by ring]
+      calc (‖ellLin (restrictBelow y g) m‖ * ‖ellLin (restrictAbove y g) n‖
+              / (n : ℝ) ^ (2 * η + α))
+            * (∑ k ∈ (Finset.Icc 1 X).filter (fun k => m * k * n ≤ X),
+                (‖lambdaLin (restrictAbove y g) k‖ / (k : ℝ) ^ α))
+          ≤ (‖ellLin (restrictBelow y g) m‖ * ‖ellLin (restrictAbove y g) n‖
+              / (n : ℝ) ^ (2 * η + α))
+            * (3 * (Real.log 4 + 4) * (X : ℝ) ^ (1 - α) * (m : ℝ) ^ (α - 1) * (n : ℝ) ^ (α - 1)) :=
+            mul_le_mul_of_nonneg_left hkbound hCmn0
+        _ = 3 * (Real.log 4 + 4) * (X : ℝ) ^ (1 - α)
+              * (‖ellLin (restrictBelow y g) m‖ * (m : ℝ) ^ (α - 1))
+              * (‖ellLin (restrictAbove y g) n‖
+                  * ((n : ℝ) ^ (α - 1) / (n : ℝ) ^ (2 * η + α))) := by ring
+        _ = 3 * (Real.log 4 + 4) * (X : ℝ) ^ (1 - α)
+              * (‖ellLin (restrictBelow y g) m‖ * (m : ℝ) ^ (α - 1))
+              * (‖ellLin (restrictAbove y g) n‖ * (n : ℝ) ^ (-1 - 2 * η)) := by rw [hncancel]
+    · -- decouple the (m,n)-grid and cash the smooth × rough factors
+      have hfactor : (∑ m ∈ Finset.Icc 1 X, ∑ n ∈ Finset.Icc 1 X,
+            3 * (Real.log 4 + 4) * (X : ℝ) ^ (1 - α)
+              * (‖ellLin (restrictBelow y g) m‖ * (m : ℝ) ^ (α - 1))
+              * (‖ellLin (restrictAbove y g) n‖ * (n : ℝ) ^ (-1 - 2 * η)))
+          = 3 * (Real.log 4 + 4) * (X : ℝ) ^ (1 - α)
+              * ((∑ m ∈ Finset.Icc 1 X, ‖ellLin (restrictBelow y g) m‖ * (m : ℝ) ^ (α - 1))
+                * (∑ n ∈ Finset.Icc 1 X,
+                    ‖ellLin (restrictAbove y g) n‖ * (n : ℝ) ^ (-1 - 2 * η))) := by
+        rw [Finset.sum_mul_sum, Finset.mul_sum]
+        refine Finset.sum_congr rfl fun m _ => ?_
+        rw [Finset.mul_sum]
+        refine Finset.sum_congr rfl fun n _ => ?_
+        ring
+      rw [hfactor]
+      have hsmooth := hC_s y hy X α hα0 hαlogy
+      have hrough := ms_b_rough_factor g hg hy X
+      rw [← hηdef, ← hCrdef] at hrough
+      have hSA0 : (0 : ℝ) ≤ ∑ m ∈ Finset.Icc 1 X,
+          ‖ellLin (restrictBelow y g) m‖ * (m : ℝ) ^ (α - 1) :=
+        Finset.sum_nonneg (fun m _ => by positivity)
+      have hSD0 : (0 : ℝ) ≤ ∑ n ∈ Finset.Icc 1 X,
+          ‖ellLin (restrictAbove y g) n‖ * (n : ℝ) ^ (-1 - 2 * η) :=
+        Finset.sum_nonneg (fun n _ => by positivity)
+      have h3lognn : (0 : ℝ) ≤ 3 * (Real.log 4 + 4) * (X : ℝ) ^ (1 - α) :=
+        mul_nonneg (by nlinarith [hlog44]) (Real.rpow_nonneg (Nat.cast_nonneg X) _)
+      have hXx : (X : ℝ) ^ (1 - α) ≤ x ^ (1 - α) :=
+        Real.rpow_le_rpow (Nat.cast_nonneg X) hXlex h1α
+      calc 3 * (Real.log 4 + 4) * (X : ℝ) ^ (1 - α)
+              * ((∑ m ∈ Finset.Icc 1 X, ‖ellLin (restrictBelow y g) m‖ * (m : ℝ) ^ (α - 1))
+                * (∑ n ∈ Finset.Icc 1 X, ‖ellLin (restrictAbove y g) n‖ * (n : ℝ) ^ (-1 - 2 * η)))
+            ≤ 3 * (Real.log 4 + 4) * (X : ℝ) ^ (1 - α) * ((C_s * Real.log y) * C_r) := by
+              apply mul_le_mul_of_nonneg_left _ h3lognn
+              exact mul_le_mul hsmooth hrough hSD0 (le_trans hSA0 hsmooth)
+          _ = 3 * (Real.log 4 + 4) * (C_s * Real.log y) * C_r * (X : ℝ) ^ (1 - α) := by ring
+          _ ≤ 3 * (Real.log 4 + 4) * (C_s * Real.log y) * C_r * x ^ (1 - α) :=
+              mul_le_mul_of_nonneg_left hXx hcoeff0
+  -- continuity / integrability
+  have hcont_rpow0 : ∀ j : ℕ, 1 ≤ j → Continuous (fun α : ℝ => (j : ℝ) ^ α) := by
+    intro j hj
+    have hjpos : (0 : ℝ) < (j : ℝ) := by exact_mod_cast (by omega : 0 < j)
+    have heq : (fun α : ℝ => (j : ℝ) ^ α) = fun α => Real.exp (Real.log j * α) := by
+      funext α; rw [Real.rpow_def_of_pos hjpos]
+    rw [heq]; exact Real.continuous_exp.comp (continuous_const.mul continuous_id)
+  have hΦ_cont : Continuous (fun α : ℝ =>
+      ∑ q ∈ (Finset.Icc 1 X ×ˢ Finset.Icc 1 X ×ˢ Finset.Icc 1 X).filter
+          (fun q => q.1 * q.2.1 * q.2.2 ≤ X),
+        ‖ellLin (restrictBelow y g) q.1‖
+          * (‖lambdaLin (restrictAbove y g) q.2.1‖ / (q.2.1 : ℝ) ^ α)
+          * ‖ellLin (restrictAbove y g) q.2.2‖ / (q.2.2 : ℝ) ^ (2 * η + α)) := by
+    apply continuous_finsetSum
+    intro q hq
+    have hmem := Finset.mem_filter.mp hq
+    have hk1 : 1 ≤ q.2.1 :=
+      (Finset.mem_Icc.mp (Finset.mem_product.mp (Finset.mem_product.mp hmem.1).2).1).1
+    have hn1 : 1 ≤ q.2.2 :=
+      (Finset.mem_Icc.mp (Finset.mem_product.mp (Finset.mem_product.mp hmem.1).2).2).1
+    have hkpos : (0 : ℝ) < (q.2.1 : ℝ) := by exact_mod_cast (by omega : 0 < q.2.1)
+    have hnpos : (0 : ℝ) < (q.2.2 : ℝ) := by exact_mod_cast (by omega : 0 < q.2.2)
+    have hck : Continuous (fun α : ℝ => (q.2.1 : ℝ) ^ α) := hcont_rpow0 _ hk1
+    have hcn : Continuous (fun α : ℝ => (q.2.2 : ℝ) ^ (2 * η + α)) := by
+      have heq : (fun α : ℝ => (q.2.2 : ℝ) ^ (2 * η + α))
+          = fun α => (q.2.2 : ℝ) ^ (2 * η) * (q.2.2 : ℝ) ^ α := by
+        funext α; rw [← Real.rpow_add hnpos]
+      rw [heq]; exact continuous_const.mul (hcont_rpow0 _ hn1)
+    exact Continuous.div
+      ((continuous_const.mul
+        (Continuous.div continuous_const hck (fun α => (Real.rpow_pos_of_pos hkpos α).ne'))).mul
+        continuous_const) hcn (fun α => (Real.rpow_pos_of_pos hnpos _).ne')
+  have hcont_x : Continuous (fun α : ℝ => x ^ (1 - α)) := by
+    have heq : (fun α : ℝ => x ^ (1 - α)) = fun α => Real.exp (Real.log x * (1 - α)) := by
+      funext α; rw [Real.rpow_def_of_pos hxpos]
+    rw [heq]
+    exact Real.continuous_exp.comp (continuous_const.mul (continuous_const.sub continuous_id))
+  have hbd_int : IntervalIntegrable
+      (fun α => 3 * (Real.log 4 + 4) * (C_s * Real.log y) * C_r * x ^ (1 - α))
+      MeasureTheory.volume 0 η :=
+    (continuous_const.mul hcont_x).intervalIntegrable 0 η
+  -- integrate the pointwise bound
+  calc (∫ α in (0 : ℝ)..η,
+          ∑ q ∈ (Finset.Icc 1 X ×ˢ Finset.Icc 1 X ×ˢ Finset.Icc 1 X).filter
+              (fun q => q.1 * q.2.1 * q.2.2 ≤ X),
+            ‖ellLin (restrictBelow y g) q.1‖
+              * (‖lambdaLin (restrictAbove y g) q.2.1‖ / (q.2.1 : ℝ) ^ α)
+              * ‖ellLin (restrictAbove y g) q.2.2‖ / (q.2.2 : ℝ) ^ (2 * η + α))
+        ≤ ∫ α in (0 : ℝ)..η, 3 * (Real.log 4 + 4) * (C_s * Real.log y) * C_r * x ^ (1 - α) :=
+        intervalIntegral.integral_mono_on hη0 (hΦ_cont.intervalIntegrable 0 η) hbd_int hpoint
+      _ = 3 * (Real.log 4 + 4) * (C_s * Real.log y) * C_r * ∫ α in (0 : ℝ)..η, x ^ (1 - α) :=
+        intervalIntegral.integral_const_mul _ _
+      _ ≤ 3 * (Real.log 4 + 4) * (C_s * Real.log y) * C_r * (x / Real.log x) :=
+        mul_le_mul_of_nonneg_left (ms_b_integral_bound hx2 hη0) hcoeff0
+      _ = 3 * (Real.log 4 + 4) * C_s * C_r * (x / Real.log x) * Real.log y := by ring
+
+/-! ### MS-EXIT — the packaged `hfactor` secondary-term bound (GHS (2.4) at `κ = 1`) -/
+
+/-- **MS-EXIT (freeze §FROZEN TARGETS).**  The GHS-(2.4) secondary-term discharge at
+`κ = 1`: the sum of MS-A (Term 1) and MS-B (Term 2) is `O((x/log x)·log y)` uniformly on
+`8 ≤ y ≤ x`.  This is exactly the shape `hfactor`'s error budget `E` consumes in
+`prop21_analog` (`HalaszRepAsm.lean:450`), which accepts `E` as an arbitrary real bound —
+so landing this `∃ C_E` retires the "Shiu/Lemma-2.4 secondary term `O(X/log X·(log y)^κ)`"
+residual of the representation route.  Assembled directly from `mult_shiu_MS_A` and
+`mult_shiu_MS_B`. -/
+theorem mult_shiu_MS_EXIT (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) :
+    ∃ C_E : ℝ, ∀ (x y : ℝ), 8 ≤ y → y ≤ x →
+      (∑ q ∈ (Finset.Icc 1 ⌊x⌋₊ ×ˢ Finset.Icc 1 ⌊x⌋₊).filter (fun q => q.1 * q.2 ≤ ⌊x⌋₊),
+            ‖ellLin (restrictBelow y g) q.1‖ * ‖ellLin (restrictAbove y g) q.2‖
+              / (q.2 : ℝ) ^ (1 / Real.log y))
+          + (∫ α in (0 : ℝ)..(1 / Real.log y),
+              ∑ q ∈ (Finset.Icc 1 ⌊x⌋₊ ×ˢ Finset.Icc 1 ⌊x⌋₊ ×ˢ Finset.Icc 1 ⌊x⌋₊).filter
+                  (fun q => q.1 * q.2.1 * q.2.2 ≤ ⌊x⌋₊),
+                ‖ellLin (restrictBelow y g) q.1‖
+                  * (‖lambdaLin (restrictAbove y g) q.2.1‖ / (q.2.1 : ℝ) ^ α)
+                  * ‖ellLin (restrictAbove y g) q.2.2‖ / (q.2.2 : ℝ) ^ (2 * (1 / Real.log y) + α))
+        ≤ C_E * (x / Real.log x) * Real.log y := by
+  obtain ⟨C_A, hA⟩ := mult_shiu_MS_A g hg
+  obtain ⟨C_B, hB⟩ := mult_shiu_MS_B g hg
+  refine ⟨C_A + C_B, fun x y hy hyx => ?_⟩
+  have hexpand : (C_A + C_B) * (x / Real.log x) * Real.log y
+      = C_A * (x / Real.log x) * Real.log y + C_B * (x / Real.log x) * Real.log y := by ring
+  rw [hexpand]
+  exact add_le_add (hA x y hy hyx) (hB x y hy hyx)
+
 end Salt.MR
