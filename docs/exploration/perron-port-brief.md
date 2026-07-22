@@ -63,3 +63,24 @@ alone, and the port is Part 1's last stone.
 Approve the port (and its timing), or hold for further design. Nothing
 else in the campaign is blocked on your answer — L11 proceeds, Part 3
 is assembled to its single residual, the cloud rehearsal runs.
+
+
+## APPENDED — PERRON-SCOPE's findings (landed ~10:35)
+
+Headlines: (1) zeta-theory and the zero-free region CONFIRMED OUT of
+Part 1 (the move lives in re ∈ (0, c₀], infinite legs never below
+re = 1). (2) The exact hat kernel DISSOLVES Lemma 2.5's entire
+truncation apparatus — the Perron min(1, 1/(T|log(x/N)|)) oscillation,
+the near-x Shiu short-interval sums (GHS's hardest piece), the height
+truncation, the horizontal edges: ALL VANISH. (3) The surviving
+obligations: the line move itself (PP-0/PP-1, design-tier), the
+window defect (banked, MS-B-shaped), the (2.4) secondary (LANDED:
+MS-EXIT verified shaped exactly to GHS's two terms), the desmooth
+(landed). (4) One execution flag: the (X, X+h]/y window-ceiling
+sliver, fold into desmooth. (5) GO-confidence MEDIUM as pure Opus,
+HIGH with the Fable PP-0/PP-1 skeleton first — the skeleton is now
+written: docs/exploration/perron-port-design.md (incl. the CLEAN-STRIP
+claim: in pre-move coordinates no pole is crossed at all — the line
+move is pure Cauchy translation and the 'main-term residue' language
+dissolves into the FTC endpoints, verified as stone C-0 first).
+Estimate: ~1.9-2.9k lines, ~700k-1.1M tokens, matching the envelope.
