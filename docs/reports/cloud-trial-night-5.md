@@ -60,7 +60,46 @@ here are directly comparable to the M5-Pro/18-core numbers in
 
 ## 2. Toolchain acquisition (elan + first `lake`)
 
-_pending (Step 2)_
+**The confirmed hypothesis was confirmed on the wrong URL.** The pre-firing probe
+checked `github.com/leanprover/lean4/releases` (the HTML *page*) and got 200 — but
+that is the **`leanprover/lean4` repo, which happens to be one of this session's
+two in-scope repos** (scope: `jyh/salt`, `leanprover/lean4`). The standard
+toolchain install does **not** start there. `elan-init.sh` first downloads the
+**elan** bootstrap binary from **`github.com/leanprover/elan/releases/latest/download/…`**,
+and `leanprover/elan` is **not** in session scope:
+
+```
+info: downloading installer
+curl: (22) The requested URL returned error: 403
+elan: command failed: curl -sSfL https://github.com/leanprover/elan/releases/latest/download/elan-x86_64-unknown-linux-gnu.tar.gz
+```
+
+Body of the 403 — the same agent-proxy repo-scope gate Night 4 hit, just relocated
+to a different repo:
+
+```json
+{"message":"GitHub access to this repository is not enabled for this session. Use add_repo to request access.", …}
+```
+
+Probe matrix that pins the boundary exactly:
+
+| URL | HTTP | In session scope? |
+|---|---|---|
+| `github.com/leanprover/lean4/releases` (page) | 200 | ✅ `leanprover/lean4` |
+| `github.com/leanprover/lean4/releases/download/v4.32.0-rc1/lean-4.32.0-rc1-linux.tar.zst` | **200** | ✅ `leanprover/lean4` |
+| `github.com/leanprover/elan/releases/latest/download/elan-…tar.gz` | **403** | ❌ `leanprover/elan` |
+
+**So the standard `elan` path is still blocked** — but a new door is open that
+every prior night lacked: because `leanprover/lean4` is in scope, the **full Lean
+toolchain tarball is directly downloadable (200)**. That enables an
+**elan-less workaround**: fetch `lean-4.32.0-rc1-linux.tar.zst` (asset id
+450417279→…286, size 564,056,221 B ≈ 538 MB,
+`sha256:ce6e79dd19ea03c0bc17f9d565c3bac20cd2884561e3b431e5b293c1fbb2b5b3`) straight
+from the lean4 release, extract it, and put its `bin/` on `PATH`. A standalone
+`lake`/`lean` with no elan present uses its own bundled toolchain, which **is**
+v4.32.0-rc1 — matching `lean-toolchain` exactly. Attempting now.
+
+_Workaround result: pending (this step)._
 
 ## 3. Mathlib cache (`lake exe cache get`)
 
