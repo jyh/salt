@@ -339,3 +339,5 @@ open Salt.Tactic in
   Salt.MR.scale_floor
   Salt.MR.scale_floor_Mrange
   Salt.MR.sigma_cutoff_pretentious
+  Salt.MR.scale_floor_Mrange_seam
+  Salt.MR.offdiag_window_eval

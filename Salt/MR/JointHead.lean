@@ -649,4 +649,199 @@ two mechanical stones are landed above; S5 (`window_mass_product`) and S6 (`hbri
 await that parameter-pinned home.  This is the VERIFY-FIRST STOP: the excess is zero (no regime
 corner overshoots), the block is the missing binder structure. -/
 
+/-! ## J2′ — the OFF-DIAGONAL-KEPT window evaluation (`offdiag_window_eval`)
+
+The K4' Plancherel residual, now DISCHARGED (`dirichlet_plancherel`, `HalaszContour`), lands
+the window bilinear form as an EXACT double sum
+
+  `∫ ‖P(c+it)‖²/(c²+t²) dt = (π/c)·∑_{m,n∈F} Re(b_m·conj b_n)/(mn)^c·e^{−c·|log m − log n|}`.
+
+`k4_plan_le_diag_sharp` (`HalaszHead`) collapses the off-diagonal factor
+`e^{−c·|log m − log n|} ≤ 1` and reaches the DIAGONAL `(π/c)·(∑ ‖b_n‖/n^c)²` — the window mass
+SQUARED (`≍ L²`).  This stone KEEPS the off-diagonal decay and recovers one factor `L`: for a
+line `c ≥ 1` and `Λ`-bounded coefficients (`‖b_n‖ ≤ Λ(n)`, e.g. `b = lambdaLin (restrictAbove
+y g)` via `lambdaLin_norm_le`), the double sum is bounded by the SINGLE mass times an absolute
+constant.
+
+The mechanism is the exact identity `e^{−c·|log m − log n|}/(mn)^c = 1/max(m,n)^{2c}`
+(for `m ≤ n`: `1/n^{2c}`), which turns the bilinear form into `∑_{m,n} ‖b_m‖‖b_n‖/max(m,n)^{2c}`.
+Symmetrizing and summing the smaller index against the Chebyshev bound
+`∑_{m≤n} Λ(m) = ψ(n) ≤ (log 4 + 4)·n` (`Chebyshev.psi_le_const_mul_self`) collapses the inner
+sum to `(log 4 + 4)·n`, and `n·n^{−2c} ≤ n^{−c}` (`c ≥ 1`) leaves exactly the single mass:
+
+  `∑_{m,n∈F} Re(b_m·conj b_n)/(mn)^c·e^{−c·|log m−log n|} ≤ 2(log 4 + 4)·∑_{n∈F} ‖b_n‖/n^c`.
+
+NO GRADE CLAIM: `2(log 4 + 4)` is an absolute constant, and the single mass `∑ Λ(n)/n^c ≍ L` is
+the honest window mass (the `L²→L` recovery over the diagonal, not a bound on `M`).  The
+`1/c'`-band factor of the scoping is absorbed into the constant here because `c ≥ 1` makes the
+banded geometric sum `O(1)`.  **Route note.** SHARP-SCOPE routed this through a `k`-band split
+against `shortInterval_vonMangoldt_le`; the `1/max^{2c}`-identity + Chebyshev route below reaches
+the same single-`L` exit with no band combinatorics or regime checks, so it is used instead.
+Stated at a general line `c ≥ 1` (covers the base `c₀ = 1 + 1/L` and the high leg `c₀ + β`);
+the low leg `c₀ − β < 1` needs the `c ≥ 1` hypothesis relaxed and is left as the assembly's
+shift step (the scoper's honest note). -/
+
+/-- The symmetric, nonnegative off-diagonal kernel of the window bilinear form:
+`‖b_m‖‖b_n‖/(mn)^c·e^{−c·|log m − log n|}`. -/
+private noncomputable def offdiagKer (b : ℕ → ℂ) (c : ℝ) (m n : ℕ) : ℝ :=
+  ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+    * Real.exp (-(c * |Real.log m - Real.log n|))
+
+/-- For a SYMMETRIC nonnegative kernel `T`, the full double sum is at most twice its
+lower-triangular part (the swap `m ↔ n` maps the strict-upper part onto the strict-lower). -/
+private lemma sum_sym_le_two_lower {F : Finset ℕ} {T : ℕ → ℕ → ℝ}
+    (hsymm : ∀ m n, T m n = T n m) (hnn : ∀ m n, 0 ≤ T m n) :
+    ∑ m ∈ F, ∑ n ∈ F, T m n
+      ≤ 2 * ∑ m ∈ F, ∑ n ∈ F, (if m ≤ n then T m n else 0) := by
+  have hle : ∀ m ∈ F, ∀ n ∈ F,
+      T m n ≤ (if m ≤ n then T m n else 0) + (if n ≤ m then T n m else 0) := by
+    intro m _ n _
+    by_cases h : m ≤ n
+    · rw [if_pos h]
+      have h0 : (0 : ℝ) ≤ (if n ≤ m then T n m else 0) := by
+        split_ifs with h'
+        · exact hnn n m
+        · exact le_refl 0
+      linarith
+    · have hnm : n ≤ m := (not_le.mp h).le
+      rw [if_neg h, if_pos hnm, hsymm n m]
+      linarith
+  calc ∑ m ∈ F, ∑ n ∈ F, T m n
+      ≤ ∑ m ∈ F, ∑ n ∈ F,
+          ((if m ≤ n then T m n else 0) + (if n ≤ m then T n m else 0)) :=
+        Finset.sum_le_sum (fun m hm => Finset.sum_le_sum (fun n hn => hle m hm n hn))
+    _ = (∑ m ∈ F, ∑ n ∈ F, (if m ≤ n then T m n else 0))
+          + (∑ m ∈ F, ∑ n ∈ F, (if n ≤ m then T n m else 0)) := by
+        simp only [Finset.sum_add_distrib]
+    _ = (∑ m ∈ F, ∑ n ∈ F, (if m ≤ n then T m n else 0))
+          + (∑ m ∈ F, ∑ n ∈ F, (if m ≤ n then T m n else 0)) := by
+        congr 1
+        exact Finset.sum_comm
+    _ = 2 * ∑ m ∈ F, ∑ n ∈ F, (if m ≤ n then T m n else 0) := by ring
+
+/-- **J2′ — the off-diagonal-kept window evaluation** (`offdiag_window_eval`).  For a line
+`c ≥ 1`, a finite window `F` of positive integers, and `Λ`-bounded coefficients
+`‖b_n‖ ≤ Λ(n)`, the window bilinear form (the RHS of `dirichlet_plancherel`, up to `π/c`) is
+bounded by the SINGLE window mass times an absolute constant:
+`∑_{m,n∈F} Re(b_m·conj b_n)/(mn)^c·e^{−c·|log m−log n|} ≤ 2(log 4 + 4)·∑_{n∈F} ‖b_n‖/n^c`.
+This recovers one factor `L` over `k4_plan_le_diag_sharp`'s diagonal `(∑ ‖b_n‖/n^c)²`. -/
+theorem offdiag_window_eval {F : Finset ℕ} {b : ℕ → ℂ} {c : ℝ} (hc : 1 ≤ c)
+    (hF : ∀ n ∈ F, 1 ≤ n) (hb : ∀ n, ‖b n‖ ≤ ArithmeticFunction.vonMangoldt n) :
+    (∑ m ∈ F, ∑ n ∈ F, (b m * (starRingEnd ℂ) (b n)).re / ((m * n : ℕ) : ℝ) ^ c
+        * Real.exp (-(c * |Real.log m - Real.log n|)))
+      ≤ 2 * (Real.log 4 + 4) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c := by
+  have hc0 : (0 : ℝ) < c := by linarith
+  -- step 1: `Re(b_m conj b_n) ≤ ‖b_m‖‖b_n‖`, so the .re double sum ≤ the norm kernel sum
+  have step1 : (∑ m ∈ F, ∑ n ∈ F, (b m * (starRingEnd ℂ) (b n)).re / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(c * |Real.log m - Real.log n|)))
+        ≤ ∑ m ∈ F, ∑ n ∈ F, offdiagKer b c m n := by
+    refine Finset.sum_le_sum (fun m hm => Finset.sum_le_sum (fun n hn => ?_))
+    simp only [offdiagKer]
+    have hre : (b m * (starRingEnd ℂ) (b n)).re ≤ ‖b m‖ * ‖b n‖ := by
+      have h1 := Complex.re_le_norm (b m * (starRingEnd ℂ) (b n))
+      rwa [norm_mul, Complex.norm_conj] at h1
+    have hE : (0 : ℝ) ≤ (((m * n : ℕ) : ℝ) ^ c)⁻¹
+        * Real.exp (-(c * |Real.log m - Real.log n|)) := by positivity
+    calc (b m * (starRingEnd ℂ) (b n)).re / ((m * n : ℕ) : ℝ) ^ c
+            * Real.exp (-(c * |Real.log m - Real.log n|))
+        = (b m * (starRingEnd ℂ) (b n)).re
+            * ((((m * n : ℕ) : ℝ) ^ c)⁻¹ * Real.exp (-(c * |Real.log m - Real.log n|))) := by
+          rw [div_eq_mul_inv]; ring
+      _ ≤ ‖b m‖ * ‖b n‖
+            * ((((m * n : ℕ) : ℝ) ^ c)⁻¹ * Real.exp (-(c * |Real.log m - Real.log n|))) :=
+          mul_le_mul_of_nonneg_right hre hE
+      _ = ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+            * Real.exp (-(c * |Real.log m - Real.log n|)) := by rw [div_eq_mul_inv]; ring
+  -- the kernel is symmetric and nonnegative
+  have hTsymm : ∀ m n, offdiagKer b c m n = offdiagKer b c n m := by
+    intro m n
+    simp only [offdiagKer]
+    rw [mul_comm (‖b m‖) (‖b n‖), Nat.mul_comm m n, abs_sub_comm (Real.log m) (Real.log n)]
+  have hTnn : ∀ m n, 0 ≤ offdiagKer b c m n := by
+    intro m n; simp only [offdiagKer]; positivity
+  -- the identity `offdiagKer m n = ‖b_m‖·(‖b_n‖/n^{2c})` for `m ≤ n`
+  have hident : ∀ m ∈ F, ∀ n ∈ F, m ≤ n →
+      offdiagKer b c m n = ‖b m‖ * (‖b n‖ / (n : ℝ) ^ (2 * c)) := by
+    intro m hm n hn hmn
+    have hm0 : (0 : ℝ) < (m : ℝ) := by exact_mod_cast hF m hm
+    have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hF n hn
+    have hlogle : Real.log m ≤ Real.log n := Real.log_le_log hm0 (by exact_mod_cast hmn)
+    have habs : |Real.log m - Real.log n| = Real.log n - Real.log m := by
+      rw [abs_of_nonpos (by linarith)]; ring
+    have hexp : Real.exp (-(c * (Real.log n - Real.log m))) = (m : ℝ) ^ c / (n : ℝ) ^ c := by
+      rw [Real.rpow_def_of_pos hm0, Real.rpow_def_of_pos hn0, ← Real.exp_sub]
+      congr 1; ring
+    have hmc : (m : ℝ) ^ c ≠ 0 := (Real.rpow_pos_of_pos hm0 c).ne'
+    have hnc : (n : ℝ) ^ c ≠ 0 := (Real.rpow_pos_of_pos hn0 c).ne'
+    simp only [offdiagKer]
+    rw [habs, hexp,
+      show ((m * n : ℕ) : ℝ) ^ c = (m : ℝ) ^ c * (n : ℝ) ^ c from by
+        push_cast; rw [Real.mul_rpow hm0.le hn0.le],
+      show (n : ℝ) ^ (2 * c) = (n : ℝ) ^ c * (n : ℝ) ^ c from by
+        rw [two_mul, Real.rpow_add hn0]]
+    field_simp
+  -- the per-`n` Chebyshev collapse of the lower-triangular inner sum
+  have hPn : ∀ n : ℕ, (∑ m ∈ F, (if m ≤ n then ‖b m‖ else 0)) ≤ (Real.log 4 + 4) * (n : ℝ) := by
+    intro n
+    rw [← Finset.sum_filter]
+    have hsub : (F.filter (fun m => m ≤ n)) ⊆ Finset.Ioc 0 n := by
+      intro m hmf
+      rw [Finset.mem_filter] at hmf
+      rw [Finset.mem_Ioc]
+      exact ⟨hF m hmf.1, hmf.2⟩
+    calc ∑ m ∈ F.filter (fun m => m ≤ n), ‖b m‖
+        ≤ ∑ m ∈ F.filter (fun m => m ≤ n), ArithmeticFunction.vonMangoldt m :=
+          Finset.sum_le_sum (fun m _ => hb m)
+      _ ≤ ∑ k ∈ Finset.Ioc 0 n, ArithmeticFunction.vonMangoldt k :=
+          Finset.sum_le_sum_of_subset_of_nonneg hsub
+            (fun i _ _ => ArithmeticFunction.vonMangoldt_nonneg)
+      _ = Chebyshev.psi (n : ℝ) := by
+          rw [show Chebyshev.psi (n : ℝ)
+              = ∑ k ∈ Finset.Ioc 0 ⌊(n : ℝ)⌋₊, ArithmeticFunction.vonMangoldt k from rfl,
+            Nat.floor_natCast]
+      _ ≤ (Real.log 4 + 4) * (n : ℝ) := Chebyshev.psi_le_const_mul_self (by positivity)
+  -- the key bound: the lower-triangular kernel sum ≤ (log 4 + 4)·(single mass)
+  have key : (∑ m ∈ F, ∑ n ∈ F, (if m ≤ n then offdiagKer b c m n else 0))
+      ≤ (Real.log 4 + 4) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c := by
+    calc ∑ m ∈ F, ∑ n ∈ F, (if m ≤ n then offdiagKer b c m n else 0)
+        = ∑ n ∈ F, ∑ m ∈ F, (if m ≤ n then offdiagKer b c m n else 0) := Finset.sum_comm
+      _ = ∑ n ∈ F, (‖b n‖ / (n : ℝ) ^ (2 * c)) * (∑ m ∈ F, if m ≤ n then ‖b m‖ else 0) := by
+          refine Finset.sum_congr rfl (fun n hn => ?_)
+          rw [Finset.mul_sum]
+          refine Finset.sum_congr rfl (fun m hm => ?_)
+          by_cases h : m ≤ n
+          · rw [if_pos h, if_pos h, hident m hm n hn h, mul_comm]
+          · rw [if_neg h, if_neg h, mul_zero]
+      _ ≤ ∑ n ∈ F, (Real.log 4 + 4) * (‖b n‖ / (n : ℝ) ^ c) := by
+          refine Finset.sum_le_sum (fun n hn => ?_)
+          have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hF n hn
+          have hn1 : (1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hF n hn
+          have hKnn : (0 : ℝ) ≤ ‖b n‖ / (n : ℝ) ^ (2 * c) := by positivity
+          have he1 : (n : ℝ) ^ (1 - 2 * c) = (n : ℝ) / (n : ℝ) ^ (2 * c) := by
+            rw [Real.rpow_sub hn0, Real.rpow_one]
+          have he2 : (n : ℝ) ^ (-c) = 1 / (n : ℝ) ^ c := by
+            rw [Real.rpow_neg hn0.le, one_div]
+          have hstep : (n : ℝ) / (n : ℝ) ^ (2 * c) ≤ 1 / (n : ℝ) ^ c := by
+            rw [← he1, ← he2]
+            exact Real.rpow_le_rpow_of_exponent_le hn1 (by linarith)
+          calc (‖b n‖ / (n : ℝ) ^ (2 * c)) * (∑ m ∈ F, if m ≤ n then ‖b m‖ else 0)
+              ≤ (‖b n‖ / (n : ℝ) ^ (2 * c)) * ((Real.log 4 + 4) * (n : ℝ)) :=
+                mul_le_mul_of_nonneg_left (hPn n) hKnn
+            _ = (Real.log 4 + 4) * (‖b n‖ * ((n : ℝ) / (n : ℝ) ^ (2 * c))) := by ring
+            _ ≤ (Real.log 4 + 4) * (‖b n‖ * (1 / (n : ℝ) ^ c)) := by
+                have hlog4 : (0 : ℝ) ≤ Real.log 4 + 4 := by positivity
+                exact mul_le_mul_of_nonneg_left
+                  (mul_le_mul_of_nonneg_left hstep (norm_nonneg _)) hlog4
+            _ = (Real.log 4 + 4) * (‖b n‖ / (n : ℝ) ^ c) := by rw [mul_one_div]
+      _ = (Real.log 4 + 4) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c := by rw [Finset.mul_sum]
+  -- assemble
+  calc (∑ m ∈ F, ∑ n ∈ F, (b m * (starRingEnd ℂ) (b n)).re / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(c * |Real.log m - Real.log n|)))
+      ≤ ∑ m ∈ F, ∑ n ∈ F, offdiagKer b c m n := step1
+    _ ≤ 2 * ∑ m ∈ F, ∑ n ∈ F, (if m ≤ n then offdiagKer b c m n else 0) :=
+        sum_sym_le_two_lower hTsymm hTnn
+    _ ≤ 2 * ((Real.log 4 + 4) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c) :=
+        mul_le_mul_of_nonneg_left key (by norm_num)
+    _ = 2 * (Real.log 4 + 4) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c := by ring
+
 end Salt.MR

@@ -114,6 +114,12 @@ freeze, the S2' composition `contour_A13_A14` therefore lands CONDITIONAL on the
 K4' Plancherel bilinear bound, taken as an explicit hypothesis (`hPlancherel`
 below).  The Zeno form is expected and correct.
 
+**CODA 2026-07-23.**  This note predates `dirichlet_plancherel`'s landing (commit `93dfd70`,
+the K4-CLEARED commit, one day later): the `mathlib-absent` Plancherel contour is now DEFINED
+and PROVEN (`HalaszContour.dirichlet_plancherel`), so the K4' Plancherel bilinear residual is
+DISCHARGED.  Its off-diagonal-kept evaluation — recovering one factor `L` over the diagonal
+collapse — is `offdiag_window_eval` (`JointHead`).
+
 ## Seam-coupled L3' (held at the I-2 boundary by wave I-1b)
 
 The concrete GHS window decomposition (`fgJ`), the squarefull support predicate

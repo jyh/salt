@@ -1069,4 +1069,113 @@ theorem sigma_cutoff_pretentious {L M C b : ℝ} (hL : 3 ≤ L) (_hM : 0 ≤ M) 
     _ = (Real.exp (C / Real.exp 1) / (1 - 2 / Real.exp 1))
           * Real.exp (-(M / Real.exp 1)) * L := by ring
 
+/-! ## B2′ — the g-datum `M_range` seam clone (`scale_floor_Mrange_seam`)
+
+The BINDER-REF repair (⟦A — 2026-07-23 11:06⟧).  `scale_floor_Mrange` (:960) floors the
+*g-free* datum `M_range(1; X, T)`, but the joint head (`T1_head_wire`'s J0 amendment,
+`hRHS_discharged_joint`, `T1_head_supplied_joint`) instantiates `M` at the *seam datum*
+`M := M_range (seamCoeff (ellLin g) 1 t₀) X T` — the twisted `ℓ`-coefficient sequence whose
+L-series *is* the σ-live joint head.  Flooring `M_range(1)` in the strong-cancellation regime
+undershoots (it discards the g-dependence entirely: exactly the wrong `M` when the datum
+cancels well against the twist).  This clone floors the seam datum instead, and the exact
+trivial-seam identity `𝔻(seamCoeff f 1 t₀, costwist t; X)² = 𝔻(f, costwist(t+t₀); X)²` translates
+the shrunk-scale RHS into the bare `ℓ`-datum shifted-center form
+`𝔻(ellLin g, costwist(t+t₀); e^{1/σ})²` that `head_sigma_bound`'s g-datum decay consumes.
+
+`seamCoeff_trivial_dist_eq` (`HalaszHead:375`) is the landed keystone; `HalaszHead` is not in
+`SupF`'s import closure, so the identity and the two `costwist`-algebra facts it needs
+(`costwist_add`/`costwist_conj`, `DistSplit`) are re-derived locally below as `private` copies —
+byte-for-byte the landed proofs, no statement change (Iron rule 1). -/
+
+/-- Local re-derivation of `head_natCpow_neg_costwist` (`HalaszHead`, `private`, unreachable
+here): the seam twist `n ↦ n^{−it₀}` is the character `costwist (−t₀)` for `n ≥ 1`. -/
+private lemma seam_twist_costwist (t₀ : ℝ) {n : ℕ} (hn : 1 ≤ n) :
+    (n : ℂ) ^ (-(t₀ : ℂ) * Complex.I) = costwist (-t₀) n := by
+  have hn0 : (n : ℂ) ≠ 0 := by exact_mod_cast Nat.one_le_iff_ne_zero.mp hn
+  unfold costwist
+  rw [Complex.cpow_def_of_ne_zero hn0, ← Complex.natCast_log]
+  congr 1
+  push_cast
+  ring
+
+/-- Local copy of `costwist_add` (`DistSplit`, unreachable here): phase additivity. -/
+private lemma costwist_add_local (a b : ℝ) (n : ℕ) :
+    costwist a n * costwist b n = costwist (a + b) n := by
+  unfold costwist
+  rw [← Complex.exp_add]
+  congr 1
+  push_cast
+  ring
+
+/-- Local copy of `costwist_conj` (`DistSplit`, unreachable here): conjugation flips phase. -/
+private lemma costwist_conj_local (a : ℝ) (n : ℕ) :
+    (starRingEnd ℂ) (costwist a n) = costwist (-a) n := by
+  unfold costwist
+  rw [← Complex.exp_conj]
+  congr 1
+  rw [map_mul, Complex.conj_I, Complex.conj_ofReal]
+  push_cast
+  ring
+
+/-- Local re-derivation of `seamCoeff_trivial_dist_eq` (`HalaszHead:375`, unreachable here):
+the EXACT trivial-seam distance identity
+`𝔻(seamCoeff f 1 t₀, costwist t; X)² = 𝔻(f, costwist(t+t₀); X)²`.  The trivial indicator puts
+every prime in window (no out-of-window deficit), and the seam twist `n^{−it₀}` folds into the
+character, shifting the center frequency by `t₀`. -/
+private lemma seamCoeff_trivial_dist_eq_local {f : ℕ → ℂ} (t₀ t X : ℝ) :
+    pretDistSq (seamCoeff f (fun _ => 1) t₀) (costwist t) X
+      = pretDistSq f (costwist (t + t₀)) X := by
+  unfold pretDistSq
+  refine Finset.sum_congr rfl (fun p hp => ?_)
+  obtain ⟨_, hpp⟩ := Finset.mem_filter.mp hp
+  have hp1 : 1 ≤ p := hpp.one_lt.le
+  have hpne : p ≠ 0 := Nat.one_le_iff_ne_zero.mp hp1
+  have hsc : seamCoeff f (fun _ => 1) t₀ p = f p * costwist (-t₀) p := by
+    unfold seamCoeff
+    rw [if_neg hpne]
+    simp only [seam_twist_costwist t₀ hp1, mul_one]
+  have heq : seamCoeff f (fun _ => 1) t₀ p * (starRingEnd ℂ) (costwist t p)
+      = f p * (starRingEnd ℂ) (costwist (t + t₀) p) := by
+    rw [hsc, costwist_conj_local t p, costwist_conj_local (t + t₀) p, mul_assoc,
+      costwist_add_local (-t₀) (-t) p, show -t₀ + -t = -(t + t₀) from by ring]
+  rw [heq]
+
+/-- **B2′ — the seam-datum `M_range` floor** (`scale_floor_Mrange_seam`).  The g-datum clone of
+`scale_floor_Mrange`: for a globally 1-bounded `g` at primes, a frequency `t` in the `M_range`
+window, and `σ ∈ (0, 1]` with `e^{1/σ} ≤ X`,
+`M_range(seamCoeff (ellLin g) 1 t₀; X, T) − 2·log(σ·log X) − 48
+  ≤ 𝔻(ellLin g, costwist(t+t₀); e^{1/σ})²`.
+Proof mirrors the g-free corollary: the scale-`X` distance dominates its window infimum
+`M_range` (`csInf_le`; the image is `≥ 0` via `pretDistSq_nonneg`, the seam datum 1-bounded via
+`norm_seamCoeff_le`∘`ellLin_norm_le_one`), and `scale_floor` transports it to `e^{1/σ}` at the
+crude `2 log(σL)` cost; the trivial-seam identity then translates the seam datum on the shrunk
+scale into the bare `ℓ`-datum shifted-center form.  This is the `M` `head_sigma_bound`'s g-datum
+decay and `T1_head_wire`'s J0 `M_range` instantiation both consume (the strong-cancellation
+regime: flooring the g-free `M_range(1)` here discards the cancellation and undershoots). -/
+theorem scale_floor_Mrange_seam {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    {t₀ t X T σ : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1) (hYX : Real.exp (1 / σ) ≤ X)
+    (hmem : (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X) :
+    M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T - 2 * Real.log (σ * Real.log X) - 48
+      ≤ pretDistSq (ellLin g) (costwist (t + t₀)) (Real.exp (1 / σ)) := by
+  have hEllOne : ∀ n : ℕ, ‖ellLin g n‖ ≤ 1 := fun n => ellLin_norm_le_one g hg n
+  have hf1 : ∀ n : ℕ, ‖seamCoeff (ellLin g) (fun _ => 1) t₀ n‖ ≤ 1 :=
+    fun n => norm_seamCoeff_le hEllOne (fun _ => le_of_eq norm_one) t₀ n
+  have hg1 : ∀ n : ℕ, ‖costwist t n‖ ≤ 1 := fun n => le_of_eq (costwist_norm t n)
+  have hsf := scale_floor hf1 hg1 hσ0 hσ1 hYX
+  have hbdd : BddBelow ((fun t' : ℝ =>
+      pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t') X) ''
+      {t' : ℝ | (Real.log X) ^ (1 / 15 : ℝ) ≤ |t'|
+        ∧ |t'| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t'| ≤ X}) := by
+    refine ⟨0, ?_⟩
+    rintro v ⟨t', _, rfl⟩
+    exact pretDistSq_nonneg (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t') X hf1
+      (fun n => le_of_eq (costwist_norm t' n))
+  have hinf : M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T
+      ≤ pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t) X := by
+    apply csInf_le hbdd
+    exact ⟨t, hmem, rfl⟩
+  rw [seamCoeff_trivial_dist_eq_local t₀ t (Real.exp (1 / σ))] at hsf
+  linarith [hsf, hinf]
+
 end Salt.MR
