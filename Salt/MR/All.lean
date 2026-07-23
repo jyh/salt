@@ -353,3 +353,6 @@ open Salt.Tactic in
   Salt.MR.offdiag_widthA_final
   Salt.MR.head_second_moment_grade
   Salt.MR.crossKer_head_tail_grade
+  Salt.MR.kernel_head_mass
+  Salt.MR.head_integral_discharged
+  Salt.MR.crossKer_grade_final

@@ -1430,4 +1430,166 @@ theorem crossKer_head_tail_grade {g : ℕ → ℂ} {X h y c₀ t₀ α β Hbound
   rw [head_split_ledger hX hh hc]
   exact add_le_add hhead (tail_band_sum hX hh hc)
 
+/-! ## Stone 7-close — the head socket discharged, `crossKer` at grade (`crossKer_grade_final`)
+
+The head socket `Hbound` of `crossKer_head_tail_grade` — the last plumbing — closed by the
+**ramp-free branch-1 route**.  The `√L` ramp of `crossKer` was an artifact of using the DOMINANT
+(Poisson, `1/‖s‖²`) branch of `hat_mellin_bound` on the full line; on the HEAD band `|τ| ≤ T₀` the
+branch-1 (`2/‖s‖`) weight (`hatKernel_branch1`) gives the `arsinh` mass `4(X+h)^{cw}·arsinh(T₀/cw)`
+(`integral_inv_sqrt_c_sq_add`, the same antiderivative `kernel_L1_mass_sharp` used), which is
+`Θ(log L)` — NO ramp.  The two window legs are bounded pointwise by their `n^{−c}`-weighted masses
+(`norm_windowSum_le_mass`, constant in `t`, valid at ANY line — so the low-leg `c₀−β < 1` incurs no
+`c ≥ 1` obstruction: the crude mass bound needs no monotonicity shift), leaving the kernel head
+mass as the only surviving integral.  The τ-split composition (`crossKer_head_tail_grade`) then adds
+the exact ramp-free tail (`tail_band_sum`, `2(X+h)^{cw}`), giving the closed form
+
+  `crossKer α β ≤ Mm·Mp·(X+h)^{c₀−α−β}·(4·arsinh(2(X+h)/h / (c₀−α−β)) + 2)`,
+
+`Mm, Mp` the two window masses at the legs `c₀∓β` — UNCONDITIONAL at the branch crossover, no
+y-gate, no `hband`.  This is the honest ramp-free grade `Mm·Mp·(X+h)^{cw}·Θ(log L)`; the sharper
+`mass² → mass` and `log L → O(1)` (via `head_second_moment_grade`'s `1/a` off-diagonal decay + the
+low-leg shift) is the separate grade-sharpening ledge — NOT needed to close the socket. -/
+
+/-- **The kernel head-band mass** (`kernel_head_mass`).  On the head band `|τ| ≤ T`, the branch-1
+(`2/‖s‖`) weight of `hat_mellin_bound` (`hatKernel_branch1`) integrates to the `arsinh` mass:
+`∫_{|τ|≤T} ‖hatKernel X h c τ‖ dτ ≤ (X+h)^c·4·arsinh(T/c)` — `Θ(log L)`, NO `√L` ramp.  The middle
+part of `kernel_L1_mass_sharp`, isolated for the head. -/
+theorem kernel_head_mass {X h c T : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c)
+    (hT : (0 : ℝ) ≤ T) :
+    (∫ τ in Set.Icc (-T) T, ‖hatKernel X h c τ‖)
+      ≤ (X + h) ^ c * (4 * Real.arsinh (T / c)) := by
+  have hTle : (-T : ℝ) ≤ T := by linarith
+  have hInt : Integrable (fun t : ℝ => ‖hatKernel X h c t‖) := (integrable_hatKernel hX hh hc).norm
+  rw [integral_Icc_eq_integral_Ioc, ← intervalIntegral.integral_of_le hTle]
+  have hKcont : IntervalIntegrable (fun t : ℝ => ‖hatKernel X h c t‖) volume (-T) T :=
+    hInt.intervalIntegrable
+  have hbr1 : IntervalIntegrable
+      (fun t : ℝ => (X + h) ^ c * 2 * (Real.sqrt (c ^ 2 + t ^ 2))⁻¹) volume (-T) T := by
+    apply Continuous.intervalIntegrable
+    apply Continuous.mul continuous_const
+    apply Continuous.inv₀
+    · exact Real.continuous_sqrt.comp (by fun_prop)
+    · intro t; positivity
+  calc ∫ t in (-T)..T, ‖hatKernel X h c t‖
+      ≤ ∫ t in (-T)..T, (X + h) ^ c * 2 * (Real.sqrt (c ^ 2 + t ^ 2))⁻¹ :=
+        intervalIntegral.integral_mono_on hTle hKcont hbr1
+          (fun t _ => hatKernel_branch1 hX hh hc t)
+    _ = (X + h) ^ c * 2 * ∫ t in (-T)..T, (Real.sqrt (c ^ 2 + t ^ 2))⁻¹ :=
+        intervalIntegral.integral_const_mul _ _
+    _ = (X + h) ^ c * 2 * (2 * Real.arsinh (T / c)) := by rw [integral_inv_sqrt_c_sq_add hc]
+    _ = (X + h) ^ c * (4 * Real.arsinh (T / c)) := by ring
+
+/-- **The head socket discharged** (`head_integral_discharged`).  The head integral of
+`crossKer_head_tail_grade` — the branch-1 band `|t − t₀| ≤ T₀ := 2(X+h)/h` — is bounded by the two
+window masses times the ramp-free kernel head mass `4(X+h)^{c₀−α−β}·arsinh(T₀/(c₀−α−β))`.  The
+window legs go pointwise to their masses (`norm_windowSum_le_mass`, valid at BOTH lines `c₀∓β`, low
+leg included — no `c ≥ 1` needed), the CoV `t ↦ t−t₀` reduces the kernel to the τ-form, and
+`kernel_head_mass` closes.  This is exactly the `hhead` hypothesis of `crossKer_head_tail_grade`. -/
+theorem head_integral_discharged {g : ℕ → ℂ} {X h y c₀ t₀ α β : ℝ}
+    (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c₀ - α - β) :
+    (∫ t in {t : ℝ | |t - t₀| ≤ 2 * (X + h) / h},
+        ‖windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))‖
+          * ‖windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))‖
+          * ‖hatKernel X h (c₀ - α - β) (t - t₀)‖)
+      ≤ (∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+            ‖lambdaLin (restrictAbove y g) n‖ / (n : ℝ) ^ (c₀ - β))
+          * (∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+            ‖lambdaLin (restrictAbove y g) n‖ / (n : ℝ) ^ (c₀ + β))
+          * (4 * (X + h) ^ (c₀ - α - β)
+              * Real.arsinh (2 * (X + h) / h / (c₀ - α - β))) := by
+  set Mm : ℝ := ∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+    ‖lambdaLin (restrictAbove y g) n‖ / (n : ℝ) ^ (c₀ - β) with hMm
+  set Mp : ℝ := ∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+    ‖lambdaLin (restrictAbove y g) n‖ / (n : ℝ) ^ (c₀ + β) with hMp
+  have hMm0 : 0 ≤ Mm := Finset.sum_nonneg (fun n _ => by positivity)
+  have hMp0 : 0 ≤ Mp := Finset.sum_nonneg (fun n _ => by positivity)
+  have hXh : (0 : ℝ) < X + h := by linarith
+  have hT₀0 : (0 : ℝ) ≤ 2 * (X + h) / h := by positivity
+  have hS : MeasurableSet {t : ℝ | |t - t₀| ≤ 2 * (X + h) / h} :=
+    (isClosed_le ((continuous_id.sub continuous_const).abs) continuous_const).measurableSet
+  have hbm : ∀ t : ℝ,
+      ‖windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))‖ ≤ Mm := fun t => by
+    rw [hMm]
+    exact norm_windowSum_le_mass g X y (c₀ - β)
+      (by rw [show (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ)).re = c₀ - β from by simp])
+  have hbp : ∀ t : ℝ,
+      ‖windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))‖ ≤ Mp := fun t => by
+    rw [hMp]
+    exact norm_windowSum_le_mass g X y (c₀ + β)
+      (by rw [show (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ)).re = c₀ + β from by simp])
+  have hΦint : IntegrableOn (fun t : ℝ =>
+      ‖windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))‖
+        * ‖windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))‖
+        * ‖hatKernel X h (c₀ - α - β) (t - t₀)‖)
+      {t : ℝ | |t - t₀| ≤ 2 * (X + h) / h} :=
+    (crossKer_integrand_integrable hX hh hc).integrableOn
+  have hKint : IntegrableOn (fun t : ℝ => Mm * Mp * ‖hatKernel X h (c₀ - α - β) (t - t₀)‖)
+      {t : ℝ | |t - t₀| ≤ 2 * (X + h) / h} :=
+    ((((integrable_hatKernel hX hh hc).comp_sub_right t₀).norm).const_mul (Mm * Mp)).integrableOn
+  have hdom : ∀ t ∈ {t : ℝ | |t - t₀| ≤ 2 * (X + h) / h},
+      ‖windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))‖
+        * ‖windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))‖
+        * ‖hatKernel X h (c₀ - α - β) (t - t₀)‖
+      ≤ Mm * Mp * ‖hatKernel X h (c₀ - α - β) (t - t₀)‖ := by
+    intro t _
+    refine mul_le_mul_of_nonneg_right ?_ (norm_nonneg _)
+    exact mul_le_mul (hbm t) (hbp t) (norm_nonneg _) hMm0
+  have hmp : MeasurePreserving (fun t : ℝ => t - t₀) volume volume :=
+    measurePreserving_sub_right volume t₀
+  have hme : MeasurableEmbedding (fun t : ℝ => t - t₀) :=
+    (Homeomorph.subRight t₀).measurableEmbedding
+  have hcov : (∫ t in {t : ℝ | |t - t₀| ≤ 2 * (X + h) / h},
+        ‖hatKernel X h (c₀ - α - β) (t - t₀)‖)
+      = ∫ τ in {τ : ℝ | |τ| ≤ 2 * (X + h) / h}, ‖hatKernel X h (c₀ - α - β) τ‖ := by
+    rw [show {t : ℝ | |t - t₀| ≤ 2 * (X + h) / h}
+          = (fun t : ℝ => t - t₀) ⁻¹' {τ : ℝ | |τ| ≤ 2 * (X + h) / h} from rfl]
+    exact hmp.setIntegral_preimage_emb hme
+      (fun τ => ‖hatKernel X h (c₀ - α - β) τ‖) {τ : ℝ | |τ| ≤ 2 * (X + h) / h}
+  have hIcc : {τ : ℝ | |τ| ≤ 2 * (X + h) / h}
+      = Set.Icc (-(2 * (X + h) / h)) (2 * (X + h) / h) := by
+    ext τ; simp only [Set.mem_setOf_eq, Set.mem_Icc, abs_le]
+  calc (∫ t in {t : ℝ | |t - t₀| ≤ 2 * (X + h) / h},
+          ‖windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))‖
+            * ‖windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))‖
+            * ‖hatKernel X h (c₀ - α - β) (t - t₀)‖)
+      ≤ ∫ t in {t : ℝ | |t - t₀| ≤ 2 * (X + h) / h},
+          Mm * Mp * ‖hatKernel X h (c₀ - α - β) (t - t₀)‖ :=
+        setIntegral_mono_on hΦint hKint hS hdom
+    _ = Mm * Mp * ∫ t in {t : ℝ | |t - t₀| ≤ 2 * (X + h) / h},
+          ‖hatKernel X h (c₀ - α - β) (t - t₀)‖ := integral_const_mul _ _
+    _ = Mm * Mp * ∫ τ in {τ : ℝ | |τ| ≤ 2 * (X + h) / h}, ‖hatKernel X h (c₀ - α - β) τ‖ := by
+        rw [hcov]
+    _ = Mm * Mp * ∫ τ in Set.Icc (-(2 * (X + h) / h)) (2 * (X + h) / h),
+          ‖hatKernel X h (c₀ - α - β) τ‖ := by rw [hIcc]
+    _ ≤ Mm * Mp * (4 * (X + h) ^ (c₀ - α - β)
+          * Real.arsinh (2 * (X + h) / h / (c₀ - α - β))) :=
+        mul_le_mul_of_nonneg_left
+          ((kernel_head_mass hX hh hc hT₀0).trans_eq (by ring)) (mul_nonneg hMm0 hMp0)
+
+/-- **`crossKer` at grade — the head discharged, unconditional at the crossover**
+(`crossKer_grade_final`).  Composing `head_integral_discharged` (ramp-free head, `Hbound` supplied)
+with `crossKer_head_tail_grade` (τ-split + the exact ramp-free tail `tail_band_sum`) closes
+`crossKer` to the explicit ramp-free form
+
+  `crossKer g X h y c₀ t₀ α β
+      ≤ Mm·Mp·(X+h)^{c₀−α−β}·(4·arsinh(2(X+h)/h / (c₀−α−β)) + 2)`,
+
+`Mm, Mp` the window masses `∑_{y<n<X/y} ‖lambdaLin (restrictAbove y g) n‖/n^{c₀∓β}`.  UNCONDITIONAL
+in `1 ≤ X`, `0 < h`, `0 < c₀−α−β` — no y-gate, no `hband`, no `c ≥ 1`.  The `√L` ramp is GONE (the
+kernel mass is `Θ(log L)` via the branch-1 `arsinh`, not `Θ(√L)` via the full-line Poisson mass);
+this is the `Kα` socket feed for `JointHead.sigma_wiring` at the ramp-free grade `Mm·Mp·(X+h)^{cw}·
+Θ(log L)`. -/
+theorem crossKer_grade_final {g : ℕ → ℂ} {X h y c₀ t₀ α β : ℝ}
+    (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c₀ - α - β) :
+    crossKer g X h y c₀ t₀ α β
+      ≤ (∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+            ‖lambdaLin (restrictAbove y g) n‖ / (n : ℝ) ^ (c₀ - β))
+          * (∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+            ‖lambdaLin (restrictAbove y g) n‖ / (n : ℝ) ^ (c₀ + β))
+          * ((X + h) ^ (c₀ - α - β)
+              * (4 * Real.arsinh (2 * (X + h) / h / (c₀ - α - β)) + 2)) := by
+  have hmain := crossKer_head_tail_grade (g := g) (y := y) (t₀ := t₀) hX hh hc
+    (head_integral_discharged (g := g) (y := y) (t₀ := t₀) hX hh hc)
+  exact hmain.trans_eq (by ring)
+
 end Salt.MR
