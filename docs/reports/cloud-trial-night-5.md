@@ -279,6 +279,13 @@ from there.)
 
 _Build running under this driver — live status + final `DRIVER_EXIT` appended below._
 
+**Live Phase-A progress (pre-building RAM hogs, sequential):**
+`Chen.SuperPanelsO` ✅ (~10 min, 04:44→04:52) · `Chen.SuperPanelsE` ✅ (~11 min,
+04:52→05:03) · `Twelve.Certificate` building (from 05:03) · `Chen.CbarCert`
+queued (the ~90-min-CPU long pole, builds alone with siblings cached). Memory
+stayed healthy throughout (≥0.9 GB free, **0 swap used** — the serialization is
+holding peak RSS well under the ceiling; the 8 GB swap has not been touched).
+
 ## 5. Kernel re-verification (built-in `leanchecker`)
 
 _pending (Step 5)_
