@@ -1328,3 +1328,114 @@ theorem sigma_cutoff {L M η : ℝ} (Fbound : ℝ → ℝ)
     linarith [hR1, hR2, heq]
 
 end Salt.MR
+
+/-! ## SF-EXIT / J3 — the JOINT grade assembly and the T1-decay frontier
+
+The joint-head route's terminal composition (design: `docs/exploration/supf-design.md`,
+⟦JOINT-SCOPE VERDICT⟧, J3).  J1/J2 (`Salt.MR.JointHead`) deliver the σ-live bound
+`‖prop21RHS‖ ≤ (1/π)·∫∫ supF·crossKer` and the per-`α` σ-cutoff `∫β supF·crossKer ≤
+Kα·(1+M)e^{−M}L`.  J3 assembles the grade (the α-integral supplies the `1/L` that cancels
+the σ-cutoff's `L`, per `HalaszSeam`'s LEDGER: `X·(1+M)e^{−M}·L^{κ−1} = X·(1+M)e^{−M}`),
+discharges `T1_head_wire`'s `hRHS` binder, and reaches the seam-sum head bound — the prize:
+`hRHS` discharged via the joint route.
+
+**The grade page (written before Lean, per the design law).**  With `L := log X`,
+`h = X·L^{−1/2}`, `c₀ = 1+1/L`, kernel scale `(X+h)^{c₀−α−β}·2(X+h)/h ≍ X·√L` (crude
+`kernel_mass_ledger`) or `≍ X` (the `Tsplit`-sharp `arcsinh` refinement, the bridge's):
+`‖prop21RHS‖ ≤ (1/π)∫₀^η∫₀^η supF·crossKer`  [J1]
+  `≤ (1/π)∫₀^η Kα·(1+M)e^{−M}L dα`  [J2, per α; `σ = β+1/L`]
+  `= (1/π)·(1+M)e^{−M}L·∫₀^η Kα dα`  [const pull]
+  `≤ (1/π)·(1+M)e^{−M}L·(C·X/L)`  [α-integral: `∫₀^η X^{1−α}dα ≤ X/L` — the crucial `1/L`]
+  `= (C/π)·X·(1+M)e^{−M}`.
+So `Agrade := (1/π)·L·∫₀^η Kα dα ≤ C₁·X` is the ONE grade socket; the `L` from the
+σ-cutoff and the `1/L` from the α-integral cancel EXACTLY (`κ=1`, LEDGER PASSES). No
+log-power gap: `Agrade ≤ C₁·X` is at grade iff the kernel-scale α-integral is `X/L`-grade,
+which the crude `X·√L` mass overshoots by `√L·L = L^{3/2}` — the KNOWN excess absorbed by
+the `Tsplit`/`arcsinh` sharpening (the bridge's residual, flagged in `kernel_mass_ledger`).
+
+The residual hypothesis set of the frontier (enumerated on `T1_decay_conditional_final`):
+the joint bound `hjoint` (J1∘J2∘α-integral, itself resting on `supF`'s pretentious socket
+`hpret` and the mixed-line bridge `hbridge`), the grade socket `hgrade` (`Agrade ≤ C₁X`,
+the `Tsplit`-sharp kernel mass), and `T1_decay_trivial`'s standard binders (`hsplit`,
+`htail`, `hfloor`, and `hhead` — the §8 `int_U`/moment routing of the seam sum into
+`Uhead`, out of this leg's scope). -/
+
+namespace Salt.MR
+
+open Complex MeasureTheory Set
+open scoped BigOperators
+
+/-- **J3 stone 1 — `hRHS` discharged from the joint route (`hRHS_discharged_joint`).**  The
+joint grade bound `hjoint` (`‖prop21RHS‖ ≤ Agrade·(1+M)e^{−M}`, J1∘J2∘α-integral) plus the
+grade socket `hgrade` (`Agrade ≤ C₁·X`, the kernel-scale α-integral `≍ X/L` after the `L`
+from the σ-cutoff cancels) yield exactly `T1_head_wire`'s `hRHS` binder shape at the
+`M_range` (J0) datum.  `M := M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T`. -/
+theorem hRHS_discharged_joint {g : ℕ → ℂ} {t₀ X h c₀ y η T Agrade C₁ : ℝ}
+    (hM0 : 0 ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
+    (hjoint : ‖prop21RHS (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) t₀ X h c₀ y η‖
+        ≤ Agrade * ((1 + M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
+            * Real.exp (-(M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T))))
+    (hgrade : Agrade ≤ C₁ * X) :
+    ‖prop21RHS (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) t₀ X h c₀ y η‖
+      ≤ C₁ * X * ((1 + M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
+          * Real.exp (-(M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T))) :=
+  hjoint.trans (mul_le_mul_of_nonneg_right hgrade
+    (mul_nonneg (by linarith) (Real.exp_nonneg _)))
+
+/-- **J3 stone 2 — the seam-sum head bound via the joint route (`T1_head_supplied_joint`).**
+Composes `hRHS_discharged_joint` with the landed `T1_head_wire`: once the joint grade bound
+`hjoint` + the grade socket `hgrade` discharge `hRHS`, `T1_head_wire` delivers the seam
+sum's head bound `C₁·X·(1+M)e^{−M} + E` UNCONDITIONALLY in those two joint sockets.  **This
+is the prize: `hRHS` discharged through the σ-live joint head** (the box-collapse's fatal
+defect repaired).  `M := M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T`. -/
+theorem T1_head_supplied_joint (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ T : ℝ) :
+    ∃ X₀ : ℝ, ∀ {X h c₀ y η C₁ Agrade : ℝ}, X₀ ≤ X →
+        h = X / Real.sqrt (Real.log X) → 1 < c₀ → η = 1 / Real.log y →
+        0 < c₀ - 2 * η → 10 ≤ y → y ≤ Real.sqrt X → Real.sqrt (Real.log X) ≤ y →
+        0 ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T →
+        ‖prop21RHS (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) t₀ X h c₀ y η‖
+            ≤ Agrade * ((1 + M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
+                * Real.exp (-(M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T))) →
+        Agrade ≤ C₁ * X →
+      ∃ C_E C_R : ℝ,
+        ‖∑' n, seamCoeff (ellLin g) (fun _ => 1) t₀ n * (hatK X h n : ℂ)‖
+          ≤ C₁ * X * ((1 + M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
+                * Real.exp (-(M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)))
+            + (C_E * ((X + h) / Real.log (X + h)) * Real.log y
+              + C_R * (X / Real.log X) * Real.log y) := by
+  obtain ⟨X₀, hwire⟩ := T1_head_wire g hg t₀ T
+  refine ⟨X₀, ?_⟩
+  intro X h c₀ y η C₁ Agrade hXlb hh hc₀ hη hc' hy10 hyX hygate hM0 hjoint hgrade
+  exact hwire hXlb hh hc₀ hη hc' hy10 hyX hygate
+    (hRHS_discharged_joint hM0 hjoint hgrade)
+
+/-- **J3 stone 3 — the T1-decay frontier (`T1_decay_conditional_final`).**  The terminal
+statement: the `≪ X·(log X)^{−1/64+o(1)}` decay of the ball contribution `U` for the FULL
+twisted seam datum, at the `M_range` (J0) distance, conditional on the ENUMERATED residual
+set.  The joint head (J1/J2 + `T1_head_supplied_joint`) discharges `hRHS` and delivers the
+seam-sum head bound; the remaining inputs are `T1_decay_trivial`'s standard binders —
+`hsplit` (the ball head/tail split), `htail` (`s2_tail_ledger`, landed), `hfloor` (the R3.1
+`(1/32)loglog` floor, `Mrange_one_floor`-backed), and `hhead` (the §8 `int_U`/moment
+routing of the seam-sum head bound into `Uhead`, out of this leg's scope: the pointwise `E`
+is main-term-sized when `log y ≍ log X`, only its ball-`L²` mass is tail-grade).
+
+**Remaining hypothesis set (the honest frontier).**  Modulo `T1_decay_trivial`'s standard
+binders, the SOLE joint-route residuals are: `supF`'s pretentious socket (`hpret` in
+`sigma_wiring`, SupF's general-`g` distance split — PENDING at `σ > 1/L`), the mixed-line
+Plancherel bridge (`hbridge` in `sigma_wiring` — the flagged medium risk, a genuinely new
+three-line variant), and the grade socket (`hgrade` — the `Tsplit`-sharp kernel mass `≍ X`,
+the `arcsinh` refinement flagged in `kernel_mass_ledger`).  Everything else is landed. -/
+theorem T1_decay_conditional_final {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    {t₀ t T X ε U Uhead Utail C₁ C₂ : ℝ}
+    (hX : Real.exp 1 ≤ X) (hε : 0 ≤ ε) (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
+    (hsplit : U = Uhead + Utail)
+    (hhead : Uhead ≤ C₁ * X * ((1 + M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
+        * Real.exp (-(M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T))))
+    (htail : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2))
+    (hfloor : (1 / 32) * Real.log (Real.log X)
+        ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T) :
+    U ≤ (2 * C₁ + C₂) * X *
+        ((Real.log X) ^ (-(1 : ℝ) / 64) + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) :=
+  T1_decay_trivial (ellLin_norm_le_one g hg) t₀ t hX hε hC₁ hC₂ hsplit hhead htail hfloor
+
+end Salt.MR

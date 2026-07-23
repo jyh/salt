@@ -56,6 +56,7 @@ import Salt.MR.RampSliver
 import Salt.MR.ShortIntervalPsi
 import Salt.MR.HExit
 import Salt.MR.SupF
+import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -323,3 +324,9 @@ open Salt.Tactic in
   Salt.MR.smooth_ratio_bound
   Salt.MR.dist_identification
   Salt.MR.head_pin_bound
+  Salt.MR.joint_cs_factoring
+  Salt.MR.sigma_wiring
+  Salt.MR.joint_grade_assembly
+  Salt.MR.hRHS_discharged_joint
+  Salt.MR.T1_head_supplied_joint
+  Salt.MR.T1_decay_conditional_final
