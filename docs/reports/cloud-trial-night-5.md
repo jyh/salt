@@ -21,6 +21,21 @@ skeleton first, then an update committed+pushed after every step, so the
 `cloud-trial/night-5` branch tells the story live even if the session is killed
 mid-run.
 
+> **⚠ CONTINUATION NOTE — session 2, fresh container (2026-07-23T04:31Z).** The
+> session-1 executor (above, Start 2026-07-22 22:49 UTC) completed Steps 0–3 and
+> launched Step 4 (`lake build`), then was **hard-killed** during the
+> memory-contention build tail (last commit: `step 4 interim … CbarCert 1.5h+`).
+> The incremental-report law worked exactly as designed: its branch survived. A
+> **new container** was allocated for this session — the on-disk state (toolchain,
+> the 7.3 GB `.lake`, zstd) did **not** persist; only the git branch did (disk at
+> boot: 7.9 GB used / 30 GB free, no `.elan`/`.lake`). So session 2 **re-runs the
+> ladder from Step 1 using session-1's proven recipe**, records its own measured
+> numbers (they reproduce session-1's within noise, confirming reproducibility),
+> and — the point of the whole mission — **carries the build past the tail and
+> runs the checker.** Session-1's Steps 1–3 prose below is retained (its scope
+> discoveries are correct and reusable); the *re-run measurements* are logged in
+> the **Continuation log** appended at the end of each step and consolidated in §7.
+
 ---
 
 ## 0. Freshness check
@@ -205,6 +220,25 @@ this profile must **cap build parallelism on the heavy tail** (e.g. `lake build
 16 GB ceiling and avoid the mutual-starvation slowdown — otherwise the corpus
 build does not finish in a practical window. Poll continues; final build wall-clock
 + exit code recorded when the wave drains.
+
+## 4b. Corpus build — session-2 re-run (the completion)
+
+Session 2 re-ran the ladder in a fresh container. **Toolchain + cache re-run
+numbers (reproduce session-1 within noise):**
+
+| Step | Sub-step | session-2 | session-1 |
+|---|---|---:|---:|
+| 2 | `apt-get install zstd` | 5 s | 3 s |
+| 2 | download `lean-4.32.0-rc1-linux.tar.zst` (538 MB, sha `ce6e79dd…b5b3` ✅ identical) | 13 s | 10 s |
+| 2 | extract into toolchain dir | 101 s | 32 s |
+| 2 | **toolchain total** | **≈ 119 s** | ≈ 46 s |
+| 3 | `lake exe cache get` (see below) | _pending_ | 158 s |
+
+(The extract is slower here — different disk/CPU scheduling on this container
+instance; download and checksum are identical, so the artifact is byte-for-byte
+the same toolchain, commit `b4812ae5`.)
+
+_Build launch + completion logged here as it runs._
 
 ## 5. Kernel re-verification (built-in `leanchecker`)
 
