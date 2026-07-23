@@ -3308,6 +3308,94 @@ lemma dual_core {P : ℝ} (hP : 2 ≤ P) {T : ℝ} (hT : 0 ≤ T) {𝒯 : Finset
       _ = (44 * Real.pi * P + ε * (𝒯.card : ℝ)) * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by ring
   linarith [hfin]
 
+
+/-- **A-2 `dual_assembly`.**  The dual bound with `per_pair_contour`'s concrete decay. -/
+theorem dual_assembly :
+    ∃ (c_vk C₁ C₂ C₃ T₀ : ℝ), 0 < c_vk ∧ 0 < C₁ ∧ 0 < C₂ ∧ 0 < C₃ ∧ 3 ≤ T₀ ∧
+      ∀ (T P : ℝ), T₀ ≤ T → 2 ≤ P →
+      ∀ (𝒯 : Finset ℝ), WellSpaced 𝒯 → (∀ t ∈ 𝒯, t ∈ Set.Icc (-T) T) →
+      ∀ (S : Finset ℕ), (∀ n ∈ S, n.Prime ∧ P ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * P) →
+      ∀ (b : ℝ → ℂ),
+        ∑ p ∈ S, ‖∑ t ∈ 𝒯, (starRingEnd ℂ) ((p : ℂ) ^ (-(t : ℂ) * I)) * b t‖ ^ 2
+          ≤ (44 * Real.pi * P
+              + (C₁ * P * Real.exp (-(c_vk / 2) * Real.log P
+                    / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                        * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)))
+                  * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                      * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ))
+                + C₂ * P * Real.log P / T
+                + C₃ * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                    * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) * P / T ^ 2) * (𝒯.card : ℝ))
+            / Real.log P * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by
+  obtain ⟨c_vk, C₁, C₂, C₃, T₀, hc, hC1, hC2, hC3, hT₀, hpp⟩ := per_pair_contour
+  refine ⟨c_vk, C₁, C₂, C₃, T₀, hc, hC1, hC2, hC3, hT₀, ?_⟩
+  intro T P hT hP 𝒯 hws hsub S hS b
+  have hTpos : 0 < T := by linarith
+  exact dual_core hP hTpos.le hws hsub hS (fun u hu => hpp T P u hT hP hu) b
+
+/-- **A-3 (primal, raw decay).**  The primal Halász bound at `per_pair_contour`'s concrete
+`5T+1`-height decay, via `primes_dual_iff` off `dual_assembly`.  The pure `(log T)`-shape
+frozen header follows by the D₃(5T+1)→D₄(T) absorption. -/
+theorem halasz_primes_primal_raw :
+    ∃ (c_vk C₁ C₂ C₃ T₀ : ℝ), 0 < c_vk ∧ 0 < C₁ ∧ 0 < C₂ ∧ 0 < C₃ ∧ 3 ≤ T₀ ∧
+      ∀ (T P : ℝ), T₀ ≤ T → 2 ≤ P →
+      ∀ (𝒯 : Finset ℝ), WellSpaced 𝒯 → (∀ t ∈ 𝒯, t ∈ Set.Icc (-T) T) →
+      ∀ (S : Finset ℕ), (∀ n ∈ S, n.Prime ∧ P ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * P) →
+      ∀ (a : ℕ → ℂ),
+        ∑ t ∈ 𝒯, ‖∑ p ∈ S, (p : ℂ) ^ (-(t : ℂ) * I) * a p‖ ^ 2
+          ≤ (44 * Real.pi * P
+              + (C₁ * P * Real.exp (-(c_vk / 2) * Real.log P
+                    / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                        * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)))
+                  * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                      * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ))
+                + C₂ * P * Real.log P / T
+                + C₃ * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                    * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) * P / T ^ 2) * (𝒯.card : ℝ))
+            / Real.log P * ∑ p ∈ S, ‖a p‖ ^ 2 := by
+  obtain ⟨c_vk, C₁, C₂, C₃, T₀, hc, hC1, hC2, hC3, hT₀, hda⟩ := dual_assembly
+  refine ⟨c_vk, C₁, C₂, C₃, T₀, hc, hC1, hC2, hC3, hT₀, ?_⟩
+  intro T P hT hP 𝒯 hws hsub S hS a
+  have hTpos : 0 < T := by linarith
+  have hPpos : 0 < P := by linarith
+  have hlogPpos : 0 < Real.log P := Real.log_pos (by linarith)
+  have hlog5T1 : 0 ≤ Real.log (5 * T + 1) := Real.log_nonneg (by linarith)
+  have hD4 : 0 ≤ (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+      * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ) :=
+    mul_nonneg (Real.rpow_nonneg hlog5T1 _) (by positivity)
+  have hεnn : 0 ≤ C₁ * P * Real.exp (-(c_vk / 2) * Real.log P
+        / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4) * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)))
+        * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4) * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ))
+      + C₂ * P * Real.log P / T
+      + C₃ * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+          * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) * P / T ^ 2 := by
+    have hA : 0 ≤ C₁ * P * Real.exp (-(c_vk / 2) * Real.log P
+          / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4) * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)))
+          * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) :=
+      mul_nonneg (mul_nonneg (mul_nonneg hC1.le hPpos.le) (Real.exp_pos _).le) hD4
+    have hB : 0 ≤ C₂ * P * Real.log P / T :=
+      div_nonneg (mul_nonneg (mul_nonneg hC2.le hPpos.le) hlogPpos.le) hTpos.le
+    have hCc : 0 ≤ C₃ * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) * P / T ^ 2 :=
+      div_nonneg (mul_nonneg (mul_nonneg hC3.le hD4) hPpos.le) (by positivity)
+    linarith
+  have hΔ0 : 0 ≤ (44 * Real.pi * P
+      + (C₁ * P * Real.exp (-(c_vk / 2) * Real.log P
+            / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)))
+          * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ))
+        + C₂ * P * Real.log P / T
+        + C₃ * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+            * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) * P / T ^ 2) * (𝒯.card : ℝ))
+      / Real.log P := by
+    apply div_nonneg _ hlogPpos.le
+    have hcard : (0 : ℝ) ≤ (𝒯.card : ℝ) := by positivity
+    have h44 : (0 : ℝ) ≤ 44 * Real.pi * P := by positivity
+    nlinarith [mul_nonneg hεnn hcard]
+  exact (primes_dual_iff 𝒯 S hΔ0).mpr (hda T P hT hP 𝒯 hws hsub S hS) a
+
 end L11Assembly
 
 end Salt.MR
