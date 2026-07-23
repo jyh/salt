@@ -1,7 +1,23 @@
 # THE KERNEL-RAMP BLOCK — the last obstruction of the terminal assembly
 
-*Maestro design block, 2026-07-23 ~11:35. Status: DRAFT — the
-verification/refuter pass firing. THE SITUATION: SHARP-SCOPE's
+*Maestro design block, 2026-07-23 ~11:35. Status: **FIRE (verified
+~12:20) — BOTH PAGES CLOSE AT GRADE.** RAMP-TAIL: the cancellation is
+EXACT ALGEBRA (A2*(2/T0) = 2(X+h)^a); tail = (1/pi)(1+o(1))*grade,
+log-free, all corners. RAMP-HEAD: HEAD-CLOSES via route A' — the
+landed dirichlet_plancherel COUPLES width to line (the scaled-c trick
+dies on the lemma) BUT its PROOF separates them (cexp_pois_full takes
+width a and frequency theta as free parameters) — the width-a clone
+widthA_plancherel is clean; the off-diagonal-kept evaluation decays
+like C*L/a via the short-interval grain (back in play after all);
+the band count multiplies only the tiny diagonal floor (log y / y
+grade — route B's own discovery repurposed); head = C*L, the tail =
+C*L even crudely, the alpha-integral's 1/L cancels: NET = CONSTANT*X*
+e^{-cM}. Routes B (the lossy 2T+20N MVT: leaks sqrt X at y=X^{1/4})
+and C (no-split: branch-2 reinstates the ramp; branch-1 diverges)
+both honestly killed. ONE named residual: the y=sqrt-L extreme corner
+needs a<=n^{1/8} — carried as the bounded (loglog)^2 concession or a
+PNT-lift coda (siegelWalfisz in-corpus); a coda, not a leak. THE
+RAMP-WAVE fires: 8 stones, ~700 ln, Salt/MR/HeadGrade.lean.* THE SITUATION: SHARP-SCOPE's
 isolation numerics prove that with the off-diagonal kept (S-ii, now
 landing) and the g-datum floor (S-iii, landing), the ONLY remaining
 gap to the grade C″·X·e^{−cM} is the √L kernel ramp — the amplitude
