@@ -249,7 +249,35 @@ eliminating the thrash. CbarCert's own single-threaded elaboration time is the
 floor regardless of `-j`, so `-j2` costs little on the heavy tail and trades only
 some light-module parallelism for a build that actually finishes.
 
-_Build launched — live status appended below._
+**Operational finding — Lake 5.0.0 has no `-j` lever, and the workarounds.**
+Executing the `-j2` plan surfaced three facts that belong in the night template:
+
+1. **`lake build` in this toolchain (Lake `5.0.0-src+b4812ae`) has no `-j`/`--jobs`
+   flag** (removed; `error: unknown short option '-j'`), and there is **no
+   `LAKE_JOBS`-style env var** in the binary. Job parallelism = detected core count,
+   full stop.
+2. **`taskset -c 0,1` does NOT cap Lake's job count** — Lean reads *hardware*
+   concurrency (`hardware_concurrency`, = 4 here), not the affinity mask, so under
+   a 2-CPU pin Lake still launched **4** concurrent `lean` processes (verified by
+   `pgrep`), now fighting over 2 physical cores — strictly worse. Affinity is not
+   the memory lever.
+3. **No swap exists in this container by default** (`Swap: 0`), so the session-1
+   15.9/16 GB peak was ~200 MB from a hard OOM-kill, not a soft thrash. Added an
+   **8 GB swapfile** (`swapon /tmp/swapfile` succeeded — the container permits it)
+   as OOM insurance.
+
+**The actual guard used:** since `-j` is unavailable, memory is bounded by
+**build ordering** instead of job count. A driver pre-builds the known RAM-hog
+modules (`Chen.SuperPanelsO`, `Chen.SuperPanelsE`, `Twelve.Certificate`,
+`Chen.CbarCert`) **each in its own sequential `lake build <module>` invocation**
+(CbarCert last, so its heavy siblings are already cached and it builds ≈alone),
+then runs the full `lake build` in which the heavies are cached and only light
+modules populate the `-j4` waves. This makes the dangerous 3-heavy coincidence
+structurally impossible, with the 8 GB swap as a backstop. (Session 1's partial
+progress — 8583/9351 built before its kill — was on disk, so the driver resumes
+from there.)
+
+_Build running under this driver — live status + final `DRIVER_EXIT` appended below._
 
 ## 5. Kernel re-verification (built-in `leanchecker`)
 
