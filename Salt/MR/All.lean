@@ -48,6 +48,12 @@ import Salt.MR.MidBand
 import Salt.MR.LargeValueCount
 import Salt.MR.MultShiu
 import Salt.MR.HalaszPrimesCore
+import Salt.MR.HalaszIdentity
+import Salt.MR.HalaszHead
+import Salt.MR.DistWindow
+import Salt.MR.Prop1Assembly
+import Salt.MR.RampSliver
+import Salt.MR.ShortIntervalPsi
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -258,3 +264,40 @@ open Salt.Tactic in
   Salt.MR.lambda_window_rep
   Salt.MR.rep_truncated
   Salt.MR.norm_logDeriv_zeta_cline_le
+  Salt.MR.smoothPart_ellLin_eq_restrictBelow
+  Salt.MR.seam_centering
+  Salt.MR.seam_double_ftc
+  Salt.MR.seam_alpha_collapse
+  Salt.MR.four_factor_hat_rep
+  Salt.MR.prop21RHS_hat_rep
+  Salt.MR.prop21RHS_hat_rep_aligned
+  Salt.MR.seam_realignment
+  Salt.MR.seam_realignment_hat
+  Salt.MR.hat_contour_rep_mismatch
+  Salt.MR.four_factor_hat_rep_shifted
+  Salt.MR.joint_support_untruncation
+  Salt.MR.aligned_collapse_assembled
+  Salt.MR.endpoint_reconciliation_full
+  Salt.MR.prop21_unconditional
+  Salt.MR.k4_plan_le_diag_sharp
+  Salt.MR.contour_A13_A14_head_sharp
+  Salt.MR.hhead_supplier_fgJ
+  Salt.MR.T1_decay_fgJ
+  Salt.MR.seamCoeff_trivial_dist_eq
+  Salt.MR.T1_decay_trivial
+  Salt.MR.hhead_supplier_trivial
+  Salt.MR.dist_window_restrict
+  Salt.MR.out_of_window_mass_le
+  Salt.MR.dist_split_A4_N2
+  Salt.MR.dist_split_A4_N2_windowed
+  Salt.MR.upper_tail_le
+  Salt.MR.dist_split_A4_N2_final
+  Salt.MR.expEM_le_of_floor_corrected
+  Salt.MR.T1_pointwise_decay_corrected
+  Salt.MR.T1_decay_corrected_fgJ
+  Salt.MR.prop_A3'_assembly
+  Salt.MR.rampSliverMass_eq_zero_of_gap
+  Salt.MR.ramp_sliver_bound
+  Salt.MR.shortInterval_vonMangoldt_le
+  Salt.MR.rampSliverMass_bound_unconditional
+  Salt.MR.prop21_contour_leg_unwindowed
