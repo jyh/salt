@@ -366,3 +366,6 @@ open Salt.Tactic in
   Salt.MR.head_second_moment_grade_low
   Salt.MR.crossKer_grade_decayed
   Salt.MR.window_mass_eval
+  Salt.MR.window_sup_decay
+  Salt.MR.window_sup_decay_sq
+  Salt.MR.sigma_cutoff_seam

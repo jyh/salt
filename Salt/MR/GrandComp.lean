@@ -253,4 +253,180 @@ theorem window_mass_eval {g : ℕ → ℂ} {X y c₀ β : ℝ}
           mul_le_mul_of_nonneg_left hbase
             (mul_nonneg (Real.rpow_nonneg hXypos.le _) (div_nonneg hlogQ0 hy0.le))
 
+/-! ## S1/S2 (`WINDOW-COMP`) — the window head decay and its σ-cutoff
+
+The two terminal composition stones of `UHEAD-SCOPE`'s ladder (`docs/exploration/pilot.md`,
+16:21).  Pure compositions of the LANDED decay atoms — `head_sigma_bound` (`SupF`, the
+σ-uniform pointwise Euler majorant), `scale_floor_Mrange_seam` (`SupF`, the seam-datum
+`M_range` floor), and `sigma_cutoff_pretentious` (`SupF`, the `c = 1/e` flat-regime
+σ-integral).  No new analysis: the decay lives on `M_range`'s annular window (the corpus's
+`hhead`/moment frontier), and these stones fire the atoms there.
+
+The seam head is `LSeries (ellLin (seamCoeff (ellLin g) 1 t₀))` — the L-series of the
+linearized seam coefficient.  `head_sigma_bound` at datum `seamCoeff (ellLin g) 1 t₀` and
+frequency `t` emits the pointwise decay at distance
+`𝔻(1, (seamCoeff (ellLin g) 1 t₀)·costwist(−t); e^{1/σ})²`, which the twist algebra
+(`dist_triv_left_eq` below + the public `seamCoeff_trivial_dist_eq`, `HalaszHead`) rewrites to
+the bare `ℓ`-datum shifted-center form `𝔻(ellLin g, costwist(t+t₀); e^{1/σ})²` that
+`scale_floor_Mrange_seam` floors by `M_range(seamCoeff (ellLin g) 1 t₀) − 2log(σL) − 48`. -/
+
+/-- Twist algebra: the trivial-left-datum distance `𝔻(1, f·costwist(−t); X)²` equals the
+`𝔻(f, costwist t; X)²` form.  Per prime, `Re(1·conj(f·costwist(−t))) = Re(f·conj(costwist t))`
+via `conj (costwist t) = costwist (−t)` (`costwist_conj`) and `Re(conj z) = Re z`
+(`Complex.conj_re`). -/
+private lemma dist_triv_left_eq (f : ℕ → ℂ) (t X : ℝ) :
+    pretDistSq (fun _ => 1) (fun n => f n * costwist (-t) n) X
+      = pretDistSq f (costwist t) X := by
+  unfold pretDistSq
+  refine Finset.sum_congr rfl (fun p _ => ?_)
+  have hre : ((fun _ => (1 : ℂ)) p
+        * (starRingEnd ℂ) ((fun n => f n * costwist (-t) n) p)).re
+      = (f p * (starRingEnd ℂ) (costwist t p)).re := by
+    simp only [one_mul, Complex.conj_re, costwist_conj]
+  rw [hre]
+
+/-- **S1 — the window head-sup decay** (`window_sup_decay`).  For a globally 1-bounded (at
+primes) `g`, `σ ∈ (0, 1]` with `e^{1/σ} ≤ X`, and a frequency `t` in the `M_range` window, the
+seam head on the line `(1+σ)+it` obeys the honest window decay
+
+  `‖F_seam(1+σ+it)‖ ≤ C_F·(1/σ)·exp(−(1/e)·(M_range(seamCoeff (ellLin g) 1 t₀; X,T)
+    − 2·log(σ·logX) − 48))`,
+
+with `C_F = exp(cpeel + (log 4 + cpeel))`.  The composition `head_sigma_bound ∘
+scale_floor_Mrange_seam`: the pointwise Euler majorant at the seam datum, its distance
+rewritten (`dist_triv_left_eq` + `seamCoeff_trivial_dist_eq`) to the bare `ℓ`-datum
+shifted-center form and floored by the seam `M_range`. -/
+theorem window_sup_decay {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    {t₀ t X T σ : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1) (hYX : Real.exp (1 / σ) ≤ X)
+    (hmem : (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X) :
+    ‖LSeries (ellLin (seamCoeff (ellLin g) (fun _ => 1) t₀))
+        (((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I)‖
+      ≤ Real.exp (cpeel + (Real.log 4 + cpeel)) * (1 / σ)
+        * Real.exp (-(1 / Real.exp 1)
+            * (M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T
+                - 2 * Real.log (σ * Real.log X) - 48)) := by
+  have hEllOne : ∀ n : ℕ, ‖ellLin g n‖ ≤ 1 := fun n => ellLin_norm_le_one g hg n
+  have hSeamOne : ∀ n : ℕ, ‖seamCoeff (ellLin g) (fun _ => 1) t₀ n‖ ≤ 1 :=
+    fun n => norm_seamCoeff_le hEllOne (fun _ => le_of_eq norm_one) t₀ n
+  have hHead := head_sigma_bound (g := seamCoeff (ellLin g) (fun _ => 1) t₀) hSeamOne hσ0 hσ1 t
+  have hdist_eq :
+      pretDistSq (fun _ => 1)
+          (fun n => seamCoeff (ellLin g) (fun _ => 1) t₀ n * costwist (-t) n) (Real.exp (1 / σ))
+        = pretDistSq (ellLin g) (costwist (t + t₀)) (Real.exp (1 / σ)) :=
+    (dist_triv_left_eq (seamCoeff (ellLin g) (fun _ => 1) t₀) t (Real.exp (1 / σ))).trans
+      (seamCoeff_trivial_dist_eq t₀ t (Real.exp (1 / σ)))
+  rw [hdist_eq] at hHead
+  refine hHead.trans ?_
+  refine mul_le_mul_of_nonneg_left ?_
+    (mul_nonneg (Real.exp_nonneg _) (div_nonneg zero_le_one hσ0.le))
+  apply Real.exp_le_exp.mpr
+  rw [neg_mul, neg_mul]
+  have hd := scale_floor_Mrange_seam (t₀ := t₀) hg hσ0 hσ1 hYX hmem
+  have hepos : (0 : ℝ) ≤ 1 / Real.exp 1 := by positivity
+  exact neg_le_neg (mul_le_mul_of_nonneg_left hd hepos)
+
+/-- **S1 squared** (`window_sup_decay_sq`).  The `S3`-consumer shape: squaring
+`window_sup_decay` gives
+`‖F_seam‖² ≤ C_F²·(1/σ²)·exp(−(2/e)·(M_range(...) − 2·log(σ·logX) − 48))`. -/
+theorem window_sup_decay_sq {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    {t₀ t X T σ : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1) (hYX : Real.exp (1 / σ) ≤ X)
+    (hmem : (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X) :
+    ‖LSeries (ellLin (seamCoeff (ellLin g) (fun _ => 1) t₀))
+        (((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I)‖ ^ 2
+      ≤ Real.exp (cpeel + (Real.log 4 + cpeel)) ^ 2 * (1 / σ ^ 2)
+        * Real.exp (-(2 / Real.exp 1)
+            * (M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T
+                - 2 * Real.log (σ * Real.log X) - 48)) := by
+  have h1 := window_sup_decay hg hσ0 hσ1 hYX hmem (t₀ := t₀)
+  have hE2 : Real.exp (-(1 / Real.exp 1)
+        * (M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T
+            - 2 * Real.log (σ * Real.log X) - 48)) ^ 2
+      = Real.exp (-(2 / Real.exp 1)
+        * (M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T
+            - 2 * Real.log (σ * Real.log X) - 48)) := by
+    rw [pow_two, ← Real.exp_add]; congr 1; ring
+  calc ‖LSeries (ellLin (seamCoeff (ellLin g) (fun _ => 1) t₀))
+          (((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I)‖ ^ 2
+      = ‖LSeries (ellLin (seamCoeff (ellLin g) (fun _ => 1) t₀))
+            (((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I)‖
+        * ‖LSeries (ellLin (seamCoeff (ellLin g) (fun _ => 1) t₀))
+            (((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I)‖ := by rw [pow_two]
+    _ ≤ (Real.exp (cpeel + (Real.log 4 + cpeel)) * (1 / σ)
+            * Real.exp (-(1 / Real.exp 1)
+                * (M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T
+                    - 2 * Real.log (σ * Real.log X) - 48)))
+          * (Real.exp (cpeel + (Real.log 4 + cpeel)) * (1 / σ)
+            * Real.exp (-(1 / Real.exp 1)
+                * (M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T
+                    - 2 * Real.log (σ * Real.log X) - 48))) :=
+        mul_self_le_mul_self (norm_nonneg _) h1
+    _ = Real.exp (cpeel + (Real.log 4 + cpeel)) ^ 2 * (1 / σ ^ 2)
+          * Real.exp (-(2 / Real.exp 1)
+              * (M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T
+                  - 2 * Real.log (σ * Real.log X) - 48)) := by
+        rw [← hE2]; ring
+
+/-- **S2 — the σ-cutoff of the window head decay** (`sigma_cutoff_seam`).  The σ-integral of
+`window_sup_decay`'s majorant over the flat regime `[1/logX, 2η]`: for `logX ≥ 3` and
+`1/logX ≤ 2η`, with `M_range(...) ≥ 0`,
+
+  `∫_{1/logX}^{2η} (S1-majorant σ)/σ dσ
+    ≤ C_F·(exp(48/e)/(1 − 2/e))·exp(−(1/e)·M_range(seamCoeff (ellLin g) 1 t₀)) · logX`,
+
+via `sigma_cutoff_pretentious` (the `c = 1/e` flat-regime integral; `L := logX`, `C := 48`)
+after `integral_congr` collapses `(1/σ)·(1/σ) = 1/σ²` and `integral_const_mul` pulls out the
+constant `C_F = exp(cpeel + (log 4 + cpeel))`.  `sigma_cutoff_pretentious` is the directly
+matching socket: the S1 majorant/σ is exactly `C_F ×` its integrand (no `Fbound`/`htriv`
+plumbing, unlike `HExit.sigma_cutoff`'s `(1+M)` arm). -/
+theorem sigma_cutoff_seam {g : ℕ → ℂ} {t₀ X T η : ℝ}
+    (hL : 3 ≤ Real.log X) (hη : 1 / Real.log X ≤ 2 * η)
+    (hM0 : 0 ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T) :
+    (∫ σ in (1 / Real.log X)..(2 * η),
+        Real.exp (cpeel + (Real.log 4 + cpeel)) * (1 / σ)
+          * Real.exp (-(1 / Real.exp 1)
+              * (M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T
+                  - 2 * Real.log (σ * Real.log X) - 48)) / σ)
+      ≤ Real.exp (cpeel + (Real.log 4 + cpeel))
+          * (Real.exp (48 / Real.exp 1) / (1 - 2 / Real.exp 1))
+          * Real.exp (-(1 / Real.exp 1) * M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
+          * Real.log X := by
+  have hCFnn : (0 : ℝ) ≤ Real.exp (cpeel + (Real.log 4 + cpeel)) := Real.exp_nonneg _
+  have hcong : Set.EqOn
+      (fun σ => Real.exp (cpeel + (Real.log 4 + cpeel)) * (1 / σ)
+          * Real.exp (-(1 / Real.exp 1)
+              * (M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T
+                  - 2 * Real.log (σ * Real.log X) - 48)) / σ)
+      (fun σ => Real.exp (cpeel + (Real.log 4 + cpeel))
+          * ((1 / σ ^ 2) * Real.exp (-(1 / Real.exp 1)
+              * (M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T
+                  - 2 * Real.log (σ * Real.log X) - 48))))
+      (Set.uIcc (1 / Real.log X) (2 * η)) := by
+    intro σ _
+    dsimp only
+    ring
+  rw [intervalIntegral.integral_congr hcong, intervalIntegral.integral_const_mul]
+  have hsc := sigma_cutoff_pretentious (L := Real.log X)
+      (M := M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T) (C := 48) (b := 2 * η)
+      hL hM0 (by norm_num) hη
+  have hconv : -(M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T / Real.exp 1)
+      = -(1 / Real.exp 1) * M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T := by ring
+  rw [hconv] at hsc
+  calc Real.exp (cpeel + (Real.log 4 + cpeel))
+        * (∫ σ in (1 / Real.log X)..(2 * η),
+            (1 / σ ^ 2) * Real.exp (-(1 / Real.exp 1)
+                * (M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T
+                    - 2 * Real.log (σ * Real.log X) - 48)))
+      ≤ Real.exp (cpeel + (Real.log 4 + cpeel))
+          * ((Real.exp (48 / Real.exp 1) / (1 - 2 / Real.exp 1))
+              * Real.exp (-(1 / Real.exp 1)
+                  * M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
+              * Real.log X) := mul_le_mul_of_nonneg_left hsc hCFnn
+    _ = Real.exp (cpeel + (Real.log 4 + cpeel))
+          * (Real.exp (48 / Real.exp 1) / (1 - 2 / Real.exp 1))
+          * Real.exp (-(1 / Real.exp 1)
+              * M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
+          * Real.log X := by ring
+
 end Salt.MR
