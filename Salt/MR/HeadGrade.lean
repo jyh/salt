@@ -1858,4 +1858,472 @@ theorem crossKer_grade_sharp {g : ℕ → ℂ} {X h y c₀ t₀ α β : ℝ}
   rw [head_split_ledger hX hh hc]
   exact add_le_add (head_sharp_socket hX hh hc) (tail_band_sum hX hh hc)
 
+/-! ## Stone L1 — the low-line off-diagonal window evaluation (`offdiag_widthA_final_low`)
+
+The mechanical clone of `inner_sharp`/`offdiag_widthA_sharp`/`offdiag_widthA_final` for the
+sub-unit line `0 < c ≤ 1`.  SHARP-HEAD's residual recipe: the analytic core (`inner_sharp`'s
+geometric page, `hband_discharge`) is `c`-AGNOSTIC — `inner_sharp`'s `hδle` is unused and
+`hband_discharge` carries no `c`-dependence.  The ONLY step that used `c ≥ 1` is the reassembly
+`n^{1−2c} ≤ n^{−c}` (`offdiag_widthA_sharp`'s `hpow`); for `c ≤ 1` on the window `n ≤ Q := X/y` it
+is replaced by the window-monotonicity `n^{1−2c} = n^{−c}·n^{1−c} ≤ n^{−c}·Q^{1−c}` (`n ≤ Q`,
+`1−c ≥ 0`), carrying the `Q^{1−c}` excess EXPLICITLY into the exit (the same single-power excess
+`low_leg_shift` banks at line 1).  A second `c ≤ 1` deviation, DOCUMENTED per iron rule 1: the
+`inner_sharp` final collapse `1/(a−c+1) ≤ 1/(a−c+1)` used `a−c+1 ≤ a` (`c ≥ 1`), which reverses for
+`c ≤ 1`; the low core exits at denominator `a` (`2·Cb·n^{a−c+1}/a`, via `1/(a−c+1) ≤ 1/a`), giving
+the honest `4·Cb/a·Q^{1−c}·mass` grade — `1/a ≍ 1/(a−c+1)` for `c ≍ 1 ≪ a`, the decay intact. -/
+
+/-- The `c`-agnostic per-`n` inner sharp bound at a sub-unit line (`inner_sharp` for `0 < c ≤ 1`).
+Byte-faithful clone of `inner_sharp`: the geometric core is `c`-agnostic (its `hδle` was unused),
+so only the final `1/(a−c+1)` collapse changes — for `c ≤ 1` it lands at denominator `a`. -/
+private lemma inner_sharp_low {F : Finset ℕ} {b : ℕ → ℂ} {c a : ℝ}
+    (hc0 : 0 < c) (hc1 : c ≤ 1) (hca : c ≤ a) {n : ℕ} (hn : 1 ≤ n)
+    (hF : ∀ m ∈ F, 1 ≤ m) {Cb : ℝ} (hCb : 0 ≤ Cb)
+    (hband : ∀ k : ℕ,
+      (∑ m ∈ (F.filter (· < n)).filter
+          (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊ = k), ‖b m‖)
+        ≤ Cb * (n : ℝ) / a * Real.exp (-((k : ℝ) / a))) :
+    (∑ m ∈ F.filter (· < n), ‖b m‖ * (m : ℝ) ^ (a - c))
+      ≤ 2 * Cb * (n : ℝ) ^ (a - c + 1) / a := by
+  have ha0 : (0 : ℝ) < a := by linarith
+  have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
+  have hac0 : (0 : ℝ) ≤ a - c := by linarith
+  have hac1 : (0 : ℝ) < a - c + 1 := by linarith
+  have hδpos : (0 : ℝ) < (a - c + 1) / a := by positivity
+  have hmaps : ∀ m ∈ F.filter (· < n),
+      (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊) m
+        ∈ Finset.range (⌊a * Real.log (n : ℝ)⌋₊ + 1) := by
+    intro m hm
+    rw [Finset.mem_filter] at hm
+    have hm1 : 1 ≤ m := hF m hm.1
+    have hmlog0 : (0 : ℝ) ≤ Real.log (m : ℝ) := Real.log_nonneg (by exact_mod_cast hm1)
+    rw [Finset.mem_range]
+    refine Nat.lt_succ_of_le (Nat.floor_le_floor ?_)
+    exact mul_le_mul_of_nonneg_left (by linarith) ha0.le
+  rw [← Finset.sum_fiberwise_of_maps_to hmaps (fun m => ‖b m‖ * (m : ℝ) ^ (a - c))]
+  have hbandbd : ∀ k ∈ Finset.range (⌊a * Real.log (n : ℝ)⌋₊ + 1),
+      (∑ m ∈ (F.filter (· < n)).filter
+          (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊ = k),
+          ‖b m‖ * (m : ℝ) ^ (a - c))
+        ≤ Cb / a * (n : ℝ) ^ (a - c + 1) * (Real.exp (-((a - c + 1) / a))) ^ k := by
+    intro k _
+    have hfactor : ∀ m ∈ (F.filter (· < n)).filter
+          (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊ = k),
+        ‖b m‖ * (m : ℝ) ^ (a - c)
+          ≤ ‖b m‖ * ((n : ℝ) ^ (a - c) * Real.exp (-((k : ℝ) * (a - c) / a))) := by
+      intro m hm
+      rw [Finset.mem_filter, Finset.mem_filter] at hm
+      have hm1 : 1 ≤ m := hF m hm.1.1
+      have hm0 : (0 : ℝ) < (m : ℝ) := by exact_mod_cast hm1
+      have hmn : m < n := hm.1.2
+      have hlogle : Real.log (m : ℝ) ≤ Real.log (n : ℝ) :=
+        Real.log_le_log hm0 (by exact_mod_cast hmn.le)
+      have hkle : (k : ℝ) ≤ a * (Real.log (n : ℝ) - Real.log (m : ℝ)) := by
+        rw [← hm.2]; exact Nat.floor_le (by nlinarith [hlogle, ha0])
+      have hmle : (m : ℝ) ≤ (n : ℝ) * Real.exp (-((k : ℝ) / a)) := by
+        rw [← Real.exp_log hm0, ← Real.exp_log hn0, ← Real.exp_add]
+        apply Real.exp_le_exp.mpr
+        have hkdiv : (k : ℝ) / a ≤ Real.log (n : ℝ) - Real.log (m : ℝ) := by
+          rw [div_le_iff₀ ha0]; linarith [hkle]
+        linarith [hkdiv]
+      refine mul_le_mul_of_nonneg_left ?_ (norm_nonneg _)
+      calc (m : ℝ) ^ (a - c)
+          ≤ ((n : ℝ) * Real.exp (-((k : ℝ) / a))) ^ (a - c) :=
+            Real.rpow_le_rpow hm0.le hmle hac0
+        _ = (n : ℝ) ^ (a - c) * Real.exp (-((k : ℝ) / a)) ^ (a - c) :=
+            Real.mul_rpow hn0.le (Real.exp_pos _).le
+        _ = (n : ℝ) ^ (a - c) * Real.exp (-((k : ℝ) * (a - c) / a)) := by
+            rw [← Real.exp_mul]; congr 2; ring
+    calc (∑ m ∈ (F.filter (· < n)).filter
+              (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊ = k),
+              ‖b m‖ * (m : ℝ) ^ (a - c))
+        ≤ ∑ m ∈ (F.filter (· < n)).filter
+              (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊ = k),
+              ‖b m‖ * ((n : ℝ) ^ (a - c) * Real.exp (-((k : ℝ) * (a - c) / a))) :=
+          Finset.sum_le_sum hfactor
+      _ = ((n : ℝ) ^ (a - c) * Real.exp (-((k : ℝ) * (a - c) / a)))
+            * ∑ m ∈ (F.filter (· < n)).filter
+              (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊ = k), ‖b m‖ := by
+          rw [Finset.mul_sum]; exact Finset.sum_congr rfl (fun m _ => by ring)
+      _ ≤ ((n : ℝ) ^ (a - c) * Real.exp (-((k : ℝ) * (a - c) / a)))
+            * (Cb * (n : ℝ) / a * Real.exp (-((k : ℝ) / a))) :=
+          mul_le_mul_of_nonneg_left (hband k) (by positivity)
+      _ = Cb / a * (n : ℝ) ^ (a - c + 1) * (Real.exp (-((a - c + 1) / a))) ^ k := by
+          rw [Real.rpow_add hn0, Real.rpow_one, ← Real.exp_nat_mul]
+          rw [show ((n : ℝ) ^ (a - c) * Real.exp (-((k : ℝ) * (a - c) / a)))
+                * (Cb * (n : ℝ) / a * Real.exp (-((k : ℝ) / a)))
+              = Cb / a * ((n : ℝ) ^ (a - c) * (n : ℝ))
+                * (Real.exp (-((k : ℝ) * (a - c) / a)) * Real.exp (-((k : ℝ) / a))) from by ring]
+          rw [← Real.exp_add]
+          congr 2
+          ring
+  calc (∑ k ∈ Finset.range (⌊a * Real.log (n : ℝ)⌋₊ + 1),
+          ∑ m ∈ (F.filter (· < n)).filter
+            (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊ = k),
+            ‖b m‖ * (m : ℝ) ^ (a - c))
+      ≤ ∑ k ∈ Finset.range (⌊a * Real.log (n : ℝ)⌋₊ + 1),
+          Cb / a * (n : ℝ) ^ (a - c + 1) * (Real.exp (-((a - c + 1) / a))) ^ k :=
+        Finset.sum_le_sum hbandbd
+    _ = Cb / a * (n : ℝ) ^ (a - c + 1)
+          * ∑ k ∈ Finset.range (⌊a * Real.log (n : ℝ)⌋₊ + 1),
+              (Real.exp (-((a - c + 1) / a))) ^ k := by rw [Finset.mul_sum]
+    _ ≤ Cb / a * (n : ℝ) ^ (a - c + 1) * (1 - Real.exp (-((a - c + 1) / a)))⁻¹ :=
+        mul_le_mul_of_nonneg_left
+          (geom_partial_le (Real.exp_pos _).le
+            (by rw [Real.exp_lt_one_iff]; linarith [hδpos]) _)
+          (by positivity)
+    _ ≤ Cb / a * (n : ℝ) ^ (a - c + 1) * (((a - c + 1) / a)⁻¹ + 1) :=
+        mul_le_mul_of_nonneg_left (inv_one_sub_exp_neg_le hδpos) (by positivity)
+    _ ≤ 2 * Cb * (n : ℝ) ^ (a - c + 1) / a := by
+        rw [show (((a - c + 1) / a)⁻¹ = a / (a - c + 1)) from by rw [inv_div]]
+        have hnp : (0 : ℝ) ≤ (n : ℝ) ^ (a - c + 1) := by positivity
+        have hle1 : a / (a - c + 1) ≤ 1 := by rw [div_le_one hac1]; linarith
+        calc Cb / a * (n : ℝ) ^ (a - c + 1) * (a / (a - c + 1) + 1)
+            ≤ Cb / a * (n : ℝ) ^ (a - c + 1) * 2 :=
+              mul_le_mul_of_nonneg_left (by linarith) (by positivity)
+          _ = 2 * Cb * (n : ℝ) ^ (a - c + 1) / a := by ring
+
+/-- **Stone L1-sharp — the low-line strict off-diagonal with `1/a` decay**
+(`offdiag_widthA_sharp_low`).
+The `0 < c ≤ 1` clone of `offdiag_widthA_sharp`, on the window `n ≤ Q`: the reassembly step
+`n^{1−2c} ≤ n^{−c}` is replaced by `n^{1−2c} = n^{−c}·n^{1−c} ≤ n^{−c}·Q^{1−c}`, carrying the
+`Q^{1−c}` excess explicit, at denominator `a`:
+`∑_{m<n∈F} ‖b_m‖‖b_n‖/(mn)^c·e^{−a|log m−log n|} ≤ 2·Cb/a·(Q^{1−c}·∑_{n∈F} ‖b_n‖/n^c)`. -/
+theorem offdiag_widthA_sharp_low {F : Finset ℕ} {b : ℕ → ℂ} {c a Q : ℝ}
+    (hc0 : 0 < c) (hc1 : c ≤ 1) (hca : c ≤ a) (hF : ∀ n ∈ F, 1 ≤ n) {Cb : ℝ} (hCb : 0 ≤ Cb)
+    (hQ : ∀ n ∈ F, (n : ℝ) ≤ Q)
+    (hband : ∀ n ∈ F, ∀ k : ℕ,
+      (∑ m ∈ (F.filter (· < n)).filter
+          (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊ = k), ‖b m‖)
+        ≤ Cb * (n : ℝ) / a * Real.exp (-((k : ℝ) / a))) :
+    (∑ m ∈ F, ∑ n ∈ F, if m < n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+        * Real.exp (-(a * |Real.log m - Real.log n|)) else 0)
+      ≤ 2 * Cb / a * (Q ^ (1 - c) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c) := by
+  have ha0 : (0 : ℝ) < a := by linarith
+  rw [Finset.sum_comm]
+  have hkey : ∀ n ∈ F, (∑ m ∈ F, if m < n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+        * Real.exp (-(a * |Real.log m - Real.log n|)) else 0)
+      ≤ 2 * Cb / a * Q ^ (1 - c) * (‖b n‖ / (n : ℝ) ^ c) := by
+    intro n hn
+    have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hF n hn
+    rw [← Finset.sum_filter]
+    have hid : ∀ m ∈ F.filter (· < n),
+        ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c * Real.exp (-(a * |Real.log m - Real.log n|))
+          = (‖b n‖ * (n : ℝ) ^ (-(a + c))) * (‖b m‖ * (m : ℝ) ^ (a - c)) := by
+      intro m hm
+      rw [Finset.mem_filter] at hm
+      have hm0 : (0 : ℝ) < (m : ℝ) := by exact_mod_cast hF m hm.1
+      have hmn : m < n := hm.2
+      have hlogle : Real.log (m : ℝ) ≤ Real.log (n : ℝ) :=
+        Real.log_le_log hm0 (by exact_mod_cast hmn.le)
+      have habs : |Real.log (m : ℝ) - Real.log (n : ℝ)| = Real.log (n : ℝ) - Real.log (m : ℝ) := by
+        rw [abs_of_nonpos (by linarith)]; ring
+      have hexp : Real.exp (-(a * (Real.log (n : ℝ) - Real.log (m : ℝ))))
+          = (m : ℝ) ^ a / (n : ℝ) ^ a := by
+        rw [Real.rpow_def_of_pos hm0, Real.rpow_def_of_pos hn0, ← Real.exp_sub]
+        congr 1; ring
+      rw [habs, hexp,
+        show ((m * n : ℕ) : ℝ) ^ c = (m : ℝ) ^ c * (n : ℝ) ^ c from by
+          push_cast; rw [Real.mul_rpow hm0.le hn0.le],
+        show (m : ℝ) ^ (a - c) = (m : ℝ) ^ a / (m : ℝ) ^ c from by rw [Real.rpow_sub hm0],
+        show (n : ℝ) ^ (-(a + c)) = 1 / ((n : ℝ) ^ a * (n : ℝ) ^ c) from by
+          rw [Real.rpow_neg hn0.le, Real.rpow_add hn0, one_div]]
+      field_simp
+    rw [Finset.sum_congr rfl hid, ← Finset.mul_sum]
+    have hinner := inner_sharp_low hc0 hc1 hca (hF n hn) hF hCb (hband n hn)
+    have hKnn : (0 : ℝ) ≤ ‖b n‖ * (n : ℝ) ^ (-(a + c)) := by positivity
+    calc (‖b n‖ * (n : ℝ) ^ (-(a + c)))
+            * ∑ m ∈ F.filter (· < n), ‖b m‖ * (m : ℝ) ^ (a - c)
+        ≤ (‖b n‖ * (n : ℝ) ^ (-(a + c))) * (2 * Cb * (n : ℝ) ^ (a - c + 1) / a) :=
+          mul_le_mul_of_nonneg_left hinner hKnn
+      _ = 2 * Cb / a * (‖b n‖ * ((n : ℝ) ^ (-(a + c)) * (n : ℝ) ^ (a - c + 1))) := by ring
+      _ ≤ 2 * Cb / a * Q ^ (1 - c) * (‖b n‖ / (n : ℝ) ^ c) := by
+          rw [show ‖b n‖ / (n : ℝ) ^ c = ‖b n‖ * (n : ℝ) ^ (-c) from by
+            rw [Real.rpow_neg hn0.le, div_eq_mul_inv]]
+          have hpow : (n : ℝ) ^ (-(a + c)) * (n : ℝ) ^ (a - c + 1)
+              ≤ Q ^ (1 - c) * (n : ℝ) ^ (-c) := by
+            rw [← Real.rpow_add hn0,
+              show (-(a + c) + (a - c + 1) : ℝ) = (1 - c) + (-c) from by ring, Real.rpow_add hn0]
+            exact mul_le_mul_of_nonneg_right
+              (Real.rpow_le_rpow hn0.le (hQ n hn) (by linarith)) (Real.rpow_nonneg hn0.le _)
+          have h2 : (0 : ℝ) ≤ 2 * Cb / a := by positivity
+          calc 2 * Cb / a * (‖b n‖ * ((n : ℝ) ^ (-(a + c)) * (n : ℝ) ^ (a - c + 1)))
+              ≤ 2 * Cb / a * (‖b n‖ * (Q ^ (1 - c) * (n : ℝ) ^ (-c))) :=
+                mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left hpow (norm_nonneg _)) h2
+            _ = 2 * Cb / a * Q ^ (1 - c) * (‖b n‖ * (n : ℝ) ^ (-c)) := by ring
+  calc ∑ n ∈ F, (∑ m ∈ F, if m < n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(a * |Real.log m - Real.log n|)) else 0)
+      ≤ ∑ n ∈ F, 2 * Cb / a * Q ^ (1 - c) * (‖b n‖ / (n : ℝ) ^ c) := Finset.sum_le_sum hkey
+    _ = 2 * Cb / a * (Q ^ (1 - c) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c) := by
+        rw [← Finset.mul_sum, mul_assoc]
+
+/-- **Stone L1 — the fully-discharged low-line off-diagonal at the y-gate**
+(`offdiag_widthA_final_low`).
+The `0 < c ≤ 1` twin of `offdiag_widthA_final`: under the y-gate `2·a^8 ≤ n`, `4 ≤ a`, `Λ`-bounded
+coefficients, and the window `n ≤ Q`, the FULL off-diagonal (`m ≠ n`) carries the sharp `1/a`
+decay with the window-excess `Q^{1−c}` explicit and NO `hband`, NO concession:
+`∑_{m≠n∈F} ‖b_m‖‖b_n‖/(mn)^c·e^{−a|log m−log n|} ≤ 4·C/a·(Q^{1−c}·∑_{n∈F} ‖b_n‖/n^c)`,
+`C` the absolute constant of `shortInterval_vonMangoldt_le` (`= 250`).  The `Q^{1−c}` factor is the
+`(X/y)^{1−c}` the S-ladder's `(X/y)^{2β}` bookkeeping absorbs downstream (STATED, not absorbed). -/
+theorem offdiag_widthA_final_low {F : Finset ℕ} {b : ℕ → ℂ} {c a Q : ℝ}
+    (hc0 : 0 < c) (hc1 : c ≤ 1) (hca : c ≤ a) (ha4 : 4 ≤ a)
+    (hF : ∀ n ∈ F, 1 ≤ n) (hb : ∀ n, ‖b n‖ ≤ ArithmeticFunction.vonMangoldt n)
+    (hygate : ∀ n ∈ F, 2 * a ^ 8 ≤ (n : ℝ)) (hQ : ∀ n ∈ F, (n : ℝ) ≤ Q) :
+    ∃ Cb : ℝ, 0 ≤ Cb ∧
+      (∑ m ∈ F, ∑ n ∈ F, if m ≠ n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(a * |Real.log m - Real.log n|)) else 0)
+        ≤ 4 * Cb / a * (Q ^ (1 - c) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c) := by
+  obtain ⟨C, hC0, hband⟩ := hband_discharge ha4 hF hb hygate
+  refine ⟨C, hC0, ?_⟩
+  have hsharp := offdiag_widthA_sharp_low hc0 hc1 hca hF hC0 hQ hband
+  have hsymm : ∀ m n : ℕ,
+      ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c * Real.exp (-(a * |Real.log m - Real.log n|))
+        = ‖b n‖ * ‖b m‖ / ((n * m : ℕ) : ℝ) ^ c
+            * Real.exp (-(a * |Real.log n - Real.log m|)) := by
+    intro m n
+    rw [mul_comm (‖b m‖) (‖b n‖), Nat.mul_comm m n, abs_sub_comm (Real.log m) (Real.log n)]
+  calc (∑ m ∈ F, ∑ n ∈ F, if m ≠ n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(a * |Real.log m - Real.log n|)) else 0)
+      = 2 * ∑ m ∈ F, ∑ n ∈ F, (if m < n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(a * |Real.log m - Real.log n|)) else 0) := sum_ne_eq_two_lt hsymm
+    _ ≤ 2 * (2 * C / a * (Q ^ (1 - c) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c)) :=
+        mul_le_mul_of_nonneg_left hsharp (by norm_num)
+    _ = 4 * C / a * (Q ^ (1 - c) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c) := by ring
+
+/-! ## Stone L2 — the low-line head weighted second moment (`head_second_moment_grade_low`)
+
+The `0 < c ≤ 1` twin of `head_second_moment_grade`: the same skeleton (`band_second_moment` +
+`widthA_plancherel` + the diagonal/off-diagonal split), with `offdiag_widthA_final_low` (Stone L1)
+in place of `offdiag_widthA_final` — the `a`-vs-`(a−c+1)` denominator and the window-excess
+`Q^{1−c}` are the only changes.  Everything between is `c`-agnostic (the Plancherel identity and the
+band domination carry no line constraint).  Exit, on the window `n ≤ Q`:
+`∫_{|τ|≤T₀} ‖P(c+iτ)‖²/√(cw²+τ²) ≤ 2πT₀/cw·(diagonal + 4C/T₀·(Q^{1−c}·mass))`, `C` the absolute
+`shortInterval` constant — the low-leg feed for the SHARP `crossKer` grade (Stone L3). -/
+theorem head_second_moment_grade_low {F : Finset ℕ} {b : ℕ → ℂ} {c cw T₀ Q : ℝ}
+    (hc0 : 0 < c) (hc1 : c ≤ 1) (hcw : 0 < cw) (hT₀ : 4 ≤ T₀)
+    (hF : ∀ n ∈ F, 1 ≤ n) (hb : ∀ n, ‖b n‖ ≤ ArithmeticFunction.vonMangoldt n)
+    (hygate : ∀ n ∈ F, 2 * T₀ ^ 8 ≤ (n : ℝ)) (hQ : ∀ n ∈ F, (n : ℝ) ≤ Q) :
+    ∃ Cb : ℝ, 0 ≤ Cb ∧
+      (∫ τ in Set.Icc (-T₀) T₀,
+          ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 / Real.sqrt (cw ^ 2 + τ ^ 2))
+        ≤ 2 * Real.pi * T₀ / cw
+            * ((∑ n ∈ F, ‖b n‖ ^ 2 / ((n * n : ℕ) : ℝ) ^ c)
+              + 4 * Cb / T₀ * (Q ^ (1 - c) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c)) := by
+  have hT₀0 : (0 : ℝ) < T₀ := by linarith
+  have hcT : c ≤ T₀ := by linarith
+  obtain ⟨C, hC0, hoff⟩ := offdiag_widthA_final_low hc0 hc1 hcT hT₀ hF hb hygate hQ
+  have hden_pos : ∀ τ : ℝ, (0 : ℝ) < cw ^ 2 + τ ^ 2 := fun τ => by
+    have h := pow_pos hcw 2; linarith [sq_nonneg τ]
+  have hPcont : Continuous (fun τ : ℝ => ∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)) :=
+    continuous_dirichletPoly F b c hF
+  have hcw_le_sqrt : ∀ τ : ℝ, cw ≤ Real.sqrt (cw ^ 2 + τ ^ 2) := fun τ =>
+    calc cw = Real.sqrt (cw ^ 2) := (Real.sqrt_sq hcw.le).symm
+      _ ≤ Real.sqrt (cw ^ 2 + τ ^ 2) := Real.sqrt_le_sqrt (by linarith [sq_nonneg τ])
+  have hIntW : IntegrableOn (fun τ : ℝ =>
+      ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 / Real.sqrt (cw ^ 2 + τ ^ 2))
+      (Set.Icc (-T₀) T₀) :=
+    ((hPcont.norm.pow 2).div (Real.continuous_sqrt.comp (by fun_prop))
+      (fun τ => (Real.sqrt_pos.mpr (hden_pos τ)).ne')).integrableOn_Icc
+  have hIntQ : IntegrableOn (fun τ : ℝ =>
+      cw⁻¹ * ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2)
+      (Set.Icc (-T₀) T₀) :=
+    (continuous_const.mul (hPcont.norm.pow 2)).integrableOn_Icc
+  have hstep1 : (∫ τ in Set.Icc (-T₀) T₀,
+        ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 / Real.sqrt (cw ^ 2 + τ ^ 2))
+      ≤ cw⁻¹ * ∫ τ in Set.Icc (-T₀) T₀,
+          ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 := by
+    rw [← integral_const_mul]
+    refine setIntegral_mono_on hIntW hIntQ measurableSet_Icc (fun τ _ => ?_)
+    calc ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 / Real.sqrt (cw ^ 2 + τ ^ 2)
+        ≤ ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 / cw :=
+          div_le_div_of_nonneg_left (by positivity) hcw (hcw_le_sqrt τ)
+      _ = cw⁻¹ * ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 := div_eq_inv_mul _ _
+  have hbsm := band_second_moment F b (c := c) hT₀0 hF
+  have hplanch := widthA_plancherel F b (c := c) hT₀0 hF
+  have hRe_le_K : ∀ m n : ℕ,
+      (b m * starRingEnd ℂ (b n)).re / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(T₀ * |Real.log m - Real.log n|))
+        ≤ ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(T₀ * |Real.log m - Real.log n|)) := by
+    intro m n
+    have hre : (b m * starRingEnd ℂ (b n)).re ≤ ‖b m‖ * ‖b n‖ := by
+      have h1 := Complex.re_le_norm (b m * starRingEnd ℂ (b n))
+      rwa [norm_mul, Complex.norm_conj] at h1
+    have hE : (0 : ℝ) ≤ (((m * n : ℕ) : ℝ) ^ c)⁻¹
+        * Real.exp (-(T₀ * |Real.log m - Real.log n|)) := by positivity
+    calc (b m * starRingEnd ℂ (b n)).re / ((m * n : ℕ) : ℝ) ^ c
+            * Real.exp (-(T₀ * |Real.log m - Real.log n|))
+        = (b m * starRingEnd ℂ (b n)).re
+            * ((((m * n : ℕ) : ℝ) ^ c)⁻¹ * Real.exp (-(T₀ * |Real.log m - Real.log n|))) := by
+          rw [div_eq_mul_inv]; ring
+      _ ≤ ‖b m‖ * ‖b n‖
+            * ((((m * n : ℕ) : ℝ) ^ c)⁻¹ * Real.exp (-(T₀ * |Real.log m - Real.log n|))) :=
+          mul_le_mul_of_nonneg_right hre hE
+      _ = ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+            * Real.exp (-(T₀ * |Real.log m - Real.log n|)) := by rw [div_eq_mul_inv]; ring
+  have hper_m : ∀ m ∈ F,
+      (∑ n ∈ F, ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(T₀ * |Real.log m - Real.log n|)))
+        = ‖b m‖ ^ 2 / ((m * m : ℕ) : ℝ) ^ c
+          + ∑ n ∈ F, (if m ≠ n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+              * Real.exp (-(T₀ * |Real.log m - Real.log n|)) else 0) := by
+    intro m hm
+    have he1 : (∑ n ∈ F, ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(T₀ * |Real.log m - Real.log n|)))
+        = ∑ n ∈ F, ((if m = n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+              * Real.exp (-(T₀ * |Real.log m - Real.log n|)) else 0)
+            + (if m ≠ n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+              * Real.exp (-(T₀ * |Real.log m - Real.log n|)) else 0)) := by
+      refine Finset.sum_congr rfl (fun n _ => ?_)
+      by_cases h : m = n
+      · rw [if_pos h, if_neg (by simp [h]), add_zero]
+      · rw [if_neg h, if_pos h, zero_add]
+    rw [he1, Finset.sum_add_distrib]
+    congr 1
+    rw [Finset.sum_ite_eq F m (fun n => ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+        * Real.exp (-(T₀ * |Real.log m - Real.log n|))), if_pos hm,
+      sub_self, abs_zero, mul_zero, neg_zero, Real.exp_zero, mul_one, ← pow_two]
+  have hKsplit : (∑ m ∈ F, ∑ n ∈ F, ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(T₀ * |Real.log m - Real.log n|)))
+        = (∑ m ∈ F, ‖b m‖ ^ 2 / ((m * m : ℕ) : ℝ) ^ c)
+          + ∑ m ∈ F, ∑ n ∈ F, (if m ≠ n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+              * Real.exp (-(T₀ * |Real.log m - Real.log n|)) else 0) := by
+    rw [Finset.sum_congr rfl hper_m, Finset.sum_add_distrib]
+  have hfinal_planch : (∑ m ∈ F, ∑ n ∈ F, (b m * starRingEnd ℂ (b n)).re / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(T₀ * |Real.log m - Real.log n|)))
+        ≤ (∑ n ∈ F, ‖b n‖ ^ 2 / ((n * n : ℕ) : ℝ) ^ c)
+          + 4 * C / T₀ * (Q ^ (1 - c) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c) := by
+    calc (∑ m ∈ F, ∑ n ∈ F, (b m * starRingEnd ℂ (b n)).re / ((m * n : ℕ) : ℝ) ^ c
+            * Real.exp (-(T₀ * |Real.log m - Real.log n|)))
+        ≤ ∑ m ∈ F, ∑ n ∈ F, ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+            * Real.exp (-(T₀ * |Real.log m - Real.log n|)) :=
+          Finset.sum_le_sum (fun m _ => Finset.sum_le_sum (fun n _ => hRe_le_K m n))
+      _ = (∑ m ∈ F, ‖b m‖ ^ 2 / ((m * m : ℕ) : ℝ) ^ c)
+            + ∑ m ∈ F, ∑ n ∈ F, (if m ≠ n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+                * Real.exp (-(T₀ * |Real.log m - Real.log n|)) else 0) := hKsplit
+      _ ≤ (∑ n ∈ F, ‖b n‖ ^ 2 / ((n * n : ℕ) : ℝ) ^ c)
+            + 4 * C / T₀ * (Q ^ (1 - c) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c) :=
+          add_le_add le_rfl hoff
+  have hpref0 : (0 : ℝ) ≤ 2 * Real.pi * T₀ / cw :=
+    div_nonneg (by positivity) hcw.le
+  refine ⟨C, hC0, ?_⟩
+  calc (∫ τ in Set.Icc (-T₀) T₀,
+          ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 / Real.sqrt (cw ^ 2 + τ ^ 2))
+      ≤ cw⁻¹ * ∫ τ in Set.Icc (-T₀) T₀,
+          ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 := hstep1
+    _ ≤ cw⁻¹ * (2 * T₀ ^ 2 * ∫ τ : ℝ,
+          ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 / (T₀ ^ 2 + τ ^ 2)) :=
+        mul_le_mul_of_nonneg_left hbsm (inv_nonneg.mpr hcw.le)
+    _ = cw⁻¹ * (2 * T₀ ^ 2 * (Real.pi / T₀
+          * ∑ m ∈ F, ∑ n ∈ F, (b m * starRingEnd ℂ (b n)).re / ((m * n : ℕ) : ℝ) ^ c
+              * Real.exp (-(T₀ * |Real.log m - Real.log n|)))) := by rw [hplanch]
+    _ = 2 * Real.pi * T₀ / cw
+          * ∑ m ∈ F, ∑ n ∈ F, (b m * starRingEnd ℂ (b n)).re / ((m * n : ℕ) : ℝ) ^ c
+              * Real.exp (-(T₀ * |Real.log m - Real.log n|)) := by
+        rw [show (2 : ℝ) * Real.pi * T₀ / cw
+              = cw⁻¹ * (2 * T₀ ^ 2 * (Real.pi / T₀)) from by field_simp]
+        ring
+    _ ≤ 2 * Real.pi * T₀ / cw
+          * ((∑ n ∈ F, ‖b n‖ ^ 2 / ((n * n : ℕ) : ℝ) ^ c)
+            + 4 * C / T₀ * (Q ^ (1 - c) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c)) :=
+        mul_le_mul_of_nonneg_left hfinal_planch hpref0
+
+/-! ## Stone L3 — `crossKer` at the FULLY-DECAYED grade (`crossKer_grade_decayed`)
+
+The terminal grade for the σ/α-assembly: `crossKer_grade_sharp`'s geometric-mean exit
+`(X+h)^{cw}·2·√A₋·√A₊ + Mm·Mp·2(X+h)^{cw}` with the two branch-1 leg second moments `A∓` GRADED:
+* the HIGH leg `A₊` (line `c₀+β ≥ 1`) via `head_second_moment_grade` DIRECT (the push_cast exponent
+  rewrite `((c₀:ℂ)+(τ:ℂ)*I)+(β:ℂ) = ((c₀+β:ℝ):ℂ)+(τ:ℂ)*I` folds `windowSum` to the Dirichlet form);
+* the LOW leg `A₋` (line `c₀−β < 1`) via `head_second_moment_grade_low` (Stone L2), carrying the
+  window-excess `(X/y)^{1−(c₀−β)}` EXPLICIT (`low_leg_shift`'s single-power factor, absorbed
+  downstream by the S-ladder's `(X/y)^{2β}` — STATED here, not absorbed);
+then `√·√` monotone assembly (`Real.sqrt_le_sqrt` + `mul_le_mul`) and the exact ramp-free tail
+(`tail_band_sum`, unchanged).  Under the y-gate `2·(2(X+h)/h)^8 ≤ n`, `4 ≤ 2(X+h)/h`, the leg
+regimes `0 < c₀−β ≤ 1 ≤ c₀+β ≤ 2(X+h)/h`, and `‖g p‖ ≤ 1` — the honest hypothesis set as it comes.
+`C₋, C₊` are `shortInterval_vonMangoldt_le`'s constant (`= 250`); the low leg's `1/(2(X+h)/h)`
+denominator (vs the high leg's `1/(2(X+h)/h−(c₀+β)+1)`) is the `c ≤ 1` collapse of Stone L1
+(`≍ 1/T₀` either way).  THE DECAYED GRADE — the head is `mass² → mass`-collapsed, no `√L` ramp. -/
+theorem crossKer_grade_decayed {g : ℕ → ℂ} {X h y c₀ t₀ α β : ℝ}
+    (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c₀ - α - β)
+    (hclow0 : 0 < c₀ - β) (hclow1 : c₀ - β ≤ 1) (hchigh : 1 ≤ c₀ + β)
+    (hT₀4 : 4 ≤ 2 * (X + h) / h) (hchighT : c₀ + β ≤ 2 * (X + h) / h)
+    (hygate : ∀ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊, 2 * (2 * (X + h) / h) ^ 8 ≤ (n : ℝ))
+    (hQ : ∀ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊, (n : ℝ) ≤ X / y) :
+    ∃ Clo Chi : ℝ, 0 ≤ Clo ∧ 0 ≤ Chi ∧
+      crossKer g X h y c₀ t₀ α β
+        ≤ (X + h) ^ (c₀ - α - β) * 2
+            * (Real.sqrt (2 * Real.pi * (2 * (X + h) / h) / (c₀ - α - β)
+                  * ((∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+                        ‖lambdaLin (restrictAbove y g) n‖ ^ 2 / ((n * n : ℕ) : ℝ) ^ (c₀ - β))
+                    + 4 * Clo / (2 * (X + h) / h)
+                        * ((X / y) ^ (1 - (c₀ - β))
+                          * ∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+                              ‖lambdaLin (restrictAbove y g) n‖ / (n : ℝ) ^ (c₀ - β))))
+              * Real.sqrt (2 * Real.pi * (2 * (X + h) / h) / (c₀ - α - β)
+                  * ((∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+                        ‖lambdaLin (restrictAbove y g) n‖ ^ 2 / ((n * n : ℕ) : ℝ) ^ (c₀ + β))
+                    + 4 * Chi / (2 * (X + h) / h - (c₀ + β) + 1)
+                        * ∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+                            ‖lambdaLin (restrictAbove y g) n‖ / (n : ℝ) ^ (c₀ + β))))
+          + (∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+                ‖lambdaLin (restrictAbove y g) n‖ / (n : ℝ) ^ (c₀ - β))
+            * (∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+                ‖lambdaLin (restrictAbove y g) n‖ / (n : ℝ) ^ (c₀ + β))
+            * (2 * (X + h) ^ (c₀ - α - β)) := by
+  have hF : ∀ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊, 1 ≤ n := by
+    intro n hn; rw [Finset.mem_Ioo] at hn; omega
+  have hb : ∀ n, ‖lambdaLin (restrictAbove y g) n‖ ≤ ArithmeticFunction.vonMangoldt n :=
+    fun n => lambdaLin_norm_le (restrictAbove y g) (restrictAbove_norm_le hg) n
+  obtain ⟨Cp, hCp0, hgradeP⟩ := head_second_moment_grade
+    (F := Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊) (b := lambdaLin (restrictAbove y g))
+    (c := c₀ + β) (cw := c₀ - α - β) (T₀ := 2 * (X + h) / h)
+    hchigh hc hT₀4 hchighT hF hb hygate
+  obtain ⟨Cm, hCm0, hgradeM⟩ := head_second_moment_grade_low
+    (F := Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊) (b := lambdaLin (restrictAbove y g))
+    (c := c₀ - β) (cw := c₀ - α - β) (T₀ := 2 * (X + h) / h) (Q := X / y)
+    hclow0 hclow1 hc hT₀4 hF hb hygate hQ
+  refine ⟨Cm, Cp, hCm0, hCp0, ?_⟩
+  -- fold each window leg into the Dirichlet-polynomial form the grades speak
+  have hAP_eq : (∫ τ in Set.Icc (-(2 * (X + h) / h)) (2 * (X + h) / h),
+        ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) + (β : ℂ))‖ ^ 2
+          / Real.sqrt ((c₀ - α - β) ^ 2 + τ ^ 2))
+      = ∫ τ in Set.Icc (-(2 * (X + h) / h)) (2 * (X + h) / h),
+          ‖∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+              lambdaLin (restrictAbove y g) n / (n : ℂ) ^ (((c₀ + β : ℝ) : ℂ) + (τ : ℂ) * I)‖ ^ 2
+            / Real.sqrt ((c₀ - α - β) ^ 2 + τ ^ 2) := by
+    have hwin : ∀ τ : ℝ, windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) + (β : ℂ))
+        = ∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+            lambdaLin (restrictAbove y g) n / (n : ℂ) ^ (((c₀ + β : ℝ) : ℂ) + (τ : ℂ) * I) := by
+      intro τ
+      unfold windowSum
+      refine Finset.sum_congr rfl (fun n _ => ?_)
+      rw [show (((c₀ : ℂ) + (τ : ℂ) * I) + (β : ℂ)) = (((c₀ + β : ℝ) : ℂ) + (τ : ℂ) * I) from by
+        push_cast; ring]
+    simp_rw [hwin]
+  have hAM_eq : (∫ τ in Set.Icc (-(2 * (X + h) / h)) (2 * (X + h) / h),
+        ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) - (β : ℂ))‖ ^ 2
+          / Real.sqrt ((c₀ - α - β) ^ 2 + τ ^ 2))
+      = ∫ τ in Set.Icc (-(2 * (X + h) / h)) (2 * (X + h) / h),
+          ‖∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+              lambdaLin (restrictAbove y g) n / (n : ℂ) ^ (((c₀ - β : ℝ) : ℂ) + (τ : ℂ) * I)‖ ^ 2
+            / Real.sqrt ((c₀ - α - β) ^ 2 + τ ^ 2) := by
+    have hwin : ∀ τ : ℝ, windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) - (β : ℂ))
+        = ∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+            lambdaLin (restrictAbove y g) n / (n : ℂ) ^ (((c₀ - β : ℝ) : ℂ) + (τ : ℂ) * I) := by
+      intro τ
+      unfold windowSum
+      refine Finset.sum_congr rfl (fun n _ => ?_)
+      rw [show (((c₀ : ℂ) + (τ : ℂ) * I) - (β : ℂ)) = (((c₀ - β : ℝ) : ℂ) + (τ : ℂ) * I) from by
+        push_cast; ring]
+    simp_rw [hwin]
+  have hAP := hAP_eq.trans_le hgradeP
+  have hAM := hAM_eq.trans_le hgradeM
+  have hpre : (0 : ℝ) ≤ (X + h) ^ (c₀ - α - β) * 2 :=
+    mul_nonneg (Real.rpow_nonneg (by linarith : (0 : ℝ) ≤ X + h) _) (by norm_num)
+  refine (crossKer_grade_sharp (g := g) (y := y) (t₀ := t₀) hX hh hc).trans ?_
+  refine add_le_add ?_ le_rfl
+  refine mul_le_mul_of_nonneg_left ?_ hpre
+  exact mul_le_mul (Real.sqrt_le_sqrt hAM) (Real.sqrt_le_sqrt hAP)
+    (Real.sqrt_nonneg _) (Real.sqrt_nonneg _)
+
 end Salt.MR

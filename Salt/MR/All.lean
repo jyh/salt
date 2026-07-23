@@ -360,3 +360,7 @@ open Salt.Tactic in
   Salt.MR.sqNorm_cs_band
   Salt.MR.head_sharp_socket
   Salt.MR.crossKer_grade_sharp
+  Salt.MR.offdiag_widthA_sharp_low
+  Salt.MR.offdiag_widthA_final_low
+  Salt.MR.head_second_moment_grade_low
+  Salt.MR.crossKer_grade_decayed
