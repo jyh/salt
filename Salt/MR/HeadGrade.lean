@@ -270,16 +270,19 @@ regardless of the `a`-vs-`c` gap: for `m ≤ n` the width-`a` off-diagonal facto
 `‖bₘ‖·mᵃ⁻ᶜ · ‖bₙ‖·n⁻ᵃ⁻ᶜ`, and `mᵃ⁻ᶜ ≤ nᵃ⁻ᶜ` (`a ≥ c`) reduces the inner sum to
 `nᵃ⁻ᶜ·ψ(n) ≤ (log4+4)·nᵃ⁻ᶜ⁺¹`, leaving `(log4+4)·‖bₙ‖·n¹⁻²ᶜ ≤ (log4+4)·‖bₙ‖·n⁻ᶜ` (`c ≥ 1`).
 
-**RESIDUAL — the sharp `C·L/a` decay (the design's route A′, NOT built here).**  The
-`a`-independent single-mass bound below incurs a `log log X` deficit when summed over the
-`Θ(log √L)` dyadic bands of the head (`head_band_sum`): the band count multiplies the
-constant `M₁ ≍ L`, giving `C·L·log log X`, not `C·L`.  The design's constant grade needs the
-SHARP `∑ ≤ diagonal + C·L/a` — the off-diagonal part decaying like `1/a` via the
-short-interval grain (`shortInterval_vonMangoldt_le`, `Σ_{m∈band}Λ(m) ≤ C·(band length) ≍
-C·n/a`), whose regime hypothesis `a ≤ n^{1/8}` is the named `y = √L` corner concession
-(stone 8).  Formalizing the `k`-band split with that regime threading is the last research
-ledge; it is FLAGGED, not forced, per iron rule 1 and the SF-EXIT law.  The crude form here
-is the honest keystone: the width-`a` off-diagonal sum IS controlled by the single mass. -/
+**RESIDUAL — the sharp `C·L/a` decay (the design's route A′).**  The `a`-independent
+single-mass bound below incurs a `log log X` deficit when summed over the `Θ(log √L)` dyadic
+bands of the head (`head_band_sum`): the band count multiplies the constant `M₁ ≍ L`, giving
+`C·L·log log X`, not `C·L`.  The design's constant grade needs the SHARP `∑ ≤ diagonal + C·L/a`
+— the off-diagonal part decaying like `1/a` via the short-interval grain
+(`shortInterval_vonMangoldt_le`, `Σ_{m∈band}Λ(m) ≤ C·(band length) ≍ C·n/a`), whose regime
+hypothesis `a ≤ n^{1/8}` is the named `y = √L` corner concession (stone 8).  The `k`-band split
++ geometric assembly (the ANALYTIC CORE) is now LANDED as `offdiag_widthA_sharp` below,
+CONDITIONAL on the per-band `Λ`-mass datum `hband`; discharging `hband` from
+`shortInterval_vonMangoldt_le` (with the regime threading + the out-of-regime Chebyshev
+concession) is the remaining research ledge — FLAGGED, not forced, per iron rule 1 / SF-EXIT
+(the exact recipe is in the module-tail residual note).  The crude form here is the honest
+keystone: the width-`a` off-diagonal sum IS controlled by the single mass. -/
 
 /-- The symmetric, nonnegative width-`a` off-diagonal kernel:
 `‖bₘ‖‖bₙ‖/(mn)^c·e^{−a·|log m − log n|}`.  Re-derivation of `JointHead`'s private
@@ -474,6 +477,242 @@ theorem offdiag_widthA_eval {F : Finset ℕ} {b : ℕ → ℂ} {c a : ℝ} (hc :
     _ ≤ 2 * ((Real.log 4 + 4) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c) :=
         mul_le_mul_of_nonneg_left key (by norm_num)
     _ = 2 * (Real.log 4 + 4) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c := by ring
+
+/-! ## Stone 4-sharp — the width-`a` off-diagonal with the `1/a` decay (`offdiag_widthA_sharp`)
+
+The crude `offdiag_widthA_eval` bounds the width-`a` off-diagonal by an `a`-independent multiple
+of the single window mass; summed over the `Θ(log √L)` dyadic head bands (`head_band_sum`), the
+band count multiplies the constant, giving the `log log X` deficit.  The sharp form recovers the
+`1/a` decay by KEEPING the `e^{−a·|log m − log n|}` grain per `e`-fold band.
+
+**The geometric page (verified).**  For the strict lower triangle `m < n`, write the inner
+weight `∑_{m<n} ‖b_m‖·m^{a−c}` and partition `{m < n}` by the band index `k = ⌊a·(log n − log
+m)⌋₊` (so `m ∈ (n e^{−(k+1)/a}, n e^{−k/a}]`).  On band `k`: `m^{a−c} ≤ n^{a−c}·e^{−k(a−c)/a}`
+(`m ≤ n e^{−k/a}`, `a ≥ c`), and the band `Λ`-mass is `≤ Cb·(n/a)·e^{−k/a}` (the SHORT-INTERVAL
+grain — `shortInterval_vonMangoldt_le`, band length `≍ n/a`).  The product is `(Cb/a)·n^{a−c+1}·
+e^{−k(a−c+1)/a}`; the geometric sum (`geom_partial_le` + `inv_one_sub_exp_neg_le`, ratio `r =
+e^{−(a−c+1)/a}`, `1/(1−r) ≤ a/(a−c+1) + 1`) gives the per-`n` inner bound `≤ 2·Cb·n^{a−c+1}/(a−c
++1)`, and reassembling the `n`-sum with `n^{1−2c} ≤ n^{−c}` (`c ≥ 1`) leaves
+`∑_{m<n} ≤ 2·Cb/(a−c+1)·∑_n ‖b_n‖/n^c` — the sharp `1/(a−c+1) ≍ 1/a` decay (for `c ≍ 1 ≪ a`).
+
+**Landed here: the ANALYTIC CORE, conditional on the band-mass datum.**  `inner_sharp` and
+`offdiag_widthA_sharp` prove the reindex + geometric assembly SORRY-FREE, taking the per-band
+`Λ`-mass bound `hband` as an explicit hypothesis.  The named residual (stone 8, the `y = √L`
+corner) is EXACTLY the discharge of `hband` from `shortInterval_vonMangoldt_le`: each fiber
+`{m ∈ F, m < n : ⌊a·(log n − log m)⌋₊ = k}` sits inside `Ioc ⌊n e^{−(k+1)/a}⌋ ⌊n e^{−k/a}⌋`, and
+`shortInterval_vonMangoldt_le` (with `Cb = 250`) gives the band bound in its regime `65536 ≤ n
+e^{−(k+1)/a}` and `a ≤ (n e^{−(k+1)/a})^{1/8}` — the honest `a ≤ n^{1/8}` concession.  Bands
+out of regime (far `k`, or small `n ≤ a^8`) carry the crude Chebyshev `Θ(log a) = Θ(log log X)`
+concession, EMPTY once the window floor `y ≥ a^8` (the y-gate).  Discharging `hband` with that
+regime split is the last research ledge; it is FLAGGED, not forced, per iron rule 1 / SF-EXIT. -/
+
+/-- Geometric partial sum: `∑_{k<K} r^k ≤ (1−r)⁻¹` for `0 ≤ r < 1`. -/
+private lemma geom_partial_le {r : ℝ} (hr0 : 0 ≤ r) (hr1 : r < 1) (K : ℕ) :
+    ∑ k ∈ Finset.range K, r ^ k ≤ (1 - r)⁻¹ := by
+  have hne : r ≠ 1 := ne_of_lt hr1
+  have hne2 : (1 : ℝ) - r ≠ 0 := by linarith
+  have hrpow : (0 : ℝ) ≤ r ^ K := by positivity
+  rw [geom_sum_eq hne]
+  have heq : (r ^ K - 1) / (r - 1) = (1 - r ^ K) * (1 - r)⁻¹ := by
+    field_simp; ring
+  rw [heq]
+  exact mul_le_of_le_one_left (by positivity) (by nlinarith [hrpow])
+
+/-- The geometric-tail constant: `(1 − e^{−δ})⁻¹ ≤ δ⁻¹ + 1` for `δ > 0`. -/
+private lemma inv_one_sub_exp_neg_le {δ : ℝ} (hδ : 0 < δ) :
+    (1 - Real.exp (-δ))⁻¹ ≤ δ⁻¹ + 1 := by
+  have hu1 : Real.exp (-δ) * (1 + δ) ≤ 1 := by
+    rw [Real.exp_neg, inv_mul_le_iff₀ (Real.exp_pos _), mul_one]
+    linarith [Real.add_one_le_exp δ]
+  have hpos : (0 : ℝ) < 1 - Real.exp (-δ) := by
+    nlinarith [hu1, Real.exp_pos (-δ)]
+  have hkey : δ ≤ (1 + δ) * (1 - Real.exp (-δ)) := by nlinarith [hu1]
+  rw [← one_div (1 - Real.exp (-δ)), div_le_iff₀ hpos,
+    show δ⁻¹ + 1 = (1 + δ) / δ from by field_simp, div_mul_eq_mul_div, le_div_iff₀ hδ, one_mul]
+  linarith [hkey]
+
+/-- **The per-`n` inner sharp bound** (the geometric core of `offdiag_widthA_sharp`).  Given the
+per-band `Λ`-mass datum `hband` (`∑_{m ∈ band k} ‖b_m‖ ≤ Cb·(n/a)·e^{−k/a}`, the short-interval
+grain), the lower-triangular inner weight `∑_{m<n} ‖b_m‖·m^{a−c}` is bounded by `2·Cb·n^{a−c+1}/
+(a−c+1)` — the `1/a` decay, via band reindexing (`sum_fiberwise_of_maps_to`) and the geometric
+sum.  Coefficients unconstrained beyond the band datum; `1 ≤ c ≤ a`. -/
+private lemma inner_sharp {F : Finset ℕ} {b : ℕ → ℂ} {c a : ℝ}
+    (hc : 1 ≤ c) (hca : c ≤ a) {n : ℕ} (hn : 1 ≤ n)
+    (hF : ∀ m ∈ F, 1 ≤ m) {Cb : ℝ} (hCb : 0 ≤ Cb)
+    (hband : ∀ k : ℕ,
+      (∑ m ∈ (F.filter (· < n)).filter
+          (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊ = k), ‖b m‖)
+        ≤ Cb * (n : ℝ) / a * Real.exp (-((k : ℝ) / a))) :
+    (∑ m ∈ F.filter (· < n), ‖b m‖ * (m : ℝ) ^ (a - c))
+      ≤ 2 * Cb * (n : ℝ) ^ (a - c + 1) / (a - c + 1) := by
+  have ha0 : (0 : ℝ) < a := by linarith
+  have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
+  have hac0 : (0 : ℝ) ≤ a - c := by linarith
+  have hac1 : (0 : ℝ) < a - c + 1 := by linarith
+  have hδpos : (0 : ℝ) < (a - c + 1) / a := by positivity
+  have hδle : (a - c + 1) / a ≤ 1 := by rw [div_le_one ha0]; linarith
+  have hmaps : ∀ m ∈ F.filter (· < n),
+      (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊) m
+        ∈ Finset.range (⌊a * Real.log (n : ℝ)⌋₊ + 1) := by
+    intro m hm
+    rw [Finset.mem_filter] at hm
+    have hm1 : 1 ≤ m := hF m hm.1
+    have hmlog0 : (0 : ℝ) ≤ Real.log (m : ℝ) := Real.log_nonneg (by exact_mod_cast hm1)
+    rw [Finset.mem_range]
+    refine Nat.lt_succ_of_le (Nat.floor_le_floor ?_)
+    exact mul_le_mul_of_nonneg_left (by linarith) ha0.le
+  rw [← Finset.sum_fiberwise_of_maps_to hmaps (fun m => ‖b m‖ * (m : ℝ) ^ (a - c))]
+  have hbandbd : ∀ k ∈ Finset.range (⌊a * Real.log (n : ℝ)⌋₊ + 1),
+      (∑ m ∈ (F.filter (· < n)).filter
+          (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊ = k),
+          ‖b m‖ * (m : ℝ) ^ (a - c))
+        ≤ Cb / a * (n : ℝ) ^ (a - c + 1) * (Real.exp (-((a - c + 1) / a))) ^ k := by
+    intro k _
+    have hfactor : ∀ m ∈ (F.filter (· < n)).filter
+          (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊ = k),
+        ‖b m‖ * (m : ℝ) ^ (a - c)
+          ≤ ‖b m‖ * ((n : ℝ) ^ (a - c) * Real.exp (-((k : ℝ) * (a - c) / a))) := by
+      intro m hm
+      rw [Finset.mem_filter, Finset.mem_filter] at hm
+      have hm1 : 1 ≤ m := hF m hm.1.1
+      have hm0 : (0 : ℝ) < (m : ℝ) := by exact_mod_cast hm1
+      have hmn : m < n := hm.1.2
+      have hlogle : Real.log (m : ℝ) ≤ Real.log (n : ℝ) :=
+        Real.log_le_log hm0 (by exact_mod_cast hmn.le)
+      have hkle : (k : ℝ) ≤ a * (Real.log (n : ℝ) - Real.log (m : ℝ)) := by
+        rw [← hm.2]; exact Nat.floor_le (by nlinarith [hlogle, ha0])
+      have hmle : (m : ℝ) ≤ (n : ℝ) * Real.exp (-((k : ℝ) / a)) := by
+        rw [← Real.exp_log hm0, ← Real.exp_log hn0, ← Real.exp_add]
+        apply Real.exp_le_exp.mpr
+        have hkdiv : (k : ℝ) / a ≤ Real.log (n : ℝ) - Real.log (m : ℝ) := by
+          rw [div_le_iff₀ ha0]; linarith [hkle]
+        linarith [hkdiv]
+      refine mul_le_mul_of_nonneg_left ?_ (norm_nonneg _)
+      calc (m : ℝ) ^ (a - c)
+          ≤ ((n : ℝ) * Real.exp (-((k : ℝ) / a))) ^ (a - c) :=
+            Real.rpow_le_rpow hm0.le hmle hac0
+        _ = (n : ℝ) ^ (a - c) * Real.exp (-((k : ℝ) / a)) ^ (a - c) :=
+            Real.mul_rpow hn0.le (Real.exp_pos _).le
+        _ = (n : ℝ) ^ (a - c) * Real.exp (-((k : ℝ) * (a - c) / a)) := by
+            rw [← Real.exp_mul]; congr 2; ring
+    calc (∑ m ∈ (F.filter (· < n)).filter
+              (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊ = k),
+              ‖b m‖ * (m : ℝ) ^ (a - c))
+        ≤ ∑ m ∈ (F.filter (· < n)).filter
+              (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊ = k),
+              ‖b m‖ * ((n : ℝ) ^ (a - c) * Real.exp (-((k : ℝ) * (a - c) / a))) :=
+          Finset.sum_le_sum hfactor
+      _ = ((n : ℝ) ^ (a - c) * Real.exp (-((k : ℝ) * (a - c) / a)))
+            * ∑ m ∈ (F.filter (· < n)).filter
+              (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊ = k), ‖b m‖ := by
+          rw [Finset.mul_sum]; exact Finset.sum_congr rfl (fun m _ => by ring)
+      _ ≤ ((n : ℝ) ^ (a - c) * Real.exp (-((k : ℝ) * (a - c) / a)))
+            * (Cb * (n : ℝ) / a * Real.exp (-((k : ℝ) / a))) :=
+          mul_le_mul_of_nonneg_left (hband k) (by positivity)
+      _ = Cb / a * (n : ℝ) ^ (a - c + 1) * (Real.exp (-((a - c + 1) / a))) ^ k := by
+          rw [Real.rpow_add hn0, Real.rpow_one, ← Real.exp_nat_mul]
+          rw [show ((n : ℝ) ^ (a - c) * Real.exp (-((k : ℝ) * (a - c) / a)))
+                * (Cb * (n : ℝ) / a * Real.exp (-((k : ℝ) / a)))
+              = Cb / a * ((n : ℝ) ^ (a - c) * (n : ℝ))
+                * (Real.exp (-((k : ℝ) * (a - c) / a)) * Real.exp (-((k : ℝ) / a))) from by ring]
+          rw [← Real.exp_add]
+          congr 2
+          ring
+  calc (∑ k ∈ Finset.range (⌊a * Real.log (n : ℝ)⌋₊ + 1),
+          ∑ m ∈ (F.filter (· < n)).filter
+            (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊ = k),
+            ‖b m‖ * (m : ℝ) ^ (a - c))
+      ≤ ∑ k ∈ Finset.range (⌊a * Real.log (n : ℝ)⌋₊ + 1),
+          Cb / a * (n : ℝ) ^ (a - c + 1) * (Real.exp (-((a - c + 1) / a))) ^ k :=
+        Finset.sum_le_sum hbandbd
+    _ = Cb / a * (n : ℝ) ^ (a - c + 1)
+          * ∑ k ∈ Finset.range (⌊a * Real.log (n : ℝ)⌋₊ + 1),
+              (Real.exp (-((a - c + 1) / a))) ^ k := by rw [Finset.mul_sum]
+    _ ≤ Cb / a * (n : ℝ) ^ (a - c + 1) * (1 - Real.exp (-((a - c + 1) / a)))⁻¹ :=
+        mul_le_mul_of_nonneg_left
+          (geom_partial_le (Real.exp_pos _).le
+            (by rw [Real.exp_lt_one_iff]; linarith [hδpos]) _)
+          (by positivity)
+    _ ≤ Cb / a * (n : ℝ) ^ (a - c + 1) * (((a - c + 1) / a)⁻¹ + 1) :=
+        mul_le_mul_of_nonneg_left (inv_one_sub_exp_neg_le hδpos) (by positivity)
+    _ ≤ 2 * Cb * (n : ℝ) ^ (a - c + 1) / (a - c + 1) := by
+        have hnp : (0 : ℝ) ≤ (n : ℝ) ^ (a - c + 1) := by positivity
+        rw [mul_add, mul_one, show ((a - c + 1) / a)⁻¹ = a / (a - c + 1) from by rw [inv_div]]
+        have e1 : Cb / a * (n : ℝ) ^ (a - c + 1) * (a / (a - c + 1))
+            = Cb * (n : ℝ) ^ (a - c + 1) / (a - c + 1) := by field_simp
+        rw [e1]
+        have e2 : Cb / a * (n : ℝ) ^ (a - c + 1)
+            ≤ Cb * (n : ℝ) ^ (a - c + 1) / (a - c + 1) := by
+          rw [div_mul_eq_mul_div]
+          exact div_le_div_of_nonneg_left (mul_nonneg hCb hnp) hac1 (by linarith)
+        have e3 : 2 * Cb * (n : ℝ) ^ (a - c + 1) / (a - c + 1)
+            = Cb * (n : ℝ) ^ (a - c + 1) / (a - c + 1)
+              + Cb * (n : ℝ) ^ (a - c + 1) / (a - c + 1) := by ring
+        rw [e3]; linarith [e2]
+
+/-- **Stone 4-sharp — the width-`a` off-diagonal with `1/a` decay** (`offdiag_widthA_sharp`).
+For a line `c ≥ 1`, a width `a ≥ c`, a finite window `F` of positive integers, and the per-band
+`Λ`-mass datum `hband` (the short-interval grain, `Cb = 250` in regime — see the section note),
+the STRICT off-diagonal norm sum decays like `1/(a−c+1) ≍ 1/a`:
+`∑_{m<n∈F} ‖b_m‖‖b_n‖/(mn)^c·e^{−a|log m−log n|} ≤ 2·Cb/(a−c+1)·∑_{n∈F} ‖b_n‖/n^c`.
+The full off-diagonal (`m ≠ n`) is twice this (kernel symmetry).  This is the sharp replacement
+for `offdiag_widthA_eval`'s `a`-independent bound; the `1/a` telescopes the head band count. -/
+theorem offdiag_widthA_sharp {F : Finset ℕ} {b : ℕ → ℂ} {c a : ℝ}
+    (hc : 1 ≤ c) (hca : c ≤ a) (hF : ∀ n ∈ F, 1 ≤ n) {Cb : ℝ} (hCb : 0 ≤ Cb)
+    (hband : ∀ n ∈ F, ∀ k : ℕ,
+      (∑ m ∈ (F.filter (· < n)).filter
+          (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊ = k), ‖b m‖)
+        ≤ Cb * (n : ℝ) / a * Real.exp (-((k : ℝ) / a))) :
+    (∑ m ∈ F, ∑ n ∈ F, if m < n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+        * Real.exp (-(a * |Real.log m - Real.log n|)) else 0)
+      ≤ 2 * Cb / (a - c + 1) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c := by
+  have ha0 : (0 : ℝ) < a := by linarith
+  have hac1 : (0 : ℝ) < a - c + 1 := by linarith
+  rw [Finset.sum_comm, Finset.mul_sum]
+  refine Finset.sum_le_sum (fun n hn => ?_)
+  have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hF n hn
+  have hn1 : (1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hF n hn
+  rw [← Finset.sum_filter]
+  have hid : ∀ m ∈ F.filter (· < n),
+      ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c * Real.exp (-(a * |Real.log m - Real.log n|))
+        = (‖b n‖ * (n : ℝ) ^ (-(a + c))) * (‖b m‖ * (m : ℝ) ^ (a - c)) := by
+    intro m hm
+    rw [Finset.mem_filter] at hm
+    have hm0 : (0 : ℝ) < (m : ℝ) := by exact_mod_cast hF m hm.1
+    have hmn : m < n := hm.2
+    have hlogle : Real.log (m : ℝ) ≤ Real.log (n : ℝ) :=
+      Real.log_le_log hm0 (by exact_mod_cast hmn.le)
+    have habs : |Real.log (m : ℝ) - Real.log (n : ℝ)| = Real.log (n : ℝ) - Real.log (m : ℝ) := by
+      rw [abs_of_nonpos (by linarith)]; ring
+    have hexp : Real.exp (-(a * (Real.log (n : ℝ) - Real.log (m : ℝ))))
+        = (m : ℝ) ^ a / (n : ℝ) ^ a := by
+      rw [Real.rpow_def_of_pos hm0, Real.rpow_def_of_pos hn0, ← Real.exp_sub]
+      congr 1; ring
+    rw [habs, hexp,
+      show ((m * n : ℕ) : ℝ) ^ c = (m : ℝ) ^ c * (n : ℝ) ^ c from by
+        push_cast; rw [Real.mul_rpow hm0.le hn0.le],
+      show (m : ℝ) ^ (a - c) = (m : ℝ) ^ a / (m : ℝ) ^ c from by rw [Real.rpow_sub hm0],
+      show (n : ℝ) ^ (-(a + c)) = 1 / ((n : ℝ) ^ a * (n : ℝ) ^ c) from by
+        rw [Real.rpow_neg hn0.le, Real.rpow_add hn0, one_div]]
+    field_simp
+  rw [Finset.sum_congr rfl hid, ← Finset.mul_sum]
+  have hinner := inner_sharp hc hca (hF n hn) hF hCb (hband n hn)
+  have hKnn : (0 : ℝ) ≤ ‖b n‖ * (n : ℝ) ^ (-(a + c)) := by positivity
+  calc (‖b n‖ * (n : ℝ) ^ (-(a + c)))
+          * ∑ m ∈ F.filter (· < n), ‖b m‖ * (m : ℝ) ^ (a - c)
+      ≤ (‖b n‖ * (n : ℝ) ^ (-(a + c)))
+          * (2 * Cb * (n : ℝ) ^ (a - c + 1) / (a - c + 1)) :=
+        mul_le_mul_of_nonneg_left hinner hKnn
+    _ = 2 * Cb / (a - c + 1) * (‖b n‖ * ((n : ℝ) ^ (-(a + c)) * (n : ℝ) ^ (a - c + 1))) := by ring
+    _ ≤ 2 * Cb / (a - c + 1) * (‖b n‖ / (n : ℝ) ^ c) := by
+        have hpow : (n : ℝ) ^ (-(a + c)) * (n : ℝ) ^ (a - c + 1) ≤ (n : ℝ) ^ (-c) := by
+          rw [← Real.rpow_add hn0]
+          exact Real.rpow_le_rpow_of_exponent_le hn1 (by linarith)
+        have hrhs : ‖b n‖ / (n : ℝ) ^ c = ‖b n‖ * (n : ℝ) ^ (-c) := by
+          rw [Real.rpow_neg hn0.le, div_eq_mul_inv]
+        rw [hrhs]
+        apply mul_le_mul_of_nonneg_left _ (by positivity)
+        exact mul_le_mul_of_nonneg_left hpow (norm_nonneg _)
 
 /-! ## Stone 3 — the dyadic band second moment (`band_second_moment`)
 
@@ -728,28 +967,53 @@ theorem tail_band_sum {g : ℕ → ℂ} {X h y c₀ t₀ α β : ℝ}
     _ ≤ Mm * Mp * (2 * (X + h) ^ (c₀ - α - β)) :=
         mul_le_mul_of_nonneg_left (kernel_tail_mass hX hh hc) (by positivity)
 
-/-! ## Residual — stones 5 and 7 (the dyadic head assembly and the composite)
+/-! ## Residual — the `hband` discharge, and stones 5 and 7
 
-The tail page (`head_split_ledger` + `tail_band_sum`, ramp-free at `2(X+h)^{c₀−α−β}`) and
-the width-`a` machinery (`widthA_plancherel` + `band_second_moment` + `offdiag_widthA_eval`)
-are landed.  The two remaining rungs are NOT built here:
+Landed: the tail page (`head_split_ledger` + `tail_band_sum`, ramp-free at `2(X+h)^{c₀−α−β}`),
+the width-`a` machinery (`widthA_plancherel` + `band_second_moment` + `offdiag_widthA_eval`),
+and — new here — the SHARP `1/a` off-diagonal **analytic core** `offdiag_widthA_sharp`
+(with `inner_sharp`, `geom_partial_le`, `inv_one_sub_exp_neg_le`), conditional on the per-band
+`Λ`-mass datum `hband`.  Three rungs remain, each with its exact blocker:
 
-* **Stone 5 (`head_band_sum`)** — the head `∫_{|t−t₀|≤T₀}` via `mixed_weight_cs` at the
-  branch-1 weight `(X+h)^{c'}·2/√(c'²+τ²)`, evaluated by the dyadic band decomposition
-  (`τ ~ 2^j`, `1/√(c'²+τ²) ≤ 2^{−j}`) with `band_second_moment` and `widthA_plancherel` per
-  band and `offdiag_widthA_eval`'s single-mass evaluation.  With the CRUDE (a-independent)
-  `offdiag_widthA_eval` the per-leg head moment is `Σ_{j=0}^{J} O(M₁) = O(J·L) = O(L·log log X)`
-  (the `J ≍ log₂√L` band count multiplies the constant single mass) — the `log log X`
-  deficit.  The CONSTANT grade needs the SHARP `offdiag_widthA_eval` (`∑ ≤ diagonal + C·L/a`,
-  the `1/a` decay from `shortInterval_vonMangoldt_le`), whose regime `a ≤ n^{1/8}` is the
-  `y = √L` corner concession (stone 8, flagged in `offdiag_widthA_eval`'s residual note).
+* **The `hband` discharge (stone 8, the `y = √L` concession).**  `offdiag_widthA_sharp`'s
+  hypothesis `hband n k` is dischargeable from `shortInterval_vonMangoldt_le` (`Cb = 250`) as
+  follows.  The fiber `{m ∈ F, m < n : ⌊a·(log n − log m)⌋₊ = k}` equals `{m : Lₖ < m ≤ Rₖ}`
+  with `Lₖ = n·e^{−(k+1)/a}`, `Rₖ = n·e^{−k/a}` (unpack `Nat.floor_eq_iff`), hence sits inside
+  `Finset.Ioc ⌊Lₖ⌋₊ ⌊Lₖ + Hₖ⌋₊` with `Hₖ = Rₖ − Lₖ` (via `Nat.floor_lt` / `Nat.le_floor`, since
+  `Lₖ + Hₖ = Rₖ`).  Then `∑_{fiber} ‖b_m‖ ≤ ∑_{fiber} Λ ≤ ∑_{Ioc} Λ ≤ 250·Hₖ` and
+  `Hₖ = n·e^{−k/a}(1 − e^{−1/a}) ≤ (n/a)·e^{−k/a}` (`1 − e^{−x} ≤ x`), giving `hband` with
+  `Cb = 250`.  The `shortInterval` REGIME needs (i) `65536 ≤ Lₖ`, (ii) `Hₖ ≤ Lₖ` (`e^{1/a} ≤ 2`,
+  i.e. `a ≥ 2`), (iii) `Lₖ ≤ Hₖ·√√√Lₖ`, i.e. `Lₖ^{7/8} ≤ Hₖ ≍ Lₖ/a`, i.e. `a ≲ Lₖ^{1/8}` — the
+  honest `a ≤ n^{1/8}` concession.  Bands out of regime (far `k`, where `Rₖ` drops below
+  `65536`, or small `n ≤ a^8`) carry the CRUDE Chebyshev bound `∑_{m≤Rₖ} Λ ≤ (log 4 + 4)·Rₖ`
+  per band (no `1/a`), summing to the `Θ(log a) = Θ(log log X)` bounded concession — EMPTY once
+  the window floor `y ≥ a^8` (the y-gate: no `n < a^8` in `F`).  So the fully-discharged sharp
+  form is `off-diagonal ≤ 4·250/(a−c+1)·(mass) + Cconc·[∃ n ∈ F, n ≤ a^8]`.  Building the
+  regime split (the `√√√` threading + the additive concession restructure of `inner_sharp`) is
+  the last research ledge; FLAGGED per iron rule 1 / SF-EXIT, not forced.
+
+* **Stone 5 (`head_band_sum`)** — the head `∫_{|t−t₀|≤T₀}` via `mixed_weight_cs` at the branch-1
+  weight `(X+h)^{c'}·2/√(c'²+τ²)`, evaluated by the dyadic band decomposition (`τ ~ 2^j`,
+  `1/√(c'²+τ²) ≤ 2^{−j}`, `j ≤ J ≍ log₂ T₀`), `band_second_moment` + `widthA_plancherel` per
+  band (`a = 2^{j+1}`), the diagonal `Σ_n ‖b_n‖²/n^{2c}`, and `offdiag_widthA_sharp` for the
+  off-diagonal.  **Exponent page (worked):** band `j` prefactor `2^{−j}·2·(2^{j+1})²·(π/2^{j+1})
+  = 4π·2^{j}`... `·(2^{−j})` from the branch-1 weight `= 4π`; the sharp off-diagonal per band is
+  `4·250/(2^{j+1}−c+1)·mass ≍ C·mass·2^{−j}`, so `∑_j 4π·(C·mass·2^{−j})` TELESCOPES to `O(mass)
+  = O(L)` (the geometric `∑ 2^{−j}`), while `∑_j 4π·diagonal = (J+1)·4π·diagonal` — the band
+  count multiplies ONLY the diagonal floor `Σ_n ‖b_n‖²/n^{2c}` (the design's `log y/y`-grade
+  datum, small for the window `n > y`).  Exit: `∫_{|τ|≤T₀} ‖P‖²/|s| ≤ C·L·mass + (J+1)·diagonal
+  + concession`.  Blocked on the `hband` discharge (else the crude `offdiag_widthA_eval` leaves
+  `O(J·L) = O(L·log log X)`).
 
 * **Stone 7 (`crossKer_head_tail_grade`)** — the composite `crossKer ≤ (X+h)^{c₀−α−β}·C·L`
   feeding `JointHead.sigma_wiring`'s `Kα` socket, via `head_split_ledger`
-  (`crossKer = head + tail`), stone 5's head bound, and `tail_band_sum`.  Blocked on stone 5.
+  (`crossKer = head + tail`), stone 5's head bound through `mixed_weight_cs` at branch-1
+  (`hatKernel_branch1`, weight `w = (X+h)^{c'}·2/√(c'²+τ²)`, the two legs `c₀∓β`), and
+  `tail_band_sum`.  The low leg `c₀−β < 1` needs the `c ≥ 1` hypothesis of the sharp/crude
+  off-diagonal relaxed (the assembly's shift step, per the landed `offdiag_window_eval` note).
+  Blocked on stone 5.
 
-Both stones are the last research ledge of the terminal assembly; per iron rule 1 and the
-SF-EXIT law they are FLAGGED with their exact blocker, not forced.  Stone 8 (`ysqrtL_coda`)
-is a flag only — the `siegelWalfisz` PNT-lift is named as future work, not built. -/
+Stone 8 (`ysqrtL_coda`) remains a flag — the `siegelWalfisz` PNT-lift alternative to the
+concession is named as future work, not built. -/
 
 end Salt.MR

@@ -348,3 +348,4 @@ open Salt.Tactic in
   Salt.MR.head_split_ledger
   Salt.MR.kernel_tail_mass
   Salt.MR.tail_band_sum
+  Salt.MR.offdiag_widthA_sharp
