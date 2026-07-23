@@ -232,13 +232,24 @@ numbers (reproduce session-1 within noise):**
 | 2 | download `lean-4.32.0-rc1-linux.tar.zst` (538 MB, sha `ce6e79dd…b5b3` ✅ identical) | 13 s | 10 s |
 | 2 | extract into toolchain dir | 101 s | 32 s |
 | 2 | **toolchain total** | **≈ 119 s** | ≈ 46 s |
-| 3 | `lake exe cache get` (see below) | _pending_ | 158 s |
+| 3 | `lake exe cache get` (EXIT=0; 8564/8564 files; 7.3 GB `.lake`, 6.3 GB mathlib build; 8202 oleans) | **143 s** | 158 s |
 
 (The extract is slower here — different disk/CPU scheduling on this container
 instance; download and checksum are identical, so the artifact is byte-for-byte
 the same toolchain, commit `b4812ae5`.)
 
-_Build launch + completion logged here as it runs._
+**Build strategy — the key change from session 1.** Session 1's headline finding
+was that `lake build` at default **`-j4`** scheduled the four heaviest salt modules
+(`Chen.CbarCert` 7.9 GB, `Chen.SuperPanelsE` 3.5 GB, `Chen.SuperPanelsO` 2.9 GB,
+`Entropy.Chowla.Diverge`) co-resident, driving RSS to **15.9 / 16 GB** and
+thrashing the heavy tail for 90 min+ (CbarCert alone > 1.5 h CPU) — which is where
+it was killed. Session 2 therefore launches the build at **`-j2`**, capping
+worst-case heavy co-residence to two modules (~11 GB peak, comfortable headroom),
+eliminating the thrash. CbarCert's own single-threaded elaboration time is the
+floor regardless of `-j`, so `-j2` costs little on the heavy tail and trades only
+some light-module parallelism for a build that actually finishes.
+
+_Build launched — live status appended below._
 
 ## 5. Kernel re-verification (built-in `leanchecker`)
 
