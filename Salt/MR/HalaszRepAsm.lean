@@ -415,6 +415,26 @@ theorem prop21_contour_leg {f gJ : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1)
   rw [hrep]
   simp only [seamDirichlet, hatKernel]
 
+/-- **V5-1 — the v5 chain's first stone: the un-windowed LHS→contour leg.**
+`prop21_contour_leg` instantiated at the trivial (constant-one) seam carrier
+`fun _ => 1`: the FULL twisted hat-smoothed sum `∑' n, f(n)·n^{-it₀}·hatK`
+equals the exact full-line contour integral of the un-windowed seam Dirichlet
+series against the hat kernel.
+
+Per **AMENDMENT V5-0** (the seam un-windowing, JYH-ratified 2026-07-22): H-EXIT
+delivers the full GHS (2.2) sum, not the windowed one.  The two windows are
+disentangled — the P-leg window (GHS-intrinsic, exact by joint support) is kept
+inside `prop21RHS`; only the seam-coefficient window (our carrier addition) is
+removed here.  The trivial carrier is 1-bounded outright (`‖(1 : ℂ)‖ ≤ 1`), so
+the `hgJ` gate of `prop21_contour_leg` discharges with no window hypothesis. -/
+theorem prop21_contour_leg_unwindowed {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1)
+    (t₀ : ℝ) {X h c : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc : 1 < c) :
+    ∑' n, seamCoeff f (fun _ => 1) t₀ n * (hatK X h n : ℂ)
+      = (1 / (2 * Real.pi)) •
+          ∫ t : ℝ, seamDirichlet f (fun _ => 1) t₀ ((c : ℂ) + (t : ℂ) * I)
+            * hatKernel X h c t :=
+  prop21_contour_leg hf (fun _ => by simp) t₀ hX hh hc
+
 /-- The **frozen S1' main integral** — the `α,β` double integral of the four-series
 product `𝒮(s-α-β)·𝓛(s+β)·P(s-β)·P(s+β)` against the centered hat kernel, with
 `s = c₀ + (t-t₀)·I` on the exact vertical line (Seam docstring, GHS Prop 2.1).
@@ -460,11 +480,30 @@ def prop21RHS (g : ℕ → ℂ) (t₀ X h c₀ y η : ℝ) : ℂ :=
 
 /-- **T3 CAPSTONE — the S1' representation** (`prop21_analog`, the campaign's last
 named residual, in the sanctioned conditional-assembly form).  For a 1-bounded `f`,
-its prime datum `g` (`‖g p‖ ≤ 1`), the GHS window `g_J = windowIndicator y (X/y)`,
-and the seam parameters (`c₀ > 1`), the twisted–windowed hat-smoothed sum equals the
-frozen `α,β` double integral `prop21RHS` up to the error `E`.
+its prime datum `g` (`‖g p‖ ≤ 1`), the trivial (un-windowed) seam carrier
+`fun _ => 1`, and the seam parameters (`c₀ > 1`), the FULL twisted hat-smoothed sum
+`∑' n, f(n)·n^{-it₀}·hatK` equals the frozen `α,β` double integral `prop21RHS` up to
+the error `E`.
 
-The LHS→contour leg is DISCHARGED (`prop21_contour_leg`); the sole hypothesis
+**AMENDMENT V5-0 (the seam un-windowing, JYH-RATIFIED 2026-07-22 ~17:15,
+frozen-conclusion tier — the day's one JYH gate).**  The seam carrier was
+`windowIndicator y (X/y)`; it becomes the trivial indicator `fun _ => 1` at BOTH
+mention sites (the `hfactor` hypothesis and the conclusion).  H-EXIT now delivers
+the identity for the FULL twisted hat-smoothed `Σ f(n)`, exactly GHS (2.2).
+Grounds (CARRIER-SCOPE + REC-V4-REF, all verified): the windowed conclusion is
+UNSATISFIABLE (`prop21RHS`'s collapsed main term is the full `Σ f(n)` per P21-3K,
+and the out-of-window difference is `Θ(X·log y)`, undamped — no `E` of MS-EXIT
+grade can absorb it); GHS never windows its main term (the FTC forces the full
+endpoint); the consumption audit shows every downstream link needs only
+1-boundedness + DISTANCE, and the distance converts EXACTLY at the trivial
+indicator (no out-of-window mass at all — simpler than T-1's landed approximation).
+The two windows are disentangled: the P-leg window (GHS-intrinsic, exact by joint
+support) is KEPT inside `prop21RHS`; only the seam-coefficient window (our carrier
+addition) is removed.  `DistWindow`'s T-1 chain stays landed (heritage + branch-
+floor use).  Nothing else in the statement changes.
+
+The LHS→contour leg is DISCHARGED (`prop21_contour_leg_unwindowed`, the V5-1 stone);
+the sole hypothesis
 `hfactor` is the genuine residual — the inner factorization of the seam Dirichlet
 series into the four-series product integrated over `(α,β)` against the CENTERED
 kernel, up to `E` (GHS Lemma 2.1/2.2 → Prop 2.1: the multivariable-Perron
@@ -482,12 +521,12 @@ theorem prop21_analog {f g : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1)
     (t₀ : ℝ) {X h c₀ y η E : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc₀ : 1 < c₀)
     (hfactor :
       ‖(1 / (2 * Real.pi)) • (∫ t : ℝ,
-          seamDirichlet f (windowIndicator y (X / y)) t₀ ((c₀ : ℂ) + (t : ℂ) * I)
+          seamDirichlet f (fun _ => 1) t₀ ((c₀ : ℂ) + (t : ℂ) * I)
             * hatKernel X h c₀ t)
         - prop21RHS g t₀ X h c₀ y η‖ ≤ E) :
-    ‖(∑' n, seamCoeff f (windowIndicator y (X / y)) t₀ n * (hatK X h n : ℂ))
+    ‖(∑' n, seamCoeff f (fun _ => 1) t₀ n * (hatK X h n : ℂ))
         - prop21RHS g t₀ X h c₀ y η‖ ≤ E := by
-  rw [prop21_contour_leg hf (norm_windowIndicator_le y (X / y)) t₀ hX hh hc₀]
+  rw [prop21_contour_leg_unwindowed hf t₀ hX hh hc₀]
   exact hfactor
 
 end Salt.MR
