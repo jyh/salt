@@ -333,3 +333,9 @@ open Salt.Tactic in
   Salt.MR.kernel_L1_mass_sharp
   Salt.MR.lorentz_compare
   Salt.MR.mixed_weight_cs
+  Salt.MR.prime_sum_sigma
+  Salt.MR.dist_identification_sigma
+  Salt.MR.head_sigma_bound
+  Salt.MR.scale_floor
+  Salt.MR.scale_floor_Mrange
+  Salt.MR.sigma_cutoff_pretentious

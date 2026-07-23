@@ -561,3 +561,512 @@ theorem head_pin_bound {g : ℕ → ℂ} (hg : ∀ p, ‖g p‖ ≤ 1) {X : ℝ}
   linarith [(abs_le.mp hid).1, (abs_le.mp hid).2]
 
 end Salt.MR
+
+/-! # THE B-LADDER — the σ-uniform pretentious machinery (route B, HPRET-SCOPE 09:40)
+
+The append-only extension carrying the general-`σ` head bound that feeds the `c = 1/e`
+grade re-freeze (terminal-assembly-freeze ⟦A — B4⟧, JYH-ratified 2026-07-23).  Where the
+landed SF-2 (`dist_identification`/`head_pin_bound`) is PINNED at `σ = 1/L`, the B-ladder
+makes the identification `σ`-UNIFORM on `[1/L, 2η]` and produces the honest majorant
+`‖F(1+σ+it)‖ ≤ C·(1/σ)·exp(−(1/e)·𝔻²(scale e^{1/σ}))` (B1), the crude scale-monotone
+distance floor `𝔻²(e^{1/σ}) ≥ 𝔻²(X) − 2 log(σL) − C` (B2), and the flat-regime σ-integral
+`∫ (1/σ²) exp(−(1/e)(M − 2 log(σL) − C)) ≤ C′ e^{−M/e} L` whose `2/e < 1` convergence is the
+whole point (B3).  The grade interface consumed downstream carries `c = 1/e` literally.
+
+**B1 — the identification.**  For a 1-bounded prime datum `g` and `σ ∈ (0, 1]`:
+`∑'_p Re(g p)·p^{−1−σ} ≤ (log(1/σ) + C₁) − (1/e)·∑_{p ≤ e^{1/σ}} (1 − Re g p)/p`.
+Route: (i) the NEW general-`σ` prime sum `prime_sum_sigma`
+`∑'_p p^{−1−σ} ≤ log(1/σ) + (log 4 + cpeel)` — proved elementarily from the LANDED
+log-Euler product (`log_norm_zeta_eq_re_tsum`) + the `k≥2` peel (`peel_sum_bound`) + the
+closed-form `ζ(1+σ) ≤ 4/σ` (`Salt.SW.norm_riemannZeta_le` at the real point `s = 1+σ`), NO
+Abel summation / Chebyshev density needed; (ii) the `p^{−σ} ≥ e^{−1}` cut on `p ≤ e^{1/σ}`
+(rpow monotonicity), dropping the nonneg tail. -/
+
+noncomputable section
+
+namespace Salt.MR
+
+open Complex
+open scoped BigOperators
+
+/-- **B1 linchpin — the general-`σ` prime sum** (`prime_sum_sigma`).  For `σ ∈ (0, 1]`,
+`∑'_p p^{−1−σ} ≤ log(1/σ) + (log 4 + cpeel)`.  The genuinely-new general-`σ` Mertens input,
+proved WITHOUT prime-density/Abel machinery: at the real point `s = 1+σ` the target sum is
+`∑'_p Re(p^{−s})`, which the `k≥2` peel (`peel_sum_bound`) and the log-Euler product
+(`log_norm_zeta_eq_re_tsum`) bound by `log‖ζ(1+σ)‖ + cpeel`, and the corpus closed form
+`Salt.SW.norm_riemannZeta_le` gives `‖ζ(1+σ)‖ ≤ 1/σ + 2 + σ ≤ 4/σ` (for `σ ≤ 1`), whence
+`log‖ζ(1+σ)‖ ≤ log(1/σ) + log 4`. -/
+theorem prime_sum_sigma {σ : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1) :
+    ∑' p : Nat.Primes, (p : ℝ) ^ (-1 - σ : ℝ)
+      ≤ Real.log (1 / σ) + (Real.log 4 + cpeel) := by
+  set s : ℂ := ((1 + σ : ℝ) : ℂ) with hsdef
+  have hsre : s.re = 1 + σ := by rw [hsdef, Complex.ofReal_re]
+  have hs1 : 1 < s.re := by rw [hsre]; linarith
+  have hσ0' : (0 : ℝ) < s.re := by rw [hsre]; linarith
+  have hsne : s ≠ 1 := by
+    intro h
+    have := congrArg Complex.re h
+    rw [hsre, Complex.one_re] at this; linarith
+  -- Re(p^{-s}) = p^{-1-σ} pointwise
+  have hre : ∀ p : Nat.Primes, ((p : ℂ) ^ (-s)).re = (p : ℝ) ^ (-1 - σ : ℝ) := by
+    intro p
+    have hp0 : (0 : ℝ) ≤ ((p : ℕ) : ℝ) := Nat.cast_nonneg _
+    rw [hsdef, ← Complex.ofReal_natCast (p : ℕ),
+      show -(((1 + σ : ℝ) : ℂ)) = (((-1 - σ : ℝ)) : ℂ) from by push_cast; ring,
+      ← Complex.ofReal_cpow hp0, Complex.ofReal_re]
+  have hsum_eq : (∑' p : Nat.Primes, (p : ℝ) ^ (-1 - σ : ℝ))
+      = ∑' p : Nat.Primes, ((p : ℂ) ^ (-s)).re :=
+    tsum_congr (fun p => (hre p).symm)
+  rw [hsum_eq]
+  -- peel + log-Euler: Σ Re(p^{-s}) ≤ log‖ζ s‖ + cpeel
+  have hpeel := abs_le.mp (peel_sum_bound hs1)
+  have hzeta := log_norm_zeta_eq_re_tsum hs1
+  have hB : (∑' p : Nat.Primes, ((p : ℂ) ^ (-s)).re)
+      ≤ Real.log ‖riemannZeta s‖ + cpeel := by
+    rw [hzeta]; linarith [hpeel.1]
+  -- log‖ζ s‖ ≤ log(1/σ) + log 4
+  have hsub : s - 1 = ((σ : ℝ) : ℂ) := by rw [hsdef]; push_cast; ring
+  have hnormsub : ‖s - 1‖ = σ := by
+    rw [hsub, Complex.norm_real, Real.norm_of_nonneg hσ0.le]
+  have hnorms : ‖s‖ = 1 + σ := by
+    rw [hsdef, Complex.norm_real, Real.norm_of_nonneg (by linarith)]
+  have hζpos : (0 : ℝ) < ‖riemannZeta s‖ := by
+    rw [norm_pos_iff]; exact riemannZeta_ne_zero_of_one_lt_re hs1
+  have hζbound := Salt.SW.norm_riemannZeta_le hσ0' hsne
+  rw [hnormsub, hnorms, hsre] at hζbound
+  -- simplify the closed form to 1/σ + 2 + σ, then ≤ 4/σ
+  have hval : (1 + σ * ((1 + σ) * (1 + 1 / (1 + σ)))) / σ = 1 / σ + 2 + σ := by
+    have h1σ : (1 : ℝ) + σ ≠ 0 := by positivity
+    field_simp
+    ring
+  rw [hval] at hζbound
+  have hζ4 : ‖riemannZeta s‖ ≤ 4 / σ := by
+    have h4 : 1 / σ + 2 + σ ≤ 4 / σ := by
+      rw [div_add' _ _ _ hσ0.ne', div_add' _ _ _ hσ0.ne', div_le_div_iff_of_pos_right hσ0]
+      nlinarith [hσ0, hσ1]
+    linarith [hζbound, h4]
+  have hlogζ : Real.log ‖riemannZeta s‖ ≤ Real.log (1 / σ) + Real.log 4 := by
+    have hstep := Real.log_le_log hζpos hζ4
+    rwa [show (4 : ℝ) / σ = 4 * (1 / σ) from by ring,
+      Real.log_mul (by norm_num) (by positivity), add_comm] at hstep
+  linarith [hB, hlogζ]
+
+/-- **B1 cut (ii) — the `p^{−σ} ≥ e^{−1}` distance lower bound** (`sigma_cut_lower`).  For a
+1-bounded `g` and `σ > 0`, the full shifted defect sum dominates `(1/e)` times the truncated
+distance at scale `e^{1/σ}`:
+`(1/e)·𝔻²(1, g; e^{1/σ}) ≤ ∑'_p (1 − Re g p)·p^{−1−σ}`.  Route: drop the nonneg tail of the
+prime tsum past `⌊e^{1/σ}⌋` (the corpus indicator-split idiom), then the pointwise
+`p^{−σ} ≥ (e^{1/σ})^{−σ} = e^{−1}` cut (rpow monotonicity) on the retained head. -/
+theorem sigma_cut_lower {g : ℕ → ℂ} (hg : ∀ p, ‖g p‖ ≤ 1) {σ : ℝ} (hσ0 : 0 < σ) :
+    (1 / Real.exp 1) * pretDistSq (fun _ => 1) g (Real.exp (1 / σ))
+      ≤ ∑' p : Nat.Primes, (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ) := by
+  have hσ1 : (-1 - σ : ℝ) < -1 := by linarith
+  set Y : ℝ := Real.exp (1 / σ) with hYdef
+  set N : ℕ := ⌊Y⌋₊ with hNdef
+  have hYpos : (0 : ℝ) < Y := Real.exp_pos _
+  -- per-prime facts about `g`
+  have hre1 : ∀ n : ℕ, -1 ≤ (g n).re ∧ (g n).re ≤ 1 := fun n =>
+    abs_le.mp (le_trans (Complex.abs_re_le_norm (g n)) (hg n))
+  -- nonnegativity of the ℕ-lifted summand on primes
+  have hFnn : ∀ p : ℕ, 0 ≤ (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ) := fun p =>
+    mul_nonneg (by linarith [(hre1 p).2]) (Real.rpow_nonneg (Nat.cast_nonneg _) _)
+  -- Summable indicator of the lifted summand (majorised by 2·prime-rpow-indicator)
+  have hindF : Summable (Set.indicator {p : ℕ | Nat.Prime p}
+      (fun p => (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ))) := by
+    refine Summable.of_nonneg_of_le
+      (fun n => Set.indicator_nonneg (fun p _ => hFnn p) n) (fun n => ?_)
+      ((summable_indicator_prime_rpow hσ0).mul_left 2)
+    rw [Set.indicator_apply, Set.indicator_apply]
+    by_cases hn : n ∈ {p : ℕ | Nat.Prime p}
+    · simp only [if_pos hn]
+      calc (1 - (g n).re) * (n : ℝ) ^ (-1 - σ : ℝ)
+          ≤ 2 * (n : ℝ) ^ (-1 - σ : ℝ) :=
+            mul_le_mul_of_nonneg_right (by linarith [(hre1 n).1])
+              (Real.rpow_nonneg (Nat.cast_nonneg _) _)
+        _ = 2 * (n : ℝ) ^ (-1 - σ : ℝ) := rfl
+    · simp only [if_neg hn, mul_zero, le_refl]
+  -- the full prime tsum equals the ℕ-indicator tsum, split at N+1, tail nonneg
+  have hfull : (∑' p : Nat.Primes, (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ))
+      = ∑' n, Set.indicator {p : ℕ | Nat.Prime p}
+          (fun p => (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ)) n := by
+    rw [← tsum_subtype {p : ℕ | Nat.Prime p}
+      (fun n : ℕ => (1 - (g n).re) * (n : ℝ) ^ (-1 - σ : ℝ))]; rfl
+  have hsplit := (Summable.sum_add_tsum_nat_add (N + 1) hindF).symm
+  have hhead : (∑ n ∈ Finset.range (N + 1), Set.indicator {p : ℕ | Nat.Prime p}
+          (fun p => (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ)) n)
+      = ∑ p ∈ (Finset.range (N + 1)).filter Nat.Prime,
+          (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ) := by
+    rw [Finset.sum_filter]
+    exact Finset.sum_congr rfl (fun n _ => by
+      rw [Set.indicator_apply]; simp only [Set.mem_setOf_eq])
+  have htail_nn : (0 : ℝ) ≤ ∑' i, Set.indicator {p : ℕ | Nat.Prime p}
+      (fun p => (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ)) (i + (N + 1)) :=
+    tsum_nonneg (fun i => Set.indicator_nonneg (fun p _ => hFnn p) _)
+  have hge : (∑ p ∈ (Finset.range (N + 1)).filter Nat.Prime,
+        (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ))
+      ≤ ∑' p : Nat.Primes, (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ) := by
+    rw [hfull, hsplit, hhead]; linarith [htail_nn]
+  -- pretDistSq unfolds to the truncated (1 − Re)/p sum at scale Y
+  have hPD : pretDistSq (fun _ => 1) g Y
+      = ∑ p ∈ (Finset.range (N + 1)).filter Nat.Prime, (1 - (g p).re) / (p : ℝ) := by
+    unfold pretDistSq
+    refine Finset.sum_congr (by rw [hNdef]) (fun p _ => ?_)
+    rw [one_mul, Complex.conj_re]
+  -- the termwise `p^{−σ} ≥ e^{−1}` cut on the retained head
+  have htermcut : ∀ p ∈ (Finset.range (N + 1)).filter Nat.Prime,
+      (1 / Real.exp 1) * ((1 - (g p).re) / (p : ℝ))
+        ≤ (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ) := by
+    intro p hp
+    rw [Finset.mem_filter, Finset.mem_range] at hp
+    have hpp : p.Prime := hp.2
+    have hp0 : (0 : ℝ) < (p : ℝ) := by exact_mod_cast hpp.pos
+    have hpN : p ≤ N := by omega
+    have hpY : (p : ℝ) ≤ Y := by
+      calc (p : ℝ) ≤ (N : ℝ) := by exact_mod_cast hpN
+        _ ≤ Y := Nat.floor_le hYpos.le
+    -- p^{-σ} ≥ 1/e
+    have hYσ : Y ^ σ = Real.exp 1 := by
+      rw [hYdef, Real.rpow_def_of_pos (Real.exp_pos _), Real.log_exp, one_div_mul_cancel hσ0.ne']
+    have hpσpos : (0 : ℝ) < (p : ℝ) ^ σ := Real.rpow_pos_of_pos hp0 σ
+    have hpσ_le : (p : ℝ) ^ σ ≤ Real.exp 1 := by
+      rw [← hYσ]; exact Real.rpow_le_rpow hp0.le hpY hσ0.le
+    have hcut_p : 1 / Real.exp 1 ≤ (p : ℝ) ^ (-σ : ℝ) := by
+      rw [Real.rpow_neg hp0.le, ← one_div]
+      exact one_div_le_one_div_of_le hpσpos hpσ_le
+    -- split the rpow and compare
+    have hsplitrpow : (p : ℝ) ^ (-1 - σ : ℝ) = (p : ℝ)⁻¹ * (p : ℝ) ^ (-σ : ℝ) := by
+      rw [show (-1 - σ : ℝ) = (-1 : ℝ) + (-σ) from by ring, Real.rpow_add hp0,
+        Real.rpow_neg_one]
+    have hfac_nn : 0 ≤ (1 - (g p).re) * (p : ℝ)⁻¹ :=
+      mul_nonneg (by linarith [(hre1 p).2]) (by positivity)
+    calc (1 / Real.exp 1) * ((1 - (g p).re) / (p : ℝ))
+        = (1 - (g p).re) * (p : ℝ)⁻¹ * (1 / Real.exp 1) := by rw [div_eq_mul_inv]; ring
+      _ ≤ (1 - (g p).re) * (p : ℝ)⁻¹ * (p : ℝ) ^ (-σ : ℝ) :=
+          mul_le_mul_of_nonneg_left hcut_p hfac_nn
+      _ = (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ) := by rw [hsplitrpow]; ring
+  -- assemble
+  rw [hPD, Finset.mul_sum]
+  refine le_trans (Finset.sum_le_sum htermcut) hge
+
+/-- **B1 — the general-`σ` distance identification** (`dist_identification_sigma`).  For a
+1-bounded prime datum `g` and `σ ∈ (0, 1]`:
+`∑'_p Re(g p)·p^{−1−σ} ≤ (log(1/σ) + (log 4 + cpeel)) − (1/e)·𝔻²(1, g; e^{1/σ})`.
+The general-`σ` analog of the pinned SF-2 `dist_identification`: the full defect sum splits as
+`∑'_p p^{−1−σ} − ∑'_p (1 − Re g p)·p^{−1−σ}`, the first bounded by `prime_sum_sigma`, the
+second dominating `(1/e)·𝔻²` by `sigma_cut_lower`. -/
+theorem dist_identification_sigma {g : ℕ → ℂ} (hg : ∀ p, ‖g p‖ ≤ 1)
+    {σ : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1) :
+    (∑' p : Nat.Primes, (g p).re * (p : ℝ) ^ (-1 - σ : ℝ))
+      ≤ (Real.log (1 / σ) + (Real.log 4 + cpeel))
+        - (1 / Real.exp 1) * pretDistSq (fun _ => 1) g (Real.exp (1 / σ)) := by
+  have hσ1' : (-1 - σ : ℝ) < -1 := by linarith
+  have hre1 : ∀ n : ℕ, -1 ≤ (g n).re ∧ (g n).re ≤ 1 := fun n =>
+    abs_le.mp (le_trans (Complex.abs_re_le_norm (g n)) (hg n))
+  -- summabilities
+  have hP : Summable (fun p : Nat.Primes => (p : ℝ) ^ (-1 - σ : ℝ)) :=
+    Nat.Primes.summable_rpow.mpr hσ1'
+  have hR : Summable (fun p : Nat.Primes => (g p).re * (p : ℝ) ^ (-1 - σ : ℝ)) := by
+    refine Summable.of_norm_bounded hP (fun p => ?_)
+    rw [Real.norm_eq_abs, abs_mul, abs_of_nonneg (Real.rpow_nonneg (Nat.cast_nonneg _) _)]
+    exact mul_le_of_le_one_left (Real.rpow_nonneg (Nat.cast_nonneg _) _)
+      (abs_le.mpr (hre1 (p : ℕ)))
+  have hQ : Summable (fun p : Nat.Primes => (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ)) := by
+    refine Summable.of_nonneg_of_le
+      (fun p => mul_nonneg (by linarith [(hre1 (p : ℕ)).2])
+        (Real.rpow_nonneg (Nat.cast_nonneg _) _)) (fun p => ?_) (hP.mul_left 2)
+    exact mul_le_mul_of_nonneg_right (by linarith [(hre1 (p : ℕ)).1])
+      (Real.rpow_nonneg (Nat.cast_nonneg _) _)
+  -- the defect split
+  have hsplit_id : (∑' p : Nat.Primes, (g p).re * (p : ℝ) ^ (-1 - σ : ℝ))
+      = (∑' p : Nat.Primes, (p : ℝ) ^ (-1 - σ : ℝ))
+        - ∑' p : Nat.Primes, (1 - (g p).re) * (p : ℝ) ^ (-1 - σ : ℝ) := by
+    rw [← Summable.tsum_sub hP hQ]
+    exact tsum_congr (fun p => by ring)
+  rw [hsplit_id]
+  linarith [prime_sum_sigma hσ0 hσ1, sigma_cut_lower hg hσ0]
+
+/-- **B1 pin (general `σ`)** (`exponent_shift_eq`).  The general-`σ` analog of the pinned
+`exponent_pin_eq`: on the line `s = (1 + σ) + it`, the real part of the twisted summand
+factors as `Re((g·p^{−it})(p))·p^{−1−σ}` (with `g·p^{−it} = g·costwist(−t)`).  Proof is the
+pin decomposition with `1/log X` replaced by the free `σ`. -/
+lemma exponent_shift_eq {g : ℕ → ℂ} (σ : ℝ) (t : ℝ) (p : Nat.Primes) :
+    (g p * (p : ℂ) ^ (-(((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I))).re
+      = (g p * costwist (-t) p).re * (p : ℝ) ^ (-1 - σ : ℝ) := by
+  have hpℂ : ((p : ℕ) : ℂ) ≠ 0 := by exact_mod_cast p.2.pos.ne'
+  have hp0 : (0 : ℝ) < ((p : ℕ) : ℝ) := by exact_mod_cast p.2.pos
+  have hdecomp : ((p : ℕ) : ℂ) ^ (-(((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I))
+      = (((((p : ℕ) : ℝ) ^ (-1 - σ : ℝ)) : ℝ) : ℂ) * costwist (-t) (p : ℕ) := by
+    rw [show -(((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I)
+          = ((-1 - σ : ℝ) : ℂ) + (((-t : ℝ)) : ℂ) * Complex.I from by
+        push_cast; ring, Complex.cpow_add _ _ hpℂ]
+    congr 1
+    · rw [← Complex.ofReal_natCast (p : ℕ), ← Complex.ofReal_cpow hp0.le]
+    · rw [costwist, Complex.cpow_def_of_ne_zero hpℂ, ← Complex.natCast_log]
+      congr 1
+      push_cast; ring
+  rw [hdecomp, mul_left_comm, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im,
+    zero_mul, sub_zero]
+  ring
+
+/-- **B1 exit — the σ-uniform head bound** (`head_sigma_bound`).  For a globally 1-bounded
+`g`, `σ ∈ (0, 1]`, and any `t`, the L-series of `ellLin g` on the line `(1 + σ) + it` obeys
+the honest `σ`-uniform majorant
+`‖F(1+σ+it)‖ ≤ C·(1/σ)·exp(−(1/e)·𝔻²(1, g·p^{−it}; e^{1/σ}))`,
+with `C = exp(cpeel + (log 4 + cpeel))`.  Composing `euler_log_bound` (SF-1) with the pin
+`exponent_shift_eq` and the identification `dist_identification_sigma` at the twisted datum
+`g·costwist(−t)`.  This is the pretentious majorant B3's flat-regime integral consumes. -/
+theorem head_sigma_bound {g : ℕ → ℂ} (hg : ∀ p, ‖g p‖ ≤ 1)
+    {σ : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1) (t : ℝ) :
+    ‖LSeries (ellLin g) (((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I)‖
+      ≤ Real.exp (cpeel + (Real.log 4 + cpeel)) * (1 / σ)
+        * Real.exp (-(1 / Real.exp 1)
+            * pretDistSq (fun _ => 1) (fun n => g n * costwist (-t) n) (Real.exp (1 / σ))) := by
+  set g' : ℕ → ℂ := fun n => g n * costwist (-t) n with hg'def
+  have hg' : ∀ p, ‖g' p‖ ≤ 1 := by
+    intro p
+    have hgp : g' p = g p * costwist (-t) p := by rw [hg'def]
+    rw [hgp, norm_mul, costwist_norm, mul_one]; exact hg p
+  have hs : 1 < (((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I).re := by
+    rw [Complex.add_re, Complex.ofReal_re, Complex.mul_re, Complex.I_re, Complex.I_im,
+      Complex.ofReal_re, Complex.ofReal_im]
+    simp; linarith
+  have hterm : ∀ p : Nat.Primes,
+      (g p * (p : ℂ) ^ (-(((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I))).re
+        = (g' p).re * (p : ℝ) ^ (-1 - σ : ℝ) := by
+    intro p
+    rw [hg'def]; exact exponent_shift_eq σ t p
+  have hexp : (∑' p : Nat.Primes,
+        (g p * (p : ℂ) ^ (-(((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I))).re)
+      = ∑' p : Nat.Primes, (g' p).re * (p : ℝ) ^ (-1 - σ : ℝ) := tsum_congr hterm
+  refine le_trans (euler_log_bound g (fun p _ => hg p) hs) ?_
+  rw [hexp]
+  have hid := dist_identification_sigma hg' hσ0 hσ1
+  refine le_trans
+    (mul_le_mul_of_nonneg_left (Real.exp_le_exp.mpr hid) (Real.exp_nonneg cpeel)) (le_of_eq ?_)
+  rw [← Real.exp_add,
+    show cpeel + ((Real.log (1 / σ) + (Real.log 4 + cpeel))
+          - (1 / Real.exp 1) * pretDistSq (fun _ => 1) g' (Real.exp (1 / σ)))
+        = ((cpeel + (Real.log 4 + cpeel)) + Real.log (1 / σ))
+          + (-(1 / Real.exp 1) * pretDistSq (fun _ => 1) g' (Real.exp (1 / σ))) from by ring,
+    Real.exp_add, Real.exp_add, Real.exp_log (show (0 : ℝ) < 1 / σ from by positivity),
+    mul_assoc]
+
+/-! ## B2 — the crude scale-monotone distance floor (`scale_floor`)
+
+The pretentious distance is monotone in the scale; the crude comparison quantifies the
+deficit incurred by shrinking the cutoff from `X` to `e^{1/σ}` as the reciprocal mass of the
+primes in the gap `(e^{1/σ}, X]`, `≤ Σ 2/p = 2(loglog X − loglog e^{1/σ}) + O(1) =
+2 log(σ·log X) + O(1)` (sharp Mertens at both scales).  This lets B3 replace the frozen
+`𝔻²(e^{1/σ})` by `M − 2 log(σL) − C` for the flat-regime integrand. -/
+
+/-- **B2 — the crude scale floor** (`scale_floor`).  For 1-bounded data `f, g`, `σ ∈ (0, 1]`,
+and `e^{1/σ} ≤ X`:
+`𝔻²(f, g; X) − 2·log(σ·log X) − 48 ≤ 𝔻²(f, g; e^{1/σ})`.
+The gap `𝔻²(X) − 𝔻²(e^{1/σ}) = Σ_{e^{1/σ}<p≤X}(1 − Re(f·conj g))/p ≤ Σ 2/p =
+2(S(X) − S(e^{1/σ}))`, bounded via `mertens_second_sharp_real` at both scales
+(`loglog e^{1/σ} = log(1/σ)`, `12/log e^{1/σ} = 12σ`), the honest residual `24/log X + 24σ`
+absorbed into the uniform `48` (using `log X ≥ 1`, `σ ≤ 1`). -/
+theorem scale_floor {f g : ℕ → ℂ} (hf : ∀ p, ‖f p‖ ≤ 1) (hg : ∀ p, ‖g p‖ ≤ 1)
+    {σ X : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1) (hYX : Real.exp (1 / σ) ≤ X) :
+    pretDistSq f g X - 2 * Real.log (σ * Real.log X) - 48
+      ≤ pretDistSq f g (Real.exp (1 / σ)) := by
+  -- scale facts
+  have h1invσ : (1 : ℝ) ≤ 1 / σ := by rw [le_div_iff₀ hσ0]; linarith
+  have h2e : (2 : ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1 : ℝ); linarith
+  have hY2 : (2 : ℝ) ≤ Real.exp (1 / σ) :=
+    le_trans h2e (Real.exp_le_exp.mpr h1invσ)
+  have hX2 : (2 : ℝ) ≤ X := le_trans hY2 hYX
+  have hlogYX : Real.log (Real.exp (1 / σ)) ≤ Real.log X := Real.log_le_log (Real.exp_pos _) hYX
+  rw [Real.log_exp] at hlogYX
+  have hlogXpos : (0 : ℝ) < Real.log X := by linarith
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := by linarith
+  -- the subset of prime cutoffs
+  have hfl : ⌊Real.exp (1 / σ)⌋₊ ≤ ⌊X⌋₊ := Nat.floor_le_floor hYX
+  have hsub : (Finset.range (⌊Real.exp (1 / σ)⌋₊ + 1)).filter Nat.Prime
+      ⊆ (Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime := by
+    refine Finset.filter_subset_filter _ ?_
+    intro n hn
+    rw [Finset.mem_range] at hn ⊢
+    omega
+  -- the defect decomposition D²(X) = gap + D²(e^{1/σ})
+  have hdecomp : pretDistSq f g X
+      = (∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime)
+            \ ((Finset.range (⌊Real.exp (1 / σ)⌋₊ + 1)).filter Nat.Prime),
+          (1 - (f p * (starRingEnd ℂ) (g p)).re) / (p : ℝ))
+        + pretDistSq f g (Real.exp (1 / σ)) := by
+    simp only [pretDistSq]
+    exact (Finset.sum_sdiff hsub).symm
+  -- gap mass ≤ 2·(S(X) − S(e^{1/σ}))
+  have hgap : (∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime)
+        \ ((Finset.range (⌊Real.exp (1 / σ)⌋₊ + 1)).filter Nat.Prime),
+        (1 - (f p * (starRingEnd ℂ) (g p)).re) / (p : ℝ))
+      ≤ 2 * (Salt.Mertens.SPartial X - Salt.Mertens.SPartial (Real.exp (1 / σ))) := by
+    have h1mass : (∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime)
+          \ ((Finset.range (⌊Real.exp (1 / σ)⌋₊ + 1)).filter Nat.Prime), (1 : ℝ) / (p : ℝ))
+        = Salt.Mertens.SPartial X - Salt.Mertens.SPartial (Real.exp (1 / σ)) := by
+      have hss : (∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime)
+            \ ((Finset.range (⌊Real.exp (1 / σ)⌋₊ + 1)).filter Nat.Prime), (1 : ℝ) / (p : ℝ))
+          + (∑ p ∈ (Finset.range (⌊Real.exp (1 / σ)⌋₊ + 1)).filter Nat.Prime, (1 : ℝ) / (p : ℝ))
+          = ∑ p ∈ (Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime, (1 : ℝ) / (p : ℝ) :=
+        Finset.sum_sdiff hsub
+      have hSPX : Salt.Mertens.SPartial X
+          = ∑ p ∈ (Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime, (1 : ℝ) / (p : ℝ) := rfl
+      have hSPY : Salt.Mertens.SPartial (Real.exp (1 / σ))
+          = ∑ p ∈ (Finset.range (⌊Real.exp (1 / σ)⌋₊ + 1)).filter Nat.Prime, (1 : ℝ) / (p : ℝ) :=
+        rfl
+      rw [hSPX, hSPY]; linarith [hss]
+    calc (∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime)
+            \ ((Finset.range (⌊Real.exp (1 / σ)⌋₊ + 1)).filter Nat.Prime),
+            (1 - (f p * (starRingEnd ℂ) (g p)).re) / (p : ℝ))
+        ≤ ∑ p ∈ ((Finset.range (⌊X⌋₊ + 1)).filter Nat.Prime)
+            \ ((Finset.range (⌊Real.exp (1 / σ)⌋₊ + 1)).filter Nat.Prime), (2 : ℝ) / (p : ℝ) := by
+          refine Finset.sum_le_sum (fun p hp => ?_)
+          have hprime : p.Prime := (Finset.mem_filter.mp (Finset.mem_sdiff.mp hp).1).2
+          have hnorm : ‖f p * (starRingEnd ℂ) (g p)‖ ≤ 1 := by
+            rw [norm_mul, Complex.norm_conj]
+            nlinarith [hf p, hg p, norm_nonneg (f p), norm_nonneg (g p)]
+          have hre : -1 ≤ (f p * (starRingEnd ℂ) (g p)).re := by
+            have h := (abs_le.mp (Complex.abs_re_le_norm (f p * (starRingEnd ℂ) (g p)))).1
+            linarith [h, hnorm]
+          gcongr
+          linarith
+      _ = 2 * (Salt.Mertens.SPartial X - Salt.Mertens.SPartial (Real.exp (1 / σ))) := by
+          rw [← h1mass, Finset.mul_sum]
+          exact Finset.sum_congr rfl (fun p _ => by rw [mul_one_div])
+  -- Mertens at both scales
+  have hmX := abs_le.mp (Salt.Mertens.mertens_second_sharp_real hX2)
+  have hmY := abs_le.mp (Salt.Mertens.mertens_second_sharp_real hY2)
+  have hlogY : Real.log (Real.exp (1 / σ)) = 1 / σ := Real.log_exp _
+  have hloglogY : Real.log (Real.log (Real.exp (1 / σ))) = Real.log (1 / σ) := by rw [hlogY]
+  have h12Y : (12 : ℝ) / Real.log (Real.exp (1 / σ)) = 12 * σ := by
+    rw [hlogY, div_div_eq_mul_div, div_one]
+  have hlogeq : Real.log (Real.log X) - Real.log (1 / σ) = Real.log (σ * Real.log X) := by
+    rw [one_div, Real.log_inv, Real.log_mul hσ0.ne' hlogXpos.ne']; ring
+  have h12X : (12 : ℝ) / Real.log X ≤ 12 := by rw [div_le_iff₀ hlogXpos]; nlinarith [hlogX1]
+  have h12σ : 12 * σ ≤ 12 := by nlinarith [hσ1, hσ0]
+  rw [hdecomp]
+  have hmertfinal : 2 * (Salt.Mertens.SPartial X - Salt.Mertens.SPartial (Real.exp (1 / σ)))
+      ≤ 2 * Real.log (σ * Real.log X) + 48 := by
+    linarith [hmX.2, hmY.1, hlogeq, hloglogY, h12Y, h12X, h12σ]
+  linarith [hgap, hmertfinal]
+
+/-- **B2 — the `M_range` corollary** (`scale_floor_Mrange`).  For a frequency `t` in the
+`M_range` window (the membership side-condition per `M_range`'s definition) and `σ ∈ (0, 1]`
+with `e^{1/σ} ≤ X`:
+`M_range(1; X, T) − 2·log(σ·log X) − 48 ≤ 𝔻²(1, n^{it}; e^{1/σ})`.
+The distance at scale `X` dominates its window infimum `M_range` (`csInf_le`; the image is
+bounded below by `0` via `pretDistSq_nonneg`), and `scale_floor` transports it to the shrunk
+scale `e^{1/σ}` at the crude `2 log(σL)` cost.  This is the flat-regime `M` that B3 consumes. -/
+theorem scale_floor_Mrange {t X T σ : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1)
+    (hYX : Real.exp (1 / σ) ≤ X)
+    (hmem : (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X) :
+    M_range (fun _ => 1) X T - 2 * Real.log (σ * Real.log X) - 48
+      ≤ pretDistSq (fun _ => 1) (costwist t) (Real.exp (1 / σ)) := by
+  have hf1 : ∀ p : ℕ, ‖(fun _ => (1 : ℂ)) p‖ ≤ 1 := fun _ => by simp
+  have hg1 : ∀ p : ℕ, ‖costwist t p‖ ≤ 1 := fun n => le_of_eq (costwist_norm t n)
+  have hsf := scale_floor hf1 hg1 hσ0 hσ1 hYX
+  have hbdd : BddBelow ((fun t' : ℝ => pretDistSq (fun _ => 1) (costwist t') X) ''
+      {t' : ℝ | (Real.log X) ^ (1 / 15 : ℝ) ≤ |t'|
+        ∧ |t'| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t'| ≤ X}) := by
+    refine ⟨0, ?_⟩
+    rintro v ⟨t', _, rfl⟩
+    exact pretDistSq_nonneg (fun _ => 1) (costwist t') X hf1
+      (fun n => le_of_eq (costwist_norm t' n))
+  have hinf : M_range (fun _ => 1) X T ≤ pretDistSq (fun _ => 1) (costwist t) X := by
+    apply csInf_le hbdd
+    exact ⟨t, hmem, rfl⟩
+  linarith [hsf, hinf]
+
+/-! ## B3 — the flat-regime σ-integral of the pretentious majorant (`sigma_cutoff_pretentious`)
+
+The REPLACEMENT arm for `HExit.sigma_cutoff`'s flat regime under the `c = 1/e` re-freeze
+(⟦A — B4⟧).  With the B1 pointwise majorant `‖F(1+σ+it)‖ ≤ C(1/σ)e^{−(1/e)𝔻²(e^{1/σ})}` and the
+B2 floor `𝔻²(e^{1/σ}) ≥ M − 2 log(σL) − C`, the weighted-integrand `Fbound σ/σ` is dominated
+by `(1/σ²)·e^{−(1/e)(M − 2 log(σL) − C)}`.  The KEY is the `2c = 2/e < 1` convergence: the
+integrand is `K·σ^{2/e−2}` and `∫ σ^{2/e−2}` converges at the top (exponent `2/e−2 > −2`; the
+antiderivative `σ^{2/e−1}/(2/e−1)` is explicit, `integral_rpow`), so the whole integral is
+`≤ C′·e^{−M/e}·L` for ANY upper limit `b ≥ 1/L` (the `min(σ*, 2η)` corner is subsumed: the
+flat bound holds regardless of the top).  Contrast the OLD `(1+M)e^{−M}` arm whose flat piece
+paid `e^{−M}L·log(σ*L) = e^{−M}L·M` — the linear-in-`M` factor that B4 dissolves.
+
+**Tail-arm compatibility (docstring target, NOT built here).**  The trivial arm `htriv`
+(`Fbound σ ≤ 1/σ`, `∫ σ^{−2}` on `[σ*, 2η]`) is UNCHANGED by the re-freeze; the combined
+`sigma_cutoff_c : ∫_{1/L}^{2η} Fbound σ/σ ≤ C″·e^{−M/e}·L` (flat via this stone + tail via the
+landed `HExit.sigma_cutoff` pattern) is the pinned-assembly target — it wants `HExit`'s socket
+and is left to that file (do NOT reopen `HExit` from here). -/
+
+/-- **B3 — the flat-regime pretentious σ-cutoff** (`sigma_cutoff_pretentious`).  For `L ≥ 3`,
+`M ≥ 0`, `C ≥ 0`, and any upper limit `b ≥ 1/L`:
+`∫_{1/L}^{b} (1/σ²)·exp(−(1/e)(M − 2 log(σL) − C)) dσ ≤ (exp(C/e)/(1 − 2/e))·exp(−M/e)·L`.
+The integrand is `K·σ^{2/e−2}` with `K = exp(−M/e)·exp(C/e)·L^{2/e}`; `integral_rpow` gives the
+closed antiderivative, and `2/e − 1 < 0` (since `e > 2`) makes `L^{2/e}·(1/L)^{2/e−1} = L` and
+the top-endpoint term drop, yielding the honest `c = 1/e` grade with fixed constant. -/
+theorem sigma_cutoff_pretentious {L M C b : ℝ} (hL : 3 ≤ L) (_hM : 0 ≤ M) (_hC : 0 ≤ C)
+    (hb : 1 / L ≤ b) :
+    (∫ σ in (1 / L)..b,
+        (1 / σ ^ 2) * Real.exp (-(1 / Real.exp 1) * (M - 2 * Real.log (σ * L) - C)))
+      ≤ (Real.exp (C / Real.exp 1) / (1 - 2 / Real.exp 1))
+          * Real.exp (-(M / Real.exp 1)) * L := by
+  have hLpos : (0 : ℝ) < L := by linarith
+  have hLinv0 : (0 : ℝ) < 1 / L := by positivity
+  have hbpos : (0 : ℝ) < b := lt_of_lt_of_le hLinv0 hb
+  have he1 : (2 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+  have he1pos : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
+  have h2e : 2 / Real.exp 1 < 1 := by rw [div_lt_one he1pos]; exact he1
+  have hsneg : (2 / Real.exp 1 - 1 : ℝ) < 0 := by linarith
+  have hσsq : ∀ σ : ℝ, σ ^ (2 : ℝ) = σ ^ 2 := fun σ => by
+    rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) from by norm_num, Real.rpow_natCast]
+  set K : ℝ := Real.exp (-(M / Real.exp 1)) * Real.exp (C / Real.exp 1)
+      * L ^ (2 / Real.exp 1 : ℝ) with hKdef
+  have hKnn : 0 ≤ K := by rw [hKdef]; positivity
+  -- pointwise integrand identity for σ > 0
+  have hpoint0 : ∀ σ : ℝ, 0 < σ →
+      (1 / σ ^ 2) * Real.exp (-(1 / Real.exp 1) * (M - 2 * Real.log (σ * L) - C))
+        = K * σ ^ (2 / Real.exp 1 - 2 : ℝ) := by
+    intro σ hσpos
+    have hσL : 0 < σ * L := mul_pos hσpos hLpos
+    rw [show -(1 / Real.exp 1) * (M - 2 * Real.log (σ * L) - C)
+          = -(M / Real.exp 1) + Real.log (σ * L) * (2 / Real.exp 1) + C / Real.exp 1 from by ring,
+      Real.exp_add, Real.exp_add, ← Real.rpow_def_of_pos hσL,
+      Real.mul_rpow hσpos.le hLpos.le, hKdef,
+      show σ ^ (2 / Real.exp 1 - 2 : ℝ) = σ ^ (2 / Real.exp 1 : ℝ) * (1 / σ ^ 2) from by
+        rw [Real.rpow_sub hσpos, hσsq σ, div_eq_mul_one_div]]
+    ring
+  have hpoint : Set.EqOn
+      (fun σ => (1 / σ ^ 2) * Real.exp (-(1 / Real.exp 1) * (M - 2 * Real.log (σ * L) - C)))
+      (fun σ => K * σ ^ (2 / Real.exp 1 - 2 : ℝ)) (Set.uIcc (1 / L) b) := by
+    intro σ hσ
+    rw [Set.uIcc_of_le hb, Set.mem_Icc] at hσ
+    exact hpoint0 σ (lt_of_lt_of_le hLinv0 hσ.1)
+  -- integrate the rpow monomial
+  rw [intervalIntegral.integral_congr hpoint, intervalIntegral.integral_const_mul,
+    integral_rpow (Or.inr ⟨by intro h; linarith, by
+      rw [Set.uIcc_of_le hb, Set.mem_Icc]; rintro ⟨h1, _⟩; linarith⟩),
+    show (2 / Real.exp 1 - 2 : ℝ) + 1 = 2 / Real.exp 1 - 1 from by ring]
+  -- the closed-form bound
+  have hbs : (0 : ℝ) < b ^ (2 / Real.exp 1 - 1 : ℝ) := Real.rpow_pos_of_pos hbpos _
+  have hLL : L ^ (2 / Real.exp 1 : ℝ) * (1 / L) ^ (2 / Real.exp 1 - 1 : ℝ) = L := by
+    rw [one_div, Real.inv_rpow hLpos.le, ← Real.rpow_neg hLpos.le, ← Real.rpow_add hLpos,
+      show (2 / Real.exp 1 : ℝ) + -(2 / Real.exp 1 - 1) = 1 from by ring, Real.rpow_one]
+  have hKL : K * (1 / L) ^ (2 / Real.exp 1 - 1 : ℝ)
+      = Real.exp (-(M / Real.exp 1)) * Real.exp (C / Real.exp 1) * L := by
+    rw [hKdef, mul_assoc, hLL]
+  have hstep : (b ^ (2 / Real.exp 1 - 1 : ℝ) - (1 / L) ^ (2 / Real.exp 1 - 1 : ℝ))
+        / (2 / Real.exp 1 - 1)
+      ≤ (1 / L) ^ (2 / Real.exp 1 - 1 : ℝ) / (1 - 2 / Real.exp 1) := by
+    rw [show (1 : ℝ) - 2 / Real.exp 1 = -(2 / Real.exp 1 - 1) from by ring, div_neg, sub_div]
+    have hAs : b ^ (2 / Real.exp 1 - 1 : ℝ) / (2 / Real.exp 1 - 1) ≤ 0 :=
+      le_of_lt (div_neg_of_pos_of_neg hbs hsneg)
+    linarith [hAs]
+  calc K * ((b ^ (2 / Real.exp 1 - 1 : ℝ) - (1 / L) ^ (2 / Real.exp 1 - 1 : ℝ))
+          / (2 / Real.exp 1 - 1))
+      ≤ K * ((1 / L) ^ (2 / Real.exp 1 - 1 : ℝ) / (1 - 2 / Real.exp 1)) :=
+        mul_le_mul_of_nonneg_left hstep hKnn
+    _ = (K * (1 / L) ^ (2 / Real.exp 1 - 1 : ℝ)) / (1 - 2 / Real.exp 1) := by rw [mul_div_assoc]
+    _ = (Real.exp (-(M / Real.exp 1)) * Real.exp (C / Real.exp 1) * L)
+          / (1 - 2 / Real.exp 1) := by rw [hKL]
+    _ = (Real.exp (C / Real.exp 1) / (1 - 2 / Real.exp 1))
+          * Real.exp (-(M / Real.exp 1)) * L := by ring
+
+end Salt.MR
