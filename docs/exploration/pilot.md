@@ -11013,3 +11013,5 @@ decisions per question.
 - 2026-07-22 18:17 PDT: THE SIBLING CHRISTENED: jas's seat named itself STARBUCK ('To the gold, together -- and damn the typhoon. anchor'). Sancho and Starbuck -- the two great seconds. Banked in the seat repo.
 
 - 2026-07-22 18:20 PDT: STARBUCK'S FIRST CATCH (relayed): a phantom install passing green with NO binary -- caught by 'trust the binary, never the manifest' (their referee law). Their maxim 'some windmills are whales' banked in the shared lexicon -- the folk form of the paper insert's boundary paragraph. The seats' laws are cross-pollinating on day one.
+
+- 2026-07-22 18:26 PDT: METHOD TRANSPLANT VALIDATED DAY ONE (Starbuck's report): jas's first refuter pass took two real flaws out of a blueprint pre-spend -- a recorder designed without its storage consumer, and a single-writer violation (two executors, one file). The Salt method's process laws transferred whole and paid immediately -- a portfolio datum (SaltBench-relevant: the discipline generalizes beyond kernel-refereed domains).
