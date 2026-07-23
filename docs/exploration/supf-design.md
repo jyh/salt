@@ -1,7 +1,26 @@
 # THE SUPF DESIGN BLOCK — leg (i), the last leg of hRHS
 
-*Maestro design block, 2026-07-23 morning (JYH-approved; "I'll be
-watching"). Status: DRAFT — refuter pass firing. Inputs: SUPF-SCOPE's
+*Maestro design block, 2026-07-23 morning. Status: **HOLD (refuted
+~08:00) — the ASSEMBLY is fatal; the pointwise layer survives.**
+EULER-REF (REPAIRABLE, repairs exact): SF-0's ratio constant needs
+mertens_first_upper's cancellation (the 'elementary e^3' claim FALSE
+-- the additive fallback illusory at (log y)^{e^2}); SF-1 needs the
+twist adapter (IsMultiplicative.eulerProduct_tprod, NOT the
+completely-multiplicative drop-ins); SF-2's tail fine (prime_tail_
+shift), the sigma=2eta scale-mismatch flagged. BALL-REF
+(CONFIRMED-FATAL): prop21RHS_le_head's socket stacks three never-co-
+occurring worst cases (full-line sup discards kernel localization;
+pointwise window mass discards the L^2-mean; full-line Kmass) --
+overshoot L^{3/2}, regime-robust, arsinh-proof; the sigma-cutoff has
+NO home in the box-collapsed socket; the drift is loglog-grade
+CONFIRMED. THE RULING: the C-tier adjudication was UNFOUNDED for the
+assembly -- the D-reading stands there; the hybrid path: (a) the
+EULER LAYER (SF-0 repaired + SF-1 + SF-2) lands as route-independent
+shelf stones (any head bound needs them); (b) the JOINT HEAD
+(window x kernel diagonalized together, the live sigma-integral) is
+scoped honestly -- BALL-REF's option (ii), a t-split Plancherel-joint
+LEG-II rebuild, scoped BEFORE conceding the full A.10 port (the
+exact-kernel dividend question, one more time).* Inputs: SUPF-SCOPE's
 map (the D-reading), M-BRIDGE-SCOPE's map (the C-reading + the exact
 σ-cutoff arithmetic), LEG-II's landed socket (hsupF/hKint),
 NIGHT-SIGMA's landed sigma_cutoff (C = 1) + kernel_mass_ledger.*
