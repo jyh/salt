@@ -852,6 +852,14 @@ bound follows unconditionally (this lemma), and — after the §8 `int_U`/moment
 routes the E error through the ball-integrated secondary term (`prop_A3'_assembly`, NOT a
 pointwise inequality: the pointwise E is main-term-sized when `log y ≍ log X`, and only
 its ball-`L²` mass is tail-grade) — `T1_decay_trivial` delivers the frozen T1 grade. -/
+/- ⟦CORRECTION 2026-07-22 night (M-BRIDGE-SCOPE, maestro-applied):
+the (1+M) factor in hRHS is NOT supplied by the sharp diagonal (that
+leg is the 1/sigma weight, log^2-grade); it is born in the
+sigma-integral two-regime cutoff -- GHS Cor 1.2 p.13: split at
+sigma* = e^M/log X between the pretentious bound e^{-M} log X and
+the trivial bound 1/sigma; verified numerically exact (ratio 1.000).
+The (1+M) is genuine and necessary: the tighter pure-e^{-M} bound is
+FALSE, and grade_EM's factor 2 is load-bearing. -/
 theorem T1_head_wire (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ t : ℝ) :
     ∃ X₀ : ℝ, ∀ {X h c₀ y η C₁ : ℝ}, X₀ ≤ X →
         h = X / Real.sqrt (Real.log X) → 1 < c₀ → η = 1 / Real.log y →
@@ -877,5 +885,179 @@ theorem T1_head_wire (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
     calc ‖S‖ = ‖R + (S - R)‖ := by rw [hid]
       _ ≤ ‖R‖ + ‖S - R‖ := norm_add_le _ _
   exact htri.trans (add_le_add hRHS hrep)
+
+end Salt.MR
+
+/-! ## LEG II — the integral factoring (`prop21RHS_le_head`)
+
+The middle leg of the `hRHS` chain (`T1_head_wire`'s named residual).  `prop21RHS`
+(`HalaszRepAsm:472`) is the `2·∫₀^η∫₀^η (1/2π)∫_t 𝒮·𝓛·P·P·hatKernel` triple integral
+(the frozen GHS Prop-2.1 object, `s = c₀ + (t−t₀)·I`).  This leg FACTORS its norm into
+`(explicit constant)·F0·(kernel L¹ mass)·(window coefficient-mass²)`, the honest
+interface a downstream bridge combines with (iii-b)'s `(1+M)` decay.
+
+**The socket hypotheses.**  Two analytic inputs are carried as NAMED hypotheses (the
+conditional-assembly house form, cf. `contour_A13_A14_head`, `hhead_supplier_trivial`):
+
+* `hsupF` — the four-factor sup `‖𝒮(s−α−β)·𝓛(s+β)‖ ≤ F0` over the `(α,β)∈[0,η]²` box
+  (this is the leg-(i) Halász/Euler-product decay `F0 ≍ e^{−M}·L`, scoped separately);
+* `hKint` — the kernel L¹ mass `∫_t ‖hatKernel X h (c₀−α−β) (t−t₀)‖ ≤ Kmass`, uniform
+  over the box (the bridge supplies the ledger-sharp value; the split-height `Tsplit`
+  bookkeeping — `HalaszKernel.tsplit_ledger` — is the bridge's, NOT this leg's).
+
+**The factoring, discharged unconditionally.**  The `𝒮·𝓛` factor is pulled out by
+`hsupF`; the two `P`-legs are bounded POINTWISE by their `n^{−c}`-weighted coefficient
+mass (`norm_windowSum_le_mass`, retaining the decay leg-(iii) needs), uniformly over
+`β∈[0,η]` at the worst-case line `c₀−η`; the kernel is the only `t`-dependent factor, so
+its L¹ mass `Kmass` is the sole surviving integral.  The `(α,β)` double integral then
+collapses via `intervalIntegral.norm_integral_le_of_norm_le_const` (each level pays a
+factor `η`), and the leading `2·(1/2π) = 1/π` assembles the constant.  The window mass
+appears SQUARED — exactly the `(Σ‖lambdaLin g‖/nᶜ)²` shape of `k4_plan_le_diag_sharp`. -/
+
+namespace Salt.MR
+
+open Complex MeasureTheory Set
+open scoped BigOperators
+
+/-- **The window Dirichlet polynomial's `n^{−c}`-weighted coefficient-mass bound.**
+`‖windowSum g X y w‖ ≤ ∑_{n∈window} ‖lambdaLin (restrictAbove y g) n‖ / n^a` whenever
+`a ≤ Re w`.  Pointwise triangle inequality (`‖n^{−w}‖ = n^{−Re w}`) followed by the
+exponent monotonicity `1/n^{Re w} ≤ 1/n^a` (`n ≥ 1`, `a ≤ Re w`).  This RETAINS the
+`n^{−c}` decay (the M-independent factor the terminal chain needs); the worst-case line
+`a = c₀ − η` makes the bound uniform over the `β`-shift. -/
+theorem norm_windowSum_le_mass (g : ℕ → ℂ) (X y a : ℝ) {w : ℂ} (hw : a ≤ w.re) :
+    ‖windowSum g X y w‖
+      ≤ ∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+          ‖lambdaLin (restrictAbove y g) n‖ / (n : ℝ) ^ a := by
+  unfold windowSum
+  refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun n hn => ?_))
+  rw [Finset.mem_Ioo] at hn
+  have hn1 : 1 ≤ n := by omega
+  have hnpos : 0 < n := hn1
+  have hnR : (1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn1
+  rw [norm_div, Complex.norm_natCast_cpow_of_pos hnpos]
+  exact div_le_div_of_nonneg_left (norm_nonneg _) (Real.rpow_pos_of_pos (by linarith) a)
+    (Real.rpow_le_rpow_of_exponent_le hnR hw)
+
+/-- **LEG II — the integral factoring (`prop21RHS_le_head`).**  The norm of `prop21RHS`
+factors into `(η²/π)·F0·Kmass·(window coefficient-mass²)`, where `F0` is the four-factor
+`𝒮·𝓛` sup over the `(α,β)∈[0,η]²` box (`hsupF`) and `Kmass` is the kernel's uniform L¹
+mass (`hKint`).  The window mass is the `n^{−c}`-weighted `∑_{n∈(y,X/y)}‖lambdaLin
+(restrictAbove y g) n‖/n^{c₀−η}` — SQUARED, matching `k4_plan_le_diag_sharp`'s diagonal
+shape.  Unconditional in the two carried inputs; the sharp `Kmass ≍ X` (via `Tsplit`) and
+the `(1+M)e^{−M}` decay of `F0` are the bridge's, isolating the honest interface
+
+  `‖prop21RHS‖ ≤ (η²/π)·F0·Kmass·(Σ‖lambdaLin (restrictAbove y g)‖/n^{c₀−η})²`.
+
+Composition with `T1_head_wire`: the bridge supplies `hsupF`/`hKint`, obtains this bound,
+then via (iii-b)'s `(1+M)` bridge (`k4_plan_le_diag_sharp` → `(1+M)`) and `Kmass ≍ X`
+rewrites the RHS to `C₁·X·(1+M)e^{−M}` — exactly `T1_head_wire`'s `hRHS` binder. -/
+theorem prop21RHS_le_head {g : ℕ → ℂ} {t₀ X h c₀ y η F0 Kmass : ℝ}
+    (hX : 1 ≤ X) (hh : 0 < h) (hη0 : 0 ≤ η) (hc2η : 0 < c₀ - 2 * η)
+    (hF0 : 0 ≤ F0)
+    (hsupF : ∀ α ∈ Set.Icc (0 : ℝ) η, ∀ β ∈ Set.Icc (0 : ℝ) η, ∀ t : ℝ,
+      ‖smoothSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (α : ℂ) - (β : ℂ))
+          * largeSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))‖ ≤ F0)
+    (hKint : ∀ α ∈ Set.Icc (0 : ℝ) η, ∀ β ∈ Set.Icc (0 : ℝ) η,
+      ∫ t : ℝ, ‖hatKernel X h (c₀ - α - β) (t - t₀)‖ ≤ Kmass) :
+    ‖prop21RHS g t₀ X h c₀ y η‖
+      ≤ η ^ 2 / Real.pi * F0 * Kmass
+          * (∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+              ‖lambdaLin (restrictAbove y g) n‖ / (n : ℝ) ^ (c₀ - η)) ^ 2 := by
+  set Sη := ∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+    ‖lambdaLin (restrictAbove y g) n‖ / (n : ℝ) ^ (c₀ - η) with hSη
+  have hSη0 : 0 ≤ Sη := by
+    rw [hSη]; exact Finset.sum_nonneg (fun n _ => by positivity)
+  -- Per-`(α,β)` inner bound: the `t`-integral's norm ≤ F0·Sη²·Kmass.
+  have hInner : ∀ α ∈ Set.Icc (0 : ℝ) η, ∀ β ∈ Set.Icc (0 : ℝ) η,
+      ‖∫ t : ℝ, smoothSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (α : ℂ) - (β : ℂ))
+          * largeSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * hatKernel X h (c₀ - α - β) (t - t₀)‖
+        ≤ F0 * Sη * Sη * Kmass := by
+    intro α hα β hβ
+    have hα0 := hα.1; have hαη := hα.2; have hβ0 := hβ.1; have hβη := hβ.2
+    have hc : 0 < c₀ - α - β := by linarith
+    have hIntg : Integrable
+        (fun t : ℝ => F0 * Sη * Sη * ‖hatKernel X h (c₀ - α - β) (t - t₀)‖) :=
+      (((integrable_hatKernel hX hh hc).comp_sub_right t₀).norm).const_mul (F0 * Sη * Sη)
+    refine (norm_integral_le_integral_norm _).trans ?_
+    refine (integral_mono_of_nonneg (Filter.Eventually.of_forall (fun t => norm_nonneg _))
+      hIntg (Filter.Eventually.of_forall (fun t => ?_))).trans ?_
+    · -- pointwise: ‖𝒮·𝓛·P·P·hatK‖ ≤ F0·Sη·Sη·‖hatK‖
+      have hP1 : ‖windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))‖ ≤ Sη := by
+        rw [hSη]
+        exact norm_windowSum_le_mass g X y (c₀ - η)
+          (by rw [show (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ)).re = c₀ - β from by simp];
+              linarith)
+      have hP2 : ‖windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))‖ ≤ Sη := by
+        rw [hSη]
+        exact norm_windowSum_le_mass g X y (c₀ - η)
+          (by rw [show (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ)).re = c₀ + β from by simp];
+              linarith)
+      have hSL := hsupF α hα β hβ t
+      dsimp only
+      rw [norm_mul, norm_mul, norm_mul]
+      refine mul_le_mul_of_nonneg_right ?_ (norm_nonneg _)
+      refine mul_le_mul ?_ hP2 (norm_nonneg _) (mul_nonneg hF0 hSη0)
+      exact mul_le_mul hSL hP1 (norm_nonneg _) hF0
+    · -- ∫ (F0·Sη·Sη·‖hatK‖) = F0·Sη·Sη·∫‖hatK‖ ≤ F0·Sη·Sη·Kmass
+      rw [MeasureTheory.integral_const_mul (F0 * Sη * Sη)
+        (fun t : ℝ => ‖hatKernel X h (c₀ - α - β) (t - t₀)‖)]
+      exact mul_le_mul_of_nonneg_left (hKint α hα β hβ)
+        (mul_nonneg (mul_nonneg hF0 hSη0) hSη0)
+  -- Per-`α` middle bound: the `β`-integral's norm ≤ (1/2π)·(F0·Sη²·Kmass)·η.
+  have hMid : ∀ α ∈ Set.Icc (0 : ℝ) η,
+      ‖∫ β in (0 : ℝ)..η, (1 / (2 * Real.pi)) •
+        ∫ t : ℝ, smoothSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (α : ℂ) - (β : ℂ))
+          * largeSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * hatKernel X h (c₀ - α - β) (t - t₀)‖
+        ≤ (1 / (2 * Real.pi)) * (F0 * Sη * Sη * Kmass) * η := by
+    intro α hα
+    have hconst : ∀ β ∈ Set.uIoc (0 : ℝ) η,
+        ‖(1 / (2 * Real.pi)) •
+          ∫ t : ℝ, smoothSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (α : ℂ) - (β : ℂ))
+            * largeSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+            * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))
+            * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+            * hatKernel X h (c₀ - α - β) (t - t₀)‖
+          ≤ (1 / (2 * Real.pi)) * (F0 * Sη * Sη * Kmass) := by
+      intro β hβ
+      have hβ' : β ∈ Set.Icc (0 : ℝ) η := by
+        rw [Set.uIoc_of_le hη0] at hβ; exact Set.Ioc_subset_Icc_self hβ
+      rw [norm_smul, Real.norm_of_nonneg (by positivity : (0 : ℝ) ≤ 1 / (2 * Real.pi))]
+      exact mul_le_mul_of_nonneg_left (hInner α hα β hβ') (by positivity)
+    have h1 := intervalIntegral.norm_integral_le_of_norm_le_const hconst
+    rw [sub_zero, abs_of_nonneg hη0] at h1
+    exact h1
+  -- Outer `α`-integral collapse + the leading `2·(1/2π) = 1/π` assembly.
+  have houter : ∀ α ∈ Set.uIoc (0 : ℝ) η,
+      ‖∫ β in (0 : ℝ)..η, (1 / (2 * Real.pi)) •
+        ∫ t : ℝ, smoothSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (α : ℂ) - (β : ℂ))
+          * largeSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * hatKernel X h (c₀ - α - β) (t - t₀)‖
+        ≤ (1 / (2 * Real.pi)) * (F0 * Sη * Sη * Kmass) * η := by
+    intro α hα
+    have hα' : α ∈ Set.Icc (0 : ℝ) η := by
+      rw [Set.uIoc_of_le hη0] at hα; exact Set.Ioc_subset_Icc_self hα
+    exact hMid α hα'
+  have h2 := intervalIntegral.norm_integral_le_of_norm_le_const houter
+  rw [sub_zero, abs_of_nonneg hη0] at h2
+  simp only [prop21RHS]
+  rw [norm_smul, Real.norm_of_nonneg (by norm_num : (0 : ℝ) ≤ 2)]
+  calc (2 : ℝ) * ‖∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η, (1 / (2 * Real.pi)) •
+        ∫ t : ℝ, smoothSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (α : ℂ) - (β : ℂ))
+          * largeSeries y g (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))
+          * windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))
+          * hatKernel X h (c₀ - α - β) (t - t₀)‖
+      ≤ 2 * ((1 / (2 * Real.pi)) * (F0 * Sη * Sη * Kmass) * η * η) :=
+        mul_le_mul_of_nonneg_left h2 (by norm_num)
+    _ = η ^ 2 / Real.pi * F0 * Kmass * Sη ^ 2 := by ring
 
 end Salt.MR

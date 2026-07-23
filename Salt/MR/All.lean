@@ -305,3 +305,5 @@ open Salt.Tactic in
   Salt.MR.prop21_unconditional_final
   Salt.MR.prop21_unconditional_clean
   Salt.MR.T1_head_wire
+  Salt.MR.norm_windowSum_le_mass
+  Salt.MR.prop21RHS_le_head
