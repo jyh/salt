@@ -303,3 +303,5 @@ open Salt.Tactic in
   Salt.MR.rampSliverMass_bound_unconditional
   Salt.MR.prop21_contour_leg_unwindowed
   Salt.MR.prop21_unconditional_final
+  Salt.MR.prop21_unconditional_clean
+  Salt.MR.T1_head_wire

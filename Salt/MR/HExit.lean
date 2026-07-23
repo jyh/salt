@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.MR.HalaszIdentity
 import Salt.MR.RampSliver
 import Salt.MR.ShortIntervalPsi
+import Salt.MR.HalaszHead
 
 /-!
 # H-EXIT (unconditional) — the ramp-sliver bridge (`HExit`)
@@ -668,5 +669,213 @@ theorem prop21_unconditional_final (g : ℕ → ℂ) (hg : ∀ p, p.Prime → �
       = 8 * (C * (X / Real.log X) * Real.log y) := by ring
   rw [heq]
   exact hCE
+
+end Salt.MR
+
+/-! ## H-EXIT (consumer-facing) — `prop21_unconditional_clean`
+
+`prop21_unconditional_final` discharges the ramp residue but still carries the
+per-window regime `hreg` (the `rampSliverMass_bound_unconditional` grain's regime set).
+This section discharges `hreg` from the OUTER regime, leaving the S1′ representation
+with only the consumer-facing hypotheses (an ∃-packaged `X`-threshold, the `h`-pin, the
+`c₀/η/y` gates, and `hg`).
+
+The discharge, per window `l ∈ (⌊y⌋, ⌊y+y·h/X⌋]`:
+
+* `l ≤ y + y·h/X ≤ 2y ≤ 2√X` (`h ≤ X` from the pin, `y ≤ √X` from the gate), so
+  `X/l ≥ √X/2`.
+* **(a)** `65536 ≤ X/l`: `√X/2 ≥ 65536` once `X ≥ (2·65536)² = 17179869184`.
+* **(b)** `X/l ≤ (h/l)·√√√(X/l)`: with `h/l = (X/l)/√(log X)` and `s := √√√(X/l)`
+  (`s⁸ = X/l`), the condition is `√(log X) ≤ s`, i.e. `(log X)⁴ ≤ X/l`; and
+  `X/l ≥ √X/2 ≥ (log X)⁴` at large `X` (the `log⁴ = o(√X)` threshold, ∃-packaged by
+  `logpow4_le_sqrt_eventually`).
+* **(c)** `h/l ≤ X/l`: `h ≤ X` from the pin.
+-/
+
+namespace Salt.MR
+
+open Complex Filter Asymptotics
+open scoped BigOperators
+
+/-- **The `log⁴ = o(√X)` threshold (∃-packaged).**  There is an `X₁` beyond which
+`(log X)⁴ ≤ √X/2` — the growth fact behind the middle window condition (b), obtained
+from `isLittleO_log_rpow_rpow_atTop` at exponents `4` and `1/2`. -/
+private lemma logpow4_le_sqrt_eventually :
+    ∃ X₁ : ℝ, ∀ X : ℝ, X₁ ≤ X → (Real.log X) ^ 4 ≤ Real.sqrt X / 2 := by
+  have hlo : (fun x : ℝ => Real.log x ^ (4 : ℝ)) =o[atTop] fun x : ℝ => x ^ (1 / 2 : ℝ) :=
+    isLittleO_log_rpow_rpow_atTop 4 (by norm_num : (0 : ℝ) < 1 / 2)
+  have hbound := hlo.bound (show (0 : ℝ) < 1 / 2 by norm_num)
+  rw [eventually_atTop] at hbound
+  obtain ⟨a, ha⟩ := hbound
+  refine ⟨max a 1, fun X hX => ?_⟩
+  have hXa : a ≤ X := le_trans (le_max_left _ _) hX
+  have hX1 : (1 : ℝ) ≤ X := le_trans (le_max_right _ _) hX
+  have hlogXnn : (0 : ℝ) ≤ Real.log X := Real.log_nonneg hX1
+  have hkey := ha X hXa
+  have h1nn : (0 : ℝ) ≤ Real.log X ^ (4 : ℝ) := Real.rpow_nonneg hlogXnn 4
+  have h2nn : (0 : ℝ) ≤ X ^ (1 / 2 : ℝ) := Real.rpow_nonneg (by linarith) _
+  rw [Real.norm_of_nonneg h1nn, Real.norm_of_nonneg h2nn,
+    show (4 : ℝ) = ((4 : ℕ) : ℝ) by norm_num, Real.rpow_natCast,
+    ← Real.sqrt_eq_rpow] at hkey
+  linarith [hkey]
+
+/-- **H-EXIT — the consumer-facing clean form (`prop21_unconditional_clean`).**
+`prop21_unconditional_final` with the per-window regime `hreg` DISCHARGED from the outer
+regime.  For `X` beyond the (existentially packaged) threshold `X₀`, and under the outer
+gates — the `h`-pin, `1 < c₀`, the `η`-pin, `0 < c₀ − 2η`, `10 ≤ y ≤ √X`,
+`√(log X) ≤ y` — the S1′ representation holds:
+
+  `‖(∑' n, seamCoeff (ellLin g) 1 t₀ n · hatK) − prop21RHS‖ ≤ C_E·((X+h)/log(X+h))·log y
+      + C_R·(X/log X)·log y`.
+
+The window regime is derived internally (`l ≤ 2√X ⟹ X/l ≥ √X/2`, then `√X/2 ≥ 65536`
+and `√X/2 ≥ (log X)⁴` at large `X`), so the only hypotheses are the outer regime. -/
+theorem prop21_unconditional_clean (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ : ℝ) :
+    ∃ X₀ : ℝ, ∀ {X h c₀ y η : ℝ}, X₀ ≤ X →
+        h = X / Real.sqrt (Real.log X) → 1 < c₀ → η = 1 / Real.log y →
+        0 < c₀ - 2 * η → 10 ≤ y → y ≤ Real.sqrt X → Real.sqrt (Real.log X) ≤ y →
+      ∃ C_E C_R : ℝ, ‖(∑' n, seamCoeff (ellLin g) (fun _ => 1) t₀ n * (hatK X h n : ℂ))
+          - prop21RHS (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) t₀ X h c₀ y η‖
+        ≤ C_E * ((X + h) / Real.log (X + h)) * Real.log y
+          + C_R * (X / Real.log X) * Real.log y := by
+  obtain ⟨X₁, hX₁⟩ := logpow4_le_sqrt_eventually
+  refine ⟨max X₁ 17179869184, ?_⟩
+  intro X h c₀ y η hXlb hh hc₀ hη hc' hy10 hyX hygate
+  -- outer-regime facts
+  have hXbig : (17179869184 : ℝ) ≤ X := le_trans (le_max_right _ _) hXlb
+  have hXX₁ : X₁ ≤ X := le_trans (le_max_left _ _) hXlb
+  have hX : Real.exp 1 ≤ X :=
+    (Real.exp_one_lt_d9.le.trans (by norm_num : (2.7182818286 : ℝ) ≤ 17179869184)).trans hXbig
+  have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
+    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogXpos : (0 : ℝ) < Real.log X := by linarith
+  have hsqlogX : (0 : ℝ) < Real.sqrt (Real.log X) := Real.sqrt_pos.mpr hlogXpos
+  have hsqge1 : (1 : ℝ) ≤ Real.sqrt (Real.log X) := by
+    rw [show (1 : ℝ) = Real.sqrt 1 by simp]; exact Real.sqrt_le_sqrt hlogX1
+  have hh0 : (0 : ℝ) < h := by rw [hh]; exact div_pos hXpos hsqlogX
+  have hhX : h ≤ X := by rw [hh, div_le_iff₀ hsqlogX]; nlinarith [hsqge1, hXpos]
+  have hy0 : (0 : ℝ) < y := by linarith
+  have hsqrtXnn : (0 : ℝ) ≤ Real.sqrt X := Real.sqrt_nonneg _
+  have hsqrtXge : (131072 : ℝ) ≤ Real.sqrt X := by
+    have h1 : ((131072 : ℝ)) ^ 2 ≤ X := by nlinarith [hXbig]
+    calc (131072 : ℝ) = Real.sqrt (131072 ^ 2) := (Real.sqrt_sq (by norm_num)).symm
+      _ ≤ Real.sqrt X := Real.sqrt_le_sqrt h1
+  have hlog4 : (Real.log X) ^ 4 ≤ Real.sqrt X / 2 := hX₁ X hXX₁
+  -- the discharged regime
+  have hreg : ∀ l ∈ Finset.Ioc ⌊y⌋₊ ⌊y + y * h / X⌋₊,
+      (65536 : ℝ) ≤ X / (l : ℝ) ∧
+      X / (l : ℝ) ≤ (h / (l : ℝ)) * Real.sqrt (Real.sqrt (Real.sqrt (X / (l : ℝ)))) ∧
+      h / (l : ℝ) ≤ X / (l : ℝ) := by
+    intro l hl
+    rw [Finset.mem_Ioc] at hl
+    obtain ⟨hllo, hlhi⟩ := hl
+    have hl1 : 1 ≤ l := by omega
+    have hlpos : (0 : ℝ) < (l : ℝ) := by exact_mod_cast hl1
+    have hyhX_nn : (0 : ℝ) ≤ y + y * h / X :=
+      add_nonneg hy0.le (div_nonneg (mul_nonneg hy0.le hh0.le) hXpos.le)
+    have hyh : y * h / X ≤ y := by
+      rw [mul_div_assoc]
+      have hhX1 : h / X ≤ 1 := by rw [div_le_one hXpos]; exact hhX
+      calc y * (h / X) ≤ y * 1 := mul_le_mul_of_nonneg_left hhX1 hy0.le
+        _ = y := mul_one y
+    have hle2sqrt : (l : ℝ) ≤ 2 * Real.sqrt X := by
+      have hlhiR : (l : ℝ) ≤ y + y * h / X := by
+        calc (l : ℝ) ≤ (⌊y + y * h / X⌋₊ : ℝ) := by exact_mod_cast hlhi
+          _ ≤ y + y * h / X := Nat.floor_le hyhX_nn
+      linarith [hyh, hyX]
+    have hXl_ge : Real.sqrt X / 2 ≤ X / (l : ℝ) := by
+      rw [div_le_div_iff₀ (by norm_num : (0 : ℝ) < 2) hlpos]
+      nlinarith [Real.mul_self_sqrt hXpos.le, mul_le_mul_of_nonneg_left hle2sqrt hsqrtXnn]
+    have hXlpos : (0 : ℝ) < X / (l : ℝ) := div_pos hXpos hlpos
+    refine ⟨?_, ?_, ?_⟩
+    · -- (a) 65536 ≤ X/l
+      have h65 : (65536 : ℝ) ≤ Real.sqrt X / 2 := by linarith [hsqrtXge]
+      linarith [hXl_ge]
+    · -- (b) X/l ≤ (h/l)·√√√(X/l)
+      set Xl := X / (l : ℝ) with hXldef
+      set s := Real.sqrt (Real.sqrt (Real.sqrt Xl)) with hsdef
+      have hs8 : s ^ 8 = Xl := by
+        have ha4 : (0 : ℝ) ≤ Real.sqrt (Real.sqrt Xl) := Real.sqrt_nonneg _
+        have ha2 : (0 : ℝ) ≤ Real.sqrt Xl := Real.sqrt_nonneg _
+        have e2 : s ^ 2 = Real.sqrt (Real.sqrt Xl) := Real.sq_sqrt ha4
+        have e4 : s ^ 4 = Real.sqrt Xl := by
+          rw [show s ^ 4 = (s ^ 2) ^ 2 by ring, e2, Real.sq_sqrt ha2]
+        rw [show s ^ 8 = (s ^ 4) ^ 2 by ring, e4, Real.sq_sqrt hXlpos.le]
+      have hspos : (0 : ℝ) < s :=
+        Real.sqrt_pos.mpr (Real.sqrt_pos.mpr (Real.sqrt_pos.mpr hXlpos))
+      have hkey8 : (Real.sqrt (Real.log X)) ^ 8 ≤ s ^ 8 := by
+        rw [hs8, show (Real.sqrt (Real.log X)) ^ 8 = ((Real.sqrt (Real.log X)) ^ 2) ^ 4 by ring,
+          Real.sq_sqrt hlogXpos.le]
+        exact le_trans hlog4 hXl_ge
+      have hkey : Real.sqrt (Real.log X) ≤ s :=
+        le_of_pow_le_pow_left₀ (by norm_num) hspos.le hkey8
+      have hhl : h / (l : ℝ) = Xl / Real.sqrt (Real.log X) := by
+        rw [hXldef, hh, div_right_comm]
+      rw [hhl, div_mul_eq_mul_div, le_div_iff₀ hsqlogX]
+      exact mul_le_mul_of_nonneg_left hkey hXlpos.le
+    · -- (c) h/l ≤ X/l
+      exact div_le_div_of_nonneg_right hhX hlpos.le
+  exact prop21_unconditional_final g hg t₀ hX hh hc₀ hη hc' hy10 hyX hygate hreg
+
+/-! ## The head wire — connecting the S1′ representation to the T-chain
+
+`T1_decay_trivial`/`hhead_supplier_trivial` (`HalaszHead`) consume the ball head as a
+NAMED hypothesis
+
+  `hhead : Uhead ≤ C₁·X·((1 + M)·exp(−M))`,  `M = 𝔻(seamCoeff f 1 t₀, costwist t; X)²`,
+
+the S2′ centered head "K4′/S1′-conditional".  `prop21_unconditional_clean` now
+discharges the **S1′ representation leg** of that conditionality UNCONDITIONALLY: the
+seam sum equals `prop21RHS` up to the E-grade error.  The wire below composes the two —
+it bounds the seam sum's NORM by the ball-head shape `C₁·X·(1+M)e^{−M}` **plus the
+(now-unconditional) E error**, carrying the single remaining analytic input as the named
+hypothesis `hRHS`.
+
+**The one residual `hRHS` (honest frontier).**  `hRHS` bounds `‖prop21RHS‖` by the
+ball-head main term `C₁·X·(1+M)e^{−M}`.  This is the S2′ step — bounding `prop21RHS`'s
+`t`-integrand `𝒮·𝓛·P·P·hatKernel` by (the four-factor sup of `𝒮·𝓛` over the ball) ×
+(the kernel-weighted window cross-integral of `P·P`), the sup then decaying like
+`(1+M)e^{−M}` by the Halász/Euler-product pretentious bound.  Its ingredients are NOT in
+the landed corpus:
+
+* the four-factor sup bound `sup_{ball} ‖smoothSeries · largeSeries‖ ≤ C·e^{−M}` (the
+  Halász mean-value / Euler-product decay in the pretentious distance `M`) — ABSENT;
+* the integral-representation factoring `‖prop21RHS‖ ≤ X·supF·crossInt` linking the
+  `α,β,t` triple integral to the K4′ window cross-integral — ABSENT;
+* the window cross-integral → diagonal leg IS landed (`contour_A13_A14_head_sharp`,
+  `k4_plan_le_diag_sharp`), and the sharp diagonal `(π/c)·(Σ‖lambdaLin g‖/nᶜ)²` supplies
+  the `(1+M)` factor of the shape.
+
+So `hRHS` is the exact residual the wire isolates; once it lands, the seam-sum head
+bound follows unconditionally (this lemma), and — after the §8 `int_U`/moment assembly
+routes the E error through the ball-integrated secondary term (`prop_A3'_assembly`, NOT a
+pointwise inequality: the pointwise E is main-term-sized when `log y ≍ log X`, and only
+its ball-`L²` mass is tail-grade) — `T1_decay_trivial` delivers the frozen T1 grade. -/
+theorem T1_head_wire (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ t : ℝ) :
+    ∃ X₀ : ℝ, ∀ {X h c₀ y η C₁ : ℝ}, X₀ ≤ X →
+        h = X / Real.sqrt (Real.log X) → 1 < c₀ → η = 1 / Real.log y →
+        0 < c₀ - 2 * η → 10 ≤ y → y ≤ Real.sqrt X → Real.sqrt (Real.log X) ≤ y →
+        ‖prop21RHS (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) t₀ X h c₀ y η‖
+          ≤ C₁ * X * ((1 + pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t) X)
+              * Real.exp (-(pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t) X))) →
+      ∃ C_E C_R : ℝ,
+        ‖∑' n, seamCoeff (ellLin g) (fun _ => 1) t₀ n * (hatK X h n : ℂ)‖
+          ≤ C₁ * X * ((1 + pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t) X)
+                * Real.exp (-(pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t) X)))
+            + (C_E * ((X + h) / Real.log (X + h)) * Real.log y
+              + C_R * (X / Real.log X) * Real.log y) := by
+  obtain ⟨X₀, hclean⟩ := prop21_unconditional_clean g hg t₀
+  refine ⟨X₀, ?_⟩
+  intro X h c₀ y η C₁ hXlb hh hc₀ hη hc' hy10 hyX hygate hRHS
+  obtain ⟨C_E, C_R, hrep⟩ := hclean hXlb hh hc₀ hη hc' hy10 hyX hygate
+  refine ⟨C_E, C_R, ?_⟩
+  set S := ∑' n, seamCoeff (ellLin g) (fun _ => 1) t₀ n * (hatK X h n : ℂ) with hS
+  set R := prop21RHS (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) t₀ X h c₀ y η with hR
+  have hid : R + (S - R) = S := by ring
+  have htri : ‖S‖ ≤ ‖R‖ + ‖S - R‖ := by
+    calc ‖S‖ = ‖R + (S - R)‖ := by rw [hid]
+      _ ≤ ‖R‖ + ‖S - R‖ := norm_add_le _ _
+  exact htri.trans (add_le_add hRHS hrep)
 
 end Salt.MR
