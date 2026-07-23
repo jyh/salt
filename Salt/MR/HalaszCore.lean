@@ -235,7 +235,13 @@ for `M ≥ 0` — a genuine constant `2` (the interior maximum of
 `(1 + M)·exp(-M) ≤ 2·exp(-M/2)`.  Route: `Real.add_one_le_exp` at `M/2` gives
 `1 + M/2 ≤ exp(M/2)`, whence `1 + M ≤ 2·exp(M/2)`; multiplying by `exp(-M) > 0`
 and folding `exp(M/2)·exp(-M) = exp(-M/2)` closes it.  (The paper's `interior
-max 1.213` is a fortiori `≤ 2`.) -/
+max 1.213` is a fortiori `≤ 2`.)
+
+**AMENDMENT B4 (JYH-ratified 2026-07-23).**  This collapse is now VESTIGIAL on the
+elementary B-route: the B-ladder's pretentious cutoff delivers the head already in the
+`C·e^{−cM}` shape (`c = 1/e`), so there is no `(1 + M)` to collapse — `halasz_ball_decay`
+no longer invokes `grade_EM`.  Kept LANDED as heritage (the `(1+M)e^{−M} → 2e^{−M/2}`
+identity remains true and is the artifact of the superseded max-modulus route). -/
 theorem grade_EM {M : ℝ} (_hM : 0 ≤ M) :
     (1 + M) * Real.exp (-M) ≤ 2 * Real.exp (-M / 2) := by
   have hkey : 1 + M ≤ 2 * Real.exp (M / 2) := by
@@ -404,54 +410,60 @@ theorem Mrange_nonneg (f : ℕ → ℂ) (hf : ∀ n, ‖f n‖ ≤ 1) (X T : ℝ
 `f` and center `t₀` (carried through `g`, the character `n ↦ n^{it₀}` restricted to
 primes), with `M = M_range f X T` GHS Lemma 1's RANGE-MINIMUM squared-distance, the
 ball `|t − t₀| ≤ (log X)^{1/16}` contributes
-`U ≪ X·(exp(-M/2) + (log X)^{-1/2+ε})`.
+`U ≪ X·(e^{-cM} + (log X)^{-1/2+ε})`  (`c = 1/e`).
 
 The heavy analytic inputs are the hypotheses: `hsplit` is the S1' representation's
 head/tail split of `U`; `hhead` is the S2' head (centered at `t₀`, K4'-conditional
-via `contour_A13_A14_head`) in its raw `(1+M)e^{-M}` grade; `htail` is the S2' tail
-ledger (`s2_tail_ledger`).  `grade_EM` collapses the head to `2·e^{-M/2}` and the
-frozen shape assembles.  See the section GATE-CHECK verdict above (R1.1 replaces
-GS[10]).
+via `contour_A13_A14_head`) in its `C·e^{−cM}` grade (the B-route delivers `e^{−cM}`
+directly — no `(1+M)` accumulation); `htail` is the S2' tail ledger (`s2_tail_ledger`).
+The frozen shape assembles by adding the tail `ε`-bump.  See the section GATE-CHECK
+verdict above (R1.1 replaces GS[10]).
+
+**AMENDMENT B4 (JYH-ratified 2026-07-23; D4's tolerance clause exercised).**  The head
+grade is re-frozen from `(1+M)e^{−M}` to the elementary-route `C·e^{−cM}` shape with
+`c = 1/Real.exp 1` (the sigma-uniform pretentious bound `C(1/σ)exp(−cD²)` integrating to
+`≤ 3.78·e^{−cM}·L` — HPRET-SCOPE).  No collapse survives: the conclusion carries the raw
+`e^{−cM}` decay (not `e^{−M/2}`), and the coefficient drops to `C₁ + C₂` (the `grade_EM`
+factor `2` is gone with the collapse).  The price is the fully-elementary B-ladder route
+to the last frontier stone (max-modulus was ruled out mathematically — a boundary-sup
+principle destroys the pointwise-in-`t` decay).  Downstream the floor delivers the final
+grade `(log X)^{−c/32} = (log X)^{−1/(32e)}`, a fixed positive delta.
 
 **AMENDMENT J0 (JYH-ratified 2026-07-23).**  The head distance `M` is GHS Lemma 1's
 range-minimum `M_range f X T` (the `sInf` of `𝔻(f, ·^{it}; X)²` over the offset window),
 NOT the center value `pretDistSq f g X`.  The center-M deviation was the drift problem's
 source (center-M is unsatisfiable on the joint route); `M_range` never drifts below the
 landed floor (`Mrange_one_floor` = GHS Lemmas 1+2, both landed) and restores the frozen
-`prop_A3'` semantics.  The exit stone uses `M` only via nonnegativity (`Mrange_nonneg`)
-and the decreasing `(1+M)e^{−M}` shape (`grade_EM`) — both `M_range`-satisfied; the `g`
+`prop_A3'` semantics.  The exit stone uses `M` only via the decreasing
+`e^{−cM}` shape (`Real.exp_pos`, B4) — `M_range`-satisfied; the `g`
 slot (the ball-center character) is retained for interface symmetry with the twins. -/
 theorem halasz_ball_decay
-    {f g : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (_hg : ∀ n, ‖g n‖ ≤ 1)
+    {f g : ℕ → ℂ} (_hf : ∀ n, ‖f n‖ ≤ 1) (_hg : ∀ n, ‖g n‖ ≤ 1)
     {X ε U Uhead Utail C₁ C₂ T : ℝ}
     (hX : Real.exp 1 ≤ X) (hε : 0 ≤ ε) (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
     (hsplit : U = Uhead + Utail)
-    (hhead : Uhead ≤ C₁ * X * ((1 + M_range f X T) * Real.exp (-(M_range f X T))))
+    (hhead : Uhead ≤ C₁ * X * Real.exp (-(1 / Real.exp 1) * M_range f X T))
     (htail : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2)) :
-    U ≤ (2 * C₁ + C₂) * X
-        * (Real.exp (-(M_range f X T) / 2) + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) := by
+    U ≤ (C₁ + C₂) * X
+        * (Real.exp (-(1 / Real.exp 1) * M_range f X T)
+          + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) := by
   have hX0 : 0 < X := lt_of_lt_of_le (Real.exp_pos 1) hX
   have hX0' : 0 ≤ X := hX0.le
   have hlogX : 1 ≤ Real.log X := (Real.le_log_iff_exp_le hX0).mpr hX
   set M := M_range f X T with hMdef
-  have hM0 : 0 ≤ M := Mrange_nonneg f hf X T
-  have hE : (0 : ℝ) ≤ Real.exp (-M / 2) := (Real.exp_pos _).le
+  have hE : (0 : ℝ) ≤ Real.exp (-(1 / Real.exp 1) * M) := (Real.exp_pos _).le
   have hT : (0 : ℝ) ≤ (Real.log X) ^ (-(1 : ℝ) / 2 + ε) :=
     Real.rpow_nonneg (by linarith) _
-  have hhead' : Uhead ≤ 2 * C₁ * X * Real.exp (-M / 2) := by
-    refine hhead.trans ?_
-    calc C₁ * X * ((1 + M) * Real.exp (-M))
-        ≤ C₁ * X * (2 * Real.exp (-M / 2)) :=
-          mul_le_mul_of_nonneg_left (grade_EM hM0) (by positivity)
-      _ = 2 * C₁ * X * Real.exp (-M / 2) := by ring
   have htail' : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2 + ε) := by
     refine htail.trans (mul_le_mul_of_nonneg_left ?_ (by positivity))
     exact Real.rpow_le_rpow_of_exponent_le hlogX (by linarith)
   rw [hsplit]
   calc Uhead + Utail
-      ≤ 2 * C₁ * X * Real.exp (-M / 2) + C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2 + ε) :=
-        add_le_add hhead' htail'
-    _ ≤ (2 * C₁ + C₂) * X * (Real.exp (-M / 2) + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) := by
+      ≤ C₁ * X * Real.exp (-(1 / Real.exp 1) * M)
+          + C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2 + ε) :=
+        add_le_add hhead htail'
+    _ ≤ (C₁ + C₂) * X * (Real.exp (-(1 / Real.exp 1) * M)
+          + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) := by
         nlinarith [mul_nonneg (mul_nonneg hC₁ hX0') hT, mul_nonneg (mul_nonneg hC₂ hX0') hE]
 
 end Salt.MR

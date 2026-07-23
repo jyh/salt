@@ -27,9 +27,9 @@ toward the terminal `prop_A3'` (M_range form, capped domain).
   compose with the *corrected* R3.1 floor
   `(1/32)loglog X − 5·logloglog(2X+16) − C ≤ M` (the frozen N2 shape now landed
   W-free in `DistWindow.dist_split_A4_N2`).  T-2b absorbs the `−5·logloglog − C` slack
-  into the pointwise decay grade, concluding the frozen `(log X)^{−1/64 + o(1)}` grade
-  with the `o(1)` inflation `exp((5/2)logloglog(2X+16) + C/2)` carried IN-STATEMENT
-  (#253).
+  into the pointwise decay grade, concluding the B4-re-frozen `(log X)^{−1/(32e) + o(1)}`
+  grade (`c = 1/e`; AMENDMENT B4) with the `o(1)` inflation
+  `exp(c·(5·logloglog(2X+16) + C))` carried IN-STATEMENT (#253).
 * **`T1_decay_corrected_fgJ`.**  The fgJ-instantiated corrected decay: the bridge from
   HUPPER's output (`DistWindow.dist_split_A4_N2`'s corrected floor) straight into the
   T1 grade — the seam datum's per-center T1 mass at the *corrected* floor.
@@ -75,70 +75,79 @@ lemma H₈₃_pos {X : ℝ} (hX : 1 < Real.log X) : 0 < H₈₃ X :=
 
 /-! ## T-2b — the corrected-floor pointwise decay (the absorption lemma) -/
 
-/-- **T-2b (core) — `expEM_le_of_floor_corrected`.**  The `exp(−M/2)` engine at the
-*corrected* R3.1 floor (the frozen N2 shape, `DistWindow.dist_split_A4_N2`): from
-`M ≥ (1/32)loglog X − 5·logloglog(2X+16) − C`,
+/-- **T-2b (core) — `expEM_le_of_floor_corrected`.**  The `e^{−cM}` engine
+(`c = 1/Real.exp 1`, AMENDMENT B4) at the *corrected* R3.1 floor (the frozen N2 shape,
+`DistWindow.dist_split_A4_N2`): from `M ≥ (1/32)loglog X − 5·logloglog(2X+16) − C`,
 
-  `exp(−M/2) ≤ (log X)^{−1/64} · exp((5/2)·logloglog(2X+16) + C/2)`.
+  `exp(−cM) ≤ (log X)^{−c/32} · exp(c·(5·logloglog(2X+16) + C))`.
 
 The `−5·logloglog − C` slack becomes the `o(1)` inflation
-`exp((5/2)logloglog(2X+16) + C/2)` (a `(loglog X)^{5/2}·e^{C/2}`-grade factor,
+`exp(c·(5·logloglog(2X+16) + C))` (a `(loglog X)^{5c}·e^{cC}`-grade factor,
 `(log X)^{o(1)}`), carried IN-STATEMENT (#253).  This is exactly the composition the
-landed clean-floor `expEM_le_of_floor` (`PropA3Core.lean:246`) cannot perform. -/
+landed clean-floor `expEM_le_of_floor_c` (`PropA3Core.lean`) cannot perform.
+
+**AMENDMENT B4 (JYH-ratified 2026-07-23).**  Re-frozen from the `exp(−M/2)` /
+`(log X)^{−1/64}` form to the elementary B-route `e^{−cM}` / `(log X)^{−c/32}` form
+(no `M/2` collapse); the inflation loses its `/2` and gains the factor `c`. -/
 theorem expEM_le_of_floor_corrected {X M C : ℝ} (hX : Real.exp 1 ≤ X)
     (hM : (1 / 32) * Real.log (Real.log X)
         - 5 * Real.log (Real.log (Real.log (2 * X + 16))) - C ≤ M) :
-    Real.exp (-M / 2) ≤ (Real.log X) ^ (-(1 : ℝ) / 64)
-        * Real.exp ((5 / 2) * Real.log (Real.log (Real.log (2 * X + 16))) + C / 2) := by
+    Real.exp (-(1 / Real.exp 1) * M) ≤ (Real.log X) ^ (-(1 / Real.exp 1) / 32)
+        * Real.exp ((1 / Real.exp 1)
+            * (5 * Real.log (Real.log (Real.log (2 * X + 16))) + C)) := by
   have hlogX1 : (1 : ℝ) ≤ Real.log X := by
     rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
   have hlogXpos : (0 : ℝ) < Real.log X := by linarith
-  have hstep : -M / 2 ≤ Real.log (Real.log X) * (-(1 : ℝ) / 64)
-      + ((5 / 2) * Real.log (Real.log (Real.log (2 * X + 16))) + C / 2) := by
-    set ℓ := Real.log (Real.log X)
-    set L3 := Real.log (Real.log (Real.log (2 * X + 16)))
-    linarith [hM]
-  calc Real.exp (-M / 2)
-      ≤ Real.exp (Real.log (Real.log X) * (-(1 : ℝ) / 64)
-          + ((5 / 2) * Real.log (Real.log (Real.log (2 * X + 16))) + C / 2)) :=
+  have hc : (0 : ℝ) ≤ 1 / Real.exp 1 := by positivity
+  have hstep : -(1 / Real.exp 1) * M ≤ Real.log (Real.log X) * (-(1 / Real.exp 1) / 32)
+      + (1 / Real.exp 1) * (5 * Real.log (Real.log (Real.log (2 * X + 16))) + C) := by
+    nlinarith [mul_le_mul_of_nonneg_left hM hc]
+  calc Real.exp (-(1 / Real.exp 1) * M)
+      ≤ Real.exp (Real.log (Real.log X) * (-(1 / Real.exp 1) / 32)
+          + (1 / Real.exp 1) * (5 * Real.log (Real.log (Real.log (2 * X + 16))) + C)) :=
         Real.exp_le_exp.mpr hstep
-    _ = (Real.log X) ^ (-(1 : ℝ) / 64)
-          * Real.exp ((5 / 2) * Real.log (Real.log (Real.log (2 * X + 16))) + C / 2) := by
+    _ = (Real.log X) ^ (-(1 / Real.exp 1) / 32)
+          * Real.exp ((1 / Real.exp 1)
+              * (5 * Real.log (Real.log (Real.log (2 * X + 16))) + C)) := by
         rw [Real.exp_add, Real.rpow_def_of_pos hlogXpos]
 
 /-- **T-2b — `T1_pointwise_decay_corrected`** (`terminal-assembly-freeze.md`, PART 3,
 T-2b).  The per-center T1 mass bound at the *corrected* R3.1 floor: composing
-`halasz_ball_decay` (the `exp(−M/2)` ball grade) with `expEM_le_of_floor_corrected`
+`halasz_ball_decay` (the `e^{−cM}` ball grade, `c = 1/e`) with `expEM_le_of_floor_corrected`
 gives
 
-  `U ≤ (2C₁+C₂)·X·((log X)^{−1/64}·exp((5/2)logloglog(2X+16) + Cfl/2)
+  `U ≤ (C₁+C₂)·X·((log X)^{−c/32}·exp(c·(5·logloglog(2X+16) + Cfl))
         + (log X)^{−1/2+ε})`
 
-— the frozen `≪ X·(log X)^{−1/64 + o(1)}` grade, the `o(1)` inflation IN-STATEMENT.
-The landed `T1_pointwise_decay` demands the clean floor `(1/32)loglog X ≤ M`; this is
-the absorption lemma that lets it compose with the corrected N2 floor (the one T-1's
-W-vanishing chain actually delivers). `hhead`/`htail`/`hsplit` are `halasz_ball_decay`'s
-S1'/S2' analytic inputs.
+— the re-frozen `≪ X·(log X)^{−c/32 + o(1)} = X·(log X)^{−1/(32e)+o(1)}` grade, the `o(1)`
+inflation IN-STATEMENT.  The landed `T1_pointwise_decay` demands the clean floor
+`(1/32)loglog X ≤ M`; this is the absorption lemma that lets it compose with the corrected
+N2 floor (the one T-1's W-vanishing chain actually delivers). `hhead`/`htail`/`hsplit` are
+`halasz_ball_decay`'s S1'/S2' analytic inputs.
 
 **AMENDMENT J0 (JYH-ratified 2026-07-23).**  `M = M_range f X T` is GHS Lemma 1's
 range-minimum (was center-M `pretDistSq f g X`); `expEM_le_of_floor_corrected` is generic
-in `M` and threads unchanged.  Restores the frozen `prop_A3'` semantics. -/
+in `M` and threads unchanged.  Restores the frozen `prop_A3'` semantics.
+
+**AMENDMENT B4 (JYH-ratified 2026-07-23).**  `hhead` re-frozen to the elementary B-route
+`e^{−cM}` shape (`c = 1/e`), grade to `(log X)^{−c/32}`, coefficient to `C₁ + C₂`. -/
 theorem T1_pointwise_decay_corrected {f g : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1)
     (hg : ∀ n, ‖g n‖ ≤ 1) {X ε U Uhead Utail C₁ C₂ Cfl T : ℝ}
     (hX : Real.exp 1 ≤ X) (hε : 0 ≤ ε) (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
     (hsplit : U = Uhead + Utail)
-    (hhead : Uhead ≤ C₁ * X * ((1 + M_range f X T) * Real.exp (-(M_range f X T))))
+    (hhead : Uhead ≤ C₁ * X * Real.exp (-(1 / Real.exp 1) * M_range f X T))
     (htail : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2))
     (hfloor : (1 / 32) * Real.log (Real.log X)
         - 5 * Real.log (Real.log (Real.log (2 * X + 16))) - Cfl ≤ M_range f X T) :
-    U ≤ (2 * C₁ + C₂) * X *
-        ((Real.log X) ^ (-(1 : ℝ) / 64)
-            * Real.exp ((5 / 2) * Real.log (Real.log (Real.log (2 * X + 16))) + Cfl / 2)
+    U ≤ (C₁ + C₂) * X *
+        ((Real.log X) ^ (-(1 / Real.exp 1) / 32)
+            * Real.exp ((1 / Real.exp 1)
+                * (5 * Real.log (Real.log (Real.log (2 * X + 16))) + Cfl))
           + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) := by
   have hdecay := halasz_ball_decay hf hg hX hε hC₁ hC₂ hsplit hhead htail
   have hexp := expEM_le_of_floor_corrected hX hfloor
   have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hX
-  have hcoef : (0 : ℝ) ≤ (2 * C₁ + C₂) * X := mul_nonneg (by linarith) hXpos.le
+  have hcoef : (0 : ℝ) ≤ (C₁ + C₂) * X := mul_nonneg (by linarith) hXpos.le
   refine hdecay.trans (mul_le_mul_of_nonneg_left ?_ hcoef)
   gcongr
 
@@ -153,20 +162,24 @@ into the T1 grade; the only remaining conditionality is Part 1's `hhead`.
 Lemma 1's range-minimum (was center-M `pretDistSq (fgJ f t₀ y Y) (costwist t) X`);
 `prop_A3'_assembly`'s `int_U`/T1 row is thereby reconciled to the frozen `M_range` form
 (`prop_A3'_assembly` itself is M-agnostic — abstract `Gunit`/`Gmom` — so it needs no
-change).  The `t` slot survives (it fixes the `costwist t` character). -/
+change).  The `t` slot survives (it fixes the `costwist t` character).
+
+**AMENDMENT B4 (JYH-ratified 2026-07-23).**  `hhead`/conclusion re-frozen to the
+elementary B-route `e^{−cM}` / `(log X)^{−c/32}` shape (`c = 1/e`, coefficient `C₁ + C₂`),
+tracking `T1_pointwise_decay_corrected`.  Final grade `(log X)^{−1/(32e)+o(1)}`. -/
 theorem T1_decay_corrected_fgJ {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (t₀ y Y t : ℝ)
     {X ε U Uhead Utail C₁ C₂ Cfl T : ℝ}
     (hX : Real.exp 1 ≤ X) (hε : 0 ≤ ε) (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
     (hsplit : U = Uhead + Utail)
-    (hhead : Uhead ≤ C₁ * X * ((1 + M_range (fgJ f t₀ y Y) X T)
-        * Real.exp (-(M_range (fgJ f t₀ y Y) X T))))
+    (hhead : Uhead ≤ C₁ * X * Real.exp (-(1 / Real.exp 1) * M_range (fgJ f t₀ y Y) X T))
     (htail : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2))
     (hfloor : (1 / 32) * Real.log (Real.log X)
         - 5 * Real.log (Real.log (Real.log (2 * X + 16))) - Cfl
         ≤ M_range (fgJ f t₀ y Y) X T) :
-    U ≤ (2 * C₁ + C₂) * X *
-        ((Real.log X) ^ (-(1 : ℝ) / 64)
-            * Real.exp ((5 / 2) * Real.log (Real.log (Real.log (2 * X + 16))) + Cfl / 2)
+    U ≤ (C₁ + C₂) * X *
+        ((Real.log X) ^ (-(1 / Real.exp 1) / 32)
+            * Real.exp ((1 / Real.exp 1)
+                * (5 * Real.log (Real.log (Real.log (2 * X + 16))) + Cfl))
           + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) :=
   T1_pointwise_decay_corrected (norm_fgJ_le hf t₀ y Y) (norm_costwist_le t) hX hε hC₁ hC₂
     hsplit hhead htail hfloor

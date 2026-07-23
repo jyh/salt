@@ -867,18 +867,26 @@ sigma-integral two-regime cutoff -- GHS Cor 1.2 p.13: split at
 sigma* = e^M/log X between the pretentious bound e^{-M} log X and
 the trivial bound 1/sigma; verified numerically exact (ratio 1.000).
 The (1+M) is genuine and necessary: the tighter pure-e^{-M} bound is
-FALSE, and grade_EM's factor 2 is load-bearing. -/
+FALSE, and grade_EM's factor 2 is load-bearing.
+⟧ SUPERSEDED by AMENDMENT B4 (JYH-ratified 2026-07-23): the (1+M) is
+an artifact of the sigma_cutoff two-regime split; the elementary
+B-ladder replaces that arm with B3's pretentious cutoff -- the
+sigma-uniform bound C(1/sigma)exp(-c D^2(e^{1/sigma})) (c = 1/e),
+whose flat integral CONVERGES (2c = 2/e < 1) to <= 3.78 e^{-cM} L
+directly, with NO (1+M) accumulation and NO factor-2 collapse. So on
+the B-route hRHS re-shapes to C1*X*e^{-cM} (this lemma). The old
+sigma_cutoff / joint_grade_assembly arm stays LANDED as heritage. -/
 theorem T1_head_wire (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ T : ℝ) :
     ∃ X₀ : ℝ, ∀ {X h c₀ y η C₁ : ℝ}, X₀ ≤ X →
         h = X / Real.sqrt (Real.log X) → 1 < c₀ → η = 1 / Real.log y →
         0 < c₀ - 2 * η → 10 ≤ y → y ≤ Real.sqrt X → Real.sqrt (Real.log X) ≤ y →
         ‖prop21RHS (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) t₀ X h c₀ y η‖
-          ≤ C₁ * X * ((1 + M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
-              * Real.exp (-(M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T))) →
+          ≤ C₁ * X * Real.exp (-(1 / Real.exp 1)
+              * M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T) →
       ∃ C_E C_R : ℝ,
         ‖∑' n, seamCoeff (ellLin g) (fun _ => 1) t₀ n * (hatK X h n : ℂ)‖
-          ≤ C₁ * X * ((1 + M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
-                * Real.exp (-(M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)))
+          ≤ C₁ * X * Real.exp (-(1 / Real.exp 1)
+                * M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
             + (C_E * ((X + h) / Real.log (X + h)) * Real.log y
               + C_R * (X / Real.log X) * Real.log y) := by
   obtain ⟨X₀, hclean⟩ := prop21_unconditional_clean g hg t₀
@@ -1366,41 +1374,48 @@ open Complex MeasureTheory Set
 open scoped BigOperators
 
 /-- **J3 stone 1 — `hRHS` discharged from the joint route (`hRHS_discharged_joint`).**  The
-joint grade bound `hjoint` (`‖prop21RHS‖ ≤ Agrade·(1+M)e^{−M}`, J1∘J2∘α-integral) plus the
-grade socket `hgrade` (`Agrade ≤ C₁·X`, the kernel-scale α-integral `≍ X/L` after the `L`
-from the σ-cutoff cancels) yield exactly `T1_head_wire`'s `hRHS` binder shape at the
-`M_range` (J0) datum.  `M := M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T`. -/
+joint grade bound `hjoint` (`‖prop21RHS‖ ≤ Agrade·e^{−cM}`, the B-ladder's J1∘J2∘α-integral)
+plus the grade socket `hgrade` (`Agrade ≤ C₁·X`, the kernel-scale α-integral `≍ X/L` after the
+`L` from the pretentious cutoff cancels) yield exactly `T1_head_wire`'s `hRHS` binder shape at
+the `M_range` (J0) datum.  `M := M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T`.
+
+**AMENDMENT B4 (JYH-ratified 2026-07-23).**  `hjoint`/conclusion re-frozen from
+`Agrade·(1+M)e^{−M}` / `C₁·X·(1+M)e^{−M}` to the elementary B-route `·e^{−cM}` shape
+(`c = 1/Real.exp 1`): the B-ladder's B3 pretentious cutoff replaces the `sigma_cutoff` arm,
+producing `C·e^{−cM}·L` with no `(1+M)` accumulation.  `_hM0` is now vestigial (the shape is
+`Real.exp_nonneg`, no `0 ≤ 1+M` needed) but retained for interface stability.  The old
+`sigma_cutoff`/`joint_grade_assembly` `(1+M)` arm stays LANDED as heritage. -/
 theorem hRHS_discharged_joint {g : ℕ → ℂ} {t₀ X h c₀ y η T Agrade C₁ : ℝ}
-    (hM0 : 0 ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
+    (_hM0 : 0 ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
     (hjoint : ‖prop21RHS (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) t₀ X h c₀ y η‖
-        ≤ Agrade * ((1 + M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
-            * Real.exp (-(M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T))))
+        ≤ Agrade * Real.exp (-(1 / Real.exp 1)
+            * M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T))
     (hgrade : Agrade ≤ C₁ * X) :
     ‖prop21RHS (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) t₀ X h c₀ y η‖
-      ≤ C₁ * X * ((1 + M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
-          * Real.exp (-(M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T))) :=
-  hjoint.trans (mul_le_mul_of_nonneg_right hgrade
-    (mul_nonneg (by linarith) (Real.exp_nonneg _)))
+      ≤ C₁ * X * Real.exp (-(1 / Real.exp 1)
+          * M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T) :=
+  hjoint.trans (mul_le_mul_of_nonneg_right hgrade (Real.exp_nonneg _))
 
 /-- **J3 stone 2 — the seam-sum head bound via the joint route (`T1_head_supplied_joint`).**
 Composes `hRHS_discharged_joint` with the landed `T1_head_wire`: once the joint grade bound
 `hjoint` + the grade socket `hgrade` discharge `hRHS`, `T1_head_wire` delivers the seam
-sum's head bound `C₁·X·(1+M)e^{−M} + E` UNCONDITIONALLY in those two joint sockets.  **This
+sum's head bound `C₁·X·e^{−cM} + E` UNCONDITIONALLY in those two joint sockets.  **This
 is the prize: `hRHS` discharged through the σ-live joint head** (the box-collapse's fatal
-defect repaired).  `M := M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T`. -/
+defect repaired).  `M := M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T`.  (AMENDMENT B4,
+JYH-ratified 2026-07-23: the `e^{−cM}` shape, `c = 1/e`, tracking `hRHS_discharged_joint`.) -/
 theorem T1_head_supplied_joint (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ T : ℝ) :
     ∃ X₀ : ℝ, ∀ {X h c₀ y η C₁ Agrade : ℝ}, X₀ ≤ X →
         h = X / Real.sqrt (Real.log X) → 1 < c₀ → η = 1 / Real.log y →
         0 < c₀ - 2 * η → 10 ≤ y → y ≤ Real.sqrt X → Real.sqrt (Real.log X) ≤ y →
         0 ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T →
         ‖prop21RHS (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) t₀ X h c₀ y η‖
-            ≤ Agrade * ((1 + M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
-                * Real.exp (-(M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T))) →
+            ≤ Agrade * Real.exp (-(1 / Real.exp 1)
+                * M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T) →
         Agrade ≤ C₁ * X →
       ∃ C_E C_R : ℝ,
         ‖∑' n, seamCoeff (ellLin g) (fun _ => 1) t₀ n * (hatK X h n : ℂ)‖
-          ≤ C₁ * X * ((1 + M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
-                * Real.exp (-(M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)))
+          ≤ C₁ * X * Real.exp (-(1 / Real.exp 1)
+                * M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
             + (C_E * ((X + h) / Real.log (X + h)) * Real.log y
               + C_R * (X / Real.log X) * Real.log y) := by
   obtain ⟨X₀, hwire⟩ := T1_head_wire g hg t₀ T
@@ -1410,9 +1425,11 @@ theorem T1_head_supplied_joint (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p
     (hRHS_discharged_joint hM0 hjoint hgrade)
 
 /-- **J3 stone 3 — the T1-decay frontier (`T1_decay_conditional_final`).**  The terminal
-statement: the `≪ X·(log X)^{−1/64+o(1)}` decay of the ball contribution `U` for the FULL
+statement: the `≪ X·(log X)^{−1/(32e)+o(1)}` decay of the ball contribution `U` for the FULL
 twisted seam datum, at the `M_range` (J0) distance, conditional on the ENUMERATED residual
-set.  The joint head (J1/J2 + `T1_head_supplied_joint`) discharges `hRHS` and delivers the
+set (AMENDMENT B4, JYH-ratified 2026-07-23: the grade re-frozen to `hhead` in the `e^{−cM}`
+shape / conclusion `(log X)^{−c/32}`, `c = 1/e`, coefficient `C₁ + C₂`).  The joint head
+(J1/J2 + `T1_head_supplied_joint`) discharges `hRHS` and delivers the
 seam-sum head bound; the remaining inputs are `T1_decay_trivial`'s standard binders —
 `hsplit` (the ball head/tail split), `htail` (`s2_tail_ledger`, landed), `hfloor` (the R3.1
 `(1/32)loglog` floor, `Mrange_one_floor`-backed), and `hhead` (the §8 `int_U`/moment
@@ -1429,13 +1446,13 @@ theorem T1_decay_conditional_final {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
     {t₀ t T X ε U Uhead Utail C₁ C₂ : ℝ}
     (hX : Real.exp 1 ≤ X) (hε : 0 ≤ ε) (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
     (hsplit : U = Uhead + Utail)
-    (hhead : Uhead ≤ C₁ * X * ((1 + M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
-        * Real.exp (-(M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T))))
+    (hhead : Uhead ≤ C₁ * X
+        * Real.exp (-(1 / Real.exp 1) * M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T))
     (htail : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2))
     (hfloor : (1 / 32) * Real.log (Real.log X)
         ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T) :
-    U ≤ (2 * C₁ + C₂) * X *
-        ((Real.log X) ^ (-(1 : ℝ) / 64) + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) :=
+    U ≤ (C₁ + C₂) * X *
+        ((Real.log X) ^ (-(1 / Real.exp 1) / 32) + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) :=
   T1_decay_trivial (ellLin_norm_le_one g hg) t₀ t hX hε hC₁ hC₂ hsplit hhead htail hfloor
 
 end Salt.MR

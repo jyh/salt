@@ -242,7 +242,11 @@ theorem dist_split_A4_frozen :
 /-- **The `exp(-M/2)` decay at the R3.1 floor.**  If the center distance obeys the
 R3.1 floor `M ≥ (1/32)·loglog X`, then `exp(-M/2) ≤ (log X)^{-1/64}` — the grade
 `exp(-(1/2)·(1/32)·loglog X)`.  This is the pointwise engine of the frozen T1 bound
-`T1 ≪ X·(log X)^{-1/64+o(1)}`. -/
+`T1 ≪ X·(log X)^{-1/64+o(1)}`.
+
+**AMENDMENT B4 (JYH-ratified 2026-07-23).**  Superseded on the T1 chain by
+`expEM_le_of_floor_c` (the elementary B-route carries `e^{−cM}`, not `e^{−M/2}`, so the
+floor converts `e^{−cM} ≤ (log X)^{−c/32}`).  Kept LANDED as heritage. -/
 theorem expEM_le_of_floor {X M : ℝ} (hX : Real.exp 1 ≤ X)
     (hM : (1 / 32) * Real.log (Real.log X) ≤ M) :
     Real.exp (-M / 2) ≤ (Real.log X) ^ (-(1 : ℝ) / 64) := by
@@ -254,6 +258,30 @@ theorem expEM_le_of_floor {X M : ℝ} (hX : Real.exp 1 ≤ X)
   calc Real.exp (-M / 2)
       ≤ Real.exp (Real.log (Real.log X) * (-(1 : ℝ) / 64)) := Real.exp_le_exp.mpr hstep
     _ = (Real.log X) ^ (-(1 : ℝ) / 64) := (Real.rpow_def_of_pos hlogXpos _).symm
+
+/-- **B4 — the `e^{−cM}` decay at the R3.1 floor (`expEM_le_of_floor_c`).**  The
+elementary-route (`c = 1/Real.exp 1`) floor-to-power lemma: if the center distance obeys
+the R3.1 floor `M ≥ (1/32)·loglog X`, then
+
+  `exp(−cM) ≤ (log X)^{−c/32}`  (`= (log X)^{−1/(32e)}`, the final B4 grade).
+
+The pointwise engine of the re-frozen T1 bound `T1 ≪ X·(log X)^{−c/32+o(1)}`.  Route:
+`−cM ≤ ℓ·(−c/32)` (multiply the floor by `−c ≤ 0`, `ℓ := loglog X`), then `Real.exp` is
+monotone and `Real.rpow_def_of_pos` folds `exp(ℓ·(−c/32)) = (log X)^{−c/32}`.  Supersedes
+`expEM_le_of_floor` on the B-route (AMENDMENT B4, JYH-ratified 2026-07-23). -/
+theorem expEM_le_of_floor_c {X M : ℝ} (hX : Real.exp 1 ≤ X)
+    (hM : (1 / 32) * Real.log (Real.log X) ≤ M) :
+    Real.exp (-(1 / Real.exp 1) * M) ≤ (Real.log X) ^ (-(1 / Real.exp 1) / 32) := by
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
+    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hlogXpos : (0 : ℝ) < Real.log X := by linarith
+  have hc : (0 : ℝ) ≤ 1 / Real.exp 1 := by positivity
+  have hstep : -(1 / Real.exp 1) * M
+      ≤ Real.log (Real.log X) * (-(1 / Real.exp 1) / 32) := by
+    nlinarith [mul_le_mul_of_nonneg_left hM hc]
+  calc Real.exp (-(1 / Real.exp 1) * M)
+      ≤ Real.exp (Real.log (Real.log X) * (-(1 / Real.exp 1) / 32)) := Real.exp_le_exp.mpr hstep
+    _ = (Real.log X) ^ (-(1 / Real.exp 1) / 32) := (Real.rpow_def_of_pos hlogXpos _).symm
 
 /-- **R3.2 — the integrated `T1` mass floor (`s8-freeze.md:34`, N3).**  For
 `M ≤ (1/16)·loglog X` (the T1 regime — the centers where Halász decay is weak), the mass floor
@@ -274,11 +302,11 @@ theorem T1_mass_floor {X M : ℝ} (hX : Real.exp 1 ≤ X)
 
 /-- **R3.2 — `T1_pointwise_decay` (`s8-freeze.md:34`, N3).**  The per-center T1 mass bound:
 composing the exit stone `halasz_ball_decay` with the R3.1 floor `M ≥ (1/32)·loglog X`
-(`expEM_le_of_floor`) gives
+(`expEM_le_of_floor_c`) gives
 
-  `U ≤ (2·C₁ + C₂)·X·((log X)^{-1/64} + (log X)^{-1/2+ε})`
+  `U ≤ (C₁ + C₂)·X·((log X)^{-c/32} + (log X)^{-1/2+ε})`  (`c = 1/e`)
 
-(the `≪ X·(log X)^{-1/64+o(1)}` grade).
+(the `≪ X·(log X)^{-c/32+o(1)} = X·(log X)^{-1/(32e)+o(1)}` grade).
 
 The S1'/MULT-SHIU conditionality of `halasz_ball_decay` is carried through EXPLICITLY as the
 named hypotheses `hsplit` (the S1' head/tail split of `U`), `hhead` (the S2' centered head,
@@ -289,21 +317,29 @@ range-minimum squared-distance (the `sInf` over the offset window), NOT the cent
 `pretDistSq f g X`.  The center-M deviation was the drift problem's source; `M_range`
 never drifts below the landed floor (`Mrange_one_floor`) and restores the frozen
 `prop_A3'` semantics.  The floor `hfloor` is now `(1/32)loglog X ≤ M_range f X T`
-(`Mrange_one_floor`-supplied), and `expEM_le_of_floor` (generic in `M`) threads
-unchanged. -/
+(`Mrange_one_floor`-supplied), and `expEM_le_of_floor_c` (generic in `M`) threads
+unchanged.
+
+**AMENDMENT B4 (JYH-ratified 2026-07-23; D4's tolerance clause exercised).**  The grade
+interface is re-frozen from `(1+M)e^{−M}` / `(log X)^{−1/64}` to the elementary B-route
+`C·e^{−cM}` / `(log X)^{−c/32}` form with `c = 1/Real.exp 1`: the `hhead` binder carries
+`e^{−cM}` (no `(1+M)` accumulation), the floor step uses `expEM_le_of_floor_c`, and the
+coefficient drops to `C₁ + C₂` (the `grade_EM` factor `2` is gone with the collapse).  The
+exponent chain `1/64 = (1/2)·(1/32)` was never load-bearing (HPRET-SCOPE); the delivered
+grade `(log X)^{−1/(32e)}` is a fixed positive delta. -/
 theorem T1_pointwise_decay {f g : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1)
     (hg : ∀ n, ‖g n‖ ≤ 1) {X ε U Uhead Utail C₁ C₂ T : ℝ}
     (hX : Real.exp 1 ≤ X) (hε : 0 ≤ ε) (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
     (hsplit : U = Uhead + Utail)
-    (hhead : Uhead ≤ C₁ * X * ((1 + M_range f X T) * Real.exp (-(M_range f X T))))
+    (hhead : Uhead ≤ C₁ * X * Real.exp (-(1 / Real.exp 1) * M_range f X T))
     (htail : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2))
     (hfloor : (1 / 32) * Real.log (Real.log X) ≤ M_range f X T) :
-    U ≤ (2 * C₁ + C₂) * X *
-        ((Real.log X) ^ (-(1 : ℝ) / 64) + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) := by
+    U ≤ (C₁ + C₂) * X *
+        ((Real.log X) ^ (-(1 / Real.exp 1) / 32) + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) := by
   have hdecay := halasz_ball_decay hf hg hX hε hC₁ hC₂ hsplit hhead htail
-  have hexp := expEM_le_of_floor hX hfloor
+  have hexp := expEM_le_of_floor_c hX hfloor
   have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hX
-  have hcoef : (0 : ℝ) ≤ (2 * C₁ + C₂) * X := mul_nonneg (by linarith) hXpos.le
+  have hcoef : (0 : ℝ) ≤ (C₁ + C₂) * X := mul_nonneg (by linarith) hXpos.le
   refine hdecay.trans (mul_le_mul_of_nonneg_left ?_ hcoef)
   linarith [hexp]
 

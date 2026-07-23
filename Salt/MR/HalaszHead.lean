@@ -292,25 +292,28 @@ inputs.
 Lemma 1's range-minimum (was the center value `pretDistSq (fgJ f t₀ y Y) (costwist t) X`);
 the range-min never drifts below the landed floor (`Mrange_one_floor`) and restores the
 frozen `prop_A3'` semantics.  The `t` slot survives (it fixes the retained `costwist t`
-ball-center character fed to `halasz_ball_decay`'s `g` socket). -/
+ball-center character fed to `halasz_ball_decay`'s `g` socket).
+
+**AMENDMENT B4 (JYH-ratified 2026-07-23).**  `hhead`/conclusion re-frozen to the
+elementary B-route `C·e^{−cM}` shape (`c = 1/e`, coefficient `C₁ + C₂`), tracking
+`halasz_ball_decay`. -/
 theorem hhead_supplier_fgJ {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (t₀ y Y t : ℝ)
     {X ε U Uhead Utail C₁ C₂ T : ℝ}
     (hX : Real.exp 1 ≤ X) (hε : 0 ≤ ε) (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
     (hsplit : U = Uhead + Utail)
-    (hhead : Uhead ≤ C₁ * X * ((1 + M_range (fgJ f t₀ y Y) X T)
-        * Real.exp (-(M_range (fgJ f t₀ y Y) X T))))
+    (hhead : Uhead ≤ C₁ * X * Real.exp (-(1 / Real.exp 1) * M_range (fgJ f t₀ y Y) X T))
     (htail : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2)) :
-    U ≤ (2 * C₁ + C₂) * X
-        * (Real.exp (-(M_range (fgJ f t₀ y Y) X T) / 2)
+    U ≤ (C₁ + C₂) * X
+        * (Real.exp (-(1 / Real.exp 1) * M_range (fgJ f t₀ y Y) X T)
           + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) :=
   halasz_ball_decay (norm_fgJ_le hf t₀ y Y) (norm_costwist_le t) hX hε hC₁ hC₂
     hsplit hhead htail
 
 /-- **The fgJ-instantiated T1 decay (`T1_decay_fgJ`).**  `T1_pointwise_decay` at the
 fgJ instantiation, carrying the R3.1 floor `M ≥ (1/32)·loglog X` and the (still
-conditional) `hhead`.  Concludes the `≪ X·(log X)^{−1/64+o(1)}` grade for the
-windowed–twisted seam datum.  Consumes only landed inputs; awaits Part 1 for the
-`hhead` discharge.
+conditional) `hhead`.  Concludes the `≪ X·(log X)^{−1/(32e)+o(1)}` grade for the
+windowed–twisted seam datum (AMENDMENT B4: `hhead` in the `e^{−cM}` shape, `c = 1/e`).
+Consumes only landed inputs; awaits Part 1 for the `hhead` discharge.
 
 **AMENDMENT J0 (JYH-ratified 2026-07-23).**  `M = M_range (fgJ f t₀ y Y) X T` is GHS
 Lemma 1's range-minimum (was center-M); the floor `hfloor` is now the range-min form,
@@ -319,13 +322,12 @@ theorem T1_decay_fgJ {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (t₀ y Y t
     {X ε U Uhead Utail C₁ C₂ T : ℝ}
     (hX : Real.exp 1 ≤ X) (hε : 0 ≤ ε) (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
     (hsplit : U = Uhead + Utail)
-    (hhead : Uhead ≤ C₁ * X * ((1 + M_range (fgJ f t₀ y Y) X T)
-        * Real.exp (-(M_range (fgJ f t₀ y Y) X T))))
+    (hhead : Uhead ≤ C₁ * X * Real.exp (-(1 / Real.exp 1) * M_range (fgJ f t₀ y Y) X T))
     (htail : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2))
     (hfloor : (1 / 32) * Real.log (Real.log X)
         ≤ M_range (fgJ f t₀ y Y) X T) :
-    U ≤ (2 * C₁ + C₂) * X *
-        ((Real.log X) ^ (-(1 : ℝ) / 64) + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) :=
+    U ≤ (C₁ + C₂) * X *
+        ((Real.log X) ^ (-(1 / Real.exp 1) / 32) + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) :=
   T1_pointwise_decay (norm_fgJ_le hf t₀ y Y) (norm_costwist_le t) hX hε hC₁ hC₂
     hsplit hhead htail hfloor
 
@@ -409,16 +411,20 @@ is GHS Lemma 1's range-minimum (was center-M `pretDistSq (seamCoeff f (fun _ => 
 (costwist t) X`); restores the frozen `prop_A3'` semantics.  The exact identity
 `seamCoeff_trivial_dist_eq` still serves the downstream floor supplier — the twist-shift
 `t₀` now lives INSIDE the range's offset variable (the consumer that discharges the
-`M_range` floor threads the window/`t₀` bookkeeping; carried here as a hypothesis). -/
+`M_range` floor threads the window/`t₀` bookkeeping; carried here as a hypothesis).
+
+**AMENDMENT B4 (JYH-ratified 2026-07-23).**  `hhead`/conclusion re-frozen to the
+elementary B-route `C·e^{−cM}` shape (`c = 1/e`, coefficient `C₁ + C₂`), tracking
+`halasz_ball_decay`. -/
 theorem hhead_supplier_trivial {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (t₀ t : ℝ)
     {X ε U Uhead Utail C₁ C₂ T : ℝ}
     (hX : Real.exp 1 ≤ X) (hε : 0 ≤ ε) (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
     (hsplit : U = Uhead + Utail)
-    (hhead : Uhead ≤ C₁ * X * ((1 + M_range (seamCoeff f (fun _ => 1) t₀) X T)
-        * Real.exp (-(M_range (seamCoeff f (fun _ => 1) t₀) X T))))
+    (hhead : Uhead ≤ C₁ * X
+        * Real.exp (-(1 / Real.exp 1) * M_range (seamCoeff f (fun _ => 1) t₀) X T))
     (htail : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2)) :
-    U ≤ (2 * C₁ + C₂) * X
-        * (Real.exp (-(M_range (seamCoeff f (fun _ => 1) t₀) X T) / 2)
+    U ≤ (C₁ + C₂) * X
+        * (Real.exp (-(1 / Real.exp 1) * M_range (seamCoeff f (fun _ => 1) t₀) X T)
           + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) :=
   halasz_ball_decay (norm_seamCoeff_le hf norm_trivialInd_le t₀) (norm_costwist_le t)
     hX hε hC₁ hC₂ hsplit hhead htail
@@ -427,9 +433,10 @@ theorem hhead_supplier_trivial {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (
 `T1_pointwise_decay` at `f`-slot `= seamCoeff f (fun _ => 1) t₀` (the FULL twisted seam
 datum, 1-bounded via the trivial indicator) and `g`-slot `= costwist t`, carrying the
 R3.1 floor `M ≥ (1/32)·loglog X` and the (still conditional) `hhead`.  Concludes the
-`≪ X·(log X)^{−1/64+o(1)}` grade for the UNWINDOWED seam datum.  **Supersedes
-`T1_decay_fgJ` on the v5 chain** (V5-0 seam un-windowing); `T1_decay_fgJ` stays landed
-as heritage.  The floor hypothesis is the unwindowed `𝔻(seamCoeff f (fun _ => 1) t₀,
+`≪ X·(log X)^{−1/(32e)+o(1)}` grade for the UNWINDOWED seam datum (AMENDMENT B4: `hhead`
+in the `e^{−cM}` shape, `c = 1/e`).  **Supersedes `T1_decay_fgJ` on the v5 chain**
+(V5-0 seam un-windowing); `T1_decay_fgJ` stays landed as heritage.  The floor hypothesis
+is the unwindowed `𝔻(seamCoeff f (fun _ => 1) t₀,
 costwist t; X)²`, which the consumer obtains from the bare `𝔻(f, costwist(t+t₀))²` floor
 EXACTLY via `seamCoeff_trivial_dist_eq` — the T-1 window-restriction conversion is
 unnecessary on this chain.
@@ -442,13 +449,13 @@ theorem T1_decay_trivial {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (t₀ t
     {X ε U Uhead Utail C₁ C₂ T : ℝ}
     (hX : Real.exp 1 ≤ X) (hε : 0 ≤ ε) (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
     (hsplit : U = Uhead + Utail)
-    (hhead : Uhead ≤ C₁ * X * ((1 + M_range (seamCoeff f (fun _ => 1) t₀) X T)
-        * Real.exp (-(M_range (seamCoeff f (fun _ => 1) t₀) X T))))
+    (hhead : Uhead ≤ C₁ * X
+        * Real.exp (-(1 / Real.exp 1) * M_range (seamCoeff f (fun _ => 1) t₀) X T))
     (htail : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2))
     (hfloor : (1 / 32) * Real.log (Real.log X)
         ≤ M_range (seamCoeff f (fun _ => 1) t₀) X T) :
-    U ≤ (2 * C₁ + C₂) * X *
-        ((Real.log X) ^ (-(1 : ℝ) / 64) + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) :=
+    U ≤ (C₁ + C₂) * X *
+        ((Real.log X) ^ (-(1 / Real.exp 1) / 32) + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) :=
   T1_pointwise_decay (norm_seamCoeff_le hf norm_trivialInd_le t₀) (norm_costwist_le t)
     hX hε hC₁ hC₂ hsplit hhead htail hfloor
 
