@@ -307,3 +307,6 @@ open Salt.Tactic in
   Salt.MR.T1_head_wire
   Salt.MR.norm_windowSum_le_mass
   Salt.MR.prop21RHS_le_head
+  Salt.MR.kernel_L1_mass
+  Salt.MR.kernel_mass_ledger
+  Salt.MR.sigma_cutoff

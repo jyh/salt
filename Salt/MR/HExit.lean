@@ -1061,3 +1061,262 @@ theorem prop21RHS_le_head {g : ℕ → ℂ} {t₀ X h c₀ y η F0 Kmass : ℝ}
     _ = η ^ 2 / Real.pi * F0 * Kmass * Sη ^ 2 := by ring
 
 end Salt.MR
+
+/-! ## STONE 1 — the kernel L¹ mass ledger (`kernel_mass_ledger`)
+
+Discharges `prop21RHS_le_head`'s `hKint` socket at honest depth.  Translation-invariance
+(`integral_add_right_eq_self`) drops the `t₀` shift; the DOMINANT (`1/‖s‖²`) branch of
+`hat_mellin_bound` bounds `‖hatKernel X h c t‖ ≤ (X+h)^c·2(X+h)/(h(c²+t²))`, and the
+full-line Lorentzian mass `∫_ℝ (c²+t²)⁻¹ = π/c` closes the integral.  (`Salt.SW.
+integral_inv_sq_add` sits in `SW/ShiftAssembly`, OUTSIDE `HExit`'s import cone, so its
+short pure-mathlib proof is replicated inline in `kernel_L1_mass`.)
+
+**Grade honestly achieved.**  `Kmass ≍ (X+h)^{c₀}·(2(X+h)/h)·(π/(c₀−2η))`.  At the
+frozen `h = X·L^{−1/2}`, `c₀ = 1+1/L` (#253) this is `X·√L`-grade — the CRUDE mass.  The
+`Tsplit`-truncated refinement to `X·log L`-grade (branch-1 `2(X+h)^c/√(c²+t²)` on
+`|t| ≤ Tsplit` via an `arcsinh`/`Real.arsinh` interval-integral, plus `hat_tail` — landed
+— for the `|t| > Tsplit` tail at `X·L^{−7/2}`) is NOT landed: the `arcsinh` main-part
+evaluation is absent from the corpus.  So the crude branch-2 form lands; the sharp `Kmass
+≍ X` (which would need the arcsinh piece and still carries a `log L`) remains the bridge's. -/
+
+namespace Salt.MR
+
+open Complex MeasureTheory Set
+open scoped BigOperators
+
+/-- **The seam kernel's full-line L¹ mass (crude branch-2 form).**  Per-line value:
+`∫_t ‖hatKernel X h c (t−t₀)‖ ≤ (X+h)^c·(2(X+h)/h)·(π/c)`.  Route: translation-invariance
+drops `t₀`; the dominant branch of `hat_mellin_bound` dominates by `(X+h)^c·(2(X+h)/
+(h(c²+t²)))`; `∫_ℝ (c²+t²)⁻¹ = π/c` (Lorentzian mass, replicated inline). -/
+theorem kernel_L1_mass {X h c t₀ : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c) :
+    ∫ t : ℝ, ‖hatKernel X h c (t - t₀)‖
+      ≤ (X + h) ^ c * (2 * (X + h) / h) * (Real.pi / c) := by
+  have hXh0 : (0 : ℝ) < X + h := by linarith
+  set A : ℝ := (X + h) ^ c * (2 * (X + h) / h) with hA
+  -- the Lorentzian mass π/c (ShiftAssembly.integral_inv_sq_add, replicated: that lemma is
+  -- outside HExit's import cone; the proof is pure mathlib)
+  have hpois : (∫ t : ℝ, (c ^ 2 + t ^ 2)⁻¹) = Real.pi / c := by
+    have hcne : c ≠ 0 := hc.ne'
+    have hpt' : (fun t : ℝ => (c ^ 2 + t ^ 2)⁻¹)
+        = fun t : ℝ => (c ^ 2)⁻¹ * (1 + (t / c) ^ 2)⁻¹ := by
+      funext t; rw [div_pow, ← mul_inv]; congr 1; field_simp
+    have hcomp : (∫ t : ℝ, (1 + (t / c) ^ 2)⁻¹) = |c| • ∫ u : ℝ, (1 + u ^ 2)⁻¹ :=
+      MeasureTheory.Measure.integral_comp_div (fun u : ℝ => (1 + u ^ 2)⁻¹) c
+    rw [hpt', MeasureTheory.integral_const_mul, hcomp, integral_univ_inv_one_add_sq,
+      smul_eq_mul, abs_of_pos hc]
+    field_simp
+  -- pointwise domination by the dominant branch of `hat_mellin_bound`
+  have hpt : ∀ t : ℝ, ‖hatKernel X h c t‖ ≤ A * (c ^ 2 + t ^ 2)⁻¹ := by
+    intro t
+    have hnorm : ‖(c : ℂ) + (t : ℂ) * I‖ ^ 2 = c ^ 2 + t ^ 2 := by
+      rw [Complex.norm_add_mul_I, Real.sq_sqrt (by positivity)]
+    have hb := hat_mellin_bound hX hh hc t
+    have hXhc : (0 : ℝ) ≤ (X + h) ^ c := Real.rpow_nonneg hXh0.le _
+    calc ‖hatKernel X h c t‖
+        ≤ (X + h) ^ c * min (2 / ‖(c : ℂ) + (t : ℂ) * I‖)
+            (2 * (X + h) / (h * ‖(c : ℂ) + (t : ℂ) * I‖ ^ 2)) := hb
+      _ ≤ (X + h) ^ c * (2 * (X + h) / (h * ‖(c : ℂ) + (t : ℂ) * I‖ ^ 2)) := by
+          gcongr; exact min_le_right _ _
+      _ = A * (c ^ 2 + t ^ 2)⁻¹ := by
+          rw [hnorm, hA]
+          have hct : (0 : ℝ) < c ^ 2 + t ^ 2 := by positivity
+          field_simp
+  have hIntKs : Integrable (fun t : ℝ => ‖hatKernel X h c t‖) :=
+    (integrable_hatKernel hX hh hc).norm
+  have hIntg : Integrable (fun t : ℝ => A * (c ^ 2 + t ^ 2)⁻¹) :=
+    (Salt.SW.integrable_inv_c_sq_add_sq hc).const_mul A
+  have htrans : ∫ t : ℝ, ‖hatKernel X h c (t - t₀)‖ = ∫ t : ℝ, ‖hatKernel X h c t‖ := by
+    have hsr := integral_add_right_eq_self (μ := volume) (fun t : ℝ => ‖hatKernel X h c t‖) (-t₀)
+    simpa [sub_eq_add_neg] using hsr
+  rw [htrans]
+  calc ∫ t : ℝ, ‖hatKernel X h c t‖
+      ≤ ∫ t : ℝ, A * (c ^ 2 + t ^ 2)⁻¹ := integral_mono hIntKs hIntg hpt
+    _ = A * ∫ t : ℝ, (c ^ 2 + t ^ 2)⁻¹ :=
+        MeasureTheory.integral_const_mul A (fun t : ℝ => (c ^ 2 + t ^ 2)⁻¹)
+    _ = A * (Real.pi / c) := by rw [hpois]
+
+/-- **STONE 1 — `hKint` discharged (box-uniform crude mass).**  Directly the
+`prop21RHS_le_head` kernel socket: uniform over the `(α,β) ∈ [0,η]²` box, at the
+worst-case line `c = c₀−α−β ∈ [c₀−2η, c₀]` (numerator `(X+h)^c` increasing, reciprocal
+`π/c` decreasing),
+
+  `∫_t ‖hatKernel X h (c₀−α−β) (t−t₀)‖ ≤ (X+h)^{c₀}·(2(X+h)/h)·(π/(c₀−2η))  =: Kmass`.
+
+Plug as `prop21RHS_le_head`'s `hKint` with this `Kmass` (the honest crude `X√L`-grade). -/
+theorem kernel_mass_ledger {X h c₀ η t₀ : ℝ} (hX : 1 ≤ X) (hh : 0 < h)
+    (hc2η : 0 < c₀ - 2 * η) :
+    ∀ α ∈ Set.Icc (0 : ℝ) η, ∀ β ∈ Set.Icc (0 : ℝ) η,
+      ∫ t : ℝ, ‖hatKernel X h (c₀ - α - β) (t - t₀)‖
+        ≤ (X + h) ^ c₀ * (2 * (X + h) / h) * (Real.pi / (c₀ - 2 * η)) := by
+  intro α hα β hβ
+  obtain ⟨hα0, hαη⟩ := hα
+  obtain ⟨hβ0, hβη⟩ := hβ
+  have hc : 0 < c₀ - α - β := by linarith
+  have hXh1 : (1 : ℝ) ≤ X + h := by linarith
+  have hXh0 : (0 : ℝ) < X + h := by linarith
+  refine (kernel_L1_mass hX hh hc).trans ?_
+  have hcle : c₀ - α - β ≤ c₀ := by linarith
+  have h2η : c₀ - 2 * η ≤ c₀ - α - β := by linarith
+  have hrpow : (X + h) ^ (c₀ - α - β) ≤ (X + h) ^ c₀ :=
+    Real.rpow_le_rpow_of_exponent_le hXh1 hcle
+  have hpi : Real.pi / (c₀ - α - β) ≤ Real.pi / (c₀ - 2 * η) :=
+    div_le_div_of_nonneg_left Real.pi_pos.le hc2η h2η
+  have hfac : (0 : ℝ) ≤ 2 * (X + h) / h := div_nonneg (by linarith) hh.le
+  have hpi0 : (0 : ℝ) ≤ Real.pi / (c₀ - α - β) := (div_pos Real.pi_pos hc).le
+  calc (X + h) ^ (c₀ - α - β) * (2 * (X + h) / h) * (Real.pi / (c₀ - α - β))
+      ≤ (X + h) ^ c₀ * (2 * (X + h) / h) * (Real.pi / (c₀ - α - β)) :=
+        mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_right hrpow hfac) hpi0
+    _ ≤ (X + h) ^ c₀ * (2 * (X + h) / h) * (Real.pi / (c₀ - 2 * η)) :=
+        mul_le_mul_of_nonneg_left hpi (mul_nonneg (Real.rpow_nonneg hXh0.le c₀) hfac)
+
+/-! ## STONE 2 — the `(1+M)` two-regime σ-cutoff (`sigma_cutoff`)
+
+The self-contained socket for the `σ`-integral that BIRTHS the `(1+M)` factor of the
+`hRHS` funnel (GHS Cor 1.2 p.13; cf. the 2026-07-22 CORRECTION comment above
+`T1_head_wire`).  Given an abstract nonneg `Fbound` with the two leg-(i) F-sockets — the
+pretentious bound `Fbound σ ≤ e^{−M}·L` and the trivial bound `Fbound σ ≤ 1/σ` on
+`[1/L, 2η]` — the weighted integral splits at `σ* = e^M/L`:
+
+* FLAT regime `[1/L, σ*]`: `Fbound σ/σ ≤ e^{−M}L·σ⁻¹`, integrating to `e^{−M}L·log(σ*L)
+  = e^{−M}L·M` (as `σ*L = e^M`, `log(e^M) = M`);
+* TAIL regime `[σ*, 2η]`: `Fbound σ/σ ≤ (σ²)⁻¹`, integrating to `σ*⁻¹ − (2η)⁻¹ ≤ σ*⁻¹
+  = L·e^{−M}`.
+
+Sum `= (1+M)e^{−M}L` (so the honest constant is `C = 1`).  The corner `e^M/L > 2η` (where
+the flat regime already covers `[1/L, 2η]`) is handled by the top-level case split.  Pure
+interval-integral real analysis; zero number theory. -/
+
+/-- **STONE 2 — the `(1+M)` σ-cutoff.**  For `L ≥ 3`, `M ≥ 0`, `1/L ≤ 2η`, an abstract
+`Fbound` (weighted term `Fbound σ/σ` interval-integrable on `[1/L, 2η]`) obeying the two
+F-sockets `hpret` (`≤ e^{−M}L`) and `htriv` (`≤ 1/σ`) on `[1/L, 2η]`:
+
+  `∫_{1/L}^{2η} Fbound σ/σ dσ ≤ (1 + M)·e^{−M}·L`  (honest constant `C = 1`).
+
+The two-regime split at `σ* = e^M/L`: the flat piece contributes `e^{−M}L·M`, the tail
+piece `L·e^{−M}`.  Leg (i) plugs `Fbound = ‖𝒮·𝓛‖` (or its box-sup) into the sockets. -/
+theorem sigma_cutoff {L M η : ℝ} (Fbound : ℝ → ℝ)
+    (hL : 3 ≤ L) (hM : 0 ≤ M) (hlo : 1 / L ≤ 2 * η)
+    (hint : IntervalIntegrable (fun σ => Fbound σ / σ) MeasureTheory.volume (1 / L) (2 * η))
+    (hpret : ∀ σ ∈ Set.Icc (1 / L) (2 * η), Fbound σ ≤ Real.exp (-M) * L)
+    (htriv : ∀ σ ∈ Set.Icc (1 / L) (2 * η), Fbound σ ≤ 1 / σ) :
+    (∫ σ in (1 / L)..(2 * η), Fbound σ / σ) ≤ (1 + M) * Real.exp (-M) * L := by
+  have hL0 : (0 : ℝ) < L := by linarith
+  have hLinv0 : (0 : ℝ) < 1 / L := by positivity
+  have heML0 : (0 : ℝ) ≤ Real.exp (-M) * L := by positivity
+  -- flat-regime value: `∫_a^b Fbound σ/σ ≤ e^{−M}L·log(b/a)` on any subinterval away from 0
+  have flat : ∀ a b : ℝ, 0 < a → a ≤ b → Set.Icc a b ⊆ Set.Icc (1 / L) (2 * η) →
+      (∫ σ in a..b, Fbound σ / σ) ≤ Real.exp (-M) * L * Real.log (b / a) := by
+    intro a b ha hab hsub
+    have h0uIcc : (0 : ℝ) ∉ Set.uIcc a b := by
+      rw [Set.uIcc_of_le hab, Set.mem_Icc]; rintro ⟨h0, _⟩; linarith
+    have hsub' : Set.uIcc a b ⊆ Set.uIcc (1 / L) (2 * η) := by
+      rw [Set.uIcc_of_le hab, Set.uIcc_of_le hlo]; exact hsub
+    have hIntF : IntervalIntegrable (fun σ => Fbound σ / σ) MeasureTheory.volume a b :=
+      hint.mono_set hsub'
+    have hcont : ContinuousOn (fun σ : ℝ => Real.exp (-M) * L * σ⁻¹) (Set.uIcc a b) := by
+      have h0 : ∀ σ ∈ Set.uIcc a b, σ ≠ 0 := by
+        intro σ hσ
+        rw [Set.uIcc_of_le hab, Set.mem_Icc] at hσ
+        exact (lt_of_lt_of_le ha hσ.1).ne'
+      exact continuousOn_const.mul (continuousOn_id.inv₀ h0)
+    have hIntb : IntervalIntegrable (fun σ : ℝ => Real.exp (-M) * L * σ⁻¹)
+        MeasureTheory.volume a b := hcont.intervalIntegrable
+    have hmono : (∫ σ in a..b, Fbound σ / σ)
+        ≤ ∫ σ in a..b, Real.exp (-M) * L * σ⁻¹ := by
+      apply intervalIntegral.integral_mono_on hab hIntF hIntb
+      intro σ hσ
+      have hσpos : (0 : ℝ) < σ := lt_of_lt_of_le ha hσ.1
+      have hFb := hpret σ (hsub hσ)
+      rw [div_eq_mul_inv]
+      exact mul_le_mul_of_nonneg_right hFb (by positivity)
+    have hval : (∫ σ in a..b, Real.exp (-M) * L * σ⁻¹)
+        = Real.exp (-M) * L * Real.log (b / a) := by
+      rw [intervalIntegral.integral_const_mul, integral_inv h0uIcc]
+    rw [hval] at hmono
+    exact hmono
+  rcases le_total (2 * η) (Real.exp M / L) with hcorner | hmain
+  · -- CORNER `2η ≤ e^M/L`: flat bound covers `[1/L, 2η]`
+    have hbase := flat (1 / L) (2 * η) hLinv0 hlo subset_rfl
+    have hdiv : (2 * η) / (1 / L) = 2 * η * L := by rw [div_div_eq_mul_div, div_one]
+    rw [hdiv] at hbase
+    have h2ηpos : (0 : ℝ) < 2 * η := lt_of_lt_of_le hLinv0 hlo
+    have h2ηL_pos : (0 : ℝ) < 2 * η * L := mul_pos h2ηpos hL0
+    have h2ηL_le : 2 * η * L ≤ Real.exp M := by
+      calc 2 * η * L ≤ (Real.exp M / L) * L := mul_le_mul_of_nonneg_right hcorner hL0.le
+        _ = Real.exp M := div_mul_cancel₀ _ hL0.ne'
+    have hlogle : Real.log (2 * η * L) ≤ M := by
+      have h := Real.log_le_log h2ηL_pos h2ηL_le
+      rwa [Real.log_exp] at h
+    calc (∫ σ in (1 / L)..(2 * η), Fbound σ / σ)
+        ≤ Real.exp (-M) * L * Real.log (2 * η * L) := hbase
+      _ ≤ Real.exp (-M) * L * M := mul_le_mul_of_nonneg_left hlogle heML0
+      _ ≤ (1 + M) * Real.exp (-M) * L := by
+          have hid : (1 + M) * Real.exp (-M) * L
+              = Real.exp (-M) * L * M + Real.exp (-M) * L := by ring
+          rw [hid]; linarith [heML0]
+  · -- MAIN `e^M/L ≤ 2η`: split at `s = e^M/L`
+    set s : ℝ := Real.exp M / L with hs_def
+    have hs_pos : (0 : ℝ) < s := by rw [hs_def]; positivity
+    have hexpM_ge : (1 : ℝ) ≤ Real.exp M := Real.one_le_exp hM
+    have h1Ls : 1 / L ≤ s := by
+      rw [hs_def]; exact div_le_div_of_nonneg_right hexpM_ge hL0.le
+    have hs2η : s ≤ 2 * η := hmain
+    have hsub1 : Set.uIcc (1 / L) s ⊆ Set.uIcc (1 / L) (2 * η) := by
+      rw [Set.uIcc_of_le h1Ls, Set.uIcc_of_le hlo]
+      exact Set.Icc_subset_Icc_right hs2η
+    have hIntF1 : IntervalIntegrable (fun σ => Fbound σ / σ) MeasureTheory.volume (1 / L) s :=
+      hint.mono_set hsub1
+    have hsub2 : Set.uIcc s (2 * η) ⊆ Set.uIcc (1 / L) (2 * η) := by
+      rw [Set.uIcc_of_le hs2η, Set.uIcc_of_le hlo]
+      exact Set.Icc_subset_Icc_left h1Ls
+    have hIntF2 : IntervalIntegrable (fun σ => Fbound σ / σ) MeasureTheory.volume s (2 * η) :=
+      hint.mono_set hsub2
+    have hsplit : (∫ σ in (1 / L)..(2 * η), Fbound σ / σ)
+        = (∫ σ in (1 / L)..s, Fbound σ / σ) + ∫ σ in s..(2 * η), Fbound σ / σ :=
+      (intervalIntegral.integral_add_adjacent_intervals hIntF1 hIntF2).symm
+    -- REGION 1 (flat): `≤ e^{−M}L·M`
+    have hR1 : (∫ σ in (1 / L)..s, Fbound σ / σ) ≤ Real.exp (-M) * L * M := by
+      have hf1 := flat (1 / L) s hLinv0 h1Ls (Set.Icc_subset_Icc_right hs2η)
+      have hsL : s / (1 / L) = Real.exp M := by
+        rw [hs_def, div_div_eq_mul_div, div_one, div_mul_cancel₀ _ hL0.ne']
+      rw [hsL, Real.log_exp] at hf1
+      exact hf1
+    -- REGION 2 (tail): `≤ L·e^{−M}`
+    have hIntb2 : IntervalIntegrable (fun σ : ℝ => (σ ^ 2)⁻¹) MeasureTheory.volume s (2 * η) := by
+      apply ContinuousOn.intervalIntegrable
+      apply ContinuousOn.inv₀ (continuousOn_pow 2)
+      intro σ hσ
+      rw [Set.uIcc_of_le hs2η, Set.mem_Icc] at hσ
+      exact pow_ne_zero 2 (lt_of_lt_of_le hs_pos hσ.1).ne'
+    have hR2mono : (∫ σ in s..(2 * η), Fbound σ / σ) ≤ ∫ σ in s..(2 * η), (σ ^ 2)⁻¹ := by
+      apply intervalIntegral.integral_mono_on hs2η hIntF2 hIntb2
+      intro σ hσ
+      have hσpos : (0 : ℝ) < σ := lt_of_lt_of_le hs_pos hσ.1
+      have hFb := htriv σ ⟨le_trans h1Ls hσ.1, hσ.2⟩
+      rw [div_eq_mul_inv]
+      calc Fbound σ * σ⁻¹ ≤ (1 / σ) * σ⁻¹ := mul_le_mul_of_nonneg_right hFb (by positivity)
+        _ = (σ ^ 2)⁻¹ := by rw [one_div, ← mul_inv, ← pow_two]
+    have hR2val : (∫ σ in s..(2 * η), (σ ^ 2)⁻¹) = s⁻¹ - (2 * η)⁻¹ := by
+      have hderiv : ∀ σ ∈ Set.uIcc s (2 * η), HasDerivAt (fun x => -x⁻¹) ((σ ^ 2)⁻¹) σ := by
+        intro σ hσ
+        rw [Set.uIcc_of_le hs2η, Set.mem_Icc] at hσ
+        have hσne : σ ≠ 0 := (lt_of_lt_of_le hs_pos hσ.1).ne'
+        have hd := (hasDerivAt_inv hσne).neg
+        rw [neg_neg] at hd
+        exact hd
+      have hftc := intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv hIntb2
+      rw [hftc]; ring
+    have hsinv : s⁻¹ = L * Real.exp (-M) := by
+      rw [hs_def, inv_div, Real.exp_neg, div_eq_mul_inv]
+    have hR2 : (∫ σ in s..(2 * η), Fbound σ / σ) ≤ L * Real.exp (-M) := by
+      have h1 : (∫ σ in s..(2 * η), Fbound σ / σ) ≤ s⁻¹ - (2 * η)⁻¹ := hR2mono.trans_eq hR2val
+      have h2ηpos : (0 : ℝ) < 2 * η := lt_of_lt_of_le hs_pos hs2η
+      have h2ηnn : (0 : ℝ) ≤ (2 * η)⁻¹ := inv_nonneg.mpr h2ηpos.le
+      calc (∫ σ in s..(2 * η), Fbound σ / σ) ≤ s⁻¹ - (2 * η)⁻¹ := h1
+        _ ≤ s⁻¹ := by linarith
+        _ = L * Real.exp (-M) := hsinv
+    rw [hsplit]
+    have heq : Real.exp (-M) * L * M + L * Real.exp (-M) = (1 + M) * Real.exp (-M) * L := by ring
+    linarith [hR1, hR2, heq]
+
+end Salt.MR
