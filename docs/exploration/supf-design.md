@@ -145,3 +145,36 @@ D shrinks on contact with what the corpus already owns.
 
 Verdicts per the house schema; the wave fires on FIRE /
 REPAIR-THEN-FIRE with repairs applied.
+
+
+## ⟦JOINT-SCOPE's VERDICT (2026-07-23 ~08:10) — the joint head is
+## C-TIER, gated on ONE statement keystone (J0)⟧
+
+THE LEAD: GHS's own Lemma 1 (mr_extract.md:94-96) defines M as the
+RANGE-MIN — min over the offset window of the distance — and the
+corpus's head consumers (halasz_ball_decay's hhead, T1_pointwise_
+decay, the twins) deviated to CENTER-M. That deviation IS the drift
+problem: center-M is genuinely unsatisfiable on the joint route
+(BALL-REF was right), while range-min-M never drifts below the
+landed floor (dist_one_floor_pow + Mrange_one_floor = GHS Lemmas
+1+2, BOTH LANDED). And the s8-freeze's own frozen terminal prop_A3'
+is ALREADY in M_range form — the intermediates deviated from the
+frozen semantics, not the reverse. J0 RESTORES the freeze.
+
+The machinery verdict: dirichlet_plancherel (HalaszContour:460) IS
+the A.13-A.14 joint diagonalization, LANDED; windowSum IS a k4Poly
+(k4_plan applies directly); the sigma-cutoff's sockets match the
+joint chain exactly; the HalaszSeam LEDGER's dimensional page is
+marked PASSES and hits X·(1+M)e^{-M}. The D-tier A.10 port was the
+OLD route's need — again.
+
+THE LADDER: J0 [Fable/JYH keystone, ~150-300 mechanical]: restate
+the head consumers center-M -> M_range (the consumers use M only via
+nonneg + floor + the decreasing shape — all M_range-satisfied;
+restores the frozen prop_A3' semantics). J1 [C ~350] the
+CS-factoring (k4_cross_CS re-run + hat_tail). J2 [C ~300] the
+sigma-cutoff wiring (ONE MEDIUM paper-risk: the crossInt(beta) ->
+1/sigma^2 identification via dirichlet_plancherel at c0±beta —
+check on paper before dispatch). J3 [B/C ~250] the grade assembly
+per the PASSING ledger. Prereq in flight: EULER-LAYER. ~900-1200
+lines total. GO: MODERATE-HIGH conditional on J0.
