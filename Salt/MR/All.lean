@@ -55,6 +55,7 @@ import Salt.MR.Prop1Assembly
 import Salt.MR.RampSliver
 import Salt.MR.ShortIntervalPsi
 import Salt.MR.HExit
+import Salt.MR.SupF
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -317,3 +318,8 @@ open Salt.Tactic in
   Salt.MR.halasz_primes_primal_raw
   Salt.MR.absorb_arith
   Salt.MR.halasz_primes_pow
+  Salt.MR.ellLin_euler_product
+  Salt.MR.euler_log_bound
+  Salt.MR.smooth_ratio_bound
+  Salt.MR.dist_identification
+  Salt.MR.head_pin_bound
