@@ -14,7 +14,17 @@ routine.
 egress / toolchain-acquisition layer); local audit `lean4checker-local-1.md`
 (the checker recipe — 259 content modules across 7 tracks).
 
-**Verdict up front:** _pending — filled at finalize (Step 6)._
+**Verdict up front: ✅ GO — the full ladder ran end to end with measured numbers.**
+Toolchain acquired (elan-less tarball, ~2 min), Mathlib cached (~2.5 min, 8564
+oleans), the entire **9351-job corpus built green (149 min, 0 errors)**, and an
+independent Lean kernel (`leanchecker`, build `b4812ae5`) **re-verified all 263
+content modules of the seven target tracks with 0 rejections** and clean axioms
+(≤ `{propext, Classical.choice, Quot.sound}`, no `native_decide`). Per-session
+**setup cost ≈ 4–5 min** (the night-economics headline). The one hard gotcha: the
+4 vCPU / 16 GB box OOM-kills a naive `lake build` (CbarCert peaks at 13.4 GB RSS;
+Lake 5.0.0 has no `-j` lever) — the build only completes with **swap + serialized
+pre-building of the heavy modules** (which also makes CbarCert ~6× faster). Full
+details and the recommended per-night template in §6.
 
 This report is written **incrementally** (the incremental-report law): a
 skeleton first, then an update committed+pushed after every step, so the
@@ -334,11 +344,156 @@ module of the seven target tracks this way.
 
 ## 5. Kernel re-verification (built-in `leanchecker`)
 
-_pending (Step 5)_
+**Verdict: ✅ PASS — 263 / 263 content modules across the seven target tracks
+re-checked by a fresh Lean kernel, 0 rejections.** Same methodology as
+`lean4checker-local-1.md`: the built-in **`leanchecker`** from toolchain
+`v4.32.0-rc1` (kernel build `b4812ae5`, *identical* to the local audit's kernel),
+run in default mode on every **content** module (the `.All` manifests are 0-decl
+aggregators — skipped), with `LEAN_PATH` from `lake env`. Silent exit 0 = the
+fresh kernel accepted every replayed declaration.
+
+| Track | Content modules | Verdict | Wall-clock |
+|---|---:|:---:|---:|
+| `Salt.HB`      |  33 | ✅ 33/33   | 73 s |
+| `Salt.Fulcrum` |   5 | ✅ 5/5     | 14 s |
+| `Salt.Parity`  |   2 | ✅ 2/2     | (rebuilt, see below) |
+| `Salt.MR`      |  49 | ✅ 49/49   | 101 s + rebuild |
+| `Salt.TwinBar` |  27 | ✅ 27/27   | 56 s |
+| `Salt.Chen`    | 146 | ✅ 146/146 | 390 s |
+| `Salt.Keller`  |   1 | ✅ 1/1     | 6 s |
+| **Total** | **263** | **✅ 263/263 PASS, 0 FAIL** | sweep 642 s + rebuild/recheck ~2 min |
+
+All seven `*.failures` capture files are 0 bytes for the built corpus; the
+recheck of the rebuilt modules is 7/7 PASS. Cloud checker throughput on 4 vCPU
+(`-j3`): the 256 default-corpus modules swept in **642 s (10 m 42 s)** — directly
+comparable to the local M5-Pro/18-core `-j6` run of 259 modules in **1040 s**
+(the cloud box is fewer/slower cores but the workload is import-load-dominated and
+the mmap'd Mathlib oleans are shared, so it scales gracefully). Chen (146 modules,
+incl. the `decide`-heavy `CbarCert`) dominated at 390 s.
+
+**★ Methodology finding — the default build target ≠ the full track corpus.**
+The bare `lake build` (root `defaultTargets = ["Salt"]`) builds only the
+transitive-import closure of `Salt.lean`. Seven content modules of the target
+tracks turned out **not to be imported by that root** and so were never built
+(the checker's first pass reported them as *"Could not find any oleans for …"* —
+an olean-resolution artifact, **not** a kernel rejection):
+
+- `Salt.Parity.Z`, `Salt.Parity.Instances` (imported by `Salt.Parity.All` but not
+  by root `Salt`)
+- `Salt.Keller.Counterexample` (imported by `Salt.Keller.All`, not root)
+- `Salt.MR.DistWindow`, `Salt.MR.HalaszHead`, `Salt.MR.HalaszIdentity`,
+  `Salt.MR.Prop1Assembly` — **true orphans**: imported by *neither* the root *nor*
+  `Salt.MR.All`. These are the +4 MR modules the corpus has grown by since the
+  259-module local audit (local MR was 45; here 49).
+
+Each of the seven was built explicitly by name (`lake build <module>` /
+`lake build Salt.Parity.All Salt.Keller.All`) — all built **rc=0, 0 errors**,
+confirming they are valid, merely not wired into the root import tree — and then
+re-checked: **7/7 PASS**. So the audit's scope statement holds for the *entire*
+content of the seven tracks (263 modules), with the caveat that 7 of them are not
+part of the default-built product and had to be materialised on purpose. For a
+night mission this is the actionable lesson: **to check "all track content" you
+must build the `.All` manifests (and hunt orphans), not just `lake build`.**
+
+**Axiom cleanliness (rule 3).** The build's own `#audit_axioms` pass (run when the
+`.All` manifests elaborate) emitted **2204 `✓ … [3 axioms]`** lines (plus a few
+`[2]`/`[0]` — strictly cleaner) and **zero `✗`**; a scan for `native`/`sorry`/
+`[≥4 axioms]` found **nothing**. Every audited declaration rests on at most
+`{propext, Classical.choice, Quot.sound}` — no `native_decide`, no new axioms. The
+independent kernel replay adds no trust beyond the Lean kernel itself.
 
 ## 6. Finalize: per-session setup cost, GO/NO-GO, night-mission template
 
-_pending (Step 6)_
+### 6.1 The night-economics headline — per-session setup cost
+
+The recurring cost every fresh-container session pays **before any productive
+work**, now measured end to end:
+
+| Setup component | Cost (this session) | Notes |
+|---|---:|---|
+| elan install | **n/a (0 s)** | elan is *unusable* here (`leanprover/elan` out of scope); the elan-less tarball path replaces it |
+| Toolchain acquisition | **119 s** | zstd 5 s + 538 MB tarball download 13 s + extract 101 s; sha256 verified |
+| Mathlib cache (`lake exe cache get`) | **143 s** | git-protocol clone of 9 deps + 8564 Azure oleans (7.3 GB) |
+| Freshness/egress probes | ~30 s | one-time orientation |
+| **Per-session setup total** | **≈ 262 s (4.4 min) mechanical, ~5 min wall** | the number to budget per night |
+
+**This is the answer to the mission's central question: the per-session setup tax
+is ~4–5 minutes, not the multi-minute-to-blocked ordeal Nights 1–4 implied.** It is
+small and, crucially, *fixed* — independent of what the night's actual proof work
+is. The dominant time is the **corpus build (149 min)** and **checker (≈13 min)**,
+both of which are *work*, not setup, and both of which the cache makes possible at
+all (Mathlib is downloaded pre-built, never compiled here).
+
+**Two preconditions make the 4–5 min hold, and both must be in the environment
+config:** (1) **`leanprover/lean4` in session repo-scope** — without it the
+toolchain tarball 403s and there is no elan fallback (this is exactly what killed
+Night 4); (2) **git smart-HTTP egress open** to `github.com` + `*.blob.core.windows.net`
+— the cache clones deps over the git protocol (which is *not* repo-scope-gated) and
+pulls oleans from Azure.
+
+### 6.2 Full-ladder timing ledger (measured)
+
+| Step | Wall-clock | Result |
+|---|---:|---|
+| 1 Freshness + probes | ~1 min | boot checkout 1–2 commits stale; egress 200 |
+| 2 Toolchain (elan-less tarball) | 119 s | v4.32.0-rc1, kernel `b4812ae5` ✅ |
+| 3 Mathlib cache | 143 s | 8564/8564 oleans, 7.3 GB ✅ |
+| 4 Corpus build (serialized heavies + full) | **8953 s (149 min)** | 9351/9351, 0 errors ✅ |
+| 5 Checker (263 modules + orphan rebuild) | **≈ 13 min** | 263/263 PASS, 0 rejections ✅ |
+| — Session wall (setup→checker) | **≈ 2 h 55 m** | (04:31→~07:26 UTC) |
+
+### 6.3 GO / NO-GO for real night missions
+
+**GO.** For the first time in the cloud trial, the full ladder ran end to end with
+measured numbers and a clean result: toolchain acquired, Mathlib cached, the entire
+9351-job corpus built green, and an independent Lean kernel re-verified all 263
+target-track content modules with zero rejections and clean axioms — all on the
+4 vCPU / 16 GB profile in under 3 hours of wall-clock, ~5 min of which is setup.
+Nights 1–4's blockers (egress, then toolchain repo-scope) are genuinely resolved
+by the sources-array fix **plus** the elan-less tarball workaround.
+
+**The one hard constraint that must be respected, or the night fails:** the 4 vCPU
+/ 16 GB box **cannot** build this corpus with a naive `lake build`. `Chen.CbarCert`
+alone peaks at **13.4 GB RSS**; at Lake's default `-j4` (there is no `-j` flag to
+lower — removed in Lake 5.0.0, and `taskset` does not cap Lake's job count) it
+co-schedules with two more heavy modules for **~20 GB**, a **guaranteed OOM-kill**
+on a swapless box. The build only completed because this session (a) added an 8 GB
+swapfile and (b) **pre-built the RAM-hog modules in isolated sequential
+invocations** so they never co-reside — which also made `CbarCert` ~6× faster
+(15 min alone vs 90 min+ thrashed). This is the single most important operational
+finding of the night.
+
+### 6.4 Recommended per-night mission template
+
+```
+0. [skip ci] skeleton report on cloud-trial/night-N branch; commit+push (incremental-report law).
+1. Toolchain (elan-less; requires leanprover/lean4 in scope):
+     apt-get install -y zstd
+     curl -sSL -o /tmp/lean.tar.zst \
+       https://github.com/leanprover/lean4/releases/download/vX/lean-...-linux.tar.zst
+     mkdir -p ~/.elan/toolchains/leanprover--lean4---vX
+     zstd -dc /tmp/lean.tar.zst | tar -x -C <that dir> --strip-components=1
+     export PATH=<that dir>/bin:$PATH        # ~2 min
+2. lake exe cache get                        # ~2.5 min, 8564 oleans
+3. Add swap BEFORE building (swapless box; OOM insurance):
+     fallocate -l 8G /tmp/swapfile && chmod 600 /tmp/swapfile \
+       && mkswap /tmp/swapfile && swapon /tmp/swapfile
+4. Build with the memory guard (NO naive `lake build`):
+     for M in <heavy modules: Chen.SuperPanelsO/E, Twelve.Certificate, Chen.CbarCert>; do
+        lake build "$M"; done            # serial, CbarCert last, ~45 min
+     lake build                          # full; heavies cached; ~105 min
+5. Checker — build the .All manifests + orphans first, then sweep content modules:
+     lake build Salt.<Track>.All ...     # ensures every content module has an olean
+     LEAN_PATH="$(lake env printenv LEAN_PATH)" leanchecker <each content module>   # -j3, ~13 min
+6. Commit+push after EVERY step; final report with measured numbers.
+```
+
+**Budget a real night at ~3 h wall-clock** for a from-cold full ladder (setup 5 min
++ build 150 min + checker 15 min + margin). A night that only needs to *prove new
+nodes* (corpus already green) skips step 4's full build cost after the first
+incremental `lake build`, so the marginal proof-loop iteration is minutes, not
+hours — the expensive part is the cold-start build, which is amortised across a
+session that keeps its container warm.
 
 ---
 
@@ -348,8 +503,11 @@ _pending (Step 6)_
 |---|---|---|---|
 | 0 | Skeleton report + branch | — | ✅ done |
 | 1 | Freshness + environment | ~1 min | ✅ done |
-| 2 | Toolchain (elan-less workaround) | ~46 s | ✅ done |
-| 3 | Cache get | 158 s | ✅ done |
+| 2 | Toolchain (elan-less workaround) | 119 s (s2) / 46 s (s1) | ✅ done |
+| 3 | Cache get | 143 s (s2) / 158 s (s1) | ✅ done |
 | 4 | Build (`-j4` infeasible→serial pre-build + full) | 8953 s (149 min), rc=0 | ✅ done |
-| 5 | Checker | — | pending |
-| 6 | Finalize | — | pending |
+| 5 | Checker (263/263 PASS, 0 rejections) | ≈13 min (sweep 642 s + rebuild/recheck) | ✅ done |
+| 6 | Finalize (§6: economics, GO/NO-GO, template) | — | ✅ done |
+
+_(s1 = session-1 numbers retained from its prose; s2 = session-2 fresh-container
+re-run — reproduce within noise. Verdict: **✅ GO**, full ladder green.)_
