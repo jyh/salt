@@ -3037,4 +3037,511 @@ theorem per_pair_contour :
 
 end PerPairContour
 
+/-! ## A-2 — the dual assembly (`dual_assembly`) and its helpers
+
+The keystone choreography: `window_dominates` opens `Σ_{p∈S} g(p)` into the full
+Λ-window sum; the square is expanded pairwise; each pair is priced by `per_pair_contour`
+(`inner = windowKernel P 1 (t−t') + δ`, `‖δ‖ ≤ ε`); the pole row (`pole_row_sum`, 44π,
+diagonal-inclusive) and the error row (`≤ ε·|𝒯|`) close after dividing by `log P`. -/
+
+section L11Assembly
+open Complex Salt.SW Salt.Vk
+
+/-- conj-symmetry of the hat Mellin factor (real positive bases). -/
+lemma hatMellin_conj {X h : ℝ} (hX : 0 < X) (hh : 0 < X + h) (s : ℂ) :
+    hatMellin X h ((starRingEnd ℂ) s) = (starRingEnd ℂ) (hatMellin X h s) := by
+  have hb : ∀ a : ℝ, 0 < a →
+      (starRingEnd ℂ) ((a : ℂ) ^ (s + 1)) = (a : ℂ) ^ ((starRingEnd ℂ) s + 1) := by
+    intro a ha
+    have harg : (a : ℂ).arg ≠ Real.pi := by
+      rw [Complex.arg_ofReal_of_nonneg ha.le]; exact ne_of_lt Real.pi_pos
+    have h := Complex.cpow_conj (a : ℂ) (s + 1) harg
+    rw [Complex.conj_ofReal, map_add, map_one] at h
+    exact h.symm
+  simp only [hatMellin, map_div₀, map_sub, map_mul, map_add, map_one, Complex.conj_ofReal,
+    hb (X + h) hh, hb X hX]
+
+/-- The window Mellin kernel at conjugate height. -/
+lemma windowKernel_neg {P : ℝ} (hP : 0 < P) (c t : ℝ) :
+    windowKernel P c (-t) = (starRingEnd ℂ) (windowKernel P c t) := by
+  have hs : ((c : ℂ) + ((-t : ℝ) : ℂ) * I) = (starRingEnd ℂ) ((c : ℂ) + (t : ℂ) * I) := by
+    rw [map_add, map_mul, Complex.conj_I, Complex.conj_ofReal, Complex.conj_ofReal]
+    push_cast; ring
+  rw [windowKernel, hatKernel_eq_hatMellin, hatKernel_eq_hatMellin, hs,
+    hatMellin_conj (by linarith : (0:ℝ) < 2 * P) (by linarith : (0:ℝ) < 2 * P + P),
+    hatMellin_conj (by linarith : (0:ℝ) < P / 2) (by linarith : (0:ℝ) < P / 2 + P / 2),
+    windowKernel, hatKernel_eq_hatMellin, hatKernel_eq_hatMellin, map_sub]
+
+/-- Norm-evenness of the window kernel. -/
+lemma norm_windowKernel_neg {P : ℝ} (hP : 0 < P) (c t : ℝ) :
+    ‖windowKernel P c (-t)‖ = ‖windowKernel P c t‖ := by
+  rw [windowKernel_neg hP, Complex.norm_conj]
+
+/-- **Pole double-row.**  `‖Σ_{t,t'} b_t·conj(b_{t'})·W(t-t')‖ ≤ 44π·P·Σ‖b‖²`. -/
+lemma pole_double_row {P T : ℝ} (hP : 2 ≤ P) (hT : 0 ≤ T) {𝒯 : Finset ℝ}
+    (hws : WellSpaced 𝒯) (hsub : ∀ t ∈ 𝒯, t ∈ Set.Icc (-T) T) (b : ℝ → ℂ) :
+    ‖∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t') * windowKernel P 1 (t - t')‖
+      ≤ 44 * Real.pi * P * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by
+  have hP0 : 0 < P := by linarith
+  have h1 : ‖∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t') * windowKernel P 1 (t - t')‖
+      ≤ ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t‖ * ‖b t'‖ * ‖windowKernel P 1 (t - t')‖ := by
+    refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun t _ => ?_))
+    refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun t' _ => ?_))
+    rw [norm_mul, norm_mul, Complex.norm_conj]
+  have h2 : ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t‖ * ‖b t'‖ * ‖windowKernel P 1 (t - t')‖
+      ≤ ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯,
+          ((‖b t‖ ^ 2 + ‖b t'‖ ^ 2) / 2) * ‖windowKernel P 1 (t - t')‖ := by
+    refine Finset.sum_le_sum (fun t _ => Finset.sum_le_sum (fun t' _ => ?_))
+    apply mul_le_mul_of_nonneg_right _ (norm_nonneg _)
+    nlinarith [sq_nonneg (‖b t‖ - ‖b t'‖)]
+  have hrowA : ∀ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖windowKernel P 1 (t - t')‖ ≤ 44 * Real.pi * P := by
+    intro t _
+    have heq : ∑ t' ∈ 𝒯, ‖windowKernel P 1 (t - t')‖
+        = ∑ t' ∈ 𝒯, ‖windowKernel P 1 (t' - t)‖ :=
+      Finset.sum_congr rfl (fun t' _ => by rw [← neg_sub t' t, norm_windowKernel_neg hP0])
+    rw [heq]; exact pole_row_sum hP hT 𝒯 hws hsub t
+  have hrowB : ∀ t' ∈ 𝒯, ∑ t ∈ 𝒯, ‖windowKernel P 1 (t - t')‖ ≤ 44 * Real.pi * P :=
+    fun t' _ => pole_row_sum hP hT 𝒯 hws hsub t'
+  set M : ℝ := 44 * Real.pi * P with hM
+  have hA : ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t‖ ^ 2 * ‖windowKernel P 1 (t - t')‖
+      ≤ M * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 :=
+    calc ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t‖ ^ 2 * ‖windowKernel P 1 (t - t')‖
+        = ∑ t ∈ 𝒯, ‖b t‖ ^ 2 * ∑ t' ∈ 𝒯, ‖windowKernel P 1 (t - t')‖ :=
+          Finset.sum_congr rfl (fun t _ => (Finset.mul_sum _ _ _).symm)
+      _ ≤ ∑ t ∈ 𝒯, ‖b t‖ ^ 2 * M :=
+          Finset.sum_le_sum (fun t ht => mul_le_mul_of_nonneg_left (hrowA t ht) (sq_nonneg _))
+      _ = M * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by rw [← Finset.sum_mul, mul_comm]
+  have hB : ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t'‖ ^ 2 * ‖windowKernel P 1 (t - t')‖
+      ≤ M * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by
+    rw [Finset.sum_comm]
+    calc ∑ t' ∈ 𝒯, ∑ t ∈ 𝒯, ‖b t'‖ ^ 2 * ‖windowKernel P 1 (t - t')‖
+        = ∑ t' ∈ 𝒯, ‖b t'‖ ^ 2 * ∑ t ∈ 𝒯, ‖windowKernel P 1 (t - t')‖ :=
+          Finset.sum_congr rfl (fun t' _ => (Finset.mul_sum _ _ _).symm)
+      _ ≤ ∑ t' ∈ 𝒯, ‖b t'‖ ^ 2 * M :=
+          Finset.sum_le_sum (fun t' ht' => mul_le_mul_of_nonneg_left (hrowB t' ht') (sq_nonneg _))
+      _ = M * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by rw [← Finset.sum_mul, mul_comm]
+  have hid : ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ((‖b t‖ ^ 2 + ‖b t'‖ ^ 2) / 2) * ‖windowKernel P 1 (t - t')‖
+      = (∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t‖ ^ 2 * ‖windowKernel P 1 (t - t')‖
+         + ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t'‖ ^ 2 * ‖windowKernel P 1 (t - t')‖) / 2 := by
+    rw [eq_div_iff (by norm_num : (2 : ℝ) ≠ 0), Finset.sum_mul, ← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl (fun t _ => ?_)
+    rw [Finset.sum_mul, ← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl (fun t' _ => ?_)
+    ring
+  calc ‖∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t') * windowKernel P 1 (t - t')‖
+      ≤ ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t‖ * ‖b t'‖ * ‖windowKernel P 1 (t - t')‖ := h1
+    _ ≤ ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ((‖b t‖ ^ 2 + ‖b t'‖ ^ 2) / 2) * ‖windowKernel P 1 (t - t')‖ := h2
+    _ = _ := hid
+    _ ≤ M * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by linarith [hA, hB]
+
+/-- **Error double-row.** -/
+lemma error_double_row {𝒯 : Finset ℝ} {ε : ℝ} (b : ℝ → ℂ)
+    (K : ℝ → ℝ → ℂ) (hK : ∀ t ∈ 𝒯, ∀ t' ∈ 𝒯, ‖K t t'‖ ≤ ε) :
+    ‖∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t') * K t t'‖
+      ≤ ε * (𝒯.card : ℝ) * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by
+  have h1 : ‖∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t') * K t t'‖
+      ≤ ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, (‖b t‖ ^ 2 + ‖b t'‖ ^ 2) / 2 * ε := by
+    refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun t ht => ?_))
+    refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun t' ht' => ?_))
+    rw [norm_mul, norm_mul, Complex.norm_conj]
+    calc ‖b t‖ * ‖b t'‖ * ‖K t t'‖
+        ≤ (‖b t‖ ^ 2 + ‖b t'‖ ^ 2) / 2 * ‖K t t'‖ :=
+          mul_le_mul_of_nonneg_right (by nlinarith [sq_nonneg (‖b t‖ - ‖b t'‖)]) (norm_nonneg _)
+      _ ≤ (‖b t‖ ^ 2 + ‖b t'‖ ^ 2) / 2 * ε :=
+          mul_le_mul_of_nonneg_left (hK t ht t' ht') (by positivity)
+  refine h1.trans ?_
+  have hAe : ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t‖ ^ 2 * ε = ε * (𝒯.card : ℝ) * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by
+    simp_rw [Finset.sum_const, nsmul_eq_mul]
+    rw [← Finset.mul_sum, ← Finset.sum_mul]; ring
+  have hBe : ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t'‖ ^ 2 * ε = ε * (𝒯.card : ℝ) * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by
+    have hin : ∑ t' ∈ 𝒯, ‖b t'‖ ^ 2 * ε = (∑ t' ∈ 𝒯, ‖b t'‖ ^ 2) * ε := (Finset.sum_mul _ _ _).symm
+    rw [Finset.sum_congr rfl (fun t _ => hin), Finset.sum_const, nsmul_eq_mul]; ring
+  have hide : ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, (‖b t‖ ^ 2 + ‖b t'‖ ^ 2) / 2 * ε
+      = (∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t‖ ^ 2 * ε + ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, ‖b t'‖ ^ 2 * ε) / 2 := by
+    rw [eq_div_iff (by norm_num : (2 : ℝ) ≠ 0), Finset.sum_mul, ← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl (fun t _ => ?_)
+    rw [Finset.sum_mul, ← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl (fun t' _ => ?_)
+    ring
+  rw [hide]; linarith [hAe, hBe]
+
+
+/-- conj of a natural-power cpow (n ≥ 1). -/
+lemma conj_ncast_cpow {n : ℕ} (hn : 1 ≤ n) (w : ℂ) :
+    (starRingEnd ℂ) ((n : ℂ) ^ w) = (n : ℂ) ^ ((starRingEnd ℂ) w) := by
+  have harg : (n : ℂ).arg ≠ Real.pi := by
+    rw [← Complex.ofReal_natCast, Complex.arg_ofReal_of_nonneg (by positivity)]
+    exact ne_of_lt Real.pi_pos
+  have h := Complex.cpow_conj (n : ℂ) w harg
+  rw [map_natCast] at h
+  exact h.symm
+
+lemma summable_window_pair {P : ℝ} (hP0 : 0 < P) (u : ℝ) :
+    Summable (fun n =>
+      ((vonMangoldt n : ℂ) * (n : ℂ) ^ ((u : ℂ) * I)) * (primeWindow P n : ℂ)) := by
+  apply summable_of_ne_finset_zero (s := Finset.range (⌊3 * P⌋₊ + 1))
+  intro n hn
+  rw [Finset.mem_range, not_lt] at hn
+  have hge : 3 * P ≤ (n : ℝ) := by
+    have h1 : (3 * P : ℝ) < (⌊3 * P⌋₊ : ℝ) + 1 := Nat.lt_floor_add_one _
+    have h2 : ((⌊3 * P⌋₊ : ℕ) + 1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn
+    linarith
+  rw [primeWindow_eq_zero_upper hP0 hge, Complex.ofReal_zero, mul_zero]
+
+/-- **A-2 core (dual bound).** -/
+lemma dual_core {P : ℝ} (hP : 2 ≤ P) {T : ℝ} (hT : 0 ≤ T) {𝒯 : Finset ℝ}
+    (hws : WellSpaced 𝒯) (hsub : ∀ t ∈ 𝒯, t ∈ Set.Icc (-T) T)
+    {S : Finset ℕ} (hSprime : ∀ n ∈ S, n.Prime ∧ P ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * P)
+    {ε : ℝ}
+    (hinner : ∀ u : ℝ, |u| ≤ 2 * T →
+        ‖(∑' n, ((vonMangoldt n : ℂ) * (n : ℂ) ^ ((u : ℂ) * I)) * (primeWindow P n : ℂ))
+              - windowKernel P 1 u‖ ≤ ε)
+    (b : ℝ → ℂ) :
+    ∑ p ∈ S, ‖∑ t ∈ 𝒯, (starRingEnd ℂ) ((p : ℂ) ^ (-(t : ℂ) * I)) * b t‖ ^ 2
+      ≤ (44 * Real.pi * P + ε * (𝒯.card : ℝ)) / Real.log P * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by
+  have hP0 : 0 < P := by linarith
+  have hlogP : 0 < Real.log P := Real.log_pos (by linarith)
+  set G : ℕ → ℝ := fun n => ‖∑ t ∈ 𝒯, (n : ℂ) ^ ((t : ℂ) * I) * b t‖ ^ 2 with hGdef
+  have hG0 : ∀ n, 0 ≤ G n := fun n => sq_nonneg _
+  have hLHS : ∀ p ∈ S, ‖∑ t ∈ 𝒯, (starRingEnd ℂ) ((p : ℂ) ^ (-(t : ℂ) * I)) * b t‖ ^ 2 = G p := by
+    intro p hp
+    have hp1 : 1 ≤ p := le_trans (by norm_num) (hSprime p hp).1.two_le
+    have hXY : ∑ t ∈ 𝒯, (starRingEnd ℂ) ((p : ℂ) ^ (-(t : ℂ) * I)) * b t
+        = ∑ t ∈ 𝒯, (p : ℂ) ^ ((t : ℂ) * I) * b t := by
+      refine Finset.sum_congr rfl (fun t _ => ?_)
+      congr 1
+      rw [conj_ncast_cpow hp1]
+      congr 1
+      rw [map_mul, map_neg, Complex.conj_ofReal, Complex.conj_I]; ring
+    simp only [hGdef]
+    rw [hXY]
+  have htt' : ∀ t ∈ 𝒯, ∀ t' ∈ 𝒯, |t - t'| ≤ 2 * T := by
+    intro t ht t' ht'
+    have h1 := Set.mem_Icc.mp (hsub t ht)
+    have h2 := Set.mem_Icc.mp (hsub t' ht')
+    rw [abs_le]; constructor <;> linarith [h1.1, h1.2, h2.1, h2.2]
+  have hwd := window_dominates hP hG0 hSprime
+  set RHSr : ℝ := ∑' n, vonMangoldt n * primeWindow P n * G n with hRHSr
+  have hRHSr0 : 0 ≤ RHSr :=
+    tsum_nonneg fun n =>
+      mul_nonneg (mul_nonneg vonMangoldt_nonneg (primeWindow_nonneg hP0 n)) (hG0 n)
+  have hterm : ∀ (t t' : ℝ) (n : ℕ),
+      ((vonMangoldt n : ℂ) * (primeWindow P n : ℂ))
+        * (((n : ℂ) ^ ((t : ℂ) * I) * b t) * (starRingEnd ℂ) ((n : ℂ) ^ ((t' : ℂ) * I) * b t'))
+        = b t * (starRingEnd ℂ) (b t')
+            * (((vonMangoldt n : ℂ) * (n : ℂ) ^ (((t - t' : ℝ) : ℂ) * I))
+                * (primeWindow P n : ℂ)) := by
+    intro t t' n
+    rcases Nat.eq_zero_or_pos n with hn | hn
+    · subst hn
+      rw [show (vonMangoldt 0 : ℂ) = 0 by rw [ArithmeticFunction.map_zero]; norm_num]
+      ring
+    · have hn1 : 1 ≤ n := hn
+      have hn0 : (n : ℂ) ≠ 0 := by exact_mod_cast hn.ne'
+      rw [map_mul, conj_ncast_cpow hn1]
+      have hcomb : (n : ℂ) ^ ((t : ℂ) * I) * (n : ℂ) ^ ((starRingEnd ℂ) ((t' : ℂ) * I))
+          = (n : ℂ) ^ (((t - t' : ℝ) : ℂ) * I) := by
+        rw [← Complex.cpow_add _ _ hn0]
+        congr 1
+        rw [map_mul, Complex.conj_I, Complex.conj_ofReal]; push_cast; ring
+      linear_combination ((vonMangoldt n : ℂ) * (primeWindow P n : ℂ) * b t
+        * (starRingEnd ℂ) (b t')) * hcomb
+  -- summability of the fixed-t inner sum (finite support)
+  have hsummstep : ∀ t : ℝ, Summable (fun n => ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t')
+      * (((vonMangoldt n : ℂ) * (n : ℂ) ^ (((t - t' : ℝ) : ℂ) * I)) * (primeWindow P n : ℂ))) := by
+    intro t
+    apply summable_of_ne_finset_zero (s := Finset.range (⌊3 * P⌋₊ + 1))
+    intro n hn
+    rw [Finset.mem_range, not_lt] at hn
+    have hge : 3 * P ≤ (n : ℝ) := by
+      have h1 : (3 * P : ℝ) < (⌊3 * P⌋₊ : ℝ) + 1 := Nat.lt_floor_add_one _
+      have h2 : ((⌊3 * P⌋₊ : ℕ) + 1 : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn
+      linarith
+    refine Finset.sum_eq_zero (fun t' _ => ?_)
+    rw [primeWindow_eq_zero_upper hP0 hge, Complex.ofReal_zero, mul_zero, mul_zero]
+  have hexp : (RHSr : ℂ) = ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t')
+        * (∑' n, ((vonMangoldt n : ℂ) * (n : ℂ) ^ (((t - t' : ℝ) : ℂ) * I))
+            * (primeWindow P n : ℂ)) := by
+    rw [hRHSr, Complex.ofReal_tsum]
+    have hstep : ∀ n, ((vonMangoldt n * primeWindow P n * G n : ℝ) : ℂ)
+        = ∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t')
+            * (((vonMangoldt n : ℂ) * (n : ℂ) ^ (((t - t' : ℝ) : ℂ) * I))
+                * (primeWindow P n : ℂ)) := by
+      intro n
+      simp only [hGdef]
+      rw [Complex.ofReal_mul, Complex.ofReal_mul, Complex.ofReal_pow,
+        ← Complex.mul_conj', map_sum, Finset.sum_mul_sum, Finset.mul_sum]
+      refine Finset.sum_congr rfl (fun t _ => ?_)
+      rw [Finset.mul_sum]
+      refine Finset.sum_congr rfl (fun t' _ => hterm t t' n)
+    rw [tsum_congr hstep, Summable.tsum_finsetSum (fun t _ => hsummstep t)]
+    refine Finset.sum_congr rfl (fun t _ => ?_)
+    rw [Summable.tsum_finsetSum (fun t' _ => (summable_window_pair hP0 (t - t')).mul_left _)]
+    refine Finset.sum_congr rfl (fun t' _ => ?_)
+    rw [tsum_mul_left]
+  set Wk : ℝ → ℝ → ℂ := fun t t' =>
+    (∑' n, ((vonMangoldt n : ℂ) * (n : ℂ) ^ (((t - t' : ℝ) : ℂ) * I)) * (primeWindow P n : ℂ))
+      - windowKernel P 1 (t - t') with hWk
+  have hWbound : ∀ t ∈ 𝒯, ∀ t' ∈ 𝒯, ‖Wk t t'‖ ≤ ε :=
+    fun t ht t' ht' => hinner (t - t') (htt' t ht t' ht')
+  have hsplit : (RHSr : ℂ)
+      = (∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t') * windowKernel P 1 (t - t'))
+        + (∑ t ∈ 𝒯, ∑ t' ∈ 𝒯, b t * (starRingEnd ℂ) (b t') * Wk t t') := by
+    rw [hexp, ← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl (fun t _ => ?_)
+    rw [← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl (fun t' _ => ?_)
+    rw [hWk]; ring
+  have hnorm : RHSr ≤ 44 * Real.pi * P * (∑ t ∈ 𝒯, ‖b t‖ ^ 2)
+      + ε * (𝒯.card : ℝ) * (∑ t ∈ 𝒯, ‖b t‖ ^ 2) := by
+    have hcast : RHSr = ‖(RHSr : ℂ)‖ := by rw [Complex.norm_real, Real.norm_of_nonneg hRHSr0]
+    rw [hcast, hsplit]
+    refine (norm_add_le _ _).trans ?_
+    exact add_le_add (pole_double_row hP hT hws hsub b) (error_double_row b Wk hWbound)
+  have hGsum : ∑ p ∈ S, ‖∑ t ∈ 𝒯, (starRingEnd ℂ) ((p : ℂ) ^ (-(t : ℂ) * I)) * b t‖ ^ 2
+      = ∑ p ∈ S, G p := Finset.sum_congr rfl hLHS
+  rw [hGsum, div_mul_eq_mul_div, le_div_iff₀ hlogP]
+  have hfin : Real.log P * ∑ p ∈ S, G p
+      ≤ (44 * Real.pi * P + ε * (𝒯.card : ℝ)) * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by
+    calc Real.log P * ∑ p ∈ S, G p ≤ RHSr := hwd
+      _ ≤ _ := hnorm
+      _ = (44 * Real.pi * P + ε * (𝒯.card : ℝ)) * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by ring
+  linarith [hfin]
+
+
+/-- **A-2 `dual_assembly`.**  The dual bound with `per_pair_contour`'s concrete decay. -/
+theorem dual_assembly :
+    ∃ (c_vk C₁ C₂ C₃ T₀ : ℝ), 0 < c_vk ∧ 0 < C₁ ∧ 0 < C₂ ∧ 0 < C₃ ∧ 3 ≤ T₀ ∧
+      ∀ (T P : ℝ), T₀ ≤ T → 2 ≤ P →
+      ∀ (𝒯 : Finset ℝ), WellSpaced 𝒯 → (∀ t ∈ 𝒯, t ∈ Set.Icc (-T) T) →
+      ∀ (S : Finset ℕ), (∀ n ∈ S, n.Prime ∧ P ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * P) →
+      ∀ (b : ℝ → ℂ),
+        ∑ p ∈ S, ‖∑ t ∈ 𝒯, (starRingEnd ℂ) ((p : ℂ) ^ (-(t : ℂ) * I)) * b t‖ ^ 2
+          ≤ (44 * Real.pi * P
+              + (C₁ * P * Real.exp (-(c_vk / 2) * Real.log P
+                    / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                        * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)))
+                  * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                      * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ))
+                + C₂ * P * Real.log P / T
+                + C₃ * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                    * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) * P / T ^ 2) * (𝒯.card : ℝ))
+            / Real.log P * ∑ t ∈ 𝒯, ‖b t‖ ^ 2 := by
+  obtain ⟨c_vk, C₁, C₂, C₃, T₀, hc, hC1, hC2, hC3, hT₀, hpp⟩ := per_pair_contour
+  refine ⟨c_vk, C₁, C₂, C₃, T₀, hc, hC1, hC2, hC3, hT₀, ?_⟩
+  intro T P hT hP 𝒯 hws hsub S hS b
+  have hTpos : 0 < T := by linarith
+  exact dual_core hP hTpos.le hws hsub hS (fun u hu => hpp T P u hT hP hu) b
+
+/-- **A-3 (primal, raw decay).**  The primal Halász bound at `per_pair_contour`'s concrete
+`5T+1`-height decay, via `primes_dual_iff` off `dual_assembly`.  The pure `(log T)`-shape
+frozen header follows by the D₃(5T+1)→D₄(T) absorption. -/
+theorem halasz_primes_primal_raw :
+    ∃ (c_vk C₁ C₂ C₃ T₀ : ℝ), 0 < c_vk ∧ 0 < C₁ ∧ 0 < C₂ ∧ 0 < C₃ ∧ 3 ≤ T₀ ∧
+      ∀ (T P : ℝ), T₀ ≤ T → 2 ≤ P →
+      ∀ (𝒯 : Finset ℝ), WellSpaced 𝒯 → (∀ t ∈ 𝒯, t ∈ Set.Icc (-T) T) →
+      ∀ (S : Finset ℕ), (∀ n ∈ S, n.Prime ∧ P ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * P) →
+      ∀ (a : ℕ → ℂ),
+        ∑ t ∈ 𝒯, ‖∑ p ∈ S, (p : ℂ) ^ (-(t : ℂ) * I) * a p‖ ^ 2
+          ≤ (44 * Real.pi * P
+              + (C₁ * P * Real.exp (-(c_vk / 2) * Real.log P
+                    / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                        * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)))
+                  * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                      * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ))
+                + C₂ * P * Real.log P / T
+                + C₃ * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                    * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) * P / T ^ 2) * (𝒯.card : ℝ))
+            / Real.log P * ∑ p ∈ S, ‖a p‖ ^ 2 := by
+  obtain ⟨c_vk, C₁, C₂, C₃, T₀, hc, hC1, hC2, hC3, hT₀, hda⟩ := dual_assembly
+  refine ⟨c_vk, C₁, C₂, C₃, T₀, hc, hC1, hC2, hC3, hT₀, ?_⟩
+  intro T P hT hP 𝒯 hws hsub S hS a
+  have hTpos : 0 < T := by linarith
+  have hPpos : 0 < P := by linarith
+  have hlogPpos : 0 < Real.log P := Real.log_pos (by linarith)
+  have hlog5T1 : 0 ≤ Real.log (5 * T + 1) := Real.log_nonneg (by linarith)
+  have hD4 : 0 ≤ (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+      * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ) :=
+    mul_nonneg (Real.rpow_nonneg hlog5T1 _) (by positivity)
+  have hεnn : 0 ≤ C₁ * P * Real.exp (-(c_vk / 2) * Real.log P
+        / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4) * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)))
+        * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4) * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ))
+      + C₂ * P * Real.log P / T
+      + C₃ * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+          * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) * P / T ^ 2 := by
+    have hA : 0 ≤ C₁ * P * Real.exp (-(c_vk / 2) * Real.log P
+          / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4) * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)))
+          * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) :=
+      mul_nonneg (mul_nonneg (mul_nonneg hC1.le hPpos.le) (Real.exp_pos _).le) hD4
+    have hB : 0 ≤ C₂ * P * Real.log P / T :=
+      div_nonneg (mul_nonneg (mul_nonneg hC2.le hPpos.le) hlogPpos.le) hTpos.le
+    have hCc : 0 ≤ C₃ * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) * P / T ^ 2 :=
+      div_nonneg (mul_nonneg (mul_nonneg hC3.le hD4) hPpos.le) (by positivity)
+    linarith
+  have hΔ0 : 0 ≤ (44 * Real.pi * P
+      + (C₁ * P * Real.exp (-(c_vk / 2) * Real.log P
+            / ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)))
+          * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+              * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ))
+        + C₂ * P * Real.log P / T
+        + C₃ * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+            * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) * P / T ^ 2) * (𝒯.card : ℝ))
+      / Real.log P := by
+    apply div_nonneg _ hlogPpos.le
+    have hcard : (0 : ℝ) ≤ (𝒯.card : ℝ) := by positivity
+    have h44 : (0 : ℝ) ≤ 44 * Real.pi * P := by positivity
+    nlinarith [mul_nonneg hεnn hcard]
+  exact (primes_dual_iff 𝒯 S hΔ0).mpr (hda T P hT hP 𝒯 hws hsub S hS) a
+
+
+/-! ### A-3 absorption machinery (`D₃(5T+1)→D₄(T)`)
+
+The analytic core of the frozen-header repackaging: `log u ≤ u^ε/ε` (from
+`log_le_sub_one`) gives `(loglog)⁴ ≤ (16/5)⁴·(log)^{5/4}`, and with
+`log(5T+1) ≤ 2 log T` the ratio bounds `D₃(5T+1) ≤ Cκ·D₄(T)` and
+`D₄(5T+1) ≤ K₂·(log T)²` follow — these price the exp-decay match and the
+`(log T)²` factor in the frozen `halasz_primes_pow`.  See the report for the
+remaining constant-assembly. -/
+
+/-- `log u ≤ u^ε / ε` for `u > 0`, `ε > 0` (apply `log_le_sub_one` to `u^ε`). -/
+lemma log_le_rpow_div {u ε : ℝ} (hu : 0 < u) (hε : 0 < ε) : Real.log u ≤ u ^ ε / ε := by
+  have h := Real.log_le_sub_one_of_pos (Real.rpow_pos_of_pos hu ε)
+  rw [Real.log_rpow hu] at h
+  rw [le_div_iff₀ hε]
+  linarith [Real.rpow_pos_of_pos hu ε]
+
+/-- `(loglog T)^4 ≤ (16/5)^4 · (log T)^{5/4}` once `log T ≥ 1`. -/
+lemma loglog4_le {T : ℝ} (hLT : 1 ≤ Real.log T) :
+    (Real.log (Real.log T)) ^ (4 : ℕ)
+      ≤ ((16 : ℝ) / 5) ^ (4 : ℕ) * (Real.log T) ^ ((5 : ℝ) / 4) := by
+  have hLT0 : 0 < Real.log T := by linarith
+  have hll0 : 0 ≤ Real.log (Real.log T) := Real.log_nonneg hLT
+  have hll : Real.log (Real.log T) ≤ (16 / 5) * (Real.log T) ^ ((5 : ℝ) / 16) := by
+    have h := log_le_rpow_div hLT0 (by norm_num : (0 : ℝ) < 5 / 16)
+    calc Real.log (Real.log T)
+        ≤ (Real.log T) ^ ((5 : ℝ) / 16) / (5 / 16) := h
+      _ = (16 / 5) * (Real.log T) ^ ((5 : ℝ) / 16) := by ring
+  calc (Real.log (Real.log T)) ^ (4 : ℕ)
+      ≤ ((16 / 5) * (Real.log T) ^ ((5 : ℝ) / 16)) ^ (4 : ℕ) := pow_le_pow_left₀ hll0 hll 4
+    _ = ((16 : ℝ) / 5) ^ (4 : ℕ) * ((Real.log T) ^ ((5 : ℝ) / 16)) ^ (4 : ℕ) := by rw [mul_pow]
+    _ = ((16 : ℝ) / 5) ^ (4 : ℕ) * (Real.log T) ^ ((5 : ℝ) / 4) := by
+        rw [← Real.rpow_natCast ((Real.log T) ^ ((5 : ℝ) / 16)) 4, ← Real.rpow_mul hLT0.le]
+        norm_num
+
+/-- `log (5T+1) ≤ 2 log T` for `T ≥ 6` (since `5T+1 ≤ T²`). -/
+lemma log5T1_le_two_logT {T : ℝ} (hT : 6 ≤ T) : Real.log (5 * T + 1) ≤ 2 * Real.log T := by
+  have hT0 : 0 < T := by linarith
+  have hle : 5 * T + 1 ≤ T ^ 2 := by nlinarith
+  have h1 : Real.log (5 * T + 1) ≤ Real.log (T ^ 2) := Real.log_le_log (by linarith) hle
+  rw [Real.log_pow] at h1
+  push_cast at h1; linarith
+
+/-- `loglog (5T+1) ≤ 2 loglog T` for `T ≥ 6`, `log T ≥ 1`, `loglog T ≥ 1`. -/
+lemma loglog5T1_le {T : ℝ} (hT : 6 ≤ T) (hLT1 : 1 ≤ Real.log T)
+    (hll1 : 1 ≤ Real.log (Real.log T)) :
+    Real.log (Real.log (5 * T + 1)) ≤ 2 * Real.log (Real.log T) := by
+  have hT0 : 0 < T := by linarith
+  have hlog5 : Real.log (5 * T + 1) ≤ 2 * Real.log T := log5T1_le_two_logT hT
+  have hlog5pos : 0 < Real.log (5 * T + 1) := Real.log_pos (by linarith)
+  have h1 : Real.log (Real.log (5 * T + 1)) ≤ Real.log (2 * Real.log T) :=
+    Real.log_le_log hlog5pos hlog5
+  rw [Real.log_mul (by norm_num) (by linarith : Real.log T ≠ 0)] at h1
+  have hlog2 : Real.log 2 ≤ 1 := by linarith [Real.log_le_sub_one_of_pos (by norm_num : (0:ℝ) < 2)]
+  linarith
+
+/-- `Cκ = 2^{3/4}·8`; the constant in `D₃(5T+1) ≤ Cκ·D₄(T)`. -/
+noncomputable def Cκ : ℝ := (2 : ℝ) ^ ((3 : ℝ) / 4) * 8
+
+/-- `D₃(5T+1) ≤ Cκ · D₄(T)`. -/
+lemma D3_5T1_le {T : ℝ} (hT : 6 ≤ T) (hLT1 : 1 ≤ Real.log T)
+    (hll1 : 1 ≤ Real.log (Real.log T)) :
+    (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4) * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)
+      ≤ Cκ * ((Real.log T) ^ ((3 : ℝ) / 4) * (Real.log (Real.log T)) ^ (4 : ℕ)) := by
+  have hT0 : 0 < T := by linarith
+  have hlog5 : Real.log (5 * T + 1) ≤ 2 * Real.log T := log5T1_le_two_logT hT
+  have hlog5nn : 0 ≤ Real.log (5 * T + 1) := Real.log_nonneg (by linarith)
+  have hloglog5 : Real.log (Real.log (5 * T + 1)) ≤ 2 * Real.log (Real.log T) :=
+    loglog5T1_le hT hLT1 hll1
+  have hlog5ge1 : 1 ≤ Real.log (5 * T + 1) :=
+    le_trans hLT1 (Real.log_le_log hT0 (by linarith : T ≤ 5 * T + 1))
+  have hloglog5nn : 0 ≤ Real.log (Real.log (5 * T + 1)) := Real.log_nonneg hlog5ge1
+  have hllTnn : 0 ≤ Real.log (Real.log T) := by linarith
+  -- rpow factor: (log(5T+1))^{3/4} ≤ 2^{3/4} (log T)^{3/4}
+  have hrp : (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+      ≤ (2 : ℝ) ^ ((3 : ℝ) / 4) * (Real.log T) ^ ((3 : ℝ) / 4) := by
+    calc (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+        ≤ (2 * Real.log T) ^ ((3 : ℝ) / 4) := Real.rpow_le_rpow hlog5nn hlog5 (by norm_num)
+      _ = (2 : ℝ) ^ ((3 : ℝ) / 4) * (Real.log T) ^ ((3 : ℝ) / 4) :=
+          Real.mul_rpow (by norm_num) (by linarith)
+  -- pow factor: (loglog(5T+1))^3 ≤ 8 (loglog T)^4
+  have hpw : (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)
+      ≤ 8 * (Real.log (Real.log T)) ^ (4 : ℕ) := by
+    calc (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)
+        ≤ (2 * Real.log (Real.log T)) ^ (3 : ℕ) := pow_le_pow_left₀ hloglog5nn hloglog5 3
+      _ = 8 * (Real.log (Real.log T)) ^ (3 : ℕ) := by ring
+      _ ≤ 8 * (Real.log (Real.log T)) ^ (4 : ℕ) := by
+          have : (Real.log (Real.log T)) ^ (3 : ℕ) ≤ (Real.log (Real.log T)) ^ (4 : ℕ) := by
+            calc (Real.log (Real.log T)) ^ (3 : ℕ)
+                = (Real.log (Real.log T)) ^ (3 : ℕ) * 1 := by ring
+              _ ≤ (Real.log (Real.log T)) ^ (3 : ℕ) * Real.log (Real.log T) := by
+                  apply mul_le_mul_of_nonneg_left hll1 (pow_nonneg hllTnn 3)
+              _ = (Real.log (Real.log T)) ^ (4 : ℕ) := by ring
+          linarith
+  -- combine
+  have hcombine := mul_le_mul hrp hpw (pow_nonneg hloglog5nn 3)
+    (mul_nonneg (Real.rpow_nonneg (by norm_num) _) (Real.rpow_nonneg (by linarith) _))
+  calc (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4) * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)
+      ≤ ((2 : ℝ) ^ ((3 : ℝ) / 4) * (Real.log T) ^ ((3 : ℝ) / 4))
+          * (8 * (Real.log (Real.log T)) ^ (4 : ℕ)) := hcombine
+    _ = Cκ * ((Real.log T) ^ ((3 : ℝ) / 4) * (Real.log (Real.log T)) ^ (4 : ℕ)) := by
+        rw [Cκ]; ring
+
+/-- `K₂ = 2^{3/4}·16·(16/5)^4`; the constant in `D₄(5T+1) ≤ K₂·(log T)²`. -/
+noncomputable def K₂ : ℝ := (2 : ℝ) ^ ((3 : ℝ) / 4) * 16 * ((16 : ℝ) / 5) ^ (4 : ℕ)
+
+/-- `D₄(5T+1) ≤ K₂ · (log T)²`. -/
+lemma D4_5T1_le {T : ℝ} (hT : 6 ≤ T) (hLT1 : 1 ≤ Real.log T)
+    (hll1 : 1 ≤ Real.log (Real.log T)) :
+    (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4) * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)
+      ≤ K₂ * (Real.log T) ^ 2 := by
+  have hT0 : 0 < T := by linarith
+  have hLT0 : 0 < Real.log T := by linarith
+  have hlog5 : Real.log (5 * T + 1) ≤ 2 * Real.log T := log5T1_le_two_logT hT
+  have hlog5nn : 0 ≤ Real.log (5 * T + 1) := Real.log_nonneg (by linarith)
+  have hlog5ge1 : 1 ≤ Real.log (5 * T + 1) :=
+    le_trans hLT1 (Real.log_le_log hT0 (by linarith : T ≤ 5 * T + 1))
+  have hloglog5 : Real.log (Real.log (5 * T + 1)) ≤ 2 * Real.log (Real.log T) :=
+    loglog5T1_le hT hLT1 hll1
+  have hloglog5nn : 0 ≤ Real.log (Real.log (5 * T + 1)) := Real.log_nonneg hlog5ge1
+  have hllTnn : 0 ≤ Real.log (Real.log T) := by linarith
+  have hrp : (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+      ≤ (2 : ℝ) ^ ((3 : ℝ) / 4) * (Real.log T) ^ ((3 : ℝ) / 4) := by
+    calc (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+        ≤ (2 * Real.log T) ^ ((3 : ℝ) / 4) := Real.rpow_le_rpow hlog5nn hlog5 (by norm_num)
+      _ = (2 : ℝ) ^ ((3 : ℝ) / 4) * (Real.log T) ^ ((3 : ℝ) / 4) :=
+          Real.mul_rpow (by norm_num) (by linarith)
+  have hpw4 : (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)
+      ≤ 16 * ((16 : ℝ) / 5) ^ (4 : ℕ) * (Real.log T) ^ ((5 : ℝ) / 4) := by
+    calc (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)
+        ≤ (2 * Real.log (Real.log T)) ^ (4 : ℕ) := pow_le_pow_left₀ hloglog5nn hloglog5 4
+      _ = 16 * (Real.log (Real.log T)) ^ (4 : ℕ) := by ring
+      _ ≤ 16 * (((16 : ℝ) / 5) ^ (4 : ℕ) * (Real.log T) ^ ((5 : ℝ) / 4)) :=
+          mul_le_mul_of_nonneg_left (loglog4_le hLT1) (by norm_num)
+      _ = 16 * ((16 : ℝ) / 5) ^ (4 : ℕ) * (Real.log T) ^ ((5 : ℝ) / 4) := by ring
+  have hrpnn : 0 ≤ (2 : ℝ) ^ ((3 : ℝ) / 4) * (Real.log T) ^ ((3 : ℝ) / 4) :=
+    mul_nonneg (Real.rpow_nonneg (by norm_num) _) (Real.rpow_nonneg hLT0.le _)
+  have hcombine := mul_le_mul hrp hpw4 (pow_nonneg hloglog5nn 4) hrpnn
+  calc (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4) * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)
+      ≤ ((2 : ℝ) ^ ((3 : ℝ) / 4) * (Real.log T) ^ ((3 : ℝ) / 4))
+          * (16 * ((16 : ℝ) / 5) ^ (4 : ℕ) * (Real.log T) ^ ((5 : ℝ) / 4)) := hcombine
+    _ = K₂ * ((Real.log T) ^ ((3 : ℝ) / 4) * (Real.log T) ^ ((5 : ℝ) / 4)) := by rw [K₂]; ring
+    _ = K₂ * (Real.log T) ^ 2 := by
+        rw [← Real.rpow_add hLT0]
+        norm_num
+
+end L11Assembly
+
 end Salt.MR
