@@ -1,7 +1,24 @@
 # THE PINNED ASSEMBLY — the terminal assembly's closing block
 
-*Maestro design block, 2026-07-23 ~10:50. Status: DRAFT — refuter
-pass firing. THE LAST DESIGN BLOCK OF THE TERMINAL ASSEMBLY: every
+*Maestro design block, 2026-07-23 ~10:50. Status: **HOLD (refuted
+~11:15) — the composition premise was FALSE.** PAGE-REF (FATAL): the
+landed crude surfaces compose to L^{3/2}·X·e^{-cM} (numerics at four
+corners; super-polynomial at the sliver floor) via two INDEPENDENT
+intrinsic losses — (A) norm_hatKernel_le's sqrt-L ramp (the seam's
+PASSING ledger used the MEAN-VALUE head bound |hatKernel| ~
+(a+1)X^a/|s|^2, NOT landed); (B) k4_plan_le_diag_sharp DROPS
+exp(-c|log m/n|) ('the only thing dropped') and that drop costs a
+factor L — the sharp single-min form needs the off-diagonal KEPT.
+BINDER-REF (REPAIRABLE): the datum seam — head_sigma_bound decays in
+the g-datum distance while scale_floor_Mrange floors the g-FREE one;
+M_range(1) is the WRONG M in the strong-cancellation regime; the
+g-datum floor clone is the repair. THE TRUE FRONTIER, now named:
+THREE SHARP STONES — (S-i) the MVT kernel head bound; (S-ii) the
+off-diagonal-KEPT window evaluation on top of the LANDED
+dirichlet_plancherel (the HalaszSeam:110-115 'mathlib-absent' note
+may predate that landing — SHARP-SCOPE verifying); (S-iii) the
+g-datum M_range floor. The refuters' arithmetic says the sharp seam
+route PASSES — the ledger was always built on the sharp forms. THE LAST DESIGN BLOCK OF THE TERMINAL ASSEMBLY: every
 ingredient below is LANDED; this block pins the free parameters and
 composes the chain end to end. On its wave's landing, Part 3's T1
 row discharges and the terminal assembly stands whole.*
