@@ -349,3 +349,7 @@ open Salt.Tactic in
   Salt.MR.kernel_tail_mass
   Salt.MR.tail_band_sum
   Salt.MR.offdiag_widthA_sharp
+  Salt.MR.hband_discharge
+  Salt.MR.offdiag_widthA_final
+  Salt.MR.head_second_moment_grade
+  Salt.MR.crossKer_head_tail_grade

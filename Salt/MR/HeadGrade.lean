@@ -1016,4 +1016,418 @@ and — new here — the SHARP `1/a` off-diagonal **analytic core** `offdiag_wid
 Stone 8 (`ysqrtL_coda`) remains a flag — the `siegelWalfisz` PNT-lift alternative to the
 concession is named as future work, not built. -/
 
+/-! ## Stone D — discharging `hband` at the y-gate (`hband_discharge`, `offdiag_widthA_final`)
+
+The last research ledge of the sharp off-diagonal, now discharged under the **y-gate**
+`2·a^8 ≤ n` (every window element above `2 a^8`) with `4 ≤ a`.  `hband_discharge` proves the
+per-band `Λ`-mass datum `hband` of `offdiag_widthA_sharp` unconditionally in that regime: each
+nonempty fiber `{m ∈ F, m < n : ⌊a(log n − log m)⌋₊ = k}` sits inside the short interval
+`Ioc ⌊Lₖ⌋₊ ⌊Lₖ+Hₖ⌋₊` (`Lₖ = n e^{−(k+1)/a}`, `Rₖ = n e^{−k/a}`, `Hₖ = Rₖ−Lₖ`), and the y-gate
+puts every such interval in `shortInterval_vonMangoldt_le`'s regime (`65536 ≤ Lₖ`, `Hₖ ≤ Lₖ`,
+`Lₖ ≤ Hₖ·√√√Lₖ`, using `Rₖ ≥ 2 a^8` from any fiber element, `e^{1/a} ≤ 2`, and `Lₖ ≥ a^8 ≥
+65536`), giving `∑_{fiber}Λ ≤ C·Hₖ ≤ C·(n/a)e^{−k/a}`.  Fibers with no element are trivially
+bounded — the y-gate makes them the ONLY out-of-regime case (the concession is EMPTY).
+`offdiag_widthA_final` feeds this into `offdiag_widthA_sharp` and symmetrizes to the full
+`m ≠ n` off-diagonal: `≤ 4·C/(a−c+1)·(single mass)`, the sharp `1/a` decay with no `hband`, no
+concession.  `C` is `shortInterval_vonMangoldt_le`'s absolute constant (`= 250`).
+
+The honest constant: `2 a^8` (not the flag's aspirational `a^8`) is the exact concession
+threshold — the `factor 2` is the slack from `e^{1/a} ≤ 2`; it does not change the grade
+(`1/(a−c+1) ≍ 1/a` decay intact). -/
+
+/-- For a symmetric kernel `T`, the full `m ≠ n` off-diagonal is twice its strict lower part. -/
+private lemma sum_ne_eq_two_lt {F : Finset ℕ} {T : ℕ → ℕ → ℝ}
+    (hsymm : ∀ m n, T m n = T n m) :
+    ∑ m ∈ F, ∑ n ∈ F, (if m ≠ n then T m n else 0)
+      = 2 * ∑ m ∈ F, ∑ n ∈ F, (if m < n then T m n else 0) := by
+  have hsplit : ∀ m n : ℕ, (if m ≠ n then T m n else 0)
+      = (if m < n then T m n else 0) + (if n < m then T m n else 0) := by
+    intro m n
+    rcases lt_trichotomy m n with h | h | h
+    · rw [if_pos (ne_of_lt h), if_pos h, if_neg (not_lt.mpr h.le), add_zero]
+    · rw [if_neg (by simp [h]), if_neg (by simp [h]), if_neg (by simp [h]), add_zero]
+    · rw [if_pos (ne_of_gt h), if_neg (not_lt.mpr h.le), if_pos h, zero_add]
+  have hlow : ∑ m ∈ F, ∑ n ∈ F, (if n < m then T m n else 0)
+      = ∑ m ∈ F, ∑ n ∈ F, (if m < n then T m n else 0) := by
+    rw [Finset.sum_comm]
+    exact Finset.sum_congr rfl (fun m _ => Finset.sum_congr rfl (fun n _ => by rw [hsymm n m]))
+  calc ∑ m ∈ F, ∑ n ∈ F, (if m ≠ n then T m n else 0)
+      = ∑ m ∈ F, ∑ n ∈ F, ((if m < n then T m n else 0) + (if n < m then T m n else 0)) :=
+        Finset.sum_congr rfl (fun m _ => Finset.sum_congr rfl (fun n _ => hsplit m n))
+    _ = (∑ m ∈ F, ∑ n ∈ F, (if m < n then T m n else 0))
+          + ∑ m ∈ F, ∑ n ∈ F, (if n < m then T m n else 0) := by
+        rw [← Finset.sum_add_distrib]
+        exact Finset.sum_congr rfl (fun m _ => by rw [Finset.sum_add_distrib])
+    _ = 2 * ∑ m ∈ F, ∑ n ∈ F, (if m < n then T m n else 0) := by rw [hlow]; ring
+
+/-- **Stone D core — the `hband` discharge at the y-gate** (`hband_discharge`).  For `4 ≤ a`,
+`Λ`-bounded coefficients, and the y-gate `2·a^8 ≤ n` on `F`, the per-band `Λ`-mass datum of
+`offdiag_widthA_sharp` holds with the absolute constant `C` of `shortInterval_vonMangoldt_le`:
+every nonempty fiber is a short interval in regime; empty fibers are trivial. -/
+theorem hband_discharge {F : Finset ℕ} {b : ℕ → ℂ} {a : ℝ} (ha4 : 4 ≤ a)
+    (hF : ∀ n ∈ F, 1 ≤ n) (hb : ∀ n, ‖b n‖ ≤ ArithmeticFunction.vonMangoldt n)
+    (hygate : ∀ n ∈ F, 2 * a ^ 8 ≤ (n : ℝ)) :
+    ∃ Cb : ℝ, 0 ≤ Cb ∧ ∀ n ∈ F, ∀ k : ℕ,
+      (∑ m ∈ (F.filter (· < n)).filter
+          (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊ = k), ‖b m‖)
+        ≤ Cb * (n : ℝ) / a * Real.exp (-((k : ℝ) / a)) := by
+  obtain ⟨C, hC0, hCbound⟩ := shortInterval_vonMangoldt_le
+  have ha0 : (0 : ℝ) < a := by linarith
+  -- e^{1/a} ≤ 2 for a ≥ 4
+  have hexp_le2 : Real.exp (1 / a) ≤ 2 := by
+    have h14 : (1 : ℝ) / a ≤ 1 / 2 := by
+      rw [div_le_div_iff₀ ha0 (by norm_num)]; linarith
+    have he12 : Real.exp (1 / 2 : ℝ) < 2 := by
+      have hsq : Real.exp (1 / 2 : ℝ) ^ 2 = Real.exp 1 := by
+        rw [← Real.exp_nat_mul]; norm_num
+      nlinarith [hsq, Real.exp_one_lt_d9, Real.exp_pos (1 / 2 : ℝ)]
+    calc Real.exp (1 / a) ≤ Real.exp (1 / 2 : ℝ) := Real.exp_le_exp.mpr h14
+      _ ≤ 2 := le_of_lt he12
+  refine ⟨C, hC0, fun n hn k => ?_⟩
+  have hn1 : 1 ≤ n := hF n hn
+  have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn1
+  have hnY : 2 * a ^ 8 ≤ (n : ℝ) := hygate n hn
+  set Rk : ℝ := (n : ℝ) * Real.exp (-((k : ℝ) / a)) with hRkdef
+  set Lk : ℝ := (n : ℝ) * Real.exp (-(((k : ℝ) + 1) / a)) with hLkdef
+  have hLk0 : (0 : ℝ) < Lk := by rw [hLkdef]; exact mul_pos hn0 (Real.exp_pos _)
+  have hRk0 : (0 : ℝ) < Rk := by rw [hRkdef]; exact mul_pos hn0 (Real.exp_pos _)
+  have hRL : Rk = Lk * Real.exp (1 / a) := by
+    rw [hLkdef, hRkdef, mul_assoc, ← Real.exp_add]; congr 2; ring
+  have hLkRk2 : Lk = Rk * Real.exp (-(1 / a)) := by
+    rw [hLkdef, hRkdef, mul_assoc, ← Real.exp_add]; congr 2; ring
+  set Fib := (F.filter (· < n)).filter
+      (fun m : ℕ => ⌊a * (Real.log (n : ℝ) - Real.log (m : ℝ))⌋₊ = k) with hFibdef
+  -- each fiber element lies in (Lk, Rk]
+  have hmem : ∀ m ∈ Fib, Lk < (m : ℝ) ∧ (m : ℝ) ≤ Rk := by
+    intro m hm
+    rw [hFibdef, Finset.mem_filter, Finset.mem_filter] at hm
+    obtain ⟨⟨hmF, hmn⟩, hk⟩ := hm
+    have hm1 : 1 ≤ m := hF m hmF
+    have hm0 : (0 : ℝ) < (m : ℝ) := by exact_mod_cast hm1
+    have hloglt : Real.log (m : ℝ) < Real.log (n : ℝ) :=
+      Real.log_lt_log hm0 (by exact_mod_cast hmn)
+    have hx0 : (0 : ℝ) ≤ a * (Real.log (n : ℝ) - Real.log (m : ℝ)) :=
+      mul_nonneg ha0.le (by linarith)
+    obtain ⟨hkle, hklt⟩ := (Nat.floor_eq_iff hx0).mp hk
+    refine ⟨?_, ?_⟩
+    · -- Lk < (m:ℝ)
+      have hlt2 : Real.log (n : ℝ) - Real.log (m : ℝ) < ((k : ℝ) + 1) / a := by
+        rw [lt_div_iff₀ ha0, mul_comm]; linarith [hklt]
+      have hlogm_gt : Real.log (n : ℝ) - ((k : ℝ) + 1) / a < Real.log (m : ℝ) := by linarith
+      rw [hLkdef]
+      calc (n : ℝ) * Real.exp (-(((k : ℝ) + 1) / a))
+          = Real.exp (Real.log (n : ℝ) - ((k : ℝ) + 1) / a) := by
+            rw [show Real.log (n : ℝ) - ((k : ℝ) + 1) / a
+                  = Real.log (n : ℝ) + (-(((k : ℝ) + 1) / a)) from by ring,
+              Real.exp_add, Real.exp_log hn0]
+        _ < Real.exp (Real.log (m : ℝ)) := Real.exp_lt_exp.mpr hlogm_gt
+        _ = (m : ℝ) := Real.exp_log hm0
+    · -- (m:ℝ) ≤ Rk
+      have hge2 : (k : ℝ) / a ≤ Real.log (n : ℝ) - Real.log (m : ℝ) := by
+        rw [div_le_iff₀ ha0, mul_comm]; linarith [hkle]
+      have hlogm_le : Real.log (m : ℝ) ≤ Real.log (n : ℝ) - (k : ℝ) / a := by linarith
+      rw [hRkdef]
+      calc (m : ℝ) = Real.exp (Real.log (m : ℝ)) := (Real.exp_log hm0).symm
+        _ ≤ Real.exp (Real.log (n : ℝ) - (k : ℝ) / a) := Real.exp_le_exp.mpr hlogm_le
+        _ = (n : ℝ) * Real.exp (-((k : ℝ) / a)) := by
+            rw [show Real.log (n : ℝ) - (k : ℝ) / a
+                  = Real.log (n : ℝ) + (-((k : ℝ) / a)) from by ring,
+              Real.exp_add, Real.exp_log hn0]
+  -- fiber ⊆ Ioc ⌊Lk⌋₊ ⌊Rk⌋₊
+  have hsub : Fib ⊆ Finset.Ioc ⌊Lk⌋₊ ⌊Rk⌋₊ := by
+    intro m hm
+    obtain ⟨hlo, hhi⟩ := hmem m hm
+    rw [Finset.mem_Ioc]
+    exact ⟨(Nat.floor_lt hLk0.le).mpr hlo, Nat.le_floor hhi⟩
+  -- the fiber Λ-mass ≤ the interval Λ-mass
+  have hfib_le : (∑ m ∈ Fib, ‖b m‖)
+      ≤ ∑ m ∈ Finset.Ioc ⌊Lk⌋₊ ⌊Rk⌋₊, ArithmeticFunction.vonMangoldt m := by
+    calc (∑ m ∈ Fib, ‖b m‖) ≤ ∑ m ∈ Fib, ArithmeticFunction.vonMangoldt m :=
+          Finset.sum_le_sum (fun m _ => hb m)
+      _ ≤ ∑ m ∈ Finset.Ioc ⌊Lk⌋₊ ⌊Rk⌋₊, ArithmeticFunction.vonMangoldt m :=
+          Finset.sum_le_sum_of_subset_of_nonneg hsub
+            (fun i _ _ => ArithmeticFunction.vonMangoldt_nonneg)
+  have hRHS0 : (0 : ℝ) ≤ C * (n : ℝ) / a * Real.exp (-((k : ℝ) / a)) :=
+    mul_nonneg (div_nonneg (mul_nonneg hC0 hn0.le) ha0.le) (Real.exp_nonneg _)
+  -- Hk ≤ (n/a) e^{-k/a}
+  have h1me : 1 - Real.exp (-(1 / a)) ≤ 1 / a := by linarith [Real.add_one_le_exp (-(1 / a))]
+  have hHk_bound : Rk - Lk ≤ (n : ℝ) / a * Real.exp (-((k : ℝ) / a)) := by
+    rw [hLkRk2]
+    have hfac : Rk - Rk * Real.exp (-(1 / a)) = Rk * (1 - Real.exp (-(1 / a))) := by ring
+    rw [hfac]
+    calc Rk * (1 - Real.exp (-(1 / a))) ≤ Rk * (1 / a) :=
+          mul_le_mul_of_nonneg_left h1me hRk0.le
+      _ = (n : ℝ) / a * Real.exp (-((k : ℝ) / a)) := by rw [hRkdef]; ring
+  rcases Finset.eq_empty_or_nonempty Fib with hE | ⟨m₀, hm₀⟩
+  · rw [hE, Finset.sum_empty]; exact hRHS0
+  · have hm₀' := hm₀
+    rw [hFibdef, Finset.mem_filter, Finset.mem_filter] at hm₀'
+    obtain ⟨⟨hm₀F, -⟩, -⟩ := hm₀'
+    have hRkY : 2 * a ^ 8 ≤ Rk := le_trans (hygate m₀ hm₀F) (hmem m₀ hm₀).2
+    have ha8_65536 : (65536 : ℝ) ≤ a ^ 8 := by
+      calc (65536 : ℝ) = 4 ^ 8 := by norm_num
+        _ ≤ a ^ 8 := by gcongr
+    -- Lk ≥ a^8
+    have hLk_ge_a8 : a ^ 8 ≤ Lk := by
+      have hLkRk : Lk = Rk / Real.exp (1 / a) := by
+        rw [hRL, mul_div_assoc, div_self (Real.exp_pos _).ne', mul_one]
+      rw [hLkRk, le_div_iff₀ (Real.exp_pos _)]
+      linarith [hRkY, mul_le_mul_of_nonneg_left hexp_le2 (pow_nonneg ha0.le 8)]
+    have hLk_65536 : (65536 : ℝ) ≤ Lk := le_trans ha8_65536 hLk_ge_a8
+    -- Hk ≤ Lk
+    have hHa : Rk - Lk ≤ Lk := by
+      have h2 : Lk * Real.exp (1 / a) ≤ Lk * 2 := mul_le_mul_of_nonneg_left hexp_le2 hLk0.le
+      rw [hRL]; linarith [h2]
+    -- Hk ≥ Lk / a
+    have hHk_ge : Lk / a ≤ Rk - Lk := by
+      have hEexp : 1 / a + 1 ≤ Real.exp (1 / a) := Real.add_one_le_exp (1 / a)
+      have hkey : Lk / a ≤ Lk * (Real.exp (1 / a) - 1) := by
+        rw [div_eq_mul_inv, ← one_div]
+        exact mul_le_mul_of_nonneg_left (by linarith [hEexp]) hLk0.le
+      calc Lk / a ≤ Lk * (Real.exp (1 / a) - 1) := hkey
+        _ = Rk - Lk := by rw [hRL]; ring
+    -- Lk ≤ Hk · √√√Lk
+    have hs8 : Real.sqrt (Real.sqrt (Real.sqrt Lk)) ^ 8 = Lk := by
+      set s := Real.sqrt (Real.sqrt (Real.sqrt Lk)) with hs
+      have h2 : s ^ 2 = Real.sqrt (Real.sqrt Lk) := Real.sq_sqrt (Real.sqrt_nonneg _)
+      have h4 : s ^ 4 = Real.sqrt Lk := by
+        have hpow : s ^ 4 = (s ^ 2) ^ 2 := by ring
+        rw [hpow, h2, Real.sq_sqrt (Real.sqrt_nonneg _)]
+      have hpow8 : s ^ 8 = (s ^ 4) ^ 2 := by ring
+      rw [hpow8, h4, Real.sq_sqrt hLk0.le]
+    have hsa : a ≤ Real.sqrt (Real.sqrt (Real.sqrt Lk)) :=
+      le_of_pow_le_pow_left₀ (by norm_num : (8 : ℕ) ≠ 0) (Real.sqrt_nonneg _)
+        (by rw [hs8]; exact hLk_ge_a8)
+    have hHr : Lk ≤ (Rk - Lk) * Real.sqrt (Real.sqrt (Real.sqrt Lk)) := by
+      calc Lk = Lk / a * a := by field_simp
+        _ ≤ Lk / a * Real.sqrt (Real.sqrt (Real.sqrt Lk)) :=
+            mul_le_mul_of_nonneg_left hsa (div_nonneg hLk0.le ha0.le)
+        _ ≤ (Rk - Lk) * Real.sqrt (Real.sqrt (Real.sqrt Lk)) :=
+            mul_le_mul_of_nonneg_right hHk_ge (Real.sqrt_nonneg _)
+    have hshort := hCbound Lk (Rk - Lk) hLk_65536 hHr hHa
+    have hfloor : ⌊Lk + (Rk - Lk)⌋₊ = ⌊Rk⌋₊ := by congr 1; ring
+    rw [hfloor] at hshort
+    calc (∑ m ∈ Fib, ‖b m‖)
+        ≤ ∑ m ∈ Finset.Ioc ⌊Lk⌋₊ ⌊Rk⌋₊, ArithmeticFunction.vonMangoldt m := hfib_le
+      _ ≤ C * (Rk - Lk) := hshort
+      _ ≤ C * ((n : ℝ) / a * Real.exp (-((k : ℝ) / a))) :=
+          mul_le_mul_of_nonneg_left hHk_bound hC0
+      _ = C * (n : ℝ) / a * Real.exp (-((k : ℝ) / a)) := by ring
+
+/-- **Stone D — the fully-discharged sharp off-diagonal at the y-gate** (`offdiag_widthA_final`).
+Under the y-gate `2·a^8 ≤ n`, `1 ≤ c ≤ a`, `4 ≤ a`, and `Λ`-bounded coefficients, the FULL
+off-diagonal (`m ≠ n`) norm sum carries the sharp `1/(a−c+1) ≍ 1/a` decay with NO `hband`, NO
+concession: `∑_{m≠n∈F} ‖b_m‖‖b_n‖/(mn)^c·e^{−a|log m−log n|} ≤ 4·C/(a−c+1)·∑_{n∈F} ‖b_n‖/n^c`,
+`C` the absolute constant of `shortInterval_vonMangoldt_le` (`= 250`). -/
+theorem offdiag_widthA_final {F : Finset ℕ} {b : ℕ → ℂ} {c a : ℝ}
+    (hc : 1 ≤ c) (hca : c ≤ a) (ha4 : 4 ≤ a)
+    (hF : ∀ n ∈ F, 1 ≤ n) (hb : ∀ n, ‖b n‖ ≤ ArithmeticFunction.vonMangoldt n)
+    (hygate : ∀ n ∈ F, 2 * a ^ 8 ≤ (n : ℝ)) :
+    ∃ Cb : ℝ, 0 ≤ Cb ∧
+      (∑ m ∈ F, ∑ n ∈ F, if m ≠ n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(a * |Real.log m - Real.log n|)) else 0)
+        ≤ 4 * Cb / (a - c + 1) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c := by
+  obtain ⟨C, hC0, hband⟩ := hband_discharge ha4 hF hb hygate
+  refine ⟨C, hC0, ?_⟩
+  have hsharp := offdiag_widthA_sharp hc hca hF hC0 hband
+  have hsymm : ∀ m n : ℕ,
+      ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c * Real.exp (-(a * |Real.log m - Real.log n|))
+        = ‖b n‖ * ‖b m‖ / ((n * m : ℕ) : ℝ) ^ c
+            * Real.exp (-(a * |Real.log n - Real.log m|)) := by
+    intro m n
+    rw [mul_comm (‖b m‖) (‖b n‖), Nat.mul_comm m n, abs_sub_comm (Real.log m) (Real.log n)]
+  calc (∑ m ∈ F, ∑ n ∈ F, if m ≠ n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(a * |Real.log m - Real.log n|)) else 0)
+      = 2 * ∑ m ∈ F, ∑ n ∈ F, (if m < n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(a * |Real.log m - Real.log n|)) else 0) := sum_ne_eq_two_lt hsymm
+    _ ≤ 2 * (2 * C / (a - c + 1) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c) :=
+        mul_le_mul_of_nonneg_left hsharp (by norm_num)
+    _ = 4 * C / (a - c + 1) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c := by ring
+
+/-! ## Stone 5 — the head weighted second moment (`head_second_moment_grade`)
+
+The branch-1 weighted second moment of the window Dirichlet polynomial over the head band
+`|τ| ≤ T₀`, evaluated to `C·mass` (off-diagonal) + `T₀·diagonal` (diagonal floor).  This is the
+DIRECT route (`band_second_moment` at width `T₀`), not the dyadic annulus decomposition: the
+crude `1/√(cw²+τ²) ≤ 1/cw` on the whole band, then `band_second_moment` (width `a = T₀`) +
+`widthA_plancherel` + the diagonal/off-diagonal split with `offdiag_widthA_final`.  Cost vs. the
+dyadic sharpening: the diagonal factor is `T₀ ≍ √L` rather than the sharp `(J+1) ≍ log L`.  This
+is NOT load-bearing: the window diagonal `∑_n ‖b_n‖²/n^{2c} ≍ (log y)²/y` is astronomically small
+under the y-gate `n ≥ 2 T₀^8 ≍ L^4` (so `y ≳ L^4`), whence even `√L·diagonal` is negligible — the
+constant-`X` grade lands either way.  The off-diagonal `1/(a−c+1)` decay (from
+`offdiag_widthA_final`) is what removes the `log log X`; that is what mattered.
+
+Exit: `∫_{|τ|≤T₀} ‖P(c+iτ)‖²/√(cw²+τ²) ≤ (2π T₀/cw)·(diagonal + 4·C/(T₀−c+1)·mass)`, `C` the
+absolute `shortInterval` constant — the shape `stone 7` feeds through `mixed_weight_cs` at the
+branch-1 weight (`cw = c₀−α−β`). -/
+theorem head_second_moment_grade {F : Finset ℕ} {b : ℕ → ℂ} {c cw T₀ : ℝ}
+    (hc : 1 ≤ c) (hcw : 0 < cw) (hT₀ : 4 ≤ T₀) (hcT : c ≤ T₀)
+    (hF : ∀ n ∈ F, 1 ≤ n) (hb : ∀ n, ‖b n‖ ≤ ArithmeticFunction.vonMangoldt n)
+    (hygate : ∀ n ∈ F, 2 * T₀ ^ 8 ≤ (n : ℝ)) :
+    ∃ Cb : ℝ, 0 ≤ Cb ∧
+      (∫ τ in Set.Icc (-T₀) T₀,
+          ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 / Real.sqrt (cw ^ 2 + τ ^ 2))
+        ≤ 2 * Real.pi * T₀ / cw
+            * ((∑ n ∈ F, ‖b n‖ ^ 2 / ((n * n : ℕ) : ℝ) ^ c)
+              + 4 * Cb / (T₀ - c + 1) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c) := by
+  have hT₀0 : (0 : ℝ) < T₀ := by linarith
+  obtain ⟨C, hC0, hoff⟩ := offdiag_widthA_final hc hcT hT₀ hF hb hygate
+  have hden_pos : ∀ τ : ℝ, (0 : ℝ) < cw ^ 2 + τ ^ 2 := fun τ => by
+    have h := pow_pos hcw 2; linarith [sq_nonneg τ]
+  have hPcont : Continuous (fun τ : ℝ => ∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)) :=
+    continuous_dirichletPoly F b c hF
+  have hcw_le_sqrt : ∀ τ : ℝ, cw ≤ Real.sqrt (cw ^ 2 + τ ^ 2) := fun τ =>
+    calc cw = Real.sqrt (cw ^ 2) := (Real.sqrt_sq hcw.le).symm
+      _ ≤ Real.sqrt (cw ^ 2 + τ ^ 2) := Real.sqrt_le_sqrt (by linarith [sq_nonneg τ])
+  -- integrability on the band
+  have hIntW : IntegrableOn (fun τ : ℝ =>
+      ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 / Real.sqrt (cw ^ 2 + τ ^ 2))
+      (Set.Icc (-T₀) T₀) :=
+    ((hPcont.norm.pow 2).div (Real.continuous_sqrt.comp (by fun_prop))
+      (fun τ => (Real.sqrt_pos.mpr (hden_pos τ)).ne')).integrableOn_Icc
+  have hIntQ : IntegrableOn (fun τ : ℝ =>
+      cw⁻¹ * ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2)
+      (Set.Icc (-T₀) T₀) :=
+    (continuous_const.mul (hPcont.norm.pow 2)).integrableOn_Icc
+  -- step 1: 1/√ ≤ 1/cw, integrate
+  have hstep1 : (∫ τ in Set.Icc (-T₀) T₀,
+        ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 / Real.sqrt (cw ^ 2 + τ ^ 2))
+      ≤ cw⁻¹ * ∫ τ in Set.Icc (-T₀) T₀,
+          ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 := by
+    rw [← integral_const_mul]
+    refine setIntegral_mono_on hIntW hIntQ measurableSet_Icc (fun τ _ => ?_)
+    calc ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 / Real.sqrt (cw ^ 2 + τ ^ 2)
+        ≤ ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 / cw :=
+          div_le_div_of_nonneg_left (by positivity) hcw (hcw_le_sqrt τ)
+      _ = cw⁻¹ * ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 := div_eq_inv_mul _ _
+  -- band second moment + width-`T₀` Plancherel
+  have hbsm := band_second_moment F b (c := c) hT₀0 hF
+  have hplanch := widthA_plancherel F b (c := c) hT₀0 hF
+  -- the norm-kernel diagonal/off-diagonal split, dominating the Plancherel `.re` sum
+  have hRe_le_K : ∀ m n : ℕ,
+      (b m * starRingEnd ℂ (b n)).re / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(T₀ * |Real.log m - Real.log n|))
+        ≤ ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(T₀ * |Real.log m - Real.log n|)) := by
+    intro m n
+    have hre : (b m * starRingEnd ℂ (b n)).re ≤ ‖b m‖ * ‖b n‖ := by
+      have h1 := Complex.re_le_norm (b m * starRingEnd ℂ (b n))
+      rwa [norm_mul, Complex.norm_conj] at h1
+    have hE : (0 : ℝ) ≤ (((m * n : ℕ) : ℝ) ^ c)⁻¹
+        * Real.exp (-(T₀ * |Real.log m - Real.log n|)) := by positivity
+    calc (b m * starRingEnd ℂ (b n)).re / ((m * n : ℕ) : ℝ) ^ c
+            * Real.exp (-(T₀ * |Real.log m - Real.log n|))
+        = (b m * starRingEnd ℂ (b n)).re
+            * ((((m * n : ℕ) : ℝ) ^ c)⁻¹ * Real.exp (-(T₀ * |Real.log m - Real.log n|))) := by
+          rw [div_eq_mul_inv]; ring
+      _ ≤ ‖b m‖ * ‖b n‖
+            * ((((m * n : ℕ) : ℝ) ^ c)⁻¹ * Real.exp (-(T₀ * |Real.log m - Real.log n|))) :=
+          mul_le_mul_of_nonneg_right hre hE
+      _ = ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+            * Real.exp (-(T₀ * |Real.log m - Real.log n|)) := by rw [div_eq_mul_inv]; ring
+  have hper_m : ∀ m ∈ F,
+      (∑ n ∈ F, ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(T₀ * |Real.log m - Real.log n|)))
+        = ‖b m‖ ^ 2 / ((m * m : ℕ) : ℝ) ^ c
+          + ∑ n ∈ F, (if m ≠ n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+              * Real.exp (-(T₀ * |Real.log m - Real.log n|)) else 0) := by
+    intro m hm
+    have he1 : (∑ n ∈ F, ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(T₀ * |Real.log m - Real.log n|)))
+        = ∑ n ∈ F, ((if m = n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+              * Real.exp (-(T₀ * |Real.log m - Real.log n|)) else 0)
+            + (if m ≠ n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+              * Real.exp (-(T₀ * |Real.log m - Real.log n|)) else 0)) := by
+      refine Finset.sum_congr rfl (fun n _ => ?_)
+      by_cases h : m = n
+      · rw [if_pos h, if_neg (by simp [h]), add_zero]
+      · rw [if_neg h, if_pos h, zero_add]
+    rw [he1, Finset.sum_add_distrib]
+    congr 1
+    rw [Finset.sum_ite_eq F m (fun n => ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+        * Real.exp (-(T₀ * |Real.log m - Real.log n|))), if_pos hm,
+      sub_self, abs_zero, mul_zero, neg_zero, Real.exp_zero, mul_one, ← pow_two]
+  have hKsplit : (∑ m ∈ F, ∑ n ∈ F, ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(T₀ * |Real.log m - Real.log n|)))
+        = (∑ m ∈ F, ‖b m‖ ^ 2 / ((m * m : ℕ) : ℝ) ^ c)
+          + ∑ m ∈ F, ∑ n ∈ F, (if m ≠ n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+              * Real.exp (-(T₀ * |Real.log m - Real.log n|)) else 0) := by
+    rw [Finset.sum_congr rfl hper_m, Finset.sum_add_distrib]
+  have hfinal_planch : (∑ m ∈ F, ∑ n ∈ F, (b m * starRingEnd ℂ (b n)).re / ((m * n : ℕ) : ℝ) ^ c
+          * Real.exp (-(T₀ * |Real.log m - Real.log n|)))
+        ≤ (∑ n ∈ F, ‖b n‖ ^ 2 / ((n * n : ℕ) : ℝ) ^ c)
+          + 4 * C / (T₀ - c + 1) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c := by
+    calc (∑ m ∈ F, ∑ n ∈ F, (b m * starRingEnd ℂ (b n)).re / ((m * n : ℕ) : ℝ) ^ c
+            * Real.exp (-(T₀ * |Real.log m - Real.log n|)))
+        ≤ ∑ m ∈ F, ∑ n ∈ F, ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+            * Real.exp (-(T₀ * |Real.log m - Real.log n|)) :=
+          Finset.sum_le_sum (fun m _ => Finset.sum_le_sum (fun n _ => hRe_le_K m n))
+      _ = (∑ m ∈ F, ‖b m‖ ^ 2 / ((m * m : ℕ) : ℝ) ^ c)
+            + ∑ m ∈ F, ∑ n ∈ F, (if m ≠ n then ‖b m‖ * ‖b n‖ / ((m * n : ℕ) : ℝ) ^ c
+                * Real.exp (-(T₀ * |Real.log m - Real.log n|)) else 0) := hKsplit
+      _ ≤ (∑ n ∈ F, ‖b n‖ ^ 2 / ((n * n : ℕ) : ℝ) ^ c)
+            + 4 * C / (T₀ - c + 1) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c :=
+          add_le_add le_rfl hoff
+  have hpref0 : (0 : ℝ) ≤ 2 * Real.pi * T₀ / cw :=
+    div_nonneg (by positivity) hcw.le
+  refine ⟨C, hC0, ?_⟩
+  calc (∫ τ in Set.Icc (-T₀) T₀,
+          ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 / Real.sqrt (cw ^ 2 + τ ^ 2))
+      ≤ cw⁻¹ * ∫ τ in Set.Icc (-T₀) T₀,
+          ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 := hstep1
+    _ ≤ cw⁻¹ * (2 * T₀ ^ 2 * ∫ τ : ℝ,
+          ‖∑ n ∈ F, b n / (n : ℂ) ^ ((c : ℂ) + (τ : ℂ) * I)‖ ^ 2 / (T₀ ^ 2 + τ ^ 2)) :=
+        mul_le_mul_of_nonneg_left hbsm (inv_nonneg.mpr hcw.le)
+    _ = cw⁻¹ * (2 * T₀ ^ 2 * (Real.pi / T₀
+          * ∑ m ∈ F, ∑ n ∈ F, (b m * starRingEnd ℂ (b n)).re / ((m * n : ℕ) : ℝ) ^ c
+              * Real.exp (-(T₀ * |Real.log m - Real.log n|)))) := by rw [hplanch]
+    _ = 2 * Real.pi * T₀ / cw
+          * ∑ m ∈ F, ∑ n ∈ F, (b m * starRingEnd ℂ (b n)).re / ((m * n : ℕ) : ℝ) ^ c
+              * Real.exp (-(T₀ * |Real.log m - Real.log n|)) := by
+        rw [show (2 : ℝ) * Real.pi * T₀ / cw
+              = cw⁻¹ * (2 * T₀ ^ 2 * (Real.pi / T₀)) from by field_simp]
+        ring
+    _ ≤ 2 * Real.pi * T₀ / cw
+          * ((∑ n ∈ F, ‖b n‖ ^ 2 / ((n * n : ℕ) : ℝ) ^ c)
+            + 4 * C / (T₀ - c + 1) * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c) :=
+        mul_le_mul_of_nonneg_left hfinal_planch hpref0
+
+/-! ## Stone 7 — the `crossKer` head/tail grade (`crossKer_head_tail_grade`)
+
+The composite feed for `JointHead.sigma_wiring`'s `Kα` socket.  `head_split_ledger` splits
+`crossKer` at the branch crossover `T₀ = 2(X+h)/h` into head (`|t−t₀| ≤ T₀`, branch-1) + tail
+(`|t−t₀| > T₀`, branch-2); `tail_band_sum` discharges the tail EXACTLY to the ramp-free
+`(window masses)·2(X+h)^{c₀−α−β}` (RAMP-TAIL's cancellation).  The head is fed by a bound
+`Hbound` — the `mixed_weight_cs` (`JointHead`) + `head_second_moment_grade` route: at the
+branch-1 weight `‖hatKernel‖ ≤ (X+h)^{c'}·2/√(c'²+τ²)` (`hatKernel_branch1`), CS on the head
+band separates the two window legs, and `head_second_moment_grade` grades each leg's restricted
+second moment to `C·mass` (off-diagonal, the `1/(a−c+1)` decay from `offdiag_widthA_final`) plus
+the tiny window diagonal — NO `√L` ramp.  So `crossKer α β ≤ Hbound + (masses)·2(X+h)^{c₀−α−β}`,
+the ramp-free grade.
+
+**The head socket `Hbound` is the last plumbing** (the honest residual, FLAGGED per iron rule 4):
+its discharge threads (i) `mixed_weight_cs` on the RESTRICTED band `|τ| ≤ T₀` (the `L²` sockets
+`k4Poly_sqInt` on the head-indicator-restricted legs — the measure-theoretic plumbing), (ii) the
+change of variables `t ↦ t−t₀`, and (iii) `head_second_moment_grade` at the two lines `c₀∓β`.
+The LOW leg `c₀−β < 1` (for `β > 1/L`) violates `head_second_moment_grade`'s / `offdiag_widthA_
+final`'s `1 ≤ c` — the named `c ≥ 1`-relaxation route (a monotonicity shift `‖b_n‖/n^{c₀−β} ≤
+‖b_n‖/n^{max(c₀−β,1)}·(X/y)^{(1−c₀+β)₊}` on the window `n < X/y`, absorbing the excess into the
+`(X/y)^{2β}` the S-ladder already carries).  Building that restricted-CS + low-leg shift is the
+terminal assembly's remaining ledge; the τ-split composition and the ramp-free tail stand here. -/
+theorem crossKer_head_tail_grade {g : ℕ → ℂ} {X h y c₀ t₀ α β Hbound : ℝ}
+    (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c₀ - α - β)
+    (hhead : (∫ t in {t : ℝ | |t - t₀| ≤ 2 * (X + h) / h},
+        ‖windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))‖
+          * ‖windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))‖
+          * ‖hatKernel X h (c₀ - α - β) (t - t₀)‖) ≤ Hbound) :
+    crossKer g X h y c₀ t₀ α β
+      ≤ Hbound
+        + (∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+              ‖lambdaLin (restrictAbove y g) n‖ / (n : ℝ) ^ (c₀ - β))
+          * (∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+              ‖lambdaLin (restrictAbove y g) n‖ / (n : ℝ) ^ (c₀ + β))
+          * (2 * (X + h) ^ (c₀ - α - β)) := by
+  rw [head_split_ledger hX hh hc]
+  exact add_le_add hhead (tail_band_sum hX hh hc)
+
 end Salt.MR
