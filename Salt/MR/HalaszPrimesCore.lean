@@ -3396,6 +3396,152 @@ theorem halasz_primes_primal_raw :
     nlinarith [mul_nonneg hεnn hcard]
   exact (primes_dual_iff 𝒯 S hΔ0).mpr (hda T P hT hP 𝒯 hws hsub S hS) a
 
+
+/-! ### A-3 absorption machinery (`D₃(5T+1)→D₄(T)`)
+
+The analytic core of the frozen-header repackaging: `log u ≤ u^ε/ε` (from
+`log_le_sub_one`) gives `(loglog)⁴ ≤ (16/5)⁴·(log)^{5/4}`, and with
+`log(5T+1) ≤ 2 log T` the ratio bounds `D₃(5T+1) ≤ Cκ·D₄(T)` and
+`D₄(5T+1) ≤ K₂·(log T)²` follow — these price the exp-decay match and the
+`(log T)²` factor in the frozen `halasz_primes_pow`.  See the report for the
+remaining constant-assembly. -/
+
+/-- `log u ≤ u^ε / ε` for `u > 0`, `ε > 0` (apply `log_le_sub_one` to `u^ε`). -/
+lemma log_le_rpow_div {u ε : ℝ} (hu : 0 < u) (hε : 0 < ε) : Real.log u ≤ u ^ ε / ε := by
+  have h := Real.log_le_sub_one_of_pos (Real.rpow_pos_of_pos hu ε)
+  rw [Real.log_rpow hu] at h
+  rw [le_div_iff₀ hε]
+  linarith [Real.rpow_pos_of_pos hu ε]
+
+/-- `(loglog T)^4 ≤ (16/5)^4 · (log T)^{5/4}` once `log T ≥ 1`. -/
+lemma loglog4_le {T : ℝ} (hLT : 1 ≤ Real.log T) :
+    (Real.log (Real.log T)) ^ (4 : ℕ)
+      ≤ ((16 : ℝ) / 5) ^ (4 : ℕ) * (Real.log T) ^ ((5 : ℝ) / 4) := by
+  have hLT0 : 0 < Real.log T := by linarith
+  have hll0 : 0 ≤ Real.log (Real.log T) := Real.log_nonneg hLT
+  have hll : Real.log (Real.log T) ≤ (16 / 5) * (Real.log T) ^ ((5 : ℝ) / 16) := by
+    have h := log_le_rpow_div hLT0 (by norm_num : (0 : ℝ) < 5 / 16)
+    calc Real.log (Real.log T)
+        ≤ (Real.log T) ^ ((5 : ℝ) / 16) / (5 / 16) := h
+      _ = (16 / 5) * (Real.log T) ^ ((5 : ℝ) / 16) := by ring
+  calc (Real.log (Real.log T)) ^ (4 : ℕ)
+      ≤ ((16 / 5) * (Real.log T) ^ ((5 : ℝ) / 16)) ^ (4 : ℕ) := pow_le_pow_left₀ hll0 hll 4
+    _ = ((16 : ℝ) / 5) ^ (4 : ℕ) * ((Real.log T) ^ ((5 : ℝ) / 16)) ^ (4 : ℕ) := by rw [mul_pow]
+    _ = ((16 : ℝ) / 5) ^ (4 : ℕ) * (Real.log T) ^ ((5 : ℝ) / 4) := by
+        rw [← Real.rpow_natCast ((Real.log T) ^ ((5 : ℝ) / 16)) 4, ← Real.rpow_mul hLT0.le]
+        norm_num
+
+/-- `log (5T+1) ≤ 2 log T` for `T ≥ 6` (since `5T+1 ≤ T²`). -/
+lemma log5T1_le_two_logT {T : ℝ} (hT : 6 ≤ T) : Real.log (5 * T + 1) ≤ 2 * Real.log T := by
+  have hT0 : 0 < T := by linarith
+  have hle : 5 * T + 1 ≤ T ^ 2 := by nlinarith
+  have h1 : Real.log (5 * T + 1) ≤ Real.log (T ^ 2) := Real.log_le_log (by linarith) hle
+  rw [Real.log_pow] at h1
+  push_cast at h1; linarith
+
+/-- `loglog (5T+1) ≤ 2 loglog T` for `T ≥ 6`, `log T ≥ 1`, `loglog T ≥ 1`. -/
+lemma loglog5T1_le {T : ℝ} (hT : 6 ≤ T) (hLT1 : 1 ≤ Real.log T)
+    (hll1 : 1 ≤ Real.log (Real.log T)) :
+    Real.log (Real.log (5 * T + 1)) ≤ 2 * Real.log (Real.log T) := by
+  have hT0 : 0 < T := by linarith
+  have hlog5 : Real.log (5 * T + 1) ≤ 2 * Real.log T := log5T1_le_two_logT hT
+  have hlog5pos : 0 < Real.log (5 * T + 1) := Real.log_pos (by linarith)
+  have h1 : Real.log (Real.log (5 * T + 1)) ≤ Real.log (2 * Real.log T) :=
+    Real.log_le_log hlog5pos hlog5
+  rw [Real.log_mul (by norm_num) (by linarith : Real.log T ≠ 0)] at h1
+  have hlog2 : Real.log 2 ≤ 1 := by linarith [Real.log_le_sub_one_of_pos (by norm_num : (0:ℝ) < 2)]
+  linarith
+
+/-- `Cκ = 2^{3/4}·8`; the constant in `D₃(5T+1) ≤ Cκ·D₄(T)`. -/
+noncomputable def Cκ : ℝ := (2 : ℝ) ^ ((3 : ℝ) / 4) * 8
+
+/-- `D₃(5T+1) ≤ Cκ · D₄(T)`. -/
+lemma D3_5T1_le {T : ℝ} (hT : 6 ≤ T) (hLT1 : 1 ≤ Real.log T)
+    (hll1 : 1 ≤ Real.log (Real.log T)) :
+    (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4) * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)
+      ≤ Cκ * ((Real.log T) ^ ((3 : ℝ) / 4) * (Real.log (Real.log T)) ^ (4 : ℕ)) := by
+  have hT0 : 0 < T := by linarith
+  have hlog5 : Real.log (5 * T + 1) ≤ 2 * Real.log T := log5T1_le_two_logT hT
+  have hlog5nn : 0 ≤ Real.log (5 * T + 1) := Real.log_nonneg (by linarith)
+  have hloglog5 : Real.log (Real.log (5 * T + 1)) ≤ 2 * Real.log (Real.log T) :=
+    loglog5T1_le hT hLT1 hll1
+  have hlog5ge1 : 1 ≤ Real.log (5 * T + 1) :=
+    le_trans hLT1 (Real.log_le_log hT0 (by linarith : T ≤ 5 * T + 1))
+  have hloglog5nn : 0 ≤ Real.log (Real.log (5 * T + 1)) := Real.log_nonneg hlog5ge1
+  have hllTnn : 0 ≤ Real.log (Real.log T) := by linarith
+  -- rpow factor: (log(5T+1))^{3/4} ≤ 2^{3/4} (log T)^{3/4}
+  have hrp : (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+      ≤ (2 : ℝ) ^ ((3 : ℝ) / 4) * (Real.log T) ^ ((3 : ℝ) / 4) := by
+    calc (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+        ≤ (2 * Real.log T) ^ ((3 : ℝ) / 4) := Real.rpow_le_rpow hlog5nn hlog5 (by norm_num)
+      _ = (2 : ℝ) ^ ((3 : ℝ) / 4) * (Real.log T) ^ ((3 : ℝ) / 4) :=
+          Real.mul_rpow (by norm_num) (by linarith)
+  -- pow factor: (loglog(5T+1))^3 ≤ 8 (loglog T)^4
+  have hpw : (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)
+      ≤ 8 * (Real.log (Real.log T)) ^ (4 : ℕ) := by
+    calc (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)
+        ≤ (2 * Real.log (Real.log T)) ^ (3 : ℕ) := pow_le_pow_left₀ hloglog5nn hloglog5 3
+      _ = 8 * (Real.log (Real.log T)) ^ (3 : ℕ) := by ring
+      _ ≤ 8 * (Real.log (Real.log T)) ^ (4 : ℕ) := by
+          have : (Real.log (Real.log T)) ^ (3 : ℕ) ≤ (Real.log (Real.log T)) ^ (4 : ℕ) := by
+            calc (Real.log (Real.log T)) ^ (3 : ℕ)
+                = (Real.log (Real.log T)) ^ (3 : ℕ) * 1 := by ring
+              _ ≤ (Real.log (Real.log T)) ^ (3 : ℕ) * Real.log (Real.log T) := by
+                  apply mul_le_mul_of_nonneg_left hll1 (pow_nonneg hllTnn 3)
+              _ = (Real.log (Real.log T)) ^ (4 : ℕ) := by ring
+          linarith
+  -- combine
+  have hcombine := mul_le_mul hrp hpw (pow_nonneg hloglog5nn 3)
+    (mul_nonneg (Real.rpow_nonneg (by norm_num) _) (Real.rpow_nonneg (by linarith) _))
+  calc (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4) * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ)
+      ≤ ((2 : ℝ) ^ ((3 : ℝ) / 4) * (Real.log T) ^ ((3 : ℝ) / 4))
+          * (8 * (Real.log (Real.log T)) ^ (4 : ℕ)) := hcombine
+    _ = Cκ * ((Real.log T) ^ ((3 : ℝ) / 4) * (Real.log (Real.log T)) ^ (4 : ℕ)) := by
+        rw [Cκ]; ring
+
+/-- `K₂ = 2^{3/4}·16·(16/5)^4`; the constant in `D₄(5T+1) ≤ K₂·(log T)²`. -/
+noncomputable def K₂ : ℝ := (2 : ℝ) ^ ((3 : ℝ) / 4) * 16 * ((16 : ℝ) / 5) ^ (4 : ℕ)
+
+/-- `D₄(5T+1) ≤ K₂ · (log T)²`. -/
+lemma D4_5T1_le {T : ℝ} (hT : 6 ≤ T) (hLT1 : 1 ≤ Real.log T)
+    (hll1 : 1 ≤ Real.log (Real.log T)) :
+    (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4) * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)
+      ≤ K₂ * (Real.log T) ^ 2 := by
+  have hT0 : 0 < T := by linarith
+  have hLT0 : 0 < Real.log T := by linarith
+  have hlog5 : Real.log (5 * T + 1) ≤ 2 * Real.log T := log5T1_le_two_logT hT
+  have hlog5nn : 0 ≤ Real.log (5 * T + 1) := Real.log_nonneg (by linarith)
+  have hlog5ge1 : 1 ≤ Real.log (5 * T + 1) :=
+    le_trans hLT1 (Real.log_le_log hT0 (by linarith : T ≤ 5 * T + 1))
+  have hloglog5 : Real.log (Real.log (5 * T + 1)) ≤ 2 * Real.log (Real.log T) :=
+    loglog5T1_le hT hLT1 hll1
+  have hloglog5nn : 0 ≤ Real.log (Real.log (5 * T + 1)) := Real.log_nonneg hlog5ge1
+  have hllTnn : 0 ≤ Real.log (Real.log T) := by linarith
+  have hrp : (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+      ≤ (2 : ℝ) ^ ((3 : ℝ) / 4) * (Real.log T) ^ ((3 : ℝ) / 4) := by
+    calc (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+        ≤ (2 * Real.log T) ^ ((3 : ℝ) / 4) := Real.rpow_le_rpow hlog5nn hlog5 (by norm_num)
+      _ = (2 : ℝ) ^ ((3 : ℝ) / 4) * (Real.log T) ^ ((3 : ℝ) / 4) :=
+          Real.mul_rpow (by norm_num) (by linarith)
+  have hpw4 : (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)
+      ≤ 16 * ((16 : ℝ) / 5) ^ (4 : ℕ) * (Real.log T) ^ ((5 : ℝ) / 4) := by
+    calc (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)
+        ≤ (2 * Real.log (Real.log T)) ^ (4 : ℕ) := pow_le_pow_left₀ hloglog5nn hloglog5 4
+      _ = 16 * (Real.log (Real.log T)) ^ (4 : ℕ) := by ring
+      _ ≤ 16 * (((16 : ℝ) / 5) ^ (4 : ℕ) * (Real.log T) ^ ((5 : ℝ) / 4)) :=
+          mul_le_mul_of_nonneg_left (loglog4_le hLT1) (by norm_num)
+      _ = 16 * ((16 : ℝ) / 5) ^ (4 : ℕ) * (Real.log T) ^ ((5 : ℝ) / 4) := by ring
+  have hrpnn : 0 ≤ (2 : ℝ) ^ ((3 : ℝ) / 4) * (Real.log T) ^ ((3 : ℝ) / 4) :=
+    mul_nonneg (Real.rpow_nonneg (by norm_num) _) (Real.rpow_nonneg hLT0.le _)
+  have hcombine := mul_le_mul hrp hpw4 (pow_nonneg hloglog5nn 4) hrpnn
+  calc (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4) * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)
+      ≤ ((2 : ℝ) ^ ((3 : ℝ) / 4) * (Real.log T) ^ ((3 : ℝ) / 4))
+          * (16 * ((16 : ℝ) / 5) ^ (4 : ℕ) * (Real.log T) ^ ((5 : ℝ) / 4)) := hcombine
+    _ = K₂ * ((Real.log T) ^ ((3 : ℝ) / 4) * (Real.log T) ^ ((5 : ℝ) / 4)) := by rw [K₂]; ring
+    _ = K₂ * (Real.log T) ^ 2 := by
+        rw [← Real.rpow_add hLT0]
+        norm_num
+
 end L11Assembly
 
 end Salt.MR

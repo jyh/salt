@@ -90,33 +90,46 @@ The **primal** Halász bound, via `primes_dual_iff` off `dual_assembly`
 — the frozen conclusion shape **at the raw `5T+1`-height decay** `ε`. This is the
 honest primal L11 bound; only the pure-`(log T)` repackaging remains (see residual).
 
-### A-3 `halasz_primes_pow` (frozen header) — **RESIDUAL** (the `D₃(5T+1)→D₄(T)` absorption)
+### A-3 `halasz_primes_pow` (frozen header) — **absorption MACHINERY LANDED; final constant-assembly is the RESIDUAL**
 
 The frozen header wants the decay in pure-`T` form
 `exp(−c·log P / ((log T)^{3/4}(loglog T)⁴))·(log T)²` with `∃ C c T₀`, `P ≤ T^10`.
 `primal_raw` already gives the primal at `ε` (the `5T+1`, `D₃`/`D₄` form). The
-remaining step is the **absorption**: choose `C ≥ 44π`, `c`, `T₀` so that for
-`T ≥ T₀`, `P ≤ T^10`:
+remaining step is the **absorption** to that shape. Its hard analytic core is now
+**landed** (sorry-free, axiom-clean) — the `A-3 absorption machinery` section:
 
-  `44π·P + ε·|𝒯| ≤ C·(P + |𝒯|·P·exp(−c·log P/D₄(T))·(log T)²)`.
+- `log_le_rpow_div : log u ≤ u^ε/ε` (`u,ε>0`) — the key polylog-vs-power tool
+  (apply `log_le_sub_one` to `u^ε`; no `isLittleO`/threshold needed).
+- `loglog4_le : (loglog T)⁴ ≤ (16/5)⁴·(log T)^{5/4}` (`log T ≥ 1`).
+- `log5T1_le_two_logT : log(5T+1) ≤ 2 log T` (`T ≥ 6`, via `5T+1 ≤ T²`).
+- `loglog5T1_le : loglog(5T+1) ≤ 2 loglog T`.
+- `D3_5T1_le : D₃(5T+1) ≤ Cκ·D₄(T)` with `Cκ = 2^{3/4}·8` — prices the exp-match.
+- `D4_5T1_le : D₄(5T+1) ≤ K₂·(log T)²` with `K₂ = 2^{3/4}·16·(16/5)⁴` — prices
+  the `(log T)²` factor.
 
-Reduces (÷ `|𝒯|`, ÷ `P`) to three term-bounds, each a delicate `rpow`/`log`
-threshold inequality:
+With these, the final `halasz_primes_pow` is a bounded constant-assembly: pick
+`C = 44π + 3C₁K₂ + 30C₂ + 3C₃K₂`, `c = min(c_vk/(2Cκ), 1/20)`,
+`T₀ = max(max T₀_raw (exp(exp 1))) 6`, then show
+`44π·P + ε·|𝒯| ≤ C·(P + |𝒯|·P·exp(−c·log P/D₄(T))·(log T)²)` via three term-bounds:
 
-1. **`εA` (the leading term):** `C₁·exp(−(c_vk/2)·log P/D₃(5T+1))·D₄(5T+1) ≤
-   (C/3)·exp(−c·log P/D₄(T))·(log T)²`. Needs (a) `c·D₃(5T+1) ≤ (c_vk/2)·D₄(T)`
-   — i.e. `D₄(T)/D₃(5T+1) → ∞` (the `(loglog)⁴`-vs-`³` gain beats the
-   `log(5T+1)/log T → 1` and `loglog(5T+1)/loglog T → 1` losses), pick
-   `c = c_vk/2` once `D₄(T) ≥ D₃(5T+1)`; and (b) `D₄(5T+1) ≤ (log T)²`
-   (`(log)^{3/4}(loglog)⁴ = o((log)²)`).
-2. **`εB`:** `C₂·log P/T ≤ (C/3)·exp(−c·log P/D₄(T))·(log T)²`; uses `P ≤ T^10`
-   (`log P ≤ 10 log T`) so `exp(−c·log P/D₄(T)) ≥ T^{−o(1)} ≫ 1/T`.
-3. **`εC`:** `C₃·D₄(5T+1)/T² ≤ (C/3)·exp(…)·(log T)²` — dominated a fortiori (`1/T²`).
+1. **`εA`** (leading): `exp(−(c_vk/2)L/D₃(5T+1)) ≤ exp(−cL/D₄(T))` [from `c·D₃(5T+1)
+   ≤ (c_vk/2)·D₄(T)`, i.e. `D3_5T1_le` + `c ≤ c_vk/(2Cκ)`] and `D₄(5T+1) ≤
+   K₂(log T)²` [`D4_5T1_le`] ⟹ `εA ≤ C₁K₂·P·exp(−cL/D₄(T))(log T)² ≤ (C/3)·(…)`.
+   **This term is verified working in scratch.**
+2. **`εB`** = `C₂·P·L/T`: uses `expc ≥ exp(−10c·log T) ≥ 1/T` (since `10c ≤ ½`)
+   and `L ≤ 10 log T` (`P ≤ T^10`), giving `εB ≤ (C/3)·P·expc·(log T)²` once
+   `C ≥ 30C₂`, `log T ≥ 1` — **the T-threshold collapses to `T^{1−10c}·log T ≥ 1`,
+   trivial for `T ≥ e`** (choosing `C` large normalizes the constants away).
+3. **`εC`** = `C₃·D₄(5T+1)·P/T²`: `1/T²` dominates a fortiori; `C ≥ 3C₃K₂`.
 
-Each is true (standard slowly-varying asymptotics) but is a real C-tier estimate
-with the module's full rpow/log trap bank; the 20-min module rebuild per iteration
-makes the debug loop expensive. Left as the single residual. `primal_raw` is the
-faithful primal exit; the absorption is repackaging only, no new mathematics.
+RESIDUAL: only the mechanical `εB`/`εC` term-bounds and the `star`+division chain
+remain. In scratch these ran into `nlinarith` heartbeat timeouts and
+product-atom-associativity friction in the constant juggling (not mathematical
+gaps) — a `set_option maxHeartbeats` bump + `calc`-structured (nlinarith-free)
+term bounds is the path. Stopped here per the "give up early, loudly" discipline
+rather than grind the 20-min-rebuild loop; the machinery is banked so a successor
+closes the assembly directly. `primal_raw` remains the faithful primal exit — the
+absorption is repackaging only, no new mathematics.
 
 ---
 
@@ -159,5 +172,10 @@ Verified per increment via a scratch file **outside** the repo
 
 ## Appended line count
 
-`Salt/MR/HalaszPrimesCore.lean`: 3040 → ~3400 lines (the `L11Assembly` section).
-Landed region (`≤ 3040`) byte-identical to the mission baseline.
+`Salt/MR/HalaszPrimesCore.lean`: 3040 → 3547 lines (the `L11Assembly` section:
+A-2 helpers + `dual_core` + `dual_assembly` + `halasz_primes_primal_raw` + the
+A-3 absorption machinery). Landed region (`≤ 3040`) byte-identical to baseline.
+
+Landing sequence (branch `cloud-shift/afternoon-1`, all `[skip ci]`):
+`21dc9fc` kernel conj-symmetry + double rows · `37aef62` dual_core ·
+`8c53c56` dual_assembly + primal_raw + report · (+ absorption machinery).
