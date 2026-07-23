@@ -304,10 +304,28 @@ was a pre-peak sample). Consequences:
   (peak swap actually used across the whole build: **~71 MB** — cache reclaim
   absorbed nearly everything).
 
-**Phase B (full `lake build`, heavies cached):** started 05:28:21; the ~660 light
-remaining modules stream through the `-j4` waves with 11–12 GB always available and
-no memory pressure. _Final `DRIVER_EXIT` + total build wall-clock recorded on
-completion._
+**Phase B (full `lake build`, heavies cached): ✅ rc=0, 6294 s (~105 min).** The
+~660 light remaining modules streamed through the `-j4` waves with 11–12 GB always
+available and no memory pressure. A short heavy tail near the end (`Vk.Mid` 377 s,
+a few Chen/Entropy 60–300 s modules) slowed the last ~5 %, but no contention. The
+build closed by elaborating the `.All` manifests' `#audit_axioms` commands, which
+printed `✓ <decl> [3 axioms]` for the audited declarations — i.e. exactly
+`{propext, Classical.choice, Quot.sound}`, the allowed set (rule 3), with **no**
+`native_decide`/extra axioms surfacing.
+
+**✅ BUILD RESULT — `DRIVER_EXIT=0`, total driver wall `8953 s` (149 min).**
+`lake build` reported **"Build completed successfully"**, **0 `error:` lines** in
+the full log, **9351/9351** jobs. The corpus is green on the 4 vCPU / 16 GB cloud
+profile.
+
+| Build metric | Value |
+|---|---:|
+| Phase A (serial heavy pre-build) | ~44 min (04:44→05:28) |
+| Phase B (full build, heavies cached) | 6294 s / ~105 min (rc=0) |
+| **Total build wall-clock** | **8953 s (149 min ≈ 2 h 29 m)** |
+| Total jobs | 9351 |
+| `error:` lines | **0** |
+| Peak swap used (whole build) | ~71 MB (of 8 GB) |
 
 **Checker recipe pre-validated** (on the already-built `Salt.TwinBar.ParityWall`):
 `LEAN_PATH="$(lake env printenv LEAN_PATH)" leanchecker Salt.TwinBar.ParityWall`
@@ -332,6 +350,6 @@ _pending (Step 6)_
 | 1 | Freshness + environment | ~1 min | ✅ done |
 | 2 | Toolchain (elan-less workaround) | ~46 s | ✅ done |
 | 3 | Cache get | 158 s | ✅ done |
-| 4 | Build | — | pending |
+| 4 | Build (`-j4` infeasible→serial pre-build + full) | 8953 s (149 min), rc=0 | ✅ done |
 | 5 | Checker | — | pending |
 | 6 | Finalize | — | pending |
