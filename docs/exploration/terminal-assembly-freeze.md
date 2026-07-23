@@ -394,3 +394,21 @@ the mismatched-line hat rep variant; prop21RHS_hat_rep re-proved to
 the ALIGNED coefficient form; prop21_contour_leg; prop21_analog's
 proof (statement text unchanged -- mention-only, the P21-2X
 precedent). H-5 v4 design block follows ON the corrected object.
+
+### ⟦A — AMENDMENT V5-0: the seam un-windowing (JYH-RATIFIED
+### 2026-07-22 ~17:15 — frozen-conclusion tier, the day's one JYH gate)⟧
+
+prop21_analog's hfactor (:485) and CONCLUSION (:488): the seam carrier
+windowIndicator y (X/y) becomes the trivial indicator (fun _ => 1) --
+H-EXIT delivers the FULL twisted hat-smoothed sum, GHS (2.2) faithful.
+Grounds (CARRIER-SCOPE + REC-V4-REF, all verified): the windowed
+conclusion is UNSATISFIABLE (Theta(X log y) undamped out-of-window
+mass vs E = Theta(X log y/log X)); GHS never windows its main term
+(the FTC forces the full endpoint); the consumption audit shows every
+downstream link needs only 1-boundedness + DISTANCE, and the distance
+converts EXACTLY at the trivial indicator (simpler than T-1's landed
+approximation). The two windows disentangled: the P-leg window
+(GHS-intrinsic, exact by joint support) is KEPT everywhere; only the
+seam-coefficient window (our addition) is removed. DistWindow's T-1
+chain stays landed (heritage + branch-floor use). The v5 ladder
+follows (h5-v5-brief.md + the v5 design block).
