@@ -319,4 +319,115 @@ theorem T1_decay_fgJ {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (t₀ y Y t
   T1_pointwise_decay (norm_fgJ_le hf t₀ y Y) (norm_costwist_le t) hX hε hC₁ hC₂
     hsplit hhead htail hfloor
 
+/-! ## V5-7 — the UNWINDOWED T-chain scaffolds (the v5 aligned route)
+
+The V5-0 seam un-windowing (JYH-ratified, `terminal-assembly-freeze.md`) makes the
+seam carrier the TRIVIAL indicator `fun _ => 1` — H-EXIT delivers the FULL twisted
+hat-smoothed sum, GHS (2.2) faithful.  The stones below are the unwindowed twins of
+the `fgJ` scaffolds above: `T1_decay_trivial`/`hhead_supplier_trivial` supersede
+`T1_decay_fgJ`/`hhead_supplier_fgJ` on the v5 chain (the `fgJ` versions stay landed —
+heritage + the branch floors still reference them until the T-chain rewires).
+
+The keystone is `seamCoeff_trivial_dist_eq`: the EXACT distance identity
+`𝔻(seamCoeff f (fun _ => 1) t₀, costwist t; X)² = 𝔻(f, costwist(t+t₀); X)²` — the
+twist-shift algebra ONLY, NO out-of-window mass (the trivial indicator has no window,
+so `DistWindow.dist_window_restrict`'s deficit term vanishes and the `≥` becomes `=`).
+With it the consumer hands the UNWINDOWED floor `𝔻(f, costwist(t+t₀))²` straight into
+the twin, and the T-1 window-restriction conversion is unnecessary on this chain. -/
+
+/-- The seam twist `n ↦ n^{−it₀}` equals the character `costwist (−t₀)` (re-derivation
+of `DistWindow`'s private `natCpow_neg_costwist`, needed here since `HalaszHead` does
+not import `DistWindow`). -/
+private lemma head_natCpow_neg_costwist (t₀ : ℝ) {n : ℕ} (hn : 1 ≤ n) :
+    (n : ℂ) ^ (-(t₀ : ℂ) * I) = costwist (-t₀) n := by
+  have hn0 : (n : ℂ) ≠ 0 := by exact_mod_cast Nat.one_le_iff_ne_zero.mp hn
+  unfold costwist
+  rw [Complex.cpow_def_of_ne_zero hn0, ← Complex.natCast_log]
+  congr 1
+  push_cast
+  ring
+
+/-- **V5-7 — the EXACT unwindowed distance identity (`seamCoeff_trivial_dist_eq`).**
+At the TRIVIAL seam indicator `fun _ => 1`, the pretentious distance of the twisted
+seam datum against the center `costwist t` equals the distance of the bare `f` against
+the SHIFTED center `costwist (t+t₀)`:
+
+  `𝔻(seamCoeff f (fun _ => 1) t₀, costwist t; X)² = 𝔻(f, costwist(t+t₀); X)²`.
+
+An EXACT identity (no out-of-window mass, no error term): with the trivial indicator
+every prime is "in window", so `DistWindow.dist_window_restrict`'s out-of-window deficit
+vanishes and the `≥` collapses to `=`.  Per-prime, the seam twist `n^{−it₀}` folds into
+the character (`head_natCpow_neg_costwist` + `costwist_conj`/`costwist_add`), shifting
+the center frequency by `t₀`.  This is what lets the v5 consumer feed the UNWINDOWED
+floor directly (the T-1 window conversion is unnecessary on this chain). -/
+theorem seamCoeff_trivial_dist_eq {f : ℕ → ℂ} (t₀ t X : ℝ) :
+    pretDistSq (seamCoeff f (fun _ => 1) t₀) (costwist t) X
+      = pretDistSq f (costwist (t + t₀)) X := by
+  unfold pretDistSq
+  refine Finset.sum_congr rfl (fun p hp => ?_)
+  obtain ⟨_, hpp⟩ := Finset.mem_filter.mp hp
+  have hp1 : 1 ≤ p := hpp.one_lt.le
+  have hpne : p ≠ 0 := Nat.one_le_iff_ne_zero.mp hp1
+  have hsc : seamCoeff f (fun _ => 1) t₀ p = f p * costwist (-t₀) p := by
+    unfold seamCoeff
+    rw [if_neg hpne]
+    simp only [head_natCpow_neg_costwist t₀ hp1, mul_one]
+  have heq : seamCoeff f (fun _ => 1) t₀ p * (starRingEnd ℂ) (costwist t p)
+      = f p * (starRingEnd ℂ) (costwist (t + t₀) p) := by
+    rw [hsc, costwist_conj t p, costwist_conj (t + t₀) p, mul_assoc,
+      costwist_add (-t₀) (-t) p, show -t₀ + -t = -(t + t₀) from by ring]
+  rw [heq]
+
+/-- The trivial seam indicator `fun _ => 1` is 1-bounded (`‖(1 : ℂ)‖ = 1`) — the norm
+gate the unwindowed twins discharge trivially. -/
+private lemma norm_trivialInd_le : ∀ n : ℕ, ‖(fun _ : ℕ => (1 : ℂ)) n‖ ≤ 1 :=
+  fun _ => le_of_eq norm_one
+
+/-- **The unwindowed ball decay (`hhead_supplier_trivial`).**  The v5 twin of
+`hhead_supplier_fgJ`: `halasz_ball_decay` at `f`-slot `= seamCoeff f (fun _ => 1) t₀`
+(the FULL twisted seam datum, 1-bounded via `norm_seamCoeff_le` with the trivial
+indicator's `‖(1:ℂ)‖ ≤ 1`) and `g`-slot `= costwist t`, with
+`M = 𝔻(seamCoeff f (fun _ => 1) t₀, costwist t; X)²`.  The `hhead` binder (the S2′
+centered head, K4′/S1′-conditional) is carried as a NAMED hypothesis — the socket the
+v5 H-EXIT plugs into.  **Supersedes `hhead_supplier_fgJ` on the v5 chain** (V5-0 seam
+un-windowing); `hhead_supplier_fgJ` stays landed as heritage.  The consumer re-expresses
+the distance hypothesis via `seamCoeff_trivial_dist_eq`, handing in the UNWINDOWED floor
+directly (no T-1 window conversion). -/
+theorem hhead_supplier_trivial {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (t₀ t : ℝ)
+    {X ε U Uhead Utail C₁ C₂ : ℝ}
+    (hX : Real.exp 1 ≤ X) (hε : 0 ≤ ε) (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
+    (hsplit : U = Uhead + Utail)
+    (hhead : Uhead ≤ C₁ * X * ((1 + pretDistSq (seamCoeff f (fun _ => 1) t₀) (costwist t) X)
+        * Real.exp (-(pretDistSq (seamCoeff f (fun _ => 1) t₀) (costwist t) X))))
+    (htail : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2)) :
+    U ≤ (2 * C₁ + C₂) * X
+        * (Real.exp (-(pretDistSq (seamCoeff f (fun _ => 1) t₀) (costwist t) X) / 2)
+          + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) :=
+  halasz_ball_decay (norm_seamCoeff_le hf norm_trivialInd_le t₀) (norm_costwist_le t)
+    hX hε hC₁ hC₂ hsplit hhead htail
+
+/-- **The unwindowed T1 decay (`T1_decay_trivial`).**  The v5 twin of `T1_decay_fgJ`:
+`T1_pointwise_decay` at `f`-slot `= seamCoeff f (fun _ => 1) t₀` (the FULL twisted seam
+datum, 1-bounded via the trivial indicator) and `g`-slot `= costwist t`, carrying the
+R3.1 floor `M ≥ (1/32)·loglog X` and the (still conditional) `hhead`.  Concludes the
+`≪ X·(log X)^{−1/64+o(1)}` grade for the UNWINDOWED seam datum.  **Supersedes
+`T1_decay_fgJ` on the v5 chain** (V5-0 seam un-windowing); `T1_decay_fgJ` stays landed
+as heritage.  The floor hypothesis is the unwindowed `𝔻(seamCoeff f (fun _ => 1) t₀,
+costwist t; X)²`, which the consumer obtains from the bare `𝔻(f, costwist(t+t₀))²` floor
+EXACTLY via `seamCoeff_trivial_dist_eq` — the T-1 window-restriction conversion is
+unnecessary on this chain. -/
+theorem T1_decay_trivial {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (t₀ t : ℝ)
+    {X ε U Uhead Utail C₁ C₂ : ℝ}
+    (hX : Real.exp 1 ≤ X) (hε : 0 ≤ ε) (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
+    (hsplit : U = Uhead + Utail)
+    (hhead : Uhead ≤ C₁ * X * ((1 + pretDistSq (seamCoeff f (fun _ => 1) t₀) (costwist t) X)
+        * Real.exp (-(pretDistSq (seamCoeff f (fun _ => 1) t₀) (costwist t) X))))
+    (htail : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2))
+    (hfloor : (1 / 32) * Real.log (Real.log X)
+        ≤ pretDistSq (seamCoeff f (fun _ => 1) t₀) (costwist t) X) :
+    U ≤ (2 * C₁ + C₂) * X *
+        ((Real.log X) ^ (-(1 : ℝ) / 64) + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) :=
+  T1_pointwise_decay (norm_seamCoeff_le hf norm_trivialInd_le t₀) (norm_costwist_le t)
+    hX hε hC₁ hC₂ hsplit hhead htail hfloor
+
 end Salt.MR
