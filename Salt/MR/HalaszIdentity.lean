@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Mathlib.MeasureTheory.Group.Integral
 import Salt.MR.HalaszFactor
+import Salt.MR.MultShiu
 
 /-!
 # HALASZ-IDENTITY — PART 1 opening stones (`HalaszIdentity`)
@@ -1431,5 +1432,677 @@ lemma coeff_collapse (y : ℝ) (g : ℕ → ℂ) (η : ℝ) (N : ℕ) :
     refine Finset.sum_congr rfl (fun p _ => ?_)
     ring
   rw [hF1int]
+
+/-! ## V5-2c — `aligned_collapse_assembled` (the outer assembly)
+
+The per-`N` collapse `coeff_collapse` is lifted through the hat-smoothed sum and the
+`(α,β)` double integral to a coefficient identity for `prop21RHS`.  Because the hat kernel
+`hatK` vanishes past `X+h`, every `∑'_N` is a FINITE `Finset` sum, so the `∫α∫β ↔ Σ_N`
+interchange is `intervalIntegral.integral_finsetSum` (no measure-theoretic Fubini). -/
+
+/-- Joint `(α,β)`-continuity of a shifted coefficient at a fixed index (for a `0`-vanishing
+sequence and a jointly-continuous exponent). -/
+lemma continuous_uncurry_shiftCoeff {e : ℕ → ℂ} (he0 : e 0 = 0) (w : ℝ → ℝ → ℂ)
+    (hw : Continuous (Function.uncurry w)) (j : ℕ) :
+    Continuous (Function.uncurry fun α β => shiftCoeff (w α β) e j) := by
+  rcases Nat.eq_zero_or_pos j with rfl | hj
+  · have : (Function.uncurry fun α β => shiftCoeff (w α β) e 0) = fun _ : ℝ × ℝ => (0 : ℂ) := by
+      funext p; simp [Function.uncurry, shiftCoeff, he0]
+    rw [this]; exact continuous_const
+  · have : (Function.uncurry fun α β => shiftCoeff (w α β) e j)
+        = fun p : ℝ × ℝ => e j * (j : ℂ) ^ (Function.uncurry w p) := by
+      funext p; simp [Function.uncurry, shiftCoeff]
+    rw [this]
+    exact continuous_const.mul (hw.const_cpow (Or.inl (Nat.cast_ne_zero.mpr hj.ne')))
+
+/-- Joint `(α,β)`-continuity of a convolution of two jointly-continuous coefficient
+families. -/
+lemma continuous_uncurry_conv2 (a b : ℝ → ℝ → ℕ → ℂ) (N : ℕ)
+    (ha : ∀ k, Continuous (Function.uncurry fun α β => a α β k))
+    (hb : ∀ m, Continuous (Function.uncurry fun α β => b α β m)) :
+    Continuous (Function.uncurry fun α β => (a α β ⍟ b α β) N) := by
+  have heq : (Function.uncurry fun α β => (a α β ⍟ b α β) N)
+      = fun p : ℝ × ℝ => ∑ q ∈ N.divisorsAntidiagonal, a p.1 p.2 q.1 * b p.1 p.2 q.2 := by
+    funext p; obtain ⟨α, β⟩ := p
+    simp only [Function.uncurry_apply_pair, LSeries.convolution_def]
+  rw [heq]
+  exact continuous_finsetSum _ (fun q _ => (ha q.1).mul (hb q.2))
+
+/-- Joint `(α,β)`-continuity of the aligned window coefficient at a fixed index. -/
+lemma continuous_uncurry_alignedCoeff (y : ℝ) (g : ℕ → ℂ) (X : ℝ) (N : ℕ) :
+    Continuous (Function.uncurry fun α β => alignedCoeff y g X α β N) := by
+  simp only [alignedCoeff]
+  refine continuous_uncurry_conv2 _ _ N
+    (fun k => continuous_uncurry_conv2 _ _ k
+      (fun k' => continuous_uncurry_conv2 _ _ k' (fun _ => continuous_const)
+        (fun m => continuous_uncurry_shiftCoeff (winCoeff_zero g X y)
+          (fun α _ => -(α : ℂ)) (by fun_prop) m))
+      (fun m => continuous_uncurry_shiftCoeff (winCoeff_zero g X y)
+        (fun α β => -(α : ℂ) - 2 * (β : ℂ)) (by fun_prop) m))
+    (fun m => continuous_uncurry_shiftCoeff (ellLin_zero (restrictAbove y g))
+      (fun α β => -(α : ℂ) - 2 * (β : ℂ)) (by fun_prop) m)
+
+/-- Joint `(α,β)`-continuity of the un-truncated aligned coefficient at a fixed index. -/
+lemma continuous_uncurry_alignedCoeffFull (y : ℝ) (g : ℕ → ℂ) (N : ℕ) :
+    Continuous (Function.uncurry fun α β => alignedCoeffFull y g α β N) := by
+  simp only [alignedCoeffFull]
+  refine continuous_uncurry_conv2 _ _ N
+    (fun k => continuous_uncurry_conv2 _ _ k
+      (fun k' => continuous_uncurry_conv2 _ _ k' (fun _ => continuous_const)
+        (fun m => continuous_uncurry_shiftCoeff
+          (by unfold lambdaLin; rw [if_neg not_isPrimePow_zero])
+          (fun α _ => -(α : ℂ)) (by fun_prop) m))
+      (fun m => continuous_uncurry_shiftCoeff
+        (by unfold lambdaLin; rw [if_neg not_isPrimePow_zero])
+        (fun α β => -(α : ℂ) - 2 * (β : ℂ)) (by fun_prop) m))
+    (fun m => continuous_uncurry_shiftCoeff (ellLin_zero (restrictAbove y g))
+      (fun α β => -(α : ℂ) - 2 * (β : ℂ)) (by fun_prop) m)
+
+/-- **The interchange.**  With the hat kernel `hatK X h` vanishing past `X+h`, the
+`(α,β)`-integral of the hat-smoothed sum of a jointly-continuous coefficient family equals
+the FINITE `Finset` sum of the `(α,β)`-integrated coefficients (each weighted by `hatK`). -/
+lemma integral_tsum_hatK_eq_finset (X h η : ℝ) (hh : 0 < h) (c : ℝ → ℝ → ℕ → ℂ)
+    (hc : ∀ N, Continuous (Function.uncurry fun α β => c α β N)) :
+    (∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η, ∑' N, c α β N * (hatK X h N : ℂ))
+      = ∑ N ∈ Finset.range (⌊X + h⌋₊ + 1),
+          (∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η, c α β N) * (hatK X h N : ℂ) := by
+  have hsupp : ∀ (α β : ℝ) (N : ℕ), N ∉ Finset.range (⌊X + h⌋₊ + 1) →
+      c α β N * (hatK X h N : ℂ) = 0 := by
+    intro α β N hN
+    rw [Finset.mem_range, not_lt] at hN
+    have hgt : X + h < (N : ℝ) := by
+      have h1 := Nat.lt_floor_add_one (X + h)
+      have h2 : ((⌊X + h⌋₊ + 1 : ℕ) : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN
+      push_cast at h2; linarith
+    rw [hatK_eq_zero hh hgt, Complex.ofReal_zero, mul_zero]
+  have hstep1 : (∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η, ∑' N, c α β N * (hatK X h N : ℂ))
+      = ∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η,
+          ∑ N ∈ Finset.range (⌊X + h⌋₊ + 1), c α β N * (hatK X h N : ℂ) := by
+    refine intervalIntegral.integral_congr (fun α _ => ?_)
+    refine intervalIntegral.integral_congr (fun β _ => ?_)
+    exact tsum_eq_sum (fun N hN => hsupp α β N hN)
+  rw [hstep1]
+  have hβ : ∀ α : ℝ, (∫ β in (0 : ℝ)..η,
+        ∑ N ∈ Finset.range (⌊X + h⌋₊ + 1), c α β N * (hatK X h N : ℂ))
+      = ∑ N ∈ Finset.range (⌊X + h⌋₊ + 1), ∫ β in (0 : ℝ)..η, c α β N * (hatK X h N : ℂ) := by
+    intro α
+    exact intervalIntegral.integral_finsetSum (fun N _ =>
+      (((hc N).uncurry_left α).mul continuous_const).intervalIntegrable 0 η)
+  simp_rw [hβ]
+  have hαInt : ∀ N ∈ Finset.range (⌊X + h⌋₊ + 1),
+      IntervalIntegrable (fun α => ∫ β in (0 : ℝ)..η, c α β N * (hatK X h N : ℂ)) volume 0 η := by
+    intro N _
+    have hfN : Continuous (Function.uncurry fun α β => c α β N * (hatK X h N : ℂ)) :=
+      (hc N).mul continuous_const
+    exact (intervalIntegral.continuous_parametric_intervalIntegral_of_continuous'
+      hfN 0 η).intervalIntegrable 0 η
+  rw [intervalIntegral.integral_finsetSum hαInt]
+  refine Finset.sum_congr rfl (fun N _ => ?_)
+  rw [← intervalIntegral.integral_mul_const]
+  refine intervalIntegral.integral_congr (fun α _ => ?_)
+  rw [intervalIntegral.integral_mul_const]
+
+/-- **The hat-ramp residue** (V5-5's charge).  The `(X, X+h]` residual of the window
+un-truncation: the difference `alignedCoeffFull − alignedCoeff` — which vanishes on `N ≤ X`
+by `joint_support_untruncation`, so is supported on the ramp `(X, X+h]` under `hatK` —
+hat-smoothed and `(α,β)`-integrated with the leading `2`-Jacobian.  Priced by the concurrent
+`RampSliver` executor (`ramp_sliver_bound`); carried here as the named residual. -/
+def rampTerm (g : ℕ → ℂ) (X h y η : ℝ) : ℂ :=
+  (2 : ℝ) • ∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η,
+    ∑' N, (alignedCoeffFull y g α β N - alignedCoeff y g X α β N) * (hatK X h N : ℂ)
+
+/-- **V5-2c — `aligned_collapse_assembled` (the outer assembly).**  On the landed foundation
+`prop21RHS_hat_rep_aligned`, the per-`N` collapse `coeff_collapse` lifts through the finite
+hat-smoothed sum to a coefficient identity: `prop21RHS` is the main `𝒮⍟𝓛` hat-sum minus the
+`η`-endpoint hat-sum (the MS-A shape), minus the `2η`-endpoint `α`-integral hat-sum (the MS-B
+shape), minus the ramp residue `rampTerm` (V5-5's charge).  Every `∫α∫β ↔ Σ_N` interchange is
+`integral_tsum_hatK_eq_finset` (finite, no Fubini).  Independent of the center `t₀` (the
+centering was integrated away in `four_factor_hat_rep_shifted`). -/
+theorem aligned_collapse_assembled (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    {t₀ X h c₀ y η : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc₀ : 1 < c₀) (hη : 0 ≤ η)
+    (hc' : 0 < c₀ - 2 * η) :
+    prop21RHS g t₀ X h c₀ y η
+      = (∑' N, (ellLin (restrictBelow y g) ⍟ ellLin (restrictAbove y g)) N * (hatK X h N : ℂ))
+        - (∑' N, (ellLin (restrictBelow y g)
+            ⍟ shiftCoeff (-(η : ℂ)) (ellLin (restrictAbove y g))) N * (hatK X h N : ℂ))
+        - (∑' N, (∫ α in (0 : ℝ)..η,
+            ((ellLin (restrictBelow y g) ⍟ shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g)))
+              ⍟ shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) (ellLin (restrictAbove y g))) N)
+            * (hatK X h N : ℂ))
+        - rampTerm g X h y η := by
+  set F := Finset.range (⌊X + h⌋₊ + 1) with hFdef
+  -- `hatK` vanishes off `F`
+  have hhatK0 : ∀ N ∉ F, (hatK X h N : ℂ) = 0 := by
+    intro N hN
+    rw [hFdef, Finset.mem_range, not_lt] at hN
+    have hgt : X + h < (N : ℝ) := by
+      have h1 := Nat.lt_floor_add_one (X + h)
+      have h2 : ((⌊X + h⌋₊ + 1 : ℕ) : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN
+      push_cast at h2; linarith
+    rw [hatK_eq_zero hh hgt, Complex.ofReal_zero]
+  -- LHS as a finite `Finset` sum
+  have hLHS : prop21RHS g t₀ X h c₀ y η
+      = ∑ N ∈ F, ((2 : ℝ) • ∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η, alignedCoeff y g X α β N)
+          * (hatK X h N : ℂ) := by
+    rw [prop21RHS_hat_rep_aligned g hg hX hh hc₀ hη hc',
+      integral_tsum_hatK_eq_finset X h η hh (alignedCoeff y g X)
+        (fun N => continuous_uncurry_alignedCoeff y g X N), Finset.smul_sum]
+    exact Finset.sum_congr rfl (fun N _ => by rw [smul_mul_assoc])
+  -- the three endpoint tsums collapse to `Finset` sums over `F`
+  have hMain : (∑' N, (ellLin (restrictBelow y g) ⍟ ellLin (restrictAbove y g)) N
+        * (hatK X h N : ℂ))
+      = ∑ N ∈ F, (ellLin (restrictBelow y g) ⍟ ellLin (restrictAbove y g)) N
+          * (hatK X h N : ℂ) :=
+    tsum_eq_sum (fun N hN => by rw [hhatK0 N hN, mul_zero])
+  have hEta : (∑' N, (ellLin (restrictBelow y g)
+        ⍟ shiftCoeff (-(η : ℂ)) (ellLin (restrictAbove y g))) N * (hatK X h N : ℂ))
+      = ∑ N ∈ F, (ellLin (restrictBelow y g)
+          ⍟ shiftCoeff (-(η : ℂ)) (ellLin (restrictAbove y g))) N * (hatK X h N : ℂ) :=
+    tsum_eq_sum (fun N hN => by rw [hhatK0 N hN, mul_zero])
+  have hTwoEta : (∑' N, (∫ α in (0 : ℝ)..η,
+        ((ellLin (restrictBelow y g) ⍟ shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g)))
+          ⍟ shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) (ellLin (restrictAbove y g))) N)
+        * (hatK X h N : ℂ))
+      = ∑ N ∈ F, (∫ α in (0 : ℝ)..η,
+          ((ellLin (restrictBelow y g) ⍟ shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g)))
+            ⍟ shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) (ellLin (restrictAbove y g))) N)
+          * (hatK X h N : ℂ) :=
+    tsum_eq_sum (fun N hN => by rw [hhatK0 N hN, mul_zero])
+  -- the ramp residue as a `Finset` sum over `F`
+  have hRamp : rampTerm g X h y η
+      = ∑ N ∈ F, ((2 : ℝ) • ∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η,
+          (alignedCoeffFull y g α β N - alignedCoeff y g X α β N)) * (hatK X h N : ℂ) := by
+    rw [rampTerm, integral_tsum_hatK_eq_finset X h η hh
+        (fun α β N => alignedCoeffFull y g α β N - alignedCoeff y g X α β N)
+        (fun N => (continuous_uncurry_alignedCoeffFull y g N).sub
+          (continuous_uncurry_alignedCoeff y g X N)), Finset.smul_sum]
+    exact Finset.sum_congr rfl (fun N _ => by rw [smul_mul_assoc])
+  -- the per-`N` identity: `2•∫∫alignedCoeff = coeff_collapse − 2•∫∫(ramp)`
+  have key : ∀ N : ℕ,
+      ((2 : ℝ) • ∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η, alignedCoeff y g X α β N)
+        = ((ellLin (restrictBelow y g) ⍟ ellLin (restrictAbove y g)) N
+            - (ellLin (restrictBelow y g)
+                ⍟ shiftCoeff (-(η : ℂ)) (ellLin (restrictAbove y g))) N
+            - ∫ α in (0 : ℝ)..η,
+                ((ellLin (restrictBelow y g)
+                    ⍟ shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g)))
+                  ⍟ shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) (ellLin (restrictAbove y g))) N)
+          - ((2 : ℝ) • ∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η,
+              (alignedCoeffFull y g α β N - alignedCoeff y g X α β N)) := by
+    intro N
+    have hdiff : Continuous (Function.uncurry fun α β =>
+        alignedCoeffFull y g α β N - alignedCoeff y g X α β N) :=
+      (continuous_uncurry_alignedCoeffFull y g N).sub (continuous_uncurry_alignedCoeff y g X N)
+    have hcβ : ∀ α : ℝ, IntervalIntegrable
+        (fun β => alignedCoeffFull y g α β N) volume 0 η := fun α =>
+      ((continuous_uncurry_alignedCoeffFull y g N).uncurry_left α).intervalIntegrable 0 η
+    have hcdβ : ∀ α : ℝ, IntervalIntegrable
+        (fun β => alignedCoeffFull y g α β N - alignedCoeff y g X α β N) volume 0 η := fun α =>
+      (hdiff.uncurry_left α).intervalIntegrable 0 η
+    have hcα : IntervalIntegrable
+        (fun α => ∫ β in (0 : ℝ)..η, alignedCoeffFull y g α β N) volume 0 η :=
+      (intervalIntegral.continuous_parametric_intervalIntegral_of_continuous'
+        (continuous_uncurry_alignedCoeffFull y g N) 0 η).intervalIntegrable 0 η
+    have hcdα : IntervalIntegrable
+        (fun α => ∫ β in (0 : ℝ)..η,
+          (alignedCoeffFull y g α β N - alignedCoeff y g X α β N)) volume 0 η :=
+      (intervalIntegral.continuous_parametric_intervalIntegral_of_continuous'
+        hdiff 0 η).intervalIntegrable 0 η
+    have hsplit : (∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η, alignedCoeff y g X α β N)
+        = (∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η, alignedCoeffFull y g α β N)
+          - (∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η,
+              (alignedCoeffFull y g α β N - alignedCoeff y g X α β N)) := by
+      rw [← intervalIntegral.integral_sub hcα hcdα]
+      refine intervalIntegral.integral_congr (fun α _ => ?_)
+      rw [← intervalIntegral.integral_sub (hcβ α) (hcdβ α)]
+      refine intervalIntegral.integral_congr (fun β _ => ?_)
+      ring
+    rw [hsplit, smul_sub, coeff_collapse y g η N]
+  -- assemble
+  rw [hLHS, hMain, hEta, hTwoEta, hRamp, ← Finset.sum_sub_distrib, ← Finset.sum_sub_distrib,
+    ← Finset.sum_sub_distrib]
+  refine Finset.sum_congr rfl (fun N _ => ?_)
+  rw [key N, sub_mul, sub_mul, sub_mul]
+
+/-! ## V5-4 — `endpoint_reconciliation_full` (the seam-side twist alignment)
+
+The centering `integral_add_right_eq_self` removed `t₀` from `prop21RHS` (it is `t₀`-free);
+the seam's center twist `n^{-it₀}` is therefore reconciled by twisting the PRIME DATUM.  The
+center-twisted linearized coefficient `seamCoeff (ellLin g) (trivial) t₀` is EXACTLY the split
+main carrier `𝒮⍟𝓛` of the twisted datum `g_{t₀} = g·(·)^{-it₀}`. -/
+
+/-- The `cpow`-of-product law over a `Finset` of naturals (positive-real bases, principal
+branch): `(∏ p)^w = ∏ p^w`. -/
+lemma prod_natCast_cpow (s : Finset ℕ) (w : ℂ) :
+    ((∏ p ∈ s, p : ℕ) : ℂ) ^ w = ∏ p ∈ s, (p : ℂ) ^ w := by
+  classical
+  induction s using Finset.induction_on with
+  | empty => simp
+  | @insert q s hq ih =>
+    rw [Finset.prod_insert hq, Finset.prod_insert hq, Nat.cast_mul,
+      Complex.natCast_mul_natCast_cpow, ih]
+
+/-- **The datum twist alignment.**  Twisting the prime datum by `p ↦ p^w` twists the linearized
+coefficient by `n ↦ n^w`: `ellLin (g · (·)^w) n = ellLin g n · n^w` (squarefree support carries
+the product of local twists `∏_{p∣n} p^w` to the global `n^w`, `prod_natCast_cpow`). -/
+lemma ellLin_twist (g : ℕ → ℂ) (w : ℂ) (N : ℕ) :
+    ellLin (fun p => g p * (p : ℂ) ^ w) N = ellLin g N * (N : ℂ) ^ w := by
+  rcases eq_or_ne N 0 with rfl | hN
+  · simp [ellLin]
+  · unfold ellLin
+    rw [if_neg hN, if_neg hN]
+    by_cases hsq : Squarefree N
+    · rw [if_pos hsq, if_pos hsq, Finset.prod_mul_distrib]
+      congr 1
+      rw [← prod_natCast_cpow, Nat.prod_primeFactors_of_squarefree hsq]
+    · rw [if_neg hsq, if_neg hsq, zero_mul]
+
+/-- **V5-4 — `endpoint_reconciliation_full`.**  Under route (i) (`f = ellLin g`), the seam
+coefficient `seamCoeff (ellLin g) (trivial) t₀` — the center-twisted linearized datum — is
+EXACTLY the split main carrier `𝒮⍟𝓛` of the TWISTED prime datum `g_{t₀} = g·(·)^{-it₀}`.
+Route: `ellLin_split` (`𝒮⍟𝓛 = ellLin`) + `ellLin_twist` (the twist rides onto the datum).
+ZERO structural residual (the refuters' verdict): squarefree support + disjoint cutoffs. -/
+theorem endpoint_reconciliation_full (g : ℕ → ℂ) (t₀ y : ℝ) :
+    seamCoeff (ellLin g) (fun _ => 1) t₀
+      = ellLin (restrictBelow y (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)))
+        ⍟ ellLin (restrictAbove y (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I))) := by
+  rw [ellLin_split]
+  funext N
+  rcases eq_or_ne N 0 with rfl | hN
+  · simp [seamCoeff, ellLin]
+  · rw [seamCoeff, if_neg hN, ellLin_twist g (-(t₀ : ℂ) * I) N]
+    simp
+
+/-! ## V5-6 — the E-budget assembly (`hfactor_discharged` + `prop21_unconditional`)
+
+The three residual hat-sums — the `η`-endpoint (MS-A shape), the `2η`-endpoint `α`-integral
+(MS-B shape), and the ramp `rampTerm` (hsliver) — are dominated termwise (`hatK ∈ [0,1]`) and
+reindexed (convolution antidiagonal → the `MultShiu` product filter) onto the frozen MS-A/MS-B
+sums, discharged by `mult_shiu_MS_EXIT` at `x := X+h`, `η := 1/log y`. -/
+
+/-- **The 2-factor reindex.**  For nonnegative weights, the sum over `N ≤ M` of the convolution
+antidiagonal is dominated by the `MultShiu` product-filter sum (`m·n ≤ M`, `m,n ∈ [1,M]`): the
+disjoint antidiagonals reindex into a subset of the filter, all terms nonnegative. -/
+lemma sum_conv_le_prodFilter (a b : ℕ → ℝ) (ha : ∀ n, 0 ≤ a n) (hb : ∀ n, 0 ≤ b n) (M : ℕ) :
+    (∑ N ∈ Finset.range (M + 1), ∑ q ∈ N.divisorsAntidiagonal, a q.1 * b q.2)
+      ≤ ∑ q ∈ (Finset.Icc 1 M ×ˢ Finset.Icc 1 M).filter (fun q => q.1 * q.2 ≤ M),
+          a q.1 * b q.2 := by
+  have hdisj : (↑(Finset.range (M + 1)) : Set ℕ).PairwiseDisjoint
+      (fun N => N.divisorsAntidiagonal) := by
+    intro N1 _ N2 _ hne
+    simp only [Function.onFun]
+    rw [Finset.disjoint_left]
+    intro q hq1 hq2
+    rw [Nat.mem_divisorsAntidiagonal] at hq1 hq2
+    exact hne (hq1.1.symm.trans hq2.1)
+  rw [← Finset.sum_biUnion hdisj]
+  refine Finset.sum_le_sum_of_subset_of_nonneg ?_ (fun q _ _ => mul_nonneg (ha _) (hb _))
+  intro q hq
+  rw [Finset.mem_biUnion] at hq
+  obtain ⟨N, hN, hqN⟩ := hq
+  rw [Finset.mem_range] at hN
+  rw [Nat.mem_divisorsAntidiagonal] at hqN
+  obtain ⟨hprod, hN0⟩ := hqN
+  have hNM : N ≤ M := by omega
+  have hq1dvd : q.1 ∣ N := ⟨q.2, hprod.symm⟩
+  have hq2dvd : q.2 ∣ N := ⟨q.1, by rw [mul_comm]; exact hprod.symm⟩
+  have hNpos : 0 < N := Nat.pos_of_ne_zero hN0
+  have hq1M : q.1 ≤ M := le_trans (Nat.le_of_dvd hNpos hq1dvd) hNM
+  have hq2M : q.2 ≤ M := le_trans (Nat.le_of_dvd hNpos hq2dvd) hNM
+  have hq1pos : 1 ≤ q.1 := Nat.one_le_iff_ne_zero.mpr (fun h => by simp [h] at hprod; omega)
+  have hq2pos : 1 ≤ q.2 := Nat.one_le_iff_ne_zero.mpr (fun h => by simp [h] at hprod; omega)
+  rw [Finset.mem_filter, Finset.mem_product, Finset.mem_Icc, Finset.mem_Icc]
+  exact ⟨⟨⟨hq1pos, hq1M⟩, hq2pos, hq2M⟩, by rw [hprod]; exact hNM⟩
+
+/-- `hatK` vanishes off `range (⌊X+h⌋₊ + 1)`. -/
+lemma hatK_ofReal_eq_zero_of_notMem {X h : ℝ} (hh : 0 < h) {N : ℕ}
+    (hN : N ∉ Finset.range (⌊X + h⌋₊ + 1)) : (hatK X h N : ℂ) = 0 := by
+  rw [Finset.mem_range, not_lt] at hN
+  have hgt : X + h < (N : ℝ) := by
+    have h1 : X + h < (⌊X + h⌋₊ : ℝ) + 1 := Nat.lt_floor_add_one (X + h)
+    have h2 : ((⌊X + h⌋₊ + 1 : ℕ) : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN
+    push_cast at h2; linarith
+  rw [hatK_eq_zero hh hgt, Complex.ofReal_zero]
+
+/-- **The `η`-endpoint (MS-A) domination.**  The norm of the hat-smoothed convolution sum is
+bounded by the `MultShiu` product-filter sum of the leg norms (`hatK ∈ [0,1]` termwise, the
+triangle inequality on the convolution antidiagonal, `sum_conv_le_prodFilter`). -/
+lemma norm_tsum_conv_hatK_le (A B : ℕ → ℂ) {X h : ℝ} (hh : 0 < h) :
+    ‖∑' N, (A ⍟ B) N * (hatK X h N : ℂ)‖
+      ≤ ∑ q ∈ (Finset.Icc 1 ⌊X + h⌋₊ ×ˢ Finset.Icc 1 ⌊X + h⌋₊).filter
+          (fun q => q.1 * q.2 ≤ ⌊X + h⌋₊), ‖A q.1‖ * ‖B q.2‖ := by
+  have htsum : (∑' N, (A ⍟ B) N * (hatK X h N : ℂ))
+      = ∑ N ∈ Finset.range (⌊X + h⌋₊ + 1), (A ⍟ B) N * (hatK X h N : ℂ) :=
+    tsum_eq_sum (fun N hN => by rw [hatK_ofReal_eq_zero_of_notMem hh hN, mul_zero])
+  rw [htsum]
+  calc ‖∑ N ∈ Finset.range (⌊X + h⌋₊ + 1), (A ⍟ B) N * (hatK X h N : ℂ)‖
+      ≤ ∑ N ∈ Finset.range (⌊X + h⌋₊ + 1), ‖(A ⍟ B) N * (hatK X h N : ℂ)‖ := norm_sum_le _ _
+    _ ≤ ∑ N ∈ Finset.range (⌊X + h⌋₊ + 1), ‖(A ⍟ B) N‖ := by
+        refine Finset.sum_le_sum (fun N _ => ?_)
+        rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (hatK_nonneg hh N)]
+        calc ‖(A ⍟ B) N‖ * hatK X h N ≤ ‖(A ⍟ B) N‖ * 1 :=
+              mul_le_mul_of_nonneg_left (hatK_le_one hh N) (norm_nonneg _)
+          _ = ‖(A ⍟ B) N‖ := mul_one _
+    _ ≤ ∑ N ∈ Finset.range (⌊X + h⌋₊ + 1),
+          ∑ q ∈ N.divisorsAntidiagonal, ‖A q.1‖ * ‖B q.2‖ := by
+        refine Finset.sum_le_sum (fun N _ => ?_)
+        rw [LSeries.convolution_def]
+        refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun q _ => ?_))
+        rw [norm_mul]
+    _ ≤ _ := sum_conv_le_prodFilter (fun n => ‖A n‖) (fun n => ‖B n‖)
+              (fun n => norm_nonneg _) (fun n => norm_nonneg _) ⌊X + h⌋₊
+
+/-- **The `η`-endpoint dominated by the MS-A sum.**  The `η`-endpoint hat-sum is bounded by the
+frozen MS-A product-filter sum at `x := X+h`, `η := 1/log y` (`shiftCoeff (-η)` deposits the
+`(q.2)^{-1/log y}` weight exactly). -/
+lemma norm_etaSum_le_msA (d : ℕ → ℂ) {X h y η : ℝ} (hh : 0 < h) (hη : η = 1 / Real.log y) :
+    ‖∑' N, (ellLin (restrictBelow y d)
+        ⍟ shiftCoeff (-(η : ℂ)) (ellLin (restrictAbove y d))) N * (hatK X h N : ℂ)‖
+      ≤ ∑ q ∈ (Finset.Icc 1 ⌊X + h⌋₊ ×ˢ Finset.Icc 1 ⌊X + h⌋₊).filter
+          (fun q => q.1 * q.2 ≤ ⌊X + h⌋₊),
+          ‖ellLin (restrictBelow y d) q.1‖ * ‖ellLin (restrictAbove y d) q.2‖
+            / (q.2 : ℝ) ^ (1 / Real.log y) := by
+  refine le_trans (norm_tsum_conv_hatK_le _ _ hh) (le_of_eq (Finset.sum_congr rfl (fun q hq => ?_)))
+  rw [Finset.mem_filter, Finset.mem_product, Finset.mem_Icc, Finset.mem_Icc] at hq
+  have hq2 : 0 < q.2 := by omega
+  rw [shiftCoeff, norm_mul, Complex.norm_natCast_cpow_of_pos hq2,
+    show (-(η : ℂ)).re = -η by simp, hη, Real.rpow_neg (by positivity : (0 : ℝ) ≤ (q.2 : ℝ))]
+  ring
+
+/-- **The 3-factor reindex.**  The nested convolution-antidiagonal sum over `N ≤ M` is
+dominated by the `MultShiu` triple product-filter sum (`a·k·b ≤ M`, all in `[1,M]`): the
+nested antidiagonals reindex injectively into a subset of the triple filter (disjoint
+`biUnion`s of injective images), all terms nonnegative. -/
+lemma sum_conv3_le_prodFilter3 (𝓪 𝓴 𝓫 : ℕ → ℝ)
+    (h𝓪 : ∀ n, 0 ≤ 𝓪 n) (h𝓴 : ∀ n, 0 ≤ 𝓴 n) (h𝓫 : ∀ n, 0 ≤ 𝓫 n) (M : ℕ) :
+    (∑ N ∈ Finset.range (M + 1), ∑ p ∈ N.divisorsAntidiagonal,
+        ∑ r ∈ p.1.divisorsAntidiagonal, 𝓪 r.1 * 𝓴 r.2 * 𝓫 p.2)
+      ≤ ∑ t ∈ (Finset.Icc 1 M ×ˢ Finset.Icc 1 M ×ˢ Finset.Icc 1 M).filter
+          (fun t => t.1 * t.2.1 * t.2.2 ≤ M), 𝓪 t.1 * 𝓴 t.2.1 * 𝓫 t.2.2 := by
+  classical
+  set emb : ℕ × ℕ → ℕ × ℕ → ℕ × ℕ × ℕ := fun p r => (r.1, r.2, p.2) with hemb
+  -- membership fact for the flattened triples
+  have hmem : ∀ (N : ℕ) (t : ℕ × ℕ × ℕ),
+      t ∈ N.divisorsAntidiagonal.biUnion (fun p => p.1.divisorsAntidiagonal.image (emb p)) →
+      t.1 * t.2.1 * t.2.2 = N ∧ 0 < t.1 ∧ 0 < t.2.1 ∧ 0 < t.2.2 := by
+    intro N t ht
+    rw [Finset.mem_biUnion] at ht
+    obtain ⟨p, hp, ht⟩ := ht
+    rw [Finset.mem_image] at ht
+    obtain ⟨r, hr, hrt⟩ := ht
+    rw [Nat.mem_divisorsAntidiagonal] at hp hr
+    simp only [hemb] at hrt
+    subst hrt
+    refine ⟨by rw [hr.1, hp.1], ?_, ?_, ?_⟩
+    · rcases Nat.eq_zero_or_pos r.1 with h | h
+      · rw [h, zero_mul] at hr; exact absurd hr.1.symm hr.2
+      · exact h
+    · rcases Nat.eq_zero_or_pos r.2 with h | h
+      · rw [h, mul_zero] at hr; exact absurd hr.1.symm hr.2
+      · exact h
+    · rcases Nat.eq_zero_or_pos p.2 with h | h
+      · rw [h, mul_zero] at hp; exact absurd hp.1.symm hp.2
+      · exact h
+  -- inner disjointness (fixed N)
+  have hdisjP : ∀ N : ℕ, (↑N.divisorsAntidiagonal : Set (ℕ × ℕ)).PairwiseDisjoint
+      (fun p => p.1.divisorsAntidiagonal.image (emb p)) := by
+    intro N p hp p' hp' hne
+    simp only [Function.onFun]
+    rw [Finset.disjoint_left]
+    intro t ht ht'
+    rw [Finset.mem_image] at ht ht'
+    obtain ⟨r, hr, hrt⟩ := ht
+    obtain ⟨r', hr', hrt'⟩ := ht'
+    rw [Nat.mem_divisorsAntidiagonal] at hr hr'
+    simp only [hemb] at hrt hrt'
+    apply hne
+    have he := hrt.trans hrt'.symm
+    rw [Prod.mk.injEq, Prod.mk.injEq] at he
+    have hp2 : p.2 = p'.2 := he.2.2
+    have hp1 : p.1 = p'.1 := by rw [← hr.1, ← hr'.1, he.1, he.2.1]
+    exact Prod.ext hp1 hp2
+  -- outer disjointness
+  have hdisjN : (↑(Finset.range (M + 1)) : Set ℕ).PairwiseDisjoint
+      (fun N => N.divisorsAntidiagonal.biUnion
+        (fun p => p.1.divisorsAntidiagonal.image (emb p))) := by
+    intro N _ N' _ hne
+    simp only [Function.onFun]
+    rw [Finset.disjoint_left]
+    intro t ht ht'
+    exact hne ((hmem N t ht).1.symm.trans (hmem N' t ht').1)
+  -- flatten the nested sum
+  have hflat : (∑ N ∈ Finset.range (M + 1), ∑ p ∈ N.divisorsAntidiagonal,
+        ∑ r ∈ p.1.divisorsAntidiagonal, 𝓪 r.1 * 𝓴 r.2 * 𝓫 p.2)
+      = ∑ t ∈ (Finset.range (M + 1)).biUnion
+          (fun N => N.divisorsAntidiagonal.biUnion
+            (fun p => p.1.divisorsAntidiagonal.image (emb p))),
+          𝓪 t.1 * 𝓴 t.2.1 * 𝓫 t.2.2 := by
+    rw [Finset.sum_biUnion hdisjN]
+    refine Finset.sum_congr rfl (fun N _ => ?_)
+    rw [Finset.sum_biUnion (hdisjP N)]
+    refine Finset.sum_congr rfl (fun p _ => ?_)
+    rw [Finset.sum_image (fun r1 _ r2 _ he => by
+      simp only [hemb, Prod.mk.injEq] at he; exact Prod.ext he.1 he.2.1)]
+  rw [hflat]
+  refine Finset.sum_le_sum_of_subset_of_nonneg ?_
+    (fun t _ _ => mul_nonneg (mul_nonneg (h𝓪 _) (h𝓴 _)) (h𝓫 _))
+  intro t ht
+  rw [Finset.mem_biUnion] at ht
+  obtain ⟨N, hN, ht⟩ := ht
+  rw [Finset.mem_range] at hN
+  obtain ⟨hprod, h1, h2, h3⟩ := hmem N t ht
+  have hNM : N ≤ M := by omega
+  have hNpos : 0 < N := by rw [← hprod]; positivity
+  rw [Finset.mem_filter, Finset.mem_product, Finset.mem_product, Finset.mem_Icc,
+    Finset.mem_Icc, Finset.mem_Icc]
+  have hb1 : t.1 ≤ M :=
+    le_trans (Nat.le_of_dvd hNpos ⟨t.2.1 * t.2.2, by rw [← hprod]; ring⟩) hNM
+  have hb2 : t.2.1 ≤ M :=
+    le_trans (Nat.le_of_dvd hNpos ⟨t.1 * t.2.2, by rw [← hprod]; ring⟩) hNM
+  have hb3 : t.2.2 ≤ M :=
+    le_trans (Nat.le_of_dvd hNpos ⟨t.1 * t.2.1, by rw [← hprod]; ring⟩) hNM
+  exact ⟨⟨⟨h1, hb1⟩, ⟨h2, hb2⟩, ⟨h3, hb3⟩⟩, by rw [hprod]; exact hNM⟩
+
+/-- **The `2η`-endpoint integrand dominated by the MS-B integrand (per `α`).**  The sum over
+`N ≤ M` of the norm of the `2η`-endpoint coefficient is bounded by the frozen MS-B triple
+product-filter integrand (`shiftCoeff` deposits the `k^{-α}`, `b^{-(2η+α)}` weights;
+`sum_conv3_le_prodFilter3` reindexes). -/
+lemma sum_norm_twoEta_le_msB_integrand (d : ℕ → ℂ) (y : ℝ) (M : ℕ) (α η : ℝ) :
+    (∑ N ∈ Finset.range (M + 1),
+        ‖((ellLin (restrictBelow y d) ⍟ shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y d)))
+            ⍟ shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) (ellLin (restrictAbove y d))) N‖)
+      ≤ ∑ q ∈ (Finset.Icc 1 M ×ˢ Finset.Icc 1 M ×ˢ Finset.Icc 1 M).filter
+          (fun q => q.1 * q.2.1 * q.2.2 ≤ M),
+          ‖ellLin (restrictBelow y d) q.1‖
+            * (‖lambdaLin (restrictAbove y d) q.2.1‖ / (q.2.1 : ℝ) ^ α)
+            * ‖ellLin (restrictAbove y d) q.2.2‖ / (q.2.2 : ℝ) ^ (2 * η + α) := by
+  set Sm := ellLin (restrictBelow y d) with hSm
+  set Lam := lambdaLin (restrictAbove y d) with hLam
+  set Lg := ellLin (restrictAbove y d) with hLg
+  calc (∑ N ∈ Finset.range (M + 1),
+          ‖((Sm ⍟ shiftCoeff (-(α : ℂ)) Lam) ⍟ shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) Lg) N‖)
+      ≤ ∑ N ∈ Finset.range (M + 1), ∑ p ∈ N.divisorsAntidiagonal,
+          ∑ r ∈ p.1.divisorsAntidiagonal,
+            ‖Sm r.1‖ * ‖shiftCoeff (-(α : ℂ)) Lam r.2‖
+              * ‖shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) Lg p.2‖ := by
+        refine Finset.sum_le_sum (fun N _ => ?_)
+        rw [LSeries.convolution_def]
+        refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun p _ => ?_))
+        rw [norm_mul, LSeries.convolution_def]
+        refine (mul_le_mul_of_nonneg_right (norm_sum_le _ _) (norm_nonneg _)).trans ?_
+        rw [Finset.sum_mul]
+        exact Finset.sum_le_sum (fun r _ => le_of_eq (by rw [norm_mul]))
+    _ ≤ ∑ q ∈ (Finset.Icc 1 M ×ˢ Finset.Icc 1 M ×ˢ Finset.Icc 1 M).filter
+          (fun q => q.1 * q.2.1 * q.2.2 ≤ M),
+          ‖Sm q.1‖ * ‖shiftCoeff (-(α : ℂ)) Lam q.2.1‖
+            * ‖shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) Lg q.2.2‖ :=
+        sum_conv3_le_prodFilter3 (fun n => ‖Sm n‖) (fun n => ‖shiftCoeff (-(α : ℂ)) Lam n‖)
+          (fun n => ‖shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) Lg n‖)
+          (fun _ => norm_nonneg _) (fun _ => norm_nonneg _) (fun _ => norm_nonneg _) M
+    _ = _ := by
+        refine Finset.sum_congr rfl (fun q hq => ?_)
+        rw [Finset.mem_filter, Finset.mem_product, Finset.mem_product, Finset.mem_Icc,
+          Finset.mem_Icc, Finset.mem_Icc] at hq
+        have hk : 0 < q.2.1 := hq.1.2.1.1
+        have hb : 0 < q.2.2 := hq.1.2.2.1
+        simp only [shiftCoeff]
+        rw [norm_mul, norm_mul, Complex.norm_natCast_cpow_of_pos hk,
+          Complex.norm_natCast_cpow_of_pos hb, show (-(α : ℂ)).re = -α by simp,
+          show (-(α : ℂ) - 2 * (η : ℂ)).re = -(2 * η + α) by simp; ring,
+          Real.rpow_neg (by positivity : (0 : ℝ) ≤ (q.2.1 : ℝ)),
+          Real.rpow_neg (by positivity : (0 : ℝ) ≤ (q.2.2 : ℝ))]
+        ring
+
+/-- Continuity in `α` of the `2η`-endpoint coefficient at a fixed index (single-variable). -/
+lemma continuous_twoEta_coeff (d : ℕ → ℂ) (y η : ℝ) (N : ℕ) :
+    Continuous (fun α : ℝ =>
+      ((ellLin (restrictBelow y d) ⍟ shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y d)))
+        ⍟ shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) (ellLin (restrictAbove y d))) N) :=
+  continuous_conv2 _ _ N
+    (fun k => continuous_conv2 _ _ k (fun _ => continuous_const)
+      (fun m => continuous_shiftCoeff_apply
+        (by unfold lambdaLin; rw [if_neg not_isPrimePow_zero]) (fun α => -(α : ℂ)) (by fun_prop) m))
+    (fun m => continuous_shiftCoeff_apply (ellLin_zero (restrictAbove y d))
+      (fun α => -(α : ℂ) - 2 * (η : ℂ)) (by fun_prop) m)
+
+/-- Continuity in `α` of the frozen MS-B triple product-filter integrand. -/
+lemma continuous_msB_integrand (d : ℕ → ℂ) (y : ℝ) (M : ℕ) (η : ℝ) :
+    Continuous (fun α : ℝ => ∑ q ∈ (Finset.Icc 1 M ×ˢ Finset.Icc 1 M ×ˢ Finset.Icc 1 M).filter
+        (fun q => q.1 * q.2.1 * q.2.2 ≤ M),
+        ‖ellLin (restrictBelow y d) q.1‖ * (‖lambdaLin (restrictAbove y d) q.2.1‖ / (q.2.1 : ℝ) ^ α)
+          * ‖ellLin (restrictAbove y d) q.2.2‖ / (q.2.2 : ℝ) ^ (2 * η + α)) := by
+  refine continuous_finsetSum _ (fun q hq => ?_)
+  rw [Finset.mem_filter, Finset.mem_product, Finset.mem_product, Finset.mem_Icc,
+    Finset.mem_Icc, Finset.mem_Icc] at hq
+  have hkpos : (0 : ℝ) < (q.2.1 : ℝ) := by exact_mod_cast (by omega : 0 < q.2.1)
+  have hbpos : (0 : ℝ) < (q.2.2 : ℝ) := by exact_mod_cast (by omega : 0 < q.2.2)
+  refine Continuous.div (Continuous.mul (Continuous.mul continuous_const
+    (Continuous.div continuous_const (Real.continuous_const_rpow hkpos.ne')
+      (fun α => (Real.rpow_pos_of_pos hkpos α).ne'))) continuous_const)
+    ((Real.continuous_const_rpow hbpos.ne').comp (continuous_const.add continuous_id))
+    (fun α => (Real.rpow_pos_of_pos hbpos _).ne')
+
+/-- **The `2η`-endpoint dominated by the MS-B sum.**  The `2η`-endpoint `α`-integral hat-sum is
+bounded by the frozen MS-B integral of the triple product-filter sum at `x := X+h`
+(`norm_integral_le_integral_norm` + the finite sum↔integral swap + `sum_norm_twoEta…`). -/
+lemma norm_twoEtaSum_le_msB (d : ℕ → ℂ) (y : ℝ) {X h η : ℝ} (hh : 0 < h) (hη0 : 0 ≤ η) :
+    ‖∑' N, (∫ α in (0 : ℝ)..η,
+        ((ellLin (restrictBelow y d) ⍟ shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y d)))
+          ⍟ shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) (ellLin (restrictAbove y d))) N)
+        * (hatK X h N : ℂ)‖
+      ≤ ∫ α in (0 : ℝ)..η, ∑ q ∈ (Finset.Icc 1 ⌊X + h⌋₊ ×ˢ Finset.Icc 1 ⌊X + h⌋₊
+          ×ˢ Finset.Icc 1 ⌊X + h⌋₊).filter (fun q => q.1 * q.2.1 * q.2.2 ≤ ⌊X + h⌋₊),
+          ‖ellLin (restrictBelow y d) q.1‖
+            * (‖lambdaLin (restrictAbove y d) q.2.1‖ / (q.2.1 : ℝ) ^ α)
+            * ‖ellLin (restrictAbove y d) q.2.2‖ / (q.2.2 : ℝ) ^ (2 * η + α) := by
+  set M := ⌊X + h⌋₊ with hMdef
+  have hcoeff := continuous_twoEta_coeff d y η
+  have htsum : (∑' N, (∫ α in (0 : ℝ)..η,
+        ((ellLin (restrictBelow y d) ⍟ shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y d)))
+          ⍟ shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) (ellLin (restrictAbove y d))) N) * (hatK X h N : ℂ))
+      = ∑ N ∈ Finset.range (M + 1), (∫ α in (0 : ℝ)..η,
+          ((ellLin (restrictBelow y d) ⍟ shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y d)))
+            ⍟ shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) (ellLin (restrictAbove y d))) N)
+          * (hatK X h N : ℂ) :=
+    tsum_eq_sum (fun N hN => by rw [hatK_ofReal_eq_zero_of_notMem hh hN, mul_zero])
+  rw [htsum]
+  refine (norm_sum_le _ _).trans ?_
+  have hterm : ∀ N ∈ Finset.range (M + 1),
+      ‖(∫ α in (0 : ℝ)..η,
+          ((ellLin (restrictBelow y d) ⍟ shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y d)))
+            ⍟ shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) (ellLin (restrictAbove y d))) N)
+        * (hatK X h N : ℂ)‖
+      ≤ ∫ α in (0 : ℝ)..η,
+          ‖((ellLin (restrictBelow y d) ⍟ shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y d)))
+            ⍟ shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) (ellLin (restrictAbove y d))) N‖ := by
+    intro N _
+    rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (hatK_nonneg hh N)]
+    refine le_trans (mul_le_mul_of_nonneg_right
+      (intervalIntegral.norm_integral_le_integral_norm hη0) (hatK_nonneg hh N)) ?_
+    exact mul_le_of_le_one_right
+      (intervalIntegral.integral_nonneg hη0 (fun α _ => norm_nonneg _)) (hatK_le_one hh N)
+  refine (Finset.sum_le_sum hterm).trans ?_
+  rw [← intervalIntegral.integral_finsetSum (fun N _ => ((hcoeff N).norm).intervalIntegrable 0 η)]
+  refine intervalIntegral.integral_mono_on hη0
+    ((continuous_finsetSum (Finset.range (M + 1))
+      (fun N _ => (hcoeff N).norm)).intervalIntegrable 0 η)
+    ((continuous_msB_integrand d y M η).intervalIntegrable 0 η) (fun α _ => ?_)
+  exact sum_norm_twoEta_le_msB_integrand d y M α η
+
+/-! ## H-EXIT — `prop21_unconditional` (THE S1′ REPRESENTATION, mod hsliver) -/
+
+/-- **H-EXIT — `prop21_unconditional` (THE CAMPAIGN'S PRIZE).**  The S1′ representation stands
+UNCONDITIONALLY save the single ramp-sliver hypothesis.  Under route (i) (`f = ellLin g`) and
+the regime, the full twisted hat-smoothed sum `∑' n, f(n)·n^{-it₀}·hatK` equals the frozen
+`prop21RHS` (at the CENTERED datum `g_{t₀} = g·(·)^{-it₀}`, the twist-placement resolution: the
+centering is `t₀`-integrated out of `prop21RHS`, so the seam twist rides onto the datum via
+`ellLin_twist`) up to the error `E`, assembled from THREE named summands:
+
+* **MS-A** — the `η`-endpoint `∑' (𝒮⍟shift(-η)𝓛)·hatK` (`norm_etaSum_le_msA`);
+* **MS-B** — the `2η`-endpoint `∑' (∫α 𝒮⍟shift(-α)Λ⍟shift(-α-2η)𝓛)·hatK` (`norm_twoEtaSum_le_msB`);
+  MS-A+MS-B are discharged by `mult_shiu_MS_EXIT` at `x := X+h`, `η := 1/log y`;
+* **E_ramp** — the ramp residue `‖rampTerm g_{t₀} X h y η‖`, THE SINGLE CONDITIONAL
+  (`hsliver`); its discharge is `RampSliver.ramp_sliver_bound` + the short-interval Chebyshev
+  GRAIN (owned by the concurrent RampSliver executor).
+
+Consumes the frozen `prop21_analog` VERBATIM (iron rule 1): the LHS→contour leg
+`prop21_contour_leg_unwindowed` discharges its `hfactor`. -/
+theorem prop21_unconditional (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ : ℝ)
+    {X h c₀ y η E_ramp : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc₀ : 1 < c₀)
+    (hη : η = 1 / Real.log y) (hc' : 0 < c₀ - 2 * η) (hy10 : 10 ≤ y) (hyX : y ≤ Real.sqrt X)
+    (hsliver : ‖rampTerm (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) X h y η‖ ≤ E_ramp) :
+    ∃ C_E : ℝ, ‖(∑' n, seamCoeff (ellLin g) (fun _ => 1) t₀ n * (hatK X h n : ℂ))
+        - prop21RHS (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) t₀ X h c₀ y η‖
+      ≤ C_E * ((X + h) / Real.log (X + h)) * Real.log y + E_ramp := by
+  set gtw := fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I) with hgtwdef
+  have hlogy : 0 < Real.log y := Real.log_pos (by linarith)
+  have hη0 : (0 : ℝ) ≤ η := by rw [hη]; positivity
+  have hgtw : ∀ p, p.Prime → ‖gtw p‖ ≤ 1 := by
+    intro p hp
+    have hval : gtw p = g p * (p : ℂ) ^ (-(t₀ : ℂ) * I) := by rw [hgtwdef]
+    rw [hval, norm_mul, norm_twist t₀ hp.one_lt.le, mul_one]
+    exact hg p hp
+  have hyXh : y ≤ X + h := by
+    have hsqrtle : Real.sqrt X ≤ X := by
+      have h1 : Real.sqrt X ≤ Real.sqrt (X * X) := Real.sqrt_le_sqrt (by nlinarith)
+      rwa [Real.sqrt_mul_self (by linarith)] at h1
+    linarith
+  obtain ⟨C_E, hCE⟩ := mult_shiu_MS_EXIT gtw hgtw
+  refine ⟨C_E, ?_⟩
+  refine prop21_analog (ellLin_norm_le_one g hg) t₀ hX hh hc₀ ?_
+  rw [← prop21_contour_leg_unwindowed (ellLin_norm_le_one g hg) t₀ hX hh hc₀]
+  -- the collapse (V5-2c at the centered datum) and the seam reconciliation (V5-4)
+  have hcol := aligned_collapse_assembled gtw hgtw (t₀ := t₀) (y := y) hX hh hc₀ hη0 hc'
+  have hseamsum : (∑' n, seamCoeff (ellLin g) (fun _ => 1) t₀ n * (hatK X h n : ℂ))
+      = ∑' N, (ellLin (restrictBelow y gtw) ⍟ ellLin (restrictAbove y gtw)) N
+          * (hatK X h N : ℂ) := by
+    have hrec := endpoint_reconciliation_full g t₀ y
+    rw [← hgtwdef] at hrec
+    rw [hrec]
+  have hEta := norm_etaSum_le_msA gtw (X := X) hh hη
+  rw [← hη] at hEta
+  have hTwoEta := norm_twoEtaSum_le_msB gtw y (X := X) hh hη0
+  have hexit := hCE (X + h) y (by linarith) hyXh
+  rw [← hη] at hexit
+  -- abbreviate the three residual sums
+  set MainSum := ∑' N, (ellLin (restrictBelow y gtw) ⍟ ellLin (restrictAbove y gtw)) N
+    * (hatK X h N : ℂ) with hMSdef
+  set EtaSum := ∑' N, (ellLin (restrictBelow y gtw)
+    ⍟ shiftCoeff (-(η : ℂ)) (ellLin (restrictAbove y gtw))) N * (hatK X h N : ℂ) with hESdef
+  set TwoEtaSum := ∑' N, (∫ α in (0 : ℝ)..η,
+      ((ellLin (restrictBelow y gtw) ⍟ shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y gtw)))
+        ⍟ shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) (ellLin (restrictAbove y gtw))) N)
+      * (hatK X h N : ℂ) with hTESdef
+  rw [hseamsum, hcol,
+    show MainSum - (MainSum - EtaSum - TwoEtaSum - rampTerm gtw X h y η)
+      = EtaSum + TwoEtaSum + rampTerm gtw X h y η from by ring]
+  calc ‖EtaSum + TwoEtaSum + rampTerm gtw X h y η‖
+      ≤ ‖EtaSum + TwoEtaSum‖ + ‖rampTerm gtw X h y η‖ := norm_add_le _ _
+    _ ≤ ‖EtaSum‖ + ‖TwoEtaSum‖ + ‖rampTerm gtw X h y η‖ := by
+        gcongr; exact norm_add_le _ _
+    _ ≤ _ := by
+        refine le_trans (add_le_add (add_le_add hEta hTwoEta) hsliver) ?_
+        have := add_le_add_right hexit E_ramp
+        linarith
 
 end Salt.MR
