@@ -279,12 +279,40 @@ from there.)
 
 _Build running under this driver — live status + final `DRIVER_EXIT` appended below._
 
-**Live Phase-A progress (pre-building RAM hogs, sequential):**
-`Chen.SuperPanelsO` ✅ (~10 min, 04:44→04:52) · `Chen.SuperPanelsE` ✅ (~11 min,
-04:52→05:03) · `Twelve.Certificate` building (from 05:03) · `Chen.CbarCert`
-queued (the ~90-min-CPU long pole, builds alone with siblings cached). Memory
-stayed healthy throughout (≥0.9 GB free, **0 swap used** — the serialization is
-holding peak RSS well under the ceiling; the 8 GB swap has not been touched).
+**Phase-A results (pre-building RAM hogs, each in its own invocation):**
+
+| Module (isolated `lake build`) | Wall-clock | Note |
+|---|---:|---|
+| `Chen.SuperPanelsO` | ~8 min (04:44→04:52) | |
+| `Chen.SuperPanelsE` | ~11 min (04:52→05:03) | |
+| `Twelve.Certificate` | **598 s** (05:03→05:13) | matches local report's 947 s order-of-magnitude |
+| `Chen.CbarCert` | **918 s (15.3 min)**, rc=0, alone | see the headline finding below |
+| **Phase A total** | **~44 min** (04:44→05:28) | |
+
+**★ Headline hardware finding — isolation makes CbarCert ~6× faster AND removes
+a guaranteed OOM.** Peak RSS of `Chen.CbarCert` measured here is **13.4 GB** (a
+single `lean` process) — nearly double the 7.9 GB session 1 saw mid-build (that
+was a pre-peak sample). Consequences:
+- Built **alone**, CbarCert finishes in **918 s (~15 min)**. Session 1 saw it at
+  **>1.5 h of CPU and still climbing** because at `-j4` it was cache/RAM-starved by
+  three co-resident siblings. Isolation ≈ **6× wall-clock speedup** on the pole.
+- At `-j4` the real peak would be CbarCert (13.4) + SuperPanelsE (3.5) +
+  SuperPanelsO (2.9) ≈ **20 GB RSS** on a **16 GB / no-swap** box → a **guaranteed
+  OOM-kill**, not a survivable thrash. Session 1 was not "slow," it was living on
+  borrowed time; the serialization guard is what makes this build **possible at
+  all** on the 4 vCPU / 16 GB profile, and the 8 GB swap is the backstop
+  (peak swap actually used across the whole build: **~71 MB** — cache reclaim
+  absorbed nearly everything).
+
+**Phase B (full `lake build`, heavies cached):** started 05:28:21; the ~660 light
+remaining modules stream through the `-j4` waves with 11–12 GB always available and
+no memory pressure. _Final `DRIVER_EXIT` + total build wall-clock recorded on
+completion._
+
+**Checker recipe pre-validated** (on the already-built `Salt.TwinBar.ParityWall`):
+`LEAN_PATH="$(lake env printenv LEAN_PATH)" leanchecker Salt.TwinBar.ParityWall`
+→ rc 0, silent (kernel accepted all decls), 25 s. Step 5 will sweep every content
+module of the seven target tracks this way.
 
 ## 5. Kernel re-verification (built-in `leanchecker`)
 
