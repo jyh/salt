@@ -55,6 +55,7 @@ import Salt.MR.Prop1Assembly
 import Salt.MR.RampSliver
 import Salt.MR.ShortIntervalPsi
 import Salt.MR.HExit
+import Salt.MR.HeadGrade
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -341,3 +342,9 @@ open Salt.Tactic in
   Salt.MR.sigma_cutoff_pretentious
   Salt.MR.scale_floor_Mrange_seam
   Salt.MR.offdiag_window_eval
+  Salt.MR.widthA_plancherel
+  Salt.MR.offdiag_widthA_eval
+  Salt.MR.band_second_moment
+  Salt.MR.head_split_ledger
+  Salt.MR.kernel_tail_mass
+  Salt.MR.tail_band_sum
