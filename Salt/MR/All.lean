@@ -54,6 +54,7 @@ import Salt.MR.DistWindow
 import Salt.MR.Prop1Assembly
 import Salt.MR.RampSliver
 import Salt.MR.ShortIntervalPsi
+import Salt.MR.HExit
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -301,3 +302,4 @@ open Salt.Tactic in
   Salt.MR.shortInterval_vonMangoldt_le
   Salt.MR.rampSliverMass_bound_unconditional
   Salt.MR.prop21_contour_leg_unwindowed
+  Salt.MR.prop21_unconditional_final

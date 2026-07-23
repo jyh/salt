@@ -1,0 +1,672 @@
+/-
+Copyright (c) 2026 Jason Hickey. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Jason Hickey, Claude
+-/
+import Salt.MR.HalaszIdentity
+import Salt.MR.RampSliver
+import Salt.MR.ShortIntervalPsi
+
+/-!
+# H-EXIT (unconditional) — the ramp-sliver bridge (`HExit`)
+
+The campaign-closing stone of the H-5 v5 wave.  `HalaszIdentity.prop21_unconditional`
+carries a single hypothesis `hsliver : ‖rampTerm g_{t₀} X h y η‖ ≤ E_ramp` — the ramp
+residue of the window un-truncation, defined (`HalaszIdentity.rampTerm`) as the
+`2•∫∫` of the hat-smoothed coefficient difference `alignedCoeffFull − alignedCoeff`.
+
+This module discharges `hsliver` and lands **`prop21_unconditional_final`**, the S1′
+representation with NO conditional hypotheses.  The bridge (`ramp_norm_le_sliverMass`)
+is the ⟦R⟧ block of the design (`docs/exploration/h5-v5-design.md`, stone V5-5): the
+joint-squeeze support reduction of the four-factor coefficient difference to the
+two-index `rampSliverMass`, priced unconditionally by `rampSliverMass_bound_unconditional`
+(the Selberg-sieve short-interval Chebyshev GRAIN, `ShortIntervalPsi`).
+
+## The bridge, in one line
+
+`‖rampTerm g X h y η‖ ≤ 8 · rampSliverMass g X h y` (the constant chain: the leading
+`2•`, the `∫∫` over `[0,η]²` bounded by `η² ≤ 1`, the `hatK ≤ 1` and shift-decay
+`n^{-α}, n^{-α-2β} ≤ 1` factors dropped, the per-`N` difference collapsed by the joint
+squeeze to `2·rampSliverMass` twice — once per squeeze leg).  The reduction, per `N` on
+the hat support `N ≤ X+h`:
+
+* **Spectator collapse** (`ramp_spectator_collapse`): the smooth `𝒮` and large `𝓛`
+  legs (`= W`) act as the identity on the difference, because the difference is
+  supported on `j > X` (`window_pair_untrunc`) and `w · j ≤ X+h < 2X` forces the
+  spectator index `w = 1` (`W 1 = 1`).  So `D(N) = D₂(N)`, the pure window-pair
+  difference `(Λ_ℓ⍟Λ_ℓ − winCoeff⍟winCoeff)(N)`.
+* **Squeeze support** (`sliver_termwise_le` + `refold`): a nonzero window-pair
+  difference at `k·l ∈ (X, X+h]` forces `k` or `l` into the squeeze
+  `(⌊y⌋, ⌊y+y·h/X⌋]`; its partner then lands in `(⌊X/·⌋, ⌊(X+h)/·⌋]` — exactly the
+  `rampSliverMass` index structure.
+
+Provenance chain: P21-2X → P21-3K (`prop21RHS_hat_rep_aligned`) → V5-0 (seam
+un-windowing) → the v5 collapse (`aligned_collapse_assembled`) → this stone.
+-/
+
+noncomputable section
+
+namespace Salt.MR
+
+open Complex MeasureTheory Set
+open ArithmeticFunction
+open scoped BigOperators LSeries.notation
+
+/-! ## Convolution bookkeeping -/
+
+/-- Reassociate/commute a four-fold Dirichlet convolution so the middle pair
+`(b, c)` is convolved first and the outer pair `(a, d)` second.  Pure
+`conv_assoc`/`conv_comm`. -/
+lemma conv_rearrange2 (a b c d : ℕ → ℂ) :
+    ((a ⍟ b) ⍟ c) ⍟ d = (b ⍟ c) ⍟ (a ⍟ d) := by
+  rw [conv_assoc a b c, conv_assoc a (b ⍟ c) d, conv_comm a ((b ⍟ c) ⍟ d),
+    conv_assoc (b ⍟ c) d a, conv_comm d a]
+
+/-- **The aligned coefficient, spectator-factored.**  `alignedCoeff` with the two
+window legs `(Pw ⍟ Qw)` pulled to the front and the smooth/large spectators
+`W = 𝒮 ⍟ E` behind. -/
+lemma alignedCoeff_eq_conv (y : ℝ) (g : ℕ → ℂ) (X α β : ℝ) :
+    alignedCoeff y g X α β
+      = (shiftCoeff (-(α : ℂ)) (winCoeff g X y)
+          ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (winCoeff g X y))
+        ⍟ (ellLin (restrictBelow y g)
+          ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (ellLin (restrictAbove y g))) := by
+  rw [alignedCoeff, conv_rearrange2]
+
+/-- **The un-truncated aligned coefficient, spectator-factored.**  Same as
+`alignedCoeff_eq_conv` with the window legs promoted to the full log-derivative
+`lambdaLin (restrictAbove)`. -/
+lemma alignedCoeffFull_eq_conv (y : ℝ) (g : ℕ → ℂ) (α β : ℝ) :
+    alignedCoeffFull y g α β
+      = (shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g))
+          ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (lambdaLin (restrictAbove y g)))
+        ⍟ (ellLin (restrictBelow y g)
+          ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (ellLin (restrictAbove y g))) := by
+  rw [alignedCoeffFull, conv_rearrange2]
+
+/-! ## Small norm / support facts -/
+
+/-- The window coefficient is norm-dominated by the full log-derivative coefficient. -/
+lemma norm_winCoeff_le (g : ℕ → ℂ) (X y : ℝ) (n : ℕ) :
+    ‖winCoeff g X y n‖ ≤ ‖lambdaLin (restrictAbove y g) n‖ := by
+  unfold winCoeff
+  split_ifs with h
+  · exact le_refl _
+  · simp
+
+/-- **The defect fact.**  If the full log-derivative coefficient is nonzero at `k`
+but the window coefficient vanishes there (a "defect" leg), then `k ≥ X/y`, i.e.
+`X ≤ k·y`. -/
+lemma winCoeff_zero_defect (g : ℕ → ℂ) {X y : ℝ} (hy : 0 < y) {k : ℕ}
+    (hkΛ : lambdaLin (restrictAbove y g) k ≠ 0) (hkw : winCoeff g X y k = 0) :
+    X ≤ (k : ℝ) * y := by
+  have hky : y < (k : ℝ) := lambdaLin_restrictAbove_gt hkΛ
+  have hklo : ⌊y⌋₊ < k := by
+    have hfloor : (⌊y⌋₊ : ℝ) ≤ y := Nat.floor_le hy.le
+    exact_mod_cast lt_of_le_of_lt hfloor hky
+  -- `k` is not in the window, so `k ≥ ⌈X/y⌉`
+  have hnotmem : k ∉ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊ := by
+    intro hmem
+    rw [winCoeff, if_pos hmem] at hkw
+    exact hkΛ hkw
+  have hkhi : ⌈X / y⌉₊ ≤ k := by
+    rw [Finset.mem_Ioo, not_and, not_lt] at hnotmem
+    exact hnotmem hklo
+  have hceil : X / y ≤ (k : ℝ) := le_trans (Nat.le_ceil (X / y)) (by exact_mod_cast hkhi)
+  rw [div_le_iff₀ hy] at hceil
+  exact hceil
+
+/-! ## The spectator collapse -/
+
+/-- **Generic spectator collapse.**  If `D₂` is supported on `j > X` and `W 1 = 1`,
+then on the hat support `N ≤ X+h` (with `h ≤ X`, so `w · j ≤ X+h < 2X` forces the
+spectator index `w = 1`) the convolution `D₂ ⍟ W` reduces to `D₂` itself. -/
+lemma conv_spectator_collapse {D2 W : ℕ → ℂ} {X h : ℝ} (hhX : h ≤ X) (hX0 : 0 ≤ X)
+    (hW1 : W 1 = 1) (hD2supp : ∀ j : ℕ, (j : ℝ) ≤ X → D2 j = 0)
+    {N : ℕ} (hN : (N : ℝ) ≤ X + h) :
+    (D2 ⍟ W) N = D2 N := by
+  rcases Nat.eq_zero_or_pos N with rfl | hNpos
+  · simp only [LSeries.convolution_map_zero]
+    exact (hD2supp 0 (by exact_mod_cast hX0)).symm
+  · have hmem : ((N, 1) : ℕ × ℕ) ∈ N.divisorsAntidiagonal := by
+      rw [Nat.mem_divisorsAntidiagonal]; exact ⟨mul_one N, hNpos.ne'⟩
+    have hzero : ∀ p ∈ N.divisorsAntidiagonal, p ≠ ((N, 1) : ℕ × ℕ) →
+        D2 p.1 * W p.2 = 0 := by
+      intro p hp hpne
+      obtain ⟨j, w⟩ := p
+      rw [Nat.mem_divisorsAntidiagonal] at hp
+      obtain ⟨hprod, _⟩ := hp
+      have hw2 : 2 ≤ w := by
+        rcases Nat.lt_or_ge w 2 with hlt | hge
+        · exfalso
+          interval_cases w
+          · simp only [Nat.mul_zero] at hprod; omega
+          · rw [Nat.mul_one] at hprod
+            exact hpne (by rw [Prod.mk.injEq]; exact ⟨hprod, rfl⟩)
+        · exact hge
+      have hjhalf : 2 * j ≤ N := by
+        calc 2 * j ≤ w * j := Nat.mul_le_mul hw2 (le_refl j)
+          _ = N := by rw [Nat.mul_comm w j]; exact hprod
+      have hjX : (j : ℝ) ≤ X := by
+        have h1 : (2 : ℝ) * (j : ℝ) ≤ (N : ℝ) := by exact_mod_cast hjhalf
+        linarith [hN, hhX]
+      simp only [hD2supp j hjX, zero_mul]
+    have hconv : (D2 ⍟ W) N = ∑ p ∈ N.divisorsAntidiagonal, D2 p.1 * W p.2 := by
+      rw [LSeries.convolution_def]
+    rw [hconv, Finset.sum_eq_single_of_mem ((N, 1) : ℕ × ℕ) hmem hzero, hW1, mul_one]
+
+/-- **The ramp difference collapses to the window-pair difference.**  On the hat
+support `N ≤ X+h` (`h ≤ X`), the four-factor coefficient difference
+`alignedCoeffFull − alignedCoeff` equals the pure two-window-leg difference
+`(Λ_ℓ⍟Λ_ℓ − winCoeff⍟winCoeff)(N)` — the smooth/large spectators drop out. -/
+lemma ramp_spectator_collapse (y : ℝ) (g : ℕ → ℂ) (X α β : ℝ) (hy : 0 < y)
+    {h : ℝ} (hhX : h ≤ X) (hX0 : 0 ≤ X) {N : ℕ} (hN : (N : ℝ) ≤ X + h) :
+    alignedCoeffFull y g α β N - alignedCoeff y g X α β N
+      = (shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g))
+            ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (lambdaLin (restrictAbove y g))) N
+        - (shiftCoeff (-(α : ℂ)) (winCoeff g X y)
+            ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (winCoeff g X y)) N := by
+  rw [alignedCoeffFull_eq_conv y g α β, alignedCoeff_eq_conv y g X α β]
+  set Pf := shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g)) with hPf
+  set Qf := shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (lambdaLin (restrictAbove y g)) with hQf
+  set Pw := shiftCoeff (-(α : ℂ)) (winCoeff g X y) with hPw
+  set Qw := shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (winCoeff g X y) with hQw
+  set W := ellLin (restrictBelow y g)
+    ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (ellLin (restrictAbove y g)) with hW
+  have hsub : ((Pf ⍟ Qf) ⍟ W) N - ((Pw ⍟ Qw) ⍟ W) N
+      = ((fun n => (Pf ⍟ Qf) n - (Pw ⍟ Qw) n) ⍟ W) N := by
+    rw [convolution_sub_left]
+  rw [hsub]
+  have hW1 : W 1 = 1 := by
+    simp [hW, LSeries.convolution_def, Nat.divisorsAntidiagonal_one, shiftCoeff, ellLin_one,
+      Complex.one_cpow]
+  have hsupp : ∀ j : ℕ, (j : ℝ) ≤ X →
+      (fun n => (Pf ⍟ Qf) n - (Pw ⍟ Qw) n) j = 0 := by
+    intro j hj
+    have hwp := window_pair_untrunc y g hy X α β j hj
+    rw [← hPf, ← hQf, ← hPw, ← hQw] at hwp
+    simp only [hwp, sub_self]
+  rw [conv_spectator_collapse hhX hX0 hW1 hsupp hN]
+
+/-! ## The squeeze support and the per-term difference bound -/
+
+/-- A `shiftCoeff` with non-positive real exponent is norm-dominated by its base
+coefficient at every `n ≥ 1`. -/
+lemma norm_shiftCoeff_le_of_reNonpos {w : ℂ} (hw : w.re ≤ 0) {a : ℕ → ℂ} {n : ℕ}
+    (hn : 1 ≤ n) : ‖shiftCoeff w a n‖ ≤ ‖a n‖ := by
+  have hn0 : 0 < n := hn
+  rw [shiftCoeff, norm_mul, Complex.norm_natCast_cpow_of_pos hn0]
+  have hle1 : (n : ℝ) ^ w.re ≤ 1 :=
+    Real.rpow_le_one_of_one_le_of_nonpos (by exact_mod_cast hn) hw
+  calc ‖a n‖ * (n : ℝ) ^ w.re ≤ ‖a n‖ * 1 := mul_le_mul_of_nonneg_left hle1 (norm_nonneg _)
+    _ = ‖a n‖ := mul_one _
+
+/-- **The defect forces its partner into the squeeze.**  If `k` is a defect leg
+(`lambdaLin` nonzero, `winCoeff` vanishing — so `k ≥ X/y`) with a prime-power partner
+`l` (`lambdaLin` nonzero) and `k·l ≤ X+h`, then `l` lands in the squeeze interval
+`(⌊y⌋, ⌊y+y·h/X⌋]`. -/
+lemma defect_partner_in_squeeze (g : ℕ → ℂ) {X h y : ℝ} (hy : 0 < y) (hX : 0 < X) {k l : ℕ}
+    (hklhi : (k : ℝ) * (l : ℝ) ≤ X + h)
+    (hkΛ : lambdaLin (restrictAbove y g) k ≠ 0) (hkw : winCoeff g X y k = 0)
+    (hlΛ : lambdaLin (restrictAbove y g) l ≠ 0) :
+    l ∈ Finset.Ioc ⌊y⌋₊ ⌊y + y * h / X⌋₊ := by
+  have hky : X ≤ (k : ℝ) * y := winCoeff_zero_defect g hy hkΛ hkw
+  have hk0 : k ≠ 0 := by
+    rintro rfl; apply hkΛ; unfold lambdaLin; rw [if_neg not_isPrimePow_zero]
+  have hkpos : (0 : ℝ) < (k : ℝ) := by exact_mod_cast Nat.pos_of_ne_zero hk0
+  have hylt : y < (l : ℝ) := lambdaLin_restrictAbove_gt hlΛ
+  rw [Finset.mem_Ioc]
+  refine ⟨(Nat.floor_lt hy.le).mpr hylt, ?_⟩
+  -- `l ≤ y + y·h/X`
+  have hlX : (l : ℝ) * X ≤ y * X + y * h := by
+    nlinarith [mul_le_mul_of_nonneg_left hky (Nat.cast_nonneg l : (0 : ℝ) ≤ (l : ℝ)),
+      mul_le_mul_of_nonneg_right hklhi hy.le]
+  have hl_le : (l : ℝ) ≤ y + y * h / X := by
+    have hstep : (l : ℝ) * X ≤ (y + y * h / X) * X := by
+      rw [add_mul, div_mul_cancel₀ (y * h) hX.ne']; exact hlX
+    exact le_of_mul_le_mul_right hstep hX
+  exact Nat.le_floor hl_le
+
+/-- **The per-term squeeze bound.**  On the ramp `X < k·l ≤ X+h` (with `0 < α`-`β`
+shift decay), the two-window-leg coefficient difference at `(k, l)` is bounded by
+`2‖Λ_ℓ k‖‖Λ_ℓ l‖` and is supported where `k` or `l` lies in the squeeze — the exact
+`rampSliverMass` index structure. -/
+lemma norm_shiftPair_diff_le (y : ℝ) (g : ℕ → ℂ)
+    {X h α β : ℝ} (hy : 0 < y) (hX : 0 < X) (hα : 0 ≤ α) (hβ : 0 ≤ β) {k l : ℕ}
+    (hkl_lo : X < (k : ℝ) * (l : ℝ)) (hkl_hi : (k : ℝ) * (l : ℝ) ≤ X + h) :
+    ‖shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g)) k
+        * shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (lambdaLin (restrictAbove y g)) l
+      - shiftCoeff (-(α : ℂ)) (winCoeff g X y) k
+        * shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (winCoeff g X y) l‖
+      ≤ 2 * (‖lambdaLin (restrictAbove y g) k‖ * ‖lambdaLin (restrictAbove y g) l‖)
+        * ((if k ∈ Finset.Ioc ⌊y⌋₊ ⌊y + y * h / X⌋₊ then (1 : ℝ) else 0)
+          + (if l ∈ Finset.Ioc ⌊y⌋₊ ⌊y + y * h / X⌋₊ then (1 : ℝ) else 0)) := by
+  set Lam := lambdaLin (restrictAbove y g) with hLamdef
+  set w_ := winCoeff g X y with hw_def
+  set sq := Finset.Ioc ⌊y⌋₊ ⌊y + y * h / X⌋₊ with hsqdef
+  have hk1 : 1 ≤ k := by
+    rcases Nat.eq_zero_or_pos k with rfl | hk; · simp at hkl_lo; linarith [hX]
+    exact hk
+  have hl1 : 1 ≤ l := by
+    rcases Nat.eq_zero_or_pos l with rfl | hl; · simp at hkl_lo; linarith [hX]
+    exact hl
+  -- the `.re ≤ 0` facts
+  have hαre : (-(α : ℂ)).re ≤ 0 := by rw [Complex.neg_re, Complex.ofReal_re]; linarith
+  have hβre : (-(α : ℂ) - 2 * (β : ℂ)).re ≤ 0 := by
+    rw [Complex.sub_re, Complex.neg_re, Complex.ofReal_re]
+    have h2 : (2 * (β : ℂ)).re = 2 * β := by rw [Complex.mul_re]; simp
+    rw [h2]; linarith
+  -- the norm bound `‖diff‖ ≤ 2‖Lamk‖‖Laml‖`
+  have h1 : ‖shiftCoeff (-(α : ℂ)) Lam k * shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) Lam l‖
+      ≤ ‖Lam k‖ * ‖Lam l‖ := by
+    rw [norm_mul]
+    exact mul_le_mul (norm_shiftCoeff_le_of_reNonpos hαre hk1)
+      (norm_shiftCoeff_le_of_reNonpos hβre hl1) (norm_nonneg _) (norm_nonneg _)
+  have h2 : ‖shiftCoeff (-(α : ℂ)) w_ k * shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) w_ l‖
+      ≤ ‖Lam k‖ * ‖Lam l‖ := by
+    rw [norm_mul]
+    exact mul_le_mul
+      (le_trans (norm_shiftCoeff_le_of_reNonpos hαre hk1) (norm_winCoeff_le g X y k))
+      (le_trans (norm_shiftCoeff_le_of_reNonpos hβre hl1) (norm_winCoeff_le g X y l))
+      (norm_nonneg _) (norm_nonneg _)
+  have hnorm_le : ‖shiftCoeff (-(α : ℂ)) Lam k * shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) Lam l
+        - shiftCoeff (-(α : ℂ)) w_ k * shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) w_ l‖
+      ≤ 2 * (‖Lam k‖ * ‖Lam l‖) := by
+    calc ‖shiftCoeff (-(α : ℂ)) Lam k * shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) Lam l
+            - shiftCoeff (-(α : ℂ)) w_ k * shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) w_ l‖
+        ≤ ‖shiftCoeff (-(α : ℂ)) Lam k * shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) Lam l‖
+          + ‖shiftCoeff (-(α : ℂ)) w_ k * shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) w_ l‖ :=
+          norm_sub_le _ _
+      _ ≤ ‖Lam k‖ * ‖Lam l‖ + ‖Lam k‖ * ‖Lam l‖ := add_le_add h1 h2
+      _ = 2 * (‖Lam k‖ * ‖Lam l‖) := by ring
+  -- support: off the squeeze the difference vanishes
+  have hagree : k ∉ sq → l ∉ sq →
+      shiftCoeff (-(α : ℂ)) Lam k * shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) Lam l
+        = shiftCoeff (-(α : ℂ)) w_ k * shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) w_ l := by
+    intro hknk hlnl
+    by_cases hLamk : Lam k = 0
+    · have hwk : w_ k = 0 := by rw [hw_def]; unfold winCoeff; split_ifs with h; exacts [hLamk, rfl]
+      simp only [shiftCoeff, hLamk, hwk, zero_mul]
+    · by_cases hLaml : Lam l = 0
+      · have hwl : w_ l = 0 := by
+          rw [hw_def]; unfold winCoeff; split_ifs with h; exacts [hLaml, rfl]
+        simp only [shiftCoeff, hLaml, hwl, zero_mul, mul_zero]
+      · have hwk : w_ k = Lam k := by
+          by_cases hmemk : k ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊
+          · rw [hw_def, hLamdef]; unfold winCoeff; rw [if_pos hmemk]
+          · exfalso
+            have hwk0 : w_ k = 0 := by rw [hw_def]; unfold winCoeff; rw [if_neg hmemk]
+            exact hlnl (defect_partner_in_squeeze g hy hX hkl_hi hLamk hwk0 hLaml)
+        have hwl : w_ l = Lam l := by
+          by_cases hmeml : l ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊
+          · rw [hw_def, hLamdef]; unfold winCoeff; rw [if_pos hmeml]
+          · exfalso
+            have hwl0 : w_ l = 0 := by rw [hw_def]; unfold winCoeff; rw [if_neg hmeml]
+            refine hknk (defect_partner_in_squeeze g hy hX ?_ hLaml hwl0 hLamk)
+            rw [mul_comm]; exact hkl_hi
+        simp only [shiftCoeff, hwk, hwl]
+  -- combine
+  by_cases hind : k ∈ sq ∨ l ∈ sq
+  · have hind1 : (1 : ℝ) ≤ (if k ∈ sq then (1 : ℝ) else 0) + (if l ∈ sq then (1 : ℝ) else 0) := by
+      rcases hind with hk | hl
+      · rw [if_pos hk]; have : (0 : ℝ) ≤ (if l ∈ sq then (1 : ℝ) else 0) := by positivity
+        linarith
+      · rw [if_pos hl]; have : (0 : ℝ) ≤ (if k ∈ sq then (1 : ℝ) else 0) := by positivity
+        linarith
+    calc ‖shiftCoeff (-(α : ℂ)) Lam k * shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) Lam l
+            - shiftCoeff (-(α : ℂ)) w_ k * shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) w_ l‖
+        ≤ 2 * (‖Lam k‖ * ‖Lam l‖) := hnorm_le
+      _ = 2 * (‖Lam k‖ * ‖Lam l‖) * 1 := (mul_one _).symm
+      _ ≤ 2 * (‖Lam k‖ * ‖Lam l‖)
+            * ((if k ∈ sq then (1 : ℝ) else 0) + (if l ∈ sq then (1 : ℝ) else 0)) :=
+          mul_le_mul_of_nonneg_left hind1 (by positivity)
+  · rw [not_or] at hind
+    obtain ⟨hknk, hlnl⟩ := hind
+    rw [hagree hknk hlnl, sub_self, norm_zero]
+    positivity
+
+/-! ## The refold onto `rampSliverMass` -/
+
+/-- `rampSliverMass` as a single sum over the pair-set `{(k, l) : l ∈ squeeze,
+k ∈ (⌊X/l⌋, ⌊(X+h)/l⌋]}`. -/
+lemma rampSliverMass_eq_biUnion (g : ℕ → ℂ) (X h y : ℝ) :
+    rampSliverMass g X h y
+      = ∑ p ∈ (Finset.Ioc ⌊y⌋₊ ⌊y + y * h / X⌋₊).biUnion (fun l =>
+          (Finset.Ioc ⌊X / (l : ℝ)⌋₊ ⌊(X + h) / (l : ℝ)⌋₊).image (fun k => ((k, l) : ℕ × ℕ))),
+        ‖lambdaLin (restrictAbove y g) p.1‖ * ‖lambdaLin (restrictAbove y g) p.2‖ := by
+  rw [rampSliverMass, Finset.sum_biUnion]
+  · refine Finset.sum_congr rfl (fun l _ => ?_)
+    rw [Finset.sum_image (fun k1 _ k2 _ he => by rw [Prod.mk.injEq] at he; exact he.1)]
+  · intro l1 _ l2 _ hne
+    simp only [Function.onFun, Finset.disjoint_left, Finset.mem_image]
+    rintro p ⟨k1, _, hk1⟩ ⟨k2, _, hk2⟩
+    rw [← hk1, Prod.mk.injEq] at hk2
+    exact hne hk2.2.symm
+
+/-- If `X < k·l ≤ X+h` and `l ≥ 1`, then `k` lies in the ramp run
+`(⌊X/l⌋, ⌊(X+h)/l⌋]` — the `rampSliverMass` inner index set. -/
+lemma partner_in_Ioc {X h : ℝ} (hX : 0 < X) {l k : ℕ} (hl1 : 1 ≤ l)
+    (hlo : X < (k : ℝ) * (l : ℝ)) (hhi : (k : ℝ) * (l : ℝ) ≤ X + h) :
+    k ∈ Finset.Ioc ⌊X / (l : ℝ)⌋₊ ⌊(X + h) / (l : ℝ)⌋₊ := by
+  have hlpos : (0 : ℝ) < (l : ℝ) := by exact_mod_cast hl1
+  have hXhnn : (0 : ℝ) ≤ X + h := (lt_trans hX (lt_of_lt_of_le hlo hhi)).le
+  rw [Finset.mem_Ioc]
+  refine ⟨?_, ?_⟩
+  · rw [Nat.floor_lt (by positivity), div_lt_iff₀ hlpos]; linarith
+  · rw [Nat.le_floor_iff (by positivity), le_div_iff₀ hlpos]; linarith
+
+/-- **The window-pair difference sum, bounded by `4·rampSliverMass`.**  Summed over the
+hat support `N ≤ X+h`, the norm of the window-pair difference is dominated by
+`4·rampSliverMass`: drop `N ≤ X` (`window_pair_untrunc`), bound each surviving `N` by
+its antidiagonal via the per-term squeeze bound, flatten, and refold each squeeze leg
+onto `rampSliverMass`. -/
+lemma sum_D2_le_rampSliverMass (y : ℝ) (g : ℕ → ℂ)
+    {X h α β : ℝ} (hy : 0 < y) (hX : 0 < X) (hh : 0 < h) (hα : 0 ≤ α) (hβ : 0 ≤ β) :
+    ∑ N ∈ Finset.range (⌊X + h⌋₊ + 1),
+        ‖(shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g))
+              ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (lambdaLin (restrictAbove y g))) N
+          - (shiftCoeff (-(α : ℂ)) (winCoeff g X y)
+              ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (winCoeff g X y)) N‖
+      ≤ 4 * rampSliverMass g X h y := by
+  set Pf := shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g)) with hPf
+  set Qf := shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (lambdaLin (restrictAbove y g)) with hQf
+  set Pw := shiftCoeff (-(α : ℂ)) (winCoeff g X y) with hPw
+  set Qw := shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (winCoeff g X y) with hQw
+  set Lam := lambdaLin (restrictAbove y g) with hLamdef
+  set sq := Finset.Ioc ⌊y⌋₊ ⌊y + y * h / X⌋₊ with hsqdef
+  set M := ⌊X + h⌋₊ with hMdef
+  set F : ℕ × ℕ → ℝ := fun p => ‖Lam p.1‖ * ‖Lam p.2‖ with hF
+  set filt := (Finset.range (M + 1)).filter (fun N => ⌊X⌋₊ < N) with hfilt
+  set B' := filt.biUnion (fun N => N.divisorsAntidiagonal) with hB'
+  -- disjointness of the antidiagonals over `filt`
+  have hdisj : (↑filt : Set ℕ).PairwiseDisjoint (fun N => N.divisorsAntidiagonal) := by
+    intro N1 _ N2 _ hne
+    simp only [Function.onFun, Finset.disjoint_left]
+    intro q hq1 hq2
+    rw [Nat.mem_divisorsAntidiagonal] at hq1 hq2
+    exact hne (hq1.1.symm.trans hq2.1)
+  -- bounds carried by every pair in `B'`
+  have hB'_bounds : ∀ p ∈ B', X < (p.1 : ℝ) * (p.2 : ℝ)
+      ∧ (p.1 : ℝ) * (p.2 : ℝ) ≤ X + h ∧ 1 ≤ p.1 ∧ 1 ≤ p.2 := by
+    intro p hp
+    rw [hB', Finset.mem_biUnion] at hp
+    obtain ⟨N, hNfilt, hpN⟩ := hp
+    rw [hfilt, Finset.mem_filter, Finset.mem_range] at hNfilt
+    obtain ⟨hNlt, hNX⟩ := hNfilt
+    rw [Nat.mem_divisorsAntidiagonal] at hpN
+    obtain ⟨hprodN, hN0⟩ := hpN
+    have hp11 : 1 ≤ p.1 :=
+      Nat.one_le_iff_ne_zero.mpr (fun hh0 => hN0 (by rw [← hprodN, hh0, zero_mul]))
+    have hp21 : 1 ≤ p.2 :=
+      Nat.one_le_iff_ne_zero.mpr (fun hh0 => hN0 (by rw [← hprodN, hh0, mul_zero]))
+    have hcast : (p.1 : ℝ) * (p.2 : ℝ) = (N : ℝ) := by rw [← Nat.cast_mul, hprodN]
+    refine ⟨?_, ?_, hp11, hp21⟩
+    · rw [hcast]
+      have hstep : ⌊X⌋₊ + 1 ≤ N := hNX
+      have : (⌊X⌋₊ : ℝ) + 1 ≤ (N : ℝ) := by exact_mod_cast hstep
+      linarith [Nat.lt_floor_add_one X]
+    · rw [hcast]
+      have hNM : (N : ℝ) ≤ (M : ℝ) := by rw [hMdef]; exact_mod_cast (by omega : N ≤ ⌊X + h⌋₊)
+      have hMX : (M : ℝ) ≤ X + h := by rw [hMdef]; exact Nat.floor_le (add_nonneg hX.le hh.le)
+      linarith
+  have hsq_ge1 : ∀ m ∈ sq, 1 ≤ m := by
+    intro m hm; rw [hsqdef, Finset.mem_Ioc] at hm; omega
+  -- (A) drop `N ≤ X`
+  have hAdrop : ∑ N ∈ Finset.range (M + 1), ‖(Pf ⍟ Qf) N - (Pw ⍟ Qw) N‖
+      = ∑ N ∈ filt, ‖(Pf ⍟ Qf) N - (Pw ⍟ Qw) N‖ := by
+    refine (Finset.sum_subset (Finset.filter_subset _ _) ?_).symm
+    intro N hNrange hNnf
+    have hNle : (N : ℝ) ≤ X := by
+      rw [Finset.mem_filter, not_and] at hNnf
+      have hle : N ≤ ⌊X⌋₊ := not_lt.mp (hNnf hNrange)
+      calc (N : ℝ) ≤ (⌊X⌋₊ : ℝ) := by exact_mod_cast hle
+        _ ≤ X := Nat.floor_le hX.le
+    have hwp := window_pair_untrunc y g hy X α β N hNle
+    rw [← hPf, ← hQf, ← hPw, ← hQw] at hwp
+    rw [hwp, sub_self, norm_zero]
+  -- (B) per-`N` bound on `filt` via the per-term squeeze bound
+  have hperN : ∀ N ∈ filt, ‖(Pf ⍟ Qf) N - (Pw ⍟ Qw) N‖
+      ≤ ∑ p ∈ N.divisorsAntidiagonal,
+          2 * (‖Lam p.1‖ * ‖Lam p.2‖)
+            * ((if p.1 ∈ sq then (1 : ℝ) else 0) + (if p.2 ∈ sq then (1 : ℝ) else 0)) := by
+    intro N hN
+    have hsub : (Pf ⍟ Qf) N - (Pw ⍟ Qw) N
+        = ∑ p ∈ N.divisorsAntidiagonal, (Pf p.1 * Qf p.2 - Pw p.1 * Qw p.2) := by
+      rw [LSeries.convolution_def, LSeries.convolution_def, ← Finset.sum_sub_distrib]
+    rw [hsub]
+    refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun p hp => ?_))
+    rw [Nat.mem_divisorsAntidiagonal] at hp
+    have hcast : (p.1 : ℝ) * (p.2 : ℝ) = (N : ℝ) := by rw [← Nat.cast_mul, hp.1]
+    rw [hfilt, Finset.mem_filter, Finset.mem_range] at hN
+    obtain ⟨hNlt, hNX⟩ := hN
+    have hlo : X < (p.1 : ℝ) * (p.2 : ℝ) := by
+      rw [hcast]
+      have hstep : ⌊X⌋₊ + 1 ≤ N := hNX
+      have : (⌊X⌋₊ : ℝ) + 1 ≤ (N : ℝ) := by exact_mod_cast hstep
+      linarith [Nat.lt_floor_add_one X]
+    have hhi : (p.1 : ℝ) * (p.2 : ℝ) ≤ X + h := by
+      rw [hcast]
+      have hNM : (N : ℝ) ≤ (M : ℝ) := by rw [hMdef]; exact_mod_cast (by omega : N ≤ ⌊X + h⌋₊)
+      have hMX : (M : ℝ) ≤ X + h := by rw [hMdef]; exact Nat.floor_le (add_nonneg hX.le hh.le)
+      linarith
+    exact norm_shiftPair_diff_le y g hy hX hα hβ hlo hhi
+  -- combine (A), (B), flatten
+  rw [hAdrop]
+  refine le_trans (Finset.sum_le_sum hperN) ?_
+  rw [← Finset.sum_biUnion hdisj, ← hB']
+  -- split the `Bnd` into the two squeeze-leg sums
+  have hsplit : ∑ p ∈ B',
+        2 * (‖Lam p.1‖ * ‖Lam p.2‖)
+          * ((if p.1 ∈ sq then (1 : ℝ) else 0) + (if p.2 ∈ sq then (1 : ℝ) else 0))
+      = 2 * (∑ p ∈ B', F p * (if p.1 ∈ sq then (1 : ℝ) else 0))
+        + 2 * (∑ p ∈ B', F p * (if p.2 ∈ sq then (1 : ℝ) else 0)) := by
+    rw [Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl (fun p _ => ?_)
+    rw [hF]; ring
+  rw [hsplit]
+  -- each leg refolds to `rampSliverMass`
+  have hlpart : ∑ p ∈ B', F p * (if p.2 ∈ sq then (1 : ℝ) else 0) ≤ rampSliverMass g X h y := by
+    have heq : ∑ p ∈ B', F p * (if p.2 ∈ sq then (1 : ℝ) else 0)
+        = ∑ p ∈ B'.filter (fun p => p.2 ∈ sq), F p := by
+      rw [Finset.sum_filter]
+      exact Finset.sum_congr rfl (fun p _ => by rw [mul_ite, mul_one, mul_zero])
+    rw [heq, rampSliverMass_eq_biUnion]
+    refine Finset.sum_le_sum_of_subset_of_nonneg ?_ (fun p _ _ => by rw [hF]; positivity)
+    intro p hp
+    rw [Finset.mem_filter] at hp
+    obtain ⟨hpB', hp2sq⟩ := hp
+    obtain ⟨hlo, hhi, _, _⟩ := hB'_bounds p hpB'
+    rw [Finset.mem_biUnion]
+    exact ⟨p.2, hp2sq, Finset.mem_image.mpr ⟨p.1,
+      partner_in_Ioc hX (hsq_ge1 p.2 hp2sq) hlo hhi, rfl⟩⟩
+  have hkpart : ∑ p ∈ B', F p * (if p.1 ∈ sq then (1 : ℝ) else 0) ≤ rampSliverMass g X h y := by
+    have heq : ∑ p ∈ B', F p * (if p.1 ∈ sq then (1 : ℝ) else 0)
+        = ∑ p ∈ B'.filter (fun p => p.1 ∈ sq), F p := by
+      rw [Finset.sum_filter]
+      exact Finset.sum_congr rfl (fun p _ => by rw [mul_ite, mul_one, mul_zero])
+    rw [heq, rampSliverMass_eq_biUnion]
+    have hswapeq : ∑ p ∈ B'.filter (fun p => p.1 ∈ sq), F p
+        = ∑ q ∈ (B'.filter (fun p => p.1 ∈ sq)).image Prod.swap, F q := by
+      rw [Finset.sum_image (fun a _ b _ hab => Prod.swap_injective hab)]
+      exact Finset.sum_congr rfl (fun p _ => by
+        simp only [hF, Prod.fst_swap, Prod.snd_swap]; ring)
+    rw [hswapeq]
+    refine Finset.sum_le_sum_of_subset_of_nonneg ?_ (fun p _ _ => by rw [hF]; positivity)
+    intro q hq
+    rw [Finset.mem_image] at hq
+    obtain ⟨p, hps, hpq⟩ := hq
+    rw [Finset.mem_filter] at hps
+    obtain ⟨hpB', hp1sq⟩ := hps
+    obtain ⟨hlo, hhi, _, _⟩ := hB'_bounds p hpB'
+    rw [← hpq, Finset.mem_biUnion]
+    refine ⟨p.1, hp1sq,
+      Finset.mem_image.mpr ⟨p.2, partner_in_Ioc hX (hsq_ge1 p.1 hp1sq) ?_ ?_, rfl⟩⟩
+    · rw [mul_comm]; exact hlo
+    · rw [mul_comm]; exact hhi
+  linarith [hlpart, hkpart]
+
+/-! ## The norm bridge -/
+
+/-- **THE NORM BRIDGE.**  The ramp residue is bounded by a constant times the
+`rampSliverMass`: `‖rampTerm g X h y η‖ ≤ 8 · rampSliverMass g X h y`.  The `2•`
+Jacobian, the `∫∫` over `[0,η]²` (`≤ η² ≤ 1`), `hatK ≤ 1`, and the shift decay are the
+bounded factors; the per-`N` collapse (`ramp_spectator_collapse`) and the squeeze
+refold (`sum_D2_le_rampSliverMass`) provide the `4·rampSliverMass` inner bound. -/
+lemma ramp_norm_le_sliverMass (y : ℝ) (g : ℕ → ℂ)
+    {X h η : ℝ} (hy : 0 < y) (hX : 0 < X) (hh : 0 < h) (hhX : h ≤ X)
+    (hη0 : 0 ≤ η) (hη1 : η ≤ 1) :
+    ‖rampTerm g X h y η‖ ≤ 8 * rampSliverMass g X h y := by
+  set R := rampSliverMass g X h y with hR
+  have hRnn : (0 : ℝ) ≤ R := rampSliverMass_nonneg g X h y
+  -- the inner uniform bound: `‖∑' N, D·hatK‖ ≤ 4R` for `α, β ≥ 0`
+  have hinner : ∀ α β : ℝ, 0 ≤ α → 0 ≤ β →
+      ‖∑' N, (alignedCoeffFull y g α β N - alignedCoeff y g X α β N) * (hatK X h N : ℂ)‖
+        ≤ 4 * R := by
+    intro α β hα hβ
+    have htsum :
+        (∑' N, (alignedCoeffFull y g α β N - alignedCoeff y g X α β N) * (hatK X h N : ℂ))
+          = ∑ N ∈ Finset.range (⌊X + h⌋₊ + 1),
+              (alignedCoeffFull y g α β N - alignedCoeff y g X α β N) * (hatK X h N : ℂ) :=
+      tsum_eq_sum (fun N hN => by rw [hatK_ofReal_eq_zero_of_notMem hh hN, mul_zero])
+    rw [htsum]
+    calc ‖∑ N ∈ Finset.range (⌊X + h⌋₊ + 1),
+            (alignedCoeffFull y g α β N - alignedCoeff y g X α β N) * (hatK X h N : ℂ)‖
+        ≤ ∑ N ∈ Finset.range (⌊X + h⌋₊ + 1),
+            ‖(alignedCoeffFull y g α β N - alignedCoeff y g X α β N) * (hatK X h N : ℂ)‖ :=
+          norm_sum_le _ _
+      _ ≤ ∑ N ∈ Finset.range (⌊X + h⌋₊ + 1),
+            ‖alignedCoeffFull y g α β N - alignedCoeff y g X α β N‖ := by
+          refine Finset.sum_le_sum (fun N _ => ?_)
+          rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (hatK_nonneg hh N)]
+          calc ‖alignedCoeffFull y g α β N - alignedCoeff y g X α β N‖ * hatK X h N
+              ≤ ‖alignedCoeffFull y g α β N - alignedCoeff y g X α β N‖ * 1 :=
+                mul_le_mul_of_nonneg_left (hatK_le_one hh N) (norm_nonneg _)
+            _ = ‖alignedCoeffFull y g α β N - alignedCoeff y g X α β N‖ := mul_one _
+      _ = ∑ N ∈ Finset.range (⌊X + h⌋₊ + 1),
+            ‖(shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g))
+                  ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (lambdaLin (restrictAbove y g))) N
+              - (shiftCoeff (-(α : ℂ)) (winCoeff g X y)
+                  ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (winCoeff g X y)) N‖ := by
+          refine Finset.sum_congr rfl (fun N hN => ?_)
+          rw [Finset.mem_range] at hN
+          have hNXh : (N : ℝ) ≤ X + h := by
+            have h1 : (N : ℝ) ≤ (⌊X + h⌋₊ : ℝ) := by
+              exact_mod_cast (by omega : N ≤ ⌊X + h⌋₊)
+            have h2 : (⌊X + h⌋₊ : ℝ) ≤ X + h := Nat.floor_le (add_nonneg hX.le hh.le)
+            linarith
+          rw [ramp_spectator_collapse y g X α β hy hhX hX.le hNXh]
+      _ ≤ 4 * R := sum_D2_le_rampSliverMass y g hy hX hh hα hβ
+  -- integrate: `‖∫_0^η Inner dβ‖ ≤ 4R·η`
+  have hG : ∀ α : ℝ, 0 ≤ α →
+      ‖∫ β in (0 : ℝ)..η,
+          ∑' N, (alignedCoeffFull y g α β N - alignedCoeff y g X α β N) * (hatK X h N : ℂ)‖
+        ≤ 4 * R * η := by
+    intro α hα
+    have hbd : ∀ β ∈ Set.Ioc (min 0 η) (max 0 η),
+        ‖∑' N, (alignedCoeffFull y g α β N - alignedCoeff y g X α β N) * (hatK X h N : ℂ)‖
+          ≤ 4 * R := by
+      intro β hβmem
+      rw [min_eq_left hη0, max_eq_right hη0, Set.mem_Ioc] at hβmem
+      exact hinner α β hα (le_of_lt hβmem.1)
+    have hbound := intervalIntegral.norm_integral_le_of_norm_le_const hbd
+    rwa [sub_zero, abs_of_nonneg hη0] at hbound
+  -- integrate again: `‖∫∫‖ ≤ 4R·η²`
+  have houter :
+      ‖∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η,
+          ∑' N, (alignedCoeffFull y g α β N - alignedCoeff y g X α β N) * (hatK X h N : ℂ)‖
+        ≤ 4 * R * η * η := by
+    have hbd : ∀ α ∈ Set.Ioc (min 0 η) (max 0 η),
+        ‖∫ β in (0 : ℝ)..η,
+            ∑' N, (alignedCoeffFull y g α β N - alignedCoeff y g X α β N) * (hatK X h N : ℂ)‖
+          ≤ 4 * R * η := by
+      intro α hαmem
+      rw [min_eq_left hη0, max_eq_right hη0, Set.mem_Ioc] at hαmem
+      exact hG α (le_of_lt hαmem.1)
+    have hbound := intervalIntegral.norm_integral_le_of_norm_le_const hbd
+    rwa [sub_zero, abs_of_nonneg hη0] at hbound
+  -- assemble the constant chain
+  rw [rampTerm, norm_smul, Real.norm_ofNat]
+  calc (2 : ℝ) * ‖∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η,
+          ∑' N, (alignedCoeffFull y g α β N - alignedCoeff y g X α β N) * (hatK X h N : ℂ)‖
+      ≤ 2 * (4 * R * η * η) := by
+        apply mul_le_mul_of_nonneg_left houter (by norm_num)
+    _ ≤ 8 * R := by
+        have hηη : η * η ≤ 1 := by nlinarith [hη0, hη1]
+        nlinarith [mul_le_mul_of_nonneg_left hηη hRnn]
+
+/-! ## H-EXIT (unconditional) — `prop21_unconditional_final` -/
+
+/-- **H-EXIT — `prop21_unconditional_final`.  THE S1′ REPRESENTATION STANDS
+UNCONDITIONALLY.**  With every regime hypothesis of the H-5 v5 assembly discharged, the
+S1′ representation holds with NO conditional hypothesis: under route (i) (`f = ellLin g`),
+`h = X / √(log X)`, `η = 1/log y`, and the gates `√(log X) ≤ y ≤ √X`, `10 ≤ y`, the twisted
+hat-smoothed sum equals the frozen `prop21RHS` up to an error of the E-grade shape
+
+  `C_E · ((X+h)/log(X+h)) · log y  +  C_R · (X/log X) · log y`,
+
+the two summands being the MS-A+MS-B endpoint mass (`prop21_unconditional`'s
+`mult_shiu_MS_EXIT` term, `C_E`) and the ramp-sliver mass (`C_R = 8·C`, the ramp residue
+`E_ramp` discharged here via the norm bridge `ramp_norm_le_sliverMass` composed with the
+Selberg-sieve GRAIN `rampSliverMass_bound_unconditional`).
+
+Consumes `prop21_unconditional` VERBATIM (iron rule 1): the single hypothesis `hsliver` is
+supplied, not weakened.  The per-window regime `hreg` is carried as the honest union with
+`rampSliverMass_bound_unconditional`'s regime set (its `hgrain` is the Selberg-sieve
+short-interval Chebyshev bound, `ShortIntervalPsi`).
+
+Provenance: P21-2X → P21-3K → V5-0 → the v5 collapse (`aligned_collapse_assembled`) →
+this stone. -/
+theorem prop21_unconditional_final (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ : ℝ)
+    {X h c₀ y η : ℝ} (hX : Real.exp 1 ≤ X) (hh : h = X / Real.sqrt (Real.log X))
+    (hc₀ : 1 < c₀) (hη : η = 1 / Real.log y) (hc' : 0 < c₀ - 2 * η)
+    (hy10 : 10 ≤ y) (hyX : y ≤ Real.sqrt X) (hygate : Real.sqrt (Real.log X) ≤ y)
+    (hreg : ∀ l ∈ Finset.Ioc ⌊y⌋₊ ⌊y + y * h / X⌋₊,
+        (65536 : ℝ) ≤ X / (l : ℝ) ∧
+        X / (l : ℝ) ≤ (h / (l : ℝ)) * Real.sqrt (Real.sqrt (Real.sqrt (X / (l : ℝ)))) ∧
+        h / (l : ℝ) ≤ X / (l : ℝ)) :
+    ∃ C_E C_R : ℝ, ‖(∑' n, seamCoeff (ellLin g) (fun _ => 1) t₀ n * (hatK X h n : ℂ))
+        - prop21RHS (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) t₀ X h c₀ y η‖
+      ≤ C_E * ((X + h) / Real.log (X + h)) * Real.log y
+        + C_R * (X / Real.log X) * Real.log y := by
+  -- regime facts
+  have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hX
+  have he1 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
+  have hX1 : (1 : ℝ) ≤ X := le_trans (by linarith) hX
+  have hlogX1 : (1 : ℝ) ≤ Real.log X := by
+    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hsqlogX : (0 : ℝ) < Real.sqrt (Real.log X) := Real.sqrt_pos.mpr (by linarith)
+  have hsqge1 : (1 : ℝ) ≤ Real.sqrt (Real.log X) := by
+    rw [show (1 : ℝ) = Real.sqrt 1 by simp]; exact Real.sqrt_le_sqrt hlogX1
+  have hh0 : (0 : ℝ) < h := by rw [hh]; exact div_pos hXpos hsqlogX
+  have hhX : h ≤ X := by rw [hh, div_le_iff₀ hsqlogX]; nlinarith [hsqge1, hXpos]
+  have hy0 : (0 : ℝ) < y := by linarith
+  have hlogy : (0 : ℝ) < Real.log y := Real.log_pos (by linarith)
+  have hexp10 : Real.exp 1 ≤ 10 := by linarith [Real.exp_one_lt_three]
+  have hylog1 : (1 : ℝ) ≤ Real.log y := by
+    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) (le_trans hexp10 hy10)
+  have hη0 : (0 : ℝ) ≤ η := by rw [hη]; exact le_of_lt (div_pos one_pos hlogy)
+  have hη1 : η ≤ 1 := by rw [hη, div_le_one hlogy]; exact hylog1
+  -- the twisted datum
+  have hgtw : ∀ p, p.Prime → ‖(fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) p‖ ≤ 1 := by
+    intro p hp
+    simp only
+    rw [norm_mul, norm_twist t₀ hp.one_lt.le, mul_one]
+    exact hg p hp
+  -- the unconditional sliver mass bound
+  obtain ⟨C, hCbound⟩ := rampSliverMass_bound_unconditional
+    (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) hgtw hX hh hy10 hygate hreg
+  -- the norm bridge, then the discharge of `hsliver`
+  have hsliver : ‖rampTerm (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) X h y η‖
+      ≤ 8 * (C * (X / Real.log X) * Real.log y) := by
+    refine le_trans (ramp_norm_le_sliverMass y (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I))
+      hy0 hXpos hh0 hhX hη0 hη1) ?_
+    exact mul_le_mul_of_nonneg_left hCbound (by norm_num)
+  -- consume `prop21_unconditional` verbatim
+  obtain ⟨C_E, hCE⟩ := prop21_unconditional g hg t₀ hX1 hh0 hc₀ hη hc' hy10 hyX hsliver
+  refine ⟨C_E, 8 * C, ?_⟩
+  have heq : (8 * C) * (X / Real.log X) * Real.log y
+      = 8 * (C * (X / Real.log X) * Real.log y) := by ring
+  rw [heq]
+  exact hCE
+
+end Salt.MR
