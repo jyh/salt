@@ -173,7 +173,38 @@ friction at any point: git clones and Azure downloads both flow.
 
 _Launched 22:59 UTC, backgrounded with logging. Total job graph **9351** (matches
 the local report's job count), salt modules compiling on top of the cached Mathlib
-oleans on 4 vCPU. Result: pending — polling._
+oleans on 4 vCPU._
+
+**Interim status @ ~134 min (killed-safe checkpoint): building, healthy, 0
+errors, but stalled in a memory-contention tail.** The build sailed from 5904 →
+~8950 in the first ~50 min, then hit a wall: four of the heaviest salt modules
+landed in the same `-j4` wave and have been co-resident ever since —
+
+| In-flight module | CPU-time @ 134 min | RSS |
+|---|---:|---:|
+| `Salt.Chen.CbarCert` | **1 h 26 m** (95% CPU, still going) | **7.9 GB** |
+| `Salt.Chen.SuperPanelsE` | ~47 m | 3.5 GB |
+| `Salt.Chen.SuperPanelsO` | ~22 m | 2.9 GB |
+| `Salt.Entropy.Chowla.Diverge` | ~8 m | 0.2 GB |
+
+**This is the headline hardware finding of the night.** On the 4 vCPU / 16 GB
+profile, lake's default `-j4` schedules these four RAM-hungry
+`decide`/kernel-computation modules concurrently, driving resident memory to
+**15.9 / 16 GB (≈ 200 MB free)** and load average to **~15**. The box sits right
+at the OOM edge for over an hour: no module has been killed (so the build is still
+progressing and correct), but each heavy module is starved of cache/RAM and CPU
+and runs many times slower than it would in isolation — `CbarCert` alone is
+> 1.5 h of CPU here versus the local M5 machine where the *entire* checker sweep
+of all 259 modules was 17 min. The single `Twelve.Certificate` module earlier in
+the build already cost **947 s** by itself. Progress counter has been pinned at
+`8951/9351` for ~80 min waiting on this wave to drain.
+
+**Implication for the mission template (carried to §6):** a real night mission on
+this profile must **cap build parallelism on the heavy tail** (e.g. `lake build
+-j2`, or build the Chen/Twelve heavy modules serially) to keep peak RSS under the
+16 GB ceiling and avoid the mutual-starvation slowdown — otherwise the corpus
+build does not finish in a practical window. Poll continues; final build wall-clock
++ exit code recorded when the wave drains.
 
 ## 5. Kernel re-verification (built-in `leanchecker`)
 
