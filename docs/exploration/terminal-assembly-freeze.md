@@ -412,3 +412,19 @@ approximation). The two windows disentangled: the P-leg window
 seam-coefficient window (our addition) is removed. DistWindow's T-1
 chain stays landed (heritage + branch-floor use). The v5 ladder
 follows (h5-v5-brief.md + the v5 design block).
+
+### ⟦A — AMENDMENT B4: the grade re-freeze (JYH-RATIFIED 2026-07-23
+### ~09:55)⟧
+
+The grade interface (1+M)e^{-M} / (log X)^{-1/64} is re-frozen to
+C*e^{-cM} / (log X)^{-c/32}-form with c = 1/e, across grade_EM /
+halasz_ball_decay / T1_pointwise_decay / T1_decay_conditional_final.
+Grounds (HPRET-SCOPE, exponent chain traced): 1/64 = (1/2)*(1/32)
+conveniences, never load-bearing; the landed floor is 8x stronger
+than consumed; the s8-freeze's OWN Decision D4 documents the
+tolerance ('qualitative fixed-delta grade; consumers need only
+o(loglog)') -- this amendment exercises D4's clause, superseding N3's
+numerals per the freeze's own terms. The price buys the fully-
+elementary route (B-ladder) to the last frontier stone; max-modulus
+was ruled out mathematically (boundary-sup destroys the pointwise
+decay). Final grade: (log X)^{-1/(32e)}-form, fixed positive delta.
