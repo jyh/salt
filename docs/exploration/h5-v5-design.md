@@ -45,23 +45,35 @@ anywhere on the seam side; the P-leg window stays inside prop21RHS.
   Expected residual: none beyond bookkeeping — if a nonzero
   structural residual appears, STOP (it would contradict
   CARRIER-SCOPE's Q2 map; maestro re-rules).
-- **V5-5** [B/C, ~200] `ramp_sliver_bound`: the (X, X+h] hat-ramp
-  residue of the un-truncation. THE JOINT STRUCTURE NOTE: with both
-  window legs present, a sliver index k > X/y forces its window
-  partner l into (y, y·(X+h)/X] — a near-empty range — so the true
-  mass is far below REC-V4-REF's crude (h/y)·log X (which ignored
-  the joint constraint). The executor exploits the SAME joint
-  argument on the ramp; target: ≤ E-grade with room. If the honest
-  bound still exceeds E-grade at small y: STOP + report the exact
-  mass (maestro re-rules the regime split). hat_desmooth is NOT
-  applicable (1-bounded hypothesis vs log-grade lambdaLin — REC's
-  verified exclusion); build the log-grade variant.
+- **V5-5** [B/C, ~250] `ramp_sliver_bound` ⟦R — SLIVER-V5-REF's
+  repair applied⟧: the (X, X+h] hat-ramp residue. The verified joint
+  squeeze (STRONGER than first designed): a defect leg k ≥ X/y forces
+  its window partner l ∈ (y, y(1+h/X)] AND both spectator legs to 1
+  (N/(kl) < 2); defect⊗defect is hatK-dead. TWO-BRANCH proof, with
+  the REGIME GATE y ≥ √(log X) stated in the hypothesis (NOT bare
+  y ≥ 10 — the refuter quantified the boundary; the assembly's
+  y = (log X)^A, A ≥ 1/2 regimes all pass with room):
+  (a) y ≥ √(log X): l-sum ≤ (count ≤ 2y·L^{-1/2})·log y elementary;
+  k-sum needs THE ONE NEW ANALYTIC GRAIN — a short-interval
+  Chebyshev bound Σ_{k∈(a,a+H]} Λ(k) ≤ C·H at H = h/l ~ a·L^{-1/2}
+  (Brun–Titchmarsh-grade; consult the corpus's sieve machinery —
+  Salt/Brun, the P0/P1 Selberg routes — before building fresh; this
+  is the stone's real content and its fail-fast: 3 attempts on an
+  in-corpus route, then STOP + report the exact missing bound).
+  (b) y < √(log X) constant/slow: the squeeze interval is
+  integer-EMPTY for X > x₀(y) (numerically: empty at L ≥ 150 for
+  y = 10) — sliver = 0; package the threshold ∃-style.
+  hat_desmooth is NOT applicable (1-bounded vs log-grade — verified
+  exclusion); no desmooth variant needed under the two-branch plan.
 - **V5-6** [B, ~150] `hfactor_discharged` + **H-EXIT**
-  `prop21_unconditional`: E assembled — MS-A + MS-B via
-  mult_shiu_MS_EXIT at x := X+h + V5-5's sliver + the desmooth
-  pieces; H-EXIT stated at the V5-0 shape, route (i), the regime
-  gates threaded (0 < c₀−2η included). Every E-summand named in the
-  docstring. THE S1′ REPRESENTATION STANDS.
+  `prop21_unconditional` ⟦R⟧: E assembled — MS-A + MS-B via
+  mult_shiu_MS_EXIT at x := X+h + V5-5's sliver (NO desmooth term:
+  vestigial, the v5 LHS is already the hatK sum — census corrected
+  per the refuter); **η := 1/log y INSTANTIATED** (MS-A/MS-B
+  hardcode the 1/log y exponents — the FTC endpoints coincide only
+  at this value; thread explicitly); regime gates: 0 < c₀−2η,
+  y ≥ √(log X) (V5-5's), 10 ≤ y ≤ √X, route (i). Every E-summand
+  named in the docstring. THE S1′ REPRESENTATION STANDS.
 - **V5-7** [B, ~150] `unwindowed_scaffolds`: T1_decay/hhead_supplier
   variants at the trivial-indicator seam + the EXACT distance
   identity pretDistSq(seamCoeff f trivial t₀)(costwist t) X =
@@ -79,8 +91,10 @@ anywhere on the seam side; the P-leg window stays inside prop21RHS.
   audit, but the un-truncation reorders steps — re-verify.
 - **NUM-REF's standing tripwire**: the N^{−(α+β)} compensation must
   trace to the amended definition in every chain.
-- **The sliver at small y**: V5-5's STOP clause is the only regime
-  risk; everything else is regime-uniform.
+- **The sliver's regime boundary is y ≥ √(log X)** (SLIVER-V5-REF
+  quantified: below it, growing-y schedules overflow E by L^{1/2−A};
+  at constant y the squeeze is empty for large X). The old
+  'regime-uniform' claim was wrong and is corrected here.
 - **No ζ-theory in Part 1**; the zero-free region enters only Part 2.
 
 ## Refuter charges (firing concurrently with the surgeon)
