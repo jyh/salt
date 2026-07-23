@@ -3542,6 +3542,238 @@ lemma D4_5T1_le {T : ℝ} (hT : 6 ≤ T) (hLT1 : 1 ≤ Real.log T)
         rw [← Real.rpow_add hLT0]
         norm_num
 
+/-! ### A-3 (frozen header) — `halasz_primes_pow`
+
+The final constant-assembly: instantiate `halasz_primes_primal_raw` (the primal
+Halász bound at the raw `5T+1`-height decay `ε`), then absorb `ε` to the frozen
+pure-`(log T)` shape `exp(−c·log P / ((log T)^{3/4}(loglog T)⁴))·(log T)²`.  The
+`D₃(5T+1)→D₄(T)` machinery (`D3_5T1_le`, `D4_5T1_le`) prices the exp-match and the
+`(log T)²` factor; the outermost `∃ C c T₀` and the crude constants (44π, C₁–C₃,
+`Cκ`, `K₂`) eat every residue.
+
+`absorb_arith` is the pure-arithmetic heart: it abstracts the three exp/log facts
+(`hexpA`, `hTexp`, `hT2exp`) as hypotheses so the constant-juggling reduces to
+`mul_le_mul` chains + one `linarith` — no `nlinarith` over exp atoms. -/
+
+/-- **Pure-arithmetic core of the L11 absorption.**  With the exp/log comparisons
+supplied as hypotheses, the raw per-pair numerator is dominated by the frozen shape
+with `C = 44π + C₁·K₂c + 10·C₂ + C₃·K₂c`. -/
+lemma absorb_arith {C₁ C₂ C₃ K₂c P T logP logT D4' expc card exparg : ℝ}
+    (hC1 : 0 ≤ C₁) (hC2 : 0 ≤ C₂) (hC3 : 0 ≤ C₃) (hK : 0 ≤ K₂c)
+    (hP : 0 ≤ P) (hT : 0 < T) (hcard : 0 ≤ card)
+    (hLT1 : 1 ≤ logT) (hexpc0 : 0 ≤ expc)
+    (hexpA : Real.exp exparg ≤ expc)
+    (hTexp : 1 / T ≤ expc) (hT2exp : 1 / T ^ 2 ≤ expc)
+    (hD4' : D4' ≤ K₂c * logT ^ 2) (hD4'0 : 0 ≤ D4')
+    (hL10 : logP ≤ 10 * logT) :
+    44 * Real.pi * P
+      + (C₁ * P * Real.exp exparg * D4' + C₂ * P * logP / T + C₃ * D4' * P / T ^ 2) * card
+      ≤ (44 * Real.pi + C₁ * K₂c + 10 * C₂ + C₃ * K₂c)
+          * (P + card * P * expc * logT ^ 2) := by
+  have hLT0 : (0 : ℝ) ≤ logT := by linarith
+  have hεA : C₁ * P * Real.exp exparg * D4' ≤ C₁ * K₂c * (P * expc * logT ^ 2) := by
+    have h1 : Real.exp exparg * D4' ≤ expc * (K₂c * logT ^ 2) :=
+      mul_le_mul hexpA hD4' hD4'0 hexpc0
+    calc C₁ * P * Real.exp exparg * D4' = (C₁ * P) * (Real.exp exparg * D4') := by ring
+      _ ≤ (C₁ * P) * (expc * (K₂c * logT ^ 2)) :=
+          mul_le_mul_of_nonneg_left h1 (mul_nonneg hC1 hP)
+      _ = C₁ * K₂c * (P * expc * logT ^ 2) := by ring
+  have hεB : C₂ * P * logP / T ≤ 10 * C₂ * (P * expc * logT ^ 2) := by
+    have hLTsq : logT ≤ logT ^ 2 := by
+      nlinarith [mul_nonneg hLT0 (by linarith : (0 : ℝ) ≤ logT - 1)]
+    have step1 : logP * (1 / T) ≤ (10 * logT) * (1 / T) :=
+      mul_le_mul_of_nonneg_right hL10 (le_of_lt (one_div_pos.mpr hT))
+    have step2 : (10 * logT) * (1 / T) ≤ (10 * logT) * expc :=
+      mul_le_mul_of_nonneg_left hTexp (by linarith)
+    have step3 : (10 * logT) * expc ≤ (10 * logT ^ 2) * expc :=
+      mul_le_mul_of_nonneg_right (by linarith) hexpc0
+    calc C₂ * P * logP / T = (C₂ * P) * (logP * (1 / T)) := by ring
+      _ ≤ (C₂ * P) * ((10 * logT ^ 2) * expc) :=
+          mul_le_mul_of_nonneg_left (le_trans (le_trans step1 step2) step3)
+            (mul_nonneg hC2 hP)
+      _ = 10 * C₂ * (P * expc * logT ^ 2) := by ring
+  have hεC : C₃ * D4' * P / T ^ 2 ≤ C₃ * K₂c * (P * expc * logT ^ 2) := by
+    have hKLT0 : 0 ≤ K₂c * logT ^ 2 := mul_nonneg hK (sq_nonneg logT)
+    have step1 : D4' * (1 / T ^ 2) ≤ (K₂c * logT ^ 2) * (1 / T ^ 2) :=
+      mul_le_mul_of_nonneg_right hD4' (le_of_lt (one_div_pos.mpr (pow_pos hT 2)))
+    have step2 : (K₂c * logT ^ 2) * (1 / T ^ 2) ≤ (K₂c * logT ^ 2) * expc :=
+      mul_le_mul_of_nonneg_left hT2exp hKLT0
+    calc C₃ * D4' * P / T ^ 2 = (C₃ * P) * (D4' * (1 / T ^ 2)) := by ring
+      _ ≤ (C₃ * P) * ((K₂c * logT ^ 2) * expc) :=
+          mul_le_mul_of_nonneg_left (le_trans step1 step2) (mul_nonneg hC3 hP)
+      _ = C₃ * K₂c * (P * expc * logT ^ 2) := by ring
+  have hAc := mul_le_mul_of_nonneg_right hεA hcard
+  have hBc := mul_le_mul_of_nonneg_right hεB hcard
+  have hCc := mul_le_mul_of_nonneg_right hεC hcard
+  have hg0 : 0 ≤ card * P * expc * logT ^ 2 :=
+    mul_nonneg (mul_nonneg (mul_nonneg hcard hP) hexpc0) (sq_nonneg logT)
+  have hs1 : 0 ≤ C₁ * K₂c * P := mul_nonneg (mul_nonneg hC1 hK) hP
+  have hs2 : 0 ≤ 10 * C₂ * P := mul_nonneg (mul_nonneg (by norm_num) hC2) hP
+  have hs3 : 0 ≤ C₃ * K₂c * P := mul_nonneg (mul_nonneg hC3 hK) hP
+  have hs4 : 0 ≤ 44 * Real.pi * (card * P * expc * logT ^ 2) :=
+    mul_nonneg (by positivity) hg0
+  have hexpand : (44 * Real.pi + C₁ * K₂c + 10 * C₂ + C₃ * K₂c)
+        * (P + card * P * expc * logT ^ 2)
+      = 44 * Real.pi * P + C₁ * K₂c * P + 10 * C₂ * P + C₃ * K₂c * P
+        + 44 * Real.pi * (card * P * expc * logT ^ 2)
+        + (C₁ * K₂c * (P * expc * logT ^ 2)) * card
+        + (10 * C₂ * (P * expc * logT ^ 2)) * card
+        + (C₃ * K₂c * (P * expc * logT ^ 2)) * card := by ring
+  have hLdist : (C₁ * P * Real.exp exparg * D4' + C₂ * P * logP / T
+        + C₃ * D4' * P / T ^ 2) * card
+      = C₁ * P * Real.exp exparg * D4' * card + C₂ * P * logP / T * card
+        + C₃ * D4' * P / T ^ 2 * card := by ring
+  rw [hexpand, hLdist]
+  linarith [hAc, hBc, hCc, hs1, hs2, hs3, hs4]
+
+/-- **A-3 `halasz_primes_pow` (frozen header).**  The Halász inequality for primes
+at the θ = 3/4 override, frozen shape (iron rule 1): for a prime-supported polynomial
+`P(s) = Σ_{P≤p≤2P} a_p p^{−s}` with `|a_p| ≤ 1` and a well-spaced `𝒯 ⊆ [−T, T]`,
+
+  `Σ_{t∈𝒯} ‖Σ_p p^{−it}·a_p‖² ≤`
+    `C·(P + |𝒯|·P·exp(−c·log P/((log T)^{3/4}(loglog T)⁴))·(log T)²)·Σ‖a_p‖² / log P`,
+
+with `∃ C c T₀` outermost and `P ≤ T^10` (Amendment L11-T).  The six `T₀` thresholds
+of the freeze are auto-inherited by destructuring `halasz_primes_primal_raw`
+(⊇ `per_pair_contour`'s six, incl. `shifted_edge_price`'s
+`exp(exp(9000·c_vk + c_vk/(2δ₀) + 1))`), joined with `exp(exp 1)` (⟹ `D₄(T) ≥ 1`)
+and `6` (the `D₃(5T+1)→D₄(T)` absorption floor). -/
+theorem halasz_primes_pow :
+    ∃ (C c T₀ : ℝ), 0 < C ∧ 0 < c ∧ 3 ≤ T₀ ∧
+      ∀ (T P : ℝ), T₀ ≤ T → 2 ≤ P → P ≤ T ^ 10 →
+      ∀ (𝒯 : Finset ℝ), WellSpaced 𝒯 → (∀ t ∈ 𝒯, t ∈ Set.Icc (-T) T) →
+      ∀ (S : Finset ℕ), (∀ n ∈ S, n.Prime ∧ P ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * P) →
+      ∀ (a : ℕ → ℂ),
+        ∑ t ∈ 𝒯, ‖∑ p ∈ S, (p : ℂ) ^ (-(t : ℂ) * I) * a p‖ ^ 2
+          ≤ C * (P + (𝒯.card : ℝ) * P
+                * Real.exp (-c * Real.log P
+                    / ((Real.log T) ^ ((3 : ℝ) / 4) * (Real.log (Real.log T)) ^ (4 : ℕ)))
+                * (Real.log T) ^ 2)
+            / Real.log P * ∑ p ∈ S, ‖a p‖ ^ 2 := by
+  obtain ⟨c_vk, C₁, C₂, C₃, T₀raw, hc_vk0, hC1, hC2, hC3, hT₀raw3, hraw⟩ :=
+    halasz_primes_primal_raw
+  have hK₂0 : 0 < K₂ := by rw [K₂]; positivity
+  have hCκpos : 0 < Cκ := by rw [Cκ]; positivity
+  have hC0 : 0 < 44 * Real.pi + C₁ * K₂ + 10 * C₂ + C₃ * K₂ := by
+    have hpi := Real.pi_pos
+    have h1 := mul_pos hC1 hK₂0
+    have h2 := mul_pos hC3 hK₂0
+    linarith
+  have hcpos : 0 < min (c_vk / (2 * Cκ)) (1 / 20) :=
+    lt_min (div_pos hc_vk0 (mul_pos (by norm_num) hCκpos)) (by norm_num)
+  have hT₀3 : (3 : ℝ) ≤ max (max T₀raw (Real.exp (Real.exp 1))) 6 :=
+    le_trans (by norm_num) (le_max_right _ _)
+  refine ⟨44 * Real.pi + C₁ * K₂ + 10 * C₂ + C₃ * K₂,
+      min (c_vk / (2 * Cκ)) (1 / 20),
+      max (max T₀raw (Real.exp (Real.exp 1))) 6, hC0, hcpos, hT₀3, ?_⟩
+  intro T P hT hP hPT10 𝒯 hws hsub S hS a
+  have hT6 : (6 : ℝ) ≤ T := le_trans (le_max_right _ _) hT
+  have hT0 : 0 < T := by linarith
+  have hP0 : 0 < P := by linarith
+  have hlogP0 : 0 < Real.log P := Real.log_pos (by linarith)
+  have hTe1 : Real.exp (Real.exp 1) ≤ T :=
+    le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hT
+  have hLT_ge_exp1 : Real.exp 1 ≤ Real.log T := by
+    have h := Real.log_le_log (Real.exp_pos (Real.exp 1)) hTe1
+    rwa [Real.log_exp] at h
+  have hLT1 : (1 : ℝ) ≤ Real.log T := by
+    have he1 : (1 : ℝ) ≤ Real.exp 1 := by have := Real.add_one_le_exp (1 : ℝ); linarith
+    linarith
+  have hLT0 : 0 < Real.log T := by linarith
+  have hll1 : (1 : ℝ) ≤ Real.log (Real.log T) := by
+    have h := Real.log_le_log (Real.exp_pos 1) hLT_ge_exp1
+    rwa [Real.log_exp] at h
+  have hLLTpos : 0 < Real.log (Real.log T) := by linarith
+  have hlog5T1pos : 0 < Real.log (5 * T + 1) := Real.log_pos (by linarith)
+  have hlog5T1gt1 : 1 < Real.log (5 * T + 1) :=
+    lt_of_le_of_lt hLT1 (Real.log_lt_log hT0 (by linarith))
+  have hloglog5pos : 0 < Real.log (Real.log (5 * T + 1)) := Real.log_pos hlog5T1gt1
+  have hD3'pos : 0 < (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+      * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ) :=
+    mul_pos (Real.rpow_pos_of_pos hlog5T1pos _) (pow_pos hloglog5pos 3)
+  have hD4'pos : 0 < (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+      * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ) :=
+    mul_pos (Real.rpow_pos_of_pos hlog5T1pos _) (pow_pos hloglog5pos 4)
+  have hD4pos : 0 < (Real.log T) ^ ((3 : ℝ) / 4) * (Real.log (Real.log T)) ^ (4 : ℕ) :=
+    mul_pos (Real.rpow_pos_of_pos hLT0 _) (pow_pos hLLTpos 4)
+  have hrpge1 : (1 : ℝ) ≤ (Real.log T) ^ ((3 : ℝ) / 4) := by
+    calc (1 : ℝ) = (1 : ℝ) ^ ((3 : ℝ) / 4) := (Real.one_rpow _).symm
+      _ ≤ (Real.log T) ^ ((3 : ℝ) / 4) := Real.rpow_le_rpow (by norm_num) hLT1 (by norm_num)
+  have hpwge1 : (1 : ℝ) ≤ (Real.log (Real.log T)) ^ (4 : ℕ) := by
+    calc (1 : ℝ) = (1 : ℝ) ^ (4 : ℕ) := (one_pow 4).symm
+      _ ≤ (Real.log (Real.log T)) ^ (4 : ℕ) := pow_le_pow_left₀ (by norm_num) hll1 4
+  have hD4ge1 : (1 : ℝ) ≤ (Real.log T) ^ ((3 : ℝ) / 4)
+      * (Real.log (Real.log T)) ^ (4 : ℕ) := by
+    calc (1 : ℝ) = 1 * 1 := (mul_one 1).symm
+      _ ≤ (Real.log T) ^ ((3 : ℝ) / 4) * (Real.log (Real.log T)) ^ (4 : ℕ) :=
+          mul_le_mul hrpge1 hpwge1 (by norm_num) (le_trans (by norm_num) hrpge1)
+  have hD3_le := D3_5T1_le hT6 hLT1 hll1
+  have hD4le := D4_5T1_le hT6 hLT1 hll1
+  have hT₀raw_le_T : T₀raw ≤ T :=
+    le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) hT
+  have hbound := hraw T P hT₀raw_le_T hP 𝒯 hws hsub S hS a
+  set c := min (c_vk / (2 * Cκ)) (1 / 20) with hcdef
+  set D3' := (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+    * (Real.log (Real.log (5 * T + 1))) ^ (3 : ℕ) with hD3'def
+  set D4' := (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+    * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ) with hD4'def
+  set D4 := (Real.log T) ^ ((3 : ℝ) / 4) * (Real.log (Real.log T)) ^ (4 : ℕ) with hD4def
+  set logP := Real.log P with hLdef
+  have hL10 : logP ≤ 10 * Real.log T := by
+    have h := Real.log_le_log hP0 hPT10
+    rw [Real.log_pow] at h; push_cast at h
+    rw [hLdef]; linarith
+  have hcCk : c * Cκ ≤ c_vk / 2 := by
+    have hc_le1 : c ≤ c_vk / (2 * Cκ) := by rw [hcdef]; exact min_le_left _ _
+    calc c * Cκ ≤ (c_vk / (2 * Cκ)) * Cκ := mul_le_mul_of_nonneg_right hc_le1 hCκpos.le
+      _ = c_vk / 2 := by field_simp
+  have hcD3 : c * D3' ≤ (c_vk / 2) * D4 := by
+    calc c * D3' ≤ c * (Cκ * D4) := mul_le_mul_of_nonneg_left hD3_le hcpos.le
+      _ = (c * Cκ) * D4 := by ring
+      _ ≤ (c_vk / 2) * D4 := mul_le_mul_of_nonneg_right hcCk hD4pos.le
+  have hcross : c * logP * D3' ≤ (c_vk / 2) * logP * D4 := by
+    have h := mul_le_mul_of_nonneg_left hcD3 hlogP0.le
+    calc c * logP * D3' = Real.log P * (c * D3') := by rw [hLdef]; ring
+      _ ≤ Real.log P * ((c_vk / 2) * D4) := h
+      _ = (c_vk / 2) * logP * D4 := by rw [hLdef]; ring
+  have hexpA : Real.exp (-(c_vk / 2) * logP / D3') ≤ Real.exp (-c * logP / D4) := by
+    apply Real.exp_le_exp.mpr
+    have hpos_ver : c * logP / D4 ≤ (c_vk / 2) * logP / D3' := by
+      rw [div_le_div_iff₀ hD4pos hD3'pos]; exact hcross
+    have e1 : -(c_vk / 2) * logP / D3' = -((c_vk / 2) * logP / D3') := by ring
+    have e2 : -c * logP / D4 = -(c * logP / D4) := by ring
+    rw [e1, e2]; exact neg_le_neg hpos_ver
+  have h1T : 1 / T = Real.exp (-Real.log T) := by
+    rw [Real.exp_neg, Real.exp_log hT0, one_div]
+  have hcL_le : c * logP ≤ Real.log T := by
+    have h1 : c * logP ≤ (1 / 20) * logP :=
+      mul_le_mul_of_nonneg_right (by rw [hcdef]; exact min_le_right _ _)
+        (by rw [hLdef]; exact hlogP0.le)
+    have h2 : (1 / 20) * logP ≤ (1 / 20) * (10 * Real.log T) :=
+      mul_le_mul_of_nonneg_left hL10 (by norm_num)
+    have h3 : (1 / 20) * (10 * Real.log T) ≤ Real.log T := by linarith
+    linarith
+  have hcLD4 : c * logP / D4 ≤ Real.log T :=
+    le_trans (div_le_self (by rw [hLdef]; exact mul_nonneg hcpos.le hlogP0.le) hD4ge1) hcL_le
+  have hTexp : 1 / T ≤ Real.exp (-c * logP / D4) := by
+    rw [h1T]; apply Real.exp_le_exp.mpr
+    have e2 : -c * logP / D4 = -(c * logP / D4) := by ring
+    rw [e2]; exact neg_le_neg hcLD4
+  have hTleT2 : T ≤ T ^ 2 := by
+    nlinarith [mul_nonneg hT0.le (by linarith : (0 : ℝ) ≤ T - 1)]
+  have hT2exp : 1 / T ^ 2 ≤ Real.exp (-c * logP / D4) :=
+    le_trans (one_div_le_one_div_of_le hT0 hTleT2) hTexp
+  set expc := Real.exp (-c * logP / D4) with hexpcdef
+  have hexpc0 : 0 ≤ expc := by rw [hexpcdef]; positivity
+  have hcard0 : (0 : ℝ) ≤ (𝒯.card : ℝ) := by positivity
+  have KEY := absorb_arith hC1.le hC2.le hC3.le hK₂0.le hP0.le hT0 hcard0
+    hLT1 hexpc0 hexpA hTexp hT2exp hD4le hD4'pos.le hL10
+  refine le_trans hbound ?_
+  have hSum0 : (0 : ℝ) ≤ ∑ p ∈ S, ‖a p‖ ^ 2 := Finset.sum_nonneg fun p _ => sq_nonneg _
+  apply mul_le_mul_of_nonneg_right _ hSum0
+  rw [div_eq_mul_inv _ logP, div_eq_mul_inv _ logP]
+  exact mul_le_mul_of_nonneg_right KEY (inv_nonneg.mpr hlogP0.le)
+
 end L11Assembly
 
 end Salt.MR

@@ -310,3 +310,10 @@ open Salt.Tactic in
   Salt.MR.kernel_L1_mass
   Salt.MR.kernel_mass_ledger
   Salt.MR.sigma_cutoff
+  Salt.MR.dual_core
+  Salt.MR.dual_assembly
+  Salt.MR.pole_double_row
+  Salt.MR.error_double_row
+  Salt.MR.halasz_primes_primal_raw
+  Salt.MR.absorb_arith
+  Salt.MR.halasz_primes_pow
