@@ -117,16 +117,20 @@ gives
 — the frozen `≪ X·(log X)^{−1/64 + o(1)}` grade, the `o(1)` inflation IN-STATEMENT.
 The landed `T1_pointwise_decay` demands the clean floor `(1/32)loglog X ≤ M`; this is
 the absorption lemma that lets it compose with the corrected N2 floor (the one T-1's
-W-vanishing chain actually delivers). `M = 𝔻(f,g;X)²` is the ball-center distance;
-`hhead`/`htail`/`hsplit` are `halasz_ball_decay`'s S1'/S2' analytic inputs. -/
+W-vanishing chain actually delivers). `hhead`/`htail`/`hsplit` are `halasz_ball_decay`'s
+S1'/S2' analytic inputs.
+
+**AMENDMENT J0 (JYH-ratified 2026-07-23).**  `M = M_range f X T` is GHS Lemma 1's
+range-minimum (was center-M `pretDistSq f g X`); `expEM_le_of_floor_corrected` is generic
+in `M` and threads unchanged.  Restores the frozen `prop_A3'` semantics. -/
 theorem T1_pointwise_decay_corrected {f g : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1)
-    (hg : ∀ n, ‖g n‖ ≤ 1) {X ε U Uhead Utail C₁ C₂ Cfl : ℝ}
+    (hg : ∀ n, ‖g n‖ ≤ 1) {X ε U Uhead Utail C₁ C₂ Cfl T : ℝ}
     (hX : Real.exp 1 ≤ X) (hε : 0 ≤ ε) (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
     (hsplit : U = Uhead + Utail)
-    (hhead : Uhead ≤ C₁ * X * ((1 + pretDistSq f g X) * Real.exp (-(pretDistSq f g X))))
+    (hhead : Uhead ≤ C₁ * X * ((1 + M_range f X T) * Real.exp (-(M_range f X T))))
     (htail : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2))
     (hfloor : (1 / 32) * Real.log (Real.log X)
-        - 5 * Real.log (Real.log (Real.log (2 * X + 16))) - Cfl ≤ pretDistSq f g X) :
+        - 5 * Real.log (Real.log (Real.log (2 * X + 16))) - Cfl ≤ M_range f X T) :
     U ≤ (2 * C₁ + C₂) * X *
         ((Real.log X) ^ (-(1 : ℝ) / 64)
             * Real.exp ((5 / 2) * Real.log (Real.log (Real.log (2 * X + 16))) + Cfl / 2)
@@ -143,17 +147,23 @@ decay: `T1_pointwise_decay_corrected` at `f`-slot `= fgJ f t₀ y Y` (1-bounded 
 `norm_fgJ_le`) and `g`-slot `= costwist t` (1-bounded via `norm_costwist_le`), carrying
 the *corrected* N2 floor `hfloor` — exactly the floor `DistWindow.dist_split_A4_N2`
 delivers W-free (with HUPPER discharged).  This is the seam that plugs HUPPER's output
-into the T1 grade; the only remaining conditionality is Part 1's `hhead`. -/
+into the T1 grade; the only remaining conditionality is Part 1's `hhead`.
+
+**AMENDMENT J0 (JYH-ratified 2026-07-23).**  `M = M_range (fgJ f t₀ y Y) X T` is GHS
+Lemma 1's range-minimum (was center-M `pretDistSq (fgJ f t₀ y Y) (costwist t) X`);
+`prop_A3'_assembly`'s `int_U`/T1 row is thereby reconciled to the frozen `M_range` form
+(`prop_A3'_assembly` itself is M-agnostic — abstract `Gunit`/`Gmom` — so it needs no
+change).  The `t` slot survives (it fixes the `costwist t` character). -/
 theorem T1_decay_corrected_fgJ {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (t₀ y Y t : ℝ)
-    {X ε U Uhead Utail C₁ C₂ Cfl : ℝ}
+    {X ε U Uhead Utail C₁ C₂ Cfl T : ℝ}
     (hX : Real.exp 1 ≤ X) (hε : 0 ≤ ε) (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
     (hsplit : U = Uhead + Utail)
-    (hhead : Uhead ≤ C₁ * X * ((1 + pretDistSq (fgJ f t₀ y Y) (costwist t) X)
-        * Real.exp (-(pretDistSq (fgJ f t₀ y Y) (costwist t) X))))
+    (hhead : Uhead ≤ C₁ * X * ((1 + M_range (fgJ f t₀ y Y) X T)
+        * Real.exp (-(M_range (fgJ f t₀ y Y) X T))))
     (htail : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2))
     (hfloor : (1 / 32) * Real.log (Real.log X)
         - 5 * Real.log (Real.log (Real.log (2 * X + 16))) - Cfl
-        ≤ pretDistSq (fgJ f t₀ y Y) (costwist t) X) :
+        ≤ M_range (fgJ f t₀ y Y) X T) :
     U ≤ (2 * C₁ + C₂) * X *
         ((Real.log X) ^ (-(1 : ℝ) / 64)
             * Real.exp ((5 / 2) * Real.log (Real.log (Real.log (2 * X + 16))) + Cfl / 2)

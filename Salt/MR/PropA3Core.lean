@@ -282,15 +282,22 @@ composing the exit stone `halasz_ball_decay` with the R3.1 floor `M ≥ (1/32)·
 
 The S1'/MULT-SHIU conditionality of `halasz_ball_decay` is carried through EXPLICITLY as the
 named hypotheses `hsplit` (the S1' head/tail split of `U`), `hhead` (the S2' centered head,
-K4'-conditional) and `htail` (the S2' tail ledger) — NOT discharged here.  `M = 𝔻(f, g; X)²`
-is the ball-center squared distance. -/
+K4'-conditional) and `htail` (the S2' tail ledger) — NOT discharged here.
+
+**AMENDMENT J0 (JYH-ratified 2026-07-23).**  `M = M_range f X T` is GHS Lemma 1's
+range-minimum squared-distance (the `sInf` over the offset window), NOT the center value
+`pretDistSq f g X`.  The center-M deviation was the drift problem's source; `M_range`
+never drifts below the landed floor (`Mrange_one_floor`) and restores the frozen
+`prop_A3'` semantics.  The floor `hfloor` is now `(1/32)loglog X ≤ M_range f X T`
+(`Mrange_one_floor`-supplied), and `expEM_le_of_floor` (generic in `M`) threads
+unchanged. -/
 theorem T1_pointwise_decay {f g : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1)
-    (hg : ∀ n, ‖g n‖ ≤ 1) {X ε U Uhead Utail C₁ C₂ : ℝ}
+    (hg : ∀ n, ‖g n‖ ≤ 1) {X ε U Uhead Utail C₁ C₂ T : ℝ}
     (hX : Real.exp 1 ≤ X) (hε : 0 ≤ ε) (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
     (hsplit : U = Uhead + Utail)
-    (hhead : Uhead ≤ C₁ * X * ((1 + pretDistSq f g X) * Real.exp (-(pretDistSq f g X))))
+    (hhead : Uhead ≤ C₁ * X * ((1 + M_range f X T) * Real.exp (-(M_range f X T))))
     (htail : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2))
-    (hfloor : (1 / 32) * Real.log (Real.log X) ≤ pretDistSq f g X) :
+    (hfloor : (1 / 32) * Real.log (Real.log X) ≤ M_range f X T) :
     U ≤ (2 * C₁ + C₂) * X *
         ((Real.log X) ^ (-(1 : ℝ) / 64) + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) := by
   have hdecay := halasz_ball_decay hf hg hX hε hC₁ hC₂ hsplit hhead htail

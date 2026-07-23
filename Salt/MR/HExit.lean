@@ -851,7 +851,15 @@ So `hRHS` is the exact residual the wire isolates; once it lands, the seam-sum h
 bound follows unconditionally (this lemma), and — after the §8 `int_U`/moment assembly
 routes the E error through the ball-integrated secondary term (`prop_A3'_assembly`, NOT a
 pointwise inequality: the pointwise E is main-term-sized when `log y ≍ log X`, and only
-its ball-`L²` mass is tail-grade) — `T1_decay_trivial` delivers the frozen T1 grade. -/
+its ball-`L²` mass is tail-grade) — `T1_decay_trivial` delivers the frozen T1 grade.
+
+**AMENDMENT J0 (JYH-ratified 2026-07-23).**  The `hRHS` binder's distance `M` is GHS
+Lemma 1's range-minimum `M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T` (was the
+center value `pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t) X`); the
+center-M deviation was the drift problem's source, while `M_range` never drifts below the
+landed floor (`Mrange_one_floor`) and restores the frozen `prop_A3'` semantics.  The
+per-frequency `t` parameter is subsumed by the range's offset variable and replaced by
+the range parameter `T`. -/
 /- ⟦CORRECTION 2026-07-22 night (M-BRIDGE-SCOPE, maestro-applied):
 the (1+M) factor in hRHS is NOT supplied by the sharp diagonal (that
 leg is the 1/sigma weight, log^2-grade); it is born in the
@@ -860,17 +868,17 @@ sigma* = e^M/log X between the pretentious bound e^{-M} log X and
 the trivial bound 1/sigma; verified numerically exact (ratio 1.000).
 The (1+M) is genuine and necessary: the tighter pure-e^{-M} bound is
 FALSE, and grade_EM's factor 2 is load-bearing. -/
-theorem T1_head_wire (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ t : ℝ) :
+theorem T1_head_wire (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ T : ℝ) :
     ∃ X₀ : ℝ, ∀ {X h c₀ y η C₁ : ℝ}, X₀ ≤ X →
         h = X / Real.sqrt (Real.log X) → 1 < c₀ → η = 1 / Real.log y →
         0 < c₀ - 2 * η → 10 ≤ y → y ≤ Real.sqrt X → Real.sqrt (Real.log X) ≤ y →
         ‖prop21RHS (fun p => g p * (p : ℂ) ^ (-(t₀ : ℂ) * I)) t₀ X h c₀ y η‖
-          ≤ C₁ * X * ((1 + pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t) X)
-              * Real.exp (-(pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t) X))) →
+          ≤ C₁ * X * ((1 + M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
+              * Real.exp (-(M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T))) →
       ∃ C_E C_R : ℝ,
         ‖∑' n, seamCoeff (ellLin g) (fun _ => 1) t₀ n * (hatK X h n : ℂ)‖
-          ≤ C₁ * X * ((1 + pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t) X)
-                * Real.exp (-(pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t) X)))
+          ≤ C₁ * X * ((1 + M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
+                * Real.exp (-(M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)))
             + (C_E * ((X + h) / Real.log (X + h)) * Real.log y
               + C_R * (X / Real.log X) * Real.log y) := by
   obtain ⟨X₀, hclean⟩ := prop21_unconditional_clean g hg t₀

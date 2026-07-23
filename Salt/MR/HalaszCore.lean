@@ -7,6 +7,7 @@ import Salt.MR.L2MVT
 import Salt.MR.MVCore2
 import Salt.MR.Dist
 import Salt.MR.PretentiousTriangle
+import Salt.MR.DistHalasz
 
 /-!
 # MR-gate S8/MR-CORE wave 1, stone H2 — the Halász core (`HalaszCore`)
@@ -384,10 +385,24 @@ ball contribution `U`).  The frozen CONCLUSION shape (`s8-freeze.md:25`) is serv
 verbatim; `grade_EM` performs the `(1+M)e^{-M} → 2e^{-M/2}` collapse; the tail
 `ε`-bump uses `Real.rpow_le_rpow_of_exponent_le`. -/
 
+/-- **`M_range` nonnegativity.**  The range-minimum `M_range f X T` is a distance-square
+infimum, hence `≥ 0`: every element of the range image is `pretDistSq f (costwist t) X ≥ 0`
+(`pretDistSq_nonneg`, using `‖costwist t n‖ = 1`), so `Real.sInf_nonneg` applies.  Supplies
+`halasz_ball_decay`'s `hM0` after the J0 restatement (the `M`-nonneg the old proof drew from
+`pretDistSq_nonneg f g X`). -/
+theorem Mrange_nonneg (f : ℕ → ℂ) (hf : ∀ n, ‖f n‖ ≤ 1) (X T : ℝ) :
+    0 ≤ M_range f X T := by
+  unfold M_range
+  refine Real.sInf_nonneg ?_
+  rintro v ⟨t, -, rfl⟩
+  refine pretDistSq_nonneg f (costwist t) X hf (fun n => ?_)
+  have hct : ‖costwist t n‖ = 1 := by unfold costwist; exact Complex.norm_exp_ofReal_mul_I _
+  exact hct.le
+
 /-- **R2.5 — the exit stone `halasz_ball_decay`** (frozen interface,
 `s8-freeze.md:25`, served in K4'/S1'-conditional assembly form).  For a 1-bounded
 `f` and center `t₀` (carried through `g`, the character `n ↦ n^{it₀}` restricted to
-primes, with `M = 𝔻(f, g; X)² = pretDistSq f g X` the CENTER squared-distance), the
+primes), with `M = M_range f X T` GHS Lemma 1's RANGE-MINIMUM squared-distance, the
 ball `|t − t₀| ≤ (log X)^{1/16}` contributes
 `U ≪ X·(exp(-M/2) + (log X)^{-1/2+ε})`.
 
@@ -396,21 +411,30 @@ head/tail split of `U`; `hhead` is the S2' head (centered at `t₀`, K4'-conditi
 via `contour_A13_A14_head`) in its raw `(1+M)e^{-M}` grade; `htail` is the S2' tail
 ledger (`s2_tail_ledger`).  `grade_EM` collapses the head to `2·e^{-M/2}` and the
 frozen shape assembles.  See the section GATE-CHECK verdict above (R1.1 replaces
-GS[10]). -/
+GS[10]).
+
+**AMENDMENT J0 (JYH-ratified 2026-07-23).**  The head distance `M` is GHS Lemma 1's
+range-minimum `M_range f X T` (the `sInf` of `𝔻(f, ·^{it}; X)²` over the offset window),
+NOT the center value `pretDistSq f g X`.  The center-M deviation was the drift problem's
+source (center-M is unsatisfiable on the joint route); `M_range` never drifts below the
+landed floor (`Mrange_one_floor` = GHS Lemmas 1+2, both landed) and restores the frozen
+`prop_A3'` semantics.  The exit stone uses `M` only via nonnegativity (`Mrange_nonneg`)
+and the decreasing `(1+M)e^{−M}` shape (`grade_EM`) — both `M_range`-satisfied; the `g`
+slot (the ball-center character) is retained for interface symmetry with the twins. -/
 theorem halasz_ball_decay
-    {f g : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (hg : ∀ n, ‖g n‖ ≤ 1)
-    {X ε U Uhead Utail C₁ C₂ : ℝ}
+    {f g : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (_hg : ∀ n, ‖g n‖ ≤ 1)
+    {X ε U Uhead Utail C₁ C₂ T : ℝ}
     (hX : Real.exp 1 ≤ X) (hε : 0 ≤ ε) (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
     (hsplit : U = Uhead + Utail)
-    (hhead : Uhead ≤ C₁ * X * ((1 + pretDistSq f g X) * Real.exp (-(pretDistSq f g X))))
+    (hhead : Uhead ≤ C₁ * X * ((1 + M_range f X T) * Real.exp (-(M_range f X T))))
     (htail : Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2)) :
     U ≤ (2 * C₁ + C₂) * X
-        * (Real.exp (-(pretDistSq f g X) / 2) + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) := by
+        * (Real.exp (-(M_range f X T) / 2) + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) := by
   have hX0 : 0 < X := lt_of_lt_of_le (Real.exp_pos 1) hX
   have hX0' : 0 ≤ X := hX0.le
   have hlogX : 1 ≤ Real.log X := (Real.le_log_iff_exp_le hX0).mpr hX
-  set M := pretDistSq f g X with hMdef
-  have hM0 : 0 ≤ M := pretDistSq_nonneg f g X hf hg
+  set M := M_range f X T with hMdef
+  have hM0 : 0 ≤ M := Mrange_nonneg f hf X T
   have hE : (0 : ℝ) ≤ Real.exp (-M / 2) := (Real.exp_pos _).le
   have hT : (0 : ℝ) ≤ (Real.log X) ^ (-(1 : ℝ) / 2 + ε) :=
     Real.rpow_nonneg (by linarith) _
