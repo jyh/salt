@@ -957,4 +957,479 @@ theorem prop21RHS_hat_rep_aligned (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖
         show ((α : ℂ) + (β : ℂ)) + (-(α : ℂ) - (β : ℂ)) = 0 by ring, Complex.cpow_zero]
     rw [mul_assoc (alignedCoeff y g X α β N), hcancel, mul_one]
 
+/-! ## THE S1′ REPRESENTATION — the v5 collapse chain (V5-3 → V5-2 → V5-4 → V5-6)
+
+The core chain of the H-5 v5 wave (`docs/exploration/h5-v5-design.md`, the AMENDMENT
+V5-0 seam un-windowing).  On the landed foundation `prop21RHS_hat_rep_aligned`
+(`prop21RHS = 2·∫∫ Σ_N alignedCoeff·hatK`, GHS's genuine Prop-2.1 object) the chain
+telescopes the `(α,β)` double integral to the GHS-(2.4) endpoint form, with every
+defect priced against the `MultShiu` budget shapes (MS-A/MS-B/MS-EXIT).
+
+The collapse is realized at the COEFFICIENT level (not the analytic FTC on L-series):
+after multiplication by the hat kernel `hatK` — which vanishes past `X+h` — every sum
+over `N` is a FINITE Finset sum, so the `∫α ∫β ↔ Σ_N` interchanges are plain
+`integral_finset_sum`, no measure-theoretic Fubini.  The FTC content is the per-`N`
+identity `lambdaLin (restrictAbove) ⍟ ellLin (restrictAbove) = log · ellLin
+(restrictAbove)` (`lambdaLin_convolution`) composed with the scalar exponential
+integrals `∫₀^η N^{-2β} dβ` (the `β→2β` Jacobian ½, `beta_double_jacobian`) and
+`∫₀^η N^{-α} dα` — the "constant chain": the leading `2` meets the `½`, and the
+`log N` from the convolution cancels the `1/log N` from the scalar integral. -/
+
+/-- Dirichlet convolution is commutative (via the `ArithmeticFunction` ring). -/
+lemma conv_comm (a b : ℕ → ℂ) : a ⍟ b = b ⍟ a := by
+  simp only [LSeries.convolution]
+  rw [mul_comm]
+
+/-- Dirichlet convolution is associative (via the `ArithmeticFunction` ring). -/
+lemma conv_assoc (a b c : ℕ → ℂ) : (a ⍟ b) ⍟ c = a ⍟ (b ⍟ c) := by
+  simp only [LSeries.convolution]
+  rw [ArithmeticFunction.toArithmeticFunction_eq_self,
+      ArithmeticFunction.toArithmeticFunction_eq_self, mul_assoc]
+
+/-- **V5-3 support fact.**  If the large log-derivative coefficient `lambdaLin
+(restrictAbove y g) n` is nonzero, then `n > y`: it is a prime power whose least prime
+factor exceeds `y` (`restrictAbove`), so `n ≥ minFac n > y`. -/
+lemma lambdaLin_restrictAbove_gt {y : ℝ} {g : ℕ → ℂ} {n : ℕ}
+    (hn : lambdaLin (restrictAbove y g) n ≠ 0) : y < (n : ℝ) := by
+  by_contra hle
+  have hle : (n : ℝ) ≤ y := not_lt.mp hle
+  apply hn
+  unfold lambdaLin
+  by_cases hpp : IsPrimePow n
+  · rw [if_pos hpp]
+    have hn0 : n ≠ 1 := by rintro rfl; exact not_isPrimePow_one hpp
+    have hp : (n.minFac).Prime := Nat.minFac_prime hn0
+    have hnpos : 0 < n := hpp.pos
+    have hmfle : (n.minFac : ℝ) ≤ (n : ℝ) := by exact_mod_cast Nat.minFac_le hnpos
+    have hmfy : ¬ (y < (n.minFac : ℝ)) := by linarith
+    have hra0 : restrictAbove y g n.minFac = 0 := by
+      unfold restrictAbove; rw [if_neg hmfy]
+    have hk1 : 1 ≤ n.factorization n.minFac :=
+      Nat.Prime.factorization_pos_of_dvd hp hnpos.ne' (Nat.minFac_dvd n)
+    rw [hra0, zero_pow (by omega : n.factorization n.minFac ≠ 0), mul_zero, zero_mul]
+  · rw [if_neg hpp]
+
+/-- Convolution congruence when the right factors agree on every divisor of `u`. -/
+lemma conv_eq_on_dvd {A B B' : ℕ → ℂ} {u : ℕ}
+    (hBB' : ∀ d : ℕ, d ∣ u → B d = B' d) :
+    (A ⍟ B) u = (A ⍟ B') u := by
+  simp only [LSeries.convolution_def]
+  refine Finset.sum_congr rfl (fun p hp => ?_)
+  rw [Nat.mem_divisorsAntidiagonal] at hp
+  have hdvd : p.2 ∣ u := ⟨p.1, by rw [← hp.1]; ring⟩
+  rw [hBB' p.2 hdvd]
+
+/-- `winCoeff` equals the full log-derivative coefficient at an in-window index. -/
+lemma winCoeff_eq_of_window {y : ℝ} {g : ℕ → ℂ} {X : ℝ} {k : ℕ}
+    (hlo : ⌊y⌋₊ < k) (hhi : (k : ℝ) < X / y) :
+    winCoeff g X y k = lambdaLin (restrictAbove y g) k := by
+  unfold winCoeff
+  rw [if_pos (Finset.mem_Ioo.mpr ⟨hlo, Nat.lt_ceil.mpr hhi⟩)]
+
+/-- **V5-3 pair lemma — the joint-support untruncation of the two window legs.**  On
+`j ≤ X`, the convolution of the two window Dirichlet-polynomial coefficient legs
+`winCoeff` equals that of the full log-derivative `lambdaLin (restrictAbove)`.  GHS §2.2:
+on a nonzero term `k·l = j`, both partners are prime powers `> y` (`lambdaLin
+(restrictAbove)` support), so each forces the other `< X/y` STRICTLY (`k·y < k·l = j ≤
+X`), landing both in the window `(⌊y⌋, ⌈X/y⌉)` (`Nat.lt_ceil`; the lower bound is free,
+`> y > ⌊y⌋`).  Terms with a vanishing leg agree trivially (`winCoeff` support ⊆
+`lambdaLin`). -/
+lemma window_pair_untrunc (y : ℝ) (g : ℕ → ℂ) (hy : 0 < y) (X α β : ℝ) :
+    ∀ j : ℕ, (j : ℝ) ≤ X →
+      (shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g))
+          ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (lambdaLin (restrictAbove y g))) j
+      = (shiftCoeff (-(α : ℂ)) (winCoeff g X y)
+          ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (winCoeff g X y)) j := by
+  intro j hj
+  simp only [LSeries.convolution_def]
+  refine Finset.sum_congr rfl (fun p hp => ?_)
+  rw [Nat.mem_divisorsAntidiagonal] at hp
+  obtain ⟨hprod, hj0⟩ := hp
+  set k := p.1 with hk
+  set l := p.2 with hl
+  have hk1 : 1 ≤ k := Nat.one_le_iff_ne_zero.mpr (fun h => by simp [h] at hprod; omega)
+  have hl1 : 1 ≤ l := Nat.one_le_iff_ne_zero.mpr (fun h => by simp [h] at hprod; omega)
+  have hkR : (1 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk1
+  have hlR : (1 : ℝ) ≤ (l : ℝ) := by exact_mod_cast hl1
+  have hklR : (k : ℝ) * (l : ℝ) = (j : ℝ) := by exact_mod_cast hprod
+  simp only [shiftCoeff]
+  by_cases hΛk : lambdaLin (restrictAbove y g) k = 0
+  · have hwk : winCoeff g X y k = 0 := by
+      unfold winCoeff; split_ifs with h
+      · exact hΛk
+      · rfl
+    rw [hΛk, hwk]; ring
+  · by_cases hΛl : lambdaLin (restrictAbove y g) l = 0
+    · have hwl : winCoeff g X y l = 0 := by
+        unfold winCoeff; split_ifs with h
+        · exact hΛl
+        · rfl
+      rw [hΛl, hwl]; ring
+    · have hky : y < (k : ℝ) := lambdaLin_restrictAbove_gt hΛk
+      have hly : y < (l : ℝ) := lambdaLin_restrictAbove_gt hΛl
+      have hfloor : (⌊y⌋₊ : ℝ) ≤ y := Nat.floor_le hy.le
+      have hklo : ⌊y⌋₊ < k := by exact_mod_cast (lt_of_le_of_lt hfloor hky)
+      have hllo : ⌊y⌋₊ < l := by exact_mod_cast (lt_of_le_of_lt hfloor hly)
+      have hkhi : (k : ℝ) < X / y := by
+        rw [lt_div_iff₀ hy]
+        calc (k : ℝ) * y < (k : ℝ) * (l : ℝ) :=
+              mul_lt_mul_of_pos_left hly (by linarith)
+          _ = (j : ℝ) := hklR
+          _ ≤ X := hj
+      have hlhi : (l : ℝ) < X / y := by
+        rw [lt_div_iff₀ hy]
+        calc (l : ℝ) * y < (l : ℝ) * (k : ℝ) :=
+              mul_lt_mul_of_pos_left hky (by linarith)
+          _ = (k : ℝ) * (l : ℝ) := by ring
+          _ = (j : ℝ) := hklR
+          _ ≤ X := hj
+      rw [winCoeff_eq_of_window hklo hkhi, winCoeff_eq_of_window hllo hlhi]
+
+/-- **The UN-truncated aligned coefficient** (V5-3).  `alignedCoeff` with both window
+Dirichlet-polynomial legs (`winCoeff`) promoted to the FULL log-derivative
+`lambdaLin (restrictAbove y g)` — the object the FTC collapse consumes.  Independent of
+the window cutoff `X`. -/
+def alignedCoeffFull (y : ℝ) (g : ℕ → ℂ) (α β : ℝ) : ℕ → ℂ :=
+  ((ellLin (restrictBelow y g)
+      ⍟ shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g)))
+      ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (lambdaLin (restrictAbove y g)))
+      ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (ellLin (restrictAbove y g))
+
+@[simp] lemma alignedCoeffFull_zero (y : ℝ) (g : ℕ → ℂ) (α β : ℝ) :
+    alignedCoeffFull y g α β 0 = 0 := by
+  rw [alignedCoeffFull, LSeries.convolution_map_zero]
+
+/-- **V5-3 — `joint_support_untruncation`.**  On `N ≤ X` the aligned coefficient equals
+its un-truncated version `alignedCoeffFull` (both window legs promoted to the full
+log-derivative).  Route: reassociate so the two window legs are adjacent
+(`conv_assoc`/`conv_comm`), then `conv_eq_on_dvd` lifts the pair lemma
+`window_pair_untrunc` (agreement on `j ≤ X`) through the outer smooth/large legs (every
+divisor of `N ≤ X` is `≤ X`).  The ramp complement `X < N ≤ X+h` is the residual
+(`rampTerm`, priced in V5-6). -/
+theorem joint_support_untruncation (y : ℝ) (g : ℕ → ℂ) (hy : 0 < y) (X α β : ℝ)
+    {N : ℕ} (hN : (N : ℝ) ≤ X) :
+    alignedCoeff y g X α β N = alignedCoeffFull y g α β N := by
+  rw [alignedCoeff, alignedCoeffFull]
+  set S := ellLin (restrictBelow y g) with hS
+  set E := shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (ellLin (restrictAbove y g)) with hE
+  set Pf := shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g)) with hPf
+  set Qf := shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (lambdaLin (restrictAbove y g)) with hQf
+  set Pw := shiftCoeff (-(α : ℂ)) (winCoeff g X y) with hPw
+  set Qw := shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (winCoeff g X y) with hQw
+  have hpair : ∀ j : ℕ, (j : ℝ) ≤ X → (Pf ⍟ Qf) j = (Pw ⍟ Qw) j :=
+    window_pair_untrunc y g hy X α β
+  have hinner : ∀ u : ℕ, (u : ℝ) ≤ X → (S ⍟ (Pf ⍟ Qf)) u = (S ⍟ (Pw ⍟ Qw)) u := by
+    intro u hu
+    rcases Nat.eq_zero_or_pos u with rfl | hupos
+    · simp only [LSeries.convolution_map_zero]
+    · refine conv_eq_on_dvd (fun d hd => hpair d ?_)
+      have : (d : ℝ) ≤ (u : ℝ) := by exact_mod_cast Nat.le_of_dvd hupos hd
+      linarith
+  have houter : (E ⍟ (S ⍟ (Pf ⍟ Qf))) N = (E ⍟ (S ⍟ (Pw ⍟ Qw))) N := by
+    rcases Nat.eq_zero_or_pos N with rfl | hNpos
+    · simp only [LSeries.convolution_map_zero]
+    · refine conv_eq_on_dvd (A := E) (fun d hd => ?_)
+      have hdN : (d : ℝ) ≤ (N : ℝ) := by exact_mod_cast Nat.le_of_dvd hNpos hd
+      exact hinner d (le_trans hdN hN)
+  rw [conv_assoc S Pw Qw, conv_assoc S Pf Qf,
+    conv_comm (S ⍟ (Pw ⍟ Qw)) E, conv_comm (S ⍟ (Pf ⍟ Qf)) E]
+  exact houter.symm
+
+/-! ## V5-2 — `coeff_collapse` (the per-`N` FTC collapse)
+
+The scalar `cpow` FTCs (`scalar_cpow_ftc`, `cpow_beta_ftc` at `κ=-2`, `cpow_alpha_ftc`
+at `κ=-1`) and the per-`N` collapse of `alignedCoeffFull`.  The β-leg telescopes with the
+β→2β Jacobian `½` (`cpow_beta_ftc`), the two β-legs having convolved into `log·E` via
+`lambdaLin_convolution`; the leading `2` meets the `½`; the α-leg's main half telescopes
+(`cpow_alpha_ftc`) to `𝒮·𝓛 − η`-endpoint while the `2η`-endpoint survives as an α-integral
+(the α-shifts `−α` vs `−α−2η` prevent its telescoping).  Every `Σ_N`/`∫` interchange is a
+finite `Finset` operation (the summands are finite convolutions), no Fubini. -/
+
+/-- The scalar FTC for `(j)^(w0 + κ·t)`.  `∫ₐᵇ c·log(j)·(j)^(w0+κt) dt =
+(c/κ)·((j)^(w0+κb) − (j)^(w0+κa))`. -/
+lemma scalar_cpow_ftc {j : ℕ} (hj : 1 ≤ j) (c w0 : ℂ) {κ : ℝ} (hκ : κ ≠ 0) (a b : ℝ) :
+    (∫ t in a..b, c * Complex.log (j : ℂ) * (j : ℂ) ^ (w0 + (κ : ℂ) * (t : ℂ)))
+      = (c / (κ : ℂ)) * ((j : ℂ) ^ (w0 + (κ : ℂ) * (b : ℂ))
+          - (j : ℂ) ^ (w0 + (κ : ℂ) * (a : ℂ))) := by
+  have hj0 : (j : ℂ) ≠ 0 := by
+    simp only [ne_eq, Nat.cast_eq_zero]; omega
+  have hκC : (κ : ℂ) ≠ 0 := by exact_mod_cast hκ
+  -- the ℂ→ℂ antiderivative and its derivative (all differentiation over ℂ)
+  have hGe : ∀ z : ℂ, HasDerivAt (fun z : ℂ => (c / (κ : ℂ)) * (j : ℂ) ^ (w0 + (κ : ℂ) * z))
+      (c * Complex.log (j : ℂ) * (j : ℂ) ^ (w0 + (κ : ℂ) * z)) z := by
+    intro z
+    have hq : HasDerivAt (fun z : ℂ => w0 + (κ : ℂ) * z) ((κ : ℂ)) z := by
+      simpa using ((hasDerivAt_id z).const_mul (κ : ℂ)).const_add w0
+    have hcomp : HasDerivAt (fun z : ℂ => (j : ℂ) ^ (w0 + (κ : ℂ) * z))
+        ((j : ℂ) ^ (w0 + (κ : ℂ) * z) * Complex.log (j : ℂ) * (κ : ℂ)) z :=
+      hq.const_cpow (Or.inl hj0)
+    have h3 := hcomp.const_mul (c / (κ : ℂ))
+    have hcancel : c / (κ : ℂ) * ((j : ℂ) ^ (w0 + (κ : ℂ) * z) * Complex.log (j : ℂ) * (κ : ℂ))
+        = c * Complex.log (j : ℂ) * (j : ℂ) ^ (w0 + (κ : ℂ) * z) := by
+      field_simp
+    rw [hcancel] at h3
+    exact h3
+  have hderiv : ∀ t : ℝ,
+      HasDerivAt (fun t : ℝ => (c / (κ : ℂ)) * (j : ℂ) ^ (w0 + (κ : ℂ) * (t : ℂ)))
+      (c * Complex.log (j : ℂ) * (j : ℂ) ^ (w0 + (κ : ℂ) * (t : ℂ))) t :=
+    fun t => (hGe (t : ℂ)).comp_ofReal
+  have hcont : Continuous
+      (fun t : ℝ => c * Complex.log (j : ℂ) * (j : ℂ) ^ (w0 + (κ : ℂ) * (t : ℂ))) := by
+    apply Continuous.mul continuous_const
+    apply Continuous.const_cpow (by fun_prop) (Or.inl hj0)
+  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt (fun t _ => hderiv t)
+      (hcont.intervalIntegrable a b)]
+  ring
+
+/-- The β-leg scalar FTC (`κ = -2`, endpoints at `2β ∈ {0, 2η}`). -/
+lemma cpow_beta_ftc {j : ℕ} (hj : 1 ≤ j) (e : ℂ) (α η : ℝ) :
+    (∫ β in (0 : ℝ)..η, e * Complex.log (j : ℂ) * (j : ℂ) ^ (-(α : ℂ) - 2 * (β : ℂ)))
+      = (1 / 2 : ℂ) * (e * (j : ℂ) ^ (-(α : ℂ))
+          - e * (j : ℂ) ^ (-(α : ℂ) - 2 * (η : ℂ))) := by
+  have key := scalar_cpow_ftc hj e (-(α : ℂ)) (κ := -2) (by norm_num) 0 η
+  have hint : (∫ β in (0 : ℝ)..η, e * Complex.log (j : ℂ) * (j : ℂ) ^ (-(α : ℂ) - 2 * (β : ℂ)))
+      = ∫ β in (0 : ℝ)..η,
+          e * Complex.log (j : ℂ) * (j : ℂ) ^ (-(α : ℂ) + ((-2 : ℝ) : ℂ) * (β : ℂ)) := by
+    apply intervalIntegral.integral_congr
+    intro β _
+    change e * Complex.log (j : ℂ) * (j : ℂ) ^ (-(α : ℂ) - 2 * (β : ℂ))
+        = e * Complex.log (j : ℂ) * (j : ℂ) ^ (-(α : ℂ) + ((-2 : ℝ) : ℂ) * (β : ℂ))
+    rw [show (-(α : ℂ) - 2 * (β : ℂ)) = (-(α : ℂ) + ((-2 : ℝ) : ℂ) * (β : ℂ)) by push_cast; ring]
+  rw [hint, key,
+    show (-(α : ℂ) + ((-2 : ℝ) : ℂ) * ((η : ℝ) : ℂ)) = (-(α : ℂ) - 2 * (η : ℂ)) by push_cast; ring,
+    show (-(α : ℂ) + ((-2 : ℝ) : ℂ) * ((0 : ℝ) : ℂ)) = (-(α : ℂ)) by push_cast; ring]
+  push_cast; ring
+
+/-- The α-leg scalar FTC (`κ = -1`). -/
+lemma cpow_alpha_ftc {j : ℕ} (hj : 1 ≤ j) (e : ℂ) (η : ℝ) :
+    (∫ α in (0 : ℝ)..η, e * Complex.log (j : ℂ) * (j : ℂ) ^ (-(α : ℂ)))
+      = e * (j : ℂ) ^ (0 : ℂ) - e * (j : ℂ) ^ (-(η : ℂ)) := by
+  have key := scalar_cpow_ftc hj e (0 : ℂ) (κ := -1) (by norm_num) 0 η
+  have hint : (∫ α in (0 : ℝ)..η, e * Complex.log (j : ℂ) * (j : ℂ) ^ (-(α : ℂ)))
+      = ∫ α in (0 : ℝ)..η,
+          e * Complex.log (j : ℂ) * (j : ℂ) ^ ((0 : ℂ) + ((-1 : ℝ) : ℂ) * (α : ℂ)) := by
+    apply intervalIntegral.integral_congr
+    intro α _
+    change e * Complex.log (j : ℂ) * (j : ℂ) ^ (-(α : ℂ))
+        = e * Complex.log (j : ℂ) * (j : ℂ) ^ ((0 : ℂ) + ((-1 : ℝ) : ℂ) * (α : ℂ))
+    rw [show (-(α : ℂ)) = ((0 : ℂ) + ((-1 : ℝ) : ℂ) * (α : ℂ)) by push_cast; ring]
+  rw [hint, key,
+    show ((0 : ℂ) + ((-1 : ℝ) : ℂ) * ((η : ℝ) : ℂ)) = (-(η : ℂ)) by push_cast; ring,
+    show ((0 : ℂ) + ((-1 : ℝ) : ℂ) * ((0 : ℝ) : ℂ)) = (0 : ℂ) by push_cast; ring]
+  push_cast; ring
+
+/-- Factor `alignedCoeffFull` so the two β-dependent legs are convolved into one
+shifted `Λ⍟E` leg. -/
+lemma alignedCoeffFull_factor (y : ℝ) (g : ℕ → ℂ) (α β : ℝ) :
+    alignedCoeffFull y g α β
+      = (ellLin (restrictBelow y g) ⍟ shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g)))
+          ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ))
+              (lambdaLin (restrictAbove y g) ⍟ ellLin (restrictAbove y g)) := by
+  rw [alignedCoeffFull, conv_assoc, shiftCoeff_convolution]
+
+/-- Push a `β`-integral through a convolution whose left leg is `β`-independent. -/
+lemma conv_integral_push (P : ℕ → ℂ) (c : ℝ → ℕ → ℂ) (N : ℕ) {a b : ℝ}
+    (hc : ∀ j, IntervalIntegrable (fun β => c β j) volume a b) :
+    (∫ β in a..b, (P ⍟ fun n => c β n) N)
+      = (P ⍟ fun n => ∫ β in a..b, c β n) N := by
+  simp only [LSeries.convolution_def]
+  rw [intervalIntegral.integral_finsetSum (fun p _ => (hc p.2).const_mul (P p.1))]
+  refine Finset.sum_congr rfl (fun p _ => ?_)
+  rw [intervalIntegral.integral_const_mul]
+
+/-- The β-leg is interval-integrable. -/
+lemma betaLeg_intervalIntegrable (y : ℝ) (g : ℕ → ℂ) (α η : ℝ) (j : ℕ) :
+    IntervalIntegrable (fun β : ℝ => shiftCoeff (-(α : ℂ) - 2 * (β : ℂ))
+        (lambdaLin (restrictAbove y g) ⍟ ellLin (restrictAbove y g)) j) volume 0 η := by
+  rcases Nat.eq_zero_or_pos j with rfl | hj
+  · have h0 : (fun β : ℝ => shiftCoeff (-(α : ℂ) - 2 * (β : ℂ))
+        (lambdaLin (restrictAbove y g) ⍟ ellLin (restrictAbove y g)) 0) = fun _ => 0 := by
+      funext β; simp [shiftCoeff, LSeries.convolution_map_zero]
+    rw [h0]; exact intervalIntegrable_const
+  · apply Continuous.intervalIntegrable
+    unfold shiftCoeff
+    exact Continuous.mul continuous_const
+      (Continuous.const_cpow (by fun_prop) (Or.inl (Nat.cast_ne_zero.mpr hj.ne')))
+
+/-- The per-`j` β-integral: `∫₀^η (Λ⍟E)(j)·j^{-α-2β} dβ = ½(E(j)·j^{-α} − E(j)·j^{-α-2η})`. -/
+lemma betaLeg_integral (y : ℝ) (g : ℕ → ℂ) (α η : ℝ) {j : ℕ} (hj : 1 ≤ j) :
+    (∫ β in (0 : ℝ)..η, shiftCoeff (-(α : ℂ) - 2 * (β : ℂ))
+        (lambdaLin (restrictAbove y g) ⍟ ellLin (restrictAbove y g)) j)
+      = (1 / 2 : ℂ) * (shiftCoeff (-(α : ℂ)) (ellLin (restrictAbove y g)) j
+          - shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) (ellLin (restrictAbove y g)) j) := by
+  have hconv : (lambdaLin (restrictAbove y g) ⍟ ellLin (restrictAbove y g)) j
+      = (Real.log j : ℂ) * ellLin (restrictAbove y g) j :=
+    (lambdaLin_convolution (restrictAbove y g) j).symm
+  have hint : (∫ β in (0 : ℝ)..η, shiftCoeff (-(α : ℂ) - 2 * (β : ℂ))
+        (lambdaLin (restrictAbove y g) ⍟ ellLin (restrictAbove y g)) j)
+      = ∫ β in (0 : ℝ)..η,
+          ellLin (restrictAbove y g) j * Complex.log (j : ℂ)
+            * (j : ℂ) ^ (-(α : ℂ) - 2 * (β : ℂ)) := by
+    apply intervalIntegral.integral_congr
+    intro β _
+    change shiftCoeff (-(α : ℂ) - 2 * (β : ℂ))
+        (lambdaLin (restrictAbove y g) ⍟ ellLin (restrictAbove y g)) j = _
+    rw [shiftCoeff, hconv, Complex.natCast_log]; ring
+  rw [hint, cpow_beta_ftc hj (ellLin (restrictAbove y g) j) α η, shiftCoeff, shiftCoeff]
+
+/-- **V5-2 (β-leg) — the per-`N` β-collapse.**  The inner β-integral of
+`alignedCoeffFull` telescopes to a ½-scaled endpoint difference (the β→2β Jacobian ½
+of `cpow_beta_ftc`). -/
+lemma beta_collapse (y : ℝ) (g : ℕ → ℂ) (α η : ℝ) (N : ℕ) :
+    (∫ β in (0 : ℝ)..η, alignedCoeffFull y g α β N)
+      = (1 / 2 : ℂ) *
+        (((ellLin (restrictBelow y g) ⍟ shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g)))
+              ⍟ shiftCoeff (-(α : ℂ)) (ellLin (restrictAbove y g))) N
+          - ((ellLin (restrictBelow y g) ⍟ shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g)))
+              ⍟ shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) (ellLin (restrictAbove y g))) N) := by
+  set A := ellLin (restrictBelow y g)
+      ⍟ shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g)) with hA
+  set E := ellLin (restrictAbove y g) with hE
+  set Lam := lambdaLin (restrictAbove y g) with hLam
+  -- rewrite the integrand via the factorization
+  have hfac : (fun β : ℝ => alignedCoeffFull y g α β N)
+      = fun β : ℝ => (A ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (Lam ⍟ E)) N := by
+    funext β; rw [alignedCoeffFull_factor]
+  rw [show (∫ β in (0 : ℝ)..η, alignedCoeffFull y g α β N)
+      = ∫ β in (0 : ℝ)..η, (A ⍟ shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (Lam ⍟ E)) N from by
+    rw [hfac]]
+  -- push the integral through the convolution
+  rw [conv_integral_push A (fun β => shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (Lam ⍟ E)) N
+      (fun j => betaLeg_intervalIntegrable y g α η j)]
+  -- the per-j integral, as a sequence identity
+  have hseq : (fun n => ∫ β in (0 : ℝ)..η, shiftCoeff (-(α : ℂ) - 2 * (β : ℂ)) (Lam ⍟ E) n)
+      = fun n => (1 / 2 : ℂ)
+          * (shiftCoeff (-(α : ℂ)) E n - shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) E n) := by
+    funext n
+    rcases Nat.eq_zero_or_pos n with rfl | hn
+    · have hE0 : E 0 = 0 := by rw [hE]; exact ellLin_zero (restrictAbove y g)
+      simp [shiftCoeff, LSeries.convolution_map_zero, hE0]
+    · exact betaLeg_integral y g α η hn
+  rw [hseq]
+  -- bilinearity: A ⍟ (½·(u − v)) = ½·(A⍟u − A⍟v)
+  simp only [LSeries.convolution_def]
+  rw [← Finset.sum_sub_distrib, Finset.mul_sum]
+  refine Finset.sum_congr rfl (fun p _ => ?_)
+  ring
+
+/-! ### The α-collapse -/
+
+/-- Continuity of a convolution of two `α`-continuous coefficient families. -/
+lemma continuous_conv2 (a b : ℝ → ℕ → ℂ) (N : ℕ)
+    (ha : ∀ k, Continuous (fun α => a α k)) (hb : ∀ m, Continuous (fun α => b α m)) :
+    Continuous (fun α => (a α ⍟ b α) N) := by
+  simp only [LSeries.convolution_def]
+  exact continuous_finsetSum _ (fun p _ => (ha p.1).mul (hb p.2))
+
+/-- Continuity in `α` of a shifted coefficient applied at a fixed index (for a `0`-vanishing
+sequence and a continuous exponent). -/
+lemma continuous_shiftCoeff_apply {e : ℕ → ℂ} (he0 : e 0 = 0) (w : ℝ → ℂ) (hw : Continuous w)
+    (j : ℕ) : Continuous (fun α : ℝ => shiftCoeff (w α) e j) := by
+  unfold shiftCoeff
+  rcases Nat.eq_zero_or_pos j with rfl | hj
+  · simp only [he0, zero_mul]; exact continuous_const
+  · exact Continuous.mul continuous_const
+      (Continuous.const_cpow hw (Or.inl (Nat.cast_ne_zero.mpr (by omega))))
+
+/-- The α-leg is interval-integrable. -/
+lemma alphaLeg_intervalIntegrable (y : ℝ) (g : ℕ → ℂ) (η : ℝ) (j : ℕ) :
+    IntervalIntegrable (fun α : ℝ => shiftCoeff (-(α : ℂ))
+        (lambdaLin (restrictAbove y g) ⍟ ellLin (restrictAbove y g)) j) volume 0 η :=
+  (continuous_shiftCoeff_apply (by rw [LSeries.convolution_map_zero]) (fun α => -(α : ℂ))
+    (by fun_prop) j).intervalIntegrable 0 η
+
+/-- The per-`j` α-integral: `∫₀^η (Λ⍟E)(j)·j^{-α} dα = E(j) − E(j)·j^{-η}`. -/
+lemma alphaLeg_integral (y : ℝ) (g : ℕ → ℂ) (η : ℝ) {j : ℕ} (hj : 1 ≤ j) :
+    (∫ α in (0 : ℝ)..η, shiftCoeff (-(α : ℂ))
+        (lambdaLin (restrictAbove y g) ⍟ ellLin (restrictAbove y g)) j)
+      = ellLin (restrictAbove y g) j - shiftCoeff (-(η : ℂ)) (ellLin (restrictAbove y g)) j := by
+  have hconv : (lambdaLin (restrictAbove y g) ⍟ ellLin (restrictAbove y g)) j
+      = (Real.log j : ℂ) * ellLin (restrictAbove y g) j :=
+    (lambdaLin_convolution (restrictAbove y g) j).symm
+  have hint : (∫ α in (0 : ℝ)..η, shiftCoeff (-(α : ℂ))
+        (lambdaLin (restrictAbove y g) ⍟ ellLin (restrictAbove y g)) j)
+      = ∫ α in (0 : ℝ)..η,
+          ellLin (restrictAbove y g) j * Complex.log (j : ℂ) * (j : ℂ) ^ (-(α : ℂ)) := by
+    apply intervalIntegral.integral_congr
+    intro α _
+    change shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g) ⍟ ellLin (restrictAbove y g)) j = _
+    rw [shiftCoeff, hconv, Complex.natCast_log]; ring
+  rw [hint, cpow_alpha_ftc hj (ellLin (restrictAbove y g) j) η, Complex.cpow_zero, mul_one,
+    shiftCoeff]
+
+/-- **V5-2 (the per-`N` full collapse) — `coeff_collapse`.**  The `(α,β)` double integral
+of `alignedCoeffFull` telescopes (with the leading `2` meeting the β-Jacobian `½` and the
+`Λ⍟E = log·E` cancellation) to the main term minus the `η`-endpoint minus the `2η`-endpoint
+(the surviving `α`-integral, which the α-shifts prevent from telescoping). -/
+lemma coeff_collapse (y : ℝ) (g : ℕ → ℂ) (η : ℝ) (N : ℕ) :
+    (2 : ℝ) • (∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η, alignedCoeffFull y g α β N)
+      = (ellLin (restrictBelow y g) ⍟ ellLin (restrictAbove y g)) N
+        - (ellLin (restrictBelow y g) ⍟ shiftCoeff (-(η : ℂ)) (ellLin (restrictAbove y g))) N
+        - ∫ α in (0 : ℝ)..η,
+            ((ellLin (restrictBelow y g) ⍟ shiftCoeff (-(α : ℂ)) (lambdaLin (restrictAbove y g)))
+              ⍟ shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) (ellLin (restrictAbove y g))) N := by
+  set S := ellLin (restrictBelow y g) with hS
+  set E := ellLin (restrictAbove y g) with hE
+  set Lam := lambdaLin (restrictAbove y g) with hLam
+  -- F1, F2 as α-families
+  set F1 : ℝ → ℂ := fun α => ((S ⍟ shiftCoeff (-(α : ℂ)) Lam) ⍟ shiftCoeff (-(α : ℂ)) E) N with hF1
+  set F2 : ℝ → ℂ := fun α =>
+    ((S ⍟ shiftCoeff (-(α : ℂ)) Lam) ⍟ shiftCoeff (-(α : ℂ) - 2 * (η : ℂ)) E) N with hF2
+  -- inner β via beta_collapse
+  have hβ : (∫ α in (0 : ℝ)..η, ∫ β in (0 : ℝ)..η, alignedCoeffFull y g α β N)
+      = ∫ α in (0 : ℝ)..η, (1 / 2 : ℂ) * (F1 α - F2 α) := by
+    apply intervalIntegral.integral_congr
+    intro α _
+    exact beta_collapse y g α η N
+  -- F1, F2 continuity ⇒ integrability
+  have hF1cont : Continuous F1 := by
+    rw [hF1]
+    exact continuous_conv2 _ _ N
+      (fun k => continuous_conv2 _ _ k (fun _ => continuous_const)
+        (fun m => continuous_shiftCoeff_apply
+          (by rw [hLam]; unfold lambdaLin; rw [if_neg not_isPrimePow_zero])
+          (fun α => -(α : ℂ)) (by fun_prop) m))
+      (fun m => continuous_shiftCoeff_apply (by rw [hE]; exact ellLin_zero _)
+        (fun α => -(α : ℂ)) (by fun_prop) m)
+  have hF2cont : Continuous F2 := by
+    rw [hF2]
+    exact continuous_conv2 _ _ N
+      (fun k => continuous_conv2 _ _ k (fun _ => continuous_const)
+        (fun m => continuous_shiftCoeff_apply
+          (by rw [hLam]; unfold lambdaLin; rw [if_neg not_isPrimePow_zero])
+          (fun α => -(α : ℂ)) (by fun_prop) m))
+      (fun m => continuous_shiftCoeff_apply (by rw [hE]; exact ellLin_zero _)
+        (fun α => -(α : ℂ) - 2 * (η : ℂ)) (by fun_prop) m)
+  -- collapse the scalar prefactor: 2 • ∫ ½(F1−F2) = ∫ (F1−F2)
+  rw [hβ, ← intervalIntegral.integral_smul,
+    show (fun α => (2 : ℝ) • ((1 / 2 : ℂ) * (F1 α - F2 α))) = fun α => F1 α - F2 α from by
+      funext α; rw [Complex.real_smul]; push_cast; ring,
+    intervalIntegral.integral_sub (hF1cont.intervalIntegrable 0 η) (hF2cont.intervalIntegrable 0 η)]
+  -- ∫ F2 is the RHS 2η-term verbatim; ∫ F1 telescopes to main − eta
+  have hF1int : (∫ α in (0 : ℝ)..η, F1 α)
+      = (S ⍟ E) N - (S ⍟ shiftCoeff (-(η : ℂ)) E) N := by
+    -- F1 α = (S ⍟ shiftCoeff (-α) (Lam ⍟ E)) N
+    rw [show (∫ α in (0 : ℝ)..η, F1 α)
+          = ∫ α in (0 : ℝ)..η, (S ⍟ shiftCoeff (-(α : ℂ)) (Lam ⍟ E)) N from by
+        apply intervalIntegral.integral_congr; intro α _
+        rw [hF1]
+        change ((S ⍟ shiftCoeff (-(α : ℂ)) Lam) ⍟ shiftCoeff (-(α : ℂ)) E) N
+            = (S ⍟ shiftCoeff (-(α : ℂ)) (Lam ⍟ E)) N
+        rw [conv_assoc, ← shiftCoeff_convolution]]
+    rw [conv_integral_push S (fun α => shiftCoeff (-(α : ℂ)) (Lam ⍟ E)) N
+        (fun j => by rw [hLam, hE]; exact alphaLeg_intervalIntegrable y g η j)]
+    have hseq : (fun n => ∫ α in (0 : ℝ)..η, shiftCoeff (-(α : ℂ)) (Lam ⍟ E) n)
+        = fun n => E n - shiftCoeff (-(η : ℂ)) E n := by
+      funext n
+      rcases Nat.eq_zero_or_pos n with rfl | hn
+      · have hE0 : E 0 = 0 := by rw [hE]; exact ellLin_zero _
+        simp [shiftCoeff, LSeries.convolution_map_zero, hE0]
+      · rw [hLam, hE]; exact alphaLeg_integral y g η hn
+    rw [hseq]
+    simp only [LSeries.convolution_def]
+    rw [← Finset.sum_sub_distrib]
+    refine Finset.sum_congr rfl (fun p _ => ?_)
+    ring
+  rw [hF1int]
+
 end Salt.MR
