@@ -321,4 +321,332 @@ theorem joint_grade_assembly {g : ℕ → ℂ} {t₀ X h c₀ y η L M : ℝ} {s
     _ = ((1 / Real.pi) * L * ∫ α in (0 : ℝ)..η, Kfun α) * ((1 + M) * Real.exp (-M)) := by
         rw [hpull]; ring
 
+/-! ## HGRADE — the `Tsplit`-sharp kernel L¹ mass (`kernel_L1_mass_sharp`)
+
+The sharpening flagged in `kernel_mass_ledger` (HExit) and named as the `hgrade` residual of
+`hRHS_discharged_joint`.  The crude ledger (`kernel_L1_mass`) uses the DOMINANT (Poisson,
+`1/‖s‖²`) branch of `hat_mellin_bound` on the FULL line, giving
+`∫_t ‖hatKernel X h c t‖ ≤ (X+h)^c·(2(X+h)/h)·(π/c) ≍ (X+h)^c·√L` at the pin `h = X·L^{−1/2}`
+(the known `√L` excess).  The SHARP route splits the `t`-integral at `±T`:
+
+* **main** `|t| ≤ T`: branch-1 (`2/‖s‖`) of `hat_mellin_bound` →
+  `∫_{−T}^{T} (X+h)^c·2/√(c²+t²) dt = 4(X+h)^c·arsinh(T/c)` (the `arsinh` antiderivative,
+  `integral_inv_sqrt_c_sq_add`, is the piece the crude ledger lacked);
+* **tail** `|t| > T`: branch-2 (`hat_tail`, both sides by evenness) →
+  `4(X+h)^{c+1}/(hT) = (X+h)^c·4(X+h)/(hT)`.
+
+Assembly: `∫_t ‖hatKernel X h c t‖ ≤ (X+h)^c·(4·arsinh(T/c) + 4(X+h)/(hT))`.
+
+**Grade page (worked before Lean — the α-decay resolution, and the honest deficit).**
+`L := log X`, `h = X·L^{−1/2}`, `c₀ = 1+1/L`, `c = c₀−α−β ≍ 1`, `T = Tsplit = L⁴`:
+`arsinh(T/c) ≍ log(2L⁴) ≍ 4 log L` and `4(X+h)/(hT) ≍ 4√L/L⁴ = 4 L^{−7/2}` (negligible), so the
+per-line sharp mass is `(X+h)^c·Θ(log L)` — the crude `√L` is genuinely replaced by `log L`
+(the tightest bound `hat_mellin_bound` yields: the `min`-mass of the truncation kernel is
+`Θ((X+h)^c·log((X+h)/h))`, the classical Perron-truncation `log`).  The α-integral keeps the
+`(X+h)^{−α}` decay: `∫₀^η (X+h)^{−α} dα = (1−(X+h)^{−η})/log(X+h) ≤ 1/L` (GHS's `x^{−α}` α-decay).
+So the α-integrated kernel-scale mass is `(X+h)^{c₀−β}·Θ(log L)·(1/L) ≍ X·(log L)/L`, and
+`Agrade := (1/π)·L·∫₀^η Kα dα ≍ X·log L = X·log log X`.
+
+**The J3 socket `Agrade ≤ C₁·X` (constant `C₁`) therefore does NOT discharge via this route:**
+a genuine `log log X` factor survives — the intrinsic L¹ mass of the ramp-truncation kernel
+(ratio `(X+h)/h ≍ √L`).  Per iron rule 1 and the SF-EXIT law ("if the grade page shows a
+log-power gap, STOP with the exact deficit — never force"), the socket is NOT forced here.  The
+constant-`X` grade is reachable only by the mixed-line Plancherel bridge (`hbridge`, the OTHER
+named residual), which diagonalizes the kernel WITH the window legs and never incurs the
+standalone mass.  `kernel_L1_mass_sharp` stands as the honest shelf stone: the machine-checked
+`√L → log L` sharpening, and the concrete substantiation of the `log log X` deficit. -/
+
+/-- The full-line antiderivative of `1/√(c²+t²)` (`c > 0`) is `arsinh(t/c)`. -/
+lemma hasDerivAt_arsinh_div {c : ℝ} (hc : 0 < c) (t : ℝ) :
+    HasDerivAt (fun t => Real.arsinh (t / c)) ((Real.sqrt (c ^ 2 + t ^ 2))⁻¹) t := by
+  have hbase := Real.hasDerivAt_arsinh (t / c)
+  have hinner : HasDerivAt (fun t : ℝ => t / c) c⁻¹ t := by
+    simpa using (hasDerivAt_id t).div_const c
+  have hcomp := hbase.comp t hinner
+  have hsimp : (Real.sqrt (1 + (t / c) ^ 2))⁻¹ * c⁻¹ = (Real.sqrt (c ^ 2 + t ^ 2))⁻¹ := by
+    have hkey : Real.sqrt (c ^ 2 + t ^ 2) = c * Real.sqrt (1 + (t / c) ^ 2) := by
+      rw [show c * Real.sqrt (1 + (t / c) ^ 2) = Real.sqrt (c ^ 2 * (1 + (t / c) ^ 2)) by
+            rw [Real.sqrt_mul (sq_nonneg c), Real.sqrt_sq hc.le]]
+      congr 1
+      field_simp
+    rw [hkey, mul_inv]; ring
+  rwa [hsimp] at hcomp
+
+/-- **The `arsinh` main-part evaluation.**  `∫_{−T}^{T} (c²+t²)^{−1/2} dt = 2·arsinh(T/c)`
+(`c > 0`) — the branch-1 kernel-mass piece the crude `kernel_L1_mass` ledger lacked. -/
+lemma integral_inv_sqrt_c_sq_add {c : ℝ} (hc : 0 < c) (T : ℝ) :
+    ∫ t in (-T)..T, (Real.sqrt (c ^ 2 + t ^ 2))⁻¹ = 2 * Real.arsinh (T / c) := by
+  have hcont : Continuous (fun t : ℝ => (Real.sqrt (c ^ 2 + t ^ 2))⁻¹) := by
+    apply Continuous.inv₀
+    · exact (Real.continuous_sqrt.comp (by fun_prop))
+    · intro t; positivity
+  have hint : IntervalIntegrable (fun t : ℝ => (Real.sqrt (c ^ 2 + t ^ 2))⁻¹)
+      volume (-T) T := hcont.intervalIntegrable _ _
+  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt
+      (fun t _ => hasDerivAt_arsinh_div hc t) hint]
+  rw [show (-T) / c = -(T / c) by ring, Real.arsinh_neg]
+  ring
+
+/-- **Branch-1 pointwise** (`|t| ≤ Tsplit` regime): `‖hatKernel X h c t‖ ≤ (X+h)^c·2/√(c²+t²)`
+(the `2/‖s‖` branch of `hat_mellin_bound`, `‖s‖ = √(c²+t²)`). -/
+lemma hatKernel_branch1 {X h c : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c) (t : ℝ) :
+    ‖hatKernel X h c t‖ ≤ (X + h) ^ c * 2 * (Real.sqrt (c ^ 2 + t ^ 2))⁻¹ := by
+  have hb := hat_mellin_bound hX hh hc t
+  have hnorm : ‖(c : ℂ) + (t : ℂ) * I‖ = Real.sqrt (c ^ 2 + t ^ 2) := Complex.norm_add_mul_I c t
+  have hXh : (0 : ℝ) < X + h := by linarith
+  calc ‖hatKernel X h c t‖
+      ≤ (X + h) ^ c * min (2 / ‖(c : ℂ) + (t : ℂ) * I‖)
+          (2 * (X + h) / (h * ‖(c : ℂ) + (t : ℂ) * I‖ ^ 2)) := hb
+    _ ≤ (X + h) ^ c * (2 / ‖(c : ℂ) + (t : ℂ) * I‖) :=
+        mul_le_mul_of_nonneg_left (min_le_left _ _) (Real.rpow_nonneg hXh.le c)
+    _ = (X + h) ^ c * 2 * (Real.sqrt (c ^ 2 + t ^ 2))⁻¹ := by
+        rw [hnorm, div_eq_mul_inv]; ring
+
+/-- **Branch-2 pointwise** (the tail regime): `‖hatKernel X h c t‖ ≤ 2(X+h)^{c+1}/(h(c²+t²))`
+(the dominant `1/‖s‖²` branch — matches `hat_tail`'s integrand). -/
+lemma hatKernel_branch2 {X h c : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c) (t : ℝ) :
+    ‖hatKernel X h c t‖ ≤ 2 * (X + h) ^ (c + 1) / (h * (c ^ 2 + t ^ 2)) := by
+  have hb := hat_mellin_bound hX hh hc t
+  have hnorm2 : ‖(c : ℂ) + (t : ℂ) * I‖ ^ 2 = c ^ 2 + t ^ 2 := by
+    rw [Complex.norm_add_mul_I, Real.sq_sqrt (by positivity)]
+  have hXh : (0 : ℝ) < X + h := by linarith
+  calc ‖hatKernel X h c t‖
+      ≤ (X + h) ^ c * min (2 / ‖(c : ℂ) + (t : ℂ) * I‖)
+          (2 * (X + h) / (h * ‖(c : ℂ) + (t : ℂ) * I‖ ^ 2)) := hb
+    _ ≤ (X + h) ^ c * (2 * (X + h) / (h * ‖(c : ℂ) + (t : ℂ) * I‖ ^ 2)) :=
+        mul_le_mul_of_nonneg_left (min_le_right _ _) (Real.rpow_nonneg hXh.le c)
+    _ = 2 * (X + h) ^ (c + 1) / (h * (c ^ 2 + t ^ 2)) := by
+        rw [hnorm2, Real.rpow_add hXh, Real.rpow_one]; ring
+
+/-- The branch-2 dominating function is `L¹` on the whole line (`(c²+t²)⁻¹` scaled). -/
+lemma integrable_branch2 {X h c : ℝ} (hc : 0 < c) :
+    Integrable (fun t : ℝ => 2 * (X + h) ^ (c + 1) / (h * (c ^ 2 + t ^ 2))) := by
+  have h0 : (fun t : ℝ => 2 * (X + h) ^ (c + 1) / (h * (c ^ 2 + t ^ 2)))
+      = fun t : ℝ => (2 * (X + h) ^ (c + 1) / h) * (c ^ 2 + t ^ 2)⁻¹ := by
+    funext t; rw [div_mul_eq_div_div, div_eq_mul_inv]
+  rw [h0]
+  exact (Salt.SW.integrable_inv_c_sq_add_sq hc).const_mul _
+
+/-- **HGRADE — the `Tsplit`-sharp kernel L¹ mass (`kernel_L1_mass_sharp`).**  For any split
+height `T > 0`,
+
+  `∫_t ‖hatKernel X h c t‖ dt ≤ (X+h)^c·(4·arsinh(T/c) + 4(X+h)/(hT))`.
+
+Branch-1 (`arsinh`, `integral_inv_sqrt_c_sq_add`) on `|t| ≤ T`; branch-2 (`hat_tail`, both
+tails by evenness) on `|t| > T`.  At `h = X·L^{−1/2}`, `T = L⁴`, `c ≍ 1` this is
+`(X+h)^c·Θ(log L)` — the honest `√L → log L` sharpening of `kernel_L1_mass`.  See the section
+docstring for the grade page: the surviving `log log X` is intrinsic (the truncation kernel's
+L¹ mass), so this does NOT discharge the constant-`X` `Agrade` socket — the STOP is recorded,
+not forced. -/
+theorem kernel_L1_mass_sharp {X h c T : ℝ} (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c) (hT : 0 < T) :
+    ∫ t : ℝ, ‖hatKernel X h c t‖
+      ≤ (X + h) ^ c * (4 * Real.arsinh (T / c) + 4 * (X + h) / (h * T)) := by
+  have hXh : (0 : ℝ) < X + h := by linarith
+  have hTle : (-T : ℝ) ≤ T := by linarith
+  have hInt : Integrable (fun t : ℝ => ‖hatKernel X h c t‖) :=
+    (integrable_hatKernel hX hh hc).norm
+  have hb2int : Integrable (fun t : ℝ => 2 * (X + h) ^ (c + 1) / (h * (c ^ 2 + t ^ 2))) :=
+    integrable_branch2 hc
+  have hpow : (X + h) ^ (c + 1) = (X + h) ^ c * (X + h) := by
+    rw [Real.rpow_add hXh, Real.rpow_one]
+  -- MIDDLE part: the arsinh main mass
+  have hmid : (∫ t in Ioc (-T) T, ‖hatKernel X h c t‖)
+      ≤ (X + h) ^ c * (4 * Real.arsinh (T / c)) := by
+    rw [← intervalIntegral.integral_of_le hTle]
+    have hKcont : IntervalIntegrable (fun t : ℝ => ‖hatKernel X h c t‖) volume (-T) T :=
+      hInt.intervalIntegrable
+    have hbr1 : IntervalIntegrable
+        (fun t : ℝ => (X + h) ^ c * 2 * (Real.sqrt (c ^ 2 + t ^ 2))⁻¹) volume (-T) T := by
+      apply Continuous.intervalIntegrable
+      apply Continuous.mul continuous_const
+      apply Continuous.inv₀
+      · exact Real.continuous_sqrt.comp (by fun_prop)
+      · intro t; positivity
+    calc ∫ t in (-T)..T, ‖hatKernel X h c t‖
+        ≤ ∫ t in (-T)..T, (X + h) ^ c * 2 * (Real.sqrt (c ^ 2 + t ^ 2))⁻¹ :=
+          intervalIntegral.integral_mono_on hTle hKcont hbr1
+            (fun t _ => hatKernel_branch1 hX hh hc t)
+      _ = (X + h) ^ c * 2 * ∫ t in (-T)..T, (Real.sqrt (c ^ 2 + t ^ 2))⁻¹ :=
+          intervalIntegral.integral_const_mul _ _
+      _ = (X + h) ^ c * 2 * (2 * Real.arsinh (T / c)) := by rw [integral_inv_sqrt_c_sq_add hc]
+      _ = (X + h) ^ c * (4 * Real.arsinh (T / c)) := by ring
+  -- RIGHT tail
+  have htail_r : (∫ t in Ioi T, ‖hatKernel X h c t‖) ≤ (X + h) ^ c * (2 * (X + h) / (h * T)) := by
+    calc ∫ t in Ioi T, ‖hatKernel X h c t‖
+        ≤ ∫ t in Ioi T, 2 * (X + h) ^ (c + 1) / (h * (c ^ 2 + t ^ 2)) :=
+          setIntegral_mono_on hInt.integrableOn hb2int.integrableOn measurableSet_Ioi
+            (fun t _ => hatKernel_branch2 hX hh hc t)
+      _ ≤ 2 * (X + h) ^ (c + 1) / (h * T) := hat_tail hX hh hc hT
+      _ = (X + h) ^ c * (2 * (X + h) / (h * T)) := by rw [hpow]; ring
+  -- LEFT tail (evenness of the branch-2 dominator)
+  have htail_l : (∫ t in Iic (-T), ‖hatKernel X h c t‖)
+      ≤ (X + h) ^ c * (2 * (X + h) / (h * T)) := by
+    have heven : (∫ t in Iic (-T), 2 * (X + h) ^ (c + 1) / (h * (c ^ 2 + t ^ 2)))
+        = ∫ t in Ioi T, 2 * (X + h) ^ (c + 1) / (h * (c ^ 2 + t ^ 2)) := by
+      rw [show (∫ t in Iic (-T), 2 * (X + h) ^ (c + 1) / (h * (c ^ 2 + t ^ 2)))
+            = ∫ t in Iic (-T), 2 * (X + h) ^ (c + 1) / (h * (c ^ 2 + (-t) ^ 2)) from
+          setIntegral_congr_fun measurableSet_Iic (fun t _ => by rw [neg_sq])]
+      rw [integral_comp_neg_Iic (-T) (fun t => 2 * (X + h) ^ (c + 1) / (h * (c ^ 2 + t ^ 2)))]
+      rw [neg_neg]
+    calc ∫ t in Iic (-T), ‖hatKernel X h c t‖
+        ≤ ∫ t in Iic (-T), 2 * (X + h) ^ (c + 1) / (h * (c ^ 2 + t ^ 2)) :=
+          setIntegral_mono_on hInt.integrableOn hb2int.integrableOn measurableSet_Iic
+            (fun t _ => hatKernel_branch2 hX hh hc t)
+      _ = ∫ t in Ioi T, 2 * (X + h) ^ (c + 1) / (h * (c ^ 2 + t ^ 2)) := heven
+      _ ≤ 2 * (X + h) ^ (c + 1) / (h * T) := hat_tail hX hh hc hT
+      _ = (X + h) ^ c * (2 * (X + h) / (h * T)) := by rw [hpow]; ring
+  -- ASSEMBLE the three regions
+  have hsplit1 : (∫ t : ℝ, ‖hatKernel X h c t‖)
+      = (∫ t in Iic (-T), ‖hatKernel X h c t‖) + ∫ t in Ioi (-T), ‖hatKernel X h c t‖ :=
+    (intervalIntegral.integral_Iic_add_Ioi hInt.integrableOn hInt.integrableOn).symm
+  have hsplit2 : (∫ t in Ioi (-T), ‖hatKernel X h c t‖)
+      = (∫ t in Ioc (-T) T, ‖hatKernel X h c t‖) + ∫ t in Ioi T, ‖hatKernel X h c t‖ := by
+    rw [← setIntegral_union (Set.Ioc_disjoint_Ioi le_rfl) measurableSet_Ioi
+          hInt.integrableOn hInt.integrableOn, Set.Ioc_union_Ioi_eq_Ioi hTle]
+  rw [hsplit1, hsplit2]
+  calc (∫ t in Iic (-T), ‖hatKernel X h c t‖)
+        + ((∫ t in Ioc (-T) T, ‖hatKernel X h c t‖) + ∫ t in Ioi T, ‖hatKernel X h c t‖)
+      ≤ (X + h) ^ c * (2 * (X + h) / (h * T))
+        + ((X + h) ^ c * (4 * Real.arsinh (T / c)) + (X + h) ^ c * (2 * (X + h) / (h * T))) := by
+        gcongr
+    _ = (X + h) ^ c * (4 * Real.arsinh (T / c) + 4 * (X + h) / (h * T)) := by ring
+
+end Salt.MR
+
+/-! ## BRIDGE — the S-ladder shelf stones for the `hbridge` discharge (BRIDGE-EXEC, 2026-07-23)
+
+Two route-independent building blocks for the confirmed CS+Lorentzian route to `hbridge`
+(`sigma_wiring`'s mixed-line residual): the pointwise Lorentzian comparison `lorentz_compare`
+(kernel leg) and the decoupled weighted Cauchy–Schwarz `mixed_weight_cs` (the `k4_cross_CS`
+Hölder-2-2 pattern with the weight peeled off the line, so the two window legs may sit on the
+DISTINCT lines `c₀∓β`).  Both land unconditionally.  The full discharge is NOT completed —
+see the residual record after `mixed_weight_cs` for the exact structural gap (append-only; the
+STOP comment at `:35-43` stands unrewritten — the residual is isolated, not dissolved). -/
+
+noncomputable section
+
+namespace Salt.MR
+
+open Complex MeasureTheory Set
+open scoped BigOperators
+
+/-- **S3 — the pointwise Lorentzian comparison (`lorentz_compare`).**  For a general pair
+`0 < a ≤ b`, the Poisson/Lorentzian at the inner line `a` is dominated by the one at the outer
+line `b`, paying the sup factor `(b/a)²` (attained at `τ = 0`):
+
+  `1/(a²+τ²) ≤ (b/a)²·1/(b²+τ²)`.
+
+Elementary: cross-multiplying reduces to `a²τ² ≤ b²τ²`, i.e. `a² ≤ b²`.  This is the kernel
+leg of the S-ladder — the hat kernel's Lorentzian `1/((c₀−α−β)²+τ²)` (from `norm_hatKernel_le`)
+is replaced by the leg Lorentzians at `b = c₀∓β` (both `≥ a = c₀−α−β` since `α, β ≥ 0`), so a
+single `∫‖P₋‖‖P₊‖·K` splits into the two diagonal weights `k4_plan_le_diag_sharp` consumes. -/
+theorem lorentz_compare {a b τ : ℝ} (ha : 0 < a) (hab : a ≤ b) :
+    1 / (a ^ 2 + τ ^ 2) ≤ (b / a) ^ 2 / (b ^ 2 + τ ^ 2) := by
+  have hb : 0 < b := lt_of_lt_of_le ha hab
+  have ha2 : (0 : ℝ) < a ^ 2 + τ ^ 2 := by positivity
+  have hb2 : (0 : ℝ) < b ^ 2 + τ ^ 2 := by positivity
+  have hab2 : a ^ 2 ≤ b ^ 2 := by nlinarith
+  rw [div_le_div_iff₀ ha2 hb2, one_mul, div_pow, div_mul_eq_mul_div,
+    le_div_iff₀ (by positivity : (0 : ℝ) < a ^ 2)]
+  nlinarith [mul_nonneg (sq_nonneg τ) (sub_nonneg.mpr hab2)]
+
+/-- **S2 — the decoupled weighted Cauchy–Schwarz (`mixed_weight_cs`).**  The `k4_cross_CS`
+Hölder-2-2 pattern with the weight `w` DECOUPLED from the line (so the two legs may live on
+distinct lines — the mixed-line content of `crossKer`): for `w ≥ 0` and nonneg `f, g` whose
+`√w`-scalings are `L²`,
+
+  `∫ f·g·w ≤ √(∫ f²·w)·√(∫ g²·w)`.
+
+Setting `u = f·√w`, `v = g·√w` gives `u·v = f·g·w`, `u² = f²·w`, `v² = g²·w`, and the bound is
+`integral_mul_le_Lp_mul_Lq_of_nonneg` at the self-conjugate exponent `2`.  The `L²` sockets are
+supplied for the window legs by `k4Poly_sqInt` (with `w` the kernel's Poisson weight). -/
+theorem mixed_weight_cs {f g w : ℝ → ℝ}
+    (hw : ∀ t, 0 ≤ w t) (hfnn : ∀ t, 0 ≤ f t) (hgnn : ∀ t, 0 ≤ g t)
+    (hu : MemLp (fun t => f t * Real.sqrt (w t)) 2 volume)
+    (hv : MemLp (fun t => g t * Real.sqrt (w t)) 2 volume) :
+    (∫ t : ℝ, f t * g t * w t)
+      ≤ Real.sqrt (∫ t : ℝ, f t ^ 2 * w t) * Real.sqrt (∫ t : ℝ, g t ^ 2 * w t) := by
+  set u : ℝ → ℝ := fun t => f t * Real.sqrt (w t) with hudef
+  set v : ℝ → ℝ := fun t => g t * Real.sqrt (w t) with hvdef
+  have huv : ∀ t, u t * v t = f t * g t * w t := fun t => by
+    simp only [hudef, hvdef]; rw [mul_mul_mul_comm, Real.mul_self_sqrt (hw t)]
+  have husq : ∀ t, u t ^ (2 : ℝ) = f t ^ 2 * w t := fun t => by
+    simp only [hudef]; rw [Real.rpow_two, mul_pow, Real.sq_sqrt (hw t)]
+  have hvsq : ∀ t, v t ^ (2 : ℝ) = g t ^ 2 * w t := fun t => by
+    simp only [hvdef]; rw [Real.rpow_two, mul_pow, Real.sq_sqrt (hw t)]
+  have hunn : (0 : ℝ → ℝ) ≤ᵐ[volume] u :=
+    Filter.Eventually.of_forall (fun t => by
+      simp only [Pi.zero_apply, hudef]; exact mul_nonneg (hfnn t) (Real.sqrt_nonneg _))
+  have hvnn : (0 : ℝ → ℝ) ≤ᵐ[volume] v :=
+    Filter.Eventually.of_forall (fun t => by
+      simp only [Pi.zero_apply, hvdef]; exact mul_nonneg (hgnn t) (Real.sqrt_nonneg _))
+  have hu2 : MemLp u (ENNReal.ofReal 2) volume := by
+    rw [show ENNReal.ofReal 2 = 2 from by simp]; exact hu
+  have hv2 : MemLp v (ENNReal.ofReal 2) volume := by
+    rw [show ENNReal.ofReal 2 = 2 from by simp]; exact hv
+  have hholder := integral_mul_le_Lp_mul_Lq_of_nonneg
+    Real.HolderConjugate.two_two hunn hvnn hu2 hv2
+  have eLHS : (∫ t : ℝ, f t * g t * w t) = ∫ t : ℝ, u t * v t :=
+    integral_congr_ae (Filter.Eventually.of_forall (fun t => (huv t).symm))
+  have eA : (∫ t : ℝ, u t ^ (2 : ℝ)) = ∫ t : ℝ, f t ^ 2 * w t :=
+    integral_congr_ae (Filter.Eventually.of_forall husq)
+  have eB : (∫ t : ℝ, v t ^ (2 : ℝ)) = ∫ t : ℝ, g t ^ 2 * w t :=
+    integral_congr_ae (Filter.Eventually.of_forall hvsq)
+  rw [eLHS, ← eA, ← eB, Real.sqrt_eq_rpow, Real.sqrt_eq_rpow]
+  exact hholder
+
+/-! ## The `hbridge` discharge — RESIDUAL RECORD (BRIDGE-EXEC, VERIFY-FIRST outcome)
+
+The three paper gates all PASS in shape — but the discharge into the ABSTRACT `hbridge` binder
+of `sigma_wiring` is blocked at the wiring level by structure ABSENT from that binder's
+signature.  Recorded here so the next session inherits the exact gap, not a re-derivation.
+
+**Gate (a) — per-leg diagonal power (PASS).**  With `c₀ = 1 + 1/L` (the standing GHS base, cf.
+`DistHalasz`'s `1 + 1/log x`): the low leg sits at `c₀−β = 1 − (β−1/L)`, the high leg at
+`c₀+β = 1 + σ`, `σ = β+1/L`.  `k4_plan_le_diag_sharp` at line `c₀∓β` gives `(π/(c₀∓β))·S∓²` with
+`S∓ = ∑_{y<n<X/y} ‖lambdaLin (restrictAbove y g) n‖/n^{c₀∓β}` (`norm_windowSum_le_mass`).  The
+honest window evaluations (`‖λ_ℓ‖ ≤ Λ`, `mertens_first_upper` for the prime part `∑_{y<n<X/y}
+Λ(n)/n ≤ log(X/y)+C`, plus the bounded `k≥2` prime-power tail):
+  `S₋ ≤ (X/y)^{max(β−1/L,0)}·(L+C)`,   `S₊ ≤ y^{−σ}·(L+C)`.
+
+**Gate (b) — the product at every regime corner (PASS, with slack).**  Target
+`S₋·S₊ ≤ C·(X/y)^{2β}·min(L,1/σ)²`.  Since `σ ≥ 1/L`, `min(L,1/σ) = 1/σ` throughout, so the
+target is `C·(X/y)^{2β}/σ²`.  Writing the honest product's power in `X,y`-exponents:
+  β ≥ 1/L:  `S₋·S₊ ≤ (X/y)^{β−1/L}·y^{−σ}·(L+C)² = X^{β−1/L}·y^{−2β}·(L+C)²`,
+so `(S₋·S₊)/target = X^{−σ}·((L+C)σ)²/C = e^{−Lσ}·((L+C)σ)²/C` (using `L = log X`), and with
+`v := Lσ ≥ 1`, `e^{−v}·(v+Cσ)²` is bounded by an ABSOLUTE constant — the exponential power
+decay `X^{−σ}` kills the `(Lσ)²` overshoot.  The CRUDE Mertens `L` (not the sharp `1/σ`) already
+suffices.  β < 1/L: `S₋·S₊ ≤ y^{−2/L}·(L+C)²`, `(L+C)σ = Lβ+1+O(1) = O(1)` (`β<1/L`), and the
+power ratio `y^{2β−2/L}·X^{−2β} ≤ 1`, so bounded again; at the corner `β=0, y=1` the ratio → 1
+(the tight corner).  The WORST corner `β=η, y=√X` is the EMPTY window (`X/y = y`), `S∓ = 0`,
+`0 ≤ RHS`.  No regime overshoots — the honest product is `≤ target` with an absolute constant.
+
+**Gate (c) — the Kα absorption (PASS, explicit).**  Chaining S3 (`lorentz_compare`) inside S2
+(`mixed_weight_cs`) with weight `w = ‖hatKernel X h (c₀−α−β)‖`, `a := c₀−α−β`, `B(a) :=
+2(X+h)^{a+1}/h` (`norm_hatKernel_le`), `b∓ = c₀∓β`:
+  `crossKer α β ≤ B(a)·(π/a²)·√((c₀−β)(c₀+β))·(S₋·S₊)`,
+so the uniform per-`(α,β)` constant over the box `0 < c₀−2η` is
+  `Kα(α,β) = B(a)·(π/a²)·√((c₀−β)(c₀+β))·C`  (all factors bounded on the box).
+
+**THE GAP (why `sigma_wiring_unconditional` does NOT stand).**  `sigma_wiring` carries `X, L, c₀,
+y, η` as FREE reals (only `1 ≤ X`, `3 ≤ L`, `0 < c₀−2η`, `1/L ≤ 2η`).  The discharge needs, and
+the binder does NOT provide:
+  1. the parameter relations `c₀ = 1 + 1/L` and `L ≤ log X` — the latter is LOAD-BEARING (it is
+     what turns `X^{−σ}` into `e^{−Lσ}` to kill `(Lσ)²`; without it gate (b) is false);
+  2. the σ-range: `σ = β+1/L` maps `β ∈ [0,η]` to `[1/L, η+1/L]`, but the target integral runs to
+     `2η` (the "σ = 2η scale-mismatch" flagged in `supf-design.md`).  Closing it needs `1/L ≤ η`
+     (so `η+1/L ≤ 2η`) AND `Fbound ≥ 0` on `[η+1/L, 2η]` to extend the reparametrized integral
+     upward — neither is in the binder.
+  3. `Fbound` and `supF` are ABSTRACT parameters here; a genuine discharge must INSTANTIATE
+     `Fbound σ := (S-ladder integrand at β = σ−1/L)` and then re-prove `hpret`/`htriv` for THAT
+     concrete `Fbound` — which is exactly SupF's PENDING pretentious residual (`supf-design.md`,
+     SF-2/SF-3, on HOLD).
+
+Hence `hbridge` is dischargeable only in a DOWNSTREAM lemma that first fixes `c₀ = 1+1/L`,
+`L = log X`, `η = 1/log y`, `1/L ≤ η`, and supplies the concrete `Fbound` from SupF — NOT at the
+abstraction of `sigma_wiring`.  The S-ladder itself (S3 ∘ S2 ∘ S5 ∘ gate (c)) is sound and its
+two mechanical stones are landed above; S5 (`window_mass_product`) and S6 (`hbridge_discharge`)
+await that parameter-pinned home.  This is the VERIFY-FIRST STOP: the excess is zero (no regime
+corner overshoots), the block is the missing binder structure. -/
+
 end Salt.MR

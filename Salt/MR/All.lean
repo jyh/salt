@@ -330,3 +330,6 @@ open Salt.Tactic in
   Salt.MR.hRHS_discharged_joint
   Salt.MR.T1_head_supplied_joint
   Salt.MR.T1_decay_conditional_final
+  Salt.MR.kernel_L1_mass_sharp
+  Salt.MR.lorentz_compare
+  Salt.MR.mixed_weight_cs
