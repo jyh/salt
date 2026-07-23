@@ -56,6 +56,7 @@ import Salt.MR.RampSliver
 import Salt.MR.ShortIntervalPsi
 import Salt.MR.HExit
 import Salt.MR.HeadGrade
+import Salt.MR.GrandComp
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -364,3 +365,4 @@ open Salt.Tactic in
   Salt.MR.offdiag_widthA_final_low
   Salt.MR.head_second_moment_grade_low
   Salt.MR.crossKer_grade_decayed
+  Salt.MR.window_mass_eval
