@@ -1,7 +1,26 @@
 # THE BALL-MOMENT BLOCK (S3/S4) — the true last mountain, honestly zoned
 
-*Maestro design block, 2026-07-23 evening. Status: DRAFT — ZONE-SCOPE
-reconnoitering the open zone overnight; the refuter pass follows its
+*Maestro design block, 2026-07-23 evening. Status: **ZONES DISSOLVED
+(ZONE-SCOPE ~17:10) — the head was ALWAYS annular.** Q1: the resonant
+core is excised BY CONSTRUCTION (Decomp's U-set starts at
+(logX)^{1/15}; the core's mass is the MOMENT row -- E1_row, landed,
+no decay needed; J0 already declared center-M dead; even a literal
+ball can't reach resonance: 1/16 < 1/15). Q2: the gap floor is
+ALREADY LANDED and STRONGER than requested (dist_one_floor_pow has
+NO upper cap -- the full (1-o(1))loglog floor on the whole annulus).
+Q3 moot (contingency: delta0 <= L^{-0.023}, polylog-easy). Q4: E^2
+clears with a FULL L to spare. THE LADDER: zone C alone -- landed
+decay stones + ONE B-stone (the annulus measure x sup t-integral) +
+ONE A/B (the E^2 corner), MODULO the single standing residual: the
+S1'->spoly bridge (the Perron/Fubini, HalaszSeam:66-77 -- possibly a
+STALE note post-v5; scope tomorrow). S4 PIN CORRECTED per the scoper:
+annHead = the ANNULAR integral of spoly (sigma=1 line, MomentsA2:53
+conventions), T0 = (logX)^{1/15}, upper T+(logX)^{1/16} matching
+M_range VERBATIM. ROUTE LAW: the decay grounds through the SupF/
+window_sup_decay route ONLY (the contour/k4 route is M-independent
+by theorem -- T-0b's own record). Also: the HLOSS-WINDOW freeze note
+is STALE (superseded by the landed T-1 chain) -- coda tomorrow.
+ORIGINAL DRAFT BELOW (historical); the refuter pass follows its
 report; the S4 object pin goes to JYH in the morning (statement-tier:
 the T-0 card's ball geometry). Inputs: UHEAD-SCOPE's definitive map
 (Uhead = an ungrounded socket everywhere; the intended object = the
