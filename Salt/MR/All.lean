@@ -356,3 +356,7 @@ open Salt.Tactic in
   Salt.MR.kernel_head_mass
   Salt.MR.head_integral_discharged
   Salt.MR.crossKer_grade_final
+  Salt.MR.low_leg_shift
+  Salt.MR.sqNorm_cs_band
+  Salt.MR.head_sharp_socket
+  Salt.MR.crossKer_grade_sharp

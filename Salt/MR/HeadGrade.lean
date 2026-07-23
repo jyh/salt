@@ -1592,4 +1592,270 @@ theorem crossKer_grade_final {g : ℕ → ℂ} {X h y c₀ t₀ α β : ℝ}
     (head_integral_discharged (g := g) (y := y) (t₀ := t₀) hX hh hc)
   exact hmain.trans_eq (by ring)
 
+/-! ## Stone L — the low-leg window-monotonicity shift (`low_leg_shift`)
+
+The sharp per-leg second moment `head_second_moment_grade` needs a line `1 ≤ c`; the LOW leg of
+`crossKer` sits at `c' = c₀−β`, which drops below `1` once `β > c₀−1`.  This wrapper carries the
+excess: on the window `n ≤ Q := X/y`, the sub-unit mass `∑ ‖b_n‖/n^{c'}` is bounded by the
+line-`1` mass times the excess factor `Q^{1−c'}`, via `n^{−c'} = n^{−1}·n^{1−c'} ≤ n^{−1}·Q^{1−c'}`
+(`n ≤ Q`, `1−c' ≥ 0`).  The `Q^{1−c'} = (X/y)^{1−c₀+β}`-grade factor is carried EXPLICITLY into the
+sharp exit — the S-ladder's `(X/y)^{2β}` bookkeeping absorbs it downstream (STATED, not absorbed).
+-/
+
+/-- **Stone L — the low-leg window-monotonicity shift** (`low_leg_shift`).  For `0 < c' ≤ 1` and a
+finite window `F` of positive integers all `≤ Q`, the sub-unit-line mass is bounded by the line-`1`
+mass times the excess `Q^{1−c'}`: `∑_{n∈F} ‖b n‖/n^{c'} ≤ Q^{1−c'}·∑_{n∈F} ‖b n‖/n^1`.  Window
+monotonicity `n^{−c'} = n^{−1}·n^{1−c'} ≤ n^{−1}·Q^{1−c'}`. -/
+theorem low_leg_shift {F : Finset ℕ} {b : ℕ → ℂ} {c' Q : ℝ}
+    (_hc'0 : 0 < c') (hc'1 : c' ≤ 1) (hF : ∀ n ∈ F, 1 ≤ n) (hQ : ∀ n ∈ F, (n : ℝ) ≤ Q) :
+    (∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ c')
+      ≤ Q ^ (1 - c') * ∑ n ∈ F, ‖b n‖ / (n : ℝ) ^ (1 : ℝ) := by
+  rw [Finset.mul_sum]
+  refine Finset.sum_le_sum (fun n hn => ?_)
+  have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hF n hn
+  have hexc : (0 : ℝ) ≤ 1 - c' := by linarith
+  have hmono : (n : ℝ) ^ (1 - c') ≤ Q ^ (1 - c') := Real.rpow_le_rpow hn0.le (hQ n hn) hexc
+  rw [div_eq_mul_inv, div_eq_mul_inv, ← Real.rpow_neg hn0.le c', ← Real.rpow_neg hn0.le (1 : ℝ)]
+  have hkey : (n : ℝ) ^ (-c') ≤ Q ^ (1 - c') * (n : ℝ) ^ (-(1 : ℝ)) := by
+    rw [show (-c' : ℝ) = (1 - c') + (-(1 : ℝ)) from by ring, Real.rpow_add hn0]
+    exact mul_le_mul_of_nonneg_right hmono (Real.rpow_nonneg hn0.le _)
+  calc ‖b n‖ * (n : ℝ) ^ (-c')
+      ≤ ‖b n‖ * (Q ^ (1 - c') * (n : ℝ) ^ (-(1 : ℝ))) :=
+        mul_le_mul_of_nonneg_left hkey (norm_nonneg _)
+    _ = Q ^ (1 - c') * (‖b n‖ * (n : ℝ) ^ (-(1 : ℝ))) := by ring
+
+/-! ## Stone C-band — the band Cauchy–Schwarz (`sqNorm_cs_band`)
+
+The restricted-band weighted Cauchy–Schwarz that the SHARP head needs: on the head band
+`|τ| ≤ T₀`, the branch-1 cross-integral `∫ ‖P₋‖·‖P₊‖/√(cw²+τ²)` splits into the geometric mean of
+the two legs' weighted second moments (the very integrals `head_second_moment_grade` grades).  This
+is the measure-theoretic core the terminal-assembly docstring flagged as "the last plumbing".
+
+Cleaner than the full-line `mixed_weight_cs` (`JointHead`): the CS is run against the FINITE
+restricted measure `volume.restrict (Icc (-T₀) T₀)`, so the `L²` sockets reduce to boundedness of
+the continuous integrand on the compact band (`memLp2_restrict_Icc_of_continuous`) — no indicator
+gymnastics, no compact-support hypothesis.  Weight-agnostic in `cw` (free of the coefficient lines
+of `P±`), exactly as `head_second_moment_grade` keeps `cw` free of `c`. -/
+
+/-- A continuous real function is `L²` for the finite Lebesgue restriction to `Icc a b` (bounded on
+the compact band, then `MemLp ⊤ → MemLp 2` on the finite measure). -/
+private lemma memLp2_restrict_Icc_of_continuous {φ : ℝ → ℝ} (hφ : Continuous φ) (a b : ℝ) :
+    MemLp φ 2 (volume.restrict (Set.Icc a b)) := by
+  obtain ⟨C, hC⟩ := (isCompact_Icc (a := a) (b := b)).exists_bound_of_continuousOn hφ.continuousOn
+  have htop : MemLp φ ⊤ (volume.restrict (Set.Icc a b)) :=
+    memLp_top_of_bound hφ.aestronglyMeasurable C
+      (ae_restrict_of_forall_mem measurableSet_Icc hC)
+  exact htop.mono_exponent le_top
+
+/-- **Stone C-band — the band Cauchy–Schwarz** (`sqNorm_cs_band`).  For continuous `P₋, P₊` and a
+weight width `cw > 0`, the branch-1 cross-integral over the head band `Icc (-T₀) T₀` is bounded by
+the geometric mean of the two legs' `1/√(cw²+τ²)`-weighted second moments:
+`∫_{|τ|≤T₀} ‖P₋‖‖P₊‖/√(cw²+τ²) ≤ √(∫_{|τ|≤T₀} ‖P₋‖²/√(cw²+τ²))·√(∫_{|τ|≤T₀} ‖P₊‖²/√(cw²+τ²))`.
+Hölder-2-2 (`integral_mul_le_Lp_mul_Lq_of_nonneg`) on `volume.restrict (Icc (-T₀) T₀)`. -/
+theorem sqNorm_cs_band {Pm Pp : ℝ → ℂ} {cw T₀ : ℝ} (hcw : 0 < cw)
+    (hPm : Continuous Pm) (hPp : Continuous Pp) :
+    (∫ τ in Set.Icc (-T₀) T₀, ‖Pm τ‖ * ‖Pp τ‖ / Real.sqrt (cw ^ 2 + τ ^ 2))
+      ≤ Real.sqrt (∫ τ in Set.Icc (-T₀) T₀, ‖Pm τ‖ ^ 2 / Real.sqrt (cw ^ 2 + τ ^ 2))
+        * Real.sqrt (∫ τ in Set.Icc (-T₀) T₀, ‖Pp τ‖ ^ 2 / Real.sqrt (cw ^ 2 + τ ^ 2)) := by
+  have hden : ∀ τ : ℝ, (0 : ℝ) < Real.sqrt (cw ^ 2 + τ ^ 2) := fun τ =>
+    Real.sqrt_pos.mpr (by positivity)
+  set w : ℝ → ℝ := fun τ => 1 / Real.sqrt (cw ^ 2 + τ ^ 2) with hwdef
+  have hwnn : ∀ τ, 0 ≤ w τ := fun τ => by rw [hwdef]; positivity
+  set u : ℝ → ℝ := fun τ => ‖Pm τ‖ * Real.sqrt (w τ) with hudef
+  set v : ℝ → ℝ := fun τ => ‖Pp τ‖ * Real.sqrt (w τ) with hvdef
+  have huv : ∀ τ, u τ * v τ = ‖Pm τ‖ * ‖Pp τ‖ / Real.sqrt (cw ^ 2 + τ ^ 2) := fun τ => by
+    simp only [hudef, hvdef]
+    rw [mul_mul_mul_comm, Real.mul_self_sqrt (hwnn τ)]
+    simp only [hwdef]; ring
+  have husq : ∀ τ, u τ ^ (2 : ℝ) = ‖Pm τ‖ ^ 2 / Real.sqrt (cw ^ 2 + τ ^ 2) := fun τ => by
+    simp only [hudef]
+    rw [Real.rpow_two, mul_pow, Real.sq_sqrt (hwnn τ)]
+    simp only [hwdef]; ring
+  have hvsq : ∀ τ, v τ ^ (2 : ℝ) = ‖Pp τ‖ ^ 2 / Real.sqrt (cw ^ 2 + τ ^ 2) := fun τ => by
+    simp only [hvdef]
+    rw [Real.rpow_two, mul_pow, Real.sq_sqrt (hwnn τ)]
+    simp only [hwdef]; ring
+  have hwcont : Continuous w := by
+    rw [hwdef]
+    exact continuous_const.div (Real.continuous_sqrt.comp (by fun_prop)) (fun τ => (hden τ).ne')
+  have hsqrtw : Continuous (fun τ => Real.sqrt (w τ)) := Real.continuous_sqrt.comp hwcont
+  have hucont : Continuous u := hPm.norm.mul hsqrtw
+  have hvcont : Continuous v := hPp.norm.mul hsqrtw
+  have hu2 : MemLp u (ENNReal.ofReal 2) (volume.restrict (Set.Icc (-T₀) T₀)) := by
+    rw [show ENNReal.ofReal 2 = 2 from by simp]
+    exact memLp2_restrict_Icc_of_continuous hucont _ _
+  have hv2 : MemLp v (ENNReal.ofReal 2) (volume.restrict (Set.Icc (-T₀) T₀)) := by
+    rw [show ENNReal.ofReal 2 = 2 from by simp]
+    exact memLp2_restrict_Icc_of_continuous hvcont _ _
+  have hunn : (0 : ℝ → ℝ) ≤ᵐ[volume.restrict (Set.Icc (-T₀) T₀)] u :=
+    Filter.Eventually.of_forall (fun τ => by simp only [Pi.zero_apply, hudef]; positivity)
+  have hvnn : (0 : ℝ → ℝ) ≤ᵐ[volume.restrict (Set.Icc (-T₀) T₀)] v :=
+    Filter.Eventually.of_forall (fun τ => by simp only [Pi.zero_apply, hvdef]; positivity)
+  have hholder := integral_mul_le_Lp_mul_Lq_of_nonneg
+    (μ := volume.restrict (Set.Icc (-T₀) T₀)) Real.HolderConjugate.two_two hunn hvnn hu2 hv2
+  have eLHS : (∫ τ in Set.Icc (-T₀) T₀, ‖Pm τ‖ * ‖Pp τ‖ / Real.sqrt (cw ^ 2 + τ ^ 2))
+      = ∫ τ in Set.Icc (-T₀) T₀, u τ * v τ :=
+    integral_congr_ae (Filter.Eventually.of_forall (fun τ => (huv τ).symm))
+  have eA : (∫ τ in Set.Icc (-T₀) T₀, u τ ^ (2 : ℝ))
+      = ∫ τ in Set.Icc (-T₀) T₀, ‖Pm τ‖ ^ 2 / Real.sqrt (cw ^ 2 + τ ^ 2) :=
+    integral_congr_ae (Filter.Eventually.of_forall husq)
+  have eB : (∫ τ in Set.Icc (-T₀) T₀, v τ ^ (2 : ℝ))
+      = ∫ τ in Set.Icc (-T₀) T₀, ‖Pp τ‖ ^ 2 / Real.sqrt (cw ^ 2 + τ ^ 2) :=
+    integral_congr_ae (Filter.Eventually.of_forall hvsq)
+  rw [eLHS, ← eA, ← eB, Real.sqrt_eq_rpow, Real.sqrt_eq_rpow]
+  exact hholder
+
+/-! ## Stone 5-sharp — the head reduced to the two branch-1 second moments (`head_sharp_socket`)
+
+The SHARP head, UNCONDITIONAL: the `crossKer` head integral over the band `|t−t₀| ≤ T₀ :=
+2(X+h)/h` is bounded by `(X+h)^{cw}·2` times the geometric mean of the two window legs'
+branch-1-weighted second moments — the exact integrals `head_second_moment_grade` grades.  Route:
+the CoV `t ↦ t−t₀` (the whole integrand is `Φ(t−t₀)`), the branch-1 pointwise weight
+`‖hatKernel‖ ≤ (X+h)^{cw}·2/√(cw²+τ²)` (`hatKernel_branch1`), and the band Cauchy–Schwarz
+`sqNorm_cs_band` (which keeps the weight `cw = c₀−α−β` free of the two legs' lines `c₀∓β`).
+
+This is the honest reduction of the head socket to per-leg second moments — the CS + branch-1
+plumbing the terminal-assembly docstring flagged.  Feeding it: apply `head_second_moment_grade` to
+the HIGH leg (`c = c₀+β ≥ 1`, direct) and its low-line variant to the LOW leg (`c = c₀−β`, carrying
+`low_leg_shift`'s `(X/y)^{1−c₀+β}` excess) — the remaining per-leg grade is the named residual
+(module tail). -/
+theorem head_sharp_socket {g : ℕ → ℂ} {X h y c₀ t₀ α β : ℝ}
+    (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c₀ - α - β) :
+    (∫ t in {t : ℝ | |t - t₀| ≤ 2 * (X + h) / h},
+        ‖windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))‖
+          * ‖windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))‖
+          * ‖hatKernel X h (c₀ - α - β) (t - t₀)‖)
+      ≤ (X + h) ^ (c₀ - α - β) * 2
+          * (Real.sqrt (∫ τ in Set.Icc (-(2 * (X + h) / h)) (2 * (X + h) / h),
+                ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) - (β : ℂ))‖ ^ 2
+                  / Real.sqrt ((c₀ - α - β) ^ 2 + τ ^ 2))
+            * Real.sqrt (∫ τ in Set.Icc (-(2 * (X + h) / h)) (2 * (X + h) / h),
+                ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) + (β : ℂ))‖ ^ 2
+                  / Real.sqrt ((c₀ - α - β) ^ 2 + τ ^ 2))) := by
+  set cw := c₀ - α - β with hcwdef
+  set T₀ := 2 * (X + h) / h with hT₀def
+  have hXh : (0 : ℝ) < X + h := by linarith
+  have hden : ∀ τ : ℝ, (0 : ℝ) < Real.sqrt (cw ^ 2 + τ ^ 2) := fun τ =>
+    Real.sqrt_pos.mpr (by positivity)
+  have hPmc : Continuous (fun τ : ℝ => windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) - (β : ℂ))) :=
+    (continuous_windowSum g X y).comp (by fun_prop)
+  have hPpc : Continuous (fun τ : ℝ => windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) + (β : ℂ))) :=
+    (continuous_windowSum g X y).comp (by fun_prop)
+  have hKc : Continuous (fun τ : ℝ => ‖hatKernel X h cw τ‖) :=
+    (continuous_hatKernel (by linarith) hh hc).norm
+  have hΦc : Continuous (fun τ : ℝ =>
+      ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) - (β : ℂ))‖
+        * ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) + (β : ℂ))‖
+        * ‖hatKernel X h cw τ‖) := (hPmc.norm.mul hPpc.norm).mul hKc
+  have hΨc : Continuous (fun τ : ℝ => (X + h) ^ cw * 2
+      * (‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) - (β : ℂ))‖
+          * ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) + (β : ℂ))‖
+          / Real.sqrt (cw ^ 2 + τ ^ 2))) :=
+    continuous_const.mul ((hPmc.norm.mul hPpc.norm).div
+      (Real.continuous_sqrt.comp (by fun_prop)) (fun τ => (hden τ).ne'))
+  have hmp : MeasurePreserving (fun t : ℝ => t - t₀) volume volume :=
+    measurePreserving_sub_right volume t₀
+  have hme : MeasurableEmbedding (fun t : ℝ => t - t₀) :=
+    (Homeomorph.subRight t₀).measurableEmbedding
+  have hIcc : {τ : ℝ | |τ| ≤ T₀} = Set.Icc (-T₀) T₀ := by
+    ext τ; simp only [Set.mem_setOf_eq, Set.mem_Icc, abs_le]
+  have hcov : (∫ t in {t : ℝ | |t - t₀| ≤ T₀},
+        ‖windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) - (β : ℂ))‖
+          * ‖windowSum g X y (((c₀ : ℂ) + ((t - t₀ : ℝ) : ℂ) * I) + (β : ℂ))‖
+          * ‖hatKernel X h cw (t - t₀)‖)
+      = ∫ τ in Set.Icc (-T₀) T₀,
+          ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) - (β : ℂ))‖
+            * ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) + (β : ℂ))‖
+            * ‖hatKernel X h cw τ‖ := by
+    rw [show {t : ℝ | |t - t₀| ≤ T₀}
+          = (fun t : ℝ => t - t₀) ⁻¹' {τ : ℝ | |τ| ≤ T₀} from rfl, ← hIcc]
+    exact hmp.setIntegral_preimage_emb hme (fun τ =>
+      ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) - (β : ℂ))‖
+        * ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) + (β : ℂ))‖
+        * ‖hatKernel X h cw τ‖) {τ : ℝ | |τ| ≤ T₀}
+  rw [hcov]
+  calc (∫ τ in Set.Icc (-T₀) T₀,
+          ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) - (β : ℂ))‖
+            * ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) + (β : ℂ))‖
+            * ‖hatKernel X h cw τ‖)
+      ≤ ∫ τ in Set.Icc (-T₀) T₀, (X + h) ^ cw * 2
+          * (‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) - (β : ℂ))‖
+              * ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) + (β : ℂ))‖
+              / Real.sqrt (cw ^ 2 + τ ^ 2)) := by
+        refine setIntegral_mono_on hΦc.integrableOn_Icc hΨc.integrableOn_Icc measurableSet_Icc
+          (fun τ _ => ?_)
+        have hb := hatKernel_branch1 hX hh hc τ
+        have hnn : (0 : ℝ) ≤ ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) - (β : ℂ))‖
+            * ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) + (β : ℂ))‖ := by positivity
+        calc ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) - (β : ℂ))‖
+                * ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) + (β : ℂ))‖
+                * ‖hatKernel X h cw τ‖
+            ≤ ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) - (β : ℂ))‖
+                * ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) + (β : ℂ))‖
+                * ((X + h) ^ cw * 2 * (Real.sqrt (cw ^ 2 + τ ^ 2))⁻¹) :=
+              mul_le_mul_of_nonneg_left hb hnn
+          _ = (X + h) ^ cw * 2
+                * (‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) - (β : ℂ))‖
+                    * ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) + (β : ℂ))‖
+                    / Real.sqrt (cw ^ 2 + τ ^ 2)) := by rw [div_eq_mul_inv]; ring
+    _ = (X + h) ^ cw * 2 * ∫ τ in Set.Icc (-T₀) T₀,
+          (‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) - (β : ℂ))‖
+              * ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) + (β : ℂ))‖
+              / Real.sqrt (cw ^ 2 + τ ^ 2)) := integral_const_mul _ _
+    _ ≤ (X + h) ^ cw * 2
+          * (Real.sqrt (∫ τ in Set.Icc (-T₀) T₀,
+                ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) - (β : ℂ))‖ ^ 2
+                  / Real.sqrt (cw ^ 2 + τ ^ 2))
+            * Real.sqrt (∫ τ in Set.Icc (-T₀) T₀,
+                ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) + (β : ℂ))‖ ^ 2
+                  / Real.sqrt (cw ^ 2 + τ ^ 2))) :=
+        mul_le_mul_of_nonneg_left (sqNorm_cs_band hc hPmc hPpc)
+          (mul_nonneg (Real.rpow_nonneg hXh.le cw) (by norm_num))
+
+/-! ## Stone 7-sharp — `crossKer` at the SHARP grade (`crossKer_grade_sharp`)
+
+The τ-split composition at the SHARP head: `head_split_ledger` splits `crossKer` at the branch
+crossover `T₀ = 2(X+h)/h` into head (`|t−t₀| ≤ T₀`, branch-1) + tail (`|t−t₀| > T₀`, branch-2);
+`head_sharp_socket` grades the head by the CS geometric mean of the two legs' branch-1 second
+moments (NOT the crude `arsinh` sup mass of `crossKer_grade_final`); `tail_band_sum` discharges the
+tail EXACTLY to the ramp-free `Mm·Mp·2(X+h)^{cw}`.  UNCONDITIONAL in `1 ≤ X`, `0 < h`, `0 < cw`:
+
+  `crossKer g X h y c₀ t₀ α β
+      ≤ (X+h)^{cw}·2·√(A₋)·√(A₊) + Mm·Mp·2(X+h)^{cw}`,
+
+`cw = c₀−α−β`, `A∓ = ∫_{|τ|≤T₀} ‖windowSum(c₀+iτ∓β)‖²/√(cw²+τ²)` the two legs' branch-1 second
+moments, `Mm,Mp` the window masses at `c₀∓β`.  This is the SHARP shape: `√(A₋)·√(A₊) ≤ Mm·Mp·
+2·arsinh(T₀/cw)` recovers `crossKer_grade_final`'s head, but the second moments carry the
+off-diagonal cancellation — grading them collapses the head below the crude `Mm·Mp·log L`.
+
+**Reaching the fully-decayed `diag + mass/T₀` exit** (the design's constant grade).  Grade each
+`A∓` by `head_second_moment_grade` (weight `cw` FREE of the lines `c₀∓β`, under the y-gate `2 T₀^8 ≤
+n` and `4 ≤ T₀`, `c₀∓β ≤ T₀`):
+  `A₊ ≤ 2πT₀/cw·(diag₊ + 4C/(T₀−(c₀+β)+1)·mass₊)`  — the HIGH leg, `c₀+β ≥ 1`, DIRECT;
+  `A₋ ≤ 2πT₀/cw·(diag₋ + 4C/(T₀−(c₀−β)+1)·(X/y)^{1−c₀+β}·mass₋)`  — the LOW leg, `c₀−β < 1`, via
+the low-line variant of `head_second_moment_grade` carrying `low_leg_shift`'s `(X/y)^{1−c₀+β}`
+excess (STATED, absorbed downstream by the S-ladder's `(X/y)^{2β}`).  The HIGH-leg grade is a
+direct `head_second_moment_grade` application; the LOW-leg variant (`offdiag_widthA_final`/`inner_
+sharp` re-run at `0 < c < 1` with the window factor `n ≤ X/y` in place of `n^{1−2c} ≤ n^{−c}`) is
+the last remaining ledge — FLAGGED per iron rule 1/4, the analytic core (`inner_sharp`'s geometric
+page, `hband_discharge`) is `c`-agnostic so the clone is mechanical.  The banked stones for it:
+`low_leg_shift` (the mass wrapper) and `sqNorm_cs_band` (the CS core) stand here. -/
+theorem crossKer_grade_sharp {g : ℕ → ℂ} {X h y c₀ t₀ α β : ℝ}
+    (hX : 1 ≤ X) (hh : 0 < h) (hc : 0 < c₀ - α - β) :
+    crossKer g X h y c₀ t₀ α β
+      ≤ (X + h) ^ (c₀ - α - β) * 2
+          * (Real.sqrt (∫ τ in Set.Icc (-(2 * (X + h) / h)) (2 * (X + h) / h),
+                ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) - (β : ℂ))‖ ^ 2
+                  / Real.sqrt ((c₀ - α - β) ^ 2 + τ ^ 2))
+            * Real.sqrt (∫ τ in Set.Icc (-(2 * (X + h) / h)) (2 * (X + h) / h),
+                ‖windowSum g X y (((c₀ : ℂ) + (τ : ℂ) * I) + (β : ℂ))‖ ^ 2
+                  / Real.sqrt ((c₀ - α - β) ^ 2 + τ ^ 2)))
+        + (∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+              ‖lambdaLin (restrictAbove y g) n‖ / (n : ℝ) ^ (c₀ - β))
+          * (∑ n ∈ Finset.Ioo ⌊y⌋₊ ⌈X / y⌉₊,
+              ‖lambdaLin (restrictAbove y g) n‖ / (n : ℝ) ^ (c₀ + β))
+          * (2 * (X + h) ^ (c₀ - α - β)) := by
+  rw [head_split_ledger hX hh hc]
+  exact add_le_add (head_sharp_socket hX hh hc) (tail_band_sum hX hh hc)
+
 end Salt.MR
