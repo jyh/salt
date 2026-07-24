@@ -118,3 +118,60 @@ Ann(T₀,T) := {t : T₀ ≤ |t| ∧ |t| ≤ T}. THE SEAM:
    Z3's job — check no double-squaring).
 
 Wave fires on FIRE / REPAIR-THEN-FIRE with repairs applied.
+
+## ⟦AMENDMENT V2 — the refuter ruling (maestro, 2026-07-24 ~23:00)⟧
+
+Verdicts: BRIDGE-REF **HOLD** (R-3 CONFIRMED-FATAL; R-1/R-2 repairable;
+R-4 unfounded — the X-power page clean); GEOM-REF **REPAIR-THEN-FIRE**
+(all four repairable, rich repairs). RULING: the freeze's headline supply
+claim was WRONG — `halasz_ball_decay` is a scalar re-arrangement (U/Uhead/
+Utail free reals), NOT a landed sum bound; the pointwise ball sup's only
+mapped supply is the open frontier (hpret/hbridge/hgrade — HExit's own
+CODA), and pointwise E is main-term-sized in the intended regime. The catch
+is MINE (the maestro conflated the socket with a supply — the same error
+class as the annHead object finding, caught by the refuters before one
+executor token burned). THE WAVE FIRES AT REDUCED, TRUE SCOPE:
+
+- **Z0** unchanged.
+- **Z1** + hypotheses `hT₀ : (logX)^{1/15} ≤ T`, `hTX : T ≤ X`, `0 ≤ T`
+  (window nonemptiness is a T-condition, NOT an X-threshold; Ann ⊆ window
+  needs T ≤ X — MR Step 0 licenses it; the consumer has T = X/h₁ ≤ X).
+- **Z2a** [B] the UNCONDITIONAL Abel inequality: hypotheses hsupp
+  (∀ n ≤ X, a n = 0) + the convention-proof form spoly = A_t(N)/N +
+  ∫_1^N A_t(u)/u² du (Abel from 1; NO −A(X)/X identity — the closed-at-X
+  trap), exit ‖spoly‖ ≤ (1+log 2)·S ≤ 3S. No ball-decay input.
+- **Z2b** the pointwise ball sup becomes the NAMED BINDER
+  `hSup : ∀ t, |t−t₁| ≤ r → ∀ u ∈ [X,2X], ‖A_t(u)‖ ≤ S·u` with the unmet
+  supply documented in-docstring (the T1 frontier; GRAND-COMP's pointwise
+  wall; the M-form discipline: any M in the exit is stated in FLOOR form
+  per scale — never M_range at X for a bound obtained at u).
+- **Z3** consumes hSup (measure×sup²; the squaring bookkeeping per
+  GEOM-REF R-4's check).
+- **Z4** repairs: `MeasureTheory.integral_biUnion_finset` (the correct
+  name); Uset-open via the explicit Finset.Icc 1 J restriction (or plain
+  measurability — all the split needs); Tset case-split on 1 ≤ j ≤ J;
+  IntegrableOn via `Measure.integrableOn_of_bounded` (bounded+measurable,
+  NOT compactness).
+- **Z5** THE J-FACTOR TRAP KILLED: collapse the far leg via the biUnion
+  identity FIRST (one integral over the union), THEN one monotonicity into
+  [−T,T] — never Σⱼ of J separate copies (J grows with X; catch #253).
+- **Z6** is a NEW statement (the landed _row_ lemmas are NOT consumable —
+  their hsplit demands annHead): TWO data parameters (the dyadic
+  `a : ℕ → ℂ` with hsupp + ‖a‖ ≤ 1 for the spoly slot; the multiplicative
+  seam datum `fseam := seamCoeff (ellLin g) 1 t₀` for the M_range slot —
+  the DATUM CONFLATION was fatal as drafted: dyadic a has a_p = 0 at p ≤ X,
+  degenerating pretDistSq); Re = 1 throughout (NO n^{−σ} rescale — that was
+  the B-pin's line, now retired with annHead); the intervalIntegral ↔
+  setIntegral bridge stated (integral_of_le + null endpoints). Exit: the
+  PROVEN partition inequality Itot_Ann ≤ ball(hSup-bounded) + far(one
+  MVT-monotonicity bound stated honestly as the crude placeholder) with
+  the named binders hSup + hU (the §8 interior sharpening of the far leg).
+- t₁: obtain via `Real.lt_sInf_add_pos` (Nonempty only — no BddBelow);
+  spend NO stone on minimizer properties (the grade is range-uniform).
+
+THE NEXT DESIGN TARGET (not this wave): hSup's supply — the pointwise
+ball Halász bound. Its honest map: the corpus's T1 frontier (hpret via
+SupF's B-ladder + hbridge + hgrade), now with the L-series machinery
+landed; alternatively the L² route only (drop pointwise, take the ball
+leg in mean-square via a Vtail-style tent argument at the ball scale —
+scope BOTH in the morning block).

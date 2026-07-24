@@ -62,6 +62,8 @@ import Salt.MR.Lemma14Bridge
 import Salt.MR.Lemma14Taylor
 import Salt.MR.Lemma14Vtail
 import Salt.MR.Lemma14
+import Salt.MR.ChiFloor
+import Salt.MR.PerronLimit
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -396,6 +398,18 @@ open Salt.Tactic in
   Salt.MR.lemma14_shortInterval_of_perron
   Salt.MR.annHead_le_socket_T
   Salt.MR.annHead_le_socket_polyT
+  Salt.MR.pretDistSq_pow_le
+  Salt.MR.pretDist_pow_le
+  Salt.MR.pretDistSq_chiPrin_ge
+  Salt.MR.chi_floor_of_order
+  Salt.MR.chi_floor_orderOf
+  Salt.MR.chi_floor_orderOf_twisted
+  Salt.MR.zone_sum_collapsed_wide
+  Salt.MR.Aperron_short_interval_collapsed_wide
+  Salt.MR.lemma14_shortInterval_concrete
+  Salt.MR.Aperron_error_le_of_T
+  Salt.MR.Aperron_tendsto
+  Salt.MR.perron_gap_tendsto
   Salt.MR.T1_decay_annular_polyT
   Salt.MR.T1_decay_annular_tailed_polyT
   Salt.MR.prop_A3_T1_row_annular_polyT
