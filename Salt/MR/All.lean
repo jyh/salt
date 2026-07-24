@@ -59,6 +59,7 @@ import Salt.MR.HeadGrade
 import Salt.MR.GrandComp
 import Salt.MR.AnnHead
 import Salt.MR.Lemma14Bridge
+import Salt.MR.Lemma14Taylor
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -382,3 +383,6 @@ open Salt.Tactic in
   Salt.MR.Aperron_short_interval
   Salt.MR.Aperron_short_interval_collapsed
   Salt.MR.dyadic_tail_proper
+  Salt.MR.taylor2_bound
+  Salt.MR.uSlab_taylor_main
+  Salt.MR.uSlab_taylor_main_sq
