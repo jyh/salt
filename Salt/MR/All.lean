@@ -64,6 +64,7 @@ import Salt.MR.Lemma14Vtail
 import Salt.MR.Lemma14
 import Salt.MR.ChiFloor
 import Salt.MR.PerronLimit
+import Salt.MR.SeamSplit
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -410,6 +411,15 @@ open Salt.Tactic in
   Salt.MR.Aperron_error_le_of_T
   Salt.MR.Aperron_tendsto
   Salt.MR.perron_gap_tendsto
+  Salt.MR.prop_A3_T1_row_annular_le
+  Salt.MR.prop_A3_T1_row_moment_le
+  Salt.MR.annulus_ball_far_split
+  Salt.MR.spoly_abel_sup
+  Salt.MR.ball_leg_of_sup
+  Salt.MR.seam_TU_split
+  Salt.MR.far_leg_collapse
+  Salt.MR.prop_A3_T1_row_split
+  Salt.MR.prop_A3_T1_row_split_crude
   Salt.MR.T1_decay_annular_polyT
   Salt.MR.T1_decay_annular_tailed_polyT
   Salt.MR.prop_A3_T1_row_annular_polyT

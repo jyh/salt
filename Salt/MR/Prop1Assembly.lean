@@ -605,3 +605,73 @@ theorem prop_A3_T1_row_moment_polyT {ι : Type*} (g : ℕ → ℂ) (hg : ∀ p, 
   exact hrow X ε Utail C₂ T Itot _ _ hX0 hT hTL hε hC₂ htail hfloor hsplit hmom
 
 end Salt.MR
+
+/-! ## SEAM-WAVE — the `≤`-weakened moment row
+
+`AnnHead.prop_A3_T1_row_annular_le` one level up: the moment leg is discharged exactly as in
+`prop_A3_T1_row_moment` (E1 by `moment_core_bound_shifted`, each `Eⱼ` by `Ej_row` through the
+MULT-SHIU seam), and only the eq-(24) binder changes shape (`=` ↝ `≤`).  See the flags entry
+"the hsplit/annHead object mismatch" (2026-07-24) for why the equality form is unsatisfiable
+at the intended instantiation and the inequality form is the one a genuine partition of the
+mean square can discharge. -/
+
+namespace Salt.MR
+
+open scoped BigOperators
+open MeasureTheory Complex
+
+/-- **Z0 — the `≤`-weakened annular moment row (`prop_A3_T1_row_moment_le`).**
+`prop_A3_T1_row_moment` with the §8 eq-(24) binder weakened from `Itot = …` to `Itot ≤ …`
+and nothing else changed: same `Imom` (the concrete `E1 + Σⱼ Eⱼ` crude moment on the shifted
+line `Re = 1 + 1/logX`), same `Gmom` (the `(2T+20N)` mean-value masses), same blockwise
+discharge of `hmom`.  The head/tail leg is `AnnHead.prop_A3_T1_row_annular_le`. -/
+theorem prop_A3_T1_row_moment_le {ι : Type*} (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    (t₀ t : ℝ)
+    (N₁ : ℕ) (a₁ : ℕ → ℂ)
+    (J : Finset ι) (Nfun ℓfun : ι → ℕ) (afun : ι → ℕ → ℂ) (Y₁ Xe : ℕ)
+    (hY₁ : 1 ≤ Y₁) (hXe : 1 ≤ Xe)
+    (hsupp : ∀ j ∈ J, ∀ n, n < Xe → afun j n = 0)
+    (hcoeff : ∀ j ∈ J, ∀ n, ‖afun j n‖ ≤ ((ℓfun j).factorial : ℝ) * (blockDiv Y₁ n : ℝ)) :
+    ∃ C₁ Cej X₀ : ℝ, 0 ≤ C₁ ∧ 0 < Cej ∧ ∀ (X ε Utail C₂ T Itot : ℝ),
+      X₀ ≤ X → 0 ≤ T → T ≤ Real.log X → 0 ≤ ε → 0 ≤ C₂ →
+      Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2) →
+      (1 / 32) * Real.log (Real.log X)
+          ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T →
+      Itot ≤ (annHead g t₀ X T (1 / Real.log X) + Utail)
+          + ((∫ s in (-T)..T,
+                ‖spoly N₁ (fun n => a₁ n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) s‖ ^ 2)
+            + ∑ j ∈ J, ∫ s in (-T)..T,
+                ‖spoly (Nfun j)
+                  (fun n => afun j n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) s‖ ^ 2) →
+      Itot ≤ (C₁ + C₂) * X
+            * ((Real.log X) ^ (-(1 / Real.exp 1) / 32)
+              + (Real.log X) ^ (-(1 : ℝ) / 2 + ε))
+          + ((2 * T + 20 * (N₁ : ℝ)) * ∑ n ∈ Finset.Icc 1 N₁, ‖a₁ n‖ ^ 2 / (n : ℝ) ^ 2
+            + ∑ j ∈ J, (2 * T + 20 * ((Nfun j : ℕ) : ℝ))
+                * (((ℓfun j).factorial : ℝ) ^ 2 * (Cej / (Xe : ℝ)))) := by
+  obtain ⟨C₁, X₀, hC₁, hrow⟩ := prop_A3_T1_row_annular_le g hg t₀ t
+  obtain ⟨Cej, hCej_pos, hEj⟩ := Ej_row
+  refine ⟨C₁, Cej, max X₀ (Real.exp 1), hC₁, hCej_pos, ?_⟩
+  intro X ε Utail C₂ T Itot hX hT hTL hε hC₂ htail hfloor hsplit
+  have hX0 : X₀ ≤ X := le_trans (le_max_left _ _) hX
+  have hXe' : Real.exp 1 ≤ X := le_trans (le_max_right _ _) hX
+  have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe'
+  have hL1 : (1 : ℝ) ≤ Real.log X := (Real.le_log_iff_exp_le hXpos).mpr hXe'
+  have hσ0 : (0 : ℝ) ≤ 1 / Real.log X := by positivity
+  have hmom :
+      ((∫ s in (-T)..T,
+            ‖spoly N₁ (fun n => a₁ n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) s‖ ^ 2)
+        + ∑ j ∈ J, ∫ s in (-T)..T,
+            ‖spoly (Nfun j)
+              (fun n => afun j n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) s‖ ^ 2)
+      ≤ ((2 * T + 20 * (N₁ : ℝ)) * ∑ n ∈ Finset.Icc 1 N₁, ‖a₁ n‖ ^ 2 / (n : ℝ) ^ 2
+        + ∑ j ∈ J, (2 * T + 20 * ((Nfun j : ℕ) : ℝ))
+            * (((ℓfun j).factorial : ℝ) ^ 2 * (Cej / (Xe : ℝ)))) := by
+    refine add_le_add (moment_core_bound_shifted N₁ a₁ T (1 / Real.log X) hT hσ0) ?_
+    refine Finset.sum_le_sum (fun j hj => ?_)
+    exact hEj Y₁ Xe (Nfun j) (ℓfun j)
+      (fun n => afun j n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) T
+      hY₁ hXe hT (shifted_support (hsupp j hj)) (shifted_count hσ0 (hcoeff j hj))
+  exact hrow X ε Utail C₂ T Itot _ _ hX0 hT hTL hε hC₂ htail hfloor hsplit hmom
+
+end Salt.MR

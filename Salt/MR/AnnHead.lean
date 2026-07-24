@@ -1024,3 +1024,48 @@ theorem prop_A3_T1_row_annular_polyT (g : ℕ → ℂ) (hg : ∀ p, p.Prime → 
   rw [hsplit]; linarith [hunit, hmom]
 
 end Salt.MR
+
+/-! ## SEAM-WAVE — the `≤`-weakened `hsplit` row (the eq-(24) seam as an inequality)
+
+The landed rows (`prop_A3_T1_row_annular`, `Prop1Assembly.prop_A3_T1_row_moment`) carry the
+§8 eq-(24) seam as an EQUALITY binder `Itot = (annHead + Utail) + Imom`.  The 2026-07-24
+audit entry in `docs/blueprints/flags.md` ("the hsplit/annHead object mismatch") records why
+that equality is unsatisfiable at the intended instantiation: `annHead` is the FULL seam
+L-series at `Re = 1 + σ` (true `L²`-mass `≍ T`, `ellLin`'s support being all squarefree `n`),
+while the intended `Itot` is the dyadic-polynomial mean square (`≍ T/X + 1`).  A genuine
+eq-(24) partition of the mean square yields an INEQUALITY `Itot ≤ (head + tail) + moment` —
+every honest split drops mass at the seam.
+
+The row below is the landed one with `hsplit` weakened from `=` to `≤` and NOTHING else
+changed; the `=` rows stay as heritage.  Nothing here SUPPLIES the split — the supplying
+stone is the seam row `SeamSplit.prop_A3_T1_row_split`, which proves a partition inequality
+of exactly this shape for the dyadic object.  (Appended region; the landed bytes are frozen.)
+-/
+
+namespace Salt.MR
+
+/-- **Z0 — the `≤`-weakened annular `int_U` row (`prop_A3_T1_row_annular_le`).**
+`prop_A3_T1_row_annular` with the §8 eq-(24) binder weakened from
+`Itot = (annHead + Utail) + Imom` to `Itot ≤ (annHead + Utail) + Imom`, and nothing else
+changed.  This is the shape a genuine seam split can discharge (see the section note and
+the flags entry "the hsplit/annHead object mismatch", 2026-07-24): a partition of the mean
+square into head/tail/moment legs is an inequality, never an identity.  The proof is the
+landed one with `rw [hsplit]` replaced by the transitive `linarith`. -/
+theorem prop_A3_T1_row_annular_le (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ t : ℝ) :
+    ∃ C₁ X₀ : ℝ, 0 ≤ C₁ ∧ ∀ (X ε Utail C₂ T Itot Imom Gmom : ℝ),
+      X₀ ≤ X → 0 ≤ T → T ≤ Real.log X → 0 ≤ ε → 0 ≤ C₂ →
+      Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2) →
+      (1 / 32) * Real.log (Real.log X)
+          ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T →
+      Itot ≤ (annHead g t₀ X T (1 / Real.log X) + Utail) + Imom →
+      Imom ≤ Gmom →
+      Itot ≤ (C₁ + C₂) * X
+            * ((Real.log X) ^ (-(1 / Real.exp 1) / 32)
+              + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) + Gmom := by
+  obtain ⟨C₁, X₀, hC₁, hrow⟩ := T1_decay_annular g hg t₀ t
+  refine ⟨C₁, X₀, hC₁, ?_⟩
+  intro X ε Utail C₂ T Itot Imom Gmom hX hT hTL hε hC₂ htail hfloor hsplit hmom
+  have hunit := hrow X ε Utail C₂ T hX hT hTL hε hC₂ htail hfloor
+  linarith [hunit, hmom, hsplit]
+
+end Salt.MR
