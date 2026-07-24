@@ -260,3 +260,259 @@ the Benli-flavored trap (an identity that is "obviously 1" but isn't). Port from
    for the specific block-divisor g. Adjacent, not identical — priced as adaptation (0.5–1.5k), not free reuse.
 5. **No scanned-image OCR risk:** LaTeX text layer; exponents crisp. The genuine ambiguities are #1 and the
    mrt_extract Q-vs-W (Thm 2.3).
+
+---
+
+## 6. §9 — THE TWO-CASE PARAMETER SET (transcribed 2026-07-25, SEC9-SCRIBE)
+
+**Why:** §4.1's row "Theorem 3 + density + Def S … MR §9 glue" and §1's one-line `Theorem 1 ⟸ Theorem 3 +
+fundamental lemma (p.30–31)` priced the §9 glue without transcribing it. The **§9-glue rung (door-road stone 6)**
+consumes the actual parameter instantiation. This section supplies it. **Purely additive: no row above is
+altered.** Where §6 restates something §1–§5 already carries, the agreement is stated explicitly in §6.6.
+
+**Method (the two-read rule):** every formula below was read twice at different moments — once from the PDF
+text layer (`pdftotext`), once from the rendered page image — and the two compared. **This caught a live trap:**
+the text layer renders `H_j := j²·P₁^{1/6−η}/(log Q₁)^{1/3}` (p.24) as if the `j²` were `2^j`, and `P_j ≥ P₁^{j²}`
+(p.25) as if it were `P₁^j`. Superscript-vs-subscript flattening in the text layer is the defect generator; the
+rendered image is the referee. **Every row below carries a page + display/eq cite.**
+
+§9 = pp. 29 (bottom third) – 31 (top). §10 begins p.31 mid-page.
+
+### 6.1 Theorem 3's proof (p.29 bottom → p.30) — the two-step skeleton
+
+**Step 1 (Lemma 14 ∘ Proposition 1)** — p.29, bottom, unnumbered display, continued onto p.30 line 1:
+
+> `(1/X)∫_X^{2X} |(1/h)Σ_{x≤n≤x+h, n∈S} f(n) − (1/h₂)Σ_{x≤n≤x+h₂, n∈S} f(n)|² dx ≪ (log h)^{1/3}/P₁^{1/6−η} + 1/(log X)^{1/50}`,
+> **when `Q₁ ≤ h ≤ h₂ = X/(log X)^{1/5}`.**
+
+⚠ **Note the RHS comparand: it is the `h₂`-average, NOT the `X`-average.** Theorem 3 as stated (p.7, extract
+:29–30) compares to `(1/X)Σ_{X≤n≤2X, n∈S} f(n)`. The bridge from `h₂`-average to `X`-average is Step 2. The
+door road must carry both steps.
+
+**Step 2 (eq (26))** — p.30, "Using Lemma 4 together with Lemma 5 we have, for any `X ≤ x ≤ 2X`,"
+
+> (26) `(1/h₂)Σ_{x≤n≤x+h₂, n∈S} f(n) = (1/X)Σ_{X≤n≤2X, n∈S} f(n) + O((log X)^{−1/20+o(1)})`
+
+then verbatim: *"and the claim follows in case `h ≤ h₂`. In case `h > h₂`, the claim follows immediately
+from (26)."* (p.30, ∎ ends the Theorem 3 proof.)
+
+- `h₂ = X/(log X)^{1/5}` is **exactly** the lower endpoint of Lemma 4's `y`-range (`X/(log X)^{1/5} ≤ y ≤ X`,
+  p.13) — the two constants are the same constant, not a coincidence. GROUNDED p.13 + p.30.
+- **[DERIVED, not in the paper]** the `o(1)` in `(log X)^{−1/20+o(1)}` (vs Lemma 4's clean `O(1/(log X)^{1/20})`)
+  is the cost of the `2^J` inclusion–exclusion terms Lemma 5 introduces; MR spell out `2^J ≪ (log X)^{o(1)}`
+  at p.28 (in §8.3) but not at (26).
+- **[DERIVED]** squaring (26) gives `O((log X)^{−1/10+o(1)})`, absorbed by the `1/(log X)^{1/50}` of Step 1
+  (`−1/10 < −1/50`). That is why the two steps compose without loss.
+
+### 6.2 🚨 LOUD CORRECTION — Lemma 4 + Lemma 5 are **NOT** retired by `h ≤ h₂`
+
+The dispatch brief asked for these marked *"not needed on the door road (h ≤ h₂ by exponential margin)"*.
+**Read twice at p.30: that is wrong.** Eq (26) is stated **once** and used in **both** branches:
+
+| branch | what (26) does | door road (`h = O(log X)`) |
+|---|---|---|
+| `h ≤ h₂` | converts Step 1's `h₂`-average into Theorem 3's `X`-average — the **only** bridge | **LOAD-BEARING** |
+| `h > h₂` | gives the whole claim by itself (interval already long; no exceptional set) | RETIRED (`h ≪ log X ≪ h₂`) |
+
+**What `h ≤ h₂` retires is only the second row — the standalone long-interval branch. Lemma 4 (Lipschitz,
+Granville–Soundararajan, p.13) and Lemma 5 (inclusion–exclusion for `n ∈ S`, p.15) stay on the critical path
+of the door road.** Any port plan that drops them cannot reach Theorem 3's stated `X`-average comparand.
+
+- **Lemma 4** (p.13; extract already carries it at :107–108, verified verbatim this session): `f:ℕ→[−1,1]` mult.
+  For any `x ∈ [X,2X]` and `X/(log X)^{1/5} ≤ y ≤ X`:
+  `(1/y)Σ_{x≤n≤x+y} f(n) = (1/X)Σ_{X≤n≤2X} f(n) + O(1/(log X)^{1/20})`.
+  Proof (p.13–14) reduces to (13) `|（1/X)Σ_{n≤X}f(n) − (1/Y)Σ_{n≤Y}f(n)| ≪ 1/(log X)^{1/4}` for `X/4 ≤ Y ≤ X`,
+  via `t_f` = minimiser of `𝔻(f,p^{it};X)` over `|t| ≤ log X`, Halász (Lemma 1) when `𝔻(f,p^{it_f};X)² ≥ (1/3)loglog X`,
+  and **[12, Lemma 7.1 and Theorem 4]** + **[12, Corollary 3]** (Granville–Soundararajan) otherwise; the
+  `|t_f| ≥ 1/100` case uses `𝔻(f,p^{it_f};X)² ≥ (1 − 2/π − o(1))loglog X` by partial summation + PNT.
+  **NEW ROW vs §2.4: the `1 − 2/π` constant and the `|t_f| ≤ 1/100`, `(1/3)loglog X` thresholds (p.14).**
+- **Lemma 5** (p.15) — **NOT PREVIOUSLY IN THE EXTRACT AT ALL.** Let `S` be as in §2. For `𝒥 ⊆ {1,…,J}`, let
+  `g_𝒥` be the completely multiplicative function
+  `g_𝒥(p^j) = 1 if p ∉ ⋃_{j∈𝒥}[P_j,Q_j]; 0 otherwise.` Then
+  `Σ_{X≤n≤2X, n∈S} a_n = Σ_{X≤n≤2X} a_n Π_{j=1}^{J}(1 − g_{{j}}(n)) = Σ_{𝒥⊆{1,…,J}} (−1)^{#𝒥} Σ_{X≤n≤2X} g_𝒥(n)a_n`.
+  Stated as "an immediate consequence of the inclusion–exclusion principle" (p.14 bottom); no proof given.
+  Also consumed at **p.28** (§8.3, "by Lemmas 3 and 5 (since `2^J ≪ (log X)^{o(1)}`)").
+  ⚠ **Source notation collision (not a rendering ambiguity):** MR reuse the letter `j` for both the exponent in
+  `p^j` and the index in `⋃_{j∈𝒥}`. The rendering is crisp; the collision is the authors'. The exponent is
+  immaterial (`g` is completely multiplicative), the index is the live one.
+
+### 6.3 Theorem 1 from Theorem 3 (pp.30–31) — the deduction
+
+**(a) Splitting off `n ∉ S`** (p.30, unnumbered):
+
+> `|(1/h)Σ_{x≤n≤x+h}f(n) − (1/X)Σ_{X≤n≤2X}f(n)| ≤ |(1/h)Σ_{x≤n≤x+h,n∈S}f(n) − (1/X)Σ_{X≤n≤2X,n∈S}f(n)| + (1/h)Σ_{x≤n≤x+h, n∉S}1 + (1/X)Σ_{X≤n≤2X, n∉S}1`
+
+**(b) The count identity** (p.30, unnumbered) — how the *short*-interval `n ∉ S` count is traded for a *long*-interval one:
+
+> `(1/h)Σ_{x≤n≤x+h, n∉S}1 = 1 + O(1/h) − (1/h)Σ_{x≤n≤x+h, n∈S}1`
+> `= (1/X)Σ_{X≤n≤2X, n∉S}1 + (1/X)Σ_{X≤n≤2X, n∈S}1 + O(1/h) − (1/h)Σ_{x≤n≤x+h, n∈S}1`
+
+**(c) The resulting four-term bound** (p.30, unnumbered) — note the coefficient **2**:
+
+> `|(1/h)Σ_{x≤n≤x+h}f(n) − (1/X)Σ_{X≤n≤2X}f(n)| ≤ |(1/h)Σ_{n∈S}f(n) − (1/X)Σ_{n∈S}f(n)| + |(1/h)Σ_{x≤n≤x+h,n∈S}1 − (1/X)Σ_{X≤n≤2X,n∈S}1| + (2/X)Σ_{X≤n≤2X, n∉S}1 + O(1/h)`
+
+**(d) Two applications of Theorem 3, at `f` and at `1`** (p.30): *"Theorem 3 applied to `f(n)` and to `1` implies
+that the first and second terms are both at most `δ/100` with at most"*
+
+> (27) `≪ X(log h)^{1/3}/(P₁^{1/6−η}δ²) + X/((log X)^{1/50}δ²)`
+
+*"exceptions."* — **[DERIVED]** the `δ²` is Chebyshev on the mean-square at threshold `δ/100` (the `100²`
+absorbed into `C`); the `X` is the measure normalisation of `(1/X)∫_X^{2X}`.
+
+**(e) The fundamental lemma of the sieve** (p.31, unnumbered display) — *"for all large enough `X`"*:
+
+> `Σ_{X≤n≤2X, n∉S} 1 ≤ (1 + 1/100) X Σ_{j≤J} Π_{P_j≤p≤Q_j}(1 − 1/p) ≤ (1 + 1/100) X Σ_{j≤J} log P_j/log Q_j`
+
+**NEW: the explicit `(1 + 1/100)` sieve constant and the Mertens step `Π_{P_j≤p≤Q_j}(1−1/p) ≤ log P_j/log Q_j`.**
+§1's Def-of-S block (:41) records only the p.6 heuristic form; this is the rigorous p.31 form the glue uses.
+Source ref: **[8, Thm 6.17]** (Friedlander–Iwaniec) per §3's table.
+
+**(f) The assembled bound** (p.31):
+
+> (28) `|(1/h)Σ_{x≤n≤x+h}f(n) − (1/X)Σ_{X≤n≤2X}f(n)| ≤ δ/50 + (2 + 1/50) Σ_j log P_j/log Q_j`
+> with at most (27) exceptions.
+
+⚠ The parenthesised factor is `(2 + 1/50)` — **read twice**; the text layer flattens this into a bare `2 +`
+followed by a stacked `1/50`, which invites the misreading `δ/50 + 2 + (1/50)Σ…`. **The rendered page shows
+`(2 + 1/50)` as a single displayed factor multiplying the sum.** (`2` from (c)'s `2/X` term, `1/50` from the
+`(1+1/100)` doubled.)
+
+### 6.4 THE CASE SPLIT AND THE TWO PARAMETER SETS (p.31) — the door-road payload
+
+*"To deduce Theorem 1 we pick an appropriate sequence of intervals `[P_j, Q_j]`."* The threshold is
+**`h ⋛ exp((log X)^{1/2})`** — confirmed verbatim, twice, p.31. `P_j` and `Q_j` are **as in (4)** in both cases.
+
+| | **SMALL-h case** | **LARGE-h case** |
+|---|---|---|
+| condition | `h ≤ exp((log X)^{1/2})` | `h > exp((log X)^{1/2})` |
+| `η` | `1/150` | `1/150` |
+| `Q₁` | `h` | `exp((log X)^{1/2})` |
+| `P₁` | `max{h^{δ/4}, (log h)^{40/η}}` | `Q₁^{δ/4}` |
+| `P_j, Q_j` (`j ≥ 2`) | as in (4), p.6 | as in (4), p.6 |
+| side condition | — (the `max` enforces `P₁ ≥ (log Q₁)^{40/η}` outright) | *"we can assume `δ ≥ (log X)^{−1/100}`, so that `P₁ ≥ (log Q₁)^{40/η}`"* |
+| (28) evaluates to | `δ + 20000·loglog h/log h` | `δ` |
+| exceptions | "as claimed" (= Thm 1's set) | "as claimed" |
+| **door road** | **THIS IS OUR CASE** | **RETIRED** |
+
+Byte-verbatim, p.31: *"In case `h ≤ exp((log X)^{1/2})`, we choose `η = 1/150, Q₁ = h, P₁ = max{h^{δ/4}, (log h)^{40/η}}`
+and `P_j` and `Q_j` as in (4). With this choice the expression in (28) is at most `δ+20000 loglog h/log h` and the
+number of exceptions is as claimed."* / *"In case `h > exp((log X)^{1/2})`, we choose `η = 1/150, Q₁ = exp((log X)^{1/2}),
+P₁ = Q₁^{δ/4}` and `P_j` and `Q_j` as in (4). This is a valid choice since we can assume `δ ≥ (log X)^{−1/100}`,
+so that `P₁ ≥ (log Q₁)^{40/η}`. With this choice the expression in (28) is at most `δ` and the number of
+exceptions is as claimed."*
+
+**Notes.** (i) `δ` **does** appear in `P₁`, in both cases, as `(·)^{δ/4}`. (ii) There is exactly **one** `δ` in
+the paper — Theorem 1's, not a second sieve-δ. (iii) `η = 1/150 ∈ (0,1/6)` ✓ (Theorem 3's hypothesis, p.7).
+(iv) The `(log Q₁)^{40/η}` shape is inherited verbatim from **p.6's admissibility example**:
+*"given `0 < η < 1/6` choose any `[P₁,Q₁]` with `exp(√(log X)) ≥ Q₁ ≥ P₁ ≥ (log Q₁)^{40/η}` large enough"* —
+so in the small-h case `Q₁ = h` turns `(log Q₁)^{40/η}` into `(log h)^{40/η}`. **This p.6 constraint is NEW to
+the extract** (§1 :38–41 records `Q₁ ≤ exp(√log X)`, (2), (3), (4), `J` — but not `P₁ ≥ (log Q₁)^{40/η}`).
+(v) The small-h case's `Q₁ = h` is exactly the extremal choice permitted by Theorem 3's `[P₁,Q₁] ⊂ [1,h]`.
+
+**[DERIVED, marked as derivation — not paper text]**
+
+- `40/η = 40·150 = **6000**` at `η = 1/150`. So `P₁ ≥ (log h)^{6000}` in the small-h case.
+- The `j = 1` term of (28)'s sum is `log P₁/log Q₁ = log P₁/log h`, which is `δ/4` when the `max` is `h^{δ/4}`,
+  and `6000·loglog h/log h` when it is `(log h)^{6000}`. Hence (28) `≤ δ/50 + (2+1/50)(δ/4) + (2+1/50)·6000·loglog h/log h
+  + tail` — the `δ` part is `δ(1/50 + 0.5125) ≈ 0.53δ ≤ δ`, and `(2+1/50)·6000 = 12120 ≤ 20000 = C′`, the slack
+  covering `Σ_{j≥2} log P_j/log Q_j`. **This is the arithmetic origin of `C′ = 20000` (p.2).**
+- Large-h validity: `log Q₁ = (log X)^{1/2}`, `log P₁ = (δ/4)(log X)^{1/2}`; need `≥ 6000·log((log X)^{1/2})
+  = 3000 loglog X`. With `δ ≥ (log X)^{−1/100}`: LHS `≥ (1/4)(log X)^{49/100} ≫ 3000 loglog X`. ✓
+- **Why `δ ≥ (log X)^{−1/100}` is free:** if `δ < (log X)^{−1/100}` then `δ² < (log X)^{−1/50}`, so (27)'s second
+  term exceeds `X` and Theorem 1's exceptional set is `≥ CX` — vacuous. (MR say only "we can assume".)
+
+### 6.5 🔴 THE `h^{δ/25}` CROSS-CHECK — VERDICT: **EXACT AGREEMENT, NO DISCREPANCY**
+
+The corrected row at :27 / :236 reads `CX((log h)^{1/3}/(δ²h^{δ/25}) + 1/(δ²(log X)^{1/50}))`, `C′ = 20000`.
+Re-read from **p.1 (Theorem 1 statement) and p.2 (the displayed exceptional set)** this session:
+
+> `|(1/h)Σ_{x≤n≤x+h}f(n) − (1/X)Σ_{X≤n≤2X}f(n)| ≤ δ + C′ loglog h/log h`
+> for all but at most `CX((log h)^{1/3}/(δ²h^{δ/25}) + 1/(δ²(log X)^{1/50}))` integers `x ∈ [X,2X]`.
+> One can take `C′ = 20000`. (p.1–2, `2 ≤ h ≤ X`, `δ > 0`, `C, C′ > 1` absolute.)
+
+**AGREES byte-for-byte with :27/:236** — numerator `(log h)^{1/3}`, denominator `δ²h^{δ/25}`; second term
+`1/(δ²(log X)^{1/50})`; `C′ = 20000`. **No discrepancy.**
+
+**Where `h^{δ/25}` enters — the exact derivation, now grounded end-to-end:** (27) has `P₁^{1/6−η}`. At `η = 1/150`,
+`1/6 − η = 25/150 − 1/150 = 24/150 = **4/25**` **exactly**. The small-h case takes `P₁ ≥ h^{δ/4}`, so
+`P₁^{1/6−η} ≥ h^{(δ/4)·(4/25)} = **h^{δ/25}**`. The `4` in `P₁ = max{h^{δ/4}, …}` and the `4/25` from `η = 1/150`
+cancel exactly — `δ/25` is not a rounded constant. **This closes the loop (27) → Theorem 1's exceptional set.**
+Likewise `(log h)^{1/3}` passes through unchanged from (27), which inherits it from Theorem 3's `(log h)^{1/3}`
+(p.7), which inherits it from Prop 1's `(log Q₁)^{1/3}` at `Q₁ = h ≤ h` (p.23). **Chain verified, no gaps.**
+
+**[DERIVED — door-road sanity]** with `h = O(log X)` the exceptional set is
+`CX((loglog X)^{1/3}/(δ²(log X)^{δ/25}) + 1/(δ²(log X)^{1/50})) = o(X)` for fixed `δ > 0` ✓. Note the `max` in `P₁`
+resolves to `h^{δ/4}` only once `h^{δ/4} ≥ (log h)^{6000}`; for `h ≍ log X` and fixed `δ` this needs
+`(log X)^{δ/4} ≥ (loglog X)^{6000}`, true for `X > X(δ)` but with a `δ`-dependent threshold. **Flag for the
+door road: the `X(δ)` threshold here is large and must be carried, not assumed away.**
+
+### 6.6 What §9 consumes from earlier sections that §1–§5 did not record
+
+| item | where consumed | statement | page/eq |
+|---|---|---|---|
+| **Lemma 5** (incl.–excl. for `n ∈ S`) | (26) in §9; §8.3 p.28 | `Σ_{n∈S} a_n = Σ_{𝒥⊆{1,…,J}} (−1)^{#𝒥} Σ g_𝒥(n)a_n` | **p.15** (new) |
+| `P₁ ≥ (log Q₁)^{40/η}` admissibility | §9 both cases (`(log h)^{40/η}`) | `exp(√(log X)) ≥ Q₁ ≥ P₁ ≥ (log Q₁)^{40/η}` | **p.6** (new) |
+| fundamental lemma, explicit constant | §9 (e), p.31 | `≤ (1+1/100) X Σ_{j≤J} Π_{P_j≤p≤Q_j}(1−1/p)` | **p.31** (new) |
+| Mertens step | §9 (e) | `Π_{P_j≤p≤Q_j}(1−1/p) ≤ log P_j/log Q_j` | **p.31** (new) |
+| per-`j` complement density (with `j²`) | §2 / §9 (e) | `X log P_j/log Q_j`, `= X log P₁/(j² log Q₁)` under (4) | **p.6** (refines :41) |
+| typical-density remark (MR's analogue of MRT Lemma 2.2) | §2 motivation only; **not** load-bearing in §9 | a typical integer has about `log(log Q_j/log P_j) = 2 log j + loglog Q₁ − loglog P₁` distinct prime factors in `[P_j,Q_j]` | **p.6** (new) |
+| `H_j` (the §8 block width) | §8.1–8.2, feeds Prop 1 | `H_j := **j²**·P₁^{1/6−η}/(log Q₁)^{1/3}` | **p.24** (new) |
+| `P_j ≥ P₁^{j²}` (from (3)) | §8.1 collection | used to sum `Σ_j (1/H_j + 1/P_j) ≪ (log Q₁)^{1/3}/P₁^{1/6−η}` | **p.25** (new) |
+| `𝒥_j` / `I_j` index range | §8 | `I_j := {v : ⌊H_j log P_j⌋ ≤ v ≤ H_j log Q_j}` | p.24 (matches :72) |
+| Lemma 4's inner constants | Lemma 4 proof | `|t_f| ≤ 1/100`; `𝔻(f,p^{it_f};X)² < (1/3)loglog X`; `(1 − 2/π − o(1))loglog X` | **p.14** (new) |
+
+⚠ **On "MRT Lemma 2.2 / typical density":** MR's §9 does **not** use a density lemma of that shape. Its
+`n ∉ S` accounting is entirely (e) — the fundamental lemma of the sieve at p.31. The p.6 "typical integer has
+about `2 log j + loglog Q₁ − loglog P₁` prime factors" sentence is **motivational only**; nothing in §9 cites
+it. **The door road needs the sieve bound, not a typical-density lemma.** (MRT's Lemma 2.2 is a different
+paper's node — see `mrt_extract.md`.)
+
+**[DERIVED] why `[P₁,Q₁] ⊂ [1,h]` is the load-bearing hypothesis:** Step 1 applies Prop 1 at `T = X/h₁ = X/h`,
+whose prefactor is `(T/(X/Q₁) + 1) = (Q₁/h + 1)`. `Q₁ ≤ h` makes this `O(1)`. The Lemma 14 max-term
+`max_{T≥X/h}(X/h)/T ∫_{1+iT}^{1+i2T}` likewise collapses: `((X/h)/T)(2TQ₁/X + 1) ≪ Q₁/h + (X/h)/T ≪ 1`.
+Both collapses need exactly `Q₁ ≤ h`. In §9's small-h case `Q₁ = h` saturates it.
+
+### 6.7 SPOT-VERIFY ADDENDUM (2026-07-25) — §2.6 and §2.7 re-read against the PDF
+
+Requested independent re-verification. **No existing row edited; verdicts recorded here.**
+
+**§2.6 Lemma 14 (:120–123) and ledger row (:246) vs p.21 — ✅ AGREE, byte-for-byte.** All six components
+re-read from the rendered page: `|a_m| ≤ 1` ✓ · `1 ≤ h₁ ≤ h₂ = X/(log X)^{1/5}` ✓ · `S_j(x) = Σ_{x≤m≤x+h_j} a_m`
+for `X ≤ x ≤ 2X` ✓ · `A(s) := Σ_{X≤m≤4X} a_m/m^s` ✓ · LHS `(1/X)∫_X^{2X}|(1/h₁)S₁(x) − (1/h₂)S₂(x)|² dx` ✓ ·
+RHS `≪ 1/(log X)^{2/15} + ∫_{1+i(log X)^{1/15}}^{1+iX/h₁}|A(s)|²|ds| + max_{T≥X/h₁} (X/h₁)/T ∫_{1+iT}^{1+i2T}|A(s)|²|ds|` ✓.
+The `2/15` exponent is confirmed independently by the proof (p.22): the `U`-part is `≪ T₀²·(x/X)(h₂/X)
+= (log X)^{2/15−1/5} = (log X)^{−1/15}` pointwise, squared → `(log X)^{−2/15}`. **Internally consistent.**
+
+**§2.7 rows (:127–135) vs pp.24–29 — ✅ ALL AGREE.** eq (20) `α_j = 1/4 − η(1 + 1/(2j))` p.24 ✓ ·
+`[T₀,T] = ⋃_{j=1}^J 𝒯_j ∪ 𝒰`, `T₀ = (log X)^{1/15}` p.24 ✓ · eq (24) p.25 ✓ · §8.1 `E₁ ≪ (T/(X/Q₁)+1)(log Q₁)^{1/3}/P₁^{1/6−η}`
+p.25 ✓ · `ℓ_{j,r} = ⌈(v/H_j)/(r/H_{j−1})⌉` p.26 ✓ · `E_j ≪ (T/X+1)/(j²P₁)` p.27 ✓ · §8.3 `P = exp((log X)^{1−1/48})`,
+`Q = exp(log X/(log log X))`, `H = (log X)^{1/48}` p.27 ✓ · `∫_𝒰 ≪ (T/X+1)(log X)^{−1/48+o(1)}` p.29 ✓.
+Also re-verified in passing: §2.5 Lemma 13 (:112–114, :245) `ℓ = ⌈log Y₂/log Y₁⌉`, `≪ (T/X + 2^ℓ Y₁)(ℓ+1)!²`,
+`g(p^k) = (k+1)` on `[Y₁,2Y₁]` and `1` otherwise, Shiu (18) `Σ_{Y≤n≤2Y} g(n)² ≪ Y Π_{p≤Y}(1 + (|g(p)|²−1)/p) ≪ Y`
+— p.20–21 ✅ AGREE. §2.3 Lemmas 6, 7, 8 p.15 ✅ AGREE. §2.2 `𝒰` measure `O(T^{1/2−ε})` p.8 ✅ AGREE (the
+rigorous §8.3 form is `|𝒯| ≪ T^{1/2−η}X^{o(1)}`, p.28 — `η` there, `ε` on p.8; both as printed).
+
+**Three NITS (not defects; no action required, recorded for completeness):**
+1. :58 writes `1/4 − (3/2)η ≤ α₁ ≤ … ≤ α_J ≤ 1/4 − η`. p.24 has `1/4 − (3/2)η **=** α₁ ≤ α₂ ≤ … ≤ α_J ≤ 1/4 − η`.
+   A weakening (`≤` for `=`), harmless but the equality is the sharper fact.
+2. :41 records the `S`-complement density as `X·log P₁/log Q₁`. p.6 gives it **per `j`** as `X log P_j/log Q_j`,
+   `= X log P₁/(j² log Q₁)` under choice (4). The dropped `j²` is what makes `Σ_j` converge (`Σ 1/j² = π²/6`);
+   the summed statement at :41 is right, but the `j²` is the mechanism.
+3. §2.7 does not record `H_j` (p.24), `P_j ≥ P₁^{j²}` (p.25), or §8.4's summation range `Σ_{2≤j≤J−1}` (p.29,
+   printed `J−1`, not `J`). Supplied in §6.6 above.
+
+### 6.8 AMBIGUITIES FLAGGED (this transcription)
+
+1. **⚠ TEXT-LAYER TRAP, not a source ambiguity — `H_j` (p.24).** `pdftotext` renders
+   `H_j := j²·P₁^{1/6−η}/(log Q₁)^{1/3}` in an order that reads as `2^j·P₁^{…}`. **The rendered page is
+   unambiguous: it is `j²`.** Same trap at p.25 (`P_j ≥ P₁^{j²}`, not `P₁^j`) and p.25 (`H₁²log Q₁·P₁^{−1/2+3η}`,
+   the square on `H₁` lost in the text layer). Any future extraction from this PDF must use the rendered page.
+2. **⚠ `(2 + 1/50)` in (28) (p.31).** Text layer invites `δ/50 + 2 + (1/50)Σ`; rendered page shows the factor
+   `(2 + 1/50)` multiplying `Σ_j log P_j/log Q_j`. Read twice; the parenthesised form is correct.
+3. **⚠ `j` reused in Lemma 5 (p.15).** `g_𝒥(p^j)` exponent vs `⋃_{j∈𝒥}` index — the authors' collision, crisp
+   in the rendering. Immaterial (complete multiplicativity) but a Lean port must not alias them.
+4. **⚠ `q` vs `p` as the prime variable (p.24).** `Q_{v,H_j}(s) := Σ_{P_j≤q≤Q_j, e^{v/H_j}≤q≤e^{(v+1)/H_j}} f(q)/q^s`
+   uses `q`, while eq (6) (p.8) and Lemma 12 use `p`. Same object; cosmetic.
+5. **No ambiguity anywhere in §9's parameter displays (p.31).** `η = 1/150`, `Q₁ = h`,
+   `P₁ = max{h^{δ/4}, (log h)^{40/η}}`, `Q₁ = exp((log X)^{1/2})`, `P₁ = Q₁^{δ/4}`, `δ ≥ (log X)^{−1/100}`,
+   `δ + 20000 loglog h/log h`, and the threshold `h ⋛ exp((log X)^{1/2})` are all crisp in both reads.

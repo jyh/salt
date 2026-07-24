@@ -160,3 +160,19 @@ halasz_primes_pow, HalaszPrimesCore:3641):
    pointer banked); the χ-side re-prices to ~165–230 ln all-B (mathlib's
    χ log-Euler form + the landed general-g truncation). **NOTHING on the
    ladder is blocked.**
+
+8. **(SEC9-SCRIBE, 7/24 ~17:15): the "NOT needed" list OVER-RETIRED.** MR's
+   Lemma 4 + Lemma 5 / eq (26) are NOT retired: Step 1 compares the h-average
+   to the h₂-AVERAGE (not X), and eq (26) is the ONLY bridge h₂-avg → X-avg —
+   needed in the h ≤ h₂ case too. What h ≤ h₂ retires is only the STANDALONE
+   large-h branch. **Lemma 5 (p.15 inclusion–exclusion) joins the §9-glue
+   rung's critical path** (transcribed in full at mr_extract §6.2). The §9
+   params are now byte-banked (mr_extract §6, pp.29-31, dual-read): threshold
+   h ⋛ exp((logX)^{1/2}); small-h: η=1/150, Q₁=h, P₁=max{h^{δ/4},(logh)^{40/η}};
+   the δ/25 and C′=20000 DERIVED exactly (24/150 = 4/25; 12120 ≤ 20000).
+   Cautions: [P₁,Q₁] ⊂ [1,h] is load-bearing (collapses the (Q₁/h+1) prefactor
+   + the max-term); the P₁-max resolves to h^{δ/4} only past a δ-DEPENDENT
+   X(δ) — carry it. §9 needs NO typical-density lemma (the p.31 fundamental
+   lemma alone). THE DEFECT-GENERATOR FOUND: the PDF's TEXT LAYER mangles
+   exponents (j²→2^j, P₁^{j²}→P₁^j, (2+1/50)→+2) — the week's transcription
+   defects trace here. **LAW: extract from the RENDERED PAGE, never pdftotext.**
