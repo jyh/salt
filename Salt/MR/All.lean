@@ -58,6 +58,7 @@ import Salt.MR.HExit
 import Salt.MR.HeadGrade
 import Salt.MR.GrandComp
 import Salt.MR.AnnHead
+import Salt.MR.Lemma14Bridge
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -378,3 +379,6 @@ open Salt.Tactic in
   Salt.MR.T1_decay_annular_tailed
   Salt.MR.moment_core_bound_shifted
   Salt.MR.prop_A3_T1_row_moment
+  Salt.MR.Aperron_short_interval
+  Salt.MR.Aperron_short_interval_collapsed
+  Salt.MR.dyadic_tail_proper
