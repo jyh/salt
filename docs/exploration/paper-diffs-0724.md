@@ -1,5 +1,10 @@
 # PAPER DIFFS — the ratified editing round (drafted 2026-07-24, Friday eve)
 
+**STATUS: D1–D6 ALL APPROVED BY JYH AND APPLIED verbatim (2026-07-24 evening).**
+Count resolved to 256 per the approval. Standing commitment from D2: re-run the
+leanchecker replay on the final corpus before arXiv submission. JYH rebuilds
+the PDF (no local pdflatex).
+
 *Source: the FRESH-EYES brief (fresh-eyes-0724.md), top five before Sunday +
 one bonus. NO edits applied — each diff below is an exact old→new block;
 say "apply D1–D6" (or any subset, e.g. "apply D1, D2, D4") and I apply

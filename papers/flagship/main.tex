@@ -46,9 +46,11 @@ proofs, and their formalization---is joint work of the author and Claude
 direction and ratification; the commit ledger records the collaboration
 line by line.
 
-We introduce the \emph{fulcrum}: the weakest hypothesis yet formulated
-under which Siegel zeros produce infinitely many twin primes---a single
-fixed quality constant $C^\star$, one zero per unbounded window, with the
+We introduce the \emph{fulcrum}: a single hypothesis---one fixed quality
+constant $C^\star$, one zero per unbounded window---under which, together
+with an explicitly stated engine hypothesis, Siegel zeros produce
+infinitely many twin primes; the fulcrum is proved minimal for the
+engine that consumes it, with the
 zero's reality \emph{derived} rather than assumed. The fulcrum was not
 transcribed from the literature: it was extracted from a formal corpus by
 demand-audited hypothesis minimization, a mode of discovery we argue is
@@ -64,10 +66,11 @@ every transfer-based route to twins; and the \emph{parity gap} as a
 mathematical object: a predicate $Z$ with a kernel-checked theorem that no
 true, twin-sufficient, parity-invariant completion exists, together with a
 census placing the entire corpus inside the parity-invariant cone. As a
-byproduct, the logarithmic two-point Chowla conjecture is reduced to a
-single named hypothesis. The corpus is $324{,}724$ lines of Lean across
+byproduct, the logarithmic two-point Chowla statement---a theorem of
+Tao---is machine-checked conditionally on a single named uniformity
+hypothesis. The corpus is $324{,}724$ lines of Lean across
 $751$ files; the method that produced it---the \emph{Salt method}---kept a
-public ledger of every design error caught (255 numbered entries) against
+public ledger of every design error caught (256 numbered entries) against
 zero wrong proofs, and is described as a contribution in its own right.
 \end{abstract}
 
@@ -116,7 +119,7 @@ direction, frontier-model design, fleet-model execution and refutation,
 and kernel verification, whose public error \emph{ledger} --- an
 append-only record in the repository of every design error caught,
 numbered and repaired, whose entries we cite as (ledger \#$N$) --- stands
-at 255 catches against zero wrong proofs and is offered as evidence that the standard of the first
+at 256 catches against zero wrong proofs and is offered as evidence that the standard of the first
 sentence of the abstract is achievable at research scale and research
 speed. All of it was produced by the Salt method (\S\ref{sec:method}).
 
@@ -149,10 +152,12 @@ terms that the kernel re-checks independently, so the trust surface is the
 kernel alone, a deliberately small core; we additionally forbid
 \texttt{native\_decide} (which would trust the compiler, visibly, as a
 fourth axiom). The kernel itself is the one residual mechanical trust,
-and it is checkable: before submission the build is run through an
-independent checker (\texttt{lean4checker}); two unrelated implementations
-agreeing shrinks the kernel-bug hypothesis below the noise floor of any
-classical refereeing process. One consequence for the reader: every
+and it is checkable: before submission every declaration is replayed
+through \texttt{leanchecker}, the toolchain's standalone proof checker,
+independently of the elaborator and build cache that produced it. The
+replay does not remove the kernel from the trusted base---checker and
+kernel share an implementation---but it excludes elaborator and cache
+faults, which is where the practical risk lives. One consequence for the reader: every
 numbered statement in this paper---theorem, proposition,
 corollary---is kernel-checked; the labels grade importance, never
 epistemic status.
@@ -580,7 +585,9 @@ discovered.
 
 Independently of the Siegel-zero tracks, the corpus carries a full
 formalization of the entropy-decrement route to the logarithmic two-point
-Chowla conjecture. On the day of writing, its residual collapsed: the
+Chowla statement, proved by Tao~\cite{TaoChowla}; the content here is the
+machine-checked reduction, not the truth of the statement. Late in the
+campaign its residual collapsed: the
 prior interface (three coupled analytic witnesses) was \emph{proven
 unsatisfiable} at its recorded constants---a freeze-panel finding,
 confirmed four independent ways, ledger \#249---and the corrected
@@ -661,7 +668,7 @@ reports is itself subject to the same audit (twice in the campaign, an
 executor refuted the supervising layer's own amendment, and the record
 says so: ledger \#248, \#250).
 
-The evidence that this discipline works is the ledger: 252 numbered
+The evidence that this discipline works is the ledger: 256 numbered
 catches over the campaign against \emph{zero} wrong proofs built on any of
 them. The day this paper was drafted supplies the case study: five
 statement-layer faults surfaced in one morning---three cover-taxonomy
@@ -672,9 +679,12 @@ single wrong proof was attempted. A companion paper (\emph{The Salt
 Method}) will give the full treatment; the repository's ledgers are the
 raw artifact both papers cite.
 
-We record one measurement with a claim attached: at no point in the
-campaign did the kernel discover an error. It confirmed; the adversarial
-layers discovered. A verification standard is achievable at research
+We record one measurement with a claim attached: no design error was
+first discovered by the kernel. Proof attempts failed and were repaired
+as routine, but every one of the ledger's catches was made by the
+adversarial layers above the kernel, at the statement level, before a
+wrong proof was built on it---and no landed statement was later
+retracted. The kernel confirmed; the layers discovered. A verification standard is achievable at research
 speed precisely because correctness is enforced \emph{above} the kernel
 and only certified at it.
 
@@ -698,6 +708,7 @@ Conditional statement & Residual hypothesis & Campaign \\
 \midrule
 Thm~\ref{thm:dich}, twin horn & $h_{\mathrm{Engine}}$ & \textsc{hb-engine} \\
 Thm~\ref{thm:spine} & the MRT door & S8 / MR program \\
+Thm~\ref{thm:wall} & the overshoot budget (\texttt{hbudget}) & \S7 \\
 \bottomrule
 \end{tabular}
 \caption{Every conditional in this paper, with its exact named residual.
