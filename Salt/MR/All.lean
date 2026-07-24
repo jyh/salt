@@ -57,6 +57,7 @@ import Salt.MR.ShortIntervalPsi
 import Salt.MR.HExit
 import Salt.MR.HeadGrade
 import Salt.MR.GrandComp
+import Salt.MR.AnnHead
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -369,3 +370,6 @@ open Salt.Tactic in
   Salt.MR.window_sup_decay
   Salt.MR.window_sup_decay_sq
   Salt.MR.sigma_cutoff_seam
+  Salt.MR.annHead_le_measure_sup
+  Salt.MR.annHead_grade
+  Salt.MR.annHead_le_socket

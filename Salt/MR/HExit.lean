@@ -876,6 +876,19 @@ whose flat integral CONVERGES (2c = 2/e < 1) to <= 3.78 e^{-cM} L
 directly, with NO (1+M) accumulation and NO factor-2 collapse. So on
 the B-route hRHS re-shapes to C1*X*e^{-cM} (this lemma). The old
 sigma_cutoff / joint_grade_assembly arm stays LANDED as heritage. -/
+/- ⟦CODA 2026-07-23 (PIN-WAVE)⟧ The two ABSENT hRHS ingredients above are
+now PLACED:
+ • The MASS half (the integral-representation factoring / window
+   cross-integral, `‖prop21RHS‖ ≤ X·supF·crossInt`) LANDED since this
+   note -- `prop21RHS_le_head` (this file), `crossKer_grade_decayed`
+   (`HeadGrade`), `window_mass_eval` (`GrandComp`).
+ • The DECAY half (the four-factor sup `≤ C·e^{-M}`) correctly routes
+   NOT through a ∀-t pointwise sup -- the supF-pretentious wall (the
+   four-factor does not decay at the twist-trivial frequency;
+   GRAND-COMP's structural finding) forbids that -- but through the
+   ANNULAR object: the M_range-window L² mass of the seam polynomial,
+   `annHead` (`Salt/MR/AnnHead.lean`), graded by `annHead_grade` and
+   over-satisfying this bare-X socket via `annHead_le_socket`. -/
 theorem T1_head_wire (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ T : ℝ) :
     ∃ X₀ : ℝ, ∀ {X h c₀ y η C₁ : ℝ}, X₀ ≤ X →
         h = X / Real.sqrt (Real.log X) → 1 < c₀ → η = 1 / Real.log y →

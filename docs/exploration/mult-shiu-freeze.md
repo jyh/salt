@@ -18,6 +18,13 @@ discharged here. Registered as the separate residual **HLOSS-WINDOW**:
 out-of-window mass = Mertens-second (LANDED, `mertens_second_sharp`);
 in-window twist-defect `Σ_{y<p<X/y}(1−Re(|f p|²p^{it₀}))/p` = a ball-center
 quantity, its own design block. Landing this freeze does NOT retire hloss.
+
+**CODA 2026-07-23 (PIN-WAVE).** The HLOSS-WINDOW residual registered above is
+SUPERSEDED by `DistWindow`'s landed T-1 chain: `dist_window_restrict → … →
+dist_split_A4_N2_final` (`Salt/MR/DistWindow.lean`) discharges the per-prime
+pretentious window mass on the DISTANCE side, eliminating the `W` window-mass
+bound entirely. That chain retired hloss.
+
 Additionally (MS-REF-A #3): GHS Lemma 2.6 (classical Brun–Titchmarsh, prime
 counts in intervals — NOT Shiu-multiplicative) is a downstream Thm-1.1
 main-integral tool, outside hfactor's E; if the campaign ever consumes it,

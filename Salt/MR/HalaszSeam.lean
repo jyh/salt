@@ -76,6 +76,14 @@ above is its discharge (the residual is now precisely stated and reduced to
 (`prop21_desmooth_reduction`) and the `Λ`-window bound (`lambdaLin_window_bound`)
 — are proved below.
 
+**CODA 2026-07-23 (PIN-WAVE).**  The Fubini residual (b) above is STALE post-v5: the
+`(α,β)`-double-integral / `tsum` / `t`-integral interchange never arises on the landed
+chain.  The v5 wave collapses the represented sum by FINITE-support interchanges
+(`integral_tsum_hatK_eq_finset`, `HalaszIdentity` — no multivariable-Perron/Fubini
+apparatus), assembles the aligned collapse (`aligned_collapse_assembled`), and lands the
+S1′ representation UNCONDITIONALLY (`prop21_unconditional_final`, `HExit`, including the
+`hsliver` ramp discharge).  The obstruction was routed around, not paid.
+
 ## S2'  (`contour_A13_A14`) — GHS §2.3 Cauchy–Schwarz, hat-kernel analog
 
 **LOG-POWER LEDGER (binding pre-Lean gate, REF-B R2 — PASSES).**  `L := log X`,
