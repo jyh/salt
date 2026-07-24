@@ -105,3 +105,14 @@ new. Q3 THE RESONANCE WIDTH (zone A): δ₀ = 1/L via which surface
 bound — a B-stone?); the crude sup's landed form. Q4 THE E²-PAGE
 (zone C): the honest arithmetic at the corners. Q5 THE LADDER +
 classes + GO.
+
+
+## ⟦RATIFIED — THE B-PIN (JYH, 2026-07-23 evening)⟧
+
+Option B: annHead pinned at Re = 1+sigma (consuming window_sup_decay
+directly; the seam crossed on the mechanical/counting side — the
+moment rows restate at 1+sigma where masses only shrink; the last
+analytic stone never exists). The socket aligns to the honest grade;
+the hsplit-shape amendment rides the P21-2X hypothesis-shape
+precedent; the frozen interfaces (statement-line-agnostic per the
+s8-freeze's own INTERFACE CONTRACT) untouched. PIN-WAVE fires.

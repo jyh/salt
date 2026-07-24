@@ -1,4 +1,4 @@
-# MORNING BRIEF — Thursday 7/24 (the pin decision + the day's map)
+# MORNING BRIEF — Friday 7/24 (the PR day) (the pin decision + the day's map)
 
 ## The overnight verdicts (the full trail in pilot.md 16:41-17:30)
 
