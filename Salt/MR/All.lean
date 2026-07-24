@@ -373,3 +373,5 @@ open Salt.Tactic in
   Salt.MR.annHead_le_measure_sup
   Salt.MR.annHead_grade
   Salt.MR.annHead_le_socket
+  Salt.MR.T1_decay_annular
+  Salt.MR.prop_A3_T1_row_annular

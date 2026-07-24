@@ -258,3 +258,99 @@ theorem annHead_le_socket (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ �
     _ = 1 * X * Real.exp (-(1 / Real.exp 1) * M) := by ring
 
 end Salt.MR
+
+/-! ## PROP-WIRE — the annular head wired into the T-chain
+
+`annHead_le_socket` over-satisfies the `hhead` socket of the v5 trivial-seam decay chain
+(`HalaszHead.T1_decay_trivial`, whose `hhead` binder is
+`Uhead ≤ C₁·X·exp(−(1/e)·M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)` — the socket
+the annular RHS matches BYTE-for-byte).  The two stones below discharge that binder with
+the *concrete* annular object, so the v5 T-chain runs end to end with `Uhead` a real
+integral rather than a named hypothesis (`T1_decay_annular`), and feed that into the
+`Iunit ≤ Gunit` socket of the terminal `Prop1Assembly.prop_A3'_assembly` (`prop_A3_T1_row_annular`).
+
+Provenance: the B-pin (`annHead_le_socket`, `Re = 1 + σ`) → the socket
+(`T1_decay_trivial.hhead`) → this wire.  The single remaining conditionality is the R3.1
+floor `hfloor : (1/32)·loglog X ≤ M_range (…)` (the MULT-SHIU / HUPPER-supplied analytic
+input) and the tail ledger `htail` — both carried as hypotheses exactly as the consumer does.
+
+**Smooth-bridge mootness (the confirming look).**  The annular consumption path
+—`annHead` → `GrandComp.window_sup_decay_sq` → `GrandComp.window_sup_decay` →
+`SupF.head_sigma_bound` (+ `SupF.scale_floor_Mrange_seam`)— carries the seam head in the
+`LSeries (ellLin …)` form throughout, priced by `SupF.euler_log_bound` (`SupF.lean:186`, the
+absolutely-convergent Euler-product log estimate at `Re = 1 + σ > 1`).  It NEVER invokes
+`smoothSeries`/`smoothEuler`: those (`SupF.lean:250–421`) are the finite-Euler-product
+analytic continuation used only by the SEPARATE short-interval/"corpus" path, where the
+`smoothSeries` `tsum` is non-summable and one continues via the finite product.  On the
+`Re = 1 + σ` annular route the L-series is consumed directly (the B-pin crosses the seam on
+the counting side), so the `smoothSeries ↔ smoothEuler` bridge is MOOT — no remaining
+dependence.  (This note lives in the appended region, not the landed module docstring, to
+keep the landed bytes frozen.) -/
+
+namespace Salt.MR
+
+/-- **W1 — the annular T1 decay (`T1_decay_annular`).**  The v5 T-chain decay theorem with
+the head object CONCRETE: `T1_decay_trivial` (the cleanest consumer — it applies the R3.1
+floor to deliver the final `(log X)^{−1/(32e)}` grade) instantiated at the trivial seam
+datum `f = ellLin g`, with `Uhead := annHead g t₀ X T (1/log X)` and its `hhead` binder
+DISCHARGED by `annHead_le_socket`.  `U := annHead + Utail`, `hsplit := rfl`; the tail ledger
+`htail` and the R3.1 floor `hfloor` are carried as hypotheses (the honest remaining
+conditionality, per the consumer).  The threshold `X₀ = max (socket X₀) (e)` folds the
+socket's polylog-`≪ X` cutoff with the `e ≤ X` gate so `X₀ ≤ X` supplies both the socket's
+`X₀ ≤ X` and `T1_decay_trivial`'s `Real.exp 1 ≤ X`.  This is the FIRST point where the head
+`Uhead` is a real object end to end (the annular integral, not a named binder). -/
+theorem T1_decay_annular (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ t : ℝ) :
+    ∃ C₁ X₀ : ℝ, 0 ≤ C₁ ∧ ∀ (X ε Utail C₂ T : ℝ),
+      X₀ ≤ X → 0 ≤ T → T ≤ Real.log X → 0 ≤ ε → 0 ≤ C₂ →
+      Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2) →
+      (1 / 32) * Real.log (Real.log X)
+          ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T →
+      annHead g t₀ X T (1 / Real.log X) + Utail
+        ≤ (C₁ + C₂) * X
+            * ((Real.log X) ^ (-(1 / Real.exp 1) / 32)
+              + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) := by
+  obtain ⟨C₁, X₀, hC₁, hsock⟩ := annHead_le_socket g hg t₀
+  refine ⟨C₁, max X₀ (Real.exp 1), hC₁, ?_⟩
+  intro X ε Utail C₂ T hX hT hTL hε hC₂ htail hfloor
+  have hX0 : X₀ ≤ X := le_trans (le_max_left _ _) hX
+  have hXe : Real.exp 1 ≤ X := le_trans (le_max_right _ _) hX
+  have hf : ∀ n, ‖ellLin g n‖ ≤ 1 := fun n => ellLin_norm_le_one g hg n
+  exact T1_decay_trivial hf t₀ t hXe hε hC₁ hC₂ rfl
+    (hsock X T hX0 hT hTL) htail hfloor
+
+/-- **W2 — the annular `int_U` row (`prop_A3_T1_row_annular`).**  W1 fed into the
+`Iunit ≤ Gunit` socket of the terminal `Prop1Assembly.prop_A3'_assembly`: with the §8 eq-(24)
+split `Itot = (annHead + Utail) + Imom` (hypothesis `hsplit`, the `int_U` row instantiated at
+the annular head) and the moment grade `hmom : Imom ≤ Gmom`, the mean square is bounded by
+the annular Halász grade plus the moment grade.  The assembly glue (`rw [hsplit]; linarith`)
+is reproduced inline rather than importing `prop_A3'_assembly`, because the annular file sits
+UPSTREAM of the assembly (import DAG: `AnnHead → GrandComp → HalaszHead`; `Prop1Assembly` is a
+downstream terminal), and `Itot`/`Imom`/`Gmom`/the mean square `spoly` are held abstract so the
+row is stated without that import — the socket `prop_A3'_assembly` consumes is exactly this
+`Iunit ≤ Gunit` shape.
+
+**Datum note (honest, no forced conversion).**  `prop_A3'_assembly`'s designated `hunit`
+discharger `T1_decay_corrected_fgJ` uses the `fgJ` datum and the *corrected* R3.1 floor,
+carrying the `o(1)` inflation `exp(c·(5·logloglog(2X+16)+Cfl))` IN the grade.  This wire
+instead uses the `ellLin g` trivial-seam datum and the *clean* floor (the v5 route), so its
+`Gunit` is the clean `(C₁+C₂)·X·((log X)^{−c/32} + (log X)^{−1/2+ε})`.  Both fit the abstract
+socket; no datum conversion is forced.  The `fgJ`/corrected-floor twin is the one-line variant
+obtained by swapping `annHead_le_socket`'s clean grade for the corrected-floor supplier. -/
+theorem prop_A3_T1_row_annular (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ t : ℝ) :
+    ∃ C₁ X₀ : ℝ, 0 ≤ C₁ ∧ ∀ (X ε Utail C₂ T Itot Imom Gmom : ℝ),
+      X₀ ≤ X → 0 ≤ T → T ≤ Real.log X → 0 ≤ ε → 0 ≤ C₂ →
+      Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2) →
+      (1 / 32) * Real.log (Real.log X)
+          ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T →
+      Itot = (annHead g t₀ X T (1 / Real.log X) + Utail) + Imom →
+      Imom ≤ Gmom →
+      Itot ≤ (C₁ + C₂) * X
+            * ((Real.log X) ^ (-(1 / Real.exp 1) / 32)
+              + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) + Gmom := by
+  obtain ⟨C₁, X₀, hC₁, hrow⟩ := T1_decay_annular g hg t₀ t
+  refine ⟨C₁, X₀, hC₁, ?_⟩
+  intro X ε Utail C₂ T Itot Imom Gmom hX hT hTL hε hC₂ htail hfloor hsplit hmom
+  have hunit := hrow X ε Utail C₂ T hX hT hTL hε hC₂ htail hfloor
+  rw [hsplit]; linarith [hunit, hmom]
+
+end Salt.MR
