@@ -11672,3 +11672,18 @@ windowSum def-fix = T0 of the hfactor campaign. Companion record:
 S1-ASM landed T1+T2 whole + the contour leg RESIDUAL-FREE; the
 HALASZ campaign's sole residual is now hfactor — the inner (α,β)
 coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
+
+## 2026-07-24 — A3a/Lemma-14 frozen-transcription defect (CORRECTED, Fable tier)
+
+- **Where**: `Salt/MR/ParsevalSL.lean` docstring (the frozen Lemma-14 transcription,
+  lines 19–21 pre-fix). No Lean statement affected (lemma14 not yet stated).
+- **Defect**: the max-term read `max_{T≥X/h₁} ∫_{1+iT}^{1+i2T}|A|²|ds|` — the
+  `(X/h₁)/T` weight was dropped in transcription.
+- **Evidence**: both corpus copies of the source carry the weight
+  (`docs/sources/mr_extract.md` §2.6 Lemma 14 and the §2.7 assembly table); the
+  unweighted max diverges (the MVT gives `∫_{1+iT}^{1+i2T}|A|² ~ (4T+20N)Σ|aₘ/m|²`,
+  growing in `T`), so the unweighted form is unprovable and un-consumable — the
+  weight produces Prop 1's `(T/(X/Q₁)+1)` grade.
+- **Action**: docstring corrected to MR v4 verbatim, provenance note in place
+  (PARSEVAL-SCOPE finding #1, 2026-07-24). Statement-tier change made at Fable
+  tier per iron rule 1; surfaced to JYH in the same-day report.

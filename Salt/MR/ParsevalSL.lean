@@ -18,7 +18,14 @@ Source pin (freeze D5): **MR arXiv v4 only** (`docs/sources/1501.04585v4.pdf`).
 
 `(1/X) ∫_X^{2X} |(1/h₁)S₁(x) − (1/h₂)S₂(x)|² dx`
 `  ≪ 1/(log X)^{2/15} + ∫_{1+i(log X)^{1/15}}^{1+iX/h₁} |A(s)|² |ds|`
-`      + max_{T ≥ X/h₁} ∫_{1+iT}^{1+i2T} |A(s)|² |ds|.`
+`      + max_{T ≥ X/h₁} ((X/h₁)/T) ∫_{1+iT}^{1+i2T} |A(s)|² |ds|.`
+
+*Transcription correction (2026-07-24, Fable tier, iron-rule-1 procedure):* the
+original transcription dropped the `(X/h₁)/T` weight on the max-term.  Both corpus
+copies of the source carry it (`docs/sources/mr_extract.md` §2.6 and the §8 table),
+and it is load-bearing: without the weight the `max` over `T ≥ X/h₁` diverges
+(`∫_{1+iT}^{1+i2T} |A|² ~ (4T+20N)·Σ|aₘ/m|²` grows with `T`), and the weight is what
+produces Prop 1's `(T/(X/Q₁)+1)` grade.  Corrected to match MR v4 verbatim.
 
 ## Proof skeleton (MR v4 pp. 21–23) and where each ingredient lives
 

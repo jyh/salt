@@ -8,6 +8,7 @@ import Salt.MR.HalaszHead
 import Salt.MR.MomentsA2
 import Salt.MR.RamareWindows
 import Salt.MR.Decomp
+import Salt.MR.AnnHead
 
 /-!
 # PART 3 — T-2 — the §8.3 / A2 assembly opening (`Prop1Assembly`)
@@ -255,5 +256,191 @@ theorem prop_A3'_assembly {N : ℕ} {a : ℕ → ℂ} {T Iunit Imom Gunit Gmom :
     (hunit : Iunit ≤ Gunit) (hmom : Imom ≤ Gmom) :
     (∫ t in (-T)..T, ‖spoly N a t‖ ^ 2) ≤ Gunit + Gmom := by
   rw [hsplit]; linarith [hunit, hmom]
+
+end Salt.MR
+
+/-! ## MOMENT-WIRE — the annular moment row (Imom concrete, hmom discharged)
+
+The closing socket of the annular T-chain.  `AnnHead.prop_A3_T1_row_annular` holds the
+`int_U` head/tail side concrete (`annHead` + the S2′ tail ledger) but keeps the moment
+side as the abstract binder pair `(Imom, Gmom)` with `hmom : Imom ≤ Gmom`.  This section
+discharges that binder at the CONCRETE landed moment engines, completing the socket
+census (head/tail were already concrete via `T1_decay_annular_tailed`).
+
+**The B-pin (the moment side crossed onto the `Re = 1 + σ` line).**  The head `annHead`
+lives on the shifted line `Re = 1 + σ` (`σ = 1/log X`).  The landed moment lemmas
+(`moment_core_bound`/`E1_row`, `lemma13_moment`/`Ej_row`) are stated on the classical
+`Re = 1` line (`spoly N a`, coefficient `aₙ/n^{1+it}`).  The pin: the moment lemmas are
+*line-agnostic through the coefficient* — instantiating the coefficient at the rescaled
+`aₙ·n^{-σ}` reaches `Re = 1 + σ` (`Σ aₙ·n^{-σ}/n^{1+it} = Σ aₙ/n^{1+σ+it}`), and the
+masses only shrink (`‖aₙ·n^{-σ}‖ = ‖aₙ‖·n^{-σ} ≤ ‖aₙ‖` for `σ ≥ 0`, `n ≥ 1`), so every
+`L²`-mass bound and every MULT-SHIU coefficient hypothesis (support, `‖aₙ‖ ≤ ℓ!·g(n)`
+count) is PRESERVED.  No landed moment lemma is re-proven.  This puts the moment side on
+the SAME line as the head, so the residual seam `hsplit` no longer carries a line
+mismatch (see the row's docstring).
+
+The stones (crude sum-of-blocks; NOT the sharp §8.2 `(T/X + 2^ℓ Y₁)ℓ!²` geometric-`j`
+collapse — that is the flagged C-tier follow-up):
+
+* `moment_core_bound_shifted` — the E1 MVT bound at the shifted coefficient (the B-pin
+  for the diagonal block; `moment_core_bound` at `aₙ·n^{-σ}` + the `n^{-σ} ≤ 1` shrink).
+* `shifted_support`/`shifted_count` — the rescaling preserves MULT-SHIU (feeds `Ej_row`
+  at the shifted coefficient with the SAME `(2T+20N)ℓ!²(C/X)` grade, the grade being
+  coefficient-mass-independent).
+* `prop_A3_T1_row_moment` — the row: `prop_A3_T1_row_annular` with `Imom` concrete (the
+  E1 shifted integral + the crude `Σ_j` of shifted `Ej` block integrals) and `hmom`
+  DISCHARGED.  `hsplit` stays the abstract §8 seam. -/
+
+noncomputable section
+
+namespace Salt.MR
+
+open scoped BigOperators
+open MeasureTheory Complex
+
+/-- **The rescale factor is `≤ 1`.**  For `σ ≥ 0` and every `n : ℕ`, `n^{-σ} ≤ 1`
+(the mass-shrink behind the B-pin): `n = 0` gives `0^{-σ} ≤ 1` (`zero_rpow_le_one`),
+`n ≥ 1` gives `n^{-σ} ≤ 1` for a nonpositive exponent. -/
+lemma rpow_natCast_neg_le_one (n : ℕ) (σ : ℝ) (hσ : 0 ≤ σ) : (n : ℝ) ^ (-σ) ≤ 1 := by
+  rcases Nat.eq_zero_or_pos n with h | h
+  · subst h; simpa using Real.zero_rpow_le_one (-σ)
+  · exact Real.rpow_le_one_of_one_le_of_nonpos
+      (by exact_mod_cast h) (neg_nonpos.mpr hσ)
+
+/-- **M1 — the E1 moment bound at the shifted line (`moment_core_bound_shifted`).**  The
+keystone `moment_core_bound` instantiated at the rescaled coefficient `aₙ·n^{-σ}` (the
+`Re = 1 + σ` line, the B-pin), with the `n^{-σ} ≤ 1` shrink folding the shifted `L²`
+mass `Σ ‖aₙ·n^{-σ}‖²/n²` back into the plain `Σ ‖aₙ‖²/n²`.  So the shifted-line E1 block
+obeys the SAME `(2T+20N)·Σ‖aₙ‖²/n²` grade the `Re = 1` block does — the masses only
+shrink under the line shift.  (`0 ≤ σ`, `0 ≤ T` are the only inputs.) -/
+theorem moment_core_bound_shifted (N : ℕ) (a : ℕ → ℂ) (T σ : ℝ)
+    (hT : 0 ≤ T) (hσ : 0 ≤ σ) :
+    (∫ t in (-T)..T, ‖spoly N (fun n => a n * (((n : ℝ) ^ (-σ) : ℝ) : ℂ)) t‖ ^ 2)
+      ≤ (2 * T + 20 * (N : ℝ)) * ∑ n ∈ Finset.Icc 1 N, ‖a n‖ ^ 2 / (n : ℝ) ^ 2 := by
+  refine (moment_core_bound N (fun n => a n * (((n : ℝ) ^ (-σ) : ℝ) : ℂ)) T).trans ?_
+  have hpre : (0 : ℝ) ≤ 2 * T + 20 * (N : ℝ) := by
+    have := Nat.cast_nonneg (α := ℝ) N; linarith
+  refine mul_le_mul_of_nonneg_left ?_ hpre
+  refine Finset.sum_le_sum (fun n hn => ?_)
+  have hn1 : 1 ≤ n := (Finset.mem_Icc.mp hn).1
+  have hnorm : ‖a n * (((n : ℝ) ^ (-σ) : ℝ) : ℂ)‖ = ‖a n‖ * (n : ℝ) ^ (-σ) := by
+    rw [norm_mul, Complex.norm_real, Real.norm_eq_abs,
+      abs_of_nonneg (Real.rpow_nonneg (by positivity) _)]
+  have hle1 : (n : ℝ) ^ (-σ) ≤ 1 := rpow_natCast_neg_le_one n σ hσ
+  have hge0 : (0 : ℝ) ≤ (n : ℝ) ^ (-σ) := Real.rpow_nonneg (by positivity) _
+  rw [hnorm]
+  have hr2 : ((n : ℝ) ^ (-σ)) ^ 2 ≤ 1 := by nlinarith [hle1, hge0]
+  have hnum : (‖a n‖ * (n : ℝ) ^ (-σ)) ^ 2 ≤ ‖a n‖ ^ 2 := by
+    rw [mul_pow]
+    calc ‖a n‖ ^ 2 * ((n : ℝ) ^ (-σ)) ^ 2 ≤ ‖a n‖ ^ 2 * 1 :=
+          mul_le_mul_of_nonneg_left hr2 (sq_nonneg _)
+      _ = ‖a n‖ ^ 2 := mul_one _
+  exact div_le_div_of_nonneg_right hnum (by positivity)
+
+/-- **The shift preserves the MULT-SHIU support** (`shifted_support`).  If `aₙ = 0` for
+`n < X`, so is the rescaled `aₙ·n^{-σ}` — the `Ej_row` support hypothesis threads through
+the B-pin unchanged. -/
+lemma shifted_support {a : ℕ → ℂ} {σ : ℝ} {X : ℕ} (h : ∀ n, n < X → a n = 0) :
+    ∀ n, n < X → a n * (((n : ℝ) ^ (-σ) : ℝ) : ℂ) = 0 :=
+  fun n hn => by rw [h n hn, zero_mul]
+
+/-- **The shift preserves the MULT-SHIU count** (`shifted_count`).  For `σ ≥ 0`,
+`‖aₙ·n^{-σ}‖ = ‖aₙ‖·n^{-σ} ≤ ‖aₙ‖ ≤ ℓ!·g(n)` — the `Ej_row` count hypothesis threads
+through the B-pin unchanged (the mass only shrinks). -/
+lemma shifted_count {a : ℕ → ℂ} {σ : ℝ} (hσ : 0 ≤ σ) {Y₁ ℓ : ℕ}
+    (h : ∀ n, ‖a n‖ ≤ (ℓ.factorial : ℝ) * (blockDiv Y₁ n : ℝ)) :
+    ∀ n, ‖a n * (((n : ℝ) ^ (-σ) : ℝ) : ℂ)‖ ≤ (ℓ.factorial : ℝ) * (blockDiv Y₁ n : ℝ) := by
+  intro n
+  rw [norm_mul, Complex.norm_real, Real.norm_eq_abs,
+    abs_of_nonneg (Real.rpow_nonneg (by positivity) _)]
+  have hle1 : (n : ℝ) ^ (-σ) ≤ 1 := rpow_natCast_neg_le_one n σ hσ
+  calc ‖a n‖ * (n : ℝ) ^ (-σ) ≤ ‖a n‖ * 1 :=
+        mul_le_mul_of_nonneg_left hle1 (norm_nonneg _)
+    _ = ‖a n‖ := mul_one _
+    _ ≤ (ℓ.factorial : ℝ) * (blockDiv Y₁ n : ℝ) := h n
+
+/-- **MOMENT-WIRE — the annular moment row (`prop_A3_T1_row_moment`).**
+`AnnHead.prop_A3_T1_row_annular` with its moment binder `(Imom, Gmom, hmom)` DISCHARGED
+at the concrete landed engines.  `Imom` is made the honest crude moment side on the
+shifted line `Re = 1 + σ` (`σ = 1/log X`, matching the head):
+
+  `Imom = (∫_{-T}^T ‖spolyₛₕ N₁ a₁‖²)  +  Σ_{j∈J} ∫_{-T}^T ‖spolyₛₕ (Nfun j) (afun j)‖²`
+
+— the E1 diagonal block plus the crude `Σ_j` of the `Eⱼ` moment blocks (all coefficients
+rescaled by `n^{-σ}`, `spolyₛₕ` denoting `spoly` at that coefficient).  `Gmom` is the
+matching crude grade
+
+  `Gmom = (2T+20N₁)·Σ‖a₁ₙ‖²/n²  +  Σ_{j∈J} (2T+20 Nⱼ)·(ℓⱼ!²·(Cej/Xe))`,
+
+and `hmom : Imom ≤ Gmom` is discharged blockwise: the E1 block by `moment_core_bound_shifted`
+(M1) and each `Eⱼ` block by `Ej_row` at the shifted coefficient (the MULT-SHIU seam
+threading through via `shifted_support`/`shifted_count`; `Cej` is `Ej_row`'s absolute
+Shiu constant, hoisted into the `∃`).  The blocks are held on the SAME `Re = 1 + σ` line
+as the head, so the row lives entirely on the shifted line.
+
+**The remaining seam `hsplit`** stays the abstract §8 eq-(24) seam — the DESIGN-TIER
+join `Itot = (head + tail) + Imom`.  With the B-pin it no longer carries a *line*
+mismatch (head and moment both on `Re = 1 + σ`); it carries only the *domain* seam
+(the true mean square's `[-T,T]` vs the head's `M_range` annulus and the moment
+sub-domains `𝒯ⱼ`) and the *object* seam (`spoly` / the `A(s)` Dirichlet polynomial vs the
+head's `LSeries (ellLin …)`).  Building that join — the `𝒰/𝒯ⱼ` setIntegral partition and
+the eq-(16) Ramaré decomposition — is out of MOMENT-WIRE's scope (design-tier), so it is
+carried as the hypothesis exactly as `prop_A3_T1_row_annular` carries it.
+
+**Socket census after this stone.**  Head: CONCRETE (`annHead`).  Tail: CONCRETE (the S2′
+ledger object).  Moment: CONCRETE (`Imom` above, `hmom` discharged).  Remaining ABSTRACT:
+`hfloor` (the R3.1 branch floor, the standing MULT-SHIU/branch analytic supply) and
+`hsplit` (the §8 seam), both carried as hypotheses.  The crude `Gmom` is not the sharp
+§8.2 geometric collapse — that sharpening (`(T/X + 2^ℓ Y₁)ℓ!²`) is the flagged C-tier
+follow-up. -/
+theorem prop_A3_T1_row_moment {ι : Type*} (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    (t₀ t : ℝ)
+    (N₁ : ℕ) (a₁ : ℕ → ℂ)
+    (J : Finset ι) (Nfun ℓfun : ι → ℕ) (afun : ι → ℕ → ℂ) (Y₁ Xe : ℕ)
+    (hY₁ : 1 ≤ Y₁) (hXe : 1 ≤ Xe)
+    (hsupp : ∀ j ∈ J, ∀ n, n < Xe → afun j n = 0)
+    (hcoeff : ∀ j ∈ J, ∀ n, ‖afun j n‖ ≤ ((ℓfun j).factorial : ℝ) * (blockDiv Y₁ n : ℝ)) :
+    ∃ C₁ Cej X₀ : ℝ, 0 ≤ C₁ ∧ 0 < Cej ∧ ∀ (X ε Utail C₂ T Itot : ℝ),
+      X₀ ≤ X → 0 ≤ T → T ≤ Real.log X → 0 ≤ ε → 0 ≤ C₂ →
+      Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2) →
+      (1 / 32) * Real.log (Real.log X)
+          ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T →
+      Itot = (annHead g t₀ X T (1 / Real.log X) + Utail)
+          + ((∫ s in (-T)..T,
+                ‖spoly N₁ (fun n => a₁ n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) s‖ ^ 2)
+            + ∑ j ∈ J, ∫ s in (-T)..T,
+                ‖spoly (Nfun j)
+                  (fun n => afun j n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) s‖ ^ 2) →
+      Itot ≤ (C₁ + C₂) * X
+            * ((Real.log X) ^ (-(1 / Real.exp 1) / 32)
+              + (Real.log X) ^ (-(1 : ℝ) / 2 + ε))
+          + ((2 * T + 20 * (N₁ : ℝ)) * ∑ n ∈ Finset.Icc 1 N₁, ‖a₁ n‖ ^ 2 / (n : ℝ) ^ 2
+            + ∑ j ∈ J, (2 * T + 20 * ((Nfun j : ℕ) : ℝ))
+                * (((ℓfun j).factorial : ℝ) ^ 2 * (Cej / (Xe : ℝ)))) := by
+  obtain ⟨C₁, X₀, hC₁, hrow⟩ := prop_A3_T1_row_annular g hg t₀ t
+  obtain ⟨Cej, hCej_pos, hEj⟩ := Ej_row
+  refine ⟨C₁, Cej, max X₀ (Real.exp 1), hC₁, hCej_pos, ?_⟩
+  intro X ε Utail C₂ T Itot hX hT hTL hε hC₂ htail hfloor hsplit
+  have hX0 : X₀ ≤ X := le_trans (le_max_left _ _) hX
+  have hXe' : Real.exp 1 ≤ X := le_trans (le_max_right _ _) hX
+  have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe'
+  have hL1 : (1 : ℝ) ≤ Real.log X := (Real.le_log_iff_exp_le hXpos).mpr hXe'
+  have hσ0 : (0 : ℝ) ≤ 1 / Real.log X := by positivity
+  -- discharge `hmom : Imom_concrete ≤ Gmom_concrete` blockwise (E1 via M1, each Eⱼ via Ej_row)
+  have hmom :
+      ((∫ s in (-T)..T,
+            ‖spoly N₁ (fun n => a₁ n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) s‖ ^ 2)
+        + ∑ j ∈ J, ∫ s in (-T)..T,
+            ‖spoly (Nfun j)
+              (fun n => afun j n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) s‖ ^ 2)
+      ≤ ((2 * T + 20 * (N₁ : ℝ)) * ∑ n ∈ Finset.Icc 1 N₁, ‖a₁ n‖ ^ 2 / (n : ℝ) ^ 2
+        + ∑ j ∈ J, (2 * T + 20 * ((Nfun j : ℕ) : ℝ))
+            * (((ℓfun j).factorial : ℝ) ^ 2 * (Cej / (Xe : ℝ)))) := by
+    refine add_le_add (moment_core_bound_shifted N₁ a₁ T (1 / Real.log X) hT hσ0) ?_
+    refine Finset.sum_le_sum (fun j hj => ?_)
+    exact hEj Y₁ Xe (Nfun j) (ℓfun j)
+      (fun n => afun j n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) T
+      hY₁ hXe hT (shifted_support (hsupp j hj)) (shifted_count hσ0 (hcoeff j hj))
+  exact hrow X ε Utail C₂ T Itot _ _ hX0 hT hTL hε hC₂ htail hfloor hsplit hmom
 
 end Salt.MR

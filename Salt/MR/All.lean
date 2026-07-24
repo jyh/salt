@@ -376,3 +376,5 @@ open Salt.Tactic in
   Salt.MR.T1_decay_annular
   Salt.MR.prop_A3_T1_row_annular
   Salt.MR.T1_decay_annular_tailed
+  Salt.MR.moment_core_bound_shifted
+  Salt.MR.prop_A3_T1_row_moment
