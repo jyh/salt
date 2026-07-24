@@ -61,6 +61,7 @@ import Salt.MR.AnnHead
 import Salt.MR.Lemma14Bridge
 import Salt.MR.Lemma14Taylor
 import Salt.MR.Lemma14Vtail
+import Salt.MR.Lemma14
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -390,3 +391,6 @@ open Salt.Tactic in
   Salt.MR.xTentT_eq
   Salt.MR.tailT_mean_sq_bound
   Salt.MR.vtail_mean_sq_bound
+  Salt.MR.lemma14_contour
+  Salt.MR.lemma14_contour_grouped
+  Salt.MR.lemma14_shortInterval_of_perron
