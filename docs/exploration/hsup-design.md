@@ -82,3 +82,54 @@ GO per route.
 
 *The freeze follows the scoper's report; refuters follow the freeze; the
 wave follows the verdicts. No executor consumes this block before then.*
+
+## ⟦THE SCOPE VERDICT + AMENDMENT V1 (maestro ruling, 2026-07-24 ~18:20)⟧
+
+HSUP-SCOPE (Opus 5, 278k, the week's deepest recon) — the verdict reshapes
+the block:
+
+1. **ROUTE H IS THE ONLY ROUTE.** Route P is not separate — it IS H-6, and
+   ~60% of it is landed (prop21_unconditional_clean's E-error is byte-for-byte
+   GHS Prop 2.1's remainder; the B-ladder is y-FREE — the feared smooth-mass
+   penalty does not exist in any landed statement; MRT's own y-pin
+   exp((logX)^{1/2}) sits inside our gates, and the frozen interface's
+   (logX)^{−1/2} second term IS the E-error at that pin). Route D is REFUTED
+   by an explicit datum (f = n^{iT₀}: no decay exists at M ≈ 0 without the
+   M-shape) — the e^{−M} stays on this row. The naive Perron transfer is dead
+   at v ≈ 0 (the 1/σ prefactor × the kernel's log-mass — the contamination
+   worry was second-order; the page died earlier).
+2. **THE DECISIVE DEFECT: ball_leg_of_sup (landed yesterday) is fatally
+   crude** — 2r·(2S)² DIVERGES at every live M (numerics: at M ↑
+   (1/16)loglog X the exit is (logX)^{+0.0395} → ∞). MRT never take a sup:
+   A.7's 1/(1+|t−t₁|) factor stays INSIDE the integral, giving 16S² with NO
+   r-factor. Repair = the t-WEIGHTED binder hSup′ (S·m/(1+|t−t₁|)) + the
+   weighted ball leg [B, ~150]. spoly_abel_sup needs no change (per-t).
+   Flags entry banked; the row's hSup consumer repairs additively.
+3. **THE CENTRE IS WRONG (defect #3, counterexample f ≡ 1)**: the ball
+   centre must be the GLOBAL minimizer of M(f;X) over |t| ≤ X — NOT the
+   M_range near-minimizer (M_range ≥ M makes the claim stronger AND false;
+   for f ≡ 1 the true ball sits below T₀, Ann∩ball = ∅, the ball leg is
+   ZERO, and the far leg's Mrange floor does the work — exactly MRT's
+   architecture: M(f;X) on 𝒯₀, M_range on 𝒯₁).
+4. **THE GRADE HALVES (defect #1)**: (A.13)/(A.14)'s square root halves the
+   pointwise exponent — with our B-ladder c = 1/e the honest exit is
+   e^{−M/(2e)}, and the final grade becomes (logX)^{−1/(64e)}. Existential-c₀
+   posture absorbs it (and the W-conversion needs only c₀ ≥ 1/500 — margin
+   3–30×); the frozen halasz_ball_decay stays as heritage; NEW stones carry
+   the honest grade. **S-3's re-freeze goes to JYH at the morning council.**
+5. **THE BALL'S LIVE BAND IS NARROW**: the A.4 dichotomy (landed,
+   dist_split_A4_frozen) kills the ball at M ≥ (1/16)loglog X; the MVT
+   covers M = O(1). The ball leg works only on 1 ≤ M < (1/16)loglog X.
+6. **R2.4's "GS[10] Lemma 7.1 dissolved" verdict is RETRACTED** (defect #4):
+   A.7's renormalisation factor is exactly what the weighted repair consumes;
+   GS Lemma 7.1 re-enters as **H-4 [D, 800–1200] — the campaign's one
+   remaining D-node** (the D-count honestly: 1 → 0 (CHI-CHECK) → 1 (this)).
+   Fail-fast discipline when dispatched; an unhurried design block first.
+7. **NOTHING IS BLOCKED BY hSUP** (grep-verified: no consumer). The campaign
+   advances on the other fronts while H-4 gets its block.
+
+THE REPAIR WAVE (dispatched now, additive): H-0 (annulus-restrict the
+binder — window-legality free win) + H-1 (the weighted ball leg) + the
+re-centred row variant (S-1/S-2 applied) + H-2 (the σ-cutoff 1/e-clone,
+mechanical). H-3 (the ⅞-bound) + H-5/H-6/H-7 follow the morning council's
+ratifications (S-3, S-4) and the H-4 design block.

@@ -11743,3 +11743,19 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
   `R5-FINISH` hits in Salt/SW/{EulerLink,Crush}.lean are the T-BAL Selberg flag —
   a DIFFERENT obstruction from the (closed) λ-Euler bridge; the shared name caused
   the cross-reference drift. HalaszIdentity:781's BLOCKED is by-design (H-5), not stale.
+
+## 2026-07-24 — ball_leg_of_sup divergence + the ball-centre defect (caught pre-consumption)
+
+- **Where**: Salt/MR/SeamSplit.lean:362 (ball_leg_of_sup, landed 7/24) + the
+  ∃t₁ clause of prop_A3_T1_row_split (:624); the R2.4 gate-check verdict
+  (HalaszCore:356–378).
+- **Findings** (HSUP-SCOPE 7/24): (1) the measure×sup² exit 2r(2S)² diverges
+  at every M where the ball leg is live — MRT's A.7 keeps 1/(1+|t−t₁|)
+  inside the integral (16S², no r); (2) the ball centre must be the GLOBAL
+  M(f;X)-minimizer, not the M_range near-minimizer (counterexample f ≡ 1:
+  M_range ≈ loglog X but the true bound is (logX)^{−1/15}-grade only);
+  (3) the R2.4 verdict "GS[10] Lemma 7.1 not needed" is RETRACTED — the A.7
+  renormalisation is load-bearing; GS 7.1 = H-4 [D], the campaign's one
+  D-node. No consumer ever fired the defective stones (grep-verified) — the
+  audit caught them first, again. Repairs additive (the weighted binder +
+  the re-centred variant); the landed stones stay as heritage.
