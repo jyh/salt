@@ -117,3 +117,40 @@ h > h₂ branch; any Weyl/Vinogradov machinery beyond S7's contrapositive.
   δ-dependent and degrades as δ→0 — load-bearing for any δ-ledger).
 - mr_map_sources.md's [M] twist-mechanism guess: superseded (see above);
   correct at the next Route-M touch.
+
+## ⟦CORRECTIONS BLOCK — the night scouts, 2026-07-24 ~21:00⟧
+
+Per SEAM-SCOPE (seam-scope-0724.md) + CHI-CHECK (chi-check-0724.md), both
+maestro-audited (one scoper error corrected: L11 IS landed —
+halasz_primes_pow, HalaszPrimesCore:3641):
+
+1. **Stone 1 re-priced and re-specified**: the current hsplit binder is
+   UNSATISFIABLE at the intended semantics (annHead ≍ T vs Itot ≍ T/X+1 —
+   the object finding); the honest seam = SHAPE 0 (≤-weakening) + SHAPE A
+   (the MRT ball/far split on the ANNULUS; the partial-summation bridge
+   replaces the line re-pin; the head leg becomes T-FREE) + SHAPE B (the
+   literal partition, B-tier) as the far-leg interior. The re-pin of the
+   head object is JYH-TIER (the original annHead pin was JYH-ratified).
+2. **Finding #2's repair superseded**: not the socket's T-shape — the OBJECT.
+   (T-RESHAPE's polyT chain stands as landed shelf stones; the _of_floor
+   variants stay do-not-wire.)
+3. **NEW ladder item**: the §8.3 interior (post-L11-correction): L3 for the
+   dyadic Ramaré co-factor + L9's hZ vdC socket + L12's herr ≈ 1–2k, C.
+4. **Stone 9 RESCOPED — no D-risk remains anywhere**: Route A (the k-th-power
+   pretentious-triangle elimination; H1 via the landed dist_one_floor_pow at
+   b = kt through the landed pretDist_triangle; H2 via the landed
+   zero_free_region_all' + Siegel branch) = **C, 1200–1800 ln, no χ-power
+   region needed**. The θ-numerals corrected: the generic-corner threshold is
+   θ < 0.9346 (0.976 false as stated); the door's ACTUAL threshold is any
+   fixed θ < 1 via S10a's headroom (cite S10a, not 1/125). S10b's
+   "triple-exp arm" is NOT dead — it is Route A's price (soften mrt_extract §0).
+5. **The shared critical-path debt named**: the χ-Euler bridge inherits the
+   BLOCKED q=1 λ-Euler bridge (the flags "single residual") — on the ladder
+   explicitly, shared with S5.
+6. **Numerals**: "5.175·log q" has no corpus witness (actual: ≈3.7–4.7·log q
+   + an ineffective additive constant — design-grade flag); W at the door =
+   (loglog x)⁵ not (logloglog x)⁵ (overservice ONE iterated exponential);
+   H₀door = exp(9·10³⁸) is implied-constant-free — a shape, not a pin; the
+   Gauss-sum sentence at :92-94 replaced by the uniformity-cancellation
+   mechanism (φ(q₀) cancels; the cost is Σ_b = q; the naive failure is the
+   wrong per-χ input).

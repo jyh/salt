@@ -11700,3 +11700,26 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
 - **Action**: both occurrences corrected to the PDF-verbatim form. Same procedure as the
   same-day (X/h₁)/T max-term correction (ParsevalSL): statement-tier fix at Fable tier
   per iron rule 1, surfaced to JYH in the day's report.
+
+## 2026-07-24 — the hsplit/annHead object mismatch (statement-layer, caught pre-consumption)
+
+- **Where**: the hsplit binders of `prop_A3_T1_row_annular` (AnnHead:339),
+  `prop_A3_T1_row_moment` (Prop1Assembly:404), and `prop_A3'_assembly`'s Iunit
+  socket semantics; the annHead S4 pin (JYH-ratified 2026-07-23).
+- **Finding** (SEAM-SCOPE 2026-07-24): annHead — the FULL seam L-series at
+  1+σ — has true L²-size ≍ T (ellLin's support is all squarefree n with
+  a₁ = 1), while the intended Itot (the dyadic-polynomial mean square) is
+  ≍ T/X+1. The equality binder is therefore UNSATISFIABLE at the intended
+  instantiation: the rows are kernel-valid but vacuous for their intended
+  use. No wave ever consumed the binder (the socket census had just
+  completed); the audit caught it first.
+- **Root cause**: the B-pin crossed the line on the mechanical side correctly,
+  but pinned the head to the WRONG OBJECT family (the ζ-like full series,
+  Θ(1/σ)-sized, vs MR's dyadic polynomial) — the (logX)² and the T ≤ log X
+  gate were both symptoms of this, not technique costs.
+- **Repair path (the morning freeze, JYH-tier ratification required)**: the
+  MRT ball/far split on the annulus with the partial-summation bridge
+  (halasz_ball_decay's X-scaled U → the pointwise dyadic bound, Abel
+  summation, no log loss) — the head leg becomes T-free; SHAPE 0/A/B per
+  seam-scope-0724.md. The landed rows stay (heritage); dischargeable
+  variants land additively.
