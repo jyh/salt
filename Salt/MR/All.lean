@@ -394,3 +394,9 @@ open Salt.Tactic in
   Salt.MR.lemma14_contour
   Salt.MR.lemma14_contour_grouped
   Salt.MR.lemma14_shortInterval_of_perron
+  Salt.MR.annHead_le_socket_T
+  Salt.MR.annHead_le_socket_polyT
+  Salt.MR.T1_decay_annular_polyT
+  Salt.MR.T1_decay_annular_tailed_polyT
+  Salt.MR.prop_A3_T1_row_annular_polyT
+  Salt.MR.prop_A3_T1_row_moment_polyT

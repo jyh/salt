@@ -444,3 +444,164 @@ theorem prop_A3_T1_row_moment {ι : Type*} (g : ℕ → ℂ) (hg : ∀ p, p.Prim
   exact hrow X ε Utail C₂ T Itot _ _ hX0 hT hTL hε hC₂ htail hfloor hsplit hmom
 
 end Salt.MR
+
+/-! ## T-RESHAPE — the general-`T` moment row
+
+`prop_A3_T1_row_moment` inherits its `T ≤ Real.log X` gate ENTIRELY from the head/tail leg
+(`AnnHead.prop_A3_T1_row_annular`): the moment side never used it.  Verified leg by leg —
+`moment_core_bound_shifted` binds only `0 ≤ T` (and `0 ≤ σ`), and `Ej_row`'s `T`-hypothesis
+is likewise `0 ≤ T`; the `(2T + 20N)` masses are the honest `T`-linear Montgomery–Vaughan
+mean-value masses, valid for every `T ≥ 0`.  So the row below is the landed one with the
+head/tail leg swapped for `AnnHead.prop_A3_T1_row_annular_T_of_floor` and NOTHING else changed:
+the `Imom`/`Gmom` sides are byte-identical, `hmom` is discharged by the same two engines. -/
+
+namespace Salt.MR
+
+open scoped BigOperators
+open MeasureTheory Complex
+
+/-- **R4 — the general-`T` annular moment row (`prop_A3_T1_row_moment_T_of_floor`).**
+`prop_A3_T1_row_moment` with the `T ≤ Real.log X` gate REMOVED — the terminal row of the
+annular T-chain at the honest `(T/X + 1)`-weighted head grade, valid for EVERY `T ≥ 0` (in
+particular at the Lemma-14 instantiation `T = X/h₁`, where the weight is `1/h₁ + 1 ≤ 2`).
+
+The head/tail leg is `prop_A3_T1_row_annular_T_of_floor` (⟸ `annHead_le_socket_T_of_floor`), so the
+floor hypothesis is the strengthened `2e·loglog X ≤ M_range (…)` — the exact price of the
+bare-`X` socket shape at `T ≍ X`, documented at `annHead_le_socket_T_of_floor`.  The moment
+side is unchanged and unconditional in `T`: `Imom` is the same concrete `E1 + Σ_j Eⱼ` crude
+moment on the shifted line `Re = 1 + 1/logX`, `Gmom` the same `(2T + 20N)` masses, `hmom`
+discharged blockwise by `moment_core_bound_shifted` (M1) and `Ej_row` (the MULT-SHIU seam
+threading through `shifted_support`/`shifted_count`).
+
+**Socket census after this stone.**  Head: CONCRETE, `T`-general.  Tail: CONCRETE,
+`T`-free.  Moment: CONCRETE, `T`-general.  Remaining ABSTRACT: `hfloor` (now the
+strengthened branch floor) and `hsplit` (the §8 eq-(24) seam) — both carried as hypotheses
+exactly as the landed row carries them.  The `T ≤ logX` gate is gone from the whole
+head/tail/moment column. -/
+theorem prop_A3_T1_row_moment_T_of_floor {ι : Type*} (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    (t₀ t : ℝ)
+    (N₁ : ℕ) (a₁ : ℕ → ℂ)
+    (J : Finset ι) (Nfun ℓfun : ι → ℕ) (afun : ι → ℕ → ℂ) (Y₁ Xe : ℕ)
+    (hY₁ : 1 ≤ Y₁) (hXe : 1 ≤ Xe)
+    (hsupp : ∀ j ∈ J, ∀ n, n < Xe → afun j n = 0)
+    (hcoeff : ∀ j ∈ J, ∀ n, ‖afun j n‖ ≤ ((ℓfun j).factorial : ℝ) * (blockDiv Y₁ n : ℝ)) :
+    ∃ C₁ Cej X₀ : ℝ, 0 ≤ C₁ ∧ 0 < Cej ∧ ∀ (X ε Utail C₂ T Itot : ℝ),
+      X₀ ≤ X → 0 ≤ T → 0 ≤ ε → 0 ≤ C₂ →
+      Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2) →
+      2 * Real.exp 1 * Real.log (Real.log X)
+          ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T →
+      Itot = (annHead g t₀ X T (1 / Real.log X) + Utail)
+          + ((∫ s in (-T)..T,
+                ‖spoly N₁ (fun n => a₁ n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) s‖ ^ 2)
+            + ∑ j ∈ J, ∫ s in (-T)..T,
+                ‖spoly (Nfun j)
+                  (fun n => afun j n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) s‖ ^ 2) →
+      Itot ≤ (C₁ * (T / X + 1) + C₂) * X
+            * ((Real.log X) ^ (-(1 / Real.exp 1) / 32)
+              + (Real.log X) ^ (-(1 : ℝ) / 2 + ε))
+          + ((2 * T + 20 * (N₁ : ℝ)) * ∑ n ∈ Finset.Icc 1 N₁, ‖a₁ n‖ ^ 2 / (n : ℝ) ^ 2
+            + ∑ j ∈ J, (2 * T + 20 * ((Nfun j : ℕ) : ℝ))
+                * (((ℓfun j).factorial : ℝ) ^ 2 * (Cej / (Xe : ℝ)))) := by
+  obtain ⟨C₁, X₀, hC₁, hrow⟩ := prop_A3_T1_row_annular_T_of_floor g hg t₀ t
+  obtain ⟨Cej, hCej_pos, hEj⟩ := Ej_row
+  refine ⟨C₁, Cej, max X₀ (Real.exp 1), hC₁, hCej_pos, ?_⟩
+  intro X ε Utail C₂ T Itot hX hT hε hC₂ htail hfloor hsplit
+  have hX0 : X₀ ≤ X := le_trans (le_max_left _ _) hX
+  have hXe' : Real.exp 1 ≤ X := le_trans (le_max_right _ _) hX
+  have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe'
+  have hL1 : (1 : ℝ) ≤ Real.log X := (Real.le_log_iff_exp_le hXpos).mpr hXe'
+  have hσ0 : (0 : ℝ) ≤ 1 / Real.log X := by positivity
+  -- the moment leg is `T`-general: both engines bind only `0 ≤ T`
+  have hmom :
+      ((∫ s in (-T)..T,
+            ‖spoly N₁ (fun n => a₁ n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) s‖ ^ 2)
+        + ∑ j ∈ J, ∫ s in (-T)..T,
+            ‖spoly (Nfun j)
+              (fun n => afun j n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) s‖ ^ 2)
+      ≤ ((2 * T + 20 * (N₁ : ℝ)) * ∑ n ∈ Finset.Icc 1 N₁, ‖a₁ n‖ ^ 2 / (n : ℝ) ^ 2
+        + ∑ j ∈ J, (2 * T + 20 * ((Nfun j : ℕ) : ℝ))
+            * (((ℓfun j).factorial : ℝ) ^ 2 * (Cej / (Xe : ℝ)))) := by
+    refine add_le_add (moment_core_bound_shifted N₁ a₁ T (1 / Real.log X) hT hσ0) ?_
+    refine Finset.sum_le_sum (fun j hj => ?_)
+    exact hEj Y₁ Xe (Nfun j) (ℓfun j)
+      (fun n => afun j n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) T
+      hY₁ hXe hT (shifted_support (hsupp j hj)) (shifted_count hσ0 (hcoeff j hj))
+  exact hrow X ε Utail C₂ T Itot _ _ hX0 hT hε hC₂ htail hfloor hsplit hmom
+
+end Salt.MR
+
+/-! ## T-RESHAPE-POLY — the moment row at the widened gate
+
+The same swap as `AnnHead.prop_A3_T1_row_annular_polyT`, one level up: the moment leg is
+unchanged (it was never gated), the head/tail leg now runs to `T ≤ (logX)^A` at the landed
+bare-`X` socket, the standing `(1/32)·loglog X` floor and the landed grade.  `A = 1` is
+`prop_A3_T1_row_moment` verbatim.  This is the general-`T` row to wire; the `…_T_of_floor`
+twin above carries a floor that exceeds `M_range`'s Mertens ceiling (see the ceiling note in
+`AnnHead`) and is a certificate only. -/
+
+namespace Salt.MR
+
+open scoped BigOperators
+open MeasureTheory Complex
+
+/-- **R9 — the polylog-`T` annular moment row (`prop_A3_T1_row_moment_polyT`).**
+`prop_A3_T1_row_moment` with the gate `T ≤ Real.log X` widened to `T ≤ (Real.log X)^A` for an
+arbitrary fixed `A : ℕ`, `A ≥ 1` — no other change, in either hypotheses or grade.  The
+moment side is `T`-general already (`moment_core_bound_shifted` and `Ej_row` bind only
+`0 ≤ T`; the `(2T + 20N)` masses are the honest `T`-linear mean-value masses), and the
+head/tail leg is `AnnHead.prop_A3_T1_row_annular_polyT`.  `A = 1` recovers the landed row.
+
+**Socket census after this stone.**  Head: CONCRETE, gated at `T ≤ (logX)^A`.  Tail:
+CONCRETE, `T`-free.  Moment: CONCRETE, `T`-general (no gate).  Remaining ABSTRACT: `hfloor`
+(the standing R3.1 branch floor) and `hsplit` (the §8 eq-(24) seam).  The residual gate is
+the head's alone, and the ceiling note in `AnnHead` prices exactly what removing it costs. -/
+theorem prop_A3_T1_row_moment_polyT {ι : Type*} (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
+    (t₀ t : ℝ) (A : ℕ) (hA : 1 ≤ A)
+    (N₁ : ℕ) (a₁ : ℕ → ℂ)
+    (J : Finset ι) (Nfun ℓfun : ι → ℕ) (afun : ι → ℕ → ℂ) (Y₁ Xe : ℕ)
+    (hY₁ : 1 ≤ Y₁) (hXe : 1 ≤ Xe)
+    (hsupp : ∀ j ∈ J, ∀ n, n < Xe → afun j n = 0)
+    (hcoeff : ∀ j ∈ J, ∀ n, ‖afun j n‖ ≤ ((ℓfun j).factorial : ℝ) * (blockDiv Y₁ n : ℝ)) :
+    ∃ C₁ Cej X₀ : ℝ, 0 ≤ C₁ ∧ 0 < Cej ∧ ∀ (X ε Utail C₂ T Itot : ℝ),
+      X₀ ≤ X → 0 ≤ T → T ≤ (Real.log X) ^ A → 0 ≤ ε → 0 ≤ C₂ →
+      Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2) →
+      (1 / 32) * Real.log (Real.log X)
+          ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T →
+      Itot = (annHead g t₀ X T (1 / Real.log X) + Utail)
+          + ((∫ s in (-T)..T,
+                ‖spoly N₁ (fun n => a₁ n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) s‖ ^ 2)
+            + ∑ j ∈ J, ∫ s in (-T)..T,
+                ‖spoly (Nfun j)
+                  (fun n => afun j n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) s‖ ^ 2) →
+      Itot ≤ (C₁ + C₂) * X
+            * ((Real.log X) ^ (-(1 / Real.exp 1) / 32)
+              + (Real.log X) ^ (-(1 : ℝ) / 2 + ε))
+          + ((2 * T + 20 * (N₁ : ℝ)) * ∑ n ∈ Finset.Icc 1 N₁, ‖a₁ n‖ ^ 2 / (n : ℝ) ^ 2
+            + ∑ j ∈ J, (2 * T + 20 * ((Nfun j : ℕ) : ℝ))
+                * (((ℓfun j).factorial : ℝ) ^ 2 * (Cej / (Xe : ℝ)))) := by
+  obtain ⟨C₁, X₀, hC₁, hrow⟩ := prop_A3_T1_row_annular_polyT g hg t₀ t A hA
+  obtain ⟨Cej, hCej_pos, hEj⟩ := Ej_row
+  refine ⟨C₁, Cej, max X₀ (Real.exp 1), hC₁, hCej_pos, ?_⟩
+  intro X ε Utail C₂ T Itot hX hT hTL hε hC₂ htail hfloor hsplit
+  have hX0 : X₀ ≤ X := le_trans (le_max_left _ _) hX
+  have hXe' : Real.exp 1 ≤ X := le_trans (le_max_right _ _) hX
+  have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe'
+  have hL1 : (1 : ℝ) ≤ Real.log X := (Real.le_log_iff_exp_le hXpos).mpr hXe'
+  have hσ0 : (0 : ℝ) ≤ 1 / Real.log X := by positivity
+  have hmom :
+      ((∫ s in (-T)..T,
+            ‖spoly N₁ (fun n => a₁ n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) s‖ ^ 2)
+        + ∑ j ∈ J, ∫ s in (-T)..T,
+            ‖spoly (Nfun j)
+              (fun n => afun j n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) s‖ ^ 2)
+      ≤ ((2 * T + 20 * (N₁ : ℝ)) * ∑ n ∈ Finset.Icc 1 N₁, ‖a₁ n‖ ^ 2 / (n : ℝ) ^ 2
+        + ∑ j ∈ J, (2 * T + 20 * ((Nfun j : ℕ) : ℝ))
+            * (((ℓfun j).factorial : ℝ) ^ 2 * (Cej / (Xe : ℝ)))) := by
+    refine add_le_add (moment_core_bound_shifted N₁ a₁ T (1 / Real.log X) hT hσ0) ?_
+    refine Finset.sum_le_sum (fun j hj => ?_)
+    exact hEj Y₁ Xe (Nfun j) (ℓfun j)
+      (fun n => afun j n * (((n : ℝ) ^ (-(1 / Real.log X)) : ℝ) : ℂ)) T
+      hY₁ hXe hT (shifted_support (hsupp j hj)) (shifted_count hσ0 (hcoeff j hj))
+  exact hrow X ε Utail C₂ T Itot _ _ hX0 hT hTL hε hC₂ htail hfloor hsplit hmom
+
+end Salt.MR
