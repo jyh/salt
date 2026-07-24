@@ -106,3 +106,13 @@ route; Route A (1200–1800) makes it among the CHEAPEST stones. The one item
 the road missed: the χ-Euler bridge inherits the ALREADY-BLOCKED q=1 λ-Euler
 bridge (the flags "single residual") — shared critical-path debt with S5;
 put it on the ladder explicitly.
+
+## ⟦CORRECTION (maestro, same night — EULER-SCOPE)⟧
+
+The "shared critical-path debt" claim (:58, :106) is STALE: the q=1 λ-Euler
+bridge CLOSED 2026-07-19 (`euler_osc_bridge_unconditional` + `lambda_nonpret`
+unconditional; the flags "BLOCKED" entry was superseded in-file). Route A's H2
+χ-Euler bridge re-prices to **~165–230 ln, all [B]** — mathlib holds the χ
+log-Euler form (`DirichletCharacter.LSeries_eulerProduct_exp_log`), the peel
+and tail stones are χ-free or trivial clones, and `euler_osc_truncation` is
+already general-g (plug g = χ·costwist). Route A total drops accordingly.

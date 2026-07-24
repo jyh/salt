@@ -11723,3 +11723,16 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
   summation, no log loss) — the head leg becomes T-free; SHAPE 0/A/B per
   seam-scope-0724.md. The landed rows stay (heritage); dischargeable
   variants land additively.
+
+## 2026-07-24 — SUPERSESSION POINTER: the S5 λ-Euler-bridge "BLOCKED" entry is STALE
+
+- The entry at ~:11429 ("S5 BRIDGE — the single residual, truncation BLOCKED",
+  2026-07-18/MR-W3) was SUPERSEDED 2026-07-19 by the entries at ~:11566
+  (CLOSED CONDITIONAL) and ~:11595 (FULLY CLOSED): `euler_osc_bridge_unconditional`
+  (PrimeTail.lean:410) + `lambda_nonpret` UNCONDITIONAL (NonPretClose.lean;
+  commit 60537ef). Both "missing" estimates landed (`mertens_first_upper`,
+  `sigma_shift`, `prime_tail_shift`); the oscillating main term is Re/cos-native
+  (`euler_osc_truncation` at arbitrary 1-bounded g). Verified by EULER-SCOPE
+  2026-07-24 (build-audited, 3-axiom). Greps for "BLOCKED" should read past
+  ~:11429 to this pointer. Residual doc hygiene (Lean docstrings in All/NonPret/
+  Dist) queued for the next quiet write slot.

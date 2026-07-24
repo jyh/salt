@@ -154,3 +154,9 @@ halasz_primes_pow, HalaszPrimesCore:3641):
    Gauss-sum sentence at :92-94 replaced by the uniformity-cancellation
    mechanism (φ(q₀) cancels; the cost is Σ_b = q; the naive failure is the
    wrong per-χ input).
+
+7. **(EULER-SCOPE, same night): the "shared blocked debt" item (#5 above) is
+   VOID** — the q=1 λ-Euler bridge closed 2026-07-19 (flags supersession
+   pointer banked); the χ-side re-prices to ~165–230 ln all-B (mathlib's
+   χ log-Euler form + the landed general-g truncation). **NOTHING on the
+   ladder is blocked.**
