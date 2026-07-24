@@ -24,7 +24,7 @@ node the gate rides is **Theorem 3**, and its complex-non-pretentious extension 
 
 - **Theorem 1** (p.1) — NOT the gate input, but the parent: `f:ℕ→[−1,1]` mult. ∃ absolute `C, C′>1` s.t. for
   `2 ≤ h ≤ X`, `δ>0`: `|(1/h)Σ_{x≤n≤x+h}f(n) − (1/X)Σ_{X≤n≤2X}f(n)| ≤ δ + C′(loglog h/log h)` for all but at most
-  `CX((log h)^{1/3}/(δ²h^{1/25}) + 1/(δ²(log X)^{1/50}))` integers `x∈[X,2X]`. **`C′ = 20000`** (p.2).
+  `CX((log h)^{1/3}/(δ²h^{δ/25}) + 1/(δ²(log X)^{1/50}))` integers `x∈[X,2X]`. **`C′ = 20000`** (p.2).
 - **Theorem 3** (p.7) — **THE GATE-CONSUMED CORE** (real-valued; MRT A.1 wraps it):
   > `f:ℕ→[−1,1]` mult, `S = S_X` (Def §2) with `η∈(0,1/6)`, `[P₁,Q₁]⊂[1,h]`. For `X > X(η)`:
   > `(1/X)∫_X^{2X} |(1/h)Σ_{x≤n≤x+h, n∈S} f(n) − (1/X)Σ_{X≤n≤2X, n∈S} f(n)|² dx ≪ (log h)^{1/3}/P₁^{1/6−η} + 1/(log X)^{1/50}`.
@@ -233,7 +233,7 @@ the Benli-flavored trap (an identity that is "obviously 1" but isn't). Port from
 
 | quantity | value | ref |
 |---|---|---|
-| Thm 1 exceptional set | `CX((log h)^{1/3}/(δ²h^{1/25}) + 1/(δ²(log X)^{1/50}))`, `C′=20000` | p.1–2 |
+| Thm 1 exceptional set | `CX((log h)^{1/3}/(δ²h^{δ/25}) + 1/(δ²(log X)^{1/50}))`, `C′=20000` | p.1–2 |
 | Thm 3 RHS | `(log h)^{1/3}/P₁^{1/6−η} + 1/(log X)^{1/50}`, `η∈(0,1/6)`, `[P₁,Q₁]⊂[1,h]` | p.7 |
 | Prop 1 RHS | `(T/(X/Q₁)+1)((log Q₁)^{1/3}/P₁^{1/6−η} + 1/(log X)^{1/50})`; `∫` from `(log X)^{1/15}` | p.23 |
 | α_j (case exponent) | `1/4 − η(1 + 1/(2j))` | p.24 (20) |

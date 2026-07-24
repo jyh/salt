@@ -11687,3 +11687,16 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
 - **Action**: docstring corrected to MR v4 verbatim, provenance note in place
   (PARSEVAL-SCOPE finding #1, 2026-07-24). Statement-tier change made at Fable
   tier per iron rule 1; surfaced to JYH in the same-day report.
+
+## 2026-07-24 — MR-extract Theorem-1 exceptional-set transcription defect (CORRECTED, Fable tier)
+
+- **Where**: `docs/sources/mr_extract.md` lines 27 and 236 (the verbatim source ledger).
+- **Defect**: the exceptional-set bound was transcribed `δ²h^{1/25}`; MR v4 (PDF pp.1–2,
+  read directly this session) says `δ²h^{δ/25}` — the h-saving is a δ-DEPENDENT power.
+- **Why load-bearing**: the saving degrades to nothing as δ→0; any downstream δ-ledger
+  built on the fixed 1/25 exponent would overclaim the exceptional-set decay. Caught by
+  DOOR-SCOPE (2026-07-24) cross-checking extract vs PDF; maestro verified against the
+  PDF before correcting. No Lean statement consumed the wrong form (S9/§9 glue unbuilt).
+- **Action**: both occurrences corrected to the PDF-verbatim form. Same procedure as the
+  same-day (X/h₁)/T max-term correction (ParsevalSL): statement-tier fix at Fable tier
+  per iron rule 1, surfaced to JYH in the day's report.
