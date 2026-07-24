@@ -105,9 +105,10 @@ per stone after the MR-W1 executor wave (residual detail: the MR-W1 section of
   `loglog_height_le`.  Honest o(1) shape RECORDED: the freeze's `−C(Q)` carries a
   `−4·logloglog(|t|+16)` correction (the load-bearing `(loglog)⁴` region factor).
   Bridge down-payment: `log_norm_zeta_eq_re_tsum`
-  (`log‖ζ(s)‖ = ∑'_p Re(−log(1−p^{−s}))`, `Re s > 1`).  RESIDUAL (single, flagged
-  MR-W3): the `σ = 1` oscillating prime truncation `∑_{p≤x} cos(t·log p)/p` vs the
-  full log-Euler sum (EulerLink R5-FINISH open gap) — closes `lambda_nonpret`.
+  (`log‖ζ(s)‖ = ∑'_p Re(−log(1−p^{−s}))`, `Re s > 1`).  The former single residual —
+  the `σ = 1` oscillating prime truncation `∑_{p≤x} cos(t·log p)/p` vs the full
+  log-Euler sum — CLOSED 2026-07-19 via `euler_osc_bridge_unconditional`
+  (`PrimeTail.lean`), making `lambda_nonpret` (`NonPretClose.lean`) UNCONDITIONAL.
 -/
 
 open Salt.Tactic in

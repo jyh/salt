@@ -25,6 +25,14 @@ RANGE is `Q = W` (grows). The discharge rides entirely on MRT's OWN structural h
 `W ≤ (log X)^{1/125}` plus region coefficient `c ≥ 3/125 ≈ 0.024` — i.e. the Hlo-floor channel, and
 it can be SIMPLIFIED (no separate floor needed). The g-triple-exp arm is DEAD (not needed).**
 
+**ADDENDUM (CHI-CHECK 2026-07-24) — "DEAD" was scoped too broadly; softening the verdict.**
+The declaration above is retained as written, but its scope must be read as: dead *for the region
+route*. The triple-exp arm is NOT dead in general — it is the price of **Route A's H1**. The
+k-th-power route to the χ-twisted quality floor buys its floor at the cost of an x-floor,
+`loglog X ≥ 240 (log H)^{10} loglog H`, which is a one-sided condition and is free in the regime
+we work in. So the arm is alive as a *paid* channel, not a discarded one. (`chi_floor_of_order`
+landed 2026-07-25, `Salt/MR/ChiFloor.lean` — the H1 exit that consumes it.)
+
 ### 0.1 The two quality quantities (GROUNDED, p.4, eq (1.6) and the M(g;X,Q) definition)
 
 - `M(f; X) := inf_{|t|≤X} 𝔻(f, n↦n^{it}; X)²`  — **NO character** (modulus 1), heights `|t| ≤ X` (the
@@ -298,6 +306,15 @@ average → log-measure glue is Tao's Prop 2.4 averaging (chowla.txt:633–640) 
 | ζ VK region entry | extreme t `|t−t₁|>(log X)^{20}`, Erdős–Turán + VK region for ζ | p.23 (A.6) |
 | Lemma 2.2 density | `≪ (log P₁/log Q₁)X` (sieve [8]) | p.8 |
 | M(f;X) / M(g;X,Q) | `inf_{|t|≤X}𝔻(f,n^{it};X)²` / `inf_{|t|≤X;q≤Q;χ}𝔻(g,χn^{it};X)²` | p.4 |
+
+**ADDENDUM (CHI-CHECK 2026-07-24) — the 1/125 has a SECOND, structural provenance.**
+The table row above (`1/125 provenance`, p.6) records the zero-free-region reading: `q ≤ (log X)^{1/125}`
+⟹ no exceptional L-zeros. That reading stands and is not amended. But it is not the provenance the
+§4 proof consumes. Inside §4 the same exponent arises arithmetically: `(1/50) ÷ (5/2) = 1/125`, i.e.
+`W^{125} ≤ log X` is exactly what makes the `(log X')^{−1/50}` term `≤ W^{−5/2}`. So the window
+`W ≤ (log X)^{1/125}` is what lets the §4 error term be absorbed into the `W`-power budget — a
+structural constraint of the argument, independent of (and consumed before) the L-zero consideration.
+Both provenances are real; the §4 one is the one a port must honour.
 
 ---
 

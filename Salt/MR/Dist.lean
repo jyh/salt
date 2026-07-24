@@ -29,15 +29,24 @@ WHAT THIS FILE LANDS (the tractable, load-bearing core):
   (design audit target `0.78 = Σ_p 1/(p(p−1))`, first term `p=2,k=2 → 1/4`;
   the telescoping majorant is what ships).
 
-RESIDUAL (flagged, freeze-aligned): the FULL twisted identity `𝔻² = loglog x
-+ Re log L(1+1/logx+it, χ) + O(1)` for `χ ≠ 1` / `t ≠ 0` needs a mathlib
-Euler-log-of-`L` bridge (`log L(s,χ) = Σ_p Σ_k χ(p^k)/(k p^{ks})`) with the
-`p > x` and `σ = 1 vs 1+1/logx` truncation error controlled; the corpus holds
-the log-DERIVATIVE Euler bridge (`Salt.SW.logDeriv_LFunction_eq`,
-`EulerBridge.lean:145`) but not the log itself in prime-sum form.  Constant
-audit — the "chain-G additive = 5.00 EXACT" is the total `O(1)` of that full
-chain; it cannot be pinned here without the twisted bridge.  See
-`docs/blueprints/flags.md` (MR-W1 entry).
+RESIDUAL (`χ ≠ 1` only — the `q = 1` half CLOSED 2026-07-19): for `χ = 1`,
+`t ≠ 0` the identity `𝔻² = loglog x + Re log ζ(1+1/logx+it) + O(1)` is landed —
+`euler_osc_truncation` (`Salt/MR/PrimeSigmaShift.lean`) +
+`euler_osc_bridge_unconditional` (`Salt/MR/PrimeTail.lean`) control both the
+`p > x` truncation and the `σ = 1 vs 1+1/logx` shift, yielding UNCONDITIONAL
+`lambda_nonpret` (`Salt/MR/NonPretClose.lean`).  What is left is the `χ ≠ 1`
+twist.  CORRECTION (2026-07-24): the log-Euler product for characters IS in
+mathlib — `DirichletCharacter.LSeries_eulerProduct_exp_log`
+(`Mathlib/NumberTheory/EulerProduct/DirichletLSeries.lean:137`,
+`exp(Σ'_p −log(1−χ(p)p^{−s})) = L(s,χ)`), the exact analogue of the
+`riemannZeta_eulerProduct_exp_log` this corpus already rides; the earlier claim
+that only the log-DERIVATIVE bridge (`Salt.SW.logDeriv_LFunction_eq`,
+`EulerBridge.lean:145`) was available was WRONG.  The remaining `χ ≠ 1` work is
+therefore transporting the truncation / `σ`-shift estimates across the twist,
+not supplying a missing Euler bridge.  Constant audit — the "chain-G additive =
+5.00 EXACT" is the total `O(1)` of that full chain; it cannot be pinned here
+until the twisted chain is closed.  See `docs/blueprints/flags.md` (MR-W1 entry
+and the 2026-07-24 supersession pointer).
 -/
 
 namespace Salt.MR

@@ -11736,3 +11736,10 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
   2026-07-24 (build-audited, 3-axiom). Greps for "BLOCKED" should read past
   ~:11429 to this pointer. Residual doc hygiene (Lean docstrings in All/NonPret/
   Dist) queued for the next quiet write slot.
+
+- (2026-07-25) The "residual doc hygiene" queue item above is DISCHARGED: the six
+  stale notes retired (All/NonPret/Dist docstrings + the two mrt_extract addenda +
+  the mr_map_sources [M] correction), build green. Conflation finding banked: the
+  `R5-FINISH` hits in Salt/SW/{EulerLink,Crush}.lean are the T-BAL Selberg flag —
+  a DIFFERENT obstruction from the (closed) λ-Euler bridge; the shared name caused
+  the cross-reference drift. HalaszIdentity:781's BLOCKED is by-design (H-5), not stale.

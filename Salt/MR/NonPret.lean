@@ -180,12 +180,17 @@ log-Euler product, from mathlib's `riemannZeta_eulerProduct_exp_log`
 (`exp(∑'_p −log(1−p^{−s})) = ζ(s)`) via `‖exp z‖ = exp(Re z)` and `Re ∘ ∑' = ∑' ∘ Re`.
 
 This is the FULL prime-sum side of the λ-Euler bridge, holding at any `s = σ + it`
-with `σ > 1` (in particular `σ = 1 + 1/log x`).  It reduces the bridge's residual
-(see flags MR-W3) to the single missing piece: comparing `∑'_p Re(−log(1−p^{−s}))`
+with `σ > 1` (in particular `σ = 1 + 1/log x`).  It reduced the bridge's residual
+(flags MR-W3) to the single piece: comparing `∑'_p Re(−log(1−p^{−s}))`
 (= `∑'_p cos(t·log p)·p^{−σ} + O(1)` after the Mercator `k≥2` peel) against the
 TRUNCATED sum `∑_{p≤x} cos(t·log p)/p` — the `σ = 1` prime partial→full and
-`σ`-shift estimates, which need prime-density / prime-Abel-summation inputs that
-are an explicitly flagged open corpus gap (EulerLink R5-FINISH; MR-W1 S1). -/
+`σ`-shift estimates.
+
+CLOSED 2026-07-19: those estimates landed — `euler_osc_truncation`
+(`Salt/MR/PrimeSigmaShift.lean`) for the truncation at arbitrary 1-bounded `g`,
+`prime_tail_shift` + `euler_osc_bridge_unconditional` (`Salt/MR/PrimeTail.lean`)
+for the `σ`-shift and the full bridge.  Consequently `lambda_nonpret`
+(`Salt/MR/NonPretClose.lean`) is UNCONDITIONAL; no corpus gap remains here. -/
 theorem log_norm_zeta_eq_re_tsum {s : ℂ} (hs : 1 < s.re) :
     Real.log ‖riemannZeta s‖
       = ∑' p : Nat.Primes, (-Complex.log (1 - (p : ℂ) ^ (-s))).re := by

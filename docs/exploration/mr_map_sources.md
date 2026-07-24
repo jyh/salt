@@ -201,6 +201,14 @@ stated against their natural door.
   reduced through characters mod q + partial summation in `n^{it}` to MR
   short-interval averages of λ·χ-twists]. Constraint budget from Tao's Prop
   2.4 proof [G]: W = log⁵H ≤ min(A, (log X)^{1/125}); worst X ≍ (log x)/2.
+  - **CORRECTION (DOOR-SCOPE / SEAM-SCOPE 2026-07-24)** to the [M]-graded shape
+    guess above: the additive-twist mechanism is NOT "partial summation in
+    `n^{it}`". MRT's actual mechanism is (i) Dirichlet approximation of α,
+    (ii) integration by parts over the SUB-WINDOW length (MRT eq. 4.2), and
+    (iii) a residue-class split closed by character orthogonality (eq. 4.4).
+    The character half of the old guess was right — reduction through
+    characters mod q to MR short-interval averages of λ·χ-twists is correct;
+    only the "partial summation in `n^{it}`" clause is wrong and is retired.
 - **M3 MR-CORE (the big port; node freeze DEFERRED until 1501.04585 staged):**
   the MR [16] theorem at λχ-twists. Expected internal skeleton [M]:
   (a) Parseval: short-interval variance ⟶ `∫ |F(1+it)|² dt` over
