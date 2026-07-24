@@ -354,3 +354,69 @@ theorem prop_A3_T1_row_annular (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p
   rw [hsplit]; linarith [hunit, hmom]
 
 end Salt.MR
+
+/-! ## PROP-WIRE-T — the annular tail socket discharged
+
+`T1_decay_annular`'s `Utail` binder is the last abstract object on the head/tail side of the
+v5 T-chain.  The stone below discharges it at the CONCRETE landed S2′ tail object — the tail
+ledger `HalaszHead.head_prep_utail` (⟸ `HalaszSeam.s2_tail_ledger`, the landed
+`Tsplit = (log X)^4` tail closure) bounds VERBATIM the object the `htail` binder demands, so
+the tail slot needs no named hypothesis and no adapter.
+
+**No mismatch with the annular split's complement.**  `T1_decay_annular` carries `Utail`
+purely as *any* real satisfying `Utail ≤ C₂·X·(log X)^{−1/2}` (its `hsplit := rfl` fixes only
+`U = annHead + Utail`, imposing no shape on the tail).  The S2′ ledger object is a concrete
+real satisfying exactly that bound, so instantiation is DIRECT — the tail integral's landed
+ledger closure feeds the annular tail slot with byte-consistent `C₂` and `(log X)^{−1/2}`
+grade.  (This note lives in the appended region, keeping the landed bytes frozen.) -/
+
+namespace Salt.MR
+
+/-- **W1-T — the annular T1 decay, tail wired (`T1_decay_annular_tailed`).**  `T1_decay_annular`
+with its abstract `Utail` binder DISCHARGED at the concrete landed S2′ tail object.  The tail
+slot is instantiated with the honest S2′ tail ledger shape
+
+  `(Csup·L³)·(√L·X·(L⁴)⁻¹)`   (`L = log X`),
+
+i.e. the sup-integrand bound `Csup·L³` times the hat-kernel tail mass `√L·X·(L⁴)⁻¹`, whose
+`htail` bound `≤ Csup·X·L^{−1/2}` is supplied VERBATIM by `head_prep_utail`
+(⟸ `s2_tail_ledger`).  So `C₂ := Csup`, and the T-chain now runs with BOTH the head (`annHead`,
+the annular integral) and the tail (the S2′ ledger object) as CONCRETE objects — neither side
+is a named binder any longer.  No adapter: `T1_decay_annular` treats `Utail` as any real ≤ the
+bound, and the S2′ object satisfies it directly (see the section note on the split's complement).
+
+The threshold `X₀ = max (annular X₀) (e²)` folds the annular socket's cutoff with the `e² ≤ X`
+gate: `X₀ ≤ X` supplies both `T1_decay_annular`'s inputs and `head_prep_utail`'s strict
+`1 < log X` (from `log X ≥ 2`, the `e²` gate strengthening the annular chain's own `e ≤ X`).
+
+**Socket census after this stone.**  Head: CONCRETE (`annHead g t₀ X T (1/log X)`).  Tail:
+CONCRETE (the S2′ ledger object `(Csup·L³)·(√L·X·(L⁴)⁻¹)`).  Remaining ABSTRACT: `hfloor` — the
+R3.1 `(1/32)·loglog X` branch floor (the standing MULT-SHIU / branch analytic supply), carried
+as a hypothesis exactly as the chain does; and the moment row (`Imom ≤ Gmom` in
+`prop_A3_T1_row_annular`, abstract only by import-DAG position — `Prop1Assembly` is the
+downstream terminal).  The head/tail side of the annular T-chain is now fully concrete. -/
+theorem T1_decay_annular_tailed (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ t : ℝ) :
+    ∃ C₁ X₀ : ℝ, 0 ≤ C₁ ∧ ∀ (X ε Csup T : ℝ),
+      X₀ ≤ X → 0 ≤ T → T ≤ Real.log X → 0 ≤ ε → 0 ≤ Csup →
+      (1 / 32) * Real.log (Real.log X)
+          ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T →
+      annHead g t₀ X T (1 / Real.log X)
+          + (Csup * (Real.log X) ^ 3)
+              * (Real.sqrt (Real.log X) * X * ((Real.log X) ^ 4)⁻¹)
+        ≤ (C₁ + Csup) * X
+            * ((Real.log X) ^ (-(1 / Real.exp 1) / 32)
+              + (Real.log X) ^ (-(1 : ℝ) / 2 + ε)) := by
+  obtain ⟨C₁, X₀, hC₁, hchain⟩ := T1_decay_annular g hg t₀ t
+  refine ⟨C₁, max X₀ (Real.exp 2), hC₁, ?_⟩
+  intro X ε Csup T hX hT hTL hε hCsup hfloor
+  have hX0 : X₀ ≤ X := le_trans (le_max_left _ _) hX
+  have hXe2 : Real.exp 2 ≤ X := le_trans (le_max_right _ _) hX
+  have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 2) hXe2
+  -- `X ≥ e²` gives `log X ≥ 2 > 1`, the strict gate `head_prep_utail`/`s2_tail_ledger` need
+  have hLog2 : (2 : ℝ) ≤ Real.log X := (Real.le_log_iff_exp_le hXpos).mpr hXe2
+  have hL1 : (1 : ℝ) < Real.log X := by linarith
+  -- the concrete tail bound, VERBATIM `T1_decay_annular`'s `htail` binder at `C₂ := Csup`
+  have htail := head_prep_utail hL1 hXpos.le hCsup
+  exact hchain X ε _ Csup T hX0 hT hTL hε hCsup htail hfloor
+
+end Salt.MR
