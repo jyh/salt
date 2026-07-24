@@ -66,6 +66,7 @@ import Salt.MR.ChiFloor
 import Salt.MR.PerronLimit
 import Salt.MR.SeamSplit
 import Salt.MR.ChiEuler
+import Salt.MR.ChiFloorLow
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -426,6 +427,12 @@ open Salt.Tactic in
   Salt.MR.chi_peel_sum_bound
   Salt.MR.chi_euler_osc_bridge_unconditional
   Salt.MR.chi_dist_bridge
+  Salt.MR.chi_floor_low_of_Llower
+  Salt.MR.chi_floor_low_principal
+  Salt.MR.chi_floor_all_principal
+  Salt.MR.chi_floor_all_principal_twisted
+  Salt.MR.chi_floor_all_of_Llower
+  Salt.MR.chi_floor_all_of_Llower_twisted
   Salt.MR.T1_decay_annular_polyT
   Salt.MR.T1_decay_annular_tailed_polyT
   Salt.MR.prop_A3_T1_row_annular_polyT
