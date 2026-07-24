@@ -60,6 +60,7 @@ import Salt.MR.GrandComp
 import Salt.MR.AnnHead
 import Salt.MR.Lemma14Bridge
 import Salt.MR.Lemma14Taylor
+import Salt.MR.Lemma14Vtail
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -386,3 +387,6 @@ open Salt.Tactic in
   Salt.MR.taylor2_bound
   Salt.MR.uSlab_taylor_main
   Salt.MR.uSlab_taylor_main_sq
+  Salt.MR.xTentT_eq
+  Salt.MR.tailT_mean_sq_bound
+  Salt.MR.vtail_mean_sq_bound
