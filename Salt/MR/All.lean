@@ -85,6 +85,7 @@ import Salt.MR.LambdaMass
 import Salt.MR.WindowBridge
 import Salt.MR.PretSupply
 import Salt.MR.CenterCore
+import Salt.MR.BridgeAdapt
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -522,6 +523,11 @@ open Salt.Tactic in
   Salt.MR.ball_center_dichotomy
   Salt.MR.ball_leg_empty_of_le
   Salt.MR.ball_leg_of_center_small
+  Salt.MR.crossKer_sigma_bound
+  Salt.MR.bridge_adapter
+  Salt.MR.sigma_wiring_of_crossKer
+  Salt.MR.loglog_absorb
+  Salt.MR.loglog_absorb_pow
   Salt.MR.lemma12_meansq_mr_blockSupport
   Salt.MR.lemma12_meansq_mr_consume
   Salt.MR.gapMaj_meansq_le
