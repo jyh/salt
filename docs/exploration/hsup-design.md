@@ -133,3 +133,16 @@ binder — window-legality free win) + H-1 (the weighted ball leg) + the
 re-centred row variant (S-1/S-2 applied) + H-2 (the σ-cutoff 1/e-clone,
 mechanical). H-3 (the ⅞-bound) + H-5/H-6/H-7 follow the morning council's
 ratifications (S-3, S-4) and the H-4 design block.
+
+## ⟦S-3 RATIFIED — ROUTE-SCOPED, WITH THE TRIPWIRE (JYH, 2026-07-25 morning council)⟧
+
+The grade halving (c = 1/(2e), the A.13/A.14 square root) applies to the
+BALL leg only; the §8.3/L3 arm keeps the un-halved 1/(32e) ledger (Halász
+consumed directly, Lemma-1 form). Mechanics: halasz_ball_decay untouched
+(heritage); new ball stones carry e^{−M/(2e)} (the σ-cutoff 1/(2e) instance
+already landed); existential-c₀ posture in all statements. **THE TRIPWIRE
+(named, load-bearing): the H-4/H-6 design block MUST verify the un-halved
+supply genuinely reaches L3 before any §8.3 assembly wave fires — if the
+H-6 route forces the square root into L3's input, the §8.3 balance page
+re-runs and returns to JYH; no silent absorption.** The real-χ Siegel-arm
+stays on S9 (scope-diff 9) — confirmed informational.
