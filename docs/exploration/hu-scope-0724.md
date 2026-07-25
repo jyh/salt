@@ -89,3 +89,10 @@ Waves B (U-3/U-4/U-1, needs the D2/D3 pins ratified) + the rest: post-council.
 
 Refused supplies recorded: lemma12_meansq-as-it-stands for Step 1; the
 B-ladder for L3; the landed VanDerCorput for hZ.
+
+## ⟦THE PINS RATIFIED (JYH, 2026-07-25 morning council)⟧
+
+P-i: δ := P_J^{−α_J} (single-δ 𝒰 ⊇ the graded 𝒰; graded lands additively
+later if the E_j rows want it; Tset never re-pinned). P-ii: Qseq j < P_L12
+∀ j ≤ Jb (the hcoef guard). P-iii: the coefficient support carries the
+block condition (the coprime tail = the landed A-stone). Wave B unblocked.
