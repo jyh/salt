@@ -11365,3 +11365,28 @@ non-beta-reduced (simp only, not rw; show trips the linter); HeadGrade's
 privates enumerated; WindowBridge import not transitive through HeadGrade;
 Real.sqrt_eq_rpow unconditional. GRADEB-WAVE (residuals) + B1B3-WAVE (the
 truncation arm) dispatching now.
+
+---
+
+**2026-07-25 15:12 PDT — THE TRUNCATION ARM LANDS WHOLE (B1B3-WAVE, zero residuals).**
+`Salt/MR/TruncFactor.lean` (544 ln, 11 public stones + crossKerFar def, all
+3-axiom, zero warnings; full build 9396 jobs green). B-1
+`joint_cs_factoring_trunc` :200 — J1's main term BYTE-VERBATIM (full crossKer
+kept, far part purely additive), hsupF guarded to |t−t₀| ≤ T, THREE added
+binders (hFfar0/hFar/hKfar), integrability sockets J1's byte-for-byte, and NO
+jointIntegrand-integrability needed (the single-dominator trick
+`norm_integral_split_abs` — F·P absorbs the far slack, integral_add_compl
+never invoked). B-3 `far_tail_absorb` :435 — the exponent honest at L^{−5/2}
+WITH ROOM (true ratio 4L^{−7/2}; the gate exactly L ≥ 8; hc dropped — holds at
+every real exponent); `crossKerFar_pin_le` :477 the ready hKfar discharge,
+β-uniform via the worst line c₀−η. B-1b landed AND improved:
+`center_dist_floor_trunc` :504 + **`center_dist_floor_compact` :533 — the
+vacuity dissolved outright, NO minimality hypothesis, minimizer produced
+internally (the hgap escape as designed)**. Flags updated: the sixth catch
+CLOSED. New traps banked: le_or_lt → le_or_gt; div_le_div_iff → div_le_div_iff₀;
+Set.indicator_of_notMem + the mem-term-not-proposition by_cases pattern;
+integral_mono_of_nonneg's un-beta-reduced goal (dsimp errors "no progress" —
+prove the reduced statement as have + exact); integral_sub_right_eq_self is
+to_additive-generated (doesn't grep; needs no integrability);
+add_le_add_left-adds-RIGHT re-confirmed. GRADEB-WAVE (the residual close)
+still aloft — GradeConst.lean mid-flight, excluded from this commit.

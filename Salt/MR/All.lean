@@ -90,6 +90,7 @@ import Salt.MR.CenterSupply
 import Salt.MR.RHSGrade
 import Salt.MR.CompactMin
 import Salt.MR.WidthGrade
+import Salt.MR.TruncFactor
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -574,3 +575,14 @@ open Salt.Tactic in
   Salt.MR.crossKer_width_sigma_bound
   Salt.MR.width_pin_gates
   Salt.MR.crossKer_width_sigma_pin
+  Salt.MR.crossKerFar_nonneg
+  Salt.MR.measurableSet_farRegion
+  Salt.MR.measurableSet_farAbs
+  Salt.MR.joint_inner_factor_trunc
+  Salt.MR.joint_cs_factoring_trunc
+  Salt.MR.kernel_far_mass
+  Salt.MR.crossKerFar_le_tail
+  Salt.MR.far_tail_absorb
+  Salt.MR.crossKerFar_pin_le
+  Salt.MR.center_dist_floor_trunc
+  Salt.MR.center_dist_floor_compact

@@ -11850,3 +11850,10 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
    consumer instantiating at the frozen `1/16` will find `hgap` unprovable;
    the escape: `hmin` + cap-inheritance from C2/C4 need NO gap at all — only
    the `t₁`-localization clause consumes `hgap`.
+
+**hmin-on-ℝ vacuity — REPAIR LANDED (B1B3-WAVE).** `Salt/MR/TruncFactor.lean`:
+`joint_cs_factoring_trunc` (hsupF guarded to |t−t₀| ≤ T, far part additive via
+the crossKerFar socket; J1's main term VERBATIM — no downstream re-identification)
++ `center_dist_floor_compact` (the vacuity dissolved outright: NO minimality
+hypothesis, the minimizer produced internally from exists_min_dist_abs, via the
+hgap escape). The sixth catch is closed.
