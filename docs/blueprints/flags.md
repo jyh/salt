@@ -11775,3 +11775,19 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
   (kept, never deleted). No consumer ever fired the vacuous row (§8.3's
   interior was unbuilt) — the audit caught it first, the week's third
   vacuity catch (annHead's hsplit, ball_leg_of_sup, this).
+
+## 2026-07-25 — MRT (A.8) sign defect (source-level, caught pre-port)
+
+- **Where**: MRT 1503.05121v3 p.24, the printed statement of Lemma A.7/(A.8):
+  the renormalisation factor is printed X^{i(t−t₁)}/(1+i(t−t₁)); the paper's
+  OWN proof two lines below, and GS [10] Lemma 7.1 (math/9911246 p.22, now
+  staged at docs/sources/gs9911246.pdf), both give X^{i(t₁−t)}/(1+i(t₁−t)).
+  The printed form is the complex conjugate — FALSE as an equality.
+- **Why harmless in MRT / fatal for us**: MRT consume only the modulus
+  (1+(t−t₁)²)^{−1/2}; a verbatim Lean port of (A.8) would be unprovable.
+  H-4 is stated in the correct-sign form (the derivation re-checked:
+  F(n) := f(n)g_𝒥(n)n^{−it₁}, α := t₁−t). The week's THIRD source-level
+  defect caught before consumption (the (X/h₁)/T weight; h^{δ/25}; this).
+- Also recorded: GS 7.1 ≠ GHS Theorem 1.5 (the frequency-renormalisation vs
+  the multiplicative-interval Lipschitz — the target is named unambiguously
+  as GS [10] Lemma 7.1 to prevent a wrong-object dispatch).

@@ -146,3 +146,51 @@ supply genuinely reaches L3 before any §8.3 assembly wave fires — if the
 H-6 route forces the square root into L3's input, the §8.3 balance page
 re-runs and returns to JYH; no silent absorption.** The real-χ Siegel-arm
 stays on S9 (scope-diff 9) — confirmed informational.
+
+## ⟦THE H-BLOCK FREEZE v2 (maestro, 2026-07-25, from H4-SCOPE's source-grounded map)⟧
+
+**THE HEADLINE: THE D IS DEAD — the campaign's D-count goes 1 → 0, against
+the source.** GS Lemma 7.1 (math/9911246 p.22, staged in docs/sources) is
+ELEMENTARY: f = 1∗g, the d-split, Halberstam–Richert (7.1) + its Abel
+corollary (7.2), the Euler bound on Σ|g|/d, "use twice, once at α = 0."
+No Halász, no contour, no max-modulus, no 𝔻. The two sieve inputs are
+LANDED (hall_tenenbaum_core :783 + euler_exp_bound :925, MultShiu — κ=1→2
+constant relaxation, the day-1 fail-fast). H-4 re-priced **[C, 900–1400]**.
+NOTE the deflation mechanism: the Shiu/Hall–Tenenbaum ladder, NOT the
+B-ladder (HSUP-SCOPE's B-ladder hypothesis was right about GHS Cor 1.2 =
+H-6's max-modulus replacement, inapplicable to 7.1 itself).
+
+**THE TRIPWIRE CLEARS (the ratified S-3 route-scoping is CORRECT against
+the source)**: the square root enters at (A.11)'s 𝒥-symmetrisation,
+propagates through (A.13)/(A.14), and is consumed ONLY in the 𝒯₀/ball
+assembly (p.28's max display → e^{−M/2}). NOT in GS 7.1 (additive M-free
+error); NOT in the 𝒯₁ branch (absolute floors; dist_mul_half's ½ is the
+twist cost, already priced, non-compounding); NOT in MR Lemma 3 (real f,
+no 𝒥). ρ = 1/(32e) stands for §8.3: 1/261 vs c₀ ≥ 1/500, margin 1.92×.
+**THE LIVE GUARD (replaces the tripwire)**: L3's arm cites
+sigma_cutoff_pretentious_of_gen (c = 1/e); the ball's arm cites _half
+(c = 1/(2e)); **a citation of _half in any §8.3 consumer is a STOP** —
+both instances landed side-by-side, discipline is the only requirement.
+
+**TWO SOURCE CATCHES (flags entry)**: (A) MRT (A.8) prints the CONJUGATE
+factor — state H-4 correct-sign (X^{i(t₁−t)}/(1+i(t₁−t))), the executor
+re-derives the sign as step 0; the modulus page: (1+u²)^{−1/2} ≤
+√2/(1+|u|) — the √2 lands in S. (B) GS 7.1 ≠ GHS Thm 1.5 — the target is
+GS [10] Lemma 7.1, unambiguous.
+
+**THE LADDER v2 (all C, total ~2450–3800)**: H-3 [B/C, 250–350, ALOFT]
+the ⅞-bound (numerics verified: 0.8536 ≤ 0.875, slack 0.0214; β ≤ ½ via
+the landed mertens_second_sharp_real — an exact fit); **H-4 [C, 900–1400,
+DISPATCHING]** GS 7.1 correct-sign with the day-1 κ=2 fail-fast + the
+crude-O(1+|α|log z) fallback for the Euler–Maclaurin stone (survives at
+|α| ≤ (logX)^{1/16} — the ball radius makes the α-range trivial);
+H-5 [C, 550–800] the 𝒥-factorisation on the LANDED halasz_cosh_ineq
+(= Lemma A.8 byte-for-byte — confirmed) + the (P_j,Q_j] half-open pin
+BEFORE dispatch; H-6 [C, 400–700 residual] the direct-form Halász core
+(head_sigma_bound + _of_gen — the citation guard); H-7 [C, 350–550] the
+assembly into ball_leg_of_sup_weighted's exact binder. Dispatch order:
+H-4 alone now (H-3 already aloft); H-5 next; H-6/H-7 last.
+
+**Refused supplies recorded**: the B-ladder for H-4; zeta_partial_em (gated
+off Re = 0; its SUB-machinery is the right genre for the 1st-order term);
+GHS Thm 1.5; MRT (A.8) verbatim.
