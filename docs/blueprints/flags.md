@@ -11791,3 +11791,16 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
 - Also recorded: GS 7.1 ≠ GHS Theorem 1.5 (the frequency-renormalisation vs
   the multiplicative-interval Lipschitz — the target is named unambiguously
   as GS [10] Lemma 7.1 to prevent a wrong-object dispatch).
+
+## 2026-07-25 — the JointHead gate-(b) target shape: true but uncomposable (caught pre-wave)
+
+- **Where**: JointHead.lean:598-650, the hbridge residual record's gate-(b)
+  target S₋·S₊ ≤ C·(X/y)^{2β}·min(L,1/σ)².
+- **Finding** (HCENTER-SCOPE): the recorded target is weaker than the honest
+  product by X^β; composed with the kernel scale it carries X^{2β}·y^{−2β},
+  divergent at every polylog y. The honest product X^β·y^{−2β}(L+C)² IS
+  GHS's own x^{1−α}y^{−β} and composes. The S5/S6 wave must target the
+  honest form; an executor firing at the record would land a true,
+  uncomposable lemma. Also retired: JointHead:266's hpret "PENDING" note
+  (stale since head_sigma_bound landed) and Route B's machinery as a
+  candidate supply for pointwise sockets (the (logX)² page).

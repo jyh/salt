@@ -194,3 +194,51 @@ H-4 alone now (H-3 already aloft); H-5 next; H-6/H-7 last.
 **Refused supplies recorded**: the B-ladder for H-4; zeta_partial_em (gated
 off Re = 0; its SUB-machinery is the right genre for the 1st-order term);
 GHS Thm 1.5; MRT (A.8) verbatim.
+
+## ⟦THE HCENTER FREEZE (maestro, 2026-07-25 10:56 PDT; from HCENTER-SCOPE's map)⟧
+
+**ROUTE A ALONE** (the S1'/hat wire ∘ desmooth): ~1450-2380 ln, all A-C.
+REFUSED with arithmetic: A2 the box-collapse (the (X/y)^{2eta} wall at every
+legal y); B the truncated Perron (the (logX)^2 main-term deficit -- the
+min-kernel machinery is IRRELEVANT to this socket, never list it again);
+C the L^2 dodge (circular); GS 7.1 at the centre (a transfer manufactures
+no bound -- the socket/supply lesson, again). ROUTE D (sharp truncation +
+a Lambda-mean-value stone [C,400-700]) recorded as the fallback if the
+epsilon ruling ever bites.
+
+**THE STEP-0 RULINGS (maestro tier, each within a ratified posture):**
+1. **Mglob ADOPTED** -- the global-min distance over |t| <= X, the
+   formalization of the ALREADY-RATIFIED centre semantics (the ball re-pin's
+   S-1: the centre = the global M(f;X) minimizer). A new def + scale_floor
+   clone [B]; it PINS the seam row's deliberately-open centre semantics.
+2. **THE hgrade epsilon RULED under the existential-c0 posture** (freeze
+   N4/scope-diff 6): the supplier states S0 with the +epsilon slot (the
+   sharp kernel's loglog X deficit absorbed as (logX)^{-1/(64e)+eps});
+   T1_decay_conditional_final's exact head exponent gains the eps AT THE
+   SUPPLIER (no landed statement edited; the additive variant carries it).
+   Surfaced to JYH in the ledger; Route D remains the priced alternative.
+3. **THE GATE-(b) SHAPE CORRECTED** (the scoper's highest-value catch): the
+   JointHead residual record's (X/y)^{2beta} target is TRUE but UNCOMPOSABLE
+   (the X^beta gap diverges at every polylog y); the S5/S6 wave fires
+   against the HONEST product X^beta y^{-2beta}(L+C)^2 -- which is GHS's own
+   x^{1-alpha}y^{-beta} and composes. Flags entry banked.
+
+**THE LADDER** (the scoper's, adopted): A-7 the uniform-constant hoist
+[A/B, DISPATCHING NOW -- independent]; A-1 Mglob + scale_floor_Mglob [B];
+A-2/A-3 the centre clones [B]; A-4 hpret concrete [C, 250-400 -- the
+JointHead:266 PENDING note is STALE, retired herewith: head_sigma_bound
+landed since]; A-5 hbridge at the pinned home, HONEST TARGET ONLY [C,
+500-800]; A-6 hgrade per ruling 2 [C]; A-8/A-9 the assembly
+center_halasz_supply [B/C] -- the freeze-ready statement in the scoper's
+report, byte-compatible with BallSup:479 at f := seamCoeff (ellLin g) 1 t0
+(the datum gate: the supplier is for THE SEAM DATUM ONLY -- ellLin route (i);
+general multiplicative f has NO supply and must not be instantiated).
+The y-pin free in the gates; y = (logX)^4 recommended (E/X = (logX)^{-1+o(1)},
+margin 0.99 powers), e^{sqrt L} the fallback if the eta-box tightens.
+X0 is g/t0-independent (HExit:741 -- recorded, nobody re-derives it).
+
+**REFUTERS on this freeze** (2, firing): SHAPE-REF (the A-5 honest-target
+page + the A-9 binder byte-compat + the datum gate) + GRADE-REF (the full
+grade page at the corners: the desmooth 1/sqrt-log, the E-term at both
+y-pins, the eps absorption, the S0 bracket vs ballSupS's demand). The wave
+fires on the verdicts.

@@ -79,6 +79,7 @@ import Salt.MR.SevenEighths
 import Salt.MR.Renormalise
 import Salt.MR.JFactor
 import Salt.MR.BallSup
+import Salt.MR.SmallStones
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -489,6 +490,11 @@ open Salt.Tactic in
   Salt.MR.spolyA_datum_split
   Salt.MR.ball_sup_of_center
   Salt.MR.halasz_direct_ball_window_free
+  Salt.MR.mertensM_ge_neg_seventeen
+  Salt.MR.sixteenth_loglog_le_SPartial_div_eight
+  Salt.MR.hMball_of_A4_cap
+  Salt.MR.ramP2mass_le
+  Salt.MR.lemma12_meansq_mr_final
   Salt.MR.lemma12_meansq_mr_blockSupport
   Salt.MR.lemma12_meansq_mr_consume
   Salt.MR.gapMaj_meansq_le
