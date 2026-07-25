@@ -84,6 +84,7 @@ import Salt.MR.Prop21Uniform
 import Salt.MR.LambdaMass
 import Salt.MR.WindowBridge
 import Salt.MR.PretSupply
+import Salt.MR.CenterCore
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -515,6 +516,12 @@ open Salt.Tactic in
   Salt.MR.supF_pret_pointwise
   Salt.MR.supF_pret_majorant_sigma
   Salt.MR.joint_sigma_integral
+  Salt.MR.window_sup_decay_center
+  Salt.MR.halasz_direct_center
+  Salt.MR.halasz_direct_center_gen
+  Salt.MR.ball_center_dichotomy
+  Salt.MR.ball_leg_empty_of_le
+  Salt.MR.ball_leg_of_center_small
   Salt.MR.lemma12_meansq_mr_blockSupport
   Salt.MR.lemma12_meansq_mr_consume
   Salt.MR.gapMaj_meansq_le
