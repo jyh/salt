@@ -11804,3 +11804,13 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
   uncomposable lemma. Also retired: JointHead:266's hpret "PENDING" note
   (stale since head_sigma_bound landed) and Route B's machinery as a
   candidate supply for pointwise sockets (the (logX)² page).
+
+## 2026-07-25 — hfloor's seam-datum provenance (pre-existing over-claim, flagged pre-wave)
+
+- PropA3Core's docstring says the (1/32)loglog floor is "Mrange_one_floor-
+  supplied"; that stone is proved at the datum (fun _ => 1), while hfloor
+  (HExit:1465) is at the SEAM datum — the seam-datum floor still routes
+  through dist_split_A4_frozen's branch structure (the W-loss). The HCENTER
+  wave leans on this exponent; the honest supply chain is the A.4 dichotomy
+  + the per-t floor step (the V2 amendment's A-10), not the sInf stone.
+  (GRADE-REF UNASSIGNED-2.)

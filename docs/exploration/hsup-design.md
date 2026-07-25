@@ -242,3 +242,49 @@ page + the A-9 binder byte-compat + the datum gate) + GRADE-REF (the full
 grade page at the corners: the desmooth 1/sqrt-log, the E-term at both
 y-pins, the eps absorption, the S0 bracket vs ballSupS's demand). The wave
 fires on the verdicts.
+
+## ⟦HCENTER AMENDMENT V2 — the refuter verdicts applied (2026-07-25 11:17 PDT)⟧
+
+Both REPAIR-THEN-FIRE. THE REPAIRS (adopted):
+1. **A-5's target restored to BOTH sharp factors**: S₋·S₊ ≤ C·X^β·y^{−2β}·
+   min(L,1/σ)² (my correction had dropped the sharp Mertens factor while
+   fixing the X-power — half-applied; the composed page then overshoots by
+   L·η, a FULL log beyond the arcsinh absorption). NEW STONE A-5a: the
+   σ-damped Λ-window masses (Abel on A(u) = Σ Λ/n ≤ log u + C) [C, 250-450];
+   A-5 re-priced 750-1250. The verified landing: Agrade on X·L^{3/2} — the
+   ledger's own pre-existing kernel-mass residual, nothing new.
+2. **A-7 TIGHTENED to the datum-hoisted form** [B, 120-180]: the MS witnesses
+   are g- AND t₀-FREE absolute expressions (MultShiu:1434/:2220/:1908;
+   ShortIntervalPsi:411) — hoist past (g, t₀) too; REQUIRED because A-9
+   instantiates the twist at t₀+t₁(X) (X-dependent centre) — the t₀-bound
+   constant would be circular. Without this the row's constants are not
+   X-uniform (SHAPE-REF's teeth).
+3. **The ε pinned**: ∀ε ∃X₀(ε) quantifier order at A-6 ONLY; ε := 1/1000
+   (below both caps: 1/(192e) = 0.0019 keeps the ball off the critical
+   path; 1/(64e)−1/500 = 0.0037 the hard door wall); the price recorded:
+   X₀(ε) ≍ exp(C^{1/ε}) becomes the campaign's dominant threshold —
+   Route D is the effective-X₀ alternative.
+4. **THE M-SHAPE (R-1e, the kill)**: the supplier is M-SHAPED, no numeral —
+   ≤ (C·exp(−(1/(2e))·pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀)
+   (costwist t₁) X) + C·loglog X·(logX)^{−1/2})·k; numeric exponents ONLY
+   at consumers where hfloor lives. The μ²-refutation (g ≡ 1: S₀ ≈ 0.608)
+   kills any bare-power supplier. **A-10 ADDED [B/C, 150-300]: the
+   ball-centre dichotomy** — |t₁| ≤ seamT0 − seamRad ⟹ Ann ∩ ball = ∅
+   (the ball leg is 0; the pretentious case exits here) OR the floor at t₁
+   on the enlarged window via Mrange_one_floor's per-t step.
+5. **The LIVE GUARD extended**: a §8.3 consumer citing _half OR the
+   ball-graded head of center_halasz_supply is a STOP.
+6. **A2's refusal reworded** (the joint-constraint form — the wall and the
+   E-term cannot both be tail-grade); the y-pin restated as the RANGE
+   2·loglog X ≤ log y ≤ (log X)^{1−δ} (pins are instantiations).
+7. **The live band tripwire**: the ball's honest band is [(1/32)loglog,
+   (1/16)loglog) — factor 2, NO slack; any re-grade moving either numeral
+   empties it.
+8. UNASSIGNED-3 is ALREADY DISCHARGED (SMALLSTONES landed the Mertens
+   conversion an hour before the refuter read the older docstring); its
+   two sub-residuals (the twist-slot transfer; the X→[X,2X] drift) fold
+   into A-9. UNASSIGNED-2 (hfloor's seam-datum provenance over-claim,
+   pre-existing) — flags entry banked.
+
+**THE GOVERNANCE ITEM (to JYH, per the refuters)**: the two-M architecture
+vs AMENDMENT J0 — see the consult in-session.
