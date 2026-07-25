@@ -11278,3 +11278,25 @@ decisions per question.
 - 2026-07-25 12:55 PDT: ***A9-WAVE: THE HCENTER LADDER CLOSES AND THE CROWN LANDS*** (Opus 5, 234k, CenterSupply.lean NEW 520 ln, 8 public, 3-axiom, ZERO diagnostics of any kind): **center_halasz_supply** (M-shaped, the distance an opaque atom, the tail coefficient THE ABSOLUTE NUMERAL 4 -- all of C_E/C_R swallowed by the effective threshold witness; C1 quantified AFTER X so the discharge may carry X-dependent grades) + **ball_sup_supplied -- THE CROWN: ball_leg_of_sup_weighted's hSup' binder produced VERBATIM** (hf1/hfmul/hfle discharged from the datum facts landed in-file; hMball via pretDistSq_twist_slot ∘ hMball_of_A4_cap -- UNASSIGNED-3's first sub-residual CLOSED, and the second (the scale drift) DISSOLVED: the ∀x-form binder absorbs it). **THE EXECUTOR'S IRON-RULE REFUSAL (correct)**: the step-3 chain NOT composed -- the terminal Agrade <= C1.X socket is provably deficient on this route (L^{3/2} crude / loglog sharp -- the known HGRADE record); hRHS landed as the named M-shaped binder instead of a forced wrong grade; **the composable route RECORDED for the discharge: joint_cs_factoring -> bridge_adapter -> joint_sigma_integral (the FLAT exit), NOT sigma_wiring (the heritage (1+M) shape)**. THE FINDING: the eps binds at hgrade only -- at THIS socket the desmooth's -1/2 dominates (E a full half-power below). The A-7b hoist load-bearing exactly as SHAPE-REF predicted. SIX traps banked. Audit +4, All green 9392. **THE SEAM'S FIRST BINDER NOW RESTS ON ONE SOCKET: hRHS (the joint-head grade at the sharp face + the eps-absorption). HRHS-WAVE -- the final discharge -- DISPATCHES.**
 
 - 2026-07-25 13:25 PDT: **HRHS-WAVE LANDS THE CHAIN + A GRADE FINDING THAT CORRECTS TWO DOCSTRINGS** (Opus 5, 308k, RHSGrade.lean NEW 926 ln, 12 public, 3-axiom, zero warnings): the full composition BUILT (joint_supF_pin -> crossKer_sharp_sigma_bound [NEW: the Tsplit-sharp face ∘ window_bridge] -> beta_integral_pin -> the alpha-integral -> **rhs_grade_at_scale -> hRHS_discharged [the binder byte-exact] -> center_halasz_of_grade**); the step-2 bookkeeping EXACT (no inequality spent; the scale hypothesis in FLOOR form -- k >= X is FALSE in general, the floor form is the honest one; hmin's range forced to all-of-R by the ∀t sup, the two honest closures named). **THE HEADLINE: the assembled grade is Theta(k.L.logL) -- the mission's loglog premise UNDER-COUNTED** (JointHead's HGRADE loglog was the KERNEL LEG ALONE; the window-mass product adds a second L, the sigma-cutoff a third, the alpha-integral refunds one; BridgeAdapt's own page said X.L^{3/2} verbatim -- MY CenterSupply-era brief inherited the under-count, corrected herewith); loglog_absorb NOT invoked (cannot bridge a full log); the socket CARRIED per iron rule 1 with the deficit a CHECKED INEQUALITY. **The honest closure named: the mixed-line Plancherel bridge -- the route that never pays the standalone kernel mass -- and the kernel-ramp campaign's LANDED sharp crossKer grades (HeadGrade's crossKer_grade_sharp/decayed, built for EXACTLY this socket) are the candidate supply: GRADE-SCOPE dispatches.** Audit +5, All green 9393. The hSup chain's residuals: the grade socket + four integrability plumbing + hmin's range -- all named, all mapped.
+
+---
+
+**2026-07-25 13:50 PDT — GRADE-CLOSE WAVE DISPATCHED (the V3 GO order).**
+Two Opus executors aloft, per GRADE-SCOPE's ladder:
+- **GRADEA-WAVE** → `Salt/MR/WidthGrade.lean`: A-1 (band_second_moment_width)
+  → A-2 (head_second_moment_grade_width + _low_width; instructed to check the
+  cheap path — if offdiag_widthA_final's width is already a free parameter,
+  A-2 is instantiation, not cloning) → A-3 (tail_lorentz_grade, the ONE new
+  analytic stone: hatKernel branch-2 + the Lorentzian domination
+  1/(cw²+τ²) ≤ 2/(A²+τ²) on |τ| ≥ A + mixed_weight_cs + widthA_plancherel)
+  → A-4/A-5/A-6 (the τ-split composition, the absolute-constant Kα, the
+  hgrade discharge: Agrade ≤ C·k ABSOLUTE). Zeno line drawn at A-3.
+- **B2-WAVE** → `Salt/MR/CompactMin.lean`: the compact-minimizer packaging
+  repairing the hmin vacuity — C1 (continuity of v ↦ pretDistSq at the
+  costwist), C2 (IsCompact.exists_isMinOn attainment on Icc, general R),
+  C3a (the Lipschitz stone, |𝔻²(v)−𝔻²(w)| ≤ |v−w|·(L+C)), C3 (the
+  minimizer-localization: minimize on the ENLARGED [−(X+T*), X+T*] so hmin
+  holds by minimality; the overhang floor via dist_one_floor_pow +
+  recenter_sq_floor shows the live-band minimizer localizes to [−X, X] —
+  the near-corner |v−t₁| < 1 trap flagged in the brief, honest-page ordered).
+B-1 (joint_cs_factoring_trunc) + B-3 (hMcap absorption) fire after these land.
