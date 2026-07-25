@@ -68,6 +68,7 @@ import Salt.MR.SeamSplit
 import Salt.MR.ChiEuler
 import Salt.MR.ChiFloorLow
 import Salt.MR.SeamBallWeighted
+import Salt.MR.HalaszDirect
 import Salt.MR.ChiLLower
 import Salt.MR.PerronMeanSq
 import Salt.MR.VdCSocket
@@ -484,3 +485,7 @@ open Salt.Tactic in
   Salt.MR.T1_decay_annular_tailed_polyT
   Salt.MR.prop_A3_T1_row_annular_polyT
   Salt.MR.prop_A3_T1_row_moment_polyT
+  Salt.MR.window_sup_decay_gen
+  Salt.MR.halasz_direct_gen
+  Salt.MR.halasz_direct_ball
+  Salt.MR.halasz_direct_ball_window
