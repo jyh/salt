@@ -103,3 +103,9 @@ question, 2026-07-21 morning. **Review dispatched 2026-07-21; integration on the
   models internalizing give-up-early, frozen-statement discipline,
   honest residuals. The proofs teach the field mathematics; the
   catches teach it conduct. The leak we want.
+
+## Road 6 addendum (2026-07-25, the design sitting — RATIFIED)
+Five tiers (E / S-two-sided / D / F / V); the honesty axis cross-cutting;
+N = 6 months rolling; the D-1 wave boundary (bench-reserved history ranges
+designated BEFORE the flagship ships — the reservation list is the one
+pre-arXiv obligation). Full sitting: docs/exploration/saltbench-design-0725.md.
