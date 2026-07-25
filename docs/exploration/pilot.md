@@ -11325,3 +11325,16 @@ awk-length false positives on unicode-dense lines (trust the linter);
 Real.norm_exp_I_mul_ofReal_sub_one_le lives in namespace Real; costwist's
 ofReal*I ordering vs mathlib's I*ofReal (mul_comm + push_cast).
 GRADEA-WAVE still aloft on the A-arm.
+
+---
+
+**2026-07-25 14:13 PDT — APPROVAL THREAD: the training-relevance comment.**
+A commenter on the paper approval asked whether "a relevant team" should
+review for LLM-training value. Read: routing/reframe risk (math paper →
+internal-asset frame). JYH replied politic per council: gracious on readers,
+firm on the agreed math-paper classification (theorems + machine-checked
+proofs; no training methods/data/evals), the read detached from the sign-off
+("for the approval itself"), no new timeline dependency accepted. SILENCE
+RULE held (no bench/eval-adjacency mention). Strategy weight: one tick
+toward S-Amber — watch for an actual routing action; the strategy session
+fires on JYH's status check either way.
