@@ -11430,3 +11430,22 @@ abs_add → abs_add_le; GradeConst pin helpers all private (the brief's
 "verbatim reuse" claim false); beta_integral_pin_const wants y ≤ k literally
 (rw-adapter with variable y); alpha_rpow_integral_le needs 1 < k+h hoisted
 via Real.add_one_le_exp.
+
+---
+
+**2026-07-25 15:57 PDT — Z2-SCOPE: verdict (C), route (b) — NO GATE NEEDED.**
+The overhang gate closes from SEAM GEOMETRY: |t₁| ≤ T_ann + seamRad X on the
+ball leg's own domain (the outer companion of CenterCore:490's inner cut);
+R := T_ann + seamRad X + (log 2X)⁴ + 1; empty-intersection arm = hSup
+vacuous by its own guards. ~50 ln class B, ZERO statement changes, NO JYH
+gate. Acid test passed in both regimes (the B-2 counterexample harmless —
+the gate never references X). Census: exactly two blocking 1/16 floor sites
+(PropA3Core:74/:172, both wrappers over the free-Lf engine DistSplit:201);
+everything else monotone-safe or M-shaped. hgap failure corrected in flags
+(DIVERGENT, C ≳ e^100 — not boundary; 1/64 escape is a 3-tower). Fallback
+(a) banked: σ = (5/4)logloglog + (C+1)/4 absorbed by the in-statement
+−5·logloglog slack, K ≤ 10, zero conclusion change. TWO-M SURFACE ITEM for
+JYH (decision register): R ≤ X minimizer IMPLIES the terminal M-shape;
+R > X does not without a step — direction to be picked consciously at the
+main assembly. GATE-WAVE (the two geometric stones + the discharge)
+dispatching; FARCLOSE-WAVE still aloft.

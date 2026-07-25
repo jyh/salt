@@ -404,3 +404,40 @@ candidate repair = shift the seam case-split threshold by −O(logloglog),
 priced as a (loglog)^{O(1)} factor absorbed by the ε-slot via loglog_absorb —
 Z2-SCOPE dispatched to locate the numeral (parameter vs frozen statement) and
 price the shift. If a ratified-frozen statement must change: JYH GATE.
+
+## ⟦V3d — Z2-SCOPE VERDICT: THE NO-GAP ROUTE (b) ADOPTED⟧
+
+**VERDICT (C)**: the gate |t₁| + T ≤ R needs NO hgap, NO localization, NO
+numeral shift. Seam geometry closes it: on the ball leg's own domain
+(t ∈ seamAnn ∩ seamBall) the intersection being nonempty forces
+**|t₁| ≤ T_ann + seamRad X** (the outer companion of the landed inner cut
+CenterCore:490 — ~8 ln, the shape M_range already encodes at
+DistHalasz:264). Instantiate exists_min_dist_abs at
+**R := T_ann + seamRad X + (log 2X)⁴ + 1**: hgate discharges outright; if
+the intersection is EMPTY, hSup is vacuous (its guards ARE membership) and
+the row applies with any S. Acid test passed in BOTH regimes — in T_ann ≈ X
+(the L14 row) the B-2 counterexample's minimizer sits exactly where
+|t₁| ≤ X is FALSE, and the gate never references X. Cost ~50 ln class B,
+ZERO statement changes, NO JYH gate. (Route (a) — the threshold shift — is
+banked as the fallback: the honest price is σ = (5/4)·logloglog + (C+1)/4,
+absorbed by the frozen statement's own −5·logloglog slack at K ≤ 10, zero
+conclusion change; ~200 ln + advisory ratification. Route (c) T-shrink:
+refuted as a route (the gate's shape is T-independent); trade curve banked —
+break-even T ≈ L^{0.512}, landed L⁴ carries ~L² unused slack.)
+
+**CENSUS**: exactly TWO blocking floor-direction sites of the 1/16 numeral
+(PropA3Core:74 branch_a, :172 dist_split_A4_frozen — the latter FROZEN per
+s8-freeze N2, no code consumer yet); both are thin wrappers over the
+free-parameter engine dist_split_fgJ (DistSplit:201, Lf free). ALL other
+sites are cap-direction (monotone-safe) or M-shaped (R-1e discipline held —
+no numeral anywhere on the grade chain).
+
+**RECORD CORRECTIONS** (scoper's, verified): (i) the CompactMin flags entry
+UNDERSTATES the hgap failure — it fails DIVERGENTLY (deficit 5·logloglog + C
+with C ≳ e^100 ≈ 10⁴³ from dist_one_floor_pow's witness), not "at the
+boundary"; the docstring's "1/64 clears it for large X" is true only past a
+3-tower and would drag the frozen (1/32) conclusion to (1/128). (ii) NOTE
+FOR JYH (two-M adjacency, surfaced not resolved): with R ≤ X the minimizer's
+bound IMPLIES the terminal M(f;X)-shape (strong direction); with R > X (the
+T_ann ≈ X regime) it does NOT without a further step — the main assembly
+wave must pick the direction consciously before consuming either route.

@@ -11857,3 +11857,12 @@ the crossKerFar socket; J1's main term VERBATIM — no downstream re-identificat
 + `center_dist_floor_compact` (the vacuity dissolved outright: NO minimality
 hypothesis, the minimizer produced internally from exists_min_dist_abs, via the
 hgap escape). The sixth catch is closed.
+
+**CompactMin hgap — CORRECTION (Z2-SCOPE, verified page).** The entry above
+understates: at S = (1/16)loglog the hgap inequality fails DIVERGENTLY
+(deficit 5·logloglog(4X+16) + C, with C ≳ e^100 from dist_one_floor_pow's
+max-witness), for EVERY X — not "at the boundary." The docstring's 1/64
+escape is only true past ℓ ≳ (16/3)C (a 3-tower) and would drag the frozen
+(1/32) conclusion to (1/128). The gate is closed WITHOUT hgap by the
+annulus-geometry route (V3d); hgap-based localization survives only as the
+banked fallback (a) with the honest shift σ = (5/4)logloglog + (C+1)/4.
