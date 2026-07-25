@@ -83,6 +83,7 @@ import Salt.MR.SmallStones
 import Salt.MR.Prop21Uniform
 import Salt.MR.LambdaMass
 import Salt.MR.WindowBridge
+import Salt.MR.PretSupply
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -509,6 +510,11 @@ open Salt.Tactic in
   Salt.MR.window_mass_product
   Salt.MR.window_bridge_shifted
   Salt.MR.window_bridge
+  Salt.MR.smooth_euler_product
+  Salt.MR.head_dist_floor_gen
+  Salt.MR.supF_pret_pointwise
+  Salt.MR.supF_pret_majorant_sigma
+  Salt.MR.joint_sigma_integral
   Salt.MR.lemma12_meansq_mr_blockSupport
   Salt.MR.lemma12_meansq_mr_consume
   Salt.MR.gapMaj_meansq_le
