@@ -349,3 +349,28 @@ the c/β-agnostic hband_discharge, re-derive the private symmetrization
 (~25 ln), restate A-5 as ∃Cb ∀αβ; (2) A-6 proper (rhsAgrade_const +
 rhs_grade_at_scale_const + the C₁ corollary) — all landed plumbing, ~150 ln,
 gated on (1); (3) the pin arithmetic Amp·Kfac ≤ Cabs (~60 ln rpow).
+
+## ⟦V3b — THE GRADE SOCKET DISCHARGED ABSOLUTE (GRADEB-WAVE as-built)⟧
+
+All three residuals closed (GradeConst.lean, 12 public stones, zero warnings).
+The chain: exists_shortIntervalDatum (the constant lifted ONCE, outermost) →
+crossKer_width_sigma_bound_uniform (ONE Cb, uniform in β AND scale) →
+width_pin_bracket_le (the pin numeral: widthKampBr ≤ 175616·(1+Cb); the two
+L's cancel; ~275× looser than the design page — sharpness irrelevant) →
+rhsAgradeConst_le (**Agrade ≤ gradeAbsConst·k, free of k, X, L**) →
+hRHS_discharged_const → center_halasz_of_grade_const (THE CAPSTONE: C₁
+absolute, quantified outermost; grade socket GONE).
+
+**THE REUSE FINDING**: hRHS_discharged itself is NOT reusable — its hgrade
+hypothesis is stated on rhsAgrade (the old L·log L amplitude), never ≤ C·k
+absolutely. Iron rule 1 respected: statement untouched; the same CONCLUSION
+re-proved through the width face, and byte-exactness MACHINE-VERIFIED by
+composing with the actual consumer (center_halasz_of_grade_const compiles =
+the binder-compatibility proof). Scale gate: exp 64 ≤ k (inherited);
+h hard-wired to k/√L (R-2's numeral needs the concrete pin).
+
+**STATION STATUS**: the hSup ANALYTIC frontier is CLOSED. Remaining carried
+hypotheses on the capstone, exactly two: (1) hmin — still the on-ℝ (vacuous)
+form; the swap point is center_dist_floor (:1334 in the capstone's proof) →
+TruncFactor's center_dist_floor_trunc/_compact; (2) the four JointIntegrableAt
+sockets. Both are SUPCLOSE-WAVE (glue, no new analysis).

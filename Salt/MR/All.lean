@@ -91,6 +91,7 @@ import Salt.MR.RHSGrade
 import Salt.MR.CompactMin
 import Salt.MR.WidthGrade
 import Salt.MR.TruncFactor
+import Salt.MR.GradeConst
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -586,3 +587,15 @@ open Salt.Tactic in
   Salt.MR.crossKerFar_pin_le
   Salt.MR.center_dist_floor_trunc
   Salt.MR.center_dist_floor_compact
+  Salt.MR.exists_shortIntervalDatum
+  Salt.MR.hband_discharge_param
+  Salt.MR.crossKer_width_sigma_bound_param
+  Salt.MR.crossKer_width_sigma_bound_uniform
+  Salt.MR.pin_width_gates
+  Salt.MR.width_pin_bracket_le
+  Salt.MR.crossKer_width_pin_const
+  Salt.MR.beta_integral_pin_const
+  Salt.MR.rhs_grade_at_scale_const
+  Salt.MR.rhsAgradeConst_le
+  Salt.MR.hRHS_discharged_const
+  Salt.MR.center_halasz_of_grade_const

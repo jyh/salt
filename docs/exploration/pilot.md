@@ -11390,3 +11390,26 @@ prove the reduced statement as have + exact); integral_sub_right_eq_self is
 to_additive-generated (doesn't grep; needs no integrability);
 add_le_add_left-adds-RIGHT re-confirmed. GRADEB-WAVE (the residual close)
 still aloft — GradeConst.lean mid-flight, excluded from this commit.
+
+---
+
+**2026-07-25 15:21 PDT — THE GRADE SOCKET FALLS: GRADEB-WAVE lands all three residuals + the capstone.**
+`Salt/MR/GradeConst.lean` (1384 ln, 12 public stones, all 3-axiom, zero
+warnings; full build 9397 jobs green). R-1: the Cb lift
+(exists_shortIntervalDatum → hband_discharge_param → ten verbatim-private
+re-derivations → crossKer_width_sigma_bound_uniform — ONE constant, fixed
+before every quantifier). R-2: width_pin_bracket_le — widthKampBr ≤
+175616·(1+Cb) at the pin, the two L's cancel. R-3: rhs_grade_at_scale_const +
+**rhsAgradeConst_le: Agrade ≤ gradeAbsConst·k FREE OF k, X, L** +
+hRHS_discharged_const + `center_halasz_of_grade_const` :1353 — THE CAPSTONE,
+C₁ ABSOLUTE, the grade socket GONE; byte-exactness machine-verified by
+composition (the compile IS the proof). The reuse finding banked in V3b
+(hRHS_discharged's hgrade unreusable as stated — iron rule 1 held, conclusion
+re-proved). Scale gate exp 64; h pinned k/√L. New traps: set_option-before-
+docstring (+ the linter's comment-line demand); never rw backwards through a
+sqrt identity (rewrites inside the √); field_simp-closes-then-ring-fatal
+(twice); gcongr <;> linarith trips unnecessarySeqFocus; conclusion-only
+implicits need (t₀ := t₀) through .trans; Real.add_one_le_exp for exp-to-
+numeral floors; hoist 0 < 1/L explicitly. THE STATION: analytic frontier
+CLOSED — residuals exactly hmin-swap + four JointIntegrableAt sockets;
+SUPCLOSE-WAVE dispatching.
