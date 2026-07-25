@@ -87,6 +87,7 @@ import Salt.MR.PretSupply
 import Salt.MR.CenterCore
 import Salt.MR.BridgeAdapt
 import Salt.MR.CenterSupply
+import Salt.MR.RHSGrade
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -533,6 +534,11 @@ open Salt.Tactic in
   Salt.MR.pretDistSq_twist_slot
   Salt.MR.center_halasz_supply
   Salt.MR.ball_sup_supplied
+  Salt.MR.center_dist_floor
+  Salt.MR.crossKer_sharp_sigma_bound
+  Salt.MR.rhs_grade_at_scale
+  Salt.MR.hRHS_discharged
+  Salt.MR.center_halasz_of_grade
   Salt.MR.lemma12_meansq_mr_blockSupport
   Salt.MR.lemma12_meansq_mr_consume
   Salt.MR.gapMaj_meansq_le
