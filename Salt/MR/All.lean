@@ -69,6 +69,7 @@ import Salt.MR.ChiEuler
 import Salt.MR.ChiFloorLow
 import Salt.MR.SeamBallWeighted
 import Salt.MR.ChiLLower
+import Salt.MR.PerronMeanSq
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -444,6 +445,11 @@ open Salt.Tactic in
   Salt.MR.chi_Llower_341
   Salt.MR.chi_floor_all_nonreal
   Salt.MR.chi_floor_all_nonreal_twisted
+  Salt.MR.zone_min_sum_split
+  Salt.MR.gapMaj_meansq_le
+  Salt.MR.gapMaj_meansq_sqrt
+  Salt.MR.lemma14_shortInterval_meansq
+  Salt.MR.lemma14_shortInterval_meansq_concrete
   Salt.MR.T1_decay_annular_polyT
   Salt.MR.T1_decay_annular_tailed_polyT
   Salt.MR.prop_A3_T1_row_annular_polyT
