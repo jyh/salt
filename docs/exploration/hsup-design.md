@@ -441,3 +441,34 @@ FOR JYH (two-M adjacency, surfaced not resolved): with R ≤ X the minimizer's
 bound IMPLIES the terminal M(f;X)-shape (strong direction); with R > X (the
 T_ann ≈ X regime) it does NOT without a further step — the main assembly
 wave must pick the direction consciously before consuming either route.
+
+## ⟦V3e — FAR-ARM FINDING + THE T* RULING (FARCLOSE + GATE composite)⟧
+
+**FARCLOSE's refutation (honest, machine-checked to the last arithmetic)**:
+the crude far absorption at T* = L⁴ is FALSE — Kfar's ℓ¹ window masses carry
+(k/y)^{η−1/L} = e^{L/(4logL)−2+o(1)}, superpolynomial in L; no absolute Cfar
+exists (invisible at the exp-64 gate, decisive just past it). The hfar
+socket is carried, NOT forced; everything downstream is landed: F-4 at ONE
+term (C₁ = gradeAbsConst + Cfar absolute), hRHS_socket_of_far VERBATIM =
+ball_sup_supplied's hRHS, and **ball_sup_closed — the crown DELIVERED at the
+non-vacuous hmin, modulo hgate + hfar**.
+
+**GATE-WAVE landed route (b) whole** (SeamGate.lean, zero traps): G-1/G-2
+hypothesis-free; seamGateR := Tann + seamRad + log⁴(2X) + 1;
+rhs_grade_at_scale_seam_gate = the trunc grade with hgate DISCHARGED from
+nonemptiness (the compile = the fit proof); the empty arm supplies hSup
+byte-for-byte at any S (ball_leg_of_inter_empty ≤ 8S²).
+
+**THE RULING (maestro, from the composite)**: repair (i) — T* := y·k^{1/log y}
+— is ADOPTED. FARCLOSE priced it "expensive" on the R-blow-up, but route (b)
+makes R a FREE parameter discharged geometrically at ANY value; and T* =
+X^{1/(4·loglog X)} is SUB-POLYNOMIAL in X, so the polyT regime keeps R ≪ X
+(the strong two-M direction SURVIVES there; the L14 regime was already
+R > X). far_kernel_bound_T is already stated free-T; the margin page at T*
+is FARCLOSE's own (ratio ≤ L^{−3/2}/log L, decreasing). Repair (ii) (the
+Plancherelized far region) is REFUTED as a cheap route: the dyadic-width
+treatment breaks the offdiag y-gate (2S⁸ ≤ n) at widths S > √L — the
+kernel-tail decay (2^jT*)^{−2} exactly cancels the band growth without it;
+C/D-tier if ever revived. FARSTAR-WAVE: re-pin the far arm at T*, the
+monotone per-k gate (k ↦ y(k)·k^{1/log y(k)} increasing), seamGateRstar,
+and the closed chain ball_sup_closed_star. NO statement changes.

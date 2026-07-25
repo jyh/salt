@@ -11449,3 +11449,25 @@ JYH (decision register): R ≤ X minimizer IMPLIES the terminal M-shape;
 R > X does not without a step — direction to be picked consciously at the
 main assembly. GATE-WAVE (the two geometric stones + the discharge)
 dispatching; FARCLOSE-WAVE still aloft.
+
+---
+
+**2026-07-25 16:09 PDT — TWIN LANDING (FARCLOSE + GATE) + the T* ruling.**
+`Salt/MR/FarClose.lean` (615 ln) + `Salt/MR/SeamGate.lean` (266 ln), both
+zero-warning, all 3-axiom; full build 9400 jobs green. FARCLOSE: F-1 far sup
+SHARP at farFbound = rhsCSF·e^{24/e}·L (attained at σ=1/L); F-2 kernel bound
++ free-T variant; far_price_floor (M-free pricing); F-4 ONE-term exit;
+hRHS_socket_of_far byte-verbatim; **ball_sup_closed — the crown at the
+non-vacuous hmin**, modulo hgate+hfar. THE FINDING: hfar at T*=L⁴ is FALSE
+(the ℓ¹ excess e^{L/(4logL)}); carried honestly, repairs priced. GATE:
+route (b) whole — G-1/G-2 hypothesis-free, seamGateR, the per-k gate,
+rhs_grade_at_scale_seam_gate (hgate discharged from nonemptiness), the
+empty-arm pair (hSup at any S). THE RULING (V3e): repair (i) T* :=
+y·k^{1/log y} ADOPTED — route (b)'s free R dissolves the R-objection; T* is
+X^{1/(4loglog X)}, sub-polynomial, polyT regime keeps the strong two-M
+direction. Repair (ii) refuted (the dyadic width route breaks the y-gate at
+S > √L). FARSTAR-WAVE dispatching. New traps: strict 4logL < L needs its own
+derivation (not linarith from the non-strict); window_mass_product over
+window_mass_eval for β-uniform legs (no hQ, independent shifts); high leg
+read at c₀ not c₀−η saves an excess factor; Real.log_le_log is the live
+name at this pin.

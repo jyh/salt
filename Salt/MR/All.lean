@@ -93,6 +93,8 @@ import Salt.MR.WidthGrade
 import Salt.MR.TruncFactor
 import Salt.MR.GradeConst
 import Salt.MR.SupClose
+import Salt.MR.FarClose
+import Salt.MR.SeamGate
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -605,3 +607,23 @@ open Salt.Tactic in
   Salt.MR.joint_supF_pin_trunc
   Salt.MR.joint_cs_trunc_pin
   Salt.MR.rhs_grade_at_scale_trunc
+  Salt.MR.far_supF_bound
+  Salt.MR.far_kernel_bound
+  Salt.MR.far_kernel_bound_T
+  Salt.MR.far_window_mass_le
+  Salt.MR.far_price_floor
+  Salt.MR.far_term_priced
+  Salt.MR.rhs_grade_at_scale_closed
+  Salt.MR.hRHS_socket_of_far
+  Salt.MR.ball_sup_closed
+  Salt.MR.seamAnn_inter_seamBall_center_le
+  Salt.MR.ball_center_dichotomy_two_sided
+  Salt.MR.seamGateR_nonneg
+  Salt.MR.log_pow_four_le_of_le_two_mul
+  Salt.MR.seam_gate_of_nonempty
+  Salt.MR.seam_gate_of_nonempty_nat
+  Salt.MR.exists_min_gate
+  Salt.MR.seam_gate_package
+  Salt.MR.seam_sup_binder_of_inter_empty
+  Salt.MR.ball_leg_of_inter_empty
+  Salt.MR.rhs_grade_at_scale_seam_gate
