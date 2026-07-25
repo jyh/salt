@@ -11338,3 +11338,30 @@ proofs; no training methods/data/evals), the read detached from the sign-off
 RULE held (no bench/eval-adjacency mention). Strategy weight: one tick
 toward S-Amber — watch for an actual routing action; the strategy session
 fires on JYH's status check either way.
+
+---
+
+**2026-07-25 14:50 PDT — THE A-ARM LANDS (GRADEA-WAVE, zero warnings).**
+`Salt/MR/WidthGrade.lean` (1296 ln, 12 public stones + 6 privates, all
+3-axiom; full build 9395 jobs green). A-1..A-5 + the pin gates WHOLE:
+`band_second_moment_width` :75, `head_second_moment_grade(_low)_width`
+:145/:280, `tail_lorentz_core/grade` :437/:541 (the ONE new analytic stone —
+Bamp = (X+h)^{cw}·T₀ confirmed; the Lorentzian domination needs no cw>0),
+`band_weight_le_lorentz` :622, `crossKer_grade_width` :679,
+`line_moment_grade(_low)_width` :908/:933, `crossKer_width_sigma_bound`
+:1037 (**NO L factor — the min¹ win in the kernel; the full L·log L deficit
+removed; bracket ≈ 2.1e7 absolute at the pin**), `width_pin_gates` :1247 +
+`crossKer_width_sigma_pin` :1277 (the y-gate FREE by construction at
+A := (y/2)^{1/8}). TWO as-built improvements banked as V3a in hsup-design.md:
+the diagonal correction diag ≤ (2/A²)·mass (naive 2·mass leaves 218√L — the
+executor's catch makes the constant absolute) + lorentz_compare deleted
+(shared full-line moments). Zeno residuals exact: Cb-uniformity (mechanical),
+A-6 proper (~150 ln landed plumbing), the pin arithmetic (~60 ln). New traps
+banked: the set+ring heartbeat bomb (extract algebra to private lemmas over
+opaque reals; clear_value does NOT help); linarith-in-big-context timeout
+(hoist numeric facts); add_le_add_left adds on the RIGHT (confirmed live);
+positivity-under-metavariable; gcongr two-goal on a*b/d; Integrable.congr
+non-beta-reduced (simp only, not rw; show trips the linter); HeadGrade's
+privates enumerated; WindowBridge import not transitive through HeadGrade;
+Real.sqrt_eq_rpow unconditional. GRADEB-WAVE (residuals) + B1B3-WAVE (the
+truncation arm) dispatching now.

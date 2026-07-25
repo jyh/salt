@@ -322,3 +322,30 @@ cap. NO statement changes anywhere — added hypotheses + internal widths
 only. THE LADDER: A-1..A-6 (the width-decoupled Plancherel close,
 ~755 ln, one new analytic stone A-3) + B-1..B-3 (the truncation, ~480 ln).
 GO: A-1→A-2→A-3 ∥ B-2; then A-4/5/6; B-1/B-3 last.
+
+## ⟦V3a — GRADEA-WAVE as-built addendum⟧
+
+The A-arm landed (WidthGrade.lean, 12 public stones, zero warnings). Two
+deviations from the V3 ladder, both improvements, both kernel-checked:
+
+1. **THE DIAGONAL CORRECTION (the step that makes the constant absolute).**
+   The ladder's naive `diag ≤ 2·mass` is NOT enough — it leaves
+   `Amp·(π/A)·2 ≍ 218√L`. The landed `diag_le_mass_width`: under the y-gate
+   `2A⁸ ≤ n` and `c ≥ 3/4`, `‖b_n‖/n^c ≤ 2/n^{1/4} ≤ 2/A²`, hence
+   **`diag ≤ (2/A²)·mass`** → `Amp·Kfac ≈ 638·C` ABSOLUTE.
+2. **`lorentz_compare` NOT NEEDED.** Head and tail are referred to ONE shared
+   pair of full-line width-A moments via `band_weight_le_lorentz`
+   (`∫_band ‖P‖²/√(cw²+τ²) ≤ (2T₀²/cw)·∫_ℝ ‖P‖²/(A²+τ²)`), deleting a
+   grading stone and the windowSum→Dirichlet fold from A-4.
+
+Confirmations: hband_discharge/offdiag_widthA_*/widthA_plancherel carry the
+width as a FREE parameter (A-2 was ~60% instantiation); the y-gate is free
+by construction at A := (y/2)^{1/8} (width_pin_gates: 2A⁸ = y ≤ n on the
+window); the min(L,1/σ) is spent ONCE — min¹ confirmed in the kernel.
+A-5 exit carries NO L factor; the full L·log L deficit is removed.
+
+RESIDUALS (the GRADEB brief): (1) Cb uniformity over β — obtain C once from
+the c/β-agnostic hband_discharge, re-derive the private symmetrization
+(~25 ln), restate A-5 as ∃Cb ∀αβ; (2) A-6 proper (rhsAgrade_const +
+rhs_grade_at_scale_const + the C₁ corollary) — all landed plumbing, ~150 ln,
+gated on (1); (3) the pin arithmetic Amp·Kfac ≤ Cabs (~60 ln rpow).

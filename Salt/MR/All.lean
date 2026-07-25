@@ -89,6 +89,7 @@ import Salt.MR.BridgeAdapt
 import Salt.MR.CenterSupply
 import Salt.MR.RHSGrade
 import Salt.MR.CompactMin
+import Salt.MR.WidthGrade
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -561,3 +562,15 @@ open Salt.Tactic in
   Salt.MR.dist_one_shift_le_of_two_caps
   Salt.MR.overhang_no_undercut
   Salt.MR.compact_min_package
+  Salt.MR.band_second_moment_width
+  Salt.MR.head_second_moment_grade_width
+  Salt.MR.head_second_moment_grade_low_width
+  Salt.MR.tail_lorentz_core
+  Salt.MR.tail_lorentz_grade
+  Salt.MR.band_weight_le_lorentz
+  Salt.MR.crossKer_grade_width
+  Salt.MR.line_moment_grade_width
+  Salt.MR.line_moment_grade_low_width
+  Salt.MR.crossKer_width_sigma_bound
+  Salt.MR.width_pin_gates
+  Salt.MR.crossKer_width_sigma_pin
