@@ -11506,3 +11506,13 @@ direction choice — the JYH surface item, decision-ready).
 **2026-07-25 16:43 PDT — TWO-M RATIFIED: option (A) (JYH: "Yes, let's do (A)").**
 The enlarged-M uniform ball-leg exit adopted; A.3 rendered-page check next;
 assembly wave fires after PLUMB returns + the check passes.
+
+---
+
+**2026-07-25 16:45 PDT — A.3 CHECK PASSED + THE MVT-ESCAPE BONUS.**
+Rendered p.22 verified: M(f;X) = inf_{|t|≤X}, minimizer attainment ASSERTED
+by MRT (our exists_min_dist_on_Icc grounds it formally); their proof opens
+with the T ≤ X/2 MVT reduction ⟹ R ≤ X in every live row ⟹ the option-(A)
+statement IMPLIES the M(f;X)-shape everywhere live; the B-2 corner sits
+beyond the escape. Assembly guard banked (carry T ≤ X/2 explicitly).
+PLUMB-WAVE still aloft; assembly fires on its return.

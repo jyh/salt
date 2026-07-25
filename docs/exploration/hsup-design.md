@@ -481,3 +481,21 @@ polyT regime's strong M(f;X) direction remains derivable there as a
 corollary (R ≤ X ⟹ enlarged inf = the [−X,X] inf restricted comparison).
 Pre-assembly obligation (maestro): verify MRT A.3's own M-convention (the
 working-window infimum) against the RENDERED page — the faithfulness check.
+
+## ⟦A.3 FAITHFULNESS CHECK — PASSED, WITH A BONUS (rendered p.22, 1503.05121v3)⟧
+
+Verified on the rendered page: (i) Prop A.3's statement carries
+M(f;X)/exp(M(f;X)) at **M(f;X) = inf_{|t|≤X} 𝔻(f, n↦n^{it}; X)²** — the
+[−X,X]-capped infimum, with t₁ "the value of t which attains the minimum"
+(attainment ASSERTED, not proved — our exists_min_dist_on_Icc is exactly
+the formal grounding; a nice paper footnote someday). (ii) **THE BONUS —
+MRT's own MVT escape**: the proof opens "Since the mean value theorem gives
+the bound O(T/X+1), we can assume T ≤ X/2 and M(f;X) ≥ 1." So the honest
+working range always has T ≤ X/2, and OUR R = Tann + seamRad + T* + 1 with
+Tann ≤ X/2 and T* = X^{1/(4loglog X)} sub-polynomial gives **R ≤ X in every
+live row** — [−R,R] ⊆ [−X,X], the R-window inf ≥ M(f;X), hence
+exp(−c·𝔻²(t₁)) ≤ exp(−c·M(f;X)): the ratified option-(A) statement IMPLIES
+the M(f;X)-shape in every live instantiation. B-2's counterexample corner
+(R > X) lives entirely beyond the MVT escape. ASSEMBLY GUARD: the assembly
+wave carries the T ≤ X/2 reduction explicitly (the trivial MVT row bound
+covers T > X/2), mirroring MRT's own opening move.
