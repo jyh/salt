@@ -11759,3 +11759,19 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
   D-node. No consumer ever fired the defective stones (grep-verified) — the
   audit caught them first, again. Repairs additive (the weighted binder +
   the re-centred variant); the landed stones stay as heritage.
+
+## 2026-07-24 — lemma12_meansq's window row: kernel-valid, analytically vacuous (caught pre-consumption)
+
+- **Where**: Salt/MR/RamareWindows.lean — the herr discharge via
+  ramWindowErr_moment_triv (the 2T·windowMass² trivial-sup row) inside
+  lemma12_meansq (:690) / _pretty (:723).
+- **Finding** (HU-SCOPE 7/24): windowMass is the ℓ¹ mass of both cofactor
+  sums (no cancellation) ≈ (loglogX)·logX, so the row is off the §8.3 target
+  ((T/X+1)/H) by ≈ X·H·(logX)² — the theorem is unconditional and true but
+  unusable at grade. MR p.20's actual mechanism: the seam defect collected at
+  the FREQUENCY level (narrow-window Dirichlet polynomial, d_m bounded via
+  ramare_weight_sum) priced by the MVT. HERR-WAVE is landing the honest row
+  (RamareErr.lean); on its landing ramWindowErr_moment_triv is SUPERSEDED
+  (kept, never deleted). No consumer ever fired the vacuous row (§8.3's
+  interior was unbuilt) — the audit caught it first, the week's third
+  vacuity catch (annHead's hsplit, ball_leg_of_sup, this).
