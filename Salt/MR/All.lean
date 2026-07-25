@@ -71,6 +71,7 @@ import Salt.MR.SeamBallWeighted
 import Salt.MR.ChiLLower
 import Salt.MR.PerronMeanSq
 import Salt.MR.VdCSocket
+import Salt.MR.RamareErr
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -449,6 +450,12 @@ open Salt.Tactic in
   Salt.MR.zone_min_sum_split
   Salt.MR.socket_hZ
   Salt.MR.halasz_integers_unconditional
+  Salt.MR.seam_sum_identity
+  Salt.MR.ramWindowErr_moment_sharp
+  Salt.MR.ramWindowErr_moment_grade
+  Salt.MR.lemma12_meansq_sharp
+  Salt.MR.lemma12_meansq_sharp_blockSupport
+  Salt.MR.seam_sum_identity_mr
   Salt.MR.gapMaj_meansq_le
   Salt.MR.gapMaj_meansq_sqrt
   Salt.MR.lemma14_shortInterval_meansq
