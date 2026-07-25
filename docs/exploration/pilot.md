@@ -11300,3 +11300,28 @@ Two Opus executors aloft, per GRADE-SCOPE's ladder:
   recenter_sq_floor shows the live-band minimizer localizes to [−X, X] —
   the near-corner |v−t₁| < 1 trap flagged in the brief, honest-page ordered).
 B-1 (joint_cs_factoring_trunc) + B-3 (hMcap absorption) fire after these land.
+
+---
+
+**2026-07-25 13:56 PDT — B-2 LANDS WHOLE (first build green).**
+`Salt/MR/CompactMin.lean` (375 ln, 9 decls, all 3-axiom): the hmin-vacuity
+repair via the MINIMIZER-LOCALIZATION route — minimize on the enlarged
+`[−R, R]`, `R = X+T*`, so hmin holds BY MINIMALITY (no overhang comparison;
+Route 1's near-corner confirmed unfixable — the Lipschitz drift is log X-sized).
+Stones: `pretDistSq_continuous_freq` :104 (continuous_finsetSum, no cpow),
+`exists_min_dist_on_Icc` :123 (the vacuity repair — IsCompact.exists_isMinOn)
++ `_abs` :133, `pretDistSq_freq_lipschitz` :177 (constant L + log4 + 4, sharp
+per-term 1 via Real.norm_exp_I_mul_ofReal_sub_one_le), `dist_one_shift_le_of_two_caps`
+:244, `overhang_no_undercut` :281 (contra dist_one_floor_pow at b := v−t₀,
+the −5·logloglog carried in-statement), `compact_min_package` :342 (the consumer
+bundle: hmin + cap-inheritance + |t₁−t₀| < 1 ⟹ |t₁| ≤ X+1 under `hgap`).
+TWO FINDINGS (flags entry appended): full |t₁| ≤ X localization FALSE
+(counterexample n^{i(X+1/log X)}); the frozen 1/16 cap sits exactly at the
+floor boundary — localization needs < 1/16 (1/64 clears), carried as `hgap`;
+the hmin/cap clauses need no gap. All.lean wired; full build 9394 jobs green.
+New traps banked by the executor: continuous_finset_sum deprecated (→
+continuous_finsetSum); push_neg deprecated in v4.32.0-rc1 (→ rw [not_lt]);
+awk-length false positives on unicode-dense lines (trust the linter);
+Real.norm_exp_I_mul_ofReal_sub_one_le lives in namespace Real; costwist's
+ofReal*I ordering vs mathlib's I*ofReal (mul_comm + push_cast).
+GRADEA-WAVE still aloft on the A-arm.

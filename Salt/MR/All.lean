@@ -88,6 +88,7 @@ import Salt.MR.CenterCore
 import Salt.MR.BridgeAdapt
 import Salt.MR.CenterSupply
 import Salt.MR.RHSGrade
+import Salt.MR.CompactMin
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -553,3 +554,10 @@ open Salt.Tactic in
   Salt.MR.halasz_direct_gen
   Salt.MR.halasz_direct_ball
   Salt.MR.halasz_direct_ball_window
+  Salt.MR.pretDistSq_continuous_freq
+  Salt.MR.exists_min_dist_on_Icc
+  Salt.MR.exists_min_dist_abs
+  Salt.MR.pretDistSq_freq_lipschitz
+  Salt.MR.dist_one_shift_le_of_two_caps
+  Salt.MR.overhang_no_undercut
+  Salt.MR.compact_min_package

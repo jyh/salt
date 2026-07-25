@@ -11827,3 +11827,26 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
   SIXTH such catch). Repair: the contour truncation at T* = L⁴ (the far
   part at the free M = 0 floor; hmin on the compact where attainment is
   free). The landed stones stay as heritage; the _trunc variants supersede.
+
+---
+
+## CompactMin: localization findings (B2-WAVE, the hmin-vacuity repair)
+
+**Status: informational — no statement change needed; two consumer-facing gates.**
+
+1. **Full localization `|t₁| ≤ X` is FALSE for the enlarged-compact minimizer.**
+   Counterexample (recorded in `Salt/MR/CompactMin.lean`'s module docstring):
+   `f := n^{i(X + 1/log X)}` has vanishing distance at `v = X + 1/log X > X`
+   while the live-band cap at witness `t₀ = X` still holds. What IS true, and
+   what `compact_min_package` delivers: localization RELATIVE TO the live-band
+   witness — `|t₁ − t₀| < 1`, hence `|t₁| ≤ X + 1`.
+2. **The frozen `1/16` live-band numeral does not clear the localization gap.**
+   With `S = (1/16)·loglog X`, the triangle bound `4S = (1/4)·loglog X` sits
+   EXACTLY at the overhang floor's leading term
+   `loglog X − (3/4)·loglog(4X+3) ≈ (1/4)·loglog X` — the strict inequality
+   fails at the boundary. Localization needs a cap strictly below `1/16`
+   (e.g. `1/64` clears it for large X). Carried as the named hypothesis
+   `hgap` in `compact_min_package` — never assumed, never absorbed. A
+   consumer instantiating at the frozen `1/16` will find `hgap` unprovable;
+   the escape: `hmin` + cap-inheritance from C2/C4 need NO gap at all — only
+   the `t₁`-localization clause consumes `hgap`.
