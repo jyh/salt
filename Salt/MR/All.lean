@@ -86,6 +86,7 @@ import Salt.MR.WindowBridge
 import Salt.MR.PretSupply
 import Salt.MR.CenterCore
 import Salt.MR.BridgeAdapt
+import Salt.MR.CenterSupply
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -528,6 +529,10 @@ open Salt.Tactic in
   Salt.MR.sigma_wiring_of_crossKer
   Salt.MR.loglog_absorb
   Salt.MR.loglog_absorb_pow
+  Salt.MR.seamCoeff_twist_combine
+  Salt.MR.pretDistSq_twist_slot
+  Salt.MR.center_halasz_supply
+  Salt.MR.ball_sup_supplied
   Salt.MR.lemma12_meansq_mr_blockSupport
   Salt.MR.lemma12_meansq_mr_consume
   Salt.MR.gapMaj_meansq_le
