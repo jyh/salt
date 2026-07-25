@@ -72,6 +72,7 @@ import Salt.MR.ChiLLower
 import Salt.MR.PerronMeanSq
 import Salt.MR.VdCSocket
 import Salt.MR.RamareErr
+import Salt.MR.USetThin
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -456,6 +457,10 @@ open Salt.Tactic in
   Salt.MR.lemma12_meansq_sharp
   Salt.MR.lemma12_meansq_sharp_blockSupport
   Salt.MR.seam_sum_identity_mr
+  Salt.MR.lemma12_meansq_on_subset
+  Salt.MR.lemma12_meansq_on_subset_blockSupport
+  Salt.MR.wellspaced_discretize
+  Salt.MR.Uset_thin
   Salt.MR.gapMaj_meansq_le
   Salt.MR.gapMaj_meansq_sqrt
   Salt.MR.lemma14_shortInterval_meansq
