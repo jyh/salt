@@ -288,3 +288,10 @@ Both REPAIR-THEN-FIRE. THE REPAIRS (adopted):
 
 **THE GOVERNANCE ITEM (to JYH, per the refuters)**: the two-M architecture
 vs AMENDMENT J0 — see the consult in-session.
+
+## ⟦THE TWO-M READING RATIFIED (JYH, 2026-07-25 12:02 PDT)⟧
+
+Ball leg = the global M via the minimizer (M-shaped statements; the frozen
+terminal's own exp(−M(f;X)/2)); far/annulus legs = M_range (J0 intact on
+its domain); J0 refined, not reversed (its target was the seam-t₀ drift,
+not the minimizer). The main assembly wave releases.
