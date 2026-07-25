@@ -77,6 +77,7 @@ import Salt.MR.USetThin
 import Salt.MR.RamareMR
 import Salt.MR.SevenEighths
 import Salt.MR.Renormalise
+import Salt.MR.JFactor
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -475,6 +476,12 @@ open Salt.Tactic in
   Salt.MR.ht_tail_ratio
   Salt.MR.renormalise
   Salt.MR.renormalise_shifted
+  Salt.MR.prod_one_sub_blockAvoid
+  Salt.MR.alt_sum_blockAvoid_dirichlet
+  Salt.MR.norm_exp_half_sub_le
+  Salt.MR.block_factor_le_one
+  Salt.MR.jfactor_alt_sum_le
+  Salt.MR.jfactor_alt_sum_le_euler
   Salt.MR.lemma12_meansq_mr_blockSupport
   Salt.MR.lemma12_meansq_mr_consume
   Salt.MR.gapMaj_meansq_le
