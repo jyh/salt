@@ -295,3 +295,30 @@ Ball leg = the global M via the minimizer (M-shaped statements; the frozen
 terminal's own exp(−M(f;X)/2)); far/annulus legs = M_range (J0 intact on
 its domain); J0 refined, not reversed (its target was the seam-t₀ drift,
 not the minimizer). The main assembly wave releases.
+
+## ⟦GRADE-SCOPE VERDICT + AMENDMENT V3 (2026-07-25 13:44 PDT)⟧
+
+(1) crossKer: ONE def in the corpus — the ramp ladder is byte-ready, no
+adapter. (2) The y-gate excluded at the pin (2·2⁸ dropped in the old
+reading) BUT the width is decouplable: A := (y/2)^{1/8} ≈ 0.92√L makes the
+gate true BY CONSTRUCTION at cost 2.9× constant — internal to HeadGrade,
+no re-pin. (3) The composed page: the landed decayed grade halves the
+deficit (L·logL → L); THE FULL CLOSE = ONE new stone (A-3, the
+Plancherelized tail: hatKernel_branch2 + the Lorentzian domination +
+mixed_weight_cs + widthA_plancherel at width A — every ingredient LANDED)
+→ **Agrade ≤ C·k ABSOLUTE. The geometric mean carries min¹ not min² — the
+whole win.** (4) Consumer tolerance INDEPENDENTLY CONFIRMED: not even one
+L is tolerable (overshoot ~1.99 powers) — the Plancherel route is
+LOAD-BEARING. (5) **THE SIXTH VACUITY CATCH: hmin-on-ℝ is VACUOUS in the
+live band** — Kronecker density makes the ℝ-inf of the finite distance sum
+Σ(1−|f(p)|)/p = 0 for unimodular data, contradicting the band floor;
+hRHS_discharged/center_halasz_of_grade are vacuous in the live branch AS
+STATED (kernel-valid; caught pre-consumption — flags). THE REPAIR: the
+CONTOUR TRUNCATION at T* := L⁴ (the far t-part crude at the FREE M = 0
+floor × hat_tail, absorbed via hMcap at margin L^{−2.5}; hmin restricted
+to the compact |v−t₁| ≤ T* where ATTAINMENT IS FREE — the ℝ-caveat moot);
+the overhang via the uncapped dist_one_floor_pow + recenter_sq_floor + the
+cap. NO statement changes anywhere — added hypotheses + internal widths
+only. THE LADDER: A-1..A-6 (the width-decoupled Plancherel close,
+~755 ln, one new analytic stone A-3) + B-1..B-3 (the truncation, ~480 ln).
+GO: A-1→A-2→A-3 ∥ B-2; then A-4/5/6; B-1/B-3 last.

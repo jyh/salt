@@ -11814,3 +11814,16 @@ coefficient identity (GHS Lemma 2.1/2.2 → Prop 2.1 core).
   wave leans on this exponent; the honest supply chain is the A.4 dichotomy
   + the per-t floor step (the V2 amendment's A-10), not the sInf stone.
   (GRADE-REF UNASSIGNED-2.)
+
+## 2026-07-25 — hmin-on-ℝ vacuous in the live band (the sixth vacuity catch, pre-consumption)
+
+- **Where**: Salt/MR/RHSGrade.lean:189/:829/:898 (center_dist_floor,
+  hRHS_discharged, center_halasz_of_grade's hmin binder).
+- **Finding** (GRADE-SCOPE): pretDistSq is a FINITE sum; by Kronecker
+  density of {p^{iv}} in the torus, inf over v ∈ ℝ = Σ(1−|f(p)|)/p — zero
+  for unimodular data — contradicting the live band's (1/32)loglog floor:
+  the ∀v-hypothesis is unsatisfiable exactly where the theorems matter.
+  Kernel-valid, never consumed (the audit caught it first — the week's
+  SIXTH such catch). Repair: the contour truncation at T* = L⁴ (the far
+  part at the free M = 0 floor; hmin on the compact where attainment is
+  free). The landed stones stay as heritage; the _trunc variants supersede.
