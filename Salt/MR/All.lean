@@ -82,6 +82,7 @@ import Salt.MR.BallSup
 import Salt.MR.SmallStones
 import Salt.MR.Prop21Uniform
 import Salt.MR.LambdaMass
+import Salt.MR.WindowBridge
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -505,6 +506,9 @@ open Salt.Tactic in
   Salt.MR.vonMangoldt_window_shifted_min
   Salt.MR.lambdaLin_window_damped_min
   Salt.MR.lambdaLin_window_shifted_min
+  Salt.MR.window_mass_product
+  Salt.MR.window_bridge_shifted
+  Salt.MR.window_bridge
   Salt.MR.lemma12_meansq_mr_blockSupport
   Salt.MR.lemma12_meansq_mr_consume
   Salt.MR.gapMaj_meansq_le
