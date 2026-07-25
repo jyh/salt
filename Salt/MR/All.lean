@@ -95,6 +95,7 @@ import Salt.MR.GradeConst
 import Salt.MR.SupClose
 import Salt.MR.FarClose
 import Salt.MR.SeamGate
+import Salt.MR.FarStar
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -627,3 +628,13 @@ open Salt.Tactic in
   Salt.MR.seam_sup_binder_of_inter_empty
   Salt.MR.ball_leg_of_inter_empty
   Salt.MR.rhs_grade_at_scale_seam_gate
+  Salt.MR.Tstar_mono
+  Salt.MR.far_kernel_bound_star
+  Salt.MR.far_kfar_star_le
+  Salt.MR.hfar_star
+  Salt.MR.seam_gate_star_of_nonempty
+  Salt.MR.exists_min_gate_star
+  Salt.MR.seam_gate_star_package
+  Salt.MR.rhs_grade_at_scale_closed_star
+  Salt.MR.hRHS_socket_star
+  Salt.MR.ball_sup_closed_star

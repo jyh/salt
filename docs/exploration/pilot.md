@@ -11471,3 +11471,32 @@ derivation (not linarith from the non-strict); window_mass_product over
 window_mass_eval for β-uniform legs (no hQ, independent shifts); high leg
 read at c₀ not c₀−η saves an excess factor; Real.log_le_log is the live
 name at this pin.
+
+---
+
+**2026-07-25 16:39 PDT — FARSTAR lands WHOLE (zero residuals): the far socket DISCHARGED.**
+`Salt/MR/FarStar.lean` (828 ln, 19 decls, all 3-axiom, zero warnings; full
+build 9401 jobs green). The heart: `far_mass_cancel` — the ℓ¹ excess IS
+k^η, killed EXACTLY by T*'s own k^η, residual e^{−2}; `hfar_star` at
+farCStar = 306·rhsCSF·e^{24/e}·(log4+4)²/π ABSOLUTE; as-proven margin
+O(L^{−1/2}/log L) decreasing (the extra L vs FarClose's page is the crude
+currency floor logX ≤ 2L — the 1/(32e) exponent never contested).
+Tstar_mono at the honest gate k ≥ e^e (sharp; corpus e^64 clears trivially;
+derivative-free via log(M/L) ≤ (M−L)/L). **`ball_sup_closed_star` :791 —
+THE CROWN, carried hypotheses enumerated: hg, the scale frame, Cb datum,
+the two coefficient equations, hmin-compact at seamGateRstar (NON-vacuous),
+hMcap, the exp-64 range gate, hne (the ONLY new one — empty arm landed
+height-independent), and the four JointIntegrableAt sockets. GONE: hfar
+(the false socket), hgate, the free T/Kfar plumbing.** Structural note
+(docstringed): hmin not internally suppliable — the crown fixes t₁ before X
+(CenterSupply quantifier order); seam_gate_star_package landed standalone
+for the t₁-after-X consumer = the assembly wave's slot. RECORD CORRECTION:
+FarClose's §0 helpers are PRIVATE (its report claimed public; struck).
+New traps: gcongr splits numeric coefficients across a division (produced a
+FALSE goal — div_le_div_iff₀ + nlinarith instead); the √L−1 log-majorant
+too lossy for 8logL ≤ L (use log s ≤ s/e); Tstar_eq_pin needs trailing rfl
+after the rw chain; window_grade_pos (LambdaMass:526) is the public
+nonnegativity for the min-factors. STATION STATUS: every analytic socket of
+hSup is now DISCHARGED; remaining = the four JointIntegrableAt plumbing
+sockets (PLUMB-WAVE next) + the assembly (t₁-per-X wiring + the two-M
+direction choice — the JYH surface item, decision-ready).
