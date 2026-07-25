@@ -62,3 +62,15 @@ kernel (lake build + #print axioms + statement-hash), no autorater.
 Sequencing: BUILD waits for the flagship arXiv + the outside window;
 the design (this doc) is banked; the reservation list (D-1) is the one
 pre-arXiv obligation.
+
+## ⟦D-1 LIST RATIFIED + THE SILENCE RULE (JYH, 2026-07-25 11:11 PDT)⟧
+
+The wave-1 reservation list ratified as drawn. **THE SILENCE RULE (JYH's
+prudence, maestro concurring and extending): NO public mention of SaltBench
+— name, design, or existence — until (a) the flagship's publication approval
+lands AND (b) JYH decides whether SaltBench's eval-adjacency to outside-lane
+territory warrants its own the copyright-waiver filing/clearance BEFORE any announcement.** The
+sequencing already held the BUILD for the arXiv + the 6-week window; the
+silence rule extends that to the NAME. Verified clean: main.tex, the
+dinitz-verify artifacts, and the facts sheet carry zero mentions. The
+design + reservation docs live only in the private repo + the seat.
