@@ -374,3 +374,33 @@ hypotheses on the capstone, exactly two: (1) hmin — still the on-ℝ (vacuous)
 form; the swap point is center_dist_floor (:1334 in the capstone's proof) →
 TruncFactor's center_dist_floor_trunc/_compact; (2) the four JointIntegrableAt
 sockets. Both are SUPCLOSE-WAVE (glue, no new analysis).
+
+## ⟦V3c — SUPCLOSE as-built: the TRUE seam + a V3b CORRECTION⟧
+
+**CORRECTION (maestro error, machine-refuted)**: V3b's "the swap point is
+center_dist_floor (:1334)" was WRONG. Wall 1: rhs_grade_at_scale_const's hMt
+is on-ℝ INSIDE the grade (it rides joint_cs_factoring's ∀-t hsupF) — the
+compact floor is an application type mismatch there, captured verbatim. The
+true seam is one rung down, at joint_cs_factoring_trunc. Wall 2: the
+recentred consumption (contour centred at t₀+t₁, floor centred at t₀) forces
+the gate |t₁| + T ≤ R, which exists_min_dist_abs alone cannot discharge.
+
+**AS-BUILT (SupClose.lean, 5 stones)**: joint_supF_pin_at (the floor at the
+ONE consumed point) → center_dist_floor_recentred (gate |t₁|+T ≤ R) →
+joint_supF_pin_trunc (joint_cs_factoring_trunc's hsupF from COMPACT
+minimality alone) → joint_cs_trunc_pin (the byte-exactness compile) →
+**rhs_grade_at_scale_trunc: ‖prop21RHS‖ ≤ gradeAbsConst·k·e^{−M/(2e)}
++ (1/π)·η²·(Ffar·Kfar)** — main term byte-identical to hRHS_discharged_const's
+RHS; hmin NON-vacuous (|v| ≤ R only). ball_sup_supplied carries NO hmin —
+the vacuity enters the crown solely through hRHS; the seam to the crown is
+exactly ONE un-absorbed far term.
+
+**RESIDUALS**: Z1 far absorption (analysis: Ffar numeral via joint_supF_pin_at
+at M := 0; Kfar via crossKerFar_pin_le at T := L⁴; the hMcap pricing of
+e^{−M/(2e)}) — FARCLOSE-WAVE. Z2 the overhang gate |t₁| ≤ R − L⁴ — DESIGN
+BLOCK: the landed localization (compact_min_package) requires hgap, which the
+frozen 1/16 live-band numeral fails by a logloglog sliver (B-2's finding);
+candidate repair = shift the seam case-split threshold by −O(logloglog),
+priced as a (loglog)^{O(1)} factor absorbed by the ε-slot via loglog_absorb —
+Z2-SCOPE dispatched to locate the numeral (parameter vs frozen statement) and
+price the shift. If a ratified-frozen statement must change: JYH GATE.

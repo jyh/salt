@@ -92,6 +92,7 @@ import Salt.MR.CompactMin
 import Salt.MR.WidthGrade
 import Salt.MR.TruncFactor
 import Salt.MR.GradeConst
+import Salt.MR.SupClose
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -599,3 +600,8 @@ open Salt.Tactic in
   Salt.MR.rhsAgradeConst_le
   Salt.MR.hRHS_discharged_const
   Salt.MR.center_halasz_of_grade_const
+  Salt.MR.joint_supF_pin_at
+  Salt.MR.center_dist_floor_recentred
+  Salt.MR.joint_supF_pin_trunc
+  Salt.MR.joint_cs_trunc_pin
+  Salt.MR.rhs_grade_at_scale_trunc

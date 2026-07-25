@@ -11413,3 +11413,20 @@ implicits need (t₀ := t₀) through .trans; Real.add_one_le_exp for exp-to-
 numeral floors; hoist 0 < 1/L explicitly. THE STATION: analytic frontier
 CLOSED — residuals exactly hmin-swap + four JointIntegrableAt sockets;
 SUPCLOSE-WAVE dispatching.
+
+---
+
+**2026-07-25 15:40 PDT — SUPCLOSE lands the TRUE seam; V3b corrected.**
+`Salt/MR/SupClose.lean` (481 ln, 5 stones, 3-axiom, zero warnings; full build
+9398 jobs). The briefed swap REFUTED by compile (two walls: hMt on-ℝ inside
+the grade; the recentring gate |t₁|+T ≤ R) — my V3b swap-point claim was
+wrong, correction banked in V3c. Landed instead: rhs_grade_at_scale_trunc —
+main term BYTE-IDENTICAL to hRHS_discharged_const's RHS, hmin non-vacuous,
+one un-absorbed far term (1/π)η²(Ffar·Kfar). ball_sup_supplied confirmed
+hmin-free (vacuity enters only via hRHS). Residuals: Z1 far absorption
+(FARCLOSE-WAVE dispatching), Z2 the overhang gate (DESIGN BLOCK — hgap vs
+the frozen 1/16; Z2-SCOPE dispatching; possible JYH gate). New traps:
+abs_add → abs_add_le; GradeConst pin helpers all private (the brief's
+"verbatim reuse" claim false); beta_integral_pin_const wants y ≤ k literally
+(rw-adapter with variable y); alpha_rpow_integral_le needs 1 < k+h hoisted
+via Real.add_one_le_exp.
