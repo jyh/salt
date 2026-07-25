@@ -75,6 +75,7 @@ import Salt.MR.RamareErr
 import Salt.MR.USetThin
 import Salt.MR.RamareMR
 import Salt.MR.SevenEighths
+import Salt.MR.Renormalise
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -468,6 +469,11 @@ open Salt.Tactic in
   Salt.MR.seven_eighths_bound
   Salt.MR.seven_eighths_bound_loglog
   Salt.MR.seven_eighths_bound_primes
+  Salt.MR.hall_tenenbaum_core_two
+  Salt.MR.euler_exp_bound_two
+  Salt.MR.ht_tail_ratio
+  Salt.MR.renormalise
+  Salt.MR.renormalise_shifted
   Salt.MR.lemma12_meansq_mr_blockSupport
   Salt.MR.lemma12_meansq_mr_consume
   Salt.MR.gapMaj_meansq_le
