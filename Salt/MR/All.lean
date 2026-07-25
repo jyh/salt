@@ -70,6 +70,7 @@ import Salt.MR.ChiFloorLow
 import Salt.MR.SeamBallWeighted
 import Salt.MR.ChiLLower
 import Salt.MR.PerronMeanSq
+import Salt.MR.VdCSocket
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -446,6 +447,8 @@ open Salt.Tactic in
   Salt.MR.chi_floor_all_nonreal
   Salt.MR.chi_floor_all_nonreal_twisted
   Salt.MR.zone_min_sum_split
+  Salt.MR.socket_hZ
+  Salt.MR.halasz_integers_unconditional
   Salt.MR.gapMaj_meansq_le
   Salt.MR.gapMaj_meansq_sqrt
   Salt.MR.lemma14_shortInterval_meansq
