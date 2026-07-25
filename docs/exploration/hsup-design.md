@@ -472,3 +472,12 @@ kernel-tail decay (2^jT*)^{−2} exactly cancels the band growth without it;
 C/D-tier if ever revived. FARSTAR-WAVE: re-pin the far arm at T*, the
 monotone per-k gate (k ↦ y(k)·k^{1/log y(k)} increasing), seamGateRstar,
 and the closed chain ball_sup_closed_star. NO statement changes.
+
+## ⟦TWO-M DIRECTION RATIFIED (JYH): OPTION (A)⟧
+
+The ball-leg exit is stated at the ENLARGED-window infimum (over |t| ≤ R,
+R = seamGateRstar) UNIFORMLY in both regimes — one clean statement; the
+polyT regime's strong M(f;X) direction remains derivable there as a
+corollary (R ≤ X ⟹ enlarged inf = the [−X,X] inf restricted comparison).
+Pre-assembly obligation (maestro): verify MRT A.3's own M-convention (the
+working-window infimum) against the RENDERED page — the faithfulness check.

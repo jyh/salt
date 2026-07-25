@@ -11500,3 +11500,9 @@ nonnegativity for the min-factors. STATION STATUS: every analytic socket of
 hSup is now DISCHARGED; remaining = the four JointIntegrableAt plumbing
 sockets (PLUMB-WAVE next) + the assembly (t₁-per-X wiring + the two-M
 direction choice — the JYH surface item, decision-ready).
+
+---
+
+**2026-07-25 16:43 PDT — TWO-M RATIFIED: option (A) (JYH: "Yes, let's do (A)").**
+The enlarged-M uniform ball-leg exit adopted; A.3 rendered-page check next;
+assembly wave fires after PLUMB returns + the check passes.
