@@ -11883,3 +11883,14 @@ pin δ := P_J^{−α_J}" is NOT simultaneously satisfiable with hlogV at
 super-polylog P_J; the LIVE pin under the landed statements is
 δ ≈ K₀(log X)^{−100}. hU non-vacuous either way. No future wave should
 optimise against the P_J^{−α_J} reading.
+
+**THE SECOND WALL (HURES, kernel-certified)**: the hRgrade slot of
+hU_fully_priced cannot be discharged at the live Tann — farErr's log Rmax
+numerator (forced by TannGate) vs the √(log kmin) denominator gives an
+absolute floor on R̄; Rbd_and_Cq_gates_collide proves the V5f gates jointly
+unsatisfiable. The chain hU_fully_priced remains VALID as stated (the slot
+is a hypothesis); its live dischargeability via THIS route is refuted.
+Repair = remove log Rmax from the CASE-B transfer error (CofactorBall/A-10
+design; FARERR-SCOPE). Also: the pricing needs seamRad X ≤ Rrad (the lower
+gate — consumer pins Rrad = seamRad X); the hErow X-vs-Xd scale mismatch
+meets only under X ≤ Xd (consumer must pin).

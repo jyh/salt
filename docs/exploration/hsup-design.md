@@ -835,3 +835,33 @@ kept separate from G* — the parameter-regime mixing risk) [B/C,350–600].
 The three composition seams for W-0 banked from the scope: t₁
 produced-then-fed; the TWO DATA (seamCoeff (ellLin g) vs ellLin g — both
 supplied, no adapter); the far arm's dichotomy.
+
+## ⟦V6a — THE SECOND WALL (HURES, kernel-certified) + R-2/R-3 CLOSED⟧
+
+**R-1 REFUTED AT THE LIVE Tann**: farErr carries 1 + log(3 + Rmax(1+log Y))
+at Rmax ≥ Tann, and TannGate FORCES Tann ≥ exp(30(logX)^{1/2}) (its
+polylog-failure is itself a theorem) — against only √(log kmin) ≤ √(log X)
+below. Kernel-certified: farErr_TannGate_floor (an ABSOLUTE floor
+120·ballSupC), Rbd_TannGate_floor (360·ballSupC ≤ R̄),
+Rbd_grade_refuted (¬(R̄ ≤ C_R(logX)^{−ρ}) past an explicit threshold), and
+**Rbd_and_Cq_gates_collide — the two V5f gates JOINTLY unsatisfiable (an
+explicit CEILING on log X)**. At the live row height the far error GROWS
+like √(log X). No escape (log kmin ≤ log X structurally). THE REPAIR
+TARGET stated + proven usable: farErr_le_of_ambient_gate /
+Rbd_grade_priced_of_ambient — but ambient_cap_below_TannGate_floor shows
+the repair window is EMPTY as-built. **The fix must remove log Rmax from
+the far-arm transfer error — a CofactorBall/A-10 DESIGN question**
+(FARERR-SCOPE dispatched). R-4 correctly REFUSED (would be vacuous where
+it matters). SECOND SILENT-VACUITY CATCH: the pricing needs the LOWER gate
+seamRad X ≤ Rrad (hU_fully_priced carries only ≤) — the consumer must pin
+Rrad = seamRad X. SCALE-MISMATCH CATCH: hErow reads X, Lemma 12 reads Xd;
+they meet only under X ≤ Xd (unpinned — the consumer's).
+
+**POSITIVE (landed)**: the caseAS arm priced END-TO-END with C_R explicit
+(gradeCR Cb; the descent factor a NUMERAL e^13); the max's 2√2/R half
+collapses as V5f said (farErr does not); R-2's assembly landed
+(E_priced(_row_scale); EP2 free at P83 with (logX)^{2−5θ} spare) with the
+ℓ²-mass residual EXACTLY specified ([C, 200–300]: the SmallStones
+p²-route is TOO LOSSY for §8.3 — kernel-checked insufficiency; the
+ℓ²-preserving route mapped in four steps); R-3 ALL THREE GATES DISCHARGED
+at explicit thresholds (numeral_gates_discharged).

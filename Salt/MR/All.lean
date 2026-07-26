@@ -113,6 +113,7 @@ import Salt.MR.USetBalance
 import Salt.MR.USetPrice
 import Salt.MR.SeamTerminal
 import Salt.MR.FarArm
+import Salt.MR.USetResiduals
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -832,3 +833,21 @@ open Salt.Tactic in
   Salt.MR.seam_row_of_inter_empty
   Salt.MR.seam_row_both_arms
   Salt.MR.seam_row_three_arms
+  Salt.MR.caseAS_arm_priced
+  Salt.MR.farMain_priced
+  Salt.MR.Rbd_grade_priced
+  Salt.MR.farErr_TannGate_floor
+  Salt.MR.Rbd_TannGate_floor
+  Salt.MR.Rbd_grade_refuted
+  Salt.MR.Rbd_and_Cq_gates_collide
+  Salt.MR.farErr_le_of_ambient_gate
+  Salt.MR.Rbd_grade_priced_of_ambient
+  Salt.MR.ambient_cap_below_TannGate_floor
+  Salt.MR.E_priced
+  Salt.MR.E_priced_row_scale
+  Salt.MR.EP2_gate_of_row
+  Salt.MR.P2_route_64_over_Psq_insufficient
+  Salt.MR.gate_Cq_CR
+  Salt.MR.gate_KS_live_delta
+  Salt.MR.gate_absorb_8640
+  Salt.MR.numeral_gates_discharged

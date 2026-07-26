@@ -11909,3 +11909,21 @@ sharp on polylog-T. New traps: div_add_div_same gone (ring directly);
 Real.le_log_iff_exp_le is the live name; **push_neg deprecated-warns —
 'push Not at h' is the zero-warning form**; gcongr over-supply mirror
 (trailing norm_num "no goals"). HURES the last aloft.
+
+---
+
+**2026-07-25 22:28 PDT — W-2 returns: R-2/R-3 CLOSED + ⚠ THE SECOND WALL (kernel-certified).**
+`Salt/MR/USetResiduals.lean` (959 ln, 27 thms + 1 def, all 3-axiom, green;
+full build 9419 jobs). R-3 all gates discharged; R-2 assembled (the ℓ²-mass
+residual exactly specified — the SmallStones route kernel-checked
+INSUFFICIENT for §8.3); R-1's caseAS arm priced end-to-end (C_R explicit)
+BUT **the farSupS arm REFUTED at the live Tann: the TannGate forces
+log Rmax ≥ 30√(logX) into farErr's numerator — Rbd_and_Cq_gates_collide
+gives an explicit log-X CEILING; the V5f gates jointly unsatisfiable**.
+R-4 refused (would be vacuous). Two more silent-vacuity catches (the Rrad
+lower gate; the X-vs-Xd scale). V6a + flags banked. FARERR-SCOPE
+dispatched — BOTH morning gates (Route G + the far-error redesign) will
+wake decision-ready. New traps: exp_one_gt_d9 for 2 < e; le_or_gt; rw-list
+self-undo on rpow_add (calc only); the log-of-negative trap sharpened
+(4 ≤ loglog X does NOT give log X > 0); div_le_div_of_nonneg_left the live
+same-numerator form; congr-1-closes-then-ring-fails.
