@@ -768,3 +768,29 @@ Q := Q83; price card(ramI); Lemma 12's three error rows into E);
 P-b [B, 100–150] hKS via ramRcoeff_mass_le + the harmonic-square page
 (Ms·Σ 1/m² ≤ 4); P-c [B/C, 150–250] hRbdU — cofactorRbd monotone in k₀/M
 across the block range.
+
+## ⟦V5f — hU FULLY PRICED (U9PRICE as-built): §8.3's hU IS DONE⟧
+
+ALL FOUR STONES + THE PRIZE: **hU_fully_priced** — the row's exit at
+8S² + the 𝒯-leg + 2(Tann/X+1)(log X)^{−θ₂₉₃+ε}, all four balance
+hypotheses (hKS/hRbdU/hmain/hrem) DISCHARGED at the pins;
+priced_exit_beats_door at ε ≤ 1/1000 → (log X)^{−1/500}. The card page
+deliberately discards the 1/loglog (the 𝒯_L spare pays it); the floor page
+at 4 ≤ log X; the 𝒯_L leg collapses to 864·C_q·C_R²·(log X)^{−3θ} —
+V5e's spare IN LEAN. WORST-END VERDICT: the two arms disagree (caseAS worst
+at smallest k₀; farErr's numerator at largest Mt) — R̄ is the MIXED corner
+(kmin, Ymax), not a single block. TWO HONESTY CATCHES: (i) the
+SILENT-VACUITY catch — R̄ ≤ (log X)^{−ρ} without a constant is vacuous
+(gradeAbsConstC > 1); C_R carried, absorbed by the numeral-vs-growing-power
+gate; (ii) the Ms sandwich makes the η ≳ 1/(2 loglog X) floor ENFORCEABLE
+BY INSPECTION (two in-file binders).
+
+**RESIDUAL GATES (all in-statement by design, law #253):**
+R-1 [B, ~100] R̄ ≤ C_R·(log X)^{−ρ₂₉₃} — the S(X)−S(k₀) Mertens conversion
+(descent_tail_le's page, already landed in CofactorSupply — likely a small
+composition); R-2 EP2's own page (Lemma 12's 1/P row) with the gate
+12·EP2 ≤ (log X)^{−θ}; R-3 the three numeral gates (C_q-vs-power; the
+δ'-level KS gate; 8640 ≤ (log X)^ε). These ride the statements; the
+consumers discharge at the pins. **hU's supply chain is COMPLETE.**
+THE ROW'S REMAINING WORK: the 𝒯-leg (§8.1/8.2 — TLEG-SCOPE dispatched),
+the A-10 far arm, the terminal assembly.

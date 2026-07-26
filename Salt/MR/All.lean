@@ -110,6 +110,7 @@ import Salt.MR.CofactorBall
 import Salt.MR.CofactorGrade
 import Salt.MR.CofactorSupply
 import Salt.MR.USetBalance
+import Salt.MR.USetPrice
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -804,3 +805,13 @@ open Salt.Tactic in
   Salt.MR.hU_balance
   Salt.MR.hU_balance_beats_door
   Salt.MR.hU_discharged
+  Salt.MR.KS_priced
+  Salt.MR.KS_supplied
+  Salt.MR.cofactorRbd_le_of_worst
+  Salt.MR.Rbd_uniform
+  Salt.MR.ramI_card_le_pin
+  Salt.MR.floor_pin
+  Salt.MR.balance_priced_main
+  Salt.MR.rem_priced
+  Salt.MR.hU_fully_priced
+  Salt.MR.priced_exit_beats_door

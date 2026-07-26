@@ -11838,3 +11838,19 @@ autonomous order carries; morning items queued (Jacobian PR, approval read,
 approval check, the 1.7067× INFORM).
 
 **2026-07-25 21:12 PDT — addendum: the 5h clock resets in ~2h (JYH note) — the 20% window frees mid-night; zero pacing constraint.**
+
+---
+
+**2026-07-25 21:31 PDT — ⚑⚑ hU FULLY PRICED: §8.3's SUPPLY CHAIN COMPLETE. ⚑⚑**
+`Salt/MR/USetPrice.lean` (698 ln, 21 audited decls, zero warnings, all
+3-axiom; full build green). P-b/P-c/P-a ALL WHOLE (the (ii) page did not
+resist); **P-d hU_fully_priced + priced_exit_beats_door LANDED**. The mixed
+worst-corner verdict; the silent-vacuity catch (C_R carried); the Ms
+sandwich enforcing the η-floor by inspection. V5f banked with the three
+residual gates (in-statement by design). New traps: ellLin_norm_le_one
+takes g explicit; positivity fails nonpositivity (neg_nonpos.mpr); rwa-at
+vs goal-side rpow_neg; unused STATEMENT binders warn (drop or use);
+div_le_div₀'s exact signature; rpow bookkeeping via rw ← rpow_add + show
+(congr 1 risks HEq). TWELVE waves tonight, twelve landed whole. The night's
+arc: hSup CLOSED → U-5/7/8/9 ALL LANDED → hU FULLY PRICED. TLEG-SCOPE
+dispatching; push notification to JYH queued for wake-up.
