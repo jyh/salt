@@ -11542,3 +11542,17 @@ inverse-Lorentzian and rpow-exponent goals with NO bullets;
 norm_hatKernel_le NOT in RHSGrade's closure (re-derive). STATION: every
 socket of hSup now DISCHARGED or landed; ASSEMBLY-WAVE dispatching (the
 ratified (A) + the MVT guard + seam_gate_star_package + jointIntegrableAt_pin).
+
+---
+
+**2026-07-25 17:23 PDT — DINITZ comparator restructure PUSHED (c54c11b).**
+Per Jack McCarthy's Zulip request: Challenge.lean (111 ln, Mathlib-only —
+DGG.IsWalk/uload/DGGCostConjectureFull moved byte-verbatim + the placeholder
+in namespace Challenge, NOT DGG, so the published name never resolves to
+sorryAx) + Submission.lean (git-scored rename of Dinitz.lean, 71 ln changed;
+provenance unreworded). Verified: bridge type-check BOTH directions +
+negative control (placeholder shows sorryAx — the gate not vacuous) +
+elaborated-output diff old-vs-new BYTE-IDENTICAL + check.py exit 0 + voice
+grep zero hits repo-wide. lake-manifest.json now tracked (reproducibility).
+PR counsel delivered: hold behind the Jacobian; the one-line Zulip offer
+converts tacit to explicit. ASSEMBLY-WAVE still aloft.
