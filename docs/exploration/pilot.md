@@ -11780,3 +11780,21 @@ re-derive the split); the weighted-error trap; pocket_far_from_ball's
 strict form needs linarith not le_of_lt; ceil/cast subtleties;
 pass hhigh down not the weakened 2k₀+2 form. U7-E dispatching — CASE A at
 the shifted scale; then U7-F assembles the dichotomy.
+
+---
+
+**2026-07-25 20:14 PDT — U7-E LANDS WHOLE: BOTH ARMS OF THE DICHOTOMY HOME.**
+`Salt/MR/CofactorGrade.lean` (836 ln, 10 decls, zero warnings, all 3-axiom;
+full build green). THE FORCED FINDING: the DATUM-POSITION TRAP —
+center_halasz_supply_B's ∃X₀ sits after {g}, unusable under the x-family
+integral even though the witness is datum-free; center_halasz_supply_A
+re-derived with ∃X₀ hoisted over the datum (142 ln; reusable by any
+datum-varying arm; NEW TRAP: check quantifier order against the consumer's
+AVERAGE before planning a wave). E-1's hMwin x-uniform in ONE binder;
+caseAS every-summand-x-free (the far arm priced by the absolute farCStar).
+E-3: ‖ramR‖ ≤ 6·caseAS (6 = 2 window-split × 3 Abel); the numeral corollary
+at c = 1/e, Mfl = (1/32−θ₂₉₃)loglog k₀ — the (log k₀)^{−ρ₂₉₃} grade leads
+(both additive exponents strictly larger). Scale-descent gates in-statement
+at the SHIFTED scale (X₀ ≤ k₀, exp 64 ≤ k₀ — the j/H numeral is U7-F's).
+U7-F dispatching: the dichotomy assembly (the three transports: twist slot,
+scale descent, contour-window restriction) — the LAST stone of U-7.

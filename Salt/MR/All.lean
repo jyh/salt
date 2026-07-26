@@ -107,6 +107,7 @@ import Salt.MR.RamWeight
 import Salt.MR.CofactorDist
 import Salt.MR.GradeWindowC
 import Salt.MR.CofactorBall
+import Salt.MR.CofactorGrade
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -768,3 +769,11 @@ open Salt.Tactic in
   Salt.MR.caseB_ramR_of_collided
   Salt.MR.caseB_ramR_bound
   Salt.MR.collisionGate_discharged
+  Salt.MR.center_halasz_supply_A
+  Salt.MR.caseA_rhs_socket
+  Salt.MR.caseA_partial_supply
+  Salt.MR.caseA_damped_partial
+  Salt.MR.caseA_ramR_of_supplied
+  Salt.MR.caseA_ramR_bound
+  Salt.MR.caseA_grade_numeral
+  Salt.MR.caseA_ramR_bound_293
