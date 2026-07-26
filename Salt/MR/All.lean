@@ -108,6 +108,7 @@ import Salt.MR.CofactorDist
 import Salt.MR.GradeWindowC
 import Salt.MR.CofactorBall
 import Salt.MR.CofactorGrade
+import Salt.MR.CofactorSupply
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -777,3 +778,16 @@ open Salt.Tactic in
   Salt.MR.caseA_ramR_bound
   Salt.MR.caseA_grade_numeral
   Salt.MR.caseA_ramR_bound_293
+  Salt.MR.pretDistSq_tail_le
+  Salt.MR.caseA_floor_slot
+  Salt.MR.gxDatum_trivial_window
+  Salt.MR.caseA_partial_supply_slice
+  Salt.MR.cofactorRbd_nonneg
+  Salt.MR.pocket_transport
+  Salt.MR.cofactor_Rbd
+  Salt.MR.descent_tail_le
+  Salt.MR.cofactorMfl_nonneg_of_descent
+  Salt.MR.cofactorMfl_grade_293
+  Salt.MR.caseAS_293
+  Salt.MR.cofactor_Rbd_293
+  Salt.MR.tL_supply_discharged

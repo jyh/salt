@@ -719,3 +719,25 @@ only, nothing substantive moves.)
 X ≳ exp(exp(2·10⁴⁵)) — consistent with Z-3's estimate; IN-STATEMENT always.
 RESIDUAL (pre-U7-F): the asymptotic discharge ∃X₀ ∀X ≥ X₀ collisionGate
 [B/C, 150–250] — folded into the U7-D brief as an optional stone.
+
+## ⟦V5d — U-7 COMPLETE (U7-F as-built)⟧
+
+ALL SEVEN U-7 LANES LANDED WHOLE (A/B/C/D/E/F + the W4 pair). U7-F's route
+findings: (1) **the per-x dichotomy via the EMPTY-WINDOW COLLAPSE**
+(gxDatum g 1 0 x = g — caseA_partial_supply at the trivial window IS its own
+per-x slice; a general device for any damped-family ∀x→∀x lemma; iron rule 1
+never engaged). (2) **the ascent problem DISSOLVED**: the dichotomy runs at
+the GLOBAL X — the pocket (an upper bound) descends free by scale
+monotonicity; only the FLOOR pays, once, via the Mertens tail
+2(S(X)−S(k₀)) carried as an EXPRESSION inside cofactorMfl (the descent gate
+verbatim: (1−1/loglog X)·log X ≤ log k₀; the CASE-A factor
+e^{(2/e)(S(X)−S(k₀))} visible in caseAS_293; the leading grade at the
+GLOBAL (log X)^{−ρ₂₉₃}). (3) cofactor_Rbd = 3·max(2·caseAS, farSupS) — no
+disjunction survives; the hypothesis union enumerated in the docstring
+(the ∀x arms GONE — manufactured by the dichotomy). (4) **F-3 THE PRIZE:
+tL_supply_discharged COMPILED** — tL_main_sumsq's Rbd hypothesis discharged;
+the 𝒯_L branch has NO co-factor hypothesis; the only new socket is the
+per-t geometric bundle hTL (𝒰-side, stated not assumed). (5) F-4 with the
+collision gate DISCHARGED at the explicit Z-3 tower. Non-vacuity
+spot-checked (M ≤ X live at 0.74X; the loglog gate live with ~10⁴³ spare).
+**hU's remaining work: U-9b/c/d (the serial balance) ONLY.**

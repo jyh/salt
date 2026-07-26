@@ -11798,3 +11798,18 @@ at c = 1/e, Mfl = (1/32−θ₂₉₃)loglog k₀ — the (log k₀)^{−ρ₂�
 at the SHIFTED scale (X₀ ≤ k₀, exp 64 ≤ k₀ — the j/H numeral is U7-F's).
 U7-F dispatching: the dichotomy assembly (the three transports: twist slot,
 scale descent, contour-window restriction) — the LAST stone of U-7.
+
+---
+
+**2026-07-25 20:37 PDT — ⚑ U-7 COMPLETE: THE CO-FACTOR SUPPLY STANDS. ⚑**
+`Salt/MR/CofactorSupply.lean` (769 ln, 15 decls, zero diagnostics, all
+3-axiom; full build green). The per-x route via the EMPTY-WINDOW COLLAPSE
+(new general device); the ascent problem dissolved (dichotomy at global X;
+the floor pays once, as an expression); **tL_supply_discharged COMPILED —
+the 𝒯_L branch with NO co-factor hypothesis (THE PRIZE)**; the 293-pin
+numeral form with the collision gate discharged at the explicit tower.
+V5d banked. New traps: linarith won't distribute numerals across division
+(rw the ring identity first); the empty-window collapse device; push_neg →
+simp only [not_exists, not_and, not_le] zero-warning form. THE NIGHT'S
+LEDGER: ten waves dispatched, ten landed WHOLE, zero abandoned, ~6,900 ln.
+U9BCD-WAVE (the serial balance — hU's LAST work) dispatching.
