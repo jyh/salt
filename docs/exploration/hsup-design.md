@@ -695,3 +695,27 @@ far arm next opens.
 The amended-pin twins land with U7-C. (2) THE 1_S LAW RATIFIED as a standing
 rule: the S-restriction never enters the row's coefficients; door/sieve
 level only.
+
+## ⟦V5c — U7-C as-built + THE MARGIN CORRECTION⟧
+
+U7-C LANDED WHOLE (CofactorDist.lean, 663 ln: the window page at
+θ·loglog X + 25 with the −logloglog gain discarded; the amended-pin twins;
+THE COLLISION LEMMA at the asymmetric two-caps stone — MANDATORY, the
+symmetric max-form gives exactly the floor with zero margin; the θ-EXACT
+cancellation (1/32−θ)L + (θL+Cw) = (1/32)L + Cw is the pin's job, by ring;
+K² = 3/32 + √2/16 ≈ 0.1821, margin 0.0679; pocket_collision_window = C-1∘C-3
+the single U7-D consumable; both C-4 directions shipped — my brief's
+direction error caught by the executor).
+
+**MARGIN CORRECTION (executor's catch, kernel-proven both ways)**: V5's
+"margin 1.707×" is FALSE in the 4th decimal — 500·θ₂₉₃ = 1.70674…;
+exit_margin_293 proves 1.706/500 ≤ θ₂₉₃ AND exit_margin_293_sharp proves
+θ₂₉₃ < 1.707/500. The ratified amendment stands at **margin 1.7067×**;
+exit_beats_c0_293 intact at ε ≤ 1/1000. (JYH INFORM at morning — precision
+only, nothing substantive moves.)
+
+**THE X₀ TOWER as-split** (collisionGate_of_five): five charges each ≤
+0.0135·loglog X; the floor's own C ≈ e^100 forces loglog X ≳ 2·10⁴⁵ ⟹
+X ≳ exp(exp(2·10⁴⁵)) — consistent with Z-3's estimate; IN-STATEMENT always.
+RESIDUAL (pre-U7-F): the asymptotic discharge ∃X₀ ∀X ≥ X₀ collisionGate
+[B/C, 150–250] — folded into the U7-D brief as an optional stone.

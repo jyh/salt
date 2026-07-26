@@ -11720,3 +11720,19 @@ occurrences (rw-created ones invisible); card_union_of_disjoint alias +
 disjoint_filter_filter; hand-rolled induction beats prod_ite decidability
 mismatches. U7-C dispatching (the collision lemma + the Mertens page at
 the RATIFIED amended pin θ = 1/(32(3e+1))).
+
+---
+
+**2026-07-25 19:29 PDT — U7-C LANDS WHOLE + the 1.7067× margin correction (kernel-proven both directions).**
+`Salt/MR/CofactorDist.lean` (663 ln, 32 audited decls, zero warnings, all
+3-axiom; full build green). The collision architecture: the ASYMMETRIC
+two-caps stone (mandatory — symmetric gives zero margin), the θ-exact
+cancellation by ring, the five-way gate split exposing the e^100 tower
+(X ≳ exp exp 2·10⁴⁵, in-statement). V5c banked incl. the margin correction
+(1.707 → 1.7067; executor refuted my numeral in Lean — INFORM JYH at
+morning, precision only). New traps: the set-chaining whnf bomb (nested
+let-bodies; extract √-free private arithmetic lemmas); nlinarith derives
+redundancy silently (an unused-linter flag on a hypothesis you PASSED);
+log-through-abs bites twice (carry exp 1 ≤ X AND exp 1 ≤ log X separately);
+positivity can't see loglog ≥ 0; awk over-reports long lines (Python char
+count; the linter referees). W4REST-WAVE ∥ U7D-WAVE dispatching.

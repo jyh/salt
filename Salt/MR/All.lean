@@ -104,6 +104,7 @@ import Salt.MR.USetThinTL
 import Salt.MR.RHSGradeC
 import Salt.MR.RamRAdapter
 import Salt.MR.RamWeight
+import Salt.MR.CofactorDist
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -727,3 +728,18 @@ open Salt.Tactic in
   Salt.MR.gxDatum_pretDistSq_ge
   Salt.MR.gxDatum_pretDistSq_ge_one
   Salt.MR.gxDatum_pretDistSq_costwist
+  Salt.MR.blockWindow_mertens_pin
+  Salt.MR.theta293_self_consistent
+  Salt.MR.exit_margin_293
+  Salt.MR.exit_margin_293_sharp
+  Salt.MR.exit_beats_c0_293
+  Salt.MR.loglog_absorb_293
+  Salt.MR.pin_P83_le_Q83_293
+  Salt.MR.dist_one_shift_le_of_two_caps_asym
+  Salt.MR.pocket_collision_abstract
+  Salt.MR.pocket_collision
+  Salt.MR.pocket_collision_pin
+  Salt.MR.collisionGate_of_five
+  Salt.MR.pocket_collision_window
+  Salt.MR.pocket_far_from_ball
+  Salt.MR.pocket_ball_shrink
