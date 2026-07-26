@@ -11866,3 +11866,20 @@ escape is only true past ℓ ≳ (16/3)C (a 3-tower) and would drag the frozen
 (1/32) conclusion to (1/128). The gate is closed WITHOUT hgap by the
 annulus-geometry route (V3d); hgap-based localization survives only as the
 banked fallback (a) with the honest shift σ = (5/4)logloglog + (C+1)/4.
+
+---
+
+## The flat-δ 𝒯-leg wall (TLEG-SCOPE) + the δ-pin docstring correction
+
+**THE WALL**: the seam row's 𝒯-leg is unprovable at the flat BlockSmallAt
+predicate — the pin-free collision δ ≲ Q_j^{−1/2} (𝒯-side) vs
+δ ≥ K₀·P_J^{−1/4} (𝒰-side); every corner dead. Route G (MR's own graded
+(21)) is the repair; JYH gate pending (V6). The landed flat partition and
+the full hU chain remain VALID (hU is non-vacuous at the live pin) — the
+wall is about the 𝒯-side only.
+
+**Docstring correction (informational)**: USetThin.lean:634's "the ratified
+pin δ := P_J^{−α_J}" is NOT simultaneously satisfiable with hlogV at
+super-polylog P_J; the LIVE pin under the landed statements is
+δ ≈ K₀(log X)^{−100}. hU non-vacuous either way. No future wave should
+optimise against the P_J^{−α_J} reading.

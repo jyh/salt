@@ -794,3 +794,44 @@ composition); R-2 EP2's own page (Lemma 12's 1/P row) with the gate
 consumers discharge at the pins. **hU's supply chain is COMPLETE.**
 THE ROW'S REMAINING WORK: the 𝒯-leg (§8.1/8.2 — TLEG-SCOPE dispatched),
 the A-10 far arm, the terminal assembly.
+
+## ⟦V6 — TLEG-SCOPE VERDICT: THE FLAT-δ WALL (a true giant) + ROUTE G + THE GRADED GATE⟧
+
+**THE WALL (pin-free, all corners dead)**: the row's 𝒯-leg is IMPOSSIBLE at
+the landed flat-δ BlockSmallAt. The 𝒯-side needs δ ≲ Q_j^{−1/2} (the
+co-factor mass e^{v/H} at the top of I_j); the 𝒰-side floor forces
+δ ≥ K₀·P_J^{−1/4} (Lemma 8's thinness exponent). Collision: P_J^{1/4} ≲ 1 —
+contradiction for every P_J > 1, independent of T/Tann/X/V/η/pins. MR's
+e^{−α_j v/H_j} graded threshold is LOAD-BEARING TWICE (pays the co-factor
+mass in (23) AND calibrates Lemma 8's exponent to 2α_j at the block's own
+base). CENSUS: the engine room ~40% landed (Lemma 12-on-subset, Lemma 13,
+MVT, the partition frame, co-factor mass); the §8.1/8.2 CONTENT 0/9 landed;
+prop_A3_T1_row_moment is a DIFFERENT object (it ASSUMES the eq-(24) split
+as hsplit — supplies what the seam row proves, not what it leaves open).
+
+**ROUTE G (the only route — MR's own (21), restored fidelity)**: a parallel
+graded partition family in NEW files (process-safe, iron rule 5 never
+engages): G0 graded predicate/partition/row [B, 460–680] → G1a graded
+thinness (CLEANER than flat — the pigeonhole disappears; log V/log base =
+α_J exactly) [C, 300–450] + G1b THE V-SPLIT hU REPLAY [C, 700–1200] → G2
+§8-preamble [B/C, 490–830] → G3 §8.1 E₁ [B/C, 320–520] → G4 §8.2 E_j
+(G4c MULT-SHIU = the genuinely new stone [C, 500–800]; G4a/b/d/e/f
+[C, 1200–1850]) → G5 collection+exit [B/C, 600–950].
+**𝒯-leg total ~4,600–7,400; seam terminal total ~6,000–9,500 (V4's
+estimate under 2.5–3×).**
+
+**⚠ THE JYH GATE (morning, decision-ready)**: ratify Route G before G1b's
+~1,000-line hU replay is spent. The case FOR: it is MR's own (21) — the
+flat δ was OUR simplification, now proven impossible; every corner is dead;
+process-safe. The cost: ~doubles the seam-terminal estimate. The
+alternative: none found (the scoper worked five corners, all dead).
+
+**UNGATED NOW (dispatched)**: W-0 SeamTerminal.lean — the three-leg terminal
+with the 𝒯-leg as a NAMED BINDER hT (the 𝒯-leg becomes a socket, not a
+blocker; the two-M option-(A) exit + the Tann ≤ X/2 MRT guard) [C,400–700];
+W-1 FarArm.lean — the A-10 far arm (the ball-centre dichotomy) [C,300–500];
+W-2 the hU residuals R-1/R-2/R-3 (closing the hU chain COMPLETELY;
+kept separate from G* — the parameter-regime mixing risk) [B/C,350–600].
+The three composition seams for W-0 banked from the scope: t₁
+produced-then-fed; the TWO DATA (seamCoeff (ellLin g) vs ellLin g — both
+supplied, no adapter); the far arm's dichotomy.

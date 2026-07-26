@@ -11854,3 +11854,16 @@ div_le_div₀'s exact signature; rpow bookkeeping via rw ← rpow_add + show
 (congr 1 risks HEq). TWELVE waves tonight, twelve landed whole. The night's
 arc: hSup CLOSED → U-5/7/8/9 ALL LANDED → hU FULLY PRICED. TLEG-SCOPE
 dispatching; push notification to JYH queued for wake-up.
+
+---
+
+**2026-07-25 21:51 PDT — TLEG-SCOPE: THE FLAT-δ WALL (a true giant identified) + ROUTE G + THE MORNING GATE.**
+V6 banked: the pin-free 1/4-vs-1/2 collision (five corners, all dead);
+the census (engine ~40%, content 0/9; prop_A3_T1_row_moment a different
+object — it ASSUMES the split); Route G at ~4.6–7.4k (seam terminal
+~6–9.5k — V4 under 2.5–3×); THE JYH GATE queued decision-ready for
+morning (ratify Route G before the G1b replay spend). Flags: the wall +
+the δ-pin docstring correction. DISPATCHED UNGATED: W-0 SeamTerminal
+(the 𝒯-leg as a named socket — the terminal lands TODAY), W-1 FarArm,
+W-2 the hU residuals. The night: THIRTEEN scopes+waves, thirteen
+returned whole/decisive.
