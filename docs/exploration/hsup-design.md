@@ -688,3 +688,10 @@ far_kernel_bound (the β-cancellation destroyed by separate majorizations);
 a β-paired far bound puts T* back at ≈ L^{5.5} and would shrink
 seamGateRstar + simplify FarStar — a [C,300–500] repair for whenever the
 far arm next opens.
+
+## ⟦V5 RATIFICATIONS (JYH: "1, 2 both look good")⟧
+
+(1) THE ρ AMENDMENT RATIFIED: θ = 1/(32(3e+1)) ≈ 1/293; door margin 1.707×.
+The amended-pin twins land with U7-C. (2) THE 1_S LAW RATIFIED as a standing
+rule: the S-restriction never enters the row's coefficients; door/sieve
+level only.
