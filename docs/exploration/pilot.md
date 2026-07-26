@@ -11946,3 +11946,28 @@ traps: nlinarith degree-4 blindness (pow_le_pow_left₀ + norm_num);
 div-rw hits the first occurrence when the numerator carries a / (the
 mul_le_mul + rwa version-proof form); div_le_iff₀ live names. R3 the last
 aloft.
+
+---
+
+**2026-07-25 23:06 PDT — R3 LANDS WHOLE: the night's ungated slate COMPLETE.**
+`Salt/MR/Transfer34.lean` (808 ln, 29 decls, zero warnings, all 3-axiom;
+full build green). T-2's verdict: FOUR numerals move, not one (cap /8→/32,
+certificate (P/2)²→(P/4)², exponent 1/2→1/4, the Mertens slot M₂/2+6 →
+M₂/4+3 — ballSupC34 < ballSupC, the constant IMPROVES). THE
+CONVERSION-SCALE TRAP (substantive, banked): the P/8 form's hidden
+factor-2 slack silently paid the window's loglog descent; at P/32 the gap
+must be CHARGED IN THE GATE — 165 is the first integer that works (margin
+0.212, ~4× the live descent's demand; the 1/100-gap form landed). THE WIRE
+IS ZERO-EDIT (pocket_transport already exports the raw cap — only the
+consumer was crude). BONUS §5b: the q=1/2 collision DISSOLVES at q=3/4
+near the gate floor (a decaying bound where the floor was absolute); at
+the live height it still diverges at L^{1/4} — R1+R2 shrink the numerator,
+as V6b said. Zeno: the F-2 assembly twin [B, 150–200 mechanical — rides
+with R2's wave]; the ball-leg 3/4 twin (unneeded now; −11/16 if ever);
+one prose X₀ comparison. New traps: rpow denominators LOSE free positivity
+(√ nonneg by construction; L^q needs 0 < log W everywhere — add to every
+twin's nonneg lemmas + the degenerate branch); sqrt_le_sqrt (1 arg) vs
+rpow_le_rpow (3 args) — the most-repeated transplant edit; the q-shift
+costs nothing in front constants ((1/2)^{3/4} ≥ 1/2). **THE NIGHT
+COMPLETE: 21 dispatches, 21 whole/decisive. The morning gates: R2 (the
+y-pin family) + Route G shape (G1b HELD).**

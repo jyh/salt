@@ -115,6 +115,7 @@ import Salt.MR.SeamTerminal
 import Salt.MR.FarArm
 import Salt.MR.USetResiduals
 import Salt.MR.CofactorLocal
+import Salt.MR.Transfer34
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -861,3 +862,15 @@ open Salt.Tactic in
   Salt.MR.farErr_local_le
   Salt.MR.farErr_local_of_gate
   Salt.MR.farErr_local_window_ge
+  Salt.MR.thirtysecond_cap_to_SPartial
+  Salt.MR.thirtysecond_loglog_le_SPartial_div_32
+  Salt.MR.thirtysecond_cap_to_SPartial_293_descent
+  Salt.MR.budget_le_quarter
+  Salt.MR.exp_budget_le_34
+  Salt.MR.transfer_at_scale_34
+  Salt.MR.far_transfer_sup_34
+  Salt.MR.far_transfer_sup_34_of_pocket_cap
+  Salt.MR.farErr34_le_of_ambient_gate
+  Salt.MR.Rbd34_grade_priced
+  Salt.MR.Rbd34_grade_priced_of_ambient
+  Salt.MR.farErr34_at_TannGate_floor
