@@ -12173,3 +12173,22 @@ hoist (statement-tier cleanup, the refactor queue) + PinFamily2's hInt
 lift (optional). New traps: THE ∃X₀ BINDER-POSITION TRAP (read where the
 ∃ sits relative to the datum before citing ANY supply); the window-form
 cheapness rule; awk-bytes re-confirmed.
+
+---
+
+**2026-07-26 11:30 PDT — ⚑⚑⚑ THE GRADED hU IS UNCONDITIONAL AND BEATS THE DOOR: hUG34_unconditional(_beats_door). ⚑⚑⚑**
+`Salt/MR/GradedCapstone.lean` (287 ln, 2 theorems, zero diagnostics,
+default heartbeats, all 3-axiom; full build green rc-checked 9430 jobs).
+The socket line GONE; net new hypotheses THREE not five (the c-gates
+pinned; pin2Gate + the dyadic window found ALREADY INSIDE TLBlockGates34
+— **THE GATE-BUNDLE READ, new composition-tier rule: check the consumer's
+gate-bundle DEFINITIONS, not just its binder list — the window was
+invisible to a binder scan**). exists_shortIntervalDatum deliberately NOT
+opened (Cb must stay universal — hCqgate reads it; the stronger theorem
+kept; the pinned corollary declined with reasons). The ∃X₀ position check
+PASSED on first use (the socket's ∃ sits outermost — hoisting sound).
+Satisfiability of all three carried gates scratch-verified. **ROUTE G
+STATUS: the U-side DONE end to end (G0→G1a→G1b→PRICE→SOCKET→CAPSTONE);
+the 𝒯-leg (G2 aloft after an API-death redispatch; G3–G5 queued) is ALL
+that remains.** The day: eleven waves, ten landed whole, one API death
+redispatched clean.

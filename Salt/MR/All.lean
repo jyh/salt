@@ -124,6 +124,7 @@ import Salt.MR.SupplyGeneric
 import Salt.MR.USetGradedBalance
 import Salt.MR.USetGradedPrice
 import Salt.MR.CaseASocket
+import Salt.MR.GradedCapstone
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -985,4 +986,6 @@ open Salt.Tactic in
   Salt.MR.caseA_partial_supply2
   Salt.MR.caseA_slice2
   Salt.MR.caseASocket2_discharged
+  Salt.MR.hUG34_unconditional
+  Salt.MR.hUG34_unconditional_beats_door
   Salt.MR.farErr34_local_closes_of_gate
