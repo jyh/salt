@@ -127,6 +127,7 @@ import Salt.MR.CaseASocket
 import Salt.MR.GradedCapstone
 import Salt.MR.TLegPreamble
 import Salt.MR.TLegE1
+import Salt.MR.MultShiuBridge
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1019,4 +1020,20 @@ open Salt.Tactic in
   Salt.MR.exp_block_bottom_le_rpow
   Salt.MR.rpow_growth_le_rpow_bottom
   Salt.MR.E1_pin
+  Salt.MR.spoly_of_support_le
+  Salt.MR.spoly_mul
+  Salt.MR.ramQ_eq_spoly_bounded
+  Salt.MR.multShiuCoeff_support_low
+  Salt.MR.multShiuCoeff_support_high
+  Salt.MR.ramQ_pow_mul_ramR_eq_spoly
+  Salt.MR.af_mul_oneAf_apply
+  Salt.MR.norm_af_mul_le
+  Salt.MR.norm_multShiuCoeff_le
+  Salt.MR.blockPrimeAf_pow_bound
+  Salt.MR.maj_le_factorial_blockDiv
+  Salt.MR.coeff_bound_factorial_blockDiv
+  Salt.MR.multShiu_moment
+  Salt.MR.ramQblock_subset_dyadic_block
+  Salt.MR.ramRrange_ceil_bot_le
+  Salt.MR.multShiu_moment_pinned
   Salt.MR.farErr34_local_closes_of_gate

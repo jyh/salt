@@ -12233,3 +12233,23 @@ error block is ONE atom to linarith); try plain ring FIRST on division
 identities (field_simp closes-then-fails generalized); congr 1 + ring for
 exp-merges needs no ne-hypothesis. G4c (MULT-SHIU) the long pole aloft;
 G4a/b/d/e/f + G5 queue behind.
+
+---
+
+**2026-07-26 12:04 PDT — ⚑⚑ G4c LANDS WHOLE: THE MULT-SHIU DISCHARGE — Route G's one new stone. ⚑⚑**
+`Salt/MR/MultShiuBridge.lean` (765 ln, 44 decls, all 16 audited 3-axiom;
+full build green rc-checked 9433 after ONE collision fix — the file
+re-declared ramQ_eq_spoly (landed in USetThinTL); renamed to
+ramQ_eq_spoly_bounded in the newcomer; **THE HARDENED CEREMONY LAW CAUGHT
+IT: no commit on red — the rc-gate's first live save**; the collision-scan
+brief line must name ALL of Salt/, not just siblings — banked). M-1: NO
+corpus convolution existed — built on **ArithmeticFunction (the carrier
+ruling: assoc/comm retired; proposed house rule for every iterated
+Dirichlet convolution)**; the twist never fought. M-2: the window
+endpoint-by-endpoint, byte-checked. M-3: **the clean ℓ! LANDED — the
+permutation/multinomial wall DISSOLVED via the Ω-grading triple
+invariant**; hcoeff/hsupp BYTE-FOR-BYTE. M-4: multShiu_moment + the
+§7-calibration bonus (gates DERIVED at H ≥ 2). New traps: the ⇑-coercion
+rw trap; backwards toFinset_factors sticks DecidableEq; show trips the
+linter; sum_divisorsAntidiagonal to_additive-named. G4AB still aloft;
+then G4d/e/f + G5.
