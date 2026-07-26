@@ -114,6 +114,7 @@ import Salt.MR.USetPrice
 import Salt.MR.SeamTerminal
 import Salt.MR.FarArm
 import Salt.MR.USetResiduals
+import Salt.MR.CofactorLocal
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -851,3 +852,12 @@ open Salt.Tactic in
   Salt.MR.gate_KS_live_delta
   Salt.MR.gate_absorb_8640
   Salt.MR.numeral_gates_discharged
+  Salt.MR.Tstar_window_mono
+  Salt.MR.contour_gate_local_iff
+  Salt.MR.pocket_transport_local
+  Salt.MR.cofactor_Rbd_local
+  Salt.MR.tL_supply_discharged_local
+  Salt.MR.log_Tstar_self
+  Salt.MR.farErr_local_le
+  Salt.MR.farErr_local_of_gate
+  Salt.MR.farErr_local_window_ge

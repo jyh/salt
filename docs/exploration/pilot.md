@@ -11931,3 +11931,18 @@ same-numerator form; congr-1-closes-then-ring-fails.
 ---
 
 **2026-07-25 22:47 PDT — FARERR-SCOPE verdict (V6b): the wall = a 2θ exponent miss, structural (AM–GM); THREE repair stones; HOLD G1b (would duplicate the broken arm); R1+R3 dispatching ungated; R2 = the morning y-pin gate.**
+
+---
+
+**2026-07-25 23:01 PDT — R1 LANDS WHOLE: the localized dichotomy (CofactorLocal.lean, 602 ln, 9 decls, zero warnings, all 3-axiom; full build green).**
+The window split byte-exact; the Dmax socket UNSUPPLIED as V6b predicted
+(the middle conjunct GONE from the per-t bundle); contour_gate_local_iff
+certifies NO hypothesis was weakened; Rmax = T* bare (the +1 collision
+drift not needed at the localized centre). THE CERTIFICATE both halves:
+log_Tstar_self EXACT (no O(1)); farErr_local_le at the L/(4logL) shape;
+**farErr_local_window_ge — the kernel-checked refuting half: R1 alone
+diverges like √(logW)/loglogW; R2 remains the closure** (as scoped). New
+traps: nlinarith degree-4 blindness (pow_le_pow_left₀ + norm_num);
+div-rw hits the first occurrence when the numerator carries a / (the
+mul_le_mul + rwa version-proof form); div_le_iff₀ live names. R3 the last
+aloft.
