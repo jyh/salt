@@ -11925,3 +11925,10 @@ the in-window twist); dist_split_A4_frozen cannot supply at face value
 M_range's |t| ≤ X cap — the NEW height gate T + (logX)^{1/16} + |t₁| ≤ X
 now in-statement. Residual: the slack gate's asymptotic discharge
 (~60–100 ln, the collisionGate_discharged idiom) carried as a gate.
+
+**THE CALIBRATION RATIO REFUTATION (TYPDEN, kernel-certified)**: the
+calQ = calP² pin gives Σ_j log P_j/log Q_j = Jb/2 — eq-(28) VACUOUS at
+that pin (δ = 2). The seam-row FORMULA stands; its calibrated INSTANCE
+needs the K-ladder re-pin (V9b — CALREPIN in flight). Also: the p² row's
+inherited 64/P² grade useless at seam scales (the direct-route repair
+mapped); the H₁ = 2 inhabitant weak (permitted up to P₁^{1/6}).

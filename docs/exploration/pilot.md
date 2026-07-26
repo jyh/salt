@@ -12395,3 +12395,16 @@ positivity t²-from-negative; the h₁·(X/h₁) calc; integral_comp_neg
 explicit-function. NEXT: SEC9-GLUE ∥ TYPDEN dispatching.
 
 **2026-07-26 16:39 PDT — quota snapshot: silicon-acct 20/39/24 — generous; fleet pacing normal (TYPDEN aloft; SEC9 held for its eq-(28) verdict).**
+
+---
+
+**2026-07-26 16:44 PDT — ⚑ TYPDEN: THE CALIBRATION-RATIO REFUTATION (kernel-certified) + the pricing wire LANDED generic. ⚑**
+`Salt/MR/TypicalPrice.lean` (711 ln, 11 exports, zero warnings, all
+3-axiom; full build green rc-checked 9441). T-1/T-2/T-3 landed with the
+ratio SYMBOLIC (the wire survives any ladder); the refutation quartet in
+the kernel; the p²-row and H₁ findings; the X-vs-X_d consumer debt named.
+V9b + flags banked; the K-ladder ruling made (parallel family,
+process-safe). New traps: **the append-past-end-namespace trap (check the
+end line before EVERY cat >>)**; notMem_empty; nested-filter unfolds die
+under chained rw (obtain via mem_filter.mp); the regroup-before-mul_sum
+idiom; field_simp measure-before-ring re-confirmed. CALREPIN dispatching.

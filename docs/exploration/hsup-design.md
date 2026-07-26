@@ -1038,3 +1038,22 @@ dyadic_tail_proper's 8·Msup/W²). THE GAP CLOSES: lemma14_contour_kernel
 N-uniform at Tcut = 2^N(X/h₁); Egap → 0 at δ ≍ 2^{−N/2} (the old
 irreducible floor GONE). No improper limit (the monotone limit unowned,
 likely never needed). Residual: the δ-instantiation (consumer's).
+
+## ⟦V9b — TYPDEN's KERNEL-CERTIFIED REFUTATION + THE K-LADDER RULING⟧
+
+**THE REFUTATION**: log calP/log calQ = 1/2 EXACTLY at every level (calQ =
+calP² by construction) ⟹ Σ_j = Jb/2 (sum_calibrated_ratio_eq) — MR's
+eq-(28) needs the j²-decay of their (4)-ladder (log P_j/log Q_j =
+log P₁/(j² log Q₁), Σ = π²/6·δ/4-shape); at the calibrated pin δ = 2 —
+VACUOUS. calibrated_ratio_not_MR_shape: no constant ρ gives ρ/j². The
+pricing wire itself is GENERIC (the ratio symbolic on the right — only
+the calibration instance changes). **THE RULING (maestro, process-safe):
+the PARALLEL K-LADDER — calQK A G M j := 2^((j²·M)·calE)-shape in a NEW
+file; G_gate absorbs K as 64K ≤ ηG; A_gate_log gains only log K; the
+SeamCalibration theorems re-derive at the K-family; NO landed edit.**
+TWO MORE PRICING FINDINGS: (ii) the p² row's 64/P² is USELESS at scale
+(X_d ≥ P² ⟹ every level ≥ 64) — the direct route Σf² ≤ (max f)(Σf) with
+2^ω(n) ≤ n gives MR's 16·log₂(2X_d)/(X_d·P) [B, ~100]; (iii) H₁ = 2's
+inhabitant makes the window row O(1) — H1_pin permits P₁^{1/6}; a better
+inhabitant [A, ~30]. CONSUMER DEBT: X ≍ X_d (the junction's two symbols)
+owed at the wiring. CALREPIN-WAVE dispatched (all four items).
