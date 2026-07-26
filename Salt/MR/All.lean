@@ -109,6 +109,7 @@ import Salt.MR.GradeWindowC
 import Salt.MR.CofactorBall
 import Salt.MR.CofactorGrade
 import Salt.MR.CofactorSupply
+import Salt.MR.USetBalance
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -791,3 +792,15 @@ open Salt.Tactic in
   Salt.MR.caseAS_293
   Salt.MR.cofactor_Rbd_293
   Salt.MR.tL_supply_discharged
+  Salt.MR.sum_TS_add_TL
+  Salt.MR.uset_integral_to_branches
+  Salt.MR.TS_feed_of_thin
+  Salt.MR.sum_inv_sq_Icc_le
+  Salt.MR.TL_feed_of_supply
+  Salt.MR.block_sum_bound
+  Salt.MR.hU_exit_of_branches
+  Salt.MR.tL_block_weight
+  Salt.MR.hU_supplied
+  Salt.MR.hU_balance
+  Salt.MR.hU_balance_beats_door
+  Salt.MR.hU_discharged

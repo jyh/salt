@@ -741,3 +741,30 @@ per-t geometric bundle hTL (𝒰-side, stated not assumed). (5) F-4 with the
 collision gate DISCHARGED at the explicit Z-3 tower. Non-vacuity
 spot-checked (M ≤ X live at 0.74X; the loglog gate live with ~10⁴³ spare).
 **hU's remaining work: U-9b/c/d (the serial balance) ONLY.**
+
+## ⟦V5e — U-9 STRUCTURAL CLOSE (U9BCD as-built) + THE PRICING RESIDUALS⟧
+
+hU is STRUCTURALLY SUPPLIED: the split is an IDENTITY (filter p / filter ¬p
+at ε := δ′ — nothing lost at the branch seam); the composition costs 4·|I|
+(CS + parity halving); the j-sum telescopes to 1/(⌊H log P⌋−1) — MR's
+1/log P in the only form the kernel signs; **hU_discharged COMPILED into
+prop_A3_T1_row_split_weighted's hU binder** (the station plug REFUSED for
+three reasons, banked: t₁-free vs produced; the datum mismatch — the
+station's hMcap is at seamCoeff (ellLin g), U-7's at ellLin g, DIFFERENT
+objects, the consumer supplies both; the one-line consumer step).
+hU_balance_beats_door at the RATIFIED θ₂₉₃, margin 1.7067×. The TannGate
+WORKS (supplies hκ30 via kappa30_of_TannGate), not decorates. The far-leg
+geometry DERIVED from the ball removal, not assumed. **Ms ≠ Mt** (different
+roundings of the co-factor length — a false byte-fit avoided; both
+parameters carried). Honest slack: the 𝒯_L side carries (log X)^{−2θ}
+spare; the 𝒯_S side pays |I| twice (absorbed by ε² = (log X)^{−200},
+carried explicitly). TS-budget non-vacuity (arithmetic, not kernel):
+η ≳ 1/(2 loglog X) at the top block — the consumer must not pick η smaller
+(consistent with V4a's η/(2J) slack).
+
+**THE PRICING RESIDUALS (U9PRICE-WAVE — the LAST hU work):**
+P-a [C, 400–700] discharge hmain/hrem at the full pin (H := H83, P := P83,
+Q := Q83; price card(ramI); Lemma 12's three error rows into E);
+P-b [B, 100–150] hKS via ramRcoeff_mass_le + the harmonic-square page
+(Ms·Σ 1/m² ≤ 4); P-c [B/C, 150–250] hRbdU — cofactorRbd monotone in k₀/M
+across the block range.

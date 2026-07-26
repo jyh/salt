@@ -11813,3 +11813,18 @@ V5d banked. New traps: linarith won't distribute numerals across division
 simp only [not_exists, not_and, not_le] zero-warning form. THE NIGHT'S
 LEDGER: ten waves dispatched, ten landed WHOLE, zero abandoned, ~6,900 ln.
 U9BCD-WAVE (the serial balance — hU's LAST work) dispatching.
+
+---
+
+**2026-07-25 21:02 PDT — U-9 STRUCTURALLY CLOSES: hU_discharged COMPILES into the row.**
+`Salt/MR/USetBalance.lean` (653 ln, 15 decls, zero warnings, all 3-axiom;
+full build green). The split an IDENTITY; the composition at 4·|I|; the
+j-telescope; hU_balance_beats_door at θ₂₉₃ (margin 1.7067×); the TannGate
+load-bearing; Ms ≠ Mt banked (false byte-fit avoided); the station plug
+refused with reasons (the datum mismatch — TWO caps at assembly). V5e
+banked with the THREE PRICING RESIDUALS (P-a/b/c ~650–1100 ln total — the
+last hU work; U9PRICE-WAVE dispatching). New traps: positivity consults
+context for atoms but not compound signs (the unused-warning as the tell);
+linarith won't close 3-factor product monotonicity (calc + mul_le_mul);
+the redundant cast-rewrite after sum_Icc_succ_top; awk 40-vs-0 long lines
+reconfirmed. ELEVEN waves tonight, eleven landed, zero abandoned.
