@@ -499,3 +499,38 @@ the M(f;X)-shape in every live instantiation. B-2's counterexample corner
 (R > X) lives entirely beyond the MVT escape. ASSEMBLY GUARD: the assembly
 wave carries the T ≤ X/2 reduction explicitly (the trivial MVT row bound
 covers T > X/2), mirroring MRT's own opening move.
+
+## ⟦V3f — THE hSUP STATION CLOSES (ASSEMBLY-WAVE as-built)⟧
+
+**seam_ball_leg_station** (SupStation.lean :540): the composed ball-leg exit.
+Discharged INTERNALLY: Cb (exists_shortIntervalDatum outermost — C₁ =
+gradeAbsConst Cb + farCStar absolute), hmin (compact), hgate, hk64, hInt,
+hne (BOTH dichotomy arms deliver the SAME binder at the same S — no
+disjunction survives). Remaining: hg, the scale frame, the two coefficient
+equations, and the A-10 cap as the exit's ANTECEDENT (the seam's own case
+split, not a socket). No MVT guard needed — option (A) uniform, as ratified.
+**seam_ball_leg_station_M** :717 — the M(f;X) form at any M₀ lower bound +
+|t₁| ≤ X; the X-gate (seamGateRstar ≤ X) proven, dominated by exp(exp 40).
+**prop_A3_T1_row_station** :782 — plugs prop_A3_T1_row_split_weighted's
+hSup slot VERBATIM (the compile = the certificate); the row exits at
+8·ballSupS² + the 𝒯-leg + U.
+
+**THE QUANTIFIER PAGE**: the circularity was REAL as stated (the crown fixes
+t₁ before X; the station's t₁ depends on X) and RESOLVED — the threshold
+witness is t₁-FREE all the way down (ballMertensThreshold = exp(exp 40),
+XA/XB datum-hoisted numerals). Fixed via uniform-X₀ replay clones (§2,
+265 ln). **QUEUED REFACTOR (Fable-tier, not urgent)**: hoist ∃X₀ past t₁
+in center_halasz_supply / ball_sup_supplied / ball_sup_closed_star
+(binder-order only, proofs unchanged except intro order) — then §2 deletes.
+
+**BONUS**: JointIntegrableAt is M-FREE — rhsFbound M = e^{−M/(2e)}·rhsFbound 0
+factors out (rhsFbound_eq_exp_mul); jointIntegrableAt_pin_free costs only
+exp 64 ≤ k. ⟦V3b⟧ residual (2) closed without touching the vacuous
+minimality. Residual notes: the exit height is pinned at the row's Tann
+(consumers with Tb ≤ Tann covered); the far arm of the A-10 cap is the
+seam's other case, out of station scope.
+
+**STATION LEDGER (the day)**: CompactMin → WidthGrade → CompactMin/TruncFactor
+→ GradeConst → SupClose → FarClose ∥ SeamGate → FarStar → JointPlumb →
+SupStation. Ten files, ~6,900 ln, every stone ≤ 3 axioms, zero warnings.
+The hSup station is CLOSED.

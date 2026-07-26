@@ -11571,3 +11571,21 @@ The comparator-layout facts + the bridge line inline + the mathlib-
 Counterexamples offer (tacit→explicit per the ratified sequencing). The
 namespace mention landed in item 2 after the mis-placement catch. Awaiting
 Jack's/maintainers' response; the Dinitz PR rides it, behind the Jacobian.
+
+---
+
+**2026-07-25 17:43 PDT — ⚑ THE hSUP STATION CLOSES. ⚑**
+ASSEMBLY-WAVE lands all three stones (SupStation.lean, 813 ln, 11 decls,
+3-axiom, zero warnings; full build 9403 jobs green). seam_ball_leg_station
+:540 (everything internal — no disjunction survives; the A-10 cap as the
+seam's own antecedent), _M :717 (the M(f;X) form, X-gate proven),
+prop_A3_T1_row_station :782 (the row slot VERBATIM — the compile is the
+certificate). The quantifier circularity REAL→RESOLVED (t₁-free threshold
+witness; 265-ln uniform replay; the upstream binder hoist QUEUED as a
+Fable-tier refactor). BONUS: JointIntegrableAt M-free (rhsFbound factors;
+V3b residual (2) closed). V3f banked. New traps: the maxHeartbeats comment
+goes BETWEEN set_option and the docstring; CenterSupply's center_error_grade
++ 3 helpers private (cross-module replays must clone); the
+const_mul/integral_congr EqOn pair for interval-integrability constants;
+the rpow-exponent pages close on linarith/nlinarith without gcongr.
+NEXT: the hU station (U-8 the 𝒯-leg, U-9 the balance) — U8-SCOPE dispatched.

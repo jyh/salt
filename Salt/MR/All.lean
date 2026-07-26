@@ -97,6 +97,7 @@ import Salt.MR.FarClose
 import Salt.MR.SeamGate
 import Salt.MR.FarStar
 import Salt.MR.JointPlumb
+import Salt.MR.SupStation
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -646,3 +647,12 @@ open Salt.Tactic in
   Salt.MR.jointIntegrableAt_of_gates
   Salt.MR.jointIntegrableAt_discharged
   Salt.MR.jointIntegrableAt_pin
+  Salt.MR.jointIntegrableAt_of_zero
+  Salt.MR.jointIntegrableAt_pin_free
+  Salt.MR.center_halasz_supply_uniform
+  Salt.MR.ball_sup_supplied_uniform
+  Salt.MR.ball_sup_closed_star_uniform
+  Salt.MR.seam_ball_leg_station
+  Salt.MR.seamGateRstar_le_self
+  Salt.MR.seam_ball_leg_station_M
+  Salt.MR.prop_A3_T1_row_station
