@@ -12016,3 +12016,21 @@ TWO args; div_inv_eq_mul the live name; rw-through-rpow-base self-undo
 0 ≤ log W in-statement everywhere. PIN2-REST ∥ G1A dispatching.
 
 **2026-07-26 09:03 PDT — census fix: far_mass_cancel2 private (the b071991 commit briefly carried a red build — caught within one turn; the pipe-swallows-exit-status trap: lake build | tail returns tail's 0, the && chain continued. BANKED: ceremony commands must check build status BEFORE the commit link in the chain).**
+
+---
+
+**2026-07-26 09:07 PDT — JACOBIAN-ALIGN staged: line-review is THE GATE.**
+The file at ~/.claude/jobs/65921a4c/tmp/mathlib-adapt/Counterexamples/
+JacobianConjecture.lean (307 ln; +97 new incl. the FC-correspondence block;
+~45 proof). FINDINGS: the merged FC is the plain ¬∀ (NO answer(False) —
+the memo's C.9 convergence) and REVERTED to det = −2 — FC's objects now
+IDENTICAL to ours (convergence, both transcribe Alpöge 3.1; the "same as
+FC?" question pre-armed in the PR-body facts). Our route SHORTER than FC's
+(no helper decls; congrFun → aeval_bind₁ → keller_not_injective; the
+comp-trap discarded conjunct compiled first try). deancureton: NO credit
+owed (the rescaled map was reverted; surviving contributions unused).
+DecidableEq carried vs FC's open Classical (mathlib's linter forbids;
+refuting the weaker statement — safe direction, documented). All linters
+PASS; 13 axiom checks clean; voice sweep clean. Five items for JYH's eyes
+banked in the report; PR-CEREMONY updated; fork/branch/PR/Zulip NOT
+STARTED. PIN2-REST + G1A dispatching.
