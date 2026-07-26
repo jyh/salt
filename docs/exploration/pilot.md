@@ -12296,3 +12296,27 @@ the v-floor deficit. New traps: the two-width fusion; field_simp needs ≠0
 staged or leaves ⁻¹ silently; gcongr-over-4-factors bulletless; ∀n INSIDE
 the ℓ-induction; div_le_div_iff_of_pos_left; the unused-binder audit
 caught FOUR false pins. **G5 — THE SEAM-CLOSING WAVE — dispatching.**
+
+---
+
+**2026-07-26 13:26 PDT — ⚑⚑⚑ G5 LANDS WHOLE: ROUTE G IS COMPLETE. THE GRADED 𝒯-LEG STANDS. ⚑⚑⚑**
+`Salt/MR/TLegExit.lean` (1183 ln, 18 decls, zero diagnostics, all 17
+audited 3-axiom; full build green rc-checked 9436). H-1 Ej_bound FIRST TRY
+(cell_price_uniform the (v,r)-free envelope monster); H-2 the α-gates from
+η alone (eq-20's numerals); H-3 **TLeg_bound — §8.1's exponent + O(1/P₁)
++ the rows; J NOWHERE on the right**; H-4 TLeg_feeds_capstone — the row
+with NO INTEGRAL on the right (the shape certified). **THE BUDGETS PAID
+WITH ONE HALVING: LevelGates.cell at η/2 — MR's exit exponent NEVER MOVED**
+(the 2^ℓ costs ¼A; the llQ = log2 + loglog trick makes exp llQ = 2logQ
+EXACT; the v-floor paid into ONE visible e¹; gate-3-at-η/2 implies
+gate-3-at-η — byte-exact downstream). THE ONE PAGE LEFT: the STATION
+CALIBRATION (LevelGates for the §8.3-pinned sequences, ~200–350 ln) — the
+executor DECLINED to manufacture a vacuous instance (the house creed);
+satisfiability hand-checked non-vacuous. New traps: exp_nat_mul direction
+(forward on the RHS); ← exp_add can't merge non-adjacent factors (ring the
+product into adjacency FIRST); plain ring beat field_simp on every a*b/c
+identity (~1.2M heartbeats saved); nlinarith a heartbeat sink on
+0 ≤ A*(B*C) (mul_nonneg chains); positivity can't see free-real
+hypotheses; rw-under-Finset.sum-binder fails (unfold in the goal, linarith
+matches atoms); the maxHeartbeats-before-docstring parse. STATCAL-WAVE —
+the LAST page of the seam — dispatching.

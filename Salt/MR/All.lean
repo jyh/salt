@@ -130,6 +130,7 @@ import Salt.MR.TLegE1
 import Salt.MR.MultShiuBridge
 import Salt.MR.TLegCover
 import Salt.MR.TLegKill
+import Salt.MR.TLegExit
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1080,4 +1081,20 @@ open Salt.Tactic in
   Salt.MR.level_kill_exp
   Salt.MR.level_kill_collected
   Salt.MR.level_kill_collected_P1
+  Salt.MR.mrAlpha_mono
+  Salt.MR.mrAlpha_pos
+  Salt.MR.mrAlpha_le_quarter
+  Salt.MR.alpha_gates_from_eta
+  Salt.MR.ramI_bottom_deficit
+  Salt.MR.ramI_top_le
+  Salt.MR.ramI_pos_of_mem
+  Salt.MR.ramI_card_two_mul
+  Salt.MR.level_kill_budget
+  Salt.MR.cell_price_uniform
+  Salt.MR.level_geometry_collapse
+  Salt.MR.integral_ramMain_le_exp_mul_ramR
+  Salt.MR.Ej_bound
+  Salt.MR.sum_Ej_collected
+  Salt.MR.TLeg_bound
+  Salt.MR.TLeg_feeds_capstone
   Salt.MR.farErr34_local_closes_of_gate
