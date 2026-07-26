@@ -11701,3 +11701,22 @@ SCOPE: no dpoly/negation in the file; the t-convention docstringed; a
 Lemma-9-side consumer must bridge explicitly. New trap:
 div_le_div_of_nonneg_right takes 0 ≤ c (exact_mod_cast Nat.zero_le, not the
 1 ≤ m hypothesis). U7-B the last aloft.
+
+---
+
+**2026-07-25 19:08 PDT — U7-B lands whole (zero residuals): the three U-7 openers ALL HOME.**
+`Salt/MR/RamWeight.lean` (339 ln, 19 decls, zero warnings, all 3-axiom;
+full build green). B-1 the ∫₀¹x^ω identity (Nat-power, no rpow); B-2
+blockOmega additivity (unconditional — primeFactors_mul needs no nonzero);
+B-3 **ellLin_gxDatum UNCONDITIONAL in m** (stronger than spec — no
+squarefree side condition survives to consumers); B-4 the exit as the
+UNIFORM-BOUND form ramR_norm_le_of_damp_le (unit interval ⟹ no
+integrability obligation escapes — the cheapest consumer shape, reasoned);
+B-5 the sharp per-prime page (factor 1, the (1−x) kept; 0 ≤ x NOT needed
+for the sharp form) exiting at the abstract Σ_{blockWindowPrimes} 1/p with
+two truncation handoffs for U7-C. New traps: integral_finsetSum rename;
+the (0 : ℝ)-in-application whitespace lint; set folds only pre-existing
+occurrences (rw-created ones invisible); card_union_of_disjoint alias +
+disjoint_filter_filter; hand-rolled induction beats prod_ite decidability
+mismatches. U7-C dispatching (the collision lemma + the Mertens page at
+the RATIFIED amended pin θ = 1/(32(3e+1))).

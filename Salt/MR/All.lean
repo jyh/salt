@@ -103,6 +103,7 @@ import Salt.MR.USetPins
 import Salt.MR.USetThinTL
 import Salt.MR.RHSGradeC
 import Salt.MR.RamRAdapter
+import Salt.MR.RamWeight
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -713,3 +714,16 @@ open Salt.Tactic in
   Salt.MR.norm_ramRtop_le
   Salt.MR.ramR_abel_sup
   Salt.MR.ramR_abel_window_floor
+  Salt.MR.inv_blockOmega_succ_eq_integral
+  Salt.MR.blockOmega_mul_coprime
+  Salt.MR.blockOmega_pow_mul_coprime
+  Salt.MR.gxDatum_norm_le_one
+  Salt.MR.ellLin_gxDatum
+  Salt.MR.ramR_eq_integral_damp
+  Salt.MR.ramR_norm_le_of_damp_le
+  Salt.MR.ramRdamp_eq_spoly
+  Salt.MR.ramRdamp_ellLin
+  Salt.MR.sum_blockWindowPrimes_le
+  Salt.MR.gxDatum_pretDistSq_ge
+  Salt.MR.gxDatum_pretDistSq_ge_one
+  Salt.MR.gxDatum_pretDistSq_costwist
