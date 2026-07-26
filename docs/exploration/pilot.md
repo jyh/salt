@@ -11990,3 +11990,15 @@ G1a MUST pin non-degeneracy (0 < H_j, P_j ≤ Q_j). Also the v = 0 toothless
 end (the bottom block asks only ‖ramQ‖ ≤ 1 — intended, MR's small-prime
 end, but 'graded' ≠ 'uniformly strong' at the base).** notMem_empty rename
 banked. R2-WAVE (the big pin family) still aloft.
+
+---
+
+**2026-07-26 08:54 PDT — JACOBIAN GO (JYH: "let's continue as planned. Option 1"): JACOBIAN-ALIGN dispatched against the MERGED FC #4474 (Paul merged today; comp diagrammatic CONFIRMED; FC now carries answer(False) + the counterexample inline; kbuzzard's statement-fidelity pushback noted; deancureton attribution refresh surfaced). Staging only — JYH line-reviews before any PR. Dinitz thread closed gracefully (the reply posted).**
+
+**DECISION REGISTER (new, ripens post-flagship): THE VERIFICATION-ROLE
+STANCE — JYH's big-picture question: as AI-borne breakthroughs accelerate,
+do we kernel-check every one? "The team who obsessively kernel-checks
+everything" as identity — JYH: "that does not bother me, but we'll want to
+adopt a stance and perhaps decide what role we wish to play." Not resolved
+today; re-surface with the paper approval / SaltBench sequencing (the
+Tier-V family is exactly this role, systematized).
