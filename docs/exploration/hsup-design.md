@@ -585,3 +585,22 @@ landed file is edited (iron rule 5 never engaged); W1-of-U7 collapses
 **TOTALS (honest)**: to a supplied hU ~2,700–4,400 ln (prior estimate under
 by ~2.4×); to the seam terminal ~4,500–7,400 (incl. the far arm + §8.1/8.2).
 JYH GATES: none.
+
+## ⟦V4a — U-5 as-built findings (for the U-9 assembly)⟧
+
+U-5 LANDED WHOLE (USetThinTS.lean; the exit uset_TS_branch(_meanvalue) —
+MR's §8.3 𝒯_S conclusion at the ε² gain × the mean-value grade). THREE
+FINDINGS the U-9 assembly MUST consume:
+1. **The sharp M is the CO-FACTOR length** M ≍ 2X·e^{−j/H}, NOT the dyadic
+   N ≍ 2X — pricing at N blows the branch by e^{j/H} (up to
+   exp(logX/loglogX)). Every U-5 statement takes M as a parameter with
+   ramRrange ⊆ [1,M]; feed the sharp one.
+2. **The α gate is α, not α_J**: at δ := P_J^{−α_J}, V := K₀/δ the honest
+   exponent is α = α_J + log K₀/log P_J > α_J; discharge α ≤ 1/4−η′ via the
+   η/(2J) slack (take η′ := η/2); the exit exponent is then 1−η. The naive
+   "gate holds at α_J" is FALSE as stated.
+3. **Two independent −𝒯 sign bridges that do NOT compose** (Uset_thin
+   negates internally; ramR_sq_sum_le negates here) — both statements are in
+   the un-negated variable; no adjustment crosses. Byte-checked.
+Also: T ≤ X (MR Step 0) rides the exit in-statement; thinBundle carries the
+count as an EXPRESSION (law #253); half-open audit clean.

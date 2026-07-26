@@ -11599,3 +11599,19 @@ tripwire, ρ stands at margin 1.916×); the rhsFboundC ruling ADOPTED
 process-safe (new-file c-generic, no landed edits, W1-of-U7 collapses to
 ~300–500). U-5 ∥ U-8 ∥ U-9a aloft. Honest totals: hU ~2.7–4.4k ln; seam
 terminal ~4.5–7.4k. JYH gates: none.
+
+---
+
+**2026-07-25 18:11 PDT — U-5 LANDS WHOLE (zero residuals): the 𝒯_S branch.**
+`Salt/MR/USetThinTS.lean` (446 ln, 18 audited results, 3-axiom, zero
+warnings; full build green). The exit: uset_TS_branch_meanvalue — the branch
+priced at 5128·ε²·M·(1+log 2T)·Σ‖r_m‖²/m² once the thinness clears the
+budget; the T-FREE Q_J² route stated via dyadicPairs_card_le_exp (T absent).
+THREE design findings banked (V4a): the sharp-M law (co-factor length, not
+N); the α-vs-α_J K₀ inflation (discharge at η′ := η/2); the two
+non-composing sign bridges. Collision scan vs the two in-flight siblings
+clean. New traps: positivity refuses 1 ≤ x goals (inv_le_one_of_one_le₀ +
+le_add_of_nonneg_left); exp L ^ 2 via exp_add not the unstable exp_nat_mul;
+the k·(M+A)·B·C bump wants nlinarith-with-hints not gcongr; set-folding
+hides nonnegativity from positivity (write the calc). U-8 + U-9a still
+aloft.

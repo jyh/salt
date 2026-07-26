@@ -98,6 +98,7 @@ import Salt.MR.SeamGate
 import Salt.MR.FarStar
 import Salt.MR.JointPlumb
 import Salt.MR.SupStation
+import Salt.MR.USetThinTS
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -656,3 +657,15 @@ open Salt.Tactic in
   Salt.MR.seamGateRstar_le_self
   Salt.MR.seam_ball_leg_station_M
   Salt.MR.prop_A3_T1_row_station
+  Salt.MR.ramR_eq_spoly
+  Salt.MR.wellSpaced_neg_image
+  Salt.MR.ramR_sq_sum_le
+  Salt.MR.norm_ramMain_sq_le_of_small
+  Salt.MR.TS_branch_meansq
+  Salt.MR.dyadicPairs_card_le_exp
+  Salt.MR.Uset_thin_alpha
+  Salt.MR.thin_sqrt_kill
+  Salt.MR.Uset_thin_sqrt_kill
+  Salt.MR.uset_TS_branch
+  Salt.MR.uset_TS_branch_meanvalue
+  Salt.MR.ramRcoeff_mass_le
