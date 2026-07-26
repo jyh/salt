@@ -11758,3 +11758,25 @@ algebra outright at free c (needs the three ≠-0s); set B collision with
 CenterSupply's local name; the V5 stone numbering is not a legal Lean order
 (file is 5→4→6). U7-D still aloft; U7-E next (its consumables now ALL
 landed).
+
+---
+
+**2026-07-25 19:53 PDT — U7-D LANDS WHOLE (all four stones first-attempt, incl. the optional D-4).**
+`Salt/MR/CofactorBall.lean` (746 ln, 13 audited decls, zero warnings, all
+3-axiom; full build green). D-2 fit verdict: CLONE forced by TWO structural
+walls (the radius binder pays (1+seamRad) ON the error — fatal at ambient
+radius, the additive farErr mandatory; the hDatum binder unbounded above —
+false for ANY window datum; both banked as traps). Z-2 discharged UPSTREAM
+(sixteenth_loglog_le_SPartial_div_eight needs only W ≤ y — fits verbatim).
+D-3 exit: ‖ramR‖ ≤ 3·farSupS — at the pin **6√2·(logX)^{−1/16}, the "6×
+better" kernel-confirmed**. D-4 LANDED: collisionGate_discharged at the
+EXPLICIT tower X₀ = exp(exp(10⁶ + 75·C⁺)) in-statement; Z-3 confirmed
+(X ≳ exp exp 2·10⁴⁵ at the floor's C). ZENO for U7-F: **the scale descent**
+(the pocket cap at the transfer scale — (1/32−θ)loglogX ≤ (1/16)loglog k₀
+constrains j/H; NOT performed, docstringed) + hend/hMN free-in-regime +
+Rmax parametric (the reach numeral is the consumer's). New traps: the
+datum-binder trap (unbounded-above hDatum false for window data —
+re-derive the split); the weighted-error trap; pocket_far_from_ball's
+strict form needs linarith not le_of_lt; ceil/cast subtleties;
+pass hhigh down not the weakened 2k₀+2 form. U7-E dispatching — CASE A at
+the shifted scale; then U7-F assembles the dichotomy.

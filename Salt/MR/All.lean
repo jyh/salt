@@ -106,6 +106,7 @@ import Salt.MR.RamRAdapter
 import Salt.MR.RamWeight
 import Salt.MR.CofactorDist
 import Salt.MR.GradeWindowC
+import Salt.MR.CofactorBall
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -756,3 +757,14 @@ open Salt.Tactic in
   Salt.MR.rhs_grade_at_scale_windowC
   Salt.MR.center_halasz_supply_B_uniform
   Salt.MR.center_halasz_supply_B
+  Salt.MR.center_trivial_bound
+  Salt.MR.damped_partial_trivial
+  Salt.MR.spolyA_window_split
+  Salt.MR.far_transfer_sup
+  Salt.MR.spolyA_ramRcoeff_eq_integral
+  Salt.MR.spolyA_ramRcoeff_le_of_damp
+  Salt.MR.damped_partial_transfer
+  Salt.MR.caseB_window_geometry
+  Salt.MR.caseB_ramR_of_collided
+  Salt.MR.caseB_ramR_bound
+  Salt.MR.collisionGate_discharged
