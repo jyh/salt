@@ -126,6 +126,7 @@ import Salt.MR.USetGradedPrice
 import Salt.MR.CaseASocket
 import Salt.MR.GradedCapstone
 import Salt.MR.TLegPreamble
+import Salt.MR.TLegE1
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1010,4 +1011,12 @@ open Salt.Tactic in
   Salt.MR.sum_exp_neg_graded_card
   Salt.MR.sum_exp_growth
   Salt.MR.sum_exp_growth_top
+  Salt.MR.norm_ramMain_sq_le_of_mem_TsetG
+  Salt.MR.integral_ramMain_sq_le_of_subset_TsetG
+  Salt.MR.ramRbot_one_le_of_mem_ramI
+  Salt.MR.sum_integral_ramMain_sq_le_of_subset_TsetG
+  Salt.MR.E1_bound
+  Salt.MR.exp_block_bottom_le_rpow
+  Salt.MR.rpow_growth_le_rpow_bottom
+  Salt.MR.E1_pin
   Salt.MR.farErr34_local_closes_of_gate

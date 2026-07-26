@@ -12213,3 +12213,23 @@ blindness — have the def's nonneg at top); field_simp-on-≤ leaves a ≤
 (refine le_of_eq FIRST or plain ring); exp_nat_mul cast-first idiom;
 div_le_div_iff_of_pos_right live name. G3 (§8.1) ∥ G4c (MULT-SHIU, the
 long pole) dispatching.
+
+---
+
+**2026-07-26 11:54 PDT — G3 LANDS WHOLE (no Zeno): §8.1's E₁ — MR's bound reproduced EXACTLY.**
+`Salt/MR/TLegE1.lean` (585 ln, 8 decls, zero diagnostics, default
+heartbeats, all 3-axiom; full build green rc-checked). E1_bound the
+assembled page (the two-leg v-sum: the growing leg normalized via THE
+NEGATIVE-EXPONENT TRICK Q₁^{1−2α} ≤ Q₁·P₁^{−2α} — the base comparison
+REVERSES, both legs carry P₁^{−2α}); E1_pin at MR's own pins:
+(log Q₁)^{1/3}/P₁^{1/6−η} — **no discrepancy**. THREE COMPOSITION FINDINGS
+banked for G4/G5: (1) THE COEFFICIENT SEAM — the graded gain bites only at
+f = c; closed IN-STATEMENT here, G4 must do the same; (2) the sharp-length
+gate on all of I₁ IS Q₁ ≤ X_d (certified, not assumed); (3) G0
+non-degeneracy deliberately NOT carried (the inequality never consumes it
+— a false pin avoided, docstring-cited instead). New traps: refine
+add_le_add_right ?_ _ is a gate-breaker (have + linarith; the shared
+error block is ONE atom to linarith); try plain ring FIRST on division
+identities (field_simp closes-then-fails generalized); congr 1 + ring for
+exp-merges needs no ne-hypothesis. G4c (MULT-SHIU) the long pole aloft;
+G4a/b/d/e/f + G5 queue behind.
