@@ -12253,3 +12253,24 @@ invariant**; hcoeff/hsupp BYTE-FOR-BYTE. M-4: multShiu_moment + the
 rw trap; backwards toFinset_factors sticks DecidableEq; show trips the
 linter; sum_divisorsAntidiagonal to_additive-named. G4AB still aloft;
 then G4d/e/f + G5.
+
+---
+
+**2026-07-26 12:06 PDT — G4a+G4b LAND WHOLE (no Zeno): the §8.2 covering + normalization.**
+`Salt/MR/TLegCover.lean` (458 ln, 21 decls, zero diagnostics, default
+heartbeats, all 3-axiom; full build green rc-checked 9434). C-1 a PURE
+PROJECTION (the TsetG def carries the ¬ in place — no push-Not at this
+node; the vacuity pin FREE via ramI_pred_nonempty_of_mem_TsetG). C-2 the
+pigeonhole with **the register's own new stone
+setIntegral_le_finset_sum_of_cover** (Finset.card_biUnion_le does NOT
+transfer to set integrals; ~35 ln induction peeling cells — REUSABLE at
+any covering node) + the honest non-disjoint accounting (the union cost
+#I stated, not hidden; disjointifying is not MR's calibration —
+docstringed). C-3 at ANY ℓ. C-4's socket list EMPTY (integrability
+discharged internally — better than briefed). The coefficient seam closed
+in-statement everywhere; cross-lane collision scan CLEAN vs MultShiuBridge.
+New traps: generalize the covered set BEFORE inducting (an E-fixed IH is
+dead — the step applies IH to E ∖ U a); one_le_pow₀ the live name;
+setIntegral_mono_set wants the ⊆ as .eventuallyLE; the exp-atom rule for
+linarith (rw ← exp_add FIRST so exp(−a)·exp(a) is ONE atom). G4DEF-WAVE
+(the ℓ-pin + gates + kill) dispatching; G5 last.

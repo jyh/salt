@@ -128,6 +128,7 @@ import Salt.MR.GradedCapstone
 import Salt.MR.TLegPreamble
 import Salt.MR.TLegE1
 import Salt.MR.MultShiuBridge
+import Salt.MR.TLegCover
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1036,4 +1037,21 @@ open Salt.Tactic in
   Salt.MR.ramQblock_subset_dyadic_block
   Salt.MR.ramRrange_ceil_bot_le
   Salt.MR.multShiu_moment_pinned
+  Salt.MR.not_blockSmallG_pred_of_mem_TsetG
+  Salt.MR.TsetG_level_ge_two_witness
+  Salt.MR.ramI_pred_nonempty_of_mem_TsetG
+  Salt.MR.TsetGr_subset_TsetG
+  Salt.MR.ramQ_violation_of_mem_TsetGr
+  Salt.MR.measurableSet_TsetGr
+  Salt.MR.TsetG_subset_biUnion_TsetGr
+  Salt.MR.setIntegral_le_finset_sum_of_cover
+  Salt.MR.integral_TsetG_le_sum_TsetGr
+  Salt.MR.integral_TsetG_le_card_mul
+  Salt.MR.one_le_normalized_of_mem_TsetGr
+  Salt.MR.one_le_normalized_pow
+  Salt.MR.one_le_ramQ_pow_mul_exp
+  Salt.MR.cell_integral_normalized
+  Salt.MR.measurableSet_annulus_TsetGr
+  Salt.MR.annulus_TsetGr_subset_Icc
+  Salt.MR.cell_integral_normalized_annulus
   Salt.MR.farErr34_local_closes_of_gate
