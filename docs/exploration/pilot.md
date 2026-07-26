@@ -12002,3 +12002,15 @@ everything" as identity — JYH: "that does not bother me, but we'll want to
 adopt a stance and perhaps decide what role we wish to play." Not resolved
 today; re-surface with the paper approval / SaltBench sequencing (the
 Tier-V family is exactly this role, systematized).
+
+---
+
+**2026-07-26 09:02 PDT — ⚑⚑ THE SECOND WALL CLOSES: farErr34_local_closes KERNEL-CERTIFIED. ⚑⚑**
+`Salt/MR/PinFamily.lean` (1349 ln, 47 decls, zero diagnostics, all
+3-axiom; full build green). The R1+R3+R2 chain complete; Y₀ explicit and
+tower-free; the y₂ gates as exact numerals (2^15 = 8^5); the bandwidth hit
+kernel-certified + RULED (the width stays at old A; gate via y₂ ≥ L⁴);
+V7 banked with the PIN2-REST residual list. New traps: Real.le_sqrt takes
+TWO args; div_inv_eq_mul the live name; rw-through-rpow-base self-undo
+(have + backwards); exp 11 < 131072 (exp 12 first); rpow denominators need
+0 ≤ log W in-statement everywhere. PIN2-REST ∥ G1A dispatching.

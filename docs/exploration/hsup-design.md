@@ -922,3 +922,29 @@ choice is PINNED here; the three freeze risks ride the wave brief).
 replay must not be paid twice). G0 (the graded partition core) is
 far-arm-independent — fires now. R3's Zeno (the F-2 assembly twin at the
 3/4 transfer, ~150–200 mechanical) rides with the R2 wave.
+
+## ⟦V7 — THE SECOND WALL CLOSES (R2 as-built) + THE WIDTH RULING⟧
+
+**farErr34_local_closes (KERNEL-CERTIFIED, the R1+R3+R2 composition)**:
+farErr34 W Y (Tstar2 Y (log Y)) ≤ (log Y)^{−ρ₂₉₃} at Y ≥ Y₀ explicit,
+FREE of the TannGate tower; the gate form at a free target exponent serves
+both ρ₂₉₃ and 2θ₂₉₃ (three_twentieths_gap proven). The chain: log Tstar2 =
+L^{2/5} + L^{3/5} EXACT → 4L^{3/5}/(L^{3/4}/2) = 32C·L^{−3/20}. FarStar
+re-instantiates at y₂ with the SAME e^{−2} residual ("at ANY y" now a
+theorem); the F-page does NOT move (the σ-sup attains at the LEFT endpoint
+1/L — pin-blind); supF_pret_pointwise pin-agnostic (freeze risk i
+DISCHARGED); the E-slot closes for EVERY C_E (risk iii); the hidden-y
+census enumerated (risk ii) with ONE real hit:
+**THE BANDWIDTH HIT + THE RULING (maestro)**: pin_width_gates' 4th
+conjunct y ≤ 2·T₀⁸ ≈ 512·L⁴ FAILS at y₂ (kernel-certified). RULING: the
+width A was ALWAYS free (V3a); it STAYS at the old scale A := (L⁴/2)^{1/8}
+≈ 0.92√L; only the y-gate discharge changes — 2A⁸ = L⁴ ≤ n now via
+n > y₂ ≥ L⁴ (free at L ≥ the pin2 gate) instead of y = L⁴ exactly. A
+[B]-tier twin of the pin lemma, NOT a design block; no statement changes.
+**RESIDUAL WAVE (PIN2-REST)**: the width-gate twin [B, 60–100];
+seamGateRstar2 + the gate package at Tstar2 (log manifestly increasing)
+[B, 120–180]; the SupClose pin layer (joint_supF_pin_trunc2 /
+joint_cs_trunc_pin2 / rhs_grade_at_scale_trunc2) [B/C, 200–300]; FarStar §5
+at y₂ (closed_star2 / socket_star2 / ball_sup_closed_star2) [C, 250–400];
+caseAS at y₂ re-read [B, 100–150]; cosmetic adapters. G1a (graded thinness)
+ALSO ungated — fires with it.

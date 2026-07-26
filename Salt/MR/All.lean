@@ -117,6 +117,7 @@ import Salt.MR.USetResiduals
 import Salt.MR.CofactorLocal
 import Salt.MR.Transfer34
 import Salt.MR.SeamGraded
+import Salt.MR.PinFamily
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -887,3 +888,24 @@ open Salt.Tactic in
   Salt.MR.seam_TU_splitG
   Salt.MR.prop_A3_T1_row_split_weightedG
   Salt.MR.prop_A3_T1_row_split_weightedG_crude
+  Salt.MR.pin2_basic
+  Salt.MR.log_le_rpow_fifth
+  Salt.MR.log_Tstar2_self
+  Salt.MR.far_mass_cancel2
+  Salt.MR.far_window_mass_le2
+  Salt.MR.far_kernel_bound_T2
+  Salt.MR.far_kernel_bound_star2
+  Salt.MR.far_kfar_star2_le
+  Salt.MR.hfar_star2
+  Salt.MR.far_supF_bound2
+  Salt.MR.joint_supF_pin_at2
+  Salt.MR.prop21_uniform_at_scale_pin2
+  Salt.MR.cofactor_Rbd34_assembled
+  Salt.MR.width_pin_gates_pin2
+  Salt.MR.width_pin_gate_bandwidth_fails_pin2
+  Salt.MR.two_mul_pow_four_le_ypin2
+  Salt.MR.E_slot_pin2_le
+  Salt.MR.E_slot_pin2_closes
+  Salt.MR.three_twentieths_gap
+  Salt.MR.farErr34_local_closes_of_gate
+  Salt.MR.farErr34_local_closes
