@@ -11975,3 +11975,18 @@ y-pin family) + Route G shape (G1b HELD).**
 ---
 
 **2026-07-26 08:33 PDT — MORNING COUNCIL: R2 + Route G shape RATIFIED (G1b held). R2-WAVE ∥ G0-WAVE dispatching.**
+
+---
+
+**2026-07-26 08:41 PDT — G0 LANDS WHOLE (under budget): the graded partition core.**
+`Salt/MR/SeamGraded.lean` (375 ln, 17 decls, zero warnings, all 3-axiom;
+full build green). BlockSmallG byte-matches MR's (21) (+it convention, no
+flip; the half-open fiber INHERITED through ramQ, never re-asserted); the
+full partition suite (unique/disjoint/exhaustive/sdiff); the graded row
+with EXACTLY two slot changes (the ball leg + far split reused verbatim).
+**NEW STRUCTURAL TRAP (kernel-confirmed): THE EMPTY-BLOCK VACUITY — an
+empty ramI makes BlockSmallG vacuously true, degenerating the partition;
+G1a MUST pin non-degeneracy (0 < H_j, P_j ≤ Q_j). Also the v = 0 toothless
+end (the bottom block asks only ‖ramQ‖ ≤ 1 — intended, MR's small-prime
+end, but 'graded' ≠ 'uniformly strong' at the base).** notMem_empty rename
+banked. R2-WAVE (the big pin family) still aloft.

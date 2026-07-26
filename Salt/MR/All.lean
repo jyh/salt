@@ -116,6 +116,7 @@ import Salt.MR.FarArm
 import Salt.MR.USetResiduals
 import Salt.MR.CofactorLocal
 import Salt.MR.Transfer34
+import Salt.MR.SeamGraded
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -874,3 +875,15 @@ open Salt.Tactic in
   Salt.MR.Rbd34_grade_priced
   Salt.MR.Rbd34_grade_priced_of_ambient
   Salt.MR.farErr34_at_TannGate_floor
+  Salt.MR.TsetG_unique
+  Salt.MR.TsetG_disjoint
+  Salt.MR.TsetG_UsetG_disjoint
+  Salt.MR.exists_TsetG_or_mem_UsetG
+  Salt.MR.measurableSet_UsetG
+  Salt.MR.measurableSet_TsetG
+  Salt.MR.measurableSet_seamTtotG
+  Salt.MR.sdiff_biUnion_TsetG
+  Salt.MR.seam_T_additivityG
+  Salt.MR.seam_TU_splitG
+  Salt.MR.prop_A3_T1_row_split_weightedG
+  Salt.MR.prop_A3_T1_row_split_weightedG_crude
