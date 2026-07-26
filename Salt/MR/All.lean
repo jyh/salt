@@ -102,6 +102,7 @@ import Salt.MR.USetThinTS
 import Salt.MR.USetPins
 import Salt.MR.USetThinTL
 import Salt.MR.RHSGradeC
+import Salt.MR.RamRAdapter
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -704,3 +705,11 @@ open Salt.Tactic in
   Salt.MR.rhsFboundC_eq_exp_mul
   Salt.MR.joint_supF_pinC
   Salt.MR.beta_integral_pin_constC
+  Salt.MR.ramRrange_subset_Icc_sharp
+  Salt.MR.norm_ramRcoeff_le_one
+  Salt.MR.norm_ramRcoeff_cterm_le
+  Salt.MR.ramR_split_top
+  Salt.MR.ramRtop_card_le_two
+  Salt.MR.norm_ramRtop_le
+  Salt.MR.ramR_abel_sup
+  Salt.MR.ramR_abel_window_floor

@@ -11684,3 +11684,20 @@ executor ran its own refuter pass: c = 1/e admissible on BOTH gate sets;
 recovery at c = 1/(2e) proves the landed conclusions byte-for-byte by
 defeq, both stones. Five GC-suffix privates re-derived (one staged for
 W4-4). U7A + U7B still aloft.
+
+---
+
+**2026-07-25 19:05 PDT — U7-A lands whole (zero residuals): the ramR adapter + Abel bridge.**
+`Salt/MR/RamRAdapter.lean` (318 ln, 16 decls, zero warnings, all 3-axiom;
+full build green). A-1 discharged UPSTREAM (U-5's ramRcoeff/ramR_eq_spoly
+reused byte-for-byte — no duplication; the sharp-M subset added:
+ramRrange_subset_Icc_sharp at 2·ramRbot ≤ M per V4a). THE ENDPOINT PAGE
+proven: the half-open mismatch is exactly TWO integers wide; ramR_abel_sup
+exits at the honest constant **3S = 2S (Abel) + S (the two peeled terms at
+2/X_j, gate free in regime)**; window gates dischargeable from 4 ≤ W alone
+(ramR_abel_window_floor). ramR carries the 1/m INTERNALLY (σ=1 polynomial —
+the coefficient 1-bounded, no extra consumer weight). CATCH #B DISARMED BY
+SCOPE: no dpoly/negation in the file; the t-convention docstringed; a
+Lemma-9-side consumer must bridge explicitly. New trap:
+div_le_div_of_nonneg_right takes 0 ≤ c (exact_mod_cast Nat.zero_le, not the
+1 ≤ m hypothesis). U7-B the last aloft.
