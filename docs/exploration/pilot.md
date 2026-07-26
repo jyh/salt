@@ -11971,3 +11971,7 @@ rpow_le_rpow (3 args) — the most-repeated transplant edit; the q-shift
 costs nothing in front constants ((1/2)^{3/4} ≥ 1/2). **THE NIGHT
 COMPLETE: 21 dispatches, 21 whole/decisive. The morning gates: R2 (the
 y-pin family) + Route G shape (G1b HELD).**
+
+---
+
+**2026-07-26 08:33 PDT — MORNING COUNCIL: R2 + Route G shape RATIFIED (G1b held). R2-WAVE ∥ G0-WAVE dispatching.**

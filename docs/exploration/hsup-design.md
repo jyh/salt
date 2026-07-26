@@ -912,3 +912,13 @@ lands it would retire T* entirely.
 (recommendation: YES, parallel form); (2) Route G — ratify the shape, HOLD
 G1b behind the far-arm repair; (3) R1+R3 dispatched ungated tonight;
 (4) the standing INFORMs.
+
+## ⟦MORNING RATIFICATIONS (JYH 7/26): R2 + ROUTE G SHAPE⟧
+
+(1) **R2 RATIFIED**: the y-pin parallel family at log y = L^{2/5} (no landed
+statement touched; the V6b freeze notes bind: the L^{2/5}-not-L^{1/2}
+choice is PINNED here; the three freeze risks ride the wave brief).
+(2) **ROUTE G SHAPE RATIFIED; G1b HELD** behind R2's landing (the far-arm
+replay must not be paid twice). G0 (the graded partition core) is
+far-arm-independent — fires now. R3's Zeno (the F-2 assembly twin at the
+3/4 transfer, ~150–200 mechanical) rides with the R2 wave.
