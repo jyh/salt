@@ -123,6 +123,7 @@ import Salt.MR.PinFamily2
 import Salt.MR.SupplyGeneric
 import Salt.MR.USetGradedBalance
 import Salt.MR.USetGradedPrice
+import Salt.MR.CaseASocket
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -973,4 +974,15 @@ open Salt.Tactic in
   Salt.MR.thinBundleG_at_pin_Q
   Salt.MR.hUG34_supplied
   Salt.MR.hUG34_fully_priced
+  Salt.MR.center_halasz_supply_YA
+  Salt.MR.joint_supF_pin_at2C
+  Salt.MR.joint_supF_pin_window2C
+  Salt.MR.joint_cs_trunc_pin2C
+  Salt.MR.jointIntegrableAtC_pin2_free
+  Salt.MR.beta_integral_pin_const2C
+  Salt.MR.rhs_grade_at_scale_window2C
+  Salt.MR.caseA_rhs_socket2
+  Salt.MR.caseA_partial_supply2
+  Salt.MR.caseA_slice2
+  Salt.MR.caseASocket2_discharged
   Salt.MR.farErr34_local_closes_of_gate

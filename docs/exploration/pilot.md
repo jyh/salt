@@ -12151,3 +12151,25 @@ context (feed rpow_nonneg); the unused-binder linter as a FREE law-#253
 audit (warning-free = every gate load-bearing); the exp-12 numeral recurs
 at any 2^17 threshold; rpow denominators need 0 < log in every monotone
 twin.
+
+---
+
+**2026-07-26 11:20 PDT — ⚑⚑ CaseASocket2 DISCHARGED: THE GRADED hU IS ANALYTICALLY COMPLETE. ⚑⚑**
+`Salt/MR/CaseASocket.lean` (1087 ln, 11 stones, zero warnings, all 3-axiom,
+DEFAULT heartbeat budget — the window form is CHEAP (bare free M vs the
+opaque pretDistSq repeated: the 800000-bumps were the pin's cost, not the
+math's); full build green rc-checked 9429 jobs). caseASocket2_discharged
+:1059 — byte-fit, no redefinition. THE DATUM-POSITION FINDING (the trap's
+NEW FORM, banked): center_halasz_supply_Y's ∃X₀ sits UNDER the datum
+(the docstring describes the witness, not the statement) — ~300 ln paid
+for the _YA hoist (the proof body byte-identical, only the intro line
+moves). hInt DISSOLVED at the family gate (jointIntegrableAtC_pin2_free —
+JointPlumb's of_gates was y-generic all along). Consumer fit VERIFIED in
+scratch at c = 1/e from ballQuarterThreshold alone. RESIDUALS: the
+composition capstone (hUG34_unconditional = hUG34_fully_priced ∘ the
+socket — ordinary NEW-statement composition, the executor over-read iron
+rule 1; GCOMPOSE dispatching [B, 100–200]) + the SupplyGeneric binder-order
+hoist (statement-tier cleanup, the refactor queue) + PinFamily2's hInt
+lift (optional). New traps: THE ∃X₀ BINDER-POSITION TRAP (read where the
+∃ sits relative to the datum before citing ANY supply); the window-form
+cheapness rule; awk-bytes re-confirmed.
