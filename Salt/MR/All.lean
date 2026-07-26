@@ -891,7 +891,6 @@ open Salt.Tactic in
   Salt.MR.pin2_basic
   Salt.MR.log_le_rpow_fifth
   Salt.MR.log_Tstar2_self
-  Salt.MR.far_mass_cancel2
   Salt.MR.far_window_mass_le2
   Salt.MR.far_kernel_bound_T2
   Salt.MR.far_kernel_bound_star2
