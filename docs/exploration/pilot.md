@@ -11836,3 +11836,5 @@ Comfortable headroom for the night fleet; pacing normal (serial waves with
 ceremonies between; no throttle needed). JYH off to rest; the standing
 autonomous order carries; morning items queued (Jacobian PR, approval read,
 approval check, the 1.7067× INFORM).
+
+**2026-07-25 21:12 PDT — addendum: the 5h clock resets in ~2h (JYH note) — the 20% window frees mid-night; zero pacing constraint.**
