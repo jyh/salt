@@ -12192,3 +12192,24 @@ STATUS: the U-side DONE end to end (G0→G1a→G1b→PRICE→SOCKET→CAPSTONE);
 the 𝒯-leg (G2 aloft after an API-death redispatch; G3–G5 queued) is ALL
 that remains.** The day: eleven waves, ten landed whole, one API death
 redispatched clean.
+
+---
+
+**2026-07-26 11:37 PDT — G2 LANDS WHOLE (the retry; no Zeno): the 𝒯-leg preamble stands.**
+`Salt/MR/TLegPreamble.lean` (592 ln, 23 decls, zero diagnostics, default
+heartbeats, all 3-axiom; full build green rc-checked 9431). G2a ONE LINE
+(the G0 design confirmed — no block to manufacture); G2b a pure byte-plug;
+G2c the sharp-M exit at the ABSOLUTE 120 with **cofactor_mvt_dyadic_lossy
+— the e^{v/H} loss now a THEOREM** (satisfiability audited:
+exists_sharp_length; the sub-1 vacuity recorded not assumed); G2d both
+legs at explicit ratio gates (0 < α NOT carried on the growing leg — a
+false pin avoided; the 1/(1−e^{−x}) ≤ eˣ/x device). THE HOUSE ENGINE
+FOUND: Salt.Tactic.geom_sum_le_bot/top_Icc (DyadicRec :181/:173 —
+Mathlib-only import, resolves inside Salt.MR; the c-slot needs 1*r^v
+literal). Standing warning for G3/G4 banked: M vs Ms are DIFFERENT
+roundings — identifying them is a false economy. New traps: positivity IS
+hypothesis-aware (the blind spot is the MISSING fact, not context-
+blindness — have the def's nonneg at top); field_simp-on-≤ leaves a ≤
+(refine le_of_eq FIRST or plain ring); exp_nat_mul cast-first idiom;
+div_le_div_iff_of_pos_right live name. G3 (§8.1) ∥ G4c (MULT-SHIU, the
+long pole) dispatching.

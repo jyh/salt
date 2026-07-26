@@ -125,6 +125,7 @@ import Salt.MR.USetGradedBalance
 import Salt.MR.USetGradedPrice
 import Salt.MR.CaseASocket
 import Salt.MR.GradedCapstone
+import Salt.MR.TLegPreamble
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -988,4 +989,25 @@ open Salt.Tactic in
   Salt.MR.caseASocket2_discharged
   Salt.MR.hUG34_unconditional
   Salt.MR.hUG34_unconditional_beats_door
+  Salt.MR.blockSmallG_of_mem_TsetG
+  Salt.MR.ramQ_le_of_blockSmallG
+  Salt.MR.ramQ_sq_le_of_blockSmallG
+  Salt.MR.exists_mem_ramI_ramQ_le_of_mem_TsetG
+  Salt.MR.measurableSet_annulus_TsetG
+  Salt.MR.annulus_TsetG_subset_Icc
+  Salt.MR.lemma12_on_TsetG
+  Salt.MR.lemma12_on_TsetG_blockSupport
+  Salt.MR.cofactor_mvt_of_subset
+  Salt.MR.cofactor_mvt_sharp
+  Salt.MR.ramRrange_mass_le
+  Salt.MR.cofactor_mvt_mass_of_subset
+  Salt.MR.cofactor_mvt_sharp_exit
+  Salt.MR.exists_sharp_length
+  Salt.MR.cofactor_mvt_sharp_exit_visible
+  Salt.MR.cofactor_mvt_dyadic_lossy
+  Salt.MR.sum_exp_neg_graded
+  Salt.MR.sum_exp_neg_graded_rate
+  Salt.MR.sum_exp_neg_graded_card
+  Salt.MR.sum_exp_growth
+  Salt.MR.sum_exp_growth_top
   Salt.MR.farErr34_local_closes_of_gate
