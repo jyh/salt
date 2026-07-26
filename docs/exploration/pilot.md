@@ -12050,3 +12050,5 @@ WARNING — every executor must use push Not.** Also: 0<n/1≤n ℕ-defeq not
 cast-bridged (route via the defeq have); ramQbase not reducible (rw
 first); the rpow-squaring cheap route; unary-minus binds looser than
 application (byte-match verified). PIN2REST the last aloft.
+
+**2026-07-26 09:23 PDT — CEREMONY DISCIPLINE HARDENED after the trap bit TWICE (the pipe-status swallow, then grep-found-errors-counts-as-success + the Python prefix-replace mangle): the new LAW — every ceremony build runs `lake build > log; rc=$?` and commits ONLY on rc=0; census edits anchor on FULL LINES (newline-terminated), never prefixes. Build green 9424 (456e3db).**
