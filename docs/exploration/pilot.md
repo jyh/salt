@@ -12340,3 +12340,27 @@ ladder).
 ---
 
 **2026-07-26 15:19 PDT — DOOR-SCOPE banked (V9): the junction mapped byte-exact; the R3 kill-check RUN AND NEGATIVE (the kernel required); the census ~13.3–19.9k to log-Chowla, zero D, NO live gates (the stale PENDING-JYH resolved); flags corrected (the dead walls marked; the Siegel gap + the un-priced typical-density sum + the missing H₀door def now FLAGGED). L14-JUNCTION dispatching. TWO JYH-INFORMATIONALS: H₀door undefined; the seam row is a formula until the density sum prices.**
+
+---
+
+**2026-07-26 15:40 PDT — ⚑⚑ L14-JUNCTION LANDS WHOLE: THE SEAM ROW IS CONSUMED. ⚑⚑**
+`Salt/MR/SeamLemma14.lean` (916 ln, 17 decls, zero warnings, all 3-axiom;
+full build green rc-checked 9438). THE VERDICTS: cycle-check PASS (8,971
+modules; the join clean); **the binder-position audit found the 6-∃/5-
+conjunct subtlety (Ccol has NO positivity conjunct — the 12-slot pattern)
+AND the T₀-GLYPH COLLISION (the row's ∃-bound threshold vs seamT0 X — same
+glyph, different objects; a live trap for every consumer)**; the single-
+instance finding independently verified (every hMsup use at T = X/h₁ —
+the additive _of_Msup_at variant taken, lemma14_contour untouched). J5:
+AS-2 the right supplier (|t₁| ≤ X discharged FREE alongside hSup). J6:
+**lemma14_contour_seam_supplied — no Msup, no integral on the right, no
+hrange assumption; seamRowRHS the named formula**. The added-binder audit:
+ha the ONE new binder; 2 ≤ h₁ FORCED not added. Zeno (none blocking): the
+J5⊕J6 fusion costs 4 ≤ h₁ (docstringed, a W2 decision); the two
+pretentious families NOT identified (both carried — t₀ = 0 collapse
+unexamined); the sharp two-height concrete instantiation unwritten. Ten
+Lemma14 privates re-derived verbatim. New traps: le_or_gt; setIntegral_
+union rename; the (b :=)-pins-only-the-midpoint rw trap (type-ascribed
+have); the {0}-meeting trap (seamT0_pos from 1 < X); the seamT0-vs-rpow
+defeq bridge (simp only [seamT0]); re-parse spliced statements (the
+doubled-→). WAVE 2 dispatching: R3-DESIGN ∥ SEC9-GLUE ∥ HFLOOR-FIX.

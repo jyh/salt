@@ -132,6 +132,7 @@ import Salt.MR.TLegCover
 import Salt.MR.TLegKill
 import Salt.MR.TLegExit
 import Salt.MR.SeamCalibration
+import Salt.MR.SeamLemma14
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1110,4 +1111,17 @@ open Salt.Tactic in
   Salt.MR.calibrated_block_nonempty
   Salt.MR.ladder_below_station
   Salt.MR.seam_row_calibrated
+  Salt.MR.seamAnn_integral_split
+  Salt.MR.spoly_eq_dpolyA_filter
+  Salt.MR.seamS0_range
+  Salt.MR.seamS0_pos
+  Salt.MR.seam_midrange_bound
+  Salt.MR.seam_split_four
+  Salt.MR.seam_midrange_of_tall_row
+  Salt.MR.seam_Msup
+  Salt.MR.lemma14_contour_of_Msup_at
+  Salt.MR.lemma14_contour_seam_supplied
+  Salt.MR.lemma14_contour_seam_supplied_single
+  Salt.MR.lemma14_contour_seam_supplied_calibrated
+  Salt.MR.seam_row_calibrated_station
   Salt.MR.farErr34_local_closes_of_gate
