@@ -11563,3 +11563,11 @@ converts tacit to explicit. ASSEMBLY-WAVE still aloft.
 The Dinitz mathlib-Counterexamples PR HOLDS behind the Jacobian (Sunday,
 invited, FC-aligned). The one-line Zulip offer converts tacit→explicit at
 zero cost; the Dinitz PR rides the answer. Decision register updated.
+
+---
+
+**2026-07-25 17:32 PDT — the Jack McCarthy reply SENT (JYH-phrased, three review rounds).**
+The comparator-layout facts + the bridge line inline + the mathlib-
+Counterexamples offer (tacit→explicit per the ratified sequencing). The
+namespace mention landed in item 2 after the mis-placement catch. Awaiting
+Jack's/maintainers' response; the Dinitz PR rides it, behind the Jacobian.
