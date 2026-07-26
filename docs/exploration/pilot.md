@@ -11615,3 +11615,26 @@ le_add_of_nonneg_left); exp L ^ 2 via exp_add not the unstable exp_nat_mul;
 the k·(M+A)·B·C bump wants nlinarith-with-hints not gcongr; set-folding
 hides nonnegativity from positivity (write the calc). U-8 + U-9a still
 aloft.
+
+---
+
+**2026-07-25 18:13 PDT — U-9a LANDS WHOLE: the pins kernel-checked.**
+`Salt/MR/USetPins.lean` (516 ln, 6 defs + 31 thms, zero warnings, all
+3-axiom; full build green). P-1 T-FREE by construction (mathlib-only
+imports — T-coupling unreachable) + the (Q_J+1)² bonus form (what
+card_dyadicPairs_le actually produces). P-4 the TannGate pair:
+kappa30_of_TannGate hands Uset_thin's hκ30 binder over VERBATIM;
+FAILS-protection kernel-checked (TannGate_fails_polylog_deg: every degree
+k ≤ 40 fails unconditionally — the vacuity now REFUTABLE in Lean). P-5 the
+balance numerics kernel-checked: exit_margin (1.916/500 ≤ θ),
+halved_fails (1/(192e) < 1/500 — the 4.198% cliff IN LEAN), exit_beats_c0
+at ε ≤ 1/1000, loglog_absorb_B4. Honest thresholds all in-statement; the
+dominant X₀ remains hκ30's exp(10^386). New traps: noncomputable needed
+even for ρ/3 (DivInvMonoid); Real.log_pow arg order (base, exponent);
+never rw a sqrt identity into a hypothesis you'll linarith with (and
+√u²-under-multiplier needs the explicit calc); field_simp leaves numeral
+goals norm_num-shaped (96 = 32·3 — ring won't); **Real.log X ≥ c does NOT
+imply X > 0 (log factors through |·|) — a silent vacuity generator in
+gate-shaped statements, carry 0 < X explicitly**; positivity refuses
+√L ≠ 0 from an atom hypothesis (ne_of_gt (sqrt_pos.mpr ·)). U-8 still
+aloft — the last of the three.

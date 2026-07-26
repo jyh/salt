@@ -99,6 +99,7 @@ import Salt.MR.FarStar
 import Salt.MR.JointPlumb
 import Salt.MR.SupStation
 import Salt.MR.USetThinTS
+import Salt.MR.USetPins
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -669,3 +670,19 @@ open Salt.Tactic in
   Salt.MR.uset_TS_branch
   Salt.MR.uset_TS_branch_meanvalue
   Salt.MR.ramRcoeff_mass_le
+  Salt.MR.loglog_le_rpow
+  Salt.MR.QJ_sq_subpoly
+  Salt.MR.QJ_succ_sq_le_rpow
+  Salt.MR.pin_Pii
+  Salt.MR.pin_Pii_nat
+  Salt.MR.pin_P83_le_Q83_of_gate
+  Salt.MR.two_le_H83
+  Salt.MR.kappa30_of_TannGate
+  Salt.MR.TannGate_of_row_height
+  Salt.MR.TannGate_fails_polylog_deg
+  Salt.MR.balance_exit
+  Salt.MR.exit_margin
+  Salt.MR.exit_beats_c0
+  Salt.MR.halved_fails
+  Salt.MR.balance_exit_B4
+  Salt.MR.loglog_absorb_B4
