@@ -12334,3 +12334,5 @@ genuine); nlinarith blind on cast-ℕ-sub squared (stage the square);
 side-goals**; positivity DOES find 0 ≤ atom hypotheses (G5's trap
 narrowed). The door road next: A3a-R3 (fresh-context scope on the banked
 ladder).
+
+**2026-07-26 15:06 PDT — the Felix reply POSTED (JYH's words, two precision fixes: 'predates the FC disproof', 'align with the FC statement'; the deferral clean). JYH syncing with jas; DOOR-SCOPE dispatching (A3a-R3, the ladder below the seam).**
