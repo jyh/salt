@@ -12014,3 +12014,5 @@ V7 banked with the PIN2-REST residual list. New traps: Real.le_sqrt takes
 TWO args; div_inv_eq_mul the live name; rw-through-rpow-base self-undo
 (have + backwards); exp 11 < 131072 (exp 12 first); rpow denominators need
 0 ≤ log W in-statement everywhere. PIN2-REST ∥ G1A dispatching.
+
+**2026-07-26 09:03 PDT — census fix: far_mass_cancel2 private (the b071991 commit briefly carried a red build — caught within one turn; the pipe-swallows-exit-status trap: lake build | tail returns tail's 0, the && chain continued. BANKED: ceremony commands must check build status BEFORE the commit link in the chain).**
