@@ -11638,3 +11638,21 @@ imply X > 0 (log factors through |·|) — a silent vacuity generator in
 gate-shaped statements, carry 0 < X explicitly**; positivity refuses
 √L ≠ 0 from an atom hypothesis (ne_of_gt (sqrt_pos.mpr ·)). U-8 still
 aloft — the last of the three.
+
+---
+
+**2026-07-25 18:23 PDT — U-8 LANDS WHOLE: the parallel hU phase COMPLETE (3/3).**
+`Salt/MR/USetThinTL.lean` (848 ln, 22 public results, zero warnings, all
+3-axiom; full build green). All five stones: the two adapters (the −𝒯
+bridge + the flip-free L11 form), the T-free count, L11 via
+halasz_primes_pow (P ≤ T^10 FREE from hκ30), the 27/v window gain (the
+honest grade — Mertens' error dominates 1/(Hv); V4b), the kill at the
+in-kernel 64× margin. THE EXIT carries U-7's supply as the named Rbd
+hypothesis. U-5 ∥ U-8 ∥ U-9a ALL WHOLE — the §8.3 frontier now waits only
+on U-7 (the co-factor supply) + the serial balance. U7-SCOPE dispatching
+(pins the c-generic W4 target before the expensive wave fires). New traps:
+pow_le_pow_left₀ / Nat.floor_mono renames; gcongr closes main goals by
+assumption (dead follow-ups + the never-executed linter); sum_le_sum_of_
+subset_of_nonneg needs the have's full type ascribed; exp_add won't rw
+across non-adjacent factors; division atoms defeat linarith monomial
+matching (explicit calc+ring); 840 ≤ exp 7 via exp_nat_mul + 2.7^7.

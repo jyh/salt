@@ -604,3 +604,20 @@ FINDINGS the U-9 assembly MUST consume:
    the un-negated variable; no adjustment crosses. Byte-checked.
 Also: T ≤ X (MR Step 0) rides the exit in-statement; thinBundle carries the
 count as an EXPRESSION (law #253); half-open audit clean.
+
+## ⟦V4b — U-8 as-built (for U-9/U-7)⟧
+
+U-8 LANDED WHOLE (USetThinTL.lean, all five stones, no Zeno). The exit
+tL_main_sumsq: Σ_{𝒯_L}‖ramMain‖² ≤ 54·C·Rbd²/v² — one 1/v from L11's
+1/log P, one from the window gain. **U-7's supply rides as the named
+hypothesis `∀ t ∈ 𝒯_L, ‖ramR‖ ≤ Rbd`** — carried, never assumed away.
+FINDINGS: (1) the honest window gain is **27/v, NOT 1/(Hv)** — Mertens'
+own 12/log t error is 1/v-sized and dominates the window width; 1/v is
+what MR's page needs, so no loss. (2) FREE GATE: P ≤ T^10 derives from
+hκ30 alone (ramQbase_le_pow_ten) — one fewer gate to thread. (3) the kill
+gate in-statement: 420·L·L^{3/4}·(log L)^5 ≤ c·(log base)² — satisfiable
+iff θ < 1/8; at θ = 1/(96e) the 64× margin reproduced in-kernel. (4) 𝒯_L
+is defined against ARBITRARY well-spaced 𝒯 — U-3's discretisation composes
+without re-pinning. (5) the −𝒯 bridge (catch #B) handled inside
+ramQ_eq_dpoly; ramQ_eq_halaszSum carries NO flip (the L11 integrand
+byte-for-byte).

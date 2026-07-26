@@ -100,6 +100,7 @@ import Salt.MR.JointPlumb
 import Salt.MR.SupStation
 import Salt.MR.USetThinTS
 import Salt.MR.USetPins
+import Salt.MR.USetThinTL
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -686,3 +687,14 @@ open Salt.Tactic in
   Salt.MR.halved_fails
   Salt.MR.balance_exit_B4
   Salt.MR.loglog_absorb_B4
+  Salt.MR.ramQ_eq_spoly
+  Salt.MR.ramQ_eq_dpoly
+  Salt.MR.ramQ_eq_halaszSum
+  Salt.MR.ramQ_large_count
+  Salt.MR.ramQ_large_count_Tfree
+  Salt.MR.ramQbase_le_pow_ten
+  Salt.MR.tL_sumsq_ramQ
+  Salt.MR.ramQblock_inv_sum_le
+  Salt.MR.tL_kill
+  Salt.MR.tL_ramQ_sumsq_killed
+  Salt.MR.tL_main_sumsq
