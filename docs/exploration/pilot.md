@@ -12103,3 +12103,5 @@ rewritten in JYH's own voice; the specific tool disclosure; the
 LLM-generated label applied via the first comment; the own-words law now
 ABSOLUTE for all PR/Zulip interactions — I supply facts only). Labels:
 new-contributor + LLM-generated ✓. The watch begins (CI + reviewers).
+
+**2026-07-26 10:29 PDT — Katherine Schlitz acknowledged in BOTH verification repos (jacobian-verify 6bdaf03, dinitz-verify ea69ae9) — JYH's sentence verbatim; she surfaced both announcements. The paper's acknowledgments section: queued for the next paper sitting.**
