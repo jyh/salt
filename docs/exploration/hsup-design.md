@@ -865,3 +865,50 @@ collapses as V5f said (farErr does not); R-2's assembly landed
 p²-route is TOO LOSSY for §8.3 — kernel-checked insufficiency; the
 ℓ²-preserving route mapped in four steps); R-3 ALL THREE GATES DISCHARGED
 at explicit thresholds (numeral_gates_discharged).
+
+## ⟦V6b — FARERR-SCOPE VERDICT: the wall structural, the repair three stones + THE UNIFIED MORNING RULING⟧
+
+**Q1**: log Rmax is GS 7.1's OWN d-split exit factor (Renormalise :759/:1003
+→ ballErr BallSup:256 → farErr CofactorBall:175) — intrinsic, not artifact;
+sharp-R5 buys nothing. The transfer is informative only while
+log Rmax ≤ (log W)^q, q = 1/2 as built.
+**Q2 (decisive)**: the per-t LOCAL dichotomy is REAL and cheap (localize
+CofactorSupply:312's by_cases to |v−t| ≤ T*; the pocket branch hands
+|t−t₁'| ≤ T* free, replacing the Dmax supply) — BUT T* ≥ exp(2√L) by pure
+AM–GM (log T* = log y + L/log y; η = 1/log y FORCED by the smooth Euler
+leg). The need: q ≥ 1/2 + 2θ₂₉₃ — **the wall is a miss of exactly 2θ₂₉₃**.
+The consumer demand re-derived: R̄ ≲ (log X)^{−2θ} (not −ρ); 1θ of slack
+exists, nowhere near enough. q sharpens 1/2 → 3/4 FREE from data CASE B
+already has (the pocket's real cap α = 1/32 was converted to the crude 1/8
+— √(2P)·√(P/32) = P/4; the threshold exp(exp 165) ≪ the collision tower).
+**THE THREE STONES**: R1 [B/C, 200–350] the localized dichotomy
+(CofactorSupply:293–352, CofactorBall:539–612, one binder USetPrice:602;
+Rmax → Tstar(M, log M)); R3 [B, 250–450] the 3/4-budget twin
+(budget_le_quarter at α = 1/32 + ballErr34/transfer_at_scale_34/farErr34 +
+the exp(exp 165) threshold; new stones only, BallSup:120/144/165/256/307 +
+SmallStones:152 as sources); **R2 [C; THE JYH GATE] the y re-pin
+log y = L^{2/5}** — parallel pin family RECOMMENDED (~1500–3000; in-place =
+statement changes on landed binders, Fable/JYH tier, NOT recommended — the
+hSup station rides the same pin and must not move). The re-pin is mostly
+RE-INSTANTIATION: LambdaMass:243's S1′ is ALREADY free-y (gates hold at
+exp(L^{2/5})); FarStar's far_mass_cancel residual is e^{−2} at ANY y;
+widthKampBr IMPROVES. R1+R3 alone leave farErr divergent (the certificate
+pair, not the closure); R2 closes: farErr ≈ 8C′·L^{−3/20} ≤ L^{−2θ} at
+L ≥ 10⁶⁷ (free vs the tower). The numbers table + the three FREEZE RISKS
+(supF_pret_pointwise's interior at the new y; hidden y-numerals beyond the
+pin_basic64 triples; the C_E-dependent X₀ — the L^{2/5}-not-L^{1/2} choice
+pinned HERE, not left to the executor) — per the scoper's report
+(task output banked by reference; the ledger carries the ruling).
+**ROUTE G INTERACTION — THE AMENDED RULING**: the graded family cannot
+relax the Rbd demand, and **G1b's ~1,000-line hU replay would DUPLICATE the
+broken far arm. HOLD G1b until R1/R2/R3 land.** Route G's SHAPE may be
+ratified independently; the replay lane waits. Wall stones stay TRUE
+post-repair (they carry hDmax as a hypothesis that simply goes unsupplied
+— the refutation becomes historical). SEQUEL BANKED: FarClose repair (ii)
+(the Plancherel far region) — its refuting y-gate LOOSENS under R2; if R2
+lands it would retire T* entirely.
+
+**THE MORNING SLATE (unified)**: (1) R2 gate — the parallel y-pin family
+(recommendation: YES, parallel form); (2) Route G — ratify the shape, HOLD
+G1b behind the far-arm repair; (3) R1+R3 dispatched ungated tonight;
+(4) the standing INFORMs.

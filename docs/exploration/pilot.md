@@ -11927,3 +11927,7 @@ wake decision-ready. New traps: exp_one_gt_d9 for 2 < e; le_or_gt; rw-list
 self-undo on rpow_add (calc only); the log-of-negative trap sharpened
 (4 ≤ loglog X does NOT give log X > 0); div_le_div_of_nonneg_left the live
 same-numerator form; congr-1-closes-then-ring-fails.
+
+---
+
+**2026-07-25 22:47 PDT — FARERR-SCOPE verdict (V6b): the wall = a 2θ exponent miss, structural (AM–GM); THREE repair stones; HOLD G1b (would duplicate the broken arm); R1+R3 dispatching ungated; R2 = the morning y-pin gate.**
