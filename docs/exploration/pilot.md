@@ -11516,3 +11516,29 @@ with the T ≤ X/2 MVT reduction ⟹ R ≤ X in every live row ⟹ the option-(A
 statement IMPLIES the M(f;X)-shape everywhere live; the B-2 corner sits
 beyond the escape. Assembly guard banked (carry T ≤ X/2 explicitly).
 PLUMB-WAVE still aloft; assembly fires on its return.
+
+---
+
+**2026-07-25 17:18 PDT — PLUMB lands ALL FOUR sockets (zero residuals): the hInt socket VANISHES.**
+`Salt/MR/JointPlumb.lean` (581 ln, 9 public decls, all 3-axiom, zero
+warnings; full build 9402 jobs green). Routes: hIβ/hIα by JOINT CONTINUITY
+of crossKer on the open half-plane 0 < c₀−α−β (continuousAt_of_dominated;
+the Ω-parametric composable form — no Prod.mk); the primed pair by
+bounded-measurable (the honest route: smoothSeries crosses the abscissa
+inside the box at the pin — LSeries junk-values there, a REAL
+discontinuity). KEY FINDING banked: **Measurable.tsum needs NO summability**
+(any countable index, Polish-type target) — measurable_LSeriesP in 9 lines.
+Exits: jointIntegrableAt_of_gates → _discharged → **_pin, whose composition
+against hRHS_discharged_const's hInt binder typechecks byte-for-byte with
+only hg/hk64/hXk/hmin in scope — the socket vanishes from every consumer.**
+New traps: Prod.mk-valued inner maps under .comp are a heartbeat BOMB
+(iota-reduction of (x,y).1 under Function.comp — 1M heartbeats; state
+helpers over general Ω with component functions; projections OUT of pairs
+fine); StronglyMeasurable.integral_prod_right' leaves (x,y).1.1 unreduced
+(simpa) + .const_smul needs the constant explicit; ContinuousAt-as-Tendsto
+loses the Eventually shape (ascribe ∀ᶠ first); show trips the linter where
+change says "does nothing" (bare linarith usually suffices); gcongr closes
+inverse-Lorentzian and rpow-exponent goals with NO bullets;
+norm_hatKernel_le NOT in RHSGrade's closure (re-derive). STATION: every
+socket of hSup now DISCHARGED or landed; ASSEMBLY-WAVE dispatching (the
+ratified (A) + the MVT guard + seam_gate_star_package + jointIntegrableAt_pin).

@@ -96,6 +96,7 @@ import Salt.MR.SupClose
 import Salt.MR.FarClose
 import Salt.MR.SeamGate
 import Salt.MR.FarStar
+import Salt.MR.JointPlumb
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -638,3 +639,10 @@ open Salt.Tactic in
   Salt.MR.rhs_grade_at_scale_closed_star
   Salt.MR.hRHS_socket_star
   Salt.MR.ball_sup_closed_star
+  Salt.MR.intervalIntegrable_beta_leg
+  Salt.MR.intervalIntegrable_alpha_leg
+  Salt.MR.intervalIntegrable_beta_leg'
+  Salt.MR.intervalIntegrable_alpha_leg'
+  Salt.MR.jointIntegrableAt_of_gates
+  Salt.MR.jointIntegrableAt_discharged
+  Salt.MR.jointIntegrableAt_pin
