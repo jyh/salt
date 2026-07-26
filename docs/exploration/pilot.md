@@ -11556,3 +11556,10 @@ elaborated-output diff old-vs-new BYTE-IDENTICAL + check.py exit 0 + voice
 grep zero hits repo-wide. lake-manifest.json now tracked (reproducibility).
 PR counsel delivered: hold behind the Jacobian; the one-line Zulip offer
 converts tacit to explicit. ASSEMBLY-WAVE still aloft.
+
+---
+
+**2026-07-25 17:24 PDT — PR SEQUENCING RATIFIED (JYH: "accepted").**
+The Dinitz mathlib-Counterexamples PR HOLDS behind the Jacobian (Sunday,
+invited, FC-aligned). The one-line Zulip offer converts tacit→explicit at
+zero cost; the Dinitz PR rides the answer. Decision register updated.
