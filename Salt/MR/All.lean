@@ -105,6 +105,7 @@ import Salt.MR.RHSGradeC
 import Salt.MR.RamRAdapter
 import Salt.MR.RamWeight
 import Salt.MR.CofactorDist
+import Salt.MR.GradeWindowC
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -743,3 +744,15 @@ open Salt.Tactic in
   Salt.MR.pocket_collision_window
   Salt.MR.pocket_far_from_ball
   Salt.MR.pocket_ball_shrink
+  Salt.MR.intervalIntegrable_beta_legC
+  Salt.MR.intervalIntegrable_alpha_legC
+  Salt.MR.jointIntegrableAt_iff_C
+  Salt.MR.jointIntegrableAtC_of_gates
+  Salt.MR.jointIntegrableAtC_pin_free
+  Salt.MR.joint_supF_pin_atC
+  Salt.MR.joint_supF_pin_windowC
+  Salt.MR.joint_cs_trunc_pinC
+  Salt.MR.rhsAgradeConstC_le
+  Salt.MR.rhs_grade_at_scale_windowC
+  Salt.MR.center_halasz_supply_B_uniform
+  Salt.MR.center_halasz_supply_B

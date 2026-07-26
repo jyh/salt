@@ -11736,3 +11736,25 @@ redundancy silently (an unused-linter flag on a hypothesis you PASSED);
 log-through-abs bites twice (carry exp 1 ≤ X AND exp 1 ≤ log X separately);
 positivity can't see loglog ≥ 0; awk over-reports long lines (Python char
 count; the linter referees). W4REST-WAVE ∥ U7D-WAVE dispatching.
+
+---
+
+**2026-07-25 19:48 PDT — W4REST lands whole (no Zeno): THE c-GENERIC LANE COMPLETE.**
+`Salt/MR/GradeWindowC.lean` (970 ln, 17 public decls, zero warnings, all
+3-axiom; full build green). W4-4 `rhs_grade_at_scale_windowC` :582 — THE
+CONTRACT SHRANK: hMwin states exactly the trunc consumption; hXk/hgate/hmin
+and R/t₀/t₁/X ALL LEAVE the statement (center_dist_floor_recentred demoted
+to one supplier among many); the private amplitude page recovered by
+FRONT-FACTOR CANCELLATION (le_of_mul_le_mul_left at the landed 1/(2e)
+constant — 45 lines of √-arithmetic never re-derived). W4-5: components 2/4
+taken VERBATIM from the landed bundle (M-free); 1/3 by continuity against
+the public continuousAt_crossKer — **NO c-gate on the pin-free discharge**
+(σ bounded away from 0 on the box; stronger than specced). W4-6
+`center_halasz_supply_B(_uniform)` — the exponent-opaque B-abstract, landed
+in the t₁-HOISTED form + the CenterSupply-shaped face (both consumer shapes
+served); c-free forever. New traps: 𝓝 needs open scoped Topology (the
+first error is real, the linariths spurious); field_simp closes the grade
+algebra outright at free c (needs the three ≠-0s); set B collision with
+CenterSupply's local name; the V5 stone numbering is not a legal Lean order
+(file is 5→4→6). U7-D still aloft; U7-E next (its consumables now ALL
+landed).
