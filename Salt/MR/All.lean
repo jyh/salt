@@ -112,6 +112,7 @@ import Salt.MR.CofactorSupply
 import Salt.MR.USetBalance
 import Salt.MR.USetPrice
 import Salt.MR.SeamTerminal
+import Salt.MR.FarArm
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -820,3 +821,14 @@ open Salt.Tactic in
   Salt.MR.seam_Dmax_bridge
   Salt.MR.seam_terminal_row
   Salt.MR.seam_terminal_dichotomy
+  Salt.MR.dyadic_SPartial_charge
+  Salt.MR.farArm_charge_le
+  Salt.MR.cap_fails_floor
+  Salt.MR.Mrange_floor_of_center_floor_radius
+  Salt.MR.Mrange_floor_of_center_floor
+  Salt.MR.far_arm_row
+  Salt.MR.far_arm_row_tailed
+  Salt.MR.far_arm_row_polyT
+  Salt.MR.seam_row_of_inter_empty
+  Salt.MR.seam_row_both_arms
+  Salt.MR.seam_row_three_arms

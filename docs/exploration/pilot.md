@@ -11887,3 +11887,25 @@ New traps: never pre-arm maxHeartbeats (measure first — the 60-binder pure
 composition costs 3.6s); the verbatim binder-list transplant as the
 cheapest correctness device (do NOT clean up a transplanted list).
 FARARM + HURES still aloft; Route G awaits the morning gate.
+
+---
+
+**2026-07-25 22:08 PDT — W-1 LANDS WHOLE: the A-10 far arm.**
+`Salt/MR/FarArm.lean` (505 ln, 15 stones, zero diagnostics, all 3-axiom;
+full build green). THE SCALE DESCENT PAID, NOT DODGED: the ¬cap floor at
+x* descends to X at the o(1) charge 2(S(x*)−S(X)) ≤ 50/log X
+(dyadic_SPartial_charge — the only new arithmetic), absorbed ENTIRELY by
+the frozen (1/16)→(1/32) halving past exp(exp 1600); no numeral shifted,
+iron rule 1 never engaged. The full case tree packaged
+(seam_row_both_arms/_three_arms — the NEAR arm receives hne + both band
+bounds, opening ball_sup_closed_star directly); the empty arm at ANY S;
+the radius FREED (hR : T + seamRad ≤ R — one centre serves both arms, no
+Tstar-vs-log⁴ comparison anywhere). Exits: far_arm_row (no T gate — the
+seam's T ≍ X covered), _tailed (Utail concrete via the S2′ ledger),
+_polyT (clean, no inflation). HONEST RESIDUAL (header-stated): at T ≍ X
+the arm is TRUE but carries the (logX)² crude-measure residue — a SOCKET
+question (a sharper annHead measure page), never a floor/numeral question;
+sharp on polylog-T. New traps: div_add_div_same gone (ring directly);
+Real.le_log_iff_exp_le is the live name; **push_neg deprecated-warns —
+'push Not at h' is the zero-warning form**; gcongr over-supply mirror
+(trailing norm_num "no goals"). HURES the last aloft.
