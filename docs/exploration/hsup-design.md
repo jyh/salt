@@ -534,3 +534,54 @@ seam's other case, out of station scope.
 → GradeConst → SupClose → FarClose ∥ SeamGate → FarStar → JointPlumb →
 SupStation. Ten files, ~6,900 ln, every stone ≤ 3 axioms, zero warnings.
 The hSup station is CLOSED.
+
+## ⟦V4 — U8-SCOPE VERDICT: the hU map corrected + THE C-GENERIC RULING⟧
+
+**MAP CORRECTION (the scoper's catch, against my brief)**: U-8's 𝒯_L is a
+branch INSIDE §8.3's hU, NOT the row's 𝒯-leg. The row's 𝒯-leg is §8.1+§8.2
+(MR's Σ_j E_j) — SEPARATE, UNSCOPED, ~[C, 1500–2500]. Closing U-5/7/8/9
+supplies hU ONLY. Also: U-5 (𝒯_S) was unblocked 7/24 by HZ-WAVE and never
+dispatched.
+
+**THE COST DISCOVERY (S-3 adjacent, NOT the tripwire)**: the corpus's only
+pointwise partial-sum Halász supplier is graded e^{−M/(2e)} from rhsFbound's
+DEFINITION (127 numeral sites, 12 files); §8.3/L3 needs e^{−M/e} on a
+DIFFERENT object (the Ramaré co-factor). The citation guard HOLDS (no §8.3
+file cites _half — audited) but guards an empty room. The balance page does
+NOT re-run (the ½ is a free monotone downgrade taken early; ρ = 1/(32e)
+stands, margin 1.916×) — so no JYH tripwire; an INFORM (the ~1.2–2.5k
+un-halved replay was never ledgered).
+
+**THE RULING (maestro, Fable-tier)**: the c-generic supplier — ADOPTED, in
+the PROCESS-SAFE form: a NEW file defines rhsFboundC (c M L σ) general +
+the identity rhsFbound = rhsFboundC (1/(2e)); the chain replays c-generically
+in NEW files; the un-halved arm lands as the c := 1/e instantiation. NO
+landed file is edited (iron rule 5 never engaged); W1-of-U7 collapses
+~1200–2500 → ~300–500.
+
+**THE LADDERS (execution-ready, the scoper's)**:
+- U-5 [B/C, 330–460] → USetThinTS.lean (spec: hu-scope-0724.md + the HZ
+  unblock at pilot 7/24 22:20).
+- U-8 [C, 730–1170] → USetThinTL.lean: U-8a ramQ↔dpoly adapter (mirror
+  primeBlockPoly_eq_dpoly USetThin:392; the −𝒯 sign bridge re-arms) [B,80–120];
+  U-8b |𝒯_L| ≤ exp((logX)^{θ+o(1)}) T-free via large_value_count :631 at
+  V=(logX)^100 — THE X₀: hκ30 forces log X ≥ 30^{3/ρ} ≈ 10^{385}, in-statement
+  ALWAYS [B/C,150–250]; U-8c Lemma 11 via halasz_primes_pow :3641 (gates free)
+  [C,200–300]; U-8d the 1/v prime-window gain [B,150–250]; U-8e the kill
+  (margin 64× at ρ=1/(32e); the VK β=3/4 is where the 1/4 lives) [B/C,150–250].
+- U-9a [B, 250–400] → USetPins.lean: the pin arithmetic — Q_J² ≤ X^{o(1)}
+  T-FREE via the definition of J (route (a), state THIS one); P-ii + P₈₃≤Q₈₃
+  free; **the NEW Tann gate: hU's exit MUST carry Tann ≥ exp(30(logX)^{1/2})
+  in-statement** (fails at polylog Tann — silent vacuity otherwise); the
+  balance θ=ρ/3 exit (T/X+1)(logX)^{−1/(96e)+o(1)}, 1/261 vs c₀≥1/500 margin
+  1.916×; loglog absorbable at 1/(32e) NOT 1/(64e).
+- GO: U-5 ∥ U-8 ∥ U-9a NOW; then W4 (the c-generic supplier, post-ruling =
+  now unblocked); W5 U-7 SCOPE; W6 U-7 wave; W7 U-9b/c/d serial; W8 the
+  A-10 far arm [C,300–500]; the §8.1/§8.2 block needs its own scope.
+- ASSEMBLY GUARD (new): the row is trivially satisfiable at degenerate
+  fb/Jb pins (fb:=0 ⟹ Uset=∅; Jb:=0 ⟹ seamTtot=∅) — the consumer MUST pin
+  fb to the datum primes and Jb:=J or the row carries no content.
+
+**TOTALS (honest)**: to a supplied hU ~2,700–4,400 ln (prior estimate under
+by ~2.4×); to the seam terminal ~4,500–7,400 (incl. the far arm + §8.1/8.2).
+JYH GATES: none.

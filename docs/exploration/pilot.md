@@ -11589,3 +11589,13 @@ goes BETWEEN set_option and the docstring; CenterSupply's center_error_grade
 const_mul/integral_congr EqOn pair for interval-integrability constants;
 the rpow-exponent pages close on linarith/nlinarith without gcongr.
 NEXT: the hU station (U-8 the 𝒯-leg, U-9 the balance) — U8-SCOPE dispatched.
+
+---
+
+**2026-07-25 17:56 PDT — U8-SCOPE verdict banked (V4): the hU map corrected; the c-generic ruling made; three waves dispatching.**
+The 𝒯-leg ≠ 𝒯_L catch (§8.1/8.2 separate + unscoped); U-5 never dispatched
+(caught); the un-halved-supplier cost discovery (INFORM to JYH — no
+tripwire, ρ stands at margin 1.916×); the rhsFboundC ruling ADOPTED
+process-safe (new-file c-generic, no landed edits, W1-of-U7 collapses to
+~300–500). U-5 ∥ U-8 ∥ U-9a aloft. Honest totals: hU ~2.7–4.4k ln; seam
+terminal ~4.5–7.4k. JYH gates: none.
