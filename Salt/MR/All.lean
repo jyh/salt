@@ -129,6 +129,7 @@ import Salt.MR.TLegPreamble
 import Salt.MR.TLegE1
 import Salt.MR.MultShiuBridge
 import Salt.MR.TLegCover
+import Salt.MR.TLegKill
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1054,4 +1055,29 @@ open Salt.Tactic in
   Salt.MR.measurableSet_annulus_TsetGr
   Salt.MR.annulus_TsetGr_subset_Icc
   Salt.MR.cell_integral_normalized_annulus
+  Salt.MR.ellPin_mul_block_le
+  Salt.MR.exp_ellPin_alpha_le
+  Salt.MR.exp_ellPin_cancel
+  Salt.MR.ellPin_window_bottom_ge
+  Salt.MR.factorial_sq_le_exp
+  Salt.MR.ell_log_ell_le
+  Salt.MR.factorial_sq_le_pin
+  Salt.MR.mrAlpha_diff
+  Salt.MR.mrAlpha_decay_le
+  Salt.MR.mrAlpha_pred_lt
+  Salt.MR.CellGates.loglogQ_le_of_gate2
+  Salt.MR.CellGates.logQ_le_rpow_of_gate2
+  Salt.MR.gate2_absorb
+  Salt.MR.cell_geometry_collapse
+  Salt.MR.ramQ_pow_mul_ramR_eq_spoly_mix
+  Salt.MR.norm_mixCoeff_le
+  Salt.MR.coeff_bound_mix
+  Salt.MR.mix_moment
+  Salt.MR.cell_ramR_normalized
+  Salt.MR.cell_bound_raw
+  Salt.MR.cell_bound_pinned
+  Salt.MR.level_kill_exponent
+  Salt.MR.level_kill_exp
+  Salt.MR.level_kill_collected
+  Salt.MR.level_kill_collected_P1
   Salt.MR.farErr34_local_closes_of_gate

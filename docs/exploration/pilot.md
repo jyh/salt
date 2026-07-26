@@ -12274,3 +12274,25 @@ dead — the step applies IH to E ∖ U a); one_le_pow₀ the live name;
 setIntegral_mono_set wants the ⊆ as .eventuallyLE; the exp-atom rule for
 linarith (rw ← exp_add FIRST so exp(−a)·exp(a) is ONE atom). G4DEF-WAVE
 (the ℓ-pin + gates + kill) dispatching; G5 last.
+
+---
+
+**2026-07-26 12:34 PDT — ⚑ G4d/e/f LAND WHOLE: §8.2 CLOSES PER-LEVEL. ⚑**
+`Salt/MR/TLegKill.lean` (1028 ln, 40 decls, zero diagnostics, all 31
+audited 3-axiom; full build green rc-checked 9435 — after TWO census fixes
+this session both caught by the rc-gate: the nested-namespace census trap
+NEW — a report's bare name may live in a nested namespace; grep the
+namespace lines before wiring). THE KEY CANCELLATION in three lines; **THE
+PIN'S SECOND FACE** (one ⌈⌉ does both jobs — MR's T/X recovered:
+cell_bound_pinned). **THE α-DECAY IS A THEOREM NOT A GATE** (α INCREASES
+with j; mrAlpha_diff EXACT at −η/(2j(j−1))). **THE TWO-WIDTH FUSION DEFECT
+caught**: multShiu_moment fuses (H,P,Q); §8.2 needs them split —
+re-derived (~130 ln, mix_moment; MultShiuBridge untouched; THE TRAP: check
+whether Q-side and R-side parameters are THE SAME SYMBOLS). CellGates
+carries MR's ACTUAL (2)/(3). THE KILL: level_kill_exp (v-free) →
+level_kill_collected_P1 ≤ 1/(j²P₁). G5 HANDOFFS EXACT (docstringed): the
+(v,r)-sum assembly; the 2^ℓ absorption budget warning; the (ℓ+1)!² note;
+the v-floor deficit. New traps: the two-width fusion; field_simp needs ≠0
+staged or leaves ⁻¹ silently; gcongr-over-4-factors bulletless; ∀n INSIDE
+the ℓ-induction; div_le_div_iff_of_pos_left; the unused-binder audit
+caught FOUR false pins. **G5 — THE SEAM-CLOSING WAVE — dispatching.**
