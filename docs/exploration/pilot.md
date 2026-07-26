@@ -11867,3 +11867,23 @@ the δ-pin docstring correction. DISPATCHED UNGATED: W-0 SeamTerminal
 (the 𝒯-leg as a named socket — the terminal lands TODAY), W-1 FarArm,
 W-2 the hU residuals. The night: THIRTEEN scopes+waves, thirteen
 returned whole/decisive.
+
+---
+
+**2026-07-25 22:02 PDT — ⚑ THE SEAM TERMINAL LANDS (SEAMTERM whole, first attempt). ⚑**
+`Salt/MR/SeamTerminal.lean` (354 ln, 4 decls, ZERO warnings — no heartbeat
+bump needed at 3.6s; full build green). **seam_terminal_row :143 — the
+ratified V6/two-M/option-(A) target BYTE-FOR-BYTE**: 8·ballSupS(C₁e^{−M₀/(2e)}
++ …)² + the SOCKETED Tbd + 2(Tann/X+1)(logX)^{−1/500}; the MVT guard
+in-statement; hM₀ as the ∀-form. The three seams resolved as banked: t₁
+produced-then-fed (the t₁-free Dmax bridge — a design win); the TWO DATA
+carried (t₀-drift documented, not a composition question); the A-10 stated
+UNDER the cap + **seam_terminal_dichotomy :262 with the hFar socket — W-1
+plugs with NO file change**. Plug verdict: hU_fully_priced (composes in one
+step with priced_exit_beats_door; hU_discharged would re-carry the balance).
+seam_window_datum_zero — the NON-VACUITY certificate (M₀ = 0 always
+dischargeable). Terminal's live Tann range = exactly MRT's MVT escape.
+New traps: never pre-arm maxHeartbeats (measure first — the 60-binder pure
+composition costs 3.6s); the verbatim binder-list transplant as the
+cheapest correctness device (do NOT clean up a transplanted list).
+FARARM + HURES still aloft; Route G awaits the morning gate.

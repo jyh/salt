@@ -111,6 +111,7 @@ import Salt.MR.CofactorGrade
 import Salt.MR.CofactorSupply
 import Salt.MR.USetBalance
 import Salt.MR.USetPrice
+import Salt.MR.SeamTerminal
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -815,3 +816,7 @@ open Salt.Tactic in
   Salt.MR.rem_priced
   Salt.MR.hU_fully_priced
   Salt.MR.priced_exit_beats_door
+  Salt.MR.seam_window_datum_zero
+  Salt.MR.seam_Dmax_bridge
+  Salt.MR.seam_terminal_row
+  Salt.MR.seam_terminal_dichotomy
