@@ -12093,3 +12093,13 @@ re-elaboration — a touch-then-build false green); loglog_absorb_pow_pin's
 -(a) vs -(1)/2 syntactic split; unused statement binders must be DROPPED
 not underscored; ring handles / natively (skip field_simp). Full build
 green rc-checked.
+
+---
+
+**2026-07-26 10:19 PDT — ⚑ THE JACOBIAN PR IS LIVE: leanprover-community/mathlib4#42116. ⚑**
+JYH's first-ever GitHub PR — submitted by their hand, their words (the
+mathlib AI policy read FIRST and honored to the letter: the description
+rewritten in JYH's own voice; the specific tool disclosure; the
+LLM-generated label applied via the first comment; the own-words law now
+ABSOLUTE for all PR/Zulip interactions — I supply facts only). Labels:
+new-contributor + LLM-generated ✓. The watch begins (CI + reviewers).
