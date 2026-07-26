@@ -133,6 +133,7 @@ import Salt.MR.TLegKill
 import Salt.MR.TLegExit
 import Salt.MR.SeamCalibration
 import Salt.MR.SeamLemma14
+import Salt.MR.FloorProvenance
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1124,4 +1125,11 @@ open Salt.Tactic in
   Salt.MR.lemma14_contour_seam_supplied_single
   Salt.MR.lemma14_contour_seam_supplied_calibrated
   Salt.MR.seam_row_calibrated_station
+  Salt.MR.dist_one_floor_uniform
+  Salt.MR.seam_floor_of_cap_pointwise
+  Salt.MR.Mrange_seam_floor_of_cap
+  Salt.MR.cap_gate_satisfiable
+  Salt.MR.Mrange_seam_floor_column
+  Salt.MR.T1_decay_column_cap_supplied
+  Salt.MR.Mrange_seam_floor_A10
   Salt.MR.farErr34_local_closes_of_gate

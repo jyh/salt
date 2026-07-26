@@ -317,7 +317,7 @@ Consumes only landed inputs; awaits Part 1 for the `hhead` discharge.
 
 **AMENDMENT J0 (JYH-ratified 2026-07-23).**  `M = M_range (fgJ f t₀ y Y) X T` is GHS
 Lemma 1's range-minimum (was center-M); the floor `hfloor` is now the range-min form,
-`Mrange_one_floor`-supplied, restoring the frozen `prop_A3'` semantics. -/
+`Mrange_seam_floor_column`-supplied (formerly over-claimed as `Mrange_one_floor`), restoring the frozen `prop_A3'` semantics. -/
 theorem T1_decay_fgJ {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (t₀ y Y t : ℝ)
     {X ε U Uhead Utail C₁ C₂ T : ℝ}
     (hX : Real.exp 1 ≤ X) (hε : 0 ≤ ε) (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
@@ -443,7 +443,7 @@ unnecessary on this chain.
 
 **AMENDMENT J0 (JYH-ratified 2026-07-23).**  `M = M_range (seamCoeff f (fun _ => 1) t₀) X T`
 is GHS Lemma 1's range-minimum (was center-M); the floor `hfloor` is now the range-min
-form (`Mrange_one_floor`-supplied via `seamCoeff_trivial_dist_eq`'s twist-shift absorbed
+form (`Mrange_seam_floor_column`-supplied (formerly over-claimed as `Mrange_one_floor`) via `seamCoeff_trivial_dist_eq`'s twist-shift absorbed
 into the offset variable), restoring the frozen `prop_A3'` semantics. -/
 theorem T1_decay_trivial {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) (t₀ t : ℝ)
     {X ε U Uhead Utail C₁ C₂ T : ℝ}

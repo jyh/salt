@@ -11912,3 +11912,16 @@ sum is UN-PRICED inside seam_row_calibrated (the engine landed at
 TypicalDensity :859; the wire missing [C, 400–800]) — the seam row is a
 formula, not yet a number. **H₀door has NO Lean definition** (~150 ln,
 unowned; the COMPOSE's stated consumable cannot be typed today).
+
+**hfloor provenance (:11808) — RESOLVED (HFLOOR-WAVE).**
+Salt/MR/FloorProvenance.lean: Mrange_seam_floor_column produces the binder
+byte-fit (kernel-checked into the row's slot); Mrange_seam_floor_A10
+closes the A-10 tree (the cap a free dichotomy). THE ZERO-LOSS FINDING:
+the seam column's window mass is EXACTLY 0 (seamCoeff_trivial_dist_eq an
+identity) — no halving owed; the frozen stone's components re-run one
+level down. THREE findings: no additive comparison exists (counterexample:
+the in-window twist); dist_split_A4_frozen cannot supply at face value
+(the conclusion strictly below (1/32)ℓ); the recentring does NOT preserve
+M_range's |t| ≤ X cap — the NEW height gate T + (logX)^{1/16} + |t₁| ≤ X
+now in-statement. Residual: the slack gate's asymptotic discharge
+(~60–100 ln, the collisionGate_discharged idiom) carried as a gate.

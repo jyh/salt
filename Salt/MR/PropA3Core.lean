@@ -317,7 +317,7 @@ range-minimum squared-distance (the `sInf` over the offset window), NOT the cent
 `pretDistSq f g X`.  The center-M deviation was the drift problem's source; `M_range`
 never drifts below the landed floor (`Mrange_one_floor`) and restores the frozen
 `prop_A3'` semantics.  The floor `hfloor` is now `(1/32)loglog X ≤ M_range f X T`
-(`Mrange_one_floor`-supplied), and `expEM_le_of_floor_c` (generic in `M`) threads
+(`Mrange_seam_floor_column`-supplied (formerly over-claimed as `Mrange_one_floor`)), and `expEM_le_of_floor_c` (generic in `M`) threads
 unchanged.
 
 **AMENDMENT B4 (JYH-ratified 2026-07-23; D4's tolerance clause exercised).**  The grade

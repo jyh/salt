@@ -12366,3 +12366,18 @@ defeq bridge (simp only [seamT0]); re-parse spliced statements (the
 doubled-→). WAVE 2 dispatching: R3-DESIGN ∥ SEC9-GLUE ∥ HFLOOR-FIX.
 
 **2026-07-26 16:02 PDT — THE FLEET COUNCIL FORMAT RATIFIED (JYH): the maestro-seat sitting, per-seat briefs (maestro drafts from read-only reach), decisions banked to the seat-repo mirror, jas-side ratifications carried by JYH; weekly-or-arc-boundary cadence; JYH adds non-confidential outside-lane plans at council. Maestro role confirmed. Briefs due before Monday.**
+
+---
+
+**2026-07-26 16:09 PDT — HFLOOR-WAVE lands whole: the :11808 flag RESOLVED.**
+`Salt/MR/FloorProvenance.lean` (450 ln, 7 public decls, zero diagnostics,
+all 3-axiom; full build green rc-checked 9439). THE ZERO-LOSS FINDING (no
+halving owed on this column); the no-additive-comparison refutation
+(counterexample in hand); the NEW height gate named; the A-10 tree CLOSED;
+the byte-fit kernel-checked in scratch. The two owed docstring corrections
+APPLIED at my tier (PropA3Core :320 + HalaszHead :320/:446 — the supplier
+now correctly named). New traps: linarith cannot scale a closed log-atom
+by a rational coefficient (set-κ-first, the frozen proof's own cure);
+set-then-rw needs a trailing linarith for sub-assoc; vestigial statement
+binders (drop + instantiate at a literal). R3-WAVE (the kernel carry) the
+last aloft.
