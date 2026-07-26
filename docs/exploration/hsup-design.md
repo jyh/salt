@@ -948,3 +948,25 @@ joint_cs_trunc_pin2 / rhs_grade_at_scale_trunc2) [B/C, 200–300]; FarStar §5
 at y₂ (closed_star2 / socket_star2 / ball_sup_closed_star2) [C, 250–400];
 caseAS at y₂ re-read [B, 100–150]; cosmetic adapters. G1a (graded thinness)
 ALSO ungated — fires with it.
+
+## ⟦V8 — THE SEAM ROW CLOSES: seam_row_calibrated⟧
+
+THE STATION IS DONE. seam_row_calibrated (SeamCalibration.lean): the graded
+seam row — the ball leg at the ratified two-M/option-(A) grade + the
+𝒯-leg at MR's §8.1 exponent + the 𝒰-leg beating the door — WITH NO
+INTEGRAL ON THE RIGHT AND NO LADDER HYPOTHESIS STANDING; 23 ladder-reads
+discharged from ONE CalFrame (11 scalar gates, inhabited at explicit
+numerals — G = 768 the smallest admissible base at η = 1/12; genuinely
+non-vacuous, block-nonempty certified); the surviving frame = 69 binders
+ENUMERATED (4 norm contracts + CalFrame + 2 calibrated replacements + 3
+𝒯-frame + 59 𝒰-side analytic gates carried verbatim). THE CORRESPONDENCE
+FINDING: no j-level talks to the §8.3 pins — the 𝒯-ladder sits STRICTLY
+BELOW the 𝒰-window (ladder_below_station, via the landed pins);
+Jset := Jb (MR's one J). The ℕ-ladder ruling: calP/calQ base-2 powers
+(MR's (4) is not ℕ-valued; (2)/(3) — what CellGates transcribes — are
+proved; (4) is one witness, docstringed not hidden). Zeno (none blocking):
+the anchor-cutoff coupling A ≳ Jb³ log Jb (MR's own quantifier order,
+visible in ONE place); Jset > Jb would need LevelGates on the gap.
+**THE WEEK'S ARC COMPLETE: hSup → hU → the two walls → Route G → THE SEAM.
+NEXT: the door road — A3a-R3 → thm_A2′/A1′ → §9 → S7 → S9 → Siegel →
+S10b/S11 → COMPOSE at log_chowla_two_budget_head.**

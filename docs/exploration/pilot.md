@@ -12320,3 +12320,17 @@ identity (~1.2M heartbeats saved); nlinarith a heartbeat sink on
 hypotheses; rw-under-Finset.sum-binder fails (unfold in the goal, linarith
 matches atoms); the maxHeartbeats-before-docstring parse. STATCAL-WAVE —
 the LAST page of the seam — dispatching.
+
+---
+
+**2026-07-26 13:55 PDT — ⚑⚑⚑⚑ THE SEAM ROW CLOSES: seam_row_calibrated LANDS WHOLE. ⚑⚑⚑⚑**
+`Salt/MR/SeamCalibration.lean` (594 ln, 13 decls, zero diagnostics, all 12
+audited 3-axiom; full build green rc-checked **9437 jobs**). V8 banked.
+New traps: ℕ-subtraction exponents need BOTH rewrites (omega + add_sub_
+cancel); field_simp-closes-alone counterpoint (when ≠0 cancellation is
+genuine); nlinarith blind on cast-ℕ-sub squared (stage the square);
+**THE NUMERAL-EXPONENT LINTER (new gate-breaker): literal 2^65536 warns
+"exceeds threshold 256" — keep anchors symbolic, rewrite only in
+side-goals**; positivity DOES find 0 ≤ atom hypotheses (G5's trap
+narrowed). The door road next: A3a-R3 (fresh-context scope on the banked
+ladder).

@@ -131,6 +131,7 @@ import Salt.MR.MultShiuBridge
 import Salt.MR.TLegCover
 import Salt.MR.TLegKill
 import Salt.MR.TLegExit
+import Salt.MR.SeamCalibration
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1097,4 +1098,16 @@ open Salt.Tactic in
   Salt.MR.sum_Ej_collected
   Salt.MR.TLeg_bound
   Salt.MR.TLeg_feeds_capstone
+  Salt.MR.calE_one
+  Salt.MR.calE_mono
+  Salt.MR.calE_step
+  Salt.MR.calQ_mono
+  Salt.MR.log_calP
+  Salt.MR.log_calQ
+  Salt.MR.le_rpow_half_of_sq_le
+  Salt.MR.levelGates_calibrated
+  Salt.MR.calFrame_satisfiable
+  Salt.MR.calibrated_block_nonempty
+  Salt.MR.ladder_below_station
+  Salt.MR.seam_row_calibrated
   Salt.MR.farErr34_local_closes_of_gate
