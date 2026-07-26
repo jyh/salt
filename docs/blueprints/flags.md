@@ -11894,3 +11894,21 @@ Repair = remove log Rmax from the CASE-B transfer error (CofactorBall/A-10
 design; FARERR-SCOPE). Also: the pricing needs seamRad X ≤ Rrad (the lower
 gate — consumer pins Rrad = seamRad X); the hErow X-vs-Xd scale mismatch
 meets only under X ≤ Xd (consumer must pin).
+
+---
+
+## STATUS CORRECTIONS (DOOR-SCOPE, post-seam-close)
+
+**THE WALL** and **THE SECOND WALL** entries above are RESOLVED-DEAD:
+TLeg_bound (TLegExit :1040) + hUG34_unconditional (GradedCapstone :88) are
+the landed closures; the graded family replaced the flat 𝒯-leg; the far
+arm repaired at q=3/4 + y₂ + localized. The entries stand as history.
+**LIVE items**: the hfloor provenance (:11808) — assigned to HFLOOR-FIX;
+the Siegel real-χ exceptional gap (previously pilot-only): Route A's
+chi_floor_all_unconditional gives only a CONSTANT floor at real
+non-principal χ; the growing floor needs siegel_L_one_exceptional + the
+region transport [C, ~500]. **NEW**: the Σ_j lemma12Rows typical-density
+sum is UN-PRICED inside seam_row_calibrated (the engine landed at
+TypicalDensity :859; the wire missing [C, 400–800]) — the seam row is a
+formula, not yet a number. **H₀door has NO Lean definition** (~150 ln,
+unowned; the COMPOSE's stated consumable cannot be typed today).

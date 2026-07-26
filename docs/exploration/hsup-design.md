@@ -970,3 +970,58 @@ visible in ONE place); Jset > Jb would need LevelGates on the gap.
 **THE WEEK'S ARC COMPLETE: hSup → hU → the two walls → Route G → THE SEAM.
 NEXT: the door road — A3a-R3 → thm_A2′/A1′ → §9 → S7 → S9 → Siegel →
 S10b/S11 → COMPOSE at log_chowla_two_budget_head.**
+
+## ⟦V9 — DOOR-SCOPE: THE ROAD BELOW THE SEAM (the execution map)⟧
+
+**THE CONSUMPTION MAP**: seam_row_calibrated is PURE SUPPLY (zero consumers);
+its designed consumer is lemma14_contour (Lemma14 :295). EXACT on the hard
+axes (the 1/15 inner cutoff IDENTICAL TERM; the line Re = 1; the grade
+shape at θ₂₉₃; η = 1/12 CONSISTENT with the s8-freeze card; our §8.1
+P₁^{−1/4} BEATS MR's). **THE DECISIVE FINDING: hMsup's ∀T binder fires
+ONCE (Lemma14 :346/:463 at T = X/h₁ only)** — one supply instance covers
+it; prefer the additive lemma14_contour_of_Msup_at variant. FOUR cheap
+breaks: (1) hrange is on s0's ELEMENTS — fix s0 := Icc.filter (X < ·) +
+spoly = dpolyA (J2); (2) **ha : ‖a‖ ≤ 1 is NOT in the 69-frame — a NEW
+binder at the junction, flagged never silent**; (3) no seamAnn ↔ two-
+intervalIntegral bridge exists (J1; needs 0 < seamT0 from 1 < X); (4) hSup
+supply is flat-granularity — the graded station re-assembly (J5; ball
+machinery predicate-free). Column A (prop_A3_T1_row_moment) is HERITAGE —
+its hsplit is flags-recorded unsatisfiable; do NOT wire; its E1/Ej/largeT
+rows remain engines.
+
+**WAVE 1 — L14-JUNCTION (dispatched)**: Salt/MR/SeamLemma14.lean, J1–J6
+per the scoped table (J1 the split [B,100–160]; J2 the filter/hrange
+repair [A/B]; J3 mid-range at Tann := X/h₁; J4 Msup at Tann := 2X/h₁ + the
+single-instance variant; J5 the graded station plug at S := ballSupS-form;
+J6 the exit lemma14_contour_seam_supplied). ADDED BINDERS: ha; h₁ ≥ 2
+(the 2X/h₁ ≤ X gate); h₁ ≤ h₂ ≤ X(log X)^{−1/5}; CalFrame at η = 1/12.
+GATE HAND-CHECKS ALL PASS in the door regime (TannGate at log X ≳ 950; H83
+at X ≥ exp(10^88); ballSupC34 at log Ymax ≳ 10^31). TRAPS: the ∃-prefix of
+seam_row_calibrated vs lemma14's implicit block (the binder-position
+check FIRST); Xd vs X are DIFFERENT symbols; the numeral-exponent linter
+(keep calP anchors symbolic); Lemma14's PRIVATE helpers will bite J6
+(re-derive verbatim); the J-factor trap.
+
+**A3a-R3 (the next design block)**: the kernel IS required — the scoper
+RAN the kill-check (the finite dyadic extension without the kernel fails:
+the un-kernel'd cost (log X)^{4+ε}·Msup ≫ 1 at θ₂₉₃); the kernel is
+destroyed at Lemma14Vtail :894's early CS; the closed forms are LANDED
+(uKernel/ramp/tent); R3-a..R3-f [C, ~1020–1780] with R3-c the risk stone.
+ANTI-TRAP: hsup-design :203's "min-kernel irrelevant" is about the hSUP
+socket — a DIFFERENT object; do not suppress R3.
+
+**THE CENSUS (honest)**: junction 750–1250; Σ_j lemma12Rows pricing (the
+typical-density wire — **UN-PRICED inside the closed row: the seam row is
+a FORMULA not a number**) 400–800; A3a-R3 1020–1780; hfloor provenance
+(flags :11808 live) 300–500; thm_A2′ 800–1500 (under-budgeted at 500);
+thm_A1′ 300–500; §9 glue 1000–2000 (Lemma 5 critical); S7 ARC 2500; S9
+4000 (⚠ the A.8 SIGN DEFECT — verbatim port UNPROVABLE, design block
+first); Siegel arm 500 (the real-χ exceptional gap — pilot-only, now
+flagged); S10b 900; **H₀door: NO LEAN DEFINITION EXISTS (~150, unowned —
+JYH-informational)**; S11 COMPOSE 600 (spine_False_core_xi is PRIVATE —
+the wave appends INSIDE SpineFinal.lean). **TOTAL ~13.3k–19.9k, zero
+D-nodes, NO live JYH gates** (the spine-budget-freeze PENDING-JYH text is
+STALE — A1+A2 ratified 7/19, pilot :9725 + mr-freeze :52). GO: W1
+junction → W2 (R3-DESIGN ∥ SEC9-GLUE ∥ HFLOOR-FIX) → W3 (the pricing ∥
+S7) → W4 (R3 → A2′ → A1′) → W5 (S9-design ∥ Siegel ∥ S10b) → W6 (H₀door →
+COMPOSE).

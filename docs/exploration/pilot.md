@@ -12336,3 +12336,7 @@ narrowed). The door road next: A3a-R3 (fresh-context scope on the banked
 ladder).
 
 **2026-07-26 15:06 PDT — the Felix reply POSTED (JYH's words, two precision fixes: 'predates the FC disproof', 'align with the FC statement'; the deferral clean). JYH syncing with jas; DOOR-SCOPE dispatching (A3a-R3, the ladder below the seam).**
+
+---
+
+**2026-07-26 15:19 PDT — DOOR-SCOPE banked (V9): the junction mapped byte-exact; the R3 kill-check RUN AND NEGATIVE (the kernel required); the census ~13.3–19.9k to log-Chowla, zero D, NO live gates (the stale PENDING-JYH resolved); flags corrected (the dead walls marked; the Siegel gap + the un-priced typical-density sum + the missing H₀door def now FLAGGED). L14-JUNCTION dispatching. TWO JYH-INFORMATIONALS: H₀door undefined; the seam row is a formula until the density sum prices.**
