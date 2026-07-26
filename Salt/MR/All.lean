@@ -118,6 +118,7 @@ import Salt.MR.CofactorLocal
 import Salt.MR.Transfer34
 import Salt.MR.SeamGraded
 import Salt.MR.PinFamily
+import Salt.MR.USetGradedThin
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -906,5 +907,25 @@ open Salt.Tactic in
   Salt.MR.E_slot_pin2_le
   Salt.MR.E_slot_pin2_closes
   Salt.MR.three_twentieths_gap
-  Salt.MR.farErr34_local_closes_of_gate
   Salt.MR.farErr34_local_closes
+  Salt.MR.ramI_nonempty
+  Salt.MR.ramQbase_le_of_mem_ramI
+  Salt.MR.not_blockSmallG_witness
+  Salt.MR.ramI_nonempty_of_not_blockSmallG
+  Salt.MR.not_blockSmallG_witness_of_mem_UsetG
+  Salt.MR.ramQ_graded_count
+  Salt.MR.usetG_thin
+  Salt.MR.usetG_thin_Q
+  Salt.MR.gradeV_sq_le_rpow
+  Salt.MR.usetG_thin_pin_of_gate
+  Salt.MR.farErr34_local_closes
+  Salt.MR.ramI_nonempty
+  Salt.MR.ramQbase_le_of_mem_ramI
+  Salt.MR.not_blockSmallG_witness
+  Salt.MR.ramI_nonempty_of_not_blockSmallG
+  Salt.MR.not_blockSmallG_witness_of_mem_UsetG
+  Salt.MR.ramQ_graded_count
+  Salt.MR.usetG_thin
+  Salt.MR.usetG_thin_Q
+  Salt.MR.gradeV_sq_le_rpow
+  Salt.MR.usetG_thin_pin

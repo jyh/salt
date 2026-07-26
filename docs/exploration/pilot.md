@@ -12034,3 +12034,19 @@ refuting the weaker statement — safe direction, documented). All linters
 PASS; 13 axiom checks clean; voice sweep clean. Five items for JYH's eyes
 banked in the report; PR-CEREMONY updated; fork/branch/PR/Zulip NOT
 STARTED. PIN2-REST + G1A dispatching.
+
+---
+
+**2026-07-26 09:22 PDT — G1A LANDS WHOLE: the graded thinness (USetGradedThin.lean, 469 ln, 11 decls, zero diagnostics, all 3-axiom; full build green).**
+THE α-COLLAPSE REAL: log V_v/log base ≤ α exactly at the block's own scale
+— the ratioChain/dyadicPairs pigeonhole ENTIRELY ABSENT (cleaner than
+flat, as scoped); the vacuity pins discharged (¬BlockSmallG alone forces
+ramI ≠ ∅ — free); the sign verdict: NO negation anywhere (ramQ_large_count
+negates internally; same posture as flat). Exit at 840·T^{2α}·VJ²-shape;
+the pin corollary at θ₂₉₃. Zeno (downstream, not G1a's): the exp-leg
+pricing rides the graded kill twin; the T-free clone mechanical; α ≤ 1 a
+gate pinned by G2. **TRAP UPGRADE (gate-breaker): push_neg now a HARD
+WARNING — every executor must use push Not.** Also: 0<n/1≤n ℕ-defeq not
+cast-bridged (route via the defeq have); ramQbase not reducible (rw
+first); the rpow-squaring cheap route; unary-minus binds looser than
+application (byte-match verified). PIN2REST the last aloft.
