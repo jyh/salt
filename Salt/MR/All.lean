@@ -121,6 +121,7 @@ import Salt.MR.PinFamily
 import Salt.MR.USetGradedThin
 import Salt.MR.PinFamily2
 import Salt.MR.SupplyGeneric
+import Salt.MR.USetGradedBalance
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -941,4 +942,17 @@ open Salt.Tactic in
   Salt.MR.center_halasz_supply_Y
   Salt.MR.ball_sup_supplied_Y
   Salt.MR.ball_sup_closed_star2
+  Salt.MR.usetG_integral_to_branches
+  Salt.MR.gradedPins_nondegenerate
+  Salt.MR.usetG_thin_bundle
+  Salt.MR.usetG_thin_sqrt_kill
+  Salt.MR.usetG_TS_branch
+  Salt.MR.usetG_TS_branch_meanvalue
+  Salt.MR.TSG_feed_of_thin
+  Salt.MR.TLG_feed_of_supply_local
+  Salt.MR.hUG_exit_of_branches
+  Salt.MR.hUG_supplied
+  Salt.MR.hUG_balance
+  Salt.MR.hUG_balance_beats_door
+  Salt.MR.hUG_discharged
   Salt.MR.farErr34_local_closes_of_gate

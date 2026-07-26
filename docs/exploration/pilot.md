@@ -12105,3 +12105,21 @@ ABSOLUTE for all PR/Zulip interactions — I supply facts only). Labels:
 new-contributor + LLM-generated ✓. The watch begins (CI + reviewers).
 
 **2026-07-26 10:29 PDT — Katherine Schlitz acknowledged in BOTH verification repos (jacobian-verify 6bdaf03, dinitz-verify ea69ae9) — JYH's sentence verbatim; she surfaced both announcements. The paper's acknowledgments section: queued for the next paper sitting.**
+
+---
+
+**2026-07-26 10:35 PDT — ⚑ G1b LANDS WHOLE (first-attempt): THE GRADED hU CHAIN STANDS. ⚑**
+`Salt/MR/USetGradedBalance.lean` (670 ln, 16 decls, zero diagnostics, all
+3-axiom, NO heartbeat bump; full build green rc-checked). The V-SPLIT clean
+(Vthin/VJ vs Vsplit/V — the flat δ/K₀/hVα gates DROPPED WITH CAUSE: the
+α-collapse asks the gate of αseq itself); **the hold CASHED:
+TLG_feed_of_supply_local consumes the LOCALIZED supply — Dmax does not
+occur in the file**; gradedPins_nondegenerate certifies non-vacuity
+(kernel fact, not assertion); hUG_discharged byte-fits the graded row
+first-attempt. **THE PREDICATE-BLINDNESS CENSUS (method finding): a stone
+needs a twin iff its PROOF, not its statement, names the partition — ~230
+genuinely new lines replaced the feared 700–1200.** Zeno: G1b-PRICE (the
+q=3/4 + Tstar2 + localized-slot reconciliation of the pricing stones
+[C, 300–500]) + thinBundleG_at_pin [A/B, 40] — dispatching; the graded
+𝒯-leg (G2–G5) the remaining Route G block. The V6a Rrad silent-vacuity
+catch inherited (consumer pins Rrad = seamRad X).
