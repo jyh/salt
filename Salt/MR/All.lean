@@ -120,6 +120,7 @@ import Salt.MR.SeamGraded
 import Salt.MR.PinFamily
 import Salt.MR.USetGradedThin
 import Salt.MR.PinFamily2
+import Salt.MR.SupplyGeneric
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -937,4 +938,7 @@ open Salt.Tactic in
   Salt.MR.caseAS2_nonneg
   Salt.MR.caseAS2_absorbs_E_slot
   Salt.MR.caseAS2_absorbs_E_slot_closes
+  Salt.MR.center_halasz_supply_Y
+  Salt.MR.ball_sup_supplied_Y
+  Salt.MR.ball_sup_closed_star2
   Salt.MR.farErr34_local_closes_of_gate

@@ -12074,3 +12074,22 @@ re-elaboration); "gate fails at new pin" reports must first check whether
 the gate belongs to a CHOICE not the stone. Both salt lanes now idle
 pending PIN3 + the graded kill twin; the Jacobian line-review is the
 live gate.
+
+---
+
+**2026-07-26 09:41 PDT — PIN3 LANDS WHOLE: the y₂ crown UNBLOCKED (ball_sup_closed_star2).**
+`Salt/MR/SupplyGeneric.lean` (585 ln, 3 theorems + 6 privates, zero
+warnings, NO heartbeat bump — the generic twin elaborates CHEAPER than its
+pinned original (one opaque Y vs five pin expressions per socket; measure
+before copying bumps). THE FINDING: the (log k)^4 pin was never structural
+— prop21_unconditional_uniform_absC was free-y all along; only the E-leg
+needed a free-log-y re-derivation. The four Y-gates verbatim (the fourth —
+log Y ≤ √(log k) — is the only new one: the admissible window √L ≤ Y ≤
+e^{√L}, exactly why 2/5 < 1/2). S-3 carried list = FarStar's with T*₂
+substituted; nothing new assumed. Zeno: the two t₁-hoisted faces (~35 ln
+mechanical); the corpus-pin retirement instance optional. New traps:
+lake-build-doesn't-rebuild-on-touch (rm the olean for genuine
+re-elaboration — a touch-then-build false green); loglog_absorb_pow_pin's
+-(a) vs -(1)/2 syntactic split; unused statement binders must be DROPPED
+not underscored; ring handles / natively (skip field_simp). Full build
+green rc-checked.
