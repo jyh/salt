@@ -12364,3 +12364,5 @@ union rename; the (b :=)-pins-only-the-midpoint rw trap (type-ascribed
 have); the {0}-meeting trap (seamT0_pos from 1 < X); the seamT0-vs-rpow
 defeq bridge (simp only [seamT0]); re-parse spliced statements (the
 doubled-→). WAVE 2 dispatching: R3-DESIGN ∥ SEC9-GLUE ∥ HFLOOR-FIX.
+
+**2026-07-26 16:02 PDT — THE FLEET COUNCIL FORMAT RATIFIED (JYH): the maestro-seat sitting, per-seat briefs (maestro drafts from read-only reach), decisions banked to the seat-repo mirror, jas-side ratifications carried by JYH; weekly-or-arc-boundary cadence; JYH adds non-confidential outside-lane plans at council. Maestro role confirmed. Briefs due before Monday.**
