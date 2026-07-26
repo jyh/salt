@@ -12129,3 +12129,25 @@ catch inherited (consumer pins Rrad = seamRad X).
 **2026-07-26 10:46 PDT — the Tuesday 1:1 brief APPROVED as-is (JYH: "perfect, we are aligned"). Tuesday prep complete.**
 
 **2026-07-26 10:47 PDT — quota snapshot: silicon-acct 18/32/20 — generous headroom; fleet pacing normal.**
+
+---
+
+**2026-07-26 10:58 PDT — ⚑ G1b-PRICE LANDS: hUG34_fully_priced — THE GRADED STATION PRIZE (conditional on ONE named socket). ⚑**
+`Salt/MR/USetGradedPrice.lean` (1080 ln, 24 decls, zero diagnostics, all
+3-axiom; full build green rc-checked). **STRONGER than the flat form:
+hRgrade DISCHARGED via the repaired q=3/4 + y₂ + localized chain** —
+gradeCR2 explicit, 1 < gradeCR2 kernel-checked; the threshold discharged at
+explicit Y₀. THE ALIGNMENT VERDICT: T*₂ < T* throughout the live range —
+the split at T*₂ is FORCED; the landed CASE-A page cannot feed it; the
+q=1/2 alternative REFUTED (farErr_local_window_ge) — so CASE-A rides as
+the named CaseASocket2 (the honest posture; carrying q=1/2 would be silent
+vacuity). BONUS: seven hypotheses vanish from the dichotomy (replaced by
+the single ballQuarterThreshold gate). Both Rrad directions in-statement
+(the V6a catch honored). Satisfiability audited (Ymax := X — no vacuous
+gate). **THE ONE OPEN PAGE: CaseASocket2 [C, 400–600, PinFamily2 §3 the
+template] — CASEA2-WAVE dispatching; after it, Route G's remainder is the
+graded 𝒯-leg alone.** New traps: positivity blind to rpow-base even with
+context (feed rpow_nonneg); the unused-binder linter as a FREE law-#253
+audit (warning-free = every gate load-bearing); the exp-12 numeral recurs
+at any 2^17 threshold; rpow denominators need 0 < log in every monotone
+twin.

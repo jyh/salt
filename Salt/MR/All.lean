@@ -122,6 +122,7 @@ import Salt.MR.USetGradedThin
 import Salt.MR.PinFamily2
 import Salt.MR.SupplyGeneric
 import Salt.MR.USetGradedBalance
+import Salt.MR.USetGradedPrice
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -955,4 +956,21 @@ open Salt.Tactic in
   Salt.MR.hUG_balance
   Salt.MR.hUG_balance_beats_door
   Salt.MR.hUG_discharged
+  Salt.MR.pin2Gate_le_ballQuarterThreshold
+  Salt.MR.Tstar2_window_mono
+  Salt.MR.pocket_transport_pin2
+  Salt.MR.damped_partial_transfer_34
+  Salt.MR.cofactor_Rbd34_local
+  Salt.MR.tL_supply_discharged34_local
+  Salt.MR.caseAS2_arm_priced
+  Salt.MR.farErr34_le
+  Salt.MR.farSupS34_le
+  Salt.MR.cofactorRbd34loc_le_of_worst
+  Salt.MR.Rbd34loc_uniform
+  Salt.MR.Rbd34loc_grade_priced
+  Salt.MR.Rbd34loc_grade_closes
+  Salt.MR.thinBundleG_at_pin
+  Salt.MR.thinBundleG_at_pin_Q
+  Salt.MR.hUG34_supplied
+  Salt.MR.hUG34_fully_priced
   Salt.MR.farErr34_local_closes_of_gate
