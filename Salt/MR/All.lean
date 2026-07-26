@@ -101,6 +101,7 @@ import Salt.MR.SupStation
 import Salt.MR.USetThinTS
 import Salt.MR.USetPins
 import Salt.MR.USetThinTL
+import Salt.MR.RHSGradeC
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -698,3 +699,8 @@ open Salt.Tactic in
   Salt.MR.tL_kill
   Salt.MR.tL_ramQ_sumsq_killed
   Salt.MR.tL_main_sumsq
+  Salt.MR.rhsFbound_eq_rhsFboundC
+  Salt.MR.rhsSigmaG_eq_rhsSigmaGC
+  Salt.MR.rhsFboundC_eq_exp_mul
+  Salt.MR.joint_supF_pinC
+  Salt.MR.beta_integral_pin_constC

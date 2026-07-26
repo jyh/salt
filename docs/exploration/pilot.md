@@ -11668,3 +11668,19 @@ banked). Dispatching W4-123 ∥ U7-A ∥ U7-B.
 ---
 
 **2026-07-25 19:01 PDT — JYH ratifies the ρ amendment + the 1_S law; the rest deferred to Sunday (Jacobian PR, approval read, approval check).** Three U-7 waves aloft into the night.
+
+---
+
+**2026-07-25 19:04 PDT — W4-OPEN lands whole (first attempt each, no Zeno): the c-generic supplier opens.**
+`Salt/MR/RHSGradeC.lean` (359 ln, 8 decls, zero warnings/heartbeat bumps,
+all 3-axiom; full build green). **THE LOAD-BEARING FINDING: the identities
+are rfl** — rhsFbound/rhsSigmaG are DEFINITIONALLY the c-generic objects at
+1/(2e), so W4-4/5/6 state everything at rhsFboundC c and every landed
+consumer typechecks unchanged (no bridging lemmas anywhere downstream).
+joint_supF_pinC (gates hc0/hce verbatim from supF_pret_pointwise);
+beta_integral_pin_constC (gates 0 < c, 2c < 1 from
+sigma_cutoff_pretentious_gen; amplitude side CITED not cloned). The
+executor ran its own refuter pass: c = 1/e admissible on BOTH gate sets;
+recovery at c = 1/(2e) proves the landed conclusions byte-for-byte by
+defeq, both stones. Five GC-suffix privates re-derived (one staged for
+W4-4). U7A + U7B still aloft.
