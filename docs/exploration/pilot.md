@@ -11656,3 +11656,11 @@ assumption (dead follow-ups + the never-executed linter); sum_le_sum_of_
 subset_of_nonneg needs the have's full type ascribed; exp_add won't rw
 across non-adjacent factors; division atoms defeat linarith monomial
 matching (explicit calc+ring); 840 ≤ exp 7 via exp_nat_mul + 2.7^7.
+
+---
+
+**2026-07-25 18:56 PDT — U7-SCOPE verdict banked (V5): the two-arm route; W3 dissolves; THE 1_S LAW; the ρ amendment (θ → 1/293, margin 1.707×); W4 corrected 3× (1100–1400).**
+JYH gates: NONE now (Z-1's closure (ii) would be one — flagged, not
+spent). Two board surfaces: the 1_S standing law + the ρ ledger amendment.
+Side-finding: the Cfar refutation partly artifact (the β-paired repair
+banked). Dispatching W4-123 ∥ U7-A ∥ U7-B.

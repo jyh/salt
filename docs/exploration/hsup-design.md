@@ -621,3 +621,70 @@ is defined against ARBITRARY well-spaced 𝒯 — U-3's discretisation composes
 without re-pinning. (5) the −𝒯 bridge (catch #B) handled inside
 ramQ_eq_dpoly; ramQ_eq_halaszSum carries NO flip (the L11 integrand
 byte-for-byte).
+
+## ⟦V5 — U7-SCOPE VERDICT: the two-arm route + THE 1_S LAW + the ρ amendment⟧
+
+**THE ROUTE**: U-7 = a dichotomy on the co-factor datum's own pretentiousness,
+both arms exiting at the SAME Rbd = (log X)^{−ρ_eff}, ρ_eff = 3θ:
+- CASE A (window floor everywhere): the c-generic grade route at c = 1/e —
+  W4 as specced below, in WINDOW-FLOOR form (hMwin replaces hmin/hgate —
+  SIMPLER than the seam original; the far arm carried ADDITIVELY via
+  hfar_star's numeral, never absorbed).
+- CASE B (a pocket t₁* exists): the NEW collision lemma (PretentiousTriangle
+  + dist_one_floor_pow: hMcap ∧ pocket ⟹ |t₁*−t₁| < 1) + the LANDED GS-7.1
+  transfer at large radius (reach exp((log X)^{0.488}) — the (log X)^{0.49}
+  limit is on the normalized S, not the bound; no c-generic anything).
+The cheaper σ-integral bypass REFUSED (the banked (log X)² deficit — GHS
+2.1's (α,β) device is the only repair; halasz_direct_gen has zero consumers).
+
+**W3 DISSOLVES + THE 1_S LAW (STANDING)**: the landed row's datum
+(SupStation:787) carries NO 1_S restriction ⟹ Lemma 5 + the Q-smooth Rankin
+count NOT NEEDED (that stone was an artifact of MR's proof shape); P-ii is
+decorative. **THE LAW: the S-restriction must NEVER enter this row's
+coefficients** — if it returns, U-7 dies outright (the damped datum loses
+(1/2)loglog X of distance mass = 16× the floor; both arms fail; MR survive
+only via their real-f Lemma 2, which has no complex port). 1_S enters at
+the door/sieve level (§9) only.
+
+**W2 = the ∫₀¹ x^ω route + THE ρ AMENDMENT**: the weight becomes
+multiplicative inside ellLin (g_x p := g p·(x on [P,Q]); hg survives); the
+price is a one-sided distance loss θ·loglog X (factor 1, not 2) ⟹ the
+self-consistent pin **θ = 1/(32(3e+1)) ≈ 1/293** (was 1/(96e) ≈ 1/261);
+**margin over c₀ ≥ 1/500: 1.916× → 1.707×, still passes.** USetPins'
+theta83/rhoB4 are DEFS (not frozen) — the amended-pin twins land with U7-C.
+
+**W4 CORRECTED (my ruling's estimate was low 3×): 1100–1400 ln**, the exact
+list: W4-1 rhsFboundC/rhsSigmaGC defs + identities [A,60]; W4-2
+joint_supF_pinC (RHSGrade:248) [B,120]; W4-3 beta_integral_pin_constC
+(GradeConst:1025, cites sigma_cutoff_pretentious_gen at c) [B/C,250]; W4-4
+rhs_grade_at_scale in WINDOW-FLOOR form (GradeConst:1089 + SupClose:334;
+hMwin replaces hmin/hgate) [C,300]; W4-5 JointIntegrableAtC + the JointPlumb
+clone (30 sites; σ^{2c−1} integrable at c > 0) [B,250–350]; W4-6
+center_halasz_supply B-ABSTRACT (CenterSupply:296; the exponent opaque —
+c-free forever after) [B,150]. C-FREE VERBATIM (do NOT clone): the whole
+amplitude side (crossKer_width_sigma_bound_uniform, widthKamp,
+rhsAgradeConst/gradeAbsConst chains), the FarClose/FarStar far arm,
+prop21_uniform_at_scale_absC, spoly_abel_sup. SKIPPABLE (seam-specific):
+center_dist_floor + the vacuous forms, SeamGate/seamGateRstar,
+far_term_priced (carry additively), ball_center_dichotomy, SupStation.
+
+**THE LADDER + GO**: W4-1/2/3 ∥ U7-A (the ramR = spoly adapter + Abel via
+spoly_abel_sup; the half-open endpoint +2-terms page) [B,150–250] ∥ U7-B
+(the ∫x^ω route + ellLin g_x + the interchange) [B,200–300] → U7-C (the
+distance page + THE COLLISION LEMMA + the amended-pin twins) [C,300–500] →
+W4-4/5/6 → U7-E (CASE A assembly at scale X') [C,500–800], U7-D (CASE B:
+the radius-free transfer clone at S₀ = O(1)) [C,350–550] parallel → U7-F
+(the dichotomy assembly, both arms → the same Rbd, no disjunction) [B/C,
+250–400]. ZENO LINES: Z-1 hsep (the annulus-floor sliver — closure (i)
+raise the 𝒰 inner height = assembly-tier; closure (ii) widen seamRad = a
+FROZEN-STATEMENT change = JYH GATE, not U-7's to spend); Z-2 hMball
+byte-fit; Z-3 the collision X₀ tower exp(exp(4·10^44)) — IN-STATEMENT
+always. TOTALS: U-7 proper 1750–2800; with W4 2850–4200; hU honest
+~4,000–5,800.
+
+**SIDE-FINDING BANKED (not on U-7's path)**: FARCLOSE's "no absolute Cfar"
+refutation is partly an ARTIFACT of two independent weakenings in
+far_kernel_bound (the β-cancellation destroyed by separate majorizations);
+a β-paired far bound puts T* back at ≈ L^{5.5} and would shrink
+seamGateRstar + simplify FarStar — a [C,300–500] repair for whenever the
+far arm next opens.
