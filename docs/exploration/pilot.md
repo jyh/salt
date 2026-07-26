@@ -12052,3 +12052,25 @@ first); the rpow-squaring cheap route; unary-minus binds looser than
 application (byte-match verified). PIN2REST the last aloft.
 
 **2026-07-26 09:23 PDT — CEREMONY DISCIPLINE HARDENED after the trap bit TWICE (the pipe-status swallow, then grep-found-errors-counts-as-success + the Python prefix-replace mangle): the new LAW — every ceremony build runs `lake build > log; rc=$?` and commits ONLY on rc=0; census edits anchor on FULL LINES (newline-terminated), never prefixes. Build green 9424 (456e3db).**
+
+---
+
+**2026-07-26 09:24 PDT — PIN2REST lands (stones 1/2/3/5 whole; stone 4 two-of-three): the width ruling CASHED.**
+`Salt/MR/PinFamily2.lean` (916 ln, 19+2 decls, zero warnings, all 3-axiom;
+full build green). Stone 1: the old-A width gates at the y₂ window (only
+conjunct 4's proof changes — L⁴ ≤ y₂ < n two-stage; the failing bandwidth
+conjunct now TRUE with 512× spare). Stone 2: the seam gate at T*₂ (the mono
+lemma cheap — log T*₂ manifestly increasing). Stone 3 FIRST-ATTEMPT: the
+SupClose pin layer — **the exit constant does NOT move** (crossKer's A was
+free; the old-A gates feed rhsAgradeConst_le UNCHANGED); **THE MIXED-PIN
+CONVENTION banked**: split point y₂ + width L⁴ in one statement, written
+literally, consumers must not conflate. Stone 4: closed_star2 +
+socket_star2 landed; **ball_sup_closed_star2 BLOCKED at statement tier**
+(ball_sup_supplied's hRHS carries (log k)^4 LITERALLY — needs a y-generic
+twin chain [PIN3 lane, queued] or a landed-statement change). Stone 5:
+caseAS2 + the E-slot absorption composed. New traps: lake env lean does
+NOT run style linters (the gate is lake build's ✔ on genuine
+re-elaboration); "gate fails at new pin" reports must first check whether
+the gate belongs to a CHOICE not the stone. Both salt lanes now idle
+pending PIN3 + the graded kill twin; the Jacobian line-review is the
+live gate.

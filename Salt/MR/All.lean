@@ -119,6 +119,7 @@ import Salt.MR.Transfer34
 import Salt.MR.SeamGraded
 import Salt.MR.PinFamily
 import Salt.MR.USetGradedThin
+import Salt.MR.PinFamily2
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -918,4 +919,22 @@ open Salt.Tactic in
   Salt.MR.usetG_thin_Q
   Salt.MR.gradeV_sq_le_rpow
   Salt.MR.usetG_thin_pin
+  Salt.MR.pow_four_le_ypin2
+  Salt.MR.width_pin_gates_pin2_old_A
+  Salt.MR.width_pin_gates_pin2_at_pin
+  Salt.MR.Tstar2_mono
+  Salt.MR.seamGateRstar2_nonneg
+  Salt.MR.seam_gate_star2_of_nonempty
+  Salt.MR.exists_min_gate_star2
+  Salt.MR.seam_gate_star2_package
+  Salt.MR.joint_supF_pin_trunc2
+  Salt.MR.joint_cs_trunc_pin2
+  Salt.MR.crossKer_width_pin_const2
+  Salt.MR.beta_integral_pin_const2
+  Salt.MR.rhs_grade_at_scale_trunc2
+  Salt.MR.rhs_grade_at_scale_closed_star2
+  Salt.MR.hRHS_socket_star2
+  Salt.MR.caseAS2_nonneg
+  Salt.MR.caseAS2_absorbs_E_slot
+  Salt.MR.caseAS2_absorbs_E_slot_closes
   Salt.MR.farErr34_local_closes_of_gate
