@@ -12381,3 +12381,15 @@ by a rational coefficient (set-κ-first, the frozen proof's own cure);
 set-then-rw needs a trailing linarith for sub-assoc; vestigial statement
 binders (drop + instantiate at a literal). R3-WAVE (the kernel carry) the
 last aloft.
+
+---
+
+**2026-07-26 16:21 PDT — ⚑⚑ A3a-R3 CLOSES WHOLE: the damped-coefficient route (V9a). ⚑⚑**
+`Salt/MR/KernelCarry.lean` (1344 ln, 9 public decls wired, zero warnings,
+all 3-axiom; full build green rc-checked 9440 — after the rc-gate's
+FOURTH save: two report-listed names were private). The risk stone R3-c
+UNDIVIDED; the deviation honestly flagged + RATIFIED; the spec's bare-C
+arithmetic CORRECTED; the gap closes N-uniformly. New traps: the Pi.add
+shape (type-ascribed have); set-doesn't-fold applied occurrences;
+positivity t²-from-negative; the h₁·(X/h₁) calc; integral_comp_neg
+explicit-function. NEXT: SEC9-GLUE ∥ TYPDEN dispatching.

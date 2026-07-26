@@ -1025,3 +1025,16 @@ STALE — A1+A2 ratified 7/19, pilot :9725 + mr-freeze :52). GO: W1
 junction → W2 (R3-DESIGN ∥ SEC9-GLUE ∥ HFLOOR-FIX) → W3 (the pricing ∥
 S7) → W4 (R3 → A2′ → A1′) → W5 (S9-design ∥ Siegel ∥ S10b) → W6 (H₀door →
 COMPOSE).
+
+## ⟦V9a — A3a-R3 CLOSES: THE DAMPED-COEFFICIENT ROUTE⟧
+
+R3 landed WHOLE, R3-c UNDIVIDED, via a route SIMPLER than the spec: the
+kernel's 1/s moves ONTO THE COEFFICIENT (dampA: B(t) := A(1+it)/(1+it));
+vSeg = I·((x+h)G(x+h) − xG(x)) EXACTLY (no Fubini, no side conditions —
+the early-CS destruction site never runs); the LANDED tent machinery
+applies to G; ‖B‖² = ‖A‖²/(1+t²) IS the kernel. THE SPEC CORRECTION: the
+(X/h₁)² factor REQUIRED not slack (proven; cancels exactly at
+dyadic_tail_proper's 8·Msup/W²). THE GAP CLOSES: lemma14_contour_kernel
+N-uniform at Tcut = 2^N(X/h₁); Egap → 0 at δ ≍ 2^{−N/2} (the old
+irreducible floor GONE). No improper limit (the monotone limit unowned,
+likely never needed). Residual: the δ-instantiation (consumer's).

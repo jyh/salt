@@ -134,6 +134,7 @@ import Salt.MR.TLegExit
 import Salt.MR.SeamCalibration
 import Salt.MR.SeamLemma14
 import Salt.MR.FloorProvenance
+import Salt.MR.KernelCarry
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1132,4 +1133,13 @@ open Salt.Tactic in
   Salt.MR.Mrange_seam_floor_column
   Salt.MR.T1_decay_column_cap_supplied
   Salt.MR.Mrange_seam_floor_A10
+  Salt.MR.dampA_normSq
+  Salt.MR.vSeg_eq_damp_endpoints
+  Salt.MR.uKernel_norm_le
+  Salt.MR.uKernel_wdiff_norm_le
+  Salt.MR.vtail_meansq_damped
+  Salt.MR.vtail_meansq_kernel
+  Salt.MR.vtail_meansq_kernel_neg
+  Salt.MR.lemma14_contour_kernel
+  Salt.MR.lemma14_shortInterval_meansq_kernel
   Salt.MR.farErr34_local_closes_of_gate
