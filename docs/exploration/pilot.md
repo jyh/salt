@@ -12673,3 +12673,17 @@ freeze's refuter pass dispatched first (BINDER-REF + IRRED-REF); the E26
 wave fires on FIRE/REPAIR-THEN-FIRE with GATE-2 (eq-27) in the same arc.
 (4) IK §13.5 + hsieve = discussion opened with JYH (options presented in
 the evening reply; no action until the discussion lands).
+
+---
+
+**2026-07-26 20:00 PDT — THE NO-HYPOTHESES LAW (JYH, verbatim intent: "I really don't want
+lingering hypotheses").** Standing directive for the flagship: the final
+theorem carries NO named external hypotheses — every input owned,
+kernel-checked end-to-end. hsieve's disclosure-fallback is OFF the table;
+the pricing scoper is instructed accordingly. Dispatched: L36-SCOPE (can the
+staged ten-lectures/MV-1974/mathlib bypass IK §13.5 for S7's L3–L6 at
+B₅ = 12 — JYH stages IK only if proven necessary) + HSIEVE-SCOPE (ownership
+price across three routes: mathlib SelbergSieve wiring / Brun-track
+generalization / the direct elementary window sieve — the quality-constant
+question decides). Five aloft: S7AMEND, the eq26 refuters, the design-block
+refuters, L36-SCOPE, HSIEVE-SCOPE.
