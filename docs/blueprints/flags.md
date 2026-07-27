@@ -12405,3 +12405,63 @@ extract-repair rides with the S8 wave's ceremony.
 j = 2, and the η-dependent threshold X > X(η) as an explicit existential
 (T-4). With S8-INV's additions (h₁ ≥ 4, TannGate): the list closes at
 G7's statement stone.
+
+---
+
+## THE S8 REFUTER ROUND: the ownership FATAL + the W-ceiling find; the freeze amended; the wave gated on two kill-checks (2026-07-27 12:36 PDT)
+
+**THE FATAL (the maestro caught again — the verify-posture law's third
+save on my own work this weekend):** the S8 freeze's ownership ruling was
+true only on MRT's SMALL-M branch — every landed seam row carries the
+(1/16)loglog X cap as a hypothesis, and the door's own datum (f = λ; the
+principal-character block) is PROVABLY large-M (lambda_nonpret's 1/4).
+The repair is the new node A2-3b (the cap-free arm: ¬cap ⟹ no pocket ⟹
+Case-A-everywhere re-composition; the ball leg vacuous at large M — MRT's
+own 𝒯₀ = ∅ branch), kill-check-gated (KC-A23B), with the named second
+D-risk if it fails (FarArm's general-T socket).
+
+**THE W-CEILING FIND (load-bearing for the whole door road):** Tao Prop
+2.4's W ≤ (log X)^{1/125} is DERIVED from MRT's printed 1/50 exponent
+(125 = 50·5/2). The landed U-leg grade is −1/500, so the honest ceiling is
+W ≤ (log X)^{1/1250} and the headroom twins re-run at exponent 1250·B₅ =
+15000. VERIFIED TO CLOSE: δ₀-headroom ~37 orders remains; M4-6 at 46×;
+the S11 δ-chain untouched. A [B, 150–250] row, byte-modelled on
+DoorFloor1500.
+
+**Also amended:** the interface's M-term pinned literally (C₁·exp(−M/e),
+NO M-factor — stronger than print — plus the fourth summand
+(log X)^{−7/8+o(1)}, the ball-error residue); the side-condition list
+rewritten (the (A.1)/(A.2)-as-fields over-claim corrected — they live at
+η/2 in CellGates via levelGates_calibratedK; + the top-level J-ceiling at
+two bases; Q_{Jb} ≤ Tann; R1–R6 with R4's M-DEPENDENT threshold —
+X(η, M, A, G, Jb) per catch #253; **the h-ceiling h ≤ 2X·e^{−e⁵}** — an
+honest deviation from MRT's bare h ≥ 3, cleared by the S9 consumer by ~60
+orders); A2-2 re-priced [C, 350–600] (the (b,c) coefficient contract has
+zero consumers and breaks at the naive instantiation); **A2-5's kill-check
+ruled THE load-bearing gate** (the fallback re-opens MRT p. 25's κ = 1
+caveat — |Λ_f| ≤ Λ fails off squarefree support, the reason ellLin exists
+— D-tier at 6300–9500; on failure the wave STOPS and returns to council);
+A2-3 SETTLED = option W free-centre (the kill-check pre-answered — the
+7/8-page is Q_J-ceiling-driven; the free-centre correction: SupplyGeneric's
+centre-uniform chain, never SupStation's produced centre; the interior
+pays entirely on the ball side — M_range's floor is structural).
+**Ownership notes:** D-5 DISSOLVED (dist_recenter route — no Erdős–Turán,
+no PNT-in-segments anywhere in the corpus's proof); D-8 DISCHARGED inside
+hUG34 (CaseASocket2 at ρ_eff = 3θ₂₉₃; RamareMR is MR Lemma 12 — a
+different object); Thm A.1 OUT OF SCOPE by ruling. The T₀ glyph now
+collides THREE ways (seamT0; MRT's set 𝒯₀; MRT's contour height (log X)²)
+— A2-4's reach reads (log X)².
+
+**THE S8-SRC DEMAND LIST (banked per the auditability repair; the full
+prose is in the freeze + the amendment):** D-1 single-h Parseval (A2-1);
+D-2 the S1b join (A2-0); D-3 the A.3 setup/MVT/branch defs (A2-3b + the
+landed recenter machinery); D-4 the distance algebra (landed, Dist/
+DistSplit); D-5 the cos-chain (DISSOLVED — dist_recenter route); D-6
+Halász/GS Cor 1 at the ball (the landed station, at exp(−M/e)); D-7 the
+𝒯₁ integral (the landed seam row — SMALL-M branch; A2-3b for large-M);
+D-8 Lemma A.5 (DISCHARGED in hUG34); D-9 the inclusion–exclusion + shift
+(landed: lemma5/renormalise_shifted); D-10 the 7/8 page (landed:
+SevenEighths); D-11 the [9] κ=1 machine (NOT consumed — the corpus's
+station replaces it; the κ=1 caveat returns ONLY on A2-5's fallback);
+D-12 Lemma A.8 (A2-0); D-13 Thm A.1's own needs (OUT OF SCOPE); D-14 g_𝒥
+(landed: Sec9Glue.gJ); D-15 J = o(loglog X) (free at Jb = 2).
