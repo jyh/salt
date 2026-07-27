@@ -1,8 +1,9 @@
 # eq-(26) bridge freeze — the h₂-average → X-average arc (2026-07-26)
 
-**STATUS: GATED on JYH (GATE-1 below) — do not dispatch.** Refuter pass
-deferred until GATE-1 ratifies execution (verify-posture law satisfied:
-no executor consumes this before then). Source: EQ26-SCOPE (read-only; MR
+**STATUS: EXECUTING — GATE-1 = YES (JYH, 2026-07-26 evening), refuter pass
+COMPLETE (2× REPAIR-THEN-FIRE), repairs folded as ⟦AMENDMENT A⟧ (end of
+file — READ IT FIRST: it amends the E26-5/6/7 rows and adds E26-8). Wave 1
+(E26-0..5) dispatched same evening. Source: EQ26-SCOPE (read-only; MR
 `1501.04585v4` pp. 6, 7, 13, 15, 29, 30 ALL RENDERED via Read pages — never
 pdftotext, the banked defect generator; the landed Sec9Glue/JFactor/
 KernelCarry corpus).

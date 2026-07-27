@@ -12710,3 +12710,28 @@ is hypothesis-free; at H = 0 both radii are 0 by div_zero). The stale
 tier). Census: 13 names wired, RC=0 at 9450 jobs, zero warnings from the
 file. Trap re-confirmed: awk-counts-bytes fired again on this
 Unicode-dense file — python char-count is the law.
+
+---
+
+**2026-07-26 20:07 PDT — eq26 refuter round digested; AMENDMENT A folded; E26-WAVE-1
+FIRES.** Both refuters REPAIR-THEN-FIRE. Survived ×5: the binder byte-fit
+(windows saturated at Lemma 4's exact lower endpoint; the strengthening
+legitimate BOTH ways — explicit conclusion AND weaker hypothesis); the
+derivation (E26-1's difference budget is precisely the composer); the J-pin
+(sec9_eq28_exit uniform in J; the Jb = 2 pin is TIGHT — G_gateK holds with
+equality); the irreducibility (CONFIRMED stronger: kernel exits are L²-in-x,
+(26) is pointwise — no L² bound reaches it; the |t| ≤ T₀ band is the
+pretentious band only Lemma 4 covers); the E26-0 pricing (cast route cuts it
+to ~80–140). Repaired: the E26-5 accounting was FALSE (the defect lives
+INSIDE E26-6's mean square, not in sec9_four_term's R — split 5a/5b + the
+new binder hh1lo : 400/δ ≤ h₁, post-Chebyshev, door-dischargeable); E26-6's
+three incompatible instructions resolved (hypothesis-carry in the :1153
+shape; the contour-form preference was a CATEGORY ERROR that would resurrect
+the retired Perron defect; the private shortSum_measurable needs a public
+~15-ln re-proof); E26-7 restated in the exceptional-set form (the f ≡ 1
+second Step-1 supply carried; the sum_const bridge named); NEW E26-8: the
+★vacuity corner — the pinned A = 65536 makes Theorem 3's supply side
+VACUOUS on the door road ((log h)^{1/3}/const → ∞); repair A := ⌈(δ/8)log₂ h⌉,
+M := ⌈8/δ⌉ (P₁ ≈ h^{δ/8}, Q₁ ≈ h; CalFrameK gates survive — LHS log A vs
+RHS A/24). Wave 1 (E26-0..5b, cast route, eta-expanded filters) dispatched.
+Wave 2 (E26-6/7/8) queues behind wave 1 + the design-block verdicts.
