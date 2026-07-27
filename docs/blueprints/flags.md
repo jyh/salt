@@ -12187,3 +12187,34 @@ _const form widen the M-gate accordingly. The remaining named externals on
 the §9 path: Lemma4Comparison (the GS/Halász arc, deliberately carried) and
 hthm3f/hthm3one (E26 wave 2's deliverable). Under the no-hypotheses law
 both are DEVELOPMENT-time carries with owners, not flagship residuals.
+
+---
+
+## S7's minor arc is EMPTY below H ≈ e^{115} — the analytic content begins only past it (2026-07-26 21:54 PDT)
+
+L-EXIT's structural finding: below arcDen² ≥ H (i.e. (log H)^{24} ≥ H at
+B₅ = 12, which holds up to H ≈ e^{115} ≈ 10^{50}), Dirichlet at order
+⌈H/arcDen⌉ ALWAYS lands inside the tight cap, so ¬NearRatTight is
+unsatisfiable and MinorArcBoundTight 12 is VACUOUS on that whole initial
+range. The S7 analytic obligation genuinely bites only past e^{115} — and
+the ExitClose residual's hypothesis is vacuously satisfied below it. Also
+banked from the same wave: the T5 gate DISSOLVED (arcDen < H is a
+CONSEQUENCE of the minor-arc hypothesis itself — arcDen² − arcDen < H from
+arcDen < q ≤ H/arcDen + 1 — not an H₀ arm); the L1 Abel constant is 1 not
+3 (1/p is ANTITONE — the antitone Abel pays w M exactly; the 3 lives in
+the window conversion); MinorArcCore's un-truncated dyadic range is
+USELESS (top blocks ≍ trivial) — ALL the saving is in the
+typeII_block_eq_zero cut, now consumed.
+
+## S7 STATUS: the analytic obligation is ONE closed-form inequality from done (2026-07-26 21:54 PDT)
+
+The whole ladder L1–L7 is LANDED (MinorArcVaughan + MinorArcCore +
+MinorArcExit, 2810 ln total, every decl axiom-clean). The single residual:
+ExitClose 12 (MinorArcExit :885) — ∀ε>0, ∃H₀, ∀H≥H₀, ∀q ∈ (arcDen,
+H/arcDen+1]: exitBd ε H q < ε²/log H, with exitBd a CLOSED FORM (no O, no
+o(1), no implied constant). Numerically verified true with WIDENING margin
+(H = 10^{100}: 10^{-7.9} vs 10^{-2.96}; H = 10^{5000}: 10^{-19.3} vs
+10^{-4.66}; dominant term ≍ (log H)^{5/2}/(ε²H)^{1/8}). On ExitClose 12:
+minorArcBoundTight_twelve_of_close + bigXiArcTight_twelve_of_close give
+the FULL S7 exit. The closer stone is pure log-vs-power threshold
+arithmetic (the log_scale_threshold genre) — dispatched as EXIT-CLOSE.

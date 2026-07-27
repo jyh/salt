@@ -152,6 +152,7 @@ import Salt.MR.SieveGlue
 import Salt.MR.MinorArcVaughan
 import Salt.MR.Eq26Compose
 import Salt.MR.MinorArcCore
+import Salt.MR.MinorArcExit
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1429,3 +1430,29 @@ open Salt.Tactic in
   Salt.MR.vinogradov_lambda
   Salt.MR.vinogradov_lambda_dyadic
   Salt.MR.vinogradov_lambda_sq
+  Salt.MR.sqrt_add_le_sqrt_add_sqrt
+  Salt.MR.norm_sum_Ioc_weighted_le_antitone
+  Salt.MR.expSum_eq_indicator
+  Salt.MR.sum_lambda_not_prime_le
+  Salt.MR.norm_thetaPhase_sub_lambdaPhase
+  Salt.MR.prime_sum_to_lambda
+  Salt.MR.approx_reduced
+  Salt.MR.approx_c_form
+  Salt.MR.expSum_abel
+  Salt.MR.typeII_dyadic_trunc
+  Salt.MR.typeIIBlockBd_le_crude
+  Salt.MR.typeII_dyadic_sum_le
+  Salt.MR.vinoBd_mono
+  Salt.MR.lambdaPhase_le
+  Salt.MR.expSum_le_vinoBd
+  Salt.MR.two_le_winBot
+  Salt.MR.winBot_le_winTop
+  Salt.MR.one_le_vaughanW
+  Salt.MR.vaughanW_sq_le
+  Salt.MR.winTop_le_pow
+  Salt.MR.primeWindow_sub
+  Salt.MR.mem_primeWindow_of_mem
+  Salt.MR.exists_q_expSum_le
+  Salt.MR.minorArcBoundTight_of_exitClose
+  Salt.MR.minorArcBoundTight_twelve_of_close
+  Salt.MR.bigXiArcTight_twelve_of_close

@@ -12952,3 +12952,26 @@ no speculative ring_nf after eR differencing). Census: import + 26 names,
 RC=0 at 9457 jobs. L-EXIT (L1/L2/L7 — the outer shell + the exponent
 close against the ε²/log H threshold, feeding MinorArcBoundTight at
 B₅ = 12) is the LAST S7 stone; dispatching now.
+
+---
+
+**2026-07-26 21:54 PDT — L-EXIT LANDS (37 decls, 1027 ln, the licensed Zeno): S7's
+analytic obligation is ONE closed-form inequality from done.** The
+structural chain is COMPLETE: L1 (the antitone-Abel strip — constant 1 not
+3, the honest finding), L2 (primes→Λ via mathlib's ψ−θ defect), T1's
+approx_reduced (the coprime reduction through Int.gcd_div_gcd_div_gcd —
+Int.ofNat_div is GONE, Int.natCast_div now), T2's c-form at
+c = 1 + arcDen/H ≤ 2, the dyadic consumption (the un-truncated range was
+USELESS — all saving in the typeII_block_eq_zero cut), the closed-form
+vinoBd with one-gcongr monotonicity, and the parameter block taken through
+Nat.sqrt TWICE so W·W ≤ M is a kernel fact with zero rpow arithmetic. THE
+T5 GATE DISSOLVED (arcDen < H is a consequence of the minor-arc hypothesis
+itself). THE STRUCTURAL FINDING: S7's minor arc is EMPTY below H ≈ e^{115}
+(flags entry). The residual ExitClose 12 is closed-form, numerically true
+with widening margin. Census: import + 26 names, RC=0 at 9458 jobs. Ten
+new traps banked (Int.natCast_div; sum_coe_sort won't rw on double
+coercion — explicit have; field_simp closes-outright ×2 more;
+nlinarith needs mul_self_le_mul_self hinted on square-monotonicity; omega
+can't touch min with nonlinear atoms; gcongr eats whole monotonicity
+goals but ;;positivity trips unreachableTactic; Nat.sqrt_le pairing).
+EXIT-CLOSE dispatched — the last stone of the arc.
