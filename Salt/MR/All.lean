@@ -136,6 +136,7 @@ import Salt.MR.SeamLemma14
 import Salt.MR.FloorProvenance
 import Salt.MR.KernelCarry
 import Salt.MR.TypicalPrice
+import Salt.MR.SeamCalibrationK
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1154,4 +1155,17 @@ open Salt.Tactic in
   Salt.MR.sum_calibrated_ratio_eq
   Salt.MR.calibrated_ratio_not_MR_shape
   Salt.MR.calibrated_sum_ratio_ge_half
+  Salt.MR.log_calP_div_log_calQK
+  Salt.MR.calQK_mono
+  Salt.MR.calP_le_calQK
+  Salt.MR.calibrated_block_nonemptyK
+  Salt.MR.ladder_below_stationK
+  Salt.MR.levelGates_calibratedK
+  Salt.MR.calFrameK_satisfiable
+  Salt.MR.sum_ratioK_le
+  Salt.MR.eq28_clears_of_M
+  Salt.MR.sum_ratioK_pinned_clears
+  Salt.MR.ramP2mass_direct
+  Salt.MR.seam_row_calibratedK
+  Salt.MR.sum_lemma12Rows_priced_calibratedK
   Salt.MR.farErr34_local_closes_of_gate

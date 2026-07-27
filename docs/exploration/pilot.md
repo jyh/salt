@@ -12408,3 +12408,13 @@ process-safe). New traps: **the append-past-end-namespace trap (check the
 end line before EVERY cat >>)**; notMem_empty; nested-filter unfolds die
 under chained rw (obtain via mem_filter.mp); the regroup-before-mul_sum
 idiom; field_simp measure-before-ring re-confirmed. CALREPIN dispatching.
+
+---
+
+**2026-07-26 17:17 PDT — ⚑⚑⚑ THE K-LADDER LANDS: THE SEAM ROW'S FORMULA IS A NUMBER. ⚑⚑⚑**
+`Salt/MR/SeamCalibrationK.lean` (1137 ln, 16 publics, zero diagnostics,
+all 3-axiom; full build green rc-checked 9442). V9c banked. The TYPDEN
+refutation REPAIRED same-day: refuted at dusk, re-pinned by night, the
+eq-28 page kernel-run at the executor's own pins with margin. P2WIRE (the
+p²-K-copy, mechanical) + SEC9-GLUE (now unblocked — the eq-28 verdict
+resolved) dispatching.

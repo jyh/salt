@@ -1057,3 +1057,29 @@ TWO MORE PRICING FINDINGS: (ii) the p² row's 64/P² is USELESS at scale
 inhabitant makes the window row O(1) — H1_pin permits P₁^{1/6}; a better
 inhabitant [A, ~30]. CONSUMER DEBT: X ≍ X_d (the junction's two symbols)
 owed at the wiring. CALREPIN-WAVE dispatched (all four items).
+
+## ⟦V9c — THE K-LADDER LANDS: THE SEAM ROW'S FORMULA IS A NUMBER⟧
+
+CALREPIN whole: calQK := 2^((j²M)·calE) — **no calEK needed** (calP
+unchanged; only the Q-exponent moves — the deviation rational, recorded);
+log ratio = 1/(j²M) EXACT; **THE HONEST Σ-AT-M PAGE KERNEL-RUN**:
+sum_ratioK_le ≤ 2/M uniform in Jb (Σ j⁻² ≤ 2 — Basel declined, the
+factor-2 paid in the pin: M = 8/δ vs MR's 4/δ); eq28_clears_of_M with the
+demand-side gate IN-STATEMENT; the pinned inhabitant clears at 1.9×
+(A=65536, G=2457600, M=800, δ=1/100; G_gateK EXACT — G = 768·Jb²M the
+smallest base, mirroring the landed G=768). The 12 LevelGates fields:
+5 moved (the K in the gates), gate-3's j²-cancellation STILL FIRES exactly
+(48K ≤ ηG the true demand; 64K leaves 4/3); the rest verbatim. K-2 the
+p²-direct route (16·log₂(2X_d)/(X_d·P) — MR's grade, replacing the ≥64
+row); K-3 H₁ = P₁^{1/6} SYMBOLIC (H1_pin with equality — the largest
+permitted width; the window row now negligible). K-4:
+**seam_row_calibratedK + sum_lemma12Rows_priced_calibratedK — the density
+collection C·(2/M), THE FORMULA IS A NUMBER** (modulo the p²-K-wire
+[B, 150–250 mechanical — P2WIRE dispatched] + the Basel upgrade [~40,
+optional] + the K-times-harder cutoff gate (asymptotically free, the
+consumer's X-threshold moves — unexamined numerically) + the δ-coupling
+at the consumer). NEW TRAPS: norm_num UNFOLDS closed calP-terms into
+2^65536 (never let norm_num/simp see one — explicit show-rewrites);
+linarith defeated by compound-argument log atoms (eliminate first);
+card_le_card_of_injOn's beta-unreduced equation (ascribe); Nat.pow_pos
+implicit exponent; the four privates transplant-mandatory.
