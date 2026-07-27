@@ -272,3 +272,18 @@ house laws; (iii) truth first — the campaign never waits on the pearl.
 
 **Item 3 — eq-26 mechanical close: NOTED** (gated on hMsup + Lemma 4 by
 construction; no ruling needed).
+
+**Item 4 — the Lemma-4/GS arc: RULED — scope NOW** (the inventory scoper
+flies at close of council, parallel with the S8 block; both read-only on
+the Halász layer). The inventory finding entered pre-ruling: GS Lemma 7.1
+is ALREADY LANDED (`renormalise` — ported weeks ago for the A.8 repair);
+the scoper prices what the landed Halász corpus supplies of GS Thm 4/
+Cor 3.
+
+**Item 5 — #42116: RULED and EXECUTED.** Master pulled into the branch +
+ocfnash's suggestion PUSHED (f023d30 → a505176 on jyh/mathlib4:
+keller-jacobian; the PR updates itself; CI re-runs). JYH posts the reply
+in own words (facts sheet in decision 5 above). The Felix posture: the
+close-offer stands exactly where it is — neither withdrawn nor repeated;
+the maintainers own the homes question. Both executor judgment calls
+KEPT (the corrected docstring; the honest direct import).
