@@ -12244,3 +12244,51 @@ introduced first; M < (W+1)^4 via Nat.lt_succ_sqrt twice is the clean
 quarter-power lower bound. The door road's remaining analytic obligations:
 thm_A2′ (the S8/H-block arc), the Landau production (odd-χ FE + the even-χ
 gap), Lemma 4 (the GS arc), the M4 wave (Amendment B), S11's compose.
+
+---
+
+## GOLD-INV triple verdict: the even-χ residual GENUINE; the two effectivity poisons NAMED; the dichotomy coastline ALREADY LANDED (2026-07-27 11:57 PDT)
+
+**Q1 (coverage): NOT COVERED — no wiring stone fires.** Six landed
+L(1,χ)-adjacent statements checked against L1LowerEffective's exact shape;
+each fails (branch-confined, wrong quantifier order ∀χ∃ vs ∃c∀χ, wrong
+object, or qualitative). The SW Siegel arc is parity-blind — nothing extra
+on either side. The even-χ production is the campaign's one hard analytic
+residual, now independently confirmed. Two positive finds: (a) THE DESCENT
+STONE [B, ~60–100] — imprimitive→primitive costs exactly A ↦ A+1 (the
+∏_{p|q}(1−χ(p)/p) ≥ 1/q leg; the upper leg landed at SiegelClose :54, the
+principal template at SiegelArm :177) and door_L1_absorbed eats the +1;
+needed by EVERY route — dispatched. (b) Salt/LS/GaussSum.lean's
+gaussSum_normSq holds for ALL q (stronger than mathlib's Field-only form)
+— an asset for LANDAU-ODD in flight.
+
+**Q2 (effectivity): the landed Goldfeld BRANCH is EFFECTIVE as stated**
+(dependency cone walked — no compactness, no case split, all constants
+explicit from (q₁,q,β₁)). The composition to anything unconditional is
+POISONED at two named sites, now on the pearl-audit register:
+POISON 1 = Siegel.lean :236's rcases em (the phantom-zero split) + a
+continuity-extracted radius at SiegelClose :866–872; POISON 2 = the
+MR-side EVT pattern (SiegelArm :161 LFunction_band_lower's compact-min m,
+inherited by chi_Llower_band and chi_floor_all_complete). The asymmetry:
+an EFFECTIVE even-χ floor needs a DIFFERENT theorem (CNF — bridge verified
+absent from mathlib, zero dedekindZeta consumers — or FE), not a detox.
+NAMED FOLLOW-UP (SIEGEL-COMPOSE, unscoped): for the TRUTH-FIRST track, can
+the landed siegel_theorem (zero-free, poisoned-but-unconditional) compose
+with the landed repulsion bridges (dh_repulsion_of_LFunction_one_lower,
+L1_lower_siegel) into the ∃c∀χ L1 shape at INEFFECTIVE c — discharging
+M4-6's even side classically while the pearl route stays open?
+
+**Q3 (the coastline): the dichotomy's statement layer IS LANDED** —
+Salt/TwinBar/SiegelTwin.lean: NoSiegelZeros :76, InfinitelyManySiegelZeros
+:83 (the exact ∀c∃ hypothesis), HeathBrownStatement :92 (= InfinitelyMany
+→ TwinPrimeConjecture), heathBrown_iff_dichotomy :139, the quantifier
+mis-freeze exhibited AND refuted (BadHyp/badHyp_false) — plus the
+correlation core landed under the STRONGER SiegelSequence (squared-log
+coupling, SiegelCorr :54) with the honesty bridge. The grand-slate item
+upgrades: the HB arm is [C-campaign, multi-wave], NOT D — the substrate
+(statement layer + correlation core + the DH detector cluster + the Chen
+keystone) stands; the remaining sieve assembly is multi-wave C. ONE
+D-adjacent risk: the first-power coupling upgrade (the HB-R3+ door,
+SiegelCorr :41–43 — a corpus artifact of the √log x box floor, not number
+theory). Missing small object: the exceptional-zero REIFICATION [B] (the
+zero exists only as a bound variable; HB manipulates it).
