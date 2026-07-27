@@ -13405,3 +13405,21 @@ named endpoints); the hMcap NAME denotes two objects (T-NEW-4 sharpens
 T2 — grep is not a locator for caps). X-freedom clean for Route III.
 FarArm ban verified by grep. Census: import + 16 names, RC=0 at 9467.
 Two sails: A2-2, A25-CORE.
+
+---
+
+**2026-07-27 13:22 PDT — THE CLOUD BRIDGE STANDS UP (the jason seat, live with JYH).**
+The environment is named **"salt"** on the jason account; the firewall
+allow-list configured and reviewed (elan.lean-lang.org, release/releases.
+lean-lang.org, objects.githubusercontent.com — the oft-forgotten
+toolchain-binary host, lakecache.blob.core.windows.net, reservoir.
+lean-lang.org, leanprover-community.github.io, github.com,
+raw.githubusercontent.com; codeload.github.com advised as insurance). The
+routine prompt (fresh-drafted this session: clone jyh/salt → elan +
+cache get → full lake build → lean4checker replay → axiom spot-checks on
+seam_row_number / hUG34_unconditional / chi_floor_all_complete /
+budget_head_grade_closed / seam_row_calibratedK / bigXiArcTight_twelve /
+L1_lower_odd → CLOUD-TRIAL-REPORT.md to branch cloud-trial-night-1 ONLY,
+never main) is being pasted by JYH now. The run doubles as the D2
+pre-arXiv gate — the first independent kernel re-verification on a
+machine that has never seen our build cache. Watch begins on JYH's word.
