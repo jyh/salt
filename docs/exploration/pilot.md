@@ -13142,3 +13142,27 @@ is necessary but not sufficient — the row should also name WHAT WAS IN
 FLIGHT when it was taken (the survey-during-waves hazard is structural).
 Stubb requests the freeze/refuter tooling patterns when Starbuck sits for
 S-1 — promised, will mail when the sitting opens.
+
+---
+
+**2026-07-27 12:09 PDT — GS-INV home: Lemma 4 is a real port, and the register gains a
+ripens-at-tail decision.** The verdict: [D, 4–7.5k] dominated by GS Thm 4
+(the Lipschitz estimate, no cheap route found — the one open scoping
+question: any exponent > 1/4 at w ∈ [1,4]) + GS Cor 1 (the c = 1 mean-value
+Halász; THE CORPUS c = 1/e IS FATAL for this consumer — trap T6 banked
+loudly). But the inventory paid for itself five ways: two windmills
+dissolved (Cor 3 → 5 lines of arithmetic; MR's Lemma-1 citation FALSE —
+dyadic doesn't transfer); a SOURCE DEFECT found (MR p. 14's 1/3 threshold
+doesn't close; the repair is the quadratic's own θ = 2−√3 — GS Cor 3's
+exponent falls out); the 2/π-page repair found (the AM-GM one-liner at
+1−1/√2 = 0.29289 riding the LANDED ζ-oscillation bridge); the assembly
+tier [B/C ~1–1.5k] separated and dischargeable today; and THE PEARL
+ANSWERS YES (C ≈ 10⁸–10⁹ explicit, with the three-branch architectural
+law — bounds never thresholds, else C is a tower — and the no-∃x₀ law for
+f-uniformity). The strategic read: Lemma 4 sits ONLY on the
+paper-completeness arc (zero consumers downstream of sec9_eq28_exit), NOT
+the door road — the GS-port-vs-carried-hypothesis decision goes to JYH's
+register, ripens at the campaign's tail. Sec9Glue :358's card corrected
+(it was one-third wrong). Ten traps banked (T1–T10; T10: the interface's
+1/20 is frozen — lossy routes are statement changes). Build RC=0 after
+the docstring correction. Aloft: S8-SRC, LANDAU-ODD, H1-INHAB.

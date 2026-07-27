@@ -12292,3 +12292,60 @@ D-adjacent risk: the first-power coupling upgrade (the HB-R3+ door,
 SiegelCorr :41–43 — a corpus artifact of the √log x box floor, not number
 theory). Missing small object: the exceptional-zero REIFICATION [B] (the
 zero exists only as a bound variable; HB manipulates it).
+
+---
+
+## GS-INV: Lemma 4 is a REAL PORT [D, 4.0–7.5k] — the landed Halász c = 1/e is FATAL for it; two windmills dissolved; a SOURCE DEFECT in MR p. 14 (2026-07-27 12:08 PDT)
+
+The inventory (rendered MR pp. 11–14 + GS pp. 2–23 vs the corpus):
+
+**THE EXPONENT BUDGET (the spine):** Lemma 4's 1/20 = 1/4 − 1/5 exactly
+(the (13)-to-window amplification costs (log X)^{1/5}); the case-split
+trade-off max_θ min(cθ, 1−√(2θ)) peaks at **θ = 2−√3 = 0.26795 — GS
+Corollary 3's own exponent falls out of one quadratic**. Consequences:
+MR's printed 1/20 needs the Halász decay constant c > 8/9; ANY nontrivial
+Lemma 4 needs c > 0.625; **the corpus-frozen c = 1/e ≈ 0.368 (Amendment
+B4) gives NO nontrivial Lemma 4 at all — any plan to "reuse the landed
+Halász" for Lemma 4 is dead on arrival (trap T6).**
+
+**TWO WINDMILLS DISSOLVED:** GS Corollary 3 is NOT NEEDED (the p. 14
+endgame is ~5 lines of real arithmetic: |A−B| ≤ 3E unconditionally);
+MR's "follows from Halász (Lemma 1)" is a FALSE DEPENDENCY (their Lemma 1
+is a dyadic Dirichlet-polynomial bound; dyadic summation does not
+transfer — the real input is GS Corollary 1, the mean-value form).
+
+**A SOURCE DEFECT (T1):** MR p. 14's branch threshold 1/3 does not close
+— branch B needs θ ≤ 9/32 = 0.28125 and at θ = 1/3 the exponent is
+0.1835 < 1/4. Repair free (any θ ∈ (1/4, 9/32]; the canonical 2−√3).
+Also T2 (the printed (14) error is UNTWISTED and unbounded as printed —
+GS's own p. 23 usage is twisted; renormalise_shifted already has it
+right) and T3 (a conjugate sign in (14), the (A.8) defect's family).
+
+**THE SUPPLY/GAP SPLIT:** landed and byte-fit — GS 7.1 (= renormalise;
+the crude-R5 factor costs ~20 in C, tolerated), the CS step
+(SevenEighths), Mertens, the prime-power tail. THE ASSEMBLY TIER
+[B/C, ~1.0–1.5k, dischargeable today]: the reduction, the endgame, the
+real-f identity, the 7.1 wiring, AND the 2/π-page repair via a found
+AM-GM one-liner (|cos θ| ≤ 1/√2 + cos 2θ/(2√2), constant 1 − 1/√2 =
+0.29289 > 9/32) riding the LANDED ζ-oscillation bridge (with the
+X/2-chain range fix for the 1 ≤ |b| gate). THE PORT TIER: GS Corollary 1
+[C/D, 2.5–4k] + GS Theorem 4 the Lipschitz estimate [D, 3–6k — the one
+dominant cost; MR needs only exponent > 1/4 at w ∈ [1,4], not the sharp
+1−2/π, but no cheap route found — the one open scoping question].
+
+**THE PEARL ANSWERS YES:** the constant is structurally explicit,
+~10⁸–10⁹, WITH the architectural law: three-branch split (every branch
+bound carried as a bound, never a case threshold — thresholding at the
+0.29289-vs-9/32 comparison makes C a tower past exp(exp(2000))); and no
+∃x₀-shaped stone inside (the f-uniformity eq26 needs).
+
+**THE STRATEGIC READ (to the register):** Lemma 4 sits ONLY on the
+paper-completeness arc (eq26 → Thm 3 → sec9_eq28_exit → zero consumers)
+— NOT the door road. The council's GATE-1 "yes for completeness" was
+priced pre-inventory; full unconditionality of MR Thm 1 now honestly
+costs the GS port. DECISION FOR JYH (ripens at the campaign's tail): port
+GS §2–§6 [D, 4–7.5k] vs let the eq-26 arc stand conditional on the
+carried Lemma4Comparison (named, interfaced, honest). T10: the 1/20 is
+frozen in the interface — a lossy route is a statement change, gated.
+Sec9Glue :358's card corrected this commit (one-third wrong: 7.1 IS
+landed; Cor 3 not needed; the residual is Thm 4 + GS Cor 1).

@@ -354,8 +354,15 @@ here with the implied constant named.
 `𝔻(f, p^{it}; X)` over `|t| ≤ log X`, Halász (Lemma 1) when
 `𝔻(f, p^{it_f}; X)² ≥ (1/3)loglog X`, and **[12, Lemma 7.1 and Theorem 4]** +
 **[12, Corollary 3]** otherwise; the `|t_f| ≥ 1/100` case uses
-`𝔻(f, p^{it_f}; X)² ≥ (1 − 2/π − o(1))loglog X`.  Granville–Soundararajan's three
-inputs are not in the corpus, so Lemma 4 is a hypothesis, not a theorem, here. -/
+`𝔻(f, p^{it_f}; X)² ≥ (1 − 2/π − o(1))loglog X`.  [Card corrected 2026-07-27
+per GS-INV: of the three GS citations, **Lemma 7.1 IS in the corpus**
+(`Salt.MR.renormalise`), **Corollary 3 is not needed** (the p. 14 endgame is
+~5 lines of real arithmetic), and the honest residuals are **GS Theorem 4**
+(the Lipschitz estimate) plus **GS Corollary 1** (the mean-value Halász at
+c = 1 — the corpus-frozen c = 1/e is fatally weak for this consumer, trap
+T6).  So Lemma 4 remains a hypothesis here, with the residual now priced:
+the assembly tier is [B/C, ~1–1.5k] and dischargeable; the port tier
+(GS §2–§6) is [D, 4–7.5k].  Full inventory: flags.md, GS-INV 2026-07-27.] -/
 def Lemma4Comparison (f : ℕ → ℝ) (X C : ℝ) : Prop :=
   ∀ x y : ℝ, X ≤ x → x ≤ 2 * X → hTwo X ≤ y → y ≤ X →
     |(1 / y) * ∑ n ∈ Finset.Icc ⌈x⌉₊ ⌊x + y⌋₊, f n
