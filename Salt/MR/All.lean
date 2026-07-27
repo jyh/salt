@@ -149,6 +149,7 @@ import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
 import Salt.MR.SieveGlue
+import Salt.MR.MinorArcVaughan
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1353,3 +1354,30 @@ open Salt.Tactic in
   Salt.MR.memS_congr
   Salt.MR.card_notMemS_pin
   Salt.MR.sec9_eq28_exit_calFamily
+  Salt.MR.eK_eq_eR
+  Salt.MR.norm_one_sub_eR
+  Salt.MR.eR_add_intCast
+  Salt.MR.eR_mul_natCast
+  Salt.MR.dist₁_eq_sub_zero
+  Salt.MR.abs_sin_pi_mul_add_intCast
+  Salt.MR.two_mul_dist₁_le_abs_sin
+  Salt.MR.inv_le_dist₁_intCast_div
+  Salt.MR.vaughan_expSum
+  Salt.MR.norm_moebius_le
+  Salt.MR.norm_typeICoeff_le
+  Salt.MR.norm_typeIIData_le
+  Salt.MR.geom_phase_card_bound
+  Salt.MR.geom_phase_dist_bound
+  Salt.MR.minTerm_le_left
+  Salt.MR.minTerm_le_inv
+  Salt.MR.minTerm_nonneg
+  Salt.MR.minTerm_mono_left
+  Salt.MR.geom_phase_bound
+  Salt.MR.one_add_log_le_two_mul_log
+  Salt.MR.sum_range_inv_succ_le
+  Salt.MR.minsum_residue_count
+  Salt.MR.minsum_block_core
+  Salt.MR.minsum_block
+  Salt.MR.minsum_shift
+  Salt.MR.four_mul_ge_of_mem_blockExc_zero
+  Salt.MR.minsum_d_dependent

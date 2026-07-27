@@ -12856,3 +12856,33 @@ div_le_div_iff₀ renames; NO classical in files consuming decidableMemS
 (instance-diamond breakage); the 8.08/δ consumer note. Census: import + 14
 names, RC=0 at 9454 jobs. The executor trio is home — E26 wave 2 + the M4
 re-freeze + the L-ladder continuation queue on L-FOUND's return.
+
+---
+
+**2026-07-26 20:49 PDT — L-FOUND LANDS WHOLE (28 decls, 882 ln, zero Zeno): the S7
+foundation is laid and the Vinogradov engine is IN.** MinorArcVaughan.lean:
+T0 settled (eK definitionally = eR — four tactic lines; unified at eR per
+Kusmin's own header); L3 the Vaughan wire (ONE term:
+Salt.LS.tail_decomp at f := eR(α·n) — the Rung-5 dividend cashed; T7
+respected, the ℂ-side coefficient re-exports shipped); L3c the geometric
+phase bound (closed geometric sum → 1/(2‖θ‖), fused with the honest min via
+the NEW minTerm convention — the 1/0-junk trap defused: literal min is
+FALSE at dist₁ = 0); L3b THE COST CENTRE CLOSED with explicit numerals —
+eq (8) at card ≤ 6 (the c = 2 relaxation from line one, T2), eq (7) at a
+weight FUNCTION (the design generalization that makes (iv) possible),
+eq (9) derived from the block form at arbitrary M (T4), and
+minsum_d_dependent ≤ 30(X/q)(1+log 2D) + 12(D+q)(1+log q) — ONE POWER OF
+LOG BETTER than the brief's budget. THE BRIEF'S OWN BLOCK-0 ARGUMENT WAS
+WRONG and the executor caught+repaired it: "for D < q use dist₁ ≥ 1/(2q)"
+is vacuous near d ≈ q (1/q − 2d/q² goes negative); the closing route is the
+CONVERSE — four_mul_ge_of_mem_blockExc_zero: an exceptional d in block 0
+cannot be small (4d ≥ q), so X/d ≤ 4X/q there. No +X leak (T3 defused by a
+different door than briefed). Coprimality carried as Int.gcd = 1 (T1's
+reduction is downstream, correctly not attempted here). Nine new traps
+banked (the minTerm convention; le_or_gt/div_le_div_iff₀ renames;
+Int.ModEq coprime cancellation route; field_simp coin-flip; set-then-rw
+doesn't beta-reduce; omega vs H/q+1; the open-vs-closed interval count 6;
+the Kusmin :265 cached info). Census: import + 27 names, RC=0 at 9455
+jobs. REMAINING L-LADDER: L1/L2 (Abel + the ψ−θ defect, mathlib-covered),
+L4 (Type I), L5 (Type II), L6 (assembly), L7 (the exit) — dispatchable as
+one wave against the landed foundation + the L36 spec.
