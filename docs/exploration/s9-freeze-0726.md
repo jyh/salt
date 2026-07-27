@@ -1,11 +1,20 @@
 # S9 freeze — the §4 major-arc port at g = λ (2026-07-26)
 
+**STATUS: HOLD — REPAIR ROUND REQUIRED (refuter pass, same evening).** The
+lane claim, the A.8 discharge, the A.1-refusal arithmetic, and the M4-9 exit
+doctrine all SURVIVED (4× UNFOUNDED). But the vacuity strike and P-1 were
+KILLED (2 independent CONFIRMED-FATALs), M4-5 is under-transcribed
+(CONFIRMED-REPAIRABLE), and two unassigned kills (the sieve-family cross-wire
+U1; the M4-6 constant U2) landed. See ⟦REFUTER VERDICTS⟧ at the end — the
+ladder re-freezes only after the drift-mechanism decision (JYH gate) and the
+U1 design block. Sections below marked ✗ are retracted in place.
+
 Source: S9DESIGN-SCOPE (read-only, MRT `1503.05121v3` pp. 10–16 + 22–28 rendered;
 GS `math/9911246` p. 22; chowla.txt :743–750; the landed corpus). Maestro-verified
 cites: `Renormalise.lean` (:1003/:749, 0 sorries, All.lean :79, consumed
 `BallSup.lean` :88/:142), the census row `hsup-design.md` :1017–1019, `mr-freeze.md`
 :19/:49, `s8-freeze.md` :61, `BigXiArc.lean` :137–178 (the NearRat exit — P-1 real).
-Refuter pass: dispatched same evening (verify-posture law); verdicts appended below.
+Refuter pass: COMPLETE 2026-07-26 19:16 PDT — 2 CONFIRMED-FATALs; STATUS HOLD; see ⟦REFUTER VERDICTS⟧.
 
 ## HEADLINE — the design block is DISCHARGED
 
@@ -59,11 +68,15 @@ chowla.txt :743–750 (Tao): at g₁ = g₂ = λ, c_p = 1, only major-arc α nee
   mathlib: `ArithmeticFunction.liouville_apply_mul` — NO coprimality hypothesis.
 - Dirichlet approximation: the door fires only at α = −ξ.val/H (MRTDoor :109–111)
   — exactly rational. Do not import DiophantineApproximation.
-- **The phase-freezing subdivision is VACUOUS**: θ = 0 identically ⟹ (4.2)'s
-  drift term is zero. mr-freeze :19's "FLAW-1 REPAIR BUILT IN" is dead work for
-  the Ξ-restricted door (struck deliberately — see the flags entry; it revives
-  only if the full `MRTUniformity` door is ever targeted, which the ratified
-  SALVAGE posture refuses).
+- ✗ RETRACTED (refuter kill, same evening): ~~The phase-freezing subdivision
+  is VACUOUS: θ = 0 identically~~ — FALSE. θ is the distance to a rational of
+  denominator ≤ W; ξ/H's exact denominator is typically H itself (ξ = 1 is a
+  robust counterexample family — every small ξ coprime to H is in Ξ_H with
+  reduced denominator H ≫ W). A drift mechanism is REQUIRED: either MRT's
+  (4.2) IBP with a q-dependent S7 radius (the faithful route, needs the S7
+  frozen-row amendment — JYH gate) or the original mr-freeze subdivision
+  (works against the landed flat radius, no S7 change). The −IBP line credit
+  in the headline is VOID. The mr-freeze strike was retracted same day.
 
 **NOT deleted — the kill-check (A.1 cannot replace A.2):** A.1's middle term is
 (loglog h/log h)² ≈ (log H)^{−2+o(1)}; A.2's is (log h)^{1/3}/P₁^{1/6−η} ≪ W^{−5/2}
@@ -77,13 +90,19 @@ door's raw λ-window (M4-1), the L¹ analogue of MRT §3.1's assembly of A.1.
 
 ## PRECONDITIONS (settle before dispatch)
 
-- **P-1 — S7's exit shape.** The sealed opener delivers `NearRat` ("ξ/H within
-  arcRadius of a/q, q ≤ arcDen") — `BigXiArc.lean` :169. S9 needs the EXACT
-  reduced denominator: `bigXi_denominator_le : ξ ∈ bigXi eps H →
-  (H / Nat.gcd ξ.val H : ℕ) ≤ W`. The near form does NOT imply it (|a'q − aq'| ≤
-  Wq'/H < 1 only when q' ≤ H/W, and q' | H may exceed that). Since ξ/H IS
-  rational, the Vinogradov contrapositive should be stated directly on q'.
-  **PIN THIS IN S7's L-ladder brief** (an added ladder stone) or S9 inherits a gap.
+- ✗ P-1 RETRACTED (refuter kill, same evening): `bigXi_denominator_le` is
+  **FALSE** — ξ = 1 ∈ bigXi for all large H (all phases −2πp/H cluster in an
+  arc of width πε² ⟹ ‖expSum‖ ≥ 0.6/log H > ε²/log H), and H/gcd(1,H) = H ≫ W.
+  Ξ_H's membership test is a smoothness condition in ξ/H, blind to arithmetic;
+  no S7 stone can prove this. **Do NOT pin it in the L-ladder brief.** (My
+  arithmetic here also slipped a factor q: correctly |a′q − aq′| ≤ Wqq′/H.)
+  THE REAL P-1 (superseding): S7's exit radius `arcRadius = arcDen/H` is
+  q-INDEPENDENT — a factor q wider than MRT p. 14's θ = O(W/(Hq)). The tight
+  radius is already derived one lemma away (`exists_large_den_of_minor`,
+  BigXiArc :328–332, concludes exactly arcDen/(q·H)) and then thrown away at
+  the `NearRat` instantiation. Exporting it is strictly stronger and free at
+  S7 (same Dirichlet order, same Vinogradov contrapositive; `nearRat_mono`
+  recovers the weak form) — but it amends the sealed frozen row: JYH gate.
 - **P-2 — W is chosen, not inherited.** W := max((log H)⁵, (log H)^{B₅(S7)}),
   subject to W ≤ (log X)^{1/125} — `regime_W_headroom_of_floor`
   (DoorDischarge :42) supplies it at W = (log H₊)⁵ with 34 orders of headroom;
@@ -160,3 +179,74 @@ landed; `renormalise_shifted` landed — do not re-derive.
   the stone-4 wave: MRT p. 21 needs the single-h (V(x)) Parseval form, not the
   landed h₁/h₂-difference form; the exits' hMsup binder ∀T ≥ X/h₁ fires once
   at T = Tann.
+
+## ⟦REFUTER VERDICTS⟧ — the pass that put this freeze on HOLD
+
+LANE-REF: REPAIR-THEN-FIRE. ARITH-REF: HOLD. Full structured verdicts in the
+workflow journal (wf_58cd9f26-119); the operative content:
+
+**SURVIVED (UNFOUNDED ×4):** (1) renormalise_shifted byte-verified correct
+(bonus: the crude R5 error factor 1 + log(3+|α|(1+log x)) still yields
+(17/16)loglog X + O(1) at 𝒯₀, so the A.7 lane is unblocked by the deviation);
+(2) the lane claim — §4's COMPLETE citation list is Prop 2.4, Thm A.2 (η=1/20,
+with the parenthetical P₁ ≥ (log Q₁)^{40/η}), (2.3), Mertens, CS; A.7/A.8
+appear nowhere; (3) the A.1-refusal arithmetic — every exponent re-derived
+(boundary sharpened: B₅ strictly < 1 / < 2, not ≤); (4) the M4-9 exit doctrine
+— ∀ξ-outside preserved, δ uniform via catch #253 check, and the logMeasure
+NORMALIZATION kills any ω leak in M4-8 (the dyadic reassembly divides by
+Z ≈ log ω).
+
+**KILLED:** the vacuity strike + P-1 (see the ✗ blocks above — ξ = 1
+counterexample; the residue split at q = H is worse than trivial; the landed
+flat radius W/H degrades (4.1) to HX·W^{3/4}, GROWING in W).
+
+**THE DRIFT-MECHANISM DECISION (JYH gate, feeds the L-ladder brief):**
+- (a) FAITHFUL (both refuters recommend): amend S7's frozen row to the
+  q-dependent Dirichlet radius `∃ a q, 0 < q ≤ arcDen ∧ |α − a/q| ≤
+  arcDen/(q·H)` (~40 ln at S7, no new mathematics — exists_large_den_of_minor
+  already produces it; exists_large_den_of_not_nearRat SIMPLIFIES under the
+  tight radius). Then add M4-0′ = MRT's (4.2) IBP stone [C, ~300–450] and
+  state M4-5 at h := H′/d₀ for ALL H′ ∈ [0,H] with the trivial-bound branch
+  below H·d₀/W³ (verified to close: ≪ dXH/(qW³)). Iron rule 1: the frozen-row
+  amendment is Fable/JYH-tier — RATIFY BEFORE the L-ladder dispatch.
+- (b) NO-S7-CHANGE fallback: reinstate the original mr-freeze phase-freezing
+  subdivision verbatim (designed exactly against the flat radius; works as
+  landed); re-verify Prop 2.4's window at the block length H″.
+
+**M4-5 RESTATED (CONFIRMED-REPAIRABLE):** thm_A2′ at f := λχ̄, h := H′/d₀ for
+every H′ ∈ [0,H] (trivial branch below H·d₀/W³), X := X′ (dyadic), η = 1/20,
+𝒮 at the GLOBAL parameters 𝒮_{P₁,Q₁,√X,X/(dd₀)} — named side conditions:
+√X ≤ X′ (from X′ ≥ X/W^{10}, W ≤ X^{1/250}); P₁ ≥ (log Q₁)^{800} (from
+W ≥ (log H)^5); [P₁,Q₁] ⊆ [1,h]; h ≥ 3; Q₁ ≤ exp(√log X₀); Q₁ ≥ P₁
+(⟺ H ≥ W^{203}). AND: the s8-freeze :17 citation for thm_A2′'s shape is
+EMPTY (that line pins only thm_A1′, a different instance) — the M4 brief must
+write the thm_A2′ interface explicitly and S8's wave-5 must be told to match
+it, or the two waves land incompatible statements at the seam. Stone-4
+transcription trap: MRT p. 21's displayed Parseval RHS reads X/h₁ (a [17]
+carry-over); read as X/h.
+
+**U1 (MAJOR unassigned — the sieve-family cross-wire; DESIGN BLOCK REQUIRED,
+touches landed code):** M4-1 prices the 1_𝒮 complement at the K-ladder family
+(calP/calQK, 2/M ≤ δ/8) while M4-5 pins A.2 at MRT's Prop 2.4 family
+(P₁ = W^{200}, Q₁ = H/W³). 𝒮 must be ONE object, and the choice is forced:
+at MRT's family the complement density ≍ 200·B₅·loglog H/log H SWAMPS the
+landed doorGrade H = (log H)^{−5/4} for every B₅. Repair direction: run the
+whole §4 port at the K-ladder family and re-verify A.2's frame there. FLAG:
+the K-ladder demands log h ≳ M ≈ 8/δ₀ ≈ 4·10^{49} while log H₀door ≈ 9·10^{38}
+(DoorFloor :52–59) — the door floor may need re-derivation from the ladder
+demand rather than from inverting doorGrade. JYH/Fable design block, NOT an
+executor repair.
+
+**U2:** M4-6's constant is wrong by 5/3 — S8 froze the A-chain at
+E(M) = exp(−M/2) (s8-freeze :10, D1), so the stone must demand
+M(λχ̄;X′) ≥ 5·log W (equivalently (2.3) becomes W ≤ exp(M/5)), not the
+source's 3·log W. Free to satisfy (λ's supply is (1/3−ε)loglog X) but the
+statement must say 5.
+
+**THE B₅ INCONSISTENCY (live, pre-existing — surfaced by ARITH-REF):** the
+landed corpus pins B₅ = 5 (DoorFloor :73; chi-check-0724 :88–99) but the S7
+minor-arc arithmetic needs B₅ > 8 (with the log-weight gain; > 10 without).
+Soundness of landed stones unaffected (they prove what they state); the
+COMPOSITION constants shift: S10a's 625 = 125·5 becomes 125·B₅ (RegimeHead's
+regime_head_W_headroom exponent included), and DoorFloor's provenance line is
+wrong. Feeds the same design block as U1.

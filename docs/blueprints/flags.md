@@ -12030,3 +12030,72 @@ floor = loglog X − (3/4)log(1+log X) − ε·loglog X − CH2) are landed
 UNCONDITIONALLY — only the production of the ∃c is open. Also unlanded: the
 descent χ → inducing primitive character, needed by any primitivity-requiring
 route. New unconditional Landau stone: dhA_sqrt_weighted_floor.
+
+---
+
+## THE REFUTER SAVE: the S9 subdivision strike RETRACTED same day + P-1 was FALSE (2026-07-26 19:18 PDT)
+
+Correction to the two entries above ("The phase-freezing subdivision STRUCK"
+and the s9-freeze's P-1): the refuter pass (2 refuters, both independently)
+killed both claims within hours of banking — the verify-posture law working
+exactly as designed.
+
+**The kill:** "θ = 0 identically at the rational door frequency" is a
+non-sequitur — θ is the distance to a rational of denominator ≤ W, and
+ξ/H's exact reduced denominator is typically H itself. Concrete robust
+counterexample: ξ = 1 ∈ Ξ_H for all large H (the phases −2πp/H over
+p ∈ (ε²H/2, ε²H] cluster in an arc of width πε², so ‖expSum‖ ≥ 0.6/log H,
+over the ε²/log H threshold), with H/gcd(1,H) = H ≫ W. So (a) the proposed
+S7 stone bigXi_denominator_le is FALSE and must never enter an L-ladder
+brief; (b) a drift mechanism is REQUIRED in S9 (MRT's (4.2) IBP with a
+q-dependent radius, or the original subdivision — which was designed
+precisely against the landed flat radius and stands as designed); (c) the
+mr-freeze strike annotation was replaced with a retraction the same day.
+Also: the landed S7 exit radius arcRadius = arcDen/H is q-INDEPENDENT — a
+factor q wider than MRT p. 14 consumes; the tight radius arcDen/(qH) is
+already derived at BigXiArc :328–332 and discarded at the NearRat
+instantiation. Exporting it is strictly stronger and free but amends the
+sealed frozen row (JYH gate). Full verdicts: s9-freeze-0726.md ⟦REFUTER
+VERDICTS⟧. STATUS of the S9 freeze: HOLD.
+
+## The B₅ inconsistency (live, pre-existing): DoorFloor pins B₅ = 5 but the S7 minor-arc arithmetic needs B₅ > 8 (2026-07-26 19:18 PDT)
+
+Surfaced by ARITH-REF while verifying the A.1-refusal arithmetic: the landed
+corpus pins B₅ = 5 (DoorFloor.lean :73 "S7's B5 = 5"; chi-check-0724
+:88–99), but the S7 ladder's own Vinogradov arithmetic
+(‖S_H(α)‖ ≪ (log H)^{3−B₅/2} against the ε²/log H threshold) forces B₅ > 8
+with the log-weight gain, > 10 without. Soundness of landed stones is
+UNAFFECTED (each proves what it states); the COMPOSITION constants shift:
+S10a's 625 = 125·5 becomes 125·B₅ (including RegimeHead's
+regime_head_W_headroom exponent, landed tonight), and DoorFloor's provenance
+line is wrong. Feeds the S9 design block (below). No code touched yet.
+
+## U1 — the sieve-family cross-wire: a DESIGN BLOCK is required before the S9 wave (2026-07-26 19:18 PDT)
+
+ARITH-REF's major unassigned kill: the S9 ladder's M4-1 prices the 1_𝒮
+complement at the K-LADDER family (calP/calQK; 2/M ≤ δ/8) while M4-5 pins
+Thm A.2 at MRT's Prop 2.4 family (P₁ = W^{200}, Q₁ = H/W³). 𝒮 must be ONE
+object and the choice is forced: at MRT's family the complement density
+≍ 200·B₅·loglog H/log H swamps the landed doorGrade = (log H)^{−5/4} for
+every B₅. Repair direction: run the whole §4 port at the K-ladder family and
+re-verify A.2's frame there. FLAG (design-level, touches landed code): the
+K-ladder demands log h ≳ 8/δ₀ ≈ 4·10^{49} while log H₀door ≈ 9·10^{38}
+(DoorFloor :52–59) — the door floor may need re-derivation from the ladder
+demand rather than from inverting doorGrade. JYH/Fable design block; NOT an
+executor repair. Companion: U2 — M4-6's constant must be 5·log W (S8's
+E(M) = exp(−M/2) convention, s8-freeze :10 D1), not the source's 3·log W.
+
+## eq-(26): scoped, GATED — currently OFF the log-Chowla critical path (2026-07-26 19:18 PDT)
+
+EQ26-SCOPE (eq26-freeze-0726.md): the h₂→X bridge is elementary (565–1000
+ln, all A/B — "cheaper post-KernelCarry" REFUTED for (26) proper, CONFIRMED
+for its consumer E26-6: Theorem 3 went from NOT CLOSABLE (the irreducible
+pinned-Tcut far-band defect) to closable via the kernel exits). Lemma 4 is
+IRREDUCIBLE on the arc (the h₂ → X step is exactly where Halász/GS enters;
+kernel work cannot substitute — kill-check run both ways). GATE-1 for JYH:
+the whole arc feeds sec9_eq28_exit which has ZERO consumers — execute only
+if MR Theorem 1 is wanted as a stated machine-checked result (the paper's
+path, not the door's). GATE-2: eq (27) must ride in the same wave or the arc
+stops one stone short. New source-looseness find: 𝒮 is defined on [X,2X] but
+(26)'s short window reaches 3X — model 𝒮 as a predicate (the corpus already
+does), never a Finset.

@@ -12614,3 +12614,36 @@ Census: 10 theorems + import wired, RC=0 at 9450 jobs, zero warnings from the
 file. Six new traps banked (rpow/sqrt bridge; sum_image term-mode metavar;
 gcongr over div_le_div_of_nonneg_right; positivity is syntactic on products;
 the rpow-gate idiom; unused-binder drop re-confirmed).
+
+---
+
+**2026-07-26 19:18 PDT — THE REFUTER PASS EARNS ITS KEEP + EQ26-SCOPE LANDS.** The S9
+freeze went to HOLD within hours of banking: LANE-REF + ARITH-REF (independent
+kills) proved the vacuity strike FALSE (θ = 0 was a non-sequitur; ξ = 1 is a
+robust counterexample — Ξ_H is smoothness-blind to arithmetic, its exact
+denominators are typically H) and P-1's bigXi_denominator_le FALSE (my own
+freeze arithmetic had also slipped a factor q). What SURVIVED (4× UNFOUNDED):
+the lane claim (§4's complete citation list has no A.7/A.8), the A.8
+discharge (renormalise_shifted byte-verified + the crude-R5 bonus check), the
+A.1-refusal arithmetic (boundaries sharpened to strict <1/<2), the M4-9 exit
+doctrine (∀ξ-outside preserved; the logMeasure NORMALIZATION kills the ω
+leak). New obligations: the drift-mechanism decision (JYH gate — faithful
+IBP + q-dependent S7 radius amendment, BOTH refuters recommend, ~40 ln at S7
+since exists_large_den_of_minor already derives the tight radius; vs the
+no-S7-change subdivision fallback); M4-5 restated at h := H'/d₀ ∀H' ∈ [0,H]
+with the trivial branch + SIX named A.2 side conditions + the thm_A2'
+interface must be WRITTEN (s8-freeze :17 pins only thm_A1' — the citation was
+empty); U1 the sieve-family cross-wire (K-ladder vs Prop 2.4 families — a
+design block touching the door floor: log h demand 4·10^{49} vs log H₀door
+9·10^{38}); U2 the 5·log W constant; the B₅ = 5-vs->8 inconsistency
+(RegimeHead's 625 exponent included). mr-freeze strike RETRACTED in place.
+EQ26-SCOPE: the bridge is elementary and OFF the critical path (GATE-1 —
+sec9_eq28_exit has zero consumers; execute iff MR Theorem 1 is a paper
+deliverable); "cheaper post-KernelCarry" REFUTED for (26), CONFIRMED for
+E26-6 (Theorem 3: impossible → closable); Lemma 4 IRREDUCIBLE (the h₂ → X
+step is where the pretentious input enters — kill-checked both ways); freeze
+at eq26-freeze-0726.md with the E26-0..7 ladder and 12 traps. OPEN JYH
+DECISIONS (the register): (1) the S9 drift mechanism — recommend (a)
+faithful/tight-radius; (2) the U1 design block scheduling; (3) eq-26 GATE-1;
+(4) the B₅ pin. All gated work HOLDS; nothing dispatched on the S9/eq26
+lanes tonight.
