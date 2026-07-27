@@ -12687,3 +12687,26 @@ price across three routes: mathlib SelbergSieve wiring / Brun-track
 generalization / the direct elementary window sieve — the quality-constant
 question decides). Five aloft: S7AMEND, the eq26 refuters, the design-block
 refuters, L36-SCOPE, HSIEVE-SCOPE.
+
+---
+
+**2026-07-26 20:02 PDT — S7AMEND lands whole (the ratified tight-radius amendment,
+first-pass, zero Zeno).** BigXiArc.lean +280/−0 (append-only verified by
+numstat): NearRatTight + BigXiArcTight/MinorArcBoundTight + the tight
+reduction bigXiArcTight_of_minorArcTight + the compatibility pair — 13
+decls, all axiom-clean, sealed decls byte-untouched. THE A-5 DIRECTION
+VERDICT: both implications point Tight → flat (BigXiArcTight → BigXiArc on
+conclusions; MinorArcBoundTight → MinorArcBound on obligations — ¬NearRat ⊆
+¬NearRatTight); the converses FALSE by the measure check (flat arcs ≍ Q³/H
+vs tight ≍ Q²/H — a factor Q apart). The L-ladder brief therefore carries
+MinorArcBoundTight as the obligation — which is exactly what the Vinogradov
+contrapositive at Dirichlet order ⌈H/W⌉ naturally proves; no new
+mathematics. BOTH predicted simplifications materialized (the hsmall/
+nlinarith step has no tight analogue — the Dirichlet bound IS the target;
+the fineness hypothesis collapses reciprocal → linear via Nat.le_ceil), and
+one bonus: the tight/flat bridges need NO window hypothesis (arcDen_nonneg
+is hypothesis-free; at H = 0 both radii are 0 by div_zero). The stale
+"not wired into All.lean" header line corrected in place (maestro docstring
+tier). Census: 13 names wired, RC=0 at 9450 jobs, zero warnings from the
+file. Trap re-confirmed: awk-counts-bytes fired again on this
+Unicode-dense file — python char-count is the law.

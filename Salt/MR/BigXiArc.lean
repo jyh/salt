@@ -93,8 +93,11 @@ the definition), `ε` is universally quantified outermost, and the threshold
 * `nearRat_arc_zero` — the `ξ = 0` instance of the target, discharged outright.
 * `bigXiArc_mono` — the staged-gate robustness stone.
 
-The file is deliberately **not** wired into `Salt/MR/All.lean` yet: `BigXiArc`
-has no consumer until S9 (the major-arc reduction) exists.
+[Stale as of the same-day census wire — the file IS imported by
+`Salt/MR/All.lean`; kept for the record:] The file was deliberately not wired
+into `Salt/MR/All.lean` at first landing: `BigXiArc` had no consumer until S9
+(the major-arc reduction) existed.  See also the Stone-7 amendment section
+below (2026-07-26): the tight q-dependent radius is now the primary export.
 
 ## The remaining ladder (enumerated for the morning)
 
@@ -505,6 +508,286 @@ theorem bigXiArc_mono {B₅ B₅' : ℝ} (hBB : B₅ ≤ B₅') (h : BigXiArc B�
   have hle₀ : H₀ ≤ H := le_trans (le_max_left _ _) hle
   have hH3 : 3 ≤ H := le_trans (le_max_right _ _) hle
   exact nearRat_mono (arcDen_mono hBB hH3) (arcRadius_mono hBB hH3) (hH₀ H hle₀ ξ hξ)
+
+/-! ## Stone 7 — THE FROZEN-ROW AMENDMENT (2026-07-26): the `q`-dependent radius
+
+**Provenance.** `mr-freeze.md:17` carries an `[AMENDED 2026-07-26, JYH-ratified]`
+block; `s9-freeze-0726.md ⟦REFUTER VERDICTS⟧` records the kill that forced it
+and names this the drift-mechanism option **(a) FAITHFUL**.
+
+**The defect.** Everything above exports the arc datum through
+`NearRat (arcDen B₅ H) (arcRadius B₅ H)` — a radius `(log H)^{B₅}/H` that does
+*not* see the denominator `q`.  MRT `1503.05121v3` §4 (p. 14) consumes the
+major-arc datum through the integration-by-parts step (4.2), which needs the
+*Dirichlet* radius `θ = O(W/(Hq))`: a factor `q` tighter.  Against the flat
+radius the refuter computed (4.1) degrading to `HX·W^{3/4}` — **growing** in `W`,
+i.e. no saving at all.  The flat exit is not merely lossy, it is unusable
+downstream.
+
+**The repair, and why it costs no mathematics.** The tight radius is already
+*derived* above: `exists_large_den_of_minor` concludes
+`|α − a/q| ≤ arcDen B₅ H/(q·H)` on the nose.  The `q` was then discarded at the
+`NearRat` instantiation, `NearRat` having no room for it.  `NearRatTight` is that
+room.  Nothing above is retracted or edited: this section is purely additive, and
+every sealed export is recovered below as a corollary of its tight counterpart.
+
+**The implication directions (both point the same way).**  `NearRatTight Q H`
+implies `NearRat Q (Q/H)` (via `q ≥ 1`), so the tight major arcs are a *subset*
+of the flat ones.  Hence:
+
+* on the **conclusion** side — `BigXiArcTight B₅ → BigXiArc B₅`
+  (`bigXiArc_of_bigXiArcTight`): a tighter conclusion is a stronger theorem;
+* on the **hypothesis** side — `MinorArcBoundTight B₅ → MinorArcBound B₅`
+  (`minorArcBound_of_minorArcBoundTight`), which reverses *twice* and so points
+  the same way: the obligation quantifies over the *complement*, and
+  `¬ NearRat ⊆ ¬ NearRatTight`, so the tight obligation covers strictly more
+  frequencies.
+
+The converses are unavailable in both cases, and are not expected: the flat forms
+are strictly weaker.  Concretely, the L-ladder L1–L7 must now discharge
+`MinorArcBoundTight`, not `MinorArcBound` — the extra frequencies it must cover
+are exactly those that are flat-major but tight-minor, which is where MRT's
+`q`-uniform quality lives.
+
+**What the tight radius simplifies.**  The reciprocal bookkeeping of
+`exists_large_den_of_not_nearRat` (the `hsmall` step: `1/(q(Q'+1)) ≤ r` bought by
+throwing `q` away) has no tight analogue — under the tight radius the Dirichlet
+bound *is* the target bound, and the contradiction step reuses it verbatim.  The
+arc-datum fineness hypothesis likewise collapses from `1/(Q'+1) ≤ arcRadius` to
+the linear `H ≤ (Q'+1)·arcDen`. -/
+
+/-- **The tight (`q`-dependent) major-arc predicate.**  `NearRatTight Q H α` says
+`α` lies within `Q/(qH)` of a rational `a/q` with `0 < q ≤ Q`.
+
+Note the radius is *not* a separate parameter: it is determined by the cap `Q`,
+the window `H` and the witness's own denominator `q`.  That is the entire content
+of the amendment — `NearRat Q r` fixes `r` before `q` is chosen, and so cannot
+express the Dirichlet quality that `exists_large_den_of_minor` actually proves. -/
+def NearRatTight (Q : ℝ) (H : ℕ) (α : ℝ) : Prop :=
+  ∃ (a : ℤ) (q : ℕ), 0 < q ∧ (q : ℝ) ≤ Q ∧ |α - (a : ℝ) / (q : ℝ)| ≤ Q / ((q : ℝ) * (H : ℝ))
+
+/-! ### Stone 7a — the tight/flat bridge -/
+
+/-- The denominator cap is nonnegative for *every* window, with no side
+condition: `log (H : ℝ) ≥ 0` for all `H : ℕ` (including `H = 0`, where
+`log 0 = 0`).  This is what makes the compatibility corollaries hypothesis-free. -/
+theorem arcDen_nonneg (B₅ : ℝ) (H : ℕ) : 0 ≤ arcDen B₅ H := by
+  unfold arcDen
+  exact Real.rpow_nonneg (Real.log_natCast_nonneg H) B₅
+
+/-- **Tight ⟹ flat, general form.**  Since `q ≥ 1`, the tight radius `Q/(qH)` is
+at most the flat radius `Q/H`.  No hypothesis on `H` is needed: at `H = 0` both
+radii are `0` by `div_zero`. -/
+theorem nearRat_of_nearRatTight {Q : ℝ} (hQ : 0 ≤ Q) {H : ℕ} {α : ℝ}
+    (h : NearRatTight Q H α) : NearRat Q (Q / (H : ℝ)) α := by
+  obtain ⟨a, q, hq, hqQ, hd⟩ := h
+  refine ⟨a, q, hq, hqQ, hd.trans ?_⟩
+  rcases Nat.eq_zero_or_pos H with rfl | hH
+  · simp
+  · have hHR : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH
+    have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+    refine div_le_div_of_nonneg_left hQ hHR ?_
+    nlinarith
+
+/-- **Tight ⟹ flat at the arc datum.**  This single lemma is what makes every
+sealed consumer of `NearRat (arcDen B₅ H) (arcRadius B₅ H)` a free corollary of
+the amended export: `arcRadius B₅ H` is `arcDen B₅ H / H` by definition. -/
+theorem nearRatTight_imp_nearRat {B₅ : ℝ} {H : ℕ} {α : ℝ}
+    (h : NearRatTight (arcDen B₅ H) H α) :
+    NearRat (arcDen B₅ H) (arcRadius B₅ H) α :=
+  nearRat_of_nearRatTight (arcDen_nonneg B₅ H) h
+
+/-- The tight predicate is monotone in the denominator cap — and, unlike
+`nearRat_mono`, *only* in the cap, the radius no longer being free to move
+independently.  Raising `Q` widens the admissible denominators and the radius
+together, which is exactly the staged-gate direction. -/
+theorem nearRatTight_mono {Q Q' : ℝ} {H : ℕ} {α : ℝ} (hQ : Q ≤ Q')
+    (h : NearRatTight Q H α) : NearRatTight Q' H α := by
+  obtain ⟨a, q, hq, hqQ, hd⟩ := h
+  refine ⟨a, q, hq, hqQ.trans hQ, hd.trans ?_⟩
+  have hc : (0 : ℝ) ≤ (q : ℝ) * (H : ℝ) := by positivity
+  gcongr
+
+/-- **The sign seam, tight form** (mirror of `nearRat_neg`).  The `Ξ_H` threshold
+is stated at `−ξ.val/H` and the amended target at `ξ.val/H`; the tight radius is
+unmoved by `a ↦ −a`, the witness denominator `q` being unchanged. -/
+theorem nearRatTight_neg {Q : ℝ} {H : ℕ} {α : ℝ} :
+    NearRatTight Q H (-α) ↔ NearRatTight Q H α := by
+  constructor
+  · rintro ⟨a, q, hq, hqQ, hd⟩
+    refine ⟨-a, q, hq, hqQ, ?_⟩
+    have hrw : α - ((-a : ℤ) : ℝ) / (q : ℝ) = -(-α - (a : ℝ) / (q : ℝ)) := by
+      push_cast
+      ring
+    rw [hrw, abs_neg]
+    exact hd
+  · rintro ⟨a, q, hq, hqQ, hd⟩
+    refine ⟨-a, q, hq, hqQ, ?_⟩
+    have hrw : -α - ((-a : ℤ) : ℝ) / (q : ℝ) = -(α - (a : ℝ) / (q : ℝ)) := by
+      push_cast
+      ring
+    rw [hrw, abs_neg]
+    exact hd
+
+/-- **The trivial arm, tight form**: `α = 0` is tight-major on every arc system
+with cap `≥ 1` (take `a/q = 0/1`, at which the tight and flat radii coincide). -/
+theorem nearRatTight_zero {Q : ℝ} {H : ℕ} (hQ : 1 ≤ Q) : NearRatTight Q H 0 := by
+  refine ⟨0, 1, Nat.one_pos, by simpa using hQ, ?_⟩
+  have h0 : (0 : ℝ) ≤ Q / (H : ℝ) := div_nonneg (by linarith) (Nat.cast_nonneg H)
+  simpa using h0
+
+/-! ### Stone 7b — the amended frozen statement
+
+`BigXiArcTight` and `MinorArcBoundTight` are byte-mirrors of `BigXiArc` and
+`MinorArcBound`: same quantifier skeleton, same binder order (`∀ ε`, then `∃ H₀`,
+then `∀ H`, then `∀ ξ`/`∀ α` — the `∀ξ`-outside doctrine), the *only* change
+being `NearRat (arcDen B₅ H) (arcRadius B₅ H)` ↦ `NearRatTight (arcDen B₅ H) H`. -/
+
+/-- **S7 ARC, AMENDED** (`mr-freeze.md:17`, `[AMENDED 2026-07-26]`): every
+large-spectrum frequency `ξ ∈ Ξ_H` satisfies the *Dirichlet-quality* major-arc
+bound `|ξ/H − a/q| ≤ (log H)^{B₅}/(qH)` with `q ≤ (log H)^{B₅}`.
+
+This — not `BigXiArc` — is the shape MRT §4's step (4.2) consumes.  `BigXiArc`
+follows from it (`bigXiArc_of_bigXiArcTight`), so nothing that already depends on
+the sealed export needs to move. -/
+def BigXiArcTight (B₅ : ℝ) : Prop :=
+  ∀ eps : ℚ, 0 < eps → ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H →
+    ∀ ξ ∈ bigXi eps H,
+      NearRatTight (arcDen B₅ H) H ((ξ.val : ℝ) / (H : ℝ))
+
+/-- **The amended minor-arc obligation** — the single analytic input of the
+amended S7, and the one the ladder L1–L7 must now discharge.  It is *strictly
+stronger* than `MinorArcBound`: the hypothesis `¬ NearRatTight` holds on a larger
+set of frequencies than `¬ NearRat`, namely the flat-major/tight-minor ones. -/
+def MinorArcBoundTight (B₅ : ℝ) : Prop :=
+  ∀ eps : ℚ, 0 < eps → ∃ H₀ : ℕ, ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H →
+    ∀ α : ℝ, ¬ NearRatTight (arcDen B₅ H) H α →
+      ‖expSum eps H α‖ < (eps : ℝ) ^ 2 / Real.log (H : ℝ)
+
+/-! ### Stone 7c — the tight minor-arc extraction
+
+The tight counterparts of `exists_large_den_of_not_nearRat` and
+`exists_large_den_of_minor`.  Their *conclusions* are byte-identical to the
+sealed ones — the sealed statements already proved the tight radius — while their
+*hypotheses* are weaker (`¬ NearRatTight` in place of `¬ NearRat`).  So these
+stones strictly subsume their sealed originals, and the proofs are shorter. -/
+
+/-- **Tight minor-arc extraction, general form.**  If `α` is not tight-major at
+cap `Q` for window `H`, and the Dirichlet order `Q'` is fine enough
+(`H ≤ (Q'+1)Q`), then the order-`Q'` Dirichlet approximant has denominator `> Q`
+*and* already meets the tight radius.
+
+Contrast `exists_large_den_of_not_nearRat`: there the fineness hypothesis was the
+reciprocal `1/(Q'+1) ≤ r` and a separate `hsmall` step had to buy back the flat
+radius by discarding `q`.  Here the Dirichlet bound *is* the target bound, so the
+`by_contra` branch reuses `hrad` unchanged. -/
+theorem exists_large_den_of_not_nearRatTight {Q : ℝ} {H : ℕ} (hH : 0 < H)
+    {α : ℝ} {Q' : ℕ} (hQ' : 0 < Q') (hfine : (H : ℝ) ≤ ((Q' : ℝ) + 1) * Q)
+    (hnot : ¬ NearRatTight Q H α) :
+    ∃ (a : ℤ) (q : ℕ), Q < (q : ℝ) ∧ q ≤ Q' ∧
+      |α - (a : ℝ) / (q : ℝ)| ≤ Q / ((q : ℝ) * (H : ℝ)) := by
+  obtain ⟨a, q, hq, hqQ', hd⟩ := exists_dirichlet_approx α hQ'
+  have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hqpos : (0 : ℝ) < (q : ℝ) := by linarith
+  have hHR : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH
+  have hQ1 : (0 : ℝ) < (Q' : ℝ) + 1 := by positivity
+  have hrad : |α - (a : ℝ) / (q : ℝ)| ≤ Q / ((q : ℝ) * (H : ℝ)) := by
+    refine hd.trans ?_
+    rw [div_le_div_iff₀ (by positivity) (by positivity)]
+    nlinarith [mul_le_mul_of_nonneg_left hfine hqpos.le]
+  refine ⟨a, q, ?_, hqQ', hrad⟩
+  by_contra hcon
+  push Not at hcon
+  exact hnot ⟨a, q, hq, hcon, hrad⟩
+
+/-- **Tight minor-arc extraction at the arc datum.**  If `α` is not tight-major
+for the window `H` at exponent `B₅`, then
+
+  `(log H)^{B₅} < q ≤ ⌈H/(log H)^{B₅}⌉`  and  `|α − a/q| ≤ (log H)^{B₅}/(qH)`.
+
+Same conclusion as `exists_large_den_of_minor`, weaker hypothesis.  The order
+`⌈H/(log H)^{B₅}⌉` is unchanged; what changes is that the fineness condition it
+has to meet is now the linear `H ≤ (Q'+1)·(log H)^{B₅}`, read straight off
+`Nat.le_ceil`, instead of the reciprocal `1/(Q'+1) ≤ arcRadius`. -/
+theorem exists_large_den_of_minorTight {B₅ : ℝ} (hB : 0 ≤ B₅) {H : ℕ} (hH : 3 ≤ H)
+    {α : ℝ} (hnot : ¬ NearRatTight (arcDen B₅ H) H α) :
+    ∃ (a : ℤ) (q : ℕ), arcDen B₅ H < (q : ℝ) ∧
+      q ≤ ⌈(H : ℝ) / arcDen B₅ H⌉₊ ∧
+      |α - (a : ℝ) / (q : ℝ)| ≤ arcDen B₅ H / ((q : ℝ) * (H : ℝ)) := by
+  have hden : 1 ≤ arcDen B₅ H := one_le_arcDen hB hH
+  have hH3 : (3 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH
+  have hHpos : (0 : ℝ) < (H : ℝ) := by linarith
+  have hdpos : (0 : ℝ) < arcDen B₅ H := by linarith
+  set Q' : ℕ := ⌈(H : ℝ) / arcDen B₅ H⌉₊ with hQ'def
+  have hceil : (H : ℝ) / arcDen B₅ H ≤ (Q' : ℝ) := Nat.le_ceil _
+  have hQ'pos : 0 < Q' := by
+    rw [hQ'def]
+    exact Nat.ceil_pos.mpr (div_pos hHpos hdpos)
+  have hfine : (H : ℝ) ≤ ((Q' : ℝ) + 1) * arcDen B₅ H := by
+    rw [div_le_iff₀ hdpos] at hceil
+    linarith
+  exact exists_large_den_of_not_nearRatTight (by omega) hQ'pos hfine hnot
+
+/-! ### Stone 7d — the tight reduction, and the compatibility corollaries -/
+
+/-- **THE AMENDED REDUCTION**: the tight frozen target follows from the tight
+minor-arc estimate.  Byte-mirror of `bigXiArc_of_minorArc`, with
+`nearRatTight_neg` carrying the sign seam. -/
+theorem bigXiArcTight_of_minorArcTight {B₅ : ℝ} (h : MinorArcBoundTight B₅) :
+    BigXiArcTight B₅ := by
+  intro eps heps
+  obtain ⟨H₀, hH₀⟩ := h eps heps
+  refine ⟨H₀, ?_⟩
+  intro H _ hle ξ hξ
+  by_contra hcon
+  have hneg : ¬ NearRatTight (arcDen B₅ H) H (-(ξ.val : ℝ) / (H : ℝ)) := by
+    rw [neg_div, nearRatTight_neg]
+    exact hcon
+  exact absurd (mem_bigXi_iff.mp hξ) (not_le.mpr (hH₀ H hle _ hneg))
+
+/-- **Compatibility, conclusion side**: the sealed export is a corollary of the
+amended one.  Every consumer written against `BigXiArc` keeps working. -/
+theorem bigXiArc_of_bigXiArcTight {B₅ : ℝ} (h : BigXiArcTight B₅) : BigXiArc B₅ := by
+  intro eps heps
+  obtain ⟨H₀, hH₀⟩ := h eps heps
+  exact ⟨H₀, fun H _ hle ξ hξ => nearRatTight_imp_nearRat (hH₀ H hle ξ hξ)⟩
+
+/-- **Compatibility, hypothesis side — and the direction check.**  The true
+implication is `MinorArcBoundTight → MinorArcBound`, *not* its converse: since
+`NearRatTight ⊆ NearRat` (`nearRatTight_imp_nearRat`), the complement inclusion
+`¬ NearRat ⊆ ¬ NearRatTight` makes the tight obligation quantify over strictly
+more frequencies.  So the amendment *raises* the analytic price of S7 — the
+ladder L1–L7 must cover the flat-major/tight-minor frequencies too — while
+*lowering* nothing: the sealed obligation remains derivable. -/
+theorem minorArcBound_of_minorArcBoundTight {B₅ : ℝ} (h : MinorArcBoundTight B₅) :
+    MinorArcBound B₅ := by
+  intro eps heps
+  obtain ⟨H₀, hH₀⟩ := h eps heps
+  refine ⟨H₀, ?_⟩
+  intro H _ hle α hnot
+  exact hH₀ H hle α (fun ht => hnot (nearRatTight_imp_nearRat ht))
+
+/-- **The `ξ = 0` instance of the amended target**, unconditionally — the tight
+statement is no more vacuous than the flat one, and `0 ∈ Ξ_H` always
+(`MRTDoor.lean:106`). -/
+theorem nearRatTight_arc_zero {B₅ : ℝ} (hB : 0 ≤ B₅) {H : ℕ} (hH : 3 ≤ H) :
+    NearRatTight (arcDen B₅ H) H (((0 : ZMod H).val : ℝ) / (H : ℝ)) := by
+  rw [ZMod.val_zero]
+  simpa using nearRatTight_zero (H := H) (one_le_arcDen hB hH)
+
+/-- **Staged-gate robustness, tight form** (mirror of `bigXiArc_mono`).  The
+amended target still only *weakens* as `B₅` grows, so the pending numeric pin —
+`mr-freeze.md:17` records `B₅ > 8` as required by the minor-arc arithmetic — can
+be taken at any exponent above a proven one for free. -/
+theorem bigXiArcTight_mono {B₅ B₅' : ℝ} (hBB : B₅ ≤ B₅') (h : BigXiArcTight B₅) :
+    BigXiArcTight B₅' := by
+  intro eps heps
+  obtain ⟨H₀, hH₀⟩ := h eps heps
+  refine ⟨max H₀ 3, ?_⟩
+  intro H _ hle ξ hξ
+  have hle₀ : H₀ ≤ H := le_trans (le_max_left _ _) hle
+  have hH3 : 3 ≤ H := le_trans (le_max_right _ _) hle
+  exact nearRatTight_mono (arcDen_mono hBB hH3) (hH₀ H hle₀ ξ hξ)
 
 end Salt.MR
 

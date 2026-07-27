@@ -1281,3 +1281,16 @@ open Salt.Tactic in
   Salt.MR.chi_floor_real_uniform
   Salt.MR.chi_floor_real_door
   Salt.MR.dhA_sqrt_weighted_floor
+  Salt.MR.arcDen_nonneg
+  Salt.MR.nearRat_of_nearRatTight
+  Salt.MR.nearRatTight_imp_nearRat
+  Salt.MR.nearRatTight_mono
+  Salt.MR.nearRatTight_neg
+  Salt.MR.nearRatTight_zero
+  Salt.MR.exists_large_den_of_not_nearRatTight
+  Salt.MR.exists_large_den_of_minorTight
+  Salt.MR.bigXiArcTight_of_minorArcTight
+  Salt.MR.bigXiArc_of_bigXiArcTight
+  Salt.MR.minorArcBound_of_minorArcBoundTight
+  Salt.MR.nearRatTight_arc_zero
+  Salt.MR.bigXiArcTight_mono
