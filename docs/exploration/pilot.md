@@ -12515,3 +12515,5 @@ the build never red at rest. The remaining road: S7, S9-design, S10b,
 the L₁ port, the Lemma-4/GS arc, the eq-26 bridge, S11's MR-side.**
 
 **2026-07-26 18:21 PDT — CORRECTION banked (JYH's challenge): the Siegel three-layer precision (fixed-χ classical / q-uniform = Siegel-strength, carried / the door escapes via effective Landau at tiny moduli). The overclaim struck; the absorption arithmetic at the door's W to be verified at the Landau port's consumer pin.**
+
+**2026-07-26 18:45 PDT — CLOUD BRIDGE DEFERRED to Monday (JYH): the environment lives on the jason account (invisible from silicon-acct); the GitHub-app grant for jyh/salt IS done (the 403 cleared — tonight's real progress); TOMORROW'S SETUP CHECKLIST: (1) from the jason seat: the environment + (2) the FIREWALL config (allow elan-init/leanprover cache/github domains for the build), (3) re-fire the drafted salt-bridge-lean4checker routine (the full prompt banked in this session — the D2 replay payload, 5am PT, report to cloud-trial-night-1 branch only). No routine was created tonight (both attempts failed pre-creation — nothing to clean up).**
