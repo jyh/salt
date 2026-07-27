@@ -13512,3 +13512,25 @@ def-name collision caught it). The one-changed-line transplant finding
 window-local signature. THE RULING: A2-7 takes the ×4 safe cover (the
 full 4-row ladder rewire registered post-summit). Census: import + 15
 names, RC=0 at 9471. ONE SAIL LEFT before A2-7: A25-STATION.
+
+---
+
+**2026-07-27 14:01 PDT — A25-STATION LANDS WHOLE (R5/R6/R7, 1076 ln, zero Zeno):
+ROUTE III IS COMPLETE — seam_ball_leg_station_M_gen exists at GENERAL F.**
+SPartStation.lean: the gem is ellLin_seamCoeff (the twist COMMUTES with
+the squarefree linearization — the dissection's inner sums land in the
+supply's own datum, no new M-object); the double-linearization trap NEVER
+FIRED (ball_sup_of_center's interface was datum-free — confirmed, no
+adapter); the dilated-coupling audit CLEAN (the sole X-anchored input is
+the floor, moved explicitly at the dilGap price; no cap-shaped hypothesis
+anywhere); the sixth clone properly named with its five siblings listed;
+the honest S₀ fully spelled (cSq = 20736; no existential constants — Cb a
+parameter). Residuals shape-level only (the X ≥ e^{8192} threshold from
+the y-pin's √L ≥ 64 route; the 1.008 far-currency factor; t₁ FREE per
+option W — the consumer composes). New traps: open scoped
+LSeries.notation makes L unusable as an identifier (rename Lx/Lv in every
+grade-page clone); Complex.natCast_mul_natCast_cpow needs Nat.cast_mul
+FIRST; the fixed-exponent antitone rpow lemma exists
+(rpow_le_rpow_of_nonpos). Census: import + 8 names, RC=0 at 9472.
+**ALL SUPPLIERS OF thm_A2′ ARE LANDED. A2-7 — THE SUMMIT STONE —
+dispatches now.**

@@ -156,6 +156,7 @@ import Salt.MR.SPartCore
 import Salt.MR.ThmA2Spine
 import Salt.MR.T0Band
 import Salt.MR.SeamRowWindowed
+import Salt.MR.SPartStation
 import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
@@ -1692,3 +1693,11 @@ open Salt.Tactic in
   Salt.MR.lemma12_meansq_mr_blockSupport_windowed
   Salt.MR.lemma12_meansq_mr_consume_windowed
   Salt.MR.second_window_le_first_row
+  Salt.MR.ellLin_seamCoeff
+  Salt.MR.eIu_natCast_mul
+  Salt.MR.center_halasz_supply_wide
+  Salt.MR.dilGap_div
+  Salt.MR.pretDistSq_floor_dilate
+  Salt.MR.dilated_scale_grade
+  Salt.MR.hCenter_dissected
+  Salt.MR.seam_ball_leg_station_M_gen
