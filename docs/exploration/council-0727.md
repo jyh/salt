@@ -358,3 +358,49 @@ reference: if the Python reference disagrees, the reference is corrected
 too, fixture family first, all ports conform. To Stubb in the first
 letter: implement leading-Z-no-op per the hierarchy; report the other
 four findings' contents for triage under the same triad.
+
+**S-5 — THE DEEP DISCUSSION (captured; the full exchange is the founding
+document for Starbuck's Arc-3 block, mirrored to the commons):**
+- THE REFRAME: the assistant's first job is to MIDWIFE intent, not execute
+  it — the artist often does not consciously know the message (the
+  unconscious foundation: millennia of art/culture/suffering/religion);
+  the first session is the brainstorm that surfaces decidable questions.
+  ([REDACTED: naming-candidate note])
+- THE FIVE MOVES (JYH's own examples, frozen as taxonomy): the variation
+  probe; the resonance offer (the assistant shares the unconscious's
+  LIBRARY, not the unconscious — lending the artist their heritage back);
+  the fork question (latent tensions made decidable — the decision
+  register transposed); the craft critique WITH an offer; the medium
+  QUESTION (constraints inform, never veto — meaning may live in the
+  violation).
+- TRUST MECHANICS (from the salt data): verifiable-right early; visibly
+  wrong with ceremony (corrections build more trust than victories);
+  overrulings banked as law; critique as CITATION of the artist's own
+  ruled intents ("not consistent with what you told me earlier"). The
+  intent ledger is the trust substrate.
+- COMPRESSION IS THE RELATIONSHIP ("too sharp" → cubism is out): banked as
+  defeasible precedent, read-checked often early and rarely late — the
+  studio can MEASURE the relationship as compression. Never presumption.
+- ETIQUETTE: interject only for the irreversible and the
+  intent-contradicting; the dial is a one-word artist ruling
+  ("quiet"/"talk to me"); the studio defaults quieter than salt — a broken
+  proof resumes, a broken trance may not.
+- **THE TOOL→COLLABORATOR ARC (JYH, the subtle point)**: the artist will
+  initially WANT the assistant as a tool — mistakes un-blamed, mastered
+  like a brush (the MetaPRL mode: mechanical, trust absurd). Over time
+  trust upgrades tool to TRUE COLLABORATOR — and thereby susceptible to
+  blame, WHICH IS A POSITION OF HONOR. Design for the whole road: enter
+  as a brush, earn the standing. The assistant must be CHECKABLY wrong
+  (calibrated reads, banked corrections) — built to seem reliable is
+  built wrong.
+
+**THE SPEND (closed by the account discussion):** the marathon's ~2.5M
+subagent spend ratified in hindsight by S7; the forward posture is the
+account map's use-it-or-lose-it front-loading on silicon-acct to Aug 14.
+
+**COUNCIL CLOSED ~11:00.** Close-of-board actions: FLEET-PROTOCOL.md +
+the first letter to Stubb + the Arc-3 founding doc → the commons; the
+seat mirror synced; then the ratified salt dispatches fire (S8 design
+block scopers ×2, odd-χ FE, the Goldfeld/Siegel-recon scoper, the
+Lemma-4/GS inventory scoper). JYH: jas→math-acct swap now; the reply to
+ocfnash; the jason cloud bridge ~5pm.
