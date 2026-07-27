@@ -12418,3 +12418,19 @@ refutation REPAIRED same-day: refuted at dusk, re-pinned by night, the
 eq-28 page kernel-run at the executor's own pins with margin. P2WIRE (the
 p²-K-copy, mechanical) + SEC9-GLUE (now unblocked — the eq-28 verdict
 resolved) dispatching.
+
+---
+
+**2026-07-26 17:26 PDT — P2WIRE lands whole: the p² row from ≥64 to ~2^{−65536} at the pin.**
+`Salt/MR/TypicalPriceK.lean` (303 ln, 4 theorems, zero diagnostics, all
+3-axiom, no heartbeat bump; full build green rc-checked 9443). The
+transplant STATEMENT-LAYER ONLY (SeamCalibrationK's public
+ramP2mass_direct made the four privates unnecessary); hypothesis lists
+BYTE-IDENTICAL (zero gates added — law #253 intact). **CONSUMERS CITE K2**
+(sum_lemma12Rows_priced_calibratedK2 — the whole-row form; the old
+K-density form coexists per the parallel-family ruling). Residual: THE
+FUSE (seam_row_calibratedK ∘ K2 — the X-vs-X_d gate reconciliation, the
+named consumer debt [B, 100–200]) — FUSE-WAVE dispatching; Basel optional.
+New traps: positivity has NO logb extension (hand-build via logb_nonneg +
+div_nonneg + linarith-over-pieces); nlinarith/field_simp benign under a
+logb atom (banked as the negative result). SEC9-GLUE dispatching alongside.

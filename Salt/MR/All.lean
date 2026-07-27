@@ -137,6 +137,7 @@ import Salt.MR.FloorProvenance
 import Salt.MR.KernelCarry
 import Salt.MR.TypicalPrice
 import Salt.MR.SeamCalibrationK
+import Salt.MR.TypicalPriceK
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1168,4 +1169,8 @@ open Salt.Tactic in
   Salt.MR.ramP2mass_direct
   Salt.MR.seam_row_calibratedK
   Salt.MR.sum_lemma12Rows_priced_calibratedK
+  Salt.MR.lemma12Rows_pricedK
+  Salt.MR.lemma12Rows_priced_ratioK
+  Salt.MR.sum_lemma12Rows_pricedK
+  Salt.MR.sum_lemma12Rows_priced_calibratedK2
   Salt.MR.farErr34_local_closes_of_gate
