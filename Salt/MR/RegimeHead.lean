@@ -183,9 +183,14 @@ theorem s5_spec_of_le (Q : ℝ) {x t : ℝ} (hx0 : 0 ≤ x) (hx : s5x0 Q ≤ x)
 
 /-! ### Section 3 — the CHOICE-JOIN `g`-builder -/
 
-/-- **The door's sieve parameter** `W = (log H₊)⁵` (Tao 1509.05422 Prop 2.4's `W`;
-S7's `B₅ = 5`).  This is the `Q` at which the A-arm reads S5, and the only channel
-by which `gJoin` sees `Hhi`. -/
+/-- **The A-arm height/quality parameter** `Q = (log H₊)⁵`.  [Docstring corrected
+2026-07-26 per s9-design-0726.md ⟦AMENDMENT A⟧: historically named after — and
+mis-documented as — "the door's sieve parameter W at S7's B₅ = 5".  It is NOT
+the §4 port's `W` (now `(log H)^{12}`, B₅ = 12): MRT's quality `M(g;X,Q)` is an
+inf over `q ≤ Q`, `|t| ≤ Q·x`, so any `Q ≥ 1` serves the A-arm, and `(log H₊)⁵`
+overserves.  The two parameters are DECOUPLED; nothing here moves with B₅.]
+This is the `Q` at which the A-arm reads S5, and the only channel by which
+`gJoin` sees `Hhi`. -/
 noncomputable def sieveW (H : ℕ) : ℝ := Real.log (H : ℝ) ^ (5 : ℕ)
 
 /-- **The CHOICE-JOIN `g`-builder** (S10b, the FLAW-2 repair).  Four arms, joined

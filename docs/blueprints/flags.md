@@ -12099,3 +12099,70 @@ path, not the door's). GATE-2: eq (27) must ride in the same wave or the arc
 stops one stone short. New source-looseness find: 𝒮 is defined on [X,2X] but
 (26)'s short window reaches 3X — model 𝒮 as a predicate (the corpus already
 does), never a Finset.
+
+---
+
+## CORRECTION: hsieve was ALREADY OWNED — the "unowned external" flag was stale (2026-07-26 20:13 PDT)
+
+HSIEVE-SCOPE (ownership pricing under the no-hypotheses law): the entry
+above ("hsieve: an unowned named external now on TWO critical paths...
+likely a self-contained sieve arc [C, unpriced]") is OBSOLETE.
+typical_density_le (Salt/MR/TypicalDensity.lean :859, landed 2026-07-19 via
+the Brun-track selberg_bound_simple + a Rankin tail, kernel-checked) IS the
+MR/MRT Lemma 2.2 density bound, unconditional, with explicit constant
+C = 2e^{19/log 2} + 1 ≈ 1.6·10^{12}; the blockOmega → Coprime bridge and
+the Mertens window bounds are landed too (mathlib itself has ZERO Mertens
+theorems — grep-verified; our Salt/Mertens carries 3345 ln). What is missing
+is WIRING ONLY: the HS-1..HS-6 ladder [B, 480–910 ln, no new mathematics] in
+s9-design-0726.md ⟦AMENDMENT A⟧. The constant is absorbed by a linear
+M-rescale (M := ⌈8C/δ⌉-shaped) that the parametric door inhabitant already
+covers; the (1+1/100) literal is NOT chased (that would be the true
+fundamental lemma, [C/D, 1500–3000+], needed only if someone wants MR
+Thm 1 at MR's own constant — the K-ladder M-pin is where the constant is
+designed to be absorbed). Also stale: Sec9Glue's docstring "the Mertens
+step lives inside hsieve" (:73/:100–102) — the Mertens side is landed.
+
+## The design-block refuter round: my own arithmetic corrected (2026-07-26 20:13 PDT)
+
+s9-design-0726.md took a REPAIR-THEN-FIRE ×2 round (the verify-posture law
+applied to the maestro's own work — as it should): the door-floor scale
+error (δ₀^{−1} confused with log H — the floor is exp(9·10^{38})); the
+"structural" exclusion claim false against the socket (floors are free; the
+honest K-family grounds are the landed kernel-checked removal bound); the
+fixed-A inhabitant UNPROVABLE (δ₀ has no exposed lower bound — the stone is
+now PARAMETRIC in M, the margin-hygiene law banked: no numeral pinned to a
+function of δ₀); the containment misreduced (Q₁ ≤ h, not Q_{Jb} ≤ h — H_K
+shrinks 54 orders); the Jb-truncation license RULED (our thm_A2′ at Jb = 2;
+MRT's J-maximality is their proof device; the landed K-exponent campaign is
+the proof; stone-4 confirms the reach); M4-9 is three steps not one (the
+C_MRT gate in-statement); the 1500-sweep list completed (five lemmas + two
+numerals + sieveW's decoupling + LandauL1's parametric-w + the Route-A
+refloor at 960(log H)^{24}loglog H). All folded in ⟦AMENDMENT A⟧.
+
+---
+
+## The IK §13.5 staging gap RESOLVED: BYPASS-COMPLETE — do not stage IK (2026-07-26 20:14 PDT)
+
+L36-SCOPE: S7's L3–L6 need NO unstaged source. The decisive find: **Vaughan's
+identity and the Type I/II reindex are ALREADY LANDED in-repo** — Salt/LS/
+Vaughan.lean (:91 vaughan, :156 vaughan_sum at ARBITRARY f : ℕ → ℂ) and
+Salt/LS/TypeSums.lean (:325 tail_decomp + the coefficient bounds), sorry-free,
+from the Rung-5 largesieve track. L3 collapses [C ~600] → wire-in [A/B ~60].
+The only analytic input remaining is the Vinogradov min-sum lemma, which is
+ON THE STAGED ten lectures (rendered pp. 54–56: eqs (2), (5), (7), (8), (9)
+with complete proofs — eq (9) IS the "[13, p. 346]" MRT cite; both citation
+schemes resolve to the same lemma, T8). mathlib has NO large sieve/Vaughan/
+min-sum (verified sweep). Revised S7 total ≈ 2200 (was 2500), zero unstaged
+dependencies, THE D-RISK IS GONE. Ten traps banked in the scoper report —
+the sharpest: T3 (deriving the d-dependent min-sum from printed eq (9) leaks
+a bare +N that EXCEEDS the trivial bound; derive from the block form (ii) —
+the one genuine design step; an executor handed only (9) will burn its
+budget); T1 (coprimality is not delivered by the Dirichlet stone — the
+reduction survives ONLY via the tight-radius amendment); T2 (the ceiling
+gives |α−a/q| ≤ 2/q², so state MINSUM at c/q² from line one; N(u) ≤ 6 not
+3); T5 (log N vs log H conversions need H ≥ ε^{−4} — a real H₀ arm); T0
+(unify ExpSum eR/eK BEFORE the wave — ruled: unify at eR, per Kusmin's own
+header); T7 (the landed Σ₃ deviates from the textbook shape — Cauchy–Schwarz
+against b(m) = Σ_{c|m, c>V} Λ(c), not Λ); T9/T10 (montgomery3.txt/.pdf are
+MNT III — no Vaughan; the repo-root montgomery3.pdf is an untracked
+duplicate, housekeeping only).

@@ -100,3 +100,116 @@ wave-5 to be told to match). M4-6 at 5·log W (U2). New stones:
 calFrameK_satisfiable_door, the S10a 1500-variants. Band re-priced ≈
 3900–6200. The re-frozen ladder issues as s9-freeze-0726.md AMENDMENT A after
 this block's refuter pass returns clean.
+
+## ⟦AMENDMENT A⟧ — the refuter repairs + the HSIEVE verdict (folded same
+evening; verdicts: FAMILY-REF REPAIR-THEN-FIRE, B5-REF REPAIR-THEN-FIRE;
+full structured verdicts in the wf_7056afa8 journal)
+
+**D-FAMILY, corrected and re-grounded.** My numbers were wrong at the door
+floor (log H₀door = δ₀^{−4/5} ≈ 9·10^{38}, NOT 10^{49} — I confused δ₀^{−1}
+with log H; density there ≈ 2.4·10^{−34}, ~15 orders above δ₀). And the
+"NEVER/structural" claim was FALSE against the socket: budget_head_grade_closed
+takes ANY δ ≤ δ₀ at a free floor, and the MRT-family density clears δ₀ at
+log H ≳ 1.5·10^{54} — floors are free, so the MRT family is NOT excluded.
+THE HONEST GROUNDS (the ruling STANDS on these): (i) the K-family removal
+bound is landed, kernel-checked, and constant-free (sum_ratioK_le /
+eq28_clears_of_M) — the MRT family would need its Lemma 2.2 constant made
+explicit + a new δ₀-keyed floor; (ii) at EQUAL H the MRT density never beats
+(log H)^{−5/4} (ratio ≥ 1.3·10^4 on every admissible regime); (iii) with the
+containment correction below the two floor arms are the same order anyway.
+Citation fixed: MRT Lemma 2.2 = 1503.05121v3 p. 8 (density); MR 1501.04585v4
+p. 6 (sieve bound).
+
+**The inhabitant is PARAMETRIC — the fixed-A stone was unprovable.** δ₀'s
+only exposed property is 0 < δ₀ (SpineFinal's existential; 2·10^{−49} is a
+SHAPE per chi-check), so A_gate_logK's LHS ~ 32·log M against a fixed-A RHS
+is a catch-#253 corner. RULING: `calFrameK_satisfiable_door (M) (hM : 1 ≤ M)`
+at `Adoor M := 2^18 * (Nat.log 2 M + 1)`, `G := 3072*M` — closes uniformly in
+M (LHS ~ 768·log M, RHS ~ 1.8·10^5·log₂ M); every other gate checked clean.
+Re-priced [B/C, 300–450]. THE MARGIN-HYGIENE LAW (standing): no stone in this
+design pins a numeral that is a function of δ₀.
+
+**The containment corrected — H_K shrinks 54 orders.** MRT A.2 / MR Thm 3
+demand only [P₁,Q₁] ⊂ [1,h], i.e. Q₁ ≤ h: log h ≥ M·A·log 2 (level-1), NOT
+the top-block containment (my Jb²·M·calE₂ was the Q_{Jb} ≤ h misreading).
+H_K := ⌈exp(M·Adoor M·log 2)⌉₊-shaped, log H_K ≈ 10^{55}-order at the door's
+M (post-C-rescale, below). Also corrected: log P₁ = A·log 2 (calE_one — my
+10^{58} was level-2); the (log Q₁)^{40/η} check is a SUFFICIENCY EXAMPLE at
+40/η = 480 (η = 1/12), not an obligation — the K-family meets (A.1)/(A.2)
+directly via levelGates_calibratedK; the load-bearing P₁-demand is A.2's
+error term, absurd room. calE = A·G^{j−1}·(j!)² (not 4^{j−1}-shaped).
+
+**THE TRUNCATION LICENSE (U-A, ruled).** MRT p. 21 chooses J maximal with
+Q_j ≤ exp(√log X₀) — at our enlarged x that J is ~10^{106}, while the landed
+K-apparatus pins Jb = 2. RULING: the port consumes OUR thm_A2′, stated at
+the K-family Jb = 2 — MRT's J-maximality is THEIR proof device, not our
+obligation. Our 𝒮 (two bands) is a SUPERSET of theirs, so the density side
+only improves; the A.2-proof side (the T/U decomposition reaching X/h) is
+exactly what the landed K-exponent campaign certified at Jb = 2 (calQK's
+j²M-exponent; seam_row_calibratedK; the N-UNIFORM kernel exits
+lemma14_contour_kernel supplying the hMsup reach at Tcut = 2^N(X/h₁) — the
+gap closes at every N). The write-up says "an 𝒮 of MR's shape at Jb = 2"
+(consistent with the eq26 round's U-4). Stone-4's wave brief must confirm
+the frame reach explicitly — the one caveat carried.
+
+**M4-9 re-specified (the "one monotonicity line" was three).** Exit at
+δ := doorGrade R.Hlo; (i) antitone-in-H (the doorGrade_anti shape); (ii) the
+delivered grade is C_MRT·(log H)^{−11/4}·loglog H (MRT 2.3's prefactor
+(log H)^{1/4}·loglog H — U-C; note the doorGrade shape is deliverable only
+for B₅ > 6, further retiring the B₅ = 5 provenance); (iii) the IN-STATEMENT
+gate C_MRT·loglog R.Hlo ≤ (log R.Hlo)^{3/2} (law #253 — the constant-
+absorption margin IS the content of the weakening; at B₅ = 5 the gap was
+ZERO). Still [B, 150–250].
+
+**The B₅ = 12 pin SURVIVED** (B5-REF R-1 UNFOUNDED, kernel-certified
+monotone: a bigger cap is strictly easier — bigXiArc_mono). My threshold
+algebra corrected: log H₀(S7) ≥ C/ε² (not the square root; the ∃H₀-inside-∀ε
+absorbs it; do not quote 10^{49}·√C forward — it conflated ε with δ₀).
+
+**The FULL 1500-sweep site list** (my three-lemma list was short):
+log_scale_threshold (DoorFloor :180 — 625→1500, 6250000→36000000, 2500→6000;
+the proof shape survives with √36000000 = 6000 exactly);
+regime_hthr_of_scale (:200); regime_W_headroom_of_H0door (:214 — its
+δ₀ ≤ 6250000^{−5/4} numeral moves to 36000000^{−5/4} ≈ 3.6·10^{−10}, ~39
+orders of δ₀-headroom); regime_W_headroom_of_floor (DoorDischarge :42);
+regime_head_W_headroom (RegimeHead :358 + its 6250000^{−5/4}); NEW [A] stone
+for Prop 2.4's second arm W ≤ H^{1/250} (⟺ 3000·loglog H ≤ log H — was
+unpriced); LandauL1's three in-statement w = 5 sites (door_L1_absorbed :244,
+door_L1_debit_absorbed :371, chi_floor_real_door :436) — PARAMETRIC-w
+variants appended (logq_absorbed is already w-general); chi-check :52's
+Route-A H1 x-floor re-derived at B₅ = 12 + U2's 5·log W: loglog X ≥
+960·(log H)^{24}·loglog H — one-sided, a gJoin/Hlo₀ arm, free by
+regimeEnlargeX; mr-freeze rows S9/S10 (annotated this commit); the sieveW
+docstring (corrected this commit — the VALUE stays (log H₊)⁵: it is the
+A-arm HEIGHT parameter, decoupled from the port's W; MRT's M(g;X,Q) needs
+only Q ≥ 1, so it overserves; gJoin unchanged — FAMILY-REF R-4 verified the
+Hlo₀ mechanism kernel-settled end to end). All variants ADDITIVE (new
+lemmas; landed ones untouched).
+
+**U2 rider corrected**: the supply coefficient is (1/4−ε)·loglog X (the
+landed s5_spec/chi_floor_real_door shape; 1/3 was MRT's θ = 2/3 number we do
+not have). And the M4-6 supply is the TWISTED q-uniform floor — it routes
+through LandauL1's interface (chi_floor_real_door), so M4-6 inherits the
+L1LowerEffective PRODUCTION residual (odd-χ FE [C, ~400] the cheapest;
+even-χ open). Recorded as an explicit dependency of the S9 arc.
+
+**THE HSIEVE VERDICT (same evening): ALREADY OWNED — the flag was stale.**
+typical_density_le (TypicalDensity.lean :859, landed 2026-07-19,
+kernel-checked [propext, Classical.choice, Quot.sound]) IS MR Lemma 2.2,
+unconditional, C = 2·e^{19/log 2} + 1 ≈ 1.6·10^{12}; the blockOmega bridge
+and the Mertens window are also landed (mathlib has NO Mertens; ours does,
+3345 ln). The constant costs ONLY a linear M-rescale — M := ⌈8C/δ₀⌉-shaped —
+absorbed by the parametric inhabitant (at M ≈ 3.2·10^{61}: LHS ≈ 4416, still
+under even the fixed 2^18 RHS). A weaker SHAPE (second-moment) would NOT
+work (forces log M ≈ 1/δ₀ — the frame goes symbolic); the true
+log P/log Q power is required and owned. THE WIRING LADDER HS-1..HS-6
+[B, 480–910]: the C-parametric eq28 variants (additive), card_blockfree_le
+extraction, the three analytic gates at the K-family (hreg FREE on the
+small-h branch — name the branch), the j-sum composition, the Pseq/Qseq pin
+(the cross-wire trap: NOTHING in the hsieve binder ties MemS's free Pseq to
+calP — pin at instantiation), the window generality via M4-8's dyadic split.
+Do NOT chase the literal (1+1/100) — the K-ladder's M-pin is where the
+constant is designed to be absorbed. Eight new traps banked in the scoper's
+report (n = 0 / half-open endpoint +1; Nat.sqrt vs Real.sqrt; the ∃-C
+wrapper stone so both consumers share one constant; the door-normalization
+log ω absorption into M — verify at instantiation).

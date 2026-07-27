@@ -12735,3 +12735,36 @@ VACUOUS on the door road ((log h)^{1/3}/const → ∞); repair A := ⌈(δ/8)log
 M := ⌈8/δ⌉ (P₁ ≈ h^{δ/8}, Q₁ ≈ h; CalFrameK gates survive — LHS log A vs
 RHS A/24). Wave 1 (E26-0..5b, cast route, eta-expanded filters) dispatched.
 Wave 2 (E26-6/7/8) queues behind wave 1 + the design-block verdicts.
+
+---
+
+**2026-07-26 20:14 PDT — THE TRIPLE VERDICT CEREMONY: the design block amended, hsieve
+OWNED, the IK gap DISSOLVED.** (1) The design-block refuters (2×
+REPAIR-THEN-FIRE) corrected my own arithmetic — the door-floor scale error
+(δ₀^{−1} vs log H), the socket-exclusion overclaim (floors are free; the
+K-family ruling now stands on the honest grounds: the landed kernel-checked
+constant-free removal bound), the UNPROVABLE fixed-A inhabitant (δ₀ has no
+exposed lower bound → the stone is PARAMETRIC: Adoor M := 2^18·(Nat.log 2
+M + 1), G := 3072M; THE MARGIN-HYGIENE LAW banked: no numeral pinned to a
+function of δ₀), the containment misreduction (Q₁ ≤ h, not Q_{Jb} ≤ h — H_K
+shrinks 54 orders to ~exp(10^{55})), the Jb-TRUNCATION LICENSE ruled (our
+thm_A2′ at Jb = 2; MRT's J-maximality is their proof device; the landed
+K-exponent campaign is the proof; stone-4 confirms the hMsup reach), M4-9's
+three-step exit (antitone + prefactor + the C_MRT gate in-statement), and
+the COMPLETE 1500-sweep site list (five lemmas, numerals 36000000/6000, the
+sieveW decoupling — docstring corrected, value stays, gJoin untouched —
+FAMILY-REF R-4 verified the Hlo₀ mechanism kernel-settled). B₅ = 12
+SURVIVED (kernel-certified monotone). All folded as ⟦AMENDMENT A⟧ in
+s9-design-0726.md; mr-freeze S9/S10 rows annotated. (2) HSIEVE-SCOPE:
+**already owned** — typical_density_le IS MR Lemma 2.2 (landed 7/19,
+kernel-checked, C ≈ 1.6·10^{12}); the constant costs a linear M-rescale the
+parametric inhabitant absorbs; wiring ladder HS-1..HS-6 [B, 480–910]; the
+flags "unowned external" entry corrected; JYH's no-hypotheses law SATISFIED
+at wiring cost. (3) L36-SCOPE: BYPASS-COMPLETE — Vaughan + Type I/II
+already in Salt/LS (the Rung-5 dividend!); the min-sum engine is on staged
+ten-lectures pp. 54–56; S7 ≈ 2200 with ZERO unstaged deps, D-risk gone; the
+IK morning-item for JYH dissolves; ten traps banked (T3 the +N leak is the
+one genuine design step). Dispatching: DOOR-INHAB (parametric inhabitant),
+W-SWEEP (1500-variants + H^{1/250} + parametric-w LandauL1), HS-WIRE
+(HS-1..HS-5). E26-WAVE-1 still aloft. The L-ladder foundation wave (L3-wire
++ L3c GEOM + L3b MINSUM) queues next.
