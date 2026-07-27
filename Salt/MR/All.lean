@@ -149,6 +149,7 @@ import Salt.MR.LandauDescent
 import Salt.MR.LandauOdd
 import Salt.MR.ThmA2Open
 import Salt.MR.Sawtooth
+import Salt.MR.ParsevalSingle
 import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
@@ -1550,3 +1551,10 @@ open Salt.Tactic in
   Salt.MR.L1_lower_odd
   Salt.MR.l1LowerOddEffective_pi
   Salt.MR.l1LowerOddEffective_one
+  Salt.MR.vtail_single_mean_sq_bound
+  Salt.MR.vtail_single_meansq_damped
+  Salt.MR.vtail_single_meansq_kernel
+  Salt.MR.vtail_single_meansq_kernel_neg
+  Salt.MR.contour_single_h_kernel
+  Salt.MR.perron_gap_single_le_gapMaj
+  Salt.MR.parseval_single_h

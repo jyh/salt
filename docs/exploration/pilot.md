@@ -13343,3 +13343,25 @@ inv_anti₀; the ContinuousAt.im misresolution; 1/n NOT Antitone on ℕ —
 index-shift to 1/(n+1) everywhere; the ofReal_sin simp-direction ambush;
 two heartbeat sinks fixed by avoiding simp). Four sails remain: A2-1,
 A2-3B, A25-CORE, A2-4.
+
+---
+
+**2026-07-27 13:08 PDT — A2-1 LANDS WHOLE (21 decls, 1010 ln, zero Zeno, first build
+pass): THE SINGLE-h PARSEVAL EXISTS.** ParsevalSingle.lean:
+parseval_single_h at :1153's exact binder discipline (hh4 the AS-2 guard;
+the ∀T hMsup family; the 1/(2π²) wrap) — the S8 ladder's biggest stone.
+THE CONSTANTS ARE A QUARTER, NOT A HALF (the refuter was a factor of 2
+conservative: the difference form loses 2 to the square-split AND 2 to
+the two windows): 41π / 1476π / 2952π / 236160π·Msup against the landed
+164π / 5904π / 11808π / 944640π. **NO (log X)^{−2/15} ANYWHERE** — the
+U/V deletion bought a strictly cleaner exit (no Taylor main term, no log
+loss); the T₀-block is an EXPLICIT frequency-integral summand
+(205π·∫_{−T₀}^{T₀}‖dpolyA‖²) awaiting A2-3's supply, exactly as briefed.
+The Egap is BYTE-IDENTICAL to the landed defect (the two-scale gapMaj at
+h₁ = h₂ = h dominates term-by-term — zero new Perron machinery). Four new
+traps banked (noncomputable-by-default in this layer; the field_simp
+closes-outright at the quartered constants; KernelCarry's 8 private
+helpers cost ~120 ln of re-cut in any sibling — with uSlab_eq_vSeg being
+rfl; the cheapest single-h integrability via
+shortSum_sub_const_sq_intervalIntegrable at c := 0). Census: import + 7
+names, RC=0 at 9465 jobs. Three sails remain: A2-3B, A25-CORE, A2-4.
