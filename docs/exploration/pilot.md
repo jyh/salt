@@ -13284,3 +13284,27 @@ gate — with the CONSUMER-RESTRICTION question: would a λχ̄-specific
 thm_A2′ dodge the general-f seam entirely?) and KC-A23B (the cap-free
 arm's closure) are ALOFT. SAWTOOTH also aloft. The A2 wave holds behind
 the checks, per the freeze's own law.
+
+---
+
+**2026-07-27 12:55 PDT — BOTH KILL-CHECKS HOME; THE A2 WAVE IS FULLY ALOFT.** KC-A23B:
+CLOSES (Amendment B — the θ-cancelling floor, the collision-as-socket
+design, the ball leg vanishing at t₁ := 0, FarArm banned in words,
+[C, 550–900]). KC-A25: route (ii) KILLED with a genuine counterexample
+(the smooth local factor vanishes ON Re s = 1 at f(2^k) = −1 — inside the
+evaluation strip; the finite-support fact was load-bearing all along) —
+but NO council return: ROUTE III ruled (Amendment C — the
+coefficient-level dissection: sPart squarefull ⍟ ellLin at y < 2; the
+landed y-generic supply serves every inner sum; the landed free-M face
+serves the dilated scales; the whole obligation was ever only the hSup
+binder). THE STRUCTURAL GEM: at the consumer's actual datum (λχ̄·g_𝒥,
+completely multiplicative) the killing zero CANNOT occur and sPart lives
+on squares — the CM narrowing is available and recoverable; the GENERAL
+R2 is bought (+300–450) so the interface stays unnarrowed (my ruling —
+the non-narrowing option needs no gate). The band, final: ~4600–7400,
+C-class, ZERO D-risk. SIX ALOFT: A2-0 (Lemma A.8 + the join), A2-1 (the
+single-h Parseval), A2-3B-EXEC (the cap-free arm, X-free per the
+dilated-scales coupling), A25-CORE (Route III R1–R4 incl. the general-R2
+insurance + the CM corollary), A2-4 (the M-window bridge + the D10
+repair), SAWTOOTH (the odd-χ closer). The forge is at full sail on the
+burn-down quota, exactly as the council ordered.
