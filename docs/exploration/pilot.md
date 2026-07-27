@@ -13389,3 +13389,19 @@ Set.image_mono (image_subset gone); the unusedVariables linter fails the
 gate on carried-but-unused data (the ε-route needs NO hf); the
 fourth-root route for (log X)² ≤ X (the √-route only gives 4X). Census:
 import + 19 names, RC=0 at 9466. Three sails: A2-2, A2-3B, A25-CORE.
+
+---
+
+**2026-07-27 13:18 PDT — A2-3B LANDS WHOLE (16 decls, 1263 ln): the cap-free arm is
+REAL and the fatal is REPAIRED.** CapFreeArm.lean: seam_row_number_capfree
+end to end — the large-M branch now has its row, the ownership ruling is
+TRUE ON BOTH BRANCHES at last. The socket design paid off exactly as
+drawn (one ladder, two thin suppliers). Corrections banked: STRICTNESS is
+load-bearing (the floors meet, not contradict, at ≤ — CapFreeFloor is
+strict); the break-even threshold is EXACTLY loglog X = 800 (the kill-
+check's margin prose was loose); the MISSING RUNG lesson (the calibratedK
+layer needed its own twin — ladder estimates must count the rungs between
+named endpoints); the hMcap NAME denotes two objects (T-NEW-4 sharpens
+T2 — grep is not a locator for caps). X-freedom clean for Route III.
+FarArm ban verified by grep. Census: import + 16 names, RC=0 at 9467.
+Two sails: A2-2, A25-CORE.

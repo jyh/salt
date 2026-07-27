@@ -293,3 +293,28 @@ not per-ladder** — S8-INV existed and would have caught it; future freeze
 syntheses run the per-row join explicitly. The join's docstring pins that
 Amendment A's fourth summand does NOT arise at the join (it is the ball
 residue — folded into GM or absorbed at A2-7).
+
+## ⟦AMENDMENT E⟧ — A2-3b LANDED (CapFreeArm.lean, 1263 ln)
+
+The capstone `seam_row_number_capfree` closes END TO END: no row cap, no
+collisionGate, no collision constant, no produced centre, and the 8S² ball
+summand REMOVED from the RHS (not zeroed — S8 at t₁ := 0). Both socket
+suppliers landed (pocketSocket_of_row carries the constant; _of_floor is
+constant-free and vacuous). THE FREEZE CORRECTION (T-NEW-1): strictness is
+load-bearing — the transported floor and the pocket cap MEET at the
+non-strict boundary; CapFreeFloor is strict-<, supplied from a uniform
+(1/16)loglog X datum floor + the explicit threshold 800 < loglog X (the
+break-even is EXACTLY 800; my "89% spare past 800" was wrong — the 89%
+starts near L ≈ 7273). THE PRICING LESSON (T-NEW-2): the ladder had a
+missing rung — seam_row_calibratedK sits between hUG34 and seam_row_number
+and needed its own twin (~170 ln); the overrun (1263 vs 550–900) is
+exactly that rung. X-FREEDOM CLEAN (the Route-III coupling passes: only
+lower gates, X ≳ 1618 + the 800-threshold, all fine at X/d). THE GLYPH
+SHARPENING (T-NEW-4): the NAME hMcap denotes TWO different objects in the
+corpus (CofactorDist's row cap vs CenterSupply's station cap) — grepping
+hMcap is not a safe locator; banked. The floor's PROVENANCE stays outside
+the file by design (T3 honoured): the natural supplier is lambda_nonpret
+at Q := 1 with S1's ellLin bridge, its ∃x₀ shape a declared law-#253 wart
+at the instantiation site (A2-7's job). Remaining on the ladder: A2-2
+(aloft), A25-CORE (aloft) + A25-STATION, A2-3 (the band supply — option W,
+free-centre), A2-7.

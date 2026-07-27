@@ -151,6 +151,7 @@ import Salt.MR.ThmA2Open
 import Salt.MR.Sawtooth
 import Salt.MR.ParsevalSingle
 import Salt.MR.MWindowBridge
+import Salt.MR.CapFreeArm
 import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
@@ -1578,3 +1579,19 @@ open Salt.Tactic in
   Salt.MR.Mrange_one_floor_2X
   Salt.MR.log_sq_le_self
   Salt.MR.contour_height_le_two_mul
+  Salt.MR.pretDistSq_ellLin_eq
+  Salt.MR.capFreeFloor_of_row_floor
+  Salt.MR.no_pocket_of_floor
+  Salt.MR.box_gate_le_X
+  Salt.MR.pocketSocket_of_row
+  Salt.MR.pocketSocket_of_floor
+  Salt.MR.ball_leg_vacuous_at_zero
+  Salt.MR.cofactor_Rbd34_local_nocap
+  Salt.MR.tL_supply_discharged34_local_nocap
+  Salt.MR.hUG34_supplied_nocap
+  Salt.MR.hUG34_fully_priced_nocap
+  Salt.MR.hUG34_unconditional_nocap
+  Salt.MR.hUG34_unconditional_beats_door_nocap
+  Salt.MR.seam_row_calibratedK_nocap
+  Salt.MR.seam_row_number_nocap
+  Salt.MR.seam_row_number_capfree
