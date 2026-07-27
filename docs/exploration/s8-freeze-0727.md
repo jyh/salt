@@ -355,3 +355,33 @@ loglog-below-1 junk (5 ≤ loglog u does NOT force u > 1 — TannGate
 supplies positivity; the h-ceiling gate is not monotone without it); the
 N-glyph collision (SeamLemma14's coefficient cutoff vs ParsevalSingle's
 dyadic DEPTH — renamed K in the spine).
+
+## ⟦AMENDMENT G⟧ — CONTRACT-TWIN landed; the brief was stale (census
+strike three); the rewire-vs-cover RULING
+
+**The correction first**: Amendment F's "price MR p. 20's second seam
+window" was STALE BY TWO DAYS — RamareMR.lean (landed 07-25, the hwin
+retirement) already pays it (ramSeamUpPoly_moment, seam_rows_grade,
+lemma12_meansq_mr with hwin GONE). The name collision surfaced it — the
+census-photograph lesson's THIRD strike on this freeze. The per-row-join
+law extends: **amendments naming residuals re-grep before dispatch.**
+
+**What landed**: SeamCoefW (the window inside the antecedent;
+strictly-weaker certificates); seam_coef_contract_windowed_sat — the
+KERNEL-CHECKED satisfiable-vs-empty pair (the windowed contract holds at
+a live datum where NO global (b,c) exists — the twin's reason to exist,
+proven); the windowed Lemma-12 chain at the RamareMR layer
+(spoly_ramare_split_mr_windowed: ONE changed line — the discarded `_` in
+the sum_congr WAS the relativized antecedent, trap 2 banked) with RHS
+byte-identical; hwin DROPPED not relativized (relativized is vacuous; it
+was a joint-support claim, as unsatisfiable as hcoef).
+
+**The residual + THE RULING**: seam_row_number_windowed is a LADDER
+REWIRE (~5 files — TLegExit hard-codes the 3-row shape; RamareMR's is
+4-row), not a proof problem. RULED: **A2-7 takes the ×4 SAFE COVER** —
+cite the windowed chain and price the row's 480-summand at ×4 in A2-7's
+OWN statement (second_window_le_first_row + the 4/3 prefactor, landed as
+citable numbers; in-statement per law #253, no landed edit). The honest
+full rewire (the 4-row ladder end to end) is a POST-SUMMIT cleanup
+candidate, registered, not blocking. W-4 (the capfree twin's identical
+pair) inherits the same cover.

@@ -13497,3 +13497,18 @@ A2-3 → A2-2 join VERIFIED. T-2: ballLterm's inner log is log(2X) not
 log X (constant-material). Census: import + 9 names, RC=0 at 9470.
 Aloft: A25-STATION, CONTRACT-TWIN, the cloud sentinel. Remaining after
 them: A2-7 ALONE.
+
+---
+
+**2026-07-27 13:52 PDT — CONTRACT-TWIN LANDS (15 decls, 495 ln): the windowed contract
+is real, certified satisfiable-vs-empty; the brief was stale — census
+strike three.** SeamRowWindowed.lean: the S8-shaped instantiation
+satisfies the windowed pair at every band with only
+coprime-multiplicativity (no gates), while the global pair is
+kernel-checked EMPTY at a live datum. The second seam window was ALREADY
+PAID (RamareMR, 07-25 — my Amendment F brief never re-grepped; the
+def-name collision caught it). The one-changed-line transplant finding
+(the sum_congr's discarded underscore WAS the window) banked as the
+window-local signature. THE RULING: A2-7 takes the ×4 safe cover (the
+full 4-row ladder rewire registered post-summit). Census: import + 15
+names, RC=0 at 9471. ONE SAIL LEFT before A2-7: A25-STATION.

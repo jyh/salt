@@ -155,6 +155,7 @@ import Salt.MR.CapFreeArm
 import Salt.MR.SPartCore
 import Salt.MR.ThmA2Spine
 import Salt.MR.T0Band
+import Salt.MR.SeamRowWindowed
 import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
@@ -1676,3 +1677,18 @@ open Salt.Tactic in
   Salt.MR.band_sup_supplied_Y
   Salt.MR.band_integral_of_sup
   Salt.MR.t0_band_supply
+  Salt.MR.seamCoefW_of_global
+  Salt.MR.seamCoefWLevels_of_global
+  Salt.MR.winCut_supp
+  Salt.MR.winCut_supp_real
+  Salt.MR.norm_winCut_le
+  Salt.MR.winCut_of_mem
+  Salt.MR.seamCoefW_winCut
+  Salt.MR.seam_coef_contract_windowed_sat
+  Salt.MR.spoly_ramare_split_mr_windowed
+  Salt.MR.ramErr_decomp_mr_windowed
+  Salt.MR.ramErr_moment_split_mr_windowed
+  Salt.MR.lemma12_meansq_mr_windowed
+  Salt.MR.lemma12_meansq_mr_blockSupport_windowed
+  Salt.MR.lemma12_meansq_mr_consume_windowed
+  Salt.MR.second_window_le_first_row
