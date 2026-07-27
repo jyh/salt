@@ -13473,3 +13473,27 @@ and the D2 fallback if the jason run fights its toolchain. No
 double-spend now: the jason run is the live crossing; silicon-acct's env
 HOLDS as the fallback. Post-Aug-14 the capability consolidates on jason
 with the seat, as the account map orders.
+
+---
+
+**2026-07-27 13:47 PDT — A2-3-BAND LANDS WHOLE (14 decls, 558 ln, zero Zeno): the
+T₀-band is SUPPLIED and PLUG-TESTED.** T0Band.lean: the radius-freedom
+verdict — the centre chain was radius-blind all along; THE PIN was
+ball_sup_of_center alone, at two monotone steps ⟹ the free-radius twin
+IS the landed page (bandSupS X (seamRad X) S₀ = ballSupS X S₀ closes by
+BARE rfl — T-4's twin-certification idiom, banked). NEW FINDING: the ball
+crown's annulus binders were DEAD WEIGHT (the proof intros them as
+underscores — never consumed; a binder list is not a locator for what a
+proof eats, T-1). THE IMPROVEMENT: the weighted-integral device (the
+renormalisation 1/(1+|t|) kept INSIDE — SeamBallWeighted's radius-uniform
+Cauchy page) pays the band with NO T₀ inflation of the main term — the
+interface's pinned 64·S₀² hit BYTE-FOR-BYTE; the crude measure×sup²
+route would cost (log X)^{1/15} on the dominant term (T-3: keep the
+weight inside in every future leg). The margin: option W's exact price is
+1/120 of an exponent — one part in 433 of the available margin; the
+fourth summand at (log X)^{−13/15}. THE PLUG TEST PASSES (/tmp, RC=0):
+thm_a2_spine typechecks with hband := t0_band_supply's exit — the
+A2-3 → A2-2 join VERIFIED. T-2: ballLterm's inner log is log(2X) not
+log X (constant-material). Census: import + 9 names, RC=0 at 9470.
+Aloft: A25-STATION, CONTRACT-TWIN, the cloud sentinel. Remaining after
+them: A2-7 ALONE.

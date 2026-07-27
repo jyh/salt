@@ -154,6 +154,7 @@ import Salt.MR.MWindowBridge
 import Salt.MR.CapFreeArm
 import Salt.MR.SPartCore
 import Salt.MR.ThmA2Spine
+import Salt.MR.T0Band
 import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
@@ -1666,3 +1667,12 @@ open Salt.Tactic in
   Salt.MR.far_tail_crude
   Salt.MR.seam_Msup_family
   Salt.MR.thm_a2_spine
+  Salt.MR.bandSupS_seamRad
+  Salt.MR.bandLterm_pos
+  Salt.MR.bandTail_nonneg
+  Salt.MR.bandSupS_nonneg
+  Salt.MR.ballErr_le_radius
+  Salt.MR.band_sup_of_center
+  Salt.MR.band_sup_supplied_Y
+  Salt.MR.band_integral_of_sup
+  Salt.MR.t0_band_supply
