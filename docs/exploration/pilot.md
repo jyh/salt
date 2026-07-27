@@ -12474,3 +12474,23 @@ the if_congr device for Decidable mismatches; by_cases-then-if_pos
 bridges def'd predicates; nth_rewrite before ← rpow_add (the bare rw
 rewrites the base). **THE NIGHT'S FULL ARC: refutation → K-ladder →
 price → fuse → §9 — five majors landed since dusk.**
+
+---
+
+**2026-07-26 17:53 PDT — ⚑ H₀door DEFINED + THE S11 JUNCTION IN ONE STATEMENT. ⚑**
+`Salt/MR/DoorFloor.lean` (259 ln, 16 decls, zero warnings, all 3-axiom;
+full build green rc-checked 9446). H0door δ₀ := ⌈exp(δ₀^{−4/5})⌉₊ —
+SYMBOLIC (the shape from chi-check-0724 :88's defining equation; the
+road's numeral re-derived as a consistency check ✓; nothing reaches
+norm_num). The full API incl. doorGrade_le_of_H0door_le (the defining
+property) + the S10a hand-off byte-shaped (regime_hthr_of_scale →
+regime_W_headroom_of_H0door). **THE CERTIFICATE PROVEN:
+budget_head_at_H0door fires the compose target at extraFloor := H0door;
+budget_head_grade_closed = THE S11 JUNCTION — what remains is purely
+MRTUniformityXi R (doorGrade H) from the MR side.** The V9 informational
+retired same-day. Residuals: the heps arm (S11's business — needs the
+head's own ε/K, ~40 ln there); the All-wire (done at ceremony). New
+traps: Real.rpow_mul's arrow is opposite its name (← to collapse);
+rpow_neg_one exists (one step); the one_div…inv_inv idiom beats the
+churny inv_le_inv names; Nat.ceil API unifies THROUGH a plain def (no
+unfold). SIEGEL the last aloft.

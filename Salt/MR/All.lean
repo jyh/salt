@@ -140,6 +140,7 @@ import Salt.MR.SeamCalibrationK
 import Salt.MR.TypicalPriceK
 import Salt.MR.SeamNumber
 import Salt.MR.Sec9Glue
+import Salt.MR.DoorFloor
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1195,4 +1196,18 @@ open Salt.Tactic in
   Salt.MR.card_not_memS_le_sum
   Salt.MR.sec9_eq28
   Salt.MR.sec9_eq28_exit
+  Salt.MR.rpow_neg_anti
+  Salt.MR.H0door_pos
+  Salt.MR.exp_le_H0door
+  Salt.MR.H0door_anti
+  Salt.MR.doorGrade_pos
+  Salt.MR.doorGrade_anti
+  Salt.MR.log_ge_of_H0door_le
+  Salt.MR.doorGrade_le_of_H0door_le
+  Salt.MR.le_log_of_H0door_le
+  Salt.MR.log_scale_threshold
+  Salt.MR.regime_hthr_of_scale
+  Salt.MR.regime_W_headroom_of_H0door
+  Salt.MR.budget_head_at_H0door
+  Salt.MR.budget_head_grade_closed
   Salt.MR.farErr34_local_closes_of_gate
