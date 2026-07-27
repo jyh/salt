@@ -345,3 +345,16 @@ the campaign tail, on silicon-acct's burn-down quota.
 - **S-8 RATIFIED, accelerated: the jasonh → math-acct swap happens NOW** (not
   Wednesday) — Stubb writes the close-of-board handoff to the commons
   first; JYH carries the word immediately after council.
+
+**S-4 RULED (with JYH's refinement).** The adjudication hierarchy:
+(1) **a guiding principle, when one exists, wins** (the Ship-of-Theseus
+tier — the cardinality law's genre); (2) absent a principle, **consistency
+is the value** — the reference interpreter adjudicates; (3) fixture-first,
+then fix (the family that can SEE the divergence lands before the fix);
+(4) live divergences outrank feature work. AND THE CONCRETE RULING, JYH:
+**a leading Z is a NO-OP** — the artist never means a close-before-
+anything. This ruling is itself a guiding principle, so it outranks the
+reference: if the Python reference disagrees, the reference is corrected
+too, fixture family first, all ports conform. To Stubb in the first
+letter: implement leading-Z-no-op per the hierarchy; report the other
+four findings' contents for triage under the same triad.
