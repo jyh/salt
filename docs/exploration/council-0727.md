@@ -242,3 +242,33 @@ tier line sits.
   there (this morning's mirror); Stubb writes future SYNCs there
   directly. Stubb's instinct not to write uninvited was right — hence
   the explicit ruling, so no invitation is needed next time.
+
+---
+
+# THE SITTING — rulings (banked live, 2026-07-27 09:00)
+
+**Item 1 — S8/thm_A2′ rescope: RULED GO** (design block today, post-council;
+all action holds until the sitting closes). JYH: "we have worked hard and
+encountered many windmills *and* giants since that estimate on S8."
+
+**Item 2 — the Landau production: RULED** — (a) the odd-χ FE stone GO
+[C, ~400] post-council; (b) the inventory scoper on the LANDED
+Goldfeld-lossy/SiegelFinal machinery against the door's exact demand
+(any polynomial grade), with one question added to its brief: *is the
+landed Goldfeld branch EFFECTIVE as stated?* (Goldfeld's method does not
+case-split on a phantom zero); (c) **THE PEARL DOCTRINE, ratified**:
+effectivity is a jewel, never a blocker. JYH: "we admitted the axiom of
+choice from the beginning, we already knew which path we walked...
+constructive number theory is not our goal here. However, if we can get
+that pearl, we will take a line from our friend Ahab and track it, of
+course, within reason." Concretely: (i) the EFFECTIVITY AUDIT becomes a
+named read-only stone (enumerate every constant in the final chain,
+classify effective / explicit / poisoned — the two known risk sites: the
+even-χ floor if classical-Siegel-routed, and S3's registered
+compact-min ε₀); (ii) grade-two target noted (an explicit X₀(ε) tower —
+"log-Chowla, machine-checked, with a computable threshold") — closer than
+it has a right to be, thanks to the margin-hygiene/no-implied-constants
+house laws; (iii) truth first — the campaign never waits on the pearl.
+
+**Item 3 — eq-26 mechanical close: NOTED** (gated on hMsup + Lemma 4 by
+construction; no ruling needed).
