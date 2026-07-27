@@ -329,3 +329,19 @@ doubles as Siegel-coastline reconnaissance (interfaces mapped at dichotomy
 generality); (ii) the S8 freeze states interfaces at natural generality;
 (iii) the fulcrum-sweep may start as background read-only lenses during
 the campaign tail, on silicon-acct's burn-down quota.
+
+**STUBB'S LIST — rulings:**
+- **S-1 RATIFIED: Starbuck is summoned** — the identity-semantics design
+  freeze (fill-rule-on-edit + element-field preservation + referential
+  integrity as ONE law; refuter-gated; completes the edit-semantics
+  constitution beside the cardinality law).
+- **S-2 RATIFIED** (gradient stop remap → Stubb implements at cadence).
+- **S-3 RATIFIED** (transform-blind blob merge → same).
+- **S-4: held for discussion** (the sitting continues below).
+- **S-5 RATIFIED — the apostles are Arc 3's north star** + deeper
+  discussion held now ("critical artist interaction" — JYH).
+- **S-6 deferred confirmed.** [REDACTED at the 08/16 flip ruling: held-domain naming-candidate record]
+- **S-7 RATIFIED** (iPad deferred; the transplant constraint binds).
+- **S-8 RATIFIED, accelerated: the jasonh → math-acct swap happens NOW** (not
+  Wednesday) — Stubb writes the close-of-board handoff to the commons
+  first; JYH carries the word immediately after council.
