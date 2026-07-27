@@ -1019,7 +1019,10 @@ thm_A1′ 300–500; §9 glue 1000–2000 (Lemma 5 critical); S7 ARC 2500; S9
 already repaired+landed as `renormalise_shifted`; S9 is the straight §4
 major-arc port, band 3250–5200, freeze at s9-freeze-0726.md; preconditions
 P-1 exact-denominator S7 exit + P-2 W choice); Siegel arm 500 (the real-χ exceptional gap — pilot-only, now
-flagged); S10b 900; **H₀door: NO LEAN DEFINITION EXISTS (~150, unowned —
+flagged); S10b 900 → LANDED 2026-07-26 (RegimeHead.lean: gJoin +
+chowlaRegime_exists_param_head at arbitrary g + epsFloor; M0/X0MR typed slots
+await S9; the S11 boundary: g threads inside SpineFinal, not post-hoc);
+**H₀door: NO LEAN DEFINITION EXISTS (~150, unowned —
 JYH-informational)**; S11 COMPOSE 600 (spine_False_core_xi is PRIVATE —
 the wave appends INSIDE SpineFinal.lean). **TOTAL ~13.3k–19.9k, zero
 D-nodes, NO live JYH gates** (the spine-budget-freeze PENDING-JYH text is
