@@ -13052,3 +13052,22 @@ the Z-first flattening divergence (Rust guards, Swift doesn't — probed,
 newly declared). FLEET RULING: ${SEAT_DIR}/fleet/ = the cross-seat commons (any
 seat writes; seat/memory/ stays salt's mirror). Council table final,
 truly this time.
+
+---
+
+**2026-07-27 11:52 PDT — THE COUNCIL CLOSED; THE HELD DISPATCHES FIRE.** The first fleet
+council's full record: council-0727.md (mirrored to the commons). The
+close-of-board executed: FLEET-PROTOCOL.md (the mailbox: ${SEAT_DIR}/fleet/mail/,
+read at open + close-of-board, JYH the interrupt, information never
+commands), ARC3-FOUNDING-0727.md (the S-5 studio-collaboration design: the
+midwife reframe, the five moves, trust mechanics, compression-with-
+checking, the etiquette dial, the tool→collaborator arc), the first letter
+sancho-to-stubb (the rulings + the leading-Z no-op + the math-acct swap + the
+four-findings request), the seat mirror synced (6a26233). FIVE SAILS UP:
+S8-INV + S8-SRC (the rescope's supply/demand halves — my synthesis + the
+refuter pass follow), LANDAU-ODD (the FE stone at natural generality),
+GOLD-INV (coverage + effectivity + the Siegel coastline for the dichotomy
+port), GS-INV (the Lemma-4 inventory against the landed Halász corpus).
+JYH's afternoon: the math-acct swap, the ocfnash reply, the ~5pm jason cloud
+bridge (the routine prompt gains bigXiArcTight_twelve in the spot-checks).
+The grand slate stands: after water, salt, the pearl, and the gold.
