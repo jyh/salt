@@ -137,3 +137,72 @@ Jb while calFrameK_satisfiable is where Jb = 2 lives; the s0-clip containment
 is an obligation; Lemma4Comparison is dead code today (header amendment rides
 with the landing wave, not before); E26-6's blocker is Prop 1 not (26);
 rendered pages only.
+
+## ⟦AMENDMENT A⟧ — the refuter repairs (folded before wave 1; verdicts:
+BINDER-REF REPAIR-THEN-FIRE, IRRED-REF REPAIR-THEN-FIRE)
+
+**SURVIVED (UNFOUNDED ×5):** the binder byte-fit (windows/normalizations/C-
+uniformity/index range all exact; the strengthening legitimate both ways —
+explicit conclusion AND weaker hypothesis); the derivation closes (Σ|·| of
+the difference — E26-1's shape is precisely the composer); the J-pin (no
+consumer needs J → ∞; sec9_eq28_exit uniform in J); the irreducibility
+(CONFIRMED harder than claimed: every kernel exit is L²-in-x, (26) is
+pointwise-in-x — no L² bound reaches it; the low-frequency band |t| ≤ T₀ is
+exactly the pretentious band only Lemma 4 handles); the E26-0 pricing
+(conservative — see the cast-route note below).
+
+**REPAIRS (all folded into the rows above by this amendment):**
+- **E26-5 SPLIT.** The "defect ≤ 1/h = sec9_four_term's R" equation was
+  FALSE (R is the cardinality-normalization defect OUTSIDE the mean square;
+  the E26-5 defect is the shortSum↔closed-Icc conversion INSIDE E26-6's).
+  Now: **E26-5a** — pointwise bridges |(1/hⱼ)shortSum a s0 x hⱼ −
+  (1/hⱼ)Σ_{Icc ⌈x⌉₊ ⌊x+hⱼ⌋₊, MemS}| ≤ 1/hⱼ at s0 := (Icc ⌈X⌉₊ ⌊4X⌋₊).filter
+  MemS (both clip directions automatic; KernelCarry's hrange met; the short
+  window reaches < 3X < 4X). **E26-5b** — the explicit record that
+  sec9_four_term's R is a DIFFERENT object. **E26-6 gains the binder
+  hh1lo : 400/δ ≤ h₁** (post-Chebyshev placement, the cheaper form; the door
+  road h ≍ log X discharges it at any fixed δ). No landed lemma supplies any
+  h₁ lower bound — the binder must be in the row (catch #253: at h₁ = 1 the
+  squared bridge defect is Θ(1) against a vanishing target).
+- **E26-6 REWRITTEN** (three incompatible instructions resolved): E26-6
+  carries Step 1 as an explicit hypothesis IN THE :1153 SHAPE and therefore
+  consumes no landed lemma; the "prefer lemma14_contour_of_Msup_at" note is
+  DELETED (category error — that is the uSlab CONTOUR form at N = 1, whose
+  conversion resurrects the irreducible Perron defect the kernel bought
+  off); the fires-once-at-Tann note does NOT transfer (the ∀T family is
+  consumed at N dyadic levels). E26-6 also budgets: a public
+  shortSum_measurable' re-proof (~15 ln — the landed one is PRIVATE at
+  Lemma14 :563; the only public integrability export covers only the
+  two-scale difference, not ‖(1/h₁)S₁ − c‖²; do NOT de-private the landed
+  line), and the SECOND ℂ↔ℝ crossing at the KernelCarry side (+~60–100).
+- **E26-7 RESTATED** (GATE-2 was necessary, not sufficient): the honest
+  deliverable is the exceptional-set form — ∃ E, (measure bound) ∧
+  ∀ x ∈ [X,2X] \ E, hthm3f ∧ hthm3one — with the UNION of the f- and
+  f≡1-exceptional sets and the non-vacuity count. The f ≡ 1 instance is a
+  SECOND full chain: its Lemma-4 rows are free (E26-3 is uniform in f) but
+  its Step-1 supply is a second CARRIED hypothesis (priced into wave 2).
+  Micro-gap closed: the Finset.sum_const/card bridge for hthm3one (2 ln,
+  now in E26-7's scope).
+- **NEW E26-8 [A/B, 150–250] — the A(h) instantiation (★ the corner):** the
+  pinned A = 65536 makes P₁ an absolute constant, so Theorem 3's error
+  (log h)^{1/3}/P₁^{1/6−η} → ∞ on the door road — TRUE BUT VACUOUS at the
+  pin. Repair: A := ⌈(δ/8)·log₂ h⌉, M := ⌈8/δ⌉ ⟹ P₁ ≈ h^{δ/8},
+  Q₁ = 2^{MA} ≈ h — meets [P₁,Q₁] ⊆ [1,h] and MR p. 31's shape; the
+  CalFrameK gates survive (A_gate_logK's LHS ~ log A vs RHS ~ A·log2/24;
+  G_gateK/A_floor h-free). Note: this h-dependent inhabitant is for the
+  Theorem-3 SUPPLY side; the eq-(28) demand side stays scale-invariant.
+- **Executor permissions/nits:** E26-0 via the CAST ROUTE is permitted and
+  preferred (gJR + gJR_ofReal + Complex.ofReal_inj transport of the landed
+  lemma5 — ~80–140 ln; the full re-proof suite only if the cast resists;
+  gJR_mul etc. only in E26-4); write ALL filters eta-expanded
+  (.filter (fun n => MemS ...)) to match the landed syntactic forms; the
+  dyadic-chaining sentence in the kill-check reads "fails at the single
+  final (log X)^{1/5} step to X" (chaining below hTwo X is admissible);
+  "Four side-checks" reads three; the Jb = 2 pin is TIGHT (G_gateK holds
+  with EQUALITY at the pinned frame — raising Jb requires re-pinning G) and
+  the write-up says "an 𝒮 of MR's shape at Jb = 2", never "MR's 𝒮".
+
+**WAVE PLAN:** wave 1 (NOW) = E26-0 (cast route), E26-1, E26-2, E26-3, E26-3′,
+E26-4, E26-5a/5b — the elementary core, all A/B, ~500–900. Wave 2 (after
+wave 1 + the design-block verdicts) = E26-6 (amended), E26-7 (exceptional-set
+form), E26-8.
