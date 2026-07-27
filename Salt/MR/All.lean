@@ -143,6 +143,7 @@ import Salt.MR.Sec9Glue
 import Salt.MR.DoorFloor
 import Salt.MR.SiegelArm
 import Salt.MR.BigXiArc
+import Salt.MR.RegimeHead
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1248,3 +1249,24 @@ open Salt.Tactic in
   Salt.MR.nearRat_arc_zero
   Salt.MR.bigXiArc_mono
   Salt.MR.farErr34_local_closes_of_gate
+  Salt.MR.regimeEnlargeX_x
+  Salt.MR.regimeEnlargeX_omega
+  Salt.MR.regimeEnlargeX_eps
+  Salt.MR.regimeEnlargeX_Hlo
+  Salt.MR.regimeEnlargeX_Hhi
+  Salt.MR.s5_spec
+  Salt.MR.s5_spec_of_le
+  Salt.MR.anchor_le_gJoin
+  Salt.MR.s5x0_le_gJoin
+  Salt.MR.carm_le_gJoin
+  Salt.MR.mrThreshold_le_gJoin
+  Salt.MR.omega_le_gJoin
+  Salt.MR.gJoin_pos
+  Salt.MR.chowlaRegime_exists_param_head
+  Salt.MR.chowlaRegime_exists_param_of_head
+  Salt.MR.chowlaRegime_exists_param_head_gJoin
+  Salt.MR.s5x0_le_of_gJoin
+  Salt.MR.s5_at_regime
+  Salt.MR.mrThreshold_le_x
+  Salt.MR.heps_arm_of_epsFloor
+  Salt.MR.regime_head_W_headroom

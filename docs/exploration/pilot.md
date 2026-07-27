@@ -12564,3 +12564,34 @@ exponent). Register item s8-freeze :61 RESOLVED (general-f interface source-
 confirmed). New risk named: hsieve unowned on two critical paths (flags entry).
 Refuter pass on the freeze dispatched per the verify-posture law. LANDAU-WAVE +
 S10B-WAVE aloft concurrently.
+
+---
+
+**2026-07-26 19:01 PDT — S10B-WAVE lands whole (B-1/B-2/B-3): the CHOICE-JOIN blocker was
+never a wall.** Salt/MR/RegimeHead.lean (378 ln, 27 decls, all axiom-clean).
+The mechanism: every x-constraint of ChowlaRegime is a one-sided LOWER bound
+(field-by-field confirmed at Regime.lean :73–136), so regimeEnlargeX rebuilds
+the regime at any larger outer scale with eps/ω/a/Hlo/Hhi/C0/J carried verbatim
+— the g-argument g R.Hhi R.ω does not move. gJoin = the four-armed max (numeral
+anchor / Classical.choose off the unconditional lambda_nonpret totalised at
+max 1 Q / the C-arm double-exp / Finset.sup X0MR over the window); acyclicity
+visible in the types (gJoin sees only (Hhi,ω), never x, never R). B-2
+chowlaRegime_exists_param_head is byte-identical to mr-freeze :20's demand at
+ARBITRARY g (strictly stronger); the of_head corollary recovers RegimeParam
+:380 verbatim at g := 0 — the drop-in certificate. B-3 landed hypothesis-free
+via the NEW epsFloor device: any binder f(ε) ≤ log H₊/2 becomes the floor
+demand ⌈exp(2f(ε))⌉₊ ≤ H₊ with no positivity hypothesis — the general way to
+feed log-side side-conditions into the head's Hlo₀ slot (bank this).
+regime_head_W_headroom: from 0 < δ₀ ≤ 6250000^{-5/4} alone, a regime above
+both the caller's floor and H0door δ₀, clearing gJoin, satisfying Tao's
+(log H₊)^625 ≤ log(x/(2ω)). M0/X0MR stay typed parameter slots (S9's X₀^MR has
+no Lean name yet) — S10b lands AHEAD of S9 by parametrisation. THE S11
+BOUNDARY documented in-file: the g-clearance cannot bolt onto
+budget_head_grade_closed post-hoc (R.x on both sides of the payload);
+threading g IS the S11 rerun inside SpineFinal (spine_False_core_xi private).
+New traps banked: Finset.le_sup metavars (pin membership first); 2-level max
+= two le_max_right through a plain def; structure-literal missing-field
+reporting (enumerate from the SOURCE structure, not the audited constraint
+list); Nat.div_le_div_right fully implicit; Nat.ceil_pos defeq-usable as
+1 ≤ ⌈·⌉₊. Census: 21 theorems wired, full build RC=0 at 9449 jobs, zero
+warnings from the new file (the 143 legacy Vk/Twelve lines pre-exist).
