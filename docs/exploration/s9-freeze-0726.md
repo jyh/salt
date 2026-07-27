@@ -256,3 +256,42 @@ Soundness of landed stones unaffected (they prove what they state); the
 COMPOSITION constants shift: S10a's 625 = 125·5 becomes 125·B₅ (RegimeHead's
 regime_head_W_headroom exponent included), and DoorFloor's provenance line is
 wrong. Feeds the same design block as U1.
+
+## ⟦AMENDMENT B⟧ — THE RE-FROZEN M4 LADDER (post design-block + refuter
+repairs; supersedes the table above where they conflict)
+
+Status: the ladder below is the dispatchable spec once its two gates land —
+S7's L-ladder (L-FOUND aloft; then L1/L2/L4/L5/L6/L7) and thm_A2′ (stone 4,
+the S8 arc). Already landed tonight from the consequence set:
+`calFrameK_satisfiable_door` + `eq28_door_clears` + `log_calQK_door_one`
+(DoorFrame), the S10a 1500-chain + `W_second_arm` (DoorFloor1500), the
+hsieve retirement (SieveGlue — M4-1's sieve leg now composes through
+`hsieve_of_engine`/`card_notMemS_pin` at ONE shared constant), the
+parametric-w absorption stones (door_L1_absorbed_12 etc.).
+
+| id | statement-shape (deltas from the original table) | class | ln |
+|---|---|---|---|
+| M4-0 | the window rewrite at the S7 approximant: consume `BigXiArcTight` (the tight q-dependent radius, q ≤ (log H)^{12}); NO q ∣ H clause, NO exact-denominator route | B | 150–250 |
+| M4-0′ | **NEW** — MRT (4.2) integration by parts: the drift kill at \|θ\| ≤ arcDen/(qH), producing the (W/(Hq))∫₀^{H/d}·dH′ factor | C | 300–450 |
+| M4-1 | unchanged in shape; the sieve leg CITES SieveGlue (hsieve retired; the (1+1/100) generalized to the shared C; the M-gate at 8C/δ — mind the 8.08 consumer note) | B/C | 200–350 |
+| M4-2 | unchanged (residue split + d₀-dilation, gated d₀ ≤ q ≤ W ≤ P₁ — the K-family's P₁ = calP (Adoor M) … makes the gate absurd-roomy) | C | 450–700 |
+| M4-3 | unchanged (character expansion; the conjugation bridge ONCE) | C | 300–450 |
+| M4-4 | unchanged (c.o.v. + trivial cut + dyadic cover) | C | 350–550 |
+| M4-5 | **RESTATED**: thm_A2′ at f := λχ̄, h := H′/d₀ for EVERY H′ ∈ [0,H] (trivial-bound branch below H·d₀/W³ — verified to close at ≪ dXH/(qW³)); X := X′ per dyadic block; η = 1/12 (the K-frame's η — NOT MRT's 1/20; the A.2 error term at P₁^{1/12} has absurd room); 𝒮 at the K-FAMILY via the door inhabitant (Adoor M, 3072M, M, Jb = 2 — the truncation license); side conditions IN-STATEMENT: √X ≤ X′ (from X′ ≥ X/W^{10} + W ≤ X^{1/250} via W_second_arm), [P₁,Q₁] ⊆ [1,h] (via log_calQK_door_one — the H_K floor arm), h ≥ 3, Q₁ ≤ exp(√log X₀) (one-sided at the H_K-forced x), Q₁ ≥ P₁ (calP_le_calQK). Ship ONLY this K-family list (U-f: not the old MRT-family pair) | C | 400–650 |
+| M4-6 | quality M(λχ̄;X′) ≥ **5·log W** (U2's E(M) = exp(−M/2) convention) uniformly over q₀ ≤ W = (log H)^{12} — via the LandauL1 interface: chi_floor_real_door_12 + door_L1_absorbed_12 (LANDED) + the L1LowerEffective PRODUCTION (the inherited residual: odd-χ FE [C, ~400] cheapest; even-χ open — S9's one external dependency beyond stone 4) | C | 400–700 |
+| M4-7 | unchanged (the arithmetic close ⟹ ≪ HX/(dW^{1/4})) | C | 350–550 |
+| M4-8 | unchanged (door glue B3/B4/B6; + HS-6's window-generality dyadic split rides here; + the door-normalization log ω absorption into M — verify at instantiation, the SieveGlue trap) | C | 550–850 |
+| M4-9 | **THREE STEPS** (not one): δ := doorGrade R.Hlo pinned; antitone-in-H; the C_MRT gate IN-STATEMENT (C_MRT·loglog R.Hlo ≤ (log R.Hlo)^{3/2} — the delivered grade is C_MRT(log H)^{−11/4}loglog H, which beats doorGrade = (log H)^{−5/4} only past the gate; the weakening IS the constant-absorption margin). ∀ξ-outside preserved (refuter-verified doctrine) | B | 200–300 |
+
+Band: **3650–5800** (the −IBP credit void per the refuter round; the sieve
+leg cheapened by SieveGlue). No D-node. The thm_A2′ INTERFACE SHAPE (stone
+4's brief must freeze exactly this; S8's wave-5 told to match): the
+mean-square form at general 1-bounded multiplicative f over the K-family 𝒮 —
+(1/X)∫_X^{2X}\|(1/h)Σ_{x≤n≤x+h, n∈𝒮_K} f(n)\|²dx ≪ (log h)^{1/3}/P₁^{1/6−η}
++ exp(−M(f;X,W))·M-term + (log X)^{−1/50}-shaped, at the door inhabitant's
+parameters, SINGLE-h (the V(x) form — MRT p. 21's own "no need to split";
+the landed KernelCarry difference form does NOT supply it; p. 21's displayed
+X/h₁ is a [17] carry-over, read X/h). Preconditions table: P-1 = the
+L-ladder delivering MinorArcBoundTight at B₅ = 12 (S7AMEND landed the
+reduction; L-FOUND + L1/L2/L4–L7 produce the bound); P-2 = W := (log H)^{12}
+(D-B₅, landed consequence chain).
