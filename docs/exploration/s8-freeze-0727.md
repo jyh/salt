@@ -385,3 +385,34 @@ citable numbers; in-statement per law #253, no landed edit). The honest
 full rewire (the 4-row ladder end to end) is a POST-SUMMIT cleanup
 candidate, registered, not blocking. W-4 (the capfree twin's identical
 pair) inherits the same cover.
+
+## ⟦AMENDMENT H⟧ — THE SUMMIT, PARTIAL: thm_a2'_of_rows IS IN THE KERNEL
+
+The frozen five-summand statement LANDED (ThmA2.lean :466) — every
+constant an explicit numeral (C₁ = 8448·C₁'², C₂ = 1787702400,
+C₃ = 188133, C₄ = 304128·ballSupC², C₅ = 6315000 — the provenance table
+in the report/ledger), the complete side-condition list in-statement, the
+×4 safe cover priced in (480·3 → 5760), no o(1) anywhere. The routing
+lemma landed (a2_row_cap_of_not_capFreeFloor); the frame bundle A2Frame
+landed with the two anti-monotone transfers PROVED (box_at/ksGate_at);
+the M-term rides the T₀ BAND on both branches (the row's 8S² is zero via
+the datum-free ball_leg_vacuous_at_zero — cleaner than designed). ONE
+REAL ADAPTER FINDING: calFrameK_satisfiable_doorH1 pins X_d = Q_{Jb}
+(Q_le_Xd at le_rfl) — unusable at the row's scale as stated; exactly one
+of twelve fields mentions X_d, so calFrameK_doorH1_at relaxes it
+field-for-field free. FREEZE-TRAP CORRECTION: Real.pi_gt_3141592 is a
+PHANTOM (the real names: pi_gt_d6/pi_lt_d6/d2/d4/d20).
+
+**THE EXACT REMAINING STONES (the final wave, dispatched):**
+1. a2Rows_of_capfree [B, bookkeeping] — seam_row_number_capfree at
+   Tann := 2T fed by A2Frame + the ~45 Tann-free binders + the frozen
+   weighting numerals (9/244/3/(3/2) — already in a2Mrow's statement).
+2. a2Rows_of_cap [C] — seam_row_number_nocap at t₁ := v₀ via the routing
+   witness + pocketSocket_of_row + hSup from seam_ball_leg_station_M_gen
+   + hM₀ from M_window_bridge_seam; CARRIES the T3-gap conditional
+   in-statement (the station's hMcap at the produced centre is not
+   derivable from the routing witness — the t₀-shift; the conditional
+   hypothesis form is stated verbatim in the file's §6).
+3. thm_a2' — the two-line by_cases glue.
+4. a2Frame satisfiability at the door inhabitant — the three per-instance
+   members (thin/blocks/err) are the real content; nine are monotone/free.

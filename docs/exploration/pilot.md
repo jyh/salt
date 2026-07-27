@@ -13534,3 +13534,20 @@ FIRST; the fixed-exponent antitone rpow lemma exists
 (rpow_le_rpow_of_nonpos). Census: import + 8 names, RC=0 at 9472.
 **ALL SUPPLIERS OF thm_A2′ ARE LANDED. A2-7 — THE SUMMIT STONE —
 dispatches now.**
+
+---
+
+**2026-07-27 14:36 PDT — 🏔 A2-7 SUMMIT PARTIAL: thm_a2'_of_rows IS IN THE KERNEL.**
+ThmA2.lean (753 ln, 8 public + the A2Frame structure): the frozen
+statement whole — five summands, all constants explicit numerals, the
+side-conditions complete, the ×4 cover priced in-statement, the M-term
+riding the T₀ band on BOTH branches (cleaner than designed). The adapter
+finding: the doorH1 inhabitant's X_d-pin was unusable at the row's scale
+— one-field relaxation, free. The phantom-lemma correction banked
+(pi_gt_3141592 does not exist — pi_gt_d6). New traps: exp 1 ≤ X does NOT
+give 3 ≤ X (a separate gate — one build cycle); set-body nlinarith
+timeouts dissolve by hoisting into private lemmas over fresh variables;
+the unused-binder linter vs genuine downstream side-conditions — pair
+them (hεwin : 0 ≤ ε ∧ ...). Census: import + 8 names, RC=0 at 9473.
+THE FINAL WAVE (A2-ROWS: the two branch suppliers + the glue) dispatches
+now — thm_a2' itself is one executor from done.

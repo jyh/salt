@@ -157,6 +157,7 @@ import Salt.MR.ThmA2Spine
 import Salt.MR.T0Band
 import Salt.MR.SeamRowWindowed
 import Salt.MR.SPartStation
+import Salt.MR.ThmA2
 import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
@@ -1701,3 +1702,11 @@ open Salt.Tactic in
   Salt.MR.dilated_scale_grade
   Salt.MR.hCenter_dissected
   Salt.MR.seam_ball_leg_station_M_gen
+  Salt.MR.bandLterm_seamT0_le
+  Salt.MR.t0BandB_grade
+  Salt.MR.egap_small
+  Salt.MR.thm_a2'_of_rows
+  Salt.MR.calFrameK_doorH1_at
+  Salt.MR.a2_row_cap_of_not_capFreeFloor
+  Salt.MR.A2Frame.box_at
+  Salt.MR.A2Frame.ksGate_at
