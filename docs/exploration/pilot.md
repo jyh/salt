@@ -12919,3 +12919,36 @@ on def-applications (hTwo X). Census: import + 20 public names, RC=0 at
 9456 jobs. THE ARC'S REMAINDER: the mechanical composition of wave-1+2
 stones into sec9_eq28_exit_calFamily's binders once Prop-1 supply (hMsup)
 and Lemma 4 land — both carried, both owned elsewhere on the road.
+
+---
+
+**2026-07-26 21:21 PDT — L-CORE LANDS WHOLE (38 decls, 901 ln, zero Zeno): the S7
+analytic center is IN — Type I, Type II, and the Λ-assembly.**
+MinorArcCore.lean: the two shared bridges nobody had priced
+(inner_range_eq — the landed inner range IS an Ioc of a Nat-division, the
+fact that lets geom_phase_bound reach the landed sums at all;
+eR_phase_reindex — the phase comes out at dist₁((d:ℝ)·α) 0, which is
+minsum_d_dependent's indexing VERBATIM, no further bridge needed). L4 with
+two honest sharpenings over the brief (Σ₁'s min-sum at D = U not UV; Σ₁'s
+prefactor 2·log x from the Abel-against-uniform-bound step — the log m
+weight is not a phase sum). L5 THE CS CENTER WHOLE: cs_expand via
+Complex.mul_conj/sq_norm + two sum_comm; the d-pair range again an
+interval (dpair_range_eq); THE DIAGONAL PROVED THE minTerm CONVENTION
+LOAD-BEARING — at h = 0, minTerm L 0 = L through if_pos; a literal
+min L (1/(2·dist₁)) evaluates to 0 there and would have silently proven a
+FALSE bound (the foundation's junk-trap defusal cashed exactly where it
+mattered). T6 both proved AND made consumable (typeII_block_eq_zero — a
+kernel fact L7 applies to truncate the dyadic index). L6 at the clean gate
+W·W ≤ x (rpow/floor arithmetic deliberately kept OUT — the call-site
+discharges at W = ⌊x^{1/4}⌋). Design residuals for L7 (not Zeno): the
+√-sum over dyadic blocks (√(A+B) ≤ √A+√B + geometric sum + the
+block_eq_zero cut); typeII_block_eq_zero deliberately not consumed inside
+typeII_dyadic_bound (the truncation point stays L7's choice). Seven new
+traps banked (RCLike.mul_conj doesn't rewrite in ℂ — the
+Complex.sq_norm route; sum_image-in-calc needs (f := ...) explicit;
+dist₁_comm direction; Nat.div_lt_iff mult order per variable; A+B+C
+parse alignment via le_of_eq (by ring); positional le_rfl mis-slotting;
+no speculative ring_nf after eR differencing). Census: import + 26 names,
+RC=0 at 9457 jobs. L-EXIT (L1/L2/L7 — the outer shell + the exponent
+close against the ε²/log H threshold, feeding MinorArcBoundTight at
+B₅ = 12) is the LAST S7 stone; dispatching now.

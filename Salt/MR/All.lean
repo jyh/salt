@@ -151,6 +151,7 @@ import Salt.MR.DoorFrame
 import Salt.MR.SieveGlue
 import Salt.MR.MinorArcVaughan
 import Salt.MR.Eq26Compose
+import Salt.MR.MinorArcCore
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1402,3 +1403,29 @@ open Salt.Tactic in
   Salt.MR.Ah_containment
   Salt.MR.calFrameK_satisfiable_Ah
   Salt.MR.levelGates_calibrated_Ah
+  Salt.MR.log_nat_nonneg
+  Salt.MR.log_nat_mono
+  Salt.MR.log_nat_monotone
+  Salt.MR.dist₁_neg_zero
+  Salt.MR.inner_range_eq
+  Salt.MR.eR_phase_reindex
+  Salt.MR.partial_phase_bound
+  Salt.MR.inner_phase_bound
+  Salt.MR.sum_Ioc_abel
+  Salt.MR.norm_sum_Ioc_weighted_le
+  Salt.MR.inner_log_phase_bound
+  Salt.MR.typeI_one_bound
+  Salt.MR.typeI_two_bound
+  Salt.MR.typeI_bound
+  Salt.MR.typeIIData_eq_zero_of_le
+  Salt.MR.typeII_inner_vanishes
+  Salt.MR.typeII_block_eq_zero
+  Salt.MR.dpair_range_eq
+  Salt.MR.typeIIBlockBd_nonneg
+  Salt.MR.typeII_block_bound
+  Salt.MR.norm_lambda_head_le
+  Salt.MR.lambda_head_add_tail
+  Salt.MR.typeII_dyadic_bound
+  Salt.MR.vinogradov_lambda
+  Salt.MR.vinogradov_lambda_dyadic
+  Salt.MR.vinogradov_lambda_sq
