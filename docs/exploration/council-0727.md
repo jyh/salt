@@ -196,3 +196,19 @@ carries the correction with this document.
 **Operational fix adopted this morning**: SYNC docs were invisible in a
 seat's scratchpad — the convention going forward is seat-repo `fleet/`
 (this one now mirrored there).
+
+## Addendum (pre-sitting): the jas helms + the Fable-phase duty
+
+JYH (2026-07-27): in the jas seat, **Starbuck = Fable**, **Stubb = Opus**;
+Opus normally runs, and the maestro flags whenever a Starbuck (Fable) phase
+is warranted. First read: nothing needs Starbuck today. The visible
+candidates on the horizon: (1) **the Arc-3/apostles design block** — the
+assistant architecture and the interaction law made operational; the
+clearest coming Fable phase, and worth pre-announcing at the sitting so its
+quota/scheduling can be planned; (2) **a systematic identity-semantics
+freeze** — element-field preservation + referential integrity on
+destructive edits + the fill-rule-on-edit question are today three
+case-by-case rulings; if JYH prefers ONE law (the cardinality law's genre),
+that is Starbuck-tier design, not Stubb-tier execution. The SYNC review
+itself was excellent Opus work; the two candidates above are where the
+tier line sits.
