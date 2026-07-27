@@ -150,6 +150,7 @@ import Salt.MR.LandauOdd
 import Salt.MR.ThmA2Open
 import Salt.MR.Sawtooth
 import Salt.MR.ParsevalSingle
+import Salt.MR.MWindowBridge
 import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
@@ -1558,3 +1559,22 @@ open Salt.Tactic in
   Salt.MR.contour_single_h_kernel
   Salt.MR.perron_gap_single_le_gapMaj
   Salt.MR.parseval_single_h
+  Salt.MR.pretFloorShape_def
+  Salt.MR.pretFloorShape_le_of_le
+  Salt.MR.dist_floor_far_sep
+  Salt.MR.dist_floor_far_range
+  Salt.MR.M_win_bddBelow
+  Salt.MR.M_win_window_nonempty
+  Salt.MR.M_win_le
+  Salt.MR.M_win_approx
+  Salt.MR.M_win_anti
+  Salt.MR.M_window_bridge
+  Salt.MR.M_window_bridge_inf
+  Salt.MR.M_window_bridge_seam
+  Salt.MR.M_rangeCap_at_self
+  Salt.MR.M_rangeCap_window_nonempty
+  Salt.MR.M_rangeCap_le_M_range
+  Salt.MR.Mrange_cap_one_floor
+  Salt.MR.Mrange_one_floor_2X
+  Salt.MR.log_sq_le_self
+  Salt.MR.contour_height_le_two_mul

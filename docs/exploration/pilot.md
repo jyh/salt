@@ -13365,3 +13365,27 @@ helpers cost ~120 ln of re-cut in any sibling — with uSlab_eq_vSeg being
 rfl; the cheapest single-h integrability via
 shortSum_sub_const_sq_intervalIntegrable at c := 0). Census: import + 7
 names, RC=0 at 9465 jobs. Three sails remain: A2-3B, A25-CORE, A2-4.
+
+---
+
+**2026-07-27 13:11 PDT — A2-4 LANDS WHOLE (22 decls, 472 ln): the M-window bridge with
+THE UNIT-COLLAR design + the D10 repair + a real find.** MWindowBridge:
+M_window_bridge_inf UNCONDITIONAL (no compactness, no continuity — the
+ε-route through exists_lt_of_csInf_lt), the headline slot the interface's
+M(f;X,W) EXACTLY, the collar paid in the far slot at W−1 (M_win_anti
+machine-checked; the safe direction; invisible at W = (log H)^{12});
+M_window_bridge_seam plug-ready VERBATIM into the station's hM₀ binder;
+three rejected alternatives recorded with reasons. THE REAL FIND (B-3's
+consumer sweep, 18 files): the |t| ≤ X cap on M_range is ALSO A MEASURE
+CAGE — annHead_le_measure_sup_capX prices the annulus at ≤ 2X via the
+window's Icc-cap, so widening the WINDOW would double the general-T rows'
+measure; the additive-twin design (M_rangeCap, with the rfl-at-K=X gift)
+is NUMERICALLY load-bearing, not merely iron-rule hygiene. The
+large-M-branch vacuity of the min is DECLARED (A2-7 routes the branch —
+A2-3b's territory; the min must not be read there). No slack-page
+threshold landed (the logloglog = o(loglog) page stays a carried gate —
+the FloorProvenance wart's sibling, declared). New traps:
+Set.image_mono (image_subset gone); the unusedVariables linter fails the
+gate on carried-but-unused data (the ε-route needs NO hf); the
+fourth-root route for (log X)² ≤ X (the √-route only gives 4X). Census:
+import + 19 names, RC=0 at 9466. Three sails: A2-2, A2-3B, A25-CORE.
