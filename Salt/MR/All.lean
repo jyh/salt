@@ -147,6 +147,7 @@ import Salt.MR.RegimeHead
 import Salt.MR.LandauL1
 import Salt.MR.LandauDescent
 import Salt.MR.LandauOdd
+import Salt.MR.ThmA2Open
 import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
@@ -1519,3 +1520,13 @@ open Salt.Tactic in
   Salt.MR.l1LowerOddEffective_of_l1LowerEffective
   Salt.MR.l1LowerOddEffective_of_sawtooth
   Salt.MR.l1LowerOddEffective_one_of_sawtooth
+  Salt.MR.exp_add_exp_sub_two_cos_le
+  Salt.MR.a3_prefactor_band_le_two
+  Salt.MR.a3_prefactor_max_le_three
+  Salt.MR.a3_logQ_third_mono
+  Salt.MR.a3_logQ_term_mono
+  Salt.MR.a3_head_le_third_grade
+  Salt.MR.parseval_a3_join
+  Salt.MR.far_of_mem_closedBall
+  Salt.MR.closedBall_subset_far
+  Salt.MR.ball_inf_floor_of_mem_far

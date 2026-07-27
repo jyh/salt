@@ -13308,3 +13308,17 @@ dilated-scales coupling), A25-CORE (Route III R1–R4 incl. the general-R2
 insurance + the CM corollary), A2-4 (the M-window bridge + the D10
 repair), SAWTOOTH (the odd-χ closer). The forge is at full sail on the
 burn-down quota, exactly as the council ordered.
+
+---
+
+**2026-07-27 13:01 PDT — A2-0 LANDS WHOLE (10 decls, 234 ln, zero Zeno) + the census
+lesson strikes home.** ThmA2Open.lean: the S1b join at explicit constants
+(the 5 = 2 + 3 of the two prefactor caps; field_simp closes the prefactor
+identities outright — the trap re-fires); the sup→inf licence in the
+corpus's own sInf idiom (plugs the M_range shape unchanged). THE HEADLINE:
+Lemma A.8 was ALREADY LANDED (halasz_cosh_ineq, 2026-07-19, S8-E5/K1) —
+the freeze's demand-derived row never joined the supply per-row; the
+executor re-exported with a loud docstring instead of duplicating.
+Amendment D strikes the row + banks the per-row-join law. Census: import
++ 10 names, RC=0 at 9463 jobs. Five sails remain aloft (A2-1, A2-3B,
+A25-CORE, A2-4, SAWTOOTH).

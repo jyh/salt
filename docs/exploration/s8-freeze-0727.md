@@ -277,3 +277,19 @@ A2-0 + A2-1 aloft; A2-3b (the executor, with the dilated-scales coupling +
 the FarArm ban + the collision-socket design) + A25-III-CORE (R1–R4) +
 A2-4 dispatch NOW; A2-2 behind A2-1's exit; A25-III-STATION (R5–R7)
 behind CORE; A2-7 last.
+
+## ⟦AMENDMENT D⟧ — A2-0 landed; the A.8 row was STALE (our own census lesson)
+
+A2-0 landed whole (ThmA2Open.lean: the join's five stones with the explicit
+5 = 2 + 3 constant; the sup→inf licence in the M_range idiom). THE FINDING:
+**Lemma A.8 was ALREADY LANDED** — HalaszCore :102 halasz_cosh_ineq,
+kernel-checked 2026-07-19, by exactly the independently-re-derived route
+(the MonotoneOn-on-Ici device even dissolves the θ = 0 edge); the complex
+face (JFactor.norm_exp_half_sub_sq) and its (A.11)/(A.12) consumers landed
+too. The A2-0 row is STRUCK to "cite halasz_cosh_ineq" (the new name is a
+loud re-export). THE PROCESS LESSON (jas lesson six, on our own row for
+the second time): **demand-side maps join the supply inventory PER-ROW,
+not per-ladder** — S8-INV existed and would have caught it; future freeze
+syntheses run the per-row join explicitly. The join's docstring pins that
+Amendment A's fourth summand does NOT arise at the join (it is the ball
+residue — folded into GM or absorbed at A2-7).
