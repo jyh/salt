@@ -13232,3 +13232,31 @@ claim was FALSE at commit time** — the python anchor missed (whitespace)
 and the assert fired AFTER the tree was staged; the ledger entry and
 commit message over-claimed. The correction is now actually applied (this
 commit), rc-checked. The honest-reporting law: recorded, not hidden.
+
+---
+
+**2026-07-27 12:25 PDT — H1-INHAB LANDS WHOLE (21 decls, 460 ln, first pass, zero
+Zeno): G6 IS FIXED WITH AN EXACT IDENTITY.** DoorFrameH1.lean: H1door in
+the frame's own language (form F1 — H1_pin becomes literally about calP;
+the 1/12 never needs a clean exponent because CUBING KILLS IT, and
+Adoor = 4·2^16(L+1) makes P₁^{1/4} = 2^{Kdoor M} an EXACT re-association
+— the new Kdoor def exists precisely to hide a 65536-scale exponent from
+ring, trap 1). The certificate: H₁²·log Q₁·P₁^{−1/4} =
+(log Q₁)^{1/3}/P₁^{1/12} EXACTLY — MR §8.1's term at η = 1/12; at the old
+pin the same factor GROWS at P₁^{+1/12}. mrAlpha_door_one machine-checks
+2α₁ = 1/4, cross-verified two ways against TLegE1. THE BANKED FINDING:
+the frame was never the binding constraint — the corrected pin sits
+P₁^{1/4}·log Q₁ BELOW the H1_pin ceiling (the old equality-pin was §8.1's
+enemy, not the frame's friend). level1_term_door_decays carries the row's
+own bracket byte-faithful (constant 5280 honest at H₁ ≥ 2; asymptotically
+~970.7 = S8-INV's number — not tightened, the decay was the mission).
+The thm_A2′ wave consumes calFrameK_satisfiable_doorH1 in place of the
+old inhabitant (A2-7's brief updated at dispatch). Census: 13 theorems,
+RC=0 at 9462. Six V9c-adjacent traps banked — the sharpest: the
+exponentiation.threshold LINTER fires on ring/ring_nf DISTRIBUTING door
+exponents (a warning, fatal under the zero-warning gate — hide exponents
+behind defs); norm_num/positivity whnf cast-args at door scale (explicit
+mul_nonneg); prove rpow↔pow collapses ONCE on an abstract base; congr 1
+on 2^a = 2^b blows the budget (rewrite the exponent first, close by rfl);
+the exponent-as-hypothesis idiom for α-arithmetic seams. Aloft: the S8
+refuters + SAWTOOTH.

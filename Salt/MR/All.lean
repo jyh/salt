@@ -150,6 +150,7 @@ import Salt.MR.LandauOdd
 import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
+import Salt.MR.DoorFrameH1
 import Salt.MR.SieveGlue
 import Salt.MR.MinorArcVaughan
 import Salt.MR.Eq26Compose
@@ -1346,6 +1347,19 @@ open Salt.Tactic in
   Salt.MR.levelGates_calibrated_door
   Salt.MR.eq28_door_clears
   Salt.MR.log_calQK_door_one
+  Salt.MR.Adoor_eq_four_mul
+  Salt.MR.calP_door_one_ge
+  Salt.MR.calP_door_one_rpow_quarter
+  Salt.MR.one_le_log_calQK_door_one
+  Salt.MR.H1door_two
+  Salt.MR.H1door_cube
+  Salt.MR.H1door_pin
+  Salt.MR.calFrameK_satisfiable_doorH1
+  Salt.MR.levelGates_calibrated_doorH1
+  Salt.MR.mrAlpha_door_one
+  Salt.MR.H1door_level1_identity
+  Salt.MR.H1door_level1_certificate
+  Salt.MR.level1_term_door_decays
   Salt.MR.sec9_eq28_const
   Salt.MR.eq28_clears_of_M_const
   Salt.MR.sec9_eq28_exit_const
