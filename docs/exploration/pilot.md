@@ -12517,3 +12517,27 @@ the L₁ port, the Lemma-4/GS arc, the eq-26 bridge, S11's MR-side.**
 **2026-07-26 18:21 PDT — CORRECTION banked (JYH's challenge): the Siegel three-layer precision (fixed-χ classical / q-uniform = Siegel-strength, carried / the door escapes via effective Landau at tiny moduli). The overclaim struck; the absorption arithmetic at the door's W to be verified at the Landau port's consumer pin.**
 
 **2026-07-26 18:45 PDT — CLOUD BRIDGE DEFERRED to Monday (JYH): the environment lives on the jason account (invisible from silicon-acct); the GitHub-app grant for jyh/salt IS done (the 403 cleared — tonight's real progress); TOMORROW'S SETUP CHECKLIST: (1) from the jason seat: the environment + (2) the FIREWALL config (allow elan-init/leanprover cache/github domains for the build), (3) re-fire the drafted salt-bridge-lean4checker routine (the full prompt banked in this session — the D2 replay payload, 5am PT, report to cloud-trial-night-1 branch only). No routine was created tonight (both attempts failed pre-creation — nothing to clean up).**
+
+---
+
+**2026-07-26 18:46 PDT — ⚑ S7 OPENS: the frozen arc transcribed + THE REDUCTION (bigXiArc_of_minorArc). ⚑**
+`Salt/MR/BigXiArc.lean` (511 ln, 29 publics, zero warnings, all 3-axiom;
+full build green rc-checked 9448). The transcription decisions DECLARED
+(B₅ a parameter not a numeral + bigXiArc_mono the staged-gate robustness;
+the radius forced by Dirichlet-at-the-card's-own-cap; no floor inserted;
+the ∃-binder order justified). **S7 is now EXACTLY MinorArcBound** — the
+Ξ_H bookkeeping is DONE (the sign-crossing nearRat_neg load-bearing; the
+ξ=0 instance discharged; the L1 weight frame landed). SOURCE FINDINGS:
+(1) the freeze's pp.24-25 pointer is one remark short — the content is
+REMARK 3.6 (:1416-1429), quoted in-file; (2) **Remark 3.6 has NO PROOF —
+the 2500-line price IS the IK §13.5 Vaughan/Vinogradov port (L3–L6);
+STAGING GAP: IK is NOT in docs/sources — stage before the L3–L6 dispatch
+(MORNING ITEM for JYH: locate/stage IK §13.5)**; (3) the Remark-3.6
+license VERIFIED at our datum (c_p = 1 — and would NOT hold for general
+g₁,g₂: the freeze's scoping vindicated); (4) mr-freeze :44's OPEN RISK
+DISCHARGED (the sources are staged + tracked). The L1–L7 ladder
+enumerated (~2500, L5 the risk stone). New traps: the ₀-migration is NOT
+uniform (div_le_div_iff gone but _of_nonneg_right survived — probe each);
+the abs-rewrite device for |kα−j|; the NeZero-instance round-trip;
+ZMod.val_zero needs no NeZero (the unused-binder audit); the two rpow
+stones for (log H)^{B₅} caps.

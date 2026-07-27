@@ -142,6 +142,7 @@ import Salt.MR.SeamNumber
 import Salt.MR.Sec9Glue
 import Salt.MR.DoorFloor
 import Salt.MR.SiegelArm
+import Salt.MR.BigXiArc
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1225,4 +1226,25 @@ open Salt.Tactic in
   Salt.MR.chi_Llower_real_of_L1
   Salt.MR.chi_floor_real_of_L1
   Salt.MR.exists_L1_lower
+  Salt.MR.nearRat_mono
+  Salt.MR.nearRat_neg
+  Salt.MR.exists_dirichlet_approx
+  Salt.MR.nearRat_of_pos
+  Salt.MR.exists_large_den_of_not_nearRat
+  Salt.MR.one_le_arcDen
+  Salt.MR.arcRadius_pos
+  Salt.MR.arcDen_mono
+  Salt.MR.arcRadius_mono
+  Salt.MR.exists_large_den_of_minor
+  Salt.MR.mem_bigXi_iff
+  Salt.MR.norm_expSum_le_sum
+  Salt.MR.not_mem_bigXi_of_norm_lt
+  Salt.MR.threshold_le_sum_inv_of_mem
+  Salt.MR.primeWindow_bounds
+  Salt.MR.inv_p_le_of_mem
+  Salt.MR.le_inv_p_of_mem
+  Salt.MR.norm_expSum_le_card
+  Salt.MR.bigXiArc_of_minorArc
+  Salt.MR.nearRat_arc_zero
+  Salt.MR.bigXiArc_mono
   Salt.MR.farErr34_local_closes_of_gate
