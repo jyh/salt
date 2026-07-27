@@ -12434,3 +12434,21 @@ named consumer debt [B, 100–200]) — FUSE-WAVE dispatching; Basel optional.
 New traps: positivity has NO logb extension (hand-build via logb_nonneg +
 div_nonneg + linarith-over-pieces); nlinarith/field_simp benign under a
 logb atom (banked as the negative result). SEC9-GLUE dispatching alongside.
+
+---
+
+**2026-07-26 17:41 PDT — ⚑⚑⚑ THE FUSE LANDS: seam_row_number — THE SEAM ROW IS ONE NUMBER-SHAPED BOUND. ⚑⚑⚑**
+`Salt/MR/SeamNumber.lean` (302 ln, 3 publics, zero warnings, all 3-axiom,
+no heartbeat bump; full build green rc-checked 9444). The pricing arc
+COMPLETE: refuted at dusk → K-ladder by night → priced → fused. The SIX
+reconciliation gates in-statement (R1 carried-and-derives-the-weaker —
+the one strengthening, docstringed loudly; R5 ANOTHER unlisted ‖a‖-debt
+FOUND in the read; no X/X_d identification anywhere; non-vacuity
+hand-checked). BASEL LANDED demand-side (eq-28 at MR's own M = 4/δ; the
+families coexist per the parallel ruling). Transplant fidelity
+MACHINE-CHECKED byte-identical. New traps: add_le_add-with-le_rfl chains
+beat _left/_right in nested sums (the expected type drives unification);
+pi bounds are pi_lt_d2-family; markdown tables break the 100-char gate in
+docstrings (bullets); hasSum_zeta_two needs the ZetaValues import;
+sqrt_eq_rpow closes the √-vs-rpow seam free; the splice-checker
+off-by-one pattern. SEC9 the last aloft.

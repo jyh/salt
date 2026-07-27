@@ -138,6 +138,7 @@ import Salt.MR.KernelCarry
 import Salt.MR.TypicalPrice
 import Salt.MR.SeamCalibrationK
 import Salt.MR.TypicalPriceK
+import Salt.MR.SeamNumber
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1173,4 +1174,7 @@ open Salt.Tactic in
   Salt.MR.lemma12Rows_priced_ratioK
   Salt.MR.sum_lemma12Rows_pricedK
   Salt.MR.sum_lemma12Rows_priced_calibratedK2
+  Salt.MR.seam_row_number
+  Salt.MR.sum_ratioK_le_basel
+  Salt.MR.eq28_clears_of_M_basel
   Salt.MR.farErr34_local_closes_of_gate
