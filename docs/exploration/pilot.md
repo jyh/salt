@@ -12595,3 +12595,22 @@ reporting (enumerate from the SOURCE structure, not the audited constraint
 list); Nat.div_le_div_right fully implicit; Nat.ceil_pos defeq-usable as
 1 ≤ ⌈·⌉₊. Census: 21 theorems wired, full build RC=0 at 9449 jobs, zero
 warnings from the new file (the 143 legacy Vk/Twelve lines pre-exist).
+
+---
+
+**2026-07-26 19:03 PDT — LANDAU-WAVE lands (LandauL1.lean, 508 ln): the route verdict
+corrects our own flags pricing, and the door's demand collapses.** Neither
+offered route gives q^{−1/2} (CNF blocked in mathlib: dedekindZeta has zero
+consumers, no ζ_K = ζ·L; hyperbola blocked mathematically: exp(−C√q) only —
+the flags entry corrected, not routed around). BUT door_L1_absorbed shows ANY
+polynomial grade absorbs at the door's pin, and door_L1_absorbed_subexp gives
+the exact boundary θ·w < 1 — so odd-χ FE/Gauss-sum q^{−3/2} [C, ~400] would
+suffice (even χ open), and the elementary route revives if W's exponent ever
+drops below 2 (currently 5). Consumer plug chi_floor_real_uniform lands
+byte-guaranteed (exact hC into SiegelArm :725); capstone chi_floor_real_door
+makes the whole L₁ debit an ε·loglog X. L1_lower_real_effective stays a named
+Prop — the production is the isolated residual, three continuations priced.
+Census: 10 theorems + import wired, RC=0 at 9450 jobs, zero warnings from the
+file. Six new traps banked (rpow/sqrt bridge; sum_image term-mode metavar;
+gcongr over div_le_div_of_nonneg_right; positivity is syntactic on products;
+the rpow-gate idiom; unused-binder drop re-confirmed).

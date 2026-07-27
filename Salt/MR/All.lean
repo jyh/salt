@@ -144,6 +144,7 @@ import Salt.MR.DoorFloor
 import Salt.MR.SiegelArm
 import Salt.MR.BigXiArc
 import Salt.MR.RegimeHead
+import Salt.MR.LandauL1
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1270,3 +1271,13 @@ open Salt.Tactic in
   Salt.MR.mrThreshold_le_x
   Salt.MR.heps_arm_of_epsFloor
   Salt.MR.regime_head_W_headroom
+  Salt.MR.L1LowerEffective_half_iff
+  Salt.MR.log_le_two_mul_sqrt
+  Salt.MR.logq_absorbed
+  Salt.MR.door_L1_absorbed
+  Salt.MR.door_L1_absorbed_subexp
+  Salt.MR.debit_le_affine_log
+  Salt.MR.door_L1_debit_absorbed
+  Salt.MR.chi_floor_real_uniform
+  Salt.MR.chi_floor_real_door
+  Salt.MR.dhA_sqrt_weighted_floor

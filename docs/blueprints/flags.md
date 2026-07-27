@@ -11993,3 +11993,40 @@ hsieve (Friedlander–Iwaniec Thm 6.17 + the Mertens product bound
 consumed by both the §9 glue and the S9 ladder's M4-1 (the 1_𝒮 insert). It is
 not priced anywhere on the door road. Needs an owner and a price — surfaced to
 JYH as an informational item; likely a self-contained sieve arc [C, unpriced].
+
+---
+
+## CORRECTION: the L₁ slot's "Landau hyperbola port [C, 400–800] effective at q^{−1/2}" was OPTIMISTIC — refuted with arithmetic; AND the door never needed q^{−1/2} (2026-07-26 19:03 PDT)
+
+LANDAU-WAVE (scope-then-port, Salt/MR/LandauL1.lean) corrected the earlier
+flags pricing in both directions:
+
+**The refutation.** The Dirichlet-hyperbola route cannot land a power of q:
+with S(x) = Σ_{n≤x}(1∗χ)(n)/√n, Abel against |Σ_{d≤u}χ(d)| ≤ min(u,q) split
+at y = √(qx) gives S(x) = 2√x·L(1,χ) + O(√q) against the floor
+S(x) ≥ (1/2)log x — the additive error is a fixed power of q while the floor
+grows only like log x, so the optimum log x ≍ √q yields L(1,χ) ≫ exp(−C√q),
+NOT q^{−1/2}. This is the classical situation (Dirichlet's method proves
+non-vanishing with an exponentially weak constant); our earlier entry
+over-promised. The CNF route is separately BLOCKED IN MATHLIB: the analytic
+class number formula exists (dedekindZeta_residue) but has ZERO consumers and
+no ζ_K = ζ·L factorization — a campaign, not a node.
+
+**The relief (the finding that matters).** The door does NOT need q^{−1/2}:
+door_L1_absorbed proves ANY polynomial grade c/q^A (A ≥ 0) discharges the
+absorption at q ≤ (loglog X)^w, and door_L1_absorbed_subexp prices the
+subexponential fallback exactly — grade exp(−Bq^θ) absorbs iff θ·w < 1, so
+the elementary hyperbola exp(−C√q) discharges a door pinned at w < 2 and
+fails at the current w = 5. Three priced continuations for the production
+side (L1_lower_real_effective stays a named Prop): (1) FE/Gauss-sum at ODD
+real primitive χ [C, ~400] — L(1,χ) = πq^{−1/2}W(χ)L(0,χ) with L(0,χ) a
+nonzero rational of denominator q gives EFFECTIVE π·q^{−3/2}; does not cover
+even χ (L(0,χ) = 0 degenerates to the regulator). (2) CNF [D-adjacent,
+campaign]: both parities at A = 1/2. (3) Hyperbola [C, 400–800]: lands
+exp(−C√q), live iff the door's W-exponent drops below 2. The consumer plug
+(chi_floor_real_uniform, kernel-guaranteed byte-match into
+chi_floor_real_of_L1) and the full absorption capstone (chi_floor_real_door:
+floor = loglog X − (3/4)log(1+log X) − ε·loglog X − CH2) are landed
+UNCONDITIONALLY — only the production of the ∃c is open. Also unlanded: the
+descent χ → inducing primitive character, needed by any primitivity-requiring
+route. New unconditional Landau stone: dhA_sqrt_weighted_floor.
