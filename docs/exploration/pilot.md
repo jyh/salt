@@ -12452,3 +12452,25 @@ pi bounds are pi_lt_d2-family; markdown tables break the 100-char gate in
 docstrings (bullets); hasSum_zeta_two needs the ZetaValues import;
 sqrt_eq_rpow closes the √-vs-rpow seam free; the splice-checker
 off-by-one pattern. SEC9 the last aloft.
+
+---
+
+**2026-07-26 17:42 PDT — ⚑⚑ SEC9 LANDS: Lemma 5 WHOLE — the §9 glue stands. ⚑⚑**
+`Salt/MR/Sec9Glue.lean` (538 ln, 22 publics, zero warnings, all 3-axiom;
+full build green rc-checked 9445). **Lemma 5 the win**: MR's one-sentence
+inclusion-exclusion now the gJ datum (completely multiplicative, NO
+coprimality; the k-uniform prime-power spec verbatim; the 1_S LAW honored
+— the restriction lives HERE); the 2^J budget = THE NUMBER 4 at Jb = 2.
+Lemma 4 as interface (the GS inputs a separate arc — flagged hypothesis)
++ door_h_le_hTwo PROVEN (the door's branch selector). The p.30–31 chain:
+sec9_four_term with the O(1/h) written out (nothing hidden); eq-28 CITED
+from the K-ladder (uniform-in-cutoff — no Jb debt; the full hypothesis
+set probed NON-VACUOUS at the ladder pin). Residuals honest: Lemma 4's
+proof (GS arc); eq-26's bridge (the Theorem-3/L14 arc); the sieve step
+inside hsieve; the Pseq/Qseq instantiation wiring (trivial, named). New
+traps: linarith can't scale by a VARIABLE (rw-the-identity-then-ring —
+the hypothesis-side regroup); card_filter deprecation = hard gate fail;
+the if_congr device for Decidable mismatches; by_cases-then-if_pos
+bridges def'd predicates; nth_rewrite before ← rpow_add (the bare rw
+rewrites the base). **THE NIGHT'S FULL ARC: refutation → K-ladder →
+price → fuse → §9 — five majors landed since dusk.**

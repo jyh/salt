@@ -139,6 +139,7 @@ import Salt.MR.TypicalPrice
 import Salt.MR.SeamCalibrationK
 import Salt.MR.TypicalPriceK
 import Salt.MR.SeamNumber
+import Salt.MR.Sec9Glue
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1177,4 +1178,21 @@ open Salt.Tactic in
   Salt.MR.seam_row_number
   Salt.MR.sum_ratioK_le_basel
   Salt.MR.eq28_clears_of_M_basel
+  Salt.MR.gJ_prime_pow
+  Salt.MR.gJ_mul
+  Salt.MR.gJ_eq_prod
+  Salt.MR.prod_one_sub_gJ
+  Salt.MR.lemma5_middle
+  Salt.MR.lemma5
+  Salt.MR.lemma5_MR_middle
+  Salt.MR.lemma5_MR
+  Salt.MR.lemma5_budget
+  Salt.MR.lemma5_budget_pinned
+  Salt.MR.door_h_le_hTwo
+  Salt.MR.sec9_split
+  Salt.MR.sec9_count_identity
+  Salt.MR.sec9_four_term
+  Salt.MR.card_not_memS_le_sum
+  Salt.MR.sec9_eq28
+  Salt.MR.sec9_eq28_exit
   Salt.MR.farErr34_local_closes_of_gate
