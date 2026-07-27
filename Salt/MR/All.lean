@@ -145,6 +145,7 @@ import Salt.MR.SiegelArm
 import Salt.MR.BigXiArc
 import Salt.MR.RegimeHead
 import Salt.MR.LandauL1
+import Salt.MR.Eq26Bridge
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1294,3 +1295,21 @@ open Salt.Tactic in
   Salt.MR.minorArcBound_of_minorArcBoundTight
   Salt.MR.nearRatTight_arc_zero
   Salt.MR.bigXiArcTight_mono
+  Salt.MR.gJR_ofReal
+  Salt.MR.lemma5R
+  Salt.MR.lemma5_budget_diff
+  Salt.MR.one_le_log_of_exp_le
+  Salt.MR.hTwo_pos
+  Salt.MR.hTwo_le_self
+  Salt.MR.hTwo_eq_mul_rpow_neg
+  Salt.MR.eq26
+  Salt.MR.eq26_pinned
+  Salt.MR.gJR_one
+  Salt.MR.gJR_mul
+  Salt.MR.blockOmega_pow_eq_zero_iff
+  Salt.MR.gJR_prime_pow
+  Salt.MR.gJR_abs_le_one
+  Salt.MR.Lemma4Datum.gJR_mul
+  Salt.MR.window_defect_bound
+  Salt.MR.shortSum_eq26_window
+  Salt.MR.sec9_R_eq_zero_of_card

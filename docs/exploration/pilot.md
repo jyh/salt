@@ -12768,3 +12768,26 @@ one genuine design step). Dispatching: DOOR-INHAB (parametric inhabitant),
 W-SWEEP (1500-variants + H^{1/250} + parametric-w LandauL1), HS-WIRE
 (HS-1..HS-5). E26-WAVE-1 still aloft. The L-ladder foundation wave (L3-wire
 + L3c GEOM + L3b MINSUM) queues next.
+
+---
+
+**2026-07-26 20:19 PDT — E26-WAVE-1 LANDS WHOLE (eight stones, zero Zeno, 454 ln, 20
+decls).** Salt/MR/Eq26Bridge.lean: eq26 BYTE-VERIFIED against the frozen
+binder (the eta-expansion the only delta); eq26_pinned at J = 2 (no
+hard-coded 4 in the general form, no o(1) in the pinned). THE CAST-ROUTE
+VERDICT: transported first-attempt — lemma5R is THREE tactic lines
+(Complex.ofReal_inj.mp; push_cast [gJR_ofReal]; exact lemma5) — E26-0 cost
+~25 ln vs the freeze's 220–360; the one resistance (if-then-else RHS) was
+factored through the shared Iff blockOmega_pow_eq_zero_iff. E26-5a: the true
+window defect is ONE point (the left endpoint; kernel-checked; 1/h is TIGHT
+— 2/h would be loose); both s0-clip directions AUTOMATIC as Amendment A
+predicted; the coefficient hypothesis deliberately stated in KernelCarry's
+own ha-shape so wave 2 passes it through unchanged. E26-4 packages the
+Lemma4Datum legitimacy (demonstrates, does not discharge — Lemma 4 stays
+the carried external). New traps banked: the ℂ→ℝ 3-line transport idiom
+(fails through if-then-else — factor the Iff); field_simp leaves
+trivially-zero goals (one_div_mul_cancel + ring); structure-namespace
+shadowing needs _root_ citations. Census: import + 18 names, RC=0 at 9451
+jobs, zero warnings from the file. Wave 2 (E26-6 amended + E26-7
+exceptional-set + E26-8 A(h)) is DISPATCHABLE once the current executor
+trio returns.
