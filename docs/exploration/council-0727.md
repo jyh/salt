@@ -287,3 +287,45 @@ in own words (facts sheet in decision 5 above). The Felix posture: the
 close-offer stands exactly where it is — neither withdrawn nor repeated;
 the maintainers own the homes question. Both executor judgment calls
 KEPT (the corrected docstring; the honest direct import).
+
+**Item 6 — the cloud bridge: RULED (amended).** The bridge runs on the
+JASON account today: post-reset swap (~4–5pm), the routine fired one-time
+for the 5–7pm away window (clone → cache → full build → lean4checker
+replay → axiom spot-checks INCLUDING bigXiArcTight_twelve → report to
+cloud-trial-night-1 only). The silicon-acct cloud config: deferred sine die
+(that account closes Aug 14 — no point).
+
+**THE ACCOUNT MAP (banked).** End state: salt → jason, jas → jasonh (two
+seats, two accounts, no interference). Bridges: silicon-acct carries salt to
+Aug 14 (HARD; ~2.5 weekly cycles left, resets Thu 6pm — USE-IT-OR-LOSE-IT:
+front-load the S8/M4 executor waves here); math-acct carries jas from ~Wed to
+Aug 18 (jas swaps off jasonh BEFORE Wed 3pm — jasonh at 84% weekly; Stubb
+writes a close-of-board handoff to ${SEAT_DIR}/fleet/ first — JYH carries the
+word). compiler-acct reserved for Kat. Salt's post-swap home shares jason with the
+cloud runs (a Thursday-planning fact). The final silicon-acct close-of-board
+gets a twinbar-style handoff memory.
+
+**THE TIMELINE (banked).** Aug 14 is the envelope, not the estimate:
+honest target for log_chowla_two unconditional is **Aug 5–8** (S8 the tent
+pole at 1–2 forge days post-freeze; Landau hours-to-a-day; Lemma-4/GS
+likely part-owned; M4 1–2 days; eq-26 + S11 a careful day) — with the
+history-taught buffer for one giant.
+
+**THE GRAND SLATE (ratified): "After water, salt, the pearl, and the
+gold."** Post-campaign candidates, both GO for planning:
+1. **The Heath-Brown dichotomy port** — formalize "Siegel zeros ⟹ twin
+   primes" (the tractable core of the Siegel-zero hunt; the whale itself —
+   eliminating them — stays the horizon we steer by). The pincer: one
+   branch yields twin primes outright; the other is the effective world
+   where the pearl lives. First-ever formalization territory.
+2. **The fulcrum-sweep on the goldmine** — adversarial lenses walking the
+   landed corpus (9459 jobs) asking what each stone ACTUALLY needs; the
+   windmill pattern is DATA (the literature checks sufficiency, never
+   necessity; the kernel knows the true dependency cone). Each survival =
+   a sharpening the literature lacks. Low risk (read-only on landed
+   stone); feeds the flagship ("machine-sharpened") + SaltBench.
+**Three rotations adopted TODAY**: (i) the even-χ/Goldfeld scoper's brief
+doubles as Siegel-coastline reconnaissance (interfaces mapped at dichotomy
+generality); (ii) the S8 freeze states interfaces at natural generality;
+(iii) the fulcrum-sweep may start as background read-only lenses during
+the campaign tail, on silicon-acct's burn-down quota.
