@@ -12166,3 +12166,24 @@ header); T7 (the landed Σ₃ deviates from the textbook shape — Cauchy–Schw
 against b(m) = Σ_{c|m, c>V} Λ(c), not Λ); T9/T10 (montgomery3.txt/.pdf are
 MNT III — no Vaughan; the repo-root montgomery3.pdf is an untracked
 duplicate, housekeeping only).
+
+---
+
+## hsieve RETIRED — the ownership wiring landed; the §9 externals are now Theorem-3-only (2026-07-26 20:30 PDT)
+
+HS-WIRE (Salt/MR/SieveGlue.lean, 590 ln, 15 decls, first pass, zero Zeno):
+the capstone sec9_eq28_exit_calFamily discharges Sec9Glue's hsieve binder
+ENTIRELY — its own binder list carries no hsieve, only hthm3f/hthm3one
+(Theorem 3, the E26 arc's wave-2 supply) plus three FLOOR gates on X (the
+hreg/hbig/herr discharges, in-statement per law #253). ONE constant threads
+end to end (card_blockfree_le's ∃C opened once at the capstone — the
+∃C-shaped conclusions are deliberate: a C-parametric form would let the
+M-gate and the sieve bound drift apart). The herr constant landed at 16,
+not the scoped 2 (8 from (2K)³ + 2 from Nat.sqrt+1 ≤ 2√X) — shape
+confirmed, constant corrected. Consumer note: eq28_clears_of_M_const at
+C = 1.01 demands M ≥ 8.08/δ — 1% wider than the landed 8/δ (the landed
+proof exploits a slack the generic one spends); consumers swapping in the
+_const form widen the M-gate accordingly. The remaining named externals on
+the §9 path: Lemma4Comparison (the GS/Halász arc, deliberately carried) and
+hthm3f/hthm3one (E26 wave 2's deliverable). Under the no-hypotheses law
+both are DEVELOPMENT-time carries with owners, not flagship residuals.

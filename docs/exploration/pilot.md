@@ -12838,3 +12838,21 @@ push_cast); lake env lean scratch files need repo-root cwd. Census: import
 + 10 public names (log_le_pow_two private — excluded), RC=0 at 9453 jobs.
 Residuals (consumer-side, by design): the M-pin 8/δ₀ ≤ M discharges at the
 call site; the H_K max-arm build joins the S11 compose via Hlo₀/epsFloor.
+
+---
+
+**2026-07-26 20:30 PDT — HS-WIRE LANDS WHOLE (15 decls, first pass, zero Zeno): hsieve
+IS RETIRED.** SieveGlue.lean: the C-parametric eq28 chain (verbatim-match
+smoke tests at C = 1.01 against the landed forms), card_blockfree_le
+(∃C ≥ 1, opened ONCE at the capstone — trap 8 defused structurally), the
+three gate discharges (hreg free on the NAMED small-h branch; the herr
+constant corrected 2 → 16), hsieve_of_engine at the K-family pins, and
+sec9_eq28_exit_calFamily — Sec9Glue's exit with NO hsieve binder. The §9
+path's externals are now Theorem-3-only (E26 wave 2) + Lemma4Comparison
+(the carried GS arc). New traps: Real.log_pow arg order (x n);
+rw [← sqrt_sq] round-trips (use Real.mul_self_sqrt);
+Real.nat_sqrt_le_real_sqrt is the clean Nat.sqrt bridge; pow_le_pow_left₀/
+div_le_div_iff₀ renames; NO classical in files consuming decidableMemS
+(instance-diamond breakage); the 8.08/δ consumer note. Census: import + 14
+names, RC=0 at 9454 jobs. The executor trio is home — E26 wave 2 + the M4
+re-freeze + the L-ladder continuation queue on L-FOUND's return.

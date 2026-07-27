@@ -148,6 +148,7 @@ import Salt.MR.LandauL1
 import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
+import Salt.MR.SieveGlue
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1338,3 +1339,17 @@ open Salt.Tactic in
   Salt.MR.levelGates_calibrated_door
   Salt.MR.eq28_door_clears
   Salt.MR.log_calQK_door_one
+  Salt.MR.sec9_eq28_const
+  Salt.MR.eq28_clears_of_M_const
+  Salt.MR.sec9_eq28_exit_const
+  Salt.MR.card_blockfree_le
+  Salt.MR.hreg_of_small_h
+  Salt.MR.hbig_of_floor
+  Salt.MR.herr_of_mertens
+  Salt.MR.two_le_calP
+  Salt.MR.herr_of_floor
+  Salt.MR.hsieve_of_engine
+  Salt.MR.memS_calFamily
+  Salt.MR.memS_congr
+  Salt.MR.card_notMemS_pin
+  Salt.MR.sec9_eq28_exit_calFamily
