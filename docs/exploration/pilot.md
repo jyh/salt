@@ -13071,3 +13071,41 @@ port), GS-INV (the Lemma-4 inventory against the landed Halász corpus).
 JYH's afternoon: the math-acct swap, the ocfnash reply, the ~5pm jason cloud
 bridge (the routine prompt gains bigXiArcTight_twelve in the spot-checks).
 The grand slate stands: after water, salt, the pearl, and the gold.
+
+---
+
+**2026-07-27 12:05 PDT — S8-INV home: the supply map + seven gaps + the fifth gap.**
+The full report rides into the synthesis; the load-bearing findings banked
+now: (1) TWO FEARED GAPS ALREADY CLOSED — the hMsup production
+(lemma14_contour_of_Msup_at collapses the ∀T family to ONE seam row at
+Tann = 2X/h₁ via seam_Msup) and the mid-range integral
+(seam_midrange_of_tall_row — the tall row pays both). (2) THE GAP LIST
+G1–G7 [band 2750–5150, C-class assembly]: G1 single-h Parseval (only the
+T₀-block loses cancellation — the other four blocks de-difference free);
+G2 the composition spine (no file joins SeamLemma14 and shortSum); G3 the
+T₀-BAND SUPPLY (the ball never reaches inside T₀: seamRad < seamT0 — a
+DESIGN question: covering vs wider recentring); G4 the M-window bridge
+(inf over |t| ≤ X vs the interface's W — atoms landed, bridge not; the
+[W, (log X)^{1/16}] region uncovered); G5 THE ONE D-SMELL — the
+linearization seam (the M-term supply is stated ONLY at the
+squarefree-supported ellLin datum; general 1_S·f needs the L3′ analytic
+half, declared seam-coupled, no landed exit; fallback = re-run the
+pointwise arc at g_J·f, a big port not a discovery — FAIL-FAST here);
+G6 THE FIFTH GAP — the door inhabitant's H₁ = P₁^{1/6} makes the §8.1
+level-1 term GROW in P₁ (the interface needs MR's H₁ =
+P₁^{1/12}/(log Q₁)^{1/3}-shaped; a [B, 150–250] re-inhabitant, no other
+frame field moves) — DISPATCHED FIRST AND ALONE per the scoper (a
+correctness fix: waves on the current inhabitant land true-but-useless);
+G7 the frozen statement itself. (3) THE CORRECTIONS: s8-freeze D1's
+E(M) = exp(−M/2) is STALE — the landed constant is exp(−M/e) (the 1/(2e)
+ball arm squared; independently confirmed by the (log X)^{−(1/e)/32}
+head) ⟹ U2's numeral becomes (5e/2)·log W ≈ 6.796·log W; the G3
+covering cost re-prices M4-6 (M ≳ 0.0113·log H vs λ's 0.333·log H —
+closes at ~29×, REAL, not "absurd room"; dissolves if G3 goes the
+wider-recentring way); M4-5's side conditions gain h₁ ≥ 4 (the AS-2 MVT
+guard) and TannGate (both absent from Amendment B — to be added at G7);
+the U-leg grade states as (log X)^{−1/500} (not −1/50 — stronger,
+harmless). (4) Nine traps banked incl. the Eq26Compose thm3_* DECOY
+(real-valued f, carried hL4, long-average subtracted — NOT the single-h
+form; do not let an executor wire it) and the CenterSupply live guard.
+Awaiting S8-SRC for the synthesis.
