@@ -13423,3 +13423,27 @@ L1_lower_odd → CLOUD-TRIAL-REPORT.md to branch cloud-trial-night-1 ONLY,
 never main) is being pasted by JYH now. The run doubles as the D2
 pre-arXiv gate — the first independent kernel re-verification on a
 machine that has never seen our build cache. Watch begins on JYH's word.
+
+---
+
+**2026-07-27 13:29 PDT — A25-CORE LANDS WHOLE (68 decls, 1209 ln): Route III's
+foundation is in, and THE GENERAL R2 CLOSED — the insurance bought and
+never needed.** SPartCore.lean: R1 (sPart squarefull-supported, the
+Squarefull-0 trap forced simp-explicit, the Euler telescope); R2 GENERAL
+at cSq = 20736 EXPLICIT — the elegant elementary route (every squarefull
+d = a²b³ injectively; τ(a²b³) ≤ τ(a)²τ(b)³; the hyperbola weight engine
+Στ^k·n^{−s} ≤ (Σn^{−s})^{2^k}; telescoped p-series 3 and 2) — NO
+Euler-product machinery needed; the CM corollaries landed for the record
+at constant 3 (the fallback certified, unnecessary); R3 the dissection at
+the honest w-CM abstraction (the n = 0 branch excluded — the genuine
+twist qualifies); R4 the scale gap SIDE-CONDITION-FREE (generalizes
+SupF.scale_floor's pinned form). THE BONUS: the station hand-off landed
+(R1/R2 pre-instantiated at the seamCoeff datum — A25-STATION consumes
+directly). The sharper truth banked for free: |sPart(p^k)| ≤ k−1 at
+k ≥ 2 (the j = 0,1 terms cancel identically) → cSq ≈ 283 available if a
+margin ever needs it. Census: import + 64 names, RC=0 at 9468. New traps:
+Finset.sum_image needs (f := ...) explicit (re-confirmed); the
+v4.32.0-rc1 rename batch (div_le_div_iff/Nat.pos_pow_of_pos gone;
+factorization_prod_pow deprecated); set-with-h displays unfolded (term-
+level mem_filter instead). A25-STATION (R5–R7) dispatches now; A2-2 still
+aloft.
