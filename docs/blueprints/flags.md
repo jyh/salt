@@ -11959,3 +11959,37 @@ o(loglog X), absorbed) — so the ineffective Siegel stays off the critical
 path and the remaining stone is the ordinary Landau hyperbola port
 [C, 400–800]. An unconditional effective q^{−ε} would have contradicted
 the ineffectivity barrier — JYH's suspicion was the audit working.
+
+---
+
+## S9 design block DISCHARGED — the A.8 census row was stale twice over (2026-07-26 18:54 PDT)
+
+S9DESIGN-SCOPE (read-only, MRT 1503.05121v3 pp. 10–16 + 22–28 rendered) re-derived
+(A.8) independently two ways and found: (1) the defect is Lemma A.7's, inside the
+𝒯₀ leg of Prop A.3 → Thm A.2 → Thm A.1 — the H-BLOCK lane, which S9 (the §4
+major-arc reduction) consumes only through the Thm A.2 interface; (2) the repair
+is ALREADY LANDED — Salt/MR/Renormalise.lean (renormalise :1003 = GS 7.1,
+renormalise_shifted = the MRT-shaped corollary with the correct sign
+X^{i(t₁−t)}/(1+i(t₁−t)), zero sorries, All.lean-wired, consumed by BallSup.lean).
+The printed (A.8) is the complex conjugate of the provable identity — false as an
+equality. Flags :11779–11793 confirmed correct in every particular, independently.
+The hsup-design census row's "verbatim port UNPROVABLE, design block first" is
+retired; S9 re-frozen as a straight port at s9-freeze-0726.md (band 3250–5200).
+
+## The phase-freezing subdivision STRUCK from mr-freeze S9 (2026-07-26 18:54 PDT)
+
+mr-freeze :19's "FLAW-1 REPAIR BUILT IN: phase-freezing subdivision" (blocks
+H' = ε²δ₀H/(20π(log H)^{B₅}), per-block drift ≤ δ₀/10, + the floor formula) is
+VACUOUS for the Ξ-restricted door: the landed door fires only at α = −ξ.val/H
+(MRTDoor.lean :109–111), exactly rational, so θ = 0 identically and (4.2)'s
+drift term is zero. Struck deliberately, not silently: if the campaign ever
+re-targets the FULL MRTUniformity door (MRTDoor.lean :41), the subdivision and
+its floor formula revive. The ratified SALVAGE posture refuses that target.
+
+## hsieve: an unowned named external now on TWO critical paths (2026-07-26 18:54 PDT)
+
+hsieve (Friedlander–Iwaniec Thm 6.17 + the Mertens product bound
+∏_{P≤p≤Q}(1−1/p) ≤ log P/log Q; Sec9Glue.lean :83–86, ZENO residual #4) is
+consumed by both the §9 glue and the S9 ladder's M4-1 (the 1_𝒮 insert). It is
+not priced anywhere on the door road. Needs an owner and a price — surfaced to
+JYH as an informational item; likely a self-contained sieve arc [C, unpriced].

@@ -12541,3 +12541,26 @@ uniform (div_le_div_iff gone but _of_nonneg_right survived — probe each);
 the abs-rewrite device for |kα−j|; the NeZero-instance round-trip;
 ZMod.val_zero needs no NeZero (the unused-binder audit); the two rpow
 stones for (log H)^{B₅} caps.
+
+---
+
+**2026-07-26 18:54 PDT — S9DESIGN-SCOPE returns: the design block dissolves.** The A.8 sign
+defect was never S9's — it is the H-block's, and it was already repaired and
+landed (renormalise_shifted, correct sign, consumed by BallSup). The census ⚠
+was stale twice over (wrong lane + already-fixed). S9 re-frozen as the straight
+§4 major-arc port at g = λ: docs/exploration/s9-freeze-0726.md — ladder M4-0…M4-9
+(ids renamed: Sec9Glue owns "S9-1/2/3" for MR §9; the collision would misroute an
+executor), band 3250–5200 centre 4200, no D-node. The λ-license deletes §3, the
+Möbius layer, Dirichlet approximation, AND the phase-freezing subdivision (θ = 0
+at the exactly-rational door frequency — struck from mr-freeze with a flags
+entry). The kill-check is arithmetic: A.1 cannot replace A.2 (the residue sum
+costs q ≤ W; A.2's grade W^{−5/4} beats it at every B₅, A.1's (log H)^{−2} needs
+B₅ ≤ 2 vs Vinogradov's B₅ ≈ 8) — 1_𝒮 and P₁ = W^{200} are essential. TWO
+PRECONDITIONS pinned: P-1 the sealed S7 opener exits in NearRat form
+(BigXiArc :169) but S9 needs the exact reduced denominator H/gcd(ξ.val,H) ≤ W —
+the near form provably does NOT imply it; bigXi_denominator_le goes on the
+L-ladder brief. P-2 W is chosen (re-run DoorDischarge :42's headroom at the S7
+exponent). Register item s8-freeze :61 RESOLVED (general-f interface source-
+confirmed). New risk named: hsieve unowned on two critical paths (flags entry).
+Refuter pass on the freeze dispatched per the verify-posture law. LANDAU-WAVE +
+S10B-WAVE aloft concurrently.

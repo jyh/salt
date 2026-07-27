@@ -1015,8 +1015,10 @@ typical-density wire — **UN-PRICED inside the closed row: the seam row is
 a FORMULA not a number**) 400–800; A3a-R3 1020–1780; hfloor provenance
 (flags :11808 live) 300–500; thm_A2′ 800–1500 (under-budgeted at 500);
 thm_A1′ 300–500; §9 glue 1000–2000 (Lemma 5 critical); S7 ARC 2500; S9
-4000 (⚠ the A.8 SIGN DEFECT — verbatim port UNPROVABLE, design block
-first); Siegel arm 500 (the real-χ exceptional gap — pilot-only, now
+4000 (design block DISCHARGED 2026-07-26: the A.8 defect is H-block lane and
+already repaired+landed as `renormalise_shifted`; S9 is the straight §4
+major-arc port, band 3250–5200, freeze at s9-freeze-0726.md; preconditions
+P-1 exact-denominator S7 exit + P-2 W choice); Siegel arm 500 (the real-χ exceptional gap — pilot-only, now
 flagged); S10b 900; **H₀door: NO LEAN DEFINITION EXISTS (~150, unowned —
 JYH-informational)**; S11 COMPOSE 600 (spine_False_core_xi is PRIVATE —
 the wave appends INSIDE SpineFinal.lean). **TOTAL ~13.3k–19.9k, zero
