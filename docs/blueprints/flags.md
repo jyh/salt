@@ -12218,3 +12218,29 @@ o(1), no implied constant). Numerically verified true with WIDENING margin
 minorArcBoundTight_twelve_of_close + bigXiArcTight_twelve_of_close give
 the FULL S7 exit. The closer stone is pure log-vs-power threshold
 arithmetic (the log_scale_threshold genre) — dispatched as EXIT-CLOSE.
+
+---
+
+## 🏆 S7 IS COMPLETE: bigXiArcTight_twelve UNCONDITIONAL (2026-07-26 22:33 PDT)
+
+EXIT-CLOSE proved ExitClose 12 whole (the 15-atom abstract collection lemma
+exit_collect closing by linarith-only at coefficients 868/1000 and
+4404/5000; the four explicit H₀(ε) arms — the generous threshold arm at
+⌈exp(25^25·10^40·(1+ε⁻²)^9)⌉₊, free since nothing downstream reads H₀ and
+the minor arc is empty below e^{115} anyway; pow24_le_exp the log-vs-power
+engine). The victory laps landed: **minorArcBoundTight_twelve** and
+**bigXiArcTight_twelve** — one exact each through the conditional forms.
+S7's ENTIRE arc: BigXiArc (the frozen statement + reduction, sealed
+ecfec8c) + S7AMEND (the tight radius, JYH-ratified) + MinorArcVaughan
+(Vaughan wire + min-sum engine) + MinorArcCore (Type I/II + assembly) +
+MinorArcExit (the outer shell) + ExitClose — 3806 ln, every declaration at
+[propext, Classical.choice, Quot.sound], ZERO unstaged sources (the IK
+bypass held end to end), zero sorries ever committed. Priced [C, 2500]
+with a D-risk and a staging gap 48 hours ago. New traps from the closer:
+linarith/nlinarith MUST be only-scoped in wide contexts (5 heartbeat
+timeouts → 7.8 s whole-file at default limits); positivity blind to
+hypothesis-carried signs; degree-4 monotonicity needs the product atom
+introduced first; M < (W+1)^4 via Nat.lt_succ_sqrt twice is the clean
+quarter-power lower bound. The door road's remaining analytic obligations:
+thm_A2′ (the S8/H-block arc), the Landau production (odd-χ FE + the even-χ
+gap), Lemma 4 (the GS arc), the M4 wave (Amendment B), S11's compose.

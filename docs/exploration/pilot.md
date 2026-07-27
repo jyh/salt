@@ -12975,3 +12975,23 @@ nlinarith needs mul_self_le_mul_self hinted on square-monotonicity; omega
 can't touch min with nonlinear atoms; gcongr eats whole monotonicity
 goals but ;;positivity trips unreachableTactic; Nat.sqrt_le pairing).
 EXIT-CLOSE dispatched — the last stone of the arc.
+
+---
+
+**2026-07-26 22:33 PDT — 🏆 EXIT-CLOSE LANDS: THE S7 ARC IS CLOSED, UNCONDITIONAL.**
+ExitClose.lean (776 ln, 8 decls): exitClose_twelve proved whole — zero
+Zeno — and the victory laps fired: minorArcBoundTight_twelve +
+**bigXiArcTight_twelve : BigXiArcTight 12**, kernel-checked at the three
+axioms. The design choices that closed it crudely: the division-free
+q-range/hi-bound restatement (ε removed from the abstract lemma entirely,
+E carrying it); every piece normalised to TWO atoms L³(n/√w) and E(n/L³);
+linarith-only scoping throughout (the 200k-heartbeat timeouts vanished —
+7.8 s whole file at DEFAULT limits). The Nat.sqrt-twice finding:
+M < (W+1)⁴ via Nat.lt_succ_sqrt twice — the clean quarter-power pin, no
+rpow anywhere in the entire arc. Census: import + 8 names, RC=0 at 9459
+jobs. The hsup-design + mr-freeze S7 rows retired as LANDED. SEVENTEEN
+landings ceremonied this session-day; the arc totals 3806 ln against the
+2500 price, with the D-risk and the staging gap both dissolved en route.
+HOLDING further dispatches: the next objects (the S8/thm_A2′ arc, the
+Landau production choice, the M4 wave) are design-block-first or
+JYH-morning items per the register. The morning brief follows.

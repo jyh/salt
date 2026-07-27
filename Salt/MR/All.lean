@@ -153,6 +153,7 @@ import Salt.MR.MinorArcVaughan
 import Salt.MR.Eq26Compose
 import Salt.MR.MinorArcCore
 import Salt.MR.MinorArcExit
+import Salt.MR.ExitClose
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1456,3 +1457,11 @@ open Salt.Tactic in
   Salt.MR.minorArcBoundTight_of_exitClose
   Salt.MR.minorArcBoundTight_twelve_of_close
   Salt.MR.bigXiArcTight_twelve_of_close
+  Salt.MR.sqrt_le_of_sq_le
+  Salt.MR.mul_three_le
+  Salt.MR.pow24_le_exp
+  Salt.MR.exit_collect
+  Salt.MR.exitBd_lt_of_arms
+  Salt.MR.exitClose_twelve
+  Salt.MR.minorArcBoundTight_twelve
+  Salt.MR.bigXiArcTight_twelve

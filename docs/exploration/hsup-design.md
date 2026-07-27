@@ -1014,7 +1014,11 @@ socket — a DIFFERENT object; do not suppress R3.
 typical-density wire — **UN-PRICED inside the closed row: the seam row is
 a FORMULA not a number**) 400–800; A3a-R3 1020–1780; hfloor provenance
 (flags :11808 live) 300–500; thm_A2′ 800–1500 (under-budgeted at 500);
-thm_A1′ 300–500; §9 glue 1000–2000 (Lemma 5 critical); S7 ARC 2500; S9
+thm_A1′ 300–500; §9 glue 1000–2000 (Lemma 5 critical); S7 ARC 2500 →
+**LANDED WHOLE 2026-07-27 (bigXiArcTight_twelve UNCONDITIONAL — the full
+ladder BigXiArc + S7AMEND + MinorArcVaughan/Core/Exit + ExitClose, 3806 ln
+actual vs 2500 priced; zero unstaged sources — the IK bypass; the minor arc
+empty below e^{115})**; S9
 4000 (design block DISCHARGED 2026-07-26: the A.8 defect is H-block lane and
 already repaired+landed as `renormalise_shifted`; S9 is the straight §4
 major-arc port, band 3250–5200, freeze at s9-freeze-0726.md; preconditions
