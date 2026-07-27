@@ -12647,3 +12647,29 @@ DECISIONS (the register): (1) the S9 drift mechanism — recommend (a)
 faithful/tight-radius; (2) the U1 design block scheduling; (3) eq-26 GATE-1;
 (4) the B₅ pin. All gated work HOLDS; nothing dispatched on the S9/eq26
 lanes tonight.
+
+---
+
+**2026-07-26 19:56 PDT — THE RATIFICATION ROUND (JYH, all four register items answered).**
+(1) The S7 tight-radius amendment RATIFIED — mr-freeze S7 row amended
+in-place (the q-dependent Dirichlet form, additive implementation);
+S7AMEND executor dispatched (NearRatTight + BigXiArcTight +
+MinorArcBoundTight + the tight reduction, sealed decls byte-untouched).
+(2) The U1/B₅ design block RUN NOW — rulings banked at s9-design-0726.md:
+D-FAMILY (the §4 port's 𝒮 at the K-LADDER family — the MRT-family
+complement density ≍ 200·B₅·loglog H/log H structurally swamps the
+doorGrade socket at every scale; a new CalFrameK inhabitant needed at the
+door's M ≈ 8/δ₀ with A bumped to 2^{18} — the pinned A = 65536 overflows
+A_gate_logK at that M); D-B₅ (pin B₅ := 12 — covers ARITH-REF's >10
+no-log-weight-gain bound; doorGrade stays −5/4 as a DELIBERATE weakening,
+one monotone line at the exit; S10a's 625 → 1500 per chi-check's own
+re-instantiation rule); D-FLOOR (H₀door untouched; the K-family's
+[P₁,Q₁] ⊂ [1,h] demand joins the S11 compose max as the new H_K arm,
+absorbed by tonight's Hlo₀/epsFloor mechanism — U1's "re-derive the floor"
+resolves as "no: new max-arm"). Refuter pass on the block dispatched (the
+law). The M4 ladder re-freezes as AMENDMENT A after clean verdicts.
+(3) eq-26 GATE-1 = YES — the paper-completeness arc executes; the eq26
+freeze's refuter pass dispatched first (BINDER-REF + IRRED-REF); the E26
+wave fires on FIRE/REPAIR-THEN-FIRE with GATE-2 (eq-27) in the same arc.
+(4) IK §13.5 + hsieve = discussion opened with JYH (options presented in
+the evening reply; no action until the discussion lands).

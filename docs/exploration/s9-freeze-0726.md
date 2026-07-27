@@ -1,6 +1,12 @@
 # S9 freeze — the §4 major-arc port at g = λ (2026-07-26)
 
-**STATUS: HOLD — REPAIR ROUND REQUIRED (refuter pass, same evening).** The
+**STATUS: REPAIR ROUND AUTHORIZED (JYH ratifications, 2026-07-26 evening):
+drift mechanism = (a) FAITHFUL ratified (the q-dependent S7 radius amendment
+is live — mr-freeze S7 row amended, S7AMEND executor dispatched); the U1/B₅
+design block runs NOW (Fable-tier); the M4 ladder re-freezes after it.**
+Original hold note kept below for the record.
+
+**STATUS (superseded): HOLD — REPAIR ROUND REQUIRED (refuter pass, same evening).** The
 lane claim, the A.8 discharge, the A.1-refusal arithmetic, and the M4-9 exit
 doctrine all SURVIVED (4× UNFOUNDED). But the vacuity strike and P-1 were
 KILLED (2 independent CONFIRMED-FATALs), M4-5 is under-transcribed
