@@ -12484,3 +12484,25 @@ carry genuine datum-floor hypotheses. Also: pretDistSq (ellLin g) =
 pretDistSq g is NOT landed (S1, [A, 15–25] — without it lambda_nonpret
 cannot plug the floor slot); the THREE distinct (1/16)-caps in the seam
 terminal are now named apart (hrow / hMcap / the A.4 window gate).
+
+---
+
+## KC-A25: route (ii) KILLED (a genuine counterexample at general f); ROUTE III ruled; the S8 wave proceeds at ~4600–7400, zero D-risk (2026-07-27 12:54 PDT)
+
+The load-bearing kill-check's verdict: the freeze's A2-5(ii) fails — the
+smooth local factor VANISHES on Re s = 1 at f(2^k) = −1 (inside the
+evaluation strip; smooth_ne_zero is FALSE at general multiplicative f) —
+and the D-fallback is NOT taken: the coefficient-level dissection (Route
+III) closes at C-class. The structural gem: at the consumer's own datum
+(λχ̄·g_𝒥, completely multiplicative) the killing zero CANNOT OCCUR
+(reciprocal local factors) and sPart collapses to squares — the
+consumer-restriction narrowing is available and recoverable, but the
+GENERAL form is bought (+300–450) to keep the interface unnarrowed.
+Route III never touches prop21RHS/HalaszIdentity/finite support — the
+whole obligation was ever only the hSup binder (the row is datum-free).
+Eight traps banked: the DOUBLE-LINEARIZATION (highest priority: BallSup's
+ellLin-of-seam-datum is the identity at the ellLin datum and a different
+object at F); the A2-5↔A2-3b dilated-scales coupling; the prime-only
+M-gift; cSq_corner_summable is the p = 2 corner only; smoothPart at y < 2
+or (O2) returns; Squarefull 0 = True (catch #254's family); the sixth
+grade-page clone; the datum-free row.

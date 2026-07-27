@@ -227,3 +227,53 @@ The lambda_nonpret ∃x₀-shape at the door's instantiation is a declared
 law-#253 wart (T6). Band: **3500–6500** conditional on KC-A25 alone.
 A2-0 + A2-1 FIRE NOW (check-independent: needed on every branch and every
 KC-A25 outcome).
+
+## ⟦AMENDMENT C⟧ — KC-A25 returns: route (ii) FAILS, ROUTE III RULED
+
+**The kill**: route (ii) (sPart inside prop21RHS) fails on four obstructions,
+one FALSE at general f — the smooth local factor can VANISH on Re s = 1
+(the explicit counterexample f(2^k) = −1: G₂(s) = (1−2·2^{−s})/(1−2^{−s})
+zeroes at s = 1 + 2πik/log 2, inside the evaluation strip [0.895, 1.016]);
+plus the finite-support load-bearing fact (summability LEFT of Re = 1 —
+SupF's own vacuity note), the frozen-𝒮 cascade (10 files), and the
+linearization defect being main-term-sized (the corpus's own V5-0 kill,
+re-confirmed). Neither fired nor council — **ROUTE III RULED: the
+coefficient-level dissection.** 𝔉 = sPart ⍟ ellLin(𝔉|primes) at y < 2;
+sPart SQUAREFULL-supported (|sPart(p^k)| ≤ k+1); the partial-sum dissection
+splits at D ≤ (log X)^{0.001} (headroom certified against the W-ceiling);
+each inner sum is EXACTLY the landed y-generic centre supply
+(center_halasz_supply_Y — B-abstract, centre-uniform); the dilated scales
+served by the LANDED free-M face (rhs_grade_at_scale_windowC — hmin gone);
+the weight cost C_sq² lands in the interface's absolute C₁. **No frozen
+definition touched; no κ=1 re-opening; C-class throughout.**
+
+**THE GENERALITY RULING (no JYH gate needed — the NON-narrowing option):**
+thm_A2′ stays at general 1-bounded multiplicative f; the general R2
+(Σ|sPart(d)|/d^σ ≤ C_sq explicit, σ ∈ [3/4,1], + the D^{−1/4} tail) is
+BOUGHT at +300–450 as insurance. The CM collapse (the consumer's actual
+datum λχ̄·g_𝒥 is completely multiplicative: sPart lives on SQUARES with
+|sPart| ≤ 1, R2 = ζ(2) one-liners, and the (O3) zero CANNOT occur — the
+reciprocal local factors never vanish) is recorded as the fallback
+narrowing if R2's general form resists, with the deviation then JYH-gated.
+
+**A2-5 = ROUTE III, stones R1–R7 [C, 1790–2590]** (the scoper's table:
+R1 sPart support/bounds; R2 the C_sq page; R3 the dissection identity;
+R4 the scale-gap; R5 the dilated-scale grade; R6 the wide-window grade
+page — THE SIXTH private clone of center_error_grade, name it
+unmistakably; R7 the dissected hCenter + the AS-twins at F).
+**THE HIDDEN COUPLING (trap 7, to BOTH executors): Route III instantiates
+the ball chain at dilated scales X/d — A2-3b's cap-free arm must run at
+the dilated scales too, not just at X.** The datum-free row fact (the
+entire obligation is the hSup binder — prop_A3_T1_row_split_weighted takes
+a free) goes in every brief. THE DOUBLE-LINEARIZATION trap (BallSup :614/
+:641 carry ellLin-of-the-seam-datum — identity at the ellLin datum, a
+DIFFERENT OBJECT at general F) is the wave's highest-priority trap. The
+M-object is prime-only (pretDistSq_congr_primes) — a GIFT: no new M-object,
+A2-4/M4-6 unmoved.
+
+**THE BAND, FINAL: ~4600–7400** (general-f Route III; ~4300–6900 at the CM
+fallback). Still C-class, zero D-risk. Wave state at this amendment:
+A2-0 + A2-1 aloft; A2-3b (the executor, with the dilated-scales coupling +
+the FarArm ban + the collision-socket design) + A25-III-CORE (R1–R4) +
+A2-4 dispatch NOW; A2-2 behind A2-1's exit; A25-III-STATION (R5–R7)
+behind CORE; A2-7 last.
