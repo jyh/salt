@@ -13461,3 +13461,15 @@ False-at-a-live-datum — the repair RULED as the window-relativized twin
 (CONTRACT-TWIN dispatched) with MR p. 20's second seam window priced
 honestly. Census: import + 5 names, RC=0 at 9469. Aloft: A25-STATION,
 CONTRACT-TWIN, A2-3-BAND (both dispatching), the cloud sentinel.
+
+---
+
+**2026-07-27 13:34 PDT — the "salt" cloud environment now exists on BOTH accounts**
+(JYH copied the firewall allow-list to silicon-acct; same env name "salt").
+The doctrine: jason's env is the PRIMARY bridge home (fresh weekly,
+survives Aug 14); silicon-acct's is the maestro's DIRECT-FIRE capability
+for the burn-down window — backup replays, parallel verification runs,
+and the D2 fallback if the jason run fights its toolchain. No
+double-spend now: the jason run is the live crossing; silicon-acct's env
+HOLDS as the fallback. Post-Aug-14 the capability consolidates on jason
+with the seat, as the account map orders.
