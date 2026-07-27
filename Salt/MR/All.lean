@@ -148,6 +148,7 @@ import Salt.MR.LandauL1
 import Salt.MR.LandauDescent
 import Salt.MR.LandauOdd
 import Salt.MR.ThmA2Open
+import Salt.MR.Sawtooth
 import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
@@ -1530,3 +1531,22 @@ open Salt.Tactic in
   Salt.MR.far_of_mem_closedBall
   Salt.MR.closedBall_subset_far
   Salt.MR.ball_inf_floor_of_mem_far
+  Salt.MR.abs_sum_mul_le_of_bounded
+  Salt.MR.abs_sum_shift_mul_le_of_bounded
+  Salt.MR.tendsto_tsum_div_rpow
+  Salt.MR.exp_pow_im
+  Salt.MR.sin_pi_mul_pos
+  Salt.MR.one_sub_cos_two_pi_mul
+  Salt.MR.one_sub_exp_eq
+  Salt.MR.norm_one_sub_exp
+  Salt.MR.exp_ne_one
+  Salt.MR.abs_sum_sin_le
+  Salt.MR.tendsto_sum_sin_div_nat
+  Salt.MR.sinZeta_apply_one
+  Salt.MR.hurwitzZetaOdd_apply_zero
+  Salt.MR.coe_unitAddCircle_ne_zero
+  Salt.MR.hurwitzZeta_apply_zero
+  Salt.MR.sawtoothOdd
+  Salt.MR.L1_lower_odd
+  Salt.MR.l1LowerOddEffective_pi
+  Salt.MR.l1LowerOddEffective_one

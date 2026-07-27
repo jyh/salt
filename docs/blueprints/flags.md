@@ -12506,3 +12506,33 @@ object at F); the A2-5↔A2-3b dilated-scales coupling; the prime-only
 M-gift; cSq_corner_summable is the p = 2 corner only; smoothPart at y < 2
 or (O2) returns; Squarefull 0 = True (catch #254's family); the sixth
 grade-page clone; the datum-free row.
+
+---
+
+## 🏆 THE ODD-χ LANE IS COMPLETE AND UNCONDITIONAL (2026-07-27 13:02 PDT)
+
+SAWTOOTH closed mathlib's own k = 0 gap and the victory laps fired:
+**L1_lower_odd** (π·N^{−5/2} ≤ L(1,χ).re at EVERY odd real nonprincipal χ
+— no primitivity, no conditionality) and **l1LowerOddEffective_one :
+L1LowerOddEffective 1 (5/2)**. The full lane: LandauL1 (interface +
+absorption, door-ready at any polynomial grade) + LandauOdd (the FE bridge
+at exactly π) + LandauDescent (imprimitive → primitive) + Sawtooth (the
+closer). The route: the honest half-of-Route-C — the NEW Dirichlet-series
+bridge tendsto_tsum_div_rpow (bounded partial sums ⟹ the conditionally
+convergent boundary value equals the continuation; the value then free
+from mathlib's Abel-limit + hasSum_taylorSeries_neg_log).
+
+**UPSTREAM CANDIDATES (for the mathlib conversation, JYH's call):**
+(1) hurwitzZeta(Odd)_apply_zero closes HurwitzZetaValues.lean's own TODO —
+AND the TODO as written is FALSE at one endpoint (the closed Icc fails at
+k = 0's left end: hurwitzZeta 0 0 = −1/2 vs the Bernoulli 1/2; the honest
+k = 0 domains are Ioc/Ioo — the even part jumps at 0). (2)
+tendsto_tsum_div_rpow is the general gap behind their "difficult with the
+methods in the library" remark — mathlib has Abel for POWER series and
+Dirichlet's test, nothing joining a conditional Dirichlet series to its
+continuation. Both §§1–5 are mathlib-shaped, Salt-free mathematics.
+
+THE REMAINING SIEGEL-SIDE RESIDUAL: the EVEN half of L1LowerEffective
+alone (no FE anchor — L(0,χ) = 0; the CNF/regulator lane, or
+SIEGEL-COMPOSE's classical route for truth-first, or the pearl's effective
+route). The campaign's M4-6 consumer can proceed odd-complete.

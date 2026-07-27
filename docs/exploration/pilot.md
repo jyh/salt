@@ -13322,3 +13322,24 @@ executor re-exported with a loud docstring instead of duplicating.
 Amendment D strikes the row + banks the per-row-join law. Census: import
 + 10 names, RC=0 at 9463 jobs. Five sails remain aloft (A2-1, A2-3B,
 A25-CORE, A2-4, SAWTOOTH).
+
+---
+
+**2026-07-27 13:02 PDT — 🏆 SAWTOOTH LANDS: THE ODD-χ LANE COMPLETE, UNCONDITIONAL.**
+Sawtooth.lean (604 ln, 19 decls): the k = 0 closer via the honest route —
+Route A died on the conditionally-convergent boundary (no landed
+sinZeta-at-1 anywhere in mathlib; the Mellin interchange fails absolutely
+— checked incl. the Gaussian-regularised variant); the landed work is the
+NEW bridge tendsto_tsum_div_rpow + the sawtooth series AS A PARTIAL-SUM
+LIMIT (deliberately never a tsum — the junk-value law), the value free
+from Abel-limit machinery. hurwitzZetaOdd_apply_zero byte-fits LandauOdd's
+binder; the laps fired exact-thin: L1_lower_odd + l1LowerOddEffective_one
+UNCONDITIONAL. THE MATHLIB FINDING: their own TODO is FALSE at the k = 0
+left endpoint (Icc → Ioc/Ioo; the even part jumps) — LandauOdd's open-
+interval binder was right for a sharper reason than its docstring knew.
+Census: import + 19 names, RC=0 at 9464 jobs. Seven traps banked
+(HasSum.congr_fun's reversed direction; abs_add → abs_add_le;
+inv_anti₀; the ContinuousAt.im misresolution; 1/n NOT Antitone on ℕ —
+index-shift to 1/(n+1) everywhere; the ofReal_sin simp-direction ambush;
+two heartbeat sinks fixed by avoiding simp). Four sails remain: A2-1,
+A2-3B, A25-CORE, A2-4.
