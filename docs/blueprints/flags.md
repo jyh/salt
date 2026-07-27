@@ -12465,3 +12465,22 @@ SevenEighths); D-11 the [9] κ=1 machine (NOT consumed — the corpus's
 station replaces it; the κ=1 caveat returns ONLY on A2-5's fallback);
 D-12 Lemma A.8 (A2-0); D-13 Thm A.1's own needs (OUT OF SCOPE); D-14 g_𝒥
 (landed: Sec9Glue.gJ); D-15 J = o(loglog X) (free at Jb = 2).
+
+---
+
+## KC-A23B: the cap-free arm CLOSES; the seam-frame shift gap flagged (2026-07-27 12:52 PDT)
+
+The A2-3b kill-check returns CLOSES [C, 550–900]: the ¬cap arm rides a
+BARE-datum floor at (1/32)loglog X + 25 (the damping θ cancels exactly;
+89% margin), the twin ladder S1–S10 with caseASocket2_discharged verbatim,
+and the ball leg VANISHING at t₁ := 0 by emptiness. FarArm avoided BY
+CHOICE — the brief bans the station's produced centre on the ¬cap branch.
+NEW PRE-EXISTING GAP FLAGGED (T3): **the seam-frame shift** — the station
+minimises the t₀-SHIFTED datum (seamCoeff_trivial_dist_eq: the produced t₁
+minimises at t₁ + t₀ bare) while hrow is stated at t₁ BARE; SeamTerminal's
+"SEAM 2" note flags the datum difference but NOT the frame shift.
+Consequence: ¬hrow yields no uniform floor anywhere — large-M arms must
+carry genuine datum-floor hypotheses. Also: pretDistSq (ellLin g) =
+pretDistSq g is NOT landed (S1, [A, 15–25] — without it lambda_nonpret
+cannot plug the floor slot); the THREE distinct (1/16)-caps in the seam
+terminal are now named apart (hrow / hMcap / the A.4 window gate).

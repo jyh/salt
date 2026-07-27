@@ -195,3 +195,35 @@ A2-3b behind its check; the rest as before.
 R-2); the exp(−M/e) recalibration safe-direction with the numeral checked
 (U-5); the T-reach and J-maximality clean (OWN-REF R-2); zero live sorries
 across the 200+ MR modules (U-6).
+
+## ⟦AMENDMENT B⟧ — KC-A23B returns: A2-3b CLOSES [C, 550–900]
+
+The cap-free arm is REAL, with corrections folded: (i) the honest no-pocket
+floor is **(1/32)·loglog X + 25 on the BARE datum** at the |v| ≤ X box —
+the damping's θ CANCELS exactly (gxDatum_pretDistSq_costwist +
+blockWindow_mertens_pin + linarith; 89% of the gap spare past
+loglog X ≥ 800); the ¬cap arm's hypothesis is a genuine large-M DATUM
+floor, NEVER a negation of hrow (trap T3: the station minimises in the
+SEAM frame — t₀-shifted — so ¬hrow at the produced centre yields no
+uniform floor; a pre-existing gap now flagged). (ii) the twin ladder
+S1–S10 (the collision-as-socket design: one ladder, two thin suppliers —
+hrow via pocket_collision_window, the floor vacuously);
+caseASocket2_discharged re-instantiates VERBATIM (cap-free already); the
+exit expression UNCHANGED (keep the max — T7). S10 INCLUDED (the box gate
+tightened to ≤ X) so thm_A2′'s internal by_cases is EXHAUSTIVE at
+|v| ≤ X — no landed statement widens. (iii) the ball leg at t₁ := 0:
+seamRad_lt_seamT0 + seamAnn_inter_seamBall_eq_empty +
+seam_sup_binder_of_inter_empty ⟹ hSup at S := 0 ⟹ **8S² = 0 and the
+fourth summand VANISHES on the ¬cap branch** (the freeze's "𝒯₀ = ∅"
+reasoning was wrong, the conclusion right); the M-term is never produced
+there (exp(−M/e) ≤ (log X)^{−1/(16e)} sits under the third summand —
+1/(16e) > 1/500 with 11× room). **THE BAN, in words, for the A2-3b brief:
+the ¬cap branch NEVER touches SupStation's produced centre — hSup
+discharges by emptiness at t₁ := 0; an executor who keeps the station's
+centre walks into FarArm's (log X)² inflation (the named second D-risk)
+and it is avoidable by construction.** The two DIFFERENT (1/16) caps
+(hrow the row cap; hMcap the A-10 station cap) are now named apart (T2).
+The lambda_nonpret ∃x₀-shape at the door's instantiation is a declared
+law-#253 wart (T6). Band: **3500–6500** conditional on KC-A25 alone.
+A2-0 + A2-1 FIRE NOW (check-independent: needed on every branch and every
+KC-A25 outcome).
