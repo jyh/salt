@@ -13166,3 +13166,29 @@ register, ripens at the campaign's tail. Sec9Glue :358's card corrected
 (it was one-third wrong). Ten traps banked (T1–T10; T10: the interface's
 1/20 is frozen — lossy routes are statement changes). Build RC=0 after
 the docstring correction. Aloft: S8-SRC, LANDAU-ODD, H1-INHAB.
+
+---
+
+**2026-07-27 12:13 PDT — THE S8 SYNTHESIS: the freeze is cut.** s8-freeze-0727.md
+(supersedes the old s8-freeze where they conflict): **"CLASS D, 8–20k" is
+replaced by a C-assembly at 2850–5350** with one D-risk (A2-5, fail-fast
+first). The ladder A2-0..A2-7 joins S8-INV's gaps to S8-SRC's demands:
+A2-0 Lemma A.8 + the S1b join + the sup→inf pin; A2-1 THE SINGLE-h
+PARSEVAL (the mechanism pinned: drop the U/V split, run the V-argument
+from t = 0 — no log loss, verified by the source scoper); A2-2 the
+composition spine; A2-3 the T₀-band with the ONE design choice
+(widen-the-recentring vs cover), kill-check-gated; A2-4 the M-window
+bridge + the D10 repair (including OUR OWN M_range's |t| ≤ X cap check);
+A2-5 the linearization seam (D-risk; the kill-check: does
+smoothPart_factorization close at g_𝒥·f, else the ~2500-ln pointwise-arc
+port fallback); A2-6 = H1-INHAB aloft; A2-7 the frozen statement with the
+COMPLETE side-condition list (three amendments folded). THE RULINGS: the
+truncation license BY OWNERSHIP (the corpus rebuilt the 𝒯₁ leg — no
+delegation exists to adjudicate); the interface exponents at the LANDED
+grades (exp(−M/e); (log X)^{−1/500}) — the printed 1/50 dies at our
+θ = 3/4 anyway. The refuter pass is aloft (OWN-REF on the ownership
+ruling + the grades + the side-conditions; LAD-REF on ladder completeness
+vs D-1..D-15 + A2-1's mechanism + the A2-3 pre-arithmetic that may settle
+W-vs-C now + the honest band under the A2-5 fallback). The two
+kill-checks dispatch at the verdicts regardless of overall FIRE/HOLD.
+Aloft: the S8 refuters, LANDAU-ODD, H1-INHAB.
