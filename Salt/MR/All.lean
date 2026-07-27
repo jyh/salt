@@ -145,6 +145,7 @@ import Salt.MR.SiegelArm
 import Salt.MR.BigXiArc
 import Salt.MR.RegimeHead
 import Salt.MR.LandauL1
+import Salt.MR.LandauDescent
 import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
@@ -1465,3 +1466,15 @@ open Salt.Tactic in
   Salt.MR.exitClose_twelve
   Salt.MR.minorArcBoundTight_twelve
   Salt.MR.bigXiArcTight_twelve
+  Salt.MR.norm_one_sub_le_of_one_le_re
+  Salt.MR.norm_eulerProd_lower
+  Salt.MR.eulerCorr_prod_lower_real
+  Salt.MR.eulerCorr_one_lower
+  Salt.MR.primitiveCharacter_ne_one
+  Salt.MR.primitiveCharacter_quadratic
+  Salt.MR.primitiveCharacter_conductor_le
+  Salt.MR.norm_LFunction_one_eq_re
+  Salt.MR.L1LowerEffective_descend
+  Salt.MR.primitiveCharacter_neg_one
+  Salt.MR.primitiveCharacter_odd_iff
+  Salt.MR.L1LowerEffectiveOdd_descend

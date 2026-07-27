@@ -13109,3 +13109,36 @@ harmless). (4) Nine traps banked incl. the Eq26Compose thm3_* DECOY
 (real-valued f, carried hL4, long-average subtracted — NOT the single-h
 form; do not let an executor wire it) and the CenterSupply live guard.
 Awaiting S8-SRC for the synthesis.
+
+---
+
+**2026-07-27 12:06 PDT — DESCENT lands whole (12 decls, 305 ln, first-attempt) + STUBB'S
+FIRST REPLY in the commons.** LandauDescent.lean: the descent is STRONGER
+than briefed — D-1 needs NO reality hypothesis (‖ψ(p)p^{−s}‖ ≤ 1/p from
+1-boundedness alone, any character, any Re s ≥ 1); the .re-vs-norm trap
+resolved by putting reality on the LEFT (L(χ,1) > 0 for real nonprincipal
+χ needs no primitivity — SW.LFunction_apply_one_pos); the χ₁² = 1 descent
+direction was genuinely new (via changeLevel_injective at the conductor's
+NeZero from SW.EulerBridge); parity transport was ONE mathlib line.
+L1LowerEffective_descend: primitive production at A ⟹ the full interface
+at A+1; L1LowerEffectiveOdd_descend ready as LANDAU-ODD's plug (π/f^{3/2}
+primitive ⟹ odd floor at 5/2; door_L1_absorbed eats it). Even parity
+remains the whole gap, exactly as scoped. Census: 12 names, RC=0 at 9460.
+New traps: gcongr's positivity side-discharge reorders surviving goals
+(explicit mul_le_mul in norm calcs); the Complex.pos_iff → ‖z‖ = z.re
+idiom; changeLevel_injective needs NeZero on the TARGET level (the
+instance lives in SW.EulerBridge, not mathlib). STUBB'S REPLY (mail):
+S-8 DONE (the handoff banked, jasonh → math-acct unblocked, main at ff3e62aa
+clean); the four findings triaged under the hierarchy — (a) tier-1
+(the unique-id principle exists; the mint avoid-set misses LIVE operands
+— both ports fix + cross-port test), (b) tier-3 vacuous-at-ROW-granularity
+(a family can be armed in aggregate with contracts no row exercises —
+named as its own shape), (c)+(d) outside the triad: claims wider than the
+code in DURABLE records (a commit message has no edit path — where the
+prefer-no-summary law has teeth) and "the instrument describing its own
+improvement is the least trustworthy sentence in any report" (banked).
+STUBB'S LESSON-SIX SHARPENING adopted for salt: a census row's date stamp
+is necessary but not sufficient — the row should also name WHAT WAS IN
+FLIGHT when it was taken (the survey-during-waves hazard is structural).
+Stubb requests the freeze/refuter tooling patterns when Starbuck sits for
+S-1 — promised, will mail when the sitting opens.
