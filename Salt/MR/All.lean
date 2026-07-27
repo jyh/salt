@@ -150,6 +150,7 @@ import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
 import Salt.MR.SieveGlue
 import Salt.MR.MinorArcVaughan
+import Salt.MR.Eq26Compose
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1381,3 +1382,23 @@ open Salt.Tactic in
   Salt.MR.minsum_shift
   Salt.MR.four_mul_ge_of_mem_blockExc_zero
   Salt.MR.minsum_d_dependent
+  Salt.MR.shortSum_measurable'
+  Salt.MR.shortSum_sub_const_sq_intervalIntegrable
+  Salt.MR.rpow_inv20_sq
+  Salt.MR.one_div_rpow_absorb
+  Salt.MR.meansq_shift_of_pointwise
+  Salt.MR.thm3_of_step1_and_eq26
+  Salt.MR.thm3_meansq_pinned
+  Salt.MR.hTwo_meets_kernel_binder
+  Salt.MR.eq26_carrier_hrange
+  Salt.MR.thm3_meansq_of_kernel
+  Salt.MR.chebyshev_exceptional_set
+  Salt.MR.thm3_chebyshev_exceptional
+  Salt.MR.thm3_pair_exceptional
+  Salt.MR.thm3_pair_nonvacuous
+  Salt.MR.calFrameK_satisfiable_scaled
+  Salt.MR.Ah_mul_le
+  Salt.MR.Ah_one_sided
+  Salt.MR.Ah_containment
+  Salt.MR.calFrameK_satisfiable_Ah
+  Salt.MR.levelGates_calibrated_Ah

@@ -12886,3 +12886,36 @@ the Kusmin :265 cached info). Census: import + 27 names, RC=0 at 9455
 jobs. REMAINING L-LADDER: L1/L2 (Abel + the ψ−θ defect, mathlib-covered),
 L4 (Type I), L5 (Type II), L6 (assembly), L7 (the exit) — dispatchable as
 one wave against the landed foundation + the L36 spec.
+
+---
+
+**2026-07-26 21:06 PDT — E26-WAVE-2 LANDS WHOLE (26 decls, 956 ln, zero Zeno): the
+eq-26 arc's hard half is done.** Eq26Compose.lean, three stones + two
+corrections OF OUR OWN SPECS: (1) E26-6 — thm3_of_step1_and_eq26 (the
+Theorem-3 composition, Step 1 hypothesis-carried) + thm3_meansq_of_kernel
+(THE CARRY SHAPE CERTIFIED NOT ASSERTED: lemma14_shortInterval_meansq_kernel
+feeds hstep1 in one exact; the h₂-binder met with EQUALITY at hTwo —
+hTwo_meets_kernel_binder); the freeze's 32C² corrected to **50C²** (the
+window defect at 1/h₂ carried honestly; the general stone ships the exact
+strictly-stronger form). (2) THE hh1lo PLACEMENT VERDICT: E26-7, not E26-6
+— the short-scale window defect bites only post-Chebyshev; the honest
+split is δ/200 (Chebyshev) + δ/400 (defect) ≤ δ/100, so
+thm3_pair_nonvacuous gates on Bf + B1 < (δ/200)² — a QUARTER not half of
+(δ/100)². The ∃E exceptional-set form byte-fits sec9_eq28_exit's
+hthm3f/hthm3one at the named Finsets. (3) E26-8 — Amendment A's OWN ℕ
+SKETCH CORRECTED: the ⌈⌉/+1 forms BREAK Q₁ ≤ h (M·A ≤ log₂ h demands the
+FLOOR); Ah := Adoor(8δinv)·(log₂h/(8δinv·Adoor(8δinv))) makes
+Ah_containment a theorem, and the anchor-as-multiple-of-Adoor trick lets
+A_gate_logK ride DoorFrame's estimate (calFrameK_satisfiable_scaled
+GENERALIZES the door frame — k = 1 recovers it verbatim; G_gateK equality
+survives). calFrameK_satisfiable_Ah's ONLY hypothesis is the corrected
+level-1 H_K arm. New traps: linarith defeated by Nat.cast compound atoms —
+state the arithmetic as an abstract-reals lemma and exact it (the unifier
+abstracts; the sharper plain-tactic-first); div_add_div_same gone
+(← add_div); Nat.lt_mul_div_succ/Nat.mul_div_le arg orders; the working
+Chebyshev route (mul_meas_ge_le_integral_of_nonneg + measureReal +
+restrict + the Icc/Ioc endpoint via measure_singleton); positivity blind
+on def-applications (hTwo X). Census: import + 20 public names, RC=0 at
+9456 jobs. THE ARC'S REMAINDER: the mechanical composition of wave-1+2
+stones into sec9_eq28_exit_calFamily's binders once Prop-1 supply (hMsup)
+and Lemma 4 land — both carried, both owned elsewhere on the road.
