@@ -12494,3 +12494,22 @@ traps: Real.rpow_mul's arrow is opposite its name (← to collapse);
 rpow_neg_one exists (one step); the one_div…inv_inv idiom beats the
 churny inv_le_inv names; Nat.ceil API unifies THROUGH a plain def (no
 unfold). SIEGEL the last aloft.
+
+---
+
+**2026-07-26 18:09 PDT — ⚑ SIEGEL: the per-character floor CLOSED UNCONDITIONALLY — the night's slate COMPLETE. ⚑**
+`Salt/MR/SiegelArm.lean` (778 ln, 14 publics, zero warnings, all 3-axiom;
+full build green rc-checked 9447). S-1's verdict: NOT a composition (the
+SW L(1)-stones all branch-conditional — enumerated) AND not needed:
+**chi_floor_all_complete — loglog X − O_χ(1) at EVERY χ, one statement,
+unconditional, strictly better than the landed nonreal form**. The
+q-uniform L₁ slot the one residual (named, inhabited, priced). The
+3-4-1-at-real-χ stone with the ζ-pole priced by DISTANCE (the step the
+landed route couldn't take). New traps: LFunctionTrivChar defeq-not-rw;
+ComplexOrder scoping; prod_pos over prod_eq_zero_iff; degree-3 nlinarith
+staging; **the zeta box template transplants verbatim to ANY entire
+function (the cheapest band-bound route — banked as doctrine)**; the
+ℂ-mean-value pair; s ≠ 1 through the IMAGINARY part at d = 0.
+**THE NIGHT COMPLETE: eight majors since dusk, all whole, all 3-axiom,
+the build never red at rest. The remaining road: S7, S9-design, S10b,
+the L₁ port, the Lemma-4/GS arc, the eq-26 bridge, S11's MR-side.**

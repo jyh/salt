@@ -141,6 +141,7 @@ import Salt.MR.TypicalPriceK
 import Salt.MR.SeamNumber
 import Salt.MR.Sec9Glue
 import Salt.MR.DoorFloor
+import Salt.MR.SiegelArm
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1210,4 +1211,18 @@ open Salt.Tactic in
   Salt.MR.regime_W_headroom_of_H0door
   Salt.MR.budget_head_at_H0door
   Salt.MR.budget_head_grade_closed
+  Salt.MR.LFunction_band_lower
+  Salt.MR.eulerFactor_prod_lower
+  Salt.MR.LFunction_band_lower_principal
+  Salt.MR.chi_Llower_band
+  Salt.MR.chi_floor_all_complete
+  Salt.MR.chi_floor_all_complete_twisted
+  Salt.MR.zeta_upper_band
+  Salt.MR.LFunctionTrivChar_norm_le
+  Salt.MR.norm_deriv_LFunction_ball_le
+  Salt.MR.LFunction_lower_of_L1
+  Salt.MR.chi_Llower_real_far
+  Salt.MR.chi_Llower_real_of_L1
+  Salt.MR.chi_floor_real_of_L1
+  Salt.MR.exists_L1_lower
   Salt.MR.farErr34_local_closes_of_gate

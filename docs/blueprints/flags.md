@@ -11932,3 +11932,16 @@ that pin (δ = 2). The seam-row FORMULA stands; its calibrated INSTANCE
 needs the K-ladder re-pin (V9b — CALREPIN in flight). Also: the p² row's
 inherited 64/P² grade useless at seam scales (the direct-route repair
 mapped); the H₁ = 2 inhabitant weak (permitted up to P₁^{1/6}).
+
+**The Siegel real-χ gap — SUBSTANTIALLY CLOSED (SIEGEL-WAVE).**
+Salt/MR/SiegelArm.lean: **chi_floor_all_complete — the full
+loglog X − O_χ(1) floor UNCONDITIONALLY at every χ (real, non-real,
+principal) in one statement** (mathlib nonvanishing + the compact-min box;
+STRICTLY better than chi_floor_all_nonreal's (1/4)-form). The SW arc's
+three L(1)-stones are all branch-conditional (enumerated — no composition
+existed). THE ONE LIVE DEBT: the q-UNIFORM L₁ slot (∀ε ∃c ∀q real
+primitive χ: c·q^{−ε} ≤ L(1,χ).re — Landau hyperbola port [C, 400–800]
+effective at q^{−1/2}; ineffective = D-adjacent); the slot is a named
+interface, inhabited per-character (exists_L1_lower — NOT vacuous); the
+door's q ≤ (loglog x)⁵ regime gives the diskConst gate enormous room
+(consumer pins it).
