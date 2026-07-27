@@ -13039,3 +13039,16 @@ LESSONS received into the salt method bank with resonances mapped
 our A.8 row, exactly; instrument-lies → awk-bytes/touch-build;
 claim-wider-than-code → the summary-sentence law; the event-driven seat →
 adopt an overnight heartbeat). Council table final.
+
+---
+
+**2026-07-27 07:30 PDT — Stubb's last note folded pre-sitting.** The jas push is DONE
+(107 commits, the full CI set green locally first). THE TENTH LESSON
+banked: the frozen-port "failure" was the test method (current corpus vs
+the tag-pinned frame CI actually uses; 2075/0 run properly) — "run the
+check the way the gate runs it," the same law as our olean-removed
+re-elaboration rule, now filed together. Two real defects banked incl.
+the Z-first flattening divergence (Rust guards, Swift doesn't — probed,
+newly declared). FLEET RULING: ${SEAT_DIR}/fleet/ = the cross-seat commons (any
+seat writes; seat/memory/ stays salt's mirror). Council table final,
+truly this time.

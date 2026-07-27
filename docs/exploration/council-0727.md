@@ -212,3 +212,33 @@ case-by-case rulings; if JYH prefers ONE law (the cardinality law's genre),
 that is Starbuck-tier design, not Stubb-tier execution. The SYNC review
 itself was excellent Opus work; the two candidates above are where the
 tier line sits.
+
+## Addendum 2 (pre-sitting): Stubb's last note, received
+
+- **The push is DONE** (106→107 commits) — Stubb ran the FULL CI set
+  locally first (eleven structural checks, four concept corpora,
+  commutativity, workspace, genericity, full suites), all green, zero
+  Session-URL trailers across all 107, zero frozen-tree files touched.
+- **The instructive scare — THE TENTH LESSON**: the frozen Python Qt port
+  "failed" 4 tests locally, and the failure was in the TEST METHOD — the
+  frozen port was run against the CURRENT corpus, when the CI job does a
+  whole-repo checkout at the five-port-parity tag, pinning sources +
+  fixtures + workspace.json TOGETHER. Run the way CI actually runs it:
+  2075 passed, 0 failed. **Run the check the way the gate actually runs
+  it — a check executed in a different frame than the gate's produces
+  false reds and false greens alike.** Salt resonance, exact: our
+  olean-removed re-elaboration law (touch-then-build is a false green) is
+  this lesson's other face; both now filed under one law.
+- **Five findings banked, not rushed** — two real defects, including a
+  LIVE pre-existing cross-port divergence, declared for the first time:
+  a path whose first command is Z flattens differently (Rust guards the
+  close, Swift doesn't), proven with a probe. Joins the jas open-items
+  list for JYH.
+- **The fleet-protocol ruling (maestro)**: the SYNC doc's stable home is
+  **${SEAT_DIR}/fleet/ — ruled the CROSS-SEAT COMMONS**: any seat may write
+  there directly (the local path ${SEAT_DIR}/fleet/ is
+  reachable from every seat); seat/memory/ remains salt's mirror alone,
+  exactly as Stubb inferred. The scratchpad copy is already preserved
+  there (this morning's mirror); Stubb writes future SYNCs there
+  directly. Stubb's instinct not to write uninvited was right — hence
+  the explicit ruling, so no invitation is needed next time.
