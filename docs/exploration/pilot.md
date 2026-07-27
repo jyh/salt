@@ -12791,3 +12791,24 @@ shadowing needs _root_ citations. Census: import + 18 names, RC=0 at 9451
 jobs, zero warnings from the file. Wave 2 (E26-6 amended + E26-7
 exceptional-set + E26-8 A(h)) is DISPATCHABLE once the current executor
 trio returns.
+
+---
+
+**2026-07-26 20:24 PDT — W-SWEEP LANDS WHOLE (13/13, first pass, zero Zeno).**
+Salt/MR/DoorFloor1500.lean (399 ln): the full 1500-chain
+(log_scale_threshold_1500 → regime_head_W_headroom_1500 — every §1 proof
+transplanted VERBATIM modulo the numerals, exactly as the refuter's
+derivation predicted: √36000000 = 6000 closes in norm_num, the same
+nlinarith calls fire at exponent 1500); the NEW W_second_arm (Prop 2.4's
+H-side, the previously-unpriced [A] stone) + W_second_arm_of_scale feeding
+BOTH arms from one 36000000 ≤ log H demand; the parametric-w LandauL1 trio
++ their w := 12 one-liner corollaries (the landed w = 5 forms kept as
+historical record). Margin hygiene honored (nothing δ₀-derived; the
+36000000^{-5/4} hypothesis sits ~39 orders above the spine's δ₀). NEW TRAP
+(sharp): **Real.log is EVEN** (log_neg_eq_log) — a lower bound on log H
+does NOT orient H (H = −exp(3.6·10⁷) satisfies it); W_second_arm_of_scale
+carries 0 < H explicitly; any "derive positivity from a scale bound" step
+is live danger. Also: Real.log_of_nonpos does not exist in this mathlib
+(log_nonpos/log_neg_eq_log/log_eq_zero only). Census: import + 13 names,
+RC=0 at 9452 jobs, zero warnings from the file. The B₅ = 12 consequence
+chain is now fully landed on the S10a side.

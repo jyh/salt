@@ -146,6 +146,7 @@ import Salt.MR.BigXiArc
 import Salt.MR.RegimeHead
 import Salt.MR.LandauL1
 import Salt.MR.Eq26Bridge
+import Salt.MR.DoorFloor1500
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1313,3 +1314,16 @@ open Salt.Tactic in
   Salt.MR.window_defect_bound
   Salt.MR.shortSum_eq26_window
   Salt.MR.sec9_R_eq_zero_of_card
+  Salt.MR.log_scale_threshold_1500
+  Salt.MR.regime_hthr_of_scale_1500
+  Salt.MR.regime_W_headroom_of_floor_1500
+  Salt.MR.regime_W_headroom_of_H0door_1500
+  Salt.MR.regime_head_W_headroom_1500
+  Salt.MR.W_second_arm
+  Salt.MR.W_second_arm_of_scale
+  Salt.MR.door_L1_absorbed_w
+  Salt.MR.door_L1_absorbed_12
+  Salt.MR.door_L1_debit_absorbed_w
+  Salt.MR.door_L1_debit_absorbed_12
+  Salt.MR.chi_floor_real_door_w
+  Salt.MR.chi_floor_real_door_12
