@@ -12995,3 +12995,17 @@ landings ceremonied this session-day; the arc totals 3806 ln against the
 HOLDING further dispatches: the next objects (the S8/thm_A2′ arc, the
 Landau production choice, the M4 wave) are design-block-first or
 JYH-morning items per the register. The morning brief follows.
+
+---
+
+**2026-07-27 07:12 PDT — the morning sweep + the council table set.** Caffeinate sentinel
+67161 killed (the Monday item). #42116: Felix's duplication challenge
+answered by JYH last night (own words, the graceful close-offer);
+**ocfnash (maintainer) engaged constructively** — merge master + try the
+new eval_det tactic; EVAL-DET experiment aloft (prepare-not-push). jas
+seat read: arc2-prototypes mid-flight (BINDVALUE Swift/Rust + POLYAREA +
+EVALBOUNDS — per-port gates, counted residues). The council doc drafted at
+docs/exploration/council-0727.md: per-seat briefs + six-item decision
+table (S8 design block go/hold; the Landau production choice; eq-26 order;
+the Lemma-4/GS scoper; the #42116 posture; the cloud bridge). Sitting at
+09:00.
