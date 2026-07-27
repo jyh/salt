@@ -12536,3 +12536,23 @@ THE REMAINING SIEGEL-SIDE RESIDUAL: the EVEN half of L1LowerEffective
 alone (no FE anchor — L(0,χ) = 0; the CNF/regulator lane, or
 SIEGEL-COMPOSE's classical route for truth-first, or the pearl's effective
 route). The campaign's M4-6 consumer can proceed odd-complete.
+
+---
+
+## 🏔 THE S8 SUMMIT: thm_a2' IN THE KERNEL — the one-day rescope complete (2026-07-27 15:09 PDT)
+
+From the council's morning ratification ("we need to rescope") to the
+kernel by afternoon: thm_a2' (ThmA2Rows.lean) — the single-h mean square
+over the K-family 𝒮 at general 1-bounded multiplicative F, bounded by the
+five explicit summands (C₁·exp(−M₀/e) NO M-factor + the §8.1 term at the
+corrected H₁ pin + (log X)^{−1/500} + the band residue (log X)^{−13/15} +
+C₅/h), the CapFreeFloor dichotomy internal, the cap-free branch
+UNCONDITIONAL, the cap branch conditional on four named in-statement
+hypotheses (hStation/hCcc/collisionGate/the 800-threshold) — all owned by
+the M4 wave, with the highest-value follow-up priced at ~20 lines (the
+∃X₀ hoisting twin) and the D10-at-centre repair named. The campaign:
+2 scopers, 1 refuter round, 2 kill-checks, 12 executors, 10 new files,
+~7900 ln, zero sorries, all landings at the three axioms. THE DOOR ROAD'S
+REMAINING OBJECTS: the M4/S9 wave (Amendment B's ladder, now with its
+thm_A2′ supplier standing), the even-χ production (the one Siegel
+residual), Lemma 4 (paper-completeness, register), S11's compose.

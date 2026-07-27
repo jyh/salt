@@ -13551,3 +13551,19 @@ the unused-binder linter vs genuine downstream side-conditions — pair
 them (hεwin : 0 ≤ ε ∧ ...). Census: import + 8 names, RC=0 at 9473.
 THE FINAL WAVE (A2-ROWS: the two branch suppliers + the glue) dispatches
 now — thm_a2' itself is one executor from done.
+
+---
+
+**2026-07-27 15:09 PDT — 🏔🏔🏔 THE SUMMIT COMPLETE: thm_a2' IS IN THE KERNEL.**
+ThmA2Rows.lean (828 ln, 5 public): both branches discharged, the
+cap-free UNCONDITIONAL, the cap branch at four named conditionals; every
+supplier on the nose (zero show/change/conv — the day's byte-discipline
+paying out); the ×4 cover unspent; the hoisting-twin follow-up [~20 ln]
+and the D10-at-centre repair registered for the M4 wave. New traps:
+positivity/nlinarith hit recursion/heartbeat walls on the calP/calQK cast
+towers (div_nonneg + linarith with the landed ge-lemmas); field_simp
+closes 3 of 4 weight identities ("ring does nothing" is FATAL at the
+gate); set_option-before-docstring parse order; the unused-binder linter
+fires on THEOREM binders. Census: import + 5 names, RC=0 at 9474. The
+S8 campaign: council-to-kernel in ONE DAY. Aloft: the re-armed cloud
+sentinel alone. JYH returns before 5pm to the summit flag.

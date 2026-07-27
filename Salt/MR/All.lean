@@ -158,6 +158,7 @@ import Salt.MR.T0Band
 import Salt.MR.SeamRowWindowed
 import Salt.MR.SPartStation
 import Salt.MR.ThmA2
+import Salt.MR.ThmA2Rows
 import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
@@ -1710,3 +1711,8 @@ open Salt.Tactic in
   Salt.MR.a2_row_cap_of_not_capFreeFloor
   Salt.MR.A2Frame.box_at
   Salt.MR.A2Frame.ksGate_at
+  Salt.MR.a2Rows_of_capfree
+  Salt.MR.a2Rows_of_cap
+  Salt.MR.thm_a2'
+  Salt.MR.a2_station_supply_pointwise
+  Salt.MR.a2Frame_satisfiable_partial

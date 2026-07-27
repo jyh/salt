@@ -416,3 +416,40 @@ PHANTOM (the real names: pi_gt_d6/pi_lt_d6/d2/d4/d20).
 3. thm_a2' — the two-line by_cases glue.
 4. a2Frame satisfiability at the door inhabitant — the three per-instance
    members (thin/blocks/err) are the real content; nine are monotone/free.
+
+## ⟦AMENDMENT I⟧ — 🏔 THE SUMMIT COMPLETE: thm_a2' IS IN THE KERNEL
+
+ThmA2Rows.lean lands all three Amendment-H stones + both stretch stones.
+**thm_a2'** carries the frozen five-summand conclusion VERBATIM, the
+CapFreeFloor dichotomy discharged on both branches — the cap-free branch
+UNCONDITIONAL; the cap branch conditional on exactly FOUR named
+in-statement hypotheses: (1) hStation (the ball-leg supply over box
+centres at grade Sb); (2) hCcc (the constant-slot payment C₂ + M·Sb²/2 ≤
+Ccc — the 8S² paid from a2Mrow's free slot; Amendment G's ×4 cover
+deliberately NOT spent); (3) collisionGate X 25 Ccol; (4) 800 < loglog X.
+Every supplier applied ON THE NOSE — zero show/change/conv in the file;
+the four weighting numerals matched byte-exactly.
+
+**THE FOUR FINDINGS + THE FOLLOW-UPS (registered):**
+1. The 8S²-has-nowhere-to-go resolution (the free-slot payment) — clean.
+2. **THE HIGHEST-VALUE FOLLOW-UP [~20 ln]**: seam_ball_leg_station_M_gen's
+   ∃X₀ sits under ∀t₀ t₁ but its landed WITNESS is t₁-free — an additive
+   hoisting twin converts hStation from CARRIED to DERIVED. First stone
+   of the next wave.
+3. **D10 RESURFACES at the row's centre**: M_window_bridge_seam's floor is
+   |v| ≤ X but the station's recentring gate forces Rad > X — the bridge
+   cannot supply hM₀ at a box centre AS STATED. The M4 wave carries the
+   repair (the 2X-restatement twin exists — M_rangeCap; the composition
+   stone is priced there).
+4. The 13-constant exposure (the two capstones re-quantify) — a merged
+   capstone is the post-summit cleanup candidate beside the 4-row rewire.
+
+**THE CAMPAIGN VERDICT**: the S8 rescope is COMPLETE AS DESIGNED — from
+"CLASS D, 8–20k, NODE FREEZE FORBIDDEN" (this morning) to a kernel
+theorem conditional on four named, priced, branch-confined hypotheses
+(this afternoon), via: 2 scopers, 1 refuter round (2 fatals caught, both
+mine), 2 kill-checks (one route killed by counterexample, a better one
+found), 12 executors, ~7900 lines landed, zero sorries ever committed,
+every landing axiom-clean at [propext, Classical.choice, Quot.sound].
+The remaining conditionals are the M4-wave's suppliers, named in this
+freeze. Ten new files; the census at 9474.
