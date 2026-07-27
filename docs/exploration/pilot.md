@@ -13009,3 +13009,15 @@ docs/exploration/council-0727.md: per-seat briefs + six-item decision
 table (S8 design block go/hold; the Landau production choice; eq-26 order;
 the Lemma-4/GS scoper; the #42116 posture; the cloud bridge). Sitting at
 09:00.
+
+---
+
+**2026-07-27 07:16 PDT — EVAL-DET returns pre-sitting: a clean win.** Master merged into
+keller-jacobian (55 commits, zero conflicts, toolchain unchanged); the new
+tactic (Mathlib/Tactic/NormDet.lean — a simproc reifying !![..] literals
+through the Bird-algorithm certificate chain) fires via the
+Matrix.eta_fin_three bridge and CLOSES THE GOAL ALONE — the trailing ring
+deleted, the maxRecDepth 8000 workaround GONE, 6.5s → 1.5s, net −2 ln,
+axioms/lint clean. Local commit a505176; 57 commits unpushed — the push and
+the ocfnash reply are JYH's (own-words law; the facts sheet is in the
+council doc, decision 5). Council doc updated pre-sitting.

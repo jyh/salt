@@ -103,6 +103,20 @@ today's sync carries the S7-closed state + this document.
    Counterexamples-home line (with the eval_det improvement as the good-faith
    response) vs actively steer to the FC-canonical close. Maestro leans:
    apply eval_det, reply in JYH's words, let the maintainers decide homes.
+   **⟦EXPERIMENT RESULT, pre-sitting⟧ eval_det WORKS, better than asked:**
+   master merged clean (55 commits, zero conflicts, toolchain unchanged);
+   the bridge is `Matrix.eta_fin_three` (J is a fun, not a `!![...]`
+   literal); `eval_det` closes the goal ALONE (the trailing `ring` deleted);
+   the `set_option maxRecDepth 8000` workaround is GONE (pderiv distributes
+   over nine small entries pre-expansion); file build 6.5s → 1.5s (4.3×);
+   net −2 lines; axioms unchanged on all 13 theorems; lint clean. Local
+   commit a505176, 57 commits unpushed — THE PUSH IS JYH'S. Two judgment
+   calls to confirm/revert: (a) the docstring's "normalizing with ring"
+   was factually stale and was updated — an isolated hunk, droppable;
+   (b) the now-redundant Determinant.Basic import kept as the honest
+   direct dependency. Reply facts for JYH's own words: merged master;
+   eval_det works here via eta_fin_three; closes the goal outright;
+   removed our maxRecDepth workaround; 4× faster; thanks for the pointer.
 6. **The cloud bridge** — confirm today's jason-seat session and the
    firewall checklist.
 
