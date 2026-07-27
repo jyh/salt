@@ -12812,3 +12812,29 @@ is live danger. Also: Real.log_of_nonpos does not exist in this mathlib
 (log_nonpos/log_neg_eq_log/log_eq_zero only). Census: import + 13 names,
 RC=0 at 9452 jobs, zero warnings from the file. The B₅ = 12 consequence
 chain is now fully landed on the S10a side.
+
+---
+
+**2026-07-26 20:27 PDT — DOOR-INHAB LANDS WHOLE (12 decls, zero Zeno, the hard gate
+first structural try).** Salt/MR/DoorFrame.lean (259 ln):
+calFrameK_satisfiable_door byte-identical to Amendment A's statement — the
+K-frame inhabited PARAMETRICALLY at Adoor M := 2^18·(Nat.log 2 M + 1),
+G := 3072M (G_gateK holds with EQUALITY by construction, mirroring the
+pinned frame's exactness; H1_pin's K-3 width survives reparametrisation
+verbatim). A_gate_logK closed uniformly: LHS ≤ (48L + 592)·log 2 vs RHS ≈
+7571(L+1)·log 2 — margins 18×→227×; the design's guide-rail was ~23×
+CONSERVATIVE (the true LHS ≈ 22·log₂M + 371). Free corollaries shipped:
+levelGates_calibrated_door (the twelve gates at the door family),
+eq28_door_clears (δ and M both FREE — the δ₀ instantiation stays at the
+call site, margin-hygiene law), and log_calQK_door_one — the corrected
+LEVEL-1 containment identity, i.e. the H_K arm Amendment A shrank 54
+orders, now a kernel fact. DOCTRINE BANKED: never estimate a door-scale
+logarithm numerically — bound the ℕ argument by 2^k symbolic and use
+Real.log_pow. New traps: nlinarith blows maxRecDepth on 6-digit-coefficient
+linear goals (plain linarith instant — plain-tactic-first reconfirmed);
+Nat.lt_pow_succ_log_self needs (b := 2) explicit; Nat.lt_two_pow_self is
+dot-notation; push_cast FIRST then rw [Adoor_cast] (defs survive
+push_cast); lake env lean scratch files need repo-root cwd. Census: import
++ 10 public names (log_le_pow_two private — excluded), RC=0 at 9453 jobs.
+Residuals (consumer-side, by design): the M-pin 8/δ₀ ≤ M discharges at the
+call site; the H_K max-arm build joins the S11 compose via Hlo₀/epsFloor.

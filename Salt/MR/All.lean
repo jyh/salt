@@ -147,6 +147,7 @@ import Salt.MR.RegimeHead
 import Salt.MR.LandauL1
 import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
+import Salt.MR.DoorFrame
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.Tactic.AuditAxioms
@@ -1327,3 +1328,13 @@ open Salt.Tactic in
   Salt.MR.door_L1_debit_absorbed_12
   Salt.MR.chi_floor_real_door_w
   Salt.MR.chi_floor_real_door_12
+  Salt.MR.Adoor_ge
+  Salt.MR.one_le_Adoor
+  Salt.MR.Adoor_cast
+  Salt.MR.calE_door_two
+  Salt.MR.log_four_M_door
+  Salt.MR.log_calE_door_two
+  Salt.MR.calFrameK_satisfiable_door
+  Salt.MR.levelGates_calibrated_door
+  Salt.MR.eq28_door_clears
+  Salt.MR.log_calQK_door_one
