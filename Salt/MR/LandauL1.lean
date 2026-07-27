@@ -120,6 +120,14 @@ nonprincipal `χ mod q`, at ANY fixed `A ≥ 0`.  Three continuations, priced:
 * **FE/Gauss-sum, odd `χ` only** [C, ~400]: `A = 3/2`, effective, elementary; needs
   `|rootNumber χ| = 1` (from `|gaussSum| = √q` at primitive `χ`) plus `L(0,χ)` evaluated as
   `−(1/q)Σ aχ(a)` plus `Γ(1/2) = √π`.  Does not cover even `χ`.
+  [LANDED 2026-07-27 as `Salt.MR.LandauOdd`, with corrections to this pricing:
+  the honest constant is exactly `π` (no `√π` — the odd `Gammaℝ` factors
+  collapse); the DELIVERED grade is `A = 5/2` (the descent to imprimitive `χ`
+  included: `LFunction_changeLevel` was in mathlib, `φ(N)/N ≥ 1/N` costs one
+  grade); nonvanishing landed UNCONDITIONALLY (no `χ² = 1` needed).  The single
+  residual is `SawtoothOdd` — `hurwitzZetaOdd x 0 = 1/2 − x` on the OPEN
+  `(0,1)`, mathlib's own flagged `k = 0` TODO.  The even-`χ` half remains open
+  and is mathematically dead for THIS lane (`L(0,χ) = 0` at even `χ`).]
 * **Class number formula** [D-adjacent, campaign]: needs `ζ_K = ζ·L` for quadratic `K`.
   Covers both parities at `A = 1/2`.
 * **Hyperbola** [C, ~400–800]: lands `exp(−C√q)`, NOT a power.  By

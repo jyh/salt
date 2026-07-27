@@ -13224,3 +13224,11 @@ autoBound trap is SHARP: without open scoped Real, (π : ℂ) silently makes
 π a free VARIABLE; Complex.norm_real lands on the real norm —
 Real.norm_of_nonneg; NeZero χ.conductor is not an instance; the
 unusedSimpArgs linter is live).
+
+---
+
+**2026-07-27 12:23 PDT — correction: the previous commit's "LandauL1 header corrected"
+claim was FALSE at commit time** — the python anchor missed (whitespace)
+and the assert fired AFTER the tree was staged; the ledger entry and
+commit message over-claimed. The correction is now actually applied (this
+commit), rc-checked. The honest-reporting law: recorded, not hidden.
