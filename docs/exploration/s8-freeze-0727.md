@@ -90,3 +90,108 @@ never 1/log y (rename the [9]-machine's to ηy in any port); U normalised
 vs not (D3); the sup→inf reading (D2); no ∃x₀-shaped stone inside anything
 f-uniform; π ∈ (3.125, 3.2) gates via Real.pi_gt_3141592/pi_lt_315; the
 V9c law; the margin-hygiene law.
+
+## ⟦AMENDMENT A⟧ — the refuter repairs (OWN-REF: HOLD w/ one CONFIRMED-FATAL;
+LAD-REF: REPAIR-THEN-FIRE). Folded before any wave; the full verdicts in the
+wf_2afcbebc journal + flags.
+
+**THE FATAL (OWN-REF R-1b): the ownership ruling was TRUE ONLY ON THE
+SMALL-M BRANCH.** Every landed row carries the (1/16)loglog X pretentious
+cap as a hypothesis (SeamNumber :122, GradedCapstone :114/:231, origin
+CofactorSupply :415/:663) — MRT's small-M branch exactly. THE DOOR'S OWN
+DATUM IS IN THE LARGE-M BRANCH, provably (lambda_nonpret: (1/4)loglog x at
+every admissible t₁; the damping recovers only θ₂₉₃ ≈ 0.0034 — the cap is
+FALSE there). And the claim is not trivial at large M (the RHS → 0, the
+trivial LHS bound is 1). **NEW NODE A2-3b [C, 400–800] — the cap-free arm:**
+(i) ¬cap ⟹ no pocket at any damping (the pocket grade (1/32−θ)loglog X
+sits strictly below the cap's (1/16−θ) — CofactorSupply :293–314's
+pocket_transport left arm, unconditional); (ii) re-run hUG34's composition
+with hrow replaced by Case-A-everywhere (mind the |v| ≤ 3X pocket window vs
+the minimality radius R); (iii) at large M the ball leg is VACUOUS (𝒯₀ = ∅
+— MRT's own branch structure). ITS KILL-CHECK (KC-A23B, dispatched): does
+(i) close from the landed machinery? THE NAMED FALLBACK IF NOT: FarArm's
+general-T socket (its own :70–72 residual — the strong floor at T ≍ X) —
+a SECOND D-risk, and the freeze says so now.
+
+**A2-3 SETTLED = OPTION W** (LAD-REF R-3 pre-answered the kill-check YES:
+the 7/8-page is Q_J-ceiling-driven — verified at source p. 25; the radius
+enters only through the crude factor, a loglog either way; the corpus's
+budget_le_half is radius-free by construction). WITH U-2's correction:
+option W means **ONE FREE-CENTRE ball of radius ≥ seamT0 covering
+[−T₀,T₀] via SupplyGeneric's centre-uniform chain** — NOT SupStation's
+internally-produced centre (a t₁-ball of radius T₀ covers [−T₀,T₀] only at
+t₁ = 0). And U-3: the interior band CANNOT be paid by M_range (its domain
+floor |t| ≥ (log X)^{1/15} is STRUCTURAL — dist_one_floor_pow needs
+|b| ≥ 1; the floor collapses at t → 0) — the interior pays ENTIRELY on the
+ball side. The A2-3 kill-check is thereby DISCHARGED pre-dispatch.
+
+**THE INTERFACE, PINNED LITERALLY (OWN-REF R-3a — the placeholder was an
+iron-rule-1 hazard):** the M-term is `C₁·exp(−M/e)` with **NO M-shaped
+factor** (the honest landed value: 8·(2√2·C₁')² = 64C₁'²; STRONGER than
+MRT's printed exp(−M)M) **plus a fourth summand** `C₄·(log X)^{−7/8+o(1)}`
+(the ball-error residue through the 8S² squaring — ballTail·(1+seamRad)
+squared; absorbable into C₃ only above an X-threshold, which then joins
+the X(...) gate — state it as the fourth term, absorb at A2-7 if the
+threshold is proven).
+
+**THE W-CEILING PROPAGATION (OWN-REF R-3b — a REAL find):** Tao Prop 2.4's
+W ≤ (log X)^{1/125} is DERIVED from MRT's printed 1/50 (= (1/50)/(5/2)).
+At the landed −1/500 the ceiling is W ≤ (log X)^{1/1250}, so the headroom
+twins re-run at exponent 1250·B₅ = **15000** (from 1500): a new ladder row
+[B, 150–250] modelled byte-for-byte on DoorFloor1500 (log_scale_threshold
+at L ≥ (4·15000)² = 3.6·10⁹; δ₀ gate ≈ (3.6·10⁹)^{−5/4} ≈ 1.3·10⁻¹² —
+still ~37 orders above the spine's δ₀; M4-6 survives at 46× margin;
+verified by the refuter). The 1500-chain stays (B₅-consistency); the
+15000-chain is the one thm_A2′'s consumers cite.
+
+**THE SIDE-CONDITION LIST, REWRITTEN (OWN-REF R-4 — my (A.1)/(A.2) claim
+was an over-claim):** the frame line reads "the K-frame CalFrameK
+(twelve scalar gates), from which (A.1)/(A.2) follow AT η/2 via
+levelGates_calibratedK → CellGates.gate2/gate3 (STRONGER than MRT's η —
+safe, and now stated honestly)". ADDED: the J-ceiling at the TOP level and
+BOTH bases (log Q_{Jb} ≤ √log X_d — SeamNumber R1; log Q_{Jb} ≤ √log X —
+GradedCapstone :98); Q_{Jb} ≤ Tann (:102); the R1–R6 reconciliation gates
+with **R4's threshold M-DEPENDENT** — the largeness gate is
+X > X(η, M, A, G, Jb), never X(η) (catch #253); and **the h-CEILING
+h ≤ 2X·e^{−e⁵}** (the 5 ≤ loglog Tann floor — thm_A2′ CANNOT state MRT's
+bare h ≥ 3; an honest deviation, the S9 consumer clears it by ~60 orders).
+
+**A2-2 RE-PRICED [C, 350–600]** (was B/C 250–400): the coefficient
+contract (SeamNumber :151–155's (b,c) factorization + support gate) has
+ZERO consumers and BREAKS at the naive instantiation for
+a = 1_{[X_d,2X_d]}·g_𝒥·f (the support gate fails off-window) — a design
+obligation inside the join, not bookkeeping.
+
+**A2-5's KILL-CHECK IS THE LOAD-BEARING GATE (LAD-REF R-4):** the fallback
+as previously written was MISPRICED IN KIND — re-running the arc at g_𝒥·f
+re-opens MRT p. 25's κ = 1 caveat (|Λ_f| ≤ Λ is FALSE off squarefree
+support — the very reason ellLin exists), i.e. D-TIER, honest band
+6300–9500 (ellLin is stated in 54 files). **If KC-A25 fails, the wave
+STOPS and returns to council.** "A port not a discovery" is struck.
+
+**OWNERSHIP NOTES (LAD-REF R-1):** D-5 is DISSOLVED (dist_recenter +
+dist_one_floor_pow + dist_split_A4_frozen — no Erdős–Turán, no
+PNT-in-segments; the VK region enters via one_line_pow_growth); D-8 is
+DISCHARGED inside hUG34 via CaseASocket2/damped_partial_transfer_34 at
+ρ_eff = 3θ₂₉₃ (RamareMR is MR Lemma 12 — a DIFFERENT object; dispatch no
+transcription); **Theorem A.1 is OUT OF SCOPE by ruling.** The full
+D-1..D-15/D1–D12/X1–X6 lists are banked to flags at this amendment (they
+were previously unauditable — only summaries existed in the repo).
+
+**GLYPH FIX (LAD-REF U-1):** A2-4's "the max-modulus reach |t'| ≤ X + T₀"
+reads **(log X)²** (MRT p. 25's contour height) — THREE objects share the
+T₀ glyph (seamT0 = (log X)^{1/15}; MRT's SET 𝒯₀; the contour height);
+banked beside the 𝒯₁ collision trap.
+
+**THE BAND, TWO-TIER AND CONDITIONAL (both freeze lines now agree):**
+IF KC-A25 and KC-A23B pass: **3400–6400** (the original 2850–5350 + A2-3b
+400–800 + the W-twins 150–250). IF KC-A25 fails: the D re-opens at
+6300–9500 and the wave returns to council. Dispatch order: KC-A25 +
+KC-A23B first (both aloft at this amendment); then A2-0/A2-1 parallel;
+A2-3b behind its check; the rest as before.
+
+**Verdicts that CONFIRMED the freeze:** A2-1's mechanism exactly right
+(the five-way split verified, both vtail engines triangle-first — LAD-REF
+R-2); the exp(−M/e) recalibration safe-direction with the numeral checked
+(U-5); the T-reach and J-maximality clean (OWN-REF R-2); zero live sorries
+across the 200+ MR modules (U-6).
