@@ -153,6 +153,7 @@ import Salt.MR.ParsevalSingle
 import Salt.MR.MWindowBridge
 import Salt.MR.CapFreeArm
 import Salt.MR.SPartCore
+import Salt.MR.ThmA2Spine
 import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
@@ -1660,3 +1661,8 @@ open Salt.Tactic in
   Salt.MR.sPart_seamCoeff_factorization
   Salt.MR.sPart_seamCoeff_dirichlet_bound
   Salt.MR.sPart_seamCoeff_tail_bound
+  Salt.MR.seam_coef_contract_forces_vanishing
+  Salt.MR.seam_coef_contract_absurd
+  Salt.MR.far_tail_crude
+  Salt.MR.seam_Msup_family
+  Salt.MR.thm_a2_spine

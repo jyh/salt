@@ -13447,3 +13447,17 @@ v4.32.0-rc1 rename batch (div_le_div_iff/Nat.pos_pow_of_pos gone;
 factorization_prod_pow deprecated); set-with-h displays unfolded (term-
 level mem_filter instead). A25-STATION (R5–R7) dispatches now; A2-2 still
 aloft.
+
+---
+
+**2026-07-27 13:32 PDT — A2-2 LANDS WHOLE (450 ln): the spine exists; the contract
+kill is now a THEOREM; the fifth summand enters.** thm_a2_spine composes
+the single-h Parseval with the weighted dyadic row family (the honest
+hMsup device — the collapse does NOT transfer to the single-h; FarArm's
+socket stays retired via the crude weighted moment tail); the
+grade-fatal tall-row trap banked (the weighted family or nothing);
+seam_coef_contract_absurd upgrades the refuter's contract warning to
+False-at-a-live-datum — the repair RULED as the window-relativized twin
+(CONTRACT-TWIN dispatched) with MR p. 20's second seam window priced
+honestly. Census: import + 5 names, RC=0 at 9469. Aloft: A25-STATION,
+CONTRACT-TWIN, A2-3-BAND (both dispatching), the cloud sentinel.

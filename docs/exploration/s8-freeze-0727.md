@@ -318,3 +318,40 @@ at Q := 1 with S1's ellLin bridge, its ∃x₀ shape a declared law-#253 wart
 at the instantiation site (A2-7's job). Remaining on the ladder: A2-2
 (aloft), A25-CORE (aloft) + A25-STATION, A2-3 (the band supply — option W,
 free-centre), A2-7.
+
+## ⟦AMENDMENT F⟧ — A2-2 LANDED (ThmA2Spine); the contract unsatisfiability
+is now a THEOREM; the fifth summand; the repair ruled
+
+**thm_a2_spine lands** (:394): the single-h mean square ≤ (1/2π²)·
+[236365π·Mrow + 205π·B₀ + 39674880π/h + Egap] — the row family supplies
+BOTH Lemma-14 terms. THE hMsup VERDICT: the family is GENUINE at the
+single-h (the 2^K truncation reads every dyadic level — the difference
+form's collapse does not transfer); the honest supply is the WEIGHTED
+dyadic row family + the crude moment tail past X/2 (far_tail_crude via
+the landed MomentsA2 — **FarArm's general-T socket NOT needed for the
+family**, the second D-risk stays retired). THE GRADE-FATAL TRAP: one
+tall row at Tann = X turns the [P₁,Q₁] ⊆ [1,h] gate's factor into Q₁
+(≈ h/2 loss) — ONLY the weighted family is legal. THE FIFTH SUMMAND:
+39674880π/h, explicit, flagged, never absorbed (the alternative — a
+~400-ln finite-family A2-1 variant — is priced, not taken; A2-7 carries
+the summand or commissions the variant).
+
+**THE CONTRACT, sharpened to a theorem**: seam_coef_contract_absurd
+proves the (b,c) binders CLOSE TO FALSE at a live S8 datum (band primes
+force c ≡ 0 off-window; 𝒮_K members must carry band primes). THE REPAIR,
+RULED (maestro, statement-tier, ADDITIVE twin — iron rule 1 respected):
+window-relativized hcoef/hwin (the X_d ≤ pm ≤ 2X_d antecedent) on a
+seam_row_number twin, WITH MR p. 20's second seam window priced (the
+RamareErr overcount range [2X, 2Xe^{1/H}] that the current hwin zeroes by
+fiat — the twin must pay it honestly). Dispatched as CONTRACT-TWIN.
+Until it lands, the spine's free-real row idiom stands (the
+lemma14_contour_seam_supplied pattern).
+
+**A2-7's bookkeeping residuals** (from the spine): the ∀Tann frame
+instantiation across [2X/h, X] (eleven monotone-or-free binders, listed
+in the spine's report — real bookkeeping, not automatic); the fifth
+summand; the contract twin; B₀ from A2-3's band supply. New traps: the
+loglog-below-1 junk (5 ≤ loglog u does NOT force u > 1 — TannGate
+supplies positivity; the h-ceiling gate is not monotone without it); the
+N-glyph collision (SeamLemma14's coefficient cutoff vs ParsevalSingle's
+dyadic DEPTH — renamed K in the spine).
