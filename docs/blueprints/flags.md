@@ -12349,3 +12349,59 @@ carried Lemma4Comparison (named, interfaced, honest). T10: the 1/20 is
 frozen in the interface — a lossy route is a statement change, gated.
 Sec9Glue :358's card corrected this commit (one-third wrong: 7.1 IS
 landed; Cor 3 not needed; the residual is Thm 4 + GS Cor 1).
+
+---
+
+## S8-SRC: the A.2 source map — four new source defects, the θ-sensitivity, and the truncation license's two tiers (2026-07-27 12:11 PDT)
+
+**THE TWO-TIER TRUNCATION VERDICT (H-2).** Statement tier CLEAN: Thm A.2/
+Prop A.3 quantify over ANY increasing family meeting the p. 21 gates
+((A.1)/(A.2)/the Q₁-ceiling); Def 2.1 is only an example; truncating to
+Jb = 2 makes 𝒮 LARGER so A.2 is a strictly STRONGER claim. Proof tier
+REFUTED AS FREE against MRT: the entire 𝒯₁ leg is a one-line delegation
+(p. 24) into MR Prop 1, and MR p. 8 explicitly couples J to h from below
+("for h = X^ε it is enough to take J = 1" — our log-scale h is the
+many-𝒯_j end). RESOLUTION (the synthesis ruling): the corpus NEVER
+DELEGATES — the landed seam campaign (TLeg*/USetGraded*/SeamCalibrationK/
+seam_row_number) IS the 𝒯₁ leg rebuilt natively at the K-family, Jb = 2,
+kernel-checked. The license is adjudicated against OUR landed row, not
+MR's paper. The refuter pass carries the soft-landing cross-check (A.3
+consumed only at T ≍ X/h).
+
+**THE θ-SENSITIVITY (T-1 ★): the printed 1/50 FAILS at salt's θ = 3/4.**
+The ρ-chain is parametric in the VK threshold θ: at MRT's θ = 2/3,
+ρ/3 ≈ 0.0202 > 1/50 with slack 0.000188 (forcing ε < 0.000564 — razor
+thin, never mentioned); at the landed zeta_zero_free_region_pow's θ = 3/4,
+ρ′/3 ≈ 0.01514 < 1/50 — GATE FAILS; the exponent must weaken (1/100 safe).
+CONSISTENT with S8-INV: the landed U-leg grade is (log X)^{−1/500} — the
+corpus already weakened further. The interface's third term states the
+LANDED grade. Bonus: both numeric gates reduce to π ∈ (3.125, 3.2) —
+Real.pi_gt_3141592/pi_lt_315 discharge them.
+
+**FOUR NEW SOURCE DEFECTS (the A.8 class):** D2 — p. 23's sup must read
+inf (a sup lower bound is vacuous; [10, Cor 1] needs the min over the
+ball; A.4(ii) proves the inf form); D3 — the U-normalisation breaks
+between (A.9) (normalised) and pp. 27–28 (unnormalised, off by X — true
+under the right reading); D10 — the max-modulus step needs the M-infimum
+at |t'| ≤ X + (log X)² but the infimum is licensed only for |t| ≤ X (a
+REAL port obligation: inf over |t| ≤ 2X, or bound T₀ — and OUR M_range
+domain caps at |t| ≤ X too: the same check applies to the landed
+consumers); D5 — h₁ undefined in the appendix (confirmed [17]-carry-over;
+"read X/h" now grounded). Plus D4/D6/D7/D8/D9 (binder glyph; the
+closed/half-open drift; g_𝒥 never defined — ours IS defined, Sec9Glue's
+gJ; the η self-collision; the (A.10) variable capture). And H-1: MRT's
+𝒯₁ and MR's 𝒯₁ are DIFFERENT OBJECTS sharing a glyph — the corpus's
+TLeg* names map to MR's ladder; naming audit at join time (T-5).
+
+**mrt_extract CORRECTIONS (X1–X6):** X1 the extract nowhere records the
+frame gates or the family-generic license (THE fact the rescope turns
+on); X6 the ρ/3 > 1/50 provenance absent; X5 "the only ZFR input is at
+extreme t" wrong (Y = exp((log X)^{2/3+ε}) IS the VK threshold; both
+sub-ranges consume it); X2/X3/X4 lesser. The extract is NOT corrected
+in-place this pass — the new freeze carries the corrected content; an
+extract-repair rides with the S8 wave's ceremony.
+
+**M4-5's side-condition list, third completion:** + (A.1), (A.2) at
+j = 2, and the η-dependent threshold X > X(η) as an explicit existential
+(T-4). With S8-INV's additions (h₁ ≥ 4, TannGate): the list closes at
+G7's statement stone.
