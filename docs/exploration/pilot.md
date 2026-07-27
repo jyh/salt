@@ -12513,3 +12513,5 @@ function (the cheapest band-bound route — banked as doctrine)**; the
 **THE NIGHT COMPLETE: eight majors since dusk, all whole, all 3-axiom,
 the build never red at rest. The remaining road: S7, S9-design, S10b,
 the L₁ port, the Lemma-4/GS arc, the eq-26 bridge, S11's MR-side.**
+
+**2026-07-26 18:21 PDT — CORRECTION banked (JYH's challenge): the Siegel three-layer precision (fixed-χ classical / q-uniform = Siegel-strength, carried / the door escapes via effective Landau at tiny moduli). The overclaim struck; the absorption arithmetic at the door's W to be verified at the Landau port's consumer pin.**

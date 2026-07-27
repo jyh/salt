@@ -11945,3 +11945,17 @@ effective at q^{−1/2}; ineffective = D-adjacent); the slot is a named
 interface, inhabited per-character (exists_L1_lower — NOT vacuous); the
 door's q ≤ (loglog x)⁵ regime gives the diskConst gate enormous room
 (consumer pins it).
+
+**CORRECTION (maestro, after JYH's challenge) to the SIEGEL entry above**:
+"never needed Siegel at all" was an OVERCLAIM. The precise three-layer
+statement: (1) the FIXED-χ growing floor needs only classical nonvanishing
+(Dirichlet/dlVP-era, in mathlib) — proven unconditionally, with B(χ)
+deliberately per-character and ineffective-in-q; (2) the q-UNIFORM floor
+is where Siegel-strength input genuinely lives — the L₁ slot IS Siegel's
+theorem in its ineffective form, carried as the named residual, NOT
+dispensed with; (3) THE DOOR'S CONSUMER escapes it: at q ≤ W = (loglog x)⁵
+the EFFECTIVE Landau q^{−1/2} suffices (log(1/L₁) ≲ (5/2)·logloglog x =
+o(loglog X), absorbed) — so the ineffective Siegel stays off the critical
+path and the remaining stone is the ordinary Landau hyperbola port
+[C, 400–800]. An unconditional effective q^{−ε} would have contradicted
+the ineffectivity barrier — JYH's suspicion was the audit working.
