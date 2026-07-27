@@ -146,6 +146,7 @@ import Salt.MR.BigXiArc
 import Salt.MR.RegimeHead
 import Salt.MR.LandauL1
 import Salt.MR.LandauDescent
+import Salt.MR.LandauOdd
 import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
@@ -1478,3 +1479,29 @@ open Salt.Tactic in
   Salt.MR.primitiveCharacter_neg_one
   Salt.MR.primitiveCharacter_odd_iff
   Salt.MR.L1LowerEffectiveOdd_descend
+  Salt.MR.rootNumber_norm_eq_one
+  Salt.MR.mod_ne_one_of_odd
+  Salt.MR.odd_inv
+  Salt.MR.LFunction_apply_zero_eq_completed_odd
+  Salt.MR.LFunction_apply_one_eq_completed_odd
+  Salt.MR.LFunction_apply_zero_odd_fe
+  Salt.MR.norm_LFunction_apply_one_odd
+  Salt.MR.inv_eq_self_of_sq_eq_one
+  Salt.MR.LFunction_apply_zero_ne_zero_odd
+  Salt.MR.norm_LFunction_one_eq_re'
+  Salt.MR.rpow_three_halves
+  Salt.MR.L1_lower_odd_of_L0_floor
+  Salt.MR.LFunction_apply_zero_eq_sum_of_sawtooth
+  Salt.MR.val_cases_of_sq_eq_one
+  Salt.MR.exists_int_sum_val_mul
+  Salt.MR.L0_floor_of_sawtooth
+  Salt.MR.L1_lower_odd_primitive_of_sawtooth
+  Salt.MR.primitiveCharacter_ne_one'
+  Salt.MR.primitiveCharacter_odd
+  Salt.MR.primitiveCharacter_sq_eq_one
+  Salt.MR.LFunction_apply_one_descent
+  Salt.MR.descent_prod_eq_real
+  Salt.MR.L1_lower_odd_of_sawtooth
+  Salt.MR.l1LowerOddEffective_of_l1LowerEffective
+  Salt.MR.l1LowerOddEffective_of_sawtooth
+  Salt.MR.l1LowerOddEffective_one_of_sawtooth

@@ -13192,3 +13192,35 @@ vs D-1..D-15 + A2-1's mechanism + the A2-3 pre-arithmetic that may settle
 W-vs-C now + the honest band under the A2-5 fallback). The two
 kill-checks dispatch at the verdicts regardless of overall FIRE/HOLD.
 Aloft: the S8 refuters, LANDAU-ODD, H1-INHAB.
+
+---
+
+**2026-07-27 12:22 PDT — LANDAU-ODD lands (29 decls, 515 ln): the odd-χ production is
+ONE MATHLIB-GAP LEMMA from done.** LandauOdd.lean: the FE bridge at
+natural generality (rootNumber_norm_eq_one at EVERY primitive χ, both
+parities, composite N — via our own Salt.LS.gaussSum_normSq, the
+stronger-than-mathlib asset GOLD-INV flagged); the honest constant is
+EXACTLY π (no √π — the odd Gammaℝ factors collapse: Gammaℝ 1 = 1,
+Gammaℝ 2 = 1/π); nonvanishing LANDED UNCONDITIONALLY and stronger than
+briefed (no χ² = 1 — FE-transport of mathlib's L(1) ≠ 0, the route the
+brief said to check first); the master reduction L1_lower_odd_of_L0_floor
+(1/N floor → π·N^{−3/2}); the UNBUDGETED WIN — its own descent landed
+unconditionally (mathlib HAS LFunction_changeLevel; φ(N)/N ≥ 1/N crude
+but a POWER, cost one grade: A = 5/2, door-absorbed free); the interface
+instance l1LowerOddEffective_one_of_sawtooth at c = 1. THE ZENO IS ONE
+LINE: SawtoothOdd (hurwitzZetaOdd x 0 = 1/2 − x on the OPEN (0,1)) —
+mathlib's own flagged k = 0 TODO ("requires Fourier series which are only
+conditionally convergent"); the odd counterpart of
+hurwitzZetaEven_apply_zero does not exist anywhere; the interval MUST be
+open (the odd function vanishes at 0). SAWTOOTH dispatched — the closer.
+The parity boundary CONFIRMED mathematically dead for even χ (L(0,χ) = 0)
+— the even half stays the campaign residual, exactly as GOLD-INV scoped.
+TWO NAME COLLISIONS with the concurrently-landed LandauDescent caught by
+the rc-gate + pre-grep (primitiveCharacter_ne_one,
+norm_LFunction_one_eq_re) — LandauOdd's copies primed. LandauL1's header
+pricing corrected in place (π not √π; 5/2 delivered; the residual is one
+named value). Census: 26 names, RC=0 at 9461. Nine traps banked (the π
+autoBound trap is SHARP: without open scoped Real, (π : ℂ) silently makes
+π a free VARIABLE; Complex.norm_real lands on the real norm —
+Real.norm_of_nonneg; NeZero χ.conductor is not an instance; the
+unusedSimpArgs linter is live).
