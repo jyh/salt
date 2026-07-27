@@ -13260,3 +13260,27 @@ mul_nonneg); prove rpow↔pow collapses ONCE on an abstract base; congr 1
 on 2^a = 2^b blows the budget (rewrite the exponent first, close by rfl);
 the exponent-as-hypothesis idiom for α-arithmetic seams. Aloft: the S8
 refuters + SAWTOOTH.
+
+---
+
+**2026-07-27 12:37 PDT — the S8 refuter round digested; the freeze amended; THE TWO
+KILL-CHECKS FLY.** OWN-REF HOLD (the ownership FATAL — the landed chain is
+small-M-branch-only; the door's datum is large-M; the maestro's third
+refuter-caught error of the weekend, recorded gladly) + LAD-REF
+REPAIR-THEN-FIRE. The freeze's ⟦AMENDMENT A⟧ carries it all: the NEW
+A2-3b (the cap-free arm), A2-3 SETTLED = option W free-centre (the
+kill-check pre-answered by the refuter's own arithmetic), the interface
+pinned literally (exp(−M/e) with NO M-factor — stronger than print — plus
+the fourth summand), THE W-CEILING FIND (Tao's 1/125 was always the
+printed 1/50 in disguise; the landed −1/500 forces the 15000-twins — a
+[B] row, verified to close with 37 orders of δ₀-headroom), the
+side-conditions rewritten (incl. the h-ceiling — thm_A2′ honestly cannot
+state MRT's bare h ≥ 3), A2-2 re-priced (the zero-consumer coefficient
+contract), A2-5's kill-check ruled THE GATE (fallback = D at 6300–9500 —
+wave stops, returns to council). The band: 3400–6400 conditional on both
+checks. CONFIRMATIONS kept: A2-1's mechanism exact; the recalibrations
+safe-direction; zero live sorries corpus-wide. KC-A25 (the load-bearing
+gate — with the CONSUMER-RESTRICTION question: would a λχ̄-specific
+thm_A2′ dodge the general-f seam entirely?) and KC-A23B (the cap-free
+arm's closure) are ALOFT. SAWTOOTH also aloft. The A2 wave holds behind
+the checks, per the freeze's own law.
