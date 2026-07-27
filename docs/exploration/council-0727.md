@@ -27,15 +27,35 @@ compose, the eq-26 mechanical close.
 
 ### jas — the vector-illustration editor (PUBLIC; JYH carries ratifications)
 
-From the maestro's read-only reach (branch `arc2-prototypes`): the seat is
-mid **arc-2 prototype instrumentation** — the BINDVALUE arc (the bind-value
-pass with its two gates, landed for the reference + Swift + Rust ports, with
-a counted-residue record of what closed and what did not), POLYAREA (a true
-even-odd area metric + a family that gates the instruments, one copy per
-port), EVALBOUNDS (doc-precision narrowing). The pattern mirrors salt's:
-per-port gates, honest residue counts, statement-first discipline — the
-bribeable-referee space run with unbribeable bookkeeping. No cross-seat
-blockers visible from here. JYH to relay anything the jas seat wants raised.
+**Superseded by Stubb's own SYNC review** (SYNC-jas-to-salt-2026-07-26.md,
+found in the jas seat's scratchpad, now mirrored to ${SEAT_DIR}/fleet/ — the
+authoritative brief; read it whole). The headlines for the sitting:
+
+- **Arc 2 state**: both ratified prototypes ANSWERED. kenai (the Windows
+  box) arrived early; the 60fps@100k verdict line PASSES on both platforms
+  both modes; the 807k ceiling is the WebGPU spec limit (portable, proven
+  cross-vendor). Overnight: **106 commits on arc2-prototypes, every gate
+  green, NOTHING PUSHED — waiting on JYH's word.**
+- **The measured outcome** (Stubb's council-forward #1): the cross-language
+  referee grew 493 checks/16 families → **751/20**; the manifest went from
+  asserting zero coverage gaps to **declaring nine** — the more honest
+  number. Two families that gated nothing now bite.
+- **Two corrections the fleet absorbs**: (1) the scaling rig is
+  **CPU-bound, not GPU-bound** — the recorded "GPU-bound; CPU encode
+  negligible" was an artifact of an instrument reporting one ninth of the
+  truth (five independent measurements agree; JYH RULED the performance
+  thread CLOSED until the north star supplies real documents). (2) The
+  equivalence tax is now MEASURED, not theoretical (the Swift
+  field-drop class; the compiler-enforced fix; the one-sidedness lesson).
+- **Two fresh JYH rulings banked**: THE CARDINALITY LAW (identity survives
+  1→1 edits, not cardinality changes) and UNANIMITY CARRIES on merges.
+- **jas-side items still open for JYH**: the gradient stop remap (ruled,
+  unimplemented), the transform-blind blob merge (driven repro banked),
+  referential integrity on destructive edits, the path-EDIT fill-rule
+  ruling, the element-field-preservation stone, adopting the apostles
+  officially as Arc 3's north star, the product-name decision window, the
+  106-commit push.
+- **Method lessons transferring to salt**: banked below (cross-seat item).
 
 ### jacobian-verify — PUBLIC (github.com/jyh/jacobian-verify + mathlib PR #42116)
 
@@ -121,3 +141,58 @@ today's sync carries the S7-closed state + this document.
    firewall checklist.
 
 *(Close-of-board: bank rulings inline below each item, sync to the private archive.)*
+
+## Cross-seat: Stubb's nine lessons, received into the salt method bank
+
+The frame is JYH's two-waters line: salt's referee cannot be bribed; jas's
+referees are things they wrote, hence corruptible — so most of the lessons
+are about not being fooled by your own instruments. The maestro's read on
+transfer, with the salt resonances:
+
+1. **DRIVE, DON'T READ** — lenses that wrote and RAN probes found bugs;
+   lenses that read found style. Salt transfer: our refuters should prefer
+   kernel-checked probes (a #eval / a scratch lemma elaborated) over prose
+   derivation wherever the claim admits one. Partially our practice;
+   sharpen it in refuter briefs.
+2. **A test whose expected value coincides with the bug's output is not a
+   test** (their t=0 case). Salt transfer: fixture/probe design — when we
+   place a spot-check, check the checker: would it fail under the suspected
+   defect? (Our B-pin demonstrations are the good pattern; name it.)
+3. **Revert individually, never as a batch** — batch reverts mask uncovered
+   sites.
+4. **A match criterion is not an equality guarantee** — read what the guard
+   actually compares (their lowercased-hex gate discarding alpha). Salt
+   resonance: the binder-shape byte-checks — "the socket accepts it" only
+   certifies what the socket actually tests; defeq can hide conventions.
+5. **Enumerate BOTH sides of an equivalence** — the one-sided compiler
+   trick reported a class closed while the divergence sat inverted. Salt
+   resonance: our two-width fusion trap and the A-5 direction check
+   (S7AMEND) are instances; keep the both-directions question in every
+   seam brief.
+6. **A census is a photograph, not a fact** — theirs was surveyed 89
+   commits stale. Salt resonance: THE A.8 CENSUS ROW — stale twice over,
+   caught this weekend. Standing rule: date-stamp census rows (we do) and
+   re-verify before consuming (the scoper did; keep it mandatory).
+7. **An instrument that lies is worse than no instrument** — "GPU-bound"
+   stood three days on a 1/9th metric. Salt resonance: awk-counts-bytes,
+   the touch-then-build false green — our banked instrument-lies traps;
+   the general law: when a measurement surprises you, suspect the
+   instrument before the world.
+8. **A claim wider than the code is the most repeated defect** — the
+   overreach lands in the SUMMARY sentence; prefer no summary to an
+   approximate one; count mechanically. Salt resonance: this weekend's
+   freeze corrections (my own overclaims refuter-caught); the flags
+   discipline IS this law — restate it in executor final-message specs.
+9. **OPERATIONAL: an agent seat is event-driven** — with nothing in flight
+   it goes quiet (their 22:00). "Work overnight" = keep something running
+   or schedule a wake. Salt transfer: our overnight dockets should carry an
+   explicit heartbeat (a scheduled wake or a standing background task) —
+   adopt for the next overnight run.
+
+**Fleet-record correction absorbed**: any fleet-level echo of "the scaling
+rig is GPU-bound" is FALSE — corrected per Stubb §5b; the seat mirror
+carries the correction with this document.
+
+**Operational fix adopted this morning**: SYNC docs were invisible in a
+seat's scratchpad — the convention going forward is seat-repo `fleet/`
+(this one now mirrored there).

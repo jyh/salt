@@ -13021,3 +13021,21 @@ deleted, the maxRecDepth 8000 workaround GONE, 6.5s → 1.5s, net −2 ln,
 axioms/lint clean. Local commit a505176; 57 commits unpushed — the push and
 the ocfnash reply are JYH's (own-words law; the facts sheet is in the
 council doc, decision 5). Council doc updated pre-sitting.
+
+---
+
+**2026-07-27 07:25 PDT — Stubb's SYNC-jas-to-salt review found and received.** Located
+in the jas seat's session scratchpad (invisible to the fleet — the
+operational fix: SYNC docs go to ${SEAT_DIR}/fleet/ henceforth; mirrored there
+now). The council doc's jas brief rewritten from Stubb's authoritative
+text: Arc-2 prototypes answered (kenai early; 60fps@100k PASS both
+platforms; the 807k ceiling is the WebGPU spec limit), the referee grown
+493/16 → 751/20 with NINE declared gaps (was: zero asserted), the two
+fleet corrections (CPU-bound not GPU-bound — the 1/9th instrument;
+the equivalence tax measured), two fresh JYH rulings (the cardinality
+law; unanimity carries), 106 commits unpushed awaiting JYH. THE NINE
+LESSONS received into the salt method bank with resonances mapped
+(drive-don't-read → probe-first refuter briefs; census-is-a-photograph →
+our A.8 row, exactly; instrument-lies → awk-bytes/touch-build;
+claim-wider-than-code → the summary-sentence law; the event-driven seat →
+adopt an overnight heartbeat). Council table final.
