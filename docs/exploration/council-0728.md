@@ -81,3 +81,24 @@ excluded). Accounts: silicon-acct (we stay, per last night's ruling),
 triple was silicon-acct,6,63,41 at close. Tuesday: the approval 1:1 (brief
 approved). Watch: mathlib #42116. The seat: close-of-board sync owed
 after the council.
+
+---
+
+# THE RULINGS (JYH, 2026-07-28 morning — council closed)
+
+- **C1: FIRE** — waves 0+1 authorized; R1 in-place. Executed live during
+  the council: REGIME-CUT sealed f8be05e, M4-0′ sealed 5b83194, M4-0
+  sealed ef05bbd, M4-3 sealed 639d93c; M4-2 + D3-STONES still aloft;
+  wave 0 (the R1/R2 surgery) is the maestro's next block.
+- **C2: B+C** — one Fable design block on the v-dependent floor and the
+  annulus split, VK port held as fallback. Runs today.
+- **C3: ADOPTED** — the regime route for the Siegel corner; the pearl
+  register opened (P-1, commit 0022ac9); the Siegel completion struck
+  from the campaign (register jewel, ripens-if-ever); D3-STONES
+  dispatched on the landed lever.
+- **C4: ACCEPTED** — envelope ~5,900–9,800; Aug 5–8 the working target;
+  mid-August the declared slip boundary if the fork forces route A.
+
+Also this morning: the personal-time record prepared for the 1:1
+(Record A′ the headline; uncommitted by design). The cloud verification
+run confirmed stalled — re-fire from the jason seat at a natural break.
