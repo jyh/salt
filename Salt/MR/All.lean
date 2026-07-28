@@ -201,6 +201,7 @@ import Salt.MR.M4Seam
 import Salt.MR.M4Join
 import Salt.MR.M4ClassPrice
 import Salt.MR.CofactorSupplier
+import Salt.MR.CaseAWide
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -2631,3 +2632,37 @@ open Salt.Tactic in
   Salt.MR.caseA_dissect_gen
   Salt.MR.caseASocketGen_of_inner
   Salt.MR.caseA_floor_of_capFreeFloor3
+
+-- ⟦THE WIDE PAGE⟧ (`CaseAWide`, 2026-07-28) — the M4 wave's LAST supply flight.  `CofactorSupplier`
+-- §8 leaves the supply chain ONE open page, named byte-precisely: `caseASocketGen_of_inner`'s
+-- `hInner` binder, i.e. the landed `ellLin` CASE-A supply (`CaseASocket.caseA_slice2`) re-cut from
+-- its DYADIC window to the WIDE window Route III's dissection walks (`⌊k/d⌋`, `d ≤ D`).  The stack
+-- is `caseA_slice2`'s three layers with the bottom one swapped for
+-- `SPartStation.center_halasz_supply_wide`; the two named obstacles were (1) THE SEVENTH PRIVATE
+-- CLONE — `centerErrorGradeWide` and its numerals are `private` in `SPartStation`, re-derived here
+-- under `_wd` (~145 ln, the house's transplant convention); and (2) THE X₀ HOIST — the wide supply's
+-- `∃X₀` sits UNDER the datum, while the consumer binds the damping parameter `x` over the CONTINUUM
+-- `[0,1]`, so a finite-max hoist is unavailable.  The route taken is BOUNDS-UNIFORM: the landed
+-- witness `max (max (XA+1) XB) (e^8)` is built from two already-datum-hoisted sources and mentions
+-- neither `g` nor `t₀`, so the body transplants byte-for-byte and only the `intro` line moves —
+-- exactly `StationHoist.seam_ball_leg_station_M_hoisted` and `CaseASocket` §0.  The exit constant
+-- `caseASwide` carries the wide window's TWO scales (the far arm reads the bottom, the grade page
+-- the anchor) and collapses to the landed `caseAS2` on a dyadic window.  §7's two `_tb` twins
+-- restrict `cofactorSocket_of_gen`/`cofactorSocket_door`'s CASE-A binder to the annulus `|t| ≤ T_ann`
+-- — the only place the landed proofs read it, and the only place the `3X`-box floor discharge can
+-- supply it.  `m4_supplier_complete` is the door's `CofactorSocket` with NO remaining socket
+open Salt.Tactic in
+#audit_axioms Salt.MR.center_halasz_supply_wideA
+  Salt.MR.caseASwide
+  Salt.MR.caseASwide_eq_caseAS2
+  Salt.MR.caseASwide_nonneg
+  Salt.MR.caseA_partial_supply_wide
+  Salt.MR.caseA_slice_wide
+  Salt.MR.caseA_wide_floor
+  Salt.MR.caseA_inner_wide
+  Salt.MR.caseASocketGen_mono
+  Salt.MR.caseASocketGen_wide
+  Salt.MR.caseASocketGen_discharged_door
+  Salt.MR.cofactorSocket_of_gen_tb
+  Salt.MR.cofactorSocket_door_tb
+  Salt.MR.m4_supplier_complete
