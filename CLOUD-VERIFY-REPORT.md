@@ -75,12 +75,31 @@ retired in favor of this branch/report.
   180s timeout per module), logging PASS/FAIL per module to
   `leanchecker_results.log` (not committed — too large/noisy; totals and
   any failures are summarized here).
-- Checkpoint at this push: **612 / 891** modules checked, **0 confirmed
+- Checkpoint at this push: **798 / 891** modules checked, **0 confirmed
   kernel-rejection failures**. `Salt.Maynard` also timed out (`rc=124`) —
   expected, since like `Salt.Brun` it does `import Mathlib` directly (the
   full umbrella import), the same resource-contention/heavy-closure
   pattern as `Salt.Brun` and `Salt.Chen.AlphaSide`. These 3 will all be
   re-run in isolation once the full pass completes.
+- **Second scope-gap finding:** `Salt.Parity.{All,Instances,Z}` (3 files)
+  hit the same "Could not find any oleans" failure as `Salt.Keller` — also
+  not imported by `Salt.lean`, so also outside Stage 2's default build.
+  Content: the "parity barrier" / gap-statement track (D4, ratified
+  2026-07-19) — `Z ⟺ TPC` over the certified window and the gap theorem
+  placing every true twin-sufficient completion predicate outside
+  `ParityInv`. Built directly to confirm validity:
+  `lake build Salt.Parity.All` succeeds standalone (9025 jobs, all
+  `#audit_axioms` checks in `Salt/Parity/All.lean` pass at `[3 axioms]`).
+  Same deferred-isolated-leanchecker plan as `Salt.Keller`.
+- **Provisional total scope-gap tally:** 5 files across 2 tracks
+  (`Salt.Keller.*`, `Salt.Parity.*`) exist in the repo, build and
+  audit-axiom cleanly on their own, but are not reachable from `Salt.lean`
+  and were therefore excluded from Stage 2's `lake build`/9467-job count.
+  Whether this exclusion is intentional (e.g. `Keller` is explicitly
+  topical/off-track; `Parity`'s status is less clear from its own docstring)
+  is outside this report's scope to judge — it is recorded here as a
+  factual gap between "what's in the repo" and "what the default build
+  target checks," for the repo owner to assess.
 - **Separate finding (not a checker failure):** `Salt.Keller.All` and
   `Salt.Keller.Counterexample` both failed with `Could not find any oleans
   for: ...` — i.e. leanchecker couldn't check them because Stage 2's `lake
