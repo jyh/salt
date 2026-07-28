@@ -13192,3 +13192,38 @@ is now the documented LOSSY route.
    M4RowMeanSq discharges and the six-item register collapses.
 3. Cleanup decision: retire the lossy m4_wave_exit_sup route once the
    q-preserving compose lands (maestro call at the next ceremony).
+
+---
+
+## m4_wave_closed IN THE KERNEL — the wave closes to THREE named gates (2026-07-28 16:24 PDT)
+
+M4WaveClosed.lean (796 ln, 32 decls): m4_wave_closed/_False/_of_chi/
+_of_row — the M4/S9 chain into ¬logChowla2Fails via the q-graded socket
+(NOT m4_wave_exit — its phased M4RowMeanSq is U2-forbidden; the lossy
+route now doubly retired). TWO FINDINGS: (F1) M4ClassPrice's
+m4_blockMeanSqSupQ_of_classPrice consumed a POINTWISE class price =
+cancellation in EVERY short interval = beyond MRT, an open problem —
+the mean-square re-cut m4_blockMeanSqSupQ_of_classMeanSq landed
+loss-free (Chebyshev pays the q once inside the square; the character
+expansion INSIDE the mean square via square-of-average ≤
+average-of-squares; 1/φ(q) cancels exactly). (F2) the capstone has TWO
+instantiation blockers, not one: the b-slot (registered open at
+042d462 — a RE-STATEMENT away, the chain is already b-generic and the
+socket already delivers at doorCofactor0) AND homega (the single-P
+support pin vs MemS's band-membership — the block decomposition, a
+design question).
+
+**THE FINAL REGISTER:** (a) regime-absorbable (M4DoorGates witnessed;
+the q-graded drift; the U3 direct grade — the 15−11/4 gap UNSPENT;
+the door's two grades); (b) nonneg data; (c) THREE OPEN GATES:
+**R1 M4ChiMaximalStep** — the sup-over-K vs fixed-K: the dyadic
+maximal inequality at Cmax ≈ (log H)² (absorbed by the gap; the
+trivial route's Cmax = H+1 is fatal) — the fixed-K half landed
+(m4_chiBlock_fixed_of_chiRow, grade 2·MS);
+**R2 the non-coprime mean square** — one loss-free dilation then the
+d₀-to-one block re-index (M4ClassPrice §5's endpoint drop is its
+first half);
+**R3 M4ChiRowMeanSq** — the capstone at the door's sieved χ-twisted
+un-phased datum: the b-slot restatement (cheap) + the homega/block-
+decomposition design question. §4's U1 decay-retained pricing landed
+for R3's supplier (m4_rawMS_priced_decay — an equality).

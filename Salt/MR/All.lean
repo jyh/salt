@@ -202,6 +202,7 @@ import Salt.MR.M4Join
 import Salt.MR.M4ClassPrice
 import Salt.MR.CofactorSupplier
 import Salt.MR.CaseAWide
+import Salt.MR.M4WaveClosed
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -2666,3 +2667,64 @@ open Salt.Tactic in
   Salt.MR.cofactorSocket_of_gen_tb
   Salt.MR.cofactorSocket_door_tb
   Salt.MR.m4_supplier_complete
+
+-- ⟦THE FINAL COMPOSE⟧ (`M4WaveClosed`, 2026-07-28) — the M4 wave's LAST flight:
+-- `m4_wave_closed`, the M4/S9 chain end to end at ⟦THE FINAL REGISTER⟧.  The compose's one
+-- substantive re-cut is §2: `M4ClassPrice.m4_blockMeanSqSupQ_of_classPrice` assembles the
+-- `q`-graded block predicate from a POINTWISE class price (a bound at every door index of
+-- the block), which no mean-square supplier can deliver — at the strength the pricing needs
+-- (`B H ≈ H·(log H)^{−15}`) it asserts cancellation in EVERY short interval, strictly beyond
+-- the MRT method, whose output is a mean square over the block.  §2 lands the same assembly
+-- at the same output grade with the input re-cut to a BLOCK MEAN SQUARE
+-- (`M4ClassBlockMeanSq`): the split's `q` is paid once inside the square by Chebyshev
+-- (`sq_sum_le_card_mul_sum_sq`), and the resulting `q²` lands in exactly the `q`-graded slot
+-- `M4ClassPrice` §4 opened.  §3 takes the character expansion INSIDE the mean square —
+-- `‖class‖ ≤ (1/φ(q))∑_χ‖twisted‖` pointwise, then square-of-average ≤ average-of-squares,
+-- then the `n`-sum and the χ-average commute and `M4Close.inv_totient_sum_le` cancels the
+-- `1/φ(q)` EXACTLY: loss-free, for the classes coprime to `q`.  §4 prices the capstone's
+-- five raw summands with ⟦U1⟧'s decay-retaining first gate.  §5 is the close
+-- (`m4_wave_closed`, `m4_wave_closed_False`, `m4_wave_closed_of_chi`).  §6 brings the χ
+-- datum down to the capstone's own currency (`M4ChiRowMeanSq` → the FIXED-length block
+-- bound, via B-4's ladder lemma at frequency `0` and `M4Join`'s exchange), leaving THREE
+-- named residues and nothing else: ⟦R1⟧ `M4ChiMaximalStep` (the sub-window sup against the
+-- fixed length — a maximal inequality, `(log H)²` by the dyadic route, absorbed by the
+-- exponent gap; the trivial route's factor `H` is fatal), ⟦R2⟧ the non-coprime classes
+-- (one loss-free dilation, then a `d₀`-to-one re-indexing of the block — `M4Join`'s ⟦THE
+-- CLASS PRICING⟧ in mean-square form), ⟦R3⟧ `M4ChiRowMeanSq` itself, which
+-- `M4MeanSq.m4_meansq_per_chi_gen` cannot yet supply: it pins its co-factor slot to
+-- `ellLin (liouChi χ)` (the b-slot cut — both `a2Rows_of_capfree3` and `a2Frame3_witness`
+-- are already `b`-generic, and `CaseAWide.m4_supplier_complete` is already stated at the
+-- door's own `doorCofactor0`) and demands `blockOmega P P`-support of the row datum.
+-- `m4_wave_closed_of_row` is the close at that currency — the S11 spine's consumption list
+open Salt.Tactic in
+#audit_axioms Salt.MR.classSup
+  Salt.MR.le_classSup
+  Salt.MR.classSup_nonneg
+  Salt.MR.classSup_le
+  Salt.MR.norm_sum_windowClass_le_of_norm_le_one
+  Salt.MR.classSup_le_of_norm_le_one
+  Salt.MR.subWindowSup_le_sum_classSup
+  Salt.MR.M4ClassBlockMeanSq
+  Salt.MR.m4_classBlockMeanSq_trivial
+  Salt.MR.m4_blockMeanSqSupQ_of_classMeanSq
+  Salt.MR.m4_sievedDoorSq_of_classMeanSq
+  Salt.MR.sq_inv_totient_sum_le_sum_sq
+  Salt.MR.doorSievedWindow
+  Salt.MR.doorChiSup
+  Salt.MR.le_doorChiSup
+  Salt.MR.doorChiSup_nonneg
+  Salt.MR.M4ChiBlockMeanSq
+  Salt.MR.classSup_le_inv_totient_sum_doorChiSup
+  Salt.MR.m4_classMeanSq_of_chiMeanSq
+  Salt.MR.m4_rawMS_priced_decay
+  Salt.MR.m4DecayGrade_le_debit
+  Salt.MR.m4_wave_closed
+  Salt.MR.m4_wave_closed_False
+  Salt.MR.m4_wave_closed_of_chi
+  Salt.MR.doorChiCoeff
+  Salt.MR.absWindowSum_doorChiCoeff_zero
+  Salt.MR.M4ChiRowMeanSq
+  Salt.MR.m4_chiBlock_fixed_of_chiRow
+  Salt.MR.M4ChiMaximalStep
+  Salt.MR.m4_chiBlockMeanSq_of_row
+  Salt.MR.m4_wave_closed_of_row
