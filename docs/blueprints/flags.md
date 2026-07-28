@@ -12829,3 +12829,44 @@ every line. ALSO from M4-2: the dilation gate is STRICT (W < P₁ — the
 freeze's <, not ≤; blockOmega filters P ≤ p so equality would count);
 blockOmega counts DISTINCT primes (Finset equality, no p² bookkeeping);
 the door pin is G := 3072·M.
+
+---
+
+## THE D1 DESIGN BLOCK CONCLUDES: routes B/C DEAD by analytic truth — ROUTE A (VK) ACTIVATED (JYH, 2026-07-28 07:05 PDT)
+
+The D1-DOSSIER (pocket-geometry facts, full report in session record)
+settled the fork. THE THREE CONTROLLING FACTS: (1) B collapses into C by
+construction — the pocket cap is the by_cases threshold at
+pocket_transport_pin2 AND CASE-A's floor (cofactorMfl's leading term);
+v-dependence forces an inf over the T*₂-window then uniformization at
+the annulus TOP (Rbd34loc_uniform). (2) The far centres come SOLELY
+from the annulus top (box_gate_le_X derives |t₁'| ≤ Tann + T*₂ and
+discards it — the tighter box is free), BUT the M4 numerology puts the
+family's BOTTOM X/h in the bulk (log(X/h) ≈ log X since the door's h is
+exponentially small vs X) — the ENTIRE family needs bulk floors; the
+crude far arm (far_tail_crude, the only landed far-field arm) covers
+only T ≥ 80(X/h)(log X)^{1/500} and the heavy bottom rows are where the
+work is. (3) THE WALL IS THE SOURCE MATHEMATICS: non-real χ at bulk
+heights needs |L(1+it)| ≪ (log t)^α with α < 7/8, and classical
+technology has a genuine cliff — everything short of Vinogradov's
+method gives α = 1 − o(1) (vdC/Littlewood: log t/loglog t — delivery
+O(logloglog), useless); MR's own paper invokes VK exactly here; the s9
+freeze's (1/3−ε)loglog λ-supply silently priced it. Escape hatches
+checked and dead: mean/sup swap (rough-side sup is (log X)-lossy vs the
+P₁-saving), large-values count alone (needs the per-point sup),
+demand re-grade to δ·loglog X (ANY fixed δ needs α < 1 = VK; lazy Weyl
+iterations die at k ≈ (log t)^{1−β} where 2^k kills the saving).
+
+**JYH ACTIVATED ROUTE A.** The mercy: ANY α < 7/8 suffices — a lazy
+Vinogradov (fewer shifts, worse constants) may be far cheaper than the
+textbook 2/3. VK-SCOPE dispatched: inventory Salt/Vk/ + Salt/ExpSum/
+(eR_lipschitz, Kusmin, Strip — groundwork may exist), then price the
+laziest-α classical route (Karatsuba cube method / Ford / Titchmarsh
+ch. 6) at minimum Lean surface. C4's mid-August slip boundary is LIVE.
+B/C's harvest retained: the free box tightening + the crude-arm
+coverage confine VK's consumption; TSG/thin leg floor-free.
+
+ALSO SEALED THIS HOUR: D3-STONES (9875c7b — the Siegel corner in
+stone) + THE R1 SURGERY (9a90bdc — thm_a2' HAS MODELS AGAIN; 121
+sites/31 decls/13 files; zero STOP sites; conclusions byte-identical).
+Wave 0's R2 (the additive 3X mint) dispatched on the post-R1 base.
