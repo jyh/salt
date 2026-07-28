@@ -172,6 +172,7 @@ import Salt.MR.MinorArcCore
 import Salt.MR.MinorArcExit
 import Salt.MR.ExitClose
 import Salt.MR.M4Window
+import Salt.MR.M4Chars
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.MR.M4Abel
@@ -1757,3 +1758,21 @@ open Salt.Tactic in
   Salt.MR.abs_mul_window_le_of_arcDen
   Salt.MR.norm_phase_sum_arcDen_drift
   Salt.MR.norm_phase_sum_arcDen_drift_sup
+  Salt.MR.conj_chi_eq_inv
+  Salt.MR.conj_chi_eq_invChar
+  Salt.MR.chi_inv_eq_conj_chi
+  Salt.MR.norm_chi_of_isUnit
+  Salt.MR.totient_cast_ne_zero
+  Salt.MR.totient_cast_pos
+  Salt.MR.sum_conj_chi_mul_chi
+  Salt.MR.sum_chi_mul_conj_chi
+  Salt.MR.indicator_eq_inv_totient_sum
+  Salt.MR.weight_indicator_eq_inv_totient_sum
+  Salt.MR.lam_indicator_eq_lamChi_sum
+  Salt.MR.lam_modEq_indicator_eq_lamChi_sum
+  Salt.MR.sum_weight_residue_eq
+  Salt.MR.sum_lam_residue_eq
+  Salt.MR.norm_sum_lam_residue_le
+  Salt.MR.isUnit_natCast_of_coprime
+  Salt.MR.sum_lam_modEq_residue_eq
+  Salt.MR.norm_sum_lam_modEq_residue_le
