@@ -24,6 +24,7 @@ import Salt.Vk.Growth
 import Salt.Vk.PowRegion
 import Salt.Vk.GrowthPow
 import Salt.Vk.Twist
+import Salt.Vk.TwistLadder
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -140,3 +141,13 @@ open Salt.Tactic in
   Salt.Vk.vkOrbit_twistCoef
   Salt.Vk.vkOrbitPoint_twistCoef
   Salt.Vk.vk_block_taylor_reduce_twist
+  Salt.Vk.vk_block_core_twist
+  Salt.Vk.vk_window_bound_twist
+  Salt.Vk.vk_window_prefix_twist
+  Salt.Vk.vk_window_scale_twist
+  Salt.Vk.vk_window_scale_prefix_twist
+  Salt.Vk.vk_window_mid_twist
+  Salt.Vk.vk_window_mid_prefix_twist
+  Salt.Vk.vk_weighted_block_twist
+  Salt.Vk.vk_dirichlet_block_twist_le
+  Salt.Vk.vk_dirichlet_block_twist_le_of_high
