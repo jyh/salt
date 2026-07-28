@@ -12870,3 +12870,47 @@ ALSO SEALED THIS HOUR: D3-STONES (9875c7b — the Siegel corner in
 stone) + THE R1 SURGERY (9a90bdc — thm_a2' HAS MODELS AGAIN; 121
 sites/31 decls/13 files; zero STOP sites; conclusions byte-identical).
 Wave 0's R2 (the additive 3X mint) dispatched on the post-R1 base.
+
+---
+
+## VK-SCOPE: THE VK ROAD IS ~90% LANDED — zeta at alpha=3/4 IS ALREADY IN THE KERNEL (2026-07-28 07:19 PDT)
+
+one_line_pow_growth (Salt/MR/OneLinePowGrowth.lean:324, 353 ln):
+‖ζ((1+d')+it)‖ ≤ 8000005·(log|t|)^{3/4}·(loglog|t|)^4 for 0 ≤ d' ≤ 1,
+|t| ≥ exp(exp 100) — LANDED, axiom-clean, sitting on 18,278 lines of
+zero-sorry machinery: Salt/Vmvt/ (5,722 — vmvt at the classical
+Linnik–Karatsuba form, fully general k,r,x, Summit2.lean:151), Salt/Vk/
+(6,919 — vk_block_core at ρ = 1/(16kr), Core.lean:256), Salt/ExpSum/
+(5,637 — IsVdCBound at the Graham–Kolesnik exponents with the k-uniform
+constant 16, DerivTestK.lean:667; Kusmin–Landau; Weyl; the window
+tiling). Mathlib has NONE of this; no proof assistant does
+(PrimeNumberTheoremAnd carries dlVP only). SALT IS THE STATE OF THE ART
+and three of our own agents (M4-JOIN, CAPFREE-REF, the maestro's design
+block) asserted "VK not in corpus" WITHOUT GREPPING Salt/Vmvt — the
+census-is-a-photograph failure in the HAPPY direction. Lesson: the
+census law cuts both ways; supply claims of ABSENCE need the same
+re-grep as claims of presence.
+
+**THE GAP IS ONLY THE χ-TWIST**, and it is structurally cheap: the
+additive character e(an/q) from Gauss completion shifts only the
+DEGREE-1 Taylor coefficient, which the entire VK/vdC hypothesis stack
+NEVER READS (VkSpaced constrains t/N₀^{j+1} for j ≥ 2 only; dk k
+annihilates affines for k ≥ 2). THE CAMPAIGN (name: VK-TWIST — "route
+A" is taken by ChiFloor's k-th-power route): VT-1 dk-affine-blindness
+[B, 0.1–0.2k] + VT-2 twisted Taylor block [C, 0.2–0.4k] (day-1
+parallel); VT-3 the β-thread through Vk/{Core,Window,Windows,Mid} (~39
+phi sites) [C, 1.2–2.0k, critical path]; VT-4 the twisted ladder
+(Gauss completion + norm_LFunction_sub_partial_le truncation + the
+σ₀ = 1−Θ/2 Abel fold, mirroring OneLinePowGrowth) [C, 0.5–0.8k];
+VT-5 the ChiLLower.lean:653 swap + widening chi_Llower_341 past |t| ≤ 1
+[B, 0.2–0.4k, socket-shaped — dispatchable NOW against an assumed B];
+VT-6 the close into CapFreeFloor [B, 0.1–0.3k, parallel]. TOTAL NEW:
+2.3–4.1k, 3–5 days. THE PINNED TARGET SHAPE:
+‖L((1+1/log X)−it, χ)‖ ≤ C·√q·(log|t|)^{3/4}·(loglog|t|)^4, |t| ≥
+exp(exp 100) (√q free: log q ≤ 12·loglog H = O(1) absolute at the
+in-statement H-gate; fallback N₁ = exp(log q/Θ) if the gate loosens).
+The consumer margin at α = 3/4: coefficient 1/16 vs the demand 1/32 —
+DOUBLE, with the (loglog)^4 costing 4·logloglog X (budget it; threshold
+loglog X ≳ 2–5·10³, subsumed by the ε-window's 6412.6). Imprimitive χ²
+via LFunction_changeLevel (~0.1k). MID-AUGUST IS NOT IN DANGER; Aug 5–8
+is back in play.
