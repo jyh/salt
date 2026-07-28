@@ -138,8 +138,8 @@ evaluated here.
 | 49 | `hN2` (N ≤ 2X) | the two pins |
 | 50 | `hsupp` (`a` above `X`) | carried `hsupp0` |
 | 51 | `hNXd` (2X_d ≤ N) | the `N = 2X_d` pin |
-| 52 | `hcoef` (band factorisation) | carried `hcoefBand` (S8) |
-| 53 | `hwin` (band window) | carried `hwinBand` (S8) |
+| 52 | `hcoef` (band factorisation) | carried `hcoefBand` (S8), widened by §3′ |
+| 53 | `hwin` (band window) | carried `hwinBand` (S8) — the BAND chain only |
 | 54–55 | `hQXd`, `hXdbig` | carried |
 | 56 | `hN4` (N ≤ 4X_d) | the `N = 2X_d` pin |
 | 57 | `hdom` | carried |
@@ -162,7 +162,7 @@ evaluated here.
 | `hXthr`, `hMtpin` | carried |
 | `hδsq`, `hlog2X`, `hksthr` | carried (`hlog2X` is arithmetic) |
 | `hHX` (H₈₃ ≤ X_d) | carried |
-| `hcoef`, `hwin` at the pin `p = P` | carried `hcoefPin`, `hwinPin` (S8) |
+| `hcoefW` at the pin `p = P` | carried `hcoefPin` (S8) — `hwinPin` is GONE, see §3″ |
 | `ha`, `hb`, `hc` | `ha1`, `ellLin_norm_le_one`, `hcf1` |
 | `hasupp`, `hsupp` (blockOmega) | carried (S8) |
 | `hEP2` (`witEP2 ≤ EP2`) | carried |
@@ -263,6 +263,15 @@ could not host the intended `P`-exact datum.  The binders are now RESTRICTED to 
 `X_d ≤ p·m ≤ 2X_d` (`hwin`'s own range, byte-identical casts): the defect point `m = 1`
 falls outside it, and nothing is lost, because —
 
+**⟦THE WALL⟧'s SEQUEL (§3″, below).**  The narrowing of §3′ repaired the `m = 1` collapse on
+the `hcoefPin` side but NOT on the `hwinPin` side: `M4Seam.m4_row_cf_block_eq_zero` reads the
+WINDOW law alone and still forces `cf P = 0` at every block prime under the row's pins.  The
+capstone's pin-chain binder `hwinPin` is therefore DELETED outright (§3″), which is possible
+because `FrameWitness.err_at_witness_mr` — the `hwin`-free err supply built on
+`M4ErrRewire.ramP2massMR_direct` — needs only the on-window factorization `hcoefPin`, i.e.
+`SeamRowWindowed.SeamCoefW`.  The band chain (`hcoefBand`/`hwinBand`) is untouched: it feeds
+the ROW, not the err, and its own window law is not in the collapse's hypothesis set.
+
 **THE WIDENING** (`coef_widen_of_window`).  Outside the window the law is FREE: below it
 `hsupp0` kills `a (p·m)` and `hwin`'s lower bound kills `cf p · b m`; above it `hasupp`
 kills `a (p·m)` and `hwin`'s upper bound kills `cf p · b m`.  So the restricted law implies
@@ -312,6 +321,26 @@ theorem coef_widen_of_window {a b cf : ℕ → ℂ} {Xd : ℕ} {X : ℝ} {R : �
       rw [hpm, ← hXd]
       linarith [not_le.mp hlo]
     rw [ha0, hb0]
+
+/-! ## §3″ — ⟦THE WALL⟧: THE PIN CHAIN LOSES ITS WINDOW LAW
+
+The capstone's err-side binder pair at the block pin `P = Q` is now the SINGLE relativized
+law `SeamRowWindowed.SeamCoefW X_d P P a (ellLin (liouChi χ)) cf` — byte-identical to the
+old `hcoefPin`, and the old `hwinPin` is deleted.  Three consequences, all in the honest
+direction:
+
+* `m4_meansq_per_chi_gen` and `m4_meansq_or_trivial` are strictly STRONGER theorems (one
+  hypothesis fewer, none added); every existing supplier still supplies.
+* the `m = 1` collapse `M4Seam.m4_row_cf_block_eq_zero` no longer applies to the binder set:
+  its hypothesis is exactly the deleted `hwinPin`.
+* the widening `coef_widen_of_window` is no longer needed on the pin chain (the err route
+  consumes the window-restricted law directly); it remains the BAND chain's bridge.
+
+**WHAT STILL BLOCKS THE DOOR DATUM.**  `M4ErrRewire.doorDatum_inhabits_err_binders` shows
+the door's sieved, phased `λχ̄` meets the surviving pair law at every cofactor.  It does NOT
+meet it with the cofactor slot equal to `ellLin (liouChi χ)`, and `CapFreeArm3.A2Frame3.err`
+pins that slot.  Freeing it — the `b`-slot generalization — is a statement change in
+`CapFreeArm3`, outside this wave. -/
 
 /-! ## §4 — THE SUMMIT
 
@@ -428,11 +457,9 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
             (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
               p ≤ calQK (Adoor M) (3072 * M) M j → cf p * ellLin (liouChi χ) m ≠ 0 →
               (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
-            (∀ p m, p.Prime → P ≤ p → p ≤ P → ¬ p ∣ m →
-              (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
-              a (p * m) = ellLin (liouChi χ) m * cf p) →
-            (∀ p m : ℕ, p.Prime → P ≤ p → p ≤ P → cf p * ellLin (liouChi χ) m ≠ 0 →
-              (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
+            -- ⟦THE PIN CHAIN, `hwin`-FREE (⟦THE WALL⟧'s rewire): the on-window
+            -- factorization ALONE.  `hwinPin` is GONE — see §3″⟧
+            SeamCoefW Xd P P a (ellLin (liouChi χ)) cf →
             -- ⟦the `T₀`-band datum: `m4_t0band_at_datum` is the supplier, and §2's
             -- `dpolyA_seamS0_bandDatum` the bridge — see the header on the A2-5 seam⟧
             (∫ t in (-(seamT0 X))..(seamT0 X), ‖dpolyA a (seamS0 N X) t‖ ^ 2)
@@ -466,7 +493,7 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
     hRrad0 hRrad hRlow hV1 hVδ hlogV hδsq hksthr hVJg hCb0 hCbound hXthr
     hX₀k hMfl0 hk2 hkX hgateW hYpin hWY hXY hthrY hcqgate hCqgate
     hε0 hεup habs hEP2 hEP2w
-    ha1 hcf1 hsupp0 hasupp homega hcoefBand hwinBand hcoefPin hwinPin
+    ha1 hcf1 hsupp0 hasupp homega hcoefBand hwinBand hcoefPin
     hT0band hcff hgP1 hgRows hL4096
   -- ⟦THE SCALE PAGE⟧
   have hXe : Real.exp 1 ≤ X := le_trans exp_one_le_exp_exp_one hXee
@@ -492,16 +519,9 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
     linarith
   have hb1 : ∀ n : ℕ, ‖ellLin (liouChi χ) n‖ ≤ 1 :=
     ellLin_norm_le_one (liouChi χ) (fun p _ => norm_liouChi_le_one χ p)
-  -- ⟦THE BINDER REPAIR (§3′): the window-restricted coefficient laws, widened back to the
-  -- unrestricted shape the two suppliers consume.  Off the window both sides vanish⟧
-  have hcoefPinW : ∀ p m, p.Prime → P ≤ p → p ≤ P → ¬ p ∣ m →
-      a (p * m) = ellLin (liouChi χ) m * cf p := by
-    intro p m hp h1 h2 h3
-    exact coef_widen_of_window (R := fun p m => p.Prime ∧ P ≤ p ∧ p ≤ P ∧ ¬ p ∣ m)
-      hXd hsupp0 hasupp
-      (fun p m hR hne => hwinPin p m hR.1 hR.2.1 hR.2.2.1 hne)
-      (fun p m hR hlo hhi => hcoefPin p m hR.1 hR.2.1 hR.2.2.1 hR.2.2.2 hlo hhi)
-      p m ⟨hp, h1, h2, h3⟩
+  -- ⟦THE BINDER REPAIR (§3′): the window-restricted BAND law, widened back to the
+  -- unrestricted shape `a2Rows_of_capfree3` consumes.  Off the window both sides vanish.
+  -- The PIN law needs no widening any more: §3″'s rewire consumes it on-window⟧
   have hcoefBandW : ∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime →
       calP (Adoor M) (3072 * M) j ≤ p → p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m →
       a (p * m) = ellLin (liouChi χ) m * cf p := by
@@ -519,7 +539,7 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
       (H1door M) X h δ' VJ L (1 / 12) Cb Rrad EP2 cq T₀ :=
     a2Frame3_witness hX0 hh0 hLX0 hLXL hXd1 hXdX hTann hceil5 hT₀le hTbot hhceil hH2 hP3
       hlogP2 hPbot hPlog hPL hcqgate hW4 hkth hMN hMtX hC16 hRrad0 hRradW hPj1 hthinpin
-      hXthr hMtpin hδsq hlog2X hksthr hNle hHX hcoefPinW ha1 hb1 hcf1 hwinPin hasupp homega
+      hXthr hMtpin hδsq hlog2X hksthr hNle hHX hcoefPin ha1 hb1 hcf1 hasupp homega
       hEP2w
   -- ⟦THE ROW LADDER⟧
   obtain ⟨hMs, hm₀2, hm₀, hMs4⟩ :=
@@ -705,11 +725,7 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
             (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
               p ≤ calQK (Adoor M) (3072 * M) M j → cf p * ellLin (liouChi χ) m ≠ 0 →
               (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
-            (∀ p m, p.Prime → P ≤ p → p ≤ P → ¬ p ∣ m →
-              (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
-              a (p * m) = ellLin (liouChi χ) m * cf p) →
-            (∀ p m : ℕ, p.Prime → P ≤ p → p ≤ P → cf p * ellLin (liouChi χ) m ≠ 0 →
-              (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
+            SeamCoefW Xd P P a (ellLin (liouChi χ)) cf →
             (∫ t in (-(seamT0 X))..(seamT0 X), ‖dpolyA a (seamS0 N X) t‖ ^ 2)
               ≤ t0BandB X C₁' M₀ →
             40 * Real.log (Real.log (Real.log X))
@@ -743,7 +759,7 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
     hRrad0 hRrad hRlow hV1 hVδ hlogV hδsq hksthr hVJg hCb0 hCbound hXthr
     hX₀k hMfl0 hk2 hkX hgateW hYpin hWY hXY hthrY hcqgate hCqgate
     hε0 hεup habs hEP2 hEP2w
-    ha1 hcf1 hsupp0 hasupp homega hcoefBand hwinBand hcoefPin hwinPin
+    ha1 hcf1 hsupp0 hasupp homega hcoefBand hwinBand hcoefPin
     hT0band hcff hgP1 hgRows hL4096
   rcases le_or_gt ((H' : ℝ)) (trivThresh Hp d₀ W) with hshort | hlong
   · exact Or.inl ⟨hshort, m4_trivial_branch ha1 hxw hω hshort α⟩
@@ -755,7 +771,7 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
       hRrad0 hRrad hRlow hV1 hVδ hlogV hδsq hksthr hVJg hCb0 hCbound hXthr
       hX₀k hMfl0 hk2 hkX hgateW hYpin hWY hXY hthrY hcqgate hCqgate
       hε0 hεup habs hEP2 hEP2w
-      ha1 hcf1 hsupp0 hasupp homega hcoefBand hwinBand hcoefPin hwinPin
+      ha1 hcf1 hsupp0 hasupp homega hcoefBand hwinBand hcoefPin
       hT0band hcff hgP1 hgRows hL4096
 
 end Salt.MR

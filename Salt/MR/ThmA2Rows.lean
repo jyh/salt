@@ -245,19 +245,31 @@ private lemma a2_term3_weigh_flat {w R S : ℝ} (hS : 0 ≤ S) (hR : w * R ≤ 3
   rw [hid]
   linarith [mul_le_mul_of_nonneg_left hR (mul_nonneg (by norm_num : (0 : ℝ) ≤ 480) hS)]
 
-/-- The cap branch's third slot: ball leg plus Lemma-12 rows, into `a2Mrow`'s `5760`. -/
+/-- The cap branch's third slot: ball leg plus Lemma-12 rows, into `a2Mrow`'s `5760`.
+
+**THE ONE-STEP RE-PROOF** (⟦THE WALL⟧'s wave, REFUTE-RESIDUE correction 4).  The rows are
+weighed at `a2_term3_weigh`'s FULL `5760` — the same constant the cap-FREE branch spends —
+and the `8S²` ball leg is paid ENTIRELY out of `Ccc`'s free slack, of which it is a
+`720`-th: `hCcc` gives `Ccc·(2/M) ≥ Cst·(2/M) + S²`, hence `5760·S²` of room against a
+demand of `8·S²`.  ⟦AMENDMENT G⟧'s `×4` cover (`1440 → 5760`) is therefore NOT spent here at
+all — it stays available to the rows, exactly as on the cap-free branch, which is what makes
+the two branches' `hR : w·R ≤ 3` gates readable as the same gate. -/
 private lemma a2_term3_ball_weigh {w R Sb RS Cst Ccc Mr : ℝ}
     (hw1 : w ≤ 1) (hRS : 0 ≤ RS) (hC0 : 0 ≤ Cst) (hM1 : 1 ≤ Mr)
     (hCcc : Cst + Mr * Sb ^ 2 / 2 ≤ Ccc) (hR : w * R ≤ 3) :
     w * (8 * Sb ^ 2) + w * (480 * R * (RS + Cst * (2 / Mr)))
       ≤ 5760 * (RS + Ccc * (2 / Mr)) := by
   have hM0 : (0 : ℝ) < Mr := by linarith
-  have hCq : (0 : ℝ) ≤ Cst * (2 / Mr) := mul_nonneg hC0 (by positivity)
+  have hq0 : (0 : ℝ) < 2 / Mr := by positivity
+  have hCq : (0 : ℝ) ≤ Cst * (2 / Mr) := mul_nonneg hC0 hq0.le
   have hball : w * (8 * Sb ^ 2) ≤ 8 * Sb ^ 2 := by nlinarith [sq_nonneg Sb]
-  have hrows := a2_term3_weigh_flat (w := w) (R := R) (S := RS + Cst * (2 / Mr))
+  have hrows := a2_term3_weigh (w := w) (R := R) (S := RS + Cst * (2 / Mr))
     (by linarith) hR
-  linarith [a2_ball_into_rows (Sb := Sb) (RS := RS) (Cst := Cst) (Ccc := Ccc) (Mr := Mr)
-    hRS hC0 hM1 hCcc]
+  have hslack : (Cst + Mr * Sb ^ 2 / 2) * (2 / Mr) ≤ Ccc * (2 / Mr) :=
+    mul_le_mul_of_nonneg_right hCcc hq0.le
+  have hexp : (Cst + Mr * Sb ^ 2 / 2) * (2 / Mr) = Cst * (2 / Mr) + Sb ^ 2 := by field_simp
+  rw [hexp] at hslack
+  linarith [sq_nonneg Sb]
 
 /-! ## §2 — the CAP-FREE branch supplies `hrows`
 

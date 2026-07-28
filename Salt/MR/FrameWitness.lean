@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.ThmA2Rows
 import Salt.MR.SeamCalibrationK
+import Salt.MR.M4ErrRewire
 
 /-!
 # `FrameWitness` — THE `A2Frame3` INHABITANT (the TLGATES-SCOPE witness table, in Lean)
@@ -49,7 +50,10 @@ This file builds the inhabitant at the scoper's witness table.
 3. `ksGate_at_witness` — pure `rpow` arithmetic at `δ' = (log X)^{−3}`.
 4. `err_at_witness` — the moment route: `USetResiduals.E_priced_row_scale` (the factor-3
    split `RamareWindows.ramErr_moment_split`) at the `N = 2X_d` pin, with the `p²`-mass slot
-   filled by `SeamCalibrationK.ramP2mass_direct`.
+   filled by `SeamCalibrationK.ramP2mass_direct`.  **§8′ supersedes it as the frame's
+   supplier**: `err_at_witness_mr` reaches the same conclusion through
+   `M4ErrRewire.E_priced_mr_row_scale` with the window law `hwin` GONE (⟦THE WALL⟧).
+   `err_at_witness` is kept, unweakened, as the historical route and the `3` vs `4` witness.
 
 ## THE `h`-CEILING (law #253, in-statement)
 
@@ -609,19 +613,76 @@ Three things fill its slots:
   by `8/P`.  Nothing new was needed here. -/
 
 /-- **THE `EP2` SLOT AT THE WITNESS** — the `p²`-mass row, evaluated once at the window's
-top so that the frame's `EP2` is a CONSTANT (the field demands one `EP2` for all heights). -/
+top so that the frame's `EP2` is a CONSTANT (the field demands one `EP2` for all heights).
+
+**THE `4/3` INFLATION** (⟦THE WALL⟧'s rewire — `M4ErrRewire`).  The `hwin`-free route pays
+the four-row split's Cauchy–Schwarz prefactor `4` where `USetResiduals.E_priced` paid `3`,
+while `A2Frame3.err`'s right-hand side is byte-unchanged; the `EP2` slot absorbs the ratio
+(`M4ErrRewire.err_grade_fit` at `E = (4/3)·E′`).  The SEAM half needs no inflation —
+`RamareMR.seam_rows_grade` collapses BOTH MR windows to `520`, and `4·520 = 2080 ≤ 2160 =
+3·720`.  The four sites carrying `witEP2 … ≤ EP2` (`err_at_witness`, `a2Frame3_witness`,
+`M4MeanSq.m4_meansq_per_chi_gen`, `M4MeanSq.m4_meansq_or_trivial`) therefore state the same
+TEXT and a strictly stronger DEMAND; each is a named binder, threaded and never derived, so
+the strengthening is silent by construction and paid at the door (`12·EP2 ≤ (log X)^{−θ}`
+still clears — the row is `≍ log₂(2X)/P` at `P ≥ P₈₃`, super-polylog). -/
 noncomputable def witEP2 (X : ℝ) (N Xd P : ℕ) : ℝ :=
+  (4 / 3) * ((2 * X + 20 * (N : ℝ))
+    * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ))))
+
+/-- The `p²` row itself, at the window's top — `witEP2` is `(4/3)·witEP2raw`. -/
+noncomputable def witEP2raw (X : ℝ) (N Xd P : ℕ) : ℝ :=
   (2 * X + 20 * (N : ℝ)) * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)))
 
-lemma witEP2_nonneg {X : ℝ} {N Xd P : ℕ} (hX0 : 0 ≤ X) (hXd1 : 1 ≤ Xd) :
-    0 ≤ witEP2 X N Xd P := by
+lemma witEP2raw_nonneg {X : ℝ} {N Xd P : ℕ} (hX0 : 0 ≤ X) (hXd1 : 1 ≤ Xd) :
+    0 ≤ witEP2raw X N Xd P := by
   have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
   have hL0 : (0 : ℝ) ≤ Real.logb 2 (2 * (Xd : ℝ)) :=
     Real.logb_nonneg (by norm_num) (by linarith)
-  rw [witEP2]
+  rw [witEP2raw]
   have h1 : (0 : ℝ) ≤ 2 * X + 20 * (N : ℝ) := by positivity
-  have h2 : (0 : ℝ) ≤ 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)) := by positivity
+  have h2 : (0 : ℝ) ≤ 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)) :=
+    div_nonneg (by linarith) (by positivity)
   exact mul_nonneg h1 h2
+
+/-- `witEP2 = (4/3)·witEP2raw` — the inflation, as an identity. -/
+lemma witEP2_eq (X : ℝ) (N Xd P : ℕ) : witEP2 X N Xd P = (4 / 3) * witEP2raw X N Xd P := rfl
+
+lemma witEP2_nonneg {X : ℝ} {N Xd P : ℕ} (hX0 : 0 ≤ X) (hXd1 : 1 ≤ Xd) :
+    0 ≤ witEP2 X N Xd P := by
+  rw [witEP2_eq]
+  have := witEP2raw_nonneg (X := X) (N := N) (Xd := Xd) (P := P) hX0 hXd1
+  linarith
+
+/-- **THE INFLATED ROW, AT THE TWO PINS.**  At `X_d = X`, `N = 2X` (`M4MeanSq`'s forced
+pins) the `EP2` slot is a clean `1/P` row: `(2X + 40X)·16·log₂(2X)/(X·P) = 672·log₂(2X)/P`,
+and the `4/3` inflation carries it to `896·log₂(2X)/P`. -/
+theorem witEP2_eval {X : ℝ} {N Xd P : ℕ} (hXd : (Xd : ℝ) = X) (hN : (N : ℝ) = 2 * X)
+    (hX0 : 0 < X) (hP0 : (0 : ℝ) < (P : ℝ)) :
+    witEP2 X N Xd P = 896 * Real.logb 2 (2 * X) / (P : ℝ) := by
+  rw [witEP2_eq, witEP2raw, hN, hXd]
+  field_simp
+  ring
+
+/-- **THE `12·EP2` GATE SURVIVES THE `4/3` BUMP** (`witEP2_gate`).  `A2Frame3`'s Perron gate
+`12·EP2 ≤ (log X)^{−θ₂₉₃}` is a NAMED binder of the capstone, so the inflation of `witEP2`
+strengthens what a consumer must supply.  It costs nothing: at the two pins the inflated row
+is `896·log₂(2X)/P`, `USetResiduals.EP2_gate_of_row` fires at
+`Kmass = 896·log₂(2X)`, and its front-constant demand is the single threshold
+
+  `10752·log₂(2X) ≤ (log X)²`
+
+(the refuter's `log X ≥ 1.6·10⁴` grade, carried SYMBOLICALLY per law #253).  `P₈₃`'s four
+polylog powers (`USetResiduals.P83_ge_polylog`) then beat the two spent, so the gate clears
+with `(log X)^{2−5θ₂₉₃}` to spare — exactly as before the bump. -/
+theorem witEP2_gate {X EP2 : ℝ} {N Xd P : ℕ}
+    (hXd : (Xd : ℝ) = X) (hN : (N : ℝ) = 2 * X) (hX0 : 0 < X)
+    (hL : 256 ≤ Real.log X) (hP83 : P83 X theta293 ≤ (P : ℝ))
+    (hEP2 : EP2 ≤ witEP2 X N Xd P)
+    (hthr : 10752 * Real.logb 2 (2 * X) ≤ (Real.log X) ^ (2 : ℝ)) :
+    12 * EP2 ≤ (Real.log X) ^ (-theta293) := by
+  have hP0 : (0 : ℝ) < (P : ℝ) := lt_of_lt_of_le (Real.exp_pos _) hP83
+  rw [witEP2_eval hXd hN hX0 hP0] at hEP2
+  exact EP2_gate_of_row (Kmass := 896 * Real.logb 2 (2 * X)) hL hP83 hEP2 (by linarith)
 
 /-- **FIELD 4 AT THE WITNESS** (`err_at_witness`).  `A2Frame3.err`, for every admissible
 height, at `EP2 = witEP2`. -/
@@ -663,7 +724,14 @@ theorem err_at_witness {X h EP2 : ℝ} {N Xd P : ℕ} {g a cf : ℕ → ℂ}
   have hstep : (2 * Tann + 20 * (N : ℝ))
       * ∑ n ∈ Finset.Icc 1 N, ‖ramP2coeff N P P a (ellLin g) cf n‖ ^ 2 / (n : ℝ) ^ 2
       ≤ witEP2 X N Xd P := by
-    rw [witEP2]
+    rw [witEP2_eq, witEP2raw]
+    have hXd1R : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
+    have hLb : (0 : ℝ) ≤ Real.logb 2 (2 * (Xd : ℝ)) :=
+      Real.logb_nonneg (by norm_num) (by linarith)
+    have hP0 : (0 : ℝ) < (P : ℝ) := by exact_mod_cast hP
+    have htop0 : (0 : ℝ) ≤ (2 * X + 20 * (N : ℝ))
+        * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ))) :=
+      mul_nonneg (by positivity) (div_nonneg (by linarith) (by positivity))
     calc (2 * Tann + 20 * (N : ℝ))
           * ∑ n ∈ Finset.Icc 1 N, ‖ramP2coeff N P P a (ellLin g) cf n‖ ^ 2 / (n : ℝ) ^ 2
         ≤ (2 * X + 20 * (N : ℝ))
@@ -672,11 +740,96 @@ theorem err_at_witness {X h EP2 : ℝ} {N Xd P : ℕ} {g a cf : ℕ → ℂ}
       _ ≤ (2 * X + 20 * (N : ℝ))
           * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ))) :=
           mul_le_mul_of_nonneg_left hmass (by positivity)
+      _ ≤ 4 / 3 * ((2 * X + 20 * (N : ℝ))
+          * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)))) := by linarith
   have hH0 : (0 : ℝ) < H83 X theta293 := by linarith
   have : (2 * Tann + 20 * (N : ℝ))
       * ∑ n ∈ Finset.Icc 1 N, ‖ramP2coeff N P P a (ellLin g) cf n‖ ^ 2 / (n : ℝ) ^ 2
       ≤ EP2 := le_trans hstep hEP2
   linarith
+
+/-! ## §8′ — FIELD 4, REWIRED: ⟦THE WALL⟧'s `hwin`-FREE SUPPLY
+
+`err_at_witness` above reaches the field through `USetResiduals.E_priced_row_scale`, whose
+`p²`-mass slot is `SeamCalibrationK.ramP2mass_direct` — and that stone reads the JOINT
+SUPPORT law
+
+  `hwin : ∀ p m, p prime → P ≤ p → p ≤ Q → cf p · b m ≠ 0 → X_d ≤ pm ≤ 2X_d`.
+
+`M4Seam.m4_row_cf_block_eq_zero` is the kernel witness that `hwin` ALONE collapses the
+capstone's datum: read at `m = 1` it forces `cf P = 0` at every block prime below the window,
+so the binder set could host no `P`-exact sieved datum whatever.  Relativizing `hwin` is
+vacuous (`SeamRowWindowed` §1: it is a joint-support claim, not a pointwise law).
+
+The rewire moves the window OFF the hypothesis and INTO the index set — MR's own cofactor
+range `ramHonMR N X p = {m : X ≤ pm ≤ 2X}` — which is what `RamareMR` already did on the
+identity side and `SeamRowWindowed.ramErr_moment_split_mr_windowed` on the moment side.
+`M4ErrRewire` supplies the one missing stone (`ramP2massMR_direct`, the sharp `p²` mass at
+`ramP2domMR`, `hwin`-free) and the priced row (`E_priced_mr_row_scale`).  The price is the
+four-row split's prefactor `4` against `E_priced`'s `3`, absorbed by `witEP2`'s `4/3`
+inflation on the `EP2` half and by `520 ≤ 540` on the seam half. -/
+
+/-- **FIELD 4 AT THE WITNESS, `hwin`-FREE** (`err_at_witness_mr`).  `A2Frame3.err` for every
+admissible height at `EP2 = witEP2`, through `M4ErrRewire.E_priced_mr_row_scale`.
+
+Against `err_at_witness` the binder list
+
+* **LOSES `hwin` outright** (⟦THE WALL⟧), and
+* replaces the unconditional factorization `hcoef` by the relativized `SeamCoefW`
+  (`SeamRowWindowed`'s W-1 — satisfiable exactly where the landed one is not,
+  `seam_coef_contract_windowed_sat`),
+
+both strict weakenings; the conclusion is `err_at_witness`'s byte for byte, so
+`A2Frame3.err` does not move. -/
+theorem err_at_witness_mr {X h EP2 : ℝ} {N Xd P : ℕ} {g a cf : ℕ → ℂ}
+    (hH : 2 ≤ H83 X theta293)
+    (hXd1 : 1 ≤ Xd) (hN : 2 * Xd ≤ N) (hN2 : (N : ℝ) ≤ 2 * (Xd : ℝ))
+    (hHX : H83 X theta293 ≤ (Xd : ℝ)) (hP : 1 ≤ P)
+    (hX0 : 0 < X) (hh0 : 0 < h) (hXd : X ≤ (Xd : ℝ))
+    -- ⟦the relativized pair — NO `hwin`⟧
+    (hcoefW : SeamCoefW Xd P P a (ellLin g) cf)
+    (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖ellLin g m‖ ≤ 1) (hc : ∀ p, ‖cf p‖ ≤ 1)
+    (hasupp : ∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd)
+    (hsupp : ∀ n : ℕ, a n ≠ 0 → 1 ≤ blockOmega P P n)
+    (hEP2 : witEP2 X N Xd P ≤ EP2) :
+    ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
+      (∫ t in (-Tann)..Tann, ‖ramErr (H83 X theta293) N Xd P P a (ellLin g) cf t‖ ^ 2)
+        ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) := by
+  intro Tann hbot htop
+  have hT0 : (0 : ℝ) ≤ Tann := le_trans (by positivity) hbot
+  have hXd1R : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
+  have hP0 : (0 : ℝ) < (P : ℝ) := by exact_mod_cast hP
+  have hLb : (0 : ℝ) ≤ Real.logb 2 (2 * (Xd : ℝ)) :=
+    Real.logb_nonneg (by norm_num) (by linarith)
+  have hmassnn : (0 : ℝ) ≤ 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)) :=
+    div_nonneg (by linarith) (by positivity)
+  -- `E_priced_mr`'s support law is the real-valued shape of the frame's
+  have hasuppR : ∀ n : ℕ, a n ≠ 0 → (Xd : ℝ) ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * (Xd : ℝ) := by
+    intro n hn
+    obtain ⟨u, v⟩ := hasupp n hn
+    refine ⟨by exact_mod_cast u, ?_⟩
+    have hv : ((n : ℕ) : ℝ) ≤ ((2 * Xd : ℕ) : ℝ) := by exact_mod_cast v
+    push_cast at hv
+    linarith
+  have hpriced := E_priced_mr_row_scale (H83 X theta293) hH N Xd P P hXd1 hN hN2 hHX hP
+    a (ellLin g) cf hcoefW ha hb hc hasuppR hsupp Tann X hT0 hX0 hXd
+  refine hpriced.trans ?_
+  -- ⟦THE `EP2` HALF⟧ the `4/3` inflation, at the window's top
+  have hNnn : (0 : ℝ) ≤ (N : ℝ) := Nat.cast_nonneg N
+  have hfactor : (2 * Tann + 20 * (N : ℝ)) ≤ 2 * X + 20 * (N : ℝ) := by linarith
+  have hstep : (2 * Tann + 20 * (N : ℝ))
+        * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)))
+      ≤ (2 * X + 20 * (N : ℝ))
+        * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ))) :=
+    mul_le_mul_of_nonneg_right hfactor hmassnn
+  rw [witEP2_eq, witEP2raw] at hEP2
+  have hE : 4 * ((2 * Tann + 20 * (N : ℝ))
+        * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)))) ≤ 3 * EP2 := by
+    linarith
+  -- ⟦THE SEAM HALF⟧ `4·520 ≤ 3·720`, with `80·(T/X+1)/H` to spare
+  have hH0 : (0 : ℝ) < H83 X theta293 := by linarith
+  have hg : (0 : ℝ) ≤ Tann / X + 1 := by positivity
+  exact err_grade_fit (g := Tann / X + 1) (H := H83 X theta293) hg hH0 hE
 
 /-! ## §9 — THE ASSEMBLY: `a2Frame3_witness`
 
@@ -689,7 +842,8 @@ object `ThmA2Rows.a2Rows_of_capfree3` was waiting for.
 * a scale gate the M4-5 consumer clears at door numerology (all the `(log X)`-shaped ones —
   the scoper's `loglog X ≥ 996.4` and `≥ 6412.6` are what "clears" means, and the ε-window
   already forces the stronger of the two), or
-* a datum the S8 supply hands over (`hcoef`, `hwin`, `hasupp`, `hsupp`, the norm caps), or
+* a datum the S8 supply hands over (`hcoefW`, `hasupp`, `hsupp`, the norm caps — `hwin` is
+  no longer among them, see §8′), or
 * an OPAQUE CAPSTONE EXISTENTIAL's gate (`hcqgate` — flags K6): `cq₁` is bound by
   `hUG34_supplied`'s `∃`, so this binder must be instantiated INSIDE that existential's
   scope, never before it.
@@ -747,12 +901,10 @@ theorem a2Frame3_witness
     (hδsq : δ' ^ 2 ≤ (Real.log X) ^ (-(6 : ℝ)))
     (hlog2X : 0 ≤ 1 + Real.log (2 * X))
     (hksthr : 656384 * (1 + Real.log (2 * X)) ≤ (Real.log X) ^ (4 - 3 * theta293))
-    -- ⟦err: the S8 datum + the `N = 2X_d` pin + the `EP2` gate⟧
+    -- ⟦err: the S8 datum + the `N = 2X_d` pin + the `EP2` gate — `hwin`-FREE (§8′)⟧
     (hN2 : (N : ℝ) ≤ 2 * (Xd : ℝ)) (hHX : H83 X theta293 ≤ (Xd : ℝ))
-    (hcoef : ∀ p m, p.Prime → P ≤ p → p ≤ P → ¬ p ∣ m → a (p * m) = ellLin g m * cf p)
+    (hcoefW : SeamCoefW Xd P P a (ellLin g) cf)
     (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖ellLin g m‖ ≤ 1) (hc : ∀ p, ‖cf p‖ ≤ 1)
-    (hwin : ∀ p m : ℕ, p.Prime → P ≤ p → p ≤ P → cf p * ellLin g m ≠ 0 →
-      (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ))
     (hasupp : ∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd)
     (hsupp : ∀ n : ℕ, a n ≠ 0 → 1 ≤ blockOmega P P n)
     (hEP2 : witEP2 X N Xd P ≤ EP2) :
@@ -773,7 +925,7 @@ theorem a2Frame3_witness
       hMtX hC16 hRrad0 hRradW)
     (Tstar2_box_at_witness hXthr hMtpin hMtXle)
     (ksGate_at_witness hLX0 hlog2X hδsq hksthr)
-    (err_at_witness hH2 hXd1 hMN hN2 hHX (by omega) hX0 hh0 hXdX hcoef ha hb hc hwin
+    (err_at_witness_mr hH2 hXd1 hMN hN2 hHX (by omega) hX0 hh0 hXdX hcoefW ha hb hc
       hasupp hsupp hEP2)
 
 /-! ## §10 — BEYOND THE FRAME: the row's own ladder binders

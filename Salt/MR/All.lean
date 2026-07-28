@@ -183,6 +183,7 @@ import Salt.MR.M4Abel
 import Salt.MR.VkTwistClose
 import Salt.MR.VkTwistLadder
 import Salt.MR.CapFreeAssembly
+import Salt.MR.M4ErrRewire
 import Salt.MR.FrameWitness
 import Salt.MR.T0BandCapFree
 import Salt.MR.M4Quality
@@ -198,6 +199,7 @@ import Salt.MR.M4BridgeIntegral
 import Salt.MR.M4BridgeDilate
 import Salt.MR.M4Seam
 import Salt.MR.M4Join
+import Salt.MR.M4ClassPrice
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -2205,7 +2207,10 @@ open Salt.Tactic in
 -- reconciliation with `M4Abel`'s endpoint-indexed `sup'`, the drift composition at a
 -- tight-major frequency (`1 + 2π·arcDen 12 H/q` over the sub-window sup at the rational),
 -- and the uniformity hook: `M4SievedDoorSqSup` discharges `M4Close.M4SievedDoorSq` at the
--- grade cost `(1 + 2π·arcDen 12 H)²`, with the sup socket's own inhabitation witness
+-- `q`-GRADED drift cost `(1 + 2π·arcDen 12 H/q)²` read against the socket's own `q²` (the
+-- two `q`'s are the SAME `NearRatTight` witness), with `qgraded_drift_price_le` the closing
+-- arithmetic `(q + 2πA)² ≤ (1+2π)²A²` and `m4_sievedDoorSq_of_sup_uniform` the `q`-free
+-- reading, plus the sup socket's own inhabitation witness
 open Salt.Tactic in
 #audit_axioms Salt.MR.exp_phase_eq_eR
   Salt.MR.eR_eq_exp_phase
@@ -2229,7 +2234,9 @@ open Salt.Tactic in
   Salt.MR.integral_logMeasure_mono
   Salt.MR.integral_logMeasure_const_mul
   Salt.MR.M4SievedDoorSqSup
+  Salt.MR.qgraded_drift_price_le
   Salt.MR.m4_sievedDoorSq_of_sup
+  Salt.MR.m4_sievedDoorSq_of_sup_uniform
   Salt.MR.m4_sievedDoorSqSup_trivial
 
 -- M4-B5 (`M4BridgeCover`) — ⟦BRIDGE #5⟧: the harmonic-weighted cover assembly, the M4 door
@@ -2440,3 +2447,92 @@ open Salt.Tactic in
   Salt.MR.m4_wave_exit
   Salt.MR.m4_wave_False
   Salt.MR.m4_wave_exit_sup
+
+-- ⟦PART C — THE CLASS PRICING⟧ (`M4ClassPrice`) — the second of the two design questions
+-- behind `M4Join`'s residue, landed at DEPTH 1 (no induction: one dilation already reaches a
+-- coprime class, and the dilated frequency needs no second split).  §1 the phase removal (at
+-- the rational `b/q` the phase is constant on each class, so the carriers are the BARE class
+-- sums); §2 the sieved class sum IS `residueClassOn` of the sieved window, so `M4Close` §6's
+-- character expansion fires with the `1/φ(q)` cancelled exactly; §3 `m4_class_price`, the
+-- two-case lemma (`d₀ = 1` → the expansion; `d₀ > 1` → ONE dilation, an EQUALITY, then the
+-- expansion at the provably coprime reduced pair); §4 the assembly — `q` classes squared,
+-- the `q²` landing in `M4BridgePhase.M4SievedDoorSqSup`'s `q`-graded slot at THE SAME `q` as
+-- the drift witness, with `M4BlockMeanSqSupQ`/`m4_cover_assembly_supQ` the `q`-graded twins
+-- of `M4Join`'s pair; §5 the endpoint drop (K3(iii)) — the dilated block misses the TIGHT
+-- `doorLadder_fit` by ≤ 3 units and the drop costs `3·H²/X`; §6 the two grade repairs —
+-- ⟦U3⟧ `m4_gradeGate_direct` (the gate WITHOUT spending the `15 − 11/4` exponent gap; the
+-- Prop socket unedited) and ⟦U1⟧ `m4_decay_summand_eq` (summand 1 priced from `cfbM0`
+-- DIRECTLY, as an EQUALITY, retaining the honest `(log X)^{1/15 − 7/(30e)}` decay — never
+-- through `m4_quality_summand_le`, whose `g1` is unsatisfiable); §7 ⟦U2⟧ THE ORDER PIN —
+-- `M4RowMeanSqUnphased`, the re-cut row, pinned to `M4Join.M4RowMeanSq`'s body at the
+-- removed phase, plus `m4_sievedDoorSq_of_classPrice`, steps 3–5 of the final compose
+open Salt.Tactic in
+#audit_axioms Salt.MR.absWindowSum_zero
+  Salt.MR.classPhaseSum_zero
+  Salt.MR.absWindowSum_classCoeff_zero
+  Salt.MR.norm_absWindowSum_rat_le_class_sums
+  Salt.MR.absWindowSum_classCoeff_rat
+  Salt.MR.norm_absWindowSum_classCoeff_rat
+  Salt.MR.sievedWindow
+  Salt.MR.mem_sievedWindow
+  Salt.MR.sum_windowClass_indicator
+  Salt.MR.sum_windowClass_memSCoeff
+  Salt.MR.norm_sum_windowClass_memS_le_of_uniform
+  Salt.MR.norm_sum_windowClass_memS_dilate
+  Salt.MR.m4_class_price
+  Salt.MR.norm_absWindowSum_rat_le_class_count
+  Salt.MR.subWindowSup_le_class_count
+  Salt.MR.subWindowSup_sq_le_class_count
+  Salt.MR.M4BlockMeanSqSupQ
+  Salt.MR.m4_cover_assembly_supQ
+  Salt.MR.m4_blockMeanSqSupQ_of_classPrice
+  Salt.MR.three_mul_div_le
+  Salt.MR.dilBlock_fit_slack
+  Salt.MR.dilBlock_fitted
+  Salt.MR.sum_Ioc_drop_top
+  Salt.MR.sum_Ioc_absWindowSum_sq_div_le_dropped
+  Salt.MR.m4_gradeGate_direct
+  Salt.MR.m4_gradeGate_direct_of_sq
+  Salt.MR.m4_decay_exponent_neg
+  Salt.MR.m4DecayGrade
+  Salt.MR.m4_decay_summand_eq
+  Salt.MR.m4DecayGrade_factor_le_one
+  Salt.MR.M4RowMeanSqUnphased
+  Salt.MR.doorCoeffPhase_zero
+  Salt.MR.m4_rowMeanSqUnphased_eq_phased_zero
+  Salt.MR.m4_sievedDoorSq_of_classPrice
+
+-- ⟦THE ERR REWIRE⟧ (`M4ErrRewire` + the FrameWitness/M4MeanSq re-route, W-EXECUTOR of the
+-- M4 closing wave).  ⟦THE WALL⟧ was: `A2Frame3.err`'s only supplier read the JOINT-SUPPORT
+-- window law `hwin`, which `M4Seam.m4_row_cf_block_eq_zero` refutes at any `P`-exact datum.
+-- THE STONE (§1): `ramP2massMR_direct` — `SeamCalibrationK.ramP2mass_direct`'s sharp
+-- `16·log₂(2X)/(X·P)` grade at MR's OWN domain `ramP2domMR`, where the window lives in the
+-- index set (`mem_ramP2domMR_window`) and the `by_cases hmem` becomes a fibre-emptiness
+-- split; the coefficient sequence is UNCONSTRAINED.  THE ROW (§2): `E_priced_mr` /
+-- `E_priced_mr_row_scale` through `SeamRowWindowed.ramErr_moment_split_mr_windowed` —
+-- `hwin` gone, `hcoef` relativized to `SeamCoefW`, prefactor `4` in place of `3`, both MR
+-- seam windows inside `seam_rows_grade`'s `520`.  THE FIT (`err_grade_fit`):
+-- `4·520 = 2080 ≤ 2160 = 3·720` on the seam half, and `4·E′ ≤ 3·E` on the `EP2` half —
+-- which is `witEP2`'s `4/3` inflation, carried silently at its four sites.  THE
+-- INHABITATION (§3): the door's sieved, phased `λχ̄` meets the surviving binder set at EVERY
+-- cofactor including `m = 1` and `P ∣ m` (complete multiplicativity; the sieve indicator and
+-- the phase absorbed into the cofactor slot at the dilated frequency `αP`)
+open Salt.Tactic in
+#audit_axioms Salt.MR.mem_ramP2domMR_window
+  Salt.MR.ramP2domMR_fiber_card_le_omega
+  Salt.MR.ramP2coeffMR_norm_div_le
+  Salt.MR.ramP2coeffMR_sum_div_le
+  Salt.MR.ramP2massMR_direct
+  Salt.MR.E_priced_mr
+  Salt.MR.E_priced_mr_row_scale
+  Salt.MR.err_grade_fit
+  Salt.MR.liouChi_mul
+  Salt.MR.doorDatum_factorizes
+  Salt.MR.doorDatum_seamCoefW
+  Salt.MR.doorDatum_inhabits_err_binders
+  Salt.MR.witEP2_eval
+  Salt.MR.witEP2_gate
+  Salt.MR.err_at_witness_mr
+  Salt.MR.a2Frame3_witness
+  Salt.MR.m4_meansq_per_chi_gen
+  Salt.MR.m4_meansq_or_trivial

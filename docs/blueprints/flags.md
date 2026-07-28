@@ -13150,3 +13150,45 @@ small d₀ (needs d₀² ≳ W³; the honest count is 0.645·H·q — worse than
 trivial). The non-coprime classes need their own pricing route (their
 d₀-dilated data are SIEVED datums at smaller scales — likely the same
 machinery recursed, or the classes bundled before pricing).
+
+---
+
+## THE CLOSING WAVE LANDS WHOLE — W + C both green; the register narrows to three named items (2026-07-28 14:10 PDT)
+
+**W (M4ErrRewire 579 ln + the in-place edits):** ramP2massMR_direct at
+full grade with a UNCONSTRAINED and NO hwin (the private-transplant tax
+struck a third time: ~30 briefed → ~250 actual — the Σ-half's privates
+re-derived); E_priced_mr + err_at_witness_mr (conclusion machine-diffed
+byte-identical; hwin GONE, hcoef → SeamCoefW); witEP2 = (4/3)·raw with
+all four sites verified; the 12·EP2 gate symbolic (10752·log₂(2X) ≤
+(log X)² — the refuter's 1.6·10⁴ reproduced); the ball-weigh one-step
+re-proof (statement unchanged; AMENDMENT G's ×4 no longer spent on the
+ball); **hwinPin DELETED from both capstones — THE WALL IS DEAD on the
+window side** (m4_row_cf_block_eq_zero's hypothesis no longer exists);
+doorDatum + doorDatum_inhabits_err_binders (the sieved phased λχ̄
+satisfies every surviving err binder at EVERY m; liouChi_mul minted).
+
+**C (M4ClassPrice 745 ln + the q-graded socket in-place):**
+M4SievedDoorSqSup at Braw·q²·H²; qgraded_drift_price_le via the exact
+identity (1+2πA/q)²q² = (q+2πA)² ≤ (1+2π)²A²; m4_class_price the
+two-case lemma with the dilation AT FREQUENCY 0 (the enlarged cap
+avoided outright, never transported); the endpoint-drop at honest
+slack 2 (cost 3H²/X symbolic); m4_gradeGate_direct WITHOUT 2 ≤ C;
+m4_decay_summand_eq an EQUALITY at the strict-negative exponent
+1/15 − 7/(30e); the U2 order pin + **m4_sievedDoorSq_of_classPrice —
+steps 3–5 of the final compose PRE-COMPOSED**. M4Join re-threaded
++27/−10 (the call site was there, not M4BridgeCover); m4_wave_exit_sup
+is now the documented LOSSY route.
+
+**THE REGISTER AFTER THE WAVE (three items):**
+1. **THE b-SLOT CUT** (W's honest blocker, Fable design): A2Frame3.err
+   pins b := ellLin g (CapFreeArm3:1093–1098); the door's doorCofactor
+   (carrying 1_𝒮(P·) + the phase) cannot inhabit it. Freeing b is a
+   CapFreeArm3 statement change AND needs the Halász main term
+   (ramMain … b c) checked at generic b — the refuter's genericity
+   verdict covered the err side only. Scope the row leg, then cut.
+2. **THE FINAL COMPOSE residue** (per C §7): the un-phased row's supply
+   + the two-window instantiation of m4_class_price — then
+   M4RowMeanSq discharges and the six-item register collapses.
+3. Cleanup decision: retire the lossy m4_wave_exit_sup route once the
+   q-preserving compose lands (maestro call at the next ceremony).

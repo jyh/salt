@@ -52,8 +52,8 @@ hypothesis register enumerated once, as ⟦THE REGISTER⟧ (§5).
 |---|---|---|
 | `3` | cover count `k` against the normaliser `Z` | `m4_cover_assembly(_sup)` (B-5) |
 | `2` | ladder fit `X_i ≤ 2X_{i+1}` (harmonic ↔ flat) | `m4_blockMeanSq_of_rowMeanSq` (§3) |
-| `(1 + 2π·arcDen 12 H)²` | drift from `α` to `b/q` | `m4_sievedDoorSq_of_sup` (B-2) |
-| `q ≤ arcDen 12 H` | class count in the residue split | NOT charged here — see ⟦THE RESIDUE⟧ |
+| `(1 + 2π·arcDen 12 H/q)²` | drift from `α` to `b/q` | `m4_sievedDoorSq_of_sup` (B-2) |
+| `q²` | class count in the residue split | `M4ClassPrice` (the `q`-graded socket) |
 | `(H + d₀)/H` | dilation's enlarged arc cap | NOT charged here — see ⟦THE RESIDUE⟧ |
 
 The composed grade of the plain route is therefore `3·(2·MS) = 6·MS`, and the pricing gate
@@ -212,7 +212,12 @@ theorem m4_cover_assembly_sup {Cg : ℝ} {R : ChowlaRegime} {M k : ℕ} {δ : �
   simp only [doorSievedCoeff] at hmain
   have heq : 3 * (Bblk H * (H : ℝ) ^ 2) = 3 * Bblk H * (H : ℝ) ^ 2 := by ring
   rw [heq] at hmain
-  exact hmain
+  -- ⟦B-2's `q`-graded socket: the `q`-free block bound is read at `q ≥ 1`⟧
+  refine le_trans hmain ?_
+  have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hq2 : (1 : ℝ) ≤ (q : ℝ) ^ 2 := by nlinarith
+  have hB : (0 : ℝ) ≤ 3 * Bblk H := by have := hB0 H; linarith
+  nlinarith [mul_nonneg hB (sq_nonneg ((H : ℕ) : ℝ)), sq_nonneg ((H : ℕ) : ℝ)]
 
 /-- **THE SUP-ROUTE BLOCK HYPOTHESIS IS INHABITED** (the anti-vacuity duty, mirroring
 `M4BridgeCover.m4_blockMeanSq_trivial` and `M4BridgePhase.m4_sievedDoorSqSup_trivial`).  At
@@ -432,12 +437,17 @@ carrier: `M4BlockMeanSqSup` → (§2) `M4SievedDoorSqSup` → (B-2's `m4_sievedD
 
 ⟦THE REGISTER, sup form⟧ items 1–3 and 5 of `m4_wave_exit` unchanged; items 4 and 6 become
 
-4′. `M4GradeGate R C δ Braw k` with the DRIFT PRICE paid explicitly:
-    `(1 + 2π·arcDen 12 H)²·(3·B_blk H) ≤ Braw H` on the window range (`hdrift`), and
+4′. `M4GradeGate R C δ Braw k` with the DRIFT PRICE paid explicitly at B-2's `q`-free
+    reading: `(1 + 2π)²·(arcDen 12 H)²·(3·B_blk H) ≤ Braw H` on the window range
+    (`hdrift`), and
 6′. `M4BlockMeanSqSup R M k B_blk` — the per-block sup mean square at the rationals.
 
 The drift price is B-2's and is charged here rather than folded into the grade, because the
-sup route's whole point is that the frequency is rational when the mean square is taken. -/
+sup route's whole point is that the frequency is rational when the mean square is taken.  It
+is charged through `m4_sievedDoorSq_of_sup_uniform`, i.e. after the socket's `q`-grading has
+been spent by `qgraded_drift_price_le` — this route hands the `q²` back and is therefore the
+LOSSY reading; a supplier that produces its block bound with the class modulus attached
+should read the socket at `m4_sievedDoorSq_of_sup` instead (`M4ClassPrice`). -/
 theorem m4_wave_exit_sup :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
       ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
@@ -445,7 +455,7 @@ theorem m4_wave_exit_sup :
           ∀ (δ : ℝ) (Braw Bblk : ℕ → ℝ) (M k : ℕ),
             M4DoorGates Cg R M k δ → (∀ H : ℕ, 0 ≤ Bblk H) → (∀ H : ℕ, 0 ≤ Braw H) →
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-              (1 + 2 * Real.pi * arcDen 12 H) ^ 2 * (3 * Bblk H) ≤ Braw H) →
+              (1 + 2 * Real.pi) ^ 2 * (arcDen 12 H ^ 2 * (3 * Bblk H)) ≤ Braw H) →
             M4GradeGate R C δ Braw k →
             M4BlockMeanSqSup R M k Bblk →
               ¬ logChowla2Fails R.eps R.x R.ω := by
@@ -456,7 +466,8 @@ theorem m4_wave_exit_sup :
   refine ⟨R, hReps, hU1, hRg,
     fun δ Braw Bblk M k hgates hB0 hBraw0 hdrift hgrade hblk => ?_⟩
   exact hR δ Braw M k hgates hBraw0 hgrade
-    (m4_sievedDoorSq_of_sup hdrift (m4_cover_assembly_sup hgates hB0 hblk))
+    (m4_sievedDoorSq_of_sup_uniform (fun H => by have := hB0 H; linarith) hdrift
+      (m4_cover_assembly_sup hgates hB0 hblk))
 
 end Salt.MR
 

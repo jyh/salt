@@ -82,16 +82,40 @@ The `q`-grading is kept in the sharp statement and thrown away only in the unifo
 obligation moves to the mean square of the **sub-window sup at the rational**,
 
 ```
-∫ (sup_{K ≤ H} ‖absWindowSum (1_𝒮λ) K n (b/q)‖)² ∂logMeasure  ≤  Braw' H · H²
+∫ (sup_{K ≤ H} ‖absWindowSum (1_𝒮λ) K n (b/q)‖)² ∂logMeasure  ≤  Braw' H · q² · H²
 ```
 
-named `M4SievedDoorSqSup`, and `m4_sievedDoorSq_of_sup` discharges the socket from it at the
-grade cost `(1 + 2π·arcDen 12 H)²` — i.e. `(log H)^{24}`-scale, comfortably inside the
-`W^{−5/2} = (log H)^{−30}` saving that `M4Close.§2` prices against
+named `M4SievedDoorSqSup`.
+
+⟦THE `q`-GRADING IS KEPT⟧ — the socket's right-hand side carries the residue-class modulus
+`q` **explicitly**, and `m4_sievedDoorSq_of_sup`'s grade hypothesis is read at the same `q`:
+
+```
+(1 + 2π·arcDen 12 H / q)² · (q² · Braw' H)  ≤  Braw H         (0 < q ≤ arcDen 12 H)
+```
+
+This is not an accounting nicety.  The supplier of the sup socket is the residue-class split
+(⟦BRIDGE 1⟧), whose loss is exactly `q` classes — so its natural output is `q²·(per-class
+grade)²`, and demoting the drift factor to its `q`-free reading `(1 + 2π·arcDen 12 H)²`
+BEFORE the two `q`'s meet throws away a full factor `q²`.  The two `q`'s are the SAME witness
+by construction: `norm_absWindowSum_le_drift_tight` hands out the approximant `(b, q)` that
+`NearRatTight` itself produced, and the split is taken at that same modulus (§3's docstring).
+
+The closing arithmetic is `qgraded_drift_price_le`:
+
+```
+(1 + 2πA/q)² · q²  =  (q + 2πA)²  ≤  (1 + 2π)²·A²            (q ≤ A := arcDen 12 H)
+```
+
+so a supplier with no `q`-uniformity to spare still reads the socket through
+`m4_sievedDoorSq_of_sup_uniform` at the absolute price `(1 + 2π)²·arcDen 12 H ²` — i.e.
+`(log H)^{24}`-scale, comfortably inside the `W^{−5/2} = (log H)^{−30}` saving that
+`M4Close.§2` prices against
 (`√((log H)^{24}·(log H)^{−30}) = (log H)^{−3} ≤ C(log H)^{−11/4}loglog H`).
 
 Anti-vacuity is discharged in the same shape as `M4Close.m4_sievedDoorSq_trivial`:
-`m4_sievedDoorSqSup_trivial` inhabits the sup obligation at the trivial grade `Braw' ≡ 1`.
+`m4_sievedDoorSqSup_trivial` inhabits the sup obligation at the trivial grade `Braw' ≡ 1`
+(`H² ≤ q²H²` at `q ≥ 1` — the `q`-grading only ever helps the supplier).
 
 ## Conventions
 
@@ -347,9 +371,13 @@ theorem integral_logMeasure_const_mul {x ω : ℕ} (c : ℝ) (f : ℕ → ℝ) :
 /-- **THE SUB-WINDOW-UNIFORM SOCKET** — `M4Close.M4SievedDoorSq`'s obligation, moved to the
 sub-window sup at the rational approximant.
 
-Byte-for-byte `M4SievedDoorSq`'s statement with two changes, and only these two:
+Byte-for-byte `M4SievedDoorSq`'s statement with three changes, and only these three:
 * the frequency is the *rational* `b/q` (`0 < q ≤ arcDen 12 H`), not the tight-major `α`;
-* the integrand is the sup over sub-window lengths `K ≤ H`, not the full window sum.
+* the integrand is the sup over sub-window lengths `K ≤ H`, not the full window sum;
+* ⟦THE `q`-GRADING⟧ the right-hand side is `Braw H · q² · H²`, not `Braw H · H²` — the
+  modulus of the residue-class split is carried into the grade rather than demoted, because
+  the supplier's own loss is exactly `q` classes and the drift price carries a matching
+  `1/q` (see the module header, §4).
 
 The band transport is carried as the same premise, so the ⟦A2-5⟧ binder stays visible and is
 never unfolded. -/
@@ -360,17 +388,52 @@ def M4SievedDoorSqSup (R : ChowlaRegime) (M : ℕ) (Braw : ℕ → ℝ) : Prop :
         (∫ n, (subWindowSup (memSCoeff (calP (Adoor M) (3072 * M))
               (calQK (Adoor M) (3072 * M) M) 2 liouvilleC) H n ((b : ℝ) / (q : ℝ))) ^ 2
             ∂(logMeasure R.x R.ω))
-          ≤ Braw H * (H : ℝ) ^ 2
+          ≤ Braw H * (q : ℝ) ^ 2 * (H : ℝ) ^ 2
 
-/-- **THE HOOK — bridge #2's deliverable.**  The sub-window-uniform mean square at the
-rationals discharges `M4Close`'s socket, at the drift price `(1 + 2π·arcDen 12 H)²` on the
-grade.
+/-- **THE CLOSING ARITHMETIC OF THE `q`-GRADED SOCKET** (`qgraded_drift_price_le`).  The
+drift's `q`-graded price against the split's `q²`:
+
+```
+(1 + 2πA/q)² · (q² · B)  =  (q + 2πA)² · B  ≤  (1 + 2π)²·A²·B          (0 < q ≤ A)
+```
+
+The middle equality is exact — `q` cancels the `1/q` inside the drift factor — and the final
+step is `q ≤ A` alone.  At `A := arcDen 12 H = (log H)^{12}` the absolute constant is
+`(1 + 2π)² ≈ 53`, which the `(log H)^{1/2}` of the exponent gap swallows at the door. -/
+theorem qgraded_drift_price_le {A B : ℝ} {q : ℕ} (hq : 0 < q) (hqA : (q : ℝ) ≤ A)
+    (hB : 0 ≤ B) :
+    (1 + 2 * Real.pi * (A / (q : ℝ))) ^ 2 * ((q : ℝ) ^ 2 * B)
+      ≤ (1 + 2 * Real.pi) ^ 2 * (A ^ 2 * B) := by
+  have hq0 : (0 : ℝ) < (q : ℝ) := by exact_mod_cast hq
+  have hA0 : (0 : ℝ) ≤ A := le_trans hq0.le hqA
+  have hpi : (0 : ℝ) < Real.pi := Real.pi_pos
+  have hid : (1 + 2 * Real.pi * (A / (q : ℝ))) * (q : ℝ) = (q : ℝ) + 2 * Real.pi * A := by
+    field_simp
+  have hsq : (1 + 2 * Real.pi * (A / (q : ℝ))) ^ 2 * (q : ℝ) ^ 2
+      = ((q : ℝ) + 2 * Real.pi * A) ^ 2 := by
+    rw [← mul_pow, hid]
+  have hexp : (1 + 2 * Real.pi) * A = A + 2 * Real.pi * A := by ring
+  have hle : (q : ℝ) + 2 * Real.pi * A ≤ (1 + 2 * Real.pi) * A := by rw [hexp]; linarith
+  have hnn : (0 : ℝ) ≤ (q : ℝ) + 2 * Real.pi * A := by positivity
+  have hsq2 : ((q : ℝ) + 2 * Real.pi * A) ^ 2 ≤ ((1 + 2 * Real.pi) * A) ^ 2 := by
+    nlinarith
+  calc (1 + 2 * Real.pi * (A / (q : ℝ))) ^ 2 * ((q : ℝ) ^ 2 * B)
+      = ((1 + 2 * Real.pi * (A / (q : ℝ))) ^ 2 * (q : ℝ) ^ 2) * B := by ring
+    _ = ((q : ℝ) + 2 * Real.pi * A) ^ 2 * B := by rw [hsq]
+    _ ≤ ((1 + 2 * Real.pi) * A) ^ 2 * B := mul_le_mul_of_nonneg_right hsq2 hB
+    _ = (1 + 2 * Real.pi) ^ 2 * (A ^ 2 * B) := by ring
+
+/-- **THE HOOK — bridge #2's deliverable, `q`-GRADED.**  The sub-window-uniform mean square
+at the rationals discharges `M4Close`'s socket, at the drift price
+`(1 + 2π·arcDen 12 H / q)²` read against the socket's own `q²`.
 
 The whole of §3 is used once, pointwise in the door variable `n`: the approximant `b/q` is
-chosen from `α` alone, so the constant is `n`-free and the bound survives the integral. -/
+chosen from `α` alone, so the constant is `n`-free and the bound survives the integral.  The
+`q` in `hgrade` is the SAME `q` as the socket's — both come from `NearRatTight`'s witness,
+never from a choice made here. -/
 theorem m4_sievedDoorSq_of_sup {R : ChowlaRegime} {M : ℕ} {Braw Braw' : ℕ → ℝ}
-    (hgrade : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-      (1 + 2 * Real.pi * arcDen 12 H) ^ 2 * Braw' H ≤ Braw H)
+    (hgrade : ∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+      (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2 * ((q : ℝ) ^ 2 * Braw' H) ≤ Braw H)
     (hsup : M4SievedDoorSqSup R M Braw') : M4SievedDoorSq R M Braw := by
   intro htr H _ hlo hhi α hα
   have hH : 0 < H := Nat.pos_of_ne_zero (NeZero.ne H)
@@ -378,49 +441,59 @@ theorem m4_sievedDoorSq_of_sup {R : ChowlaRegime} {M : ℕ} {Braw Braw' : ℕ �
   set c := memSCoeff (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2 liouvilleC
     with hc
   set β : ℝ := (b : ℝ) / (q : ℝ) with hβ
-  have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
-  have hden : arcDen 12 H / (q : ℝ) ≤ arcDen 12 H := div_le_self (arcDen_nonneg 12 H) hq1
-  have hpi : (0 : ℝ) ≤ 2 * Real.pi := by positivity
-  have hbig : (0 : ℝ) ≤ 1 + 2 * Real.pi * arcDen 12 H := by
-    nlinarith [arcDen_nonneg (12 : ℝ) H]
-  -- ⟦the pointwise drift bound, squared⟧
+  -- ⟦the pointwise drift bound, squared — THE `q`-GRADING KEPT (no `hden` demotion)⟧
   have hpt : ∀ n : ℕ, ‖absWindowSum c H n α‖ ^ 2
-      ≤ (1 + 2 * Real.pi * arcDen 12 H) ^ 2 * (subWindowSup c H n β) ^ 2 := by
+      ≤ (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2 * (subWindowSup c H n β) ^ 2 := by
     intro n
     have h := norm_absWindowSum_le_drift (B₅ := 12) (H := H) (q := q) (n := n)
       (β := β) (θ := α - β) hq hH hd c
     have he : β + (α - β) = α := by ring
     rw [he] at h
-    have h2 : ‖absWindowSum c H n α‖ ≤ (1 + 2 * Real.pi * arcDen 12 H) * subWindowSup c H n β := by
-      refine h.trans (mul_le_mul ?_ le_rfl (subWindowSup_nonneg c H n β) hbig)
-      nlinarith
     calc ‖absWindowSum c H n α‖ ^ 2
-        ≤ ((1 + 2 * Real.pi * arcDen 12 H) * subWindowSup c H n β) ^ 2 := by
+        ≤ ((1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) * subWindowSup c H n β) ^ 2 := by
           gcongr
-      _ = (1 + 2 * Real.pi * arcDen 12 H) ^ 2 * (subWindowSup c H n β) ^ 2 := by ring
+      _ = (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
+            * (subWindowSup c H n β) ^ 2 := by ring
   -- ⟦the integral, and the grade⟧
   calc (∫ n, ‖absWindowSum c H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
-      ≤ ∫ n, (1 + 2 * Real.pi * arcDen 12 H) ^ 2 * (subWindowSup c H n β) ^ 2
+      ≤ ∫ n, (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2 * (subWindowSup c H n β) ^ 2
           ∂(logMeasure R.x R.ω) := integral_logMeasure_mono hpt
-    _ = (1 + 2 * Real.pi * arcDen 12 H) ^ 2
+    _ = (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
           * ∫ n, (subWindowSup c H n β) ^ 2 ∂(logMeasure R.x R.ω) :=
         integral_logMeasure_const_mul _ _
-    _ ≤ (1 + 2 * Real.pi * arcDen 12 H) ^ 2 * (Braw' H * (H : ℝ) ^ 2) :=
+    _ ≤ (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
+          * (Braw' H * (q : ℝ) ^ 2 * (H : ℝ) ^ 2) :=
         mul_le_mul_of_nonneg_left (hsup htr H hlo hhi b q hq hqQ) (sq_nonneg _)
-    _ = ((1 + 2 * Real.pi * arcDen 12 H) ^ 2 * Braw' H) * (H : ℝ) ^ 2 := by ring
+    _ = ((1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2 * ((q : ℝ) ^ 2 * Braw' H))
+          * (H : ℝ) ^ 2 := by ring
     _ ≤ Braw H * (H : ℝ) ^ 2 :=
-        mul_le_mul_of_nonneg_right (hgrade H hlo hhi) (sq_nonneg _)
+        mul_le_mul_of_nonneg_right (hgrade H q hlo hhi hq hqQ) (sq_nonneg _)
+
+/-- **THE `q`-FREE READING** — `qgraded_drift_price_le` applied once, so a supplier with no
+`q`-uniformity to spare still discharges the socket, at the ABSOLUTE drift price
+`(1 + 2π)²·arcDen 12 H ²`.  This is the shape `M4Join.m4_wave_exit_sup` reads. -/
+theorem m4_sievedDoorSq_of_sup_uniform {R : ChowlaRegime} {M : ℕ} {Braw Braw' : ℕ → ℝ}
+    (hB0 : ∀ H : ℕ, 0 ≤ Braw' H)
+    (hgrade : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      (1 + 2 * Real.pi) ^ 2 * (arcDen 12 H ^ 2 * Braw' H) ≤ Braw H)
+    (hsup : M4SievedDoorSqSup R M Braw') : M4SievedDoorSq R M Braw :=
+  m4_sievedDoorSq_of_sup
+    (fun H _q hlo hhi hq hqQ =>
+      le_trans (qgraded_drift_price_le hq hqQ (hB0 H)) (hgrade H hlo hhi)) hsup
 
 /-- **THE SUP SOCKET IS INHABITED** (the anti-vacuity duty, mirroring
 `M4Close.m4_sievedDoorSq_trivial`).  At the trivial grade `Braw' ≡ 1` every sub-window
-carries at most `H` terms of modulus `≤ 1`, so the sup is `≤ H` and its square `≤ H²`; the
-door's measure is a probability measure, so the integral inherits the pointwise bound.
+carries at most `H` terms of modulus `≤ 1`, so the sup is `≤ H` and its square `≤ H² ≤ q²H²`
+(`q ≥ 1` — the `q`-grading only ever helps the supplier); the door's measure is a probability
+measure, so the integral inherits the pointwise bound.
 
 So the sup obligation's hypothesis list is satisfiable, and all of its content is the grade.
 -/
 theorem m4_sievedDoorSqSup_trivial (R : ChowlaRegime) (M : ℕ) :
     M4SievedDoorSqSup R M (fun _ => 1) := by
-  intro _ H _ _ _ b q _ _
+  intro _ H _ _ _ b q hq _
+  have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hq2 : (1 : ℝ) ≤ (q : ℝ) ^ 2 := by nlinarith
   refine integral_logMeasure_le_of_le R.hx R.hω (fun n => ?_)
   have hle := subWindowSup_le_of_norm_le_one
     (a := memSCoeff (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2 liouvilleC)
@@ -429,6 +502,9 @@ theorem m4_sievedDoorSqSup_trivial (R : ChowlaRegime) (M : ℕ) :
   have h0 := subWindowSup_nonneg
     (memSCoeff (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2 liouvilleC)
     H n ((b : ℝ) / (q : ℝ))
-  nlinarith
+  have hsq : (subWindowSup (memSCoeff (calP (Adoor M) (3072 * M))
+      (calQK (Adoor M) (3072 * M) M) 2 liouvilleC) H n ((b : ℝ) / (q : ℝ))) ^ 2
+      ≤ (H : ℝ) ^ 2 := by nlinarith
+  nlinarith [sq_nonneg ((H : ℕ) : ℝ)]
 
 end Salt.MR
