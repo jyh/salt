@@ -12556,3 +12556,59 @@ the M4 wave, with the highest-value follow-up priced at ~20 lines (the
 REMAINING OBJECTS: the M4/S9 wave (Amendment B's ladder, now with its
 thm_A2′ supplier standing), the even-χ production (the one Siegel
 residual), Lemma 4 (paper-completeness, register), S11's compose.
+
+---
+
+## M4-JOIN: the per-row join lands — two structural walls found, two register items CLOSED (2026-07-27 19:34 PDT)
+
+**THE CAP-FREE NECESSITY (the wave-redirecting find):** the λ-datum is
+NON-pretentious — 𝔻²(λχ̄, n^{it}; X) ≳ loglog X at EVERY centre — so the
+(1/16)loglog X pretentiousness cap carried by BOTH landed suppliers of
+the summit's cap branch (t0_band_supply's hMcap, T0Band :539–541;
+a2_station_supply_pointwise's hMcap, ThmA2Rows :753–755 — the SAME cap)
+is FALSE for the M4 datum at every centre. The wave takes the CAP-FREE
+branch by necessity: prove CapFreeFloor (λχ̄) + a2Rows_of_capfree +
+thm_a2'_of_rows directly. New sub-stones: the cap-free T₀-band
+[C, 300–600] and the CapFreeFloor stone. hStation/hCcc never need
+supplying for λ. (Trap 1: any executor who "supplies" an hMcap at the
+λ-datum has erred.)
+
+**THE LARGE-|t| WALL (ranked above even-χ):** the quality demand runs
+|t| ≤ X and the landed floors die there (the k²-branch by ~1400 orders;
+the 3-4-1 branch marginally — exponent exactly 1; VK's 2/3 not in corpus
+or mathlib). Two escapes: (a) THE REGIME SHAPE — x ≥ exp exp(1300·
+(log Hhi)^{25}); x is a free ChowlaRegime field and the floor is fixed
+before R is produced; ZERO new analysis if the spine's constructor
+admits it (REGIME-CHECK scoper dispatched); (b) the
+L-lower-at-height-t stone [C, ~400] — extend chi_Llower_341 past |t| ≤ 1
+via the LANDED Pólya–Vinogradov (the 1-line |L(1+2it,χ²)| ≪ log(q(|t|+2))
+bound) — also removes the k² divisor everywhere.
+
+**THE EVEN-χ QUESTION, SHARP (for the council):** the residual is
+L1LowerEffective at even real primitive χ, biting in ONE corner (the
+Siegel-zero corner, |t| ≲ 1/log X — everywhere else the landed zero-free
+regions cover). WITHOUT it: M4-3's χ-sum loses uniformity, one bad χ
+takes the trivial bound, the W-saving dies, M4-7 cannot close. THE
+CHEAPEST LIVE ROUTE: the Siegel completion — **the ∃c shape is
+ineffective-friendly (Siegel's ineffectivity does NOT obstruct the
+statement)**; SiegelFinal's ε-form is half-landed, deferred on two named
+gaps (sharp near-line growth L ≪ log q; 2^{ω(N)} = N^{o(1)}). The
+hyperbola fallback confirmed dead at w = 12.
+
+**REGISTER CLOSURES:** U1 = CLOSED-BY-FLOOR-RAISE (the 8C/δ₀ gate forces
+M ≈ 6.4·10⁶¹ hence log h ≳ 6.4·10⁶¹ — a one-sided extraFloor raise in
+budget_head_grade_closed's free slot, NOT a contradiction; δ there is the
+constant δ₀). THE B₅ ITEM = CLOSED (B₅ = 12 landed throughout:
+bigXiArcTight_twelve, the 1500-chain, the _12 absorption stones). ALSO:
+M4's P-1 precondition DISSOLVED (S7 closed — the L-ladder no longer gates
+the wave).
+
+**THE UNPRICED CENSUS ITEM:** TLBlockGates34 (USetGradedPrice :809, a
+16-clause conjunction) has NO landed inhabitant anywhere; thin/blocks
+joint satisfiability is trap 7 (Ms pushed up by thin, pinned by the row's
+own gates). TLGATES-SCOPE dispatched — scope BEFORE the wave, not during.
+The re-priced band: 4200–7080 (+ the branch stones). Eight traps banked
+in the join report (the three log-scales glyph; the two-A2Frames
+doubling; hgRows₁ vs hgRows₂ at different constants; Ccol's invisible
+magnitude vs the exp exp(10⁶+75C) threshold; the lamChi conjugation
+orientation fixed ONCE).
