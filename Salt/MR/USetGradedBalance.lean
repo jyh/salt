@@ -303,20 +303,21 @@ theorem TSG_feed_of_thin
     (η X : ℝ) (hα : αseq Jb ≤ 1 / 4 - η) (hη2 : 2 * η ≤ 1) (hTX : T ≤ X)
     (Rset : Set ℝ) (hRsub : Rset ⊆ Set.Icc (-T) T)
     (H : ℝ) (N Xd P Q : ℕ) (b c : ℕ → ℂ) (δ' : ℝ) (Ms : ℕ → ℕ)
-    (hM : ∀ j : ℕ, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j))
-    (hbudget : ∀ j : ℕ, thinBundleG T VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
+    (hM : ∀ j ∈ ramI H P Q, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j))
+    (hbudget : ∀ j ∈ ramI H P Q,
+      thinBundleG T VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
       ≤ ((Ms j : ℕ) : ℝ)) :
-    ∀ j : ℕ, ∀ 𝒯 : Finset ℝ, WellSpaced 𝒯 →
+    ∀ j ∈ ramI H P Q, ∀ 𝒯 : Finset ℝ, WellSpaced 𝒯 →
       (↑𝒯 : Set ℝ) ⊆ Rset ∩ UsetG fb Pseq Qseq Hseq αseq Jset →
       (∑ t ∈ TsetSmall H P Q j c δ' 𝒯, ‖ramMain H N Xd P Q b c j t‖ ^ 2)
         ≤ 5128 * δ' ^ 2 * ((Ms j : ℕ) : ℝ) * (1 + Real.log (2 * T))
             * ∑ m ∈ Finset.Icc 1 (Ms j), ‖ramRcoeff H N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2 := by
-  intro j 𝒯 hws hsubA
+  intro j hj 𝒯 hws hsubA
   exact usetG_TS_branch_meanvalue fb hfb1 Pseq Qseq Hseq αseq Jset Jb hJb1 hJbJ hH2 hα0
     T VJ hT hP3 hPQ hQT hκ30 hLL5 hVJ 𝒯 hws
     (fun t ht => hRsub (hsubA (Finset.mem_coe.mpr ht)).1)
     (fun t ht => (hsubA (Finset.mem_coe.mpr ht)).2) η X hα hη2 hTX
-    H N Xd P Q j (Ms j) b c δ' (hM j) (hbudget j)
+    H N Xd P Q j (Ms j) b c δ' (hM j hj) (hbudget j hj)
 
 /-! ## §3 — GB-2b: the `𝒯_L` feed at the LOCALIZED co-factor supply -/
 
@@ -473,8 +474,9 @@ theorem hUG_supplied :
         (∀ v ∈ ramI (Hseq Jb) (Pseq Jb) (Qseq Jb),
           Real.exp (αseq Jb * (v : ℝ) / Hseq Jb) ≤ VJ) →
         αseq Jb ≤ 1 / 4 - η → 2 * η ≤ 1 →
-        (∀ j : ℕ, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j : ℕ, thinBundleG Tann VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
+        (∀ j ∈ ramI H P Q, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI H P Q,
+          thinBundleG Tann VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
             ≤ ((Ms j : ℕ) : ℝ)) →
         -- `Vsplit`: the `𝒯_S ∥ 𝒯_L` level at `δ'`
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
@@ -539,7 +541,7 @@ theorem hUG_supplied :
       * ∑ m ∈ Finset.Icc 1 (Ms j), ‖ramRcoeff H N Xd P Q j (ellLin g) m‖ ^ 2 / (m : ℝ) ^ 2)
     (fun j => 54 * Cq * cofactorRbd cg Cb X θ ((kk j : ℕ) : ℝ) ((Mt j : ℕ) : ℝ)
       (Tstar ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ))) Rrad ^ 2 * (H / (j : ℝ)) ^ 2)
-    KS Cq Rbar (le_of_lt hCq) hj₀ (fun j _ 𝒯 hws h𝒯A => hTSfeed j 𝒯 hws h𝒯A) hTLj hKS ?_
+    KS Cq Rbar (le_of_lt hCq) hj₀ (fun j hj 𝒯 hws h𝒯A => hTSfeed j hj 𝒯 hws h𝒯A) hTLj hKS ?_
   intro j hj
   have hk64 := (hblk j hj).2.2.2.2.2.2.2.1
   have h65 : (65 : ℝ) ≤ ((kk j : ℕ) : ℝ) := by
@@ -616,8 +618,9 @@ theorem hUG_discharged :
         (∀ v ∈ ramI (Hseq Jb) (Pseq Jb) (Qseq Jb),
           Real.exp (αseq Jb * (v : ℝ) / Hseq Jb) ≤ VJ) →
         αseq Jb ≤ 1 / 4 - η → 2 * η ≤ 1 →
-        (∀ j : ℕ, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j : ℕ, thinBundleG Tann VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
+        (∀ j ∈ ramI H P Q, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI H P Q,
+          thinBundleG Tann VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
             ≤ ((Ms j : ℕ) : ℝ)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
         0 < cg → cg ≤ 1 / Real.exp 1 → 2 * cg < 1 → 0 ≤ Cb → ShortIntervalDatum Cb →

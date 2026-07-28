@@ -103,12 +103,16 @@ theorem hUG34_unconditional :
         (∀ v ∈ ramI (Hseq Jb) (Pseq Jb) (Qseq Jb),
           Real.exp (αseq Jb * (v : ℝ) / Hseq Jb) ≤ VJ) →
         αseq Jb ≤ 1 / 4 - η → 2 * η ≤ 1 →
-        (∀ j : ℕ, ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j : ℕ, thinBundleG Tann VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          thinBundleG Tann VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
             ≤ ((Ms j : ℕ) : ℝ)) →
-        (∀ j : ℕ, 2 ≤ m₀ j) →
-        (∀ j : ℕ, ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
-        (∀ j : ℕ, ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
         0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q → |t₁| ≤ X →
         pretDistSq (ellLin g) (costwist t₁) X ≤ (1 / 16) * Real.log (Real.log X) →
@@ -220,12 +224,16 @@ theorem hUG34_unconditional_beats_door :
         (∀ v ∈ ramI (Hseq Jb) (Pseq Jb) (Qseq Jb),
           Real.exp (αseq Jb * (v : ℝ) / Hseq Jb) ≤ VJ) →
         αseq Jb ≤ 1 / 4 - η → 2 * η ≤ 1 →
-        (∀ j : ℕ, ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j : ℕ, thinBundleG Tann VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          thinBundleG Tann VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
             ≤ ((Ms j : ℕ) : ℝ)) →
-        (∀ j : ℕ, 2 ≤ m₀ j) →
-        (∀ j : ℕ, ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
-        (∀ j : ℕ, ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
         0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q → |t₁| ≤ X →
         pretDistSq (ellLin g) (costwist t₁) X ≤ (1 / 16) * Real.log (Real.log X) →

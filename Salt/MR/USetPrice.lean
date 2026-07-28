@@ -155,16 +155,17 @@ at the co-factor datum `b := ellLin g`, discharged uniformly over the block rang
 explicit constant `KS = 20512·δ'²·(1 + log 2Tann)`. -/
 theorem KS_supplied (H : ℝ) (N Xd P Q : ℕ) (g : ℕ → ℂ) (hg : ∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1)
     (m₀ Ms : ℕ → ℕ) (Tann δ' : ℝ) (hT : 1 ≤ Tann)
-    (hm₀2 : ∀ j : ℕ, 2 ≤ m₀ j) (hm₀ : ∀ j : ℕ, ((m₀ j : ℕ) : ℝ) ≤ ramRbot H Xd j)
-    (hMs : ∀ j : ℕ, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j))
-    (hMs4 : ∀ j : ℕ, ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) :
+    (hm₀2 : ∀ j ∈ ramI H P Q, 2 ≤ m₀ j)
+    (hm₀ : ∀ j ∈ ramI H P Q, ((m₀ j : ℕ) : ℝ) ≤ ramRbot H Xd j)
+    (hMs : ∀ j ∈ ramI H P Q, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j))
+    (hMs4 : ∀ j ∈ ramI H P Q, ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) :
     ∀ j ∈ ramI H P Q, 5128 * δ' ^ 2 * ((Ms j : ℕ) : ℝ) * (1 + Real.log (2 * Tann))
         * (∑ m ∈ Finset.Icc 1 (Ms j),
             ‖ramRcoeff H N Xd P Q j (ellLin g) m‖ ^ 2 / (m : ℝ) ^ 2)
       ≤ 20512 * δ' ^ 2 * (1 + Real.log (2 * Tann)) := by
-  intro j _
+  intro j hj
   exact KS_priced H N Xd P Q j (ellLin g) (fun n => ellLin_norm_le_one g hg n) (m₀ j) (Ms j)
-    (hm₀2 j) (hm₀ j) (hMs j) (hMs4 j) Tann δ' hT
+    (hm₀2 j hj) (hm₀ j hj) (hMs j hj) (hMs4 j hj) Tann δ' hT
 
 /-! ## §2 — P-c: the uniform co-factor bound `R̄` -/
 
@@ -590,12 +591,16 @@ theorem hU_fully_priced :
         3 ≤ Pseq Jb → (Qseq Jb : ℝ) ≤ Tann →
         Real.log V ≤ α * Real.log (Pseq Jb) → α ≤ 1 / 4 - η → 2 * η ≤ 1 →
         Real.log V ≤ 100 * Real.log L →
-        (∀ j : ℕ, ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j : ℕ, thinBundle Tann V (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          thinBundle Tann V (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
             ≤ ((Ms j : ℕ) : ℝ)) →
-        (∀ j : ℕ, 2 ≤ m₀ j) →
-        (∀ j : ℕ, ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
-        (∀ j : ℕ, ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
         0 < cg → cg ≤ 1 / Real.exp 1 → 2 * cg < 1 → 0 ≤ Cb → ShortIntervalDatum Cb →
         P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q → |t₁| ≤ X →
         pretDistSq (ellLin g) (costwist t₁) X ≤ (1 / 16) * Real.log (Real.log X) →

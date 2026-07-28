@@ -426,8 +426,9 @@ theorem hUG34_supplied_nocap :
         (∀ v ∈ ramI (Hseq Jb) (Pseq Jb) (Qseq Jb),
           Real.exp (αseq Jb * (v : ℝ) / Hseq Jb) ≤ VJ) →
         αseq Jb ≤ 1 / 4 - η → 2 * η ≤ 1 →
-        (∀ j : ℕ, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j : ℕ, thinBundleG Tann VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
+        (∀ j ∈ ramI H P Q, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI H P Q,
+          thinBundleG Tann VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
             ≤ ((Ms j : ℕ) : ℝ)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
         2 * cg < 1 → 0 ≤ Cb →
@@ -491,7 +492,7 @@ theorem hUG34_supplied_nocap :
       * ∑ m ∈ Finset.Icc 1 (Ms j), ‖ramRcoeff H N Xd P Q j (ellLin g) m‖ ^ 2 / (m : ℝ) ^ 2)
     (fun j => 54 * Cq * cofactorRbd34loc cg Cb X θ ((kk j : ℕ) : ℝ) ((Mt j : ℕ) : ℝ)
       (Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ))) Rrad ^ 2 * (H / (j : ℝ)) ^ 2)
-    KS Cq Rbar (le_of_lt hCq) hj₀ (fun j _ 𝒯 hws h𝒯A => hTSfeed j 𝒯 hws h𝒯A) hTLj hKS ?_
+    KS Cq Rbar (le_of_lt hCq) hj₀ (fun j hj 𝒯 hws h𝒯A => hTSfeed j hj 𝒯 hws h𝒯A) hTLj hKS ?_
   intro j hj
   obtain ⟨-, -, -, -, -, -, hk₀th, -, -, -, -, -, -, -, -, -, -⟩ := hblk j hj
   have hk₀1 : (1 : ℝ) ≤ ((kk j : ℕ) : ℝ) := by
@@ -531,12 +532,16 @@ theorem hUG34_fully_priced_nocap :
         (∀ v ∈ ramI (Hseq Jb) (Pseq Jb) (Qseq Jb),
           Real.exp (αseq Jb * (v : ℝ) / Hseq Jb) ≤ VJ) →
         αseq Jb ≤ 1 / 4 - η → 2 * η ≤ 1 →
-        (∀ j : ℕ, ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j : ℕ, thinBundleG Tann VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          thinBundleG Tann VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
             ≤ ((Ms j : ℕ) : ℝ)) →
-        (∀ j : ℕ, 2 ≤ m₀ j) →
-        (∀ j : ℕ, ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
-        (∀ j : ℕ, ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
         0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
         PocketSocket g P Q X theta293 t₁ →
@@ -654,12 +659,16 @@ theorem hUG34_unconditional_nocap :
         (∀ v ∈ ramI (Hseq Jb) (Pseq Jb) (Qseq Jb),
           Real.exp (αseq Jb * (v : ℝ) / Hseq Jb) ≤ VJ) →
         αseq Jb ≤ 1 / 4 - η → 2 * η ≤ 1 →
-        (∀ j : ℕ, ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j : ℕ, thinBundleG Tann VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          thinBundleG Tann VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
             ≤ ((Ms j : ℕ) : ℝ)) →
-        (∀ j : ℕ, 2 ≤ m₀ j) →
-        (∀ j : ℕ, ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
-        (∀ j : ℕ, ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
         0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
         PocketSocket g P Q X theta293 t₁ →
@@ -756,12 +765,16 @@ theorem hUG34_unconditional_beats_door_nocap :
         (∀ v ∈ ramI (Hseq Jb) (Pseq Jb) (Qseq Jb),
           Real.exp (αseq Jb * (v : ℝ) / Hseq Jb) ≤ VJ) →
         αseq Jb ≤ 1 / 4 - η → 2 * η ≤ 1 →
-        (∀ j : ℕ, ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j : ℕ, thinBundleG Tann VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          thinBundleG Tann VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
             ≤ ((Ms j : ℕ) : ℝ)) →
-        (∀ j : ℕ, 2 ≤ m₀ j) →
-        (∀ j : ℕ, ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
-        (∀ j : ℕ, ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
         0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
         PocketSocket g P Q X theta293 t₁ →
@@ -842,12 +855,16 @@ theorem seam_row_calibratedK_nocap :
         T₀ ≤ Tann → 5 ≤ Real.log (Real.log Tann) → 1 ≤ Real.log Tann →
         Real.log Tann ≤ L → Real.exp 1 ≤ L →
         Real.exp (mrAlpha η Jb * Real.log ((calQK A G M Jb : ℕ) : ℝ)) ≤ VJ →
-        (∀ j : ℕ, ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j : ℕ, thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb)
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb)
             * X ^ (1 - 2 * η) ≤ ((Ms j : ℕ) : ℝ)) →
-        (∀ j : ℕ, 2 ≤ m₀ j) →
-        (∀ j : ℕ, ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
-        (∀ j : ℕ, ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
         0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
         PocketSocket g P Q X theta293 t₁ →
@@ -1011,12 +1028,16 @@ theorem seam_row_number_nocap :
         T₀ ≤ Tann → 5 ≤ Real.log (Real.log Tann) → 1 ≤ Real.log Tann →
         Real.log Tann ≤ L → Real.exp 1 ≤ L →
         Real.exp (mrAlpha η Jb * Real.log ((calQK A G M Jb : ℕ) : ℝ)) ≤ VJ →
-        (∀ j : ℕ, ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j : ℕ, thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb)
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb)
             * X ^ (1 - 2 * η) ≤ ((Ms j : ℕ) : ℝ)) →
-        (∀ j : ℕ, 2 ≤ m₀ j) →
-        (∀ j : ℕ, ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
-        (∀ j : ℕ, ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
         0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
         PocketSocket g P Q X theta293 t₁ →
@@ -1165,12 +1186,16 @@ theorem seam_row_number_capfree :
         T₀ ≤ Tann → 5 ≤ Real.log (Real.log Tann) → 1 ≤ Real.log Tann →
         Real.log Tann ≤ L → Real.exp 1 ≤ L →
         Real.exp (mrAlpha η Jb * Real.log ((calQK A G M Jb : ℕ) : ℝ)) ≤ VJ →
-        (∀ j : ℕ, ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j : ℕ, thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb)
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb)
             * X ^ (1 - 2 * η) ≤ ((Ms j : ℕ) : ℝ)) →
-        (∀ j : ℕ, 2 ≤ m₀ j) →
-        (∀ j : ℕ, ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
-        (∀ j : ℕ, ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
         0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
         -- ⟦THE ONE NEW DATUM⟧ the large-`M` floor, on the bare datum, at the `|v| ≤ X` box

@@ -294,10 +294,13 @@ theorem a2Rows_of_capfree :
         Real.exp 1 ≤ L →
         Real.exp (mrAlpha (1 / 12) 2
             * Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ)) ≤ VJ →
-        (∀ j : ℕ, ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j : ℕ, 2 ≤ m₀ j) →
-        (∀ j : ℕ, ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
-        (∀ j : ℕ, ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
         0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
         CapFreeFloor g X →
@@ -450,10 +453,13 @@ theorem a2Rows_of_cap :
         Real.exp 1 ≤ L →
         Real.exp (mrAlpha (1 / 12) 2
             * Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ)) ≤ VJ →
-        (∀ j : ℕ, ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j : ℕ, 2 ≤ m₀ j) →
-        (∀ j : ℕ, ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
-        (∀ j : ℕ, ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
         0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
         800 < Real.log (Real.log X) → ¬ CapFreeFloor g X →
@@ -623,10 +629,13 @@ theorem thm_a2' :
         Real.exp 1 ≤ L →
         Real.exp (mrAlpha (1 / 12) 2
             * Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ)) ≤ VJ →
-        (∀ j : ℕ, ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j : ℕ, 2 ≤ m₀ j) →
-        (∀ j : ℕ, ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
-        (∀ j : ℕ, ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
         0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
         800 < Real.log (Real.log X) →
@@ -784,9 +793,10 @@ theorem a2Frame_satisfiable_partial {g cf a : ℕ → ℂ} {N Xd P Q A G M Jb : 
     (hTann : TannGate X (2 * (X / h)))
     (hceil : 5 ≤ Real.log (Real.log (2 * (X / h))))
     (hT₀le : T₀ ≤ 2 * (X / h)) (hLXL : Real.log X ≤ L)
-    (hthin : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X → ∀ j : ℕ,
-      thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb) * X ^ (1 - 2 * η)
-        ≤ ((Ms j : ℕ) : ℝ))
+    (hthin : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
+      ∀ j ∈ ramI (H83 X theta293) P Q,
+        thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb) * X ^ (1 - 2 * η)
+          ≤ ((Ms j : ℕ) : ℝ))
     (hblocks : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
       ∀ j ∈ ramI (H83 X theta293) P Q,
         TLBlockGates34 cq (H83 X theta293) P N Xd Mt kk Tann L (1 / Real.exp 1) Cb X

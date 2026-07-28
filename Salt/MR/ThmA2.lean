@@ -678,9 +678,10 @@ structure A2Frame (g cf a : ℕ → ℂ) (N Xd P Q A G M Jb : ℕ) (Ms Mt kk : �
   /-- The `L`-budget (monotone in `Tann`). -/
   log_le_L : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X → Real.log Tann ≤ L
   /-- The thin-bundle demand on the `Ms`-ladder, per height. -/
-  thin : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X → ∀ j : ℕ,
-    thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb) * X ^ (1 - 2 * η)
-      ≤ ((Ms j : ℕ) : ℝ)
+  thin : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
+    ∀ j ∈ ramI (H83 X theta293) P Q,
+      thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb) * X ^ (1 - 2 * η)
+        ≤ ((Ms j : ℕ) : ℝ)
   /-- The §8.3 block gates, per height. -/
   blocks : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
     ∀ j ∈ ramI (H83 X theta293) P Q,

@@ -170,19 +170,19 @@ theorem TS_feed_of_thin
     (hη2 : 2 * η ≤ 1) (hTX : T ≤ X)
     (Rset : Set ℝ) (hRsub : Rset ⊆ Set.Icc (-T) T)
     (H : ℝ) (N Xd P Q : ℕ) (b c : ℕ → ℂ) (δ' : ℝ) (Ms : ℕ → ℕ)
-    (hM : ∀ j : ℕ, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j))
-    (hbudget : ∀ j : ℕ,
+    (hM : ∀ j ∈ ramI H P Q, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j))
+    (hbudget : ∀ j ∈ ramI H P Q,
       thinBundle T V (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η) ≤ ((Ms j : ℕ) : ℝ)) :
-    ∀ j : ℕ, ∀ 𝒯 : Finset ℝ, WellSpaced 𝒯 →
+    ∀ j ∈ ramI H P Q, ∀ 𝒯 : Finset ℝ, WellSpaced 𝒯 →
       (↑𝒯 : Set ℝ) ⊆ Rset ∩ Uset fb Pseq Qseq δ Jset →
       (∑ t ∈ TsetSmall H P Q j c δ' 𝒯, ‖ramMain H N Xd P Q b c j t‖ ^ 2)
         ≤ 5128 * δ' ^ 2 * ((Ms j : ℕ) : ℝ) * (1 + Real.log (2 * T))
             * ∑ m ∈ Finset.Icc 1 (Ms j), ‖ramRcoeff H N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2 := by
-  intro j 𝒯 hws hsubA
+  intro j hj 𝒯 hws hsubA
   exact uset_TS_branch_meanvalue fb hfb1 Pseq Qseq δ Jset Jb hJb1 hJbJ hδ0 T V hT hV hVinv
     hP3 hQT hκ30 hLL5 𝒯 hws (fun t ht => hRsub (hsubA (Finset.mem_coe.mpr ht)).1)
     (fun t ht => (hsubA (Finset.mem_coe.mpr ht)).2) α η X hVα hα hη2 hTX
-    H N Xd P Q j (Ms j) b c δ' (hM j) (hbudget j)
+    H N Xd P Q j (Ms j) b c δ' (hM j hj) (hbudget j hj)
 
 /-! ## §4 — the `j`-sum page: `Σ_{j∈I} 1/j²` -/
 
@@ -434,8 +434,8 @@ theorem hU_supplied :
         3 ≤ Pseq Jb → (Qseq Jb : ℝ) ≤ Tann →
         Real.log V ≤ α * Real.log (Pseq Jb) → α ≤ 1 / 4 - η → 2 * η ≤ 1 →
         Real.log V ≤ 100 * Real.log L →
-        (∀ j : ℕ, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j : ℕ, thinBundle Tann V (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
+        (∀ j ∈ ramI H P Q, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI H P Q, thinBundle Tann V (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
             ≤ ((Ms j : ℕ) : ℝ)) →
         0 < cg → cg ≤ 1 / Real.exp 1 → 2 * cg < 1 → 0 ≤ Cb → ShortIntervalDatum Cb →
         0 < θ → θ ≤ 1 / 32 → P83 X θ ≤ (P : ℝ) → (Q : ℝ) ≤ Q83 X → P ≤ Q → |t₁| ≤ X →
@@ -506,7 +506,7 @@ theorem hU_supplied :
       * ∑ m ∈ Finset.Icc 1 (Ms j), ‖ramRcoeff H N Xd P Q j (ellLin g) m‖ ^ 2 / (m : ℝ) ^ 2)
     (fun j => 54 * Cq * cofactorRbd cg Cb X θ ((kk j : ℕ) : ℝ) ((Mt j : ℕ) : ℝ)
       (Dmax + 1) Rrad ^ 2 * (H / (j : ℝ)) ^ 2)
-    KS Cq Rbar (le_of_lt hCq) hj₀ (fun j _ 𝒯 hws h𝒯A => hTSfeed j 𝒯 hws h𝒯A) hTLj hKS ?_
+    KS Cq Rbar (le_of_lt hCq) hj₀ (fun j hj 𝒯 hws h𝒯A => hTSfeed j hj 𝒯 hws h𝒯A) hTLj hKS ?_
   intro j hj
   have hk64 := (hblk j hj).2.2.2.2.2.2.2.1
   have h65 : (65 : ℝ) ≤ ((kk j : ℕ) : ℝ) := by
@@ -601,8 +601,8 @@ theorem hU_discharged :
         3 ≤ Pseq Jb → (Qseq Jb : ℝ) ≤ Tann →
         Real.log V ≤ α * Real.log (Pseq Jb) → α ≤ 1 / 4 - η → 2 * η ≤ 1 →
         Real.log V ≤ 100 * Real.log L →
-        (∀ j : ℕ, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j)) →
-        (∀ j : ℕ, thinBundle Tann V (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
+        (∀ j ∈ ramI H P Q, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI H P Q, thinBundle Tann V (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
             ≤ ((Ms j : ℕ) : ℝ)) →
         0 < cg → cg ≤ 1 / Real.exp 1 → 2 * cg < 1 → 0 ≤ Cb → ShortIntervalDatum Cb →
         0 < θ → θ ≤ 1 / 32 → P83 X θ ≤ (P : ℝ) → (Q : ℝ) ≤ Q83 X → P ≤ Q → |t₁| ≤ X →
