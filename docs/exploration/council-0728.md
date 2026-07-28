@@ -34,13 +34,18 @@ died under refutation before any executor burned a line.*
    Three routes, none priced into the wave: (A) the VK port [D-tier];
    (B) a v-dependent floor re-grade (Fable design); (C) an annulus split
    + far-field arm (Fable design).
-4. **D3 — the even-χ/Siegel corner — may retire for free.** The per-χ
-   ineffective constants are X-independent, the character set is finite
-   in Hhi, and the regime lever absorbs any X-independent debit (the law,
-   byte-confirmed twice). SIEGEL-REGIME is checking the one remaining
-   question (M4-7's uniformity consumption). If it holds: no Siegel
-   completion, ever, and the pearl doctrine gets its cleanest exhibit —
-   the ineffectivity is laundered into the regime choice.
+4. **D3 — the even-χ/Siegel corner — RETIRES. Confirmed.** SIEGEL-REGIME
+   verified the route byte-by-byte, better than the lead: the band floor
+   has NO per-χ threshold (one uniform X ≥ e; the compact box contains
+   every bridge point), the floor composes at coefficient exactly 1 with
+   no k²-branch, and M4-7 consumes only the exceedance of (5e/2)·log W.
+   Cost: ~165–280 ln riding on REGIME-CUT (five stones, listed in
+   flags). The Siegel completion, class-number formula, and CNF port
+   all exit the road. The pearl register gains its entry: POISON 2 (the
+   EVT compact min) becomes load-bearing, confined to the even-χ arm —
+   the odd lane keeps its effective π·q^{−5/2} route, so the ineffective
+   set is minimal. The `L1LowerEffective` interface stays open at the
+   register as a paper-completeness item only.
 5. **REGIME-CUT is real and cheap** [B, ~150–200]: U1 + the quality-floor
    x-raise in one edit, mechanics fully specified (outermost-right max
    arm; duplicate-not-relocate; the two `private` blockers; the stale
@@ -53,7 +58,7 @@ died under refutation before any executor burned a line.*
 |---|---|---|
 | C1 | **Wave 0 + wave 1 FIRE?** R1 (in-place narrow — repairs the flagship theorem itself, no vacuous thm_a2' left standing) + R2 (additive mint) as one Fable design block; concurrently the independent openers M4-0, M4-0′, M4-2, M4-3, REGIME-CUT (Opus executors). CFB/CFF/M4-5/FRAME HOLD pending C2/C3. | **FIRE** — the JYH gate here is R1's statement narrowing (iron rule 1); R2 turns out to touch nothing frozen |
 | C2 | **The D1 fork**: which route gets the design block — (B) v-dependent floor, (C) annulus split, or (A) VK port? | **(B)+(C) explored in ONE Fable design block today** (they share the pocket-geometry analysis); (A) held as fallback; NO CFF dispatch before the block reports |
-| C3 | **D3**: if SIEGEL-REGIME says RETIRES-D3 — adopt the regime route and drop the Siegel completion from the campaign? | **YES, adopt** (pearl doctrine; the ∃c statement shape never required effectivity) |
+| C3 | **D3**: SIEGEL-REGIME confirmed RETIRES-D3 — adopt the regime route, drop the Siegel completion from the campaign, log the pearl-register entry? | **YES, adopt** (pearl doctrine; ineffectivity confined to the even-χ arm; the odd lane stays effective) |
 | C4 | **The band**: accept the re-priced envelope ~5900–9800 (v2 numbers: wave 0 800–1400 + waves 1–3 ~5100–8400), Aug 5–8 target intact? | **ACCEPT** — wave 0 + wave 1 land in 1–2 days; the fork's cost is the real variable |
 
 ## What fires the moment the council closes
