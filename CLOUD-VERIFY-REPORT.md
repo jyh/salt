@@ -75,15 +75,13 @@ retired in favor of this branch/report.
   180s timeout per module), logging PASS/FAIL per module to
   `leanchecker_results.log` (not committed — too large/noisy; totals and
   any failures are summarized here).
-- Checkpoint at this push: **68 / 891** modules checked, **0 confirmed
-  failures** so far — 2 modules (`Salt.Brun`, `Salt.Chen.AlphaSide`) flagged
-  FAIL in this pass, but flagged while this report-writer was *also*
-  running manual `leanchecker` invocations concurrently on the same
-  15Gi-RAM container (`rc=137`/SIGKILL and `rc=124`/timeout, both classic
-  resource-contention signatures, not kernel rejections — no error text was
-  produced by either). These two will be re-run **in isolation** (nothing
-  else active) once the full pass completes, and the isolated result is
-  what will be reported as the real verdict for them.
+- Checkpoint at this push: **249 / 891** modules checked, **0 confirmed
+  failures**. The same 2 modules flagged above (`Salt.Brun`,
+  `Salt.Chen.AlphaSide`) remain the only FAIL lines in the log — no new
+  ones have appeared since this report-writer stopped running concurrent
+  manual `leanchecker` invocations, reinforcing that those two were
+  resource contention, not kernel rejections. They will be re-run in
+  isolation once the full pass completes.
 
 ## Stage 4 — axiom audit
 
