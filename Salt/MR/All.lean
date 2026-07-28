@@ -188,6 +188,7 @@ import Salt.MR.T0BandCapFree
 import Salt.MR.M4Quality
 import Salt.MR.M4MeanSq
 import Salt.MR.M4Sieve
+import Salt.MR.M4Door
 import Salt.MR.M4Exit
 import Salt.Tactic.AuditAxioms
 
@@ -2080,6 +2081,47 @@ open Salt.Tactic in
   Salt.MR.m4_sieve_insert
   Salt.MR.m4_sieve_insert_liouville
   Salt.MR.m4_sieve_insert_liouChi
+
+-- M4-8 (`M4Door`) — THE DOOR GLUE: the `logMeasure` mass page (the singleton mass, the
+-- `1/n ≍ 1/X′` block comparison, the `±1` endpoint band of width `2/H`, `Z ≥ log ω − 1` and
+-- the sharp `∫ ≤ B/Z` normalisation); the H-offset dyadic `doorLadder` whose sieve-block fit
+-- is UNCONDITIONAL (⟦THE OVERHANG FINDING⟧: exactly-dyadic blocks are unfittable, `b+H ≤ 2a`
+-- forces `H ≤ 0`); the cover-summed sieve mass `m4_door_sieve_mass` — the seam M4-1's
+-- vacuity finding named, with HS-6's half-open endpoint composed as the geometric
+-- `4·2^k·H/x`; the `log ω` absorption into `M` (`k ≤ 3Z`, the gate `8C/δ ↦ 24C/δ`); and the
+-- exit `m4_door_glue` with the inhabitation witness `doorCount_gates`
+open Salt.Tactic in
+#audit_axioms Salt.MR.logMeasure_singleton_toReal
+  Salt.MR.door_norm_pos
+  Salt.MR.door_norm_ge
+  Salt.MR.door_norm_one_le
+  Salt.MR.integral_logMeasure_le_div
+  Salt.MR.sum_div_Ioc_le
+  Salt.MR.le_sum_div_Ioc
+  Salt.MR.card_shortWindow_ge
+  Salt.MR.card_shortWindow_abs_sub_le_one
+  Salt.MR.card_shortWindow_band
+  Salt.MR.doorLadder_fit
+  Salt.MR.doorLadder_floor
+  Salt.MR.doorLadder_step_le
+  Salt.MR.doorLadder_block_subset
+  Salt.MR.doorLadder_upper
+  Salt.MR.doorLadder_lower
+  Salt.MR.doorLadder_inv_le
+  Salt.MR.sum_range_two_pow_shift_le
+  Salt.MR.natDiv_gt
+  Salt.MR.doorLadder_reaches
+  Salt.MR.doorCount_le
+  Salt.MR.two_mul_le_two_pow_doorCount
+  Salt.MR.sum_Ioc_ladder_split
+  Salt.MR.door_cover_sum_le
+  Salt.MR.m4_door_sieve_mass
+  Salt.MR.door_count_le_three_mul_norm
+  Salt.MR.door_mass_normalised_le
+  Salt.MR.m4_door_glue
+  Salt.MR.m4_door_glue_liouville
+  Salt.MR.m4_door_glue_liouChi
+  Salt.MR.doorCount_gates
 
 -- M4-9 (`M4Exit`) — THE THREE-STEP EXIT into `MRTUniformityXi`: the pin `δ := doorGrade R.Hlo`
 -- (positivity off `hHlo_floor`, the antitone-in-`H` transfer serving the whole window range),
