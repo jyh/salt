@@ -190,6 +190,7 @@ import Salt.MR.M4MeanSq
 import Salt.MR.M4Sieve
 import Salt.MR.M4Door
 import Salt.MR.M4Exit
+import Salt.MR.M4Close
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -2151,3 +2152,41 @@ open Salt.Tactic in
   Salt.MR.m4_exit_collision
   Salt.MR.m4_exit_socket
   Salt.MR.m4_exit_socket_False
+
+-- M4-7 (`M4Close`) — THE ARITHMETIC CLOSE and THE WAVE'S EXIT: the `L²→L¹` step on the door's
+-- (probability) measure with the `Z`-normalisation cancelled exactly, the five raw mean-square
+-- summands priced against the quality demand's `W^{−5/2}` saving, the trivial-bound MARGIN
+-- (`(log H)^{−15}` under `C(log H)^{−11/4}loglog H`, floor discharged off `hHlo_floor`), the
+-- ⟦A2-5⟧ band transport named and landed, the M4-7 socket with its inhabitation witness, and
+-- `m4_hbd_of_live` plugged into M4-9 to give `m4_door_contradiction_of_live`
+open Salt.Tactic in
+#audit_axioms Salt.MR.sum_harmonic_cauchy_schwarz
+  Salt.MR.integral_logMeasure_le_sqrt
+  Salt.MR.integral_logMeasure_le_sqrt_of_sq
+  Salt.MR.m4RawMS
+  Salt.MR.m4Saving
+  Salt.MR.arcDen_twelve_eq_m4W
+  Salt.MR.m4Saving_eq
+  Salt.MR.sqrt_m4Saving
+  Salt.MR.m4_quality_summand_le
+  Salt.MR.m4_rawMS_le
+  Salt.MR.m4_rawMS_le_saving
+  Salt.MR.exp_one_le_log_regime_Hlo
+  Salt.MR.exp_one_le_log_of_regime_le
+  Salt.MR.sqrt_m4Saving_le_delivered
+  Salt.MR.M4LiveAgree
+  Salt.MR.M4BandTransport
+  Salt.MR.m4_bandTransport
+  Salt.MR.M4SievedDoorSq
+  Salt.MR.m4_sievedDoorSq_trivial
+  Salt.MR.M4DoorGates
+  Salt.MR.M4GradeGate
+  Salt.MR.m4_gradeGate_of_pricing
+  Salt.MR.m4_hbd_of_live
+  Salt.MR.m4_door_contradiction_of_live
+  Salt.MR.m4_door_False_of_live
+  Salt.MR.sum_liou_residue_eq
+  Salt.MR.sum_liou_modEq_residue_eq
+  Salt.MR.norm_sum_liou_modEq_residue_le
+  Salt.MR.card_dirichletCharacter_eq_totient
+  Salt.MR.inv_totient_sum_le

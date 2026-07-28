@@ -13022,3 +13022,33 @@ repo at 9502 jobs. REGISTER: the Brun/Maynard isolated replay on a
 larger container (hygiene, not doubt); a follow-up run at a post-7/28
 HEAD once the M4 wave closes (today's ~13k new lines deserve the same
 crossing).
+
+---
+
+## M4-7 LANDS THE WAVE'S EXIT — two named sockets remain; THE BRIDGE WAVE is the residue (2026-07-28 10:46 PDT)
+
+M4Close.lean (659 ln, 29 decls): **m4_door_contradiction_of_live IN THE
+KERNEL** — the M4/S9 chain end-to-end (the register of carried gates →
+¬logChowla2Fails), the hbd socket plugged by COMPOSITION not by eye; the
+L²→L¹ Cauchy–Schwarz paid ONCE at the socket level (the measure's mass
+is exactly 1 — the normalisation cancels); the pricing direction pinned
+(exp(−M₀/e) ≤ W^{−5/2}); the margin lemma shows (log H)^{−15} clears the
+delivered grade at exponent gap 15 − 11/4 — THE WHOLE DEGRADATION BUDGET
+IS AVAILABLE to the suppliers; anti-vacuity witnessed (Braw ≡ 1
+inhabits the socket's shape). §6 repaired the M4Chars datum gap on the
+sum side (sum_liou_modEq_residue_eq at liouvilleC — future rows NEVER
+cite the lam versions sum-side).
+
+**THE RESIDUE, complete and named:** (1) hlive — the A2-5 seam (one
+binder; the morning scope question re Lemma 4); (2) M4SievedDoorSq —
+five bridge stones, each STOP-named with its exact content: B-1 the
+residue-class window split (character half landed §6); B-2 the
+absWindowSum→eR bridge + the partial-sum family (what makes the
+obligation uniform over sub-window lengths); B-3 the d₀-dilation
+transport + trivial-branch case split; B-4 the sum→integral bridge
+(unit-interval constancy; interval additivity + piecewise-constant
+integrability — THE LARGEST); B-5 the outer cover meeting logMeasure's
+normaliser. Each [B/C, est. 200–500] — THE BRIDGE WAVE, ~1.5–3k total,
+dispatchable as five parallel briefs. The freeze's ≪ HX/(dW^{1/4})
+verified consistent with the landed architecture (W^{−5/2} → √ →
+W^{−5/4} → classes/drift/average → W^{−1/4}).
