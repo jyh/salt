@@ -13227,3 +13227,35 @@ first half);
 un-phased datum: the b-slot restatement (cheap) + the homega/block-
 decomposition design question. §4's U1 decay-retained pricing landed
 for R3's supplier (m4_rawMS_priced_decay — an equality).
+
+---
+
+## R3-SCOPE's anatomy + THE TWO FABLE RULINGS (2026-07-28 16:39 PDT)
+
+THE FINDINGS: (1) the b-slot restatement is CHEAP-CONFIRMED (the whole
+chain beneath is b-generic; the only pinned piece is the capstone's
+in-file socket manufacture; no consumer breaks — the edit list is in
+the scoper's report). (2) THE RAMARÉ Σ_p IS INSIDE THE CAPSTONE
+(spoly_ramare_split_mr_windowed — ramCopTail is what the Σ_p leaves
+behind); the per-marked-piece hypothesis is REFUTED and the door-side
+compose would cost π(band)-Cauchy-Schwarz with no 1/φ-cancellation —
+dead on pricing. (3) homega = the coprime-tail killer, ONE consumption
+site (ramCopTail_moment_zero) — the route is PRICE THE TAIL
+(ramCopTail_moment landed; blockfree_sum_le the mass engine; its
+regularity gate relaxes mechanically to 100·log Q ≤ log X). (4) THE
+SCALE MISMATCH: log P pinned at (log X)^{1−θ} vs the door bands' 
+log calQK ≤ √log Xd — MemS cannot reach [P83,Q83]; the band-
+generalization escape is blocked. (5) NEW — R3d: the band chain's
+SHARED b is unsatisfiable at the door datum (the level-j cofactor is
+1_{𝒮 minus level j}·λχ̄ — level-DEPENDENT); the level-indexed
+bfam : ℕ → ℕ → ℂ is forced through CapFreeArm3/SeamCalibrationK/
+ThmA2Rows/FrameWitness.
+
+**THE TWO FABLE RULINGS (the wave-repair precedent, recorded):**
+R3c — the EP2 budget line moves to the ε-graded form
+12·EP2 ≤ (log X)^{−θ₂₉₃+ε₀} with the ε-window absorbing C·loglog X
+(the habs device exists exactly for this; the a2Mrow 4th term is
+already at the ε-grade — consistent). R3d — the bfam thread lands
+in-place through the capfree3 chain (the R1-narrowing playbook; all
+wave artifacts). Both flags-recorded here; the R3-EXECUTOR flies the
+ordered sequence R3d → R3c → W1 → R3a → R3b → W2.
