@@ -188,6 +188,7 @@ import Salt.MR.T0BandCapFree
 import Salt.MR.M4Quality
 import Salt.MR.M4MeanSq
 import Salt.MR.M4Sieve
+import Salt.MR.M4Exit
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -2079,3 +2080,32 @@ open Salt.Tactic in
   Salt.MR.m4_sieve_insert
   Salt.MR.m4_sieve_insert_liouville
   Salt.MR.m4_sieve_insert_liouChi
+
+-- M4-9 (`M4Exit`) — THE THREE-STEP EXIT into `MRTUniformityXi`: the pin `δ := doorGrade R.Hlo`
+-- (positivity off `hHlo_floor`, the antitone-in-`H` transfer serving the whole window range),
+-- the in-statement `C_MRT` gate `C_MRT·loglog H ≤ (log H)^{3/2}` with its scale discharge and
+-- its floor `H0scale`, the `∀ξ`-outside-preserving weakening, and the socket whose ONE open
+-- binder is M4-7's `hbd`
+open Salt.Tactic in
+#audit_axioms Salt.MR.lamCoeff_eq_liouvilleC
+  Salt.MR.absWindowSum_lamCoeff_eq
+  Salt.MR.integral_absWindowSum_lamCoeff_eq
+  Salt.MR.two_le_regime_Hlo
+  Salt.MR.log_pos_of_regime_le
+  Salt.MR.doorGrade_regime_pos
+  Salt.MR.doorGrade_le_regime_floor
+  Salt.MR.doorGrade_regime_pin
+  Salt.MR.mrtDeliveredGrade
+  Salt.MR.mrtGate
+  Salt.MR.mrtGate_of_sq_le
+  Salt.MR.H0scale
+  Salt.MR.H0scale_pos
+  Salt.MR.sq_le_log_of_H0scale_le
+  Salt.MR.mrtGate_transfer
+  Salt.MR.mrtDeliveredGrade_le_doorGrade
+  Salt.MR.mrtDeliveredGrade_le_pin
+  Salt.MR.absWindowBound_le_pin
+  Salt.MR.m4_exit_of_hbd
+  Salt.MR.m4_exit_collision
+  Salt.MR.m4_exit_socket
+  Salt.MR.m4_exit_socket_False
