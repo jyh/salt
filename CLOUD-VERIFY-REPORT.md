@@ -59,7 +59,31 @@ retired in favor of this branch/report.
 
 ## Stage 3 — lean4checker replay
 
-- Status: **NOT STARTED**
+- Status: **IN PROGRESS**
+- Substitution note: `github.com/leanprover/lean4checker` is **deprecated**
+  (its own README/HEAD commit says so). It was reintegrated into the Lean 4
+  repo itself as `leanchecker`, shipped with every toolchain since v4.28.0
+  (https://github.com/leanprover/lean4/pull/11887); no lean4checker tag
+  exists for `v4.32.0-rc1` (the newest tag is `v4.29.0-rc8`, and master's
+  own `lean-toolchain` still points at `v4.29.0-rc8`). Per the deprecation
+  notice's own instructions, this replay uses the built-in `leanchecker`
+  via `lake env leanchecker <module>` — the exact successor tool, at the
+  exact pinned toolchain, so there is no version-mismatch risk this
+  substitution would otherwise introduce.
+- Method: enumerated all 891 `*.lean` files under `Salt/` and ran
+  `lake env leanchecker Salt.<Module>` once per module (sequential,
+  180s timeout per module), logging PASS/FAIL per module to
+  `leanchecker_results.log` (not committed — too large/noisy; totals and
+  any failures are summarized here).
+- Checkpoint at this push: **68 / 891** modules checked, **0 confirmed
+  failures** so far — 2 modules (`Salt.Brun`, `Salt.Chen.AlphaSide`) flagged
+  FAIL in this pass, but flagged while this report-writer was *also*
+  running manual `leanchecker` invocations concurrently on the same
+  15Gi-RAM container (`rc=137`/SIGKILL and `rc=124`/timeout, both classic
+  resource-contention signatures, not kernel rejections — no error text was
+  produced by either). These two will be re-run **in isolation** (nothing
+  else active) once the full pass completes, and the isolated result is
+  what will be reported as the real verdict for them.
 
 ## Stage 4 — axiom audit
 
