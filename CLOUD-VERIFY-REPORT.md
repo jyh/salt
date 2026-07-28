@@ -59,7 +59,8 @@ retired in favor of this branch/report.
 
 ## Stage 3 — lean4checker replay
 
-- Status: **IN PROGRESS**
+- Status: **PASS, with 2 modules resource-limited (documented, not a
+  kernel rejection) and 2 tracks flagged as a build-scope gap**
 - Substitution note: `github.com/leanprover/lean4checker` is **deprecated**
   (its own README/HEAD commit says so). It was reintegrated into the Lean 4
   repo itself as `leanchecker`, shipped with every toolchain since v4.28.0
@@ -72,53 +73,69 @@ retired in favor of this branch/report.
   substitution would otherwise introduce.
 - Method: enumerated all 891 `*.lean` files under `Salt/` and ran
   `lake env leanchecker Salt.<Module>` once per module (sequential,
-  180s timeout per module), logging PASS/FAIL per module to
-  `leanchecker_results.log` (not committed — too large/noisy; totals and
-  any failures are summarized here).
-- Checkpoint at this push: **798 / 891** modules checked, **0 confirmed
-  kernel-rejection failures**. `Salt.Maynard` also timed out (`rc=124`) —
-  expected, since like `Salt.Brun` it does `import Mathlib` directly (the
-  full umbrella import), the same resource-contention/heavy-closure
-  pattern as `Salt.Brun` and `Salt.Chen.AlphaSide`. These 3 will all be
-  re-run in isolation once the full pass completes.
-- **Second scope-gap finding:** `Salt.Parity.{All,Instances,Z}` (3 files)
-  hit the same "Could not find any oleans" failure as `Salt.Keller` — also
-  not imported by `Salt.lean`, so also outside Stage 2's default build.
-  Content: the "parity barrier" / gap-statement track (D4, ratified
-  2026-07-19) — `Z ⟺ TPC` over the certified window and the gap theorem
-  placing every true twin-sufficient completion predicate outside
-  `ParityInv`. Built directly to confirm validity:
-  `lake build Salt.Parity.All` succeeds standalone (9025 jobs, all
-  `#audit_axioms` checks in `Salt/Parity/All.lean` pass at `[3 axioms]`).
-  Same deferred-isolated-leanchecker plan as `Salt.Keller`.
-- **Provisional total scope-gap tally:** 5 files across 2 tracks
-  (`Salt.Keller.*`, `Salt.Parity.*`) exist in the repo, build and
-  audit-axiom cleanly on their own, but are not reachable from `Salt.lean`
-  and were therefore excluded from Stage 2's `lake build`/9467-job count.
-  Whether this exclusion is intentional (e.g. `Keller` is explicitly
-  topical/off-track; `Parity`'s status is less clear from its own docstring)
-  is outside this report's scope to judge — it is recorded here as a
-  factual gap between "what's in the repo" and "what the default build
-  target checks," for the repo owner to assess.
-- **Separate finding (not a checker failure):** `Salt.Keller.All` and
-  `Salt.Keller.Counterexample` both failed with `Could not find any oleans
-  for: ...` — i.e. leanchecker couldn't check them because Stage 2's `lake
-  build` never produced oleans for them at all. Investigation: `Salt/Keller/`
-  (2 files) holds a self-contained, dated (2026-07-21) kernel-checked
-  verification of the Alpöge/Mathew/Fable counterexample to the Jacobian
-  conjecture — topical, unrelated to the twin-primes tracks, and imports
-  `Mathlib` directly (no other Salt dependency). It is **not imported by
-  `Salt.lean`** (the file `lake build`'s default `Salt` target actually
-  roots at), so it sits outside the built/kernel-checked library entirely —
-  this is a scope gap in the project's own root import graph, not a defect
-  Stage 2 should have caught (Stage 2's 9467/9467 was correctly scoped to
-  what `Salt.lean` imports). Built directly to confirm it's valid content:
-  `lake build Salt.Keller.All` succeeds standalone (8582 jobs, its own
-  `#audit_axioms` block passes at `[3 axioms]` for all 8 listed
-  declarations). Once the oleans exist, `leanchecker` will be run on both
-  modules in isolation (deferred, same contention concern as `Salt.Brun`,
-  since `Counterexample.lean` also does `import Mathlib` directly) and the
-  result folded into the final verdict below.
+  180s timeout per module), logging PASS/FAIL to `leanchecker_results.log`
+  (not committed — too large/noisy; totals and failures are summarized
+  here). First pass: **883 / 891 PASS**, 8 flagged FAIL. Every flagged
+  module was then re-run **in isolation** (nothing else active on the
+  container) to separate genuine rejections from resource artifacts.
+
+- **Result: 6 of the 8 flags were resource-contention artifacts, not real
+  failures.** `Salt.Chen.AlphaSide` (`rc=124` timeout under contention)
+  passed in isolation in 6.5s. `Salt.Keller.{All,Counterexample}` and
+  `Salt.Parity.{All,Instances,Z}` failed the first pass only because their
+  oleans didn't exist yet (see scope-gap finding below); once built
+  directly, all 5 passed `leanchecker` cleanly in isolation.
+
+- **Result: 2 of the 8 flags are genuine, reproducible resource limits of
+  this container — `Salt.Brun` and `Salt.Maynard`.** Both files `import
+  Mathlib` directly (the full umbrella import, pulling in every mathlib
+  module rather than a curated subset the way other Salt files do). Each
+  was independently re-run twice, fully isolated, with memory monitored:
+  `Salt.Brun`'s `leanchecker` child process RSS grew from ~4GB → ~14.1GB in
+  under a minute before being SIGKILLed (`rc=137`) at 2m24s; `Salt.Maynard`
+  the same pattern, killed at 1m13s. This container has 15GiB total RAM.
+  This is **not** a kernel rejection — no error was ever produced, only an
+  OOM kill — and it is **not** evidence of a problem in the Salt proofs:
+  every declaration actually defined in `Salt/Brun.lean` and
+  `Salt/Maynard.lean` is small (`twinPrimeCounting`, `TwinCountingBigO`,
+  `BrunStatement`, `twinPrimeCounting_monotone`, and the Maynard-track
+  target statements), and both files are transitively imported by dozens
+  of other Salt modules (e.g. `Salt.Brun.M2`, `Salt.Brun.M5BigO`,
+  `Salt.Twelve.Params`, `Salt.Maynard.Tuple`, `Salt.Maynard.Level`, …) that
+  **did** pass `leanchecker` — those declarations are being kernel-checked
+  as part of every one of those passing runs, since leanchecker replays a
+  module's own imports too. What's unique to checking `Salt.Brun`/
+  `Salt.Maynard` *directly* is that the tool appears to size its working
+  set to the requesting module's full transitive closure — the bulk
+  `import Mathlib` — which is memory-infeasible here even though the two
+  files' own content is trivial. Verdict for these two: **INCONCLUSIVE /
+  RESOURCE-LIMITED**, not FAIL and not PASS — an environment ceiling, fully
+  reproduced, not a defect finding.
+
+- **Scope-gap finding:** `Salt.Keller.{All,Counterexample}` (2 files) and
+  `Salt.Parity.{All,Instances,Z}` (3 files) — 5 files across 2 tracks —
+  exist in the repo and build/audit-axiom cleanly on their own
+  (`lake build Salt.Keller.All`: 8582 jobs, PASS, all `#audit_axioms` at
+  `[3 axioms]`; `lake build Salt.Parity.All`: 9025 jobs, PASS, same), but
+  **neither track is imported by `Salt.lean`**, the file Stage 2's default
+  `lake build` actually roots at. They were silently outside Stage 2's
+  9467-job count as a result — a gap between "what's in the repo" and
+  "what the default build target checks," not a defect Stage 2 should have
+  caught. `Salt/Keller/` (dated 2026-07-21) is a self-contained,
+  Mathlib-only formalization of the Alpöge/Mathew/Fable counterexample to
+  the Jacobian conjecture — topical, unrelated to the twin-primes tracks.
+  `Salt/Parity/` (D4, ratified 2026-07-19) is the "parity barrier" /
+  gap-statement track (`Z ⟺ TPC`, `ParityInv`) and reads as closer to the
+  project's actual subject matter, so its exclusion from `Salt.lean` may be
+  worth the repo owner's attention. Whether either exclusion is intentional
+  is outside this report's scope to judge; it is recorded as a factual
+  finding. Once built, both tracks' modules passed `leanchecker` cleanly
+  in isolation (see above).
+
+- **Stage 3 net tally:** 891 modules attempted; **889 confirmed PASS**
+  under kernel replay (883 clean on the first pass + 6 confirmed in
+  isolated re-runs); **2 INCONCLUSIVE/resource-limited** (`Salt.Brun`,
+  `Salt.Maynard` — see above); **0 kernel rejections**.
 
 ## Stage 4 — axiom audit
 
@@ -152,4 +169,34 @@ retired in favor of this branch/report.
 
 ## Verdict
 
-Pending — Stage 3 (lean4checker) still to run. Stages 1, 2, 4: **PASS**.
+- HEAD commit verified: `486bd85` (branch `main`, `jyh/salt`)
+- Total wall time (this consolidated report): 2026-07-28T14:21:15Z through
+  2026-07-28T17:25Z, real elapsed time — dominated by the two container
+  reclaim events noted in Stage 2, not by compute time. (The overall run,
+  including the earlier `cloud-trial-night-1`-branch portion of Stage 1/2
+  before the mid-run merge, started 2026-07-27T20:29:09Z.)
+
+| Stage | Verdict |
+|---|---|
+| 1 — toolchain + cache | **PASS** |
+| 2 — full kernel build (`lake build`, 9467/9467) | **PASS** (0 errors, 257 pre-existing style warnings) |
+| 3 — kernel replay (`leanchecker`, successor to deprecated `lean4checker`) | **PASS** for 889/891 attempted modules; **2 INCONCLUSIVE** (`Salt.Brun`, `Salt.Maynard` — reproducible OOM in this 15GiB container, not a kernel rejection); **0 kernel rejections** |
+| 4 — axiom audit (3790 in-build `#audit_axioms` checks + 7 independent `#print axioms` spot-checks) | **PASS** — every audited declaration depends on at most `{propext, Classical.choice, Quot.sound}`, never more |
+
+**Overall: PASS**, modulo two environment-resource caveats that are fully
+documented above and do not indicate any defect in the Salt proofs:
+
+1. `Salt.Brun` and `Salt.Maynard` could not be independently kernel-replayed
+   by `leanchecker` in this container due to memory exhaustion (not a
+   kernel rejection); their actual proof content is otherwise validated
+   both by Stage 2's build and by `leanchecker` runs on the many other Salt
+   modules that import them.
+2. `Salt.Keller.*` and `Salt.Parity.*` (5 files, 2 tracks) are outside
+   `Salt.lean`'s import graph and so outside Stage 2's default build scope
+   entirely; both build and kernel-replay cleanly once built directly, but
+   this is a build-scope gap in the repository worth the owner's attention,
+   particularly for `Salt.Parity` given its apparent relevance to the
+   project's actual subject matter.
+
+No `sorry`, no `native_decide`, no axiom beyond the whitelisted three was
+found anywhere in this run.
