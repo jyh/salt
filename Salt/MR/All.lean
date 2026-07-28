@@ -153,6 +153,7 @@ import Salt.MR.Sawtooth
 import Salt.MR.ParsevalSingle
 import Salt.MR.MWindowBridge
 import Salt.MR.CapFreeArm
+import Salt.MR.CapFreeArm3
 import Salt.MR.SPartCore
 import Salt.MR.ThmA2Spine
 import Salt.MR.T0Band
@@ -1610,6 +1611,21 @@ open Salt.Tactic in
   Salt.MR.seam_row_calibratedK_nocap
   Salt.MR.seam_row_number_nocap
   Salt.MR.seam_row_number_capfree
+  Salt.MR.capFreeFloor_of_capFreeFloor3
+  Salt.MR.capFreeFloor3_of_row_floor
+  Salt.MR.no_pocket_of_floor3
+  Salt.MR.box_gate_le_3X
+  Salt.MR.pocketSocket_of_floor3
+  Salt.MR.cofactor_Rbd34_local_nocap3
+  Salt.MR.tL_supply_discharged34_local_nocap3
+  Salt.MR.hUG34_supplied_nocap3
+  Salt.MR.hUG34_fully_priced_nocap3
+  Salt.MR.hUG34_unconditional_nocap3
+  Salt.MR.seam_row_calibratedK_nocap3
+  Salt.MR.seam_row_number_nocap3
+  Salt.MR.seam_row_number_capfree3
+  Salt.MR.A2Frame3.box_at
+  Salt.MR.A2Frame3.ksGate_at
   Salt.MR.restrictAbove_one_prime
   Salt.MR.ellLinInv_congr_primes
   Salt.MR.ellLin_congr_primes
@@ -1724,6 +1740,8 @@ open Salt.Tactic in
   Salt.MR.thm_a2'
   Salt.MR.a2_station_supply_pointwise
   Salt.MR.a2Frame_satisfiable_partial
+  Salt.MR.a2Rows_of_capfree3
+  Salt.MR.a2Frame3_satisfiable_partial
   Salt.MR.seam_ball_leg_station_M_hoisted
   Salt.MR.hStation_of_hoisted
   Salt.MR.dist_floor_far_sep_at

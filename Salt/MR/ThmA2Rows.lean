@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.MR.ThmA2
+import Salt.MR.CapFreeArm3
 
 /-!
 # S8 ladder, node A2-7 — **THE ROW SUPPLIERS AND THE GLUE** (`ThmA2Rows`)
@@ -822,6 +823,219 @@ theorem a2Frame_satisfiable_partial {g cf a : ℕ → ℂ} {N Xd P Q A G M Jb : 
     intro Tann h1 h2
     have hT1 : (1 : ℝ) < Tann := lt_of_lt_of_le hbot1 h1
     refine ⟨le_trans hbote5 (Real.log_le_log (by linarith) h1), by linarith⟩
+  refine ⟨fun Tann h1 _ => le_trans hgate h1, fun Tann h1 _ => lt_of_lt_of_le hbot1 h1,
+    fun Tann h1 _ => le_trans hT₀le h1, fun Tann h1 h2 => ?_, fun Tann h1 h2 => ?_,
+    fun Tann h1 h2 => ?_, hthin, hblocks, hbox, hksGate, herr⟩
+  · have hl := (hkey Tann h1 h2).1
+    have h5 : Real.log (Real.exp 5) ≤ Real.log (Real.log Tann) :=
+      Real.log_le_log (Real.exp_pos 5) hl
+    rwa [Real.log_exp] at h5
+  · have hl := (hkey Tann h1 h2).1
+    have he5 : (1 : ℝ) ≤ Real.exp 5 := Real.one_le_exp (by norm_num)
+    linarith
+  · exact le_trans (Real.log_le_log (hkey Tann h1 h2).2 h2) hLXL
+
+
+/-! ## §6 — THE `3X` MINT: the cap-free branch, at the SATISFIABLE frame
+
+`CapFreeArm3`'s additive mint read into the same `hrows` slot.  `ThmA2.A2Frame.box` is
+unsatisfiable at `|t| = X` (flags, `TLGATES-SCOPE` R2); `CapFreeArm3.A2Frame3.box` is the
+sibling convention `≤ 3X` and IS satisfiable.  The two stones here are §2's and §5's twins:
+the row family at the mint, and the frame's endpoint discharge — now including the `box`
+field itself, from `T*₂(M_j, log M_j) ≤ 2X`.
+
+⚠ `a2Rows_of_capfree3`'s CONCLUSION is `a2Rows_of_capfree`'s byte for byte, so it plugs
+`ThmA2.thm_a2'_of_rows`' `hrows` slot with no change on the consumer side. -/
+
+set_option maxHeartbeats 1000000 in
+-- one predicate-blind application of the `3X`-minted cap-free row at `Tann = 2T`
+/-- **THE CAP-FREE ROW FAMILY, AT THE `3X` MINT** (`a2Rows_of_capfree3`).
+`a2Rows_of_capfree` with its three `X`-box inputs replaced by the mint's: the frame is
+`CapFreeArm3.A2Frame3` (whose `box` field is the SATISFIABLE `≤ 3X` one), the datum is
+`CapFreeArm3.CapFreeFloor3` (the floor on `|v| ≤ 3X`, demand numerals unchanged — trap T2),
+and the row is `CapFreeArm3.seam_row_number_capfree3`.
+
+The weighting arithmetic, the four numerals and the CONCLUSION are §2's verbatim. -/
+theorem a2Rows_of_capfree3 :
+    ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
+      ∀ (g c a b cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖c n‖ ≤ 1) →
+        (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) →
+      ∀ (N Xd P Q M : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
+      ∀ (X h δ' V VJ L Cb Rrad kmin Ymax ε EP2 : ℝ),
+        1 ≤ M → calQK (Adoor M) (3072 * M) M 2 ≤ Xd →
+        A2Frame3 g cf a N Xd P Q (Adoor M) (3072 * M) M 2 Ms Mt kk (H1door M) X h δ' VJ L
+          (1 / 12) Cb Rrad EP2 cq T₀ →
+        2 ≤ H83 X theta293 →
+        Real.exp 1 ≤ X → Real.exp 2 ≤ Real.log X →
+        4 ≤ h → ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ) ≤ h →
+        Real.exp 1 ≤ L →
+        Real.exp (mrAlpha (1 / 12) 2
+            * Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ)) ≤ VJ →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
+        0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
+        CapFreeFloor3 g X →
+        0 < Rrad → Rrad ≤ seamRad X → seamRad X ≤ Rrad →
+        ShortIntervalDatum Cb →
+        X₀ ≤ kmin → 0 ≤ cofactorMfl X theta293 kmin → 2 ≤ kmin → kmin ≤ X →
+        (∀ j ∈ ramI (H83 X theta293) P Q, kmin ≤ ((kk j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, pin2Gate ≤ ((Mt j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, ((Mt j : ℕ) : ℝ) ≤ Ymax) →
+        (1 - 1 / Real.log (Real.log X)) * Real.log X ≤ Real.log kmin →
+        pin2Gate ≤ Ymax → Real.log Ymax ≤ 2 * Real.log kmin →
+        Real.log X ≤ Real.log Ymax →
+        32 * ballSupC34 ≤ (Real.log Ymax) ^ ((3 : ℝ) / 20 - rho293) →
+        1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293) →
+        X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
+        2 * Xd ≤ N →
+        (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
+          p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m → a (p * m) = b m * c p) →
+        (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
+          p ≤ calQK (Adoor M) (3072 * M) M j → c p * b m ≠ 0 →
+          (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
+        Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (N : ℝ) ≤ 4 * (Xd : ℝ) →
+        (∀ j ∈ Finset.Icc 1 2,
+          ((Nat.sqrt Xd : ℝ) + 1)
+              * ∏ p ∈ primeBand (calP (Adoor M) (3072 * M) j)
+                    (calQK (Adoor M) (3072 * M) M j), (1 + 3 / (p : ℝ))
+            ≤ (Xd : ℝ) * (Real.log ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ)
+                / Real.log ((calQK (Adoor M) (3072 * M) M j : ℕ) : ℝ))) →
+        (∀ n : ℕ, ‖a n‖ ≤ 1) →
+        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+        ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X → TannGate X (2 * T) →
+          5 ≤ Real.log (Real.log (2 * T)) →
+          X / h / T * (∫ t in seamAnn X (2 * T), ‖spoly N a t‖ ^ 2)
+            ≤ a2Mrow Cs C M Xd X ε := by
+  obtain ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, hrow⟩ := seam_row_number_capfree3
+  refine ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, ?_⟩
+  intro g c a b cf hg hc1 hb1 hcf1 N Xd P Q M m₀ Ms Mt kk X h δ' V VJ L Cb Rrad kmin Ymax ε
+    EP2 hM hXdQ F hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV hCb0 hPlow
+    hQ0 hQhigh hPQ83 hfloor hR0 hRrad hRlow hCbound hX₀k hMfl0 hk2 hkX hkk hMtpin hMt hgateW
+    hYpin hWY hXY hthr hCqgate hε0 habs hEP2 hXN hN2 hsupp hNXd hcoef hwin hQXd hXdbig hN4
+    hdom ha1 hasupp T hT hTX2 hTgate hTll
+  -- ⟦the scale page⟧
+  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
+  have he2 : (4 : ℝ) ≤ Real.exp 2 := by
+    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
+    nlinarith [Real.exp_one_gt_d9]
+  have hLXe : Real.exp 1 ≤ Real.log X :=
+    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
+  have hL0 : (0 : ℝ) ≤ Real.log X := by linarith
+  have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (Adoor M) (3072 * M) M 2) hXdQ
+  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
+  have hX4Xd : X ≤ 4 * (Xd : ℝ) := le_trans hXN hN4
+  have hQ10 : (0 : ℝ) ≤ ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ) := Nat.cast_nonneg _
+  -- ⟦the frame at the row's own scale⟧
+  have hF := calFrameK_doorH1_at M Xd hM hXdQ
+  -- ⟦the window's two endpoints, at `Tann = 2T`⟧
+  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
+  have h2b : (2 : ℝ) * T ≤ X := hTX2
+  have h2T0 : (0 : ℝ) < 2 * T := by
+    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
+    linarith
+  -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
+  have hinst := hrow g c a b cf hg hc1 hb1 hcf1 N Xd P Q (Adoor M) (3072 * M) M 2 m₀ Ms Mt kk
+    (H1door M) X (2 * T) δ' V VJ L (1 / 12) Cb Rrad kmin Ymax ε EP2
+    (3 * (720 * (2 * T / X + 1) / H83 X theta293 + EP2))
+    hF hH2 hX0 hXe hLXe hL4 hlX2 hTgate (F.one_lt _ h2a h2b) h2b (F.T0_le _ h2a h2b) hTll
+    (F.one_le_log _ h2a h2b) (F.log_le_L _ h2a h2b) hLe hVJg hMs (F.thin _ h2a h2b) hm₀2 hm₀
+    hMs4 hV1 hVδ hlogV hCb0 hPlow hQ0 hQhigh hPQ83 hfloor hR0 hRrad hRlow (F.blocks _ h2a h2b)
+    (F.box_at h2b) hCbound hX₀k hMfl0 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr
+    hCqgate (F.ksGate_at h2T0 h2b hL0) hε0 habs hEP2 le_rfl (F.err _ h2a h2b) hXN hN2 hsupp
+    hNXd hcoef hwin hQXd hXdbig hN4 hdom ha1 hasupp
+  -- ⟦THE WEIGHTING⟧
+  obtain ⟨hw0, -, hg9, hg244, hg3, hg32⟩ :=
+    a2_weight_gates (X := X) (h := h) (T := T) (Xd := (Xd : ℝ))
+      (Q1 := ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ)) hh4 hX0 hT hX4Xd hQ1h hQ10
+  refine (mul_le_mul_of_nonneg_left hinst hw0).trans ?_
+  have hRS0 : (0 : ℝ) ≤ a2RowsSum M Xd + C * (2 / (M : ℝ)) := by
+    have hM0 : (0 : ℝ) < (M : ℝ) := by exact_mod_cast hM
+    have h2 : (0 : ℝ) ≤ C * (2 / (M : ℝ)) := by positivity
+    linarith [a2RowsSum_nonneg hM hXd1]
+  have hZ0 : (0 : ℝ) ≤ (Real.log X) ^ (-theta293 + ε) :=
+    Real.rpow_nonneg hL0 _
+  have hP0 : (0 : ℝ) < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by
+    linarith [calP_door_one_ge M]
+  have hlvl0 : (0 : ℝ) ≤ a2Level1 M := by
+    unfold a2Level1
+    exact div_nonneg
+      (Real.rpow_nonneg (le_trans (by norm_num) (one_le_log_calQK_door_one hM)) _)
+      (Real.rpow_pos_of_pos hP0 _).le
+  have hT0 : (0 : ℝ) < T := lt_of_lt_of_le (div_pos hX0 (by linarith)) hT
+  have hRnn : (0 : ℝ) ≤ 2 * T * ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ) / (Xd : ℝ) + 1 := by
+    have := div_nonneg (mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * T) hQ10)
+      (by linarith : (0 : ℝ) ≤ (Xd : ℝ))
+    linarith
+  unfold a2Mrow
+  refine a2_row_weigh ?_ ?_ ?_ ?_
+  · exact a2_level1_weigh (fun R' hR' => level1_term_door_decays hM hR')
+      (mul_nonneg hw0 hRnn) hg9 hlvl0
+  · exact a2_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
+  · exact a2_term3_weigh hRS0 hg3
+  · exact a2_term4_weigh hZ0 hg32
+
+/-- **THE `3X` FRAME FROM THE WINDOW'S ENDPOINTS** (`a2Frame3_satisfiable_partial`).
+`a2Frame_satisfiable_partial`'s six monotone discharges, PLUS — and this is what the R2
+repair buys — the `box` field itself, from the single arithmetic datum
+
+  `T*₂(M_j, log M_j) ≤ 2X`  for `j ∈ ramI`,
+
+since `|t| ≤ X` then gives `|t| + T*₂ ≤ 3X`.  The corresponding `A2Frame` field is
+UNSATISFIABLE (at `|t| = X` it reads `X + T*₂ ≤ X` with `T*₂ > 0`), so no analogue of this
+discharge exists on the landed frame: seven of eleven members land here against six there.
+
+`thin`, `blocks` and `err` stay genuinely per-instance binders; `ksGate` passes through. -/
+theorem a2Frame3_satisfiable_partial {g cf a : ℕ → ℂ} {N Xd P Q A G M Jb : ℕ}
+    {Ms Mt kk : ℕ → ℕ} {H1 X h δ' VJ L η Cb Rrad EP2 cq T₀ : ℝ}
+    (hLX0 : 0 < Real.log X)
+    (hTann : TannGate X (2 * (X / h)))
+    (hceil : 5 ≤ Real.log (Real.log (2 * (X / h))))
+    (hT₀le : T₀ ≤ 2 * (X / h)) (hLXL : Real.log X ≤ L)
+    (hthin : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
+      ∀ j ∈ ramI (H83 X theta293) P Q,
+        thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb) * X ^ (1 - 2 * η)
+          ≤ ((Ms j : ℕ) : ℝ))
+    (hblocks : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
+      ∀ j ∈ ramI (H83 X theta293) P Q,
+        TLBlockGates34 cq (H83 X theta293) P N Xd Mt kk Tann L (1 / Real.exp 1) Cb X
+          theta293 Rrad j)
+    (hMtbox : ∀ j ∈ ramI (H83 X theta293) P Q,
+      Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ)) ≤ 2 * X)
+    (hksGate : 32 * (Real.log X) ^ (2 + 2 * theta293)
+      * (20512 * δ' ^ 2 * (1 + Real.log (2 * X))) ≤ (Real.log X) ^ (-theta293))
+    (herr : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
+      (∫ t in (-Tann)..Tann, ‖ramErr (H83 X theta293) N Xd P Q a (ellLin g) cf t‖ ^ 2)
+        ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2)) :
+    A2Frame3 g cf a N Xd P Q A G M Jb Ms Mt kk H1 X h δ' VJ L η Cb Rrad EP2 cq T₀ := by
+  have hgate : Real.exp (30 * (Real.log X) ^ ((1 : ℝ) / 2)) ≤ 2 * (X / h) := hTann
+  have hexp1 : (1 : ℝ) < Real.exp (30 * (Real.log X) ^ ((1 : ℝ) / 2)) := by
+    rw [show (1 : ℝ) = Real.exp 0 by rw [Real.exp_zero]]
+    exact Real.exp_lt_exp.mpr (by positivity)
+  have hbot1 : (1 : ℝ) < 2 * (X / h) := lt_of_lt_of_le hexp1 hgate
+  have hbotlog : (0 : ℝ) < Real.log (2 * (X / h)) := Real.log_pos hbot1
+  have hbote5 : Real.exp 5 ≤ Real.log (2 * (X / h)) :=
+    (Real.le_log_iff_exp_le hbotlog).mp hceil
+  have hkey : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
+      Real.exp 5 ≤ Real.log Tann ∧ 0 < Tann := by
+    intro Tann h1 h2
+    have hT1 : (1 : ℝ) < Tann := lt_of_lt_of_le hbot1 h1
+    refine ⟨le_trans hbote5 (Real.log_le_log (by linarith) h1), by linarith⟩
+  -- ⟦THE BOX, NOW DISCHARGEABLE⟧ `|t| ≤ X` and `T*₂ ≤ 2X` give `|t| + T*₂ ≤ 3X`
+  have hbox : ∀ j ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ, |t| ≤ X →
+      |t| + Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ)) ≤ 3 * X := by
+    intro j hj t ht
+    have := hMtbox j hj
+    linarith
   refine ⟨fun Tann h1 _ => le_trans hgate h1, fun Tann h1 _ => lt_of_lt_of_le hbot1 h1,
     fun Tann h1 _ => le_trans hT₀le h1, fun Tann h1 h2 => ?_, fun Tann h1 h2 => ?_,
     fun Tann h1 h2 => ?_, hthin, hblocks, hbox, hksGate, herr⟩
