@@ -75,13 +75,29 @@ retired in favor of this branch/report.
   180s timeout per module), logging PASS/FAIL per module to
   `leanchecker_results.log` (not committed — too large/noisy; totals and
   any failures are summarized here).
-- Checkpoint at this push: **249 / 891** modules checked, **0 confirmed
-  failures**. The same 2 modules flagged above (`Salt.Brun`,
-  `Salt.Chen.AlphaSide`) remain the only FAIL lines in the log — no new
-  ones have appeared since this report-writer stopped running concurrent
-  manual `leanchecker` invocations, reinforcing that those two were
-  resource contention, not kernel rejections. They will be re-run in
-  isolation once the full pass completes.
+- Checkpoint at this push: **450 / 891** modules checked, **0 confirmed
+  kernel-rejection failures**. `Salt.Brun` and `Salt.Chen.AlphaSide` remain
+  flagged from resource contention (see above); no new contention failures
+  since.
+- **Separate finding (not a checker failure):** `Salt.Keller.All` and
+  `Salt.Keller.Counterexample` both failed with `Could not find any oleans
+  for: ...` — i.e. leanchecker couldn't check them because Stage 2's `lake
+  build` never produced oleans for them at all. Investigation: `Salt/Keller/`
+  (2 files) holds a self-contained, dated (2026-07-21) kernel-checked
+  verification of the Alpöge/Mathew/Fable counterexample to the Jacobian
+  conjecture — topical, unrelated to the twin-primes tracks, and imports
+  `Mathlib` directly (no other Salt dependency). It is **not imported by
+  `Salt.lean`** (the file `lake build`'s default `Salt` target actually
+  roots at), so it sits outside the built/kernel-checked library entirely —
+  this is a scope gap in the project's own root import graph, not a defect
+  Stage 2 should have caught (Stage 2's 9467/9467 was correctly scoped to
+  what `Salt.lean` imports). Built directly to confirm it's valid content:
+  `lake build Salt.Keller.All` succeeds standalone (8582 jobs, its own
+  `#audit_axioms` block passes at `[3 axioms]` for all 8 listed
+  declarations). Once the oleans exist, `leanchecker` will be run on both
+  modules in isolation (deferred, same contention concern as `Salt.Brun`,
+  since `Counterexample.lean` also does `import Mathlib` directly) and the
+  result folded into the final verdict below.
 
 ## Stage 4 — axiom audit
 
