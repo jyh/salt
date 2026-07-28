@@ -342,6 +342,109 @@ meet it with the cofactor slot equal to `ellLin (liouChi χ)`, and `CapFreeArm3.
 pins that slot.  Freeing it — the `b`-slot generalization — is a statement change in
 `CapFreeArm3`, outside this wave. -/
 
+/-! ## §3‴ — ⟦THE SOCKET CUT⟧: THE ROW'S CO-FACTOR DATUM, SUPPLIED HERE
+
+`CapFreeArm3`'s row no longer reads the multiplicative datum at all: it carries
+`CofactorSocket … R̄ b`, the single pointwise fact `‖R_{j,H}(1+it)‖ ≤ R̄` off the seam ball
+(ROW-GENERICITY, 2026-07-28).  At THIS capstone the datum is still `ellLin (liouChi χ)`, so
+the socket is discharged from the landed cap-free machinery — the floor kills the pocket at
+every damping, `CaseASocket.caseASocket2_discharged` gives CASE A, the frame gives the `3X`
+box and the §8.3 block gates, `USetGradedPrice.Rbd34loc_uniform` the uniform ceiling.
+
+The two stones below carry that supply in an ISOLATED context (the capstone's ~80-binder
+context makes `linarith` blow its budget; law #253's arithmetic is unchanged). -/
+
+/-- **`R̄ ≥ 0` AT THE UNIFORM CORNER** (`m4_rbar_nonneg`).  `cofactorRbd34loc_nonneg` at the
+pin `c = 1/e`, in the shape the capstone's grade slot wants. -/
+theorem m4_rbar_nonneg {Cb X kmin Ymax Rrad : ℝ} (hCb0 : 0 ≤ Cb) (hk2 : 2 ≤ kmin) :
+    0 ≤ cofactorRbd34loc (1 / Real.exp 1) Cb X theta293 kmin Ymax
+      (Tstar2 Ymax (Real.log Ymax)) Rrad := by
+  have he : (2 : ℝ) < Real.exp 1 := by linarith [Real.exp_one_gt_d9]
+  have hc1 : 2 * (1 / Real.exp 1) < 1 := by
+    rw [mul_one_div, div_lt_one (by linarith)]; linarith
+  exact cofactorRbd34loc_nonneg hc1 hCb0 (by linarith)
+
+/-- **THE CO-FACTOR SOCKET AT THE WITNESS LADDER** (`m4_cofactorSocket_at_witness`).
+`CapFreeArm3.cofactorSocket_of_ellLin` at `b := ellLin (liouChi χ)`, `t₁ := 0`, the annulus
+height `Tann := X` (the window's TOP — the row reads it antitonely), `Mt/kk := witMt/witKk`,
+and `R̄` the uniform corner `cofactorRbd34loc(1/e, C_b, X, θ₂₉₃, kmin, Ymax, T*₂(Ymax), Rrad)`.
+
+`hsockA` is `CaseASocket.caseASocket2_discharged`'s body at the capstone's own `X₀`. -/
+theorem m4_cofactorSocket_at_witness {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
+    {cf a : ℕ → ℂ} {N Xd P M : ℕ}
+    {X h δ' VJ L Cb Rrad kmin Ymax EP2 cq T₀ X₀ : ℝ}
+    (hsockA : ∀ (g : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) →
+      ∀ (P' Q' : ℕ) (c' Cb' X' θ' : ℝ) (k₀' M' : ℕ) (t : ℝ),
+        0 < c' → c' ≤ 1 / Real.exp 1 → 2 * c' < 1 → 0 ≤ Cb' → ShortIntervalDatum Cb' →
+        X₀ ≤ (k₀' : ℝ) → pin2Gate ≤ (k₀' : ℝ) → k₀' ≤ M' → (M' : ℝ) ≤ 2 * (k₀' : ℝ) →
+        0 ≤ cofactorMfl X' θ' (k₀' : ℝ) →
+        CaseASocket2 g P' Q' c' Cb' X' θ' k₀' M' t)
+    (F : A2Frame3 (ellLin (liouChi χ)) cf a N Xd P P (Adoor M) (3072 * M) M 2
+      (witMs (H83 X theta293) Xd) (witMt (H83 X theta293) Xd) (witKk (H83 X theta293) Xd)
+      (H1door M) X h δ' VJ L (1 / 12) Cb Rrad EP2 cq T₀)
+    (hX0 : 0 < X) (hh4 : 4 ≤ h) (hLXe : Real.exp 1 ≤ Real.log X)
+    (hPlow : P83 X theta293 ≤ (P : ℝ)) (hPhigh : (P : ℝ) ≤ Q83 X)
+    (hfloor : CapFreeFloor3 (liouChi χ) X)
+    (hCb0 : 0 ≤ Cb) (hCbound : ShortIntervalDatum Cb) (hRrad0 : 0 < Rrad)
+    (hX₀k : X₀ ≤ kmin) (hMfl0 : 0 ≤ cofactorMfl X theta293 kmin) (hk2 : 2 ≤ kmin)
+    (hkk : ∀ j ∈ ramI (H83 X theta293) P P,
+      kmin ≤ ((witKk (H83 X theta293) Xd j : ℕ) : ℝ))
+    (hMtpin : ∀ j ∈ ramI (H83 X theta293) P P,
+      pin2Gate ≤ ((witMt (H83 X theta293) Xd j : ℕ) : ℝ))
+    (hMtY : ∀ j ∈ ramI (H83 X theta293) P P,
+      ((witMt (H83 X theta293) Xd j : ℕ) : ℝ) ≤ Ymax) :
+    CofactorSocket (H83 X theta293) N Xd P P X Rrad 0
+      (cofactorRbd34loc (1 / Real.exp 1) Cb X theta293 kmin Ymax
+        (Tstar2 Ymax (Real.log Ymax)) Rrad) (ellLin (liouChi χ)) := by
+  have hgl : ∀ p : ℕ, p.Prime → ‖liouChi χ p‖ ≤ 1 := fun p _ => norm_liouChi_le_one χ p
+  have he1 : (2 : ℝ) < Real.exp 1 := by linarith [Real.exp_one_gt_d9]
+  have hc0 : (0 : ℝ) < 1 / Real.exp 1 := by positivity
+  have hc1 : 2 * (1 / Real.exp 1) < 1 := by
+    rw [mul_one_div, div_lt_one (by linarith)]; linarith
+  have hh0 : (0 : ℝ) < h := by linarith
+  -- ⟦the annulus at the window's TOP⟧ `2·(X/h) ≤ X` from `4 ≤ h`
+  have h2aX : 2 * (X / h) ≤ X := by
+    rw [mul_comm, div_mul_eq_mul_div, div_le_iff₀ hh0]
+    nlinarith
+  have hblkX := F.blocks X h2aX le_rfl
+  -- ⟦SUPPLIER 1⟧ the collision socket, VACUOUSLY, at the centre `0`
+  have hsockP : PocketSocket3 (liouChi χ) P P X theta293 0 :=
+    pocketSocket_of_floor3 hgl theta293_pos (le_of_lt theta293_lt_one_div_32) hLXe hPlow
+      hPhigh le_rfl hfloor 0
+  -- ⟦SUPPLIER 2⟧ CASE A, from the discharged slice
+  have hA2 : ∀ j ∈ ramI (H83 X theta293) P P, ∀ t : ℝ,
+      CaseASocket2 (liouChi χ) P P (1 / Real.exp 1) Cb X theta293
+        (witKk (H83 X theta293) Xd j) (witMt (H83 X theta293) Xd j) t := by
+    intro j hj t
+    obtain ⟨-, -, -, -, -, -, hk₀th, -, hk₀lo, hk₀hi, -, -, hhigh, hMtop, -, -, -⟩ :=
+      hblkX j hj
+    have hk₀pin : pin2Gate ≤ ((witKk (H83 X theta293) Xd j : ℕ) : ℝ) :=
+      le_trans pin2Gate_le_ballQuarterThreshold hk₀th
+    have hk3 : (3 : ℝ) ≤ ((witKk (H83 X theta293) Xd j : ℕ) : ℝ) :=
+      le_trans three_le_ballQuarterThreshold hk₀th
+    have hkMR : ((witKk (H83 X theta293) Xd j : ℕ) : ℝ)
+        ≤ ((witMt (H83 X theta293) Xd j : ℕ) : ℝ) := by linarith
+    have hkM : witKk (H83 X theta293) Xd j ≤ witMt (H83 X theta293) Xd j := by
+      exact_mod_cast hkMR
+    have hM2k : ((witMt (H83 X theta293) Xd j : ℕ) : ℝ)
+        ≤ 2 * ((witKk (H83 X theta293) Xd j : ℕ) : ℝ) := by linarith
+    have hX₀kk : X₀ ≤ ((witKk (H83 X theta293) Xd j : ℕ) : ℝ) := le_trans hX₀k (hkk j hj)
+    have hMflkk : (0 : ℝ) ≤ cofactorMfl X theta293 ((witKk (H83 X theta293) Xd j : ℕ) : ℝ) :=
+      le_trans hMfl0 (cofactorMfl_mono X theta293 (hkk j hj))
+    exact hsockA (liouChi χ) hgl P P (1 / Real.exp 1) Cb X theta293
+      (witKk (H83 X theta293) Xd j) (witMt (H83 X theta293) Xd j) t hc0 le_rfl hc1 hCb0
+      hCbound hX₀kk hk₀pin hkM hM2k hMflkk
+  -- ⟦SUPPLIER 3⟧ the uniform ceiling
+  have hMt1 : ∀ j ∈ ramI (H83 X theta293) P P,
+      (1 : ℝ) ≤ ((witMt (H83 X theta293) Xd j : ℕ) : ℝ) := by
+    intro j hj
+    have h1 : (1 : ℝ) ≤ pin2Gate := Real.one_le_exp (by norm_num)
+    exact le_trans h1 (hMtpin j hj)
+  have hRbdU := Rbd34loc_uniform (H83 X theta293) P P (witMt (H83 X theta293) Xd)
+    (witKk (H83 X theta293) Xd) (1 / Real.exp 1) Cb X theta293 Rrad kmin Ymax hc0 hc1 hCb0
+    (by linarith) hMtpin hkk hMt1 hMtY
+  exact cofactorSocket_of_ellLin hgl hc1 hCb0 hRrad0 hsockP hblkX F.box hA2 hRbdU
+
 /-! ## §4 — THE SUMMIT
 
 Every hypothesis below is either arithmetic from the two pins, or a named binder in the
@@ -482,8 +585,10 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
                 + 304128 * ballSupC ^ 2
                     * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2)
                 + 6315000 / h := by
-  obtain ⟨Cq, cq, T₀, X₀, Cs, Ccc, hCq, hcq, hT₀, hX₀0, hCs, hCcc, hrow⟩ :=
+  obtain ⟨Cq, cq, T₀, -, Cs, Ccc, hCq, hcq, hT₀, -, hCs, hCcc, hrow⟩ :=
     a2Rows_of_capfree3
+  -- ⟦THE SOCKET CUT⟧ the CASE-A discharge is the SUPPLIER's now, so its `X₀` is taken here
+  obtain ⟨X₀, hX₀0, hsockA⟩ := caseASocket2_discharged
   obtain ⟨Kfl, hKfl0, hKfl⟩ := capFreeFloor3_liouChi_all Qm
   refine ⟨Cq, cq, T₀, X₀, Cs, Ccc, Kfl, hCq, hcq, hT₀, hX₀0, hCs, hCcc, hKfl0, ?_⟩
   intro q _ χ hq N Xd P M a cf X h δ' V VJ L Cb Rrad kmin Ymax ε EP2 C₁' M₀
@@ -517,8 +622,10 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
   have hlog2X : (0 : ℝ) ≤ 1 + Real.log (2 * X) := by
     have : (0 : ℝ) ≤ Real.log (2 * X) := Real.log_nonneg (by linarith)
     linarith
-  have hb1 : ∀ n : ℕ, ‖ellLin (liouChi χ) n‖ ≤ 1 :=
-    ellLin_norm_le_one (liouChi χ) (fun p _ => norm_liouChi_le_one χ p)
+  have hgl : ∀ p : ℕ, p.Prime → ‖liouChi χ p‖ ≤ 1 := fun p _ => norm_liouChi_le_one χ p
+  have hb1 : ∀ n : ℕ, ‖ellLin (liouChi χ) n‖ ≤ 1 := ellLin_norm_le_one (liouChi χ) hgl
+  have hLXe : Real.exp 1 ≤ Real.log X :=
+    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   -- ⟦THE BINDER REPAIR (§3′): the window-restricted BAND law, widened back to the
   -- unrestricted shape `a2Rows_of_capfree3` consumes.  Off the window both sides vanish.
   -- The PIN law needs no widening any more: §3″'s rewire consumes it on-window⟧
@@ -533,8 +640,9 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
       (fun p m hR hne => hwinBand j hj p m hR.1 hR.2.1 hR.2.2.1 hne)
       (fun p m hR hlo hhi => hcoefBand j hj p m hR.1 hR.2.1 hR.2.2.1 hR.2.2.2 hlo hhi)
       p m ⟨hp, h1, h2, h3⟩
-  -- ⟦FIELD 1–4: THE FRAME⟧
-  have F : A2Frame3 (liouChi χ) cf a N Xd P P (Adoor M) (3072 * M) M 2
+  -- ⟦FIELD 1–4: THE FRAME⟧ — at the CO-FACTOR DATUM `ellLin (liouChi χ)` (the socket cut's
+  -- `b`-slot; the frame no longer takes a multiplicative generator)
+  have F : A2Frame3 (ellLin (liouChi χ)) cf a N Xd P P (Adoor M) (3072 * M) M 2
       (witMs (H83 X theta293) Xd) (witMt (H83 X theta293) Xd) (witKk (H83 X theta293) Xd)
       (H1door M) X h δ' VJ L (1 / 12) Cb Rrad EP2 cq T₀ :=
     a2Frame3_witness hX0 hh0 hLX0 hLXL hXd1 hXdX hTann hceil5 hT₀le hTbot hhceil hH2 hP3
@@ -546,14 +654,22 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
     row_ladder_at_witness (H := H83 X theta293) (N := N) (Xd := Xd) (P := P) hW5
   -- ⟦THE CAP-FREE FLOOR, AT THE ROW'S OWN DATUM⟧
   have hfloor : CapFreeFloor3 (liouChi χ) X := hKfl q χ X hq hXee hcff
+  -- ⟦THE CO-FACTOR SOCKET⟧ the row's ONE structural datum, supplied HERE (§3‴) from the
+  -- landed cap-free machinery.  Above this line the row never reads `liouChi`
+  have hsockR := m4_cofactorSocket_at_witness χ hsockA F hX0 hh4 hLXe hPlow hPhigh hfloor
+    hCb0 hCbound hRrad0 hX₀k hMfl0 hk2 hkk hMtpin hMtY
+  have hRbar0 := m4_rbar_nonneg (Cb := Cb) (X := X) (kmin := kmin) (Ymax := Ymax)
+    (Rrad := Rrad) hCb0 hk2
+  have hRgrade := Rbd34loc_grade_priced (X := X) (Cb := Cb) (kmin := kmin) (Ymax := Ymax)
+    (Rrad := Rrad) hCb0 hk2 hkX hlX2 hgateW hRlow hYpin hWY hXY hthrY
   -- ⟦THE ROW FAMILY⟧
-  have hrows := hrow (liouChi χ) cf a (ellLin (liouChi χ)) cf
-    (fun p _ => norm_liouChi_le_one χ p) hcf1 hb1 hcf1 N Xd P P M
+  have hrows := hrow cf a (ellLin (liouChi χ)) cf hcf1 hb1 hcf1 N Xd P P M
     (witM0 (H83 X theta293) Xd) (witMs (H83 X theta293) Xd) (witMt (H83 X theta293) Xd)
-    (witKk (H83 X theta293) Xd) X h δ' V VJ L Cb Rrad kmin Ymax ε EP2
-    hM hXdQ F hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV hCb0 hPlow
-    (by omega) hPhigh le_rfl hfloor hRrad0 hRrad hRlow hCbound hX₀k hMfl0 hk2 hkX hkk
-    hMtpin hMtY hgateW hYpin hWY hXY hthrY hCqgate hε0 habs hEP2 hXN hN2X hsupp0 hMN
+    (witKk (H83 X theta293) Xd) X h δ' V VJ L Cb Rrad
+    (cofactorRbd34loc (1 / Real.exp 1) Cb X theta293 kmin Ymax
+      (Tstar2 Ymax (Real.log Ymax)) Rrad) ε EP2
+    hM hXdQ F hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV hPlow
+    (by omega) hPhigh hRrad hRbar0 hRgrade hsockR hCqgate hε0 habs hEP2 hXN hN2X hsupp0 hMN
     hcoefBandW hwinBand hQXd hXdbig hN4 hdom ha1 hasupp
   -- ⟦THE FROZEN INTERFACE⟧
   exact thm_a2'_of_rows hM hXe hX3 hh4 hhX ha1 hsupp0 hN2X hTann hceil5 hrows hT0band

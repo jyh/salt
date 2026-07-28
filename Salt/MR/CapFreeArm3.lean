@@ -164,7 +164,13 @@ theorem pocketSocket_of_floor3 {g : ℕ → ℂ} (hg : ∀ p : ℕ, p.Prime → 
 `|t| + T*₂(M, log M) ≤ 3X` and (ii) the socket taken at `PocketSocket3`.  The `by_cases` on
 the damping runs through `box_gate_le_3X`, whose CASE-B report `|t₁'| ≤ 3X` is exactly the
 3X socket's antecedent.  The EXIT EXPRESSION is untouched (byte identity with `hCqgate`
-downstream). -/
+downstream).
+
+⟦THE SOCKET CUT⟧ **This lemma is the row's ONE reader of `b`'s structure** — the CASE-A/B
+pocket machinery (coprime multiplicativity, `f 1 = 1`, the `pretDistSq` cap) is refutably
+false at a generic `1`-bounded datum.  Everything above it is `b`-generic, so from §4′ up the
+chain carries `CofactorSocket` instead and THIS lemma is the canonical inhabitant, packaged
+as `cofactorSocket_of_ellLin`. -/
 theorem cofactor_Rbd34_local_nocap3 {g : ℕ → ℂ} (hg : ∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1)
     (H : ℝ) (N Xn P Q j M k₀ : ℕ) (c Cb X θ t t₁ R : ℝ)
     (hc1 : 2 * c < 1) (hCb0 : 0 ≤ Cb)
@@ -228,16 +234,117 @@ theorem cofactor_Rbd34_local_nocap3 {g : ℕ → ℂ} (hg : ∀ p : ℕ, p.Prime
         ≤ S * (m : ℝ) := mul_le_mul_of_nonneg_right hSB hm0
     linarith
 
-/-! ## §5 — the `𝒯_L` exit, at the `3X` socket -/
+/-! ## §4′ — ⟦THE SOCKET CUT⟧: the co-factor datum, FREED
 
-/-- **THE `𝒯_L` EXIT AT THE `3X` SOCKET** (`tL_supply_discharged34_local_nocap3`).
-`CapFreeArm.tL_supply_discharged34_local_nocap` with its co-factor supply taken from §4: the
-socket is `PocketSocket3` and the per-`t` contour gate is `|t| + T*₂(M, log M) ≤ 3Xg`. -/
+`ROW-GENERICITY`'s verdict (2026-07-28): the whole `𝒰`/err leg of the cap-free row reads
+exactly ONE structural fact about its co-factor datum, and that fact is §4's conclusion.
+Above §4 every stone (`tL_main_sumsq`, `TSG_feed_of_thin`, `KS_priced`, the `𝒯_S` branch, the
+exits) is generic in the datum.  So the cut: carry §4's conclusion as a NAMED PREDICATE, free
+the datum, and let the caller inhabit the predicate however it can.
+
+The bonus is what the row loses: `g`, `hg`, `PocketSocket3`, `CaseASocket2`, the `3X` contour
+box, `ShortIntervalDatum`, the `kmin`/`Ymax` ladder and `CapFreeFloor3` all leave the row's
+statement, replaced by `CofactorSocket` plus the single grade
+`R̄ ≤ gradeCR2 C_b · (log X)^{−ρ₂₉₃}` that `USetPrice.balance_priced_main` actually consumes. -/
+
+/-- **THE CO-FACTOR SOCKET** (`CofactorSocket`).  On the annulus `|t| ≤ Tann`, off the ball of
+radius `Rrad` about `t₁`, every block's Ramaré co-factor polynomial is bounded by `R̄`:
+
+`∀ j ∈ I, ∀ |t| ≤ Tann, Rrad ≤ |t − t₁| → ‖R_{j,H}(1+it)‖ ≤ R̄`.
+
+This is `cofactor_Rbd34_local_nocap3`'s conclusion, quantified over the block index set — the
+ONLY fact the row reads about `b`. -/
+def CofactorSocket (H : ℝ) (N Xd P Q : ℕ) (Tann Rrad t₁ Rbar : ℝ) (b : ℕ → ℂ) : Prop :=
+  ∀ j ∈ ramI H P Q, ∀ t : ℝ, |t| ≤ Tann → Rrad ≤ |t - t₁| →
+    ‖ramR H N Xd P Q j b t‖ ≤ Rbar
+
+/-- The socket is ANTITONE in the annulus height: a socket at the window's TOP serves every
+admissible height below it.  (`A2Frame3.box_at`'s shape, for the socket.) -/
+theorem CofactorSocket.mono {H : ℝ} {N Xd P Q : ℕ} {Tann Tann' Rrad t₁ Rbar : ℝ} {b : ℕ → ℂ}
+    (hs : CofactorSocket H N Xd P Q Tann' Rrad t₁ Rbar b) (hT : Tann ≤ Tann') :
+    CofactorSocket H N Xd P Q Tann Rrad t₁ Rbar b :=
+  fun j hj t ht hfar => hs j hj t (le_trans ht hT) hfar
+
+/-- **`ramR` IS LINEAR IN ITS CO-FACTOR SLOT** (`ramR_sum_fin`).  `R_{j,H}` is a finite sum
+whose only dependence on `b` is the coefficient `b m`, so a finite linear combination of data
+gives the same combination of co-factor polynomials.  This is the route the inclusion–
+exclusion supplier takes (`cofactorSocket_of_pieces`). -/
+lemma ramR_sum_fin {n : ℕ} (H : ℝ) (N Xd P Q j : ℕ) (ε : Fin n → ℂ) (bp : Fin n → ℕ → ℂ)
+    (t : ℝ) :
+    ramR H N Xd P Q j (fun m => ∑ i, ε i * bp i m) t
+      = ∑ i, ε i * ramR H N Xd P Q j (bp i) t := by
+  simp only [ramR, Finset.mul_sum, Finset.sum_div, Finset.sum_mul]
+  rw [Finset.sum_comm]
+  exact Finset.sum_congr rfl fun i _ => Finset.sum_congr rfl fun m _ => by ring
+
+/-- **THE SOCKET IS CLOSED UNDER SHORT LINEAR COMBINATIONS** (`cofactorSocket_of_pieces`).
+If `b = Σ_{i<n} ε_i·b_i` with `‖ε_i‖ ≤ 1` (the inclusion–exclusion signs `ε_i = ±1` are the
+intended instance) and each piece carries a socket at `R̄_i`, then `b` carries one at
+`Σ_i R̄_i` — by `ramR`'s linearity and the triangle inequality.
+
+This is the consumer the door-side supplier feeds: `prod_one_sub_gJ` reduces the sieved datum
+`1_𝒮(P·)·λχ̄` to FOUR completely multiplicative pieces, and the factor `4` (`16` in the
+square) is absorbed by the standing grade margins. -/
+theorem cofactorSocket_of_pieces {n : ℕ} {H : ℝ} {N Xd P Q : ℕ} {Tann Rrad t₁ : ℝ}
+    {b : ℕ → ℂ} {bp : Fin n → ℕ → ℂ} {ε : Fin n → ℂ} {Rb : Fin n → ℝ}
+    (hε : ∀ i, ‖ε i‖ ≤ 1) (hb : ∀ m, b m = ∑ i, ε i * bp i m)
+    (hs : ∀ i, CofactorSocket H N Xd P Q Tann Rrad t₁ (Rb i) (bp i)) :
+    CofactorSocket H N Xd P Q Tann Rrad t₁ (∑ i, Rb i) b := by
+  intro j hj t ht hfar
+  have hbeq : b = fun m => ∑ i, ε i * bp i m := funext hb
+  rw [hbeq, ramR_sum_fin]
+  refine le_trans (norm_sum_le _ _) (Finset.sum_le_sum fun i _ => ?_)
+  have hi := hs i j hj t ht hfar
+  rw [norm_mul]
+  calc ‖ε i‖ * ‖ramR H N Xd P Q j (bp i) t‖
+      ≤ 1 * Rb i := mul_le_mul (hε i) hi (norm_nonneg _) (by norm_num)
+    _ = Rb i := one_mul _
+
+/-- **THE CANONICAL INHABITANT** (`cofactorSocket_of_ellLin`).  §4 packaged as a
+`CofactorSocket` at the multiplicative datum `b := ellLin g`: the pocket floor supplies
+`PocketSocket3`, the CASE-A discharge supplies `CaseASocket2`, the frame supplies the `3X`
+contour box and the §8.3 block gates, and `Rbd34loc_uniform` supplies the uniform ceiling.
+
+Every hypothesis here is one the row's statement USED to carry; after the cut they live here
+and nowhere above. -/
+theorem cofactorSocket_of_ellLin {g : ℕ → ℂ} (hg : ∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1)
+    {H : ℝ} {N Xd P Q : ℕ} {Mt kk : ℕ → ℕ}
+    {cq L cg Cb X θ Rrad Tann t₁ Rbar : ℝ}
+    (hc1 : 2 * cg < 1) (hCb0 : 0 ≤ Cb) (hR0 : 0 < Rrad)
+    (hsock : PocketSocket3 g P Q X θ t₁)
+    (hblk : ∀ j ∈ ramI H P Q, TLBlockGates34 cq H P N Xd Mt kk Tann L cg Cb X θ Rrad j)
+    (hbox : ∀ j ∈ ramI H P Q, ∀ t : ℝ, |t| ≤ Tann →
+      |t| + Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ)) ≤ 3 * X)
+    (hA2 : ∀ j ∈ ramI H P Q, ∀ t : ℝ, CaseASocket2 g P Q cg Cb X θ (kk j) (Mt j) t)
+    (hRbdU : ∀ j ∈ ramI H P Q,
+      cofactorRbd34loc cg Cb X θ ((kk j : ℕ) : ℝ) ((Mt j : ℕ) : ℝ)
+          (Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ))) Rrad ≤ Rbar) :
+    CofactorSocket H N Xd P Q Tann Rrad t₁ Rbar (ellLin g) := by
+  intro j hj t ht hfar
+  obtain ⟨-, -, -, -, -, -, hk₀th, hMN, hk₀lo, hk₀hi, hbot, hlow, hhigh, hMtop, hMX,
+    hgate32, hend⟩ := hblk j hj
+  exact le_trans
+    (cofactor_Rbd34_local_nocap3 hg H N Xd P Q j (Mt j) (kk j) cg Cb X θ t t₁ Rrad hc1 hCb0
+      hk₀th hMN hk₀lo hk₀hi hbot hlow hhigh hMtop hMX (hbox j hj t ht) hgate32 hR0 hfar
+      hsock (hA2 j hj t) hend)
+    (hRbdU j hj)
+
+/-! ## §5 — the `𝒯_L` exit, AT THE SOCKET -/
+
+/-- **THE `𝒯_L` EXIT AT THE CO-FACTOR SOCKET** (`tL_supply_discharged34_local_nocap3`).
+`CapFreeArm.tL_supply_discharged34_local_nocap` with its co-factor supply taken from the
+CARRIED datum (§4′) instead of the `g`-derived pocket chain: the per-`t` bound
+`‖R_{j,H}(1+it)‖ ≤ R̄` is read off `CofactorSocket`, and `USetThinTL.tL_main_sumsq` does the
+rest.
+
+⟦THE SOCKET CUT⟧ against the landed twin the binder list LOSES `g`, `hg`, `PocketSocket3`,
+`CaseASocket2`, the contour box and the whole descent/window geometry (`k₀`, `M`, `c`, `C_b`,
+`X_g`, `θ`, the endpoint charge) — every one of them served only the co-factor bound.  What
+remains is `tL_main_sumsq`'s own gate list, the socket, and the far-leg geometry. -/
 theorem tL_supply_discharged34_local_nocap3 :
     ∃ Cq cq T₀ : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧
-      ∀ (g : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) →
-      ∀ (H : ℝ), 2 ≤ H → ∀ (P Q j N Xn M k₀ : ℕ) (cf : ℕ → ℂ), (∀ n : ℕ, ‖cf n‖ ≤ 1) →
-      H ≤ (j : ℝ) →
+      ∀ (b : ℕ → ℂ) (H : ℝ), 2 ≤ H → ∀ (P Q j N Xn : ℕ) (cf : ℕ → ℂ),
+      (∀ n : ℕ, ‖cf n‖ ≤ 1) → H ≤ (j : ℝ) → j ∈ ramI H P Q →
       ∀ (T V L δ' : ℝ) (𝒯 : Finset ℝ), WellSpaced 𝒯 →
       (∀ t ∈ 𝒯, t ∈ Set.Icc (-T) T) → T₀ ≤ T → 1 < T →
       3 ≤ ramQbase H P j → (ramQbase H P j : ℝ) ≤ T →
@@ -247,53 +354,32 @@ theorem tL_supply_discharged34_local_nocap3 :
       Real.log (ramQbase H P j) ≤ L → Real.log V ≤ 100 * Real.log L →
       420 * L * L ^ ((3 : ℝ) / 4) * (Real.log L) ^ 5
           ≤ cq * (Real.log (ramQbase H P j)) ^ 2 →
-      ∀ (c Cb Xg θ t₁ R : ℝ),
-        2 * c < 1 → 0 ≤ Cb → ballQuarterThreshold ≤ (k₀ : ℝ) →
-        M ≤ N → (k₀ : ℝ) < ramRbot H Xn j → ramRbot H Xn j ≤ (k₀ : ℝ) + 1 →
-        1 < ramRbot H Xn j → ramRbot H Xn j - 1 ≤ (M : ℝ) →
-        (M : ℝ) ≤ 2 * (ramRbot H Xn j - 1) → 2 * ramRbot H Xn j < (M : ℝ) + 3 →
-        (M : ℝ) ≤ Xg →
-        18 + Real.log (Real.log Xg) - Real.log (Real.log (k₀ : ℝ))
-          ≤ 32 * θ * Real.log (Real.log Xg) →
-        0 < R →
-        PocketSocket3 g P Q Xg θ t₁ →
-        (∀ t : ℝ, CaseASocket2 g P Q c Cb Xg θ k₀ M t) →
-        2 / ramRbot H Xn j
-          ≤ cofactorRbd34loc c Cb Xg θ (k₀ : ℝ) (M : ℝ)
-              (Tstar2 (M : ℝ) (Real.log (M : ℝ))) R / 3 →
-        (∀ t ∈ tLset H P Q j cf δ' 𝒯, R ≤ |t - t₁| ∧
-          |t| + Tstar2 (M : ℝ) (Real.log (M : ℝ)) ≤ 3 * Xg) →
-        ∑ t ∈ tLset H P Q j cf δ' 𝒯, ‖ramMain H N Xn P Q (ellLin g) cf j t‖ ^ 2
-          ≤ 54 * Cq * cofactorRbd34loc c Cb Xg θ (k₀ : ℝ) (M : ℝ)
-                (Tstar2 (M : ℝ) (Real.log (M : ℝ))) R ^ 2
-              * (H / (j : ℝ)) ^ 2 := by
+      ∀ (t₁ Rrad Rbar : ℝ), 0 ≤ Rbar →
+        CofactorSocket H N Xn P Q T Rrad t₁ Rbar b →
+        (∀ t ∈ tLset H P Q j cf δ' 𝒯, Rrad ≤ |t - t₁| ∧ |t| ≤ T) →
+        ∑ t ∈ tLset H P Q j cf δ' 𝒯, ‖ramMain H N Xn P Q b cf j t‖ ^ 2
+          ≤ 54 * Cq * Rbar ^ 2 * (H / (j : ℝ)) ^ 2 := by
   obtain ⟨Cq, cq, T₀, hCq, hcq, hT₀, htL⟩ := tL_main_sumsq
   refine ⟨Cq, cq, T₀, hCq, hcq, hT₀, ?_⟩
-  intro g hg H hH P Q j N Xn M k₀ cf hcf1 hHj T V L δ' 𝒯 hws hsub hT₀T hT hB3 hBT hκ30 hLL5
-    hV1 hVδ hTL hlogT1 hLe hWL hlogV hkill c Cb Xg θ t₁ R hc1 hCb0 hk₀th hMN hk₀lo hk₀hi
-    hbot hlow hhigh hMtop hMX hgate32 hR0 hsock hA2 hend hper
-  have hk₀1 : (1 : ℝ) ≤ (k₀ : ℝ) := by
-    have := le_trans three_le_ballQuarterThreshold hk₀th
-    linarith
-  refine htL H hH P Q j N Xn cf (ellLin g) hcf1 hHj T V L δ'
-    (cofactorRbd34loc c Cb Xg θ (k₀ : ℝ) (M : ℝ) (Tstar2 (M : ℝ) (Real.log (M : ℝ))) R)
-    𝒯 hws hsub hT₀T hT hB3 hBT hκ30 hLL5 hV1 hVδ hTL hlogT1 hLe hWL hlogV hkill
-    (cofactorRbd34loc_nonneg hc1 hCb0 hk₀1) ?_
+  intro b H hH P Q j N Xn cf hcf1 hHj hj T V L δ' 𝒯 hws hsub hT₀T hT hB3 hBT hκ30 hLL5
+    hV1 hVδ hTL hlogT1 hLe hWL hlogV hkill t₁ Rrad Rbar hRbar0 hsock hper
+  refine htL H hH P Q j N Xn cf b hcf1 hHj T V L δ' Rbar 𝒯 hws hsub hT₀T hT hB3 hBT hκ30 hLL5
+    hV1 hVδ hTL hlogT1 hLe hWL hlogV hkill hRbar0 ?_
   intro t ht
-  obtain ⟨hfar, hTM⟩ := hper t ht
-  exact cofactor_Rbd34_local_nocap3 hg H N Xn P Q j M k₀ c Cb Xg θ t t₁ R hc1 hCb0 hk₀th hMN
-    hk₀lo hk₀hi hbot hlow hhigh hMtop hMX hTM hgate32 hR0 hfar hsock (hA2 t) hend
+  obtain ⟨hfar, hTabs⟩ := hper t ht
+  exact hsock j hj t hTabs hfar
 
-/-! ## §6 — the graded `hU` supply, at the `3X` socket -/
+/-! ## §6 — the graded `hU` supply, AT THE SOCKET -/
 
-/-- **THE GRADED `hU` SUPPLY AT THE `3X` SOCKET** (`hUG34_supplied_nocap3`).
+/-- **THE GRADED `hU` SUPPLY AT THE CO-FACTOR SOCKET** (`hUG34_supplied_nocap3`).
 `CapFreeArm.hUG34_supplied_nocap` with its `𝒯_L` feed taken from §5.  The `𝒯_S` half, the
-far-leg geometry and the exit expression are the landed twin's verbatim; the socket is
-`PocketSocket3` and the contour box is `|t| + T*₂(M_j, log M_j) ≤ 3X`. -/
+far-leg geometry and the exit expression are the landed twin's verbatim; the co-factor supply
+is the CARRIED `CofactorSocket` at `R̄`, so the `𝒯_L` leg no longer needs the per-block
+`cofactorRbd34loc` ceiling (`hRbdU`), the `3X` contour box, `PocketSocket3` or
+`CaseASocket2`. -/
 theorem hUG34_supplied_nocap3 :
     ∃ Cq cq T₀ : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧
-      ∀ (g fb a cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖fb n‖ ≤ 1) →
-        (∀ n : ℕ, ‖cf n‖ ≤ 1) →
+      ∀ (b fb a cf : ℕ → ℂ), (∀ n : ℕ, ‖fb n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) →
       ∀ (H : ℝ), 2 ≤ H → ∀ (N Xd P Q Jset Jb : ℕ) (Pseq Qseq Ms Mt kk : ℕ → ℕ)
         (Hseq αseq : ℕ → ℝ),
       ∀ (X Tann t₁ δ' V VJ L η cg Cb θ Rrad KS Rbar E : ℝ),
@@ -311,21 +397,14 @@ theorem hUG34_supplied_nocap3 :
           thinBundleG Tann VJ (Hseq Jb) (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η)
             ≤ ((Ms j : ℕ) : ℝ)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
-        2 * cg < 1 → 0 ≤ Cb →
-        0 < Rrad → Rrad ≤ seamRad X →
-        PocketSocket3 g P Q X θ t₁ →
+        Rrad ≤ seamRad X →
+        0 ≤ Rbar → CofactorSocket H N Xd P Q Tann Rrad t₁ Rbar b →
         (∀ j ∈ ramI H P Q, TLBlockGates34 cq H P N Xd Mt kk Tann L cg Cb X θ Rrad j) →
-        (∀ j ∈ ramI H P Q, ∀ t : ℝ, |t| ≤ Tann →
-          |t| + Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ)) ≤ 3 * X) →
-        (∀ j ∈ ramI H P Q, ∀ t : ℝ, CaseASocket2 g P Q cg Cb X θ (kk j) (Mt j) t) →
         (∀ j ∈ ramI H P Q, 5128 * δ' ^ 2 * ((Ms j : ℕ) : ℝ) * (1 + Real.log (2 * Tann))
             * (∑ m ∈ Finset.Icc 1 (Ms j),
-                ‖ramRcoeff H N Xd P Q j (ellLin g) m‖ ^ 2 / (m : ℝ) ^ 2) ≤ KS) →
-        (∀ j ∈ ramI H P Q,
-          cofactorRbd34loc cg Cb X θ ((kk j : ℕ) : ℝ) ((Mt j : ℕ) : ℝ)
-            (Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ))) Rrad ≤ Rbar) →
+                ‖ramRcoeff H N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2) ≤ KS) →
         2 ≤ ⌊H * Real.log (P : ℝ)⌋₊ →
-        (∫ t in (-Tann)..Tann, ‖ramErr H N Xd P Q a (ellLin g) cf t‖ ^ 2) ≤ E →
+        (∫ t in (-Tann)..Tann, ‖ramErr H N Xd P Q a b cf t‖ ^ 2) ≤ E →
         (∫ t in (seamAnn X Tann \ seamBall X t₁) ∩ UsetG fb Pseq Qseq Hseq αseq Jset,
             ‖spoly N a t‖ ^ 2)
           ≤ 4 * ((ramI H P Q).card : ℝ)
@@ -334,11 +413,11 @@ theorem hUG34_supplied_nocap3 :
                       / ((⌊H * Real.log (P : ℝ)⌋₊ : ℝ) - 1)) + 2 * E := by
   obtain ⟨Cq, cq, T₀, hCq, hcq, hT₀, hTL⟩ := tL_supply_discharged34_local_nocap3
   refine ⟨Cq, cq, T₀, hCq, hcq, hT₀, ?_⟩
-  intro g fb a cf hg hfb1 hcf1 H hH N Xd P Q Jset Jb Pseq Qseq Ms Mt kk Hseq αseq
+  intro b fb a cf hfb1 hcf1 H hH N Xd P Q Jset Jb Pseq Qseq Ms Mt kk Hseq αseq
     X Tann t₁ δ' V VJ L η cg Cb θ Rrad KS Rbar E
     hX0 hTgate hT1 hTX hQ1 hQpin hT₀T hLL5 hlogT1 hTLle hLe
     hJb1 hJbJ hH2 hα0 hP3 hPQ hQT hVJ hα hη2 hMs hbudget hV1 hVδ hlogV
-    hc1 hCb0 hR0 hRrad hsock hblk hbox hA2 hKS hRbdU hj₀ herr
+    hRrad hRbar0 hsockR hblk hKS hj₀ herr
   have hTann0 : (0 : ℝ) ≤ Tann := by linarith
   have hκ30 : 30 ≤ Real.log Tann / Real.log (Qseq Jb) :=
     kappa30_of_TannGate X Tann (Qseq Jb) hQ1 hQpin hTgate
@@ -346,56 +425,51 @@ theorem hUG34_supplied_nocap3 :
     fun _ ht => seamAnn_subset_Icc X Tann ht.1
   have hTSfeed := TSG_feed_of_thin fb hfb1 Pseq Qseq Hseq αseq Jset Jb hJb1 hJbJ hH2 hα0
     Tann VJ hT1 hP3 hPQ hQT hκ30 hLL5 hVJ η X hα hη2 hTX
-    (seamAnn X Tann \ seamBall X t₁) hRsub H N Xd P Q (ellLin g) cf δ' Ms hMs hbudget
+    (seamAnn X Tann \ seamBall X t₁) hRsub H N Xd P Q b cf δ' Ms hMs hbudget
   have hTLj : ∀ j ∈ ramI H P Q, ∀ 𝒯 : Finset ℝ, WellSpaced 𝒯 →
       (↑𝒯 : Set ℝ) ⊆ (seamAnn X Tann \ seamBall X t₁) ∩ UsetG fb Pseq Qseq Hseq αseq Jset →
-      (∑ t ∈ tLset H P Q j cf δ' 𝒯, ‖ramMain H N Xd P Q (ellLin g) cf j t‖ ^ 2)
-        ≤ 54 * Cq * cofactorRbd34loc cg Cb X θ ((kk j : ℕ) : ℝ) ((Mt j : ℕ) : ℝ)
-            (Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ))) Rrad ^ 2
-            * (H / (j : ℝ)) ^ 2 := by
+      (∑ t ∈ tLset H P Q j cf δ' 𝒯, ‖ramMain H N Xd P Q b cf j t‖ ^ 2)
+        ≤ 54 * Cq * Rbar ^ 2 * (H / (j : ℝ)) ^ 2 := by
     intro j hj 𝒯 hws h𝒯A
-    obtain ⟨hHj, hB3, hBT, hκ30j, hWL, hkill, hk₀th, hMN, hk₀lo, hk₀hi, hbot, hlow, hhigh,
-      hMtop, hMX, hgate32, hend⟩ := hblk j hj
-    refine hTL g hg H hH P Q j N Xd (Mt j) (kk j) cf hcf1 hHj Tann V L δ' 𝒯 hws
+    obtain ⟨hHj, hB3, hBT, hκ30j, hWL, hkill, -, -, -, -, -, -, -, -, -, -, -⟩ := hblk j hj
+    refine hTL b H hH P Q j N Xd cf hcf1 hHj hj Tann V L δ' 𝒯 hws
       (fun t ht => hRsub (h𝒯A (Finset.mem_coe.mpr ht)).1) hT₀T hT1 hB3 hBT hκ30j hLL5 hV1 hVδ
-      hTLle hlogT1 hLe hWL hlogV hkill cg Cb X θ t₁ Rrad hc1 hCb0 hk₀th hMN hk₀lo hk₀hi
-      hbot hlow hhigh hMtop hMX hgate32 hR0 hsock (hA2 j hj) hend ?_
+      hTLle hlogT1 hLe hWL hlogV hkill t₁ Rrad Rbar hRbar0 hsockR ?_
     intro t ht
     have ht𝒯 : t ∈ 𝒯 := tLset_subset H P Q j cf δ' 𝒯 ht
     have htA := h𝒯A (Finset.mem_coe.mpr ht𝒯)
     have hTabs : |t| ≤ Tann := htA.1.1.2
     have hnot : ¬ (|t - t₁| ≤ seamRad X) := htA.1.2
-    exact ⟨le_trans hRrad (le_of_lt (not_le.mp hnot)), hbox j hj t hTabs⟩
-  refine hUG_exit_of_branches H N Xd P Q a (ellLin g) cf fb Pseq Qseq Hseq αseq Jset
+    exact ⟨le_trans hRrad (le_of_lt (not_le.mp hnot)), hTabs⟩
+  refine hUG_exit_of_branches H N Xd P Q a b cf fb Pseq Qseq Hseq αseq Jset
     X Tann t₁ E hTann0 herr δ'
     (fun j => 5128 * δ' ^ 2 * ((Ms j : ℕ) : ℝ) * (1 + Real.log (2 * Tann))
-      * ∑ m ∈ Finset.Icc 1 (Ms j), ‖ramRcoeff H N Xd P Q j (ellLin g) m‖ ^ 2 / (m : ℝ) ^ 2)
-    (fun j => 54 * Cq * cofactorRbd34loc cg Cb X θ ((kk j : ℕ) : ℝ) ((Mt j : ℕ) : ℝ)
-      (Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ))) Rrad ^ 2 * (H / (j : ℝ)) ^ 2)
+      * ∑ m ∈ Finset.Icc 1 (Ms j), ‖ramRcoeff H N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2)
+    (fun j => 54 * Cq * Rbar ^ 2 * (H / (j : ℝ)) ^ 2)
     KS Cq Rbar (le_of_lt hCq) hj₀ (fun j hj 𝒯 hws h𝒯A => hTSfeed j hj 𝒯 hws h𝒯A) hTLj hKS ?_
-  intro j hj
-  obtain ⟨-, -, -, -, -, -, hk₀th, -, -, -, -, -, -, -, -, -, -⟩ := hblk j hj
-  have hk₀1 : (1 : ℝ) ≤ ((kk j : ℕ) : ℝ) := by
-    have := le_trans three_le_ballQuarterThreshold hk₀th
-    linarith
-  exact tL_block_weight Cq H _ Rbar j (le_of_lt hCq)
-    (cofactorRbd34loc_nonneg hc1 hCb0 hk₀1) (hRbdU j hj)
+  intro j _
+  exact tL_block_weight Cq H Rbar Rbar j (le_of_lt hCq) hRbar0 le_rfl
 
-/-! ## §7 — the graded station prize, at the `3X` socket -/
+/-! ## §7 — the graded station prize, AT THE SOCKET -/
 
-/-- **THE GRADED STATION PRIZE AT THE `3X` SOCKET** (`hUG34_fully_priced_nocap3`).
+/-- **THE GRADED STATION PRIZE AT THE CO-FACTOR SOCKET** (`hUG34_fully_priced_nocap3`).
 `CapFreeArm.hUG34_fully_priced_nocap` with its `𝒰`-integral taken from §6.  All four grade
 slots are discharged exactly as in the landed twin; the §8.3 endpoint pins stay (they feed
-`floor_pin` and `ramI_card_le_pin`, not the box). -/
+`floor_pin` and `ramI_card_le_pin`, not the box).
+
+⟦THE SOCKET CUT⟧ the co-factor leg is now TWO carried facts — the socket at `R̄` and the
+single grade `R̄ ≤ gradeCR2 C_b·(log X)^{−ρ₂₉₃}` that `USetPrice.balance_priced_main` actually
+consumes.  The `kmin`/`Ymax` ladder (`Rbd34loc_uniform`, `Rbd34loc_grade_priced`) and the
+CASE-A/pocket data leave the statement: they are the SUPPLIER's business
+(`cofactorSocket_of_ellLin` for the multiplicative datum). -/
 theorem hUG34_fully_priced_nocap3 :
     ∃ Cq cq T₀ : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧
-      ∀ (g fb a cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖fb n‖ ≤ 1) →
+      ∀ (b fb a cf : ℕ → ℂ), (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖fb n‖ ≤ 1) →
         (∀ n : ℕ, ‖cf n‖ ≤ 1) →
       ∀ (N Xd P Q Jset Jb : ℕ) (Pseq Qseq m₀ Ms Mt kk : ℕ → ℕ) (Hseq αseq : ℕ → ℝ),
-      ∀ (X Tann t₁ δ' V VJ L η Cb Rrad kmin Ymax ε EP2 E S : ℝ),
+      ∀ (X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S : ℝ),
         2 ≤ H83 X theta293 →
-        0 < X → Real.exp 1 ≤ X → Real.exp 1 ≤ Real.log X → 4 ≤ Real.log X →
-        Real.exp 2 ≤ Real.log X →
+        0 < X → Real.exp 1 ≤ Real.log X → 4 ≤ Real.log X →
         TannGate X Tann → 1 < Tann → Tann ≤ X →
         1 < (Qseq Jb : ℝ) → Real.log (Qseq Jb) ≤ (Real.log X) ^ ((1 : ℝ) / 2) →
         T₀ ≤ Tann → 5 ≤ Real.log (Real.log Tann) → 1 ≤ Real.log Tann →
@@ -416,30 +490,20 @@ theorem hUG34_fully_priced_nocap3 :
         (∀ j ∈ ramI (H83 X theta293) P Q,
           ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
-        0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
-        PocketSocket3 g P Q X theta293 t₁ →
-        0 < Rrad → Rrad ≤ seamRad X → seamRad X ≤ Rrad →
+        P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X →
+        Rrad ≤ seamRad X →
+        -- ⟦THE SOCKET CUT⟧ the co-factor leg, as two carried facts
+        0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
+        CofactorSocket (H83 X theta293) N Xd P Q Tann Rrad t₁ Rbar b →
         (∀ j ∈ ramI (H83 X theta293) P Q, TLBlockGates34 cq (H83 X theta293) P N Xd Mt kk
           Tann L (1 / Real.exp 1) Cb X theta293 Rrad j) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ, |t| ≤ Tann →
-          |t| + Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ)) ≤ 3 * X) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ,
-          CaseASocket2 g P Q (1 / Real.exp 1) Cb X theta293 (kk j) (Mt j) t) →
-        2 ≤ kmin → kmin ≤ X →
-        (∀ j ∈ ramI (H83 X theta293) P Q, kmin ≤ ((kk j : ℕ) : ℝ)) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, pin2Gate ≤ ((Mt j : ℕ) : ℝ)) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, ((Mt j : ℕ) : ℝ) ≤ Ymax) →
-        (1 - 1 / Real.log (Real.log X)) * Real.log X ≤ Real.log kmin →
-        pin2Gate ≤ Ymax → Real.log Ymax ≤ 2 * Real.log kmin →
-        Real.log X ≤ Real.log Ymax →
-        32 * ballSupC34 ≤ (Real.log Ymax) ^ ((3 : ℝ) / 20 - rho293) →
         1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
         32 * (Real.log X) ^ (2 + 2 * theta293)
             * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) →
         0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293) →
         E ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) →
         (∫ t in (-Tann)..Tann,
-            ‖ramErr (H83 X theta293) N Xd P Q a (ellLin g) cf t‖ ^ 2) ≤ E →
+            ‖ramErr (H83 X theta293) N Xd P Q a b cf t‖ ^ 2) ≤ E →
         X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
         (∀ t : ℝ, seamT0 X ≤ |t| → |t| ≤ Tann → |t - t₁| ≤ seamRad X →
           ∀ m : ℕ, m ≤ N → ‖spolyA a t m‖ ≤ S * m / (1 + |t - t₁|)) →
@@ -450,53 +514,38 @@ theorem hUG34_fully_priced_nocap3 :
             + 2 * ((Tann / X + 1) * (Real.log X) ^ (-theta293 + ε)) := by
   obtain ⟨Cq, cq, T₀, hCq, hcq, hT₀, hsup⟩ := hUG34_supplied_nocap3
   refine ⟨Cq, cq, T₀, hCq, hcq, hT₀, ?_⟩
-  intro g fb a cf hg hfb1 hcf1 N Xd P Q Jset Jb Pseq Qseq m₀ Ms Mt kk Hseq αseq
-    X Tann t₁ δ' V VJ L η Cb Rrad kmin Ymax ε EP2 E S
-    hH2 hX0 _hXe hLXe hL4 hlX2 hTgate hT1 hTX hQ1 hQpin hT₀T hLL5 hlogT1 hTLle hLe
+  intro b fb a cf hb1 hfb1 hcf1 N Xd P Q Jset Jb Pseq Qseq m₀ Ms Mt kk Hseq αseq
+    X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S
+    hH2 hX0 hLXe hL4 hTgate hT1 hTX hQ1 hQpin hT₀T hLL5 hlogT1 hTLle hLe
     hJb1 hJbJ hHb2 hα0 hP3 hPQ hQT hVJ hα hη2 hMs hbudget hm₀2 hm₀ hMs4
-    hV1 hVδ hlogV hCb0 hPlow hQ0 hQhigh hPQ83 hsock hR0 hRrad hRlow
-    hblk hbox hA2 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr
-    hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup
+    hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
+    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup
   have hL0 : (0 : ℝ) < Real.log X := by linarith
   have hL1 : (1 : ℝ) ≤ Real.log X := by linarith
   have hH0 : (0 : ℝ) ≤ H83 X theta293 := by linarith
   have hHeq : H83 X theta293 = (Real.log X) ^ theta293 := by rw [H83]
-  have he2 : (2 : ℝ) < Real.exp 1 := by linarith [Real.exp_one_gt_d9]
-  have hc1 : 2 * (1 / Real.exp 1) < 1 := by
-    rw [mul_one_div, div_lt_one (by linarith)]; linarith
-  have hc0 : (0 : ℝ) < 1 / Real.exp 1 := by positivity
   have hlog2T : (0 : ℝ) ≤ 1 + Real.log (2 * Tann) := by
     have := Real.log_nonneg (show (1 : ℝ) ≤ 2 * Tann by linarith)
     linarith
   have hKS0 : (0 : ℝ) ≤ 20512 * δ' ^ 2 * (1 + Real.log (2 * Tann)) :=
     mul_nonneg (by positivity) hlog2T
-  have hkmin1 : (1 : ℝ) < kmin := by linarith
-  have hMt1 : ∀ j ∈ ramI (H83 X theta293) P Q, (1 : ℝ) ≤ ((Mt j : ℕ) : ℝ) := by
-    intro j hj
-    have h1 : (1 : ℝ) ≤ pin2Gate := Real.one_le_exp (by norm_num)
-    exact le_trans h1 (hMtpin j hj)
-  have hRbar0 : (0 : ℝ) ≤ cofactorRbd34loc (1 / Real.exp 1) Cb X theta293 kmin Ymax
-      (Tstar2 Ymax (Real.log Ymax)) Rrad :=
-    cofactorRbd34loc_nonneg hc1 hCb0 (le_of_lt hkmin1)
-  have hKSb := KS_supplied (H83 X theta293) N Xd P Q g hg m₀ Ms Tann δ' (le_of_lt hT1)
-    hm₀2 hm₀ hMs hMs4
-  have hRb := Rbd34loc_uniform (H83 X theta293) P Q Mt kk (1 / Real.exp 1) Cb X theta293
-    Rrad kmin Ymax hc0 hc1 hCb0 hkmin1 hMtpin hkk hMt1 hMt
-  have hRgrade := Rbd34loc_grade_priced (X := X) (Cb := Cb) (kmin := kmin) (Ymax := Ymax)
-    (Rrad := Rrad) hCb0 hk2 hkX hlX2 hgateW hRlow hYpin hWY hXY hthr
+  -- ⟦P-b AT THE FREE DATUM⟧ `USetPrice.KS_priced` never read `ellLin`-ness
+  have hKSb : ∀ j ∈ ramI (H83 X theta293) P Q,
+      5128 * δ' ^ 2 * ((Ms j : ℕ) : ℝ) * (1 + Real.log (2 * Tann))
+          * (∑ m ∈ Finset.Icc 1 (Ms j),
+              ‖ramRcoeff (H83 X theta293) N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2)
+        ≤ 20512 * δ' ^ 2 * (1 + Real.log (2 * Tann)) := fun j hj =>
+    KS_priced (H83 X theta293) N Xd P Q j b hb1 (m₀ j) (Ms j) (hm₀2 j hj) (hm₀ j hj)
+      (hMs j hj) (hMs4 j hj) Tann δ' (le_of_lt hT1)
   have hfl := floor_pin X P hL4 hPlow
-  have hU := hsup g fb a cf hg hfb1 hcf1 (H83 X theta293) hH2 N Xd P Q Jset Jb Pseq Qseq
+  have hU := hsup b fb a cf hfb1 hcf1 (H83 X theta293) hH2 N Xd P Q Jset Jb Pseq Qseq
     Ms Mt kk Hseq αseq X Tann t₁ δ' V VJ L η (1 / Real.exp 1) Cb theta293 Rrad
-    (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann)))
-    (cofactorRbd34loc (1 / Real.exp 1) Cb X theta293 kmin Ymax
-      (Tstar2 Ymax (Real.log Ymax)) Rrad) E
+    (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) Rbar E
     hX0 hTgate hT1 hTX hQ1 hQpin hT₀T hLL5 hlogT1 hTLle hLe
     hJb1 hJbJ hHb2 hα0 hP3 hPQ hQT hVJ hα hη2 hMs hbudget hV1 hVδ hlogV
-    hc1 hCb0 hR0 hRrad hsock hblk hbox hA2 hKSb hRb hfl.1 herr
+    hRrad hRbar0 hsockR hblk hKSb hfl.1 herr
   have hmain := balance_priced_main X (H83 X theta293) Cq (gradeCR2 Cb)
-    (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann)))
-    (cofactorRbd34loc (1 / Real.exp 1) Cb X theta293 kmin Ymax
-      (Tstar2 Ymax (Real.log Ymax)) Rrad) P Q hL0 hH0
+    (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) Rbar P Q hL0 hH0
     (ramI_card_le_pin X P Q hQ0 hQhigh hLXe) (le_of_eq hHeq) hfl.2
     (le_of_lt hCq) hKS0 hRbar0 hRgrade hKSgate hCqgate
   have hrem := rem_priced X Tann (H83 X theta293) ε EP2 E hL1 hX0 (by linarith)
@@ -506,21 +555,29 @@ theorem hUG34_fully_priced_nocap3 :
   exact prop_A3_T1_row_split_weightedG a N fb Pseq Qseq Hseq αseq Jset X Tann t₁ S _ hL0.le
     (by linarith) hX0 hXN hN2 hsupp hSup hbal
 
-/-! ## §8 — the unconditional graded exit, at the `3X` socket -/
+/-! ## §8 — the unconditional graded exit, AT THE SOCKET -/
 
-/-- **THE GRADED STATION PRIZE, UNCONDITIONAL, AT THE `3X` SOCKET**
-(`hUG34_unconditional_nocap3`).  §7 with its CASE-A socket discharged by
-`CaseASocket.caseASocket2_discharged` — already cap-free AND box-blind, so it
-re-instantiates verbatim. -/
+/-- **THE GRADED STATION PRIZE, UNCONDITIONAL, AT THE CO-FACTOR SOCKET**
+(`hUG34_unconditional_nocap3`).
+
+⟦THE SOCKET CUT⟧ the landed twin's ONE job was to discharge §7's `CaseASocket2` binder by
+`CaseASocket.caseASocket2_discharged`.  At a FREE co-factor datum there is no `CaseASocket2`
+binder to discharge — the pointwise bound is CARRIED as `CofactorSocket`, and the CASE-A
+discharge has moved to the socket's supplier (`cofactorSocket_of_ellLin`, whose consumer
+instantiates `caseASocket2_discharged` at its own multiplicative datum).
+
+So the twin is §7 verbatim.  The `X₀` slot of the existential is RETAINED — it is the shape
+every consumer down to `ThmA2Rows.a2Rows_of_capfree3` destructures, and the row's own
+statement never reads it; a supplier that needs the genuine `X₀` takes it from
+`caseASocket2_discharged` directly. -/
 theorem hUG34_unconditional_nocap3 :
     ∃ Cq cq T₀ X₀ : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧
-      ∀ (g fb a cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖fb n‖ ≤ 1) →
+      ∀ (b fb a cf : ℕ → ℂ), (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖fb n‖ ≤ 1) →
         (∀ n : ℕ, ‖cf n‖ ≤ 1) →
       ∀ (N Xd P Q Jset Jb : ℕ) (Pseq Qseq m₀ Ms Mt kk : ℕ → ℕ) (Hseq αseq : ℕ → ℝ),
-      ∀ (X Tann t₁ δ' V VJ L η Cb Rrad kmin Ymax ε EP2 E S : ℝ),
+      ∀ (X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S : ℝ),
         2 ≤ H83 X theta293 →
-        0 < X → Real.exp 1 ≤ X → Real.exp 1 ≤ Real.log X → 4 ≤ Real.log X →
-        Real.exp 2 ≤ Real.log X →
+        0 < X → Real.exp 1 ≤ Real.log X → 4 ≤ Real.log X →
         TannGate X Tann → 1 < Tann → Tann ≤ X →
         1 < (Qseq Jb : ℝ) → Real.log (Qseq Jb) ≤ (Real.log X) ^ ((1 : ℝ) / 2) →
         T₀ ≤ Tann → 5 ≤ Real.log (Real.log Tann) → 1 ≤ Real.log Tann →
@@ -541,31 +598,19 @@ theorem hUG34_unconditional_nocap3 :
         (∀ j ∈ ramI (H83 X theta293) P Q,
           ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
-        0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
-        PocketSocket3 g P Q X theta293 t₁ →
-        0 < Rrad → Rrad ≤ seamRad X → seamRad X ≤ Rrad →
+        P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X →
+        Rrad ≤ seamRad X →
+        0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
+        CofactorSocket (H83 X theta293) N Xd P Q Tann Rrad t₁ Rbar b →
         (∀ j ∈ ramI (H83 X theta293) P Q, TLBlockGates34 cq (H83 X theta293) P N Xd Mt kk
           Tann L (1 / Real.exp 1) Cb X theta293 Rrad j) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ, |t| ≤ Tann →
-          |t| + Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ)) ≤ 3 * X) →
-        ShortIntervalDatum Cb →
-        X₀ ≤ kmin →
-        0 ≤ cofactorMfl X theta293 kmin →
-        2 ≤ kmin → kmin ≤ X →
-        (∀ j ∈ ramI (H83 X theta293) P Q, kmin ≤ ((kk j : ℕ) : ℝ)) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, pin2Gate ≤ ((Mt j : ℕ) : ℝ)) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, ((Mt j : ℕ) : ℝ) ≤ Ymax) →
-        (1 - 1 / Real.log (Real.log X)) * Real.log X ≤ Real.log kmin →
-        pin2Gate ≤ Ymax → Real.log Ymax ≤ 2 * Real.log kmin →
-        Real.log X ≤ Real.log Ymax →
-        32 * ballSupC34 ≤ (Real.log Ymax) ^ ((3 : ℝ) / 20 - rho293) →
         1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
         32 * (Real.log X) ^ (2 + 2 * theta293)
             * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) →
         0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293) →
         E ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) →
         (∫ t in (-Tann)..Tann,
-            ‖ramErr (H83 X theta293) N Xd P Q a (ellLin g) cf t‖ ^ 2) ≤ E →
+            ‖ramErr (H83 X theta293) N Xd P Q a b cf t‖ ^ 2) ≤ E →
         X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
         (∀ t : ℝ, seamT0 X ≤ |t| → |t| ≤ Tann → |t - t₁| ≤ seamRad X →
           ∀ m : ℕ, m ≤ N → ‖spolyA a t m‖ ≤ S * m / (1 + |t - t₁|)) →
@@ -574,62 +619,30 @@ theorem hUG34_unconditional_nocap3 :
             + (∫ t in (seamAnn X Tann \ seamBall X t₁)
                 ∩ seamTtotG fb Pseq Qseq Hseq αseq Jset, ‖spoly N a t‖ ^ 2)
             + 2 * ((Tann / X + 1) * (Real.log X) ^ (-theta293 + ε)) := by
-  obtain ⟨X₀, hX₀0, hsockA⟩ := caseASocket2_discharged
   obtain ⟨Cq, cq, T₀, hCq, hcq, hT₀, hpriced⟩ := hUG34_fully_priced_nocap3
-  refine ⟨Cq, cq, T₀, X₀, hCq, hcq, hT₀, hX₀0, ?_⟩
-  intro g fb a cf hg hfb1 hcf1 N Xd P Q Jset Jb Pseq Qseq m₀ Ms Mt kk Hseq αseq
-    X Tann t₁ δ' V VJ L η Cb Rrad kmin Ymax ε EP2 E S
-    hH2 hX0 hXe hLXe hL4 hlX2 hTgate hT1 hTX hQ1 hQpin hT₀T hLL5 hlogT1 hTLle hLe
-    hJb1 hJbJ hHb2 hα0 hP3 hPQ hQT hVJ hα hη2 hMs hbudget hm₀2 hm₀ hMs4
-    hV1 hVδ hlogV hCb0 hPlow hQ0 hQhigh hPQ83 hsock hR0 hRrad hRlow
-    hblk hbox hCbound hX₀k hMfl0 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr
-    hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup
-  have he2 : (2 : ℝ) < Real.exp 1 := by linarith [Real.exp_one_gt_d9]
-  have hc0 : (0 : ℝ) < 1 / Real.exp 1 := by positivity
-  have hc1 : 2 * (1 / Real.exp 1) < 1 := by
-    rw [mul_one_div, div_lt_one (by linarith)]; linarith
-  have hA2 : ∀ j ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ,
-      CaseASocket2 g P Q (1 / Real.exp 1) Cb X theta293 (kk j) (Mt j) t := by
-    intro j hj t
-    obtain ⟨-, -, -, -, -, -, hk₀th, -, hk₀lo, hk₀hi, -, -, hhigh, hMtop, -, -, -⟩ :=
-      hblk j hj
-    have hk₀pin : pin2Gate ≤ ((kk j : ℕ) : ℝ) :=
-      le_trans pin2Gate_le_ballQuarterThreshold hk₀th
-    have hk3 : (3 : ℝ) ≤ ((kk j : ℕ) : ℝ) := le_trans three_le_ballQuarterThreshold hk₀th
-    have hkMR : ((kk j : ℕ) : ℝ) ≤ ((Mt j : ℕ) : ℝ) := by linarith
-    have hkM : kk j ≤ Mt j := by exact_mod_cast hkMR
-    have hM2k : ((Mt j : ℕ) : ℝ) ≤ 2 * ((kk j : ℕ) : ℝ) := by linarith
-    have hX₀kk : X₀ ≤ ((kk j : ℕ) : ℝ) := le_trans hX₀k (hkk j hj)
-    have hMflkk : (0 : ℝ) ≤ cofactorMfl X theta293 ((kk j : ℕ) : ℝ) :=
-      le_trans hMfl0 (cofactorMfl_mono X theta293 (hkk j hj))
-    exact hsockA g hg P Q (1 / Real.exp 1) Cb X theta293 (kk j) (Mt j) t hc0 le_rfl hc1
-      hCb0 hCbound hX₀kk hk₀pin hkM hM2k hMflkk
-  exact hpriced g fb a cf hg hfb1 hcf1 N Xd P Q Jset Jb Pseq Qseq m₀ Ms Mt kk Hseq αseq
-    X Tann t₁ δ' V VJ L η Cb Rrad kmin Ymax ε EP2 E S
-    hH2 hX0 hXe hLXe hL4 hlX2 hTgate hT1 hTX hQ1 hQpin hT₀T hLL5 hlogT1 hTLle hLe
-    hJb1 hJbJ hHb2 hα0 hP3 hPQ hQT hVJ hα hη2 hMs hbudget hm₀2 hm₀ hMs4
-    hV1 hVδ hlogV hCb0 hPlow hQ0 hQhigh hPQ83 hsock hR0 hRrad hRlow
-    hblk hbox hA2 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr
-    hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup
+  exact ⟨Cq, cq, T₀, 1, hCq, hcq, hT₀, one_pos, hpriced⟩
 
-/-! ## §9 — the K-frame seam row, at the `3X` socket -/
+/-! ## §9 — the K-frame seam row, AT THE SOCKET -/
 
 set_option maxHeartbeats 1000000 in
 -- `SeamCalibrationK.seam_row_calibratedK`'s own raise, inherited by the socketed twin
-/-- **THE SEAM ROW AT THE K-LADDER, `3X`-SOCKETED** (`seam_row_calibratedK_nocap3`).
+/-- **THE SEAM ROW AT THE K-LADDER, SOCKETED** (`seam_row_calibratedK_nocap3`).
 `CapFreeArm.seam_row_calibratedK_nocap` with its `𝒰`-leg taken from §8.  Every ladder-read
 is discharged from `CalFrameK` alone and the `𝒯`-leg is predicate-blind, so both ride
-verbatim; only the socket and the contour box move. -/
+verbatim; only the co-factor supply moves.
+
+⟦THE SOCKET CUT⟧ the `𝒰`-leg's co-factor datum is now the SAME free `b` the `𝒯`-leg already
+carried (`a(pm) = b m · c p`) — which is exactly how the door's sieved datum factorizes — so
+the row gains no parameter, and `g`, `hg` leave the statement outright. -/
 theorem seam_row_calibratedK_nocap3 :
     ∃ Cq cq T₀ X₀ Cs : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧
-      ∀ (g c a b cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖c n‖ ≤ 1) →
+      ∀ (c a b cf : ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
         (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) →
       ∀ (N Xd P Q A G M Jb : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
-      ∀ (H1 X Tann t₁ δ' V VJ L η Cb Rrad kmin Ymax ε EP2 E S : ℝ),
+      ∀ (H1 X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S : ℝ),
         CalFrameK η H1 A G M Jb Xd →
         2 ≤ H83 X theta293 →
         0 < X → Real.exp 1 ≤ X → Real.exp 1 ≤ Real.log X → 4 ≤ Real.log X →
-        Real.exp 2 ≤ Real.log X →
         TannGate X Tann → 1 < Tann → Tann ≤ X →
         Real.log ((calQK A G M Jb : ℕ) : ℝ) ≤ (Real.log X) ^ ((1 : ℝ) / 2) →
         T₀ ≤ Tann → 5 ≤ Real.log (Real.log Tann) → 1 ≤ Real.log Tann →
@@ -646,31 +659,19 @@ theorem seam_row_calibratedK_nocap3 :
         (∀ j ∈ ramI (H83 X theta293) P Q,
           ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
-        0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
-        PocketSocket3 g P Q X theta293 t₁ →
-        0 < Rrad → Rrad ≤ seamRad X → seamRad X ≤ Rrad →
+        P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X →
+        Rrad ≤ seamRad X →
+        0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
+        CofactorSocket (H83 X theta293) N Xd P Q Tann Rrad t₁ Rbar b →
         (∀ j ∈ ramI (H83 X theta293) P Q, TLBlockGates34 cq (H83 X theta293) P N Xd Mt kk
           Tann L (1 / Real.exp 1) Cb X theta293 Rrad j) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ, |t| ≤ Tann →
-          |t| + Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ)) ≤ 3 * X) →
-        ShortIntervalDatum Cb →
-        X₀ ≤ kmin →
-        0 ≤ cofactorMfl X theta293 kmin →
-        2 ≤ kmin → kmin ≤ X →
-        (∀ j ∈ ramI (H83 X theta293) P Q, kmin ≤ ((kk j : ℕ) : ℝ)) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, pin2Gate ≤ ((Mt j : ℕ) : ℝ)) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, ((Mt j : ℕ) : ℝ) ≤ Ymax) →
-        (1 - 1 / Real.log (Real.log X)) * Real.log X ≤ Real.log kmin →
-        pin2Gate ≤ Ymax → Real.log Ymax ≤ 2 * Real.log kmin →
-        Real.log X ≤ Real.log Ymax →
-        32 * ballSupC34 ≤ (Real.log Ymax) ^ ((3 : ℝ) / 20 - rho293) →
         1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
         32 * (Real.log X) ^ (2 + 2 * theta293)
             * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) →
         0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293) →
         E ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) →
         (∫ t in (-Tann)..Tann,
-            ‖ramErr (H83 X theta293) N Xd P Q a (ellLin g) cf t‖ ^ 2) ≤ E →
+            ‖ramErr (H83 X theta293) N Xd P Q a b cf t‖ ^ 2) ≤ E →
         X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
         (∀ t : ℝ, seamT0 X ≤ |t| → |t| ≤ Tann → |t - t₁| ≤ seamRad X →
           ∀ m : ℕ, m ≤ N → ‖spolyA a t m‖ ≤ S * m / (1 + |t - t₁|)) →
@@ -697,13 +698,12 @@ theorem seam_row_calibratedK_nocap3 :
   obtain ⟨Cq, cq, T₀, X₀, hCq, hcq, hT₀, hX₀0, hcap⟩ := hUG34_unconditional_nocap3
   obtain ⟨Cs, hCs, hfeed⟩ := TLeg_feeds_capstone
   refine ⟨Cq, cq, T₀, X₀, Cs, hCq, hcq, hT₀, hX₀0, hCs, ?_⟩
-  intro g c a b cf hg hc1 hb1 hcf1 N Xd P Q A G M Jb m₀ Ms Mt kk
-    H1 X Tann t₁ δ' V VJ L η Cb Rrad kmin Ymax ε EP2 E S
-    hF hH2 hX0 hXe hLXe hL4 hlX2 hTgate hT1 hTX hJdef hT₀T hLL5 hlogT1 hTLle hLe
+  intro c a b cf hc1 hb1 hcf1 N Xd P Q A G M Jb m₀ Ms Mt kk
+    H1 X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S
+    hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hJdef hT₀T hLL5 hlogT1 hTLle hLe
     hVJg hMs hbudget hm₀2 hm₀ hMs4
-    hV1 hVδ hlogV hCb0 hPlow hQ0 hQhigh hPQ83 hsock hR0 hRrad hRlow
-    hblk hbox hCbound hX₀k hMfl0 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr
-    hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef hwin
+    hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
+    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef hwin
   have hη := hF.eta_pos
   have hη6 := hF.eta_lt
   have hJb1 := hF.one_le_Jb
@@ -765,13 +765,12 @@ theorem seam_row_calibratedK_nocap3 :
     have h : 1 ≤ calP A G 1 := by simp only [calP]; exact Nat.one_le_two_pow
     have : (1 : ℝ) ≤ ((calP A G 1 : ℕ) : ℝ) := by exact_mod_cast h
     linarith
-  have hcapinst := hcap g c a cf hg hc1 hcf1 N Xd P Q Jb Jb (calP A G) (calQK A G M) m₀ Ms
-    Mt kk (calH H1) (mrAlpha η) X Tann t₁ δ' V VJ L η Cb Rrad kmin Ymax ε EP2 E S
-    hH2 hX0 hXe hLXe hL4 hlX2 hTgate hT1 hTX hQ1 hJdef hT₀T hLL5 hlogT1 hTLle hLe
+  have hcapinst := hcap b c a cf hb1 hc1 hcf1 N Xd P Q Jb Jb (calP A G) (calQK A G M) m₀ Ms
+    Mt kk (calH H1) (mrAlpha η) X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S
+    hH2 hX0 hLXe hL4 hTgate hT1 hTX hQ1 hJdef hT₀T hLL5 hlogT1 hTLle hLe
     hJb1 le_rfl hHb2 hα0 hP3 hPQ hQT hVJ hα (by linarith) hMs hbudget hm₀2 hm₀ hMs4
-    hV1 hVδ hlogV hCb0 hPlow hQ0 hQhigh hPQ83 hsock hR0 hRrad hRlow
-    hblk hbox hCbound hX₀k hMfl0 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr
-    hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup
+    hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
+    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup
   exact hfeed c a b (calP A G) (calQK A G M) (calH H1) η Jb N Xd (calP A G 1) X Tann t₁ S ε
     hη hη6 hJb1 hXd1 hNXd (by linarith) hP1pos (levelGates_calibratedK hF) hH1two
     (by simp only [calP]; exact Nat.one_le_two_pow)
@@ -779,22 +778,21 @@ theorem seam_row_calibratedK_nocap3 :
     hcapinst
 
 set_option maxHeartbeats 1000000 in
--- the same fuse as `SeamNumber.seam_row_number`, at the `3X`-socketed row
-/-- **THE `3X`-SOCKETED SEAM ROW AS ONE NUMBER** (`seam_row_number_nocap3`).
+-- the same fuse as `SeamNumber.seam_row_number`, at the socketed row
+/-- **THE SOCKETED SEAM ROW AS ONE NUMBER** (`seam_row_number_nocap3`).
 `CapFreeArm.seam_row_number_nocap` at §9's row: `Σ_j lemma12Rows` priced by
 `TypicalPriceK.sum_lemma12Rows_priced_calibratedK2`, so the whole right-hand side is a
 formula in the parameters.  The six `X_d`-side reconciliation gates and the `X_d ≤ X` bridge
 are the landed twin's, verbatim. -/
 theorem seam_row_number_nocap3 :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
-      ∀ (g c a b cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖c n‖ ≤ 1) →
+      ∀ (c a b cf : ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
         (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) →
       ∀ (N Xd P Q A G M Jb : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
-      ∀ (H1 X Tann t₁ δ' V VJ L η Cb Rrad kmin Ymax ε EP2 E S : ℝ),
+      ∀ (H1 X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S : ℝ),
         CalFrameK η H1 A G M Jb Xd →
         2 ≤ H83 X theta293 →
         0 < X → Real.exp 1 ≤ X → Real.exp 1 ≤ Real.log X → 4 ≤ Real.log X →
-        Real.exp 2 ≤ Real.log X →
         TannGate X Tann → 1 < Tann → Tann ≤ X →
         T₀ ≤ Tann → 5 ≤ Real.log (Real.log Tann) → 1 ≤ Real.log Tann →
         Real.log Tann ≤ L → Real.exp 1 ≤ L →
@@ -810,31 +808,19 @@ theorem seam_row_number_nocap3 :
         (∀ j ∈ ramI (H83 X theta293) P Q,
           ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
-        0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
-        PocketSocket3 g P Q X theta293 t₁ →
-        0 < Rrad → Rrad ≤ seamRad X → seamRad X ≤ Rrad →
+        P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X →
+        Rrad ≤ seamRad X →
+        0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
+        CofactorSocket (H83 X theta293) N Xd P Q Tann Rrad t₁ Rbar b →
         (∀ j ∈ ramI (H83 X theta293) P Q, TLBlockGates34 cq (H83 X theta293) P N Xd Mt kk
           Tann L (1 / Real.exp 1) Cb X theta293 Rrad j) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ, |t| ≤ Tann →
-          |t| + Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ)) ≤ 3 * X) →
-        ShortIntervalDatum Cb →
-        X₀ ≤ kmin →
-        0 ≤ cofactorMfl X theta293 kmin →
-        2 ≤ kmin → kmin ≤ X →
-        (∀ j ∈ ramI (H83 X theta293) P Q, kmin ≤ ((kk j : ℕ) : ℝ)) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, pin2Gate ≤ ((Mt j : ℕ) : ℝ)) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, ((Mt j : ℕ) : ℝ) ≤ Ymax) →
-        (1 - 1 / Real.log (Real.log X)) * Real.log X ≤ Real.log kmin →
-        pin2Gate ≤ Ymax → Real.log Ymax ≤ 2 * Real.log kmin →
-        Real.log X ≤ Real.log Ymax →
-        32 * ballSupC34 ≤ (Real.log Ymax) ^ ((3 : ℝ) / 20 - rho293) →
         1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
         32 * (Real.log X) ^ (2 + 2 * theta293)
             * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) →
         0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293) →
         E ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) →
         (∫ t in (-Tann)..Tann,
-            ‖ramErr (H83 X theta293) N Xd P Q a (ellLin g) cf t‖ ^ 2) ≤ E →
+            ‖ramErr (H83 X theta293) N Xd P Q a b cf t‖ ^ 2) ≤ E →
         X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
         (∀ t : ℝ, seamT0 X ≤ |t| → |t| ≤ Tann → |t - t₁| ≤ seamRad X →
           ∀ m : ℕ, m ≤ N → ‖spolyA a t m‖ ≤ S * m / (1 + |t - t₁|)) →
@@ -876,13 +862,12 @@ theorem seam_row_number_nocap3 :
   obtain ⟨Cq, cq, T₀, X₀, Cs, hCq, hcq, hT₀, hX₀0, hCs, hseam⟩ := seam_row_calibratedK_nocap3
   obtain ⟨C, hC, hK2⟩ := sum_lemma12Rows_priced_calibratedK2
   refine ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, ?_⟩
-  intro g c a b cf hg hc1 hb1 hcf1 N Xd P Q A G M Jb m₀ Ms Mt kk
-    H1 X Tann t₁ δ' V VJ L η Cb Rrad kmin Ymax ε EP2 E S
-    hF hH2 hX0 hXe hLXe hL4 hlX2 hTgate hT1 hTX hT₀T hLL5 hlogT1 hTLle hLe
+  intro c a b cf hc1 hb1 hcf1 N Xd P Q A G M Jb m₀ Ms Mt kk
+    H1 X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S
+    hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hT₀T hLL5 hlogT1 hTLle hLe
     hVJg hMs hbudget hm₀2 hm₀ hMs4
-    hV1 hVδ hlogV hCb0 hPlow hQ0 hQhigh hPQ83 hsock hR0 hRrad hRlow
-    hblk hbox hCbound hX₀k hMfl0 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr
-    hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef hwin
+    hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
+    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef hwin
     hQXd hXdbig hN4 hdom ha1 hasupp
   have hA : 1 ≤ A := le_trans (by norm_num) hF.A_floor
   have hG1 : 1 ≤ G := hF.one_le_G
@@ -909,13 +894,12 @@ theorem seam_row_number_nocap3 :
     · have h : (0 : ℕ) < calQK A G M j := lt_of_lt_of_le Nat.zero_lt_one (one_le_calQK A G M j)
       exact_mod_cast h
     · exact_mod_cast calQK_mono A hG1 hj.2
-  have hseaminst := hseam g c a b cf hg hc1 hb1 hcf1 N Xd P Q A G M Jb m₀ Ms Mt kk
-    H1 X Tann t₁ δ' V VJ L η Cb Rrad kmin Ymax ε EP2 E S
-    hF hH2 hX0 hXe hLXe hL4 hlX2 hTgate hT1 hTX hJdef hT₀T hLL5 hlogT1 hTLle hLe
+  have hseaminst := hseam c a b cf hc1 hb1 hcf1 N Xd P Q A G M Jb m₀ Ms Mt kk
+    H1 X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S
+    hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hJdef hT₀T hLL5 hlogT1 hTLle hLe
     hVJg hMs hbudget hm₀2 hm₀ hMs4
-    hV1 hVδ hlogV hCb0 hPlow hQ0 hQhigh hPQ83 hsock hR0 hRrad hRlow
-    hblk hbox hCbound hX₀k hMfl0 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr
-    hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef hwin
+    hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
+    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef hwin
   have hK2inst := hK2 A G M Jb N Xd H1 Tann a b c hA hG1 hM1 hXd1 hT0 hH10 hN4
     hreg hXdbig hdom ha1 hb1 hc1 hasupp hwin
   exact hseaminst.trans
@@ -926,23 +910,25 @@ theorem seam_row_number_nocap3 :
 set_option maxHeartbeats 1000000 in
 -- one application of `seam_row_number_nocap3`, at `t₁ := 0`, `S := 0`
 /-- **THE CAP-FREE ARM AT THE `3X` BOX** (`seam_row_number_capfree3`).
-`seam_row_number_nocap3` with both remaining openings closed on the large-`M` side: the
-collision socket by `pocketSocket_of_floor3` (the `3X` floor makes the pocket impossible at
-every damping), and the ball binder `hSup` by `CapFreeArm.ball_leg_vacuous_at_zero` at
-`t₁ := 0`, `S := 0` — so the `8S²` summand is gone from the right-hand side entirely.
+`seam_row_number_nocap3` with its remaining ball opening closed on the large-`M` side: the
+binder `hSup` by `CapFreeArm.ball_leg_vacuous_at_zero` at `t₁ := 0`, `S := 0` — so the `8S²`
+summand is gone from the right-hand side entirely.
 
-The conclusion is `CapFreeArm.seam_row_number_capfree`'s, byte for byte; only the floor
-(`CapFreeFloor3`) and the contour box (`≤ 3X`) differ on the hypothesis side. -/
+⟦THE SOCKET CUT⟧ the collision socket USED to be closed here too, by `pocketSocket_of_floor3`
+from `CapFreeFloor3 g X`.  At the free co-factor datum there is no collision socket in the
+statement: the row carries `CofactorSocket … 0 R̄ b` (at the centre `t₁ = 0` the ball leg
+picks) and the floor is the SUPPLIER's datum.  So `g`, `hg` and `CapFreeFloor3` leave.
+
+The conclusion is `CapFreeArm.seam_row_number_capfree`'s, byte for byte. -/
 theorem seam_row_number_capfree3 :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
-      ∀ (g c a b cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖c n‖ ≤ 1) →
+      ∀ (c a b cf : ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
         (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) →
       ∀ (N Xd P Q A G M Jb : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
-      ∀ (H1 X Tann δ' V VJ L η Cb Rrad kmin Ymax ε EP2 E : ℝ),
+      ∀ (H1 X Tann δ' V VJ L η Cb Rrad Rbar ε EP2 E : ℝ),
         CalFrameK η H1 A G M Jb Xd →
         2 ≤ H83 X theta293 →
         0 < X → Real.exp 1 ≤ X → Real.exp 1 ≤ Real.log X → 4 ≤ Real.log X →
-        Real.exp 2 ≤ Real.log X →
         TannGate X Tann → 1 < Tann → Tann ≤ X →
         T₀ ≤ Tann → 5 ≤ Real.log (Real.log Tann) → 1 ≤ Real.log Tann →
         Real.log Tann ≤ L → Real.exp 1 ≤ L →
@@ -958,32 +944,20 @@ theorem seam_row_number_capfree3 :
         (∀ j ∈ ramI (H83 X theta293) P Q,
           ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
-        0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
-        -- ⟦THE ONE NEW DATUM⟧ the large-`M` floor, on the bare datum, at the `|v| ≤ 3X` box
-        CapFreeFloor3 g X →
-        0 < Rrad → Rrad ≤ seamRad X → seamRad X ≤ Rrad →
+        P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X →
+        Rrad ≤ seamRad X →
+        -- ⟦THE ONE NEW DATUM⟧ the co-factor socket at the ball's centre, and its grade
+        0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
+        CofactorSocket (H83 X theta293) N Xd P Q Tann Rrad 0 Rbar b →
         (∀ j ∈ ramI (H83 X theta293) P Q, TLBlockGates34 cq (H83 X theta293) P N Xd Mt kk
           Tann L (1 / Real.exp 1) Cb X theta293 Rrad j) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ, |t| ≤ Tann →
-          |t| + Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ)) ≤ 3 * X) →
-        ShortIntervalDatum Cb →
-        X₀ ≤ kmin →
-        0 ≤ cofactorMfl X theta293 kmin →
-        2 ≤ kmin → kmin ≤ X →
-        (∀ j ∈ ramI (H83 X theta293) P Q, kmin ≤ ((kk j : ℕ) : ℝ)) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, pin2Gate ≤ ((Mt j : ℕ) : ℝ)) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, ((Mt j : ℕ) : ℝ) ≤ Ymax) →
-        (1 - 1 / Real.log (Real.log X)) * Real.log X ≤ Real.log kmin →
-        pin2Gate ≤ Ymax → Real.log Ymax ≤ 2 * Real.log kmin →
-        Real.log X ≤ Real.log Ymax →
-        32 * ballSupC34 ≤ (Real.log Ymax) ^ ((3 : ℝ) / 20 - rho293) →
         1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
         32 * (Real.log X) ^ (2 + 2 * theta293)
             * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) →
         0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293) →
         E ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) →
         (∫ t in (-Tann)..Tann,
-            ‖ramErr (H83 X theta293) N Xd P Q a (ellLin g) cf t‖ ^ 2) ≤ E →
+            ‖ramErr (H83 X theta293) N Xd P Q a b cf t‖ ^ 2) ≤ E →
         X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
         2 * Xd ≤ N →
         (∀ j ∈ Finset.Icc 1 Jb, ∀ p m, p.Prime → calP A G j ≤ p → p ≤ calQK A G M j →
@@ -1021,28 +995,22 @@ theorem seam_row_number_capfree3 :
             + 2 * ((Tann / X + 1) * (Real.log X) ^ (-theta293 + ε)) := by
   obtain ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, hnum⟩ := seam_row_number_nocap3
   refine ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, ?_⟩
-  intro g c a b cf hg hc1 hb1 hcf1 N Xd P Q A G M Jb m₀ Ms Mt kk
-    H1 X Tann δ' V VJ L η Cb Rrad kmin Ymax ε EP2 E
-    hF hH2 hX0 hXe hLXe hL4 hlX2 hTgate hT1 hTX hT₀T hLL5 hlogT1 hTLle hLe
+  intro c a b cf hc1 hb1 hcf1 N Xd P Q A G M Jb m₀ Ms Mt kk
+    H1 X Tann δ' V VJ L η Cb Rrad Rbar ε EP2 E
+    hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hT₀T hLL5 hlogT1 hTLle hLe
     hVJg hMs hbudget hm₀2 hm₀ hMs4
-    hV1 hVδ hlogV hCb0 hPlow hQ0 hQhigh hPQ83 hfloor hR0 hRrad hRlow
-    hblk hbox hCbound hX₀k hMfl0 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr
-    hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hNXd hcoef hwin
+    hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
+    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hNXd hcoef hwin
     hQXd hXdbig hN4 hdom ha1 hasupp
-  -- ⟦SUPPLIER 2, AT `3X`⟧ the socket, VACUOUSLY, at the centre `0`
-  have hsock : PocketSocket3 g P Q X theta293 0 :=
-    pocketSocket_of_floor3 hg theta293_pos (le_of_lt theta293_lt_one_div_32) hLXe hPlow
-      hQhigh hPQ83 hfloor 0
   -- ⟦S8⟧ the ball binder, from the emptiness at the origin, at `S := 0`
   have hSup := ball_leg_vacuous_at_zero (N := N) (a := a) (T := Tann)
     (show (1 : ℝ) < Real.log X by linarith)
-  have h := hnum g c a b cf hg hc1 hb1 hcf1 N Xd P Q A G M Jb m₀ Ms Mt kk
-    H1 X Tann 0 δ' V VJ L η Cb Rrad kmin Ymax ε EP2 E 0
-    hF hH2 hX0 hXe hLXe hL4 hlX2 hTgate hT1 hTX hT₀T hLL5 hlogT1 hTLle hLe
+  have h := hnum c a b cf hc1 hb1 hcf1 N Xd P Q A G M Jb m₀ Ms Mt kk
+    H1 X Tann 0 δ' V VJ L η Cb Rrad Rbar ε EP2 E 0
+    hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hT₀T hLL5 hlogT1 hTLle hLe
     hVJg hMs hbudget hm₀2 hm₀ hMs4
-    hV1 hVδ hlogV hCb0 hPlow hQ0 hQhigh hPQ83 hsock hR0 hRrad hRlow
-    hblk hbox hCbound hX₀k hMfl0 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr
-    hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef hwin
+    hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
+    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef hwin
     hQXd hXdbig hN4 hdom ha1 hasupp
   exact h.trans (le_of_eq (by ring))
 
@@ -1059,8 +1027,13 @@ every consumer reads them the same way. -/
 
 /-- **THE `∀Tann` FRAME BUNDLE AT `3X`** (`A2Frame3`).  `ThmA2.A2Frame` with `box` at the
 sibling convention `|t| + T*₂(M_j, log M_j) ≤ 3X` — SATISFIABLE, which `A2Frame.box` is
-not.  All other fields are byte-identical to `A2Frame`'s. -/
-structure A2Frame3 (g cf a : ℕ → ℂ) (N Xd P Q A G M Jb : ℕ) (Ms Mt kk : ℕ → ℕ)
+not.  All other fields are byte-identical to `A2Frame`'s.
+
+⟦THE SOCKET CUT⟧ the first parameter is the CO-FACTOR DATUM ITSELF (`b`), not a
+multiplicative generator: `err` reads `ramErr … a b cf`, never `ramErr … a (ellLin g) cf`.
+The frame is therefore `b`-generic, and at the capstone `b` is the SAME datum the row's
+factorization binder `a(pm) = b m · c p` already carries. -/
+structure A2Frame3 (b cf a : ℕ → ℂ) (N Xd P Q A G M Jb : ℕ) (Ms Mt kk : ℕ → ℕ)
     (H1 X h δ' VJ L η Cb Rrad EP2 cq T₀ : ℝ) : Prop where
   /-- MR's contour gate at every admissible height. -/
   tannGate : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X → TannGate X Tann
@@ -1093,17 +1066,17 @@ structure A2Frame3 (g cf a : ℕ → ℂ) (N Xd P Q A G M Jb : ℕ) (Ms Mt kk : 
       * (20512 * δ' ^ 2 * (1 + Real.log (2 * X))) ≤ (Real.log X) ^ (-theta293)
   /-- The Ramaré error mass, per height, at the row's own ceiling (so `hErow` is `le_rfl`). -/
   err : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
-    (∫ t in (-Tann)..Tann, ‖ramErr (H83 X theta293) N Xd P Q a (ellLin g) cf t‖ ^ 2)
+    (∫ t in (-Tann)..Tann, ‖ramErr (H83 X theta293) N Xd P Q a b cf t‖ ^ 2)
       ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2)
 
 namespace A2Frame3
 
-variable {g cf a : ℕ → ℂ} {N Xd P Q A G M Jb : ℕ} {Ms Mt kk : ℕ → ℕ}
+variable {b cf a : ℕ → ℂ} {N Xd P Q A G M Jb : ℕ} {Ms Mt kk : ℕ → ℕ}
   {H1 X h δ' VJ L η Cb Rrad EP2 cq T₀ : ℝ}
 
 /-- The `3X` contour box at any admissible height, from the top instance (anti-monotone).
 `ThmA2.A2Frame.box_at`'s shape, at the sibling convention. -/
-theorem box_at (F : A2Frame3 g cf a N Xd P Q A G M Jb Ms Mt kk H1 X h δ' VJ L η Cb Rrad
+theorem box_at (F : A2Frame3 b cf a N Xd P Q A G M Jb Ms Mt kk H1 X h δ' VJ L η Cb Rrad
       EP2 cq T₀) {Tann : ℝ} (hTX : Tann ≤ X) :
     ∀ j ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ, |t| ≤ Tann →
       |t| + Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ)) ≤ 3 * X :=
@@ -1111,7 +1084,7 @@ theorem box_at (F : A2Frame3 g cf a N Xd P Q A G M Jb Ms Mt kk H1 X h δ' VJ L �
 
 /-- The kernel gate at any admissible height, from the top instance (monotone in `Tann`
 through `log(2Tann) ≤ log(2X)`).  `ThmA2.A2Frame.ksGate_at`'s proof, verbatim. -/
-theorem ksGate_at (F : A2Frame3 g cf a N Xd P Q A G M Jb Ms Mt kk H1 X h δ' VJ L η Cb Rrad
+theorem ksGate_at (F : A2Frame3 b cf a N Xd P Q A G M Jb Ms Mt kk H1 X h δ' VJ L η Cb Rrad
       EP2 cq T₀) {Tann : ℝ} (hT0 : 0 < Tann) (hTX : Tann ≤ X) (hL0 : 0 ≤ Real.log X) :
     32 * (Real.log X) ^ (2 + 2 * theta293)
         * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) := by

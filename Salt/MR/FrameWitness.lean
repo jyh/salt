@@ -686,43 +686,43 @@ theorem witEP2_gate {X EP2 : ℝ} {N Xd P : ℕ}
 
 /-- **FIELD 4 AT THE WITNESS** (`err_at_witness`).  `A2Frame3.err`, for every admissible
 height, at `EP2 = witEP2`. -/
-theorem err_at_witness {X h EP2 : ℝ} {N Xd P : ℕ} {g a cf : ℕ → ℂ}
+theorem err_at_witness {X h EP2 : ℝ} {N Xd P : ℕ} {b a cf : ℕ → ℂ}
     (hH : 2 ≤ H83 X theta293)
     (hXd1 : 1 ≤ Xd) (hN : 2 * Xd ≤ N) (hN2 : (N : ℝ) ≤ 2 * (Xd : ℝ))
     (hHX : H83 X theta293 ≤ (Xd : ℝ)) (hP : 1 ≤ P)
     (hX0 : 0 < X) (hh0 : 0 < h) (hXd : X ≤ (Xd : ℝ))
     -- the three datum binders (REPAIR-REF's list) + the norm caps
-    (hcoef : ∀ p m, p.Prime → P ≤ p → p ≤ P → ¬ p ∣ m → a (p * m) = ellLin g m * cf p)
-    (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖ellLin g m‖ ≤ 1) (hc : ∀ p, ‖cf p‖ ≤ 1)
-    (hwin : ∀ p m : ℕ, p.Prime → P ≤ p → p ≤ P → cf p * ellLin g m ≠ 0 →
+    (hcoef : ∀ p m, p.Prime → P ≤ p → p ≤ P → ¬ p ∣ m → a (p * m) = b m * cf p)
+    (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖cf p‖ ≤ 1)
+    (hwin : ∀ p m : ℕ, p.Prime → P ≤ p → p ≤ P → cf p * b m ≠ 0 →
       (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ))
     (hasupp : ∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd)
     (hsupp : ∀ n : ℕ, a n ≠ 0 → 1 ≤ blockOmega P P n)
     (hEP2 : witEP2 X N Xd P ≤ EP2) :
     ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
-      (∫ t in (-Tann)..Tann, ‖ramErr (H83 X theta293) N Xd P P a (ellLin g) cf t‖ ^ 2)
+      (∫ t in (-Tann)..Tann, ‖ramErr (H83 X theta293) N Xd P P a b cf t‖ ^ 2)
         ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) := by
   intro Tann hbot htop
   have hT0 : (0 : ℝ) ≤ Tann := le_trans (by positivity) hbot
   -- `ramP2mass_direct`'s window pin is the ℕ-shape of `E_priced`'s
-  have hwinN : ∀ p m : ℕ, p.Prime → P ≤ p → p ≤ P → cf p * ellLin g m ≠ 0 →
+  have hwinN : ∀ p m : ℕ, p.Prime → P ≤ p → p ≤ P → cf p * b m ≠ 0 →
       Xd ≤ p * m ∧ p * m ≤ 2 * Xd := by
     intro p m hp h1 h2 h3
     obtain ⟨u, v⟩ := hwin p m hp h1 h2 h3
     have hu : ((Xd : ℕ) : ℝ) ≤ ((p * m : ℕ) : ℝ) := by push_cast; linarith
     have hv : ((p * m : ℕ) : ℝ) ≤ ((2 * Xd : ℕ) : ℝ) := by push_cast; linarith
     exact ⟨by exact_mod_cast hu, by exact_mod_cast hv⟩
-  have hmass := ramP2mass_direct N P P Xd hXd1 hP a (ellLin g) cf ha hb hc hasupp hwinN
+  have hmass := ramP2mass_direct N P P Xd hXd1 hP a b cf ha hb hc hasupp hwinN
   have hmass0 : (0 : ℝ) ≤ ∑ n ∈ Finset.Icc 1 N,
-      ‖ramP2coeff N P P a (ellLin g) cf n‖ ^ 2 / (n : ℝ) ^ 2 :=
+      ‖ramP2coeff N P P a b cf n‖ ^ 2 / (n : ℝ) ^ 2 :=
     Finset.sum_nonneg (fun n _ => by positivity)
   have hpriced := E_priced_row_scale (H83 X theta293) hH N Xd P P hXd1 hN hN2 hHX hP
-    a (ellLin g) cf hcoef hb hc hwin hsupp Tann X hT0 hX0 hXd
+    a b cf hcoef hb hc hwin hsupp Tann X hT0 hX0 hXd
   refine hpriced.trans ?_
   have hfactor : (2 * Tann + 20 * (N : ℝ)) ≤ 2 * X + 20 * (N : ℝ) := by linarith
   have hfac0 : (0 : ℝ) ≤ 2 * Tann + 20 * (N : ℝ) := by positivity
   have hstep : (2 * Tann + 20 * (N : ℝ))
-      * ∑ n ∈ Finset.Icc 1 N, ‖ramP2coeff N P P a (ellLin g) cf n‖ ^ 2 / (n : ℝ) ^ 2
+      * ∑ n ∈ Finset.Icc 1 N, ‖ramP2coeff N P P a b cf n‖ ^ 2 / (n : ℝ) ^ 2
       ≤ witEP2 X N Xd P := by
     rw [witEP2_eq, witEP2raw]
     have hXd1R : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
@@ -733,9 +733,9 @@ theorem err_at_witness {X h EP2 : ℝ} {N Xd P : ℕ} {g a cf : ℕ → ℂ}
         * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ))) :=
       mul_nonneg (by positivity) (div_nonneg (by linarith) (by positivity))
     calc (2 * Tann + 20 * (N : ℝ))
-          * ∑ n ∈ Finset.Icc 1 N, ‖ramP2coeff N P P a (ellLin g) cf n‖ ^ 2 / (n : ℝ) ^ 2
+          * ∑ n ∈ Finset.Icc 1 N, ‖ramP2coeff N P P a b cf n‖ ^ 2 / (n : ℝ) ^ 2
         ≤ (2 * X + 20 * (N : ℝ))
-          * ∑ n ∈ Finset.Icc 1 N, ‖ramP2coeff N P P a (ellLin g) cf n‖ ^ 2 / (n : ℝ) ^ 2 :=
+          * ∑ n ∈ Finset.Icc 1 N, ‖ramP2coeff N P P a b cf n‖ ^ 2 / (n : ℝ) ^ 2 :=
           mul_le_mul_of_nonneg_right hfactor hmass0
       _ ≤ (2 * X + 20 * (N : ℝ))
           * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ))) :=
@@ -744,7 +744,7 @@ theorem err_at_witness {X h EP2 : ℝ} {N Xd P : ℕ} {g a cf : ℕ → ℂ}
           * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)))) := by linarith
   have hH0 : (0 : ℝ) < H83 X theta293 := by linarith
   have : (2 * Tann + 20 * (N : ℝ))
-      * ∑ n ∈ Finset.Icc 1 N, ‖ramP2coeff N P P a (ellLin g) cf n‖ ^ 2 / (n : ℝ) ^ 2
+      * ∑ n ∈ Finset.Icc 1 N, ‖ramP2coeff N P P a b cf n‖ ^ 2 / (n : ℝ) ^ 2
       ≤ EP2 := le_trans hstep hEP2
   linarith
 
@@ -781,19 +781,19 @@ Against `err_at_witness` the binder list
 
 both strict weakenings; the conclusion is `err_at_witness`'s byte for byte, so
 `A2Frame3.err` does not move. -/
-theorem err_at_witness_mr {X h EP2 : ℝ} {N Xd P : ℕ} {g a cf : ℕ → ℂ}
+theorem err_at_witness_mr {X h EP2 : ℝ} {N Xd P : ℕ} {b a cf : ℕ → ℂ}
     (hH : 2 ≤ H83 X theta293)
     (hXd1 : 1 ≤ Xd) (hN : 2 * Xd ≤ N) (hN2 : (N : ℝ) ≤ 2 * (Xd : ℝ))
     (hHX : H83 X theta293 ≤ (Xd : ℝ)) (hP : 1 ≤ P)
     (hX0 : 0 < X) (hh0 : 0 < h) (hXd : X ≤ (Xd : ℝ))
     -- ⟦the relativized pair — NO `hwin`⟧
-    (hcoefW : SeamCoefW Xd P P a (ellLin g) cf)
-    (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖ellLin g m‖ ≤ 1) (hc : ∀ p, ‖cf p‖ ≤ 1)
+    (hcoefW : SeamCoefW Xd P P a b cf)
+    (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖cf p‖ ≤ 1)
     (hasupp : ∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd)
     (hsupp : ∀ n : ℕ, a n ≠ 0 → 1 ≤ blockOmega P P n)
     (hEP2 : witEP2 X N Xd P ≤ EP2) :
     ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
-      (∫ t in (-Tann)..Tann, ‖ramErr (H83 X theta293) N Xd P P a (ellLin g) cf t‖ ^ 2)
+      (∫ t in (-Tann)..Tann, ‖ramErr (H83 X theta293) N Xd P P a b cf t‖ ^ 2)
         ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) := by
   intro Tann hbot htop
   have hT0 : (0 : ℝ) ≤ Tann := le_trans (by positivity) hbot
@@ -812,7 +812,7 @@ theorem err_at_witness_mr {X h EP2 : ℝ} {N Xd P : ℕ} {g a cf : ℕ → ℂ}
     push_cast at hv
     linarith
   have hpriced := E_priced_mr_row_scale (H83 X theta293) hH N Xd P P hXd1 hN hN2 hHX hP
-    a (ellLin g) cf hcoefW ha hb hc hasuppR hsupp Tann X hT0 hX0 hXd
+    a b cf hcoefW ha hb hc hasuppR hsupp Tann X hT0 hX0 hXd
   refine hpriced.trans ?_
   -- ⟦THE `EP2` HALF⟧ the `4/3` inflation, at the window's top
   have hNnn : (0 : ℝ) ≤ (N : ℝ) := Nat.cast_nonneg N
@@ -858,7 +858,7 @@ bottom and is not implied by anything else here. -/
 with all eleven fields discharged.  See the section docstring for how to read the binder
 list. -/
 theorem a2Frame3_witness
-    {g cf a : ℕ → ℂ} {N Xd P A G M Jb : ℕ}
+    {b cf a : ℕ → ℂ} {N Xd P A G M Jb : ℕ}
     {H1 X h δ' VJ L η Cb Rrad EP2 cq T₀ : ℝ}
     -- ⟦the scale page⟧
     (hX0 : 0 < X) (hh0 : 0 < h) (hLX0 : 0 < Real.log X) (hLXL : Real.log X ≤ L)
@@ -903,12 +903,12 @@ theorem a2Frame3_witness
     (hksthr : 656384 * (1 + Real.log (2 * X)) ≤ (Real.log X) ^ (4 - 3 * theta293))
     -- ⟦err: the S8 datum + the `N = 2X_d` pin + the `EP2` gate — `hwin`-FREE (§8′)⟧
     (hN2 : (N : ℝ) ≤ 2 * (Xd : ℝ)) (hHX : H83 X theta293 ≤ (Xd : ℝ))
-    (hcoefW : SeamCoefW Xd P P a (ellLin g) cf)
-    (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖ellLin g m‖ ≤ 1) (hc : ∀ p, ‖cf p‖ ≤ 1)
+    (hcoefW : SeamCoefW Xd P P a b cf)
+    (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖cf p‖ ≤ 1)
     (hasupp : ∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd)
     (hsupp : ∀ n : ℕ, a n ≠ 0 → 1 ≤ blockOmega P P n)
     (hEP2 : witEP2 X N Xd P ≤ EP2) :
-    A2Frame3 g cf a N Xd P P A G M Jb (witMs (H83 X theta293) Xd)
+    A2Frame3 b cf a N Xd P P A G M Jb (witMs (H83 X theta293) Xd)
       (witMt (H83 X theta293) Xd) (witKk (H83 X theta293) Xd) H1 X h δ' VJ L η Cb Rrad
       EP2 cq T₀ := by
   have hH1 : (1 : ℝ) ≤ H83 X theta293 := by linarith

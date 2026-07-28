@@ -2536,3 +2536,46 @@ open Salt.Tactic in
   Salt.MR.a2Frame3_witness
   Salt.MR.m4_meansq_per_chi_gen
   Salt.MR.m4_meansq_or_trivial
+
+-- ⟦THE SOCKET CUT⟧ (`CapFreeArm3` §4′ + the `ThmA2Rows`/`FrameWitness`/`M4MeanSq` re-cut,
+-- SOCKET-CUT executor, 2026-07-28).  ROW-GENERICITY's verdict: the cap-free row reads
+-- exactly ONE structural fact about its co-factor datum, and it is confined to
+-- `cofactor_Rbd34_local_nocap3` (the CASE-A/B pocket machinery, refutably false at a generic
+-- `1`-bounded `b`).  THE CUT: name that fact —
+--   `CofactorSocket H N Xd P Q Tann Rrad t₁ R̄ b :=
+--      ∀ j ∈ I, ∀ |t| ≤ Tann, Rrad ≤ |t − t₁| → ‖ramR H N Xd P Q j b t‖ ≤ R̄`
+-- — carry it, and free the datum.  `cofactor_Rbd34_local_nocap3` is UNCHANGED and becomes
+-- the canonical inhabitant (`cofactorSocket_of_ellLin`); `cofactorSocket_of_pieces` is the
+-- inclusion–exclusion consumer (`ramR_sum_fin`: `ramR` is linear in its co-factor slot), the
+-- 4-piece door supplier's entry point.  WHAT LEFT the row's statements: `g`, `hg`,
+-- `CapFreeFloor3`, `PocketSocket3`, `CaseASocket2`, the `3X` contour box,
+-- `ShortIntervalDatum` and the whole `kmin`/`Ymax` ladder — replaced by the socket plus the
+-- single grade `R̄ ≤ gradeCR2 C_b·(log X)^{−ρ₂₉₃}` that `balance_priced_main` consumes.  The
+-- `𝒰`-leg's datum is now the SAME free `b` the `𝒯`-leg's factorization binder already
+-- carried (`a(pm) = b m · c p`), which is exactly how the door's sieved datum factorizes, so
+-- no row gains a parameter.  CONCLUSIONS machine-diffed byte-identical at every re-cut node
+-- (`a2Rows_of_capfree3`, both capstones, the whole `hUG34`/`seam_row` chain); the only moved
+-- conclusion is `A2Frame3.err` itself — the `b`-slot being freed.  `m4_meansq_per_chi_gen`'s
+-- STATEMENT does not move at all: the socket is discharged inside it (`M4MeanSq` §3‴)
+open Salt.Tactic in
+#audit_axioms Salt.MR.CofactorSocket
+  Salt.MR.CofactorSocket.mono
+  Salt.MR.ramR_sum_fin
+  Salt.MR.cofactorSocket_of_pieces
+  Salt.MR.cofactorSocket_of_ellLin
+  Salt.MR.m4_rbar_nonneg
+  Salt.MR.m4_cofactorSocket_at_witness
+  Salt.MR.tL_supply_discharged34_local_nocap3
+  Salt.MR.hUG34_supplied_nocap3
+  Salt.MR.hUG34_fully_priced_nocap3
+  Salt.MR.hUG34_unconditional_nocap3
+  Salt.MR.seam_row_calibratedK_nocap3
+  Salt.MR.seam_row_number_nocap3
+  Salt.MR.seam_row_number_capfree3
+  Salt.MR.a2Rows_of_capfree3
+  Salt.MR.a2Frame3_satisfiable_partial
+  Salt.MR.err_at_witness
+  Salt.MR.err_at_witness_mr
+  Salt.MR.a2Frame3_witness
+  Salt.MR.m4_meansq_per_chi_gen
+  Salt.MR.m4_meansq_or_trivial

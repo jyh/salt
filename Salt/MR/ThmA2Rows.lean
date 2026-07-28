@@ -862,20 +862,26 @@ field itself, from `T*₂(M_j, log M_j) ≤ 2X`.
 set_option maxHeartbeats 1000000 in
 -- one predicate-blind application of the `3X`-minted cap-free row at `Tann = 2T`
 /-- **THE CAP-FREE ROW FAMILY, AT THE `3X` MINT** (`a2Rows_of_capfree3`).
-`a2Rows_of_capfree` with its three `X`-box inputs replaced by the mint's: the frame is
-`CapFreeArm3.A2Frame3` (whose `box` field is the SATISFIABLE `≤ 3X` one), the datum is
-`CapFreeArm3.CapFreeFloor3` (the floor on `|v| ≤ 3X`, demand numerals unchanged — trap T2),
-and the row is `CapFreeArm3.seam_row_number_capfree3`.
+`a2Rows_of_capfree` with its `X`-box inputs replaced by the mint's: the frame is
+`CapFreeArm3.A2Frame3` (whose `box` field is the SATISFIABLE `≤ 3X` one) and the row is
+`CapFreeArm3.seam_row_number_capfree3`.
+
+⟦THE SOCKET CUT⟧ the third `X`-box input — the datum `CapFreeArm3.CapFreeFloor3` — is GONE,
+and with it `g`, `hg`, `ShortIntervalDatum` and the whole `kmin`/`Ymax` ladder.  In their
+place the row carries `CofactorSocket … X Rrad 0 R̄ b` at the window's TOP (antitone in the
+height, `CofactorSocket.mono`, exactly as `A2Frame3.box_at` is) plus the single grade
+`R̄ ≤ gradeCR2 C_b·(log X)^{−ρ₂₉₃}`.  The co-factor datum is the SAME free `b` the
+factorization binder already carried.
 
 The weighting arithmetic, the four numerals and the CONCLUSION are §2's verbatim. -/
 theorem a2Rows_of_capfree3 :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
-      ∀ (g c a b cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖c n‖ ≤ 1) →
+      ∀ (c a b cf : ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
         (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) →
       ∀ (N Xd P Q M : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
-      ∀ (X h δ' V VJ L Cb Rrad kmin Ymax ε EP2 : ℝ),
+      ∀ (X h δ' V VJ L Cb Rrad Rbar ε EP2 : ℝ),
         1 ≤ M → calQK (Adoor M) (3072 * M) M 2 ≤ Xd →
-        A2Frame3 g cf a N Xd P Q (Adoor M) (3072 * M) M 2 Ms Mt kk (H1door M) X h δ' VJ L
+        A2Frame3 b cf a N Xd P Q (Adoor M) (3072 * M) M 2 Ms Mt kk (H1door M) X h δ' VJ L
           (1 / 12) Cb Rrad EP2 cq T₀ →
         2 ≤ H83 X theta293 →
         Real.exp 1 ≤ X → Real.exp 2 ≤ Real.log X →
@@ -891,18 +897,11 @@ theorem a2Rows_of_capfree3 :
         (∀ j ∈ ramI (H83 X theta293) P Q,
           ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
         1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
-        0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
-        CapFreeFloor3 g X →
-        0 < Rrad → Rrad ≤ seamRad X → seamRad X ≤ Rrad →
-        ShortIntervalDatum Cb →
-        X₀ ≤ kmin → 0 ≤ cofactorMfl X theta293 kmin → 2 ≤ kmin → kmin ≤ X →
-        (∀ j ∈ ramI (H83 X theta293) P Q, kmin ≤ ((kk j : ℕ) : ℝ)) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, pin2Gate ≤ ((Mt j : ℕ) : ℝ)) →
-        (∀ j ∈ ramI (H83 X theta293) P Q, ((Mt j : ℕ) : ℝ) ≤ Ymax) →
-        (1 - 1 / Real.log (Real.log X)) * Real.log X ≤ Real.log kmin →
-        pin2Gate ≤ Ymax → Real.log Ymax ≤ 2 * Real.log kmin →
-        Real.log X ≤ Real.log Ymax →
-        32 * ballSupC34 ≤ (Real.log Ymax) ^ ((3 : ℝ) / 20 - rho293) →
+        P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X →
+        Rrad ≤ seamRad X →
+        -- ⟦THE ONE NEW DATUM⟧ the co-factor socket at the window's TOP, and its grade
+        0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
+        CofactorSocket (H83 X theta293) N Xd P Q X Rrad 0 Rbar b →
         1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
         0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293) →
         X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
@@ -929,11 +928,10 @@ theorem a2Rows_of_capfree3 :
             ≤ a2Mrow Cs C M Xd X ε := by
   obtain ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, hrow⟩ := seam_row_number_capfree3
   refine ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, ?_⟩
-  intro g c a b cf hg hc1 hb1 hcf1 N Xd P Q M m₀ Ms Mt kk X h δ' V VJ L Cb Rrad kmin Ymax ε
-    EP2 hM hXdQ F hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV hCb0 hPlow
-    hQ0 hQhigh hPQ83 hfloor hR0 hRrad hRlow hCbound hX₀k hMfl0 hk2 hkX hkk hMtpin hMt hgateW
-    hYpin hWY hXY hthr hCqgate hε0 habs hEP2 hXN hN2 hsupp hNXd hcoef hwin hQXd hXdbig hN4
-    hdom ha1 hasupp T hT hTX2 hTgate hTll
+  intro c a b cf hc1 hb1 hcf1 N Xd P Q M m₀ Ms Mt kk X h δ' V VJ L Cb Rrad Rbar ε
+    EP2 hM hXdQ F hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV hPlow
+    hQ0 hQhigh hRrad hRbar0 hRgrade hsockR hCqgate hε0 habs hEP2 hXN hN2 hsupp hNXd hcoef
+    hwin hQXd hXdbig hN4 hdom ha1 hasupp T hT hTX2 hTgate hTll
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
@@ -956,15 +954,14 @@ theorem a2Rows_of_capfree3 :
     have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
     linarith
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
-  have hinst := hrow g c a b cf hg hc1 hb1 hcf1 N Xd P Q (Adoor M) (3072 * M) M 2 m₀ Ms Mt kk
-    (H1door M) X (2 * T) δ' V VJ L (1 / 12) Cb Rrad kmin Ymax ε EP2
+  have hinst := hrow c a b cf hc1 hb1 hcf1 N Xd P Q (Adoor M) (3072 * M) M 2 m₀ Ms Mt kk
+    (H1door M) X (2 * T) δ' V VJ L (1 / 12) Cb Rrad Rbar ε EP2
     (3 * (720 * (2 * T / X + 1) / H83 X theta293 + EP2))
-    hF hH2 hX0 hXe hLXe hL4 hlX2 hTgate (F.one_lt _ h2a h2b) h2b (F.T0_le _ h2a h2b) hTll
+    hF hH2 hX0 hXe hLXe hL4 hTgate (F.one_lt _ h2a h2b) h2b (F.T0_le _ h2a h2b) hTll
     (F.one_le_log _ h2a h2b) (F.log_le_L _ h2a h2b) hLe hVJg hMs (F.thin _ h2a h2b) hm₀2 hm₀
-    hMs4 hV1 hVδ hlogV hCb0 hPlow hQ0 hQhigh hPQ83 hfloor hR0 hRrad hRlow (F.blocks _ h2a h2b)
-    (F.box_at h2b) hCbound hX₀k hMfl0 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr
-    hCqgate (F.ksGate_at h2T0 h2b hL0) hε0 habs hEP2 le_rfl (F.err _ h2a h2b) hXN hN2 hsupp
-    hNXd hcoef hwin hQXd hXdbig hN4 hdom ha1 hasupp
+    hMs4 hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade (hsockR.mono h2b)
+    (F.blocks _ h2a h2b) hCqgate (F.ksGate_at h2T0 h2b hL0) hε0 habs hEP2 le_rfl
+    (F.err _ h2a h2b) hXN hN2 hsupp hNXd hcoef hwin hQXd hXdbig hN4 hdom ha1 hasupp
   -- ⟦THE WEIGHTING⟧
   obtain ⟨hw0, -, hg9, hg244, hg3, hg32⟩ :=
     a2_weight_gates (X := X) (h := h) (T := T) (Xd := (Xd : ℝ))
@@ -1007,7 +1004,7 @@ UNSATISFIABLE (at `|t| = X` it reads `X + T*₂ ≤ X` with `T*₂ > 0`), so no 
 discharge exists on the landed frame: seven of eleven members land here against six there.
 
 `thin`, `blocks` and `err` stay genuinely per-instance binders; `ksGate` passes through. -/
-theorem a2Frame3_satisfiable_partial {g cf a : ℕ → ℂ} {N Xd P Q A G M Jb : ℕ}
+theorem a2Frame3_satisfiable_partial {b cf a : ℕ → ℂ} {N Xd P Q A G M Jb : ℕ}
     {Ms Mt kk : ℕ → ℕ} {H1 X h δ' VJ L η Cb Rrad EP2 cq T₀ : ℝ}
     (hLX0 : 0 < Real.log X)
     (hTann : TannGate X (2 * (X / h)))
@@ -1026,9 +1023,9 @@ theorem a2Frame3_satisfiable_partial {g cf a : ℕ → ℂ} {N Xd P Q A G M Jb :
     (hksGate : 32 * (Real.log X) ^ (2 + 2 * theta293)
       * (20512 * δ' ^ 2 * (1 + Real.log (2 * X))) ≤ (Real.log X) ^ (-theta293))
     (herr : ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
-      (∫ t in (-Tann)..Tann, ‖ramErr (H83 X theta293) N Xd P Q a (ellLin g) cf t‖ ^ 2)
+      (∫ t in (-Tann)..Tann, ‖ramErr (H83 X theta293) N Xd P Q a b cf t‖ ^ 2)
         ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2)) :
-    A2Frame3 g cf a N Xd P Q A G M Jb Ms Mt kk H1 X h δ' VJ L η Cb Rrad EP2 cq T₀ := by
+    A2Frame3 b cf a N Xd P Q A G M Jb Ms Mt kk H1 X h δ' VJ L η Cb Rrad EP2 cq T₀ := by
   have hgate : Real.exp (30 * (Real.log X) ^ ((1 : ℝ) / 2)) ≤ 2 * (X / h) := hTann
   have hexp1 : (1 : ℝ) < Real.exp (30 * (Real.log X) ^ ((1 : ℝ) / 2)) := by
     rw [show (1 : ℝ) = Real.exp 0 by rw [Real.exp_zero]]
