@@ -176,6 +176,7 @@ import Salt.MR.ExitClose
 import Salt.MR.M4Window
 import Salt.MR.M4Chars
 import Salt.MR.M4Residue
+import Salt.MR.M4Dyadic
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.MR.M4Abel
@@ -1891,3 +1892,49 @@ open Salt.Tactic in
   Salt.MR.norm_liouChi_le_one
   Salt.MR.capFreeFloor3_liouChi_of_lamChi
   Salt.MR.capFreeFloor3_liouChi_all
+
+-- M4-4 (`M4Dyadic`) — the c.o.v., the trivial cut, and THE OUTER DYADIC COVER
+open Salt.Tactic in
+#audit_axioms Salt.MR.dyadScale_le_self
+  Salt.MR.two_mul_dyadScale_succ
+  Salt.MR.dyadIdx_le
+  Salt.MR.dyadCount_le
+  Salt.MR.dyadCount_logPow_le
+  Salt.MR.dyadCount_logPow_le_numeral
+  Salt.MR.pow_ten_le_two_pow_dyadIdx
+  Salt.MR.dyadScale_dyadIdx_le
+  Salt.MR.dyadPart_window
+  Salt.MR.sum_dyadPart
+  Salt.MR.sum_dyadCover
+  Salt.MR.exists_dyadPart_mem
+  Salt.MR.exists_dyadScale_cover
+  Salt.MR.dyadScale_floor_of_cover
+  Salt.MR.sqrt_le_of_depth
+  Salt.MR.two_mul_pow_ten_le_sqrt
+  Salt.MR.sqrt_le_dyadScale
+  Salt.MR.exp_one_le_of_sqrt_le
+  Salt.MR.three_le_of_sqrt_le
+  Salt.MR.log_dyadScale
+  Salt.MR.log_sub_log_le_log_of_floor
+  Salt.MR.loglog_sub_log_two_le
+  Salt.MR.h_ceiling_transfer
+  Salt.MR.five_le_loglog_transfer
+  Salt.MR.image_div_window_dilate
+  Salt.MR.sum_window_dilate
+  Salt.MR.meanSq_scale_invariant
+  Salt.MR.meanSq_shortSum_scale
+  Salt.MR.sum_div_le_of_window
+  Salt.MR.le_sum_div_of_window
+  Salt.MR.sum_div_dyadPart_le
+  Salt.MR.le_sum_div_dyadPart
+  Salt.MR.norm_absWindowSum_le_thresh
+  Salt.MR.norm_absWindowSum_le_trivThresh
+  Salt.MR.integral_logMeasure_le_of_le
+  Salt.MR.integral_logMeasure_absWindowSum_le_thresh
+  Salt.MR.card_shortWindow_le
+  Salt.MR.norm_shortSum_le
+  Salt.MR.sum_range_le_mul
+  Salt.MR.sum_range_le_mul_sup'
+  Salt.MR.dyadCover_total_le
+  Salt.MR.dyadCover_total_le_sup'
+  Salt.MR.dyadCover_total_le_logPow
