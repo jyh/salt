@@ -12662,3 +12662,112 @@ P ≳ √X, impossible) [err total C, 250–450]. FRAME total post-repair
 [C, 880–1610] — the plan's 400–800 was low by ~2×. R3 (docstring): the
 ThmA2.lean:88 "T₀ = seamT0 X always" comment is wrong for A2Frame's T₀
 (the row capstone's existential floor) — fix in the sweep.
+
+---
+
+## THE M4-PLAN REFUTER PASS (2026-07-27 20:23 PDT): CAPFREE-REF=HOLD, REPAIR-REF/REGIME-REF=REPAIR-THEN-FIRE — D1 redesigned, D3 may retire, the plan revised (v2)
+
+Three Opus refuters over m4-plan-0728 (workflow wf_6758d32b-132; full
+verdicts in the session record). THE KILLS AND SAVES:
+
+**K1 — THE SLIVER IS INVERTED (CONFIRMED-FATAL on the join's D1
+geometry).** The L-HT delivery (1/4)loglog X − (1/4)loglog(q(|t|+2)) is
+proportional-strength only for |t| ≤ exp(A(log X)^{7/8}), A = e^{−100−4C₀};
+at |t| = X^c it delivers O(1). The join's "coverage to X^{0.8}" is FALSE;
+the maestro's counter was right and understated: the UNCOVERED region is
+the whole box minus an X^{o(1)} piece — rename "the bulk", never "the top
+sliver". IN THE BULK: real χ (χ²=1, χ₀ incl.) CLEAR unconditionally via
+chi_floor_of_order AT k=2 (floor (1/16)loglog X — cite chi_floor_of_order
+ChiFloor:313, NEVER chi_floor_orderOf :356 whose hard-pinned k=2·ord
+gives k²=16 and loses even the real case); non-real χ: NOTHING landed or
+priced clears — what would suffice: (i) VK-strength 1-line L-lower
+(D-tier port; classical 3-4-1 gives exponent exactly 1, useless), (ii)
+re-grade the CASE-B pocket cap or move to a v-DEPENDENT floor shape
+(Fable design), (iii) shrink the annulus top / add a far-field arm
+(spine geometry, Fable design). D1 IS NOW A DESIGN FORK, not a wave
+stone. NOTE ALSO: a CHEAPER L-HT exists — pretDistSq_pow_le (ChiFloor
+:137) at k=2 turns the floor into an UPPER L-bound problem
+(Pólya–Vinogradov + Abel only, NO 3-4-1 page); same delivery.
+
+**K2 — "hMcap FALSE at every centre" must be UNCLAIMED.** The datum
+adapter identity is exact (D²(seamCoeff(ellLin(lamChi χ)) 1 t₀,
+costwist v) = D²(lamChi χ, costwist (t₀+v)) — the twist TRANSLATES the
+frequency, nothing else; pretDistSq_ellLin_eq already landed). But
+falsity at the even-real-χ corner is exactly Siegel-hard (L(1,χ) ≲
+(log x)^{−15/16} would make the cap TRUE); odd-real is killed
+effectively by L1_lower_odd; non-real large-|s| is K1's bulk. THE
+REDIRECTION SURVIVES ON CORRECT GROUND: hMcap is UNSUPPLIABLE (no
+landed lemma produces a pretentious frequency for λ) — state it so in
+every brief; an executor told "hMcap is false" will burn quota on the
+Siegel wall. ALSO: floors are stated in the SHIFTED variable — CFB/CFF
+briefs must pin |t₀+v| vs |v| or the box silently moves.
+
+**K3 — CFB AS PRICED IS UNBUILDABLE (CONFIRMED-FATAL).** The T0Band
+weighted-sup mirror target does not exist: the 1/(1+|t|) weight comes
+only from transfer_at_scale (BallSup:307) whose hypothesis IS the
+pretentiousness cap (D² ≤ SPartial/8 — false-for-λ by ~8×). The
+repair route: per-frequency center_halasz_supply_Y (SupplyGeneric:257,
+genuinely cap-free) + unweighted sup + crude 2T₀ integral; C₁' then
+acquires (log X)^{1/30} (catch #253) and the gate demands
+**M₀ ≥ e·(1/15+1/500)·loglog X = 0.1867·loglog X in-statement** —
+CapFreeFloor's 1/32 is 6× short; the (1/4)loglog X band delivery
+clears (band ⊂ the covered region). CFB moves BEHIND the floor
+library, re-priced.
+
+**K4 — R1's census: ~116 binder occurrences, ≥29 signatures, TWELVE
+files** (USetBalance.lean missing from the earlier list; TS_feed_of_thin
+:166 and TSG_feed_of_thin's ∀j:ℕ CONCLUSIONS narrow in lockstep; 3
+call-site adapters fun j _ → fun j hj). Re-cut verified proof-transparent
+at every leaf (no site consumes j outside ramI). Re-band upward.
+
+**K5 — R2 IS LIGHTER THAN BILLED + the additive route:** thm_a2'_of_rows
+(the actual frozen five-summand interface) never mentions A2Frame — R2
+touches NO frozen statement. Cheapest: mint additive A2Frame3 (box ≤ 3X,
+matching the 7 sibling 3X sites) + CapFreeFloor3 (|v| ≤ 3X) +
+a2Rows_of_capfree3/thm_a2'_capfree carrying the R1-narrowed binders —
+the landed cap chain untouched, thm_a2' keeps compiling. In-place
+widening would drag 7 CapFreeArm box binders + pocketSocket_of_row +
+hStation. (b) was the HEAVIER iron-rule-1 event, not (a).
+
+**K6 — THE UNAUDITED EXISTENTIALS Cq₁/cq₁ (live even cap-free):**
+1728·Cq₁·(gradeCR2 Cb)² ≤ (log X)^{2θ} (slack 1.05·10^19 at the
+ε-floor) and TLB-C6's cq₁ ≥ ~exp(−1509). Opaque capstone existentials —
+the FRAME brief must read their magnitudes out of the supply proofs, OR
+the M4 proof must draw its regime INSIDE the capstone's existential
+scope; the REGIME-CUT g must NOT be Cq-blind (build g AFTER the obtain,
+or add a Cq max-arm).
+
+**K7 — REGIME-CUT mechanics corrected (band survives ~150):** the fifth
+arm goes OUTERMOST-RIGHT paired with extraFloor — max(4-tower,
+max extraFloor U1floor) — keeping the left spine byte-identical
+(SpineFinal:805-810's le_max chains + spine_False_core_xi's :243 shape);
+DUPLICATE (~33 ln, primed names) into Salt/Entropy/Chowla/RegimeParam
+.lean, never relocate (All.lean ledger cites + RegimeHead's open-
+namespace refs); SECOND private blocker mutualInfo_window_comm'
+(SpineFinal:35, consumed :798); cite SpineFinal:749-829 (RegimeHead:76's
+"294-323" is STALE — wrong theorem); use g := 2·ω·⌈…⌉₊ (real-division
+exact, no Nat-floor step); numerology all UNFOUNDED-safe (1300·L^25 ≥
+1308·L^24·log L for ALL L>0 since min L/log L = e).
+
+**K8 — small supply gaps now in briefs:** orderOf χ ≤ q has NO landed
+witness (5-8 ln via mathlib orderOf_le_card + totient — required before
+any k²-branch numerology has a Lean route); the err p²-mass stone is
+build-from-scratch for NON-MR ramP2coeff (no landed bound at all; needs
+a fibre-multiplicity bound D ≤ log(2Xd)/log P); the FRAME h-ceiling
+(TLB-C4 at the window BOTTOM): log h + 30(log X)^{1−θ} ≤ log X,
+in-statement per law #253; ONE A2Frame suffices cap-free-only (halve
+the frame band; drop trap 3 from cap-free briefs); the 800-threshold
+was never binding — the ε-window forces loglog X ≥ 6412.6 on the
+CAP-FREE path too (stop advertising "800 dissolved"); pin exp(−M/e) and
+(5e/2)·log W in briefs (stale exp(−M/2) understates the target 2.7×).
+
+**THE SAVE — D3 MAY RETIRE VIA THE REGIME LEVER (CAPFREE-REF unassigned
+kill #1):** SiegelArm's chi_Llower_band/chi_floor_all_complete deliver
+per-χ floors loglog X − B_χ − CH2 with B_χ X-INDEPENDENT; {χ mod q :
+q ≤ W(Hhi)} is FINITE, so B(Hhi) := max is Hhi-only; the head builder's
+arbitrary g absorbs x ≥ exp exp((32/31)(B(Hhi)+CH2+25)) — the Siegel
+corner discharges with NO Siegel completion. The general law, byte-
+confirmed twice: **regime enlargement absorbs any X-INDEPENDENT debit
+and can never touch an X-dependent one** (that is why it may save
+D3/U1 and provably cannot save D1). SIEGEL-REGIME scoper dispatched on
+the M4-7-uniformity check.
