@@ -12612,3 +12612,53 @@ in the join report (the three log-scales glyph; the two-A2Frames
 doubling; hgRows₁ vs hgRows₂ at different constants; Ccol's invisible
 magnitude vs the exp exp(10⁶+75C) threshold; the lamChi conjugation
 orientation fixed ONCE).
+
+---
+
+## ⚠⚠ TLGATES-SCOPE: thm_a2' HAS NO MODELS as stated — two statement repairs required BEFORE the M4 wave (2026-07-27 19:57 PDT)
+
+**R1 — the ∀ j : ℕ contradiction (CRITICAL).** ThmA2Rows.lean:627–628
+demands ∀ j : ℕ, 2 ≤ m₀ j AND ∀ j : ℕ, (m₀ j : ℝ) ≤ ramRbot (H83 X
+theta293) Xd j. Since ramRbot H Xd j = Xd·exp(−j/H) → 0, any j >
+H·log(Xd/2) gives ramRbot < 2 ≤ m₀ j: the hypotheses are jointly
+UNSATISFIABLE, so thm_a2' is kernel-true but has NO models — no consumer
+can ever fire it. A second independent contradiction on the same
+quantifier: A2Frame.thin's ∀ j : ℕ lower bound (~X^{5/6}) against :629's
+Ms j ≤ 4(m₀ j −1) (the trap-7 collision — real, but not the first thing
+that breaks). ROOT CAUSE: the sole consumer (USetPrice.KS_supplied
+:156–167) uses only j ∈ ramI; the ∀ j : ℕ is gratuitous over-generality.
+REPAIR: re-cut the binders (hMs/thin/hm₀2/hm₀/hMs4) to ∀ j ∈ ramI (H83 X
+theta293) P Q — 21 sites / 10 files (USetPrice, USetGradedPrice,
+USetGradedBalance, CapFreeArm, SeamCalibration(K), SeamLemma14,
+SeamNumber, SeamTerminal, GradedCapstone, ThmA2, ThmA2Rows), one sweep,
+full MR-tower rebuild [B, 300–600]. Statement change ⇒ Fable design block
++ JYH gate (iron rule 1).
+
+**R2 — A2Frame.box unsatisfiable outright.** ThmA2.lean:690–691 demands
+|t| + Tstar2(Mt j, log Mt j) ≤ X for all |t| ≤ X; at |t| = X this is
+X + (positive) ≤ X, FALSE (ramI nonempty, Tstar2 > 0). NOT a
+transcription slip — the ≤ X (vs the 3X used at four sibling sites) is
+load-bearing for CapFreeArm.box_gate_le_X (the CASE-B pocket centre must
+land in CapFreeFloor's |v| ≤ X box); the tightening was deliberate, the
+endpoint unchecked. REPAIRS: (a) widen box to 3X — re-cuts CapFreeFloor
+to |v| ≤ 3X + box_gate_le_X + no_pocket_of_floor [C, 150–300], EXTENDS
+the D1 large-|t| demand (route through D1's ruling); or (b) shrink the
+window top by Δ = max Tstar2 ≈ exp((log X)^{3/5}) [C, 200–400,
+re-cuts the dyadic family]. Recommended: (a) via D1.
+
+**ALSO:** TLBlockGates34 is 17 conjuncts (not 16) and IS satisfiable at
+door scale post-repair — witness table delivered (P = Q = ⌈P83⌉ pins
+ramI a singleton; kk/Mt are DETERMINED by B_j = Xd·e^{−j/H}, not free;
+one witness serves both frames at min(cq₁,cq₂)/max(T₀₁,T₀₂)). Scale
+floors derived: C4 forces loglog X ≥ 996.4 (STRONGER than the stated
+800-threshold); the ε-window already forces loglog X ≥ 6412.6 — all
+astronomically clear at door numerology. TLBlockGates34 was lifted from
+a hypothesis list at commit 1cfb470 and never inhabited. The err
+assembly: the intended factor-3 route (rem_priced :506–520) needs three
+NEW datum binders (coefficient law on [P,Q], hwin, blockOmega support)
++ the N = 2Xd pin + a NEW sharp p²-mass stone (ramP2coeff at 1/n²
+normalisation, target C/(P·Xd) — the landed 64/P² X-free bound forces
+P ≳ √X, impossible) [err total C, 250–450]. FRAME total post-repair
+[C, 880–1610] — the plan's 400–800 was low by ~2×. R3 (docstring): the
+ThmA2.lean:88 "T₀ = seamT0 X always" comment is wrong for A2Frame's T₀
+(the row capstone's existential floor) — fix in the sweep.
