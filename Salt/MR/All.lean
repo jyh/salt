@@ -181,6 +181,7 @@ import Salt.MR.JointHead
 import Salt.MR.M4Abel
 import Salt.MR.VkTwistClose
 import Salt.MR.VkTwistLadder
+import Salt.MR.CapFreeAssembly
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -1873,3 +1874,20 @@ open Salt.Tactic in
   Salt.MR.vk_LFunction_bridge_le_primitive
   Salt.MR.vkTwistUB_holds
   Salt.MR.capFreeFloor3_lamChi_unconditional
+
+open Salt.Tactic in
+#audit_axioms Salt.MR.cff_scale_facts
+  Salt.MR.cff_box_loglog
+  Salt.MR.cff_box_logloglog
+  Salt.MR.primeDivSum_le_modulus
+  Salt.MR.chi_floor_real_bulk
+  Salt.MR.chi_floor_band_arm
+  Salt.MR.capFreeFloor3_all_chi
+  Salt.MR.capFreeFloor_all_chi
+  Salt.MR.cffK_nonneg
+  Salt.MR.cffK_spec
+  Salt.MR.lamChi_eq_liouChi_prime
+  Salt.MR.pretDistSq_liouChi_eq
+  Salt.MR.norm_liouChi_le_one
+  Salt.MR.capFreeFloor3_liouChi_of_lamChi
+  Salt.MR.capFreeFloor3_liouChi_all
