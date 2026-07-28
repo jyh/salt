@@ -252,6 +252,67 @@ theorem exp_exp_one_gt_three : (3 : ℝ) < Real.exp (Real.exp 1) := by
 theorem exp_one_le_exp_exp_one : Real.exp 1 ≤ Real.exp (Real.exp 1) :=
   Real.exp_le_exp.mpr (Real.one_le_exp (by norm_num))
 
+/-! ## §3′ — THE WINDOW-WIDENING OF A COEFFICIENT LAW (the capstone binder repair)
+
+**THE DEFECT** (SEAM's finding, kernel-checked as `M4Seam.m4_row_cf_block_eq_zero`).  The
+capstone's coefficient binders used to quantify over ALL cofactors `m`.  At `m = 1` that
+reads `a p = ellLin g 1 · cf p`; but `hsupp0` forces `a n = 0` for `n ≤ X`, and the block
+prime obeys `p ≤ 2(X/h) ≤ X/2 < X` (likewise every band prime, `p ≤ Q₂ ≤ X_d = X`).  So the
+binder set could only be inhabited by data with `cf p = 0` at every prime in range — it
+could not host the intended `P`-exact datum.  The binders are now RESTRICTED to the window
+`X_d ≤ p·m ≤ 2X_d` (`hwin`'s own range, byte-identical casts): the defect point `m = 1`
+falls outside it, and nothing is lost, because —
+
+**THE WIDENING** (`coef_widen_of_window`).  Outside the window the law is FREE: below it
+`hsupp0` kills `a (p·m)` and `hwin`'s lower bound kills `cf p · b m`; above it `hasupp`
+kills `a (p·m)` and `hwin`'s upper bound kills `cf p · b m`.  So the restricted law implies
+the unrestricted one at the capstone's own data, and every downstream consumer
+(`a2Frame3_witness`, `a2Rows_of_capfree3`) is fed exactly what it was fed before.  The
+repair is therefore pure hypothesis-weakening: the conclusion is untouched, and any supplier
+of the old binder still supplies the new one by dropping two arguments. -/
+
+/-- **THE WINDOW-WIDENING OF A COEFFICIENT LAW** (`coef_widen_of_window`).  A factorisation
+law `a (p·m) = b m · cf p` known only on the support window `X_d ≤ p·m ≤ 2X_d` holds
+everywhere in the range `R`, because off the window both sides vanish — the left by the
+support laws `hsupp0`/`hasupp` of `a`, the right by the window law `hwin` of `cf · b`. -/
+theorem coef_widen_of_window {a b cf : ℕ → ℂ} {Xd : ℕ} {X : ℝ} {R : ℕ → ℕ → Prop}
+    (hXd : (Xd : ℝ) = X)
+    (hsupp0 : ∀ n : ℕ, (n : ℝ) ≤ X → a n = 0)
+    (hasupp : ∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd)
+    (hwin : ∀ p m : ℕ, R p m → cf p * b m ≠ 0 →
+      (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ))
+    (hcoef : ∀ p m : ℕ, R p m → (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) →
+      (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) → a (p * m) = b m * cf p) :
+    ∀ p m : ℕ, R p m → a (p * m) = b m * cf p := by
+  intro p m hR
+  have hpm : ((p * m : ℕ) : ℝ) = (p : ℝ) * (m : ℝ) := by push_cast; ring
+  by_cases hlo : (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ)
+  · by_cases hhi : (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)
+    · exact hcoef p m hR hlo hhi
+    · -- ⟦above the window: `hasupp` kills the left, `hwin`'s top kills the right⟧
+      have hb0 : b m * cf p = 0 := by
+        rw [mul_comm]
+        by_contra hne
+        exact hhi (hwin p m hR hne).2
+      have ha0 : a (p * m) = 0 := by
+        by_contra hne
+        have hle : p * m ≤ 2 * Xd := (hasupp _ hne).2
+        have : ((p * m : ℕ) : ℝ) ≤ ((2 * Xd : ℕ) : ℝ) := by exact_mod_cast hle
+        rw [hpm] at this
+        push_cast at this
+        exact hhi this
+      rw [ha0, hb0]
+  · -- ⟦below the window: `hsupp0` kills the left, `hwin`'s bottom kills the right⟧
+    have hb0 : b m * cf p = 0 := by
+      rw [mul_comm]
+      by_contra hne
+      exact hlo (hwin p m hR hne).1
+    have ha0 : a (p * m) = 0 := by
+      refine hsupp0 _ ?_
+      rw [hpm, ← hXd]
+      linarith [not_le.mp hlo]
+    rw [ha0, hb0]
+
 /-! ## §4 — THE SUMMIT
 
 Every hypothesis below is either arithmetic from the two pins, or a named binder in the
@@ -362,11 +423,13 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
             (∀ n : ℕ, a n ≠ 0 → 1 ≤ blockOmega P P n) →
             (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
               p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m →
+              (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
               a (p * m) = ellLin (liouChi χ) m * cf p) →
             (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
               p ≤ calQK (Adoor M) (3072 * M) M j → cf p * ellLin (liouChi χ) m ≠ 0 →
               (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
             (∀ p m, p.Prime → P ≤ p → p ≤ P → ¬ p ∣ m →
+              (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
               a (p * m) = ellLin (liouChi χ) m * cf p) →
             (∀ p m : ℕ, p.Prime → P ≤ p → p ≤ P → cf p * ellLin (liouChi χ) m ≠ 0 →
               (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
@@ -429,13 +492,34 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
     linarith
   have hb1 : ∀ n : ℕ, ‖ellLin (liouChi χ) n‖ ≤ 1 :=
     ellLin_norm_le_one (liouChi χ) (fun p _ => norm_liouChi_le_one χ p)
+  -- ⟦THE BINDER REPAIR (§3′): the window-restricted coefficient laws, widened back to the
+  -- unrestricted shape the two suppliers consume.  Off the window both sides vanish⟧
+  have hcoefPinW : ∀ p m, p.Prime → P ≤ p → p ≤ P → ¬ p ∣ m →
+      a (p * m) = ellLin (liouChi χ) m * cf p := by
+    intro p m hp h1 h2 h3
+    exact coef_widen_of_window (R := fun p m => p.Prime ∧ P ≤ p ∧ p ≤ P ∧ ¬ p ∣ m)
+      hXd hsupp0 hasupp
+      (fun p m hR hne => hwinPin p m hR.1 hR.2.1 hR.2.2.1 hne)
+      (fun p m hR hlo hhi => hcoefPin p m hR.1 hR.2.1 hR.2.2.1 hR.2.2.2 hlo hhi)
+      p m ⟨hp, h1, h2, h3⟩
+  have hcoefBandW : ∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime →
+      calP (Adoor M) (3072 * M) j ≤ p → p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m →
+      a (p * m) = ellLin (liouChi χ) m * cf p := by
+    intro j hj p m hp h1 h2 h3
+    exact coef_widen_of_window
+      (R := fun p m => p.Prime ∧ calP (Adoor M) (3072 * M) j ≤ p ∧
+        p ≤ calQK (Adoor M) (3072 * M) M j ∧ ¬ p ∣ m)
+      hXd hsupp0 hasupp
+      (fun p m hR hne => hwinBand j hj p m hR.1 hR.2.1 hR.2.2.1 hne)
+      (fun p m hR hlo hhi => hcoefBand j hj p m hR.1 hR.2.1 hR.2.2.1 hR.2.2.2 hlo hhi)
+      p m ⟨hp, h1, h2, h3⟩
   -- ⟦FIELD 1–4: THE FRAME⟧
   have F : A2Frame3 (liouChi χ) cf a N Xd P P (Adoor M) (3072 * M) M 2
       (witMs (H83 X theta293) Xd) (witMt (H83 X theta293) Xd) (witKk (H83 X theta293) Xd)
       (H1door M) X h δ' VJ L (1 / 12) Cb Rrad EP2 cq T₀ :=
     a2Frame3_witness hX0 hh0 hLX0 hLXL hXd1 hXdX hTann hceil5 hT₀le hTbot hhceil hH2 hP3
       hlogP2 hPbot hPlog hPL hcqgate hW4 hkth hMN hMtX hC16 hRrad0 hRradW hPj1 hthinpin
-      hXthr hMtpin hδsq hlog2X hksthr hNle hHX hcoefPin ha1 hb1 hcf1 hwinPin hasupp homega
+      hXthr hMtpin hδsq hlog2X hksthr hNle hHX hcoefPinW ha1 hb1 hcf1 hwinPin hasupp homega
       hEP2w
   -- ⟦THE ROW LADDER⟧
   obtain ⟨hMs, hm₀2, hm₀, hMs4⟩ :=
@@ -450,7 +534,7 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
     hM hXdQ F hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV hCb0 hPlow
     (by omega) hPhigh le_rfl hfloor hRrad0 hRrad hRlow hCbound hX₀k hMfl0 hk2 hkX hkk
     hMtpin hMtY hgateW hYpin hWY hXY hthrY hCqgate hε0 habs hEP2 hXN hN2X hsupp0 hMN
-    hcoefBand hwinBand hQXd hXdbig hN4 hdom ha1 hasupp
+    hcoefBandW hwinBand hQXd hXdbig hN4 hdom ha1 hasupp
   -- ⟦THE FROZEN INTERFACE⟧
   exact thm_a2'_of_rows hM hXe hX3 hh4 hhX ha1 hsupp0 hN2X hTann hceil5 hrows hT0band
     hgP1 hgRows ⟨hε0, hεup⟩ hL4096
@@ -616,11 +700,13 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
             (∀ n : ℕ, a n ≠ 0 → 1 ≤ blockOmega P P n) →
             (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
               p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m →
+              (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
               a (p * m) = ellLin (liouChi χ) m * cf p) →
             (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
               p ≤ calQK (Adoor M) (3072 * M) M j → cf p * ellLin (liouChi χ) m ≠ 0 →
               (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
             (∀ p m, p.Prime → P ≤ p → p ≤ P → ¬ p ∣ m →
+              (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
               a (p * m) = ellLin (liouChi χ) m * cf p) →
             (∀ p m : ℕ, p.Prime → P ≤ p → p ≤ P → cf p * ellLin (liouChi χ) m ≠ 0 →
               (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →

@@ -197,6 +197,7 @@ import Salt.MR.M4BridgeResidue
 import Salt.MR.M4BridgeIntegral
 import Salt.MR.M4BridgeDilate
 import Salt.MR.M4Seam
+import Salt.MR.M4Join
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -2051,6 +2052,7 @@ open Salt.Tactic in
   Salt.MR.dpolyA_seamS0_bandDatum
   Salt.MR.exp_exp_one_gt_three
   Salt.MR.exp_one_le_exp_exp_one
+  Salt.MR.coef_widen_of_window
   Salt.MR.m4_meansq_per_chi_gen
   Salt.MR.m4_t0band_at_datum
   Salt.MR.m4_t0band_of_live
@@ -2413,3 +2415,28 @@ open Salt.Tactic in
   Salt.MR.m4_hT0band_of_dilated_sup
   Salt.MR.m4_hT0band_at_row
   Salt.MR.m4_hT0band_at_row_pins
+
+-- THE M4 WAVE'S CLOSE (`M4Join`) — `m4_wave_exit`: the end-to-end M4/S9 chain at ⟦THE
+-- REGISTER⟧ (the door gates, the row grade's positivity, `2 ≤ C`, THE PRICING `6·MS ≤
+-- m4Saving`, the door's own two grades, and the row input `M4RowMeanSq`) — nothing else.
+-- ⟦THE WALL⟧ (§1): the §3′ repair of `hcoefPin`/`hcoefBand` is sound but does NOT dissolve
+-- the capstone binder defect, because the WINDOW binder `hwinPin` forces `cf P = 0` on its
+-- own at `m = 1` (`m4_row_cf_block_eq_zero` never reads `hcoefPin`); `m4_capstone_row_supp_sq`
+-- draws the `P²ℕ` consequence AT THE REPAIRED (window-restricted) coefficient binder, so the
+-- narrowing loses nothing and gains nothing here.  ⟦THE SUP-ROUTE COVER⟧ (§2): B-5's
+-- documented ~20-line repackage, landed — `M4BlockMeanSqSup` ⟹ `M4SievedDoorSqSup` at the
+-- same factor `3`, plus its anti-vacuity witness.  ⟦THE BLOCK EXCHANGE⟧ (§3): B-4's harmonic
+-- currency into B-5's flat socket at the ladder's factor `2`, loss-free at the endpoints.
+-- ⟦THE GRADE⟧ (§4): `3 × 2 = 6`, every constant symbolic
+open Salt.Tactic in
+#audit_axioms Salt.MR.m4_capstone_window_forces_cf_zero
+  Salt.MR.m4_capstone_row_supp_sq
+  Salt.MR.m4_cover_assembly_sup
+  Salt.MR.m4_blockMeanSqSup_trivial
+  Salt.MR.sum_Ioc_le_two_mul_of_harmonic
+  Salt.MR.m4_blockMeanSq_of_rowMeanSq
+  Salt.MR.m4_blockGrade_nonneg
+  Salt.MR.m4_wave_gradeGate
+  Salt.MR.m4_wave_exit
+  Salt.MR.m4_wave_False
+  Salt.MR.m4_wave_exit_sup

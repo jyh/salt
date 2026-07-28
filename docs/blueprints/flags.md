@@ -13116,3 +13116,37 @@ tooling trap — ring_nf can "succeed" via a positionless `Try this`
 info surviving RC 0 (a live instance at Salt/SW/DHExtract.lean:118 —
 register the sweep); M4Close's ⟦FIVE OPEN BRIDGES⟧ header is now
 historical (all five closed) — strike on the next touch.
+
+---
+
+## THE JOIN lands as an honest prefix — the wave closes to ONE row input + TWO design questions (2026-07-28 11:47 PDT)
+
+M4Join.lean (463 ln, 13 decls) + the M4MeanSq repair (+128, the
+window-restricted binders at NON-STRICT bounds — the strict form would
+have cascaded into FrameWitness unauthorized; coef_widen_of_window
+re-derives the wide law inside the proof, zero upstream touches).
+LANDED: the sup-route cover (B-5's residue), the block exchange
+(harmonic→flat, factor 2, NO boundary term), the grade compose (6·MS),
+**m4_wave_exit / m4_wave_False — THE WAVE'S CLOSE at the six-item
+REGISTER**: (1) M4DoorGates [witnessed], (2) MS ≥ 0, (3) 2 ≤ C,
+(4) THE PRICING 6·MS ≤ m4Saving [one inequality = the wave's whole
+analytic content], (5) the endpoint grade, (6) **M4RowMeanSq — THE
+RESIDUE**.
+
+**THE TWO DESIGN QUESTIONS BEHIND ITEM 6 (Fable-tier, the 7/29 design
+block — NOT executor work):**
+⟦THE WALL⟧ the repair did not dissolve the collapse — the kernel
+witness m4_row_cf_block_eq_zero reads hwin ALONE (cf P ≠ 0 would put
+P·1 in [Xd, 2Xd]; the row pins P < Xd): the capstone's window LAW
+(hwinPin/hwinBand, inherited from err_at_witness → ramP2mass_direct
+where Xd ≤ n buys the 1/Xd in the p²-mass grade) admits only
+P²-supported data; the door's sieved λ is P-exact. The fix is a
+statement re-cut in the err chain's window shape — upstream of the
+wave, my hands.
+⟦THE CLASS PRICING⟧ the dilated image of a doorLadder block is not a
+doorLadder block of any ladder (the per-interval generalization
+needed), and the non-coprime half does NOT clear at trivThresh for
+small d₀ (needs d₀² ≳ W³; the honest count is 0.645·H·q — worse than
+trivial). The non-coprime classes need their own pricing route (their
+d₀-dilated data are SIEVED datums at smaller scales — likely the same
+machinery recursed, or the classes bundled before pricing).
