@@ -173,6 +173,7 @@ import Salt.MR.MinorArcExit
 import Salt.MR.ExitClose
 import Salt.MR.M4Window
 import Salt.MR.M4Chars
+import Salt.MR.M4Residue
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.MR.M4Abel
@@ -1776,3 +1777,34 @@ open Salt.Tactic in
   Salt.MR.isUnit_natCast_of_coprime
   Salt.MR.sum_lam_modEq_residue_eq
   Salt.MR.norm_sum_lam_modEq_residue_le
+  Salt.MR.liouvilleC
+  Salt.MR.liouvilleC_mul
+  Salt.MR.liouvilleC_prime
+  Salt.MR.liouvilleC_norm
+  Salt.MR.liouvilleC_norm_le_one
+  Salt.MR.primeFactors_lt_of_lt
+  Salt.MR.blockPrimeDivs_eq_empty_of_small
+  Salt.MR.blockPrimeDivs_dilate
+  Salt.MR.blockOmega_dilate
+  Salt.MR.blockOmega_dilate_of_lt
+  Salt.MR.memS_dilate
+  Salt.MR.memS_dilate_of_lt
+  Salt.MR.memS_dilate_of_lt_bot
+  Salt.MR.indicator_mul_dilate
+  Salt.MR.indicator_mul_dilate_liouville
+  Salt.MR.sum_memS_dilate
+  Salt.MR.gcd_dvd_of_modEq
+  Salt.MR.coprime_reduced_of_gcd
+  Salt.MR.modEq_dilate_iff
+  Salt.MR.sum_reindex_dilate
+  Salt.MR.residue_split_dilate
+  Salt.MR.residue_split_dilate_liouville
+  Salt.MR.calP_door_one_eq
+  Salt.MR.two_pow_le_calP_door_one
+  Salt.MR.lt_calP_door_one
+  Salt.MR.d_lt_calP_door_one
+  Salt.MR.logH_pow_twelve_lt
+  Salt.MR.door_dilation_gate
+  Salt.MR.calP_door_mono
+  Salt.MR.memS_dilate_door
+  Salt.MR.residue_split_dilate_door

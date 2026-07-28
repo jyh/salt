@@ -12809,3 +12809,23 @@ route (L1_lower_odd at π·q^{−5/2}) so the ineffective set is minimal.
 (3) The shift-variable trap (K2) applies to the band: pin |t₀+v| vs |v|.
 (4) L1LowerEffective the INTERFACE stays open (unconsumed on the band) —
 paper-completeness item at the register, alongside GS/Lemma-4.
+
+---
+
+## THE lam COLLISION (M4-2's finding, 2026-07-28 06:46 PDT) — a mandatory trap for every M4-5/M4-6/CFF/CFB brief
+
+Salt.MR.lam (NonPret.lean:47) is `fun _ => -1` — the pretentious-distance
+DATUM, correct only where pretDistSq reads it (primes). It is NOT the
+Liouville function (lam 4 = −1 but λ(4) = +1; kernel-checked). lamChi χ
+= lam·χ̄ inherits this. The honest λ is ArithmeticFunction.liouville,
+now cast as Salt.MR.liouvilleC (M4Residue.lean, with liouvilleC_mul at
+NO coprimality). THE RULE: quality floors (pretDistSq/chi_floor_*) may
+speak lamChi — prime-equal to the truth; the SUM-SIDE datum (short-
+interval sums, the mean square's a := 1_S·λχ̄, the thm_a2' g) must be
+built from liouvilleC. The two agree on primes and on squarefree
+supports (ellLin (lamChi χ) = the μ-supported λχ̄, since λ = (−1)^ω on
+squarefrees) — every brief crossing the seam states WHICH object at
+every line. ALSO from M4-2: the dilation gate is STRICT (W < P₁ — the
+freeze's <, not ≤; blockOmega filters P ≤ p so equality would count);
+blockOmega counts DISTINCT primes (Finset equality, no p² bookkeeping);
+the door pin is G := 3072·M.
