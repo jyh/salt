@@ -200,6 +200,7 @@ import Salt.MR.M4BridgeDilate
 import Salt.MR.M4Seam
 import Salt.MR.M4Join
 import Salt.MR.M4ClassPrice
+import Salt.MR.CofactorSupplier
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -2579,3 +2580,54 @@ open Salt.Tactic in
   Salt.MR.a2Frame3_witness
   Salt.MR.m4_meansq_per_chi_gen
   Salt.MR.m4_meansq_or_trivial
+
+-- ⟦THE SUPPLIER⟧ (`CofactorSupplier`, 2026-07-28) — the socket's inhabitant at the DOOR's own
+-- co-factor datum `1_𝒮(P·m)·λ(m)χ̄(m)`, which is not `ellLin`-shaped and so cannot use
+-- `cofactorSocket_of_ellLin`.  Three moves, all additive: (1) the shifted sieve indicator
+-- factorizes through `gJ`'s complete multiplicativity, splitting the datum into `2^J` signed
+-- completely multiplicative pieces `λχ̄·g_𝒥` with unimodular coefficients, and `ramR`'s
+-- linearity adds their sockets (`cofactorSocket_door_of_pieces`); (2) each piece's prime datum
+-- is `gxDatum` at `x = 0`, so the floor transfers at FACTOR 1 and the debit is the blocks'
+-- Mertens mass — which for the DOOR's calibrated ladder is the `X`-FREE `log(j²M) + 25`
+-- (`blockWindow_calibrated_debit`: the §8.3 grading is NOT needed, and in fact FAILS at the
+-- lower endpoint, `𝒫_j` being `X`-free); (3) the whole CASE-A/B pocket machinery re-cut at the
+-- damped general datum `b·x^ω` (`cofactor_Rbd34_local_nocap3_gen`), whose CASE-A exit constant
+-- `S` is FREE.  §8 then BRIDGES that socket to Route III (`hCenter_dissected` at the damped
+-- datum, paying the full `cSq = 20736` — the damped datum is coprime- but never completely
+-- multiplicative), and `caseA_floor_of_capFreeFloor3` supplies the floor at the DILATED scales
+-- the dissection walks.  The residue is ONE page: the landed `ellLin` CASE-A supply
+-- (`caseA_slice2`) re-cut from its dyadic window to the dissection's WIDE window — i.e.
+-- `center_halasz_supply_wide`'s window at the `y₂` pin.  `CaseASocketGen` is stated here
+-- exactly as `USetGradedPrice` states `CaseASocket2` (law #253)
+open Salt.Tactic in
+#audit_axioms Salt.MR.pieceDatum
+  Salt.MR.doorCofactor0
+  Salt.MR.pieceDatum_mul
+  Salt.MR.prod_one_sub_gJ_expand
+  Salt.MR.doorCofactor0_split
+  Salt.MR.ramR_sum_finset
+  Salt.MR.cofactorSocket_of_pieces_finset
+  Salt.MR.cofactorSocket_door_of_pieces
+  Salt.MR.pieceDatum_insert_prime
+  Salt.MR.pretDistSq_pieceDatum_ge
+  Salt.MR.capFreeFloor3_margin_all_chi
+  Salt.MR.capFreeFloor3_pieceDatum
+  Salt.MR.dampDatum
+  Salt.MR.pretDistSq_dampDatum_eq
+  Salt.MR.PocketSocket3Gen
+  Salt.MR.pocketSocket3Gen_of_floor3
+  Salt.MR.box_gate_le_3X_gen
+  Salt.MR.CaseASocketGen
+  Salt.MR.cofactorRbdGen
+  Salt.MR.caseA_damped_partial_gen
+  Salt.MR.damped_partial_transfer_34_gen
+  Salt.MR.cofactor_Rbd34_local_nocap3_gen
+  Salt.MR.cofactorSocket_of_gen
+  Salt.MR.cofactorSocket_door
+  Salt.MR.blockWindow_calibrated_debit
+  Salt.MR.blockWindow_calibrated_debit_sum
+  Salt.MR.dampDatum_isMultiplicative
+  Salt.MR.ellLin_dampDatum
+  Salt.MR.caseA_dissect_gen
+  Salt.MR.caseASocketGen_of_inner
+  Salt.MR.caseA_floor_of_capFreeFloor3
