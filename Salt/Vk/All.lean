@@ -25,6 +25,7 @@ import Salt.Vk.PowRegion
 import Salt.Vk.GrowthPow
 import Salt.Vk.Twist
 import Salt.Vk.TwistLadder
+import Salt.Vk.TwistHigh
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -151,3 +152,5 @@ open Salt.Tactic in
   Salt.Vk.vk_weighted_block_twist
   Salt.Vk.vk_dirichlet_block_twist_le
   Salt.Vk.vk_dirichlet_block_twist_le_of_high
+  Salt.Vk.zeta_block_dispatch_twist
+  Salt.Vk.vk_dirichlet_block_twist_all

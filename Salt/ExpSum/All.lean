@@ -14,6 +14,7 @@ import Salt.ExpSum.ZetaApprox
 import Salt.ExpSum.Window
 import Salt.ExpSum.Strip
 import Salt.ExpSum.Twist
+import Salt.ExpSum.TwistStrip
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -76,3 +77,9 @@ open Salt.Tactic in
   Salt.ExpSum.m0_guard
   Salt.ExpSum.zeta_head_bound
   Salt.ExpSum.zeta_strip_family
+  Salt.ExpSum.zeta_block_vdC_prefix_twist
+  Salt.ExpSum.zeta_block_prefix_collapse_twist
+  Salt.ExpSum.zeta_window_prefix_twist
+  Salt.ExpSum.zeta_seam_prefix_twist
+  Salt.ExpSum.zeta_patch_prefix_twist
+  Salt.ExpSum.zeta_lowt_prefix_twist

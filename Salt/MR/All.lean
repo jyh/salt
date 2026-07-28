@@ -180,6 +180,7 @@ import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.MR.M4Abel
 import Salt.MR.VkTwistClose
+import Salt.MR.VkTwistLadder
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -1861,3 +1862,14 @@ open Salt.Tactic in
   Salt.MR.vk_capfree_threshold
   Salt.MR.capFreeFloor3_lamChi_vk
   Salt.MR.capFreeFloor_lamChi_vk
+  Salt.MR.vk_twist_block_le
+  Salt.MR.vk_twist_head_le
+  Salt.MR.char_sum_fourier_le
+  Salt.MR.vk_twist_head_abs_le
+  Salt.MR.vk_char_head_le
+  Salt.MR.one_le_vkTwistConst
+  Salt.MR.vkTwistConst_mono
+  Salt.MR.vkProfile_mono
+  Salt.MR.vk_LFunction_bridge_le_primitive
+  Salt.MR.vkTwistUB_holds
+  Salt.MR.capFreeFloor3_lamChi_unconditional
