@@ -13600,3 +13600,24 @@ THE SENTINEL LESSON: the literal-name watch missed slash-named branches
 run is STILL IN FLIGHT (none of the six is it). Account ruling at
 resume: STAY on silicon-acct (37% weekly + two resets before Aug 14; the
 burn-down mandate); JYH home tomorrow — continuous forge, no 5–7am gap.
+
+---
+
+**2026-07-27 19:24 PDT — HOIST lands (417 ln): the quantifier obstruction is GONE.**
+StationHoist.lean: seam_ball_leg_station_M_hoisted (∃X₀ above the centre
+— the witness was t₁-free exactly as A2-ROWS diagnosed; the transplant
+literal) + hStation_of_hoisted (the consumer plug, conclusion
+byte-identical to a2Rows_of_cap's hStation binder at a named Sb). THE
+PRICING TRAP BANKED: the ~20-ln estimate was right ONLY for an in-place
+edit — the new-file law + Lean's file-scoped private cost a 330-ln
+transplant (171 body copy + 84 re-derived _hs helpers); **check grep
+private on the source section BEFORE estimating any cross-file
+transplant.** REMAINS CARRIED: hMcap (T3, now box-quantified), the M₀
+floor at Rad (D10C is aloft on exactly this), the dissection/scale
+gates. NEW PRE-EXISTING FLAG (the next item in line): the
+hDatum-vs-hasupp tension — the station forces a = seamCoeff on (X, N]
+while the row's support forces a = 0 outside [Xd, 2Xd]; consistent only
+at 2Xd = N — the datum-reconciliation stone, visible identically in
+a2_station_supply_pointwise, independent of the hoist; goes to the
+M4-JOIN's table + the morning council. Census: import + 2 names, RC=0
+at 9475. Aloft: D10C, M4-JOIN.

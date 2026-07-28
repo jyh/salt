@@ -159,6 +159,7 @@ import Salt.MR.SeamRowWindowed
 import Salt.MR.SPartStation
 import Salt.MR.ThmA2
 import Salt.MR.ThmA2Rows
+import Salt.MR.StationHoist
 import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
@@ -1716,3 +1717,5 @@ open Salt.Tactic in
   Salt.MR.thm_a2'
   Salt.MR.a2_station_supply_pointwise
   Salt.MR.a2Frame_satisfiable_partial
+  Salt.MR.seam_ball_leg_station_M_hoisted
+  Salt.MR.hStation_of_hoisted
