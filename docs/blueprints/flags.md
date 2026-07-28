@@ -12771,3 +12771,41 @@ confirmed twice: **regime enlargement absorbs any X-INDEPENDENT debit
 and can never touch an X-dependent one** (that is why it may save
 D3/U1 and provably cannot save D1). SIEGEL-REGIME scoper dispatched on
 the M4-7-uniformity check.
+
+---
+
+## SIEGEL-REGIME: RETIRES-D3 CONFIRMED — the even-χ campaign exits the road (2026-07-27 20:33 PDT)
+
+The regime route through the band floor is verified byte-by-byte, and
+BETTER than the lead: chi_Llower_band (SiegelArm:275) has NO per-χ X₀,
+no q-gate, no G-gate — the compact bandBox [1,2]×[−1,1] contains every
+bridge point 1+1/log X − it for X ≥ e uniformly, so B_χ is the ONLY
+per-χ datum and one finite max B(Q) over q ≤ Q suffices. Consume
+chi_floor_low_of_Llower (ChiFloorLow:94 — coefficient EXACTLY 1 on
+loglog X, no /k², no primeDivSum, K global) — NOT chi_floor_all_complete
+(its min drags the k²-branch back in). The |t| ≤ 1 band strictly
+contains the corpus's whole conditional region (|t| < 1/(2·ord χ) ≤ 1/4).
+W is genuinely Hhi-only (arcDen = (log H)^12 — the (loglog X)^w door pin
+was an absorption artifact of the effective-L1 route, not the arc's
+q-range). All three consumer demands clear at Hhi-only thresholds
+((32/31)(B+K+25); 1.2294(B+K); B+K+81.6·loglog Hhi). M4-7 consumes ONLY
+the exceedance of M₀ := (5e/2)log W — never the floor's magnitude
+(thm_a2'_of_rows carries M₀ free). NO import cycle (the MR and Chowla
+cones are disjoint); the fifth g-arm takes a Bfun : ℕ → ℝ parameter slot
+(the X0MR idiom), instantiated where SiegelArm + RegimeHead meet. The
+band route needs NO orderOf χ ≤ q stone. STONES: the uniform band max
+[B, 50–100] + the floor compose [A/B, 30–50] + three threshold arms
+[A, 40–60] + the g-arm rider [+20–30] + the instantiation [A, 25–40] =
+~165–280 ln on top of REGIME-CUT. M4-6 REWIRES: its band branch consumes
+the new stone 2 (upgrading the band floor to coefficient 1), not
+chi_floor_real_door_12/L1LowerEffective.
+
+CAVEATS RECORDED: (1) D1 STANDS — the band covers |t| ≤ 1; the
+bulk×non-real cell is untouched (the regime law again). (2) **POISON 2
+(the EVT compact min, SiegelArm:161) becomes LOAD-BEARING** —
+pearl-register entry owed: the ineffectivity enters exactly there, is
+confined to the even-χ regime arm, and the ODD lane keeps its effective
+route (L1_lower_odd at π·q^{−5/2}) so the ineffective set is minimal.
+(3) The shift-variable trap (K2) applies to the band: pin |t₀+v| vs |v|.
+(4) L1LowerEffective the INTERFACE stays open (unconsumed on the band) —
+paper-completeness item at the register, alongside GS/Lemma-4.
