@@ -1734,6 +1734,12 @@ open Salt.Tactic in
   Salt.MR.pretFloorShape_quarter_sq
   Salt.MR.Tstar_two_mul_le_quarter
   Salt.MR.seamGateRstar_le_two_mul
+  Salt.MR.norm_lamCoeff_le_one
+  Salt.MR.windowExpSum_eq_offWindowSum
+  Salt.MR.Ioc_eq_map_rebase
+  Salt.MR.offWindowSum_eq_rebase
+  Salt.MR.norm_offWindowSum
+  Salt.MR.norm_windowExpSum_le
   Salt.MR.windowExpSum_eq_rebase
   Salt.MR.norm_windowExpSum_eq_absWindowSum
   Salt.MR.norm_absWindowSum_le
