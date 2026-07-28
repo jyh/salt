@@ -92,3 +92,40 @@ the 4/3 ripple; the C2 accounting page (i)–(iii) — kill or confirm) →
 then W1, W2, C1+C2 as three executors → then the M4RowMeanSq discharge
 compose → the register closes to the pricing inequality + the door
 gates → the S11 spine compose.
+
+---
+
+# v2 — POST-REFUTATION (REFUTE-RESIDUE's verdicts; supersedes above)
+
+- **W1 REPAIR-THEN-FIRE**: arithmetic verified (2080 ≤ 2160; Xd-glyph
+  resolves; the ×4 ALREADY BANKED downstream — a2_term3_weigh saturates
+  at 5760 exactly). Fold: the a2_term3_ball_weigh one-step re-proof
+  (8·Sb² ≤ 5760·Sb², ~10 ln); witEP2's ripple is FOUR sites; the 12·EP2
+  gate free from log X ≥ 1.6·10⁴.
+- **W2 RESCOPED to the pin/err chain (P = Q) ONLY** — there the
+  genericity claim verified at every link and the door factorization is
+  byte-honest for ALL m. The band-chain half is FALSE (e(αpm) bilinear;
+  1_𝒮(pm) level-dependent) and is NOT NEEDED under the forced order
+  (below).
+- **C restructured — NO INDUCTION** (depth 1: m4_class_dilate_coprime;
+  the dilated frequency b/q₀ constant on classes — no second split).
+  The two-case lemma: d₀ = 1 → the character expansion (1/φ cancels);
+  d₀ > 1 → ONE dilation (an equality, zero loss) → the coprime branch.
+- **THE q-GRADED REPAIR (the real kill, ii-b)**: M4SievedDoorSqSup +
+  m4_sievedDoorSq_of_sup re-cut to keep the drift's q-grading —
+  conclusion at Braw'·q²·H², the grade gate at (1+2πA/q)²q² = (q+2πA)²
+  ≤ (1+2π)²·arcDen² ≈ 53·(log H)^24 vs budget 2(15−11/4) = 24.5:
+  CLOSES by (log H)^{0.5} ≥ 53 at the door. The two q's are the same
+  witness by construction.
+- **U1**: item 4's pricing must RETAIN the decay — price summand 1 from
+  cfbM0 directly ((log X)^{1/15−7/(30e)} genuinely decays); never
+  through m4_quality_summand_le (g1 is unsatisfiable: 8448·C₁'² ≤ 1/5).
+- **U2 — THE FORCED ORDER**: Part C is a RE-CUT of M4RowMeanSq between
+  the door and the capstone (drift + split + expansion REMOVE the
+  phase); the capstone instantiates at the UN-phased 1_𝒮λχ̄ datum.
+- **U3**: the M4GradeGate direct-discharge sibling (√Braw ≤ delivered,
+  from the weaker Braw) — mandatory; m4_gradeGate_of_pricing wastes
+  24.5 exponents.
+- **K3(iii)**: the endpoint-drop lemma (the dilated fit fails by ≤ 3
+  units against the TIGHT doorLadder_fit; each dropped n costs
+  H'²/A' — negligible but a statement obligation).
