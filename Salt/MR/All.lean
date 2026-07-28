@@ -179,6 +179,7 @@ import Salt.MR.M4Residue
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.MR.M4Abel
+import Salt.MR.VkTwistClose
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -1840,3 +1841,23 @@ open Salt.Tactic in
   Salt.MR.quality_gate_threshold
   Salt.MR.siegelBandB_spec
   Salt.MR.modulus_bound_mono
+
+open Salt.Tactic in
+#audit_axioms Salt.MR.vk_height_facts
+  Salt.MR.log_vkProfile
+  Salt.MR.chi_Llower_341_of_ub
+  Salt.MR.chi_Llower_341_height
+  Salt.MR.chi_Llower_341_vk
+  Salt.MR.one_le_vkEulerCorr
+  Salt.MR.vkEulerCorr_pos
+  Salt.MR.norm_LFunction_le_vkEulerCorr
+  Salt.MR.vkProfile_const_mul
+  Salt.MR.vkTwistUB_of_primitive
+  Salt.MR.vkDebitConst_nonneg
+  Salt.MR.vkMidDebit_nonneg
+  Salt.MR.vkDebitConst_vkEulerCorr
+  Salt.MR.vk_debit_le
+  Salt.MR.chi_floor_vk_pointwise
+  Salt.MR.vk_capfree_threshold
+  Salt.MR.capFreeFloor3_lamChi_vk
+  Salt.MR.capFreeFloor_lamChi_vk

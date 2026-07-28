@@ -12914,3 +12914,32 @@ DOUBLE, with the (loglog)^4 costing 4·logloglog X (budget it; threshold
 loglog X ≳ 2–5·10³, subsumed by the ε-window's 6412.6). Imprimitive χ²
 via LFunction_changeLevel (~0.1k). MID-AUGUST IS NOT IN DANGER; Aug 5–8
 is back in play.
+
+---
+
+## VT-5/6 LANDED + a threshold correction to the VK-SCOPE bank (2026-07-28 07:42 PDT)
+
+VkTwistClose.lean (687 ln, 17 decls): VkTwistUB the VT-4 socket;
+chi_Llower_341_of_ub — the 3-4-1 with its ONE height-sensitive input
+abstracted as the U slot (the only improvable point in the chain, by
+design); the two suppliers (mid branch |t| ≤ exp(exp 100) via the
+linear-in-t LFunction_norm_le_level; VK branch via the socket at χ²/2t);
+imprimitivity priced honestly at vkEulerCorr q (∏_{p|q}(1+1/p), NOT the
+corpus's q — sharper than ChiLLower's own pricing); the close:
+capFreeFloor_lamChi_vk + capFreeFloor3_lamChi_vk, strict, margin 1/16
+vs demand 1/32. The (loglog)^4 profile costs 1× logloglog X (the
+VK-SCOPE bank said "budget 4×" — it is (1/4)·4 = 1×).
+
+**CORRECTION to the VK-SCOPE bank (honest-reporting law):** the joint
+threshold is NOT "~2–5·10³ subsumed by the ε-window" — that figure
+implicitly assumed a classical 1-line mid bound the corpus does NOT
+hold. With the landed linear-in-t mid bound, vkMidDebit ≈ (1/4)e^100
+and the threshold is loglog X > ~2·10^44. THIS BLOCKS NOTHING: the
+door's U1 floor gives loglog X ≈ log Hhi ≥ 6.4·10^61 — cleared with
+~17 orders to spare — and the threshold is X-independent (regime-
+absorbable) regardless. REGISTERED (VT-7, optional hygiene, [B/C,
+150–300]): the 1-line mid bound ‖L(1+1/logX+it,χ)‖ ≪ log(q(|t|+2)) via
+truncation + PV/Abel (needs the un-stripped norm_LFunction_sub_partial_le
+sibling at Re s ≥ 1 — StripConvergence:438's twin); it plugs ONLY the U
+slot + vkMidDebit's def + three §5 statements (~30 ln churn) and drops
+the threshold to ~10³.
