@@ -12968,3 +12968,34 @@ arm; odd-real via L1_lower_odd; non-real via the campaign capstone —
 pure composition + the lam-collision prime-level adapter), CFB (the
 per-frequency reroute at the 0.1867 gate), M4-4, M4-5, FRAME. The M4
 road has NO remaining analytic wall — everything left is assembly.
+
+---
+
+## THE OVERNIGHT TRIO LANDS: M4-5 + M4-6-REWIRE + M4-1 — three findings (2026-07-28 09:57 PDT)
+
+**THE A2-5 SEAM, NOW A SINGLE NAMED SOCKET (M4-5's finding):** the fixed
+entry route cannot compose into one theorem non-vacuously — err_at_witness
+demands the SIEVED datum (blockOmega-supported) while cfb_t0band_supply
+demands the UNSIEVED seam coefficient above X: the exact A2-5/Route-III
+identification ThmA2.lean:80 always declared "never derived from one
+another here". The capstone m4_meansq_per_chi_gen keeps hT0band as an
+explicit slot; the band route is landed non-vacuously alongside with
+byte-compatibility demonstrated; the WHOLE remaining gap is the one
+binder `hlive` (m4_t0band_of_live). The bridge = the eq-26/Route-III
+composition at the register — SCOPE TOMORROW (its register note says
+"after hMsup + Lemma 4"; whether Lemma 4 (the GS port, D-tier, carried
+external) genuinely gates it is the morning's first scoping question).
+
+**THE ONE-BLOCK VACUITY (M4-1's finding, kernel-checked):**
+door_window_not_one_block — Ioc(x/ω)(x+H) ⊆ Icc X (2X) is False for
+every X at ω ≥ 2. The dyadic split is load-bearing at M4-1, not only
+M4-8; M4-8 supplies the sieve mass B by summing m4_sieve_block_mass
+over M4Dyadic's cover (sum_dyadCover) — the seam is named, no longer
+implicit. ALSO: the freeze's 8C/δ gate delivers δ/4 (π²δ/48), not δ/8 —
+the number was inherited from eq28_clears_of_M_const where the
+coefficient differs; both gates shipped (8C/δ → δ/4; 16C/δ → δ/8).
+
+M4-6-REWIRE: the joint g-arm threshold m4JointThr is (log Hhi)^12-grade
+(the (1/4)q content dominates at q ≤ W), X-free, inside the
+SIEGEL-REGIME shape — the spine compose consumes ONE inequality.
+exp(−M/e) provenance pinned (the e's cancel exactly; W^{−5/2} exact).

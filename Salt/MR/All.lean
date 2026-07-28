@@ -185,6 +185,9 @@ import Salt.MR.VkTwistLadder
 import Salt.MR.CapFreeAssembly
 import Salt.MR.FrameWitness
 import Salt.MR.T0BandCapFree
+import Salt.MR.M4Quality
+import Salt.MR.M4MeanSq
+import Salt.MR.M4Sieve
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -1986,3 +1989,93 @@ open Salt.Tactic in
   Salt.MR.cfb_t0band_supply
   Salt.MR.cfb_seam_floor_of_band
   Salt.MR.cfb_t0band_supply_chi
+
+-- M4-6 (`M4Quality`) — THE QUALITY SUPPLY: the demand `(5e/2)·log W` (constant in `X`), its
+-- exceedance at the `T₀`-band `M₀` (`cfbM0`, coefficient `7/30`) and at the bounded band
+-- (`siegelBandB`, coefficient `1` — the C3 upgrade), the `W`-monotonicity glue, and the
+-- SINGLE regime constant `m4QualityB` / joint threshold `m4JointThr` the spine's `g` clears
+open Salt.Tactic in
+#audit_axioms Salt.MR.m4Demand_door
+  Salt.MR.one_le_m4W
+  Salt.MR.m4Demand_nonneg
+  Salt.MR.m4_exit_decay_of_quality
+  Salt.MR.cfbM0_antitone_K
+  Salt.MR.m4_quality_of_band
+  Salt.MR.m4_log_le_div_eighty
+  Salt.MR.m4_quality_of_band_hhi
+  Salt.MR.m4_quality_band_coeff_one
+  Salt.MR.m4_quality_band_coeff_one_liouChi
+  Salt.MR.m4_quality_band_door
+  Salt.MR.m4W_mono
+  Salt.MR.m4_modulus_le
+  Salt.MR.m4_modulus_nat_le
+  Salt.MR.m4Wnat_mono
+  Salt.MR.m4_quality_band_window
+  Salt.MR.cfbK_nonneg
+  Salt.MR.cfbK_spec
+  Salt.MR.m4VKdebit_spec
+  Salt.MR.cfbK_le_m4QualityB
+  Salt.MR.siegelBandB_le_m4QualityB
+  Salt.MR.cffK_le_m4QualityB
+  Salt.MR.m4VKdebit_le_m4QualityB
+  Salt.MR.m4QualityB_nonneg
+  Salt.MR.m4JointThr_anchor
+  Salt.MR.m4JointThr_qual
+  Salt.MR.m4JointThr_band
+  Salt.MR.m4JointThr_cff
+  Salt.MR.m4_quality_of_joint
+  Salt.MR.m4_band_of_joint
+  Salt.MR.m4_capfree_of_joint
+
+-- M4-5 (`M4MeanSq`) — THE ASSEMBLY CAPSTONE: `thm_a2'_of_rows` instantiated at the M4 datum
+-- (`liouChi χ`), entered through `a2Rows_of_capfree3` with the frame from `a2Frame3_witness`,
+-- the row ladder from `row_ladder_at_witness` and the floor from `capFreeFloor3_liouChi_all`;
+-- the `X_d = X`, `N = 2X` joint pin; the `T₀`-band from `cfb_t0band_supply_chi` at the M4
+-- datum plus the live-range transport into the `hT0band` slot (⚠ the A2-5 seam — the file's
+-- header records why the band is a slot and not an inlined supplier); and the trivial-cut
+-- dichotomy the dyadic consumer takes
+open Salt.Tactic in
+#audit_axioms Salt.MR.dpolyA_congr
+  Salt.MR.mem_seamS0
+  Salt.MR.m4BandDatum_supp
+  Salt.MR.m4BandDatum_eq
+  Salt.MR.dpolyA_seamS0_bandDatum
+  Salt.MR.exp_exp_one_gt_three
+  Salt.MR.exp_one_le_exp_exp_one
+  Salt.MR.m4_meansq_per_chi_gen
+  Salt.MR.m4_t0band_at_datum
+  Salt.MR.m4_t0band_of_live
+  Salt.MR.m4_trivial_branch
+  Salt.MR.m4_meansq_or_trivial
+
+-- M4-1 (`M4Sieve`) — THE `1_𝒮` INSERT: the insert identity at a general 1-bounded datum, the
+-- short-window double count (the Fubini exchange the door needs), the half-open endpoint of
+-- the sieve engine's window, the M-gate at the Basel collector, and the two exits (the
+-- priced block and the door-shaped `logMeasure`-L¹ insert)
+open Salt.Tactic in
+#audit_axioms Salt.MR.memSCoeff_mul
+  Salt.MR.norm_memSCoeff_le_one
+  Salt.MR.ratioSumK_nonneg
+  Salt.MR.card_notMemS_eq_sum
+  Salt.MR.sum_memS_split
+  Salt.MR.norm_sum_notMemS_le
+  Salt.MR.norm_sum_memS_insert
+  Salt.MR.norm_absWindowSum_memS_insert
+  Salt.MR.norm_shortSum_memS_insert
+  Salt.MR.norm_absWindowSum_memS_insert_liouville
+  Salt.MR.norm_absWindowSum_memS_insert_liouChi
+  Salt.MR.sum_window_double_count
+  Salt.MR.sum_notMemSCount_le
+  Salt.MR.sum_notMemSCount_weighted_le
+  Salt.MR.door_window_not_one_block
+  Salt.MR.integral_logMeasure_le_add
+  Salt.MR.integral_logMeasure_le_of_weighted
+  Salt.MR.card_notMemS_of_subset_Icc
+  Salt.MR.notMemS_window_count_le
+  Salt.MR.sieve_mass_le_basel
+  Salt.MR.sieve_mass_le_quarter
+  Salt.MR.sieve_mass_le_eighth
+  Salt.MR.m4_sieve_block_mass
+  Salt.MR.m4_sieve_insert
+  Salt.MR.m4_sieve_insert_liouville
+  Salt.MR.m4_sieve_insert_liouChi

@@ -1,0 +1,675 @@
+/-
+Copyright (c) 2026 Jason Hickey. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Jason Hickey, Claude
+-/
+import Salt.MR.FrameWitness
+import Salt.MR.T0BandCapFree
+import Salt.MR.M4Dyadic
+
+/-!
+# `M4MeanSq` — THE SUMMIT AT THE M4 DATUM (`m4_meansq_per_chi_gen`)
+
+`ThmA2.thm_a2'_of_rows` is the frozen five-summand mean-square interface.  Until this file
+it had no instance: its `hrows` slot wanted a cap-free seam-row family, its `hT0band` slot
+wanted a `T₀`-band datum, and both wanted the SAME coefficient sequence `a`.  Wave 2 landed
+all three suppliers.  This file does the joint instantiation — no new analysis, only binder
+discipline.
+
+## THE ENTRY ROUTE
+
+```
+                       a2Frame3_witness      (FrameWitness §9)     ─┐
+                       row_ladder_at_witness (FrameWitness §10)    ─┤
+                       capFreeFloor3_liouChi_all (CapFreeAssembly) ─┼→ a2Rows_of_capfree3
+                                                                    │        │
+                                                                    │        ↓ hrows
+  cfb_t0band_supply_chi (T0BandCapFree §5) ─→ m4_t0band_at_datum ──┐│
+                                                                   ↓↓
+                            m4_t0band_of_live ──→ hT0band ──→ thm_a2'_of_rows
+```
+
+Three of the four suppliers are composed INSIDE `m4_meansq_per_chi_gen`.  The fourth — the
+`T₀`-band — is entered at the M4 datum by `m4_t0band_at_datum` (§5) and delivered into the
+capstone's `hT0band` slot by `m4_t0band_of_live`, because of THE A2-5 SEAM below.
+
+## ⚠ THE A2-5 SEAM (why the band is a slot and not an inlined supplier)
+
+`ThmA2`'s own header names it: *"the `𝒮_K`↔seam-datum identification is the A2-5/Route-III
+seam: the statement's `a` is the coefficient sequence, and the two readings of it —
+`1_{𝒮_K}·F` … and the station/band datum `seamCoeff (ellLin g) 1 t₀` — are supplied to the
+two consumers, never derived from one another here."*  At the landed statements the two
+readings are not merely underived, they are **contradictory**:
+
+* `FrameWitness.err_at_witness` (hence `a2Frame3_witness`, hence `a2Rows_of_capfree3`)
+  demands `hsupp : ∀ n, a n ≠ 0 → 1 ≤ blockOmega P P n` — `a` is SUPPORTED ON MULTIPLES OF
+  the block prime `P`;
+* `T0BandCapFree.cfb_t0band_supply` demands
+  `hDatum : ∀ n, X < n → a n = seamCoeff (ellLin g) 1 t₀ n` — `a` is the UNSIEVED seam
+  coefficient above `X`, which is non-zero at squarefree `n ∤ P` coprime to `q`.
+
+(The narrower clash with `hasupp`'s `n ≤ 2X_d` cut-off is repaired here — see §2 — but the
+sieve clash is not repairable by a congruence.)  So a single theorem discharging BOTH from
+the landed suppliers would have jointly unsatisfiable hypotheses, i.e. be vacuous.  The file
+therefore keeps `hT0band` as an explicit slot of the capstone and lands the band route
+separately, with `m4_t0band_of_live`'s `hlive` (agreement on the LIVE RANGE `X < n ≤ N`) as
+the single named binder the A2-5 identification must supply.  Nothing here is weakened: the
+supplier's output type IS the slot's type at `C₁′ = cfbC₁ X C₁`, `M₀ = cfbM0 K q X`.
+
+## THE TWO PINS (forced, not chosen)
+
+`a2Frame3_witness` asks `X ≤ X_d`, `2X_d ≤ N` and `N ≤ 2X_d`; `a2Rows_of_capfree3` asks
+`X ≤ N` and `N ≤ 2X`.  Together: `N = 2X_d` and `X ≤ X_d`, `2X_d = N ≤ 2X`, so
+
+  **`X_d = X`  and  `N = 2X_d = 2X`.**
+
+Both are carried as the named binders `hXd`/`hNXd` (FRAME's report, "the `X_d = X`, `N = 2X`
+joint pin").  Every other scale relation between `N`, `X_d`, `X` is then arithmetic.
+
+## THE DATUM RULE (the `lam` collision, flags `2e3b8fe`)
+
+The row's `g`-slot is SUMMED over integers, so it is `liouChi χ = λ·χ̄`
+(`CapFreeAssembly.liouChi`), never `lamChi`.  `capFreeFloor3_liouChi_all` is the floor in
+exactly that shape; `pretDistSq_liouChi_eq` is the bridge that made it available.
+
+## THE LIVE-RANGE BAND DATUM (§2 — the one genuine repair here)
+
+`cfb_t0band_supply_chi`'s `hDatum` pins `a n = seamCoeff (ellLin (liouChi χ)) 1 t₀ n` for
+EVERY `n > X`, while `a2Rows_of_capfree3`'s `hasupp` forces `a n = 0` for `n > 2X_d = N`.
+Those two are jointly unsatisfiable at any single `a` (the seam coefficient does not vanish
+above `N`).  The repair is a congruence, not a weakening: `dpolyA a (seamS0 N X) t` reads
+`a` only on `seamS0 N X ⊆ [1, N]`, so the band supplier is fed the UNTRUNCATED datum
+`m4BandDatum χ t₀ X` and the result transported to `a` by `dpolyA_congr`.  What `a` must
+satisfy is then only the LIVE-RANGE agreement `hlive` (`X < n ≤ N`), which IS compatible
+with `hasupp` — though not, at the landed statements, with the sieve support (see the A2-5
+seam above).
+
+## THE `Cq` RULE (K6)
+
+`Cq` and `cq` are bound by `a2Rows_of_capfree3`'s own existential and are opaque
+(flags, K6).  Both gates (`hcqgate` at the block base, `hCqgate` at the `𝒰`-leg) are
+therefore stated INSIDE the capstone's existential scope, in terms of the obtained
+constants — which is why `m4_meansq_per_chi_gen` opens with `∃ Cq cq …` and carries the
+gates as hypotheses of the inner `∀`.
+
+## THE BINDER → SUPPLIER TABLE
+
+`a2Rows_of_capfree3`'s hypothesis list, in file order.  "carried" = a named binder of
+`m4_meansq_per_chi_gen` (a scale gate the door numerology clears, or an S8 datum) — never
+evaluated here.
+
+| # | binder | supplier |
+|---|---|---|
+| 1 | `hg` (‖g p‖ ≤ 1) | `norm_liouChi_le_one` |
+| 2 | `hc1` (‖c n‖ ≤ 1) | carried `hcf1` |
+| 3 | `hb1` (‖b n‖ ≤ 1) | `ellLin_norm_le_one` ∘ `norm_liouChi_le_one` |
+| 4 | `hcf1` | carried `hcf1` |
+| 5 | `hM` (1 ≤ M) | carried |
+| 6 | `hXdQ` (`Q₂ ≤ X_d`) | carried |
+| 7 | `F : A2Frame3 …` | `a2Frame3_witness` (see the second table) |
+| 8 | `hH2` (2 ≤ H₈₃) | carried |
+| 9 | `hXe` (e ≤ X) | `hXee` (e^e ≤ X), monotonicity |
+| 10 | `hlX2` (e² ≤ log X) | carried |
+| 11 | `hh4` (4 ≤ h) | carried |
+| 12 | `hQ1h` (Q₁ ≤ h) | carried |
+| 13 | `hLe` (e ≤ L) | carried |
+| 14 | `hVJg` | carried |
+| 15 | `hMs` | `row_ladder_at_witness`.1 |
+| 16 | `hm₀2` | `row_ladder_at_witness`.2.1 |
+| 17 | `hm₀` | `row_ladder_at_witness`.2.2.1 |
+| 18 | `hMs4` | `row_ladder_at_witness`.2.2.2 |
+| 19–21 | `hV1`, `hVδ`, `hlogV` | carried |
+| 22 | `hCb0` | carried |
+| 23 | `hPlow` (P₈₃ ≤ P) | carried |
+| 24 | `hQ0` (0 < Q) | `hP3` (3 ≤ P) |
+| 25 | `hQhigh` (Q ≤ Q₈₃) | carried `hPhigh` (Q := P) |
+| 26 | `hPQ83` (P ≤ Q) | `le_rfl` (the witness pins `P = Q`) |
+| 27 | `hfloor` (`CapFreeFloor3 g X`) | `capFreeFloor3_liouChi_all` + carried `hcff` |
+| 28–30 | `hR0`, `hRrad`, `hRlow` | carried |
+| 31 | `hCbound` (`ShortIntervalDatum Cb`) | carried |
+| 32–35 | `hX₀k`, `hMfl0`, `hk2`, `hkX` | carried |
+| 36 | `hkk` (`kmin ≤ kk j`) | carried (at `witKk`) |
+| 37 | `hMtpin` (`pin2Gate ≤ Mt j`) | carried (at `witMt`) — shared with the frame |
+| 38 | `hMt` (`Mt j ≤ Ymax`) | carried (at `witMt`) |
+| 39–43 | `hgateW`, `hYpin`, `hWY`, `hXY`, `hthr` | carried |
+| 44 | `hCqgate` | carried, INSIDE the existential (K6) |
+| 45–47 | `hε0`, `habs`, `hEP2` | carried (the ε-window) |
+| 48 | `hXN` (X ≤ N) | the two pins |
+| 49 | `hN2` (N ≤ 2X) | the two pins |
+| 50 | `hsupp` (`a` above `X`) | carried `hsupp0` |
+| 51 | `hNXd` (2X_d ≤ N) | the `N = 2X_d` pin |
+| 52 | `hcoef` (band factorisation) | carried `hcoefBand` (S8) |
+| 53 | `hwin` (band window) | carried `hwinBand` (S8) |
+| 54–55 | `hQXd`, `hXdbig` | carried |
+| 56 | `hN4` (N ≤ 4X_d) | the `N = 2X_d` pin |
+| 57 | `hdom` | carried |
+| 58 | `ha1` (‖a n‖ ≤ 1) | carried |
+| 59 | `hasupp` (`a` in `[X_d, 2X_d]`) | carried (S8) |
+
+`a2Frame3_witness`'s own list (FrameWitness §9's three classes):
+
+| binder | supplier |
+|---|---|
+| `hX0`, `hh0`, `hLX0`, `hXd1`, `hXdX` | arithmetic from the pins and the scale page |
+| `hLXL`, `hTann`, `hceil5`, `hT₀le`, `hTbot` | carried |
+| `hhceil` (the `h`-ceiling, K8/law #253) | carried — structural, never derived |
+| `hH2`, `hP3`, `hlogP2`, `hPbot`, `hPlog`, `hPL` | carried |
+| `hcqgate` | carried, INSIDE the existential (K6) |
+| `hW4` | `hW5` (the row ladder's own floor), `linarith` |
+| `hkth`, `hMtX`, `hC16`, `hRrad0`, `hRradW` | carried |
+| `hMN` (2X_d ≤ N), `hN2` (N ≤ 2X_d) | the `N = 2X_d` pin |
+| `hPj1`, `hthinpin` | carried |
+| `hXthr`, `hMtpin` | carried |
+| `hδsq`, `hlog2X`, `hksthr` | carried (`hlog2X` is arithmetic) |
+| `hHX` (H₈₃ ≤ X_d) | carried |
+| `hcoef`, `hwin` at the pin `p = P` | carried `hcoefPin`, `hwinPin` (S8) |
+| `ha`, `hb`, `hc` | `ha1`, `ellLin_norm_le_one`, `hcf1` |
+| `hasupp`, `hsupp` (blockOmega) | carried (S8) |
+| `hEP2` (`witEP2 ≤ EP2`) | carried |
+
+`cfb_t0band_supply_chi`'s list (§5, `m4_t0band_at_datum`): `hX1`/`hXb`/`hXee` the three
+scale floors, `hXN`/`hN2X` the pins, `hC₁`, `ht₀` (the band-geometry gate
+`|t₀| ≤ seamT0 X + 1`), the four `Y`-gates, `hRHS` (per band frequency — the whole cost of
+going cap-free), `hbthr`; its `hsupp`/`hDatum` slots are discharged by §2's `m4BandDatum`,
+and `m4_t0band_of_live` transports the result by `dpolyA_congr`.
+
+`thm_a2'_of_rows`'s remaining own list: `hX3` (3 ≤ X, from `e^e ≤ X`), `hhX` (Lemma 14's
+window frame), `hgP1`, `hgRows`, `hεwin`, `hL4096` — all carried.
+
+## THE TRIVIAL BRANCH
+
+`m4_meansq_or_trivial` is the case split the dyadic consumer (M4-7) takes: below the
+freeze's `trivThresh H d₀ W` the window is discarded against `M4Dyadic`'s
+`integral_logMeasure_absWindowSum_le_thresh` (no analysis at all); at or above it the
+capstone fires.  The dyadic COVER is deliberately NOT baked in — `m4_meansq_per_chi_gen` is
+the per-scale statement at a general `X` clearing the gates, so M4-7 owns the summation.
+-/
+
+noncomputable section
+
+open scoped BigOperators
+open MeasureTheory
+
+namespace Salt.MR
+
+open Salt.Entropy.Chowla
+
+/-! ## §1 — the `dpolyA` congruence
+
+`dpolyA a s₀ t = ∑_{m ∈ s₀} a_m/m^{1+it}` reads `a` only on `s₀`.  That is the whole content
+of the live-range repair. -/
+
+/-- `dpolyA` depends on the coefficient sequence only through its values on the index set. -/
+theorem dpolyA_congr {a b : ℕ → ℂ} {s0 : Finset ℕ} (h : ∀ m ∈ s0, a m = b m) (t : ℝ) :
+    dpolyA a s0 t = dpolyA b s0 t :=
+  Finset.sum_congr rfl fun m hm => by rw [h m hm]
+
+/-- Membership in the seam index set, unfolded once. -/
+theorem mem_seamS0 {N n : ℕ} {X : ℝ} (hn : n ∈ seamS0 N X) : 1 ≤ n ∧ n ≤ N ∧ X < (n : ℝ) := by
+  rw [seamS0, Finset.mem_filter, Finset.mem_Icc] at hn
+  exact ⟨hn.1.1, hn.1.2, hn.2⟩
+
+/-! ## §2 — THE BAND DATUM
+
+The untruncated seam coefficient, cut off below `X`.  It satisfies `cfb_t0band_supply_chi`'s
+`hsupp` and `hDatum` by construction — and, unlike the row's `a`, it is NOT required to
+vanish above `N`, which is exactly why the two suppliers can be composed. -/
+
+/-- **THE BAND DATUM** `m4BandDatum χ t₀ X`: the seam coefficient of `ellLin (liouChi χ)` at
+the centre `t₀`, forced to `0` on `n ≤ X`. -/
+def m4BandDatum {q : ℕ} (χ : DirichletCharacter ℂ q) (t₀ X : ℝ) : ℕ → ℂ :=
+  fun n => if (n : ℝ) ≤ X then 0 else seamCoeff (ellLin (liouChi χ)) (fun _ => 1) t₀ n
+
+theorem m4BandDatum_supp {q : ℕ} (χ : DirichletCharacter ℂ q) (t₀ X : ℝ) :
+    ∀ n : ℕ, (n : ℝ) ≤ X → m4BandDatum χ t₀ X n = 0 := fun _ hn => if_pos hn
+
+theorem m4BandDatum_eq {q : ℕ} (χ : DirichletCharacter ℂ q) (t₀ X : ℝ) :
+    ∀ n : ℕ, X < (n : ℝ) →
+      m4BandDatum χ t₀ X n = seamCoeff (ellLin (liouChi χ)) (fun _ => 1) t₀ n :=
+  fun _ hn => if_neg (not_le.mpr hn)
+
+/-- **THE LIVE-RANGE TRANSPORT.**  If `a` agrees with the seam coefficient on `X < n ≤ N`
+then its band polynomial is the band datum's, frequency by frequency. -/
+theorem dpolyA_seamS0_bandDatum {q : ℕ} (χ : DirichletCharacter ℂ q) {t₀ X : ℝ} {N : ℕ}
+    {a : ℕ → ℂ}
+    (hlive : ∀ n : ℕ, X < (n : ℝ) → n ≤ N →
+      a n = seamCoeff (ellLin (liouChi χ)) (fun _ => 1) t₀ n) (t : ℝ) :
+    dpolyA (m4BandDatum χ t₀ X) (seamS0 N X) t = dpolyA a (seamS0 N X) t := by
+  refine dpolyA_congr (fun m hm => ?_) t
+  obtain ⟨-, hmN, hmX⟩ := mem_seamS0 hm
+  rw [m4BandDatum_eq χ t₀ X m hmX, hlive m hmX hmN]
+
+/-! ## §3 — the scale-page arithmetic
+
+Three facts extracted from `e^e ≤ X` alone (`thm_a2'_of_rows` wants `3 ≤ X`, the row wants
+`e ≤ X`, and the frame wants `0 < X`). -/
+
+theorem exp_exp_one_gt_three : (3 : ℝ) < Real.exp (Real.exp 1) := by
+  have h1 : Real.exp 1 + 1 ≤ Real.exp (Real.exp 1) := Real.add_one_le_exp _
+  have h2 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
+  linarith
+
+theorem exp_one_le_exp_exp_one : Real.exp 1 ≤ Real.exp (Real.exp 1) :=
+  Real.exp_le_exp.mpr (Real.one_le_exp (by norm_num))
+
+/-! ## §4 — THE SUMMIT
+
+Every hypothesis below is either arithmetic from the two pins, or a named binder in the
+sense of the header table.  Nothing is evaluated. -/
+
+set_option maxHeartbeats 1600000 in
+-- the ~75-binder joint instantiation: elaborating the three suppliers' argument lists
+-- against one statement is what costs the heartbeats, not any tactic search
+/-- **THE FIVE-SUMMAND MEAN SQUARE AT THE M4 DATUM** (`m4_meansq_per_chi_gen`).
+
+For every Dirichlet character `χ mod q` in the door's modulus range `q ≤ Qm`, at every scale
+`X` clearing the gates, and at any `T₀`-band bound `t0BandB X C₁′ M₀` the consumer holds:
+
+  `(1/X)∫_X^{2X} ‖(1/h)·S(x)‖² dx`
+  `  ≤ 8448·C₁′²·exp(−M₀/e)`
+  `   + 1787702400·(log Q₁)^{1/3}/P₁^{1/12}`
+  `   + 188133·(log X)^{−1/500}`
+  `   + 304128·ballSupC²·(log X)^{−13/15}·(1+loglog X)²`
+  `   + 6315000/h`,
+
+which is `ThmA2.thm_a2'_of_rows`' conclusion verbatim (M4-7 does arithmetic on the raw
+summands, so nothing is re-shaped here).  This is the PER-SCALE statement: the dyadic cover
+of `M4Dyadic` is the consumer's, not this theorem's.
+
+`§5`'s `m4_t0band_at_datum` + `m4_t0band_of_live` are the `hT0band` slot's supplier, at
+`C₁′ = cfbC₁ X C₁` and `M₀ = cfbM0 K q X`; the slot is explicit rather than inlined because
+of the A2-5 seam (module docstring).
+
+See the module docstring for the binder → supplier table. -/
+theorem m4_meansq_per_chi_gen (Qm : ℕ) :
+    ∃ Cq cq T₀ X₀ Cs Ccc Kfl : ℝ,
+      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
+      ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), q ≤ Qm →
+          ∀ (N Xd P M : ℕ) (a cf : ℕ → ℂ)
+            (X h δ' V VJ L Cb Rrad kmin Ymax ε EP2 C₁' M₀ : ℝ),
+            -- ⟦the two pins (FRAME's joint instantiation)⟧
+            (Xd : ℝ) = X → N = 2 * Xd →
+            -- ⟦the scale page⟧
+            Real.exp (Real.exp 1) ≤ X → Real.exp 2 ≤ Real.log X →
+            4 ≤ h → h ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ)) →
+            Real.log h + 30 * (Real.log X) ^ (1 - theta293) ≤ Real.log X →
+            TannGate X (2 * (X / h)) → 5 ≤ Real.log (Real.log (2 * (X / h))) →
+            T₀ ≤ 2 * (X / h) → Real.exp 1 ≤ 2 * (X / h) →
+            Real.log X ≤ L → Real.exp 1 ≤ L →
+            -- ⟦the door and the block pin `P = Q`⟧
+            1 ≤ M → calQK (Adoor M) (3072 * M) M 2 ≤ Xd →
+            ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ) ≤ h →
+            3 ≤ P → 2 ≤ Real.log (P : ℝ) → (P : ℝ) ≤ 2 * (X / h) →
+            Real.log (P : ℝ) ≤ (Real.log X) ^ (1 - theta293) → Real.log (P : ℝ) ≤ L →
+            P83 X theta293 ≤ (P : ℝ) → (P : ℝ) ≤ Q83 X →
+            H83 X theta293 ≤ (Xd : ℝ) → 2 ≤ H83 X theta293 →
+            1 < ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ) →
+            Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ)
+              ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+            (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+            (∀ j ∈ Finset.Icc 1 2,
+              ((Nat.sqrt Xd : ℝ) + 1)
+                  * ∏ p ∈ primeBand (calP (Adoor M) (3072 * M) j)
+                        (calQK (Adoor M) (3072 * M) M j), (1 + 3 / (p : ℝ))
+                ≤ (Xd : ℝ) * (Real.log ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ)
+                    / Real.log ((calQK (Adoor M) (3072 * M) M j : ℕ) : ℝ))) →
+            -- ⟦the window floors, at the witness ladder⟧
+            (∀ j ∈ ramI (H83 X theta293) P P, 5 ≤ ramRbot (H83 X theta293) Xd j) →
+            (∀ j ∈ ramI (H83 X theta293) P P,
+              ballQuarterThreshold + 1 ≤ ramRbot (H83 X theta293) Xd j) →
+            (∀ j ∈ ramI (H83 X theta293) P P, 2 * ramRbot (H83 X theta293) Xd j ≤ X) →
+            (∀ j ∈ ramI (H83 X theta293) P P,
+              18 + Real.log (Real.log X)
+                  - Real.log (Real.log (ramRbot (H83 X theta293) Xd j - 1))
+                ≤ 32 * theta293 * Real.log (Real.log X)) →
+            (∀ j ∈ ramI (H83 X theta293) P P,
+              Rrad ≤ Real.sqrt 2 * ramRbot (H83 X theta293) Xd j) →
+            (∀ j ∈ ramI (H83 X theta293) P P,
+              thinBundleG X VJ (calH (H1door M) 2) (calP (Adoor M) (3072 * M) 2)
+                  (calQK (Adoor M) (3072 * M) M 2) * X ^ (1 - 2 * (1 / 12 : ℝ))
+                ≤ ramRbot (H83 X theta293) Xd j) →
+            (∀ j ∈ ramI (H83 X theta293) P P,
+              pin2Gate ≤ ((witMt (H83 X theta293) Xd j : ℕ) : ℝ)) →
+            (∀ j ∈ ramI (H83 X theta293) P P,
+              kmin ≤ ((witKk (H83 X theta293) Xd j : ℕ) : ℝ)) →
+            (∀ j ∈ ramI (H83 X theta293) P P,
+              ((witMt (H83 X theta293) Xd j : ℕ) : ℝ) ≤ Ymax) →
+            -- ⟦the calibration, the radius, the short-interval datum⟧
+            0 < Rrad → Rrad ≤ seamRad X → seamRad X ≤ Rrad →
+            1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
+            δ' ^ 2 ≤ (Real.log X) ^ (-(6 : ℝ)) →
+            656384 * (1 + Real.log (2 * X)) ≤ (Real.log X) ^ (4 - 3 * theta293) →
+            Real.exp (mrAlpha (1 / 12) 2
+                * Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ)) ≤ VJ →
+            0 ≤ Cb → ShortIntervalDatum Cb →
+            2 * (Real.log X) ^ ((3 : ℝ) / 5) ≤ Real.log X →
+            -- ⟦the `kmin`/`Ymax` ladder⟧
+            X₀ ≤ kmin → 0 ≤ cofactorMfl X theta293 kmin → 2 ≤ kmin → kmin ≤ X →
+            (1 - 1 / Real.log (Real.log X)) * Real.log X ≤ Real.log kmin →
+            pin2Gate ≤ Ymax → Real.log Ymax ≤ 2 * Real.log kmin →
+            Real.log X ≤ Real.log Ymax →
+            32 * ballSupC34 ≤ (Real.log Ymax) ^ ((3 : ℝ) / 20 - rho293) →
+            -- ⟦THE TWO OPAQUE CAPSTONE GATES (K6) — inside the existential scope⟧
+            420 * L * L ^ ((3 : ℝ) / 4) * (Real.log L) ^ 5 ≤ cq * (Real.log (P : ℝ)) ^ 2 →
+            1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
+            -- ⟦the ε-window and the Perron budget⟧
+            0 ≤ ε → ε ≤ theta293 - 1 / 500 → 8640 ≤ (Real.log X) ^ ε →
+            12 * EP2 ≤ (Real.log X) ^ (-theta293) → witEP2 X N Xd P ≤ EP2 →
+            -- ⟦the S8 datum⟧
+            (∀ n : ℕ, ‖a n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) →
+            (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
+            (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+            (∀ n : ℕ, a n ≠ 0 → 1 ≤ blockOmega P P n) →
+            (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
+              p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m →
+              a (p * m) = ellLin (liouChi χ) m * cf p) →
+            (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
+              p ≤ calQK (Adoor M) (3072 * M) M j → cf p * ellLin (liouChi χ) m ≠ 0 →
+              (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
+            (∀ p m, p.Prime → P ≤ p → p ≤ P → ¬ p ∣ m →
+              a (p * m) = ellLin (liouChi χ) m * cf p) →
+            (∀ p m : ℕ, p.Prime → P ≤ p → p ≤ P → cf p * ellLin (liouChi χ) m ≠ 0 →
+              (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
+            -- ⟦the `T₀`-band datum: `m4_t0band_at_datum` is the supplier, and §2's
+            -- `dpolyA_seamS0_bandDatum` the bridge — see the header on the A2-5 seam⟧
+            (∫ t in (-(seamT0 X))..(seamT0 X), ‖dpolyA a (seamS0 N X) t‖ ^ 2)
+              ≤ t0BandB X C₁' M₀ →
+            -- ⟦the cap-free floor's threshold⟧
+            40 * Real.log (Real.log (Real.log X))
+                + 32 * ((1 / 8) * Real.log q + (1 / 4) * (q : ℝ)
+                    + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebit q + Kfl + 25)
+              < Real.log (Real.log X) →
+            -- ⟦the interface's two grading gates and the `4096` room⟧
+            374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
+              ≤ (Real.log X) ^ (-(1 : ℝ) / 500) →
+            5760 * (a2RowsSum M Xd + Ccc * (2 / (M : ℝ)))
+              ≤ (Real.log X) ^ (-(1 : ℝ) / 500) →
+            4096 ≤ (Real.log X) ^ (1 - (1 : ℝ) / 250) →
+            1 / X * (∫ x in X..(2 * X), ‖((1 / h : ℝ) : ℂ) * shortSum a (seamS0 N X) x h‖ ^ 2)
+              ≤ 8448 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
+                + 1787702400 * a2Level1 M
+                + 188133 * (Real.log X) ^ (-(1 : ℝ) / 500)
+                + 304128 * ballSupC ^ 2
+                    * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2)
+                + 6315000 / h := by
+  obtain ⟨Cq, cq, T₀, X₀, Cs, Ccc, hCq, hcq, hT₀, hX₀0, hCs, hCcc, hrow⟩ :=
+    a2Rows_of_capfree3
+  obtain ⟨Kfl, hKfl0, hKfl⟩ := capFreeFloor3_liouChi_all Qm
+  refine ⟨Cq, cq, T₀, X₀, Cs, Ccc, Kfl, hCq, hcq, hT₀, hX₀0, hCs, hCcc, hKfl0, ?_⟩
+  intro q _ χ hq N Xd P M a cf X h δ' V VJ L Cb Rrad kmin Ymax ε EP2 C₁' M₀
+    hXd hNXd hXee hlX2 hh4 hhX hhceil hTann hceil5 hT₀le hTbot hLXL hLe
+    hM hXdQ hQ1h hP3 hlogP2 hPbot hPlog hPL hPlow hPhigh hHX hH2 hPj1 hQXd hXdbig hdom
+    hW5 hkth hMtX hC16 hRradW hthinpin hMtpin hkk hMtY
+    hRrad0 hRrad hRlow hV1 hVδ hlogV hδsq hksthr hVJg hCb0 hCbound hXthr
+    hX₀k hMfl0 hk2 hkX hgateW hYpin hWY hXY hthrY hcqgate hCqgate
+    hε0 hεup habs hEP2 hEP2w
+    ha1 hcf1 hsupp0 hasupp homega hcoefBand hwinBand hcoefPin hwinPin
+    hT0band hcff hgP1 hgRows hL4096
+  -- ⟦THE SCALE PAGE⟧
+  have hXe : Real.exp 1 ≤ X := le_trans exp_one_le_exp_exp_one hXee
+  have hX3 : (3 : ℝ) ≤ X := le_of_lt (lt_of_lt_of_le exp_exp_one_gt_three hXee)
+  have hX0 : (0 : ℝ) < X := by linarith
+  have hh0 : (0 : ℝ) < h := by linarith
+  have hLX0 : (0 : ℝ) < Real.log X := lt_of_lt_of_le (Real.exp_pos 2) hlX2
+  -- ⟦THE TWO PINS, in every shape the suppliers want⟧
+  have hXdX : X ≤ (Xd : ℝ) := le_of_eq hXd.symm
+  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by rw [hXd]; linarith
+  have hXd1 : 1 ≤ Xd := by exact_mod_cast hXd1'
+  have hNcast : (N : ℝ) = 2 * X := by rw [hNXd]; push_cast; rw [hXd]
+  have hMN : 2 * Xd ≤ N := le_of_eq hNXd.symm
+  have hNle : (N : ℝ) ≤ 2 * (Xd : ℝ) := by rw [hNcast, hXd]
+  have hXN : X ≤ (N : ℝ) := by rw [hNcast]; linarith
+  have hN2X : (N : ℝ) ≤ 2 * X := le_of_eq hNcast
+  have hN4 : (N : ℝ) ≤ 4 * (Xd : ℝ) := by rw [hNcast, hXd]; linarith
+  -- ⟦THE FRAME'S REMAINING ARITHMETIC⟧
+  have hW4 : ∀ j ∈ ramI (H83 X theta293) P P, 4 ≤ ramRbot (H83 X theta293) Xd j :=
+    fun j hj => by linarith [hW5 j hj]
+  have hlog2X : (0 : ℝ) ≤ 1 + Real.log (2 * X) := by
+    have : (0 : ℝ) ≤ Real.log (2 * X) := Real.log_nonneg (by linarith)
+    linarith
+  have hb1 : ∀ n : ℕ, ‖ellLin (liouChi χ) n‖ ≤ 1 :=
+    ellLin_norm_le_one (liouChi χ) (fun p _ => norm_liouChi_le_one χ p)
+  -- ⟦FIELD 1–4: THE FRAME⟧
+  have F : A2Frame3 (liouChi χ) cf a N Xd P P (Adoor M) (3072 * M) M 2
+      (witMs (H83 X theta293) Xd) (witMt (H83 X theta293) Xd) (witKk (H83 X theta293) Xd)
+      (H1door M) X h δ' VJ L (1 / 12) Cb Rrad EP2 cq T₀ :=
+    a2Frame3_witness hX0 hh0 hLX0 hLXL hXd1 hXdX hTann hceil5 hT₀le hTbot hhceil hH2 hP3
+      hlogP2 hPbot hPlog hPL hcqgate hW4 hkth hMN hMtX hC16 hRrad0 hRradW hPj1 hthinpin
+      hXthr hMtpin hδsq hlog2X hksthr hNle hHX hcoefPin ha1 hb1 hcf1 hwinPin hasupp homega
+      hEP2w
+  -- ⟦THE ROW LADDER⟧
+  obtain ⟨hMs, hm₀2, hm₀, hMs4⟩ :=
+    row_ladder_at_witness (H := H83 X theta293) (N := N) (Xd := Xd) (P := P) hW5
+  -- ⟦THE CAP-FREE FLOOR, AT THE ROW'S OWN DATUM⟧
+  have hfloor : CapFreeFloor3 (liouChi χ) X := hKfl q χ X hq hXee hcff
+  -- ⟦THE ROW FAMILY⟧
+  have hrows := hrow (liouChi χ) cf a (ellLin (liouChi χ)) cf
+    (fun p _ => norm_liouChi_le_one χ p) hcf1 hb1 hcf1 N Xd P P M
+    (witM0 (H83 X theta293) Xd) (witMs (H83 X theta293) Xd) (witMt (H83 X theta293) Xd)
+    (witKk (H83 X theta293) Xd) X h δ' V VJ L Cb Rrad kmin Ymax ε EP2
+    hM hXdQ F hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV hCb0 hPlow
+    (by omega) hPhigh le_rfl hfloor hRrad0 hRrad hRlow hCbound hX₀k hMfl0 hk2 hkX hkk
+    hMtpin hMtY hgateW hYpin hWY hXY hthrY hCqgate hε0 habs hEP2 hXN hN2X hsupp0 hMN
+    hcoefBand hwinBand hQXd hXdbig hN4 hdom ha1 hasupp
+  -- ⟦THE FROZEN INTERFACE⟧
+  exact thm_a2'_of_rows hM hXe hX3 hh4 hhX ha1 hsupp0 hN2X hTann hceil5 hrows hT0band
+    hgP1 hgRows ⟨hε0, hεup⟩ hL4096
+
+
+/-! ## §5 — SUPPLIER (4) AT THE M4 DATUM
+
+`cfb_t0band_supply_chi` with its two coefficient slots discharged by §2.  What comes out is
+*literally* `m4_meansq_per_chi_gen`'s `hT0band` slot at
+
+  `C₁′ = cfbC₁ X C₁ = (C₁+1)(log X)^{1/30}`,   `M₀ = cfbM0 K q X`,
+
+so the plug is an instantiation, not a re-statement.  Two binders fewer than upstream: the
+band datum's own support and datum laws are `rfl`-level. -/
+
+/-- **THE `T₀`-BAND AT THE M4 DATUM** (`m4_t0band_at_datum`).  `cfb_t0band_supply_chi`
+evaluated at `a := m4BandDatum χ t₀ X`; the remaining binders are upstream's own (the three
+scale floors, the pins, `1 ≤ C₁`, the band-geometry gate `|t₀| ≤ seamT0 X + 1`, the four
+`Y`-gates, `hRHS` at every band frequency, and the `cfb_ballerr_le` side condition). -/
+theorem m4_t0band_at_datum (Qm : ℕ) :
+    ∃ K Xb : ℝ, 0 ≤ K ∧ 0 < Xb ∧
+      ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (t₀ : ℝ) (Y : ℝ → ℝ), q ≤ Qm →
+        ∃ X₁ : ℝ, 0 < X₁ ∧
+          ∀ (X : ℝ) (N : ℕ) (C₁ : ℝ),
+            X₁ ≤ X → Xb ≤ X → Real.exp (Real.exp 1) ≤ X →
+            X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → 1 ≤ C₁ → |t₀| ≤ seamT0 X + 1 →
+            (∀ k : ℕ, ⌊X⌋₊ ≤ k → k ≤ N → 10 ≤ Y (k : ℝ)) →
+            (∀ k : ℕ, ⌊X⌋₊ ≤ k → k ≤ N → Y (k : ℝ) ≤ Real.sqrt (k : ℝ)) →
+            (∀ k : ℕ, ⌊X⌋₊ ≤ k → k ≤ N → Real.sqrt (Real.log (k : ℝ)) ≤ Y (k : ℝ)) →
+            (∀ k : ℕ, ⌊X⌋₊ ≤ k → k ≤ N →
+                Real.log (Y (k : ℝ)) ≤ Real.sqrt (Real.log (k : ℝ))) →
+            (∀ t : ℝ, |t| ≤ seamT0 X → ∀ k : ℕ, ⌊X⌋₊ ≤ k → k ≤ N →
+                ‖prop21RHS (fun p => liouChi χ p * (p : ℂ) ^ (-((t₀ + t : ℝ) : ℂ) * Complex.I))
+                    (t₀ + t) (k : ℝ) ((k : ℝ) / Real.sqrt (Real.log (k : ℝ)))
+                    (1 + 1 / Real.log (k : ℝ)) (Y (k : ℝ)) (1 / Real.log (Y (k : ℝ)))‖
+                  ≤ C₁ * (k : ℝ) * Real.exp (-(1 / (2 * Real.exp 1))
+                      * pretDistSq (seamCoeff (ellLin (liouChi χ)) (fun _ => 1) t₀)
+                          (costwist t) X)) →
+            4 ≤ Real.log X ^ ((315 : ℝ) / 1000) →
+            (∫ t in (-(seamT0 X))..(seamT0 X),
+                ‖dpolyA (m4BandDatum χ t₀ X) (seamS0 N X) t‖ ^ 2)
+              ≤ t0BandB X (cfbC₁ X C₁) (cfbM0 K q X) := by
+  obtain ⟨K, Xb, hK0, hXb0, hband⟩ := cfb_t0band_supply_chi Qm
+  refine ⟨K, Xb, hK0, hXb0, ?_⟩
+  intro q _ χ t₀ Y hq
+  obtain ⟨X₁, hX₁0, hbandX⟩ := hband q χ t₀ Y hq
+  refine ⟨X₁, hX₁0, fun X N C₁ hX1 hXb hXee hXN hN2 hC₁ ht₀ hY10 hYsq hYlow hYlog hRHS
+    hbthr => ?_⟩
+  exact hbandX X N C₁ (m4BandDatum χ t₀ X) hX1 hXb hXee hXN hN2 hC₁ ht₀
+    (m4BandDatum_supp χ t₀ X) (m4BandDatum_eq χ t₀ X) hY10 hYsq hYlow hYlog hRHS hbthr
+
+/-- **THE BRIDGE INTO THE `hT0band` SLOT** (`m4_t0band_of_live`).  Any coefficient sequence
+agreeing with the seam coefficient on the LIVE RANGE `X < n ≤ N` inherits the band datum's
+bound — `dpolyA` never reads `a` off `seamS0 N X`.  This is the A2-5 seam in its weakest
+usable form (see the header). -/
+theorem m4_t0band_of_live {q : ℕ} (χ : DirichletCharacter ℂ q) {t₀ X : ℝ} {N : ℕ}
+    {a : ℕ → ℂ} {B : ℝ}
+    (hlive : ∀ n : ℕ, X < (n : ℝ) → n ≤ N →
+      a n = seamCoeff (ellLin (liouChi χ)) (fun _ => 1) t₀ n)
+    (hb : (∫ t in (-(seamT0 X))..(seamT0 X),
+            ‖dpolyA (m4BandDatum χ t₀ X) (seamS0 N X) t‖ ^ 2) ≤ B) :
+    (∫ t in (-(seamT0 X))..(seamT0 X), ‖dpolyA a (seamS0 N X) t‖ ^ 2) ≤ B := by
+  have hfun : (fun t : ℝ => ‖dpolyA (m4BandDatum χ t₀ X) (seamS0 N X) t‖ ^ 2)
+      = fun t : ℝ => ‖dpolyA a (seamS0 N X) t‖ ^ 2 := by
+    funext t
+    rw [dpolyA_seamS0_bandDatum χ hlive t]
+  rwa [hfun] at hb
+
+/-! ## §6 — THE TRIVIAL BRANCH AND THE DICHOTOMY
+
+Below the freeze's threshold `trivThresh H d₀ W = H·d₀/W³` the M4 obligation is discharged
+with no analysis: the window carries at most `H′` unimodular terms, and the door's measure is
+a probability measure (`M4Dyadic.integral_logMeasure_absWindowSum_le_thresh`).  The wrapper
+below is the case split the dyadic consumer takes; the mean-square branch is
+`m4_meansq_per_chi_gen`'s conclusion, unchanged. -/
+
+/-- **THE SMALL BRANCH** (`m4_trivial_branch`).  A window shorter than the freeze's
+threshold is discarded outright. -/
+theorem m4_trivial_branch {a : ℕ → ℂ} (ha : ∀ m, ‖a m‖ ≤ 1) {xw ω H' : ℕ}
+    (hx : 2 ≤ xw) (hω : 2 ≤ ω) {Hp d₀ W : ℝ} (hH' : (H' : ℝ) ≤ trivThresh Hp d₀ W)
+    (α : ℝ) :
+    (∫ n, ‖absWindowSum a H' n α‖ ∂(logMeasure xw ω)) ≤ trivThresh Hp d₀ W :=
+  integral_logMeasure_absWindowSum_le_thresh hx hω ha hH' α
+
+set_option maxHeartbeats 1600000 in
+-- same cause as `m4_meansq_per_chi_gen`: the binder list is re-elaborated once per branch
+/-- **THE M4 PER-SCALE DICHOTOMY** (`m4_meansq_or_trivial`).  At a fixed scale the consumer
+takes exactly one of two branches: the window is below the freeze's trivial threshold and is
+discarded (`m4_trivial_branch`), or it is not and the five-summand mean square fires
+(`m4_meansq_per_chi_gen`).  The mean-square gates are hypotheses in both branches — the split
+is on the window length alone, which is what makes it usable inside the dyadic cover. -/
+theorem m4_meansq_or_trivial (Qm : ℕ) :
+    ∃ Cq cq T₀ X₀ Cs Ccc Kfl : ℝ,
+      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
+      ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), q ≤ Qm →
+          ∀ (N Xd P M : ℕ) (a cf : ℕ → ℂ)
+            (X h δ' V VJ L Cb Rrad kmin Ymax ε EP2 C₁' M₀ : ℝ)
+            (xw ω H' : ℕ) (α Hp d₀ W : ℝ),
+            2 ≤ xw → 2 ≤ ω →
+            (Xd : ℝ) = X → N = 2 * Xd →
+            Real.exp (Real.exp 1) ≤ X → Real.exp 2 ≤ Real.log X →
+            4 ≤ h → h ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ)) →
+            Real.log h + 30 * (Real.log X) ^ (1 - theta293) ≤ Real.log X →
+            TannGate X (2 * (X / h)) → 5 ≤ Real.log (Real.log (2 * (X / h))) →
+            T₀ ≤ 2 * (X / h) → Real.exp 1 ≤ 2 * (X / h) →
+            Real.log X ≤ L → Real.exp 1 ≤ L →
+            1 ≤ M → calQK (Adoor M) (3072 * M) M 2 ≤ Xd →
+            ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ) ≤ h →
+            3 ≤ P → 2 ≤ Real.log (P : ℝ) → (P : ℝ) ≤ 2 * (X / h) →
+            Real.log (P : ℝ) ≤ (Real.log X) ^ (1 - theta293) → Real.log (P : ℝ) ≤ L →
+            P83 X theta293 ≤ (P : ℝ) → (P : ℝ) ≤ Q83 X →
+            H83 X theta293 ≤ (Xd : ℝ) → 2 ≤ H83 X theta293 →
+            1 < ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ) →
+            Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ)
+              ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+            (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+            (∀ j ∈ Finset.Icc 1 2,
+              ((Nat.sqrt Xd : ℝ) + 1)
+                  * ∏ p ∈ primeBand (calP (Adoor M) (3072 * M) j)
+                        (calQK (Adoor M) (3072 * M) M j), (1 + 3 / (p : ℝ))
+                ≤ (Xd : ℝ) * (Real.log ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ)
+                    / Real.log ((calQK (Adoor M) (3072 * M) M j : ℕ) : ℝ))) →
+            (∀ j ∈ ramI (H83 X theta293) P P, 5 ≤ ramRbot (H83 X theta293) Xd j) →
+            (∀ j ∈ ramI (H83 X theta293) P P,
+              ballQuarterThreshold + 1 ≤ ramRbot (H83 X theta293) Xd j) →
+            (∀ j ∈ ramI (H83 X theta293) P P, 2 * ramRbot (H83 X theta293) Xd j ≤ X) →
+            (∀ j ∈ ramI (H83 X theta293) P P,
+              18 + Real.log (Real.log X)
+                  - Real.log (Real.log (ramRbot (H83 X theta293) Xd j - 1))
+                ≤ 32 * theta293 * Real.log (Real.log X)) →
+            (∀ j ∈ ramI (H83 X theta293) P P,
+              Rrad ≤ Real.sqrt 2 * ramRbot (H83 X theta293) Xd j) →
+            (∀ j ∈ ramI (H83 X theta293) P P,
+              thinBundleG X VJ (calH (H1door M) 2) (calP (Adoor M) (3072 * M) 2)
+                  (calQK (Adoor M) (3072 * M) M 2) * X ^ (1 - 2 * (1 / 12 : ℝ))
+                ≤ ramRbot (H83 X theta293) Xd j) →
+            (∀ j ∈ ramI (H83 X theta293) P P,
+              pin2Gate ≤ ((witMt (H83 X theta293) Xd j : ℕ) : ℝ)) →
+            (∀ j ∈ ramI (H83 X theta293) P P,
+              kmin ≤ ((witKk (H83 X theta293) Xd j : ℕ) : ℝ)) →
+            (∀ j ∈ ramI (H83 X theta293) P P,
+              ((witMt (H83 X theta293) Xd j : ℕ) : ℝ) ≤ Ymax) →
+            0 < Rrad → Rrad ≤ seamRad X → seamRad X ≤ Rrad →
+            1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
+            δ' ^ 2 ≤ (Real.log X) ^ (-(6 : ℝ)) →
+            656384 * (1 + Real.log (2 * X)) ≤ (Real.log X) ^ (4 - 3 * theta293) →
+            Real.exp (mrAlpha (1 / 12) 2
+                * Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ)) ≤ VJ →
+            0 ≤ Cb → ShortIntervalDatum Cb →
+            2 * (Real.log X) ^ ((3 : ℝ) / 5) ≤ Real.log X →
+            X₀ ≤ kmin → 0 ≤ cofactorMfl X theta293 kmin → 2 ≤ kmin → kmin ≤ X →
+            (1 - 1 / Real.log (Real.log X)) * Real.log X ≤ Real.log kmin →
+            pin2Gate ≤ Ymax → Real.log Ymax ≤ 2 * Real.log kmin →
+            Real.log X ≤ Real.log Ymax →
+            32 * ballSupC34 ≤ (Real.log Ymax) ^ ((3 : ℝ) / 20 - rho293) →
+            420 * L * L ^ ((3 : ℝ) / 4) * (Real.log L) ^ 5 ≤ cq * (Real.log (P : ℝ)) ^ 2 →
+            1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
+            0 ≤ ε → ε ≤ theta293 - 1 / 500 → 8640 ≤ (Real.log X) ^ ε →
+            12 * EP2 ≤ (Real.log X) ^ (-theta293) → witEP2 X N Xd P ≤ EP2 →
+            (∀ n : ℕ, ‖a n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) →
+            (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
+            (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+            (∀ n : ℕ, a n ≠ 0 → 1 ≤ blockOmega P P n) →
+            (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
+              p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m →
+              a (p * m) = ellLin (liouChi χ) m * cf p) →
+            (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
+              p ≤ calQK (Adoor M) (3072 * M) M j → cf p * ellLin (liouChi χ) m ≠ 0 →
+              (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
+            (∀ p m, p.Prime → P ≤ p → p ≤ P → ¬ p ∣ m →
+              a (p * m) = ellLin (liouChi χ) m * cf p) →
+            (∀ p m : ℕ, p.Prime → P ≤ p → p ≤ P → cf p * ellLin (liouChi χ) m ≠ 0 →
+              (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
+            (∫ t in (-(seamT0 X))..(seamT0 X), ‖dpolyA a (seamS0 N X) t‖ ^ 2)
+              ≤ t0BandB X C₁' M₀ →
+            40 * Real.log (Real.log (Real.log X))
+                + 32 * ((1 / 8) * Real.log q + (1 / 4) * (q : ℝ)
+                    + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebit q + Kfl + 25)
+              < Real.log (Real.log X) →
+            374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
+              ≤ (Real.log X) ^ (-(1 : ℝ) / 500) →
+            5760 * (a2RowsSum M Xd + Ccc * (2 / (M : ℝ)))
+              ≤ (Real.log X) ^ (-(1 : ℝ) / 500) →
+            4096 ≤ (Real.log X) ^ (1 - (1 : ℝ) / 250) →
+            ((H' : ℝ) ≤ trivThresh Hp d₀ W ∧
+                (∫ n, ‖absWindowSum a H' n α‖ ∂(logMeasure xw ω)) ≤ trivThresh Hp d₀ W)
+              ∨ (trivThresh Hp d₀ W < (H' : ℝ) ∧
+                1 / X * (∫ x in X..(2 * X),
+                    ‖((1 / h : ℝ) : ℂ) * shortSum a (seamS0 N X) x h‖ ^ 2)
+                  ≤ 8448 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
+                    + 1787702400 * a2Level1 M
+                    + 188133 * (Real.log X) ^ (-(1 : ℝ) / 500)
+                    + 304128 * ballSupC ^ 2
+                        * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2)
+                    + 6315000 / h) := by
+  obtain ⟨Cq, cq, T₀, X₀, Cs, Ccc, Kfl, hCq, hcq, hT₀, hX₀0, hCs, hCcc, hKfl0, hper⟩ :=
+    m4_meansq_per_chi_gen Qm
+  refine ⟨Cq, cq, T₀, X₀, Cs, Ccc, Kfl, hCq, hcq, hT₀, hX₀0, hCs, hCcc, hKfl0, ?_⟩
+  intro q _ χ hq N Xd P M a cf X h δ' V VJ L Cb Rrad kmin Ymax ε EP2 C₁' M₀
+    xw ω H' α Hp d₀ W hxw hω
+    hXd hNXd hXee hlX2 hh4 hhX hhceil hTann hceil5 hT₀le hTbot hLXL hLe
+    hM hXdQ hQ1h hP3 hlogP2 hPbot hPlog hPL hPlow hPhigh hHX hH2 hPj1 hQXd hXdbig hdom
+    hW5 hkth hMtX hC16 hRradW hthinpin hMtpin hkk hMtY
+    hRrad0 hRrad hRlow hV1 hVδ hlogV hδsq hksthr hVJg hCb0 hCbound hXthr
+    hX₀k hMfl0 hk2 hkX hgateW hYpin hWY hXY hthrY hcqgate hCqgate
+    hε0 hεup habs hEP2 hEP2w
+    ha1 hcf1 hsupp0 hasupp homega hcoefBand hwinBand hcoefPin hwinPin
+    hT0band hcff hgP1 hgRows hL4096
+  rcases le_or_gt ((H' : ℝ)) (trivThresh Hp d₀ W) with hshort | hlong
+  · exact Or.inl ⟨hshort, m4_trivial_branch ha1 hxw hω hshort α⟩
+  · refine Or.inr ⟨hlong, ?_⟩
+    exact hper q χ hq N Xd P M a cf X h δ' V VJ L Cb Rrad kmin Ymax ε EP2 C₁' M₀
+      hXd hNXd hXee hlX2 hh4 hhX hhceil hTann hceil5 hT₀le hTbot hLXL hLe
+      hM hXdQ hQ1h hP3 hlogP2 hPbot hPlog hPL hPlow hPhigh hHX hH2 hPj1 hQXd hXdbig hdom
+      hW5 hkth hMtX hC16 hRradW hthinpin hMtpin hkk hMtY
+      hRrad0 hRrad hRlow hV1 hVδ hlogV hδsq hksthr hVJg hCb0 hCbound hXthr
+      hX₀k hMfl0 hk2 hkX hgateW hYpin hWY hXY hthrY hcqgate hCqgate
+      hε0 hεup habs hEP2 hEP2w
+      ha1 hcf1 hsupp0 hasupp homega hcoefBand hwinBand hcoefPin hwinPin
+      hT0band hcff hgP1 hgRows hL4096
+
+end Salt.MR
