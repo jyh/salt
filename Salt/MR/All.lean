@@ -171,6 +171,7 @@ import Salt.MR.Eq26Compose
 import Salt.MR.MinorArcCore
 import Salt.MR.MinorArcExit
 import Salt.MR.ExitClose
+import Salt.MR.M4Window
 import Salt.MR.SupF
 import Salt.MR.JointHead
 import Salt.MR.M4Abel
@@ -1733,3 +1734,20 @@ open Salt.Tactic in
   Salt.MR.pretFloorShape_quarter_sq
   Salt.MR.Tstar_two_mul_le_quarter
   Salt.MR.seamGateRstar_le_two_mul
+  Salt.MR.windowExpSum_eq_rebase
+  Salt.MR.norm_windowExpSum_eq_absWindowSum
+  Salt.MR.norm_absWindowSum_le
+  Salt.MR.nearRatTight_of_bigXiArcTight
+  Salt.MR.mrtUniformityXi_of_absWindowBound
+  Salt.MR.mrtUniformityXi_of_absWindowBound_twelve
+  Salt.MR.sum_Ioc_abel_complex
+  Salt.MR.sum_Ioc_abel_complex_const
+  Salt.MR.norm_sum_Ioc_abel_le
+  Salt.MR.norm_sum_Ioc_weighted_le_drift
+  Salt.MR.norm_eR_succ_sub
+  Salt.MR.norm_phase_sum_Ioc_ibp
+  Salt.MR.norm_phase_sum_Ioc_drift
+  Salt.MR.norm_phase_sum_Ioc_drift_sup
+  Salt.MR.abs_mul_window_le_of_arcDen
+  Salt.MR.norm_phase_sum_arcDen_drift
+  Salt.MR.norm_phase_sum_arcDen_drift_sup
