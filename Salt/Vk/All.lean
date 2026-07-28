@@ -23,6 +23,7 @@ import Salt.Vk.Mid
 import Salt.Vk.Growth
 import Salt.Vk.PowRegion
 import Salt.Vk.GrowthPow
+import Salt.Vk.Twist
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -131,3 +132,11 @@ open Salt.Tactic in
   Salt.Vk.vk_dirichlet_sum_le
   Salt.Vk.zeta_growth_pow
   Salt.Vk.zeta_zero_free_region_pow
+  Salt.Vk.twistCoef_of_two_le
+  Salt.Vk.twistCoef_sum_Icc
+  Salt.Vk.phi_taylor_block_twist
+  Salt.Vk.phi_taylor_block_twist_PY
+  Salt.Vk.vkOrbit_congr
+  Salt.Vk.vkOrbit_twistCoef
+  Salt.Vk.vkOrbitPoint_twistCoef
+  Salt.Vk.vk_block_taylor_reduce_twist

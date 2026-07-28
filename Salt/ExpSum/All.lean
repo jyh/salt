@@ -13,6 +13,7 @@ import Salt.ExpSum.ZetaGrowth
 import Salt.ExpSum.ZetaApprox
 import Salt.ExpSum.Window
 import Salt.ExpSum.Strip
+import Salt.ExpSum.Twist
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -58,6 +59,15 @@ open Salt.Tactic in
   Salt.ExpSum.zeta_weighted_block
   Salt.ExpSum.window_coverage
   Salt.ExpSum.zeta_block_dispatch
+  Salt.ExpSum.dk_affine
+  Salt.ExpSum.dk_add_affine
+  Salt.ExpSum.dk_add_linear
+  Salt.ExpSum.dk_eq_zero_of_diff_const
+  Salt.ExpSum.dk_signed_add_linear
+  Salt.ExpSum.dk_window_affine_iff
+  Salt.ExpSum.isVdCBound_affine
+  Salt.ExpSum.isVdCBound_16_affine
+  Salt.ExpSum.zeta_dk_window_twist
   Salt.ExpSum.dyadic_sum_split_gen
   Salt.ExpSum.sum_Icc_rpow_neg_le'
   Salt.ExpSum.sq_le_two_pow
