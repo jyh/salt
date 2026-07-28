@@ -13079,3 +13079,40 @@ factorization/re-index — none exists, grepped) + bookkeeping
 [C, 800–1500, one gJ-twisted distance stone missing]. Route (a)
 (naive general-a restatement) REFUTED — 1-boundedness cannot buy
 exp(−M₀/e). SEAM executor dispatched on (1)+(b1).
+
+---
+
+## THE BRIDGE WAVE + SEAM LAND WHOLE — six for six; one binder defect found in the capstone (2026-07-28 11:29 PDT)
+
+B-1 (M4BridgeResidue 442): the split exact at general a, the character
+hook by rfl. B-2 (M4BridgePhase 434): S(K) IS the window sum at length
+K; the drift carries its rational witnesses; the sup socket
+M4SievedDoorSqSup. B-3 (M4BridgeDilate 724): membership exact, slack in
+length only; SEAM A discharged; **the enlarged-cap consumer rule: the
+dilated arc datum reads arcDen·(H+d₀)/H, never the naive cap.** B-4
+(M4BridgeIntegral 583): the Ico/Ioc convention DERIVED from shortSum's
+half-open bottom; integrability in 40 ln; **the doorLadder's +1 buys
+ZERO boundary loss** (both fits become rfl/doorLadder_fit at the block
+scale). B-5 (M4BridgeCover 525): THE JOIN landed —
+m4_door_contradiction_of_blockMeanSq; the covering side CLOSED; the
+Z-currency discipline (no double absorption). SEAM (M4Seam 638):
+cfb_t0band_supply_of_sup the datum-free re-cut (the ∃X₀ collapses to
+3 ≤ X); dpolyA_seamS0_dilate exact with no ±1 (the P²-residue is the
+only inexactness, priced m/P²); the t₀-trap dissolved (hcoefPin is
+untwisted — no t₀ ever appears).
+
+**THE CAPSTONE BINDER DEFECT (SEAM's finding, kernel-checked as
+m4_row_cf_block_eq_zero):** m4_meansq_per_chi_gen's hcoefPin quantifies
+∀ m unrestricted; at m = 1 with hasupp + the P ≤ X/2 gate it forces
+cf P = 0 at every row instance — the binder set cannot host the
+intended P-exact datum (only P²-supported ones). The R1 genre in our
+own day-old wave theorem (NOT a frozen statement — an implementation
+artifact; the freeze's M4-5 row specifies the role, not this shape).
+THE REPAIR (dispatched): restrict hcoefPin to the bounded cofactor
+range (the dilated window), re-thread the capstone's proof (the
+narrowing is hypothesis-weakening — the R1 playbook), and fire the
+preserved supplier m4_hT0band_of_dilated_sup. ALSO BANKED: B-1's
+tooling trap — ring_nf can "succeed" via a positionless `Try this`
+info surviving RC 0 (a live instance at Salt/SW/DHExtract.lean:118 —
+register the sweep); M4Close's ⟦FIVE OPEN BRIDGES⟧ header is now
+historical (all five closed) — strike on the next touch.

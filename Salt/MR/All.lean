@@ -191,6 +191,12 @@ import Salt.MR.M4Sieve
 import Salt.MR.M4Door
 import Salt.MR.M4Exit
 import Salt.MR.M4Close
+import Salt.MR.M4BridgePhase
+import Salt.MR.M4BridgeCover
+import Salt.MR.M4BridgeResidue
+import Salt.MR.M4BridgeIntegral
+import Salt.MR.M4BridgeDilate
+import Salt.MR.M4Seam
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -2190,3 +2196,220 @@ open Salt.Tactic in
   Salt.MR.norm_sum_liou_modEq_residue_le
   Salt.MR.card_dirichletCharacter_eq_totient
   Salt.MR.inv_totient_sum_le
+
+-- M4-B2 (`M4BridgePhase`) — ⟦BRIDGE #2⟧: the phase-convention bridge (`absWindowSum`'s inline
+-- `exp(2πiα·)` ↔ `Salt.ExpSum.eR`, both directions, the `2π` inside the character), the
+-- partial-sum family `S(K) = absWindowSum a K n β` with its length-indexed sup and the
+-- reconciliation with `M4Abel`'s endpoint-indexed `sup'`, the drift composition at a
+-- tight-major frequency (`1 + 2π·arcDen 12 H/q` over the sub-window sup at the rational),
+-- and the uniformity hook: `M4SievedDoorSqSup` discharges `M4Close.M4SievedDoorSq` at the
+-- grade cost `(1 + 2π·arcDen 12 H)²`, with the sup socket's own inhabitation witness
+open Salt.Tactic in
+#audit_axioms Salt.MR.exp_phase_eq_eR
+  Salt.MR.eR_eq_exp_phase
+  Salt.MR.eR_mul_split
+  Salt.MR.absWindowSum_eq_eR_sum
+  Salt.MR.phaseCoeff
+  Salt.MR.sum_Ioc_phaseCoeff_eq
+  Salt.MR.sum_Ioc_phaseCoeff_eq_sub
+  Salt.MR.absWindowSum_eq_phaseCoeff_sum
+  Salt.MR.subWindowSup
+  Salt.MR.le_subWindowSup
+  Salt.MR.norm_absWindowSum_le_subWindowSup
+  Salt.MR.subWindowSup_nonneg
+  Salt.MR.subWindowSup_le
+  Salt.MR.subWindowSup_le_of_norm_le_one
+  Salt.MR.abel_sup'_eq_subWindowSup
+  Salt.MR.absWindowSum_add_eq_phase_sum
+  Salt.MR.norm_absWindowSum_le_drift
+  Salt.MR.norm_absWindowSum_le_drift_tight
+  Salt.MR.norm_absWindowSum_le_ratPartial
+  Salt.MR.integral_logMeasure_mono
+  Salt.MR.integral_logMeasure_const_mul
+  Salt.MR.M4SievedDoorSqSup
+  Salt.MR.m4_sievedDoorSq_of_sup
+  Salt.MR.m4_sievedDoorSqSup_trivial
+
+-- M4-B5 (`M4BridgeCover`) — ⟦BRIDGE #5⟧: the harmonic-weighted cover assembly, the M4 door
+-- road's final composition layer.  The block weight exchange (`1/n ≍ 1/X_{i+1}` on a
+-- `doorLadder` block, both directions — the ladder is dyadic within a factor 2 by its own
+-- fit), the ladder sum at a FREE endpoint numerator (M4-8's `door_cover_sum_le` is its
+-- `E := H` instance), the `log ω` absorption spent ONCE (`door_weight_absorb` is
+-- `M4Door.door_mass_normalised_le` re-instantiated — the grade factor 3, NOT a second
+-- `M`-gate rescale), and the exit `m4_cover_assembly`, which discharges
+-- `M4Close.M4SievedDoorSq` from the per-block mean square `M4BlockMeanSq` with its
+-- inhabitation witness.  THE JOIN is landed: `m4_door_contradiction_of_blockMeanSq` moves the
+-- wave's open obligation off the covering side entirely, onto bridges 1–4
+open Salt.Tactic in
+#audit_axioms Salt.MR.doorLadder_pos
+  Salt.MR.doorLadder_top_le_two_mul
+  Salt.MR.block_weight_exchange
+  Salt.MR.block_weight_exchange_tight
+  Salt.MR.door_cover_weighted_le
+  Salt.MR.door_weight_absorb
+  Salt.MR.integral_door_cover_le
+  Salt.MR.integral_door_cover_le_clean
+  Salt.MR.doorSievedCoeff
+  Salt.MR.norm_doorSievedCoeff_le_one
+  Salt.MR.regime_window_headroom
+  Salt.MR.M4BlockMeanSq
+  Salt.MR.m4_cover_assembly
+  Salt.MR.m4_blockMeanSq_trivial
+  Salt.MR.m4_gradeGate_of_block_pricing
+  Salt.MR.m4_door_contradiction_of_blockMeanSq
+  Salt.MR.m4_door_False_of_blockMeanSq
+
+-- ⟦BRIDGE 1⟧ (`M4BridgeResidue`) — THE RESIDUE-CLASS SPLIT OF THE WINDOW SUM: the window
+-- partition mod `q` (`Finset.sum_fiberwise_of_maps_to` at `m ↦ m % q`, re-spelled into the
+-- corpus's `Nat.ModEq` test) with its cardinality audit `∑_{r<q} #class = H`, the phase split
+-- `e(αm) = e((a₀/q)m)e(θm)` and THE CONSTANCY of the rational part on each class, THE SPLIT
+-- `absWindowSum a H n (a₀/q+θ) = ∑_{r<q} ratPhase·classPhaseSum` at a general coefficient
+-- sequence with its unimodular-coefficient norm corollary and arc-facing form (the `(a₀,q)`
+-- witnesses and the drift datum `|θ| ≤ Q/(qH)` handed to ⟦BRIDGE 2⟧), the lossless-at-trivial
+-- check, and THE HOOK into `M4Close` §6: the character decomposition fires on each coprime
+-- class, `1/φ(q)` cancelled by `inv_totient_sum_le`, with the `K`-uniform partial-sum family
+-- Abel summation differences
+open Salt.Tactic in
+#audit_axioms Salt.MR.residueClassOn
+  Salt.MR.windowClass
+  Salt.MR.mem_residueClassOn
+  Salt.MR.mem_windowClass
+  Salt.MR.windowClass_subset
+  Salt.MR.sum_window_residue_partition
+  Salt.MR.sum_card_windowClass
+  Salt.MR.ratPhase
+  Salt.MR.classPhaseSum
+  Salt.MR.norm_ratPhase
+  Salt.MR.exp_phase_split
+  Salt.MR.exp_eq_ratPhase_of_modEq
+  Salt.MR.absWindowSum_residue_split
+  Salt.MR.norm_absWindowSum_residue_split_le
+  Salt.MR.norm_absWindowSum_residue_split_le_of_eq
+  Salt.MR.norm_absWindowSum_le_class_sum_of_nearRatTight
+  Salt.MR.norm_absWindowSum_split_coprime_add
+  Salt.MR.norm_classPhaseSum_le_card
+  Salt.MR.sum_norm_classPhaseSum_le
+  Salt.MR.sum_residueClassOn_liou_eq
+  Salt.MR.sum_windowClass_liou_eq
+  Salt.MR.norm_sum_residueClassOn_liou_le
+  Salt.MR.norm_sum_residueClassOn_liou_le_of_uniform
+  Salt.MR.norm_sum_windowClass_liou_le_of_uniform
+  Salt.MR.windowClass_partial
+  Salt.MR.norm_sum_residueClassOn_Ioc_liou_le_of_uniform
+  Salt.MR.norm_absWindowSum_le_liou_class_bound_of_nearRatTight
+
+-- THE BRIDGE WAVE, B-4 (`M4BridgeIntegral`) — THE SUM→INTEGRAL BRIDGE: the constancy of
+-- `shortSum a s₀ · H` on the unit cells `[n, n+1)` (the `Ico`-cell ↔ `Ioc`-window pairing,
+-- EXACT — no `±1` inside the window), the interval-integrability of the mean-square
+-- integrand (bounded + measurable, `Lemma14`'s own route at the single-`shortSum` shape),
+-- the bridge identity `∑_{Ico A B} = ∫_A^B` via interval additivity, the honest endpoint
+-- ledger off the ladder, and THE MEASURE EXCHANGE: `logMeasure`'s `1/n` against `thm_a2'`'s
+-- `1/X` cancel exactly at the block bottom, so a door-ladder block costs `H²·MS` with NO
+-- boundary loss (`doorLadder_fit` supplies the fit unconditionally); composed over the
+-- cover into `M4Close.M4SievedDoorSq`'s own shape
+open Salt.Tactic in
+#audit_axioms Salt.MR.shortSum_filter_eq_inter_Ioc
+  Salt.MR.shortSum_eq_inter_Ioc
+  Salt.MR.mem_unit_cell
+  Salt.MR.shortSum_const_unit
+  Salt.MR.doorCoeffPhase
+  Salt.MR.absWindowSum_eq_shortSum
+  Salt.MR.norm_shortSum_nat_sq_le_one
+  Salt.MR.shortSum_sq_intervalIntegrable
+  Salt.MR.integral_unit_shortSum_sq
+  Salt.MR.sum_Ico_shortSum_sq_eq_integral
+  Salt.MR.integral_shortSum_sq_mono
+  Salt.MR.Ioc_eq_Ico_succ
+  Salt.MR.meanSq_nonneg
+  Salt.MR.sum_Ioc_shortSum_sq_le_meanSq
+  Salt.MR.sum_Ico_le_core_add_boundary
+  Salt.MR.sum_Ioc_shortSum_sq_le_meanSq_boundary
+  Salt.MR.sum_Ioc_absWindowSum_sq_div_le
+  Salt.MR.sum_Ioc_absWindowSum_sq_div_le_ladder
+  Salt.MR.m4_bridge_door_sq_le
+  Salt.MR.mem_seamS0_of_block_window
+  Salt.MR.hcov_of_seamS0
+  Salt.MR.m4_bridge_door_gates_witness
+
+-- THE BRIDGE WAVE, B-3 (`M4BridgeDilate`) — ⟦BRIDGE 3⟧: THE `d₀`-DILATION TRANSPORT INTO THE
+-- DOOR WINDOW: the honest ℕ-division endpoint bookkeeping (`dilLen = H/d₀ ± 1`, both signs
+-- derived, plus `dilLen ≤ H` by the `k ↦ d₀k` injection), the EXACT membership correspondence
+-- (`Nat.div_lt_iff_lt_mul`/`Nat.le_div_iff_mul_le` — no `±1` in the window, only in the
+-- length), the class-window transport `classWindowSum = absWindowSum (dilCoeff …) (dilLen …)
+-- (n/d₀) (d₀α)` at the dilated frequency, the λ-factorisation at NO coprimality with the
+-- `1_𝒮` transfer at the STRICT door gate (`memS_dilate_door`), the trivial branch as a case
+-- split at `trivThresh` (pointwise and `logMeasure`-`L¹`), the dilated frequency's honest arc
+-- bookkeeping (cap `Q(H+d₀)/H`, denominator dropping to `q/(d₀,q)`; `arcDen 12 (dilLen …)` is
+-- BELOW that cap), the composed per-class exit with the reduced class coprime, and ⟦SEAM A⟧:
+-- ⟦BRIDGE 1⟧'s `classPhaseSum` is this file's `classWindowSum` on the nose, so B-1's
+-- non-coprime half discharges wholesale against the dilated window's length
+open Salt.Tactic in
+#audit_axioms Salt.MR.dilLen
+  Salt.MR.div_add_div_le_add_div
+  Salt.MR.add_div_le_div_add_div_succ
+  Salt.MR.le_dilLen
+  Salt.MR.dilLen_le
+  Salt.MR.Ioc_dilate_eq
+  Salt.MR.Ioc_dilate_maps
+  Salt.MR.dilLen_le_window
+  Salt.MR.dilLen_le_real
+  Salt.MR.le_dilLen_real
+  Salt.MR.d_mul_dilLen_le
+  Salt.MR.image_div_class_window
+  Salt.MR.exp_phase_dilate
+  Salt.MR.classCoeff
+  Salt.MR.dilCoeff
+  Salt.MR.classWindowSum
+  Salt.MR.norm_classCoeff_le_one
+  Salt.MR.norm_dilCoeff_le_one
+  Salt.MR.classWindowSum_eq_absWindowSum
+  Salt.MR.classWindowSum_dilate
+  Salt.MR.door_gate_blocks
+  Salt.MR.dilCoeff_memS_door
+  Salt.MR.absWindowSum_dilCoeff_memS_door
+  Salt.MR.norm_absWindowSum_dilCoeff_memS_door
+  Salt.MR.norm_absWindowSum_dilLen_le
+  Salt.MR.norm_classWindowSum_le_thresh
+  Salt.MR.norm_classWindowSum_le_trivThresh
+  Salt.MR.integral_logMeasure_classWindowSum_le_thresh
+  Salt.MR.classWindow_trivial_or_long
+  Salt.MR.nearRatTight_dilate
+  Salt.MR.arcDen_dilLen_le
+  Salt.MR.arcDen_le_dilate_cap
+  Salt.MR.nearRatTight_dilate_door
+  Salt.MR.m4_class_dilate_exit
+  Salt.MR.m4_class_dilate_coprime
+  Salt.MR.classWindowSum_eq_classPhaseSum
+  Salt.MR.classPhaseSum_dilate
+  Salt.MR.norm_classPhaseSum_le_thresh
+  Salt.MR.norm_absWindowSum_split_dilate_trivial
+
+-- A2-5 SEAM (`M4Seam`) — THE `hT0band` SLOT DISCHARGED AT THE ROW: the datum-free re-cut of
+-- the cap-free band supply (`hDatum` is used exactly once upstream, at an already-abstract cut
+-- point, so the crude fold + plug arithmetic re-state at the PER-FREQUENCY SUP of `a` itself);
+-- THE DILATION RE-INDEX, exact at both ends (`k ≤ m/P` NAT at the top, `X/P < k` REAL at the
+-- bottom, `P ∤ k` ↔ `P ∣ n ∧ P² ∤ n` for multiplicity) and its two factorizations — `spolyA`
+-- (what the sup wants) and `dpolyA` at `seamS0` (the slot's own integrand, the one new lemma:
+-- no `dpolyA` re-index existed); the sup transfer with BOTH `m/P²` debits counted exactly;
+-- and THE FINDING `m4_row_cf_block_eq_zero` — the row's window binder read at the cofactor
+-- `m = 1` (where `ellLin _ 1 = 1`) forces `cf P = 0`, so the dilation's main term vanishes and
+-- the seam closes on the single numeric gate `M₀ ≤ 4e·log P`.  `m4_hT0band_of_dilated_sup` is
+-- the general supplier (dilated sup as a named binder); `m4_hT0band_at_row` is the row's own
+-- instance — no `M4LiveAgree`, no `hDatum`, no `t₀`
+open Salt.Tactic in
+#audit_axioms Salt.MR.cfb_t0band_supply_of_sup
+  Salt.MR.dvd_of_one_le_blockOmega_self
+  Salt.MR.norm_natCast_cpow_it
+  Salt.MR.norm_sum_div_cpow_le_card
+  Salt.MR.card_filter_dvd_Icc
+  Salt.MR.Icc_filter_pexact_image
+  Salt.MR.seamS0_filter_pexact_image
+  Salt.MR.injOn_mul_left
+  Salt.MR.spolyA_dilate_eq
+  Salt.MR.dpolyA_seamS0_dilate
+  Salt.MR.norm_spolyA_dilate_le
+  Salt.MR.m4_row_cf_block_eq_zero
+  Salt.MR.m4_row_supp_sq
+  Salt.MR.m4_hT0band_of_dilated_sup
+  Salt.MR.m4_hT0band_at_row
+  Salt.MR.m4_hT0band_at_row_pins
