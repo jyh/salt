@@ -13052,3 +13052,30 @@ normaliser. Each [B/C, est. 200–500] — THE BRIDGE WAVE, ~1.5–3k total,
 dispatchable as five parallel briefs. The freeze's ≪ HX/(dW^{1/4})
 verified consistent with the landed architecture (W^{−5/2} → √ →
 W^{−5/4} → classes/drift/average → W^{−1/4}).
+
+---
+
+## A2-5-SCOPE: hlive is EXECUTOR-SHAPED, NOT Lemma-4-gated — and the register line is CORRECTED (2026-07-28 11:02 PDT)
+
+THE VERDICT: no JYH ruling needed; Lemma 4/GS stays on the
+paper-completeness arc (GS-INV 7/27: "ONLY the paper arc, zero door-road
+consumers" — the earlier flags line conflating the eq-26 composition
+with the A2-5 seam is hereby corrected; they are DIFFERENT register
+items). THE DEEPER FINDING: hlive/M4LiveAgree as stated is JOINTLY
+UNSATISFIABLE with the row's sieve support (M4MeanSq.lean:83–85 admits
+it: any squarefree n in (X,N] coprime to qP gets a n = 0 from homega
+but ‖seamCoeff‖ = 1) — it is a dead-end NAME for a real obligation.
+The transport M4BandTransport is landed and a no-op at the exit; the
+REAL obligation is the per-frequency centre sup at the row's own a.
+THE REPAIR (all Lemma-4-free): (1) cfb_t0band_supply_of_sup — the
+datum-free re-cut of the band supply (hDatum used ONCE, at a cut point
+already abstract; the proof :792–834 is a-generic) [A/B, 50–80];
+(2) the honest supplier via THE DILATION ROUTE (b1): hcoefPin already
+resolves the sieve — a(P·m) = ellLin(liouChi χ) m·cf P — so dpolyA at a
+factorizes to the UNSIEVED datum at the dilated scale X/P where the
+band machinery fires by construction; needs ONE new lemma (the dpolyA
+factorization/re-index — none exists, grepped) + bookkeeping
+[B/C, 300–500]; the general-F Route-III fallback (b2) priced
+[C, 800–1500, one gJ-twisted distance stone missing]. Route (a)
+(naive general-a restatement) REFUTED — 1-boundedness cannot buy
+exp(−M₀/e). SEAM executor dispatched on (1)+(b1).
