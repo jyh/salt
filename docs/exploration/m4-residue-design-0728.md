@@ -129,3 +129,33 @@ gates → the S11 spine compose.
 - **K3(iii)**: the endpoint-drop lemma (the dilated fit fails by ≤ 3
   units against the TIGHT doorLadder_fit; each dropped n costs
   H'²/A' — negligible but a statement obligation).
+
+---
+
+# v3 — THE SOCKET CUT (ROW-GENERICITY's verdict, 2026-07-28 14:25 PDT)
+
+**SOCKET-SAFE.** The row leg reads ONE structural fact about b, confined
+to cofactor_Rbd34_local_nocap3 (the CASE-A/B pocket machinery: coprime
+multiplicativity + f 1 = 1 + the pretDistSq cap — generic b is FALSE
+there, refutably). Everything above is b-generic (the 𝒯_S branch, the
+TLeg, TSG, the exits — verified per-site). THE CUT: free the err/𝒰
+leg's b and carry ONE datum —
+  CofactorSocket b Rbar : ∀ j ∈ ramI, ∀ t, |t| ≤ Tann → Rrad ≤ |t−t₁| →
+    ‖ramR H N Xd P Q j b t‖ ≤ Rbar
+(= cofactor_Rbd34_local_nocap3's conclusion; that lemma becomes the
+canonical inhabitant at b := ellLin g). BONUS: g, hg, CapFreeFloor3
+DROP OUT of the row's statement. 15 statements + 1 def, the site list
+in the scoper's report (CapFreeArm3 ×8, ThmA2Rows ×2, FrameWitness ×3,
+M4MeanSq ×1 + the def). The pre-3X twins are OFF the chain — untouched.
+
+**THE ISOLATED REMAINDER — the socket's supplier at the door's b
+(= 1_𝒮(P·)·λχ̄):** prod_one_sub_gJ reduces it to 4 COMPLETELY
+MULTIPLICATIVE pieces λχ̄·g_𝒥 (each meets Transfer34's binder shape);
+the CASE-A supply chain is ellLin-shaped from CaseASocket:918 down —
+the question CASEA-GENERICITY now scopes: is the ENGINE underneath
+(prop21_unconditional_uniform_absC — GHS prop 2.1, classically stated
+at general multiplicative f) already general, with only the supply
+WRAPPERS specialized to ellLin? If yes: the supplier is cheap wrapper
+twins + the 4-piece triangle (factor 16 in the square — absorbed by
+the standing margins). If no: the general-multiplicative twin of the
+supply chain is the price (scoped before dispatch).
