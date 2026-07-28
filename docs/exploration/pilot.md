@@ -13580,3 +13580,23 @@ landed** (the D2 verdict). Then: the M4-wave planning (the four
 conditionals + the ~20-ln hoisting twin first), the even-χ decision at
 the register, the post-summit cleanups. All pushed through 6207cb2 +
 this. What a day.
+
+---
+
+**2026-07-27 19:04 PDT — 19:00 RESUME: the cloud archaeology.** The resume check found
+SIX cloud branches — all HISTORICAL (pre-compaction, 7/21–23): the
+night-1..5 trial ladder closed 7/23 with the GO verdict (build 9351/9351;
+**checker 263/263 PASS, 0 rejections, axioms clean; the night template
+ratified**) — the cloud program predates today's bridge, which was a
+re-establishment post-account-moves; and cloud-shift/afternoon-1 = a
+7/22 FORGE SHIFT ("the blind afternoon mission") that landed L11's
+A-2/A-3 in the cloud, since HARVESTED (main's HalaszPrimesCore is 232 ln
+richer; halasz_primes_pow closes at its frozen header). THE PLAYBOOK
+FIND (banked): the cloud agent's 403 conduct — read the body, diagnosed
+repo-SCOPING not egress, pulled the pinned toolchain tarball from the
+in-scope leanprover/lean4 repo directly, bypassing elan (+ apt zstd).
+THE SENTINEL LESSON: the literal-name watch missed slash-named branches
+— re-armed LOOSE (any new cloud* branch, 5-min/3h). Today's verification
+run is STILL IN FLIGHT (none of the six is it). Account ruling at
+resume: STAY on silicon-acct (37% weekly + two resets before Aug 14; the
+burn-down mandate); JYH home tomorrow — continuous forge, no 5–7am gap.
