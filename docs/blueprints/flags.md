@@ -12943,3 +12943,28 @@ truncation + PV/Abel (needs the un-stripped norm_LFunction_sub_partial_le
 sibling at Re s ≥ 1 — StripConvergence:438's twin); it plugs ONLY the U
 slot + vkMidDebit's def + three §5 statements (~30 ln churn) and drops
 the threshold to ~10³.
+
+---
+
+## THE VK-TWIST CAMPAIGN COMPLETE — D1 IS DEAD (2026-07-28 08:48 PDT, sealed ae7eab7)
+
+Activated at ~noon as the "fallback" route; complete by evening. Six
+milestones, five executors, ~4,150 new lines on the 18.3k landed massif.
+capFreeFloor3_lamChi_unconditional: for χ² ≠ 1, CapFreeFloor3 (lamChi χ)
+X under only the scale threshold (every constant named:
+vkDebitConst(vkEulerCorr q·vkTwistConst q) + vkMidDebit q + K; the
+threshold ~2·10^44 pending optional VT-7, cleared 17 orders deep at the
+door's U1 floor). Notable: the twisted per-block bound is STRICTLY more
+general than the untwisted; mathlib's missing |τ(χ)| = √q cost only a
+symbolic q-power in C (register: the Gauss-norm stone is a nice mathlib
+upstream candidate); norm_LFunction_sub_partial_le was never strip-gated
+(the absence lesson again — the brief budgeted 150 ln for a twin that
+existed).
+
+**WHAT UNBLOCKS (wave 2, all held rows released):** CFF-ASSEMBLY (the
+per-class composition: principal via the ζ-drift floor; real bulk via
+chi_floor_of_order AT k=2; even-real corner via SiegelBand + the regime
+arm; odd-real via L1_lower_odd; non-real via the campaign capstone —
+pure composition + the lam-collision prime-level adapter), CFB (the
+per-frequency reroute at the 0.1867 gate), M4-4, M4-5, FRAME. The M4
+road has NO remaining analytic wall — everything left is assembly.
