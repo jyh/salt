@@ -12999,3 +12999,26 @@ M4-6-REWIRE: the joint g-arm threshold m4JointThr is (log Hhi)^12-grade
 (the (1/4)q content dominates at q ≤ W), X-free, inside the
 SIEGEL-REGIME shape — the spine compose consumes ONE inequality.
 exp(−M/e) provenance pinned (the e's cancel exactly; W^{−5/2} exact).
+
+---
+
+## THE D2 CROSSING COMPLETES: cloud-verify/day-1 — OVERALL PASS (2026-07-28 10:29 PDT)
+
+The independent cloud verification of HEAD 486bd85 (the jason-account
+run, branch cloud-verify/day-1, final push 72802ed): Stage 1 cache
+8564/8564 PASS; Stage 2 full kernel build 9467/9467 PASS (0 errors);
+Stage 3 external-checker replay (leanchecker, the lean4checker
+successor — the deprecation caught and documented by the agent)
+889/891 PASS, **0 kernel rejections**, 2 INCONCLUSIVE (Salt.Brun,
+Salt.Maynard — reproducible OOM on the 15GiB container, not
+rejections; both validated transitively by Stage 2 + their importers'
+replays); Stage 4 axiom audit 3790 checks PASS — nothing beyond
+{propext, Classical.choice, Quot.sound} anywhere; no sorry, no
+native_decide. The run survived TWO container reclaims (oleans
+persisted; the visibility rule made every stage observable). ITS TWO
+FINDINGS both sealed same-day: the Keller scope gap (4951ff3) and the
+Parity scope gap (0eb434f) — the default build now covers the whole
+repo at 9502 jobs. REGISTER: the Brun/Maynard isolated replay on a
+larger container (hygiene, not doubt); a follow-up run at a post-7/28
+HEAD once the M4 wave closes (today's ~13k new lines deserve the same
+crossing).
