@@ -13621,3 +13621,24 @@ at 2Xd = N — the datum-reconciliation stone, visible identically in
 a2_station_supply_pointwise, independent of the hoist; goes to the
 M4-JOIN's table + the morning council. Census: import + 2 names, RC=0
 at 9475. Aloft: D10C, M4-JOIN.
+
+---
+
+**2026-07-27 19:31 PDT — D10C LANDS WHOLE (11 decls, 479 ln, zero Zeno): finding 3
+REPAIRED — the bridge reaches the station's true range.** MWindowExtend:
+the consumption-range READ (the hM₀ frequencies are |v| ≤ |t₁| +
+T*(2X, log 2X) — via dilated_scale_grade's habs, NOT |v| ≤ X; the
+landed 2X was a height evaluation, never a domain — promoted to a
+parameter, X-3 subsumes X-1, no case split); hM0_at_centre discharges
+BOTH station slots by exact (consumer-checked in scratch, then the
+import deliberately dropped to keep the surface clean); THE HONEST
+PRICE: the D10 reach costs FOUR (pretFloorShape_quarter_sq — absolute
+constants only, the 1/4 grade untouched); and the closure
+seamGateRstar ≤ 2X at X ≥ e^{8192} (T* sub-polynomial) — the reach
+never leaves the doubled box. New traps: set-with-h folding direction
+(later-produced terms need ← h); Real.exp_one_pow not exp_nat_mul for
+numeric exp bounds; add_one_le_exp for numeric X-floors from log-floors.
+Census: import + 11 names, RC=0 at 9476. THE SUMMIT'S EDGE-STONES ARE
+DONE (HOIST + D10C); the remaining carried items: hMcap (T3) + the
+hDatum/hasupp reconciliation — both on M4-JOIN's table. Aloft: M4-JOIN
++ the cloud sentinel.

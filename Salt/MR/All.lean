@@ -160,6 +160,7 @@ import Salt.MR.SPartStation
 import Salt.MR.ThmA2
 import Salt.MR.ThmA2Rows
 import Salt.MR.StationHoist
+import Salt.MR.MWindowExtend
 import Salt.MR.Eq26Bridge
 import Salt.MR.DoorFloor1500
 import Salt.MR.DoorFrame
@@ -1719,3 +1720,14 @@ open Salt.Tactic in
   Salt.MR.a2Frame_satisfiable_partial
   Salt.MR.seam_ball_leg_station_M_hoisted
   Salt.MR.hStation_of_hoisted
+  Salt.MR.dist_floor_far_sep_at
+  Salt.MR.dist_floor_far_reach
+  Salt.MR.M_window_bridge_reach
+  Salt.MR.M_window_bridge_seam_reach
+  Salt.MR.M_window_bridge_seam_2X
+  Salt.MR.M_window_bridge_seam_3X
+  Salt.MR.hM0_at_centre
+  Salt.MR.pretFloorShape_quarter_at_pow
+  Salt.MR.pretFloorShape_quarter_sq
+  Salt.MR.Tstar_two_mul_le_quarter
+  Salt.MR.seamGateRstar_le_two_mul
