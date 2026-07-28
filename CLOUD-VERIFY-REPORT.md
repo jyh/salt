@@ -75,10 +75,12 @@ retired in favor of this branch/report.
   180s timeout per module), logging PASS/FAIL per module to
   `leanchecker_results.log` (not committed — too large/noisy; totals and
   any failures are summarized here).
-- Checkpoint at this push: **450 / 891** modules checked, **0 confirmed
-  kernel-rejection failures**. `Salt.Brun` and `Salt.Chen.AlphaSide` remain
-  flagged from resource contention (see above); no new contention failures
-  since.
+- Checkpoint at this push: **612 / 891** modules checked, **0 confirmed
+  kernel-rejection failures**. `Salt.Maynard` also timed out (`rc=124`) —
+  expected, since like `Salt.Brun` it does `import Mathlib` directly (the
+  full umbrella import), the same resource-contention/heavy-closure
+  pattern as `Salt.Brun` and `Salt.Chen.AlphaSide`. These 3 will all be
+  re-run in isolation once the full pass completes.
 - **Separate finding (not a checker failure):** `Salt.Keller.All` and
   `Salt.Keller.Counterexample` both failed with `Could not find any oleans
   for: ...` — i.e. leanchecker couldn't check them because Stage 2's `lake
