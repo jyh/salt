@@ -33,19 +33,29 @@ retired in favor of this branch/report.
 
 ## Stage 2 — full kernel build (`lake build`)
 
-- Status: **IN PROGRESS** (carried over, not restarted, across two
-  container interruptions — see Notes)
-- Progress at this checkpoint: **9072 / 9467** jobs built
-- Errors so far: **0**
-- Warnings so far: **173** (pre-existing style-lint warnings — long lines,
-  unused variable names, deprecated `push_neg` — none touched/fixed, per
-  instructions)
-- Notes: the underlying container was reclaimed/restarted twice during this
-  run (process table and free memory reset both times, disk and
-  `.lake/build` oleans persisted). `lake build` was resumed in place each
-  time; already-built oleans were not recompiled. Wall-clock timestamps in
-  this report reflect real elapsed time including those gaps, not pure
-  build compute time.
+- Status: **PASS**
+- Final result: `Build completed successfully (9467 jobs).`
+- Job count: **9467 / 9467**
+- Errors: **0**
+- Warnings: **257**, all pre-existing style-lint (none touched/fixed, per
+  instructions). Breakdown of the top categories:
+  - 180× line exceeds 100-character limit
+  - 13× `push_neg` deprecated (prefer `push Not`)
+  - 7× unscoped `maxHeartbeats` needs an explanatory comment
+  - 6× unused variable name `hσhi` (plus a long tail of other single-use
+    unused-variable warnings)
+  - 4× "Unscoped option maxHeartbeats is not allowed"
+  - a handful of `simp`/`simpa` style-flexibility lints
+- Wall time: build spanned 2026-07-27T20:29:09Z through 2026-07-28T15:23Z
+  real elapsed time; see Notes below — this is dominated by two container
+  reclaim events, not by Lean compute time.
+- Notes: the underlying container was reclaimed/restarted **twice** during
+  this run (process table and free memory reset both times; disk and
+  `.lake/build` oleans persisted across both). `lake build` was resumed in
+  place each time via the same incremental invocation; already-built oleans
+  were not recompiled, so no work was lost. Because of this, the wall-clock
+  span above is not a meaningful measure of Lean build performance — treat
+  it as elapsed real time only.
 
 ## Stage 3 — lean4checker replay
 
@@ -53,19 +63,34 @@ retired in favor of this branch/report.
 
 ## Stage 4 — axiom audit
 
-- Status: **NOT STARTED**
-- Will confirm the `Salt/MR/All.lean` and `Salt/Entropy/All.lean`
-  `#audit_axioms` build-log checkmarks (already visible streaming in the
-  Stage 2 build log as `info: ... ✓ ... [3 axioms]` lines) plus explicit
-  `#print axioms` spot-checks on:
-  - `Salt.MR.seam_row_number`
-  - `Salt.MR.hUG34_unconditional`
-  - `Salt.MR.chi_floor_all_complete`
-  - `Salt.MR.budget_head_grade_closed`
-  - `Salt.MR.seam_row_calibratedK`
-  - `Salt.MR.bigXiArcTight_twelve`
-  - `Salt.MR.L1_lower_odd`
+- Status: **PASS**
+- Build-log confirmation: `#audit_axioms` (a build-failing in-repo command,
+  `Salt/Tactic/AuditAxioms.lean`, whitelist
+  `{propext, Classical.choice, Quot.sound}`) fired **3790** times across the
+  16 track `All.lean` files during Stage 2
+  (`BV BrunLower Chen Entropy ExpSum Fulcrum Goldbach HB HardyLittlewood MR
+  Mertens SW TwinBar Vk Vmvt Weil`), including `Salt/MR/All.lean` and
+  `Salt/Entropy/All.lean`. Every occurrence reported `✓ name [n axioms]`
+  with `n ∈ {0,1,2,3}`; there were **zero** `#audit_axioms` errors in the
+  build log (the command throws and fails the build on the first
+  non-whitelisted axiom, so 0 errors + 9467/9467 success is itself a proof
+  no offending axiom was found).
+- Independent spot-check: rather than only trust the in-repo audit
+  tactic, ran `#print axioms` directly (`lake env lean Scratch.lean`,
+  scratch file not committed) against the 7 originally-specified target
+  declarations. All 7 returned exactly `[propext, Classical.choice,
+  Quot.sound]`:
+
+  | Declaration | Axioms |
+  |---|---|
+  | `Salt.MR.seam_row_number` | `[propext, Classical.choice, Quot.sound]` |
+  | `Salt.MR.hUG34_unconditional` | `[propext, Classical.choice, Quot.sound]` |
+  | `Salt.MR.chi_floor_all_complete` | `[propext, Classical.choice, Quot.sound]` |
+  | `Salt.MR.budget_head_grade_closed` | `[propext, Classical.choice, Quot.sound]` |
+  | `Salt.MR.seam_row_calibratedK` | `[propext, Classical.choice, Quot.sound]` |
+  | `Salt.MR.bigXiArcTight_twelve` | `[propext, Classical.choice, Quot.sound]` |
+  | `Salt.MR.L1_lower_odd` | `[propext, Classical.choice, Quot.sound]` |
 
 ## Verdict
 
-Pending — this section will be filled in once all stages complete.
+Pending — Stage 3 (lean4checker) still to run. Stages 1, 2, 4: **PASS**.
