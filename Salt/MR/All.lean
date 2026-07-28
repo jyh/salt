@@ -142,6 +142,7 @@ import Salt.MR.SeamNumber
 import Salt.MR.Sec9Glue
 import Salt.MR.DoorFloor
 import Salt.MR.SiegelArm
+import Salt.MR.SiegelBand
 import Salt.MR.BigXiArc
 import Salt.MR.RegimeHead
 import Salt.MR.LandauL1
@@ -1808,3 +1809,16 @@ open Salt.Tactic in
   Salt.MR.calP_door_mono
   Salt.MR.memS_dilate_door
   Salt.MR.residue_split_dilate_door
+
+open Salt.Tactic in
+#audit_axioms Salt.MR.chi_Llower_band_single
+  Salt.MR.chi_Llower_band_uniform
+  Salt.MR.chi_floor_band_uniform
+  Salt.MR.chi_floor_band_uniform_twisted
+  Salt.MR.capfree_threshold
+  Salt.MR.capfree_threshold_lt
+  Salt.MR.band_gate_threshold
+  Salt.MR.band_gate_threshold_cfb
+  Salt.MR.quality_gate_threshold
+  Salt.MR.siegelBandB_spec
+  Salt.MR.modulus_bound_mono
