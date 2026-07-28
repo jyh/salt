@@ -256,4 +256,37 @@ theorem budget_head_grade_closed :
   have h4 : 4000000 ≤ R.Hlo := R.hHlo_floor
   omega
 
+/-- **The compose-facing form, g-twin (REGIME-CUT).**  Additive twin of
+`budget_head_grade_closed` fired at the g-carrying head
+(`log_chowla_two_budget_head_g`): the same door-floor instantiation
+`extraFloor := H0door δ₀` and the same grade payoff, now carrying the two extra
+levers through to the caller —
+
+* `U1floor ≤ R.Hlo`, a SECOND floor demand riding its own binder (no `max` is
+  needed at this call site: the head keeps `extraFloor` and `U1floor` separate,
+  so the door floor stays exactly `H0door δ₀` in its own slot);
+* `g R.Hhi R.ω ≤ R.x`, the parametric outer-scale clearance, left UNINSTANTIATED
+  here — downstream stones choose `g`.
+
+Non-circularity is unchanged and now covers the new binders: `U1floor` and `g`
+are fixed before the head is fired, `ε` and `δ₀` are fixed by the head before
+`extraFloor` is quantified, so `H0door δ₀` remains a legal argument.  The grade
+block below is `budget_head_grade_closed`'s, unchanged: it reads only `hRfloor`
+and `R.hHlo_floor`, neither of which moves. -/
+theorem budget_head_grade_closed_g (U1floor : ℕ) (g : ℕ → ℕ → ℕ) :
+    ∃ (ε : ℚ) (δ₀ : ℝ), 0 < ε ∧ 0 < δ₀ ∧
+      ∃ R : ChowlaRegime, R.eps = ε ∧ H0door δ₀ ≤ R.Hlo ∧
+        U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+        (∀ H : ℕ, R.Hlo ≤ H → 0 < doorGrade H ∧ doorGrade H ≤ δ₀) ∧
+        ∀ δ : ℝ, 0 < δ → δ ≤ δ₀ → MRTUniformityXi R δ →
+          ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨ε, δ₀, hε, hδ₀, h⟩ := log_chowla_two_budget_head_g
+  obtain ⟨R, hReps, hRfloor, hRU1, hRg, hR⟩ := h (H0door δ₀) U1floor g
+  refine ⟨ε, δ₀, hε, hδ₀, R, hReps, hRfloor, hRU1, hRg, ?_, hR⟩
+  intro H hH
+  have hfloor : H0door δ₀ ≤ H := le_trans hRfloor hH
+  refine ⟨doorGrade_pos ?_, doorGrade_le_of_H0door_le hδ₀ hfloor⟩
+  have h4 : 4000000 ≤ R.Hlo := R.hHlo_floor
+  omega
+
 end Salt.MR

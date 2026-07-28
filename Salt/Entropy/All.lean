@@ -197,6 +197,9 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.collapse_forces_completelyMult
   Salt.Entropy.Chowla.collapse_iff_completelyMult
   Salt.Entropy.Chowla.chowlaRegime_exists_param
+  Salt.Entropy.Chowla.regimeEnlargeX'
+  Salt.Entropy.Chowla.chowlaRegime_exists_param_head'
+  Salt.Entropy.Chowla.log_chowla_two_budget_head_g
   Salt.Entropy.Chowla.dropSum_exceeds_log_two_base
   Salt.Entropy.Chowla.log_chowla_two_conditional_hoisted
   Salt.Entropy.Chowla.log_chowla_two_final

@@ -73,7 +73,7 @@ The `g`-clearance CANNOT be bolted onto `budget_head_grade_closed`
 statement rather than a consequence — `regimeEnlargeX` is sound for the regime's own
 field constraints, all one-sided, but not for a door hypothesis already discharged
 at the smaller scale.  Threading `g` in is exactly the freeze's S11 "head-builder
-rerun of `SpineFinal.lean:294-323`", which must happen INSIDE `SpineFinal.lean`
+rerun of `SpineFinal.lean:749-829`", which must happen INSIDE `SpineFinal.lean`
 (its `spine_False_core_xi` is private).  This file supplies the lever S11 calls at
 that point; `regime_head_W_headroom` is the furthest the composition reaches from
 outside.

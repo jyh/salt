@@ -447,4 +447,70 @@ theorem chowlaRegime_exists_param (eps : ℚ) (heps : 0 < eps) (heps1 : eps ≤ 
            hJcon := hJ, hheadroom' := hhead', hPHheadroom := hPH, hPNTwindow := hPNT,
            hωbig := homega, hxbig := hxb }, rfl, hHlo0⟩
 
+/-! ### Section D — the head-shaped builder, in-cone (REGIME-CUT)
+
+`Salt/MR/RegimeHead.lean` already carries `regimeEnlargeX` and
+`chowlaRegime_exists_param_head`; but `RegimeHead` sits in the MR cone, which
+CANNOT be imported from here (`SpineFinal.lean` — the consumer of the head form
+at its budget-head g-twin — is upstream of the whole MR tower).  The two items
+are therefore DUPLICATED under primed names rather than relocated: relocation
+would break `RegimeHead`'s open-namespace references and the axiom-ledger cites
+that name the MR file.  The primed pair is byte-identical to the MR original;
+keep them in sync if either ever moves. -/
+
+/-- **The outer-scale enlargement** (in-cone twin of `Salt.MR.regimeEnlargeX`).
+A regime with its outer scale `x` replaced by any `x' ≥ x`.  Legal because the
+structure constrains `x` only from below: `hx : 2 ≤ x`, `hωx : ω ≤ x`,
+`hheadroom : Hhi ≤ x / ω`, `hheadroom'`, `hPHheadroom`, `hxbig`
+(`Regime.lean:73,75,88,103,116,133,136`).  Every other field — `eps`, `ω`, `a`,
+`Hlo`, `Hhi`, `C0`, `J` — is carried VERBATIM, which is what lets the head form
+inherit `R.eps = eps` and `Hlo₀ ≤ R.Hlo` from the landed builder unchanged. -/
+def regimeEnlargeX' (R : ChowlaRegime) {x' : ℕ} (h : R.x ≤ x') : ChowlaRegime where
+  x := x'
+  ω := R.ω
+  a := R.a
+  eps := R.eps
+  Hlo := R.Hlo
+  Hhi := R.Hhi
+  C0 := R.C0
+  J := R.J
+  hx := le_trans R.hx h
+  hω := R.hω
+  hωx := le_trans R.hωx h
+  ha := R.ha
+  heps := R.heps
+  heps1 := R.heps1
+  hHlo := R.hHlo
+  hHlohi := R.hHlohi
+  hC0 := R.hC0
+  hHlo_floor := R.hHlo_floor
+  hheadroom := le_trans R.hheadroom (Nat.div_le_div_right h)
+  hcoprime := R.hcoprime
+  hfit := R.hfit
+  hJcon := R.hJcon
+  hPNTwindow := R.hPNTwindow
+  hωbig := R.hωbig
+  hheadroom' := le_trans R.hheadroom' (by exact_mod_cast Nat.div_le_div_right h)
+  hPHheadroom := le_trans R.hPHheadroom (by exact_mod_cast h)
+  hxbig := le_trans R.hxbig (by exact_mod_cast h)
+
+/-- **The head-shaped parametric regime builder** (in-cone twin of
+`Salt.MR.chowlaRegime_exists_param_head`).  For ANY `ε ∈ (0, 1/2]`, ANY floor
+`Hlo₀`, and ANY `g : ℕ → ℕ → ℕ`, a `ChowlaRegime` exists with `R.eps = ε`,
+`Hlo₀ ≤ R.Hlo`, AND the outer-scale clearance `g R.Hhi R.ω ≤ R.x`.
+
+Proof: run `chowlaRegime_exists_param`, then push the outer scale to
+`max R.x (g R.Hhi R.ω)` by `regimeEnlargeX'` — legal because every
+`x`-constraint is a one-sided lower bound, and harmless because `eps`, `Hlo`,
+`Hhi`, `ω` are carried verbatim (so the `g`-argument does not move under the
+enlargement).  No monotonicity hypothesis on `g` is required.
+
+Binder discipline: `ε`, `Hlo₀`, `g` are ALL fixed before the `∃ R`, so a caller
+may let `g` depend on anything fixed earlier but never on `R`. -/
+theorem chowlaRegime_exists_param_head' (eps : ℚ) (heps : 0 < eps) (heps1 : eps ≤ 1 / 2)
+    (Hlo₀ : ℕ) (g : ℕ → ℕ → ℕ) :
+    ∃ R : ChowlaRegime, R.eps = eps ∧ Hlo₀ ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x := by
+  obtain ⟨R, hReps, hRHlo⟩ := chowlaRegime_exists_param eps heps heps1 Hlo₀
+  exact ⟨regimeEnlargeX' R (le_max_left R.x (g R.Hhi R.ω)), hReps, hRHlo, le_max_right _ _⟩
+
 end Salt.Entropy.Chowla

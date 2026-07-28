@@ -173,6 +173,7 @@ import Salt.MR.MinorArcExit
 import Salt.MR.ExitClose
 import Salt.MR.SupF
 import Salt.MR.JointHead
+import Salt.MR.M4Abel
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -1240,6 +1241,7 @@ open Salt.Tactic in
   Salt.MR.regime_W_headroom_of_H0door
   Salt.MR.budget_head_at_H0door
   Salt.MR.budget_head_grade_closed
+  Salt.MR.budget_head_grade_closed_g
   Salt.MR.LFunction_band_lower
   Salt.MR.eulerFactor_prod_lower
   Salt.MR.LFunction_band_lower_principal
