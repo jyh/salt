@@ -159,3 +159,44 @@ WRAPPERS specialized to ellLin? If yes: the supplier is cheap wrapper
 twins + the 4-piece triangle (factor 16 in the square — absorbed by
 the standing margins). If no: the general-multiplicative twin of the
 supply chain is the price (scoped before dispatch).
+
+---
+
+# v4 — THE SUPPLIER PLAN (CASEA-GENERICITY's verdict)
+
+**MIXED, favorably:** the engine (prop21 chain) is ellLin-specialized
+LOAD-BEARING (the κ=1 disarmament — no re-proof attempted), but the
+general-multiplicative face is ALREADY LANDED as Route III:
+hCenter_dissected (SPartStation:608, general 1-bounded multiplicative
+F), center_halasz_supply_wide (:302, Y-GENERIC), the sPart dissection
+at cSq = 20736. The damped datum b·x^ω is multiplicative-on-coprimes
+(NOT CM — the cheap constant 3 does NOT apply; pay 20736). The floor
+transfer costs FACTOR 1 (gJ is block-AVOIDANCE; gxDatum at x = 0 IS
+the single-band mask — iterate twice, ~20 ln); capFreeFloor3_masked
+one stone serves all four pieces (~40–60 ln, closes past loglog X ≈
+2400 at §8.3-graded blocks — VERIFY the door's blocks are §8.3-graded,
+the one floor-page check). CASE-B is FREE (Transfer34's binder is
+fully generic; only the ~50-ln adapter twin).
+
+**THE SUPPLIER WAVE (~640–810 ln, additive, one executor):** the
+CASE-A dissection stones (the dilated y₂ grade page — the SEVENTH
+private clone of center_error_grade — + the gen supply + slice/socket,
+~310–390), the box-gate/pocket-socket generic re-cuts (~120), the
+socket inhabitant cofactor_Rbd34_local_nocap3_gen (~110), the CASE-B
+adapter (~50), the mask + masked floor (~60–80).
+
+**⚠ THE PRICING PAGE (in-brief STOP-check, before building):** cSq
+multiplies the slowest summand farCStar2·(log W)^{−1/(32e)}; the
+margin exponent vs (log X)^{−ρ₂₉₃} is ≈ 0.001246, needing loglog(W-slot)
+≳ 8000 + 803·log farCStar2. WHICH scale sits in the W-slot at the door
+instantiation decides everything: kmin ≈ X^{1−1/loglog X} (loglog ≈
+loglog X ≈ 6.4·10⁶¹ — clears astronomically) vs a pin2Gate-shaped
+constant (loglog ≈ 10.4 — three orders short). The landed station
+already carries the same shape at (log X/2)^{−1/(32e)} and is consumed
+— precedented — but the executor VERIFIES the door's W-slot scale
+FIRST and STOPs with the finding if it is the constant corner.
+
+**SEQUENCE:** SOCKET-CUT lands → ceremony → the SUPPLIER executor
+(this plan) → the FINAL COMPOSE (C §7's pre-composed steps + the
+un-phased row supply + the two-window instantiation) → the register
+collapses → S11.
