@@ -183,6 +183,8 @@ import Salt.MR.M4Abel
 import Salt.MR.VkTwistClose
 import Salt.MR.VkTwistLadder
 import Salt.MR.CapFreeAssembly
+import Salt.MR.FrameWitness
+import Salt.MR.T0BandCapFree
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -1746,6 +1748,31 @@ open Salt.Tactic in
   Salt.MR.a2Frame_satisfiable_partial
   Salt.MR.a2Rows_of_capfree3
   Salt.MR.a2Frame3_satisfiable_partial
+  Salt.MR.witKk_cut
+  Salt.MR.witMt_window
+  Salt.MR.witness_window_geometry
+  Salt.MR.ramRbot_le_scale
+  Salt.MR.witMs_range
+  Salt.MR.witM0_le
+  Salt.MR.witM0_two_le
+  Salt.MR.witMs_le_four_mul
+  Salt.MR.ramI_self
+  Salt.MR.ramQbase_at_pin
+  Salt.MR.ramI_self_index_ge
+  Salt.MR.h_ceiling_gate
+  Salt.MR.c4_at_height
+  Salt.MR.tlBlockGates34_at_witness
+  Salt.MR.blocks_at_witness
+  Salt.MR.thinBundleG_mono_T
+  Salt.MR.thin_at_witness
+  Salt.MR.ksGate_at_witness
+  Salt.MR.calibration_at_witness
+  Salt.MR.Tstar2_le_self
+  Salt.MR.Tstar2_box_at_witness
+  Salt.MR.witEP2_nonneg
+  Salt.MR.err_at_witness
+  Salt.MR.a2Frame3_witness
+  Salt.MR.row_ladder_at_witness
   Salt.MR.seam_ball_leg_station_M_hoisted
   Salt.MR.hStation_of_hoisted
   Salt.MR.dist_floor_far_sep_at
@@ -1938,3 +1965,24 @@ open Salt.Tactic in
   Salt.MR.dyadCover_total_le
   Salt.MR.dyadCover_total_le_sup'
   Salt.MR.dyadCover_total_le_logPow
+
+-- CFB (`T0BandCapFree`) — THE CAP-FREE `T₀`-BAND: the per-frequency sup, the crude fold,
+-- the band-strength floor (coefficient `7/30`), the two thresholds, and the `hT0band` exit
+open Salt.Tactic in
+#audit_axioms Salt.MR.cfb_sup_of_center
+  Salt.MR.band_integral_of_sup_crude
+  Salt.MR.cfb_band_loglog
+  Salt.MR.cfb_band_logloglog
+  Salt.MR.chi_floor_band_strength
+  Salt.MR.chi_floor_band_nonreal
+  Salt.MR.band_floor_M0
+  Salt.MR.band_floor_M0_liouChi
+  Salt.MR.cfb_gate_decay
+  Salt.MR.cfb_floor_clears_gate
+  Salt.MR.cfb_ballerr_le
+  Salt.MR.cfbC₁_sq
+  Salt.MR.cfbC₁_nonneg
+  Salt.MR.cfb_exit_summand_le
+  Salt.MR.cfb_t0band_supply
+  Salt.MR.cfb_seam_floor_of_band
+  Salt.MR.cfb_t0band_supply_chi
