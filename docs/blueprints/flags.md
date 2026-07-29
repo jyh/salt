@@ -14149,3 +14149,55 @@ bytes (defeq — build-breaks on the def change, ~80 ln re-cut);
 M4DoorRow:461-476 collides with the E-EXECUTOR set — sequence it.
 FREE WINS: the Engel-form lemma; c = 3/2 over 25/16 (10.80, head
 H^{-0.415}, materially easier norm_num/geom_sum bookkeeping).
+
+---
+
+## ⟦ARC-SCOPE⟧: F2's ceiling is ONE q (the composition as banked DOES NOT CLOSE); the tower law corrected; THE M-SANDWICH LOOKS NON-BENIGN — the Adoor anchor is the knob (2026-07-29 ~03:00 PDT)
+
+**Q1 — F2:** the class object is genuinely at H² (the two q's born at
+M4WaveClosed:271-273 Chebyshev + :290-298 sum_const; the ∀d arm dilates
+by gcd r q NOT q, and d0_ledger discards the d₀² anyway). The honest
+Parseval recount (per fixed K + the maximizer step — Parseval does NOT
+commute with sup_K) kills **q#2 ONLY**: the sum over classes costs one
+χ-block. **q#1 SURVIVES** — at b/q the Gauss factor gives
+|S|² ≤ (q/φ)Σ_χ|S_χ|², and given only the per-χ supply the q-free
+conclusion is FALSE. q-free needs a **χ-SUMMED capstone** (orthogonality
+inside the MRT proof) — class D. ⚠ THE ARITHMETIC: F2+F3 together
+leave **53·q ≤ 53(log H)^{12}** (demand relaxes (log H)^{-29.5} →
+(log H)^{-17.5}, NOT to O(1)) ⟹ M ≳ Ccc(log Hhi)^{12}/δ₀² —
+H-DEPENDENT, fatal against the floor + the tower gap. **The banked
+"composition CLOSES" is CONDITIONAL on killing q#1.** Partial offset:
+the large-q trivial class cut caps the prefactor at Bcl^{-1/2}
+(~80–150 ln, cheap, exponent-lowering only). F2 honest cost if opened:
+~900–1400 ln class C for the one-q version.
+
+**Q2 — F3: PRICED-VIABLE and clean** (~500–800 ln, one new file):
+K-free CONFIRMED (the sup sits inside subWindowSup; the partial block
+absorbed by the block-sup — no overhang machinery needed);
+glue-compatible CONFIRMED (harc feeds only the socket); Abel's general
+drift lemma + the shift family's ∀s ≤ H + the free-base m4_chiBlock_at
+(hnar IS the block admissibility) all reusable; N²ℓ² = H² loss-free.
+**Worth nothing without F2 — do not fire standalone.**
+
+**Q3 — THE M-SANDWICH: NOT BENIGN (two independent problems).**
+(1) **J is NON-CONSTRUCTIVE** (dropSum_exceeds_log_two_base takes J
+from a Tendsto .exists — NO Hhi bound is exportable from the current
+construction AT ALL; any export needs the minimal-J restructure +
+quantitative crossing, ~400–700 ln class C, then ~150–250 ln threading
+— cheapest form an EXTRA ∃R CONJUNCT (additive, no consumer breaks),
+NOT a ChowlaRegime field; stop at m4_exit_socket). (2) **the honest
+tower law is loglog Hhi ≈ (loglog Hlo)^{4.2}** (the drop sum
+telescopes in lnlnln — DRIFT-SCOPE's (log Hlo)^{1+o(1)} and its J
+estimate were WRONG); composing gate 12 (lnln Hhi < 15142(log₂M+1))
+with the floor (log₂Hlo ≥ 2M·Adoor M): **fails ≈2.3–3.5× at EVERY M**
+(continuum estimate, ~7% error bar, all dropped corrections push
+worse). **THE KNOB: Adoor's anchor 2^18 (DoorFrame:77)** — linear in
+the gate, logarithmic in the floor; 2^{31} closes with margin; a
+NUMERAL, but its supply-side cost (calE/calP/calQK/a2Level1) is
+unpriced. SANDWICH-REF dispatched for the exact pass.
+
+**COUNCIL SHAPE (revised):** the two decisive questions are (D-1) the
+χ-summed capstone — the class-D design gate on which the whole
+composition now hinges; (D-2) the M-sandwich's exact sign + the
+anchor's supply cost. F3 + the trivial cut + lever 1′ + the split are
+all priced and waiting on those two.
