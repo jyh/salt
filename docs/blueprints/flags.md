@@ -14829,7 +14829,7 @@ port authorization.
 
 ---
 
-## ⟦SPECTRUM-SCOPE⟧: P-6 RESOLVED — routes (i)+(ii) are ONE route and the corpus already runs it; Lemma 6.4 provably unnecessary; ONE missing stone (the χ-VK region); the honest price re-corrects (2026-07-29 15:47 PDT)
+## ⟦SPECTRUM-SCOPE⟧: P-6 RESOLVED — routes (i)+(ii) are ONE route and the corpus already runs it; Lemma 6.4 provably unnecessary; ONE missing stone (the χ-VK region); the honest price re-corrects (2026-07-29 14:56 PDT; mis-stamped 15:47)
 
 **THE STRUCTURAL VERDICT:** footnote 7's lossy count (O_ε(1) =
 100/ε² — astronomical at any ε of ours) is fatal against ANY polylog
