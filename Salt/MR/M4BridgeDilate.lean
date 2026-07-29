@@ -349,17 +349,21 @@ theorem classWindowSum_dilate (a : ℕ → ℂ) {q : ℕ} (hq : 0 < q) (r H n : 
 /-! ## §5 — THE λ-LEG: the factorisation and the `1_𝒮` transfer at the door
 
 `λ` is completely multiplicative — `liouvilleC_mul` carries NO coprimality hypothesis — and
-under the door gate `d₀ ≤ q ≤ (log H)^{12} < P₁` the block indicator does not see `d₀`
+under the door gate `d₀ ≤ q ≤ W < P₁` the block indicator does not see `d₀`
 (`M4Residue.memS_dilate_door`).  Both are consumed here; neither is re-proved. -/
 
-/-- **The door gate at every block index.**  `M4Residue.door_dilation_gate` gives `d < P₁`;
+/-- **The door gate at every block index.**  `M4Residue.door_dilation_gate'` gives `d < P₁`;
 `calP_door_mono` lifts it to `d < P_j` for all `j ∈ [1,J]` — the exact hypothesis
-`indicator_mul_dilate_liouville` demands.  STRICT throughout (`d₀ ≤ q ≤ W < P₁`). -/
-theorem door_gate_blocks {M J d q : ℕ} {Hr : ℝ} (hM : 1 ≤ M) (h1 : 1 ≤ Real.log Hr)
-    (h2 : Real.log Hr ≤ (2 : ℝ) ^ (21845 : ℕ)) (hdq : d ≤ q)
-    (hqW : (q : ℝ) ≤ Real.log Hr ^ (12 : ℕ)) :
+`indicator_mul_dilate_liouville` demands.  STRICT throughout (`d₀ ≤ q ≤ W < P₁`).
+
+⟦THE CAP IS `M`-RELATIVE⟧ the ceiling is the door's own bottom block `P₁`, not the numeral
+`2^{262144}` reached through `log H ≤ 2^{21845}` — see `M4Residue.door_dilation_gate'`.  A
+consumer at `W = (log H)^{12}` supplies `hW` from the old numeral route unchanged; a consumer
+at `W = arcDen 12 H` supplies it from ⟦gate 12⟧'s re-cut line. -/
+theorem door_gate_blocks {M J d q : ℕ} {W : ℝ} (hM : 1 ≤ M) (hdq : d ≤ q)
+    (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) :
     ∀ j ∈ Finset.Icc 1 J, d < calP (Adoor M) (3072 * M) j := fun _ hj =>
-  lt_of_lt_of_le (door_dilation_gate (M := M) h1 h2 hdq hqW)
+  lt_of_lt_of_le (door_dilation_gate_calP (M := M) hdq hqW hW)
     (calP_door_mono hM (Finset.mem_Icc.mp hj).1)
 
 /-- **THE DILATED DATUM FACTORS** (MRT step (b) at the door, pointwise):
@@ -371,9 +375,9 @@ theorem door_gate_blocks {M J d q : ℕ} {Hr : ℝ} (hM : 1 ≤ M) (h1 : 1 ≤ R
 for `k ≠ 0`.  The λ-half is `liouvilleC_mul` (no coprimality); the `1_𝒮`-half is
 `memS_dilate_door` (the strict gate), routed through
 `M4Residue.indicator_mul_dilate_liouville`. -/
-theorem dilCoeff_memS_door {M J d q q₀ r₀ : ℕ} {Hr : ℝ} (hM : 1 ≤ M) (h1 : 1 ≤ Real.log Hr)
-    (h2 : Real.log Hr ≤ (2 : ℝ) ^ (21845 : ℕ)) (hd : d ≠ 0) (hdq : d ≤ q)
-    (hqW : (q : ℝ) ≤ Real.log Hr ^ (12 : ℕ)) {k : ℕ} (hk : k ≠ 0) :
+theorem dilCoeff_memS_door {M J d q q₀ r₀ : ℕ} {W : ℝ} (hM : 1 ≤ M) (hd : d ≠ 0) (hdq : d ≤ q)
+    (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
+    {k : ℕ} (hk : k ≠ 0) :
     dilCoeff (memSCoeff (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) J
         liouvilleC) d q₀ r₀ k
       = liouvilleC d * classCoeff (memSCoeff (calP (Adoor M) (3072 * M))
@@ -381,14 +385,14 @@ theorem dilCoeff_memS_door {M J d q q₀ r₀ : ℕ} {Hr : ℝ} (hM : 1 ≤ M) (
   simp only [dilCoeff, classCoeff, memSCoeff]
   by_cases hmod : k ≡ r₀ [MOD q₀]
   · rw [if_pos hmod, if_pos hmod]
-    exact indicator_mul_dilate_liouville hd hk (door_gate_blocks hM h1 h2 hdq hqW)
+    exact indicator_mul_dilate_liouville hd hk (door_gate_blocks hM hdq hqW hW)
   · rw [if_neg hmod, if_neg hmod, mul_zero]
 
 /-- **The factorisation under the window sum**: `λ(d₀)` comes out of the whole dilated
 window sum, because every index of `Ioc n₀ (n₀+H₀)` is `≥ 1`. -/
-theorem absWindowSum_dilCoeff_memS_door {M J d q q₀ r₀ H₀ n₀ : ℕ} {Hr : ℝ} (hM : 1 ≤ M)
-    (h1 : 1 ≤ Real.log Hr) (h2 : Real.log Hr ≤ (2 : ℝ) ^ (21845 : ℕ)) (hd : d ≠ 0)
-    (hdq : d ≤ q) (hqW : (q : ℝ) ≤ Real.log Hr ^ (12 : ℕ)) (β : ℝ) :
+theorem absWindowSum_dilCoeff_memS_door {M J d q q₀ r₀ H₀ n₀ : ℕ} {W : ℝ} (hM : 1 ≤ M)
+    (hd : d ≠ 0) (hdq : d ≤ q) (hqW : (q : ℝ) ≤ W)
+    (hW : W < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) (β : ℝ) :
     absWindowSum (dilCoeff (memSCoeff (calP (Adoor M) (3072 * M))
         (calQK (Adoor M) (3072 * M) M) J liouvilleC) d q₀ r₀) H₀ n₀ β
       = liouvilleC d * absWindowSum (classCoeff (memSCoeff (calP (Adoor M) (3072 * M))
@@ -399,19 +403,19 @@ theorem absWindowSum_dilCoeff_memS_door {M J d q q₀ r₀ H₀ n₀ : ℕ} {Hr 
   have hk0 : k ≠ 0 := by
     have := (Finset.mem_Ioc.mp hk).1
     omega
-  rw [dilCoeff_memS_door (J := J) hM h1 h2 hd hdq hqW hk0]
+  rw [dilCoeff_memS_door (J := J) hM hd hdq hqW hW hk0]
   ring
 
 /-- **The dilation is invisible to the modulus**: `‖λ(d₀)‖ = 1`, so the transported window
 sum's norm is the norm of the *reduced* datum's window sum. -/
-theorem norm_absWindowSum_dilCoeff_memS_door {M J d q q₀ r₀ H₀ n₀ : ℕ} {Hr : ℝ} (hM : 1 ≤ M)
-    (h1 : 1 ≤ Real.log Hr) (h2 : Real.log Hr ≤ (2 : ℝ) ^ (21845 : ℕ)) (hd : d ≠ 0)
-    (hdq : d ≤ q) (hqW : (q : ℝ) ≤ Real.log Hr ^ (12 : ℕ)) (β : ℝ) :
+theorem norm_absWindowSum_dilCoeff_memS_door {M J d q q₀ r₀ H₀ n₀ : ℕ} {W : ℝ} (hM : 1 ≤ M)
+    (hd : d ≠ 0) (hdq : d ≤ q) (hqW : (q : ℝ) ≤ W)
+    (hW : W < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) (β : ℝ) :
     ‖absWindowSum (dilCoeff (memSCoeff (calP (Adoor M) (3072 * M))
         (calQK (Adoor M) (3072 * M) M) J liouvilleC) d q₀ r₀) H₀ n₀ β‖
       = ‖absWindowSum (classCoeff (memSCoeff (calP (Adoor M) (3072 * M))
           (calQK (Adoor M) (3072 * M) M) J liouvilleC) q₀ r₀) H₀ n₀ β‖ := by
-  rw [absWindowSum_dilCoeff_memS_door (J := J) (H₀ := H₀) (n₀ := n₀) hM h1 h2 hd hdq hqW β,
+  rw [absWindowSum_dilCoeff_memS_door (J := J) (H₀ := H₀) (n₀ := n₀) hM hd hdq hqW hW β,
     norm_mul, liouvilleC_norm hd, one_mul]
 
 /-! ## §6 — THE TRIVIAL BRANCH (the case split)
@@ -616,7 +620,7 @@ branch available at every threshold. -/
 
 /-- **THE ROW'S EXIT — the per-class dilated statement.**  For the door's sieved Liouville
 datum `1_𝒮·λ`, at a class `r` mod `q` with `d₀ = (r,q)` under the door gate
-`d₀ ≤ q ≤ (log H)^{12} < P₁`:
+`d₀ ≤ q ≤ W < P₁` (`W` free — the cap is the door's own `P₁`, `M4Residue.door_dilation_gate'`):
 
 1. **the transport** — `‖class sum‖ = ‖dilated window sum at the reduced datum‖`
    (`λ(d₀)` has modulus 1, so the dilation is invisible);
@@ -626,9 +630,8 @@ datum `1_𝒮·λ`, at a class `r` mod `q` with `d₀ = (r,q)` under the door ga
 The reduced class is coprime (`M4Residue.coprime_reduced_of_gcd`: `(r₀,q₀) = 1`), which is
 what makes the character expansion (⟦BRIDGE 1⟧'s second half, `M4Close.
 sum_liou_modEq_residue_eq`) legitimate at the dilated datum. -/
-theorem m4_class_dilate_exit {M J q r H n : ℕ} {Hr : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
-    (h1 : 1 ≤ Real.log Hr) (h2 : Real.log Hr ≤ (2 : ℝ) ^ (21845 : ℕ))
-    (hqW : (q : ℝ) ≤ Real.log Hr ^ (12 : ℕ)) (α : ℝ) :
+theorem m4_class_dilate_exit {M J q r H n : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
+    (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) (α : ℝ) :
     ‖classWindowSum (memSCoeff (calP (Adoor M) (3072 * M))
           (calQK (Adoor M) (3072 * M) M) J liouvilleC) H n q r α‖
         = ‖absWindowSum (classCoeff (memSCoeff (calP (Adoor M) (3072 * M))
@@ -646,7 +649,7 @@ theorem m4_class_dilate_exit {M J q r H n : ℕ} {Hr : ℝ} (hM : 1 ≤ M) (hq :
   refine ⟨?_, ⟨le_dilLen_real H n hd, dilLen_le_real H n hd, dilLen_le_window H n hd⟩, ?_⟩
   · rw [classWindowSum_dilate _ hq r H n α]
     exact norm_absWindowSum_dilCoeff_memS_door (J := J)
-      (H₀ := dilLen H n (Nat.gcd r q)) (n₀ := n / Nat.gcd r q) hM h1 h2 hd.ne' hdq hqW _
+      (H₀ := dilLen H n (Nat.gcd r q)) (n₀ := n / Nat.gcd r q) hM hd.ne' hdq hqW hW _
   · intro thr hthr
     exact norm_classWindowSum_le_thresh
       (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ J m) hq r H n α hthr

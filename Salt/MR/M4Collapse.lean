@@ -87,7 +87,8 @@ choosable by the spine before any datum is exhibited:
     (`X₀w ≤ √X`, `√X ≤ Xw`, `Xw ≤ X`, `1 ≤ Ddis`, `Ddis(Xw+1) ≤ X−1`, the `700·(…)`
     loglog threshold, `seamT0 X + Tstar(2X) ≤ 3X`, `Ddis^{−1/4} ≤ (log X)^{−1009/90000}`)
     and the instance envelope;
-12. the modulus-log cap `log H ≤ 2^{21845}`;
+12. the dilation cap, `M`-RELATIVE: `arcDen 12 H < calP (Adoor M) (3072M) 1 = 2^{Adoor M}`
+    (`M4Residue.door_dilation_gate'`);
 13. `2·arcDen 12 H ≤ H` (kept; see ⟦THE REGISTER, LINE BY LINE⟧);
 14. ⟦the regime fact⟧ `8·arcDen 12 H ≤ H`;
 15. ⟦G1⟧ `arcDen 12 H ≤ MStr H`;
@@ -181,7 +182,8 @@ theorem m4_wave_closed_coprime_discharged (Qm : ℕ) :
                 doorRowFloor M ≤ j → ∀ s ≤ H,
                   DoorRowCarriedT0 Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
                     (doorLadder R.x H (i + 1) + s) j (MS j H)) →
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Real.log (H : ℝ) ≤ (2 : ℝ) ^ (21845 : ℕ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              arcDen 12 H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) →
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ)) →
             -- ⟦the regime fact⟧ (subsumes the line above)
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ≤ (H : ℝ)) →
@@ -196,28 +198,28 @@ theorem m4_wave_closed_coprime_discharged (Qm : ℕ) :
   obtain ⟨Kbox, X₀w, hK0, hX₀0, hbridge⟩ := doorRowCarried_of_t0free Qm
   obtain ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
     hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hrow⟩ :=
-    m4_dyadicRow_carried Qm
+    m4_dyadicRow_carried
   obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_wave_closed_of_dyadicRow
-  refine ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, Kbox, X₀w,
-    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0,
+  refine ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl Qm, Xsk, Kcf Qm, Ctail, Kbox, X₀w,
+    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl Qm, hXsk0, hKcf0 Qm, hCtail0,
     hK0, hX₀0, ?_⟩
   intro C hC U1floor g
   obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
   refine ⟨R, hReps, hU1, hRg, ?_⟩
   intro δ Braw MS MSan MStr M k hgates hM hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
-    hQm htriv hcarT0 hlogcap harc harc8 hG1 hG2 hrowfree
+    hQm htriv hcarT0 hgate harc harc8 hG1 hG2 hrowfree
   -- ⟦ARM 1⟧ the T₀-free register becomes the carried one, instance by instance
   have hcar : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
       ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H, doorRowFloor M ≤ j →
         ∀ s ≤ H,
-          DoorRowCarried Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
+          DoorRowCarried Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk (Kcf Qm) Ctail χ M
             (doorLadder R.x H (i + 1) + s) j (MS j H) := by
     intro H hlo hhi q hq hqQ i hik χ j hjL hj0 s hsH
     haveI : NeZero q := ⟨by omega⟩
     have hqQm : q ≤ Qm := by
       have hRq : (q : ℝ) ≤ (Qm : ℝ) := le_trans hqQ (hQm H hlo hhi)
       exact_mod_cast hRq
-    exact hbridge Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail q χ M
+    exact hbridge Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk (Kcf Qm) Ctail q χ M
       (doorLadder R.x H (i + 1) + s) j (MS j H) hqQm
       (hcarT0 H hlo hhi q hq hqQ i hik χ j hjL hj0 s hsH)
   -- ⟦ARM 2⟧ the row datum → the narrowed coprime family → every class of `q`
@@ -231,9 +233,9 @@ theorem m4_wave_closed_coprime_discharged (Qm : ℕ) :
     m4_coprimeN_supplied (doorRowFloor M) hMSan0 hMStr0 han hG1 hG2 harc8 hrowfree
   have hnc : M4ClassBlockMeanSq R M k
       (m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) :=
-    m4_nonCoprime_classMeanSq_N (k := k) hM hBcl0 hlogcap harc hcpN
+    m4_nonCoprime_classMeanSq_N (k := k) hM hBcl0 hgate harc hcpN
   refine hR δ Braw MS MSan MStr (doorRowFloor M) M k hgates hMSan0 hMStr0 hBraw0 han htr
-    hdrift hdel hrest (hrow R M k MS hM hQm htriv hcar) ?_
+    hdrift hdel hrest (hrow R Qm M k MS hM hQm htriv hcar) ?_
   intro H hlo hhi q hq hqQ i hik r hrq _hncop
   exact hnc H hlo hhi q hq hqQ i hik r hrq
 
@@ -275,7 +277,8 @@ theorem m4_wave_closed_coprime_discharged_False (Qm : ℕ) :
                 doorRowFloor M ≤ j → ∀ s ≤ H,
                   DoorRowCarriedT0 Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
                     (doorLadder R.x H (i + 1) + s) j (MS j H)) →
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Real.log (H : ℝ) ≤ (2 : ℝ) ^ (21845 : ℕ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              arcDen 12 H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) →
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ)) →
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ≤ (H : ℝ)) →
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ MStr H) →

@@ -515,10 +515,10 @@ of `M4Dyadic` is the consumer's, not this theorem's.
 of the A2-5 seam (module docstring).
 
 See the module docstring for the binder → supplier table. -/
-theorem m4_meansq_per_chi_gen (Qm : ℕ) :
-    ∃ Cq cq T₀ X₀ Cs Ccc Kfl : ℝ,
-      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
-      ∀ (q : ℕ) [NeZero q] (_χ : DirichletCharacter ℂ q), q ≤ Qm →
+theorem m4_meansq_per_chi_gen :
+    ∃ (Cq cq T₀ X₀ Cs Ccc : ℝ) (Kfl : ℕ → ℝ),
+      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
+      ∀ (Qm q : ℕ) [NeZero q] (_χ : DirichletCharacter ℂ q), q ≤ Qm →
           ∀ (N Xd P Q M : ℕ) (a cf b : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ)
             (X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail C₁' M₀ : ℝ),
             -- ⟦the two pins (FRAME's joint instantiation)⟧
@@ -621,7 +621,7 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
             -- ⟦the cap-free floor's threshold⟧
             40 * Real.log (Real.log (Real.log X))
                 + 32 * ((1 / 8) * Real.log q + (1 / 4) * (q : ℝ)
-                    + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebit q + Kfl + 25)
+                    + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebit q + Kfl Qm + 25)
               < Real.log (Real.log X) →
             -- ⟦the interface's two grading gates and the `4096` room⟧
             374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
@@ -640,9 +640,11 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
     a2Rows_of_capfree3
   -- ⟦THE SOCKET CUT⟧ the CASE-A discharge is the SUPPLIER's now, so its `X₀` is taken here
   obtain ⟨X₀, hX₀0, -⟩ := caseASocket2_discharged
-  obtain ⟨Kfl, hKfl0, -⟩ := capFreeFloor3_liouChi_all Qm
+  -- ⟦THE SKOLEM CUT⟧ the cap-free floor constant is chosen as a FUNCTION of the modulus
+  -- range, so `Qm` may be quantified inside (`M4Spine`'s ⟦WALL C⟧, the `Qm` half)
+  choose Kfl hKfl0 _hcap using capFreeFloor3_liouChi_all
   refine ⟨Cq, cq, T₀, X₀, Cs, Ccc, Kfl, hCq, hcq, hT₀, hX₀0, hCs, hCcc, hKfl0, ?_⟩
-  intro q _ _χ _hq N Xd P Q M a cf b bfam X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail
+  intro Qm q _ _χ _hq N Xd P Q M a cf b bfam X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail
     C₁' M₀
     hXd hNXd hXee hlX2 hh4 hhX hhceil hTann hceil5 hT₀le hTbot hLXL hLe
     hM hXdQ hQ1h hP3 hlogP2 hQbot hQlog hQL hPlow hQhigh hPQ hQ0 hHX hH2 hPj1 hQXd hXdbig hdom
@@ -904,8 +906,8 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
                         * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
                     + 6315000 / h) := by
   obtain ⟨Cq, cq, T₀, X₀, Cs, Ccc, Kfl, hCq, hcq, hT₀, hX₀0, hCs, hCcc, hKfl0, hper⟩ :=
-    m4_meansq_per_chi_gen Qm
-  refine ⟨Cq, cq, T₀, X₀, Cs, Ccc, Kfl, hCq, hcq, hT₀, hX₀0, hCs, hCcc, hKfl0, ?_⟩
+    m4_meansq_per_chi_gen
+  refine ⟨Cq, cq, T₀, X₀, Cs, Ccc, Kfl Qm, hCq, hcq, hT₀, hX₀0, hCs, hCcc, hKfl0 Qm, ?_⟩
   intro q _ χ hq N Xd P Q M a cf b bfam X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail
     C₁' M₀ xw ω H' α Hp d₀ W hxw hω
     hXd hNXd hXee hlX2 hh4 hhX hhceil hTann hceil5 hT₀le hTbot hLXL hLe
@@ -920,7 +922,7 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
   rcases le_or_gt ((H' : ℝ)) (trivThresh Hp d₀ W) with hshort | hlong
   · exact Or.inl ⟨hshort, m4_trivial_branch ha1 hxw hω hshort α⟩
   · refine Or.inr ⟨hlong, ?_⟩
-    exact hper q χ hq N Xd P Q M a cf b bfam X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail
+    exact hper Qm q χ hq N Xd P Q M a cf b bfam X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail
       C₁' M₀
       hXd hNXd hXee hlX2 hh4 hhX hhceil hTann hceil5 hT₀le hTbot hLXL hLe
       hM hXdQ hQ1h hP3 hlogP2 hQbot hQlog hQL hPlow hQhigh hPQ hQ0 hHX hH2 hPj1 hQXd hXdbig hdom

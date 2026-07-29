@@ -82,10 +82,12 @@ trivial grade `5` the predicate holds outright, so all of its content is the gra
 Both are `H`-only, `X`-free thresholds on the window range — the class the S11 spine's
 `g`-arm absorbs:
 
-1. `hlogcap` — `log H ≤ 2^{21845}`, the dilation's own gate
-   (`M4Residue`: `12·21845 = 262140 < 262144`), carried verbatim by
+1. `hgate` — the dilation's own gate, `M`-RELATIVE: `arcDen 12 H < P₁ = calP (Adoor M)
+   (3072M) 1` (`M4Residue.door_dilation_gate'`), carried verbatim by
    `M4ClassPrice.norm_sum_windowClass_memS_dilate`.  Nothing new: every consumer of the
-   dilation pays it.
+   dilation pays it.  It REPLACES the old `log H ≤ 2^{21845}`, which capped the window
+   length by a numeral against an unbounded `R.Hhi` (`M4Spine`'s ⟦WALL C⟧); the door's own
+   bottom block is the honest ceiling, and `M` is chosen after `R`.
 2. `harc` — `2·arcDen 12 H ≤ H`, i.e. `2(log H)^{12} ≤ H`.  This is what makes the re-index
    non-degenerate: it gives `2d₀ ≤ 2q ≤ H < A`, hence `⌊A/d₀⌋ ≥ 2` and `A' ≥ 1`.  It is
    forced by the arc setup itself — `MinorArcExit` DERIVES `arcDen B₅ H ≤ H` from the mere
@@ -94,8 +96,9 @@ Both are `H`-only, `X`-free thresholds on the window range — the class the S11
 
 ## ⟦THE TRAPS RESPECTED⟧
 
-* **the four log scales** — this file writes `log H` only (through `arcDen 12 H` and the
-  dilation's `2^{21845}` gate); no `log X`, no `log log`, and `arcDen` is never evaluated;
+* **the four log scales** — this file writes `log H` only (through `arcDen 12 H`, which the
+  dilation's gate now reads directly); no `log X`, no `log log`, and `arcDen` is never
+  evaluated;
 * **ℕ-division fibres** — the fibre of `n ↦ ⌊n/d₀⌋` over `n'` is contained in
   `[d₀n', d₀n' + d₀)` and so has card `≤ d₀` EXACTLY (`card_fibre_div_le`, from
   `Nat.div_add_mod` — no ± slack is guessed).  The image of `(A, B]` is `[⌊A/d₀⌋, ⌊B/d₀⌋]`,
@@ -298,16 +301,15 @@ sup at the reduced pair `(q/d₀, r/d₀)` and base `⌊n/d₀⌋`, read at the 
 `⌊H/d₀⌋ + 1`.  Loss-free at every length: the underlying step is the equality of
 `M4ClassPrice` §3, taken at the residual frequency `0` (no arc datum, hence no enlarged
 cap). -/
-theorem classSup_le_dilate {M H q r n : ℕ} (hM : 1 ≤ M) (hq : 0 < q)
-    (h1 : 1 ≤ Real.log (H : ℝ)) (h2 : Real.log (H : ℝ) ≤ (2 : ℝ) ^ (21845 : ℕ))
-    (hqW : (q : ℝ) ≤ Real.log (H : ℝ) ^ (12 : ℕ)) :
+theorem classSup_le_dilate {M H q r n : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
+    (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) :
     classSup (doorSievedCoeff M) H n q r
       ≤ classSup (doorSievedCoeff M) (H / Nat.gcd r q + 1) (n / Nat.gcd r q)
           (q / Nat.gcd r q) (r / Nat.gcd r q) := by
   have hd : 0 < Nat.gcd r q := Nat.gcd_pos_of_pos_right r hq
   refine classSup_le fun K hK => ?_
   have heq := norm_sum_windowClass_memS_dilate (M := M) (J := 2) (q := q) (r := r)
-    (H := K) (n := n) (Hr := (H : ℝ)) hM hq h1 h2 hqW
+    (H := K) (n := n) (W := W) hM hq hqW hW
   have hlen : dilLen K n (Nat.gcd r q) ≤ H / Nat.gcd r q + 1 :=
     le_trans (dilLen_le K n hd) (Nat.add_le_add_right (Nat.div_le_div_right hK) 1)
   simp only [doorSievedCoeff]
@@ -381,7 +383,8 @@ unchanged.  The two added hypotheses are the module header's ⟦THE TWO GATES⟧
 `H`-only regime thresholds of ⟦THE FINAL REGISTER⟧'s class (a). -/
 theorem m4_nonCoprime_classMeanSq {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}
     (hM : 1 ≤ M) (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
-    (hlogcap : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Real.log (H : ℝ) ≤ (2 : ℝ) ^ (21845 : ℕ))
+    (hgate : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      arcDen 12 H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
     (harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ))
     (hcp : M4CoprimeBlockMeanSq R M Bcl) :
     M4ClassBlockMeanSq R M k Bcl := by
@@ -437,14 +440,6 @@ theorem m4_nonCoprime_classMeanSq {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → 
     have hH'H : H / Nat.gcd r q + 1 ≤ H := by
       have hstep : H / Nat.gcd r q ≤ H / 2 := Nat.div_le_div_left hd2 (by norm_num)
       omega
-    -- ⟦the dilation's own gates⟧
-    have hL1 : (1 : ℝ) ≤ Real.log (H : ℝ) := by
-      have hLexp : Real.exp 1 ≤ Real.log (H : ℝ) := exp_one_le_log_of_regime_le R hlo
-      have he : (1 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
-      linarith
-    have harcnp : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
-      rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-    have hqW : (q : ℝ) ≤ Real.log (H : ℝ) ^ (12 : ℕ) := by rw [← harcnp]; exact hqQ
     -- ⟦the pointwise transport, then the fibre count, then the datum, then the ledger⟧
     have hpt : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
         (classSup (doorSievedCoeff M) H n q r) ^ 2
@@ -452,7 +447,7 @@ theorem m4_nonCoprime_classMeanSq {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → 
                 (q / Nat.gcd r q) (r / Nat.gcd r q)) ^ 2) (n / Nat.gcd r q) := by
       intro n _
       have hle := classSup_le_dilate (M := M) (H := H) (q := q) (r := r) (n := n)
-        hM hq hL1 (hlogcap H hlo hhi) hqW
+        (W := arcDen 12 H) hM hq hqQ (hgate H hlo hhi)
       have h0 := classSup_nonneg (doorSievedCoeff M) H n q r
       simp only
       nlinarith
@@ -555,7 +550,8 @@ narrowing is discharged inside, at each of the two sites, from facts the proof a
   `d₀ ≤ q ≤ arcDen 12 H` is `Nat.gcd_dvd_right` + the modulus gate. -/
 theorem m4_nonCoprime_classMeanSq_N {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}
     (hM : 1 ≤ M) (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
-    (hlogcap : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Real.log (H : ℝ) ≤ (2 : ℝ) ^ (21845 : ℕ))
+    (hgate : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      arcDen 12 H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
     (harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ))
     (hcp : M4CoprimeBlockMeanSqN R M Bcl) :
     M4ClassBlockMeanSq R M k Bcl := by
@@ -629,14 +625,6 @@ theorem m4_nonCoprime_classMeanSq_N {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ �
         exact_mod_cast hdq
       have hL0 : (0 : ℝ) ≤ ((H / Nat.gcd r q + 1 : ℕ) : ℝ) := Nat.cast_nonneg _
       nlinarith
-    -- ⟦the dilation's own gates⟧
-    have hL1 : (1 : ℝ) ≤ Real.log (H : ℝ) := by
-      have hLexp : Real.exp 1 ≤ Real.log (H : ℝ) := exp_one_le_log_of_regime_le R hlo
-      have he : (1 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
-      linarith
-    have harcnp : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
-      rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-    have hqW : (q : ℝ) ≤ Real.log (H : ℝ) ^ (12 : ℕ) := by rw [← harcnp]; exact hqQ
     -- ⟦the pointwise transport, then the fibre count, then the datum, then the ledger⟧
     have hpt : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
         (classSup (doorSievedCoeff M) H n q r) ^ 2
@@ -644,7 +632,7 @@ theorem m4_nonCoprime_classMeanSq_N {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ �
                 (q / Nat.gcd r q) (r / Nat.gcd r q)) ^ 2) (n / Nat.gcd r q) := by
       intro n _
       have hle := classSup_le_dilate (M := M) (H := H) (q := q) (r := r) (n := n)
-        hM hq hL1 (hlogcap H hlo hhi) hqW
+        (W := arcDen 12 H) hM hq hqQ (hgate H hlo hhi)
       have h0 := classSup_nonneg (doorSievedCoeff M) H n q r
       simp only
       nlinarith

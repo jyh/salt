@@ -1891,6 +1891,8 @@ open Salt.Tactic in
   Salt.MR.d_lt_calP_door_one
   Salt.MR.logH_pow_twelve_lt
   Salt.MR.door_dilation_gate
+  Salt.MR.door_dilation_gate'
+  Salt.MR.door_dilation_gate_calP
   Salt.MR.calP_door_mono
   Salt.MR.memS_dilate_door
   Salt.MR.residue_split_dilate_door
@@ -2778,8 +2780,10 @@ open Salt.Tactic in
 -- is BANKED UNSPENT — sharply `d₀·(B·H'²·A') ≤ B·H²·A·(1 + d₀/H)²/d₀²` (`d0_ledger_sharp`),
 -- a factor `≥ 16/9` of headroom already at `d₀ = 2`.  So the composed grade is IDENTICAL to
 -- the coprime half's and the `q²` slot `M4ClassPrice` §4 opened is untouched.  TWO gates
--- added, both `H`-only class-(a) thresholds: `log H ≤ 2^{21845}` (the dilation's own, paid
--- by every consumer of it) and `2·arcDen 12 H ≤ H` (which makes the re-index non-degenerate:
+-- added: the dilation's own, `M`-RELATIVE since the register-scope wave
+-- (`arcDen 12 H < calP (Adoor M) (3072M) 1 = 2^{Adoor M}`, `M4Residue.door_dilation_gate'`,
+-- paid by every consumer of the dilation), and `2·arcDen 12 H ≤ H`, an `H`-only class-(a)
+-- threshold (which makes the re-index non-degenerate:
 -- `2d₀ ≤ 2q ≤ H < A`, hence `⌊A/d₀⌋ ≥ 2` — and which `MinorArcExit` already DERIVES from
 -- the mere existence of a large Dirichlet denominator).  Anti-vacuity:
 -- `m4_coprimeBlockMeanSq_trivial` at grade `5`.
@@ -3539,6 +3543,20 @@ open Salt.Tactic in
 -- `m4_wave_closed_coprime_discharged` is exactly TWO lines (the register's `∀d`, and the
 -- analytic row line GONE).  `M4BaseNarrow`'s header enumerates ⟦THE FINAL REGISTER⟧ in the
 -- two classes — that list IS the S11 spine's consumption contract, and class (c) is empty.
+-- ⟦THE REGISTER-SCOPE WAVE⟧ (2026-07-29) re-cuts two of its lines against `M4Spine`'s
+-- ⟦WALL C⟧, conclusions byte-identical: ⟦gate 12⟧ is now the `M`-relative dilation cap
+-- `arcDen 12 H < calP (Adoor M) (3072M) 1` (`M4Residue.door_dilation_gate'`, threaded through
+-- `M4BridgeDilate`/`M4ClassPrice`/`M4NonCoprime`/`M4BaseNarrow`/`M4DoorClose`/`M4Collapse` as
+-- a hypothesis WEAKENING at every site), and `Qm` moves from the leading parameter into the
+-- witnessed group beside `M`, `k` — legitimate because the three `Qm`-taking suppliers are
+-- Skolemised (`capFreeFloor3_liouChi_all → Kfl`, `capFreeFloor3_pieceDatum → Kcf`,
+-- `doorRowCarried_of_t0free → Kbox, X₀w`, all now `ℕ → ℝ`), which lets
+-- `m4_modulusCap_discharged` close ⟦gate 9⟧ at `Qm := ⌈arcDen 12 R.Hhi⌉₊`.  The five re-cut
+-- statements: `m4_meansq_per_chi_gen`, `m4_door_meansq_carried`, `m4_dyadicRow_carried`,
+-- `m4_rowDatum_dilated`, `m4_wave_collapsed` (+ its `False` twin); every OTHER consumer keeps
+-- its statement byte-identical by reading the choice functions at its own leading `Qm`.
+-- ⟦WALLS A AND B STAND⟧ — the wave makes the register honest and `Hhi`-safe; it does not
+-- unblock the spine.
 open Salt.Tactic in
 #audit_axioms Salt.MR.M4RowDatumAt
   Salt.MR.m4_freeShiftBlock_at
@@ -3552,6 +3570,8 @@ open Salt.Tactic in
   Salt.MR.m4_coprimeNN_supplied
   Salt.MR.narrow_dilate
   Salt.MR.m4_rowDatum_dilated
+  Salt.MR.arcDen_le_arcDen_Hhi
+  Salt.MR.m4_modulusCap_discharged
   Salt.MR.m4_wave_collapsed
   Salt.MR.m4_wave_collapsed_False
 
@@ -3576,11 +3596,19 @@ open Salt.Tactic in
 -- ladder block bottom (`m4_register_forces_endpoint_interval`) — its only discharge route is
 -- `X_d ∉ 𝒮`, and `𝒮` is the Ramaré sieve, which keeps almost every integer.  `M4DoorClose`'s
 -- ⟦ENDPOINT CONVENTION⟧ ("a consumer discharges it by choosing `s`") points at a freedom
--- `M4Maximal.M4ChiDyadicRowMeanSq`'s own `∀ s` had already spent.  ⟦WALL C⟧ ⟦gates 9/12⟧ are
+-- `M4Maximal.M4ChiDyadicRowMeanSq`'s own `∀ s` had already spent.  ⟦WALL C⟧ ⟦gates 9/12⟧ were
 -- `H`-UPPER bounds (`arcDen 12 H ≤ Qm`, `log H ≤ 2^{21845}`) against a regime whose `Hhi` the
--- exit never bounds above — prose only, no artifact.  ⟦WHAT LANDS⟧ the two reusable stones
--- the attempt produced: the brief's ⟦S-4⟧ arc page (`8·(log H)^{12} ≤ H` past `10^36`, the
--- discharge of ⟦gates 13/14⟧ in ANY repaired register) and the delivered grade against a
+-- exit never bounds above — and are REPAIRED by the register-scope wave (2026-07-29): gate 12
+-- is `M`-relative (`M4Residue.door_dilation_gate'`, the cap is the door's own `P₁`), and gate
+-- 9 is discharged by the Skolem reorder — `Qm` moved into the witnessed group beside `M`, `k`
+-- (`Kfl`, `Kcf`, `Kbox`, `X₀w` are now choice functions `ℕ → ℝ`), then closed at
+-- `Qm := ⌈arcDen 12 R.Hhi⌉₊` (`M4BaseNarrow.m4_modulusCap_discharged`).  ⟦WALLS A AND B
+-- STAND⟧ — the register is honest and `Hhi`-safe, and still unfulfillable; the same wave
+-- banks the refutation of the C2(ii) repair (`m4_spine_budget_collision_perH_at_Hlo`: a
+-- per-`H` door grade `δ H` collides at `H := R.Hlo`, where both `H`-side hypotheses are free
+-- from `hHlo_floor` and the exit's own `H0scale C ≤ R.Hlo`).  ⟦WHAT LANDS⟧ the two reusable
+-- stones the attempt produced: the brief's ⟦S-4⟧ arc page (`8·(log H)^{12} ≤ H` past `10^36`,
+-- the discharge of ⟦gates 13/14⟧ in ANY repaired register) and the delivered grade against a
 -- clean `1/(log H)²`.
 open Salt.Tactic in
 #audit_axioms Salt.MR.m4ArcFloor
@@ -3592,5 +3620,7 @@ open Salt.Tactic in
   Salt.MR.m4_budget_forces_C
   Salt.MR.m4_budget_collision
   Salt.MR.m4_spine_budget_collision
+  Salt.MR.m4_spine_budget_collision_at_Hlo
+  Salt.MR.m4_spine_budget_collision_perH_at_Hlo
   Salt.MR.doorRowCarriedT0_endpoint
   Salt.MR.m4_register_forces_endpoint_interval

@@ -55,6 +55,12 @@ two candidate rulings: (i) an `M`-free small-length term (the `4^{j₀}/H` facto
 CONSUMPTION NOTE⟧ already flagged as "not free"); or (ii) a per-`H` door grade `δ H` in place
 of the single pinned `δ`, which is what decouples `M` from the TOP of the window range.
 
+**(ii) is REFUTED** (`m4_spine_budget_collision_perH_at_Hlo`, 2026-07-29): the collision needs
+only ONE window length, and `H := R.Hlo` is in every regime's range with both of its `H`-side
+hypotheses free there (`ChowlaRegime.hHlo_floor` gives `log R.Hlo ≥ 15`; the exit's own
+`H0scale C ≤ R.Hlo` gives `C² ≤ log R.Hlo`).  A per-`H` grade is contradictory through its own
+bottom instance `δ R.Hlo`.  Ruling (i) is the survivor.
+
 ## ⟦WALL B — THE ENDPOINT, ∀-QUANTIFIED⟧ (§4, kernel-checked)
 
 `DoorRowCarriedT0`'s conjunct `hend : doorChiCoeff χ M X_d = 0` is discharged exactly when
@@ -73,18 +79,28 @@ something a consumer can arrange, and `H ≥ 4·10^6`.  The `∀s` is not option
 `M4Maximal.M4ChiDyadicRowMeanSq` needs the row datum at every shift, because
 `m4_chiShiftBlock_of_dyadicRow` decomposes the ladder block into shifted pieces.
 
-## ⟦WALL C — THE `H`-UPPER GATES AGAINST AN UNBOUNDED `R.Hhi`⟧ (prose)
+## ⟦WALL C — THE `H`-UPPER GATES AGAINST AN UNBOUNDED `R.Hhi`⟧ — **REPAIRED** (2026-07-29)
 
-Two register gates are UPPER bounds on the window length: ⟦gate 9⟧ `arcDen 12 H ≤ Qm` and
-⟦gate 12⟧ `log H ≤ 2^{21845}`.  `Qm` is the theorem's own parameter, fixed BEFORE the regime;
-`2^{21845}` is a numeral.  The exit (`M4Exit.m4_exit_socket`, off
+As found, two register gates were UPPER bounds on the window length: ⟦gate 9⟧
+`arcDen 12 H ≤ Qm`, with `Qm` the theorem's own parameter fixed BEFORE the regime, and
+⟦gate 12⟧ `log H ≤ 2^{21845}`, a numeral.  The exit (`M4Exit.m4_exit_socket`, off
 `log_chowla_two_budget_head_g`) exposes only LOWER control — `U1floor ≤ R.Hlo`,
 `g R.Hhi R.ω ≤ R.x` — and `ChowlaRegime` carries no upper bound on `Hhi` at all (`hfit` forces
-it UP, above the `J`-step tower).  So neither gate is dischargeable from outside, whatever the
-spine chooses.  The `Qm` half is repairable by a quantifier reorder — the constants of
-`m4_rowDatum_dilated Qm` can be selected at `Qm := ⌈arcDen 12 R.Hhi⌉₊` AFTER `R` through a
-choice function on `Qm`, since `g` reads `R.Hhi` — but ⟦gate 12⟧'s numeral is not, and ⟦WALL
-A⟧/⟦WALL B⟧ are of a different order.
+it UP, above the `J`-step tower), so neither gate was dischargeable from outside.  Both are
+now re-cut, and both repairs are mechanical:
+
+* ⟦gate 12⟧ is `M`-RELATIVE: `arcDen 12 H < calP (Adoor M) (3072M) 1 = 2^{Adoor M}`
+  (`M4Residue.door_dilation_gate'`).  The dilation never needed a numeral — it needs
+  `d₀ ≤ q ≤ W < P₁`, and `P₁` is the door's own bottom block, which `M` (witnessed, chosen
+  after `R`) controls.  The old numeral route survives as `door_dilation_gate`.
+* ⟦gate 9⟧ is discharged by a QUANTIFIER REORDER: `Qm` moved from the leading parameters into
+  the witnessed group beside `M`, `k`, which is legitimate because the three `Qm`-taking
+  suppliers are Skolemised — `Kfl`, `Kcf`, `Kbox`, `X₀w` are now choice FUNCTIONS `ℕ → ℝ`.
+  `M4BaseNarrow.m4_modulusCap_discharged` then closes the gate at
+  `Qm := ⌈arcDen 12 R.Hhi⌉₊`.
+
+⟦WALL A⟧ and ⟦WALL B⟧ are of a different order and STAND: the register is now honest and
+`Hhi`-safe, and still unfulfillable.
 
 ## ⟦WHAT LANDS HERE⟧
 
@@ -95,7 +111,10 @@ A⟧/⟦WALL B⟧ are of a different order.
 * §2 `mrtDeliveredGrade_le_inv_sq` — the delivered grade against a clean `1/(log H)²`; the
   arithmetic both halves of ⟦WALL A⟧ run on, and the transfer any repaired budget will reuse.
 * §3 ⟦WALL A⟧: `m4_spine_budget_necessary`, `m4_budget_forces_C`, `m4_budget_collision`,
-  `m4_spine_budget_collision`.
+  `m4_spine_budget_collision`, and the two floor-read corollaries
+  `m4_spine_budget_collision_at_Hlo` / `m4_spine_budget_collision_perH_at_Hlo` — the second
+  banks the refutation of the council's C2(ii) repair (a per-`H` door grade `δ H`): the
+  collision is arithmetic at ONE window length, and `R.Hlo` is in every regime's range.
 * §4 ⟦WALL B⟧: `doorRowCarriedT0_endpoint`, `m4_register_forces_endpoint_interval`.
 
 Nothing here moves a landed statement; the file is purely additive.
@@ -463,6 +482,53 @@ theorem m4_spine_budget_collision
     False :=
   m4_budget_collision hC hL
     (m4_spine_budget_necessary hCg hC hδ hL hMδ hMSan0 hMStr0 hdrift hdel hrest hG1) hscale
+
+/-- **⟦WALL A⟧ AT THE REGIME'S OWN FLOOR** (`m4_spine_budget_collision_at_Hlo`).  The
+collision, with its two `H`-side hypotheses DISCHARGED at `H := R.Hlo`: `log R.Hlo ≥ 15` is
+`ChowlaRegime.hHlo_floor` (`4·10⁶ ≤ R.Hlo`, `Salt.Entropy.Chowla.tower_log_bounds`) and
+`C² ≤ log R.Hlo` is the exit's own scale floor `H0scale C ≤ R.Hlo`
+(`M4Exit.sq_le_log_of_H0scale_le`, which `M4Exit.m4_exit_socket`'s `hscale` supplies).  So the
+register's arithmetic gates need only be read at ONE window length — the BOTTOM of the range —
+to be contradictory. -/
+theorem m4_spine_budget_collision_at_Hlo {R : ChowlaRegime} {Cg C δ : ℝ}
+    {Braw MSan MStr : ℕ → ℝ} {M : ℕ}
+    (hCg : 1 ≤ Cg) (hC : 0 ≤ C) (hδ : 0 < δ)
+    (hscale : H0scale C ≤ R.Hlo)
+    (hMδ : 24 * Cg / δ ≤ (M : ℝ))
+    (hMSan0 : 0 ≤ MSan R.Hlo) (hMStr0 : 0 ≤ MStr R.Hlo)
+    (hdrift : ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 R.Hlo →
+      (1 + 2 * Real.pi * (arcDen 12 R.Hlo / (q : ℝ))) ^ 2
+          * ((q : ℝ) ^ 2 * (3 * m4BclGraded (doorRowFloor M)
+              (fun H => 2 * MSan H) (fun H => 2 * MStr H) R.Hlo)) ≤ Braw R.Hlo)
+    (hdel : Real.sqrt (Braw R.Hlo) ≤ mrtDeliveredGrade (C / 2) R.Hlo)
+    (hrest : δ / 4 ≤ mrtDeliveredGrade (C / 2) R.Hlo)
+    (hG1 : arcDen 12 R.Hlo ≤ MStr R.Hlo) :
+    False :=
+  m4_spine_budget_collision hCg hC hδ (tower_log_bounds R.hHlo_floor).1
+    (sq_le_log_of_H0scale_le hscale) hMδ hMSan0 hMStr0 hdrift hdel hrest hG1
+
+/-- **⟦WALL A⟧ SURVIVES THE PER-`H` DOOR GRADE** (`m4_spine_budget_collision_perH_at_Hlo`) —
+the council's C2(ii) repair, REFUTED, permanently.  Replacing the register's single pinned `δ`
+by a per-window-length grade `δ : ℕ → ℝ` changes nothing: the collision is arithmetic at ONE
+`H`, and `H := R.Hlo` is in every regime's range, so the repaired register is contradictory
+through its own bottom instance `δ R.Hlo`.  (What C2(ii) buys is decoupling `M` from the TOP
+of the range — and the collision never used the top.) -/
+theorem m4_spine_budget_collision_perH_at_Hlo {R : ChowlaRegime} {Cg C : ℝ}
+    {δ Braw MSan MStr : ℕ → ℝ} {M : ℕ}
+    (hCg : 1 ≤ Cg) (hC : 0 ≤ C) (hδ : 0 < δ R.Hlo)
+    (hscale : H0scale C ≤ R.Hlo)
+    (hMδ : 24 * Cg / δ R.Hlo ≤ (M : ℝ))
+    (hMSan0 : 0 ≤ MSan R.Hlo) (hMStr0 : 0 ≤ MStr R.Hlo)
+    (hdrift : ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 R.Hlo →
+      (1 + 2 * Real.pi * (arcDen 12 R.Hlo / (q : ℝ))) ^ 2
+          * ((q : ℝ) ^ 2 * (3 * m4BclGraded (doorRowFloor M)
+              (fun H => 2 * MSan H) (fun H => 2 * MStr H) R.Hlo)) ≤ Braw R.Hlo)
+    (hdel : Real.sqrt (Braw R.Hlo) ≤ mrtDeliveredGrade (C / 2) R.Hlo)
+    (hrest : δ R.Hlo / 4 ≤ mrtDeliveredGrade (C / 2) R.Hlo)
+    (hG1 : arcDen 12 R.Hlo ≤ MStr R.Hlo) :
+    False :=
+  m4_spine_budget_collision_at_Hlo (δ := δ R.Hlo) hCg hC hδ hscale hMδ hMSan0 hMStr0
+    hdrift hdel hrest hG1
 
 /-! ## §4 — ⟦WALL B⟧: THE ENDPOINT, ∀-QUANTIFIED OVER THE SHIFT
 

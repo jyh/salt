@@ -412,6 +412,39 @@ theorem door_dilation_gate {M d q : ℕ} {H : ℝ} (h1 : 1 ≤ Real.log H)
     d < calP (Adoor M) (3072 * M) 1 :=
   d_lt_calP_door_one hdq hqW (logH_pow_twelve_lt h1 h2)
 
+/-- **THE GATE, `M`-RELATIVE** (`door_dilation_gate'`).  The same chain `d₀ ≤ q ≤ W < P₁`
+with the `H`-side numeral route BYPASSED: the ceiling is the door's OWN bottom block
+`P₁ = 2^{Adoor M}` (`calP_door_one_eq`), so the gate no longer caps `log H` by a constant.
+`door_dilation_gate` is the special case `W = (log H)^{12}` at `log H ≤ 2^{21845}`, and stays
+— nothing landed moves.
+
+⟦WHY⟧ ⟦gate 12⟧ of ⟦THE FINAL REGISTER⟧ was `log H ≤ 2^{21845}`, an UPPER bound on the window
+length against a regime whose `R.Hhi` nothing bounds above (`M4Spine`'s ⟦WALL C⟧).  Read
+against `2^{Adoor M}` instead — with `M` in the register's own witnessed group — the gate is a
+demand on `M`, which the spine chooses AFTER `R`. -/
+theorem door_dilation_gate' {M d q : ℕ} {W : ℝ} (hdq : d ≤ q) (hqW : (q : ℝ) ≤ W)
+    (hW : W < (2 : ℝ) ^ Adoor M) :
+    d < calP (Adoor M) (3072 * M) 1 := by
+  have hcast : ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) = (2 : ℝ) ^ Adoor M := by
+    rw [calP_door_one_eq]
+    push_cast
+    ring
+  have hd : (d : ℝ) < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by
+    rw [hcast]
+    have hdq' : (d : ℝ) ≤ (q : ℝ) := by exact_mod_cast hdq
+    exact lt_of_le_of_lt (le_trans hdq' hqW) hW
+  exact_mod_cast hd
+
+/-- The same read at `P₁` itself — the shape ⟦gate 12⟧ carries once the cap is `M`-relative
+(`arcDen 12 H < ((calP (Adoor M) (3072M) 1 : ℕ) : ℝ)`), so no consumer converts. -/
+theorem door_dilation_gate_calP {M d q : ℕ} {W : ℝ} (hdq : d ≤ q) (hqW : (q : ℝ) ≤ W)
+    (hW : W < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) :
+    d < calP (Adoor M) (3072 * M) 1 := by
+  have hd : (d : ℝ) < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by
+    have hdq' : (d : ℝ) ≤ (q : ℝ) := by exact_mod_cast hdq
+    exact lt_of_le_of_lt (le_trans hdq' hqW) hW
+  exact_mod_cast hd
+
 /-- The door `P`-ladder is monotone (`calE_mono` at `G = 3072M ≥ 1`), so the bottom-block
 gate gates every block. -/
 theorem calP_door_mono {M : ℕ} (hM : 1 ≤ M) : Monotone (calP (Adoor M) (3072 * M)) := by

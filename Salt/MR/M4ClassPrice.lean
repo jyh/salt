@@ -229,9 +229,8 @@ has depth `1` and is a plain `by_cases`. -/
 class mod `q` of the window `(n, n+H]` is the class `r₀` mod `q₀` of the DILATED window
 `(n/d₀, n/d₀ + dilLen]`, at the same sieved datum, and `‖λ(d₀)‖ = 1` makes the transport
 loss-free.  Nothing is estimated here. -/
-theorem norm_sum_windowClass_memS_dilate {M J q r H n : ℕ} {Hr : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
-    (h1 : 1 ≤ Real.log Hr) (h2 : Real.log Hr ≤ (2 : ℝ) ^ (21845 : ℕ))
-    (hqW : (q : ℝ) ≤ Real.log Hr ^ (12 : ℕ)) :
+theorem norm_sum_windowClass_memS_dilate {M J q r H n : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
+    (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) :
     ‖∑ m ∈ windowClass H n q r, memSCoeff (calP (Adoor M) (3072 * M))
         (calQK (Adoor M) (3072 * M) M) J liouvilleC m‖
       = ‖∑ m ∈ windowClass (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q)
@@ -246,7 +245,7 @@ theorem norm_sum_windowClass_memS_dilate {M J q r H n : ℕ} {Hr : ℝ} (hM : 1 
     _ = ‖absWindowSum (classCoeff c (q / Nat.gcd r q) (r / Nat.gcd r q))
           (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q) 0‖ := by
         have h := (m4_class_dilate_exit (J := J) (q := q) (r := r) (H := H) (n := n)
-          (Hr := Hr) hM hq h1 h2 hqW 0).1
+          (W := W) hM hq hqW hW 0).1
         rwa [mul_zero] at h
     _ = ‖∑ m ∈ windowClass (dilLen H n (Nat.gcd r q)) (n / Nat.gcd r q)
           (q / Nat.gcd r q) (r / Nat.gcd r q), c m‖ := by
@@ -263,9 +262,8 @@ For a class `r` mod `q` of the door's sieved `λ`-window sum at a tight-major ra
 
 The two hypotheses are the SAME row datum read at the two windows the two branches use; a
 supplier uniform over the modulus range and the window range discharges both at once. -/
-theorem m4_class_price {M J q r H n : ℕ} {Hr : ℝ} {B : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
-    (h1 : 1 ≤ Real.log Hr) (h2 : Real.log Hr ≤ (2 : ℝ) ^ (21845 : ℕ))
-    (hqW : (q : ℝ) ≤ Real.log Hr ^ (12 : ℕ))
+theorem m4_class_price {M J q r H n : ℕ} {W : ℝ} {B : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
+    (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
     (hcop : ∀ χ : DirichletCharacter ℂ q,
       ‖∑ m ∈ sievedWindow (MemS (calP (Adoor M) (3072 * M))
         (calQK (Adoor M) (3072 * M) M) J) H n, liouChi χ m‖ ≤ B)
@@ -284,7 +282,7 @@ theorem m4_class_price {M J q r H n : ℕ} {Hr : ℝ} {B : ℝ} (hM : 1 ≤ M) (
       exact hcase
     exact norm_sum_windowClass_memS_le_of_uniform hcopqr _ _ J H n hcop
   · -- ⟦d₀ > 1⟧ ONE dilation, then the expansion at the reduced (coprime) pair
-    rw [norm_sum_windowClass_memS_dilate (J := J) hM hq h1 h2 hqW]
+    rw [norm_sum_windowClass_memS_dilate (J := J) hM hq hqW hW]
     have hq₀ : 0 < q / Nat.gcd r q :=
       Nat.div_pos (Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)) hd
     haveI : NeZero (q / Nat.gcd r q) := ⟨hq₀.ne'⟩

@@ -801,7 +801,8 @@ theorem m4_wave_closed_T0_discharged (Qm : ℕ) :
                 doorRowFloor M ≤ j → ∀ s ≤ H,
                   DoorRowCarriedT0 Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
                     (doorLadder R.x H (i + 1) + s) j (MS j H)) →
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Real.log (H : ℝ) ≤ (2 : ℝ) ^ (21845 : ℕ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              arcDen 12 H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) →
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ)) →
             -- ⟦ARM 2: the coprime supply, interval/length-general — the ONLY analytic carry left⟧
             M4CoprimeBlockMeanSq R M
@@ -818,9 +819,9 @@ theorem m4_wave_closed_T0_discharged (Qm : ℕ) :
   obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
   refine ⟨R, hReps, hU1, hRg, ?_⟩
   intro δ Braw MS MSan MStr M k hgates hM hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
-    hQm htriv hcar hlogcap harc hcp
+    hQm htriv hcar hgate harc hcp
   refine hR δ Braw MS MSan MStr M k hgates hM hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
-    hQm htriv ?_ hlogcap harc hcp
+    hQm htriv ?_ hgate harc hcp
   intro H hlo hhi q hq hqQ i hik χ j hjL hj0 s hsH
   haveI : NeZero q := ⟨by omega⟩
   have hqQm : q ≤ Qm := by

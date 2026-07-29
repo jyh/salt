@@ -90,7 +90,7 @@ register does not move.  The three class-(a) gates ⟦G1⟧ `arcDen 12 H ≤ MSt
 * **half-open** — every window is `Finset.Ioc n (n+K)` (`doorSievedWindow`), every block and
   every dilated block is `Finset.Ioc A B`;
 * **the log scales** — `Nat.log 2` for the dyadic index, `arcDen 12 H` (never evaluated) for
-  the modulus range, `log H` only through `arcDen` and the dilation's `2^{21845}` cap; no
+  the modulus range, `log H` only through `arcDen` and the dilation's `M`-relative cap; no
   `log X`, no `loglog`;
 * **`liouChi` only**, never `lamChi`; the datum is `doorChiCoeff χ M` BARE at frequency `0`;
 * **strict gates** — `0 < q`, `0 < A`, `R.Hlo ≤ H ≤ R.Hhi`, `2 ≤ d₀` on the dilated branch,
@@ -591,7 +591,8 @@ theorem m4_classBlockMeanSq_of_rowDatum {R : ChowlaRegime} {M k : ℕ} {MS : ℕ
     (hG2 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
       12 * MSan H + 24 ≤ (4 : ℝ) ^ doorRowFloor M)
     (harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ≤ (H : ℝ))
-    (hlogcap : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Real.log (H : ℝ) ≤ (2 : ℝ) ^ (21845 : ℕ))
+    (hgate : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      arcDen 12 H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
     (harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ))
     (hrow1 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
       ∀ i < k, ∀ χ : DirichletCharacter ℂ q,
@@ -659,14 +660,6 @@ theorem m4_classBlockMeanSq_of_rowDatum {R : ChowlaRegime} {M k : ℕ} {MS : ℕ
         exact_mod_cast hnat
       have hL0 : (0 : ℝ) ≤ ((H / Nat.gcd r q + 1 : ℕ) : ℝ) := Nat.cast_nonneg _
       nlinarith
-    -- ⟦the dilation's own gates⟧
-    have hL1 : (1 : ℝ) ≤ Real.log (H : ℝ) := by
-      have hLexp : Real.exp 1 ≤ Real.log (H : ℝ) := exp_one_le_log_of_regime_le R hlo
-      have he : (1 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
-      linarith
-    have harcnp : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
-      rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
-    have hqW : (q : ℝ) ≤ Real.log (H : ℝ) ^ (12 : ℕ) := by rw [← harcnp]; exact hqQ
     -- ⟦the pointwise transport, then the fibre count, then the datum, then the ledger⟧
     have hpt : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
         (classSup (doorSievedCoeff M) H n q r) ^ 2
@@ -674,7 +667,7 @@ theorem m4_classBlockMeanSq_of_rowDatum {R : ChowlaRegime} {M k : ℕ} {MS : ℕ
                 (q / Nat.gcd r q) (r / Nat.gcd r q)) ^ 2) (n / Nat.gcd r q) := by
       intro n _
       have hle := classSup_le_dilate (M := M) (H := H) (q := q) (r := r) (n := n)
-        hM hq hL1 (hlogcap H hlo hhi) hqW
+        (W := arcDen 12 H) hM hq hqQ (hgate H hlo hhi)
       have h0 := classSup_nonneg (doorSievedCoeff M) H n q r
       simp only
       nlinarith
@@ -821,11 +814,13 @@ set_option maxHeartbeats 1600000 in
 /-- **THE ROW DATA AT THE LADDER AND ITS DILATIONS** (`m4_rowDatum_dilated`), from ⟦W5⟧'s
 `∀d` per-instance register.  The three outputs are exactly what
 `m4_wave_closed_of_dyadicRow` and §5 consume. -/
-theorem m4_rowDatum_dilated (Qm : ℕ) :
-    ∃ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail Kbox X₀w : ℝ,
-      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
-      0 < Xsk ∧ 0 ≤ Kcf ∧ 0 < Ctail ∧ 0 ≤ Kbox ∧ 0 < X₀w ∧
-      ∀ (R : ChowlaRegime) (M k : ℕ) (MS : ℕ → ℕ → ℝ), 1 ≤ M →
+theorem m4_rowDatum_dilated :
+    ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ)
+        (Kbox X₀w : ℕ → ℝ),
+      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
+      0 < Xsk ∧ (∀ Qm : ℕ, 0 ≤ Kcf Qm) ∧ 0 < Ctail ∧ (∀ Qm : ℕ, 0 ≤ Kbox Qm) ∧
+      (∀ Qm : ℕ, 0 < X₀w Qm) ∧
+      ∀ (R : ChowlaRegime) (Qm M k : ℕ) (MS : ℕ → ℕ → ℝ), 1 ≤ M →
         (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ (Qm : ℝ)) →
         (∀ j H : ℕ, j < doorRowFloor M → 4 ≤ MS j H) →
         (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ)) →
@@ -833,7 +828,8 @@ theorem m4_rowDatum_dilated (Qm : ℕ) :
           ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H,
             doorRowFloor M ≤ j → ∀ d : ℕ, 0 < d → (d : ℝ) ≤ arcDen 12 H →
               ∀ s ≤ H / d + 1,
-                DoorRowCarriedT0 Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
+                DoorRowCarriedT0 (Kbox Qm) (X₀w Qm) Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk
+                    (Kcf Qm) Ctail χ M
                   (doorLadder R.x H (i + 1) / d - 1 + s) j (MS j H)) →
           (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
             ∀ i < k, ∀ χ : DirichletCharacter ℂ q,
@@ -843,25 +839,26 @@ theorem m4_rowDatum_dilated (Qm : ℕ) :
                 (d : ℝ) ≤ arcDen 12 H →
                   M4RowDatumAt M MS H (H / d + 1) χ
                     (doorLadder R.x H (i + 1) / d - 1)) := by
-  obtain ⟨Kbox, X₀w, hK0, hX₀0, hbridge⟩ := doorRowCarried_of_t0free Qm
+  -- ⟦THE SKOLEM CUT⟧ the `T₀`-bridge's two constants, as functions of the modulus range
+  choose Kbox X₀w hK0 hX₀0 hbridge using doorRowCarried_of_t0free
   obtain ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
     hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hmeansq⟩ :=
-    m4_door_meansq_carried Qm
+    m4_door_meansq_carried
   refine ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, Kbox, X₀w,
     hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hK0, hX₀0, ?_⟩
-  intro R M k MS hM hQm htriv harc hcarT0
+  intro R Qm M k MS hM hQm htriv harc hcarT0
   -- ⟦the carried form, at every dilated base⟧
   have hcar : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
       ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H, doorRowFloor M ≤ j →
         ∀ d : ℕ, 0 < d → (d : ℝ) ≤ arcDen 12 H → ∀ s ≤ H / d + 1,
-          DoorRowCarried Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
+          DoorRowCarried Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk (Kcf Qm) Ctail χ M
             (doorLadder R.x H (i + 1) / d - 1 + s) j (MS j H) := by
     intro H hlo hhi q hq hqQ i hik χ j hjH hj0 d hd hdA s hsL
     haveI : NeZero q := ⟨by omega⟩
     have hqQm : q ≤ Qm := by
       have hRq : (q : ℝ) ≤ (Qm : ℝ) := le_trans hqQ (hQm H hlo hhi)
       exact_mod_cast hRq
-    exact hbridge Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail q χ M
+    exact hbridge Qm Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk (Kcf Qm) Ctail q χ M
       (doorLadder R.x H (i + 1) / d - 1 + s) j (MS j H) hqQm
       (hcarT0 H hlo hhi q hq hqQ i hik χ j hjH hj0 d hd hdA s hsL)
   -- ⟦the mean square at every dilated base and every dyadic length⟧
@@ -894,7 +891,8 @@ theorem m4_rowDatum_dilated (Qm : ℕ) :
     · have hqQm : q ≤ Qm := by
         have hRq : (q : ℝ) ≤ (Qm : ℝ) := le_trans hqQ (hQm H hlo hhi)
         exact_mod_cast hRq
-      exact hmeansq q χ hq hqQm M (doorLadder R.x H (i + 1) / d - 1 + s) j (MS j H) hM hcase
+      exact hmeansq Qm q χ hq hqQm M (doorLadder R.x H (i + 1) / d - 1 + s) j (MS j H) hM
+        hcase
         (hcar H hlo hhi q hq hqQ i hik χ j hjH hcase d hd hdA s hsL)
     · exact le_trans (doorRow_trivial_grade χ M j hXpos) (htriv j H (not_le.mp hcase))
   constructor
@@ -922,6 +920,42 @@ theorem m4_rowDatum_dilated (Qm : ℕ) :
       omega
     exact hms H hlo hhi q hq hqQ i hik χ j (le_trans hjL (Nat.log_mono_right hH2)) d
       (by omega) hdA s hsL
+
+/-- `arcDen 12` is monotone in the window length across the regime's range: `arcDen 12 H =
+(log H)^{12}` and `log` is monotone past the regime's floor. -/
+theorem arcDen_le_arcDen_Hhi (R : ChowlaRegime) {H : ℕ} (hlo : R.Hlo ≤ H) (hhi : H ≤ R.Hhi) :
+    arcDen 12 H ≤ arcDen 12 R.Hhi := by
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  have hH0 : (0 : ℝ) < (H : ℝ) := by
+    have : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
+    linarith
+  have hle : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast hhi
+  have hL : Real.log (H : ℝ) ≤ Real.log (R.Hhi : ℝ) := Real.log_le_log hH0 hle
+  have hL0 : (0 : ℝ) ≤ Real.log (H : ℝ) := by
+    have hLexp : Real.exp 1 ≤ Real.log (H : ℝ) := exp_one_le_log_of_regime_le R hlo
+    have := Real.exp_pos 1
+    linarith
+  have hnp : ∀ n : ℕ, arcDen 12 n = Real.log (n : ℝ) ^ (12 : ℕ) := by
+    intro n
+    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+  rw [hnp H, hnp R.Hhi]
+  exact pow_le_pow_left₀ hL0 hL 12
+
+/-- **⟦gate 9⟧ DISCHARGED** (`m4_modulusCap_discharged`) — the modulus cap `arcDen 12 H ≤ Qm`
+at `Qm := ⌈arcDen 12 R.Hhi⌉₊`.
+
+This is the point of the reorder: `Qm` is now chosen INSIDE, beside `M` and `k`, so it may be
+read off the regime the exit produced (`M4Spine`'s ⟦WALL C⟧ named the `Qm` half "repairable by
+a quantifier reorder — the constants can be selected at `Qm := ⌈arcDen 12 R.Hhi⌉₊` AFTER `R`,
+through a choice function on `Qm`").  The choice functions are `m4_meansq_per_chi_gen`'s
+`Kfl`, `m4_door_meansq_carried`'s `Kcf` and `m4_rowDatum_dilated`'s `Kbox`, `X₀w`.
+
+⟦WHAT THIS DOES NOT DO⟧ ⟦WALL A⟧ (the budget collision, `M4Spine` §3) and ⟦WALL B⟧ (the
+endpoint interval, §4) stand untouched.  The register is honest and `Hhi`-safe; it is still
+unfulfillable. -/
+theorem m4_modulusCap_discharged (R : ChowlaRegime) :
+    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ ((⌈arcDen 12 R.Hhi⌉₊ : ℕ) : ℝ) :=
+  fun _ hlo hhi => le_trans (arcDen_le_arcDen_Hhi R hlo hhi) (Nat.le_ceil _)
 
 set_option maxHeartbeats 1600000 in
 -- the register mentions `DoorRowCarriedT0` under seven binders and is elaborated against
@@ -955,7 +989,9 @@ choosable by the spine before any datum is exhibited:
    `(1 + 2π·arcDen 12 H/q)²·(q²·(3·m4BclGraded j₀ (2·MSan) (2·MStr) H)) ≤ Braw H`;
 7. `√(Braw H) ≤ mrtDeliveredGrade (C/2) H`;
 8. `δ/4 + 4·2^k/R.x ≤ mrtDeliveredGrade (C/2) H`;
-9. the modulus cap `arcDen 12 H ≤ Qm`;
+9. the modulus cap `arcDen 12 H ≤ Qm` — with `Qm` in the WITNESSED group (beside `M`, `k`),
+   so it is chosen AFTER `R`: `m4_modulusCap_discharged` closes it outright at
+   `Qm := ⌈arcDen 12 R.Hhi⌉₊`;
 10. the small lengths' trivial grade `4 ≤ MS j H` at `j < j₀`;
 11. **the PER-INSTANCE `T₀`-free register, `∀d`** —
     `DoorRowCarriedT0 Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
@@ -965,15 +1001,21 @@ choosable by the spine before any datum is exhibited:
     ~98 conjuncts (the scale page at the BLOCK scale, the band gates, the door gates, the
     socket's ~25, the tail threshold, the endpoint, the `DoorRowT0Gates` EIGHT and the
     instance envelope);
-12. the modulus-log cap `log H ≤ 2^{21845}`;
+12. the dilation cap, `M`-RELATIVE: `arcDen 12 H < calP (Adoor M) (3072M) 1 = 2^{Adoor M}`
+    (`M4Residue.door_dilation_gate'`) — a demand on the witnessed `M`, not a numeral cap on
+    the window length (`M4Spine`'s ⟦WALL C⟧, the misplaced numeral);
 13. `2·arcDen 12 H ≤ H`;
 14. ⟦the regime fact⟧ `8·arcDen 12 H ≤ H`;
 15. ⟦G1⟧ `arcDen 12 H ≤ MStr H`;
 16. ⟦G2⟧ `12·MSan H + 24 ≤ 4^{j₀}`.
 
 **(b) WITNESSED DATA** — what the spine must exhibit, and check non-vacuous: `C ≥ 0`,
-`U1floor`, `g`, then `δ`, `Braw`, `MS`, `MSan`, `MStr`, `M`, `k`.  `R` is NOT witnessed: the
-exit produces it (only `R.eps = ε`, `U1floor ≤ R.Hlo`, `g R.Hhi R.ω ≤ R.x` are visible).
+`U1floor`, `g`, then `δ`, `Braw`, `MS`, `MSan`, `MStr`, `Qm`, `M`, `k`.  `Qm` sits here — not
+outside — because the four opaque constants it feeds (`Kfl`, `Kcf`, `Kbox`, `X₀w`) are now
+CHOICE FUNCTIONS of it (`ℕ → ℝ`), Skolemised out of their suppliers; that is what lets gates
+9 and 12 be read against the regime and the door instead of against numerals.  `R` is NOT
+witnessed: the exit produces it (only `R.eps = ε`, `U1floor ≤ R.Hlo`, `g R.Hhi R.ω ≤ R.x` are
+visible).
 The anti-vacuity duty sits at line 11, at the BOTTOM ladder rungs, the TOP dyadic length and
 the LARGEST dilation `d ≍ arcDen 12 H`, where the scale page's coupling gate
 `h ≤ X·(log X)^{−1/5}` bites; `hreach` and the `g`-arm are what buy the room, through
@@ -981,14 +1023,16 @@ the LARGEST dilation `d ≍ arcDen 12 H`, where the scale page's coupling gate
 `⌊X_{i+1}/d⌋ − 1 ≥ R.x/(4·R.ω·arcDen 12 H) − 2`.
 
 **(c) ANALYTIC ARMS** — none. -/
-theorem m4_wave_collapsed (Qm : ℕ) :
-    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail Kbox X₀w : ℝ),
+theorem m4_wave_collapsed :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ)
+        (Kcf : ℕ → ℝ) (Ctail : ℝ) (Kbox X₀w : ℕ → ℝ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
-      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
-      0 < Xsk ∧ 0 ≤ Kcf ∧ 0 < Ctail ∧ 0 ≤ Kbox ∧ 0 < X₀w ∧
+      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
+      0 < Xsk ∧ (∀ Qm : ℕ, 0 ≤ Kcf Qm) ∧ 0 < Ctail ∧ (∀ Qm : ℕ, 0 ≤ Kbox Qm) ∧
+      (∀ Qm : ℕ, 0 < X₀w Qm) ∧
       ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
         ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
-          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (MS : ℕ → ℕ → ℝ) (MSan MStr : ℕ → ℝ) (M k : ℕ),
+          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (MS : ℕ → ℕ → ℝ) (MSan MStr : ℕ → ℝ) (Qm M k : ℕ),
             M4DoorGates Cg R M k δ → 1 ≤ M →
             (∀ H : ℕ, 0 ≤ MSan H) → (∀ H : ℕ, 0 ≤ MStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
             (∀ j H : ℕ, doorRowFloor M ≤ j → MS j H ≤ MSan H) →
@@ -1008,9 +1052,11 @@ theorem m4_wave_collapsed (Qm : ℕ) :
               ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H,
                 doorRowFloor M ≤ j → ∀ d : ℕ, 0 < d → (d : ℝ) ≤ arcDen 12 H →
                   ∀ s ≤ H / d + 1,
-                    DoorRowCarriedT0 Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
+                    DoorRowCarriedT0 (Kbox Qm) (X₀w Qm) Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk
+                        (Kcf Qm) Ctail χ M
                       (doorLadder R.x H (i + 1) / d - 1 + s) j (MS j H)) →
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Real.log (H : ℝ) ≤ (2 : ℝ) ^ (21845 : ℕ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              arcDen 12 H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) →
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ)) →
             -- ⟦the regime fact⟧
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ≤ (H : ℝ)) →
@@ -1022,7 +1068,7 @@ theorem m4_wave_collapsed (Qm : ℕ) :
             ¬ logChowla2Fails R.eps R.x R.ω := by
   obtain ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, Kbox, X₀w,
     hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hK0, hX₀0, hdata⟩ :=
-    m4_rowDatum_dilated Qm
+    m4_rowDatum_dilated
   obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_wave_closed_of_dyadicRow
   refine ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, Kbox, X₀w,
     hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0,
@@ -1030,9 +1076,9 @@ theorem m4_wave_collapsed (Qm : ℕ) :
   intro C hC U1floor g
   obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
   refine ⟨R, hReps, hU1, hRg, ?_⟩
-  intro δ Braw MS MSan MStr M k hgates hM hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
-    hQm htriv hcarT0 hlogcap harc harc8 hG1 hG2
-  obtain ⟨hrow1, hrowd⟩ := hdata R M k MS hM hQm htriv harc hcarT0
+  intro δ Braw MS MSan MStr Qm M k hgates hM hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
+    hQm htriv hcarT0 hgate harc harc8 hG1 hG2
+  obtain ⟨hrow1, hrowd⟩ := hdata R Qm M k MS hM hQm htriv harc hcarT0
   -- ⟦the dyadic row datum: the `d = 1` family is exactly `M4ChiDyadicRowMeanSq`⟧
   have hdyad : M4ChiDyadicRowMeanSq R M k MS :=
     fun H hlo hhi q hq hqQ i hik χ j hjL s hsH =>
@@ -1040,7 +1086,7 @@ theorem m4_wave_collapsed (Qm : ℕ) :
   -- ⟦R2 at every class of `q`, from the ladder's row data and their dilations⟧
   have hnc : M4ClassBlockMeanSq R M k
       (m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) :=
-    m4_classBlockMeanSq_of_rowDatum hM hMSan0 hMStr0 han hG1 hG2 harc8 hlogcap harc
+    m4_classBlockMeanSq_of_rowDatum hM hMSan0 hMStr0 han hG1 hG2 harc8 hgate harc
       hrow1 hrowd
   refine hR δ Braw MS MSan MStr (doorRowFloor M) M k hgates hMSan0 hMStr0 hBraw0 han htr
     hdrift hdel hrest hdyad ?_
@@ -1053,14 +1099,16 @@ set_option maxHeartbeats 1600000 in
 /-- **THE COLLISION FORM** (`m4_wave_collapsed_False`).  `m4_wave_collapsed`'s register with
 `logChowla2Fails R.eps R.x R.ω` assumed: the chain closes to `False`.  Byte-for-byte the
 theorem above with `¬ P` read as `P → False`. -/
-theorem m4_wave_collapsed_False (Qm : ℕ) :
-    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail Kbox X₀w : ℝ),
+theorem m4_wave_collapsed_False :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ)
+        (Kcf : ℕ → ℝ) (Ctail : ℝ) (Kbox X₀w : ℕ → ℝ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
-      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
-      0 < Xsk ∧ 0 ≤ Kcf ∧ 0 < Ctail ∧ 0 ≤ Kbox ∧ 0 < X₀w ∧
+      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
+      0 < Xsk ∧ (∀ Qm : ℕ, 0 ≤ Kcf Qm) ∧ 0 < Ctail ∧ (∀ Qm : ℕ, 0 ≤ Kbox Qm) ∧
+      (∀ Qm : ℕ, 0 < X₀w Qm) ∧
       ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
         ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
-          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (MS : ℕ → ℕ → ℝ) (MSan MStr : ℕ → ℝ) (M k : ℕ),
+          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (MS : ℕ → ℕ → ℝ) (MSan MStr : ℕ → ℝ) (Qm M k : ℕ),
             M4DoorGates Cg R M k δ → 1 ≤ M →
             (∀ H : ℕ, 0 ≤ MSan H) → (∀ H : ℕ, 0 ≤ MStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
             (∀ j H : ℕ, doorRowFloor M ≤ j → MS j H ≤ MSan H) →
@@ -1079,9 +1127,11 @@ theorem m4_wave_collapsed_False (Qm : ℕ) :
               ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H,
                 doorRowFloor M ≤ j → ∀ d : ℕ, 0 < d → (d : ℝ) ≤ arcDen 12 H →
                   ∀ s ≤ H / d + 1,
-                    DoorRowCarriedT0 Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
+                    DoorRowCarriedT0 (Kbox Qm) (X₀w Qm) Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk
+                        (Kcf Qm) Ctail χ M
                       (doorLadder R.x H (i + 1) / d - 1 + s) j (MS j H)) →
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Real.log (H : ℝ) ≤ (2 : ℝ) ^ (21845 : ℕ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              arcDen 12 H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) →
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ)) →
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ≤ (H : ℝ)) →
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ MStr H) →
@@ -1090,7 +1140,7 @@ theorem m4_wave_collapsed_False (Qm : ℕ) :
             logChowla2Fails R.eps R.x R.ω → False := by
   obtain ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, Kbox, X₀w,
     hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0,
-    hK0, hX₀0, hmain⟩ := m4_wave_collapsed Qm
+    hK0, hX₀0, hmain⟩ := m4_wave_collapsed
   exact ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, Kbox, X₀w,
     hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0,
     hK0, hX₀0, hmain⟩
