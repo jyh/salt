@@ -13330,3 +13330,48 @@ adapter — drop-in verified by typecheck; the B < 4 ℕ-subtraction hole
 caught and case-split). The capstone signature delta for W2-DOOR is in
 the band wave's report (Q enters; hQbot/hQlog/hQL/hQhigh; P ≤ Q;
 0 < Q; the band hhceil; Ps in the supplier).
+
+---
+
+## W2-DOOR: an honest non-close — TWO KERNEL-WITNESSED WALLS + two small findings (2026-07-28 18:48 PDT)
+
+M4DoorRow.lean (406 ln, 16 decls) LANDED the available half: the
+half-open cut winCutH + bridges (the cut invisible to seamS0's strict
+filter); ha1/hsupp0/hasupp discharged; the socket at Ps := 1 IS the
+capstone's hsockR (cofactorSocket_doorChiCoeff); the band pair law at
+the door (doorChiCoeff_seamCoefW_at_door); the K6 tail triple. The
+executor rightly REFUSED to land a vacuous m4_dyadicRow_supplied.
+
+**WALL 1 — hwinBand UNINHABITABLE at the door datum (kernel witness
+band_window_ratio_lock, 8 ln):** the K-block window law forces all
+live block primes into ONE FACTOR-2 RANGE (the cross-pair argument);
+the door's level-1 K-block is 2^{(M−1)·2^18} wide and MemS puts live
+points at block primes THROUGHOUT by construction; bfam ≡ 0 doesn't
+escape (hcoefBand then kills the whole support). THE WALL's second
+head: the R3 surgery deleted hwinPin (the Ramaré pin chain) but
+hwinBand (the K-block chain, a2Rows_of_capfree3's hcoef/hwin at
+Icc 1 Jb, ThmA2Rows:914–918) still stands. WALL1-SCOPE dispatched:
+the consumption census — can it fall to the hwinPin playbook (price
+what it protects instead of pinning)?
+
+**WALL 2 — M4ChiDyadicRowMeanSq's uniform-in-j grade is UNSATISFIABLE
+(two kernel witnesses):** door_length_gate solves the capstone's own
+window gate into M·Adoor M ≤ j — every j < 2^18 is outside the
+capstone's STATEMENT; and at j = 0 the row quantity is the block
+DENSITY (≳ 1/loglog H) vs the drift budget's (log H)^{−30}. The fix
+is free where it matters: dyadic_count_weight_le is exactly where
+length-dependence is discarded — a length-graded MS : ℕ → ℕ → ℝ costs
+nothing in the assembly (the j = 0 term is H against H²(log H)^{−30}).
+WALL2-REGRADE dispatched (M4Maximal statement re-cut, the wave-repair
+precedent).
+
+**SMALL: the endpoint straddle** (hsupp0/hasupp meet at n = Xd; the
+pair law is at the CLOSED cut — one-byte fix: the strict sibling)
+— ENDPOINT dispatched. **THE REMAINING ANALYTIC ITEM: the hT0band
+datum supplier** — the per-frequency sup ‖spolyA a t m‖ ≤ S·m on the
+sieved χ-twisted datum over the T0-band: the FOUR-PIECE route
+(prod_one_sub_gJ splits the datum into 4 completely multiplicative
+pieces; hCenter_dissected/the wide machinery prices each — the SAME
+supplier genre as the CofactorSocket, at spolyA instead of ramR) —
+T0BAND-DATUM dispatched. The spine consumption list (the carried
+regime gates, all at the BLOCK scale log Xd) is in W2-DOOR's report.

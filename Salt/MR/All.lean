@@ -207,6 +207,7 @@ import Salt.MR.M4NonCoprime
 import Salt.MR.M4Maximal
 import Salt.MR.M4RowSupply
 import Salt.MR.M4Band
+import Salt.MR.M4DoorRow
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -2918,3 +2919,48 @@ open Salt.Tactic in
   Salt.MR.m4_tail_grade_rounded
   Salt.MR.m4_ep2_budget_at_band
   Salt.MR.m4_tail_supply_at_band
+
+-- ⟦W2-DOOR⟧ (`M4DoorRow`, 2026-07-28).  The night sequence's step 2 — the band-re-cut
+-- capstone `m4_meansq_per_chi_gen` instantiated at `M4Maximal.M4ChiDyadicRowMeanSq`'s
+-- per-(χ, block, shift, dyadic length) family — does NOT close, and the two obstructions are
+-- structural.  WHAT LANDS: the half-open window cut `winCutH` forced by the capstone's own
+-- support pins (`hsupp0` at `(n:ℝ) ≤ X_d` vs `hasupp` on `[X_d, 2X_d]` straddle the block
+-- bottom; `winCut_endpoint` shows the CLOSED cut of `SeamRowWindowed` cannot meet `hsupp0`),
+-- with both cuts invisible to the row's own short sum (`seamS0` filters `X_d < m` strictly);
+-- the three S8 slots `ha1`/`hsupp0`/`hasupp` at the door datum; the co-factor socket at
+-- `Ps := 1` (`cofactorSocket_doorChiCoeff`, `m4_supplier_complete`'s conclusion re-read at
+-- `doorChiCoeff` through `doorCofactor0_at_one`); the Ramaré-band pair law with its gate
+-- discharged from the capstone's own `hQXd`/`hPlow` (`doorChiCoeff_seamCoefW_at_door`); and
+-- the coprime-tail triple at the door's cut datum inside the K6 existential
+-- (`m4_door_tail_supply`).  ⚠ WALL 1 — THE K-BLOCK WINDOW LAW: `band_window_ratio_lock`
+-- proves that the capstone's `hcoefBand`/`hwinBand` pair (inherited verbatim from
+-- `ThmA2Rows.a2Rows_of_capfree3`'s `hcoef`/`hwin`, ThmA2Rows:914–918) locks any two block
+-- primes at which the datum is LIVE into a factor 2 of each other, while
+-- `door_block_one_wide` shows the door's level-1 K-block spans `2^{(M−1)·Adoor M}` (a factor
+-- 4 already at M ≥ 2) and the sieve `𝒮` puts live points at block primes throughout it.  This
+-- is `M4Join` §1's ⟦THE WALL⟧ alive on the K-BLOCK chain: the closing wave deleted `hwinPin`
+-- from the Ramaré-band pin chain but left `hwinBand` standing.  ⚠ WALL 2 — THE UNIFORM-IN-j
+-- GRADE: `door_length_gate` solves the capstone's window gate `𝒬K_1 ≤ h` at `h = 2^j` into
+-- `M·Adoor M ≤ j`, so every `j < 2^18` is outside the capstone's statement
+-- (`door_length_gate_fails_of_small`) — and at `j = 0` the row quantity IS the block density
+-- of live sieved residues (≍ 1/loglog H), against a consumer budget of `(log H)^{−30}`.  The
+-- dyadic assembly does not need uniformity: `M4Maximal` §4's `dyadic_count_weight_le` is
+-- where the length-dependence is discarded, and a length-graded `MS : ℕ → ℕ → ℝ` costs
+-- nothing there.  Both repairs are statement changes upstream of this file
+open Salt.Tactic in
+#audit_axioms Salt.MR.winCutH
+  Salt.MR.winCutH_supp0
+  Salt.MR.winCut_endpoint
+  Salt.MR.shortSum_winCutH_seamS0
+  Salt.MR.shortSum_winCut_seamS0
+  Salt.MR.doorRow_ha1
+  Salt.MR.doorRow_hsupp0
+  Salt.MR.doorRow_hasupp
+  Salt.MR.doorCofactor0_door_eq
+  Salt.MR.cofactorSocket_doorChiCoeff
+  Salt.MR.doorChiCoeff_seamCoefW_at_door
+  Salt.MR.m4_door_tail_supply
+  Salt.MR.band_window_ratio_lock
+  Salt.MR.door_block_one_wide
+  Salt.MR.door_length_gate
+  Salt.MR.door_length_gate_fails_of_small
