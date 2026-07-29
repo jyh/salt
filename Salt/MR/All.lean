@@ -222,6 +222,7 @@ import Salt.MR.M4CoprimeSupply
 import Salt.MR.M4Collapse
 import Salt.MR.M4BaseNarrow
 import Salt.MR.M4Spine
+import Salt.MR.CapFreeSharp
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -3735,3 +3736,26 @@ open Salt.Tactic in
   Salt.MR.seam_row_number_nocap3_end
   Salt.MR.seam_row_number_capfree3_end
   Salt.MR.a2Rows_of_capfree3_end
+
+-- ⟦F4⟧ (`CapFreeSharp`, 2026-07-29) — THE SHARP `p | q` DEFICIT.  `primeDivSum_le_modulus`'s
+-- crude `q` (ω(q) ≤ q+1, each 1/p ≤ 1/2) replaced by the in-kernel sharp Mertens-2
+-- (`Salt.Mertens.mertens_second_sharp_real`) at `t = q`: `loglog q + M + 12/log q`.  Every
+-- statement is a SIBLING — the landed `capFreeFloor3`-family is byte-untouched; the `_sharp`
+-- forms carry the same conclusions under a threshold whose `(1/4)·q` summand is
+-- `(1/4)·mertensCap q`.  At the door's range `q ≤ (log H)^12` this turns an EXPONENTIAL
+-- demand `8·exp(12·loglog H)` on `loglog X` into `8·log(12·loglog H) + O(1)`.
+-- (`vkMidDebit q` stays symbolic — VT-7 is NOT landed; see flags.)
+open Salt.Tactic in
+#audit_axioms Salt.MR.primeDivSum_le_loglog
+  Salt.MR.primeDivSum_max_le_mertensCap
+  Salt.MR.mertensCap_nonneg
+  Salt.MR.primeDivSum_le_mertensCap
+  Salt.MR.mertensCap_le_of_le
+  Salt.MR.chi_floor_real_bulk_sharp
+  Salt.MR.capFreeFloor3_all_chi_sharp
+  Salt.MR.capFreeFloor_all_chi_sharp
+  Salt.MR.cffKSharp_nonneg
+  Salt.MR.cffKSharp_spec
+  Salt.MR.capFreeFloor3_liouChi_all_sharp
+  Salt.MR.capFreeFloor3_margin_all_chi_sharp
+  Salt.MR.capFreeFloor3_pieceDatum_sharp
