@@ -44,11 +44,30 @@ factors. Repair status per factor:
 **The composition:** split + 1′ + F2/F3 closes the register into an
 Hlo floor (U1floor ≈ 2^{10^{119}}) — **CONDITIONAL on two things**:
 
-- **⟦D-1⟧ THE χ-SUMMED CAPSTONE** (class D): can any supply statement,
-  short of re-proving MRT with orthogonality inside, deliver the
-  class-summed mean square at Bcl·ℓ²·X/q? Without it the residual
-  53·(log H)¹² is fatal against the floor + the tower gap. (A cheap
-  partial: the large-q trivial cut caps the prefactor at Bcl^{-1/2}.)
+- **⟦D-1⟧ THE χ-SUMMED CAPSTONE — SCOPED IN FULL (the 03:50 workflow;
+  the complete table: docs/exploration/d1-scope-0729.md)**: it is
+  OPEN-AS-STATED and ALL-OR-NOTHING (loglog-powers in the constant are
+  free; any log H power is fatal; every cheap escape refuted with
+  margins — the trivial cut struck, it runs backwards under the
+  repaired budget). **But it is not a research gamble: it is
+  Klurman–Mangerel–Teräväinen (PLMS 2023, Cor. 1.7)** at
+  q ≤ (log H)¹², portable for an honest 8–18k ln on ~90k ln of
+  reusable massif, with exactly TWO genuinely new stones (the hybrid
+  χ-aspect MVT — both halves landed separately — and the χ-aspect
+  large-value count), plus the Gauss-sum consumer re-cut (900–1600 ln,
+  kills both q's pointwise in K, no Parseval blocker). F3 is a hard
+  prerequisite of the port. **CAVEAT ⟦F5⟧ below.**
+- **⟦F5 — THE log q SCALE WALL⟧ (found by the synthesis, UNREFUTED at
+  press time)**: the register's cap-free floor threshold (≈28·ln q as
+  a lower demand on lnln X) against hgRows' upper cap, same ∃-bundle,
+  same pinned X — with q up to arcDen 12 Hhi and the tower law, on the
+  synthesis's arithmetic it is unsatisfiable at every M by ~7 orders,
+  the anchor re-pin makes it WORSE, and at Hhi = Hlo it closes (the
+  tower is load-bearing). **If F5 stands: D-2's anchor ruling does not
+  settle D-2, and D-1 is conditionally moot.** REF-F5 (the discharge
+  trace + the honest coefficients + the F4 arithmetic) and REF-ROUTE
+  (the port's two gates) are in flight — verdicts may be on the table
+  by the council.
 - **⟦D-2⟧ THE M-SANDWICH — SETTLED IN ARITHMETIC (SANDWICH-REF,
   01:40)**: the tower law is EXACT — loglog Hhi = (loglog Hlo)^{4.006},
   the 4 structural — and the pair FAILS at every M at the current
@@ -78,7 +97,7 @@ are the two questions above.
 | # | decision |
 |---|---|
 | C1 | **Ratify the night ledger**: the seam amendment + the 7/28 rulings + the WALL-C wave + the E-wave (all flags-recorded) |
-| C2 | **⟦D-1⟧**: open the χ-summed-capstone design block (Fable, my hands, at the table) vs park the register road and bank the machinery |
+| C2 | **⟦D-1⟧ — the fork**: (A) authorize the KMT port now (8–18k ln, betting F5 is a discharge-path artifact) vs **(B, recommended by synthesis + maestro)**: rule on the REF-F5/REF-ROUTE verdicts first, fire only ⟦F4⟧ the primeDivSum repair meanwhile (40–70 ln + re-thread, mandatory on every path, FIRE-READY) |
 | C3 | **⟦D-2⟧ (settled in arithmetic)**: rule the Adoor anchor re-pin 2^18 → 2^30 (or 2^31 headroom; cheap, supply-favourable, re-pins the ratified 7/26 door design) vs the h-dependent Ah route (structural, unpriced); + schedule the sharp-crossing export page (needed by every path) |
 | C4 | **The combined register re-thread** (one wave, after D-1/D-2 resolve): E-7/E-8 + the split's twins + lever 1′ + G1's strengthening — the machinery is all landed/priced and waiting |
 
