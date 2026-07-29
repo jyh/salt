@@ -13822,3 +13822,67 @@ thread sites); step 3 gate 9's Qm Skolemized after R (the three
 Qm-taking suppliers choice-functioned; `Kfl/Kcf/Kbox/X₀w : ℕ → ℝ`
 hoisted through five statements). **Explicitly: this does NOT unblock
 the spine — WALLS A and B stand.** WALL-C-EXECUTOR in flight.
+
+---
+
+## ⟦ENDPOINT-ROW-SCOPE⟧: WALL B's repair is PRICED-VIABLE — the FUSION design (NOT a fifth row); refuter dispatched (2026-07-29 00:20 PDT)
+
+The verdict: **the priced residual dissolves WALL B**, with one design
+correction and three couplings, all named with bytes.
+
+**THE ONE CHANGED LINE:** `hcoefW` is consumed at exactly ONE point in
+the whole MR chain — SeamRowWindowed.lean:310's `sum_congr` over
+`ramHonMR` (closed at bottom: `X ≤ p·m`). The endpoint defect at
+`p·m = X`, coprime `m`, is `(a X − b m·c p)/((ω(m)+1)·X^{1+it})` —
+byte-identical in shape to `ramP2corrMR`'s summand.
+
+**⚠ THE FIFTH-ROW TRAP (the scoper's own catch):** a genuine fifth CS
+row makes the prefactor 5 and `5·520 = 2600 > 2160 = 3·720` — the
+seam half no longer fits `A2Frame3.err`'s frozen RHS; no
+`moment_split5` exists. **THE CORRECT DESIGN: FUSE** — enlarge the p²
+row's inner filter to `p ∣ m ∨ p·m = X` (`ramP2domEndMR`-family
+siblings; the landed `ramP2*MR` stay byte-untouched). The split stays
+at FOUR rows; `err_grade_fit` untouched. The price: the max half FREE
+(the fibre injection into primeFactors unmoved); the Σ half gains
+`2·ω(X)/X` → the fused stone
+`≤ 16·logb 2 (2X)/(X·P) + 4·(logb 2 (2X))²/X²` (Mend). Datum-blind.
+
+**THE GRADE, corrected:** the L² contribution is ≈ 350·(log Xd)²/Xd —
+the original sketch's `2(log Xd)²/Xd` was optimistic by ~175×; the
+conclusion survives by ~10¹⁰⁰ (≈10⁻¹⁰⁶ against an EP2 slot of order
+1). The executor must carry the honest constant.
+
+**THE CONSUMERS:** carry Mend as a SEPARATE named summand in the hEP2
+line (the ⟦R3a⟧ Mtail pattern) — `witEP2` and its 896/10752 numerals
+byte-untouched; four sites. The ε-window headroom VERIFIED from
+`m4_ep2_budget_at_band`: the crumb half has 3647 unspent; the endpoint
+crumb needs 2688 via one new A-class stone `3(log X)³ ≤ X` →
+`673 + 2688 = 3361 ≤ 4320` — **fits with 959 to spare, no new named
+threshold**. ⚠ COUPLING 2: the ROW side moves one numeral — the
+register grading conjunct (M4DoorClose:278/M4T0Discharge:712) gains
+`+ 8·(logb 2 (2Xd))²/Xd` (in-place register-conjunct strengthening,
+clears by ~10⁻¹⁰²).
+
+**THE PAYOFF (verified against the bytes):** the strict pair law
+`SeamCoefWS` (antecedent `Xd < p·m`) is ADDITIVE
+(`seamCoefWS_of_seamCoefW`, one line — iron rule 1 satisfied); the
+strict band/puncture siblings need `haH` alone — **`hend` DROPS, `ha0`
+DROPS TOO** (it fed only the `n = Xd` branch), the `m = 0` case
+discharges by absurdity. The register conjunct
+`doorChiCoeff χ M Xd = 0` DIES in both DoorRowCarried defs. ⚠
+COUPLING 3: M4Spine's WALL-B kill theorems (`doorRowCarriedT0_endpoint`
++ `m4_register_forces_endpoint_interval`) stop typechecking on the
+deletion — RETIRE in the same commit with a flags note (true of the
+pre-repair register).
+
+**THE CENSUS:** 20 sites, waves E-1..E-8, ~1100–1300 ln; E-1 (the
+strict pair laws) independent + shortest; E-8 the register surgery
+(85/98-name re-threads). ALL touched statements are this-session wave
+artifacts or additive — the precedented genre throughout.
+
+**SEQUENCING (maestro):** the surgery waits on (a) the WALL-C landing
+(file overlap: M4DoorClose/M4T0Discharge/M4MeanSq/M4BaseNarrow/
+M4Collapse/M4Spine), and (b) BUDGET-SPLIT-SCOPE's verdict — if WALL A
+also resolves by register re-cut, the two surgeries become ONE
+re-thread. ENDPOINT-REF dispatched on the scoper's three named refuter
+targets (verify-posture law).
