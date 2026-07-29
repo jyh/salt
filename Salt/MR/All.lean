@@ -225,6 +225,9 @@ import Salt.MR.M4BaseNarrow
 import Salt.MR.M4Spine
 import Salt.MR.CapFreeSharp
 import Salt.MR.VkMidSharp
+import Salt.MR.M4ChiSummed
+import Salt.MR.M4Gauss
+import Salt.MR.M4SecondRoad
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -3933,3 +3936,104 @@ open Salt.Tactic in
   Salt.MR.m4_blockMeanSqBlk_trivial
   Salt.MR.blockBase_mem_doorLadder_block
   Salt.MR.blockBase_le_two_mul
+
+-- ⟦WAVE ④ — THE COMPOSED SUPPLY CHAIN AND THE SECOND ROAD'S REGISTER⟧ (2026-07-29,
+-- second-road freeze v2 D-2/D-3/D-1(b); `M4ChiSummed`, `M4Gauss`, `M4SecondRoad`).
+--
+-- ⟦S-1 THE SOCKET⟧ `M4ChiSummedFreeRow R M RS` is ⟦REF-SHAPE A-C1⟧'s replacement for the
+-- freeze-v1 socket that had NO instances at any stratum `d ≥ 2`: a FREE base `A` and shift
+-- `s ≤ L`, CAP-GENERAL `∀ L ≤ H`, WINDOW-DYADIC `2^j`, EVERY modulus `0 < q ≤ arcDen 12 H`,
+-- `RS` `q`-FREE, and the SUM over `χ : DirichletCharacter ℂ q` of the row mean squares
+-- `chiFreeRowSq` of `doorChiCoeff χ M` at the `seamS0` windows.  Anti-vacuity at
+-- `RS j H := 4·arcDen 12 H` (`doorRow_trivial_grade`'s absolute `4` times `φ(q) ≤ q ≤ arcDen`)
+-- — `q`-free, as the socket demands.  ⟦WHY `Σ_χ`⟧ a per-χ socket re-imports a factor `φ(q)`
+-- at the Gauss step; the χ-SUM is what makes the composition `O(1)`.
+--
+-- ⟦S-2 THE MIRRORS⟧ the landed free-base chain re-run POINTWISE-IN-χ then summed:
+-- `chiFreeShift_pointwise` (⟦W3⟧ at a per-χ constant) → `m4_chiSummedShiftBlock_of_freeRow`
+-- → `m4_chiSummedBlockN_of_shiftBlock` (⟦W4⟧'s dyadic assembly at the summed integrand) →
+-- `m4_chiSummedN_supplied`.  Every step IS genuinely pointwise-in-χ — no cross-χ coupling
+-- anywhere (the freeze's spot-check answered).  ⟦THE φ(q) LEDGER⟧ the two ABSOLUTE-grade
+-- charges (the drop residue `8·(2^j)²` and the trivial half `A·(2^j)²` at `j < j₀`) read no
+-- row datum, so under `∑_χ` they cost `φ(q) ≤ arcDen 12 H`; both are carried at `arcDen`
+-- (never at `q`, so the predicates stay `q`-free), which raises ⟦G1⟧ from `arcDen²` to
+-- `arcDen⁷` — a threshold on the WITNESSED envelope `RStr`, not a saving.
+--
+-- ⟦S-3 THE STRATIFIED GAUSS CONSUMER⟧ `sum_normSq_chiGaussSum`: `∑_χ ‖τ_b(χ)‖² = φ(q)²`
+-- EXACTLY, at EVERY `b : ℤ` (no coprimality on `b`, no primitivity, no `√q` — the double sum
+-- with the unit-indicator collapse).  `norm_sq_coprime_window_le`: the coprime part of the
+-- window at `b/q`, squared, is under `∑_χ (doorChiSup χ)²` at PREFACTOR `1` — the `φ(q)²`
+-- cancels the expansion's `1/φ(q)²`.  **This is where ⟦F2⟧'s `q²` dies.**
+-- `stratum_sq_le_chiSummed`: one stratum `d = gcd(r,q)`, re-indexed (`sum_fibre_eq_coprime`)
+-- and dilated ONE step (`class_rat_dilate`, the landed `classWindowSum_dilate` +
+-- `absWindowSum_dilCoeff_memS_door`), priced against its OWN cap `capL L d` — the
+-- TRUNCATION-READY shape wave ⑤'s `D₀` cut needs.  `subWindowSup_sq_le_strata` recombines by
+-- the WEIGHTED Cauchy–Schwarz at `1/d`, which spends `M4NonCoprime.d0_ledger_sharp`'s banked
+-- `1/d²`; the residual is `(∑_{d ∣ q} 1/d)² ≤ (1 + log arcDen 12 H)²` (`sum_inv_divisors_le`,
+-- the harmonic bound) — `H`-only, `loglog`-scale, and the ONLY `q`-trace on the whole road.
+-- `m4_freeBlockSup_of_chiSummed` is the block form.
+--
+-- ⟦S-4 THE REGISTER⟧ ⟦THE q = 1 PINCH — a co-design finding that KILLS the landed socket's
+-- consumer⟧ wave ③'s four `hℓ` obligations are JOINTLY UNSATISFIABLE: at `q = 1` the count
+-- binder `H ≤ arcDen·ℓ` and the drift binder `arcDen·ℓ ≤ q·H` force `arcDen 12 H · ℓ = H`
+-- exactly, which no natural number does for generic `H` — the `q`-dependence of `ℓ` buys
+-- nothing at that corner.  ⟦THE REPAIR⟧ the count binder is a NARROWING handed TO the supply,
+-- so weakening it to `H ≤ arcDen²·ℓ` (the whole S-2/S-3 chain is stated there) opens the
+-- admissible interval `[H/arcDen², H/arcDen]` — ratio `arcDen ≥ e^{12}` — and the witness
+-- `blockLen H q := max 1 (H / (⌊arcDen 12 H⌋₊ + 1))` is then even `q`-UNIFORM.
+-- `M4SievedDoorSqBlk2`/`m4_sievedDoorSq_of_blk2`/`m4_cover_assembly_blk2` are `M4BridgeBlock`
+-- §3/§4 re-cut at the weakened binder (the socket never USES the count binder — it only
+-- hands it on), everything else consumed verbatim.  `m4_second_road` is the terminal
+-- register: `M4DoorGates` unchanged (`hMδ` included), the analytic slot is the S-1 socket,
+-- the drift line is the COMPOSED `96(1+2π)²·(1 + log arcDen)²·m4BclGraded j₀ (2RSan) (2RStr)`
+-- — no `arcDen` power, no `q`, no `q²` — and the conclusion `¬ logChowla2Fails R.eps R.x R.ω`
+-- is BYTE-IDENTICAL to the landed one.  ⟦THE GATE CENSUS⟧ eleven items, each witnessed,
+-- consumer data, or regime-absorbable (one-sided, `H`-only): the window floor
+-- `128·arcDen³ ≤ H`, ⟦G1⟧ `arcDen⁷ ≤ RStr`, ⟦G2⟧ `44·RSan + 87·arcDen ≤ (4/3)^{j₀}`, and the
+-- `M`-RELATIVE dilation gate `arcDen < calP (Adoor M) (3072M) 1`.  ⟦F5 / WALL C CLEAR⟧ there
+-- is NO `H`-upper and NO `X`-upper anywhere in the register, and the retired numeral
+-- `log H ≤ 2^{21845}` is never demanded — every dilation routes through the `M`-relative
+-- gate.  ⟦NOT RE-CUT IN PLACE⟧ `M4Join.m4_wave_exit_sup_split` is left BYTE-UNCHANGED: it
+-- sits below `M4ClassPrice` in the import graph, six levels under the supply chain, so the
+-- composed conjunct cannot be stated there.
+open Salt.Tactic in
+#audit_axioms Salt.MR.chiFreeRowSq
+  Salt.MR.chiFreeRowSq_le_four
+  Salt.MR.M4ChiSummedFreeRow
+  Salt.MR.m4_chiSummedFreeRow_trivial
+  Salt.MR.m4_chiFreeRow_of_chiSummed
+  Salt.MR.chiFreeShift_pointwise
+  Salt.MR.M4ChiSummedFreeShiftBlock
+  Salt.MR.m4_chiSummedShiftBlock_trivial
+  Salt.MR.m4_chiSummedShiftBlock_of_freeRow
+  Salt.MR.M4ChiSummedBlockMeanSqN
+  Salt.MR.m4_chiSummedBlockN_trivial
+  Salt.MR.m4_chiSummedBlockN_of_shiftBlock
+  Salt.MR.m4_chiSummedN_supplied
+  Salt.MR.chiGaussSum
+  Salt.MR.sum_normSq_chiGaussSum
+  Salt.MR.coprime_window_expansion
+  Salt.MR.norm_sq_inv_totient_gauss_le
+  Salt.MR.norm_sq_coprime_window_le
+  Salt.MR.sum_fibre_eq_coprime
+  Salt.MR.ratPhase_dilate
+  Salt.MR.class_rat_dilate
+  Salt.MR.stratum_sq_le_chiSummed
+  Salt.MR.capL
+  Salt.MR.capL_ledger
+  Salt.MR.strataTerm
+  Salt.MR.subWindowSup_sq_le_strata
+  Salt.MR.sum_inv_divisors_le
+  Salt.MR.strataResidual
+  Salt.MR.m4_freeBlockSup_of_chiSummed
+  Salt.MR.four_le_arcDen_of_regime
+  Salt.MR.blockLen
+  Salt.MR.blockLen_drift
+  Salt.MR.blockLen_narrow
+  Salt.MR.blockLen_arc_floor
+  Salt.MR.M4SievedDoorSqBlk2
+  Salt.MR.m4_sievedDoorSq_of_blk2
+  Salt.MR.M4BlockMeanSqBlk2
+  Salt.MR.m4_cover_assembly_blk2
+  Salt.MR.m4_blockMeanSqBlk2_of_chiSummed
+  Salt.MR.m4_second_road
