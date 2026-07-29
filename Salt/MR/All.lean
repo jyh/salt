@@ -195,6 +195,7 @@ import Salt.MR.M4Exit
 import Salt.MR.M4Close
 import Salt.MR.M4BridgePhase
 import Salt.MR.M4BridgeCover
+import Salt.MR.M4BridgeBlock
 import Salt.MR.M4BridgeResidue
 import Salt.MR.M4BridgeIntegral
 import Salt.MR.M4BridgeDilate
@@ -3840,3 +3841,54 @@ open Salt.Tactic in
   Salt.MR.m4_wave_closed_split
   Salt.MR.m4_wave_closed_of_chi_split
   Salt.MR.m4_wave_closed_of_dyadicRow_split
+
+-- ⟦WAVE ③ — F3, THE BLOCKED DRIFT⟧ (2026-07-29, second-road freeze v2; `M4BridgeBlock`).
+-- `M4BridgePhase`'s drift line (`norm_absWindowSum_le_drift`, `:291`) prices the phase
+-- `e(αn)` over the WHOLE window and pays `(1 + 2π·arcDen 12 H/q)²` into the socket — factor
+-- `F3` of ⟦DRIFT-SCOPE⟧'s four-factor wall.  Blocked at the drift's own length
+-- `ℓ ≈ q·H/arcDen 12 H` the per-block drift is the ABSOLUTE `1 + 2π`, and the block count
+-- `N = numBlocks H ℓ` enters once through Cauchy–Schwarz over blocks; composed with a
+-- per-block supply normalised at `ℓ²` the two `N`s and the `ℓ²` reassemble `(N·ℓ)² ≤ 4H²`
+-- (`numBlocks_mul_le`), so the blocking is loss-free up to the absolute factor `4` and the
+-- assembled price is `4·(1+2π)²·Bblk H` — NO `arcDen`, NO `q`.  ⟦THE ③×④ INTERFACE⟧ the
+-- socket wave ④ consumes is `M4SievedDoorSqBlk R M ℓ Bblk`:
+-- `∫ ∑_{m<N} (subWindowSup a ℓ (n + m·ℓ) (b/q))² dμ ≤ Bblk H · N · ℓ²`, under the binders
+-- `1 ≤ ℓ H q`, `ℓ H q ≤ H`, `H ≤ arcDen 12 H · ℓ H q`; `m4_sievedDoorSq_of_blk` exits at
+-- `M4Close.M4SievedDoorSq`.  ⟦THE `q`-DEPENDENCE OF `ℓ` IS FORCED — co-design finding⟧ the
+-- brief's two binders are jointly unsatisfiable for a `q`-UNIFORM `ℓ`: `NearRatTight` may
+-- hand out `q = 1`, where the drift binder `arcDen·ℓ ≤ q·H` and the count binder
+-- `H ≤ arcDen·ℓ` force `arcDen 12 H · ℓ = H` exactly.  Hence `ℓ : ℕ → ℕ → ℕ` and the
+-- theorem-level obligation `arcDen 12 H · ℓ H q ≤ q·H` (④ owns the witness; the legal
+-- interval `H/arcDen ≤ ℓ H q ≤ q·H/arcDen` is nonempty for every `q ≥ 1`).  ⟦K-FREE⟧ the
+-- sup over sub-window lengths stays inside `subWindowSup` at cap `ℓ`; no statement carries a
+-- `K`, and the partial last block is absorbed by the block-sup (`subWindowSup_mono_length`)
+-- — `M4BridgeIntegral`'s overhang ledger is NOT needed and NOT cited.  ⟦F3 STANDALONE IS
+-- WORTHLESS⟧ (D1-SCOPE, law): this file supplies one factor of a composition ④ owns.
+-- SIBLING-ADDITIVE: one new file, no landed statement touched.
+open Salt.Tactic in
+#audit_axioms Salt.MR.numBlocks
+  Salt.MR.le_numBlocks_mul
+  Salt.MR.numBlocks_mul_le
+  Salt.MR.mul_le_of_lt_numBlocks
+  Salt.MR.blockCut
+  Salt.MR.blockCut_eq_of_lt
+  Salt.MR.blockCut_numBlocks
+  Salt.MR.blockCut_mono
+  Salt.MR.blockCut_succ_sub_le
+  Salt.MR.sum_Ioc_chunk
+  Salt.MR.subWindowSup_mono_length
+  Salt.MR.abs_mul_window_le_of_arcDen_block
+  Salt.MR.norm_block_phase_sum_le
+  Salt.MR.norm_absWindowSum_le_drift_blocked
+  Salt.MR.norm_absWindowSum_sq_le_drift_blocked
+  Salt.MR.blockSupSq
+  Salt.MR.blockSupSq_nonneg
+  Salt.MR.blockSupSq_le_of_norm_le_one
+  Salt.MR.M4SievedDoorSqBlk
+  Salt.MR.m4_sievedDoorSq_of_blk
+  Salt.MR.m4_sievedDoorSqBlk_trivial
+  Salt.MR.M4BlockMeanSqBlk
+  Salt.MR.m4_cover_assembly_blk
+  Salt.MR.m4_blockMeanSqBlk_trivial
+  Salt.MR.blockBase_mem_doorLadder_block
+  Salt.MR.blockBase_le_two_mul
