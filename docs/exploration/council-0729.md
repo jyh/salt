@@ -103,9 +103,9 @@ are the two questions above.
 | # | decision |
 |---|---|
 | C1 | **Ratify the night ledger**: the seam amendment + the 7/28 rulings + the WALL-C wave + the E-wave (all flags-recorded) |
-| C2 | **⟦D-1⟧ — the fork**: (A) authorize the KMT port now (8–18k ln, betting F5 is a discharge-path artifact) vs **(B, recommended by synthesis + maestro)**: rule on the REF-F5/REF-ROUTE verdicts first, fire only ⟦F4⟧ the primeDivSum repair meanwhile (40–70 ln + re-thread, mandatory on every path, FIRE-READY) |
-| C3 | **⟦D-2⟧ (settled in arithmetic)**: rule the Adoor anchor re-pin 2^18 → 2^30 (or 2^31 headroom; cheap, supply-favourable, re-pins the ratified 7/26 door design) vs the h-dependent Ah route (structural, unpriced); + schedule the sharp-crossing export page (needed by every path) |
-| C4 | **The combined register re-thread** (one wave, after D-1/D-2 resolve): E-7/E-8 + the split's twins + lever 1′ + G1's strengthening — the machinery is all landed/priced and waiting |
+| C2 | **⟦F5⟧ IS THE QUESTION (both refuters landed — the fork resolved into this)**: F5 confirmed exact; the KMT port is fully gated (the 7-item list incl. the four-fold multiplicative decomposition ✓, Route 2's gcd-stratified repair ✓ re-priced 1300–2100 ln, the sup_K-inside supplier shape) BUT the port needs anchor ≈ 2⁵¹ (lnln Hlo ≈ 4.5·10⁴ vs the 2³⁰ cap of 432) and F5 punishes that knob quartically — AND F5 gates the all-χ floor input the port would reuse. **The design question for this table: repair F5 (re-cut the hgRows/threshold coupling — the lnln X squeeze; robust at lnln Hlo ≈ 4.5·10⁴) vs re-cut the door supply's target statement onto m4_wave_exit's F5-free six-item register (residue M4RowMeanSq).** No port authorization until ruled. |
+| C3 | **⟦D-2⟧ — now coupled to C2**: the 2³⁰ re-pin settles only SANDWICH-REF's gate-12/floor pair (zero headroom at its own ceiling; the port would need 2⁵¹; F5 worsens 2.4× per re-pin). Recommend: HOLD the re-pin until C2's ruling; schedule the sharp-crossing export page regardless (needed by every path) |
+| C4 | **FIRE-READY, cheap, mandatory on every path**: ⟦F4⟧ the primeDivSum repair (40–70 ln + re-thread, hypothesis weakenings) + ⟦VT-7⟧ (the e^{e^100} → ~10³ drop, worth 2.15·10⁴⁴ of lnln X). The combined register re-thread (E-7/E-8 + split + lever 1′ + G1) holds behind C2. |
 
 **The honest picture:** the night took the register from "true but
 vacuous, cause unknown" to a complete, refuter-verified map: four
