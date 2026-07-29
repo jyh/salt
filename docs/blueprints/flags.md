@@ -14201,3 +14201,56 @@ unpriced. SANDWICH-REF dispatched for the exact pass.
 composition now hinges; (D-2) the M-sandwich's exact sign + the
 anchor's supply cost. F3 + the trivial cut + lever 1′ + the split are
 all priced and waiting on those two.
+
+---
+
+## ⟦SANDWICH-REF⟧: D-2 SETTLED IN ARITHMETIC — the pair fails at EVERY M at 2^18; **the 2^30 anchor closes it (2.8× worst-case)**; the export's true cost is the SHARP crossing page (2026-07-29 01:40 PDT — clock-checked; earlier post-midnight stamps ran up to ~1h45m fast)
+
+**THE TOWER LAW, EXACT:** lnlnln Hhi = 4·lnlnln Hlo·e^{2δ} — the 4 is
+structural (∫dL/(2L·u·ln u) = ½·ln lnlnln; crossing ln 2 costs exactly
+e^{2ln2}); lnln Hhi = (lnln Hlo)^{4.006} at the closing scale
+(ARC-SCOPE's 4.2 was 5% pessimistic; DRIFT-SCOPE's law wrong by an
+exponential level). Discretisation ≤ 10^{-120} and favourable.
+
+**THE SIGN:** at anchor 2^18 the gate-12/length-floor pair FAILS AT
+EVERY M — global max margin 0.6165 (at M = 16), 9.3e-4 at the
+composition's M ≈ 10^{112} (failure 1070×, growing as (ln M)³). No
+window. **THE ANCHOR: 2^29 bare-closes (1.72×); 2^30 is the smallest
+with ≥2× everywhere (3.40× at 10^{112}, 2.83× worst-case out to
+10^{120}); 2^31 gives 6.7×.** Each +1 bit multiplies the margin ×1.98
+(the floor-feedback eats 1%/doubling); Ccc-insensitive across six
+orders.
+
+**THE SUPPLY COST (census):** ~20 sites, TWO load-bearing files
+(DoorFrame + DoorFrameH1; + Eq26Compose numerals), **no statement
+shapes move** — everything else consumes the anchor through Adoor_ge
+(monotone, verbatim). Every anchor-sensitive gate moves FAVOURABLY
+(A_gate_logK margin 221× → 895265×; a2Level1 shrinks; H1_two easier;
+the arc floor anchor-independent). The x-floor rises log x ≥ 10^{473}
+→ 10^{480} — one-sided (RegimeParam:498-517 states the law; g is
+spine-choosable after R) and 2.9e9 ORDERS below the floor hheadroom
+already imposes. **The anchor re-pin is cheap; it re-pins the
+JYH-ratified 7/26 B₅/door design (DoorFrame) — council ruling
+required, not a night edit.**
+
+**THE J EXPORT'S TRUE COST:** minimal-J via Nat.find is mechanically
+easy (the furniture exists) — but the export DIES on a lossy crossing
+constant: loss factor c yields lnlnln Hhi = 4^c·lnlnln Hlo (the loss
+sits in the exponent of an exponent); the landed 1/128 + 32 chain is
+c ≈ 63 (would demand anchor k ≈ 6e38). **k = 30 buys exactly
+c ≤ 1.044 — the export page must be the SHARP two-sided telescoping
+estimate (½·ln(v_J/v₀) at ≤ 4% loss), class C, delicate; the landed
+constants may not appear on the export path.**
+
+**THE THIRD OPTION (unconsumed, on disk):** Eq26Compose:874's
+h-DEPENDENT anchor Ah δinv h (+ Ah_containment +
+calFrameK_satisfiable_Ah) — gate 12's ceiling then GROWS with H and
+the sandwich dissolves with NO numeral change; the catch is the
+small-block half (door_length_gate_fails_of_small at j < 2^18; Ah ≥ 1
+only at the floor). Nothing in Salt/MR consumes Ah today.
+
+**D-2 FOR THE COUNCIL, final shape:** (a) rule the anchor re-pin
+2^18 → 2^30 (or 2^31 headroom) — cheap, supply-favourable, re-pins a
+ratified design; OR the Ah route (structural, unpriced); (b) schedule
+the sharp-crossing export page (class C — needed by EVERY repair
+path). The composition's conditionality then reduces to D-1 alone.
