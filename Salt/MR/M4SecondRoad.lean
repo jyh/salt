@@ -69,6 +69,59 @@ re-cut register is `m4_second_road` HERE, with `m4_wave_exit_sup_split` left byt
 as the shape it was ratified to be.  The conclusion `¬ logChowla2Fails R.eps R.x R.ω` is
 byte-identical to the landed one; `M4DoorGates` is consumed unchanged, `hMδ` included.
 
+## ⟦WAVE ⑤ — THE `D₀`-TRUNCATION TEST: REFUTED (2026-07-29)⟧
+
+Wave ⑤'s first item was ⟦REF-SAND's A-6 gift⟧ / ⟦D0-TEST's SITE A⟧: take the strata
+`d > D₀` by the landed GATE-FREE trivial bound and collapse ⟦gate 8⟧'s demand from
+`arcDen 12 H` to an ABSOLUTE `D₀ = 2/√Bblk`, dissolving the door-anchor sandwich with no
+`DoorFrame` re-pin.  **It does not close, and the reason is structural, not arithmetic.**
+
+⟦THE EXACT ACCOUNTING⟧ at one stratum `d ∣ q`, over the block `(A, B]` with `B − A ≤ A`:
+
+```
+   analytic (§3 above → M4Gauss §5):  ∑ₙ strataTerm_d  ≤  Bcl·(L+d)²·A/d²   (≈ Bcl·L²A/d²)
+   trivial  (gate-free, the count):   ∑ₙ (L/d + 1)²    ≈        L²A/d²
+```
+
+The **`1/d²` scaling is IDENTICAL on both sides** — the χ-summed supply is read at the
+stratum's OWN dilated cap `capL L d ≈ L/d` and its own re-indexed block `⌊A/d⌋`, so its
+budget decays with `d` exactly as fast as the trivial count does.  The trivial branch is
+therefore worse by the factor `1/Bcl` at EVERY `d`; there is no `d` at which it becomes
+competitive, and the per-stratum ("SITE A") admissibility `(L/d + 1)² ≤ Bblk·L²` — which IS
+absolute, and IS proved below (`truncD_admissible`) — compares the trivial stratum against
+the WHOLE block budget, not against the `1/d²`-decayed slot the recombination actually
+leaves it.
+
+⟦WHERE THE `1/d²` WENT⟧ it is the first road's `d₀`-ledger (`M4NonCoprime.d0_ledger_sharp`),
+and §5 of `M4Gauss` SPENDS it: the weighted Cauchy–Schwarz at `1/d` is what converts the
+strata recombination's cost from `τ(q)²` (a positive power of `log H` — fatal by the
+residual law) into the `loglog`-scale residual `(∑_{d∣q} 1/d)² ≤ (1 + log arcDen)²`.  **The
+weighted recombination and the `D₀`-truncation are mutually exclusive: each needs the same
+ledger.**  Wave ④'s per-stratum granularity was preserved exactly as ⟦D0-TEST⟧ steered, and
+it is not the binding constraint — the recombination is.
+
+⟦WHAT `D₀` IS STILL WORTH⟧ the only surviving leverage is the DIVISOR TAIL
+`∑_{d∣q, d>D₀} 1/d`, which must fall below `Bblk/(1.07·(1+log arcDen))` — ⟦D0-TEST's SITE
+B⟧.  Honest `τ`-free bound: `∑_{d∣q,d>D₀} 1/d ≤ q/(2D₀²)` (complementary divisors
+`e = q/d < q/D₀`, then `∑_{e<Y} e ≤ Y²/2`), giving
+
+```
+   D₀ ≥ √(1.07·(1 + log arcDen)·arcDen / (2·Bblk))   ⟹   log₂ D₀ ≈ 6·log₂ log H + 169 ,
+```
+
+i.e. **exactly half the exponent of ⟦gate 8⟧'s own `log₂ arcDen = 12·log₂ log H` — worth
+ONE anchor bit** (⟦SANDWICH-REF⟧: each `+1` bit multiplies the margin ×1.96).  Wigert's
+`τ(q) ≤ exp((log 2 + o(1))·log q/loglog q)` would buy `≈ log₂ q/loglog q` instead — about
+5–6 anchor bits at the closing scale, still not the 16 bits `2^18 → 2^34` that ⟦REF-SAND⟧
+prices.  **And in every case `D₀` carries `arcDen`, so ⟦gate 8⟧ does not become `H`-free.**
+⟦D0-TEST⟧'s banked "DISSOLVED by 3.9·10⁴×, log₂ D₀ ∝ ln lnln Hhi" does not reproduce: its
+SITE-A margin priced an admissibility the stratified recombination never demands, and its
+SITE-B growth law is a `loglog` where the divisor tail forces a `log`.
+
+**⟦THE CONSEQUENCE⟧ ⟦gate 8⟧ stands at `arcDen 12 H < calP (Adoor M) (3072M) 1`, and the
+door-anchor ask (⟦REF-SAND⟧'s 2^34 minimum / 2^36 for ≥2× headroom) goes back to JYH.  No
+statement of §1–§4 moves.**
+
 ## Contents
 
 * §1 THE ℓ-WITNESS — `blockLen` and its four obligations.
@@ -76,6 +129,11 @@ byte-identical to the landed one; `M4DoorGates` is consumed unchanged, `hMδ` in
   `M4BlockMeanSqBlk2`, `m4_cover_assembly_blk2`.
 * §3 THE SUPPLY — `m4_blockMeanSqBlk2_of_chiSummed`.
 * §4 THE REGISTER — `m4_second_road`.
+* §5 THE `D₀` CONSTANT — `truncBudget`, `truncD`, `truncD_admissible`, and the zero-byte
+  instantiation of the door gate at `D₀`.
+* §6 THE PRICING AUDIT — the register's own gates witnessed (`rSanWitness`, `rStrWitness`,
+  `g2_of_j0_floor`) and the composed `RS`-grade demand the port must deliver
+  (`m4_second_road_rs_ceiling`).
 -/
 
 noncomputable section
@@ -432,30 +490,49 @@ The re-cut of `M4Join.m4_wave_exit_sup_split` (D-1(b)) at the composed
 blocked-drift × stratified-Gauss × χ-summed supply.  The conclusion
 `¬ logChowla2Fails R.eps R.x R.ω` is BYTE-IDENTICAL to the landed one.
 
-⟦THE GATE CENSUS⟧ — finite, and every gate is one of: **witnessed** (discharged inside),
-**regime-absorbable** (one-sided, `H`-only, on the window range `[Hlo, Hhi]`, hence
-absorbable by the `g`-arm/`U1floor` of the outer register), or **consumer data**:
+⟦THE GATE CENSUS — FINAL AUDIT (wave ⑤, ⟦T-3e⟧)⟧ — finite, and every gate is classified
+**witnessed** (a witness is exhibited in §6), **regime-absorbable** (one-sided `H`-LOWER on
+the window range, hence absorbable by the `g`-arm/`U1floor` of the outer register),
+**consumer data**, **THE ANALYTIC SLOT**, or **`H`-UPPER** (the sandwich genre — named, with
+its binding order):
 
-1. `M4DoorGates Cg R M k δ` — UNCHANGED, `hMδ` included (⟦UNTOUCHABLE⟧).
-2. `1 ≤ M` — consumer data.
-3. `∀ H, 0 ≤ RSan H`, `∀ H, 0 ≤ RStr H`, `∀ H, 0 ≤ Braw H` — envelope nonnegativity.
-4. `∀ j H, j₀ ≤ j → RS j H ≤ RSan H` — the analytic envelope (consumer data).
-5. `arcDen 12 H ^ 7 ≤ RStr H` on the window range — ⟦G1⟧, the trivial envelope's threshold
-   (regime-absorbable: `RStr` is witnessed data and this is a floor on it).
-6. `44·RSan H + 87·arcDen 12 H ≤ (4/3)^{j₀}` — ⟦G2⟧, the slack residue against the floor's
-   own constant (a formality at `j₀ = M·Adoor M ≥ 2^18`).
-7. `128·arcDen 12 H ³ ≤ H` — the window floor: ONE-SIDED, `H`-only (`(log H)^{36} ≪ H`).
-8. `arcDen 12 H < calP (Adoor M) (3072M) 1` — the `M`-RELATIVE dilation gate.  **NOT** the
-   retired numeral `log H ≤ 2^{21845}`: no `H`-upper appears anywhere in this register.
+1. `M4DoorGates Cg R M k δ` — UNCHANGED, `hMδ` included (⟦UNTOUCHABLE⟧).  *consumer data.*
+2. `1 ≤ M` — *consumer data.*
+3. `∀ H, 0 ≤ RSan H`, `∀ H, 0 ≤ RStr H`, `∀ H, 0 ≤ Braw H` — *witnessed*
+   (`rSanWitness_nonneg`, `rStrWitness_nonneg`; `Braw` by the consumer's own choice).
+4. `∀ j H, j₀ ≤ j → RS j H ≤ RSan H` — the analytic envelope.  *consumer data* (the port's
+   deliverable; its ceiling is `m4_second_road_rs_ceiling`).
+5. `arcDen 12 H ^ 7 ≤ RStr H` — ⟦G1⟧, a FLOOR on witnessed data.  *witnessed*
+   (`rStrWitness_G1` at `RStr H := max 1 (arcDen 12 H ^ 7)`).
+6. `44·RSan H + 87·arcDen 12 H ≤ (4/3)^{j₀}` — ⟦G2⟧.  *`H`-UPPER, NON-BINDING*: at the
+   anti-vacuity envelope it caps `loglog H ≲ 0.024·M·Adoor M` (`g2_of_j0_floor`), slacker
+   than ⟦gate 8⟧ by the factor `0.415·M ≈ 8·10⁶¹` at the honest `M`.  Discharged from the
+   `j₀`-floor `j₀ ≳ 22 + 48·loglog H`, which `doorRowFloor M = M·Adoor M ≈ 5·10⁶⁷` clears by
+   55 orders even at the tower's top.
+7. `128·arcDen 12 H ³ ≤ H` — the window floor.  *regime-absorbable* (`H`-LOWER, `H`-only:
+   `(log H)^{36} ≪ H`).
+8. `arcDen 12 H < calP (Adoor M) (3072M) 1` — the `M`-RELATIVE dilation gate.  **THE ONE
+   BINDING `H`-UPPER**: `loglog H < 0.0578·Adoor M`.  It is NOT the retired numeral
+   `log H ≤ 2^{21845}` (⟦WALL C⟧'s genre, an absolute cap) — it is `M`-relative, and `M` is
+   in the register's own witnessed group, chosen AFTER `R`.  **Wave ⑤ tested the
+   ⟦A-6 / D0-TEST⟧ `D₀`-truncation against it and the truncation is REFUTED** — see the
+   module header, `truncD_admissible` and `stratum_sq_le_chiSummed_at_truncD` for the exact
+   accounting.  The door-anchor ask goes to JYH.
 9. the composed drift price (⟦item 4′, RE-CUT⟧):
    `96(1+2π)²·(1 + log arcDen 12 H)²·m4BclGraded j₀ (2·RSan) (2·RStr) H ≤ Braw H`.
    **No `arcDen` power, no `q`, no `q²`** — this is the line the whole road exists to cut.
+   *consumer data*; composed with ⟦10⟧ it is the port's ceiling (§6).
 10. `M4GradeGateSplit R δ₀ δ Braw k` — the budget line at the head's own constant `δ₀`.
-11. `M4ChiSummedFreeRow R M RS` — THE ANALYTIC SLOT, the socket of S-1.
+    *consumer data.*
+11. `M4ChiSummedFreeRow R M RS` — **THE ANALYTIC SLOT**, the socket of S-1.  Inhabited
+    (`m4_chiSummedFreeRow_trivial`); the port must inhabit it at the §6 ceiling.
 
-⟦F5 CHECK⟧ every `H`-conjunct above is a LOWER bound on `H` or an upper bound on a
-*witnessed envelope*; there is no `X`-upper anywhere, so no `X`-upper rides with an
-`X`-lower in any bundle. -/
+⟦F5 CHECK, RE-RUN⟧ `R.x` occurs in this register in exactly one place — `g R.Hhi R.ω ≤ R.x`,
+an `X`-LOWER supplied by the spine — so there is no `X`-upper anywhere and no `X`-upper can
+ride with an `X`-lower in any bundle (grep re-run over `M4ChiSummed`, `M4Gauss`,
+`M4SecondRoad`: clean).  ⟦WALL-D/F5's `DoorRowCarriedT0` bundle is not reached at all.⟧  The
+`H`-conjuncts are: one LOWER (⟦7⟧, regime-absorbable), two UPPERS (⟦6⟧ slack by 61 orders,
+⟦8⟧ binding), and the rest are envelope floors on witnessed data. -/
 theorem m4_second_road :
     ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
       ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
@@ -530,6 +607,255 @@ theorem m4_second_road :
       strataResidual_nonneg (one_le_arcDen_of_regime (R := R) hlo)
     have hB := hBcl0 H
     nlinarith [h]
+
+/-! ## §5 — THE `D₀` CONSTANT (⟦T-1⟧, wave ⑤)
+
+The truncation ceiling, stated as a PRE-`R` constant of `δ₀` alone — no `H`, no `q`, no `X`
+— together with the per-stratum admissibility it is calibrated for, and the record that the
+door gate is instantiable at it with zero new bytes.  The module header states why the
+composition nevertheless does not close. -/
+
+/-- **THE SPLIT BUDGET** `truncBudget δ₀ = (δ₀/2)² / (96(1+2π)²)`.
+
+The block-level allowance the register leaves per stratum, traced through the composition of
+⟦item 10⟧ (`M4GradeGateSplit`: `√(Braw H) ≤ δ₀`, i.e. `Braw H ≤ δ₀²` — and `≤ (δ₀/2)²` once
+the door's own two grade terms take their half) and ⟦item 9⟧ (the composed drift price
+`96(1+2π)²·(1+log arcDen)²·B_cl ≤ Braw`).  `(1 + log arcDen)²` is deliberately NOT divided
+out: it multiplies the *graded* factor, and the trivial branch this budget prices carries no
+`B_cl`.
+
+At the honest closing numbers (`δ₀ = 2·10⁻⁴⁹`, `96(1+2π)² ≈ 5092`) this is `≈ 2·10⁻¹⁰²`. -/
+def truncBudget (δ₀ : ℝ) : ℝ := (δ₀ / 2) ^ 2 / (96 * (1 + 2 * Real.pi) ^ 2)
+
+theorem truncBudget_pos {δ₀ : ℝ} (h : 0 < δ₀) : 0 < truncBudget δ₀ := by
+  unfold truncBudget
+  have hpi : (0 : ℝ) < 1 + 2 * Real.pi := by
+    have := Real.pi_pos; linarith
+  positivity
+
+/-- **THE TRUNCATION CEILING** `D₀ = ⌈2/√(truncBudget δ₀)⌉₊` — ⟦T-1⟧.
+
+`(Cg, δ₀)`-ONLY: no `H`, no `q`, no `X`, no `M`.  At `δ₀ = 2·10⁻⁴⁹` the honest magnitude is
+`≈ 1.4·10⁵¹` (`log₂ D₀ ≈ 170`), reproducing ⟦REF-SAND⟧'s `2^163` and ⟦D0-TEST⟧'s SITE-A
+`2.9·10⁵⁰` to within the `96(1+2π)²`-vs-`Bblk` bookkeeping.  Against the door's own bottom
+block `calP (Adoor M) (3072M) 1 = 2^{Adoor M}` with `Adoor M ≥ 2^18 = 262144` the gate
+`D₀ < 2^{Adoor M}` is free by 261 974 bits — which is exactly why the truncation was worth
+testing. -/
+def truncD (δ₀ : ℝ) : ℕ := ⌈2 / Real.sqrt (truncBudget δ₀)⌉₊
+
+theorem truncD_ge (δ₀ : ℝ) : 2 / Real.sqrt (truncBudget δ₀) ≤ ((truncD δ₀ : ℕ) : ℝ) :=
+  Nat.le_ceil _
+
+/-- **⟦THE SITE-A ADMISSIBILITY⟧** (`truncD_admissible`) — for a stratum `d > D₀` on a window
+of length `L ≥ D₀`, the GATE-FREE trivial bound `L/d + 1` is under the split budget:
+
+```
+      (L/d + 1)²  ≤  truncBudget δ₀ · L² .
+```
+
+⟦THE ±1, HONESTLY⟧ `d > D₀ ≥ 2/√B` gives `L/d < √B·L/2`, and `L ≥ D₀ ≥ 2/√B` gives
+`1 ≤ √B·L/2` — the two halves that the `2` in `D₀`'s numerator buys, one for the quotient
+and one for the `+1`.  This is why the constant is `2/√B` and not `1/√B`.
+
+⟦LENGTH-INVARIANT⟧ `L` enters only through `L ≥ D₀`, so the SAME `D₀` serves the ambient
+`H`, the drift block `ℓ`, and the dilated `H/d` — ⟦D0-TEST⟧'s "ABSOLUTE".
+
+⟦AND WHY IT DOES NOT COMPOSE⟧ the stratified recombination (`M4Gauss` §5) does not offer the
+stratum the budget `truncBudget δ₀ · L²`; after the weighted Cauchy–Schwarz it offers
+`4·B_cl·L²/d²`, which the trivial bound misses by `1/B_cl` at every `d`.  See the module
+header. -/
+theorem truncD_admissible {δ₀ : ℝ} (hδ₀ : 0 < δ₀) {L d : ℕ}
+    (hd : truncD δ₀ < d) (hL : truncD δ₀ ≤ L) :
+    ((L : ℝ) / (d : ℝ) + 1) ^ 2 ≤ truncBudget δ₀ * (L : ℝ) ^ 2 := by
+  have hB : 0 < truncBudget δ₀ := truncBudget_pos hδ₀
+  have hs : 0 < Real.sqrt (truncBudget δ₀) := Real.sqrt_pos.mpr hB
+  have hceil := truncD_ge δ₀
+  have hdR : ((truncD δ₀ : ℕ) : ℝ) < (d : ℝ) := by exact_mod_cast hd
+  have hLR : ((truncD δ₀ : ℕ) : ℝ) ≤ (L : ℝ) := by exact_mod_cast hL
+  have hd2 : 2 / Real.sqrt (truncBudget δ₀) < (d : ℝ) := lt_of_le_of_lt hceil hdR
+  have hL2 : 2 / Real.sqrt (truncBudget δ₀) ≤ (L : ℝ) := le_trans hceil hLR
+  have hd0 : (0 : ℝ) < (d : ℝ) := lt_of_le_of_lt (by positivity) hd2
+  have hL0 : (0 : ℝ) ≤ (L : ℝ) := Nat.cast_nonneg _
+  -- ⟦the two halves the `2` buys⟧
+  have hds : (2 : ℝ) < (d : ℝ) * Real.sqrt (truncBudget δ₀) := by
+    rw [div_lt_iff₀ hs] at hd2; linarith
+  have hLs : (2 : ℝ) ≤ (L : ℝ) * Real.sqrt (truncBudget δ₀) := by
+    rw [div_le_iff₀ hs] at hL2; linarith
+  have hquot : (L : ℝ) / (d : ℝ) ≤ (L : ℝ) * Real.sqrt (truncBudget δ₀) / 2 := by
+    rw [div_le_iff₀ hd0]
+    nlinarith [mul_le_mul_of_nonneg_left hds.le hL0]
+  have hkey : (L : ℝ) / (d : ℝ) + 1 ≤ (L : ℝ) * Real.sqrt (truncBudget δ₀) := by linarith
+  have hnn : (0 : ℝ) ≤ (L : ℝ) / (d : ℝ) + 1 := by positivity
+  have hsq : Real.sqrt (truncBudget δ₀) ^ 2 = truncBudget δ₀ := Real.sq_sqrt hB.le
+  calc ((L : ℝ) / (d : ℝ) + 1) ^ 2
+      ≤ ((L : ℝ) * Real.sqrt (truncBudget δ₀)) ^ 2 := by nlinarith
+    _ = truncBudget δ₀ * (L : ℝ) ^ 2 := by rw [mul_pow, hsq]; ring
+
+/-- **⟦THE ZERO-BYTE INSTANTIATION⟧** (`stratum_sq_le_chiSummed_at_truncD`) — ⟦D0-TEST⟧'s
+structural fact, recorded in the kernel: the per-stratum bound holds with the door gate read
+at `D₀` and NOTHING else moved.  `q` and the ceiling `W` are pure intermediates of the door
+side (`M4Residue.door_dilation_gate'` concludes `d < calP …`; neither occurs), so the whole
+chain instantiates at `W := truncD δ₀` on the strata `d ≤ D₀`.
+
+What no instantiation supplies is the strata `d > D₀`; see the module header. -/
+theorem stratum_sq_le_chiSummed_at_truncD {M K n q d Lw : ℕ} {δ₀ : ℝ} (hM : 1 ≤ M)
+    (hq : 0 < q) (hd0 : 0 < d) (hdq : d ∣ q) (hdD : (d : ℝ) ≤ ((truncD δ₀ : ℕ) : ℝ))
+    (hgate : ((truncD δ₀ : ℕ) : ℝ) < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) (b : ℤ)
+    (hlen : dilLen K n d ≤ Lw) :
+    ‖∑ r ∈ (Finset.range q).filter (fun r => Nat.gcd r q = d),
+        ratPhase b q r * ∑ m ∈ windowClass K n q r, doorSievedCoeff M m‖ ^ 2
+      ≤ ∑ χ : DirichletCharacter ℂ (q / d), (doorChiSup χ M Lw (n / d)) ^ 2 :=
+  stratum_sq_le_chiSummed hM hq hd0 hdq hdD hgate b hlen
+
+/-! ## §6 — THE PRICING AUDIT (⟦T-3⟧, wave ⑤)
+
+The register's own gates, witnessed where they are witnessable and priced where they are
+not.  Nothing here is consumed by `m4_second_road`; it is the SATISFIABILITY record the port
+gate quotes. -/
+
+/-- **⟦G1's WITNESS⟧** — `RStr H := max 1 (arcDen 12 H ^ 7)`.
+
+⟦gate 5⟧ (`arcDen 12 H ^ 7 ≤ RStr H`) is an envelope FLOOR on witnessed data, so it is
+inhabited outright; the `max 1` is what makes ⟦gate 3⟧ (`∀ H, 0 ≤ RStr H`, stated for EVERY
+`H`, not only the window range) hold off-range as well.  `arcDen⁷` is the `φ(q)` ledger's
+first entry: `arcDen³` from the χ-summed narrowing, `arcDen⁴` from the dilated cap — see
+`M4ChiSummed`'s ⟦φ(q) LEDGER⟧. -/
+def rStrWitness (H : ℕ) : ℝ := max 1 (arcDen 12 H ^ 7)
+
+theorem rStrWitness_nonneg (H : ℕ) : 0 ≤ rStrWitness H :=
+  le_trans zero_le_one (le_max_left _ _)
+
+theorem rStrWitness_G1 (H : ℕ) : arcDen 12 H ^ 7 ≤ rStrWitness H := le_max_right _ _
+
+/-- **⟦THE ANALYTIC ENVELOPE AT ANTI-VACUITY⟧** — `RSan H := max 1 (4·arcDen 12 H)`, the
+socket's own anti-vacuity grade (`M4ChiSummed.m4_chiSummedFreeRow_trivial` at
+`RS j H := 4·arcDen 12 H`) rounded up so ⟦gate 3⟧ holds off-range.  The PORT replaces this by
+something far smaller; `m4_second_road_rs_ceiling` below is the number it must beat. -/
+def rSanWitness (H : ℕ) : ℝ := max 1 (4 * arcDen 12 H)
+
+theorem rSanWitness_nonneg (H : ℕ) : 0 ≤ rSanWitness H :=
+  le_trans zero_le_one (le_max_left _ _)
+
+theorem rSanWitness_envelope (H : ℕ) : 4 * arcDen 12 H ≤ rSanWitness H := le_max_right _ _
+
+/-- **⟦G2's `j₀` FLOOR⟧** (`g2_of_j0_floor`) — at the anti-vacuity envelope, ⟦gate 6⟧
+`44·RSan H + 87·arcDen 12 H ≤ (4/3)^{j₀}` follows from the floor
+
+```
+      4 · log (263 · max 1 (arcDen 12 H))  ≤  j₀ ,
+```
+
+because `log(4/3) ≥ 1/4` (`(4/3)⁴ = 256/81 > e`, the constant `M4Spine` already spends).
+
+⟦THE HONEST SIZE⟧ the floor reads `j₀ ≳ 22 + 48·loglog H`.  The door's own `j₀` is
+`doorRowFloor M = M·Adoor M ≥ 2^18·M`, which at the honest `M = 1.93·10⁶²` is `≈ 5·10⁶⁷` —
+above the floor by more than 55 orders even at the tower's top (`loglog Hhi ≈ 9·10¹⁰` gives
+a floor `≈ 4·10¹²`).
+
+⟦AND THE F5 READING⟧ ⟦gate 6⟧ is, at this envelope, an `H`-UPPER in disguise: it caps
+`arcDen 12 H ≤ (4/3)^{j₀}/263`, i.e. `loglog H ≲ 0.024·M·Adoor M`.  It is NOT the binding
+one — ⟦gate 8⟧ caps `loglog H ≲ 0.058·Adoor M`, tighter by the whole factor `0.415·M ≈
+8·10⁶¹`.  So while ⟦gate 8⟧ stands, ⟦gate 6⟧ is slack by 61 orders; if ⟦gate 8⟧ were ever
+retired, ⟦gate 6⟧ becomes the (vastly weaker) successor sandwich, and the analytic envelope
+the port delivers — far below `4·arcDen` — pushes it further out still. -/
+theorem g2_of_j0_floor (H : ℕ) {j₀ : ℕ}
+    (hj : 4 * Real.log (263 * max 1 (arcDen 12 H)) ≤ (j₀ : ℝ)) :
+    44 * rSanWitness H + 87 * arcDen 12 H ≤ (4 / 3 : ℝ) ^ j₀ := by
+  set m := max (1 : ℝ) (arcDen 12 H) with hm
+  have hm1 : (1 : ℝ) ≤ m := le_max_left _ _
+  have harc : arcDen 12 H ≤ m := le_max_right _ _
+  have hRS : rSanWitness H ≤ 4 * m := by
+    unfold rSanWitness
+    exact max_le (by linarith) (by linarith)
+  have hpos : (0 : ℝ) < 263 * m := by linarith
+  have hpow : (0 : ℝ) < (4 / 3 : ℝ) ^ j₀ := by positivity
+  have hlog43 : (1 : ℝ) / 4 ≤ Real.log (4 / 3) := by
+    have h : (1 : ℝ) ≤ Real.log ((4 / 3 : ℝ) ^ (4 : ℕ)) := by
+      rw [Real.le_log_iff_exp_le (by norm_num : (0 : ℝ) < (4 / 3 : ℝ) ^ (4 : ℕ))]
+      have := Real.exp_one_lt_d9
+      norm_num
+      linarith
+    rw [Real.log_pow] at h
+    push_cast at h
+    linarith
+  have hj0 : (0 : ℝ) ≤ (j₀ : ℝ) := Nat.cast_nonneg _
+  have hlogle : Real.log (263 * m) ≤ Real.log ((4 / 3 : ℝ) ^ j₀) := by
+    rw [Real.log_pow]
+    linarith [mul_le_mul_of_nonneg_left hlog43 hj0]
+  have hfin : 263 * m ≤ (4 / 3 : ℝ) ^ j₀ := by
+    have hexp := Real.exp_le_exp.mpr hlogle
+    rwa [Real.exp_log hpos, Real.exp_log hpow] at hexp
+  linarith
+
+/-- **⟦THE COMPOSED `RS`-GRADE DEMAND⟧** (`m4_second_road_rs_ceiling`) — the number the port
+gate quotes.
+
+Composing ⟦item 9⟧ (the drift price) with ⟦item 10⟧ (`M4GradeGateSplit`) and dropping the
+`H`-DECAYING half of `m4BclGraded` (its weighted head runs at `(4/3)^{j₀}·H^{-0.415}` and
+`(8/3)^{j₀}·H^{-1.415}`, both nonnegative, so dropping them is free), the register's own
+gates force
+
+```
+      96(1+2π)² · (1 + log arcDen 12 H)² · (108/5) · RSan H  ≤  δ₀² .
+```
+
+⟦THE SHAPE OF THE DEMAND — DOES IT DECAY?⟧ **It decays, and only at `loglog` scale.**
+`96(1+2π)²·(108/5) ≈ 1.1·10⁵` is absolute; the only `H`-motion is `(1 + log arcDen)² =
+(1 + 12·loglog H)²` in the DENOMINATOR of the ceiling.  So the port must deliver
+
+```
+      RSan H  ≲  δ₀² / (1.1·10⁵ · (1 + 12 loglog H)²)   ≈  2.5·10⁻¹⁰⁵ / (loglog H)²
+```
+
+at `δ₀ = 2·10⁻⁴⁹` (`96(1+2π)²·(108/5) ≈ 1.1·10⁵`, `δ₀² = 4·10⁻⁹⁸`)
+
+— a CONSTANT times `(loglog H)^{-2}`, which is INSIDE ⟦D1-SCOPE⟧'s residual law (bounded
+powers of `loglog H` are free; only positive powers of `log H` are fatal), and far weaker
+than KMT's own `ε ≥ (log H)^{-1/200}`.  **No power of `arcDen` and no `q` appears** — that
+is the whole content of the second road.  The `RStr` half is untouched by this ceiling: its
+coefficient carries `H^{-0.415}` and vanishes against any envelope once `H ≳ 2^{j₀}` (the
+`M4Maximal.m4SmallGradeFits` threshold), which is why ⟦G1⟧ can be witnessed at `arcDen⁷`
+while ⟦G2⟧'s analytic half cannot. -/
+theorem m4_second_road_rs_ceiling {R : ChowlaRegime} {δ₀ δ : ℝ} {RSan RStr Braw : ℕ → ℝ}
+    {j₀ k : ℕ} (hδ : 0 ≤ δ)
+    (hRSan0 : ∀ H : ℕ, 0 ≤ RSan H) (hRStr0 : ∀ H : ℕ, 0 ≤ RStr H)
+    (hdrift : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+          * m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H ≤ Braw H)
+    (hgrade : M4GradeGateSplit R δ₀ δ Braw k) :
+    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 * (108 / 5 * RSan H) ≤ δ₀ ^ 2 := by
+  intro H hlo hhi
+  have hpi : (0 : ℝ) < 1 + 2 * Real.pi := by have := Real.pi_pos; linarith
+  have hBcl0 : 0 ≤ m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H :=
+    m4BclGraded_nonneg (by have := hRSan0 H; linarith) (by have := hRStr0 H; linarith)
+  have hd := hdrift H hlo hhi
+  have hfac0 : (0 : ℝ) ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 := by positivity
+  have hBraw0 : 0 ≤ Braw H := le_trans (mul_nonneg hfac0 hBcl0) hd
+  -- ⟦item 10 caps the budget by `δ₀²`⟧
+  have hg := hgrade H hlo hhi
+  have htail : (0 : ℝ) ≤ 4 * 2 ^ k / (R.x : ℝ) := by positivity
+  have hsqrt : Real.sqrt (Braw H) ≤ δ₀ := by linarith
+  have hsq : Real.sqrt (Braw H) ^ 2 = Braw H := Real.sq_sqrt hBraw0
+  have hBrawδ : Braw H ≤ δ₀ ^ 2 := by
+    have h0 : (0 : ℝ) ≤ Real.sqrt (Braw H) := Real.sqrt_nonneg _
+    nlinarith
+  -- ⟦the graded price dominates its analytic half⟧
+  have hhead : (0 : ℝ) ≤ (9 / 2 * (3 / 2 : ℝ) ^ Nat.log 2 H * (4 / 3 : ℝ) ^ j₀ / (H : ℝ)
+      + 9 / 5 * (3 / 2 : ℝ) ^ Nat.log 2 H * (8 / 3 : ℝ) ^ j₀ / (H : ℝ) ^ 2)
+        * (2 * RStr H) := by
+    have := hRStr0 H
+    positivity
+  have hlow : 108 / 5 * RSan H
+      ≤ m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H := by
+    unfold m4BclGraded m4Cmax
+    linarith
+  calc 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 * (108 / 5 * RSan H)
+      ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+          * m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H :=
+        mul_le_mul_of_nonneg_left hlow hfac0
+    _ ≤ Braw H := hd
+    _ ≤ δ₀ ^ 2 := hBrawδ
 
 end Salt.MR
 

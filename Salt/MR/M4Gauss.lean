@@ -386,16 +386,23 @@ dilated window, `d = gcd(r,q)`.
 
 `M4BridgeDilate.classWindowSum_dilate` (an equality, the change of variables) then
 `absWindowSum_dilCoeff_memS_door` (the `λ(d)` factorisation under the `M`-RELATIVE door gate
-`q ≤ W < calP (Adoor M) (3072M) 1`).  ⟦NO NUMERAL⟧ — the ceiling `W` is free; the retired
-`log H ≤ 2^{21845}` (an H-upper) is never demanded. -/
+`gcd(r,q) ≤ W < calP (Adoor M) (3072M) 1`).  ⟦NO NUMERAL⟧ — the ceiling `W` is free; the
+retired `log H ≤ 2^{21845}` (an H-upper) is never demanded.
+
+⟦THE GATE SITS AT `d`, NOT AT `q`⟧ (wave ⑤, ⟦D0-TEST⟧'s structural fact) — the door side
+(`door_gate_blocks`, `dilCoeff_memS_door`, `absWindowSum_dilCoeff_memS_door`) carries `q` and
+`W` as PURE INTERMEDIATES: neither occurs in the conclusion, so the whole chain is
+instantiable at `q := d` with `hdq := le_rfl` and ZERO new bytes.  The hypothesis here is
+therefore the strictly weaker `(gcd r q : ℝ) ≤ W`; every landed caller supplies it from
+`gcd r q ≤ q ≤ W`. -/
 theorem class_rat_dilate {M K n q r : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
-    (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) :
+    (hdW : ((Nat.gcd r q : ℕ) : ℝ) ≤ W)
+    (hW : W < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) :
     ∑ m ∈ windowClass K n q r, doorSievedCoeff M m
       = liouvilleC (Nat.gcd r q)
         * ∑ m ∈ windowClass (dilLen K n (Nat.gcd r q)) (n / Nat.gcd r q)
             (q / Nat.gcd r q) (r / Nat.gcd r q), doorSievedCoeff M m := by
   have hd : 0 < Nat.gcd r q := Nat.gcd_pos_of_pos_right r hq
-  have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
   simp only [doorSievedCoeff]
   calc ∑ m ∈ windowClass K n q r, memSCoeff (calP (Adoor M) (3072 * M))
         (calQK (Adoor M) (3072 * M) M) 2 liouvilleC m
@@ -412,7 +419,7 @@ theorem class_rat_dilate {M K n q r : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
           (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2 liouvilleC)
             (q / Nat.gcd r q) (r / Nat.gcd r q)) (dilLen K n (Nat.gcd r q))
               (n / Nat.gcd r q) 0 :=
-        absWindowSum_dilCoeff_memS_door (J := 2) hM hd.ne' hdq hqW hW 0
+        absWindowSum_dilCoeff_memS_door (J := 2) (q := Nat.gcd r q) hM hd.ne' le_rfl hdW hW 0
     _ = liouvilleC (Nat.gcd r q) * ∑ m ∈ windowClass (dilLen K n (Nat.gcd r q))
           (n / Nat.gcd r q) (q / Nat.gcd r q) (r / Nat.gcd r q),
             memSCoeff (calP (Adoor M) (3072 * M))
@@ -432,9 +439,14 @@ dilated window.  Prefactor `1` (§2), `λ(d)` invisible (`‖λ‖ = 1`).
 
 The cap `Lw` is a parameter with the single hypothesis `dilLen K n d ≤ Lw`, so the consumer
 chooses `L` at `d = 1` and `⌊L/d⌋ + 1` at `d ≥ 2` — the two caps that keep the length under
-the ambient `H`. -/
+the ambient `H`.
+
+⟦THE GATE SITS AT `d`⟧ (wave ⑤) — `hdW : (d : ℝ) ≤ W`, NOT `(q : ℝ) ≤ W`: the door gate is
+demanded at the dilation factor alone (`class_rat_dilate`'s header).  A consumer that
+truncates the strata at a ceiling `D₀` reads this at `W := D₀`, so the analytic strata never
+demand a gate above `D₀`. -/
 theorem stratum_sq_le_chiSummed {M K n q d Lw : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
-    (hd0 : 0 < d) (hdq : d ∣ q) (hqW : (q : ℝ) ≤ W)
+    (hd0 : 0 < d) (hdq : d ∣ q) (hdW : (d : ℝ) ≤ W)
     (hW : W < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) (b : ℤ)
     (hlen : dilLen K n d ≤ Lw) :
     ‖∑ r ∈ (Finset.range q).filter (fun r => Nat.gcd r q = d),
@@ -452,7 +464,8 @@ theorem stratum_sq_le_chiSummed {M K n q d Lw : ℕ} {W : ℝ} (hM : 1 ≤ M) (h
     intro r hr
     have hgcd : Nat.gcd r q = d := (Finset.mem_filter.mp hr).2
     have hdr : d ∣ r := hgcd ▸ Nat.gcd_dvd_left r q
-    have hdil := class_rat_dilate (M := M) (K := K) (n := n) (q := q) (r := r) hM hq hqW hW
+    have hdil := class_rat_dilate (M := M) (K := K) (n := n) (q := q) (r := r) hM hq
+      (by rw [hgcd]; exact hdW) hW
     rw [hgcd] at hdil
     rw [hdil, ratPhase_dilate hd0 hq hdq hdr b]
     ring
@@ -586,8 +599,10 @@ theorem subWindowSup_sq_le_strata {M n q L : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq :
     refine Finset.sum_le_sum fun d hd => ?_
     have hd0 : 0 < d := Nat.pos_of_mem_divisors hd
     have hdq : d ∣ q := (Nat.mem_divisors.mp hd).1
+    have hdW : (d : ℝ) ≤ W :=
+      le_trans (by exact_mod_cast Nat.le_of_dvd hq hdq) hqW
     have hsq := stratum_sq_le_chiSummed (M := M) (K := K) (n := n) (q := q) (d := d)
-      (Lw := capL L d) hM hq hd0 hdq hqW hW b (dilLen_le_capL hd0 hK)
+      (Lw := capL L d) hM hq hd0 hdq hdW hW b (dilLen_le_capL hd0 hK)
     have h0 : (0 : ℝ) ≤ ‖∑ r ∈ (Finset.range q).filter (fun r => Nat.gcd r q = d),
         ratPhase b q r * ∑ m ∈ windowClass K n q r, doorSievedCoeff M m‖ := norm_nonneg _
     calc ‖∑ r ∈ (Finset.range q).filter (fun r => Nat.gcd r q = d),

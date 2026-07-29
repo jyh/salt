@@ -4037,3 +4037,62 @@ open Salt.Tactic in
   Salt.MR.m4_cover_assembly_blk2
   Salt.MR.m4_blockMeanSqBlk2_of_chiSummed
   Salt.MR.m4_second_road
+
+-- ⟦WAVE ⑤ — THE D₀-TRUNCATION TEST (REFUTED) AND THE PRICING AUDIT⟧ (2026-07-29,
+-- second-road freeze v2 D-6 / ⟦REF-SAND A-6⟧ / ⟦D0-TEST SITE A⟧; `M4Gauss`, `M4SecondRoad`).
+--
+-- ⟦THE TEST⟧ wave ⑤'s first item was the `D₀`-truncation: take the strata `d > D₀` by the
+-- landed GATE-FREE trivial bound and collapse ⟦gate 8⟧ from `arcDen 12 H` to an ABSOLUTE
+-- `D₀ = 2/√Bblk ≈ 1.4·10⁵¹`, dissolving the door-anchor sandwich with no `DoorFrame` re-pin.
+-- ⟦THE VERDICT: REFUTED — structurally, not arithmetically.⟧  At one stratum `d ∣ q` over a
+-- block `(A,B]` with `B−A ≤ A`, the analytic side gives `∑ₙ strataTerm_d ≤ Bcl·(L+d)²·A/d²`
+-- and the trivial side `∑ₙ (L/d+1)² ≈ L²A/d²`: **the `1/d²` scaling is IDENTICAL**, because
+-- the χ-summed supply is read at the stratum's OWN dilated cap `capL L d ≈ L/d` and its own
+-- re-indexed block `⌊A/d⌋`.  The trivial branch is worse by `1/Bcl` at EVERY `d`; there is no
+-- `d` at which it becomes competitive.  ⟦WHY⟧ the `1/d²` is `M4NonCoprime.d0_ledger_sharp`,
+-- and `M4Gauss` §5 SPENDS it: the weighted Cauchy–Schwarz at `1/d` is what converts the
+-- strata recombination's cost from `τ(q)²` (a positive power of `log H` — fatal by the
+-- residual law) into the loglog-scale `(1 + log arcDen)²`.  **The weighted recombination and
+-- the `D₀`-truncation are mutually exclusive: each needs the same ledger.**  Wave ④'s
+-- per-stratum granularity is preserved exactly as ⟦D0-TEST⟧ steered and is NOT the binding
+-- constraint.  ⟦WHAT `D₀` IS STILL WORTH⟧ only the divisor tail `∑_{d∣q,d>D₀} 1/d ≤ q/(2D₀²)`
+-- (complementary divisors, τ-free), forcing `log₂ D₀ ≈ 6·log₂ log H + 169` — HALF ⟦gate 8⟧'s
+-- own exponent, i.e. ONE anchor bit (⟦SANDWICH-REF⟧: ×1.96 per bit); Wigert's τ-bound would
+-- buy 5–6 bits, not the 16 that `2^18 → 2^34` needs — and in every case `D₀` carries `arcDen`
+-- so ⟦gate 8⟧ does not become `H`-free.  ⟦D0-TEST⟧'s banked "DISSOLVED ×3.9e4, log₂D₀ ∝
+-- ln lnln Hhi" does not reproduce.  **⟦gate 8⟧ STANDS; the anchor ask returns to JYH.**
+--
+-- ⟦WHAT LANDED⟧ (1) the gate moved to `d`: `class_rat_dilate`/`stratum_sq_le_chiSummed` now
+-- read `(gcd r q : ℝ) ≤ W` / `(d : ℝ) ≤ W` instead of `(q : ℝ) ≤ W` — ⟦D0-TEST⟧'s structural
+-- fact (`q`, `W` are pure intermediates of the door side; nothing occurs in the conclusion),
+-- a strictly weaker hypothesis every landed caller supplies, and the interface any future
+-- truncation needs; (2) `truncBudget`/`truncD` — the `(Cg,δ₀)`-ONLY ceiling (no `H`, no `q`,
+-- no `X`, no `M`) with `truncD_admissible`, the SITE-A per-stratum admissibility
+-- `(L/d+1)² ≤ truncBudget δ₀·L²` proved with honest ±1 arithmetic (the `2` in the numerator
+-- buys one half for the quotient and one for the `+1`; length-invariant, so the same `D₀`
+-- serves `H`, `ℓ` and `H/d`), and `stratum_sq_le_chiSummed_at_truncD`, the zero-byte
+-- instantiation of the door gate at `D₀`; (3) ⟦THE PRICING AUDIT⟧ `rStrWitness`/`rSanWitness`
+-- witness gates 3/5 (`max 1 (·)` is what makes the OFF-RANGE `∀ H, 0 ≤ ·` hold),
+-- `g2_of_j0_floor` discharges ⟦G2⟧ from `j₀ ≳ 22 + 48·loglog H` via `log(4/3) ≥ 1/4` — ⟦G2⟧
+-- is an `H`-UPPER in disguise but slacker than ⟦gate 8⟧ by `0.415·M ≈ 8·10⁶¹`, so it is
+-- non-binding while ⟦gate 8⟧ stands; and `m4_second_road_rs_ceiling` composes ⟦item 9⟧ with
+-- ⟦item 10⟧ into **the number the port gate quotes**:
+-- `96(1+2π)²·(1+log arcDen)²·(108/5)·RSan H ≤ δ₀²`, i.e. `RSan H ≲ 2.5·10⁻¹⁰⁵/(loglog H)²`
+-- at `δ₀ = 2e-49` — a CONSTANT times `(loglog H)^{-2}`, inside ⟦D1-SCOPE⟧'s residual law and
+-- far weaker than KMT's own `(log H)^{-1/200}`.  ⟦F5 RE-GREP⟧ clean: `R.x` occurs in the
+-- register only as the `X`-LOWER `g R.Hhi R.ω ≤ R.x`; no `X`-upper anywhere.
+open Salt.Tactic in
+#audit_axioms Salt.MR.truncBudget
+  Salt.MR.truncBudget_pos
+  Salt.MR.truncD
+  Salt.MR.truncD_ge
+  Salt.MR.truncD_admissible
+  Salt.MR.stratum_sq_le_chiSummed_at_truncD
+  Salt.MR.rStrWitness
+  Salt.MR.rStrWitness_nonneg
+  Salt.MR.rStrWitness_G1
+  Salt.MR.rSanWitness
+  Salt.MR.rSanWitness_nonneg
+  Salt.MR.rSanWitness_envelope
+  Salt.MR.g2_of_j0_floor
+  Salt.MR.m4_second_road_rs_ceiling

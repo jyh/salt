@@ -133,3 +133,123 @@ writes new statement shapes); (ii) the D₀-truncation's admissibility
 arithmetic (⑤'s first item, already flagged UNVERIFIED); (iii) the
 Σ_χ mirrors' claimed mechanicalness (spot-check one: the shift-block
 mirror).
+
+---
+
+# ADDENDUM — the v2 outcomes (waves ①–⑤, 2026-07-29)
+
+*Appended by wave ⑤. v2's decisions stand as ratified; this records what
+the waves actually found, wave by wave, and the one place v2 was wrong.*
+
+## The ④ deviations (all additive, all landed)
+
+- **⟦THE q = 1 PINCH⟧ — a co-design finding that killed wave ③'s
+  socket's consumer.** `M4BridgeBlock.m4_sievedDoorSq_of_blk`'s four
+  `ℓ`-obligations are JOINTLY UNSATISFIABLE: at `q = 1` the count binder
+  `H ≤ arcDen·ℓ` and the drift binder `arcDen·ℓ ≤ q·H` force
+  `arcDen 12 H · ℓ = H` exactly, which no natural number does for generic
+  `H`. **The repair** (free: the count binder is a NARROWING handed *to*
+  the supply, never used by the socket) weakens it to `H ≤ arcDen²·ℓ`,
+  opening the admissible interval `[H/arcDen², H/arcDen]` of ratio
+  `arcDen ≥ e¹²`; the witness `blockLen H q := max 1 (H/(⌊arcDen⌋₊+1))`
+  is then even `q`-UNIFORM. `M4SievedDoorSqBlk2` / `m4_cover_assembly_blk2`
+  are the `Blk`-family re-cut at the weakened binder; everything else in
+  `M4BridgeBlock` is consumed verbatim.
+- **The declined `M4Join` edit is structural, not a shortcut.** D-1(b)
+  named `m4_wave_exit_sup_split` as the target register and gave ④ its
+  drift-line re-cut. It cannot be done in place: `M4Join` sits below
+  `M4ClassPrice`, six levels under the supply chain, so the composed
+  conjunct cannot even be *stated* there. **`m4_second_road` IS the
+  re-cut register**; `m4_wave_exit_sup_split` is left byte-unchanged as
+  the shape it was ratified to be, and the conclusion
+  `¬ logChowla2Fails R.eps R.x R.ω` is byte-identical.
+- **A2 confirmed mandatory and raised**: the φ(q) ledger's two
+  absolute-grade charges (the drop residue and the trivial half) read no
+  row datum, so under `∑_χ` they cost `φ(q) ≤ arcDen` — ⟦G1⟧ goes to
+  `arcDen⁷`, not `arcDen²`. A threshold on a WITNESSED envelope, not a
+  saving.
+- **F2's `q²` died as designed** (`∑_χ‖τ_b(χ)‖² = φ(q)²` exact at every
+  `b`; CS prefactor `1`), and the only `q`-trace on the whole road is the
+  divisor residual `(1 + log arcDen)²`.
+
+## The ⑤ re-cut: **the D₀ truncation is REFUTED**
+
+v2's D-6 made the `D₀`-truncation wave ⑤'s FIRST item, on the promise
+(⟦REF-SAND A-6⟧, ⟦D0-TEST SITE A⟧) that it collapses ⟦gate 8⟧ from
+`arcDen 12 H` to an absolute `D₀ ≈ 2^170` and the sandwich cap
+"disappears entirely, no `DoorFrame` re-pin". **It does not, and the
+reason is structural.**
+
+At one stratum `d ∣ q` over a block `(A,B]` with `B − A ≤ A`:
+
+```
+   analytic:  ∑ₙ strataTerm_d  ≤  Bcl·(L+d)²·A/d²      (≈ Bcl·L²A/d²)
+   trivial :  ∑ₙ (L/d + 1)²    ≈           L²A/d²
+```
+
+The `1/d²` scaling is **identical on both sides** — the χ-summed supply
+is read at the stratum's own dilated cap `capL L d ≈ L/d` and its own
+re-indexed block `⌊A/d⌋`, so its budget decays with `d` exactly as fast
+as the trivial count does. The trivial branch is worse by `1/Bcl` at
+EVERY `d`; **no `d` makes it competitive**. The per-stratum ("SITE A")
+admissibility `(L/d+1)² ≤ Bblk·L²` is absolute and is now proved in the
+kernel (`M4SecondRoad.truncD_admissible`) — but it compares the trivial
+stratum against the WHOLE block budget, not against the `1/d²`-decayed
+slot the recombination actually leaves it.
+
+**Where the `1/d²` went:** it is `M4NonCoprime.d0_ledger_sharp`, and
+`M4Gauss` §5 spends it. The weighted Cauchy–Schwarz at `1/d` is what
+converts the strata recombination's cost from `τ(q)²` (a positive power
+of `log H` — fatal by D1-SCOPE's residual law) into the loglog-scale
+`(1 + log arcDen)²`. **The weighted recombination and the D₀-truncation
+are mutually exclusive: each needs the same ledger.** Wave ④'s
+per-stratum granularity was preserved exactly as D0-TEST steered, and it
+is not the binding constraint — the recombination is.
+
+**What D₀ is still worth:** only the divisor tail. The τ-free bound
+`∑_{d∣q,d>D₀} 1/d ≤ q/(2D₀²)` (complementary divisors `e = q/d < q/D₀`,
+then `∑_{e<Y} e ≤ Y²/2`) forces `log₂ D₀ ≈ 6·log₂ log H + 169` — exactly
+**half** ⟦gate 8⟧'s own `12·log₂ log H`, i.e. **one anchor bit**
+(SANDWICH-REF: ×1.96 per bit). Wigert's `τ(q) ≤ exp((log2+o(1))·log q /
+loglog q)` would buy 5–6 bits. Neither reaches the 16 bits `2^18 → 2^34`
+that REF-SAND prices, and in every case D₀ carries `arcDen`, so ⟦gate 8⟧
+does not become `H`-free. **D0-TEST's banked "DISSOLVED ×3.9·10⁴,
+log₂D₀ ∝ ln lnln Hhi" does not reproduce**: its SITE-A margin priced an
+admissibility the stratified recombination never demands, and its SITE-B
+growth law is a `loglog` where the divisor tail forces a `log`.
+
+**⟦THE CONSEQUENCE⟧ ⟦gate 8⟧ stands at
+`arcDen 12 H < calP (Adoor M) (3072M) 1`. The door-anchor ask goes back
+to JYH: REF-SAND's 2^34 minimum / 2^36 for ≥2× headroom at the landed
+tower exponent 5 (the Ah route of Eq26Compose:874 remains the
+unpriced structural alternative).** No statement of §1–§4 moved; the
+gate re-cut D-6 authorised was not taken.
+
+## The port's final input (T-3d)
+
+Composing ⟦item 9⟧ (the drift price) with ⟦item 10⟧
+(`M4GradeGateSplit`), and dropping `m4BclGraded`'s H-decaying head
+(`(4/3)^{j₀}H^{-0.415}`, `(8/3)^{j₀}H^{-1.415}` — both nonnegative), the
+register forces, kernel-checked as `m4_second_road_rs_ceiling`:
+
+```
+   96(1+2π)² · (1 + log arcDen 12 H)² · (108/5) · RSan H  ≤  δ₀² .
+```
+
+**The port must deliver** `RSan H ≲ δ₀²/(1.1·10⁵·(1 + 12 loglog H)²)`,
+i.e. `≈ 2.5·10⁻¹⁰⁵/(loglog H)²` at `δ₀ = 2·10⁻⁴⁹` — a CONSTANT times
+`(loglog H)^{-2}`. That is **inside D1-SCOPE's residual law** (bounded
+powers of loglog H are free; only positive powers of log H are fatal)
+and far weaker than KMT's own `ε ≥ (log H)^{-1/200}`. No power of
+`arcDen`, no `q`, no `q²` — the second road's whole purpose, delivered.
+
+Also audited (§6 of `M4SecondRoad`): ⟦G1⟧ witnessed at
+`RStr H := max 1 (arcDen⁷)`; ⟦G2⟧ discharged from the `j₀`-floor
+`j₀ ≳ 22 + 48·loglog H` (`g2_of_j0_floor`, via `log(4/3) ≥ 1/4`), which
+`doorRowFloor M ≥ 2^18·M ≈ 5·10⁶⁷` clears by 55 orders even at the
+tower's top. **⟦G2⟧ is itself an H-upper in disguise** (it caps
+`loglog H ≲ 0.024·M·Adoor M`) but is slacker than ⟦gate 8⟧ by
+`0.415·M ≈ 8·10⁶¹`: non-binding while gate 8 stands, and the successor
+sandwich if gate 8 is ever retired. The window floor `128·arcDen³ ≤ H`
+is regime-absorbable (H-LOWER). F5 re-grep clean: `R.x` occurs in the
+register only as the X-LOWER `g R.Hhi R.ω ≤ R.x`.
