@@ -14445,3 +14445,22 @@ The night ledger ratified whole: THE SEAM RE-CUT ((n,m) = (45,46),
 ~8 rulings of 7/28, the WALL-C wave (a4fedce), and the E-wave
 (a626571) all ratified. The register road's artifacts stand as
 landed.
+
+---
+
+## ⟦COUNCIL 0729 — C2 RULED: (ii) THE SECOND ROAD⟧ (2026-07-29 06:27 PDT)
+
+JYH rules (ii): the re-route. The door supply re-cuts from
+m4_wave_exit's six-item register (F5-free by construction) with the
+priced kit (the split's constant-grade contract, lever 1′, the
+blocked drift, the gcd-stratified Route 2) and the KMT-shaped
+χ-summed statement as the supply target, under REF-ROUTE's ratified
+shape constraints (interval-general, length-general, every modulus
+q′ ≤ arcDen, dyadic-row form). The deliverable: a frozen design doc
++ refuter pass pricing the integrated road END TO END. **The KMT
+port's 8–18k authorization remains a SEPARATE JYH decision after the
+design block's price is on the table.** The F5-repair path (prong i)
+is DECLINED; the collapsed register's walls stand as banked
+knowledge (four kernel-hard/exact impossibility results — the
+method's own product). m4_wave_collapsed and its chain remain landed
+artifacts; the road forward is the JOIN's register.
