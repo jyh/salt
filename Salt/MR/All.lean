@@ -228,6 +228,7 @@ import Salt.MR.VkMidSharp
 import Salt.MR.M4ChiSummed
 import Salt.MR.M4Gauss
 import Salt.MR.M4SecondRoad
+import Salt.MR.VkTwistRegionProbe
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -4097,3 +4098,38 @@ open Salt.Tactic in
   Salt.MR.rSanWitness_envelope
   Salt.MR.g2_of_j0_floor
   Salt.MR.m4_second_road_rs_ceiling
+
+-- ⟦THE B-PROBE (P-0′) — THE KMT PORT'S GO/NO-GO⟧ (2026-07-29, port freeze v2 wave P-0′;
+-- `VkTwistRegionProbe`).  KR-1 asked whether ζ's VK-width growth→region bridge
+-- (`Salt.Vk.zeta_zero_free_region_pow_of_growth`, width `c/((log t)^{3/4}(loglog t)³)`) runs for
+-- `L(s,χ)`, whose Borel–Carathéodory leg was feared to be anchored at ζ's POLE.  ⟦VERDICT: GO.⟧
+-- The fear was a misdiagnosis: ζ's `Zc = (s−1)ζ` normalization exists to make the base ENTIRE
+-- for `Salt.Vk.entire_norm_logDeriv_sub_sum_scaled` (paying a `Re(1/(s−1))` correction in every
+-- leg), NOT to exploit the pole.  `L(·,χ)` for `χ ≠ 1` is already entire, so the `Zc` apparatus
+-- and both corrections VANISH; the disc's reference floor is the twisted Möbius series
+-- (`norm_LFunction_inv_cline_le`: `‖L(σ+it,χ)⁻¹‖ ≤ 1 + 1/(σ−1)`, mirror of the landed
+-- `Salt.SW.norm_zeta_inv_cline_le`), and ζ's pole survives only in the 3-4-1's FIRST factor
+-- `ζ(σ)³` at real `σ`, which is character-free.  The chain's `8` becomes `3`, and the assembly
+-- needs NO height hypothesis (ζ needed `1 ≤ |Im ρ|` only for the two corrections).
+--
+-- ⟦KR-2 RECONCILED⟧ `LFunction_zero_free_width_law` isolates the law:
+-- **width `= Θ/(14(8Θ + 700·log(20M/Θ)))`** — the strip HALF-WIDTH over a log of the
+-- growth-to-width ratio.  So the twisted Fourier completion's `q^{3/2}(1+log q)` (inside `M`)
+-- reaches the width only through `log`, i.e. as an additive `(3/2)log q`; the `3/4` exponent
+-- comes from `Θ` alone.  `LFunction_zero_free_region_vk_shape` instantiates at `Θ = vkTheta 3γ`
+-- and `M = Cq·(log 3γ)^{3/4}(loglog 3γ)⁴`, giving ζ's shape with a constant linear in the
+-- `q`-scale grade `A` (`log(20000 Cq) ≤ A·loglog Im ρ`): at `q ≤ (log H)^12`, `A ≈ 18`,
+-- `c ≈ 1/(2.3·10⁹)` against ζ's own `1/10⁹`.
+--
+-- ⟦CONDITIONAL BY DESIGN⟧ the strip growth (stone A) is a HYPOTHESIS throughout (`hgrowth`,
+-- `hgrowth2` — for `χ` and for `χ²`, both mod `q`).  Open to stone B proper: the `χ² = 1` arm,
+-- the height floor (here ζ's own `1100 ≤ loglog Im ρ`), the Siegel/carve-out fold.
+open Salt.Tactic in
+#audit_axioms Salt.MR.norm_LFunction_inv_cline_le
+  Salt.MR.LFunction_ratio_bound
+  Salt.MR.LFunction_keep_one_disc
+  Salt.MR.LFunction_drop_all_disc
+  Salt.MR.LFunction_zero_free_of_disc
+  Salt.MR.LFunction_region_of_uniform_growth
+  Salt.MR.LFunction_zero_free_width_law
+  Salt.MR.LFunction_zero_free_region_vk_shape
