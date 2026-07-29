@@ -14254,3 +14254,75 @@ only at the floor). Nothing in Salt/MR consumes Ah today.
 ratified design; OR the Ah route (structural, unpriced); (b) schedule
 the sharp-crossing export page (class C — needed by EVERY repair
 path). The composition's conditionality then reduces to D-1 alone.
+
+---
+
+## ⟦D1-SCOPE WORKFLOW⟧: D-1 = THE KMT PORT (priced, not a gamble); ⟦F5 — THE log q SCALE WALL⟧ found by the synthesis; the (A)/(B) fork (2026-07-29 03:50 PDT)
+
+Five parallel scopers + adversarial synthesis (the full table:
+docs/exploration/d1-scope-0729.md). THE VERDICTS:
+
+**D-1 is OPEN-AS-STATED and ALL-OR-NOTHING** — the residual law: any
+bounded power of loglog H in the constant is FREE (up to (log q)^5.58);
+any positive power of log H is FATAL. No partial deliverable exists;
+the trivial cut is REFUTED twice over (an absolute 10^98 gap,
+repair-independent; the repaired budget moves it BACKWARDS) — its
+council parenthetical struck. Every cheap escape refuted with margins:
+the Siegel split (the binding floor is χ-blind), the raw large sieve
+(worse than trivial — the sieved density ≈ 1), dilation (gcd = 1 on
+the mass-carrying classes), the q-tradeoff (three ways: the drift
+price is an IDENTITY, factor 1.344 over the legal range — F2 and F3
+each WORTHLESS STANDALONE, now law; smaller q' forces blocks below the
+door's own row floor; B₅ pinned by the minor arm), the constant arc
+cap (mathematically FALSE — PNT-in-APs gives a constant expSum at
+prime q > W₀).
+
+**BUT: D-1 is KNOWN MATHEMATICS — Klurman–Mangerel–Teräväinen,
+PLMS 127 (2023) Cor. 1.7** at q ≤ (log H)^12: the class-summed mean
+square at one character's price. Port: 8–18k ln class C on ~90k ln of
+reusable massif (Ramaré/Halász/the all-χ floor stack — STRONGER than
+KMT's own, uniform in ALL χ — VK/VMVT, SW + siegelWalfisz_holds, the
+seam massif, char_LS frozen); exactly TWO genuinely new stones: the
+hybrid χ-aspect MVT (both halves landed separately: char_LS +
+MVHilbertUniform) and the χ-aspect large-value count. PREREQUISITE
+bundled: Route 2 the Gauss-sum consumer re-cut (drop the class split
+entirely; CS over χ pointwise in K — NO Parseval-per-K needed, the
+sup_K blocker dissolves; kills BOTH q's; 900–1600 ln; the imprimitive
+τ bookkeeping the one open audit). KMT's ε ≥ (log)^{-1/200} is ample
+ONLY with F3 landed (the demand is then constant δ₀²; without F3 it
+is (log H)^{-17.5} and KMT is short by 17.5 exponents) — **F3 is a
+hard prerequisite of the port, not a parallel option.**
+
+**⟦F5 — THE log q SCALE WALL⟧ (the synthesis's own composition —
+UNREFUTED, blocking):** DoorRowCarriedT0's cap-free floor threshold
+(:706-709 — the (1/8)log q + vkMidDebit q + vkDebitConst debits,
+honest coefficient ≈ 28·ln q as a LOWER demand on lnln X) against
+hgRows (:712 — an UPPER cap lnln X ≤ 500·(ln M − 29.8)) in the SAME
+∃-bundle at the same pinned X, instantiated at q ≤ arcDen 12 H up to
+Hhi: with ln q = 12·(lnln Hlo)^{4.006} the system needs
+48·v^{4.006} < 500·(v − 29.8) — unsatisfiable at every M (short by
+4·10^7 at the k=30 closing point). **Tighter than gate 12 by
+4.6·10^7; the anchor runs the WRONG way (bigger Adoor shrinks legal
+M); the tower is load-bearing (at Hhi = Hlo it closes for v > 33). If
+F5 stands, D-2's anchor re-pin does NOT settle D-2, and D-1 is
+conditionally moot.** DISPERSION's "regime-absorbable" claim REFUTED
+(the regime bounds R.x from BELOW; hgRows caps it from ABOVE).
+
+**⟦F4 — the primeDivSum repair⟧ (mandatory on every path, FIRE-READY,
+held for the council):** primeDivSum_le_modulus's crude ω(q) ≤ q+1
+(CapFreeAssembly:235-260, "Crude on purpose") replaced by the
+IN-KERNEL mertens_second_sharp_real (Salt/Mertens/Third:56-57):
+40–70 ln + ~250–400 ln re-thread at 18 sites, every one a hypothesis
+weakening. NOTE R3: F4 repairs the (1/4)q half with three orders to
+spare but NOT the log q half — F4 is necessary, not sufficient,
+against F5.
+
+**THE FORK FOR THE COUNCIL: (A)** authorize the 8–18k KMT port now,
+betting F5 is a discharge-path artifact; **(B)** one refuter-hour on
+R1 (F5's discharge trace — is the bundle actually demanded at
+q = arcDen 12 Hhi, or does an intermediate weaken q first?), R2 (the
+tower re-derivation — now load-bearing for TWO walls), R3 (the F4
+arithmetic), R5 (Route 2's sup_K ruling + the imprimitive audit),
+firing only F4 meanwhile. **The synthesis recommends (B)
+unambiguously; the maestro concurs — REF-F5 + REF-ROUTE dispatched
+(read-only, the scoping authority).**
