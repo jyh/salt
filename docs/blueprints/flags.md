@@ -14572,3 +14572,16 @@ path); the half-open guard: bottom only, the top IS read at equality.
 **→ FREEZE v2 cut now with all amendments; the register-target
 decision (m4_wave_closed re-cut vs the exit_sup q-free shape) goes
 to JYH named.**
+
+---
+
+## ⟦THE FREEZE v2 RATIFIED⟧ — JYH: "yes, ratify the freeze and v2" (2026-07-29 07:24 PDT)
+
+The second-road freeze v2 is RATIFIED with its recommendations:
+**D-1 = option (b), the m4_wave_exit_sup q-free SHAPE** (the class
+machinery lives in the supply chain, never the register); **the
+_False family RETIRED** (no split twins; the ¬-form is the spine's
+currency). The wave plan is live: ① the split twins (~16 post-retire,
+800–1200 ln) fires NOW; ② strict after ①; ③∥④ after ① (the composed
+drift interface co-designed); ⑤ after ③+④ with the D₀-truncation
+test FIRST. The port gate unchanged (JYH, after ⑤).
