@@ -762,23 +762,27 @@ graded gain `integral_ramMain_le_exp_mul_ramR` → `G4a`'s covering
 
 The `v`-sum is FREE here: after the kill the summand no longer depends on `v`, so it is
 `#I_j` times its top — §8.1's geometric series has no counterpart at `j ≥ 2`. -/
-theorem Ej_bound :
+theorem Ej_bound_gen :
     ∃ C : ℝ, 0 < C ∧ ∀ (c a b : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ) (η : ℝ)
-      (Jb j N Xd P1 : ℕ) (X T t₁ : ℝ),
+      (Jb j N Xd P1 : ℕ) (X T t₁ row : ℝ),
       LevelGates Pseq Qseq Hseq η P1 Xd j →
-      1 ≤ Xd → 2 * Xd ≤ N → 0 ≤ T →
-      (∀ p m, p.Prime → Pseq j ≤ p → p ≤ Qseq j → ¬ p ∣ m → a (p * m) = b m * c p) →
+      1 ≤ Xd → 0 ≤ T →
       (∀ m, ‖b m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
-      (∀ p m : ℕ, p.Prime → Pseq j ≤ p → p ≤ Qseq j → c p * b m ≠ 0 →
-        (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
+      ((∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
+            ‖spoly N a t‖ ^ 2)
+          ≤ 2 * ((ramI (Hseq j) (Pseq j) (Qseq j)).card : ℝ)
+              * (∑ v ∈ ramI (Hseq j) (Pseq j) (Qseq j),
+                  ∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
+                    ‖ramMain (Hseq j) N Xd (Pseq j) (Qseq j) b c v t‖ ^ 2)
+            + row) →
       (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
           ‖spoly N a t‖ ^ 2)
         ≤ 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)
               * (1 / ((j : ℝ) ^ 2 * (P1 : ℝ)))
-          + lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a b c := by
+          + row := by
   obtain ⟨C, hC, hcell⟩ := cell_bound_pinned
   refine ⟨C, hC, ?_⟩
-  intro c a b Pseq Qseq Hseq η Jb j N Xd P1 X T t₁ hG hXd hN hT hcoef hb hc hwin
+  intro c a b Pseq Qseq Hseq η Jb j N Xd P1 X T t₁ row hG hXd hT hb hc hL12
   -- ⟦THE GATES, UNPACKED⟧
   have hη2 : (0 : ℝ) < η / 2 := hG.cell.eta_pos
   have hη : (0 : ℝ) < η := by linarith
@@ -975,13 +979,38 @@ theorem Ej_bound :
           mul_le_mul_of_nonneg_left hkill (mul_nonneg hGpos (by norm_num))
       _ = 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)
             * (1 / ((j : ℝ) ^ 2 * (P1 : ℝ))) := by ring
-  -- ⟦LEMMA 12, AND THE ROWS⟧
-  have hL12 := lemma12_on_TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j hHj N Xd hXd hN hPj1
-    a b c hcoef hb hc hwin X T t₁ hT
+  -- ⟦THE CARRIED LEMMA-12 ROW⟧
   have hscaled := mul_le_mul_of_nonneg_left hsum
     (by positivity : (0:ℝ) ≤ 2 * ((ramI (Hseq j) (Pseq j) (Qseq j)).card : ℝ))
-  rw [lemma12Rows]
   linarith [hL12, hscaled, hmain]
+
+/-- **H-1 — THE LEVEL-`j` PAGE** (`Ej_bound`) — `Ej_bound_gen` at the LANDED three-row
+Lemma-12 exit `TLegPreamble.lemma12_on_TsetG`.  Statement unchanged. -/
+theorem Ej_bound :
+    ∃ C : ℝ, 0 < C ∧ ∀ (c a b : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ) (η : ℝ)
+      (Jb j N Xd P1 : ℕ) (X T t₁ : ℝ),
+      LevelGates Pseq Qseq Hseq η P1 Xd j →
+      1 ≤ Xd → 2 * Xd ≤ N → 0 ≤ T →
+      (∀ p m, p.Prime → Pseq j ≤ p → p ≤ Qseq j → ¬ p ∣ m → a (p * m) = b m * c p) →
+      (∀ m, ‖b m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∀ p m : ℕ, p.Prime → Pseq j ≤ p → p ≤ Qseq j → c p * b m ≠ 0 →
+        (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
+      (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
+          ‖spoly N a t‖ ^ 2)
+        ≤ 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)
+              * (1 / ((j : ℝ) ^ 2 * (P1 : ℝ)))
+          + lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a b c := by
+  obtain ⟨C, hC, hgen⟩ := Ej_bound_gen
+  refine ⟨C, hC, ?_⟩
+  intro c a b Pseq Qseq Hseq η Jb j N Xd P1 X T t₁ hG hXd hN hT hcoef hb hc hwin
+  have hlogPj : (2 : ℝ) ≤ Real.log (Pseq j : ℝ) := hG.logPj_ge
+  have hPj1 : 1 ≤ Pseq j := by
+    rcases Nat.eq_zero_or_pos (Pseq j) with h | h
+    · rw [h, Nat.cast_zero, Real.log_zero] at hlogPj; linarith
+    · exact h
+  exact hgen c a b Pseq Qseq Hseq η Jb j N Xd P1 X T t₁ _ hG hXd hT hb hc
+    (lemma12_on_TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j hG.two_le_Hj N Xd hXd hN hPj1
+      a b c hcoef hb hc hwin X T t₁ hT)
 
 /-! ## §9 — H-3: the `j`-collection and THE GRADED `𝒯`-LEG -/
 
@@ -1037,6 +1066,88 @@ block is `O(1/P₁)`, so the leg is `o(1)` exactly when §8.1's is — which is 
 Every gate rides the statement: the per-level bundle `LevelGates … j` for `2 ≤ j ≤ J`, level
 1's own four, the Lemma-12 data at every level, `η ∈ (0,1/6)` (which supplies `α`'s numerals
 through `alpha_gates_from_eta`), and the measure frame. -/
+theorem TLeg_bound_gen :
+    ∃ C : ℝ, 0 < C ∧ ∀ (c a : ℕ → ℂ) (b : ℕ → ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ)
+      (η : ℝ) (Jb N Xd P1 : ℕ) (X T t₁ : ℝ) (row : ℕ → ℝ),
+      0 < η → η < 1 / 6 → 1 ≤ Jb → 1 ≤ Xd → 0 ≤ T → (0 : ℝ) < (P1 : ℝ) →
+      (∀ j ∈ Finset.Icc 2 Jb, LevelGates Pseq Qseq Hseq η P1 Xd j) →
+      2 ≤ Hseq 1 → 1 ≤ Pseq 1 → Pseq 1 ≤ Qseq 1 →
+      (∀ v ∈ ramI (Hseq 1) (Pseq 1) (Qseq 1), 1 ≤ ramRbot (Hseq 1) Xd v) →
+      (∀ j m, ‖b j m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∀ j ∈ Finset.Icc 1 Jb,
+        (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
+            ‖spoly N a t‖ ^ 2)
+          ≤ 2 * ((ramI (Hseq j) (Pseq j) (Qseq j)).card : ℝ)
+              * (∑ v ∈ ramI (Hseq j) (Pseq j) (Qseq j),
+                  ∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
+                    ‖ramMain (Hseq j) N Xd (Pseq j) (Qseq j) (b j) c v t‖ ^ 2)
+            + row j) →
+      (∫ t in (seamAnn X T \ seamBall X t₁) ∩ seamTtotG c Pseq Qseq Hseq (mrAlpha η) Jb,
+          ‖spoly N a t‖ ^ 2)
+        ≤ 2 * (Hseq 1 * Real.log (Qseq 1 : ℝ) + 1)
+              * (T * (Qseq 1 : ℝ) / (Xd : ℝ) + 1)
+              * (Pseq 1 : ℝ) ^ (-(2 * mrAlpha η 1))
+              * (4 * (Hseq 1 / (1 - 2 * mrAlpha η 1))
+                    * Real.exp ((1 - 2 * mrAlpha η 1) / Hseq 1)
+                  + 60 * (Hseq 1 / mrAlpha η 1) * Real.exp (4 * mrAlpha η 1 / Hseq 1))
+          + 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240) * (1 / (P1 : ℝ))
+          + ∑ j ∈ Finset.Icc 1 Jb, row j := by
+  obtain ⟨C, hC, hEj⟩ := Ej_bound_gen
+  refine ⟨C, hC, ?_⟩
+  intro c a b Pseq Qseq Hseq η Jb N Xd P1 X T t₁ row hη h6 hJb hXd hT hP1 hG
+    hH1 hP1s hPQ1 hbot1 hb hc hrow
+  have hXdR : (0 : ℝ) < (Xd : ℝ) := by exact_mod_cast hXd
+  obtain ⟨hα1, hα1', -⟩ := alpha_gates_from_eta η hη h6
+  -- ⟦THE SPLIT OVER THE DISJOINT LEVELS⟧
+  have hAm : MeasurableSet (seamAnn X T \ seamBall X t₁) :=
+    (measurableSet_seamAnn X T).diff (measurableSet_seamBall X t₁)
+  have hAsub : seamAnn X T \ seamBall X t₁ ⊆ Set.Icc (-T) T :=
+    fun _ ht => seamAnn_subset_Icc X T ht.1
+  have hadd := seam_T_additivityG (f := c) (Pseq := Pseq) (Qseq := Qseq) (Hseq := Hseq)
+    (αseq := mrAlpha η) (J := Jb) (F := fun t : ℝ => ‖spoly N a t‖ ^ 2)
+    ((continuous_spoly N a).norm.pow 2) hT hAm hAsub
+  have hIcc : Finset.Icc 1 Jb = insert 1 (Finset.Icc 2 Jb) := by
+    ext x
+    simp only [Finset.mem_Icc, Finset.mem_insert]
+    omega
+  have hnotmem : (1 : ℕ) ∉ Finset.Icc 2 Jb := by simp
+  -- ⟦LEVEL 1: MR §8.1 at the pins⟧
+  have h1 := E1_pin_gen c Pseq Qseq Hseq (mrAlpha η) Jb hH1 hα1 hα1' N Xd hXd hP1s hPQ1 a (b 1)
+    (hb 1) X T t₁ hT hbot1 (row 1) (hrow 1 (by simp [Finset.mem_Icc]; omega))
+  -- ⟦LEVELS `j ≥ 2`: MR §8.2⟧
+  have h2 : ∀ j ∈ Finset.Icc 2 Jb,
+      (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
+          ‖spoly N a t‖ ^ 2)
+        ≤ (1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)) * (1 / ((j : ℝ) ^ 2 * (P1 : ℝ)))
+          + row j := by
+    intro j hj
+    have hj1 : j ∈ Finset.Icc 1 Jb := by
+      rw [Finset.mem_Icc] at hj ⊢
+      omega
+    have h := hEj c a (b j) Pseq Qseq Hseq η Jb j N Xd P1 X T t₁ (row j) (hG j hj) hXd hT
+      (hb j) hc (hrow j hj1)
+    calc (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
+            ‖spoly N a t‖ ^ 2)
+        ≤ 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)
+              * (1 / ((j : ℝ) ^ 2 * (P1 : ℝ)))
+            + row j := h
+      _ = (1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)) * (1 / ((j : ℝ) ^ 2 * (P1 : ℝ)))
+            + row j := by ring
+  have hK0 : (0 : ℝ) ≤ 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240) := by
+    have hTX0 : (0 : ℝ) ≤ 2 * T / (Xd : ℝ) + 240 := by
+      have h : (0 : ℝ) ≤ 2 * T / (Xd : ℝ) := div_nonneg (by linarith) hXdR.le
+      linarith
+    exact mul_nonneg (mul_nonneg (by linarith : (0:ℝ) ≤ 1536 * C) (Real.exp_pos 3).le) hTX0
+  have hcol := sum_Ej_collected (1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)) hK0 P1 Jb hP1
+    (fun j => ∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
+      ‖spoly N a t‖ ^ 2)
+    (fun j => row j) h2
+  -- ⟦THE ASSEMBLY⟧
+  rw [hadd, hIcc, Finset.sum_insert hnotmem, Finset.sum_insert hnotmem]
+  linarith [h1, hcol]
+
+/-- **H-3 — THE GRADED `𝒯`-LEG** (`TLeg_bound`) — `TLeg_bound_gen` at the LANDED three-row
+Lemma-12 exit `TLegPreamble.lemma12_on_TsetG`, level by level.  Statement unchanged. -/
 theorem TLeg_bound :
     ∃ C : ℝ, 0 < C ∧ ∀ (c a : ℕ → ℂ) (b : ℕ → ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ)
       (η : ℝ) (Jb N Xd P1 : ℕ) (X T t₁ : ℝ),
@@ -1061,60 +1172,32 @@ theorem TLeg_bound :
           + 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240) * (1 / (P1 : ℝ))
           + ∑ j ∈ Finset.Icc 1 Jb,
               lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c := by
-  obtain ⟨C, hC, hEj⟩ := Ej_bound
+  obtain ⟨C, hC, hgen⟩ := TLeg_bound_gen
   refine ⟨C, hC, ?_⟩
   intro c a b Pseq Qseq Hseq η Jb N Xd P1 X T t₁ hη h6 hJb hXd hN hT hP1 hG
     hH1 hP1s hPQ1 hbot1 hcoef hb hc hwin
-  have hXdR : (0 : ℝ) < (Xd : ℝ) := by exact_mod_cast hXd
-  obtain ⟨hα1, hα1', -⟩ := alpha_gates_from_eta η hη h6
-  -- ⟦THE SPLIT OVER THE DISJOINT LEVELS⟧
-  have hAm : MeasurableSet (seamAnn X T \ seamBall X t₁) :=
-    (measurableSet_seamAnn X T).diff (measurableSet_seamBall X t₁)
-  have hAsub : seamAnn X T \ seamBall X t₁ ⊆ Set.Icc (-T) T :=
-    fun _ ht => seamAnn_subset_Icc X T ht.1
-  have hadd := seam_T_additivityG (f := c) (Pseq := Pseq) (Qseq := Qseq) (Hseq := Hseq)
-    (αseq := mrAlpha η) (J := Jb) (F := fun t : ℝ => ‖spoly N a t‖ ^ 2)
-    ((continuous_spoly N a).norm.pow 2) hT hAm hAsub
-  have hIcc : Finset.Icc 1 Jb = insert 1 (Finset.Icc 2 Jb) := by
-    ext x
-    simp only [Finset.mem_Icc, Finset.mem_insert]
-    omega
-  have hnotmem : (1 : ℕ) ∉ Finset.Icc 2 Jb := by simp
-  -- ⟦LEVEL 1: MR §8.1 at the pins⟧
-  have h1 := E1_pin c Pseq Qseq Hseq (mrAlpha η) Jb hH1 hα1 hα1' N Xd hXd hN hP1s hPQ1 a (b 1)
-    (hcoef 1 (by simp [Finset.mem_Icc]; omega)) (hb 1) hc
-    (hwin 1 (by simp [Finset.mem_Icc]; omega)) X T t₁ hT hbot1
-  -- ⟦LEVELS `j ≥ 2`: MR §8.2⟧
-  have h2 : ∀ j ∈ Finset.Icc 2 Jb,
-      (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
-          ‖spoly N a t‖ ^ 2)
-        ≤ (1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)) * (1 / ((j : ℝ) ^ 2 * (P1 : ℝ)))
-          + lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c := by
-    intro j hj
-    have hj1 : j ∈ Finset.Icc 1 Jb := by
+  refine hgen c a b Pseq Qseq Hseq η Jb N Xd P1 X T t₁
+    (fun j => lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c)
+    hη h6 hJb hXd hT hP1 hG hH1 hP1s hPQ1 hbot1 hb hc ?_
+  intro j hj
+  rcases Nat.lt_or_ge j 2 with hj2 | hj2
+  · have hj1 : j = 1 := by
+      rw [Finset.mem_Icc] at hj
+      omega
+    subst hj1
+    exact lemma12_on_TsetG c Pseq Qseq Hseq (mrAlpha η) Jb 1 hH1 N Xd hXd hN hP1s
+      a (b 1) c (hcoef 1 hj) (hb 1) hc (hwin 1 hj) X T t₁ hT
+  · have hj2' : j ∈ Finset.Icc 2 Jb := by
       rw [Finset.mem_Icc] at hj ⊢
       omega
-    have h := hEj c a (b j) Pseq Qseq Hseq η Jb j N Xd P1 X T t₁ (hG j hj) hXd hN hT
-      (hcoef j hj1) (hb j) hc (hwin j hj1)
-    calc (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
-            ‖spoly N a t‖ ^ 2)
-        ≤ 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)
-              * (1 / ((j : ℝ) ^ 2 * (P1 : ℝ)))
-            + lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c := h
-      _ = (1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)) * (1 / ((j : ℝ) ^ 2 * (P1 : ℝ)))
-            + lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c := by ring
-  have hK0 : (0 : ℝ) ≤ 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240) := by
-    have hTX0 : (0 : ℝ) ≤ 2 * T / (Xd : ℝ) + 240 := by
-      have h : (0 : ℝ) ≤ 2 * T / (Xd : ℝ) := div_nonneg (by linarith) hXdR.le
-      linarith
-    exact mul_nonneg (mul_nonneg (by linarith : (0:ℝ) ≤ 1536 * C) (Real.exp_pos 3).le) hTX0
-  have hcol := sum_Ej_collected (1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)) hK0 P1 Jb hP1
-    (fun j => ∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
-      ‖spoly N a t‖ ^ 2)
-    (fun j => lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c) h2
-  -- ⟦THE ASSEMBLY⟧
-  rw [hadd, hIcc, Finset.sum_insert hnotmem, Finset.sum_insert hnotmem, lemma12Rows]
-  linarith [h1, hcol]
+    have hGj := hG j hj2'
+    have hlogPj : (2 : ℝ) ≤ Real.log (Pseq j : ℝ) := hGj.logPj_ge
+    have hPj1 : 1 ≤ Pseq j := by
+      rcases Nat.eq_zero_or_pos (Pseq j) with h | h
+      · rw [h, Nat.cast_zero, Real.log_zero] at hlogPj; linarith
+      · exact h
+    exact lemma12_on_TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j hGj.two_le_Hj N Xd hXd hN hPj1
+      a (b j) c (hcoef j hj) (hb j) hc (hwin j hj) X T t₁ hT
 
 /-! ## §10 — H-4: the feed into the graded capstone's `𝒯`-slot -/
 
@@ -1142,6 +1225,52 @@ here is the simultaneous satisfiability of that theorem's own ~60 gates with `TL
 graded `H_j`/`P_j`/`Q_j` ladder); wiring those is a station-level reconciliation, not a
 statement fit, and is recorded as `G5`'s residual rather than hidden inside a
 `sorry`-free-but-vacuous instance. -/
+theorem TLeg_feeds_capstone_gen :
+    ∃ C : ℝ, 0 < C ∧ ∀ (c a : ℕ → ℂ) (b : ℕ → ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ)
+      (η : ℝ) (Jset N Xd P1 : ℕ) (X Tann t₁ S ε : ℝ) (row : ℕ → ℝ),
+      0 < η → η < 1 / 6 → 1 ≤ Jset → 1 ≤ Xd → 0 ≤ Tann → (0 : ℝ) < (P1 : ℝ) →
+      (∀ j ∈ Finset.Icc 2 Jset, LevelGates Pseq Qseq Hseq η P1 Xd j) →
+      2 ≤ Hseq 1 → 1 ≤ Pseq 1 → Pseq 1 ≤ Qseq 1 →
+      (∀ v ∈ ramI (Hseq 1) (Pseq 1) (Qseq 1), 1 ≤ ramRbot (Hseq 1) Xd v) →
+      (∀ j m, ‖b j m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∀ j ∈ Finset.Icc 1 Jset,
+        (∫ t in (seamAnn X Tann \ seamBall X t₁)
+              ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jset j, ‖spoly N a t‖ ^ 2)
+          ≤ 2 * ((ramI (Hseq j) (Pseq j) (Qseq j)).card : ℝ)
+              * (∑ v ∈ ramI (Hseq j) (Pseq j) (Qseq j),
+                  ∫ t in (seamAnn X Tann \ seamBall X t₁)
+                      ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jset j,
+                    ‖ramMain (Hseq j) N Xd (Pseq j) (Qseq j) (b j) c v t‖ ^ 2)
+            + row j) →
+      -- ⟦THE CAPSTONE ROW⟧ `GradedCapstone.hUG34_unconditional`'s conclusion, verbatim,
+      -- at `fb := c` and `αseq := mrAlpha η`
+      (∫ t in seamAnn X Tann, ‖spoly N a t‖ ^ 2)
+          ≤ 8 * S ^ 2
+            + (∫ t in (seamAnn X Tann \ seamBall X t₁)
+                ∩ seamTtotG c Pseq Qseq Hseq (mrAlpha η) Jset, ‖spoly N a t‖ ^ 2)
+            + 2 * ((Tann / X + 1) * (Real.log X) ^ (-theta293 + ε)) →
+      (∫ t in seamAnn X Tann, ‖spoly N a t‖ ^ 2)
+        ≤ 8 * S ^ 2
+          + (2 * (Hseq 1 * Real.log (Qseq 1 : ℝ) + 1)
+                * (Tann * (Qseq 1 : ℝ) / (Xd : ℝ) + 1)
+                * (Pseq 1 : ℝ) ^ (-(2 * mrAlpha η 1))
+                * (4 * (Hseq 1 / (1 - 2 * mrAlpha η 1))
+                      * Real.exp ((1 - 2 * mrAlpha η 1) / Hseq 1)
+                    + 60 * (Hseq 1 / mrAlpha η 1) * Real.exp (4 * mrAlpha η 1 / Hseq 1))
+              + 1536 * C * Real.exp 3 * (2 * Tann / (Xd : ℝ) + 240) * (1 / (P1 : ℝ))
+              + ∑ j ∈ Finset.Icc 1 Jset, row j)
+          + 2 * ((Tann / X + 1) * (Real.log X) ^ (-theta293 + ε)) := by
+  obtain ⟨C, hC, hleg⟩ := TLeg_bound_gen
+  refine ⟨C, hC, ?_⟩
+  intro c a b Pseq Qseq Hseq η Jset N Xd P1 X Tann t₁ S ε row hη h6 hJ hXd hT hP1 hG
+    hH1 hP1s hPQ1 hbot1 hb hc hrow hcap
+  have h := hleg c a b Pseq Qseq Hseq η Jset N Xd P1 X Tann t₁ row hη h6 hJ hXd hT hP1 hG
+    hH1 hP1s hPQ1 hbot1 hb hc hrow
+  linarith [hcap, h]
+
+/-- **H-4 — THE SEAM ROW IN CLOSED SHAPE** (`TLeg_feeds_capstone`) —
+`TLeg_feeds_capstone_gen` at the LANDED three-row Lemma-12 exit
+`TLegPreamble.lemma12_on_TsetG`.  Statement unchanged. -/
 theorem TLeg_feeds_capstone :
     ∃ C : ℝ, 0 < C ∧ ∀ (c a : ℕ → ℂ) (b : ℕ → ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ)
       (η : ℝ) (Jset N Xd P1 : ℕ) (X Tann t₁ S ε : ℝ),
@@ -1174,12 +1303,31 @@ theorem TLeg_feeds_capstone :
               + ∑ j ∈ Finset.Icc 1 Jset,
                   lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) Tann a (b j) c)
           + 2 * ((Tann / X + 1) * (Real.log X) ^ (-theta293 + ε)) := by
-  obtain ⟨C, hC, hleg⟩ := TLeg_bound
+  obtain ⟨C, hC, hgen⟩ := TLeg_feeds_capstone_gen
   refine ⟨C, hC, ?_⟩
   intro c a b Pseq Qseq Hseq η Jset N Xd P1 X Tann t₁ S ε hη h6 hJ hXd hN hT hP1 hG
     hH1 hP1s hPQ1 hbot1 hcoef hb hc hwin hcap
-  have h := hleg c a b Pseq Qseq Hseq η Jset N Xd P1 X Tann t₁ hη h6 hJ hXd hN hT hP1 hG
-    hH1 hP1s hPQ1 hbot1 hcoef hb hc hwin
-  linarith [hcap, h]
+  refine hgen c a b Pseq Qseq Hseq η Jset N Xd P1 X Tann t₁ S ε
+    (fun j => lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) Tann a (b j) c)
+    hη h6 hJ hXd hT hP1 hG hH1 hP1s hPQ1 hbot1 hb hc ?_ hcap
+  intro j hj
+  rcases Nat.lt_or_ge j 2 with hj2 | hj2
+  · have hj1 : j = 1 := by
+      rw [Finset.mem_Icc] at hj
+      omega
+    subst hj1
+    exact lemma12_on_TsetG c Pseq Qseq Hseq (mrAlpha η) Jset 1 hH1 N Xd hXd hN hP1s
+      a (b 1) c (hcoef 1 hj) (hb 1) hc (hwin 1 hj) X Tann t₁ hT
+  · have hj2' : j ∈ Finset.Icc 2 Jset := by
+      rw [Finset.mem_Icc] at hj ⊢
+      omega
+    have hGj := hG j hj2'
+    have hlogPj : (2 : ℝ) ≤ Real.log (Pseq j : ℝ) := hGj.logPj_ge
+    have hPj1 : 1 ≤ Pseq j := by
+      rcases Nat.eq_zero_or_pos (Pseq j) with h | h
+      · rw [h, Nat.cast_zero, Real.log_zero] at hlogPj; linarith
+      · exact h
+    exact lemma12_on_TsetG c Pseq Qseq Hseq (mrAlpha η) Jset j hGj.two_le_Hj N Xd hXd hN hPj1
+      a (b j) c (hcoef j hj) (hb j) hc (hwin j hj) X Tann t₁ hT
 
 end Salt.MR

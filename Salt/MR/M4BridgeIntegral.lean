@@ -241,7 +241,7 @@ private lemma shortSum_bound (a : ℕ → ℂ) (s0 : Finset ℕ) (x hlen : ℝ) 
       (fun _ _ _ => norm_nonneg _))
 
 /-- A bounded measurable real function is interval-integrable (`Lemma14`'s helper). -/
-private lemma bdd_meas_intervalIntegrable {f : ℝ → ℝ} {C : ℝ} (p q : ℝ)
+private lemma bdd_meas_intervalIntegrable_bridge {f : ℝ → ℝ} {C : ℝ} (p q : ℝ)
     (hm : Measurable f) (hb : ∀ x, ‖f x‖ ≤ C) : IntervalIntegrable f volume p q :=
   ⟨MeasureTheory.Integrable.mono'
       (_root_.intervalIntegrable_const (μ := volume) (c := C) (a := p) (b := q)).1
@@ -257,7 +257,7 @@ which is why the piecewise-constant structure never has to be exhibited to `Meas
 theorem shortSum_sq_intervalIntegrable (a : ℕ → ℂ) (s0 : Finset ℕ) (hlen p q : ℝ) :
     IntervalIntegrable
       (fun x : ℝ => ‖((1 / hlen : ℝ) : ℂ) * shortSum a s0 x hlen‖ ^ 2) volume p q := by
-  refine bdd_meas_intervalIntegrable (C := (|1 / hlen| * ∑ m ∈ s0, ‖a m‖) ^ 2) p q
+  refine bdd_meas_intervalIntegrable_bridge (C := (|1 / hlen| * ∑ m ∈ s0, ‖a m‖) ^ 2) p q
     (((shortSum_meas a s0 hlen).const_mul _).norm.pow_const 2) (fun x => ?_)
   have hsum0 : (0 : ℝ) ≤ ∑ m ∈ s0, ‖a m‖ :=
     Finset.sum_nonneg (fun m _ => norm_nonneg _)

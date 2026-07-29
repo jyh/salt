@@ -206,8 +206,13 @@ import Salt.MR.M4WaveClosed
 import Salt.MR.M4NonCoprime
 import Salt.MR.M4Maximal
 import Salt.MR.M4RowSupply
+import Salt.MR.M4P2MR
+import Salt.MR.M4RowMR
 import Salt.MR.M4Band
+import Salt.MR.M4Puncture
 import Salt.MR.M4DoorRow
+import Salt.MR.M4T0Datum
+import Salt.MR.FarL2
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -2805,10 +2810,25 @@ open Salt.Tactic in
 -- at `X := A+s` read `le_rfl` and `(B+s)+2^j ≤ 2(A+s)`, which is `M4Door.doorLadder_fit`'s
 -- `B + H ≤ 2A` with `2^j ≤ H`: the shift appears on both sides and pays for itself, and the
 -- harmonic→flat exchange keeps the ladder's own factor `2` because `B + s ≤ B + H ≤ 2A`.
--- Composed grade `Bcl H = m4Cmax H·(2·MS H) = 6(log₂H+1)·MS H`; the close is
--- `m4_wave_closed_of_dyadicRow`, `m4_wave_closed_of_chi`'s analytic slot filled with ⟦R1⟧
--- discharged and only ⟦R2⟧/⟦R3⟧ outstanding.  Anti-vacuity: `m4_chiShiftBlock_trivial` at
--- grade `1`.
+-- ⟦THE LENGTH-GRADED RE-CUT⟧ (WALL 2's repair, in place): the row grade is
+-- `MS : ℕ → ℕ → ℝ`, read `MS j H` — the grade at dyadic length `2^j` — because the door's
+-- capstone cannot be STATED below `j = M·Adoor M` (`M4DoorRow.door_length_gate_iff`) and at
+-- `j = 0` the row quantity IS the block density, `≍ 1`.  The assembly absorbs the grading at
+-- a NAMED floor `j₀` (never `2^18` inlined — the `M`-dependence is the point): the full
+-- count `3H²` charges the analytic envelope `MSan` on `j₀ ≤ j`, while the small head
+-- `∑_{j<j₀}(⌊H/2^{j+1}⌋+1)(2^j)² ≤ 2H·4^{j₀}` (`dyadic_count_weight_small_le` — LINEAR in
+-- `H`) charges the trivial envelope `MStr` on `j < j₀`.  Composed grade
+-- `Bcl H = m4BclGraded j₀ (2·MSan) (2·MStr) H
+--        = 6(log₂H+1)·MSan H + (log₂H+1)·(4·4^{j₀}/H)·MStr H` — the second summand carries
+-- `1/H`, so at fixed `M` the small lengths decay.  THE THRESHOLD, symbolic
+-- (`m4SmallGradeFits`, `m4SmallGradeFits_of_threshold`): `2·4^{j₀}·D ≤ H·MSan H` for any
+-- envelope `MStr H ≤ D`, under which the split costs at most a factor 2
+-- (`m4BclGraded_le_of_fits`).  The close is `m4_wave_closed_of_dyadicRow`,
+-- `m4_wave_closed_of_chi`'s analytic slot filled with ⟦R1⟧ discharged and only ⟦R2⟧/⟦R3⟧
+-- outstanding; its conclusion `¬ logChowla2Fails` is unmoved by the re-cut, and only the
+-- register's grade items move (two envelopes + two envelope gates + the bound floor `j₀`;
+-- the drift and non-coprime lines read `m4BclGraded`).  Anti-vacuity:
+-- `m4_chiShiftBlock_trivial` at grade `1`, now at EVERY length.
 open Salt.Tactic in
 #audit_axioms Salt.MR.sum_sievedWindow_add
   Salt.MR.dyadic_prefix_shift
@@ -2816,9 +2836,17 @@ open Salt.Tactic in
   Salt.MR.norm_sum_sievedWindow_sq_le_dyadic
   Salt.MR.doorChiSup_sq_le_dyadic
   Salt.MR.sum_Ioc_shift
+  Salt.MR.dyadic_count_weight_term_le
+  Salt.MR.dyadic_count_weight_term_nonneg
   Salt.MR.dyadic_count_weight_le
+  Salt.MR.dyadic_count_weight_small_le
   Salt.MR.m4Cmax
   Salt.MR.m4Cmax_nonneg
+  Salt.MR.m4BclGraded
+  Salt.MR.m4BclGraded_nonneg
+  Salt.MR.m4SmallGradeFits
+  Salt.MR.m4SmallGradeFits_of_threshold
+  Salt.MR.m4BclGraded_le_of_fits
   Salt.MR.M4ChiShiftBlockMeanSq
   Salt.MR.m4_chiShiftBlock_trivial
   Salt.MR.m4_chiBlockMeanSq_of_shiftBlock
@@ -2939,14 +2967,19 @@ open Salt.Tactic in
 -- `door_block_one_wide` shows the door's level-1 K-block spans `2^{(M−1)·Adoor M}` (a factor
 -- 4 already at M ≥ 2) and the sieve `𝒮` puts live points at block primes throughout it.  This
 -- is `M4Join` §1's ⟦THE WALL⟧ alive on the K-BLOCK chain: the closing wave deleted `hwinPin`
--- from the Ramaré-band pin chain but left `hwinBand` standing.  ⚠ WALL 2 — THE UNIFORM-IN-j
--- GRADE: `door_length_gate` solves the capstone's window gate `𝒬K_1 ≤ h` at `h = 2^j` into
--- `M·Adoor M ≤ j`, so every `j < 2^18` is outside the capstone's statement
--- (`door_length_gate_fails_of_small`) — and at `j = 0` the row quantity IS the block density
+-- from the Ramaré-band pin chain but left `hwinBand` standing.  ✔ WALL 2 — THE UNIFORM-IN-j
+-- GRADE, **REPAIRED** (WALL2-REGRADE, same day): `door_length_gate` solves the capstone's
+-- window gate `𝒬K_1 ≤ h` at `h = 2^j` into `M·Adoor M ≤ j` — and `door_length_gate_iff`
+-- shows the converse, so `doorRowFloor M = M·Adoor M` is EXACTLY the capstone's statement
+-- boundary, not a chosen cut.  Every `j < 2^18` is outside it
+-- (`door_length_gate_fails_of_small`), and at `j = 0` the row quantity IS the block density
 -- of live sieved residues (≍ 1/loglog H), against a consumer budget of `(log H)^{−30}`.  The
--- dyadic assembly does not need uniformity: `M4Maximal` §4's `dyadic_count_weight_le` is
--- where the length-dependence is discarded, and a length-graded `MS : ℕ → ℕ → ℝ` costs
--- nothing there.  Both repairs are statement changes upstream of this file
+-- dyadic assembly never needed uniformity, and `M4Maximal` now says so: the row grade is
+-- length-graded (`MS j H`) and the split assembly charges the trivial envelope only on
+-- `j < j₀`, where the weighted count is `2H·4^{j₀}` — LINEAR in `H`.  `door_smallGrade_fits`
+-- states the door's threshold in bytes: `2·4^{M·Adoor M}·D ≤ H·MSan H` for any density
+-- envelope `D`, one inequality in `H` at fixed `M`.  WALL 1 remains a statement change
+-- upstream of this file
 open Salt.Tactic in
 #audit_axioms Salt.MR.winCutH
   Salt.MR.winCutH_supp0
@@ -2964,3 +2997,227 @@ open Salt.Tactic in
   Salt.MR.door_block_one_wide
   Salt.MR.door_length_gate
   Salt.MR.door_length_gate_fails_of_small
+  Salt.MR.doorRowFloor
+  Salt.MR.door_length_gate_iff
+  Salt.MR.door_smallGrade_fits
+
+-- ⟦THE ENDPOINT STRADDLE⟧ (`M4Band` §4, ENDPOINT executor, 2026-07-28).  `M4DoorRow` §1's
+-- SMALL finding closed on the DATUM side.  THE CLASH: the capstone's two support pins meet at
+-- the block bottom — `hsupp0` demands `a n = 0` for `(n:ℝ) ≤ X = X_d` while `hasupp` allows
+-- support on `[X_d, 2X_d]` — so the door datum must be cut HALF-OPEN (`winCutH`), while
+-- `M4Band` §2's pair law is stated at the CLOSED `winCut`, whose `SeamCoefW` antecedent
+-- `X_d ≤ p·m` INCLUDES the endpoint (`winCut_endpoint`).  THE ROUTE TAKEN (the task's (ii),
+-- made conditional and TIGHT — (i) is unavailable to an executor because `SeamCoefW` is the
+-- capstone's own binder in `M4MeanSq`, and (iii) is refuted: `seamS0`'s strict filter governs
+-- the CONCLUSION, not the `hcoefPin` binder, which quantifies over every admissible `(p, m)`).
+-- `memSCoeff_seamCoefW_band_gen` re-cuts §2's law at an ABSTRACT cut — agreement with the
+-- sieved datum on the CLOSED window is all the proof ever used — and
+-- `memSCoeff_seamCoefW_band_H` reads it at a HALF-OPEN cut (agreement strictly above `X_d`,
+-- vanishing AT `X_d`) under ONE new binder `hend : 1_𝒮·λχ̄ (X_d) = 0`, with the door forms
+-- `doorChiCoeff_seamCoefW_band_H` and `doorChiCoeff_seamCoefW_at_door_H` (gate discharged from
+-- the capstone's own `hQXd`/`hPlow`, the half-open sibling of `doorChiCoeff_seamCoefW_at_door`).
+-- ⚠ THE BINDER IS FORCED, NOT A CONVENIENCE: `seamCoefW_endpoint_forced` shows any cut with
+-- `a X_d = 0` satisfying the CLOSED antecedent must kill the pair's right-hand side at every
+-- band factorization of `X_d`, and `memSCoeff_endpoint_zero_of_seamCoefW` turns that (through
+-- §1's shift-up identity, `b m·cf p = 1_𝒮·λχ̄(p·m) = 1_𝒮·λχ̄(X_d)`) into the CONVERSE of
+-- `hend` whenever `X_d = p·m` at a band prime.  So the endpoint is a genuine arithmetic cost
+-- at the door's own `X_d = doorLadder R.x H (i+1) + s` (no power-of-2 escape), payable by
+-- `memSCoeff_eq_zero_of_not_memS` (`X_d ∉ 𝒮`) or by choosing a band whose primes miss `X_d`.
+-- ⚠ THE CUT IS LEFT ABSTRACT because `winCutH` is defined DOWNSTREAM in `M4DoorRow`; the
+-- instance is that file's one-liner
+-- `… _ hgate (fun n h₁ h₂ => winCutH_of_mem _ h₁ h₂) (winCutH_supp0 _ le_rfl) hend`
+-- (kernel-checked in scratch against `M4DoorRow`, both the band and the at-door forms)
+open Salt.Tactic in
+#audit_axioms Salt.MR.memSCoeff_seamCoefW_band_gen
+  Salt.MR.memSCoeff_seamCoefW_band_H
+  Salt.MR.doorChiCoeff_seamCoefW_band_H
+  Salt.MR.doorChiCoeff_seamCoefW_at_door_H
+  Salt.MR.memSCoeff_eq_zero_of_not_memS
+  Salt.MR.seamCoefW_endpoint_forced
+  Salt.MR.memSCoeff_endpoint_zero_of_seamCoefW
+
+-- ⟦T0BAND-DATUM⟧ (`M4T0Datum`, 2026-07-28).  THE `hT0band` SLOT AT THE DOOR'S SIEVED
+-- χ-TWISTED UN-PHASED DATUM — the last analytic item `M4DoorRow`'s ⟦THE `T₀`-BAND, NAMED⟧
+-- recorded as open, closed on the SUPPLIER GENRE's third performance (after `CofactorSupplier`
+-- the socket and `CaseAWide` the wide centre), at the SAME four-piece split.  THE CUT COMMUTES
+-- WITH THE SPLIT (`winCutH_sum_finset`): `winCutH` is multiplication by a `0/1` indicator, so
+-- `doorCofactor0_split` at the shift `Ps := 1` rides through the half-open cut with the same
+-- unimodular coefficients and the pieces cut by the same window (`winCutH_doorChiCoeff_split`,
+-- `door_powerset_card` = 4).  `spolyA` is LINEAR in its coefficient slot (`spolyA_sum_finset`,
+-- the twin of `ramR_sum_finset`), so the door's polynomial sup is the pieces' at `4×`
+-- (`norm_spolyA_of_pieces`).  THE HALF-OPEN COST IS ZERO ON THE LIVE RANGE: `cfb_sup_of_center`
+-- asks agreement on all of `n > X`, the cut gives it only on `(X_d, 2X_d]`, and `m ≤ N ≤ 2X_d`
+-- supplies the difference from the WINDOW PIN instead of a datum hypothesis
+-- (`spolyA_winCutH_split`, `cfb_sup_of_center_cut`, factor `2`).  PER PIECE: Route III
+-- (`hCenter_dissected`, `cSq = 20736`) at the UNDAMPED piece directly — `pieceDatum` is
+-- completely multiplicative (`pieceDatum_isMultiplicative`) and `1`-bounded, and
+-- `caseA_dissect_gen` is NOT specialisable at `x = 1` because its consumer binds `x` over
+-- `[0,1]` and carries a `cofactorMfl` floor the band has not (`piece_center_of_inner`); the
+-- inner sums ride `center_halasz_supply_wideA`, whose ⟦HOIST⟧ gives ONE threshold for all four
+-- pieces at every band frequency, with the dilated window entered by
+-- `seam_ball_leg_station_M_gen`'s own gate `D·(X_w+1) ≤ X−1` (`piece_center_of_wide`).
+-- EXITS: `m4_t0datum_sup` (the `hsup` binder at the grade `8·S₀ = 4` pieces × the cut's `2`),
+-- `m4_hT0band_at_door` (the slot, `cfb_t0band_supply_of_sup` composed) and
+-- `m4_hT0band_at_door_of_wide` (the same from the wide supply's own binders — the kernel
+-- witness that §5's `X−1 < k` window and §7's `X_d ≤ k` window are the same window under
+-- `(X_d : ℝ) = X`).  ⟦THE U1 PRICING HOOK⟧ `cfbM0_add_debit`: the mask debit does not change
+-- the SHAPE of `M₀` (`cfbM0 K q X − D = cfbM0 (K+D) q X`), so `band_floor_M0_pieceDatum` (band
+-- strength `7/30`, NOT the box's `1/16`, less the mask at FACTOR 1) is still `cfbM0`-shaped and
+-- `m4_rawMS_priced_decay`'s route stays reachable; at the door's own ladder the debit is
+-- `X`-FREE and equals `2·(log(4M)+25)` (`band_floor_M0_doorPiece`, `two_le_calE_door`).
+-- CARRIED SYMBOLIC, all of it: the grade gate `hSle`/`hgrade`, `hErr`, the four `Y`-gates, the
+-- piece `hRHS`, the dissection gates and the floor threshold.  No numeral is chosen here.
+-- ⚠ ⟦THE PRICING RESIDUE, NAMED⟧ (module header): §5's `hRHS` is carried at a FREE `B`, and the
+-- corpus's landed pricer `dilated_scale_grade` — datum-generic, so it DOES apply at the piece —
+-- asks its floor on `|v| ≤ Rad ≥ |t₁| + Tstar(k, log k)`, and `Tstar k L = L⁴·k^{1/(4 log L)}` at
+-- `k ≍ X` is `X^{o(1)}`, incomparably wider than the band's `|v| ≤ 2·seamT0 X + 1`.  So the two
+-- floors available at the piece sit on DIFFERENT ranges: band strength `7/30` on the band
+-- (§8), box strength `1/32` on `|v| ≤ 3X` (`capFreeFloor3_pieceDatum`, the range that covers
+-- `Tstar`).  The dissection is FORCED (the door datum is completely multiplicative, NOT
+-- squarefree-linearised), so a consumer pricing through `dilated_scale_grade` gets `M₀` at BOX
+-- strength — and `T0BandCapFree`'s own header records `1/32` as `6×` short of the exit's decay
+-- gate `(103/1500)e`, i.e. the `(log X)^{1/30}` inside `cfbC₁` is not paid back.  Two escapes,
+-- both design-tier and both outside this file: a band-radius pricing page on the wide scale
+-- window, or a crude-fold re-cut.  `B` is left FREE so either plugs in unchanged
+open Salt.Tactic in
+#audit_axioms Salt.MR.winCutH_sum_finset
+  Salt.MR.winCutH_doorChiCoeff_split
+  Salt.MR.door_powerset_card
+  Salt.MR.spolyA_sum_finset
+  Salt.MR.norm_spolyA_of_pieces
+  Salt.MR.spolyA_winCutH_split
+  Salt.MR.cfb_sup_of_center_cut
+  Salt.MR.pieceDatum_isMultiplicative
+  Salt.MR.piece_center_of_inner
+  Salt.MR.piece_center_of_wide
+  Salt.MR.m4_t0datum_sup
+  Salt.MR.m4_hT0band_at_door
+  Salt.MR.m4_hT0band_at_door_of_wide
+  Salt.MR.cfbM0_add_debit
+  Salt.MR.band_floor_M0_pieceDatum
+  Salt.MR.two_le_calE_door
+  Salt.MR.band_floor_M0_doorPiece
+
+-- ⟦WALL 1 — hwinBand DELETED⟧ (`M4P2MR` + `M4RowMR` + `M4Puncture` + the row wave; WALL1
+-- executor, 2026-07-28).  `M4DoorRow` §6's kernel witness (`band_window_ratio_lock` +
+-- `door_block_one_wide`) said the capstone's `hwinBand` locks any two LIVE block primes into
+-- a factor 2 while the door's level-1 K-block spans `2^{(M−1)·2^18}` — so the binder was
+-- UNINHABITABLE at the door datum.  THE REPAIR, by the `hwinPin` playbook (`M4MeanSq` §3″):
+-- delete the window law and pay for the rows through MR's own cofactor range, where the
+-- window lives in the INDEX SET (`RamareMR.ramHonMR`).  WHAT MOVED: (1) `M4ErrRewire` §1 —
+-- the `p²` stone `ramP2massMR_direct` — RELOCATED verbatim into `M4P2MR`, which is upstream
+-- of `CapFreeArm3` (`M4ErrRewire`'s cone passes through `M4Sieve`, hence `CapFreeArm3`);
+-- (2) `M4RowMR` names Lemma 12's FOUR windowed rows (`lemma12RowsMR`), lands the on-subset
+-- MR row (`lemma12_meansq_on_subset_mr_windowed`: `SeamCoefW` in, `hwin` out, `hasupp` in)
+-- and prices them through `TypicalPriceK`'s three-stage wire — `second_window_le_first_row`
+-- collapses the second seam window onto twice the first, the first LOSES a factor `e`, and
+-- the net exit is `960·(T/X_d+1)·(…)` where the landed row is `480·(…)`; (3) `TLegE1`/
+-- `TLegExit` are ROW-GENERIC (`E1_bound_gen`, `E1_pin_gen`, `Ej_bound_gen`, `TLeg_bound_gen`,
+-- `TLeg_feeds_capstone_gen`): the leg reads Lemma 12's rows only as an opaque additive term
+-- plus the per-level Lemma-12 conclusion, and the LANDED names are re-derived from the
+-- generic ones with statements byte-identical; (4) `CapFreeArm3`'s three chain statements
+-- re-cut (`hcoef` ON-WINDOW, `hwin` deleted, `hasupp` added at §9, the row `lemma12RowsMR`,
+-- the prefactor `960`); (5) `ThmA2Rows.a2Rows_of_capfree3` consumes the on-window `hcoef`
+-- with `hwin` gone, weighed by `a2_term3_weigh_mr` — `960·3 = 2880 ≤ 5760`, so ⟦AMENDMENT G⟧'s
+-- `×4` cover pays and NO interface numeral moves; (6) `M4MeanSq.m4_meansq_per_chi_gen` and
+-- `m4_meansq_or_trivial` lose `hwinBand` outright and the widening `hcoefBandW` with it —
+-- both conclusions BYTE-IDENTICAL, both theorems strictly STRONGER.  `coef_widen_of_window`
+-- keeps no consumer and stays as a documented dead stone (the historical-instance
+-- convention).  THE DATUM SIDE: `M4Puncture` supplies the per-block pair law the re-cut
+-- `hcoefBand` now wants at the door — at a block-`j` prime `1_𝒮(p·m) = 1_{𝒮∖j}(m)`
+-- (`RamWeight.blockOmega_mul_coprime`, the IN-BLOCK case; NOT `M4Band` §1's shift-up), whose
+-- one new arithmetic stone is the block separation `𝒬K_1 = 2^{M·A} < 2^{4AG} = 𝒫_2`
+-- (`door_block_separation`, free at `G = 3072M`), carried at the HALF-OPEN cut with
+-- `M4Band` §4's forced endpoint binder `hend`
+open Salt.Tactic in
+#audit_axioms Salt.MR.ramP2massMR_direct
+  Salt.MR.lemma12RowsMR
+  Salt.MR.lemma12_meansq_on_subset_mr_windowed
+  Salt.MR.lemma12_on_TsetG_mr_windowed
+  Salt.MR.lemma12RowsMR_pricedK
+  Salt.MR.lemma12RowsMR_priced_ratioK
+  Salt.MR.sum_lemma12RowsMR_pricedK
+  Salt.MR.sum_lemma12RowsMR_priced_calibratedK2
+  Salt.MR.E1_bound_gen
+  Salt.MR.E1_pin_gen
+  Salt.MR.Ej_bound_gen
+  Salt.MR.TLeg_bound_gen
+  Salt.MR.TLeg_feeds_capstone_gen
+  Salt.MR.seam_row_calibratedK_nocap3
+  Salt.MR.seam_row_number_nocap3
+  Salt.MR.seam_row_number_capfree3
+  Salt.MR.a2Rows_of_capfree3
+  Salt.MR.thm_a2'
+  Salt.MR.m4_meansq_per_chi_gen
+  Salt.MR.m4_meansq_or_trivial
+  Salt.MR.MemSPunct
+  Salt.MR.memSPunctCoeff
+  Salt.MR.blockOmega_prime_in
+  Salt.MR.blockOmega_prime_out
+  Salt.MR.memS_mul_prime_punct
+  Salt.MR.indicator_mul_punct
+  Salt.MR.calQK_one_lt_calP_two
+  Salt.MR.door_block_separation
+  Salt.MR.door_block_sep_at
+  Salt.MR.memSCoeff_seamCoefW_punct_gen
+  Salt.MR.memSCoeff_seamCoefW_punct_H
+  Salt.MR.doorChiCoeff_seamCoefW_punct_H
+  Salt.MR.norm_doorPunctCoeff_le_one
+
+-- ⟦POLY-LOG FLOOR + ℓ²-MASS FAR KERNEL⟧ (`FarL2`, 2026-07-28).  THE PRICING-SCOPE R1 PAGE.
+-- ⟦THE FLOOR HALF, CLOSED⟧ `polylog_floor_M0`: the χ-floor at coefficient **`1/4`** on EVERY
+-- poly-log height `|v| ≤ (log X)^A`, `A ≥ 1` — against `band_floor_M0`'s `7/30` on the
+-- `seamT0`-band and `chi_floor_vk_pointwise`'s `1/16` on the `3X` box.  The whole content is
+-- `plog_vk_debit`: on the box `vk_debit_le` reads `loglog|2v| ≤ log2 + loglog X` and pays
+-- `(3/16)·loglog X` (the `1/4 → 1/16` collapse); at poly-log height `plog_drift_loglog` /
+-- `plog_inner_log` read `loglog|2v| ≤ log(3A) + logloglog X`, DOUBLY logarithmic, so the
+-- `loglog X` coefficient stays `1 − 3/4 = 1/4`.  Three arms exactly as `band_floor_M0`
+-- (`plog_floor_real` at `k=2`, `chi_floor_band_arm` at `|v| ≤ 1/2`, `plog_floor_nonreal`
+-- through the VK branch `chi_Llower_341_vk` above `exp(exp 100)` and `chi_Llower_341_height`
+-- AT that absolute height below); NO socket remains (`vkTwistUB_holds`, its two named debits
+-- absorbed by the `q`-slot via `plog_vk_qdebit`).  ⟦THE MASTER CHECK⟧ `plog_floor_clears_gate`:
+-- the threshold constant is **`16`** (margin `1/4 − (103/1500)e = 0.0633527… ≥ 1/16`), against
+-- `cfb_floor_clears_gate`'s `22` at `7/30`; the box's `1/16 = 0.0625 < 0.18665` does not clear
+-- the gate at all.  TRANSPORTS `polylog_floor_M0_liouChi` / `polylog_floor_M0_pieceDatum`
+-- (`plogM0_add_debit`, the `band_floor_M0_pieceDatum` pattern).  FREE WINS: `band_floor_M0_vk`
+-- (w2 — the `T₀`-band floor lifted `7/30 → 1/4`, an instance at `A := 3`) and `box_floor_M0`
+-- (w1 — the plain `M₀ ≤ 𝔻²` box form at `1/16`, `capFreeFloor3_margin_all_chi`'s arms with the
+-- strict `CapFreeFloor3` wrapper removed, NO margin spent).
+-- ⟦THE FAR HALF: THE N-TERM REFUTATION⟧ (P2, a DESIGN FINDING, not a landing).  The scope's
+-- route "dyadic Cauchy–Schwarz in `τ` + `dirichlet_poly_l2_mvt_final` against the kernel's
+-- `1/(c²+τ²)` weight" does NOT reach a poly-log `H`.  The landed mean value is
+-- `∫_{−R}^{R}‖dpoly N a‖² ≤ (2R + 20N)·∑‖aₙ‖²`, so the `τ`-dyadic sum gives `2A/H + N·A/H²`
+-- with `A` the ℓ² mass (NO `k`-power — that half of the scope is right) but `N = ⌈k/y⌉₊ ≍ k/L⁴`
+-- the window LENGTH.  Pricing the second term against the crown's `k·(log X)^{−1/(32e)}` forces
+-- `H ≳ √k·L^{−3.24}`, WORSE than the standing `Tstar = L⁴·k^{1/(4 log L)}`.  The `20N` is the
+-- Montgomery–Vaughan constant at the UNIFORM spacing `δ = 1/N` (`mvHilbertUniform_holds`); the
+-- sharp `δₙ ≍ 1/n` is not supplied.  THE REPAIR (arithmetic verified, NOT in Lean): split the
+-- window dyadically FIRST (`J ≍ L/log 2` blocks), mean-value per block, recombine by
+-- Cauchy–Schwarz (cost one factor `J`); the `N`-term becomes `J·∑_j M_j A_j ≍ L·L³ = L⁴` and
+-- the pricing forces only `H ≳ 19·L^{2.76}/log L` — POLY-LOG, the scope's target.
+-- ⟦LANDED FOR THAT ROUTE⟧ `windowSum_eq_dpoly` (the window polynomial IS an `L2MVT.dpoly` at
+-- `winL2Coeff`), `winL2Mass` + `winL2Coeff_l2_eq` + `windowSum_l2_mvt` (the mean value AT the
+-- window, unconditional), and `crossKerFar_le_weighted_l2` — the far cross-integral bounded by
+-- `((X+h)^{c+1}/h)·(winL2Tail(c₀−β) + winL2Tail(c₀+β))` with NO window mass of any kind, by
+-- branch-2 + AM–GM + `farL2_recentre`, on two named integrability sockets.
+#audit_axioms Salt.MR.plog_drift_loglog
+  Salt.MR.plog_drift_logloglog
+  Salt.MR.plog_floor_real
+  Salt.MR.plog_vk_debit
+  Salt.MR.plog_floor_nonreal
+  Salt.MR.plogM0
+  Salt.MR.plogM0_add_debit
+  Salt.MR.polylog_floor_M0
+  Salt.MR.plog_floor_clears_gate
+  Salt.MR.polylog_floor_M0_liouChi
+  Salt.MR.polylog_floor_M0_pieceDatum
+  Salt.MR.band_floor_M0_vk
+  Salt.MR.boxM0
+  Salt.MR.box_floor_M0
+  Salt.MR.winL2Coeff
+  Salt.MR.windowSum_eq_dpoly
+  Salt.MR.winL2Mass
+  Salt.MR.winL2Coeff_l2_eq
+  Salt.MR.windowSum_l2_mvt
+  Salt.MR.winL2Tail
+  Salt.MR.crossKerFar_le_weighted_l2

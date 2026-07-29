@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.MR.CapFreeArm
+import Salt.MR.M4RowMR
 
 /-!
 # `CapFreeArm3` — THE CAP-FREE ARM AT THE `3X` BOX (the additive mint)
@@ -633,7 +634,15 @@ verbatim; only the co-factor supply moves.
 
 ⟦THE SOCKET CUT⟧ the `𝒰`-leg's co-factor datum is now the SAME free `b` the `𝒯`-leg already
 carried (`a(pm) = b m · c p`) — which is exactly how the door's sieved datum factorizes — so
-the row gains no parameter, and `g`, `hg` leave the statement outright. -/
+the row gains no parameter, and `g`, `hg` leave the statement outright.
+
+⟦WALL 1⟧ (2026-07-28).  `hwin` is GONE from the `𝒯`-leg: `M4DoorRow.band_window_ratio_lock`
+shows the door datum cannot inhabit it at the K-blocks, so the leg is fed through
+`TLegExit.TLeg_feeds_capstone_gen` at `M4RowMR`'s `hwin`-free FOUR-row Lemma-12 exit
+(`lemma12_on_TsetG_mr_windowed`).  Two statement consequences: `hcoef` is the ON-WINDOW
+factorization (`SeamRowWindowed.SeamCoefW`, level by level) and MR's dyadic support pin
+`hasupp` joins the list — the four-row split reads it.  The row on the right is
+`lemma12RowsMR`. -/
 theorem seam_row_calibratedK_nocap3 :
     ∃ Cq cq T₀ X₀ Cs : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧
       ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -677,10 +686,9 @@ theorem seam_row_calibratedK_nocap3 :
           ∀ m : ℕ, m ≤ N → ‖spolyA a t m‖ ≤ S * m / (1 + |t - t₁|)) →
         2 * Xd ≤ N →
         (∀ j ∈ Finset.Icc 1 Jb, ∀ p m, p.Prime → calP A G j ≤ p → p ≤ calQK A G M j →
-          ¬ p ∣ m → a (p * m) = bfam j m * c p) →
-        (∀ j ∈ Finset.Icc 1 Jb, ∀ p m : ℕ, p.Prime → calP A G j ≤ p → p ≤ calQK A G M j →
-          c p * bfam j m ≠ 0 →
-          (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
+          ¬ p ∣ m → (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
+          a (p * m) = bfam j m * c p) →
+        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
         (∫ t in seamAnn X Tann, ‖spoly N a t‖ ^ 2)
           ≤ 8 * S ^ 2
             + (2 * (calH H1 1 * Real.log ((calQK A G M 1 : ℕ) : ℝ) + 1)
@@ -693,18 +701,18 @@ theorem seam_row_calibratedK_nocap3 :
                 + 1536 * Cs * Real.exp 3 * (2 * Tann / (Xd : ℝ) + 240)
                     * (1 / ((calP A G 1 : ℕ) : ℝ))
                 + ∑ j ∈ Finset.Icc 1 Jb,
-                    lemma12Rows N Xd (calP A G j) (calQK A G M j) (calH H1 j) Tann a
+                    lemma12RowsMR N Xd (calP A G j) (calQK A G M j) (calH H1 j) Tann a
                       (bfam j) c)
             + 2 * ((Tann / X + 1) * (Real.log X) ^ (-theta293 + ε)) := by
   obtain ⟨Cq, cq, T₀, X₀, hCq, hcq, hT₀, hX₀0, hcap⟩ := hUG34_unconditional_nocap3
-  obtain ⟨Cs, hCs, hfeed⟩ := TLeg_feeds_capstone
+  obtain ⟨Cs, hCs, hfeed⟩ := TLeg_feeds_capstone_gen
   refine ⟨Cq, cq, T₀, X₀, Cs, hCq, hcq, hT₀, hX₀0, hCs, ?_⟩
   intro c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q A G M Jb m₀ Ms Mt kk
     H1 X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S
     hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hJdef hT₀T hLL5 hlogT1 hTLle hLe
     hVJg hMs hbudget hm₀2 hm₀ hMs4
     hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
-    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef hwin
+    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef hasupp
   have hη := hF.eta_pos
   have hη6 := hF.eta_lt
   have hJb1 := hF.one_le_Jb
@@ -772,19 +780,37 @@ theorem seam_row_calibratedK_nocap3 :
     hJb1 le_rfl hHb2 hα0 hP3 hPQ hQT hVJ hα (by linarith) hMs hbudget hm₀2 hm₀ hMs4
     hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
     hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup
-  exact hfeed c a bfam (calP A G) (calQK A G M) (calH H1) η Jb N Xd (calP A G 1) X Tann t₁ S ε
-    hη hη6 hJb1 hXd1 hNXd (by linarith) hP1pos (levelGates_calibratedK hF) hH1two
+  -- ⟦WALL 1's ROW⟧ the per-level Lemma-12 conclusion at the `hwin`-FREE four-row exit
+  have hHj : ∀ j ∈ Finset.Icc 1 Jb, (2 : ℝ) ≤ calH H1 j := by
+    intro j hj
+    rw [Finset.mem_Icc] at hj
+    have hjR : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
+    rw [calH]
+    nlinarith [hF.H1_two]
+  have hPj1 : ∀ j : ℕ, 1 ≤ calP A G j := fun j => by
+    simp only [calP]; exact Nat.one_le_two_pow
+  refine hfeed c a bfam (calP A G) (calQK A G M) (calH H1) η Jb N Xd (calP A G 1) X Tann t₁ S ε
+    (fun j => lemma12RowsMR N Xd (calP A G j) (calQK A G M j) (calH H1 j) Tann a (bfam j) c)
+    hη hη6 hJb1 hXd1 (by linarith) hP1pos (levelGates_calibratedK hF) hH1two
     (by simp only [calP]; exact Nat.one_le_two_pow)
-    (calP_le_calQK hM1 le_rfl) hbot1 hcoef hbf1 (fun p => hc1 p) hwin
+    (calP_le_calQK hM1 le_rfl) hbot1 hbf1 (fun p => hc1 p) ?_
     hcapinst
+  intro j hj
+  exact lemma12_on_TsetG_mr_windowed c (calP A G) (calQK A G M) (calH H1) (mrAlpha η) Jb j
+    (hHj j hj) N Xd hXd1 hNXd (hPj1 j) a (bfam j) c (hcoef j hj) (hbf1 j) (fun p => hc1 p)
+    (hasupp_real_of_nat hasupp) X Tann t₁ (by linarith)
 
 set_option maxHeartbeats 1000000 in
 -- the same fuse as `SeamNumber.seam_row_number`, at the socketed row
 /-- **THE SOCKETED SEAM ROW AS ONE NUMBER** (`seam_row_number_nocap3`).
-`CapFreeArm.seam_row_number_nocap` at §9's row: `Σ_j lemma12Rows` priced by
-`TypicalPriceK.sum_lemma12Rows_priced_calibratedK2`, so the whole right-hand side is a
+`CapFreeArm.seam_row_number_nocap` at §9's row: `Σ_j lemma12RowsMR` priced by
+`M4RowMR.sum_lemma12RowsMR_priced_calibratedK2`, so the whole right-hand side is a
 formula in the parameters.  The six `X_d`-side reconciliation gates and the `X_d ≤ X` bridge
-are the landed twin's, verbatim. -/
+are the landed twin's, verbatim.
+
+⟦WALL 1⟧ the row prefactor is `960` where the `hwin`-carrying twin has `480` — the four-row
+split's price (see `M4RowMR` §3).  `ThmA2Rows.a2_term3_weigh_mr` absorbs it inside `a2Mrow`'s
+`5760`, so no interface numeral moves. -/
 theorem seam_row_number_nocap3 :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
       ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
@@ -827,10 +853,8 @@ theorem seam_row_number_nocap3 :
           ∀ m : ℕ, m ≤ N → ‖spolyA a t m‖ ≤ S * m / (1 + |t - t₁|)) →
         2 * Xd ≤ N →
         (∀ j ∈ Finset.Icc 1 Jb, ∀ p m, p.Prime → calP A G j ≤ p → p ≤ calQK A G M j →
-          ¬ p ∣ m → a (p * m) = bfam j m * c p) →
-        (∀ j ∈ Finset.Icc 1 Jb, ∀ p m : ℕ, p.Prime → calP A G j ≤ p → p ≤ calQK A G M j →
-          c p * bfam j m ≠ 0 →
-          (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
+          ¬ p ∣ m → (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
+          a (p * m) = bfam j m * c p) →
         Real.log ((calQK A G M Jb : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
         (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
         (N : ℝ) ≤ 4 * (Xd : ℝ) →
@@ -852,7 +876,7 @@ theorem seam_row_number_nocap3 :
                           * Real.exp (4 * mrAlpha η 1 / calH H1 1))
                 + 1536 * Cs * Real.exp 3 * (2 * Tann / (Xd : ℝ) + 240)
                     * (1 / ((calP A G 1 : ℕ) : ℝ))
-                + 480 * (Tann / (Xd : ℝ) + 1)
+                + 960 * (Tann / (Xd : ℝ) + 1)
                     * ((∑ j ∈ Finset.Icc 1 Jb,
                           ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
                               * (Real.exp 1 / (Xd : ℝ) ^ 2))
@@ -861,14 +885,14 @@ theorem seam_row_number_nocap3 :
                       + C * (2 / (M : ℝ))))
             + 2 * ((Tann / X + 1) * (Real.log X) ^ (-theta293 + ε)) := by
   obtain ⟨Cq, cq, T₀, X₀, Cs, hCq, hcq, hT₀, hX₀0, hCs, hseam⟩ := seam_row_calibratedK_nocap3
-  obtain ⟨C, hC, hK2⟩ := sum_lemma12Rows_priced_calibratedK2
+  obtain ⟨C, hC, hK2⟩ := sum_lemma12RowsMR_priced_calibratedK2
   refine ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, ?_⟩
   intro c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q A G M Jb m₀ Ms Mt kk
     H1 X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S
     hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hT₀T hLL5 hlogT1 hTLle hLe
     hVJg hMs hbudget hm₀2 hm₀ hMs4
     hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
-    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef hwin
+    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef
     hQXd hXdbig hN4 hdom ha1 hasupp
   have hA : 1 ≤ A := le_trans (by norm_num) hF.A_floor
   have hG1 : 1 ≤ G := hF.one_le_G
@@ -876,7 +900,7 @@ theorem seam_row_number_nocap3 :
   have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK A G M Jb) hF.Q_le_Xd
   have hXd0 : (0 : ℝ) < (Xd : ℝ) := by exact_mod_cast hXd1
   have hT0 : (0 : ℝ) ≤ Tann := by linarith
-  have hH10 : (0 : ℝ) < H1 := by linarith [hF.H1_two]
+  have hH1two : (2 : ℝ) ≤ H1 := hF.H1_two
   -- ⟦THE BRIDGE⟧ `X_d ≤ X`, from the junction's own two binders
   have hXdX : (Xd : ℝ) ≤ X := by
     have h2 : (2 : ℝ) * (Xd : ℝ) ≤ (N : ℝ) := by exact_mod_cast hNXd
@@ -900,9 +924,9 @@ theorem seam_row_number_nocap3 :
     hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hJdef hT₀T hLL5 hlogT1 hTLle hLe
     hVJg hMs hbudget hm₀2 hm₀ hMs4
     hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
-    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef hwin
-  have hK2inst := hK2 A G M Jb N Xd H1 Tann a bfam c hA hG1 hM1 hXd1 hT0 hH10 hN4
-    hreg hXdbig hdom ha1 hbf1 hc1 hasupp hwin
+    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef hasupp
+  have hK2inst := hK2 A G M Jb N Xd H1 Tann a bfam c hA hG1 hM1 hXd1 hNXd hT0 hH1two hN4
+    hreg hXdbig hdom ha1 hbf1 hc1 hasupp
   exact hseaminst.trans
     (add_le_add (add_le_add le_rfl (add_le_add le_rfl hK2inst)) le_rfl)
 
@@ -962,10 +986,8 @@ theorem seam_row_number_capfree3 :
         X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
         2 * Xd ≤ N →
         (∀ j ∈ Finset.Icc 1 Jb, ∀ p m, p.Prime → calP A G j ≤ p → p ≤ calQK A G M j →
-          ¬ p ∣ m → a (p * m) = bfam j m * c p) →
-        (∀ j ∈ Finset.Icc 1 Jb, ∀ p m : ℕ, p.Prime → calP A G j ≤ p → p ≤ calQK A G M j →
-          c p * bfam j m ≠ 0 →
-          (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
+          ¬ p ∣ m → (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
+          a (p * m) = bfam j m * c p) →
         Real.log ((calQK A G M Jb : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
         (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
         (N : ℝ) ≤ 4 * (Xd : ℝ) →
@@ -986,7 +1008,7 @@ theorem seam_row_number_capfree3 :
                           * Real.exp (4 * mrAlpha η 1 / calH H1 1))
                 + 1536 * Cs * Real.exp 3 * (2 * Tann / (Xd : ℝ) + 240)
                     * (1 / ((calP A G 1 : ℕ) : ℝ))
-                + 480 * (Tann / (Xd : ℝ) + 1)
+                + 960 * (Tann / (Xd : ℝ) + 1)
                     * ((∑ j ∈ Finset.Icc 1 Jb,
                           ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
                               * (Real.exp 1 / (Xd : ℝ) ^ 2))
@@ -1001,7 +1023,7 @@ theorem seam_row_number_capfree3 :
     hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hT₀T hLL5 hlogT1 hTLle hLe
     hVJg hMs hbudget hm₀2 hm₀ hMs4
     hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
-    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hNXd hcoef hwin
+    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hNXd hcoef
     hQXd hXdbig hN4 hdom ha1 hasupp
   -- ⟦S8⟧ the ball binder, from the emptiness at the origin, at `S := 0`
   have hSup := ball_leg_vacuous_at_zero (N := N) (a := a) (T := Tann)
@@ -1011,7 +1033,7 @@ theorem seam_row_number_capfree3 :
     hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hT₀T hLL5 hlogT1 hTLle hLe
     hVJg hMs hbudget hm₀2 hm₀ hMs4
     hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
-    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef hwin
+    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef
     hQXd hXdbig hN4 hdom ha1 hasupp
   exact h.trans (le_of_eq (by ring))
 

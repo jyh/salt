@@ -66,25 +66,28 @@ at the door's own blocks — was left standing, and it is the binder the door da
 inhabit.  The repair is a statement re-cut at `a2Rows_of_capfree3`'s `hwin` (ThmA2Rows:916),
 upstream of the M4 wave and outside an executor's authorization.
 
-## ⚠ ⟦WALL 2 — THE UNIFORM-IN-`j` GRADE⟧ (§7)
+## ⟦WALL 2 — THE UNIFORM-IN-`j` GRADE⟧ (§7) — **REPAIRED BY THE LENGTH-GRADED RE-CUT**
 
-`M4ChiDyadicRowMeanSq R M k MS` asks ONE grade `MS H` at EVERY dyadic length `2^j`,
-`j ≤ log₂ H`.  Two independent facts contradict that:
+`M4ChiDyadicRowMeanSq R M k MS` asked ONE grade `MS H` at EVERY dyadic length `2^j`,
+`j ≤ log₂ H`.  Two independent facts contradicted that:
 
 * the capstone cannot even be STATED at small `j`: its window gates are `4 ≤ h` and
-  `𝒬K_1 ≤ h`, and at `h = 2^j` the second forces `M·Adoor M ≤ j` (`door_length_gate`),
-  i.e. `j ≥ 2^18` — every smaller `j` is outside the capstone's reach
-  (`door_length_gate_fails_of_small`);
+  `𝒬K_1 ≤ h`, and at `h = 2^j` the second forces `M·Adoor M ≤ j` (`door_length_gate`,
+  and conversely — `door_length_gate_iff`), i.e. `j ≥ 2^18` — every smaller `j` is outside
+  the capstone's reach (`door_length_gate_fails_of_small`);
 * at `j = 0` the quantity IS the block density of the live sieved residues (the integral
   collapses to `(1/X_d)·∑_{X_d<m≤2X_d}‖a_m‖²`, one integer per unit `y`-interval), which is
   `≍ 1` — while `m4_wave_closed_of_dyadicRow`'s own drift/budget gates force
-  `MS H ≲ (log H)^{-30}`.  So no `MS` serves both ends.
+  `≲ (log H)^{-30}`.  So no uniform `MS` serves both ends.
 
-The dyadic assembly does not need uniformity: `M4Maximal` §4's count
-`∑_j (⌊H/2^{j+1}⌋+1)(2^j)² ≤ 3H²` is where the length-dependence is thrown away
-(`dyadic_count_weight_le`), and a LENGTH-GRADED input `MS : ℕ → ℕ → ℝ` costs nothing there
-(the `j = 0` term contributes `≍ H`, against a budget of `H²·(log H)^{-30}`).  Re-grading
-`M4ChiDyadicRowMeanSq` is a statement change in `M4Maximal`, again Fable/human tier.
+`M4Maximal` now carries the LENGTH-GRADED statement (`MS : ℕ → ℕ → ℝ`, read `MS j H`) and
+the split assembly at a NAMED floor `j₀`.  The dyadic count is where the length-dependence
+dies, and it dies asymmetrically: the full sum is `≤ 3H²` (`dyadic_count_weight_le`) but the
+head `j < j₀` is only `≤ 2H·4^{j₀}` (`dyadic_count_weight_small_le`) — **linear** in `H`
+against the block's `H²` normalisation.  §7 below supplies the door's own floor,
+`doorRowFloor M = M·Adoor M` (the `j₀` at which the capstone's length gate first holds), and
+the threshold in which the small half is free: `4^{doorRowFloor M}` does not move with `H`,
+so the comparison is one inequality in `H` alone (`door_smallGrade_fits`).
 
 ## ⟦THE T₀-BAND, NAMED⟧
 
@@ -372,12 +375,12 @@ theorem door_block_one_wide {M : ℕ} (hM : 2 ≤ M) :
   rw [hL, hR]
   exact Nat.pow_le_pow_right (by norm_num) hstep
 
-/-! ## §7 — ⚠ ⟦WALL 2⟧: THE UNIFORM-IN-`j` GRADE
+/-! ## §7 — ⟦WALL 2⟧, AND THE FLOOR THE RE-CUT IS INSTANTIATED AT
 
-`M4ChiDyadicRowMeanSq` asks one grade at every dyadic length `2^j`, `j ≤ log₂ H`.  The
-capstone's own window gate `𝒬K_1 ≤ h` reads, at `h = 2^j`, as an ARITHMETIC lower bound on
-`j` — `M·Adoor M ≤ j` — so the small-`j` instances are outside the capstone's statement
-entirely, before any estimate is attempted. -/
+The capstone's own window gate `𝒬K_1 ≤ h` reads, at `h = 2^j`, as an ARITHMETIC lower bound
+on `j` — `M·Adoor M ≤ j`, and conversely — so the small-`j` instances are outside the
+capstone's statement entirely, before any estimate is attempted.  That number IS the floor
+`M4Maximal`'s graded split is instantiated at: `doorRowFloor M`. -/
 
 /-- **THE LENGTH GATE, SOLVED** (`door_length_gate`).  The capstone's `hQ1h` at the dyadic
 length `h = 2^j` is `M·Adoor M ≤ j`. -/
@@ -400,6 +403,44 @@ theorem door_length_gate_fails_of_small {M j : ℕ} (hM : 1 ≤ M) (hj : j < 2 ^
   have hA : 2 ^ 18 ≤ Adoor M := Adoor_ge M
   have : Adoor M ≤ M * Adoor M := Nat.le_mul_of_pos_left _ hM
   omega
+
+/-- **THE DOOR'S LENGTH FLOOR** (`doorRowFloor`) — the `j₀` at which `M4Maximal`'s graded
+split is instantiated at the door.  It is NOT `2^18`: it is `M·Adoor M`, and the
+`M`-dependence is the point — `4^{j₀}` is a constant against `H` at fixed `M`, which is what
+makes the small-`j` half of the split free (`M4Maximal.dyadic_count_weight_small_le`). -/
+def doorRowFloor (M : ℕ) : ℕ := M * Adoor M
+
+/-- **THE LENGTH GATE, BOTH WAYS** (`door_length_gate_iff`) — the capstone's `hQ1h` at the
+dyadic length `h = 2^j` holds EXACTLY at the lengths above the floor.  So the graded split's
+partition `j < j₀ | j₀ ≤ j` is not a choice: it is the capstone's own statement boundary. -/
+theorem door_length_gate_iff {M j : ℕ} :
+    ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ↔ doorRowFloor M ≤ j := by
+  constructor
+  · intro h
+    exact door_length_gate h
+  · intro h
+    have hN : calQK (Adoor M) (3072 * M) M 1 ≤ 2 ^ j := by
+      rw [calQK, calE_one]
+      refine Nat.pow_le_pow_right (by norm_num) ?_
+      simpa [doorRowFloor] using h
+    exact_mod_cast hN
+
+/-- **THE SMALL-`j` COMPARISON AT THE DOOR**, symbolic (`door_smallGrade_fits`).  The whole
+`j < j₀` block of `M4Maximal`'s graded assembly costs `2·4^{doorRowFloor M}·MStr H` against
+`H·(3·MSan H)`.  Both `4^{doorRowFloor M}` and any density envelope `MStr H ≤ D` are `H`-free
+— the block density is `≍ 1/loglog X_d`, bounded by an absolute constant — so the threshold
+reads, in bytes,
+
+  `2·4^{M·Adoor M}·D ≤ H·MSan H`,
+
+one inequality in `H` at fixed `M`.  Under it the graded price is at most twice the ungraded
+one (`M4Maximal.m4BclGraded_le_of_fits`), i.e. the small lengths cost the close's budget
+nothing. -/
+theorem door_smallGrade_fits {M H : ℕ} {MSan MStr : ℕ → ℝ} {D : ℝ}
+    (hMStr : MStr H ≤ D) (hMSan : 0 ≤ MSan H)
+    (hthr : 2 * (4 : ℝ) ^ doorRowFloor M * D ≤ (H : ℝ) * MSan H) :
+    m4SmallGradeFits (doorRowFloor M) MSan MStr H :=
+  m4SmallGradeFits_of_threshold hMStr hMSan hthr
 
 end Salt.MR
 

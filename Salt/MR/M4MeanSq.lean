@@ -161,8 +161,8 @@ evaluated here.
 | 49 | `hN2` (N ≤ 2X) | the two pins |
 | 50 | `hsupp` (`a` above `X`) | carried `hsupp0` |
 | 51 | `hNXd` (2X_d ≤ N) | the `N = 2X_d` pin |
-| 52 | `hcoef` (band factorisation) | carried `hcoefBand` (S8), widened by §3′ |
-| 53 | `hwin` (band window) | carried `hwinBand` (S8) — the BAND chain only |
+| 52 | `hcoef` (band factorisation) | carried `hcoefBand` (S8), ON-WINDOW (§3′) |
+| 53 | ~~`hwin`~~ (band window) | **DELETED** — ⟦WALL 1⟧'s repair, see §3‴′ |
 | 54–55 | `hQXd`, `hXdbig` | carried |
 | 56 | `hN4` (N ≤ 4X_d) | the `N = 2X_d` pin |
 | 57 | `hdom` | carried |
@@ -292,8 +292,9 @@ WINDOW law alone and still forces `cf P = 0` at every block prime under the row'
 capstone's pin-chain binder `hwinPin` is therefore DELETED outright (§3″), which is possible
 because `FrameWitness.err_at_witness_mr` — the `hwin`-free err supply built on
 `M4ErrRewire.ramP2massMR_direct` — needs only the on-window factorization `hcoefPin`, i.e.
-`SeamRowWindowed.SeamCoefW`.  The band chain (`hcoefBand`/`hwinBand`) is untouched: it feeds
-the ROW, not the err, and its own window law is not in the collapse's hypothesis set.
+`SeamRowWindowed.SeamCoefW`.  ⟦WALL 1⟧ (below) does the same to the BAND chain: `hwinBand`
+is DELETED and the row's Lemma-12 exit re-cut at MR's own cofactor range, so `hcoefBand`
+survives alone, on-window.
 
 **THE WIDENING** (`coef_widen_of_window`).  Outside the window the law is FREE: below it
 `hsupp0` kills `a (p·m)` and `hwin`'s lower bound kills `cf p · b m`; above it `hasupp`
@@ -363,7 +364,24 @@ direction:
 the door's sieved, phased `λχ̄` meets the surviving pair law at every cofactor.  It does NOT
 meet it with the cofactor slot equal to `ellLin (liouChi χ)`, and `CapFreeArm3.A2Frame3.err`
 pins that slot.  Freeing it — the `b`-slot generalization — is a statement change in
-`CapFreeArm3`, outside this wave. -/
+`CapFreeArm3`, outside this wave.
+
+## §3‴′ — ⟦WALL 1⟧: THE BAND CHAIN LOSES ITS WINDOW LAW TOO
+
+`M4DoorRow` §6 (`band_window_ratio_lock`) is the kernel witness that `hwinBand` locks any two
+LIVE block primes into a factor `2`, while `door_block_one_wide` shows the door's level-1
+K-block spans `2^{(M−1)·2^18}`.  So the door datum cannot inhabit `hwinBand` at all, and the
+binder is DELETED here — exactly as `hwinPin` was in §3″, and for the same reason.
+
+What pays for it is `M4RowMR`: the seam row's Lemma-12 exit is re-cut at MR's own cofactor
+range (`SeamRowWindowed.ramErr_moment_split_mr_windowed`, four rows at prefactor `4`), where
+the window lives in the INDEX SET.  The `p²` row is then `M4P2MR.ramP2massMR_direct` and the
+block-free row `TypicalDensity.blockfree_sum_le` — neither reads a window law.  The price is
+`480 → 960` on the row summand of `CapFreeArm3.seam_row_number_capfree3`, which
+`ThmA2Rows.a2_term3_weigh_mr` absorbs inside `a2Mrow`'s existing `5760` (⟦AMENDMENT G⟧'s `×4`
+cover of `1440`): **no interface numeral moves, and this capstone's conclusion is byte-identical
+to its pre-repair self.**  `coef_widen_of_window` (§3′) loses its last consumer with the
+deletion and is kept as a documented dead stone. -/
 
 /-! ## §3‴ — ⟦THE SOCKET CUT⟧: THE ROW'S CO-FACTOR DATUM, SUPPLIED HERE
 
@@ -593,9 +611,6 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
               p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m →
               (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
               a (p * m) = bfam j m * cf p) →
-            (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
-              p ≤ calQK (Adoor M) (3072 * M) M j → cf p * bfam j m ≠ 0 →
-              (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
             -- ⟦THE PIN CHAIN, `hwin`-FREE (⟦THE WALL⟧'s rewire): the on-window
             -- factorization ALONE.  `hwinPin` is GONE — see §3″⟧
             SeamCoefW Xd P Q a b cf →
@@ -636,7 +651,7 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
     _hX₀k _hMfl0 _hk2 _hkX _hgateW _hYpin _hWY _hXY _hthrY hcqgate hCqgate
     hε0 hεup habs hEP2 hEP2w
     ha1 hcf1 hsupp0 hasupp hMtail0 hMtail hb1 hbf1 hRbar0 hRgrade hsockR
-    hcoefBand hwinBand hcoefPin
+    hcoefBand hcoefPin
     hT0band _hcff hgP1 hgRows hL4096
   -- ⟦THE SCALE PAGE⟧
   have hXe : Real.exp 1 ≤ X := le_trans exp_one_le_exp_exp_one hXee
@@ -660,20 +675,10 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
   have hlog2X : (0 : ℝ) ≤ 1 + Real.log (2 * X) := by
     have : (0 : ℝ) ≤ Real.log (2 * X) := Real.log_nonneg (by linarith)
     linarith
-  -- ⟦THE BINDER REPAIR (§3′): the window-restricted BAND law, widened back to the
-  -- unrestricted shape `a2Rows_of_capfree3` consumes.  Off the window both sides vanish.
-  -- The PIN law needs no widening any more: §3″'s rewire consumes it on-window⟧
-  have hcoefBandW : ∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime →
-      calP (Adoor M) (3072 * M) j ≤ p → p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m →
-      a (p * m) = bfam j m * cf p := by
-    intro j hj p m hp h1 h2 h3
-    exact coef_widen_of_window
-      (R := fun p m => p.Prime ∧ calP (Adoor M) (3072 * M) j ≤ p ∧
-        p ≤ calQK (Adoor M) (3072 * M) M j ∧ ¬ p ∣ m)
-      hXd hsupp0 hasupp
-      (fun p m hR hne => hwinBand j hj p m hR.1 hR.2.1 hR.2.2.1 hne)
-      (fun p m hR hlo hhi => hcoefBand j hj p m hR.1 hR.2.1 hR.2.2.1 hR.2.2.2 hlo hhi)
-      p m ⟨hp, h1, h2, h3⟩
+  -- ⟦⟦WALL 1⟧'s REWIRE⟧ the window-restricted BAND law is consumed AS IS now: the row's
+  -- `hwin`-free four-row exit (`M4RowMR`) reads only the on-window factorization, so the
+  -- widening `coef_widen_of_window` is no longer on the path (it stays as the historical
+  -- instance) and `hwinBand` — ⟦THE WALL⟧'s second head — is DELETED from the statement
   -- ⟦FIELD 1–4: THE FRAME⟧ — at the CO-FACTOR DATUM `ellLin (liouChi χ)` (the socket cut's
   -- `b`-slot; the frame no longer takes a multiplicative generator)
   have F : A2Frame3 b cf a N Xd P Q (Adoor M) (3072 * M) M 2
@@ -694,7 +699,7 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
     (witKk (H83 X theta293) Xd) X h δ' V VJ L Cb Rrad Rbar ε EP2
     hM hXdQ F hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV hPlow
     hQ0 hQhigh hRrad hRbar0 hRgrade hsockR hCqgate hε0 habs hEP2 hXN hN2X hsupp0 hMN
-    hcoefBandW hwinBand hQXd hXdbig hN4 hdom ha1 hasupp
+    hcoefBand hQXd hXdbig hN4 hdom ha1 hasupp
   -- ⟦THE FROZEN INTERFACE⟧
   exact thm_a2'_of_rows hM hXe hX3 hh4 hhX ha1 hsupp0 hN2X hTann hceil5 hrows hT0band
     hgP1 hgRows ⟨hε0, hεup⟩ hL4096
@@ -875,9 +880,6 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
               p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m →
               (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
               a (p * m) = bfam j m * cf p) →
-            (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
-              p ≤ calQK (Adoor M) (3072 * M) M j → cf p * bfam j m ≠ 0 →
-              (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
             SeamCoefW Xd P Q a b cf →
             (∫ t in (-(seamT0 X))..(seamT0 X), ‖dpolyA a (seamS0 N X) t‖ ^ 2)
               ≤ t0BandB X C₁' M₀ →
@@ -913,7 +915,7 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
     hX₀k hMfl0 hk2 hkX hgateW hYpin hWY hXY hthrY hcqgate hCqgate
     hε0 hεup habs hEP2 hEP2w
     ha1 hcf1 hsupp0 hasupp hMtail0 hMtail hb1 hbf1 hRbar0 hRgrade hsockR
-    hcoefBand hwinBand hcoefPin
+    hcoefBand hcoefPin
     hT0band hcff hgP1 hgRows hL4096
   rcases le_or_gt ((H' : ℝ)) (trivThresh Hp d₀ W) with hshort | hlong
   · exact Or.inl ⟨hshort, m4_trivial_branch ha1 hxw hω hshort α⟩
@@ -927,7 +929,7 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
       hX₀k hMfl0 hk2 hkX hgateW hYpin hWY hXY hthrY hcqgate hCqgate
       hε0 hεup habs hEP2 hEP2w
       ha1 hcf1 hsupp0 hasupp hMtail0 hMtail hb1 hbf1 hRbar0 hRgrade hsockR
-      hcoefBand hwinBand hcoefPin
+      hcoefBand hcoefPin
       hT0band hcff hgP1 hgRows hL4096
 
 end Salt.MR

@@ -176,6 +176,16 @@ private lemma a2_term3_weigh {w R S : ℝ} (hS : 0 ≤ S) (hR : w * R ≤ 3) :
   rw [hid]
   linarith [mul_le_mul_of_nonneg_left hR (mul_nonneg (by norm_num : (0 : ℝ) ≤ 480) hS)]
 
+/-- **THE LEMMA-12 SUMMAND AT ⟦WALL 1⟧'s MR ROW** (`a2_term3_weigh_mr`).  The `hwin`-free
+four-row exit prices the seam row at `960·(T_ann/X_d+1)·(…)` in place of `480·(…)`
+(`M4RowMR`), so the `3`-gate gives `960·3 = 2880` — still inside `a2Mrow`'s `5760`, which is
+⟦AMENDMENT G⟧'s `×4` cover of `1440`.  **The interface numeral does not move.** -/
+private lemma a2_term3_weigh_mr {w R S : ℝ} (hS : 0 ≤ S) (hR : w * R ≤ 3) :
+    w * (960 * R * S) ≤ 5760 * S := by
+  have hid : w * (960 * R * S) = 960 * S * (w * R) := by ring
+  rw [hid]
+  linarith [mul_le_mul_of_nonneg_left hR (mul_nonneg (by norm_num : (0 : ℝ) ≤ 960) hS)]
+
 /-- The `𝒰`-leg summand, weighted at the `3/2`-gate: `2·(3/2) = 3`. -/
 private lemma a2_term4_weigh {w R Z : ℝ} (hZ : 0 ≤ Z) (hR : w * R ≤ 3 / 2) :
     w * (2 * (R * Z)) ≤ 3 * Z := by
@@ -912,10 +922,9 @@ theorem a2Rows_of_capfree3 :
         X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
         2 * Xd ≤ N →
         (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
-          p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m → a (p * m) = bfam j m * c p) →
-        (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
-          p ≤ calQK (Adoor M) (3072 * M) M j → c p * bfam j m ≠ 0 →
-          (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
+          p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m →
+          (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
+          a (p * m) = bfam j m * c p) →
         Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
         (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
         (N : ℝ) ≤ 4 * (Xd : ℝ) →
@@ -936,7 +945,7 @@ theorem a2Rows_of_capfree3 :
   intro c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q M m₀ Ms Mt kk X h δ' V VJ L Cb Rrad Rbar ε
     EP2 hM hXdQ F hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV hPlow
     hQ0 hQhigh hRrad hRbar0 hRgrade hsockR hCqgate hε0 habs hEP2 hXN hN2 hsupp hNXd hcoef
-    hwin hQXd hXdbig hN4 hdom ha1 hasupp T hT hTX2 hTgate hTll
+    hQXd hXdbig hN4 hdom ha1 hasupp T hT hTX2 hTgate hTll
   -- ⟦the scale page⟧
   have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
   have he2 : (4 : ℝ) ≤ Real.exp 2 := by
@@ -967,7 +976,7 @@ theorem a2Rows_of_capfree3 :
     (F.one_le_log _ h2a h2b) (F.log_le_L _ h2a h2b) hLe hVJg hMs (F.thin _ h2a h2b) hm₀2 hm₀
     hMs4 hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade (hsockR.mono h2b)
     (F.blocks _ h2a h2b) hCqgate (F.ksGate_at h2T0 h2b hL0) hε0 habs hEP2 le_rfl
-    (F.err _ h2a h2b) hXN hN2 hsupp hNXd hcoef hwin hQXd hXdbig hN4 hdom ha1 hasupp
+    (F.err _ h2a h2b) hXN hN2 hsupp hNXd hcoef hQXd hXdbig hN4 hdom ha1 hasupp
   -- ⟦THE WEIGHTING⟧
   obtain ⟨hw0, -, hg9, hg244, hg3, hg32⟩ :=
     a2_weight_gates (X := X) (h := h) (T := T) (Xd := (Xd : ℝ))
@@ -996,7 +1005,7 @@ theorem a2Rows_of_capfree3 :
   · exact a2_level1_weigh (fun R' hR' => level1_term_door_decays hM hR')
       (mul_nonneg hw0 hRnn) hg9 hlvl0
   · exact a2_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
-  · exact a2_term3_weigh hRS0 hg3
+  · exact a2_term3_weigh_mr hRS0 hg3
   · exact a2_term4_weigh hZ0 hg32
 
 /-- **THE `3X` FRAME FROM THE WINDOW'S ENDPOINTS** (`a2Frame3_satisfiable_partial`).

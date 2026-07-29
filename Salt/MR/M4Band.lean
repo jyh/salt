@@ -206,4 +206,129 @@ theorem door_band_gate_of_log {A G M Jb P : ℕ} {X : ℝ} (hG : 1 ≤ G) (hX : 
     _ ≤ Real.exp (Real.sqrt (Real.log X)) := Real.exp_le_exp.mpr hQlog
     _ = Real.exp ((Real.log X) ^ ((1 : ℝ) / 2)) := by rw [hsq]
 
+/-! ## §4 — ⟦THE ENDPOINT STRADDLE⟧: the pair law at a HALF-OPEN cut
+
+`M4DoorRow` §1's finding.  The capstone's two support pins MEET at the block bottom —
+`hsupp0` demands `a n = 0` for `(n : ℝ) ≤ X = X_d`, while `hasupp` allows support on
+`[X_d, 2X_d]` — so the door datum must be cut HALF-OPEN (`M4DoorRow.winCutH`).  §2's pair law
+is stated at the CLOSED `SeamRowWindowed.winCut`, whose `SeamCoefW` antecedent `X_d ≤ p·m`
+INCLUDES the endpoint (`M4DoorRow.winCut_endpoint` witnesses the clash).
+
+**The endpoint case is neither free nor vacuous.**  At `p·m = X_d` the half-open cut gives
+`a (p·m) = 0`, while the right-hand side is `1_𝒮(m)·λχ̄(m)·λχ̄(p) = 1_𝒮(X_d)·λχ̄(X_d)` (§1's
+shift-up identity), which does NOT vanish in general.  So the honest sibling carries exactly
+one extra binder — **the datum vanishes at the block bottom** — and
+`memSCoeff_endpoint_zero_of_seamCoefW` shows the binder is FORCED, not a convenience: any cut
+with `a X_d = 0` satisfying `SeamCoefW` at a band factorization of `X_d` makes the datum
+vanish there.
+
+The cut is left ABSTRACT (an `a` with its agreement law) because `winCutH` is defined
+DOWNSTREAM, in `M4DoorRow`; the half-open instance is that file's one-liner
+
+  `memSCoeff_seamCoefW_band_H … (fun n h₁ h₂ => winCutH_of_mem _ h₁ h₂) (winCutH_supp0 _ le_rfl)`.
+-/
+
+/-- **THE BAND PAIR LAW AT AN ABSTRACT CUT** (`memSCoeff_seamCoefW_band_gen`).  §2's law needs
+nothing about the cut beyond agreement with the sieved datum on the CLOSED dyadic window —
+`winCut` is one such cut (§2), and a half-open cut is another as soon as the datum vanishes at
+the endpoint. -/
+theorem memSCoeff_seamCoefW_band_gen {q : ℕ} (χ : DirichletCharacter ℂ q) (Pseq Qseq : ℕ → ℕ)
+    (J Xd P Q : ℕ) (a : ℕ → ℂ) (hgate : ∀ j ∈ Finset.Icc 1 J, Qseq j < P)
+    (ha : ∀ n : ℕ, Xd ≤ n → n ≤ 2 * Xd → a n = memSCoeff Pseq Qseq J (liouChi χ) n) :
+    SeamCoefW Xd P Q a (memSCoeff Pseq Qseq J (liouChi χ)) (liouChi χ) := by
+  intro p m hp hPp _ _ hlo hhi
+  have hgt : ∀ j ∈ Finset.Icc 1 J, Qseq j < p := fun j hj => lt_of_lt_of_le (hgate j hj) hPp
+  have hloN : Xd ≤ p * m := by
+    have : ((Xd : ℕ) : ℝ) ≤ ((p * m : ℕ) : ℝ) := by push_cast; linarith
+    exact_mod_cast this
+  have hhiN : p * m ≤ 2 * Xd := by
+    have : ((p * m : ℕ) : ℝ) ≤ ((2 * Xd : ℕ) : ℝ) := by push_cast; linarith
+    exact_mod_cast this
+  rw [ha _ hloN hhiN]
+  rcases Nat.eq_zero_or_pos m with rfl | hm0
+  · -- ⟦`m = 0`⟧ both sides vanish: `λχ̄(0) = 0`, so the sieved datum does too
+    have hl0 : memSCoeff Pseq Qseq J (liouChi χ) 0 = 0 := by
+      unfold memSCoeff
+      split_ifs
+      · unfold liouChi; simp
+      · rfl
+    rw [mul_zero, hl0, zero_mul]
+  · exact indicator_mul_shift_up (liouChi_mul χ) hp (by omega) hgt
+
+/-- **THE HALF-OPEN BAND PAIR LAW** (`memSCoeff_seamCoefW_band_H`) — §2's law at a cut that
+agrees with the sieved datum only STRICTLY above the block bottom and vanishes AT it, which is
+the shape `M4DoorRow`'s `hsupp0`/`hasupp` straddle forces.  The one new binder `hend` is the
+endpoint discharge, and it is forced (`memSCoeff_endpoint_zero_of_seamCoefW`). -/
+theorem memSCoeff_seamCoefW_band_H {q : ℕ} (χ : DirichletCharacter ℂ q) (Pseq Qseq : ℕ → ℕ)
+    (J Xd P Q : ℕ) (a : ℕ → ℂ) (hgate : ∀ j ∈ Finset.Icc 1 J, Qseq j < P)
+    (haH : ∀ n : ℕ, Xd < n → n ≤ 2 * Xd → a n = memSCoeff Pseq Qseq J (liouChi χ) n)
+    (ha0 : a Xd = 0) (hend : memSCoeff Pseq Qseq J (liouChi χ) Xd = 0) :
+    SeamCoefW Xd P Q a (memSCoeff Pseq Qseq J (liouChi χ)) (liouChi χ) :=
+  memSCoeff_seamCoefW_band_gen χ Pseq Qseq J Xd P Q a hgate (fun n hlo hhi => by
+    rcases eq_or_lt_of_le hlo with rfl | hlt
+    · rw [ha0, hend]
+    · exact haH n hlt hhi)
+
+/-- **THE DOOR'S HALF-OPEN BAND PAIR LAW** (`doorChiCoeff_seamCoefW_band_H`) —
+`memSCoeff_seamCoefW_band_H` at the door's own K-family. -/
+theorem doorChiCoeff_seamCoefW_band_H {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd P Q : ℕ)
+    (a : ℕ → ℂ)
+    (hgate : ∀ j ∈ Finset.Icc 1 2, calQK (Adoor M) (3072 * M) M j < P)
+    (haH : ∀ n : ℕ, Xd < n → n ≤ 2 * Xd → a n = doorChiCoeff χ M n)
+    (ha0 : a Xd = 0) (hend : doorChiCoeff χ M Xd = 0) :
+    SeamCoefW Xd P Q a (doorChiCoeff χ M) (liouChi χ) :=
+  memSCoeff_seamCoefW_band_H χ (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2
+    Xd P Q a hgate haH ha0 hend
+
+/-- **`hcoefPin` AT THE DOOR, HALF-OPEN** (`doorChiCoeff_seamCoefW_at_door_H`) — the half-open
+sibling of `M4DoorRow.doorChiCoeff_seamCoefW_at_door`: the band gate discharged from the
+capstone's own `hQXd`/`hPlow`, the endpoint discharged by `hend`. -/
+theorem doorChiCoeff_seamCoefW_at_door_H {q : ℕ} (χ : DirichletCharacter ℂ q) {M Xd P Q : ℕ}
+    {X : ℝ} {a : ℕ → ℂ} (hM : 1 ≤ M) (hX : 1 < Real.log X)
+    (hQlog : Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log X))
+    (hPlow : P83 X theta293 ≤ (P : ℝ))
+    (haH : ∀ n : ℕ, Xd < n → n ≤ 2 * Xd → a n = doorChiCoeff χ M n)
+    (ha0 : a Xd = 0) (hend : doorChiCoeff χ M Xd = 0) :
+    SeamCoefW Xd P Q a (doorChiCoeff χ M) (liouChi χ) :=
+  doorChiCoeff_seamCoefW_band_H χ M Xd P Q a
+    (door_band_gate_of_log (by omega : 1 ≤ 3072 * M) hX hQlog hPlow) haH ha0 hend
+
+/-- The arithmetic entry to `hend`: outside `𝒮` the sieved datum is `0` by construction. -/
+theorem memSCoeff_eq_zero_of_not_memS {Pseq Qseq : ℕ → ℕ} {J n : ℕ} (a : ℕ → ℂ)
+    (h : ¬ MemS Pseq Qseq J n) : memSCoeff Pseq Qseq J a n = 0 := by
+  simp only [memSCoeff, if_neg h]
+
+/-- **THE ENDPOINT OBLIGATION, EXACTLY** (`seamCoefW_endpoint_forced`).  A cut vanishing at the
+block bottom can satisfy `SeamCoefW`'s CLOSED antecedent only if the pair's right-hand side
+vanishes at every band factorization of `X_d`.  Nothing about the door enters. -/
+theorem seamCoefW_endpoint_forced {a b cf : ℕ → ℂ} {Xd P Q p m : ℕ}
+    (hcoefW : SeamCoefW Xd P Q a b cf) (ha0 : a Xd = 0)
+    (hp : p.Prime) (hP : P ≤ p) (hQ : p ≤ Q) (hpm : ¬ p ∣ m) (hXd : p * m = Xd) :
+    b m * cf p = 0 := by
+  have hR : (p : ℝ) * (m : ℝ) = (Xd : ℝ) := by exact_mod_cast hXd
+  have hXd0 : (0 : ℝ) ≤ (Xd : ℝ) := Nat.cast_nonneg _
+  have h := hcoefW p m hp hP hQ hpm (le_of_eq hR.symm) (by linarith)
+  rw [hXd, ha0] at h
+  exact h.symm
+
+/-- **THE STRADDLE IS REAL** (`memSCoeff_endpoint_zero_of_seamCoefW`).  The converse of
+`memSCoeff_seamCoefW_band_H`'s `hend`: if the block bottom admits ANY band factorization
+`X_d = p·m` (`p` a band prime above every block, `m ≠ 0`), then a half-open cut satisfies the
+band pair law ONLY IF the sieved datum vanishes at `X_d`.  So the extra binder is not a proof
+convenience — it is what the endpoint costs. -/
+theorem memSCoeff_endpoint_zero_of_seamCoefW {q : ℕ} (χ : DirichletCharacter ℂ q)
+    {Pseq Qseq : ℕ → ℕ} {J Xd P Q p m : ℕ} {a : ℕ → ℂ}
+    (hcoefW : SeamCoefW Xd P Q a (memSCoeff Pseq Qseq J (liouChi χ)) (liouChi χ))
+    (ha0 : a Xd = 0) (hgate : ∀ j ∈ Finset.Icc 1 J, Qseq j < P)
+    (hp : p.Prime) (hP : P ≤ p) (hQ : p ≤ Q) (hpm : ¬ p ∣ m) (hm0 : m ≠ 0)
+    (hXd : p * m = Xd) :
+    memSCoeff Pseq Qseq J (liouChi χ) Xd = 0 := by
+  have hgt : ∀ j ∈ Finset.Icc 1 J, Qseq j < p := fun j hj => lt_of_lt_of_le (hgate j hj) hP
+  have hzero := seamCoefW_endpoint_forced hcoefW ha0 hp hP hQ hpm hXd
+  have hEq : memSCoeff Pseq Qseq J (liouChi χ) (p * m)
+      = memSCoeff Pseq Qseq J (liouChi χ) m * liouChi χ p :=
+    indicator_mul_shift_up (liouChi_mul χ) hp hm0 hgt
+  rw [← hXd, hEq]
+  exact hzero
+
 end Salt.MR

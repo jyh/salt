@@ -299,12 +299,57 @@ theorem sum_integral_ramMain_sq_le_of_subset_TsetG (c b : ℕ → ℂ) (Pseq Qse
     `≤ 2|I₁|·( (4T/X_d)·(H₁/(1−2α₁))·e^{(1−2α₁)/H₁}·Q₁^{1−2α₁}`
     `          + 120·min{(H₁/2α₁)·e^{−2α₁(v₀−1)/H₁}, |I₁|·e^{−2α₁v₀/H₁}} ) + E`,
 
-`v₀ = ⌊H₁ log P₁⌋`, `E` Lemma 12's three verbatim error rows.  Every gate is in-statement:
-`2 ≤ H₁` (Lemma 12's, which supplies `0 < H₁` for both `v`-sums), `0 < α₁` for the DECAYING
-leg only, `2α₁ < 1` for the GROWING leg, the Lemma 12 data `hcoef`/`hb`/`hc`/`hwin` with
-`1 ≤ X_d`, `2X_d ≤ N`, `1 ≤ P₁`, `1 ≤ Q₁`, the measure frame `0 ≤ T`, and the sharp-length
-window `1 ≤ X_v` on `I₁` (satisfiable — `G2`'s `exists_sharp_length`).  The graded set is
-instantiated at the Ramaré prime coefficient `c` itself (the coefficient seam). -/
+`v₀ = ⌊H₁ log P₁⌋`, `E` Lemma 12's error rows.  Every gate is in-statement: `2 ≤ H₁` (which
+supplies `0 < H₁` for both `v`-sums), `0 < α₁` for the DECAYING leg only, `2α₁ < 1` for the
+GROWING leg, `1 ≤ X_d`, `1 ≤ Q₁`, the measure frame `0 ≤ T`, and the sharp-length window
+`1 ≤ X_v` on `I₁` (satisfiable — `G2`'s `exists_sharp_length`).  The graded set is
+instantiated at the Ramaré prime coefficient `c` itself (the coefficient seam).
+
+⟦ROW-GENERIC⟧ (⟦WALL 1⟧'s wave).  Lemma 12's rows are HOISTED: this page reads them only as
+the opaque additive term `row`, supplied by the caller together with the per-level Lemma-12
+conclusion `hL12`.  So `hcoef`, `hwin` and `hc` leave the statement, and the caller chooses
+the exit — the landed three-row `TLegPreamble.lemma12_on_TsetG` (see `E1_bound` just below,
+whose statement is unchanged) or ⟦WALL 1⟧'s `hwin`-free four-row
+`M4RowMR.lemma12_on_TsetG_mr_windowed`. -/
+theorem E1_bound_gen (c : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ) (Jb : ℕ)
+    (hH : 2 ≤ Hseq 1) (hα : 0 < αseq 1) (hα2 : 2 * αseq 1 < 1)
+    (N Xd : ℕ) (hX : 1 ≤ Xd) (hQ : 1 ≤ Qseq 1)
+    (a b : ℕ → ℂ) (hb : ∀ m, ‖b m‖ ≤ 1)
+    (X T t₁ : ℝ) (hT : 0 ≤ T)
+    (hbot : ∀ v ∈ ramI (Hseq 1) (Pseq 1) (Qseq 1), 1 ≤ ramRbot (Hseq 1) Xd v)
+    (row : ℝ)
+    (hL12 : (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq αseq Jb 1,
+          ‖spoly N a t‖ ^ 2)
+        ≤ 2 * ((ramI (Hseq 1) (Pseq 1) (Qseq 1)).card : ℝ)
+            * (∑ v ∈ ramI (Hseq 1) (Pseq 1) (Qseq 1),
+                ∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq αseq Jb 1,
+                  ‖ramMain (Hseq 1) N Xd (Pseq 1) (Qseq 1) b c v t‖ ^ 2)
+          + row) :
+    (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq αseq Jb 1,
+        ‖spoly N a t‖ ^ 2)
+      ≤ 2 * ((ramI (Hseq 1) (Pseq 1) (Qseq 1)).card : ℝ)
+          * (4 * T / (Xd : ℝ)
+              * (Hseq 1 / (1 - 2 * αseq 1) * Real.exp ((1 - 2 * αseq 1) / Hseq 1)
+                  * (Qseq 1 : ℝ) ^ (1 - 2 * αseq 1))
+            + 120 * min (Hseq 1 / (2 * αseq 1)
+                  * Real.exp (-(2 * αseq 1)
+                      * ((⌊Hseq 1 * Real.log (Pseq 1 : ℝ)⌋₊ : ℝ) - 1) / Hseq 1))
+                (((ramI (Hseq 1) (Pseq 1) (Qseq 1)).card : ℝ)
+                  * Real.exp (-(2 * αseq 1)
+                      * (⌊Hseq 1 * Real.log (Pseq 1 : ℝ)⌋₊ : ℝ) / Hseq 1)))
+        + row := by
+  have hmain := sum_integral_ramMain_sq_le_of_subset_TsetG c b Pseq Qseq Hseq αseq Jb 1 N Xd
+    hX hb (lt_of_lt_of_le (by norm_num) hH) hα hα2 hQ T hT _
+    (measurableSet_annulus_TsetG c Pseq Qseq Hseq αseq Jb 1 X T t₁)
+    (annulus_TsetG_subset_Icc c Pseq Qseq Hseq αseq Jb 1 X T t₁)
+    Set.inter_subset_right hbot
+  have hcard0 : (0 : ℝ) ≤ 2 * ((ramI (Hseq 1) (Pseq 1) (Qseq 1)).card : ℝ) := by positivity
+  have hscaled := mul_le_mul_of_nonneg_left hmain hcard0
+  refine le_trans hL12 ?_
+  linarith
+
+/-- **G3a — MR §8.1, the level-1 `𝒯`-leg** (`E1_bound`) — `E1_bound_gen` at the LANDED
+three-row Lemma-12 exit `TLegPreamble.lemma12_on_TsetG`.  Statement unchanged. -/
 theorem E1_bound (c : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ) (Jb : ℕ)
     (hH : 2 ≤ Hseq 1) (hα : 0 < αseq 1) (hα2 : 2 * αseq 1 < 1)
     (N Xd : ℕ) (hX : 1 ≤ Xd) (hN : 2 * Xd ≤ N) (hP : 1 ≤ Pseq 1) (hQ : 1 ≤ Qseq 1)
@@ -334,18 +379,10 @@ theorem E1_bound (c : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ �
                     ‖ramP2coeff N (Pseq 1) (Qseq 1) a b c n‖ ^ 2 / (n : ℝ) ^ 2
             + (2 * T + 20 * (N : ℝ))
                 * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega (Pseq 1) (Qseq 1) n = 0),
-                    ‖a n‖ ^ 2 / (n : ℝ) ^ 2)) := by
-  have hmain := sum_integral_ramMain_sq_le_of_subset_TsetG c b Pseq Qseq Hseq αseq Jb 1 N Xd
-    (by omega) hb (by linarith) hα hα2 hQ T hT _
-    (measurableSet_annulus_TsetG c Pseq Qseq Hseq αseq Jb 1 X T t₁)
-    (annulus_TsetG_subset_Icc c Pseq Qseq Hseq αseq Jb 1 X T t₁)
-    Set.inter_subset_right hbot
-  have hcard0 : (0 : ℝ) ≤ 2 * ((ramI (Hseq 1) (Pseq 1) (Qseq 1)).card : ℝ) := by positivity
-  have hscaled := mul_le_mul_of_nonneg_left hmain hcard0
-  refine le_trans
+                    ‖a n‖ ^ 2 / (n : ℝ) ^ 2)) :=
+  E1_bound_gen c Pseq Qseq Hseq αseq Jb hH hα hα2 N Xd hX hQ a b hb X T t₁ hT hbot _
     (lemma12_on_TsetG c Pseq Qseq Hseq αseq Jb 1 hH N Xd hX hN hP a b c hcoef hb hc hwin
-      X T t₁ hT) ?_
-  linarith
+      X T t₁ hT)
 
 /-! ## §5 — G3b: the page at the pins -/
 
@@ -396,16 +433,20 @@ That is the `H₁²·log Q₁·P₁^{−2α₁}·(T/(X/Q₁)+1)` shape of MR p.2
 for the arithmetic verdict at MR's own `H₁`, `α₁` (it reproduces `(log Q₁)^{1/3}/P₁^{1/6−η}`
 exactly).  `α₁` is NOT pinned here beyond its two gates: the α-sequence numerals belong to
 the collection stones. -/
-theorem E1_pin (c : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ) (Jb : ℕ)
+theorem E1_pin_gen (c : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ) (Jb : ℕ)
     (hH : 2 ≤ Hseq 1) (hα : 0 < αseq 1) (hα2 : 2 * αseq 1 < 1)
-    (N Xd : ℕ) (hX : 1 ≤ Xd) (hN : 2 * Xd ≤ N) (hP : 1 ≤ Pseq 1) (hPQ : Pseq 1 ≤ Qseq 1)
-    (a b : ℕ → ℂ)
-    (hcoef : ∀ p m, p.Prime → Pseq 1 ≤ p → p ≤ Qseq 1 → ¬ p ∣ m → a (p * m) = b m * c p)
-    (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖c p‖ ≤ 1)
-    (hwin : ∀ p m : ℕ, p.Prime → Pseq 1 ≤ p → p ≤ Qseq 1 → c p * b m ≠ 0 →
-      (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ))
+    (N Xd : ℕ) (hX : 1 ≤ Xd) (hP : 1 ≤ Pseq 1) (hPQ : Pseq 1 ≤ Qseq 1)
+    (a b : ℕ → ℂ) (hb : ∀ m, ‖b m‖ ≤ 1)
     (X T t₁ : ℝ) (hT : 0 ≤ T)
-    (hbot : ∀ v ∈ ramI (Hseq 1) (Pseq 1) (Qseq 1), 1 ≤ ramRbot (Hseq 1) Xd v) :
+    (hbot : ∀ v ∈ ramI (Hseq 1) (Pseq 1) (Qseq 1), 1 ≤ ramRbot (Hseq 1) Xd v)
+    (row : ℝ)
+    (hL12 : (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq αseq Jb 1,
+          ‖spoly N a t‖ ^ 2)
+        ≤ 2 * ((ramI (Hseq 1) (Pseq 1) (Qseq 1)).card : ℝ)
+            * (∑ v ∈ ramI (Hseq 1) (Pseq 1) (Qseq 1),
+                ∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq αseq Jb 1,
+                  ‖ramMain (Hseq 1) N Xd (Pseq 1) (Qseq 1) b c v t‖ ^ 2)
+          + row) :
     (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq αseq Jb 1,
         ‖spoly N a t‖ ^ 2)
       ≤ 2 * (Hseq 1 * Real.log (Qseq 1 : ℝ) + 1)
@@ -413,14 +454,7 @@ theorem E1_pin (c : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ →
           * (Pseq 1 : ℝ) ^ (-(2 * αseq 1))
           * (4 * (Hseq 1 / (1 - 2 * αseq 1)) * Real.exp ((1 - 2 * αseq 1) / Hseq 1)
               + 60 * (Hseq 1 / αseq 1) * Real.exp (4 * αseq 1 / Hseq 1))
-        + 2 * (3 * ((2 * T + 20 * (N : ℝ))
-                * ((2 * Real.exp 1 * (Xd : ℝ) / Hseq 1 + 1) * (Real.exp 1 / (Xd : ℝ) ^ 2))
-            + (2 * T + 20 * (N : ℝ))
-                * ∑ n ∈ Finset.Icc 1 N,
-                    ‖ramP2coeff N (Pseq 1) (Qseq 1) a b c n‖ ^ 2 / (n : ℝ) ^ 2
-            + (2 * T + 20 * (N : ℝ))
-                * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega (Pseq 1) (Qseq 1) n = 0),
-                    ‖a n‖ ^ 2 / (n : ℝ) ^ 2)) := by
+        + row := by
   have hQ : 1 ≤ Qseq 1 := le_trans hP hPQ
   have hH0 : (0 : ℝ) < Hseq 1 := by linarith
   have hXR : (0 : ℝ) < (Xd : ℝ) := by exact_mod_cast hX
@@ -578,8 +612,39 @@ theorem E1_pin (c : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ →
           * (Pseq 1 : ℝ) ^ (-(2 * αseq 1))
           * (4 * (Hseq 1 / (1 - 2 * αseq 1)) * Real.exp ((1 - 2 * αseq 1) / Hseq 1)
               + 60 * (Hseq 1 / αseq 1) * Real.exp (4 * αseq 1 / Hseq 1)) := by ring
-  refine le_trans (E1_bound c Pseq Qseq Hseq αseq Jb hH hα hα2 N Xd hX hN hP hQ a b hcoef hb
-    hc hwin X T t₁ hT hbot) ?_
+  refine le_trans (E1_bound_gen c Pseq Qseq Hseq αseq Jb hH hα hα2 N Xd hX hQ a b hb
+    X T t₁ hT hbot row hL12) ?_
   linarith
+
+/-- **G3b — MR §8.1 at the pins** (`E1_pin`) — `E1_pin_gen` at the LANDED three-row Lemma-12
+exit `TLegPreamble.lemma12_on_TsetG`.  Statement unchanged. -/
+theorem E1_pin (c : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ) (Jb : ℕ)
+    (hH : 2 ≤ Hseq 1) (hα : 0 < αseq 1) (hα2 : 2 * αseq 1 < 1)
+    (N Xd : ℕ) (hX : 1 ≤ Xd) (hN : 2 * Xd ≤ N) (hP : 1 ≤ Pseq 1) (hPQ : Pseq 1 ≤ Qseq 1)
+    (a b : ℕ → ℂ)
+    (hcoef : ∀ p m, p.Prime → Pseq 1 ≤ p → p ≤ Qseq 1 → ¬ p ∣ m → a (p * m) = b m * c p)
+    (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖c p‖ ≤ 1)
+    (hwin : ∀ p m : ℕ, p.Prime → Pseq 1 ≤ p → p ≤ Qseq 1 → c p * b m ≠ 0 →
+      (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ))
+    (X T t₁ : ℝ) (hT : 0 ≤ T)
+    (hbot : ∀ v ∈ ramI (Hseq 1) (Pseq 1) (Qseq 1), 1 ≤ ramRbot (Hseq 1) Xd v) :
+    (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq αseq Jb 1,
+        ‖spoly N a t‖ ^ 2)
+      ≤ 2 * (Hseq 1 * Real.log (Qseq 1 : ℝ) + 1)
+          * (T * (Qseq 1 : ℝ) / (Xd : ℝ) + 1)
+          * (Pseq 1 : ℝ) ^ (-(2 * αseq 1))
+          * (4 * (Hseq 1 / (1 - 2 * αseq 1)) * Real.exp ((1 - 2 * αseq 1) / Hseq 1)
+              + 60 * (Hseq 1 / αseq 1) * Real.exp (4 * αseq 1 / Hseq 1))
+        + 2 * (3 * ((2 * T + 20 * (N : ℝ))
+                * ((2 * Real.exp 1 * (Xd : ℝ) / Hseq 1 + 1) * (Real.exp 1 / (Xd : ℝ) ^ 2))
+            + (2 * T + 20 * (N : ℝ))
+                * ∑ n ∈ Finset.Icc 1 N,
+                    ‖ramP2coeff N (Pseq 1) (Qseq 1) a b c n‖ ^ 2 / (n : ℝ) ^ 2
+            + (2 * T + 20 * (N : ℝ))
+                * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega (Pseq 1) (Qseq 1) n = 0),
+                    ‖a n‖ ^ 2 / (n : ℝ) ^ 2)) :=
+  E1_pin_gen c Pseq Qseq Hseq αseq Jb hH hα hα2 N Xd hX hP hPQ a b hb X T t₁ hT hbot _
+    (lemma12_on_TsetG c Pseq Qseq Hseq αseq Jb 1 hH N Xd hX hN hP a b c hcoef hb hc hwin
+      X T t₁ hT)
 
 end Salt.MR

@@ -13375,3 +13375,43 @@ pieces; hCenter_dissected/the wide machinery prices each — the SAME
 supplier genre as the CofactorSocket, at spolyA instead of ramR) —
 T0BAND-DATUM dispatched. The spine consumption list (the carried
 regime gates, all at the BLOCK scale log Xd) is in W2-DOOR's report.
+
+---
+
+## THE COUNTER-WAVE LANDS FIVE-FOR-FIVE — both walls DOWN, the pricing residue half-dead (2026-07-28 19:55 PDT)
+
+**WALL 1 DEMOLISHED (WALL1-EXECUTOR, 6/6 steps, +1166/−594 across 11
+files + M4Puncture 268/M4RowMR 392/M4P2MR 339):** hwinBand DELETED
+from the capstone (strictly weaker — one binder fewer, none added,
+conclusions byte-identical); the per-block puncture pair law
+(memS_mul_prime_punct — the IN-BLOCK case; the interface fit
+kernel-verified); the MR row on-subset; the row-generic hoisting
+(legacy byte-identical); the K2 re-pricing at 960 (2880 ≤ 5760 — the
+AMENDMENT G ×4 cover absorbs, NO interface edit); no third reader.
+The ramP2massMR stones relocated upstream (M4P2MR — forced, verbatim,
+acyclic). **WALL 2 REPAIRED (WALL2-REGRADE):** the length-graded
+MS : ℕ → ℕ → ℝ; the factor-2 assembly cost; the partition at the
+capstone's own statement boundary (door_length_gate_iff — the converse
+new); one FEWER supplier obligation; ⟦THE CONSUMPTION NOTE⟧ banked
+(M fixed before its floor). **ENDPOINT:** the forced hend binder
+(kernel-converse: unavoidable, not convenience) + the half-open
+siblings. **T0BAND-DATUM (M4T0Datum 651):** the four-piece sup route
+closed to the pricing residue; the cut commutes free; Route III
+direct; one hoisted X₀ for all pieces; ⟦THE PRICING RESIDUE⟧ named.
+**R1-PRICER (FarL2 929):** P3 CLOSED — polylog_floor_M0 at coefficient
+1/4 at EVERY poly-log height (the doubly-log law in kernel:
+plog_floor_clears_gate at threshold 16, margin ≥ 1/16); the free wins
+w1 (the pointwise 1/16 box floor) + w2 (the T₀-band floor lifted
+7/30 → 1/4); P2's scope route REFUTED honestly (the MVT's 20N-term at
+the window length forces H ≳ √k) with the repair's arithmetic verified
+(dyadic-in-n first: J ≈ L blocks, MVT per block, CS recombine at cost
+J → the N-term drops k/L⁸ → L⁴ → H ≳ L^{2.76} POLY-LOG) and the far
+kernel landed mass-free (crossKerFar_le_weighted_l2 at winL2Tail).
+
+**THE ONE REMAINING PRICING PAGE (P2-REPAIR, dispatched):** the
+dyadic-in-n mean value (the verified arithmetic) → winL2Tail priced at
+poly-log H → the re-pinned truncation twins → the dilated_scale_grade
+twin at the poly-log radius (the named binder: hgate/hM₀ at Tstar →
+the poly-log pin) → the B-discharge → the T0-band supplier
+hypothesis-complete. Then: W2-DOOR re-flies (the capstone now
+inhabitable at the door in EVERY binder), the collapse, the spine.
