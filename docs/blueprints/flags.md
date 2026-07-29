@@ -14106,3 +14106,46 @@ parallel; (3) the split — hold execution for ONE combined register
 re-thread with E-7/E-8; (4) adaptive depth — do not open; (5) the
 Hhi export — schedule regardless. LEVER1-REF + ARC-SCOPE dispatched
 (read-only) so the morning has verified pricing.
+
+---
+
+## ⟦LEVER1-REF⟧: lever 1′ AMEND-then-FIRE — the arithmetic EXACT (10.9), the census 3× understated, G1 must strengthen (register-tier), the composition ROBUST (2026-07-29 ~02:30 PDT)
+
+**CONFIRMED:** Σa_jW_j exact at 26800/2457 = 10.90761 (W_j ≤ H/2·2^j +
+4^j verified at dyadic_count_weight_term_le; 25/16 near-optimal, ~1%
+from the true minimum); the CS packaging all-rational — PREFER
+`Finset.sq_sum_div_le_sum_sq_div` (the Engel/Sedrakyan form, sqrt-free,
+one step); the "floor 2× slacker" EXACT (log₂(32/25) = 0.35614); the
+flatness foundation SAFE (the envelope's five summands: only 6315000/h
+is h-graded; every other h-conjunct is a gate; and 1′'s value doesn't
+even rest on flatness — decreasing supply makes it strictly better);
+htriv/anti-vacuity untouched. **K4:** the wall re-derived independently
+(M cancels exactly; m4Cmax the sole log₂H source); with F1 → 10.9 the
+wall becomes **M ≥ 1.4e11·Ccc/G²** — a FLOOR on M, large M pure gain;
+1′ alone does NOT break WALL A (the collision merely halves its
+constant — each lever necessary, none sufficient); U1floor ≈
+2^{10^{119±1}} robust across both derivations; no M-upper in the
+register except the head's j₀ ≲ log₂H. NEW: a SECOND M-sandwich
+location (the :710/:712-vs-:602 X-block-scale sandwich — clear at
+closing numbers by 10^{53000}, but the Hhi-export repair has more than
+one customer).
+
+**THE AMENDMENTS:** ⟦A1⟧ the weighted head is TWO summands
+(4.96·(32/25)^{j₀}·H^{-0.356} + 1.78·(64/25)^{j₀}·H^{-1.356} — the
+scoper dropped the CS factor 25/9 (constant 2.3 → 4.96) and the 4^j
+half); m4BclGraded MUST keep name+signature — that alone keeps ~13
+register restatement sites byte-identical (they consume only
+m4BclGraded_nonneg). ⟦A2⟧ **G1 must strengthen** to
+`arcDen 12 H ^ 2 ≤ MStr H` (or the gate 2^{doorRowFloor M} ≤ H): the
+second head summand needs Ftr ≥ (log H)^{16.27} at the narrow-base
+transfer and G1's (log H)^12 is short by (log H)^{4.27} — NOT
+absorbed. Free to witness, harmless to the wall, but a register
+statement change at 6 sites — **rule at council; belongs in the ONE
+combined register re-thread with E-7/E-8/the split**. ⟦A3⟧ the honest
+census: **6 files ~1000–1400 ln** — the maximal assembly has THREE
+copies (M4Maximal + M4CoprimeSupply:414-646 live via M4Collapse:233 +
+M4BaseNarrow:265-502) and M4Spine:335-444 reads the head's exact
+bytes (defeq — build-breaks on the def change, ~80 ln re-cut);
+M4DoorRow:461-476 collides with the E-EXECUTOR set — sequence it.
+FREE WINS: the Engel-form lemma; c = 3/2 over 25/16 (10.80, head
+H^{-0.415}, materially easier norm_num/geom_sum bookkeeping).
