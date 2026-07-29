@@ -13552,3 +13552,33 @@ consumers — the T0-supplier close consumes them first.** BOXPIECE
 sealed in this batch (FarL2 §12: the 1/16 piece transport at zero
 threshold cost; box_floor_clears_gate_45 already at the ruled
 numerals).
+
+---
+
+## COPRIME-SCOPE: the carried arm is F1-genre — over-general; THE NARROWED TWIN closes verbatim (2026-07-28 21:59 PDT)
+
+THE FINDING: M4CoprimeBlockMeanSq as carried is over-general — the
+grade's summand 2 is off by H/L for ANY route (unconditional); and at
+(L=1, q=1) the predicate demands square-cancellation from a bare
+𝒮-count (the FALSITY half — CONTINGENT on 𝒮's positive H-free density,
+flagged for a refuter pass before quoted as fact; the unconditional
+half suffices for the repair regardless). The χ-layer is FREE of block
+and length (all stones base/length-generic; the 1/φ cancels exactly;
+the q's are the SAME q — nothing to bridge; the q² slot untouched).
+THE BASE GAP is real: the dilated classes read bases a factor d₀ BELOW
+the ladder — the carried register needs the ∀d quantifier (W5).
+
+**THE TWO NIGHT RULINGS:** (W0) M4CoprimeBlockMeanSq STANDS (iron rule
+1; load-bearing in the landed close); M4CoprimeBlockMeanSqN lands
+beside it — ONE added hypothesis (H ≤ arcDen 12 H · L), discharged at
+both consumption sites from in-scope facts, delivering m4BclGraded
+VERBATIM (d0_ledger unchanged; the register lines don't move); the
+two new class-(a) gates G1/G2 are consumer-choosable (MSan/MStr
+∀-bound). (W5) the carried register's ∀d extension over the dilated
+bases — no new analytic content, the scale gates met at
+A ≳ H/(log H)^12 — sequenced AFTER T0-DISCHARGE lands (the file race).
+ALSO: the slack4 hcov catch (W1 — the hypothesis weakened to
+Ioc A (B−4); zero proof change; zero consumers). THE ONE NEW LEMMA:
+the free-base/free-length shifted mean-square bridge (~140 ln).
+COPRIME-EXECUTOR dispatched on W1–W4+W6; W5 + the final join ride the
+second flight.
