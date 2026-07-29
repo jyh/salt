@@ -14635,7 +14635,7 @@ factor is 3.9e4 — LARGER than claimed, not smaller).
 
 ---
 
-## ⟦WAVE-5 + THE CONSTRUCTION CLOSE⟧: the D₀-truncation REFUTED (the ledger spends once) — the second road is BUILT; two decisions to JYH (2026-07-29 09:55 PDT)
+## ⟦WAVE-5 + THE CONSTRUCTION CLOSE⟧: the D₀-truncation REFUTED (the ledger spends once) — the second road is BUILT; two decisions to JYH (2026-07-29 10:22 PDT; mis-stamped 09:55 — the maestro now runs date as its own step before every entry)
 
 **THE REFUTATION (corrects the banked D0-TEST verdict):** at every
 stratum the χ-summed supply is read at the stratum's OWN dilated cap
