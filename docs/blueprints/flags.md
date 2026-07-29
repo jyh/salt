@@ -14326,3 +14326,55 @@ arithmetic), R5 (Route 2's sup_K ruling + the imprimitive audit),
 firing only F4 meanwhile. **The synthesis recommends (B)
 unambiguously; the maestro concurs — REF-F5 + REF-ROUTE dispatched
 (read-only, the scoping authority).**
+
+---
+
+## ⟦REF-F5⟧: F5 CONFIRMED (coefficient EXACTLY 28; fails 9.8e4× at its best point, every escape closed) — but the framing FLIPS: F5 kills exactly what the KMT port replaces (2026-07-29 04:45 PDT)
+
+**R1 the discharge trace — CONFIRMED, STRONGER:** X is PINNED to a
+q-FREE numeral (Xd := doorLadder-expression of (R.x,H,i,d,s)) — ONE X
+must serve EVERY q ≤ arcDen 12 H simultaneously (no per-q freedom at
+all); the threshold's q IS the register's ∀q (the liouChi modulus,
+byte-identical to capFreeFloor3_liouChi_all's hypothesis — the VK
+zero-free-region debit); nothing narrows q; no branch avoids it (the
+only case split is row-length, not modulus). **SCOPE AMENDMENT: F5 is
+the FOURTH wall on m4_wave_collapsed's register (A, B, D, F5), NOT a
+new kill of a live object — M4Spine:51 already banks the register as
+true-but-vacuous. F5 does NOT touch m4_wave_exit (M4Join's six-item
+register; residue M4RowMeanSq). What F5 kills is THE PER-χ DOOR
+SUPPLY ROUTE (thm_a2' + capFreeFloor3) — precisely the route D-1's
+KMT port REPLACES.**
+
+**R3 the arithmetic — the coefficient is EXACTLY 28 = 32·(1/8 + 1/4
++ 1/2)** (the VK debit pieces at VkTwistClose:442/447 +
+VkTwistLadder:545); the e^{e^100} block contributes an X-free floor
+2.15e44 the corpus already knows (CapFreeAssembly:96 — VT-7 drops it
+to ~10³). With F4 repaired AND VT-7 granted AND every dial set in
+F5's disfavour: **fails 9.79e4× at the global optimum (k=18), 1.76e7×
+at the composition's scale; the anchor makes it WORSE (2.4× at
+k=30); Adoor ≡ 1 still fails 4.7e3×; closes only at
+Ccc ≲ 8.4e-6379.** The synthesis's "short by 10^13" corrected to
+1.76e7 (its 4e7 was right within 2.4×). The no-tower counterfactual
+closes only at v > 96.8 (not 33) — and only because 28·B₅ = 336 <
+500: at B₅ ≥ 18 the register is infeasible EVEN WITHOUT the tower
+(the whole margin is 1.49×) — a design tell, banked.
+
+**R2 the tower — FORCED:** the law lnln Hhi = (lnln Hlo)^4
+re-derived independently (4 = e^{2ln2}: the ½ per-step decrement ×
+the log 2 entropy target); the length is forced by the entropy
+ceiling (entropy_per_symbol_le at ±1-valued windows — log 2 is one
+bit, not tunable; a target < log 2 yields no contradiction). Not
+repairable by shortening. CAVEAT banked: F5's cap rests on the
+M-lnln Hlo coupling from the door's own window gate; a re-cut
+decoupling M from log H would lift it — nothing on the board
+proposes one.
+
+**THE BOTTOM LINE (the framing flip):** F5 is NOT grounds to
+withhold the KMT port and D-1 is NOT moot — F5 is an argument FOR
+re-cutting the target statement (the door supply's shape) BEFORE
+pricing the port. Recommendation (B) survives with the reason
+changed. D-2's anchor arithmetic untouched (the re-pin settles
+SANDWICH-REF's pair and nothing more — must not be sold as settling
+the register). **FIRE F4 regardless** (unrepaired: 8q =
+8·exp(7.67e10)); **VT-7 onto the board beside it** — worth 2.15e44
+of lnln X demand, currently unpriced.
