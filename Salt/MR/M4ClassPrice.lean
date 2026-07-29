@@ -742,6 +742,31 @@ theorem m4_gradeGate_direct_of_sq {R : ChowlaRegime} {C δ : ℝ} {Braw : ℕ �
         Real.sqrt_le_sqrt (hdel H hlo hhi)
     _ = mrtDeliveredGrade (C / 2) H := Real.sqrt_sq hG0
 
+/-- **⟦U3, SPLIT⟧ `m4_gradeGate_direct_split`** — the twin of `m4_gradeGate_direct` (:704) at
+the head's constant grade (second-road freeze v2, wave ①; the family's contract is
+`M4Exit` §7).  **This is the critical-path step of the split road**: it is the discharge every
+register above the block level routes its budget line through.
+
+`M4Close.M4GradeGateSplit` is the Prop socket; `mrtDeliveredGrade (C/2) H` becomes `δ₀/2` in
+both hypotheses, and the halving identity (`mrtDeliveredGrade`'s linearity in `C`) becomes
+`δ₀/2 + δ₀/2 = δ₀` — so the proof is two `have`s and a `linarith`, exactly as it was.
+
+Binder-list diff against the original: `C : ℝ` is GONE, `δ₀ : ℝ` takes its slot.  As in the
+original there is no positivity demand on the grade — the constant's sign never enters.
+
+The squared sibling `m4_gradeGate_direct_of_sq` is NATURALLY RETIRED on this road: a supplier
+that knows `Braw H ≤ (δ₀/2)²` should read `M4Close.m4_gradeGate_of_pricing_split`, which is
+that statement's split form and needs only `0 ≤ δ₀`. -/
+theorem m4_gradeGate_direct_split {R : ChowlaRegime} {δ₀ δ : ℝ} {Braw : ℕ → ℝ} {k : ℕ}
+    (hdel : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Real.sqrt (Braw H) ≤ δ₀ / 2)
+    (hrest : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 2) :
+    M4GradeGateSplit R δ₀ δ Braw k := by
+  intro H hlo hhi
+  have h1 := hdel H hlo hhi
+  have h2 := hrest H hlo hhi
+  linarith
+
 /-- **⟦U1⟧ THE STRICT NEGATIVITY** `1/45 − 7/(30e) < 0`.  Equivalent to `2e/3 < 7`, and
 `e < 2.7182818286` (`Real.exp_one_lt_d9`) settles it with room.  This is the ONE arithmetic
 fact that makes the decay-retaining pricing route work at all: `cfbM0`'s leading

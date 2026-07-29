@@ -947,6 +947,62 @@ theorem m4_wave_closed_of_dyadicRow :
     hBraw0 hdrift hdel hrest
     (m4_chiBlockMeanSq_of_dyadicRow j₀ hMSan0 hMStr0 han htr hrow) hnoncop
 
+/-- **THE CLOSE AT THE GRADED DYADIC ROW DATUM, SPLIT** (`m4_wave_closed_of_dyadicRow_split`)
+— the twin of `m4_wave_closed_of_dyadicRow` (:912) at the head's constant grade
+(second-road freeze v2, wave ①; the family's contract is `M4Exit` §7).
+
+**This is the row-level host of the split family**, and it adopts its own graded shape
+VERBATIM: `m4BclGraded j₀ (2·MSan) (2·MStr)`, the two envelopes with their two gates, the
+bound parameter `j₀`, and the four envelope-reading conjuncts (the drift line and the
+non-coprime line both read the assembled grade).  ⟦R1⟧ stays EXECUTED, ⟦R2⟧ and ⟦R3⟧
+unchanged, and the ⟦CONSUMPTION NOTE⟧ above (the `4^{j₀}` floor demand riding `U1floor`)
+applies here word for word.
+
+⟦THE DIFF against the landed statement⟧, exactly three lines:
+
+* `∀ (C : ℝ), 0 ≤ C →` — DELETED (⟦THE C-BINDER WARNING⟧);
+* `√(Braw H) ≤ mrtDeliveredGrade (C/2) H` → `√(Braw H) ≤ δ₀/2`;
+* `δ/4 + 4·2^k/x ≤ mrtDeliveredGrade (C/2) H` → `δ/4 + 4·2^k/x ≤ δ₀/2`.
+
+Every other byte — including the conclusion `¬ logChowla2Fails R.eps R.x R.ω` — is the
+landed one's. -/
+theorem m4_wave_closed_of_dyadicRow_split :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (MS : ℕ → ℕ → ℝ) (MSan MStr : ℕ → ℝ) (j₀ M k : ℕ),
+            M4DoorGates Cg R M k δ →
+            (∀ H : ℕ, 0 ≤ MSan H) → (∀ H : ℕ, 0 ≤ MStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ j H : ℕ, j₀ ≤ j → MS j H ≤ MSan H) →
+            (∀ j H : ℕ, j < j₀ → MS j H ≤ MStr H) →
+            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
+                  * ((q : ℝ) ^ 2 * (3 * m4BclGraded j₀ (fun H => 2 * MSan H)
+                      (fun H => 2 * MStr H) H)) ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Real.sqrt (Braw H) ≤ δ₀ / 2) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 2) →
+            M4ChiDyadicRowMeanSq R M k MS →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              ∀ i < k, ∀ r, r < q → ¬ Nat.Coprime q r →
+                ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+                    (classSup (doorSievedCoeff M) H n q r) ^ 2
+                  ≤ m4BclGraded j₀ (fun H => 2 * MSan H) (fun H => 2 * MStr H) H
+                      * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)) →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_wave_closed_of_chi_split
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ Braw MS MSan MStr j₀ M k hgates hMSan0 hMStr0 hBraw0
+    han htr hdrift hdel hrest hrow hnoncop => ?_⟩
+  refine hR δ Braw (m4BclGraded j₀ (fun H => 2 * MSan H) (fun H => 2 * MStr H)) M k hgates
+    (fun H => m4BclGraded_nonneg (Fan := fun H => 2 * MSan H) (Ftr := fun H => 2 * MStr H)
+      (show (0 : ℝ) ≤ 2 * MSan H by have := hMSan0 H; linarith)
+      (show (0 : ℝ) ≤ 2 * MStr H by have := hMStr0 H; linarith))
+    hBraw0 hdrift hdel hrest
+    (m4_chiBlockMeanSq_of_dyadicRow j₀ hMSan0 hMStr0 han htr hrow) hnoncop
+
 end Salt.MR
 
 end

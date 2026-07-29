@@ -378,4 +378,113 @@ theorem m4_exit_socket_False :
   obtain ⟨R, hReps, hU1, hRg, _, _, _, hR⟩ := h C hC U1floor g
   exact ⟨R, hReps, hU1, hRg, fun hbd hfail => hR hbd hfail⟩
 
+/-! ## §7 — ⟦THE SPLIT TWINS⟧: the door consumed at the head's OWN constant `δ₀`
+
+*The second-road freeze v2 (`docs/exploration/second-road-freeze-0729.md`, RATIFIED
+2026-07-29), wave ①.  Every landed statement above is byte-untouched; the `_split` family
+below is an additive sibling road.  This header is the family's contract, and the twins in
+`M4Close`, `M4ClassPrice`, `M4BridgeCover`, `M4Join`, `M4WaveClosed` and `M4Maximal` all read
+against it.*
+
+### THE δ₀ CONTRACT
+
+`log_chowla_two_budget_head_g` (`SpineFinal.lean:856–861`) binds `δ₀` in its own `∃`-prefix,
+BEFORE `∀ extraFloor U1floor g`, and then opens the door quantifier
+
+```
+∀ δ : ℝ, 0 < δ → δ ≤ δ₀ → MRTUniformityXi R δ → ¬ logChowla2Fails R.eps R.x R.ω
+```
+
+The landed road fires that quantifier at the DECAYING grade `δ := doorGrade R.Hlo` and pays
+for the descent: §2's pin, §3's `C_MRT` gate, §4's `mrtDeliveredGrade ≤ doorGrade`.  The split
+road fires it at `δ := δ₀` itself (`le_rfl`), which is legal precisely because `δ₀` is fixed
+before the regime — so the whole decaying-grade machinery is bypassed rather than repaired.
+
+### WHAT DISAPPEARS (naturally retired; the split twins mention NONE of it)
+
+* `mrtDeliveredGrade` and `mrtGate` (§3–§4) with their floor `H0scale` and the transfer
+  lemmas — the delivered grade never enters a split statement;
+* `doorGrade`, `doorGrade_regime_pin` and the `H0door δ₀` extraFloor demand at `:352` — the
+  door floor existed only to certify `doorGrade R.Hlo ≤ δ₀`, which at `δ := δ₀` is `le_rfl`;
+* `absWindowBound_le_pin` — the weakening step it performs is the identity here;
+* `M4Close.m4Saving`'s `sqrt_m4Saving_le_delivered` margin, and
+  `M4ClassPrice.m4_gradeGate_direct_of_sq`.
+
+⟦THE `_False` FAMILY IS RETIRED⟧ (JYH ruling, freeze v2 ratification).  The five collision
+forms — `m4_exit_socket_False`, `M4Close.m4_door_False_of_live`,
+`M4BridgeCover.m4_door_False_of_blockMeanSq`, `M4Join.m4_wave_False`,
+`M4WaveClosed.m4_wave_closed_False` — stay landed and byte-untouched, but get NO split twins:
+the S11 spine consumes the `¬`-form, which is the currency every `_split` twin delivers.
+
+### ⟦THE C-BINDER WARNING⟧ — load-bearing
+
+The `∀ (C : ℝ), 0 ≤ C →` (or `2 ≤ C`) binder carried by every landed statement on this road
+exists ONLY to feed `mrtGate`/`H0scale`.  **It is absent from every `_split` twin.**  A twin
+that preserved `C` "for byte-compatibility" would re-import the decaying grade — i.e. the
+exact limb the split exists to delete.  The binder-list rule, stated once: *the original's,
+minus `C`, with every grade hypothesis re-stated at `δ₀`.*  The `∃`-prefix (`∃ Cg ε δ₀, …`)
+is kept verbatim: `Cg` is the door glue's constant, NOT `C_MRT`, and it stays.
+
+### ⟦UNTOUCHABLE⟧
+
+`M4Close.M4DoorGates` and its `hMδ : 24·Cg/δ ≤ M` field are the door glue's own contract and
+are consumed unchanged.  Post-split `hMδ` reads against the CONSTANT `δ₀`-scale `δ`, i.e.
+`M ≥ 24Cg/δ` at a constant — that is the design (the freeze's "defused at the constant"),
+not a defect. -/
+
+/-- **THE SPLIT COMPOSE** (`m4_exit_of_hbd_split`) — the twin of `m4_exit_of_hbd` (:283) at
+the constant grade.  The hypothesis `hbd` is delivered directly at `δ₀ · H`, so the
+`C_MRT` gate, the pin and `absWindowBound_le_pin` all drop: the adapter is fired at `δ₀` and
+that is the entire proof.
+
+**This is the byte the split exists to remove**: the landed twin's `doorGrade_regime_pin`
+discard (`m4_exit_socket`, :357–:360) has no counterpart here. -/
+theorem m4_exit_of_hbd_split (R : ChowlaRegime) (δ₀ : ℝ)
+    (hadapt : ∀ δ : ℝ,
+      (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
+        NearRatTight (arcDen 12 H) H α →
+          (∫ n, ‖absWindowSum lamCoeff H n α‖ ∂(logMeasure R.x R.ω)) ≤ δ * (H : ℝ)) →
+      MRTUniformityXi R δ)
+    (hbd : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
+      NearRatTight (arcDen 12 H) H α →
+        (∫ n, ‖absWindowSum lamCoeff H n α‖ ∂(logMeasure R.x R.ω))
+          ≤ δ₀ * (H : ℝ)) :
+    MRTUniformityXi R δ₀ :=
+  hadapt δ₀ hbd
+
+/-- **THE SPLIT SOCKET** (`m4_exit_socket_split`) — the twin of `m4_exit_socket` (:337) at the
+`δ₀` slot.
+
+`ε` and `δ₀` are still fixed FIRST; then for every extra floor / outer-scale demand
+`(U1floor, g)` there is a regime `R` at that `ε` whose floor absorbs M4-0's arc floor `H₀` —
+**and nothing else**.  The two floor demands the landed socket carries beyond that (the door
+floor `H0door δ₀` in the `extraFloor` slot, and the gate floor `H0scale C_MRT` folded into
+`U1floor`) are both gone: the first certified `doorGrade R.Hlo ≤ δ₀`, the second the
+`C_MRT` gate, and the split needs neither.  The `extraFloor` slot is therefore fired at `0`.
+
+The single open binder is the door integral bound AT THE CONSTANT GRADE:
+
+```
+∀ H, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α, NearRatTight (arcDen 12 H) H α →
+  (∫ n, ‖absWindowSum lamCoeff H n α‖ ∂(logMeasure R.x R.ω)) ≤ δ₀ * (H : ℝ)
+``` -/
+theorem m4_exit_socket_split :
+    ∃ (ε : ℚ) (δ₀ : ℝ), 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ((∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
+              NearRatTight (arcDen 12 H) H α →
+                (∫ n, ‖absWindowSum lamCoeff H n α‖ ∂(logMeasure R.x R.ω))
+                  ≤ δ₀ * (H : ℝ)) →
+            ¬ logChowla2Fails R.eps R.x R.ω) := by
+  obtain ⟨ε, δ₀, hε, hδ₀, hhead⟩ := log_chowla_two_budget_head_g
+  refine ⟨ε, δ₀, hε, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨H₀, hH₀⟩ := mrtUniformityXi_of_absWindowBound_twelve ε hε
+  obtain ⟨R, hReps, _, hRU1, hRg, hR⟩ := hhead 0 (max U1floor H₀) g
+  have hU1 : U1floor ≤ R.Hlo := le_trans (le_max_left _ _) hRU1
+  have harc : H₀ ≤ R.Hlo := le_trans (le_max_right _ _) hRU1
+  refine ⟨R, hReps, hU1, hRg, fun hbd => ?_⟩
+  exact hR δ₀ hδ₀ le_rfl (m4_exit_of_hbd_split R δ₀ (hH₀ R hReps harc) hbd)
+
 end Salt.MR

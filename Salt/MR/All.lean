@@ -3790,3 +3790,53 @@ open Salt.Tactic in
   Salt.MR.capFreeFloor3_liouChi_all_vt
   Salt.MR.capFreeFloor3_margin_all_chi_vt
   Salt.MR.capFreeFloor3_pieceDatum_vt
+
+-- ⟦WAVE ① — THE SPLIT TWINS⟧ (2026-07-29, second-road freeze v2 RATIFIED;
+-- `docs/exploration/second-road-freeze-0729.md`).  The M4/S9 road re-cut against the budget
+-- head's OWN constant `δ₀`.  `log_chowla_two_budget_head_g` binds `δ₀` in its `∃`-prefix,
+-- BEFORE `∀ extraFloor U1floor g`, and then opens `∀ δ, 0 < δ → δ ≤ δ₀ → MRTUniformityXi R δ
+-- → ¬ logChowla2Fails`.  The landed road fires that quantifier at the DECAYING grade
+-- `doorGrade R.Hlo` and pays for the descent (the pin, the `C_MRT` gate, `mrtDeliveredGrade ≤
+-- doorGrade`); the split road fires it at `δ := δ₀` itself (`le_rfl`), which is legal exactly
+-- because `δ₀` precedes the regime — so the decaying-grade machinery is BYPASSED, not
+-- repaired.  SIBLING-ADDITIVE: every landed statement above is byte-untouched; the family's
+-- contract is `M4Exit` §7.  ⟦NATURALLY RETIRED — no twins⟧ the whole mrtGate/H0scale block
+-- (`mrtDeliveredGrade`, `mrtGate`, `H0scale`, `mrtGate_transfer`,
+-- `mrtDeliveredGrade_le_doorGrade`, `absWindowBound_le_pin`), the `H0door δ₀` extraFloor
+-- demand and `doorGrade_regime_pin` (at `δ := δ₀` the pin is `le_rfl` — THE byte the split
+-- exists to remove), `m4Saving`'s `sqrt_m4Saving_le_delivered` margin, and
+-- `m4_gradeGate_direct_of_sq`.  ⟦THE `_False` FAMILY IS RETIRED⟧ by JYH ruling — the five
+-- collision forms stay landed and get NO twins; the S11 spine consumes the `¬`-form, which is
+-- what every `_split` twin delivers.  ⟦THE C-BINDER RULE⟧ the `∀ (C : ℝ), 0 ≤ C →` (or
+-- `2 ≤ C`) binder exists ONLY to feed `mrtGate`/`H0scale` and is ABSENT from every twin;
+-- preserving it would re-import the decaying grade.  Binder-list law: the original's, minus
+-- `C`, with every grade hypothesis re-stated at `δ₀` (`Cg` — the door glue's constant, not
+-- `C_MRT` — is kept).  ⟦UNTOUCHABLE⟧ `M4DoorGates` and its `hMδ : 24·Cg/δ ≤ M` are consumed
+-- unchanged; post-split `hMδ` reads at a constant-scale `δ` (the freeze's "defused at the
+-- constant"), by design.  ⟦THE RATIFIED TARGET REGISTER⟧ is D-1 option (b),
+-- `m4_wave_exit_sup_split`: its item 6′ (`M4BlockMeanSqSup`) is `q`-free and the `q`-free
+-- dock's whole cover side is landed, so the class machinery lives in the supply chain and
+-- never in the register; its drift-price line (item 4′) is carried at the LANDED SHAPE and is
+-- wave ④'s to re-cut into the composed blocked-drift × stratified-Gauss × χ-summed form.
+-- `m4_wave_exit_split` (plain α), `m4_wave_closed_split`/`_of_chi_split` (the class road,
+-- which hard-wires `q²` in its drift conjunct — the reason D-1 chose the sup shape) and
+-- `m4_wave_closed_of_dyadicRow_split` (the row-level host, adopting its own graded shape
+-- `m4BclGraded j₀ (2·MSan) (2·MStr)` verbatim, ⟦R1⟧ still EXECUTED) stand beside it.
+-- `m4_gradeGate_direct_split` is the CRITICAL-PATH step: the budget-line discharge every
+-- register above the block level routes through
+open Salt.Tactic in
+#audit_axioms Salt.MR.m4_exit_of_hbd_split
+  Salt.MR.m4_exit_socket_split
+  Salt.MR.M4GradeGateSplit
+  Salt.MR.m4_gradeGate_of_pricing_split
+  Salt.MR.m4_hbd_of_live_split
+  Salt.MR.m4_door_contradiction_of_live_split
+  Salt.MR.m4_gradeGate_of_block_pricing_split
+  Salt.MR.m4_door_contradiction_of_blockMeanSq_split
+  Salt.MR.m4_gradeGate_direct_split
+  Salt.MR.m4_wave_gradeGate_split
+  Salt.MR.m4_wave_exit_split
+  Salt.MR.m4_wave_exit_sup_split
+  Salt.MR.m4_wave_closed_split
+  Salt.MR.m4_wave_closed_of_chi_split
+  Salt.MR.m4_wave_closed_of_dyadicRow_split

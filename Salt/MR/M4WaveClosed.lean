@@ -613,6 +613,85 @@ theorem m4_wave_closed_of_chi :
   · exact m4_classMeanSq_of_chiMeanSq hchi H hlo hhi q hq hqQ i hik r hr hcop
   · exact hnoncop H hlo hhi q hq hqQ i hik r hr hcop
 
+/-! ### ⟦THE SPLIT TWINS⟧ (second-road freeze v2, wave ①)
+
+The family's contract is `M4Exit` §7.  The class machinery is untouched: the class assembly,
+the `q`-graded drift price, the χ-average and the non-coprime slot are all consumed verbatim.
+Only `hdel` and `hrest` re-cut against the head's constant `δ₀`, and the `C_MRT` binder
+leaves.
+
+⟦NOTE THE `q²`⟧ these two registers hard-wire the class modulus in their drift conjunct
+(`(1 + 2π·arcDen/q)²·(q²·(3·B_cl))`) and weave `B_cl` into three conjuncts — which is exactly
+why D-1 ratified `M4Join.m4_wave_exit_sup_split` as the second road's target register and not
+these.  They are landed here so the class road keeps its split sibling. -/
+
+/-- **THE M4 WAVE'S CLOSED THEOREM, SPLIT** (`m4_wave_closed_split`) — the twin of
+`m4_wave_closed` (:525).
+
+⟦THE FINAL REGISTER, split form⟧ — the landed one with `0 ≤ C` deleted and the two grade
+lines re-cut: `hdel` becomes `√(Braw H) ≤ δ₀/2` and `hrest` becomes
+`δ/4 + 4·2^k/x ≤ δ₀/2`.  `M4DoorGates`, the `q`-graded drift line, `0 ≤ B_cl`, `0 ≤ Braw`
+and `M4ClassBlockMeanSq` are all byte-unchanged, and so is the conclusion. -/
+theorem m4_wave_closed_split :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw Bcl : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates Cg R M k δ →
+            (∀ H : ℕ, 0 ≤ Bcl H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2 * ((q : ℝ) ^ 2 * (3 * Bcl H))
+                ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Real.sqrt (Braw H) ≤ δ₀ / 2) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 2) →
+            M4ClassBlockMeanSq R M k Bcl →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_door_contradiction_of_live_split
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ Braw Bcl M k hgates hBcl0 hBraw0 hdrift hdel hrest
+    hcl => ?_⟩
+  exact hR δ Braw M k hgates hBraw0 (m4_gradeGate_direct_split hdel hrest)
+    (m4_sievedDoorSq_of_classMeanSq hgates hBcl0 hdrift hcl)
+
+/-- **THE CLOSE AT THE χ-UNIFORM DATUM, SPLIT** (`m4_wave_closed_of_chi_split`) — the twin of
+`m4_wave_closed_of_chi` (:583): `m4_wave_closed_split` with class (c) read one layer further
+down, at the character-twisted block mean square, and the non-coprime slot carried
+unchanged. -/
+theorem m4_wave_closed_of_chi_split :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw Bcl : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates Cg R M k δ →
+            (∀ H : ℕ, 0 ≤ Bcl H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2 * ((q : ℝ) ^ 2 * (3 * Bcl H))
+                ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Real.sqrt (Braw H) ≤ δ₀ / 2) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 2) →
+            M4ChiBlockMeanSq R M k Bcl →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              ∀ i < k, ∀ r, r < q → ¬ Nat.Coprime q r →
+                ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+                    (classSup (doorSievedCoeff M) H n q r) ^ 2
+                  ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)) →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_wave_closed_split
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ Braw Bcl M k hgates hBcl0 hBraw0 hdrift hdel hrest
+    hchi hnoncop => ?_⟩
+  refine hR δ Braw Bcl M k hgates hBcl0 hBraw0 hdrift hdel hrest ?_
+  intro H hlo hhi q hq hqQ i hik r hr
+  by_cases hcop : Nat.Coprime q r
+  · exact m4_classMeanSq_of_chiMeanSq hchi H hlo hhi q hq hqQ i hik r hr hcop
+  · exact hnoncop H hlo hhi q hq hqQ i hik r hr hcop
+
 /-! ## §6 — THE ROW BRIDGE: the capstone's currency into the block
 
 `M4ChiBlockMeanSq` (§3) is one layer above the capstone.  This section lands that layer at

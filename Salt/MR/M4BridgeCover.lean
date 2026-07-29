@@ -520,6 +520,48 @@ theorem m4_door_False_of_blockMeanSq :
   exact hR δ (fun H => 3 * Bblk H) M k hgates
     (fun H => by have := hB0 H; linarith) hgrade (m4_cover_assembly hgates hB0 hblk)
 
+/-! ### ⟦THE SPLIT TWINS⟧ (second-road freeze v2, wave ①)
+
+The family's contract is `M4Exit` §7.  Nothing on the covering side changes at all — the
+assembly (`m4_cover_assembly`), its factor `3` and the anti-vacuity witness are all consumed
+verbatim.  Only the budget line moves to the constant grade, and the `C_MRT` binder goes. -/
+
+/-- **THE SPLIT GATE AT THE BLOCK GRADE** (`m4_gradeGate_of_block_pricing_split`) — the twin
+of `m4_gradeGate_of_block_pricing` (:461).  `m4_gradeGate_of_pricing_split` read at the
+assembly's own output grade `3·B_blk`: the absolute factor `3` is absorbed by asking the
+pricing at `3·B_blk H ≤ (δ₀/2)²`. -/
+theorem m4_gradeGate_of_block_pricing_split {R : ChowlaRegime} {δ₀ δ : ℝ} {Bblk : ℕ → ℝ}
+    {k : ℕ} (hδ₀ : 0 ≤ δ₀)
+    (hB : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 3 * Bblk H ≤ (δ₀ / 2) ^ 2)
+    (hrest : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 2) :
+    M4GradeGateSplit R δ₀ δ (fun H => 3 * Bblk H) k :=
+  m4_gradeGate_of_pricing_split hδ₀ hB hrest
+
+/-- **THE WAVE'S EXIT AT THE PER-BLOCK HYPOTHESIS, SPLIT**
+(`m4_door_contradiction_of_blockMeanSq_split`) — the twin of
+`m4_door_contradiction_of_blockMeanSq` (:488).
+
+The landed register with `C` deleted and the budget line at `M4GradeGateSplit`; the door
+gates, the block-grade positivity and `M4BlockMeanSq` are unchanged, and so is the
+conclusion. -/
+theorem m4_door_contradiction_of_blockMeanSq_split :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Bblk : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates Cg R M k δ → (∀ H : ℕ, 0 ≤ Bblk H) →
+            M4GradeGateSplit R δ₀ δ (fun H => 3 * Bblk H) k →
+            M4BlockMeanSq R M k Bblk →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_door_contradiction_of_live_split
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ Bblk M k hgates hB0 hgrade hblk => ?_⟩
+  exact hR δ (fun H => 3 * Bblk H) M k hgates
+    (fun H => by have := hB0 H; linarith) hgrade (m4_cover_assembly hgates hB0 hblk)
+
 end Salt.MR
 
 end

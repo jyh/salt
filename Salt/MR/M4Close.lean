@@ -654,6 +654,137 @@ theorem inv_totient_sum_le {q : ℕ} [NeZero q] {F : DirichletCharacter ℂ q �
         mul_le_mul_of_nonneg_left hsum (by positivity)
     _ = B := by field_simp
 
+/-! ## §7 — ⟦THE SPLIT TWINS⟧ (second-road freeze v2, wave ①)
+
+The family's contract is `M4Exit` §7 — read it there once.  In one line: the door integral is
+consumed at the head's own CONSTANT `δ₀`, so `mrtDeliveredGrade` and the `C_MRT` binder both
+disappear, and the budget line becomes a plain three-summand inequality against `δ₀`.
+
+Everything above in this file is byte-untouched, `M4DoorGates` included: the split twins
+consume the bundle unchanged, and post-split its `hMδ` field reads `24·Cg/δ ≤ M` at a
+constant-scale `δ` — the freeze's "defused at the constant", by design. -/
+
+/-- **THE GRADE GATE, SPLIT** (`M4GradeGateSplit`) — the twin of `M4GradeGate` (:425) at the
+constant grade.  The three summands are the SAME three (the socket's `L²` grade after the
+`√`, the door's sieve grade `δ/4`, the door's endpoint grade `4·2^k/x`); only the target
+moves, from `mrtDeliveredGrade C H` to `δ₀`.
+
+`C` is gone from the parameter list — that is the ⟦C-BINDER⟧ rule of `M4Exit` §7, and `δ₀`
+takes its slot so the two Props stay positionally parallel. -/
+def M4GradeGateSplit (R : ChowlaRegime) (δ₀ δ : ℝ) (Braw : ℕ → ℝ) (k : ℕ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+    Real.sqrt (Braw H) + δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ δ₀
+
+/-- **THE SPLIT GATE, DISCHARGED FROM THE PRICING** (`m4_gradeGate_of_pricing_split`) — the
+twin of `m4_gradeGate_of_pricing` (:434).
+
+The pricing is read DIRECTLY against the constant: `Braw H ≤ (δ₀/2)²` pays the `√`-half by
+`Real.sqrt_sq`, and the caller meets the door's own two terms against the other half.  No
+`m4Saving`, no `sqrt_m4Saving_le_delivered`, no `2 ≤ C` halving — the halving here is
+arithmetic on a numeral, and the `15 − 11/4` exponent gap is never spent because there is no
+exponent to spend it on. -/
+theorem m4_gradeGate_of_pricing_split {R : ChowlaRegime} {δ₀ δ : ℝ} {Braw : ℕ → ℝ} {k : ℕ}
+    (hδ₀ : 0 ≤ δ₀)
+    (hBraw : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Braw H ≤ (δ₀ / 2) ^ 2)
+    (hrest : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 2) :
+    M4GradeGateSplit R δ₀ δ Braw k := by
+  intro H hlo hhi
+  have hhalf : (0 : ℝ) ≤ δ₀ / 2 := by linarith
+  have hsq : Real.sqrt (Braw H) ≤ δ₀ / 2 := by
+    calc Real.sqrt (Braw H) ≤ Real.sqrt ((δ₀ / 2) ^ 2) := Real.sqrt_le_sqrt (hBraw H hlo hhi)
+      _ = δ₀ / 2 := Real.sqrt_sq hhalf
+  have hr := hrest H hlo hhi
+  linarith
+
+/-- **THE M4-7 DELIVERABLE, SPLIT** (`m4_hbd_of_live_split`) — the twin of `m4_hbd_of_live`
+(:464), byte-plug-compatible with `M4Exit.m4_exit_socket_split`'s single open binder.
+
+The proof is the landed one with its final `calc` step re-targeted: the door glue, the
+socket, §1's `L²→L¹` descent and the `√`-split are all identical, and the last line reads the
+split gate into `δ₀ * H` where the original read `mrtDeliveredGrade C H * H`.
+
+Binder-list diff against the original: `C : ℝ` is GONE; `δ₀ : ℝ` takes its place and the
+grade gate is `M4GradeGateSplit`.  `Cg` — the door glue's ONE opened constant — is
+unchanged. -/
+theorem m4_hbd_of_live_split :
+    ∃ Cg : ℝ, 1 ≤ Cg ∧
+      ∀ (R : ChowlaRegime) (δ₀ δ : ℝ) (Braw : ℕ → ℝ) (M k : ℕ),
+        M4DoorGates Cg R M k δ → (∀ H : ℕ, 0 ≤ Braw H) → M4GradeGateSplit R δ₀ δ Braw k →
+        M4SievedDoorSq R M Braw →
+          ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
+            NearRatTight (arcDen 12 H) H α →
+              (∫ n, ‖absWindowSum lamCoeff H n α‖ ∂(logMeasure R.x R.ω))
+                ≤ δ₀ * (H : ℝ) := by
+  obtain ⟨Cg, hCg, hglue⟩ := m4_door_glue_liouville
+  refine ⟨Cg, hCg, ?_⟩
+  intro R δ₀ δ Braw M k hgates hBraw0 hgrade hsock H _ hlo hhi α harc
+  -- ⟦the door's own scales, off the regime⟧
+  have hA : 1 ≤ Adoor M := by
+    have h := Adoor_ge M
+    omega
+  have hG : 1 ≤ 3072 * M := by
+    have := hgates.hM
+    omega
+  have hHx : H + 1 ≤ R.x := by
+    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
+    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
+    have h2 : 2 ≤ R.x := R.hx
+    omega
+  -- ⟦M4-8's glue, consumed⟧
+  have hglueH := hglue (Adoor M) (3072 * M) M 2 R.x R.ω H k α δ hA hG hgates.hM hgates.hδ
+    hgates.hMδ R.hx R.hω R.hωx hgates.hlogω hHx (hgates.hreach H hlo hhi) hgates.hpow
+    hgates.hcount (hgates.hblocks H hlo hhi)
+  -- ⟦the socket, and §1's `L²→L¹` descent⟧
+  have hsq := hsock m4_bandTransport H hlo hhi α harc
+  have hcs := integral_logMeasure_le_sqrt_of_sq (x := R.x) (ω := R.ω) R.hx R.hω
+    (f := fun n => ‖absWindowSum (memSCoeff (calP (Adoor M) (3072 * M))
+      (calQK (Adoor M) (3072 * M) M) 2 liouvilleC) H n α‖)
+    (fun n => norm_nonneg _) hsq
+  have hsplit : Real.sqrt (Braw H * (H : ℝ) ^ 2) = Real.sqrt (Braw H) * (H : ℝ) := by
+    rw [Real.sqrt_mul (hBraw0 H), Real.sqrt_sq (Nat.cast_nonneg H)]
+  rw [hsplit] at hcs
+  -- ⟦the spelling bridge and the SPLIT budget line⟧
+  rw [integral_absWindowSum_lamCoeff_eq]
+  calc (∫ n, ‖absWindowSum liouvilleC H n α‖ ∂(logMeasure R.x R.ω))
+      ≤ (∫ n, ‖absWindowSum (memSCoeff (calP (Adoor M) (3072 * M))
+            (calQK (Adoor M) (3072 * M) M) 2 liouvilleC) H n α‖ ∂(logMeasure R.x R.ω))
+          + δ / 4 * (H : ℝ) + 4 * 2 ^ k * (H : ℝ) / (R.x : ℝ) := hglueH
+    _ ≤ Real.sqrt (Braw H) * (H : ℝ) + δ / 4 * (H : ℝ)
+          + 4 * 2 ^ k * (H : ℝ) / (R.x : ℝ) := by linarith
+    _ = (Real.sqrt (Braw H) + δ / 4 + 4 * 2 ^ k / (R.x : ℝ)) * (H : ℝ) := by ring
+    _ ≤ δ₀ * (H : ℝ) :=
+        mul_le_mul_of_nonneg_right (hgrade H hlo hhi) (Nat.cast_nonneg H)
+
+/-- **THE WAVE'S EXIT, SPLIT** (`m4_door_contradiction_of_live_split`) — the twin of
+`m4_door_contradiction_of_live` (:537): `m4_exit_socket_split ∘ m4_hbd_of_live_split`.
+
+⟦THE REGISTER, split form⟧ is the landed one with `C` deleted and the budget line re-cut:
+
+* `M4DoorGates Cg R M k δ` — UNCHANGED (M4-8's own list; `doorCount_gates` is still the
+  witness at `k := doorCount R.ω`);
+* `0 ≤ Braw H` — UNCHANGED;
+* `M4GradeGateSplit R δ₀ δ Braw k` — the budget line at the constant grade;
+* `M4SievedDoorSq R M Braw` — UNCHANGED (the socket, at the band transport).
+
+The conclusion `¬ logChowla2Fails R.eps R.x R.ω` is byte-identical to the landed one. -/
+theorem m4_door_contradiction_of_live_split :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates Cg R M k δ → (∀ H : ℕ, 0 ≤ Braw H) →
+            M4GradeGateSplit R δ₀ δ Braw k →
+            M4SievedDoorSq R M Braw →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, hCg, hhbd⟩ := m4_hbd_of_live_split
+  obtain ⟨ε, δ₀, hε, hδ₀, hexit⟩ := m4_exit_socket_split
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hexit U1floor g
+  exact ⟨R, hReps, hU1, hRg, fun δ Braw M k hgates hBraw0 hgrade hsock =>
+    hR (hhbd R δ₀ δ Braw M k hgates hBraw0 hgrade hsock)⟩
+
 end Salt.MR
 
 end

@@ -25,8 +25,18 @@ hypothesis register enumerated once, as ⟦THE REGISTER⟧ (§5).
   *window* binder `hwinPin` forces `cf P = 0` on its own, at `m = 1`, with no reference to
   `hcoefPin` at all — which is exactly what `M4Seam.m4_row_cf_block_eq_zero` already proves.
   §1 states that at the capstone's own gates and draws the consequence (`a` lives on `P²ℕ`
-  even with the repaired coefficient binder).  This is the wave's remaining structural wall
-  and it is named, not worked around.
+  even with the repaired coefficient binder).
+
+  ⚠ **STATUS CORRECTED (2026-07-29, second-road freeze v2 wave ①).**  The two statements of
+  §1 stand — they are facts about the *old* binder set and are byte-untouched — but the
+  sentence they used to carry ("this is the wave's remaining structural wall") is STALE.  The
+  ⟦WALL⟧ was repaired on disk by the E-wave (flags `a626571`, 2026-07-28): the `hwin`-free
+  supplier `FrameWitness.err_at_witness_mr` / `err_at_witness_mr_end` reaches `A2Frame3.err`
+  through `M4ErrRewire.E_priced_mr_row_scale` with the joint-support window law **gone** and
+  `hcoef` relativized to `SeamRowWindowed.SeamCoefW`, at the price of the four-row split's
+  prefactor `4` (absorbed by `witEP2`'s `4/3` inflation and `520 ≤ 540`).  The conclusion is
+  `err_at_witness`'s byte for byte, so nothing downstream moved.  The `P²`-support
+  obstruction is therefore no longer an obstruction to ⟦THE RESIDUE⟧ (see §3's list below).
 
 * **§2 ⟦THE SUP-ROUTE COVER⟧** — B-5's documented residue, landed.  `M4BlockMeanSqSup` is
   `M4BridgeCover.M4BlockMeanSq` at B-2's carrier (`subWindowSup` at the rational `b/q`), and
@@ -66,13 +76,19 @@ is `6·MS H ≤ m4Saving H` — an absolute constant against `W^{−5/2}`, which
 sieved datum on one ladder block, in `ThmA2.thm_a2'_of_rows`' own currency
 (`1/X·∫_X^{2X} ‖(1/H)·shortSum a (seamS0 N X) y H‖²`, at `X = X_{i+1}`, `N = 2X_{i+1}`,
 `h = H`).  It is byte-shaped to `M4MeanSq.m4_meansq_per_chi_gen`'s conclusion, and it is
-**not** discharged here.  Two obstructions, both named:
+**not** discharged here.  Two obstructions were named when this file landed; the first is
+now CLOSED:
 
-1. ⟦THE WALL⟧ (§1) — the capstone's window binder `hwinPin` forces `cf P = 0`, so its binder
-   set hosts only `P²`-supported data.  The door's sieved λ is not `P²`-supported.  Fixing
-   this is a statement repair at `hwinPin`'s own consumer chain
-   (`FrameWitness.err_at_witness` → `SeamCalibrationK.ramP2mass_direct`), i.e. upstream of
-   the M4 wave.  NOT attempted here (not authorised, and Fable/human tier).
+1. ~~⟦THE WALL⟧~~ **REPAIRED** (2026-07-28, the E-wave; flags `a626571`).  As written, the
+   obstruction was: the capstone's window binder `hwinPin` forces `cf P = 0`, so its binder
+   set hosts only `P²`-supported data, and the door's sieved λ is not `P²`-supported — a
+   statement repair at `hwinPin`'s own consumer chain (`FrameWitness.err_at_witness` →
+   `SeamCalibrationK.ramP2mass_direct`), upstream of the M4 wave, and out of this file's
+   authority.  That repair has since LANDED, sibling-additively: `M4ErrRewire`'s
+   `ramP2massMR_direct` prices the `p²`-mass at MR's own domain `ramP2domMR` with the
+   coefficient sequence UNCONSTRAINED, and `FrameWitness.err_at_witness_mr(_end)` supersedes
+   `err_at_witness` as the frame's supplier with `hwin` gone.  §1's two statements are kept
+   verbatim as the record of the old binder set; they are no longer a blocker.
 
 2. ⟦THE CLASS PRICING⟧ — the route from a tight-major `α` to the *unsieved dilated* datum
    (B-1's residue split → B-3's dilation at the enlarged cap `arcDen·(H+d₀)/H` → B-2's sup)
@@ -463,6 +479,115 @@ theorem m4_wave_exit_sup :
   refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
   intro C hC U1floor g
   obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
+  refine ⟨R, hReps, hU1, hRg,
+    fun δ Braw Bblk M k hgates hB0 hBraw0 hdrift hgrade hblk => ?_⟩
+  exact hR δ Braw M k hgates hBraw0 hgrade
+    (m4_sievedDoorSq_of_sup_uniform (fun H => by have := hB0 H; linarith) hdrift
+      (m4_cover_assembly_sup hgates hB0 hblk))
+
+/-! ## §6 — ⟦THE SPLIT TWINS⟧ (second-road freeze v2, wave ①)
+
+The family's contract is `M4Exit` §7.  The wave's analytic side is untouched: the block
+exchange, the cover assembly (plain and sup), the drift price and `M4RowMeanSq` /
+`M4BlockMeanSqSup` are all consumed verbatim.  Only the budget line moves to the head's
+constant `δ₀`, and with it the `C_MRT` binder leaves the register.
+
+**`m4_wave_exit_sup_split` is D-1(b), THE RATIFIED TARGET REGISTER** of the second road: its
+item 6′ (`M4BlockMeanSqSup`) is `q`-free and its whole cover side is landed, so the class
+machinery lives entirely inside the supply chain and never in the register.  The drift-price
+line (item 4′) is carried here at its LANDED SHAPE — wave ④ re-cuts it to the composed
+blocked-drift × stratified-Gauss × χ-summed form; that re-cut is a wave-④ artifact, not this
+wave's. -/
+
+/-- **THE PRICING AT THE WAVE'S COMPOSED GRADE, SPLIT** (`m4_wave_gradeGate_split`) — the twin
+of `m4_wave_gradeGate` (:369).  `M4Close.M4GradeGateSplit` at `3·(2·MS)`, from the absolute
+pricing `6·MS H ≤ (δ₀/2)²` and the door's own two terms against the other half.
+
+`2 ≤ C` is gone with `C` itself: the halving is now arithmetic on the numeral `2`. -/
+theorem m4_wave_gradeGate_split {R : ChowlaRegime} {δ₀ δ : ℝ} {MS : ℕ → ℝ} {k : ℕ}
+    (hδ₀ : 0 ≤ δ₀)
+    (hprice : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 6 * MS H ≤ (δ₀ / 2) ^ 2)
+    (hrest : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 2) :
+    M4GradeGateSplit R δ₀ δ (fun H => 3 * (2 * MS H)) k :=
+  m4_gradeGate_of_block_pricing_split (Bblk := fun H => 2 * MS H) hδ₀
+    (fun H hlo hhi => by have := hprice H hlo hhi; linarith) hrest
+
+/-- **THE M4 WAVE'S CLOSE, SPLIT** (`m4_wave_exit_split`) — the plain-α twin of
+`m4_wave_exit` (:410).
+
+⟦THE REGISTER, split form⟧ — the landed six items with item 3 (`2 ≤ C`) DELETED and items 4
+and 5 re-cut against the constant:
+
+1. `M4DoorGates Cg R M k δ` — UNCHANGED.
+2. `∀ H, 0 ≤ MS H` — UNCHANGED.
+3. ~~`2 ≤ C`~~ — GONE (⟦THE C-BINDER WARNING⟧, `M4Exit` §7).
+4. `∀ H ∈ [Hlo, Hhi], 6·MS H ≤ (δ₀/2)²` — THE PRICING, at the constant grade in place of
+   the decaying `m4Saving H`.
+5. `∀ H ∈ [Hlo, Hhi], δ/4 + 4·2^k/x ≤ δ₀/2` — the door's own two grades against the other
+   half of the constant budget.
+6. `M4RowMeanSq R M k MS` — UNCHANGED (the row input).
+
+The conclusion is byte-identical to the landed one.  Kept beside the sup twin because the
+plain route is cheap once the pattern is set and it keeps the register options open. -/
+theorem m4_wave_exit_split :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (MS : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates Cg R M k δ → (∀ H : ℕ, 0 ≤ MS H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 6 * MS H ≤ (δ₀ / 2) ^ 2) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 2) →
+            M4RowMeanSq R M k MS →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_door_contradiction_of_blockMeanSq_split
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ MS M k hgates hMS0 hprice hrest hrow => ?_⟩
+  exact hR δ (fun H => 2 * MS H) M k hgates (m4_blockGrade_nonneg hMS0)
+    (m4_wave_gradeGate_split hδ₀.le hprice hrest) (m4_blockMeanSq_of_rowMeanSq hrow)
+
+/-- **⟦THE RATIFIED TARGET REGISTER⟧ — `m4_wave_exit_sup_split`**, the twin of
+`m4_wave_exit_sup` (:467) and D-1 option (b) of the second-road freeze v2.
+
+The same wave exit entered at B-2's carrier — `M4BlockMeanSqSup` → (§2) `M4SievedDoorSqSup` →
+(B-2's `m4_sievedDoorSq_of_sup_uniform`) `M4SievedDoorSq` →
+`M4Close.m4_door_contradiction_of_live_split` — with the door consumed at the head's own
+constant `δ₀`.
+
+⟦THE REGISTER, sup split form⟧
+
+1. `M4DoorGates Cg R M k δ` — UNCHANGED, `hMδ` included (⟦UNTOUCHABLE⟧, `M4Exit` §7).
+2. `∀ H, 0 ≤ Bblk H`, `∀ H, 0 ≤ Braw H` — UNCHANGED.
+3. ~~`0 ≤ C`~~ — GONE.
+4′. THE DRIFT PRICE, at B-2's `q`-free reading:
+    `(1 + 2π)²·(arcDen 12 H)²·(3·B_blk H) ≤ Braw H` on the window range.  **Carried at its
+    landed shape.**  Wave ④ re-cuts this one conjunct to the composed blocked-drift ×
+    stratified-Gauss × χ-summed supply, under which the drift and both class `q`'s are `O(1)`
+    together; nothing else in this register moves when it does.
+5′. `M4GradeGateSplit R δ₀ δ Braw k` — the budget line at the constant grade.
+6′. `M4BlockMeanSqSup R M k Bblk` — the per-block sup mean square at the rationals.
+    **`q`-free**, which is the whole reason this register was chosen over `m4_wave_closed`'s
+    (whose `hdrift` hard-wires `q²` and whose `Bcl` is woven into three conjuncts).
+
+The conclusion `¬ logChowla2Fails R.eps R.x R.ω` is byte-identical to the landed one. -/
+theorem m4_wave_exit_sup_split :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw Bblk : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates Cg R M k δ → (∀ H : ℕ, 0 ≤ Bblk H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              (1 + 2 * Real.pi) ^ 2 * (arcDen 12 H ^ 2 * (3 * Bblk H)) ≤ Braw H) →
+            M4GradeGateSplit R δ₀ δ Braw k →
+            M4BlockMeanSqSup R M k Bblk →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_door_contradiction_of_live_split
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain U1floor g
   refine ⟨R, hReps, hU1, hRg,
     fun δ Braw Bblk M k hgates hB0 hBraw0 hdrift hgrade hblk => ?_⟩
   exact hR δ Braw M k hgates hBraw0 hgrade
