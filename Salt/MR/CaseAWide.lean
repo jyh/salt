@@ -742,11 +742,14 @@ theorem cofactorSocket_of_gen_tb {b : ℕ → ℂ} (hb1 : b 1 = 1)
       hsock (hA2 j hj t ht) (hendGen j hj))
     (hRbdU j hj)
 
-/-- `cofactorSocket_door` with the CASE-A binder restricted to the annulus. -/
+/-- `cofactorSocket_door` with the CASE-A binder restricted to the annulus, and with
+⟦THE SHIFT DECOUPLING⟧ (the BAND wave) applied: the sieve SHIFT `Ps` inside `doorCofactor0`
+is a fresh binder, independent of the Ramaré band bottom `P`.  The band chain reads it at
+`Ps := 1` (`CofactorSupplier.doorCofactor0_at_one`). -/
 theorem cofactorSocket_door_tb {q : ℕ} (χ : DirichletCharacter ℂ q) (Pseq Qseq : ℕ → ℕ)
-    {H : ℝ} {N Xd P Q J : ℕ} {Mt kk : ℕ → ℕ}
+    {H : ℝ} {N Xd P Q J Ps : ℕ} {Mt kk : ℕ → ℕ}
     {cq L cg Cb X θ Rrad Tann t₁ Rbar0 S : ℝ}
-    (hP1 : 1 ≤ P) (hS0 : 0 ≤ S) (hR0 : 0 < Rrad)
+    (hPs1 : 1 ≤ Ps) (hS0 : 0 ≤ S) (hR0 : 0 < Rrad)
     (hθ0 : 0 < θ) (hθ32 : θ ≤ 1 / 32) (hLX : Real.exp 1 ≤ Real.log X)
     (hPlow : P83 X θ ≤ (P : ℝ)) (hQhigh : (Q : ℝ) ≤ Q83 X) (hPQ : P ≤ Q)
     (hfloor : ∀ 𝒥 ∈ (Finset.Icc 1 J).powerset, CapFreeFloor3 (pieceDatum χ 𝒥 Pseq Qseq) X)
@@ -762,8 +765,8 @@ theorem cofactorSocket_door_tb {q : ℕ} (χ : DirichletCharacter ℂ q) (Pseq Q
       cofactorRbdGen S ((kk j : ℕ) : ℝ) ((Mt j : ℕ) : ℝ)
           (Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ))) Rrad ≤ Rbar0) :
     CofactorSocket H N Xd P Q Tann Rrad t₁ (2 ^ J * Rbar0)
-      (doorCofactor0 χ Pseq Qseq J P) := by
-  refine cofactorSocket_door_of_pieces χ Pseq Qseq hP1 (fun 𝒥 h𝒥 => ?_)
+      (doorCofactor0 χ Pseq Qseq J Ps) := by
+  refine cofactorSocket_door_of_pieces χ Pseq Qseq hPs1 (fun 𝒥 h𝒥 => ?_)
   have hble : ∀ n : ℕ, ‖pieceDatum χ 𝒥 Pseq Qseq n‖ ≤ 1 :=
     norm_pieceDatum_le_one χ 𝒥 Pseq Qseq
   exact cofactorSocket_of_gen_tb (pieceDatum_one χ 𝒥 Pseq Qseq)
@@ -807,10 +810,10 @@ The chain, end to end:
 theorem m4_supplier_complete :
     ∃ X₀ : ℝ, 0 < X₀ ∧
       ∀ (q : ℕ) (χ : DirichletCharacter ℂ q) (Pseq Qseq : ℕ → ℕ)
-        (H : ℝ) (N Xd P Q J : ℕ) (Mt kk Dd : ℕ → ℕ) (Xa : ℕ → ℝ)
+        (H : ℝ) (N Xd P Q J Ps : ℕ) (Mt kk Dd : ℕ → ℕ) (Xa : ℕ → ℝ)
         (cq L cg Cb X θ Rrad Tann t₁ Rbar0 c S : ℝ),
         0 < c → c ≤ 1 / Real.exp 1 → 2 * c < 1 → 0 ≤ Cb → ShortIntervalDatum Cb →
-        1 ≤ P → 0 < Rrad → 0 < θ → θ ≤ 1 / 32 → Real.exp 1 ≤ Real.log X →
+        1 ≤ P → 1 ≤ Ps → 0 < Rrad → 0 < θ → θ ≤ 1 / 32 → Real.exp 1 ≤ Real.log X →
         P83 X θ ≤ (P : ℝ) → (Q : ℝ) ≤ Q83 X → P ≤ Q →
         (∀ 𝒥 ∈ (Finset.Icc 1 J).powerset, CapFreeFloor3 (pieceDatum χ 𝒥 Pseq Qseq) X) →
         (∀ j ∈ ramI H P Q, TLBlockGates34 cq H P N Xd Mt kk Tann L cg Cb X θ Rrad j) →
@@ -840,13 +843,13 @@ theorem m4_supplier_complete :
           cofactorRbdGen S ((kk j : ℕ) : ℝ) ((Mt j : ℕ) : ℝ)
               (Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ))) Rrad ≤ Rbar0) →
         CofactorSocket H N Xd P Q Tann Rrad t₁ (2 ^ J * Rbar0)
-          (doorCofactor0 χ Pseq Qseq J P) := by
+          (doorCofactor0 χ Pseq Qseq J Ps) := by
   obtain ⟨X₀, hX₀0, hpiece⟩ := caseASocketGen_discharged_door
   refine ⟨X₀, hX₀0, ?_⟩
-  intro q χ Pseq Qseq H N Xd P Q' J Mt kk Dd Xa cq L cg Cb X θ Rrad Tann t₁ Rbar0 c S
-    hc0 hce hc1 hCb0 hCbound hP1 hR0 hθ0 hθ32 hLX hPlow hQhigh hPQ hfloor hblk hbox
+  intro q χ Pseq Qseq H N Xd P Q' J Ps Mt kk Dd Xa cq L cg Cb X θ Rrad Tann t₁ Rbar0 c S
+    hc0 hce hc1 hCb0 hCbound _hP1 hPs1 hR0 hθ0 hθ32 hLX hPlow hQhigh hPQ hfloor hblk hbox
     hD1 hDk hX₀j hsqXa hpin hXae hMXa hXaX hMfl0 hboxw hS0 hSbd hendGen hRbdU
-  refine cofactorSocket_door_tb χ Pseq Qseq hP1 hS0 hR0 hθ0 hθ32 hLX hPlow hQhigh hPQ hfloor
+  refine cofactorSocket_door_tb χ Pseq Qseq hPs1 hS0 hR0 hθ0 hθ32 hLX hPlow hQhigh hPQ hfloor
     hblk hbox ?_ hendGen hRbdU
   intro 𝒥 h𝒥 j hj t ht
   refine caseASocketGen_mono (hSbd j hj) ?_

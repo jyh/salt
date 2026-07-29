@@ -213,18 +213,36 @@ theorem cofactorSocket_of_pieces_finset {ι : Type*} {s : Finset ι} {H : ℝ} {
       ≤ 1 * Rb i := mul_le_mul (hε i hi) hi' (norm_nonneg _) (by norm_num)
     _ = Rb i := one_mul _
 
+/-- **THE SHIFT AT `1` IS THE PLAIN SIEVE** (`doorCofactor0_at_one`).  ⟦THE SHIFT
+DECOUPLING⟧ `doorCofactor0`'s `P` is a SHIFT, not the Ramaré band bottom; at the shift `1` the
+datum is `M4Sieve.memSCoeff`'s own `1_𝒮·λχ̄`, which is what the band chain instantiates. -/
+theorem doorCofactor0_at_one {q : ℕ} (χ : DirichletCharacter ℂ q) (Pseq Qseq : ℕ → ℕ)
+    (J : ℕ) : doorCofactor0 χ Pseq Qseq J 1 = memSCoeff Pseq Qseq J (liouChi χ) := by
+  funext m
+  unfold doorCofactor0 memSCoeff
+  rw [one_mul]
+  split_ifs
+  · rw [one_mul]
+  · rw [zero_mul]
+
 /-- **THE DOOR'S SOCKET FROM THE PIECES' SOCKETS** (`cofactorSocket_door_of_pieces`).  One
 uniform per-piece ceiling `R̄₀` gives the door's un-phased co-factor datum a socket at
 `2^J·R̄₀`: the `2^J` is `((Icc 1 J).powerset).card`, and every coefficient is unimodular.
 
+⟦THE SHIFT DECOUPLING⟧ (the BAND wave).  `P` used to do double duty here — the Ramaré band's
+BOTTOM (in `CofactorSocket … P Q …`) and the SHIFT inside `doorCofactor0 … J P`.  The two are
+now separate: the shift is the fresh `Ps`, the band is `[P, Q]`, and the two never meet
+(nothing in the socket's proof relates them).  The band chain instantiates `Ps := 1`
+(`doorCofactor0_at_one`); the landed pin chain instantiates `Ps := P` and is unchanged.
+
 This is the assembly the ⟦SOCKET CUT⟧ was made for; what remains is the per-piece socket,
 which §§2–3 (the mask and the masked floor) and the CASE-A engine supply. -/
 theorem cofactorSocket_door_of_pieces {q : ℕ} (χ : DirichletCharacter ℂ q)
-    (Pseq Qseq : ℕ → ℕ) {H : ℝ} {N Xd P Q J : ℕ} {Tann Rrad t₁ Rbar0 : ℝ} (hP : 1 ≤ P)
+    (Pseq Qseq : ℕ → ℕ) {H : ℝ} {N Xd P Q J Ps : ℕ} {Tann Rrad t₁ Rbar0 : ℝ} (hPs : 1 ≤ Ps)
     (hs : ∀ 𝒥 ∈ (Finset.Icc 1 J).powerset,
       CofactorSocket H N Xd P Q Tann Rrad t₁ Rbar0 (pieceDatum χ 𝒥 Pseq Qseq)) :
     CofactorSocket H N Xd P Q Tann Rrad t₁ (2 ^ J * Rbar0)
-      (doorCofactor0 χ Pseq Qseq J P) := by
+      (doorCofactor0 χ Pseq Qseq J Ps) := by
   classical
   have hcard : ((Finset.Icc 1 J).powerset).card = 2 ^ J := by
     rw [Finset.card_powerset, Nat.card_Icc]
@@ -234,8 +252,8 @@ theorem cofactorSocket_door_of_pieces {q : ℕ} (χ : DirichletCharacter ℂ q)
     norm_num
   rw [← hsum]
   exact cofactorSocket_of_pieces_finset
-    (fun 𝒥 _ => norm_pieceSign_le_one 𝒥 Pseq Qseq P)
-    (doorCofactor0_split χ Pseq Qseq J P hP) hs
+    (fun 𝒥 _ => norm_pieceSign_le_one 𝒥 Pseq Qseq Ps)
+    (doorCofactor0_split χ Pseq Qseq J Ps hPs) hs
 
 /-! ## §2 — THE MASK: the piece's prime datum IS `gxDatum` at `x = 0`
 

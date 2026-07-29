@@ -20,9 +20,13 @@ This file builds the inhabitant at the scoper's witness table.
 
 ## THE WITNESS TABLE
 
-* **`P = Q`** — the block window is a single point, so `ramI H P P = {⌊H log P⌋₊}` is a
-  SINGLETON (`ramI_self`) and `ramQbase H P j = P` at its only member
-  (`ramQbase_at_pin`).  Every `∀ j ∈ ramI` collapses to one instance.
+* **`P = Q`** — ⟦SUPERSEDED BY THE BAND RE-CUT, 2026-07-28; §2 is kept as the point
+  specialization, §2′ is what the chain now runs on⟧ the block window was a single point, so
+  `ramI H P P = {⌊H log P⌋₊}` is a SINGLETON (`ramI_self`) and `ramQbase H P j = P` at its
+  only member (`ramQbase_at_pin`).  Every `∀ j ∈ ramI` collapsed to one instance.  The door
+  datum CALLS that convenience (`M4RowSupply`'s point-vs-band note: at a point the coprime
+  tail's charge is `O(1)`), so §4–§9 now run on the BAND `[P, Q]` through §2′'s sandwich
+  `P ≤ ramQbase H P j ≤ Q`, with `Q` pinned at `⌊Q₈₃ X⌋₊`.
 * **`kk`, `Mt`, `Ms`, `m₀` are DETERMINED, not free** — all four are read off the window
   bottom `B_j = X_d·e^{−j/H}` (`ramRbot`):
 
@@ -58,13 +62,20 @@ This file builds the inhabitant at the scoper's witness table.
 ## THE `h`-CEILING (law #253, in-statement)
 
 `TLBlockGates34`'s C4 — `30 ≤ log Tann / log(ramQbase)` — is read at the window's BOTTOM
-`Tann = 2X/h`, where it becomes
+`Tann = 2X/h`.  At the POINT chain (§3) that is
 
-  `log h + 30·(log X)^{1−θ₂₉₃} ≤ log X`.
+  `log h + 30·(log X)^{1−θ₂₉₃} ≤ log X`;
 
-This does **not** follow from the other gates (the window bottom is a free parameter of the
-dyadic family), so it is carried as a named hypothesis `hhceil` of every theorem that needs
-it and never derived.  It is what makes the window's bottom reachable at all.
+at the BAND chain (§3′), where the base runs up to `Q ≤ Q₈₃ X`, it is
+
+  `log h + 30·(log X/loglog X) ≤ log X`,   i.e.   `h ≤ X^{1−30/loglog X}`.
+
+⟦THE CORNER⟧ that is the SMALLEST charge any admissible band top can carry — the reason `Q`
+is pinned at `⌊Q₈₃ X⌋₊` and not left free: pushing `Q` up breaks the §8.3 window, pulling it
+down raises the tail grade `log P/log Q`, and the `30/loglog X` charge vanishes on the loglog
+scale either way.  Neither form follows from the other gates (the window bottom is a free
+parameter of the dyadic family), so both are carried as named hypotheses `hhceil` and never
+derived.
 
 ## WHAT IS CARRIED, AND WHY
 
@@ -237,6 +248,56 @@ lemma ramI_self_index_ge {H : ℝ} {P j : ℕ} (hH : 1 ≤ H) (hlogP : 2 ≤ Rea
     rw [hjeq]; exact Nat.lt_floor_add_one _
   nlinarith
 
+/-! ## §2′ — ⟦THE BAND RE-CUT⟧: THE `ramQbase` SANDWICH ON `[P, Q]`
+
+⟦THE POINT-vs-BAND WALL⟧ (flags, `1bab8e3`).  `P = Q` above was TLGATES-SCOPE's *"easiest
+witness; a genuine band also works"* — and the door datum calls it.  At a POINT the Ramaré
+block-free mass is `≍ 1/X_d`, so the coprime tail's charge `(2X+20N)·M_tail` is `O(1)` and no
+ε-window absorbs it (`M4RowSupply`'s header).  The repair is mathematically forced: re-cut the
+witness chain at the BAND `[P, Q]`, with **`Q` pinned at `⌊Q₈₃ X⌋₊`** — the corner where C4's
+`h`-ceiling charge is the minimal `30·log X/loglog X` while the tail grade
+`log P/log Q` is the minimal `loglog X·(log X)^{−θ₂₉₃}`.
+
+At a band `ramI H P Q = Icc ⌊H log P⌋₊ ⌊H log Q⌋₊` is no longer a singleton and
+`ramQbase H P j = max P ⌈e^{j/H}⌉₊` is no longer `P`.  What survives — and it is exactly what
+every `TLBlockGates34` conjunct reads — is the SANDWICH
+
+  `P ≤ ramQbase H P j ≤ Q`   for every `j ∈ ramI H P Q`.
+
+C2/C6 (the gates that want the base LARGE) transport UP from `P`; C3/C4/C5 (the gates that
+want it SMALL) transport DOWN from `Q`.  ⟦DRIFT vs the brief⟧ C5 (`log ramQbase ≤ L`) is an
+UPPER bound on the base, so it transports DOWN from `Q` too — `log P ≤ L` cannot supply it. -/
+
+/-- **THE SANDWICH, BOTTOM** (`ramQbase_ge_bot`).  `P ≤ ramQbase H P j` at every `j`, with no
+hypothesis at all — `le_max_left`. -/
+lemma ramQbase_ge_bot (H : ℝ) (P j : ℕ) : P ≤ ramQbase H P j := le_max_left _ _
+
+/-- **THE SANDWICH, TOP** (`ramQbase_le_top`).  At `j ≤ ⌊H log Q⌋₊` the block height obeys
+`j/H ≤ log Q`, hence `⌈e^{j/H}⌉₊ ≤ Q`; with `P ≤ Q` the `max` is too. -/
+lemma ramQbase_le_top {H : ℝ} {P Q j : ℕ} (hH : 0 < H) (hQ1 : 1 ≤ Q) (hPQ : P ≤ Q)
+    (hj : j ∈ ramI H P Q) : ramQbase H P j ≤ Q := by
+  rw [ramI, Finset.mem_Icc] at hj
+  have hQ0 : (0 : ℝ) < (Q : ℝ) := by exact_mod_cast hQ1
+  have hlogQ : 0 ≤ Real.log (Q : ℝ) := Real.log_nonneg (by exact_mod_cast hQ1)
+  have hjR : (j : ℝ) ≤ H * Real.log (Q : ℝ) := by
+    have h1 : ((j : ℕ) : ℝ) ≤ ((⌊H * Real.log (Q : ℝ)⌋₊ : ℕ) : ℝ) := by exact_mod_cast hj.2
+    exact le_trans h1 (Nat.floor_le (by positivity))
+  have hdiv : (j : ℝ) / H ≤ Real.log (Q : ℝ) := by rw [div_le_iff₀ hH]; nlinarith
+  have hexp : Real.exp ((j : ℝ) / H) ≤ (Q : ℝ) := by
+    calc Real.exp ((j : ℝ) / H) ≤ Real.exp (Real.log (Q : ℝ)) := Real.exp_le_exp.mpr hdiv
+      _ = (Q : ℝ) := Real.exp_log hQ0
+  exact max_le hPQ (Nat.ceil_le.mpr hexp)
+
+/-- **C1 AT THE BAND** (`ramI_index_ge`).  `H ≤ j` for every `j ∈ ramI H P Q`, from the
+BOTTOM endpoint alone: `j ≥ ⌊H log P⌋₊ > H log P − 1 ≥ 2H − 1 ≥ H`. -/
+lemma ramI_index_ge {H : ℝ} {P Q j : ℕ} (hH : 1 ≤ H) (hlogP : 2 ≤ Real.log (P : ℝ))
+    (hj : j ∈ ramI H P Q) : H ≤ (j : ℝ) := by
+  rw [ramI, Finset.mem_Icc] at hj
+  have hlt : H * Real.log (P : ℝ) < ((⌊H * Real.log (P : ℝ)⌋₊ : ℕ) : ℝ) + 1 :=
+    Nat.lt_floor_add_one _
+  have hjR : ((⌊H * Real.log (P : ℝ)⌋₊ : ℕ) : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
+  nlinarith
+
 /-! ## §3 — THE `h`-CEILING (K8, law #253)
 
 `TLBlockGates34`'s C4 is `30 ≤ log Tann / log(ramQbase)`, read at the window's BOTTOM
@@ -273,6 +334,58 @@ lemma c4_at_height {X h Tann : ℝ} {P : ℕ} (hX0 : 0 < X) (hh0 : 0 < h)
   rw [le_div_iff₀ hlogP0]
   linarith
 
+/-! ### §3′ — THE BAND `h`-CEILING (⟦THE BAND RE-CUT⟧'s C4)
+
+At the band the C4 charge is read at the TOP `Q`, not at `P`, and the `Q₈₃` pin turns
+`log Q ≤ log X/loglog X` — so the `h`-ceiling becomes
+
+  `log h + 30·(log X/loglog X) ≤ log X`,
+
+i.e. `h ≤ X^{1−30/loglog X}`.  THE CORNER: this is the *smallest* charge any admissible band
+top can carry (any `Q > Q₈₃` breaks the §8.3 window, any `Q < Q₈₃` raises the tail grade), and
+it VANISHES on the loglog scale — which is what makes the band re-cut free at the door. -/
+
+/-- `log Q ≤ log X/loglog X` from `Q ≤ Q₈₃ X` — `M4RowSupply.m4_tail_gate_at_pins`' first
+step, restated here because `FrameWitness` is upstream of that file. -/
+lemma log_le_of_le_Q83 {X : ℝ} {Q : ℕ} (hQ1 : 1 ≤ Q) (hQ : (Q : ℝ) ≤ Q83 X) :
+    Real.log (Q : ℝ) ≤ Real.log X / Real.log (Real.log X) := by
+  have hQ0 : (0 : ℝ) < (Q : ℝ) := by exact_mod_cast hQ1
+  have h := Real.log_le_log hQ0 hQ
+  rwa [Q83, Real.log_exp] at h
+
+/-- **THE BAND `h`-CEILING, IN ITS USABLE FORM** (`h_ceiling_gate_band`).  From
+`log h + 30·(log X/loglog X) ≤ log X` and `log Q ≤ log X/loglog X`: `30 log Q ≤ log(2X/h)`. -/
+lemma h_ceiling_gate_band {X h : ℝ} {Q : ℕ} (hX0 : 0 < X) (hh0 : 0 < h)
+    (hhceil : Real.log h + 30 * (Real.log X / Real.log (Real.log X)) ≤ Real.log X)
+    (hQlog : Real.log (Q : ℝ) ≤ Real.log X / Real.log (Real.log X)) :
+    30 * Real.log (Q : ℝ) ≤ Real.log (2 * (X / h)) := by
+  have hlog : Real.log (2 * (X / h)) = Real.log 2 + Real.log X - Real.log h := by
+    rw [Real.log_mul (by norm_num) (by positivity), Real.log_div hX0.ne' hh0.ne']
+    ring
+  have h2 : (0 : ℝ) ≤ Real.log 2 := Real.log_nonneg (by norm_num)
+  rw [hlog]
+  linarith
+
+/-- **C4 AT THE BAND, AT ANY ADMISSIBLE HEIGHT** (`c4_at_height_band`).  The band `h`-ceiling
+is read at the window's BOTTOM and transported up by monotonicity of `log`, through the
+SANDWICH's top `ramQbase H P j ≤ Q`. -/
+lemma c4_at_height_band {X h Tann H : ℝ} {P Q j : ℕ} (hX0 : 0 < X) (hh0 : 0 < h)
+    (hbot : 2 * (X / h) ≤ Tann)
+    (hbase3 : 3 ≤ ramQbase H P j) (hbaseQ : ramQbase H P j ≤ Q)
+    (hhceil : Real.log h + 30 * (Real.log X / Real.log (Real.log X)) ≤ Real.log X)
+    (hQlog : Real.log (Q : ℝ) ≤ Real.log X / Real.log (Real.log X)) :
+    30 ≤ Real.log Tann / Real.log ((ramQbase H P j : ℕ) : ℝ) := by
+  have hb3 : (3 : ℝ) ≤ ((ramQbase H P j : ℕ) : ℝ) := by exact_mod_cast hbase3
+  have hb0 : (0 : ℝ) < ((ramQbase H P j : ℕ) : ℝ) := by linarith
+  have hblog0 : 0 < Real.log ((ramQbase H P j : ℕ) : ℝ) := Real.log_pos (by linarith)
+  have hbQ : Real.log ((ramQbase H P j : ℕ) : ℝ) ≤ Real.log (Q : ℝ) :=
+    Real.log_le_log hb0 (by exact_mod_cast hbaseQ)
+  have hbot0 : (0 : ℝ) < 2 * (X / h) := by positivity
+  have hmono : Real.log (2 * (X / h)) ≤ Real.log Tann := Real.log_le_log hbot0 hbot
+  have hband := h_ceiling_gate_band (Q := Q) hX0 hh0 hhceil hQlog
+  rw [le_div_iff₀ hblog0]
+  linarith
+
 /-! ## §4 — FIELD 1: `blocks` (`TLBlockGates34`'s SEVENTEEN conjuncts)
 
 The clause-by-clause discharge at the witness table.  Grouping by constraint direction:
@@ -295,16 +408,19 @@ The clause-by-clause discharge at the witness table.  Grouping by constraint dir
 C6/C16 are the two genuinely arithmetic floors (the scoper's `loglog X ≥ 996.4` /
 `≥ 6412.6` grades); both ride as symbolic hypotheses, per law #253. -/
 
-/-- **THE `TLBlockGates34` INHABITANT** (`tlBlockGates34_at_witness`) — the first one.
-All seventeen conjuncts at `kk = witKk`, `Mt = witMt`, `P = Q`. -/
+/-- **THE `TLBlockGates34` INHABITANT AT THE BAND** (`tlBlockGates34_at_witness`).
+All seventeen conjuncts at `kk = witKk`, `Mt = witMt`, on the BAND `[P, Q]` — the block base
+`ramQbase H P j` now varies with `j`, and §2′'s sandwich `P ≤ ramQbase H P j ≤ Q` is what
+routes each conjunct to its endpoint: C2/C6 up from `P`, C3/C4/C5 down from `Q`. -/
 theorem tlBlockGates34_at_witness
-    {cq H L Cb X Rrad Tann : ℝ} {P N Xd j : ℕ}
+    {cq H L Cb X Rrad Tann : ℝ} {P Q N Xd j : ℕ}
     (hH1 : 1 ≤ H) (hP3 : 3 ≤ P) (hlogP2 : 2 ≤ Real.log (P : ℝ))
-    (hj : j ∈ ramI H P P)
-    -- C3–C6: the block-base gates
-    (hPT : (P : ℝ) ≤ Tann)
-    (h30 : 30 ≤ Real.log Tann / Real.log (P : ℝ))
-    (hPL : Real.log (P : ℝ) ≤ L)
+    (hQ1 : 1 ≤ Q) (hPQ : P ≤ Q) (hcq0 : 0 ≤ cq)
+    (hj : j ∈ ramI H P Q)
+    -- C3–C6: the block-base gates, read through the sandwich
+    (hQT : (Q : ℝ) ≤ Tann)
+    (h30 : 30 ≤ Real.log Tann / Real.log ((ramQbase H P j : ℕ) : ℝ))
+    (hQL : Real.log (Q : ℝ) ≤ L)
     (hcqgate : 420 * L * L ^ ((3 : ℝ) / 4) * (Real.log L) ^ 5 ≤ cq * (Real.log (P : ℝ)) ^ 2)
     -- C7–C16: the window floors
     (hW4 : 4 ≤ ramRbot H Xd j)
@@ -319,7 +435,18 @@ theorem tlBlockGates34_at_witness
       theta293 Rrad j := by
   have hH0 : (0 : ℝ) < H := by linarith
   have hP1 : 1 ≤ P := by omega
-  have hQb : ramQbase H P j = P := ramQbase_at_pin hH0 hP1 hj
+  -- ⟦THE SANDWICH⟧ `P ≤ ramQbase H P j ≤ Q`, in the real-valued shapes the gates want
+  have hbP : P ≤ ramQbase H P j := ramQbase_ge_bot H P j
+  have hbQ : ramQbase H P j ≤ Q := ramQbase_le_top hH0 hQ1 hPQ hj
+  have hbPR : ((P : ℕ) : ℝ) ≤ ((ramQbase H P j : ℕ) : ℝ) := by exact_mod_cast hbP
+  have hbQR : ((ramQbase H P j : ℕ) : ℝ) ≤ ((Q : ℕ) : ℝ) := by exact_mod_cast hbQ
+  have hP0R : (0 : ℝ) < (P : ℝ) := by positivity
+  have hb0R : (0 : ℝ) < ((ramQbase H P j : ℕ) : ℝ) := lt_of_lt_of_le hP0R hbPR
+  have hlogP0 : 0 < Real.log (P : ℝ) := by linarith
+  have hlogbP : Real.log (P : ℝ) ≤ Real.log ((ramQbase H P j : ℕ) : ℝ) :=
+    Real.log_le_log hP0R hbPR
+  have hlogbQ : Real.log ((ramQbase H P j : ℕ) : ℝ) ≤ Real.log (Q : ℝ) :=
+    Real.log_le_log hb0R hbQR
   obtain ⟨hg1, hg2, hg3, hg4, hg5, hg6⟩ := witness_window_geometry hW4
   have hkkge : ramRbot H Xd j - 1 ≤ ((witKk H Xd j : ℕ) : ℝ) := by linarith
   -- ⟦C8⟧ `⌊2B⌋₊ ≤ 2X_d ≤ N`
@@ -371,13 +498,19 @@ theorem tlBlockGates34_at_witness
     refine le_trans ?_ (le_max_right _ _)
     rw [farSupS34]
     linarith
-  refine ⟨ramI_self_index_ge hH1 hlogP2 hj, ?_, ?_, ?_, ?_, ?_, ?_, hC8,
+  refine ⟨ramI_index_ge hH1 hlogP2 hj, ?_, ?_, h30, ?_, ?_, ?_, hC8,
     hg1, hg2, hg3, hg4, hg5, hg6, by linarith, hC16', hC17⟩
-  · rw [hQb]; omega
-  · rw [hQb]; exact hPT
-  · rw [hQb]; exact h30
-  · rw [hQb]; exact hPL
-  · rw [hQb]; exact hcqgate
+  · -- ⟦C2⟧ UP from `P`: `3 ≤ P ≤ ramQbase`
+    omega
+  · -- ⟦C3⟧ DOWN from `Q`: `ramQbase ≤ Q ≤ Tann`
+    linarith
+  · -- ⟦C5⟧ DOWN from `Q`: `log ramQbase ≤ log Q ≤ L`
+    linarith
+  · -- ⟦C6⟧ UP from `P`: the gate is monotone in the base (`cq ≥ 0`)
+    have hsq : (Real.log (P : ℝ)) ^ 2 ≤ (Real.log ((ramQbase H P j : ℕ) : ℝ)) ^ 2 := by
+      nlinarith
+    have hmono := mul_le_mul_of_nonneg_left hsq hcq0
+    linarith
   · linarith
 
 /-- **FIELD 1, IN THE FRAME'S SHAPE** (`blocks_at_witness`).  `A2Frame3.blocks` verbatim:
@@ -385,38 +518,42 @@ theorem tlBlockGates34_at_witness
 BOTTOM and transported up — C4 through the `h`-ceiling (`c4_at_height`), which is what makes
 the bottom reachable at all. -/
 theorem blocks_at_witness
-    {cq L Cb X h Rrad : ℝ} {P N Xd : ℕ}
+    {cq L Cb X h Rrad : ℝ} {P Q N Xd : ℕ}
     (hX0 : 0 < X) (hh0 : 0 < h)
     (hH1 : 1 ≤ H83 X theta293) (hP3 : 3 ≤ P) (hlogP2 : 2 ≤ Real.log (P : ℝ))
-    -- C3/C4: the window bottom clears `P`, and THE `h`-CEILING
-    (hPbot : (P : ℝ) ≤ 2 * (X / h))
-    (hhceil : Real.log h + 30 * (Real.log X) ^ (1 - theta293) ≤ Real.log X)
-    (hPlog : Real.log (P : ℝ) ≤ (Real.log X) ^ (1 - theta293))
+    (hQ1 : 1 ≤ Q) (hPQ : P ≤ Q) (hcq0 : 0 ≤ cq)
+    -- C3/C4: the window bottom clears the band TOP, and THE BAND `h`-CEILING
+    (hQbot : (Q : ℝ) ≤ 2 * (X / h))
+    (hhceil : Real.log h + 30 * (Real.log X / Real.log (Real.log X)) ≤ Real.log X)
+    (hQlog : Real.log (Q : ℝ) ≤ Real.log X / Real.log (Real.log X))
     -- C5/C6
-    (hPL : Real.log (P : ℝ) ≤ L)
+    (hQL : Real.log (Q : ℝ) ≤ L)
     (hcqgate : 420 * L * L ^ ((3 : ℝ) / 4) * (Real.log L) ^ 5 ≤ cq * (Real.log (P : ℝ)) ^ 2)
     -- C7–C16, per block
-    (hW4 : ∀ j ∈ ramI (H83 X theta293) P P, 4 ≤ ramRbot (H83 X theta293) Xd j)
-    (hkth : ∀ j ∈ ramI (H83 X theta293) P P,
+    (hW4 : ∀ j ∈ ramI (H83 X theta293) P Q, 4 ≤ ramRbot (H83 X theta293) Xd j)
+    (hkth : ∀ j ∈ ramI (H83 X theta293) P Q,
       ballQuarterThreshold + 1 ≤ ramRbot (H83 X theta293) Xd j)
     (hMN : 2 * Xd ≤ N)
-    (hMtX : ∀ j ∈ ramI (H83 X theta293) P P, 2 * ramRbot (H83 X theta293) Xd j ≤ X)
-    (hC16 : ∀ j ∈ ramI (H83 X theta293) P P,
+    (hMtX : ∀ j ∈ ramI (H83 X theta293) P Q, 2 * ramRbot (H83 X theta293) Xd j ≤ X)
+    (hC16 : ∀ j ∈ ramI (H83 X theta293) P Q,
       18 + Real.log (Real.log X) - Real.log (Real.log (ramRbot (H83 X theta293) Xd j - 1))
         ≤ 32 * theta293 * Real.log (Real.log X))
     -- C17
     (hRrad0 : 0 < Rrad)
-    (hRradW : ∀ j ∈ ramI (H83 X theta293) P P,
+    (hRradW : ∀ j ∈ ramI (H83 X theta293) P Q,
       Rrad ≤ Real.sqrt 2 * ramRbot (H83 X theta293) Xd j) :
     ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
-      ∀ j ∈ ramI (H83 X theta293) P P,
+      ∀ j ∈ ramI (H83 X theta293) P Q,
         TLBlockGates34 cq (H83 X theta293) P N Xd (witMt (H83 X theta293) Xd)
           (witKk (H83 X theta293) Xd) Tann L (1 / Real.exp 1) Cb X theta293 Rrad j := by
   intro Tann hbot _ j hj
-  have hlogP0 : 0 < Real.log (P : ℝ) := by linarith
-  exact tlBlockGates34_at_witness hH1 hP3 hlogP2 hj (le_trans hPbot hbot)
-    (c4_at_height hX0 hh0 hbot hlogP0 hhceil hPlog) hPL hcqgate (hW4 j hj) (hkth j hj) hMN
-    (hMtX j hj) (hC16 j hj) hRrad0 (hRradW j hj)
+  have hH0 : (0 : ℝ) < H83 X theta293 := by linarith
+  have hbase3 : 3 ≤ ramQbase (H83 X theta293) P j :=
+    le_trans hP3 (ramQbase_ge_bot (H83 X theta293) P j)
+  have hbaseQ : ramQbase (H83 X theta293) P j ≤ Q := ramQbase_le_top hH0 hQ1 hPQ hj
+  exact tlBlockGates34_at_witness hH1 hP3 hlogP2 hQ1 hPQ hcq0 hj (le_trans hQbot hbot)
+    (c4_at_height_band hX0 hh0 hbot hbase3 hbaseQ hhceil hQlog) hQL hcqgate (hW4 j hj)
+    (hkth j hj) hMN (hMtX j hj) (hC16 j hj) hRrad0 (hRradW j hj)
 
 /-! ## §5 — FIELD 2: `thin`
 
@@ -460,13 +597,13 @@ lemma thinBundleG_mono_T {VJ Hj T T' : ℝ} {Pj Qj : ℕ}
 
 /-- **FIELD 2 AT THE WITNESS** (`thin_at_witness`).  `A2Frame3.thin`, from the single
 door-pin inequality at the window's top. -/
-theorem thin_at_witness {X h VJ Hj η : ℝ} {H : ℝ} {Pj Qj Xd P : ℕ}
+theorem thin_at_witness {X h VJ Hj η : ℝ} {H : ℝ} {Pj Qj Xd P Q : ℕ}
     (hX1 : (0 : ℝ) < X) (hPj1 : 1 < (Pj : ℝ))
     (hTbot : Real.exp 1 ≤ 2 * (X / h))
-    (hpin : ∀ j ∈ ramI H P P,
+    (hpin : ∀ j ∈ ramI H P Q,
       thinBundleG X VJ Hj Pj Qj * X ^ (1 - 2 * η) ≤ ramRbot H Xd j) :
     ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
-      ∀ j ∈ ramI H P P,
+      ∀ j ∈ ramI H P Q,
         thinBundleG Tann VJ Hj Pj Qj * X ^ (1 - 2 * η) ≤ ((witMs H Xd j : ℕ) : ℝ) := by
   intro Tann hbot htop j hj
   have hmono := thinBundleG_mono_T (Qj := Qj) (VJ := VJ) (Hj := Hj) hPj1
@@ -579,11 +716,11 @@ theorem Tstar2_le_self {X : ℝ} (hX : pin2Gate ≤ X)
 /-- **THE `box` DATUM AT THE WITNESS** (`Tstar2_box_at_witness`).  `T*₂(M_j, log M_j) ≤ 2X`
 for every `j ∈ ramI`, from `M_j ≤ X` (C15) and the `pin2Gate` floor the row already carries
 (`a2Rows_of_capfree3`'s `hMtpin`). -/
-theorem Tstar2_box_at_witness {X : ℝ} {H : ℝ} {Xd P : ℕ}
+theorem Tstar2_box_at_witness {X : ℝ} {H : ℝ} {Xd P Q : ℕ}
     (hXthr : 2 * (Real.log X) ^ ((3 : ℝ) / 5) ≤ Real.log X)
-    (hMtpin : ∀ j ∈ ramI H P P, pin2Gate ≤ ((witMt H Xd j : ℕ) : ℝ))
-    (hMtX : ∀ j ∈ ramI H P P, ((witMt H Xd j : ℕ) : ℝ) ≤ X) :
-    ∀ j ∈ ramI H P P,
+    (hMtpin : ∀ j ∈ ramI H P Q, pin2Gate ≤ ((witMt H Xd j : ℕ) : ℝ))
+    (hMtX : ∀ j ∈ ramI H P Q, ((witMt H Xd j : ℕ) : ℝ) ≤ X) :
+    ∀ j ∈ ramI H P Q,
       Tstar2 ((witMt H Xd j : ℕ) : ℝ) (Real.log ((witMt H Xd j : ℕ) : ℝ)) ≤ 2 * X := by
   intro j hj
   have hX : pin2Gate ≤ X := le_trans (hMtpin j hj) (hMtX j hj)
@@ -781,23 +918,23 @@ Against `err_at_witness` the binder list
 
 both strict weakenings; the conclusion is `err_at_witness`'s byte for byte, so
 `A2Frame3.err` does not move. -/
-theorem err_at_witness_mr {X h EP2 : ℝ} {N Xd P : ℕ} {b a cf : ℕ → ℂ}
+theorem err_at_witness_mr {X h EP2 : ℝ} {N Xd P Q : ℕ} {b a cf : ℕ → ℂ}
     (hH : 2 ≤ H83 X theta293)
     (hXd1 : 1 ≤ Xd) (hN : 2 * Xd ≤ N) (hN2 : (N : ℝ) ≤ 2 * (Xd : ℝ))
     (hHX : H83 X theta293 ≤ (Xd : ℝ)) (hP : 1 ≤ P)
     (hX0 : 0 < X) (hh0 : 0 < h) (hXd : X ≤ (Xd : ℝ))
     -- ⟦the relativized pair — NO `hwin`⟧
-    (hcoefW : SeamCoefW Xd P P a b cf)
+    (hcoefW : SeamCoefW Xd P Q a b cf)
     (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖cf p‖ ≤ 1)
     (hasupp : ∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd)
     -- ⟦R3a — THE TAIL IS PRICED, NOT PINNED⟧ `homega` leaves; the coprime-tail MASS and
     -- its budget line arrive, the `(2X+20N)·M_tail` landing in the ε-graded `EP₂` slot
     (Mtail : ℝ) (hMtail0 : 0 ≤ Mtail)
-    (hMtail : ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P P n = 0),
+    (hMtail : ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
         ‖a n‖ ^ 2 / (n : ℝ) ^ 2 ≤ Mtail)
     (hEP2 : witEP2 X N Xd P + 4 / 3 * ((2 * X + 20 * (N : ℝ)) * Mtail) ≤ EP2) :
     ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
-      (∫ t in (-Tann)..Tann, ‖ramErr (H83 X theta293) N Xd P P a b cf t‖ ^ 2)
+      (∫ t in (-Tann)..Tann, ‖ramErr (H83 X theta293) N Xd P Q a b cf t‖ ^ 2)
         ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) := by
   intro Tann hbot htop
   have hT0 : (0 : ℝ) ≤ Tann := le_trans (by positivity) hbot
@@ -815,7 +952,7 @@ theorem err_at_witness_mr {X h EP2 : ℝ} {N Xd P : ℕ} {b a cf : ℕ → ℂ}
     have hv : ((n : ℕ) : ℝ) ≤ ((2 * Xd : ℕ) : ℝ) := by exact_mod_cast v
     push_cast at hv
     linarith
-  have hpriced := E_priced_mr_row_scale (H83 X theta293) hH N Xd P P hXd1 hN hN2 hHX hP
+  have hpriced := E_priced_mr_row_scale (H83 X theta293) hH N Xd P Q hXd1 hN hN2 hHX hP
     a b cf hcoefW ha hb hc hasuppR Mtail hMtail Tann X hT0 hX0 hXd
   refine hpriced.trans ?_
   -- ⟦THE `EP2` HALF⟧ the `4/3` inflation, at the window's top
@@ -869,7 +1006,7 @@ bottom and is not implied by anything else here. -/
 with all eleven fields discharged.  See the section docstring for how to read the binder
 list. -/
 theorem a2Frame3_witness
-    {b cf a : ℕ → ℂ} {N Xd P A G M Jb : ℕ}
+    {b cf a : ℕ → ℂ} {N Xd P Q A G M Jb : ℕ}
     {H1 X h δ' VJ L η Cb Rrad EP2 cq T₀ : ℝ}
     -- ⟦the scale page⟧
     (hX0 : 0 < X) (hh0 : 0 < h) (hLX0 : 0 < Real.log X) (hLXL : Real.log X ≤ L)
@@ -879,34 +1016,35 @@ theorem a2Frame3_witness
     (hceil5 : 5 ≤ Real.log (Real.log (2 * (X / h))))
     (hT₀le : T₀ ≤ 2 * (X / h))
     (hTbot : Real.exp 1 ≤ 2 * (X / h))
-    -- ⟦THE `h`-CEILING (K8, law #253) — carried, never derived⟧
-    (hhceil : Real.log h + 30 * (Real.log X) ^ (1 - theta293) ≤ Real.log X)
-    -- ⟦the block base: C2–C6⟧
+    -- ⟦THE BAND `h`-CEILING (K8, law #253) — carried, never derived⟧
+    (hhceil : Real.log h + 30 * (Real.log X / Real.log (Real.log X)) ≤ Real.log X)
+    -- ⟦the block band: C2–C6 at the sandwich⟧
     (hH2 : 2 ≤ H83 X theta293) (hP3 : 3 ≤ P) (hlogP2 : 2 ≤ Real.log (P : ℝ))
-    (hPbot : (P : ℝ) ≤ 2 * (X / h))
-    (hPlog : Real.log (P : ℝ) ≤ (Real.log X) ^ (1 - theta293))
-    (hPL : Real.log (P : ℝ) ≤ L)
+    (hQ1 : 1 ≤ Q) (hPQ : P ≤ Q) (hcq0 : 0 ≤ cq)
+    (hQbot : (Q : ℝ) ≤ 2 * (X / h))
+    (hQlog : Real.log (Q : ℝ) ≤ Real.log X / Real.log (Real.log X))
+    (hQL : Real.log (Q : ℝ) ≤ L)
     (hcqgate : 420 * L * L ^ ((3 : ℝ) / 4) * (Real.log L) ^ 5 ≤ cq * (Real.log (P : ℝ)) ^ 2)
     -- ⟦the window floors: C7–C17⟧
-    (hW4 : ∀ j ∈ ramI (H83 X theta293) P P, 4 ≤ ramRbot (H83 X theta293) Xd j)
-    (hkth : ∀ j ∈ ramI (H83 X theta293) P P,
+    (hW4 : ∀ j ∈ ramI (H83 X theta293) P Q, 4 ≤ ramRbot (H83 X theta293) Xd j)
+    (hkth : ∀ j ∈ ramI (H83 X theta293) P Q,
       ballQuarterThreshold + 1 ≤ ramRbot (H83 X theta293) Xd j)
     (hMN : 2 * Xd ≤ N)
-    (hMtX : ∀ j ∈ ramI (H83 X theta293) P P, 2 * ramRbot (H83 X theta293) Xd j ≤ X)
-    (hC16 : ∀ j ∈ ramI (H83 X theta293) P P,
+    (hMtX : ∀ j ∈ ramI (H83 X theta293) P Q, 2 * ramRbot (H83 X theta293) Xd j ≤ X)
+    (hC16 : ∀ j ∈ ramI (H83 X theta293) P Q,
       18 + Real.log (Real.log X) - Real.log (Real.log (ramRbot (H83 X theta293) Xd j - 1))
         ≤ 32 * theta293 * Real.log (Real.log X))
     (hRrad0 : 0 < Rrad)
-    (hRradW : ∀ j ∈ ramI (H83 X theta293) P P,
+    (hRradW : ∀ j ∈ ramI (H83 X theta293) P Q,
       Rrad ≤ Real.sqrt 2 * ramRbot (H83 X theta293) Xd j)
     -- ⟦thin: the door-pin margin at the window's TOP⟧
     (hPj1 : 1 < ((calP A G Jb : ℕ) : ℝ))
-    (hthinpin : ∀ j ∈ ramI (H83 X theta293) P P,
+    (hthinpin : ∀ j ∈ ramI (H83 X theta293) P Q,
       thinBundleG X VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb) * X ^ (1 - 2 * η)
         ≤ ramRbot (H83 X theta293) Xd j)
     -- ⟦the box datum⟧
     (hXthr : 2 * (Real.log X) ^ ((3 : ℝ) / 5) ≤ Real.log X)
-    (hMtpin : ∀ j ∈ ramI (H83 X theta293) P P,
+    (hMtpin : ∀ j ∈ ramI (H83 X theta293) P Q,
       pin2Gate ≤ ((witMt (H83 X theta293) Xd j : ℕ) : ℝ))
     -- ⟦ksGate: the calibration and its threshold⟧
     (hδsq : δ' ^ 2 ≤ (Real.log X) ^ (-(6 : ℝ)))
@@ -914,20 +1052,20 @@ theorem a2Frame3_witness
     (hksthr : 656384 * (1 + Real.log (2 * X)) ≤ (Real.log X) ^ (4 - 3 * theta293))
     -- ⟦err: the S8 datum + the `N = 2X_d` pin + the `EP2` gate — `hwin`-FREE (§8′)⟧
     (hN2 : (N : ℝ) ≤ 2 * (Xd : ℝ)) (hHX : H83 X theta293 ≤ (Xd : ℝ))
-    (hcoefW : SeamCoefW Xd P P a b cf)
+    (hcoefW : SeamCoefW Xd P Q a b cf)
     (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖cf p‖ ≤ 1)
     (hasupp : ∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd)
     -- ⟦R3a⟧ the coprime-tail mass in place of the single-`P` support pin
     (Mtail : ℝ) (hMtail0 : 0 ≤ Mtail)
-    (hMtail : ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P P n = 0),
+    (hMtail : ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
         ‖a n‖ ^ 2 / (n : ℝ) ^ 2 ≤ Mtail)
     (hEP2 : witEP2 X N Xd P + 4 / 3 * ((2 * X + 20 * (N : ℝ)) * Mtail) ≤ EP2) :
-    A2Frame3 b cf a N Xd P P A G M Jb (witMs (H83 X theta293) Xd)
+    A2Frame3 b cf a N Xd P Q A G M Jb (witMs (H83 X theta293) Xd)
       (witMt (H83 X theta293) Xd) (witKk (H83 X theta293) Xd) H1 X h δ' VJ L η Cb Rrad
       EP2 cq T₀ := by
   have hH1 : (1 : ℝ) ≤ H83 X theta293 := by linarith
   -- `M_j ≤ X` (C15) — needed again for the `box` datum
-  have hMtXle : ∀ j ∈ ramI (H83 X theta293) P P,
+  have hMtXle : ∀ j ∈ ramI (H83 X theta293) P Q,
       ((witMt (H83 X theta293) Xd j : ℕ) : ℝ) ≤ X := by
     intro j hj
     obtain ⟨-, -, -, -, h5, -⟩ := witness_window_geometry (hW4 j hj)
@@ -935,8 +1073,8 @@ theorem a2Frame3_witness
     linarith
   exact a2Frame3_satisfiable_partial hLX0 hTann hceil5 hT₀le hLXL
     (thin_at_witness (Pj := calP A G Jb) (Qj := calQK A G M Jb) hX0 hPj1 hTbot hthinpin)
-    (blocks_at_witness hX0 hh0 hH1 hP3 hlogP2 hPbot hhceil hPlog hPL hcqgate hW4 hkth hMN
-      hMtX hC16 hRrad0 hRradW)
+    (blocks_at_witness hX0 hh0 hH1 hP3 hlogP2 hQ1 hPQ hcq0 hQbot hhceil hQlog hQL hcqgate
+      hW4 hkth hMN hMtX hC16 hRrad0 hRradW)
     (Tstar2_box_at_witness hXthr hMtpin hMtXle)
     (ksGate_at_witness hLX0 hlog2X hδsq hksthr)
     (err_at_witness_mr hH2 hXd1 hMN hN2 hHX (by omega) hX0 hh0 hXdX hcoefW ha hb hc
@@ -956,12 +1094,12 @@ thinBundleG·X^{5/6}` (`thin_at_witness`'s `hpin`), the row side caps it at `≈
 
 /-- **THE ROW LADDER AT THE WITNESS** (`row_ladder_at_witness`).
 `a2Rows_of_capfree3`'s `hMs`, `hm₀2`, `hm₀`, `hMs4` — all four, from `5 ≤ B_j`. -/
-theorem row_ladder_at_witness {H : ℝ} {N Xd P : ℕ}
-    (hW5 : ∀ j ∈ ramI H P P, 5 ≤ ramRbot H Xd j) :
-    (∀ j ∈ ramI H P P, ramRrange H N Xd j ⊆ Finset.Icc 1 (witMs H Xd j)) ∧
-      (∀ j ∈ ramI H P P, 2 ≤ witM0 H Xd j) ∧
-      (∀ j ∈ ramI H P P, ((witM0 H Xd j : ℕ) : ℝ) ≤ ramRbot H Xd j) ∧
-      (∀ j ∈ ramI H P P,
+theorem row_ladder_at_witness {H : ℝ} {N Xd P Q : ℕ}
+    (hW5 : ∀ j ∈ ramI H P Q, 5 ≤ ramRbot H Xd j) :
+    (∀ j ∈ ramI H P Q, ramRrange H N Xd j ⊆ Finset.Icc 1 (witMs H Xd j)) ∧
+      (∀ j ∈ ramI H P Q, 2 ≤ witM0 H Xd j) ∧
+      (∀ j ∈ ramI H P Q, ((witM0 H Xd j : ℕ) : ℝ) ≤ ramRbot H Xd j) ∧
+      (∀ j ∈ ramI H P Q,
         ((witMs H Xd j : ℕ) : ℝ) ≤ 4 * (((witM0 H Xd j : ℕ) : ℝ) - 1)) :=
   ⟨fun j _ => witMs_range H N Xd j,
    fun j hj => witM0_two_le (by linarith [hW5 j hj]),

@@ -531,6 +531,157 @@ theorem sum_Ioc_absWindowSum_sq_div_le_dropped {c : ℕ → ℂ} (hc : ∀ m, �
     hAB' hB'B hdrop hC0 htriv
   linarith
 
+/-! ### §5b — THE SLACK-`4` SIBLING (⟦R2⟧'s UNIFORM ENDPOINTS)
+
+§5 above prices the dilated block at the `n`-DEPENDENT length `dilLen H A d`, and its fit
+misses by `3`.  ⟦R2⟧ (`M4NonCoprime`) re-indexes the block by the same map `n ↦ ⌊n/d₀⌋` and
+therefore must read the window at the UNIFORM dilated length `⌊H/d₀⌋ + 1`, over the block
+`(⌊A/d₀⌋ − 1, ⌊B/d₀⌋]` — the image of a half-open block is CLOSED, so the bottom index is hit
+and the bottom endpoint drops by one.  Those two uniform endpoints cost one unit each, so
+`M4NonCoprime.dilBlock_reindex_fit` states the fit at slack `4` and the drop must peel `4`
+indices rather than `3`.
+
+Nothing else moves: the same general summand, the same per-index `H²/X` price (still a REGIME
+fact, still carried symbolically), and the same free-`A,B` block lemma
+`M4BridgeIntegral.sum_Ioc_absWindowSum_sq_div_le` underneath.  Only the endpoint constant is
+`4` in place of `3`. -/
+
+private lemma drop_arith_four {u v w : ℕ} (h : u + v ≤ 2 * w + 4) (h4 : 4 ≤ u) :
+    (u - 4) + v ≤ 2 * w ∧ u ≤ (u - 4) + 4 := by omega
+
+/-- **A SLACK-`4` BLOCK IS FITTED AFTER THE DROP** — the slack-`4` sibling of
+`dilBlock_fitted`, stated at the slack itself rather than at §5's `dilLen`, because ⟦R2⟧'s
+block and window are BOTH uniform.  `M4NonCoprime.dilBlock_reindex_fit` is exactly this
+lemma's `hslack`, at `B := ⌊B/d₀⌋`, `L := ⌊H/d₀⌋ + 1`, `A := ⌊A/d₀⌋ − 1`: discarding the top
+`4` indices restores the TIGHT fit `B' + L ≤ 2A`, and the discarded range is `≤ 4` wide. -/
+theorem slack4_fitted {B L A : ℕ} (hslack : B + L ≤ 2 * A + 4) (h4 : 4 ≤ B) :
+    (B - 4) + L ≤ 2 * A ∧ B ≤ (B - 4) + 4 :=
+  drop_arith_four hslack h4
+
+/-- **THE DROP LEMMA AT SLACK `4`** — `sum_Ioc_drop_top` with one more index peeled.  Peeling
+the top `≤ 4` indices off a block costs `4` times the per-index trivial bound and nothing
+else; the summand is still general, so the harmonic weight, the mean square and the datum are
+all invisible to it. -/
+theorem sum_Ioc_drop_top_four {v : ℕ → ℝ} {A B B' : ℕ} {Ctriv : ℝ}
+    (hAB' : A ≤ B') (hB'B : B' ≤ B) (hdrop : B ≤ B' + 4) (hC0 : 0 ≤ Ctriv)
+    (htriv : ∀ n ∈ Finset.Ioc B' B, v n ≤ Ctriv) :
+    ∑ n ∈ Finset.Ioc A B, v n ≤ (∑ n ∈ Finset.Ioc A B', v n) + 4 * Ctriv := by
+  have hsplit : (∑ n ∈ Finset.Ioc A B', v n) + ∑ n ∈ Finset.Ioc B' B, v n
+      = ∑ n ∈ Finset.Ioc A B, v n := Finset.sum_Ioc_consecutive v hAB' hB'B
+  have htail : ∑ n ∈ Finset.Ioc B' B, v n ≤ 4 * Ctriv := by
+    refine le_trans (Finset.sum_le_card_nsmul _ _ Ctriv htriv) ?_
+    rw [Nat.card_Ioc, nsmul_eq_mul]
+    have hc : ((B - B' : ℕ) : ℝ) ≤ 4 := by
+      have : B - B' ≤ 4 := by omega
+      exact_mod_cast this
+    nlinarith
+  linarith
+
+/-- **THE FITTED-BLOCK COROLLARY AT SLACK `4`** — `sum_Ioc_absWindowSum_sq_div_le_dropped`
+with `4` dropped indices.  The core is the SAME free-`(A, B')` block lemma
+`M4BridgeIntegral.sum_Ioc_absWindowSum_sq_div_le`; the `4` dropped indices are priced at
+`H²/X` each (`‖window sum‖ ≤ H` and `n > A ≥ X` on the dropped range).
+
+The dropped price `4·H²/X` is negligible at door scales for exactly the reason §5 records —
+`X` is the block bottom, kept `≥ x/(ω·W)`-grade while `H ≤ Hhi ≤ x/ω`, so `H²/X` is a
+`W`-power below the block's own `H²·MS` content.  That comparison is a REGIME fact and is
+carried symbolically here, as the design specified. -/
+theorem sum_Ioc_absWindowSum_sq_div_le_dropped_four {c : ℕ → ℂ} (hc : ∀ m, ‖c m‖ ≤ 1)
+    (s0 : Finset ℕ) (α : ℝ) {H A B B' : ℕ} {X MS : ℝ} (hH : 0 < H)
+    (hAB' : A ≤ B') (hB'B : B' ≤ B) (hdrop : B ≤ B' + 4)
+    (hX : 0 < X) (hXA : X ≤ (A : ℝ)) (hfit : (B' : ℝ) + (H : ℝ) ≤ 2 * X)
+    (hcov : ∀ n ∈ Finset.Ioc A B', ∀ m ∈ Finset.Ioc n (n + H), m ∉ s0 → c m = 0)
+    (hMS : 1 / X * (∫ x in X..(2 * X),
+        ‖((1 / (H : ℝ) : ℝ) : ℂ) * shortSum (doorCoeffPhase c α) s0 x (H : ℝ)‖ ^ 2) ≤ MS) :
+    ∑ n ∈ Finset.Ioc A B, ‖absWindowSum c H n α‖ ^ 2 / (n : ℝ)
+      ≤ (H : ℝ) ^ 2 * MS + 4 * ((H : ℝ) ^ 2 / X) := by
+  have hcore := sum_Ioc_absWindowSum_sq_div_le c s0 α hH hAB' hX hXA hfit hcov hMS
+  have hC0 : (0 : ℝ) ≤ (H : ℝ) ^ 2 / X := by positivity
+  have htriv : ∀ n ∈ Finset.Ioc B' B,
+      ‖absWindowSum c H n α‖ ^ 2 / (n : ℝ) ≤ (H : ℝ) ^ 2 / X := by
+    intro n hn
+    rw [Finset.mem_Ioc] at hn
+    have hAn : (A : ℝ) < (n : ℝ) := by
+      have : A < n := by omega
+      exact_mod_cast this
+    have hn0 : (0 : ℝ) < (n : ℝ) := lt_of_lt_of_le hX (le_trans hXA hAn.le)
+    have hw := norm_absWindowSum_le hc H n α
+    have hw0 := norm_nonneg (absWindowSum c H n α)
+    have hsq : ‖absWindowSum c H n α‖ ^ 2 ≤ (H : ℝ) ^ 2 := by nlinarith
+    have hXn : X ≤ (n : ℝ) := le_trans hXA hAn.le
+    have hstep1 : ‖absWindowSum c H n α‖ ^ 2 / (n : ℝ) ≤ (H : ℝ) ^ 2 / (n : ℝ) := by
+      gcongr
+    have hstep2 : (H : ℝ) ^ 2 / (n : ℝ) ≤ (H : ℝ) ^ 2 / X := by
+      gcongr
+    linarith
+  have hdroplem := sum_Ioc_drop_top_four (v := fun n => ‖absWindowSum c H n α‖ ^ 2 / (n : ℝ))
+    hAB' hB'B hdrop hC0 htriv
+  linarith
+
+/-- **THE ⟦R2⟧ JOIN.**  The slack-`4` block bound stated in the shape ⟦R2⟧'s interface
+`M4NonCoprime.M4CoprimeBlockMeanSq` hands out: a FREE half-open block `(A, B]` with `0 < A`,
+the window length free, the fit at `B + H ≤ 2A + 4` — and NOTHING else.  The scale is pinned
+at the block bottom (`X := A`), which is where the interface's own right-hand side
+`B_cl H · L² · A` reads it, so the mean square is the block's own.
+
+Both endpoint regimes are discharged here, so the caller supplies no drop hypotheses at all:
+
+* `A + 4 ≤ B` — the block is long enough to drop into: `B' := B − 4` restores the TIGHT fit
+  (`slack4_fitted` on the interface's slack), and `sum_Ioc_absWindowSum_sq_div_le_dropped_four`
+  applies verbatim (the coverage restricts along `Finset.Ioc A B' ⊆ Finset.Ioc A B`);
+* `B < A + 4` — the block has `≤ 4` indices, so the drop's own price `4·(H²/A)` already
+  covers the WHOLE sum and the mean-square term is spent on nothing.
+
+This is the drop-in the ⟦R2⟧ register item asked for: `M4NonCoprime.dilBlock_reindex_fit`
+delivers the hypothesis `hfit` at the re-indexed block, at the uniform dilated length. -/
+theorem sum_Ioc_absWindowSum_sq_div_le_slack4 {c : ℕ → ℂ} (hc : ∀ m, ‖c m‖ ≤ 1)
+    (s0 : Finset ℕ) (α : ℝ) {H A B : ℕ} {MS : ℝ} (hH : 0 < H) (hA : 0 < A)
+    (hfit : B + H ≤ 2 * A + 4)
+    (hcov : ∀ n ∈ Finset.Ioc A B, ∀ m ∈ Finset.Ioc n (n + H), m ∉ s0 → c m = 0)
+    (hMS : 1 / (A : ℝ) * (∫ x in (A : ℝ)..(2 * (A : ℝ)),
+        ‖((1 / (H : ℝ) : ℝ) : ℂ) * shortSum (doorCoeffPhase c α) s0 x (H : ℝ)‖ ^ 2) ≤ MS) :
+    ∑ n ∈ Finset.Ioc A B, ‖absWindowSum c H n α‖ ^ 2 / (n : ℝ)
+      ≤ (H : ℝ) ^ 2 * MS + 4 * ((H : ℝ) ^ 2 / (A : ℝ)) := by
+  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
+  have hMS0 : (0 : ℝ) ≤ MS :=
+    le_trans (meanSq_nonneg (doorCoeffPhase c α) s0 (H : ℝ) hA0) hMS
+  by_cases hlong : A + 4 ≤ B
+  · -- ⟦the long block⟧ drop the top `4` and the interface's slack becomes the TIGHT fit
+    obtain ⟨hfitN, hdrop⟩ := slack4_fitted (B := B) (L := H) (A := A) hfit (by omega)
+    have hAB' : A ≤ B - 4 := by omega
+    have hB'B : B - 4 ≤ B := by omega
+    have hfitR : ((B - 4 : ℕ) : ℝ) + (H : ℝ) ≤ 2 * (A : ℝ) := by exact_mod_cast hfitN
+    exact sum_Ioc_absWindowSum_sq_div_le_dropped_four hc s0 α hH hAB' hB'B hdrop hA0 le_rfl
+      hfitR (fun n hn => hcov n (Finset.Ioc_subset_Ioc_right hB'B hn)) hMS
+  · -- ⟦the short block⟧ `≤ 4` indices, each already priced at `H²/A`
+    have hcard : ((Finset.Ioc A B).card : ℝ) ≤ 4 := by
+      rw [Nat.card_Ioc]
+      have hn : B - A ≤ 4 := by omega
+      exact_mod_cast hn
+    have htriv : ∀ n ∈ Finset.Ioc A B,
+        ‖absWindowSum c H n α‖ ^ 2 / (n : ℝ) ≤ (H : ℝ) ^ 2 / (A : ℝ) := by
+      intro n hn
+      rw [Finset.mem_Ioc] at hn
+      have hAn : (A : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn.1.le
+      have hn0 : (0 : ℝ) < (n : ℝ) := lt_of_lt_of_le hA0 hAn
+      have hw := norm_absWindowSum_le hc H n α
+      have hw0 := norm_nonneg (absWindowSum c H n α)
+      have hsq : ‖absWindowSum c H n α‖ ^ 2 ≤ (H : ℝ) ^ 2 := by nlinarith
+      have hstep1 : ‖absWindowSum c H n α‖ ^ 2 / (n : ℝ) ≤ (H : ℝ) ^ 2 / (n : ℝ) := by
+        gcongr
+      have hstep2 : (H : ℝ) ^ 2 / (n : ℝ) ≤ (H : ℝ) ^ 2 / (A : ℝ) := by
+        gcongr
+      linarith
+    have hsum : ∑ n ∈ Finset.Ioc A B, ‖absWindowSum c H n α‖ ^ 2 / (n : ℝ)
+        ≤ ((Finset.Ioc A B).card : ℝ) * ((H : ℝ) ^ 2 / (A : ℝ)) := by
+      calc ∑ n ∈ Finset.Ioc A B, ‖absWindowSum c H n α‖ ^ 2 / (n : ℝ)
+          ≤ ∑ _n ∈ Finset.Ioc A B, (H : ℝ) ^ 2 / (A : ℝ) := Finset.sum_le_sum htriv
+        _ = ((Finset.Ioc A B).card : ℝ) * ((H : ℝ) ^ 2 / (A : ℝ)) := by
+            rw [Finset.sum_const, nsmul_eq_mul]
+    have hHA : (0 : ℝ) ≤ (H : ℝ) ^ 2 / (A : ℝ) := by positivity
+    have hMSterm : (0 : ℝ) ≤ (H : ℝ) ^ 2 * MS := by positivity
+    nlinarith
+
 /-! ## §6 — THE TWO GRADE REPAIRS (U3 and U1)
 
 Both are about NOT spending a budget one does not have to spend. -/

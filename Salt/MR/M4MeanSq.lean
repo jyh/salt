@@ -61,6 +61,24 @@ separately, with `m4_t0band_of_live`'s `hlive` (agreement on the LIVE RANGE `X <
 the single named binder the A2-5 identification must supply.  Nothing here is weakened: the
 supplier's output type IS the slot's type at `C₁′ = cfbC₁ X C₁`, `M₀ = cfbM0 K q X`.
 
+## ⟦THE BAND RE-CUT⟧ (2026-07-28) — the Ramaré block is a BAND, `Q` pinned at `⌊Q₈₃ X⌋₊`
+
+Until this wave the capstone read `ramI (H83 X θ₂₉₃) P P` — a POINT, TLGATES-SCOPE's
+"easiest witness".  The door datum calls it: at a point the Ramaré block-free mass is
+`≍ 1/X_d`, so the coprime tail's charge `(2X+20N)·M_tail` is `O(1)` and no ε-window absorbs
+it (`M4RowSupply`'s point-vs-band note).  The chain is now cut at the BAND `[P, Q]`:
+
+* `FrameWitness` §2′ replaces the singleton collapse by the SANDWICH
+  `P ≤ ramQbase H P j ≤ Q` (C2/C6 up from `P`, C3/C4/C5 down from `Q`);
+* `FrameWitness` §3′ reads the `h`-ceiling at the band top: `log h + 30·(log X/loglog X)
+  ≤ log X` — the minimal charge, which is why `Q` is PINNED at `⌊Q₈₃ X⌋₊`, not free;
+* the row (`ThmA2Rows.a2Rows_of_capfree3`), the socket, the err supply and the whole
+  `hUG34`/`seam_row` chain were already `(P,Q)`-general: they take `Q` and nothing else moves;
+* the tail's own supply — the mass, its nonnegativity, the `EP₂` budget line at the two §8.3
+  pins under the ONE new threshold `2688·C·loglog X ≤ (log X)^ε` — is `M4RowSupply` §4;
+* the datum side (`SeamCoefW` on the whole band, at the un-phased `doorChiCoeff`) is
+  `M4Band`, whose band gate is the K-calibration's own `𝒬K_j < P₈₃ X θ₂₉₃ ≤ P`.
+
 ## THE TWO PINS (forced, not chosen)
 
 `a2Frame3_witness` asks `X ≤ X_d`, `2X_d ≤ N` and `N ≤ 2X_d`; `a2Rows_of_capfree3` asks
@@ -330,7 +348,7 @@ theorem coef_widen_of_window {a b cf : ℕ → ℂ} {Xd : ℕ} {X : ℝ} {R : �
 /-! ## §3″ — ⟦THE WALL⟧: THE PIN CHAIN LOSES ITS WINDOW LAW
 
 The capstone's err-side binder pair at the block pin `P = Q` is now the SINGLE relativized
-law `SeamRowWindowed.SeamCoefW X_d P P a (ellLin (liouChi χ)) cf` — byte-identical to the
+law `SeamRowWindowed.SeamCoefW X_d P Q a b cf` (the BAND form) — byte-identical to the
 old `hcoefPin`, and the old `hwinPin` is deleted.  Three consequences, all in the honest
 direction:
 
@@ -376,7 +394,7 @@ and `R̄` the uniform corner `cofactorRbd34loc(1/e, C_b, X, θ₂₉₃, kmin, Y
 
 `hsockA` is `CaseASocket.caseASocket2_discharged`'s body at the capstone's own `X₀`. -/
 theorem m4_cofactorSocket_at_witness {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
-    {cf a : ℕ → ℂ} {N Xd P M : ℕ}
+    {cf a : ℕ → ℂ} {N Xd P Q M : ℕ}
     {X h δ' VJ L Cb Rrad kmin Ymax EP2 cq T₀ X₀ : ℝ}
     (hsockA : ∀ (g : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) →
       ∀ (P' Q' : ℕ) (c' Cb' X' θ' : ℝ) (k₀' M' : ℕ) (t : ℝ),
@@ -384,21 +402,21 @@ theorem m4_cofactorSocket_at_witness {q : ℕ} [NeZero q] (χ : DirichletCharact
         X₀ ≤ (k₀' : ℝ) → pin2Gate ≤ (k₀' : ℝ) → k₀' ≤ M' → (M' : ℝ) ≤ 2 * (k₀' : ℝ) →
         0 ≤ cofactorMfl X' θ' (k₀' : ℝ) →
         CaseASocket2 g P' Q' c' Cb' X' θ' k₀' M' t)
-    (F : A2Frame3 (ellLin (liouChi χ)) cf a N Xd P P (Adoor M) (3072 * M) M 2
+    (F : A2Frame3 (ellLin (liouChi χ)) cf a N Xd P Q (Adoor M) (3072 * M) M 2
       (witMs (H83 X theta293) Xd) (witMt (H83 X theta293) Xd) (witKk (H83 X theta293) Xd)
       (H1door M) X h δ' VJ L (1 / 12) Cb Rrad EP2 cq T₀)
     (hX0 : 0 < X) (hh4 : 4 ≤ h) (hLXe : Real.exp 1 ≤ Real.log X)
-    (hPlow : P83 X theta293 ≤ (P : ℝ)) (hPhigh : (P : ℝ) ≤ Q83 X)
+    (hPlow : P83 X theta293 ≤ (P : ℝ)) (hQhigh : (Q : ℝ) ≤ Q83 X) (hPQ : P ≤ Q)
     (hfloor : CapFreeFloor3 (liouChi χ) X)
     (hCb0 : 0 ≤ Cb) (hCbound : ShortIntervalDatum Cb) (hRrad0 : 0 < Rrad)
     (hX₀k : X₀ ≤ kmin) (hMfl0 : 0 ≤ cofactorMfl X theta293 kmin) (hk2 : 2 ≤ kmin)
-    (hkk : ∀ j ∈ ramI (H83 X theta293) P P,
+    (hkk : ∀ j ∈ ramI (H83 X theta293) P Q,
       kmin ≤ ((witKk (H83 X theta293) Xd j : ℕ) : ℝ))
-    (hMtpin : ∀ j ∈ ramI (H83 X theta293) P P,
+    (hMtpin : ∀ j ∈ ramI (H83 X theta293) P Q,
       pin2Gate ≤ ((witMt (H83 X theta293) Xd j : ℕ) : ℝ))
-    (hMtY : ∀ j ∈ ramI (H83 X theta293) P P,
+    (hMtY : ∀ j ∈ ramI (H83 X theta293) P Q,
       ((witMt (H83 X theta293) Xd j : ℕ) : ℝ) ≤ Ymax) :
-    CofactorSocket (H83 X theta293) N Xd P P X Rrad 0
+    CofactorSocket (H83 X theta293) N Xd P Q X Rrad 0
       (cofactorRbd34loc (1 / Real.exp 1) Cb X theta293 kmin Ymax
         (Tstar2 Ymax (Real.log Ymax)) Rrad) (ellLin (liouChi χ)) := by
   have hgl : ∀ p : ℕ, p.Prime → ‖liouChi χ p‖ ≤ 1 := fun p _ => norm_liouChi_le_one χ p
@@ -413,12 +431,12 @@ theorem m4_cofactorSocket_at_witness {q : ℕ} [NeZero q] (χ : DirichletCharact
     nlinarith
   have hblkX := F.blocks X h2aX le_rfl
   -- ⟦SUPPLIER 1⟧ the collision socket, VACUOUSLY, at the centre `0`
-  have hsockP : PocketSocket3 (liouChi χ) P P X theta293 0 :=
+  have hsockP : PocketSocket3 (liouChi χ) P Q X theta293 0 :=
     pocketSocket_of_floor3 hgl theta293_pos (le_of_lt theta293_lt_one_div_32) hLXe hPlow
-      hPhigh le_rfl hfloor 0
+      hQhigh hPQ hfloor 0
   -- ⟦SUPPLIER 2⟧ CASE A, from the discharged slice
-  have hA2 : ∀ j ∈ ramI (H83 X theta293) P P, ∀ t : ℝ,
-      CaseASocket2 (liouChi χ) P P (1 / Real.exp 1) Cb X theta293
+  have hA2 : ∀ j ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ,
+      CaseASocket2 (liouChi χ) P Q (1 / Real.exp 1) Cb X theta293
         (witKk (H83 X theta293) Xd j) (witMt (H83 X theta293) Xd j) t := by
     intro j hj t
     obtain ⟨-, -, -, -, -, -, hk₀th, -, hk₀lo, hk₀hi, -, -, hhigh, hMtop, -, -, -⟩ :=
@@ -436,16 +454,16 @@ theorem m4_cofactorSocket_at_witness {q : ℕ} [NeZero q] (χ : DirichletCharact
     have hX₀kk : X₀ ≤ ((witKk (H83 X theta293) Xd j : ℕ) : ℝ) := le_trans hX₀k (hkk j hj)
     have hMflkk : (0 : ℝ) ≤ cofactorMfl X theta293 ((witKk (H83 X theta293) Xd j : ℕ) : ℝ) :=
       le_trans hMfl0 (cofactorMfl_mono X theta293 (hkk j hj))
-    exact hsockA (liouChi χ) hgl P P (1 / Real.exp 1) Cb X theta293
+    exact hsockA (liouChi χ) hgl P Q (1 / Real.exp 1) Cb X theta293
       (witKk (H83 X theta293) Xd j) (witMt (H83 X theta293) Xd j) t hc0 le_rfl hc1 hCb0
       hCbound hX₀kk hk₀pin hkM hM2k hMflkk
   -- ⟦SUPPLIER 3⟧ the uniform ceiling
-  have hMt1 : ∀ j ∈ ramI (H83 X theta293) P P,
+  have hMt1 : ∀ j ∈ ramI (H83 X theta293) P Q,
       (1 : ℝ) ≤ ((witMt (H83 X theta293) Xd j : ℕ) : ℝ) := by
     intro j hj
     have h1 : (1 : ℝ) ≤ pin2Gate := Real.one_le_exp (by norm_num)
     exact le_trans h1 (hMtpin j hj)
-  have hRbdU := Rbd34loc_uniform (H83 X theta293) P P (witMt (H83 X theta293) Xd)
+  have hRbdU := Rbd34loc_uniform (H83 X theta293) P Q (witMt (H83 X theta293) Xd)
     (witKk (H83 X theta293) Xd) (1 / Real.exp 1) Cb X theta293 Rrad kmin Ymax hc0 hc1 hCb0
     (by linarith) hMtpin hkk hMt1 hMtY
   exact cofactorSocket_of_ellLin hgl hc1 hCb0 hRrad0 hsockP hblkX F.box hA2 hRbdU
@@ -483,23 +501,24 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
     ∃ Cq cq T₀ X₀ Cs Ccc Kfl : ℝ,
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
       ∀ (q : ℕ) [NeZero q] (_χ : DirichletCharacter ℂ q), q ≤ Qm →
-          ∀ (N Xd P M : ℕ) (a cf b : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ)
+          ∀ (N Xd P Q M : ℕ) (a cf b : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ)
             (X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail C₁' M₀ : ℝ),
             -- ⟦the two pins (FRAME's joint instantiation)⟧
             (Xd : ℝ) = X → N = 2 * Xd →
             -- ⟦the scale page⟧
             Real.exp (Real.exp 1) ≤ X → Real.exp 2 ≤ Real.log X →
             4 ≤ h → h ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ)) →
-            Real.log h + 30 * (Real.log X) ^ (1 - theta293) ≤ Real.log X →
+            Real.log h + 30 * (Real.log X / Real.log (Real.log X)) ≤ Real.log X →
             TannGate X (2 * (X / h)) → 5 ≤ Real.log (Real.log (2 * (X / h))) →
             T₀ ≤ 2 * (X / h) → Real.exp 1 ≤ 2 * (X / h) →
             Real.log X ≤ L → Real.exp 1 ≤ L →
             -- ⟦the door and the block pin `P = Q`⟧
             1 ≤ M → calQK (Adoor M) (3072 * M) M 2 ≤ Xd →
             ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ) ≤ h →
-            3 ≤ P → 2 ≤ Real.log (P : ℝ) → (P : ℝ) ≤ 2 * (X / h) →
-            Real.log (P : ℝ) ≤ (Real.log X) ^ (1 - theta293) → Real.log (P : ℝ) ≤ L →
-            P83 X theta293 ≤ (P : ℝ) → (P : ℝ) ≤ Q83 X →
+            3 ≤ P → 2 ≤ Real.log (P : ℝ) → (Q : ℝ) ≤ 2 * (X / h) →
+            Real.log (Q : ℝ) ≤ Real.log X / Real.log (Real.log X) →
+            Real.log (Q : ℝ) ≤ L →
+            P83 X theta293 ≤ (P : ℝ) → (Q : ℝ) ≤ Q83 X → P ≤ Q → 0 < Q →
             H83 X theta293 ≤ (Xd : ℝ) → 2 ≤ H83 X theta293 →
             1 < ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ) →
             Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ)
@@ -512,25 +531,25 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
                 ≤ (Xd : ℝ) * (Real.log ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ)
                     / Real.log ((calQK (Adoor M) (3072 * M) M j : ℕ) : ℝ))) →
             -- ⟦the window floors, at the witness ladder⟧
-            (∀ j ∈ ramI (H83 X theta293) P P, 5 ≤ ramRbot (H83 X theta293) Xd j) →
-            (∀ j ∈ ramI (H83 X theta293) P P,
+            (∀ j ∈ ramI (H83 X theta293) P Q, 5 ≤ ramRbot (H83 X theta293) Xd j) →
+            (∀ j ∈ ramI (H83 X theta293) P Q,
               ballQuarterThreshold + 1 ≤ ramRbot (H83 X theta293) Xd j) →
-            (∀ j ∈ ramI (H83 X theta293) P P, 2 * ramRbot (H83 X theta293) Xd j ≤ X) →
-            (∀ j ∈ ramI (H83 X theta293) P P,
+            (∀ j ∈ ramI (H83 X theta293) P Q, 2 * ramRbot (H83 X theta293) Xd j ≤ X) →
+            (∀ j ∈ ramI (H83 X theta293) P Q,
               18 + Real.log (Real.log X)
                   - Real.log (Real.log (ramRbot (H83 X theta293) Xd j - 1))
                 ≤ 32 * theta293 * Real.log (Real.log X)) →
-            (∀ j ∈ ramI (H83 X theta293) P P,
+            (∀ j ∈ ramI (H83 X theta293) P Q,
               Rrad ≤ Real.sqrt 2 * ramRbot (H83 X theta293) Xd j) →
-            (∀ j ∈ ramI (H83 X theta293) P P,
+            (∀ j ∈ ramI (H83 X theta293) P Q,
               thinBundleG X VJ (calH (H1door M) 2) (calP (Adoor M) (3072 * M) 2)
                   (calQK (Adoor M) (3072 * M) M 2) * X ^ (1 - 2 * (1 / 12 : ℝ))
                 ≤ ramRbot (H83 X theta293) Xd j) →
-            (∀ j ∈ ramI (H83 X theta293) P P,
+            (∀ j ∈ ramI (H83 X theta293) P Q,
               pin2Gate ≤ ((witMt (H83 X theta293) Xd j : ℕ) : ℝ)) →
-            (∀ j ∈ ramI (H83 X theta293) P P,
+            (∀ j ∈ ramI (H83 X theta293) P Q,
               kmin ≤ ((witKk (H83 X theta293) Xd j : ℕ) : ℝ)) →
-            (∀ j ∈ ramI (H83 X theta293) P P,
+            (∀ j ∈ ramI (H83 X theta293) P Q,
               ((witMt (H83 X theta293) Xd j : ℕ) : ℝ) ≤ Ymax) →
             -- ⟦the calibration, the radius, the short-interval datum⟧
             0 < Rrad → Rrad ≤ seamRad X → seamRad X ≤ Rrad →
@@ -560,7 +579,7 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
             (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
             -- ⟦R3a⟧ the coprime-tail MASS, in place of the single-`P` support pin
             0 ≤ Mtail →
-            (∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P P n = 0),
+            (∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
               ‖a n‖ ^ 2 / (n : ℝ) ^ 2) ≤ Mtail →
             -- ⟦W1 — THE CARRIED `b`-SLOT⟧ the co-factor datum, its level family, its socket
             -- and its grade are all CARRIED now: the capstone manufactures none of them, so
@@ -569,7 +588,7 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
             -- instance that used to be built here
             (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ j n : ℕ, ‖bfam j n‖ ≤ 1) →
             0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
-            CofactorSocket (H83 X theta293) N Xd P P X Rrad 0 Rbar b →
+            CofactorSocket (H83 X theta293) N Xd P Q X Rrad 0 Rbar b →
             (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
               p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m →
               (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
@@ -579,7 +598,7 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
               (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
             -- ⟦THE PIN CHAIN, `hwin`-FREE (⟦THE WALL⟧'s rewire): the on-window
             -- factorization ALONE.  `hwinPin` is GONE — see §3″⟧
-            SeamCoefW Xd P P a b cf →
+            SeamCoefW Xd P Q a b cf →
             -- ⟦the `T₀`-band datum: `m4_t0band_at_datum` is the supplier, and §2's
             -- `dpolyA_seamS0_bandDatum` the bridge — see the header on the A2-5 seam⟧
             (∫ t in (-(seamT0 X))..(seamT0 X), ‖dpolyA a (seamS0 N X) t‖ ^ 2)
@@ -608,10 +627,10 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
   obtain ⟨X₀, hX₀0, -⟩ := caseASocket2_discharged
   obtain ⟨Kfl, hKfl0, -⟩ := capFreeFloor3_liouChi_all Qm
   refine ⟨Cq, cq, T₀, X₀, Cs, Ccc, Kfl, hCq, hcq, hT₀, hX₀0, hCs, hCcc, hKfl0, ?_⟩
-  intro q _ _χ _hq N Xd P M a cf b bfam X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail
+  intro q _ _χ _hq N Xd P Q M a cf b bfam X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail
     C₁' M₀
     hXd hNXd hXee hlX2 hh4 hhX hhceil hTann hceil5 hT₀le hTbot hLXL hLe
-    hM hXdQ hQ1h hP3 hlogP2 hPbot hPlog hPL hPlow hPhigh hHX hH2 hPj1 hQXd hXdbig hdom
+    hM hXdQ hQ1h hP3 hlogP2 hQbot hQlog hQL hPlow hQhigh hPQ hQ0 hHX hH2 hPj1 hQXd hXdbig hdom
     hW5 hkth hMtX hC16 hRradW hthinpin hMtpin _hkk _hMtY
     hRrad0 hRrad _hRlow hV1 hVδ hlogV hδsq hksthr hVJg _hCb0 _hCbound hXthr
     _hX₀k _hMfl0 _hk2 _hkX _hgateW _hYpin _hWY _hXY _hthrY hcqgate hCqgate
@@ -636,7 +655,7 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
   have hN2X : (N : ℝ) ≤ 2 * X := le_of_eq hNcast
   have hN4 : (N : ℝ) ≤ 4 * (Xd : ℝ) := by rw [hNcast, hXd]; linarith
   -- ⟦THE FRAME'S REMAINING ARITHMETIC⟧
-  have hW4 : ∀ j ∈ ramI (H83 X theta293) P P, 4 ≤ ramRbot (H83 X theta293) Xd j :=
+  have hW4 : ∀ j ∈ ramI (H83 X theta293) P Q, 4 ≤ ramRbot (H83 X theta293) Xd j :=
     fun j hj => by linarith [hW5 j hj]
   have hlog2X : (0 : ℝ) ≤ 1 + Real.log (2 * X) := by
     have : (0 : ℝ) ≤ Real.log (2 * X) := Real.log_nonneg (by linarith)
@@ -657,24 +676,24 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
       p m ⟨hp, h1, h2, h3⟩
   -- ⟦FIELD 1–4: THE FRAME⟧ — at the CO-FACTOR DATUM `ellLin (liouChi χ)` (the socket cut's
   -- `b`-slot; the frame no longer takes a multiplicative generator)
-  have F : A2Frame3 b cf a N Xd P P (Adoor M) (3072 * M) M 2
+  have F : A2Frame3 b cf a N Xd P Q (Adoor M) (3072 * M) M 2
       (witMs (H83 X theta293) Xd) (witMt (H83 X theta293) Xd) (witKk (H83 X theta293) Xd)
       (H1door M) X h δ' VJ L (1 / 12) Cb Rrad EP2 cq T₀ :=
     a2Frame3_witness hX0 hh0 hLX0 hLXL hXd1 hXdX hTann hceil5 hT₀le hTbot hhceil hH2 hP3
-      hlogP2 hPbot hPlog hPL hcqgate hW4 hkth hMN hMtX hC16 hRrad0 hRradW hPj1 hthinpin
-      hXthr hMtpin hδsq hlog2X hksthr hNle hHX hcoefPin ha1 hb1 hcf1 hasupp Mtail hMtail0
-      hMtail hEP2w
+      hlogP2 hQ0 hPQ hcq.le hQbot hQlog hQL hcqgate hW4 hkth hMN hMtX hC16 hRrad0 hRradW
+      hPj1 hthinpin hXthr hMtpin hδsq hlog2X hksthr hNle hHX hcoefPin ha1 hb1 hcf1 hasupp
+      Mtail hMtail0 hMtail hEP2w
   -- ⟦THE ROW LADDER⟧
   obtain ⟨hMs, hm₀2, hm₀, hMs4⟩ :=
-    row_ladder_at_witness (H := H83 X theta293) (N := N) (Xd := Xd) (P := P) hW5
+    row_ladder_at_witness (H := H83 X theta293) (N := N) (Xd := Xd) (P := P) (Q := Q) hW5
   -- ⟦THE ROW FAMILY⟧ at the CARRIED socket (W1: no in-file manufacture — see the
   -- `liouChi` instance `m4_cofactorSocket_at_witness` / `m4_rbar_nonneg`)
   have hrows := hrow cf a b cf bfam
-    hcf1 hb1 hcf1 hbf1 N Xd P P M
+    hcf1 hb1 hcf1 hbf1 N Xd P Q M
     (witM0 (H83 X theta293) Xd) (witMs (H83 X theta293) Xd) (witMt (H83 X theta293) Xd)
     (witKk (H83 X theta293) Xd) X h δ' V VJ L Cb Rrad Rbar ε EP2
     hM hXdQ F hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV hPlow
-    (by omega) hPhigh hRrad hRbar0 hRgrade hsockR hCqgate hε0 habs hEP2 hXN hN2X hsupp0 hMN
+    hQ0 hQhigh hRrad hRbar0 hRgrade hsockR hCqgate hε0 habs hEP2 hXN hN2X hsupp0 hMN
     hcoefBandW hwinBand hQXd hXdbig hN4 hdom ha1 hasupp
   -- ⟦THE FROZEN INTERFACE⟧
   exact thm_a2'_of_rows hM hXe hX3 hh4 hhX ha1 hsupp0 hN2X hTann hceil5 hrows hT0band
@@ -771,22 +790,23 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
     ∃ Cq cq T₀ X₀ Cs Ccc Kfl : ℝ,
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
       ∀ (q : ℕ) [NeZero q] (_χ : DirichletCharacter ℂ q), q ≤ Qm →
-          ∀ (N Xd P M : ℕ) (a cf b : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ)
+          ∀ (N Xd P Q M : ℕ) (a cf b : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ)
             (X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail C₁' M₀ : ℝ)
             (xw ω H' : ℕ) (α Hp d₀ W : ℝ),
             2 ≤ xw → 2 ≤ ω →
             (Xd : ℝ) = X → N = 2 * Xd →
             Real.exp (Real.exp 1) ≤ X → Real.exp 2 ≤ Real.log X →
             4 ≤ h → h ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ)) →
-            Real.log h + 30 * (Real.log X) ^ (1 - theta293) ≤ Real.log X →
+            Real.log h + 30 * (Real.log X / Real.log (Real.log X)) ≤ Real.log X →
             TannGate X (2 * (X / h)) → 5 ≤ Real.log (Real.log (2 * (X / h))) →
             T₀ ≤ 2 * (X / h) → Real.exp 1 ≤ 2 * (X / h) →
             Real.log X ≤ L → Real.exp 1 ≤ L →
             1 ≤ M → calQK (Adoor M) (3072 * M) M 2 ≤ Xd →
             ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ) ≤ h →
-            3 ≤ P → 2 ≤ Real.log (P : ℝ) → (P : ℝ) ≤ 2 * (X / h) →
-            Real.log (P : ℝ) ≤ (Real.log X) ^ (1 - theta293) → Real.log (P : ℝ) ≤ L →
-            P83 X theta293 ≤ (P : ℝ) → (P : ℝ) ≤ Q83 X →
+            3 ≤ P → 2 ≤ Real.log (P : ℝ) → (Q : ℝ) ≤ 2 * (X / h) →
+            Real.log (Q : ℝ) ≤ Real.log X / Real.log (Real.log X) →
+            Real.log (Q : ℝ) ≤ L →
+            P83 X theta293 ≤ (P : ℝ) → (Q : ℝ) ≤ Q83 X → P ≤ Q → 0 < Q →
             H83 X theta293 ≤ (Xd : ℝ) → 2 ≤ H83 X theta293 →
             1 < ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ) →
             Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ)
@@ -798,25 +818,25 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
                         (calQK (Adoor M) (3072 * M) M j), (1 + 3 / (p : ℝ))
                 ≤ (Xd : ℝ) * (Real.log ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ)
                     / Real.log ((calQK (Adoor M) (3072 * M) M j : ℕ) : ℝ))) →
-            (∀ j ∈ ramI (H83 X theta293) P P, 5 ≤ ramRbot (H83 X theta293) Xd j) →
-            (∀ j ∈ ramI (H83 X theta293) P P,
+            (∀ j ∈ ramI (H83 X theta293) P Q, 5 ≤ ramRbot (H83 X theta293) Xd j) →
+            (∀ j ∈ ramI (H83 X theta293) P Q,
               ballQuarterThreshold + 1 ≤ ramRbot (H83 X theta293) Xd j) →
-            (∀ j ∈ ramI (H83 X theta293) P P, 2 * ramRbot (H83 X theta293) Xd j ≤ X) →
-            (∀ j ∈ ramI (H83 X theta293) P P,
+            (∀ j ∈ ramI (H83 X theta293) P Q, 2 * ramRbot (H83 X theta293) Xd j ≤ X) →
+            (∀ j ∈ ramI (H83 X theta293) P Q,
               18 + Real.log (Real.log X)
                   - Real.log (Real.log (ramRbot (H83 X theta293) Xd j - 1))
                 ≤ 32 * theta293 * Real.log (Real.log X)) →
-            (∀ j ∈ ramI (H83 X theta293) P P,
+            (∀ j ∈ ramI (H83 X theta293) P Q,
               Rrad ≤ Real.sqrt 2 * ramRbot (H83 X theta293) Xd j) →
-            (∀ j ∈ ramI (H83 X theta293) P P,
+            (∀ j ∈ ramI (H83 X theta293) P Q,
               thinBundleG X VJ (calH (H1door M) 2) (calP (Adoor M) (3072 * M) 2)
                   (calQK (Adoor M) (3072 * M) M 2) * X ^ (1 - 2 * (1 / 12 : ℝ))
                 ≤ ramRbot (H83 X theta293) Xd j) →
-            (∀ j ∈ ramI (H83 X theta293) P P,
+            (∀ j ∈ ramI (H83 X theta293) P Q,
               pin2Gate ≤ ((witMt (H83 X theta293) Xd j : ℕ) : ℝ)) →
-            (∀ j ∈ ramI (H83 X theta293) P P,
+            (∀ j ∈ ramI (H83 X theta293) P Q,
               kmin ≤ ((witKk (H83 X theta293) Xd j : ℕ) : ℝ)) →
-            (∀ j ∈ ramI (H83 X theta293) P P,
+            (∀ j ∈ ramI (H83 X theta293) P Q,
               ((witMt (H83 X theta293) Xd j : ℕ) : ℝ) ≤ Ymax) →
             0 < Rrad → Rrad ≤ seamRad X → seamRad X ≤ Rrad →
             1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
@@ -841,7 +861,7 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
             (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
             -- ⟦R3a⟧ the coprime-tail MASS, in place of the single-`P` support pin
             0 ≤ Mtail →
-            (∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P P n = 0),
+            (∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
               ‖a n‖ ^ 2 / (n : ℝ) ^ 2) ≤ Mtail →
             -- ⟦W1 — THE CARRIED `b`-SLOT⟧ the co-factor datum, its level family, its socket
             -- and its grade are all CARRIED now: the capstone manufactures none of them, so
@@ -850,7 +870,7 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
             -- instance that used to be built here
             (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ j n : ℕ, ‖bfam j n‖ ≤ 1) →
             0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
-            CofactorSocket (H83 X theta293) N Xd P P X Rrad 0 Rbar b →
+            CofactorSocket (H83 X theta293) N Xd P Q X Rrad 0 Rbar b →
             (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
               p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m →
               (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
@@ -858,7 +878,7 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
             (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
               p ≤ calQK (Adoor M) (3072 * M) M j → cf p * bfam j m ≠ 0 →
               (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
-            SeamCoefW Xd P P a b cf →
+            SeamCoefW Xd P Q a b cf →
             (∫ t in (-(seamT0 X))..(seamT0 X), ‖dpolyA a (seamS0 N X) t‖ ^ 2)
               ≤ t0BandB X C₁' M₀ →
             40 * Real.log (Real.log (Real.log X))
@@ -884,10 +904,10 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
   obtain ⟨Cq, cq, T₀, X₀, Cs, Ccc, Kfl, hCq, hcq, hT₀, hX₀0, hCs, hCcc, hKfl0, hper⟩ :=
     m4_meansq_per_chi_gen Qm
   refine ⟨Cq, cq, T₀, X₀, Cs, Ccc, Kfl, hCq, hcq, hT₀, hX₀0, hCs, hCcc, hKfl0, ?_⟩
-  intro q _ χ hq N Xd P M a cf b bfam X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail
+  intro q _ χ hq N Xd P Q M a cf b bfam X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail
     C₁' M₀ xw ω H' α Hp d₀ W hxw hω
     hXd hNXd hXee hlX2 hh4 hhX hhceil hTann hceil5 hT₀le hTbot hLXL hLe
-    hM hXdQ hQ1h hP3 hlogP2 hPbot hPlog hPL hPlow hPhigh hHX hH2 hPj1 hQXd hXdbig hdom
+    hM hXdQ hQ1h hP3 hlogP2 hQbot hQlog hQL hPlow hQhigh hPQ hQ0 hHX hH2 hPj1 hQXd hXdbig hdom
     hW5 hkth hMtX hC16 hRradW hthinpin hMtpin hkk hMtY
     hRrad0 hRrad hRlow hV1 hVδ hlogV hδsq hksthr hVJg hCb0 hCbound hXthr
     hX₀k hMfl0 hk2 hkX hgateW hYpin hWY hXY hthrY hcqgate hCqgate
@@ -898,10 +918,10 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
   rcases le_or_gt ((H' : ℝ)) (trivThresh Hp d₀ W) with hshort | hlong
   · exact Or.inl ⟨hshort, m4_trivial_branch ha1 hxw hω hshort α⟩
   · refine Or.inr ⟨hlong, ?_⟩
-    exact hper q χ hq N Xd P M a cf b bfam X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail
+    exact hper q χ hq N Xd P Q M a cf b bfam X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail
       C₁' M₀
       hXd hNXd hXee hlX2 hh4 hhX hhceil hTann hceil5 hT₀le hTbot hLXL hLe
-      hM hXdQ hQ1h hP3 hlogP2 hPbot hPlog hPL hPlow hPhigh hHX hH2 hPj1 hQXd hXdbig hdom
+      hM hXdQ hQ1h hP3 hlogP2 hQbot hQlog hQL hPlow hQhigh hPQ hQ0 hHX hH2 hPj1 hQXd hXdbig hdom
       hW5 hkth hMtX hC16 hRradW hthinpin hMtpin hkk hMtY
       hRrad0 hRrad hRlow hV1 hVδ hlogV hδsq hksthr hVJg hCb0 hCbound hXthr
       hX₀k hMfl0 hk2 hkX hgateW hYpin hWY hXY hthrY hcqgate hCqgate

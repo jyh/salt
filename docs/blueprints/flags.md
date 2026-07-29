@@ -13304,3 +13304,29 @@ scope what breaks at Q > P through FrameWitness + CofactorSupplier,
 then the band wave. After it: W2's door instantiation (all other
 blockers removed by steps 1–4), the R1-shape join adapters, and the
 register collapses.
+
+---
+
+## THE BAND WAVE LANDS — THE LAST WALL IS REPAIRED (2026-07-28 18:24 PDT)
+
+All seven edits whole (+834/−165; M4Band.lean 209 ln new; 21 new decls
++ 13 re-cut in place, conclusions unmoved): the ramQbase sandwich; the
+band h-ceiling (log h + 30·log X/loglog X ≤ log X); the FrameWitness
+band re-index (E_priced_mr_row_scale was already (P,Q) — a rename);
+the shift decoupling (Ps, doorCofactor0_at_one — band instantiation at
+Ps := 1); **doorChiCoeff_seamCoefW_band** (the pair law CLEANER at the
+band — m = 1 needs no exception, both sides vanish); the capstone
+band re-cut (19 sites, downstream le_rfl); the K6 tail supply
+(m4_tail_supply_at_band). THE THRESHOLD, final bytes:
+**2688·C·loglog X ≤ (log X)^ε** (the brief's 1344 doubled by the
+honest ℕ-rounding — log P83/log Q83 is unattainable at any admissible
+ℕ-band, one factor e per endpoint; loglog X ≳ 6.6·10⁴, same genre).
+C5 routes DOWN from Q (the brief's direction was impossible for an
+upper bound); C6 gained 0 ≤ cq (free from the capstone's own 0 < cq);
+hdomBand lives at its consumption site, not the capstone; hPlog GONE
+(its only consumer was the point ceiling). ALSO SEALED IN THIS BATCH:
+SLACK-4 (M4ClassPrice §5b, +151: the slack-4 drop pair + the R2-join
+adapter — drop-in verified by typecheck; the B < 4 ℕ-subtraction hole
+caught and case-split). The capstone signature delta for W2-DOOR is in
+the band wave's report (Q enters; hQbot/hQlog/hQL/hQhigh; P ≤ Q;
+0 < Q; the band hhceil; Ps in the supplier).

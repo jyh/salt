@@ -206,6 +206,7 @@ import Salt.MR.M4WaveClosed
 import Salt.MR.M4NonCoprime
 import Salt.MR.M4Maximal
 import Salt.MR.M4RowSupply
+import Salt.MR.M4Band
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -2465,7 +2466,15 @@ open Salt.Tactic in
 -- the `q²` landing in `M4BridgePhase.M4SievedDoorSqSup`'s `q`-graded slot at THE SAME `q` as
 -- the drift witness, with `M4BlockMeanSqSupQ`/`m4_cover_assembly_supQ` the `q`-graded twins
 -- of `M4Join`'s pair; §5 the endpoint drop (K3(iii)) — the dilated block misses the TIGHT
--- `doorLadder_fit` by ≤ 3 units and the drop costs `3·H²/X`; §6 the two grade repairs —
+-- `doorLadder_fit` by ≤ 3 units and the drop costs `3·H²/X`; §5b the SLACK-`4` SIBLING —
+-- ⟦R2⟧'s re-indexed block reads its window at the UNIFORM length `⌊H/d₀⌋ + 1` over
+-- `(⌊A/d₀⌋ − 1, ⌊B/d₀⌋]`, so the two uniform endpoints cost one unit each and the drop peels
+-- `4` (`sum_Ioc_drop_top_four`, `sum_Ioc_absWindowSum_sq_div_le_dropped_four`; only the
+-- endpoint constant moves `3 → 4`), with `sum_Ioc_absWindowSum_sq_div_le_slack4` THE ⟦R2⟧
+-- JOIN — the block bound stated at `M4NonCoprime.M4CoprimeBlockMeanSq`'s own hypotheses
+-- (`0 < A`, `B + H ≤ 2A + 4`, scale pinned at the block bottom) with BOTH endpoint regimes
+-- discharged inside, the short block `B < A + 4` being covered by the drop's own `4·H²/A`;
+-- §6 the two grade repairs —
 -- ⟦U3⟧ `m4_gradeGate_direct` (the gate WITHOUT spending the `15 − 11/4` exponent gap; the
 -- Prop socket unedited) and ⟦U1⟧ `m4_decay_summand_eq` (summand 1 priced from `cfbM0`
 -- DIRECTLY, as an EQUALITY, retaining the honest `(log X)^{1/15 − 7/(30e)}` decay — never
@@ -2497,6 +2506,10 @@ open Salt.Tactic in
   Salt.MR.dilBlock_fitted
   Salt.MR.sum_Ioc_drop_top
   Salt.MR.sum_Ioc_absWindowSum_sq_div_le_dropped
+  Salt.MR.slack4_fitted
+  Salt.MR.sum_Ioc_drop_top_four
+  Salt.MR.sum_Ioc_absWindowSum_sq_div_le_dropped_four
+  Salt.MR.sum_Ioc_absWindowSum_sq_div_le_slack4
   Salt.MR.m4_gradeGate_direct
   Salt.MR.m4_gradeGate_direct_of_sq
   Salt.MR.m4_decay_exponent_neg
@@ -2843,3 +2856,65 @@ open Salt.Tactic in
   Salt.MR.m4_tail_mass_at_band
   Salt.MR.m4_tail_mass_nonneg
   Salt.MR.m4_tail_grade_at_pins
+
+
+-- ⟦THE BAND RE-CUT⟧ (`FrameWitness` §2′/§3′ + `M4MeanSq` §4 + `M4Band` + `M4RowSupply` §4 +
+-- the `CofactorSupplier`/`CaseAWide` shift decoupling; BAND-WAVE executor, 2026-07-28).  THE
+-- WALL (flags `1bab8e3`): the capstone's Ramaré block was a POINT `ramI (H83 X θ₂₉₃) P P` —
+-- TLGATES-SCOPE's "easiest witness; a genuine band also works" — and the door datum calls it,
+-- because at a point the block-free mass is ≍ 1/X_d and the coprime tail's charge
+-- (2X+20N)·M_tail is O(1), which no ε-window absorbs.  THE REPAIR, mathematically forced:
+-- re-cut the witness chain at the BAND [P, Q] with **Q PINNED at ⌊Q₈₃ X⌋₊** — the unique
+-- corner where C4's h-ceiling charge is the minimal 30·log X/loglog X (vanishing on the
+-- loglog scale) while the tail grade log P/log Q is the minimal loglog X·(log X)^{−θ₂₉₃}.
+-- WHAT MOVED: (1) the singleton collapse `ramQbase_at_pin` → the SANDWICH
+-- `P ≤ ramQbase H P j ≤ Q` (`ramQbase_ge_bot`/`ramQbase_le_top`), which routes each
+-- `TLBlockGates34` conjunct to its endpoint — C2/C6 UP from P (C6 monotone in the base, at
+-- `0 ≤ cq`), C3/C4/C5 DOWN from Q; (2) the h-ceiling to its band form
+-- `log h + 30(log X/loglog X) ≤ log X`; (3) the twelve `ramI … P P` slots of the frame,
+-- the row ladder, the socket and the err supply to `ramI … P Q` — every one of which was
+-- already (P,Q)-general downstream, so NO conclusion moved anywhere in the chain; (4) the
+-- sieve SHIFT inside `doorCofactor0` decoupled from the band bottom (fresh `Ps`, the band
+-- reads it at `Ps := 1` via `doorCofactor0_at_one`).  WHAT THE BAND BUYS: `M4Band`'s pair
+-- law — the UPWARD mirror of `M4Residue`'s dilation — gives `SeamCoefW X_d P Q` at the
+-- door's un-phased sieved datum with NO coprimality and NO m = 1 exception (a single band
+-- prime meets no door block, so both sides vanish), its gate being the K-calibration's own
+-- `𝒬K_j < P₈₃ X θ₂₉₃ ≤ P`; and `M4RowSupply` §4 closes the Perron budget
+-- `12·EP₂ ≤ (log X)^{−θ₂₉₃+ε}` at P = ⌈P₈₃⌉₊, Q = ⌊Q₈₃⌋₊ under THE ONE NEW NAMED THRESHOLD
+-- `2688·C·loglog X ≤ (log X)^ε`.  ⚠ THE ROUNDING FINDING: the EXACT grade log P₈₃/log Q₈₃ is
+-- unattainable at any admissible ℕ-band (P ≥ P₈₃ and Q ≤ Q₈₃ move the ratio only UP), so the
+-- brief's 1344 becomes 2688 — `m4_tail_grade_rounded` prices the two roundings at one factor
+-- of e each.  ⚠ THE UN-PHASED PIN: `M4ErrRewire`'s doorDatum/doorCofactor are genuinely
+-- point-only (e(αpm) does not factor at varying p) and are NOT generalized
+open Salt.Tactic in
+#audit_axioms Salt.MR.ramQbase_ge_bot
+  Salt.MR.ramQbase_le_top
+  Salt.MR.ramI_index_ge
+  Salt.MR.log_le_of_le_Q83
+  Salt.MR.h_ceiling_gate_band
+  Salt.MR.c4_at_height_band
+  Salt.MR.tlBlockGates34_at_witness
+  Salt.MR.blocks_at_witness
+  Salt.MR.thin_at_witness
+  Salt.MR.Tstar2_box_at_witness
+  Salt.MR.err_at_witness_mr
+  Salt.MR.a2Frame3_witness
+  Salt.MR.row_ladder_at_witness
+  Salt.MR.doorCofactor0_at_one
+  Salt.MR.cofactorSocket_door_of_pieces
+  Salt.MR.cofactorSocket_door_tb
+  Salt.MR.m4_supplier_complete
+  Salt.MR.m4_cofactorSocket_at_witness
+  Salt.MR.m4_meansq_per_chi_gen
+  Salt.MR.m4_meansq_or_trivial
+  Salt.MR.blockPrimeDivs_eq_empty_of_large
+  Salt.MR.blockOmega_shift_up
+  Salt.MR.memS_shift_up
+  Salt.MR.indicator_mul_shift_up
+  Salt.MR.memSCoeff_seamCoefW_band
+  Salt.MR.doorChiCoeff_seamCoefW_band
+  Salt.MR.door_band_gate
+  Salt.MR.door_band_gate_of_log
+  Salt.MR.m4_tail_grade_rounded
+  Salt.MR.m4_ep2_budget_at_band
+  Salt.MR.m4_tail_supply_at_band
