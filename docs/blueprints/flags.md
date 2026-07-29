@@ -14928,7 +14928,7 @@ untouched by every route.**
 
 ---
 
-## ⟦THE PORT AUTHORIZED⟧ — JYH: "Let's do both #1 and #2" (2026-07-29 15:23 PDT)
+## ⟦THE PORT AUTHORIZED⟧ — JYH: "Let's do both #1 and #2" (2026-07-29 16:18 PDT; mis-stamped 15:23)
 
 **RULED: (1) the B-PROBE fires now; (2) P-1..P-7 AUTHORIZED
 contingent on the probe** — on a PASS the waves proceed in the v2
