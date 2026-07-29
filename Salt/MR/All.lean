@@ -223,6 +223,7 @@ import Salt.MR.M4Collapse
 import Salt.MR.M4BaseNarrow
 import Salt.MR.M4Spine
 import Salt.MR.CapFreeSharp
+import Salt.MR.VkMidSharp
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -3744,7 +3745,7 @@ open Salt.Tactic in
 -- forms carry the same conclusions under a threshold whose `(1/4)·q` summand is
 -- `(1/4)·mertensCap q`.  At the door's range `q ≤ (log H)^12` this turns an EXPONENTIAL
 -- demand `8·exp(12·loglog H)` on `loglog X` into `8·log(12·loglog H) + O(1)`.
--- (`vkMidDebit q` stays symbolic — VT-7 is NOT landed; see flags.)
+-- (`vkMidDebit q` is carried symbolically here; ⟦VT-7⟧ below replaces it.)
 open Salt.Tactic in
 #audit_axioms Salt.MR.primeDivSum_le_loglog
   Salt.MR.primeDivSum_max_le_mertensCap
@@ -3759,3 +3760,33 @@ open Salt.Tactic in
   Salt.MR.capFreeFloor3_liouChi_all_sharp
   Salt.MR.capFreeFloor3_margin_all_chi_sharp
   Salt.MR.capFreeFloor3_pieceDatum_sharp
+
+-- ⟦VT-7⟧ (`VkMidSharp`, 2026-07-29) — THE `e^{e^100}` BLOCK, KILLED.  The mid frequency branch
+-- (`VkTwistClose.chi_Llower_341_height`) priced its growth slot by
+-- `ChiLLower.LFunction_norm_le_level`, LINEAR in `‖s‖`, so at the socket's floor
+-- `T₀ = exp(exp 100)` it paid
+-- `(1/4)·log(3(3+2T₀)q²(1+log q)) ≈ (1/4)·e^100` — an `X`-free `32·vkMidDebit q ≈ 2.15·10^44`
+-- demand on `loglog X`.  `norm_LFunction_le_logBound` supplies the classical LOG-shaped bound
+-- `‖L(s,ψ)‖ ≤ 7/2 + log 2 + log q + log(|Im s| + 2)` on `1 < Re s ≤ 2` instead — truncation at
+-- `N = ⌈q(|t|+2)⌉` through the landed `Salt.SW.norm_LFunction_sub_partial_le`, with the level-`q`
+-- character-sum bound `M = q` (`norm_char_partial_sum_le`) whose `q` cancels against `N`'s.
+-- The block becomes `32·vkMidDebitSharp q ≈ 905`, and the threshold's `q`-coefficient drops from
+-- `28·log q` to `12·log q` (the old `q²` sat OUTSIDE the outer log, the new `log q` INSIDE it).
+-- SIBLING-ADDITIVE: `vkMidDebit`, `chi_Llower_341_height`, `chi_floor_vk_pointwise` and the whole
+-- ⟦F4⟧ `_sharp` family are byte-untouched; the `_vt` family below is the SINGLE combined
+-- threshold carrying BOTH repairs, conclusions byte-identical to the landed originals.
+open Salt.Tactic in
+#audit_axioms Salt.MR.norm_char_partial_sum_le
+  Salt.MR.norm_LFunction_le_logBound
+  Salt.MR.chi_Llower_341_height_sharp
+  Salt.MR.vkMidDebitSharp_nonneg
+  Salt.MR.chi_floor_vk_pointwise_sharp
+  Salt.MR.capFreeFloor3_lamChi_vk_sharp
+  Salt.MR.capFreeFloor3_lamChi_unconditional_sharp
+  Salt.MR.capFreeFloor3_all_chi_vt
+  Salt.MR.capFreeFloor_all_chi_vt
+  Salt.MR.cffKVt_nonneg
+  Salt.MR.cffKVt_spec
+  Salt.MR.capFreeFloor3_liouChi_all_vt
+  Salt.MR.capFreeFloor3_margin_all_chi_vt
+  Salt.MR.capFreeFloor3_pieceDatum_vt
