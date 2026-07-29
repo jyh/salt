@@ -219,6 +219,7 @@ import Salt.MR.A2Wall
 import Salt.MR.M4T0Discharge
 import Salt.MR.M4CoprimeSupply
 import Salt.MR.M4Collapse
+import Salt.MR.M4BaseNarrow
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -3501,3 +3502,54 @@ open Salt.Tactic in
 #audit_axioms Salt.MR.m4_wave_closed_coprime_discharged
   Salt.MR.doorLadder_pow_lower
   Salt.MR.m4_wave_closed_coprime_discharged_False
+
+-- ⟦BASE-NARROW — THE COLLAPSE⟧ (`M4BaseNarrow`, 2026-07-28) — ⟦THE WALL⟧ down, and the M4/S9
+-- road at its TERMINAL FORM: `m4_wave_collapsed` carries **regime gates and witnessed data
+-- ONLY — zero analytic arms**.  ⟦THE WALL⟧ was the QUANTIFIER, never the arithmetic:
+-- `M4ChiFreeRowMeanSq` is stated over a FREE base and a register supplies its datum at a
+-- LIST of bases, and a floor cannot turn a list into a half-line.  So the load-bearing
+-- currency here is `M4RowDatumAt` — the row mean square at ONE `(H, L, χ, A)`, quantified
+-- over the dyadic lengths `j ≤ log₂L` and the shifts `s ≤ L` and nothing else — and
+-- `M4CoprimeSupply` §2/§3/§1 are re-run at it (`m4_freeShiftBlock_at`, `m4_chiBlock_at`,
+-- `m4_classBlock_at`, composed as `m4_coprimeBlock_at`): each step consumes its input at the
+-- SAME `A` it concludes at, so the base rides through and the ledger does not move — the
+-- grade emitted is `m4BclGraded (doorRowFloor M) (2·MSan) (2·MStr)` VERBATIM, and the base
+-- narrowing is then not a hypothesis of the chain at all but the side condition a consumer
+-- checks.  ⟦W5, TAKEN ADDITIVELY⟧ the per-instance register's ARM-1 line gains the ruled
+-- `∀ d, 0 < d → (d:ℝ) ≤ arcDen 12 H` quantifier, the base dilated to
+-- `⌊doorLadder R.x H (i+1)/d⌋ − 1 + s` and the shift range to `s ≤ ⌊H/d⌋ + 1`; everything
+-- else (the `j`-range, every conjunct of `DoorRowCarriedT0`, the grade slot `MS j H`) is the
+-- landed line's.  The `d = 1` instance REPRODUCES it — `⌊X/1⌋ − 1 + (s+1) = X + s` — so
+-- `M4ChiDyadicRowMeanSq` and the coprime branch's row datum both come off the same line, and
+-- `M4DoorClose`/`M4T0Discharge` are NOT touched: `m4_rowDatum_dilated` re-composes off
+-- `m4_door_meansq_carried` and `doorRowCarried_of_t0free` directly, so both landed exits
+-- stand byte-identical.  ⟦THE TWO SITES⟧ `m4_classBlockMeanSq_of_rowDatum` re-runs
+-- `m4_nonCoprime_classMeanSq_N` with the per-base supply at `(L = H, A = X_{i+1})` and at
+-- `(L = ⌊H/d₀⌋+1, A = ⌊X_{i+1}/d₀⌋−1)` — `d0_ledger` closes the dilated branch on the nose,
+-- the `q²` slot stays open, the drift line does not move.  ⟦THE ℕ-FLOOR BOOKKEEPING⟧
+-- `2 ≤ ⌊X_{i+1}/d⌋` from `2·arcDen 12 H ≤ H < X_{i+1}` (the dilated base is positive);
+-- `⌊H/d⌋ + 1 ≤ H` at `2 ≤ d` (the dilated `j`-range sits inside the register's).  ⟦THE
+-- BUNDLED TWIN, FOR THE RECORD⟧ `M4ChiFreeRowMeanSqN` (the ruled `Φ H · L ≤ A` narrowing) and
+-- `M4CoprimeBlockMeanSqNN` land beside the currency with the chain at them
+-- (`m4_coprimeNN_supplied`), and `narrow_dilate` is the floor's own dilation law
+-- (`Φ·H + (Φ+2)·d ≤ A → Φ·(⌊H/d⌋+1) ≤ ⌊A/d⌋−1`, one unit to spare) that discharges the
+-- narrowing at the dilated site.  THE EXIT: **(regime) + (witnessed) → ¬ logChowla2Fails
+-- R.eps R.x R.ω**, with the collision twin beside it; the diff against
+-- `m4_wave_closed_coprime_discharged` is exactly TWO lines (the register's `∀d`, and the
+-- analytic row line GONE).  `M4BaseNarrow`'s header enumerates ⟦THE FINAL REGISTER⟧ in the
+-- two classes — that list IS the S11 spine's consumption contract, and class (c) is empty.
+open Salt.Tactic in
+#audit_axioms Salt.MR.M4RowDatumAt
+  Salt.MR.m4_freeShiftBlock_at
+  Salt.MR.m4_chiBlock_at
+  Salt.MR.m4_classBlock_at
+  Salt.MR.m4_coprimeBlock_at
+  Salt.MR.m4_classBlockMeanSq_of_rowDatum
+  Salt.MR.M4ChiFreeRowMeanSqN
+  Salt.MR.m4_rowDatumAt_of_freeRowN
+  Salt.MR.M4CoprimeBlockMeanSqNN
+  Salt.MR.m4_coprimeNN_supplied
+  Salt.MR.narrow_dilate
+  Salt.MR.m4_rowDatum_dilated
+  Salt.MR.m4_wave_collapsed
+  Salt.MR.m4_wave_collapsed_False

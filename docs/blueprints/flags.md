@@ -13638,3 +13638,26 @@ of the class join; THEN W5's ∀d register extension (now justified —
 the bridge becomes buildable) + the re-swap → **m4_wave_collapsed**
 (the name held free for the gate-only form). BASE-NARROW dispatched —
 the night's last design flight.
+
+---
+
+## ⭐ m4_wave_collapsed IN THE KERNEL — THE M4/S9 ROAD'S TERMINAL FORM; class (c) EMPTY (2026-07-28 23:12 PDT)
+
+M4BaseNarrow.lean (1100 ln, 14 decls): **m4_wave_collapsed + _False —
+(THE FINAL REGISTER: 18 named gates, ALL regime-absorbable or
+witnessed, ZERO analytic) → ¬logChowla2Fails R.eps R.x R.ω.** The
+machine-diff vs the predecessor: exactly TWO substantive changes (the
+ruled ∀d quantifier on arm 1's line; the free-row arm DELETED); the
+conclusion byte-identical. THE ELEGANCE: the in-place authorizations
+were NOT needed — the d = 1 instance reproduces the landed ladder line,
+so no landed statement moved (M4DoorClose/M4T0Discharge byte-identical
+to 238dabe). THE FINDING (executor's, sharper than the ruling): the
+load-bearing currency is M4RowDatumAt (ONE base) — a floor cannot turn
+a list into a half-line; the narrowed twin + its chain landed beside
+for the record with narrow_dilate as their dilation law. The register:
+the 15 supplier existentials (K6-hoisted); the g-arm/U1floor shapes;
+M4DoorGates; the grade envelopes; the q-graded drift; the two
+delivered-grade lines; the ∀d per-instance DoorRowCarriedT0 (~98
+conjuncts); the H-gates; G1/G2. **THE SPINE IS THE ONLY ROAD LEFT** —
+the frozen brief (s11-spine-brief-0728.md) consumes exactly this
+register; SPINE dispatched.
