@@ -13944,3 +13944,55 @@ split), B (the fusion route, refuter in flight), C (executing,
 precedented), D (NEW — the named repair pending supply-side scope).
 Any redesign must clear B·M ≥ 2.167e9·Ccc BEFORE the door grade is
 discussed.**
+
+---
+
+## ⟦ENDPOINT-REF⟧: AMEND-THEN-FIRE — COUPLING 2 was MIS-LOCATED (the frozen-summit near-miss); the design v2 amendments; E-1..E-6 FIRED (2026-07-29 ~01:00 PDT)
+
+The refuter's verdict on the WALL-B fusion design: every kill-check
+CONFIRMED-SAFE except K2a — **the one real defect: COUPLING 2's
+landing was wrong.** The row crumb does NOT land in the register
+grading conjunct (that conjunct is CARRIED everywhere, never
+discharged — strengthening it costs no proof but PAYS nothing): the
+crumb's honest landing is `a2Rows_of_capfree3`'s weigh step against
+`a2Mrow`'s slot — i.e. **the frozen ThmA2.lean five-summand interface
+(a2Mrow/a2RowsSum defs + thm_a2'_of_rows' hgRows)** — a JYH-tier
+summit move the census never priced. ⟦AMENDMENT 1 (deletes COUPLING 2
+entirely)⟧: absorb the crumb at `M4RowMR.four_rows_le` (:157,
+private, this-session) — its linarith spends 8 of 12 on the B2 slot
+(an exact 1.5× unspent factor); restate `h3 : R3 ≤ pre·(3/2)·B2`
+(8·3/2 = 12 closes tight) + prove `Mend ≤ (1/2)·16L/(Xd·P)` ⟺
+**`logb 2 (2Xd)·P ≤ 2·Xd`** from the EXISTING binders hPQ/hreg/hbig
+(P ≤ e^{√u}, L ≤ 1.5u, 1.5u·e^{√u} ≤ 2e^u). Then a2RowsSum, a2Mrow,
+thm_a2'_of_rows and BOTH register grading conjuncts stay
+byte-identical. [Fallback: a2_term3_weigh_mr's documented 2× slack.]
+
+CONFIRMED en route: the fusion's exactness (ONE predicate, one
+by_cases — the p²∣X overlap is a single membership, no double count;
+the else-branch delivers the STRICT antecedent exactly); Mend =
+4·(logb 2 (2X))²/X² exact (max half never used p∣m — unmoved; Σ half
++2ω(X)/X via the singleton); the multiplicity honest (Jb pinned at 2 ⟹
+the 8); witEP2's 896/10752 untouched; winCutH strictly open at Xd; the
+NOT-vacuous check — the door reads its datum strictly above Xd on both
+sides (winCutH + seamS0 both strict), the endpoint rows after fusion
+are priced by the UNCONDITIONAL ramP2_term_norm_le, no consumer needs
+the datum AT Xd; the Spine kill theorems have no proof consumers.
+
+THE OTHER AMENDMENTS (v2): (2) All.lean joins the touched list (the
+audit block :3595-3596 + prose :3573-3579); (3) hEP2 sites are FIVE
+(M4DoorRow:306 the missed re-export) + the E_priced_mr pair; (4) the
+3(log X)³ ≤ X stone inline from hL : 256 ≤ log X (no new binder — via
+e^{u/5} ≥ u/5); (5) rcases m BEFORE the agreement law in the
+band/puncture proofs (the m=0 absurdity precedes the rw); (6) sibling
+discipline LOAD-BEARING — editing the landed ramP2*MR defs breaks
+SmallStones:385-460; (7) `hend` name-collides with the unrelated
+cofactor endpoint charge in eight files — NO name-based sweeps; (8)
+the ∨-filter Σ-half splits by subset-sum (over-counting the overlap
+is an upper bound); the else-branch needs one Nat.cast_injective step
+to reach the strict cast.
+
+**DISPATCH: E-EXECUTOR fired on waves E-1..E-6 (additive + wave-
+artifact moves, disjoint from the WALL-C sibling's file set). E-7
+(capstone binders) + E-8 (the register surgery) HELD until the WALL-C
+landing + SUPPLY-SCOPE's WALL-D verdict — one combined register
+re-thread, not two.**
