@@ -13661,3 +13661,109 @@ delivered-grade lines; the ∀d per-instance DoorRowCarriedT0 (~98
 conjuncts); the H-gates; G1/G2. **THE SPINE IS THE ONLY ROAD LEFT** —
 the frozen brief (s11-spine-brief-0728.md) consumes exactly this
 register; SPINE dispatched.
+
+---
+
+## S11-SPINE: THE REGISTER DOES NOT FIRE — three walls, two of them kernel-hard (2026-07-28)
+
+`M4Spine.lean` (500 ln, 11 decls, full build RC 0, axioms `[propext,
+Classical.choice, Quot.sound]`).  The spine was dispatched to FIRE
+`m4_wave_collapsed`.  **It does not fire, and the obstruction is the
+register itself.**
+
+**⟦WALL A — THE BUDGET COLLISION⟧ (kernel-checked).** The register's
+arithmetic gates are JOINTLY INCONSISTENT, no regime needed:
+⟦gate 8⟧ pins `δ` at the DECAYING MRT grade (`δ ≤ 4·(C/2)(log H)^{−11/4}
+loglog H ≲ C/(log H)²`); `M4DoorGates.hMδ` (`24·Cg/δ ≤ M`) then forces
+`M ≳ (log H)²/C` and so `j₀ = doorRowFloor M = M·Adoor M ≥ 2^18·M`;
+⟦gate 6⟧'s drift line carries `m4BclGraded`'s SMALL-LENGTH summand
+`2·4^{j₀}/H` against `MStr H` that ⟦G1⟧ pins from BELOW by
+`arcDen 12 H ≥ 1`, and ⟦gate 7⟧ caps the whole budget by
+`mrtDeliveredGrade (C/2) H ≤ C` — giving `4^{j₀} ≤ C²·H`, i.e.
+`j₀ ≤ 2C + log H`.  Multiply by `C > 0`:
+**`2359296·(log H)² ≤ 2C² + (log H)·C`** (`m4_spine_budget_necessary`),
+which at every regime's `log H ≥ 15` forces `log H ≤ C`
+(`m4_budget_forces_C`).  `C` is fixed BEFORE `R` and `R.Hhi` is unbounded,
+so that is unmeetable outright; and along the actual construction it is
+CONTRADICTORY, since `m4_exit_socket` builds `R` with
+`H0scale C = ⌈exp(C²)⌉₊ ≤ R.Hlo`, i.e. `C² ≤ log H`
+(`m4_budget_collision`, `m4_spine_budget_collision`).  THE `C`-LEVER IS
+SELF-DEFEATING: raising `C` to buy drift-line room raises the regime
+floor quadratically faster than it buys.  **`m4_wave_collapsed` is TRUE
+but VACUOUS.**  The repair is a STATEMENT ruling, Fable/human tier — the
+two candidates: (i) an `M`-free small-length term (the `4^{j₀}/H` factor
+is `m4BclGraded`'s, from the graded split's `j < j₀` half —
+`M4Maximal`'s ⟦CONSUMPTION NOTE⟧ already flagged it as "not free"), or
+(ii) a per-`H` door grade `δ H` replacing the single pinned `δ`, which
+decouples `M` from the TOP of the window range.
+
+**⟦WALL B — THE ENDPOINT, ∀-QUANTIFIED⟧ (kernel-checked).**
+`DoorRowCarriedT0`'s `hend : doorChiCoeff χ M X_d = 0` is carried PER
+INSTANCE and the register quantifies `∀ s ≤ ⌊H/d⌋+1`, so at `d = 1` it
+demands the sieved χ-twisted datum vanish on a FULL interval of `H+2`
+consecutive integers at every ladder block bottom
+(`m4_register_forces_endpoint_interval`), for every `H ≥ 4·10^6` in the
+window range, and at `q = 1` (admissible) with no character zero
+available.  The only discharge route is `X_d ∉ 𝒮`, and `𝒮` is the Ramaré
+sieve at `𝒬K_j = 𝒫_j^{j²M}` — it KEEPS almost every integer.
+`M4DoorClose`'s ⟦ENDPOINT CONVENTION⟧ ("a consumer discharges it by
+choosing `s`") points at a freedom `M4Maximal.M4ChiDyadicRowMeanSq`'s own
+`∀ s` had already spent (`m4_chiShiftBlock_of_dyadicRow` decomposes the
+ladder block into shifted pieces).
+
+**⟦WALL C — THE `H`-UPPER GATES⟧ (prose).** ⟦gate 9⟧ `arcDen 12 H ≤ Qm`
+and ⟦gate 12⟧ `log H ≤ 2^{21845}` are UPPER bounds on the window length
+against a regime whose `Hhi` the exit never bounds above (`ChowlaRegime`
+has no such field; `hfit` forces `Hhi` UP).  The `Qm` half is repairable
+by a quantifier reorder (select `m4_rowDatum_dilated`'s constants at
+`Qm := ⌈arcDen 12 R.Hhi⌉₊` AFTER `R`, through a choice function on `Qm`,
+since `g` reads `R.Hhi`); ⟦gate 12⟧'s numeral is not.
+
+**WHAT LANDED** — the two reusable stones, good for ANY repaired
+register: `eight_arcDen_le_of_arcFloor` / `two_arcDen_le_of_arcFloor`
+(the brief's ⟦S-4⟧ page: `8·(log H)^{12} ≤ H` past `m4ArcFloor = 10^36`,
+via `log t ≤ 24·t^{1/24}` twelve times then `8·24^{12} ≤ √H`) — ⟦gates
+13/14⟧ discharged; and `mrtDeliveredGrade_le_inv_sq` (the delivered grade
+against a clean `4C/(3(log H)²)`), the arithmetic every repaired budget
+will re-run.  `S-0`/`S-1`/`S-2` (the constants block, the demand
+functions, the `ω`-factored `g`-arm) were NOT built: with ⟦WALL A⟧ they
+would be scaffolding for an unfulfillable contract.
+
+---
+
+## ⚠ THE SPINE'S VERDICT: m4_wave_collapsed is TRUE BUT VACUOUS — three walls, two kernel-hard; THE MORNING FORK (2026-07-28 23:46 PDT)
+
+M4Spine.lean (518 ln, 11 decls — the kill built instead of the
+scaffolding, correctly): **⟦WALL A — THE BUDGET COLLISION⟧
+(kernel-hard, m4_spine_budget_collision):** gate 8 pins δ at the
+DECAYING grade ≲ C/(log H)²; hMδ forces M ≳ (log H)²/C; j₀ ≥ 2^18·M
+makes the small-length summand 4^{j₀}/H face G1's floor and gate 7's
+C-cap: 2359296·(log H)² ≤ 2C² + C·log H ⟹ log H ≤ C — against
+H0scale's C² ≤ log H. **The C-lever is self-defeating.** Repairs
+named: (i) an M-free small-length term in the graded assembly, or
+(ii) the per-H door grade δ(H) decoupling M from the window top —
+NOTE the door machinery IS per-H (doorGrade/doorGrade_anti); the
+register's single δ was the flattening. **⟦WALL B — hend
+(kernel-hard, m4_register_forces_endpoint_interval):** the ∀s makes
+the endpoint conjunct demand the sieved datum vanish on FULL
+H+2-intervals — 𝒮 keeps almost everything; the ⟦ENDPOINT CONVENTION⟧'s
+choose-s freedom was already spent by the row's own ∀s. The endpoint
+handling needs redesign (the half-open convention vs the pair law's
+closed antecedent — the root is the capstone's non-strict window
+choice, R3's own deviation). **⟦WALL C⟧:** gate 9 (Qm — repairable by
+the quantifier reorder, the choice function after R) + gate 12 (the
+2^21845 H-cap — an H-upper numeral carried ∀H unbounded; from the
+dilation gate's roomy bound, should be per-instance not register).
+LANDED FOR ANY REPAIR: the S-4 arc-floor page (m4ArcFloor = 10^36,
+gates 13/14 discharged for any repaired register), the delivered-grade
+arithmetic, the four collision theorems, the endpoint theorem.
+
+**THE MORNING COUNCIL FORK (held per the trust-edge principle):** the
+WALL-A repair choice — (ii) the per-H δ(H) looks natural (the door's
+own shape) but re-threads the M4DoorGates/drift/delivered-grade lines
+[the register redesign, ~3 statements]; (i) the M-free term is a
+re-grade of m4BclGraded's small half [the assembly redesign]. WALL B:
+the endpoint convention (the strict-window capstone re-cut — the R3
+deviation revisited — vs an 𝒮-avoiding ladder shift design). WALL C:
+mechanical. The register redesign is ONE more counter-wave once ruled;
+every gate's discharge machinery is landed and waiting.

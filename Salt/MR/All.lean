@@ -220,6 +220,7 @@ import Salt.MR.M4T0Discharge
 import Salt.MR.M4CoprimeSupply
 import Salt.MR.M4Collapse
 import Salt.MR.M4BaseNarrow
+import Salt.MR.M4Spine
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -3553,3 +3554,43 @@ open Salt.Tactic in
   Salt.MR.m4_rowDatum_dilated
   Salt.MR.m4_wave_collapsed
   Salt.MR.m4_wave_collapsed_False
+
+-- ⟦THE S11 SPINE — THE THREE WALLS⟧ (`M4Spine`, 2026-07-28).  The spine's job was to FIRE
+-- `m4_wave_collapsed`: instantiate `(C, U1floor, g)`, then `(δ, Braw, MS, MSan, MStr, M, k)`
+-- at the exit's regime, discharge the eighteen gates, land `m4_door_closed` unconditional.
+-- **It does not fire, and the obstruction is the register itself.**  ⟦WALL A — THE BUDGET
+-- COLLISION⟧ the arithmetic gates are JOINTLY INCONSISTENT: ⟦gate 8⟧ pins `δ` at the
+-- DECAYING MRT grade (`δ ≲ C/(log H)²`), `M4DoorGates.hMδ` (`24·Cg/δ ≤ M`) then forces
+-- `M ≳ (log H)²/C` and so `j₀ = doorRowFloor M ≥ 2^18·M`, while ⟦gate 6⟧'s small-length
+-- summand `2·4^{j₀}/H` of `m4BclGraded` — with `MStr H` pinned from BELOW by ⟦G1⟧ — under
+-- ⟦gate 7⟧'s cap gives `4^{j₀} ≤ C²·H`, i.e. `j₀ ≤ 2C + log H`.  Multiplying:
+-- **`2359296·(log H)² ≤ 2C² + (log H)·C`** (`m4_spine_budget_necessary`), which at every
+-- regime's `log H ≥ 15` forces `log H ≤ C` (`m4_budget_forces_C`) — impossible, since `C` is
+-- fixed BEFORE `R` and `R.Hhi` is unbounded above, and outright contradictory against the
+-- exit's own floor `H0scale C ≤ R.Hlo` (`C² ≤ log H`, `m4_budget_collision`).  So
+-- `m4_wave_collapsed` is TRUE but VACUOUS; the repair is a statement ruling (an `M`-free
+-- small-length term, or a per-`H` door grade `δ H` decoupling `M` from the top of the window
+-- range).  ⟦WALL B — THE ENDPOINT⟧ `DoorRowCarriedT0`'s `hend : doorChiCoeff χ M X_d = 0` is
+-- carried PER INSTANCE and the register quantifies `∀ s ≤ ⌊H/d⌋+1`, so at `d = 1` it demands
+-- the sieved χ-twisted datum vanish on a FULL interval of `H+2` consecutive integers at every
+-- ladder block bottom (`m4_register_forces_endpoint_interval`) — its only discharge route is
+-- `X_d ∉ 𝒮`, and `𝒮` is the Ramaré sieve, which keeps almost every integer.  `M4DoorClose`'s
+-- ⟦ENDPOINT CONVENTION⟧ ("a consumer discharges it by choosing `s`") points at a freedom
+-- `M4Maximal.M4ChiDyadicRowMeanSq`'s own `∀ s` had already spent.  ⟦WALL C⟧ ⟦gates 9/12⟧ are
+-- `H`-UPPER bounds (`arcDen 12 H ≤ Qm`, `log H ≤ 2^{21845}`) against a regime whose `Hhi` the
+-- exit never bounds above — prose only, no artifact.  ⟦WHAT LANDS⟧ the two reusable stones
+-- the attempt produced: the brief's ⟦S-4⟧ arc page (`8·(log H)^{12} ≤ H` past `10^36`, the
+-- discharge of ⟦gates 13/14⟧ in ANY repaired register) and the delivered grade against a
+-- clean `1/(log H)²`.
+open Salt.Tactic in
+#audit_axioms Salt.MR.m4ArcFloor
+  Salt.MR.arcDen_twelve_eq_pow
+  Salt.MR.eight_arcDen_le_of_arcFloor
+  Salt.MR.two_arcDen_le_of_arcFloor
+  Salt.MR.mrtDeliveredGrade_le_inv_sq
+  Salt.MR.m4_spine_budget_necessary
+  Salt.MR.m4_budget_forces_C
+  Salt.MR.m4_budget_collision
+  Salt.MR.m4_spine_budget_collision
+  Salt.MR.doorRowCarriedT0_endpoint
+  Salt.MR.m4_register_forces_endpoint_interval
