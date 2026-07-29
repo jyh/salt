@@ -790,8 +790,12 @@ theorem err_at_witness_mr {X h EP2 : ℝ} {N Xd P : ℕ} {b a cf : ℕ → ℂ}
     (hcoefW : SeamCoefW Xd P P a b cf)
     (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖cf p‖ ≤ 1)
     (hasupp : ∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd)
-    (hsupp : ∀ n : ℕ, a n ≠ 0 → 1 ≤ blockOmega P P n)
-    (hEP2 : witEP2 X N Xd P ≤ EP2) :
+    -- ⟦R3a — THE TAIL IS PRICED, NOT PINNED⟧ `homega` leaves; the coprime-tail MASS and
+    -- its budget line arrive, the `(2X+20N)·M_tail` landing in the ε-graded `EP₂` slot
+    (Mtail : ℝ) (hMtail0 : 0 ≤ Mtail)
+    (hMtail : ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P P n = 0),
+        ‖a n‖ ^ 2 / (n : ℝ) ^ 2 ≤ Mtail)
+    (hEP2 : witEP2 X N Xd P + 4 / 3 * ((2 * X + 20 * (N : ℝ)) * Mtail) ≤ EP2) :
     ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
       (∫ t in (-Tann)..Tann, ‖ramErr (H83 X theta293) N Xd P P a b cf t‖ ^ 2)
         ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) := by
@@ -812,7 +816,7 @@ theorem err_at_witness_mr {X h EP2 : ℝ} {N Xd P : ℕ} {b a cf : ℕ → ℂ}
     push_cast at hv
     linarith
   have hpriced := E_priced_mr_row_scale (H83 X theta293) hH N Xd P P hXd1 hN hN2 hHX hP
-    a b cf hcoefW ha hb hc hasuppR hsupp Tann X hT0 hX0 hXd
+    a b cf hcoefW ha hb hc hasuppR Mtail hMtail Tann X hT0 hX0 hXd
   refine hpriced.trans ?_
   -- ⟦THE `EP2` HALF⟧ the `4/3` inflation, at the window's top
   have hNnn : (0 : ℝ) ≤ (N : ℝ) := Nat.cast_nonneg N
@@ -822,14 +826,21 @@ theorem err_at_witness_mr {X h EP2 : ℝ} {N Xd P : ℕ} {b a cf : ℕ → ℂ}
       ≤ (2 * X + 20 * (N : ℝ))
         * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ))) :=
     mul_le_mul_of_nonneg_right hfactor hmassnn
+  have hstept : (2 * Tann + 20 * (N : ℝ)) * Mtail ≤ (2 * X + 20 * (N : ℝ)) * Mtail :=
+    mul_le_mul_of_nonneg_right hfactor hMtail0
   rw [witEP2_eq, witEP2raw] at hEP2
   have hE : 4 * ((2 * Tann + 20 * (N : ℝ))
-        * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)))) ≤ 3 * EP2 := by
+        * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)))
+      + (2 * Tann + 20 * (N : ℝ)) * Mtail) ≤ 3 * EP2 := by
     linarith
   -- ⟦THE SEAM HALF⟧ `4·520 ≤ 3·720`, with `80·(T/X+1)/H` to spare
   have hH0 : (0 : ℝ) < H83 X theta293 := by linarith
   have hg : (0 : ℝ) ≤ Tann / X + 1 := by positivity
-  exact err_grade_fit (g := Tann / X + 1) (H := H83 X theta293) hg hH0 hE
+  have hfit := err_grade_fit (g := Tann / X + 1) (H := H83 X theta293)
+    (Ep' := (2 * Tann + 20 * (N : ℝ))
+        * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)))
+      + (2 * Tann + 20 * (N : ℝ)) * Mtail) (Ep := EP2) hg hH0 hE
+  linarith
 
 /-! ## §9 — THE ASSEMBLY: `a2Frame3_witness`
 
@@ -906,8 +917,11 @@ theorem a2Frame3_witness
     (hcoefW : SeamCoefW Xd P P a b cf)
     (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖cf p‖ ≤ 1)
     (hasupp : ∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd)
-    (hsupp : ∀ n : ℕ, a n ≠ 0 → 1 ≤ blockOmega P P n)
-    (hEP2 : witEP2 X N Xd P ≤ EP2) :
+    -- ⟦R3a⟧ the coprime-tail mass in place of the single-`P` support pin
+    (Mtail : ℝ) (hMtail0 : 0 ≤ Mtail)
+    (hMtail : ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P P n = 0),
+        ‖a n‖ ^ 2 / (n : ℝ) ^ 2 ≤ Mtail)
+    (hEP2 : witEP2 X N Xd P + 4 / 3 * ((2 * X + 20 * (N : ℝ)) * Mtail) ≤ EP2) :
     A2Frame3 b cf a N Xd P P A G M Jb (witMs (H83 X theta293) Xd)
       (witMt (H83 X theta293) Xd) (witKk (H83 X theta293) Xd) H1 X h δ' VJ L η Cb Rrad
       EP2 cq T₀ := by
@@ -926,7 +940,7 @@ theorem a2Frame3_witness
     (Tstar2_box_at_witness hXthr hMtpin hMtXle)
     (ksGate_at_witness hLX0 hlog2X hδsq hksthr)
     (err_at_witness_mr hH2 hXd1 hMN hN2 hHX (by omega) hX0 hh0 hXdX hcoefW ha hb hc
-      hasupp hsupp hEP2)
+      hasupp Mtail hMtail0 hMtail hEP2)
 
 /-! ## §10 — BEYOND THE FRAME: the row's own ladder binders
 

@@ -44,6 +44,11 @@ readings are not merely underived, they are **contradictory**:
 * `FrameWitness.err_at_witness` (hence `a2Frame3_witness`, hence `a2Rows_of_capfree3`)
   demands `hsupp : ∀ n, a n ≠ 0 → 1 ≤ blockOmega P P n` — `a` is SUPPORTED ON MULTIPLES OF
   the block prime `P`;
+  ⟦R3a, 2026-07-28 — SUPERSEDED ON THE `_mr` ROUTE⟧ `err_at_witness_mr`/`a2Frame3_witness`
+  and both capstones below no longer demand that pin at all: the coprime tail is PRICED
+  (`M4ErrRewire.E_priced_mr` at `ramCopTail_moment`) against a carried mass budget
+  `M_tail`, whose `(2X+20N)·M_tail` rides the ε-graded `EP₂` slot (⟦R3c⟧).  The legacy
+  `err_at_witness` above keeps the pin and is untouched;
 * `T0BandCapFree.cfb_t0band_supply` demands
   `hDatum : ∀ n, X < n → a n = seamCoeff (ellLin g) 1 t₀ n` — `a` is the UNSIEVED seam
   coefficient above `X`, which is non-zero at squarefree `n ∤ P` coprime to `q`.
@@ -477,9 +482,9 @@ See the module docstring for the binder → supplier table. -/
 theorem m4_meansq_per_chi_gen (Qm : ℕ) :
     ∃ Cq cq T₀ X₀ Cs Ccc Kfl : ℝ,
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
-      ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), q ≤ Qm →
-          ∀ (N Xd P M : ℕ) (a cf : ℕ → ℂ)
-            (X h δ' V VJ L Cb Rrad kmin Ymax ε EP2 C₁' M₀ : ℝ),
+      ∀ (q : ℕ) [NeZero q] (_χ : DirichletCharacter ℂ q), q ≤ Qm →
+          ∀ (N Xd P M : ℕ) (a cf b : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ)
+            (X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail C₁' M₀ : ℝ),
             -- ⟦the two pins (FRAME's joint instantiation)⟧
             (Xd : ℝ) = X → N = 2 * Xd →
             -- ⟦the scale page⟧
@@ -547,22 +552,34 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
             1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
             -- ⟦the ε-window and the Perron budget⟧
             0 ≤ ε → ε ≤ theta293 - 1 / 500 → 8640 ≤ (Real.log X) ^ ε →
-            12 * EP2 ≤ (Real.log X) ^ (-theta293) → witEP2 X N Xd P ≤ EP2 →
+            12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
+            witEP2 X N Xd P + 4 / 3 * ((2 * X + 20 * (N : ℝ)) * Mtail) ≤ EP2 →
             -- ⟦the S8 datum⟧
             (∀ n : ℕ, ‖a n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) →
             (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
             (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
-            (∀ n : ℕ, a n ≠ 0 → 1 ≤ blockOmega P P n) →
+            -- ⟦R3a⟧ the coprime-tail MASS, in place of the single-`P` support pin
+            0 ≤ Mtail →
+            (∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P P n = 0),
+              ‖a n‖ ^ 2 / (n : ℝ) ^ 2) ≤ Mtail →
+            -- ⟦W1 — THE CARRIED `b`-SLOT⟧ the co-factor datum, its level family, its socket
+            -- and its grade are all CARRIED now: the capstone manufactures none of them, so
+            -- the row is available at ANY datum meeting them (the door's, in particular).
+            -- `m4_rbar_nonneg` / `m4_cofactorSocket_at_witness` remain as the `liouChi`
+            -- instance that used to be built here
+            (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ j n : ℕ, ‖bfam j n‖ ≤ 1) →
+            0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
+            CofactorSocket (H83 X theta293) N Xd P P X Rrad 0 Rbar b →
             (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
               p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m →
               (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
-              a (p * m) = ellLin (liouChi χ) m * cf p) →
+              a (p * m) = bfam j m * cf p) →
             (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
-              p ≤ calQK (Adoor M) (3072 * M) M j → cf p * ellLin (liouChi χ) m ≠ 0 →
+              p ≤ calQK (Adoor M) (3072 * M) M j → cf p * bfam j m ≠ 0 →
               (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
             -- ⟦THE PIN CHAIN, `hwin`-FREE (⟦THE WALL⟧'s rewire): the on-window
             -- factorization ALONE.  `hwinPin` is GONE — see §3″⟧
-            SeamCoefW Xd P P a (ellLin (liouChi χ)) cf →
+            SeamCoefW Xd P P a b cf →
             -- ⟦the `T₀`-band datum: `m4_t0band_at_datum` is the supplier, and §2's
             -- `dpolyA_seamS0_bandDatum` the bridge — see the header on the A2-5 seam⟧
             (∫ t in (-(seamT0 X))..(seamT0 X), ‖dpolyA a (seamS0 N X) t‖ ^ 2)
@@ -588,18 +605,20 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
   obtain ⟨Cq, cq, T₀, -, Cs, Ccc, hCq, hcq, hT₀, -, hCs, hCcc, hrow⟩ :=
     a2Rows_of_capfree3
   -- ⟦THE SOCKET CUT⟧ the CASE-A discharge is the SUPPLIER's now, so its `X₀` is taken here
-  obtain ⟨X₀, hX₀0, hsockA⟩ := caseASocket2_discharged
-  obtain ⟨Kfl, hKfl0, hKfl⟩ := capFreeFloor3_liouChi_all Qm
+  obtain ⟨X₀, hX₀0, -⟩ := caseASocket2_discharged
+  obtain ⟨Kfl, hKfl0, -⟩ := capFreeFloor3_liouChi_all Qm
   refine ⟨Cq, cq, T₀, X₀, Cs, Ccc, Kfl, hCq, hcq, hT₀, hX₀0, hCs, hCcc, hKfl0, ?_⟩
-  intro q _ χ hq N Xd P M a cf X h δ' V VJ L Cb Rrad kmin Ymax ε EP2 C₁' M₀
+  intro q _ _χ _hq N Xd P M a cf b bfam X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail
+    C₁' M₀
     hXd hNXd hXee hlX2 hh4 hhX hhceil hTann hceil5 hT₀le hTbot hLXL hLe
     hM hXdQ hQ1h hP3 hlogP2 hPbot hPlog hPL hPlow hPhigh hHX hH2 hPj1 hQXd hXdbig hdom
-    hW5 hkth hMtX hC16 hRradW hthinpin hMtpin hkk hMtY
-    hRrad0 hRrad hRlow hV1 hVδ hlogV hδsq hksthr hVJg hCb0 hCbound hXthr
-    hX₀k hMfl0 hk2 hkX hgateW hYpin hWY hXY hthrY hcqgate hCqgate
+    hW5 hkth hMtX hC16 hRradW hthinpin hMtpin _hkk _hMtY
+    hRrad0 hRrad _hRlow hV1 hVδ hlogV hδsq hksthr hVJg _hCb0 _hCbound hXthr
+    _hX₀k _hMfl0 _hk2 _hkX _hgateW _hYpin _hWY _hXY _hthrY hcqgate hCqgate
     hε0 hεup habs hEP2 hEP2w
-    ha1 hcf1 hsupp0 hasupp homega hcoefBand hwinBand hcoefPin
-    hT0band hcff hgP1 hgRows hL4096
+    ha1 hcf1 hsupp0 hasupp hMtail0 hMtail hb1 hbf1 hRbar0 hRgrade hsockR
+    hcoefBand hwinBand hcoefPin
+    hT0band _hcff hgP1 hgRows hL4096
   -- ⟦THE SCALE PAGE⟧
   have hXe : Real.exp 1 ≤ X := le_trans exp_one_le_exp_exp_one hXee
   have hX3 : (3 : ℝ) ≤ X := le_of_lt (lt_of_lt_of_le exp_exp_one_gt_three hXee)
@@ -622,16 +641,12 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
   have hlog2X : (0 : ℝ) ≤ 1 + Real.log (2 * X) := by
     have : (0 : ℝ) ≤ Real.log (2 * X) := Real.log_nonneg (by linarith)
     linarith
-  have hgl : ∀ p : ℕ, p.Prime → ‖liouChi χ p‖ ≤ 1 := fun p _ => norm_liouChi_le_one χ p
-  have hb1 : ∀ n : ℕ, ‖ellLin (liouChi χ) n‖ ≤ 1 := ellLin_norm_le_one (liouChi χ) hgl
-  have hLXe : Real.exp 1 ≤ Real.log X :=
-    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
   -- ⟦THE BINDER REPAIR (§3′): the window-restricted BAND law, widened back to the
   -- unrestricted shape `a2Rows_of_capfree3` consumes.  Off the window both sides vanish.
   -- The PIN law needs no widening any more: §3″'s rewire consumes it on-window⟧
   have hcoefBandW : ∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime →
       calP (Adoor M) (3072 * M) j ≤ p → p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m →
-      a (p * m) = ellLin (liouChi χ) m * cf p := by
+      a (p * m) = bfam j m * cf p := by
     intro j hj p m hp h1 h2 h3
     exact coef_widen_of_window
       (R := fun p m => p.Prime ∧ calP (Adoor M) (3072 * M) j ≤ p ∧
@@ -642,32 +657,22 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
       p m ⟨hp, h1, h2, h3⟩
   -- ⟦FIELD 1–4: THE FRAME⟧ — at the CO-FACTOR DATUM `ellLin (liouChi χ)` (the socket cut's
   -- `b`-slot; the frame no longer takes a multiplicative generator)
-  have F : A2Frame3 (ellLin (liouChi χ)) cf a N Xd P P (Adoor M) (3072 * M) M 2
+  have F : A2Frame3 b cf a N Xd P P (Adoor M) (3072 * M) M 2
       (witMs (H83 X theta293) Xd) (witMt (H83 X theta293) Xd) (witKk (H83 X theta293) Xd)
       (H1door M) X h δ' VJ L (1 / 12) Cb Rrad EP2 cq T₀ :=
     a2Frame3_witness hX0 hh0 hLX0 hLXL hXd1 hXdX hTann hceil5 hT₀le hTbot hhceil hH2 hP3
       hlogP2 hPbot hPlog hPL hcqgate hW4 hkth hMN hMtX hC16 hRrad0 hRradW hPj1 hthinpin
-      hXthr hMtpin hδsq hlog2X hksthr hNle hHX hcoefPin ha1 hb1 hcf1 hasupp homega
-      hEP2w
+      hXthr hMtpin hδsq hlog2X hksthr hNle hHX hcoefPin ha1 hb1 hcf1 hasupp Mtail hMtail0
+      hMtail hEP2w
   -- ⟦THE ROW LADDER⟧
   obtain ⟨hMs, hm₀2, hm₀, hMs4⟩ :=
     row_ladder_at_witness (H := H83 X theta293) (N := N) (Xd := Xd) (P := P) hW5
-  -- ⟦THE CAP-FREE FLOOR, AT THE ROW'S OWN DATUM⟧
-  have hfloor : CapFreeFloor3 (liouChi χ) X := hKfl q χ X hq hXee hcff
-  -- ⟦THE CO-FACTOR SOCKET⟧ the row's ONE structural datum, supplied HERE (§3‴) from the
-  -- landed cap-free machinery.  Above this line the row never reads `liouChi`
-  have hsockR := m4_cofactorSocket_at_witness χ hsockA F hX0 hh4 hLXe hPlow hPhigh hfloor
-    hCb0 hCbound hRrad0 hX₀k hMfl0 hk2 hkk hMtpin hMtY
-  have hRbar0 := m4_rbar_nonneg (Cb := Cb) (X := X) (kmin := kmin) (Ymax := Ymax)
-    (Rrad := Rrad) hCb0 hk2
-  have hRgrade := Rbd34loc_grade_priced (X := X) (Cb := Cb) (kmin := kmin) (Ymax := Ymax)
-    (Rrad := Rrad) hCb0 hk2 hkX hlX2 hgateW hRlow hYpin hWY hXY hthrY
-  -- ⟦THE ROW FAMILY⟧
-  have hrows := hrow cf a (ellLin (liouChi χ)) cf hcf1 hb1 hcf1 N Xd P P M
+  -- ⟦THE ROW FAMILY⟧ at the CARRIED socket (W1: no in-file manufacture — see the
+  -- `liouChi` instance `m4_cofactorSocket_at_witness` / `m4_rbar_nonneg`)
+  have hrows := hrow cf a b cf bfam
+    hcf1 hb1 hcf1 hbf1 N Xd P P M
     (witM0 (H83 X theta293) Xd) (witMs (H83 X theta293) Xd) (witMt (H83 X theta293) Xd)
-    (witKk (H83 X theta293) Xd) X h δ' V VJ L Cb Rrad
-    (cofactorRbd34loc (1 / Real.exp 1) Cb X theta293 kmin Ymax
-      (Tstar2 Ymax (Real.log Ymax)) Rrad) ε EP2
+    (witKk (H83 X theta293) Xd) X h δ' V VJ L Cb Rrad Rbar ε EP2
     hM hXdQ F hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV hPlow
     (by omega) hPhigh hRrad hRbar0 hRgrade hsockR hCqgate hε0 habs hEP2 hXN hN2X hsupp0 hMN
     hcoefBandW hwinBand hQXd hXdbig hN4 hdom ha1 hasupp
@@ -765,9 +770,9 @@ is on the window length alone, which is what makes it usable inside the dyadic c
 theorem m4_meansq_or_trivial (Qm : ℕ) :
     ∃ Cq cq T₀ X₀ Cs Ccc Kfl : ℝ,
       0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
-      ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), q ≤ Qm →
-          ∀ (N Xd P M : ℕ) (a cf : ℕ → ℂ)
-            (X h δ' V VJ L Cb Rrad kmin Ymax ε EP2 C₁' M₀ : ℝ)
+      ∀ (q : ℕ) [NeZero q] (_χ : DirichletCharacter ℂ q), q ≤ Qm →
+          ∀ (N Xd P M : ℕ) (a cf b : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ)
+            (X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail C₁' M₀ : ℝ)
             (xw ω H' : ℕ) (α Hp d₀ W : ℝ),
             2 ≤ xw → 2 ≤ ω →
             (Xd : ℝ) = X → N = 2 * Xd →
@@ -829,19 +834,31 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
             420 * L * L ^ ((3 : ℝ) / 4) * (Real.log L) ^ 5 ≤ cq * (Real.log (P : ℝ)) ^ 2 →
             1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
             0 ≤ ε → ε ≤ theta293 - 1 / 500 → 8640 ≤ (Real.log X) ^ ε →
-            12 * EP2 ≤ (Real.log X) ^ (-theta293) → witEP2 X N Xd P ≤ EP2 →
+            12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
+            witEP2 X N Xd P + 4 / 3 * ((2 * X + 20 * (N : ℝ)) * Mtail) ≤ EP2 →
             (∀ n : ℕ, ‖a n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) →
             (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
             (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
-            (∀ n : ℕ, a n ≠ 0 → 1 ≤ blockOmega P P n) →
+            -- ⟦R3a⟧ the coprime-tail MASS, in place of the single-`P` support pin
+            0 ≤ Mtail →
+            (∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P P n = 0),
+              ‖a n‖ ^ 2 / (n : ℝ) ^ 2) ≤ Mtail →
+            -- ⟦W1 — THE CARRIED `b`-SLOT⟧ the co-factor datum, its level family, its socket
+            -- and its grade are all CARRIED now: the capstone manufactures none of them, so
+            -- the row is available at ANY datum meeting them (the door's, in particular).
+            -- `m4_rbar_nonneg` / `m4_cofactorSocket_at_witness` remain as the `liouChi`
+            -- instance that used to be built here
+            (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ j n : ℕ, ‖bfam j n‖ ≤ 1) →
+            0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
+            CofactorSocket (H83 X theta293) N Xd P P X Rrad 0 Rbar b →
             (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
               p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m →
               (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
-              a (p * m) = ellLin (liouChi χ) m * cf p) →
+              a (p * m) = bfam j m * cf p) →
             (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
-              p ≤ calQK (Adoor M) (3072 * M) M j → cf p * ellLin (liouChi χ) m ≠ 0 →
+              p ≤ calQK (Adoor M) (3072 * M) M j → cf p * bfam j m ≠ 0 →
               (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
-            SeamCoefW Xd P P a (ellLin (liouChi χ)) cf →
+            SeamCoefW Xd P P a b cf →
             (∫ t in (-(seamT0 X))..(seamT0 X), ‖dpolyA a (seamS0 N X) t‖ ^ 2)
               ≤ t0BandB X C₁' M₀ →
             40 * Real.log (Real.log (Real.log X))
@@ -867,27 +884,30 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
   obtain ⟨Cq, cq, T₀, X₀, Cs, Ccc, Kfl, hCq, hcq, hT₀, hX₀0, hCs, hCcc, hKfl0, hper⟩ :=
     m4_meansq_per_chi_gen Qm
   refine ⟨Cq, cq, T₀, X₀, Cs, Ccc, Kfl, hCq, hcq, hT₀, hX₀0, hCs, hCcc, hKfl0, ?_⟩
-  intro q _ χ hq N Xd P M a cf X h δ' V VJ L Cb Rrad kmin Ymax ε EP2 C₁' M₀
-    xw ω H' α Hp d₀ W hxw hω
+  intro q _ χ hq N Xd P M a cf b bfam X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail
+    C₁' M₀ xw ω H' α Hp d₀ W hxw hω
     hXd hNXd hXee hlX2 hh4 hhX hhceil hTann hceil5 hT₀le hTbot hLXL hLe
     hM hXdQ hQ1h hP3 hlogP2 hPbot hPlog hPL hPlow hPhigh hHX hH2 hPj1 hQXd hXdbig hdom
     hW5 hkth hMtX hC16 hRradW hthinpin hMtpin hkk hMtY
     hRrad0 hRrad hRlow hV1 hVδ hlogV hδsq hksthr hVJg hCb0 hCbound hXthr
     hX₀k hMfl0 hk2 hkX hgateW hYpin hWY hXY hthrY hcqgate hCqgate
     hε0 hεup habs hEP2 hEP2w
-    ha1 hcf1 hsupp0 hasupp homega hcoefBand hwinBand hcoefPin
+    ha1 hcf1 hsupp0 hasupp hMtail0 hMtail hb1 hbf1 hRbar0 hRgrade hsockR
+    hcoefBand hwinBand hcoefPin
     hT0band hcff hgP1 hgRows hL4096
   rcases le_or_gt ((H' : ℝ)) (trivThresh Hp d₀ W) with hshort | hlong
   · exact Or.inl ⟨hshort, m4_trivial_branch ha1 hxw hω hshort α⟩
   · refine Or.inr ⟨hlong, ?_⟩
-    exact hper q χ hq N Xd P M a cf X h δ' V VJ L Cb Rrad kmin Ymax ε EP2 C₁' M₀
+    exact hper q χ hq N Xd P M a cf b bfam X h δ' V VJ L Cb Rrad Rbar kmin Ymax ε EP2 Mtail
+      C₁' M₀
       hXd hNXd hXee hlX2 hh4 hhX hhceil hTann hceil5 hT₀le hTbot hLXL hLe
       hM hXdQ hQ1h hP3 hlogP2 hPbot hPlog hPL hPlow hPhigh hHX hH2 hPj1 hQXd hXdbig hdom
       hW5 hkth hMtX hC16 hRradW hthinpin hMtpin hkk hMtY
       hRrad0 hRrad hRlow hV1 hVδ hlogV hδsq hksthr hVJg hCb0 hCbound hXthr
       hX₀k hMfl0 hk2 hkX hgateW hYpin hWY hXY hthrY hcqgate hCqgate
       hε0 hεup habs hEP2 hEP2w
-      ha1 hcf1 hsupp0 hasupp homega hcoefBand hwinBand hcoefPin
+      ha1 hcf1 hsupp0 hasupp hMtail0 hMtail hb1 hbf1 hRbar0 hRgrade hsockR
+      hcoefBand hwinBand hcoefPin
       hT0band hcff hgP1 hgRows hL4096
 
 end Salt.MR

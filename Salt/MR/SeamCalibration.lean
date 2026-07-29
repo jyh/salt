@@ -478,7 +478,7 @@ theorem seam_row_calibrated :
         1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
         32 * (Real.log X) ^ (2 + 2 * theta293)
             * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) →
-        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
         E ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) →
         (∫ t in (-Tann)..Tann,
             ‖ramErr (H83 X theta293) N Xd P Q a (ellLin g) cf t‖ ^ 2) ≤ E →
@@ -589,10 +589,12 @@ theorem seam_row_calibrated :
     hblk hbox hCbound hX₀k hMfl0 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr
     hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup
   -- ⟦THE 𝒯-LEG, AND THE COMPOSITION⟧
-  exact hfeed c a b (calP A G) (calQ A G) (calH H1) η Jb N Xd (calP A G 1) X Tann t₁ S ε
+  exact hfeed c a (fun _ => b) (calP A G) (calQ A G) (calH H1) η Jb N Xd (calP A G 1) X Tann
+    t₁ S ε
     hη hη6 hJb1 hXd1 hNXd (by linarith) hP1pos (levelGates_calibrated hF) hH1two
     (by simp only [calP]; exact Nat.one_le_two_pow)
-    (Nat.pow_le_pow_right (by norm_num) (by omega)) hbot1 hcoef hb1 (fun p => hc1 p) hwin
+    (Nat.pow_le_pow_right (by norm_num) (by omega)) hbot1 hcoef (fun _ => hb1)
+    (fun p => hc1 p) hwin
     hcapinst
 
 end Salt.MR

@@ -208,7 +208,7 @@ theorem card_blockfree_le :
         ≤ (((Finset.Ioc X (2 * X)).filter
               (fun n => (bandProd P Q).Coprime n)).card : ℝ) := by
     exact_mod_cast hsub
-  refine hcast.trans ((hden P Q X hP hPQ hreg hbig herr).trans ?_)
+  refine hcast.trans ((hden P Q X hP hPQ (densGate_of_sqrt hQ2 hreg hbig) herr).trans ?_)
   have hmax : C₀ ≤ max C₀ 1 := le_max_left _ _
   nlinarith [mul_nonneg hratio hXnn]
 

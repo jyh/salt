@@ -143,7 +143,7 @@ theorem seam_row_number :
         1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
         32 * (Real.log X) ^ (2 + 2 * theta293)
             * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) →
-        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
         E ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) →
         (∫ t in (-Tann)..Tann,
             ‖ramErr (H83 X theta293) N Xd P Q a (ellLin g) cf t‖ ^ 2) ≤ E →
@@ -243,8 +243,8 @@ theorem seam_row_number :
     hV1 hVδ hlogV hCb0 hPlow hQ0 hQhigh hPQ83 ht₁ hrow hcoll hR0 hRrad hRlow
     hblk hbox hCbound hX₀k hMfl0 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr
     hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef hwin
-  have hK2inst := hK2 A G M Jb N Xd H1 Tann a b c hA hG1 hM1 hXd1 hT0 hH10 hN4
-    hreg hXdbig hdom ha1 hb1 hc1 hasupp hwin
+  have hK2inst := hK2 A G M Jb N Xd H1 Tann a (fun _ => b) c hA hG1 hM1 hXd1 hT0 hH10 hN4
+    hreg hXdbig hdom ha1 (fun _ => hb1) hc1 hasupp hwin
   exact hseaminst.trans
     (add_le_add (add_le_add le_rfl (add_le_add le_rfl hK2inst)) le_rfl)
 

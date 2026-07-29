@@ -113,7 +113,8 @@ theorem lemma12Rows_pricedK :
   have hpre : (0 : ℝ) ≤ 2 * T + 20 * (N : ℝ) := by positivity
   -- ⟦THE ONE SWAPPED CALL⟧ `ramP2mass_direct` in place of `ramP2mass_win_le`
   have h2 := ramP2mass_direct N P Q Xd hXd (by omega) a b c ha hb hc hasupp hwinN
-  have h3 := hbf P Q Xd N a hP hPQ hXd hreg hbig herr ha hasupp
+  have h3 := hbf P Q Xd N a hP hPQ hXd (densGate_of_sqrt (le_trans hP hPQ) hreg hbig)
+    herr ha hasupp
   have e2 := mul_le_mul_of_nonneg_left h2 hpre
   have e3 := mul_le_mul_of_nonneg_left h3 hpre
   rw [lemma12Rows]
@@ -193,7 +194,7 @@ right — so any re-pin (in particular `SeamCalibrationK`'s `calQK`) plugs strai
 `p²` row is now `16·log₂(2X_d)/P_j` per level, inside the same `j`-sum. -/
 theorem sum_lemma12Rows_pricedK :
     ∃ C : ℝ, 0 < C ∧ ∀ (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ) (Jb N Xd : ℕ) (T : ℝ)
-      (a b c : ℕ → ℂ),
+      (a : ℕ → ℂ) (b : ℕ → ℕ → ℂ) (c : ℕ → ℂ),
       1 ≤ Xd → 0 ≤ T → (N : ℝ) ≤ 4 * (Xd : ℝ) →
       (∀ j ∈ Finset.Icc 1 Jb, 2 ≤ Pseq j ∧ Pseq j ≤ Qseq j ∧ 0 < Hseq j) →
       (∀ j ∈ Finset.Icc 1 Jb, Real.log (Qseq j : ℝ) ≤ Real.sqrt (Real.log Xd)) →
@@ -201,11 +202,12 @@ theorem sum_lemma12Rows_pricedK :
       (∀ j ∈ Finset.Icc 1 Jb,
         ((Nat.sqrt Xd : ℝ) + 1) * ∏ p ∈ primeBand (Pseq j) (Qseq j), (1 + 3 / (p : ℝ))
           ≤ (Xd : ℝ) * (Real.log (Pseq j : ℝ) / Real.log (Qseq j : ℝ))) →
-      (∀ n, ‖a n‖ ≤ 1) → (∀ m, ‖b m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∀ n, ‖a n‖ ≤ 1) → (∀ j m, ‖b j m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
       (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
-      (∀ j ∈ Finset.Icc 1 Jb, ∀ p m : ℕ, p.Prime → Pseq j ≤ p → p ≤ Qseq j → c p * b m ≠ 0 →
+      (∀ j ∈ Finset.Icc 1 Jb, ∀ p m : ℕ, p.Prime → Pseq j ≤ p → p ≤ Qseq j →
+        c p * b j m ≠ 0 →
         (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
-      ∑ j ∈ Finset.Icc 1 Jb, lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a b c
+      ∑ j ∈ Finset.Icc 1 Jb, lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c
         ≤ 480 * (T / (Xd : ℝ) + 1)
             * ((∑ j ∈ Finset.Icc 1 Jb,
                   ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / Hseq j + 1)
@@ -218,7 +220,7 @@ theorem sum_lemma12Rows_pricedK :
   refine ⟨C, hC, ?_⟩
   intro Pseq Qseq Hseq Jb N Xd T a b c hXd hT hN4 hgates hreg hbig herr ha hb hc hasupp hwin
   have hlevel : ∀ j ∈ Finset.Icc 1 Jb,
-      lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a b c
+      lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c
         ≤ 480 * (T / (Xd : ℝ) + 1)
             * ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / Hseq j + 1)
                   * (Real.exp 1 / (Xd : ℝ) ^ 2))
@@ -227,8 +229,8 @@ theorem sum_lemma12Rows_pricedK :
                 + C * (Real.log (Pseq j : ℝ) / Real.log (Qseq j : ℝ))) := by
     intro j hj
     obtain ⟨hP, hPQ, hH⟩ := hgates j hj
-    exact (hrow (Pseq j) (Qseq j) N Xd (Hseq j) T a b c hP hPQ hXd hT hH hN4 (hreg j hj) hbig
-      (herr j hj) ha hb hc hasupp (hwin j hj)).trans (le_of_eq (by ring))
+    exact (hrow (Pseq j) (Qseq j) N Xd (Hseq j) T a (b j) c hP hPQ hXd hT hH hN4 (hreg j hj)
+      hbig (herr j hj) ha (hb j) hc hasupp (hwin j hj)).trans (le_of_eq (by ring))
   refine (Finset.sum_le_sum hlevel).trans (le_of_eq ?_)
   rw [← Finset.mul_sum, Finset.sum_add_distrib, ← Finset.mul_sum]
 
@@ -249,7 +251,8 @@ theorem sum_lemma12Rows_pricedK :
 it is the K-ladder's DENSITY statement.  This one is the K-ladder's WHOLE seam row — every
 one of the three rows a number that goes to zero with the parameters. -/
 theorem sum_lemma12Rows_priced_calibratedK2 :
-    ∃ C : ℝ, 0 < C ∧ ∀ (A G M Jb N Xd : ℕ) (H1 T : ℝ) (a b c : ℕ → ℂ),
+    ∃ C : ℝ, 0 < C ∧ ∀ (A G M Jb N Xd : ℕ) (H1 T : ℝ) (a : ℕ → ℂ) (b : ℕ → ℕ → ℂ)
+      (c : ℕ → ℂ),
       1 ≤ A → 1 ≤ G → 1 ≤ M → 1 ≤ Xd → 0 ≤ T → 0 < H1 → (N : ℝ) ≤ 4 * (Xd : ℝ) →
       (∀ j ∈ Finset.Icc 1 Jb,
         Real.log ((calQK A G M j : ℕ) : ℝ) ≤ Real.sqrt (Real.log Xd)) →
@@ -259,12 +262,13 @@ theorem sum_lemma12Rows_priced_calibratedK2 :
             * ∏ p ∈ primeBand (calP A G j) (calQK A G M j), (1 + 3 / (p : ℝ))
           ≤ (Xd : ℝ)
             * (Real.log ((calP A G j : ℕ) : ℝ) / Real.log ((calQK A G M j : ℕ) : ℝ))) →
-      (∀ n, ‖a n‖ ≤ 1) → (∀ m, ‖b m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∀ n, ‖a n‖ ≤ 1) → (∀ j m, ‖b j m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
       (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
       (∀ j ∈ Finset.Icc 1 Jb, ∀ p m : ℕ, p.Prime → calP A G j ≤ p → p ≤ calQK A G M j →
-        c p * b m ≠ 0 → (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
+        c p * b j m ≠ 0 →
+        (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
       ∑ j ∈ Finset.Icc 1 Jb,
-          lemma12Rows N Xd (calP A G j) (calQK A G M j) (calH H1 j) T a b c
+          lemma12Rows N Xd (calP A G j) (calQK A G M j) (calH H1 j) T a (b j) c
         ≤ 480 * (T / (Xd : ℝ) + 1)
             * ((∑ j ∈ Finset.Icc 1 Jb,
                   ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)

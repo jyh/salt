@@ -124,8 +124,7 @@ ride the statement (law #253). -/
 theorem blockfree_sum_le :
     ∃ C : ℝ, 0 < C ∧ ∀ (P Q W N : ℕ) (a : ℕ → ℂ),
       2 ≤ P → P ≤ Q → 1 ≤ W →
-      Real.log Q ≤ Real.sqrt (Real.log W) →
-      (100 : ℝ) ≤ Real.sqrt (Real.log W) →
+      100 * Real.log Q ≤ Real.log W →
       ((Nat.sqrt W : ℝ) + 1) * ∏ p ∈ primeBand P Q, (1 + 3 / (p : ℝ))
           ≤ (W : ℝ) * (Real.log P / Real.log Q) →
       (∀ n, ‖a n‖ ≤ 1) →
@@ -136,7 +135,7 @@ theorem blockfree_sum_le :
   classical
   obtain ⟨C, hC, hden⟩ := typical_density_le
   refine ⟨C, hC, ?_⟩
-  intro P Q W N a hP hPQ hW hreg hbig herr ha hsupp
+  intro P Q W N a hP hPQ hW hgate herr ha hsupp
   have hW0 : (0 : ℝ) < (W : ℝ) := by exact_mod_cast hW
   -- ⟦STEP 1: only the window shell survives, and there `‖a n‖² ≤ 1`⟧
   have hpt : ∀ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
@@ -189,7 +188,7 @@ theorem blockfree_sum_le :
   -- ⟦STEP 3: the shell, by the density⟧
   have hcard : (((Finset.Ioc W (2 * W)).filter (fun n => blockOmega P Q n = 0)).card : ℝ)
       ≤ C * (Real.log P / Real.log Q) * W := by
-    refine le_trans ?_ (hden P Q W hP hPQ hreg hbig herr)
+    refine le_trans ?_ (hden P Q W hP hPQ hgate herr)
     have : ((Finset.Ioc W (2 * W)).filter (fun n => blockOmega P Q n = 0)).card
         ≤ ((Finset.Ioc W (2 * W)).filter (fun n => (bandProd P Q).Coprime n)).card := by
       refine Finset.card_le_card ?_
@@ -483,7 +482,8 @@ theorem lemma12Rows_priced :
       exact_mod_cast h
   have hpre : (0 : ℝ) ≤ 2 * T + 20 * (N : ℝ) := by positivity
   have h2 := ramP2mass_win_le N P Q Xd hXd (by omega) a b c ha hb hc hasupp hwinN
-  have h3 := hbf P Q Xd N a hP hPQ hXd hreg hbig herr ha hasupp
+  have h3 := hbf P Q Xd N a hP hPQ hXd (densGate_of_sqrt (le_trans hP hPQ) hreg hbig)
+    herr ha hasupp
   have e2 := mul_le_mul_of_nonneg_left h2 hpre
   have e3 := mul_le_mul_of_nonneg_left h3 hpre
   rw [lemma12Rows]
@@ -554,7 +554,7 @@ The ladder is generic here: any `P_j`, `Q_j`, `H_j` meeting the per-level gates 
 re-pinned calibration needs no further wiring. -/
 theorem sum_lemma12Rows_priced :
     ∃ C : ℝ, 0 < C ∧ ∀ (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ) (Jb N Xd : ℕ) (T : ℝ)
-      (a b c : ℕ → ℂ),
+      (a : ℕ → ℂ) (b : ℕ → ℕ → ℂ) (c : ℕ → ℂ),
       1 ≤ Xd → 0 ≤ T → (N : ℝ) ≤ 4 * (Xd : ℝ) →
       (∀ j ∈ Finset.Icc 1 Jb, 2 ≤ Pseq j ∧ Pseq j ≤ Qseq j ∧ 0 < Hseq j) →
       (∀ j ∈ Finset.Icc 1 Jb, Real.log (Qseq j : ℝ) ≤ Real.sqrt (Real.log Xd)) →
@@ -562,11 +562,12 @@ theorem sum_lemma12Rows_priced :
       (∀ j ∈ Finset.Icc 1 Jb,
         ((Nat.sqrt Xd : ℝ) + 1) * ∏ p ∈ primeBand (Pseq j) (Qseq j), (1 + 3 / (p : ℝ))
           ≤ (Xd : ℝ) * (Real.log (Pseq j : ℝ) / Real.log (Qseq j : ℝ))) →
-      (∀ n, ‖a n‖ ≤ 1) → (∀ m, ‖b m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∀ n, ‖a n‖ ≤ 1) → (∀ j m, ‖b j m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
       (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
-      (∀ j ∈ Finset.Icc 1 Jb, ∀ p m : ℕ, p.Prime → Pseq j ≤ p → p ≤ Qseq j → c p * b m ≠ 0 →
+      (∀ j ∈ Finset.Icc 1 Jb, ∀ p m : ℕ, p.Prime → Pseq j ≤ p → p ≤ Qseq j →
+        c p * b j m ≠ 0 →
         (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
-      ∑ j ∈ Finset.Icc 1 Jb, lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a b c
+      ∑ j ∈ Finset.Icc 1 Jb, lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c
         ≤ 480 * (T / (Xd : ℝ) + 1)
             * ((∑ j ∈ Finset.Icc 1 Jb,
                   ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / Hseq j + 1)
@@ -579,7 +580,7 @@ theorem sum_lemma12Rows_priced :
   refine ⟨C, hC, ?_⟩
   intro Pseq Qseq Hseq Jb N Xd T a b c hXd hT hN4 hgates hreg hbig herr ha hb hc hasupp hwin
   have hlevel : ∀ j ∈ Finset.Icc 1 Jb,
-      lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a b c
+      lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c
         ≤ 480 * (T / (Xd : ℝ) + 1)
             * ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / Hseq j + 1)
                   * (Real.exp 1 / (Xd : ℝ) ^ 2))
@@ -588,8 +589,8 @@ theorem sum_lemma12Rows_priced :
                 + C * (Real.log (Pseq j : ℝ) / Real.log (Qseq j : ℝ))) := by
     intro j hj
     obtain ⟨hP, hPQ, hH⟩ := hgates j hj
-    exact (hrow (Pseq j) (Qseq j) N Xd (Hseq j) T a b c hP hPQ hXd hT hH hN4 (hreg j hj) hbig
-      (herr j hj) ha hb hc hasupp (hwin j hj)).trans (le_of_eq (by ring))
+    exact (hrow (Pseq j) (Qseq j) N Xd (Hseq j) T a (b j) c hP hPQ hXd hT hH hN4 (hreg j hj)
+      hbig (herr j hj) ha (hb j) hc hasupp (hwin j hj)).trans (le_of_eq (by ring))
   refine (Finset.sum_le_sum hlevel).trans (le_of_eq ?_)
   rw [← Finset.mul_sum, Finset.sum_add_distrib, ← Finset.mul_sum]
 
@@ -704,8 +705,8 @@ theorem sum_lemma12Rows_priced_calibrated :
     · rw [calH]
       have hjR : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
       positivity
-  have h := hsum (calP A G) (calQ A G) (calH H1) Jb N Xd T a b c hXd hT hN4 hgates hreg hbig
-    herr ha hb hc hasupp hwin
+  have h := hsum (calP A G) (calQ A G) (calH H1) Jb N Xd T a (fun _ => b) c hXd hT hN4 hgates
+    hreg hbig herr ha (fun _ => hb) hc hasupp hwin
   rwa [sum_calibrated_ratio_eq hA hG Jb] at h
 
 end Salt.MR

@@ -512,7 +512,7 @@ theorem rem_priced (X Tann H ε EP2 E : ℝ) (hL1 : 1 ≤ Real.log X)
     (hX0 : 0 < X) (hTann0 : 0 ≤ Tann)
     (hH : (Real.log X) ^ theta293 ≤ H)
     (habs : 8640 ≤ (Real.log X) ^ ε)
-    (hEP2 : 12 * EP2 ≤ (Real.log X) ^ (-theta293))
+    (hEP2 : 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε))
     (hE : E ≤ 3 * (720 * (Tann / X + 1) / H + EP2)) :
     2 * E ≤ (Tann / X + 1) * (Real.log X) ^ (-theta293 + ε) := by
   have hL0 : (0 : ℝ) < Real.log X := by linarith
@@ -540,8 +540,16 @@ theorem rem_priced (X Tann H ε EP2 E : ℝ) (hL1 : 1 ≤ Real.log X)
     linarith
   have hBle : (Real.log X) ^ (-theta293) ≤ (Tann / X + 1) * (Real.log X) ^ (-theta293) :=
     le_mul_of_one_le_left hB0 hA1
+  -- ⟦R3c — THE ε-GRADED `EP₂` BUDGET⟧ the `p²` row is now priced at `(log X)^{−θ₂₉₃+ε}`,
+  -- half an exponent of room for the coprime-tail mass; `(Tann/X + 1) ≥ 1` reabsorbs it
+  have hE0 : (0 : ℝ) ≤ (Real.log X) ^ ε := Real.rpow_nonneg hL0.le _
+  have hEP2' : 12 * EP2 ≤ (Real.log X) ^ (-theta293) * (Real.log X) ^ ε := by
+    rwa [← Real.rpow_add hL0]
+  have hBle' : (Real.log X) ^ (-theta293) * (Real.log X) ^ ε
+      ≤ (Tann / X + 1) * ((Real.log X) ^ (-theta293) * (Real.log X) ^ ε) :=
+    le_mul_of_one_le_left (mul_nonneg hB0 hE0) hA1
   rw [Real.rpow_add hL0]
-  nlinarith [hE, hrow, hEP2, hbig, hBle, hAB0]
+  nlinarith [hE, hrow, hEP2', hbig, hBle, hBle', hAB0]
 
 /-! ## §4 — P-d: `hU` FULLY PRICED (the row at the pins, all four slots discharged) -/
 
@@ -616,7 +624,7 @@ theorem hU_fully_priced :
         1728 * Cq * CR ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
         32 * (Real.log X) ^ (2 + 2 * theta293)
             * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) →
-        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
         E ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) →
         (∫ t in (-Tann)..Tann,
             ‖ramErr (H83 X theta293) N Xd P Q a (ellLin g) cf t‖ ^ 2) ≤ E →

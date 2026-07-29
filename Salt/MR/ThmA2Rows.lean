@@ -328,7 +328,7 @@ theorem a2Rows_of_capfree :
         Real.log X ≤ Real.log Ymax →
         32 * ballSupC34 ≤ (Real.log Ymax) ^ ((3 : ℝ) / 20 - rho293) →
         1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
-        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
         X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
         2 * Xd ≤ N →
         (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
@@ -491,7 +491,7 @@ theorem a2Rows_of_cap :
         Real.log X ≤ Real.log Ymax →
         32 * ballSupC34 ≤ (Real.log Ymax) ^ ((3 : ℝ) / 20 - rho293) →
         1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
-        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
         X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
         2 * Xd ≤ N →
         (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
@@ -718,12 +718,17 @@ theorem thm_a2' :
     hX₀k₂ hMfl0 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr hCqgate₁ hCqgate₂ hε0 habs
     hEP2 hXN hN2 hsupp hNXd hcoef hwin hQXd hXdbig hN4 hdom ha1 hasupp hX3 hhX hTann hceil
     hT0band hgP1₁ hgP1₂ hgRows₁ hgRows₂ hεwin hL4096
+  -- ⟦R3c⟧ the row's `EP₂` budget is now the ε-GRADED one; the frozen interface still
+  -- carries the sharp `(log X)^{−θ₂₉₃}` gate, which is stronger (`ε ≥ 0`, `log X ≥ 1`)
+  have hL1 : (1 : ℝ) ≤ Real.log X := le_trans (Real.one_le_exp (by norm_num)) hlX2
+  have hEP2ε : 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) :=
+    le_trans hEP2 (Real.rpow_le_rpow_of_exponent_le hL1 (by linarith))
   by_cases hfl : CapFreeFloor g X
   · exact thm_a2'_of_rows hM hXe hX3 hh4 hhX ha1 hsupp hN2 hTann hceil
       (hcapfree g c a b cf hg hc1 hb1 hcf1 N Xd P Q M m₀ Ms Mt kk X h δ' V VJ L Cb Rrad kmin
         Ymax ε EP2 hM hXdQ F₁ hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV
         hCb0 hPlow hQ0 hQhigh hPQ83 hfl hR0 hRrad hRlow hCbound hX₀k₁ hMfl0 hk2 hkX hkk
-        hMtpin hMt hgateW hYpin hWY hXY hthr hCqgate₁ hε0 habs hEP2 hXN hN2 hsupp hNXd hcoef
+        hMtpin hMt hgateW hYpin hWY hXY hthr hCqgate₁ hε0 habs hEP2ε hXN hN2 hsupp hNXd hcoef
         hwin hQXd hXdbig hN4 hdom ha1 hasupp)
       hT0band hgP1₁ hgRows₁ hεwin hL4096
   · exact thm_a2'_of_rows hM hXe hX3 hh4 hhX ha1 hsupp hN2 hTann hceil
@@ -731,7 +736,7 @@ theorem thm_a2' :
         Ymax ε EP2 Sb Ccc hM hXdQ F₂ hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1
         hVδ hlogV hCb0 hPlow hQ0 hQhigh hPQ83 hLL hfl hgate hStation hCcc hR0 hRrad hRlow
         hCbound hX₀k₂ hMfl0 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr hCqgate₂ hε0
-        habs hEP2 hXN hN2 hsupp hNXd hcoef hwin hQXd hXdbig hN4 hdom ha1 hasupp)
+        habs hEP2ε hXN hN2 hsupp hNXd hcoef hwin hQXd hXdbig hN4 hdom ha1 hasupp)
       hT0band hgP1₂ hgRows₂ hεwin hL4096
 
 
@@ -876,8 +881,8 @@ factorization binder already carried.
 The weighting arithmetic, the four numerals and the CONCLUSION are §2's verbatim. -/
 theorem a2Rows_of_capfree3 :
     ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
-      ∀ (c a b cf : ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
-        (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) →
+      ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
+        (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) → (∀ j n : ℕ, ‖bfam j n‖ ≤ 1) →
       ∀ (N Xd P Q M : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
       ∀ (X h δ' V VJ L Cb Rrad Rbar ε EP2 : ℝ),
         1 ≤ M → calQK (Adoor M) (3072 * M) M 2 ≤ Xd →
@@ -903,13 +908,13 @@ theorem a2Rows_of_capfree3 :
         0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
         CofactorSocket (H83 X theta293) N Xd P Q X Rrad 0 Rbar b →
         1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
-        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
         X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
         2 * Xd ≤ N →
         (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
-          p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m → a (p * m) = b m * c p) →
+          p ≤ calQK (Adoor M) (3072 * M) M j → ¬ p ∣ m → a (p * m) = bfam j m * c p) →
         (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (Adoor M) (3072 * M) j ≤ p →
-          p ≤ calQK (Adoor M) (3072 * M) M j → c p * b m ≠ 0 →
+          p ≤ calQK (Adoor M) (3072 * M) M j → c p * bfam j m ≠ 0 →
           (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
         Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
         (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
@@ -928,7 +933,7 @@ theorem a2Rows_of_capfree3 :
             ≤ a2Mrow Cs C M Xd X ε := by
   obtain ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, hrow⟩ := seam_row_number_capfree3
   refine ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, ?_⟩
-  intro c a b cf hc1 hb1 hcf1 N Xd P Q M m₀ Ms Mt kk X h δ' V VJ L Cb Rrad Rbar ε
+  intro c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q M m₀ Ms Mt kk X h δ' V VJ L Cb Rrad Rbar ε
     EP2 hM hXdQ F hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV hPlow
     hQ0 hQhigh hRrad hRbar0 hRgrade hsockR hCqgate hε0 habs hEP2 hXN hN2 hsupp hNXd hcoef
     hwin hQXd hXdbig hN4 hdom ha1 hasupp T hT hTX2 hTgate hTll
@@ -954,7 +959,8 @@ theorem a2Rows_of_capfree3 :
     have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
     linarith
   -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
-  have hinst := hrow c a b cf hc1 hb1 hcf1 N Xd P Q (Adoor M) (3072 * M) M 2 m₀ Ms Mt kk
+  have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (Adoor M) (3072 * M) M 2 m₀ Ms
+    Mt kk
     (H1door M) X (2 * T) δ' V VJ L (1 / 12) Cb Rrad Rbar ε EP2
     (3 * (720 * (2 * T / X + 1) / H83 X theta293 + EP2))
     hF hH2 hX0 hXe hLXe hL4 hTgate (F.one_lt _ h2a h2b) h2b (F.T0_le _ h2a h2b) hTll

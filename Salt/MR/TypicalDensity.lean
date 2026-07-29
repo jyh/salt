@@ -635,16 +635,20 @@ theorem densSieve_rankin_exponent_sum_le {P Q : ℕ} (hP : 2 ≤ P) (hPQ : P ≤
         apply mul_le_mul_of_nonneg_left hsum1 (by positivity)
     _ ≤ 24 := hS
 
-/-- **The Rankin tail bound.**  In the regime `log Q ≤ √log X`, `√log X ≥ 100`,
-the tail of the Selberg bounding sum beyond the truncation `ℓ² ≤ √X+1` is at most
-`exp(24 - √log X/4)` times the full band Euler product. -/
+/-- **The Rankin tail bound.**  ⟦R3b — THE RELAXED REGULARITY GATE⟧ under
+`100·log Q ≤ log X` the tail of the Selberg bounding sum beyond the truncation
+`ℓ² ≤ √X+1` is at most `exp(24 − (1/4)·log X/log Q)` times the full band Euler product.
+
+Against the landed form (`log Q ≤ √log X`, `√log X ≥ 100`, tail `exp(24 − √log X/4)`) this
+is a STRICT WEAKENING of the hypothesis — the old pair gives `100 log Q ≤ √logX·√logX =
+log X` — and the exponent is the one the proof always produced: the `√log X` step was a
+LOSSY specialization of `log X/(4 log Q)`, discarded here. -/
 theorem densSieve_tail_le {P Q X : ℕ} (hP : 2 ≤ P) (hPQ : P ≤ Q)
-    (hreg : Real.log Q ≤ Real.sqrt (Real.log X))
-    (hbig : (100 : ℝ) ≤ Real.sqrt (Real.log X)) :
+    (hgate : 100 * Real.log Q ≤ Real.log X) :
     ∑ ℓ ∈ (bandProd P Q).divisors,
         (if ((ℓ : ℝ) ^ 2 ≤ (Nat.sqrt X : ℝ) + 1) then 0
           else (densSieve P Q X).selbergTerms ℓ)
-      ≤ Real.exp (24 - Real.sqrt (Real.log X) / 4)
+      ≤ Real.exp (24 - Real.log X / (4 * Real.log Q))
           * ∏ p ∈ primeBand P Q, (1 + 1 / ((p : ℝ) - 1)) := by
   classical
   have hQ2 : 2 ≤ Q := hP.trans hPQ
@@ -654,12 +658,8 @@ theorem densSieve_tail_le {P Q X : ℕ} (hP : 2 ≤ P) (hPQ : P ≤ Q)
   set lev : ℝ := (Nat.sqrt X : ℝ) + 1 with hlev
   have hcast0 : (0 : ℝ) ≤ (Nat.sqrt X : ℝ) := Nat.cast_nonneg _
   have hlev0 : (0 : ℝ) < lev := by rw [hlev]; linarith
-  -- `√log X ≥ 100 > 0` forces `log X > 0`, hence `X ≥ 2`
-  have hlogX0 : 0 < Real.log X := by
-    by_contra hcon
-    push Not at hcon
-    rw [Real.sqrt_eq_zero'.mpr hcon] at hbig
-    norm_num at hbig
+  -- `100 log Q ≤ log X` with `log Q > 0` forces `log X > 0`, hence `X ≥ 2`
+  have hlogX0 : 0 < Real.log X := by linarith
   have hX1 : (1 : ℝ) < (X : ℕ) := by
     by_contra hcon
     push Not at hcon
@@ -734,8 +734,8 @@ theorem densSieve_tail_le {P Q X : ℕ} (hP : 2 ≤ P) (hPQ : P ≤ Q)
       have hp2 : (2 : ℝ) ≤ p := by exact_mod_cast hp.2.two_le
       have hp1 : (0 : ℝ) < (p : ℝ) - 1 := by linarith
       positivity
-  -- the level decay: `lev^{-a/2} ≤ exp(-√log X/4)`
-  have hlevX : Real.sqrt (Real.log X) / 4 ≤ (a / 2) * Real.log lev := by
+  -- the level decay: `lev^{-a/2} ≤ exp(-(log X)/(4 log Q))`
+  have hlevX : Real.log X / (4 * Real.log Q) ≤ (a / 2) * Real.log lev := by
     have hlev_gt : Real.sqrt (X : ℝ) < lev := by
       rw [Real.sqrt_lt' hlev0]
       have h := Nat.lt_succ_sqrt' X
@@ -745,21 +745,12 @@ theorem densSieve_tail_le {P Q X : ℕ} (hP : 2 ≤ P) (hPQ : P ≤ Q)
     have hloglev : Real.log X / 2 ≤ Real.log lev := by
       rw [← Real.log_sqrt (by linarith : (0:ℝ) ≤ (X:ℝ))]
       exact Real.log_le_log hsqrt0 hlev_gt.le
-    have hsq : 0 < Real.sqrt (Real.log X) := by linarith
-    have hstep : Real.log X / (4 * Real.sqrt (Real.log X)) ≤ Real.log X / (4 * Real.log Q) := by
-      apply div_le_div_of_nonneg_left hlogX0.le (by positivity) (by linarith)
-    have hval : Real.log X / (4 * Real.sqrt (Real.log X)) = Real.sqrt (Real.log X) / 4 := by
-      rw [show 4 * Real.sqrt (Real.log X) = Real.sqrt (Real.log X) * 4 by ring, ← div_div,
-        Real.div_sqrt]
-    have hchain : Real.log X / (4 * Real.log Q) ≤ (a / 2) * Real.log lev := by
-      rw [ha]
-      rw [div_le_iff₀ (by positivity : (0:ℝ) < 4 * Real.log Q)] at *
-      have hgoal : (1 / Real.log Q / 2) * Real.log lev * (4 * Real.log Q)
-          = 2 * Real.log lev := by field_simp; ring
-      rw [hgoal]
-      linarith [hloglev]
-    linarith [hstep, hval, hchain]
-  have hlevle : lev ^ (-(a / 2)) ≤ Real.exp (-(Real.sqrt (Real.log X) / 4)) := by
+    rw [ha, div_le_iff₀ (by positivity : (0:ℝ) < 4 * Real.log Q)]
+    have hgoal : (1 / Real.log Q / 2) * Real.log lev * (4 * Real.log Q)
+        = 2 * Real.log lev := by field_simp; ring
+    rw [hgoal]
+    linarith [hloglev]
+  have hlevle : lev ^ (-(a / 2)) ≤ Real.exp (-(Real.log X / (4 * Real.log Q))) := by
     rw [Real.rpow_def_of_pos hlev0]
     apply Real.exp_le_exp.mpr
     nlinarith [hlevX]
@@ -783,10 +774,10 @@ theorem densSieve_tail_le {P Q X : ℕ} (hP : 2 ≤ P) (hPQ : P ≤ Q)
         apply Finset.sum_congr rfl
         intro ℓ _
         rw [rankinWt_apply]
-    _ ≤ Real.exp (-(Real.sqrt (Real.log X) / 4))
+    _ ≤ Real.exp (-(Real.log X / (4 * Real.log Q)))
           * (Real.exp 24 * ∏ p ∈ primeBand P Q, (1 + 1 / ((p : ℝ) - 1))) := by
         apply mul_le_mul hlevle hEuler hsumnn (Real.exp_nonneg _)
-    _ = Real.exp (24 - Real.sqrt (Real.log X) / 4)
+    _ = Real.exp (24 - Real.log X / (4 * Real.log Q))
           * ∏ p ∈ primeBand P Q, (1 + 1 / ((p : ℝ) - 1)) := by
         rw [← mul_assoc, ← Real.exp_add]
         ring_nf
@@ -803,19 +794,23 @@ theorem densSieve_full_pos (P Q : ℕ) :
 
 /-- **The truncation costs at most half.**  `G ≥ (1/2)·Full` in the regime. -/
 theorem densSieve_boundingSum_ge_half {P Q X : ℕ} (hP : 2 ≤ P) (hPQ : P ≤ Q)
-    (hreg : Real.log Q ≤ Real.sqrt (Real.log X))
-    (hbig : (100 : ℝ) ≤ Real.sqrt (Real.log X)) :
+    (hgate : 100 * Real.log Q ≤ Real.log X) :
     (1 / 2) * ∏ p ∈ primeBand P Q, (1 + 1 / ((p : ℝ) - 1))
       ≤ Salt.SelbergPort.selbergBoundingSum (densSieve P Q X) := by
+  have hQ2 : 2 ≤ Q := hP.trans hPQ
+  have hlogQ : 0 < Real.log Q := Real.log_pos (by exact_mod_cast hQ2)
   have hsplit := densSieve_boundingSum_split P Q X
   rw [densSieve_full_eq P Q X] at hsplit
-  have htail := densSieve_tail_le hP hPQ hreg hbig
+  have htail := densSieve_tail_le hP hPQ hgate
   have hFullpos := densSieve_full_pos P Q
-  -- `exp(24 - √logX/4) ≤ exp(-1) ≤ 1/2`
-  have hexphalf : Real.exp (24 - Real.sqrt (Real.log X) / 4) ≤ 1 / 2 := by
-    have h1 : (24 : ℝ) - Real.sqrt (Real.log X) / 4 ≤ -1 := by linarith
+  -- `exp(24 - logX/(4 logQ)) ≤ exp(-1) ≤ 1/2` — the gate is `logX/(4 logQ) ≥ 25`
+  have hexphalf : Real.exp (24 - Real.log X / (4 * Real.log Q)) ≤ 1 / 2 := by
+    have h25 : (25 : ℝ) ≤ Real.log X / (4 * Real.log Q) := by
+      rw [le_div_iff₀ (by positivity : (0:ℝ) < 4 * Real.log Q)]
+      linarith
+    have h1 : (24 : ℝ) - Real.log X / (4 * Real.log Q) ≤ -1 := by linarith
     have h2 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp 1]
-    calc Real.exp (24 - Real.sqrt (Real.log X) / 4)
+    calc Real.exp (24 - Real.log X / (4 * Real.log Q))
         ≤ Real.exp (-1) := Real.exp_le_exp.mpr h1
       _ = (Real.exp 1)⁻¹ := by rw [Real.exp_neg]
       _ ≤ 1 / 2 := by
@@ -832,12 +827,11 @@ theorem densSieve_boundingSum_ge_half {P Q X : ℕ} (hP : 2 ≤ P) (hPQ : P ≤ 
 hypothesis of `typical_density_le_of_boundingSum` with
 `c₄ = exp(-19/log 2)/2`. -/
 theorem densSieve_boundingSum_ge {P Q X : ℕ} (hP : 2 ≤ P) (hPQ : P ≤ Q)
-    (hreg : Real.log Q ≤ Real.sqrt (Real.log X))
-    (hbig : (100 : ℝ) ≤ Real.sqrt (Real.log X)) :
+    (hgate : 100 * Real.log Q ≤ Real.log X) :
     (Real.exp (-19 / Real.log 2) / 2) * (Real.log Q / Real.log P)
       ≤ Salt.SelbergPort.selbergBoundingSum (densSieve P Q X) := by
   have h1 := densSieve_full_ge hP hPQ
-  have h2 := densSieve_boundingSum_ge_half hP hPQ hreg hbig
+  have h2 := densSieve_boundingSum_ge_half hP hPQ hgate
   calc (Real.exp (-19 / Real.log 2) / 2) * (Real.log Q / Real.log P)
       = (1 / 2) * (Real.exp (-19 / Real.log 2) * (Real.log Q / Real.log P)) := by
         ring
@@ -846,6 +840,26 @@ theorem densSieve_boundingSum_ge {P Q X : ℕ} (hP : 2 ≤ P) (hPQ : P ≤ Q)
     _ ≤ Salt.SelbergPort.selbergBoundingSum (densSieve P Q X) := h2
 
 /-! ## §7  The unconditional exit stone -/
+
+/-- ⟦R3b — THE GATE BRIDGE⟧ MR's landed regularity PAIR (`log Q ≤ √log X` together with
+`100 ≤ √log X`) implies the relaxed gate `100·log Q ≤ log X`, so every consumer that still
+carries the pair reaches the relaxed stones in one step.  The converse fails (take
+`log Q = 1`, `log X = 100`), which is exactly the room R3b buys: at the door band
+`[P₈₃, Q₈₃]` the pair is UNAVAILABLE and the relaxed gate is free. -/
+theorem densGate_of_sqrt {Q X : ℕ} (hQ : 2 ≤ Q)
+    (hreg : Real.log Q ≤ Real.sqrt (Real.log X))
+    (hbig : (100 : ℝ) ≤ Real.sqrt (Real.log X)) :
+    100 * Real.log Q ≤ Real.log X := by
+  have hlogQ : 0 < Real.log Q := Real.log_pos (by exact_mod_cast hQ)
+  have hlogX0 : 0 ≤ Real.log X := by
+    by_contra hcon
+    push Not at hcon
+    rw [Real.sqrt_eq_zero'.mpr hcon.le] at hbig
+    norm_num at hbig
+  have hsq : Real.sqrt (Real.log X) * Real.sqrt (Real.log X) = Real.log X :=
+    Real.mul_self_sqrt hlogX0
+  nlinarith
+
 
 /-- **`typical_density_le` — the exit stone (S8/MR-CORE node A4a; MR Lemma 2.2).**
 `#{n ∈ (X, 2X] : n has no prime factor in [P, Q]} ≤ C·(log P/log Q)·X`, with an
@@ -858,15 +872,14 @@ hypothesis of `typical_density_le_of_boundingSum` is discharged by
 `densSieve_boundingSum_ge`. -/
 theorem typical_density_le :
     ∃ C : ℝ, 0 < C ∧ ∀ (P Q X : ℕ), 2 ≤ P → P ≤ Q →
-        Real.log Q ≤ Real.sqrt (Real.log X) →
-        (100 : ℝ) ≤ Real.sqrt (Real.log X) →
+        100 * Real.log Q ≤ Real.log X →
         ((Nat.sqrt X : ℝ) + 1) * ∏ p ∈ primeBand P Q, (1 + 3 / (p : ℝ))
             ≤ (X : ℝ) * (Real.log P / Real.log Q) →
         (((Finset.Ioc X (2 * X)).filter (fun n => (bandProd P Q).Coprime n)).card : ℝ)
           ≤ C * (Real.log P / Real.log Q) * X := by
   have hc₄ : (0 : ℝ) < Real.exp (-19 / Real.log 2) / 2 := by positivity
   refine ⟨1 / (Real.exp (-19 / Real.log 2) / 2) + 1, by positivity, ?_⟩
-  intro P Q X hP hPQ hreg hbig herr
+  intro P Q X hP hPQ hgate herr
   set c₄ : ℝ := Real.exp (-19 / Real.log 2) / 2 with hc₄def
   have hP2 : 2 ≤ Q := le_trans hP hPQ
   have hlogP : 0 < Real.log P := Real.log_pos (by exact_mod_cast hP)
@@ -874,7 +887,7 @@ theorem typical_density_le :
   have hXnn : (0 : ℝ) ≤ X := Nat.cast_nonneg X
   have hGpos : 0 < Salt.SelbergPort.selbergBoundingSum (densSieve P Q X) :=
     Salt.SelbergPort.selbergBoundingSum_pos _
-  have hG := densSieve_boundingSum_ge hP hPQ hreg hbig
+  have hG := densSieve_boundingSum_ge hP hPQ hgate
   rw [← hc₄def] at hG
   -- the Selberg fundamental bound, with siftedSum rewritten to the count
   have hsel := Salt.SelbergPort.selberg_bound_simple (densSieve P Q X)

@@ -203,6 +203,9 @@ import Salt.MR.M4ClassPrice
 import Salt.MR.CofactorSupplier
 import Salt.MR.CaseAWide
 import Salt.MR.M4WaveClosed
+import Salt.MR.M4NonCoprime
+import Salt.MR.M4Maximal
+import Salt.MR.M4RowSupply
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -2728,3 +2731,115 @@ open Salt.Tactic in
   Salt.MR.M4ChiMaximalStep
   Salt.MR.m4_chiBlockMeanSq_of_row
   Salt.MR.m4_wave_closed_of_row
+
+-- ⟦R2 — THE NON-COPRIME CLASSES⟧ (`M4NonCoprime`, 2026-07-28) — the second of the final
+-- register's three residues, closed.  `M4WaveClosed` §3 reduces `M4ClassBlockMeanSq` only at
+-- the classes COPRIME to `q` (the character expansion needs `(r,q) = 1`); this file closes
+-- the other half and hands back the FULL predicate.  The transport is `M4ClassPrice` §3's
+-- dilation EQUALITY at the residual frequency `0`, taken pointwise in the door index and
+-- then applied to the BLOCK by the same map `n ↦ ⌊n/d₀⌋` — which is `d₀`-to-one, its fibre
+-- being exactly `[d₀n', d₀n' + d₀)` (`card_fibre_div_le`, from `Nat.div_add_mod`; no ± slack
+-- is guessed).  The image of the half-open block is a CLOSED interval (the bottom index IS
+-- hit), so the re-indexed block is `(⌊A/d₀⌋ − 1, ⌊B/d₀⌋]` and it is not a `doorLadder`
+-- block — `M4Join`'s ⟦THE CLASS PRICING⟧ obstruction in its surviving, mean-square form.
+-- The interface `M4CoprimeBlockMeanSq` is therefore interval-general AND length-general,
+-- with the fit at `M4ClassPrice` §5's endpoint slack (`4`: §5's own `3`, plus one unit for
+-- the uniform endpoints `⌊H/d₀⌋ + 1` and `⌊A/d₀⌋ − 1`; `dilBlock_reindex_fit`), which is
+-- what `M4BridgeIntegral.sum_Ioc_absWindowSum_sq_div_le` + `sum_Ioc_drop_top` supply.
+-- ⟦THE d₀-LEDGER⟧ (`d0_ledger`): the fibre factor `d₀` is paid EXACTLY by the dilated
+-- block's bottom (`d₀·(⌊A/d₀⌋ − 1) ≤ d₀·⌊A/d₀⌋ ≤ A`), and the window shrink `H ↦ ⌊H/d₀⌋+1`
+-- is BANKED UNSPENT — sharply `d₀·(B·H'²·A') ≤ B·H²·A·(1 + d₀/H)²/d₀²` (`d0_ledger_sharp`),
+-- a factor `≥ 16/9` of headroom already at `d₀ = 2`.  So the composed grade is IDENTICAL to
+-- the coprime half's and the `q²` slot `M4ClassPrice` §4 opened is untouched.  TWO gates
+-- added, both `H`-only class-(a) thresholds: `log H ≤ 2^{21845}` (the dilation's own, paid
+-- by every consumer of it) and `2·arcDen 12 H ≤ H` (which makes the re-index non-degenerate:
+-- `2d₀ ≤ 2q ≤ H < A`, hence `⌊A/d₀⌋ ≥ 2` — and which `MinorArcExit` already DERIVES from
+-- the mere existence of a large Dirichlet denominator).  Anti-vacuity:
+-- `m4_coprimeBlockMeanSq_trivial` at grade `5`.
+open Salt.Tactic in
+#audit_axioms Salt.MR.card_fibre_div_le
+  Salt.MR.sum_Ioc_comp_div_le
+  Salt.MR.two_mul_div_le
+  Salt.MR.div_mem_reindexed
+  Salt.MR.dilBlock_reindex_fit
+  Salt.MR.d0_ledger
+  Salt.MR.d0_ledger_sharp
+  Salt.MR.classSup_mono_len
+  Salt.MR.classSup_le_dilate
+  Salt.MR.M4CoprimeBlockMeanSq
+  Salt.MR.m4_coprimeBlockMeanSq_trivial
+  Salt.MR.m4_nonCoprime_classMeanSq
+
+-- ⟦R1 — THE MAXIMAL STEP⟧ (`M4Maximal`, 2026-07-28) — the first of the final register's
+-- three residues, executed by THE DYADIC (Rademacher–Menshov) ROUTE at the price
+-- `m4Cmax H = 3·(log₂H + 1)` — ONE `Nat.log 2`, not the `(log H)²` the budget allowed, and
+-- never the fatal `H + 1` of `sup² ≤ ∑_{K≤H}`.  ⟦THE STATEMENT FINDING⟧: `M4WaveClosed`'s
+-- `M4ChiMaximalStep` — the sup priced against the SAME block's fixed-length-`H` sums — is
+-- not the shape that can be proved and is false for general data (an alternating datum has
+-- `S(n,H) = 0` at even `H` while `S(n,1) = ±1`: the right side vanishes, the left is the
+-- block length).  It is the ⟦F1⟧ genre again, and per iron rule 1 the statement is left
+-- standing; this file lands the provable route beside it.  The dyadic pieces of `(n, n+K]`
+-- sit at SHIFTED bases `n + P_j K` with `P_j K = 2^{j+1}⌊K/2^{j+1}⌋` a multiple of
+-- `2^{j+1}` — the ALIGNMENT is the content: at scale `j` only `⌊H/2^{j+1}⌋+1` offsets can
+-- occur, so summing over offsets (never maximising) costs `∑_j (⌊H/2^{j+1}⌋+1)(2^j)² ≤ 3H²`
+-- (`dyadic_count_weight_le`, two geometric series against `2^{log₂H} ≤ H`), and Chebyshev
+-- over the `≤ log₂H+1` pieces contributes the single log.  The input is therefore the row
+-- mean square at the DYADIC lengths `2^j ≤ H` and the SHIFTED scales `X_{i+1}+s`, `s ≤ H`
+-- (`M4ChiDyadicRowMeanSq`) — the capstone's own currency with both pins (`X_d = X`,
+-- `N = 2X_d`) intact at every instance.  ⟦THE OVERHANG, HONESTLY⟧: the shift is EXACT
+-- (`Finset.map_add_right_Ioc` — no cell created, none discarded), and the bridge's two fits
+-- at `X := A+s` read `le_rfl` and `(B+s)+2^j ≤ 2(A+s)`, which is `M4Door.doorLadder_fit`'s
+-- `B + H ≤ 2A` with `2^j ≤ H`: the shift appears on both sides and pays for itself, and the
+-- harmonic→flat exchange keeps the ladder's own factor `2` because `B + s ≤ B + H ≤ 2A`.
+-- Composed grade `Bcl H = m4Cmax H·(2·MS H) = 6(log₂H+1)·MS H`; the close is
+-- `m4_wave_closed_of_dyadicRow`, `m4_wave_closed_of_chi`'s analytic slot filled with ⟦R1⟧
+-- discharged and only ⟦R2⟧/⟦R3⟧ outstanding.  Anti-vacuity: `m4_chiShiftBlock_trivial` at
+-- grade `1`.
+open Salt.Tactic in
+#audit_axioms Salt.MR.sum_sievedWindow_add
+  Salt.MR.dyadic_prefix_shift
+  Salt.MR.norm_sum_sievedWindow_le_dyadic
+  Salt.MR.norm_sum_sievedWindow_sq_le_dyadic
+  Salt.MR.doorChiSup_sq_le_dyadic
+  Salt.MR.sum_Ioc_shift
+  Salt.MR.dyadic_count_weight_le
+  Salt.MR.m4Cmax
+  Salt.MR.m4Cmax_nonneg
+  Salt.MR.M4ChiShiftBlockMeanSq
+  Salt.MR.m4_chiShiftBlock_trivial
+  Salt.MR.m4_chiBlockMeanSq_of_shiftBlock
+  Salt.MR.M4ChiDyadicRowMeanSq
+  Salt.MR.m4_chiShiftBlock_of_dyadicRow
+  Salt.MR.m4_chiBlockMeanSq_of_dyadicRow
+  Salt.MR.m4_wave_closed_of_dyadicRow
+
+-- ⟦THE R3 WAVE⟧ (`M4RowSupply` + the in-place repairs, 2026-07-28) — R3d's level-indexed
+-- band coefficient `bfam` through the capfree3 chain; R3c's ε-graded `EP₂` budget
+-- (`12·EP₂ ≤ (log X)^{−θ₂₉₃+ε}`, `rem_priced`); W1's carried `b`-slot (the capstone reads
+-- NO `liouChi` at all now — the socket, its grade and the datum all ride the statement);
+-- R3a's PRICED coprime tail (`ramCopTail_moment` in place of `_moment_zero`; `homega` gone
+-- from the capstones, `M_tail` in its place); R3b's relaxed regularity gate
+-- (`100·log Q ≤ log W` in place of `log Q ≤ √log W ∧ 100 ≤ √log W` — a strict weakening,
+-- bridged by `densGate_of_sqrt`).  `M4RowSupply` is the row-side supply and records the
+-- POINT-vs-BAND wall that R3's tail pricing leaves open.
+open Salt.Tactic in
+#audit_axioms Salt.MR.densGate_of_sqrt
+  Salt.MR.densSieve_tail_le
+  Salt.MR.typical_density_le
+  Salt.MR.blockfree_sum_le
+  Salt.MR.rem_priced
+  Salt.MR.E_priced_mr
+  Salt.MR.err_at_witness_mr
+  Salt.MR.a2Frame3_witness
+  Salt.MR.TLeg_bound
+  Salt.MR.TLeg_feeds_capstone
+  Salt.MR.sum_lemma12Rows_priced_calibratedK2
+  Salt.MR.seam_row_number_capfree3
+  Salt.MR.a2Rows_of_capfree3
+  Salt.MR.thm_a2'
+  Salt.MR.m4_meansq_per_chi_gen
+  Salt.MR.m4_meansq_or_trivial
+  Salt.MR.m4_tail_gate_at_pins
+  Salt.MR.m4_tail_mass_at_band
+  Salt.MR.m4_tail_mass_nonneg
+  Salt.MR.m4_tail_grade_at_pins

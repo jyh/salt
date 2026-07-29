@@ -394,18 +394,23 @@ theorem E_priced_mr (H : ℝ) (hH : 2 ≤ H) (N Xd P Q : ℕ) (hXd : 1 ≤ Xd) (
     (hcoefW : SeamCoefW Xd P Q a b c)
     (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖c p‖ ≤ 1)
     (hasupp : ∀ n : ℕ, a n ≠ 0 → (Xd : ℝ) ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * (Xd : ℝ))
-    (hsupp : ∀ n : ℕ, a n ≠ 0 → 1 ≤ blockOmega P Q n)
+    -- ⟦R3a — THE TAIL IS PRICED, NOT PINNED⟧ `homega` (the single-`P` support pin,
+    -- unsatisfiable at the door's band datum) is replaced by the coprime-tail MASS
+    (Mtail : ℝ)
+    (hMtail : ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+        ‖a n‖ ^ 2 / (n : ℝ) ^ 2 ≤ Mtail)
     (T : ℝ) (hT : 0 ≤ T) :
     (∫ t in (-T)..T, ‖ramErr H N Xd P Q a b c t‖ ^ 2)
       ≤ 4 * (520 * (T / (Xd : ℝ) + 1) / H
           + (2 * T + 20 * (N : ℝ))
-              * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)))) := by
+              * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)))
+          + (2 * T + 20 * (N : ℝ)) * Mtail) := by
   have hsplit := ramErr_moment_split_mr_windowed H hH N Xd P Q hXd hN hP a b c hcoefW
     hasupp T hT
   have h1 := ramSeamLoPoly_moment H hH N Xd P Q hXd hN hP b c hb hc T hT
   have h2 := ramSeamUpPoly_moment H hH N Xd P Q hXd hP b c hb hc T hT
   have h3 := ramP2corrMR_moment N Xd P Q hXd hN a b c T
-  have h4 := ramCopTail_moment_zero N P Q a hsupp T
+  have h4 := ramCopTail_moment N P Q a T
   have hgrade := seam_rows_grade H hH N Xd hXd hN2 hHX T hT
   have hmass := ramP2massMR_direct N Xd P Q hXd hN hP a b c ha hb hc
   have hNnn : (0 : ℝ) ≤ (N : ℝ) := Nat.cast_nonneg N
@@ -414,7 +419,9 @@ theorem E_priced_mr (H : ℝ) (hH : 2 ≤ H) (N Xd P Q : ℕ) (hXd : 1 ≤ Xd) (
       ≤ (2 * T + 20 * (N : ℝ))
           * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ))) :=
     h3.trans (mul_le_mul_of_nonneg_left hmass hfac)
-  rw [h4] at hsplit
+  have htail : (∫ t in (-T)..T, ‖ramCopTail N P Q a t‖ ^ 2)
+      ≤ (2 * T + 20 * (N : ℝ)) * Mtail :=
+    h4.trans (mul_le_mul_of_nonneg_left hMtail hfac)
   linarith
 
 /-- **THE WINDOWED `E` ROW AT THE ROW SCALE** (`E_priced_mr_row_scale`).
@@ -426,20 +433,23 @@ theorem E_priced_mr_row_scale (H : ℝ) (hH : 2 ≤ H) (N Xd P Q : ℕ) (hXd : 1
     (a b c : ℕ → ℂ) (hcoefW : SeamCoefW Xd P Q a b c)
     (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖c p‖ ≤ 1)
     (hasupp : ∀ n : ℕ, a n ≠ 0 → (Xd : ℝ) ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * (Xd : ℝ))
-    (hsupp : ∀ n : ℕ, a n ≠ 0 → 1 ≤ blockOmega P Q n)
+    (Mtail : ℝ)
+    (hMtail : ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+        ‖a n‖ ^ 2 / (n : ℝ) ^ 2 ≤ Mtail)
     (T X : ℝ) (hT : 0 ≤ T) (hX0 : 0 < X) (hXdX : X ≤ (Xd : ℝ)) :
     (∫ t in (-T)..T, ‖ramErr H N Xd P Q a b c t‖ ^ 2)
       ≤ 4 * (520 * (T / X + 1) / H
           + (2 * T + 20 * (N : ℝ))
-              * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)))) := by
+              * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)))
+          + (2 * T + 20 * (N : ℝ)) * Mtail) := by
   have hH0 : (0 : ℝ) < H := by linarith
   have hscale : T / (Xd : ℝ) ≤ T / X := div_le_div_of_nonneg_left hT hX0 hXdX
   have hrow : 520 * (T / (Xd : ℝ) + 1) / H ≤ 520 * (T / X + 1) / H := by
     have h1 : 520 * (T / (Xd : ℝ) + 1) ≤ 520 * (T / X + 1) := by linarith
     rw [div_le_div_iff_of_pos_right hH0]
     exact h1
-  refine (E_priced_mr H hH N Xd P Q hXd hN hN2 hHX hP a b c hcoefW ha hb hc hasupp hsupp
-    T hT).trans ?_
+  refine (E_priced_mr H hH N Xd P Q hXd hN hN2 hHX hP a b c hcoefW ha hb hc hasupp Mtail
+    hMtail T hT).trans ?_
   linarith
 
 /-- **THE GRADE FIT** (`err_grade_fit`).  The arithmetic behind the rewire, isolated so that

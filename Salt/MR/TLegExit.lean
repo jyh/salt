@@ -1038,16 +1038,17 @@ Every gate rides the statement: the per-level bundle `LevelGates … j` for `2 �
 1's own four, the Lemma-12 data at every level, `η ∈ (0,1/6)` (which supplies `α`'s numerals
 through `alpha_gates_from_eta`), and the measure frame. -/
 theorem TLeg_bound :
-    ∃ C : ℝ, 0 < C ∧ ∀ (c a b : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ) (η : ℝ)
-      (Jb N Xd P1 : ℕ) (X T t₁ : ℝ),
+    ∃ C : ℝ, 0 < C ∧ ∀ (c a : ℕ → ℂ) (b : ℕ → ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ)
+      (η : ℝ) (Jb N Xd P1 : ℕ) (X T t₁ : ℝ),
       0 < η → η < 1 / 6 → 1 ≤ Jb → 1 ≤ Xd → 2 * Xd ≤ N → 0 ≤ T → (0 : ℝ) < (P1 : ℝ) →
       (∀ j ∈ Finset.Icc 2 Jb, LevelGates Pseq Qseq Hseq η P1 Xd j) →
       2 ≤ Hseq 1 → 1 ≤ Pseq 1 → Pseq 1 ≤ Qseq 1 →
       (∀ v ∈ ramI (Hseq 1) (Pseq 1) (Qseq 1), 1 ≤ ramRbot (Hseq 1) Xd v) →
       (∀ j ∈ Finset.Icc 1 Jb, ∀ p m, p.Prime → Pseq j ≤ p → p ≤ Qseq j → ¬ p ∣ m →
-        a (p * m) = b m * c p) →
-      (∀ m, ‖b m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
-      (∀ j ∈ Finset.Icc 1 Jb, ∀ p m : ℕ, p.Prime → Pseq j ≤ p → p ≤ Qseq j → c p * b m ≠ 0 →
+        a (p * m) = b j m * c p) →
+      (∀ j m, ‖b j m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∀ j ∈ Finset.Icc 1 Jb, ∀ p m : ℕ, p.Prime → Pseq j ≤ p → p ≤ Qseq j →
+        c p * b j m ≠ 0 →
         (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
       (∫ t in (seamAnn X T \ seamBall X t₁) ∩ seamTtotG c Pseq Qseq Hseq (mrAlpha η) Jb,
           ‖spoly N a t‖ ^ 2)
@@ -1058,7 +1059,8 @@ theorem TLeg_bound :
                     * Real.exp ((1 - 2 * mrAlpha η 1) / Hseq 1)
                   + 60 * (Hseq 1 / mrAlpha η 1) * Real.exp (4 * mrAlpha η 1 / Hseq 1))
           + 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240) * (1 / (P1 : ℝ))
-          + ∑ j ∈ Finset.Icc 1 Jb, lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a b c := by
+          + ∑ j ∈ Finset.Icc 1 Jb,
+              lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c := by
   obtain ⟨C, hC, hEj⟩ := Ej_bound
   refine ⟨C, hC, ?_⟩
   intro c a b Pseq Qseq Hseq η Jb N Xd P1 X T t₁ hη h6 hJb hXd hN hT hP1 hG
@@ -1079,28 +1081,28 @@ theorem TLeg_bound :
     omega
   have hnotmem : (1 : ℕ) ∉ Finset.Icc 2 Jb := by simp
   -- ⟦LEVEL 1: MR §8.1 at the pins⟧
-  have h1 := E1_pin c Pseq Qseq Hseq (mrAlpha η) Jb hH1 hα1 hα1' N Xd hXd hN hP1s hPQ1 a b
-    (hcoef 1 (by simp [Finset.mem_Icc]; omega)) hb hc
+  have h1 := E1_pin c Pseq Qseq Hseq (mrAlpha η) Jb hH1 hα1 hα1' N Xd hXd hN hP1s hPQ1 a (b 1)
+    (hcoef 1 (by simp [Finset.mem_Icc]; omega)) (hb 1) hc
     (hwin 1 (by simp [Finset.mem_Icc]; omega)) X T t₁ hT hbot1
   -- ⟦LEVELS `j ≥ 2`: MR §8.2⟧
   have h2 : ∀ j ∈ Finset.Icc 2 Jb,
       (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
           ‖spoly N a t‖ ^ 2)
         ≤ (1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)) * (1 / ((j : ℝ) ^ 2 * (P1 : ℝ)))
-          + lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a b c := by
+          + lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c := by
     intro j hj
     have hj1 : j ∈ Finset.Icc 1 Jb := by
       rw [Finset.mem_Icc] at hj ⊢
       omega
-    have h := hEj c a b Pseq Qseq Hseq η Jb j N Xd P1 X T t₁ (hG j hj) hXd hN hT
-      (hcoef j hj1) hb hc (hwin j hj1)
+    have h := hEj c a (b j) Pseq Qseq Hseq η Jb j N Xd P1 X T t₁ (hG j hj) hXd hN hT
+      (hcoef j hj1) (hb j) hc (hwin j hj1)
     calc (∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
             ‖spoly N a t‖ ^ 2)
         ≤ 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)
               * (1 / ((j : ℝ) ^ 2 * (P1 : ℝ)))
-            + lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a b c := h
+            + lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c := h
       _ = (1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)) * (1 / ((j : ℝ) ^ 2 * (P1 : ℝ)))
-            + lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a b c := by ring
+            + lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c := by ring
   have hK0 : (0 : ℝ) ≤ 1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240) := by
     have hTX0 : (0 : ℝ) ≤ 2 * T / (Xd : ℝ) + 240 := by
       have h : (0 : ℝ) ≤ 2 * T / (Xd : ℝ) := div_nonneg (by linarith) hXdR.le
@@ -1109,7 +1111,7 @@ theorem TLeg_bound :
   have hcol := sum_Ej_collected (1536 * C * Real.exp 3 * (2 * T / (Xd : ℝ) + 240)) hK0 P1 Jb hP1
     (fun j => ∫ t in (seamAnn X T \ seamBall X t₁) ∩ TsetG c Pseq Qseq Hseq (mrAlpha η) Jb j,
       ‖spoly N a t‖ ^ 2)
-    (fun j => lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a b c) h2
+    (fun j => lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c) h2
   -- ⟦THE ASSEMBLY⟧
   rw [hadd, hIcc, Finset.sum_insert hnotmem, Finset.sum_insert hnotmem, lemma12Rows]
   linarith [h1, hcol]
@@ -1141,17 +1143,17 @@ graded `H_j`/`P_j`/`Q_j` ladder); wiring those is a station-level reconciliation
 statement fit, and is recorded as `G5`'s residual rather than hidden inside a
 `sorry`-free-but-vacuous instance. -/
 theorem TLeg_feeds_capstone :
-    ∃ C : ℝ, 0 < C ∧ ∀ (c a b : ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ) (η : ℝ)
-      (Jset N Xd P1 : ℕ) (X Tann t₁ S ε : ℝ),
+    ∃ C : ℝ, 0 < C ∧ ∀ (c a : ℕ → ℂ) (b : ℕ → ℕ → ℂ) (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ)
+      (η : ℝ) (Jset N Xd P1 : ℕ) (X Tann t₁ S ε : ℝ),
       0 < η → η < 1 / 6 → 1 ≤ Jset → 1 ≤ Xd → 2 * Xd ≤ N → 0 ≤ Tann → (0 : ℝ) < (P1 : ℝ) →
       (∀ j ∈ Finset.Icc 2 Jset, LevelGates Pseq Qseq Hseq η P1 Xd j) →
       2 ≤ Hseq 1 → 1 ≤ Pseq 1 → Pseq 1 ≤ Qseq 1 →
       (∀ v ∈ ramI (Hseq 1) (Pseq 1) (Qseq 1), 1 ≤ ramRbot (Hseq 1) Xd v) →
       (∀ j ∈ Finset.Icc 1 Jset, ∀ p m, p.Prime → Pseq j ≤ p → p ≤ Qseq j → ¬ p ∣ m →
-        a (p * m) = b m * c p) →
-      (∀ m, ‖b m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+        a (p * m) = b j m * c p) →
+      (∀ j m, ‖b j m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
       (∀ j ∈ Finset.Icc 1 Jset, ∀ p m : ℕ, p.Prime → Pseq j ≤ p → p ≤ Qseq j →
-        c p * b m ≠ 0 →
+        c p * b j m ≠ 0 →
         (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
       -- ⟦THE CAPSTONE ROW⟧ `GradedCapstone.hUG34_unconditional`'s conclusion, verbatim,
       -- at `fb := c` and `αseq := mrAlpha η`
@@ -1170,7 +1172,7 @@ theorem TLeg_feeds_capstone :
                     + 60 * (Hseq 1 / mrAlpha η 1) * Real.exp (4 * mrAlpha η 1 / Hseq 1))
               + 1536 * C * Real.exp 3 * (2 * Tann / (Xd : ℝ) + 240) * (1 / (P1 : ℝ))
               + ∑ j ∈ Finset.Icc 1 Jset,
-                  lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) Tann a b c)
+                  lemma12Rows N Xd (Pseq j) (Qseq j) (Hseq j) Tann a (b j) c)
           + 2 * ((Tann / X + 1) * (Real.log X) ^ (-theta293 + ε)) := by
   obtain ⟨C, hC, hleg⟩ := TLeg_bound
   refine ⟨C, hC, ?_⟩

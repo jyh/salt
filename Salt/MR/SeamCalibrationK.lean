@@ -955,7 +955,7 @@ theorem seam_row_calibratedK :
         1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
         32 * (Real.log X) ^ (2 + 2 * theta293)
             * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) →
-        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
         E ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) →
         (∫ t in (-Tann)..Tann,
             ‖ramErr (H83 X theta293) N Xd P Q a (ellLin g) cf t‖ ^ 2) ≤ E →
@@ -1069,10 +1069,11 @@ theorem seam_row_calibratedK :
     hblk hbox hCbound hX₀k hMfl0 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr
     hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup
   -- ⟦THE 𝒯-LEG, AND THE COMPOSITION⟧
-  exact hfeed c a b (calP A G) (calQK A G M) (calH H1) η Jb N Xd (calP A G 1) X Tann t₁ S ε
+  exact hfeed c a (fun _ => b) (calP A G) (calQK A G M) (calH H1) η Jb N Xd (calP A G 1) X
+    Tann t₁ S ε
     hη hη6 hJb1 hXd1 hNXd (by linarith) hP1pos (levelGates_calibratedK hF) hH1two
     (by simp only [calP]; exact Nat.one_le_two_pow)
-    (calP_le_calQK hM1 le_rfl) hbot1 hcoef hb1 (fun p => hc1 p) hwin
+    (calP_le_calQK hM1 le_rfl) hbot1 hcoef (fun _ => hb1) (fun p => hc1 p) hwin
     hcapinst
 
 /-- **THE SEAM ROW'S `Σ_j lemma12Rows`, AS A NUMBER** (`sum_lemma12Rows_priced_calibratedK`).
@@ -1129,8 +1130,8 @@ theorem sum_lemma12Rows_priced_calibratedK :
     · rw [calH]
       have hjR : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
       positivity
-  have h := hsum (calP A G) (calQK A G M) (calH H1) Jb N Xd T a b c hXd hT hN4 hgates hreg
-    hbig herr ha hb hc hasupp hwin
+  have h := hsum (calP A G) (calQK A G M) (calH H1) Jb N Xd T a (fun _ => b) c hXd hT hN4
+    hgates hreg hbig herr ha (fun _ => hb) hc hasupp hwin
   refine h.trans (mul_le_mul_of_nonneg_left ?_ ?_)
   · have hratio := sum_ratioK_le hA hG hM Jb
     have := mul_le_mul_of_nonneg_left hratio hC.le

@@ -13259,3 +13259,48 @@ already at the ε-grade — consistent). R3d — the bfam thread lands
 in-place through the capfree3 chain (the R1-narrowing playbook; all
 wave artifacts). Both flags-recorded here; the R3-EXECUTOR flies the
 ordered sequence R3d → R3c → W1 → R3a → R3b → W2.
+
+---
+
+## R1 + R2 + R3(1–5) LAND — one wall remains: THE POINT-vs-BAND RE-CUT (2026-07-28 17:25 PDT)
+
+**R1 (M4Maximal 691 ln):** Cmax = 3(log₂H + 1) — ONE log, the (log H)²
+budget unspent (the aligned offsets are SUMMED; count×weight
+telescopes). THE F1-GENRE KILL: M4ChiMaximalStep as stated is FALSE
+for general data (the alternating-datum counterexample — no maximal
+inequality compares a sup to same-length sums); the provable route
+(M4ChiDyadicRowMeanSq at dyadic lengths + shifted scales,
+m4_wave_closed_of_dyadicRow) landed beside it untouched. THE SHAPE
+RIPPLE: the row supply target is (length 2^j, scale X_{i+1}+s)
+families — same theorem, more instances.
+**R2 (M4NonCoprime 489 ln):** the d₀-ledger exact (the fibre factor
+paid by the block bottom alone; headroom d₀²-ish); the coprime supply
+obligation now interval- AND length-general (the honest content);
+register: the slack-4 vs slack-3 supplier mismatch (one more dropped
+index upstream); the harc gate 2·arcDen ≤ H (H ≳ e^200 — real
+threshold, free at the door's U1 floor, carried in-statement).
+**R3 steps 1–5 (20 files, +425/−229):** the bfam thread (the §8.3
+pin's b confirmed SEPARATE — the shared variable was an accident);
+the EP2 ε-grade at 22 sites (thm_a2' UNTOUCHED — it weakens its own
+gate once in-proof; ε₀ := ε the deviation, maximal admissible); the
+capstone now liouChi-FREE with the socket/grade carried; homega GONE
+(the tail priced via ramCopTail_moment); the sieve regularity relaxed
+to 100·log Q ≤ log W (a strict weakening — the old √-gate was a lossy
+specialization; three legacy consumers bridged, no upstream statement
+moved).
+
+**⚠ THE LAST WALL — POINT vs BAND (step 6 blocked, honestly):** the
+capstone's Ramaré block is ramI(H83, P, P) — A POINT (TLGATES'
+"easiest witness; a genuine band also works" convenience, now called).
+At a point, blockfree mass ≍ 1/Xd → the tail charge is O(1) — no
+ε-window absorbs it; the mathematics is clear (the Ramaré device needs
+a band wide enough that block-free integers are rare). THE REPAIR IS
+ROUTE (a), mathematically forced: re-cut the witness chain at the
+BAND [⌈P83⌉, Q ≤ Q83] — the chain beneath is (P,Q)-general
+(R3-SCOPE's table); the work is the witness re-instantiation (the
+multi-j ramI; caseB_window_geometry is per-j general; the C4/h-ceiling
+at the band; the supplier's socket at Q > P). THE NEXT DESIGN BLOCK:
+scope what breaks at Q > P through FrameWitness + CofactorSupplier,
+then the band wave. After it: W2's door instantiation (all other
+blockers removed by steps 1–4), the R1-shape join adapters, and the
+register collapses.
