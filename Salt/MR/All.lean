@@ -218,6 +218,7 @@ import Salt.MR.FarL2Dyadic
 import Salt.MR.A2Wall
 import Salt.MR.M4T0Discharge
 import Salt.MR.M4CoprimeSupply
+import Salt.MR.M4Collapse
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -3468,3 +3469,35 @@ open Salt.Tactic in
   Salt.MR.m4_chiFreeShiftBlock_of_freeRow
   Salt.MR.m4_coprimeChiN_of_freeShiftBlock
   Salt.MR.m4_coprimeN_supplied
+
+-- ⟦THE SWAP⟧ (`M4Collapse`, 2026-07-28) — the M4 wave's SECOND carried analytic arm,
+-- discharged, and the exit re-composed around it.  `m4_wave_closed_T0_discharged` consumes
+-- `M4CoprimeBlockMeanSq` (the interface ⟦COPRIME-SCOPE⟧ proved unsuppliable) INSIDE its own
+-- proof, and the narrowed twin does not imply the full one — so the swap is not a patch but
+-- an ADDITIVE re-run of the two compositions off the same three landed stones
+-- (`m4_wave_closed_of_dyadicRow`, `m4_dyadicRow_carried`, `doorRowCarried_of_t0free`), with
+-- `m4_nonCoprime_classMeanSq_N ∘ m4_coprimeN_supplied` at `j₀ := doorRowFloor M` in place of
+-- `m4_nonCoprime_classMeanSq` at the raw arm.  Both landed exits stand untouched; nothing
+-- upstream moves.  ⟦THE DIFF⟧ against `m4_wave_closed_T0_discharged`, machine-checked: ONE
+-- line replaced (the coprime arm → `M4ChiFreeRowMeanSq R M MS`, the free-base row datum at
+-- the register's OWN grade — no new envelope), THREE added (⟦G1⟧, ⟦G2⟧, ⟦the regime fact⟧,
+-- all three `H`-only class-(a) thresholds, all three verbatim `m4_coprimeN_supplied`'s), and
+-- every other byte identical INCLUDING the conclusion `¬ logChowla2Fails R.eps R.x R.ω`.
+-- The landed `2·arcDen 12 H ≤ H` is KEPT although `8·arcDen 12 H ≤ H` subsumes it, so that
+-- the diff is exactly one replacement plus three additions.  ⟦THE WALL, named⟧ the row datum
+-- is CARRIED and not derived from the register: `M4ChiFreeRowMeanSq` is quantified over a
+-- FREE base (`∀ A : ℕ, 0 < A → ∀ s ≤ L`), while the register supplies the ladder bases
+-- `doorLadder R.x H (i+1) + s` and — under ⟦W5⟧'s ruled `∀d` extension — the dilated ones
+-- `⌊doorLadder R.x H (i+1)/d⌋ − 1 + s`, `s ≤ ⌊H/d⌋+1`.  No register discharges a free base:
+-- at `A ≍ 2^j` the row mean square is `≍ 1` against a grade that is a saving, and the
+-- capstone is silent there (`h ≤ X(log X)^{−1/5}` fails at `X ≍ h`).  It is ⟦COPRIME-SCOPE⟧'s
+-- genre one level down — narrowed there in the LENGTH, still free here in the BASE — and the
+-- repair (a base-narrowed twin of the row interface, threaded through `M4CoprimeSupply`
+-- §2/§3/§1, where each step consumes at the SAME `A` it concludes at) is a statement design.
+-- THE EXIT: **(the free-base row datum) + (regime) → ¬ logChowla2Fails R.eps R.x R.ω**, with
+-- the collision twin beside it; `M4Collapse`'s header enumerates the whole register in the
+-- two classes — that list IS the S11 spine's consumption contract.
+open Salt.Tactic in
+#audit_axioms Salt.MR.m4_wave_closed_coprime_discharged
+  Salt.MR.doorLadder_pow_lower
+  Salt.MR.m4_wave_closed_coprime_discharged_False

@@ -13609,3 +13609,32 @@ the empty-dropped-block coverage catch kernel-witnessed.
 dilated bases — the ruled statement change in M4DoorClose) + the
 call-site swap (m4_nonCoprime_classMeanSq_N ∘ m4_coprimeN_supplied) +
 THE FULL COLLAPSE: the register at (regime + witnessed) ONLY.
+
+---
+
+## FINAL-JOIN: the interface-swap lands; THE BASE WALL named; the last night ruling (2026-07-28 22:49 PDT)
+
+M4Collapse.lean (324 ln): **m4_wave_closed_coprime_discharged** — the
+unsuppliable M4CoprimeBlockMeanSq GONE from the exit (the machine-diff:
+ONE line replaced, THREE gate lines added verbatim, the conclusion
+byte-identical); the register's one analytic item is now
+M4ChiFreeRowMeanSq. THE WALL: the coprime chain narrowed the LENGTH
+but left the BASE free — and no register discharges a free base (the
+coupling gates h ≤ X(log X)^{−1/5} etc. are FALSE at X ≍ h, every
+absolute scale — the quantifier is the wall, not the arithmetic: the
+W5 gate-verification came back CLEAN, the coupling gates are RATIOS
+preserved by dilation, the absolute thresholds astronomically met).
+The executor rightly declined the premature W5 (dead weight before the
+narrowing; would break the T0 file unauthorized) and BANKED the one
+missing discharge stone: doorLadder_pow_lower (x/2^i ≤ doorLadder —
+kernel-checked, with hcount giving R.x/(4R.ω) ≤ every rung, the g-arm
+buying the floor).
+
+**THE LAST NIGHT RULING (the same genre as W0's, the precedent exact):**
+the BASE-NARROWED twin ruled in — M4ChiFreeRowMeanSqN with Φ H · L ≤ A
+inserted after 0 < A; the §2/§3/§1 mirrors of M4CoprimeSupply (each
+step consumes at the SAME A it concludes — mechanical); the N-mirror
+of the class join; THEN W5's ∀d register extension (now justified —
+the bridge becomes buildable) + the re-swap → **m4_wave_collapsed**
+(the name held free for the gate-only form). BASE-NARROW dispatched —
+the night's last design flight.
