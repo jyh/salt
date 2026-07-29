@@ -14872,3 +14872,56 @@ region's WIDTH (couples loglog H to loglog X — check, don't
 assume). KR-5: TWO independent anchors (the big-scale X₀ law
 ~10^385, threaded in-statement; verify no conflict with the ratified
 spine conjunct).
+
+---
+
+## ⟦THE PORT REFUTER PASS + FREEZE v2⟧ — KMT unblack-boxable; the cascade killed and re-derived; the x-scale ladder; the honest price ~7–13k (2026-07-29 15:19 PDT)
+
+**REF-P-MATH:** R-P1 AMEND — the demand formula EXACT; "125" right
+but NON-BINDING (the register's own floor ln(j₀·ln2) = 173.34
+dominates; the honest 2³⁶ sandwich [173.34, 241.45], margin 5.25× —
+the anchor's, not the port's; "~26×" struck); **THE BLACK-BOX KILL:
+KMT's printed ε-hypothesis (0.42 at our windows) excludes our demand
+by 109 orders — the §3.5 adaptation is load-bearing for
+SATISFIABILITY**; the o(1) budget (c ≥ 1.043 or 2³⁶ breaks; ≥ 1.449
+for zero cost); the supplier re-named (siegelWalfisz_holds = the
+Λ/t=0/long-sum THIRD of the tool; the centerpiece = the χ-twisted
+t-uniform μ-rate: O1/O2 LANDED (the stale LambdaRate:20 comment
+flagged), O3 mechanical, O4 the L(s,χ) rate re-run, O5 the t-aspect
+= P-6's stone B (THE CONVERGENCE), O6 the g_r convolution argument
+NEW, O7 dissolved by the cascade kill). P-5: 500–900 → 2200–4500.
+R-P3 CONFIRMED-SAFE (the AP gap sharp at q/N; mvHilbertUniform
+verbatim; the Finset re-cut MANDATORY — the naive per-class route
+loses a factor q, fatal; the fold all-χ not primitive-only; P-2 →
+700–1000).
+
+**REF-P-SHAPE:** R-P2 AMEND — the composition SAFE (no fatal
+per-datum choice; CS-diagonal 4, never 4^J; the pieceDatum floor
+LANDED with the D-slot deviation) + TWO SUB-KILLS: the margin/
+pieceDatum floor forms still carry the crude q-debit (8q — fatal at
+loglog A ≈ 173) AND the e^{e^100} block vs gate 8's cap — the
+`_sharp` twins join P-1; the floor→Halász two-step is an INPUT to
+the (χ,t) decomposition, never the row bound (window-graded vs
+X-graded — the structural note). **R-P4: the paper's ε-cascade
+KILLED at our ε (the floor 0.42 vs the demand e-110; ε⁶ below its
+own floor by 10^654) — the port runs its OWN cascade** (P₁ ≈ log t;
+the four named repairs; J ≈ 1.3e21 uniform-in-j; the last rung
+forces loglog A ≳ 285). What survives: the architecture ceiling at
+α = 1.941 delivered vs 1.449–1.706 required — headroom 0.23–0.49,
+the o(1) ≤ 0.29 gate. **R-P5 AMEND: the socket carries ALL THREE
+antecedents (2^j ≤ A; √H ≤ A; x/(4ω) ≤ A — the x-relative arm
+suppliable at the door bases + hcount)** — and THE SCALES
+ADJUDICATE: **the X-SCALE LADDER** (the socket's bases are x-scale;
+loglog A ≈ loglog x ≫ 285; the last rung + the floor thresholds
+read x; NO Hlo bump, NO anchor movement — the port adds ZERO
+H-demand; the g-arm value bump 10²⁴ → 2.2e44 if the capFree arm is
+used — consumer-chosen, free). The piecewise-RS SAFE as landed.
+
+**FREEZE v2 SEALED: the honest total ~7–13k ln / ~15–30M tokens
+over 3–6 days** (up from v1's 3–6k — the windmill partly real: the
+stones stayed dissolved but the twisted rate is a real campaign) —
+still under the original 8–18k, and now FULLY MAPPED with one
+D-risk isolated behind a cheap probe. **THE ASKS: (1) fire P-0′
+(the B-probe — the go/no-go, 300–600 or a STOP); (2) authorize
+P-1..P-7 contingent on it. The 2³⁶ anchor + the spine conjunct
+untouched by every route.**
