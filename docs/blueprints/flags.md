@@ -14464,3 +14464,16 @@ is DECLINED; the collapsed register's walls stand as banked
 knowledge (four kernel-hard/exact impossibility results — the
 method's own product). m4_wave_collapsed and its chain remain landed
 artifacts; the road forward is the JOIN's register.
+
+---
+
+## ⟦COUNCIL 0729 — C3 RULED⟧ (2026-07-29 06:30 PDT)
+
+JYH agrees the recommendation: **the anchor re-pin is HELD** (the
+second-road design block derives its own sandwich arithmetic; the
+SANDWICH-REF census is its input); **the export-page wave is
+AUTHORIZED now** (road-independent): the minimal-J restructure + the
+SHARP two-sided crossing estimate (loss ≤ ~4%; the landed 1/128+32
+chain barred from the export path) + the ∃R-conjunct threading, with
+the spine-statement conjunct coming back to the table as a named
+amendment before landing; a refuter on the crossing constant.
