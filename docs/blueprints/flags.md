@@ -14727,3 +14727,18 @@ conjunct — the C3-anticipated moment); route B = the ~2k-ln anchor
 generalisation (no numeral, no spine change, frozen-massif churn).
 The maestro recommends A; B stays banked (and covers the port's
 2^74 automatically if ever preferred).**
+
+---
+
+## ⟦THE ANCHOR RULING — ROUTE A RATIFIED⟧ — JYH: "re-pin plus named amendment" (2026-07-29 10:57 PDT)
+
+**RULED: (1) the Adoor anchor re-pins 2^18 → 2^36** (the ratified
+7/26 door design amended by JYH's own hand — the second numeral
+amendment of the campaign after the seam re-cut); **(2) THE NAMED
+AMENDMENT: the spine's ∃R gains the exported conjunct
+`loglog R.Hhi ≤ (loglog R.Hlo)^5`** (the C3-held threading, now
+ratified — the analytic page is TowerExport, already landed; the
+builder re-points its J at towerJmin; the conjunct threads
+head → socket and STOPS at the socket per ARC-SCOPE). Route B (the
+anchor generalisation) stays BANKED as the port-era alternative.
+THE-ANCHOR-EXECUTOR dispatched with both pieces.
