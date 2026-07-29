@@ -14329,7 +14329,7 @@ unambiguously; the maestro concurs — REF-F5 + REF-ROUTE dispatched
 
 ---
 
-## ⟦REF-F5⟧: F5 CONFIRMED (coefficient EXACTLY 28; fails 9.8e4× at its best point, every escape closed) — but the framing FLIPS: F5 kills exactly what the KMT port replaces (2026-07-29 04:45 PDT)
+## ⟦REF-F5⟧: F5 CONFIRMED (coefficient EXACTLY 28; fails 9.8e4× at its best point, every escape closed) — but the framing FLIPS: F5 kills exactly what the KMT port replaces (2026-07-29 03:55 PDT; the heading first read 04:45 — the third clock drift tonight, corrected)
 
 **R1 the discharge trace — CONFIRMED, STRONGER:** X is PINNED to a
 q-FREE numeral (Xd := doorLadder-expression of (R.x,H,i,d,s)) — ONE X
