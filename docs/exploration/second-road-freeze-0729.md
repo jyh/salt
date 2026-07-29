@@ -1,134 +1,135 @@
-# THE SECOND ROAD — design freeze v1 (2026-07-29, the maestro's hand)
+# THE SECOND ROAD — design freeze v2 (2026-07-29 ~07:20, post-refuter)
 
-*Under the council's C2 ruling: the door supply re-cuts from the JOIN's
-F5-free register family with the priced kit; the KMT port stays behind
-a separate JYH gate. Inputs: the SECOND-ROAD dossier (the session
-record; its §-numbers cited as D§n), the flags' F5 arc, d1-scope-0729.
-Status: v1 DRAFT → refuter pass → JYH review → waves. Nothing below
-fires until all three.*
+*v2 SUPERSEDES v1 in full. The refuter pass (REF-SAND / REF-REG /
+REF-SHAPE, flags 07:12) killed two of v1's load-bearing claims and
+gifted two levers; every amendment is folded in below. Status: v2 →
+JYH review (the decisions marked ⟦JYH⟧) → waves. The C2 ruling stands:
+the port itself stays behind its separate gate.*
 
-## The one-paragraph design
+## The one-paragraph design (v2)
 
-The road re-enters at the WaveClosed register (D-1 below), re-cut once
-by the split so its grade contract is the head's own constant δ₀
-(WALL A's two limbs die there — dossier D§1: items 1+5 are the
-collision verbatim, so the split is a *precondition for non-vacuity*).
-The analytic slot is the class-block mean square; its discharge runs:
-Route 2's Gauss-sum consumer (gcd-stratified, both q's dead, no
-Parseval-per-K) → the χ-summed supply at the DYADIC-ROW level → the
-landed generic maximal machinery re-charged by lever 1′ (10.9
-constant) → the blocked drift (F3) collapsing the arc prefactor.
-Every X-demand on this chain is a one-sided floor absorbed by the
-g-arm (D§3 verified: all fourteen X-upper caps in the corpus trace to
-the ThmA2 rows interface, which this road never consumes). The KMT
-port, if later authorized, plugs into the row-level χ-summed socket as
-the one analytic supplier; until then the road is built and priced up
-to that socket.
+The road re-enters at a **split twin of the q-free JOIN register**
+(D-1, the one open choice), whose grade contract is the head's own
+constant δ₀ — WALL A's decaying-grade limb dies there, its M-gate is
+*defused* at the constant M = ⌈24Cg/δ₀⌉₊ (Cg = 1.605·10¹², the honest
+typical-density constant), and the pre-split H-upper in disguise
+(WALL C's genre) dies with it. The analytic chain is: the register's
+re-cut drift conjunct (owned by wave ④ — the refuter's catch: v1 left
+it unowned) consuming the composed **blocked-drift × stratified-Gauss
+× χ-summed** supply — under which the drift and both class q's are
+O(1) *together* (the composition is what closes; each piece alone is
+worthless). The supply socket is the **free-base** χ-summed row
+(REF-SHAPE's repair — the ladder-base form of v1 had zero instances at
+d ≥ 2; the corpus's own free-base row family is the right genre).
+Every X-demand on the road is a one-sided floor absorbed by the g-arm
+— now at the post-F4+VT-7 magnitude 144·loglog H + ~2·10³ (yesterday:
+exponential + 2.15·10⁴⁴). Walls B/D/F5 are clear at the register
+(REF-REG, byte-verified) — with the honest condition that this
+wall-freedom is bought by the socket swap: a per-χ supply fallback
+re-imports D and F5.
 
-## The decisions (D-1 … D-8)
+## The decisions
 
-**D-1 — THE TARGET REGISTER: `m4_wave_closed` (M4WaveClosed:525),
-refining C2's letter.** The council named m4_wave_exit; the dossier's
-census (D§5 Q1) shows m4_wave_closed is the same JOIN family one rung
-further along on every axis the kit cares about: the register carries
-NO character (the analytic slot is M4ClassBlockMeanSq at the untwisted
-datum), U3 (`m4_gradeGate_direct`) is already applied — the landed
-route's wasted (log H)^{24.5} is already gone — and the drift is
-q-graded in exactly F3's target shape. The fork byte to a χ-summed
-hypothesis is M4WaveClosed:449 (~15 ln). **Presented to JYH as a
-refinement for ratification, not assumed.** (Fallback if declined:
-m4_wave_exit with the same kit; +the U3 re-derivation, +the plain-α
-drift arm.)
+**D-1 ⟦JYH⟧ — THE TARGET REGISTER, the q² trade-off named (REF-SHAPE
+A-C3).** Two live options:
+- **(b, RECOMMENDED): the `m4_wave_exit_sup` SHAPE** — its item 6′
+  (M4BlockMeanSqSup) is already q-free, and the q-free dock's whole
+  cover side is landed (m4_cover_assembly_sup). Wave ① cuts its split
+  twin with the drift-price line re-cut to the composed form (owned by
+  ④). The class machinery then lives entirely inside the supply chain,
+  never in the register.
+- (a): `m4_wave_closed` — one rung further along (U3 pre-applied) but
+  its hdrift conjunct hard-wires q² and Bcl is woven into three
+  conjuncts; choosing it means wave ① re-cuts the drift AND the
+  class-(c) slot — strictly more than the split.
+  My recommendation is (b): the register carries the fewest moving
+  parts and the composition's price lands in one conjunct.
 
-**D-2 — THE SUPPLY LEVEL: the DYADIC-ROW form.** (Dossier Q2/Q5 — the
-fork stated twice.) The χ-summed supply target is stated at the
-per-length, per-shift row level (the M4ChiDyadicRowMeanSq shape,
-χ-summed), NOT at the block-with-sup level. Rationale: the maximal
-step is landed GENERIC (M4Maximal:269 at arbitrary f — dossier D§2's
-census) and lever 1′ is priced and refuter-verified; putting the
-maximal inside the port would mint a third genuinely-new stone (the
-χ-aspect maximal inequality) where the row form keeps the port's new
-mathematics at exactly two (the hybrid χ-aspect MVT; the χ-aspect
-large-value count). Consequence accepted: **lever 1′ is on the
-critical path** (wave ②).
+**D-2 — THE SUPPLY LEVEL: the FREE-BASE χ-summed row (REF-SHAPE
+A-C1's exact bytes adopted).** `M4ChiSummedFreeRow R M RS`: free base
+A, cap-general (∀L ≤ H), window-dyadic (2^j), every modulus
+q′ ≤ arcDen, RS q′-free; anti-vacuity witness RS j H := 4·arcDen 12 H.
+v1's "length-general" wording corrected (cap-general/window-dyadic —
+non-dyadic lengths never reach the row). The maximal step stays
+outside the port (per-χ generic machinery + Σ_χ), so the port's new
+stones remain exactly two. **Consequence kept: lever 1′ on the
+critical path, and A2 (G1 → arcDen²) is NOT optional — it is the
+stratified composition's own price** ((log H)^{4.27} at the dilated
+cap; two independent derivations agree).
 
-**D-3 — THE NEW PREDICATES (the sockets, named now):**
-- `M4ChiSummedDyadicRow R M k q RS` — the χ-summed row supply:
-  ∀H ∈ [Hlo,Hhi], ∀q′ ≤ arcDen 12 H, ∀ j ≤ log₂H, ∀ s ≤ H, ∀ i < k:
-  Σ_{χ mod q′} (the row mean square of the χ-twisted sieved datum at
-  length 2^j, shift s, block i) ≤ RS j H — interval-general,
-  length-general, every modulus (REF-ROUTE's ratified constraints).
-  Exact bytes drafted in wave ④'s brief after Route 2 pins the
-  consumer's shape.
-- `m4_wave_closed_split` — the register twin at the δ₀ contract
-  (wave ①'s deliverable).
+**D-3 — THE COMPOSED SUPPLY CHAIN (wave ④ owns it end to end):**
+the Σ_χ mirrors of the landed free-base chain
+(m4_chiFreeShiftBlock_of_freeRow, m4_coprimeChiN_of_freeShiftBlock —
+mechanical, pointwise-in-χ then summed) → the stratified Gauss
+consumer (the τ second moment Σ|τ_b|² = φ² exact; the fibre count;
+d0_ledger; strata d = gcd(m,q), weighted CS at 1/d, residual
+(q/φ)² ≈ 7.7 nats) → landing on M4BlockMeanSqSup → the landed cover
+assembly → the register's re-cut drift conjunct. The reduced-modulus
+instances enter at the free-form inv_totient twin (M4CoprimeSupply),
+NOT at M4WaveClosed:449 — v1's "~15 ln fork swap" is dead.
 
-**D-4 — THE NON-COPRIME HALF (dossier Q6): the gcd-stratification
-FRAME with the landed dilation INSIDE.** They are not rivals at one
-joint: the stratification (d = gcd(m,q), weighted CS at 1/d, residual
-(q/φ(q))² — free) is the frame; each stratum's transport is the
-landed depth-1 dilation machinery (m4_class_dilate_exit the equality;
-d0_ledger_sharp the ledger). The aggregate-stratum transport lemma
-(~300–500 ln) is the one new piece (REF-ROUTE's census).
+**D-4 — THE NON-COPRIME FRAME (unchanged from v1, now with its
+carriers named):** stratification-with-dilation-inside;
+M4CoprimeSupply.lean + M4NonCoprime.lean join the kept-verbatim list
+(A-C4). memS_dilate_door dissolves the datum mismatch — the stratum's
+carrier is the door's own sieved set.
 
-**D-5 — WALL B RIDES THE RE-THREAD (dossier Q7).** D-2's row form
-reuses the ∀s shift decomposition, so the endpoint demand returns;
-the E-wave's strict pair law (SeamCoefWS, hend+ha0 dropped) is on
-disk and the new row predicates are stated STRICT from birth — E-7/
-E-8's surgery never happens on the old register; the new register
-simply never carries the endpoint conjunct.
+**D-5 — THE ENDPOINT (R-E CONFIRMED-SAFE; wording per A-E1):** the
+row socket has no endpoint antecedent to state or drop — seamS0 is
+strict at the bottom, its consumers read only m ≥ X+2 (margin 2, the
+strictness derived from the block's own Ioc at the s = 0 corner), the
+tiling is half-open throughout. The endpoint obligation belongs to
+WHATEVER SUPPLIES the socket: if the port routes through the RamareMR
+binder family, the E-wave's SeamCoefWS (on disk) is a port
+prerequisite at every base; if KMT-style analysis, it is off the
+critical path entirely (A-E2 — carried into the port gate). Guard:
+any half-open re-index is bottom-only; the top is read at equality.
 
-**D-6 — THE SANDWICH PAGE (dossier Q3/Q4 — the genuinely new
-arithmetic; wave ⑤).** Under the split M := ⌈24Cg/δ₀⌉₊ is CONSTANT.
-The maestro's sketch (UNVERIFIED — twice-burned rule applies, the
-refuter's first target): j₀ = M·Adoor M constant ⟹ U1floor constant
-⟹ lnln Hlo ≈ 134 (anchor 2^18) / ≈ 142 (2^30); the tower amplifies
-by the forced 4th power; the gate-12 analogue (the dilation cap,
-carried by the kept M4BridgeDilate arm) budgets Adoor M·ln2/12. Rough
-numbers: 2^18 FAILS ~130×; **2^30 CLOSES ~25×**; each bit doubles the
-budget against a ~1.26× tower response. If the port later fires, its
-lnln Hlo = 44853 floor pushes the ask to ~2^58–2^62 (NOT REF-ROUTE's
-2^51, which was old-register arithmetic). Wave ⑤ derives all of this
-kernel-checked; **the anchor ask returns to JYH with ⑤'s page, per
-C3's hold.**
+**D-6 — THE SANDWICH PAGE (corrected per REF-SAND; wave ⑤):**
+honest inputs: Cg = 1.605e12, M = 1.93e62, U1floor = ⌈4^{j₀}⌉ (v1
+squared it), the LANDED exponent 5 (tower_loglog_le; 4.4817 available
+via an rpow restatement). The honest anchor table: 2^18 fails ×224;
+2^30 FAILS ×11 at exp 5 (v1's "closes ×25" is dead); **2^34 minimum,
+2^36 for ≥2× headroom; the port case ~2^74.** BUT: **wave ⑤'s FIRST
+item is the ⟦A-6 D₀-TRUNCATION⟧** — strata d > D₀ taken trivially
+(the landed trivial-bound conjunct); after F3 the admissibility is
+absolute (D₀ ≈ (C·Bcl)^{-1/2} ≈ 2^163) and the gate demand collapses
+from arcDen to D₀ — free at 2^18 by ~1600 bits. **If it verifies, the
+sandwich cap disappears and NO anchor re-pin is needed at all.** Only
+if it fails does the 2^34/2^36 ask go to JYH.
 
-**D-7 — WHAT IS KEPT / RETIRED (dossier D§2's map, adopted
-verbatim):** the three Bridge files + the Maximal generic core +
-the ClassPrice slack arithmetic + the order pin are kept byte-verbatim;
-~10 join-line twins re-cut (wave ①); the DoorRowCarriedT0 chain +
-M4Spine's walls stay landed as banked impossibility results. The
-M4Join:71-75 header's ⟦THE WALL⟧ note is stale (repaired by the
-E-wave) — corrected in ①'s doc pass.
+**D-7 — KEPT / RETIRED (REF-REG's lists adopted):** kept-verbatim now
+includes M4CoprimeSupply + M4NonCoprime; naturally-retired now
+includes the whole mrtGate/H0scale block, m4Saving's 15−11/4 margin,
+and m4_wave_exit_sup *as-priced* (its SHAPE is D-1(b)'s target; its
+lossy drift line is what ④ re-cuts). The M4Join:71-75 stale header
+note stands.
 
-**D-8 — THE PORT GATE (restating C2):** waves ①–⑤ build and price the
-road up to the χ-summed socket. The KMT port (the socket's one
-analytic supplier; 8–18k; two new stones; the anchor consequence from
-⑤) returns to JYH as a single decision with the full integrated price.
-Interim honesty: until the port lands, the second road's terminal
-theorem is CONDITIONAL on the socket — the road's value meanwhile is
-that every other wall (A, B, D, F5, the drift, the classes) is dead
-by construction.
+**D-8 — THE PORT GATE (v1 + two riders):** (i) the honest condition:
+if the port is declined and the supply falls back to the per-χ route,
+WALLS D and F5 return — the wall-freedom is bought by the socket
+swap; (ii) the supplier's endpoint obligation (A-E2 above); (iii) the
+port's own X-conjuncts remain unpriced (the dossier's honest unknown)
+— the port brief must census them.
 
-## The waves (order forced; ①→② strict, ③/④ parallel after ①)
+## The waves (v2; ①→② strict, ③∥④ after ①, ⑤ after ③+④'s arithmetic)
 
-| # | wave | est. | notes |
+| # | wave | est. | v2 changes |
 |---|---|---|---|
-| ① | THE SPLIT twins (~10, M4Exit/M4Close/M4BridgeCover/M4Join/M4WaveClosed) + m4_wave_closed_split | 400–700 | the doorGrade discard at M4Exit:357-360 is THE byte; δ₀ slot only (doorGrade-shaped slots are dead) |
-| ② | LEVER 1′ w/ amendments A1–A3 (keep m4BclGraded name+signature; G1 → arcDen²; the THREE assembly copies + M4Spine's defeq re-cut; Engel form; c = 3/2) | 1000–1400, 6 files | G1's register change rides the new register's birth, not the old one's |
-| ③ | F3 the blocked drift (new file; ℓ = Hq/arcDen; the landed shift family) | 500–900 | K-free + glue-compat verified (ARC-SCOPE) |
-| ④ | ROUTE 2 stratified (the τ second moment; the coprime expansion; the D-4 frame; the fork-byte swap at :449; the new socket M4ChiSummedDyadicRow stated) | 1300–2100 | the socket's bytes are ④'s deliverable, refuter-checked |
-| ⑤ | THE SANDWICH PAGE (the new-road numerology, kernel-checked) + the anchor ask to JYH | 300–600 | consumes the EXPORT wave's tower theorem |
-| — | THE PORT GATE (JYH) | 8–18k | after ⑤ |
+| ① | THE SPLIT twins — **~21** (the 13 + U3's m4_gradeGate_direct + m4_wave_closed_of_dyadicRow + m4_wave_closed_of_chi + the 5-member _False family ⟦JYH: twin or retire — recommend RETIRE, the S11 spine consumes the ¬-form⟧) | **800–1200** | the C-binder warning IN THE BRIEF (∀C disappears; preserving it re-imports WALL A); M4DoorGates/hMδ UNTOUCHABLE; adopt the of_dyadicRow graded shape |
+| ② | LEVER 1′ (A1–A3 + the Engel form + c = 3/2) | 1000–1400, 6 files | unchanged; A2's G1 → arcDen² now known mandatory |
+| ③ | F3 the blocked drift | 500–900 | its consumer is ④'s composed conjunct — ③ and ④ co-design the interface, neither lands alone |
+| ④ | THE COMPOSED SUPPLY CHAIN (D-3) + the register's drift-conjunct re-cut + the socket M4ChiSummedFreeRow | 1150–1800 | owns the drift re-cut (the REG catch); the :449 swap deleted |
+| ⑤ | THE SANDWICH PAGE: **the D₀-truncation test FIRST**, then (only if it fails) the honest anchor table to JYH | 300–600 | consumes tower_loglog_le at exp 5 |
+| — | THE PORT GATE ⟦JYH⟧ | 8–18k | with D-8's three riders |
 
-## The refuter pass (before JYH review; verify-posture law)
+## Refuter status
 
-R-A: D-6's arithmetic — re-derive the constant-M sandwich end to end
-(the maestro's numbers are in-head; kill or confirm). R-B: D-1 — is
-m4_wave_closed's register genuinely wall-free as re-cut by ① (re-run
-the four walls + F5 against its conjunct list post-split)? R-C: D-2 —
-does the row-form socket compose with Route 2's stratification at
-every d-stratum (the dilated modulus q/d rows — does the χ-sum at
-modulus q/d dock into the :449 swap)? R-D: the ①-wave's twin list —
-complete (grep the C-binder consumers)? R-E: D-5 — the strict-form
-row predicates: no consumer needs the endpoint datum (the REF K4
-vacuity check re-run on the NEW chain).
+v1's pass: REF-SAND (AMEND+KILL — folded), REF-REG (AMEND — folded),
+REF-SHAPE (R-C KILLED → repaired via A-C1/A-C2; R-E SAFE). v2's own
+residual risks for a spot-check before wave ④ fires: (i) the composed
+drift conjunct's exact bytes (③×④'s interface — the one place v2
+writes new statement shapes); (ii) the D₀-truncation's admissibility
+arithmetic (⑤'s first item, already flagged UNVERIFIED); (iii) the
+Σ_χ mirrors' claimed mechanicalness (spot-check one: the shift-block
+mirror).
