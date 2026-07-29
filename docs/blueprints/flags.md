@@ -14477,3 +14477,21 @@ SHARP two-sided crossing estimate (loss ≤ ~4%; the landed 1/128+32
 chain barred from the export path) + the ∃R-conjunct threading, with
 the spine-statement conjunct coming back to the table as a named
 amendment before landing; a refuter on the crossing constant.
+
+---
+
+## ⟦COUNCIL 0729 — C4 RULED; THE COUNCIL CLOSES⟧ (2026-07-29 06:33 PDT)
+
+JYH: "yes." The fire-now pair goes as ONE executor (same statement
+family, same files): ⟦F4⟧ the primeDivSum sharp stone + supply-side
+threshold siblings, and ⟦VT-7⟧ the e^{e^100} re-pin —
+SIBLING-ADDITIVE THROUGHOUT (the retired register and its discharge
+chain stay byte-stable; the sharp forms are the second road's
+supply). The EXPORT wave fires per C3. The old-register re-thread
+(E-7/E-8 surgery, split twins, lever 1′ in-place, G1) DISSOLVES into
+the design block as kit. THE SECOND-ROAD DESIGN BLOCK opens in the
+maestro's hands today (the freeze doc + refuter before any wave);
+SECOND-ROAD-SCOPE dispatched for the input dossier (m4_wave_exit's
+six items byte-exact + the reusable-chain census). Standing at
+JYH's side: the D2 re-run (console), the personal-time record
+(review), the endorser outreach (Loeffler first, post-approval).
