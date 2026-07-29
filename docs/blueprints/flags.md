@@ -13489,3 +13489,40 @@ gate (every OTHER binder now inhabitable post-counter-wave); the
 collapse and the spine can close structurally with the T0-band demand
 as the one named analytic hypothesis, discharged by the morning
 ruling's route.
+
+---
+
+## A2WALL-CHECK: THE SLIVER WAS NEVER REAL — the window is n ∈ [44, 96]; THE NIGHT RULING (2026-07-28 21:03 PDT)
+
+A2Wall.lean (330 ln, 19 kernel stones): the freeze's ceiling at 48
+(s8-freeze.md:11) belongs to an ABANDONED page — MR's old pin; the
+landed chain has NO 1/seamT0-vs-θ coupling anywhere (467 seamT0 sites
+swept; the A2 exit touches seamT0 in exactly four θ-free places). THE
+REAL CEILING: the ball radius vs ρ₂₉₃ — a2wall_ballrad_forced:
+6√2/seamRad ≤ CR·(log X)^{−ρ₂₉₃} forces m < 32(3e+1)/3 = 97.65
+(a2wall_ceiling_97/_98_fails, sharp); seamRad < seamT0 gives n ≤ 96.
+THE FLOOR: n ≥ 44 at (γ, δ) = (1/16, 1/5000) — a2wall_floor_44/
+_43_fails; the n = 45 exhibits exact (a2wall_gate_45: 1/45 − 1009/45000
+= −1/5000; the box-floor clearance at margin 0.00155;
+a2wall_window_45_46 the inhabited pin at 2.12× ball margin). THE
+δ-COUPLING: FREE — the frozen 1/500 is 𝒰-leg only (summand 3, hgP1,
+hgRows, hεwin); the band's δ lives in cfb_gate_decay's 103/1500
+(27 non-frozen sites); summand 1 is stated RAW. BONUS: the 1/32 route
+resurrects at n ∈ [89, 96] as the backstop if the 1/16 piece-transport
+fails. NAMED GAP: box_floor_M0 → pieceDatum at 1/16 (the
+polylog_floor_M0_pieceDatum pattern verbatim, not yet landed) —
+BOXPIECE dispatched.
+
+**THE NIGHT RULING (under JYH's explicit night authority — "I trust
+you", 7/28 late; the discussion held; the sliver risk that prompted
+the hedge DISSOLVED by these exhibits):** the seam re-cut is RULED IN
+at **(n, m) = (45, 46), δ = 1/5000** — seamT0 := (log X)^{1/45},
+seamRad := (log X)^{1/46}, the band decay demand at 1009/45000-family
+numerals. THE FROZEN-STATEMENT AMENDMENT this entails (the exit's
+summand-4 numeral 13/15 → 43/45; bandLterm's 16/15 → 46/45; summand
+1's effective (log X)^{1/15} → (log X)^{1/45} via cfbC₁): drafted by
+the maestro under the night authority, flagged for JYH's morning
+review as the standing record. SEQUENCING: the re-cut waits for
+W2-DOOR-CARRIED's landing (ThmA2's numerals are in its read cone);
+then the SEAM-RECUT wave on a quiet tree; then the T0-supplier close
+at the 1/16 floor; then the discharge of the carried arm.

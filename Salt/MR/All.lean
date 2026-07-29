@@ -212,8 +212,10 @@ import Salt.MR.M4Band
 import Salt.MR.M4Puncture
 import Salt.MR.M4DoorRow
 import Salt.MR.M4T0Datum
+import Salt.MR.M4DoorClose
 import Salt.MR.FarL2
 import Salt.MR.FarL2Dyadic
+import Salt.MR.A2Wall
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -3287,3 +3289,65 @@ open Salt.Tactic in
   Salt.MR.joint_cs_trunc_polylog
   Salt.MR.farKfarPolylog
   Salt.MR.dilated_scale_grade_polylog
+
+-- ⟦A2WALL⟧ — the seam re-cut window kernel-verified: floor n ≥ 44 (γ=1/16, δ=1/5000),
+-- ceiling m < 97.65 (the ball radius vs ρ₂₉₃ — the freeze's 48 was an abandoned pin);
+-- the working pin (n,m) = (45,46) inhabited at 2.12× margin; δ-relaxation FREE (𝒰-leg only).
+open Salt.Tactic in
+#audit_axioms Salt.MR.a2wall_gate_general
+  Salt.MR.a2wall_gate_45
+  Salt.MR.a2wall_box_clears_45
+  Salt.MR.a2wall_box_floor_clears_gate_45
+  Salt.MR.a2wall_exponent_neg_45
+  Salt.MR.a2wall_critical_n
+  Salt.MR.a2wall_floor_44
+  Salt.MR.a2wall_floor_43_fails
+  Salt.MR.a2wall_floor_48_at_500
+  Salt.MR.a2wall_floor_47_fails_at_500
+  Salt.MR.a2wall_floor32_89
+  Salt.MR.a2wall_floor32_88_fails
+  Salt.MR.a2wall_box_fails_gate_15
+  Salt.MR.a2wall_ballrad_forced
+  Salt.MR.a2wall_ballrad_pin_exponent
+  Salt.MR.a2wall_ceiling_97
+  Salt.MR.a2wall_ceiling_98_fails
+  Salt.MR.a2wall_ballrad_46_clears
+  Salt.MR.a2wall_window_45_46
+
+-- ⟦W2-DOOR-CARRIED⟧ (`M4DoorClose`, 2026-07-28).  THE STRUCTURAL CLOSE OF THE M4 WAVE, with
+-- the `hT0band` slot CARRIED.  `M4DoorRow` landed the door row's supply and named two walls;
+-- the counter-wave demolished both (`hwinBand` DELETED, the length-graded re-cut), and
+-- `M4T0Datum` reduced the T₀-band to a pricing residue on a morning ruling — so every OTHER
+-- binder of `M4MeanSq.m4_meansq_per_chi_gen` is now inhabitable at the door datum, and this
+-- file inhabits them.  ⟦THE FINAL CARRIED REGISTER⟧, three classes (module header):
+-- (A) ANALYTIC-CARRIED, exactly TWO arms — the T₀-band integral at
+-- `m4_hT0band_at_door`'s own conclusion shape (the RAW slot, so the morning route plugs by
+-- `exact` at either granularity) and the coprime supply `M4CoprimeBlockMeanSq` at its
+-- interval/length-general shape (⟦R2⟧'s deviation: `m4_nonCoprime_classMeanSq` consumes
+-- exactly that, no adapter); (B) REGIME — the scale page at the BLOCK scale `X_d`, the band
+-- gates with `(P, Q)` chosen PER INSTANCE, the ε-window, the tail threshold
+-- `2688·Ctail·loglog X` stated where the opaque mass constant is bound, the socket's ~25
+-- gates verbatim from `m4_supplier_complete` at `Ps := 1`/`J := 2`/`Tann := X`/`t₁ := 0`/
+-- `Rrad := seamRad X`, the `hend` ENDPOINT gate per instance (discharge condition `X_d ∉ 𝒮`,
+-- `memSCoeff_eq_zero_of_not_memS`; the converse `memSCoeff_endpoint_zero_of_seamCoefW` is why
+-- it is forced), and the `g`-arm/`U1floor` shapes of the outer register; (C) WITNESSED —
+-- `ha1`/`hcf1`/`hsupp0`/`hasupp`, `hb1`/`hbf1` at the PUNCTURED family `memSPunctCoeff … 2 j`,
+-- the whole coprime-tail page (`Mtail` and `EP2` COMPUTED from `m4_door_tail_supply`, not
+-- carried), `hsockR`, `hcoefBand` (`doorChiCoeff_seamCoefW_punct_H`), `hcoefPin`
+-- (`doorChiCoeff_seamCoefW_at_door_H`), the per-piece cap-free floor
+-- (`capFreeFloor3_pieceDatum`, so only the Mertens mask debit is a numeral), and the two pins.
+-- ⟦THE LENGTH FLOOR IS FREE⟧ `doorRowFloor M ≤ j` DERIVES both `4 ≤ h` and the capstone's own
+-- window gate `𝒬K_1 ≤ h` (`door_length_gate_iff`'s converse) — the graded split's partition
+-- costs the supplier nothing above the floor, and `doorRow_trivial_grade` shows the grade
+-- below it is the absolute `4` (`‖(1/h)·shortSum‖ ≤ (h+1)/h ≤ 2` at every `j`, `j = 0`
+-- included).  ⟦THE K6 DISCIPLINE⟧ FOUR suppliers hoisted ONCE outside the instance quantifier
+-- (`m4_meansq_per_chi_gen`'s seven constants, `m4_supplier_complete`'s `Xsk`,
+-- `capFreeFloor3_pieceDatum`'s `Kcf`, `m4_door_tail_supply`'s `Ctail`), their gates INSIDE.
+-- THE EXIT: `m4_wave_structurally_closed` — (the register) → `¬ logChowla2Fails R.eps R.x R.ω`,
+-- end to end, at the door's own floor `j₀ = doorRowFloor M = M·Adoor M`.
+open Salt.Tactic in
+#audit_axioms Salt.MR.DoorRowCarried
+  Salt.MR.doorRow_trivial_grade
+  Salt.MR.m4_door_meansq_carried
+  Salt.MR.m4_dyadicRow_carried
+  Salt.MR.m4_wave_structurally_closed
