@@ -628,16 +628,22 @@ Both endpoint regimes are discharged here, so the caller supplies no drop hypoth
 
 * `A + 4 ≤ B` — the block is long enough to drop into: `B' := B − 4` restores the TIGHT fit
   (`slack4_fitted` on the interface's slack), and `sum_Ioc_absWindowSum_sq_div_le_dropped_four`
-  applies verbatim (the coverage restricts along `Finset.Ioc A B' ⊆ Finset.Ioc A B`);
+  applies verbatim;
 * `B < A + 4` — the block has `≤ 4` indices, so the drop's own price `4·(H²/A)` already
   covers the WHOLE sum and the mean-square term is spent on nothing.
 
 This is the drop-in the ⟦R2⟧ register item asked for: `M4NonCoprime.dilBlock_reindex_fit`
-delivers the hypothesis `hfit` at the re-indexed block, at the uniform dilated length. -/
+delivers the hypothesis `hfit` at the re-indexed block, at the uniform dilated length.
+
+⟦THE COVERAGE RANGE⟧ `hcov` is asked for on `Finset.Ioc A (B − 4)` — the DROPPED block —
+and not on `Finset.Ioc A B`: the long branch reads it only there, and the short branch never
+reads it at all.  This is the weakest hypothesis the proof uses, and it is what lets a free
+block whose seam datum only reaches `2A` (i.e. whose top four cells are *outside* the
+covering index set) consume this lemma at all. -/
 theorem sum_Ioc_absWindowSum_sq_div_le_slack4 {c : ℕ → ℂ} (hc : ∀ m, ‖c m‖ ≤ 1)
     (s0 : Finset ℕ) (α : ℝ) {H A B : ℕ} {MS : ℝ} (hH : 0 < H) (hA : 0 < A)
     (hfit : B + H ≤ 2 * A + 4)
-    (hcov : ∀ n ∈ Finset.Ioc A B, ∀ m ∈ Finset.Ioc n (n + H), m ∉ s0 → c m = 0)
+    (hcov : ∀ n ∈ Finset.Ioc A (B - 4), ∀ m ∈ Finset.Ioc n (n + H), m ∉ s0 → c m = 0)
     (hMS : 1 / (A : ℝ) * (∫ x in (A : ℝ)..(2 * (A : ℝ)),
         ‖((1 / (H : ℝ) : ℝ) : ℂ) * shortSum (doorCoeffPhase c α) s0 x (H : ℝ)‖ ^ 2) ≤ MS) :
     ∑ n ∈ Finset.Ioc A B, ‖absWindowSum c H n α‖ ^ 2 / (n : ℝ)
@@ -652,7 +658,7 @@ theorem sum_Ioc_absWindowSum_sq_div_le_slack4 {c : ℕ → ℂ} (hc : ∀ m, ‖
     have hB'B : B - 4 ≤ B := by omega
     have hfitR : ((B - 4 : ℕ) : ℝ) + (H : ℝ) ≤ 2 * (A : ℝ) := by exact_mod_cast hfitN
     exact sum_Ioc_absWindowSum_sq_div_le_dropped_four hc s0 α hH hAB' hB'B hdrop hA0 le_rfl
-      hfitR (fun n hn => hcov n (Finset.Ioc_subset_Ioc_right hB'B hn)) hMS
+      hfitR hcov hMS
   · -- ⟦the short block⟧ `≤ 4` indices, each already priced at `H²/A`
     have hcard : ((Finset.Ioc A B).card : ℝ) ≤ 4 := by
       rw [Nat.card_Ioc]

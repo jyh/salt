@@ -13582,3 +13582,30 @@ Ioc A (B−4); zero proof change; zero consumers). THE ONE NEW LEMMA:
 the free-base/free-length shifted mean-square bridge (~140 ln).
 COPRIME-EXECUTOR dispatched on W1–W4+W6; W5 + the final join ride the
 second flight.
+
+---
+
+## BOTH ARMS' SUPPLIES LAND — the T0 discharge + the coprime chain; the FINAL JOIN flies (2026-07-28 22:29 PDT)
+
+**T0-DISCHARGE (M4T0Discharge 835 ln, 17 decls):**
+m4_wave_closed_T0_discharged — ONE analytic arm left. The (C₁′, M₀)
+pair PINNED (cfbC₁ X (t0dC1 Cb), (1009/45000)e·loglog X); the three
+kernel numerals (the decay identity; 1009/90000 ≤ 1/(32e) — the far
+arm's decay dominates the gate's half-exponent, the SECOND place the
+margin is spent; dilGap ≤ 4 absolute); the envelope pays the crude
+fold back with 1/5000 to spare; DoorRowT0Gates the eight X-side gates
+(+ the Ddis ≳ (log X)^{0.0449} dissection-depth gate, honest); the
+98-conjunct bridge first-try.
+**COPRIME-EXECUTOR (M4CoprimeSupply 684 + M4NonCoprime +192 +
+the W1 fix):** m4_coprimeN_supplied WHOLE at the VERBATIM grade;
+the join typechecked (one call-site swap for the successor); G2
+re-derived honestly (12·MSan + 24 ≤ 4^{j₀} — the residue to summand
+2's spare, summand 1 has NONE); the exchange factor 2 + 4/A with the
+residue explicit and A-free; harc at 8 (not 2) for the free block;
+ONE FEWER obligation (htr gone — the small half at the absolute 1);
+the empty-dropped-block coverage catch kernel-witnessed.
+
+**THE FINAL JOIN (dispatched):** W5 (the register's ∀d over the
+dilated bases — the ruled statement change in M4DoorClose) + the
+call-site swap (m4_nonCoprime_classMeanSq_N ∘ m4_coprimeN_supplied) +
+THE FULL COLLAPSE: the register at (regime + witnessed) ONLY.

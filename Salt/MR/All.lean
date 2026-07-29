@@ -216,6 +216,8 @@ import Salt.MR.M4DoorClose
 import Salt.MR.FarL2
 import Salt.MR.FarL2Dyadic
 import Salt.MR.A2Wall
+import Salt.MR.M4T0Discharge
+import Salt.MR.M4CoprimeSupply
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -3366,3 +3368,103 @@ open Salt.Tactic in
   Salt.MR.m4_door_meansq_carried
   Salt.MR.m4_dyadicRow_carried
   Salt.MR.m4_wave_structurally_closed
+
+-- ⟦T0-DISCHARGE⟧ (`M4T0Discharge`, 2026-07-28).  THE FIRST CARRIED ANALYTIC ARM, CLOSED.
+-- `m4_wave_structurally_closed` carried TWO analytic arms; this file discharges the `T₀`-band
+-- conjunct of `DoorRowCarried` — the RAW slot `∫_{−seamT0 X}^{seamT0 X} ‖dpolyA (winCutH X_d
+-- (doorChiCoeff χ M)) (seamS0 (2X_d) X) t‖² ≤ t0BandB X C₁′ M₀` — at an EXPLICIT pinned pair
+-- `(C₁′, M₀) = (cfbC₁ X (t0dC1 Cb), t0dM0 X)`, `t0dM0 X = (1009/45000)·e·loglog X`.
+-- ⟦WHY IT CLOSES NOW⟧ `M4T0Datum`'s ⟦PRICING RESIDUE⟧ was a STRENGTH shortfall, never a RANGE
+-- one: `dilated_scale_grade`'s `hM₀` reads the CONTOUR-BOX range `|v| ≤ Rad ⊇ |t₁| + Tstar`, and
+-- the box floor `1/16` was `2.99×` short of the OLD gate `(103/1500)e` (`a2wall_box_fails_gate_15`)
+-- but CLEARS the re-cut gate `(1009/45000)e = 0.060950…` with margin `0.00155008…`.  So the
+-- ORIGINAL `Tstar`-reach pricer works verbatim and the whole route is composition:
+-- `box_floor_M0_pieceDatum` → `dilated_scale_grade` (`t₀ = 0`, `t₁ = t`, `Rad = 3X`, `Xd = X_w`)
+-- → `piece_center_of_wide`'s `hRHS` at `B := t0dB X Cb` → `m4_hT0band_at_door_of_wide` → the slot.
+-- ⟦THE THREE NUMERALS⟧ `t0dM0` (the gate value: the SMALLEST `M₀` making the exit's first
+-- summand decay, at `(log X)^{−1/5000}`); `t0dB` (the per-piece grade —
+-- `e^{−M₀/(2e)} = (log X)^{−1009/90000}` by `t0d_decay_eq`, and the far arm's own `1/(32e) =
+-- 0.011494…` DOMINATES `1009/90000 = 0.011211…` by `t0d_far_exp_le`, the SECOND place the
+-- re-cut's margin is spent); `t0dC1 = 4·cSq·(C(c,Cb) + 2·farCStar + 5)`, `X`-free and `q`-free.
+-- ⟦THE DILATION PRICE IS ABSOLUTE⟧ `t0d_dilGap_le`: at `√X ≤ X_w ≤ X` the Mertens gap is `≤ 4`
+-- with NO `X`-dependence, so it is paid inside the floor's constant (`boxM0_add_debit`) — the
+-- `700`-threshold is read at `Kbox + (Dmask + 4)`.
+-- ⟦THE PINNED PAIR PAYS⟧ `t0d_envelope_decay`:
+-- `(cfbC₁ X C₁)²·e^{−M₀⋆/e} ≤ (C₁+1)²·(log X)^{−1/5000}` — `a2wall_gate_45` at the discharged
+-- pair, i.e. the crude fold's `√(seamT0 X)` is paid back with `1/5000` to spare.
+-- ⟦THE REGISTER UPDATE⟧ `DoorRowCarriedT0` = `DoorRowCarried` with the two existential slots
+-- `C₁′`/`M₀` GONE (pinned) and the `T₀` INTEGRAL replaced by `DoorRowT0Gates` (eight `X`-side
+-- gates: the hoisted threshold, the dilation frame, the `700`-threshold, the `Tstar` reach
+-- `seamT0 X + Tstar(2X, log 2X) ≤ 3X`, the dissection depth's decay).  `doorRowCarried_of_t0free`
+-- is the bridge (98 conjuncts, one replaced); `m4_wave_closed_T0_discharged` is the exit —
+-- **(the coprime-supply arm) + (regime) → ¬ logChowla2Fails R.eps R.x R.ω**, ONE analytic arm
+-- left in the register.
+open Salt.Tactic in
+#audit_axioms Salt.MR.t0dM0
+  Salt.MR.t0dB
+  Salt.MR.t0dC1
+  Salt.MR.t0d_decay_eq
+  Salt.MR.t0d_far_exp_le
+  Salt.MR.t0d_far_le
+  Salt.MR.t0d_P_le
+  Salt.MR.t0d_err_le
+  Salt.MR.t0d_dilGap_le
+  Salt.MR.one_le_t0dC1
+  Salt.MR.t0d_piece_hRHS
+  Salt.MR.m4_t0band_discharged
+  Salt.MR.t0d_envelope_decay
+  Salt.MR.DoorRowT0Gates
+  Salt.MR.DoorRowCarriedT0
+  Salt.MR.doorRowCarried_of_t0free
+  Salt.MR.m4_wave_closed_T0_discharged
+
+-- ⟦THE COPRIME-SUPPLY ARM, SUPPLIED⟧ (`M4CoprimeSupply` + `M4NonCoprime` §6, 2026-07-28) —
+-- the second of `M4DoorClose`'s two carried analytic arms, discharged from the free row
+-- datum.  ⟦COPRIME-SCOPE⟧'s finding first: `M4CoprimeBlockMeanSq` as carried is OVER-GENERAL
+-- — its grade's small-length summand is off by `H/L` for ANY route, unconditionally — so
+-- iron rule 1 keeps it standing and `M4CoprimeBlockMeanSqN` lands BESIDE it with ONE
+-- hypothesis added, ⟦THE NARROWING⟧ `H ≤ arcDen 12 H · L`.  The narrowing is FREE at both
+-- consumption sites (`m4_nonCoprime_classMeanSq_N`, whose hypothesis list, conclusion and
+-- grade are byte-identical to `m4_nonCoprime_classMeanSq`'s): at `L = H` it is
+-- `1 ≤ arcDen 12 H` (`one_le_arcDen_of_regime`), and at `L = ⌊H/d₀⌋+1` it is `H ≤ d₀·L`
+-- against `d₀ ≤ q ≤ arcDen 12 H`.  The supply is `M4Maximal`'s dyadic maximal step re-run at
+-- a FREE block `(A, B]` and a FREE length `L`: §1 the χ-reduction (a verbatim mirror — every
+-- χ-layer stone is base- and length-generic, the `1/φ(q)` cancels exactly); §2 the free
+-- shifted bridge, where the interface's slack-`4` fit forces
+-- `M4ClassPrice.sum_Ioc_absWindowSum_sq_div_le_slack4` in place of the ladder's tight bridge
+-- (⟦THE hcov REPAIR⟧: that lemma's coverage hypothesis was asked for on `(A, B]` but READ
+-- only on `(A, B−4]`, so it is now stated there — zero proof change, no consumer existed);
+-- §3 the free maximal step.  ⟦THE LEDGER⟧ the free block's four units of slack: the analytic
+-- half (`j₀ ≤ j`) lands ON THE NOSE against the grade's first summand (`Λ_L ≤ Λ_H` and
+-- nothing else); the trivial half (`j < j₀`) is charged at the ABSOLUTE grade `1` — no row
+-- datum is read below the floor at all, so the register owes ONE envelope gate, not two —
+-- and takes HALF the second summand; the slack residue (the fit's `+4` and the drop's
+-- `4·(2^j)²/A`, both `A`-free, together `Λ·(6·Fan H + 24)·L²`) takes the other half.  TWO
+-- new class-(a) gates, both `H`-only and consumer-choosable: ⟦G1⟧ `arcDen 12 H ≤ MStr H`
+-- (the trivial envelope against the arc denominator — a threshold, not a saving) and ⟦G2⟧
+-- `12·MSan H + 24 ≤ 4^{j₀}` (the slack residue against the floor's own constant; at the door
+-- `j₀ = M·Adoor M ≥ 2^18`, so this is a formality — but `j₀` is a PARAMETER here, never a
+-- numeral).  ONE regime fact carried: `8·arcDen 12 H ≤ H`, `M4NonCoprime`'s own `harc` with
+-- `2 → 8`, which turns ⟦THE NARROWING⟧ into `8 ≤ L` and hence (on a non-empty block) into
+-- `L ≤ 2A` and `B ≤ 2A` — without it the block `A = 1`, `L = 4`, `B = 2` is legal and
+-- carries no such comparison.  THE EXIT `m4_coprimeN_supplied` emits
+-- `m4BclGraded j₀ (2·MSan) (2·MStr)` **verbatim**: no register line moves.  Anti-vacuity at
+-- every layer (`m4_coprimeBlockMeanSqN_trivial` and `m4_coprimeChiBlockMeanSqN_trivial` at
+-- grade `5`, `m4_chiFreeShiftBlock_trivial` at grade `1`).
+open Salt.Tactic in
+#audit_axioms Salt.MR.M4CoprimeBlockMeanSqN
+  Salt.MR.m4_coprimeBlockMeanSqN_of_full
+  Salt.MR.m4_coprimeBlockMeanSqN_trivial
+  Salt.MR.one_le_arcDen_of_regime
+  Salt.MR.m4_nonCoprime_classMeanSq_N
+  Salt.MR.norm_sum_doorSievedWindow_le
+  Salt.MR.doorChiSup_le_len
+  Salt.MR.M4CoprimeChiBlockMeanSqN
+  Salt.MR.m4_coprimeChiBlockMeanSqN_trivial
+  Salt.MR.m4_coprimeMeanSqN_of_chiMeanSqN
+  Salt.MR.M4ChiFreeRowMeanSq
+  Salt.MR.M4ChiFreeShiftBlockMeanSq
+  Salt.MR.m4_chiFreeShiftBlock_trivial
+  Salt.MR.m4_chiFreeShiftBlock_of_freeRow
+  Salt.MR.m4_coprimeChiN_of_freeShiftBlock
+  Salt.MR.m4_coprimeN_supplied

@@ -484,6 +484,198 @@ theorem m4_nonCoprime_classMeanSq {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → 
       _ ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ) :=
           d0_ledger hd hH'H (hBcl0 H)
 
+/-! ## §6 — ⟦THE NARROWED TWIN⟧ (`M4CoprimeBlockMeanSqN`)
+
+⟦COPRIME-SCOPE⟧'s finding: `M4CoprimeBlockMeanSq` as stated above is **over-general** — its
+grade's small-length summand is off by `H/L` for ANY route, unconditionally, so no supplier
+can meet it at a free `L`.  Iron rule 1 keeps the interface standing (it is load-bearing in
+the landed close); this section lands the twin BESIDE it, with **one** hypothesis added:
+
+  `(H : ℝ) ≤ arcDen 12 H · L`   — ⟦THE NARROWING⟧,
+
+i.e. the free window length is at least `H/(log H)^{12}`.  Nothing else moves: the block is
+still free, the modulus range is still the arc's, and the grade slot is still read at the
+ambient `H`, so `d0_ledger` is untouched and the register's lines do not move.
+
+⟦WHY IT COSTS NOTHING⟧ the twin's two consumption sites — `m4_nonCoprime_classMeanSq_N`
+below — are the ONLY places the interface is read, and at both the narrowing is DISCHARGED
+from facts already in scope:
+
+* the coprime branch reads `L = H`, where the narrowing is `1 ≤ arcDen 12 H`, i.e.
+  `1 ≤ log H`, which is `M4Close.exp_one_le_log_of_regime_le`;
+* the dilated branch reads `L = ⌊H/d₀⌋ + 1`, where `d₀·L ≥ H` is ℕ-division and
+  `d₀ ≤ q ≤ arcDen 12 H` is the modulus gate.
+
+So no consumer pays for the narrowing, and a supplier may use it. -/
+
+/-- **THE NARROWED COPRIME FAMILY** (`M4CoprimeBlockMeanSqN`) — `M4CoprimeBlockMeanSq` with
+⟦THE NARROWING⟧ `(H : ℝ) ≤ arcDen 12 H · L` inserted directly after `L ≤ H`, and NOTHING
+else changed.  Strictly weaker as a hypothesis on a supplier, strictly stronger as a demand
+on a consumer — and `m4_nonCoprime_classMeanSq_N` shows the demand is free. -/
+def M4CoprimeBlockMeanSqN (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → (H : ℝ) ≤ arcDen 12 H * (L : ℝ) →
+    ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H → ∀ r, r < q → Nat.Coprime q r →
+      ∀ A B : ℕ, 0 < A → B + L ≤ 2 * A + 4 →
+        ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff M) L n q r) ^ 2
+          ≤ Bcl H * (L : ℝ) ^ 2 * (A : ℝ)
+
+/-- The narrowed family is implied by the full one — the twin adds a hypothesis and nothing
+else, so any supplier of the (unattainable) general interface supplies this one too. -/
+theorem m4_coprimeBlockMeanSqN_of_full {R : ChowlaRegime} {M : ℕ} {Bcl : ℕ → ℝ}
+    (h : M4CoprimeBlockMeanSq R M Bcl) : M4CoprimeBlockMeanSqN R M Bcl :=
+  fun H hlo hhi L hLH _ q hq hqQ r hrq hcop A B hA hfit =>
+    h H hlo hhi L hLH q hq hqQ r hrq hcop A B hA hfit
+
+/-- **THE ANTI-VACUITY WITNESS** for the twin, at the trivial grade `5` — the house's duty
+carried over from `m4_coprimeBlockMeanSq_trivial`. -/
+theorem m4_coprimeBlockMeanSqN_trivial (R : ChowlaRegime) (M : ℕ) :
+    M4CoprimeBlockMeanSqN R M (fun _ => 5) :=
+  m4_coprimeBlockMeanSqN_of_full (m4_coprimeBlockMeanSq_trivial R M)
+
+/-- `1 ≤ arcDen 12 H` past the regime's window floor: `arcDen` is a POSITIVE power of
+`log H`, and `e ≤ log H` there (`M4Close.exp_one_le_log_of_regime_le`).  Named once — both
+narrowing discharges below and every supplier's regime step read it. -/
+theorem one_le_arcDen_of_regime {R : ChowlaRegime} {H : ℕ} (hlo : R.Hlo ≤ H) :
+    (1 : ℝ) ≤ arcDen 12 H := by
+  have hLexp : Real.exp 1 ≤ Real.log (H : ℝ) := exp_one_le_log_of_regime_le R hlo
+  have he : (1 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+  have hL1 : (1 : ℝ) ≤ Real.log (H : ℝ) := le_trans he.le hLexp
+  have harcnp : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
+    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+  rw [harcnp]
+  exact one_le_pow₀ hL1
+
+/-- **⟦R2⟧, AT THE NARROWED TWIN** (`m4_nonCoprime_classMeanSq_N`).  Byte-for-byte
+`m4_nonCoprime_classMeanSq` with its coprime datum read at `M4CoprimeBlockMeanSqN`: the SAME
+hypothesis list, the SAME conclusion `M4ClassBlockMeanSq R M k Bcl`, the SAME grade — the
+narrowing is discharged inside, at each of the two sites, from facts the proof already had.
+
+* `d₀ = 1`, `L = H`: `(H:ℝ) ≤ arcDen 12 H · H` is `one_le_arcDen_of_regime`;
+* `d₀ > 1`, `L = ⌊H/d₀⌋ + 1`: `H ≤ d₀·L` is `Nat.div_add_mod` + `Nat.mod_lt`, and
+  `d₀ ≤ q ≤ arcDen 12 H` is `Nat.gcd_dvd_right` + the modulus gate. -/
+theorem m4_nonCoprime_classMeanSq_N {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}
+    (hM : 1 ≤ M) (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
+    (hlogcap : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Real.log (H : ℝ) ≤ (2 : ℝ) ^ (21845 : ℕ))
+    (harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ))
+    (hcp : M4CoprimeBlockMeanSqN R M Bcl) :
+    M4ClassBlockMeanSq R M k Bcl := by
+  intro H hlo hhi q hq hqQ i _ r hrq
+  -- ⟦the block, and the ladder's two facts⟧
+  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+  have hAfl : H + 1 ≤ doorLadder R.x H (i + 1) := doorLadder_floor hxH (i + 1)
+  have hfit : doorLadder R.x H i + H ≤ 2 * doorLadder R.x H (i + 1) := doorLadder_fit R.x H i
+  have hApos : 0 < doorLadder R.x H (i + 1) := by omega
+  have hd : 0 < Nat.gcd r q := Nat.gcd_pos_of_pos_right r hq
+  have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+  have hH0R : (0 : ℝ) ≤ (H : ℝ) := Nat.cast_nonneg _
+  by_cases hcase : Nat.gcd r q = 1
+  · -- ⟦d₀ = 1⟧ the class is already coprime: the datum, read at the door block, `L = H`
+    have hcopqr : Nat.Coprime q r := by
+      rw [Nat.Coprime, Nat.gcd_comm]; exact hcase
+    have hnarrow : (H : ℝ) ≤ arcDen 12 H * (H : ℝ) := by nlinarith
+    exact hcp H hlo hhi H le_rfl hnarrow q hq hqQ r hrq hcopqr
+      (doorLadder R.x H (i + 1)) (doorLadder R.x H i) hApos (by omega)
+  · -- ⟦d₀ > 1⟧ ONE dilation, then the `d₀`-to-one re-index of the block
+    have hd2 : 2 ≤ Nat.gcd r q := by omega
+    -- ⟦the modulus gates⟧
+    have hdq : Nat.gcd r q ≤ q := Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)
+    have h2q : 2 * q ≤ H := by
+      have hR : ((2 * q : ℕ) : ℝ) ≤ (H : ℝ) := by
+        push_cast
+        have := harc H hlo hhi
+        linarith
+      exact_mod_cast hR
+    have hdA : Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
+    have hdA2 : 2 * Nat.gcd r q ≤ doorLadder R.x H (i + 1) := by omega
+    have hA2 : 2 ≤ doorLadder R.x H (i + 1) / Nat.gcd r q :=
+      (Nat.le_div_iff_mul_le hd).mpr (by omega)
+    have hA'pos : 0 < doorLadder R.x H (i + 1) / Nat.gcd r q - 1 := by omega
+    -- ⟦the reduced pair⟧
+    have hq₀ : 0 < q / Nat.gcd r q :=
+      Nat.div_pos (Nat.le_of_dvd hq (Nat.gcd_dvd_right r q)) hd
+    have hq₀Q : ((q / Nat.gcd r q : ℕ) : ℝ) ≤ arcDen 12 H := by
+      refine le_trans ?_ hqQ
+      exact_mod_cast Nat.div_le_self q (Nat.gcd r q)
+    have hr₀q₀ : r / Nat.gcd r q < q / Nat.gcd r q := by
+      rcases Nat.lt_or_ge (r / Nat.gcd r q) (q / Nat.gcd r q) with hlt | hcon
+      · exact hlt
+      refine absurd hrq (not_lt.mpr ?_)
+      have hqd : Nat.gcd r q * (q / Nat.gcd r q) = q :=
+        Nat.mul_div_cancel' (Nat.gcd_dvd_right r q)
+      have h1 : Nat.gcd r q * (q / Nat.gcd r q)
+          ≤ Nat.gcd r q * (r / Nat.gcd r q) := Nat.mul_le_mul le_rfl hcon
+      have h2 : Nat.gcd r q * (r / Nat.gcd r q) ≤ r := by
+        rw [Nat.mul_comm]; exact Nat.div_mul_le_self r (Nat.gcd r q)
+      rw [← hqd]
+      exact h1.trans h2
+    have hcop₀ : Nat.Coprime (q / Nat.gcd r q) (r / Nat.gcd r q) :=
+      (m4_class_dilate_coprime hq r).symm
+    -- ⟦the dilated window length⟧
+    have hH'H : H / Nat.gcd r q + 1 ≤ H := by
+      have hstep : H / Nat.gcd r q ≤ H / 2 := Nat.div_le_div_left hd2 (by norm_num)
+      omega
+    -- ⟦THE NARROWING, at the dilated length: `H ≤ d₀·L ≤ arcDen·L`⟧
+    have hnarrow : (H : ℝ) ≤ arcDen 12 H * ((H / Nat.gcd r q + 1 : ℕ) : ℝ) := by
+      have hexp : Nat.gcd r q * (H / Nat.gcd r q + 1)
+          = Nat.gcd r q * (H / Nat.gcd r q) + Nat.gcd r q := by ring
+      have hdm : Nat.gcd r q * (H / Nat.gcd r q) + H % Nat.gcd r q = H :=
+        Nat.div_add_mod H (Nat.gcd r q)
+      have hmod : H % Nat.gcd r q < Nat.gcd r q := Nat.mod_lt _ hd
+      have hnat : H ≤ Nat.gcd r q * (H / Nat.gcd r q + 1) := by omega
+      have hR : (H : ℝ) ≤ (Nat.gcd r q : ℝ) * ((H / Nat.gcd r q + 1 : ℕ) : ℝ) := by
+        exact_mod_cast hnat
+      have hdR : (Nat.gcd r q : ℝ) ≤ arcDen 12 H := by
+        refine le_trans ?_ hqQ
+        exact_mod_cast hdq
+      have hL0 : (0 : ℝ) ≤ ((H / Nat.gcd r q + 1 : ℕ) : ℝ) := Nat.cast_nonneg _
+      nlinarith
+    -- ⟦the dilation's own gates⟧
+    have hL1 : (1 : ℝ) ≤ Real.log (H : ℝ) := by
+      have hLexp : Real.exp 1 ≤ Real.log (H : ℝ) := exp_one_le_log_of_regime_le R hlo
+      have he : (1 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+      linarith
+    have harcnp : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
+      rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+    have hqW : (q : ℝ) ≤ Real.log (H : ℝ) ^ (12 : ℕ) := by rw [← harcnp]; exact hqQ
+    -- ⟦the pointwise transport, then the fibre count, then the datum, then the ledger⟧
+    have hpt : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+        (classSup (doorSievedCoeff M) H n q r) ^ 2
+          ≤ (fun n' => (classSup (doorSievedCoeff M) (H / Nat.gcd r q + 1) n'
+                (q / Nat.gcd r q) (r / Nat.gcd r q)) ^ 2) (n / Nat.gcd r q) := by
+      intro n _
+      have hle := classSup_le_dilate (M := M) (H := H) (q := q) (r := r) (n := n)
+        hM hq hL1 (hlogcap H hlo hhi) hqW
+      have h0 := classSup_nonneg (doorSievedCoeff M) H n q r
+      simp only
+      nlinarith
+    have hmaps : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+        n / Nat.gcd r q ∈ Finset.Ioc (doorLadder R.x H (i + 1) / Nat.gcd r q - 1)
+          (doorLadder R.x H i / Nat.gcd r q) := fun n hn => div_mem_reindexed hd hdA hn
+    have hdatum := hcp H hlo hhi (H / Nat.gcd r q + 1) hH'H hnarrow (q / Nat.gcd r q) hq₀ hq₀Q
+      (r / Nat.gcd r q) hr₀q₀ hcop₀ (doorLadder R.x H (i + 1) / Nat.gcd r q - 1)
+      (doorLadder R.x H i / Nat.gcd r q) hA'pos (dilBlock_reindex_fit hd hdA hfit)
+    have hd0R : (0 : ℝ) ≤ (Nat.gcd r q : ℝ) := Nat.cast_nonneg _
+    calc ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          (classSup (doorSievedCoeff M) H n q r) ^ 2
+        ≤ ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+            (classSup (doorSievedCoeff M) (H / Nat.gcd r q + 1) (n / Nat.gcd r q)
+              (q / Nat.gcd r q) (r / Nat.gcd r q)) ^ 2 := Finset.sum_le_sum hpt
+      _ ≤ (Nat.gcd r q : ℝ)
+            * ∑ n' ∈ Finset.Ioc (doorLadder R.x H (i + 1) / Nat.gcd r q - 1)
+                (doorLadder R.x H i / Nat.gcd r q),
+              (classSup (doorSievedCoeff M) (H / Nat.gcd r q + 1) n'
+                (q / Nat.gcd r q) (r / Nat.gcd r q)) ^ 2 :=
+          sum_Ioc_comp_div_le
+            (f := fun n' => (classSup (doorSievedCoeff M) (H / Nat.gcd r q + 1) n'
+              (q / Nat.gcd r q) (r / Nat.gcd r q)) ^ 2)
+            (fun _ => sq_nonneg _) (d := Nat.gcd r q) hd hmaps
+      _ ≤ (Nat.gcd r q : ℝ)
+            * (Bcl H * ((H / Nat.gcd r q + 1 : ℕ) : ℝ) ^ 2
+                * ((doorLadder R.x H (i + 1) / Nat.gcd r q - 1 : ℕ) : ℝ)) :=
+          mul_le_mul_of_nonneg_left hdatum hd0R
+      _ ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ) :=
+          d0_ledger hd hH'H (hBcl0 H)
+
 end Salt.MR
 
 end
