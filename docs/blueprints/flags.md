@@ -14767,3 +14767,62 @@ riders + the port-case anchor note (2^74-equivalent via another
 one-line re-pin, or route B's generalisation, when it fires)). On
 JYH's word, the port brief gets drafted, refuted, and dispatched as
 its own multi-wave campaign.
+
+---
+
+## ⟦THE KMT DEEP READ + PORT FREEZE v1⟧ — the price COLLAPSES (both "new stones" dissolve; the SW route the centerpiece; ONE open seam) (2026-07-29 12:26 PDT)
+
+Three readers over the paper (the full reports in the session
+record; port-freeze-0729.md the distillation). THE VERDICTS:
+
+**READER-A (§§4–6):** Lemma 6.2 (the hybrid MVT) = a WRAPPER over
+the landed MVHilbertUniform (arbitrary Finset/frequencies/δ — only
+the AP gap lemma δ = q/2N + the orthogonality fold are new); Lemma
+6.5 = large_value_count at T → qT (the k!-combinatorial core
+character-free, verbatim); Shiu = shiu_moment_sq at blockDiv EXACTLY
+(KMT's g byte-matched); 6.3 = the corpus's own written-out Gallagher
+template; 6.7 = the Ramaré bridge + 6.2. **The one statement with NO
+proof in KMT: Lemma 6.4 (Halász–Montgomery hybrid, a Montgomery
+LNM 227 pointer)** — needed on KMT's route at our scales (the
+h ≫ q·X^ε criterion FAILS), avoidable via footnote-7's lossy-count
+calculus at our thick budget OR the corpus-architecture route. The
+N1–N7 normalization dictionary banked (the t-sign CATCH #B, σ=0 vs
+σ=1, the conjugation asymmetry).
+
+**READER-B (§§7–8):** the exceptional-modulus/zero-density block is
+VACUOUS at q ≤ x^{ε^20} by the paper's own text (Lemma 8.1's first
+line) — the floor stack's credit was never needed there. **What the
+all-χ floors DELETE is the χ₁ APPARATUS WHOLESALE** (minimizer,
+subtraction, the weak (37)/(41) rows, Lemma 7.8, 8.2(ii) — the
+razor-thin 5.48-vs-5.5 page vanishes with it) — and the deletion is
+what makes the FOUR-FOLD decomposition legal (per-datum minimizers
+= four undominated weak rows, fatal at the raw target). The new
+Prop 8.3 = floor → halasz_ball_decay, two steps. THE HARD CORE =
+Prop 8.5 (arbitrary (a_p) — no floor helps; Brun–Titchmarsh ABSENT;
+the (χ,t) large-values lift). Iron rules banked: the four-fold split
+NEVER touches the g-slot; the ellLin prime-power check per pairing.
+Its primeDivSum recommendation was ALREADY LANDED as F4 this morning.
+
+**READER-C (§§1–3, 9):** "Cor 1.7" IS the paper's own number (μ-only,
+unsieved — the general entry is Thm 1.5/Prop 9.4); the exceptional
+set + typicality VACUOUS (three textual witnesses each); the
+dx-Parseval = the LANDED Lemma 14 ("almost verbatim" — the paper's
+words); §§10–12 skipped (leaves, wrong q-range). **THE ECONOMICS:
+§3.5's unproved remark (SW for Halász at μ-genre data buys
+(log)^{−2+o(1)}) moves the port's floor from lnln Hlo ≈ 5.25e4 (the
+docs' 4.5e4 corrected — the kernel prefactor was dropped) to ≈ 125 —
+UNDER THE RULED 2^36 ANCHOR with ~26× margin.** Exactly ONE
+ineffective constant (Siegel via the χ₁-row; A := 13 makes the
+q₀-multiple clause vacuous; the ∃-H₀ fold). The socket catch: the
+free base A is unbounded below — unsuppliable at A = 1; the A-floor
+amendment = wave P-1. Banked aside: effective-Landau caps the
+modulus exponent at 2−o(1) — the arc's 12 is what forces Siegel.
+
+**THE FREEZE v1 (port-freeze-0729.md):** the corpus-architecture
+hybrid (the landed seam/window machinery at the χ-twisted four-fold
+datum, χ-summed; KMT as the map); waves P-1..P-7; **the honest total
+COLLAPSES to ~3–6k ln / ~6–15M tokens over 2–4 days** (from 8–18k),
+with P-6 (the spectrum case) the one open band pending
+SPECTRUM-SCOPE. The refuter pass (R-P1..R-P5) + SPECTRUM-SCOPE
+dispatched; the refuted v2 + the honest price go to JYH for the
+port authorization.
