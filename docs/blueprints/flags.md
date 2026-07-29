@@ -14495,3 +14495,80 @@ SECOND-ROAD-SCOPE dispatched for the input dossier (m4_wave_exit's
 six items byte-exact + the reusable-chain census). Standing at
 JYH's side: the D2 re-run (console), the personal-time record
 (review), the endorser outreach (Loeffler first, post-approval).
+
+---
+
+## ⟦FREEZE-REFUTE⟧: the second-road freeze v1 → v2 — three verdicts (one KILL each from SAND and SHAPE; REG's drift-line catch; R-E clean); TWO GIFTS (the landed q-free dock; the D₀ truncation) (2026-07-29 07:58 PDT)
+
+**REF-SAND (AMEND + KILL):** the freeze's D-6 silently used Cg = 1 —
+the honest constant traced to typical_density_le's witness:
+**Cg = 2e^{19/ln2}+1 = 1.605e12** (M = 1.93e62, lnln Hlo = 169.9 at
+k=30); non-circularity SAFE (Cg/ε/δ₀ pre-C). The gate-12 analogue IS
+consumed on the second road (the stratified dilation at
+W = arcDen 12 H). **THE KILL: wave ⑤ consumes the LANDED kernel
+exponent 5 (tower_loglog_le; the sharpest restatable is e^{3/2} =
+4.4817) — at exp 5 the 2^30 anchor FAILS ×11; the honest ask is 2^34
+minimum / 2^36 for ≥2× headroom; the port case ~2^74.** U1floor
+corrected: 4^{j₀} not 16^{j₀} (the freeze squared it, conservative);
+lever 1′ buys ~nothing on the floor; per-bit margin ×1.96 (the
+freeze's tower-response prose was 15× off). **⟦THE A-6 GIFT⟧: the
+D₀-TRUNCATED STRATA — take strata d > D₀ trivially
+(m4_class_dilate_exit's third conjunct, the H/d+1 trivial bound);
+after F3 the admissibility is ABSOLUTE (D₀ ≈ (C·Bcl)^{-1/2} ≈ 2^163)
+and the gate demand collapses from arcDen to D₀ — free at 2^18 by
+~1600 bits: THE SANDWICH CAP MAY DISAPPEAR ENTIRELY, no DoorFrame
+re-pin. Unverified; wave ⑤ tests it FIRST, before any anchor ask.**
+
+**REF-REG (AMEND):** m4_wave_closed byte-quoted; walls B/D/F5
+CONFIRMED-CLEAR at the register (no X-upper anywhere; the WALL-D/F5
+conjuncts live only in the banked DoorRowCarriedT0). WALL A wording
+amended: ONE limb dies (the decaying grade); **hMδ SURVIVES and is
+DEFUSED at the constant** — M4DoorGates/hMδ must NOT be touched by
+wave ① (the door glue's own contract). Bonus: pre-split hrest was an
+H-upper in disguise (WALL C genre) — the split kills that too. **THE
+DRIFT CATCH (load-bearing): hdrift is a proof OBLIGATION with arcDen
+hard-coded, binding at q = 1 (39.5·A²) — NO wave owned its re-cut;
+wave ③ would land an unconsumable stone.** Bcl is woven into 3
+conjuncts — adopt m4_wave_closed_of_dyadicRow's graded shape, don't
+re-derive. **R-D: the twin list is 21 not 13** (+m4_gradeGate_direct
+(U3, the critical path), +m4_wave_closed_of_dyadicRow (D-3's host),
++m4_wave_closed_of_chi; the 5-member _False family = a decision
+owed); the naturally-retired list named (the whole mrtGate/H0scale
+block, m4Saving's margin, m4_wave_exit_sup-as-priced); **the
+C-binder warning: the split twins are NOT shape-preserving — ∀C
+exists only to feed mrtGate and disappears; preserving it re-imports
+WALL A.** Wave ① honest band 800–1200 ln. D-8 condition: if the port
+is declined and supply falls back per-χ, WALLS D+F5 RETURN — the
+register's wall-freedom is bought by the socket swap alone.
+
+**REF-SHAPE (R-C KILLED-as-stated + the exact repair; R-E
+CONFIRMED-SAFE):** the D-3 socket is UN-INSTANTIABLE at every
+stratum d ≥ 2 (the dilated base ⌊A/d⌋ < A ≤ A+s can never be named
+by the ladder form; the corpus already learned this — the free-base
+row twin M4ChiFreeRowMeanSq IS the right genre; D-3 mirrored the
+wrong predicate). "Length-general" re-worded: cap-general (∀L ≤ H),
+window-dyadic. **The :449 fork byte is the WRONG dock** (kills only
+the sum_const q; the q² lives inside M4BlockMeanSqSupQ + the
+register conjuncts; the reduced-modulus instances enter at the
+free-form inv_totient twin) — **the q-free dock ALREADY EXISTS
+LANDED: M4BlockMeanSqSup + m4_cover_assembly_sup + m4_wave_exit_sup
+item 6′.** ⟦A-C1⟧ the replacement socket M4ChiSummedFreeRow (exact
+bytes in the verdict — free base, free cap, dyadic window, every
+modulus, RS q′-free, anti-vacuity witness named). ⟦A-C2⟧ wave ④
+re-routed (~1150–1800; the Σ_χ mirrors of the free chain are
+mechanical). ⟦A-C3⟧ D-1 returns to JYH with the q² trade-off NAMED
+(m4_wave_closed hard-wires q²; exit_sup is q-free at item 6′ —
+choose deliberately). ⟦A-C4⟧ M4CoprimeSupply + M4NonCoprime join the
+kept list. **A2 (G1 → arcDen²) is NOT optional — it is the price of
+the stratified composition** ((log H)^{4.27} at the dilated cap —
+independently reproduces LEVER1-REF's number). **R-E: no consumer
+reads the closed endpoint** (smallest index X+2, strictness DERIVED
+from the block's own Ioc at the s=0 corner, half-open tiling
+throughout, margin 2); the endpoint obligation belongs to the
+SUPPLIER (A-E2: if the port reuses the RamareMR binder family,
+SeamCoefWS is a port prerequisite; if KMT-style, off the critical
+path); the half-open guard: bottom only, the top IS read at equality.
+
+**→ FREEZE v2 cut now with all amendments; the register-target
+decision (m4_wave_closed re-cut vs the exit_sup q-free shape) goes
+to JYH named.**
