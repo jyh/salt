@@ -14826,3 +14826,49 @@ with P-6 (the spectrum case) the one open band pending
 SPECTRUM-SCOPE. The refuter pass (R-P1..R-P5) + SPECTRUM-SCOPE
 dispatched; the refuted v2 + the honest price go to JYH for the
 port authorization.
+
+---
+
+## ⟦SPECTRUM-SCOPE⟧: P-6 RESOLVED — routes (i)+(ii) are ONE route and the corpus already runs it; Lemma 6.4 provably unnecessary; ONE missing stone (the χ-VK region); the honest price re-corrects (2026-07-29 15:47 PDT)
+
+**THE STRUCTURAL VERDICT:** footnote 7's lossy count (O_ε(1) =
+100/ε² — astronomical at any ε of ours) is fatal against ANY polylog
+saving — including SW's and the floors' — and closes ONLY paired
+with a quasi-power decay. That pairing IS the corpus's landed q=1
+𝒰-leg (USetThinTL's 𝒯_L kill: large_value_count at V = (log X)^100
+beaten by the VK-width decay, θ < 1/8). **And the corpus's 𝒯_S
+branch ROUTES AROUND Lemma 6.4 ENTIRELY** (the |𝒯|·√T razor via the
+sup-norm Halász + thinness — USetThinTS:354/388; no
+Halász–Montgomery anywhere). Route (iii) REJECTED as dominated: its
+irreducible core (7.9 Case 4 at our conductor) IS the χ-VK region —
+KMT's own words certify §8 exists only because THEIR conductors are
+large.
+
+**P-6 = the 𝒰-leg χ-lift; the ONE missing analytic stone: the
+VK-WIDTH zero-free region for L(s,χ) at q ≤ (log H)^12** (classical
+width gives NO decay at the §8.3 pins — the 3/4 exponent is
+irreducible; the floor route is polylog — P-5's arm, not P-6's).
+The stones: A the twisted STRIP growth (the landed
+vk_dirichlet_block_twist_all at general σ + the Fourier completion +
+PV — 300-500); **B the growth→region bridge at L(s,χ) (the D-RISK:
+the 3-4-1 lower-bound leg at VK width — ζ's pole is gone; the
+classical-width template landed at ZeroFreeReal §2; PROBE FIRST
+before any other P-6 line — KR-1)** (600-1000); C the L′/L contour
+re-run (HalaszPrimesCore's window machinery character-blind
+verbatim; the RES leg VANISHES for χ ≠ 1) (700-1200); D the Siegel
+fold now covering P-5 AND P-6 (150-300); E the 8197-ln ladder
+retype (mechanical, 800-2000; overlaps P-7). **HONEST P-6:
+2550–5000 ln (1750–3000 if P-7 absorbs the pins) — the freeze's
+400–1500 was too low. THE PORT'S HONEST TOTAL: ~5–9k ln.**
+
+**THE NUMEROLOGY CORRECTIONS (refuter hand-offs):** the SW-route's
+cascade ε DECOUPLES from the saving (ε_floor ≈ 1.5e-49 from KMT's
+own (52) governs the ladder; the saving saturates the architecture
+ceiling (loglog/log)²); **⟦KR-6⟧ lnln Hlo = 125 is 0.3–6 SHORT
+(FAILS ×1.7 at 125 on the generous reading; honest ≈ 131 with the
+(loglog)² kept)** — still under the 2^36 anchor (×~21) but R-P1
+re-derives. KR-2: the Fourier completion's q^{3/2} enters the
+region's WIDTH (couples loglog H to loglog X — check, don't
+assume). KR-5: TWO independent anchors (the big-scale X₀ law
+~10^385, threaded in-statement; verify no conflict with the ratified
+spine conjunct).
