@@ -14435,3 +14435,13 @@ surviving assets if the current register road ends: m4_wave_exit's
 six-item register (F5-free; residue M4RowMeanSq) + the whole priced
 lever kit — the door-supply re-cut design question is THE Fable
 table item.
+
+---
+
+## ⟦COUNCIL 0729 — C1 RATIFIED AS IT STANDS⟧ (2026-07-29 06:24 PDT, JYH at the table)
+
+The night ledger ratified whole: THE SEAM RE-CUT ((n,m) = (45,46),
+δ = 1/5000) is now JYH-RATIFIED — no longer a night amendment; the
+~8 rulings of 7/28, the WALL-C wave (a4fedce), and the E-wave
+(a626571) all ratified. The register road's artifacts stand as
+landed.
