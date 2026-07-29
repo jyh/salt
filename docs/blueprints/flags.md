@@ -14675,3 +14675,55 @@ needs ~2^74; the Ah h-dependent anchor (Eq26Compose:874, unconsumed)
 is the structural alternative that may dissolve both — UNPRICED, one
 scoper away. (2) ⟦THE PORT⟧ — 8–18k, the demand now exact and
 generous, the three riders, the endpoint obligation per A-E2.
+
+---
+
+## ⟦AH-SCOPE⟧: AH-PARTIAL — the landed Ah def is eq-26 furniture that doesn't transfer, but the SCALED frame is the gift; the anchor ask CHANGES GENRE; the hidden rider on the numeral route EXPOSED (2026-07-29 10:53 PDT)
+
+**Q1:** the Eq26Compose 765-953 block was built so P₁ → ∞ with h on
+the eq-26 arc (at the landed pin MR Thm 3's error DIVERGES — "true
+but vacuous," the file's own words). Ah_containment contains the
+Ah-family vs [1,h] only — NO nesting between anchor families.
+**calFrameK_satisfiable_scaled (:783 — the frame at Adoor M · k for
+EVERY k ≥ 1) is the real gift; Ah itself (the containment-saturating
+k = ⌊log₂h/B⌋) leaves headroom log₂h mod B and BLOWS the graded head
+by 10^5977 on a nonempty H-set — unusable on the door road.** The
+door wants the DOUBLE-LOG k = ⌈17.31·lnln H/Adoor M⌉ — which is 1
+until lnln H = 3.13e6, i.e. byte-identical to today's anchor below
+exactly the point where gate 8 breaks: a pure extension.
+
+**Q2 THE CRUX:** the dilation ceiling is DEFINITIONALLY the datum's
+own P₁ (memS_dilate_of_lt_bot at Pseq 1) — a bigger ceiling on
+another ladder buys zero; **the datum must move**. BUT lever-2's
+blocker does NOT transfer: the anchor varies with the OUTER H only
+(the tiling's one-filter demand is per-window); every datum-bearing
+statement lives inside ∀H and m4_hbd_of_live ERASES the datum
+(the glue takes the anchor as a free argument). Q2 survives at the
+price of the datum's re-parametrisation.
+
+**Q3:** under the double-log k: gate 8 becomes an H-FLOOR that
+COINCIDES with the road's existing floor; the sandwich dissolves at
+every scale incl. the port's (A ≈ 4.3e24 there = the 2^74
+equivalent ✓). δinv's honest value: 8·δinv IS the door's M (the
+24-vs-8 constant).
+
+**Q4 THE COSTS:** route B (the anchor generalisation): ~150
+statements re-parametrised (~1500-2500 ln mechanical churn,
+TOUCHING FROZEN-TIER files — ThmA2Rows/DoorFrameH1 — JYH-tier) +
+DoorFrameH1's scaled H₁ twin (the ONE new analytic piece, 300-500
+ln) + the register/j₀-as-function re-cut (200-400). The port's
+RS-demand UNCHANGED either way (+1 statement argument).
+
+**THE PRIZE FINDING — the hidden rider on the numeral route:** a
+CONSTANT anchor (2^34/2^36) against a regime that exports NO Hhi
+bound is only sound WITH the log Hhi ≤ f(log Hlo) export — i.e. the
+numeral re-pin SILENTLY CARRIES the ∃R-conjunct spine amendment
+(the C3-held threading; the analytic page ALREADY LANDED as
+TowerExport). The h-dependent route needs no export (its floor is a
+per-H lower, absorbed pre-R). **THE DECISION: route A = the 2^36
+re-pin (~20 numeral sites, supply-favourable) + the named ∃R-conjunct
+amendment (~150-250 ln threading, the spine statement gains a
+conjunct — the C3-anticipated moment); route B = the ~2k-ln anchor
+generalisation (no numeral, no spine change, frozen-massif churn).
+The maestro recommends A; B stays banked (and covers the port's
+2^74 automatically if ever preferred).**
