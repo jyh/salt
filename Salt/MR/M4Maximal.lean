@@ -13,7 +13,7 @@ and names the passage to the sub-window sup (`doorChiSup`, the sup over `K ≤ H
 This file executes that passage by the dyadic (Rademacher–Menshov) route and lands
 `M4ChiBlockMeanSq` — the M4 wave's analytic item — from a per-dyadic-length row datum, at
 
-  `Cmax H = 3·(log₂ H + 1)`   (`m4Cmax`, `Nat.log 2` — ONE log, not `(log H)²`).
+  `Cmax = 54/5 = 10.8`   (`m4Cmax`, a CONSTANT — ⟦LEVER 1′⟧; no log at all).
 
 ## ⟦THE STATEMENT FINDING⟧ — why `M4ChiMaximalStep` is not the shape that can be proved
 
@@ -48,25 +48,34 @@ The dyadic assembly never needed uniformity, and this file now says so: the row 
 `MS : ℕ → ℕ → ℝ`, read `MS j H` — THE GRADE AT DYADIC LENGTH `2^j`.  §4 is where the
 length-dependence dies, and it dies asymmetrically:
 
-* the FULL weighted count is `∑_{j ≤ L} (⌊H/2^{j+1}⌋+1)(2^j)² ≤ 3H²`
-  (`dyadic_count_weight_le`) — quadratic in `H`, the block's own normalisation;
-* the SMALL head is `∑_{j < j₀} (⌊H/2^{j+1}⌋+1)(2^j)² ≤ 2·H·4^{j₀}`
-  (`dyadic_count_weight_small_le`) — LINEAR in `H`, times a constant that depends on the
-  floor `j₀` ALONE.
+* the FULL weighted count is
+  `(∑_{j ≤ L}(3/2)^j)·∑_{j ≤ L}(⌊H/2^{j+1}⌋+1)(2^j)²(2/3)^j ≤ (54/5)H²`
+  (`dyadic_count_weight_geom_le`) — quadratic in `H`, the block's own normalisation, and the
+  prefactor is now the Cauchy–Schwarz weight sum, NOT the piece count;
+* the SMALL head is
+  `(∑_{j ≤ L}(3/2)^j)·∑_{j < j₀}(⌊H/2^{j+1}⌋+1)(2^j)²(2/3)^j
+     ≤ (9/2)H(3/2)^L(4/3)^{j₀} + (9/5)(3/2)^L(8/3)^{j₀}`
+  (`dyadic_count_weight_geom_small_le`) — TWO summands, because the term bound's two halves
+  run at the two different ratios `2/(3/2) = 4/3` and `4/(3/2) = 8/3`.
 
 So the split assembly charges `Fan H` (the analytic grade) at `j₀ ≤ j` and `Ftr H` (the
 trivial grade — the block density, `≍ 1`) at `j < j₀`, and pays
 
-  `Bcl H = m4Cmax H·Fan H + (log₂H + 1)·(2·4^{j₀}/H)·Ftr H`   (`m4BclGraded`).
+  `Bcl H = m4Cmax H·Fan H
+             + ((9/2)(3/2)^{log₂H}(4/3)^{j₀}/H + (9/5)(3/2)^{log₂H}(8/3)^{j₀}/H²)·Ftr H`
 
-The second term carries `1/H`: at fixed `M` the small-`j` charge DECAYS, which is the whole
-point of the re-cut.  The floor `j₀` is carried as a NAMED PARAMETER everywhere — never
-inlined as `2^18`, because the `M`-dependence (`j₀ = M·Adoor M` at the door,
-`M4DoorRow.doorRowFloor`) is exactly what makes `4^{j₀}` a constant against `H` and not a
-function of it.  The comparison is stated symbolically as `m4SmallGradeFits` — the whole
-small-`j` charge `2·4^{j₀}·Ftr H` under `H·(3·Fan H)`, i.e. the graded split costs at most a
-factor `2` (`m4BclGraded_le_of_fits`), with the threshold in `H` alone
-(`m4SmallGradeFits_of_threshold`: `2·4^{j₀}·D ≤ H·Fan H` for any envelope `Ftr H ≤ D`).
+(`m4BclGraded`).  Since `(3/2)^{log₂H} = H^{0.58496}`, the second term is
+`4.5(4/3)^{j₀}H^{-0.415} + 1.8(8/3)^{j₀}H^{-1.415}`: at fixed `M` the small-`j` charge
+DECAYS, which is the whole point of the re-cut.  The floor `j₀` is carried as a NAMED
+PARAMETER everywhere — never inlined as `2^18`, because the `M`-dependence
+(`j₀ = M·Adoor M` at the door, `M4DoorRow.doorRowFloor`) is exactly what makes `(4/3)^{j₀}`
+and `(8/3)^{j₀}` constants against `H` and not functions of it.  The comparison is stated
+symbolically as `m4SmallGradeFits` — the whole small-`j` charge under `H²·(m4Cmax·Fan H)`,
+i.e. the graded split costs at most a factor `2` (`m4BclGraded_le_of_fits`), with the
+threshold in `H` alone (`m4SmallGradeFits_of_threshold`).  Both summands read as the SAME
+floor demand `H ≳ 2^{j₀}` — `log₂(4/3) = 0.41504` and `log₂(8/3) = 1.41504` are exactly the
+two `H`-exponents — where the uniform route demanded `4^{j₀}`.  **The floor's exponent
+halves**; that is ⟦LEVER 1′⟧'s second dividend, after the constant `Cmax`.
 
 ## ⟦THE ROUTE⟧
 
@@ -82,19 +91,26 @@ factor `2` (`m4BclGraded_le_of_fits`), with the threshold in `H` alone
   `n + P_j K` and `P_j K` is a MULTIPLE OF `2^{j+1}` — the alignment is the whole content:
   at scale `j` only `⌊H/2^{j+1}⌋ + 1` offsets can occur, and that geometric decay is what
   makes the price one log rather than `H`.
-* **§3 — the pointwise maximal bound.**  Square, then Chebyshev
-  (`sq_sum_le_card_mul_sum_sq`) over the `≤ log₂ H + 1` pieces, then replace the single
-  aligned offset by the sum over all admissible ones (nonneg terms):
+* **§3 — the pointwise maximal bound**, ⟦LEVER 1′⟧.  Square, then weighted Cauchy–Schwarz at
+  the geometric weights `a_j = (3/2)^j` — packaged in the ENGEL/Sedrakyan form
+  (`Finset.sq_sum_div_le_sum_sq_div`), which is sqrt-free and one step — then replace the
+  single aligned offset by the sum over all admissible ones (nonneg terms):
 
-    `sup_{K ≤ H}‖S(n,K)‖² ≤ (log₂H+1)·∑_{j ≤ log₂H} ∑_{t ≤ ⌊H/2^{j+1}⌋} ‖S(n+t·2^{j+1},2^j)‖²`
+    `sup_{K ≤ H}‖S(n,K)‖²
+       ≤ (∑_{j ≤ log₂H}(3/2)^j)·∑_{j ≤ log₂H}(2/3)^j ∑_{t ≤ ⌊H/2^{j+1}⌋}‖S(n+t·2^{j+1},2^j)‖²`
 
-  — `doorChiSup_sq_le_dyadic`, the sup being attained (`Finset.exists_mem_eq_sup'`).
+  — `doorChiSup_sq_le_dyadic`, the sup being attained (`Finset.exists_mem_eq_sup'`).  The
+  uniform Chebyshev `sq_sum_le_card_mul_sum_sq` (piece count `log₂H + 1`) is what this
+  replaces, and the replacement is FREE: the weights cost nothing on the supply side, and
+  they turn the price from `3(log₂H + 1)` into the constant `54/5`.
 * **§4 — the block sum, and the two counts.**  The `n`-sum and the `(j,t)`-sums commute; the
   shift `n ↦ n+s` carries `Ioc A B` onto `Ioc (A+s) (B+s)` EXACTLY
   (`Finset.map_add_right_Ioc`), so no overhang cell is created and none is discarded.  What
-  is left is arithmetic: one term bound (`dyadic_count_weight_term_le`) summed twice — over
-  all `j ≤ L` for `3H²` (`dyadic_count_weight_le`) and over `j < j₀` for `2H·4^{j₀}`
-  (`dyadic_count_weight_small_le`).
+  is left is arithmetic: one term bound (`dyadic_count_weight_term_le`), weighted by
+  `(2/3)^j` and summed twice against the weight-sum prefactor — over all `j ≤ L` for
+  `(54/5)H²` (`dyadic_count_weight_geom_le`) and over `j < j₀` for the two-summand head
+  (`dyadic_count_weight_geom_small_le`).  The unweighted pair (`dyadic_count_weight_le`,
+  `dyadic_count_weight_small_le`) is kept beside them: still true, no longer on the road.
 * **§5 — the shifted-block datum** (`M4ChiShiftBlockMeanSq`, LENGTH-GRADED: `F j H`) and the
   split maximal step (`m4_chiBlockMeanSq_of_shiftBlock`), at the graded price `m4BclGraded`.
 * **§6 — the row datum** (`M4ChiDyadicRowMeanSq`, LENGTH-GRADED: `MS j H`): the capstone's
@@ -105,14 +121,17 @@ factor `2` (`m4BclGraded_le_of_fits`), with the threshold in `H` alone
   the ladder's own `2` (`B + s ≤ B + H ≤ 2A`), not `4`.
 * **§7 — the close** (`m4_wave_closed_of_dyadicRow`), `m4_wave_closed_of_chi`'s analytic
   slot filled at `Bcl H = m4BclGraded j₀ (2·MSan) (2·MStr) H`, i.e.
-  `6(log₂H+1)·MSan H + (log₂H+1)·(4·4^{j₀}/H)·MStr H`.
+  `(108/5)·MSan H + (9(3/2)^{log₂H}(4/3)^{j₀}/H + (18/5)(3/2)^{log₂H}(8/3)^{j₀}/H²)·MStr H`.
 
 ## ⟦THE TRAPS RESPECTED⟧
 
-* **the four log scales** — `m4Cmax` is `Nat.log 2 H` and NOTHING else: no `Real.log`, no
-  `log X`, no `loglog`.  The budget's `(log H)²` allowance is not spent; one log suffices,
-  because the maximum over offsets is paid by SUMMING the `⌊H/2^{j+1}⌋+1` aligned offsets,
-  whose count decays geometrically against the `(2^j)²` weight.
+* **the four log scales** — `m4Cmax` is now a NUMERAL and reads no log at all; the only
+  `log` anywhere in the file is `Nat.log 2` (in the tiling depth and in the head's
+  `(3/2)^{Nat.log 2 H}`): no `Real.log`, no `log X`, no `loglog`.  The budget's `(log H)²`
+  allowance is not spent, and neither is the one log the uniform route spent, because the
+  maximum over offsets is paid by SUMMING the `⌊H/2^{j+1}⌋+1` aligned offsets against
+  geometric weights whose ratio `3/2` sits strictly between the offset decay `1/2` and the
+  window growth `4`.
 * **the fatal route avoided** — `sup² ≤ ∑_{K ≤ H}` is never taken; the cost here is
   `3(log₂H+1)`, never `H+1`.
 * **the floor is NAMED** — `j₀` is a parameter of every graded statement; `2^18` is never
@@ -265,65 +284,122 @@ Square the tiling, pay the piece count once by Chebyshev, then forget WHICH alig
 each piece has by summing over all of them.  The right-hand side is `K`-free, so it bounds
 the sup. -/
 
-/-- **THE SQUARED TILING** — the `K`-free bound on a single window sum's square. -/
+/-! ### The geometric weights `a_j = (3/2)^j`
+
+⟦LEVER 1′⟧ replaces the uniform Chebyshev of the maximal step by weighted Cauchy–Schwarz at
+the ratio `c = 3/2`.  The weight sum is a CONSTANT multiple of `(3/2)^L` and the weighted
+count is `H²` up to a constant — so the `log₂H` that the uniform step paid disappears.  The
+ratio is all-rational, which is why the two geometric series below close under `norm_num`
+alone; the packaging is the Engel/Sedrakyan form (`Finset.sq_sum_div_le_sum_sq_div`), which
+is sqrt-free. -/
+
+/-- **THE WEIGHT SUM** — `∑_{j ≤ n} (3/2)^j = 3·(3/2)^n − 2`.  The Cauchy–Schwarz prefactor:
+it is `≤ 3·(3/2)^n`, and against the weighted count's `(4/3)^n` / `(8/3)^n` it produces `2^n`
+/ `4^n` exactly. -/
+theorem geom_weight_sum (n : ℕ) :
+    ∑ j ∈ Finset.range (n + 1), (3 / 2 : ℝ) ^ j = 3 * (3 / 2 : ℝ) ^ n - 2 := by
+  rw [geom_sum_eq (by norm_num : (3 / 2 : ℝ) ≠ 1)]
+  rw [pow_succ]
+  ring
+
+theorem geom_weight_sum_pos (n : ℕ) :
+    (0 : ℝ) < ∑ j ∈ Finset.range (n + 1), (3 / 2 : ℝ) ^ j :=
+  Finset.sum_pos (fun j _ => by positivity) ⟨0, Finset.mem_range.mpr (by omega)⟩
+
+theorem geom_weight_sum_le (n : ℕ) :
+    ∑ j ∈ Finset.range (n + 1), (3 / 2 : ℝ) ^ j ≤ 3 * (3 / 2 : ℝ) ^ n := by
+  rw [geom_weight_sum n]; linarith
+
+/-- Dividing by the weight is multiplying by its reciprocal — the one rewrite that turns the
+Engel form's `x²/a_j` into the multiplicative shape the count is stated in. -/
+theorem inv_geom_weight (x : ℝ) (j : ℕ) : x / (3 / 2 : ℝ) ^ j = x * (2 / 3 : ℝ) ^ j := by
+  rw [div_eq_mul_inv, ← inv_pow]
+  norm_num
+
+/-- The two mixed products the weighted count closes on: `(3/2)^j·(2/3)^j` collapses the
+scale weights exactly. -/
+theorem geom_term_eq (H : ℕ) (j : ℕ) :
+    ((H : ℝ) / 2 * 2 ^ j + 4 ^ j) * (2 / 3 : ℝ) ^ j
+      = (H : ℝ) / 2 * (4 / 3 : ℝ) ^ j + (8 / 3 : ℝ) ^ j := by
+  have h1 : (2 : ℝ) ^ j * (2 / 3 : ℝ) ^ j = (4 / 3 : ℝ) ^ j := by
+    rw [← mul_pow]; norm_num
+  have h2 : (4 : ℝ) ^ j * (2 / 3 : ℝ) ^ j = (8 / 3 : ℝ) ^ j := by
+    rw [← mul_pow]; norm_num
+  calc ((H : ℝ) / 2 * 2 ^ j + 4 ^ j) * (2 / 3 : ℝ) ^ j
+      = (H : ℝ) / 2 * ((2 : ℝ) ^ j * (2 / 3 : ℝ) ^ j) + (4 : ℝ) ^ j * (2 / 3 : ℝ) ^ j := by ring
+    _ = (H : ℝ) / 2 * (4 / 3 : ℝ) ^ j + (8 / 3 : ℝ) ^ j := by rw [h1, h2]
+
+/-- **THE SQUARED TILING** — the `K`-free bound on a single window sum's square, at the
+GEOMETRIC weights.  The prefactor is the weight sum `∑_{j ≤ log₂H}(3/2)^j` (a constant times
+`(3/2)^{log₂H}`) instead of the piece count `log₂H + 1`, and each scale's square is charged
+at `(2/3)^j`.  The trade is the whole of ⟦LEVER 1′⟧: the top scales, which carry the mass,
+are charged at a weight that decays exactly fast enough for the count to stay `O(H²)`. -/
 theorem norm_sum_sievedWindow_sq_le_dyadic (p : ℕ → Prop) [DecidablePred p] (f : ℕ → ℂ)
     (H K n : ℕ) (hK : K ≤ H) :
     ‖∑ m ∈ sievedWindow p K n, f m‖ ^ 2
-      ≤ ((Nat.log 2 H : ℝ) + 1)
+      ≤ (∑ j ∈ Finset.range (Nat.log 2 H + 1), (3 / 2 : ℝ) ^ j)
         * ∑ j ∈ Finset.range (Nat.log 2 H + 1),
-            ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
-              ‖∑ m ∈ sievedWindow p (2 ^ j) (n + 2 ^ (j + 1) * t), f m‖ ^ 2 := by
+            (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
+              ‖∑ m ∈ sievedWindow p (2 ^ j) (n + 2 ^ (j + 1) * t), f m‖ ^ 2)
+              * (2 / 3 : ℝ) ^ j := by
   set L := Nat.log 2 H with hL
+  set b : ℕ → ℝ := fun j =>
+    ‖∑ m ∈ sievedWindow p (2 ^ j) (n + 2 ^ (j + 1) * (K / 2 ^ (j + 1))), f m‖ with hb
   have hKlt : K < 2 ^ (L + 1) :=
     lt_of_le_of_lt hK (Nat.lt_pow_succ_log_self (by norm_num) H)
   have htile := norm_sum_sievedWindow_le_dyadic p f L K n hKlt
   have h0 : (0 : ℝ) ≤ ‖∑ m ∈ sievedWindow p K n, f m‖ := norm_nonneg _
   have hsq : ‖∑ m ∈ sievedWindow p K n, f m‖ ^ 2
-      ≤ (∑ j ∈ Finset.range (L + 1),
-          ‖∑ m ∈ sievedWindow p (2 ^ j) (n + 2 ^ (j + 1) * (K / 2 ^ (j + 1))), f m‖) ^ 2 := by
+      ≤ (∑ j ∈ Finset.range (L + 1), b j) ^ 2 := by
     have := mul_self_le_mul_self h0 htile
     nlinarith [this]
-  have hcheb := sq_sum_le_card_mul_sum_sq (s := Finset.range (L + 1))
-    (f := fun j => ‖∑ m ∈ sievedWindow p (2 ^ j) (n + 2 ^ (j + 1) * (K / 2 ^ (j + 1))), f m‖)
-  rw [Finset.card_range] at hcheb
+  -- ⟦THE ENGEL FORM⟧ — Cauchy–Schwarz at the weights `a_j = (3/2)^j`, sqrt-free
+  have hSpos : (0 : ℝ) < ∑ j ∈ Finset.range (L + 1), (3 / 2 : ℝ) ^ j :=
+    geom_weight_sum_pos L
+  have hengel := Finset.sq_sum_div_le_sum_sq_div (Finset.range (L + 1)) b
+    (g := fun j => (3 / 2 : ℝ) ^ j) (fun j _ => by positivity)
+  have hcs : (∑ j ∈ Finset.range (L + 1), b j) ^ 2
+      ≤ (∑ j ∈ Finset.range (L + 1), (3 / 2 : ℝ) ^ j)
+        * ∑ j ∈ Finset.range (L + 1), b j ^ 2 * (2 / 3 : ℝ) ^ j := by
+    have hconv : ∑ j ∈ Finset.range (L + 1), b j ^ 2 / (3 / 2 : ℝ) ^ j
+        = ∑ j ∈ Finset.range (L + 1), b j ^ 2 * (2 / 3 : ℝ) ^ j :=
+      Finset.sum_congr rfl fun j _ => inv_geom_weight (b j ^ 2) j
+    rw [hconv, div_le_iff₀ hSpos] at hengel
+    linarith [hengel]
+  -- ⟦the pick⟧ the single aligned offset, forgotten into the sum over all of them
   have hpick : ∀ j ∈ Finset.range (L + 1),
-      ‖∑ m ∈ sievedWindow p (2 ^ j) (n + 2 ^ (j + 1) * (K / 2 ^ (j + 1))), f m‖ ^ 2
-        ≤ ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
-            ‖∑ m ∈ sievedWindow p (2 ^ j) (n + 2 ^ (j + 1) * t), f m‖ ^ 2 := by
+      b j ^ 2 * (2 / 3 : ℝ) ^ j
+        ≤ (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
+            ‖∑ m ∈ sievedWindow p (2 ^ j) (n + 2 ^ (j + 1) * t), f m‖ ^ 2)
+            * (2 / 3 : ℝ) ^ j := by
     intro j _
+    refine mul_le_mul_of_nonneg_right ?_ (by positivity)
     refine Finset.single_le_sum
       (f := fun t => ‖∑ m ∈ sievedWindow p (2 ^ j) (n + 2 ^ (j + 1) * t), f m‖ ^ 2)
       (fun t _ => by positivity) (Finset.mem_range.mpr ?_)
     have hdd : K / 2 ^ (j + 1) ≤ H / 2 ^ (j + 1) := Nat.div_le_div_right hK
     omega
-  have hsum : ∑ j ∈ Finset.range (L + 1),
-      ‖∑ m ∈ sievedWindow p (2 ^ j) (n + 2 ^ (j + 1) * (K / 2 ^ (j + 1))), f m‖ ^ 2
-      ≤ ∑ j ∈ Finset.range (L + 1),
-          ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
-            ‖∑ m ∈ sievedWindow p (2 ^ j) (n + 2 ^ (j + 1) * t), f m‖ ^ 2 :=
-    Finset.sum_le_sum hpick
-  have hcard : (((L + 1 : ℕ)) : ℝ) = (L : ℝ) + 1 := by push_cast; ring
-  rw [hcard] at hcheb
-  have hL0 : (0 : ℝ) ≤ (L : ℝ) + 1 := by positivity
   calc ‖∑ m ∈ sievedWindow p K n, f m‖ ^ 2
-      ≤ (∑ j ∈ Finset.range (L + 1),
-          ‖∑ m ∈ sievedWindow p (2 ^ j) (n + 2 ^ (j + 1) * (K / 2 ^ (j + 1))), f m‖) ^ 2 := hsq
-    _ ≤ ((L : ℝ) + 1) * ∑ j ∈ Finset.range (L + 1),
-          ‖∑ m ∈ sievedWindow p (2 ^ j) (n + 2 ^ (j + 1) * (K / 2 ^ (j + 1))), f m‖ ^ 2 := hcheb
-    _ ≤ ((L : ℝ) + 1) * ∑ j ∈ Finset.range (L + 1),
-          ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
-            ‖∑ m ∈ sievedWindow p (2 ^ j) (n + 2 ^ (j + 1) * t), f m‖ ^ 2 :=
-        mul_le_mul_of_nonneg_left hsum hL0
+      ≤ (∑ j ∈ Finset.range (L + 1), b j) ^ 2 := hsq
+    _ ≤ (∑ j ∈ Finset.range (L + 1), (3 / 2 : ℝ) ^ j)
+          * ∑ j ∈ Finset.range (L + 1), b j ^ 2 * (2 / 3 : ℝ) ^ j := hcs
+    _ ≤ (∑ j ∈ Finset.range (L + 1), (3 / 2 : ℝ) ^ j)
+          * ∑ j ∈ Finset.range (L + 1),
+              (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
+                ‖∑ m ∈ sievedWindow p (2 ^ j) (n + 2 ^ (j + 1) * t), f m‖ ^ 2)
+                * (2 / 3 : ℝ) ^ j :=
+        mul_le_mul_of_nonneg_left (Finset.sum_le_sum hpick) hSpos.le
 
 /-- **THE SUB-WINDOW SUP, PRICED** — `doorChiSup`'s square against the aligned dyadic
-family.  The sup is over a nonempty finite set, hence attained
+family, at the geometric weights.  The sup is over a nonempty finite set, hence attained
 (`Finset.exists_mem_eq_sup'`), and the bound is `K`-free. -/
 theorem doorChiSup_sq_le_dyadic {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) :
     (doorChiSup χ M H n) ^ 2
-      ≤ ((Nat.log 2 H : ℝ) + 1)
+      ≤ (∑ j ∈ Finset.range (Nat.log 2 H + 1), (3 / 2 : ℝ) ^ j)
         * ∑ j ∈ Finset.range (Nat.log 2 H + 1),
-            ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
-              ‖∑ m ∈ doorSievedWindow M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2 := by
+            (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
+              ‖∑ m ∈ doorSievedWindow M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2)
+              * (2 / 3 : ℝ) ^ j := by
   obtain ⟨K, hKmem, hKeq⟩ :=
     Finset.exists_mem_eq_sup' (s := Finset.Icc 0 H)
       ⟨0, Finset.mem_Icc.mpr ⟨le_rfl, Nat.zero_le H⟩⟩
@@ -457,6 +533,130 @@ theorem dyadic_count_weight_small_le {H : ℕ} (hH : 0 < H) (j₀ : ℕ) :
           mul_nonneg (by linarith : (0 : ℝ) ≤ (H : ℝ) - 1) h4pos.le,
           mul_pos (by linarith : (0 : ℝ) < (H : ℝ)) h4pos]
 
+/-- **THE WEIGHTED COUNT** (`dyadic_count_weight_geom_le`) — ⟦LEVER 1′⟧'s replacement for the
+pair (`log₂H + 1`) × (`dyadic_count_weight_le`).  The Cauchy–Schwarz prefactor and the
+`(2/3)^j`-weighted count TOGETHER are `≤ (54/5)·H²`:
+
+  `(3(3/2)^L)·((H/2)·4(4/3)^L + (8/5)(8/3)^L) = 6H·2^L + (24/5)·4^L ≤ (6 + 24/5)H²`.
+
+`54/5 = 10.8` is the CONSTANT that replaces `3·(log₂H + 1)`.  `c = 3/2` is near-optimal —
+the true minimum over `c` is about `1%` lower, and every ratio here (`4/3`, `8/3`, `3/2`) is
+rational, which is what keeps the two geometric series inside `norm_num`. -/
+theorem dyadic_count_weight_geom_le {H : ℕ} (hH : 0 < H) :
+    (∑ j ∈ Finset.range (Nat.log 2 H + 1), (3 / 2 : ℝ) ^ j)
+        * ∑ j ∈ Finset.range (Nat.log 2 H + 1),
+            ((((H / 2 ^ (j + 1) : ℕ) : ℝ) + 1) * (((2 ^ j : ℕ) : ℝ)) ^ 2) * (2 / 3 : ℝ) ^ j
+      ≤ 54 / 5 * (H : ℝ) ^ 2 := by
+  set L := Nat.log 2 H with hL
+  have hHR : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH
+  have hpow : ((2 : ℝ) ^ L) ≤ (H : ℝ) := by
+    have h := Nat.pow_log_le_self 2 hH.ne'
+    rw [← hL] at h
+    exact_mod_cast h
+  have h2pos : (0 : ℝ) < (2 : ℝ) ^ L := by positivity
+  have hterm : ∀ j ∈ Finset.range (L + 1),
+      ((((H / 2 ^ (j + 1) : ℕ) : ℝ) + 1) * (((2 ^ j : ℕ) : ℝ)) ^ 2) * (2 / 3 : ℝ) ^ j
+        ≤ (H : ℝ) / 2 * (4 / 3 : ℝ) ^ j + (8 / 3 : ℝ) ^ j := by
+    intro j _
+    have h := dyadic_count_weight_term_le H j
+    have h0 : (0 : ℝ) < (2 / 3 : ℝ) ^ j := by positivity
+    calc ((((H / 2 ^ (j + 1) : ℕ) : ℝ) + 1) * (((2 ^ j : ℕ) : ℝ)) ^ 2) * (2 / 3 : ℝ) ^ j
+        ≤ ((H : ℝ) / 2 * 2 ^ j + 4 ^ j) * (2 / 3 : ℝ) ^ j :=
+          mul_le_mul_of_nonneg_right h h0.le
+      _ = (H : ℝ) / 2 * (4 / 3 : ℝ) ^ j + (8 / 3 : ℝ) ^ j := geom_term_eq H j
+  have hg43 : ∑ j ∈ Finset.range (L + 1), (4 / 3 : ℝ) ^ j = 4 * (4 / 3 : ℝ) ^ L - 3 := by
+    rw [geom_sum_eq (by norm_num : (4 / 3 : ℝ) ≠ 1), pow_succ]
+    ring
+  have hg83 : ∑ j ∈ Finset.range (L + 1), (8 / 3 : ℝ) ^ j
+      = 8 / 5 * (8 / 3 : ℝ) ^ L - 3 / 5 := by
+    rw [geom_sum_eq (by norm_num : (8 / 3 : ℝ) ≠ 1), pow_succ]
+    ring
+  have hsum : ∑ j ∈ Finset.range (L + 1),
+      ((((H / 2 ^ (j + 1) : ℕ) : ℝ) + 1) * (((2 ^ j : ℕ) : ℝ)) ^ 2) * (2 / 3 : ℝ) ^ j
+      ≤ 2 * (H : ℝ) * (4 / 3 : ℝ) ^ L + 8 / 5 * (8 / 3 : ℝ) ^ L := by
+    refine le_trans (Finset.sum_le_sum hterm) ?_
+    rw [Finset.sum_add_distrib, ← Finset.mul_sum, hg43, hg83]
+    nlinarith [hHR]
+  have hS0 : (0 : ℝ) ≤ ∑ j ∈ Finset.range (L + 1), (3 / 2 : ℝ) ^ j :=
+    (geom_weight_sum_pos L).le
+  have hmix1 : (3 / 2 : ℝ) ^ L * (4 / 3 : ℝ) ^ L = 2 ^ L := by
+    rw [← mul_pow]; norm_num
+  have hmix2 : (3 / 2 : ℝ) ^ L * (8 / 3 : ℝ) ^ L = 4 ^ L := by
+    rw [← mul_pow]; norm_num
+  have h4L : (4 : ℝ) ^ L = ((2 : ℝ) ^ L) ^ 2 := by
+    rw [← pow_mul, mul_comm L 2, pow_mul]; norm_num
+  calc (∑ j ∈ Finset.range (L + 1), (3 / 2 : ℝ) ^ j)
+        * ∑ j ∈ Finset.range (L + 1),
+            ((((H / 2 ^ (j + 1) : ℕ) : ℝ) + 1) * (((2 ^ j : ℕ) : ℝ)) ^ 2) * (2 / 3 : ℝ) ^ j
+      ≤ (∑ j ∈ Finset.range (L + 1), (3 / 2 : ℝ) ^ j)
+          * (2 * (H : ℝ) * (4 / 3 : ℝ) ^ L + 8 / 5 * (8 / 3 : ℝ) ^ L) :=
+        mul_le_mul_of_nonneg_left hsum hS0
+    _ ≤ (3 * (3 / 2 : ℝ) ^ L) * (2 * (H : ℝ) * (4 / 3 : ℝ) ^ L + 8 / 5 * (8 / 3 : ℝ) ^ L) := by
+        refine mul_le_mul_of_nonneg_right (geom_weight_sum_le L) ?_
+        positivity
+    _ = 6 * (H : ℝ) * ((3 / 2 : ℝ) ^ L * (4 / 3 : ℝ) ^ L)
+          + 24 / 5 * ((3 / 2 : ℝ) ^ L * (8 / 3 : ℝ) ^ L) := by ring
+    _ = 6 * (H : ℝ) * (2 : ℝ) ^ L + 24 / 5 * ((2 : ℝ) ^ L) ^ 2 := by rw [hmix1, hmix2, h4L]
+    _ ≤ 54 / 5 * (H : ℝ) ^ 2 := by nlinarith [hpow, h2pos, hHR]
+
+/-- **THE WEIGHTED SMALL-`j` COUNT** (`dyadic_count_weight_geom_small_le`) — the head `j < j₀`
+of the same weighted sum, prefactor included:
+
+  `(3(3/2)^L)·((3H/2)(4/3)^{j₀} + (3/5)(8/3)^{j₀})
+     = (9/2)·H·(3/2)^L·(4/3)^{j₀} + (9/5)·(3/2)^L·(8/3)^{j₀}`.
+
+TWO summands, not one — the `H·2^{j-1}` half of the term bound is top-heavy at the ratio
+`2/(3/2) = 4/3` and the `4^j` half at `4/(3/2) = 8/3`, and the two ratios no longer collapse
+into a single `4^{j₀}` the way they did under the uniform prefactor.  Against the block's own
+`H²` normalisation the two decay as `(3/2)^{log₂H}/H ≍ H^{-0.415}` and
+`(3/2)^{log₂H}/H² ≍ H^{-1.415}`, and BOTH give the same floor demand `H ≳ 2^{j₀}` —
+exactly half the exponent the uniform route's `4^{j₀}` demanded
+(`log₂(4/3) = 0.41504`, `log₂(8/3) = 1.41504`). -/
+theorem dyadic_count_weight_geom_small_le {H : ℕ} (hH : 0 < H) (j₀ : ℕ) :
+    (∑ j ∈ Finset.range (Nat.log 2 H + 1), (3 / 2 : ℝ) ^ j)
+        * ∑ j ∈ Finset.range j₀,
+            ((((H / 2 ^ (j + 1) : ℕ) : ℝ) + 1) * (((2 ^ j : ℕ) : ℝ)) ^ 2) * (2 / 3 : ℝ) ^ j
+      ≤ 9 / 2 * (H : ℝ) * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (4 / 3 : ℝ) ^ j₀
+        + 9 / 5 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (8 / 3 : ℝ) ^ j₀ := by
+  set L := Nat.log 2 H with hL
+  have hHR : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH
+  have hterm : ∀ j ∈ Finset.range j₀,
+      ((((H / 2 ^ (j + 1) : ℕ) : ℝ) + 1) * (((2 ^ j : ℕ) : ℝ)) ^ 2) * (2 / 3 : ℝ) ^ j
+        ≤ (H : ℝ) / 2 * (4 / 3 : ℝ) ^ j + (8 / 3 : ℝ) ^ j := by
+    intro j _
+    have h := dyadic_count_weight_term_le H j
+    have h0 : (0 : ℝ) < (2 / 3 : ℝ) ^ j := by positivity
+    calc ((((H / 2 ^ (j + 1) : ℕ) : ℝ) + 1) * (((2 ^ j : ℕ) : ℝ)) ^ 2) * (2 / 3 : ℝ) ^ j
+        ≤ ((H : ℝ) / 2 * 2 ^ j + 4 ^ j) * (2 / 3 : ℝ) ^ j :=
+          mul_le_mul_of_nonneg_right h h0.le
+      _ = (H : ℝ) / 2 * (4 / 3 : ℝ) ^ j + (8 / 3 : ℝ) ^ j := geom_term_eq H j
+  have hg43 : ∑ j ∈ Finset.range j₀, (4 / 3 : ℝ) ^ j = 3 * (4 / 3 : ℝ) ^ j₀ - 3 := by
+    rw [geom_sum_eq (by norm_num : (4 / 3 : ℝ) ≠ 1)]
+    ring
+  have hg83 : ∑ j ∈ Finset.range j₀, (8 / 3 : ℝ) ^ j = 3 / 5 * (8 / 3 : ℝ) ^ j₀ - 3 / 5 := by
+    rw [geom_sum_eq (by norm_num : (8 / 3 : ℝ) ≠ 1)]
+    ring
+  have hsum : ∑ j ∈ Finset.range j₀,
+      ((((H / 2 ^ (j + 1) : ℕ) : ℝ) + 1) * (((2 ^ j : ℕ) : ℝ)) ^ 2) * (2 / 3 : ℝ) ^ j
+      ≤ 3 / 2 * (H : ℝ) * (4 / 3 : ℝ) ^ j₀ + 3 / 5 * (8 / 3 : ℝ) ^ j₀ := by
+    refine le_trans (Finset.sum_le_sum hterm) ?_
+    rw [Finset.sum_add_distrib, ← Finset.mul_sum, hg43, hg83]
+    nlinarith [hHR]
+  have hS0 : (0 : ℝ) ≤ ∑ j ∈ Finset.range (L + 1), (3 / 2 : ℝ) ^ j :=
+    (geom_weight_sum_pos L).le
+  calc (∑ j ∈ Finset.range (L + 1), (3 / 2 : ℝ) ^ j)
+        * ∑ j ∈ Finset.range j₀,
+            ((((H / 2 ^ (j + 1) : ℕ) : ℝ) + 1) * (((2 ^ j : ℕ) : ℝ)) ^ 2) * (2 / 3 : ℝ) ^ j
+      ≤ (∑ j ∈ Finset.range (L + 1), (3 / 2 : ℝ) ^ j)
+          * (3 / 2 * (H : ℝ) * (4 / 3 : ℝ) ^ j₀ + 3 / 5 * (8 / 3 : ℝ) ^ j₀) :=
+        mul_le_mul_of_nonneg_left hsum hS0
+    _ ≤ (3 * (3 / 2 : ℝ) ^ L)
+          * (3 / 2 * (H : ℝ) * (4 / 3 : ℝ) ^ j₀ + 3 / 5 * (8 / 3 : ℝ) ^ j₀) := by
+        refine mul_le_mul_of_nonneg_right (geom_weight_sum_le L) ?_
+        positivity
+    _ = 9 / 2 * (H : ℝ) * (3 / 2 : ℝ) ^ L * (4 / 3 : ℝ) ^ j₀
+          + 9 / 5 * (3 / 2 : ℝ) ^ L * (8 / 3 : ℝ) ^ j₀ := by ring
+
 /-! ## §5 — THE MAXIMAL STEP, LENGTH-GRADED
 
 The input is the block mean square of the FIXED dyadic lengths at the SHIFTED blocks — the
@@ -466,78 +666,107 @@ split price `m4BclGraded j₀ Fan Ftr`: the maximal price `m4Cmax H` on the anal
 `Fan` (the lengths `j₀ ≤ j`) plus the `H`-linear small head on the trivial envelope `Ftr`
 (the lengths `j < j₀`). -/
 
-/-- **THE MAXIMAL PRICE** `Cmax H = 3·(log₂H + 1)`.  The ONLY log in this file, and it is
-`Nat.log 2` — never `Real.log`, never `log X`, never `loglog`. -/
-def m4Cmax (H : ℕ) : ℝ := 3 * ((Nat.log 2 H : ℝ) + 1)
+/-- **THE MAXIMAL PRICE**, ⟦LEVER 1′⟧: `Cmax = 54/5 = 10.8`, a CONSTANT.  The uniform
+Chebyshev of the maximal step charged `3·(log₂H + 1)`; the geometric-weight Cauchy–Schwarz at
+`c = 3/2` charges `(∑(3/2)^j)·(weighted count)/H² ≤ 54/5` — no log at all.  The signature
+keeps its `H` (every consumer reads `m4Cmax H`), and the body no longer uses it: THIS is the
+content of the lever. -/
+def m4Cmax (_H : ℕ) : ℝ := 54 / 5
 
 theorem m4Cmax_nonneg (H : ℕ) : 0 ≤ m4Cmax H := by
   unfold m4Cmax
   positivity
 
 /-- **THE GRADED BLOCK PRICE** (`m4BclGraded`) — what the length-graded shifted datum
-assembles to at the floor `j₀`:
+assembles to at the floor `j₀`, re-cut at the geometric weights:
 
-  `m4BclGraded j₀ Fan Ftr H = m4Cmax H·Fan H + (log₂H + 1)·(2·4^{j₀}/H)·Ftr H`.
+  `m4BclGraded j₀ Fan Ftr H
+     = m4Cmax H·Fan H
+       + ((9/2)·(3/2)^{log₂H}·(4/3)^{j₀}/H + (9/5)·(3/2)^{log₂H}·(8/3)^{j₀}/H²)·Ftr H`.
 
-The first summand is §4's full count `3H²` against the analytic envelope; the second is §4's
-small head `2H·4^{j₀}` against the trivial envelope, divided by the block's own `H²`
-normalisation — hence the `1/H`.  `j₀` is a PARAMETER: `4^{j₀}` is a constant against `H`
-exactly because the floor is the consumer's (at the door, `M·Adoor M`), not a numeral fixed
-here. -/
+The first summand is §4's weighted full count `(54/5)H²` against the analytic envelope — a
+CONSTANT price, ⟦LEVER 1′⟧'s whole point.  The second is §4's weighted small head against the
+trivial envelope, divided by the block's own `H²` normalisation, and it is TWO summands
+because the weighted head's two geometric halves run at DIFFERENT ratios (`4/3` and `8/3`).
+Numerically `(3/2)^{log₂H} = H^{0.58496}`, so the head is
+
+  `4.5·(4/3)^{j₀}·H^{-0.41504} + 1.8·(8/3)^{j₀}·H^{-1.41504}`,
+
+and both summands impose the SAME floor `H ≳ 2^{j₀}` — half the exponent of the uniform
+route's `4^{j₀}`.  `j₀` is a PARAMETER: `(4/3)^{j₀}` and `(8/3)^{j₀}` are constants against
+`H` exactly because the floor is the consumer's (at the door, `M·Adoor M`). -/
 def m4BclGraded (j₀ : ℕ) (Fan Ftr : ℕ → ℝ) (H : ℕ) : ℝ :=
-  m4Cmax H * Fan H + ((Nat.log 2 H : ℝ) + 1) * (2 * (4 : ℝ) ^ j₀ / (H : ℝ)) * Ftr H
+  m4Cmax H * Fan H
+    + (9 / 2 * (3 / 2 : ℝ) ^ Nat.log 2 H * (4 / 3 : ℝ) ^ j₀ / (H : ℝ)
+        + 9 / 5 * (3 / 2 : ℝ) ^ Nat.log 2 H * (8 / 3 : ℝ) ^ j₀ / (H : ℝ) ^ 2) * Ftr H
 
 theorem m4BclGraded_nonneg {j₀ : ℕ} {Fan Ftr : ℕ → ℝ} {H : ℕ}
     (hFan : 0 ≤ Fan H) (hFtr : 0 ≤ Ftr H) : 0 ≤ m4BclGraded j₀ Fan Ftr H := by
   have h1 : (0 : ℝ) ≤ m4Cmax H * Fan H := mul_nonneg (m4Cmax_nonneg H) hFan
-  have hA : (0 : ℝ) ≤ ((Nat.log 2 H : ℝ) + 1) * (2 * (4 : ℝ) ^ j₀ / (H : ℝ)) := by positivity
+  have hA : (0 : ℝ) ≤ 9 / 2 * (3 / 2 : ℝ) ^ Nat.log 2 H * (4 / 3 : ℝ) ^ j₀ / (H : ℝ)
+      + 9 / 5 * (3 / 2 : ℝ) ^ Nat.log 2 H * (8 / 3 : ℝ) ^ j₀ / (H : ℝ) ^ 2 := by positivity
   have h2 := mul_nonneg hA hFtr
   unfold m4BclGraded
   linarith
 
 /-- **THE SMALL-`j` THRESHOLD** (`m4SmallGradeFits`) — the comparison that makes the graded
-split cost at most a factor `2`: the WHOLE small-`j` charge `2·4^{j₀}·Ftr H` sits under
-`H·(3·Fan H)`, the analytic half's own contribution to the same count.
+split cost at most a factor `2`: the WHOLE small-`j` charge (§4's weighted head, both
+summands) sits under `H²·(m4Cmax·Fan H)`, the analytic half's own contribution to the same
+count.
 
-Stated symbolically on purpose.  `4^{j₀}` does not move with `H`, so this is a threshold in
-`H` ALONE — see `m4SmallGradeFits_of_threshold`, whose hypothesis
-`2·4^{j₀}·D ≤ H·Fan H` reads, at the door's `j₀ = M·Adoor M` and any density envelope
-`Ftr H ≤ D`, as `H ≥ 2·4^{M·Adoor M}·D / Fan H`: an `M`-dependent constant against `H`. -/
+Stated symbolically on purpose, and cleared of the `H²` normalisation so no division
+appears.  Neither `(4/3)^{j₀}` nor `(8/3)^{j₀}` moves with `H`, so this is a threshold in
+`H` ALONE — see `m4SmallGradeFits_of_threshold`.  Against the uniform route's
+`2·4^{j₀}·Ftr H ≤ H·(3·Fan H)` the demand is `2^{j₀}`-genre rather than `4^{j₀}`-genre: the
+floor's exponent HALVES. -/
 def m4SmallGradeFits (j₀ : ℕ) (Fan Ftr : ℕ → ℝ) (H : ℕ) : Prop :=
-  2 * (4 : ℝ) ^ j₀ * Ftr H ≤ (H : ℝ) * (3 * Fan H)
+  (9 / 2 * (3 / 2 : ℝ) ^ Nat.log 2 H * (4 / 3 : ℝ) ^ j₀ * (H : ℝ)
+      + 9 / 5 * (3 / 2 : ℝ) ^ Nat.log 2 H * (8 / 3 : ℝ) ^ j₀) * Ftr H
+    ≤ (H : ℝ) ^ 2 * (m4Cmax H * Fan H)
 
 /-- **THE THRESHOLD, IN `H` ALONE** — any envelope `Ftr H ≤ D` on the trivial grade fits as
-soon as `2·4^{j₀}·D ≤ H·Fan H`.  Both `4^{j₀}` and `D` are `H`-free at the door
-(`j₀ = M·Adoor M`, `D ≍ 1` the block density), so this is one inequality in `H`. -/
+soon as the weighted head against `D` sits under `H²·Fan H`.  Both `(4/3)^{j₀}`, `(8/3)^{j₀}`
+and `D` are `H`-free at the door (`j₀ = M·Adoor M`, `D ≍ 1` the block density), and
+`(3/2)^{log₂H}·H = H^{1.585}` against `H²` is the honest `H^{0.415}` of head room, so this is
+one inequality in `H`.  (The `54/5` of `m4Cmax` is left as slack — asking for `Fan H` alone
+on the right is strictly stronger and keeps the numeral out of the consumer's hypothesis.) -/
 theorem m4SmallGradeFits_of_threshold {j₀ : ℕ} {Fan Ftr : ℕ → ℝ} {H : ℕ} {D : ℝ}
     (hFtr : Ftr H ≤ D) (hFan : 0 ≤ Fan H)
-    (hthr : 2 * (4 : ℝ) ^ j₀ * D ≤ (H : ℝ) * Fan H) :
+    (hthr : (9 / 2 * (3 / 2 : ℝ) ^ Nat.log 2 H * (4 / 3 : ℝ) ^ j₀ * (H : ℝ)
+          + 9 / 5 * (3 / 2 : ℝ) ^ Nat.log 2 H * (8 / 3 : ℝ) ^ j₀) * D
+        ≤ (H : ℝ) ^ 2 * Fan H) :
     m4SmallGradeFits j₀ Fan Ftr H := by
-  have h4 : (0 : ℝ) ≤ 2 * (4 : ℝ) ^ j₀ := by positivity
-  have h1 : 2 * (4 : ℝ) ^ j₀ * Ftr H ≤ 2 * (4 : ℝ) ^ j₀ * D :=
-    mul_le_mul_of_nonneg_left hFtr h4
-  have hH : (0 : ℝ) ≤ (H : ℝ) := Nat.cast_nonneg _
-  have h2 : (0 : ℝ) ≤ (H : ℝ) * Fan H := mul_nonneg hH hFan
-  unfold m4SmallGradeFits
+  have h4 : (0 : ℝ) ≤ 9 / 2 * (3 / 2 : ℝ) ^ Nat.log 2 H * (4 / 3 : ℝ) ^ j₀ * (H : ℝ)
+      + 9 / 5 * (3 / 2 : ℝ) ^ Nat.log 2 H * (8 / 3 : ℝ) ^ j₀ := by positivity
+  have h1 := mul_le_mul_of_nonneg_left hFtr h4
+  have hH : (0 : ℝ) ≤ (H : ℝ) ^ 2 := sq_nonneg _
+  have h2 : (0 : ℝ) ≤ (H : ℝ) ^ 2 * Fan H := mul_nonneg hH hFan
+  unfold m4SmallGradeFits m4Cmax
   nlinarith
 
 /-- **THE SPLIT COSTS A FACTOR `2`** (`m4BclGraded_le_of_fits`) — under the threshold the
 graded price is at most twice the ungraded one at the analytic envelope.  Nothing in the
-close's budget is spent by the small lengths; they are absorbed. -/
+close's budget is spent by the small lengths; they are absorbed.  The STATEMENT is the
+landed one, byte for byte; only the threshold it reads has moved. -/
 theorem m4BclGraded_le_of_fits {j₀ : ℕ} {Fan Ftr : ℕ → ℝ} {H : ℕ} (hH : 0 < H)
     (hfit : m4SmallGradeFits j₀ Fan Ftr H) :
     m4BclGraded j₀ Fan Ftr H ≤ 2 * (m4Cmax H * Fan H) := by
   have hH0 : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH
-  have hL0 : (0 : ℝ) ≤ (Nat.log 2 H : ℝ) + 1 := by positivity
-  have hkey : (2 * (4 : ℝ) ^ j₀ / (H : ℝ)) * Ftr H ≤ 3 * Fan H := by
-    rw [div_mul_eq_mul_div, div_le_iff₀ hH0]
-    calc 2 * (4 : ℝ) ^ j₀ * Ftr H ≤ (H : ℝ) * (3 * Fan H) := hfit
-      _ = 3 * Fan H * (H : ℝ) := by ring
-  have heq : ((Nat.log 2 H : ℝ) + 1) * (2 * (4 : ℝ) ^ j₀ / (H : ℝ)) * Ftr H
-      = ((Nat.log 2 H : ℝ) + 1) * ((2 * (4 : ℝ) ^ j₀ / (H : ℝ)) * Ftr H) := by ring
-  unfold m4BclGraded m4Cmax
-  rw [heq]
-  linarith [mul_le_mul_of_nonneg_left hkey hL0]
+  have hH2 : (0 : ℝ) < (H : ℝ) ^ 2 := by positivity
+  have hfit' := hfit
+  unfold m4SmallGradeFits at hfit'
+  have hkey : (9 / 2 * (3 / 2 : ℝ) ^ Nat.log 2 H * (4 / 3 : ℝ) ^ j₀ / (H : ℝ)
+        + 9 / 5 * (3 / 2 : ℝ) ^ Nat.log 2 H * (8 / 3 : ℝ) ^ j₀ / (H : ℝ) ^ 2) * Ftr H
+      ≤ m4Cmax H * Fan H := by
+    have heq : (9 / 2 * (3 / 2 : ℝ) ^ Nat.log 2 H * (4 / 3 : ℝ) ^ j₀ / (H : ℝ)
+          + 9 / 5 * (3 / 2 : ℝ) ^ Nat.log 2 H * (8 / 3 : ℝ) ^ j₀ / (H : ℝ) ^ 2) * Ftr H
+        = ((9 / 2 * (3 / 2 : ℝ) ^ Nat.log 2 H * (4 / 3 : ℝ) ^ j₀ * (H : ℝ)
+            + 9 / 5 * (3 / 2 : ℝ) ^ Nat.log 2 H * (8 / 3 : ℝ) ^ j₀) * Ftr H) / (H : ℝ) ^ 2 := by
+      field_simp
+    rw [heq, div_le_iff₀ hH2]
+    linarith [hfit']
+  unfold m4BclGraded
+  linarith
 
 /-- **THE SHIFTED FIXED-LENGTH DATUM** (`M4ChiShiftBlockMeanSq`) — the block mean square of
 the sieved, χ-twisted window sums at the DYADIC lengths `2^j ≤ H` and at every shift `s ≤ H`
@@ -623,20 +852,28 @@ theorem m4_chiBlockMeanSq_of_shiftBlock {R : ChowlaRegime} {M k : ℕ} {F : ℕ 
   set X : ℕ → ℕ → ℕ → ℝ := fun j t n =>
     ‖∑ m ∈ doorSievedWindow M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2 with hX
   have hA0 : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
-  -- ⟦STEP 1⟧ the pointwise maximal bound (§3)
+  set S : ℝ := ∑ j ∈ Finset.range (L + 1), (3 / 2 : ℝ) ^ j with hS
+  have hS0 : (0 : ℝ) ≤ S := (geom_weight_sum_pos L).le
+  -- ⟦STEP 1⟧ the pointwise maximal bound (§3), at the geometric weights
   have hstep1 : ∑ n ∈ Finset.Ioc A B, (doorChiSup χ M H n) ^ 2
-      ≤ ∑ n ∈ Finset.Ioc A B, ((L : ℝ) + 1)
-          * ∑ j ∈ Finset.range (L + 1), ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), X j t n :=
+      ≤ ∑ n ∈ Finset.Ioc A B, S
+          * ∑ j ∈ Finset.range (L + 1),
+              (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j :=
     Finset.sum_le_sum fun n _ => doorChiSup_sq_le_dyadic χ M H n
-  -- ⟦STEP 2⟧ the sums commute
-  have hswap : ∑ n ∈ Finset.Ioc A B, ((L : ℝ) + 1)
-        * ∑ j ∈ Finset.range (L + 1), ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), X j t n
-      = ((L : ℝ) + 1) * ∑ j ∈ Finset.range (L + 1),
-          ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n := by
+  -- ⟦STEP 2⟧ the sums commute (the weight rides the `j`-index only)
+  have hswap : ∑ n ∈ Finset.Ioc A B, S
+        * ∑ j ∈ Finset.range (L + 1),
+            (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
+      = S * ∑ j ∈ Finset.range (L + 1),
+          (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
+            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j := by
     rw [← Finset.mul_sum]
     congr 1
     rw [Finset.sum_comm]
-    exact Finset.sum_congr rfl fun j _ => Finset.sum_comm
+    refine Finset.sum_congr rfl fun j _ => ?_
+    rw [← Finset.sum_mul]
+    congr 1
+    exact Finset.sum_comm
   -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
   have hjt : ∀ j ∈ Finset.range (L + 1), ∀ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
       ∑ n ∈ Finset.Ioc A B, X j t n ≤ F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) := by
@@ -661,77 +898,108 @@ theorem m4_chiBlockMeanSq_of_shiftBlock {R : ChowlaRegime} {M k : ℕ} {F : ℕ 
   set W : ℕ → ℝ := fun j => (((H / 2 ^ (j + 1) : ℕ) : ℝ) + 1) * (((2 ^ j : ℕ) : ℝ)) ^ 2 with hW
   have hW0 : ∀ j, (0 : ℝ) ≤ W j := fun j => dyadic_count_weight_term_nonneg H j
   have hj : ∀ j ∈ Finset.range (L + 1),
-      ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
-        ≤ (F j H * (A : ℝ)) * W j := by
+      (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
+          * (2 / 3 : ℝ) ^ j
+        ≤ (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) := by
     intro j hjm
     have hle : ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
         ≤ ∑ _t ∈ Finset.range (H / 2 ^ (j + 1) + 1), F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) :=
       Finset.sum_le_sum fun t ht => hjt j hjm t ht
     rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul] at hle
-    calc ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
-        ≤ (((H / 2 ^ (j + 1) : ℕ) + 1 : ℕ) : ℝ) * (F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)) :=
-          hle
-      _ = (F j H * (A : ℝ)) * W j := by
-          simp only [hW]
-          push_cast
-          ring
-  -- ⟦STEP 5⟧ THE SPLIT: the large lengths against the full count, the small ones against the
-  -- `H`-linear head.  This is the only place the floor `j₀` is read.
-  have hlarge : ∑ j ∈ (Finset.range (L + 1)).filter (fun j => j₀ ≤ j), (F j H * (A : ℝ)) * W j
-      ≤ Fan H * (A : ℝ) * (3 * (H : ℝ) ^ 2) := by
+    have hstep : ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
+        ≤ (F j H * (A : ℝ)) * W j := by
+      calc ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
+          ≤ (((H / 2 ^ (j + 1) : ℕ) + 1 : ℕ) : ℝ) * (F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)) :=
+            hle
+        _ = (F j H * (A : ℝ)) * W j := by
+            simp only [hW]
+            push_cast
+            ring
+    calc (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
+          * (2 / 3 : ℝ) ^ j
+        ≤ ((F j H * (A : ℝ)) * W j) * (2 / 3 : ℝ) ^ j :=
+          mul_le_mul_of_nonneg_right hstep (by positivity)
+      _ = (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) := by ring
+  -- ⟦STEP 5⟧ THE SPLIT: the large lengths against the weighted full count, the small ones
+  -- against the weighted head.  This is the only place the floor `j₀` is read.
+  have hWw0 : ∀ j, (0 : ℝ) ≤ W j * (2 / 3 : ℝ) ^ j := fun j =>
+    mul_nonneg (hW0 j) (by positivity)
+  have hlarge : ∑ j ∈ (Finset.range (L + 1)).filter (fun j => j₀ ≤ j),
+        (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j)
+      ≤ Fan H * (A : ℝ) * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j := by
     have hFanA : (0 : ℝ) ≤ Fan H * (A : ℝ) := mul_nonneg (hFan0 H) hA0
-    calc ∑ j ∈ (Finset.range (L + 1)).filter (fun j => j₀ ≤ j), (F j H * (A : ℝ)) * W j
-        ≤ ∑ j ∈ (Finset.range (L + 1)).filter (fun j => j₀ ≤ j), (Fan H * (A : ℝ)) * W j := by
+    calc ∑ j ∈ (Finset.range (L + 1)).filter (fun j => j₀ ≤ j),
+          (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j)
+        ≤ ∑ j ∈ (Finset.range (L + 1)).filter (fun j => j₀ ≤ j),
+            (Fan H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) := by
           refine Finset.sum_le_sum fun j hjm => ?_
           have hj₀ := (Finset.mem_filter.mp hjm).2
           exact mul_le_mul_of_nonneg_right
-            (mul_le_mul_of_nonneg_right (han j H hj₀) hA0) (hW0 j)
-      _ ≤ ∑ j ∈ Finset.range (L + 1), (Fan H * (A : ℝ)) * W j :=
+            (mul_le_mul_of_nonneg_right (han j H hj₀) hA0) (hWw0 j)
+      _ ≤ ∑ j ∈ Finset.range (L + 1), (Fan H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) :=
           Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
-            (fun j _ _ => mul_nonneg hFanA (hW0 j))
-      _ = (Fan H * (A : ℝ)) * ∑ j ∈ Finset.range (L + 1), W j := by rw [Finset.mul_sum]
-      _ ≤ (Fan H * (A : ℝ)) * (3 * (H : ℝ) ^ 2) :=
-          mul_le_mul_of_nonneg_left (dyadic_count_weight_le hH0) hFanA
-      _ = Fan H * (A : ℝ) * (3 * (H : ℝ) ^ 2) := rfl
-  have hsmall : ∑ j ∈ (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j), (F j H * (A : ℝ)) * W j
-      ≤ Ftr H * (A : ℝ) * (2 * (H : ℝ) * (4 : ℝ) ^ j₀) := by
+            (fun j _ _ => mul_nonneg hFanA (hWw0 j))
+      _ = Fan H * (A : ℝ) * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j := by
+          rw [Finset.mul_sum]
+  have hsmall : ∑ j ∈ (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j),
+        (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j)
+      ≤ Ftr H * (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j := by
     have hFtrA : (0 : ℝ) ≤ Ftr H * (A : ℝ) := mul_nonneg (hFtr0 H) hA0
     have hsub : (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j) ⊆ Finset.range j₀ := by
       intro j hjm
       have := (Finset.mem_filter.mp hjm).2
       exact Finset.mem_range.mpr (by omega)
-    calc ∑ j ∈ (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j), (F j H * (A : ℝ)) * W j
-        ≤ ∑ j ∈ (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j), (Ftr H * (A : ℝ)) * W j := by
+    calc ∑ j ∈ (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j),
+          (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j)
+        ≤ ∑ j ∈ (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j),
+            (Ftr H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) := by
           refine Finset.sum_le_sum fun j hjm => ?_
           have hj₀ : j < j₀ := by have := (Finset.mem_filter.mp hjm).2; omega
           exact mul_le_mul_of_nonneg_right
-            (mul_le_mul_of_nonneg_right (htr j H hj₀) hA0) (hW0 j)
-      _ ≤ ∑ j ∈ Finset.range j₀, (Ftr H * (A : ℝ)) * W j :=
+            (mul_le_mul_of_nonneg_right (htr j H hj₀) hA0) (hWw0 j)
+      _ ≤ ∑ j ∈ Finset.range j₀, (Ftr H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) :=
           Finset.sum_le_sum_of_subset_of_nonneg hsub
-            (fun j _ _ => mul_nonneg hFtrA (hW0 j))
-      _ = (Ftr H * (A : ℝ)) * ∑ j ∈ Finset.range j₀, W j := by rw [Finset.mul_sum]
-      _ ≤ (Ftr H * (A : ℝ)) * (2 * (H : ℝ) * (4 : ℝ) ^ j₀) :=
-          mul_le_mul_of_nonneg_left (dyadic_count_weight_small_le hH0 j₀) hFtrA
-      _ = Ftr H * (A : ℝ) * (2 * (H : ℝ) * (4 : ℝ) ^ j₀) := rfl
+            (fun j _ _ => mul_nonneg hFtrA (hWw0 j))
+      _ = Ftr H * (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j := by
+          rw [Finset.mul_sum]
   have hcount : ∑ j ∈ Finset.range (L + 1),
-        ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
-      ≤ Fan H * (A : ℝ) * (3 * (H : ℝ) ^ 2)
-        + Ftr H * (A : ℝ) * (2 * (H : ℝ) * (4 : ℝ) ^ j₀) := by
+        (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
+          * (2 / 3 : ℝ) ^ j
+      ≤ Fan H * (A : ℝ) * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j
+        + Ftr H * (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j := by
     refine le_trans (Finset.sum_le_sum hj) ?_
     rw [← Finset.sum_filter_add_sum_filter_not (Finset.range (L + 1)) (fun j => j₀ ≤ j)]
     linarith
-  -- ⟦THE ASSEMBLY⟧
-  have hLnn : (0 : ℝ) ≤ (L : ℝ) + 1 := by positivity
+  -- ⟦THE ASSEMBLY⟧ the two weighted counts, prefactor included (§4)
   have hHne : ((H : ℝ)) ≠ 0 := by
     have : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH0
     exact ne_of_gt this
+  have hfull : S * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j ≤ 54 / 5 * (H : ℝ) ^ 2 := by
+    rw [hS, hW, hL]
+    exact dyadic_count_weight_geom_le hH0
+  have hhead : S * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j
+      ≤ 9 / 2 * (H : ℝ) * (3 / 2 : ℝ) ^ L * (4 / 3 : ℝ) ^ j₀
+        + 9 / 5 * (3 / 2 : ℝ) ^ L * (8 / 3 : ℝ) ^ j₀ := by
+    rw [hS, hW, hL]
+    exact dyadic_count_weight_geom_small_le hH0 j₀
+  have hFanA : (0 : ℝ) ≤ Fan H * (A : ℝ) := mul_nonneg (hFan0 H) hA0
+  have hFtrA : (0 : ℝ) ≤ Ftr H * (A : ℝ) := mul_nonneg (hFtr0 H) hA0
   calc ∑ n ∈ Finset.Ioc A B, (doorChiSup χ M H n) ^ 2
-      ≤ ((L : ℝ) + 1) * ∑ j ∈ Finset.range (L + 1),
-          ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n := by
+      ≤ S * ∑ j ∈ Finset.range (L + 1),
+          (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
+            * (2 / 3 : ℝ) ^ j := by
         rw [← hswap]; exact hstep1
-    _ ≤ ((L : ℝ) + 1) * (Fan H * (A : ℝ) * (3 * (H : ℝ) ^ 2)
-          + Ftr H * (A : ℝ) * (2 * (H : ℝ) * (4 : ℝ) ^ j₀)) :=
-        mul_le_mul_of_nonneg_left hcount hLnn
+    _ ≤ S * (Fan H * (A : ℝ) * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j
+          + Ftr H * (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j) :=
+        mul_le_mul_of_nonneg_left hcount hS0
+    _ = Fan H * (A : ℝ) * (S * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j)
+          + Ftr H * (A : ℝ) * (S * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j) := by ring
+    _ ≤ Fan H * (A : ℝ) * (54 / 5 * (H : ℝ) ^ 2)
+          + Ftr H * (A : ℝ) * (9 / 2 * (H : ℝ) * (3 / 2 : ℝ) ^ L * (4 / 3 : ℝ) ^ j₀
+            + 9 / 5 * (3 / 2 : ℝ) ^ L * (8 / 3 : ℝ) ^ j₀) := by
+        have h1 := mul_le_mul_of_nonneg_left hfull hFanA
+        have h2 := mul_le_mul_of_nonneg_left hhead hFtrA
+        linarith
     _ = m4BclGraded j₀ Fan Ftr H * (H : ℝ) ^ 2 * (A : ℝ) := by
         unfold m4BclGraded m4Cmax
         rw [← hL]
@@ -860,7 +1128,7 @@ explicit, ⟦R1⟧ is no longer a hypothesis, and the two envelopes (`MSan` at `
 at `j < j₀`) are what a supplier owes. -/
 
 /-- **THE WAVE'S ANALYTIC ITEM, FROM THE GRADED ROW DATUM** — `M4ChiBlockMeanSq` at the grade
-`m4BclGraded j₀ (2·MSan) (2·MStr) H = 6(log₂H+1)·MSan H + (log₂H+1)·(4·4^{j₀}/H)·MStr H`,
+`m4BclGraded j₀ (2·MSan) (2·MStr) H`,
 ⟦R1⟧ discharged.  The bridge's own factor `2` (the harmonic→flat exchange) rides both
 envelopes. -/
 theorem m4_chiBlockMeanSq_of_dyadicRow {R : ChowlaRegime} {M k : ℕ} {MS : ℕ → ℕ → ℝ}
@@ -883,7 +1151,7 @@ theorem m4_chiBlockMeanSq_of_dyadicRow {R : ChowlaRegime} {M k : ℕ} {MS : ℕ 
 rather than assumed.
 
 The consumption list is `m4_wave_closed_of_row`'s with the maximal step removed: the
-`M4ChiMaximalStep` slot is gone, `Cmax` is the explicit `m4Cmax H = 3(log₂H+1)`, and the row
+`M4ChiMaximalStep` slot is gone, `Cmax` is the explicit constant `m4Cmax H = 54/5`, and the row
 datum is asked for at the dyadic window lengths `2^j ≤ H` and the shifted scales
 `X_{i+1} + s`, `s ≤ H` — the instances the sub-windows' dyadic pieces actually need.  ⟦R2⟧
 (the non-coprime classes) and ⟦R3⟧ (the capstone at the door's datum) are unchanged.
@@ -903,8 +1171,9 @@ The conclusion `¬ logChowla2Fails R.eps R.x R.ω` is untouched.
 ⟦THE CONSUMPTION NOTE, HONESTLY⟧ nothing here forces `j₀ ≤ log₂H`.  When `log₂H < j₀` the
 large-`j` half of §5's split is EMPTY and every length is charged at `Ftr` — the bound is
 then true and useless, exactly as it should be, and `m4SmallGradeFits` is what excludes that
-regime: it needs `H ≳ 4^{j₀}/Fan H`.  At the door `j₀ = M·Adoor M ≥ 2^18`, so the window
-floor must swallow `4^{M·Adoor M}`.  The register admits this: `U1floor ≤ R.Hlo` is chosen
+regime: it needs `H ≳ 2^{j₀}` (⟦LEVER 1′⟧ halved the uniform route's `4^{j₀}`).  At the door
+`j₀ = M·Adoor M ≥ 2^18`, so the window floor must swallow `2^{M·Adoor M}`.  The register
+admits this: `U1floor ≤ R.Hlo` is chosen
 BEFORE `R`, and `M` is constrained only through `Cg`/`δ` (`M4DoorGates.hMδ`), which are
 available then — so a consumer fixes `M` first and asks for the matching floor.  The
 ordering is workable; it is not free, and it is the item the supplier's threshold check must

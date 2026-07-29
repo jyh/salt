@@ -42,7 +42,8 @@ ONE line replaced, THREE added, and no other byte moves:
   becomes `M4CoprimeSupply.M4ChiFreeRowMeanSq R M MS`, the free-base row datum at the
   register's OWN grade `MS` (no new envelope: the same `MS` the `T₀`-free register grades
   each instance by);
-* **added** — ⟦G1⟧ `arcDen 12 H ≤ MStr H`, ⟦G2⟧ `12·MSan H + 24 ≤ 4^{j₀}` and ⟦the regime
+* **added** — ⟦G1⟧ `arcDen 12 H ^ 2 ≤ MStr H`, ⟦G2⟧ `44·MSan H + 87 ≤ (4/3)^{j₀}` and ⟦the
+  regime
   fact⟧ `8·arcDen 12 H ≤ H`, all three `H`-only thresholds of class (a), all three exactly
   `m4_coprimeN_supplied`'s (see `M4CoprimeSupply`'s ⟦THE TWO GATES⟧ and ⟦THE REGIME FACT
   CARRIED⟧ for why each is a threshold and not a saving).
@@ -91,8 +92,8 @@ choosable by the spine before any datum is exhibited:
     (`M4Residue.door_dilation_gate'`);
 13. `2·arcDen 12 H ≤ H` (kept; see ⟦THE REGISTER, LINE BY LINE⟧);
 14. ⟦the regime fact⟧ `8·arcDen 12 H ≤ H`;
-15. ⟦G1⟧ `arcDen 12 H ≤ MStr H`;
-16. ⟦G2⟧ `12·MSan H + 24 ≤ 4^{j₀}`.
+15. ⟦G1⟧ `arcDen 12 H ^ 2 ≤ MStr H`;
+16. ⟦G2⟧ `44·MSan H + 87 ≤ (4/3)^{j₀}`.
 
 **(b) WITNESSED DATA** — what the spine must exhibit, and check non-vacuous: `C ≥ 0`,
 `U1floor`, `g`, then `δ`, `Braw`, `MS`, `MSan`, `MStr`, `M`, `k`.  `R` is NOT witnessed: the
@@ -188,10 +189,10 @@ theorem m4_wave_closed_coprime_discharged (Qm : ℕ) :
             -- ⟦the regime fact⟧ (subsumes the line above)
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ≤ (H : ℝ)) →
             -- ⟦G1⟧ the trivial envelope dominates the arc denominator
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ MStr H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ^ 2 ≤ MStr H) →
             -- ⟦G2⟧ the slack-`4` residue against the floor's own constant
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-              12 * MSan H + 24 ≤ (4 : ℝ) ^ doorRowFloor M) →
+              44 * MSan H + 87 ≤ (4 / 3 : ℝ) ^ doorRowFloor M) →
             -- ⟦ARM 2 DISCHARGED: the free-base row datum is the ONLY analytic carry left⟧
             M4ChiFreeRowMeanSq R M MS →
             ¬ logChowla2Fails R.eps R.x R.ω := by
@@ -281,9 +282,9 @@ theorem m4_wave_closed_coprime_discharged_False (Qm : ℕ) :
               arcDen 12 H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) →
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ)) →
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ≤ (H : ℝ)) →
-            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ MStr H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ^ 2 ≤ MStr H) →
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
-              12 * MSan H + 24 ≤ (4 : ℝ) ^ doorRowFloor M) →
+              44 * MSan H + 87 ≤ (4 / 3 : ℝ) ^ doorRowFloor M) →
             M4ChiFreeRowMeanSq R M MS →
             logChowla2Fails R.eps R.x R.ω → False := by
   obtain ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, Kbox, X₀w,

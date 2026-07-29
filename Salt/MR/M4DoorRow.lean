@@ -82,12 +82,16 @@ upstream of the M4 wave and outside an executor's authorization.
 
 `M4Maximal` now carries the LENGTH-GRADED statement (`MS : ℕ → ℕ → ℝ`, read `MS j H`) and
 the split assembly at a NAMED floor `j₀`.  The dyadic count is where the length-dependence
-dies, and it dies asymmetrically: the full sum is `≤ 3H²` (`dyadic_count_weight_le`) but the
-head `j < j₀` is only `≤ 2H·4^{j₀}` (`dyadic_count_weight_small_le`) — **linear** in `H`
-against the block's `H²` normalisation.  §7 below supplies the door's own floor,
+dies, and it dies asymmetrically: the weighted full sum is `≤ (54/5)H²`
+(`dyadic_count_weight_geom_le`) but the head `j < j₀` is only
+`≤ (9/2)H(3/2)^{log₂H}(4/3)^{j₀} + (9/5)(3/2)^{log₂H}(8/3)^{j₀}`
+(`dyadic_count_weight_geom_small_le`) — sub-quadratic in `H` against the block's `H²`
+normalisation, since `(3/2)^{log₂H} = H^{0.585}`.  §7 below supplies the door's own floor,
 `doorRowFloor M = M·Adoor M` (the `j₀` at which the capstone's length gate first holds), and
-the threshold in which the small half is free: `4^{doorRowFloor M}` does not move with `H`,
-so the comparison is one inequality in `H` alone (`door_smallGrade_fits`).
+the threshold in which the small half is free: neither `(4/3)^{doorRowFloor M}` nor
+`(8/3)^{doorRowFloor M}` moves with `H`, so the comparison is one inequality in `H` alone
+(`door_smallGrade_fits`), and it reads `H ≳ 2^{doorRowFloor M}` — HALF the exponent the
+uniform Chebyshev route demanded.
 
 ## ⟦THE T₀-BAND, NAMED⟧
 
@@ -439,8 +443,9 @@ theorem door_length_gate_fails_of_small {M j : ℕ} (hM : 1 ≤ M) (hj : j < 2 ^
 
 /-- **THE DOOR'S LENGTH FLOOR** (`doorRowFloor`) — the `j₀` at which `M4Maximal`'s graded
 split is instantiated at the door.  It is NOT `2^18`: it is `M·Adoor M`, and the
-`M`-dependence is the point — `4^{j₀}` is a constant against `H` at fixed `M`, which is what
-makes the small-`j` half of the split free (`M4Maximal.dyadic_count_weight_small_le`). -/
+`M`-dependence is the point — `(4/3)^{j₀}` and `(8/3)^{j₀}` are constants against `H` at
+fixed `M`, which is what makes the small-`j` half of the split free
+(`M4Maximal.dyadic_count_weight_geom_small_le`). -/
 def doorRowFloor (M : ℕ) : ℕ := M * Adoor M
 
 /-- **THE LENGTH GATE, BOTH WAYS** (`door_length_gate_iff`) — the capstone's `hQ1h` at the
@@ -458,20 +463,26 @@ theorem door_length_gate_iff {M j : ℕ} :
       simpa [doorRowFloor] using h
     exact_mod_cast hN
 
-/-- **THE SMALL-`j` COMPARISON AT THE DOOR**, symbolic (`door_smallGrade_fits`).  The whole
-`j < j₀` block of `M4Maximal`'s graded assembly costs `2·4^{doorRowFloor M}·MStr H` against
-`H·(3·MSan H)`.  Both `4^{doorRowFloor M}` and any density envelope `MStr H ≤ D` are `H`-free
-— the block density is `≍ 1/loglog X_d`, bounded by an absolute constant — so the threshold
-reads, in bytes,
+/-- **THE SMALL-`j` COMPARISON AT THE DOOR**, symbolic (`door_smallGrade_fits`), re-threaded
+onto ⟦LEVER 1′⟧'s weighted head.  The whole `j < j₀` block of `M4Maximal`'s graded assembly
+now costs the TWO summands of the geometric head against `H²·MSan H`.  Neither
+`(4/3)^{doorRowFloor M}` nor `(8/3)^{doorRowFloor M}` moves with `H`, and any density
+envelope `MStr H ≤ D` is `H`-free — the block density is `≍ 1/loglog X_d`, bounded by an
+absolute constant — so the threshold reads, in bytes,
 
-  `2·4^{M·Adoor M}·D ≤ H·MSan H`,
+  `((9/2)(3/2)^{log₂H}(4/3)^{M·Adoor M}·H + (9/5)(3/2)^{log₂H}(8/3)^{M·Adoor M})·D
+     ≤ H²·MSan H`,
 
-one inequality in `H` at fixed `M`.  Under it the graded price is at most twice the ungraded
-one (`M4Maximal.m4BclGraded_le_of_fits`), i.e. the small lengths cost the close's budget
+one inequality in `H` at fixed `M`.  Since `(3/2)^{log₂H}·H = H^{1.585}` against `H²`, both
+summands read as `H ≳ 2^{M·Adoor M}` — the uniform route's demand was `4^{M·Adoor M}`, so the
+floor's exponent HALVES.  Under it the graded price is at most twice the ungraded one
+(`M4Maximal.m4BclGraded_le_of_fits`), i.e. the small lengths cost the close's budget
 nothing. -/
 theorem door_smallGrade_fits {M H : ℕ} {MSan MStr : ℕ → ℝ} {D : ℝ}
     (hMStr : MStr H ≤ D) (hMSan : 0 ≤ MSan H)
-    (hthr : 2 * (4 : ℝ) ^ doorRowFloor M * D ≤ (H : ℝ) * MSan H) :
+    (hthr : (9 / 2 * (3 / 2 : ℝ) ^ Nat.log 2 H * (4 / 3 : ℝ) ^ doorRowFloor M * (H : ℝ)
+          + 9 / 5 * (3 / 2 : ℝ) ^ Nat.log 2 H * (8 / 3 : ℝ) ^ doorRowFloor M) * D
+        ≤ (H : ℝ) ^ 2 * MSan H) :
     m4SmallGradeFits (doorRowFloor M) MSan MStr H :=
   m4SmallGradeFits_of_threshold hMStr hMSan hthr
 

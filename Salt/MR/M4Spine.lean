@@ -28,14 +28,17 @@ can carry.  The collision is a four-line budget and needs no regime at all:
   grade — `δ ≤ 4·(C/2)·(log H)^{−11/4}·loglog H`, so `δ ≲ C/(log H)²`;
 * ⟦`M4Close.M4DoorGates.hMδ`⟧ `24·Cg/δ ≤ M` then forces `M ≳ (log H)²/C`, hence the graded
   floor `j₀ = doorRowFloor M = M·Adoor M ≥ 2^18·M ≳ 2^18·(log H)²/C`;
-* ⟦gate 6⟧'s drift line carries the small-length summand `2·4^{j₀}/H` of `m4BclGraded` against
+* ⟦gate 6⟧'s drift line carries the small-length summand `(9/2)(3/2)^{log₂H}(4/3)^{j₀}/H` of
+  `m4BclGraded` (⟦LEVER 1′⟧'s weighted head, read at `(3/2)^{log₂H} ≥ 1`) against
   an envelope `MStr H` that ⟦G1⟧ (gate 15) pins from BELOW by `arcDen 12 H ≥ 1`, and ⟦gate 7⟧
-  caps the whole budget by `mrtDeliveredGrade (C/2) H ≤ C`.  So `4^{j₀} ≤ C²·H`, i.e.
-  `j₀ ≤ 2·log C + log H ≤ 2C + log H`.
+  caps the whole budget by `mrtDeliveredGrade (C/2) H ≤ C`.  So `(4/3)^{j₀} ≤ C²·H`, i.e.
+  `j₀·log(4/3) ≤ 2·log C + log H ≤ 2C + log H`, and `log(4/3) ≥ 1/4` gives
+  `j₀ ≤ 8C + 4·log H`.
 
-Multiplying the two by `C > 0`, `9·2^18·(log H)² ≤ 2^18·M·C ≤ (2C + log H)·C`:
+Multiplying the two by `C > 0`, `9·2^18·(log H)² ≤ 2^18·M·C ≤ (8C + 4·log H)·C`, i.e. after
+dividing by `4`:
 
-  **`2359296·(log H)² ≤ 2C² + (log H)·C`**   (`m4_spine_budget_necessary`).
+  **`589824·(log H)² ≤ 2C² + (log H)·C`**   (`m4_spine_budget_necessary`).
 
 Since every regime has `log H ≥ 15` (`ChowlaRegime.hHlo_floor`: `H ≥ 4·10^6`), this forces
 `log H ≤ C` (`m4_budget_forces_C`) — the MRT constant must exceed the log of every window
@@ -50,9 +53,11 @@ quadratically faster than it buys.
 
 ⟦WHAT THIS MEANS⟧ `m4_wave_collapsed` is TRUE but VACUOUS — its hypothesis list cannot be met,
 so no spine closes it.  The repair is a statement-level ruling, not an executor's page.  The
-two candidate rulings: (i) an `M`-free small-length term (the `4^{j₀}/H` factor is
-`m4BclGraded`'s, from the graded split's `j < j₀` half — it is what `M4Maximal`'s ⟦THE
-CONSUMPTION NOTE⟧ already flagged as "not free"); or (ii) a per-`H` door grade `δ H` in place
+two candidate rulings: (i) an `M`-free small-length term (the `(4/3)^{j₀}(3/2)^{log₂H}/H`
+factor is `m4BclGraded`'s, from the graded split's `j < j₀` half — it is what `M4Maximal`'s
+⟦THE CONSUMPTION NOTE⟧ already flagged as "not free"; ⟦LEVER 1′⟧ HALVED its exponent — the
+demand is `H ≳ 2^{j₀}` where it was `4^{j₀}` — and the wall survived the halving, which is
+itself the measure of how far ruling (i) must go); or (ii) a per-`H` door grade `δ H` in place
 of the single pinned `δ`, which is what decouples `M` from the TOP of the window range.
 
 **(ii) is REFUTED** (`m4_spine_budget_collision_perH_at_Hlo`, 2026-07-29): the collision needs
@@ -244,21 +249,26 @@ The hypotheses below are, verbatim, ⟦THE FINAL REGISTER⟧'s lines 4, 6, 7, 8,
 `M4Close.M4DoorGates`' `hM`, `hδ`, `hMδ`, all read at ONE window length `H`.  No regime appears
 — the collision is arithmetic, so it applies to whatever regime the exit produces.
 
-The one non-mechanical step is the passage from the drift line to `4^{j₀} ≤ C²·H`: the drift
-LHS dominates its own SMALL-LENGTH summand, which carries `2·4^{j₀}/H` against
+The one non-mechanical step is the passage from the drift line to `(4/3)^{j₀} ≤ C²·H`: the
+drift LHS dominates its own SMALL-LENGTH summand, which carries `9·(4/3)^{j₀}/H` against
 `Ftr H = 2·MStr H ≥ 2·arcDen 12 H ≥ 2` (⟦G1⟧ plus `1 ≤ (log H)^{12}`), and ⟦gate 7⟧ caps the
 whole thing by `mrtDeliveredGrade (C/2) H ≤ C`. -/
 
 set_option maxHeartbeats 2000000 in
 -- the budget runs five `nlinarith` calls over the same six atoms (`log H`, `C`, `M`,
--- `4^{j₀}/H`, `MStr H`, `Braw H`); the cost is the arithmetic, not a search
+-- `(4/3)^{j₀}/H`, `MStr H`, `Braw H`); the cost is the arithmetic, not a search
 /-- **THE NECESSARY CONDITION** (`m4_spine_budget_necessary`).  ANY instantiation of ⟦THE FINAL
 REGISTER⟧'s arithmetic gates at a window length `H` with `log H ≥ 15` (every regime:
 `hHlo_floor` gives `H ≥ 4·10^6`, so `log H ≥ 15.2`) satisfies
 
-  `2359296·(log H)² ≤ 2C² + (log H)·C`.
+  `589824·(log H)² ≤ 2C² + (log H)·C`.
 
-`2359296 = 9·2^18` — the `9` from the `δ`-to-`M` step, the `2^18` from `Adoor`. -/
+`589824 = 9·2^18/4` — the `9` from the `δ`-to-`M` step, the `2^18` from `Adoor`, and the
+`1/4` from ⟦LEVER 1′⟧: the drift line's small-length summand now carries `(4/3)^{j₀}` in place
+of `4^{j₀}`, so the log step reads `j₀·log(4/3) ≤ 2C + log H` and `log(4/3) ≥ 1/4` (the
+uniform route had `log 4 ≥ 1`).  The wall STANDS at the weighted head — the geometric weights
+cost it exactly a factor `4` in the collision constant, and `589824 ≫ 3` is what
+`m4_budget_forces_C` needs. -/
 theorem m4_spine_budget_necessary
     {Cg C δ : ℝ} {Braw MSan MStr : ℕ → ℝ} {M H : ℕ}
     (hCg : 1 ≤ Cg) (hC : 0 ≤ C) (hδ : 0 < δ)
@@ -272,7 +282,7 @@ theorem m4_spine_budget_necessary
     (hdel : Real.sqrt (Braw H) ≤ mrtDeliveredGrade (C / 2) H)
     (hrest : δ / 4 ≤ mrtDeliveredGrade (C / 2) H)
     (hG1 : arcDen 12 H ≤ MStr H) :
-    2359296 * Real.log (H : ℝ) ^ (2 : ℕ) ≤ 2 * C ^ (2 : ℕ) + Real.log (H : ℝ) * C := by
+    589824 * Real.log (H : ℝ) ^ (2 : ℕ) ≤ 2 * C ^ (2 : ℕ) + Real.log (H : ℝ) * C := by
   have hL0 : (0 : ℝ) < Real.log (H : ℝ) := by linarith
   have hL2 : (0 : ℝ) < Real.log (H : ℝ) ^ (2 : ℕ) := by positivity
   have hL2big : (225 : ℝ) ≤ Real.log (H : ℝ) ^ (2 : ℕ) := by nlinarith
@@ -338,50 +348,52 @@ theorem m4_spine_budget_necessary
       * (3 * m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H)
           (fun H => 2 * MStr H) H) ≤ Braw H := by
     simpa using hdr
-  have hu0 : (0 : ℝ) ≤ 2 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ) := by positivity
-  have ha1 : (1 : ℝ) ≤ ((Nat.log 2 H : ℕ) : ℝ) + 1 := by
-    have : (0 : ℝ) ≤ ((Nat.log 2 H : ℕ) : ℝ) := Nat.cast_nonneg _
-    linarith
+  have hu0 : (0 : ℝ) ≤ 9 / 2 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (4 / 3 : ℝ) ^ (doorRowFloor M)
+      / (H : ℝ) := by positivity
+  have ha1 : (1 : ℝ) ≤ (3 / 2 : ℝ) ^ (Nat.log 2 H) := one_le_pow₀ (by norm_num)
   have hFtr : (2 : ℝ) ≤ 2 * MStr H := by
     have := le_trans harc1 hG1
     linarith
-  have hac : (2 : ℝ) ≤ (((Nat.log 2 H : ℕ) : ℝ) + 1) * (2 * MStr H) := by
-    nlinarith [ha1, hFtr]
-  have hbcl : 4 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ)
+  have hbcl : 9 * (4 / 3 : ℝ) ^ (doorRowFloor M) / (H : ℝ)
       ≤ m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H) H := by
     have hfirst : (0 : ℝ) ≤ m4Cmax H * (2 * MSan H) :=
       mul_nonneg (m4Cmax_nonneg H) (by linarith)
-    have hsecond : (2 : ℝ) * (2 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ))
-        ≤ (((Nat.log 2 H : ℕ) : ℝ) + 1) * (2 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ))
+    have hsnd0 : (0 : ℝ) ≤ 9 / 5 * (3 / 2 : ℝ) ^ (Nat.log 2 H)
+        * (8 / 3 : ℝ) ^ (doorRowFloor M) / (H : ℝ) ^ 2 * (2 * MStr H) := by
+      have : (0 : ℝ) ≤ 2 * MStr H := by linarith
+      positivity
+    have hpow43 : (0 : ℝ) < (4 / 3 : ℝ) ^ (doorRowFloor M) := by positivity
+    have hkey : 9 * (4 / 3 : ℝ) ^ (doorRowFloor M) / (H : ℝ)
+        ≤ 9 / 2 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (4 / 3 : ℝ) ^ (doorRowFloor M) / (H : ℝ)
             * (2 * MStr H) := by
-      have h := mul_le_mul_of_nonneg_right hac hu0
-      calc (2 : ℝ) * (2 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ))
-          ≤ ((((Nat.log 2 H : ℕ) : ℝ) + 1) * (2 * MStr H))
-              * (2 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ)) := h
-        _ = (((Nat.log 2 H : ℕ) : ℝ) + 1) * (2 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ))
-              * (2 * MStr H) := by ring
-    have hgoal : 4 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ)
-        ≤ m4Cmax H * (2 * MSan H)
-          + (((Nat.log 2 H : ℕ) : ℝ) + 1) * (2 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ))
-              * (2 * MStr H) := by
-      calc 4 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ)
-          = 2 * (2 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ)) := by ring
-        _ ≤ (((Nat.log 2 H : ℕ) : ℝ) + 1) * (2 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ))
-              * (2 * MStr H) := hsecond
-        _ ≤ m4Cmax H * (2 * MSan H)
-              + (((Nat.log 2 H : ℕ) : ℝ) + 1) * (2 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ))
-                  * (2 * MStr H) := by linarith
-    exact hgoal
-  have hBraw_ge : 12 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ) ≤ Braw H := by
+      rw [div_mul_eq_mul_div, div_le_div_iff_of_pos_right hH0]
+      have h1 : 9 * (4 / 3 : ℝ) ^ (doorRowFloor M)
+          ≤ 9 / 2 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (4 / 3 : ℝ) ^ (doorRowFloor M) * 2 := by
+        nlinarith [mul_le_mul_of_nonneg_left ha1 (by positivity :
+          (0 : ℝ) ≤ 9 * (4 / 3 : ℝ) ^ (doorRowFloor M))]
+      nlinarith [h1, hFtr, mul_le_mul_of_nonneg_left hFtr
+        (by positivity : (0 : ℝ) ≤ 9 / 2 * (3 / 2 : ℝ) ^ (Nat.log 2 H)
+          * (4 / 3 : ℝ) ^ (doorRowFloor M))]
+    have hexp : m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H) H
+        = m4Cmax H * (2 * MSan H)
+          + 9 / 2 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (4 / 3 : ℝ) ^ (doorRowFloor M) / (H : ℝ)
+              * (2 * MStr H)
+          + 9 / 5 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (8 / 3 : ℝ) ^ (doorRowFloor M)
+              / (H : ℝ) ^ 2 * (2 * MStr H) := by
+      unfold m4BclGraded
+      ring
+    rw [hexp]
+    linarith
+  have hBraw_ge : 27 * (4 / 3 : ℝ) ^ (doorRowFloor M) / (H : ℝ) ≤ Braw H := by
     set G := m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H) H
       with hGdef
     set A := (1 + 2 * Real.pi * arcDen 12 H) ^ 2 with hAdef
-    have h2 : 12 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ) ≤ 3 * G := by
-      calc 12 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ)
-          = 3 * (4 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ)) := by ring
+    have h2 : 27 * (4 / 3 : ℝ) ^ (doorRowFloor M) / (H : ℝ) ≤ 3 * G := by
+      calc 27 * (4 / 3 : ℝ) ^ (doorRowFloor M) / (H : ℝ)
+          = 3 * (9 * (4 / 3 : ℝ) ^ (doorRowFloor M) / (H : ℝ)) := by ring
         _ ≤ 3 * G := by linarith [hbcl]
     have hX0 : (0 : ℝ) ≤ 3 * G := by
-      have h0 : (0 : ℝ) ≤ 12 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ) := by positivity
+      have h0 : (0 : ℝ) ≤ 27 * (4 / 3 : ℝ) ^ (doorRowFloor M) / (H : ℝ) := by positivity
       linarith
     have hA1 : (1 : ℝ) ≤ A := by
       have hbase : (1 : ℝ) ≤ 1 + 2 * Real.pi * arcDen 12 H := by
@@ -391,7 +403,7 @@ theorem m4_spine_budget_necessary
     have h1 : (3 : ℝ) * G ≤ A * (3 * G) := by nlinarith [hX0, hA1]
     linarith [hdr1]
   have hBraw0 : (0 : ℝ) ≤ Braw H := by
-    have h0 : (0 : ℝ) ≤ 12 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ) := by positivity
+    have h0 : (0 : ℝ) ≤ 27 * (4 / 3 : ℝ) ^ (doorRowFloor M) / (H : ℝ) := by positivity
     linarith [hBraw_ge]
   -- ⟦gate 7 caps the budget by `C`⟧
   have hmrC : mrtDeliveredGrade (C / 2) H ≤ C := by
@@ -402,18 +414,24 @@ theorem m4_spine_budget_necessary
     have h1 : Real.sqrt (Braw H) ≤ C := le_trans hdel hmrC
     have h2 : Real.sqrt (Braw H) ^ (2 : ℕ) = Braw H := Real.sq_sqrt hBraw0
     nlinarith [h1, Real.sqrt_nonneg (Braw H)]
-  -- ⟦`4^{j₀} ≤ C²·H`, hence `j₀ ≤ 2C + log H`⟧
-  have hpow0 : (0 : ℝ) < (4 : ℝ) ^ (doorRowFloor M) := by positivity
-  have h4j : (4 : ℝ) ^ (doorRowFloor M) ≤ C ^ (2 : ℕ) * (H : ℝ) := by
-    have h1 : 12 * (4 : ℝ) ^ (doorRowFloor M) / (H : ℝ) ≤ C ^ (2 : ℕ) :=
+  -- ⟦`(4/3)^{j₀} ≤ C²·H`, hence `j₀ ≤ 8C + 4·log H`⟧
+  have hpow0 : (0 : ℝ) < (4 / 3 : ℝ) ^ (doorRowFloor M) := by positivity
+  have h4j : (4 / 3 : ℝ) ^ (doorRowFloor M) ≤ C ^ (2 : ℕ) * (H : ℝ) := by
+    have h1 : 27 * (4 / 3 : ℝ) ^ (doorRowFloor M) / (H : ℝ) ≤ C ^ (2 : ℕ) :=
       le_trans hBraw_ge hBrawC
     rw [div_le_iff₀ hH0] at h1
     linarith [hpow0]
-  have hlog4 : (1 : ℝ) ≤ Real.log 4 := by
-    rw [Real.le_log_iff_exp_le (by norm_num : (0 : ℝ) < 4)]
-    have := Real.exp_one_lt_d9
+  -- `log(4/3) ≥ 1/4` because `(4/3)^4 = 256/81 = 3.16… > e`
+  have hlog43 : (1 : ℝ) / 4 ≤ Real.log (4 / 3) := by
+    have h : (1 : ℝ) ≤ Real.log ((4 / 3 : ℝ) ^ (4 : ℕ)) := by
+      rw [Real.le_log_iff_exp_le (by norm_num : (0 : ℝ) < (4 / 3 : ℝ) ^ (4 : ℕ))]
+      have := Real.exp_one_lt_d9
+      norm_num
+      linarith
+    rw [Real.log_pow] at h
+    push_cast at h
     linarith
-  have hj0le : ((doorRowFloor M : ℕ) : ℝ) ≤ 2 * C + Real.log (H : ℝ) := by
+  have hj0le : ((doorRowFloor M : ℕ) : ℝ) ≤ 8 * C + 4 * Real.log (H : ℝ) := by
     have hmono := Real.log_le_log hpow0 h4j
     rw [Real.log_pow] at hmono
     have hsplit : Real.log (C ^ (2 : ℕ) * (H : ℝ)) = 2 * Real.log C + Real.log (H : ℝ) := by
@@ -424,7 +442,8 @@ theorem m4_spine_budget_necessary
       have := Real.log_le_sub_one_of_pos hC0
       linarith
     have hj0nn : (0 : ℝ) ≤ ((doorRowFloor M : ℕ) : ℝ) := Nat.cast_nonneg _
-    nlinarith [hmono, hlog4, hj0nn, hlogC]
+    have hq := mul_le_mul_of_nonneg_left hlog43 hj0nn
+    linarith [hmono, hq, hlogC]
   -- ⟦`Adoor ≥ 2^18`⟧
   have hAdoor : (262144 : ℝ) * (M : ℝ) ≤ ((doorRowFloor M : ℕ) : ℝ) := by
     have hnat : 2 ^ 18 * M ≤ doorRowFloor M := by
@@ -439,14 +458,14 @@ theorem m4_spine_budget_necessary
   -- ⟦the collision⟧
   have h1 : (262144 : ℝ) * (M : ℝ) * C ≤ ((doorRowFloor M : ℕ) : ℝ) * C :=
     mul_le_mul_of_nonneg_right hAdoor hC0.le
-  have h2 : ((doorRowFloor M : ℕ) : ℝ) * C ≤ (2 * C + Real.log (H : ℝ)) * C :=
+  have h2 : ((doorRowFloor M : ℕ) : ℝ) * C ≤ (8 * C + 4 * Real.log (H : ℝ)) * C :=
     mul_le_mul_of_nonneg_right hj0le hC0.le
   nlinarith [hMC, h1, h2]
 
 /-- **THE FORCED CONSTANT** (`m4_budget_forces_C`).  The necessary condition, read as a lower
 bound on the MRT constant: the register can only be met if `C` exceeds `log H`. -/
 theorem m4_budget_forces_C {C L : ℝ} (hC : 0 ≤ C) (hL : 15 ≤ L)
-    (hb : 2359296 * L ^ (2 : ℕ) ≤ 2 * C ^ (2 : ℕ) + L * C) : L ≤ C := by
+    (hb : 589824 * L ^ (2 : ℕ) ≤ 2 * C ^ (2 : ℕ) + L * C) : L ≤ C := by
   by_contra hcon
   have h : C < L := not_le.mp hcon
   nlinarith [hb, h, hL, hC]
@@ -455,7 +474,7 @@ theorem m4_budget_forces_C {C L : ℝ} (hC : 0 ≤ C) (hL : 15 ≤ L)
 `H0scale C ≤ R.Hlo`, i.e. `C² ≤ log H` (`M4Exit.sq_le_log_of_H0scale_le`), the forced constant
 is impossible. -/
 theorem m4_budget_collision {C L : ℝ} (hC : 0 ≤ C) (hL : 15 ≤ L)
-    (hb : 2359296 * L ^ (2 : ℕ) ≤ 2 * C ^ (2 : ℕ) + L * C) (hscale : C ^ (2 : ℕ) ≤ L) :
+    (hb : 589824 * L ^ (2 : ℕ) ≤ 2 * C ^ (2 : ℕ) + L * C) (hscale : C ^ (2 : ℕ) ≤ L) :
     False := by
   have hLC := m4_budget_forces_C hC hL hb
   nlinarith [hLC, hscale, hL, hC]

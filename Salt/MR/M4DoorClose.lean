@@ -63,7 +63,8 @@ two `M4NonCoprime` gates (`arcDen 12 H < P₁ = 2^{Adoor M}`, `2·arcDen 12 H �
   annulus box gates, the uniform CASE-A ceiling `S` and the two `cofactorRbdGen` charges;
 * the `g`-arm/`U1floor` shapes of the outer register: `U1floor ≤ R.Hlo` and `g R.Hhi R.ω ≤
   R.x` are chosen BEFORE `R` (the consumer's, unchanged from `m4_wave_closed_of_chi`), and
-  `m4SmallGradeFits`'s threshold `2·4^{doorRowFloor M}·D ≤ H·MSan H` is the one that must
+  `m4SmallGradeFits`'s threshold (⟦LEVER 1′⟧'s weighted head against `H²·MSan H`,
+  i.e. `H ≳ 2^{doorRowFloor M}`) is the one that must
   swallow `4^{M·Adoor M}` — see `M4Maximal`'s ⟦THE CONSUMPTION NOTE⟧ and
   `M4DoorRow.door_smallGrade_fits`.
 

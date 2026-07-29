@@ -2805,10 +2805,11 @@ open Salt.Tactic in
   Salt.MR.m4_coprimeBlockMeanSq_trivial
   Salt.MR.m4_nonCoprime_classMeanSq
 
--- ⟦R1 — THE MAXIMAL STEP⟧ (`M4Maximal`, 2026-07-28) — the first of the final register's
--- three residues, executed by THE DYADIC (Rademacher–Menshov) ROUTE at the price
--- `m4Cmax H = 3·(log₂H + 1)` — ONE `Nat.log 2`, not the `(log H)²` the budget allowed, and
--- never the fatal `H + 1` of `sup² ≤ ∑_{K≤H}`.  ⟦THE STATEMENT FINDING⟧: `M4WaveClosed`'s
+-- ⟦R1 — THE MAXIMAL STEP⟧ (`M4Maximal`, 2026-07-28; ⟦LEVER 1′⟧ re-cut 2026-07-29) — the
+-- first of the final register's three residues, executed by THE DYADIC (Rademacher–Menshov)
+-- ROUTE at the price `m4Cmax = 54/5 = 10.8` — a CONSTANT, not the `3(log₂H+1)` the uniform
+-- Chebyshev charged, not the `(log H)²` the budget allowed, and never the fatal `H + 1` of
+-- `sup² ≤ ∑_{K≤H}`.  ⟦THE STATEMENT FINDING⟧: `M4WaveClosed`'s
 -- `M4ChiMaximalStep` — the sup priced against the SAME block's fixed-length-`H` sums — is
 -- not the shape that can be proved and is false for general data (an alternating datum has
 -- `S(n,H) = 0` at even `H` while `S(n,1) = ±1`: the right side vanishes, the left is the
@@ -2817,8 +2818,17 @@ open Salt.Tactic in
 -- sit at SHIFTED bases `n + P_j K` with `P_j K = 2^{j+1}⌊K/2^{j+1}⌋` a multiple of
 -- `2^{j+1}` — the ALIGNMENT is the content: at scale `j` only `⌊H/2^{j+1}⌋+1` offsets can
 -- occur, so summing over offsets (never maximising) costs `∑_j (⌊H/2^{j+1}⌋+1)(2^j)² ≤ 3H²`
--- (`dyadic_count_weight_le`, two geometric series against `2^{log₂H} ≤ H`), and Chebyshev
--- over the `≤ log₂H+1` pieces contributes the single log.  The input is therefore the row
+-- (`dyadic_count_weight_le`, two geometric series against `2^{log₂H} ≤ H`).  ⟦LEVER 1′⟧ (the
+-- second-road freeze v2, wave ②) replaces the uniform Chebyshev over the `≤ log₂H+1` pieces
+-- — which contributed the single log — by GEOMETRIC-WEIGHT Cauchy–Schwarz at `c = 3/2`,
+-- packaged in the sqrt-free ENGEL/Sedrakyan form `Finset.sq_sum_div_le_sum_sq_div`.  The
+-- weight sum `∑_{j≤L}(3/2)^j = 3(3/2)^L − 2` and the `(2/3)^j`-weighted count multiply to
+-- `6H·2^L + (24/5)·4^L ≤ (54/5)H²` (`dyadic_count_weight_geom_le`) — the two mixed products
+-- `(3/2)^L(4/3)^L = 2^L` and `(3/2)^L(8/3)^L = 4^L` are exact, which is why every ratio is
+-- rational and every geometric series closes under `norm_num`.  `c = 3/2` is ~1% off the
+-- true optimum (25/16 gives 10.9076) and materially easier bookkeeping.  The lever is FREE
+-- on the supply side: no datum, no gate, no new hypothesis at the door — the weights live
+-- entirely inside the maximal step's own Cauchy–Schwarz.  The input is therefore the row
 -- mean square at the DYADIC lengths `2^j ≤ H` and the SHIFTED scales `X_{i+1}+s`, `s ≤ H`
 -- (`M4ChiDyadicRowMeanSq`) — the capstone's own currency with both pins (`X_d = X`,
 -- `N = 2X_d`) intact at every instance.  ⟦THE OVERHANG, HONESTLY⟧: the shift is EXACT
@@ -2830,16 +2840,32 @@ open Salt.Tactic in
 -- `MS : ℕ → ℕ → ℝ`, read `MS j H` — the grade at dyadic length `2^j` — because the door's
 -- capstone cannot be STATED below `j = M·Adoor M` (`M4DoorRow.door_length_gate_iff`) and at
 -- `j = 0` the row quantity IS the block density, `≍ 1`.  The assembly absorbs the grading at
--- a NAMED floor `j₀` (never `2^18` inlined — the `M`-dependence is the point): the full
--- count `3H²` charges the analytic envelope `MSan` on `j₀ ≤ j`, while the small head
--- `∑_{j<j₀}(⌊H/2^{j+1}⌋+1)(2^j)² ≤ 2H·4^{j₀}` (`dyadic_count_weight_small_le` — LINEAR in
--- `H`) charges the trivial envelope `MStr` on `j < j₀`.  Composed grade
+-- a NAMED floor `j₀` (never `2^18` inlined — the `M`-dependence is the point): the weighted
+-- full count `(54/5)H²` charges the analytic envelope `MSan` on `j₀ ≤ j`, while the weighted
+-- small head `(9/2)H(3/2)^{log₂H}(4/3)^{j₀} + (9/5)(3/2)^{log₂H}(8/3)^{j₀}`
+-- (`dyadic_count_weight_geom_small_le` — TWO summands, because the term bound's `H·2^{j-1}`
+-- half is top-heavy at ratio `2/(3/2) = 4/3` and its `4^j` half at `4/(3/2) = 8/3`) charges
+-- the trivial envelope `MStr` on `j < j₀`.  Composed grade
 -- `Bcl H = m4BclGraded j₀ (2·MSan) (2·MStr) H
---        = 6(log₂H+1)·MSan H + (log₂H+1)·(4·4^{j₀}/H)·MStr H` — the second summand carries
--- `1/H`, so at fixed `M` the small lengths decay.  THE THRESHOLD, symbolic
--- (`m4SmallGradeFits`, `m4SmallGradeFits_of_threshold`): `2·4^{j₀}·D ≤ H·MSan H` for any
--- envelope `MStr H ≤ D`, under which the split costs at most a factor 2
--- (`m4BclGraded_le_of_fits`).  The close is `m4_wave_closed_of_dyadicRow`,
+--        = (108/5)·MSan H
+--          + (9·(3/2)^{log₂H}(4/3)^{j₀}/H + (18/5)(3/2)^{log₂H}(8/3)^{j₀}/H²)·MStr H`
+-- — the second summand's two pieces are `≍ H^{-0.415}` and `≍ H^{-1.415}` (since
+-- `(3/2)^{log₂H} = H^{0.58496}`), so at fixed `M` the small lengths decay.  ⟦THE FLOOR, HALVED⟧
+-- `log₂(4/3) = 0.41504` and `log₂(8/3) = 1.41504` are EXACTLY the two `H`-exponents, so both
+-- pieces impose the same demand `H ≳ 2^{j₀}` where the uniform route demanded `4^{j₀}`: the
+-- window floor's exponent halves, and `U1floor` with it.  THE THRESHOLD, symbolic
+-- (`m4SmallGradeFits`, `m4SmallGradeFits_of_threshold`): the weighted head against `D` under
+-- `H²·MSan H` for any envelope `MStr H ≤ D`, under which the split costs at most a factor 2
+-- (`m4BclGraded_le_of_fits`, STATEMENT unmoved).  ⟦A1, THE SHAPE RULE⟧ `m4BclGraded` and
+-- `m4Cmax` keep their names and signatures and are re-cut IN PLACE — that alone keeps every
+-- register restatement site byte-identical, because they consume only `m4BclGraded_nonneg`.
+-- ⟦A2, THE PRICE AT THE NARROW BASE⟧ the free-base copies transfer the head from the free
+-- length `L` to `H` through `H ≤ arcDen·L`, and the `(8/3)^{j₀}` piece is normalised by `H²`
+-- — so ⟦G1⟧ must strengthen from `arcDen 12 H ≤ MStr H` to `arcDen 12 H ^ 2 ≤ MStr H` (the
+-- honest exponent is `log₂(8/3) = 1.415`, rounded up to the integer square), and ⟦G2⟧ from
+-- `12·MSan H + 24 ≤ 4^{j₀}` to `44·MSan H + 87 ≤ (4/3)^{j₀}`.  MStr is WITNESSED data, so
+-- both are free to supply; they move at six register sites and nowhere else.
+-- The close is `m4_wave_closed_of_dyadicRow`,
 -- `m4_wave_closed_of_chi`'s analytic slot filled with ⟦R1⟧ discharged and only ⟦R2⟧/⟦R3⟧
 -- outstanding; its conclusion `¬ logChowla2Fails` is unmoved by the re-cut, and only the
 -- register's grade items move (two envelopes + two envelope gates + the bound floor `j₀`;
@@ -2856,6 +2882,13 @@ open Salt.Tactic in
   Salt.MR.dyadic_count_weight_term_nonneg
   Salt.MR.dyadic_count_weight_le
   Salt.MR.dyadic_count_weight_small_le
+  Salt.MR.geom_weight_sum
+  Salt.MR.geom_weight_sum_pos
+  Salt.MR.geom_weight_sum_le
+  Salt.MR.inv_geom_weight
+  Salt.MR.geom_term_eq
+  Salt.MR.dyadic_count_weight_geom_le
+  Salt.MR.dyadic_count_weight_geom_small_le
   Salt.MR.m4Cmax
   Salt.MR.m4Cmax_nonneg
   Salt.MR.m4BclGraded
@@ -3449,11 +3482,14 @@ open Salt.Tactic in
 -- half (`j₀ ≤ j`) lands ON THE NOSE against the grade's first summand (`Λ_L ≤ Λ_H` and
 -- nothing else); the trivial half (`j < j₀`) is charged at the ABSOLUTE grade `1` — no row
 -- datum is read below the floor at all, so the register owes ONE envelope gate, not two —
--- and takes HALF the second summand; the slack residue (the fit's `+4` and the drop's
--- `4·(2^j)²/A`, both `A`-free, together `Λ·(6·Fan H + 24)·L²`) takes the other half.  TWO
--- new class-(a) gates, both `H`-only and consumer-choosable: ⟦G1⟧ `arcDen 12 H ≤ MStr H`
--- (the trivial envelope against the arc denominator — a threshold, not a saving) and ⟦G2⟧
--- `12·MSan H + 24 ≤ 4^{j₀}` (the slack residue against the floor's own constant; at the door
+-- and takes (at ⟦LEVER 1′⟧) the head's `(4/3)^{j₀}` summand together with the slack residue
+-- (the fit's `+4` and the drop's `4·(2^j)²/A`, both `A`-free, together
+-- `(54/5)·(2·Fan H + 8)·L²`), while the head's `(8/3)^{j₀}` summand — normalised by `H²`
+-- against a free length only `≥ H/arcDen` — is what forces ⟦G1⟧ up to `arcDen²`.  TWO
+-- new class-(a) gates, both `H`-only and consumer-choosable: ⟦G1⟧ `arcDen 12 H ^ 2 ≤ MStr H`
+-- (the trivial envelope against the arc denominator SQUARED — a threshold, not a saving; the
+-- honest exponent is `log₂(8/3) = 1.415`, rounded up to the integer square) and ⟦G2⟧
+-- `44·MSan H + 87 ≤ (4/3)^{j₀}` (the slack residue against the floor's own constant; at the door
 -- `j₀ = M·Adoor M ≥ 2^18`, so this is a formality — but `j₀` is a PARAMETER here, never a
 -- numeral).  ONE regime fact carried: `8·arcDen 12 H ≤ H`, `M4NonCoprime`'s own `harc` with
 -- `2 → 8`, which turns ⟦THE NARROWING⟧ into `8 ≤ L` and hence (on a non-empty block) into
@@ -3586,9 +3622,14 @@ open Salt.Tactic in
 -- COLLISION⟧ the arithmetic gates are JOINTLY INCONSISTENT: ⟦gate 8⟧ pins `δ` at the
 -- DECAYING MRT grade (`δ ≲ C/(log H)²`), `M4DoorGates.hMδ` (`24·Cg/δ ≤ M`) then forces
 -- `M ≳ (log H)²/C` and so `j₀ = doorRowFloor M ≥ 2^18·M`, while ⟦gate 6⟧'s small-length
--- summand `2·4^{j₀}/H` of `m4BclGraded` — with `MStr H` pinned from BELOW by ⟦G1⟧ — under
--- ⟦gate 7⟧'s cap gives `4^{j₀} ≤ C²·H`, i.e. `j₀ ≤ 2C + log H`.  Multiplying:
--- **`2359296·(log H)² ≤ 2C² + (log H)·C`** (`m4_spine_budget_necessary`), which at every
+-- summand `(9/2)(3/2)^{log₂H}(4/3)^{j₀}/H` of `m4BclGraded` (⟦LEVER 1′⟧'s weighted head at
+-- `(3/2)^{log₂H} ≥ 1`) — with `MStr H` pinned from BELOW by ⟦G1⟧ — under ⟦gate 7⟧'s cap gives
+-- `(4/3)^{j₀} ≤ C²·H`, i.e. `j₀·log(4/3) ≤ 2C + log H` and so (at `log(4/3) ≥ 1/4`)
+-- `j₀ ≤ 8C + 4·log H`.  Multiplying:
+-- **`589824·(log H)² ≤ 2C² + (log H)·C`** (`m4_spine_budget_necessary` — the geometric
+-- weights cost the collision exactly a factor `4`, and `589824 ≫ 3` is all the wall needs:
+-- ⟦WALL A⟧ SURVIVES the lever, which is itself the measure of how far its repair must go),
+-- which at every
 -- regime's `log H ≥ 15` forces `log H ≤ C` (`m4_budget_forces_C`) — impossible, since `C` is
 -- fixed BEFORE `R` and `R.Hhi` is unbounded above, and outright contradictory against the
 -- exit's own floor `H0scale C ≤ R.Hlo` (`C² ≤ log H`, `m4_budget_collision`).  So
