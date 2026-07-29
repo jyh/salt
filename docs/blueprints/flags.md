@@ -14632,3 +14632,46 @@ zero-byte instantiations + 4 twins (~10–20 ln each) + the case-split
 stones (~40 ln) + the hgate restructure. REF-SAND's A-6 wording
 corrected twice (the stratified D₀ is 2^1395 not 2^163; the margin
 factor is 3.9e4 — LARGER than claimed, not smaller).
+
+---
+
+## ⟦WAVE-5 + THE CONSTRUCTION CLOSE⟧: the D₀-truncation REFUTED (the ledger spends once) — the second road is BUILT; two decisions to JYH (2026-07-29 09:55 PDT)
+
+**THE REFUTATION (corrects the banked D0-TEST verdict):** at every
+stratum the χ-summed supply is read at the stratum's OWN dilated cap
+and re-indexed block, so its budget decays as 1/d² exactly like the
+trivial count — the trivial branch is worse by 1/Bcl at EVERY d. The
+1/d² is d0_ledger_sharp, and M4Gauss §5 already spends it (the
+weighted CS is what makes the recombination loglog-scale instead of
+τ(q)²-fatal). **The weighted recombination and the D₀-truncation
+need the same ledger — mutually exclusive.** D0-TEST's SITE-A margin
+priced an admissibility the chain never demands; its growth law does
+not reproduce. D₀'s honest residual value: ~1 anchor bit (the
+divisor tail), 5–6 with Wigert — not the 16 needed. The scoper-vs-
+executor disagreement resolved the right way: the builder found the
+structural conflict the arithmetic model missed. Banked: truncD +
+the SITE-A admissibility ARE landed (kernel) for any future design
+that doesn't spend the ledger twice.
+
+**THE SECOND ROAD IS BUILT (waves ①–⑤ complete, sealed through
+9a37631; ~5900 ln today):** m4_second_road stands at the FINAL
+port-facing census — 11 gates: witnessed (G1 at the arcDen⁷
+inhabitant; the nonneg envelopes) / regime-absorbable (the H-lowers)
+/ G2 an H-upper but NON-BINDING by 55 orders / **gate 8 the ONE
+binding H-upper** (loglog H < 0.0578·Adoor M) / the consumer data /
+the analytic slot M4ChiSummedFreeRow. F5-grep clean; the 2^{21845}
+numeral never demanded (the WALL-C twins proved UNNECESSARY — the
+wave-④ chain routes free-W throughout; the two q-pinned sites
+weakened in place, zero-byte at the door side). **THE RS-DEMAND
+KERNEL-CHECKED (m4_second_road_rs_ceiling): RSan ≲
+2.5·10⁻¹⁰⁵/(loglog H)² — loglog-decay only, inside the residual
+law, far weaker than KMT's strength.**
+
+**THE TWO DECISIONS FOR JYH:** (1) ⟦THE ANCHOR⟧ — gate 8 +
+the ②-halved floor + the landed exp-5 tower need **2^34 minimum /
+2^36 for ≥2× headroom** for the register's own inhabitability
+(REF-SAND's table, now the operative numbers); the KMT-port case
+needs ~2^74; the Ah h-dependent anchor (Eq26Compose:874, unconsumed)
+is the structural alternative that may dissolve both — UNPRICED, one
+scoper away. (2) ⟦THE PORT⟧ — 8–18k, the demand now exact and
+generous, the three riders, the endpoint obligation per A-E2.
