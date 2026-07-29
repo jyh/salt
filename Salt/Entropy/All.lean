@@ -66,6 +66,7 @@ import Salt.Entropy.Chowla.SpineClose
 import Salt.Entropy.Chowla.TowerDischarge
 import Salt.Entropy.Chowla.BoundaryMap
 import Salt.Entropy.Chowla.RegimeParam
+import Salt.Entropy.Chowla.TowerExport
 import Salt.Entropy.Chowla.SpineFinal
 import Salt.Entropy.Chowla.TransportWall
 import Salt.Entropy.Chowla.Windows
@@ -201,6 +202,11 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.chowlaRegime_exists_param_head'
   Salt.Entropy.Chowla.log_chowla_two_budget_head_g
   Salt.Entropy.Chowla.dropSum_exceeds_log_two_base
+  Salt.Entropy.Chowla.towerJmin_spec
+  Salt.Entropy.Chowla.towerDropSum_le_log_two_of_lt_towerJmin
+  Salt.Entropy.Chowla.towerDropSum_ge_half_log_ratio
+  Salt.Entropy.Chowla.towerDropSum_le_half_log_ratio_mul
+  Salt.Entropy.Chowla.tower_loglog_le Salt.Entropy.Chowla.tower_loglog_ge
   Salt.Entropy.Chowla.log_chowla_two_conditional_hoisted
   Salt.Entropy.Chowla.log_chowla_two_final
   Salt.Entropy.Chowla.log_chowla_two_final_xi
