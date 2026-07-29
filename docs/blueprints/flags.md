@@ -14742,3 +14742,28 @@ builder re-points its J at towerJmin; the conjunct threads
 head → socket and STOPS at the socket per ARC-SCOPE). Route B (the
 anchor generalisation) stays BANKED as the port-era alternative.
 THE-ANCHOR-EXECUTOR dispatched with both pieces.
+
+---
+
+## ⟦THE DESIGN BLOCK CLOSES⟧ — the anchor wave lands (99f0673); THE SECOND ROAD IS COMPLETE; one decision remains (2026-07-29 11:35 PDT)
+
+The C2 design block, opened at this morning's council, is CLOSED:
+freeze → refuter pass → v2 ratified → waves ①–⑤ + the anchor wave,
+all landed and sealed, tree green at 9542 jobs throughout, every
+axiom audit clean. **m4_second_road stands at 11 gates with the
+sandwich resolved by JYH's ruled re-pin (2^36) + the named spine
+amendment (the tower's law now an exported regime conjunct, exact
+endpoint form).** The retired first road stays banked as five
+kernel-checked impossibility results. The day's construction:
+~9,000 ln across 11 waves/executors, 7 scoper/refuter passes, 2
+JYH-ratified amendments (the anchor; the spine conjunct), 3
+executor-refutes-scoper corrections (the D₀ ledger; the q=1 pinch;
+the Ah headroom) — every one caught before it cost anything.
+
+**THE ONE REMAINING DECISION: THE PORT** (the analytic slot's
+supplier — KMT PLMS 2023 Cor 1.7, 8–18k ln, two new stones, the
+kernel-checked demand RSan ≲ 2.5e-105/(loglog H)², the three D-8
+riders + the port-case anchor note (2^74-equivalent via another
+one-line re-pin, or route B's generalisation, when it fires)). On
+JYH's word, the port brief gets drafted, refuted, and dispatched as
+its own multi-wave campaign.
