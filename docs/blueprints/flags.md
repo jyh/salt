@@ -13449,3 +13449,43 @@ question is EXACTLY whether the high line's deficit is in k or in y;
 GEOMEAN-SCOPE dispatched to work both lines' prices honestly).
 UNCONDITIONALLY WON: the N-term dead; the A-term mass-free; the far
 arm Tstar-free at a free height.
+
+---
+
+## GEOMEAN-SCOPE: the k-power is INTRINSIC — the low-line refutation CLOSED; the fallback priced to a sliver (2026-07-28 20:39 PDT)
+
+THE CLOSURE (amend ⟦THE LOW-LINE REFUTATION⟧, no executor re-derives):
+Π₋Π₊ ≥ Π(c₀)² (CS — the geometric mean never beats the centre); the
+low line dominates at the window TOP, the high at the BOTTOM (Π₊
+carries k⁰, not k^{−2β} — no counterpart to cancel); y^η = e EXACTLY
+at the pin, so every y-power is an absolute constant in [e^{−2}, 1].
+The CS re-cut is legal+cheap (mixed_weight_cs landed, JointHead:563)
+and buys e^{102} — but the MIXED term (low price × high mass) binds:
+H ≳ k^{(2/3)(η−1/L)} — a k-power, dead for poly-log. The at-centre
+reading threads (3 edits) and buys exactly 1/(2L) — dead. The
+route-confusion check NEGATIVE (the suppliers share the bottom layer;
+the T0-band needs DECAY where the socket needs boundedness — FarL2
+was the right consumer).
+
+**THE LIVE ROUTE — THE FALLBACK, exactly priced:** box_floor_M0's
+1/16 (LANDED, free) + the seamT0 re-cut n: 15 → ~45 with the decay
+demand δ relaxed 1/500 → ~1/5000 + the seamRad re-pin (the ball
+separation must follow seamT0 down). THE SLIVER: the θ-window is
+n ∈ (43.9, 48) — bounded ABOVE by the A2 §8.3 first-term convergence
+wall (1/n > θ), which rests on s8-freeze.md:11's arithmetic, NOT a
+kernel theorem — A2WALL-CHECK dispatched to verify it in stone before
+any ruling. The re-cut price: ~10–15 numeric edits (only FOUR proofs
+unfold the exponent among 321 symbolic occurrences) + the ball
+geometry re-pin + ~40× threshold-constant growth. **seamT0's def is
+referenced by the frozen thm_a2'_of_rows statement — the re-cut
+changes the frozen theorem's MEANING: JYH-gated, the morning ruling.**
+⟦THE BOX-STRENGTH QUESTION⟧ named-not-dispatched: lifting 1/16 above
+0.18665 on the 3X box is the Siegel wall's even-real corner (K2/K3) —
+the one page that would dissolve the sliver, and it is research-tier.
+
+**THE STRUCTURAL CLOSE PROCEEDS REGARDLESS:** W2-DOOR-CARRIED
+dispatched — the door re-fly with the hT0band slot CARRIED as a named
+gate (every OTHER binder now inhabitable post-counter-wave); the
+collapse and the spine can close structurally with the T0-band demand
+as the one named analytic hypothesis, discharged by the morning
+ruling's route.
