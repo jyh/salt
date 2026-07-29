@@ -14925,3 +14925,13 @@ D-risk isolated behind a cheap probe. **THE ASKS: (1) fire P-0′
 (the B-probe — the go/no-go, 300–600 or a STOP); (2) authorize
 P-1..P-7 contingent on it. The 2³⁶ anchor + the spine conjunct
 untouched by every route.**
+
+---
+
+## ⟦THE PORT AUTHORIZED⟧ — JYH: "Let's do both #1 and #2" (2026-07-29 15:23 PDT)
+
+**RULED: (1) the B-PROBE fires now; (2) P-1..P-7 AUTHORIZED
+contingent on the probe** — on a PASS the waves proceed in the v2
+order (P-1 ∥ P-2 → P-3/P-4 → P-5/P-6 → P-7) without further asks; on
+a STOP the campaign holds and the finding returns to the table. The
+honest budget on the record: ~7–13k ln / ~15–30M tokens / 3–6 days.
