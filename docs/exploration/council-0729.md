@@ -49,18 +49,26 @@ Hlo floor (U1floor ≈ 2^{10^{119}}) — **CONDITIONAL on two things**:
   class-summed mean square at Bcl·ℓ²·X/q? Without it the residual
   53·(log H)¹² is fatal against the floor + the tower gap. (A cheap
   partial: the large-q trivial cut caps the prefactor at Bcl^{-1/2}.)
-- **⟦D-2⟧ THE M-SANDWICH**: gate 12 needs loglog Hhi small relative to
-  Adoor M; the floor pushes Hlo up; the tower's honest law appears to
-  be loglog Hhi ≈ (loglog Hlo)^{4.2} and the pair then FAILS ~2.5× at
-  every M (ARC-SCOPE, inside its own error bar — **SANDWICH-REF's
-  exact numerical pass in flight**, verdict may be on the table by
-  morning). The identified knob: Adoor's 2^18 anchor (a numeral —
-  linear in the gate, log in the floor; 2^{31} closes with margin;
-  supply-side cost unpriced). Independent blocker either way: **J is
-  non-constructive** — the tower exports NO Hhi bound today; the
-  minimal-J restructure (~400–700 ln) + the ∃R-conjunct export
-  (~150–250 ln, additive form — Fable-tier, the spine's statement)
-  is needed by EVERY repair path.
+- **⟦D-2⟧ THE M-SANDWICH — SETTLED IN ARITHMETIC (SANDWICH-REF,
+  01:40)**: the tower law is EXACT — loglog Hhi = (loglog Hlo)^{4.006},
+  the 4 structural — and the pair FAILS at every M at the current
+  2^18 anchor (max margin 0.62; 1070× at the closing M). **The 2^30
+  anchor closes it: 2.83× worst-case margin out to M = 10^{120},
+  ×1.98 per extra bit, Ccc-insensitive.** The re-pin is cheap: ~20
+  sites, two load-bearing files, NO statement shapes move, every
+  anchor-sensitive gate moves favourably; the x-floor rise is
+  one-sided and 2.9·10⁹ orders below the regime's own floor. It
+  re-pins the JYH-ratified 7/26 door design — hence this table. A
+  third option sits unconsumed on disk: Eq26Compose's h-DEPENDENT
+  anchor Ah (the ceiling grows with H — dissolves the sandwich
+  structurally; catch: the small-block half). Either way the true
+  remaining cost is **the sharp-crossing export page**: J is
+  non-constructive today, minimal-J is easy, but the export dies on
+  any lossy crossing constant (loss c sits in the exponent of an
+  exponent; k = 30 tolerates c ≤ 1.044; the landed 1/128+32 chain is
+  c ≈ 63) — a delicate class-C telescoping estimate, needed by EVERY
+  repair path, plus the additive ∃R-conjunct threading (Fable-tier,
+  the spine's statement).
 
 WALL B is repair-in-progress (the E-wave); WALL C is closed; WALLS A/D
 are the two questions above.
@@ -71,7 +79,7 @@ are the two questions above.
 |---|---|
 | C1 | **Ratify the night ledger**: the seam amendment + the 7/28 rulings + the WALL-C wave + the E-wave (all flags-recorded) |
 | C2 | **⟦D-1⟧**: open the χ-summed-capstone design block (Fable, my hands, at the table) vs park the register road and bank the machinery |
-| C3 | **⟦D-2⟧**: rule on the SANDWICH-REF verdict (if landed): the Adoor anchor re-pin (numeral, supply-cost scope first) + schedule the constructive-J/Hhi-export page (needed by every path) |
+| C3 | **⟦D-2⟧ (settled in arithmetic)**: rule the Adoor anchor re-pin 2^18 → 2^30 (or 2^31 headroom; cheap, supply-favourable, re-pins the ratified 7/26 door design) vs the h-dependent Ah route (structural, unpriced); + schedule the sharp-crossing export page (needed by every path) |
 | C4 | **The combined register re-thread** (one wave, after D-1/D-2 resolve): E-7/E-8 + the split's twins + lever 1′ + G1's strengthening — the machinery is all landed/priced and waiting |
 
 **The honest picture:** the night took the register from "true but
