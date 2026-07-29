@@ -14935,3 +14935,29 @@ contingent on the probe** — on a PASS the waves proceed in the v2
 order (P-1 ∥ P-2 → P-3/P-4 → P-5/P-6 → P-7) without further asks; on
 a STOP the campaign holds and the finding returns to the table. The
 honest budget on the record: ~7–13k ln / ~15–30M tokens / 3–6 days.
+
+---
+
+## ⟦THE B-PROBE: GO⟧ — the D-risk was a MISDIAGNOSIS; the port campaign is LIVE (P-1 ∥ P-2 flying) (2026-07-29 16:45 PDT)
+
+**GO, sealed a845dc1** (VkTwistRegionProbe.lean, 725 ln, conditional
+on stone A by design). THE FINDING: ζ's Zc normalization exists for
+ENTIRETY, not the pole — the pole was a COST (two correction terms +
+a height hypothesis), and L(s,χ) at χ ≠ 1 is entire for free: the
+whole apparatus vanishes, Davenport's 8 → 3, NO height hypothesis.
+The reference floor = the twisted Möbius series
+(norm_LFunction_inv_cline_le — the near-1-line replacement for the
+Re≥2-gated landed lemma). **KR-2 BENIGN**: the width law isolates as
+Θ/(14·(8Θ + 700·log(20M/Θ))) — q enters only INSIDE the log; ζ's
+exact (log)^{3/4}(loglog)³ shape at c ≈ 1/(2.4·10⁹) (a ~2× debit).
+The χ²=1 arm CHEAPER at VK width (the conjugate-zero case vacuous:
+σ−1 tiny vs |γ| ≥ 2). Gap list = the P-6b brief (the box-growth
+stone A; the conjugation lemma ~40 ln; the height-floor re-tune at
+ℓ3 ≳ 112; the finite-Euler numeral on the χ²=1 gate; the
+LSeries-notation rename trap banked).
+
+**Per the contingent authorization: P-1 (the socket antecedents +
+the two sharp floor forms + O3's twisted bridge) and P-2 (the hybrid
+MVT: the AP gap, the Finset re-cut, the all-χ fold, the assembly)
+DISPATCHED in parallel.** The ladder ahead: P-3/P-4 after P-2;
+P-5/P-6 on the probe's machinery; P-7 the assembly.
