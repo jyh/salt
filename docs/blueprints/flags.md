@@ -14037,3 +14037,72 @@ CONSTANT floor on j (window length ≥ 2^{2^18/δ₀} — an Hlo floor,
 which CLOSES). (3) NOT Ccc (positive, hoisted; the 2.04e16 makes its
 size irrelevant). NO executor dispatched — council-tier design;
 DRIFT-SCOPE dispatched to price both levers + the synthesis.
+
+---
+
+## ⟦DRIFT-SCOPE⟧: THE FOUR-FACTOR RE-ACCOUNTING — the wall is (log H)^24 post-split, NOT scale-free; the closing composition EXISTS; the M-SANDWICH risk (2026-07-29 ~01:50 PDT)
+
+**THE RE-ACCOUNTING (reframes the table):** WALL A/D's binding chain is
+a PRODUCT of four factors — F0 the decaying cap (gate 7,
+mrtDeliveredGrade = C(log H)^{-11/4}loglog); F1 the dyadic-length
+flattening (m4Cmax = 3(log₂H+1)); F2 the residue-class flattening (q²,
+M4WaveClosed:257-300); F3 the phase-drift flattening ((2πarcDen/q)²,
+M4BridgePhase:403). F2·F3 fuse into gate 6's (q+2πarcDen)² ≥
+arcDen² = **(log H)^24** — BUDGET-SPLIT/SUPPLY-SCOPE dropped this as
+"≥ 1" (legit for necessity, fatal for repair). One line: the door
+needs the sieved mean square at (log H)^{-30}; the Mertens mass
+delivers ≥ 2^19·Ccc/log₂H. ALL FOUR must fall.
+
+**LEVER 1 literal (the graded drift sum): NO-OP** — the log₂H is
+Chebyshev OUTSIDE the j-sum, and the supply is FLAT in j (the
+envelope's only j-dependence is 6315000/2^j, dead above j₀). **LEVER
+1′ (the real one): geometric-weight Cauchy–Schwarz** in the maximal
+step (a_j = (25/16)^{L-j}; Finset.sum_mul_sq_le_sq_mul_sq) —
+**m4Cmax → 10.9 CONSTANT**; small head (32/25)^{j₀}/H^{0.356}, floor
+2× slacker. ~400–550 ln, one file + 4 touch-ups, wave-artifact,
+supply-free; G2's 4^{doorRowFloor} numeral moves. The elegance: the
+flatness that kills the literal lever is exactly what makes 1′ work.
+
+**THE UNNAMED LEVER (F2+F3) — the biggest, worth (log H)^24:** F3 the
+drift blocked at its own length ℓ = Hq/arcDen via the LANDED
+length-graded family (M4ChiShiftBlockMeanSq, ∀s) → O(1); ℓ ≫ 2^{j₀}
+stays above the floor. F2: the honest orthogonality
+(Σ_r Σ|S_r|² = φ(q)^{-1}Σ_χ) has NO q² at all — the class sum was
+normalized at the full window's H² instead of (H/q)². Open question:
+whether the ∀d dilation arm already carries the dilated normalization
+(then F2 is bookkeeping ~300 ln; else class-graded capstone instances
+~1200+). F3 ~500–900 ln precedented.
+
+**LEVER 2 (adaptive depth): STRUCTURALLY BLOCKED + UNNECESSARY — do
+not open.** The capstone IS per-invocation in M (favourable, banked)
+but the sieved datum's carrier set is M-defined
+(doorSievedWindow M — MemS at calP/calQK(M)); the dyadic tiling
+identity holds for ONE filter; the glue sits ABOVE the tiling
+(m4_hbd_of_live glues once at H). Inverting = ~1500–3000 ln class
+C/D. Buys what 1′ buys at 4× the price.
+
+**THE COMPOSITION (verified arithmetic):** split alone DEAD (10^114);
+split+1′ DEAD by (log H)^23; 1′+F2/F3 without split DEAD (H-upper —
+WALL C reborn); **split + 1′ + F2/F3 CLOSES** — M ≥ 1.2e14·Ccc/δ₀²
+then log₂Hlo ≥ 2M·Adoor M: an Hlo FLOOR, spine-choosable
+(U1floor ≈ 2^{1.2e120}). Large M is FREE on the supply side
+(a2Level1 ~ M^{-21845}; a2RowsSum M-denominated; Ccc·2/M decays) — no
+Mertens collision. Each lever NECESSARY, none sufficient.
+
+**⟦THE M-SANDWICH⟧ (top risk, affects every repair):** gate 12
+M-relative is an Hhi-UPPER bound at fixed M; the length floor needs
+Hlo ≥ f(M); M is post-R but U1floor is pre-R, and ChowlaRegime exports
+NO Hhi upper bound (hfit forces Hhi UP only). A refuter sets
+log Hhi = 2^{10^9} and breaks any pre-fixed Hlo. REPAIR: export
+log R.Hhi ≤ f(log R.Hlo) from the tower construction
+(chowlaRegime_exists_param_head', RegimeParam:510; benign in fact —
+log Hhi ≈ (log Hlo)^{1+o(1)} — but NOT exported). ~200–500 ln + 3
+conjuncts, **Fable/JYH-tier statement change** (SpineFinal/regime
+territory). Schedule REGARDLESS of design choice.
+
+**RANKING FOR COUNCIL:** (1) open the F2+F3 design block — nothing
+closes without it; (2) lever 1′ — cheapest necessary factor, can
+parallel; (3) the split — hold execution for ONE combined register
+re-thread with E-7/E-8; (4) adaptive depth — do not open; (5) the
+Hhi export — schedule regardless. LEVER1-REF + ARC-SCOPE dispatched
+(read-only) so the morning has verified pricing.
