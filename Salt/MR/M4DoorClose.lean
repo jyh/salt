@@ -442,7 +442,7 @@ theorem m4_door_meansq_carried :
   have hP2 : 2 ≤ P := by omega
   -- ⟦THE LENGTH FLOOR IS FREE⟧: both `4 ≤ h` and the capstone's window gate
   have hj2 : 2 ≤ j := by
-    have hA : 2 ^ 18 ≤ Adoor M := Adoor_ge M
+    have hA : 2 ^ 18 ≤ Adoor M := Adoor_ge_old M
     have hAle : Adoor M ≤ M * Adoor M := Nat.le_mul_of_pos_left _ hM
     have hjf : M * Adoor M ≤ j := hj0
     have h18 : (2 : ℕ) ≤ 2 ^ 18 := by norm_num

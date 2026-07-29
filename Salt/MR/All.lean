@@ -1408,6 +1408,7 @@ open Salt.Tactic in
   Salt.MR.chi_floor_real_door_w
   Salt.MR.chi_floor_real_door_12
   Salt.MR.Adoor_ge
+  Salt.MR.Adoor_ge_old
   Salt.MR.one_le_Adoor
   Salt.MR.Adoor_cast
   Salt.MR.calE_door_two

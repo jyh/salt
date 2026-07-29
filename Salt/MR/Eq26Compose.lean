@@ -754,19 +754,19 @@ evaluated (⟦V9c⟧). -/
 
 /-- **`A_gate_logK`'s arithmetic at the scaled anchor**, stated over abstract reals.
 
-`16(log 4M + log k + log e₂) ≤ (1/24)(262144(L+1)k·log 2 − 1)`, from the three
-`DoorFrame` bounds plus `log k ≤ k − 1`.  The margin: after `L·k·log2 ≥ L·log2`
-and `k·log2 ≥ log2`, the residue is `10330·log 2 > 1/24`.
+`16(log 4M + log k + log e₂) ≤ (1/24)(68719476736(L+1)k·log 2 − 1)`, from the
+three `DoorFrame` bounds plus `log k ≤ k − 1`.  The margin: after
+`L·k·log2 ≥ L·log2` and `k·log2 ≥ log2`, the residue is `≈ 2.86·10⁹·log 2 > 1/24`.
 
 ⚠ **Stated abstractly on purpose.**  With the atoms in their native form — `↑k`,
 `↑(Nat.log 2 M)`, i.e. `Nat.cast` of compound terms — `linarith` fails on this
 same goal; generalising them makes the identical certificate go through
 first try.  (New trap: `linarith`'s preprocessing and `Nat.cast` atoms.) -/
 private lemma gate_log_arith {L kk a1 a2 a3 l2 : ℝ} (hl2 : 0.6931471803 < l2)
-    (hL0' : 0 ≤ L * l2) (hb1 : a1 ≤ (L + 3) * l2) (hb2 : a3 ≤ (2 * L + 34) * l2)
+    (hL0' : 0 ≤ L * l2) (hb1 : a1 ≤ (L + 3) * l2) (hb2 : a3 ≤ (2 * L + 52) * l2)
     (hlogk : a2 ≤ kk - 1) (hp2 : 0 ≤ (kk - 1) * l2) (hp3 : 0 ≤ L * l2 * (kk - 1))
     (hkey : 16 * (kk - 1) ≤ 24 * ((kk - 1) * l2)) :
-    4 * 2 ^ 2 * (a1 + (a2 + a3)) ≤ 1 / 12 / 2 * (262144 * (L + 1) * kk * l2 - 1) := by
+    4 * 2 ^ 2 * (a1 + (a2 + a3)) ≤ 1 / 12 / 2 * (68719476736 * (L + 1) * kk * l2 - 1) := by
   linarith
 
 /-- **The `k`-scaled door frame** — `CalFrameK` at the anchor `Adoor M · k`, for
@@ -777,7 +777,7 @@ The gate that moves is `A_gate_logK`, and it moves by exactly one logarithm:
 `calE (Adoor M · k) G 2 = k · calE (Adoor M) G 2`, so the left side gains
 `16 log k` while the right side gains the factor `k` — and `log k ≤ k − 1`
 (`Real.log_le_sub_one_of_pos`) closes it with room to spare (`16·(k−1)` against
-`(1/24)·262144·(k−1)·log 2`).  Every other field is `DoorFrame`'s verbatim: the
+`(1/24)·68719476736·(k−1)·log 2`).  Every other field is `DoorFrame`'s verbatim: the
 `G_gateK` equality `256M ≤ (1/12)(3072M)`, the `P₁ ≥ 64` floor, the `H₁ = P₁^{1/6}`
 K-3 width. -/
 theorem calFrameK_satisfiable_scaled {M k : ℕ} (hM : 1 ≤ M) (hk : 1 ≤ k) :

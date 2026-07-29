@@ -281,7 +281,8 @@ theorem budget_head_grade_closed_g (U1floor : ℕ) (g : ℕ → ℕ → ℕ) :
         ∀ δ : ℝ, 0 < δ → δ ≤ δ₀ → MRTUniformityXi R δ →
           ¬ logChowla2Fails R.eps R.x R.ω := by
   obtain ⟨ε, δ₀, hε, hδ₀, h⟩ := log_chowla_two_budget_head_g
-  obtain ⟨R, hReps, hRfloor, hRU1, hRg, hR⟩ := h (H0door δ₀) U1floor g
+  -- the head's tower-law conjunct (⟦THE NAMED AMENDMENT⟧) is not consumed here
+  obtain ⟨R, hReps, hRfloor, hRU1, hRg, -, hR⟩ := h (H0door δ₀) U1floor g
   refine ⟨ε, δ₀, hε, hδ₀, R, hReps, hRfloor, hRU1, hRg, ?_, hR⟩
   intro H hH
   have hfloor : H0door δ₀ ≤ H := le_trans hRfloor hH

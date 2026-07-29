@@ -432,12 +432,17 @@ theorem door_length_gate {M j : ℕ}
 /-- **THE SMALL-`j` INSTANCES ARE UNREACHABLE** (`door_length_gate_fails_of_small`).  For
 `1 ≤ M` the capstone's window gate is violated at every dyadic length `2^j` with
 `j < 2^18 ≤ M·Adoor M` — in particular at `j = 0`, which
-`M4Maximal.M4ChiDyadicRowMeanSq` demands at every `H`. -/
+`M4Maximal.M4ChiDyadicRowMeanSq` demands at every `H`.
+
+⟦THE 2026-07-29 ANCHOR RE-PIN⟧: the hypothesis is deliberately left at the PRE-RE-PIN
+threshold `2^18`.  With `Adoor M ≥ 2^36` the statement is now true-and-weaker (the honest
+reach is `j < 2^36`), so every downstream instance survives verbatim; nothing on the road
+asks for the wider window. -/
 theorem door_length_gate_fails_of_small {M j : ℕ} (hM : 1 ≤ M) (hj : j < 2 ^ 18) :
     ¬ ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) := by
   intro h
   have hle := door_length_gate h
-  have hA : 2 ^ 18 ≤ Adoor M := Adoor_ge M
+  have hA : 2 ^ 18 ≤ Adoor M := Adoor_ge_old M
   have : Adoor M ≤ M * Adoor M := Nat.le_mul_of_pos_left _ hM
   omega
 

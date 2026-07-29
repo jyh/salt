@@ -781,7 +781,8 @@ theorem m4_door_contradiction_of_live_split :
   obtain ⟨ε, δ₀, hε, hδ₀, hexit⟩ := m4_exit_socket_split
   refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
   intro U1floor g
-  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hexit U1floor g
+  -- the socket's tower-law conjunct (⟦THE NAMED AMENDMENT⟧) is not consumed at this stage
+  obtain ⟨R, hReps, hU1, hRg, -, hR⟩ := hexit U1floor g
   exact ⟨R, hReps, hU1, hRg, fun δ Braw M k hgates hBraw0 hgrade hsock =>
     hR (hhbd R δ₀ δ Braw M k hgates hBraw0 hgrade hsock)⟩
 

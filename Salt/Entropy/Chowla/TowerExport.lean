@@ -704,4 +704,61 @@ theorem tower_loglog_ge {B : ℕ} (hB : 4000000 ≤ B) (hu : 50 ≤ Real.log (Re
   rw [e3] at hfin
   exact le_of_lt hfin
 
+/-! ### Section 8 — THE EXPORT, THREADED ONTO THE REGIME BUILDER
+
+⟦THE NAMED AMENDMENT⟧ (the 2026-07-29 anchor ruling, piece 2).  A CONSTANT door
+anchor is sound against a regime only if the regime exports an upper law on its
+own endpoint `H₊` in terms of `H₋`; the landed `ChowlaRegime` exports none (its
+`hfit` field bounds `H₊` from BELOW).  The two builders below re-point the
+tower's `J` at `towerJmin` — the minimal crossing length, whose `towerJmin_spec`
+supplies exactly the `hJcon` the landed builder asks of an arbitrary crossing `J`
+— and carry `tower_loglog_le` out through the `∃ R` as a named conjunct.
+
+**The conjunct is GUARDED** by `50 ≤ loglog H₋`, the base floor of the sharp
+crossing law (§0's error source (c) fixes it, and `tower_loglog_le` carries it as
+a hypothesis).  The guard cannot be discharged inside the builder: its base is
+`max(4·10⁶, Hlo₀, 4⌈1/ε⌉₊⁴)`, whose `loglog` is `≈ 2.7` at the floor, so for a
+caller that asks for nothing more the export's own side condition is simply
+unavailable (the unguarded conjunct is not FALSE there — it is unproved, the
+analytic input dying below the floor).  The guard IS free at every door-road call
+site, where the caller's own floor (`U1floor`, the `H0scale`/arc floors) is
+astronomically past `exp(exp 50)`: the consumer discharges it from its own floor
+demand and reads the law off. -/
+
+/-- **The regime builder with the tower law exported** — the landed
+`chowlaRegime_exists_param` plus the guarded endpoint law
+`loglog H₊ ≤ (loglog H₋)^5`.  Same `ε`, same floor lever; the only internal
+change is that the tower length is `towerJmin` rather than an arbitrary crossing
+witness, which is what makes `H₊` an EXACT tower value and hence priceable. -/
+theorem chowlaRegime_exists_param_tower (eps : ℚ) (heps : 0 < eps) (heps1 : eps ≤ 1 / 2)
+    (Hlo₀ : ℕ) :
+    ∃ R : ChowlaRegime, R.eps = eps ∧ Hlo₀ ≤ R.Hlo ∧
+      (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+        Real.log (Real.log (R.Hhi : ℝ)) ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ 5) := by
+  obtain ⟨R, hReps, hRHlo, hRHhi⟩ :=
+    chowlaRegime_exists_param_gen eps heps heps1 Hlo₀ (towerJmin 2 1)
+      (fun _ hB => towerJmin_spec hB)
+  refine ⟨R, hReps, hRHlo, fun hu => ?_⟩
+  rw [hRHhi]
+  exact tower_loglog_le R.hHlo_floor hu
+
+/-- **The head-shaped builder with the tower law exported** — `∃ R` carrying, in
+one statement, the `ε`-pin, the floor lever, the outer-scale clearance
+`g H₊ ω ≤ x` AND the guarded endpoint law.  The in-cone twin of
+`chowlaRegime_exists_param_head'` (`RegimeParam.lean`), fired at the tower-pointed
+builder above.
+
+The enlargement step is what makes the conjunct survive: `regimeEnlargeX'` moves
+`x` ALONE — `Hlo` and `Hhi` are carried verbatim (`RegimeParam.lean`, the
+definition's field list) — so the exported law reads against the same two
+endpoints after the push as before it. -/
+theorem chowlaRegime_exists_param_head_tower' (eps : ℚ) (heps : 0 < eps) (heps1 : eps ≤ 1 / 2)
+    (Hlo₀ : ℕ) (g : ℕ → ℕ → ℕ) :
+    ∃ R : ChowlaRegime, R.eps = eps ∧ Hlo₀ ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+      (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+        Real.log (Real.log (R.Hhi : ℝ)) ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ 5) := by
+  obtain ⟨R, hReps, hRHlo, hRtow⟩ := chowlaRegime_exists_param_tower eps heps heps1 Hlo₀
+  exact ⟨regimeEnlargeX' R (le_max_left R.x (g R.Hhi R.ω)), hReps, hRHlo,
+    le_max_right _ _, hRtow⟩
+
 end Salt.Entropy.Chowla

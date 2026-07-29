@@ -44,11 +44,12 @@ Only two `CalFrameK` fields mention `H₁` (`H1_two`, `H1_pin`); every other fie
 `calFrameK_satisfiable_door` is reproduced verbatim.
 
 * `H1_two` `2 ≤ H₁`: cube it — `8 log Q₁ ≤ P₁^{1/4}`.  The V9c law keeps `P₁` symbolic:
-  `Adoor M = 2^18(L+1) = 4·(2^16(L+1))` is divisible by `4`, so `P₁^{1/4} = 2^{65536(L+1)}`
-  EXACTLY (no rpow estimate of a `2^{262144}`-scale number is ever attempted), while
-  `8 log Q₁ = 8·M·A·log 2 ≤ 8MA ≤ 2^{2L+23}` by the base-2 bounding doctrine
-  (`M ≤ 2^{L+1}`, `L+1 ≤ 2^{L+1}`).  The gate is `2L + 23 ≤ 65536(L+1)` — a margin of
-  ~2849× at `L = 0`, widening with `M`.
+  `Adoor M = 2^36(L+1) = 4·(2^34(L+1))` is divisible by `4`, so
+  `P₁^{1/4} = 2^{17179869184(L+1)}` EXACTLY (no rpow estimate of a `2^{68719476736}`-scale
+  number is ever attempted), while
+  `8 log Q₁ = 8·M·A·log 2 ≤ 8MA ≤ 2^{2L+41}` by the base-2 bounding doctrine
+  (`M ≤ 2^{L+1}`, `L+1 ≤ 2^{L+1}`).  The gate is `2L + 41 ≤ 17179869184(L+1)` — a margin of
+  ~4.2·10⁸ at `L = 0`, widening with `M`.
 * `H1_pin` `H₁³ ≤ P₁^{1/2}`: `H₁³ = P₁^{1/4}/log Q₁ ≤ P₁^{1/4} ≤ P₁^{1/2}`, the trivial
   direction, using only `log Q₁ ≥ 1` (which is `M·A·log 2 ≥ 262144 log 2`).  Where the old pin
   sat at EQUALITY, the corrected pin sits a full `P₁^{1/4}·log Q₁` below the ceiling — the
@@ -83,7 +84,7 @@ namespace Salt.MR
 
 The V9c law forbids letting `norm_num`/`positivity`/`ring` anywhere near
 `calP (Adoor M) …` — those tactics whnf the ℕ argument of the cast and try to evaluate a
-`2^{262144}`-scale numeral.  Both rpow↔pow collapses this file needs are therefore proved
+`2^{68719476736}`-scale numeral.  Both rpow↔pow collapses this file needs are therefore proved
 ONCE on abstract reals, where the arithmetic side goal carries no door symbol at all. -/
 
 /-- `(x^a)^n = x^b` whenever `a·n = b` — the rpow-gate idiom, on an abstract base. -/
@@ -104,11 +105,11 @@ private lemma pow_rpow_one {x : ℝ} (hx : 0 ≤ x) (n : ℕ) {a : ℝ} (h : (n 
 
 /-! ## §1 — the corrected pin -/
 
-/-- **The door anchor's quarter** `K(M) := 2^16(⌊log₂M⌋+1)`, so that `Adoor M = 4·K(M)`
+/-- **The door anchor's quarter** `K(M) := 2^34(⌊log₂M⌋+1)`, so that `Adoor M = 4·K(M)`
 (`Adoor_eq_four_mul`).  It is kept as a DEFINITION rather than a numeral expression precisely
 so that `ring`/`linarith` treat `2^{K(M)}` as an atom and never attempt to expand
-`2^{65536(L+1)}` (the V9c law). -/
-def Kdoor (M : ℕ) : ℕ := 65536 * (Nat.log 2 M + 1)
+`2^{17179869184(L+1)}` (the V9c law). -/
+def Kdoor (M : ℕ) : ℕ := 17179869184 * (Nat.log 2 M + 1)
 
 lemma Adoor_eq_four_mul (M : ℕ) : Adoor M = 4 * Kdoor M := by
   rw [Adoor, Kdoor]
@@ -124,7 +125,7 @@ noncomputable def H1door (M : ℕ) : ℝ :=
 
 /-! ## §2 — the three door-scale facts -/
 
-/-- `P₁ ≥ 64`, symbolically: `e₁ = A ≥ 2^18 ≥ 6` (`calE_one`, `Adoor_ge`). -/
+/-- `P₁ ≥ 64`, symbolically: `e₁ = A ≥ 2^36 ≥ 6` (`calE_one`, `Adoor_ge`). -/
 lemma calP_door_one_ge (M : ℕ) : (64 : ℝ) ≤ ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by
   have hE : (6 : ℕ) ≤ calE (Adoor M) (3072 * M) 1 := by
     rw [calE_one]
@@ -136,7 +137,7 @@ lemma calP_door_one_ge (M : ℕ) : (64 : ℝ) ≤ ((calP (Adoor M) (3072 * M) 1 
 
 /-- **`P₁^{1/4}` EXACTLY, with no estimate**: `Adoor M = 4·K(M)`, so `P₁ = (2^{K(M)})^4` and
 the fourth root is the base-2 power itself.  This is the V9c law's escape hatch — the
-`2^{262144}`-scale symbol is never evaluated, only re-associated. -/
+`2^{68719476736}`-scale symbol is never evaluated, only re-associated. -/
 lemma calP_door_one_rpow_quarter (M : ℕ) :
     ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 4) = (2 : ℝ) ^ Kdoor M := by
   have hnat : calP (Adoor M) (3072 * M) 1 = (2 ^ Kdoor M) ^ 4 := by
@@ -149,16 +150,16 @@ lemma calP_door_one_rpow_quarter (M : ℕ) :
   exact pow_rpow_one (pow_nonneg (by norm_num) _) 4 (by norm_num)
 
 /-- The door's `8MA`, bounded by a base-2 exponent (the symbolic-log doctrine): `M ≤ 2^{L+1}`
-and `L+1 ≤ 2^{L+1}`, so `8·M·A = 2^3·M·2^18(L+1) ≤ 2^{2L+23}`. -/
+and `L+1 ≤ 2^{L+1}`, so `8·M·A = 2^3·M·2^36(L+1) ≤ 2^{2L+41}`. -/
 private lemma door_MA_bound (M : ℕ) :
-    8 * (M * Adoor M) ≤ 2 ^ (2 * Nat.log 2 M + 23) := by
+    8 * (M * Adoor M) ≤ 2 ^ (2 * Nat.log 2 M + 41) := by
   have hMle : M ≤ 2 ^ (Nat.log 2 M + 1) := (Nat.lt_pow_succ_log_self (b := 2) (by norm_num) M).le
   have hLle : Nat.log 2 M + 1 ≤ 2 ^ (Nat.log 2 M + 1) := (Nat.log 2 M + 1).lt_two_pow_self.le
-  calc 8 * (M * Adoor M) = 2 ^ 3 * (M * (2 ^ 18 * (Nat.log 2 M + 1))) := by
+  calc 8 * (M * Adoor M) = 2 ^ 3 * (M * (2 ^ 36 * (Nat.log 2 M + 1))) := by
         rw [Adoor]; ring
-    _ ≤ 2 ^ 3 * (2 ^ (Nat.log 2 M + 1) * (2 ^ 18 * 2 ^ (Nat.log 2 M + 1))) :=
+    _ ≤ 2 ^ 3 * (2 ^ (Nat.log 2 M + 1) * (2 ^ 36 * 2 ^ (Nat.log 2 M + 1))) :=
         Nat.mul_le_mul le_rfl (Nat.mul_le_mul hMle (Nat.mul_le_mul le_rfl hLle))
-    _ = 2 ^ (2 * Nat.log 2 M + 23) := by
+    _ = 2 ^ (2 * Nat.log 2 M + 41) := by
         rw [← pow_add, ← pow_add, ← pow_add]
         congr 1
         omega
@@ -183,8 +184,8 @@ lemma one_le_log_calQK_door_one {M : ℕ} (hM : 1 ≤ M) :
 /-! ## §3 — the two gates that move -/
 
 /-- **`H1_two` at the corrected pin.**  Cubed, the gate is `8 log Q₁ ≤ P₁^{1/4}`, i.e.
-`8MA log 2 ≤ 2^{65536(L+1)}`; the left side is `≤ 2^{2L+23}` by base-2 bounding, and
-`2L + 23 ≤ 65536(L+1)` with vast room. -/
+`8MA log 2 ≤ 2^{17179869184(L+1)}`; the left side is `≤ 2^{2L+41}` by base-2 bounding, and
+`2L + 41 ≤ 17179869184(L+1)` with vast room. -/
 lemma H1door_two {M : ℕ} (hM : 1 ≤ M) : 2 ≤ H1door M := by
   have hlogQ1 := one_le_log_calQK_door_one hM
   have hlogQ0 : (0 : ℝ) < Real.log ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ) := by linarith
@@ -201,14 +202,14 @@ lemma H1door_two {M : ℕ} (hM : 1 ≤ M) : 2 ≤ H1door M := by
     rpow_pow_eq hP0.le 3 (by norm_num)
   -- the arithmetic side: `8 log Q₁ ≤ 2^{2L+23} ≤ 2^{K(M)}`
   have hMAR : (8 : ℝ) * ((M : ℝ) * ((Adoor M : ℕ) : ℝ))
-      ≤ (2 : ℝ) ^ (2 * Nat.log 2 M + 23) := by
+      ≤ (2 : ℝ) ^ (2 * Nat.log 2 M + 41) := by
     exact_mod_cast door_MA_bound M
   have hMA0 : (0 : ℝ) ≤ (M : ℝ) * ((Adoor M : ℕ) : ℝ) :=
     mul_nonneg (Nat.cast_nonneg _) (Nat.cast_nonneg _)
   have hlog2le : Real.log 2 ≤ 1 := by linarith [Real.log_two_lt_d9]
   have hshrink : (8 : ℝ) * ((M : ℝ) * ((Adoor M : ℕ) : ℝ) * Real.log 2)
       ≤ (8 : ℝ) * ((M : ℝ) * ((Adoor M : ℕ) : ℝ)) := by nlinarith
-  have hexpgrow : (2 : ℝ) ^ (2 * Nat.log 2 M + 23) ≤ (2 : ℝ) ^ Kdoor M :=
+  have hexpgrow : (2 : ℝ) ^ (2 * Nat.log 2 M + 41) ≤ (2 : ℝ) ^ Kdoor M :=
     pow_le_pow_right₀ (by norm_num) (by simp only [Kdoor]; omega)
   have hfinal : (2 : ℝ) ^ (3 : ℕ) * Real.log ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ)
       ≤ (2 : ℝ) ^ Kdoor M := by
@@ -280,7 +281,7 @@ theorem calFrameK_satisfiable_doorH1 (M : ℕ) (hM : 1 ≤ M) :
       one_le_G := by omega, one_le_M := hM, G_gateK := by push_cast; linarith,
       A_gate_lin := ?_, A_gate_logK := ?_, A_floor := le_trans (by norm_num) (Adoor_ge M),
       H1_two := H1door_two hM, H1_pin := H1door_pin hM, Q_le_Xd := le_rfl }
-  · -- `A_gate_lin`: `2Jb = 4 ≤ 2^18 ≤ Adoor M`
+  · -- `A_gate_lin`: `2Jb = 4 ≤ 2^36 ≤ Adoor M`
     rw [Adoor_cast]
     push_cast
     linarith

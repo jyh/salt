@@ -43,7 +43,7 @@ door inhabitant `(A, G, M, Jb) = (Adoor M, 3072M, M, 2)`, where
 ```
 
 against `W = (log H)^{12}` — a comparison with `10^{78000}`-fold room
-(`door_dilation_gate`).  The gate lemma consumes only `Adoor_ge` (`DoorFrame`) plus
+(`door_dilation_gate`).  The gate lemma consumes only `Adoor_ge_old` (`DoorFrame`) plus
 `calE_one`/`calE_mono` (`SeamCalibration`); the closed exponent is **never evaluated**
 (⟦V9c⟧ / the freeze's "`norm_num` must never see closed `calP`" trap).
 
@@ -350,8 +350,8 @@ theorem residue_split_dilate_liouville {b q J : ℕ} {Pseq Qseq : ℕ → ℕ} {
 
 /-! ## §5 — the gate at the K-family door: `d₀ ≤ q ≤ W < P₁`
 
-`P₁ = calP (Adoor M) (3072M) 1 = 2^{Adoor M}` and `Adoor M ≥ 2^{18} = 262144`
-(`DoorFrame.Adoor_ge`), so `P₁ ≥ 2^{262144}`.  The consumer's `W` is `(log H)^{12}`.
+`P₁ = calP (Adoor M) (3072M) 1 = 2^{Adoor M}` and `Adoor M ≥ 2^{36} ≥ 2^{18} = 262144`
+(`DoorFrame.Adoor_ge_old`), so `P₁ ≥ 2^{262144}`.  The consumer's `W` is `(log H)^{12}`.
 Every step below stays on base-2 exponents: **the closed power is never evaluated**
 (⟦V9c⟧). -/
 
@@ -359,12 +359,14 @@ Every step below stays on base-2 exponents: **the closed power is never evaluate
 theorem calP_door_one_eq (M : ℕ) : calP (Adoor M) (3072 * M) 1 = 2 ^ Adoor M := by
   rw [calP, calE_one]
 
-/-- **`P₁ ≥ 2^{262144}`, symbolically.**  `Adoor M = 2^{18}(⌊log₂ M⌋+1) ≥ 2^{18}`, and
-`2^{18} = 262144` is the only numeral evaluated. -/
+/-- **`P₁ ≥ 2^{262144}`, symbolically.**  `Adoor M = 2^{36}(⌊log₂ M⌋+1) ≥ 2^{36} ≥ 2^{18}`,
+and `2^{18} = 262144` is the only numeral evaluated.  (The bound is stated at the PRE-RE-PIN
+`2^{18}` — true-and-weaker after the 2026-07-29 anchor re-pin — so that the dilation gate
+below and its consumers are byte-unchanged.) -/
 theorem two_pow_le_calP_door_one (M : ℕ) :
     (2 : ℝ) ^ (262144 : ℕ) ≤ ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by
   have hE : (262144 : ℕ) ≤ Adoor M := by
-    have h := Adoor_ge M
+    have h := Adoor_ge_old M
     rwa [show (2 : ℕ) ^ 18 = 262144 by norm_num] at h
   have hcast : ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) = (2 : ℝ) ^ Adoor M := by
     rw [calP_door_one_eq]

@@ -613,9 +613,7 @@ theorem band_floor_M0_pieceDatum (Q : ℕ) :
 with `A = Adoor M ≥ 2^18`.  (`CofactorSupplier.blockWindow_calibrated_debit_sum`'s `hE`.) -/
 theorem two_le_calE_door {M : ℕ} (hM : 1 ≤ M) (j : ℕ) :
     2 ≤ calE (Adoor M) (3072 * M) j := by
-  have hA : 2 ^ 18 ≤ Adoor M := by
-    unfold Adoor
-    exact Nat.le_mul_of_pos_right _ (by omega)
+  have hA : 2 ^ 18 ≤ Adoor M := Adoor_ge_old M
   have h1 : 1 ≤ (3072 * M) ^ (j - 1) := Nat.one_le_pow _ _ (by omega)
   have h2 : 1 ≤ (Nat.factorial j) ^ 2 := Nat.one_le_pow _ _ (Nat.factorial_pos j)
   have hstep : Adoor M ≤ Adoor M * (3072 * M) ^ (j - 1) * (Nat.factorial j) ^ 2 := by

@@ -23,7 +23,7 @@ evaluates it, and nothing here evaluates `P₁ = 2^{Adoor M}` either (the V9c la
 
 ## The parametrisation
 
-  `Adoor M := 2^18 · (Nat.log 2 M + 1)`,   `G := 3072 · M`,   `Jb := 2`,   `η := 1/12`,
+  `Adoor M := 2^36 · (Nat.log 2 M + 1)`,   `G := 3072 · M`,   `Jb := 2`,   `η := 1/12`,
   `H₁ := P₁^{1/6}`,   `X_d := Q_{Jb}`.
 
 The `Nat.log 2 M + 1` factor is the whole device: it is a base-2 logarithm of the anchor's
@@ -37,11 +37,12 @@ own `M`, so the anchor grows with the demand, and `A_gate_logK` — the one gate
   (`768·4·800 = 2457600`).  The K-factor is the only linear cost of the re-pin.
 * `A_gate_logK` `16(log(4M) + log e₂) ≤ (1/24)(A log 2 − 1)`: the two logarithms are bounded
   by base-2 exponents rather than evaluated — `4M ≤ 2^{L+3}` (`Nat.lt_pow_succ_log_self`) and
-  `e₂ = 4AG = 3·2^{30}(L+1)M ≤ 2^{2L+34}` (`Nat.lt_two_pow_self` for the `L+1`), with
-  `L := Nat.log 2 M`.  So the left side is `≤ (48L + 592) log 2` and the right side is
-  `(1/24)(262144(L+1) log 2 − 1)` — a margin of ~18× at `L = 0` widening to ~227× as `L → ∞`.
+  `e₂ = 4AG = 3·2^{48}(L+1)M ≤ 2^{2L+52}` (`Nat.lt_two_pow_self` for the `L+1`), with
+  `L := Nat.log 2 M`.  So the left side is `≤ (48L + 880) log 2` and the right side is
+  `(1/24)(68719476736(L+1) log 2 − 1)` — a margin of ~3.3·10⁶ at `L = 0` widening to
+  ~6.0·10⁷ as `L → ∞`.
   Both sides carry `L` linearly; the gate is one `linarith` over the atoms `log 2`, `L log 2`.
-* `A_gate_lin` `2Jb ≤ A`, `A_floor` `24 ≤ A`: `Adoor M ≥ 2^18` (`Adoor_ge`).
+* `A_gate_lin` `2Jb ≤ A`, `A_floor` `24 ≤ A`: `Adoor M ≥ 2^36` (`Adoor_ge`).
 * `H1_two` `2 ≤ H₁`: `P₁ ≥ 64` from `calE A G 1 = A ≥ 6` (`calE_one`) — `P₁` stays symbolic.
 * `H1_pin` `H₁³ ≤ P₁^{1/2}`: EQUALITY at `H₁ = P₁^{1/6}`, the K-3 width (`SeamCalibrationK`'s
   ⟦V9b⟧ finding (iii)), transplanted verbatim.
@@ -50,8 +51,9 @@ own `M`, so the anchor grows with the demand, and `A_gate_logK` — the one gate
 
 ## The stones
 
-* `Adoor`, `Adoor_ge`, `one_le_Adoor`, `Adoor_cast`, `calE_door_two` — the anchor and its
-  arithmetic (`e₂ = 3221225472·(L+1)M`, a ℕ identity; no `2^{2^18}` is ever formed).
+* `Adoor`, `Adoor_ge`, `Adoor_ge_old`, `one_le_Adoor`, `Adoor_cast`, `calE_door_two` — the
+  anchor and its arithmetic (`e₂ = 844424930131968·(L+1)M`, a ℕ identity; no `2^{2^36}` is
+  ever formed).
 * `log_four_M_door`, `log_calE_door_two` — the two `Nat.log`→`Real.log` bridges, the only
   place `M`'s size is used.
 * **`calFrameK_satisfiable_door`** — the inhabitant, uniform in `M ≥ 1`.
@@ -70,28 +72,38 @@ namespace Salt.MR
 
 /-! ## §0 — the door's anchor -/
 
-/-- **The door's anchor exponent** `A(M) := 2^18·(⌊log₂ M⌋ + 1)`.  The `2^18` is the size
-`A_gate_logK` needs against the door's `e₂`; the `⌊log₂ M⌋ + 1` is what makes that gate
-uniform in `M` (⟦AMENDMENT A⟧ — the fixed-`A` stone is unprovable, `δ₀` having no exposed
-lower bound).  `M` is never evaluated: at the door it is `⌈8C/δ₀⌉`-shaped. -/
-def Adoor (M : ℕ) : ℕ := 2 ^ 18 * (Nat.log 2 M + 1)
+/-- **The door's anchor exponent** `A(M) := 2^36·(⌊log₂ M⌋ + 1)`.  The `2^36` is the size
+`A_gate_logK` needs against the door's `e₂` AND the size ⟦SANDWICH-REF⟧'s gate-12/length-floor
+pair needs against the door's own `M` (the 2026-07-29 anchor ruling re-pinned it from `2^18`,
+which fails that pair at every `M`; `2^30` is the smallest anchor clearing it by `≥2×`
+everywhere, and each further bit doubles the margin, so `2^36` carries ~64× beyond that);
+the `⌊log₂ M⌋ + 1` is what makes the gate uniform in `M` (⟦AMENDMENT A⟧ — the fixed-`A` stone
+is unprovable, `δ₀` having no exposed lower bound).  `M` is never evaluated: at the door it is
+`⌈8C/δ₀⌉`-shaped. -/
+def Adoor (M : ℕ) : ℕ := 2 ^ 36 * (Nat.log 2 M + 1)
 
-lemma Adoor_ge (M : ℕ) : 2 ^ 18 ≤ Adoor M := Nat.le_mul_of_pos_right _ (Nat.succ_pos _)
+lemma Adoor_ge (M : ℕ) : 2 ^ 36 ≤ Adoor M := Nat.le_mul_of_pos_right _ (Nat.succ_pos _)
+
+/-- **The anchor at the PRE-RE-PIN bound** `2^18 ≤ A(M)`.  Kept so that every consumer
+written against the old anchor survives verbatim: the re-pin only raises `Adoor`, so each
+such site stays true (and merely conservative).  New consumers should read `Adoor_ge`. -/
+lemma Adoor_ge_old (M : ℕ) : 2 ^ 18 ≤ Adoor M := le_trans (by norm_num) (Adoor_ge M)
 
 lemma one_le_Adoor (M : ℕ) : 1 ≤ Adoor M := le_trans (by norm_num) (Adoor_ge M)
 
-/-- The anchor in ℝ, with `2^18` evaluated — the form `A_gate_logK`'s right side needs. -/
-lemma Adoor_cast (M : ℕ) : ((Adoor M : ℕ) : ℝ) = 262144 * ((Nat.log 2 M : ℝ) + 1) := by
+/-- The anchor in ℝ, with `2^36` evaluated — the form `A_gate_logK`'s right side needs. -/
+lemma Adoor_cast (M : ℕ) :
+    ((Adoor M : ℕ) : ℝ) = 68719476736 * ((Nat.log 2 M : ℝ) + 1) := by
   simp only [Adoor]
   push_cast
   norm_num
 
-/-- **The door's `e₂`, as a ℕ identity**: `e₂ = A·G·(2!)² = 2^18(L+1)·3072M·4
-= 3·2^{30}·(L+1)M`.  This is the only place the door family's exponent ladder is computed,
+/-- **The door's `e₂`, as a ℕ identity**: `e₂ = A·G·(2!)² = 2^36(L+1)·3072M·4
+= 3·2^{48}·(L+1)M`.  This is the only place the door family's exponent ladder is computed,
 and it is computed at level 2 only — `calE_one` covers level 1 and nothing above `Jb = 2`
 is ever formed. -/
 lemma calE_door_two (M : ℕ) :
-    calE (Adoor M) (3072 * M) 2 = 3221225472 * ((Nat.log 2 M + 1) * M) := by
+    calE (Adoor M) (3072 * M) 2 = 844424930131968 * ((Nat.log 2 M + 1) * M) := by
   simp only [calE, Adoor, Nat.factorial]
   ring
 
@@ -122,24 +134,24 @@ lemma log_four_M_door {M : ℕ} (hM : 1 ≤ M) :
   push_cast
   ring
 
-/-- **`A_gate_logK`'s second logarithm**: `log e₂ ≤ (2L + 34) log 2`, from
-`e₂ = 3·2^{30}(L+1)M ≤ 2^{32}·2^{L+1}·2^{L+1}` — the `L+1` paid by `Nat.lt_two_pow_self`,
+/-- **`A_gate_logK`'s second logarithm**: `log e₂ ≤ (2L + 52) log 2`, from
+`e₂ = 3·2^{48}(L+1)M ≤ 2^{50}·2^{L+1}·2^{L+1}` — the `L+1` paid by `Nat.lt_two_pow_self`,
 the `M` by the floor-log bound again. -/
 lemma log_calE_door_two {M : ℕ} (hM : 1 ≤ M) :
     Real.log ((calE (Adoor M) (3072 * M) 2 : ℕ) : ℝ)
-      ≤ (2 * (Nat.log 2 M : ℝ) + 34) * Real.log 2 := by
+      ≤ (2 * (Nat.log 2 M : ℝ) + 52) * Real.log 2 := by
   have hMle : M ≤ 2 ^ (Nat.log 2 M + 1) := (Nat.lt_pow_succ_log_self (b := 2) (by norm_num) M).le
   have hLle : Nat.log 2 M + 1 ≤ 2 ^ (Nat.log 2 M + 1) := (Nat.log 2 M + 1).lt_two_pow_self.le
-  have hN : calE (Adoor M) (3072 * M) 2 ≤ 2 ^ (2 * Nat.log 2 M + 34) := by
+  have hN : calE (Adoor M) (3072 * M) 2 ≤ 2 ^ (2 * Nat.log 2 M + 52) := by
     rw [calE_door_two]
-    calc 3221225472 * ((Nat.log 2 M + 1) * M)
-        ≤ 2 ^ 32 * (2 ^ (Nat.log 2 M + 1) * 2 ^ (Nat.log 2 M + 1)) :=
+    calc 844424930131968 * ((Nat.log 2 M + 1) * M)
+        ≤ 2 ^ 50 * (2 ^ (Nat.log 2 M + 1) * 2 ^ (Nat.log 2 M + 1)) :=
           Nat.mul_le_mul (by norm_num) (Nat.mul_le_mul hLle hMle)
-      _ = 2 ^ (2 * Nat.log 2 M + 34) := by
+      _ = 2 ^ (2 * Nat.log 2 M + 52) := by
           rw [← pow_add, ← pow_add]
           congr 1
           ring
-  have hNR : ((calE (Adoor M) (3072 * M) 2 : ℕ) : ℝ) ≤ (2 : ℝ) ^ (2 * Nat.log 2 M + 34) := by
+  have hNR : ((calE (Adoor M) (3072 * M) 2 : ℕ) : ℝ) ≤ (2 : ℝ) ^ (2 * Nat.log 2 M + 52) := by
     exact_mod_cast hN
   have hpos : (0 : ℝ) < ((calE (Adoor M) (3072 * M) 2 : ℕ) : ℝ) := by
     have hEpos : 0 < calE (Adoor M) (3072 * M) 2 := by
@@ -165,10 +177,10 @@ Three things are certified at once, and none of them pins a numeral to `δ₀`.
   rides `M` rather than a numeral.
 * **The anchor pays only a logarithm, and pays it uniformly.**  `A_gate_logK` is
   `16(log 4M + log e₂) ≤ (1/24)(A log 2 − 1)`; both logarithms are bounded by base-2
-  exponents (`log_four_M_door`, `log_calE_door_two`), giving `(48L + 592) log 2` on the left
-  against `(1/24)(262144(L+1) log 2 − 1)` on the right, `L := ⌊log₂ M⌋`.  The margin is ~18×
-  at `L = 0` and widens to ~227× — the `(L+1)` factor inside `Adoor` is precisely what turns
-  the fixed-`A` overflow into headroom that grows with the demand.
+  exponents (`log_four_M_door`, `log_calE_door_two`), giving `(48L + 880) log 2` on the left
+  against `(1/24)(68719476736(L+1) log 2 − 1)` on the right, `L := ⌊log₂ M⌋`.  The margin is
+  ~3.3·10⁶ at `L = 0` and widens to ~6.0·10⁷ — the `(L+1)` factor inside `Adoor` is precisely
+  what turns the fixed-`A` overflow into headroom that grows with the demand.
 * **The K-3 width survives the reparametrisation.**  `H1_pin` holds with EQUALITY at
   `H₁ = P₁^{1/6}` and `H1_two` from `P₁ ≥ 64`, both symbolic in `A = Adoor M`.
 
@@ -195,7 +207,7 @@ theorem calFrameK_satisfiable_door (M : ℕ) (hM : 1 ≤ M) :
       one_le_G := by omega, one_le_M := hM, G_gateK := by push_cast; linarith,
       A_gate_lin := ?_, A_gate_logK := ?_, A_floor := le_trans (by norm_num) (Adoor_ge M),
       H1_two := ?_, H1_pin := ?_, Q_le_Xd := le_rfl }
-  · -- `A_gate_lin`: `2Jb = 4 ≤ 2^18 ≤ Adoor M`
+  · -- `A_gate_lin`: `2Jb = 4 ≤ 2^36 ≤ Adoor M`
     rw [Adoor_cast]
     push_cast
     linarith

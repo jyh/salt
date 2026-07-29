@@ -20,6 +20,7 @@ PATCH-5 — and then, feeding the parametric regime builder
 terminal quotable surface `log_chowla_two_final`.
 -/
 import Salt.Entropy.Chowla.RegimeParam
+import Salt.Entropy.Chowla.TowerExport
 import Salt.Entropy.Chowla.BudgetCore
 import Salt.Entropy.Chowla.BudgetDeficit
 import Mathlib
@@ -840,10 +841,26 @@ theorem log_chowla_two_budget_head :
   the `∃ R`, and reads only `(Hhi, ω)`, so the demand is acyclic: enlargement
   moves `x` alone, never the arguments of `g`.
 
+⟦THE NAMED AMENDMENT⟧ (the 2026-07-29 anchor ruling).  The `∃ R` carries a THIRD
+payload: the tower endpoint law
+
+```
+50 ≤ loglog R.Hlo → loglog R.Hhi ≤ (loglog R.Hlo)^5
+```
+
+(`TowerExport.chowlaRegime_exists_param_head_tower'`, whose builder re-points the
+tower's `J` at the minimal crossing length `towerJmin`).  It is what makes a
+CONSTANT door anchor sound against this regime: without it the regime exports no
+upper control on `H₊` whatsoever.  The guard `50 ≤ loglog R.Hlo` is the crossing
+law's own base floor and is free at every door-road call site (their floors are
+astronomically past `exp(exp 50)`); it cannot be dropped here, because the
+builder's own base is only `4·10⁶` when the caller asks for nothing more.
+
 The proof is the original's, with two changes.  (1) The regime is built by
-`chowlaRegime_exists_param_head'` (`RegimeParam.lean`, the in-cone twin of
-`Salt.MR.chowlaRegime_exists_param_head`) instead of `chowlaRegime_exists_param`,
-which is what supplies the `g`-clearance.  (2) The floor argument gains a FIFTH
+`chowlaRegime_exists_param_head_tower'` (`TowerExport.lean`, the tower-pointed
+twin of `RegimeParam.chowlaRegime_exists_param_head'`) instead of
+`chowlaRegime_exists_param`, which is what supplies the `g`-clearance and the
+endpoint law.  (2) The floor argument gains a FIFTH
 max-arm, placed OUTERMOST-RIGHT and paired with `extraFloor` —
 `max (4-tower) (max extraFloor U1floor)` — so the four-fold LEFT spine is
 syntactically untouched and the `le_max` chains feeding `hH₀`/`hfloorH` (hence
@@ -857,6 +874,8 @@ theorem log_chowla_two_budget_head_g :
     ∃ (ε : ℚ) (δ₀ : ℝ), 0 < ε ∧ 0 < δ₀ ∧
       ∀ (extraFloor U1floor : ℕ) (g : ℕ → ℕ → ℕ), ∃ R : ChowlaRegime,
         R.eps = ε ∧ extraFloor ≤ R.Hlo ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+        (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+          Real.log (Real.log (R.Hhi : ℝ)) ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ 5) ∧
         ∀ δ : ℝ, 0 < δ → δ ≤ δ₀ → MRTUniformityXi R δ →
           ¬ logChowla2Fails R.eps R.x R.ω := by
   classical
@@ -893,11 +912,11 @@ theorem log_chowla_two_budget_head_g :
     div_pos (mul_pos (div_pos hcD3 (mul_pos (by norm_num) hC)) hεR0)
       (mul_pos (by norm_num) hK), ?_⟩
   intro extraFloor U1floor g₅
-  obtain ⟨R, hReps, hRHlo, hRg⟩ := chowlaRegime_exists_param_head' ε hεQpos hεQ1
+  obtain ⟨R, hReps, hRHlo, hRg, hRtow⟩ := chowlaRegime_exists_param_head_tower' ε hεQpos hεQ1
     (max (max (max (max H₀red H₀D3) H₀xi)
       (budgetFloor (ε : ℝ) (cD3 * (ε : ℝ) / (144 * Real.log 4)))) (max extraFloor U1floor)) g₅
   refine ⟨R, hReps, le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hRHlo,
-    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hRHlo, hRg, ?_⟩
+    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hRHlo, hRg, hRtow, ?_⟩
   intro δ hδpos hδ hdoor hfail
   obtain ⟨H, hlo, hhi, _hdvd, hMI⟩ := entropy_decrement R
   have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo

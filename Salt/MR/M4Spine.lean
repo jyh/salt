@@ -444,14 +444,12 @@ theorem m4_spine_budget_necessary
     have hj0nn : (0 : ℝ) ≤ ((doorRowFloor M : ℕ) : ℝ) := Nat.cast_nonneg _
     have hq := mul_le_mul_of_nonneg_left hlog43 hj0nn
     linarith [hmono, hq, hlogC]
-  -- ⟦`Adoor ≥ 2^18`⟧
+  -- ⟦`Adoor ≥ 2^18`⟧ (the pre-re-pin bound: true-and-weaker at the `2^36` anchor)
   have hAdoor : (262144 : ℝ) * (M : ℝ) ≤ ((doorRowFloor M : ℕ) : ℝ) := by
     have hnat : 2 ^ 18 * M ≤ doorRowFloor M := by
-      unfold doorRowFloor Adoor
-      calc 2 ^ 18 * M = M * 2 ^ 18 * 1 := by ring
-        _ ≤ M * 2 ^ 18 * (Nat.log 2 M + 1) :=
-            Nat.mul_le_mul_left _ (Nat.succ_le_succ (Nat.zero_le _))
-        _ = M * (2 ^ 18 * (Nat.log 2 M + 1)) := by ring
+      unfold doorRowFloor
+      calc 2 ^ 18 * M = M * 2 ^ 18 := by ring
+        _ ≤ M * Adoor M := Nat.mul_le_mul_left _ (Adoor_ge_old M)
     have h := (Nat.cast_le (α := ℝ)).mpr hnat
     push_cast at h
     linarith

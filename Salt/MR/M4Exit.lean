@@ -348,7 +348,8 @@ theorem m4_exit_socket :
   refine ⟨ε, δ₀, hε, hδ₀, ?_⟩
   intro C hC U1floor g
   obtain ⟨H₀, hH₀⟩ := mrtUniformityXi_of_absWindowBound_twelve ε hε
-  obtain ⟨R, hReps, hRdoor, hRU1, hRg, hR⟩ :=
+  -- the head's tower-law conjunct (⟦THE NAMED AMENDMENT⟧) is not consumed on the landed road
+  obtain ⟨R, hReps, hRdoor, hRU1, hRg, -, hR⟩ :=
     hhead (H0door δ₀) (max U1floor (max H₀ (H0scale C))) g
   have hU1 : U1floor ≤ R.Hlo := le_trans (le_max_left _ _) hRU1
   have harc : H₀ ≤ R.Hlo := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hRU1
@@ -467,11 +468,28 @@ The single open binder is the door integral bound AT THE CONSTANT GRADE:
 ```
 ∀ H, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α, NearRatTight (arcDen 12 H) H α →
   (∫ n, ‖absWindowSum lamCoeff H n α‖ ∂(logMeasure R.x R.ω)) ≤ δ₀ * (H : ℝ)
-``` -/
+```
+
+⟦THE NAMED AMENDMENT⟧ (the 2026-07-29 anchor ruling).  The socket now ALSO
+delivers the head's tower endpoint law
+
+```
+50 ≤ loglog R.Hlo → loglog R.Hhi ≤ (loglog R.Hlo)^5
+```
+
+(`SpineFinal.log_chowla_two_budget_head_g`, ultimately
+`TowerExport.tower_loglog_le` at the minimal crossing length).  It is passed
+through UNUSED here — the split road's own consumers do not read it — and the
+threading STOPS at this statement per ⟦ARC-SCOPE⟧: the register consumes it later,
+at the port/inhabitation stage, where the CONSTANT door anchor `Adoor` must be
+priced against `H₊`.  Downstream twins that only forward the socket may discard
+the conjunct with `-`; it is available to any of them without a re-run. -/
 theorem m4_exit_socket_split :
     ∃ (ε : ℚ) (δ₀ : ℝ), 0 < ε ∧ 0 < δ₀ ∧
       ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
         ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ)) ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ 5) ∧
           ((∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
               NearRatTight (arcDen 12 H) H α →
                 (∫ n, ‖absWindowSum lamCoeff H n α‖ ∂(logMeasure R.x R.ω))
@@ -481,10 +499,10 @@ theorem m4_exit_socket_split :
   refine ⟨ε, δ₀, hε, hδ₀, ?_⟩
   intro U1floor g
   obtain ⟨H₀, hH₀⟩ := mrtUniformityXi_of_absWindowBound_twelve ε hε
-  obtain ⟨R, hReps, _, hRU1, hRg, hR⟩ := hhead 0 (max U1floor H₀) g
+  obtain ⟨R, hReps, _, hRU1, hRg, hRtow, hR⟩ := hhead 0 (max U1floor H₀) g
   have hU1 : U1floor ≤ R.Hlo := le_trans (le_max_left _ _) hRU1
   have harc : H₀ ≤ R.Hlo := le_trans (le_max_right _ _) hRU1
-  refine ⟨R, hReps, hU1, hRg, fun hbd => ?_⟩
+  refine ⟨R, hReps, hU1, hRg, hRtow, fun hbd => ?_⟩
   exact hR δ₀ hδ₀ le_rfl (m4_exit_of_hbd_split R δ₀ (hH₀ R hReps harc) hbd)
 
 end Salt.MR

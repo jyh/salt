@@ -369,17 +369,25 @@ lemma regime_outer_param (eps : ℚ) (heps : 0 < eps) (_heps1 : eps ≤ 1 / 2)
 
 /-! ### Section C — the parametric anti-vacuity witness -/
 
-/-- **The `(ε, H₋)`-parametric regime builder.**  For ANY `ε ∈ (0, 1/2]` and ANY
-    floor `Hlo₀`, a `ChowlaRegime` exists with `R.eps = ε` and `R.Hlo ≥ Hlo₀`.
-    The base is set to `Hlo = max(4·10⁶, Hlo₀, 4·⌈1/ε⌉₊⁴)` — large enough that
-    `hcoprime` (`Hlo ≥ 2/ε²`) and `hPNTwindow` (`Hlo ≥ 4/ε⁴`) hold — and the tower
-    is re-based there, with divergence supplied by `dropSum_exceeds_log_two_base`
-    and the outer scale by `regime_outer_param`.  This is the single lever that
-    collapses the three opaque residuals of `log_chowla_two_of_door`: residuals 2
-    and 3 by driving `ε` down, residual 1 by driving `Hlo₀` (hence `R.Hlo`) up. -/
-theorem chowlaRegime_exists_param (eps : ℚ) (heps : 0 < eps) (heps1 : eps ≤ 1 / 2)
-    (Hlo₀ : ℕ) :
-    ∃ R : ChowlaRegime, R.eps = eps ∧ Hlo₀ ≤ R.Hlo := by
+/-- **The `(ε, H₋)`-parametric regime builder, with the tower length CHOSEN BY THE
+    CALLER** (`chowlaRegime_exists_param_gen`).  Identical to
+    `chowlaRegime_exists_param` below except that the tower length is supplied as a
+    function `Jof` of the (internally computed) base — any `Jof` whose value at a
+    base past the regime floor clears `log 2` will do — and the endpoint is
+    exported EXACTLY: `R.Hhi = chowlaTower 2 1 R.Hlo (Jof R.Hlo)`.
+
+    That third conjunct is the whole point.  The landed builder's `hfit` field is
+    the INEQUALITY `chowlaTower C₀ a Hlo J ≤ Hhi`, which bounds `Hhi` from below
+    and so cannot price `log log Hhi`; a consumer that needs an UPPER law on the
+    endpoint (`TowerExport.tower_loglog_le`, at `Jof := towerJmin 2 1`) needs the
+    equation.  `towerJmin` itself lives DOWNSTREAM of this file (it is defined in
+    `TowerExport`, which imports this module), which is why the choice is a
+    parameter here rather than a fixed call. -/
+theorem chowlaRegime_exists_param_gen (eps : ℚ) (heps : 0 < eps) (heps1 : eps ≤ 1 / 2)
+    (Hlo₀ : ℕ) (Jof : ℕ → ℕ)
+    (hJof : ∀ B : ℕ, 4000000 ≤ B → Real.log 2 < towerDropSum 2 1 B (Jof B)) :
+    ∃ R : ChowlaRegime, R.eps = eps ∧ Hlo₀ ≤ R.Hlo ∧
+      R.Hhi = chowlaTower 2 1 R.Hlo (Jof R.Hlo) := by
   classical
   have hepsR : (0 : ℝ) < (eps : ℝ) := by exact_mod_cast heps
   -- the scale `m ≥ 1/ε`
@@ -433,10 +441,13 @@ theorem chowlaRegime_exists_param (eps : ℚ) (heps : 0 < eps) (heps1 : eps ≤ 
       linarith [hh]
     linarith [h3]
   -- the tower endpoint and its divergence
-  obtain ⟨J, hJ⟩ := dropSum_exceeds_log_two_base hHlo_floor
+  obtain ⟨J, hJdef⟩ : ∃ J : ℕ, J = Jof Hlo := ⟨_, rfl⟩
+  have hJ : Real.log 2 < towerDropSum 2 1 Hlo J := by
+    rw [hJdef]; exact hJof Hlo hHlo_floor
   obtain ⟨Hhi, hHhidef⟩ : ∃ Hhi : ℕ, Hhi = chowlaTower 2 1 Hlo J := ⟨_, rfl⟩
   have hHhi_floor : 4000000 ≤ Hhi := by rw [hHhidef]; exact chowlaTower_base_floor hHlo_floor J
   have hHlohi : Hlo ≤ Hhi := by rw [hHhidef]; exact chowlaTower_base_ge hHlo_floor J
+  have hHhieq : Hhi = chowlaTower 2 1 Hlo (Jof Hlo) := by rw [hHhidef, hJdef]
   -- the outer scale at this `ε` and endpoint
   obtain ⟨x, ω, hx2, hω2, hωx, hhead, hhead', hPH, homega, hxb⟩ :=
     regime_outer_param eps heps heps1 Hhi (4 ^ ⌊eps ^ 2 * (Hhi : ℚ)⌋₊) hHhi_floor
@@ -445,7 +456,29 @@ theorem chowlaRegime_exists_param (eps : ℚ) (heps : 0 < eps) (heps1 : eps ≤ 
            hHlo := le_trans (by norm_num) hHlo_floor, hHlohi := hHlohi, hC0 := le_refl 2,
            hHlo_floor := hHlo_floor, hheadroom := hhead, hcoprime := hcop, hfit := hHhidef.ge,
            hJcon := hJ, hheadroom' := hhead', hPHheadroom := hPH, hPNTwindow := hPNT,
-           hωbig := homega, hxbig := hxb }, rfl, hHlo0⟩
+           hωbig := homega, hxbig := hxb }, rfl, hHlo0, hHhieq⟩
+
+/-- **The `(ε, H₋)`-parametric regime builder.**  For ANY `ε ∈ (0, 1/2]` and ANY
+    floor `Hlo₀`, a `ChowlaRegime` exists with `R.eps = ε` and `R.Hlo ≥ Hlo₀`.
+    The base is set to `Hlo = max(4·10⁶, Hlo₀, 4·⌈1/ε⌉₊⁴)` — large enough that
+    `hcoprime` (`Hlo ≥ 2/ε²`) and `hPNTwindow` (`Hlo ≥ 4/ε⁴`) hold — and the tower
+    is re-based there, with divergence supplied by `dropSum_exceeds_log_two_base`
+    and the outer scale by `regime_outer_param`.  This is the single lever that
+    collapses the three opaque residuals of `log_chowla_two_of_door`: residuals 2
+    and 3 by driving `ε` down, residual 1 by driving `Hlo₀` (hence `R.Hlo`) up.
+
+    Statement UNCHANGED; the construction is now `chowlaRegime_exists_param_gen`
+    fired at the MINIMAL crossing length (`sInf` of the crossing set — the inlined
+    `TowerExport.towerJmin`, which cannot be named here for import reasons).  The
+    minimal choice is invisible to this statement and to every consumer of it. -/
+theorem chowlaRegime_exists_param (eps : ℚ) (heps : 0 < eps) (heps1 : eps ≤ 1 / 2)
+    (Hlo₀ : ℕ) :
+    ∃ R : ChowlaRegime, R.eps = eps ∧ Hlo₀ ≤ R.Hlo := by
+  obtain ⟨R, hReps, hRHlo, -⟩ :=
+    chowlaRegime_exists_param_gen eps heps heps1 Hlo₀
+      (fun B => sInf {J : ℕ | Real.log 2 < towerDropSum 2 1 B J})
+      (fun _ hB => Nat.sInf_mem (dropSum_exceeds_log_two_base hB))
+  exact ⟨R, hReps, hRHlo⟩
 
 /-! ### Section D — the head-shaped builder, in-cone (REGIME-CUT)
 
