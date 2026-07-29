@@ -13996,3 +13996,44 @@ artifact moves, disjoint from the WALL-C sibling's file set). E-7
 (capstone binders) + E-8 (the register surgery) HELD until the WALL-C
 landing + SUPPLY-SCOPE's WALL-D verdict — one combined register
 re-thread, not two.**
+
+---
+
+## ⟦SUPPLY-SCOPE⟧: WALL D's 1/M repair UNDELIVERABLE — the wall is CONJUGACY; the two levers priced for council (2026-07-29 ~01:15 PDT)
+
+**VERDICT: UNDELIVERABLE at all three cut points.** The polarity is
+asymmetric — :712 is carried (strengthening costs no proof but pays
+nothing: the M cancels off the sieve term leaving Ccc ≤
+(log X)^{-1/500}/11520, false for large X, DEAD); :717's cut must be
+EARNED in hMrowLe (ThmA2:511-517). The honest recount: the a2RowsSum
+half DOES have a thrown-away 1/M (every term ≥M-graded except
+(2e+2)/Xd), but **the Ccc·(2/M) half is the Mertens block-free mass
+with its 1/M EXACT** — `log_calP_div_log_calQK : log P_j/log Q_j =
+1/(j²·M)` (the calibration IDENTITY) summed to 2/M; Ccc =
+typical_density_le's genuine Mertens density, X-constant by hoisting.
+Best achievable: 4 of 5 envelope copies graded (~250–350 ln) buys a
+factor 5 against a 10¹¹⁴ gap. The parallel m4RawMS/g3 charging route
+dies at the same object. The ∀d line is uniform (single register M).
+
+**THE DEEP FORM (verified, reproduces 2.04e16·Ccc):** the wall is
+**conjugacy, not bookkeeping** — block-free mass ≍ 1/depth against the
+length floor depth·2^18 ≤ log₂H, with the drift line charging
+≍ log₂H (m4Cmax H = 3(log₂H+1), M4Maximal:471 — the SOLE source of
+the log₂H that cancels the floor EXACTLY). Re-calibrating calQK to
+depth M² buys 1/M² in the mass and pays it back in the floor — the
+product is invariant. No supply-side re-cut at any depth produces the
+extra 1/M.
+
+**THE LEVERS (both outside the register; now SHARED with WALL A):**
+(1) the drift line's m4Cmax — charge B without the log₂H flattening
+(every length at the worst grade) and G² ≥ K·Ccc/log₂H → 0; the
+length-graded MS j H family (landed tonight) is the natural currency;
+(2) the length floor (door_length_gate: j ≥ M·Adoor M) — the capstone
+speaking below it uncaps M. THE MAESTRO'S SYNTHESIS TO SCOPE: **the
+adaptive-depth ladder** — per-length sieve depth M(j) ≍ j/2^18 makes
+the per-length mass ≍ 2^18/j, the drift sum Σ_j 2^18/j ≍ 2^18·loglog
+instead of log₂H/M, and gate 8's constant demand δ₀ becomes a
+CONSTANT floor on j (window length ≥ 2^{2^18/δ₀} — an Hlo floor,
+which CLOSES). (3) NOT Ccc (positive, hoisted; the 2.04e16 makes its
+size irrelevant). NO executor dispatched — council-tier design;
+DRIFT-SCOPE dispatched to price both levers + the synthesis.
