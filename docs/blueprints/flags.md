@@ -14378,3 +14378,60 @@ SANDWICH-REF's pair and nothing more — must not be sold as settling
 the register). **FIRE F4 regardless** (unrepaired: 8q =
 8·exp(7.67e10)); **VT-7 onto the board beside it** — worth 2.15e44
 of lnln X demand, currently unpriced.
+
+---
+
+## ⟦REF-ROUTE⟧: Route 2 AMENDED (the non-coprime defect + the free repair); the KMT port's TRUE gate list; TWO PATHS CONVERGE ON F5 (2026-07-29 04:07 PDT)
+
+**R5 — Route 2 AMEND, and cheaper where it matters:** the τ second
+moment is an EQUALITY Σ_χ|τ_b(χ̄)|² = φ(q)² — exact, for EVERY b
+including gcd(b,q)>1 (verified symbolically + numerically across 13
+moduli) ⟹ the CS prefactor is 1, not q/φ(q); the imprimitive-τ risk
+is a PHANTOM (only the second moment is needed — orthogonality, the
+landed M4Chars machinery; GaussSum.lean was the wrong file, gap 0 ln);
+NearRatTight supplies no coprimality and none is needed. **THE
+DEFECT: the identity as stated is FALSE — χ kills non-units, so the
+re-cut drops the (m,q)>1 window part (at q=2, HALF the window); the
+landed class-granularity non-coprime arm does not survive (its
+Chebyshev cost is (q−φ(q))² ≈ q²/4 — the same order Route 2 kills).
+THE REPAIR (exact, arithmetically free): stratify by d = gcd(m,q),
+m = d·m′ → coprime-restricted at modulus q/d on the dilated window;
+weighted CS at 1/d (Σ1/d = σ(q)/q ≤ q/φ(q)); d0_ledger_sharp closes
+per-d at C·Bcl·H²·A/d² ⟹ total residual (q/φ(q))² = 7.7 nats —
+free by the residual law. sup_K untouched (CS pointwise in K at
+every stratum).** RE-PRICE: 1300–2100 ln class B/C. Route 1's
+deliverable gains a RATIFIABLE SHAPE CONSTRAINT: the χ-summed
+capstone must be interval-general, length-general, at EVERY modulus
+q′ ≤ arcDen, in the dyadic-row (maximal-compatible) shape.
+
+**R4 — the premise REFUTED, the conclusion hardened:** the two
+weaker configurations are dead at EVERY scale (a positive log-power
+demand admits NO floor) — the port's prerequisite is the WHOLE
+{F2, F3, Route 2, lever 1′, F4} composition, not F3 alone. The
+datum-class gap CLOSES beautifully: MemS at J = 2 ⟹ 1_𝒮·λ =
+a signed sum of FOUR completely multiplicative 1-bounded functions
+(gJ/gJ_mul) — apply KMT's corollary four times at CS cost 4; the
+pretentious distance moves ≤ 2·ln2, inside the margin the corpus
+already carries. The all-χ floor stack IS character-uniform (no
+exceptional carve-out ✓) — **but its threshold is the F5 object
+VERBATIM: if F5 stands, the port loses the very input priced as
+deleting KMT's zero-density block.** Ineffectivity: fold as
+∃H₀ into the max-arm (the H₀red pattern), never a numeral. NEW gate:
+the supplier owes the sup_K-inside shape (deliver in
+M4ChiDyadicRowMeanSq's row form; the transfer is landed). **⟦THE
+FINDING⟧: Hlo is NOT spine-choosable in the composed register —
+D-2's 2^30 anchor caps lnln Hlo ≤ 432.4 (SANDWICH-REF's closing
+point IS the ceiling, zero headroom); KMT's floor needs
+lnln Hlo = 44853 ⟹ the port silently demands anchor ≈ 2^51 (+21
+bits, M → ~10^9900); and F5 punishes that knob QUARTICALLY (short
+9.2e12 at the KMT floor). The single knob that buys KMT's strength
+is the knob F5 penalizes.**
+
+**THE CONVERGENCE:** F5 caps the floor KMT needs AND gates the all-χ
+floor input the port would reuse. Recommendation (B) REINFORCED from
+two independent directions: fire F4 (+VT-7), no port authorization;
+any F5 repair must be robust at lnln Hlo ≈ 4.5e4, not 432. The
+surviving assets if the current register road ends: m4_wave_exit's
+six-item register (F5-free; residue M4RowMeanSq) + the whole priced
+lever kit — the door-supply re-cut design question is THE Fable
+table item.
