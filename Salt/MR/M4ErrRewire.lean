@@ -153,6 +153,90 @@ theorem E_priced_mr_row_scale (H : ℝ) (hH : 2 ≤ H) (N Xd P Q : ℕ) (hXd : 1
     hMtail T hT).trans ?_
   linarith
 
+/-! ### ⟦THE ENDPOINT WALL⟧ — the STRICT/FUSED `E` row
+
+`SeamRowWindowed` §3′ re-cuts the same `ramErr` object at the STRICT pair law `SeamCoefWS`
+and pays the released endpoint cofactors inside the `p²` row (the fused filter
+`p ∣ m ∨ p·m = X`).  The split is still FOUR rows at prefactor `4`, so `err_grade_fit` and
+its `4·520 ≤ 2160` are untouched; the ONLY change on the right is the fused stone's extra
+summand, carried here as the named `endMass`. -/
+
+/-- ⟦THE ENDPOINT MASS⟧ `M_end = 4·(log₂(2X_d))²/X_d²` — the price of releasing the window's
+lower endpoint from the pair law, i.e. `M4P2MR.ramP2massEndMR_direct`'s excess over
+`ramP2massMR_direct`.  Named so the five `hEP2` sites can carry it as a SEPARATE summand
+(the ⟦R3a⟧ `Mtail` pattern) with `witEP2`'s numerals byte-untouched. -/
+noncomputable def endMass (Xd : ℕ) : ℝ :=
+  4 * (Real.logb 2 (2 * (Xd : ℝ))) ^ 2 / (Xd : ℝ) ^ 2
+
+lemma endMass_nonneg (Xd : ℕ) : 0 ≤ endMass Xd := by
+  rw [endMass]; positivity
+
+/-- **THE STRICT/FUSED `E` ROW** (`E_priced_mr_end`).  `E_priced_mr` at `SeamCoefWS`, with the
+`p²` mass supplied by the FUSED stone `M4P2MR.ramP2massEndMR_direct`.  Against `E_priced_mr`
+the binder `hcoefW` weakens to `hcoefWS` and the right-hand side gains one summand,
+`(2T+20N)·M_end`. -/
+theorem E_priced_mr_end (H : ℝ) (hH : 2 ≤ H) (N Xd P Q : ℕ) (hXd : 1 ≤ Xd) (hN : 2 * Xd ≤ N)
+    (hN2 : (N : ℝ) ≤ 2 * (Xd : ℝ)) (hHX : H ≤ (Xd : ℝ)) (hP : 1 ≤ P) (a b c : ℕ → ℂ)
+    (hcoefWS : SeamCoefWS Xd P Q a b c)
+    (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖c p‖ ≤ 1)
+    (hasupp : ∀ n : ℕ, a n ≠ 0 → (Xd : ℝ) ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * (Xd : ℝ))
+    (Mtail : ℝ)
+    (hMtail : ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+        ‖a n‖ ^ 2 / (n : ℝ) ^ 2 ≤ Mtail)
+    (T : ℝ) (hT : 0 ≤ T) :
+    (∫ t in (-T)..T, ‖ramErr H N Xd P Q a b c t‖ ^ 2)
+      ≤ 4 * (520 * (T / (Xd : ℝ) + 1) / H
+          + (2 * T + 20 * (N : ℝ))
+              * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)))
+          + (2 * T + 20 * (N : ℝ)) * endMass Xd
+          + (2 * T + 20 * (N : ℝ)) * Mtail) := by
+  simp only [endMass]
+  have hsplit := ramErr_moment_split_mr_windowed_end H hH N Xd P Q hXd hN hP a b c hcoefWS
+    hasupp T hT
+  have h1 := ramSeamLoPoly_moment H hH N Xd P Q hXd hN hP b c hb hc T hT
+  have h2 := ramSeamUpPoly_moment H hH N Xd P Q hXd hP b c hb hc T hT
+  have h3 := ramP2corrEndMR_moment N Xd P Q hXd hN a b c T
+  have h4 := ramCopTail_moment N P Q a T
+  have hgrade := seam_rows_grade H hH N Xd hXd hN2 hHX T hT
+  have hmass := ramP2massEndMR_direct N Xd P Q hXd hN hP a b c ha hb hc
+  have hNnn : (0 : ℝ) ≤ (N : ℝ) := Nat.cast_nonneg N
+  have hfac : (0 : ℝ) ≤ 2 * T + 20 * (N : ℝ) := by linarith
+  have hp2 : (∫ t in (-T)..T, ‖ramP2corrEndMR N Xd P Q a b c t‖ ^ 2)
+      ≤ (2 * T + 20 * (N : ℝ))
+          * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ))
+            + 4 * (Real.logb 2 (2 * (Xd : ℝ))) ^ 2 / (Xd : ℝ) ^ 2) :=
+    h3.trans (mul_le_mul_of_nonneg_left hmass hfac)
+  have htail : (∫ t in (-T)..T, ‖ramCopTail N P Q a t‖ ^ 2)
+      ≤ (2 * T + 20 * (N : ℝ)) * Mtail :=
+    h4.trans (mul_le_mul_of_nonneg_left hMtail hfac)
+  linarith
+
+/-- **THE STRICT/FUSED `E` ROW AT THE ROW SCALE** (`E_priced_mr_row_scale_end`). -/
+theorem E_priced_mr_row_scale_end (H : ℝ) (hH : 2 ≤ H) (N Xd P Q : ℕ) (hXd : 1 ≤ Xd)
+    (hN : 2 * Xd ≤ N) (hN2 : (N : ℝ) ≤ 2 * (Xd : ℝ)) (hHX : H ≤ (Xd : ℝ)) (hP : 1 ≤ P)
+    (a b c : ℕ → ℂ) (hcoefWS : SeamCoefWS Xd P Q a b c)
+    (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖c p‖ ≤ 1)
+    (hasupp : ∀ n : ℕ, a n ≠ 0 → (Xd : ℝ) ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * (Xd : ℝ))
+    (Mtail : ℝ)
+    (hMtail : ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+        ‖a n‖ ^ 2 / (n : ℝ) ^ 2 ≤ Mtail)
+    (T X : ℝ) (hT : 0 ≤ T) (hX0 : 0 < X) (hXdX : X ≤ (Xd : ℝ)) :
+    (∫ t in (-T)..T, ‖ramErr H N Xd P Q a b c t‖ ^ 2)
+      ≤ 4 * (520 * (T / X + 1) / H
+          + (2 * T + 20 * (N : ℝ))
+              * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)))
+          + (2 * T + 20 * (N : ℝ)) * endMass Xd
+          + (2 * T + 20 * (N : ℝ)) * Mtail) := by
+  have hH0 : (0 : ℝ) < H := by linarith
+  have hscale : T / (Xd : ℝ) ≤ T / X := div_le_div_of_nonneg_left hT hX0 hXdX
+  have hrow : 520 * (T / (Xd : ℝ) + 1) / H ≤ 520 * (T / X + 1) / H := by
+    have h1 : 520 * (T / (Xd : ℝ) + 1) ≤ 520 * (T / X + 1) := by linarith
+    rw [div_le_div_iff_of_pos_right hH0]
+    exact h1
+  refine (E_priced_mr_end H hH N Xd P Q hXd hN hN2 hHX hP a b c hcoefWS ha hb hc hasupp Mtail
+    hMtail T hT).trans ?_
+  linarith
+
 /-- **THE GRADE FIT** (`err_grade_fit`).  The arithmetic behind the rewire, isolated so that
 the refuter's page is a Lean object: the windowed row's `4·(520·g + E′)` sits under
 `A2Frame3.err`'s standing `3·(720·g + E)` as soon as the `EP2` slot carries the `4/3`

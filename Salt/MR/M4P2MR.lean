@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.MR.RamareMR
+import Salt.MR.RamareP2End
 import Salt.MR.SmallStones
 
 /-!
@@ -331,6 +332,290 @@ theorem ramP2massMR_direct (N X P Q : ℕ) (hX : 1 ≤ X) (hN : 2 * X ≤ N) (hP
       ≤ 2 * Real.logb 2 (2 * (X : ℝ)) / (X : ℝ) * (8 / (P : ℝ)) :=
         mul_le_mul_of_nonneg_left hrow hB0
     _ = 16 * Real.logb 2 (2 * (X : ℝ)) / ((X : ℝ) * (P : ℝ)) := by
+        field_simp
+        ring
+
+/-! ## §2 — ⟦THE ENDPOINT WALL⟧: THE FUSED `p²` MASS
+
+`RamareP2End`'s fused family (`ramP2domEndMR`, inner filter `p ∣ m ∨ p·m = X`) priced by §1's
+own two-half route.  The design line, verified against the bytes:
+
+* the **max** half is FREE — the fibre injection into `n.primeFactors` never read `p ∣ m`, so
+  `ramP2coeffEndMR_norm_div_le` is `ramP2coeffMR_norm_div_le` with the domain renamed and the
+  conclusion `2·log₂(2X)/X` UNCHANGED;
+* the **Σ** half gains exactly `2·ω(X)/X`: the `∨`-filter splits by subset-sum (⟦AMENDMENT
+  8⟧ — over-counting the `p² ∣ X` overlap is a legal upper bound), and the endpoint half is a
+  SINGLETON per prime `p ∣ X` (`p·m = X` determines `m`), so its whole domain injects into
+  `X.primeFactors` and each of its terms is exactly `2/X`.  With `ω(X) ≤ log₂ X ≤ log₂(2X)`
+  the Σ half is `8/P + 2·log₂(2X)/X`.
+
+The product is the fused stone
+
+  `Σ_{n≤N} ‖ramP2coeffEndMR n‖²/n² ≤ 16·log₂(2X)/(X·P) + 4·(log₂(2X))²/X²`,
+
+i.e. `ramP2massMR_direct` plus the endpoint mass `M_end = 4·(log₂(2X))²/X²`. -/
+
+/-- The fused domain carries MR's window in its INDEX SET, exactly as the landed one. -/
+theorem mem_ramP2domEndMR_window {N X P Q : ℕ} {σ : Σ _ : ℕ, ℕ}
+    (hσ : σ ∈ ramP2domEndMR N X P Q) :
+    (X : ℝ) ≤ (σ.1 : ℝ) * (σ.2 : ℝ) ∧ (σ.1 : ℝ) * (σ.2 : ℝ) ≤ 2 * (X : ℝ) := by
+  classical
+  rw [ramP2domEndMR, Finset.mem_sigma] at hσ
+  obtain ⟨-, h2⟩ := hσ
+  rw [Finset.mem_filter, ramHonMR, Finset.mem_filter] at h2
+  exact ⟨h2.1.2.1, h2.1.2.2⟩
+
+/-- The first coordinate of a `ramP2domEndMR` pair is a prime in `[P,Q]`. -/
+theorem mem_ramP2domEndMR_prime {N X P Q : ℕ} {σ : Σ _ : ℕ, ℕ}
+    (hσ : σ ∈ ramP2domEndMR N X P Q) : σ.1.Prime := by
+  classical
+  rw [ramP2domEndMR, Finset.mem_sigma] at hσ
+  exact (Finset.mem_filter.mp hσ.1).2
+
+/-- **THE FIBRE BOUND IS UNMOVED.**  `ramP2domMR_fiber_card_le_omega`'s injection `(p,m) ↦ p`
+never used `p ∣ m` — only that `p` is prime and `pm = n` — so it transplants verbatim to the
+fused domain. -/
+theorem ramP2domEndMR_fiber_card_le_omega {N X P Q n : ℕ} (hn : n ≠ 0) :
+    ((ramP2domEndMR N X P Q).filter (fun σ => σ.1 * σ.2 = n)).card ≤ n.primeFactors.card := by
+  classical
+  refine Finset.card_le_card_of_injOn (fun σ => σ.1) ?_ ?_
+  · intro σ hσ
+    obtain ⟨hdom, heq⟩ := Finset.mem_filter.mp hσ
+    exact Nat.mem_primeFactors.mpr ⟨mem_ramP2domEndMR_prime hdom, ⟨σ.2, heq.symm⟩, hn⟩
+  · intro σ hσ τ hτ heq
+    obtain ⟨hdom, hσn⟩ := Finset.mem_filter.mp hσ
+    obtain ⟨-, hτn⟩ := Finset.mem_filter.mp hτ
+    have hp : σ.1.Prime := mem_ramP2domEndMR_prime hdom
+    have heq' : σ.1 = τ.1 := heq
+    have hmul : σ.1 * σ.2 = σ.1 * τ.2 := by rw [hσn, heq', hτn]
+    exact Sigma.ext heq' (heq_of_eq (Nat.eq_of_mul_eq_mul_left hp.pos hmul))
+
+/-- **THE MAX HALF, UNCHANGED** (`ramP2coeffEndMR_norm_div_le`).  `ramP2coeffMR_norm_div_le`
+at the fused domain: same fibre-emptiness split, same window read off `ramHonMR`, same
+conclusion `2·log₂(2X)/X`. -/
+theorem ramP2coeffEndMR_norm_div_le {N X P Q : ℕ} (hX : 1 ≤ X) {n : ℕ} (hn : 1 ≤ n)
+    {a b c : ℕ → ℂ} (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ n, ‖b n‖ ≤ 1) (hc : ∀ n, ‖c n‖ ≤ 1) :
+    ‖ramP2coeffEndMR N X P Q a b c n‖ / (n : ℝ)
+      ≤ 2 * Real.logb 2 (2 * (X : ℝ)) / (X : ℝ) := by
+  classical
+  have hX1 : (1 : ℝ) ≤ (X : ℝ) := by exact_mod_cast hX
+  have hX0 : (0 : ℝ) < (X : ℝ) := by linarith
+  have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn
+  have hL0 : (0 : ℝ) ≤ Real.logb 2 (2 * (X : ℝ)) :=
+    Real.logb_nonneg (by norm_num) (by linarith)
+  have hB0 : (0 : ℝ) ≤ 2 * Real.logb 2 (2 * (X : ℝ)) / (X : ℝ) := by positivity
+  have hstep : ‖ramP2coeffEndMR N X P Q a b c n‖
+      ≤ 2 * (((ramP2domEndMR N X P Q).filter (fun σ => σ.1 * σ.2 = n)).card : ℝ) := by
+    rw [ramP2coeffEndMR]
+    refine (norm_sum_le _ _).trans ?_
+    have h := Finset.sum_le_sum (f := fun σ : Σ _ : ℕ, ℕ =>
+        ‖(ramareWeight P Q σ.1 σ.2 : ℂ) * a (σ.1 * σ.2)
+          - b σ.2 * c σ.1 * ((blockOmega P Q σ.2 : ℂ) + 1)⁻¹‖)
+      (g := fun _ : Σ _ : ℕ, ℕ => (2 : ℝ))
+      (s := (ramP2domEndMR N X P Q).filter (fun σ => σ.1 * σ.2 = n))
+      (fun σ _ => ramP2_term_norm_le ha hb hc σ.1 σ.2)
+    rw [Finset.sum_const, nsmul_eq_mul] at h
+    linarith
+  rcases Finset.eq_empty_or_nonempty
+      ((ramP2domEndMR N X P Q).filter (fun σ => σ.1 * σ.2 = n)) with hempty | ⟨σ, hσ⟩
+  · have hz : ramP2coeffEndMR N X P Q a b c n = 0 := by
+      rw [ramP2coeffEndMR, hempty, Finset.sum_empty]
+    rw [hz, norm_zero, zero_div]
+    exact hB0
+  · obtain ⟨hdom, hfib⟩ := Finset.mem_filter.mp hσ
+    obtain ⟨hlo, hhi⟩ := mem_ramP2domEndMR_window hdom
+    have hcast : ((σ.1 * σ.2 : ℕ) : ℝ) = (σ.1 : ℝ) * (σ.2 : ℝ) := by push_cast; ring
+    have hnlo : (X : ℝ) ≤ (n : ℝ) := by rw [← hfib, hcast]; exact hlo
+    have hnhi : (n : ℝ) ≤ 2 * (X : ℝ) := by rw [← hfib, hcast]; exact hhi
+    have hcard : (((ramP2domEndMR N X P Q).filter (fun σ => σ.1 * σ.2 = n)).card : ℝ)
+        ≤ (n.primeFactors.card : ℝ) := by
+      exact_mod_cast ramP2domEndMR_fiber_card_le_omega (N := N) (X := X) (P := P) (Q := Q)
+        (by omega)
+    have hl2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+    have homega : (n.primeFactors.card : ℝ) ≤ Real.logb 2 (2 * (X : ℝ)) := by
+      rw [Real.logb, le_div_iff₀ hl2]
+      refine le_trans (omegaMR_mul_log_two_le hn) ?_
+      exact Real.log_le_log hn0 hnhi
+    rw [div_le_iff₀ hn0]
+    calc ‖ramP2coeffEndMR N X P Q a b c n‖
+        ≤ 2 * (((ramP2domEndMR N X P Q).filter (fun σ => σ.1 * σ.2 = n)).card : ℝ) := hstep
+      _ ≤ 2 * Real.logb 2 (2 * (X : ℝ)) := by linarith
+      _ = 2 * Real.logb 2 (2 * (X : ℝ)) / (X : ℝ) * (X : ℝ) := by field_simp
+      _ ≤ 2 * Real.logb 2 (2 * (X : ℝ)) / (X : ℝ) * (n : ℝ) :=
+          mul_le_mul_of_nonneg_left hnlo hB0
+
+/-- **THE ENDPOINT DOMAIN INJECTS INTO `X.primeFactors`.**  A pair `(p,m)` with `p·m = X` is
+determined by `p`, and `p` is then a prime divisor of `X` — so the endpoint half of the fused
+domain has at most `ω(X)` points, whatever the band. -/
+private lemma ramP2endMR_card_le (N X P Q : ℕ) (hX : 1 ≤ X) :
+    (((Finset.Icc P Q).filter Nat.Prime).sigma
+        (fun p => (ramHonMR N X p).filter (fun m => p * m = X))).card
+      ≤ X.primeFactors.card := by
+  classical
+  refine Finset.card_le_card_of_injOn (fun σ => σ.1) ?_ ?_
+  · intro σ hσ
+    obtain ⟨h1, h2⟩ := Finset.mem_sigma.mp hσ
+    exact Nat.mem_primeFactors.mpr ⟨(Finset.mem_filter.mp h1).2,
+      ⟨σ.2, ((Finset.mem_filter.mp h2).2).symm⟩, by omega⟩
+  · intro σ hσ τ hτ heq
+    obtain ⟨hσ1, hσ2⟩ := Finset.mem_sigma.mp hσ
+    obtain ⟨-, hτ2⟩ := Finset.mem_sigma.mp hτ
+    have hp : σ.1.Prime := (Finset.mem_filter.mp hσ1).2
+    have hσX : σ.1 * σ.2 = X := (Finset.mem_filter.mp hσ2).2
+    have hτX : τ.1 * τ.2 = X := (Finset.mem_filter.mp hτ2).2
+    have heq' : σ.1 = τ.1 := heq
+    have hmul : σ.1 * σ.2 = σ.1 * τ.2 := by rw [hσX, heq', hτX]
+    exact Sigma.ext heq' (heq_of_eq (Nat.eq_of_mul_eq_mul_left hp.pos hmul))
+
+/-- **THE Σ HALF, FUSED** (`ramP2domEndMR_sum_le`).  The `∨`-filter splits by subset-sum, the
+`p ∣ m` half is §1's `8/P` verbatim, and the endpoint half is `2·ω(X)/X ≤ 2·log₂(2X)/X`. -/
+theorem ramP2domEndMR_sum_le (N X P Q : ℕ) (hX : 1 ≤ X) (hP : 1 ≤ P) :
+    ∑ σ ∈ ramP2domEndMR N X P Q, 2 / ((σ.1 * σ.2 : ℕ) : ℝ)
+      ≤ 8 / (P : ℝ) + 2 * Real.logb 2 (2 * (X : ℝ)) / (X : ℝ) := by
+  classical
+  have hX1 : (1 : ℝ) ≤ (X : ℝ) := by exact_mod_cast hX
+  have hX0 : (0 : ℝ) < (X : ℝ) := by linarith
+  rw [ramP2domEndMR, Finset.sum_sigma]
+  -- ⟦AMENDMENT 8⟧ the `∨`-filter splits by subset-sum; the overlap is over-counted, legally
+  have hrow : ∀ p ∈ (Finset.Icc P Q).filter Nat.Prime,
+      (∑ m ∈ (ramHonMR N X p).filter (fun m => p ∣ m ∨ p * m = X), 2 / ((p * m : ℕ) : ℝ))
+        ≤ (∑ m ∈ (ramHonMR N X p).filter (fun m => p ∣ m), 2 / ((p * m : ℕ) : ℝ))
+          + ∑ m ∈ (ramHonMR N X p).filter (fun m => p * m = X), 2 / ((p * m : ℕ) : ℝ) := by
+    intro p _
+    rw [Finset.filter_or]
+    have hui := Finset.sum_union_inter
+      (s₁ := (ramHonMR N X p).filter (fun m => p ∣ m))
+      (s₂ := (ramHonMR N X p).filter (fun m => p * m = X))
+      (f := fun m => 2 / ((p * m : ℕ) : ℝ))
+    have hinter : (0 : ℝ) ≤ ∑ m ∈ ((ramHonMR N X p).filter (fun m => p ∣ m))
+        ∩ ((ramHonMR N X p).filter (fun m => p * m = X)), 2 / ((p * m : ℕ) : ℝ) :=
+      Finset.sum_nonneg (fun m _ => by positivity)
+    linarith
+  refine (Finset.sum_le_sum hrow).trans ?_
+  rw [Finset.sum_add_distrib]
+  have hA : (∑ p ∈ (Finset.Icc P Q).filter Nat.Prime,
+      ∑ m ∈ (ramHonMR N X p).filter (fun m => p ∣ m), 2 / ((p * m : ℕ) : ℝ))
+      ≤ 8 / (P : ℝ) := by
+    have h := ramP2domMR_sum_le N X P Q hX hP
+    rwa [ramP2domMR, Finset.sum_sigma] at h
+  -- ⟦THE ENDPOINT HALF⟧ every term is exactly `2/X`, and the domain injects into `X.primeFactors`
+  have hval : ∀ p ∈ (Finset.Icc P Q).filter Nat.Prime,
+      (∑ m ∈ (ramHonMR N X p).filter (fun m => p * m = X), 2 / ((p * m : ℕ) : ℝ))
+        = ((((ramHonMR N X p).filter (fun m => p * m = X)).card : ℕ) : ℝ) * (2 / (X : ℝ)) := by
+    intro p _
+    have hterm : ∀ m ∈ (ramHonMR N X p).filter (fun m => p * m = X),
+        2 / ((p * m : ℕ) : ℝ) = 2 / (X : ℝ) := by
+      intro m hm
+      rw [(Finset.mem_filter.mp hm).2]
+    rw [Finset.sum_congr rfl hterm, Finset.sum_const, nsmul_eq_mul]
+  rw [Finset.sum_congr rfl hval, ← Finset.sum_mul]
+  have hcards : (∑ p ∈ (Finset.Icc P Q).filter Nat.Prime,
+        ((((ramHonMR N X p).filter (fun m => p * m = X)).card : ℕ) : ℝ))
+      ≤ (X.primeFactors.card : ℝ) := by
+    have hc := ramP2endMR_card_le N X P Q hX
+    rw [Finset.card_sigma] at hc
+    exact_mod_cast hc
+  have homega : (X.primeFactors.card : ℝ) ≤ Real.logb 2 (2 * (X : ℝ)) := by
+    have hl2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+    rw [Real.logb, le_div_iff₀ hl2]
+    exact le_trans (omegaMR_mul_log_two_le hX) (Real.log_le_log hX0 (by linarith))
+  have hstep : (∑ p ∈ (Finset.Icc P Q).filter Nat.Prime,
+        ((((ramHonMR N X p).filter (fun m => p * m = X)).card : ℕ) : ℝ)) * (2 / (X : ℝ))
+      ≤ Real.logb 2 (2 * (X : ℝ)) * (2 / (X : ℝ)) :=
+    mul_le_mul_of_nonneg_right (le_trans hcards homega) (by positivity)
+  have hid : Real.logb 2 (2 * (X : ℝ)) * (2 / (X : ℝ))
+      = 2 * Real.logb 2 (2 * (X : ℝ)) / (X : ℝ) := by ring
+  linarith [hid.le, hid.ge]
+
+/-- **`Σ_n ‖coeff_n‖/n ≤ 8/P + 2·log₂(2X)/X`** — the fused Σ half at the coefficient. -/
+theorem ramP2coeffEndMR_sum_div_le (N X P Q : ℕ) (hX : 1 ≤ X) (hN : 2 * X ≤ N) (hP : 1 ≤ P)
+    (a b c : ℕ → ℂ) (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ n, ‖b n‖ ≤ 1) (hc : ∀ n, ‖c n‖ ≤ 1) :
+    ∑ n ∈ Finset.Icc 1 N, ‖ramP2coeffEndMR N X P Q a b c n‖ / (n : ℝ)
+      ≤ 8 / (P : ℝ) + 2 * Real.logb 2 (2 * (X : ℝ)) / (X : ℝ) := by
+  classical
+  have hX1 : (1 : ℝ) ≤ (X : ℝ) := by exact_mod_cast hX
+  have hNR : 2 * (X : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN
+  have hmaps : ∀ σ ∈ ramP2domEndMR N X P Q, σ.1 * σ.2 ∈ Finset.Icc 1 N := by
+    intro σ hσ
+    obtain ⟨hlo, hhi⟩ := mem_ramP2domEndMR_window hσ
+    rw [Finset.mem_Icc]
+    constructor
+    · have h : (1 : ℝ) ≤ ((σ.1 * σ.2 : ℕ) : ℝ) := by push_cast; linarith
+      exact_mod_cast h
+    · have h : ((σ.1 * σ.2 : ℕ) : ℝ) ≤ (N : ℝ) := by push_cast; linarith
+      exact_mod_cast h
+  have hpt : ∀ n ∈ Finset.Icc 1 N,
+      ‖ramP2coeffEndMR N X P Q a b c n‖ / (n : ℝ)
+        ≤ ∑ σ ∈ (ramP2domEndMR N X P Q).filter (fun σ => σ.1 * σ.2 = n),
+            2 / ((σ.1 * σ.2 : ℕ) : ℝ) := by
+    intro n hn
+    rw [Finset.mem_Icc] at hn
+    have hn0 : (0 : ℝ) < (n : ℝ) := by exact_mod_cast hn.1
+    have heq : (∑ σ ∈ (ramP2domEndMR N X P Q).filter (fun σ => σ.1 * σ.2 = n),
+          2 / ((σ.1 * σ.2 : ℕ) : ℝ))
+        = (∑ _σ ∈ (ramP2domEndMR N X P Q).filter (fun σ => σ.1 * σ.2 = n), (2 : ℝ))
+            / (n : ℝ) := by
+      rw [Finset.sum_div]
+      refine Finset.sum_congr rfl (fun σ hσ => ?_)
+      rw [Finset.mem_filter] at hσ
+      rw [hσ.2]
+    rw [heq, div_le_div_iff_of_pos_right hn0, ramP2coeffEndMR]
+    refine (norm_sum_le _ _).trans (Finset.sum_le_sum (fun σ _ => ?_))
+    exact ramP2_term_norm_le ha hb hc σ.1 σ.2
+  have hfiber : (∑ n ∈ Finset.Icc 1 N,
+        ∑ σ ∈ (ramP2domEndMR N X P Q).filter (fun σ => σ.1 * σ.2 = n),
+          2 / ((σ.1 * σ.2 : ℕ) : ℝ))
+      = ∑ σ ∈ ramP2domEndMR N X P Q, 2 / ((σ.1 * σ.2 : ℕ) : ℝ) :=
+    Finset.sum_fiberwise_of_maps_to hmaps _
+  refine le_trans ?_ (ramP2domEndMR_sum_le N X P Q hX hP)
+  rw [← hfiber]
+  exact Finset.sum_le_sum hpt
+
+/-- **⟦THE FUSED `p²`-MASS STONE⟧** (`ramP2massEndMR_direct`).  `ramP2massMR_direct`'s grade
+at the FUSED domain — the landed grade plus the endpoint mass:
+
+  `Σ_{n≤N} ‖ramP2coeffEndMR n‖²/n² ≤ 16·log₂(2X)/(X·P) + 4·(log₂(2X))²/X²`.
+
+`Σ f² ≤ (max f)(Σ f)` with `max f ≤ 2·log₂(2X)/X` (unmoved) and
+`Σ f ≤ 8/P + 2·log₂(2X)/X`.  Datum-blind: `a` is unconstrained beyond its `1`-bound. -/
+theorem ramP2massEndMR_direct (N X P Q : ℕ) (hX : 1 ≤ X) (hN : 2 * X ≤ N) (hP : 1 ≤ P)
+    (a b c : ℕ → ℂ) (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ n, ‖b n‖ ≤ 1) (hc : ∀ n, ‖c n‖ ≤ 1) :
+    ∑ n ∈ Finset.Icc 1 N, ‖ramP2coeffEndMR N X P Q a b c n‖ ^ 2 / (n : ℝ) ^ 2
+      ≤ 16 * Real.logb 2 (2 * (X : ℝ)) / ((X : ℝ) * (P : ℝ))
+        + 4 * (Real.logb 2 (2 * (X : ℝ))) ^ 2 / (X : ℝ) ^ 2 := by
+  classical
+  have hX1 : (1 : ℝ) ≤ (X : ℝ) := by exact_mod_cast hX
+  have hX0 : (0 : ℝ) < (X : ℝ) := by linarith
+  have hP0 : (0 : ℝ) < (P : ℝ) := by exact_mod_cast hP
+  have hL0 : (0 : ℝ) ≤ Real.logb 2 (2 * (X : ℝ)) :=
+    Real.logb_nonneg (by norm_num) (by linarith)
+  have hB0 : (0 : ℝ) ≤ 2 * Real.logb 2 (2 * (X : ℝ)) / (X : ℝ) := by positivity
+  have hsq : ∀ n ∈ Finset.Icc 1 N,
+      ‖ramP2coeffEndMR N X P Q a b c n‖ ^ 2 / (n : ℝ) ^ 2
+        ≤ 2 * Real.logb 2 (2 * (X : ℝ)) / (X : ℝ)
+            * (‖ramP2coeffEndMR N X P Q a b c n‖ / (n : ℝ)) := by
+    intro n hn
+    rw [Finset.mem_Icc] at hn
+    have hmax := ramP2coeffEndMR_norm_div_le (N := N) (X := X) (P := P) (Q := Q) hX hn.1
+      ha hb hc
+    have hnn : (0 : ℝ) ≤ ‖ramP2coeffEndMR N X P Q a b c n‖ / (n : ℝ) := by positivity
+    calc ‖ramP2coeffEndMR N X P Q a b c n‖ ^ 2 / (n : ℝ) ^ 2
+        = (‖ramP2coeffEndMR N X P Q a b c n‖ / (n : ℝ))
+            * (‖ramP2coeffEndMR N X P Q a b c n‖ / (n : ℝ)) := by
+          rw [← div_pow]; ring
+      _ ≤ 2 * Real.logb 2 (2 * (X : ℝ)) / (X : ℝ)
+            * (‖ramP2coeffEndMR N X P Q a b c n‖ / (n : ℝ)) :=
+          mul_le_mul_of_nonneg_right hmax hnn
+  refine (Finset.sum_le_sum hsq).trans ?_
+  rw [← Finset.mul_sum]
+  have hrow := ramP2coeffEndMR_sum_div_le N X P Q hX hN hP a b c ha hb hc
+  calc 2 * Real.logb 2 (2 * (X : ℝ)) / (X : ℝ)
+        * ∑ n ∈ Finset.Icc 1 N, ‖ramP2coeffEndMR N X P Q a b c n‖ / (n : ℝ)
+      ≤ 2 * Real.logb 2 (2 * (X : ℝ)) / (X : ℝ)
+          * (8 / (P : ℝ) + 2 * Real.logb 2 (2 * (X : ℝ)) / (X : ℝ)) :=
+        mul_le_mul_of_nonneg_left hrow hB0
+    _ = 16 * Real.logb 2 (2 * (X : ℝ)) / ((X : ℝ) * (P : ℝ))
+          + 4 * (Real.logb 2 (2 * (X : ℝ))) ^ 2 / (X : ℝ) ^ 2 := by
         field_simp
         ring
 

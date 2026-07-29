@@ -1120,4 +1120,395 @@ theorem ksGate_at (F : A2Frame3 b cf a N Xd P Q A G M Jb Ms Mt kk H1 X h δ' VJ 
 
 end A2Frame3
 
+
+/-! ## §9′ — ⟦THE ENDPOINT WALL⟧: the K-frame seam row at the STRICT pair law -/
+
+set_option maxHeartbeats 1000000 in
+-- `seam_row_calibratedK_nocap3`'s own raise, inherited by the strict/fused sibling
+/-- **THE SEAM ROW AT THE K-LADDER, SOCKETED — STRICT/FUSED** (`seam_row_calibratedK_nocap3_end`).
+`seam_row_calibratedK_nocap3` at ⟦THE ENDPOINT WALL⟧'s repair: the inlined pair-law binder
+carries the STRICT antecedent `X_d < p·m` (so a HALF-OPEN cut inhabits it with no endpoint
+obligation on the datum), and the row on the right is `M4RowMR.lemma12RowsMR_end` — the same
+FOUR rows with the `p²` row at the fused coefficient `ramP2coeffEndMR`.  Everything else is
+the landed twin's, byte for byte. -/
+theorem seam_row_calibratedK_nocap3_end :
+    ∃ Cq cq T₀ X₀ Cs : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧
+      ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
+        (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) → (∀ j n : ℕ, ‖bfam j n‖ ≤ 1) →
+      ∀ (N Xd P Q A G M Jb : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
+      ∀ (H1 X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S : ℝ),
+        CalFrameK η H1 A G M Jb Xd →
+        2 ≤ H83 X theta293 →
+        0 < X → Real.exp 1 ≤ X → Real.exp 1 ≤ Real.log X → 4 ≤ Real.log X →
+        TannGate X Tann → 1 < Tann → Tann ≤ X →
+        Real.log ((calQK A G M Jb : ℕ) : ℝ) ≤ (Real.log X) ^ ((1 : ℝ) / 2) →
+        T₀ ≤ Tann → 5 ≤ Real.log (Real.log Tann) → 1 ≤ Real.log Tann →
+        Real.log Tann ≤ L → Real.exp 1 ≤ L →
+        Real.exp (mrAlpha η Jb * Real.log ((calQK A G M Jb : ℕ) : ℝ)) ≤ VJ →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb)
+            * X ^ (1 - 2 * η) ≤ ((Ms j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
+        P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X →
+        Rrad ≤ seamRad X →
+        0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
+        CofactorSocket (H83 X theta293) N Xd P Q Tann Rrad t₁ Rbar b →
+        (∀ j ∈ ramI (H83 X theta293) P Q, TLBlockGates34 cq (H83 X theta293) P N Xd Mt kk
+          Tann L (1 / Real.exp 1) Cb X theta293 Rrad j) →
+        1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
+        32 * (Real.log X) ^ (2 + 2 * theta293)
+            * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
+        E ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) →
+        (∫ t in (-Tann)..Tann,
+            ‖ramErr (H83 X theta293) N Xd P Q a b cf t‖ ^ 2) ≤ E →
+        X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
+        (∀ t : ℝ, seamT0 X ≤ |t| → |t| ≤ Tann → |t - t₁| ≤ seamRad X →
+          ∀ m : ℕ, m ≤ N → ‖spolyA a t m‖ ≤ S * m / (1 + |t - t₁|)) →
+        2 * Xd ≤ N →
+        (∀ j ∈ Finset.Icc 1 Jb, ∀ p m, p.Prime → calP A G j ≤ p → p ≤ calQK A G M j →
+          ¬ p ∣ m → (Xd : ℝ) < (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
+          a (p * m) = bfam j m * c p) →
+        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+        (∫ t in seamAnn X Tann, ‖spoly N a t‖ ^ 2)
+          ≤ 8 * S ^ 2
+            + (2 * (calH H1 1 * Real.log ((calQK A G M 1 : ℕ) : ℝ) + 1)
+                  * (Tann * ((calQK A G M 1 : ℕ) : ℝ) / (Xd : ℝ) + 1)
+                  * ((calP A G 1 : ℕ) : ℝ) ^ (-(2 * mrAlpha η 1))
+                  * (4 * (calH H1 1 / (1 - 2 * mrAlpha η 1))
+                        * Real.exp ((1 - 2 * mrAlpha η 1) / calH H1 1)
+                      + 60 * (calH H1 1 / mrAlpha η 1)
+                          * Real.exp (4 * mrAlpha η 1 / calH H1 1))
+                + 1536 * Cs * Real.exp 3 * (2 * Tann / (Xd : ℝ) + 240)
+                    * (1 / ((calP A G 1 : ℕ) : ℝ))
+                + ∑ j ∈ Finset.Icc 1 Jb,
+                    lemma12RowsMR_end N Xd (calP A G j) (calQK A G M j) (calH H1 j) Tann a
+                      (bfam j) c)
+            + 2 * ((Tann / X + 1) * (Real.log X) ^ (-theta293 + ε)) := by
+  obtain ⟨Cq, cq, T₀, X₀, hCq, hcq, hT₀, hX₀0, hcap⟩ := hUG34_unconditional_nocap3
+  obtain ⟨Cs, hCs, hfeed⟩ := TLeg_feeds_capstone_gen
+  refine ⟨Cq, cq, T₀, X₀, Cs, hCq, hcq, hT₀, hX₀0, hCs, ?_⟩
+  intro c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q A G M Jb m₀ Ms Mt kk
+    H1 X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S
+    hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hJdef hT₀T hLL5 hlogT1 hTLle hLe
+    hVJg hMs hbudget hm₀2 hm₀ hMs4
+    hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
+    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef hasupp
+  have hη := hF.eta_pos
+  have hη6 := hF.eta_lt
+  have hJb1 := hF.one_le_Jb
+  have hG1 := hF.one_le_G
+  have hM1 := hF.one_le_M
+  have hEJbN : 24 ≤ calE A G Jb := by
+    have h := calE_mono A hG1 hJb1
+    rw [calE_one] at h
+    exact le_trans hF.A_floor h
+  have hJbR : (1 : ℝ) ≤ (Jb : ℝ) := by exact_mod_cast hJb1
+  have hKpos : 1 ≤ (Jb ^ 2 * M) * calE A G Jb :=
+    Nat.mul_pos (Nat.mul_pos (Nat.pow_pos hJb1) hM1) (by omega)
+  have hQnat : 1 < calQK A G M Jb := by
+    simp only [calQK]
+    calc (1 : ℕ) < 2 ^ 1 := by norm_num
+      _ ≤ 2 ^ ((Jb ^ 2 * M) * calE A G Jb) := Nat.pow_le_pow_right (by norm_num) hKpos
+  have hQ1 : (1 : ℝ) < ((calQK A G M Jb : ℕ) : ℝ) := by exact_mod_cast hQnat
+  have hQpos : (0 : ℝ) < ((calQK A G M Jb : ℕ) : ℝ) := by linarith
+  have hXd1 : 1 ≤ Xd := le_trans (by omega) hF.Q_le_Xd
+  have hHb2 : (2 : ℝ) ≤ calH H1 Jb := by
+    simp only [calH]; nlinarith [hF.H1_two]
+  have hHb0 : (0 : ℝ) < calH H1 Jb := by linarith
+  have hα0 : (0 : ℝ) ≤ mrAlpha η Jb := (mrAlpha_pos η hη hη6 hJb1).le
+  have hP3 : 3 ≤ calP A G Jb := by
+    simp only [calP]
+    calc (3 : ℕ) ≤ 2 ^ 2 := by norm_num
+      _ ≤ 2 ^ calE A G Jb := Nat.pow_le_pow_right (by norm_num) (by omega)
+  have hPQ : calP A G Jb ≤ calQK A G M Jb := calP_le_calQK hM1 hJb1
+  have hlogX0 : (0 : ℝ) ≤ (Real.log X) ^ ((1 : ℝ) / 2) :=
+    Real.rpow_nonneg (by linarith) _
+  have hQT : ((calQK A G M Jb : ℕ) : ℝ) ≤ Tann := by
+    calc ((calQK A G M Jb : ℕ) : ℝ) = Real.exp (Real.log ((calQK A G M Jb : ℕ) : ℝ)) :=
+          (Real.exp_log hQpos).symm
+      _ ≤ Real.exp ((Real.log X) ^ ((1 : ℝ) / 2)) := Real.exp_le_exp.mpr hJdef
+      _ ≤ Real.exp (30 * (Real.log X) ^ ((1 : ℝ) / 2)) :=
+          Real.exp_le_exp.mpr (by linarith)
+      _ ≤ Tann := hTgate
+  have hVJ : ∀ v ∈ ramI (calH H1 Jb) (calP A G Jb) (calQK A G M Jb),
+      Real.exp (mrAlpha η Jb * (v : ℝ) / calH H1 Jb) ≤ VJ := by
+    intro v hv
+    have htop := ramI_top_le hHb0 hQ1.le hv
+    have hstep : mrAlpha η Jb * (v : ℝ) / calH H1 Jb
+        ≤ mrAlpha η Jb * Real.log ((calQK A G M Jb : ℕ) : ℝ) := by
+      rw [mul_div_assoc]
+      exact mul_le_mul_of_nonneg_left htop hα0
+    exact le_trans (Real.exp_le_exp.mpr hstep) hVJg
+  have hα : mrAlpha η Jb ≤ 1 / 4 - η := by
+    have hinv : (0 : ℝ) ≤ 1 / (2 * (Jb : ℝ)) := by positivity
+    rw [mrAlpha]
+    nlinarith
+  have hcalH1 : calH H1 1 = H1 := by simp [calH]
+  have hH1two : (2 : ℝ) ≤ calH H1 1 := by rw [hcalH1]; exact hF.H1_two
+  have hQ1Xd : calQK A G M 1 ≤ Xd := le_trans (calQK_mono A hG1 hJb1) hF.Q_le_Xd
+  have hbot1 : ∀ v ∈ ramI (calH H1 1) (calP A G 1) (calQK A G M 1),
+      1 ≤ ramRbot (calH H1 1) Xd v :=
+    fun v hv => ramRbot_one_le_of_mem_ramI (by linarith)
+      (one_le_calQK A G M 1) hQ1Xd hv
+  have hP1pos : (0 : ℝ) < ((calP A G 1 : ℕ) : ℝ) := by
+    have h : 1 ≤ calP A G 1 := by simp only [calP]; exact Nat.one_le_two_pow
+    have : (1 : ℝ) ≤ ((calP A G 1 : ℕ) : ℝ) := by exact_mod_cast h
+    linarith
+  have hcapinst := hcap b c a cf hb1 hc1 hcf1 N Xd P Q Jb Jb (calP A G) (calQK A G M) m₀ Ms
+    Mt kk (calH H1) (mrAlpha η) X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S
+    hH2 hX0 hLXe hL4 hTgate hT1 hTX hQ1 hJdef hT₀T hLL5 hlogT1 hTLle hLe
+    hJb1 le_rfl hHb2 hα0 hP3 hPQ hQT hVJ hα (by linarith) hMs hbudget hm₀2 hm₀ hMs4
+    hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
+    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup
+  -- ⟦WALL 1's ROW⟧ the per-level Lemma-12 conclusion at the `hwin`-FREE four-row exit
+  have hHj : ∀ j ∈ Finset.Icc 1 Jb, (2 : ℝ) ≤ calH H1 j := by
+    intro j hj
+    rw [Finset.mem_Icc] at hj
+    have hjR : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
+    rw [calH]
+    nlinarith [hF.H1_two]
+  have hPj1 : ∀ j : ℕ, 1 ≤ calP A G j := fun j => by
+    simp only [calP]; exact Nat.one_le_two_pow
+  refine hfeed c a bfam (calP A G) (calQK A G M) (calH H1) η Jb N Xd (calP A G 1) X Tann t₁ S ε
+    (fun j => lemma12RowsMR_end N Xd (calP A G j) (calQK A G M j) (calH H1 j) Tann a (bfam j) c)
+    hη hη6 hJb1 hXd1 (by linarith) hP1pos (levelGates_calibratedK hF) hH1two
+    (by simp only [calP]; exact Nat.one_le_two_pow)
+    (calP_le_calQK hM1 le_rfl) hbot1 hbf1 (fun p => hc1 p) ?_
+    hcapinst
+  intro j hj
+  exact lemma12_on_TsetG_mr_windowed_end c (calP A G) (calQK A G M) (calH H1) (mrAlpha η) Jb j
+    (hHj j hj) N Xd hXd1 hNXd (hPj1 j) a (bfam j) c (hcoef j hj) (hbf1 j) (fun p => hc1 p)
+    (hasupp_real_of_nat hasupp) X Tann t₁ (by linarith)
+
+set_option maxHeartbeats 1000000 in
+-- the same fuse as `seam_row_number_nocap3`, at the strict/fused row
+/-- **THE SOCKETED SEAM ROW AS ONE NUMBER — STRICT/FUSED** (`seam_row_number_nocap3_end`).
+`seam_row_number_nocap3` at the strict binder.  ⟦AMENDMENT 1⟧: the endpoint mass is absorbed
+inside `M4RowMR.four_rows_le_end`'s `1.5×` slack on the `B2` slot, gated by
+`log₂(2X_d)·P ≤ 2·X_d`, so **the right-hand side is the landed twin's BYTE FOR BYTE** — the
+prefactor is still `960`, and `ThmA2.a2RowsSum`/`a2Mrow` never move. -/
+theorem seam_row_number_nocap3_end :
+    ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
+      ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
+        (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) → (∀ j n : ℕ, ‖bfam j n‖ ≤ 1) →
+      ∀ (N Xd P Q A G M Jb : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
+      ∀ (H1 X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S : ℝ),
+        CalFrameK η H1 A G M Jb Xd →
+        2 ≤ H83 X theta293 →
+        0 < X → Real.exp 1 ≤ X → Real.exp 1 ≤ Real.log X → 4 ≤ Real.log X →
+        TannGate X Tann → 1 < Tann → Tann ≤ X →
+        T₀ ≤ Tann → 5 ≤ Real.log (Real.log Tann) → 1 ≤ Real.log Tann →
+        Real.log Tann ≤ L → Real.exp 1 ≤ L →
+        Real.exp (mrAlpha η Jb * Real.log ((calQK A G M Jb : ℕ) : ℝ)) ≤ VJ →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb)
+            * X ^ (1 - 2 * η) ≤ ((Ms j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
+        P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X →
+        Rrad ≤ seamRad X →
+        0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
+        CofactorSocket (H83 X theta293) N Xd P Q Tann Rrad t₁ Rbar b →
+        (∀ j ∈ ramI (H83 X theta293) P Q, TLBlockGates34 cq (H83 X theta293) P N Xd Mt kk
+          Tann L (1 / Real.exp 1) Cb X theta293 Rrad j) →
+        1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
+        32 * (Real.log X) ^ (2 + 2 * theta293)
+            * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
+        E ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) →
+        (∫ t in (-Tann)..Tann,
+            ‖ramErr (H83 X theta293) N Xd P Q a b cf t‖ ^ 2) ≤ E →
+        X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
+        (∀ t : ℝ, seamT0 X ≤ |t| → |t| ≤ Tann → |t - t₁| ≤ seamRad X →
+          ∀ m : ℕ, m ≤ N → ‖spolyA a t m‖ ≤ S * m / (1 + |t - t₁|)) →
+        2 * Xd ≤ N →
+        (∀ j ∈ Finset.Icc 1 Jb, ∀ p m, p.Prime → calP A G j ≤ p → p ≤ calQK A G M j →
+          ¬ p ∣ m → (Xd : ℝ) < (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
+          a (p * m) = bfam j m * c p) →
+        Real.log ((calQK A G M Jb : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (N : ℝ) ≤ 4 * (Xd : ℝ) →
+        (∀ j ∈ Finset.Icc 1 Jb,
+          ((Nat.sqrt Xd : ℝ) + 1)
+              * ∏ p ∈ primeBand (calP A G j) (calQK A G M j), (1 + 3 / (p : ℝ))
+            ≤ (Xd : ℝ)
+              * (Real.log ((calP A G j : ℕ) : ℝ) / Real.log ((calQK A G M j : ℕ) : ℝ))) →
+        (∀ n : ℕ, ‖a n‖ ≤ 1) →
+        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+        (∫ t in seamAnn X Tann, ‖spoly N a t‖ ^ 2)
+          ≤ 8 * S ^ 2
+            + (2 * (calH H1 1 * Real.log ((calQK A G M 1 : ℕ) : ℝ) + 1)
+                  * (Tann * ((calQK A G M 1 : ℕ) : ℝ) / (Xd : ℝ) + 1)
+                  * ((calP A G 1 : ℕ) : ℝ) ^ (-(2 * mrAlpha η 1))
+                  * (4 * (calH H1 1 / (1 - 2 * mrAlpha η 1))
+                        * Real.exp ((1 - 2 * mrAlpha η 1) / calH H1 1)
+                      + 60 * (calH H1 1 / mrAlpha η 1)
+                          * Real.exp (4 * mrAlpha η 1 / calH H1 1))
+                + 1536 * Cs * Real.exp 3 * (2 * Tann / (Xd : ℝ) + 240)
+                    * (1 / ((calP A G 1 : ℕ) : ℝ))
+                + 960 * (Tann / (Xd : ℝ) + 1)
+                    * ((∑ j ∈ Finset.Icc 1 Jb,
+                          ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
+                              * (Real.exp 1 / (Xd : ℝ) ^ 2))
+                            + 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ)
+                            + 1 / (Xd : ℝ)))
+                      + C * (2 / (M : ℝ))))
+            + 2 * ((Tann / X + 1) * (Real.log X) ^ (-theta293 + ε)) := by
+  obtain ⟨Cq, cq, T₀, X₀, Cs, hCq, hcq, hT₀, hX₀0, hCs, hseam⟩ := seam_row_calibratedK_nocap3_end
+  obtain ⟨C, hC, hK2⟩ := sum_lemma12RowsMR_priced_calibratedK2_end
+  refine ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, ?_⟩
+  intro c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q A G M Jb m₀ Ms Mt kk
+    H1 X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S
+    hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hT₀T hLL5 hlogT1 hTLle hLe
+    hVJg hMs hbudget hm₀2 hm₀ hMs4
+    hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
+    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef
+    hQXd hXdbig hN4 hdom ha1 hasupp
+  have hA : 1 ≤ A := le_trans (by norm_num) hF.A_floor
+  have hG1 : 1 ≤ G := hF.one_le_G
+  have hM1 : 1 ≤ M := hF.one_le_M
+  have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK A G M Jb) hF.Q_le_Xd
+  have hXd0 : (0 : ℝ) < (Xd : ℝ) := by exact_mod_cast hXd1
+  have hT0 : (0 : ℝ) ≤ Tann := by linarith
+  have hH1two : (2 : ℝ) ≤ H1 := hF.H1_two
+  -- ⟦THE BRIDGE⟧ `X_d ≤ X`, from the junction's own two binders
+  have hXdX : (Xd : ℝ) ≤ X := by
+    have h2 : (2 : ℝ) * (Xd : ℝ) ≤ (N : ℝ) := by exact_mod_cast hNXd
+    linarith
+  have hJdef : Real.log ((calQK A G M Jb : ℕ) : ℝ) ≤ (Real.log X) ^ ((1 : ℝ) / 2) := by
+    have hlog : Real.log (Xd : ℝ) ≤ Real.log X := Real.log_le_log hXd0 hXdX
+    calc Real.log ((calQK A G M Jb : ℕ) : ℝ)
+        ≤ Real.sqrt (Real.log (Xd : ℝ)) := hQXd
+      _ ≤ Real.sqrt (Real.log X) := Real.sqrt_le_sqrt hlog
+      _ = (Real.log X) ^ ((1 : ℝ) / 2) := Real.sqrt_eq_rpow _
+  have hreg : ∀ j ∈ Finset.Icc 1 Jb,
+      Real.log ((calQK A G M j : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) := by
+    intro j hj
+    rw [Finset.mem_Icc] at hj
+    refine le_trans (Real.log_le_log ?_ ?_) hQXd
+    · have h : (0 : ℕ) < calQK A G M j := lt_of_lt_of_le Nat.zero_lt_one (one_le_calQK A G M j)
+      exact_mod_cast h
+    · exact_mod_cast calQK_mono A hG1 hj.2
+  have hseaminst := hseam c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q A G M Jb m₀ Ms Mt kk
+    H1 X Tann t₁ δ' V VJ L η Cb Rrad Rbar ε EP2 E S
+    hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hJdef hT₀T hLL5 hlogT1 hTLle hLe
+    hVJg hMs hbudget hm₀2 hm₀ hMs4
+    hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
+    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef hasupp
+  have hK2inst := hK2 A G M Jb N Xd H1 Tann a bfam c hA hG1 hM1 hXd1 hNXd hT0 hH1two hN4
+    hreg hXdbig hdom ha1 hbf1 hc1 hasupp
+  exact hseaminst.trans
+    (add_le_add (add_le_add le_rfl (add_le_add le_rfl hK2inst)) le_rfl)
+
+set_option maxHeartbeats 1000000 in
+-- one application of `seam_row_number_nocap3_end`, at `t₁ := 0`, `S := 0`
+/-- **THE CAP-FREE ARM AT THE `3X` BOX — STRICT/FUSED** (`seam_row_number_capfree3_end`).
+`seam_row_number_capfree3` at the strict pair-law binder; the conclusion is the landed one,
+byte for byte. -/
+theorem seam_row_number_capfree3_end :
+    ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
+      ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
+        (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) → (∀ j n : ℕ, ‖bfam j n‖ ≤ 1) →
+      ∀ (N Xd P Q A G M Jb : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
+      ∀ (H1 X Tann δ' V VJ L η Cb Rrad Rbar ε EP2 E : ℝ),
+        CalFrameK η H1 A G M Jb Xd →
+        2 ≤ H83 X theta293 →
+        0 < X → Real.exp 1 ≤ X → Real.exp 1 ≤ Real.log X → 4 ≤ Real.log X →
+        TannGate X Tann → 1 < Tann → Tann ≤ X →
+        T₀ ≤ Tann → 5 ≤ Real.log (Real.log Tann) → 1 ≤ Real.log Tann →
+        Real.log Tann ≤ L → Real.exp 1 ≤ L →
+        Real.exp (mrAlpha η Jb * Real.log ((calQK A G M Jb : ℕ) : ℝ)) ≤ VJ →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          thinBundleG Tann VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb)
+            * X ^ (1 - 2 * η) ≤ ((Ms j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
+        P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X →
+        Rrad ≤ seamRad X →
+        -- ⟦THE ONE NEW DATUM⟧ the co-factor socket at the ball's centre, and its grade
+        0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
+        CofactorSocket (H83 X theta293) N Xd P Q Tann Rrad 0 Rbar b →
+        (∀ j ∈ ramI (H83 X theta293) P Q, TLBlockGates34 cq (H83 X theta293) P N Xd Mt kk
+          Tann L (1 / Real.exp 1) Cb X theta293 Rrad j) →
+        1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
+        32 * (Real.log X) ^ (2 + 2 * theta293)
+            * (20512 * δ' ^ 2 * (1 + Real.log (2 * Tann))) ≤ (Real.log X) ^ (-theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
+        E ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) →
+        (∫ t in (-Tann)..Tann,
+            ‖ramErr (H83 X theta293) N Xd P Q a b cf t‖ ^ 2) ≤ E →
+        X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
+        2 * Xd ≤ N →
+        (∀ j ∈ Finset.Icc 1 Jb, ∀ p m, p.Prime → calP A G j ≤ p → p ≤ calQK A G M j →
+          ¬ p ∣ m → (Xd : ℝ) < (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
+          a (p * m) = bfam j m * c p) →
+        Real.log ((calQK A G M Jb : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (N : ℝ) ≤ 4 * (Xd : ℝ) →
+        (∀ j ∈ Finset.Icc 1 Jb,
+          ((Nat.sqrt Xd : ℝ) + 1)
+              * ∏ p ∈ primeBand (calP A G j) (calQK A G M j), (1 + 3 / (p : ℝ))
+            ≤ (Xd : ℝ)
+              * (Real.log ((calP A G j : ℕ) : ℝ) / Real.log ((calQK A G M j : ℕ) : ℝ))) →
+        (∀ n : ℕ, ‖a n‖ ≤ 1) →
+        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+        (∫ t in seamAnn X Tann, ‖spoly N a t‖ ^ 2)
+          ≤ (2 * (calH H1 1 * Real.log ((calQK A G M 1 : ℕ) : ℝ) + 1)
+                  * (Tann * ((calQK A G M 1 : ℕ) : ℝ) / (Xd : ℝ) + 1)
+                  * ((calP A G 1 : ℕ) : ℝ) ^ (-(2 * mrAlpha η 1))
+                  * (4 * (calH H1 1 / (1 - 2 * mrAlpha η 1))
+                        * Real.exp ((1 - 2 * mrAlpha η 1) / calH H1 1)
+                      + 60 * (calH H1 1 / mrAlpha η 1)
+                          * Real.exp (4 * mrAlpha η 1 / calH H1 1))
+                + 1536 * Cs * Real.exp 3 * (2 * Tann / (Xd : ℝ) + 240)
+                    * (1 / ((calP A G 1 : ℕ) : ℝ))
+                + 960 * (Tann / (Xd : ℝ) + 1)
+                    * ((∑ j ∈ Finset.Icc 1 Jb,
+                          ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
+                              * (Real.exp 1 / (Xd : ℝ) ^ 2))
+                            + 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP A G j : ℕ) : ℝ)
+                            + 1 / (Xd : ℝ)))
+                      + C * (2 / (M : ℝ))))
+            + 2 * ((Tann / X + 1) * (Real.log X) ^ (-theta293 + ε)) := by
+  obtain ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, hnum⟩ := seam_row_number_nocap3_end
+  refine ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, ?_⟩
+  intro c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q A G M Jb m₀ Ms Mt kk
+    H1 X Tann δ' V VJ L η Cb Rrad Rbar ε EP2 E
+    hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hT₀T hLL5 hlogT1 hTLle hLe
+    hVJg hMs hbudget hm₀2 hm₀ hMs4
+    hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
+    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hNXd hcoef
+    hQXd hXdbig hN4 hdom ha1 hasupp
+  -- ⟦S8⟧ the ball binder, from the emptiness at the origin, at `S := 0`
+  have hSup := ball_leg_vacuous_at_zero (N := N) (a := a) (T := Tann)
+    (show (1 : ℝ) < Real.log X by linarith)
+  have h := hnum c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q A G M Jb m₀ Ms Mt kk
+    H1 X Tann 0 δ' V VJ L η Cb Rrad Rbar ε EP2 E 0
+    hF hH2 hX0 hXe hLXe hL4 hTgate hT1 hTX hT₀T hLL5 hlogT1 hTLle hLe
+    hVJg hMs hbudget hm₀2 hm₀ hMs4
+    hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade hsockR
+    hblk hCqgate hKSgate hε0 habs hEP2 hErow herr hXN hN2 hsupp hSup hNXd hcoef
+    hQXd hXdbig hN4 hdom ha1 hasupp
+  exact h.trans (le_of_eq (by ring))
+
 end Salt.MR

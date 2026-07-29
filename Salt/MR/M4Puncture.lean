@@ -259,6 +259,62 @@ theorem doorChiCoeff_seamCoefW_punct_H {q : ℕ} (χ : DirichletCharacter ℂ q)
     (calQK (Adoor M) (3072 * M) M) 2 j Xd a hj
     (fun p hp hlo hhi => door_block_sep_at hM hj hlo hhi) haH ha0 hend
 
+/-! ### ⟦THE ENDPOINT WALL DISSOLVED⟧ — the STRICT per-block siblings
+
+`M4Band`'s strict siblings, at the punctured co-factor: `SeamRowWindowed.SeamCoefWS` asks for
+the factorization only STRICTLY above the block bottom, so `haH` alone suffices and both
+`ha0` and `hend` drop.  The `m = 0` case is absurd (`X_d < p·0 = 0 ≤ X_d`) and is split off
+BEFORE the agreement law is applied. -/
+
+/-- **THE STRICT PER-BLOCK PAIR LAW AT AN ABSTRACT CUT** (`memSCoeff_seamCoefWS_punct_gen`). -/
+theorem memSCoeff_seamCoefWS_punct_gen {q : ℕ} (χ : DirichletCharacter ℂ q) (Pseq Qseq : ℕ → ℕ)
+    (J j Xd : ℕ) (a : ℕ → ℂ) (hj : j ∈ Finset.Icc 1 J)
+    (hsep : ∀ p : ℕ, p.Prime → Pseq j ≤ p → p ≤ Qseq j →
+      ∀ i ∈ Finset.Icc 1 J, i ≠ j → ¬ (Pseq i ≤ p ∧ p ≤ Qseq i))
+    (haH : ∀ n : ℕ, Xd < n → n ≤ 2 * Xd → a n = memSCoeff Pseq Qseq J (liouChi χ) n) :
+    SeamCoefWS Xd (Pseq j) (Qseq j) a
+      (memSPunctCoeff Pseq Qseq J j (liouChi χ)) (liouChi χ) := by
+  intro p m hp hPp hpQ hpm hlo hhi
+  rcases Nat.eq_zero_or_pos m with rfl | _
+  · exfalso
+    have h0 : (0 : ℝ) ≤ (Xd : ℝ) := Nat.cast_nonneg Xd
+    rw [Nat.cast_zero, mul_zero] at hlo
+    linarith
+  · have hloN : Xd < p * m := by
+      have h : ((Xd : ℕ) : ℝ) < ((p * m : ℕ) : ℝ) := by push_cast; linarith
+      exact_mod_cast h
+    have hhiN : p * m ≤ 2 * Xd := by
+      have h : ((p * m : ℕ) : ℝ) ≤ ((2 * Xd : ℕ) : ℝ) := by push_cast; linarith
+      exact_mod_cast h
+    rw [haH _ hloN hhiN]
+    exact indicator_mul_punct (liouChi_mul χ) hj hp hPp hpQ hpm (hsep p hp hPp hpQ)
+
+/-- **THE STRICT HALF-OPEN PER-BLOCK PAIR LAW** (`memSCoeff_seamCoefWS_punct_H`) — the name
+`memSCoeff_seamCoefW_punct_H`'s consumers read, with `ha0`/`hend` gone. -/
+theorem memSCoeff_seamCoefWS_punct_H {q : ℕ} (χ : DirichletCharacter ℂ q) (Pseq Qseq : ℕ → ℕ)
+    (J j Xd : ℕ) (a : ℕ → ℂ) (hj : j ∈ Finset.Icc 1 J)
+    (hsep : ∀ p : ℕ, p.Prime → Pseq j ≤ p → p ≤ Qseq j →
+      ∀ i ∈ Finset.Icc 1 J, i ≠ j → ¬ (Pseq i ≤ p ∧ p ≤ Qseq i))
+    (haH : ∀ n : ℕ, Xd < n → n ≤ 2 * Xd → a n = memSCoeff Pseq Qseq J (liouChi χ) n) :
+    SeamCoefWS Xd (Pseq j) (Qseq j) a
+      (memSPunctCoeff Pseq Qseq J j (liouChi χ)) (liouChi χ) :=
+  memSCoeff_seamCoefWS_punct_gen χ Pseq Qseq J j Xd a hj hsep haH
+
+/-- **`hcoefBand` AT THE DOOR, STRICT** (`doorChiCoeff_seamCoefWS_punct_H`) — the whole level
+family at once, in the shape the capstone's band binder reads it, with no endpoint
+obligation. -/
+theorem doorChiCoeff_seamCoefWS_punct_H {q : ℕ} (χ : DirichletCharacter ℂ q) {M Xd : ℕ}
+    {a : ℕ → ℂ} (hM : 1 ≤ M)
+    (haH : ∀ n : ℕ, Xd < n → n ≤ 2 * Xd → a n = doorChiCoeff χ M n) :
+    ∀ j ∈ Finset.Icc 1 2,
+      SeamCoefWS Xd (calP (Adoor M) (3072 * M) j) (calQK (Adoor M) (3072 * M) M j) a
+        (memSPunctCoeff (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2 j
+          (liouChi χ)) (liouChi χ) := by
+  intro j hj
+  exact memSCoeff_seamCoefWS_punct_H χ (calP (Adoor M) (3072 * M))
+    (calQK (Adoor M) (3072 * M) M) 2 j Xd a hj
+    (fun p hp hlo hhi => door_block_sep_at hM hj hlo hhi) haH
+
 /-- The door's punctured co-factor family is `1`-bounded — the capstone's `hbf1` slot. -/
 theorem norm_doorPunctCoeff_le_one {q : ℕ} (χ : DirichletCharacter ℂ q) (M j n : ℕ) :
     ‖memSPunctCoeff (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2 j

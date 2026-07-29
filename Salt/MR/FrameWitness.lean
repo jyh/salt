@@ -979,6 +979,80 @@ theorem err_at_witness_mr {X h EP2 : ℝ} {N Xd P Q : ℕ} {b a cf : ℕ → ℂ
       + (2 * Tann + 20 * (N : ℝ)) * Mtail) (Ep := EP2) hg hH0 hE
   linarith
 
+/-! ## §8″ — ⟦THE ENDPOINT WALL⟧: the STRICT/FUSED supply
+
+`SeamRowWindowed` §3′ re-cuts the err chain at the STRICT pair law `SeamCoefWS` — the
+factorization asked only STRICTLY above the dyadic bottom, which is exactly where the door's
+HALF-OPEN cut agrees with its datum — and pays the released endpoint cofactors inside the
+`p²` row (the fused filter `p ∣ m ∨ p·m = X`).  The split stays at FOUR rows, so `witEP2` and
+its `896`/`10752` numerals do not move; the whole price is the named `M4ErrRewire.endMass`
+riding as a SEPARATE `hEP2` summand, exactly as ⟦R3a⟧'s `Mtail` does. -/
+
+/-- **FIELD 4 AT THE WITNESS, STRICT + FUSED** (`err_at_witness_mr_end`).  `err_at_witness_mr`
+with `hcoefW` weakened to `hcoefWS` and one extra `hEP2` summand.  The conclusion is
+byte-identical, so `A2Frame3.err` does not move. -/
+theorem err_at_witness_mr_end {X h EP2 : ℝ} {N Xd P Q : ℕ} {b a cf : ℕ → ℂ}
+    (hH : 2 ≤ H83 X theta293)
+    (hXd1 : 1 ≤ Xd) (hN : 2 * Xd ≤ N) (hN2 : (N : ℝ) ≤ 2 * (Xd : ℝ))
+    (hHX : H83 X theta293 ≤ (Xd : ℝ)) (hP : 1 ≤ P)
+    (hX0 : 0 < X) (hh0 : 0 < h) (hXd : X ≤ (Xd : ℝ))
+    -- ⟦the STRICT pair — no endpoint obligation⟧
+    (hcoefWS : SeamCoefWS Xd P Q a b cf)
+    (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖cf p‖ ≤ 1)
+    (hasupp : ∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd)
+    (Mtail : ℝ) (hMtail0 : 0 ≤ Mtail)
+    (hMtail : ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+        ‖a n‖ ^ 2 / (n : ℝ) ^ 2 ≤ Mtail)
+    (hEP2 : witEP2 X N Xd P + 4 / 3 * ((2 * X + 20 * (N : ℝ)) * Mtail)
+        + 4 / 3 * ((2 * X + 20 * (N : ℝ)) * endMass Xd) ≤ EP2) :
+    ∀ Tann : ℝ, 2 * (X / h) ≤ Tann → Tann ≤ X →
+      (∫ t in (-Tann)..Tann, ‖ramErr (H83 X theta293) N Xd P Q a b cf t‖ ^ 2)
+        ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) := by
+  intro Tann hbot htop
+  have hT0 : (0 : ℝ) ≤ Tann := le_trans (by positivity) hbot
+  have hXd1R : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
+  have hP0 : (0 : ℝ) < (P : ℝ) := by exact_mod_cast hP
+  have hLb : (0 : ℝ) ≤ Real.logb 2 (2 * (Xd : ℝ)) :=
+    Real.logb_nonneg (by norm_num) (by linarith)
+  have hmassnn : (0 : ℝ) ≤ 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)) :=
+    div_nonneg (by linarith) (by positivity)
+  have hasuppR : ∀ n : ℕ, a n ≠ 0 → (Xd : ℝ) ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * (Xd : ℝ) := by
+    intro n hn
+    obtain ⟨u, v⟩ := hasupp n hn
+    refine ⟨by exact_mod_cast u, ?_⟩
+    have hv : ((n : ℕ) : ℝ) ≤ ((2 * Xd : ℕ) : ℝ) := by exact_mod_cast v
+    push_cast at hv
+    linarith
+  have hpriced := E_priced_mr_row_scale_end (H83 X theta293) hH N Xd P Q hXd1 hN hN2 hHX hP
+    a b cf hcoefWS ha hb hc hasuppR Mtail hMtail Tann X hT0 hX0 hXd
+  refine hpriced.trans ?_
+  have hNnn : (0 : ℝ) ≤ (N : ℝ) := Nat.cast_nonneg N
+  have hfactor : (2 * Tann + 20 * (N : ℝ)) ≤ 2 * X + 20 * (N : ℝ) := by linarith
+  have hstep : (2 * Tann + 20 * (N : ℝ))
+        * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)))
+      ≤ (2 * X + 20 * (N : ℝ))
+        * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ))) :=
+    mul_le_mul_of_nonneg_right hfactor hmassnn
+  have hstepe : (2 * Tann + 20 * (N : ℝ)) * endMass Xd
+      ≤ (2 * X + 20 * (N : ℝ)) * endMass Xd :=
+    mul_le_mul_of_nonneg_right hfactor (endMass_nonneg Xd)
+  have hstept : (2 * Tann + 20 * (N : ℝ)) * Mtail ≤ (2 * X + 20 * (N : ℝ)) * Mtail :=
+    mul_le_mul_of_nonneg_right hfactor hMtail0
+  rw [witEP2_eq, witEP2raw] at hEP2
+  have hE : 4 * ((2 * Tann + 20 * (N : ℝ))
+        * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)))
+      + (2 * Tann + 20 * (N : ℝ)) * endMass Xd
+      + (2 * Tann + 20 * (N : ℝ)) * Mtail) ≤ 3 * EP2 := by
+    linarith
+  have hH0 : (0 : ℝ) < H83 X theta293 := by linarith
+  have hg : (0 : ℝ) ≤ Tann / X + 1 := by positivity
+  have hfit := err_grade_fit (g := Tann / X + 1) (H := H83 X theta293)
+    (Ep' := (2 * Tann + 20 * (N : ℝ))
+        * (16 * Real.logb 2 (2 * (Xd : ℝ)) / ((Xd : ℝ) * (P : ℝ)))
+      + (2 * Tann + 20 * (N : ℝ)) * endMass Xd
+      + (2 * Tann + 20 * (N : ℝ)) * Mtail) (Ep := EP2) hg hH0 hE
+  linarith
+
 /-! ## §9 — THE ASSEMBLY: `a2Frame3_witness`
 
 `a2Frame3_satisfiable_partial`'s seven, composed with §4/§5/§6/§8's four.  The result is the
@@ -1078,6 +1152,76 @@ theorem a2Frame3_witness
     (Tstar2_box_at_witness hXthr hMtpin hMtXle)
     (ksGate_at_witness hLX0 hlog2X hδsq hksthr)
     (err_at_witness_mr hH2 hXd1 hMN hN2 hHX (by omega) hX0 hh0 hXdX hcoefW ha hb hc
+      hasupp Mtail hMtail0 hMtail hEP2)
+
+/-- **THE `A2Frame3` WITNESS, STRICT + FUSED** (`a2Frame3_witness_end`).  `a2Frame3_witness`
+with its err field taken from §8″: the pair law weakens to `SeamCoefWS` (no endpoint
+obligation on the datum) and the `hEP2` line gains the endpoint summand.  Every other binder,
+and the conclusion, are `a2Frame3_witness`'s byte for byte. -/
+theorem a2Frame3_witness_end
+    {b cf a : ℕ → ℂ} {N Xd P Q A G M Jb : ℕ}
+    {H1 X h δ' VJ L η Cb Rrad EP2 cq T₀ : ℝ}
+    (hX0 : 0 < X) (hh0 : 0 < h) (hLX0 : 0 < Real.log X) (hLXL : Real.log X ≤ L)
+    (hXd1 : 1 ≤ Xd) (hXdX : X ≤ (Xd : ℝ))
+    (hTann : TannGate X (2 * (X / h)))
+    (hceil5 : 5 ≤ Real.log (Real.log (2 * (X / h))))
+    (hT₀le : T₀ ≤ 2 * (X / h))
+    (hTbot : Real.exp 1 ≤ 2 * (X / h))
+    (hhceil : Real.log h + 30 * (Real.log X / Real.log (Real.log X)) ≤ Real.log X)
+    (hH2 : 2 ≤ H83 X theta293) (hP3 : 3 ≤ P) (hlogP2 : 2 ≤ Real.log (P : ℝ))
+    (hQ1 : 1 ≤ Q) (hPQ : P ≤ Q) (hcq0 : 0 ≤ cq)
+    (hQbot : (Q : ℝ) ≤ 2 * (X / h))
+    (hQlog : Real.log (Q : ℝ) ≤ Real.log X / Real.log (Real.log X))
+    (hQL : Real.log (Q : ℝ) ≤ L)
+    (hcqgate : 420 * L * L ^ ((3 : ℝ) / 4) * (Real.log L) ^ 5 ≤ cq * (Real.log (P : ℝ)) ^ 2)
+    (hW4 : ∀ j ∈ ramI (H83 X theta293) P Q, 4 ≤ ramRbot (H83 X theta293) Xd j)
+    (hkth : ∀ j ∈ ramI (H83 X theta293) P Q,
+      ballQuarterThreshold + 1 ≤ ramRbot (H83 X theta293) Xd j)
+    (hMN : 2 * Xd ≤ N)
+    (hMtX : ∀ j ∈ ramI (H83 X theta293) P Q, 2 * ramRbot (H83 X theta293) Xd j ≤ X)
+    (hC16 : ∀ j ∈ ramI (H83 X theta293) P Q,
+      18 + Real.log (Real.log X) - Real.log (Real.log (ramRbot (H83 X theta293) Xd j - 1))
+        ≤ 32 * theta293 * Real.log (Real.log X))
+    (hRrad0 : 0 < Rrad)
+    (hRradW : ∀ j ∈ ramI (H83 X theta293) P Q,
+      Rrad ≤ Real.sqrt 2 * ramRbot (H83 X theta293) Xd j)
+    (hPj1 : 1 < ((calP A G Jb : ℕ) : ℝ))
+    (hthinpin : ∀ j ∈ ramI (H83 X theta293) P Q,
+      thinBundleG X VJ (calH H1 Jb) (calP A G Jb) (calQK A G M Jb) * X ^ (1 - 2 * η)
+        ≤ ramRbot (H83 X theta293) Xd j)
+    (hXthr : 2 * (Real.log X) ^ ((3 : ℝ) / 5) ≤ Real.log X)
+    (hMtpin : ∀ j ∈ ramI (H83 X theta293) P Q,
+      pin2Gate ≤ ((witMt (H83 X theta293) Xd j : ℕ) : ℝ))
+    (hδsq : δ' ^ 2 ≤ (Real.log X) ^ (-(6 : ℝ)))
+    (hlog2X : 0 ≤ 1 + Real.log (2 * X))
+    (hksthr : 656384 * (1 + Real.log (2 * X)) ≤ (Real.log X) ^ (4 - 3 * theta293))
+    -- ⟦err: the STRICT pair + the `N = 2X_d` pin + the endpoint-augmented `EP2` gate⟧
+    (hN2 : (N : ℝ) ≤ 2 * (Xd : ℝ)) (hHX : H83 X theta293 ≤ (Xd : ℝ))
+    (hcoefWS : SeamCoefWS Xd P Q a b cf)
+    (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖cf p‖ ≤ 1)
+    (hasupp : ∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd)
+    (Mtail : ℝ) (hMtail0 : 0 ≤ Mtail)
+    (hMtail : ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+        ‖a n‖ ^ 2 / (n : ℝ) ^ 2 ≤ Mtail)
+    (hEP2 : witEP2 X N Xd P + 4 / 3 * ((2 * X + 20 * (N : ℝ)) * Mtail)
+        + 4 / 3 * ((2 * X + 20 * (N : ℝ)) * endMass Xd) ≤ EP2) :
+    A2Frame3 b cf a N Xd P Q A G M Jb (witMs (H83 X theta293) Xd)
+      (witMt (H83 X theta293) Xd) (witKk (H83 X theta293) Xd) H1 X h δ' VJ L η Cb Rrad
+      EP2 cq T₀ := by
+  have hH1 : (1 : ℝ) ≤ H83 X theta293 := by linarith
+  have hMtXle : ∀ j ∈ ramI (H83 X theta293) P Q,
+      ((witMt (H83 X theta293) Xd j : ℕ) : ℝ) ≤ X := by
+    intro j hj
+    obtain ⟨-, -, -, -, h5, -⟩ := witness_window_geometry (hW4 j hj)
+    have := hMtX j hj
+    linarith
+  exact a2Frame3_satisfiable_partial hLX0 hTann hceil5 hT₀le hLXL
+    (thin_at_witness (Pj := calP A G Jb) (Qj := calQK A G M Jb) hX0 hPj1 hTbot hthinpin)
+    (blocks_at_witness hX0 hh0 hH1 hP3 hlogP2 hQ1 hPQ hcq0 hQbot hhceil hQlog hQL hcqgate
+      hW4 hkth hMN hMtX hC16 hRrad0 hRradW)
+    (Tstar2_box_at_witness hXthr hMtpin hMtXle)
+    (ksGate_at_witness hLX0 hlog2X hδsq hksthr)
+    (err_at_witness_mr_end hH2 hXd1 hMN hN2 hHX (by omega) hX0 hh0 hXdX hcoefWS ha hb hc
       hasupp Mtail hMtail0 hMtail hEP2)
 
 /-! ## §10 — BEYOND THE FRAME: the row's own ladder binders

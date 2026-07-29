@@ -313,6 +313,145 @@ theorem m4_ep2_budget_at_band {C X ε : ℝ} {N Xd P Q : ℕ}
   rw [hexpand, hsplit]
   linarith
 
+/-- **THE BAND `EP₂` BUDGET LINE, WITH THE ENDPOINT CRUMB** (`m4_ep2_budget_at_band_end`).
+`m4_ep2_budget_at_band` with ⟦THE ENDPOINT WALL⟧'s extra `hEP2` summand
+`(4/3)(2X+20N)·M_end` (`M4ErrRewire.endMass`).  At the two pins the crumb is exactly
+`2688·(log₂ 2X)²/X`, and it is covered by the A-class stone `3(log X)³ ≤ X` derived INLINE
+from the existing `hL : 256 ≤ log X` (five applications of `u/5 ≤ e^{u/5}`) — **no new named
+threshold**.  The ε-ledger goes `673 → 673 + 2688 = 3361 ≤ 4320`, i.e. still inside `habs`'s
+own half `8640/2`. -/
+theorem m4_ep2_budget_at_band_end {C X ε : ℝ} {N Xd P Q : ℕ}
+    (hC0 : 0 < C) (hXd : (Xd : ℝ) = X) (hN : (N : ℝ) = 2 * X) (hX0 : 0 < X)
+    (hL : 256 ≤ Real.log X) (hP83 : P83 X theta293 ≤ (P : ℝ))
+    (hthr : 10752 * Real.logb 2 (2 * X) ≤ (Real.log X) ^ (2 : ℝ))
+    (habs : 8640 ≤ (Real.log X) ^ ε)
+    (hgrade : Real.log (P : ℝ) / Real.log (Q : ℝ)
+      ≤ 2 * (Real.log (Real.log X) * (Real.log X) ^ (-theta293)))
+    (hband : 2688 * C * Real.log (Real.log X) ≤ (Real.log X) ^ ε) :
+    12 * (witEP2 X N Xd P
+        + 4 / 3 * ((2 * X + 20 * (N : ℝ))
+          * (C * (Real.log (P : ℝ) / Real.log (Q : ℝ)) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2))
+        + 4 / 3 * ((2 * X + 20 * (N : ℝ)) * endMass Xd))
+      ≤ (Real.log X) ^ (-theta293 + ε) := by
+  have hL1 : (1 : ℝ) ≤ Real.log X := by linarith
+  have hL0 : (0 : ℝ) < Real.log X := by linarith
+  have hT0 : (0 : ℝ) < (Real.log X) ^ (-theta293) := Real.rpow_pos_of_pos hL0 _
+  have hXne : X ≠ 0 := ne_of_gt hX0
+  -- ⟦the `p²` half⟧ the landed `EP2` gate at the band bottom
+  have hwit : 12 * witEP2 X N Xd P ≤ (Real.log X) ^ (-theta293) :=
+    witEP2_gate hXd hN hX0 hL hP83 le_rfl hthr
+  -- ⟦the tail half⟧ evaluated at the two pins
+  have htail : 12 * (4 / 3 * ((2 * X + 20 * (N : ℝ))
+      * (C * (Real.log (P : ℝ) / Real.log (Q : ℝ)) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2)))
+      = 672 * C * (Real.log (P : ℝ) / Real.log (Q : ℝ)) + 672 / X := by
+    rw [hN, hXd]
+    field_simp
+    ring
+  -- ⟦THE ENDPOINT CRUMB⟧ `12·(4/3)·(2X+40X)·4L²/X² = 2688·L²/X`
+  have hcrumb : 12 * (4 / 3 * ((2 * X + 20 * (N : ℝ)) * endMass Xd))
+      = 2688 * (Real.logb 2 (2 * X)) ^ 2 / X := by
+    rw [endMass, hXd, hN]
+    field_simp
+    ring
+  -- ⟦the grade, into the ε-window⟧
+  have hcT : 672 * C * (Real.log (P : ℝ) / Real.log (Q : ℝ))
+      ≤ (1344 * C * Real.log (Real.log X)) * (Real.log X) ^ (-theta293) := by
+    have hc0 : (0 : ℝ) ≤ 672 * C := by positivity
+    calc 672 * C * (Real.log (P : ℝ) / Real.log (Q : ℝ))
+        ≤ 672 * C * (2 * (Real.log (Real.log X) * (Real.log X) ^ (-theta293))) :=
+          mul_le_mul_of_nonneg_left hgrade hc0
+      _ = (1344 * C * Real.log (Real.log X)) * (Real.log X) ^ (-theta293) := by ring
+  have hhalf : (1344 * C * Real.log (Real.log X)) * (Real.log X) ^ (-theta293)
+      ≤ (1 / 2 * (Real.log X) ^ ε) * (Real.log X) ^ (-theta293) :=
+    mul_le_mul_of_nonneg_right (by linarith) hT0.le
+  -- ⟦the `672/X` crumb⟧ `(log X)^{θ₂₉₃} ≤ log X ≤ X`
+  have hpow0 : (0 : ℝ) < (Real.log X) ^ theta293 := Real.rpow_pos_of_pos hL0 _
+  have hpowle : (Real.log X) ^ theta293 ≤ Real.log X := by
+    have h1 : (Real.log X) ^ theta293 ≤ (Real.log X) ^ (1 : ℝ) :=
+      Real.rpow_le_rpow_of_exponent_le hL1
+        (le_of_lt (lt_trans theta293_lt_one_div_32 (by norm_num)))
+    rwa [Real.rpow_one] at h1
+  have hpowX : (Real.log X) ^ theta293 ≤ X := by
+    have h2 : Real.log X ≤ X - 1 := Real.log_le_sub_one_of_pos hX0
+    linarith
+  have hneg : (Real.log X) ^ (-theta293) = 1 / (Real.log X) ^ theta293 := by
+    rw [Real.rpow_neg hL0.le, one_div]
+  have hXrec : 672 / X ≤ 672 * (Real.log X) ^ (-theta293) := by
+    have hinv : (1 : ℝ) / X ≤ 1 / (Real.log X) ^ theta293 :=
+      one_div_le_one_div_of_le hpow0 hpowX
+    have h672 : (672 : ℝ) / X = 672 * (1 / X) := by ring
+    rw [h672, hneg]
+    exact mul_le_mul_of_nonneg_left hinv (by norm_num)
+  -- ⟦THE INLINE A-CLASS STONE⟧ `3(log X)³ ≤ X`, from `hL` alone: `e^{u/5} ≥ u/5`, five-fold
+  have hpow5 : ∀ t : ℝ, Real.exp t ^ 5 = Real.exp (5 * t) := by
+    intro t
+    rw [show (5 : ℝ) * t = t + t + t + t + t by ring, Real.exp_add, Real.exp_add,
+      Real.exp_add, Real.exp_add]
+    ring
+  have hXeq : Real.exp (Real.log X / 5) ^ 5 = X := by
+    rw [hpow5, show (5 : ℝ) * (Real.log X / 5) = Real.log X by ring, Real.exp_log hX0]
+  have hfive : Real.log X / 5 ≤ Real.exp (Real.log X / 5) := by
+    have h := Real.add_one_le_exp (Real.log X / 5)
+    linarith
+  have hcube : 3 * (Real.log X) ^ 3 ≤ X := by
+    have h1 : (Real.log X / 5) ^ 5 ≤ X := by
+      calc (Real.log X / 5) ^ 5 ≤ Real.exp (Real.log X / 5) ^ 5 :=
+            pow_le_pow_left₀ (by linarith) hfive 5
+        _ = X := hXeq
+    have hu2 : (9375 : ℝ) ≤ (Real.log X) ^ 2 := by nlinarith [hL, hL0]
+    have hprod := mul_le_mul_of_nonneg_left hu2 (pow_pos hL0 3).le
+    have hid : (Real.log X / 5) ^ 5 = (Real.log X) ^ 5 / 3125 := by ring
+    rw [hid] at h1
+    linarith
+  -- ⟦the crumb's grade⟧ `L² ≤ (1.5 log X)²` and `(log X)^θ ≤ log X`, so `L²(log X)^θ ≤ X`
+  have hXbig : (1 : ℝ) ≤ 2 * X := by
+    have := Real.log_le_sub_one_of_pos hX0
+    linarith
+  have hLnn : (0 : ℝ) ≤ Real.logb 2 (2 * X) :=
+    Real.logb_nonneg (by norm_num) hXbig
+  have hl2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  have hLbound : Real.logb 2 (2 * X) ≤ 3 / 2 * Real.log X := by
+    have hgt2 := Real.log_two_gt_d9
+    have hlt2 := Real.log_two_lt_d9
+    have hprod : (0 : ℝ) ≤ (Real.log X - 256) * (Real.log 2 - 0.6931471803) :=
+      mul_nonneg (by linarith) (by linarith)
+    have hlogb : Real.logb 2 (2 * X) = (Real.log 2 + Real.log X) / Real.log 2 := by
+      rw [Real.logb, Real.log_mul (by norm_num) hXne]
+    rw [hlogb, div_le_iff₀ hl2]
+    linarith
+  have hkey : (Real.logb 2 (2 * X)) ^ 2 * (Real.log X) ^ theta293 ≤ X := by
+    have hsq : (Real.logb 2 (2 * X)) ^ 2 ≤ (3 / 2 * Real.log X) ^ 2 :=
+      pow_le_pow_left₀ hLnn hLbound 2
+    have h1 : (Real.logb 2 (2 * X)) ^ 2 * (Real.log X) ^ theta293
+        ≤ (3 / 2 * Real.log X) ^ 2 * (Real.log X) ^ theta293 :=
+      mul_le_mul_of_nonneg_right hsq hpow0.le
+    have h2 : (3 / 2 * Real.log X) ^ 2 * (Real.log X) ^ theta293
+        ≤ (3 / 2 * Real.log X) ^ 2 * Real.log X :=
+      mul_le_mul_of_nonneg_left hpowle (by positivity)
+    have h3 : (0 : ℝ) ≤ (Real.log X) ^ 3 := (pow_pos hL0 3).le
+    linarith
+  have hcrumbgrade : 2688 * (Real.logb 2 (2 * X)) ^ 2 / X
+      ≤ 2688 * (Real.log X) ^ (-theta293) := by
+    rw [hneg, show (2688 : ℝ) * (1 / (Real.log X) ^ theta293)
+        = 2688 / (Real.log X) ^ theta293 by ring, div_le_div_iff₀ hX0 hpow0]
+    linarith [hkey]
+  -- ⟦the ε-window closes⟧ `673 + 2688 = 3361 ≤ (log X)^ε/2`
+  have h3361 : (3361 : ℝ) * (Real.log X) ^ (-theta293)
+      ≤ (1 / 2 * (Real.log X) ^ ε) * (Real.log X) ^ (-theta293) :=
+    mul_le_mul_of_nonneg_right (by linarith) hT0.le
+  have hsplit : (Real.log X) ^ (-theta293 + ε)
+      = (Real.log X) ^ (-theta293) * (Real.log X) ^ ε := Real.rpow_add hL0 _ _
+  have hexpand : 12 * (witEP2 X N Xd P
+      + 4 / 3 * ((2 * X + 20 * (N : ℝ))
+        * (C * (Real.log (P : ℝ) / Real.log (Q : ℝ)) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2))
+      + 4 / 3 * ((2 * X + 20 * (N : ℝ)) * endMass Xd))
+      = 12 * witEP2 X N Xd P
+        + (672 * C * (Real.log (P : ℝ) / Real.log (Q : ℝ)) + 672 / X)
+        + 2688 * (Real.logb 2 (2 * X)) ^ 2 / X := by
+    rw [← htail, ← hcrumb]; ring
+  rw [hexpand, hsplit]
+  linarith
+
 /-- **THE BAND TAIL SUPPLY** (`m4_tail_supply_at_band`) — the tail MASS, its nonnegativity
 and the `EP₂` budget line, all three inside `TypicalPrice.blockfree_sum_le`'s own `∃ C`
 scope.  ⟦THE K6 PATTERN⟧: `C` is opaque, so its gate (the new `2688` threshold) can only be
@@ -352,5 +491,41 @@ theorem m4_tail_supply_at_band :
   refine ⟨hmass P Q Xd N a hP2 hPQ hXd1 hgate hdom ha1 hasupp,
     m4_tail_mass_nonneg hC0 hP2 hPQ hXd1, ?_⟩
   exact m4_ep2_budget_at_band hC0 hXd hN hX0 hL hP83 hthr habs hgrade hband
+
+/-- **THE BAND TAIL SUPPLY, WITH THE ENDPOINT CRUMB** (`m4_tail_supply_at_band_end`) —
+`m4_tail_supply_at_band` whose `EP₂` budget line is ⟦THE ENDPOINT WALL⟧'s, i.e. carrying the
+extra `(4/3)(2X+20N)·M_end` summand.  The mass and nonnegativity conjuncts are the landed
+ones verbatim; the threshold list does not grow. -/
+theorem m4_tail_supply_at_band_end :
+    ∃ C : ℝ, 0 < C ∧
+      ∀ (P Q Xd N : ℕ) (a : ℕ → ℂ) (X ε : ℝ),
+        (Xd : ℝ) = X → (N : ℝ) = 2 * X → 0 < X → 256 ≤ Real.log X →
+        2 ≤ P → P ≤ Q → 1 ≤ Xd →
+        100 * Real.log Q ≤ Real.log Xd →
+        ((Nat.sqrt Xd : ℝ) + 1) * ∏ p ∈ primeBand P Q, (1 + 3 / (p : ℝ))
+            ≤ (Xd : ℝ) * (Real.log P / Real.log Q) →
+        (∀ n, ‖a n‖ ≤ 1) → (∀ n, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+        P83 X theta293 ≤ (P : ℝ) →
+        10752 * Real.logb 2 (2 * X) ≤ (Real.log X) ^ (2 : ℝ) →
+        8640 ≤ (Real.log X) ^ ε →
+        Real.log (P : ℝ) / Real.log (Q : ℝ)
+          ≤ 2 * (Real.log (Real.log X) * (Real.log X) ^ (-theta293)) →
+        2688 * C * Real.log (Real.log X) ≤ (Real.log X) ^ ε →
+        (∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+              ‖a n‖ ^ 2 / (n : ℝ) ^ 2
+            ≤ C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2)
+          ∧ 0 ≤ C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2
+          ∧ 12 * (witEP2 X N Xd P
+              + 4 / 3 * ((2 * X + 20 * (N : ℝ))
+                * (C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2))
+              + 4 / 3 * ((2 * X + 20 * (N : ℝ)) * endMass Xd))
+            ≤ (Real.log X) ^ (-theta293 + ε) := by
+  obtain ⟨C, hC0, hmass⟩ := m4_tail_mass_at_band
+  refine ⟨C, hC0, ?_⟩
+  intro P Q Xd N a X ε hXd hN hX0 hL hP2 hPQ hXd1 hgate hdom ha1 hasupp hP83 hthr habs
+    hgrade hband
+  refine ⟨hmass P Q Xd N a hP2 hPQ hXd1 hgate hdom ha1 hasupp,
+    m4_tail_mass_nonneg hC0 hP2 hPQ hXd1, ?_⟩
+  exact m4_ep2_budget_at_band_end hC0 hXd hN hX0 hL hP83 hthr habs hgrade hband
 
 end Salt.MR

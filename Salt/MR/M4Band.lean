@@ -269,6 +269,68 @@ theorem memSCoeff_seamCoefW_band_H {q : ℕ} (χ : DirichletCharacter ℂ q) (Ps
     · rw [ha0, hend]
     · exact haH n hlt hhi)
 
+/-! ### ⟦THE ENDPOINT WALL DISSOLVED⟧ — the STRICT siblings
+
+`SeamRowWindowed.SeamCoefWS` asks for the factorization only STRICTLY above the block bottom,
+which is exactly where a half-open cut agrees with the datum.  So the strict siblings take
+`haH` **alone**: `ha0` and `hend` both DROP (`ha0` fed only the `n = X_d` branch of the
+agreement law, and `hend` was that branch's obligation), and the `m = 0` case discharges by
+absurdity — `X_d < p·0 = 0` contradicts `0 ≤ X_d`.  The endpoint mass this leaves unpriced is
+paid on the ROW, by the fused `p²` filter `p ∣ m ∨ p·m = X`. -/
+
+/-- **THE STRICT BAND PAIR LAW AT AN ABSTRACT CUT** (`memSCoeff_seamCoefWS_band_gen`).  §4's
+law at `SeamCoefWS`: the cut need only agree with the sieved datum STRICTLY above the block
+bottom, and nothing whatever is asked at `X_d`. -/
+theorem memSCoeff_seamCoefWS_band_gen {q : ℕ} (χ : DirichletCharacter ℂ q) (Pseq Qseq : ℕ → ℕ)
+    (J Xd P Q : ℕ) (a : ℕ → ℂ) (hgate : ∀ j ∈ Finset.Icc 1 J, Qseq j < P)
+    (haH : ∀ n : ℕ, Xd < n → n ≤ 2 * Xd → a n = memSCoeff Pseq Qseq J (liouChi χ) n) :
+    SeamCoefWS Xd P Q a (memSCoeff Pseq Qseq J (liouChi χ)) (liouChi χ) := by
+  intro p m hp hPp _ _ hlo hhi
+  have hgt : ∀ j ∈ Finset.Icc 1 J, Qseq j < p := fun j hj => lt_of_lt_of_le (hgate j hj) hPp
+  -- ⟦AMENDMENT 5⟧ the `m` split comes BEFORE the agreement law: `m = 0` is absurd
+  rcases Nat.eq_zero_or_pos m with rfl | hm0
+  · exfalso
+    have h0 : (0 : ℝ) ≤ (Xd : ℝ) := Nat.cast_nonneg Xd
+    rw [Nat.cast_zero, mul_zero] at hlo
+    linarith
+  · have hloN : Xd < p * m := by
+      have h : ((Xd : ℕ) : ℝ) < ((p * m : ℕ) : ℝ) := by push_cast; linarith
+      exact_mod_cast h
+    have hhiN : p * m ≤ 2 * Xd := by
+      have h : ((p * m : ℕ) : ℝ) ≤ ((2 * Xd : ℕ) : ℝ) := by push_cast; linarith
+      exact_mod_cast h
+    rw [haH _ hloN hhiN]
+    exact indicator_mul_shift_up (liouChi_mul χ) hp (by omega) hgt
+
+/-- **THE STRICT HALF-OPEN BAND PAIR LAW** (`memSCoeff_seamCoefWS_band_H`) — the name
+`memSCoeff_seamCoefW_band_H`'s consumers read, with `ha0`/`hend` gone. -/
+theorem memSCoeff_seamCoefWS_band_H {q : ℕ} (χ : DirichletCharacter ℂ q) (Pseq Qseq : ℕ → ℕ)
+    (J Xd P Q : ℕ) (a : ℕ → ℂ) (hgate : ∀ j ∈ Finset.Icc 1 J, Qseq j < P)
+    (haH : ∀ n : ℕ, Xd < n → n ≤ 2 * Xd → a n = memSCoeff Pseq Qseq J (liouChi χ) n) :
+    SeamCoefWS Xd P Q a (memSCoeff Pseq Qseq J (liouChi χ)) (liouChi χ) :=
+  memSCoeff_seamCoefWS_band_gen χ Pseq Qseq J Xd P Q a hgate haH
+
+/-- **THE DOOR'S STRICT HALF-OPEN BAND PAIR LAW** (`doorChiCoeff_seamCoefWS_band_H`). -/
+theorem doorChiCoeff_seamCoefWS_band_H {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd P Q : ℕ)
+    (a : ℕ → ℂ)
+    (hgate : ∀ j ∈ Finset.Icc 1 2, calQK (Adoor M) (3072 * M) M j < P)
+    (haH : ∀ n : ℕ, Xd < n → n ≤ 2 * Xd → a n = doorChiCoeff χ M n) :
+    SeamCoefWS Xd P Q a (doorChiCoeff χ M) (liouChi χ) :=
+  memSCoeff_seamCoefWS_band_H χ (calP (Adoor M) (3072 * M)) (calQK (Adoor M) (3072 * M) M) 2
+    Xd P Q a hgate haH
+
+/-- **`hcoefPin` AT THE DOOR, STRICT** (`doorChiCoeff_seamCoefWS_at_door_H`) — the strict
+sibling of `doorChiCoeff_seamCoefW_at_door_H`: the band gate discharged from the capstone's
+own `hQXd`/`hPlow`, and NO endpoint obligation at all. -/
+theorem doorChiCoeff_seamCoefWS_at_door_H {q : ℕ} (χ : DirichletCharacter ℂ q) {M Xd P Q : ℕ}
+    {X : ℝ} {a : ℕ → ℂ} (hM : 1 ≤ M) (hX : 1 < Real.log X)
+    (hQlog : Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log X))
+    (hPlow : P83 X theta293 ≤ (P : ℝ))
+    (haH : ∀ n : ℕ, Xd < n → n ≤ 2 * Xd → a n = doorChiCoeff χ M n) :
+    SeamCoefWS Xd P Q a (doorChiCoeff χ M) (liouChi χ) :=
+  doorChiCoeff_seamCoefWS_band_H χ M Xd P Q a
+    (door_band_gate_of_log (by omega : 1 ≤ 3072 * M) hX hQlog hPlow) haH
+
 /-- **THE DOOR'S HALF-OPEN BAND PAIR LAW** (`doorChiCoeff_seamCoefW_band_H`) —
 `memSCoeff_seamCoefW_band_H` at the door's own K-family. -/
 theorem doorChiCoeff_seamCoefW_band_H {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd P Q : ℕ)

@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.MR.RamareMR
+import Salt.MR.RamareP2End
 import Salt.MR.SeamNumber
 import Salt.MR.ThmA2Spine
 
@@ -135,6 +136,28 @@ theorem seamCoefW_of_global {Xd P Q : ℕ} {a b c : ℕ → ℂ}
     (hcoef : ∀ p m : ℕ, p.Prime → P ≤ p → p ≤ Q → ¬ p ∣ m → a (p * m) = b m * c p) :
     SeamCoefW Xd P Q a b c :=
   fun p m hp hP hQ hd _ _ => hcoef p m hp hP hQ hd
+
+/-- **W-1′ — THE STRICT PAIR LAW** (`SeamCoefWS`).  `SeamCoefW` with the window's LOWER
+endpoint moved out of the antecedent: the factorization is asserted only STRICTLY above the
+dyadic bottom, `X_d < p·m ≤ 2X_d`.
+
+⟦THE ENDPOINT WALL⟧ (flags ⟦ENDPOINT-ROW-SCOPE⟧).  The door's own cut is half-open
+(`M4DoorRow.winCutH` — the capstone's `hsupp0` kills the datum AT `X_d` while `hasupp`
+allows support on `[X_d, 2X_d]`), so the CLOSED antecedent of `SeamCoefW` forces the extra
+endpoint discharge `a X_d = 0 → datum X_d = 0`, which is a genuine constraint on the datum
+(`M4Band.memSCoeff_endpoint_zero_of_seamCoefW`).  The strict law drops it outright; the
+endpoint mass it leaves behind is paid on the ROW, by fusing `p·m = X` into the `p²` row's
+inner filter (`ramP2domEndMR` and its family). -/
+def SeamCoefWS (Xd P Q : ℕ) (a b c : ℕ → ℂ) : Prop :=
+  ∀ p m : ℕ, p.Prime → P ≤ p → p ≤ Q → ¬ p ∣ m →
+    (Xd : ℝ) < (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
+      a (p * m) = b m * c p
+
+/-- **THE STRICT TWIN IS ADDITIVE** (iron rule 1).  `SeamCoefW` implies `SeamCoefWS`, so the
+strict law is strictly weaker and every model of the windowed contract is a model of it. -/
+theorem seamCoefWS_of_seamCoefW {Xd P Q : ℕ} {a b c : ℕ → ℂ}
+    (hcoefW : SeamCoefW Xd P Q a b c) : SeamCoefWS Xd P Q a b c :=
+  fun p m hp hP hQ hd hlo hhi => hcoefW p m hp hP hQ hd hlo.le hhi
 
 /-- The levelled form of `seamCoefW_of_global`. -/
 theorem seamCoefWLevels_of_global {A G M Jb Xd : ℕ} {a b c : ℕ → ℂ}
@@ -442,6 +465,216 @@ theorem lemma12_meansq_mr_consume_windowed (H : ℝ) (hH : 2 ≤ H) (N X P Q : �
         + 8 * (2 * T + 20 * (N : ℝ))
             * ∑ n ∈ Finset.Icc 1 N, ‖ramP2coeffMR N X P Q a b c n‖ ^ 2 / (n : ℝ) ^ 2 := by
   refine (lemma12_meansq_mr_blockSupport_windowed H hH N X P Q hX hN hP a b c hcoefW hb hc
+    hasupp hsupp T hT).trans ?_
+  have hg := seam_rows_grade H hH N X hX hN2 hHX T hT
+  have hbridge : (4160 : ℝ) * (T / (X : ℝ) + 1) / H = 8 * (520 * (T / (X : ℝ) + 1) / H) := by
+    ring
+  rw [hbridge]
+  linarith
+
+/-! ## §3′ — ⟦THE ENDPOINT WALL⟧: the STRICT pair law and the FUSED `p²` row
+
+§3's chain re-cut at `SeamCoefWS` — the factorization asked only STRICTLY above the window's
+bottom.  The endpoint cofactors it releases (`p·m = X`, `p ∤ m`) are not dropped: they are
+FUSED into the `p²` row, whose inner filter becomes `p ∣ m ∨ p·m = X`
+(`RamareP2End.ramP2domEndMR` and its family).  So the split stays at FOUR rows —
+`moment_split4` and `M4ErrRewire.err_grade_fit`'s `4·520 ≤ 2160` are untouched — and the
+whole cost is the fused stone's extra `4·(log₂(2X))²/X²` (`M4P2MR.ramP2massEndMR_direct`).
+
+The congr page is ONE `by_cases` on the enlarged predicate: `if_pos` closes by `ring` for
+EITHER disjunct (the summand telescopes regardless of why the cofactor was repaired), and
+`if_neg` delivers `¬ p ∣ m` together with `p·m ≠ X`, which against `ramHonMR`'s own
+`X ≤ p·m` is precisely `SeamCoefWS`'s strict antecedent — one `Nat.cast` step. -/
+
+/-- **THE FUSED SPLIT** (`spoly_ramare_split_mr_windowed_end`).
+`spoly_ramare_split_mr_windowed` at the strict pair law: the clean term `ramCleanMR` does NOT
+move, and the correction row is the fused `ramP2corrEndMR`. -/
+theorem spoly_ramare_split_mr_windowed_end (N X P Q : ℕ) (hX : 1 ≤ X) (hN : 2 * X ≤ N)
+    (a b c : ℕ → ℂ) (hcoefWS : SeamCoefWS X P Q a b c)
+    (hasupp : ∀ n : ℕ, a n ≠ 0 → (X : ℝ) ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * (X : ℝ))
+    (t : ℝ) :
+    spoly N a t
+      = ramCleanMR N X P Q b c t + ramP2corrEndMR N X P Q a b c t + ramCopTail N P Q a t := by
+  classical
+  have hper : ∀ p ∈ (Finset.Icc P Q).filter Nat.Prime,
+      (∑ m ∈ ((Finset.Icc 1 N).image (fun n => n / p)).filter
+          (fun m => p * m ∈ Finset.Icc 1 N),
+        ramareWeight P Q p m •
+          (a (p * m) / (↑(p * m) : ℂ) ^ ((1 : ℂ) + (t : ℂ) * Complex.I)))
+        = (∑ m ∈ ramHonMR N X p,
+            (b m * c p / (↑(p * m) : ℂ) ^ ((1 : ℂ) + (t : ℂ) * Complex.I))
+              * ((blockOmega P Q m : ℂ) + 1)⁻¹)
+          + ∑ m ∈ (ramHonMR N X p).filter (fun m => p ∣ m ∨ p * m = X),
+              (ramareWeight P Q p m •
+                  (a (p * m) / (↑(p * m) : ℂ) ^ ((1 : ℂ) + (t : ℂ) * Complex.I))
+                - (b m * c p / (↑(p * m) : ℂ) ^ ((1 : ℂ) + (t : ℂ) * Complex.I))
+                    * ((blockOmega P Q m : ℂ) + 1)⁻¹) := by
+    intro p hp
+    rw [Finset.mem_filter, Finset.mem_Icc] at hp
+    obtain ⟨⟨hPp, hpQ⟩, hpp⟩ := hp
+    have hrestrict : (∑ m ∈ ((Finset.Icc 1 N).image (fun n => n / p)).filter
+          (fun m => p * m ∈ Finset.Icc 1 N),
+        ramareWeight P Q p m *
+          (a (p * m) / (↑(p * m) : ℂ) ^ ((1 : ℂ) + (t : ℂ) * Complex.I)))
+        = ∑ m ∈ ramHonMR N X p,
+          ramareWeight P Q p m *
+            (a (p * m) / (↑(p * m) : ℂ) ^ ((1 : ℂ) + (t : ℂ) * Complex.I)) := by
+      refine (Finset.sum_subset (ramHonMR_subset N X p hX hN hpp.pos) (fun m hm hmn => ?_)).symm
+      have ha : a (p * m) = 0 := by
+        by_contra h
+        obtain ⟨h1, h2⟩ := hasupp _ h
+        rw [mem_honest_cofactor hpp.pos] at hm
+        refine hmn ?_
+        rw [ramHonMR, Finset.mem_filter, Finset.mem_Icc]
+        push_cast at h1 h2
+        refine ⟨⟨?_, ?_⟩, h1, h2⟩
+        · rcases Nat.eq_zero_or_pos m with rfl | hm0
+          · simp at hm
+          · exact hm0
+        · exact le_trans (Nat.le_mul_of_pos_left m hpp.pos) hm.2
+      rw [ha]
+      simp
+    simp only [Complex.real_smul] at hrestrict ⊢
+    rw [hrestrict, Finset.sum_filter (fun m => p ∣ m ∨ p * m = X), ← Finset.sum_add_distrib]
+    -- ⟦THE FUSED CONGR PAGE⟧ one `by_cases` on the ENLARGED predicate
+    refine Finset.sum_congr rfl (fun m hm => ?_)
+    rw [ramHonMR, Finset.mem_filter] at hm
+    obtain ⟨-, hlo, hhi⟩ := hm
+    by_cases hpm : p ∣ m ∨ p * m = X
+    · rw [if_pos hpm]; ring
+    · rw [if_neg hpm, add_zero]
+      obtain ⟨hnd, hne⟩ := not_or.mp hpm
+      have hstrict : (X : ℝ) < (p : ℝ) * (m : ℝ) := by
+        refine lt_of_le_of_ne hlo (fun h => hne ?_)
+        have hc : ((p * m : ℕ) : ℝ) = ((X : ℕ) : ℝ) := by push_cast; linarith
+        exact_mod_cast hc
+      rw [hcoefWS p m hpp hPp hpQ hnd hstrict hhi,
+        ramareWeight_coprime P Q p m (hpp.coprime_iff_not_dvd.mpr hnd)]
+      push_cast
+      ring
+  have hmain : (∑ p ∈ (Finset.Icc P Q).filter Nat.Prime,
+      ∑ m ∈ ((Finset.Icc 1 N).image (fun n => n / p)).filter
+          (fun m => p * m ∈ Finset.Icc 1 N),
+        ramareWeight P Q p m •
+          (a (p * m) / (↑(p * m) : ℂ) ^ ((1 : ℂ) + (t : ℂ) * Complex.I)))
+      = ramCleanMR N X P Q b c t + ramP2corrEndMR N X P Q a b c t := by
+    rw [ramCleanMR, ramP2corrEndMR, ← Finset.sum_add_distrib]
+    exact Finset.sum_congr rfl hper
+  rw [spoly_ramare_eq16 N a P Q t, hmain, ramCopTail]
+
+/-- **The four-row `ramErr` identity at the STRICT pair** — `ramErr_decomp_mr_windowed` with
+`SeamCoefWS` in place of `SeamCoefW` and the fused `p²` row. -/
+theorem ramErr_decomp_mr_windowed_end (H : ℝ) (hH : 2 ≤ H) (N X P Q : ℕ) (hX : 1 ≤ X)
+    (hN : 2 * X ≤ N) (hP : 1 ≤ P) (a b c : ℕ → ℂ) (hcoefWS : SeamCoefWS X P Q a b c)
+    (hasupp : ∀ n : ℕ, a n ≠ 0 → (X : ℝ) ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * (X : ℝ))
+    (t : ℝ) :
+    ramErr H N X P Q a b c t
+      = ramSeamLoPoly H N X P Q b c t - ramSeamUpPoly H N X P Q b c t
+        + ramP2corrEndMR N X P Q a b c t + ramCopTail N P Q a t := by
+  have hH0 : (0 : ℝ) < H := by linarith
+  rw [ramErr, spoly_ramare_split_mr_windowed_end N X P Q hX hN a b c hcoefWS hasupp t,
+    cleanMR_dyadic H hH0 N X P Q hP b c t, ← cleanMR_dyadic_sub_main H hH N X P Q hX b c t]
+  abel
+
+/-- **The four-row error split at the STRICT pair.**  Still FOUR functions — `moment_split4`
+does not move, and neither does the prefactor `4`. -/
+theorem ramErr_moment_split_mr_windowed_end (H : ℝ) (hH : 2 ≤ H) (N X P Q : ℕ) (hX : 1 ≤ X)
+    (hN : 2 * X ≤ N) (hP : 1 ≤ P) (a b c : ℕ → ℂ) (hcoefWS : SeamCoefWS X P Q a b c)
+    (hasupp : ∀ n : ℕ, a n ≠ 0 → (X : ℝ) ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * (X : ℝ))
+    (T : ℝ) (hT : 0 ≤ T) :
+    (∫ t in (-T)..T, ‖ramErr H N X P Q a b c t‖ ^ 2)
+      ≤ 4 * ((∫ t in (-T)..T, ‖ramSeamLoPoly H N X P Q b c t‖ ^ 2)
+          + (∫ t in (-T)..T, ‖ramSeamUpPoly H N X P Q b c t‖ ^ 2)
+          + (∫ t in (-T)..T, ‖ramP2corrEndMR N X P Q a b c t‖ ^ 2)
+          + (∫ t in (-T)..T, ‖ramCopTail N P Q a t‖ ^ 2)) := by
+  have hneg : (∫ t in (-T)..T, ‖-ramSeamUpPoly H N X P Q b c t‖ ^ 2)
+      = ∫ t in (-T)..T, ‖ramSeamUpPoly H N X P Q b c t‖ ^ 2 :=
+    intervalIntegral.integral_congr (fun t _ => by rw [norm_neg])
+  have h := moment_split4 (f := ramErr H N X P Q a b c)
+    (g₁ := ramSeamLoPoly H N X P Q b c) (g₂ := fun t => -ramSeamUpPoly H N X P Q b c t)
+    (g₃ := ramP2corrEndMR N X P Q a b c) (g₄ := ramCopTail N P Q a)
+    (continuous_ramErr H N X P Q a b c) (continuous_ramSeamLoPoly H N X P Q b c)
+    (continuous_ramSeamUpPoly H N X P Q b c).neg (continuous_ramP2corrEndMR N X P Q a b c)
+    (continuous_ramCopTail N P Q a)
+    (fun t => by
+      rw [ramErr_decomp_mr_windowed_end H hH N X P Q hX hN hP a b c hcoefWS hasupp t]; ring)
+    T hT
+  rw [hneg] at h
+  exact h
+
+/-- **LEMMA 12'S MEAN SQUARE AT THE STRICT PAIR** (`lemma12_meansq_mr_windowed_end`) — the
+`SeamCoefW` exit's sibling with the fused `p²` coefficient in-statement. -/
+theorem lemma12_meansq_mr_windowed_end (H : ℝ) (hH : 2 ≤ H) (N X P Q : ℕ) (hX : 1 ≤ X)
+    (hN : 2 * X ≤ N) (hP : 1 ≤ P) (a b c : ℕ → ℂ) (hcoefWS : SeamCoefWS X P Q a b c)
+    (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖c p‖ ≤ 1)
+    (hasupp : ∀ n : ℕ, a n ≠ 0 → (X : ℝ) ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * (X : ℝ))
+    (T : ℝ) (hT : 0 ≤ T) :
+    (∫ t in (-T)..T, ‖spoly N a t‖ ^ 2)
+      ≤ 2 * ((ramI H P Q).card : ℝ)
+          * (∑ j ∈ ramI H P Q, ∫ t in (-T)..T, ‖ramMain H N X P Q b c j t‖ ^ 2)
+        + 2 * (4 * ((2 * T + 20 * (N : ℝ))
+                  * ((2 * Real.exp 1 * (X : ℝ) / H + 1) / (X : ℝ) ^ 2)
+              + (2 * T + 80 * (X : ℝ))
+                  * ((4 * Real.exp 1 * (X : ℝ) / H + 1) / (2 * (X : ℝ)) ^ 2)
+              + (2 * T + 20 * (N : ℝ))
+                  * ∑ n ∈ Finset.Icc 1 N, ‖ramP2coeffEndMR N X P Q a b c n‖ ^ 2 / (n : ℝ) ^ 2
+              + (2 * T + 20 * (N : ℝ))
+                  * ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+                      ‖a n‖ ^ 2 / (n : ℝ) ^ 2)) := by
+  refine lemma12_meansq_of_windowErr H N X P Q a b c T _ hT ?_
+  refine (ramErr_moment_split_mr_windowed_end H hH N X P Q hX hN hP a b c hcoefWS hasupp
+    T hT).trans ?_
+  gcongr
+  · exact ramSeamLoPoly_moment H hH N X P Q hX hN hP b c hb hc T hT
+  · exact ramSeamUpPoly_moment H hH N X P Q hX hP b c hb hc T hT
+  · exact ramP2corrEndMR_moment N X P Q hX hN a b c T
+  · exact ramCopTail_moment N P Q a T
+
+/-- **The tail-free form at the STRICT pair** (`lemma12_meansq_mr_blockSupport_windowed_end`). -/
+theorem lemma12_meansq_mr_blockSupport_windowed_end (H : ℝ) (hH : 2 ≤ H) (N X P Q : ℕ)
+    (hX : 1 ≤ X) (hN : 2 * X ≤ N) (hP : 1 ≤ P) (a b c : ℕ → ℂ)
+    (hcoefWS : SeamCoefWS X P Q a b c)
+    (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖c p‖ ≤ 1)
+    (hasupp : ∀ n : ℕ, a n ≠ 0 → (X : ℝ) ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * (X : ℝ))
+    (hsupp : ∀ n : ℕ, a n ≠ 0 → 1 ≤ blockOmega P Q n)
+    (T : ℝ) (hT : 0 ≤ T) :
+    (∫ t in (-T)..T, ‖spoly N a t‖ ^ 2)
+      ≤ 2 * ((ramI H P Q).card : ℝ)
+          * (∑ j ∈ ramI H P Q, ∫ t in (-T)..T, ‖ramMain H N X P Q b c j t‖ ^ 2)
+        + 2 * (4 * ((2 * T + 20 * (N : ℝ))
+                  * ((2 * Real.exp 1 * (X : ℝ) / H + 1) / (X : ℝ) ^ 2)
+              + (2 * T + 80 * (X : ℝ))
+                  * ((4 * Real.exp 1 * (X : ℝ) / H + 1) / (2 * (X : ℝ)) ^ 2)
+              + (2 * T + 20 * (N : ℝ))
+                  * ∑ n ∈ Finset.Icc 1 N,
+                      ‖ramP2coeffEndMR N X P Q a b c n‖ ^ 2 / (n : ℝ) ^ 2)) := by
+  refine lemma12_meansq_of_windowErr H N X P Q a b c T _ hT ?_
+  refine (ramErr_moment_split_mr_windowed_end H hH N X P Q hX hN hP a b c hcoefWS hasupp
+    T hT).trans ?_
+  have h1 := ramSeamLoPoly_moment H hH N X P Q hX hN hP b c hb hc T hT
+  have h2 := ramSeamUpPoly_moment H hH N X P Q hX hP b c hb hc T hT
+  have h3 := ramP2corrEndMR_moment N X P Q hX hN a b c T
+  have h4 := ramCopTail_moment_zero N P Q a hsupp T
+  rw [h4]
+  linarith
+
+/-- **The `(T/X + 1)` consumption form at the STRICT pair**
+(`lemma12_meansq_mr_consume_windowed_end`). -/
+theorem lemma12_meansq_mr_consume_windowed_end (H : ℝ) (hH : 2 ≤ H) (N X P Q : ℕ) (hX : 1 ≤ X)
+    (hN : 2 * X ≤ N) (hN2 : (N : ℝ) ≤ 2 * (X : ℝ)) (hHX : H ≤ (X : ℝ)) (hP : 1 ≤ P)
+    (a b c : ℕ → ℂ) (hcoefWS : SeamCoefWS X P Q a b c)
+    (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖c p‖ ≤ 1)
+    (hasupp : ∀ n : ℕ, a n ≠ 0 → (X : ℝ) ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * (X : ℝ))
+    (hsupp : ∀ n : ℕ, a n ≠ 0 → 1 ≤ blockOmega P Q n)
+    (T : ℝ) (hT : 0 ≤ T) :
+    (∫ t in (-T)..T, ‖spoly N a t‖ ^ 2)
+      ≤ 2 * ((ramI H P Q).card : ℝ)
+          * (∑ j ∈ ramI H P Q, ∫ t in (-T)..T, ‖ramMain H N X P Q b c j t‖ ^ 2)
+        + 4160 * (T / (X : ℝ) + 1) / H
+        + 8 * (2 * T + 20 * (N : ℝ))
+            * ∑ n ∈ Finset.Icc 1 N,
+                ‖ramP2coeffEndMR N X P Q a b c n‖ ^ 2 / (n : ℝ) ^ 2 := by
+  refine (lemma12_meansq_mr_blockSupport_windowed_end H hH N X P Q hX hN hP a b c hcoefWS hb hc
     hasupp hsupp T hT).trans ?_
   have hg := seam_rows_grade H hH N X hX hN2 hHX T hT
   have hbridge : (4160 : ℝ) * (T / (X : ℝ) + 1) / H = 8 * (520 * (T / (X : ℝ) + 1) / H) := by

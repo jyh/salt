@@ -75,6 +75,7 @@ import Salt.MR.VdCSocket
 import Salt.MR.RamareErr
 import Salt.MR.USetThin
 import Salt.MR.RamareMR
+import Salt.MR.RamareP2End
 import Salt.MR.SevenEighths
 import Salt.MR.Renormalise
 import Salt.MR.JFactor
@@ -3624,3 +3625,113 @@ open Salt.Tactic in
   Salt.MR.m4_spine_budget_collision_perH_at_Hlo
   Salt.MR.doorRowCarriedT0_endpoint
   Salt.MR.m4_register_forces_endpoint_interval
+
+/-! ## ⟦THE ENDPOINT WALL⟧ — the STRICT pair law and the FUSED `p²` row (2026-07-29)
+
+Flags: ⟦ENDPOINT-ROW-SCOPE⟧ (the fusion design), ⟦BUDGET-SPLIT-SCOPE⟧ (context),
+⟦ENDPOINT-REF⟧ (the BINDING v2 amendments).
+
+**THE WALL.**  The whole MR chain read its factorization at the CLOSED window antecedent
+`X_d ≤ p·m` (`SeamRowWindowed.SeamCoefW`), while the door's own cut is HALF-OPEN
+(`M4DoorRow.winCutH` — the capstone's `hsupp0` kills the datum AT `X_d`, `hasupp` allows
+support on `[X_d, 2X_d]`).  The straddle forced a genuine arithmetic obligation on the datum
+(`M4Band.memSCoeff_endpoint_zero_of_seamCoefW` shows it is FORCED, not a convenience).
+
+**THE REPAIR — a FUSION, not a fifth row.**  A fifth Cauchy–Schwarz row would make the
+prefactor `5` and `5·520 = 2600 > 2160 = 3·720`, breaking `A2Frame3.err`'s standing
+right-hand side (and no `moment_split5` exists).  Instead:
+
+* `SeamCoefWS` is `SeamCoefW` with the STRICT antecedent `X_d < p·m`
+  (`seamCoefWS_of_seamCoefW` — additive, iron rule 1), and the band/puncture pair laws at it
+  take `haH` ALONE: `ha0` and `hend` both DROP, the `m = 0` case dying by absurdity;
+* the released endpoint cofactors are FUSED into the `p²` row, whose inner filter is enlarged
+  to `p ∣ m ∨ p·m = X` (`RamareP2End`'s `ramP2domEndMR`/`ramP2corrEndMR`/`ramP2coeffEndMR`,
+  NEW siblings — the landed `ramP2*MR` defs are byte-untouched, `SmallStones`:385-460 reads
+  them).  The split stays at FOUR rows; `moment_split4` and `M4ErrRewire.err_grade_fit`'s
+  `4·520 ≤ 2160` are untouched.
+
+**THE PRICE.**  `M4P2MR.ramP2massEndMR_direct`: the max half is FREE (the fibre injection
+into `primeFactors` never used `p ∣ m`), the `Σ` half gains `2·ω(X)/X` through the endpoint
+singletons (`p·m = X` determines `m`, and `p ∣ X`), whence
+
+  `Σ_{n≤N} ‖ramP2coeffEndMR n‖²/n² ≤ 16·log₂(2X)/(X·P) + 4·(log₂(2X))²/X²`.
+
+The excess `M_end := 4·(log₂(2X_d))²/X_d²` (`M4ErrRewire.endMass`) is paid TWICE, once per
+side, and NEITHER payment moves an interface numeral:
+
+* the SEAM side carries it as a separate `hEP2` summand (the ⟦R3a⟧ `Mtail` pattern) through
+  five sites — `err_at_witness_mr_end`, `a2Frame3_witness_end`, `m4_ep2_budget_at_band_end`,
+  `m4_tail_supply_at_band_end`, `m4_door_tail_supply_end`.  `witEP2` and its `896`/`10752`
+  numerals are byte-untouched; the ε-ledger goes `673 → 673 + 2688 = 3361 ≤ 4320`, still
+  inside `habs`'s own half, and the `2688·L²/X` crumb is covered by the A-class stone
+  `3(log X)³ ≤ X` derived INLINE from the existing `hL : 256 ≤ log X` (`e^{u/5} ≥ u/5`,
+  five-fold) — NO new named threshold;
+* the ROW side absorbs it inside `M4RowMR.four_rows_le_end`'s own slack (⟦AMENDMENT 1⟧): the
+  landed regrouping spends `8` of `12` on the `B2` slot, an exact `1.5×` unspent factor, and
+  `4L²/X_d² ≤ (1/2)·16L/(X_d·P)` ⟺ **`log₂(2X_d)·P ≤ 2·X_d`**, which `logb_two_mul_P_le`
+  derives from the row's EXISTING binders `hP`/`hPQ`/`hreg`/`hbig` (`P ≤ e^{√u}`,
+  `L ≤ (3/2)u`, `(3/2)u·e^{√u} ≤ 2e^u`).  So `lemma12RowsMR_pricedK_end`'s right-hand side is
+  the landed one BYTE FOR BYTE, and `_priced_ratioK`/`_calibratedK2`/`seam_row_number_*`/
+  `a2Rows_of_capfree3_end` thread with unchanged brackets — `ThmA2.a2RowsSum`, `a2Mrow`,
+  `a2_term3_weigh_mr` and `thm_a2'_of_rows` NEVER MOVE, and both register grading conjuncts
+  stay byte-identical.  `a2Rows_of_capfree3_end` is a NEW theorem beside the landed one, not
+  a restatement of it.
+-/
+open Salt.Tactic in
+#audit_axioms Salt.MR.SeamCoefWS
+  Salt.MR.seamCoefWS_of_seamCoefW
+  Salt.MR.memSCoeff_seamCoefWS_band_gen
+  Salt.MR.memSCoeff_seamCoefWS_band_H
+  Salt.MR.doorChiCoeff_seamCoefWS_band_H
+  Salt.MR.doorChiCoeff_seamCoefWS_at_door_H
+  Salt.MR.memSCoeff_seamCoefWS_punct_gen
+  Salt.MR.memSCoeff_seamCoefWS_punct_H
+  Salt.MR.doorChiCoeff_seamCoefWS_punct_H
+
+open Salt.Tactic in
+#audit_axioms Salt.MR.ramP2domEndMR
+  Salt.MR.ramP2corrEndMR
+  Salt.MR.ramP2coeffEndMR
+  Salt.MR.ramP2corrEndMR_eq_spoly
+  Salt.MR.ramP2corrEndMR_moment
+  Salt.MR.mem_ramP2domEndMR_window
+  Salt.MR.mem_ramP2domEndMR_prime
+  Salt.MR.ramP2domEndMR_fiber_card_le_omega
+  Salt.MR.ramP2coeffEndMR_norm_div_le
+  Salt.MR.ramP2domEndMR_sum_le
+  Salt.MR.ramP2coeffEndMR_sum_div_le
+  Salt.MR.ramP2massEndMR_direct
+
+open Salt.Tactic in
+#audit_axioms Salt.MR.spoly_ramare_split_mr_windowed_end
+  Salt.MR.ramErr_decomp_mr_windowed_end
+  Salt.MR.ramErr_moment_split_mr_windowed_end
+  Salt.MR.lemma12_meansq_mr_windowed_end
+  Salt.MR.lemma12_meansq_mr_blockSupport_windowed_end
+  Salt.MR.lemma12_meansq_mr_consume_windowed_end
+
+open Salt.Tactic in
+#audit_axioms Salt.MR.endMass
+  Salt.MR.endMass_nonneg
+  Salt.MR.E_priced_mr_end
+  Salt.MR.E_priced_mr_row_scale_end
+  Salt.MR.err_at_witness_mr_end
+  Salt.MR.a2Frame3_witness_end
+  Salt.MR.m4_ep2_budget_at_band_end
+  Salt.MR.m4_tail_supply_at_band_end
+  Salt.MR.m4_door_tail_supply_end
+
+open Salt.Tactic in
+#audit_axioms Salt.MR.lemma12RowsMR_end
+  Salt.MR.lemma12_meansq_on_subset_mr_windowed_end
+  Salt.MR.lemma12_on_TsetG_mr_windowed_end
+  Salt.MR.lemma12RowsMR_pricedK_end
+  Salt.MR.lemma12RowsMR_priced_ratioK_end
+  Salt.MR.sum_lemma12RowsMR_pricedK_end
+  Salt.MR.sum_lemma12RowsMR_priced_calibratedK2_end
+
+open Salt.Tactic in
+#audit_axioms Salt.MR.seam_row_calibratedK_nocap3_end
+  Salt.MR.seam_row_number_nocap3_end
+  Salt.MR.seam_row_number_capfree3_end
+  Salt.MR.a2Rows_of_capfree3_end

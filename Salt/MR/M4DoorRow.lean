@@ -314,6 +314,39 @@ theorem m4_door_tail_supply :
     hdom (doorRow_ha1 χ M Xd) (fun n hn => doorRow_hasupp χ M Xd n hn) hP83 hthr habs hgrade
     hthr2
 
+/-- **THE DOOR ROW'S TAIL TRIPLE, WITH THE ENDPOINT CRUMB** (`m4_door_tail_supply_end`) —
+`m4_door_tail_supply` at ⟦THE ENDPOINT WALL⟧'s `EP₂` budget line (the extra
+`(4/3)(2X+20N)·M_end` summand).  The threshold list is the landed one, unchanged. -/
+theorem m4_door_tail_supply_end :
+    ∃ C : ℝ, 0 < C ∧
+      ∀ (q : ℕ) (χ : DirichletCharacter ℂ q) (M P Q Xd N : ℕ) (X ε : ℝ),
+        (Xd : ℝ) = X → (N : ℝ) = 2 * X → 0 < X → 256 ≤ Real.log X →
+        2 ≤ P → P ≤ Q → 1 ≤ Xd →
+        100 * Real.log Q ≤ Real.log Xd →
+        ((Nat.sqrt Xd : ℝ) + 1) * ∏ p ∈ primeBand P Q, (1 + 3 / (p : ℝ))
+            ≤ (Xd : ℝ) * (Real.log P / Real.log Q) →
+        P83 X theta293 ≤ (P : ℝ) →
+        10752 * Real.logb 2 (2 * X) ≤ (Real.log X) ^ (2 : ℝ) →
+        8640 ≤ (Real.log X) ^ ε →
+        Real.log (P : ℝ) / Real.log (Q : ℝ)
+          ≤ 2 * (Real.log (Real.log X) * (Real.log X) ^ (-theta293)) →
+        2688 * C * Real.log (Real.log X) ≤ (Real.log X) ^ ε →
+        (∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+              ‖winCutH Xd (doorChiCoeff χ M) n‖ ^ 2 / (n : ℝ) ^ 2
+            ≤ C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2)
+          ∧ 0 ≤ C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2
+          ∧ 12 * (witEP2 X N Xd P
+              + 4 / 3 * ((2 * X + 20 * (N : ℝ))
+                * (C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2))
+              + 4 / 3 * ((2 * X + 20 * (N : ℝ)) * endMass Xd))
+            ≤ (Real.log X) ^ (-theta293 + ε) := by
+  obtain ⟨C, hC0, hband⟩ := m4_tail_supply_at_band_end
+  refine ⟨C, hC0, ?_⟩
+  intro q χ M P Q Xd N X ε hXd hN hX0 hL hP2 hPQ hXd1 hgate hdom hP83 hthr habs hgrade hthr2
+  exact hband P Q Xd N (winCutH Xd (doorChiCoeff χ M)) X ε hXd hN hX0 hL hP2 hPQ hXd1 hgate
+    hdom (doorRow_ha1 χ M Xd) (fun n hn => doorRow_hasupp χ M Xd n hn) hP83 hthr habs hgrade
+    hthr2
+
 /-! ## §6 — ⚠ ⟦WALL 1⟧: THE K-BLOCK WINDOW LAW LOCKS THE BLOCK TO A FACTOR `2`
 
 The capstone's `hcoefBand`/`hwinBand` pair (`M4MeanSq`, inherited from
