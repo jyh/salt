@@ -104,7 +104,7 @@ not a cost paid here.**
   cutoffs are instances: the flat bound holds regardless of the top).
 * `halasz_direct_ball_window` [D3] — the ball-restricted corollary: for `t` in
   `seamAnn X T ∩ seamBall X t₁`, the window membership is FREE (H-0's window-legality win:
-  `seamT0 X = (logX)^{1/15}` is `M_range`'s floor byte-for-byte, `|t| ≤ T ≤ T + (logX)^{1/16}`,
+  `seamT0 X = (logX)^{1/45}` is `M_range`'s floor byte-for-byte, `|t| ≤ T ≤ T + (logX)^{1/46}`,
   and `|t| ≤ T ≤ X`).  The shape H-7 consumes.
 
 ## Honest hypotheses (nothing hidden)
@@ -118,7 +118,7 @@ not a cost paid here.**
 * `hM0 : 0 ≤ M_range …` is `sigma_cutoff_pretentious_gen`'s own hypothesis (nonneg `M`), and
   is free from `pretDistSq_nonneg` at any consumer that has the window nonempty.
 * `X > 0` is NOT assumed: it is derived from the window membership (`|t| ≤ X` with
-  `|t| ≥ (logX)^{1/15} ≥ 1`) — mathlib's `Real.log` is even, so `3 ≤ log X` alone does not
+  `|t| ≥ (logX)^{1/45} ≥ 1`) — mathlib's `Real.log` is even, so `3 ≤ log X` alone does not
   give it (a banked trap).
 
 Source pins: GHS `1706.03749v1` Thm 1.1 / Cor 1.2 (p.2) + proof (p.13); MRT v3 Appendix
@@ -171,8 +171,8 @@ seam datum, its distance rewritten to the bare `ℓ`-datum shifted-center form
 theorem window_sup_decay_gen {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
     {c t₀ t X T σ : ℝ} (hc0 : 0 < c) (hce : c ≤ 1 / Real.exp 1)
     (hσ0 : 0 < σ) (hσ1 : σ ≤ 1) (hYX : Real.exp (1 / σ) ≤ X)
-    (hmem : (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X) :
+    (hmem : (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X) :
     ‖LSeries (ellLin (seamCoeff (ellLin g) (fun _ => 1) t₀))
         (((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I)‖
       ≤ Real.exp (cpeel + (Real.log 4 + cpeel)) * (1 / σ)
@@ -241,12 +241,12 @@ citing ITS OWN σ-cutoff instance (the S-3 guard). -/
 /-- The `c`-generic reduction: `∫ ‖F_seam(1+σ+it)‖/σ ≤ C_F·∫ σ^{−2}exp(−c(M_range − 2log(σL) − 48))`
 on `[1/logX, b]`, for `0 < c ≤ 1/e` and `b ≤ 1`.  The scale condition `e^{1/σ} ≤ X` of the floor
 holds automatically: `σ ≥ 1/logX` gives `1/σ ≤ logX`, and `X > 0` comes from the window
-membership (`1 ≤ (logX)^{1/15} ≤ |t| ≤ X`), NOT from `3 ≤ log X` (mathlib's `Real.log` is even). -/
+membership (`1 ≤ (logX)^{1/45} ≤ |t| ≤ X`), NOT from `3 ≤ log X` (mathlib's `Real.log` is even). -/
 private lemma halasz_direct_reduce {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
     {c t₀ t X T b : ℝ} (hc0 : 0 < c) (hce : c ≤ 1 / Real.exp 1)
     (hL : 3 ≤ Real.log X) (hb : 1 / Real.log X ≤ b) (hb1 : b ≤ 1)
-    (hmem : (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X)
+    (hmem : (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X)
     (hint : IntervalIntegrable
       (fun σ : ℝ => ‖LSeries (ellLin (seamCoeff (ellLin g) (fun _ => 1) t₀))
           (((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I)‖ / σ)
@@ -262,7 +262,7 @@ private lemma halasz_direct_reduce {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
   have hLinv0 : (0 : ℝ) < 1 / Real.log X := by positivity
   have hlogX1 : (1 : ℝ) ≤ Real.log X := by linarith
   -- `X > 0` from the window membership (NOT from `3 ≤ log X`: `Real.log` is even)
-  have hr15 : (1 : ℝ) ≤ (Real.log X) ^ (1 / 15 : ℝ) := Real.one_le_rpow hlogX1 (by norm_num)
+  have hr15 : (1 : ℝ) ≤ (Real.log X) ^ (1 / 45 : ℝ) := Real.one_le_rpow hlogX1 (by norm_num)
   have hXpos : (0 : ℝ) < X := by
     have := hmem.1
     have := hmem.2.2
@@ -325,8 +325,8 @@ halved. -/
 theorem halasz_direct_gen {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
     {t₀ t X T b : ℝ} (hL : 3 ≤ Real.log X) (hb : 1 / Real.log X ≤ b) (hb1 : b ≤ 1)
     (hM0 : 0 ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
-    (hmem : (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X)
+    (hmem : (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X)
     (hint : IntervalIntegrable
       (fun σ : ℝ => ‖LSeries (ellLin (seamCoeff (ellLin g) (fun _ => 1) t₀))
           (((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I)‖ / σ)
@@ -385,8 +385,8 @@ use `halasz_direct_gen`. -/
 theorem halasz_direct_ball {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
     {t₀ t X T b : ℝ} (hL : 3 ≤ Real.log X) (hb : 1 / Real.log X ≤ b) (hb1 : b ≤ 1)
     (hM0 : 0 ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
-    (hmem : (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X)
+    (hmem : (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X)
     (hint : IntervalIntegrable
       (fun σ : ℝ => ‖LSeries (ellLin (seamCoeff (ellLin g) (fun _ => 1) t₀))
           (((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I)‖ / σ)
@@ -434,7 +434,7 @@ theorem halasz_direct_ball {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ 
 
 H-0's window-legality win, cashed: on the ball's own integration domain
 `seamAnn X T ∩ seamBall X t₁` the `M_range` window membership is FREE.  `seamT0 X` is
-`M_range`'s floor `(logX)^{1/15}` byte-for-byte; `|t| ≤ T ≤ T + (logX)^{1/16}` needs only
+`M_range`'s floor `(logX)^{1/45}` byte-for-byte; `|t| ≤ T ≤ T + (logX)^{1/46}` needs only
 `logX ≥ 0`; `|t| ≤ X` needs only `T ≤ X`.  The ball hypothesis itself is carried for the
 consumer's shape — the floor does not need it (that is exactly why H-0 was a free win). -/
 
@@ -466,8 +466,8 @@ theorem halasz_direct_ball_window {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖
               * M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T)
           * Real.log X := by
   have hLnn : (0 : ℝ) ≤ Real.log X := by linarith
-  have h16 : (0 : ℝ) ≤ (Real.log X) ^ (1 / 16 : ℝ) := Real.rpow_nonneg hLnn _
-  have h1 : (Real.log X) ^ (1 / 15 : ℝ) ≤ |t| := hann.1
+  have h16 : (0 : ℝ) ≤ (Real.log X) ^ (1 / 46 : ℝ) := Real.rpow_nonneg hLnn _
+  have h1 : (Real.log X) ^ (1 / 45 : ℝ) ≤ |t| := hann.1
   have h2 : |t| ≤ T := hann.2
   exact halasz_direct_ball hg hL hb hb1 hM0 ⟨h1, by linarith, le_trans h2 hTX⟩ hint
 

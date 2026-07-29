@@ -25,7 +25,7 @@ distance `> seamRad X − 1` from the pocket centre (`pocket_far_from_ball`), i.
 radius.  The landed GS 7.1 transfer (`BallSup.transfer_at_scale`) prices the twisted partial
 sums at `√2/(1+|t−t₁*|)` times their value AT the pocket centre — and at the centre the
 TRIVIAL bound `‖∑_{n≤k} f(n)n^{−it₁*}‖ ≤ k` (S₀ = 1, `center_trivial_bound`) already
-suffices, because the transfer's own `1/(1+|t−t₁*|) ≤ 1/seamRad X = (log X)^{−1/16}` is
+suffices, because the transfer's own `1/(1+|t−t₁*|) ≤ 1/seamRad X = (log X)^{−1/46}` is
 already `6×` better (in the exponent) than the `(log X)^{−ρ}`, `ρ = 3θ ≈ 1/98`, the row
 needs.  **No Halász input, no `c`-generic grade, no window floor.**
 
@@ -177,8 +177,8 @@ noncomputable def farErr (W Y Rmax : ℝ) : ℝ :=
 
 /-- **The CASE-B exit constant.**  `farSupS W Y Rmax R = 2√2/R + farErr W Y Rmax`: the
 trivial centre bound `S₀ = 1` transferred at radius `≥ R` (main term), plus the additive GS
-7.1 error.  At the intended pin `R = seamRad X = (log X)^{1/16}` and `Rmax = T+1` this is
-`(log X)^{−1/16} + (log X)^{−1/2}·log T`. -/
+7.1 error.  At the intended pin `R = seamRad X = (log X)^{1/46}` and `Rmax = T+1` this is
+`(log X)^{−1/46} + (log X)^{−1/2}·log T`. -/
 noncomputable def farSupS (W Y Rmax R : ℝ) : ℝ := 2 * Real.sqrt 2 / R + farErr W Y Rmax
 
 /-- `log` of a natural cast is nonnegative — `log 0 = 0` in this library, so no `1 ≤ M`
@@ -534,7 +534,7 @@ transfer window, the co-factor is bounded on the row's FAR leg:
 
 The `3` is `ramR_abel_sup`'s: `2` from Abel plus `1` for the half-open endpoint charge
 (`hend`).  At the intended pin `R = seamRad X` the main term is
-`6√2·(log X)^{−1/16}` — ⟦V5⟧'s "6× better than needed". -/
+`6√2·(log X)^{−1/46}` — ⟦V5⟧'s "6× better than needed". -/
 theorem caseB_ramR_of_collided {g : ℕ → ℂ} (hg : ∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1)
     {H : ℝ} {N Xn P Q j M k₀ : ℕ} {t t₁ Dmax R : ℝ}
     (hk₀ : 3 ≤ k₀) (hMN : M ≤ N)

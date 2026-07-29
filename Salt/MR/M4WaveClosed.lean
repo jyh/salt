@@ -452,7 +452,7 @@ theorem m4_classMeanSq_of_chiMeanSq {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ �
 
 `M4Close.m4RawMS` is the capstone's five-summand right-hand side.  Priced into one grade with
 the FIRST summand read through `M4ClassPrice.m4_decay_summand_eq` — an EQUALITY, retaining
-the honest `(log X)^{1/15 − 7/(30e)}` decay.
+the honest `(log X)^{1/45 − 7/(30e)}` decay.
 
 ⚠ NEVER `M4Close.m4_quality_summand_le` on the first summand: its gate `g1` demands
 `8448·C₁'² ≤ 1/5`, unsatisfiable at `C₁' = cfbC₁ X C₁ ≥ 1` (`M4ClassPrice`'s header). -/
@@ -466,7 +466,7 @@ theorem m4_rawMS_priced_decay {X C₁ K h G : ℝ} {q M : ℕ} (hX : 0 < Real.lo
     (g2 : 1787702400 * a2Level1 M ≤ G / 5)
     (g3 : 188133 * (Real.log X) ^ (-(1 : ℝ) / 500) ≤ G / 5)
     (g4 : 304128 * ballSupC ^ 2
-        * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2) ≤ G / 5)
+        * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2) ≤ G / 5)
     (g5 : 6315000 / h ≤ G / 5) :
     m4RawMS (cfbC₁ X C₁) (cfbM0 K q X) M X h ≤ G := by
   have hdec : 8448 * cfbC₁ X C₁ ^ 2 * Real.exp (-(1 / Real.exp 1) * cfbM0 K q X)
@@ -492,7 +492,7 @@ theorem m4DecayGrade_le_debit {X C₁ K : ℝ} {q : ℕ} (hX : 1 ≤ Real.log X)
               + 1 / 4 * (q : ℝ) + K)) := by positivity
   unfold m4DecayGrade
   nlinarith [Real.rpow_nonneg (le_trans zero_le_one hX)
-    ((1 : ℝ) / 15 - 7 / (30 * Real.exp 1))]
+    ((1 : ℝ) / 45 - 7 / (30 * Real.exp 1))]
 
 /-! ## §5 — ⟦THE CLOSE⟧
 

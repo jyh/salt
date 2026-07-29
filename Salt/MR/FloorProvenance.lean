@@ -23,7 +23,7 @@ lands the chain that actually connects them, with every price in the open.
 
 1. **There is no additive comparison.**  `M_range(1) − (a loss) ≤ M_range(seam)` is not a
    shape the machinery produces and is not true with any `o(loglog X)` loss: take
-   `g p = p^{iτ}` with `τ − t₀` INSIDE the window `[(logX)^{1/15}, T + (logX)^{1/16}]` — the
+   `g p = p^{iτ}` with `τ − t₀` INSIDE the window `[(logX)^{1/45}, T + (logX)^{1/46}]` — the
    seam datum's distance vanishes there, so `M_range(seam) = 0` while `M_range(1) ≍ loglog X`.
    The honest comparison is the RECENTRING `(√L − √S)²` of `DistSplit.dist_recenter_sq`:
    it needs a CENTRE `t₁` and a CAP `S` at that centre, and it costs a factor `4`
@@ -70,10 +70,10 @@ lands the chain that actually connects them, with every price in the open.
   translation, which is the whole content of `seamCoeff_trivial_dist_eq`.
 * **§3 (F-2)** `Mrange_seam_floor_of_cap` — the composed floor: the pointwise bound holds at
   every frequency the infimum sees, and the window is nonempty
-  (`Mrange_one_floor`'s own witness `t = (logX)^{1/15}`, under its own gate
-  `(logX)^{1/15} ≤ T`; `sInf ∅ = 0` in `ℝ`, so nonemptiness is load-bearing).  Two geometric
+  (`Mrange_one_floor`'s own witness `t = (logX)^{1/45}`, under its own gate
+  `(logX)^{1/45} ≤ T`; `sInf ∅ = 0` in `ℝ`, so nonemptiness is load-bearing).  Two geometric
   gates make the height range hold uniformly on the window:
-  `|t₁| + 1 ≤ (logX)^{1/15}` (separation) and `T + (logX)^{1/16} + |t₁| ≤ X` (the cap on the
+  `|t₁| + 1 ≤ (logX)^{1/45}` (separation) and `T + (logX)^{1/46} + |t₁| ≤ X` (the cap on the
   height, `M_range`'s own `|t| ≤ X` cap being too weak to survive the recentring shift).
 * **§4 (F-3)** `Mrange_seam_floor_column` — the binder produced VERBATIM at the column's datum
   `seamCoeff (ellLin g) (fun _ => 1) t₀`; `T1_decay_column_cap_supplied` pins it into
@@ -243,13 +243,13 @@ centre `t₁`, plus the ball/window geometry, supplies the column's floor OUTRIG
 The gates, all in-statement (law #253):
 
 * `Real.exp 1 ≤ X` — every `loglog` page's opening gate;
-* `(logX)^{1/15} ≤ T` — `Mrange_one_floor`'s own gate; it is what makes the window NONEMPTY
-  (witness `t = (logX)^{1/15}`).  `sInf ∅ = 0` in `ℝ`, so without it the claim is false, not
+* `(logX)^{1/45} ≤ T` — `Mrange_one_floor`'s own gate; it is what makes the window NONEMPTY
+  (witness `t = (logX)^{1/45}`).  `sInf ∅ = 0` in `ℝ`, so without it the claim is false, not
   merely unprovable;
-* `|t₁| + 1 ≤ (logX)^{1/15}` — the SEPARATION gate: the centre sits inside the annulus's inner
+* `|t₁| + 1 ≤ (logX)^{1/45}` — the SEPARATION gate: the centre sits inside the annulus's inner
   radius with `1` to spare, so every frequency the infimum sees is `≥ 1` away from it (the
   `dist_one_floor_pow` hypothesis `1 ≤ |b|`);
-* `T + (logX)^{1/16} + |t₁| ≤ X` — the HEIGHT gate: `M_range`'s own cap `|t| ≤ X` does not
+* `T + (logX)^{1/46} + |t₁| ≤ X` — the HEIGHT gate: `M_range`'s own cap `|t| ≤ X` does not
   survive the recentring translation `t ↦ t − t₁`, so the cap is restated on the translated
   height (`dist_one_floor_pow`'s `|b| ≤ X`, via `loglog_height_le` at `Q = 1`);
 * `0 ≤ W` and `5·logloglog(2X+16) + C + W ≤ (1/32)·loglog X` — the SLACK page.  `W` is the
@@ -264,9 +264,9 @@ gates), then `le_csInf` over the nonempty window. -/
 theorem Mrange_seam_floor_of_cap :
     ∃ C : ℝ, 0 ≤ C ∧ ∀ (f : ℕ → ℂ), (∀ n, ‖f n‖ ≤ 1) → ∀ (t₀ t₁ X T W : ℝ),
       Real.exp 1 ≤ X →
-      (Real.log X) ^ (1 / 15 : ℝ) ≤ T →
-      |t₁| + 1 ≤ (Real.log X) ^ (1 / 15 : ℝ) →
-      T + (Real.log X) ^ (1 / 16 : ℝ) + |t₁| ≤ X →
+      (Real.log X) ^ (1 / 45 : ℝ) ≤ T →
+      |t₁| + 1 ≤ (Real.log X) ^ (1 / 45 : ℝ) →
+      T + (Real.log X) ^ (1 / 46 : ℝ) + |t₁| ≤ X →
       0 ≤ W →
       pretDistSq (seamCoeff f (fun _ => 1) t₀) (costwist t₁) X
           ≤ (1 / 16) * Real.log (Real.log X) →
@@ -282,16 +282,16 @@ theorem Mrange_seam_floor_of_cap :
     rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
   have hLXpos : (0 : ℝ) < Real.log X := by linarith
   have hℓnn : 0 ≤ Real.log (Real.log X) := Real.log_nonneg hlogX1
-  have hr15nn : (0 : ℝ) ≤ (Real.log X) ^ (1 / 15 : ℝ) := Real.rpow_nonneg hLXpos.le _
-  have hr16nn : (0 : ℝ) ≤ (Real.log X) ^ (1 / 16 : ℝ) := Real.rpow_nonneg hLXpos.le _
-  have hr15X : (Real.log X) ^ (1 / 15 : ℝ) ≤ X := by
-    calc (Real.log X) ^ (1 / 15 : ℝ) ≤ (Real.log X) ^ (1 : ℝ) :=
+  have hr15nn : (0 : ℝ) ≤ (Real.log X) ^ (1 / 45 : ℝ) := Real.rpow_nonneg hLXpos.le _
+  have hr16nn : (0 : ℝ) ≤ (Real.log X) ^ (1 / 46 : ℝ) := Real.rpow_nonneg hLXpos.le _
+  have hr15X : (Real.log X) ^ (1 / 45 : ℝ) ≤ X := by
+    calc (Real.log X) ^ (1 / 45 : ℝ) ≤ (Real.log X) ^ (1 : ℝ) :=
           Real.rpow_le_rpow_of_exponent_le hlogX1 (by norm_num)
       _ = Real.log X := Real.rpow_one _
       _ ≤ X := by linarith [Real.log_le_sub_one_of_pos hXpos]
   -- the pointwise floor, at every frequency the infimum sees
   have hfloor : ∀ t : ℝ,
-      (Real.log X) ^ (1 / 15 : ℝ) ≤ |t| ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X →
+      (Real.log X) ^ (1 / 45 : ℝ) ≤ |t| ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X →
       (1 / 32) * Real.log (Real.log X)
         ≤ pretDistSq (seamCoeff f (fun _ => 1) t₀) (costwist t) X := by
     rintro t ⟨htlo, hthi, _⟩
@@ -304,10 +304,10 @@ theorem Mrange_seam_floor_of_cap :
     have hpt' := hpt f hf t₀ t t₁ X hX h1 h2 hcap (by linarith)
     linarith [hpt']
   -- the window is nonempty (`Mrange_one_floor`'s own witness)
-  have hne : ({t : ℝ | (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X}).Nonempty := by
-    refine ⟨(Real.log X) ^ (1 / 15 : ℝ), ?_⟩
-    have habs : |(Real.log X) ^ (1 / 15 : ℝ)| = (Real.log X) ^ (1 / 15 : ℝ) :=
+  have hne : ({t : ℝ | (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X}).Nonempty := by
+    refine ⟨(Real.log X) ^ (1 / 45 : ℝ), ?_⟩
+    have habs : |(Real.log X) ^ (1 / 45 : ℝ)| = (Real.log X) ^ (1 / 45 : ℝ) :=
       abs_of_nonneg hr15nn
     rw [Set.mem_setOf_eq, habs]
     exact ⟨le_refl _, by linarith, hr15X⟩
@@ -321,8 +321,8 @@ catches on this campaign): a hypothesis nobody can satisfy is not a gate, it is 
 A-10 ball cap of §3 IS satisfiable — at the trivial datum and the trivial centre the seam
 distance is exactly `0`, so the cap holds with the whole `(1/16)·loglog X` to spare.  The
 matching geometry is satisfiable at the same witness (`t₁ = 0`: separation reads
-`1 ≤ (logX)^{1/15}`, true for `X ≥ e`; the height gate reads `T + (logX)^{1/16} ≤ X`, true at
-`T = (logX)^{1/15}` for large `X`), and the slack gate is `logloglog = o(loglog)`.  So §3 has
+`1 ≤ (logX)^{1/45}`, true for `X ≥ e`; the height gate reads `T + (logX)^{1/46} ≤ X`, true at
+`T = (logX)^{1/45}` for large `X`), and the slack gate is `logloglog = o(loglog)`.  So §3 has
 a non-empty instance set; what it does NOT have is a landed asymptotic discharge of the slack
 gate (an explicit `X₀` tower) — that is carried, not hidden. -/
 theorem cap_gate_satisfiable {X : ℝ} (hX : Real.exp 1 ≤ X) :
@@ -358,9 +358,9 @@ This is the stone the column's docstrings should name in place of `Mrange_one_fl
 theorem Mrange_seam_floor_column :
     ∃ C : ℝ, 0 ≤ C ∧ ∀ (g : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → ∀ (t₀ t₁ X T W : ℝ),
       Real.exp 1 ≤ X →
-      (Real.log X) ^ (1 / 15 : ℝ) ≤ T →
-      |t₁| + 1 ≤ (Real.log X) ^ (1 / 15 : ℝ) →
-      T + (Real.log X) ^ (1 / 16 : ℝ) + |t₁| ≤ X →
+      (Real.log X) ^ (1 / 45 : ℝ) ≤ T →
+      |t₁| + 1 ≤ (Real.log X) ^ (1 / 45 : ℝ) →
+      T + (Real.log X) ^ (1 / 46 : ℝ) + |t₁| ≤ X →
       0 ≤ W →
       pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X
           ≤ (1 / 16) * Real.log (Real.log X) →
@@ -386,9 +386,9 @@ theorem T1_decay_column_cap_supplied :
         Uhead ≤ C₁ * X
           * Real.exp (-(1 / Real.exp 1) * M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T) →
         Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2) →
-        (Real.log X) ^ (1 / 15 : ℝ) ≤ T →
-        |t₁| + 1 ≤ (Real.log X) ^ (1 / 15 : ℝ) →
-        T + (Real.log X) ^ (1 / 16 : ℝ) + |t₁| ≤ X →
+        (Real.log X) ^ (1 / 45 : ℝ) ≤ T →
+        |t₁| + 1 ≤ (Real.log X) ^ (1 / 45 : ℝ) →
+        T + (Real.log X) ^ (1 / 46 : ℝ) + |t₁| ≤ X →
         0 ≤ W →
         pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X
             ≤ (1 / 16) * Real.log (Real.log X) →
@@ -422,13 +422,13 @@ inputs are the geometry (separation + height) and the slack gate. -/
 theorem Mrange_seam_floor_A10 :
     ∃ C : ℝ, 0 ≤ C ∧ ∀ (f : ℕ → ℂ), (∀ n, ‖f n‖ ≤ 1) → ∀ (t₀ t₁ X T R W : ℝ),
       farArmThreshold ≤ X →
-      (Real.log X) ^ (1 / 15 : ℝ) ≤ T →
+      (Real.log X) ^ (1 / 45 : ℝ) ≤ T →
       T + seamRad X ≤ R →
       (∀ v : ℝ, |v| ≤ R →
         pretDistSq (seamCoeff f (fun _ => 1) t₀) (costwist t₁) X
           ≤ pretDistSq (seamCoeff f (fun _ => 1) t₀) (costwist v) X) →
-      |t₁| + 1 ≤ (Real.log X) ^ (1 / 15 : ℝ) →
-      T + (Real.log X) ^ (1 / 16 : ℝ) + |t₁| ≤ X →
+      |t₁| + 1 ≤ (Real.log X) ^ (1 / 45 : ℝ) →
+      T + (Real.log X) ^ (1 / 46 : ℝ) + |t₁| ≤ X →
       0 ≤ W →
       5 * Real.log (Real.log (Real.log (2 * X + 16))) + C + W
           ≤ (1 / 32) * Real.log (Real.log X) →

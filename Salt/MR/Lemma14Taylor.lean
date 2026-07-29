@@ -12,7 +12,7 @@ import Salt.MR.ParsevalSL
 Source pin: **MR arXiv v4** (`docs/sources/1501.04585v4.pdf`), §7 "Parseval bound",
 p. 22 (Lemma 14; frozen statement transcribed verbatim in `Salt.MR.ParsevalSL`).
 
-In Lemma 14's proof the critical-line Perron integral splits at `T₀ = (log X)^{1/15}`.
+In Lemma 14's proof the critical-line Perron integral splits at `T₀ = (log X)^{1/45}`.
 On the **low slab** `|t| ≤ T₀` the object is (in `ParsevalAsm`'s normalization)
 
 `Uⱼ(x) := I · ∫_{|t|≤T₀} A(1+it) · ((x+hⱼ)^{1+it} − x^{1+it})/(1+it) dt`
@@ -37,13 +37,14 @@ the `Uⱼ` main term), one gets
 
 `‖(1/h₁)U₁ − (1/h₂)U₂‖ ≤ 4·(∑ 1/m)·T₀²·(h₂/x)`   (`uSlab_diff_bound` / `uSlab_dpolyA_diff_bound`).
 
-**The exponent check (did `2/15` survive?).**  With `x ≥ X`, `h₂ ≤ X/(log X)^{1/5}` and
-`T₀ = (log X)^{1/15}`:
-`T₀²·(h₂/x) ≤ (log X)^{2/15}·(log X)^{−1/5} = (log X)^{2/15−3/15} = (log X)^{−1/15}`
-(`taylor_grade_arith`).  So the **pointwise** bound is `≪ (log X)^{−1/15}`
-(`uSlab_taylor_main`), and its **square** is `≪ (log X)^{−2/15} = 1/T₀²` (`uSlab_taylor_main_sq`) —
-exactly the `1/(log X)^{2/15}` main term of Lemma 14 (an `x`-uniform bound, so the `(1/X)∫_X^{2X}`
-average is trivial on top).  **`2/15` survives with an `(log X)^{1/15}` margin to spare.**
+**The exponent check (did the head survive the re-cut?).**  With `x ≥ X`, `h₂ ≤ X/(log X)^{1/5}` and
+`T₀ = (log X)^{1/45}`:
+`T₀²·(h₂/x) ≤ (log X)^{2/45}·(log X)^{−1/5} = (log X)^{2/45−9/45} = (log X)^{−7/45}`
+(`taylor_grade_arith`).  So the **pointwise** bound is `≪ (log X)^{−7/45}`
+(`uSlab_taylor_main`), and its **square** is `≪ (log X)^{−14/45}` (`uSlab_taylor_main_sq`) —
+the re-cut twin of Lemma 14's `1/(log X)^{2/15}` main term (an `x`-uniform bound, so
+the `(1/X)∫_X^{2X}` average is trivial on top).  **The head survives the re-cut with
+room: `−14/45` is still far under `−1/500`.**
 
 All results are axiom-clean (`propext, Classical.choice, Quot.sound`); no `native_decide`,
 no new axioms, no `sorry`.
@@ -317,20 +318,20 @@ theorem uSlab_dpolyA_diff_bound (a : ℕ → ℂ) (s0 : Finset ℕ) {x h₁ h₂
   uSlab_diff_bound (dpolyA a s0) hx hh1 hh12 hT (dpolyA_continuous a s0 hpos)
     (fun t => dpolyA_norm_le a s0 hpos ha t)
 
-/-! ## The grade — `T₀²·(h₂/x) ≤ (log X)^{−1/15}` (the `2/15` check). -/
+/-! ## The grade — `T₀²·(h₂/x) ≤ (log X)^{−7/45}` (the head check). -/
 
-/-- **The exponent bookkeeping.**  With `x ≥ X`, `h₂ ≤ X·(log X)^{−1/5}` and `T₀ = (log X)^{1/15}`:
-`T₀²·(h₂/x) ≤ (log X)^{−1/15}` — i.e. `(log X)^{2/15}·(log X)^{−1/5} = (log X)^{−1/15}`.  This is
-what makes the U-slab main term `≪ 1/T₀² = 1/(log X)^{2/15}` after squaring. -/
+/-- **The exponent bookkeeping.**  With `x ≥ X`, `h₂ ≤ X·(log X)^{−1/5}` and `T₀ = (log X)^{1/45}`:
+`T₀²·(h₂/x) ≤ (log X)^{−7/45}` — i.e. `(log X)^{2/45}·(log X)^{−1/5} = (log X)^{−7/45}`.  This is
+what makes the U-slab main term `≪ (log X)^{−14/45}` after squaring. -/
 lemma taylor_grade_arith {x h₂ X : ℝ}
     (hX : 1 < X) (hxX : X ≤ x) (hh2 : 0 ≤ h₂)
     (hh2X : h₂ ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ))) :
-    ((Real.log X) ^ (1 / 15 : ℝ)) ^ 2 * (h₂ / x) ≤ (Real.log X) ^ (-(1 / 15 : ℝ)) := by
+    ((Real.log X) ^ (1 / 45 : ℝ)) ^ 2 * (h₂ / x) ≤ (Real.log X) ^ (-(7 / 45 : ℝ)) := by
   have hL : 0 < Real.log X := Real.log_pos hX
   have hXpos : 0 < X := lt_trans zero_lt_one hX
   have hXne : X ≠ 0 := hXpos.ne'
-  have hT2 : ((Real.log X) ^ (1 / 15 : ℝ)) ^ 2 = (Real.log X) ^ (2 / 15 : ℝ) := by
-    rw [← Real.rpow_natCast ((Real.log X) ^ (1 / 15 : ℝ)) 2, ← Real.rpow_mul hL.le]
+  have hT2 : ((Real.log X) ^ (1 / 45 : ℝ)) ^ 2 = (Real.log X) ^ (2 / 45 : ℝ) := by
+    rw [← Real.rpow_natCast ((Real.log X) ^ (1 / 45 : ℝ)) 2, ← Real.rpow_mul hL.le]
     norm_num
   have hfrac : h₂ / x ≤ (Real.log X) ^ (-(1 / 5 : ℝ)) := by
     calc h₂ / x ≤ h₂ / X := by gcongr
@@ -338,55 +339,55 @@ lemma taylor_grade_arith {x h₂ X : ℝ}
       _ = (Real.log X) ^ (-(1 / 5 : ℝ)) := by
           rw [mul_comm, mul_div_assoc, div_self hXne, mul_one]
   rw [hT2]
-  calc (Real.log X) ^ (2 / 15 : ℝ) * (h₂ / x)
-      ≤ (Real.log X) ^ (2 / 15 : ℝ) * (Real.log X) ^ (-(1 / 5 : ℝ)) := by gcongr
-    _ = (Real.log X) ^ (-(1 / 15 : ℝ)) := by rw [← Real.rpow_add hL]; norm_num
+  calc (Real.log X) ^ (2 / 45 : ℝ) * (h₂ / x)
+      ≤ (Real.log X) ^ (2 / 45 : ℝ) * (Real.log X) ^ (-(1 / 5 : ℝ)) := by gcongr
+    _ = (Real.log X) ^ (-(7 / 45 : ℝ)) := by rw [← Real.rpow_add hL]; norm_num
 
 /-- **Stone S-B (`A3a-R2`), the pointwise form.**  The U-slab weighted difference for the Dirichlet
-weight is `≪ (log X)^{−1/15}`, uniformly in `x ∈ [X, ∞)`, at `T₀ = (log X)^{1/15}`, `x ≥ X`,
+weight is `≪ (log X)^{−7/45}`, uniformly in `x ∈ [X, ∞)`, at `T₀ = (log X)^{1/45}`, `x ≥ X`,
 `1 ≤ h₁ ≤ h₂ ≤ X/(log X)^{1/5}`, `‖aₘ‖ ≤ 1` on `s0`.  Combines `uSlab_dpolyA_diff_bound` with
 `taylor_grade_arith`. -/
 theorem uSlab_taylor_main (a : ℕ → ℂ) (s0 : Finset ℕ) {x h₁ h₂ X : ℝ}
     (hX : 1 < X) (hxX : X ≤ x)
     (hh1 : 1 ≤ h₁) (hh12 : h₁ ≤ h₂) (hh2X : h₂ ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ)))
     (hpos : ∀ m ∈ s0, 0 < m) (ha : ∀ m ∈ s0, ‖a m‖ ≤ 1) :
-    ‖((1 / h₁ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₁ ((Real.log X) ^ (1 / 15 : ℝ))
-        - ((1 / h₂ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₂ ((Real.log X) ^ (1 / 15 : ℝ))‖
-      ≤ 4 * (∑ m ∈ s0, 1 / (m : ℝ)) * (Real.log X) ^ (-(1 / 15 : ℝ)) := by
+    ‖((1 / h₁ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₁ ((Real.log X) ^ (1 / 45 : ℝ))
+        - ((1 / h₂ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₂ ((Real.log X) ^ (1 / 45 : ℝ))‖
+      ≤ 4 * (∑ m ∈ s0, 1 / (m : ℝ)) * (Real.log X) ^ (-(7 / 45 : ℝ)) := by
   have hx0 : 0 < x := lt_of_lt_of_le (lt_trans zero_lt_one hX) hxX
   have hh1' : 0 < h₁ := lt_of_lt_of_le zero_lt_one hh1
   have hh2' : 0 ≤ h₂ := le_trans (le_trans zero_le_one hh1) hh12
-  have hT : 0 ≤ (Real.log X) ^ (1 / 15 : ℝ) := Real.rpow_nonneg (Real.log_pos hX).le _
+  have hT : 0 ≤ (Real.log X) ^ (1 / 45 : ℝ) := Real.rpow_nonneg (Real.log_pos hX).le _
   have hbound := uSlab_dpolyA_diff_bound a s0 hx0 hh1' hh12 hT hpos ha
   have hgrade := taylor_grade_arith hX hxX hh2' hh2X
-  calc ‖((1 / h₁ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₁ ((Real.log X) ^ (1 / 15 : ℝ))
-          - ((1 / h₂ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₂ ((Real.log X) ^ (1 / 15 : ℝ))‖
-      ≤ 4 * (∑ m ∈ s0, 1 / (m : ℝ)) * ((Real.log X) ^ (1 / 15 : ℝ)) ^ 2 * (h₂ / x) := hbound
-    _ = 4 * (∑ m ∈ s0, 1 / (m : ℝ)) * (((Real.log X) ^ (1 / 15 : ℝ)) ^ 2 * (h₂ / x)) := by ring
-    _ ≤ 4 * (∑ m ∈ s0, 1 / (m : ℝ)) * (Real.log X) ^ (-(1 / 15 : ℝ)) :=
+  calc ‖((1 / h₁ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₁ ((Real.log X) ^ (1 / 45 : ℝ))
+          - ((1 / h₂ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₂ ((Real.log X) ^ (1 / 45 : ℝ))‖
+      ≤ 4 * (∑ m ∈ s0, 1 / (m : ℝ)) * ((Real.log X) ^ (1 / 45 : ℝ)) ^ 2 * (h₂ / x) := hbound
+    _ = 4 * (∑ m ∈ s0, 1 / (m : ℝ)) * (((Real.log X) ^ (1 / 45 : ℝ)) ^ 2 * (h₂ / x)) := by ring
+    _ ≤ 4 * (∑ m ∈ s0, 1 / (m : ℝ)) * (Real.log X) ^ (-(7 / 45 : ℝ)) :=
         mul_le_mul_of_nonneg_left hgrade (by positivity)
 
-/-- **Stone S-B, the squared / `2/15` form.**  The square of the U-slab weighted difference is
-`≪ (log X)^{−2/15} = 1/T₀²` — exactly the `1/(log X)^{2/15}` main term of Lemma 14 (an `x`-uniform
-bound, so the `(1/X)∫_X^{2X}` average carries through trivially). -/
+/-- **Stone S-B, the squared / head form.**  The square of the U-slab weighted difference is
+`≪ (log X)^{−14/45}` — the re-cut twin of Lemma 14's `1/(log X)^{2/15}` main term (an
+`x`-uniform bound, so the `(1/X)∫_X^{2X}` average carries through trivially). -/
 theorem uSlab_taylor_main_sq (a : ℕ → ℂ) (s0 : Finset ℕ) {x h₁ h₂ X : ℝ}
     (hX : 1 < X) (hxX : X ≤ x)
     (hh1 : 1 ≤ h₁) (hh12 : h₁ ≤ h₂) (hh2X : h₂ ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ)))
     (hpos : ∀ m ∈ s0, 0 < m) (ha : ∀ m ∈ s0, ‖a m‖ ≤ 1) :
-    ‖((1 / h₁ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₁ ((Real.log X) ^ (1 / 15 : ℝ))
-        - ((1 / h₂ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₂ ((Real.log X) ^ (1 / 15 : ℝ))‖ ^ 2
-      ≤ 16 * (∑ m ∈ s0, 1 / (m : ℝ)) ^ 2 * (Real.log X) ^ (-(2 / 15 : ℝ)) := by
+    ‖((1 / h₁ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₁ ((Real.log X) ^ (1 / 45 : ℝ))
+        - ((1 / h₂ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₂ ((Real.log X) ^ (1 / 45 : ℝ))‖ ^ 2
+      ≤ 16 * (∑ m ∈ s0, 1 / (m : ℝ)) ^ 2 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by
   have hL : 0 < Real.log X := Real.log_pos hX
   have hmain := uSlab_taylor_main a s0 hX hxX hh1 hh12 hh2X hpos ha
-  have hbnn : (0 : ℝ) ≤ 4 * (∑ m ∈ s0, 1 / (m : ℝ)) * (Real.log X) ^ (-(1 / 15 : ℝ)) := by
+  have hbnn : (0 : ℝ) ≤ 4 * (∑ m ∈ s0, 1 / (m : ℝ)) * (Real.log X) ^ (-(7 / 45 : ℝ)) := by
     positivity
-  calc ‖((1 / h₁ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₁ ((Real.log X) ^ (1 / 15 : ℝ))
-          - ((1 / h₂ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₂ ((Real.log X) ^ (1 / 15 : ℝ))‖ ^ 2
-      ≤ (4 * (∑ m ∈ s0, 1 / (m : ℝ)) * (Real.log X) ^ (-(1 / 15 : ℝ))) ^ 2 := by
+  calc ‖((1 / h₁ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₁ ((Real.log X) ^ (1 / 45 : ℝ))
+          - ((1 / h₂ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₂ ((Real.log X) ^ (1 / 45 : ℝ))‖ ^ 2
+      ≤ (4 * (∑ m ∈ s0, 1 / (m : ℝ)) * (Real.log X) ^ (-(7 / 45 : ℝ))) ^ 2 := by
         gcongr
-    _ = 16 * (∑ m ∈ s0, 1 / (m : ℝ)) ^ 2 * (Real.log X) ^ (-(2 / 15 : ℝ)) := by
-        have he : ((Real.log X) ^ (-(1 / 15 : ℝ))) ^ 2 = (Real.log X) ^ (-(2 / 15 : ℝ)) := by
-          rw [← Real.rpow_natCast ((Real.log X) ^ (-(1 / 15 : ℝ))) 2, ← Real.rpow_mul hL.le]
+    _ = 16 * (∑ m ∈ s0, 1 / (m : ℝ)) ^ 2 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by
+        have he : ((Real.log X) ^ (-(7 / 45 : ℝ))) ^ 2 = (Real.log X) ^ (-(14 / 45 : ℝ)) := by
+          rw [← Real.rpow_natCast ((Real.log X) ^ (-(7 / 45 : ℝ))) 2, ← Real.rpow_mul hL.le]
           norm_num
         rw [mul_pow, mul_pow, he]; ring
 

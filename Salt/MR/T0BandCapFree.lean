@@ -24,7 +24,7 @@ lands the same conclusion WITHOUT the cap, by the route the M4-plan refuter pass
   which gives the UNWEIGHTED sup at every band frequency with no recentring at all;
 * the band integral is then the **crude fold** `∫_{−T₀}^{T₀} ≤ 2T₀·sup²`.
 
-The price is exactly one factor `T₀ = seamT0 X = (log X)^{1/15}` on the main term, i.e.
+The price is exactly one factor `T₀ = seamT0 X = (log X)^{1/45}` on the main term, i.e.
 `(log X)^{1/30}` inside the interface's `C₁′` (catch #253: an `X`-DEPENDENT `C₁′`, named and
 carried symbolically — `cfbC₁`).  The gate that pays for it is in-statement.
 
@@ -42,8 +42,8 @@ carried symbolically — `cfbC₁`).  The gate that pays for it is in-statement.
   `chi_floor_band_nonreal` (non-real `χ`, the 3-4-1 mid branch at the band height,
   coefficient **7/30**), and `band_floor_M0` / `band_floor_M0_liouChi`, the assembled
   uniform floor `cfbM0`.
-* §4 the two named thresholds — `cfb_gate_decay` (the gate `M₀ ≥ (103/1500)e·loglog X` turns
-  `T₀·e^{−M₀/e}` into `(log X)^{−1/500}`, an EXACT identity: `1/15 − 103/1500 = −1/500`) and
+* §4 the two named thresholds — `cfb_gate_decay` (the gate `M₀ ≥ (1009/45000)e·loglog X` turns
+  `T₀·e^{−M₀/e}` into `(log X)^{−1/5000}`, an EXACT identity: `1/45 − 1009/45000 = −1/5000`) and
   `cfb_floor_clears_gate` (the band floor clears that gate), plus the minor side condition
   `cfb_ballerr_le`.
 * §5 `cfbC₁` / `cfb_t0band_supply` / `cfb_t0band_supply_chi` — THE EXIT, in the byte shape
@@ -53,7 +53,7 @@ carried symbolically — `cfbC₁`).  The gate that pays for it is in-statement.
 ## THE GRADE NOTE (every factor written out, no `o(1)`)
 
 Write `E := e^{−M₀/(2e)}`, `P := (log X)^{−1/2+1/1000}`, `S₀ := C₁·E + 4P`,
-`T₀ := seamT0 X = (log X)^{1/15}`.  §1 gives `‖A_t(m)‖ ≤ 2S₀·m` for every `|t| ≤ T₀`; §2
+`T₀ := seamT0 X = (log X)^{1/45}`.  §1 gives `‖A_t(m)‖ ≤ 2S₀·m` for every `|t| ≤ T₀`; §2
 folds it to
 
   `∫_{−T₀}^{T₀} ‖dpolyA‖² ≤ 8·T₀·(2S₀)² = 32·T₀·S₀²`.
@@ -66,15 +66,15 @@ With `4P ≤ E` (the side condition `cfb_ballerr_le` discharges) and `C₁ ≥ 1
 since `cfbC₁ X C₁ = (C₁+1)·√T₀`.  The plug is therefore honest with a factor `2` to spare.
 Downstream, `thm_a2'_of_rows`'s first summand becomes
 
-  `8448·(C₁+1)²·(log X)^{1/15}·e^{−M₀/e}`,
+  `8448·(C₁+1)²·(log X)^{1/45}·e^{−M₀/e}`,
 
-and §4's gate `M₀ ≥ (103/1500)·e·loglog X ≈ 0.18665·loglog X` sends it under
-`8448·(C₁+1)²·(log X)^{−1/500}` — the interface's third summand's own shape.
+and §4's gate `M₀ ≥ (1009/45000)·e·loglog X ≈ 0.06095·loglog X` sends it under
+`8448·(C₁+1)²·(log X)^{−1/5000}` — the interface's third summand's own shape.
 
 ## THE BAND FLOOR, per class (the whole point of the band)
 
 On `|v| ≤ 2T₀ + 1` the `k = 2` drift `(3/4)·loglog(|2v|+3)` is NOT the bulk's
-`(3/4)(loglog X + log 2)`: `|2v| + 3 ≤ 9·(log X)^{1/15}` gives
+`(3/4)(loglog X + log 2)`: `|2v| + 3 ≤ 9·(log X)^{1/45}` gives
 `loglog(|2v|+3) ≤ logloglog X + 1`.  So the bracket keeps its full `loglog X` and the `/k²`
 delivers `1/4`, not the bulk's `1/16`:
 
@@ -89,7 +89,7 @@ delivers `1/4`, not the bulk's `1/16`:
 (`L := loglog X`, `ℓ := logloglog X`.)  The non-real arm pays `(1/4)·log(3+2T)` for the band
 HEIGHT, i.e. `(1/60)L`, so its coefficient is `1/4 − 1/60 = 7/30 = 0.2333…` rather than the
 real arms' `1/4`; `band_floor_M0` states the uniform coefficient `7/30`, and `7/30` still
-clears the gate's `0.18665` with margin `0.0467·loglog X`.  **No VK socket is consumed** —
+clears the gate's `0.06095` with margin `0.1724·loglog X`.  **No VK socket is consumed** —
 the mid branch's growth input (`LFunction_norm_le_level`) is unconditional on a bounded
 height window, and the band IS bounded.  The Siegel-band arm is the only ineffective input
 (`siegelBandB`'s EVT minimum, POISON 2), confined to `χ² = 1, |v| ≤ 1/2` exactly as
@@ -101,8 +101,8 @@ height window, and the band IS bounded.  The Siegel-band arm is the only ineffec
   `HalaszHead.seamCoeff_trivial_dist_eq` is the adapter and `cfb_seam_floor_of_band` is the
   only place it is used.  The honest uniform range is `|t₀ + t| ≤ 2·seamT0 X + 1`, which is
   what `band_floor_M0` quantifies over, and it needs `|t₀| ≤ seamT0 X + 1` from the consumer.
-* **`seamT0` vs `seamRad`** — everything here is `seamT0 X = (log X)^{1/15}`; `seamRad`
-  (`(log X)^{1/16}`) never appears.
+* **`seamT0` vs `seamRad`** — everything here is `seamT0 X = (log X)^{1/45}`; `seamRad`
+  (`(log X)^{1/46}`) never appears.
 * **the `lam` collision** — `lamChi χ` is the pretentious datum (prime-correct only);
   `liouChi χ` is the sum-side datum.  §3's floors are stated on `lamChi` and transported to
   `liouChi` by `CapFreeAssembly.pretDistSq_liouChi_eq` (an EQUALITY).  The exit's `g`-slot
@@ -233,10 +233,10 @@ private lemma cfb_seamT0_one_le {X : ℝ} (hX : Real.exp (Real.exp 1) ≤ X) :
   have hL1 : (1 : ℝ) ≤ Real.log X := by linarith [Real.exp_one_gt_d9]
   unfold seamT0
   calc (1 : ℝ) = Real.log X ^ (0 : ℝ) := (Real.rpow_zero _).symm
-    _ ≤ Real.log X ^ (1 / 15 : ℝ) := Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
+    _ ≤ Real.log X ^ (1 / 45 : ℝ) := Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
 
 private lemma cfb_seamT0_log {X : ℝ} (hX : Real.exp (Real.exp 1) ≤ X) :
-    Real.log (seamT0 X) = (1 / 15) * Real.log (Real.log X) := by
+    Real.log (seamT0 X) = (1 / 45) * Real.log (Real.log X) := by
   obtain ⟨_, hlogX, _, _⟩ := cff_scale_facts hX
   have hL0 : (0 : ℝ) < Real.log X := lt_of_lt_of_le (Real.exp_pos 1) hlogX
   unfold seamT0
@@ -279,8 +279,8 @@ private lemma cfb_log_twentytwo : Real.log 22 ≤ 3.1 := by
 This is the inequality the whole cap-free band rests on.  On the CONTOUR BOX
 (`|v| ≤ 3X`, `CapFreeAssembly.cff_box_loglog`) the same quantity is only
 `loglog X + log 2` — a full `loglog X`, which is what forces the bulk's `1/16`.  On the BAND
-`|v| ≤ 2·seamT0 X + 1` we have `|2v| + 3 ≤ 9·(log X)^{1/15}`, so the inner log is
-`log 9 + (1/15)loglog X` and the outer one is `logloglog X + O(1)`: the `k = 2` bracket keeps
+`|v| ≤ 2·seamT0 X + 1` we have `|2v| + 3 ≤ 9·(log X)^{1/45}`, so the inner log is
+`log 9 + (1/45)loglog X` and the outer one is `logloglog X + O(1)`: the `k = 2` bracket keeps
 its full `loglog X` and the `/k² = /4` delivers the coefficient `1/4`. -/
 theorem cfb_band_loglog {X v : ℝ} (hX : Real.exp (Real.exp 1) ≤ X)
     (hv : |v| ≤ 2 * seamT0 X + 1) :
@@ -296,7 +296,7 @@ theorem cfb_band_loglog {X v : ℝ} (hX : Real.exp (Real.exp 1) ≤ X)
   have hbox : |2 * v| + 3 ≤ 9 * seamT0 X := by
     rw [habs]; linarith
   have hpos : (0 : ℝ) < |2 * v| + 3 := by positivity
-  have h1 : Real.log (|2 * v| + 3) ≤ Real.log 9 + (1 / 15) * Real.log (Real.log X) := by
+  have h1 : Real.log (|2 * v| + 3) ≤ Real.log 9 + (1 / 45) * Real.log (Real.log X) := by
     have hle := Real.log_le_log hpos hbox
     rw [Real.log_mul (by norm_num) (by linarith : seamT0 X ≠ 0), hTlog] at hle
     exact hle
@@ -313,7 +313,7 @@ theorem cfb_band_loglog {X v : ℝ} (hX : Real.exp (Real.exp 1) ≤ X)
   linarith
 
 /-- **BAND DRIFT 2 — `logloglog(|2v|+16) ≤ logloglog X + 1` on the band.**  The same
-doubling one level up: `|2v| + 16 ≤ 22·(log X)^{1/15}`, so `loglog(|2v|+16) ≤ 2 + logloglog X`
+doubling one level up: `|2v| + 16 ≤ 22·(log X)^{1/45}`, so `loglog(|2v|+16) ≤ 2 + logloglog X`
 and one more `log` (with `log(2+u) ≤ 1+u`) lands the claim. -/
 theorem cfb_band_logloglog {X v : ℝ} (hX : Real.exp (Real.exp 1) ≤ X)
     (hv : |v| ≤ 2 * seamT0 X + 1) :
@@ -330,7 +330,7 @@ theorem cfb_band_logloglog {X v : ℝ} (hX : Real.exp (Real.exp 1) ≤ X)
   have hbox : |2 * v| + 16 ≤ 22 * seamT0 X := by
     rw [habs]; linarith
   have hpos : (0 : ℝ) < |2 * v| + 16 := by positivity
-  have h1 : Real.log (|2 * v| + 16) ≤ Real.log 22 + (1 / 15) * Real.log (Real.log X) := by
+  have h1 : Real.log (|2 * v| + 16) ≤ Real.log 22 + (1 / 45) * Real.log (Real.log X) := by
     have hle := Real.log_le_log hpos hbox
     rw [Real.log_mul (by norm_num) (by linarith : seamT0 X ≠ 0), hTlog] at hle
     exact hle
@@ -368,7 +368,7 @@ frequency with `1/2 ≤ |v| ≤ 2·seamT0 X + 1`:
 `ChiFloor.chi_floor_of_order` at `k = 2` with the two BAND drifts of this section (not
 `CapFreeAssembly`'s box drifts) and `primeDivSum_le_modulus`.  **The coefficient is `1/4`,
 four times the contour box's `1/16`** — the band's whole payoff, and the reason the
-`(103/1500)e ≈ 0.18665` gate is clearable at all.  `C` is uniform in `q`, `χ`, `X`, `v`. -/
+`(1009/45000)e ≈ 0.06095` gate is clearable at all.  `C` is uniform in `q`, `χ`, `X`, `v`. -/
 theorem chi_floor_band_strength :
     ∃ C : ℝ, ∀ (q : ℕ) (χ : DirichletCharacter ℂ q) (X v : ℝ), q ≠ 0 → χ ^ 2 = 1 →
       Real.exp (Real.exp 1) ≤ X → 1 / 2 ≤ |v| → |v| ≤ 2 * seamT0 X + 1 →
@@ -407,13 +407,13 @@ For every NON-REAL `χ mod q`, every `X ≥ exp(exp 1)` and every `|v| ≤ 2·se
   `2log4 + (3/4)log(1+log X) + (1/4)log(3(3+2T)q²(1+log q))
      ≤ (3/4 + 1/60)·loglog X + (3/4)·log q + [2log4 + (3/4)log2 + (1/4)log27]`,
 
-using `3(3+2T) ≤ 27·(log X)^{1/15}` and `1 + log q ≤ q`.  The surviving coefficient is
+using `3(3+2T) ≤ 27·(log X)^{1/45}` and `1 + log q ≤ q`.  The surviving coefficient is
 `1 − 3/4 − 1/60 = 7/30`.
 
 **No VK socket is consumed**: the mid branch's growth input is `LFunction_norm_le_level`,
 whose Pólya–Vinogradov shape is linear in the height and therefore harmless on a BOUNDED
 window — and the `T₀`-band is bounded.  The `(1/60)·loglog X` is exactly the price of the
-window's `X`-dependence, `(1/4)·log((log X)^{1/15})`. -/
+window's `X`-dependence, `(1/4)·log((log X)^{1/45})`. -/
 theorem chi_floor_band_nonreal :
     ∃ C : ℝ, ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (X v : ℝ), χ ^ 2 ≠ 1 →
       Real.exp (Real.exp 1) ≤ X → |v| ≤ 2 * seamT0 X + 1 →
@@ -463,7 +463,7 @@ theorem chi_floor_band_nonreal :
     have h3 : (0 : ℝ) < 3 * (3 + 2 * (2 * seamT0 X + 1)) := by linarith
     positivity
   have hd2 : Real.log (3 * (3 + 2 * (2 * seamT0 X + 1)) * (q : ℝ) ^ 2 * (1 + Real.log q))
-      ≤ Real.log 27 + (1 / 15) * Real.log (Real.log X) + 3 * Real.log q := by
+      ≤ Real.log 27 + (1 / 45) * Real.log (Real.log X) + 3 * Real.log q := by
     have hle := Real.log_le_log hppos hprod
     have hsplit : Real.log (27 * seamT0 X * (q : ℝ) ^ 3)
         = Real.log 27 + Real.log (seamT0 X) + 3 * Real.log q := by
@@ -545,40 +545,40 @@ theorem band_floor_M0_liouChi (Q : ℕ) :
 
 /-! ## §4 — THE TWO NAMED THRESHOLDS
 
-The gate is `M₀ ≥ e·(1/15 + 1/500)·loglog X = (103/1500)·e·loglog X ≈ 0.18665·loglog X`.
+The gate is `M₀ ≥ e·(1/45 + 1/5000)·loglog X = (1009/45000)·e·loglog X ≈ 0.06095·loglog X`.
 `SiegelBand.band_gate_threshold_cfb` already states the regime-side arm at coefficient `1`;
 the two stones here are the ANALYTIC content — what the gate buys (§4a) and that the band
 floor pays it (§4b, at the floor's own coefficient `7/30`). -/
 
 /-- **THRESHOLD 1 — THE GATE (`cfb_gate_decay`).**  Under
-`M₀ ≥ (103/1500)·e·loglog X`,
+`M₀ ≥ (1009/45000)·e·loglog X`,
 
-  `seamT0 X · e^{−M₀/e} ≤ (log X)^{−1/500}`.
+  `seamT0 X · e^{−M₀/e} ≤ (log X)^{−1/5000}`.
 
-The exponent arithmetic is EXACT, not an estimate: `e^{−M₀/e} ≤ (log X)^{−103/1500}` and
-`1/15 − 103/1500 = 100/1500 − 103/1500 = −3/1500 = −1/500`.  This is the whole reason the
-gate's constant is `103/1500` and not something rounder. -/
+The exponent arithmetic is EXACT, not an estimate: `e^{−M₀/e} ≤ (log X)^{−1009/45000}` and
+`1/45 − 1009/45000 = 1000/45000 − 1009/45000 = −9/45000 = −1/5000`.  This is the whole reason the
+gate's constant is `1009/45000` and not something rounder. -/
 theorem cfb_gate_decay {X M₀ : ℝ} (hX : Real.exp (Real.exp 1) ≤ X)
-    (hgate : 103 / 1500 * Real.exp 1 * Real.log (Real.log X) ≤ M₀) :
-    seamT0 X * Real.exp (-(1 / Real.exp 1) * M₀) ≤ Real.log X ^ (-(1 : ℝ) / 500) := by
+    (hgate : 1009 / 45000 * Real.exp 1 * Real.log (Real.log X) ≤ M₀) :
+    seamT0 X * Real.exp (-(1 / Real.exp 1) * M₀) ≤ Real.log X ^ (-(1 : ℝ) / 5000) := by
   obtain ⟨hX8, hlogX, hLL, hLLL⟩ := cff_scale_facts hX
   have hL0 : (0 : ℝ) < Real.log X := lt_of_lt_of_le (Real.exp_pos 1) hlogX
   have he0 : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
-  have hstep : Real.exp (-(1 / Real.exp 1) * M₀) ≤ Real.log X ^ (-(103 : ℝ) / 1500) := by
+  have hstep : Real.exp (-(1 / Real.exp 1) * M₀) ≤ Real.log X ^ (-(1009 : ℝ) / 45000) := by
     rw [Real.rpow_def_of_pos hL0]
     refine Real.exp_le_exp.mpr ?_
     have hinv : (0 : ℝ) ≤ 1 / Real.exp 1 := by positivity
     have hmul := mul_le_mul_of_nonneg_left hgate hinv
-    have hid : (1 / Real.exp 1) * (103 / 1500 * Real.exp 1 * Real.log (Real.log X))
-        = 103 / 1500 * Real.log (Real.log X) := by
+    have hid : (1 / Real.exp 1) * (1009 / 45000 * Real.exp 1 * Real.log (Real.log X))
+        = 1009 / 45000 * Real.log (Real.log X) := by
       field_simp
     rw [hid] at hmul
     nlinarith [hmul]
   have hT0 : (0 : ℝ) ≤ seamT0 X := seamT0_nonneg hL0.le
   calc seamT0 X * Real.exp (-(1 / Real.exp 1) * M₀)
-      ≤ seamT0 X * Real.log X ^ (-(103 : ℝ) / 1500) :=
+      ≤ seamT0 X * Real.log X ^ (-(1009 : ℝ) / 45000) :=
         mul_le_mul_of_nonneg_left hstep hT0
-    _ = Real.log X ^ (-(1 : ℝ) / 500) := by
+    _ = Real.log X ^ (-(1 : ℝ) / 5000) := by
         unfold seamT0
         rw [← Real.rpow_add hL0]
         norm_num
@@ -586,18 +586,18 @@ theorem cfb_gate_decay {X M₀ : ℝ} (hX : Real.exp (Real.exp 1) ≤ X)
 /-- **THRESHOLD 2 — THE BAND FLOOR CLEARS THE GATE (`cfb_floor_clears_gate`).**  With
 `L := loglog X` and the floor's own debits `D := (23/16)·logloglog X + (3/4)log q + (1/4)q + K`,
 
-  `22·D ≤ L  ⟹  (103/1500)·e·L ≤ cfbM0 K q X`.
+  `22·D ≤ L  ⟹  (1009/45000)·e·L ≤ cfbM0 K q X`.
 
-The margin is `7/30 − (103/1500)e ≥ 0.04667 ≥ 1/22`: the band's coefficient `7/30 = 0.2333`
-against the gate's `0.18665`.  (`e < 2.7182818286` is the only numeric input.)  Compare
-`CapFreeFloor`'s `1/32 = 0.03125`, which is `6×` SHORT of the gate — the refuter's K3
+The margin is `7/30 − (1009/45000)e ≥ 0.04667 ≥ 1/22`: the band's coefficient `7/30 = 0.2333`
+against the gate's `0.06095`.  (`e < 2.7182818286` is the only numeric input.)  Compare
+`CapFreeFloor`'s `1/32 = 0.03125`, which is still SHORT of the gate — the refuter's K3
 finding, and the reason this file re-derives the floor at band strength instead of consuming
 `CapFreeAssembly.capFreeFloor3_all_chi`. -/
 theorem cfb_floor_clears_gate {K : ℝ} {q : ℕ} {X : ℝ}
     (hLL : 0 ≤ Real.log (Real.log X))
     (hthr : 22 * ((23 / 16) * Real.log (Real.log (Real.log X)) + (3 / 4) * Real.log q
               + (1 / 4) * (q : ℝ) + K) ≤ Real.log (Real.log X)) :
-    103 / 1500 * Real.exp 1 * Real.log (Real.log X) ≤ cfbM0 K q X := by
+    1009 / 45000 * Real.exp 1 * Real.log (Real.log X) ≤ cfbM0 K q X := by
   have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
   have hmul : Real.exp 1 * Real.log (Real.log X)
       ≤ 2.7182818286 * Real.log (Real.log X) :=
@@ -675,16 +675,16 @@ lemma cfbC₁_nonneg {X C₁ : ℝ} (hC₁ : 1 ≤ C₁) : 0 ≤ cfbC₁ X C₁ 
 /-- **THE GATE, APPLIED TO THE INTERFACE SUMMAND** (`cfb_exit_summand_le`).  The first
 summand of `ThmA2Rows.thm_a2'_of_rows`'s conclusion, read at this file's `C₁′`, is
 
-  `8448·(cfbC₁ X C₁)²·e^{−M₀/e} = 8448·(C₁+1)²·(log X)^{1/15}·e^{−M₀/e}`
+  `8448·(cfbC₁ X C₁)²·e^{−M₀/e} = 8448·(C₁+1)²·(log X)^{1/45}·e^{−M₀/e}`
 
-(`cfbC₁_sq`), and the gate `M₀ ≥ (103/1500)·e·loglog X` sends it under
-`8448·(C₁+1)²·(log X)^{−1/500}` — the interface's own third-summand shape.  This is the whole
+(`cfbC₁_sq`), and the gate `M₀ ≥ (1009/45000)·e·loglog X` sends it under
+`8448·(C₁+1)²·(log X)^{−1/5000}` — the interface's own third-summand shape.  This is the whole
 arithmetic purpose of the `(log X)^{1/30}` inside `cfbC₁`: it is paid for, in-statement, by
 the gate, and `cfb_floor_clears_gate` is what makes the gate available from the band floor. -/
 theorem cfb_exit_summand_le {X C₁ M₀ : ℝ} (hX : Real.exp (Real.exp 1) ≤ X) (hC₁ : 1 ≤ C₁)
-    (hgate : 103 / 1500 * Real.exp 1 * Real.log (Real.log X) ≤ M₀) :
+    (hgate : 1009 / 45000 * Real.exp 1 * Real.log (Real.log X) ≤ M₀) :
     8448 * cfbC₁ X C₁ ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
-      ≤ 8448 * (C₁ + 1) ^ 2 * Real.log X ^ (-(1 : ℝ) / 500) := by
+      ≤ 8448 * (C₁ + 1) ^ 2 * Real.log X ^ (-(1 : ℝ) / 5000) := by
   obtain ⟨hX8, hlogX, hLL, hLLL⟩ := cff_scale_facts hX
   have hL0 : (0 : ℝ) < Real.log X := lt_of_lt_of_le (Real.exp_pos 1) hlogX
   have hdec := cfb_gate_decay hX hgate
@@ -693,14 +693,14 @@ theorem cfb_exit_summand_le {X C₁ M₀ : ℝ} (hX : Real.exp (Real.exp 1) ≤ 
   calc 8448 * cfbC₁ X C₁ ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
       = 8448 * (C₁ + 1) ^ 2 * (seamT0 X * Real.exp (-(1 / Real.exp 1) * M₀)) := by
         rw [hsq]; ring
-    _ ≤ 8448 * (C₁ + 1) ^ 2 * Real.log X ^ (-(1 : ℝ) / 500) :=
+    _ ≤ 8448 * (C₁ + 1) ^ 2 * Real.log X ^ (-(1 : ℝ) / 5000) :=
         mul_le_mul_of_nonneg_left hdec hc
 
 /-- **CFB-5 — THE CAP-FREE `T₀`-BAND SUPPLY (`cfb_t0band_supply`).**  The conclusion of
 `T0Band.t0_band_supply`, WITHOUT `hMcap`:
 
   `∫_{−T₀}^{T₀} ‖dpolyA a (seamS0 N X) t‖² dt ≤ t0BandB X (cfbC₁ X C₁) M₀`,
-  `T₀ = seamT0 X = (log X)^{1/15}`,
+  `T₀ = seamT0 X = (log X)^{1/45}`,
 
 which is literally `ThmA2Rows.thm_a2'_of_rows`'s `hT0band` slot at `C₁′ := cfbC₁ X C₁` (the
 slot's `C₁′` and `M₀` are free reals, so the plug is an instantiation, not a re-statement).
@@ -870,7 +870,7 @@ band's own threshold, the `hT0band` datum holds at
 The remaining binders are upstream's (`Y`-gates, `hRHS` per band frequency) plus the two
 band-geometry hypotheses `|t₀| ≤ seamT0 X + 1` and the `cfb_ballerr_le` side condition.  This
 is the statement the M4 datum consumes; `cfb_floor_clears_gate` + `cfb_gate_decay` are what
-turn its `M₀` into the interface's `(log X)^{−1/500}`. -/
+turn its `M₀` into the interface's `(log X)^{−1/5000}`. -/
 theorem cfb_t0band_supply_chi (Q : ℕ) :
     ∃ (K : ℝ) (X₀ : ℝ), 0 ≤ K ∧ 0 < X₀ ∧
       ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (t₀ : ℝ) (Y : ℝ → ℝ), q ≤ Q →

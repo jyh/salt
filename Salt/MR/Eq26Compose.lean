@@ -475,12 +475,12 @@ theorem thm3_meansq_of_kernel (Pseq Qseq : ℕ → ℕ) (J : ℕ) (f : ℕ → �
           - ((1 / X : ℝ) : ℂ) * ∑ n ∈ (Finset.Icc ⌈X⌉₊ ⌊2 * X⌋₊).filter
               (fun n => MemS Pseq Qseq J n), ((f n : ℝ) : ℂ)‖ ^ 2)
       ≤ 2 * (1 / (2 * Real.pi ^ 2) * ((2000 + 944640 * Real.pi)
-            * ((Real.log X) ^ (-(2 / 15 : ℝ))
-              + ((∫ t in ((Real.log X) ^ (1 / 15 : ℝ))..(X / h₁),
+            * ((Real.log X) ^ (-(14 / 45 : ℝ))
+              + ((∫ t in ((Real.log X) ^ (1 / 45 : ℝ))..(X / h₁),
                     ‖dpolyA (fun n => ((f n : ℝ) : ℂ))
                       ((Finset.Icc ⌈X⌉₊ ⌊4 * X⌋₊).filter
                         (fun n => MemS Pseq Qseq J n)) t‖ ^ 2)
-                  + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 15 : ℝ))),
+                  + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 45 : ℝ))),
                     ‖dpolyA (fun n => ((f n : ℝ) : ℂ))
                       ((Finset.Icc ⌈X⌉₊ ⌊4 * X⌋₊).filter
                         (fun n => MemS Pseq Qseq J n)) t‖ ^ 2)

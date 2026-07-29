@@ -15,7 +15,7 @@ pp. 21–23 (Lemma 14), read against MRT p. 21's own license for the single-wind
 
 The landed Lemma-14 chain (`Lemma14Vtail` → `KernelCarry`) proves the **difference** form
 `(1/X)∫_X^{2X} ‖(1/h₁)S₁(x) − (1/h₂)S₂(x)‖² dx ≤ …`, whose `|t| ≤ T₀` block is paid by a
-Taylor expansion of `(x+h)ˢ − xˢ` (the `U`-slab), producing MR's `(log X)^{−2/15}` main term.
+Taylor expansion of `(x+h)ˢ − xˢ` (the `U`-slab), producing MR's `(log X)^{−14/45}` main term.
 That expansion is what forces the two-scale difference: at ONE `h` the leading term survives.
 
 **The mechanism (pinned by the S8 source scoper, freeze `s8-freeze-0727.md` row A2-1):**
@@ -58,7 +58,7 @@ which tends to `0` along `δ = 2^{−N/2}` exactly as in `lemma14_shortInterval_
 
 ## Glyph note (freeze trap)
 
-`T₀` here is **`(log X)^{1/15}`** (the recentring radius `seamT0`), never MRT's set `𝒯₀` and
+`T₀` here is **`(log X)^{1/45}`** (the recentring radius `seamT0`), never MRT's set `𝒯₀` and
 never the contour height `(log X)²`.
 
 ## The ladder in this file
@@ -652,13 +652,13 @@ private lemma five_split_single_bound {A : ℝ → ℂ} (hA : Continuous A) {X h
     ((hsq _ _).intervalIntegrable _ _)
 
 /-- **S-3 — the single-`h` contour assembly at the DYADICALLY EXTENDED truncation.**  With
-`T₀ = (log X)^{1/15}`, `W = X/h` and `Tcut = 2^N·W`, for ANY `N`:
+`T₀ = (log X)^{1/45}`, `W = X/h` and `Tcut = 2^N·W`, for ANY `N`:
 
 `(1/X)∫_X^{2X} ‖(1/h)P(x)‖² dx`
 `  ≤ 205π·∫_{T₀ ≤ |t| ≤ W} ‖A(1+it)‖² dt + 205π·∫_{−T₀}^{T₀} ‖A(1+it)‖² dt + 236160π·Msup`,
 
 `P(x) = uSlab (dpolyA a s0) x h (2^N·(X/h))` — **uniformly in `N`**, and with **NO
-`(log X)^{−2/15}` term**: the `|t| ≤ T₀` block is paid as a frequency integral at the SAME
+`(log X)^{−14/45}` term**: the `|t| ≤ T₀` block is paid as a frequency integral at the SAME
 log-free constant as the two mid bands (the third summand; its supply is node A2-3's). -/
 theorem contour_single_h_kernel (a : ℕ → ℂ) (s0 : Finset ℕ) {X h Msup : ℝ} (N : ℕ)
     (hX : Real.exp 1 ≤ X) (hh1 : 1 ≤ h)
@@ -669,10 +669,10 @@ theorem contour_single_h_kernel (a : ℕ → ℂ) (s0 : Finset ℕ) {X h Msup : 
         + ∫ t in (-(2 * T))..(-T), ‖dpolyA a s0 t‖ ^ 2) ≤ Msup) :
     1 / X * (∫ x in X..(2 * X),
         ‖((1 / h : ℝ) : ℂ) * uSlab (dpolyA a s0) x h (2 ^ N * (X / h))‖ ^ 2)
-      ≤ 205 * Real.pi * ((∫ t in ((Real.log X) ^ (1 / 15 : ℝ))..(X / h),
+      ≤ 205 * Real.pi * ((∫ t in ((Real.log X) ^ (1 / 45 : ℝ))..(X / h),
               ‖dpolyA a s0 t‖ ^ 2)
-            + ∫ t in (-(X / h))..(-((Real.log X) ^ (1 / 15 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
-        + 205 * Real.pi * (∫ t in (-((Real.log X) ^ (1 / 15 : ℝ)))..((Real.log X) ^ (1 / 15 : ℝ)),
+            + ∫ t in (-(X / h))..(-((Real.log X) ^ (1 / 45 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
+        + 205 * Real.pi * (∫ t in (-((Real.log X) ^ (1 / 45 : ℝ)))..((Real.log X) ^ (1 / 45 : ℝ)),
               ‖dpolyA a s0 t‖ ^ 2)
         + 236160 * Real.pi * Msup := by
   have he2 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
@@ -691,9 +691,9 @@ theorem contour_single_h_kernel (a : ℕ → ℂ) (s0 : Finset ℕ) {X h Msup : 
     exact_mod_cast hm1
   have hAc : Continuous (dpolyA a s0) := dpolyA_continuous a s0 hpos
   have hWpos : (0 : ℝ) < X / h := div_pos hXpos hh'
-  have hT0pos : (0 : ℝ) < (Real.log X) ^ (1 / 15 : ℝ) := Real.rpow_pos_of_pos hLp _
-  have hT0W : (Real.log X) ^ (1 / 15 : ℝ) ≤ X / h := by
-    have hstep1 : (Real.log X) ^ (1 / 15 : ℝ) ≤ (Real.log X) ^ (1 / 5 : ℝ) :=
+  have hT0pos : (0 : ℝ) < (Real.log X) ^ (1 / 45 : ℝ) := Real.rpow_pos_of_pos hLp _
+  have hT0W : (Real.log X) ^ (1 / 45 : ℝ) ≤ X / h := by
+    have hstep1 : (Real.log X) ^ (1 / 45 : ℝ) ≤ (Real.log X) ^ (1 / 5 : ℝ) :=
       Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
     have hstep2 : (Real.log X) ^ (1 / 5 : ℝ) ≤ X / h := by
       rw [le_div_iff₀ hh']
@@ -798,12 +798,12 @@ theorem contour_single_h_kernel (a : ℕ → ℂ) (s0 : Finset ℕ) {X h Msup : 
     ring
   -- assemble
   have hstep := five_split_single_bound hAc hXpos hh'
-    ((Real.log X) ^ (1 / 15 : ℝ)) (X / h) (2 ^ N * (X / h))
+    ((Real.log X) ^ (1 / 45 : ℝ)) (X / h) (2 ^ N * (X / h))
   have hmul := mul_le_mul_of_nonneg_left hstep (by positivity : (0 : ℝ) ≤ 1 / X)
-  have hb2 := hSC (-(X / h)) (-((Real.log X) ^ (1 / 15 : ℝ))) (by linarith)
-  have hb3 := hSC (-((Real.log X) ^ (1 / 15 : ℝ))) ((Real.log X) ^ (1 / 15 : ℝ))
+  have hb2 := hSC (-(X / h)) (-((Real.log X) ^ (1 / 45 : ℝ))) (by linarith)
+  have hb3 := hSC (-((Real.log X) ^ (1 / 45 : ℝ))) ((Real.log X) ^ (1 / 45 : ℝ))
     (by linarith)
-  have hb4 := hSC ((Real.log X) ^ (1 / 15 : ℝ)) (X / h) hT0W
+  have hb4 := hSC ((Real.log X) ^ (1 / 45 : ℝ)) (X / h) hT0W
   linarith [hmul, hb2, hb3, hb4, hfarP, hfarN]
 
 /-! ## S-2 — the single-`h` Perron gap against the LANDED majorant -/
@@ -865,12 +865,12 @@ theorem perron_gap_single_le_gapMaj (a : ℕ → ℂ) (s0 : Finset ℕ) {X x h T
 `             + 205π·∫_{−T₀}^{T₀} ‖A(1+it)‖² dt`
 `             + 236160π·Msup + Egap(N,δ) ]`,
 
-`T₀ = (log X)^{1/15}`, `Msup` any bound for the weighted far family
+`T₀ = (log X)^{1/45}`, `Msup` any bound for the weighted far family
 `(X/h)/T·∫_{T ≤ |t| ≤ 2T}‖A‖²` over `T ≥ X/h`, and
 `Egap(N,δ) = 34560·δ·(π + 2log(1 + 2^N·X/h))² + 1152·(12h/(2^N δ) + (8h/2^N)(1+log 3X))²`
 — the SAME defect as the landed difference form, vanishing along `δ = 2^{−N/2}`.
 
-**No `(log X)^{−2/15}`, no log loss.**  The `U`/`V` split is dropped: the `V`-argument runs
+**No `(log X)^{−14/45}`, no log loss.**  The `U`/`V` split is dropped: the `V`-argument runs
 from `t = 0`, and the `|t| ≤ T₀` block is the second summand — a frequency integral at the
 same log-free constant as the mid bands.  Supplying it is node A2-3's obligation. -/
 theorem parseval_single_h (a : ℕ → ℂ) (s0 : Finset ℕ) {X h Msup δ : ℝ} (N : ℕ)
@@ -884,9 +884,9 @@ theorem parseval_single_h (a : ℕ → ℂ) (s0 : Finset ℕ) {X h Msup δ : ℝ
         + ∫ t in (-(2 * T))..(-T), ‖dpolyA a s0 t‖ ^ 2) ≤ Msup) :
     1 / X * (∫ x in X..(2 * X), ‖((1 / h : ℝ) : ℂ) * shortSum a s0 x h‖ ^ 2)
       ≤ 1 / (2 * Real.pi ^ 2) * ((205 * Real.pi
-            * ((∫ t in ((Real.log X) ^ (1 / 15 : ℝ))..(X / h), ‖dpolyA a s0 t‖ ^ 2)
-              + ∫ t in (-(X / h))..(-((Real.log X) ^ (1 / 15 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
-          + 205 * Real.pi * (∫ t in (-((Real.log X) ^ (1 / 15 : ℝ)))..((Real.log X) ^ (1 / 15 : ℝ)),
+            * ((∫ t in ((Real.log X) ^ (1 / 45 : ℝ))..(X / h), ‖dpolyA a s0 t‖ ^ 2)
+              + ∫ t in (-(X / h))..(-((Real.log X) ^ (1 / 45 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
+          + 205 * Real.pi * (∫ t in (-((Real.log X) ^ (1 / 45 : ℝ)))..((Real.log X) ^ (1 / 45 : ℝ)),
               ‖dpolyA a s0 t‖ ^ 2)
           + 236160 * Real.pi * Msup)
         + (34560 * δ * (Real.pi + 2 * Real.log (1 + 2 ^ N * (X / h))) ^ 2

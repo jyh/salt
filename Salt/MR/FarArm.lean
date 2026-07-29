@@ -46,13 +46,13 @@ The consumers do not want a floor at `t₁`; they want `(1/32)·loglog X ≤ M_r
 infimum over the offset window.  `t₁` is the COMPACT MINIMISER
 (`SeamGate.exists_min_gate` / `seam_gate_package`, at radius `seamGateR X T`;
 `FarStar.ball_sup_closed_star`, at `seamGateRstar X T`), and `M_range`'s window
-`{|t| ∈ [(logX)^{1/15}, T + (logX)^{1/16}], |t| ≤ X}` sits inside BOTH — each radius is
-`T + seamRad X + (something ≥ 0) + 1`, and `seamRad X = (logX)^{1/16}` is `M_range`'s own
+`{|t| ∈ [(logX)^{1/45}, T + (logX)^{1/46}], |t| ≤ X}` sits inside BOTH — each radius is
+`T + seamRad X + (something ≥ 0) + 1`, and `seamRad X = (logX)^{1/46}` is `M_range`'s own
 widening.  So the stones below take the radius as a FREE parameter with the single hypothesis
 `T + seamRad X ≤ R`, and the floor at the minimiser propagates to every frequency the infimum
 sees: `Mrange_floor_of_center_floor_radius`.  The window's nonemptiness is
-`Mrange_one_floor`'s own witness `t = (logX)^{1/15}`, under the same hypothesis
-`(logX)^{1/15} ≤ T`.
+`Mrange_one_floor`'s own witness `t = (logX)^{1/45}`, under the same hypothesis
+`(logX)^{1/45} ≤ T`.
 
 ## What is here
 
@@ -217,7 +217,7 @@ theorem cap_fails_floor {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) {X t₁ 
 `M_range f X T` is the infimum over the OFFSET WINDOW, so a floor at one frequency says
 nothing — unless that frequency is the MINIMISER over a set containing the window.  It is:
 `SeamGate.exists_min_gate` produces exactly that, at radius `seamGateR X T`, and the window
-`|t| ≤ T + (logX)^{1/16} = T + seamRad X` sits inside it with `(log 2X)⁴ + 1` to spare. -/
+`|t| ≤ T + (logX)^{1/46} = T + seamRad X` sits inside it with `(log 2X)⁴ + 1` to spare. -/
 
 /-- **F-2a — the `M_range` floor from the minimiser (`Mrange_floor_of_center_floor`).**  With
 `t₁` the compact minimiser at radius `seamGateR X T` (`SeamGate.exists_min_gate`), the R3.1
@@ -226,9 +226,9 @@ floor at `t₁` propagates to the whole offset window:
   `(1/32)·loglog X ≤ 𝔻²(f, p^{it₁}; X)  ⟹  (1/32)·loglog X ≤ M_range f X T`.
 
 Two ingredients, both geometric: (i) every `t` the infimum sees obeys
-`|t| ≤ T + (logX)^{1/16} = T + seamRad X ≤ R`, so `hmin` applies to it; (ii) the
-window is nonempty (`t = (logX)^{1/15}`, `Mrange_one_floor`'s own witness) under the same
-hypothesis `(logX)^{1/15} ≤ T` that stone carries — which is what lets `le_csInf` fire (an
+`|t| ≤ T + (logX)^{1/46} = T + seamRad X ≤ R`, so `hmin` applies to it; (ii) the
+window is nonempty (`t = (logX)^{1/45}`, `Mrange_one_floor`'s own witness) under the same
+hypothesis `(logX)^{1/45} ≤ T` that stone carries — which is what lets `le_csInf` fire (an
 `sInf` over `∅` is `0` in `ℝ` and would make the claim false).
 
 **The radius is FREE** (`hR : T + seamRad X ≤ R`), deliberately: the near arm's supplier
@@ -238,7 +238,7 @@ minimises at `seamGateR X T`, and both radii clear `T + seamRad X` by inspection
 `Tstar`-versus-`log⁴` comparison anywhere.  `Mrange_floor_of_center_floor` below is the
 `seamGateR` instance. -/
 theorem Mrange_floor_of_center_floor_radius {f : ℕ → ℂ} {X T R t₁ : ℝ}
-    (hXe : Real.exp 1 ≤ X) (hT15 : (Real.log X) ^ (1 / 15 : ℝ) ≤ T)
+    (hXe : Real.exp 1 ≤ X) (hT15 : (Real.log X) ^ (1 / 45 : ℝ) ≤ T)
     (hR : T + seamRad X ≤ R)
     (hmin : ∀ v : ℝ, |v| ≤ R →
       pretDistSq f (costwist t₁) X ≤ pretDistSq f (costwist v) X)
@@ -248,28 +248,28 @@ theorem Mrange_floor_of_center_floor_radius {f : ℕ → ℂ} {X T R t₁ : ℝ}
   have hL1 : (1 : ℝ) ≤ Real.log X := by
     rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hXe
   have hLnn : (0 : ℝ) ≤ Real.log X := by linarith
-  have hr15 : (0 : ℝ) ≤ (Real.log X) ^ (1 / 15 : ℝ) := Real.rpow_nonneg hLnn _
-  have hr16 : (0 : ℝ) ≤ (Real.log X) ^ (1 / 16 : ℝ) := Real.rpow_nonneg hLnn _
-  have habs : |(Real.log X) ^ (1 / 15 : ℝ)| = (Real.log X) ^ (1 / 15 : ℝ) := abs_of_nonneg hr15
+  have hr15 : (0 : ℝ) ≤ (Real.log X) ^ (1 / 45 : ℝ) := Real.rpow_nonneg hLnn _
+  have hr16 : (0 : ℝ) ≤ (Real.log X) ^ (1 / 46 : ℝ) := Real.rpow_nonneg hLnn _
+  have habs : |(Real.log X) ^ (1 / 45 : ℝ)| = (Real.log X) ^ (1 / 45 : ℝ) := abs_of_nonneg hr15
   -- (i) the offset window sits inside the minimality ball
-  have hin : ∀ t : ℝ, |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) → |t| ≤ R := by
+  have hin : ∀ t : ℝ, |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) → |t| ≤ R := by
     intro t ht
-    have hrad : seamRad X = (Real.log X) ^ (1 / 16 : ℝ) := rfl
+    have hrad : seamRad X = (Real.log X) ^ (1 / 46 : ℝ) := rfl
     rw [hrad] at hR
     linarith
   -- (ii) the window is nonempty
-  have hmem : (Real.log X) ^ (1 / 15 : ℝ) ∈
-      {t : ℝ | (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-        ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X} := by
+  have hmem : (Real.log X) ^ (1 / 45 : ℝ) ∈
+      {t : ℝ | (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+        ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X} := by
     refine ⟨le_of_eq habs.symm, ?_, ?_⟩
     · rw [habs]; linarith
     · rw [habs]
-      calc (Real.log X) ^ (1 / 15 : ℝ) ≤ (Real.log X) ^ (1 : ℝ) :=
+      calc (Real.log X) ^ (1 / 45 : ℝ) ≤ (Real.log X) ^ (1 : ℝ) :=
             Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
         _ = Real.log X := Real.rpow_one _
         _ ≤ X := by linarith [Real.log_le_sub_one_of_pos hXpos]
   unfold M_range
-  refine le_csInf ⟨_, ⟨(Real.log X) ^ (1 / 15 : ℝ), hmem, rfl⟩⟩ ?_
+  refine le_csInf ⟨_, ⟨(Real.log X) ^ (1 / 45 : ℝ), hmem, rfl⟩⟩ ?_
   rintro b ⟨t, ht, rfl⟩
   exact hfloor.trans (hmin t (hin t ht.2.1))
 
@@ -277,7 +277,7 @@ theorem Mrange_floor_of_center_floor_radius {f : ℕ → ℂ} {X T R t₁ : ℝ}
 `SeamGate.exists_min_gate` / `seam_gate_package` actually hand over.  The radius hypothesis is
 discharged by inspection: `seamGateR X T = T + seamRad X + (log 2X)⁴ + 1`. -/
 theorem Mrange_floor_of_center_floor {f : ℕ → ℂ} {X T t₁ : ℝ}
-    (hXe : Real.exp 1 ≤ X) (hT15 : (Real.log X) ^ (1 / 15 : ℝ) ≤ T)
+    (hXe : Real.exp 1 ≤ X) (hT15 : (Real.log X) ^ (1 / 45 : ℝ) ≤ T)
     (hmin : ∀ v : ℝ, |v| ≤ seamGateR X T →
       pretDistSq f (costwist t₁) X ≤ pretDistSq f (costwist v) X)
     (hfloor : (1 / 32) * Real.log (Real.log X) ≤ pretDistSq f (costwist t₁) X) :
@@ -300,7 +300,7 @@ the crude measure×sup at `T ≍ X`); it is carried, not hidden. -/
 * `hmin` — `t₁` the compact minimiser at ANY radius `R ≥ T + seamRad X` (`hR`); both
   `SeamGate.exists_min_gate` (`seamGateR`) and `FarStar.ball_sup_closed_star`
   (`seamGateRstar`) clear that by inspection, so one centre serves both arms,
-* `hT15` — the offset window nonempty (`(logX)^{1/15} ≤ T`; free in the seam's `T_ann ≈ X`),
+* `hT15` — the offset window nonempty (`(logX)^{1/45} ≤ T`; free in the seam's `T_ann ≈ X`),
 * `hcap` — the A-10 ball cap FAILING somewhere on `[X, 2X]`,
 
 the whole-annulus head/tail leg obeys the frozen `(log X)^{−1/(32e)}` grade:
@@ -314,7 +314,7 @@ treatment of the far branch, in the landed vocabulary.  Route: `cap_fails_floor`
 theorem far_arm_row (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ t t₁ : ℝ) :
     ∃ C₁ X₀ : ℝ, 0 ≤ C₁ ∧ ∀ (X ε Utail C₂ T R : ℝ),
       X₀ ≤ X → 0 ≤ ε → 0 ≤ C₂ →
-      (Real.log X) ^ (1 / 15 : ℝ) ≤ T → T + seamRad X ≤ R →
+      (Real.log X) ^ (1 / 45 : ℝ) ≤ T → T + seamRad X ≤ R →
       Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2) →
       (∀ v : ℝ, |v| ≤ R →
         pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X
@@ -352,7 +352,7 @@ the two geometric facts about `t₁` (`hmin`, `hcap`). -/
 theorem far_arm_row_tailed (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ t t₁ : ℝ) :
     ∃ C₁ X₀ : ℝ, 0 ≤ C₁ ∧ ∀ (X ε Csup T R : ℝ),
       X₀ ≤ X → 0 ≤ ε → 0 ≤ Csup →
-      (Real.log X) ^ (1 / 15 : ℝ) ≤ T → T + seamRad X ≤ R →
+      (Real.log X) ^ (1 / 45 : ℝ) ≤ T → T + seamRad X ≤ R →
       (∀ v : ℝ, |v| ≤ R →
         pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X
           ≤ pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist v) X) →
@@ -392,7 +392,7 @@ theorem far_arm_row_polyT (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ �
     (A : ℕ) (hA : 1 ≤ A) :
     ∃ C₁ X₀ : ℝ, 0 ≤ C₁ ∧ ∀ (X ε Utail C₂ T R : ℝ),
       X₀ ≤ X → 0 ≤ ε → 0 ≤ C₂ →
-      (Real.log X) ^ (1 / 15 : ℝ) ≤ T → T ≤ (Real.log X) ^ A → T + seamRad X ≤ R →
+      (Real.log X) ^ (1 / 45 : ℝ) ≤ T → T ≤ (Real.log X) ^ A → T + seamRad X ≤ R →
       Utail ≤ C₂ * X * (Real.log X) ^ (-(1 : ℝ) / 2) →
       (∀ v : ℝ, |v| ≤ R →
         pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X
@@ -463,7 +463,7 @@ cited abstractly) and from the `M_range` floor (the far arm, `far_arm_row`'s hyp
 cap's failure is converted for the consumer here — F-1 then F-2a — so the terminal never sees
 the scale-descent page. -/
 theorem seam_row_both_arms {B : Prop} {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) {X T R t₁ : ℝ}
-    (hXfar : farArmThreshold ≤ X) (hT15 : (Real.log X) ^ (1 / 15 : ℝ) ≤ T)
+    (hXfar : farArmThreshold ≤ X) (hT15 : (Real.log X) ^ (1 / 45 : ℝ) ≤ T)
     (hR : T + seamRad X ≤ R)
     (hmin : ∀ v : ℝ, |v| ≤ R →
       pretDistSq f (costwist t₁) X ≤ pretDistSq f (costwist v) X)
@@ -484,7 +484,7 @@ the ball radius (`SeamGate.ball_center_dichotomy_two_sided`) — so it can open
 `ball_sup_closed_star` directly.  The EMPTY arm needs nothing at all
 (`seam_row_of_inter_empty`).  The FAR arm receives the `M_range` floor (`far_arm_row`). -/
 theorem seam_row_three_arms {B : Prop} {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) {X T R t₁ : ℝ}
-    (hXfar : farArmThreshold ≤ X) (hT15 : (Real.log X) ^ (1 / 15 : ℝ) ≤ T)
+    (hXfar : farArmThreshold ≤ X) (hT15 : (Real.log X) ^ (1 / 45 : ℝ) ≤ T)
     (hR : T + seamRad X ≤ R)
     (hmin : ∀ v : ℝ, |v| ≤ R →
       pretDistSq f (costwist t₁) X ≤ pretDistSq f (costwist v) X)

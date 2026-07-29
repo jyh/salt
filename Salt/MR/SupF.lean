@@ -959,16 +959,16 @@ bounded below by `0` via `pretDistSq_nonneg`), and `scale_floor` transports it t
 scale `e^{1/σ}` at the crude `2 log(σL)` cost.  This is the flat-regime `M` that B3 consumes. -/
 theorem scale_floor_Mrange {t X T σ : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1)
     (hYX : Real.exp (1 / σ) ≤ X)
-    (hmem : (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X) :
+    (hmem : (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X) :
     M_range (fun _ => 1) X T - 2 * Real.log (σ * Real.log X) - 48
       ≤ pretDistSq (fun _ => 1) (costwist t) (Real.exp (1 / σ)) := by
   have hf1 : ∀ p : ℕ, ‖(fun _ => (1 : ℂ)) p‖ ≤ 1 := fun _ => by simp
   have hg1 : ∀ p : ℕ, ‖costwist t p‖ ≤ 1 := fun n => le_of_eq (costwist_norm t n)
   have hsf := scale_floor hf1 hg1 hσ0 hσ1 hYX
   have hbdd : BddBelow ((fun t' : ℝ => pretDistSq (fun _ => 1) (costwist t') X) ''
-      {t' : ℝ | (Real.log X) ^ (1 / 15 : ℝ) ≤ |t'|
-        ∧ |t'| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t'| ≤ X}) := by
+      {t' : ℝ | (Real.log X) ^ (1 / 45 : ℝ) ≤ |t'|
+        ∧ |t'| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t'| ≤ X}) := by
     refine ⟨0, ?_⟩
     rintro v ⟨t', _, rfl⟩
     exact pretDistSq_nonneg (fun _ => 1) (costwist t') X hf1
@@ -1154,8 +1154,8 @@ decay and `T1_head_wire`'s J0 `M_range` instantiation both consume (the strong-c
 regime: flooring the g-free `M_range(1)` here discards the cancellation and undershoots). -/
 theorem scale_floor_Mrange_seam {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
     {t₀ t X T σ : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1) (hYX : Real.exp (1 / σ) ≤ X)
-    (hmem : (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X) :
+    (hmem : (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X) :
     M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T - 2 * Real.log (σ * Real.log X) - 48
       ≤ pretDistSq (ellLin g) (costwist (t + t₀)) (Real.exp (1 / σ)) := by
   have hEllOne : ∀ n : ℕ, ‖ellLin g n‖ ≤ 1 := fun n => ellLin_norm_le_one g hg n
@@ -1165,8 +1165,8 @@ theorem scale_floor_Mrange_seam {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g 
   have hsf := scale_floor hf1 hg1 hσ0 hσ1 hYX
   have hbdd : BddBelow ((fun t' : ℝ =>
       pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t') X) ''
-      {t' : ℝ | (Real.log X) ^ (1 / 15 : ℝ) ≤ |t'|
-        ∧ |t'| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t'| ≤ X}) := by
+      {t' : ℝ | (Real.log X) ^ (1 / 45 : ℝ) ≤ |t'|
+        ∧ |t'| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t'| ≤ X}) := by
     refine ⟨0, ?_⟩
     rintro v ⟨t', _, rfl⟩
     exact pretDistSq_nonneg (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t') X hf1

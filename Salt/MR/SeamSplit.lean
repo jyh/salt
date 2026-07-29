@@ -26,10 +26,10 @@ named binder whose supply is the §8.3 interior.
 
 ## The geometry (matching `DistHalasz.M_range`'s window)
 
-* `seamT0 X = (log X)^{1/15}`, `seamRad X = (log X)^{1/16}` — the MR §2 frequency floor and
-  the ball radius (the `1/16 < 1/15` separation is the T-0 card's ball geometry).
+* `seamT0 X = (log X)^{1/45}`, `seamRad X = (log X)^{1/46}` — the MR §2 frequency floor and
+  the ball radius (the `1/46 < 1/45` separation is the T-0 card's ball geometry).
 * `seamAnn X T = {t | seamT0 X ≤ |t| ∧ |t| ≤ T}` — the annulus.  For `seamT0 X ≤ T ≤ X` it
-  sits inside `M_range`'s window `{|t| ≥ (logX)^{1/15}, |t| ≤ T + (logX)^{1/16}, |t| ≤ X}`
+  sits inside `M_range`'s window `{|t| ≥ (logX)^{1/45}, |t| ≤ T + (logX)^{1/46}, |t| ≤ X}`
   (`seamAnn_subset_Mrange_window`), so a near-minimizer `t₁` of the window infimum is a
   legitimate ball center.
 * `seamBall X t₁ = {t | |t - t₁| ≤ seamRad X}` — the ball, of measure exactly `2·seamRad X`.
@@ -87,13 +87,13 @@ open scoped BigOperators
 
 /-! ## §0 — the seam geometry -/
 
-/-- **The frequency floor `T₀ = (log X)^{1/15}`** (MR §2's lower cutoff; `M_range`'s window
-floor byte-for-byte). -/
-def seamT0 (X : ℝ) : ℝ := (Real.log X) ^ (1 / 15 : ℝ)
+/-- **The frequency floor `T₀ = (log X)^{1/45}`** (MR §2's lower cutoff, RE-CUT by the
+GEOMEAN-SCOPE fallback from `1/15` to `1/45`; see `A2Wall`'s window `n ∈ [44, 97]`). -/
+def seamT0 (X : ℝ) : ℝ := (Real.log X) ^ (1 / 45 : ℝ)
 
-/-- **The ball radius `r = (log X)^{1/16}`** — the T-0 card's ball geometry; `1/16 < 1/15`
-keeps the ball/range separation. -/
-def seamRad (X : ℝ) : ℝ := (Real.log X) ^ (1 / 16 : ℝ)
+/-- **The ball radius `r = (log X)^{1/46}`** — the T-0 card's ball geometry, re-cut with the
+seam floor; `1/46 < 1/45` keeps the ball/range separation. -/
+def seamRad (X : ℝ) : ℝ := (Real.log X) ^ (1 / 46 : ℝ)
 
 /-- **The annulus `Ann(T₀,T) = {t : T₀ ≤ |t| ≤ T}`** — the integration range of the seam
 mean square (`lemma14_contour`'s datum). -/
@@ -141,10 +141,10 @@ lemma seamAnn_subset_Icc (X T : ℝ) : seamAnn X T ⊆ Set.Icc (-T) T :=
 membership witness, so the near-minimizer `t₁` of the window infimum is a lawful ball
 center.  (MR Step 0 licenses `T ≤ X`; the consumer's `T = X/h₁ ≤ X`.) -/
 lemma seamAnn_subset_Mrange_window {X T : ℝ} (hTX : T ≤ X) (hL : 0 ≤ Real.log X) :
-    seamAnn X T ⊆ {t : ℝ | (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X} := by
+    seamAnn X T ⊆ {t : ℝ | (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X} := by
   rintro t ⟨h1, h2⟩
-  have h16 : (0 : ℝ) ≤ (Real.log X) ^ (1 / 16 : ℝ) := Real.rpow_nonneg hL _
+  have h16 : (0 : ℝ) ≤ (Real.log X) ^ (1 / 46 : ℝ) := Real.rpow_nonneg hL _
   exact ⟨h1, by linarith, le_trans h2 hTX⟩
 
 /-! ## §1 — integrability on the bounded pieces
@@ -353,7 +353,7 @@ theorem spoly_abel_sup {N : ℕ} {a : ℕ → ℂ} {t X S : ℝ}
 /-- **Z3 — the ball leg by `measure × sup²` (`ball_leg_of_sup`).**  Under the pointwise
 partial-sum bound `hSup` on the ball, the ball leg of the annular mean square is
 
-  `∫_{Ann ∩ ball} ‖spoly‖² ≤ 2r·(2S)²`,   `r = seamRad X = (log X)^{1/16}`.
+  `∫_{Ann ∩ ball} ‖spoly‖² ≤ 2r·(2S)²`,   `r = seamRad X = (log X)^{1/46}`.
 
 The measure of `Ann ∩ ball` is at most that of the ball, exactly `2r`; the integrand is
 bounded pointwise by `(2S)²` through `spoly_abel_sup`.  The SQUARING HAPPENS ONCE, here:
@@ -574,7 +574,7 @@ partition inequality for the annular mean square of the dyadic seam polynomial:
 
   `∫_{Ann} ‖spoly N a t‖²  ≤  2r·(2S)²  +  ∫_{(Ann\ball) ∩ 𝒯tot} ‖spoly N a t‖²  +  U`,
 
-`r = seamRad X = (log X)^{1/16}`, with the ball center `t₁` produced HERE as a near-minimizer
+`r = seamRad X = (log X)^{1/46}`, with the ball center `t₁` produced HERE as a near-minimizer
 of `M_range`'s window infimum.
 
 **The assembly** (the grouping that avoids double counting — the ball may meet both `𝒰` and
@@ -629,7 +629,7 @@ theorem prop_A3_T1_row_split
     (hX : 0 < X) (hXN : X ≤ (N : ℝ)) (hN2 : (N : ℝ) ≤ 2 * X)
     (hsupp : ∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) :
     ∃ t₁ : ℝ,
-      ((Real.log X) ^ (1 / 15 : ℝ) ≤ |t₁| ∧ |t₁| ≤ T + (Real.log X) ^ (1 / 16 : ℝ)
+      ((Real.log X) ^ (1 / 45 : ℝ) ≤ |t₁| ∧ |t₁| ≤ T + (Real.log X) ^ (1 / 46 : ℝ)
           ∧ |t₁| ≤ X)
         ∧ pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X
             < M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T + 1
@@ -641,13 +641,13 @@ theorem prop_A3_T1_row_split
                 + (∫ t in (seamAnn X T \ seamBall X t₁) ∩ seamTtot fb Pseq Qseq δ Jb,
                     ‖spoly N a t‖ ^ 2) + U) := by
   -- the `M_range` window is nonempty: `t = seamT0 X` is a witness (`hT₀` and `hTX` at work)
-  have hT0nn : (0 : ℝ) ≤ (Real.log X) ^ (1 / 15 : ℝ) := Real.rpow_nonneg hL _
-  have h16nn : (0 : ℝ) ≤ (Real.log X) ^ (1 / 16 : ℝ) := Real.rpow_nonneg hL _
-  have hT₀' : (Real.log X) ^ (1 / 15 : ℝ) ≤ T := hT₀
-  have hwin : ({t : ℝ | (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X}).Nonempty := by
-    refine ⟨(Real.log X) ^ (1 / 15 : ℝ), ?_⟩
-    have habs : |(Real.log X) ^ (1 / 15 : ℝ)| = (Real.log X) ^ (1 / 15 : ℝ) :=
+  have hT0nn : (0 : ℝ) ≤ (Real.log X) ^ (1 / 45 : ℝ) := Real.rpow_nonneg hL _
+  have h16nn : (0 : ℝ) ≤ (Real.log X) ^ (1 / 46 : ℝ) := Real.rpow_nonneg hL _
+  have hT₀' : (Real.log X) ^ (1 / 45 : ℝ) ≤ T := hT₀
+  have hwin : ({t : ℝ | (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X}).Nonempty := by
+    refine ⟨(Real.log X) ^ (1 / 45 : ℝ), ?_⟩
+    have habs : |(Real.log X) ^ (1 / 45 : ℝ)| = (Real.log X) ^ (1 / 45 : ℝ) :=
       abs_of_nonneg hT0nn
     rw [Set.mem_setOf_eq, habs]
     exact ⟨le_rfl, by linarith, by linarith⟩
@@ -697,7 +697,7 @@ theorem prop_A3_T1_row_split_crude
     (hX : 0 < X) (hXN : X ≤ (N : ℝ)) (hN2 : (N : ℝ) ≤ 2 * X)
     (hsupp : ∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) :
     ∃ t₁ : ℝ,
-      ((Real.log X) ^ (1 / 15 : ℝ) ≤ |t₁| ∧ |t₁| ≤ T + (Real.log X) ^ (1 / 16 : ℝ)
+      ((Real.log X) ^ (1 / 45 : ℝ) ≤ |t₁| ∧ |t₁| ≤ T + (Real.log X) ^ (1 / 46 : ℝ)
           ∧ |t₁| ≤ X)
         ∧ pretDistSq (seamCoeff (ellLin g) (fun _ => 1) t₀) (costwist t₁) X
             < M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T + 1

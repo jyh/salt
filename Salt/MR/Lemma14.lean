@@ -15,7 +15,7 @@ This file joins the four landed stones of the Lemma-14 ladder:
 
 * **S-A** `Aperron_short_interval` / `Aperron_short_interval_collapsed` /
   `residue_diff_eq_shortInterval` (`Lemma14Bridge`) — the finite-`T` Perron bridge.
-* **S-B** `uSlab_taylor_main_sq` (`Lemma14Taylor`) — the `|t| ≤ T₀` slab, `(log X)^{−2/15}`.
+* **S-B** `uSlab_taylor_main_sq` (`Lemma14Taylor`) — the `|t| ≤ T₀` slab, `(log X)^{−14/45}`.
 * **S-C** `vtail_mean_sq_bound` (`Lemma14Vtail`) — the per-segment `x`-averaged mean square,
   `≤ 164π·∫_α^β ‖A(1+it)‖²`, log-free.
 * **S-D** `dyadic_tail_block` / `dyadic_tail_proper` (`Lemma14Bridge`) — the weighted
@@ -24,7 +24,7 @@ This file joins the four landed stones of the Lemma-14 ladder:
 
 ## The truncation page (worked FIRST — `Tcut = 2X/h₁` is forced, not chosen)
 
-Write `W := X/h₁`, `T₀ := (log X)^{1/15}`, `A(1+it) = ∑_{m∈s0} aₘ/m^{1+it}` (`dpolyA`).
+Write `W := X/h₁`, `T₀ := (log X)^{1/45}`, `A(1+it) = ∑_{m∈s0} aₘ/m^{1+it}` (`dpolyA`).
 
 The landed separation `vtail_mean_sq_bound` carries **no kernel decay**: its Cauchy–Schwarz
 step (`vSeg_diff_sq_le`, `‖(1/h)∫_x^{x+h}F‖² ≤ (1/h)∫_x^{x+h}‖F‖²`) discards precisely the
@@ -66,7 +66,7 @@ frozen right-hand side plus `Eper²`; `perron_gap_collapsed` discharges `hPerron
 
 * `lemma14_contour` — **the assembly**, on the truncated contour object at `Tcut = 2X/h₁`:
   `(1/X)∫_X^{2X}‖(1/h₁)P₁(x) − (1/h₂)P₂(x)‖² dx`
-  `  ≤ 2000·(log X)^{−2/15} + 820π·(∫_{T₀ ≤ |t| ≤ X/h₁}‖A(1+it)‖²) + 820π·Msup`,
+  `  ≤ 2000·(log X)^{−14/45} + 820π·(∫_{T₀ ≤ |t| ≤ X/h₁}‖A(1+it)‖²) + 820π·Msup`,
   with `Pⱼ(x) = uSlab (dpolyA a s0) x hⱼ (2X/h₁)`.  All three frozen terms, absolute
   constants.
 * `lemma14_contour_grouped` — the same in the frozen `≪` shape, constant `2000 + 820π`.
@@ -81,7 +81,7 @@ frozen right-hand side plus `Eper²`; `perron_gap_collapsed` discharges `hPerron
 file: (i) the truncation `Tcut = 2X/h₁` in place of MR's `T = ∞` — forced by the missing
 kernel-carrying separation (`A3a-R3`); (ii) the Perron defect `Eper` on the `Sⱼ` form —
 forced by the missing exact critical-line Perron representation (`A3a-R1`).  Nothing else:
-the three right-hand terms, the `(log X)^{−2/15}` exponent, the mid-range `∫_{T₀ ≤ |t| ≤ X/h₁}`
+the three right-hand terms, the `(log X)^{−14/45}` exponent, the mid-range `∫_{T₀ ≤ |t| ≤ X/h₁}`
 and the `(X/h₁)/T`-weighted max-term are all present with absolute constants.
 
 All results are axiom-clean (`propext, Classical.choice, Quot.sound`); no `native_decide`,
@@ -281,12 +281,12 @@ private lemma five_split_integral_bound {A : ℝ → ℂ} (hA : Continuous A) {X
 
 /-! ## E4 — THE ASSEMBLY (contour form) -/
 
-/-- **Lemma 14, the assembly (contour form).**  With `T₀ = (log X)^{1/15}`, `W = X/h₁` and the
+/-- **Lemma 14, the assembly (contour form).**  With `T₀ = (log X)^{1/45}`, `W = X/h₁` and the
 forced truncation `Tcut = 2X/h₁` (see the file docstring), the `x`-averaged mean square of the
 weighted difference of the truncated Perron objects obeys the three-term frozen bound
 
 `(1/X)∫_X^{2X} ‖(1/h₁)P₁(x) − (1/h₂)P₂(x)‖² dx`
-`  ≤ 2000·(log X)^{−2/15} + 820π·∫_{T₀ ≤ |t| ≤ X/h₁} ‖A(1+it)‖² dt + 820π·Msup`,
+`  ≤ 2000·(log X)^{−14/45} + 820π·∫_{T₀ ≤ |t| ≤ X/h₁} ‖A(1+it)‖² dt + 820π·Msup`,
 
 with `Pⱼ(x) = uSlab (dpolyA a s0) x hⱼ (2X/h₁)` (`ParsevalAsm`'s `I·∫` normalization) and
 `Msup` the weighted max-term datum of the frozen statement.  Chain: five-way frequency split
@@ -303,10 +303,10 @@ theorem lemma14_contour (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h₂ Msup : 
     1 / X * (∫ x in X..(2 * X),
         ‖((1 / h₁ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₁ (2 * (X / h₁))
           - ((1 / h₂ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₂ (2 * (X / h₁))‖ ^ 2)
-      ≤ 2000 * (Real.log X) ^ (-(2 / 15 : ℝ))
-        + 820 * Real.pi * ((∫ t in ((Real.log X) ^ (1 / 15 : ℝ))..(X / h₁),
+      ≤ 2000 * (Real.log X) ^ (-(14 / 45 : ℝ))
+        + 820 * Real.pi * ((∫ t in ((Real.log X) ^ (1 / 45 : ℝ))..(X / h₁),
               ‖dpolyA a s0 t‖ ^ 2)
-            + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 15 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
+            + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 45 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
         + 820 * Real.pi * Msup := by
   -- E4.0 — the arithmetic environment
   have he2 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
@@ -327,10 +327,10 @@ theorem lemma14_contour (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h₂ Msup : 
     exact_mod_cast hm1
   have hAc : Continuous (dpolyA a s0) := dpolyA_continuous a s0 hpos
   have hWpos : (0 : ℝ) < X / h₁ := div_pos hXpos hh1'
-  have hT0pos : (0 : ℝ) < (Real.log X) ^ (1 / 15 : ℝ) := Real.rpow_pos_of_pos hLp _
+  have hT0pos : (0 : ℝ) < (Real.log X) ^ (1 / 45 : ℝ) := Real.rpow_pos_of_pos hLp _
   -- E4.1 — `T₀ ≤ W = X/h₁`
-  have hT0W : (Real.log X) ^ (1 / 15 : ℝ) ≤ X / h₁ := by
-    have hstep1 : (Real.log X) ^ (1 / 15 : ℝ) ≤ (Real.log X) ^ (1 / 5 : ℝ) :=
+  have hT0W : (Real.log X) ^ (1 / 45 : ℝ) ≤ X / h₁ := by
+    have hstep1 : (Real.log X) ^ (1 / 45 : ℝ) ≤ (Real.log X) ^ (1 / 5 : ℝ) :=
       Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
     have hstep2 : (Real.log X) ^ (1 / 5 : ℝ) ≤ X / h₂ := by
       rw [le_div_iff₀ hh2']
@@ -367,43 +367,43 @@ theorem lemma14_contour (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h₂ Msup : 
     exact vtail_mean_sq_bound hAc hXpos hh1' hh2' hh1X hh2X' hab
   -- E4.4 — S-B: the slab, `x`-uniform
   have hSB : 1 / X * (∫ x in X..(2 * X),
-      ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 15 : ℝ)))
-        ((Real.log X) ^ (1 / 15 : ℝ)) x‖ ^ 2) ≤ 400 * (Real.log X) ^ (-(2 / 15 : ℝ)) := by
+      ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 45 : ℝ)))
+        ((Real.log X) ^ (1 / 45 : ℝ)) x‖ ^ 2) ≤ 400 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by
     have hs5 : (∑ m ∈ s0, 1 / (m : ℝ)) ≤ 5 := coeff_sum_inv_le (by linarith) s0 hrange
     have hs0 : (0 : ℝ) ≤ ∑ m ∈ s0, 1 / (m : ℝ) := Finset.sum_nonneg fun m _ => by positivity
     have hsq25 : (∑ m ∈ s0, 1 / (m : ℝ)) ^ 2 ≤ 25 := by nlinarith
-    have hLnn : (0 : ℝ) ≤ (Real.log X) ^ (-(2 / 15 : ℝ)) := Real.rpow_nonneg hLp.le _
+    have hLnn : (0 : ℝ) ≤ (Real.log X) ^ (-(14 / 45 : ℝ)) := Real.rpow_nonneg hLp.le _
     have hpt : ∀ x ∈ Set.Icc X (2 * X),
-        ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 15 : ℝ)))
-          ((Real.log X) ^ (1 / 15 : ℝ)) x‖ ^ 2
-          ≤ 400 * (Real.log X) ^ (-(2 / 15 : ℝ)) := by
+        ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 45 : ℝ)))
+          ((Real.log X) ^ (1 / 45 : ℝ)) x‖ ^ 2
+          ≤ 400 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by
       intro x hx
       rw [Set.mem_Icc] at hx
       rw [vdiffR_eq hAc hXpos hx.1 hh1'.le hh2'.le, ← uSlab_eq_vSeg, ← uSlab_eq_vSeg]
       refine le_trans (uSlab_taylor_main_sq a s0 hX1 hx.1 hh1 hh12 hh2X hpos ha) ?_
-      calc 16 * (∑ m ∈ s0, 1 / (m : ℝ)) ^ 2 * (Real.log X) ^ (-(2 / 15 : ℝ))
-          ≤ 16 * 25 * (Real.log X) ^ (-(2 / 15 : ℝ)) := by gcongr
-        _ = 400 * (Real.log X) ^ (-(2 / 15 : ℝ)) := by norm_num
+      calc 16 * (∑ m ∈ s0, 1 / (m : ℝ)) ^ 2 * (Real.log X) ^ (-(14 / 45 : ℝ))
+          ≤ 16 * 25 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by gcongr
+        _ = 400 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by norm_num
     have hmono := intervalIntegral.integral_mono_on (by linarith : X ≤ 2 * X)
       (((vdiffR_continuous hAc hXpos h₁ h₂ _ _).norm).pow 2 |>.intervalIntegrable _ _)
       (_root_.intervalIntegrable_const (μ := volume)) hpt
-    have heval : (∫ _x in X..(2 * X), (400 * (Real.log X) ^ (-(2 / 15 : ℝ))))
-        = 400 * (Real.log X) ^ (-(2 / 15 : ℝ)) * X := by
+    have heval : (∫ _x in X..(2 * X), (400 * (Real.log X) ^ (-(14 / 45 : ℝ))))
+        = 400 * (Real.log X) ^ (-(14 / 45 : ℝ)) * X := by
       rw [intervalIntegral.integral_const, smul_eq_mul]; ring
     rw [heval] at hmono
     calc 1 / X * (∫ x in X..(2 * X),
-          ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 15 : ℝ)))
-            ((Real.log X) ^ (1 / 15 : ℝ)) x‖ ^ 2)
-        ≤ 1 / X * (400 * (Real.log X) ^ (-(2 / 15 : ℝ)) * X) :=
+          ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 45 : ℝ)))
+            ((Real.log X) ^ (1 / 45 : ℝ)) x‖ ^ 2)
+        ≤ 1 / X * (400 * (Real.log X) ^ (-(14 / 45 : ℝ)) * X) :=
           mul_le_mul_of_nonneg_left hmono (by positivity)
-      _ = 400 * (Real.log X) ^ (-(2 / 15 : ℝ)) := by field_simp
+      _ = 400 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by field_simp
   -- E4.5 — assemble
   have hstep := five_split_integral_bound hAc hXpos hh1' hh2'
-    ((Real.log X) ^ (1 / 15 : ℝ)) (X / h₁) (2 * (X / h₁))
+    ((Real.log X) ^ (1 / 45 : ℝ)) (X / h₁) (2 * (X / h₁))
   have hmul := mul_le_mul_of_nonneg_left hstep (by positivity : (0 : ℝ) ≤ 1 / X)
   have hb1 := hSC (-(2 * (X / h₁))) (-(X / h₁)) (by linarith)
-  have hb2 := hSC (-(X / h₁)) (-((Real.log X) ^ (1 / 15 : ℝ))) (by linarith)
-  have hb4 := hSC ((Real.log X) ^ (1 / 15 : ℝ)) (X / h₁) hT0W
+  have hb2 := hSC (-(X / h₁)) (-((Real.log X) ^ (1 / 45 : ℝ))) (by linarith)
+  have hb4 := hSC ((Real.log X) ^ (1 / 45 : ℝ)) (X / h₁) hT0W
   have hb5 := hSC (X / h₁) (2 * (X / h₁)) (by linarith)
   have hfar : 820 * Real.pi * ((∫ t in (X / h₁)..(2 * (X / h₁)), ‖dpolyA a s0 t‖ ^ 2)
         + ∫ t in (-(2 * (X / h₁)))..(-(X / h₁)), ‖dpolyA a s0 t‖ ^ 2)
@@ -424,9 +424,9 @@ theorem lemma14_contour_grouped (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h₂
     1 / X * (∫ x in X..(2 * X),
         ‖((1 / h₁ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₁ (2 * (X / h₁))
           - ((1 / h₂ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₂ (2 * (X / h₁))‖ ^ 2)
-      ≤ (2000 + 820 * Real.pi) * ((Real.log X) ^ (-(2 / 15 : ℝ))
-          + ((∫ t in ((Real.log X) ^ (1 / 15 : ℝ))..(X / h₁), ‖dpolyA a s0 t‖ ^ 2)
-              + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 15 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
+      ≤ (2000 + 820 * Real.pi) * ((Real.log X) ^ (-(14 / 45 : ℝ))
+          + ((∫ t in ((Real.log X) ^ (1 / 45 : ℝ))..(X / h₁), ‖dpolyA a s0 t‖ ^ 2)
+              + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 45 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
           + Msup) := by
   have he2 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
   have hX2 : (2 : ℝ) ≤ X := le_trans he2 hX
@@ -435,14 +435,14 @@ theorem lemma14_contour_grouped (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h₂
   have hh1' : (0 : ℝ) < h₁ := by linarith
   have hXpos : (0 : ℝ) < X := by linarith
   have hWpos : (0 : ℝ) < X / h₁ := div_pos hXpos hh1'
-  have hLnn : (0 : ℝ) ≤ (Real.log X) ^ (-(2 / 15 : ℝ)) := Real.rpow_nonneg hLp.le _
+  have hLnn : (0 : ℝ) ≤ (Real.log X) ^ (-(14 / 45 : ℝ)) := Real.rpow_nonneg hLp.le _
   have hL1 : (1 : ℝ) ≤ Real.log X := by rw [Real.le_log_iff_exp_le hXpos]; exact hX
-  have hT0pos : (0 : ℝ) < (Real.log X) ^ (1 / 15 : ℝ) := Real.rpow_pos_of_pos hLp _
+  have hT0pos : (0 : ℝ) < (Real.log X) ^ (1 / 45 : ℝ) := Real.rpow_pos_of_pos hLp _
   have hh2' : (0 : ℝ) < h₂ := by linarith
   have hLinv1 : (Real.log X) ^ (-(1 / 5 : ℝ)) ≤ 1 :=
     Real.rpow_le_one_of_one_le_of_nonpos hL1 (by norm_num)
-  have hT0W : (Real.log X) ^ (1 / 15 : ℝ) ≤ X / h₁ := by
-    have hstep1 : (Real.log X) ^ (1 / 15 : ℝ) ≤ (Real.log X) ^ (1 / 5 : ℝ) :=
+  have hT0W : (Real.log X) ^ (1 / 45 : ℝ) ≤ X / h₁ := by
+    have hstep1 : (Real.log X) ^ (1 / 45 : ℝ) ≤ (Real.log X) ^ (1 / 5 : ℝ) :=
       Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
     have hstep2 : (Real.log X) ^ (1 / 5 : ℝ) ≤ X / h₂ := by
       rw [le_div_iff₀ hh2']
@@ -454,10 +454,10 @@ theorem lemma14_contour_grouped (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h₂
         _ = X := by rw [← Real.rpow_add hLp]; norm_num
     have hstep3 : X / h₂ ≤ X / h₁ := by gcongr
     linarith
-  have hmid1 : (0 : ℝ) ≤ ∫ t in ((Real.log X) ^ (1 / 15 : ℝ))..(X / h₁),
+  have hmid1 : (0 : ℝ) ≤ ∫ t in ((Real.log X) ^ (1 / 45 : ℝ))..(X / h₁),
       ‖dpolyA a s0 t‖ ^ 2 :=
     intervalIntegral.integral_nonneg hT0W (fun t _ => by positivity)
-  have hmid2 : (0 : ℝ) ≤ ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 15 : ℝ))),
+  have hmid2 : (0 : ℝ) ≤ ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 45 : ℝ))),
       ‖dpolyA a s0 t‖ ^ 2 :=
     intervalIntegral.integral_nonneg (by linarith) (fun t _ => by positivity)
   have hMsupW := hMsup (X / h₁) le_rfl
@@ -659,7 +659,7 @@ datum `Eper` (discharged at finite `T` by `perron_gap_collapsed`; `Eper = 0` exa
 un-landed exact representation `A3a-R1` is supplied),
 
 `(1/X)∫_X^{2X} |(1/h₁)S₁(x) − (1/h₂)S₂(x)|² dx`
-`  ≤ (1/2π²)·( C·((log X)^{−2/15} + ∫_{T₀ ≤ |t| ≤ X/h₁}|A(1+it)|² + Msup) + Eper² )`,
+`  ≤ (1/2π²)·( C·((log X)^{−14/45} + ∫_{T₀ ≤ |t| ≤ X/h₁}|A(1+it)|² + Msup) + Eper² )`,
 `C = 2000 + 820π`.  The Perron datum is required only **almost everywhere** on `[X, 2X]`,
 which is exactly what `perron_gap_collapsed` supplies: its boundary guards `(m:ℝ) ≠ x`,
 `(m:ℝ) ≠ x + hⱼ` fail only on the finite set `⋃_{m ∈ s0} {m, m−h₁, m−h₂}`.  (A pointwise
@@ -680,9 +680,9 @@ theorem lemma14_shortInterval_of_perron (a : ℕ → ℂ) (s0 : Finset ℕ)
             - ((1 / h₂ : ℝ) : ℂ) * shortSum a s0 x h₂)‖ ≤ Eper) :
     1 / X * (∫ x in X..(2 * X), ‖((1 / h₁ : ℝ) : ℂ) * shortSum a s0 x h₁
         - ((1 / h₂ : ℝ) : ℂ) * shortSum a s0 x h₂‖ ^ 2)
-      ≤ 1 / (2 * Real.pi ^ 2) * ((2000 + 820 * Real.pi) * ((Real.log X) ^ (-(2 / 15 : ℝ))
-          + ((∫ t in ((Real.log X) ^ (1 / 15 : ℝ))..(X / h₁), ‖dpolyA a s0 t‖ ^ 2)
-              + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 15 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
+      ≤ 1 / (2 * Real.pi ^ 2) * ((2000 + 820 * Real.pi) * ((Real.log X) ^ (-(14 / 45 : ℝ))
+          + ((∫ t in ((Real.log X) ^ (1 / 45 : ℝ))..(X / h₁), ‖dpolyA a s0 t‖ ^ 2)
+              + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 45 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
           + Msup) + Eper ^ 2) := by
   have he2 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
   have hX2 : (2 : ℝ) ≤ X := le_trans he2 hX

@@ -21,7 +21,7 @@ over `s`), so the single vertical integral is only *conditionally* convergent �
 mathlib-absent, correctly priced D.
 
 **But MR never consume the raw representation as an absolutely-convergent object.**
-Their §7 proof (pp. 22–23) immediately splits at `T₀ = (log X)^{1/15}` into
+Their §7 proof (pp. 22–23) immediately splits at `T₀ = (log X)^{1/45}` into
 `Uⱼ` (`|t| ≤ T₀`) and `Vⱼ` (`|t| > T₀`):
 
 * `Uⱼ` uses only the **truncated** integral `∫_{1−iT₀}^{1+iT₀}` (a *finite* interval,

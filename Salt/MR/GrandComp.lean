@@ -298,8 +298,8 @@ rewritten (`dist_triv_left_eq` + `seamCoeff_trivial_dist_eq`) to the bare `ℓ`-
 shifted-center form and floored by the seam `M_range`. -/
 theorem window_sup_decay {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
     {t₀ t X T σ : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1) (hYX : Real.exp (1 / σ) ≤ X)
-    (hmem : (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X) :
+    (hmem : (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X) :
     ‖LSeries (ellLin (seamCoeff (ellLin g) (fun _ => 1) t₀))
         (((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I)‖
       ≤ Real.exp (cpeel + (Real.log 4 + cpeel)) * (1 / σ)
@@ -331,8 +331,8 @@ theorem window_sup_decay {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ �
 `‖F_seam‖² ≤ C_F²·(1/σ²)·exp(−(2/e)·(M_range(...) − 2·log(σ·logX) − 48))`. -/
 theorem window_sup_decay_sq {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1)
     {t₀ t X T σ : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1) (hYX : Real.exp (1 / σ) ≤ X)
-    (hmem : (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X) :
+    (hmem : (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X) :
     ‖LSeries (ellLin (seamCoeff (ellLin g) (fun _ => 1) t₀))
         (((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I)‖ ^ 2
       ≤ Real.exp (cpeel + (Real.log 4 + cpeel)) ^ 2 * (1 / σ ^ 2)

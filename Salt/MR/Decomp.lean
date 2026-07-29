@@ -11,7 +11,7 @@ import Mathlib
 The Matomäki–Radziwiłł Dirichlet-polynomial decomposition (MR §2/§5, eq (9),
 Lemma 12; source `docs/sources/1501.04585v4.pdf` pp.8-10, 19-20;
 `docs/sources/mr_extract.md` §2.2).  The integration range
-`(log X)^{1/15} ≤ t ≤ X/h` is split into `J+1` disjoint sets `𝒯₁,…,𝒯_J, 𝒰` by the
+`(log X)^{1/45} ≤ t ≤ X/h` is split into `J+1` disjoint sets `𝒯₁,…,𝒯_J, 𝒰` by the
 size of the prime Dirichlet polynomials `Σ_{P_j≤p≤Q_j} f(p)/p^{1+it}`, and on each
 `𝒯_j` a **Buchstab/Ramaré identity** extracts a short prime block times a mean
 value over the co-factor.
@@ -201,7 +201,7 @@ theorem ramare_decomp {P Q : ℕ} {M : Type*} [AddCommMonoid M] [Module ℝ M]
 
 /-! ## §6  The `𝒯_j / 𝒰` split of the integration range (p.8)
 
-The range `(log X)^{1/15} ≤ t ≤ X/h` is split into `J+1` disjoint sets
+The range `(log X)^{1/45} ≤ t ≤ X/h` is split into `J+1` disjoint sets
 `𝒯₁,…,𝒯_J, 𝒰` by the sizes of the prime Dirichlet polynomials
 `Σ_{P_j≤p≤Q_j} f(p)/p^{1+it}` (eq (6)).  We formalise the definitions and their
 structural properties (disjointness, exhaustiveness); the analytic content (`𝒰`
@@ -261,7 +261,7 @@ lemma Tset_Uset_disjoint {j : ℕ} :
 
 /-- **Exhaustiveness of the split.**  Every real is in some `𝒯_j` or in `𝒰`:
 `[1,J]`'s `𝒯_j` together with `𝒰` cover the line (the range restriction
-`(log X)^{1/15} ≤ t ≤ X/h` is imposed separately). -/
+`(log X)^{1/45} ≤ t ≤ X/h` is imposed separately). -/
 lemma exists_Tset_or_mem_Uset (t : ℝ) :
     (∃ j, t ∈ Tset f Pseq Qseq δ J j) ∨ t ∈ Uset f Pseq Qseq δ J := by
   classical

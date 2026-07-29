@@ -20,7 +20,7 @@ read:** `SPartStation.dilated_scale_grade` (:540–558) uses `hM₀` at the freq
 and `Rad` enters `seam_ball_leg_station_M_gen` (:886–888) ONLY through that gate and that
 binder.  The corpus's own radius is `FarStar.seamGateRstar X T = T + seamRad X +
 T*(2X, log 2X) + 1` (`seam_gate_star_of_nonempty` supplies the gate there), which at the
-row's `T := X` is `X + (log X)^{1/16} + T*(2X, log 2X) + 1` — **genuinely larger than `X`**.
+row's `T := X` is `X + (log X)^{1/46} + T*(2X, log 2X) + 1` — **genuinely larger than `X`**.
 So the landed bridge cannot serve a box centre as stated: finding 3 of the summit freeze
 (⟦AMENDMENT I⟧) is real, and this file repairs it.
 
@@ -445,7 +445,7 @@ theorem Tstar_two_mul_le_quarter {X : ℝ} (hX : Real.exp 8192 ≤ X) :
 
 So the reach the recentring gate forces EXCEEDS `X` (that is finding 3) but never leaves the
 DOUBLED box — X-1 is the operative stone, and §7 runs at `A = 2` (`2X + W + 16 ≤ X²` for any
-`W ≤ X` once `X ≥ 20`).  The collar `seamRad X = (log X)^{1/16} ≤ log X ≤ 2√X` is what makes
+`W ≤ X` once `X ≥ 20`).  The collar `seamRad X = (log X)^{1/46} ≤ log X ≤ 2√X` is what makes
 the remainder fit. -/
 theorem seamGateRstar_le_two_mul {X T : ℝ} (hX : Real.exp 8192 ≤ X) (hT : T ≤ X) :
     seamGateRstar X T ≤ 2 * X := by
@@ -454,10 +454,10 @@ theorem seamGateRstar_le_two_mul {X T : ℝ} (hX : Real.exp 8192 ≤ X) (hT : T 
     rw [← Real.log_exp 8192]; exact Real.log_le_log (Real.exp_pos _) hX
   have hLpos : (0 : ℝ) < Real.log X := by linarith
   have hXbig : (8100 : ℝ) ≤ X := by linarith [Real.add_one_le_exp (8192 : ℝ)]
-  -- the collar: `(log X)^{1/16} ≤ log X ≤ 2(√X − 1)`
+  -- the collar: `(log X)^{1/46} ≤ log X ≤ 2(√X − 1)`
   have hrad : seamRad X ≤ Real.log X := by
     unfold seamRad
-    calc (Real.log X) ^ (1 / 16 : ℝ) ≤ (Real.log X) ^ (1 : ℝ) :=
+    calc (Real.log X) ^ (1 / 46 : ℝ) ≤ (Real.log X) ^ (1 : ℝ) :=
           Real.rpow_le_rpow_of_exponent_le (by linarith) (by norm_num)
       _ = Real.log X := Real.rpow_one _
   have hs0 : (0 : ℝ) < Real.sqrt X := Real.sqrt_pos.mpr hXpos

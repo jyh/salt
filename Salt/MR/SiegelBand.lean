@@ -211,13 +211,13 @@ theorem band_gate_threshold {M₀ B C L : ℝ} (hM : M₀ < 1)
   rw [div_le_iff₀ h1] at hthr
   nlinarith
 
-/-- **D3-3b (concrete) — the CFB gate at `M₀ = (103/1500)·e`.**  The repriced cap-free-band
-demand is `M₀ ≥ e·(1/15 + 1/500)·loglog X`, i.e. the coefficient `(103/1500)·e ≈ 0.18665`;
-it clears at `loglog X ≥ (B + C)/(1 − (103/1500)e)`.  The side condition
-`(103/1500)·e < 1` is `e < 1500/103 ≈ 14.56`, discharged from `Real.exp_one_lt_d9`. -/
+/-- **D3-3b (concrete) — the CFB gate at `M₀ = (1009/45000)·e`.**  The repriced cap-free-band
+demand is `M₀ ≥ e·(1/45 + 1/5000)·loglog X`, i.e. the coefficient `(1009/45000)·e ≈ 0.06095`;
+it clears at `loglog X ≥ (B + C)/(1 − (1009/45000)e)`.  The side condition
+`(1009/45000)·e < 1` is `e < 45000/1009 ≈ 44.6`, discharged from `Real.exp_one_lt_d9`. -/
 theorem band_gate_threshold_cfb {B C L : ℝ}
-    (hthr : (B + C) / (1 - 103 / 1500 * Real.exp 1) ≤ L) :
-    103 / 1500 * Real.exp 1 * L ≤ L - B - C :=
+    (hthr : (B + C) / (1 - 1009 / 45000 * Real.exp 1) ≤ L) :
+    1009 / 45000 * Real.exp 1 * L ≤ L - B - C :=
   band_gate_threshold (by linarith [Real.exp_one_lt_d9]) hthr
 
 /-- **D3-3c — the quality gate.**  M4-7 consumes only the EXCEEDANCE of

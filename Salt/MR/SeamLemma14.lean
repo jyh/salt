@@ -15,7 +15,7 @@ annular mean square
   `∫_{Ann(T₀,Tann)} ‖spoly N a t‖² dt ≤ 8S² + (the §8.1 level-1 term + the `P₁` term
     + Σ_j lemma12Rows) + 2(Tann/X+1)(log X)^{−θ₂₉₃+ε}`,
 
-with `Ann(T₀,Tann) = {t : (log X)^{1/15} ≤ |t| ≤ Tann}` (`SeamSplit.seamAnn`).
+with `Ann(T₀,Tann) = {t : (log X)^{1/45} ≤ |t| ≤ Tann}` (`SeamSplit.seamAnn`).
 `Lemma14.lemma14_contour` is its designed consumer: it needs, on its right-hand side, the
 two *interval* integrals `∫_{T₀}^{X/h₁} ‖A(1+it)‖²` and `∫_{−X/h₁}^{−T₀} ‖A(1+it)‖²` of the
 CONCRETE Dirichlet polynomial `dpolyA a s0`, plus the weighted max-term datum `Msup`.
@@ -79,7 +79,7 @@ open scoped BigOperators
 
 The `{0}`-meeting trap: the two arms are disjoint **only** for `0 < T₀ = seamT0 X`; at
 `T₀ = 0` they share `{0}` and `Disjoint` — the hypothesis of `integral_union` — is false.
-`0 < seamT0 X` is `1 < X` (`seamT0 X = (log X)^{1/15}`, an `rpow` of `log X`). -/
+`0 < seamT0 X` is `1 < X` (`seamT0 X = (log X)^{1/45}`, an `rpow` of `log X`). -/
 theorem seamAnn_integral_split {F : ℝ → ℝ} (hF : Continuous F) {X T : ℝ}
     (hT0 : 0 < seamT0 X) (hT : seamT0 X ≤ T) :
     (∫ t in seamAnn X T, F t)
@@ -458,10 +458,10 @@ theorem lemma14_contour_of_Msup_at (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h
     1 / X * (∫ x in X..(2 * X),
         ‖((1 / h₁ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₁ (2 * (X / h₁))
           - ((1 / h₂ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₂ (2 * (X / h₁))‖ ^ 2)
-      ≤ 2000 * (Real.log X) ^ (-(2 / 15 : ℝ))
-        + 820 * Real.pi * ((∫ t in ((Real.log X) ^ (1 / 15 : ℝ))..(X / h₁),
+      ≤ 2000 * (Real.log X) ^ (-(14 / 45 : ℝ))
+        + 820 * Real.pi * ((∫ t in ((Real.log X) ^ (1 / 45 : ℝ))..(X / h₁),
               ‖dpolyA a s0 t‖ ^ 2)
-            + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 15 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
+            + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 45 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
         + 820 * Real.pi * Msup := by
   -- E4.0 — the arithmetic environment
   have he2 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
@@ -482,10 +482,10 @@ theorem lemma14_contour_of_Msup_at (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h
     exact_mod_cast hm1
   have hAc : Continuous (dpolyA a s0) := dpolyA_continuous a s0 hpos
   have hWpos : (0 : ℝ) < X / h₁ := div_pos hXpos hh1'
-  have hT0pos : (0 : ℝ) < (Real.log X) ^ (1 / 15 : ℝ) := Real.rpow_pos_of_pos hLp _
+  have hT0pos : (0 : ℝ) < (Real.log X) ^ (1 / 45 : ℝ) := Real.rpow_pos_of_pos hLp _
   -- E4.1 — `T₀ ≤ W = X/h₁`
-  have hT0W : (Real.log X) ^ (1 / 15 : ℝ) ≤ X / h₁ := by
-    have hstep1 : (Real.log X) ^ (1 / 15 : ℝ) ≤ (Real.log X) ^ (1 / 5 : ℝ) :=
+  have hT0W : (Real.log X) ^ (1 / 45 : ℝ) ≤ X / h₁ := by
+    have hstep1 : (Real.log X) ^ (1 / 45 : ℝ) ≤ (Real.log X) ^ (1 / 5 : ℝ) :=
       Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
     have hstep2 : (Real.log X) ^ (1 / 5 : ℝ) ≤ X / h₂ := by
       rw [le_div_iff₀ hh2']
@@ -521,43 +521,43 @@ theorem lemma14_contour_of_Msup_at (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h
     exact vtail_mean_sq_bound hAc hXpos hh1' hh2' hh1X hh2X' hab
   -- E4.4 — S-B: the slab, `x`-uniform
   have hSB : 1 / X * (∫ x in X..(2 * X),
-      ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 15 : ℝ)))
-        ((Real.log X) ^ (1 / 15 : ℝ)) x‖ ^ 2) ≤ 400 * (Real.log X) ^ (-(2 / 15 : ℝ)) := by
+      ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 45 : ℝ)))
+        ((Real.log X) ^ (1 / 45 : ℝ)) x‖ ^ 2) ≤ 400 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by
     have hs5 : (∑ m ∈ s0, 1 / (m : ℝ)) ≤ 5 := coeff_sum_inv_le (by linarith) s0 hrange
     have hs0 : (0 : ℝ) ≤ ∑ m ∈ s0, 1 / (m : ℝ) := Finset.sum_nonneg fun m _ => by positivity
     have hsq25 : (∑ m ∈ s0, 1 / (m : ℝ)) ^ 2 ≤ 25 := by nlinarith
-    have hLnn : (0 : ℝ) ≤ (Real.log X) ^ (-(2 / 15 : ℝ)) := Real.rpow_nonneg hLp.le _
+    have hLnn : (0 : ℝ) ≤ (Real.log X) ^ (-(14 / 45 : ℝ)) := Real.rpow_nonneg hLp.le _
     have hpt : ∀ x ∈ Set.Icc X (2 * X),
-        ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 15 : ℝ)))
-          ((Real.log X) ^ (1 / 15 : ℝ)) x‖ ^ 2
-          ≤ 400 * (Real.log X) ^ (-(2 / 15 : ℝ)) := by
+        ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 45 : ℝ)))
+          ((Real.log X) ^ (1 / 45 : ℝ)) x‖ ^ 2
+          ≤ 400 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by
       intro x hx
       rw [Set.mem_Icc] at hx
       rw [vdiffR_eq hAc hXpos hx.1 hh1'.le hh2'.le, ← uSlab_eq_vSeg, ← uSlab_eq_vSeg]
       refine le_trans (uSlab_taylor_main_sq a s0 hX1 hx.1 hh1 hh12 hh2X hpos ha) ?_
-      calc 16 * (∑ m ∈ s0, 1 / (m : ℝ)) ^ 2 * (Real.log X) ^ (-(2 / 15 : ℝ))
-          ≤ 16 * 25 * (Real.log X) ^ (-(2 / 15 : ℝ)) := by gcongr
-        _ = 400 * (Real.log X) ^ (-(2 / 15 : ℝ)) := by norm_num
+      calc 16 * (∑ m ∈ s0, 1 / (m : ℝ)) ^ 2 * (Real.log X) ^ (-(14 / 45 : ℝ))
+          ≤ 16 * 25 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by gcongr
+        _ = 400 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by norm_num
     have hmono := intervalIntegral.integral_mono_on (by linarith : X ≤ 2 * X)
       (((vdiffR_continuous hAc hXpos h₁ h₂ _ _).norm).pow 2 |>.intervalIntegrable _ _)
       (_root_.intervalIntegrable_const (μ := volume)) hpt
-    have heval : (∫ _x in X..(2 * X), (400 * (Real.log X) ^ (-(2 / 15 : ℝ))))
-        = 400 * (Real.log X) ^ (-(2 / 15 : ℝ)) * X := by
+    have heval : (∫ _x in X..(2 * X), (400 * (Real.log X) ^ (-(14 / 45 : ℝ))))
+        = 400 * (Real.log X) ^ (-(14 / 45 : ℝ)) * X := by
       rw [intervalIntegral.integral_const, smul_eq_mul]; ring
     rw [heval] at hmono
     calc 1 / X * (∫ x in X..(2 * X),
-          ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 15 : ℝ)))
-            ((Real.log X) ^ (1 / 15 : ℝ)) x‖ ^ 2)
-        ≤ 1 / X * (400 * (Real.log X) ^ (-(2 / 15 : ℝ)) * X) :=
+          ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 45 : ℝ)))
+            ((Real.log X) ^ (1 / 45 : ℝ)) x‖ ^ 2)
+        ≤ 1 / X * (400 * (Real.log X) ^ (-(14 / 45 : ℝ)) * X) :=
           mul_le_mul_of_nonneg_left hmono (by positivity)
-      _ = 400 * (Real.log X) ^ (-(2 / 15 : ℝ)) := by field_simp
+      _ = 400 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by field_simp
   -- E4.5 — assemble
   have hstep := five_split_integral_bound hAc hXpos hh1' hh2'
-    ((Real.log X) ^ (1 / 15 : ℝ)) (X / h₁) (2 * (X / h₁))
+    ((Real.log X) ^ (1 / 45 : ℝ)) (X / h₁) (2 * (X / h₁))
   have hmul := mul_le_mul_of_nonneg_left hstep (by positivity : (0 : ℝ) ≤ 1 / X)
   have hb1 := hSC (-(2 * (X / h₁))) (-(X / h₁)) (by linarith)
-  have hb2 := hSC (-(X / h₁)) (-((Real.log X) ^ (1 / 15 : ℝ))) (by linarith)
-  have hb4 := hSC ((Real.log X) ^ (1 / 15 : ℝ)) (X / h₁) hT0W
+  have hb2 := hSC (-(X / h₁)) (-((Real.log X) ^ (1 / 45 : ℝ))) (by linarith)
+  have hb4 := hSC ((Real.log X) ^ (1 / 45 : ℝ)) (X / h₁) hT0W
   have hb5 := hSC (X / h₁) (2 * (X / h₁)) (by linarith)
   have hfar : 820 * Real.pi * ((∫ t in (X / h₁)..(2 * (X / h₁)), ‖dpolyA a s0 t‖ ^ 2)
         + ∫ t in (-(2 * (X / h₁)))..(-(X / h₁)), ‖dpolyA a s0 t‖ ^ 2)
@@ -570,7 +570,7 @@ theorem lemma14_contour_of_Msup_at (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h
 `lemma14_contour_of_Msup_at` + J1–J4.  The seam row's own bound enters as `R₁`/`R₂`; §5
 instantiates it. -/
 
-/-- `T₀ = (log X)^{1/15} ≤ X/h₁` — `lemma14_contour`'s E4.1 step, isolated: the annulus floor
+/-- `T₀ = (log X)^{1/45} ≤ X/h₁` — `lemma14_contour`'s E4.1 step, isolated: the annulus floor
 sits below the truncation, which is what lets J1's split feed Lemma 14's segments. -/
 theorem seamT0_le_div {X h₁ h₂ : ℝ} (hX : Real.exp 1 ≤ X) (hh1 : 1 ≤ h₁) (hh12 : h₁ ≤ h₂)
     (hh2X : h₂ ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ))) : seamT0 X ≤ X / h₁ := by
@@ -582,7 +582,7 @@ theorem seamT0_le_div {X h₁ h₂ : ℝ} (hX : Real.exp 1 ≤ X) (hh1 : 1 ≤ h
   have hh1' : (0 : ℝ) < h₁ := by linarith
   have hh2' : (0 : ℝ) < h₂ := by linarith
   rw [seamT0]
-  have hstep1 : (Real.log X) ^ (1 / 15 : ℝ) ≤ (Real.log X) ^ (1 / 5 : ℝ) :=
+  have hstep1 : (Real.log X) ^ (1 / 45 : ℝ) ≤ (Real.log X) ^ (1 / 5 : ℝ) :=
     Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
   have hstep2 : (Real.log X) ^ (1 / 5 : ℝ) ≤ X / h₂ := by
     rw [le_div_iff₀ hh2']
@@ -612,7 +612,7 @@ theorem lemma14_contour_seam_supplied {N : ℕ} {a : ℕ → ℂ} {X h₁ h₂ R
     1 / X * (∫ x in X..(2 * X),
         ‖((1 / h₁ : ℝ) : ℂ) * uSlab (dpolyA a (seamS0 N X)) x h₁ (2 * (X / h₁))
           - ((1 / h₂ : ℝ) : ℂ) * uSlab (dpolyA a (seamS0 N X)) x h₂ (2 * (X / h₁))‖ ^ 2)
-      ≤ 2000 * (Real.log X) ^ (-(2 / 15 : ℝ)) + 820 * Real.pi * R₁
+      ≤ 2000 * (Real.log X) ^ (-(14 / 45 : ℝ)) + 820 * Real.pi * R₁
         + 820 * Real.pi * R₂ := by
   have he2 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
   have hX1 : (1 : ℝ) < X := by linarith
@@ -639,7 +639,7 @@ theorem lemma14_contour_seam_supplied_single {N : ℕ} {a : ℕ → ℂ} {X h₁
     1 / X * (∫ x in X..(2 * X),
         ‖((1 / h₁ : ℝ) : ℂ) * uSlab (dpolyA a (seamS0 N X)) x h₁ (2 * (X / h₁))
           - ((1 / h₂ : ℝ) : ℂ) * uSlab (dpolyA a (seamS0 N X)) x h₂ (2 * (X / h₁))‖ ^ 2)
-      ≤ 2000 * (Real.log X) ^ (-(2 / 15 : ℝ)) + 1640 * Real.pi * R := by
+      ≤ 2000 * (Real.log X) ^ (-(14 / 45 : ℝ)) + 1640 * Real.pi * R := by
   have he2 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
   have hX1 : (1 : ℝ) < X := by linarith
   have hT0W : seamT0 X ≤ X / h₁ := seamT0_le_div hX hh1 hh12 hh2X
@@ -681,7 +681,7 @@ set_option maxHeartbeats 1000000 in
 `lemma14_contour`'s bound with BOTH analytic terms discharged by `seam_row_calibrated` at the
 single height `Tann = 2X/h₁`:
 
-  `(1/X)∫_X^{2X} ‖(1/h₁)P₁ − (1/h₂)P₂‖² ≤ 2000(log X)^{−2/15} + 1640π·(the seam row)`.
+  `(1/X)∫_X^{2X} ‖(1/h₁)P₁ − (1/h₂)P₂‖² ≤ 2000(log X)^{−14/45} + 1640π·(the seam row)`.
 
 **No `Msup`. No `∫` on the right.**  The surviving frame is exactly `seam_row_calibrated`'s
 (reproduced verbatim, binder for binder) plus five junction gates:
@@ -767,7 +767,7 @@ theorem lemma14_contour_seam_supplied_calibrated :
         1 / X * (∫ x in X..(2 * X),
             ‖((1 / h₁ : ℝ) : ℂ) * uSlab (dpolyA a (seamS0 N X)) x h₁ (2 * (X / h₁))
               - ((1 / h₂ : ℝ) : ℂ) * uSlab (dpolyA a (seamS0 N X)) x h₂ (2 * (X / h₁))‖ ^ 2)
-          ≤ 2000 * (Real.log X) ^ (-(2 / 15 : ℝ))
+          ≤ 2000 * (Real.log X) ^ (-(14 / 45 : ℝ))
             + 1640 * Real.pi
                 * seamRowRHS Cs H1 X (2 * (X / h₁)) η ε S A G Jb N Xd a b c := by
   obtain ⟨Cq, cq, T₀, Ccol, X₀, Cs, hCq, hcq, hT₀, hX₀0, hCs, hrow⟩ := seam_row_calibrated

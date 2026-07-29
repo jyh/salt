@@ -16,10 +16,10 @@ ball but the `M_range` annulus itself.
 
 `annHead g t₀ X T σ` is the `L²` mass of the seam polynomial on the shifted line
 `Re = 1 + σ`, integrated over the `M_range` frequency window
-`(logX)^{1/15} ≤ |t| ≤ T + (logX)^{1/16}` (capped at `|t| ≤ X`).  Two byte-level pins:
+`(logX)^{1/45} ≤ |t| ≤ T + (logX)^{1/46}` (capped at `|t| ≤ X`).  Two byte-level pins:
 
 * **The annulus** matches `M_range`'s window VERBATIM (`DistHalasz.M_range`,
-  `(1/15)`/`(1/16)`/`X`-cap), so a window frequency `t` is *definitionally* a
+  `(1/45)`/`(1/46)`/`X`-cap), so a window frequency `t` is *definitionally* a
   `window_sup_decay` membership witness — no conversion.
 * **The integrand** at the `1 + σ` line matches `window_sup_decay_sq`'s object EXACTLY
   (`GrandComp.window_sup_decay_sq`), so the pointwise sup decay applies verbatim.
@@ -29,15 +29,15 @@ rather than the classical `Re = 1` line.  This consumes `window_sup_decay` direc
 last analytic stone (the `1 + σ → 1` decay-preserving line shift) never has to exist,
 because the moment rows restate at `1 + σ` where the masses only shrink.  The seam is
 crossed on the mechanical/counting side, not the analytic side.  (T-0 provenance: the
-`M_range` window and its `(logX)^{1/16}` widening are the T-0 card's ball geometry;
+`M_range` window and its `(logX)^{1/46}` widening are the T-0 card's ball geometry;
 `AMENDMENT J0`/`B4` re-froze the downstream socket to the `e^{−cM}` shape, `c = 1/e`.)
 
 The stones:
 * `annHead_le_measure_sup` — the measure×sup bound (setIntegral over the annulus ≤ its
-  measure `≤ 2(T + (logX)^{1/16})` times the `t`-free `window_sup_decay_sq` sup).
+  measure `≤ 2(T + (logX)^{1/46})` times the `t`-free `window_sup_decay_sq` sup).
 * `annHead_grade` — the pin specialized at `σ = 1/logX` (where `σ·logX = 1` collapses the
   `2log(σL)` correction), giving the clean grade
-  `annHead ≤ C·(T + (logX)^{1/16})·(logX)²·exp(−(2/e)·M_range)`.
+  `annHead ≤ C·(T + (logX)^{1/46})·(logX)²·exp(−(2/e)·M_range)`.
 * `annHead_le_socket` — the over-satisfaction of the existing `hhead` socket
   (`HalaszHead.hhead_supplier_trivial`): since `e^{−2cM} ≤ e^{−cM}` and the annular
   polylog `≪ X`, the annular object over-satisfies the bare-`X` socket
@@ -54,17 +54,17 @@ open scoped BigOperators
 
 /-- **The annular head (`annHead`).**  The `L²` mass of the seam polynomial (the double
 `ellLin` of the trivial-window seam coefficient) on the shifted line `Re = 1 + σ`,
-integrated over the `M_range` frequency annulus `(logX)^{1/15} ≤ |t| ≤ T + (logX)^{1/16}`,
+integrated over the `M_range` frequency annulus `(logX)^{1/45} ≤ |t| ≤ T + (logX)^{1/46}`,
 capped at `|t| ≤ X`.  The annulus matches `M_range`'s window verbatim; the integrand
 matches `window_sup_decay_sq`'s object verbatim (the B-pin at `Re = 1 + σ`). -/
 def annHead (g : ℕ → ℂ) (t₀ X T σ : ℝ) : ℝ :=
-  ∫ t in {t : ℝ | (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X},
+  ∫ t in {t : ℝ | (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X},
     ‖LSeries (ellLin (seamCoeff (ellLin g) (fun _ => 1) t₀))
         (((1 + σ : ℝ) : ℂ) + (t : ℝ) * Complex.I)‖ ^ 2
 
 /-- **P2 — the measure×sup bound (`annHead_le_measure_sup`).**  The annular head is at
-most the annulus measure (`≤ 2(T + (logX)^{1/16})`, via the honest inclusion into the
+most the annulus measure (`≤ 2(T + (logX)^{1/46})`, via the honest inclusion into the
 outer interval) times the `t`-free `window_sup_decay_sq` sup.  Every window frequency `t`
 is definitionally a `window_sup_decay_sq` membership witness (the P1 byte-match), so the
 pointwise square bound is uniform across the annulus. -/
@@ -72,45 +72,45 @@ theorem annHead_le_measure_sup {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p
     {t₀ X T σ : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1) (hYX : Real.exp (1 / σ) ≤ X)
     (hT : 0 ≤ T) :
     annHead g t₀ X T σ
-      ≤ 2 * (T + (Real.log X) ^ (1 / 16 : ℝ))
+      ≤ 2 * (T + (Real.log X) ^ (1 / 46 : ℝ))
         * (Real.exp (cpeel + (Real.log 4 + cpeel)) ^ 2 * (1 / σ ^ 2)
           * Real.exp (-(2 / Real.exp 1)
               * (M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T
                   - 2 * Real.log (σ * Real.log X) - 48))) := by
   unfold annHead
-  set S := {t : ℝ | (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X} with hSdef
+  set S := {t : ℝ | (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X} with hSdef
   set B := Real.exp (cpeel + (Real.log 4 + cpeel)) ^ 2 * (1 / σ ^ 2)
       * Real.exp (-(2 / Real.exp 1)
           * (M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T
               - 2 * Real.log (σ * Real.log X) - 48)) with hB
-  -- `X > 1`, so `logX > 0` and the `(logX)^{1/16}` widening is nonnegative.
+  -- `X > 1`, so `logX > 0` and the `(logX)^{1/46}` widening is nonnegative.
   have hσinv_pos : (0 : ℝ) < 1 / σ := by positivity
   have hexp1 : (1 : ℝ) < Real.exp (1 / σ) := by
     have := Real.add_one_le_exp (1 / σ); linarith
   have hX1 : (1 : ℝ) < X := lt_of_lt_of_le hexp1 hYX
   have hlogXpos : (0 : ℝ) < Real.log X := Real.log_pos hX1
-  have hr : (0 : ℝ) ≤ (Real.log X) ^ (1 / 16 : ℝ) := Real.rpow_nonneg hlogXpos.le _
-  have hR0 : (0 : ℝ) ≤ 2 * (T + (Real.log X) ^ (1 / 16 : ℝ)) := by linarith
+  have hr : (0 : ℝ) ≤ (Real.log X) ^ (1 / 46 : ℝ) := Real.rpow_nonneg hlogXpos.le _
+  have hR0 : (0 : ℝ) ≤ 2 * (T + (Real.log X) ^ (1 / 46 : ℝ)) := by linarith
   have hB0 : 0 ≤ B := by rw [hB]; positivity
   -- measurability of the annulus (finite intersection of closed abs-conditions)
   have hmeas : MeasurableSet S :=
     (measurableSet_le measurable_const continuous_abs.measurable).inter
       ((measurableSet_le continuous_abs.measurable measurable_const).inter
         (measurableSet_le continuous_abs.measurable measurable_const))
-  -- the annulus sits inside the outer interval, so its measure is `≤ 2(T + (logX)^{1/16})`
-  have hsub : S ⊆ Set.Icc (-(T + (Real.log X) ^ (1 / 16 : ℝ)))
-      (T + (Real.log X) ^ (1 / 16 : ℝ)) := by
+  -- the annulus sits inside the outer interval, so its measure is `≤ 2(T + (logX)^{1/46})`
+  have hsub : S ⊆ Set.Icc (-(T + (Real.log X) ^ (1 / 46 : ℝ)))
+      (T + (Real.log X) ^ (1 / 46 : ℝ)) := by
     intro t ht
     exact Set.mem_Icc.mpr (abs_le.mp ht.2.1)
-  have hvol : volume S ≤ ENNReal.ofReal (2 * (T + (Real.log X) ^ (1 / 16 : ℝ))) := by
+  have hvol : volume S ≤ ENNReal.ofReal (2 * (T + (Real.log X) ^ (1 / 46 : ℝ))) := by
     refine le_trans (measure_mono hsub) ?_
     rw [Real.volume_Icc]
     apply le_of_eq
     congr 1
     ring
   have hfin : volume S < ⊤ := lt_of_le_of_lt hvol ENNReal.ofReal_lt_top
-  have htoReal : (volume S).toReal ≤ 2 * (T + (Real.log X) ^ (1 / 16 : ℝ)) := by
+  have htoReal : (volume S).toReal ≤ 2 * (T + (Real.log X) ^ (1 / 46 : ℝ)) := by
     have h := ENNReal.toReal_mono ENNReal.ofReal_ne_top hvol
     rwa [ENNReal.toReal_ofReal hR0] at h
   -- pointwise: every window frequency IS a `window_sup_decay_sq` witness (byte-match)
@@ -129,7 +129,7 @@ theorem annHead_le_measure_sup {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p
           setIntegral_mono_on hInt (integrableOn_const hfin.ne) hmeas hdom
       _ = (volume S).toReal • B := setIntegral_const B
       _ = (volume S).toReal * B := smul_eq_mul _ _
-      _ ≤ 2 * (T + (Real.log X) ^ (1 / 16 : ℝ)) * B :=
+      _ ≤ 2 * (T + (Real.log X) ^ (1 / 46 : ℝ)) * B :=
           mul_le_mul_of_nonneg_right htoReal hB0
   · rw [integral_undef hInt]
     exact mul_nonneg hR0 hB0
@@ -138,12 +138,12 @@ theorem annHead_le_measure_sup {g : ℕ → ℂ} (hg : ∀ p, p.Prime → ‖g p
 There `σ·logX = 1`, so `2·log(σ·logX) = 0` (the seam-crossing correction vanishes) and
 `1/σ² = (logX)²`; the constants collapse honestly (`exp(96/e)` from the `−48` term).  The
 clean form:
-  `annHead ≤ C·(T + (logX)^{1/16})·(logX)²·exp(−(2/e)·M_range(...))`,
+  `annHead ≤ C·(T + (logX)^{1/46})·(logX)²·exp(−(2/e)·M_range(...))`,
 `C = 2·C_F²·exp(96/e)` an honest absolute constant. -/
 theorem annHead_grade (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ ≤ 1) (t₀ : ℝ) :
     ∃ C : ℝ, 0 ≤ C ∧ ∀ X T : ℝ, Real.exp 1 ≤ X → 0 ≤ T →
       annHead g t₀ X T (1 / Real.log X)
-        ≤ C * (T + (Real.log X) ^ (1 / 16 : ℝ)) * (Real.log X) ^ 2
+        ≤ C * (T + (Real.log X) ^ (1 / 46 : ℝ)) * (Real.log X) ^ 2
             * Real.exp (-(2 / Real.exp 1)
                 * M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T) := by
   refine ⟨2 * Real.exp (cpeel + (Real.log 4 + cpeel)) ^ 2 * Real.exp (96 / Real.exp 1),
@@ -217,19 +217,19 @@ theorem annHead_le_socket (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ �
   have hM0 : 0 ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T :=
     Mrange_nonneg _ hSeamOne X T
   set M := M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T with hMdef
-  -- the `(logX)^{1/16}` widening is `≤ logX`, so the measure factor is `≤ 2·logX`
-  have hr_le : (Real.log X) ^ (1 / 16 : ℝ) ≤ Real.log X := by
-    calc (Real.log X) ^ (1 / 16 : ℝ) ≤ (Real.log X) ^ (1 : ℝ) :=
+  -- the `(logX)^{1/46}` widening is `≤ logX`, so the measure factor is `≤ 2·logX`
+  have hr_le : (Real.log X) ^ (1 / 46 : ℝ) ≤ Real.log X := by
+    calc (Real.log X) ^ (1 / 46 : ℝ) ≤ (Real.log X) ^ (1 : ℝ) :=
           Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
       _ = Real.log X := Real.rpow_one _
-  have hTr : T + (Real.log X) ^ (1 / 16 : ℝ) ≤ 2 * Real.log X := by linarith
+  have hTr : T + (Real.log X) ^ (1 / 46 : ℝ) ≤ 2 * Real.log X := by linarith
   -- fold the polylog measure factor into `2C·(logX)³`
-  have hstep1 : C * (T + (Real.log X) ^ (1 / 16 : ℝ)) * (Real.log X) ^ 2
+  have hstep1 : C * (T + (Real.log X) ^ (1 / 46 : ℝ)) * (Real.log X) ^ 2
         * Real.exp (-(2 / Real.exp 1) * M)
       ≤ 2 * C * (Real.log X) ^ 3 * Real.exp (-(2 / Real.exp 1) * M) := by
     apply mul_le_mul_of_nonneg_right _ (Real.exp_nonneg _)
-    calc C * (T + (Real.log X) ^ (1 / 16 : ℝ)) * (Real.log X) ^ 2
-        = C * (Real.log X) ^ 2 * (T + (Real.log X) ^ (1 / 16 : ℝ)) := by ring
+    calc C * (T + (Real.log X) ^ (1 / 46 : ℝ)) * (Real.log X) ^ 2
+        = C * (Real.log X) ^ 2 * (T + (Real.log X) ^ (1 / 46 : ℝ)) := by ring
       _ ≤ C * (Real.log X) ^ 2 * (2 * Real.log X) :=
           mul_le_mul_of_nonneg_left hTr (mul_nonneg hC0 (by positivity))
       _ = 2 * C * (Real.log X) ^ 3 := by ring
@@ -245,7 +245,7 @@ theorem annHead_le_socket (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g p‖ �
     rw [div_eq_mul_inv, div_eq_mul_inv]
     exact mul_le_mul_of_nonneg_right (by norm_num) (by positivity)
   calc annHead g t₀ X T (1 / Real.log X)
-      ≤ C * (T + (Real.log X) ^ (1 / 16 : ℝ)) * (Real.log X) ^ 2
+      ≤ C * (T + (Real.log X) ^ (1 / 46 : ℝ)) * (Real.log X) ^ 2
           * Real.exp (-(2 / Real.exp 1) * M) := hg1
     _ ≤ 2 * C * (Real.log X) ^ 3 * Real.exp (-(2 / Real.exp 1) * M) := hstep1
     _ ≤ 2 * C * (Real.log X) ^ 3 * Real.exp (-(1 / Real.exp 1) * M) := hstep2
@@ -425,7 +425,7 @@ end Salt.MR
 
 Every landed annular row above gates at `T ≤ Real.log X`.  The gate is an artifact of the
 socket's SHAPE, not of the analysis: `annHead_le_socket` prices the annulus measure by the
-OUTER interval `2(T + (logX)^{1/16})` and then absorbs the whole `measure × (logX)²` factor
+OUTER interval `2(T + (logX)^{1/46})` and then absorbs the whole `measure × (logX)²` factor
 into the bare `X` of the `hhead` socket — which only fits while `T ≲ logX`.  The Lemma-14 /
 Prop-1 consumers need `T` up to `X/h₁` (`Lemma14.lemma14_contour`'s `hMsup` datum sits at
 `T = X/h₁`, and `h₁ ≥ 1` there), so the gate is BINDING.  The rows below retire it.
@@ -485,7 +485,7 @@ open MeasureTheory Filter Asymptotics
 
 /-- **R1a — the `X`-capped measure×sup bound (`annHead_le_measure_sup_capX`).**  The landed
 `annHead_le_measure_sup` page re-run against the annulus's OWN `|t| ≤ X` cap instead of the
-outer interval `|t| ≤ T + (logX)^{1/16}`: the window sits inside `[-X, X]`, so its measure is
+outer interval `|t| ≤ T + (logX)^{1/46}`: the window sits inside `[-X, X]`, so its measure is
 `≤ 2X` for every `T` — no `T`-hypothesis is needed, in either direction.  The pointwise
 `window_sup_decay_sq` step is byte-identical to the landed one (every window frequency is a
 membership witness by construction). -/
@@ -498,8 +498,8 @@ theorem annHead_le_measure_sup_capX {g : ℕ → ℂ} (hg : ∀ p, p.Prime → �
               * (M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T
                   - 2 * Real.log (σ * Real.log X) - 48))) := by
   unfold annHead
-  set S := {t : ℝ | (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X} with hSdef
+  set S := {t : ℝ | (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X} with hSdef
   set B := Real.exp (cpeel + (Real.log 4 + cpeel)) ^ 2 * (1 / σ ^ 2)
       * Real.exp (-(2 / Real.exp 1)
           * (M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T
@@ -848,7 +848,7 @@ end Salt.MR
 /-! ## T-RESHAPE-POLY — the gate widened to any fixed power of `logX` (unconditional)
 
 The maximal honest widening of the LANDED socket shape: `annHead_le_socket`'s absorption
-`C·(T + (logX)^{1/16})·(logX)² ≤ X` never needed `T ≤ logX` — it needed only
+`C·(T + (logX)^{1/46})·(logX)² ≤ X` never needed `T ≤ logX` — it needed only
 `(logX)^{A+2} ≪ X`, which holds for every fixed `A`.  So the whole landed column re-runs
 verbatim with the gate `T ≤ Real.log X` replaced by `T ≤ (Real.log X)^A`, `A : ℕ`, `A ≥ 1`,
 at the SAME bare-`X` socket, the SAME standing `(1/32)·loglog X` floor and the SAME grade;
@@ -912,19 +912,19 @@ theorem annHead_le_socket_polyT (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g 
   have hM0 : 0 ≤ M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T :=
     Mrange_nonneg _ hSeamOne X T
   set M := M_range (seamCoeff (ellLin g) (fun _ => 1) t₀) X T with hMdef
-  -- `(logX)^{1/16} ≤ logX = (logX)^1 ≤ (logX)^A`, so the measure factor is `≤ 2(logX)^A`
-  have hr_le : (Real.log X) ^ (1 / 16 : ℝ) ≤ (Real.log X) ^ A := by
-    calc (Real.log X) ^ (1 / 16 : ℝ) ≤ (Real.log X) ^ (1 : ℝ) :=
+  -- `(logX)^{1/46} ≤ logX = (logX)^1 ≤ (logX)^A`, so the measure factor is `≤ 2(logX)^A`
+  have hr_le : (Real.log X) ^ (1 / 46 : ℝ) ≤ (Real.log X) ^ A := by
+    calc (Real.log X) ^ (1 / 46 : ℝ) ≤ (Real.log X) ^ (1 : ℝ) :=
           Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
       _ = (Real.log X) ^ (1 : ℕ) := by rw [Real.rpow_one, pow_one]
       _ ≤ (Real.log X) ^ A := pow_le_pow_right₀ hL1 hA
-  have hTr : T + (Real.log X) ^ (1 / 16 : ℝ) ≤ 2 * (Real.log X) ^ A := by linarith
-  have hstep1 : C * (T + (Real.log X) ^ (1 / 16 : ℝ)) * (Real.log X) ^ 2
+  have hTr : T + (Real.log X) ^ (1 / 46 : ℝ) ≤ 2 * (Real.log X) ^ A := by linarith
+  have hstep1 : C * (T + (Real.log X) ^ (1 / 46 : ℝ)) * (Real.log X) ^ 2
         * Real.exp (-(2 / Real.exp 1) * M)
       ≤ 2 * C * (Real.log X) ^ (A + 2) * Real.exp (-(2 / Real.exp 1) * M) := by
     apply mul_le_mul_of_nonneg_right _ (Real.exp_nonneg _)
-    calc C * (T + (Real.log X) ^ (1 / 16 : ℝ)) * (Real.log X) ^ 2
-        = C * (Real.log X) ^ 2 * (T + (Real.log X) ^ (1 / 16 : ℝ)) := by ring
+    calc C * (T + (Real.log X) ^ (1 / 46 : ℝ)) * (Real.log X) ^ 2
+        = C * (Real.log X) ^ 2 * (T + (Real.log X) ^ (1 / 46 : ℝ)) := by ring
       _ ≤ C * (Real.log X) ^ 2 * (2 * (Real.log X) ^ A) :=
           mul_le_mul_of_nonneg_left hTr (mul_nonneg hC0 (by positivity))
       _ = 2 * C * (Real.log X) ^ (A + 2) := by rw [pow_add]; ring
@@ -939,7 +939,7 @@ theorem annHead_le_socket_polyT (g : ℕ → ℂ) (hg : ∀ p, p.Prime → ‖g 
     rw [div_eq_mul_inv, div_eq_mul_inv]
     exact mul_le_mul_of_nonneg_right (by norm_num) (by positivity)
   calc annHead g t₀ X T (1 / Real.log X)
-      ≤ C * (T + (Real.log X) ^ (1 / 16 : ℝ)) * (Real.log X) ^ 2
+      ≤ C * (T + (Real.log X) ^ (1 / 46 : ℝ)) * (Real.log X) ^ 2
           * Real.exp (-(2 / Real.exp 1) * M) := hg1
     _ ≤ 2 * C * (Real.log X) ^ (A + 2) * Real.exp (-(2 / Real.exp 1) * M) := hstep1
     _ ≤ 2 * C * (Real.log X) ^ (A + 2) * Real.exp (-(1 / Real.exp 1) * M) := hstep2

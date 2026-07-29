@@ -13526,3 +13526,29 @@ review as the standing record. SEQUENCING: the re-cut waits for
 W2-DOOR-CARRIED's landing (ThmA2's numerals are in its read cone);
 then the SEAM-RECUT wave on a quiet tree; then the T0-supplier close
 at the 1/16 floor; then the discharge of the carried arm.
+
+---
+
+## THE SEAM RE-CUT LANDS — the night ruling executed; the amendment record (2026-07-28 21:45 PDT)
+
+**THE FROZEN AMENDMENT (the morning-review record, machine-diffed):**
+summand 4 of the five-summand exit: (log X)^{−13/15} → (log X)^{−43/45}
+— ONE line differs in each of thm_a2'_of_rows / thm_a2' /
+m4_meansq_per_chi_gen; a2Rows_of_capfree3 and
+m4_wave_structurally_closed BYTE-IDENTICAL. The defs: seamT0 at 1/45,
+seamRad at 1/46, the band δ at 1/5000 (the gate at 1009/45000).
+~400 sites across 48 files (+710/−591); the census undercounted
+honestly: the pre-seamT0 LITERAL layers (the M_range window, the
+Lemma-14/Perron slab — 12 + 9 files) were coupled by
+seamAnn_subset_Mrange_window and thm_a2_spine's hband (the wrong-
+direction bridge — unbridgeable, so the literals moved); the head
+exponent RETARGETED to the exact −7/45 (a STRENGTHENING — the head
+decays 7× faster; 51 sites); m4_decay_exponent_neg re-proved at the
+band shape (the a2wall exhibit was the box shape — different lemma);
+rho293_le_seam strengthened to 2 < e — THE WAVE'S ONLY NON-NUMERAL
+CODE LINE. The frozen 𝒰-leg 1/500s verified UNMOVED in place.
+**(g) for the close: the re-cut gate lemmas currently have NO
+consumers — the T0-supplier close consumes them first.** BOXPIECE
+sealed in this batch (FarL2 §12: the 1/16 piece transport at zero
+threshold cost; box_floor_clears_gate_45 already at the ruled
+numerals).

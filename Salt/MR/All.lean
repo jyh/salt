@@ -2486,7 +2486,7 @@ open Salt.Tactic in
 -- §6 the two grade repairs —
 -- ⟦U3⟧ `m4_gradeGate_direct` (the gate WITHOUT spending the `15 − 11/4` exponent gap; the
 -- Prop socket unedited) and ⟦U1⟧ `m4_decay_summand_eq` (summand 1 priced from `cfbM0`
--- DIRECTLY, as an EQUALITY, retaining the honest `(log X)^{1/15 − 7/(30e)}` decay — never
+-- DIRECTLY, as an EQUALITY, retaining the honest `(log X)^{1/45 − 7/(30e)}` decay — never
 -- through `m4_quality_summand_le`, whose `g1` is unsatisfiable); §7 ⟦U2⟧ THE ORDER PIN —
 -- `M4RowMeanSqUnphased`, the re-cut row, pinned to `M4Join.M4RowMeanSq`'s body at the
 -- removed phase, plus `m4_sievedDoorSq_of_classPrice`, steps 3–5 of the final compose
@@ -3186,6 +3186,17 @@ open Salt.Tactic in
 -- (w2 — the `T₀`-band floor lifted `7/30 → 1/4`, an instance at `A := 3`) and `box_floor_M0`
 -- (w1 — the plain `M₀ ≤ 𝔻²` box form at `1/16`, `capFreeFloor3_margin_all_chi`'s arms with the
 -- strict `CapFreeFloor3` wrapper removed, NO margin spent).
+-- ⟦THE BOX FLOOR AT THE PIECE⟧ (§12, 2026-07-28 — the re-cut's supply side).  `box_floor_M0`
+-- transported to the masked piece by the `polylog_floor_M0_pieceDatum` pattern VERBATIM one
+-- coefficient down: `box_floor_M0_liouChi` (the `pretDistSq_liouChi_eq` equality, free) and
+-- `box_floor_M0_pieceDatum` (`pretDistSq_pieceDatum_ge` at factor `1`, the debit absorbed by
+-- `boxM0_add_debit`), on the WHOLE box `|v| ≤ 3X` with no threshold.  ⟦THE ONE LEMMA THE RE-CUT
+-- `T₀`-SUPPLIER CONSUMES⟧ `box_floor_clears_gate_45`: floor + mask + gate in one implication,
+-- `700·((5/4)ℓ + (3/4)log q + q + (K+D)) ≤ L ⟹ (1009/45000)·e·L ≤ 𝔻²(λχ̄·g_𝒥, n^{iv}; X)` —
+-- `A2Wall.a2wall_gate_45`'s coefficient (`1/45 − 1009/45000 = −1/5000`, EXACT) paid at box
+-- strength with margin `1/16 − (1009/45000)e = 0.00155008…`.  Stated in `FarL2`, not `A2Wall`,
+-- because the import runs `FarL2 → A2Wall`; the two-line clearance arithmetic
+-- (`a2wall_box_clears_45`) is therefore re-run inline there.
 -- ⟦THE FAR HALF: THE N-TERM REFUTATION⟧ (P2, a DESIGN FINDING, not a landing).  The scope's
 -- route "dyadic Cauchy–Schwarz in `τ` + `dirichlet_poly_l2_mvt_final` against the kernel's
 -- `1/(c²+τ²)` weight" does NOT reach a poly-log `H`.  The landed mean value is
@@ -3217,6 +3228,10 @@ open Salt.Tactic in
   Salt.MR.band_floor_M0_vk
   Salt.MR.boxM0
   Salt.MR.box_floor_M0
+  Salt.MR.boxM0_add_debit
+  Salt.MR.box_floor_M0_liouChi
+  Salt.MR.box_floor_M0_pieceDatum
+  Salt.MR.box_floor_clears_gate_45
   Salt.MR.winL2Coeff
   Salt.MR.windowSum_eq_dpoly
   Salt.MR.winL2Mass

@@ -50,7 +50,7 @@ the *first* power of `Q` is integrated.
 **Rates.**  With `T = X·(log X)^B`, `δ = (log X)^{−a}` and `BIG ≍ log X =: L`, the bound is
 `≍ L^{2−a} + L^{2(a−B)} + L^{2(1−B)}`; balancing `2 − a = 2(a − B)` gives `a = (2+2B)/3` and
 the value `L^{(4−2B)/3}`, which is `≤ L^{−A}` exactly when `B ≥ 2 + 3A/2`.  Lemma 14's main
-term is `L^{−2/15}`, so `B ≥ 2 + 1/5` suffices.  The parameter-free version is
+term is `L^{−14/45}`, so `B ≥ 2 + 1/5` suffices.  The parameter-free version is
 `gapMaj_meansq_sqrt` (`δ = √(X/T)`, admissible for `T ≥ X`), whose right-hand side
 `34560·√(X/T)·BIG² + 1152·(12√(X/T) + (8X/T)(1+log 3X))²` **tends to `0` as `T → ∞`**.
 
@@ -904,7 +904,7 @@ The consumer-side restatement of `lemma14_shortInterval_of_perron`: instead of a
 constant `Eper` dominating the Perron gap *pointwise* a.e., the gap is dominated a.e. by a
 function `G`, and only the **mean square** `(1/X)∫_X^{2X} G² ≤ Egap` enters the conclusion:
 
-`(1/X)∫_X^{2X} |(1/h₁)S₁ − (1/h₂)S₂|² ≤ (1/2π²)·( C·((log X)^{−2/15} + ∫ + Msup) + Egap )`,
+`(1/X)∫_X^{2X} |(1/h₁)S₁ − (1/h₂)S₂|² ≤ (1/2π²)·( C·((log X)^{−14/45} + ∫ + Msup) + Egap )`,
 `C = 2000 + 820π`.
 
 The transfer is the same `(a+b)² ≤ 2a² + 2b²` used pointwise inside the `x`-integral; what
@@ -929,9 +929,9 @@ theorem lemma14_shortInterval_meansq (a : ℕ → ℂ) (s0 : Finset ℕ)
     (hGsq : 1 / X * (∫ x in X..(2 * X), G x ^ 2) ≤ Egap) :
     1 / X * (∫ x in X..(2 * X), ‖((1 / h₁ : ℝ) : ℂ) * shortSum a s0 x h₁
         - ((1 / h₂ : ℝ) : ℂ) * shortSum a s0 x h₂‖ ^ 2)
-      ≤ 1 / (2 * Real.pi ^ 2) * ((2000 + 820 * Real.pi) * ((Real.log X) ^ (-(2 / 15 : ℝ))
-          + ((∫ t in ((Real.log X) ^ (1 / 15 : ℝ))..(X / h₁), ‖dpolyA a s0 t‖ ^ 2)
-              + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 15 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
+      ≤ 1 / (2 * Real.pi ^ 2) * ((2000 + 820 * Real.pi) * ((Real.log X) ^ (-(14 / 45 : ℝ))
+          + ((∫ t in ((Real.log X) ^ (1 / 45 : ℝ))..(X / h₁), ‖dpolyA a s0 t‖ ^ 2)
+              + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 45 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
           + Msup) + Egap) := by
   have he2 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
   have hX2 : (2 : ℝ) ≤ X := le_trans he2 hX
@@ -1054,9 +1054,9 @@ theorem lemma14_shortInterval_meansq_concrete (a : ℕ → ℂ) (s0 : Finset ℕ
         + ∫ t in (-(2 * T))..(-T), ‖dpolyA a s0 t‖ ^ 2) ≤ Msup) :
     1 / X * (∫ x in X..(2 * X), ‖((1 / h₁ : ℝ) : ℂ) * shortSum a s0 x h₁
         - ((1 / h₂ : ℝ) : ℂ) * shortSum a s0 x h₂‖ ^ 2)
-      ≤ 1 / (2 * Real.pi ^ 2) * ((2000 + 820 * Real.pi) * ((Real.log X) ^ (-(2 / 15 : ℝ))
-          + ((∫ t in ((Real.log X) ^ (1 / 15 : ℝ))..(X / h₁), ‖dpolyA a s0 t‖ ^ 2)
-              + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 15 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
+      ≤ 1 / (2 * Real.pi ^ 2) * ((2000 + 820 * Real.pi) * ((Real.log X) ^ (-(14 / 45 : ℝ))
+          + ((∫ t in ((Real.log X) ^ (1 / 45 : ℝ))..(X / h₁), ‖dpolyA a s0 t‖ ^ 2)
+              + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 45 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
           + Msup)
         + (34560 * δ * (Real.pi + 2 * Real.log (1 + 2 * (X / h₁))) ^ 2
           + 1152 * (6 * h₁ / δ + 4 * h₁ * (1 + Real.log (3 * X))) ^ 2)) := by

@@ -72,7 +72,7 @@ the consumer: `dyadic_tail_proper` at `Tmax = W` returns `8·Msup/W²`.
 * `vtail_meansq_damped` — R3-c, the far arm: `5904π·(X/h₁)²·∫‖A‖²/(1+t²)`.
 * `vtail_meansq_kernel`, `vtail_meansq_kernel_neg` — R3-d, THE EXIT (both half-tails).
 * `lemma14_contour_kernel` — R3-e, Lemma 14's contour assembly at `Tcut = 2^N·(X/h₁)`,
-  `≤ 2000(log X)^{−2/15} + 820π·∫_{T₀≤|t|≤W}‖A‖² + 944640π·Msup`, **uniformly in `N`**.
+  `≤ 2000(log X)^{−14/45} + 820π·∫_{T₀≤|t|≤W}‖A‖² + 944640π·Msup`, **uniformly in `N`**.
 * `lemma14_shortInterval_meansq_kernel` — R3-f, the frozen `Sⱼ` form at that truncation, with
   `Egap(N,δ) = 34560δ(π + 2log(1+2^N X/h₁))² + 1152(12h₁/(2^Nδ) + (8h₁/2^N)(1+log 3X))²`:
   **both pieces now vanish** (take `δ ≍ 2^{−N/2}`, MR's `δ ≍ √(X/Tcut)`), where at the pinned
@@ -924,10 +924,10 @@ private lemma five_split_integral_bound {A : ℝ → ℂ} (hA : Continuous A) {X
     ((hsq _ _).intervalIntegrable _ _)
 
 /-- **R3-e — Lemma 14's contour assembly at the DYADICALLY EXTENDED truncation.**  With
-`T₀ = (log X)^{1/15}`, `W = X/h₁` and `Tcut = 2^N·W` for ANY `N`,
+`T₀ = (log X)^{1/45}`, `W = X/h₁` and `Tcut = 2^N·W` for ANY `N`,
 
 `(1/X)∫_X^{2X} ‖(1/h₁)P₁(x) − (1/h₂)P₂(x)‖² dx`
-`  ≤ 2000·(log X)^{−2/15} + 820π·∫_{T₀ ≤ |t| ≤ W} ‖A(1+it)‖² dt + 944640π·Msup`,
+`  ≤ 2000·(log X)^{−14/45} + 820π·∫_{T₀ ≤ |t| ≤ W} ‖A(1+it)‖² dt + 944640π·Msup`,
 
 `Pⱼ(x) = uSlab (dpolyA a s0) x hⱼ (2^N·(X/h₁))` — **uniformly in `N`**.  This is what
 `lemma14_contour` could not do: there the far blocks were paid by the kernel-free
@@ -946,10 +946,10 @@ theorem lemma14_contour_kernel (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h₂ 
     1 / X * (∫ x in X..(2 * X),
         ‖((1 / h₁ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₁ (2 ^ N * (X / h₁))
           - ((1 / h₂ : ℝ) : ℂ) * uSlab (dpolyA a s0) x h₂ (2 ^ N * (X / h₁))‖ ^ 2)
-      ≤ 2000 * (Real.log X) ^ (-(2 / 15 : ℝ))
-        + 820 * Real.pi * ((∫ t in ((Real.log X) ^ (1 / 15 : ℝ))..(X / h₁),
+      ≤ 2000 * (Real.log X) ^ (-(14 / 45 : ℝ))
+        + 820 * Real.pi * ((∫ t in ((Real.log X) ^ (1 / 45 : ℝ))..(X / h₁),
               ‖dpolyA a s0 t‖ ^ 2)
-            + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 15 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
+            + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 45 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
         + 944640 * Real.pi * Msup := by
   -- the arithmetic environment (as in `lemma14_contour`)
   have he2 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
@@ -970,9 +970,9 @@ theorem lemma14_contour_kernel (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h₂ 
     exact_mod_cast hm1
   have hAc : Continuous (dpolyA a s0) := dpolyA_continuous a s0 hpos
   have hWpos : (0 : ℝ) < X / h₁ := div_pos hXpos hh1'
-  have hT0pos : (0 : ℝ) < (Real.log X) ^ (1 / 15 : ℝ) := Real.rpow_pos_of_pos hLp _
-  have hT0W : (Real.log X) ^ (1 / 15 : ℝ) ≤ X / h₁ := by
-    have hstep1 : (Real.log X) ^ (1 / 15 : ℝ) ≤ (Real.log X) ^ (1 / 5 : ℝ) :=
+  have hT0pos : (0 : ℝ) < (Real.log X) ^ (1 / 45 : ℝ) := Real.rpow_pos_of_pos hLp _
+  have hT0W : (Real.log X) ^ (1 / 45 : ℝ) ≤ X / h₁ := by
+    have hstep1 : (Real.log X) ^ (1 / 45 : ℝ) ≤ (Real.log X) ^ (1 / 5 : ℝ) :=
       Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
     have hstep2 : (Real.log X) ^ (1 / 5 : ℝ) ≤ X / h₂ := by
       rw [le_div_iff₀ hh2']
@@ -1011,36 +1011,36 @@ theorem lemma14_contour_kernel (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h₂ 
     exact vtail_mean_sq_bound hAc hXpos hh1' hh2' hh1X hh2X' hab
   -- the slab (S-B, `x`-uniform)
   have hSB : 1 / X * (∫ x in X..(2 * X),
-      ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 15 : ℝ)))
-        ((Real.log X) ^ (1 / 15 : ℝ)) x‖ ^ 2) ≤ 400 * (Real.log X) ^ (-(2 / 15 : ℝ)) := by
+      ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 45 : ℝ)))
+        ((Real.log X) ^ (1 / 45 : ℝ)) x‖ ^ 2) ≤ 400 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by
     have hs5 : (∑ m ∈ s0, 1 / (m : ℝ)) ≤ 5 := coeff_sum_inv_le (by linarith) s0 hrange
     have hs0 : (0 : ℝ) ≤ ∑ m ∈ s0, 1 / (m : ℝ) := Finset.sum_nonneg fun m _ => by positivity
     have hsq25 : (∑ m ∈ s0, 1 / (m : ℝ)) ^ 2 ≤ 25 := by nlinarith
-    have hLnn : (0 : ℝ) ≤ (Real.log X) ^ (-(2 / 15 : ℝ)) := Real.rpow_nonneg hLp.le _
+    have hLnn : (0 : ℝ) ≤ (Real.log X) ^ (-(14 / 45 : ℝ)) := Real.rpow_nonneg hLp.le _
     have hpt : ∀ x ∈ Set.Icc X (2 * X),
-        ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 15 : ℝ)))
-          ((Real.log X) ^ (1 / 15 : ℝ)) x‖ ^ 2
-          ≤ 400 * (Real.log X) ^ (-(2 / 15 : ℝ)) := by
+        ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 45 : ℝ)))
+          ((Real.log X) ^ (1 / 45 : ℝ)) x‖ ^ 2
+          ≤ 400 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by
       intro x hx
       rw [Set.mem_Icc] at hx
       rw [vdiffR_eq hAc hXpos hx.1 hh1'.le hh2'.le, ← uSlab_eq_vSeg, ← uSlab_eq_vSeg]
       refine le_trans (uSlab_taylor_main_sq a s0 hX1 hx.1 hh1 hh12 hh2X hpos ha) ?_
-      calc 16 * (∑ m ∈ s0, 1 / (m : ℝ)) ^ 2 * (Real.log X) ^ (-(2 / 15 : ℝ))
-          ≤ 16 * 25 * (Real.log X) ^ (-(2 / 15 : ℝ)) := by gcongr
-        _ = 400 * (Real.log X) ^ (-(2 / 15 : ℝ)) := by norm_num
+      calc 16 * (∑ m ∈ s0, 1 / (m : ℝ)) ^ 2 * (Real.log X) ^ (-(14 / 45 : ℝ))
+          ≤ 16 * 25 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by gcongr
+        _ = 400 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by norm_num
     have hmono := intervalIntegral.integral_mono_on (by linarith : X ≤ 2 * X)
       (((vdiffR_continuous hAc hXpos h₁ h₂ _ _).norm).pow 2 |>.intervalIntegrable _ _)
       (_root_.intervalIntegrable_const (μ := volume)) hpt
-    have heval : (∫ _x in X..(2 * X), (400 * (Real.log X) ^ (-(2 / 15 : ℝ))))
-        = 400 * (Real.log X) ^ (-(2 / 15 : ℝ)) * X := by
+    have heval : (∫ _x in X..(2 * X), (400 * (Real.log X) ^ (-(14 / 45 : ℝ))))
+        = 400 * (Real.log X) ^ (-(14 / 45 : ℝ)) * X := by
       rw [intervalIntegral.integral_const, smul_eq_mul]; ring
     rw [heval] at hmono
     calc 1 / X * (∫ x in X..(2 * X),
-          ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 15 : ℝ)))
-            ((Real.log X) ^ (1 / 15 : ℝ)) x‖ ^ 2)
-        ≤ 1 / X * (400 * (Real.log X) ^ (-(2 / 15 : ℝ)) * X) :=
+          ‖vdiffR (dpolyA a s0) X h₁ h₂ (-((Real.log X) ^ (1 / 45 : ℝ)))
+            ((Real.log X) ^ (1 / 45 : ℝ)) x‖ ^ 2)
+        ≤ 1 / X * (400 * (Real.log X) ^ (-(14 / 45 : ℝ)) * X) :=
           mul_le_mul_of_nonneg_left hmono (by positivity)
-      _ = 400 * (Real.log X) ^ (-(2 / 15 : ℝ)) := by field_simp
+      _ = 400 * (Real.log X) ^ (-(14 / 45 : ℝ)) := by field_simp
   -- the two far blocks, paid by the KERNEL exit and the dyadic tail
   have hGnn : ∀ t : ℝ, (0 : ℝ) ≤ ‖dpolyA a s0 t‖ ^ 2 := fun t => by positivity
   have hGc : Continuous (fun t : ℝ => ‖dpolyA a s0 t‖ ^ 2) := hAc.norm.pow 2
@@ -1129,10 +1129,10 @@ theorem lemma14_contour_kernel (a : ℕ → ℂ) (s0 : Finset ℕ) {X h₁ h₂ 
     ring
   -- assemble
   have hstep := five_split_integral_bound hAc hXpos hh1' hh2'
-    ((Real.log X) ^ (1 / 15 : ℝ)) (X / h₁) (2 ^ N * (X / h₁))
+    ((Real.log X) ^ (1 / 45 : ℝ)) (X / h₁) (2 ^ N * (X / h₁))
   have hmul := mul_le_mul_of_nonneg_left hstep (by positivity : (0 : ℝ) ≤ 1 / X)
-  have hb2 := hSC (-(X / h₁)) (-((Real.log X) ^ (1 / 15 : ℝ))) (by linarith)
-  have hb4 := hSC ((Real.log X) ^ (1 / 15 : ℝ)) (X / h₁) hT0W
+  have hb2 := hSC (-(X / h₁)) (-((Real.log X) ^ (1 / 45 : ℝ))) (by linarith)
+  have hb4 := hSC ((Real.log X) ^ (1 / 45 : ℝ)) (X / h₁) hT0W
   linarith [hmul, hb2, hb4, hSB, hfarP, hfarN]
 
 /-! ## R3-f — the gap close: the `Sⱼ` mean square with a VANISHING Perron defect -/
@@ -1142,7 +1142,7 @@ discharged internally (boundary guards a.e., gap majorant, integrability), for a
 bump width `0 < δ ≤ 1`:
 
 `(1/X)∫_X^{2X} ‖(1/h₁)S₁(x) − (1/h₂)S₂(x)‖² dx`
-`  ≤ (1/2π²)·[(2000 + 944640π)·((log X)^{−2/15} + ∫_{T₀≤|t|≤W}‖A‖² + Msup) + Egap(N,δ)]`,
+`  ≤ (1/2π²)·[(2000 + 944640π)·((log X)^{−14/45} + ∫_{T₀≤|t|≤W}‖A‖² + Msup) + Egap(N,δ)]`,
 `Egap(N,δ) = 34560·δ·(π + 2log(1 + 2^N·X/h₁))² + 1152·(12h₁/(2^N δ) + (8h₁/2^N)(1+log 3X))²`.
 
 **THE GAP CLOSES.**  At the pinned truncation of `lemma14_shortInterval_meansq_concrete`
@@ -1163,9 +1163,9 @@ theorem lemma14_shortInterval_meansq_kernel (a : ℕ → ℂ) (s0 : Finset ℕ)
     1 / X * (∫ x in X..(2 * X), ‖((1 / h₁ : ℝ) : ℂ) * shortSum a s0 x h₁
         - ((1 / h₂ : ℝ) : ℂ) * shortSum a s0 x h₂‖ ^ 2)
       ≤ 1 / (2 * Real.pi ^ 2) * ((2000 + 944640 * Real.pi)
-          * ((Real.log X) ^ (-(2 / 15 : ℝ))
-            + ((∫ t in ((Real.log X) ^ (1 / 15 : ℝ))..(X / h₁), ‖dpolyA a s0 t‖ ^ 2)
-                + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 15 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
+          * ((Real.log X) ^ (-(14 / 45 : ℝ))
+            + ((∫ t in ((Real.log X) ^ (1 / 45 : ℝ))..(X / h₁), ‖dpolyA a s0 t‖ ^ 2)
+                + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 45 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
             + Msup)
         + (34560 * δ * (Real.pi + 2 * Real.log (1 + 2 ^ N * (X / h₁))) ^ 2
           + 1152 * (12 * h₁ / (2 ^ N * δ)
@@ -1308,11 +1308,11 @@ theorem lemma14_shortInterval_meansq_kernel (a : ℕ → ℂ) (s0 : Finset ℕ)
   refine hstep1.trans (mul_le_mul_of_nonneg_left ?_ (by positivity))
   -- the grouped kernel contour bound
   have hcont := lemma14_contour_kernel a s0 N hX hh1 hh12 hh2X ha hrange hMsup
-  have hLnn : (0 : ℝ) ≤ (Real.log X) ^ (-(2 / 15 : ℝ)) := Real.rpow_nonneg hLp.le _
-  have hSnn : (0 : ℝ) ≤ (∫ t in ((Real.log X) ^ (1 / 15 : ℝ))..(X / h₁), ‖dpolyA a s0 t‖ ^ 2)
-      + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 15 : ℝ))), ‖dpolyA a s0 t‖ ^ 2 := by
-    have hT0W : (Real.log X) ^ (1 / 15 : ℝ) ≤ X / h₁ := by
-      have hstep1 : (Real.log X) ^ (1 / 15 : ℝ) ≤ (Real.log X) ^ (1 / 5 : ℝ) :=
+  have hLnn : (0 : ℝ) ≤ (Real.log X) ^ (-(14 / 45 : ℝ)) := Real.rpow_nonneg hLp.le _
+  have hSnn : (0 : ℝ) ≤ (∫ t in ((Real.log X) ^ (1 / 45 : ℝ))..(X / h₁), ‖dpolyA a s0 t‖ ^ 2)
+      + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 45 : ℝ))), ‖dpolyA a s0 t‖ ^ 2 := by
+    have hT0W : (Real.log X) ^ (1 / 45 : ℝ) ≤ X / h₁ := by
+      have hstep1 : (Real.log X) ^ (1 / 45 : ℝ) ≤ (Real.log X) ^ (1 / 5 : ℝ) :=
         Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
       have hstep2 : (Real.log X) ^ (1 / 5 : ℝ) ≤ X / h₂ := by
         rw [le_div_iff₀ hh2']
@@ -1324,10 +1324,10 @@ theorem lemma14_shortInterval_meansq_kernel (a : ℕ → ℂ) (s0 : Finset ℕ)
           _ = X := by rw [← Real.rpow_add hLp]; norm_num
       have hstep3 : X / h₂ ≤ X / h₁ := by gcongr
       linarith
-    have hn1 : (0 : ℝ) ≤ ∫ t in ((Real.log X) ^ (1 / 15 : ℝ))..(X / h₁),
+    have hn1 : (0 : ℝ) ≤ ∫ t in ((Real.log X) ^ (1 / 45 : ℝ))..(X / h₁),
         ‖dpolyA a s0 t‖ ^ 2 :=
       intervalIntegral.integral_nonneg hT0W (fun t _ => by positivity)
-    have hn2 : (0 : ℝ) ≤ ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 15 : ℝ))),
+    have hn2 : (0 : ℝ) ≤ ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 45 : ℝ))),
         ‖dpolyA a s0 t‖ ^ 2 :=
       intervalIntegral.integral_nonneg (by linarith) (fun t _ => by positivity)
     linarith

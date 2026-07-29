@@ -643,7 +643,7 @@ in the open).  What is left in front of the exit is
   `3·max (2·caseAS (1/e) Cb (cofactorMfl X θ₂₉₃ k₀) k₀) (farSupS k₀ M (Dmax+1) R)`,
 
 whose CASE-A half `caseAS_293` reads as `(log X)^{−ρ₂₉₃}` up to the descent factor and whose
-CASE-B half is `2√2/R + farErr` — at the intended `R = seamRad X = (log X)^{1/16}` the
+CASE-B half is `2√2/R + farErr` — at the intended `R = seamRad X = (log X)^{1/46}` the
 `6×`-better exponent of ⟦V5⟧. -/
 theorem cofactor_Rbd_293 :
     ∃ X₀ X₁ : ℝ, 0 < X₀ ∧ 0 < X₁ ∧

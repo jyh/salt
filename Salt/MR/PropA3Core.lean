@@ -22,7 +22,7 @@ carried IN-STATEMENT (S5 law — never absorbed into `C`).
 * **Branch a** (`M ≥ (1/16)·loglog X`): the `f`-floor holds directly at the twist
   `costwist t`; the landed `dist_split_fgJ` halves it to `(1/32)·loglog X`
   (`dist_split_fgJ_branch_a`).
-* **Branch b** (`|t − t₁| > (log X)^{1/16}/2`): recenter with `L = (1/4)·loglog X`
+* **Branch b** (`|t − t₁| > (log X)^{1/46}/2`): recenter with `L = (1/4)·loglog X`
   (from `DistHalasz.dist_one_floor_pow`, the H1.0-grounded floor) and center cap
   `S = (1/16)·loglog X`, then halve.  The recentering sqrt-algebra
   `(√L − √S)² ≥ (1/16)·loglog X − δ` is `recenter_sq_floor`; the composed branch is

@@ -256,16 +256,16 @@ theorem dist_one_floor_pow :
 /-! ## R1.4 — the capped `M_range` minimum + its `1/4 − o(1)` floor -/
 
 /-- **The capped range minimum `M_range` (D4).**  `M_range(f; X, T)` is the infimum of
-`𝔻(f, n^{it}; X)²` over the frequency range `(logX)^{1/15} ≤ |t| ≤ T + (logX)^{1/16}`,
-intersected with the cap `|t| ≤ X`.  The `(logX)^{1/16}` widening keeps the ball/range
-separation `1/16 < 1/15`; the `|t| ≤ X` cap is what makes the terminal `prop_A3'` `T`-uniform. -/
+`𝔻(f, n^{it}; X)²` over the frequency range `(logX)^{1/45} ≤ |t| ≤ T + (logX)^{1/46}`,
+intersected with the cap `|t| ≤ X`.  The `(logX)^{1/46}` widening keeps the ball/range
+separation `1/46 < 1/45`; the `|t| ≤ X` cap is what makes the terminal `prop_A3'` `T`-uniform. -/
 noncomputable def M_range (f : ℕ → ℂ) (X T : ℝ) : ℝ :=
   sInf ((fun t : ℝ => pretDistSq f (costwist t) X) ''
-    {t : ℝ | (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X})
+    {t : ℝ | (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X})
 
 /-- **R1.4 — the `M_range(1)` floor (`Mrange_one_floor`).**  For `X ≥ e` and a nonempty range
-(`(logX)^{1/15} ≤ T ≤ X`),
+(`(logX)^{1/45} ≤ T ≤ X`),
 
   `M_range(1; X, T) ≥ (1/4)·loglog X − (3/4)·(loglog(X+3) − loglog X) − 5·logloglog(X+16) − C`,
 
@@ -274,7 +274,7 @@ the leading `loglog X`.  The `−(3/4)(loglog(X+3) − loglog X)`, `−5logloglo
 corrections are all `o(loglog X)`.  Every `t` in the range obeys the per-`t` floor
 `dist_one_floor_pow` (with `|t| ≤ X`), so the infimum inherits it. -/
 theorem Mrange_one_floor :
-    ∃ C : ℝ, ∀ X T : ℝ, Real.exp 1 ≤ X → (Real.log X) ^ (1 / 15 : ℝ) ≤ T → T ≤ X →
+    ∃ C : ℝ, ∀ X T : ℝ, Real.exp 1 ≤ X → (Real.log X) ^ (1 / 45 : ℝ) ≤ T → T ≤ X →
       (1 / 4) * Real.log (Real.log X)
           - (3 / 4) * (Real.log (Real.log (X + 3)) - Real.log (Real.log X))
           - 5 * Real.log (Real.log (Real.log (X + 16))) - C
@@ -285,13 +285,13 @@ theorem Mrange_one_floor :
     rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
   have hLXpos : (0 : ℝ) < Real.log X := by linarith
   have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hX
-  have hr15_1 : (1 : ℝ) ≤ (Real.log X) ^ (1 / 15 : ℝ) := Real.one_le_rpow hlogX1 (by norm_num)
+  have hr15_1 : (1 : ℝ) ≤ (Real.log X) ^ (1 / 45 : ℝ) := Real.one_le_rpow hlogX1 (by norm_num)
   have hexp1lt17 : Real.exp 1 < 17 := by have := Real.exp_one_lt_d9; linarith
   have hlog17gt1 : (1 : ℝ) < Real.log 17 := by
     have h := Real.log_lt_log (Real.exp_pos 1) hexp1lt17; rwa [Real.log_exp] at h
   -- the `t`-independent floor for every frequency in the (capped) range
   have hfloor : ∀ t : ℝ,
-      (Real.log X) ^ (1 / 15 : ℝ) ≤ |t| ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X →
+      (Real.log X) ^ (1 / 45 : ℝ) ≤ |t| ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X →
       (1 / 4) * Real.log (Real.log X)
           - (3 / 4) * (Real.log (Real.log (X + 3)) - Real.log (Real.log X))
           - 5 * Real.log (Real.log (Real.log (X + 16))) - C
@@ -312,18 +312,18 @@ theorem Mrange_one_floor :
             lt_of_lt_of_le hlog17gt1 (Real.log_le_log (by norm_num) (by linarith))
           linarith)) (Real.log_le_log (by linarith) (by linarith)))
     linarith [hd, hm1, hm2]
-  -- the range is nonempty (witness `t = (logX)^{1/15}`)
-  have hr15X : (Real.log X) ^ (1 / 15 : ℝ) ≤ X := by
-    calc (Real.log X) ^ (1 / 15 : ℝ) ≤ (Real.log X) ^ (1 : ℝ) :=
+  -- the range is nonempty (witness `t = (logX)^{1/45}`)
+  have hr15X : (Real.log X) ^ (1 / 45 : ℝ) ≤ X := by
+    calc (Real.log X) ^ (1 / 45 : ℝ) ≤ (Real.log X) ^ (1 : ℝ) :=
           Real.rpow_le_rpow_of_exponent_le hlogX1 (by norm_num)
       _ = Real.log X := Real.rpow_one _
       _ ≤ X := by linarith [Real.log_le_sub_one_of_pos hXpos]
-  have hne : ({t : ℝ | (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ X}).Nonempty := by
-    refine ⟨(Real.log X) ^ (1 / 15 : ℝ), ?_⟩
-    have habs : |(Real.log X) ^ (1 / 15 : ℝ)| = (Real.log X) ^ (1 / 15 : ℝ) :=
+  have hne : ({t : ℝ | (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ X}).Nonempty := by
+    refine ⟨(Real.log X) ^ (1 / 45 : ℝ), ?_⟩
+    have habs : |(Real.log X) ^ (1 / 45 : ℝ)| = (Real.log X) ^ (1 / 45 : ℝ) :=
       abs_of_nonneg (Real.rpow_nonneg hLXpos.le _)
-    have h16nn : (0 : ℝ) ≤ (Real.log X) ^ (1 / 16 : ℝ) := Real.rpow_nonneg hLXpos.le _
+    have h16nn : (0 : ℝ) ≤ (Real.log X) ^ (1 / 46 : ℝ) := Real.rpow_nonneg hLXpos.le _
     rw [Set.mem_setOf_eq, habs]
     exact ⟨le_refl _, by linarith [hT, h16nn], hr15X⟩
   unfold M_range

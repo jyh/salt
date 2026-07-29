@@ -651,7 +651,7 @@ theorem seamGateRstar_le_self :
   have hsqX : Real.sqrt X ≤ X := by nlinarith [hsq, hsq0, hX256]
   -- the seam radius: a log, below `X/8`
   have hrad : seamRad X ≤ X / 8 := by
-    have h1 : Real.log X ^ (1 / 16 : ℝ) ≤ Real.log X ^ (1 : ℝ) :=
+    have h1 : Real.log X ^ (1 / 46 : ℝ) ≤ Real.log X ^ (1 : ℝ) :=
       Real.rpow_le_rpow_of_exponent_le hLX1 (by norm_num)
     rw [Real.rpow_one] at h1
     have h2 : Real.log X ≤ Real.log X ^ 4 := by

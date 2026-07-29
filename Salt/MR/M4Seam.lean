@@ -107,7 +107,7 @@ crude fold plus the plug arithmetic — goes through verbatim at a completely ab
 unweighted sup at `a` ITSELF as the hypothesis,
 
   `∫_{−T₀}^{T₀} ‖dpolyA a (seamS0 N X) t‖² dt ≤ t0BandB X (cfbC₁ X C₁) M₀`,
-  `T₀ = seamT0 X = (log X)^{1/15}`,
+  `T₀ = seamT0 X = (log X)^{1/45}`,
 
 which is `ThmA2Rows.thm_a2'_of_rows`'s (hence `m4_meansq_per_chi_gen`'s) `hT0band` slot at
 `C₁′ := cfbC₁ X C₁` — an instantiation, not a re-statement.

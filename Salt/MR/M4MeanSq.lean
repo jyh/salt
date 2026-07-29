@@ -503,7 +503,7 @@ For every Dirichlet character `χ mod q` in the door's modulus range `q ≤ Qm`,
   `  ≤ 8448·C₁′²·exp(−M₀/e)`
   `   + 1787702400·(log Q₁)^{1/3}/P₁^{1/12}`
   `   + 188133·(log X)^{−1/500}`
-  `   + 304128·ballSupC²·(log X)^{−13/15}·(1+loglog X)²`
+  `   + 304128·ballSupC²·(log X)^{−43/45}·(1+loglog X)²`
   `   + 6315000/h`,
 
 which is `ThmA2.thm_a2'_of_rows`' conclusion verbatim (M4-7 does arithmetic on the raw
@@ -634,7 +634,7 @@ theorem m4_meansq_per_chi_gen (Qm : ℕ) :
                 + 1787702400 * a2Level1 M
                 + 188133 * (Real.log X) ^ (-(1 : ℝ) / 500)
                 + 304128 * ballSupC ^ 2
-                    * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2)
+                    * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
                 + 6315000 / h := by
   obtain ⟨Cq, cq, T₀, -, Cs, Ccc, hCq, hcq, hT₀, -, hCs, hCcc, hrow⟩ :=
     a2Rows_of_capfree3
@@ -901,7 +901,7 @@ theorem m4_meansq_or_trivial (Qm : ℕ) :
                     + 1787702400 * a2Level1 M
                     + 188133 * (Real.log X) ^ (-(1 : ℝ) / 500)
                     + 304128 * ballSupC ^ 2
-                        * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2)
+                        * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
                     + 6315000 / h) := by
   obtain ⟨Cq, cq, T₀, X₀, Cs, Ccc, Kfl, hCq, hcq, hT₀, hX₀0, hCs, hCcc, hKfl0, hper⟩ :=
     m4_meansq_per_chi_gen Qm

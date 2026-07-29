@@ -9,7 +9,7 @@ import Salt.MR.CofactorSupply
 /-!
 # `A2Wall` — THE `seamT0` RE-CUT WINDOW, IN THE KERNEL
 
-The GEOMEAN-SCOPE fallback re-cuts the seam floor `seamT0 X = (log X)^{1/15}` to
+The GEOMEAN-SCOPE fallback re-cuts the seam floor `seamT0 X` from `(log X)^{1/15}` to
 `(log X)^{1/n}` with `n ≈ 45`, paying the crude fold's `√(seamT0 X)` out of the CONTOUR-BOX
 floor (`FarL2.box_floor_M0`, coefficient `1/16`) instead of the band floor's `7/30`.  The
 window it lands in was priced on paper only.  This file is the arithmetic, checked.
@@ -26,9 +26,11 @@ box floor the largest available `c` is `1/16/e`, whence
 
   `ν ≤ 1/(16e) − δ`,    i.e.   `n ≥ 1/(1/(16e) − δ)`.
 
-The landed configuration is `ν = 1/15`, `c = 103/1500`, `δ = 1/500`, paid by the BAND floor
-`7/30`; `a2wall_box_fails_gate_15` is why that gate cannot be met at box strength, i.e. why
-the re-cut exists at all.  The thresholds, exactly:
+The PRE-RE-CUT configuration was `ν = 1/15`, `c = 103/1500`, `δ = 1/500`, paid by the BAND
+floor `7/30`; `a2wall_box_fails_gate_15` is why that gate cannot be met at box strength, i.e.
+why the re-cut exists at all.  (The re-cut `(n, m) = (45, 46)`, `δ = 1/5000` is LANDED as of
+2026-07-28: `SeamSplit.seamT0`/`seamRad` carry it, and `T0BandCapFree.cfb_gate_decay` is
+stated at `1009/45000`.)  The thresholds, exactly:
 
 | `δ` | critical `n` | least integer | stone |
 |---|---|---|---|

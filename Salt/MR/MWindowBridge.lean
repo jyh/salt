@@ -345,35 +345,35 @@ the twin feeds the landed consumers in the SAFE direction — see
 
 /-- **The height-capped range minimum (`M_rangeCap`).**  `M_range` with its `|t| ≤ X` cap
 promoted to a parameter `K`: the infimum of `𝔻²(f, n^{it}; X)` over
-`(logX)^{1/15} ≤ |t| ≤ T + (logX)^{1/16}` intersected with `|t| ≤ K`.  `K := X` is
+`(logX)^{1/45} ≤ |t| ≤ T + (logX)^{1/46}` intersected with `|t| ≤ K`.  `K := X` is
 `M_range` on the nose (`M_rangeCap_at_self`); `K := 2X` covers the contour reach. -/
 noncomputable def M_rangeCap (f : ℕ → ℂ) (X T K : ℝ) : ℝ :=
   sInf ((fun t : ℝ => pretDistSq f (costwist t) X) ''
-    {t : ℝ | (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ K})
+    {t : ℝ | (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ K})
 
 /-- At `K = X` the capped twin IS the landed `M_range` (definitional). -/
 lemma M_rangeCap_at_self (f : ℕ → ℂ) (X T : ℝ) : M_rangeCap f X T X = M_range f X T := rfl
 
 /-- The window of the capped twin, packaged (the nonemptiness witness is
-`Mrange_one_floor`'s own, `t = (logX)^{1/15}`). -/
+`Mrange_one_floor`'s own, `t = (logX)^{1/45}`). -/
 lemma M_rangeCap_window_nonempty {X T K : ℝ} (hX : Real.exp 1 ≤ X)
-    (hT : (Real.log X) ^ (1 / 15 : ℝ) ≤ T) (hXK : X ≤ K) :
-    ({t : ℝ | (Real.log X) ^ (1 / 15 : ℝ) ≤ |t|
-      ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ K}).Nonempty := by
+    (hT : (Real.log X) ^ (1 / 45 : ℝ) ≤ T) (hXK : X ≤ K) :
+    ({t : ℝ | (Real.log X) ^ (1 / 45 : ℝ) ≤ |t|
+      ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ K}).Nonempty := by
   have hXpos : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hX
   have hlogX1 : (1 : ℝ) ≤ Real.log X := by
     rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
   have hLXpos : (0 : ℝ) < Real.log X := by linarith
-  have hr15X : (Real.log X) ^ (1 / 15 : ℝ) ≤ X := by
-    calc (Real.log X) ^ (1 / 15 : ℝ) ≤ (Real.log X) ^ (1 : ℝ) :=
+  have hr15X : (Real.log X) ^ (1 / 45 : ℝ) ≤ X := by
+    calc (Real.log X) ^ (1 / 45 : ℝ) ≤ (Real.log X) ^ (1 : ℝ) :=
           Real.rpow_le_rpow_of_exponent_le hlogX1 (by norm_num)
       _ = Real.log X := Real.rpow_one _
       _ ≤ X := by linarith [Real.log_le_sub_one_of_pos hXpos]
-  refine ⟨(Real.log X) ^ (1 / 15 : ℝ), ?_⟩
-  have habs : |(Real.log X) ^ (1 / 15 : ℝ)| = (Real.log X) ^ (1 / 15 : ℝ) :=
+  refine ⟨(Real.log X) ^ (1 / 45 : ℝ), ?_⟩
+  have habs : |(Real.log X) ^ (1 / 45 : ℝ)| = (Real.log X) ^ (1 / 45 : ℝ) :=
     abs_of_nonneg (Real.rpow_nonneg hLXpos.le _)
-  have h16nn : (0 : ℝ) ≤ (Real.log X) ^ (1 / 16 : ℝ) := Real.rpow_nonneg hLXpos.le _
+  have h16nn : (0 : ℝ) ≤ (Real.log X) ^ (1 / 46 : ℝ) := Real.rpow_nonneg hLXpos.le _
   rw [Set.mem_setOf_eq, habs]
   exact ⟨le_refl _, by linarith, le_trans hr15X hXK⟩
 
@@ -385,7 +385,7 @@ consumer: every landed row reads `M_range` through a FLOOR hypothesis
 `M_range` by this inequality.  The traffic runs one way only: the wider object is the
 weaker (smaller) one, so it is also the SAFE one to place under `exp(−M/e)`. -/
 lemma M_rangeCap_le_M_range {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) {X T K : ℝ}
-    (hX : Real.exp 1 ≤ X) (hT : (Real.log X) ^ (1 / 15 : ℝ) ≤ T) (hXK : X ≤ K) :
+    (hX : Real.exp 1 ≤ X) (hT : (Real.log X) ^ (1 / 45 : ℝ) ≤ T) (hXK : X ≤ K) :
     M_rangeCap f X T K ≤ M_range f X T := by
   refine csInf_le_csInf ⟨0, ?_⟩ ((M_rangeCap_window_nonempty hX hT (le_refl X)).image _) ?_
   · rintro v ⟨t, _, rfl⟩
@@ -393,7 +393,7 @@ lemma M_rangeCap_le_M_range {f : ℕ → ℂ} (hf : ∀ n, ‖f n‖ ≤ 1) {X T
   · exact Set.image_mono (fun t ht => ⟨ht.1, ht.2.1, le_trans ht.2.2 hXK⟩)
 
 /-- **B-3 — THE CAPPED `M_range` FLOOR (`Mrange_cap_one_floor`).**  For `X ≥ e`,
-`(logX)^{1/15} ≤ T` and any height cap `K ≥ X`,
+`(logX)^{1/45} ≤ T` and any height cap `K ≥ X`,
 
   `pretFloorShape X K − C ≤ M_rangeCap (1; X, T, K)`,
 
@@ -403,15 +403,15 @@ i.e. `loglog X − (3/4)·loglog(K+3) − 5·logloglog(K+16) − C`.  At `K = X`
 is `dist_one_floor_pow`-driven and that stone holds at EVERY `|b| ≥ 1`, so widening the
 cap costs only the shape's own monotonicity (`pretFloorShape_le_of_le`). -/
 theorem Mrange_cap_one_floor :
-    ∃ C : ℝ, ∀ X T K : ℝ, Real.exp 1 ≤ X → (Real.log X) ^ (1 / 15 : ℝ) ≤ T → X ≤ K →
+    ∃ C : ℝ, ∀ X T K : ℝ, Real.exp 1 ≤ X → (Real.log X) ^ (1 / 45 : ℝ) ≤ T → X ≤ K →
       pretFloorShape X K - C ≤ M_rangeCap (fun _ => 1) X T K := by
   obtain ⟨C, hC⟩ := dist_one_floor_pow
   refine ⟨C, fun X T K hX hT hXK => ?_⟩
   have hlogX1 : (1 : ℝ) ≤ Real.log X := by
     rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
-  have hr15_1 : (1 : ℝ) ≤ (Real.log X) ^ (1 / 15 : ℝ) := Real.one_le_rpow hlogX1 (by norm_num)
+  have hr15_1 : (1 : ℝ) ≤ (Real.log X) ^ (1 / 45 : ℝ) := Real.one_le_rpow hlogX1 (by norm_num)
   have hfloor : ∀ t : ℝ,
-      (Real.log X) ^ (1 / 15 : ℝ) ≤ |t| ∧ |t| ≤ T + (Real.log X) ^ (1 / 16 : ℝ) ∧ |t| ≤ K →
+      (Real.log X) ^ (1 / 45 : ℝ) ≤ |t| ∧ |t| ≤ T + (Real.log X) ^ (1 / 46 : ℝ) ∧ |t| ≤ K →
       pretFloorShape X K - C ≤ pretDistSq (fun _ => 1) (costwist t) X := by
     rintro t ⟨htlo, _, htK⟩
     have ht1 : (1 : ℝ) ≤ |t| := le_trans hr15_1 htlo
@@ -428,7 +428,7 @@ theorem Mrange_cap_one_floor :
 at `K = 2X`: the `1/4 − o(1)` floor on the infimum taken over the DOUBLED height box,
 which is the object the max-modulus contour actually needs. -/
 theorem Mrange_one_floor_2X :
-    ∃ C : ℝ, ∀ X T : ℝ, Real.exp 1 ≤ X → (Real.log X) ^ (1 / 15 : ℝ) ≤ T →
+    ∃ C : ℝ, ∀ X T : ℝ, Real.exp 1 ≤ X → (Real.log X) ^ (1 / 45 : ℝ) ≤ T →
       pretFloorShape X (2 * X) - C ≤ M_rangeCap (fun _ => 1) X T (2 * X) := by
   obtain ⟨C, hC⟩ := Mrange_cap_one_floor
   refine ⟨C, fun X T hX hT => ?_⟩

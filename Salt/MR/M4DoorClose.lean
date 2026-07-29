@@ -282,7 +282,7 @@ def DoorRowCarried (Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ)
         + 1787702400 * a2Level1 M
         + 188133 * (Real.log X) ^ (-(1 : ℝ) / 500)
         + 304128 * ballSupC ^ 2
-            * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2)
+            * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
         + 6315000 / h
       ≤ B)
 

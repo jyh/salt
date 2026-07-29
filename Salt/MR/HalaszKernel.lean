@@ -499,7 +499,7 @@ The REF-B R1 repair: the parent height `T0 = L^2` overruns the grade by a full
 `L` (net log-power `L^{+1}`); raising it to `Tsplit = L^4` turns the net log-power
 into `L^{-1}` (a genuine gain).  This is `tsplit_ledger` below.  `Tsplit` is the
 **kernel-split height** — DISTINCT from the parent freeze's ball radius
-`T0 = (log X)^{1/16}`; never conflate the two. -/
+`T0 = (log X)^{1/46}`; never conflate the two. -/
 
 /-- The `Tsplit = (log X)^4` kernel-split height (K3'). -/
 def Tsplit (X : ℝ) : ℝ := (Real.log X) ^ 4

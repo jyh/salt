@@ -31,7 +31,7 @@ a proof: nothing here is a second copy of the analysis.
 ## §2 — the S1b join (S8-SRC demand D-2), `parseval_a3_join`
 
 The arithmetic that glues the single-`h` Parseval exit (A2-1, the `Lemma14` shape:
-a `(log X)^{−2/15}` head, a mid-band integral, and the weighted max-term `Msup`) to the
+a `(log X)^{−14/45}` head, a mid-band integral, and the weighted max-term `Msup`) to the
 Prop A.3 shape (a `(T/(X/Q₁) + 1)` prefactor times a grade `G`).  Stated ABSTRACTLY
 over the two bound-shapes: no Dirichlet series, no contour, no measure theory — the
 analytic ends plug in later.  The point of the node is that the three
@@ -44,8 +44,8 @@ analytic ends plug in later.  The point of the node is that the three
   (`a3_logQ_third_mono`, and its `/P₁^{1/6−η}` face `a3_logQ_term_mono`), which is how
   the A.2 interface's second term is allowed to read in `h` rather than `Q₁`.
 
-The `(log X)^{−2/15}` head lands inside the A.2 interface's THIRD term at the landed
-`(log X)^{−1/500}` grade (`−2/15 ≤ −1/500`, so the head is the smaller of the two once
+The `(log X)^{−14/45}` head lands inside the A.2 interface's THIRD term at the landed
+`(log X)^{−1/500}` grade (`−14/45 ≤ −1/500`, so the head is the smaller of the two once
 `log X ≥ 1`) — the exponent ruling of the freeze, not a numerology choice.
 
 ## §3 — the sup→inf pin (S8-SRC source defect D2), `ball_inf_floor_of_mem_far`
@@ -131,11 +131,11 @@ theorem a3_logQ_term_mono {Q₁ h P₁ e : ℝ} (hQ₁ : 1 ≤ Q₁) (hQ1h : Q�
   have hden : 0 < P₁ ^ e := Real.rpow_pos_of_pos hP₁ e
   exact div_le_div_of_nonneg_right (a3_logQ_third_mono hQ₁ hQ1h) hden.le
 
-/-- **S1b, the head-term exponent ruling.**  The Lemma-14 head `(log X)^{−2/15}` sits
+/-- **S1b, the head-term exponent ruling.**  The Lemma-14 head `(log X)^{−14/45}` sits
 under the A.2 interface's third term `(log X)^{−1/500}` once `X ≥ e` (so `log X ≥ 1`):
-`rpow` is monotone in the exponent at base `≥ 1`, and `−2/15 ≤ −1/500`. -/
+`rpow` is monotone in the exponent at base `≥ 1`, and `−14/45 ≤ −1/500`. -/
 theorem a3_head_le_third_grade {X : ℝ} (hX : Real.exp 1 ≤ X) :
-    Real.log X ^ (-(2 / 15 : ℝ)) ≤ Real.log X ^ (-(1 / 500 : ℝ)) := by
+    Real.log X ^ (-(14 / 45 : ℝ)) ≤ Real.log X ^ (-(1 / 500 : ℝ)) := by
   have hXpos : 0 < X := lt_of_lt_of_le (Real.exp_pos 1) hX
   have hL1 : (1 : ℝ) ≤ Real.log X := (Real.le_log_iff_exp_le hXpos).mpr hX
   exact Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
@@ -145,7 +145,7 @@ theorem a3_head_le_third_grade {X : ℝ} (hX : Real.exp 1 ≤ X) :
 Input shapes, both abstract:
 
 * `hpar` — the single-`h` Parseval exit (A2-1) in the landed `Lemma14` form: a
-  `Cpar·(log X)^{−2/15}` head, `Cker` times a mid-band integral `Iband`, and `Cker`
+  `Cpar·(log X)^{−14/45}` head, `Cker` times a mid-band integral `Iband`, and `Cker`
   times the weighted max-term datum `Msup`;
 * `hband` — Prop A.3 at the band endpoint `T = X/h`, prefactor `(X/h)/(X/Q₁) + 1`,
   grade `GM + GP` (the M-term and the `P₁`-term of the A.2 right-hand side);
@@ -165,7 +165,7 @@ theorem parseval_a3_join {Bpar Iband Msup GM GP X h Q₁ T Cpar Cker : ℝ}
     (hX : Real.exp 1 ≤ X) (hh : 0 < h) (hQ₁ : 0 < Q₁)
     (hQ1h : Q₁ ≤ h) (hT : X / h ≤ T)
     (hGM : 0 ≤ GM) (hGP : 0 ≤ GP) (hCpar : 0 ≤ Cpar) (hCker : 0 ≤ Cker)
-    (hpar : Bpar ≤ Cpar * Real.log X ^ (-(2 / 15 : ℝ)) + Cker * Iband + Cker * Msup)
+    (hpar : Bpar ≤ Cpar * Real.log X ^ (-(14 / 45 : ℝ)) + Cker * Iband + Cker * Msup)
     (hband : Iband ≤ (X / h / (X / Q₁) + 1) * (GM + GP))
     (hmax : Msup ≤ X / h / T * ((2 * T / (X / Q₁) + 1) * (GM + GP))) :
     Bpar ≤ 5 * Cker * GM + 5 * Cker * GP + Cpar * Real.log X ^ (-(1 / 500 : ℝ)) := by
@@ -183,7 +183,7 @@ theorem parseval_a3_join {Bpar Iband Msup GM GP X h Q₁ T Cpar Cker : ℝ}
     exact le_trans hmax
       (mul_le_mul_of_nonneg_right (a3_prefactor_max_le_three hXpos hh hQ₁ hQ1h hT) hGpos)
   -- the head term drops into the third A.2 summand
-  have hhead : Cpar * Real.log X ^ (-(2 / 15 : ℝ))
+  have hhead : Cpar * Real.log X ^ (-(14 / 45 : ℝ))
       ≤ Cpar * Real.log X ^ (-(1 / 500 : ℝ)) :=
     mul_le_mul_of_nonneg_left (a3_head_le_third_grade hX) hCpar
   have h1 : Cker * Iband ≤ Cker * (2 * (GM + GP)) :=

@@ -39,7 +39,7 @@ The arithmetic, worked here in full:
   `≪ x·(log x)^{−1/2}·log(3+|t−t₁|(1+log x))`, i.e. **exactly the `(log X)^{−1/2+ε}` second
   term of the frozen interface** — the term the `𝒥`-layer was feared to be needed for.
 * Cost of the weight: the binder's `/(1+|t−t₁|)` shape multiplies the error by
-  `1+|t−t₁| ≤ 1+(log X)^{1/16}`, so the honest second term of `S` is
+  `1+|t−t₁| ≤ 1+(log X)^{1/46}`, so the honest second term of `S` is
   `(log X)^{−1/2+1/16+o(1)} = (log X)^{−7/16+o(1)}`.  The live band's main term is
   `e^{−M/(2e)} ≥ (log X)^{−1/(32e)} = (log X)^{−0.0115…}` (M < (1/16)loglog X, freeze v2 §5),
   so the second term is smaller by a factor `(log X)^{−0.42…}` — **the grade closes with a
@@ -266,7 +266,7 @@ noncomputable def ballTail (X : ℝ) : ℝ :=
 
 /-- **The exit constant `S`.**  `S = 2√2·S₀ + ballTail X·(1 + seamRad X)`: the centre bound
 amplified by the renormalisation modulus (`√2`, twice — once per endpoint of the dyadic
-window), plus the `(log X)^{−1/2}` error paid at the weight `1+|t−t₁| ≤ 1+(log X)^{1/16}`,
+window), plus the `(log X)^{−1/2}` error paid at the weight `1+|t−t₁| ≤ 1+(log X)^{1/46}`,
 i.e. a `(log X)^{−7/16+o(1)}` second term. -/
 noncomputable def ballSupS (X S₀ : ℝ) : ℝ :=
   2 * Real.sqrt 2 * S₀ + ballTail X * (1 + seamRad X)

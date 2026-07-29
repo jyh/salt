@@ -202,13 +202,13 @@ are the freeze's own door gates, carried in-statement (law #253). -/
 
 /-- **THE FIVE RAW SUMMANDS**, byte-verbatim from `M4MeanSq.m4_meansq_per_chi_gen`'s
 right-hand side: the quality term, the level-1 term, the `(log X)^{−1/500}` term, the
-`(log X)^{−13/15}` ball term, and `C₅/h`. -/
+`(log X)^{−43/45}` ball term, and `C₅/h`. -/
 def m4RawMS (C₁' M₀ : ℝ) (M : ℕ) (X h : ℝ) : ℝ :=
   8448 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
     + 1787702400 * a2Level1 M
     + 188133 * (Real.log X) ^ (-(1 : ℝ) / 500)
     + 304128 * ballSupC ^ 2
-        * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2)
+        * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
     + 6315000 / h
 
 /-- **THE `W`-SAVING** the quality demand buys: `W^{−5/2}` at `W = m4W H = (log H)^{12}`.
@@ -251,7 +251,7 @@ theorem m4_rawMS_le {C₁' M₀ W X h G : ℝ} {M : ℕ} (hW : 1 ≤ W) (hM : m4
     (g2 : 1787702400 * a2Level1 M ≤ G / 5)
     (g3 : 188133 * (Real.log X) ^ (-(1 : ℝ) / 500) ≤ G / 5)
     (g4 : 304128 * ballSupC ^ 2
-        * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2) ≤ G / 5)
+        * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2) ≤ G / 5)
     (g5 : 6315000 / h ≤ G / 5) :
     m4RawMS C₁' M₀ M X h ≤ G := by
   have h1 := m4_quality_summand_le (C₁' := C₁') hW hM
@@ -267,7 +267,7 @@ theorem m4_rawMS_le_saving {C₁' M₀ X h : ℝ} {M H : ℕ} (hW : 1 ≤ m4W H)
     (g2 : 1787702400 * a2Level1 M ≤ m4Saving H / 5)
     (g3 : 188133 * (Real.log X) ^ (-(1 : ℝ) / 500) ≤ m4Saving H / 5)
     (g4 : 304128 * ballSupC ^ 2
-        * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2)
+        * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
       ≤ m4Saving H / 5)
     (g5 : 6315000 / h ≤ m4Saving H / 5) :
     m4RawMS C₁' M₀ M X h ≤ m4Saving H :=

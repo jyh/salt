@@ -15,12 +15,12 @@ Freeze: `docs/exploration/s8-freeze-0727.md` row A2-3, **SETTLED AS OPTION W** b
 `SupplyGeneric`'s centre-uniform chain*.  This file produces the `B₀` of
 `ThmA2Spine.thm_a2_spine`'s binder
 
-  `hT0band : ∫_{−T₀}^{T₀} ‖dpolyA a (seamS0 N X) t‖² dt ≤ B₀`,  `T₀ = seamT0 X = (log X)^{1/15}`.
+  `hT0band : ∫_{−T₀}^{T₀} ‖dpolyA a (seamS0 N X) t‖² dt ≤ B₀`,  `T₀ = seamT0 X = (log X)^{1/45}`.
 
 ## THE RADIUS-FREEDOM VERDICT (the node's design question, answered)
 
 The kill-check asked whether the corpus's centre chain survives at the WIDER radius `T₀`
-(`seamRad X = (log X)^{1/16} < (log X)^{1/15} = seamT0 X` — `CenterCore.seamRad_lt_seamT0`).
+(`seamRad X = (log X)^{1/46} < (log X)^{1/45} = seamT0 X` — `CenterCore.seamRad_lt_seamT0`).
 Reading the chain end to end:
 
 * **`SupplyGeneric.center_halasz_supply_Y` (:257) mentions no radius at all.**  Its subject is
@@ -49,7 +49,7 @@ produced centre is never touched, and `FarArm` is never cited** — the ban of �
 honoured by construction: the free-centre chain is the only supplier in this file.
 
 Note also U-3: the interior `|t| ≤ T₀` cannot be paid by `M_range` (its window floor
-`|t| ≥ (log X)^{1/15}` is structural), so the band pays ENTIRELY on the ball side — which is
+`|t| ≥ (log X)^{1/45}` is structural), so the band pays ENTIRELY on the ball side — which is
 what this file does.
 
 ## The stones
@@ -69,7 +69,7 @@ what this file does.
 
 ## THE HONEST GRADE NOTE (no `o(1)`; every factor written out)
 
-With `T₀ = (log X)^{1/15}`, `M = 𝔻²(f, n^{it₁}; X)` at `t₁ = 0`, and
+With `T₀ = (log X)^{1/45}`, `M = 𝔻²(f, n^{it₁}; X)` at `t₁ = 0`, and
 
   `S₀ = C₁·exp(−M/(2e)) + 4·(log X)^{−1/2+1/1000}`  (the centre bound's coefficient),
   `bandTail X T₀ = 4·ballSupC·(1 + log(3 + T₀·(1 + log(2X))))/√(log X)`,
@@ -84,24 +84,24 @@ the exit is `B₀ = t0BandB X C₁ M = 8·S_band²`, i.e.
   and there is **no `T₀` factor on it**: the weight `1/(1+|t|)` survives inside the integral,
   so the Cauchy page `∫_ℝ (1+|u|)^{−2} du ≤ 2` pays the whole band.  (The crude alternative
   — throw the weight away and use `measure × sup²` — gives `2T₀·(2S)² = 8T₀·S²` instead, i.e.
-  the same expression multiplied by `T₀ = (log X)^{1/15}`.  It is NOT taken; the weighted
+  the same expression multiplied by `T₀ = (log X)^{1/45}`.  It is NOT taken; the weighted
   form is strictly stronger and is the shape ⟦AMENDMENT A⟧ priced.)
 * **The error term** is the fourth summand of the pinned interface.  The exact log factor is
   `1 + log(3 + T₀·(1 + log(2X)))` — note `log(2X)`, the dyadic TOP, not `log X`; at
-  `T₀ = (log X)^{1/15}` it is `(16/15)·loglog X · (1 + o(1))`, so
+  `T₀ = (log X)^{1/45}` it is `(46/45)·loglog X · (1 + o(1))`, so
 
-    `bandTail X T₀·(1 + T₀) ≍ 4·ballSupC·(16/15)·loglog X·(log X)^{1/15 − 1/2}
-       = (log X)^{−13/30 + o(1)}`,
+    `bandTail X T₀·(1 + T₀) ≍ 4·ballSupC·(46/45)·loglog X·(log X)^{1/45 − 1/2}
+       = (log X)^{−43/90 + o(1)}`,
 
-  and its square, the fourth summand, is `(log X)^{−13/15 + o(1)}`.
+  and its square, the fourth summand, is `(log X)^{−43/45 + o(1)}`.
 * **The margin.**  The interface's third summand is `(log X)^{−1/500}`, so the fourth summand
-  sits under it with exponent margin `13/15 − 1/500 = 0.8647…` — a factor `433×` in the
+  sits under it with exponent margin `43/45 − 1/500 = 0.9536…` — a factor `477×` in the
   exponent.  The main term likewise dominates it: `exp(−M/e) ≥ (log X)^{−1/(16e)}` on the
-  live band (`M < (1/16)·loglog X`) and `1/(16e) = 0.02299… ≪ 13/15`.
+  live band (`M < (1/16)·loglog X`) and `1/(16e) = 0.02299… ≪ 43/45`.
 * **The cost of option W, exactly.**  At the landed radius `seamRad X` the same square is
-  `(log X)^{−7/8+o(1)}` (⟦AMENDMENT A⟧'s number); at `T₀` it is `(log X)^{−13/15+o(1)}`.  The
+  `(log X)^{−7/8+o(1)}` (⟦AMENDMENT A⟧'s number); at `T₀` it is `(log X)^{−43/45+o(1)}`.  The
   price of widening the recentring radius is therefore
-  `2·(1/15 − 1/16) = 1/120` of an exponent — `(log X)^{1/120}`, against the `433×` margin.
+  `2·(1/45 − 1/46) = 1/1035` of an exponent — `(log X)^{1/1035}`, against the `477×` margin.
   That is the whole cost of option W, and it is why the covering route (option C, with its
   `(log X)^{1/240}` balls and the `~29×` `M`-demand) is not needed.
 
@@ -443,7 +443,7 @@ The page is `SeamBallWeighted.ball_leg_of_sup_weighted`'s, transplanted to the i
   `R` — pays the whole band, so **no `2R` measure factor appears**.
 
 The crude alternative (drop the weight, use `measure × sup²`) would give `8R·S²` instead;
-at `R = seamT0 X` that is a `(log X)^{1/15}` inflation of the main term.  See the module's
+at `R = seamT0 X` that is a `(log X)^{1/45}` inflation of the main term.  See the module's
 grade note. -/
 theorem band_integral_of_sup {N : ℕ} {a : ℕ → ℂ} {X R S : ℝ}
     (hX : 0 < X) (hXN : X ≤ (N : ℝ)) (hN2 : (N : ℝ) ≤ 2 * X) (hR : 0 ≤ R)
@@ -496,14 +496,14 @@ def t0BandS (X C₁ M : ℝ) : ℝ :=
 
   `8·(2√2·(C₁·e^{−M/(2e)} + 4(log X)^{−1/2+1/1000})
         + (4·ballSupC·(1 + log(3 + T₀(1+log 2X)))/√(log X))·(1 + T₀))²`,
-  `T₀ = seamT0 X = (log X)^{1/15}`.
+  `T₀ = seamT0 X = (log X)^{1/45}`.
 
 Main term `64·(C₁·e^{−M/(2e)} + …)²` — no `T₀` factor, no `M`-shaped factor; fourth-summand
-residue `(log X)^{−13/15+o(1)}`.  See the module's grade note for the margin. -/
+residue `(log X)^{−43/45+o(1)}`.  See the module's grade note for the margin. -/
 def t0BandB (X C₁ M : ℝ) : ℝ := 8 * t0BandS X C₁ M ^ 2
 
 /-- **B-3 — THE `T₀`-BAND SUPPLY (`t0_band_supply`).**  Option W, executed: ONE free-centre
-ball, centre `t₁ = 0` BY CHOICE, radius `seamT0 X = (log X)^{1/15}` — which covers
+ball, centre `t₁ = 0` BY CHOICE, radius `seamT0 X = (log X)^{1/45}` — which covers
 `[−T₀,T₀]` exactly — fed by `SupplyGeneric`'s centre-uniform `y`-generic chain, and turned
 into the band integral by the weighted Cauchy page.  The exit is literally
 `ThmA2Spine.thm_a2_spine`'s `hT0band` binder:

@@ -25,7 +25,7 @@ height at which the χ-floor's coefficient collapses from `1/4` to `1/16`.
   price is ever paid against `loglog X`.  Coefficient `1/4`, versus the `T₀`-band's `7/30`
   and the contour box's `1/16`.
 * **§8 — the master check.**  `plog_floor_clears_gate`: the assembled coefficient beats the
-  `T0BandCapFree` gate `(103/1500)·e = 0.186647…` with the margin `1/4 − 1/16 = 0.1875`,
+  `T0BandCapFree` gate `(1009/45000)·e = 0.0609500…` with the margin `1/4 − 1/16 = 0.1875`,
   i.e. the threshold constant is **`16`** (against `band_floor_M0`'s `22`).
 * **§9 — the transports.**  `polylog_floor_M0_liouChi` / `polylog_floor_M0_pieceDatum` —
   the `band_floor_M0_pieceDatum` pattern verbatim, through `pretDistSq_liouChi_eq` and
@@ -548,17 +548,17 @@ theorem polylog_floor_M0 (A : ℝ) (hA : 1 ≤ A) (Q : ℕ) :
 twin at the LIFTED coefficient.  With `L := loglog X`, `ℓ := logloglog X` and the floor's
 debits `D := (23/16)·ℓ + (3/4)·log q + q + K`,
 
-  `16·D ≤ L  ⟹  (103/1500)·e·L ≤ plogM0 K q X`.
+  `16·D ≤ L  ⟹  (1009/45000)·e·L ≤ plogM0 K q X`.
 
-The margin is `1/4 − (103/1500)·e = 0.25 − 0.1866473… = 0.0633527… ≥ 1/16 = 0.0625`, so the
+The margin is `1/4 − (1009/45000)·e = 0.25 − 0.0609500… = 0.1890499… ≥ 1/16 = 0.0625`, so the
 threshold constant is **`16`** — against `band_floor_M0`'s `22` at `7/30`, and against the
-contour box's `1/16 = 0.0625`, which does NOT clear the gate at all (`0.0625 < 0.18665`; the
+contour box's `1/16 = 0.0625`, which DOES clear the re-cut gate (`0.0609500 < 0.0625`; the
 refuter's K3 finding).  This is the whole pricing content of the poly-log pin. -/
 theorem plog_floor_clears_gate {K : ℝ} {q : ℕ} {X : ℝ}
     (hLL : 0 ≤ Real.log (Real.log X))
     (hthr : 16 * ((23 / 16) * Real.log (Real.log (Real.log X)) + (3 / 4) * Real.log q
               + (q : ℝ) + K) ≤ Real.log (Real.log X)) :
-    103 / 1500 * Real.exp 1 * Real.log (Real.log X) ≤ plogM0 K q X := by
+    1009 / 45000 * Real.exp 1 * Real.log (Real.log X) ≤ plogM0 K q X := by
   have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
   have hmul : Real.exp 1 * Real.log (Real.log X)
       ≤ 2.7182818286 * Real.log (Real.log X) :=
@@ -604,7 +604,7 @@ theorem polylog_floor_M0_pieceDatum (A : ℝ) (hA : 1 ≤ A) (Q : ℕ) :
 
 /-- **FREE WIN w2 — THE `T₀`-BAND FLOOR LIFTED `7/30 → 1/4`** (`band_floor_M0_vk`).
 `T0BandCapFree.band_floor_M0`'s conclusion at `plogM0`'s coefficient `1/4`, on the SAME band
-`|v| ≤ 2·seamT0 X + 1`.  An instance of §7 at `A := 3`: `seamT0 X = (log X)^{1/15} ≤ log X`,
+`|v| ≤ 2·seamT0 X + 1`.  An instance of §7 at `A := 3`: `seamT0 X = (log X)^{1/45} ≤ log X`,
 so `2·seamT0 X + 1 ≤ 2·log X + 1 ≤ (log X)³` past the scale floor.
 
 The lift matters because `band_floor_M0`'s `7/30 = 0.2333…` clears the gate `0.18665` with
@@ -621,10 +621,10 @@ theorem band_floor_M0_vk (Q : ℕ) :
   obtain ⟨hX8, hlogX, hLL, hLLL⟩ := cff_scale_facts hX
   have hL1 : (1 : ℝ) ≤ Real.log X := by linarith [Real.exp_one_gt_d9]
   have hLe : (2.7182818283 : ℝ) < Real.log X := by linarith [Real.exp_one_gt_d9]
-  -- `seamT0 X = (log X)^{1/15} ≤ log X`, and `2·log X + 1 ≤ 3·log X ≤ (log X)³`
+  -- `seamT0 X = (log X)^{1/45} ≤ log X`, and `2·log X + 1 ≤ 3·log X ≤ (log X)³`
   have hseam : seamT0 X ≤ Real.log X := by
     unfold seamT0
-    calc Real.log X ^ ((1 : ℝ) / 15) ≤ Real.log X ^ (1 : ℝ) :=
+    calc Real.log X ^ ((1 : ℝ) / 45) ≤ Real.log X ^ (1 : ℝ) :=
           Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
       _ = Real.log X := Real.rpow_one _
   have hpow : Real.log X ^ (3 : ℝ) = Real.log X ^ (3 : ℕ) := by
@@ -925,5 +925,105 @@ theorem crossKerFar_le_weighted_l2 {g : ℕ → ℂ} {X h y c₀ t₀ α β H : 
       integral_add hIm hIp]
     unfold winL2Tail
     ring
+
+/-! ## §12 — THE BOX FLOOR AT THE MASKED PIECE, AND THE RE-CUT GATE
+
+`box_floor_M0` (§10, free win w1) is stated at the ROW datum `λχ̄` on the whole contour box
+`|v| ≤ 3X`.  The re-cut `T₀`-supplier reads it at the MASKED PIECE `λχ̄·g_𝒥`.  The transport
+is `polylog_floor_M0_pieceDatum`'s VERBATIM, one coefficient down (`1/4 → 1/16`): the sum-side
+rewrite through `CapFreeAssembly.pretDistSq_liouChi_eq` (an equality), then
+`CofactorSupplier.pretDistSq_pieceDatum_ge` at factor `1` (the mask is `gxDatum` at `x = 0`),
+with the Mertens debit absorbed into the floor's constant by `boxM0_add_debit`.
+
+`box_floor_clears_gate_45` then composes the transported floor with the `n = 45` re-cut gate
+`(1009/45000)·e` (`A2Wall.a2wall_gate_45`'s coefficient; the exponent arithmetic there is
+EXACT, `1/45 − 1009/45000 = −1/5000`).  The margin is `1/16 − (1009/45000)·e = 0.00155008…`,
+whence the threshold constant `700 < 645.1⁻¹`'s reciprocal.  This is the ONE statement the
+re-cut supplier consumes; it is stated here rather than in `A2Wall` because the import runs
+`FarL2 → A2Wall`, so the clearance arithmetic (`A2Wall.a2wall_box_clears_45`, two lines) is
+re-run inline. -/
+
+/-- The debit shifts `boxM0`'s constant additively (`plogM0_add_debit` / `cfbM0_add_debit`
+at the box coefficient). -/
+theorem boxM0_add_debit (K D : ℝ) (q : ℕ) (X : ℝ) :
+    boxM0 (K + D) q X = boxM0 K q X - D := by
+  unfold boxM0; ring
+
+/-- **THE BOX FLOOR AT THE SUM-SIDE DATUM** (`box_floor_M0_liouChi`).  The
+`polylog_floor_M0_liouChi` transport verbatim: `CapFreeAssembly.pretDistSq_liouChi_eq` is an
+EQUALITY of distances, so nothing is spent. -/
+theorem box_floor_M0_liouChi (Q : ℕ) :
+    ∃ K : ℝ, 0 ≤ K ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (X v : ℝ), q ≤ Q →
+      Real.exp (Real.exp 1) ≤ X → |v| ≤ 3 * X →
+        boxM0 K q X ≤ pretDistSq (liouChi χ) (costwist v) X := by
+  obtain ⟨K, hK0, hK⟩ := box_floor_M0 Q
+  refine ⟨K, hK0, ?_⟩
+  intro q _ χ X v hq hX hv
+  rw [pretDistSq_liouChi_eq]
+  exact hK q χ X v hq hX hv
+
+/-- **THE BOX FLOOR AT THE MASKED PIECE** (`box_floor_M0_pieceDatum`).  For every finite
+modulus range `Q` there is one `X`-free, `q`-free `K ≥ 0` with
+
+  `boxM0 (K + D) q X ≤ 𝔻²(λχ̄·g_𝒥, n^{iv}; X)`
+
+for every `q ≤ Q`, every `χ mod q`, every `X ≥ exp(exp 1)`, every box frequency `|v| ≤ 3X`
+and every `D` dominating the mask's Mertens window mass — the same `D` the poly-log twin
+`polylog_floor_M0_pieceDatum` pays, discharged in practice by
+`CofactorSupplier.blockWindow_calibrated_debit_sum`.
+
+NO threshold and NO margin: `box_floor_M0`'s three arms deliver `1/16` outright, and the mask
+costs exactly the debit (factor `1`, `pretDistSq_pieceDatum_ge`). -/
+theorem box_floor_M0_pieceDatum (Q : ℕ) :
+    ∃ K : ℝ, 0 ≤ K ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q)
+      (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X v D : ℝ), q ≤ Q →
+      Real.exp (Real.exp 1) ≤ X → |v| ≤ 3 * X →
+      (∑ j ∈ 𝒥, ∑ p ∈ blockWindowPrimes (Pseq j) (Qseq j) X, (1 : ℝ) / (p : ℝ)) ≤ D →
+        boxM0 (K + D) q X ≤ pretDistSq (pieceDatum χ 𝒥 Pseq Qseq) (costwist v) X := by
+  obtain ⟨K, hK0, hK⟩ := box_floor_M0_liouChi Q
+  refine ⟨K, hK0, ?_⟩
+  intro q _ χ Pseq Qseq 𝒥 X v D hq hX hv hdebit
+  have hfloor := hK q χ X v hq hX hv
+  have htr := pretDistSq_pieceDatum_ge χ Pseq Qseq
+    (fun p _ => le_of_eq (costwist_norm v p)) X 𝒥
+  rw [boxM0_add_debit]
+  linarith
+
+/-- **THE BOX FLOOR CLEARS THE RE-CUT GATE, AT THE PIECE** (`box_floor_clears_gate_45`).
+`A2Wall.a2wall_box_floor_clears_gate_45` composed with `box_floor_M0_pieceDatum`: with
+`L := loglog X`, `ℓ := logloglog X` and the box floor's own debits at the mask,
+`D₀ := (5/4)·ℓ + (3/4)·log q + q + (K + D)`,
+
+  `700·D₀ ≤ L  ⟹  (1009/45000)·e·L ≤ 𝔻²(λχ̄·g_𝒥, n^{iv}; X)`   on `|v| ≤ 3X`.
+
+The coefficient `(1009/45000)·e = 0.060950…` is exactly what `a2wall_gate_45` demands to make
+the first exit summand decay at `δ = 1/5000` from the re-cut seam floor `(log X)^{1/45}`; the
+box floor's `1/16 = 0.0625` pays it with margin `0.00155008…`, hence the threshold constant
+`700`.  This is the statement the re-cut `T₀`-supplier consumes — floor, mask and gate in one
+implication, with no band-strength (`7/30`, `1/4`) hypothesis anywhere. -/
+theorem box_floor_clears_gate_45 (Q : ℕ) :
+    ∃ K : ℝ, 0 ≤ K ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q)
+      (Pseq Qseq : ℕ → ℕ) (𝒥 : Finset ℕ) (X v D : ℝ), q ≤ Q →
+      Real.exp (Real.exp 1) ≤ X → |v| ≤ 3 * X →
+      (∑ j ∈ 𝒥, ∑ p ∈ blockWindowPrimes (Pseq j) (Qseq j) X, (1 : ℝ) / (p : ℝ)) ≤ D →
+      700 * ((5 / 4) * Real.log (Real.log (Real.log X)) + (3 / 4) * Real.log q
+              + (q : ℝ) + (K + D)) ≤ Real.log (Real.log X) →
+        1009 / 45000 * Real.exp 1 * Real.log (Real.log X)
+          ≤ pretDistSq (pieceDatum χ 𝒥 Pseq Qseq) (costwist v) X := by
+  obtain ⟨K, hK0, hK⟩ := box_floor_M0_pieceDatum Q
+  refine ⟨K, hK0, ?_⟩
+  intro q _ χ Pseq Qseq 𝒥 X v D hq hX hv hdebit hthr
+  have hfloor := hK q χ Pseq Qseq 𝒥 X v D hq hX hv hdebit
+  obtain ⟨-, -, hLL, -⟩ := cff_scale_facts hX
+  -- the margin: `(1009/45000)·e ≤ 1/16 − 1/700` (`A2Wall.a2wall_box_clears_45`)
+  have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
+  have hmar : 1009 / 45000 * Real.exp 1 ≤ 1 / 16 - 1 / 700 := by linarith
+  have hmul : 1009 / 45000 * Real.exp 1 * Real.log (Real.log X)
+      ≤ (1 / 16 - 1 / 700) * Real.log (Real.log X) :=
+    mul_le_mul_of_nonneg_right hmar (by linarith)
+  have hbox : 1009 / 45000 * Real.exp 1 * Real.log (Real.log X) ≤ boxM0 (K + D) q X := by
+    unfold boxM0
+    linarith
+  linarith
 
 end Salt.MR

@@ -63,7 +63,7 @@ pins it to `M4Join`'s phased original by the one identity that relates them
   `Braw ≤ m4Saving` — `m4_gradeGate_of_pricing` throws away the whole `15 − 11/4` exponent
   gap and there is no reason to pay it.  `m4_decay_summand_eq` (U1): the first raw summand
   priced from `T0BandCapFree.cfbM0` DIRECTLY, as an **equality**, retaining the honest
-  `(log X)^{1/15 − 7/(30e)}` decay.
+  `(log X)^{1/45 − 7/(30e)}` decay.
 * **§7 — the order pin (U2).**  As above.
 
 ## ⟦WHY NOT `m4_quality_summand_le`⟧ (U1, stated once)
@@ -73,7 +73,7 @@ pins it to `M4Join`'s phased original by the one identity that relates them
 W^{−5/2}/5`, i.e. `8448·C₁'² ≤ 1/5` — **unsatisfiable** at `C₁' = cfbC₁ X C₁ ≥ 1`.  The
 route that works keeps the decay in the `X`-variable instead of cashing it against `W`:
 `cfbM0`'s leading `(7/30)·loglog X` turns `e^{−M₀/e}` into `(log X)^{−7/(30e)}`, which beats
-`cfbC₁`'s own `(log X)^{1/15}` because `7/(30e) > 1/15` (`m4_decay_exponent_neg`, strict).
+`cfbC₁`'s own `(log X)^{1/45}` because `7/(30e) > 1/45` (`m4_decay_exponent_neg`, strict).
 Nothing here is asymptotic hand-waving: §6 states the identity, not an estimate.
 
 ## ⟦THE TRAPS RESPECTED⟧
@@ -738,15 +738,15 @@ theorem m4_gradeGate_direct_of_sq {R : ChowlaRegime} {C δ : ℝ} {Braw : ℕ �
         Real.sqrt_le_sqrt (hdel H hlo hhi)
     _ = mrtDeliveredGrade (C / 2) H := Real.sqrt_sq hG0
 
-/-- **⟦U1⟧ THE STRICT NEGATIVITY** `1/15 − 7/(30e) < 0`.  Equivalent to `2e < 7`, and
+/-- **⟦U1⟧ THE STRICT NEGATIVITY** `1/45 − 7/(30e) < 0`.  Equivalent to `2e/3 < 7`, and
 `e < 2.7182818286` (`Real.exp_one_lt_d9`) settles it with room.  This is the ONE arithmetic
 fact that makes the decay-retaining pricing route work at all: `cfbM0`'s leading
-`(7/30)·loglog X` outruns `cfbC₁`'s own `(log X)^{1/15}`. -/
-theorem m4_decay_exponent_neg : (1 : ℝ) / 15 - 7 / (30 * Real.exp 1) < 0 := by
+`(7/30)·loglog X` outruns `cfbC₁`'s own `(log X)^{1/45}`. -/
+theorem m4_decay_exponent_neg : (1 : ℝ) / 45 - 7 / (30 * Real.exp 1) < 0 := by
   have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
   have he0 : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
   have h30 : (0 : ℝ) < 30 * Real.exp 1 := by linarith
-  have hlt : (1 : ℝ) / 15 < 7 / (30 * Real.exp 1) := by
+  have hlt : (1 : ℝ) / 45 < 7 / (30 * Real.exp 1) := by
     rw [lt_div_iff₀ h30]
     linarith
   linarith
@@ -756,7 +756,7 @@ theorem m4_decay_exponent_neg : (1 : ℝ) / 15 - 7 / (30 * Real.exp 1) < 0 := by
 and `M₀ := cfbM0 K q X`, is EXACTLY
 
 ```
-  8448·(C₁+1)²·exp((1/e)·D) · (log X)^{1/15 − 7/(30e)},
+  8448·(C₁+1)²·exp((1/e)·D) · (log X)^{1/45 − 7/(30e)},
   D := (23/16)·logloglog X + (3/4)·log q + (1/4)·q + K
 ```
 
@@ -767,12 +767,12 @@ def m4DecayGrade (K : ℝ) (q : ℕ) (X C₁ : ℝ) : ℝ :=
     * Real.exp ((1 / Real.exp 1)
         * (23 / 16 * Real.log (Real.log (Real.log X)) + 3 / 4 * Real.log (q : ℝ)
             + 1 / 4 * (q : ℝ) + K))
-    * Real.log X ^ ((1 : ℝ) / 15 - 7 / (30 * Real.exp 1))
+    * Real.log X ^ ((1 : ℝ) / 45 - 7 / (30 * Real.exp 1))
 
 /-- **⟦U1⟧ THE PRICING, AS AN EQUALITY.**  `8448·(cfbC₁ X C₁)²·e^{−cfbM0 K q X/e}` IS
 `m4DecayGrade K q X C₁`.  Route: `cfbC₁_sq` (`cfbC₁² = (C₁+1)²·seamT0 X`), `seamT0 X =
-(log X)^{1/15}`, and `Real.rpow_def_of_pos` turning both `rpow`s into `exp`s — after which the
-whole content is the linear identity `L/15 − cfbM0/e = D/e + L(1/15 − 7/(30e))` at
+(log X)^{1/45}`, and `Real.rpow_def_of_pos` turning both `rpow`s into `exp`s — after which the
+whole content is the linear identity `L/45 − cfbM0/e = D/e + L(1/45 − 7/(30e))` at
 `L := loglog X`, which is `cfbM0`'s definition read backwards.
 
 ⚠ NEVER route this summand through `M4Close.m4_quality_summand_le`: its gate `g1` demands
@@ -782,14 +782,14 @@ theorem m4_decay_summand_eq {X C₁ K : ℝ} {q : ℕ} (hX : 0 < Real.log X) :
       = m4DecayGrade K q X C₁ := by
   have he : Real.exp 1 ≠ 0 := (Real.exp_pos 1).ne'
   have hsq := cfbC₁_sq (X := X) (C₁ := C₁) hX.le
-  have hT : seamT0 X = Real.exp (Real.log (Real.log X) * (1 / 15)) := by
+  have hT : seamT0 X = Real.exp (Real.log (Real.log X) * (1 / 45)) := by
     rw [seamT0, Real.rpow_def_of_pos hX]
-  have hG : Real.log X ^ ((1 : ℝ) / 15 - 7 / (30 * Real.exp 1))
-      = Real.exp (Real.log (Real.log X) * ((1 : ℝ) / 15 - 7 / (30 * Real.exp 1))) :=
+  have hG : Real.log X ^ ((1 : ℝ) / 45 - 7 / (30 * Real.exp 1))
+      = Real.exp (Real.log (Real.log X) * ((1 : ℝ) / 45 - 7 / (30 * Real.exp 1))) :=
     Real.rpow_def_of_pos hX _
   have hlhs : 8448 * cfbC₁ X C₁ ^ 2 * Real.exp (-(1 / Real.exp 1) * cfbM0 K q X)
       = 8448 * (C₁ + 1) ^ 2
-        * Real.exp (Real.log (Real.log X) * (1 / 15)
+        * Real.exp (Real.log (Real.log X) * (1 / 45)
             + -(1 / Real.exp 1) * cfbM0 K q X) := by
     rw [Real.exp_add, hsq, hT]
     ring
@@ -798,14 +798,14 @@ theorem m4_decay_summand_eq {X C₁ K : ℝ} {q : ℕ} (hX : 0 < Real.log X) :
         * Real.exp ((1 / Real.exp 1)
               * (23 / 16 * Real.log (Real.log (Real.log X)) + 3 / 4 * Real.log (q : ℝ)
                   + 1 / 4 * (q : ℝ) + K)
-            + Real.log (Real.log X) * ((1 : ℝ) / 15 - 7 / (30 * Real.exp 1))) := by
+            + Real.log (Real.log X) * ((1 : ℝ) / 45 - 7 / (30 * Real.exp 1))) := by
     rw [m4DecayGrade, Real.exp_add, hG]
     ring
-  have harg : Real.log (Real.log X) * (1 / 15) + -(1 / Real.exp 1) * cfbM0 K q X
+  have harg : Real.log (Real.log X) * (1 / 45) + -(1 / Real.exp 1) * cfbM0 K q X
       = (1 / Real.exp 1)
             * (23 / 16 * Real.log (Real.log (Real.log X)) + 3 / 4 * Real.log (q : ℝ)
                 + 1 / 4 * (q : ℝ) + K)
-          + Real.log (Real.log X) * ((1 : ℝ) / 15 - 7 / (30 * Real.exp 1)) := by
+          + Real.log (Real.log X) * ((1 : ℝ) / 45 - 7 / (30 * Real.exp 1)) := by
     unfold cfbM0
     field_simp
     ring
@@ -815,7 +815,7 @@ theorem m4_decay_summand_eq {X C₁ K : ℝ} {q : ℕ} (hX : 0 < Real.log X) :
 `log X ≥ 1` the factor is `≤ 1` and falls.  (Stated in the weakest useful form; the strict
 monotonicity is `Real.rpow_natCast`-free and never needed downstream.) -/
 theorem m4DecayGrade_factor_le_one {X : ℝ} (hX : 1 ≤ Real.log X) :
-    Real.log X ^ ((1 : ℝ) / 15 - 7 / (30 * Real.exp 1)) ≤ 1 :=
+    Real.log X ^ ((1 : ℝ) / 45 - 7 / (30 * Real.exp 1)) ≤ 1 :=
   Real.rpow_le_one_of_one_le_of_nonpos hX (le_of_lt m4_decay_exponent_neg)
 
 /-! ## §7 — ⟦U2⟧ THE ORDER PIN: the re-cut `M4RowMeanSq`

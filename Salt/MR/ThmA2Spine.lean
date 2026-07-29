@@ -90,7 +90,7 @@ statement whose contract binders are unsatisfiable at the datum.
 
 ## Glyph notes (freeze traps, all three live in this file)
 
-* `T₀` here is `seamT0 X = (log X)^{1/15}` — never MRT's SET `𝒯₀`, never the contour
+* `T₀` here is `seamT0 X = (log X)^{1/45}` — never MRT's SET `𝒯₀`, never the contour
   height `(log X)²`.
 * `N` is the seam row's coefficient cutoff (`X ≤ N ≤ 2X`), `K` is the Perron dyadic
   DEPTH (`2^K`).  `ParsevalSingle` calls the latter `N`; renamed here on purpose.
@@ -370,7 +370,7 @@ where
   it pays BOTH of Lemma 14's analytic terms — the mid band `T₀ ≤ |t| ≤ X/h` (through
   `SeamLemma14.seam_midrange_of_tall_row`, the `T = X/h` instance, where the weight is
   `1`) and the whole far family (`seam_Msup_family`);
-* `B₀` bounds the `T₀`-BAND `∫_{−T₀}^{T₀}‖A(1+it)‖² dt`, `T₀ = seamT0 X = (log X)^{1/15}`
+* `B₀` bounds the `T₀`-BAND `∫_{−T₀}^{T₀}‖A(1+it)‖² dt`, `T₀ = seamT0 X = (log X)^{1/45}`
   — **carried, by design**: this is the summand A2-1 left open and A2-3/A2-3b's cap-free
   arm discharges.  Nothing here touches it;
 * `39674880π/h` is the crude weighted moment tail past the rows' reach
@@ -428,7 +428,7 @@ theorem thm_a2_spine {N : ℕ} {a : ℕ → ℂ} {X h Mrow B₀ δ : ℝ} (K : �
   have hmid := seam_midrange_of_tall_row hX1 hsupp hT0W hrowW
   simp only [seamT0] at hmid
   -- the `T₀` BAND, in `ParsevalSingle`'s glyph
-  have hband : (∫ t in (-((Real.log X) ^ (1 / 15 : ℝ)))..((Real.log X) ^ (1 / 15 : ℝ)),
+  have hband : (∫ t in (-((Real.log X) ^ (1 / 45 : ℝ)))..((Real.log X) ^ (1 / 45 : ℝ)),
       ‖dpolyA a (seamS0 N X) t‖ ^ 2) ≤ B₀ := by
     simpa only [seamT0] using hT0band
   -- the FAR FAMILY

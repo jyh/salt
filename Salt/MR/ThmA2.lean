@@ -33,7 +33,7 @@ four numerals are already `a2Mrow`'s.
   `  ≤ C₁·exp(−M₀/e)                       ` the `M`-term, **NO `M`-shaped factor**
   `   + C₂·(log Q₁)^{1/3}/P₁^{1/12}        ` §8.1 at the doorH1 pin (G6 fixed)
   `   + C₃·(log X)^{−1/500}                ` the `𝒰`-leg grade
-  `   + C₄·(log X)^{−13/15}·(1+loglog X)²  ` the band residue (A2-3-BAND's honest grade)
+  `   + C₄·(log X)^{−43/45}·(1+loglog X)²  ` the band residue (A2-3-BAND's honest grade)
   `   + C₅/h                               ` the spine's fifth summand, never absorbed
 
 `M₀` is the ball centre's own pretentious distance
@@ -85,7 +85,7 @@ the seam row's `X_d ≍ X` needs; full-bundle satisfiability is NOT claimed.
 
 ## Glyph traps honoured
 
-`T₀` below is ALWAYS `seamT0 X = (log X)^{1/15}` (never MRT's set `𝒯₀`, never the contour
+`T₀` below is ALWAYS `seamT0 X = (log X)^{1/45}` (never MRT's set `𝒯₀`, never the contour
 height `(log X)²`); `N` is the coefficient cutoff and `K` the Perron dyadic depth (the
 spine's rename); the two `(1/16)`-caps are named apart (`row_cap` vs `station_cap`).
 -/
@@ -142,11 +142,11 @@ def a2Mrow (Cs C : ℝ) (M Xd : ℕ) (X ε : ℝ) : ℝ :=
 
 `T0Band.t0BandB X C₁ M₀ = 8·(2√2·S₀ + bandTail X T₀·(1+T₀))²` with
 `S₀ = C₁·e^{−M₀/(2e)} + 4(log X)^{−1/2+1/1000}`.  Two `(u+v)² ≤ 2u²+2v²` steps and the
-radius arithmetic give the honest `−13/15` band residue. -/
+radius arithmetic give the honest `−43/45` band residue. -/
 
 /-- The band's log factor at the `T₀` radius is `≤ 3·(1 + loglog X)`: with `log X ≥ 1`,
-`3 + T₀(1+log 2X) ≤ 6·(log X)^{16/15}`, so
-`1 + log(3 + T₀(1+log 2X)) ≤ 1 + log 6 + (16/15)·loglog X ≤ 3·(1 + loglog X)`. -/
+`3 + T₀(1+log 2X) ≤ 6·(log X)^{46/45}`, so
+`1 + log(3 + T₀(1+log 2X)) ≤ 1 + log 6 + (46/45)·loglog X ≤ 3·(1 + loglog X)`. -/
 lemma bandLterm_seamT0_le {X : ℝ} (hX : 3 ≤ X) :
     bandLterm X (seamT0 X) ≤ 3 * (1 + Real.log (Real.log X)) := by
   have hX0 : (0 : ℝ) < X := by linarith
@@ -155,36 +155,36 @@ lemma bandLterm_seamT0_le {X : ℝ} (hX : 3 ≤ X) :
     rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hXe
   have hL0 : (0 : ℝ) < Real.log X := by linarith
   have hLL0 : (0 : ℝ) ≤ Real.log (Real.log X) := Real.log_nonneg hL1
-  have hT0 : seamT0 X = (Real.log X) ^ ((1 : ℝ) / 15) := rfl
+  have hT0 : seamT0 X = (Real.log X) ^ ((1 : ℝ) / 45) := rfl
   have hlog2X : Real.log (2 * X) = Real.log 2 + Real.log X := Real.log_mul (by norm_num) hX0.ne'
   have hlog2 : Real.log 2 ≤ 0.7 := by have := Real.log_two_lt_d9; linarith
   have hfac : 1 + Real.log (2 * X) ≤ 2.7 * Real.log X := by rw [hlog2X]; linarith
-  have hT0nn : (0 : ℝ) ≤ (Real.log X) ^ ((1 : ℝ) / 15) := Real.rpow_nonneg hL0.le _
-  have hsplit : (Real.log X) ^ ((16 : ℝ) / 15)
-      = (Real.log X) ^ ((1 : ℝ) / 15) * Real.log X := by
-    rw [show (16 : ℝ) / 15 = (1 : ℝ) / 15 + 1 by ring, Real.rpow_add hL0, Real.rpow_one]
-  have h16 : (1 : ℝ) ≤ (Real.log X) ^ ((16 : ℝ) / 15) := by
+  have hT0nn : (0 : ℝ) ≤ (Real.log X) ^ ((1 : ℝ) / 45) := Real.rpow_nonneg hL0.le _
+  have hsplit : (Real.log X) ^ ((46 : ℝ) / 45)
+      = (Real.log X) ^ ((1 : ℝ) / 45) * Real.log X := by
+    rw [show (46 : ℝ) / 45 = (1 : ℝ) / 45 + 1 by ring, Real.rpow_add hL0, Real.rpow_one]
+  have h16 : (1 : ℝ) ≤ (Real.log X) ^ ((46 : ℝ) / 45) := by
     calc (1 : ℝ) = (Real.log X) ^ (0 : ℝ) := (Real.rpow_zero _).symm
-      _ ≤ (Real.log X) ^ ((16 : ℝ) / 15) :=
+      _ ≤ (Real.log X) ^ ((46 : ℝ) / 45) :=
           Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
-  have hprod : (Real.log X) ^ ((1 : ℝ) / 15) * (1 + Real.log (2 * X))
-      ≤ 2.7 * (Real.log X) ^ ((16 : ℝ) / 15) := by
-    calc (Real.log X) ^ ((1 : ℝ) / 15) * (1 + Real.log (2 * X))
-        ≤ (Real.log X) ^ ((1 : ℝ) / 15) * (2.7 * Real.log X) :=
+  have hprod : (Real.log X) ^ ((1 : ℝ) / 45) * (1 + Real.log (2 * X))
+      ≤ 2.7 * (Real.log X) ^ ((46 : ℝ) / 45) := by
+    calc (Real.log X) ^ ((1 : ℝ) / 45) * (1 + Real.log (2 * X))
+        ≤ (Real.log X) ^ ((1 : ℝ) / 45) * (2.7 * Real.log X) :=
           mul_le_mul_of_nonneg_left hfac hT0nn
-      _ = 2.7 * (Real.log X) ^ ((16 : ℝ) / 15) := by rw [hsplit]; ring
+      _ = 2.7 * (Real.log X) ^ ((46 : ℝ) / 45) := by rw [hsplit]; ring
   have hinner : 3 + seamT0 X * (1 + Real.log (2 * X))
-      ≤ 6 * (Real.log X) ^ ((16 : ℝ) / 15) := by rw [hT0]; linarith
+      ≤ 6 * (Real.log X) ^ ((46 : ℝ) / 45) := by rw [hT0]; linarith
   have hlogmono : Real.log (3 + seamT0 X * (1 + Real.log (2 * X)))
-      ≤ Real.log (6 * (Real.log X) ^ ((16 : ℝ) / 15)) := by
+      ≤ Real.log (6 * (Real.log X) ^ ((46 : ℝ) / 45)) := by
     refine Real.log_le_log ?_ hinner
     have hnn : (0 : ℝ) ≤ seamT0 X * (1 + Real.log (2 * X)) := by
       refine mul_nonneg ?_ ?_
       · rw [hT0]; exact hT0nn
       · rw [hlog2X]; linarith [Real.log_nonneg (le_of_lt (by norm_num : (1 : ℝ) < 2))]
     linarith
-  have hrhs : Real.log (6 * (Real.log X) ^ ((16 : ℝ) / 15))
-      = Real.log 6 + (16 / 15) * Real.log (Real.log X) := by
+  have hrhs : Real.log (6 * (Real.log X) ^ ((46 : ℝ) / 45))
+      = Real.log 6 + (46 / 45) * Real.log (Real.log X) := by
     rw [Real.log_mul (by norm_num) (by positivity), Real.log_rpow hL0]
   have hlog6 : Real.log 6 ≤ 2 := by
     have hexp2 : (6 : ℝ) ≤ Real.exp 2 := by
@@ -204,13 +204,13 @@ private lemma band_sq_split (S q : ℝ) :
 
 /-- **THE BAND BOUND, GRADED** (`t0BandB_grade`).  `T0Band.t0BandB` — the `B₀` of
 `ThmA2Spine.thm_a2_spine`'s `hT0band` binder — split into the interface's `M`-term and the
-honest `−13/15` band residue:
+honest `−43/45` band residue:
 
   `8·(2√2·S₀ + bandTail X T₀·(1+T₀))²`
   `  ≤ 256·C₁²·e^{−M₀/e} + 4096·(log X)^{−1+1/500}`
-  `    + 9216·ballSupC²·(log X)^{−13/15}·(1 + loglog X)²`.
+  `    + 9216·ballSupC²·(log X)^{−43/45}·(1 + loglog X)²`.
 
-Two `(u+v)² ≤ 2u²+2v²` steps, `(√(log X))² = log X`, `(1+T₀)² ≤ 4·(log X)^{2/15}` and
+Two `(u+v)² ≤ 2u²+2v²` steps, `(√(log X))² = log X`, `(1+T₀)² ≤ 4·(log X)^{2/45}` and
 `bandLterm ≤ 3(1+loglog X)`.  The second summand sits under `(log X)^{−1/500}` and the
 third IS A2-3-BAND's fourth interface summand — **no `o(1)`**. -/
 theorem t0BandB_grade {X C₁ M₀ : ℝ} (hX : 3 ≤ X) :
@@ -218,7 +218,7 @@ theorem t0BandB_grade {X C₁ M₀ : ℝ} (hX : 3 ≤ X) :
       ≤ 256 * C₁ ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
         + 4096 * (Real.log X) ^ (-(1 : ℝ) + 1 / 500)
         + 9216 * ballSupC ^ 2
-            * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2) := by
+            * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2) := by
   have hX0 : (0 : ℝ) < X := by linarith
   have hXe : Real.exp 1 ≤ X := by linarith [Real.exp_one_lt_d9]
   have hL1 : (1 : ℝ) ≤ Real.log X := by
@@ -240,14 +240,14 @@ theorem t0BandB_grade {X C₁ M₀ : ℝ} (hX : 3 ≤ X) :
       ← Real.rpow_mul hL0.le]
     norm_num
   set T₀ : ℝ := seamT0 X with hT₀def
-  have hT₀eq : T₀ = (Real.log X) ^ ((1 : ℝ) / 15) := rfl
+  have hT₀eq : T₀ = (Real.log X) ^ ((1 : ℝ) / 45) := rfl
   have hT₀1 : (1 : ℝ) ≤ T₀ := by
     rw [hT₀eq]
     calc (1 : ℝ) = (Real.log X) ^ (0 : ℝ) := (Real.rpow_zero _).symm
-      _ ≤ (Real.log X) ^ ((1 : ℝ) / 15) :=
+      _ ≤ (Real.log X) ^ ((1 : ℝ) / 45) :=
           Real.rpow_le_rpow_of_exponent_le hL1 (by norm_num)
-  have hT₀sq : T₀ ^ 2 = (Real.log X) ^ ((2 : ℝ) / 15) := by
-    rw [hT₀eq, ← Real.rpow_natCast ((Real.log X) ^ ((1 : ℝ) / 15)) 2, ← Real.rpow_mul hL0.le]
+  have hT₀sq : T₀ ^ 2 = (Real.log X) ^ ((2 : ℝ) / 45) := by
+    rw [hT₀eq, ← Real.rpow_natCast ((Real.log X) ^ ((1 : ℝ) / 45)) 2, ← Real.rpow_mul hL0.le]
     norm_num
   have hband0 : (0 : ℝ) ≤ bandLterm X T₀ := le_of_lt (bandLterm_pos hX (by linarith))
   have hbandle : bandLterm X T₀ ≤ 3 * (1 + Real.log (Real.log X)) := bandLterm_seamT0_le hX
@@ -255,7 +255,7 @@ theorem t0BandB_grade {X C₁ M₀ : ℝ} (hX : 3 ≤ X) :
   have hsqrt : Real.sqrt (Real.log X) ^ 2 = Real.log X := Real.sq_sqrt hL0.le
   have hsqrt0 : (0 : ℝ) < Real.sqrt (Real.log X) := Real.sqrt_pos.mpr hL0
   have hq2 : (bandTail X T₀ * (1 + T₀)) ^ 2
-      ≤ 576 * ballSupC ^ 2 * ((Real.log X) ^ (-(13 : ℝ) / 15)
+      ≤ 576 * ballSupC ^ 2 * ((Real.log X) ^ (-(43 : ℝ) / 45)
           * (1 + Real.log (Real.log X)) ^ 2) := by
     have hexpand : (bandTail X T₀ * (1 + T₀)) ^ 2
         = 16 * ballSupC ^ 2 * bandLterm X T₀ ^ 2 * (1 + T₀) ^ 2 / Real.log X := by
@@ -265,20 +265,20 @@ theorem t0BandB_grade {X C₁ M₀ : ℝ} (hX : 3 ≤ X) :
       congr 1
       ring
     have hb2 : bandLterm X T₀ ^ 2 ≤ 9 * (1 + Real.log (Real.log X)) ^ 2 := by nlinarith
-    have ht2 : (1 + T₀) ^ 2 ≤ 4 * (Real.log X) ^ ((2 : ℝ) / 15) := by
+    have ht2 : (1 + T₀) ^ 2 ≤ 4 * (Real.log X) ^ ((2 : ℝ) / 45) := by
       rw [← hT₀sq]; nlinarith
-    have hsplit : (Real.log X) ^ ((2 : ℝ) / 15)
-        = (Real.log X) ^ (-(13 : ℝ) / 15) * Real.log X := by
-      rw [show (2 : ℝ) / 15 = -(13 : ℝ) / 15 + 1 by ring, Real.rpow_add hL0, Real.rpow_one]
+    have hsplit : (Real.log X) ^ ((2 : ℝ) / 45)
+        = (Real.log X) ^ (-(43 : ℝ) / 45) * Real.log X := by
+      rw [show (2 : ℝ) / 45 = -(43 : ℝ) / 45 + 1 by ring, Real.rpow_add hL0, Real.rpow_one]
     rw [hexpand, div_le_iff₀ hL0]
     calc 16 * ballSupC ^ 2 * bandLterm X T₀ ^ 2 * (1 + T₀) ^ 2
         ≤ 16 * ballSupC ^ 2 * (9 * (1 + Real.log (Real.log X)) ^ 2) * (1 + T₀) ^ 2 := by
           refine mul_le_mul_of_nonneg_right ?_ (sq_nonneg _)
           exact mul_le_mul_of_nonneg_left hb2 (by positivity)
       _ ≤ 16 * ballSupC ^ 2 * (9 * (1 + Real.log (Real.log X)) ^ 2)
-            * (4 * (Real.log X) ^ ((2 : ℝ) / 15)) :=
+            * (4 * (Real.log X) ^ ((2 : ℝ) / 45)) :=
           mul_le_mul_of_nonneg_left ht2 (by positivity)
-      _ = 576 * ballSupC ^ 2 * ((Real.log X) ^ (-(13 : ℝ) / 15)
+      _ = 576 * ballSupC ^ 2 * ((Real.log X) ^ (-(43 : ℝ) / 45)
               * (1 + Real.log (Real.log X)) ^ 2) * Real.log X := by rw [hsplit]; ring
   have hS₀ : t0BandS X C₁ M₀ = 2 * Real.sqrt 2 * (C₁ * E + 4 * P)
       + bandTail X T₀ * (1 + T₀) := rfl
@@ -453,7 +453,7 @@ two branches of §5 are its two suppliers):
   `  ≤ 8448·C₁'²·exp(−M₀/e)`
   `   + 1787702400·(log Q₁)^{1/3}/P₁^{1/12}`
   `   + 188133·(log X)^{−1/500}`
-  `   + 304128·ballSupC²·(log X)^{−13/15}·(1+loglog X)²`
+  `   + 304128·ballSupC²·(log X)^{−43/45}·(1+loglog X)²`
   `   + 6315000/h`.
 
 **The complete side-condition list**, all in-statement (law #253):  `1 ≤ M` (the door's
@@ -487,7 +487,7 @@ theorem thm_a2'_of_rows {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁' M₀ 
         + 1787702400 * a2Level1 M
         + 188133 * (Real.log X) ^ (-(1 : ℝ) / 500)
         + 304128 * ballSupC ^ 2
-            * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2)
+            * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
         + 6315000 / h := by
   have hX0 : (0 : ℝ) < X := by linarith
   have hh0 : (0 : ℝ) < h := by linarith
@@ -496,7 +496,7 @@ theorem thm_a2'_of_rows {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁' M₀ 
   have hL0 : (0 : ℝ) < Real.log X := by linarith
   have hLL0 : (0 : ℝ) ≤ Real.log (Real.log X) := Real.log_nonneg hL1
   have hrp500 : (0 : ℝ) < (Real.log X) ^ (-(1 : ℝ) / 500) := Real.rpow_pos_of_pos hL0 _
-  have hrp13 : (0 : ℝ) < (Real.log X) ^ (-(13 : ℝ) / 15) := Real.rpow_pos_of_pos hL0 _
+  have hrp13 : (0 : ℝ) < (Real.log X) ^ (-(43 : ℝ) / 45) := Real.rpow_pos_of_pos hL0 _
   -- the level-1 grade is nonnegative
   have hlogQ1 := one_le_log_calQK_door_one hM
   have hP64 := calP_door_one_ge M
@@ -530,16 +530,16 @@ theorem thm_a2'_of_rows {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁' M₀ 
       ≤ 256 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
         + (Real.log X) ^ (-(1 : ℝ) / 500)
         + 9216 * ballSupC ^ 2
-            * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2) := by
+            * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2) := by
     have := t0BandB_grade (X := X) (C₁ := C₁') (M₀ := M₀) hX3
     linarith
   have hBand'0 : (0 : ℝ) ≤ 256 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
         + (Real.log X) ^ (-(1 : ℝ) / 500)
         + 9216 * ballSupC ^ 2
-            * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2) := by
+            * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2) := by
     have h1 : (0 : ℝ) ≤ 256 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀) := by positivity
     have h2 : (0 : ℝ) ≤ 9216 * ballSupC ^ 2
-        * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2) := by positivity
+        * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2) := by positivity
     linarith
   -- ⟦the Perron defect, to the limit⟧
   refine le_of_forall_pos_le_add (fun eg heg => ?_)
@@ -563,7 +563,7 @@ theorem thm_a2'_of_rows {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁' M₀ 
             + 205 * Real.pi * (256 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
                 + (Real.log X) ^ (-(1 : ℝ) / 500)
                 + 9216 * ballSupC ^ 2
-                  * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2))
+                  * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2))
             + 39674880 * Real.pi * (1 / h)
             + (34560 * δ * (Real.pi + 2 * Real.log (1 + 2 ^ K * (X / h))) ^ 2
               + 1152 * (12 * h / (2 ^ K * δ)
@@ -577,7 +577,7 @@ theorem thm_a2'_of_rows {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁' M₀ 
         ≤ 205 * Real.pi * (256 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
             + (Real.log X) ^ (-(1 : ℝ) / 500)
             + 9216 * ballSupC ^ 2
-              * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2)) :=
+              * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)) :=
       mul_le_mul_of_nonneg_left hBandLe (by positivity)
     have e3 : 39674880 * Real.pi / h = 39674880 * Real.pi * (1 / h) := by ring
     rw [e3]
@@ -588,7 +588,7 @@ theorem thm_a2'_of_rows {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁' M₀ 
     (Bd := 256 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
         + (Real.log X) ^ (-(1 : ℝ) / 500)
         + 9216 * ballSupC ^ 2
-          * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2))
+          * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2))
     (w := 1 / h) (eg := eg) hpi hMrow'0 hBand'0 (by positivity) hEg
   refine hscale.trans ?_
   have hw : 6315000 * (1 / h) = 6315000 / h := by ring

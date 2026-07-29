@@ -17,7 +17,7 @@ Source pin (freeze D5): **MR arXiv v4 only** (`docs/sources/1501.04585v4.pdf`).
 `Sⱼ(x) = ∑_{x ≤ m ≤ x+hⱼ} aₘ` and `A(s) := ∑_{X ≤ m ≤ 4X} aₘ/mˢ`.  Then
 
 `(1/X) ∫_X^{2X} |(1/h₁)S₁(x) − (1/h₂)S₂(x)|² dx`
-`  ≪ 1/(log X)^{2/15} + ∫_{1+i(log X)^{1/15}}^{1+iX/h₁} |A(s)|² |ds|`
+`  ≪ 1/(log X)^{2/15} + ∫_{1+i(log X)^{1/45}}^{1+iX/h₁} |A(s)|² |ds|`
 `      + max_{T ≥ X/h₁} ((X/h₁)/T) ∫_{1+iT}^{1+i2T} |A(s)|² |ds|.`
 
 *Transcription correction (2026-07-24, Fable tier, iron-rule-1 procedure):* the
@@ -32,7 +32,7 @@ produces Prop 1's `(T/(X/Q₁)+1)` grade.  Corrected to match MR v4 verbatim.
 1. **Continuous Perron** (p. 21): `Sⱼ(x) = (1/2πi) ∫_{1−i∞}^{1+i∞} A(s)·((x+hⱼ)ˢ−xˢ)/s ds`.
    *Named residual* `A3a-R1` — a critical-line Perron representation (conditionally
    convergent); mathlib-absent, un-landed here.
-2. **U/V split at `T₀ = (log X)^{1/15}`** (p. 22): on `|t| ≤ T₀` a Taylor expansion
+2. **U/V split at `T₀ = (log X)^{1/45}`** (p. 22): on `|t| ≤ T₀` a Taylor expansion
    of `(x+hⱼ)ˢ−xˢ` gives the `1/(log X)^{2/15}` main term.  *Named residual* `A3a-R2`.
 3. **Saffari–Vaughan smoothing** ([35, p. 25]) for the `Vⱼ` tail — the averaging
    identity that replaces `((x+h)ˢ−xˢ)/s`.  **LANDED here** as `sv_average_kernel`

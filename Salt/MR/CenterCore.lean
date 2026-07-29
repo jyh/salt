@@ -35,7 +35,7 @@ Accordingly **every exit in this file carries the explicit
 `HalaszDirect` proves the same three shapes on the `M_range` *window*
 (`window_sup_decay_gen` :171, `halasz_direct_ball` :385, `halasz_direct_gen` :325).  Here the
 window-membership hypothesis
-`hmem : (logX)^{1/15} ≤ |t| ∧ |t| ≤ T + (logX)^{1/16} ∧ |t| ≤ X`
+`hmem : (logX)^{1/45} ≤ |t| ∧ |t| ≤ T + (logX)^{1/46} ∧ |t| ≤ X`
 is replaced by the plain cap `hcap : |t| ≤ X`, and the `M_range` floor
 (`SupF.scale_floor_Mrange_seam`) by the **general-`f` floor** `SupF.scale_floor` (:869):
 
@@ -68,7 +68,7 @@ The two faces below keep the arms separate by construction:
 ## ⟦THE POSITIVITY TRAP, SHARPENED (new, this file)⟧
 
 `HalaszDirect` records: `X > 0` is NOT assumed there — it is *derived* from the window
-membership (`1 ≤ (logX)^{1/15} ≤ |t| ≤ X`), because mathlib's `Real.log` is even and `3 ≤ log X`
+membership (`1 ≤ (logX)^{1/45} ≤ |t| ≤ X`), because mathlib's `Real.log` is even and `3 ≤ log X`
 alone admits `X = −e³`.  **The plain cap `|t| ≤ X` supplies no such positivity** (it is vacuously
 compatible with `X < 0` only when `t = 0`… and in any case gives only `0 ≤ X` when `t` is real,
 never `0 < X`).  The σ-integrated faces therefore carry an explicit `hX : 0 < X`; the pointwise
@@ -467,13 +467,13 @@ theorem halasz_direct_center_gen_free {g : ℕ → ℂ} (hg : ∀ p, p.Prime →
 
 /-! ## §6 (A-10) — the ball-centre dichotomy
 
-⟦AMENDMENT V2⟧ repair #4's stone.  Pure geometry: `seamT0 X = (logX)^{1/15}`,
-`seamRad X = (logX)^{1/16}` (`SeamSplit` :92/:96), `seamAnn X T = {t | seamT0 X ≤ |t| ∧ |t| ≤ T}`
+⟦AMENDMENT V2⟧ repair #4's stone.  Pure geometry: `seamT0 X = (logX)^{1/45}`,
+`seamRad X = (logX)^{1/46}` (`SeamSplit` :92/:96), `seamAnn X T = {t | seamT0 X ≤ |t| ∧ |t| ≤ T}`
 (:100), `seamBall X t₁ = {t | |t − t₁| ≤ seamRad X}` (:103).  **No floor is asserted here** —
 the floor supply in the live branch is the consumer's business (M-shaped discipline). -/
 
 /-- The radius is smaller than the inner cut as soon as `logX > 1`: for a base `b > 1`,
-`b^{1/16} < b^{1/15}` because the EXPONENT is smaller (`Real.rpow_lt_rpow_left_iff`).  This is
+`b^{1/46} < b^{1/45}` because the EXPONENT is smaller (`Real.rpow_lt_rpow_left_iff`).  This is
 what makes the small-centre branch of the dichotomy non-vacuous. -/
 lemma seamRad_lt_seamT0 {X : ℝ} (hL : 1 < Real.log X) : seamRad X < seamT0 X :=
   (Real.rpow_lt_rpow_left_iff hL).mpr (by norm_num)

@@ -255,7 +255,7 @@ theorem grade_EM {M : ℝ} (_hM : 0 ≤ M) :
 /-! ## R2.1 — the short-ball L² mean value (`ball_mvt`)
 
 The Halász ball contribution is an L² mean value of a Dirichlet polynomial over
-the ball `|t − t₀| ≤ T₀` (here `T₀ = (log X)^{1/16}`, the frozen ball radius).
+the ball `|t − t₀| ≤ T₀` (here `T₀ = (log X)^{1/46}`, the frozen ball radius).
 
 **Anchor observation (ANCHOR DRIFT, recorded):** the freeze priced R2.1 as the
 harmonic `(T + N log N)` route over `offdiag_int_bound` + `dirichlet_poly_l2_diagonal`.
@@ -409,7 +409,7 @@ theorem Mrange_nonneg (f : ℕ → ℂ) (hf : ∀ n, ‖f n‖ ≤ 1) (X T : ℝ
 `s8-freeze.md:25`, served in K4'/S1'-conditional assembly form).  For a 1-bounded
 `f` and center `t₀` (carried through `g`, the character `n ↦ n^{it₀}` restricted to
 primes), with `M = M_range f X T` GHS Lemma 1's RANGE-MINIMUM squared-distance, the
-ball `|t − t₀| ≤ (log X)^{1/16}` contributes
+ball `|t − t₀| ≤ (log X)^{1/46}` contributes
 `U ≪ X·(e^{-cM} + (log X)^{-1/2+ε})`  (`c = 1/e`).
 
 The heavy analytic inputs are the hypotheses: `hsplit` is the S1' representation's

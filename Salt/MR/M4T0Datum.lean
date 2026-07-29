@@ -93,7 +93,7 @@ it DOES apply at the piece verbatim.  What it costs is a wider floor: its `hM₀
   `∀ |v| ≤ Rad, M₀ ≤ 𝔻²(ℓ(g), n^{iv}; X)`,   `Rad ≥ |t₁| + Tstar(k, log k)`,
 
 and `FarStar.Tstar k L = L⁴·k^{1/(4 log L)}` at `k ≍ X` is `X^{o(1)}` — incomparably wider
-than the band's own `|v| ≤ 2·seamT0 X + 1 = 2(log X)^{1/15} + 1`.  So the two floors available
+than the band's own `|v| ≤ 2·seamT0 X + 1 = 2(log X)^{1/45} + 1`.  So the two floors available
 at the piece sit on different ranges:
 
 | floor | range | coefficient | landed as |
@@ -117,7 +117,7 @@ not attempted — §5's `B` is free precisely so that either escape plugs in unc
 ## ⟦THE TRAPS RESPECTED⟧
 
 * **the four log scales** — every `log` here is at the block scale `X = X_d`; `seamT0 X` is
-  the `X`-scale band `(log X)^{1/15}` and is never read at `log(X/P)` or `loglog X`;
+  the `X`-scale band `(log X)^{1/45}` and is never read at `log(X/P)` or `loglog X`;
 * **`liouChi`, never `lamChi`** — the pieces are `liouChi χ · g_𝒥` (the sum-side datum); the
   floor transport to the pretentious side is `pretDistSq_liouChi_eq`, inside the landed
   `band_floor_M0_liouChi`;
@@ -460,7 +460,7 @@ own, carried verbatim — this file adds no arithmetic to the plug. -/
 /-- **THE `hT0band` SLOT AT THE DOOR DATUM** (`m4_hT0band_at_door`).
 
   `∫_{−T₀}^{T₀} ‖dpolyA (winCutH X_d (doorChiCoeff χ M)) (seamS0 N X) t‖² dt
-     ≤ t0BandB X (cfbC₁ X C₁) M₀`,   `T₀ = seamT0 X = (log X)^{1/15}`,
+     ≤ t0BandB X (cfbC₁ X C₁) M₀`,   `T₀ = seamT0 X = (log X)^{1/45}`,
 
 i.e. `ThmA2Rows.thm_a2'_of_rows`'s (hence `M4MeanSq.m4_meansq_per_chi_gen`'s) `hT0band` slot at
 `C₁′ := cfbC₁ X C₁`, AT THE DOOR'S SIEVED χ-TWISTED UN-PHASED DATUM.  This is the item

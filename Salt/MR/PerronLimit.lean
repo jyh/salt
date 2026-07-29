@@ -451,9 +451,9 @@ theorem lemma14_shortInterval_concrete (a : ℕ → ℂ) (s0 : Finset ℕ) {X h�
         + ∫ t in (-(2 * T))..(-T), ‖dpolyA a s0 t‖ ^ 2) ≤ Msup) :
     1 / X * (∫ x in X..(2 * X), ‖((1 / h₁ : ℝ) : ℂ) * shortSum a s0 x h₁
         - ((1 / h₂ : ℝ) : ℂ) * shortSum a s0 x h₂‖ ^ 2)
-      ≤ 1 / (2 * Real.pi ^ 2) * ((2000 + 820 * Real.pi) * ((Real.log X) ^ (-(2 / 15 : ℝ))
-          + ((∫ t in ((Real.log X) ^ (1 / 15 : ℝ))..(X / h₁), ‖dpolyA a s0 t‖ ^ 2)
-              + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 15 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
+      ≤ 1 / (2 * Real.pi ^ 2) * ((2000 + 820 * Real.pi) * ((Real.log X) ^ (-(14 / 45 : ℝ))
+          + ((∫ t in ((Real.log X) ^ (1 / 45 : ℝ))..(X / h₁), ‖dpolyA a s0 t‖ ^ 2)
+              + ∫ t in (-(X / h₁))..(-((Real.log X) ^ (1 / 45 : ℝ))), ‖dpolyA a s0 t‖ ^ 2)
           + Msup)
         + (4 * (18 * (Real.pi + 2 * Real.log (1 + 2 * (X / h₁)))
             + 24 * h₁ * (1 + Real.log (3 * X)))) ^ 2) := by

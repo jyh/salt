@@ -619,7 +619,7 @@ set_option maxHeartbeats 1000000 in
 
   `(1/X)∫_X^{2X} ‖(1/h)·S(x)‖² dx`
   `  ≤ 8448·C₁'²·exp(−M₀/e) + 1787702400·(log Q₁)^{1/3}/P₁^{1/12}`
-  `   + 188133·(log X)^{−1/500} + 304128·ballSupC²·(log X)^{−13/15}·(1+loglog X)²`
+  `   + 188133·(log X)^{−1/500} + 304128·ballSupC²·(log X)^{−43/45}·(1+loglog X)²`
   `   + 6315000/h`.
 
 The side conditions are the union of the two branches' lists (§2's = §3's minus three
@@ -714,7 +714,7 @@ theorem thm_a2' :
             + 1787702400 * a2Level1 M
             + 188133 * (Real.log X) ^ (-(1 : ℝ) / 500)
             + 304128 * ballSupC ^ 2
-                * ((Real.log X) ^ (-(13 : ℝ) / 15) * (1 + Real.log (Real.log X)) ^ 2)
+                * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
             + 6315000 / h := by
   obtain ⟨Cq₁, cq₁, T₀₁, X₀₁, Cs₁, C₁, hCq₁, hcq₁, hT₀₁, hX₀₁, hCs₁, hC₁, hcapfree⟩ :=
     a2Rows_of_capfree

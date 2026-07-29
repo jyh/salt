@@ -116,10 +116,11 @@ theorem rho293_le_desmooth : rho293 ≤ 499 / 1000 := by
     div_le_div_iff₀ (by positivity) (by norm_num)]
   nlinarith
 
-/-- `ρ₂₉₃ ≤ 1/16` — the CASE-A leading exponent is below the seam-radius exponent, so the
-`2√2/R` half of `farSupS` is `(log X)^{−1/16}`-graded, better than the exit. -/
-theorem rho293_le_seam : rho293 ≤ 1 / 16 := by
-  have he : (1 : ℝ) ≤ Real.exp 1 := by linarith [Real.add_one_le_exp (1 : ℝ)]
+/-- `ρ₂₉₃ ≤ 1/46` — the CASE-A leading exponent is below the RE-CUT seam-radius exponent, so
+the `2√2/R` half of `farSupS` is `(log X)^{−1/46}`-graded, better than the exit.  (The strict
+form `ρ₂₉₃ < 1/46` with its margin is `A2Wall.a2wall_ballrad_46_clears`.) -/
+theorem rho293_le_seam : rho293 ≤ 1 / 46 := by
+  have he : (2 : ℝ) < Real.exp 1 := by linarith [Real.exp_one_gt_d9]
   have he0 : (0 : ℝ) < Real.exp 1 := by linarith
   rw [rho293, theta293,
     show (3 : ℝ) * (1 / (32 * (3 * Real.exp 1 + 1))) = 3 / (32 * (3 * Real.exp 1 + 1)) by ring,
@@ -282,30 +283,30 @@ theorem caseAS_arm_priced {X W Cb : ℝ} (hCb0 : 0 ≤ Cb) (hW2 : 2 ≤ W) (hWX 
   nlinarith [hterm1, hterm2, hterm3]
 
 /-- **R-1 (the far arm's MAIN term), PRICED.**  At the intended radius pin `Rrad = seamRad X`
-the trivial-centre transfer is `2√2·(log X)^{−1/16} ≤ 3·(log X)^{−ρ₂₉₃}` — ⟦V5f⟧'s
+the trivial-centre transfer is `2√2·(log X)^{−1/46} ≤ 3·(log X)^{−ρ₂₉₃}` — ⟦V5f⟧'s
 "`ρ₂₉₃ ≈ 0.0102 < 1/16`" comparison, in the kernel.  (The gate is a LOWER bound on `Rrad`:
 `hU_fully_priced` carries only `Rrad ≤ seamRad X`, which alone leaves `2√2/Rrad` unbounded.) -/
 theorem farMain_priced {X Rrad : ℝ} (hL1 : 1 ≤ Real.log X) (hRlow : seamRad X ≤ Rrad) :
     2 * Real.sqrt 2 / Rrad ≤ 3 * (Real.log X) ^ (-rho293) := by
   have hL0 : (0 : ℝ) < Real.log X := by linarith
-  have hseam : seamRad X = (Real.log X) ^ ((1 : ℝ) / 16) := rfl
-  have hs0 : (0 : ℝ) < (Real.log X) ^ ((1 : ℝ) / 16) := Real.rpow_pos_of_pos hL0 _
-  have hRlow' : (Real.log X) ^ ((1 : ℝ) / 16) ≤ Rrad := by rw [← hseam]; exact hRlow
+  have hseam : seamRad X = (Real.log X) ^ ((1 : ℝ) / 46) := rfl
+  have hs0 : (0 : ℝ) < (Real.log X) ^ ((1 : ℝ) / 46) := Real.rpow_pos_of_pos hL0 _
+  have hRlow' : (Real.log X) ^ ((1 : ℝ) / 46) ≤ Rrad := by rw [← hseam]; exact hRlow
   have hsqrt2 : Real.sqrt 2 ≤ 3 / 2 := by
     rw [show (3 : ℝ) / 2 = Real.sqrt ((3 / 2) ^ 2) from (Real.sqrt_sq (by norm_num)).symm]
     exact Real.sqrt_le_sqrt (by norm_num)
-  have h1 : 2 * Real.sqrt 2 / Rrad ≤ 2 * Real.sqrt 2 / (Real.log X) ^ ((1 : ℝ) / 16) := by
+  have h1 : 2 * Real.sqrt 2 / Rrad ≤ 2 * Real.sqrt 2 / (Real.log X) ^ ((1 : ℝ) / 46) := by
     have h2sqrt : (0 : ℝ) ≤ 2 * Real.sqrt 2 := by positivity
     exact div_le_div_of_nonneg_left h2sqrt hs0 hRlow'
-  have h2 : (Real.log X) ^ (-((1 : ℝ) / 16)) ≤ (Real.log X) ^ (-rho293) :=
+  have h2 : (Real.log X) ^ (-((1 : ℝ) / 46)) ≤ (Real.log X) ^ (-rho293) :=
     Real.rpow_le_rpow_of_exponent_le hL1 (by linarith [rho293_le_seam])
-  have h3 : 2 * Real.sqrt 2 / (Real.log X) ^ ((1 : ℝ) / 16)
-      = 2 * Real.sqrt 2 * (Real.log X) ^ (-((1 : ℝ) / 16)) := by
+  have h3 : 2 * Real.sqrt 2 / (Real.log X) ^ ((1 : ℝ) / 46)
+      = 2 * Real.sqrt 2 * (Real.log X) ^ (-((1 : ℝ) / 46)) := by
     rw [Real.rpow_neg hL0.le, ← div_eq_mul_inv]
   have h4 : (0 : ℝ) ≤ 2 * Real.sqrt 2 := by positivity
-  have h5 : 2 * Real.sqrt 2 * (Real.log X) ^ (-((1 : ℝ) / 16))
+  have h5 : 2 * Real.sqrt 2 * (Real.log X) ^ (-((1 : ℝ) / 46))
       ≤ 3 * (Real.log X) ^ (-rho293) := by
-    have hp1 : (0 : ℝ) ≤ (Real.log X) ^ (-((1 : ℝ) / 16)) := Real.rpow_nonneg hL0.le _
+    have hp1 : (0 : ℝ) ≤ (Real.log X) ^ (-((1 : ℝ) / 46)) := Real.rpow_nonneg hL0.le _
     have hp2 : (0 : ℝ) ≤ (Real.log X) ^ (-rho293) := Real.rpow_nonneg hL0.le _
     nlinarith
   linarith [h3 ▸ h1]
