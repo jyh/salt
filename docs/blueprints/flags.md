@@ -13415,3 +13415,37 @@ twin at the poly-log radius (the named binder: hgate/hM₀ at Tstar →
 the poly-log pin) → the B-discharge → the T0-band supplier
 hypothesis-complete. Then: W2-DOOR re-flies (the capstone now
 inhabitable at the door in EVERY binder), the collapse, the spine.
+
+---
+
+## P2-REPAIR: 4/5 landed + ⟦THE LOW-LINE REFUTATION⟧ (2026-07-28 20:21 PDT)
+
+FarL2Dyadic.lean (930 ln, 28 decls): the dyadic-in-n MVT
+(dpoly_block_l2_mvt — the N-term 20·N·A → 20·J·Π, the ONE factor J by
+block-CS); the τ-layer-cake (far_weight_le_of_linear_growth, fully
+general); winL2Tail_dyadic_le at the named farL2Threshold;
+crossKerFar_polylog (+ the σ-uniform form via three antitonicity
+stones); joint_cs_trunc_polylog (the twins were always T-free — the
+missing piece was an hKfar INHABITANT, now landed);
+dilated_scale_grade_polylog (the Tstar audit CLEAN: exactly two leak
+sites, both re-threaded; the main term byte-identical). STEP 5 NOT
+REACHED: the hRHS discharge needs the datum-level winL2Mass/winL2Price
+page (the vonMangoldt_window_damped_min genre at 2σ/2σ−1).
+
+**⟦THE LOW-LINE REFUTATION⟧ (design arithmetic, flagged not asserted —
+every landed lemma stays symbolic):** the repair's poly-log claim reads
+the price at σ ≍ 1; the uniform hKfar binder reads it at the LOWEST
+line c₀−η where Π carries the SQUARE of the ℓ¹ excess k-power (the
+AM–GM in crossKerFar_le_weighted_l2 is where the squaring happens);
+1/H² buys back half — the honest threshold is k^{η−1/L}·L^{3/2}-grade:
+BELOW Tstar by e·L^{5/2} but the SAME k-grade, not poly-log. TWO
+ESCAPES NAMED (both Fable-tier, the morning design block):
+(a) the at-center reading — β kept inside the integral, an interface
+change at joint_cs_trunc_pinC's uniform binder; (b) THE GEOMETRIC-MEAN
+ROUTE — integral Cauchy–Schwarz in place of the pointwise AM–GM: each
+window leg priced at ITS OWN line, the ±β k-powers meeting in the
+geometric mean (the two legs are symmetric about c₀ — the cancellation
+question is EXACTLY whether the high line's deficit is in k or in y;
+GEOMEAN-SCOPE dispatched to work both lines' prices honestly).
+UNCONDITIONALLY WON: the N-term dead; the A-term mass-free; the far
+arm Tstar-free at a free height.

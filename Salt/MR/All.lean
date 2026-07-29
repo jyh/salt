@@ -213,6 +213,7 @@ import Salt.MR.M4Puncture
 import Salt.MR.M4DoorRow
 import Salt.MR.M4T0Datum
 import Salt.MR.FarL2
+import Salt.MR.FarL2Dyadic
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -3221,3 +3222,68 @@ open Salt.Tactic in
   Salt.MR.windowSum_l2_mvt
   Salt.MR.winL2Tail
   Salt.MR.crossKerFar_le_weighted_l2
+
+-- ⟦THE N-TERM REPAIR⟧ (`FarL2Dyadic`, 2026-07-28).  THE LAST PRICING PAGE, in Lean.
+-- ⟦THE DYADIC-IN-`n` MEAN VALUE⟧ `dpoly_block_l2_mvt`: for ANY cut `P : ℕ → ℕ` with `P 0 = 0`
+-- and `P` monotone, `∫_{−R}^{R}‖dpoly (P J) a‖² ≤ J·∑_{j<J}(2R + 20·P(j+1))·A_j` — the block
+-- split (`dpoly_eq_sum_blocks`, `Finset.sum_Ioc_consecutive` telescoping), Cauchy–Schwarz over
+-- the blocks (`sq_sum_le_card_mul_sum_sq`, the ONE factor `J`), the landed
+-- `dirichlet_poly_l2_mvt_final` per block.  ⟦THE N-TERM IS GONE⟧: `20·N·A` (window LENGTH ×
+-- total mass) is replaced by `20·J·Π`, `Π = ∑_j P(j+1)·A_j` the BLOCK PRICE.  The constant is
+-- the block TOP, not its length — Montgomery–Vaughan's `δ = 1/N` is read at the largest
+-- frequency present, which is why the dyadic cut is the right one.
+-- ⟦THE `τ`-LAYER CAKE⟧ `far_weight_le_of_linear_growth`: for EVERY nonnegative continuous `φ`
+-- with `∫_{−R}^{R}φ ≤ 2RA + B`, `∫_{|τ|>H} φ/τ² ≤ 8A/H + (4/3)B/H²` — dyadic shells
+-- `H·2^i < |τ| ≤ H·2^{i+1}`, `MeasureTheory.integral_iUnion`, two geometric series.  Fully
+-- general; ONE named socket (the tail's own integrability, the same one
+-- `crossKerFar_le_weighted_l2` already carries).
+-- ⟦THE PRICED TAIL⟧ `windowSum_l2_block_mvt` + `winL2Tail_dyadic_le`:
+-- `winL2Tail g X y σ H ≤ farL2Grade = 8·J·A/H + (80/3)·J·Π/H²`, `A = winL2Mass` (no `k`-power),
+-- `Π = winL2Price`.  ⟦THE GATE⟧ `farL2_grade_clears_gate` at `farL2Threshold Ca Cp ε =
+-- 16·Ca/ε + √(54·Cp/ε)`.  ⟦THE COMPOSED FAR BOUND⟧ `crossKerFar_polylog` (§6, per-line) and
+-- `crossKerFar_polylog_uniform` (§7, `α,β`-uniform at the worst line `c₀ − η`, via the three
+-- antitonicity stones `winL2Mass_antitone` / `winL2Price_antitone` / `farL2Grade_antitone`).
+-- ⟦THE TWINS, NOW NON-VACUOUS⟧ `joint_cs_trunc_polylog` (`GradeWindowC.joint_cs_trunc_pinC` at
+-- `T := H` with `hKfar` DISCHARGED — `FarStar.far_kernel_bound_star` lives only at `Tstar`) and
+-- `dilated_scale_grade_polylog` (`SPartStation.dilated_scale_grade` with `Tstar` swapped out:
+-- the gate is `|t₁| + H ≤ Rad`, the floor transport by `pretDistSq_floor_dilate` is verbatim,
+-- and the far arm rides at `farKfarPolylog` — `farKfarStar`'s replacement with NO ℓ¹ window
+-- mass, hence no `k^{1/(4 log L)}` in the KERNEL binder).
+-- ⚠ ⟦THE LOW-LINE REFUTATION⟧ (DESIGN arithmetic, NOT kernel-checked; no theorem asserts it).
+-- The repair's verified arithmetic is read at `σ ≍ 1`, where `Π ≍ ∑(log n)²/n ≍ L³` is
+-- poly-log.  The chain does NOT read `σ = 1`: `hKfar` is uniform over `β ∈ [0, η]`, so the
+-- price is read at the LOWEST line `c₀ − η`, where the exponent `2σ − 1 = 1 − (2η − 2/L) < 1`
+-- and `Π ≍ L²·k^{2(η−1/L)}/(2η−2/L)` — the SQUARE of `FarStar` §3's ℓ¹ excess.  The `1/H²`
+-- takes the square root back out, so the honest threshold is `H ≳ k^{η−1/L}·L^{3/2}√(log L)`:
+-- a `k`-power, a factor `≍ e·L^{5/2}` BELOW `Tstar = L⁴k^{η}` but of the SAME grade — NOT
+-- poly-log.  The `k`-power is intrinsic to the low line (AM–GM squares it; a `τ`-Cauchy–Schwarz
+-- buys back only the square root, landing in the same place).  ⟦WHAT IS UNCONDITIONALLY WON⟧
+-- the `N`-term is gone, the `A`-term is mass-free and convergent at every line of the band, and
+-- the far arm is stated at a FREE height with `Tstar` nowhere in it.
+-- ⟦THE RESIDUE⟧ the datum-level ℓ² estimates `winL2Mass`/`winL2Price` at the piece datum (the
+-- `LambdaMass.vonMangoldt_window_damped_min` genre at exponent `2σ` and `2σ−1`) are NOT landed
+-- here, so STEP 5 (`m4_hRHS_priced` / `m4_t0band_supplier_complete`) is NOT reached.
+#audit_axioms Salt.MR.blockCoeff
+  Salt.MR.dpoly_block_eq
+  Salt.MR.dpoly_eq_sum_blocks
+  Salt.MR.dpolyBlockMass
+  Salt.MR.blockCoeff_l2_eq
+  Salt.MR.dpoly_block_l2_mvt
+  Salt.MR.far_weight_le_of_linear_growth
+  Salt.MR.sum_dpolyBlockMass_eq
+  Salt.MR.winL2Price
+  Salt.MR.continuous_windowSum_sq
+  Salt.MR.windowSum_l2_block_mvt
+  Salt.MR.farL2Grade
+  Salt.MR.winL2Tail_dyadic_le
+  Salt.MR.farL2Threshold
+  Salt.MR.farL2_grade_clears_gate
+  Salt.MR.crossKerFar_polylog
+  Salt.MR.winL2Coeff_norm_antitone
+  Salt.MR.winL2Mass_antitone
+  Salt.MR.winL2Price_antitone
+  Salt.MR.farL2Grade_antitone
+  Salt.MR.crossKerFar_polylog_uniform
+  Salt.MR.joint_cs_trunc_polylog
+  Salt.MR.farKfarPolylog
+  Salt.MR.dilated_scale_grade_polylog
