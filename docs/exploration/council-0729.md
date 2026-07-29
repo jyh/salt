@@ -27,31 +27,51 @@ s11-spine-brief-0728.md.*
 6. **~30 seals, ~12k lines tonight**; the tree green at 9,534 jobs;
    every executor first-attempt or honestly stopped.
 
-## What the night could NOT close (the spine's verdict — the fork)
+## What the night could NOT close (the spine's verdict, DEEPENED overnight)
 
 The spine's attempt PROVED (kernel-hard) that m4_wave_collapsed's
-register is **jointly inconsistent** — true but vacuous:
-- **WALL A**: the budget collision — the single δ flattens the door's
-  per-H grade; the C-lever is self-defeating (m4_spine_budget_collision).
-- **WALL B**: the endpoint conjunct demands 𝒮-vanishing on full
-  intervals (the ∀s spent twice).
-- **WALL C**: two H-caps vs the unbounded Hhi (one mechanical, one a
-  numeral misplacement).
+register is **jointly inconsistent** — true but vacuous. The
+REGISTER-SCOPE pass (00:05) then refuted BOTH repair branches this
+table originally recommended — the flags entry of 00:05 is the depth:
+
+- **WALL A**: the collision is between two ORDERS, not two constants.
+  Mertens forces the sieve depth `M ≳ (log H)^{11/4}/C` (density, not
+  convention) while the capstone's own length floor caps
+  `M ≲ log H/2^18`. The per-H δ(H) branch is REFUTED (the collision
+  is single-H — it fires at `H := Hlo` alone; the U1floor escape is
+  monotonically self-defeating); the M-free-term branch is REFUTED
+  (the `4^{j₀}` is an honest count). Levers outside the register: (A)
+  glue at `M ≳ log(1/δ)` — contradicts Mertens; (B) the capstone
+  speaking below its length floor; (C) **the budget split** — gate 8
+  may over-demand (the sieve mass pinned under the DECAYING delivered
+  grade when the door's contract is CONSTANT-capped at δ₀); if the
+  split verifies, M goes constant and the collision dissolves.
+  BUDGET-SPLIT-SCOPE ran overnight — verdict in the flags/below.
+- **WALL B**: the strict-window re-cut is DEAD short of summit surgery
+  (`BallSup` consumes `hsupp0` at `n = ⌊X⌋₊` under thm_a2'). The live
+  route is **the priced residual**: the `p·m = Xd` endpoint defect is
+  ONE residual row ≤ `2(log Xd)²/Xd` — free against EP2; cost a fourth
+  row through the four MR identities. ENDPOINT-ROW-SCOPE ran
+  overnight — verdict in the flags/below.
+- **WALL C**: PRECEDENTED — the night authority's genre test passed;
+  the executor ran overnight (the collision-at-Hlo corollary + gate 12
+  M-relative + gate 9's Qm Skolemized after R). This makes the
+  register honest and Hhi-safe; it does NOT unblock the spine.
 
 ## THE COUNCIL'S RULINGS REQUESTED
 
 | # | decision | the fork |
 |---|---|---|
-| C1 | **Ratify the night's ledger** — the seam amendment + the ~8 night rulings (all flags-recorded with exhibits) | ratify / amend |
-| C2 | **WALL A's repair**: (ii) the per-H door grade δ(H) — the natural shape, the door machinery is already per-H; re-threads ~3 register statements | (ii) recommended / (i) the M-free assembly term |
-| C3 | **WALL B's repair**: the strict-window capstone re-cut (revisiting R3's non-strict deviation — the root cause) vs an 𝒮-avoiding ladder design | the strict re-cut recommended |
-| C4 | WALL C: the Qm reorder + the per-instance H-cap — mechanical, bundle with C2's wave | bundle |
+| C1 | **Ratify the night's ledger** — the seam amendment + the night rulings incl. the WALL-C wave (all flags-recorded with exhibits) | ratify / amend |
+| C2 | **WALL A**: if the budget split VERIFIED overnight — ratify it as the repair (the join-line wave genre); else the genuine open design: capstone-below-the-floor vs glue redesign | per the scope verdict |
+| C3 | **WALL B**: the priced-residual fourth row (if the overnight census confirms the wave-artifact genre) vs deferring to a design block | per the scope verdict |
+| C4 | The register riders + the D2 re-run at the post-wave HEAD | schedule |
 
-**The honest picture:** the register redesign is ONE more counter-wave
-once ruled — every gate's discharge machinery is landed and waiting
-(the arc-floor page, the delivered-grade arithmetic, the exhibits).
-The night proved the road's last theorem is one *register shape* away,
-and proved exactly which shape is wrong and why.
+**The honest picture:** the night proved the road's last theorem is a
+register-shape question, refuted the two easy shapes, and named three
+levers — one of which (the split) may be cheap. Every gate's discharge
+machinery is landed and waiting (the arc-floor page, the
+delivered-grade arithmetic, the exhibits, now the Hhi-safe register).
 
 ## Standing
 The triple at last check: jason (fresh Monday reset). The D2 re-run

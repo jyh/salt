@@ -13767,3 +13767,58 @@ the endpoint convention (the strict-window capstone re-cut — the R3
 deviation revisited — vs an 𝒮-avoiding ladder shift design). WALL C:
 mechanical. The register redesign is ONE more counter-wave once ruled;
 every gate's discharge machinery is landed and waiting.
+
+---
+
+## ⟦REGISTER-SCOPE⟧: BOTH C2 BRANCHES REFUTED — the true WALL-A diagnosis; C3's live route named (2026-07-29 00:05 PDT)
+
+The scoper's verdict on the morning fork, byte-grounded:
+
+**C2(ii) — the per-H door grade δ(H): REFUTED.** The collision is
+SINGLE-H: instantiate every gate at `H := R.Hlo` and
+`m4_spine_budget_collision` reproduces verbatim — no per-H family
+escapes a contradiction that already fires at one point. The U1floor
+escape (raising `Hlo` to soften the floor) is *monotonically
+self-defeating*: the demand side grows like `C ≳ 3.27·10⁶·Cg·L`
+against the supply cap `C ≤ √L` (`L = log Hlo`). **C2(i) — the M-free
+small-length term: REFUTED as stated.** The `4^{j₀}` in the graded
+assembly is honest (`doorRowFloor`'s own count); the recount buys half
+an exponent, not an order.
+
+**THE TRUE DIAGNOSIS (supersedes the spine entry's repair sketch):**
+two ORDERS collide, not two constants. Mertens forces the sieve depth
+`M ≳ (log H)^{11/4}/C` (`m4_door_sieve_mass`'s `8C/δ ≤ M` is DENSITY,
+not convention — the block-free mass at level M is genuinely ≍ 1/M)
+while the capstone's own length floor (`door_length_gate`:
+`M·Adoor M ≤ j ≤ log₂ H`) caps `M ≲ log H/2^18`. Quadratic vs linear;
+no constant helps. The scoper's named levers, BOTH outside the
+register: (A) glue at `M ≳ log(1/δ)` — contradicts the Mertens
+density; (B) the capstone speaking below its length floor. [A THIRD
+lever — the maestro's, under scope as of this entry: gate 8's SHAPE
+puts the sieve mass δ under the DECAYING delivered grade, but the
+door's own contract is CONSTANT-capped (`MRTUniformityXi` at
+`δ_door ≤ δ₀`); a SPLIT budget (mean-square under the decaying grade,
+sieve mass + endpoint under a constant slot) would make M constant
+and dissolve the collision. BUDGET-SPLIT-SCOPE dispatched; not yet a
+finding.]
+
+**C3 — WALL B's repair:** the strict-window capstone re-cut CASCADES
+onto the frozen summit (`BallSup:385/500` —
+`spolyA_datum_split`/`ball_sup_of_center` consume `hsupp0` AT
+`n = ⌊X⌋₊`; strictifying the window moves thm_a2'-family bytes) —
+DEAD short of JYH-tier surgery. THE LIVE ROUTE (the scoper's own
+naming): **the priced residual** — at `p·m = Xd` with `a = winCutH`
+the LEFT side already vanishes; the defect is ONE residual row of
+modulus ≤ `ω(Xd)/Xd` per prime, ≤ `2(log Xd)²/Xd` to the L²-budget —
+free against `EP2 ≍ (log X)^{−θ}`. Cost: a FOURTH row through the four
+MR identities (SeamRowWindowed) — a design block, but priced.
+ENDPOINT-ROW-SCOPE dispatched on the exact re-thread census.
+
+**WALL C — PRECEDENTED, executing tonight** (the night authority's
+genre test passed): step 1 the collision-at-Hlo corollary (banking
+C2(ii)'s refutation kernel-hard); step 2 gate 12 M-relative
+(`door_dilation_gate'` dropping `logH_pow_twelve_lt`'s numeral, ~14
+thread sites); step 3 gate 9's Qm Skolemized after R (the three
+Qm-taking suppliers choice-functioned; `Kfl/Kcf/Kbox/X₀w : ℕ → ℝ`
+hoisted through five statements). **Explicitly: this does NOT unblock
+the spine — WALLS A and B stand.** WALL-C-EXECUTOR in flight.
