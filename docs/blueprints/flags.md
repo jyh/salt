@@ -14585,3 +14585,50 @@ currency). The wave plan is live: ① the split twins (~16 post-retire,
 800–1200 ln) fires NOW; ② strict after ①; ③∥④ after ① (the composed
 drift interface co-designed); ⑤ after ③+④ with the D₀-truncation
 test FIRST. The port gate unchanged (JYH, after ⑤).
+
+---
+
+## ⟦D0-TEST⟧: THE SANDWICH IS DISSOLVED AT 2^18 — the gate was always demanded at d, not q; NO anchor ask reaches JYH (2026-07-29 09:08 PDT)
+
+**VERDICT: DISSOLVED, by 3.9·10⁴× (the stratified site) / 3.2·10⁵×
+(the per-class site) at the CURRENT anchor; the margin GROWS with M
+and k; the port case closes ×6·10⁶.** Calibrated against REF-SAND's
+own table (×10.79 vs their ×11 at k=30 — exact agreement).
+
+**THE STRUCTURAL FACT:** door_dilation_gate' concludes
+`d < calP (Adoor M) (3072M) 1` — **neither q nor W occurs in the
+conclusion**; they are pure intermediates. The whole door side
+(door_gate_blocks, dilCoeff_memS_door, ...) is instantiable at
+q := d, W := D₀ with ZERO new bytes. W = arcDen entered only because
+the landed per-class consumers pinned q in their conclusions. The
+trivial branch (norm_classWindowSum_le_thresh) pays NO gate at all.
+Bonus: the register's ∀d range also collapses to d ≤ D₀.
+
+**THE TWO ACCOUNTING SITES:** SITE A (per-class): D₀ = 2·Bblk^{-1/2}
+= 2.9·10⁵⁰ (log₂ = 167.6) — ABSOLUTE (the (length)² scaling makes it
+invariant under H → ℓ → H/d); REF-SAND's 2^163 reproduced. SITE B
+(strata summed): D₀ carries a divisor tail — with the crude τ(q) ≤ q
+WORTHLESS; the Rankin/Mertens route gives log₂ D₀ ∝ ln lnln Hhi
+(1395 bits at k=18) — still free by ×3.9e4 but NOT absolute. **THE
+INTERFACE CONSTRAINT (steered to WAVE-4 mid-flight): keep the
+truncation per-class (SITE A) and the Rankin obligation VANISHES.**
+
+**THE SANDWICH RE-RUN** (honest M = 1.93e62; the ②-halved floor
+lnln Hlo = ln(M·Adoor M·ln2); tower at the landed exp 5): the
+ORIGINAL gate fails ×3.4e4 at k=18 (and fails even against the
+LOWER tower law — 2^18 was unconditionally dead untruncated); the
+TRUNCATED gate closes everywhere, robust to a grade 10^5 orders
+worse. Catch-checks clean: sup_K monotone (~6 ln); the reduced-pair
+(q/d, H/d) read needs cap-generality (already ratified D-2); NO
+X-upper introduced (the truncation's sides: D₀ < 2^{Adoor M} M-only
++ an H-lower at 10⁵⁰, ~10⁷⁰ under the existing floor).
+
+**⚠ THE CRITICAL-PATH CATCH (steered to WAVE-4): memS_dilate_door +
+residue_split_dilate_door still route through the OLD gate's
+2^{21845} H-UPPER numeral (the WALL-C genre) — the M-relative twins
+(3–10 ln via memS_dilate_of_lt_bot + door_dilation_gate') are
+MANDATORY before ④ consumes them.** The ⑤-page gate census: 6
+zero-byte instantiations + 4 twins (~10–20 ln each) + the case-split
+stones (~40 ln) + the hgate restructure. REF-SAND's A-6 wording
+corrected twice (the stratified D₀ is 2^1395 not 2^163; the margin
+factor is 3.9e4 — LARGER than claimed, not smaller).
