@@ -57,17 +57,23 @@ Hlo floor (U1floor ≈ 2^{10^{119}}) — **CONDITIONAL on two things**:
   large-value count), plus the Gauss-sum consumer re-cut (900–1600 ln,
   kills both q's pointwise in K, no Parseval blocker). F3 is a hard
   prerequisite of the port. **CAVEAT ⟦F5⟧ below.**
-- **⟦F5 — THE log q SCALE WALL⟧ (found by the synthesis, UNREFUTED at
-  press time)**: the register's cap-free floor threshold (≈28·ln q as
-  a lower demand on lnln X) against hgRows' upper cap, same ∃-bundle,
-  same pinned X — with q up to arcDen 12 Hhi and the tower law, on the
-  synthesis's arithmetic it is unsatisfiable at every M by ~7 orders,
-  the anchor re-pin makes it WORSE, and at Hhi = Hlo it closes (the
-  tower is load-bearing). **If F5 stands: D-2's anchor ruling does not
-  settle D-2, and D-1 is conditionally moot.** REF-F5 (the discharge
-  trace + the honest coefficients + the F4 arithmetic) and REF-ROUTE
-  (the port's two gates) are in flight — verdicts may be on the table
-  by the council.
+- **⟦F5 — THE log q SCALE WALL⟧ — CONFIRMED (REF-F5, 04:45), and the
+  framing FLIPS**: the coefficient is exactly 28; X is pinned q-free
+  so one X must serve every q ≤ arcDen 12 Hhi; it fails 9.8·10⁴× at
+  its most favourable point with F4 repaired and VT-7 granted, at
+  every M, every anchor (the 2³⁰ re-pin makes it 2.4× *worse*), and
+  the tower is forced by the log 2 entropy ceiling. **But F5 is the
+  FOURTH wall on the already-vacuous register, not a new kill — and
+  what it kills is precisely the per-χ door supply route the KMT port
+  REPLACES. So it is an argument FOR re-cutting the target statement
+  before pricing the port, not for waiting.** (B) survives with the
+  reason changed. D-2's anchor arithmetic is untouched, but the
+  re-pin settles only the gate-12/floor pair — it must not be sold
+  as settling the register. Design tells banked: at B₅ ≥ 18 the
+  register is infeasible even without the tower (margin 1.49×);
+  **VT-7 joins F4 on the fire-ready board** (worth 2.15·10⁴⁴ of
+  lnln X demand, unpriced). REF-ROUTE (the port's two gates) still
+  in flight.
 - **⟦D-2⟧ THE M-SANDWICH — SETTLED IN ARITHMETIC (SANDWICH-REF,
   01:40)**: the tower law is EXACT — loglog Hhi = (loglog Hlo)^{4.006},
   the 4 structural — and the pair FAILS at every M at the current
