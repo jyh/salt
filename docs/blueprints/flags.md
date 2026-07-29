@@ -13886,3 +13886,61 @@ M4Collapse/M4Spine), and (b) BUDGET-SPLIT-SCOPE's verdict — if WALL A
 also resolves by register re-cut, the two surgeries become ONE
 re-thread. ENDPOINT-REF dispatched on the scoper's three named refuter
 targets (verify-posture law).
+
+---
+
+## ⟦BUDGET-SPLIT-SCOPE⟧: the third lever REFUTED — the premise CONFIRMED, WALL A dissolves under it, but ⟦WALL D — THE Ccc FLOOR⟧ found (scale-free, kills the current register too); the repair NAMED (2026-07-29 00:45 PDT)
+
+**THE PREMISE IS RIGHT (bank this):** the door's true contract is
+CONSTANT-capped — the head's slot (SpineFinal:861-863) is
+`∀δ, 0 < δ → δ ≤ δ₀ → MRTUniformityXi R δ → ¬logChowla2Fails` with δ₀
+fixed BEFORE `∀ extraFloor U1floor g`; `m4_exit_of_hbd` consumes hbd at
+the decaying `mrtDeliveredGrade C H` and IMMEDIATELY discards the decay
+(M4Exit:283-295 → the single number `doorGrade R.Hlo`). The
+mrtDeliveredGrade demand is genuine over-demand. The three hbd summands
+(mean-square / sieve mass / endpoint) stay SEPARATE all the way up
+(M4Close:464-513's calc; the grade enters in the final line only);
+gates 7/8 thread verbatim through 4 files. The re-cut = ~10 additive
+twins, the join-line wave genre. ⚠ SUB-REFUTATION: the
+doorGrade-SHAPED slot is DEAD (doorGrade reads R.Hlo = (log Hlo)^{-5/4}
+and U1floor pushes Hlo UP — monotonically self-defeating, the same
+genre as C2(ii)'s kill); ONLY the δ₀ slot (pre-U1floor) is viable.
+
+**WALL A DISSOLVES under the split (verified):** δ := δ₀,
+M := ⌈24Cg/δ₀⌉₊ constant, j₀ constant, U1floor := ⌈exp(2j₀log 4)⌉₊,
+non-circular (all pre-C binders); m4_spine_budget_necessary's chain
+never runs; C drops out; incidentally log Hlo ≥ 3.6·10⁵⁷ puts gate 12's
+2^21845 cap INSIDE reach.
+
+**BUT: ⟦WALL D — THE Ccc FLOOR⟧ (the refutation — NEW, scale-free,
+kernel-shaped, and it kills the UN-split register too).** Two
+DoorRowCarriedT0 conjuncts are keyed to the SAME (log X)^{-1/500} at
+the same instance: :712's threshold
+`5760·(a2RowsSum M Xd + Ccc·(2/M)) ≤ (log X)^{-1/500}` and :717's
+envelope `… + 188133·(log X)^{-1/500} + … ≤ B` ⟹ the invariant
+**B·M ≥ 2.167·10⁹·Ccc** — no lever moves it (x cancels; g cancels).
+Instantiated at q=1,d=1,s=0,j:=j₀ through hdrift + m4BclGraded + han +
+hdel: `G² ≥ 2.04·10¹⁶·Ccc` — **the grade slot must exceed ~10⁸·√Ccc**,
+scale-free (log₂H cancels EXACTLY), for ANY window and ANY regime.
+Against δ₀/2 ≈ 10⁻⁴⁹ the gap is ~10¹¹⁴. Ccc is exported only as
+0 < Ccc (from m4_door_meansq_carried) — no spine can rely on it small.
+Stronger than WALL A: no H-dependence at all.
+
+**THE NAMED REPAIR (the pivot: M4T0Discharge:710-712 vs :717 — the
+assembly capping each a2Mrow piece by the same (log X)^{-1/500}):** one
+factor of 1/M in the envelope's summand (or a strictly smaller exponent
+at :712 than :717) turns B·M ≥ K into B·M² ≥ K, whence
+G² ≥ 2^38·18·K/log₂H → 0 — the wall becomes a FLOOR ON H, i.e. it
+CLOSES. **UNVERIFIED: whether the supply side can DELIVER the
+1/M-strengthened threshold** — a2RowsSum's honest magnitude in M and
+the discharge chain's room. SUPPLY-SCOPE dispatched.
+
+**WALL B unchanged** (hend orthogonal to any grade re-cut); gate 8's
+own endpoint 4·2^k/x sits happily in a constant slot (2^k ≤ 4ω via
+hcount; x ≥ 64ω/δ₀; ω-debit = the regime-enlargement law's currency).
+
+**THE COUNT: the register has FOUR walls — A (dissolves under the
+split), B (the fusion route, refuter in flight), C (executing,
+precedented), D (NEW — the named repair pending supply-side scope).
+Any redesign must clear B·M ≥ 2.167e9·Ccc BEFORE the door grade is
+discussed.**
