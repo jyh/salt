@@ -761,4 +761,142 @@ theorem chowlaRegime_exists_param_head_tower' (eps : ℚ) (heps : 0 < eps) (heps
   exact ⟨regimeEnlargeX' R (le_max_left R.x (g R.Hhi R.ω)), hReps, hRHlo,
     le_max_right _ _, hRtow⟩
 
+/-! ### Section 9 — THE `K = 9/2` TWIN CHAIN (ruling C-A, 2026-07-30)
+
+⟦THE GRANT⟧  S11-SCOPE's two-λ audit found the compose window EMPTY at `K = 5`:
+the P2 arm reads `λ₊ = loglog H₊`, the drift arm caps `λ₋ = loglog H₋`, and the
+tower's exponent is the only bridge — at `K = 5` the demand is `b ≥ 46.0` against
+`b ≤ 31.3`.  The compose needs `K ≤ 4.9`.
+
+The exponent is FREE arithmetic, and §7's own docstring says where: the proof's
+budget is
+
+    `w_J − w₀ ≤ (40/19)·log 2 + 7/300 ≤ 1.46 + 7/300 = 89/60 = 1.4833…`
+
+and the exported `K` is any number whose logarithm clears that budget.  The
+landed export spends it against `3/2 < log 5 = 1.6094`; but `3/2` also clears
+`log (9/2) = 1.50408` — with `exp(3/2) = 4.48169 < 4.5` the margin is 0.41% —
+so the SAME budget line exports `K = 9/2`.  (The honest exponent is
+`exp(89/60) = 4.4077`; `9/2` is the tightest half-integer above it, and
+`tower_loglog_ge`'s `3.74` still brackets from below.)
+
+Everything here is an ADDITIVE twin: the `K = 5` chain is untouched and both live
+side by side.  The twins are stated at `rpow` (`x ^ ((9:ℝ)/2)`) since the exponent
+is not a natural number; `rpow_nine_halves_le_pow_five` is the bridge for any
+consumer that wants the landed `npow` shape back (it is a WEAKENING — the `9/2`
+law implies the `5` law under the guard, never the converse). -/
+
+/-- `3/2 < log (9/2)` — THE EXPONENT LINE.  The `K = 5` twin of this is
+`three_halves_lt_log_five`; here `exp(3/2) = 4.4817 < 4.5`, checked by squaring:
+`exp 3 = 20.0855 < 20.25 = (9/2)^2`. -/
+lemma three_halves_lt_log_nine_halves : (3 / 2 : ℝ) < Real.log (9 / 2) := by
+  rw [Real.lt_log_iff_exp_lt (by norm_num)]
+  have h1 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
+  have h3 : Real.exp 3 = Real.exp 1 ^ 3 := by
+    rw [← Real.exp_nat_mul]; congr 1; push_cast; ring
+  have hsq : Real.exp (3 / 2) * Real.exp (3 / 2) = Real.exp 3 := by
+    rw [← Real.exp_add]; norm_num
+  have hlt : Real.exp 3 < 81 / 4 := by
+    rw [h3]
+    calc Real.exp 1 ^ 3 ≤ (2.7182818286 : ℝ) ^ 3 := by gcongr
+      _ < 81 / 4 := by norm_num
+  nlinarith [Real.exp_pos (3 / 2), hsq, hlt]
+
+/-- **THE BRIDGE** `x^(9/2) ≤ x^5` for `x ≥ 1` — the `9/2` export implies the
+landed `5` export at every point of the guard (`50 ≤ loglog H₋`, so `x ≥ 50 ≥ 1`).
+A consumer wired to the `npow` shape may compose with this and read the twin;
+a consumer that needs `9/2` must use the twin, since the implication is one-way. -/
+lemma rpow_nine_halves_le_pow_five {x : ℝ} (hx : 1 ≤ x) :
+    x ^ ((9 : ℝ) / 2) ≤ x ^ (5 : ℕ) := by
+  rw [← Real.rpow_natCast x 5]
+  exact Real.rpow_le_rpow_of_exponent_le hx (by norm_num)
+
+/-- **THE EXPORT THEOREM AT `K = 9/2`** (`tower_loglog_le_45`) — the twin of
+`tower_loglog_le` at the exponent the S11 compose needs.
+
+The proof is the landed proof VERBATIM through `hfinal`
+(`w_J − w₀ < 3/2`, from `(40/19)·log 2 ≤ 1.46` at `J−1` plus the last step's
+`7/300`); the only change is the closing comparison — `3/2 < log (9/2)` in place
+of `3/2 < log 5` — and the passage from `npow 5` to `rpow (9/2)` at the two
+`log`-monotonicity steps (`Real.log_rpow`, `Real.rpow_pos_of_pos`). -/
+theorem tower_loglog_le_45 {B : ℕ} (hB : 4000000 ≤ B)
+    (hu : 50 ≤ Real.log (Real.log (B : ℝ))) :
+    Real.log (Real.log (chowlaTower 2 1 B (towerJmin 2 1 B) : ℝ))
+      ≤ (Real.log (Real.log (B : ℝ))) ^ ((9 : ℝ) / 2) := by
+  obtain ⟨k, hk⟩ : ∃ k, towerJmin 2 1 B = k + 1 :=
+    ⟨towerJmin 2 1 B - 1, by have := towerJmin_pos hB; omega⟩
+  -- minimality at `k`
+  have hSk : towerDropSum 2 1 B k ≤ Real.log 2 :=
+    towerDropSum_le_log_two_of_lt_towerJmin (by omega)
+  have hlow := towerDropSum_ge_half_log_ratio hB hu k
+  have hl2 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hwk : towerW B k - towerW B 0 ≤ 1.46 := by linarith
+  -- the last step
+  have hstep := towerStep_dw_le hB hu k
+  have hL := towerL_ge_fifteen hB k
+  have hV := towerV_ge_three hB hu k
+  have hX : (0 : ℝ) < towerL B k * towerV B k := by nlinarith
+  have hlast : towerW B (k + 1) - towerW B k ≤ 7 / 300 := by
+    refine le_trans hstep ?_
+    rw [div_le_iff₀ hX]
+    nlinarith
+  have hfinal : towerW B (towerJmin 2 1 B) - towerW B 0 < 3 / 2 := by
+    rw [hk]; linarith
+  -- convert to the `v` ratio, then to the `u` power
+  have hv0 : (3 : ℝ) ≤ towerV B 0 := towerV_ge_three hB hu 0
+  have hvJ : (3 : ℝ) ≤ towerV B (towerJmin 2 1 B) := towerV_ge_three hB hu _
+  have hlog45 := three_halves_lt_log_nine_halves
+  have hVlt : towerV B (towerJmin 2 1 B) < (9 / 2) * towerV B 0 := by
+    rw [← Real.log_lt_log_iff (by linarith) (by linarith)]
+    rw [Real.log_mul (by norm_num) (by linarith)]
+    have e1 : towerW B (towerJmin 2 1 B) = Real.log (towerV B (towerJmin 2 1 B)) := rfl
+    have e2 : towerW B 0 = Real.log (towerV B 0) := rfl
+    rw [← e1, ← e2]
+    linarith
+  have hu0 : (50 : ℝ) ≤ towerU B 0 := towerU_ge hB hu 0
+  have huJ : (50 : ℝ) ≤ towerU B (towerJmin 2 1 B) := towerU_ge hB hu _
+  have hpow : Real.log (towerU B (towerJmin 2 1 B))
+      < Real.log ((towerU B 0) ^ ((9 : ℝ) / 2)) := by
+    rw [Real.log_rpow (by linarith)]
+    have e1 : towerV B (towerJmin 2 1 B) = Real.log (towerU B (towerJmin 2 1 B)) := rfl
+    have e2 : towerV B 0 = Real.log (towerU B 0) := rfl
+    rw [e1, e2] at hVlt
+    linarith
+  have hfin : towerU B (towerJmin 2 1 B) < (towerU B 0) ^ ((9 : ℝ) / 2) :=
+    (Real.log_lt_log_iff (by linarith) (Real.rpow_pos_of_pos (by linarith) _)).mp hpow
+  rw [towerU_zero] at hfin
+  have e3 : towerU B (towerJmin 2 1 B)
+      = Real.log (Real.log (chowlaTower 2 1 B (towerJmin 2 1 B) : ℝ)) := rfl
+  rw [e3] at hfin
+  exact le_of_lt hfin
+
+/-- **The regime builder at `K = 9/2`** — the twin of
+`chowlaRegime_exists_param_tower`, same `ε`, same floor lever, same
+`towerJmin`-pointed tower; only the exported conjunct's exponent moves. -/
+theorem chowlaRegime_exists_param_tower_45 (eps : ℚ) (heps : 0 < eps)
+    (heps1 : eps ≤ 1 / 2) (Hlo₀ : ℕ) :
+    ∃ R : ChowlaRegime, R.eps = eps ∧ Hlo₀ ≤ R.Hlo ∧
+      (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+        Real.log (Real.log (R.Hhi : ℝ))
+          ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) := by
+  obtain ⟨R, hReps, hRHlo, hRHhi⟩ :=
+    chowlaRegime_exists_param_gen eps heps heps1 Hlo₀ (towerJmin 2 1)
+      (fun _ hB => towerJmin_spec hB)
+  refine ⟨R, hReps, hRHlo, fun hu => ?_⟩
+  rw [hRHhi]
+  exact tower_loglog_le_45 R.hHlo_floor hu
+
+/-- **The head-shaped builder at `K = 9/2`** — the twin of
+`chowlaRegime_exists_param_head_tower'`.  `regimeEnlargeX'` moves `x` alone, so
+the `9/2` law reads against the same two endpoints after the push as before. -/
+theorem chowlaRegime_exists_param_head_tower45' (eps : ℚ) (heps : 0 < eps)
+    (heps1 : eps ≤ 1 / 2) (Hlo₀ : ℕ) (g : ℕ → ℕ → ℕ) :
+    ∃ R : ChowlaRegime, R.eps = eps ∧ Hlo₀ ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+      (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+        Real.log (Real.log (R.Hhi : ℝ))
+          ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) := by
+  obtain ⟨R, hReps, hRHlo, hRtow⟩ := chowlaRegime_exists_param_tower_45 eps heps heps1 Hlo₀
+  exact ⟨regimeEnlargeX' R (le_max_left R.x (g R.Hhi R.ω)), hReps, hRHlo,
+    le_max_right _ _, hRtow⟩
+
 end Salt.Entropy.Chowla

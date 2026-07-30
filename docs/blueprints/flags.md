@@ -16696,3 +16696,20 @@ is the obvious first probe.)  Phase 1/2 of the compose HELD — no
 CERTIFICATE remains the recommended next spend (~300 ln: the numbers
 become kernel-decidable).  S0-TOWER (K = 9/2) continues — the free
 rung of the ceiling ladder is worth having under every future.
+
+## (2026-07-30 11:47 PDT) S0-TOWER lands — the K = 9/2 twin chain in kernel, 8/8 clean, +281/−0; the free rung of the ceiling ladder is BUILT
+
+**⟦THE CHAIN⟧**  The one changed byte: the closing comparison
+`3/2 < log 5` becomes `3/2 < log(9/2) = 1.504077`, proved by squaring
+(`exp 3 = 20.0855 < 20.25 = (9/2)²`, margin 0.41%); the budget line
+`w_J − w₀ ≤ 89/60 = 1.4833` untouched (honest exponent 4.4077 — 9/2
+the tightest half-integer above).  `tower_loglog_le_45` → the regime
+twins → `log_chowla_two_budget_head_g_45` (in SpineFinal — the private
+core forced the in-file append) → `m4_exit_socket_split_45` +
+`tower_conjunct_45_le_five` (the free downgrade — any ^5-wired
+consumer reads the 9/2 socket for nothing).  The one 10-line fuse for
+the compose wave noted (S11Thread's twins consume the ^5 exit; the
+substitution is a pass-through).  Build 9594 green; axioms 8/8;
+first-attempt; ZERO deletions.  THE DAY CLOSES with every agent home:
+the ceiling ladder's free rung built, the floor ladder priced, the
+35-bit residual named, and the council slate drawn.

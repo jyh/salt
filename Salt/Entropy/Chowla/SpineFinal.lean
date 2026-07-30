@@ -986,4 +986,114 @@ theorem log_chowla_two_door_only :
   exact ⟨δ₀, R, hδ₀pos, fun δ hδpos hδ hdoor =>
     hδbody δ hδpos hδ (mrtUniformity_implies_xi R δ hdoor)⟩
 
+/-- **THE SPINE-BUDGET HEAD AT `K = 9/2`** (`log_chowla_two_budget_head_g_45`) —
+the ADDITIVE twin of `log_chowla_two_budget_head_g` carrying the sharper tower
+endpoint law
+
+```
+50 ≤ loglog R.Hlo → loglog R.Hhi ≤ (loglog R.Hlo)^(9/2)
+```
+
+(ruling C-A, 2026-07-30: S11-SCOPE's two-λ audit found the compose window EMPTY
+at `K = 5` — the P2 arm reads `λ₊`, the drift arm caps `λ₋`, and the tower is
+their only bridge — while `TowerExport.tower_loglog_le_45` shows `K = 9/2` is
+free arithmetic, the crossing budget `w_J − w₀ < 3/2` clearing
+`log (9/2) = 1.50408` exactly as it clears `log 5`).
+
+The proof is `log_chowla_two_budget_head_g`'s VERBATIM, with ONE byte changed:
+the regime is built by `TowerExport.chowlaRegime_exists_param_head_tower45'`
+instead of `..._head_tower'`.  Every other component — the `ε` choice, the
+five-arm floor, the `hbudget1`/`hbudget2` block, the `spine_False_core_xi`
+discharge — is identical, and the tower conjunct is passed through untouched
+here as it is there.  The landed `K = 5` head is not modified; both live side by
+side, and `TowerExport.rpow_nine_halves_le_pow_five` weakens this one back to
+the landed shape for any consumer already wired to `^5`. -/
+theorem log_chowla_two_budget_head_g_45 :
+    ∃ (ε : ℚ) (δ₀ : ℝ), 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (extraFloor U1floor : ℕ) (g : ℕ → ℕ → ℕ), ∃ R : ChowlaRegime,
+        R.eps = ε ∧ extraFloor ≤ R.Hlo ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+        (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+          Real.log (Real.log (R.Hhi : ℝ))
+            ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+        ∀ δ : ℝ, 0 < δ → δ ≤ δ₀ → MRTUniformityXi R δ →
+          ¬ logChowla2Fails R.eps R.x R.ω := by
+  classical
+  obtain ⟨cE, hcE, H₀red, hred⟩ := hreduce_holds_final
+  obtain ⟨cD3, hcD3, H₀D3, hD3⟩ := primeWindow_sum_inv_ge
+  obtain ⟨C, hC, hcm⟩ := circle_method_estimate (2 * Real.log 4)
+    (by have := Real.log_pos (by norm_num : (1 : ℝ) < 4); linarith)
+  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  -- choose ε below `min(min(min (cE/(32·log4)) (1/2)) (cD3/16)) (cD3/(16·C))`
+  have hbound_pos : (0 : ℝ) < min (min (min (cE / (32 * Real.log 4)) (1 / 2))
+      (cD3 / 16)) (cD3 / (16 * C)) := by
+    refine lt_min (lt_min (lt_min ?_ ?_) ?_) ?_
+    · exact div_pos hcE (mul_pos (by norm_num) hlog4)
+    · norm_num
+    · exact div_pos hcD3 (by norm_num)
+    · exact div_pos hcD3 (mul_pos (by norm_num) hC)
+  obtain ⟨ε, hε0, hεlt⟩ := exists_rat_btwn hbound_pos
+  have hεR0 : (0 : ℝ) < (ε : ℝ) := hε0
+  have hεQpos : 0 < ε := by exact_mod_cast hεR0
+  have hεcE : (ε : ℝ) ≤ cE / (32 * Real.log 4) := le_of_lt (lt_of_lt_of_le hεlt
+    (le_trans (le_trans (min_le_left _ _) (min_le_left _ _)) (min_le_left _ _)))
+  have hε_half_lt : (ε : ℝ) < 1 / 2 := lt_of_lt_of_le hεlt
+    (le_trans (le_trans (min_le_left _ _) (min_le_left _ _)) (min_le_right _ _))
+  have hε_D3 : (ε : ℝ) ≤ cD3 / 16 := le_of_lt (lt_of_lt_of_le hεlt
+    (le_trans (min_le_left _ _) (min_le_right _ _)))
+  have hε_D3C : (ε : ℝ) ≤ cD3 / (16 * C) := le_of_lt (lt_of_lt_of_le hεlt (min_le_right _ _))
+  have hεQ1 : ε ≤ 1 / 2 := by
+    have h2 : (2 : ℝ) * (ε : ℝ) < 1 := by linarith [hε_half_lt]
+    have h2Q : (2 : ℚ) * ε < 1 := by exact_mod_cast h2
+    linarith
+  have hε2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith [hεR0, hε_half_lt]
+  obtain ⟨K, hK, H₀xi, _hH₀xi2, hxi⟩ := bigXi_bounded ε hεQpos hε2
+  refine ⟨ε, cD3 / (16 * C) * (ε : ℝ) / (2 * K), hεQpos,
+    div_pos (mul_pos (div_pos hcD3 (mul_pos (by norm_num) hC)) hεR0)
+      (mul_pos (by norm_num) hK), ?_⟩
+  intro extraFloor U1floor g₅
+  -- ⟦THE ONE CHANGED BYTE⟧ the `K = 9/2` builder in place of the `K = 5` builder
+  obtain ⟨R, hReps, hRHlo, hRg, hRtow⟩ := chowlaRegime_exists_param_head_tower45' ε hεQpos hεQ1
+    (max (max (max (max H₀red H₀D3) H₀xi)
+      (budgetFloor (ε : ℝ) (cD3 * (ε : ℝ) / (144 * Real.log 4)))) (max extraFloor U1floor)) g₅
+  refine ⟨R, hReps, le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hRHlo,
+    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hRHlo, hRg, hRtow, ?_⟩
+  intro δ hδpos hδ hdoor hfail
+  obtain ⟨H, hlo, hhi, _hdvd, hMI⟩ := entropy_decrement R
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  haveI : NeZero H := ⟨by omega⟩
+  have hI : I[residueWindow R.eps H : liouvilleWindow H ; logMeasure R.x R.ω]
+      ≤ (H : ℝ) / (Real.log H * Real.log (Real.log (Real.log H))) := by
+    rw [mutualInfo_window_comm']; exact hMI
+  have hxiR : ∀ (H' : ℕ) [NeZero H'], H₀xi ≤ H'
+      → ((bigXi R.eps H').card : ℝ) ≤ K := by
+    intro H' hne hh
+    haveI := hne
+    rw [hReps]; exact hxi H' hh
+  have hepscR : (R.eps : ℝ) ≤ cE / (32 * Real.log 4) := by rw [hReps]; exact hεcE
+  have hH₀ : max (max H₀red H₀D3) H₀xi ≤ H :=
+    le_trans (le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) hRHlo) hlo
+  have hfloorH : budgetFloor (R.eps : ℝ)
+      (cD3 * (R.eps : ℝ) / (144 * Real.log 4)) ≤ H := by
+    rw [hReps]
+    exact le_trans (le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hRHlo) hlo
+  obtain ⟨t, g, ht, hg, hgle, hbudget1⟩ :=
+    hbudget1_witness R H cD3 C hcD3 hC
+      (by rw [hReps]; exact le_of_lt hε_half_lt)
+      (by rw [hReps]; exact hε_D3)
+      (by rw [hReps]; exact hε_D3C) hhi hfloorH
+  have hbudget2 : K * δ < cD3 / (16 * C) * (R.eps : ℝ) := by
+    rw [hReps]
+    have hc0pos : (0 : ℝ) < cD3 / (16 * C) := div_pos hcD3 (mul_pos (by norm_num) hC)
+    have hle : K * δ ≤ K * (cD3 / (16 * C) * (ε : ℝ) / (2 * K)) :=
+      mul_le_mul_of_nonneg_left hδ hK.le
+    have heq : K * (cD3 / (16 * C) * (ε : ℝ) / (2 * K)) = cD3 / (16 * C) * (ε : ℝ) / 2 := by
+      field_simp
+    rw [heq] at hle
+    have hpos : (0 : ℝ) < cD3 / (16 * C) * (ε : ℝ) := mul_pos hc0pos hεR0
+    linarith [hle, hpos]
+  exact spine_False_core_xi R (le_of_lt hδpos) hdoor cE hcE H₀red hred cD3 hcD3 H₀D3 hD3
+    C hC hcm K hK H₀xi hxiR H hlo hhi hH₀ hepscR t g
+    ((H : ℝ) / (Real.log H * Real.log (Real.log (Real.log H)))) (cD3 / (16 * C))
+    ht hg hgle hI hbudget1 hbudget2 hfail
+
 end Salt.Entropy.Chowla

@@ -279,6 +279,7 @@ import Salt.MR.S11Thread
 import Salt.MR.S11Hoist
 import Salt.MR.S11Arc36
 import Salt.MR.S11CoefWS
+import Salt.MR.S11Exit45
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -6061,3 +6062,19 @@ open Salt.Tactic in
   Salt.MR.doorCoeffU_seamCoefWS_punct_H
   Salt.MR.doorRowZeroBase_coefWS_witness
   Salt.MR.norm_doorPunctCoeffU_le_one
+
+/-! ⟦S0-TOWER — the `K = 9/2` handoff audit⟧ (`S11Exit45`, 2026-07-30, ruling C-A GRANTED).
+S11-SCOPE's two-λ system is EMPTY at `K = 5` (`b ≥ 46.0` vs `b ≤ 31.3`) and the compose needs
+`K ≤ 4.9`.  The tower file's own arithmetic pays for `9/2`: its crossing budget is
+`w_J − w₀ ≤ (40/19)·log 2 + 7/300 = 1.4826`, spent against the line `3/2`, and
+`3/2 < log (9/2) = 1.50408` exactly as `3/2 < log 5`.  The Entropy-side twins
+(`TowerExport.tower_loglog_le_45` → `chowlaRegime_exists_param_tower_45` →
+`chowlaRegime_exists_param_head_tower45'` → `SpineFinal.log_chowla_two_budget_head_g_45`) are
+each the landed proof with the exponent line swapped; `m4_exit_socket_split_45` is the MR-side
+handoff.  The `K = 5` chain is untouched — both live side by side — and
+`tower_conjunct_45_le_five` weakens the `9/2` payload back to `^5` under the socket's own
+guard, so `S11Thread`'s road twins need no re-run unless the compose asks for `9/2` (then it is
+one substitution in each of their two forwarding proofs). -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.m4_exit_socket_split_45
+  Salt.MR.tower_conjunct_45_le_five

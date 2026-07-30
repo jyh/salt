@@ -253,3 +253,19 @@ open Salt.Tactic in
   ProbabilityTheory.Kernel.chain_rule
   ProbabilityTheory.Kernel.disintegration
   ProbabilityTheory.Kernel.condKernel_prod_ae_eq
+
+/-! ⟦S0-TOWER — the `K = 9/2` twin chain audit⟧ (`TowerExport` §9 + `SpineFinal`, 2026-07-30,
+ruling C-A GRANTED).  The landed export `tower_loglog_le` is `K = 5`; S11-SCOPE's two-λ audit
+needs `K ≤ 4.9` (at `K = 5` the compose window is EMPTY by 1.47×).  The exponent is free
+arithmetic — the landed proof's crossing budget is `w_J − w₀ ≤ (40/19)·log 2 + 7/300 = 1.4826`,
+spent against the line `3/2`, and `3/2 < log (9/2) = 1.50408` (`exp(3/2) = 4.4817 < 4.5`) just
+as `3/2 < log 5`.  The twins are ADDITIVE: the `K = 5` chain is untouched and both live side by
+side.  Stated at `rpow` (the exponent is not a natural); `rpow_nine_halves_le_pow_five` is the
+one-way bridge back to the landed `npow 5` shape under the guard `50 ≤ loglog H₋`. -/
+open Salt.Tactic in
+#audit_axioms Salt.Entropy.Chowla.three_halves_lt_log_nine_halves
+  Salt.Entropy.Chowla.rpow_nine_halves_le_pow_five
+  Salt.Entropy.Chowla.tower_loglog_le_45
+  Salt.Entropy.Chowla.chowlaRegime_exists_param_tower_45
+  Salt.Entropy.Chowla.chowlaRegime_exists_param_head_tower45'
+  Salt.Entropy.Chowla.log_chowla_two_budget_head_g_45
