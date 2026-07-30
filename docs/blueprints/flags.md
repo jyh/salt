@@ -16569,3 +16569,18 @@ the mechanicals.  The eps_hi 41.4% and Aexp pins carry no second
 consumer.  ALSO: gate 8 is NO LONGER the binding H-upper (p2 is,
 585× tighter) — the register's own docstring genre note owed at the
 compose.
+
+## (2026-07-30 11:30 PDT) C-A GRANTED — the K = 9/2 tower twin fires; THE CAPTAIN BETS WINDMILL on Cg/δ₀
+
+JYH: "Yes Grant, now I will bet you, my friend, that this is a
+windmill, we will see 🙂" — C-A GRANTED (the K = 9/2 tower twin, free
+arithmetic per the tower file's own header); S0-TOWER dispatched.  The
+bet banked with the maestro's own odds: the pattern favors the
+Captain — cD3 is Mertens-genre (likely a numeral), ε is a constructive
+rational choice, K rides the corpus's own effective arc machinery
+(TwinBar), and the corpus's standing law is effective-everything-
+except-Siegel.  The one uncertain leaf: circle_method's C — the
+"research-tier" label was freeze-era language, never a byte-read.
+CG-SCOPE is reading the bytes now.  If all four leaves are effective,
+Cg/δ₀ is a COMPUTABLE NUMERAL hidden behind lazy ∃'s — the R-2 genre
+exactly, and the giant is cardboard.
