@@ -17194,3 +17194,42 @@ site (hbudget) — the surgery's only real edit; the conclusion
 Mr-free; RamErrWS needs NO arity change; ONE binder type in the
 capstone's residue.  Q ≤ 2P re-derived in three lines at the bytes.
 **⟦MR-SURGERY dispatched with the three corrections baked in.⟧**
+
+## (2026-07-30 16:19 PDT) LINK1-SCOPE returns — THE KNOT IS NOT MATHEMATICS: p2 is a sup-norm Hölder artifact (the L² row is X_d-FREE); ROUTE A the joint break; the S8 summit STRENGTHENS
+
+**⟦THE SPEND CENSUS⟧**  𝒬K₁ ≤ h is spent ONCE (one numeral, the `9`,
+in three byte-identical private weight lemmas; 17 other sites pure
+threading; thm_a2'_of_rows does not even carry it); what h bounds:
+X/h ≤ X_d/Q₁ — the top block prime must fit the window (the source's
+own hand at mr_extract:471); the sharp growing leg buys at most 2×
+(η → 0: j₀ = M·A/2).  ⟦THE LADDER CANNOT MOVE⟧ — three independent
+locks (the sieve mass is a per-block UNION bound — narrower blocks
+strictly worse; row 4 is the block-free mass at the ladder's own
+(P,Q); ONE symbol serves all three roles).  ⟦L2 DEAD⟧: hPHheadroom
+is the residue-modulus primorial (information-theoretically forced;
+total slack 5.55× ever).  ⟦L3 DEAD⟧.
+
+**⟦L4 — THE LIVE ONE, AND THE ANSWER⟧**  p2's log₂(2X_d) = the max
+half of a Hölder split, ω(n) ≤ log₂n — THE CRUDEST BOUND, never
+needed: the direct L² pricing gives 24/(X_d·P), **X_d-FREE** (both
+ingredients landed; only the off-diagonal p²q² count new).  AND the
+L4 leg is SALT'S OWN ARTIFACT — MR's floor is a function of h, never
+X.  ⟦ROUTE A — THE BREAK, JOINT⟧: the p²-repricing + the constant
+pool (each alone fails per the prior kills — verified consistent);
+together NO μ-cap survives (gP1/level1/p2 all μ-free; H/Q₁/P₁/A/M
+become constants; x → ∞ freely).  ~3700-4100 ln C in four stages
+(A1 the L² stone 250-400 C; A2 the endpoint twin ~120 B; A3 the
+numeral re-thread 400-700 B — a2RowsSum is a DEFINITION so every
+statement above keeps its text VERBATIM and thm_a2's hgRows WEAKENS
+— **THE S8 SUMMIT BECOMES STRICTLY STRONGER**; A4 = KNOT2-SCOPE's
+pool re-cut RE-OPENED — its kill was contingent on exactly the p²
+numerator A1 retires).  The ladder untouched (calQK: 55 readers).
+Routes B/C/D/E: partial/reserve/margin/dead.
+
+**⟦THE RULINGS OWED⟧**  (1) the benign rule-1 authorization: the
+a2RowsSum definition change (the summit's text unchanged, strength
+increased); (2) Route A's fire order: freeze → THE K4 CENSUS REFUTER
+(the sharpest question: does ANY remaining frame gate decay in X_d?
+— on NO, KNOT 2 closes as ~4000 ln of surgery, and THE PROGRAM'S
+LAST MATHEMATICAL QUESTION IS ANSWERED IN THE NEGATIVE) → the
+four-stage wave.  MR-SURGERY (knot 1) aloft.
