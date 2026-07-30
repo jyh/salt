@@ -245,6 +245,7 @@ import Salt.MR.TwistedEdge
 import Salt.MR.MobiusChiRate
 import Salt.MR.HalaszIntegersChiClose
 import Salt.MR.MobiusChiRamare
+import Salt.MR.LFunctionInvShallow
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -4993,3 +4994,74 @@ open Salt.Tactic in
   Salt.MR.TwistedWindowPriceGated
   Salt.MR.twisted_gate_of_height
   Salt.MR.twisted_window_price_gated_holds
+
+-- ⟦THE SHALLOW SLOT — DISCHARGED at the CORRECTED width⟧ (2026-07-29, KMT port closing wave;
+-- `LFunctionInvShallow`).  P-5's last named analytic stone, with two findings.
+--
+-- ⟦FINDING 1 — THE JENSEN COUNT IS UNNECESSARY⟧ P-5's §6 named "a Jensen zero count
+-- `∑ m ≲ log 4M₀` on the ball" as the one missing input.  It is missing because it is not
+-- needed: the Landau/Borel–Carathéodory ball can be taken ENTIRELY INSIDE the zero-free region
+-- (radius `η + W` about `(1+W)+it`, `η = boxWidth/2`), and then
+-- `Salt.Vk.entire_norm_logDeriv_sub_sum_scaled`'s zero set is EMPTY, so the product factor and
+-- its count vanish.  `norm_LFunction_inv_shallow_of_ball` (§1) is the whole analytic core: one
+-- mean-value transport of `log‖L‖` along `[1−W, 1+W] + it` against `‖logDeriv h‖ ≤
+-- (120/λ)log(4M₀)`, anchored at the LANDED `LFunction_near_one_lower` (`‖L((1+W)+it,χ)‖ ≥ W/32`,
+-- every χ, no region).  The stone was substantially cheaper than feared.
+--
+-- ⟦FINDING 2 — `LFunctionInvShallowVk` AS STATED IS NOT PROVABLE (two independent lines)⟧
+-- (a) THE WIDTH.  The transport distance is `2W` and the BC cost is `(120/λ)log(4M₀)` per unit
+-- length with `λ ≍ η`, so the loss is `O(1)` iff `W ≲ η/log(4M₀)`, and
+-- `log(4M₀) ≍ log q + log log H` (the growth `vkStripConst q(1+log H)` gives `log q`; the
+-- reference `W` gives `log log H`).  `vkShallowWidth c₄ q H` is a CONSTANT multiple of `η`, so
+-- the requirement becomes `c₄·(log q + log log H) ≤ C′` — FALSE for every `c₄ > 0`.  The repair
+-- is one extra `(log q+1)` and one extra `log log H`: `vkShallowWidthSharp` — and it is the SAME
+-- price the landed `q = 1` twin `zeta_pow_lower` pays (its `ℓ⁴ = ℓ³·ℓ`, "3 (region) + 1 (the
+-- `w = η/ℓ` cut)").
+-- (b) THE CARVE-OUT.  The stated ξ₁ hypothesis `ρ.re < 1 − vkShallowWidth c₄ q H` has NO
+-- margin: a real zero at `1 − W − ε` satisfies it for every `ε > 0` while `‖1/L((1−W)+i0)‖ ≥
+-- c/ε`.  §5 states it at the region-scale `vkShallowWidth (10⁻⁶) q H` (which dominates
+-- `boxWidth`, `boxWidth_le_carve`), and `carve_of_half` shows P-7's own `Re < 1/2` Siegel fold
+-- covers that — so the amendment costs the consumer nothing on this side either.
+--
+-- ⟦WHAT LANDS⟧ `lFunctionInvShallowVkSharp_holds` : `LFunctionInvShallowVkSharp` — the slot
+-- VERBATIM except for those two changes, `m = 2`, `K = 22528/c₄`.  Growth on two arms matching
+-- §5's region split (`vk_char_strip_growth` above the VK floor, `LFunction_norm_le_level` below
+-- it, where `‖z‖ ≤ e^{e^100}+4` is a constant); the region via `LFunction_no_zero_in_box` at box
+-- height `H+1`; `boxWidth_shallow_lower` pins the min-of-three arms from below (the classical
+-- arm's `exp 100` is paid by `log(H+1)^{3/4} ≥ exp 75`); `log_budget_bound` is the honest
+-- `log(4M₀)` accounting; `exists_shallowConst` supplies the `c₄`-gate witness (`c·log(1/c) → 0`
+-- with an explicit `x²/16`).
+--
+-- ⟦THE BUDGET SURVIVES⟧ at the consumer's parameters (`q ≤ (log x)^12`, `log H ≤ 2 log x`) the
+-- corrected width gives the saving `exp(−c(log x)^{1/4}/(log log x)⁶)` in place of
+-- `exp(−c(log x)^{1/4}/(log log x)⁴)` — still a quasi-power, still `o((log x)^{−A})` for EVERY
+-- fixed `A`, so the `∀A` form and the whole 0.29 of the `o(1)` budget stand; only the finite
+-- crossover moves (`10^{77} → 10^{90}`-genre), and `MmuChiRate`'s `∃x₀` absorbs it.
+--
+-- ⟦RESIDUE⟧ `MmuChiRate_residue_sharp`: the ξ₁/Siegel fold (P-7's, unchanged) plus the
+-- mechanical `Salt.SW.MobiusRateClose` mirror read at `vkShallowWidthSharp`.  Still open and
+-- named: the `χ₀`/`q = 1` row (the pole forces the `Zc`-normalized twin of §1 plus a compact
+-- patch at `s = 1`; the slot's own statement excludes `χ = 1`, so this is P-5's gap unchanged).
+open Salt.Tactic in
+#audit_axioms Salt.MR.norm_LFunction_inv_shallow_of_ball
+  Salt.MR.LFunction_ne_zero_of_shallow_ball
+  Salt.MR.shallowGrowth
+  Salt.MR.one_le_shallowGrowth
+  Salt.MR.norm_LFunction_le_shallowGrowth
+  Salt.MR.vkShallowWidthSharp
+  Salt.MR.vkShallowWidthSharp_le
+  Salt.MR.shallowA
+  Salt.MR.one_le_shallowA
+  Salt.MR.shallowA_gate
+  Salt.MR.shallowA_lb
+  Salt.MR.shallowA_ub
+  Salt.MR.boxWidth_shallow_lower
+  Salt.MR.log_budget_bound
+  Salt.MR.boxWidth_le_carve
+  Salt.MR.norm_LFunction_inv_shallow_sharp
+  Salt.MR.sq_div_sixteen_log_le
+  Salt.MR.exists_shallowConst
+  Salt.MR.LFunctionInvShallowVkSharp
+  Salt.MR.lFunctionInvShallowVkSharp_holds
+  Salt.MR.carve_of_half
+  Salt.MR.MmuChiRate_residue_sharp
