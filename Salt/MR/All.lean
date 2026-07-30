@@ -5930,11 +5930,15 @@ open Salt.Tactic in
 
 /-! ⟦TWIN-CHAIN audit⟧ the sieve-vanishing chain (M4RowsChiZero + M4ArithZero),
 sealed with the wave; the ∀-Cp form ratified at the banking. -/
-#audit_axioms [Salt.MR.blockfree_row_zero, Salt.MR.blockfree_row_memS_zero,
-  Salt.MR.blockLive_winCutH_doorCoeffU, Salt.MR.m4_hrowsSum_chi_zero,
-  Salt.MR.m4_hrowsSum_chi_door_zero, Salt.MR.m4_hrowsSlot_at_door_zero,
-  Salt.MR.a2RowsSum_door_decomp, Salt.MR.gRows_zero_of_gate,
-  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_zero,
-  Salt.MR.m4_chiSummedFreeRow_of_doorArith_zero,
-  Salt.MR.m4_socket_discharged_conditional_zero,
-  Salt.MR.m4_socket_discharged_bandfree_zero]
+#audit_axioms Salt.MR.blockfree_row_zero
+  Salt.MR.blockfree_row_memS_zero
+  Salt.MR.blockLive_winCutH_doorCoeffU
+  Salt.MR.m4_hrowsSum_chi_zero
+  Salt.MR.m4_hrowsSum_chi_door_zero
+  Salt.MR.m4_hrowsSlot_at_door_zero
+  Salt.MR.a2RowsSum_door_decomp
+  Salt.MR.gRows_zero_of_gate
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_zero
+  Salt.MR.m4_chiSummedFreeRow_of_doorArith_zero
+  Salt.MR.m4_socket_discharged_conditional_zero
+  Salt.MR.m4_socket_discharged_bandfree_zero
