@@ -445,6 +445,196 @@ theorem logChowla2_capstone_conditional (Aexp : ℝ) (hAexp : 0 < Aexp) :
     rw [hval]
     linarith [hend]
 
+/-! ## §3 — ⟦KNOT-1 ARITY SURGERY⟧ the capstone-conditional at the PER-BLOCK range cap
+
+⟦THE RATIFIED STATEMENT CHANGE⟧  This is the ONE place where the KNOT-1 surgery alters a
+statement rather than adding beside one: the residue's `hcapWS` slot binds `Mr : ℕ → ℕ`
+instead of `Mr : ℕ`.  Iron rule 1 forbids weakening a blueprint statement to make a proof go
+through — this is not that: `Mr` is OUR OWN existential inside OUR OWN residue, the conclusion
+`¬ logChowla2Fails R.eps R.x R.ω` is untouched, and the change makes the residue STRICTLY
+HARDER to satisfy in no direction and strictly easier in exactly one (a constant family is
+still admissible, so every model of the landed residue that fixes `Mr` remains a model).
+
+**THE GRANT**: JYH, 2026-07-30 16:02 PDT — "BOTH RATIFIED (JYH) — the KNOT-1 sequence (the
+binder ruling GRANTED, refuter → surgery)", recorded in `docs/blueprints/flags.md` after
+KNOT1-SCOPE's finding that the scalar `Mr` — not any analytic obstruction — was what forced
+the ram-block band to a point (`range`@bottom vs `Mr_sharp`@top ⟹ `Q ≤ 2P`, three lines).
+
+Everything else in the statement and the proof is VERBATIM §2. -/
+
+/-- **⟦THE CAPSTONE, CONDITIONAL, PER-BLOCK⟧** (`logChowla2_capstone_conditional_perBlock`).
+§2 with the `hcapWS` residue's range-cap binder at type `ℕ → ℕ` (the ONE ratified statement
+change of the KNOT-1 arity surgery — see §3's header for the grant) and
+`M4CapWire.DoorCapBasePerBlock` in place of `DoorCapBase`.  The conclusion, the four other
+frame families, the spine arithmetic, the share table and the ten gate discharges are
+byte-identical to §2. -/
+theorem logChowla2_capstone_conditional_perBlock (Aexp : ℝ) (hAexp : 0 < Aexp) :
+    ∃ (Cg : ℝ) (ε : ℚ) (K δ₀ Ct Cq cs T₀ Kq Ks : ℝ),
+      1 ≤ Cg ∧ 0 < ε ∧ 0 < K ∧ 0 < δ₀ ∧
+        0 < Ct ∧ 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp → ∀ (M : ℕ), 1 ≤ M →
+        ∃ (C' : ℝ) (x₀ : ℕ), 0 < C' ∧
+          ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+            ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+              (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+                Real.log (Real.log (R.Hhi : ℝ))
+                  ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+              ∀ (C₁ M₀ epsf : ℕ → ℝ) (Kf : ℝ) (k : ℕ),
+                -- ⟦A⟧ THE SPINE ARITHMETIC
+                M4DoorGates Cg R M k δ₀ →
+                8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 4 →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  4 * Real.log (263 * max 1 (arcDen 12 H)) ≤ ((doorRowFloor M : ℕ) : ℝ)) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  arcDen 12 H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  m4SmallGradeFits (doorRowFloor M)
+                    (fun H => 2 * RSanDoorRho (doorRhoOfDelta (s12DeltaSock δ₀ K)) H)
+                    (fun H => 2 * rStrWitness H) H) →
+                -- ⟦B⟧ THE A4 TERMINAL'S FRAMES
+                (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                  DoorFuseFrame M (A + s) j Ct Cp (epsf (A + s))) →
+                (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                  calQK (Adoor M) (3072 * M) M 2 ≤ A + s ∧
+                    Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ)
+                        ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) ∧
+                    (100 : ℝ) ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) ∧
+                    (4 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ∧
+                    ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ)) →
+                (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                  ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+                    2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+                    5 ≤ Real.log (Real.log (2 * T)) →
+                    ∃ (Xd P Q : ℕ) (Mr : ℕ → ℕ) (Jb : ℕ) (b cf : ℕ → ℂ)
+                      (VJ V Lr η εd Rbd CR KS E EP2 Mtail : ℝ),
+                      DoorCapErrWS M (A + s) q Xd P Q b cf (2 * T) E Mtail
+                        ∧ ((∑ χ : DirichletCharacter ℂ q, ∫ t in (-(2 * T))..(2 * T),
+                              ‖ramErr (H83 (((A + s : ℕ)) : ℝ) theta293) (2 * (A + s)) Xd P Q
+                                (chiBarCoeff q χ (winCutH (A + s) (doorCoeffU M)))
+                                (chiBarCoeff q χ b) (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E
+                            → DoorCapBasePerBlock Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr Jb b cf
+                                (2 * T) VJ V Lr η εd (epsf (A + s)) Rbd CR KS E EP2)) →
+                (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                  DoorBandBase x₀ C' Aexp M (A + s) q (C₁ (A + s)) (M₀ (A + s))) →
+                (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                  DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kf
+                    (doorRhoOfDelta (s12DeltaSock δ₀ K))) →
+                  ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, K, δ₀, hCg, hε, hK, hδ₀, hroad⟩ := m4_second_road_L2
+  obtain ⟨Ct, Cq, cs, T₀, Kq, Ks, hCt, hCq, hcs, hT₀, hKq, hKs, hterm⟩ :=
+    m4_socket_discharged_capwired_ws_hoisted_perBlock mmuChiRate_holds_gated Aexp hAexp
+  refine ⟨Cg, ε, K, δ₀, Ct, Cq, cs, T₀, Kq, Ks, hCg, hε, hK, hδ₀, hCt, hCq, hcs, hT₀, hKq,
+    hKs, ?_⟩
+  intro Cp hCp M hM
+  obtain ⟨C', x₀, hC'pos, hsockterm⟩ := hterm Cp hCp M hM
+  refine ⟨C', x₀, hC'pos, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hRtow, hR⟩ :=
+    hroad (max U1floor (max arcFloor36 loglogFloor50)) g
+  refine ⟨R, hReps, le_trans (le_max_left _ _) hU1, hRg, hRtow, ?_⟩
+  intro C₁ M₀ epsf Kf k hgates hend hj0 hdgate hfit hframe hbase5 hcapWS hbandbase harith
+  -- ⟦the two absorbed floors⟧
+  have harcfl : arcFloor36 ≤ R.Hlo :=
+    le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU1
+  have hllfl : loglogFloor50 ≤ R.Hlo :=
+    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU1
+  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
+    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
+  -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  set δs : ℝ := s12DeltaSock δ₀ K with hδsdef
+  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hK
+  have hδssq : δs ^ 2 = δ₀ / (16 * K) := s12DeltaSock_sq hδ₀ hK
+  set ρ : ℝ := doorRhoOfDelta δs with hρdef
+  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
+  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
+  -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
+  have hbase : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorRowZeroBase M (A + s) j liouvilleC
+        (fun i => memSPunctCoeff (calP (Adoor M) (3072 * M))
+          (calQK (Adoor M) (3072 * M) M) 2 i liouvilleC) := by
+    intro H L q j A s hb
+    obtain ⟨h1, h2, h3, h4, h5⟩ := hbase5 H L q j A s hb
+    exact ⟨h1, doorRowZeroBase_coefWS_witness (A + s) hM, h2, h3, h4, h5⟩
+  -- ⟦THE A4 TERMINAL⟧ fired at `δ_sock`
+  obtain ⟨hrow, hgate4, hceilconj⟩ := hsockterm R C₁ M₀ epsf liouvilleC
+    (fun i => memSPunctCoeff (calP (Adoor M) (3072 * M))
+      (calQK (Adoor M) (3072 * M) M) 2 i liouvilleC) Kf δs hδs hHreg
+    (fun i m => norm_doorPunctCoeffU_le_one M i m) (fun p => liouvilleC_norm_le_one p)
+    hframe hbase hcapWS hbandbase harith
+  -- ⟦the road, fired at the share table⟧
+  refine hR δ₀ (δ₀ / (8 * K))
+    (m4ChiRowGraded M (fun _ H => RSanDoorRho ρ H)) (RSanDoorRho ρ) rStrWitness
+    (fun H => 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+      * m4BclGraded (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
+          (fun H => 2 * rStrWitness H) H)
+    M k (doorRowFloor M) hgates hM (fun H => RSanDoorRho_nonneg hρpos.le H)
+    rStrWitness_nonneg ?_ hgate4 (fun H _ _ => rStrWitness_G1 H) ?_
+    (arc36_of_regime harcfl) hdgate (fun H _ _ => le_rfl) ?_ ?_ hrow
+  · -- ⟦gate 3c⟧ `0 ≤ Braw`
+    intro H
+    have hb := m4BclGraded_nonneg (j₀ := doorRowFloor M)
+      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) (H := H)
+      (by have := RSanDoorRho_nonneg hρpos.le H
+          simpa using (by linarith : (0:ℝ) ≤ 2 * RSanDoorRho ρ H))
+      (by have := rStrWitness_nonneg H
+          simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
+    positivity
+  · -- ⟦gate 6⟧ ⟦G2⟧ at the `j₀`-floor
+    intro H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
+      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
+      unfold strataResidual
+      linarith
+    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
+    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
+      have h1 : RSanDoorRho ρ H ≤ 1 := by
+        unfold RSanDoorRho
+        rw [div_le_one (by nlinarith)]
+        linarith
+      exact le_trans h1 (le_max_left _ _)
+    have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
+    linarith
+  · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
+    intro H hlo hhi
+    have hH0 : 0 < H := by
+      have := R.hHlo_floor
+      omega
+    have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
+      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
+      (hfit H hlo hhi)
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    have hfac0 : (0 : ℝ) ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 := by positivity
+    have hceil := hceilconj H hlo hhi
+    have hstep : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+        * m4BclGraded (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
+            (fun H => 2 * rStrWitness H) H
+        ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+            * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H))) :=
+      mul_le_mul_of_nonneg_left hle hfac0
+    have hval : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+          * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H)))
+        = 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+            * (108 / 5 * RSanDoorRho ρ H)) := by
+      unfold m4Cmax
+      ring
+    rw [hval] at hstep
+    have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+        * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
+    have hKpos : (0 : ℝ) < 16 * K := by linarith
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * K) := by
+      rw [hδssq]
+      field_simp
+      ring
+    linarith [hstep, h2, hval2.le, hval2.ge]
+  · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
+    have hval : 2 * K * (δ₀ / (8 * K)) = δ₀ / 4 := by
+      field_simp
+      ring
+    rw [hval]
+    linarith [hend]
+
 end Salt.MR
 
 end

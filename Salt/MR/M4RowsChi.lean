@@ -1199,4 +1199,262 @@ theorem m4_hrowsSum_chi_door :
     hasupp hQXd hXdbig hdom hh4 hX0 hL0 hX4Xd hQ1h hcap χ T hT hTX2 hTgate hTll).trans ?_
   exact m4MrowChi_le_a2Mrow hM hXd1 hCp.le
 
+/-! ## §9 — ⟦KNOT-1 ARITY SURGERY⟧ the capstone chain at the PER-BLOCK co-factor length
+
+`USetGChiTS` §5's per-block composes, carried through §2, §3 and §5 to the capstone.  The ONE
+binder that moves is the graded `hbudget`, from a single statement to `∀ j ∈ ramI H P Q`; `hM`
+and every `Σ_j` were per-block already.  **The capstone's CONCLUSION is `M`-free**, so this
+whole section changes nothing downstream except the hypothesis list.
+
+⟦THE ROOT (KNOT1-SCOPE, flags 2026-07-30)⟧ a scalar range cap serving all blocks forces
+`Q ≤ 2P` — the ram-block band collapses to a point — directly out of `range`@bottom against
+`Mr_sharp`@top.  At the family the two are read at the same `j` and the forcing evaporates.
+
+**PURELY ADDITIVE.**  §2/§3/§5 stand; these are twins beside them. -/
+
+/-- **⟦ii-8b, PER-BLOCK⟧ THE BLOCK-SUM ADAPTER at the co-factor length family.**
+`usetGChi_block_price` with the scalar `M` replaced by `Ms : ℕ → ℕ`.  The RIGHT-hand side is
+unchanged (it is `M`-free); only the `Σ_j` being priced moves. -/
+lemma usetGChi_block_price_perBlock (H : ℝ) (N Xd P Q : ℕ) (Ms : ℕ → ℕ) (b : ℕ → ℂ)
+    (X Tann KS Cs Rbd : ℝ)
+    (hCs : 0 ≤ Cs) (hRbd : 0 ≤ Rbd) (hj₀ : 2 ≤ ⌊H * Real.log (P : ℝ)⌋₊)
+    (hKS : ∀ j ∈ ramI H P Q,
+      5128 * (Real.log X) ^ (-200 : ℝ) * ((Ms j : ℕ) : ℝ) * (1 + Real.log (2 * Tann))
+          * (∑ m ∈ Finset.Icc 1 (Ms j),
+              ‖ramRcoeff H N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2) ≤ KS) :
+    (∑ j ∈ ramI H P Q,
+        (5128 * (Real.log X) ^ (-200 : ℝ) * ((Ms j : ℕ) : ℝ) * (1 + Real.log (2 * Tann))
+            * (∑ m ∈ Finset.Icc 1 (Ms j),
+                ‖ramRcoeff H N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2)
+          + 81 * Cs * Rbd ^ 2 * (H / (j : ℝ)) ^ 2))
+      ≤ ((ramI H P Q).card : ℝ) * KS
+        + 54 * (3 * Cs / 2) * Rbd ^ 2 * H ^ 2 / ((⌊H * Real.log (P : ℝ)⌋₊ : ℝ) - 1) :=
+  block_sum_bound H P Q _ _ KS (3 * Cs / 2) Rbd hKS (by linarith)
+    (fun j _ => tL_block_weight_chi Cs H Rbd j hCs hRbd) hj₀
+
+set_option maxHeartbeats 800000 in
+-- Same cause as §3.
+/-- **THE GRADED `𝒰`-LEG, PER CHARACTER, PER-BLOCK** (`usetGChi_row_exit_perChi_perBlock`).
+`usetGChi_row_exit_perChi` at the co-factor length family `Ms : ℕ → ℕ`.  The conclusion is
+byte-identical to the landed one (it is `M`-free); the hypothesis list differs in exactly two
+places — `hM` and `hKS` read `Ms j`, and `hbudget` is now per-block. -/
+theorem usetGChi_row_exit_perChi_perBlock :
+    ∃ Cq cs T₀ Kq Ks : ℝ, 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧
+      ∀ (q : ℕ) [NeZero q] (c : ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
+      ∀ (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ) (J Jb : ℕ), 1 ≤ Jb → Jb ≤ J →
+        2 ≤ Hseq Jb → 0 ≤ αseq Jb →
+      ∀ (Tann VJ V L X : ℝ), 1 ≤ Tann → 1 < (q : ℝ) * Tann →
+        3 ≤ Pseq Jb → Pseq Jb ≤ Qseq Jb → ((Qseq Jb : ℕ) : ℝ) ≤ (q : ℝ) * Tann →
+        30 ≤ Real.log ((q : ℝ) * Tann) / Real.log ((Qseq Jb : ℕ) : ℝ) →
+        5 ≤ Real.log (Real.log ((q : ℝ) * Tann)) →
+        (∀ v ∈ ramI (Hseq Jb) (Pseq Jb) (Qseq Jb),
+          Real.exp (αseq Jb * (v : ℝ) / Hseq Jb) ≤ VJ) →
+      ∀ η ε : ℝ, αseq Jb ≤ 1 / 4 - η → 2 * η ≤ 1 → Tann ≤ X → 0 < X →
+        (q : ℝ) ^ (2 * αseq Jb) ≤ X ^ ε → 0 < Real.log X →
+        (q : ℝ) ≤ (Real.log X) ^ 12 → 1 ≤ V → V⁻¹ ≤ (Real.log X) ^ (-106 : ℝ) →
+        T₀ ≤ Tann →
+        8 * Real.log (40000 * vkStripConst q) ≤ Real.log (Real.log (5 * Tann + 1)) →
+        8 + Real.log (20000 * (vkStripConst q + 8104)) / 100
+            ≤ Real.log (Real.log (5 * Tann + 1)) →
+        Kq * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
+            ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+                * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ) →
+        (q : ℝ) ^ ((1 : ℝ) / 16)
+            ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+                * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) →
+        1 ≤ Real.log ((q : ℝ) * Tann) → Real.log ((q : ℝ) * Tann) ≤ L → Real.exp 1 ≤ L →
+        Real.log V ≤ 100 * Real.log L →
+      ∀ (H : ℝ), 2 ≤ H → ∀ (N Xd P Q : ℕ) (Ms : ℕ → ℕ) (a b cf : ℕ → ℂ),
+        (∀ n : ℕ, ‖cf n‖ ≤ 1) →
+        (∀ j ∈ ramI H P Q, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI H P Q,
+          thinBundleGChi ((q : ℝ) * Tann) VJ (Hseq Jb) (Pseq Jb) (Qseq Jb)
+            * X ^ (1 - 2 * η + ε) ≤ ((Ms j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI H P Q, H ≤ (j : ℝ)) →
+        (∀ j ∈ ramI H P Q, 3 ≤ ramQbase H P j) →
+        (∀ j ∈ ramI H P Q, (ramQbase H P j : ℝ) ≤ (q : ℝ) * Tann) →
+        (∀ j ∈ ramI H P Q, 30 ≤ Real.log ((q : ℝ) * Tann) / Real.log (ramQbase H P j)) →
+        (∀ j ∈ ramI H P Q, (ramQbase H P j : ℝ) ≤ Tann ^ 10) →
+        (∀ j ∈ ramI H P Q, Real.log (ramQbase H P j) ≤ L) →
+        (∀ j ∈ ramI H P Q, 420 * L * L ^ ((3 : ℝ) / 4) * (Real.log L) ^ 5
+          ≤ cs * (Real.log (ramQbase H P j)) ^ 2) →
+      ∀ Rbd : ℝ, 0 ≤ Rbd →
+      ∀ t₁ : DirichletCharacter ℂ q → ℝ,
+        (∀ χ : DirichletCharacter ℂ q, ∀ j ∈ ramI H P Q,
+          ∀ t ∈ seamAnn X Tann \ seamBall X (t₁ χ),
+            ‖ramR H N Xd P Q j (chiBarCoeff q χ b) t‖ ≤ Rbd) →
+      ∀ E : ℝ, (∑ χ : DirichletCharacter ℂ q, ∫ t in (-Tann)..Tann,
+          ‖ramErr H N Xd P Q (chiBarCoeff q χ a) (chiBarCoeff q χ b)
+            (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E →
+      ∀ KS : ℝ,
+        (∀ j ∈ ramI H P Q,
+          5128 * (Real.log X) ^ (-200 : ℝ) * ((Ms j : ℕ) : ℝ) * (1 + Real.log (2 * Tann))
+              * (∑ m ∈ Finset.Icc 1 (Ms j),
+                  ‖ramRcoeff H N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2)
+            ≤ KS) →
+        2 ≤ ⌊H * Real.log (P : ℝ)⌋₊ →
+      ∀ χ : DirichletCharacter ℂ q,
+        (∫ t in (seamAnn X Tann \ seamBall X (t₁ χ))
+            ∩ UsetG (chiBarCoeff q χ c) Pseq Qseq Hseq αseq J,
+            ‖spoly N (chiBarCoeff q χ a) t‖ ^ 2)
+          ≤ 4 * ((ramI H P Q).card : ℝ)
+              * (((ramI H P Q).card : ℝ) * KS
+                  + 54 * Cq * Rbd ^ 2 * H ^ 2
+                      / ((⌊H * Real.log (P : ℝ)⌋₊ : ℝ) - 1)) + 2 * E := by
+  obtain ⟨Cs, cs, T₀, Kq, Ks, hCs, hcs, hT₀, hKq, hKs, hfam⟩ :=
+    usetGChi_window_meansq_gated_family_perBlock
+  refine ⟨3 * Cs / 2, cs, T₀, Kq, Ks, by linarith, hcs, hT₀, hKq, hKs, ?_⟩
+  intro q _ c hc1 Pseq Qseq Hseq αseq J Jb hJb1 hJbJ hH2seq hα0 Tann VJ V L X hT1 hqT hP3
+    hPQ hQT hκ30Q hLL5 hVJ η ε hα hη2 hTX hX0 hdebit hL0 hqlog hV1 hVδ hT₀T hG1 hG2 hG3 hG4
+    hlogT1 hTL hLe hlogV H hH2 N Xd P Q Ms a b cf hcf1 hM hbudget hHj hB3 hBT hκ30 hBT10 hWL
+    hgate Rbd hRbd t₁ hR E herr KS hKS hj₀ χ
+  -- ⟦the Σ_χ exit at the row's own pair set⟧
+  have hsum := hfam q c hc1 Pseq Qseq Hseq αseq J Jb hJb1 hJbJ hH2seq hα0 Tann VJ V L X
+    hT1 hqT hP3 hPQ hQT hκ30Q hLL5 hVJ η ε hα hη2 hTX hX0 hdebit hL0 hqlog hV1 hVδ hT₀T
+    hG1 hG2 hG3 hG4 hlogT1 hTL hLe hlogV H hH2 N Xd P Q Ms a b cf hcf1 hM hbudget hHj hB3
+    hBT hκ30 hBT10 hWL hgate Rbd hRbd
+    (rowPairSetG q c Pseq Qseq Hseq αseq J X Tann t₁)
+    (measurableSet_rowPairSetG_fibre q c Pseq Qseq Hseq αseq J X Tann t₁)
+    (rowPairSetG_sub q c Pseq Qseq Hseq αseq J X Tann t₁)
+    (rowPairSetG_subset_UsetGChi q c Pseq Qseq Hseq αseq J X Tann t₁)
+    (fun j hj r hr => hR r.1 j hj r.2 hr.1) E herr
+  -- ⟦the per-χ read: every fibre integral is nonnegative, so one is at most the sum⟧
+  have hnn : ∀ χ' ∈ (Finset.univ : Finset (DirichletCharacter ℂ q)),
+      (0 : ℝ) ≤ ∫ t in {t : ℝ | (χ', t) ∈ rowPairSetG q c Pseq Qseq Hseq αseq J X Tann t₁},
+        ‖spoly N (chiBarCoeff q χ' a) t‖ ^ 2 := by
+    intro χ' _
+    exact setIntegral_nonneg
+      (measurableSet_rowPairSetG_fibre q c Pseq Qseq Hseq αseq J X Tann t₁ χ')
+      (fun _ _ => by positivity)
+  have hsingle := Finset.single_le_sum hnn (Finset.mem_univ χ)
+  -- ⟦the ⟦ii-8⟧ block price, per block⟧
+  have hprice := usetGChi_block_price_perBlock H N Xd P Q Ms b X Tann KS Cs Rbd hCs.le hRbd
+    hj₀ hKS
+  have hcard0 : (0 : ℝ) ≤ 4 * ((ramI H P Q).card : ℝ) := by positivity
+  have hmul := mul_le_mul_of_nonneg_left hprice hcard0
+  rw [rowPairSetG_fibre] at hsingle
+  linarith
+
+set_option maxHeartbeats 1000000 in
+-- Same cause as §5.
+/-- **THE PER-`χ` CAPSTONE ROW, PER-BLOCK** (`m4_rowChi_capstone_perBlock`).
+`m4_rowChi_capstone` at the co-factor length family `Ms : ℕ → ℕ`.  The CONCLUSION is
+byte-identical to the landed capstone's; the hypothesis list moves in exactly three places —
+the range containment `hM`, the `𝒯_S` budget binder `hKS` (both already `∀ j`, now reading
+`Ms j`) and the graded `hbudget`, which becomes `∀ j ∈ ramI (H₈₃ X θ₂₉₃) P Q`.
+
+⟦IRON RULE 1⟧ this is an ADDITIVE twin: `m4_rowChi_capstone` is untouched and remains the
+`Ms ≡ const` special case. -/
+theorem m4_rowChi_capstone_perBlock :
+    ∃ Cq cs T₀ Kq Ks : ℝ, 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧
+      ∀ (q : ℕ) [NeZero q] (c : ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
+      ∀ (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ) (J Jb : ℕ), 1 ≤ Jb → Jb ≤ J →
+        2 ≤ Hseq Jb → 0 ≤ αseq Jb →
+      ∀ (Tann VJ V L X : ℝ), 1 ≤ Tann → 1 < (q : ℝ) * Tann →
+        3 ≤ Pseq Jb → Pseq Jb ≤ Qseq Jb → ((Qseq Jb : ℕ) : ℝ) ≤ (q : ℝ) * Tann →
+        30 ≤ Real.log ((q : ℝ) * Tann) / Real.log ((Qseq Jb : ℕ) : ℝ) →
+        5 ≤ Real.log (Real.log ((q : ℝ) * Tann)) →
+        (∀ v ∈ ramI (Hseq Jb) (Pseq Jb) (Qseq Jb),
+          Real.exp (αseq Jb * (v : ℝ) / Hseq Jb) ≤ VJ) →
+      ∀ η ε : ℝ, αseq Jb ≤ 1 / 4 - η → 2 * η ≤ 1 → Tann ≤ X → 0 < X →
+        (q : ℝ) ^ (2 * αseq Jb) ≤ X ^ ε → 0 < Real.log X →
+        (q : ℝ) ≤ (Real.log X) ^ 12 → 1 ≤ V → V⁻¹ ≤ (Real.log X) ^ (-106 : ℝ) →
+        T₀ ≤ Tann →
+        8 * Real.log (40000 * vkStripConst q) ≤ Real.log (Real.log (5 * Tann + 1)) →
+        8 + Real.log (20000 * (vkStripConst q + 8104)) / 100
+            ≤ Real.log (Real.log (5 * Tann + 1)) →
+        Kq * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
+            ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+                * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ) →
+        (q : ℝ) ^ ((1 : ℝ) / 16)
+            ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+                * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) →
+        1 ≤ Real.log ((q : ℝ) * Tann) → Real.log ((q : ℝ) * Tann) ≤ L → Real.exp 1 ≤ L →
+        Real.log V ≤ 100 * Real.log L →
+        -- ⟦THE `X`-SIDE FRAME⟧
+        2 ≤ H83 X theta293 → Real.exp 1 ≤ Real.log X → 4 ≤ Real.log X →
+        TannGate X Tann →
+      ∀ (N Xd P Q : ℕ) (Ms : ℕ → ℕ) (a b cf : ℕ → ℂ), (∀ n : ℕ, ‖cf n‖ ≤ 1) →
+        P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          thinBundleGChi ((q : ℝ) * Tann) VJ (Hseq Jb) (Pseq Jb) (Qseq Jb)
+            * X ^ (1 - 2 * η + ε) ≤ ((Ms j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, H83 X theta293 ≤ (j : ℝ)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 3 ≤ ramQbase (H83 X theta293) P j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          (ramQbase (H83 X theta293) P j : ℝ) ≤ (q : ℝ) * Tann) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          30 ≤ Real.log ((q : ℝ) * Tann) / Real.log (ramQbase (H83 X theta293) P j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          (ramQbase (H83 X theta293) P j : ℝ) ≤ Tann ^ 10) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          Real.log (ramQbase (H83 X theta293) P j) ≤ L) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 420 * L * L ^ ((3 : ℝ) / 4) * (Real.log L) ^ 5
+          ≤ cs * (Real.log (ramQbase (H83 X theta293) P j)) ^ 2) →
+      ∀ (Rbd CR : ℝ), 0 ≤ Rbd → Rbd ≤ CR * (Real.log X) ^ (-rho293) →
+        1728 * Cq * CR ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
+      ∀ t₁ : DirichletCharacter ℂ q → ℝ,
+        (∀ χ : DirichletCharacter ℂ q, ∀ j ∈ ramI (H83 X theta293) P Q,
+          ∀ t ∈ seamAnn X Tann \ seamBall X (t₁ χ),
+            ‖ramR (H83 X theta293) N Xd P Q j (chiBarCoeff q χ b) t‖ ≤ Rbd) →
+      ∀ KS : ℝ, 0 ≤ KS →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          5128 * (Real.log X) ^ (-200 : ℝ) * ((Ms j : ℕ) : ℝ) * (1 + Real.log (2 * Tann))
+              * (∑ m ∈ Finset.Icc 1 (Ms j),
+                  ‖ramRcoeff (H83 X theta293) N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2)
+            ≤ KS) →
+        32 * (Real.log X) ^ (2 + 2 * theta293) * KS ≤ (Real.log X) ^ (-theta293) →
+      ∀ (E EP2 εr : ℝ), 0 ≤ εr → 8640 ≤ (Real.log X) ^ εr →
+        12 * EP2 ≤ (Real.log X) ^ (-theta293 + εr) →
+        E ≤ 3 * (720 * (Tann / X + 1) / H83 X theta293 + EP2) →
+        (∑ χ : DirichletCharacter ℂ q, ∫ t in (-Tann)..Tann,
+          ‖ramErr (H83 X theta293) N Xd P Q (chiBarCoeff q χ a) (chiBarCoeff q χ b)
+            (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E →
+        X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
+      ∀ S : DirichletCharacter ℂ q → ℝ,
+        (∀ χ : DirichletCharacter ℂ q, ∀ t : ℝ, seamT0 X ≤ |t| → |t| ≤ Tann →
+          |t - t₁ χ| ≤ seamRad X → ∀ m : ℕ, m ≤ N →
+            ‖spolyA (chiBarCoeff q χ a) t m‖ ≤ S χ * m / (1 + |t - t₁ χ|)) →
+      ∀ χ : DirichletCharacter ℂ q,
+        (∫ t in seamAnn X Tann, ‖spoly N (chiBarCoeff q χ a) t‖ ^ 2)
+          ≤ 8 * S χ ^ 2
+            + (∫ t in (seamAnn X Tann \ seamBall X (t₁ χ))
+                ∩ seamTtotG (chiBarCoeff q χ c) Pseq Qseq Hseq αseq J,
+                ‖spoly N (chiBarCoeff q χ a) t‖ ^ 2)
+            + 2 * ((Tann / X + 1) * (Real.log X) ^ (-theta293 + εr)) := by
+  obtain ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hT₀, hKq, hKs, hexit⟩ :=
+    usetGChi_row_exit_perChi_perBlock
+  refine ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hT₀, hKq, hKs, ?_⟩
+  intro q _ c hc1 Pseq Qseq Hseq αseq J Jb hJb1 hJbJ hH2seq hα0 Tann VJ V L X hT1 hqT hP3
+    hPQ hQT hκ30Q hLL5 hVJ η ε hα hη2 hTX hX0 hdebit hL0 hqlog hV1 hVδ hT₀T hG1 hG2 hG3 hG4
+    hlogT1 hTL hLe hlogV hH2 hLXe hL4 hTgate
+    N Xd P Q Ms a b cf hcf1 hPlow hQ0 hQhigh hM hbudget hHj hB3 hBT hκ30 hBT10 hWL hgate
+    Rbd CR hRbd hRgrade hCqgate t₁ hR KS hKS0 hKS hKSgate E EP2 εr hεr habs hEP2 hErow herr
+    hXN hN2 hsupp S hSup χ
+  have hL1 : (1 : ℝ) ≤ Real.log X := by linarith
+  have hH0 : (0 : ℝ) ≤ H83 X theta293 := by linarith
+  have hHeq : H83 X theta293 = (Real.log X) ^ theta293 := by rw [H83]
+  have hTann0 : (0 : ℝ) ≤ Tann := by linarith
+  have hfl := floor_pin X P hL4 hPlow
+  -- ⟦the per-χ `𝒰` exit, per block⟧
+  have hU := hexit q c hc1 Pseq Qseq Hseq αseq J Jb hJb1 hJbJ hH2seq hα0 Tann VJ V L X
+    hT1 hqT hP3 hPQ hQT hκ30Q hLL5 hVJ η ε hα hη2 hTX hX0 hdebit hL0 hqlog hV1 hVδ hT₀T
+    hG1 hG2 hG3 hG4 hlogT1 hTL hLe hlogV (H83 X theta293) hH2 N Xd P Q Ms a b cf hcf1 hM
+    hbudget hHj hB3 hBT hκ30 hBT10 hWL hgate Rbd hRbd t₁ hR E herr KS hKS hfl.1 χ
+  -- ⟦the block leg, priced at `θ₂₉₃`⟧
+  have hmain := balance_priced_main X (H83 X theta293) Cq CR KS Rbd P Q hL0 hH0
+    (ramI_card_le_pin X P Q hQ0 hQhigh hLXe) (le_of_eq hHeq) hfl.2
+    hCq.le hKS0 hRbd hRgrade hKSgate hCqgate
+  -- ⟦Lemma 12's error leg, absorbed⟧
+  have hrem := rem_priced X Tann (H83 X theta293) εr EP2 E hL1 hX0 hTann0
+    (le_of_eq hHeq.symm) habs hEP2 hErow
+  -- ⟦the balance⟧
+  have hbal := hUG_balance (chiBarCoeff q χ a) (chiBarCoeff q χ c) N Pseq Qseq Hseq αseq J
+    X Tann (t₁ χ) εr _ _ hεr hL1 hX0 hTgate hU hmain hrem
+  exact prop_A3_T1_row_split_weightedG (chiBarCoeff q χ a) N (chiBarCoeff q χ c) Pseq Qseq
+    Hseq αseq J X Tann (t₁ χ) (S χ) _ hL0.le hTann0 hX0 hXN hN2
+    (chiBarCoeff_seam_supp χ hsupp) (hSup χ) hbal
+
 end Salt.MR

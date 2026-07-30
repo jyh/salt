@@ -703,4 +703,184 @@ theorem usetGChi_window_meansq_gated_family :
     H hH2 N Xd P Q M a b cf hcf1 hM hbudget hHj hB3 hBT hκ30 hBT10 hWL hgate Rbd hRbd
     𝔄 hAm hAsub hUA hR E herr
 
+/-! ## §5 — ⟦KNOT-1 ARITY SURGERY⟧ the two composes at the PER-BLOCK co-factor length
+
+⟦THE ONE j-FREE SITE⟧  `USetGradedBalance.TSG_feed_of_thin` — the untwisted track's own feed —
+already carries the co-factor length as a FAMILY `Ms : ℕ → ℕ` with BOTH `hM` and `hbudget`
+per-block.  The `χ`-track's §3/§4 composes collapsed it to a scalar `M`: `hM` is per-`j`
+already (`∀ j ∈ ramI H P Q, ramRrange H N Xd j ⊆ Icc 1 M`), and so is the conclusion's `Σ_j`,
+but `hbudget` is stated ONCE.  That single site is the whole of the surgery on this file.
+
+⟦WHY IT IS FORCED (KNOT1-SCOPE, flags 2026-07-30)⟧  a scalar `M` serving every block while
+the co-factor range varies by `Q/P` forces `range`@bottom ⟹ `M ≥ 2X/P` against
+`Mr_sharp`@top ⟹ `M ≤ 4X/Q`, i.e. `Q ≤ 2P` — the band collapses to a POINT in three lines,
+with no `KS` arithmetic at all.  At the family `Ms` the two demands are read at the SAME `j`
+and the collapse does not exist.
+
+**PURELY ADDITIVE**: §3 and §4 stand unmodified; these are twins beside them, at the shape
+`TSG_feed_of_thin` already uses on the untwisted side.  Everything else — every gate, every
+constant, the socket, the `𝔄`-package — is verbatim. -/
+
+set_option maxHeartbeats 800000 in
+-- Same cause as §3: the compose threads two branch exits through the χ-summed eq-(16)
+-- composition; the per-block length changes no elaboration cost.
+/-- **⟦ii-6, PER-BLOCK⟧ THE 𝒰-EXIT, COMPOSED, at the co-factor length FAMILY.**
+`usetGChi_window_meansq_of_socket_family` with the scalar range cap `M` replaced by the family
+`Ms : ℕ → ℕ` — the shape `USetGradedBalance.TSG_feed_of_thin` carries on the untwisted track.
+`hM` and the conclusion's `Σ_j` were per-block already; `hbudget` is the one binder that moves,
+from a single statement to `∀ j ∈ ramI H P Q`.  Nothing else changes. -/
+theorem usetGChi_window_meansq_of_socket_family_perBlock
+    {Cs cs : ℝ} (hCs : 0 < Cs) (hcs : 0 < cs)
+    (q : ℕ) [NeZero q] (f : ℕ → ℂ) (hf1 : ∀ n : ℕ, ‖f n‖ ≤ 1)
+    (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ) (J Jb : ℕ) (hJb1 : 1 ≤ Jb) (hJbJ : Jb ≤ J)
+    (hH2seq : 2 ≤ Hseq Jb) (hα0 : 0 ≤ αseq Jb)
+    (T VJ V L X : ℝ) (hslot : HalaszPrimesChi Cs cs q T)
+    (hT1 : 1 ≤ T) (hqT : 1 < (q : ℝ) * T)
+    (hP3 : 3 ≤ Pseq Jb) (hPQ : Pseq Jb ≤ Qseq Jb)
+    (hQT : ((Qseq Jb : ℕ) : ℝ) ≤ (q : ℝ) * T)
+    (hκ30Q : 30 ≤ Real.log ((q : ℝ) * T) / Real.log ((Qseq Jb : ℕ) : ℝ))
+    (hLL5 : 5 ≤ Real.log (Real.log ((q : ℝ) * T)))
+    (hVJ : ∀ v ∈ ramI (Hseq Jb) (Pseq Jb) (Qseq Jb),
+      Real.exp (αseq Jb * (v : ℝ) / Hseq Jb) ≤ VJ)
+    (η ε : ℝ) (hα : αseq Jb ≤ 1 / 4 - η) (hη2 : 2 * η ≤ 1) (hTX : T ≤ X) (hX0 : 0 < X)
+    (hdebit : (q : ℝ) ^ (2 * αseq Jb) ≤ X ^ ε)
+    (hL0 : 0 < Real.log X) (hqlog : (q : ℝ) ≤ (Real.log X) ^ 12)
+    (hV1 : 1 ≤ V) (hVδ : V⁻¹ ≤ (Real.log X) ^ (-106 : ℝ))
+    (hlogT1 : 1 ≤ Real.log ((q : ℝ) * T))
+    (hTL : Real.log ((q : ℝ) * T) ≤ L) (hLe : Real.exp 1 ≤ L)
+    (hlogV : Real.log V ≤ 100 * Real.log L)
+    (H : ℝ) (hH2 : 2 ≤ H) (N Xd P Q : ℕ) (Ms : ℕ → ℕ) (a b cf : ℕ → ℂ)
+    (hcf1 : ∀ n : ℕ, ‖cf n‖ ≤ 1)
+    (hM : ∀ j ∈ ramI H P Q, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j))
+    (hbudget : ∀ j ∈ ramI H P Q,
+      thinBundleGChi ((q : ℝ) * T) VJ (Hseq Jb) (Pseq Jb) (Qseq Jb)
+        * X ^ (1 - 2 * η + ε) ≤ ((Ms j : ℕ) : ℝ))
+    (hHj : ∀ j ∈ ramI H P Q, H ≤ (j : ℝ))
+    (hB3 : ∀ j ∈ ramI H P Q, 3 ≤ ramQbase H P j)
+    (hBT : ∀ j ∈ ramI H P Q, (ramQbase H P j : ℝ) ≤ (q : ℝ) * T)
+    (hκ30 : ∀ j ∈ ramI H P Q, 30 ≤ Real.log ((q : ℝ) * T) / Real.log (ramQbase H P j))
+    (hBT10 : ∀ j ∈ ramI H P Q, (ramQbase H P j : ℝ) ≤ T ^ 10)
+    (hWL : ∀ j ∈ ramI H P Q, Real.log (ramQbase H P j) ≤ L)
+    (hgate : ∀ j ∈ ramI H P Q, 420 * L * L ^ ((3 : ℝ) / 4) * (Real.log L) ^ 5
+      ≤ cs * (Real.log (ramQbase H P j)) ^ 2)
+    (Rbd : ℝ) (hRbd : 0 ≤ Rbd)
+    (𝔄 : Set (DirichletCharacter ℂ q × ℝ))
+    (hAm : ∀ χ : DirichletCharacter ℂ q, MeasurableSet {t : ℝ | (χ, t) ∈ 𝔄})
+    (hAsub : ∀ r ∈ 𝔄, r.2 ∈ Set.Icc (-T) T)
+    (hUA : 𝔄 ⊆ UsetGChi q f Pseq Qseq Hseq αseq J)
+    (hR : ∀ j ∈ ramI H P Q, ∀ r ∈ 𝔄,
+      ‖ramR H N Xd P Q j (chiBarCoeff q r.1 b) r.2‖ ≤ Rbd)
+    (E : ℝ)
+    (herr : (∑ χ : DirichletCharacter ℂ q, ∫ t in (-T)..T,
+        ‖ramErr H N Xd P Q (chiBarCoeff q χ a) (chiBarCoeff q χ b)
+          (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E) :
+    (∑ χ : DirichletCharacter ℂ q,
+        ∫ t in {t : ℝ | (χ, t) ∈ 𝔄}, ‖spoly N (chiBarCoeff q χ a) t‖ ^ 2)
+      ≤ 4 * ((ramI H P Q).card : ℝ)
+          * (∑ j ∈ ramI H P Q,
+              (5128 * (Real.log X) ^ (-200 : ℝ) * ((Ms j : ℕ) : ℝ) * (1 + Real.log (2 * T))
+                  * (∑ m ∈ Finset.Icc 1 (Ms j),
+                      ‖ramRcoeff H N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2)
+                + 81 * Cs * Rbd ^ 2 * (H / (j : ℝ)) ^ 2))
+        + 2 * E := by
+  refine usetGChi_integral_to_branches_family q H N Xd P Q a b cf T E (by linarith) herr
+    𝔄 hAm hAsub ((Real.log X) ^ (-106 : ℝ))
+    (fun j => 5128 * (Real.log X) ^ (-200 : ℝ) * ((Ms j : ℕ) : ℝ) * (1 + Real.log (2 * T))
+      * (∑ m ∈ Finset.Icc 1 (Ms j), ‖ramRcoeff H N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2))
+    (fun j => 81 * Cs * Rbd ^ 2 * (H / (j : ℝ)) ^ 2) ?_ ?_
+  · -- ⟦the `𝒯_S` branch⟧ §1's re-pinned GRADED exit, at THIS block's own length
+    intro j hj ℰ hws hsub𝔄
+    exact usetGChi_TS_branch_exit_repinned q f hf1 Pseq Qseq Hseq αseq J Jb hJb1 hJbJ
+      hH2seq hα0 T VJ hT1 hqT hP3 hPQ hQT hκ30Q hLL5 hVJ ℰ hws
+      (fun r hr => hAsub r (hsub𝔄 r hr)) (fun r hr => hUA (hsub𝔄 r hr))
+      η X ε hα hη2 hTX hX0 hdebit hL0 hqlog H N Xd P Q j (Ms j) b cf (hM j hj) (hbudget j hj)
+  · -- ⟦the `𝒯_L` branch⟧ the pair socket, spent once per block (length-blind)
+    intro j hj ℰ hws hsub𝔄
+    exact tLChi_main_sumsq hCs hcs q hH2 P Q j N Xd cf b hcf1 (hHj j hj) T V L
+      ((Real.log X) ^ (-106 : ℝ)) Rbd hslot ℰ hws (fun r hr => hAsub r (hsub𝔄 r hr)) hT1 hqT
+      (hB3 j hj) (hBT j hj) (hκ30 j hj) hLL5 hV1 hVδ (hBT10 j hj) hTL hlogT1 hLe (hWL j hj)
+      hlogV (hgate j hj) hRbd
+      (fun r hr => hR j hj r
+        (hsub𝔄 r (tLsetChi_subset q H P Q j cf ((Real.log X) ^ (-106 : ℝ)) ℰ hr)))
+
+set_option maxHeartbeats 800000 in
+-- Same cause as §4.
+/-- **⟦ii-6 — THE C2 DELIVERABLE, PER-BLOCK⟧.**  `usetGChi_window_meansq_gated_family` at the
+co-factor length FAMILY `Ms : ℕ → ℕ`.  The socket is discharged exactly as in §4; the ONLY
+difference from the landed statement is that `hbudget` is now read `∀ j ∈ ramI H P Q` and the
+conclusion's `Σ_j` reads `Ms j`. -/
+theorem usetGChi_window_meansq_gated_family_perBlock :
+    ∃ Cs cs T₀ Kq Ks : ℝ, 0 < Cs ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧
+      ∀ (q : ℕ) [NeZero q] (f : ℕ → ℂ), (∀ n : ℕ, ‖f n‖ ≤ 1) →
+      ∀ (Pseq Qseq : ℕ → ℕ) (Hseq αseq : ℕ → ℝ) (J Jb : ℕ), 1 ≤ Jb → Jb ≤ J →
+        2 ≤ Hseq Jb → 0 ≤ αseq Jb →
+      ∀ (T VJ V L X : ℝ), 1 ≤ T → 1 < (q : ℝ) * T →
+        3 ≤ Pseq Jb → Pseq Jb ≤ Qseq Jb → ((Qseq Jb : ℕ) : ℝ) ≤ (q : ℝ) * T →
+        30 ≤ Real.log ((q : ℝ) * T) / Real.log ((Qseq Jb : ℕ) : ℝ) →
+        5 ≤ Real.log (Real.log ((q : ℝ) * T)) →
+        (∀ v ∈ ramI (Hseq Jb) (Pseq Jb) (Qseq Jb),
+          Real.exp (αseq Jb * (v : ℝ) / Hseq Jb) ≤ VJ) →
+      ∀ η ε : ℝ, αseq Jb ≤ 1 / 4 - η → 2 * η ≤ 1 → T ≤ X → 0 < X →
+        (q : ℝ) ^ (2 * αseq Jb) ≤ X ^ ε → 0 < Real.log X →
+        (q : ℝ) ≤ (Real.log X) ^ 12 → 1 ≤ V → V⁻¹ ≤ (Real.log X) ^ (-106 : ℝ) →
+        -- ⟦THE PER-`(q,T)` FLOOR — what the socket's discharge costs⟧
+        T₀ ≤ T →
+        8 * Real.log (40000 * vkStripConst q) ≤ Real.log (Real.log (5 * T + 1)) →
+        8 + Real.log (20000 * (vkStripConst q + 8104)) / 100
+            ≤ Real.log (Real.log (5 * T + 1)) →
+        Kq * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
+            ≤ (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ) →
+        (q : ℝ) ^ ((1 : ℝ) / 16)
+            ≤ Ks * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) →
+        1 ≤ Real.log ((q : ℝ) * T) → Real.log ((q : ℝ) * T) ≤ L → Real.exp 1 ≤ L →
+        Real.log V ≤ 100 * Real.log L →
+      ∀ (H : ℝ), 2 ≤ H → ∀ (N Xd P Q : ℕ) (Ms : ℕ → ℕ) (a b cf : ℕ → ℂ),
+        (∀ n : ℕ, ‖cf n‖ ≤ 1) →
+        (∀ j ∈ ramI H P Q, ramRrange H N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI H P Q,
+          thinBundleGChi ((q : ℝ) * T) VJ (Hseq Jb) (Pseq Jb) (Qseq Jb)
+            * X ^ (1 - 2 * η + ε) ≤ ((Ms j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI H P Q, H ≤ (j : ℝ)) →
+        (∀ j ∈ ramI H P Q, 3 ≤ ramQbase H P j) →
+        (∀ j ∈ ramI H P Q, (ramQbase H P j : ℝ) ≤ (q : ℝ) * T) →
+        (∀ j ∈ ramI H P Q, 30 ≤ Real.log ((q : ℝ) * T) / Real.log (ramQbase H P j)) →
+        (∀ j ∈ ramI H P Q, (ramQbase H P j : ℝ) ≤ T ^ 10) →
+        (∀ j ∈ ramI H P Q, Real.log (ramQbase H P j) ≤ L) →
+        (∀ j ∈ ramI H P Q, 420 * L * L ^ ((3 : ℝ) / 4) * (Real.log L) ^ 5
+          ≤ cs * (Real.log (ramQbase H P j)) ^ 2) →
+      ∀ Rbd : ℝ, 0 ≤ Rbd →
+      ∀ 𝔄 : Set (DirichletCharacter ℂ q × ℝ),
+        (∀ χ : DirichletCharacter ℂ q, MeasurableSet {t : ℝ | (χ, t) ∈ 𝔄}) →
+        (∀ r ∈ 𝔄, r.2 ∈ Set.Icc (-T) T) →
+        𝔄 ⊆ UsetGChi q f Pseq Qseq Hseq αseq J →
+        (∀ j ∈ ramI H P Q, ∀ r ∈ 𝔄,
+          ‖ramR H N Xd P Q j (chiBarCoeff q r.1 b) r.2‖ ≤ Rbd) →
+      ∀ E : ℝ, (∑ χ : DirichletCharacter ℂ q, ∫ t in (-T)..T,
+          ‖ramErr H N Xd P Q (chiBarCoeff q χ a) (chiBarCoeff q χ b)
+            (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E →
+        (∑ χ : DirichletCharacter ℂ q,
+            ∫ t in {t : ℝ | (χ, t) ∈ 𝔄}, ‖spoly N (chiBarCoeff q χ a) t‖ ^ 2)
+          ≤ 4 * ((ramI H P Q).card : ℝ)
+              * (∑ j ∈ ramI H P Q,
+                  (5128 * (Real.log X) ^ (-200 : ℝ) * ((Ms j : ℕ) : ℝ)
+                        * (1 + Real.log (2 * T))
+                      * (∑ m ∈ Finset.Icc 1 (Ms j),
+                          ‖ramRcoeff H N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2)
+                    + 81 * Cs * Rbd ^ 2 * (H / (j : ℝ)) ^ 2))
+            + 2 * E := by
+  obtain ⟨Cs, cs, T₀, Kq, Ks, hCs, hcs, hT₀, hKq, hKs, hpt⟩ :=
+    halaszPrimesChi_pointwise_of_gates
+  refine ⟨Cs, cs, T₀, Kq, Ks, hCs, hcs, hT₀, hKq, hKs, ?_⟩
+  intro q _ f hf1 Pseq Qseq Hseq αseq J Jb hJb1 hJbJ hH2seq hα0 T VJ V L X hT1 hqT hP3 hPQ
+    hQT hκ30Q hLL5 hVJ η ε hα hη2 hTX hX0 hdebit hL0 hqlog hV1 hVδ hT₀T hG1 hG2 hG3 hG4
+    hlogT1 hTL hLe hlogV H hH2 N Xd P Q Ms a b cf hcf1 hM hbudget hHj hB3 hBT hκ30 hBT10 hWL
+    hgate Rbd hRbd 𝔄 hAm hAsub hUA hR E herr
+  exact usetGChi_window_meansq_of_socket_family_perBlock hCs hcs q f hf1 Pseq Qseq Hseq αseq
+    J Jb hJb1 hJbJ hH2seq hα0 T VJ V L X (hpt q T hT₀T hG1 hG2 hG3 hG4) hT1 hqT hP3 hPQ hQT
+    hκ30Q hLL5 hVJ η ε hα hη2 hTX hX0 hdebit hL0 hqlog hV1 hVδ hlogT1 hTL hLe hlogV
+    H hH2 N Xd P Q Ms a b cf hcf1 hM hbudget hHj hB3 hBT hκ30 hBT10 hWL hgate Rbd hRbd
+    𝔄 hAm hAsub hUA hR E herr
+
 end Salt.MR

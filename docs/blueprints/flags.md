@@ -17309,3 +17309,30 @@ eases g2_jfloor/gate8 by 5.5e6×; smallGradeFits already symbolic;
 the moving fixed point CERTIFIED (fails at m = 88 pre-R1; unbounded
 post).  ⟦R1 ∥ R2 dispatched on this entry; R3 on their landing with
 the M-selection certificate + the erratum in its brief.⟧
+
+## (2026-07-30 16:50 PDT) MR-SURGERY LANDS — KNOT 1 CLOSED (1905/+0, 24/24): the KS gate never constrained the band, it constrained the scalar
+
+**⟦THE SURGERY⟧**  Seven files, in-file appends, the per-block chain
+end to end: the ONE j-free site (USetGChiTS §5) → the capstone
+(conclusion Mr-free confirmed) → DoorCapBasePerBlock (55/58 verbatim)
+→ the wires → the hoisted terminal → **`logChowla2_capstone_conditional_perBlock`
+(the ratified statement change, as an additive twin, the grant
+cited)** → the §8 pins (s13Mr/s13m0 the per-block grid; the grid
+floor free at μ ≥ 8).  THE THREE LINES: **KS_gate DISCHARGED
+OUTRIGHT** (656384(2+μ) ≤ μ^{198−3θ} off 8⁷; ~190 powers unused —
+"it never constrained the band, it constrained the scalar");
+**E_ge DISCHARGED** from the three named rows (phi/p2/tail, each
+charged to EP2, the split exact; the tail a WIRE through
+m4_tail_mass_at_band w/ the two side gates carried); **the φ(q) line
+STATED in the H-side home** (q_arcDen carried; the phi_row reduction
+the named residual).  The budget per-block; the mu_cap carried honest
+w/ the correct M-pins.  Build 9602 exit-0 maestro-verified; the
+byte-fit scratch-verified (no adapter).
+
+**⟦THE FLAGGED ADJUDICATION⟧**  epsr_theta vs abs8640 (εr ≈ 0.122
+needed at the floor vs eps_hi's 0.0014 cap — deliberately NOT made a
+contradictory field: honest).  ⟦MAESTRO NOTE⟧: this resolves BY
+DESIGN in R2 — the pool re-cut frees ε exactly where the tension
+binds (hεwin dropped; DoorFuseFrame_pool has no eps_hi) — carried to
+the R3/assembly brief as a verification line, not a wall.  KNOT 1 IS
+CLOSED; R1 ∥ R2 aloft; R3 queued.

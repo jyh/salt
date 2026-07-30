@@ -511,6 +511,81 @@ theorem m4_socket_discharged_capwired_ws (hMmu : MmuChiRate) (Aexp : ℝ) (hAexp
   exact ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2,
     hrest (m4_capE_at_door hws)⟩
 
+/-! ## §5 — ⟦KNOT-1 ARITY SURGERY⟧ the composite at the PER-BLOCK co-factor range
+
+⟦`DoorCapErrWS` NEEDS NO ARITY CHANGE⟧ — confirmed by the KNOT-1 refuter: none of its eleven
+fields mentions the co-factor range cap.  `Xd_eq`, `H83_two`, `H83_le`, `P_one`, `coefWS`,
+`tail` and `E_ge` speak the base `N_d`, the block window `[P,Q]` and the coprime-tail mass;
+`Mr` occurs nowhere.  So §3's `E_binder` wire is reused VERBATIM, and the only thing that
+moves in the composite is the TYPE of the `Mr` existential.
+
+**PURELY ADDITIVE.**  §4 stands. -/
+
+set_option maxHeartbeats 1000000 in
+-- Same cause as §4.
+/-- **⟦THE CAP-WIRED TERMINAL AT THE STRICT PAIR LAW, PER-BLOCK⟧**
+(`m4_socket_discharged_capwired_ws_perBlock`).  §4 over
+`M4CapWire.m4_socket_discharged_capwired_perBlock`.  `DoorCapErrWS` and `m4_capE_at_door` are
+used unchanged — the error bundle is range-cap-free — so the ONE difference from the landed
+statement is that the `hcapWS` family's `Mr` existential has type `ℕ → ℕ`. -/
+theorem m4_socket_discharged_capwired_ws_perBlock (hMmu : MmuChiRate) (Aexp : ℝ)
+    (hAexp : 0 < Aexp) :
+    ∃ Ct Cq cs T₀ Kq Ks : ℝ,
+      0 < Ct ∧ 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp →
+      ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ : ℕ → ℝ), 1 ≤ M →
+        ∃ (C' : ℝ) (x₀ : ℕ), 0 < C' ∧
+          ∀ (ε : ℕ → ℝ) (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ) (K δ₀ : ℝ),
+            0 < δ₀ →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ))) →
+            (∀ i m : ℕ, ‖bU i m‖ ≤ 1) → (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorFuseFrame M (A + s) j Ct Cp (ε (A + s))) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorRowZeroBase M (A + s) j cU bU) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+                2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+                5 ≤ Real.log (Real.log (2 * T)) →
+                ∃ (Xd P Q : ℕ) (Mr : ℕ → ℕ) (Jb : ℕ) (b cf : ℕ → ℂ)
+                  (VJ V Lr η εd Rbd CR KS E EP2 Mtail : ℝ),
+                  DoorCapErrWS M (A + s) q Xd P Q b cf (2 * T) E Mtail
+                    ∧ ((∑ χ : DirichletCharacter ℂ q, ∫ t in (-(2 * T))..(2 * T),
+                          ‖ramErr (H83 (((A + s : ℕ)) : ℝ) theta293) (2 * (A + s)) Xd P Q
+                            (chiBarCoeff q χ (winCutH (A + s) (doorCoeffU M)))
+                            (chiBarCoeff q χ b) (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E
+                        → DoorCapBasePerBlock Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr Jb b cf
+                            (2 * T) VJ V Lr η εd (ε (A + s)) Rbd CR KS E EP2)) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorBandBase x₀ C' Aexp M (A + s) q (C₁ (A + s)) (M₀ (A + s))) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) K
+                (doorRhoOfDelta δ₀)) →
+            M4ChiSummedFreeRow R M
+                (m4ChiRowGraded M (fun _ H => RSanDoorRho (doorRhoOfDelta δ₀) H))
+              ∧ (∀ j H : ℕ, doorRowFloor M ≤ j →
+                  m4ChiRowGraded M (fun _ H => RSanDoorRho (doorRhoOfDelta δ₀) H) j H
+                    ≤ RSanDoorRho (doorRhoOfDelta δ₀) H)
+              ∧ (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+                      * (108 / 5 * RSanDoorRho (doorRhoOfDelta δ₀) H)
+                    ≤ δ₀ ^ 2) := by
+  obtain ⟨Ct, Cq, cs, T₀, Kq, Ks, hCt, hCq, hcs, hT₀, hKq, hKs, hwired⟩ :=
+    m4_socket_discharged_capwired_perBlock hMmu Aexp hAexp
+  refine ⟨Ct, Cq, cs, T₀, Kq, Ks, hCt, hCq, hcs, hT₀, hKq, hKs, ?_⟩
+  intro Cp hCp R M C₁ M₀ hM
+  obtain ⟨C', x₀, hC'pos, hterm⟩ := hwired Cp hCp R M C₁ M₀ hM
+  refine ⟨C', x₀, hC'pos, ?_⟩
+  intro ε cU bU K δ₀ hδ₀ hHreg hb1 hc1 hframe hbase hcapWS hbandbase harith
+  refine hterm ε cU bU K δ₀ hδ₀ hHreg hb1 hc1 hframe hbase ?_ hbandbase harith
+  intro H L q j A s hsb T hTlo hThi hTgate hTll
+  obtain ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2, Mtail, hws, hrest⟩ :=
+    hcapWS H L q j A s hsb T hTlo hThi hTgate hTll
+  haveI : NeZero q := ⟨hsb.2.2.2.1.ne'⟩
+  exact ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2,
+    hrest (m4_capE_at_door hws)⟩
+
 end Salt.MR
 
 end
