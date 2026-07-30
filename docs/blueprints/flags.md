@@ -16775,3 +16775,5 @@ save two mechanical fixes.  WITH the L² restructure this chain
 becomes margin (the K-shed moves K off the b-floor entirely; the
 smaller K then relaxes the Braw side and halves the ε⁻¹⁶) — both
 lanes compose, neither wasted.
+
+## (2026-07-30 12:45 PDT) ⟦THE L² RESTRUCTURE⟧ GRANTED — the freeze sealed, REF-L2 dispatched (two refuters); on PASS the seven-stone wave fires under the standing grant
