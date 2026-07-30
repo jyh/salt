@@ -16656,3 +16656,43 @@ ONLY — every datum is supplied.
 the drift-reads-δ₀ question AT THE TRUE VALUES (log₂(1/δ₀) = 556.7)
 — the answer decides whether the lever program can ever close the
 compose or the spine's δ₀ needs re-design.  C-B holds.
+
+## (2026-07-30 11:38 PDT) S11-SCOPE answers — THE DRIFT IS δ₀-FREE; the compose closes IFF b ≤ 250; the honest deficit is 35+ bits with the tower at its continuum truth
+
+**⟦THE GATING ANSWER⟧**  The DRIFT cap is δ₀-FREE: the δ₀-term enters
+as an ADDITIVE j₀-debit (6.9521·ln(1/δ₀) ≈ 2683 j₀-units against
+1.4427·e^{λ₋} ≥ 7.5e21) — the correction to b_cap is −3.4e-18 BITS;
+δ₀ would need ln(1/δ₀) ≥ 5.4e20 to cost one bit (18 double-log orders
+beyond the true value).  RStr/G1 reads δ₀ NOWHERE.  δ₀ matters ONLY
+through hMδ — the b-FLOOR — where it is worth 556.7 of the 603 bits.
+
+**⟦THE EXACT ENDGAME ARITHMETIC⟧**  b_cap = 1.4427·λ₋ − 34.47 −
+log₂b (δ₀-free); the hMδ floor sets λ₋ ≥ (b+35)·ln2 + ln b; the
+tower closes the loop.  **K*(603) = 3.6252 < 3.7386 = the PROVED
+lower bracket of the tower exponent: b ≥ 603 is ARITHMETICALLY
+IMPOSSIBLE — not unproven, FALSE.  The compose closes IFF b ≤ 250**
+(the crossing K*(250) = 4.001 at the continuum-truth exponent 4.0),
+i.e. iff **log₂(24·Cg/δ₀) ≤ 250 — a 352-bit reduction from the
+current 602.**  The ceiling ladder: K = 9/2 free → b ≤ 87; K = 4.41
+(the file's honest constant) → b ≤ 104; K = 4.0 (needs w_J−w₀ ≤
+ln 4 = 1.3863 vs the landed 1.4826 — a real ~7% tower sharpening) →
+b ≤ 250.  The floor ladder (CG-SCOPE): current 602; N0 killed → 285
+(the ε⁻¹⁶'s 139 bits IRREDUCIBLE — ε is capped by cD3/(16C)); all
+engineering levers floored → ≈285.  **THE RESIDUAL: 285 − 250 = 35
+BITS WITH NO KNOWN SOURCE, plus the tower-to-4.0 work.**
+
+**⟦WHERE THE PROGRAM HONESTLY STANDS⟧**  THE SECOND ROAD + A4 + THE
+SOCKET: COMPLETE, HONEST, TWICE-REFUTED — stands regardless.  THE S11
+COMPOSE: BLOCKED at a fully-quantified numeric system — no
+ineffectivity anywhere, every bit named, the drift exonerated, the
+target exact (602 → ≤250).  THE LEVER PROGRAM: N0 = 2^100 (318 bits,
+class B); CL's seam (partial, class B/C); THE TOWER TO 4.0 (class
+C/research — the file says the continuum truth is 4); and 35 bits of
+NEW SOURCE — the structural question for the council: **δ₀ = cD3·ε/
+(32·C·K) divides the budget by the ENERGY constant K ≈ 1e162 — must
+it?**  (The regime-lever/exceedance genre that retired D3 once before
+is the obvious first probe.)  Phase 1/2 of the compose HELD — no
+2.2-2.9k spend on a page that cannot close as priced.  The EXPOSURE
+CERTIFICATE remains the recommended next spend (~300 ln: the numbers
+become kernel-decidable).  S0-TOWER (K = 9/2) continues — the free
+rung of the ceiling ladder is worth having under every future.
