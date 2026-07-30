@@ -17076,3 +17076,41 @@ STANDS in the kernel with the residue exactly these knots + the
 carried fields.  THE DAY CLOSES: the L² restructure landed whole and
 twice-refuted; the giant slain; the last distance measured to two
 named design questions.
+
+## (2026-07-30 15:50 PDT) KNOT2-SCOPE returns — the pool hypothesis half-verified then KILLED; THE TRUE KNOT FOUND: the M in P₁^M; the two knots CONVERGE
+
+**⟦THE POOL MECHANICS — VERIFIED⟧**  The q=1 proof uses the decay
+only as source ≤ pool (byte-verdict per step; two sources DERIVED not
+stated — the twin adds hgU/hgBand and DROPS hεwin/hL4096: ε becomes
+FREE; the coefficient 188133 = 37620·5 + 33 linear in the pool; the
+full re-cut inventory ~2900 ln/60 decls priced).  **⟦THE KILL⟧**
+p2's bare μ is NOT the pool — it is a2RowsSum's OWN numerator
+(16·log₂(2Xd)/P₁ — the fused p²-row's price; 99.8% source vs gP1's
+100% pool).  The constant pool cures gP1 (501×) and level1 (41.8×)
+and leaves p2 IDENTICAL TO SIX DIGITS.  ⟦THE EXACT CONTRADICTION,
+pool-free and m-free⟧: SocketBase's own j-floor forces log H ≥
+log2·M·Adoor M; hPHheadroom converts it to μ ≥ 1.4147e32 at every
+base; p2 caps μ ≤ log2·Adoor M — **the shortfall is exactly M =
+4.5e19, unconditional in m/ε/π₀/the split** (log2·Adoor·(M−1) ≤ −3.6
+→ M < 1).  Two flags corrections: the earlier μ ≥ 5.18e21 was 2.7e10×
+weak; gP1 and p2 are structurally DIFFERENT (curable vs not).  The
+arm does not shrink under π₀ — it MIGRATES (500·14 intrinsic; best
+case 1.71× at ε = 0).  hPHheadroom IS the kill (the only converter of
+H-side into μ).
+
+**⟦THE SHARPEST QUESTION — THE TRUE KNOT⟧**  Everything reduces to
+one exponent: `Q₁ = P₁^M` (calQK's j²M) with the door's length gate
+`Q₁ ≤ h` forcing j₀ = M·Adoor M.  At j₀ = Adoor M the collision fails
+by 253 ABSOLUTE (a hair); at Adoor M/2 it closes 2×.  Every other
+lever is scale-invariant.  **Can the seam row's floor be decoupled
+from the ladder's top-block width — h ≥ P₁^{1/2}-genre instead of
+h ≥ P₁^M?**  ⟦THE MAESTRO'S CONVERGENCE NOTE⟧: the wide band (ratio
+M) exists to serve THE SIEVE MASS (the non-𝒮 fraction ≈ 1/M must sit
+under δ₀/4 — M ≥ 24Cg/δ₀ IS the width demand); the row prices (p2's
+p²-row, KNOT 1's θ₂₉₃-quartet incl. KS_gate's point-band forcing)
+want the band NARROW at astronomical bases — **THE TWO KNOTS ARE ONE
+KNOT: {the sieve's wide band} vs {the row's point band} at x-scale
+bases**, with four links in the kill chain (the row floor h ≥ Q₁;
+the periodization headroom x ≥ 4^{ε²H}; the bases at x; the p²-row's
+log X_d/P₁ price) — BREAK ANY ONE.  KNOT1-SCOPE aloft; the joint
+design freeze on both dossiers.
