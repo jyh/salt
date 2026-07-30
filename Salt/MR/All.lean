@@ -251,6 +251,8 @@ import Salt.MR.ZetaInvShallow
 import Salt.MR.PortAssembly
 import Salt.MR.PortClose
 import Salt.MR.PortNonVacuous
+import Salt.MR.ThmA2ChiSummed
+import Salt.MR.M4ChiSocketWire
 import Salt.Tactic.AuditAxioms
 
 /-!

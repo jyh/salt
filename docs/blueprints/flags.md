@@ -15463,3 +15463,36 @@ D3's four owed pages + the ball-sup leg; (6) the θ₂₉₃ lever (recorded).**
 verbatim from the audit scratch, axioms 4/4 clean, build 9565 jobs green first
 attempt).  The scratch-only `vkStripConst_linear` probe dropped; its content
 rides the docstring.  The ledger closes on the dispatch above.
+
+## (2026-07-30 01:26 PDT) THE NIGHT TAIL LANDS — D1+D4 under A1/A2, first-attempt, 14/14 clean
+
+**⟦D1 — ThmA2ChiSummed.lean, 276 ln, imports ThmA2 only.⟧**
+`thm_a2_spine_chiSummed` + `thm_a2'_of_rows_chiSummed` at the A1
+indexed-family shape (datum `a : DirichletCharacter ℂ q → ℕ → ℂ`;
+constants indexed; the χ-free summands carry φ(q) via the affine-split
+helpers).  The A1 shape COMPOSED EXACTLY AS THE REFUTER CLAIMED — no
+STOP, no statement adjustment; the crossing layer is χ-blind at the
+bytes.  Naming deviation only: Σ is not a Lean identifier —
+`hrowsSum`/`hT0bandSum` spell the freeze's `hrowsΣ`/`hT0bandΣ`.
+
+**⟦D4 — M4ChiSocketWire.lean, 240 ln, imports M4ChiSummed.⟧**
+`M4ChiSummedFreeRowBig` (the floor-gated socket) + `m4ChiRowGraded`
+(the if-splice) + `m4_chiSummedFreeRow_of_big` (THE GRADED SPLICE;
+small-j via the trivial inhabitant) + `m4_chiSummedFreeRowBig_of_doorCarried`
+(the ∃-hoisted door instantiation, hypotheses NOT discharged — D2/D3's
+job) + **`m4_chiSummedFreeRow_of_doorCarried`: the composite delivering
+`m4_second_road`'s ⟦item 11⟧ OUTRIGHT** at the grade
+`m4ChiRowGraded M (fun j H => arcDen 12 H * Bd j H)` — the φ(q) rides
+VISIBLY in the grade, never absorbed, never compared to the ceiling
+(A2 respected: the ledger page is absent).  The refuter's kernel-defeq
+claim held in practice: `chiFreeRowSq` ↔ the door conclusion composed
+by bare `exact`.
+
+**⟦FINDINGS FOR THE COUNCIL⟧**  (1) A1's form forces FIVE indexed
+constants (`Cs Ccc C₁' M₀ ε`), not two — the six-debit page's structure
+is ONE genuine `∑_χ` (the T₀-band summand) against FOUR clean φ(q)
+factors.  (2) The if-splice is invisible to every consumer (gate 4
+reads RS only above j₀ — confirmed at the bytes).  (3) `Qm` threading:
+the composite carries `hQm : arcDen 12 H ≤ Qm`, same ordering
+discipline as `m4_dyadicRow_carried`.  Build 9567 jobs green; axioms
+14/14 at the permitted maximum; zero warnings.

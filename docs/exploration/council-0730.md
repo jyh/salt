@@ -53,9 +53,18 @@ small drifts tonight were each fixed in place before commit).*
      (THE ONE BINDING H-UPPER) by exactly 12×: `M: ~10⁶² → ~10⁷⁴⁷`;
    * D3 re-priced ≈1.65–3.0k (four owed pages); the ball-sup leg found
      (~0.4–0.7k, previously double-counted away).
-5. **THE NIGHT TAIL (in flight at this writing)** — D1 at the A1 shape
-   + D4's wiring half (both refuter-cleared fork-neutral) + the
-   non-vacuity certificates being landed as `PortNonVacuous.lean`.
+5. **THE NIGHT TAIL — LANDED, first-attempt, 14/14 axiom-clean**
+   (`ThmA2ChiSummed.lean` 276 ln + `M4ChiSocketWire.lean` 240 ln,
+   additive; build 9567 jobs).  D1's twins composed exactly as the
+   refuter claimed — no STOP, no statement adjustment.  D4 delivers
+   **`m4_chiSummedFreeRow_of_doorCarried`: the second road's ⟦item 11⟧
+   socket OUTRIGHT**, conditional only on the `∀ χ` door hypotheses —
+   which is now the PRECISE definition of what D2/D3 must discharge.
+   The φ(q) rides visibly in the grade (A2 respected).  Plus
+   `PortNonVacuous.lean` (the four certificates).  Executor finding for
+   C4: A1's form forces FIVE indexed constants (`Cs Ccc C₁' M₀ ε`) —
+   the six-debit page's structure is ONE genuine `∑_χ` (the T₀-band
+   summand) against FOUR clean φ(q) factors.
 
 ## The honest picture
 
