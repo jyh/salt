@@ -15657,3 +15657,27 @@ discipline intact).
 
 **THE NIGHT CLOSES ON THIS STONE: the A4 fire order's first step is
 DONE before the council sits.**
+
+## (2026-07-30 06:02 PDT) THE 0730 COUNCIL — C1–C6 RATIFIED WHOLE; the A4 wave fires
+
+**JYH, morning of 7/30: "C1-C6 ratified, good work Sancho!"**  So: C1
+the 12× anchor GRANTED (gate 8 opens to `log₂M+1 ≈ 2484`); C2 the
+graded fibrewise re-lift RATIFIED (the ii-2 probe already green); C3
+the `cffKVt`-in-g-arm GRANTED (the Rbd hole closes as R1 wiring); C4
+the corrected arithmetic RATIFIED (the 7000λ+1.25e5 arm, the M₀
+window, the full g-arm form); C5 the wave plan AUTHORIZED (no forks;
+fire order: re-lift ∥ D3 ∥ Rbd wiring → legs ∥ D2 → assembly); C6 the
+θ₂₉₃ lever RECORDED.  ALSO this morning: **APPROVAL — the
+flagship is cleared for publishing** (the arXiv gate is now endorsement
+only; Loeffler pending, shortlist fallback ~Friday).  Quota triple at
+council: jason,2,41,19 (5h window 2%, weekly-all 41%, weekly-fable
+19%) — wide open for the wave.
+
+**THE FIRST BANK (five Opus executors, dispatched at this entry):**
+RELIFT-A (ii-1 UsetGChi + ii-3 thinness + ii-4 bundle);
+D3-CARRIERS-1 (the λ-transposition + the union-mask twin);
+D3-CARRIERS-2 (the mass page + the Rankin tail);
+RBD-WIRE (C3-SCOPE R1 items a–e incl. mertensM ≤ 3);
+TLEG-FACT (the 𝒯-leg χ-factorization page).
+Second bank on their landings: RELIFT-B (ii-5+ii-6 + the K-5 refuter
+check), D3-DISCHARGE, the ball-sup leg, D2 re-derived.
