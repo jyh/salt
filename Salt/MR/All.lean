@@ -284,6 +284,7 @@ import Salt.MR.ConstantsExposed
 import Salt.MR.M4ParsevalStone
 import Salt.MR.S11ExitL2
 import Salt.MR.M4DoorL2
+import Salt.MR.S12Compose
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -6239,3 +6240,47 @@ open Salt.Tactic in
   Salt.MR.m4_doorL2_feeds_head_split
   Salt.MR.sum_bigXi_insert_spelling_eq
   Salt.MR.m4_doorL2_close_split_sq
+
+/-! ⟦S12 — THE ROAD-THREADING TWIN AT THE `L²` DOOR, AND THE COMPOSE⟧ (`S12Compose`,
+2026-07-30, on ⟦REF-L2-FINAL⟧'s READY return and its banked share-table amendment).
+
+**§1 `m4_second_road_L2`** — `S11Thread.m4_second_road_tower`'s eleven-item census fired
+against `M4DoorL2.m4_doorL2_close_split_sq` instead of the `L¹` exit.  The four named
+suppliers (`m4_chiSummedN_supplied`, `m4_blockMeanSqBlk2_of_chiSummed`,
+`m4_cover_assembly_blk2`, `m4_sievedDoorSq_of_blk2`) are consumed unchanged; exactly two
+edits to the register: the grade-gate read `M4GradeGateSplit` is REPLACED by the pair
+`Braw H ≤ Bceil` (⟦THE NEW SLOT⟧ — the `H`-uniform ceiling) + the budget line
+`2·K·Bceil + δ/2 + 8·2^k/x ≤ δ₀`, and the tower conjunct rides at the `S0-TOWER` exponent
+`9/2`.  No `√`: the Cauchy–Schwarz descent is deleted on the `L²` route.
+
+**§2 `logChowla2_capstone_conditional`** — the compose.  §1's road meets `S11Hoist`'s
+cap-wired terminal at ⟦A1 THE BINDER SPLIT⟧: the terminal's `∀`-bound `δ₀` slot is
+instantiated at `δ_sock = √(δ₀/(16K))` (`s12DeltaSock`), its `ρ` at `doorRhoOfDelta δ_sock`,
+while the spine's `hMδ` reads the glue `δ₀` — the two are NEVER unified
+(`M4DoorL2.m4_doorL2_binder_floor_unified` is the kernel record of the `√K` blow-up).  THE
+SHARE TABLE is the banked amendment's, not `M4DoorL2` §3/§4's: glue `δ := δ₀`, socket
+`Bceil := δ₀/(8K)`, endpoint `≤ δ₀/4`, summing to `δ₀` exactly.
+
+DISCHARGED here: ⟦gate 7⟧ (`arc36_of_regime`, off the `arcFloor36` absorbed into `U1floor`),
+the terminal's register floor (`regime_Hfloor_of_loglogFloor50`, same absorption), the three
+envelope nonnegativities, ⟦gate 4⟧ and ⟦item 11⟧ (the terminal's own conjuncts), ⟦G1⟧
+(`rStrWitness_G1`), ⟦G2⟧ (`g2_of_j0_floor`), the drift price (`le_rfl`), the ceiling
+(`m4BclGraded_le_of_fits` + the terminal's ceiling conjunct, two `δ_sock²`), the budget line,
+`DoorRowZeroBase.coefWS` with its two `1`-boundedness demands (`S11CoefWS`'s witness — the
+`(cU, bU)` family is PINNED to the puncture family, not left free), and the terminal's
+analytic slot `MmuChiRate` (`PortClose.mmuChiRate_holds_gated`).
+
+CARRIED, and enumerated in the theorem's docstring: (A) five spine-arithmetic demands at the
+certified working point `m = 66` — `M4DoorGates`, the endpoint share, the ⟦G2⟧ `j₀`-floor,
+⟦gate 8⟧ (the socket `M`-cap), `m4SmallGradeFits`; (B) the `A4` terminal's five frames
+(`DoorFuseFrame`, the five non-`coefWS` fields of `DoorRowZeroBase`, the `DoorCapErrWS`
+bundle, `DoorBandBase`, `DoorArithFrameRho`).  (C) is EMPTY — nothing genuinely open remains.
+Additive: no landed declaration is touched. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.m4_second_road_L2
+  Salt.MR.loglogFloor50
+  Salt.MR.regime_Hfloor_of_loglogFloor50
+  Salt.MR.s12DeltaSock
+  Salt.MR.s12DeltaSock_pos
+  Salt.MR.s12DeltaSock_sq
+  Salt.MR.logChowla2_capstone_conditional

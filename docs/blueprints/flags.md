@@ -16971,3 +16971,34 @@ ceiling; (5) TWO THRESHOLDS, never unified (the kernel record of the
 S11 LAW, the p2 anchor, hcap's three objects; (7) the pinned-ε twin
 named, not blocking.  **⟦S12-COMPOSE dispatched on this entry — the
 final wave of the program.  On the capstone: SEAL NOT CELEBRATE.⟧**
+
+## (2026-07-30 14:33 PDT) S12-COMPOSE LANDS — logChowla2_capstone_conditional IN KERNEL; the genuinely-open residue is EMPTY; the frame pages are the last distance
+
+**⟦STAGE 1⟧**  `m4_second_road_L2` — the eleven-item census fired
+against the L² close; proof body byte-identical to the landed twin
+save the final application; exactly two register edits (the grade
+gate → Bceil + the budget line; the 9/2 tower); the downgrade lemma
+NOT needed (no ^5 consumer survives on the L² route).  First-attempt.
+
+**⟦STAGE 2 — THE CONDITIONAL CAPSTONE⟧**  `logChowla2_capstone_conditional`
+(S12Compose.lean, 450 ln, 7 decls): ∀Aexp>0, ∃ the ten constants,
+∀Cp≥0 ∀M≥1 ∃C'x₀ ∀U1floor g ∃R … [RESIDUE] → ¬logChowla2Fails.  The
+banked shares EXACT (δ₀/2 + δ₀/4 + δ₀/4; §3/§4's table never read);
+hMδ K-FREE at the m = 66 floor; the thresholds never unified
+(δ_sock = √(δ₀/16K) — the extra 2 is the graded head's price, deviation
+honestly stated).  **DISCHARGED by landed lemmas**: gates 4/7/G1/G2/
+item 11/the drift price/the ceiling/the budget line/the hHreg floors/
+**coefWS + both 1-bounds (the (cU,bU) family PINNED to the puncture
+witnesses)** / **MmuChiRate via the port's unconditional theorem —
+BEYOND THE BRIEF: the analytic slot is GONE.**
+
+**⟦THE COMPLETE RESIDUE⟧**  (A) FIVE spine-arithmetic items at m = 66
+(M4DoorGates; the endpoint 8·2^k/x ≤ δ₀/4; G2's j₀-floor; gate 8;
+m4SmallGradeFits) — each previously walked satisfiable (ARITH/FINAL).
+(B) FIVE frame bundles per SocketBase (FuseFrame; RowZero's five
+non-coefWS fields; CapErrWS→CapBase; BandBase; ArithFrameRho) — every
+field previously walked (SAT/ARITH/FINAL).  **(C) GENUINELY OPEN:
+EMPTY.**  Build 9600, exit 0; axioms 7/7; nothing announced per the
+protocol.  ⟦S13-FRAMES dispatched: the instantiation pages at the
+certified working point — the last distance to the unconditional
+capstone.⟧
