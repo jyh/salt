@@ -250,6 +250,7 @@ import Salt.MR.MobiusChiRateClose
 import Salt.MR.ZetaInvShallow
 import Salt.MR.PortAssembly
 import Salt.MR.PortClose
+import Salt.MR.PortNonVacuous
 import Salt.Tactic.AuditAxioms
 
 /-!

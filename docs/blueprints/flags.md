@@ -15458,3 +15458,8 @@ TAIL (D1/D4) UNTOUCHED BY EVERY FINDING — remains CLEAR and in flight.
 log₂M+1 → ~2484); (2) the partition fork; (3) the Rbd design; (4) the
 corrected six-debit page (the 7000λ+1.25e5 arm + the M₀ window); (5)
 D3's four owed pages + the ball-sup leg; (6) the θ₂₉₃ lever (recorded).**
+
+**⟦2026-07-30 01:15 PDT — PORT-NONVAC LANDED⟧**  `Salt/MR/PortNonVacuous.lean` (194 ln, 4 decls
+verbatim from the audit scratch, axioms 4/4 clean, build 9565 jobs green first
+attempt).  The scratch-only `vkStripConst_linear` probe dropped; its content
+rides the docstring.  The ledger closes on the dispatch above.
