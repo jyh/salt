@@ -240,6 +240,7 @@ import Salt.MR.HybridLargeValues
 import Salt.MR.HybridMoments
 import Salt.MR.USetChi
 import Salt.MR.USetChiTS
+import Salt.MR.HalaszPrimesChi
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -4686,3 +4687,15 @@ open Salt.Tactic in
   Salt.MR.sum_fibrePack
   Salt.MR.fibreWellSpaced_fibrePack
   Salt.MR.usetChi_integral_to_branches
+
+open Salt.Tactic in
+#audit_axioms Salt.MR.norm_chi_vonMangoldt_twist_le
+  Salt.MR.lambda_window_rep_chi
+  Salt.MR.halasz_primes_chi
+  Salt.MR.halasz_primes_chi_principal
+  Salt.MR.halasz_primes_chi_hybridHeight
+  Salt.MR.halasz_primes_chi_fibres
+  Salt.MR.loglog_ge_hundred
+  Salt.MR.logDn_mono
+  Salt.MR.twisted_rect_zero_free_split
+  Salt.MR.TwistedWindowPrice
