@@ -15949,3 +15949,40 @@ R1-R6, the weighting frame — all enumerated in-file.  THE SECOND BANK
 IS 5/5: the fibrewise graded A3, the T₀-band discharge, the ball leg,
 the row family, the λ-mask twin — A4 now stands at ONE wave: THE
 ASSEMBLY.
+
+## (2026-07-30 07:42 PDT) ASSEMBLY-WIRE lands — ITEM 11 CONDITIONAL IN KERNEL (M4Assembly.lean 542 ln, 16/16 clean); THE D5 CONTINGENCY FIRES AS PREDICTED
+
+**⟦THE WIRE⟧**  §1 the ball at the door discharged BY VACUITY (t₁ ≡ 0,
+S ≡ 0 — the frozen a2Mrow has NO ball summand; BallSupChi's sup wired
+at the free-centre shape for future consumers).  §2 the door datum
+bridge (chiBarCoeff ∘ winCutH = the door row datum).  §3 the grade
+NAMED (`a2DoorGrade`, T-free χ-free) + THE SLOT FUSE
+`m4_chiFreeRowSq_sum_at_door`: ∑_χ chiFreeRowSq ≤ φ(q)·a2DoorGrade —
+the crossing conclusion closed onto the socket datum by defeq, no
+unfold of the frozen def.  §4 **`m4_chiSummedFreeRow_of_doorGrade` /
+`_of_doorAssembly` — ITEM 11 INHABITED at the named gates** (SocketBase
+12 antecedents + DoorFuseFrame 11 fields + the per-χ hrows/hband slots
++ `henv : arcDen 12 H · a2DoorGrade ≤ RSbig` — the φ(q) ledger VISIBLE,
+nothing absorbed).  §6 the wall banked AS A KERNEL THEOREM
+(`doorRows_global_hcoef_kills_block`).  Build 9580 green; axioms 16/16.
+
+**⟦THE WALL = D5, FIRING AS THE DOSSIER PRICED⟧**  `m4_hrowsSum_chi_door`
+cannot fill the hrows slot: its hcoef is the GLOBAL Lemma-12
+factorization + the [Xd,2Xd] support pin — the pair
+`seam_coef_contract_forces_vanishing` kills at the door's wide blocks
+(ratio > 2).  The landed q=1 supplier carries the STRICT RELATIVIZED
+pair law (SeamCoefWS, the E-WAVE's stone) — the χ-side D2 page is ONE
+ENDPOINT-WALL REPAIR behind the q=1 side, exactly the D5 contingency
+(BRIDGE-SCOPE table: "NOT a wrapper — global hcoef vs SeamCoefW",
+500-900 B/C).  THE REPAIR RULING (maestro): re-cut the M4RowsChi chain
+at SeamCoefWS following the q=1 `_end` forms — NOT the per-χ
+capFree-row read (that re-imports the F5 route the second road exists
+to avoid; its second-road legality is an open question nobody needs
+answered).  ⟦D5-WS dispatched on this entry.⟧
+
+**⟦DEVIATION 3, structural⟧**  RSbig cannot be a bare (j,H)-def (the
+exit reads the base X = A+s) — the envelope-hypothesis idiom used
+(`henv`, M4DoorClose's own pattern); C₁ M₀ indexed by base (the
+discharger chooses per instance).  ⟦ASSEMBLY-ARITH dispatched in
+parallel: the C4-ratified page — a2DoorGrade at the granted g-arm /
+M₀ window / C1 anchor vs the ceiling.⟧

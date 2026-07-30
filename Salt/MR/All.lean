@@ -265,6 +265,7 @@ import Salt.MR.M4T0DatumDischarge
 import Salt.MR.USetGChiTS
 import Salt.MR.BallSupChi
 import Salt.MR.M4RowsChi
+import Salt.MR.M4Assembly
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -5738,3 +5739,41 @@ open Salt.Tactic in
   Salt.MR.m4_a2_spine_of_rowsChi
   Salt.MR.m4MrowChi_le_a2Mrow
   Salt.MR.m4_hrowsSum_chi_door
+
+-- ⟦A4 — THE ASSEMBLY, THE WIRING HALF (2026-07-30, the 0730 council's C5 closing wave)⟧
+-- `M4Assembly` composes the morning's two banks into `m4_second_road`'s ⟦item 11⟧:
+-- `m4_chiFreeRowSq_sum_at_door` fuses `ThmA2ChiSummed.thm_a2'_of_rows_chiSummed` at the door
+-- datum (`N := 2X_d`, `X := X_d`, `h := 2^j`, `a χ := winCutH X_d (doorChiCoeff χ M)`), whose
+-- LHS is `∑_χ chiFreeRowSq χ M j X_d` by `M4DoorRow.shortSum_winCutH_seamS0` and whose RHS
+-- collapses to `φ(q)·a2DoorGrade`; `m4_chiSummedFreeRowBig_of_doorGrade` meets
+-- `M4ChiSocketWire`'s FROZEN large-`j` socket at an abstract `RSbig` under the single
+-- arithmetic gate `henv` (the `φ(q) ≤ arcDen 12 H` ledger IN THE OPEN), and
+-- `m4_chiSummedFreeRow_of_doorAssembly` states the whole thing from the named gates
+-- (`SocketBase` + `DoorFuseFrame` + the two per-`χ` slots + `henv`).
+-- ⟦THE BALL WIRE⟧ `m4_hSup_door_at_zero` is the door pin (vacuity at `t₁ ≡ 0`, `S ≡ 0` — the
+-- only shape `a2Mrow` admits, since it has NO `8S²` summand); `m4_hSup_pieceDatum_perChi`
+-- wires `BallSupChi.ball_sup_pieceDatum` at FREE per-`χ` centres, for the `S`-parametric road.
+-- ⟦THE WALL, BANKED⟧ `doorRows_global_hcoef_kills_block` — the D2 door page's GLOBAL `hcoef`
+-- plus its own `hasupp` kills the block at any live window-cut datum
+-- (`ThmA2Spine.seam_coef_contract_forces_vanishing` at the door ladder).  So `hrowsSum` is
+-- CARRIED here, not filled from `M4RowsChi.m4_hrowsSum_chi_door`; the landed `q = 1` supplier
+-- `ThmA2Rows.a2Rows_of_capfree3_end` states the STRICT `SeamCoefWS` pair law instead.
+-- ⟦THE ARITHMETIC IS NOT HERE⟧ whether the grade meets `m4_second_road_rs_ceiling` at the
+-- ratified g-arm/anchor numbers is `henv`, and `henv` is the next executor's page.
+open Salt.Tactic in
+#audit_axioms Salt.MR.m4_hSup_door_at_zero
+  Salt.MR.m4_hSup_pieceDatum_perChi
+  Salt.MR.doorCoeffU
+  Salt.MR.chiBarCoeff_doorCoeffU
+  Salt.MR.chiBarCoeff_winCutH
+  Salt.MR.chiBarCoeff_doorRowDatum
+  Salt.MR.a2DoorGrade
+  Salt.MR.log_natCast_nonneg'
+  Salt.MR.a2DoorGrade_nonneg
+  Salt.MR.m4_chiFreeRowSq_sum_at_door
+  Salt.MR.m4_chiSummedFreeRowBig_of_doorGrade
+  Salt.MR.m4_chiSummedFreeRow_of_doorGrade
+  Salt.MR.SocketBase
+  Salt.MR.DoorFuseFrame
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly
+  Salt.MR.doorRows_global_hcoef_kills_block
