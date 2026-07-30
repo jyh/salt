@@ -16811,3 +16811,42 @@ K·δ — the safety-net implication; Tao-faithfulness preserved.
 **WAVE: FIRE** — bank A (stones 1+2 / 3+5 / 6) dispatched on this
 entry; bank B (the head 4; the exit re-plumb 7) on their landing;
 REF-L2-ARITH's table folds at the compose.
+
+## (2026-07-30 13:04 PDT) REF-L2-ARITH returns — CLEAR: b = 65 certified vs m ≤ 86, 20 bits margin; A1 THE BINDER SPLIT mandatory; the weighted-L¹ simplification proposed
+
+**⟦THE TABLE, CERTIFIED⟧**  δ₀' = c₀ε/4 = 1.1927e-6 (shares 1/2+1/8+
+1/8); b = 65.125 certified (m = 66) vs the ceiling m ≤ 86 (⟦NEW ARM⟧:
+the SOCKET M-CAP is uniformly 0.368 stricter than drift — it, not
+drift, binds above); K*(66) = 4.6255 vs the landed 4.5 (3.3% tower
+slack); the joint window λ₋ ∈ [74.198, 83.667] NONEMPTY by 9.47;
+binding pair {socket M-cap, p2∘tower}; the freeze's 23 → **20 bits
+certified** (A2).  THE IDENTITY WORTH NAMING: the new Braw ceiling
+c₀ε/(4K) = δ₀_old/2 — "the socket's ceiling stops being squared."
+K IS ABSENT FROM δ₀' — N0's 316.6 bits buy ZERO on the b-floor, 317
+on the Braw side only (A5 — no double-count).  The ρ-page MANDATORY
+(the fixed 2^-341 inadmissible at δ_sock; L GROWS at landed K —
+the mandate's premise inverted, honest catch — effect 1.7e-6 bits).
+g2 PRICED AND RETIRED (m ≥ 1 vs m = 66; slack ≈ 3.8e11 bits).
+Model validated six-for-six against every banked datum.
+
+**⟦A1 — THE MANDATORY BINDER SPLIT (stone 7's load-bearing byte)⟧**
+The socket's ceiling conjunct instantiates at δ_sock = √(c₀ε/4K) =
+9.97e-85; the spine's hMδ reads the glue δ₀' = 1.19e-6 — 79 ORDERS
+apart, both free (δ₀ ∀-bound at all three landed sites).  UNIFIED:
+b = 324.18 and the compose FAILS — the freeze's own fallback number
+arriving as a plumbing bug.  The seven 2/10⁴⁹ statements stay vacuous
+on the socket side (the vacuity law stands).
+
+**⟦R4 + A4 — THE DOCTRINE, SHARPENED⟧**  The implication holds IFF
+the door's per-ξ conjunct stays BYTE-IDENTICAL L¹ (CS runs L²→L¹
+never L¹→L²; an L²-integrand door erases the shed AND downgrades the
+theorem-door to the OPEN Tao 4.1 genre).  A4: mint NO new door
+predicate — alias or reuse MRTUniformityXi; the "L²" is the FOURIER
+WEIGHTS on the spine side, discharged by CS+Parseval BEFORE the door
+fires; the re-worded seam warning banked in the dossier for the twin.
+⟦THE (B) SIMPLIFICATION, noted for freeze v2⟧: the weighted-L¹
+architecture may let the LANDED door + LANDED road supply stand
+verbatim, shrinking the wave to the spine-side stones + one weighted-
+seam collision — to be adjudicated when bank A lands (the in-flight
+stones serve both architectures; nothing wasted).  **ARITH: CLEAR,
+conditional on A1.**
