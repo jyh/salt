@@ -16013,3 +16013,37 @@ instantiation discharges it, as designed), hcap (supplier LANDED at
 the door pin S ≡ 0), hband (supplier LANDED), henv (ASSEMBLY-ARITH,
 aloft).  Build 9581 green; axioms 13/13.  The D5 contingency: fired,
 priced, repaired, fused — in one wave.
+
+## (2026-07-30 08:13 PDT) ASSEMBLY-ARITH lands — THE CEILING MET IN KERNEL, 47/47 clean (M4ArithPage.lean 971 ln); the ratified arm clears by 399 in 1.25e5
+
+**⟦THE NUMBERS HOLD⟧**  `doorRho := 1/2^341` (a power of TWO — its log
+exact from mathlib's log 2; ten-powers would spend 0.17% where the arm
+has 0.07%); `RSanDoor H := doorRho/strataResidual H²`; the budget
+split 2⁻³⁴² + 4·2⁻³⁴⁴ = 2⁻³⁴¹ exact.  THE ARM'S ANATOMY:
+`arcDen·strataResidual² ≤ exp(14·loglog H)` — 7000 = 500·14.  The five
+summands each priced (§3): s1 the M₀ window, s2 the C1 anchor (the
+calP/calQK door values proved at [propext] alone), s3 the arm — EXACT
+DEMAND 7000λ + 124,601 vs the ratified 125,000: **clears by 399 (0.8
+log-units)** — s4 its own decay, s5 the j-floor.
+**`m4_arith_rs_ceiling_met`** — byte-exact to
+`m4_second_road_rs_ceiling`'s conclusion at 2/10⁴⁹ ≤ δ₀, 50 ≤ loglog H.
+§8 the field suppliers (`gArmDoor` at the granted form; the anchor as
+HYPOTHESIS `log₂M+1 ≥ 2484` per the brief — no Mdoor fixed; the M₀
+window non-empty with room; K SYMBOLIC throughout, never identified
+with cffKVt).  Build 9582 green; axioms 45 at [3] + 2 at [propext].
+
+**⟦THE STRUCTURAL CATCH, REPAIRED ADDITIVELY⟧**  `henv` as stated in
+BOTH assembly forms quantified ∀ H j A s with no regime bound — at
+A+s = 2 summand 3 alone exceeds 10⁵·(log H)^12 (not dischargeable as
+stated; the executor checked the `_end` form too).  Repair:
+`m4_chiSummedFreeRowBig_of_doorGradeGated` — hgrade/henv gated by
+SocketBase VERBATIM.  The `_end` composition is ~10 ln, deliberately
+left (the sibling was aloft — dependency hygiene).  ⟦THE FUSE
+dispatched on this entry: compose the gated arith exit with the D5
+`_end` assembly + instantiate the landed hcap/hband suppliers →
+**m4_socket_discharged in its honest conditional form** — the thing
+the CLOSE-WAVE refused to ship because no honest form existed.  Now
+one exists: gates named, ceiling met, nothing vacuous.⟧  Deviations:
+the M₀ λ-coefficient conservative at 38.06 (the 14λ packaging); the
+refuter's absorbed terms carried explicitly; the anchor's (1/3)log
+term spelled (dominated 0.564m vs 3.97e9·m).

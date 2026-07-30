@@ -267,6 +267,7 @@ import Salt.MR.BallSupChi
 import Salt.MR.M4RowsChi
 import Salt.MR.M4Assembly
 import Salt.MR.M4RowsChiEnd
+import Salt.MR.M4ArithPage
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -5818,3 +5819,75 @@ open Salt.Tactic in
   Salt.MR.DoorRowEndBase
   Salt.MR.m4_hrowsSlot_at_door_end
   Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_end
+
+-- ⟦A4 — THE ASSEMBLY'S ARITHMETIC PAGE (2026-07-30, the 0730 council's C4 + C1, RATIFIED)⟧
+-- `M4ArithPage` closes the one thing `M4Assembly` left open: whether the door grade, debited by
+-- the ⟦φ(q) LEDGER⟧'s `arcDen 12 H`, meets `M4SecondRoad.m4_second_road_rs_ceiling`.  It does,
+-- at `RSanDoor H := doorRho / strataResidual H ^ 2` with `doorRho := 2⁻³⁴¹`.
+-- ⟦THE `H`-SIDE PRICE⟧ `arcDen_mul_strataResidual_sq_le`: the ledger factor times the ceiling's
+-- `(1 + 12·loglog H)²` denominator is `≤ (log H)¹⁴` — which is exactly why the ratified arm reads
+-- `7000·loglog H` (`= 500·14λ`) and not `6000λ`.
+-- ⟦THE FIVE SUMMANDS, ONE FIELD EACH⟧ summand 1 via the `M₀` window's lower endpoint
+-- (`e·(loglog X/45 + 14·loglog H + 2·log(C₁+1) + 248) ≤ M₀`); summand 2 via ⟦C1⟧'s 12× anchor in
+-- its derived form `14·loglog H + 269 ≤ 3.9·10⁹·(log₂M+1)` (discharged by `log₂M+1 ≥ 2484`,
+-- `m4_arith_anchor_of_C1`); summand 3 — the arm-FIXING one — via `loglog X ≥ 7000·loglog H +
+-- 1.25·10⁵ + 36K` (needs `124601`; the ratified numeral clears with 399 to spare); summand 4 by
+-- its own `(log X)^{−43/45}`; summand 5 via `j ≥ 21·loglog H + 368` (`m4_arith_jfloor_of_anchor`).
+-- ⟦C3'S `K` IS SYMBOLIC⟧ carried as a parameter of `DoorArithFrame` and of `gArmDoor`, never
+-- evaluated and never identified with `cffKVt` (RBD-WIRE-2's fence).
+-- ⟦THE STRUCTURAL FINDING — `henv` NEEDS A GATE⟧ `M4Assembly.m4_chiSummedFreeRow_of_doorAssembly`
+-- (and `M4RowsChiEnd.m4_chiSummedFreeRow_of_doorAssembly_end`) quantify `henv` over ALL `H, A, s`
+-- with no regime bound and no base floor; at `A + s = 2` the third summand alone is `> 188132`, so
+-- NO analytic `RSbig` can meet it.  The repair is additive and here:
+-- `m4_chiSummedFreeRowBig_of_doorGradeGated` re-proves the socket wire with both hypotheses gated
+-- by `M4Assembly.SocketBase` — the socket's own antecedent bundle, verbatim, never weakened.
+-- ⟦THE EXIT⟧ `m4_arith_door_exit` — ⟦item 11⟧ + ⟦gate 4⟧ + the ceiling, at one hypothesis set
+-- (`hM`, `δ₀ ≥ 2·10⁻⁴⁹`, the register's `H`-floor, `M4Assembly`'s three slots, and the frame).
+open Salt.Tactic in
+#audit_axioms Salt.MR.le_of_log_le'
+  Salt.MR.exp_one_gt_27
+  Salt.MR.pow_27_le_exp
+  Salt.MR.log_le_of_le_pow27
+  Salt.MR.log_le_div_exp_one
+  Salt.MR.log_188133_le
+  Salt.MR.log_8448_le
+  Salt.MR.log_1787702400_le
+  Salt.MR.log_304128_le
+  Salt.MR.log_6315000_le
+  Salt.MR.renormaliseConst_le_exp17
+  Salt.MR.renormaliseConst_pos
+  Salt.MR.log_ballSupC_le
+  Salt.MR.one_lt_log_of_loglog_ge
+  Salt.MR.strataResidual_eq_of_pos
+  Salt.MR.one_add_twelve_le_exp
+  Salt.MR.arcDen_mul_strataResidual_sq_le
+  Salt.MR.DoorArithFrame
+  Salt.MR.DoorArithFrame.one_lt_logH
+  Salt.MR.DoorArithFrame.armWeak
+  Salt.MR.DoorArithFrame.loglogX_ge
+  Salt.MR.DoorArithFrame.one_lt_logX
+  Salt.MR.doorGrade_summand1_priced
+  Salt.MR.doorGrade_summand2_priced
+  Salt.MR.doorGrade_summand3_priced
+  Salt.MR.doorGrade_summand4_priced
+  Salt.MR.doorGrade_summand5_priced
+  Salt.MR.calP_door_one
+  Salt.MR.calQK_door_one
+  Salt.MR.doorRho
+  Salt.MR.doorRho_pos
+  Salt.MR.RSanDoor
+  Salt.MR.RSanDoor_nonneg
+  Salt.MR.a2DoorGrade_priced
+  Salt.MR.m4_chiSummedFreeRowBig_of_doorGradeGated
+  Salt.MR.m4_arith_henv
+  Salt.MR.m4_arith_gate4
+  Salt.MR.m4_arith_rs_ceiling_met
+  Salt.MR.m4_chiSummedFreeRow_of_doorArith
+  Salt.MR.gArmDoor
+  Salt.MR.m4_arith_arm_of_gArm
+  Salt.MR.m4_arith_arm_of_shift
+  Salt.MR.m4_arith_anchor_of_C1
+  Salt.MR.m4_arith_jfloor_of_anchor
+  Salt.MR.m4_arith_M0_window_lower
+  Salt.MR.m4_arith_M0_window_nonempty
+  Salt.MR.m4_arith_door_exit
