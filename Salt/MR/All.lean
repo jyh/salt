@@ -241,6 +241,9 @@ import Salt.MR.HybridMoments
 import Salt.MR.USetChi
 import Salt.MR.USetChiTS
 import Salt.MR.HalaszPrimesChi
+import Salt.MR.MobiusChiRate
+import Salt.MR.HalaszIntegersChiClose
+import Salt.MR.MobiusChiRamare
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -4699,3 +4702,226 @@ open Salt.Tactic in
   Salt.MR.logDn_mono
   Salt.MR.twisted_rect_zero_free_split
   Salt.MR.TwistedWindowPrice
+
+-- ⟦O4 + O5 — THE χ-TWISTED MÖBIUS RATE: the spine, the region discharge, the residue⟧
+-- (2026-07-29, KMT port wave P-5; `MobiusChiRate`).
+--
+-- The port's centerpiece, taken as far as the analytic boundary and STOPPED there on purpose.
+--
+-- ⟦D1 — THE SLOT AUDIT⟧ Wave P-1's `MmuChiRate` quantified `∀ t : ℝ` UNBOUNDED, and that is
+-- FALSE, not merely undischargeable: by Kronecker density on `{log p}` one can choose `t`
+-- (depending on `y`, which the quantifier order permits) with `p^{it} ≈ −1` for every `p ≤ y`,
+-- making every squarefree term `≈ +1` and the sum `≍ (6/π²)y`.  The RULED in-place amendment
+-- re-gates the slot at `|t| ≤ y`, and the fold's λ-side deliverable at `|t| ≤ ⌊√y⌋` (the
+-- transfer `|t| ≤ ⌊√y⌋ ≤ ⌊y/d²⌋` is exactly `Nat.sqrt_le`, already proved inside
+-- `MlambdaChi_rate` as `hts`).  So the fold now spends ONE of the twelve conductor exponents
+-- AND HALF THE HEIGHT RANGE — both prices stated in `LambdaRateTwisted`'s header.
+--
+-- ⟦WHY `|t| ≤ y` IS THE HONEST CEILING⟧ The twist is a PURE SHIFT:
+-- `∑ μ(n)χ̄(n)n^{it}n^{-s} = 1/L(s−it, χ⁻¹)` (`LSeries_muChiTw_eq_LFunction_inv`).  So the
+-- truncated Perron contour reads the L-function at heights up to `|t| + T`, and the saving is
+-- `exp(−(log y)·w(|t|+T))` for the zero-free WIDTH `w`.  At the CLASSICAL width `c₀/log(qH)`
+-- that buys only `|t| ≤ exp((log y)^{1−δ})`; at the landed χ-VK width it buys any fixed power
+-- of `y`.  This is the precise sense in which stone B was the campaign's isolated risk.
+--
+-- ⟦THE SPINE, LANDED⟧ `exp_phase_eq_cpow` + `chiBarTwist_eq_inv_mul_cpow` (the corpus's
+-- barred exp-form twist IS `χ⁻¹(n)·n^{it}`; `MulChar.star_apply'`), the Dirichlet-series
+-- identity above, the smoothed twisted Riesz mean `Mmu1Chi` with its Perron representation in
+-- both `LSeries` and `1/L` form (`mmu1Chi_eq_integral_LSeries`, `mmu1Chi_eq_integral` — the
+-- kernel machinery `kernel_sum_swap`/`riesz_tsum_eq`/`kernel_identity`/`integral_term_eq` is
+-- COEFFICIENT-AGNOSTIC and is cited, not re-proved), and the `c`-line inverse bound at the
+-- shifted height (`norm_muChiTw_LSeries_cline_le` — the B-probe's
+-- `norm_LFunction_inv_cline_le` is uniform in the height, so the shift is free, and the tail
+-- constant is `1 + log x` exactly as in the `q = 1` route: no `log⁷` tail friction).
+--
+-- ⟦THE REGION DISCHARGE, LANDED — the STONE-C RULING (i) pattern at both VK arms⟧
+-- `LFunction_no_zero_in_box` / `LFunction_no_zero_in_shifted_box`: no zero of `L(·,χ)` in the
+-- shallow box `Re ≥ 1 − boxWidth/2`, `|Im| ≤ H`.  Three-way height split: above the landed
+-- floor the χ-VK region at BOTH arms (`LFunction_zero_free_region_vk` for `χ² ≠ 1`,
+-- `LFunction_real_zero_free_region_vk` for `χ² = 1`), width transported DOWN to the box's top
+-- height by `vkBoxWidth_le_of_le`; below the floor the classical explicit
+-- `Salt.SW.zero_free_region_all'`, whose denominator is `≤ log q + exp 100 + 1` there
+-- (`log_le_of_below_floor`); on the real axis the ξ₁ carve-out as a NAMED hypothesis (the
+-- Siegel `∃H₀` fold is wave P-7's and is deliberately not folded here).
+-- TWO findings worth banking: (a) the two VK arms' gates COLLAPSE to one `q`-only condition,
+-- `log(20000(vkStripConst q + 8104)) ≤ 100·A`, because `log log|γ| ≥ 100` everywhere above the
+-- floor; (b) the abscissa must sit at HALF the region width (`boxWidth_pos` is what makes the
+-- box a contradiction) — at the full width the region bound and the box hypothesis are
+-- consistent and nothing follows.
+--
+-- ⟦THE RESIDUE, STATED⟧ `LFunctionInvShallowVk` — the `L(·,χ)` analogue of the landed
+-- `Salt.SW.zeta_inv_shallow`, moved from the classical width to the VK width.  It is the ONLY
+-- open analytic input: `hzf` is landed above, `hbox` IS this Prop, and the contour shift +
+-- budget + de-smoothing are line-for-line mirrors of `MobiusRateClose` (`MmuChiRate_residue`
+-- records the exact remaining implication).  The file's §6 banks the route (the
+-- Borel–Carathéodory factorization of `Salt.Vk.entire_norm_logDeriv_sub_sum_scaled`, already
+-- called by the B-probe, plus a Jensen zero count on the ball — the one missing input), the
+-- DEAD END (anchor + Cauchy transport closes only for width `≲ 1/(q⁵(log γ)⁸)`, and the `q⁵`
+-- alone destroys the saving at `q ≤ (log y)^12`), and the o(1) BUDGET: the delivered form is
+-- `∀ A`, i.e. `c = ∞`-genre against the gate's `c ≥ 1.449`, so the budget clears with the
+-- whole 0.29 of `o(1)` unspent — and the edge losses may be any fixed polynomial in `log q`
+-- and `log H`, since the quasi-power saving `exp(−c(log x)^{1/4}/(log log x)⁴)` absorbs them.
+
+open Salt.Tactic in
+#audit_axioms Salt.MR.exp_phase_eq_cpow
+  Salt.MR.chiBarTwist_eq_inv_mul_cpow
+  Salt.MR.muChiTw
+  Salt.MR.norm_muChiTw_le_one
+  Salt.MR.MmuChi_eq_sum_muChiTw
+  Salt.MR.LSeries_muChiTw_eq_LFunction_inv
+  Salt.MR.Mmu1Chi
+  Salt.MR.muChiTw_summable_dom
+  Salt.MR.mmu1Chi_eq_integral_LSeries
+  Salt.MR.mmu1Chi_eq_integral
+  Salt.MR.norm_LFunction_inv_shifted_cline_le
+  Salt.MR.norm_muChiTw_LSeries_cline_le
+  Salt.MR.vkBoxWidth
+  Salt.MR.clBoxWidth
+  Salt.MR.boxWidth
+  Salt.MR.boxWidth_pos
+  Salt.MR.vkBoxWidth_le_of_le
+  Salt.MR.log_le_of_below_floor
+  Salt.MR.LFunction_no_zero_in_box
+  Salt.MR.LFunction_no_zero_in_shifted_box
+  Salt.MR.vkShallowWidth
+  Salt.MR.vkShallowWidth_pos
+  Salt.MR.LFunctionInvShallowVk
+  Salt.MR.MmuChiRate_residue
+
+-- ⟦THE HalaszIntegersChi DISCHARGE — ROUTE C, the φ-graded row⟧ (2026-07-29, KMT port wave
+-- P-5; `HalaszIntegersChiClose`).
+--
+-- Wave P-6-E left `HalaszIntegersChi` as an honest NEW gap (the 𝒯_S branch's per-χ Halász row
+-- for twisted integer sums).  The adjudication, first:
+--
+-- ⟦WHAT THE SLOT IS⟧ a DISCRETE MEAN-VALUE (Halász–Montgomery large-values) row over PAIRS,
+-- for an ARBITRARY `a : ℕ → ℂ` — no multiplicativity, no support, no bound.  That single fact
+-- kills both routes the freeze named:
+-- * ROUTE A (the all-χ pretentious floors → `halasz_ball_decay`) is a CATEGORY MISMATCH: the
+--   floors bound `pretDistSq (lamChi χ) (costwist v) X` from below and `halasz_ball_decay`
+--   turns that into a DECAY statement for the summatory function of ONE multiplicative datum;
+--   it cannot bound a mean square of an arbitrary Dirichlet polynomial over an ordinate set,
+--   and the slot's `a` is the non-multiplicative Ramaré mask `ramRcoeff/m`.  This independently
+--   re-derives REF-P-SHAPE's own R-P2 note ("the floor→Halász two-step is an INPUT to the
+--   (χ,t) decomposition, never the row bound").  The `ellLin` pairing was checked and is
+--   IRRELEVANT here — not a repairable type mismatch, the wrong genre of statement.
+-- * ROUTE B (the χ-twisted μ-rate through O3's bridge) is a NON-ROUTE: `MmuChiRate` /
+--   `LambdaChiSummatory` are rates for ONE datum at ONE height, and the slot quantifies over
+--   all `a`, so no fixed-datum rate can enter.  No fake conditional was shipped.
+--
+-- ⟦THE DEMANDED GRADE, ARITHMETIC⟧ the slot is consumed ONLY at `ramRChi_sq_sum_le` →
+-- `TSChi_branch_meansq` → `usetChi_TS_branch_meanvalue`, and only through `(M + |ℰ|√T) ≤ 2M`
+-- (the razor clears `|ℰ|√T ≤ M`).  The `q = 1` twin `uset_TS_branch_meanvalue` exits at
+-- `5128·ε²·M·(1+log 2T)·mass` with `ε = (log X)^{−100}`, so the demand is
+-- `5128·(log X)^{−200}·M·(1+log 2T)·mass`.  The landed mean-value row
+-- (`ramRChi_sq_sum_mvt`) carries `T` where the demand carries `M`, and at the §8.3 pins
+-- `T/M ≍ e^{j/H} ≍ p` — the P-6-E gap report is CONFIRMED as a power-genre loss.
+--
+-- ⟦ROUTE C, TAKEN — UNCONDITIONAL⟧ `dpolyChi q (Icc 1 M) a χ = dpoly M (a·χ)` (`rfl`) and
+-- `‖χ(n)‖ ≤ 1`, so the LANDED `q = 1` Lemma 9 (`halasz_integers_unconditional_const`,
+-- constant 2564) applies on EVERY character fibre (`FibreWellSpaced` IS fibrewise
+-- `WellSpaced`).  Summing over the `φ(q)` characters costs `φ(q)` on the LENGTH term and
+-- NOTHING on the count term (`∑_χ |𝒯_χ| = |ℰ|` is an identity).  Exit:
+-- `halaszIntegersChiPhi_holds : HalaszIntegersChiPhi 2564`.
+--
+-- ⟦THE DEBIT REPAID AT THE BRANCH⟧ `φ(q) ≤ q ≤ (log X)^12`, so re-pinning the branch level at
+-- `ε_Q := (log X)^{−106}` gives `φ(q)·ε_Q² ≤ (log X)^{12−212} = (log X)^{−200}` —
+-- `usetChi_TS_branch_exit_repinned` is then BYTE-FOR-BYTE the `q = 1` demand.  Price: `𝒯_L`
+-- sees `V = (log X)^{106}` instead of `(log X)^{100}`, and its kill is a quasi-power
+-- (`USetThinTL`, θ < 1/8) that beats any polylog.  Stated honestly: at MR's own level the
+-- φ-graded exit is `(log X)^{−188}`, TWELVE POWERS SHORT — the re-pinning closes exactly those
+-- twelve (`106·2 − 12 = 200`).
+--
+-- ⟦THE RESIDUE (STOP, reported)⟧ the LITERAL `φ(q)`-free `HalaszIntegersChi` is NOT proved and
+-- cannot be obtained fibrewise (`∑_χ M = φ(q)M` is an identity, not slack).  The `φ`-free row
+-- is the genuine HYBRID Halász–Montgomery estimate; its missing input is the off-diagonal Gram
+-- entries `∑_{n≤M} χ(n)χ̄′(n)n^{i(t−t′)}` at `χ ≠ χ′` (Polyá–Vinogradov / hybrid large sieve).
+-- TWO design notes: (a) that is a NEW stone, not a port composition; (b) the classical form of
+-- that estimate carries `√(qT)`, not `√T`, in the count term — **the slot's literal statement
+-- may itself need a `√q` amendment** (Fable/human tier; untouched here).  No consumer needs
+-- it: every consumption factors through `usetChi_TS_branch_meanvalue`, whose demand the
+-- re-pinned φ-graded exit meets exactly.
+
+open Salt.Tactic in
+#audit_axioms Salt.MR.card_chars_totient_real
+  Salt.MR.halaszIntegersChi_fibre
+  Salt.MR.halaszIntegersChi_phi
+  Salt.MR.HalaszIntegersChiPhi
+  Salt.MR.halaszIntegersChiPhi_holds
+  Salt.MR.ramRChi_sq_sum_phi
+  Salt.MR.TSChi_branch_meansq_phi
+  Salt.MR.usetChi_TS_branch_meanvalue_phi
+  Salt.MR.totient_le_logpow
+  Salt.MR.phi_debit_level_repin
+  Salt.MR.usetChi_TS_branch_exit_repinned
+  Salt.MR.mvt_row_carries_T
+  Salt.MR.phi_row_carries_M
+
+-- ⟦O6 — THE g_r PERTURBATION (the Ramaré-weighted twisted datum)⟧ (2026-07-29, KMT port wave
+-- P-5; `MobiusChiRamare`).
+--
+-- The freeze's O6: transfer the χ,t-twisted Möbius rate from the PLAIN datum to the
+-- Ramaré-DAMPED one `μ(m)·r^{ω(m;P,Q)}`, and then to the WEIGHTED one `μ(m)/(ω(m;P,Q)+1)`.
+--
+-- ⟦THE CARRIER, VERIFIED (not assumed)⟧ `μ·g_r = μ ∗ w_r` with `w_r` the EXPLICIT closed form
+-- `w_r n = (1−r)^{ω(n;P,Q)}` on window-smooth `n ≠ 0`, `0` otherwise (`ramTailWeight`; the
+-- `n ≠ 0` guard is real, `primeFactors 0 = ∅` makes `0` vacuously smooth).  The closed form is
+-- checked in TWO auditable halves, both proved: `ramTailWeight_prime_pow` (the coefficient is
+-- `(1−r)` for EVERY `k ≥ 1` at a window prime and `0` off the window — literally the
+-- coefficients of `(1 − r p^{−s})/(1 − p^{−s}) = 1 + (1−r)∑_{k≥1}p^{−ks}`) and
+-- `ramTailWeight_eq_zeta_mul_muGr` (both sides multiplicative, matched at prime powers).
+-- Free by-product: `ramTailWeight_eq_sum_divisors` (`w_r n = ∑_{d∣n} μ(d)r^{ω(d;P,Q)}`), the
+-- alternative Möbius-transform carrier.  KEY POSITIVITY `ramTailWeight_nonneg` needs only
+-- `r ≤ 1`, and `ramTailWeight_le_zero_param` makes `r = 0` the WORST CASE — which is what makes
+-- every mass/tail hypothesis `r`-free and the `∫₀¹ dr` composition free.
+--
+-- ⟦THE FOLD⟧ `MmuGrChi_eq_sum` (UNCONDITIONAL): `∑_{m≤y} μ(m)g_r(m)χ̄(m)m^{it} = ∑_{b≤y}
+-- w_r(b)χ̄(b)b^{it}·M_{μχ̄}(⌊y/b⌋)`, through the new `MmuChi_inner_dvd` (the general-divisor
+-- twin of the landed `MmuChi_inner`).
+--
+-- ⟦THE HONEST LOSS — where O6 can fail, and it is NOT hidden⟧ the small range `b ≤ √y` costs
+-- the ℓ¹(1/n) MASS, and at `r = 0` the mass is `∏_{P≤p≤Q}(1−1/p)^{−1}`, whose log is the
+-- LANDED `blockWindow_mertens_const` (`CofactorDist.lean:139`) — i.e. `≍ log Q/log P`, exactly
+-- the freeze's O6 shape.  The large range `b > √y` has only the crude `‖M_{μχ̄}(z)‖ ≤ z`, so it
+-- costs `y·∑_{b>√y} w_r(b)/b`, and THAT is carried as a NAMED in-statement hypothesis pinned at
+-- `(log y)^{−A}`.  Rankin gives it when `log Q ≪ (log y)^{1−δ}` and NOT when `log Q ≍ log y`;
+-- the consumer pays it where it knows `P,Q`.  The mass stays inside `log Q/log P`; the tail is
+-- the undischarged row, by design and stated as such.
+--
+-- ⟦PRICES⟧ conductor `(log y)^12 → (log y)^11` (the `MlambdaChi_rate` pattern, `log y ≥ 4^12`);
+-- height `|t| ≤ y → |t| ≤ ⌊√y⌋` sharply (`Nat.sqrt y ≤ y/b` for `b ≤ √y`); the log-scale factor
+-- `4^A` from the landed `Salt.TwinBar.log_natSqrt_ge`.  `C'` and `x₀` are INDEPENDENT of
+-- `r, P, Q, q, χ, t` — which is precisely why item 5 (`MmuRamChi_rate`, the `∫₀¹ dr`
+-- composition through the landed `integral_cpow_unit` + `ramR_norm_le_of_damp_le` pattern) is
+-- free.  DEVIATION: `mul_apply_mul_twist` is CITED, not instantiated — the carriers here are
+-- `ArithmeticFunction ℝ` (so `w_r ≥ 0` is first-class) while the twist is ℂ-valued, so
+-- `muGr_twist_eq_sum_divisorsAntidiagonal` calls `chiBarTwist_mul` directly (the same analytic
+-- content, ~15 lines of bookkeeping, documented in place).
+
+open Salt.Tactic in
+#audit_axioms Salt.MR.muGr
+  Salt.MR.muGr_isMultiplicative
+  Salt.MR.WindowSmooth
+  Salt.MR.ramTailWeight
+  Salt.MR.ramTailWeight_apply_of
+  Salt.MR.ramTailWeight_eq_zero_of_not_smooth
+  Salt.MR.ramTailWeight_nonneg
+  Salt.MR.ramTailWeight_support
+  Salt.MR.ramTailWeight_zero_param
+  Salt.MR.ramTailWeight_le_zero_param
+  Salt.MR.ramTailWeight_isMultiplicative
+  Salt.MR.ramTailWeight_prime_pow
+  Salt.MR.ramTailWeight_eq_zeta_mul_muGr
+  Salt.MR.ramTailWeight_eq_sum_divisors
+  Salt.MR.mu_mul_ramTailWeight
+  Salt.MR.muGr_eq_sum_divisorsAntidiagonal
+  Salt.MR.MmuGrChi
+  Salt.MR.muGr_twist_eq_sum_divisorsAntidiagonal
+  Salt.MR.MmuChi_inner_dvd
+  Salt.MR.MmuGrChi_eq_sum
+  Salt.MR.norm_MmuGrChi_le_split
+  Salt.MR.MmuGrChi_rate
+  Salt.MR.MmuRamChi
+  Salt.MR.MmuRamChi_eq_integral
+  Salt.MR.norm_MmuRamChi_le_of_uniform
+  Salt.MR.MmuRamChi_rate

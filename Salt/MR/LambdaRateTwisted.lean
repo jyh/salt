@@ -76,6 +76,56 @@ is written out here instead; `chiBarTwist χ t n = liouChi-style χ̄(n) · cost
 CHARACTER-BLIND and are **cited, not re-proved**: `Salt.TwinBar.sum_inv_sq_Icc_le`,
 `sum_inv_sq_Ioc_le`, `log_natSqrt_ge`, `le_sqrt_sqrt_of_pow4_le`, `eventually_pow4_le`.
 
+## ⟦D1 — THE SLOT AUDIT AND THE HEIGHT-GATE AMENDMENT⟧ (wave P-5, 2026-07-29)
+
+**FINDING: the wave-P-1 slot's `∀ t : ℝ` (UNBOUNDED height) is not merely undischargeable
+— it is FALSE.**  Fix `q = 1`, `χ = 1`, `A = 1`, and let `C, x₀` be any candidates.  The
+logarithms `{log p : p prime}` are ℚ-linearly independent, so by Kronecker's theorem the
+one-parameter subgroup `t ↦ (p^{it})_{p ≤ y}` is dense in the torus `(S¹)^{π(y)}`; pick `t`
+(depending on `y`, which the quantifier order `∀ y, … ∀ t` permits) with `p^{it} ≈ −1` for
+every `p ≤ y`.  Then for squarefree `n = p₁⋯p_k`, `μ(n)·n^{it} ≈ (−1)^k(−1)^k = +1`, so
+`‖M_{μ}(y, t)‖ ⪆ #{n ≤ y squarefree} ∼ (6/π²)y`, which exceeds `C·y/log y` for all large
+`y`.  (Not formalized — a design finding.  The witness `t` is astronomically large in `y`:
+simultaneous approximation to accuracy `ε` at `π(y)` frequencies needs
+`|t| ⪆ ε^{-π(y)}`, which is why the amended gate below is not threatened by it.)
+
+**THE RULED AMENDMENT (in-place, this-session artifact).**  The slot is re-gated at the
+honest height range the Perron/region route delivers and the consumers need:
+
+* `MmuChiRate`  … `∀ t : ℝ, |t| ≤ y → …`
+* `LambdaChiSummatory A` … `∀ t : ℝ, |t| ≤ ⌊√y⌋ → …`
+
+**Why `|t| ≤ y` is the honest ceiling of the route.**  The twisted Dirichlet series is a
+PURE SHIFT of an untwisted one: `∑ μ(n)χ̄(n)n^{it}n^{-s} = 1/L(s − it, χ⁻¹)`.  So the
+smoothed-Perron contour at `Re s = c = 1 + 1/log y`, truncated at height `T`, reads the
+`L`-function on the box `[σ₀, c] × [t − T, t + T]`, i.e. **at heights up to `|t| + T`**.
+The shift `x^{σ₀−1}` therefore saves `exp(−(log y)·w(|t| + T))` where `w(H)` is the
+zero-free WIDTH at height `H`, and the rate `y/(log y)^A` for every `A` needs
+`(log y)·w(|t|+T) ≫ A·log log y`:
+
+* at the CLASSICAL width `w(H) = c₀/log(qH)` (`Salt.SW.zero_free_region_all'`, landed) this
+  forces `log(q(|t|+T)) ≪ (log y)^{1−δ}`, i.e. the gate `|t| ≤ exp((log y)^{1−δ})` — the
+  sub-route that needs no new region;
+* at the χ-VK width `w(H) = c/((log H)^{3/4}(log log H)³)`
+  (`Salt.MR.LFunction_zero_free_region_vk` / `_real_…`, LANDED at wave P-6-CORE) heights
+  `|t| + T ≤ y^{O(1)}` give `log H ≍ log y` and the saving
+  `exp(−c(log y)^{1/4}/(log log y)³)`, which beats every fixed power of `log y`.  **`|t| ≤ y`
+  (indeed any fixed power of `y`) is exactly what the landed χ-VK region buys**, and it is
+  why stone B was the port's isolated risk: the classical width is worth
+  `exp((log y)^{1−δ})` of height and no more.
+
+**Why `|t| ≤ y` suffices downstream.**  The KMT/MR cascade reads the twisted datum at
+heights `|t| ≲ (X/h)·ε^{-1}`, and the port's own cascade caps `ε^{-1}` at a fixed power of
+`log X`; every such height is `≪ y^{o(1)}` at the co-factor lengths `y ≍ X e^{−j/H}` the
+`𝒯`-branches pin.  The gate is therefore slack by a full power of `y` at the point of use.
+
+**The `√y` in the λ-gate is forced by the fold, not chosen.**  `MlambdaChi_rate` invokes
+the μ-rate at `⌊y/d²⌋` for `d ≤ ⌊⌊√y⌋^{1/2}⌋`, where `⌊√y⌋ ≤ ⌊y/d²⌋` holds exactly (the
+landed `Nat.sqrt_le`), so a height admissible for `M_{λχ̄}(y)` must be admissible for
+`M_{μχ̄}(⌊y/d²⌋)`; `|t| ≤ ⌊√y⌋` is the sharp transfer of `|t| ≤ y`.  This is the SECOND
+price of the fold, alongside the one exponent of conductor range (below): the fold spends
+half of the height range and one twelfth of the conductor range.
+
 ## THE HONEST SLOT (`MmuChiRate` is NOT landed)
 
 `MmuChiRate` is a hypothesis `Prop`, the twisted twin of `Salt.TwinBar.MmuRate`
@@ -437,8 +487,14 @@ theorem norm_MmuChi_le {q : ℕ} (χ : DirichletCharacter ℂ q) (t : ℝ) (y : 
 /-- **THE HONEST SLOT — the `χ,t`-twisted effective Möbius summatory rate.  NOT LANDED.**
 
 `‖∑_{n ≤ y} μ(n)χ̄(n)n^{it}‖ ≤ C·y/(log y)^A` for every saving `A > 0`, **uniformly over
-the height `t ∈ ℝ` and over the modulus range `q ≤ (log y)^12`** (the freeze's conductor
-range; the gate is on the modulus, which is the weaker demand since `conductor χ ≤ q`).
+the height range `|t| ≤ y` and over the modulus range `q ≤ (log y)^12`** (the freeze's
+conductor range; the gate is on the modulus, which is the weaker demand since
+`conductor χ ≤ q`).
+
+⟦D1 AMENDMENT, wave P-5⟧ The height gate `|t| ≤ y` is NEW.  Wave P-1 stated this slot at
+`∀ t : ℝ`, which is FALSE (the Kronecker witness — see the file header's slot audit), and
+`|t| ≤ y` is what the smoothed-Perron contour at the landed χ-VK zero-free region delivers.
+The header records the derivation of the ceiling and the consumers' slack.
 
 This is the twisted twin of `Salt.TwinBar.MmuRate` (`LambdaRate.lean:58`).  The untwisted
 `MmuRate` IS landed (`Salt.SW.mmuRate_holds`); **this `Prop` is not**, and is the port's
@@ -450,17 +506,18 @@ is discharged in this file. -/
 def MmuChiRate : Prop :=
   ∀ A : ℝ, 0 < A → ∃ (C : ℝ) (x₀ : ℕ), 0 < C ∧ ∀ y : ℕ, x₀ ≤ y →
     ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
-      (q : ℝ) ≤ (Real.log y) ^ (12 : ℕ) → ∀ t : ℝ,
+      (q : ℝ) ≤ (Real.log y) ^ (12 : ℕ) → ∀ t : ℝ, |t| ≤ (y : ℝ) →
         ‖MmuChi χ t y‖ ≤ C * y / (Real.log y) ^ A
 
 /-- **The twisted Liouville summatory rate at a fixed saving `A`** — the twisted twin of
 `Salt.TwinBar.LambdaSummatory` (`LambdaRate.lean:64`), at the conductor range
-`q ≤ (log y)^11`: the fold spends one of `MmuChiRate`'s twelve exponents (see the file
-header). -/
+`q ≤ (log y)^11` and the height range `|t| ≤ ⌊√y⌋`: the fold spends one of `MmuChiRate`'s
+twelve exponents of conductor AND half of its height range (see the file header's D1
+audit). -/
 def LambdaChiSummatory (A : ℝ) : Prop :=
   ∃ (C : ℝ) (x₀ : ℕ), 0 < C ∧ ∀ y : ℕ, x₀ ≤ y →
     ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
-      (q : ℝ) ≤ (Real.log y) ^ (11 : ℕ) → ∀ t : ℝ,
+      (q : ℝ) ≤ (Real.log y) ^ (11 : ℕ) → ∀ t : ℝ, |t| ≤ (Nat.sqrt y : ℝ) →
         ‖MlambdaChi χ t y‖ ≤ C * y / (Real.log y) ^ A
 
 /-- `log y → ∞` along ℕ, in eventual form. -/
@@ -479,11 +536,13 @@ range `log⌊y/d²⌋ ≥ log √y ≥ (log y)/4` and `∑ 1/d² ≤ 2`, giving 
 the tail `‖M_{μχ̄}‖ ≤ ⌊y/d²⌋ ≤ y/d²` and `∑_{d>√√y} 1/d² ≤ 1/√√y ≤ 1/(log y)^A`, giving
 `≤ y/(log y)^A`.  The conductor gate is the one new piece of bookkeeping: the μ-rate is
 invoked at `⌊y/d²⌋`, so `q ≤ (log y)^11` must be upgraded to `q ≤ (log⌊y/d²⌋)^12`, which is
-where `log y ≥ 4^12` is spent (an eventual threshold). -/
+where `log y ≥ 4^12` is spent (an eventual threshold).  ⟦D1⟧ The height gate transfers
+SHARPLY and for free: `|t| ≤ ⌊√y⌋ ≤ ⌊y/d²⌋` on the small range (`Nat.sqrt_le`, already
+proved there as `hts`), which is exactly why the λ-side gate is `⌊√y⌋` rather than `y`. -/
 theorem MlambdaChi_rate (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :
     ∃ (C : ℝ) (x₀ : ℕ), 0 < C ∧ ∀ y : ℕ, x₀ ≤ y →
       ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
-        (q : ℝ) ≤ (Real.log y) ^ (11 : ℕ) → ∀ t : ℝ,
+        (q : ℝ) ≤ (Real.log y) ^ (11 : ℕ) → ∀ t : ℝ, |t| ≤ (Nat.sqrt y : ℝ) →
           ‖MlambdaChi χ t y‖ ≤ C * y / (Real.log y) ^ A := by
   obtain ⟨C, x₀mu, hCpos, hMmuBound⟩ := hMmu A hA
   have h4A : (0 : ℝ) < (4 : ℝ) ^ A := Real.rpow_pos_of_pos (by norm_num) A
@@ -492,12 +551,12 @@ theorem MlambdaChi_rate (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :
     linarith
   have key : ∀ᶠ y : ℕ in Filter.atTop,
       ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
-        (q : ℝ) ≤ (Real.log y) ^ (11 : ℕ) → ∀ t : ℝ,
+        (q : ℝ) ≤ (Real.log y) ^ (11 : ℕ) → ∀ t : ℝ, |t| ≤ (Nat.sqrt y : ℝ) →
           ‖MlambdaChi χ t y‖ ≤ (2 * C * (4 : ℝ) ^ A + 1) * y / (Real.log y) ^ A := by
     filter_upwards [Salt.TwinBar.eventually_pow4_le A, Filter.eventually_ge_atTop 16,
         Filter.eventually_ge_atTop (x₀mu ^ 2),
         eventually_log_ge ((4 : ℝ) ^ (12 : ℕ))] with y hpow4 hy16 hyx0 hlog4
-    intro q _ χ hq t
+    intro q _ χ hq t ht
     have hLpos : 0 < Real.log y := lt_of_lt_of_le (by positivity) hlog4
     have hL0 : (0 : ℝ) ≤ Real.log y := hLpos.le
     have hs1 : 1 ≤ Nat.sqrt y := Nat.le_sqrt.mpr (by nlinarith [hy16])
@@ -575,7 +634,10 @@ theorem MlambdaChi_rate (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :
             have h04 : (0 : ℝ) ≤ Real.log y / 4 := by linarith
             gcongr
           linarith
-        have hMt := hMmuBound (y / d ^ 2) htx q χ hgate t
+        -- THE HEIGHT GATE TRANSFER: `|t| ≤ ⌊√y⌋ ≤ ⌊y/d²⌋`
+        have hht : |t| ≤ ((y / d ^ 2 : ℕ) : ℝ) :=
+          le_trans ht (by exact_mod_cast hts)
+        have hMt := hMmuBound (y / d ^ 2) htx q χ hgate t hht
         have hL4pos : 0 < Real.log y / 4 := by linarith
         have hrpow : (Real.log y / 4) ^ A ≤ (Real.log ((y / d ^ 2 : ℕ) : ℝ)) ^ A :=
           Real.rpow_le_rpow hL4pos.le hlogt hA.le

@@ -14961,3 +14961,154 @@ the two sharp floor forms + O3's twisted bridge) and P-2 (the hybrid
 MVT: the AP gap, the Finset re-cut, the all-χ fold, the assembly)
 DISPATCHED in parallel.** The ladder ahead: P-3/P-4 after P-2;
 P-5/P-6 on the probe's machinery; P-7 the assembly.
+
+---
+
+## ⟦WAVE P-5 LANDS: the twisted-rate SPINE + O6 + the 𝒯_S row⟧ — D1 kills a FALSE slot, D2 STOPS at the one analytic stone, D3/D4 land whole (2026-07-29 19:20 PDT)
+
+Four deliverables, three whole, one honest STOP. **Full `lake build` RC 0 at
+9558 jobs; every new declaration axiom-clean (`propext, Classical.choice,
+Quot.sound`); zero new warnings.** Files: `Salt/MR/MobiusChiRate.lean` (686
+ln, 24 decls), `Salt/MR/MobiusChiRamare.lean` (849 ln, 26 decls),
+`Salt/MR/HalaszIntegersChiClose.lean` (526 ln, 13 decls), plus the ruled
+in-place amendment to `Salt/MR/LambdaRateTwisted.lean`.
+
+**⟦D1 — THE SLOT AUDIT: `MmuChiRate`'s `∀ t : ℝ` WAS FALSE.⟧** Not
+undischargeable — FALSE. `{log p}` is ℚ-linearly independent, so Kronecker
+makes `t ↦ (p^{it})_{p≤y}` dense in the torus; pick `t` (after `y`, which
+the quantifier order permits) with `p^{it} ≈ −1` for all `p ≤ y` and every
+squarefree term becomes `≈ +1`, so `‖M_{μ}(y,t)‖ ⪆ (6/π²)y`. The RULED
+in-place amendment: **`MmuChiRate` gated at `|t| ≤ y`, and the fold's
+deliverable `LambdaChiSummatory A` at `|t| ≤ ⌊√y⌋`** (the transfer
+`|t| ≤ ⌊√y⌋ ≤ ⌊y/d²⌋` is exactly the `Nat.sqrt_le` step already inside
+`MlambdaChi_rate`). **So the fold now spends ONE of the twelve conductor
+exponents AND HALF THE HEIGHT RANGE** — both prices written into the header.
+Why `|t| ≤ y` is the honest ceiling: the twist is a PURE SHIFT
+(`∑ μχ̄ n^{it}n^{-s} = 1/L(s−it,χ⁻¹)`), so the truncated contour reads the
+L-function at heights `≤ |t| + T`; at the CLASSICAL width `c₀/log(qH)` that
+buys only `|t| ≤ exp((log y)^{1−δ})`, and only the landed χ-VK width buys a
+power of `y`. **That is the precise sense in which stone B was the
+campaign's isolated risk.** Consumers are slack by a full power of `y`.
+
+**⟦D2 — O4+O5: the SPINE and the REGION DISCHARGE land; STOP at ONE stone.⟧**
+Landed: `LSeries_muChiTw_eq_LFunction_inv` (the shift identity — the reason
+the centerpiece is a re-run, not a new theory), `Mmu1Chi` +
+`mmu1Chi_eq_integral_LSeries`/`mmu1Chi_eq_integral` (the twisted smoothed
+Perron representation, in `1/L` form with the shifted height — the kernel
+machinery `kernel_sum_swap`/`riesz_tsum_eq`/`kernel_identity` is
+COEFFICIENT-AGNOSTIC and was cited, not re-proved),
+`norm_muChiTw_LSeries_cline_le` (the `c`-line constant `1 + log x`; the
+B-probe's inverse bound is height-uniform, so the shift is FREE and the ζ
+route's `log⁷` tail friction never appears), and **`LFunction_no_zero_in_box`
+/ `_in_shifted_box`: the STONE-C RULING (i) pattern at BOTH VK arms** — χ-VK
+above the landed floor (complex arm + real arm), classical
+`zero_free_region_all'` below it (denominator `≤ log q + exp 100 + 1` there),
+ξ₁ carve-out on the real axis as a NAMED hypothesis (the Siegel `∃H₀` fold
+stays P-7's). TWO catches banked: **(a) the two VK arms' gates COLLAPSE to
+one `q`-only condition** `log(20000(vkStripConst q + 8104)) ≤ 100·A`, because
+`log log|γ| ≥ 100` everywhere above the floor; **(b) the abscissa must sit at
+HALF the region width** — at the full width the region bound and the box
+hypothesis are consistent and NOTHING follows (`boxWidth_pos` is what makes
+the box a contradiction).
+
+**THE STOP, precisely: `Salt.SW.zeta_inv_shallow` has NO `L(·,χ)` analogue in
+this corpus at any width, and the VK-width version is the whole residue**
+(stated as `LFunctionInvShallowVk`; `MmuChiRate_residue` records the exact
+remaining implication). It is NOT a corollary of the region — region gives
+non-vanishing, the edge bound gives SIZE. **The `q = 1` row is not exempt:
+at `t ≠ 0` the principal character reads `1/ζ(s−it)`, so ζ needs the same
+stone at VK width.** Banked with it: the ROUTE (Borel–Carathéodory
+factorization via `entire_norm_logDeriv_sub_sum_scaled`, already called by
+the B-probe, + `‖h(s)‖ ≥ ‖h(c)‖e^{−KΘ}` + `G(c)=1 ⟹ ‖h(c)‖ ≥ 1` + the
+product factor paid by §5's discharge; **the ONE missing input is a Jensen
+zero count `∑m ≲ log 4M₀` on the ball** — grep `LFunction_zero_count_le` /
+`ZeroCountNearOne` first) and **the DEAD END, worth its own line: the
+anchor-plus-Cauchy-transport route closes only for width `≲ Θ⁴/M⁵ ≍
+1/(q⁵(log γ)⁸)`, and the `q⁵` ALONE destroys the saving at `q ≤ (log y)^12`.**
+The contour shift + budget + de-smoothing are line-for-line mirrors of
+`MobiusRateClose` (~800 ln) — this wave stopped at the ANALYTIC boundary, not
+the mechanical one.
+
+**⟦THE o(1) BUDGET CLEARS, with the whole 0.29 unspent.⟧** The route delivers
+the `∀ A` form, i.e. `c = ∞`-genre against REF-P-MATH's `c ≥ 1.449`: the
+saving is `exp(−w log x)` with `w ≍ 1/((log q + loglog H)(log H)^{3/4}
+(loglog H)³)`, so at `T = exp((log x)^{1/10})`, `|t| ≤ x`, `q ≤ (log x)^{12}`
+it is `exp(−c(log x)^{1/4}/(loglog x)⁴)` — a quasi-power, `o((log x)^{−A})`
+for every fixed `A`, and it absorbs ANY fixed polynomial edge loss (which is
+why the closing wave must be sharp in the WIDTH only). III.3″ witness: at
+`L = log x = 10⁶` the saving exponent is `≈ 1.4·10^{−11}` (no saving yet);
+the crossover at `A_target = 5` is `L ≈ 10^{77}`, i.e. `x ≈ exp(10^{77})` —
+astronomical, FINITE, absorbed by `MmuChiRate`'s `∃x₀`, one iterated log
+worse than the landed `q = 1` threshold note. Nothing in the cascade reads
+`x₀`.
+
+**⟦D3 — O6, the g_r perturbation: WHOLE, no STOP.⟧** `μ·g_r = μ ∗ w_r`
+with the EXPLICIT carrier `w_r n = (1−r)^{ω(n;P,Q)}` on window-smooth `n ≠ 0`
+(`ramTailWeight`), and the closed form is CHECKED in two auditable halves
+(`ramTailWeight_prime_pow` — the coefficient is `(1−r)` for EVERY `k ≥ 1` at a
+window prime, literally the coefficients of `(1−rp^{−s})/(1−p^{−s})`; and
+`ramTailWeight_eq_zeta_mul_muGr`), not assumed. `ramTailWeight_le_zero_param`
+makes **`r = 0` the worst case, so every mass/tail hypothesis is `r`-FREE —
+which is exactly why the `∫₀¹ dr` composition (`MmuRamChi_rate`, item 5) came
+free.** The unconditional fold `MmuGrChi_eq_sum` + the deliverables
+`norm_MmuGrChi_le_split` / `MmuGrChi_rate` with `C' = C·4^A·M + 1`, and `C'`,
+`x₀` independent of `r,P,Q,q,χ,t`. **The honest accounting: the MASS stays
+inside `log Q/log P`** (at `r = 0` it is `∏_{P≤p≤Q}(1−1/p)^{−1}`, whose log is
+the LANDED `blockWindow_mertens_const`, `CofactorDist.lean:139`) — **the TAIL
+`∑_{b>√y} w_r(b)/b` is the undischarged row, carried as a NAMED in-statement
+hypothesis pinned at `(log y)^{−A}`**: Rankin gives it when
+`log Q ≪ (log y)^{1−δ}` and NOT when `log Q ≍ log y`, so the consumer pays it
+where it knows `P,Q`. Deviation: `mul_apply_mul_twist` cited, not
+instantiated (ℝ-valued carriers keep `w_r ≥ 0` first-class; `chiBarTwist_mul`
+called directly, same content).
+
+**⟦D4 — THE HalaszIntegersChi DISCHARGE: ROUTE C, UNCONDITIONAL — and BOTH
+freeze routes were WRONG.⟧** The adjudication first, because it is the
+finding: **the slot is a DISCRETE MEAN-VALUE (Halász–Montgomery large-values)
+row over PAIRS for an ARBITRARY `a : ℕ → ℂ`** — no multiplicativity, no
+support, no bound. That kills both named routes. **ROUTE A (the all-χ floors →
+`halasz_ball_decay`) is a CATEGORY MISMATCH**: the floors bound `pretDistSq`
+from below and `halasz_ball_decay` turns that into a DECAY statement for ONE
+multiplicative datum's summatory function; it cannot bound a mean square of
+an arbitrary Dirichlet polynomial over an ordinate set, and the slot's `a` is
+the non-multiplicative Ramaré mask. **This independently re-derives
+REF-P-SHAPE's own R-P2 note** ("the floor→Halász two-step is an INPUT to the
+(χ,t) decomposition, never the row bound") — the `ellLin` pairing was checked
+and is IRRELEVANT, not a repairable mismatch. **ROUTE B (the μ-rate through
+O3's bridge) is a NON-ROUTE**: a fixed-datum rate cannot enter a statement
+quantified over all `a`; no fake conditional was shipped. **THE DEMAND, with
+arithmetic:** the slot is consumed only through `ramRChi_sq_sum_le` →
+`TSChi_branch_meansq` → `usetChi_TS_branch_meanvalue`, and the `q=1` twin
+exits at `5128·ε²·M·(1+log 2T)·mass` with `ε = (log X)^{−100}`, so the demand
+is `5128·(log X)^{−200}·M·…`; the landed mean-value row carries `T` where the
+demand carries `M`, and `T/M ≍ e^{j/H} ≍ p` at the §8.3 pins — **P-6-E's gap
+report CONFIRMED as a power-genre loss.** **ROUTE C:**
+`dpolyChi q (Icc 1 M) a χ = dpoly M (a·χ)` by `rfl` and `‖χ‖ ≤ 1`, so the
+LANDED `q=1` Lemma 9 (`halasz_integers_unconditional_const`, 2564) fires on
+EVERY fibre; summing over the `φ(q)` characters costs `φ(q)` on the LENGTH
+term and NOTHING on the count term (`∑_χ|𝒯_χ| = |ℰ|` is an identity) —
+`halaszIntegersChiPhi_holds : HalaszIntegersChiPhi 2564`. **The debit is
+repaid at the branch:** `φ(q) ≤ q ≤ (log X)^{12}`, so re-pinning at
+`ε_Q := (log X)^{−106}` gives `φ(q)ε_Q² ≤ (log X)^{−200}` and
+`usetChi_TS_branch_exit_repinned` is BYTE-FOR-BYTE the `q=1` exit; price is
+`𝒯_L` at `V = (log X)^{106}`, killed by a quasi-power (θ < 1/8). Stated
+honestly: at MR's own level the φ-graded exit is `(log X)^{−188}`, TWELVE
+POWERS SHORT — the re-pinning closes exactly those twelve.
+**RESIDUE + A DESIGN FLAG FOR THE MAESTRO:** the LITERAL `φ(q)`-free
+`HalaszIntegersChi` is not proved and cannot be reached fibrewise
+(`∑_χ M = φ(q)M` is an identity, not slack); the `φ`-free row is the genuine
+HYBRID Halász–Montgomery estimate, needing the off-diagonal Gram entries
+`∑_{n≤M} χ(n)χ̄′(n)n^{i(t−t′)}` at `χ ≠ χ′` (Polyá–Vinogradov / hybrid large
+sieve) — a NEW stone, not a port composition — **and the classical form of
+that estimate carries `√(qT)`, not `√T`, in the count term, so the SLOT'S OWN
+STATEMENT may need a `√q` amendment (Fable/human tier; untouched).** No
+consumer needs it: every consumption factors through
+`usetChi_TS_branch_meanvalue`, whose demand the re-pinned exit meets exactly.
+
+**THE PORT'S LEDGER AFTER P-5.** O3 landed (P-1). O4/O5: the spine and the
+region discharge in kernel, **ONE analytic stone open** (`zeta_inv_shallow` at
+VK width, for `L(·,χ)` AND for ζ) plus the mechanical `MobiusRateClose`
+mirror. O6 landed modulo the named tail hypothesis. The `𝒯_S` connector
+closed at the φ-graded row with the level re-pinned. Two amendments now owed
+to the freeze, both from this wave: the slot's height gate (RULED and applied)
+and the possible `√q` in `HalaszIntegersChi` (open, Fable-tier).
