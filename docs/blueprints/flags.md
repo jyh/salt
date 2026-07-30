@@ -17269,3 +17269,43 @@ THE ARTIFACT'S BIRTHPLACE); links 2/3 dead by the scoper's own
 independent read (the primorial is information-forced; 5.55× ever).
 
 ## (2026-07-30 16:25 PDT) THE QUANTIFIER GRANTED (∀x ∃M) — the KNOT-2 closure freeze sealed; K4-CENSUS dispatched
+
+## (2026-07-30 16:42 PDT) K4-CENSUS: WAVES FIRE — the freeze corrected (R3 LOAD-BEARING; three more survivors, all dying to M-tracking); the braid = THE SPLIT-HOIST + ARM DEMOTION; R1 ∥ R2 dispatched
+
+**⟦K1 — THE CENSUS, the freeze corrected⟧**  THE SCALE PINNED: μ =
+log H (not log X_d — a leg conflict resolved; had it been log X_d
+the landed s13BlockFloor breaks the ×1280 by 78 orders — walked, does
+not apply).  THREE MORE SURVIVORS post-R1+R2: gP1 (known);
+**gRows' 2e²/𝓗ⱼ term — X_d-free, positive, NOT retired by R1**
+(demand Adoor ≳ 242·loglog H — 12× gP1); E_ge rows 1+3 (φ(q) + the
+Mtail charge).  ALL are M-lower demands DYING TO R3: **R1+R2 alone
+close NOTHING; R3 is the load-bearing wave.**  The ×1280 kernel-exact
+(5·12288/48, M-free); the coverage CONTINUOUS (M a free ℕ — worst
+real step 1.05; the window width 7.1448 in λ, constant in M).  Two
+R1 additions now REQUIRED: the gRows antitone collapse
+(`gRows_at_socketBase`) becomes provable post-R1 and needed.
+
+**⟦K3 — THE BRAID: (c) THE SPLIT-HOIST + THE ARM DEMOTION⟧**  x₀ is
+Aexp-ONLY at its birth (the eventually-block reads no window mass —
+byte-warranted at MlamGrChiMask_rate) — hoists to the top constant
+block through 7 pure intro-reorders; C' stays after M.  The g-arm
+DEMOTES its M-summand (s13GArm' M-free; `4ω·s13BlockFloor M ≤ R.x`
+becomes an M-SELECTION condition checked after R).  THE PREFIX:
+∃…x₀ ∀Cp ∀U1floor g ∃R ∀M ∃C' — and **m4_second_road_L2 needs ZERO
+change (M was already after ∃R; the inversion was the terminal's)**.
+THE M-SELECTION SYSTEM (5 conditions) walked NONEMPTY structurally
+(hPHheadroom's log₂x ≥ 4ε²Hhi exponentially above every floor).
+
+**⟦K2 + K4 — the foldables⟧**  R1: the off-diagonal exact (no +1;
+9700-nat clearance); `4 ≤ P` at nine sites (24 breaks at P ≤ 3 —
+free everywhere); the endpoint absorption gate goes to L²·P ≤ 3X_d
+(the cube of add_one_le_exp — two sites); R1 is a STRICT ~9600×
+improvement at the binder floor.  K4: **the one-bit hMδ margin was a
+MYTH** (the coarse chain; 1.143× real; under R3 hMδ is definitional
+— the tightness disappears); **THE λ-TABLE ERRATUM: the budget
+ceiling at m = 66 is 81.184, i.e. 2.48 BELOW the landed 83.66** — the
+four landed tables are WIDER than live; tightening hlam is sound and
+eases g2_jfloor/gate8 by 5.5e6×; smallGradeFits already symbolic;
+the moving fixed point CERTIFIED (fails at m = 88 pre-R1; unbounded
+post).  ⟦R1 ∥ R2 dispatched on this entry; R3 on their landing with
+the M-selection certificate + the erratum in its brief.⟧
