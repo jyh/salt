@@ -272,6 +272,7 @@ import Salt.MR.M4ArithRho
 import Salt.MR.M4SocketDischarge
 import Salt.MR.M4RowsChiZero
 import Salt.MR.M4ArithZero
+import Salt.MR.M4SocketFused
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -5942,3 +5943,12 @@ sealed with the wave; the ∀-Cp form ratified at the banking. -/
   Salt.MR.m4_chiSummedFreeRow_of_doorArith_zero
   Salt.MR.m4_socket_discharged_conditional_zero
   Salt.MR.m4_socket_discharged_bandfree_zero
+
+/-! ⟦THE FUSED TERMINAL audit⟧ (`M4SocketFused`, 2026-07-30, REF-SOCKET-2 ⟦AMENDMENT 1⟧) the
+JOIN of the two repairs that landed side by side: the density-free / base-capped `_zero` chain
+and the `ρ` exit's `0 < δ₀`.  One theorem; the proof is the refuter's own probe-1 fusion.
+⟦S11 LAW⟧ `harith`'s `anchor`/`jfloor` fields are met DIRECTLY at the chosen anchor numeral —
+NOT through `m4_arith_anchor_of_C1_rho` / `m4_arith_jfloor_of_anchor_rho`, whose
+`log (1/ρ) ≤ 10¹¹` is not derivable from the opaque `δ₀`. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.m4_socket_discharged_fused

@@ -16432,3 +16432,31 @@ Aexp ≥ 0.499 pin).  The 16-item S11 instantiation checklist BANKED
 (the quantifier order δ₀ → ρ → Aexp/K/x₀ → U1floor → g → R → M(b) →
 the splice → Cp := 0 → the bases → the frames → NOT-the-shortcuts →
 hcap THE REMAINING WAVE → the road-side gates → the fused terminal).
+
+## (2026-07-30 10:37 PDT) FUSION-LANDING seals — m4_socket_discharged_fused IN KERNEL at 0 < δ₀ ALONE; THE A4 SOCKET-DISCHARGE STORY IS COMPLETE
+
+**⟦THE FUSED TERMINAL⟧**  M4SocketFused.lean (134 ln; the refuter's
+8-line proof body verbatim): ∃Ct > 0, ∀Cp ≥ 0, ∀R M C₁ M₀, ∃C' x₀ —
+then **0 < δ₀ AND NOTHING ELSE** — hHreg/hb1/hc1 — the five carried
+binder groups at SocketBase (hframe/hbase incl. ⟦coefWS⟧/hcap/
+hbandbase/harith at ρ := doorRhoOfDelta δ₀) — concluding the three
+conjuncts: ITEM 11 at RSanDoorRho, gate 4, the ceiling ≤ δ₀².  GONE
+from the statement: hrows, henv, the T₀-band, the dead 2/10⁴⁹.  No
+stronger δ₀ fact was needed — the port unchanged.  The All.lean audit
+block carries the S11 law (the two ρ-cap shortcut lemmas NAMED as
+forbidden routes).  The M4ArithZero erratum landed struck-and-
+preserved (the 6.9×/361 claims as a labelled blockquote; the p2
+correction with all three certificate names; the qualitative claim
+retained — only the numeral moves, 2484 → 20000).  Build 9587 green;
+axioms clean; zero warnings.
+
+**⟦WHERE THE PROGRAM STANDS⟧**  A4 IS COMPLETE: scoped, frozen,
+twice-refuted, executed in two banks + a wire + a repair triad,
+killed at the terminal, repaired, re-refuted, FUSED — the socket
+discharge stands in its honest conditional form, twice examined.
+THE REMAINING ROAD: **THE S11 COMPOSE** — the 16-item checklist
+banked at REF-SOCKET-2 (the quantifier order; the b ≥ 14728/20000
+anchor; the direct-fields law; hcap = the ~45-binder capstone
+instantiation wave, its three open supply objects Rbd/KS/E the last
+analytic residue) → ¬logChowla2Fails → THE CAPSTONE, under the
+ratified summit protocol.

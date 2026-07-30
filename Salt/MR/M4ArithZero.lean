@@ -47,29 +47,56 @@ is of the ALREADY-PRICED summand-2 genre — `a2Level1 M = (log Q₁)^{1/3}/P₁
 ```
 
 against the arm's floor `loglog X_d ≥ 7000·loglog H + 1.25·10⁵`.  Written in the refuter's own
-variables (`λ = loglog H`, `μ = loglog X_d`) the binding one is the first, i.e.
+variables (`λ = loglog H`, `μ = loglog X_d`) ~~the binding one is the first~~ — **STRUCK by
+⟦REF-SOCKET-2 erratum, 2026-07-30⟧; the binding field is the THIRD, the `p²` rows.  See the
+erratum block below.**  The first (level-1) field reads
 
 ```
       λ  ≤  0.0578 · Adoor M / (14 + 1/3)     (up to the additive constants),
 ```
 
-⟦THE MARGIN, ARITHMETICALLY, AT THE ANCHOR'S FLOOR⟧  `Adoor M = 2^36·(log₂M + 1)` and ⟦C1⟧'s
-anchor `log₂M + 1 ≥ 2484` give `Adoor M ≥ 1.707·10^14`, hence
-`(log 2/12)·Adoor M ≥ 9.86·10^12`.  Writing the arm as `μ ≥ 7000λ + 1.25·10⁵` and
-`loglog Q₁ ≤ λ + log(Adoor M) ≈ λ + 32.8`, the level-1 field is met whenever
+~~⟦THE MARGIN, ARITHMETICALLY, AT THE ANCHOR'S FLOOR⟧~~ — **the whole of the next paragraph is
+STRUCK; it is preserved verbatim because it is what the first banking claimed, and the erratum
+that follows says exactly what replaces it.**
 
-```
-      7166.7·λ + 1.375·10⁵ + 36K   ≤   28.88 · Adoor M ,
-```
+> ~~`Adoor M = 2^36·(log₂M + 1)` and ⟦C1⟧'s anchor `log₂M + 1 ≥ 2484` give
+> `Adoor M ≥ 1.707·10^14`, hence `(log 2/12)·Adoor M ≥ 9.86·10^12`.  Writing the arm as
+> `μ ≥ 7000λ + 1.25·10⁵` and `loglog Q₁ ≤ λ + log(Adoor M) ≈ λ + 32.8`, the level-1 field is
+> met whenever `7166.7·λ + 1.375·10⁵ + 36K ≤ 28.88·Adoor M`, i.e. up to `λ ≈ 6.9·10^11` —
+> against `M4ArithPage.m4_arith_anchor_of_C1`'s own register cap `λ ≤ 10^11`, a factor of
+> `≈ 6.9`.  It is not tight at the floor and it does not have to be: `Adoor M` grows with
+> `log₂M`, and at the register top `λ = 10^11` the field needs only `log₂M + 1 ≥ 361`, eight
+> orders under the socket's own ceiling `log M ≤ λ − 24.6`.~~
 
-i.e. up to `λ ≈ 6.9·10^11` — against `M4ArithPage.m4_arith_anchor_of_C1`'s own register cap
-`λ ≤ 10^11`, a factor of `≈ 6.9`.  It is not tight at the floor and it does not have to be:
-`Adoor M` grows with `log₂M`, and at the register top `λ = 10^11` the field needs only
-`log₂M + 1 ≥ 361`, eight orders under the socket's own ceiling `log M ≤ λ − 24.6`.
+⟦REF-SOCKET-2 erratum, 2026-07-30 — THE `p²` MISPRICE; THE BANKED MARGIN CORRECTED⟧
+The first banking priced only THREE of `GRowsZeroGate`'s four fields and named `level1` the
+binding one, reporting `≈ 6.9×` (banked elsewhere as `6.88×`) of room at the register top and
+a sufficient anchor of `log₂M + 1 ≥ 361`.  The refuter's kernel certificates correct all three
+figures:
 
-Crucially the demand is on `Adoor M`, which the anchor makes LARGE, not on `M` against `λ`,
-which the socket makes small: the exponent-1-versus-exponent-14 collision of the
-⟦SECOND HORN⟧ does not arise at all.
+* the binding field is `p2` — the `p²` rows, `1.002·μ + 15 ≤ (log 2)·Adoor M` — which is
+  `41.75×` TIGHTER than `level1`, and it is NECESSARY, not an artifact of the sufficient
+  condition: `gRows_forces_Adoor` derives it from `gRows` at `C_p = 0` ALONE, the other two
+  summands of `a2RowsSum_door_decomp` being nonnegative;
+* at the granted anchor `log₂M + 1 = 2484` the field is **FALSE by 5.93×** at the register top
+  `λ = 10^11` (`gRows_fails_at_granted_anchor`).  So the struck `≈ 6.9×` was not margin at all
+  — it was the slack of the non-binding field;
+* the corrected figures: the EXACT minimum is `log₂M + 1 ≥ 14728` (`ref2_p2_threshold`), and
+  the certified working point is `log₂M + 1 = 20000`, where ALL SEVEN `M`-side conditions hold
+  SIMULTANEOUSLY at `λ = 10^11`, `ρ = doorRho`, `K = 0` (`ref2_joint_window`: ⟦gate 8⟧, the top
+  `gP1` instance, `level1`, `p2`, `DoorArithFrameRho`'s `anchor`, its `jfloor` through the
+  landed `j ≥ 2^42` floor, and the socket's own `M`-cap `log M + log(Adoor M) ≤ λ`).  The
+  admissible window is `[14728, 1.44·10^11]` — seven orders wide, its upper end the socket's
+  own `M`-cap, not this gate.
+
+(`gRows_forces_Adoor`, `ref2_p2_threshold` and `ref2_joint_window` are REF-SOCKET-2's scratch
+probes 2 and 3 — kernel-checked there, not landed in the repo.  The fused terminal that
+consumes this pricing is `M4SocketFused.m4_socket_discharged_fused`.)
+
+NOT A WALL, and the qualitative claim is UNCHANGED: the demand is on `Adoor M`, which the
+anchor makes LARGE, not on `M` against `λ`, which the socket makes small — the
+exponent-1-versus-exponent-14 collision of the ⟦SECOND HORN⟧ does not arise at all.  Only the
+anchor NUMERAL moves, `2484 → 20000`.
 
 ⟦WHAT IS AND IS NOT CLAIMED⟧  `GRowsZeroGate` is DISCHARGED here into `gRows` at `C_p = 0`
 (`gRows_zero_of_gate`) — that is a theorem.  Whether the register's own `(M, X_d, H)` meets
