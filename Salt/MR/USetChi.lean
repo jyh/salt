@@ -58,7 +58,10 @@ never absorbed into a constant.
 
 The `𝒯_L` decay needs MR Lemma 11 (`halasz_primes_pow`) at `χ`-twisted prime data — wave
 P-6-CORE's `halasz_primes_chi`, stone C, in flight at the time of writing.  It is consumed
-here as the explicit socket `HalaszPrimesChi C c T₀` (below), whose shape is the landed
+here as the explicit socket `HalaszPrimesChi C c q T` (below) — **pointwise in `(q, T)` since
+the amendment of 2026-07-30**, the height floor having moved out of the slot and into the
+consumer, where the port's four `q`-vs-`T` gates can meet it (the slot's own docstring carries
+the before/after) — whose shape is the landed
 `halasz_primes_pow` with the pair index set, `FibreWellSpaced` spacing, the `χ̄`-twisted
 integrand and the decay denominator read at `qT`.  Reading the denominator at `qT` rather
 than `T` makes the socket the WEAKER hypothesis (a larger denominator is a weaker decay, and
@@ -535,18 +538,38 @@ theorem ramQChi_large_count_Tfree (q : ℕ) [NeZero q] {H : ℝ} (hH : 2 ≤ H) 
           Real.exp_add]
         ring
 
-/-- **THE NAMED SLOT — the `χ`-twisted MR Lemma 11 (`halasz_primes_chi`, wave P-6-CORE's
-stone C).**  The landed `halasz_primes_pow` with: the index set a per-fibre well-spaced set
-of PAIRS; the integrand `Σ_{p ∈ S} p^{−it}·χ̄(p)·a_p` (the `σ = 1` sign convention — no
-reflection: `ramQ_chiBar_eq_halaszSum` is sign-free); and the Vinogradov–Korobov decay
-denominator read at the HYBRID height `qT`.
+/-- **THE NAMED SLOT, POINTWISE AT `(q, T)` — the `χ`-twisted MR Lemma 11
+(`halasz_primes_chi`, wave P-6-CORE's stone C).**  The landed `halasz_primes_pow` with: the
+index set a per-fibre well-spaced set of PAIRS; the integrand `Σ_{p ∈ S} p^{−it}·χ̄(p)·a_p`
+(the `σ = 1` sign convention — no reflection: `ramQ_chiBar_eq_halaszSum` is sign-free); and
+the Vinogradov–Korobov decay denominator read at the HYBRID height `qT`.
+
+⟦THE QUANTIFIER ORDER — the amendment of 2026-07-30, and the whole content of this shape⟧
+The slot was originally stated with a UNIFORM height floor fixed before the modulus:
+
+    def HalaszPrimesChi (C c T₀ : ℝ) : Prop :=
+      ∀ q, 0 < q → ∀ T P, T₀ ≤ T → 2 ≤ P → P ≤ T ^ 10 → …          -- `T₀` BEFORE `∀ q`
+
+and in that shape it is **not dischargeable**.  The port's landed pair row
+(`PortClose.halaszPrimesChi_holds_gated`) proves exactly this conclusion, but behind four
+`q`-vs-`T` gates, each of which asks `T ≥ T₁(q)` with `T₁` INCREASING in `q`; no single `T₀`
+bridges a `q`-dependent floor, so the gated row cannot fill a slot whose floor is uniform.
+
+The slot is therefore now **pointwise**: `q` and `T` are PARAMETERS of the socket, and the
+height conditions (`T₀ ≤ T` plus the four gates) ride in-statement at the CONSUMER, which is
+where they belong — the discharge is `PortClose.halaszPrimesChi_pointwise_of_gates`.
+
+**Nothing is lost.**  The old form is literally `∀ q, 0 < q → ∀ T, T₀ ≤ T →
+HalaszPrimesChi C c q T`, so any uniform inhabitant still supplies every pointwise instance;
+and every consumer in the corpus (the three `𝒯_L` rungs below, hence the `𝒰`-exit) spends the
+socket at ONE `(q, T)` — the pair it already has in hand.
 
 Reading the denominator at `qT` rather than `T` makes this the WEAKER hypothesis (a larger
 denominator is a weaker decay), so a landed `halasz_primes_chi` at the sharper `log T`
 discharges it by monotonicity of the bound in the denominator.  P-7 connects them; nothing
 in this file depends on which form P-6-CORE delivers. -/
-def HalaszPrimesChi (C c T₀ : ℝ) : Prop :=
-  ∀ (q : ℕ), 0 < q → ∀ (T P : ℝ), T₀ ≤ T → 2 ≤ P → P ≤ T ^ 10 →
+def HalaszPrimesChi (C c : ℝ) (q : ℕ) (T : ℝ) : Prop :=
+  ∀ (P : ℝ), 2 ≤ P → P ≤ T ^ 10 →
   ∀ (ℰ : Finset (DirichletCharacter ℂ q × ℝ)), FibreWellSpaced ℰ →
     (∀ r ∈ ℰ, r.2 ∈ Set.Icc (-T) T) →
   ∀ (S : Finset ℕ), (∀ n ∈ S, n.Prime ∧ P ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * P) →
@@ -567,9 +590,14 @@ def HalaszPrimesChi (C c T₀ : ℝ) : Prop :=
   ·(log qT)²)/log B · Σ_{p∈block}‖c_p/p‖²`.
 
 Sign convention: `σ = 1` on both sides, no reflection (the socket's integrand already
-carries `p^{−it}`). -/
-theorem tLChi_sumsq_ramQ {C c T₀ : ℝ} (hslot : HalaszPrimesChi C c T₀) (q : ℕ) (hq : 0 < q)
-    {H : ℝ} (hH : 2 ≤ H) (P Q j : ℕ) (cf : ℕ → ℂ) (T : ℝ) (hT : T₀ ≤ T)
+carries `p^{−it}`).
+
+⟦POINTWISE⟧ the socket is now spent AT the rung's own `(q, T)` (the amendment above): the
+old `hslot : HalaszPrimesChi C c T₀` plus `hT : T₀ ≤ T` become the single
+`hslot : HalaszPrimesChi C c q T`.  The proof is unchanged — only the instantiation point
+moved, and `0 < q` is no longer asked (the modulus is the socket's own parameter). -/
+theorem tLChi_sumsq_ramQ {C c : ℝ} (q : ℕ)
+    {H : ℝ} (hH : 2 ≤ H) (P Q j : ℕ) (cf : ℕ → ℂ) (T : ℝ) (hslot : HalaszPrimesChi C c q T)
     (hB2 : (2 : ℝ) ≤ (ramQbase H P j : ℝ)) (hBT10 : (ramQbase H P j : ℝ) ≤ T ^ 10)
     (ℰ : Finset (DirichletCharacter ℂ q × ℝ)) (hws : FibreWellSpaced ℰ)
     (hsub : ∀ r ∈ ℰ, r.2 ∈ Set.Icc (-T) T) :
@@ -589,7 +617,7 @@ theorem tLChi_sumsq_ramQ {C c T₀ : ℝ} (hslot : HalaszPrimesChi C c T₀) (q 
     · have := ramQblock_le_two_base hH hn
       have hcast : (n : ℝ) ≤ ((2 * ramQbase H P j : ℕ) : ℝ) := by exact_mod_cast this
       rwa [Nat.cast_mul, Nat.cast_ofNat] at hcast
-  have h := hslot q hq T (ramQbase H P j : ℝ) hT hB2 hBT10 ℰ hws hsub
+  have h := hslot (ramQbase H P j : ℝ) hB2 hBT10 ℰ hws hsub
     (ramQblock H P Q j) hS (fun p => cf p / (p : ℂ))
   have hcongr : ∑ r ∈ ℰ, ‖ramQ H P Q j (chiBarCoeff q r.1 cf) r.2‖ ^ 2
       = ∑ r ∈ ℰ, ‖∑ n ∈ ramQblock H P Q j, (n : ℂ) ^ (-(r.2 : ℂ) * Complex.I)
@@ -618,12 +646,12 @@ conclusion is at `840` — gives `|𝒯_L|·decay·(log qT)² ≤ 2`, not `≤ 1
 collapses to `3·base` instead of `2·base` and the exit constant is `3C` where the `q = 1`
 rung had `2C`.  Nothing else moves; downstream (`USetBalance.block_sum_bound`) absorbs it by
 reading `Cq := 3C/2`. -/
-theorem tLChi_ramQ_sumsq_killed {C c T₀ : ℝ} (hC : 0 ≤ C) (hc : 0 < c)
-    (hslot : HalaszPrimesChi C c T₀)
+theorem tLChi_ramQ_sumsq_killed {C c : ℝ} (hC : 0 ≤ C) (hc : 0 < c)
     (q : ℕ) [NeZero q] {H : ℝ} (hH : 2 ≤ H) (P Q j : ℕ) (cf : ℕ → ℂ)
-    (hcf1 : ∀ n : ℕ, ‖cf n‖ ≤ 1) (T V L δ' : ℝ) (ℰ : Finset (DirichletCharacter ℂ q × ℝ))
+    (hcf1 : ∀ n : ℕ, ‖cf n‖ ≤ 1) (T V L δ' : ℝ) (hslot : HalaszPrimesChi C c q T)
+    (ℰ : Finset (DirichletCharacter ℂ q × ℝ))
     (hws : FibreWellSpaced ℰ) (hsub : ∀ r ∈ ℰ, r.2 ∈ Set.Icc (-T) T)
-    (hT₀T : T₀ ≤ T) (hT1 : 1 ≤ T) (hqT : 1 < (q : ℝ) * T)
+    (hT1 : 1 ≤ T) (hqT : 1 < (q : ℝ) * T)
     (hB3 : 3 ≤ ramQbase H P j) (hBT : (ramQbase H P j : ℝ) ≤ (q : ℝ) * T)
     (hκ30 : 30 ≤ Real.log ((q : ℝ) * T) / Real.log (ramQbase H P j))
     (hLL5 : 5 ≤ Real.log (Real.log ((q : ℝ) * T))) (hV1 : 1 ≤ V) (hVδ : V⁻¹ ≤ δ')
@@ -636,7 +664,6 @@ theorem tLChi_ramQ_sumsq_killed {C c T₀ : ℝ} (hC : 0 ≤ C) (hc : 0 < c)
     ∑ r ∈ tLsetChi q H P Q j cf δ' ℰ, ‖ramQ H P Q j (chiBarCoeff q r.1 cf) r.2‖ ^ 2
       ≤ 3 * C * (∑ p ∈ ramQblock H P Q j, (1 : ℝ) / p)
           / Real.log (ramQbase H P j) := by
-  have hq : 0 < q := Nat.pos_of_ne_zero (NeZero.ne q)
   have hB3R : (3 : ℝ) ≤ (ramQbase H P j : ℝ) := by exact_mod_cast hB3
   have hws' : FibreWellSpaced (tLsetChi q H P Q j cf δ' ℰ) := tLsetChi_fibreWellSpaced hws
   have hsub' : ∀ r ∈ tLsetChi q H P Q j cf δ' ℰ, r.2 ∈ Set.Icc (-T) T :=
@@ -646,7 +673,7 @@ theorem tLChi_ramQ_sumsq_killed {C c T₀ : ℝ} (hC : 0 ≤ C) (hc : 0 < c)
     fun r hr => le_of_lt (lt_of_le_of_lt hVδ (mem_tLsetChi hr).2)
   have hcount := ramQChi_large_count_Tfree q hH P Q j cf hcf1 T V L hB3 hT1 hqT hBT hV1
     hκ30 hLL5 hTL (tLsetChi q H P Q j cf δ' ℰ) hws' hsub' hlb
-  have hhal := tLChi_sumsq_ramQ hslot q hq hH P Q j cf T hT₀T (by linarith) hBT10
+  have hhal := tLChi_sumsq_ramQ q hH P Q j cf T hslot (by linarith) hBT10
     (tLsetChi q H P Q j cf δ' ℰ) hws' hsub'
   have hkill := tL_kill (T := (q : ℝ) * T) hc hLe (by
       refine Real.log_pos ?_; linarith) hWL hV1 hlogV hlogT1 hTL (by linarith) hgate
@@ -746,13 +773,14 @@ prime-window gain (`ramQblock_inv_sum_le`) is character-free and reused verbatim
 
 `81 = 3·27` is the `q = 1` rung's `54 = 2·27` at the hybrid count's `1680 = 2·840` debit;
 `USetBalance.block_sum_bound` consumes it verbatim at `Cq := 3C/2`. -/
-theorem tLChi_main_sumsq {C c T₀ : ℝ} (hC : 0 < C) (hc : 0 < c)
-    (hslot : HalaszPrimesChi C c T₀) (q : ℕ) [NeZero q] {H : ℝ} (hH : 2 ≤ H)
+theorem tLChi_main_sumsq {C c : ℝ} (hC : 0 < C) (hc : 0 < c)
+    (q : ℕ) [NeZero q] {H : ℝ} (hH : 2 ≤ H)
     (P Q j N X : ℕ) (cf bb : ℕ → ℂ)
     (hcf1 : ∀ n : ℕ, ‖cf n‖ ≤ 1) (hHj : H ≤ (j : ℝ))
-    (T V L δ' Rbd : ℝ) (ℰ : Finset (DirichletCharacter ℂ q × ℝ))
+    (T V L δ' Rbd : ℝ) (hslot : HalaszPrimesChi C c q T)
+    (ℰ : Finset (DirichletCharacter ℂ q × ℝ))
     (hws : FibreWellSpaced ℰ) (hsub : ∀ r ∈ ℰ, r.2 ∈ Set.Icc (-T) T)
-    (hT₀T : T₀ ≤ T) (hT1 : 1 ≤ T) (hqT : 1 < (q : ℝ) * T)
+    (hT1 : 1 ≤ T) (hqT : 1 < (q : ℝ) * T)
     (hB3 : 3 ≤ ramQbase H P j) (hBT : (ramQbase H P j : ℝ) ≤ (q : ℝ) * T)
     (hκ30 : 30 ≤ Real.log ((q : ℝ) * T) / Real.log (ramQbase H P j))
     (hLL5 : 5 ≤ Real.log (Real.log ((q : ℝ) * T))) (hV1 : 1 ≤ V) (hVδ : V⁻¹ ≤ δ')
@@ -768,8 +796,8 @@ theorem tLChi_main_sumsq {C c T₀ : ℝ} (hC : 0 < C) (hc : 0 < c)
     ∑ r ∈ tLsetChi q H P Q j cf δ' ℰ,
         ‖ramMain H N X P Q (chiBarCoeff q r.1 bb) (chiBarCoeff q r.1 cf) j r.2‖ ^ 2
       ≤ 81 * C * Rbd ^ 2 * (H / (j : ℝ)) ^ 2 := by
-  have hQ := tLChi_ramQ_sumsq_killed (le_of_lt hC) hc hslot q hH P Q j cf hcf1 T V L δ' ℰ
-    hws hsub hT₀T
+  have hQ := tLChi_ramQ_sumsq_killed (le_of_lt hC) hc q hH P Q j cf hcf1 T V L δ' hslot ℰ
+    hws hsub
     hT1 hqT hB3 hBT hκ30 hLL5 hV1 hVδ hBT10 hTL hlogT1 hLe hWL hlogV hgate
   have hB1 : (1 : ℝ) < (ramQbase H P j : ℝ) := by
     have : (3 : ℝ) ≤ (ramQbase H P j : ℝ) := by exact_mod_cast hB3

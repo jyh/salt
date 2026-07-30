@@ -207,6 +207,41 @@ theorem halaszPrimesChi_holds_gated :
   obtain ⟨C₁, C₂, C₃, T₀e, hC₁, hC₂, hC₃, hT₀e, hprice⟩ := twisted_window_price_gated_holds
   exact halasz_primes_chi_pair_of_gates hC₁ hC₂ hC₃ hT₀e hprice
 
+/-- **⟦THE SLOT-WAVE DELIVERABLE (1/2)⟧ — `USetChi.HalaszPrimesChi`, DISCHARGED POINTWISE.**
+
+The socket is now stated at a PARAMETER pair `(q, T)` (`USetChi.lean`, the amendment of
+2026-07-30: the old `HalaszPrimesChi C c T₀` fixed `T₀` before `∀ q`, which no `q`-dependent
+gate can ever meet).  In that shape §2's row discharges it outright, and **the four gates
+become exactly the per-`(q,T)` floor the slot no longer carries**:
+
+* `T₀ ≤ T` — the uniform part of the floor, still uniform (`3 ≤ T₀`, and `T₀ ≥ exp(exp 100)`
+  inside `halasz_primes_chi_pair_of_gates`'s own `max`);
+* **G1** the twisted edge's `q`-scale gate; **G2** the region's `A`-absorption at
+  `A := 1 + log(20000(Cq+8104))/100`; **G3** the below-floor width comparison (`Kq`,
+  effective); **G4** the Siegel gate (`Ks`, the port's one ineffective constant — it rides as
+  the `∃` it already was, and `Ks` is the only ineffective datum in this statement).
+
+Every gate stays in-statement, verbatim, at its literal shape (law #253): nothing here is
+absorbed into a constant, and the `(5T+1)` scale of the gates is NOT the `(qT)` scale of the
+socket's decay denominator — the two log scales are kept apart on purpose. -/
+theorem halaszPrimesChi_pointwise_of_gates :
+    ∃ C c T₀ Kq Ks : ℝ, 0 < C ∧ 0 < c ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧
+      ∀ (q : ℕ) [NeZero q] (T : ℝ), T₀ ≤ T →
+        8 * Real.log (40000 * vkStripConst q) ≤ Real.log (Real.log (5 * T + 1)) →
+        8 + Real.log (20000 * (vkStripConst q + 8104)) / 100
+            ≤ Real.log (Real.log (5 * T + 1)) →
+        Kq * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
+            ≤ (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ) →
+        (q : ℝ) ^ ((1 : ℝ) / 16)
+            ≤ Ks * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) →
+      HalaszPrimesChi C c q T := by
+  obtain ⟨C, c, T₀, Kq, Ks, hC, hc, hT₀, hKq, hKs, hrow⟩ := halaszPrimesChi_holds_gated
+  refine ⟨C, c, T₀, Kq, Ks, hC, hc, hT₀, hKq, hKs, ?_⟩
+  intro q _ T hT hG1 hG2 hG3 hG4 P hP hPT10 ℰ hws hsub S hS a
+  exact hrow q T P hT hP hPT10 hG1 hG2 hG3 hG4 ℰ hws hsub S hS a
+
 /-! ## §3 — ⟦A3⟧ THE 𝒰-EXIT COMPOSE: the lifted ladder's two branches, joined
 
 `usetChi_integral_to_branches` (the χ-summed eq-(16) composition) with BOTH branch bounds
@@ -220,14 +255,14 @@ substituted:
   is spent — `V⁻¹ ≤ ε_Q` is the re-pinning's own `V = (log X)^{106}`, killed by the
   quasi-power (`θ < 1/8`).
 
-⟦WHAT IS NAMED, AND WHY⟧ the socket enters as `hslot : HalaszPrimesChi Cs cs T₀`, NOT as
-§2's gated row, and this is a real finding rather than laziness: `HalaszPrimesChi` fixes `T₀`
-BEFORE quantifying `∀ q`, while each of §2's four gates asks `T ≥ T₁(q)` with `T₁` increasing
-in `q`.  No choice of `T₀` bridges that, so the gated row cannot discharge the slot as the
-slot is stated — even though every CONSUMER instantiates it at a single `(q, T)`, where the
-gates are exactly the freeze's own arithmetic.  The repair is a pointwise restatement of the
-slot (`∀ q, ∀ T ≥ T₁ q, …`), i.e. a statement change in a landed file: Fable/human tier, so
-this wave names it instead of making it.
+⟦THE SOCKET, POINTWISE⟧ the socket enters as `hslot : HalaszPrimesChi Cs cs q T` — at THIS
+compose's own `(q, T)`.  The close wave stated it as `HalaszPrimesChi Cs cs T₀` and reported
+the obstruction: that shape fixes `T₀` BEFORE quantifying `∀ q`, while each of §2's four gates
+asks `T ≥ T₁(q)` with `T₁` increasing in `q`, so no choice of `T₀` lets the gated row fill the
+slot.  The slot-wave amendment restated it pointwise, which is what §4 below then discharges:
+`usetChi_window_meansq_gated` carries NO socket hypothesis at all.  This theorem keeps the
+socket named so the composition stays readable at one `(q, T)`; the gated form is the
+deliverable.
 
 Everything else rides in-statement: the `𝒰`-thinness package (`α, η, ε` and the budget), the
 per-`j` block gates (uniform in `j ∈ ramI H P Q`, as the ladder demands), the pointwise
@@ -246,10 +281,11 @@ The two branch prices are visible in the bound: `5128·(log X)^{−200}·M·(1+l
 `𝒯_S` — byte-for-byte MR's `q = 1` grade — and `81·Cs·Rbd²·(H/j)²` on `𝒯_L`, the Lemma-11
 mass and the prime-window gain each contributing one factor `H/j`. -/
 theorem usetChi_window_meansq_of_socket
-    {Cs cs T₀ : ℝ} (hCs : 0 < Cs) (hcs : 0 < cs) (hslot : HalaszPrimesChi Cs cs T₀)
+    {Cs cs : ℝ} (hCs : 0 < Cs) (hcs : 0 < cs)
     (q : ℕ) [NeZero q] (f : ℕ → ℂ) (hf1 : ∀ n : ℕ, ‖f n‖ ≤ 1)
     (Pseq Qseq : ℕ → ℕ) (δ : ℝ) (J Jb : ℕ) (hJb1 : 1 ≤ Jb) (hJbJ : Jb ≤ J) (hδ0 : 0 < δ)
-    (T V L X : ℝ) (hT1 : 1 ≤ T) (hqT : 1 < (q : ℝ) * T) (hV : 1 ≤ V)
+    (T V L X : ℝ) (hslot : HalaszPrimesChi Cs cs q T)
+    (hT1 : 1 ≤ T) (hqT : 1 < (q : ℝ) * T) (hV : 1 ≤ V)
     (hVinv : V⁻¹ ≤ δ / ((Nat.log 2 (Qseq Jb + 1) + 1 : ℕ) : ℝ))
     (hP3 : 3 ≤ Pseq Jb) (hQT : (Qseq Jb : ℝ) ≤ (q : ℝ) * T)
     (hκ30Q : 30 ≤ Real.log ((q : ℝ) * T) / Real.log (Qseq Jb))
@@ -258,7 +294,7 @@ theorem usetChi_window_meansq_of_socket
     (hη2 : 2 * η ≤ 1) (hTX : T ≤ X) (hX0 : 0 < X) (hdebit : (q : ℝ) ^ (2 * α) ≤ X ^ ε)
     (hL0 : 0 < Real.log X) (hqlog : (q : ℝ) ≤ (Real.log X) ^ 12)
     (hVδ : V⁻¹ ≤ (Real.log X) ^ (-106 : ℝ))
-    (hT₀T : T₀ ≤ T) (hlogT1 : 1 ≤ Real.log ((q : ℝ) * T))
+    (hlogT1 : 1 ≤ Real.log ((q : ℝ) * T))
     (hTL : Real.log ((q : ℝ) * T) ≤ L) (hLe : Real.exp 1 ≤ L)
     (hlogV : Real.log V ≤ 100 * Real.log L)
     (H : ℝ) (hH2 : 2 ≤ H) (N Xd P Q M : ℕ) (a b cf : ℕ → ℂ) (hcf1 : ∀ n : ℕ, ‖cf n‖ ≤ 1)
@@ -304,11 +340,104 @@ theorem usetChi_window_meansq_of_socket
       H N Xd P Q j M b cf (hM j hj) hbudget
   · -- ⟦the `𝒯_L` branch⟧ the pair socket, spent once per block
     intro j hj ℰ hws hsubA
-    exact tLChi_main_sumsq hCs hcs hslot q hH2 P Q j N Xd cf b hcf1 (hHj j hj) T V L
-      ((Real.log X) ^ (-106 : ℝ)) Rbd ℰ hws (fun r hr => hAsub (hsubA r hr)) hT₀T hT1 hqT
+    exact tLChi_main_sumsq hCs hcs q hH2 P Q j N Xd cf b hcf1 (hHj j hj) T V L
+      ((Real.log X) ^ (-106 : ℝ)) Rbd hslot ℰ hws (fun r hr => hAsub (hsubA r hr)) hT1 hqT
       (hB3 j hj) (hBT j hj) (hκ30 j hj) hLL5 hV hVδ (hBT10 j hj) hTL hlogT1 hLe (hWL j hj)
       hlogV (hgate j hj) hRbd
       (fun r hr => hR j hj r
         (hsubA r (tLsetChi_subset q H P Q j cf ((Real.log X) ^ (-106 : ℝ)) ℰ hr)))
+
+/-! ## §4 — ⟦THE SLOT-WAVE DELIVERABLE (2/2)⟧ the `𝒰`-exit with the SOCKET GONE
+
+§3's compose at §2's discharged socket.  `hslot` leaves the hypothesis list; what replaces it
+is the per-`(q,T)` floor — `T₀ ≤ T` and the four gates — carried in-statement, verbatim.
+
+⟦THE HONEST RESIDUE, restated⟧ what `usetChi_window_meansq_gated` still asks for, all named
+and all in-statement:
+
+1. **the `𝒰`-package** — `f`, `hf1`, `Pseq/Qseq`, `δ`, `J`, `Jb`, the level data `V` with
+   `hVinv`/`hVδ`, the thinness exponents `α, η, ε` with `hVα`/`hα`/`hη2`/`hdebit`, the budget
+   `hbudget`, and the membership `hUA : A ⊆ 𝒰`'s fibre form;
+2. **the per-`j` block gates**, uniform on `ramI H P Q` (`hHj`, `hB3`, `hBT`, `hκ30`,
+   `hBT10`, `hWL`, `hgate`) plus the ambient height/scale gates (`hT1`, `hqT`, `hV`, `hP3`,
+   `hQT`, `hκ30Q`, `hLL5`, `hlogT1`, `hTL`, `hLe`, `hlogV`, `hTX`, `hX0`, `hL0`, `hqlog`);
+3. **`Rbd`** — the pointwise co-factor bound on `𝒯_L` (NOT a `𝒰`-property: the landed rung
+   says so, and the ladder cannot supply it);
+4. **the Lemma-12 error row `E`** (`HybridMoments.lemma12_meansq_all_chi` supplies it);
+5. **the per-`(q,T)` floor** — `T₀ ≤ T` and G1–G4, the price of the socket's discharge.
+
+⟦THE FOUR LOG SCALES, kept apart⟧ the gates read `log(5T+1)`, the socket's decay denominator
+reads `log(qT)`, the count and the kill read `L ≥ log(qT)`, and the `𝒯_S` level reads
+`log X`.  None of the four is substituted for another anywhere in this statement. -/
+
+set_option maxHeartbeats 800000 in
+-- Same cause as §3: the composed statement carries the ladder's full gate list.
+/-- **⟦A3, GATED⟧ THE `𝒰`-EXIT, UNCONDITIONAL IN THE SOCKET.**  The `χ`-summed window mean
+square of the twisted Dirichlet polynomial on `A ⊆ [−T,T]`, with `HalaszPrimesChi` DISCHARGED
+by §2's pair row: the constants `Cs, cs, T₀, Kq, Ks` are the port's own (`Ks` ineffective,
+Siegel; the rest effective), and the socket's cost appears as the four `q`-vs-`T` gates. -/
+theorem usetChi_window_meansq_gated :
+    ∃ Cs cs T₀ Kq Ks : ℝ, 0 < Cs ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧
+      ∀ (q : ℕ) [NeZero q] (f : ℕ → ℂ), (∀ n : ℕ, ‖f n‖ ≤ 1) →
+      ∀ (Pseq Qseq : ℕ → ℕ) (δ : ℝ) (J Jb : ℕ), 1 ≤ Jb → Jb ≤ J → 0 < δ →
+      ∀ (T V L X : ℝ), 1 ≤ T → 1 < (q : ℝ) * T → 1 ≤ V →
+        V⁻¹ ≤ δ / ((Nat.log 2 (Qseq Jb + 1) + 1 : ℕ) : ℝ) →
+        3 ≤ Pseq Jb → (Qseq Jb : ℝ) ≤ (q : ℝ) * T →
+        30 ≤ Real.log ((q : ℝ) * T) / Real.log (Qseq Jb) →
+        5 ≤ Real.log (Real.log ((q : ℝ) * T)) →
+      ∀ α η ε : ℝ, Real.log V ≤ α * Real.log (Pseq Jb) → α ≤ 1 / 4 - η → 2 * η ≤ 1 →
+        T ≤ X → 0 < X → (q : ℝ) ^ (2 * α) ≤ X ^ ε → 0 < Real.log X →
+        (q : ℝ) ≤ (Real.log X) ^ 12 → V⁻¹ ≤ (Real.log X) ^ (-106 : ℝ) →
+        -- ⟦THE PER-`(q,T)` FLOOR — what the socket's discharge costs⟧
+        T₀ ≤ T →
+        8 * Real.log (40000 * vkStripConst q) ≤ Real.log (Real.log (5 * T + 1)) →
+        8 + Real.log (20000 * (vkStripConst q + 8104)) / 100
+            ≤ Real.log (Real.log (5 * T + 1)) →
+        Kq * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
+            ≤ (Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ) →
+        (q : ℝ) ^ ((1 : ℝ) / 16)
+            ≤ Ks * ((Real.log (5 * T + 1)) ^ ((3 : ℝ) / 4)
+                * (Real.log (Real.log (5 * T + 1))) ^ (4 : ℕ)) →
+        1 ≤ Real.log ((q : ℝ) * T) → Real.log ((q : ℝ) * T) ≤ L → Real.exp 1 ≤ L →
+        Real.log V ≤ 100 * Real.log L →
+      ∀ (H : ℝ), 2 ≤ H → ∀ (N Xd P Q M : ℕ) (a b cf : ℕ → ℂ), (∀ n : ℕ, ‖cf n‖ ≤ 1) →
+        (∀ j ∈ ramI H P Q, ramRrange H N Xd j ⊆ Finset.Icc 1 M) →
+        thinBundleChi ((q : ℝ) * T) V (Pseq Jb) (Qseq Jb) * X ^ (1 - 2 * η + ε) ≤ (M : ℝ) →
+        (∀ j ∈ ramI H P Q, H ≤ (j : ℝ)) →
+        (∀ j ∈ ramI H P Q, 3 ≤ ramQbase H P j) →
+        (∀ j ∈ ramI H P Q, (ramQbase H P j : ℝ) ≤ (q : ℝ) * T) →
+        (∀ j ∈ ramI H P Q, 30 ≤ Real.log ((q : ℝ) * T) / Real.log (ramQbase H P j)) →
+        (∀ j ∈ ramI H P Q, (ramQbase H P j : ℝ) ≤ T ^ 10) →
+        (∀ j ∈ ramI H P Q, Real.log (ramQbase H P j) ≤ L) →
+        (∀ j ∈ ramI H P Q, 420 * L * L ^ ((3 : ℝ) / 4) * (Real.log L) ^ 5
+          ≤ cs * (Real.log (ramQbase H P j)) ^ 2) →
+      ∀ Rbd : ℝ, 0 ≤ Rbd →
+      ∀ A : Set ℝ, MeasurableSet A → A ⊆ Set.Icc (-T) T →
+        (∀ r : DirichletCharacter ℂ q × ℝ, r.2 ∈ A → r ∈ UsetChi q f Pseq Qseq δ J) →
+        (∀ j ∈ ramI H P Q, ∀ r : DirichletCharacter ℂ q × ℝ, r.2 ∈ A →
+          ‖ramR H N Xd P Q j (chiBarCoeff q r.1 b) r.2‖ ≤ Rbd) →
+      ∀ E : ℝ, (∑ χ : DirichletCharacter ℂ q, ∫ t in (-T)..T,
+          ‖ramErr H N Xd P Q (chiBarCoeff q χ a) (chiBarCoeff q χ b)
+            (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E →
+        (∑ χ : DirichletCharacter ℂ q, ∫ t in A, ‖spoly N (chiBarCoeff q χ a) t‖ ^ 2)
+          ≤ 4 * ((ramI H P Q).card : ℝ)
+              * (∑ j ∈ ramI H P Q,
+                  (5128 * (Real.log X) ^ (-200 : ℝ) * (M : ℝ) * (1 + Real.log (2 * T))
+                      * (∑ m ∈ Finset.Icc 1 M,
+                          ‖ramRcoeff H N Xd P Q j b m‖ ^ 2 / (m : ℝ) ^ 2)
+                    + 81 * Cs * Rbd ^ 2 * (H / (j : ℝ)) ^ 2))
+            + 2 * E := by
+  obtain ⟨Cs, cs, T₀, Kq, Ks, hCs, hcs, hT₀, hKq, hKs, hpt⟩ := halaszPrimesChi_pointwise_of_gates
+  refine ⟨Cs, cs, T₀, Kq, Ks, hCs, hcs, hT₀, hKq, hKs, ?_⟩
+  intro q _ f hf1 Pseq Qseq δ J Jb hJb1 hJbJ hδ0 T V L X hT1 hqT hV hVinv hP3 hQT hκ30Q hLL5
+    α η ε hVα hα hη2 hTX hX0 hdebit hL0 hqlog hVδ hT₀T hG1 hG2 hG3 hG4 hlogT1 hTL hLe hlogV
+    H hH2 N Xd P Q M a b cf hcf1 hM hbudget hHj hB3 hBT hκ30 hBT10 hWL hgate Rbd hRbd
+    A hAm hAsub hUA hR E herr
+  exact usetChi_window_meansq_of_socket hCs hcs q f hf1 Pseq Qseq δ J Jb hJb1 hJbJ hδ0
+    T V L X (hpt q T hT₀T hG1 hG2 hG3 hG4) hT1 hqT hV hVinv hP3 hQT hκ30Q hLL5
+    α η ε hVα hα hη2 hTX hX0 hdebit hL0 hqlog hVδ hlogT1 hTL hLe hlogV
+    H hH2 N Xd P Q M a b cf hcf1 hM hbudget hHj hB3 hBT hκ30 hBT10 hWL hgate Rbd hRbd
+    A hAm hAsub hUA hR E herr
 
 end Salt.MR

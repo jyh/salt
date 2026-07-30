@@ -4615,11 +4615,21 @@ open Salt.Tactic in
 -- η it already had (`UsetChi_thin_sqrt_kill_absorbed`, exit `X^{1−2η+ε}` with `ε ≤ η`).
 --
 -- ⟦TWO NAMED HYPOTHESIS SLOTS (P-7 connects them)⟧
--- (1) `HalaszPrimesChi C c T₀` — the χ-twisted MR Lemma 11, wave P-6-CORE's stone C, which that
+-- (1) `HalaszPrimesChi C c q T` — the χ-twisted MR Lemma 11, wave P-6-CORE's stone C, which that
 -- wave reports NOT ATTEMPTED (the REUSE BOUNDARY finding).  Shape: `halasz_primes_pow` with the
 -- pair index, `FibreWellSpaced` spacing, the χ̄-twisted integrand and the VK decay denominator
 -- read at `qT`.  Reading it at `qT` rather than `T` makes the slot the WEAKER hypothesis (a larger
 -- denominator is a weaker decay), so a sharper landed `halasz_primes_chi` discharges it.
+-- ⟦THE SLOT-WAVE AMENDMENT (2026-07-30) — the quantifier order⟧ the slot was first stated with a
+-- UNIFORM floor, `HalaszPrimesChi C c T₀ := ∀ q, 0 < q → ∀ T ≥ T₀, …`, and in that shape it is NOT
+-- dischargeable: `PortClose.halaszPrimesChi_holds_gated` proves the same conclusion behind four
+-- `q`-vs-`T` gates whose floors GROW with `q`, and no single `T₀` bridges a `q`-dependent floor.
+-- It is now POINTWISE — `q` and `T` are parameters, the floor rides at the consumer — and the
+-- three `𝒯_L` rungs below were re-run at the moved instantiation point (proofs verbatim; `0 < q`
+-- and `T₀ ≤ T` drop out of `tLChi_sumsq_ramQ` / `tLChi_ramQ_sumsq_killed` / `tLChi_main_sumsq`).
+-- Nothing is lost: the old form IS `∀ q, 0 < q → ∀ T ≥ T₀, HalaszPrimesChi C c q T`, and every
+-- consumer spends the socket at ONE `(q, T)`.  `PortClose.halaszPrimesChi_pointwise_of_gates` then
+-- DISCHARGES it, and the 𝒰-exit is socket-free (`usetChi_window_meansq_gated`).
 -- (2) **`HalaszIntegersChi Cint` — the χ-twisted MR Lemma 9 (Halász for integers).  A FINDING:
 -- this stone is on NEITHER the freeze's stone list (A–E) NOR in P-3/P-4's supply floor.**  The 𝒯_S
 -- branch cannot run at the landed hybrid MEAN-VALUE grade: `hybrid_wellspaced_l2` carries a
@@ -5324,11 +5334,21 @@ open Salt.Tactic in
 -- branches joined through `usetChi_integral_to_branches` — the `𝒯_S` branch at the re-pinned
 -- level `ε_Q = (log X)^{−106}` (UNCONDITIONAL: `halaszIntegersChiPhi_holds` + the `φ(q)` debit
 -- repaid) and the `𝒯_L` branch at the same level, where the pair socket is spent.
--- **THE SOCKET ENTERS NAMED, AND THAT IS A FINDING**: `HalaszPrimesChi C c T₀` fixes `T₀`
+-- **THE SOCKET ENTERED NAMED, AND THAT WAS A FINDING**: `HalaszPrimesChi C c T₀` fixed `T₀`
 -- BEFORE quantifying `∀ q`, while each of §2's four gates asks `T ≥ T₁(q)` with `T₁`
--- increasing in `q` — so the gated row cannot discharge the slot AS STATED, though every
--- consumer instantiates it at a single `(q,T)`.  The repair is a pointwise restatement of the
--- slot; Fable-tier, named not made.
+-- increasing in `q` — so the gated row could not discharge the slot AS THEN STATED, though
+-- every consumer instantiates it at a single `(q,T)`.
+--
+-- ⟦THE SLOT WAVE (2026-07-30) — THE REPAIR, MADE⟧ the slot is now POINTWISE in `(q, T)`
+-- (`USetChi.lean`), the three `𝒯_L` rungs were re-run at the moved instantiation point, and
+-- this file's §2/§4 close the composition: `halaszPrimesChi_pointwise_of_gates` discharges the
+-- restated socket from `halaszPrimesChi_holds_gated` — **the four gates BECOME the per-`(q,T)`
+-- floor the slot no longer carries** (G4's ineffective `Ks` rides as the `∃` it already was) —
+-- and `usetChi_window_meansq_gated` is A3 with `hslot` GONE.  The honest residue is now: the
+-- 𝒰-package (`f`, `Pseq/Qseq`, `δ`, `J/Jb`, `V`, `α/η/ε`, the budget, `hUA`), the per-`j` block
+-- gates on `ramI H P Q`, the ambient height/scale gates, the pointwise co-factor bound `Rbd`,
+-- the Lemma-12 error row `E`, and the floor `T₀ ≤ T` + G1–G4.  Four log scales stay apart:
+-- `log(5T+1)` (gates), `log(qT)` (decay, count, kill), `L ≥ log(qT)`, `log X` (the 𝒯_S level).
 --
 -- ⟦A4 — NOT REACHED, and the blocker is kernel-stated⟧ `M4ChiSummedFreeRow`'s datum is a
 -- `y`-aspect short-sum window mean square (`chiFreeRowSq`), the ladder's is a `t`-aspect
@@ -5343,4 +5363,6 @@ open Salt.Tactic in
   Salt.MR.mmuChiRate_holds_gated
   Salt.MR.lambdaChiSummatory_holds_gated
   Salt.MR.halaszPrimesChi_holds_gated
+  Salt.MR.halaszPrimesChi_pointwise_of_gates
   Salt.MR.usetChi_window_meansq_of_socket
+  Salt.MR.usetChi_window_meansq_gated
