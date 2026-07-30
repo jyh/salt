@@ -246,6 +246,7 @@ import Salt.MR.MobiusChiRate
 import Salt.MR.HalaszIntegersChiClose
 import Salt.MR.MobiusChiRamare
 import Salt.MR.LFunctionInvShallow
+import Salt.MR.MobiusChiRateClose
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -5065,3 +5066,90 @@ open Salt.Tactic in
   Salt.MR.lFunctionInvShallowVkSharp_holds
   Salt.MR.carve_of_half
   Salt.MR.MmuChiRate_residue_sharp
+
+-- ## `Salt/MR/MobiusChiRateClose.lean` — ⟦THE MIRROR⟧ the χ-twisted Möbius rate
+--
+-- The closing wave of the KMT port's centerpiece: `Salt.SW.MobiusRateClose` re-run at `L(s,χ)`.
+-- §1 `mmu1Chi_contour_shift` — the residue-free twisted contour shift, PARAMETRIZED by an
+-- analytic carrier `g` agreeing with `s ↦ (L(s − it, χ⁻¹))⁻¹` on the `c`-line (so the same
+-- theorem serves the non-principal row, where the carrier IS that inverse, and the principal
+-- row, where it is the pole-normalized continuation).  The `c`-line constant is the landed
+-- height-uniform `norm_LFunction_inv_shifted_cline_le`, so the ζ route's `log⁷` tail friction
+-- never appears.  §2 `mmu1Chi_rate_of_pinned` — the budget at the PINNED parameters
+-- (`L = log x`, `s = L^{1/10}`, `T = e^s`, `c = 1 + 1/L`, `H = 2x`, `σ₀ = 1 − pinW c₅ H`), with
+-- `pinW c₅ H = c₅/((log H)^{3/4}(log log H)⁶)`: the `⁶ = 4 + 2` is `vkShallowWidthSharp`'s own
+-- `⁴` plus the conductor gate spent ONCE (`logq_le_thirteen`: `q ≤ (log x)^{12}` gives
+-- `(log q + 1)² ≤ 169(log log H)²`), which is what makes every constant UNIFORM in `q, χ, t`.
+-- §3 `mmuChiRate_of_smoothed` — the ℂ-valued two-point Riesz de-smoothing (`‖·‖` for `|·|`; the
+-- twisted datum is not real), stated with a free side condition `P q χ` so the two rows share it.
+--
+-- ⟦D1⟧ `mmuChiRate_nonprincipal` — the `χ ≠ 1` row of `MmuChiRate` at the ⟦D1⟧-amended gates,
+-- CONDITIONAL ONLY on the ξ₁/Siegel carve-out in the strong `Re < 1/2` form (P-7's fold).  The
+-- edge bound is the landed `lFunctionInvShallowVkSharp_holds` at `H = 2x`; the zero-freeness is
+-- the landed `LFunction_no_zero_in_shifted_box`; the two width comparisons (`pinW_le_sharp`,
+-- `pinW_le_boxWidth_half`) are the only new arithmetic, and the HALF in the second is
+-- `boxWidth_pos`'s own price.
+--
+-- ⟦D2⟧ `mmuChiRatePrincipal_of_zetaShallow` — the `χ₀` row from ONE analytic `Prop`.  The route
+-- is the Euler product, not inclusion–exclusion: `L(s,1) = P_q(s)·ζ(s)` (mathlib's
+-- `LFunctionTrivChar_eq_mul_riemannZeta`) makes the carrier
+-- `g s = mmuG(s − it)·(P_q(s − it))⁻¹` with `Salt.SW.mmuG` the landed continuation of `1/ζ`
+-- through the pole, and the Euler factor is FREE: `‖P_q(s)⁻¹‖ ≤ 4^{ω(q)} ≤ q² ≤ (log H)^{24}`
+-- on `Re ≥ 3/4` (`norm_eulerFac_inv_le`, `two_pow_omega_le`).  **The finding worth banking: the
+-- divisor/inclusion–exclusion route is STRICTLY WORSE — the Dirichlet inverse of `μ·χ₀` over the
+-- divisors of `rad q` is `n ↦ [n ∣ q^∞]`, i.e. a sum over ALL `q`-smooth-supported `n ≤ y`, not
+-- over `d ∣ rad q`.**
+--
+-- ⟦THE RESIDUE⟧ `ZetaInvShallowVk` — the ζ twin of `lFunctionInvShallowVkSharp_holds` at the
+-- SAME sharp width read at `q = 1`.  Its first conjunct (the box is ζ-zero-free) is a
+-- composition of landed material (`Salt.Vk.zeta_zero_free_region_pow` above the floor, the
+-- classical region below); its SECOND conjunct — `‖mmuG(σ+iτ)‖ ≤ K(log H)^m` on the shallow box
+-- — is the one open stone.  Why the corpus does not already have it: `Salt.SW.zeta_inv_shallow`
+-- is at the CLASSICAL width `c₄/log⁹(|t|+2)`, worth only `|t| ≤ exp((log y)^{1−δ})` of height,
+-- and the landed `zeta_pow_lower` / `zeta_lower_all_t` are at VK width but only on `Re ≥ 1` —
+-- a lower bound to the RIGHT of the 1-line, and the Cauchy/MVT transport to `Re = 1 − w` costs
+-- a full power of `log H` in the width, which kills the saving at `|t| ≍ y`.  The route is §1 of
+-- `LFunctionInvShallow` at the `Zc` normalization (`Zc` entire, `Zc 1 = 1`, and the RATIO
+-- `‖c−1‖/‖s−1‖ ≥ 1/2` kills the pole factor), growth from `Salt.Vk.zeta_growth_pow`, floor from
+-- the landed `Salt.MR.zeta_pow_lower_far` (`‖ζ((1+d')+iτ)‖ ≥ d'/32`, the exact ζ analogue of
+-- `LFunction_near_one_lower`); below the VK floor everything is a CONSTANT (no `q`, so no
+-- Pólya–Vinogradov arm).  `Salt.MR.zeta_near_bound_core` is the closest landed relative and is
+-- `private`, hence not reusable across modules as written.
+--
+-- The deliverables: `mmuChiRate_of_carve_and_zetaShallow : MmuChiRate` and
+-- `lambdaChiSummatory_of_carve_and_zetaShallow : LambdaChiSummatory A`, both from exactly the
+-- two named inputs (the ξ₁ fold + `ZetaInvShallowVk`).
+
+open Salt.Tactic in
+#audit_axioms Salt.MR.mmu1Chi_contour_shift
+  Salt.MR.pinT
+  Salt.MR.pinW
+  Salt.MR.mmu1Chi_rate_of_pinned
+  Salt.MR.pin_scale_facts
+  Salt.MR.logq_le_thirteen
+  Salt.MR.pinW_le_sharp
+  Salt.MR.pinW_le_boxWidth_half
+  Salt.MR.TsumChi
+  Salt.MR.x_mul_Mmu1Chi
+  Salt.MR.MmuChi_split
+  Salt.MR.TsumChi_split
+  Salt.MR.desmooth_identity_chi
+  Salt.MR.remainder_bound_chi
+  Salt.MR.mmuChiRate_of_smoothed
+  Salt.MR.mmuChiRate_nonprincipal
+  Salt.MR.MmuChiRatePrincipal
+  Salt.MR.mmuChiRate_of_rows
+  Salt.MR.mmuChiRate_of_carve_and_principal
+  Salt.MR.lambdaChiSummatory_of_carve_and_principal
+  Salt.MR.eulerFac
+  Salt.MR.eulerFac_differentiable
+  Salt.MR.norm_one_sub_prime_cpow_ge
+  Salt.MR.one_le_pow_mul_norm_eulerFac
+  Salt.MR.eulerFac_ne_zero
+  Salt.MR.two_pow_omega_le
+  Salt.MR.norm_eulerFac_inv_le
+  Salt.MR.ZetaInvShallowVk
+  Salt.MR.pinW_le_quarter
+  Salt.MR.mmuChiRatePrincipal_of_zetaShallow
+  Salt.MR.mmuChiRate_of_carve_and_zetaShallow
+  Salt.MR.lambdaChiSummatory_of_carve_and_zetaShallow
