@@ -248,6 +248,7 @@ import Salt.MR.MobiusChiRamare
 import Salt.MR.LFunctionInvShallow
 import Salt.MR.MobiusChiRateClose
 import Salt.MR.ZetaInvShallow
+import Salt.MR.PortAssembly
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -5200,3 +5201,93 @@ open Salt.Tactic in
   Salt.MR.mmuChiRatePrincipal_holds
   Salt.MR.mmuChiRate_of_carve
   Salt.MR.lambdaChiSummatory_of_carve
+
+-- ## `Salt/MR/PortAssembly.lean` — ⟦WAVE P-7: THE ASSEMBLY⟧ the `(χ,t)`-pair dual + the Siegel fold
+--
+-- ⟦A1 — STONE C's RESIDUE DISCHARGED⟧ `halaszPrimesChiGated_of_price` :
+-- `USetChi.HalaszPrimesChi`'s conclusion with the diagonal term `P`, NOT `φ(q)·P`.  THE FINDING
+-- that makes the `φ(q)` disappear: `halasz_primes_chi_fibres` pays it because on the PRIMAL side
+-- each fibre's bound reads the FULL coefficient mass, so `φ(q)` fibres multiply the diagonal; on
+-- the DUAL side (`dual_core_pair`) the pole row is charged against the FIBRE's own mass
+-- (`pole_double_row_fibre` = `pole_row_sum` once per `FibreWellSpaced` fibre) and the fibre masses
+-- ADD UP.  "The `44π·P` paid once per fibre" is therefore a statement about WHICH SIDE of the
+-- duality the pole row is priced on — not about slack.  Cross-character pairs carry
+-- `ψ = χ_r·χ̄_{r'} ≠ 1`, where `L(·,ψ)` is entire and `TwistedWindowPriceGated` supplies the EDGE
+-- price with no pole; they go into `error_double_row_gen`'s slot.
+--
+-- ⟦THE DIAGONAL FIBRES' EULER DEBIT⟧ on a diagonal pair `ψ = χ·χ⁻¹ = 1` is the PRINCIPAL character
+-- mod `q`, not the trivial character of modulus 1, so the diagonal window sum is
+-- `∑_{(n,q)=1}Λ(n)n^{iu}w(n)` and comparing with `per_pair_contour`'s untwisted sum costs the
+-- `p ∣ q` mass.  `norm_principal_sub_untwisted_le` prices it at `(log₂⌊3P⌋+1)·log q` by the DIVISOR
+-- route (`vonMangoldt_sum` on the divisors of `q^K`, `K = log₂⌊3P⌋+1`: every non-unit `n ≤ N` with
+-- `Λ(n) ≠ 0` is `p^k` with `p ∣ q`, `2^k ≤ N`, hence divides `q^K`).  The
+-- `neg_re_logDeriv_trivChar_le_zeta` route prices the Euler PRODUCT on `Re s > 1` — a different
+-- object; the window sum needs this finite-sum form.  The debit is absorbed with a full `√P` to
+-- spare (`natLog2_floor_le_sqrt` + `√P ≤ P·exp(−c log P/D₄)`).
+--
+-- ⟦THE GATES (never absorbed — the law)⟧ `HalaszPrimesChiGated` = the socket's conclusion plus
+-- (1) the twisted edge's `q`-scale gate and (2) the region at `c_vk`.  Both are `q`-dependent, so
+-- neither fits the socket's uniform `T₀`: that is the honest shape of the port's pair row.  Two new
+-- absorptions: `D4_5T1_le_D4` (`K₄`) and `D5_5T1_le` (`K₅`, the extra `loglog` priced by
+-- `log u ≤ 4u^{1/4}`); `c = min(c_vk/(2K₄), c₀/(2Cκ), 1/10)`.
+--
+-- ⟦A2 — THE SIEGEL FOLD, AND THE ADJUDICATION THAT SHAPES IT⟧ **the STRONG carve-out
+-- `∀ real zero, Re ρ < 1/2` — carried by `mmuChiRate_of_carve`, `lambdaChiSummatory_of_carve`,
+-- `carve_of_half` and `twisted_rect_zero_free_split`'s `hcarve` — IS NOT A SIEGEL STATEMENT AND
+-- CANNOT BE FOLDED INTO AN `∃H₀`**: it says `L(s,χ)` has no real zero in `[1/2,1)`, a fragment of
+-- GRH (Chowla's conjecture at real `χ`), and no threshold in `H` and no `q`-range weakens it (one
+-- hypothetical real zero at `β = 0.9` for one fixed small `q` refutes it for every `H₀`).  What IS
+-- foldable — and what every consumer actually needs — is the WIDTH form: `carve_of_half`
+-- immediately drops `Re < 1/2` to `Re ρ ≤ 1 − vkShallowWidth(10⁻⁶) q H`, and the region uses
+-- `1 − 10⁻⁸/D₄(5T+1)`; both are `≍ (log H)^{−3/4−o(1)}`, and at `q ≤ (log H)^{12}` Siegel at
+-- `ε = 1/16` beats them (`16 = 12/(3/4)`; an effective Page bound gives `q^{−1/2}`, i.e.
+-- `(log H)^{−6}`, losing by `(log H)^{5.25}` — which is exactly why the arc's `12` forces Siegel).
+-- `siegel_real_carve` is that fold: `∃K > 0` INEFFECTIVE (the port's ONE ineffective constant) with
+-- `q^{1/16}·W ≤ K ⟹` no real zero of `L(·,χ)` reaches `1 − W`.  Real characters go through the
+-- landed ε-quantified `Salt.SW.siegel_theorem` on the primitive character; NON-real characters need
+-- NO Siegel (`zero_free_region_all'`, carve-out satisfied by the left disjunct, at the cost
+-- `log 2q ≤ 32q^{1/16}`).
+--
+-- ⟦A2's DELIVERABLE⟧ `twisted_rect_zero_free_siegel` — stone C's split with `hcarve` REPLACED by
+-- one `q`-vs-`T` Siegel gate.  The re-derivation is cheap and legitimate because the landed split
+-- applies `hcarve` to exactly ONE zero (the `ρ` it is handed) and `zero_free_region_all'` is itself
+-- per-`ρ`: for `Im ρ ≠ 0` the right disjunct is free, and the only carved corner is the REAL zero,
+-- which §7 kills.  Above the height floor the VK arms take no carve-out at all.
+--
+-- ⟦§9 — THE COMPOSITION⟧ `halasz_primes_chi_pair_of_gates`: the pair socket with the region
+-- discharged, in front of FOUR gates (edge `q`-scale; the region's `A`-absorption at
+-- `A := 1 + log(20000(Cq+8104))/100`; the below-floor comparison `Kq`; the Siegel gate `Ks`) and
+-- nothing else.  It takes the edge price at the LITERAL width `1/10⁸` —
+-- `twisted_edge_price_strip` proves exactly that (TwistedEdge.lean:895) and
+-- `twisted_window_price_gated_holds` passes the same constant through, but both hide it behind
+-- `∃ c_vk`, so the kernel cannot see that it matches the region's own `1/10⁸`.
+--
+-- ⟦NOT BUILT (the honest STOP)⟧ A3 (the 𝒰-exit compose) and A4 (`M4ChiSummedFreeRow`): the socket
+-- discharge is one composition further on, and the rate chain's `hxi` is still stated at
+-- `Re < 1/2`.  Owed, both Fable-tier statement changes: (i) restate `hxi` at the width (what
+-- `mmuChiRate_nonprincipal` already consumes via `carve_of_half`); (ii) expose `c_vk = 1/10⁸` in
+-- the edge's `∃`.
+open Salt.Tactic in
+#audit_axioms Salt.MR.sum_vonMangoldt_nonunit_le
+  Salt.MR.window_lambda_support
+  Salt.MR.summable_window_lambda_chi
+  Salt.MR.norm_principal_sub_untwisted_le
+  Salt.MR.error_double_row_gen
+  Salt.MR.wellSpaced_fibre
+  Salt.MR.pole_double_row_fibre
+  Salt.MR.pair_phase_conj
+  Salt.MR.dual_core_pair
+  Salt.MR.conj_pairMatrix
+  Salt.MR.primal_of_dual_pair
+  Salt.MR.loglog5_le
+  Salt.MR.K₄
+  Salt.MR.D4_5T1_le_D4
+  Salt.MR.K₅
+  Salt.MR.D5_5T1_le
+  Salt.MR.natLog2_floor_le_sqrt
+  Salt.MR.HalaszPrimesChiGated
+  Salt.MR.absorb_exp_term
+  Salt.MR.halaszPrimesChiGated_of_price
+  Salt.MR.siegel_real_carve
+  Salt.MR.twisted_rect_zero_free_siegel
+  Salt.MR.halasz_primes_chi_pair_of_gates
