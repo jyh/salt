@@ -15816,3 +15816,136 @@ green; axioms 82/82 within the permitted set.
 consumer (named, not performed): the r = 0 UNION MASS = the product
 of the two block masses via `blockWindow_mertens_const` — a
 D3-DISCHARGE item.  THE FIRST BANK IS 5/5 — batch seal follows.
+
+## (2026-07-30 06:46 PDT) RELIFT-B lands — THE FIBREWISE GRADED A3 (the C2 deliverable), first-attempt, 5/5 clean; K-5 COMPATIBLE; the graded re-lift ii-1..ii-6 COMPLETE
+
+**⟦THE STONES⟧**  USetGChiTS.lean (706 ln): §1 the graded 𝒯_S exit
+(`usetGChi_TS_branch_exit_repinned` — byte-for-byte the flat grade
+`5128·(log X)^{−200}·…` at the graded set; `TSChi_branch_meansq_phi` +
+`phi_debit_level_repin` consumed VERBATIM — the level-agnostic finding
+kernel-confirmed).  §2-§4 the family forms at the ratified pair
+spelling: `usetGChi_integral_to_branches_family` (the per-fibre
+continuous→discrete bridge) → `_of_socket_family` →
+**`usetGChi_window_meansq_gated_family` — THE C2 DELIVERABLE** (the
+socket discharged, cost = T₀ ≤ T + G1-G4 in-statement).  Build 9575
+green; axioms 5/5.
+
+**⟦K-5: COMPATIBLE⟧** — the combined graded+socket gate list satisfied
+at an EXHIBITED x-scale regime (built on `gates_jointly_satisfiable`'s
+own witness; budget clears by two orders).  THE STRUCTURAL POINT: the
+threshold wall's failing bridge needed `α_Jb·(log Q/log P) ≤ 1/4 − η`
+(false by 3.5M); the graded razor's own gate is `α_Jb ≤ 1/4 − η`
+ALONE (7/48 ≤ 1/6 ✓) — **the killing factor is GONE, not tuned away**
+(the exact-α collapse inside the count makes the height power
+`(qT)^{2α}` with no block-ratio multiplier).
+
+**⟦THREE FINDINGS FOR THE ASSEMBLY⟧**  (1) G1 NESTS inside the port's
+q ≤ (log X)^12 (both upper caps, intersection nonempty everywhere in
+regime) — but the FULL window q ≍ (log X)^12 together with T ≤ X is
+unavailable (8·log q > loglog(5T+1) there) — a property of the FLAT
+compose equally, neither created nor cured; the assembly must pick
+its (q,T,X) corner accordingly.  (2) The φ(q) repayment vs `hlogV`:
+L = (log qT)^κ with κ ∈ [106/100, 8(1−θ)/7) — κ = 11/10 sits inside
+at margin 0.068 (pre-existing, surfaced).  (3) The graded re-lift
+DECOUPLES the thinness level (VJ) from the 𝒯_L threshold (V): δ,
+hδ0, hVinv, hVα all ABSENT from the family statements — the feasible
+region strictly LARGER than flat.  Deviations: the two V-binders
+(forced, stated); the two-step φ(q) intermediate kept for consumers.
+THE GRADED RE-LIFT ii-1..ii-6 IS COMPLETE.  D2-REDERIVE fires on this
+entry.
+
+## (2026-07-30 06:47 PDT) BALL-SUP lands — the ball leg supplied via the landed rates, 19/19 clean (BallSupChi.lean 487 ln); route (b) structurally refuted
+
+**⟦THE ROUTE-(a) FINDING — better than Halász.⟧**  `pieceDatum χ {j}`
+IS `lamGr (P_j) (Q_j) 0` twisted by χ̄ (the mask indicator = the r = 0
+damping, `gJ_singleton_eq_zero_pow`), so the centre-twisted partial
+sums ARE the landed summatories and `MlamGrChi_rate` prices them at
+`C·k/(log k)^A` for EVERY saving — no pretentious distance, no grade
+socket; unconditional modulo O6's two mass pages (landed this
+morning).  THE HONEST GATE: two hyperbola folds halve the height
+twice — `|t₁| ≤ X^{1/4}` in-binder; tall centres NOT covered; **does
+not bite at the door (t₁ := 0, `ball_leg_pieceDatum_at_zero` carries
+no centre gate at all)**.  ⟦ROUTE (b) REFUTED STRUCTURALLY⟧: the q=1
+hCenter chain is stated at `ellLin g` — SQUAREFREE-supported — while
+pieceDatum is completely multiplicative (nonzero at 4); not an
+instantiation for any g; a tall-centre re-proof would be ≈1.5-3k C/D
+plus hRHS — priced-and-named, not needed.
+
+**⟦THE DELIVERABLES⟧**  The termwise bridges (pieceDatum = the landed
+carriers); `center_halasz_pieceDatum_block` (𝒥 = {j}) +
+`_empty` (𝒥 = ∅, wider gates, NO mass page — coverage 3/4 at the
+door); `hMball_pieceDatum` χ-free AND 𝒥-free (both stones
+datum-generic); `ball_sup_pieceDatum` (the consumer's hSup shape per
+χ, all gates in-statement); **`ball_leg_pieceDatum` — the crown:
+`∫_{Ann∩ball} ≤ 8·(ballSupS X S₀)²`** + the door pin.  χ bound before
+t₁ everywhere (per-χ centres free, K-3 honored).  Build 9576 green;
+axioms 19/19.
+
+**⟦THE CONVERGENCE⟧**  The one uncovered piece (𝒥 = {1,2}) is
+EXACTLY the λ-union twin `MlamGrChiU_rate` — D3-DISCHARGE's named gap
+item, in flight now.  On its landing the door coverage closes 4/4.
+
+## (2026-07-30 06:55 PDT) D3-DISCHARGE lands — THE T₀-BAND DISCHARGED AT THE DOOR (hpiece GONE), 44/44 clean; the λ-mask gap minted; door coverage 4/4
+
+**⟦THE GAP VERDICT: MISSING → MINTED.⟧**  λ-at-mask confirmed absent
+at the bytes (λ single-window + μ mask-general; the two-block union is
+no interval).  LambdaChiMask.lean (658 ln): the mask-general λ twin —
+`lamGrMask`, the squarefree carrier `lamTailWeightMask = μ²·maskTail`,
+the verification `λ ∗ v_r = λ·g_r` at prime powers, the twisted
+hyperbola fold, **`MlamGrChiMask_rate`** (prices IDENTICAL to the
+single-window λ rate — the mask invisible to every gate), and the
+twin-fidelity bridges PROVED.  One page covers ∅/singletons/union
+uniformly.  ⟦THE BALL CONVERGENCE CLOSES⟧: the rate at `jMask {1,2}`
+is exactly BALL-SUP's missing fourth piece — DOOR COVERAGE 4/4.
+
+**⟦THE EXIT⟧**  M4T0DatumDischarge.lean (586 ln): `gJ` IS the r = 0
+mask indicator; the piece partial sums ARE the carriers;
+`piece_partial_sum_rate` (∃C',x₀ hoisted out of k/q/χ/t/𝒥);
+`m4_hpiece_at_door` meets the FROZEN binder exactly at
+S₀ = C'/(log X)^A; **`m4_hT0band_at_door_discharged` — the hpiece
+slot is GONE**; the door's covering window admissibility proved
+in-file (no window hypothesis left for the consumer).  Build 9578
+green; axioms 44/44 (three at the strict subset [propext, Quot.sound]).
+
+**⟦THE HONEST CATCHES⟧**  (1) THE SMALL-k CORNER IS REAL: REF-A4-MATH's
+"t-fit trivial" verdict FAILS at the bottom of the range (X = 3:
+seamT0 ≈ 1.0245 vs ⌊√⌊√3⌋⌋ = 1) — the fit holds under the explicit
+gate `400 ≤ X`, now IN-STATEMENT not absorbed (the third erratum
+touching that verdict; the executor floor keeps earning its keep).
+(2) The r = 0 union-mass item NOT minted — a cheaper route: at r = 0
+the mask carrier is dominated pointwise by the covering window's, so
+the landed single-window pages discharge it (cost: windowMassConst
+P₁Q₂ vs the product — both X-free, entering C' linearly, exit
+indifferent).  (3) The quantifier order carried in-statement (x₀ ≤
+X_d + the three y-gates ∀k), nothing absorbed.  (4) [NeZero q] the one
+structural addition; the conductor fit carried as q ≤ (log X)^10,
+the H-coupling stated as the consumer's step.  D3 IS COMPLETE.
+
+## (2026-07-30 07:18 PDT) D2-REDERIVE lands — the hrowsSum slot MET in the frozen shape, 18/18 clean (M4RowsChi.lean 1202 ln); THE SECOND BANK IS 5/5
+
+**⟦THE DELIVERABLE⟧**  `m4_hrowsSum_chi` — the per-χ row family at
+the FROZEN slot binders; `m4_a2_spine_of_rowsChi` (the spine twin's
+slot supplied); `m4_hrowsSum_chi_door` (the slot in the frozen a2Mrow
+genre → `thm_a2'_of_rows_chiSummed`).  The chain: the pair set
+`rowPairSetG` (fibre = (Ann∖ball(t₁ χ)) ∩ UsetG(χ̄c), by rfl) → the
+ii-8 adapters (the 81 = 54·(3/2) debit A SUBSTITUTION riding visibly
+in Cq, not a new constant) → the graded 𝒰-leg per character → the
+per-χ capstone row → the seam-row number χ-twin → the T-free
+`m4MrowChi` → the weighted slot.  Build 9579 green; axioms 18/18.
+
+**⟦FINDINGS⟧**  (1) C2-SCOPE §4.1 CONFIRMED at the bytes: every stone
+instantiated, nothing re-derived; 1202 ln vs the 1.2-2.2k estimate
+INCLUDING both adapters and two extra deliverables.  (2) TLEG-FACT's
+pricing fence REMOVED at 60 ln (`sum_lemma12Rows_priced_calibratedK2`
+is ∀ a b c — all four coefficient hypotheses lift).  (3) The Σ_χ →
+per-χ read costs ONE φ(q) (single_le_sum on nonneg integrals), Mrow
+otherwise character-uniform — K-2 read at the row.  (4) The 480-path:
+a2Mrow met with 4× HEADROOM on the Lemma-12 slot (Amendment G's cover
+unspent).  (5) Two ε's kept apart + the fifth scale √(log X_d) never
+conflated.  (6) The residue: the §5 gate families (graded razor +
+socket floor at (q,2T)), Rbd (supplier LANDED — RbdSupply), hSup ball
+(supplier LANDED — BallSupChi, to WIRE at assembly), CalFrameK/frames,
+R1-R6, the weighting frame — all enumerated in-file.  THE SECOND BANK
+IS 5/5: the fibrewise graded A3, the T₀-band discharge, the ball leg,
+the row family, the λ-mask twin — A4 now stands at ONE wave: THE
+ASSEMBLY.

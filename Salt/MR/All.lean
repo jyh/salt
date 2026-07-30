@@ -260,6 +260,11 @@ import Salt.MR.RbdSupply
 import Salt.MR.RamareMassTail
 import Salt.MR.LambdaChiRamare
 import Salt.MR.MobiusChiRamareUnion
+import Salt.MR.LambdaChiMask
+import Salt.MR.M4T0DatumDischarge
+import Salt.MR.USetGChiTS
+import Salt.MR.BallSupChi
+import Salt.MR.M4RowsChi
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -5589,3 +5594,147 @@ open Salt.Tactic in
   Salt.MR.MmuGrChiU_eq_sum
   Salt.MR.MmuGrChiU_rate
   Salt.MR.MmuRamChiU_rate
+
+-- ⟦D3 — THE λ-AT-MASK TWIN⟧ (2026-07-30, the 0730 council's C5; `LambdaChiMask`).
+--
+-- ⟦THE GAP, NAMED IN THE FIRST-BANK LEDGER AND CLOSED HERE⟧ D3-CARRIERS-1 landed the λ-side
+-- rate at a SINGLE window (`MlamGrChi_rate`) and the μ-side rate at a GENERAL mask
+-- (`MmuGrChiMask_rate`); the door's `hpiece` reads `pieceDatum χ 𝒥 = liouChi χ · g_𝒥`, i.e. the
+-- LIOUVILLE datum at the mask `⋃_{j∈𝒥}[P_j,Q_j]`, which for `𝒥 = {1,2}` is no interval — so
+-- **the λ-at-mask combination was genuinely missing**.  This file is it: `LambdaChiRamare`'s
+-- §1–§5 with `blockOmega → maskOmega`, equivalently `MobiusChiRamareUnion`'s §2–§5 with
+-- `(μ, w_r) → (λ, v_r = μ²·w_r)`.  Neither template inspects the interval structure and neither
+-- inspects the datum beyond multiplicativity, so both substitutions are mechanical.
+--
+-- ⟦THE `d²`-FOLD STAYS REFUTED⟧ nothing about passing to a mask repairs REF-A4-4's mechanism
+-- (`g_r(p²) = r ≠ r²`); the same convolution device `λ·g_r = λ ∗ v_r` runs here, verified at
+-- prime powers (`lamTailWeightMask_mul_liouville`, the `μ²` being exactly the trim to
+-- `i ∈ {0,1}`).  ⟦PRICES⟧ IDENTICAL to `MlamGrChi_rate`'s (`q ≤ (log y)^10`,
+-- `|t| ≤ ⌊√⌊√y⌋⌋ ≈ y^{1/4}`, `4^A`): the mask enters ONLY through `M` and `ε`.
+-- ⟦TWIN FIDELITY, PROVED⟧ `lamGrMask_blockMask` / `lamTailWeightMask_blockMask` /
+-- `MlamGrChiMask_blockMask` — the landed single-window λ page IS the `blockMask` instance.
+
+open Salt.Tactic in
+#audit_axioms Salt.MR.lamGrMask
+  Salt.MR.lamGrMask_isMultiplicative
+  Salt.MR.lamTailWeightMask
+  Salt.MR.lamTailWeightMask_apply_of
+  Salt.MR.lamTailWeightMask_eq_zero_of_not_squarefree
+  Salt.MR.lamTailWeightMask_eq_zero_of_not_smooth
+  Salt.MR.lamTailWeightMask_nonneg
+  Salt.MR.lamTailWeightMask_le_maskTailWeight
+  Salt.MR.lamTailWeightMask_support
+  Salt.MR.lamTailWeightMask_le_zero_param
+  Salt.MR.lamTailWeightMask_isMultiplicative
+  Salt.MR.lamTailWeightMask_prime_pow
+  Salt.MR.lamTailWeightMask_mul_liouville
+  Salt.MR.liouville_mul_lamTailWeightMask
+  Salt.MR.lamGrMask_eq_sum_divisorsAntidiagonal
+  Salt.MR.lamGrMask_twist_eq_sum_divisorsAntidiagonal
+  Salt.MR.MlamGrChiMask
+  Salt.MR.MlamGrChiMask_eq_sum
+  Salt.MR.norm_MlamGrChiMask_le_split
+  Salt.MR.MlamGrChiMask_rate
+  Salt.MR.lamGrMask_blockMask
+  Salt.MR.lamTailWeightMask_blockMask
+  Salt.MR.MlamGrChiMask_blockMask
+
+-- ⟦D3-DISCHARGE — THE `hpiece` SLOT AT THE DOOR DATUM⟧ (2026-07-30, council C5;
+-- `M4T0DatumDischarge`).  `M4T0Datum.m4_hT0band_at_door` carried ONE binder, `hpiece`; this
+-- file discharges it and delivers the `hT0band` slot with no per-piece hand-off left.
+--
+-- ⟦THE IDENTIFICATION⟧ `Sec9Glue.gJ 𝒥` is the indicator `[ω(n; jMask 𝒥) = 0]`, i.e. the damping
+-- `r^ω` AT `r = 0`; so `pieceDatum χ 𝒥 (n)·n^{−it}` is the λ-at-mask carrier's summand and the
+-- door's partial sum IS `MlamGrChiMask χ (−t) (jMask 𝒥) 0 k` (`piece_partial_sum_eq`).
+-- ⟦THE SIGN⟧ the band twist is `eIu (−t)` while `chiBarTwist χ s` carries `n^{is}`, so the
+-- carrier is read at `s = −t`; `|−t| = |t|` leaves every gate unchanged.
+--
+-- ⟦THE WINDOW ROWS, CHEAPER THAN THE LEDGER'S NAMED ITEM⟧ the ledger named "the `r = 0` UNION
+-- MASS = the product of the two block masses".  At `r = 0` both carriers are `0/1` smoothness
+-- indicators, so a mask CONTAINED in an interval `[P,Q]` is DOMINATED pointwise by that
+-- window's carrier (`maskTailWeight_zero_le_ramTailWeight_zero`) — and `RamareMassTail`'s two
+-- single-window pages then discharge the mask rows with NO new arithmetic.  The product form
+-- is the sharp value; the covering-interval route pays only the constant
+-- `windowMassConst P₁ Q₂` in place of `windowMassConst P₁ Q₁ · windowMassConst P₂ Q₂`, both
+-- `X`-free and both entering `C'` linearly.  The product page is NOT minted — recorded.
+--
+-- ⟦THE TWO RANGE FITS, ONE OF THEM NOT FREE⟧ (a) HEIGHT: `seamT0 X = (log X)^{1/45}` against
+-- the carrier's `⌊√⌊√k⌋⌋`.  ⚠ **FAILS at the small-`k` corner** of `m4_hT0band_at_door`'s own
+-- range: at `X = 3` the left side is `1.0245` and `⌊√⌊√3⌋⌋ = 1`.  `seamT0_le_sqrt_sqrt` proves
+-- the fit under the explicit threshold `400 ≤ X` (`⌈seamT0 X⌉^4 ≤ 16(log X)^{4/45} ≤ 16X^{4/45}
+-- ≤ X` once `16 ≤ X^{41/45}`, which `√400 = 20` gives).  REF-A4-MATH's "free" verdict is
+-- therefore correct only above a threshold, and the threshold is now IN the statement.
+-- (b) CONDUCTOR: carried as `q ≤ (log X)^{10}` and transported up the range by `log k ≥ log X`;
+-- the door's `q ≤ arcDen 12 H` fit is the consumer's step (it couples `H` to `X`).
+--
+-- ⟦THE QUANTIFIER ORDER, MOVED HONESTLY⟧ D3-CARRIERS-2's residue: `MlamGrChiMask_rate`'s
+-- `∃C', x₀` is `P,Q`-uniform while the Rankin gates are `y`-dependent.  The composition carries
+-- `x₀ ≤ X_d` plus the three gates `∀ k ∈ [X_d, N]` IN-STATEMENT; nothing absorbed.
+-- ⟦THE GRADE⟧ `t0datum_grade_of_fit` reduces `hSle` at `S₀ = C'/(log X)^A` to the single gate
+-- `8C' ≤ (log X)^{A−1/2+1/1000}` — the refuter's chain: at `A = 10`, `log C' ≤ 9.501·loglog X`.
+-- ⟦ONE STRUCTURAL ADDITION⟧ `[NeZero q]`, which the carrier chain carries from `MmuChiRate`
+-- downward; `m4_hT0band_at_door` itself does not ask for it.
+
+open Salt.Tactic in
+#audit_axioms Salt.MR.jMask
+  Salt.MR.jMask_iff
+  Salt.MR.maskOmega_eq_zero_iff
+  Salt.MR.blockOmega_eq_zero_iff
+  Salt.MR.gJ_eq_jMask_indicator
+  Salt.MR.zero_pow_eq_ite
+  Salt.MR.pieceDatum_twist_eq
+  Salt.MR.piece_partial_sum_eq
+  Salt.MR.maskTailWeight_zero_le_ramTailWeight_zero
+  Salt.MR.jMask_covered
+  Salt.MR.jMask_mass_le
+  Salt.MR.jMask_htail_le
+  Salt.MR.piece_partial_sum_rate
+  Salt.MR.seamT0_le_sqrt_sqrt
+  Salt.MR.t0datum_grade_of_fit
+  Salt.MR.m4_hpiece_at_door
+  Salt.MR.m4_hT0band_at_door_discharged
+  Salt.MR.calP_door_ge
+  Salt.MR.calQK_door_le
+  Salt.MR.door_cover
+  Salt.MR.door_window_bounds
+
+-- ⟦D2-REDERIVE (2026-07-30, the 0730 council's C5 second bank)⟧ `M4RowsChi` — THE PER-`χ`
+-- SEAM ROW FAMILY feeding `hrowsSum`.  C2-SCOPE §4.1's prediction confirmed at the bytes: the
+-- `q = 1` partition chain instantiates per character because every stone is datum-generic, so
+-- this page is instantiations and `.trans`es only — no estimate re-derived, nothing landed
+-- touched.  The `𝒰`-leg is RELIFT-B's `usetGChi_window_meansq_gated_family` read fibrewise on
+-- the row's own pair set (§1) and per-`χ` by NONNEGATIVITY (§3, `Finset.single_le_sum`) — the
+-- `Σ_χ`→per-`χ` read whose price is that `Mrow` is character-uniform, i.e. ONE `φ(q)` at the
+-- spine (C2-SCOPE finding K-2, paid in the open).  The `𝒯`-leg is TLEG-FACT's
+-- `TLeg_feeds_capstone_chi`.  ⟦ii-8, BOTH ADAPTERS LANDED⟧ (a) the A3-shape→`hUG_supplied`-shape
+-- block price is `block_sum_bound` at `Cq := 3·Cs/2`, since `54·(3/2) = 81` — the pair row's
+-- `81 = 3·27` against the `q = 1` row's `54 = 2·27`, carried in the constant, never absorbed;
+-- (b) TLEG-FACT's fence ("the twisted PRICING side does not exist yet") is REMOVED: the
+-- `TypicalPriceK` pricer is `∀ a b c` and all four coefficient hypotheses lift.
+-- ⟦THE CARRIED RESIDUE⟧ the A3 capstone family (supplied by §5 in-file), the `Rbd` binder
+-- (supplier landed in `RbdSupply`), the ball binder `hSup` at the per-`χ` centre `t₁ χ`
+-- (supplier: the BALL-SUP leg; vacuous at `t₁ ≡ 0`, `S ≡ 0`), the `𝒯`-side `CalFrameK` frame,
+-- the six `SeamNumber` reconciliation gates, and the weighting frame — the file's header
+-- enumerates them, and `m4_hrowsSum_chi` states them.
+-- ⟦THE STATION FENCE⟧ §7 carries the A3 row as a hypothesis for the reason `TLegExit`'s H-4
+-- does: the `𝒯`-side and `𝒰`-side gate families are reconciled at the station, recorded not
+-- manufactured.
+open Salt.Tactic in
+#audit_axioms Salt.MR.rowPairSetG
+  Salt.MR.rowPairSetG_fibre
+  Salt.MR.measurableSet_rowPairSetG_fibre
+  Salt.MR.rowPairSetG_subset_UsetGChi
+  Salt.MR.tL_block_weight_chi
+  Salt.MR.usetGChi_block_price
+  Salt.MR.usetGChi_row_exit_perChi
+  Salt.MR.chiBarCoeff_seam_supp
+  Salt.MR.chiBarCoeff_dyadic_supp
+  Salt.MR.m4_rowChi_capstone
+  Salt.MR.sum_lemma12Rows_priced_chi
+  Salt.MR.m4_rowChi_number_of_capstone
+  Salt.MR.m4MrowChi
+  Salt.MR.m4_rowChi_weighed
+  Salt.MR.m4_hrowsSum_chi
+  Salt.MR.m4_a2_spine_of_rowsChi
+  Salt.MR.m4MrowChi_le_a2Mrow
+  Salt.MR.m4_hrowsSum_chi_door
