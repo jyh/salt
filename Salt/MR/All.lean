@@ -247,6 +247,7 @@ import Salt.MR.HalaszIntegersChiClose
 import Salt.MR.MobiusChiRamare
 import Salt.MR.LFunctionInvShallow
 import Salt.MR.MobiusChiRateClose
+import Salt.MR.ZetaInvShallow
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -5119,6 +5120,37 @@ open Salt.Tactic in
 -- The deliverables: `mmuChiRate_of_carve_and_zetaShallow : MmuChiRate` and
 -- `lambdaChiSummatory_of_carve_and_zetaShallow : LambdaChiSummatory A`, both from exactly the
 -- two named inputs (the ξ₁ fold + `ZetaInvShallowVk`).
+--
+-- ⟦THE RESIDUE, DISCHARGED⟧ `Salt/MR/ZetaInvShallow.lean` — `zetaInvShallowVk_holds`.  The ζ
+-- twin is LANDED, so the χ₀ row is unconditional (`mmuChiRatePrincipal_holds`) and the mirror's
+-- deliverables now read from ONE input: `mmuChiRate_of_carve` / `lambdaChiSummatory_of_carve`
+-- take only the ξ₁/Siegel carve-out.  What the discharge actually cost, recorded because the
+-- accounting is the finding:
+--
+-- 1. the first conjunct is a COMPOSITION, as predicted: `zeta_zero_free_region_pow` above the
+--    power region's floor `T₀` (its width is antitone in the height, so the value read at `H+1`
+--    serves the whole box) and the classical `Salt.SW.zeta_zero_free_region` below it, where
+--    `c₃/log(T₀+2)` is a CONSTANT — folded into the single scale constant
+--    `cR = min 1 (min c_pow (c₃/(2 log(T₀+2))))`;
+-- 2. the near-pole corner needed NO new analysis.  Split the heights at the CONSTANT
+--    `T₁ = T₀+t₀+4`: for `|τ| ≤ T₁` the landed `Salt.SW.zeta_inv_shallow` applies verbatim (its
+--    classical width `c₄'/log⁹(|τ|+2)` and its value `C log⁷(|τ|+2)` are both constants there,
+--    and its own `Zc_patch_lower` already owns the pole; at `s = 1`, `mmuG 1 = 0`).  So the
+--    `private zeta_near_bound_core` did NOT have to be re-proved — that was the one banked
+--    worry, and it evaporates once the height split is made at a constant rather than at `H`;
+-- 3. the pole cancels exactly as banked, and the mechanism is worth naming: the Landau core
+--    only ever sees the RATIO `‖Zc z/Zc c‖`, and on the ball `‖z−1‖ ≤ ‖c−1‖ + 1/8 ≤ 2‖c−1‖`
+--    because `‖c−1‖ ≥ |τ| ≥ 2`.  Hence `M₀ ≤ 64·Kg·log(H+1)/W` — the `|τ| ≍ H` factor is GONE,
+--    and `log(4M₀) ≍ loglog H` (`zeta_budget_log_bound`), which is what the sharp width's
+--    fourth `loglog` divides out.  Had the ceiling entered as `sup‖Zc‖/floor` instead, the
+--    budget would have carried `log H` and demanded width `≪ L^{-7/4}` — the route would die;
+-- 4. the ball scale is `λ = cR/(10⁵ L^{3/4} ℓ³)`, a fixed fraction of the region's own width
+--    shape, and the FOUR constraints (reach `2W ≤ 23λ/20`, the growth strip `7λ/4 ≤ vkTheta(H+1)`,
+--    the region depth `3λ/2 < cR/(16 L^{3/4}ℓ³)`, the classical leg) are each one `min` arm.
+--    The `c₄·log(1/c₄)` gate is `exists_zetaShallowGate` over the landed `sq_div_sixteen_log_le`.
+--
+-- Realized shape: `m = 5`, `K = 256/c₄ + C·log⁷(T₁+2)`, via `L^{3/4}ℓ⁴ ≤ L⁵` (`ℓ ≤ L`) — the
+-- exponent is design-grade slack, only the WIDTH shape is load-bearing downstream.
 
 open Salt.Tactic in
 #audit_axioms Salt.MR.mmu1Chi_contour_shift
@@ -5153,3 +5185,18 @@ open Salt.Tactic in
   Salt.MR.mmuChiRatePrincipal_of_zetaShallow
   Salt.MR.mmuChiRate_of_carve_and_zetaShallow
   Salt.MR.lambdaChiSummatory_of_carve_and_zetaShallow
+  Salt.MR.vkShallowWidthSharp_one
+  Salt.MR.exists_zetaShallowGate
+  Salt.MR.zeta_shallow_scales
+  Salt.MR.zeta_budget_log_bound
+  Salt.MR.mmuG_eq_zeta_inv'
+  Salt.MR.norm_mmuG_neg_im
+  Salt.MR.norm_Zc_lower_of_shallow_ball
+  Salt.MR.norm_Zc_ratio_le_of_shallow_ball
+  Salt.MR.norm_mmuG_shallow_far
+  Salt.MR.norm_mmuG_shallow_near
+  Salt.MR.zeta_no_zero_in_shallow_box
+  Salt.MR.zetaInvShallowVk_holds
+  Salt.MR.mmuChiRatePrincipal_holds
+  Salt.MR.mmuChiRate_of_carve
+  Salt.MR.lambdaChiSummatory_of_carve
