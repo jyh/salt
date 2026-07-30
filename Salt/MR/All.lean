@@ -233,6 +233,8 @@ import Salt.MR.MVHilbertFinset
 import Salt.MR.CharFold
 import Salt.MR.HybridMVT
 import Salt.MR.LambdaRateTwisted
+import Salt.MR.HybridLargeValues
+import Salt.MR.HybridMoments
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -4278,3 +4280,171 @@ open Salt.Tactic in
   Salt.MR.LambdaChiSummatory
   Salt.MR.MlambdaChi_rate
   Salt.MR.LambdaChiSummatory_of_MmuChiRate
+
+-- ⟦WAVE P-3 — THE DISCRETE HYBRID LARGE SIEVE + THE HYBRID LARGE-VALUE COUNT (KMT Lemmas
+-- 6.3, 6.5)⟧ (2026-07-29, port freeze v2 wave P-3; `HybridLargeValues`).  ADDITIVE: the
+-- landed `LargeValues` / `LargeValueCount` are untouched and are *reused*, not retyped.
+--
+-- ⟦THE (χ,t)-SET⟧ `FibreWellSpaced ℰ` — for `ℰ : Finset (DirichletCharacter ℂ q × ℝ)`, two
+-- members sharing the SAME character have ordinates `1`-separated; ordinates attached to
+-- different characters are UNCONSTRAINED (READER-A's ambiguity, resolved to the same-χ
+-- reading: it is what the fibrewise Gallagher argument needs and it is the weaker
+-- hypothesis).  `exists_charFibre` packages the fibre decomposition existentially, so that
+-- no *statement* in the file mentions a decidable-equality instance on characters (there is
+-- none; `Classical` is used inside the construction only).
+--
+-- ⟦D1 — LEMMA 6.3⟧ `hybrid_wellspaced_l2` (pair form) / `hybrid_wellspaced_l2_family`
+-- (fibre-family form, the engine).  For `s ⊆ Icc 1 N`:
+--   `∑_{(χ,t)∈ℰ} ‖∑_{n∈s} aₙ·χ(n)·n^{it}‖²`
+--     `≤ 84·(φ(q)·(T+1) + φ(q)·N/q)·log(2N)·∑_{n∈s,(n,q)=1}‖aₙ‖²`.
+-- ⟦THE ORDER IS THE POINT (R-P3)⟧ the proof is the corpus's own written-out Gallagher
+-- template (`wellspaced_l2`) with the mean-value input swapped to P-2's `hybrid_char_mvt`,
+-- and the character sum taken AFTER the per-fibre Gallagher step
+-- (`dpolyChi_fibre_gallagher`): summing the `q = 1` result over `χ` would pay `φ(q)·N` and
+-- lose the `1/q` on the N-term.  New plumbing: the χ-twisted derivative
+-- (`hasDerivAt_dpolyChi` / `deriv_dpolyChi` / `contDiff_dpolyChi` — the frequency `log n`
+-- folds into the coefficient exactly as untwisted, the character value riding as a
+-- constant) and the derivative moment `hybrid_char_mvt_deriv` (the same hybrid MVT at
+-- `dtwist a`, paying `(log N)²`, which the AM–GM at `L = log(2N)` collapses to one
+-- `log(2N)`).
+-- ⟦THE `T+1`, STATED HONESTLY⟧ Gallagher's unit windows at ordinates in `[−T,T]` live in
+-- `[−(T+½),T+½]`, so the diagonal is `2φ(q)(T+½) = 2φ(q)T + φ(q)`.  The stray `φ(q)` is NOT
+-- absorbable into `φ(q)N/q` (that term can be the smaller of the two at large `q`), so it
+-- is carried in the statement; at `T ≥ 1` a caller reads `T+1 ≤ 2T`.  Constant `84` = the
+-- template's (28 suffices); `log(2N)` = the template's scale, not `log(3N)`.
+--
+-- ⟦D2 — LEMMA 6.5⟧ `hybrid_large_value_count`: for `c` supported on primes in `[P,2P]` with
+-- `‖c_m‖ ≤ 1/m` (CATCH #A — the corpus's σ=1 convention, `c_p = a_p/p` PRE-FOLDED; KMT's
+-- σ=0 statement reads through that dictionary) and `ℰ` per-fibre well-spaced with
+-- `V⁻¹ ≤ ‖∑_{P≤p≤2P} c_p χ(p) p^{it}‖`:
+--   `|ℰ| ≤ 1680·(qT)^{2 log V/log P}·V²·exp(2·(log qT/log P)·loglog qT)`.
+-- ⟦THE k!-CORE IS CHARACTER-FREE, VERBATIM⟧ `dpolyChi q (Icc 1 N) c χ = dpoly N (c·χ)`
+-- (`dpolyChi_Icc`, `rfl`), and complete multiplicativity distributes over the k-fold
+-- convolution: `kconv_coeffChiTwist : kconv N (c·χ) k n = (kconv N c k n)·χ(n)`.  So the whole
+-- landed combinatorial block (`kconv_supp_lower`, `kconv_primeFactors_card_le`,
+-- `kconv_sup_le`, `kconv_sup_le_window`, `kconv_l2_le_window`, `csum_window_le`) is
+-- consumed UNCHANGED — the twist only multiplies each coefficient by a factor of modulus
+-- ≤ 1.  The two transcendental legs `pow_V_le` and `pack_exp_le` are pure real analysis and
+-- are likewise reused unchanged, evaluated at the argument `qT` (the `T → qT` rewrite).
+-- ⟦THE CONSTANT⟧ `1680 = 2·840`: the `2` is the bracket domination
+-- `φ(q)(T+1) + φ(q)(2P)^k/q ≤ 2·(qT + (2P)^k)`, valid at `T ≥ 1` (from `φ(q) ≤ q`).
+-- ⟦GATES⟧ the landed original's shapes at `qT` where forced: `3 ≤ P`, `1 ≤ T`, `1 < qT`,
+-- `P ≤ qT`, `1 ≤ V`, `log qT/log P ≥ 30`, `loglog qT ≥ 5`.  The product-form bound (vs
+-- KMT's sum-form) is the freeze's ACCEPTED weakening.  ⟦CATCH #B⟧ statements are at
+-- `dpolyChi`'s `n^{+it}`; a caller holding `|P_χ(1−it)| ≥ V⁻¹` applies these at the negated
+-- ordinate set, which is `FibreWellSpaced`, inside `[−T,T]`, and of the same cardinality
+-- (mean-square form: `dpolyS_meanSq_reflect`).  Consumer: P-6's 𝒰-leg lift.
+open Salt.Tactic in
+#audit_axioms Salt.MR.exists_charFibre
+  Salt.MR.hasDerivAt_dpolyChi
+  Salt.MR.deriv_dpolyChi
+  Salt.MR.contDiff_dpolyChi
+  Salt.MR.continuous_deriv_dpolyChi
+  Salt.MR.sum_dtwist_sq_le_subset
+  Salt.MR.hybrid_char_mvt_deriv
+  Salt.MR.hybrid_l2_arith
+  Salt.MR.dpolyChi_fibre_gallagher
+  Salt.MR.hybrid_wellspaced_l2_family
+  Salt.MR.hybrid_wellspaced_l2
+  Salt.MR.dpolyChi_Icc
+  Salt.MR.norm_coeffChiTwist_le
+  Salt.MR.kconv_coeffChiTwist
+  Salt.MR.norm_dpolyChi_pow
+  Salt.MR.card_mul_pow_le_hybrid
+  Salt.MR.hybrid_large_value_count_combined
+  Salt.MR.hybrid_large_value_count
+
+-- ⟦WAVE P-4 — THE χ-SUMMED MOMENTS (KMT LEMMAS 6.6 + 6.7)⟧ (2026-07-29, KMT port;
+-- `HybridMoments`).  Freeze `docs/exploration/port-freeze-0729.md` wave P-4; spec =
+-- READER-A's 6.6/6.7 mappings (flags ⟦THE KMT DEEP READ⟧).  The whole wave is ONE idea:
+-- the landed `q = 1` machinery is CHARACTER-BLIND, so it lifts to the χ-twisted datum for
+-- free, and only the MEAN-VALUE ENGINE is swapped — `moment_core_bound` → wave P-2's
+-- `hybrid_char_mvt`.
+--
+-- ⟦THE SHARED BRIDGE⟧ `hybrid_char_spoly_mvt` — P-2's hybrid MVT is at `σ = 0`
+-- (`dpolyChi`), the corpus is at `σ = 1` (`spoly`); the landed `spoly_eq_dpoly`
+-- (`MomentsA2:59`) converts at the cost of `aₙ ↦ aₙ/n`, `t ↦ −t`, and the symmetric window
+-- makes the sign free (`integral_comp_neg`).  Deliverable:
+--   `∑_{χ mod q} ∫_{-T}^{T} ‖∑_{n≤N} χ̄(n)aₙ/n^{1+it}‖² ≤ (2φ(q)T + 7φ(q)N/q)·∑‖aₙ‖²/n²`
+-- — the drop-in `σ = 1` replacement for `moment_core_bound`'s `(2T + 20N)`.  Summing the
+-- `q = 1` grade over φ(q) characters instead would pay `φ(q)·20N`: the `1/q` is R-P3's
+-- non-droppable saving, and this is where the port actually spends it.
+--
+-- ⟦THE BARRED-χ CONVENTION (N1)⟧ every statement is at `χ̄ = conj ∘ χ` (`chiBarCoeff`),
+-- matching the corpus (`lamChi`/`liouChi`/`chiBarTwist`) and P-6's 𝒰-lift.  `hybrid_char_mvt`
+-- is at unbarred χ; the bridge is `sum_chiBar_reindex` — `conj (χ a) = χ⁻¹ a`
+-- (`MulChar.star_apply'`) and inversion is an involution of the character group, so a sum
+-- over ALL φ(q) characters is invariant under barring.  Cost: zero.
+--
+-- ⟦D1 = LEMMA 6.6, the `Q^ℓ·A` moment⟧ `multShiuChi_moment`:
+--   `∑_{χ mod q} ∫_{-T}^{T} ‖Q_j(χ̄,1+it)^ℓ·R_v(χ̄,1+it)‖² dt`
+--     `≤ (2φ(q)T + 7φ(q)(2Y₁)^ℓ Mr/q)·(ℓ!²·C/(Y₁^ℓ X₀))`.
+-- The landed `multShiu_moment`'s two MULT-SHIU seam stones are consumed VERBATIM (both are
+-- character-blind): the window `multShiuCoeff_support_low/_high` and the count
+-- `coeff_bound_factorial_blockDiv` (`‖aₙ‖ ≤ ℓ!·blockDiv Y₁ n`); the mass page is the landed
+-- dyadic Shiu sum `blockDiv_sq_div_sq_sum_le` over `shiu_moment_sq`, whose `g` byte-matches
+-- KMT's (READER-A §7).  ⟦THE ONE NEW ALGEBRAIC FACT⟧ twisting commutes with the ℓ-fold
+-- Dirichlet convolution — `multShiuCoeff_chiBar`, via wave P-1's `pmul_mul_of_twist`
+-- (`LambdaRateTwisted:153`) instantiated at `chiBarAf` and iterated (`pmul_pow_of_chiBarAf`).
+-- ⟦THE `(ℓ+1)!²` ROUTE⟧ the corpus's count page is SHARPER than the paper's: the ℓ-fold
+-- ordered block-prime count is `≤ ℓ!` and the co-factor enters through the 1-bounded
+-- divisor-sum majorant `oneAf`, not as an `(ℓ+1)`-st factor — so `ℓ!²` is delivered and
+-- `multShiuChi_moment_KMT` restates it at the paper's `(ℓ+1)!²` (pure domination).
+-- ⟦THE `chiBarAf` GUARD⟧ the twist is NOT an `ArithmeticFunction` as written: at `q = 1`,
+-- `(0 : ZMod 1) = 1` so `χ(0) = 1 ≠ 0`.  `chiBarAf` carries the `if n = 0` guard; every
+-- use is on the nonzero branch, which is exactly `pmul_mul_of_twist`'s hypothesis shape.
+-- ⟦THE DISCRETE (17)-FORM⟧ `spoly_chiBar_plancherel_at_zero` — at a single height the χ-sum
+-- is an EQUALITY (`char_plancherel`), not a bound; `multShiuChi_moment_T1` is the `T = 1` row.
+--
+-- ⟦D2 = LEMMA 6.7, the Ramaré decomposition χ-summed⟧ `lemma12_meansq_all_chi`.  KMT's own
+-- proof note is "almost identical to [32, Lemma 12] … estimates the error terms by Lemma 6.2
+-- instead of the MVT", and [32, Lemma 12] IS the landed `lemma12_meansq`
+-- (`RamareWindows:671`).  The entire eq-(16) identity chain (`spoly_ramare_eq16` →
+-- `spoly_ramare_split` → `clean_term_dyadic` → `ramErr_window_decomp`) is an identity of
+-- finite sums under ONE hypothesis, `a_{pm} = b_m c_p` on the coprime block — and the twisted
+-- triple satisfies it because `χ̄(pm) = χ̄(p)χ̄(m)` (`chiBar_hcoef`).  So the identity work is
+-- FREE and only the three error rows are re-priced:
+--   • the sieve remainder (`ramCopTail`) — hybrid MVT, mass SYMBOLIC (P-7's discharge);
+--   • the `p²`-correction (`ramP2corr`) — hybrid MVT, via `ramP2coeff_chiBar` (the fibre
+--     recombination `χ̄(m)χ̄(p) = χ̄(n)`) and `ramP2corr_eq_spoly`'s un-inflated `[1,N]` cap;
+--   • the grid/window error (`ramWindowErr`) — the χ-UNIFORM SUP, φ(q)-fold.
+-- ⟦THE ONE STATED DEVIATION⟧ the brief asked for the hybrid MVT on both error terms; the
+-- window row's frequencies run to `QN`, not `N`, so ANY mean-value theorem inflates the
+-- frequency cap — the trap the landed q=1 proof avoids by `ramWindowErr_sup_le`.  That sup
+-- is also χ-uniform (`windowMassChi_le`: twisting only shrinks the ℓ¹-mass), so the χ-sum
+-- costs exactly φ(q) — the same φ(q) the hybrid MVT's diagonal would cost, and strictly less
+-- than its off-diagonal.  ⟦THE GRID⟧ N6 held: `ramI = ⌊H log P⌋..⌊H log Q⌋` is already KMT's
+-- `H·log p` grid, not base-2 dyadic — used as landed.  The `∑_χ∑_j` is exchanged to `∑_j∑_χ`
+-- so each `j`-block presents exactly the object D1 prices.  Consumers: P-6's 𝒰-leg lift,
+-- P-7's assembly.
+open Salt.Tactic in
+#audit_axioms Salt.MR.chiBarCoeff
+  Salt.MR.norm_conj_chi_le_one
+  Salt.MR.norm_chiBarCoeff_le
+  Salt.MR.norm_chiBarCoeff_le_one
+  Salt.MR.sum_chiBar_reindex
+  Salt.MR.chiBarCoeff_eq_inv
+  Salt.MR.spoly_chiBarCoeff_eq_dpolyChi
+  Salt.MR.hybrid_char_spoly_mvt
+  Salt.MR.chiBarAf
+  Salt.MR.chiBarAf_one
+  Salt.MR.chiBarAf_mul
+  Salt.MR.pmul_pow_of_chiBarAf
+  Salt.MR.ramQaf_chiBar
+  Salt.MR.ramRaf_chiBar
+  Salt.MR.multShiuCoeff_chiBar
+  Salt.MR.ramQ_pow_mul_ramR_chiBar_eq_spoly
+  Salt.MR.multShiuChi_moment
+  Salt.MR.multShiuChi_moment_KMT
+  Salt.MR.spoly_chiBar_plancherel_at_zero
+  Salt.MR.multShiuChi_moment_T1
+  Salt.MR.card_dirichletChar
+  Salt.MR.sum_const_dirichletChar
+  Salt.MR.conj_chi_natCast_mul
+  Salt.MR.chiBar_hcoef
+  Salt.MR.windowMassChi_le
+  Salt.MR.ramP2coeff_chiBar
+  Salt.MR.ramP2corr_chiBar_eq_spoly
+  Salt.MR.ramCopTail_chiBar_eq_spoly
+  Salt.MR.ramErr_meanSq_all_chi
+  Salt.MR.lemma12_meansq_all_chi
