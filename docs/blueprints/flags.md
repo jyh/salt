@@ -16301,3 +16301,43 @@ register-width statement (slack ~3 orders); the M₀ window WIDENS as
 ρ shrinks (452× more room than the endpoint costs).  CONSUMER NOTE
 in-file: δ₀ leaves its ∃ BEFORE g — set ρ := doorRhoOfDelta δ₀, then
 g := gArmDoorRho; zero H-demand, no numeric claim about δ₀ anywhere.
+
+## (2026-07-30 09:48 PDT) TWIN-CHAIN lands — the sieve-vanishing twins at FREE Cp ≥ 0, 28/28 clean (M4RowsChiZero 911 + M4ArithZero 523); THE SECOND HORN DOES NOT ARISE
+
+**⟦THE IMPROVEMENT, reported for ratification⟧**  Not Cp := 0 but
+`∀ Cp ≥ 0` where the landed form had `∃ Cp > 0` — strictly stronger,
+includes zero, and let `m4_rowChi_weighed_end` + `m4MrowChiEnd_le_a2Mrow`
+be REUSED VERBATIM (already Cp-parametric).  `a2Mrow Ct 0` and
+`DoorFuseFrame … Ct 0 ε` are the frozen defs READ at C = 0 — no
+frozen byte moves.  RATIFIED at this banking (maestro): the ∀-form is
+the honest generalization.
+
+**⟦THE CHAIN⟧**  §1 BlockLive + the vanishing (`blockfree_row_zero`;
+the door discharges 𝒮-support DEFINITIONALLY; the χ̄-twist survives).
+§2 the price WITHOUT the density — `herr` AND `hasupp` dropped from
+the binder list; §3 `sum_ratioK_le` NEVER CALLED (grep-verified).
+§4-§6 the row/slot twins to `m4_hrowsSlot_at_door_zero`.  BONUS:
+`DoorRowZeroBase` at SIX fields — `dom` (R4) GONE (the (Mj²)⁸ floor
+lifted from every base) + `doorRowZeroBase_of_doorRowEndBase` (the
+twin asks strictly less, kernel-checked).  §7+stone 10: the full
+terminal re-fuse — **`m4_socket_discharged_conditional_zero` /
+`_bandfree_zero`**.  Build 9586 green, warnings 148 = 148; axioms
+28/28.
+
+**⟦THE RESIDUAL, PRICED AND CHECKED⟧**  `a2RowsSum_door_decomp` an
+EXACT identity (the X_d-free part = (5/2)e²·a2Level1 M, confirming
+the dossier); `gRows_zero_of_gate` discharges the residual from
+`GRowsZeroGate` (4 fields) — **the gate is on Adoor M (anchor-large),
+NEVER on log M against λ: the exponent-1-vs-14 collision does not
+arise.**  Independent arithmetic: holds to λ ≈ 6.879e11 vs the
+register cap 1e11 — factor 6.88 (the executor CORRECTED the dossier's
+"three orders" to the exact figure); at the register top the field
+needs log₂M+1 ≥ 361 vs the C1 grant's 2484 — 8.6 orders under the
+socket's own ceiling.  Honestly fenced: GRowsZeroGate rides in gRows;
+the register's own (M, X_d, H) meeting it is the consumer's open
+arithmetic, like DoorArithFrame's fields.
+
+**⟦DISPOSITION⟧**  The audit-block append done at this seal (maestro).
+THE (α) SURGERY fires on this entry — the LAST repair: the base cap
+on item 11's socket statement (JYH-granted), consuming the _zero
+forms, the consumer-read byte-verification FIRST.
