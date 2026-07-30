@@ -285,6 +285,7 @@ import Salt.MR.M4ParsevalStone
 import Salt.MR.S11ExitL2
 import Salt.MR.M4DoorL2
 import Salt.MR.S12Compose
+import Salt.MR.S13FramesB
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -6284,3 +6285,56 @@ open Salt.Tactic in
   Salt.MR.s12DeltaSock_pos
   Salt.MR.s12DeltaSock_sq
   Salt.MR.logChowla2_capstone_conditional
+
+/-! ⟦S13-B — THE `DoorCapErrWS` → `DoorCapBase` BUNDLE GROUP, INSTANTIATED⟧ (`S13FramesB`,
+2026-07-30).
+
+**§1 `memSCoeff_seamCoefWS_band_gen_U` / `doorCoeffU_seamCoefWS_band_H`** — the one new
+stone: `M4Band` §3′'s STRICT band pair law transplanted from `liouChi χ` to the UNTWISTED
+`liouvilleC` (`indicator_mul_shift_up` is already general in the completely multiplicative
+factor).  This is the device `DoorCapErrWS.coefWS` needs at the RAM-BLOCK window `[P, Q]`,
+where `S11CoefWS`'s PUNCTURE witness does not reach: `DoorCapBase.P_low` pins
+`P ≥ P₈₃ X θ₂₉₃`, above every door block top, which is precisely the band law's hypothesis.
+The band gate is `M4Band.door_band_gate_of_log` off `P_low` and `log 𝒬K₂ ≤ √(log X)` —
+`M4RowsChiZero.DoorRowZeroBase.reg` VERBATIM.
+
+**§2 the pins** — the eighteen existential slots of `S12Compose`'s `hcapWS` body are closed
+in the open: `Xd := N_d` (forced by `Xd_eq`), `Jb := 2`, `b := doorCoeffU M`,
+`cf := liouvilleC` (§1; the SAME sequence `RbdSupply`'s socket and `USetPrice.KS_priced` are
+wired at), `η := 5/48` (the largest admissible at `Jb = 2`), `εd := 2α₂ log q/log X`
+(`debit` becomes an EQUALITY), `VJ := 𝒬K₂^{α₂}`, `V := (log X)^{106}` (`V_inv` an EQUALITY),
+`Lr := (log X)^{11/10}` (⟦the one real choice⟧ — squeezed between `logV_L`'s floor
+`(log X)^{1.06}` and `gate`'s ceiling `(log X)^{1.1390…}`), `KS := 20512(log X)^{−200}(1+log 2T)`,
+`E := 3(720(T/X+1)/H₈₃ + EP2)` (`E_row` becomes `le_rfl`), `Mtail :=` the tail sum itself
+(`tail` becomes `le_rfl`).
+
+**§3 `S13CapGate`** — the NAMED RESIDUE: 36 lines where the two bundles have 69.  31 are
+bundle fields verbatim or strictly weaker reductions at the pins; the other FIVE are the
+supply-side inputs the wires consume in place of the two hardest analytic fields
+(`Rbd_socket` for `Rbd_binder`; `m0_two`/`m0_bot`/`Mr_sharp` for `KS_binder`; `Q2_reg` =
+`DoorRowZeroBase.reg` for §1's band gate).  36 bundle fields are DISCHARGED in-file.
+
+**§5–§7 `s13_doorCapErrWS` / `s13_doorCapBase` / `doorCapBundle_at_workingPoint` /
+`doorCapBundle_family`** — the discharge; §7's statement is `logChowla2_capstone_conditional`'s
+`hcapWS` hypothesis VERBATIM, from the SAME quantifier prefix carrying `S13CapGate` instead.
+`Rbd_binder` and `KS_binder` come through their landed wires
+(`M4CapWire.m4_capRbd_at_door`, `m4_capKS_at_door`); `E_binder` is the implication's own
+antecedent.
+
+⚠ ⟦THE BAND-WIDTH TENSION, banked in the file's header⟧ the gate is a faithful reduction, NOT
+a satisfiability certificate: `range` + `KS_binder` + `KS_gate` force `log Q ≤ log P +
+O(loglog X)` (the band a POINT in the log scale), while `DoorCapErrWS.E_ge`'s coprime-tail
+row then charges `≍ 7φ(q)/q` against an `E` that `E_row` + `EP2_gate` cap at `o(1)`.  That is
+`M4Band`'s own ⟦POINT-vs-BAND WALL⟧ met from the other side.  `KS_gate` and `E_ge` are the
+pair to adjudicate.
+
+Additive: no landed declaration is touched. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.memSCoeff_seamCoefWS_band_gen_U
+  Salt.MR.doorCoeffU_seamCoefWS_band_H
+  Salt.MR.theta293_pos_le_one
+  Salt.MR.s13_H83_le
+  Salt.MR.s13_doorCapErrWS
+  Salt.MR.s13_doorCapBase
+  Salt.MR.doorCapBundle_at_workingPoint
+  Salt.MR.doorCapBundle_family

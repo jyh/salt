@@ -17002,3 +17002,34 @@ EMPTY.**  Build 9600, exit 0; axioms 7/7; nothing announced per the
 protocol.  ⟦S13-FRAMES dispatched: the instantiation pages at the
 certified working point — the last distance to the unconditional
 capstone.⟧
+
+## (2026-07-30 14:59 PDT) S13-B lands — 36/69 fields discharged, all slots PINNED, the family composite VERBATIM; ⚠ THE POINT-vs-BAND TENSION named (design-tier)
+
+**⟦THE DISCHARGE⟧**  S13FramesB (705 ln, 18 decls, 16/16+1 axioms):
+the 18 existential slots ALL PINNED (η = 5/48 the largest admissible;
+εd/VJ/V/Lr/KS/E at the walked values; debit/alpha_eta/V_inv/E_row/tail
+EQUALITIES by construction); groups discharged 18/21 (A), 3/9 (B),
+1/3 (C), 1/13 (D), Rbd through the wire (E), KS through the wire +
+E_row (F), 9/11 (ErrWS incl. coefWS + tail at le_rfl); the residue =
+ONE named structure `S13CapGate` (36 lines);
+**`doorCapBundle_family` = the capstone's hcapWS hypothesis
+VERBATIM.**  THE NEW STONE: the band pair law UNTWISTED
+(`doorCoeffU_seamCoefWS_band_H`) — THIS slot pins P ≥ P₈₃ above every
+block top, so the band law is RIGHT here where the puncture law was
+right at the row slot — both devices now landed in their homes; the
+band gate rides P_low + the row bundle's own reg field; the three
+wires (Rbd/KS/band) fit at the SAME doorCoeffU sequence.  Build 9601
+exit 0.  The Lr window [1.06, 1.139] is 7.4% wide, 11/10 interior —
+the file's only free spine choice.
+
+**⟦⚠ THE POINT-vs-BAND TENSION — the next adjudication, design-tier⟧**
+`range`+`KS_binder`+`KS_gate` jointly force log Q ≤ log P + O(loglog)
+— the band a POINT in log scale (the KS wire's own Mr_sharp says the
+same directly); but `DoorCapErrWS.E_ge` at a point band forces
+E ≳ 7φ(q)/q ≳ 1 against `E_row`+`EP2_gate`'s o(1) ceiling — meeting
+E_ge needs log Q/log P ≳ 22e^713.  ⟦M4Band's own POINT-vs-BAND WALL,
+met from the other side⟧ (there the point was refused for the coprime
+tail's O(1) charge; here KS_gate forces the point).  THE PAIR TO
+ADJUDICATE: {KS_gate, E_ge}.  Nothing in the file assumes either;
+S13CapGate is a FAITHFUL REDUCTION, explicitly not a satisfiability
+certificate.  S13-A still aloft (hblocks its own named risk).
