@@ -241,6 +241,7 @@ import Salt.MR.HybridMoments
 import Salt.MR.USetChi
 import Salt.MR.USetChiTS
 import Salt.MR.HalaszPrimesChi
+import Salt.MR.TwistedEdge
 import Salt.MR.MobiusChiRate
 import Salt.MR.HalaszIntegersChiClose
 import Salt.MR.MobiusChiRamare
@@ -4925,3 +4926,70 @@ open Salt.Tactic in
   Salt.MR.MmuRamChi_eq_integral
   Salt.MR.norm_MmuRamChi_le_of_uniform
   Salt.MR.MmuRamChi_rate
+
+-- ⟦D1 + D2 — THE TWISTED EDGE and the ψ-twisted window price⟧
+-- (2026-07-29, KMT port wave P-6-EDGE; `TwistedEdge`).
+--
+-- Stone C's pinned STOP closed.  `twisted_edge_price_strip` bounds `‖L′/L(x+iγ, ψ)‖` on the whole
+-- near-1-line strip `|x − 1| ≤ (c_vk/2)/D₄(5T+1)` at every contour height `|γ| ≤ 5T`, by
+-- `CE·D₅(5T+1)` — one `loglog` above the split's `D₄` depth, exactly as ζ's `D₄` price sits above
+-- its `D₃` depth (`shifted_edge_price_strip`).  `twisted_window_price_gated_holds` then discharges
+-- the residue interface.
+--
+-- ⟦THE THREE STRUCTURAL SAVINGS (all from the B-probe's finding)⟧
+-- (a) `near_norm_logDeriv_entire_le` is `near_norm_logDeriv_Zc_le` with the base function FREE:
+-- `L(·,ψ)` is entire for `ψ ≠ 1`, so the whole `Zc = (·−1)ζ` normalization and every `1/(z−1)`
+-- correction VANISH, and the disc's reference floor is the probe's twisted Möbius bound
+-- (`norm_LFunction_inv_cline_le` through `LFunction_ratio_bound`), not the pole's neighbourhood.
+-- (b) ONE disc engine serves both height regimes (`twisted_disc_engine`, scale `Θ`, growth ceiling
+-- `M`, output `(140/Θ)·log(20M/Θ) + (log(20M/Θ)/log(7/6))/w`): above stone C's exact floor
+-- `exp(exp 100) + 1` it is fed stone A's box growth made TWO-SIDED (`vk_char_box_growth_abs` — the
+-- strip bound already reads `|T|`, so ζ's conjugation leg is not needed, and no second region
+-- hypothesis for `ψ⁻¹` is incurred); below the floor it is fed the EFFECTIVE crude ceiling
+-- `LFunction_crude_growth` (`‖L(z,ψ)‖ ≤ 1 + q(1+3‖z‖)` on `Re z ≥ 1/2`, from the `N = 1`
+-- truncation `Salt.SW.norm_LFunction_sub_partial_le` at the level bound `q`).  **ζ's below-floor
+-- leg uses the NON-EFFECTIVE `logDeriv_Zc_compact_bound`; the twisted side does not** — its
+-- moderate-height constant `twistedEdgeLowConst` is a closed form.
+-- (c) RES/POLE-ROW have no twin: the shifted rectangle carries no interior pole, so
+-- `pole_residue_term` is replaced by plain Cauchy–Goursat and the main term `windowKernel P 1 u`
+-- disappears from the price.  The LEFT edge also loses ζ's `1/w` pole charge.
+--
+-- ⟦THE ONE HONEST NEW GATE (the deviation from stone C's pin, recorded)⟧
+-- The price constant is absolute only under `8·log(40000·vkStripConst q) ≤ loglog(5T+1)`, i.e.
+-- `log q ≲ loglog(5T+1)/8`.  This is EXACTLY ζ's own absorption: ζ hides `log(20000·K)` inside its
+-- height floor `exp(exp(8 log(20000 K) + 1100))` because `K` is absolute; with `K` replaced by the
+-- `q`-dependent `vkStripConst q = 5000 q` the same absorption becomes a `q`-vs-`T` gate, and it is
+-- NOT absorbable into a constant — the depth `D₄` and the price `D₅` differ by exactly one
+-- `loglog`, which is the entire budget `log q` must fit into.  It is the gate stone C's §4
+-- docstring already predicted for the region's `A`-absorption (`log q ≤ K·loglog(q(5T+1))`,
+-- `K ≈ 19`; at the port's parameters `12·loglog H ≤ K·loglog X`), so the edge consumes the SAME
+-- one, and `twisted_gate_of_height` exhibits it as one extra `T`-floor per modulus.
+-- **Consequence: `TwistedWindowPrice` as literally pinned (constants outermost, no `q`-dependence,
+-- `hreg` the only hypothesis) is NOT dischargeable; `TwistedWindowPriceGated` — its body plus this
+-- single gate — is, and is what P-7 should consume.**
+--
+-- ⟦WHAT IS CITED, NOT RE-PROVED⟧ `lambda_window_rep_chi` (REP-χ), `primeWindow_contour_rep` and
+-- `rep_truncated` (generic in the coefficient), `sum_vonMangoldt_cline_bound`,
+-- `truncKernel_const_le`, `norm_windowKernel_le`, `windowMellin_differentiableAt` — all
+-- character-blind (`‖ψ(n)‖ ≤ 1`), exactly as stone C's finding said.
+--
+-- ⟦RESIDUE FOR P-7⟧ D3 (the `(χ,t)`-pair twin of `dual_core`: the fibre-split `44π·P` pole row via
+-- `pole_row_sum` on `FibreWellSpaced` fibres, every cross-character row into the `error_double_row`
+-- slot, plus the `p ∣ q` Euler debit on the diagonal fibres) is NOT attempted here.
+open Salt.Tactic in
+#audit_axioms Salt.MR.near_norm_logDeriv_entire_le
+  Salt.MR.vk_char_box_growth_abs
+  Salt.MR.LFunction_crude_growth
+  Salt.MR.twisted_disc_engine
+  Salt.MR.twisted_zfree_of_margin
+  Salt.MR.twisted_edge_disc_core
+  Salt.MR.twistedEdgeLowConst
+  Salt.MR.twistedEdgeLowConst_pos
+  Salt.MR.twisted_edge_moderate
+  Salt.MR.twisted_edge_price_strip
+  Salt.MR.twisted_dirichlet_cline
+  Salt.MR.norm_logDeriv_LFunction_cline_le
+  Salt.MR.logDeriv_LFunction_shift_differentiableOn
+  Salt.MR.TwistedWindowPriceGated
+  Salt.MR.twisted_gate_of_height
+  Salt.MR.twisted_window_price_gated_holds
