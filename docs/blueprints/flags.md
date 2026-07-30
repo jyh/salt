@@ -16384,3 +16384,51 @@ the S11 spine's instantiation list.
 dispatched on this entry — the repaired _zero terminals at the capped
 socket, both mandates (meaning + joint inhabitation), before anything
 is called discharged.  NOTHING ANNOUNCED until it returns.
+
+## (2026-07-30 10:29 PDT) REF-SOCKET-2 returns — REPAIRED TERMINAL: HONEST AND INHABITABLE, two amendments; THE ANCHOR NUMERAL RISES (2484 → ≥14728, working 20000)
+
+**⟦MANDATE 1 — CONFIRMED⟧**  m4_second_road byte-identical (md5-checked
+pre/post surgery); the socket weaker hence the road STRONGER; the road
+CONSUMES the repaired shapes (ref2_road_consumes_terminal COMPILED —
+the consumption is a kernel fact, not a claim); the ceiling correctly
+a non-contradiction certificate (no road slot asks it); the ∀-Cp form
+weakens nothing.  Vacuity stays closed at the cap (the A-range
+non-empty; the arm's x dwarfs 2^{2^{20049}}-genre demands).
+
+**⟦AMENDMENT 1 — THE UNJOINED REPAIRS⟧**  The _zero terminals still
+carry the dead `2/10⁴⁹ ≤ δ₀`; the ρ exit still takes the refuted hrows
+binder — the repairs landed SIDE BY SIDE, never composed.  The refuter
+WROTE the fusion (`ref2_fused_terminal`, scratchpad — the full
+terminal at 0 < δ₀ alone, Cp free, base capped, band gone; 12 proof
+lines, first-attempt, axioms clean).  ⟦FUSION-LANDING dispatched on
+this entry.⟧
+
+**⟦AMENDMENT 2 — THE p2 MISPRICE; the banked 6.88× STRUCK⟧**  Only 3
+of GRowsZeroGate's 4 fields were priced; `p2` (the p²-rows: log X_d
+against P₁, 1.002μ + 15 ≤ log2·Adoor M) is 41.75× tighter than the
+reported level1 and NECESSARY (gRows_forces_Adoor — from gRows at
+Ccc = 0 alone).  At the granted b = 2484: FALSE by 5.93× at the
+register top (gRows_fails_at_granted_anchor, kernel).  NOT A WALL:
+`ref2_p2_threshold` certifies the exact minimum **b ≥ 14728**;
+`ref2_joint_window` certifies ALL SEVEN M-side conditions
+simultaneously at b = 20000, λ = 1e11 — the window [14728, 1.44e11]
+is 7 ORDERS WIDE (the socket's own M-cap is the upper).  The
+TWIN-CHAIN entry's "6.88× room" and "log₂M+1 ≥ 361" claims are
+STRUCK — they priced the non-binding field.
+
+**⟦THE ρ-CAP RESIDUAL⟧**  The two helper lemmas' `log(1/ρ) ≤ 1e11`
+is an unproved claim about the opaque δ₀ (`ref2_rho_cap_not_derivable`
+— witness δ₀ = e^{−1e11}).  THE ESCAPE IS CLEAN: they are shortcuts;
+the anchor/jfloor FIELDS are M-lowers met directly at the chosen b
+(M after R after δ₀; the only joint constraint L ≤ 1.371e8·λ, spine-
+controlled via U1floor).  **S11 LAW: do NOT route anchor/jfloor
+through m4_arith_anchor_of_C1_rho / m4_arith_jfloor_of_anchor_rho.**
+The ceiling itself genuinely δ₀-free — RHO-PAGE's headline HOLDS.
+
+**⟦THE MARGINS + THE CHECKLIST⟧**  Tightest three: p2 at b = 2484
+(FAILS 5.93× — hence the raise); the jfloor helper's 2^42 at 2.09×
+(artifact); eps_hi at 41.4% (the campaign's tightest O(1), the
+Aexp ≥ 0.499 pin).  The 16-item S11 instantiation checklist BANKED
+(the quantifier order δ₀ → ρ → Aexp/K/x₀ → U1floor → g → R → M(b) →
+the splice → Cp := 0 → the bases → the frames → NOT-the-shortcuts →
+hcap THE REMAINING WAVE → the road-side gates → the fused terminal).
