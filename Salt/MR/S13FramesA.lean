@@ -130,10 +130,10 @@ def s13BlockExp (M : ℕ) : ℕ :=
 /-- The block-scale floor itself, `2^{s13BlockExp M}`. -/
 def s13BlockFloor (M : ℕ) : ℕ := 2 ^ s13BlockExp M
 
--- the four analytic conjuncts are discharged in one pass at astronomically large symbolic
--- exponents (`400·(A·G·M)²`), and each numeric step is an `nlinarith`/`positivity` over
--- casts of those exponents; the default budget is exhausted by the last two conjuncts
 set_option maxHeartbeats 1000000 in
+-- the four analytic conjuncts are discharged in one pass at astronomically large symbolic
+-- exponents (`400·(A·G·M)²`), and every numeric step is an `nlinarith`/`positivity` over
+-- casts of those exponents; the default budget is exhausted by the last two conjuncts
 /-- **⟦THE MERTENS/RANKIN PAGE⟧** (`s13_sieveBlockGate`) — HS-3's four analytic gates at the
 door family, from the single scale floor `s13BlockFloor M ≤ X`.
 
@@ -730,6 +730,92 @@ theorem s13_smallGradeFits {R : ChowlaRegime} {j₀ H : ℕ} {ρ : ℝ}
     have : (H : ℝ) ^ 2 * (2 * RSanDoorRho ρ H) = 2 * Q := by rw [hQdef]; ring
     rw [this]
     linarith
+
+/-! ## §6 — ⟦B⟧ `DoorRowZeroBase`'s FIVE NON-`coefWS` FIELDS
+
+`S12Compose`'s `hbase5` hypothesis, verbatim.  Three of the five are the SAME scale floor the
+door blocks already spend (`s13BlockFloor`), and the other two ARE the socket's own `j`-floor:
+`calQK (Adoor M) (3072M) M 1 = 2^{M·Adoor M} = 2^{doorRowFloor M}` on the nose, so
+`Q1_le_h` is `doorRowFloor M ≤ j` re-read, and `h_four` is its `2 ≤ j` shadow. -/
+
+/-- `𝒬₁ = 2^{doorRowFloor M}` at the door family — the identity behind `Q1_le_h`. -/
+theorem s13_calQK_door_one : ∀ M : ℕ, calQK (Adoor M) (3072 * M) M 1 = 2 ^ doorRowFloor M := by
+  intro M
+  rw [calQK, calE_one, doorRowFloor]
+  ring_nf
+
+/-- `𝒬₂ = 2^{16·A·G·M}` at the door family. -/
+theorem s13_calQK_door_two : ∀ M : ℕ,
+    calQK (Adoor M) (3072 * M) M 2 = 2 ^ (16 * (Adoor M * (3072 * M) * M)) := by
+  intro M
+  rw [calQK, calE_two]
+  ring_nf
+
+/-- **⟦B — `DoorRowZeroBase`'s FIVE NON-`coefWS` FIELDS, DISCHARGED⟧**
+(`s13_doorRowZeroBase_five`) — `S12Compose.logChowla2_capstone_conditional`'s `hbase5`
+conjunction at ONE base, from the scale floor and the socket's `j`-floor.
+
+`reg` and `big` are literally `SieveBlockGate`'s second and third conjuncts at the base
+(`s13_sieveBlockGate`), so the Mertens/Rankin page pays for the row bundle too. -/
+theorem s13_doorRowZeroBase_five {M Xd j : ℕ} (hM : 1 ≤ M)
+    (hXd : s13BlockFloor M ≤ Xd) (hj : doorRowFloor M ≤ j) :
+    calQK (Adoor M) (3072 * M) M 2 ≤ Xd ∧
+      Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ)
+          ≤ Real.sqrt (Real.log (Xd : ℝ)) ∧
+      (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) ∧
+      (4 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ∧
+      ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) := by
+  have hgate := s13_sieveBlockGate hM hXd
+  have hAd1 : 1 ≤ Adoor M := by
+    rw [Adoor]
+    have : 0 < 2 ^ 36 * (Nat.log 2 M + 1) := by positivity
+    omega
+  have ht1 : 1 ≤ Adoor M * (3072 * M) * M := by
+    have h1 : 1 ≤ 3072 * M := by omega
+    calc 1 = 1 * 1 * 1 := by ring
+      _ ≤ Adoor M * (3072 * M) * M := by
+          exact Nat.mul_le_mul (Nat.mul_le_mul hAd1 h1) hM
+  -- ⟦the door's `j`-floor, twice⟧
+  have hjfl : doorRowFloor M ≤ j := hj
+  have hj2 : 2 ≤ j := by
+    have h36 : 2 ^ 36 ≤ Adoor M := by
+      rw [Adoor]
+      have h1 : 1 ≤ Nat.log 2 M + 1 := by omega
+      calc 2 ^ 36 = 2 ^ 36 * 1 := by ring
+        _ ≤ 2 ^ 36 * (Nat.log 2 M + 1) := Nat.mul_le_mul_left _ h1
+    have hfl : 2 ^ 36 ≤ doorRowFloor M := by
+      rw [doorRowFloor]
+      calc 2 ^ 36 = 1 * 2 ^ 36 := by ring
+        _ ≤ M * Adoor M := Nat.mul_le_mul hM h36
+    have : (2 : ℕ) ^ 36 = 68719476736 := by norm_num
+    omega
+  refine ⟨?_, hgate.2.2.1 2 (by simp), hgate.2.1, ?_, ?_⟩
+  · -- ⟦`Q2_le`⟧ `2^{16·A·G·M} ≤ 2^{s13BlockExp M} ≤ X_d`
+    rw [s13_calQK_door_two]
+    have hstep : 16 * (Adoor M * (3072 * M) * M)
+        ≤ 400 * (Adoor M * (3072 * M) * M) ^ 2 := by
+      have h : (Adoor M * (3072 * M) * M) ^ 2 = (Adoor M * (3072 * M) * M)
+          * (Adoor M * (3072 * M) * M) := by ring
+      rw [h]
+      calc 16 * (Adoor M * (3072 * M) * M) ≤ 400 * (Adoor M * (3072 * M) * M) := by omega
+        _ = 400 * (Adoor M * (3072 * M) * M) * 1 := by ring
+        _ ≤ 400 * (Adoor M * (3072 * M) * M) * (Adoor M * (3072 * M) * M) :=
+            Nat.mul_le_mul_left _ ht1
+        _ = 400 * ((Adoor M * (3072 * M) * M) * (Adoor M * (3072 * M) * M)) := by ring
+    have hexp : 16 * (Adoor M * (3072 * M) * M) ≤ s13BlockExp M := by
+      rw [s13BlockExp]; omega
+    have hfl : (2 : ℕ) ^ (16 * (Adoor M * (3072 * M) * M)) ≤ s13BlockFloor M := by
+      rw [s13BlockFloor]
+      exact Nat.pow_le_pow_right (by norm_num) hexp
+    exact le_trans hfl hXd
+  · -- ⟦`h_four`⟧ `4 = 2^2 ≤ 2^j`
+    have h : (2 : ℕ) ^ 2 ≤ 2 ^ j := Nat.pow_le_pow_right (by norm_num) hj2
+    have hR : ((2 ^ 2 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) := by exact_mod_cast h
+    simpa using hR
+  · -- ⟦`Q1_le_h`⟧ the socket's `j`-floor, verbatim
+    rw [s13_calQK_door_one]
+    have h : (2 : ℕ) ^ doorRowFloor M ≤ 2 ^ j := Nat.pow_le_pow_right (by norm_num) hjfl
+    exact_mod_cast h
 
 end Salt.MR
 

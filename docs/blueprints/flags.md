@@ -17033,3 +17033,46 @@ tail's O(1) charge; here KS_gate forces the point).  THE PAIR TO
 ADJUDICATE: {KS_gate, E_ge}.  Nothing in the file assumes either;
 S13CapGate is a FAITHFUL REDUCTION, explicitly not a satisfiability
 certificate.  S13-A still aloft (hblocks its own named risk).
+
+## (2026-07-30 15:10 PDT) S13-A lands — the five arithmetic items ALL DISCHARGED (hblocks included); ⚠ THE X_d-SCALE COLLISION named (design-tier); THE TWO-KNOT SLATE stands
+
+**⟦THE DISCHARGE⟧**  S13FramesA (822 ln, 24 decls, 11/11 axioms):
+M4DoorGates 7/8 + the 8th (hMδ) certified at the expression level
+(the ∃-bound Cg/δ₀ opaque — the standing caveat); **hblocks
+DISCHARGED — the S3 kill-risk RETIRED** (the ladder rungs above
+2^{3.18e113}; the Mertens product paid); the endpoint; G2's j₀-floor
+(slack 9.5e21); gate 8 (585×); m4SmallGradeFits — THE TIGHT ONE —
+at λ₋ ≥ 74.0446, 0.153 BETTER than the certified floor; the
+DoorRowZeroBase five.  THE ONE-BIT MARGIN KERNELIZED:
+24·Cg/δ₀ ≤ 4.02e19 ≤ s13M = 4.5e19 < 2^66 (1.118× over the floor,
+1.64× under the bit).  ⟦CATCH 1⟧ ARITH's ceiling 83.667 was 0.0011
+generous (p2 fails there by 7e-5 relative; 83.66 passes at 3.2e-4)
+— the window stands at **[74.045, 83.66], nonempty by 9.62**.
+
+**⟦⚠ THE X_d-SCALE COLLISION — design-tier, the day's last find⟧**
+The REGIME's own periodization headroom (hPHheadroom: 8·(4^{⌊ε²H₊⌋})²·ω
+≤ x) forces log(x/ω) ≥ 2⌊ε²Hhi⌋·log4, hence **μ = loglog X_d ≥
+e^{λ₊} ≥ 5.18e21 at EVERY socket base** (the base A ≥ x/(16ω·arcDen)
+is x-scale by the socket's own antecedent) — while gP1/p2 cap μ
+LINEARLY in Adoor M (1.57e15 at m = 66 — short 3.3e6×), and raising m
+feeds j₀ → λ₋ ≳ m·log2 → μ ≳ 2^m against caps linear in m: **NO
+FIXED POINT; the joint window in m is EMPTY as the frames stand.**
+The earlier walks priced x at the ARM value; hPHheadroom (the
+regime's own field) was never in any field table — S13-A read the
+structure.  THE PAIR TO ADJUDICATE: {SocketBase's x-antecedent
+forcing A to x-scale, gP1/p2's X_d-DECAYING right sides} — the
+maestro's first read: the decaying gates are OUR OWN χ-twins'
+inherited pooling (hgP1/hgRows at (log X_d)^{-1/500}) — the re-cut
+of the D1 twins' pooling at a CONSTANT pool (the ceiling needs a
+constant, not a decay) is OUR statement surgery, additive-twin genre.
+DoorFuseFrame/BandBase/ArithFrameRho not attempted behind the
+collision (honest).
+
+**⟦THE TWO-KNOT SLATE (the next council)⟧**  KNOT 1: {KS_gate, E_ge}
+— the point-vs-band pair (S13-B).  KNOT 2: {the x-antecedent,
+gP1/p2's decay} — the X_d-scale collision (S13-A).  Both faithfully
+reduced, neither assumed away; the capstone's conditional form
+STANDS in the kernel with the residue exactly these knots + the
+carried fields.  THE DAY CLOSES: the L² restructure landed whole and
+twice-refuted; the giant slain; the last distance measured to two
+named design questions.

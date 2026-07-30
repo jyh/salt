@@ -286,6 +286,7 @@ import Salt.MR.S11ExitL2
 import Salt.MR.M4DoorL2
 import Salt.MR.S12Compose
 import Salt.MR.S13FramesB
+import Salt.MR.S13FramesA
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -6338,3 +6339,52 @@ open Salt.Tactic in
   Salt.MR.s13_doorCapBase
   Salt.MR.doorCapBundle_at_workingPoint
   Salt.MR.doorCapBundle_family
+/-! ⟦S13-A — THE SPINE-ARITHMETIC (A) GROUP AT THE CERTIFIED WORKING POINT⟧ (`S13FramesA`,
+the FIRST HALF of the last distance).  `S12Compose.logChowla2_capstone_conditional`'s residue
+group **(A)** — the five items that couple `(M, k, R)` — made kernel, plus `DoorRowZeroBase`'s
+five non-`coefWS` fields from group (B).
+
+**§1 the working point** — `s13Delta0 = cD3/(16C)·ε/4` at `cD3 = 1/4`, `C = CcmExpr`,
+`ε = epsPin` (`ConstantsExposed.delta0Expr` with the `1/(2K)` replaced by the `K`-free `1/4`);
+`s13Delta0_ge : 1/838400 ≤ δ₀` (`c₀ ≥ 2.385496·10⁻³`); `s13M = 4.5·10¹⁹` with
+`s13M_log : log₂ s13M + 1 = 66`; **`s13_b_floor_cert : 24·CgExpr/s13Delta0 ≤ s13M`** — the
+`b`-floor `2^{65.125}` against `m = 66`, the ONE bit of margin, in one line.
+
+**§2 the gates** — `s13GArm M δ` packs four `x`-floors (`2ω(H₊+2)`, `8ω`, `4ω·s13BlockFloor M`,
+`⌈128ω/δ⌉₊`); `s13_doorGates_of_arm` discharges SEVEN of `M4DoorGates`' eight fields from it
+(the eighth, `hMδ`, reads the capstone's OPAQUE `Cg`, `δ₀` and is §1's certificate).
+`s13_sieveBlockGate` is the Mertens/Rankin page: all four conjuncts of `SieveBlockGate` at the
+door family from ONE scale floor `2^{s13BlockExp M}`, and `doorLadder_ge_x_div_four_omega`
+puts every cover rung above `⌊x/(4ω)⌋`.  `s13_endpoint_of_arm` is the endpoint share.
+
+**§3–§4 the window** — `s13_loglogHhi_le : λ₊ ≤ 4.481·10⁸` from the `9/2` tower at
+`λ₋ ≤ 83.66`; then ⟦G2⟧'s `j₀`-floor (`s13_g2_jfloor`) and ⟦gate 8⟧ (`s13_gate8`).
+
+**§5 `s13_smallGradeFits`** — THE TIGHT ONE: `(3/2)^{log₂H} ≤ H^{24/41}` off `3^{41} ≤ 2^{65}`,
+and both graded summands give the SAME floor `log H ≥ (log 2)·j₀`, i.e. `λ₋ ≥ 74.045`.
+
+**§6 `s13_doorRowZeroBase_five`** — `hbase5` verbatim: `reg`/`big` ARE `SieveBlockGate`'s own
+conjuncts at the base, `Q1_le_h` IS `calQK … M 1 = 2^{doorRowFloor M}` re-read.
+
+⚠ ⟦THE `X_d`-SCALE COLLISION, flagged not closed⟧ `DoorFuseFrame.gP1` and
+`M4ArithZero.GRowsZeroGate.p2` are UPPER caps on `μ = loglog X_d`
+(`μ ≤ 346.6·Adoor M`, `μ ≤ 0.6917·Adoor M`), while `SocketBase`'s `x ≤ 16ω·arcDen·A` and the
+regime's own `hPHheadroom` (`8·(4^{⌊ε²H₊⌋})²·ω ≤ x`) force `μ ≥ e^{λ₊} + log(2.77ε²)`, hence
+`μ ≥ 5.18·10²¹` at the capstone's absorbed `loglogFloor50`.  At `m = 66` that is `3.3·10⁶`
+short on `gP1`.  Raising `m` raises `j₀ = M·Adoor M`, which §5 turns into `λ₋ ≳ (m−1)log 2`
+and so `μ ≳ 2^{m−1}` against a cap linear in `m`: no fixed point.  `DoorFuseFrame`,
+`DoorBandBase` and `DoorArithFrameRho` are therefore NOT attempted here.
+
+Additive: no landed declaration is touched. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.s13_b_floor_cert
+  Salt.MR.s13M_log
+  Salt.MR.s13Delta0_ge
+  Salt.MR.s13_sieveBlockGate
+  Salt.MR.s13_doorGates_of_arm
+  Salt.MR.s13_endpoint_of_arm
+  Salt.MR.s13_loglogHhi_le
+  Salt.MR.s13_g2_jfloor
+  Salt.MR.s13_gate8
+  Salt.MR.s13_smallGradeFits
+  Salt.MR.s13_doorRowZeroBase_five
