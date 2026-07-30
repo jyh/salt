@@ -15496,3 +15496,63 @@ reads RS only above j₀ — confirmed at the bytes).  (3) `Qm` threading:
 the composite carries `hQm : arcDen 12 H ≤ Qm`, same ordering
 discipline as `m4_dyadicRow_carried`.  Build 9567 jobs green; axioms
 14/14 at the permitted maximum; zero warnings.
+
+## (2026-07-30 01:45 PDT) C3-SCOPE lands — ⟦THE Rbd HOLE⟧ DISSOLVES; one refuter erratum; the ruling shrinks to the third-opaque-constant question
+
+**⟦THE DISSOLUTION — the v2 census claim false twice.⟧**  (1) At the
+landed door road, `pocket_collision_window` is NOT the Rbd supplier:
+`M4MeanSq.lean:451` fires the collision socket VACUOUSLY via
+`pocketSocket_of_floor3` — the cap-free floor kills the pocket on the
+whole `3X` box; the pretentious floor is consumed per-DATUM, never
+per-ordinate; there is no collision geometry, no φ(q) balls, no
+Landau-Page count.  (`CofactorSupply`'s dichotomy is the OLDER q=1
+branch, superseded at the door by `CofactorSupplier`/`CaseAWide`.)
+(2) The `(1/4)q` gate has the LANDED F4+VT-7 sibling
+`capFreeFloor3_pieceDatum_vt` (VkMidSharp:559, byte-identical
+conclusion, audited at All.lean:3812-3868).  DECISIVE:
+`m4_supplier_complete` (CaseAWide:810)'s ONLY χ-dependent hypothesis is
+the `∀𝒥` cap-free floor at `pieceDatum χ` — the numeric bound
+`2^J·Rbar0` is CHARACTER-UNIFORM BY CONSTRUCTION.  **Rbd contributes
+ZERO φ(q)** (A3's binder is pointwise in `(χ,t)` — no Σ_χ), confirming
+the D4 executor's one-genuine-Σ_χ finding.  `t₁` is free (the ball
+excision costs Rbd nothing).
+
+**⟦THE ARITHMETIC⟧**  The `_vt` threshold at `q ≤ (log H)^12`:
+`loglog X ≳ 162·loglog H + ~3.3e3 + 36·cffKVt Qm` — **43× λ-headroom
+and ~38× constant-headroom under the C4 arm** (7000λ + 1.25e5).  Not
+binding.  F5-neutrality independently re-verified: no upper cap on
+`R.x` exists anywhere in the port road's gate list — F5's contradiction
+has no second horn.
+
+**⟦ERRATUM TO REF-A4-MATH (refuter-refutes-refuter, banked honestly)⟧**
+The "category error" verdict on the `144λ + 2e3` baseline was ITSELF in
+error: `144λ = 32·(3/8)·log q` at `log q ≤ 12λ` is the LIVE VT-7
+cap-free threshold (VkMidSharp:559), not a dead route's artifact.  The
+resolution of the apparent conflict: **F5 killed the floor's ROW-SUPPLY
+consumer (`a2Rows_of_capfree3` against `hgRows`'s upper cap); it never
+killed the CO-FACTOR-SOCKET consumer** — a different consumer of the
+same floor, and legal on the port road precisely because `hgRows` is
+gone.  The corrected six-debit page inherits both numerals: the arm
+7000λ+1.25e5 (the row side) AND the non-binding 162λ+3.3e3 (the
+co-factor side).
+
+**⟦THE ROUTES⟧**  R1 RECOMMENDED: the ∀χ door socket at the `_vt`
+floor — five items (the datum adapter ~A; the socket→binder bridge
+~A/B; the ~25 gates carried or witnessed ~B; the `_vt` arithmetic page
+~B; `mertensM ≤ 3` NEW micro-item ~A/30 ln — the corpus has only the
+lower numeral): **≈280-710 ln, class B** (was 600-1200 C).  R2
+direct-rate DEAD (the height gate `|t| ≤ y` vs the annulus `T ≤ X/2`
+fails on all but an `X^{-1/loglog X}` fraction — total, irreparable,
+the Kronecker ∀t falseness).  R3 union-over-χ pocket MOOT (vacuous
+firing — any effort is pure waste).  R4 the fresh Σ_χ stone WITHDRAWN
+(buys what the corpus has free).
+
+**⟦THE RE-PRICE + DECOUPLINGS⟧**  A4 total: 6.2-11.6k → **5.9-11.1k**;
+one class-C item leaves the slate.  C3 DECOUPLES from C2 (the door
+socket bounds ‖ramR‖ on the whole annulus under every partition
+design) and from the ball leg (`t₁` free).  **THE ONE SURVIVING
+RULING: may a THIRD opaque constant ride in the g-arm** —
+`g H ω := max x₀ (16ω(log H)^12·exp(exp(7000λ + 1.25e5 + 36·cffKVt ⌈arcDen 12 H⌉)))`
+(`cffKVt` = a Classical.choose of unknown growth; `mertensM` symbolic).
+GRANT ⟹ C3 closes as wiring (R1).  DENY ⟹ an effective majorant page
+for `cffKVt Qm` is owed, unscoped.

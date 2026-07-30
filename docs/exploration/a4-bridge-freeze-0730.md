@@ -263,3 +263,21 @@ anchor ask; (2) the partition fork; (3) the Rbd design; (4) the
 corrected six-debit page (the arm + the M₀ window); (5) D3's owed pages
 + the ball-sup leg; (6) the θ₂₉₃ lever.  The night tail (D1+D4)
 untouched by every finding — in flight at this writing.
+
+---
+
+# v2.2 NOTE (2026-07-30 01:46 PDT, C3-SCOPE folded)
+
+⟦THE Rbd HOLE⟧ of v2's A3′ table DISSOLVES: the pocket chain fires
+VACUOUSLY at the landed door road (the floor is per-datum, never
+per-ordinate — M4MeanSq.lean:451); the landed F4+VT-7 sibling
+`capFreeFloor3_pieceDatum_vt` supplies the socket at 43× headroom under
+the v2.1 arm; the value `2^J·Rbar0` is character-uniform by
+construction (ZERO φ(q) — A3's binder is pointwise in (χ,t)).  The
+stone re-prices ~0.28–0.71k class B (was 0.6–1.2k C); A4 total
+**5.9–11.1k**.  C3 decouples from C2 and from the ball leg (t₁ free).
+One erratum absorbed: F5 killed the floor's ROW consumer, never the
+CO-FACTOR consumer (the "category error" line of v2.1's source verdict
+corrected in flags).  The surviving council ruling: the third opaque
+constant `cffKVt` in the g-arm (grant ⟹ wiring; deny ⟹ an unscoped
+majorant page).  New micro-item: `mertensM ≤ 3` (~30 ln, A).

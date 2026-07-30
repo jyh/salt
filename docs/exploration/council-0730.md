@@ -69,11 +69,12 @@ small drifts tonight were each fixed in place before commit).*
 ## The honest picture
 
 **The port stands at ONE design block, fully mapped and priced:
-A4 ≈ 6.2–11.6k ln** (v1's 2.5–4.7k doubled by the refuters — the same
-walk the port freeze itself took, and for the same reason: refuters
-finding unpriced stones is the system working).  After A4: the socket
-discharge → THE S11 COMPOSE → `¬logChowla2Fails` under the ratified
-summit protocol.
+A4 ≈ 5.9–11.1k ln** (v1's 2.5–4.7k walked up by the refuters, then
+walked back down where a scoper found landed bytes — the same cascade
+the port freeze itself ran, and for the same reason: refuters finding
+unpriced stones and scopers finding paid ones is the system working).
+After A4: the socket discharge → THE S11 COMPOSE → `¬logChowla2Fails`
+under the ratified summit protocol.
 
 ## THE COUNCIL'S RULINGS REQUESTED
 
@@ -81,9 +82,9 @@ summit protocol.
 |---|---|---|
 | C1 | **THE 12× ANCHOR ASK** — gate 8 must open to `Adoor M ≥ 207.75·loglog H` (`log₂M+1: 207 → ~2484`); M is bound after `∃R`, knock-ons derived free | GRANT — it is the honest price of φ(q) on summand 2; no register statement moves, only the witness M |
 | C2 | **THE PARTITION FORK** — Σ_χ has no ordinate partition; choose: `A ⊆ ⋂_χ 𝒰_χ` (one set, mixes genres on the complement) vs per-χ `A_χ` (re-cut A3's LHS) vs a graded pair-partition | take the DESIGN BLOCK first (a scoper on the three, ~half a day); my prior: `⋂_χ 𝒰_χ` with the complement priced as `⋃_χ 𝒯tot_χ` via the union bound — but the mixing term needs bytes before ruling |
-| C3 | **THE Rbd DESIGN** — a character-uniform graded co-factor bound; the only landed route is per-χ capFree (forbidden) | design block alongside C2; the pretentious floor's per-χ nature is the real question — possibly the port's rate at t on the co-factor row dissolves it (unverified) |
+| C3 | **THE Rbd QUESTION — DISSOLVED (C3-SCOPE, ~02:15)**: the pocket chain fires VACUOUSLY (the floor is per-datum); the landed F4+VT-7 `_vt` sibling supplies the socket at 43× headroom under C4's arm; the value is character-uniform by construction, ZERO φ(q); the stone is ~0.3–0.7k class B wiring (was 0.6–1.2k C); DECOUPLED from C2 and from the ball leg.  ⟦Erratum absorbed: F5 killed the floor's ROW consumer, never its CO-FACTOR consumer — REF-A4-MATH's "category error" line corrected in flags.⟧ | the one surviving ruling: **may a third opaque constant (`cffKVt`, a Classical.choose) ride in the g-arm** alongside x₀?  GRANT (recommended — same genre as x₀, and the arm is already non-literal) ⟹ C3 closes as wiring; DENY ⟹ an effective-majorant page is owed, unscoped.  New micro-item either way: `mertensM ≤ 3` (~30 ln, A) |
 | C4 | **the corrected six-debit page** — ratify the 7000λ+1.25e5 arm, the M₀ window, the g-arm's full written form (`max x₀ (16ω(log H)^12·exp(exp(…)))`) | RATIFY — every number now refuter-derived from the kernel bytes |
-| C5 | **the wave plan at the v2.1 prices** — D2 (~1.2–2.2k), D3 + its four pages (~1.65–3k), the ball-sup leg (~0.4–0.7k), the 𝒯-leg lift (~1.5–3k), then the assembly | AUTHORIZE contingent on C2/C3's design blocks landing; the fire order: C2/C3 blocks → D3 (no fork) ∥ D2 → legs → assembly |
+| C5 | **the wave plan at the v2.2 prices** — D2 (~1.2–2.2k), D3 + its four pages (~1.65–3k), the ball-sup leg (~0.4–0.7k), the 𝒯-leg lift (~1.5–3k), the Rbd wiring (~0.3–0.7k, B, on a C3 GRANT), then the assembly | AUTHORIZE contingent on C2's ruling (the one remaining fork); the fire order: C2 block → D3 (no fork) ∥ Rbd wiring ∥ D2 → legs → assembly |
 | C6 | **the θ₂₉₃ lever** (1.71× on the arm at zero ε-room) | RECORD ONLY — spend never, unless a future census bites |
 
 ## Standing
