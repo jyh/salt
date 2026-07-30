@@ -750,7 +750,13 @@ antecedents cost at the ONE dilation this file performs: the re-indexed block
 `R.x ≤ 16·R.ω·arcDen 12 H·(⌊A/d⌋ − 1)`, and each is derived below by the same pattern as
 `hcapnar` (the narrowing at the dilated cap): one power of `arcDen 12 H` is spent because
 `d ≤ arcDen 12 H`.  `32·arcDen 12 H ≤ A` still follows (`2H ≥ 2·32·arcDen`), so nothing
-downstream of the old floor is weakened. -/
+downstream of the old floor is weakened.
+
+⟦THE BASE CAP — the (α) base-cap surgery, JYH-granted 2026-07-30⟧ the supply predicate now
+also asks `(A : ℝ) ≤ 2·R.x` from ABOVE, and this file passes it to the dilated base for
+FREE: `⌊A/d⌋ − 1 ≤ A`, so no `arcDen` power is spent on it (unlike the three lower
+antecedents).  The consumer `M4SecondRoad.m4_blockMeanSqBlk2_of_chiSummed` discharges it at
+the door ladder's own top rung. -/
 theorem m4_freeBlockSup_of_chiSummed {R : ChowlaRegime} {M : ℕ} {Bcl : ℕ → ℝ} (hM : 1 ≤ M)
     (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
     (hgate : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
@@ -761,12 +767,12 @@ theorem m4_freeBlockSup_of_chiSummed {R : ChowlaRegime} {M : ℕ} {Bcl : ℕ →
       16 * arcDen 12 H ^ 2 ≤ (H : ℝ) →
       ∀ (b : ℤ) (q : ℕ), 0 < q → (q : ℝ) ≤ arcDen 12 H →
         ∀ A B : ℕ, 0 < A → 2 * (H : ℝ) ≤ (A : ℝ) →
-          (R.x : ℝ) ≤ 8 * (R.ω : ℝ) * (A : ℝ) → B + L ≤ 2 * A →
+          (R.x : ℝ) ≤ 8 * (R.ω : ℝ) * (A : ℝ) → (A : ℝ) ≤ 2 * (R.x : ℝ) → B + L ≤ 2 * A →
           ∑ n ∈ Finset.Ioc A B,
               (subWindowSup (doorSievedCoeff M) L n ((b : ℝ) / (q : ℝ))) ^ 2
             ≤ 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ) := by
   classical
-  intro H hlo hhi L hLH hnar hLarc harcsq b q hq hqQ A B hA hAH hAx hfit
+  intro H hlo hhi L hLH hnar hLarc harcsq b q hq hqQ A B hA hAH hAx hAcap hfit
   have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
   have harc0 : (0 : ℝ) < arcDen 12 H := by linarith
   have hAarc : 32 * arcDen 12 H ≤ (A : ℝ) := by
@@ -919,6 +925,13 @@ theorem m4_freeBlockSup_of_chiSummed {R : ChowlaRegime} {M : ℕ} {Bcl : ℕ →
         linarith
       have s3 := mul_le_mul_of_nonneg_left s2 (by positivity : (0 : ℝ) ≤ 8 * (R.ω : ℝ))
       nlinarith [s1, s3]
+    -- (iv) THE BASE CAP, INHERITED (the (α) base-cap surgery, JYH-granted 2026-07-30):
+    -- `⌊A/d⌋ − 1 ≤ A`, so the cap passes to the dilated base with NO `arcDen` power spent
+    have hcapA' : ((A / d - 1 : ℕ) : ℝ) ≤ 2 * (R.x : ℝ) := by
+      have hle : ((A / d - 1 : ℕ) : ℝ) ≤ (A : ℝ) := by
+        have hnat : A / d - 1 ≤ A := le_trans (Nat.sub_le _ _) (Nat.div_le_self A d)
+        exact_mod_cast hnat
+      linarith
     have hfit' : B / d + capL L d ≤ 2 * (A / d - 1) + 4 := by
       have h := dilBlock_reindex_fit (A := A) (B := B) (H := L) (d := d) hd0 hdA hfit
       have hc := capL_le_div_succ (L := L) (d := d) hd0
@@ -933,7 +946,7 @@ theorem m4_freeBlockSup_of_chiSummed {R : ChowlaRegime} {M : ℕ} {Bcl : ℕ →
       (doorChiSup χ M (capL L d) n') ^ 2) hf0 hd0 hmaps
     -- ⟦the χ-summed datum at the reduced modulus⟧
     have hdatum := hchi H hlo hhi (capL L d) hcapH hcapnar (q / d) hq0 hq0Q
-      (A / d - 1) (B / d) hA'pos hcapA hsqA' hxA' hfit'
+      (A / d - 1) (B / d) hA'pos hcapA hsqA' hxA' hcapA' hfit'
     -- ⟦the sharp ledger⟧
     have hled := capL_ledger (A := A) (L := L) (d := d) hd0 hB0
     have hdatum' : ∑ n' ∈ Finset.Ioc (A / d - 1) (B / d),

@@ -62,7 +62,8 @@ the A4 bridge).  This file is a conditional wrapper and nothing more.
 ⟦THE TRAPS RESPECTED⟧ `arcDen 12 H` is never evaluated and never conflated with a `log X`
 scale; the modulus predicates stay `q`-FREE (the socket's `RS` is a function of `(j, H)`
 only); every gate (`0 < q`, `R.Hlo ≤ H ≤ R.Hhi`, `2^j ≤ A`, `√H ≤ A`, the x-scale
-antecedent) is carried verbatim from the landed socket, never weakened.
+antecedent and the base cap `A ≤ 2·R.x` of the (α) base-cap surgery, JYH-granted
+2026-07-30) is carried verbatim from the landed socket, never weakened.
 -/
 
 noncomputable section
@@ -78,19 +79,26 @@ open Salt.Entropy.Chowla
 
 `M4ChiSummed.M4ChiSummedFreeRow`'s own quantifier structure — the two regime binders, the
 cap-general length, the modulus range, the dyadic window index, the three base antecedents
-of ⟦R-P5⟧ and the free shift — with the ONE extra antecedent `doorRowFloor M ≤ j` that the
-door's capstone demands. -/
+of ⟦R-P5⟧, the base cap of the (α) base-cap surgery (JYH-granted 2026-07-30) and the free
+shift — with the ONE extra antecedent `doorRowFloor M ≤ j` that the door's capstone
+demands. -/
 
 /-- **THE `Σ_χ` FREE-BASE ROW SOCKET, ABOVE THE DOOR'S FLOOR** (`M4ChiSummedFreeRowBig`).
 
 Byte-for-byte `M4ChiSummedFreeRow R M RSbig` with `doorRowFloor M ≤ j` inserted immediately
 after the window index — the shape a supplier can actually meet, because
-`M4DoorClose.m4_door_meansq_carried` is itself stated only above that floor. -/
+`M4DoorClose.m4_door_meansq_carried` is itself stated only above that floor.
+
+⟦the (α) base-cap surgery, JYH-granted 2026-07-30⟧ the socket's fourth base antecedent
+`(A : ℝ) ≤ 2·R.x` is carried here verbatim, so `m4_chiSummedFreeRow_of_big` still meets the
+socket byte for byte and every supplier below serves only the BOUNDED base range — which is
+what makes `M4Assembly.DoorFuseFrame`'s decaying upper caps satisfiable at all. -/
 def M4ChiSummedFreeRowBig (R : ChowlaRegime) (M : ℕ) (RSbig : ℕ → ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → ∀ q : ℕ, 0 < q →
     (q : ℝ) ≤ arcDen 12 H → ∀ j ≤ Nat.log 2 L, doorRowFloor M ≤ j → ∀ A : ℕ, 0 < A →
       2 ^ j ≤ A → Real.sqrt (H : ℝ) ≤ (A : ℝ) →
-      (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) → ∀ s ≤ L,
+      (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) → (A : ℝ) ≤ 2 * (R.x : ℝ) →
+      ∀ s ≤ L,
         ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq χ M j (A + s) ≤ RSbig j H
 
 /-! ## §2 — THE GRADED SPLICE -/
@@ -129,13 +137,13 @@ No supplier is named and no fork is entered: `RSbig` is a parameter. -/
 theorem m4_chiSummedFreeRow_of_big {R : ChowlaRegime} {M : ℕ} {RSbig : ℕ → ℕ → ℝ}
     (hbig : M4ChiSummedFreeRowBig R M RSbig) :
     M4ChiSummedFreeRow R M (m4ChiRowGraded M RSbig) := by
-  intro H hlo hhi L hLH q hq hqQ j hjL A hA hAj hAsq hAx s hsL
+  intro H hlo hhi L hLH q hq hqQ j hjL A hA hAj hAsq hAx hAcap s hsL
   by_cases hcase : doorRowFloor M ≤ j
   · rw [m4ChiRowGraded_big M RSbig H hcase]
-    exact hbig H hlo hhi L hLH q hq hqQ j hjL hcase A hA hAj hAsq hAx s hsL
+    exact hbig H hlo hhi L hLH q hq hqQ j hjL hcase A hA hAj hAsq hAx hAcap s hsL
   · rw [m4ChiRowGraded_small M RSbig H hcase]
     exact m4_chiSummedFreeRow_trivial R M H hlo hhi L hLH q hq hqQ j hjL A hA hAj hAsq hAx
-      s hsL
+      hAcap s hsL
 
 /-! ## §3 — THE DOOR DATUM, INSTANTIATED
 
@@ -170,7 +178,8 @@ theorem m4_chiSummedFreeRowBig_of_doorCarried :
         (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → ∀ q : ℕ, 0 < q →
           (q : ℝ) ≤ arcDen 12 H → ∀ j ≤ Nat.log 2 L, doorRowFloor M ≤ j → ∀ A : ℕ, 0 < A →
             2 ^ j ≤ A → Real.sqrt (H : ℝ) ≤ (A : ℝ) →
-            (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) → ∀ s ≤ L,
+            (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) →
+            (A : ℝ) ≤ 2 * (R.x : ℝ) → ∀ s ≤ L,
               ∀ χ : DirichletCharacter ℂ q,
                 DoorRowCarried Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk (Kcf Qm) Ctail χ M (A + s) j
                   (Bd j H)) →
@@ -180,7 +189,8 @@ theorem m4_chiSummedFreeRowBig_of_doorCarried :
     m4_door_meansq_carried
   refine ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
     hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, ?_⟩
-  intro R Qm M Bd hM hQm hBd0 hcar H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx s hsL
+  intro R Qm M Bd hM hQm hBd0 hcar H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx
+    hAcap s hsL
   haveI : NeZero q := ⟨hq.ne'⟩
   -- ⟦the modulus range: the socket's cap put inside the capstone's⟧
   have hqQm : q ≤ Qm := by
@@ -190,7 +200,7 @@ theorem m4_chiSummedFreeRowBig_of_doorCarried :
   have hper : ∀ χ ∈ (Finset.univ : Finset (DirichletCharacter ℂ q)),
       chiFreeRowSq χ M j (A + s) ≤ Bd j H := fun χ _ =>
     hrow Qm q χ hq hqQm M (A + s) j (Bd j H) hM hjfl
-      (hcar H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx s hsL χ)
+      (hcar H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx hAcap s hsL χ)
   -- ⟦the character sum: the ledger's factor, in the open⟧
   have hsum : ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq χ M j (A + s)
       ≤ ((Fintype.card (DirichletCharacter ℂ q) : ℕ) : ℝ) * Bd j H := by
@@ -224,7 +234,8 @@ theorem m4_chiSummedFreeRow_of_doorCarried :
         (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → ∀ q : ℕ, 0 < q →
           (q : ℝ) ≤ arcDen 12 H → ∀ j ≤ Nat.log 2 L, doorRowFloor M ≤ j → ∀ A : ℕ, 0 < A →
             2 ^ j ≤ A → Real.sqrt (H : ℝ) ≤ (A : ℝ) →
-            (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) → ∀ s ≤ L,
+            (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) →
+            (A : ℝ) ≤ 2 * (R.x : ℝ) → ∀ s ≤ L,
               ∀ χ : DirichletCharacter ℂ q,
                 DoorRowCarried Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk (Kcf Qm) Ctail χ M (A + s) j
                   (Bd j H)) →

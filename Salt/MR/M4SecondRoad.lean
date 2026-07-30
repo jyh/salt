@@ -454,6 +454,22 @@ theorem doorLadder_ge_x_div_four_omega {x ω H k i : ℕ} (hω : 2 ≤ ω)
   have h1 : x / (4 * ω) ≤ x / 2 ^ i := Nat.div_le_div_left hpow (Nat.two_pow_pos i)
   exact le_trans h1 (doorLadder_pow_lower x H i)
 
+/-- **⟦(α)⟧ THE LADDER'S CEILING** (`doorLadder_le_start`) — the supply side of the socket's
+BASE CAP (**the (α) base-cap surgery, JYH-granted 2026-07-30**).
+
+`X_i ≤ x` at every rung, once the ladder sits above its own floor (`H + 1 ≤ x`, which is
+`M4Close.regime_window_headroom`): the descent `X_{i+1} = ⌊(X_i + H + 1)/2⌋` averages two
+quantities that are each at most `x`, and `⌊·/2⌋` is monotone.  `doorLadder_upper`'s
+`X_i ≤ (H+1) + x/2^i` is NOT enough here — it gives only `1.5·x` at `i = 1` — so the cap is
+proved by the descent's own induction instead.
+
+Composed with `m·ℓ ≤ H ≤ x − 1` this is exactly `X_{i+1} + m·ℓ ≤ 2·x`, the socket's cap at
+the ONE place its base becomes concrete. -/
+theorem doorLadder_le_start {x H : ℕ} (hx : H + 1 ≤ x) (i : ℕ) : doorLadder x H i ≤ x := by
+  induction i with
+  | zero => simp
+  | succ n ih => rw [doorLadder_succ]; omega
+
 set_option maxHeartbeats 1200000 in
 -- the block sum is re-associated over the drift blocks and then over the ladder block, and
 -- the stratified bound is instantiated once per drift block; every arithmetic step is
@@ -491,10 +507,11 @@ theorem m4_blockMeanSqBlk2_of_chiSummed {R : ChowlaRegime} {M k : ℕ} {Bcl : �
   have hLarc : 32 * arcDen 12 H ≤ (L : ℝ) := blockLen_arc_floor (R := R) hlo harcH
   have hL16 : 16 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
     nlinarith [harcH, sq_nonneg (arcDen 12 H)]
-  -- ⟦R-P5, THE x-SCALE LADDER AT THIS RUNG⟧ the two base antecedents `M4Gauss` now asks for,
-  -- discharged from the ladder's geometric floor (`doorLadder_ge_x_div_four_omega`) and the
-  -- regime's own wave-II headroom `8·H₊·log²H₊ ≤ ⌊x/ω⌋` (whose two log factors are `≥ 1`
-  -- at `H₊ ≥ 4·10⁶`) — NO new regime field, NO `g`-arm movement
+  -- ⟦R-P5, THE x-SCALE LADDER AT THIS RUNG⟧ the base antecedents `M4Gauss` now asks for,
+  -- discharged from the ladder's geometric floor (`doorLadder_ge_x_div_four_omega`), its
+  -- CEILING (`doorLadder_le_start`, the (α) base cap) and the regime's own wave-II headroom
+  -- `8·H₊·log²H₊ ≤ ⌊x/ω⌋` (whose two log factors are `≥ 1` at `H₊ ≥ 4·10⁶`)
+  -- — NO new regime field, NO `g`-arm movement
   have hω0N : 0 < 4 * R.ω := by have := R.hω; omega
   have hω0 : (0 : ℝ) < (R.ω : ℝ) := by
     have h : 0 < R.ω := by have := R.hω; omega
@@ -502,6 +519,12 @@ theorem m4_blockMeanSqBlk2_of_chiSummed {R : ChowlaRegime} {M k : ℕ} {Bcl : �
   have hxdiv : R.x / (4 * R.ω) ≤ A := by
     rw [hA]
     exact doorLadder_ge_x_div_four_omega (H := H) R.hω hcount (by omega)
+  -- ⟦(α) THE BASE CAP AT THIS RUNG⟧ the ceiling side of the socket's fourth base antecedent
+  -- (the (α) base-cap surgery, JYH-granted 2026-07-30): the ladder never exceeds its own
+  -- top, so `X_{i+1} ≤ x` and every drift-shifted base is `≤ x + H ≤ 2x`
+  have hAtop : A ≤ R.x := by
+    rw [hA]
+    exact doorLadder_le_start hxH (i + 1)
   have hHhi4 : (4000000 : ℝ) ≤ (R.Hhi : ℝ) := by
     have h : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
     exact_mod_cast h
@@ -562,8 +585,15 @@ theorem m4_blockMeanSqBlk2_of_chiSummed {R : ChowlaRegime} {M k : ℕ} {Bcl : �
     have h2HA' : 2 * (H : ℝ) ≤ ((A + m * L : ℕ) : ℝ) := by linarith
     have hxA' : (R.x : ℝ) ≤ 8 * (R.ω : ℝ) * ((A + m * L : ℕ) : ℝ) := by
       nlinarith [hxA, hAle, hω0]
+    have hcapA' : ((A + m * L : ℕ) : ℝ) ≤ 2 * (R.x : ℝ) := by
+      have hnat : A + m * L ≤ 2 * R.x :=
+        calc A + m * L ≤ R.x + H := Nat.add_le_add hAtop hmL
+          _ ≤ 2 * R.x := by omega
+      have := (Nat.cast_le (α := ℝ)).mpr hnat
+      push_cast at this ⊢
+      linarith
     have hfit' : (B + m * L) + L ≤ 2 * (A + m * L) := by omega
-    have h := hstrat (A + m * L) (B + m * L) hApos' h2HA' hxA' hfit'
+    have h := hstrat (A + m * L) (B + m * L) hApos' h2HA' hxA' hcapA' hfit'
     have hbase : ((A + m * L : ℕ) : ℝ) ≤ 2 * (A : ℝ) := by
       have hnat : A + m * L ≤ 2 * A := by omega
       have := (Nat.cast_le (α := ℝ)).mpr hnat
@@ -629,8 +659,13 @@ its binding order):
     (`m4_chiSummedFreeRow_trivial`); the port must inhabit it at the §6 ceiling.
     **⟦R-P5, wave P-1⟧ the socket now carries THREE BASE ANTECEDENTS inside its own
     `∀`-prefix** (`2^j ≤ A`, `√H ≤ A`, `R.x ≤ 16·R.ω·arcDen 12 H·A` — see `M4ChiSummed`'s
-    header).  They only WEAKEN the socket, so this register line gains NOTHING: no new
-    conjunct, no new gate, no anchor movement, and the port adds ZERO `H`-demand.
+    header), **and ⟦(α)⟧ a FOURTH, the base cap `A ≤ 2·R.x`** (the (α) base-cap surgery,
+    JYH-granted 2026-07-30; it is what makes the door's `DoorFuseFrame` hypotheses
+    satisfiable — see `M4ChiSummed`'s ⟦THE (α) BASE-CAP SURGERY⟧).  All four only WEAKEN the
+    socket, so this register line gains NOTHING: no new conjunct, no new gate, no anchor
+    movement, and the port adds ZERO `H`-demand.  The cap is discharged INSIDE this
+    theorem's proof, at §3's `m4_blockMeanSqBlk2_of_chiSummed`, from `doorLadder_le_start`
+    and the regime's own `H + 1 ≤ R.x` — no new hypothesis on the register.
 
 ⟦F5 CHECK, RE-RUN — WITH THE x-ANTECEDENT⟧ `R.x` occurs in this register in exactly one
 place — `g R.Hhi R.ω ≤ R.x`, an `X`-LOWER supplied by the spine — so there is no `X`-upper

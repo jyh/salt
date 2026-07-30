@@ -115,10 +115,55 @@ D5 reconciliation gates' fifth scale).  `DoorBandBase.qfit` reads `q ≤ (log X_
 BASE-side conductor gate, which is NOT `SocketBase`'s `q ≤ arcDen 12 H` (an `H`-side one);
 the two are independent and both are carried.
 
-⟦PURELY ADDITIVE⟧  No landed declaration is touched.  Every frozen shape — `ThmA2.a2Mrow`,
-`M4ChiSummed.M4ChiSummedFreeRow`, `M4Assembly.SocketBase`/`DoorFuseFrame`,
+## ⟦THE SATISFIABILITY, AFTER THE (α) BASE CAP⟧ — **JYH-granted 2026-07-30**
+
+⟦THE DEFECT THIS SECTION CLOSES⟧ before the surgery, `hframe` was UNSATISFIABLE wherever the
+conclusion had content, and the kill was structural rather than numeric:
+`DoorFuseFrame.gP1` reads
+
+  `374784·C_s·e³/P₁  ≤  (log X_d)^{−1/500}`
+
+whose right-hand side **decays to 0 as `X_d → ∞`**, while `M4Assembly.SocketBase` had no
+upper bound on `A` and was closed upward.  So `∀ base, SocketBase → DoorFuseFrame` was
+refutable on the up-set at any fixed `M` (the refuter's kernel kill `hframe_unsatisfiable`,
+`flags.md` 2026-07-30 08:47).  The same reading applies to the `X_d`-dependent part of
+`gRows`.
+
+⟦WHAT THE CAP BUYS⟧ `SocketBase` now carries `(A : ℝ) ≤ 2·R.x`, so every base the socket
+reaches obeys `X_d = A + s ≤ 2·R.x + H ≤ 3·R.x` (`socketBase_base_le_three_x`, §5 — `s ≤ L ≤
+H` and `H + 1 ≤ R.x` by `M4BridgeCover.regime_window_headroom`).  Since `gP1`'s right-hand
+side is ANTITONE in the base (`gP1_of_le`, §5), the whole `∀`-frame reduces to its TOP
+instance (`gP1_at_socketBase`, §5): `gP1` at `X_d = 3·R.x` implies `gP1` at every base the
+socket reaches.  The `∀` is no longer a demand at infinity — it is one finite inequality.
+
+⟦THE ARITHMETIC OF THAT ONE INEQUALITY⟧ taking logs twice, `gP1` at the top reads
+
+  `loglog(3·R.x) + log(374784·C_s·e³)  ≤  500·log P₁ = 500·(Adoor M)·log 2` ,
+
+using `log P₁ = Adoor M · log 2` (`M4ArithZero.log_calP_door_one`, downstream).  Both sides
+are finite:
+the left is the register's own `x`-scale (`≈ 7000·loglog H + 1.25·10⁵` at the `g`-arm floor,
+i.e. `≈ 7·10¹⁴` at the register cap `loglog H ≈ 10¹¹`), the right is `≈ 346.6·Adoor M` — the
+`P₁/M`-side, and `M` is chosen AFTER `R` in `m4_second_road`'s quantifier order with **no
+register gate bounding it from above** (every `M`-relative gate — ⟦gate 8⟧,
+`GRowsZeroGate`, ⟦C1⟧'s anchor — is an `M`-LOWER).  So the demand is met by taking `Adoor M`
+large, exactly like ⟦gate 8⟧.
+
+⟦HONESTLY FENCED — the demand is NOT implied by ⟦gate 8⟧⟧ ⟦gate 8⟧ gives
+`loglog H < 0.0578·Adoor M`, i.e. `Adoor M > 17.3·loglog H`, which supplies only
+`346.6·Adoor M > 5996·loglog H` against a left side of `7000·loglog H` — short by the factor
+`7000/5996 ≈ 1.17`.  The top-instance demand is therefore a SEPARATE `M`-lower condition on
+the same axis, about 17% tighter than ⟦gate 8⟧ on the register's own `(M, x, H)` — a
+constant-factor tightening, **not** the exponent-1-vs-14 collision that killed the density
+horn.  It rides where ⟦gate 8⟧ rides: the consumer's open arithmetic, named here rather than
+hidden.
+
+⟦PURELY ADDITIVE⟧  Except for the JYH-granted (α) base-cap surgery on
+`M4ChiSummed.M4ChiSummedFreeRow` and its forced re-threading, no landed declaration is
+touched.  Every other frozen shape — `ThmA2.a2Mrow`, `M4Assembly.DoorFuseFrame`,
 `M4RowsChiEnd.DoorRowEndBase`, `M4ArithPage.DoorArithFrame`/`RSanDoor`, and
-`M4SecondRoad.m4_second_road`'s ⟦gate 4⟧ and ceiling — is met, never adjusted.
+`M4SecondRoad.m4_second_road`'s statement, ⟦gate 4⟧ and ceiling — is met, never adjusted.
+`M4Assembly.SocketBase` gained exactly ONE field, the matching cap.
 -/
 
 noncomputable section
@@ -187,10 +232,10 @@ theorem m4_chiSummedFreeRow_of_doorArith_end :
   refine m4_chiSummedFreeRow_of_big
     (m4_chiSummedFreeRowBig_of_doorGradeGated (C₁ := C₁) (M₀ := M₀) ?_ (m4_arith_henv harith))
   intro H L q j A s hb
-  obtain ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hsL⟩ := hb
+  obtain ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩ := hb
   haveI : NeZero q := ⟨hq.ne'⟩
   have hbb : SocketBase R M H L q j A s :=
-    ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hsL⟩
+    ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩
   have hF := hframe H L q j A s hbb
   exact m4_chiFreeRowSq_sum_at_door hM hF.X_exp hF.X_three hF.h_four hF.h_window hF.tann
     hF.ceil5 (hslot R M ε cU bU t₁ hM hb1 hc1 hbase hcap H L q j A s hbb)
@@ -411,5 +456,66 @@ theorem m4_socket_discharged_bandfree (hMmu : MmuChiRate) (Aexp : ℝ) (hAexp : 
   intro ε cU bU t₁ K δ₀ hδ₀ hHreg hb1 hc1 hframe hbase hcap hbandbase harith
   exact hcomp R M C₁ M₀ ε cU bU t₁ K δ₀ hM hδ₀ hHreg hb1 hc1 hframe hbase hcap
     (hbandslot hbandbase) harith
+
+/-! ## §5 — ⟦THE SATISFIABILITY OF `hframe`, AFTER THE (α) BASE CAP⟧
+
+**The (α) base-cap surgery, JYH-granted 2026-07-30.**  The header states the finding in
+prose; these three lemmas put it in the kernel.  Nothing below is consumed by §1–§4 — they
+are the checked form of *why* the frame hypotheses are now satisfiable, so the claim is an
+object and not a note. -/
+
+/-- **⟦THE CAPPED RANGE⟧** (`socketBase_base_le_three_x`) — every base
+`M4Assembly.SocketBase` reaches obeys `X_d = A + s ≤ 3·R.x`.
+
+From the (α) base cap `A ≤ 2·R.x` plus the shift's own chain `s ≤ L ≤ H` and the regime's
+window headroom `H + 1 ≤ R.x` (`M4BridgeCover.regime_window_headroom`).  Before the surgery
+`SocketBase` was closed UPWARD and no such bound existed — which is exactly what made
+`DoorFuseFrame`'s decaying caps unsatisfiable over it. -/
+theorem socketBase_base_le_three_x {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hb : SocketBase R M H L q j A s) : (((A + s : ℕ)) : ℝ) ≤ 3 * (R.x : ℝ) := by
+  obtain ⟨-, hhi, hLH, -, -, -, -, -, -, -, -, hAcap, hsL⟩ := hb
+  have hHx : H + 1 ≤ R.x := regime_window_headroom R hhi
+  have hs : s ≤ R.x := by omega
+  have hsR : (s : ℝ) ≤ (R.x : ℝ) := by exact_mod_cast hs
+  push_cast
+  linarith
+
+/-- **⟦THE FRAME'S DECAYING CAP IS ANTITONE IN THE BASE⟧** (`gP1_of_le`) —
+`DoorFuseFrame.gP1` at a base `X` follows from `gP1` at ANY larger base `Y`, because
+`(log X)^{−1/500}` DECREASES as the base grows (`Real.rpow_le_rpow_of_nonpos`).
+
+This antitonicity is the whole reason the cap repairs the frame: on a range bounded ABOVE
+the `∀` collapses to its TOP instance, whereas on an up-set it collapses to a demand at
+infinity — i.e. to `False`. -/
+theorem gP1_of_le {M : ℕ} {Cs X Y : ℝ} (hX0 : 0 < X) (hX1 : (1 : ℝ) ≤ Real.log X)
+    (hXY : X ≤ Y)
+    (h : 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
+      ≤ Real.log Y ^ (-(1 : ℝ) / 500)) :
+    374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
+      ≤ Real.log X ^ (-(1 : ℝ) / 500) :=
+  le_trans h
+    (Real.rpow_le_rpow_of_nonpos (by linarith) (Real.log_le_log hX0 hXY) (by norm_num))
+
+/-- **⟦`gP1` ON THE WHOLE CAPPED RANGE, FROM ONE INSTANCE⟧** (`gP1_at_socketBase`) — the
+statement the (α) surgery exists to make true: **one** numeric inequality, at the top of the
+capped range `X_d = 3·R.x`, gives `DoorFuseFrame.gP1` at EVERY base the socket reaches.
+
+The remaining obligation is therefore finite and `M`-side:
+`loglog(3·R.x) + log(374784·C_s·e³) ≤ 500·(Adoor M)·log 2`.  It is an `M`-LOWER demand and
+`M` is chosen after `R`, so it is met by taking `Adoor M` large — see the module header
+⟦THE SATISFIABILITY, AFTER THE (α) BASE CAP⟧, including the honest fence that ⟦gate 8⟧ alone
+does **not** imply it (short by `≈ 1.17×` on the same axis). -/
+theorem gP1_at_socketBase {R : ChowlaRegime} {M H L q j A s : ℕ} {Cs : ℝ}
+    (hb : SocketBase R M H L q j A s)
+    (hX1 : (1 : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ))
+    (htop : 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
+      ≤ Real.log (3 * (R.x : ℝ)) ^ (-(1 : ℝ) / 500)) :
+    374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
+      ≤ Real.log (((A + s : ℕ)) : ℝ) ^ (-(1 : ℝ) / 500) := by
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hX0 : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by
+    have hpos : 0 < A + s := by omega
+    exact_mod_cast hpos
+  exact gP1_of_le hX0 hX1 (socketBase_base_le_three_x hb) htop
 
 end Salt.MR

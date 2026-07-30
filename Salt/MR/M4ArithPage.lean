@@ -670,9 +670,9 @@ theorem m4_chiSummedFreeRowBig_of_doorGradeGated {R : ChowlaRegime} {M : ℕ} {C
           (M₀ (A + s))
         ≤ RSbig j H) :
     M4ChiSummedFreeRowBig R M RSbig := by
-  intro H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx s hsL
+  intro H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx hAcap s hsL
   have hb : SocketBase R M H L q j A s :=
-    ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hsL⟩
+    ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩
   have hh1 : (1 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) := by
     exact_mod_cast (Nat.one_le_two_pow : 1 ≤ 2 ^ j)
   have hh0 : (0 : ℝ) < ((2 ^ j : ℕ) : ℝ) := by linarith
@@ -790,10 +790,10 @@ theorem m4_chiSummedFreeRow_of_doorArith {R : ChowlaRegime} {M : ℕ}
   refine m4_chiSummedFreeRow_of_big
     (m4_chiSummedFreeRowBig_of_doorGradeGated (C₁ := C₁) (M₀ := M₀) ?_ (m4_arith_henv harith))
   intro H L q j A s hb
-  obtain ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hsL⟩ := hb
+  obtain ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩ := hb
   haveI : NeZero q := ⟨hq.ne'⟩
   have hbb : SocketBase R M H L q j A s :=
-    ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hsL⟩
+    ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩
   have hF := hframe H L q j A s hbb
   exact m4_chiFreeRowSq_sum_at_door hM hF.X_exp hF.X_three hF.h_four hF.h_window hF.tann
     hF.ceil5 (hrows H L q j A s hbb) (hband H L q j A s hbb) hF.gP1 hF.gRows

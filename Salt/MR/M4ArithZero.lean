@@ -150,10 +150,10 @@ theorem m4_chiSummedFreeRow_of_doorArith_zero :
   refine m4_chiSummedFreeRow_of_big
     (m4_chiSummedFreeRowBig_of_doorGradeGated (C₁ := C₁) (M₀ := M₀) ?_ (m4_arith_henv harith))
   intro H L q j A s hb
-  obtain ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hsL⟩ := hb
+  obtain ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩ := hb
   haveI : NeZero q := ⟨hq.ne'⟩
   have hbb : SocketBase R M H L q j A s :=
-    ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hsL⟩
+    ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩
   have hF := hframe H L q j A s hbb
   exact m4_chiFreeRowSq_sum_at_door hM hF.X_exp hF.X_three hF.h_four hF.h_window hF.tann
     hF.ceil5 (hslot Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap H L q j A s hbb)

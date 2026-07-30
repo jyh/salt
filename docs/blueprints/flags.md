@@ -16341,3 +16341,46 @@ arithmetic, like DoorArithFrame's fields.
 THE (α) SURGERY fires on this entry — the LAST repair: the base cap
 on item 11's socket statement (JYH-granted), consuming the _zero
 forms, the consumer-read byte-verification FIRST.
+
+## (2026-07-30 10:08 PDT) ALPHA-SURGERY lands — the base cap IN, m4_second_road byte-unchanged, satisfiability a KERNEL OBJECT (44/44 clean); the repair triad is COMPLETE
+
+**⟦STEP 1 — THE READ VERIFICATION⟧**  The socket has ONE consumption
+chain; every link reads the base free until the last —
+`m4_blockMeanSqBlk2_of_chiSummed` at the CONCRETE
+`doorLadder R.x H (i+1) + m·ℓ ≤ 2·R.x − 1` (the honest route is the
+descent's own induction — `doorLadder_upper` gives only 1.5x; the new
+`doorLadder_le_start` ceiling mirrors the landed floor).  **2·R.x is
+exact with one unit to spare.**
+
+**⟦STEP 2-3 — THE AMENDMENT⟧**  The cap `(A:ℝ) ≤ 2·R.x` inserted
+after the x-antecedent; the propagation forced into the two
+intermediate socket-forms + the Gauss consumer (a weakened hypothesis
+cannot yield an unweakened conclusion — treated as minimal
+re-threading), and it STOPS at Blk2: **`m4_second_road`'s statement is
+byte-unchanged.**  SocketBase gains the matching field (projections
+unaffected); the wire/assembly/arith/ρ/zero chains threaded; every
+touched docstring cites the grant.  11 files, +307/−66, first-attempt
+throughout; build 9586 green, warnings 148 = 148; axioms 44/44
+(`doorLadder_le_start` at two).
+
+**⟦THE SATISFIABILITY, KERNELIZED⟧**  §5 of M4SocketDischarge:
+`socketBase_base_le_three_x` (A+s ≤ 3·R.x — the shift adds up to H);
+`gP1_of_le` (antitonicity via rpow); `gP1_at_socketBase` — ONE
+instance at the top base gives gP1 at every base the socket reaches.
+The ∀-collapse that was the DEFECT (an up-set forcing the demand at
+infinity) is now the REPAIR (a capped range collapsing to its top).
+
+**⟦THE HONEST FENCE — a new named condition, NOT the old collision⟧**
+The residual gP1 obligation is an M-LOWER on the anchor axis:
+`loglog(3R.x) + log(374784·Cs·e³) ≤ 346.6·Adoor M` — gate 8 does NOT
+imply it (short by 1.17×); it is ~17% tighter on the same axis,
+constant-factor, met by choosing Adoor M ≥ ~20.2λ (the C1 anchor's
+2484 gives 84× room at the register cap).  STATED in the header, on
+the S11 spine's instantiation list.
+
+**⟦DISPOSITION⟧**  THE REPAIR TRIAD IS COMPLETE: the density vanished
+(TWIN-CHAIN), δ₀'s blocker closed (RHO-PAGE), the base capped
+(ALPHA-SURGERY).  THE SUMMIT PROTOCOL RE-ENGAGES: REF-SOCKET-2
+dispatched on this entry — the repaired _zero terminals at the capped
+socket, both mandates (meaning + joint inhabitation), before anything
+is called discharged.  NOTHING ANNOUNCED until it returns.

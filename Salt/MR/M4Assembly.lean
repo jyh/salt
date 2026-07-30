@@ -332,9 +332,10 @@ theorem m4_chiFreeRowSq_sum_at_door {q : ℕ} [NeZero q] {M Xd j : ℕ} {Cs Ccc 
 `M4ChiSocketWire.M4ChiSummedFreeRowBig`'s binders are FROZEN: the two regime bounds, the
 cap-general length `L ≤ H`, the modulus range `0 < q ≤ arcDen 12 H`, the dyadic window index
 `j ≤ log₂ L`, the door's length floor `doorRowFloor M ≤ j`, the three base antecedents of
-⟦R-P5⟧ (`0 < A`, `2^j ≤ A`, `√H ≤ A`, the x-scale antecedent) and the free shift `s ≤ L`.
-They are met here verbatim — every one of them is either passed to the fused grade or simply
-UNUSED (the base antecedents only weaken the socket). -/
+⟦R-P5⟧ (`0 < A`, `2^j ≤ A`, `√H ≤ A`, the x-scale antecedent), the base cap `A ≤ 2·R.x`
+(the (α) base-cap surgery, JYH-granted 2026-07-30) and the free shift `s ≤ L`.
+They are met here verbatim — every one of them is either passed to the fused grade, packed
+into `SocketBase`, or simply UNUSED (the base antecedents only weaken the socket). -/
 
 /-- **⟦A4 — THE SOCKET AT THE DOOR GRADE⟧** (`m4_chiSummedFreeRowBig_of_doorGrade`).
 
@@ -356,7 +357,8 @@ theorem m4_chiSummedFreeRowBig_of_doorGrade {R : ChowlaRegime} {M : ℕ} {C₁ M
     (hgrade : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → ∀ q : ℕ, 0 < q →
       (q : ℝ) ≤ arcDen 12 H → ∀ j ≤ Nat.log 2 L, doorRowFloor M ≤ j → ∀ A : ℕ, 0 < A →
         2 ^ j ≤ A → Real.sqrt (H : ℝ) ≤ (A : ℝ) →
-        (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) → ∀ s ≤ L,
+        (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) →
+        (A : ℝ) ≤ 2 * (R.x : ℝ) → ∀ s ≤ L,
           ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq χ M j (A + s)
             ≤ (q.totient : ℝ)
                 * a2DoorGrade M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
@@ -366,7 +368,7 @@ theorem m4_chiSummedFreeRowBig_of_doorGrade {R : ChowlaRegime} {M : ℕ} {C₁ M
           (M₀ (A + s))
         ≤ RSbig j H) :
     M4ChiSummedFreeRowBig R M RSbig := by
-  intro H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx s hsL
+  intro H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx hAcap s hsL
   have hh1 : (1 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) := by
     exact_mod_cast (Nat.one_le_two_pow : 1 ≤ 2 ^ j)
   have hh0 : (0 : ℝ) < ((2 ^ j : ℕ) : ℝ) := by linarith
@@ -374,7 +376,8 @@ theorem m4_chiSummedFreeRowBig_of_doorGrade {R : ChowlaRegime} {M : ℕ} {C₁ M
       (M₀ (A + s)) := a2DoorGrade_nonneg M (log_natCast_nonneg' (A + s)) hh0
   have hφq : (q.totient : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.totient_le q
   have hφarc : (q.totient : ℝ) ≤ arcDen 12 H := le_trans hφq hqQ
-  refine le_trans (hgrade H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx s hsL) ?_
+  refine le_trans
+    (hgrade H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx hAcap s hsL) ?_
   refine le_trans (mul_le_mul_of_nonneg_right hφarc hG0) ?_
   exact henv H j A s hjfl
 
@@ -391,7 +394,8 @@ theorem m4_chiSummedFreeRow_of_doorGrade {R : ChowlaRegime} {M : ℕ} {C₁ M₀
     (hgrade : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → ∀ q : ℕ, 0 < q →
       (q : ℝ) ≤ arcDen 12 H → ∀ j ≤ Nat.log 2 L, doorRowFloor M ≤ j → ∀ A : ℕ, 0 < A →
         2 ^ j ≤ A → Real.sqrt (H : ℝ) ≤ (A : ℝ) →
-        (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) → ∀ s ≤ L,
+        (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) →
+        (A : ℝ) ≤ 2 * (R.x : ℝ) → ∀ s ≤ L,
           ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq χ M j (A + s)
             ≤ (q.totient : ℝ)
                 * a2DoorGrade M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
@@ -413,11 +417,21 @@ hypotheses share one prefix; `DoorFuseFrame` is §3's character-blind frame, fie
 /-- **THE SOCKET'S BASE CONDITION, NAMED** (`SocketBase`) — exactly `M4ChiSummedFreeRowBig`'s
 antecedents at one base, carried verbatim (never weakened): the two regime bounds, the
 cap-general length, the modulus range, the dyadic window index, the door's length floor, the
-three ⟦R-P5⟧ base antecedents with the x-scale one, and the free shift. -/
+three ⟦R-P5⟧ base antecedents with the x-scale one, **the base cap `A ≤ 2·R.x`**, and the
+free shift.
+
+⟦THE BASE CAP FIELD — the (α) base-cap surgery, JYH-granted 2026-07-30⟧ this is the field
+that makes the `hframe` hypothesis SATISFIABLE.  `DoorFuseFrame.gP1` and the `X_d`-dependent
+part of `gRows` are UPPER caps on `X_d = A + s` (their right-hand side
+`(log X_d)^{-1/500}` decays), while `SocketBase` used to be closed upward — so
+`∀ base, SocketBase → DoorFuseFrame` was refutable on the up-set (the refuter's kernel kill
+`hframe_unsatisfiable`, `flags.md` 2026-07-30 08:47).  With the cap the quantifier runs over
+a BOUNDED base range and the caps are checked against `log(2·R.x)` at the `g`-arm; see
+`M4SocketDischarge`'s header ⟦THE SATISFIABILITY, AFTER THE CAP⟧ for the arithmetic. -/
 def SocketBase (R : ChowlaRegime) (M H L q j A s : ℕ) : Prop :=
   R.Hlo ≤ H ∧ H ≤ R.Hhi ∧ L ≤ H ∧ 0 < q ∧ (q : ℝ) ≤ arcDen 12 H ∧ j ≤ Nat.log 2 L ∧
     doorRowFloor M ≤ j ∧ 0 < A ∧ 2 ^ j ≤ A ∧ Real.sqrt (H : ℝ) ≤ (A : ℝ) ∧
-    (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) ∧ s ≤ L
+    (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) ∧ (A : ℝ) ≤ 2 * (R.x : ℝ) ∧ s ≤ L
 
 /-- **THE FUSE FRAME AT ONE BASE** (`DoorFuseFrame`) — the CHARACTER-BLIND half of
 `m4_chiFreeRowSq_sum_at_door`'s gate list, field by field.  Nothing is absorbed: each field is
@@ -500,10 +514,10 @@ theorem m4_chiSummedFreeRow_of_doorAssembly {R : ChowlaRegime} {M : ℕ}
         ≤ RSbig j H) :
     M4ChiSummedFreeRow R M (m4ChiRowGraded M RSbig) := by
   refine m4_chiSummedFreeRow_of_doorGrade (C₁ := C₁) (M₀ := M₀) ?_ henv
-  intro H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx s hsL
+  intro H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx hAcap s hsL
   haveI : NeZero q := ⟨hq.ne'⟩
   have hb : SocketBase R M H L q j A s :=
-    ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hsL⟩
+    ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩
   have hF := hframe H L q j A s hb
   exact m4_chiFreeRowSq_sum_at_door hM hF.X_exp hF.X_three hF.h_four hF.h_window hF.tann
     hF.ceil5 (hrows H L q j A s hb) (hband H L q j A s hb) hF.gP1 hF.gRows
