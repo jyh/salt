@@ -16205,3 +16205,59 @@ Plus 4 (maestro): can the density LEAVE the crossing entirely (the
 Lemma-12 row priced outside the five-summand exit)?
 **⟦DENSITY-SCOPE dispatched on this entry⟧ — the four axes byte-scoped
 so the council rules with bytes.  NOTHING FIRES beyond the scoper.**
+
+## (2026-07-30 09:13 PDT) DENSITY-SCOPE returns — THE FIFTH AXIS: the density is IDENTICALLY ZERO at the door (kernel-checked); the wall was a DOUBLE BILL
+
+**⟦THE HEADLINE⟧**  The Lemma-12 density summand Cp·(2/M) has exactly
+ONE source in the row chain: `blockfree_sum_le` — the price of the
+BLOCK-FREE (coprime-tail) mass, from ‖a‖ ≤ 1 alone.  The door's datum
+is 𝒮-SUPPORTED (`MemS`: a prime factor in EVERY block), so the
+block-free row is IDENTICALLY ZERO on its support.  THREE KERNEL
+PROBES, axioms clean: generic 𝒮-data; the door family through
+winCutH; SURVIVES THE χ̄-TWIST.  The structural sentence: **the door
+already paid the sieve's density at `m4_door_glue`'s δ/4 (the
+constant-genre M-gate 24C/δ — the refuter's "143.9"); the crossing
+billed it a SECOND time, and at the door's own datum the second bill
+is provably zero.**  AND `Ccc` is a FREE real of the frozen statement
+(no positivity hypothesis — grep-verified): **Ccc := 0 is legal,
+moves NO frozen byte, adds NO new gate** (the hgRows residual
+collapses to `2.5e²·a2Level1 M = 2.5e²/H1door M` — the ALREADY-PRICED
+summand-2 debit, ~14× tighter than gate 8, three orders of slack at
+the register's λ ≈ 1.25e5).
+
+**⟦THE AXES ADJUDICATED⟧**  AXIS 1 DEAD definitionally (the M in the
+density IS the ladder exponent — `log P_j/log Q_j = 1/(Mj²)` an
+identity; no second symbol exists).  AXIS 3 DEAD arithmetically
+(even at j = log₂H the supply is short eleven orders in the
+double-log; a longer window than the ambient is not a window).
+AXIS 4(a) DEAD (no pocket: the (4/3)^{j₀} budget multiplies the
+TRIVIAL envelope at j < j₀ only; everything at large j lands in RSan
+times a constant).  AXIS 2 LIVE AS FALLBACK (the coupled hybrid-sieve
+read verified to work — the N-part carries φ(q)/q ≈ 1, converting the
+demand to poly(λ) ≤ M with ~1e5400 of room — but requires Σ_χ twins
+UPSTREAM of lemma12Rows: ~2.5-4k C + a design fork; hold).
+
+**⟦THE REPAIR, SIZED⟧**  THE SIEVE-VANISHING TWIN CHAIN (Ccc := 0):
+ten stones, all additive twins (the corpus's own transplant device),
+**≈750-1050 ln, class B, Opus executors**.  BONUS: DoorRowEndBase.dom
+(R4) exists only to feed blockfree_sum_le — the twin DROPS it,
+relaxing an X_d ≳ (Mj²)⁸ floor on every base.  Kill-risks named
+(other consumers — mitigated by additivity; the residual — derived
+already-priced; horns 1/hδ₀ untouched).
+
+**⟦hδ₀ ANSWERED⟧**  δ₀ = cD3/(16C)·ε/(2K) — a FORMULA over THREE
+opaque ∃-witnesses (one research-tier: circle_method's C).  The R-2
+triple exposure REJECTED; the ρ-RE-PARAMETRIZATION recommended:
+doorRho → universally-quantified ρ > 0 (the summand budgets become
+ρ/2, ρ/8), consumer instantiates ρ := δ₀²/110525; cost
+1000·ln(1/ρ) ADDITIVE on the arm — **FREE because δ₀ is fixed BEFORE
+g is chosen** (∃ε δ₀ … ∀g ∃R — the constant absorbs into g; zero
+H-demand).  ≈400-800 ln B/C, parallel, independent.
+
+**⟦WHAT REMAINS AFTER BOTH⟧**  Horn 1 — the (α) base-cap surgery on
+item 11's socket statement (hframe unsatisfiable-above): genuinely
+JYH-tier, the one frozen-byte ruling.  **THE COUNCIL SLATE: (1) the
+Ccc := 0 twin chain; (2) the ρ-re-parametrization; (3) the (α)
+surgery ruling; (4) the scoper's question — freeze note ("generically
+necessary, at the door vacuous") vs an eventual rule-1 re-cut of the
+five-summand interface.**
