@@ -268,6 +268,7 @@ import Salt.MR.M4RowsChi
 import Salt.MR.M4Assembly
 import Salt.MR.M4RowsChiEnd
 import Salt.MR.M4ArithPage
+import Salt.MR.M4SocketDischarge
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -5891,3 +5892,35 @@ open Salt.Tactic in
   Salt.MR.m4_arith_M0_window_lower
   Salt.MR.m4_arith_M0_window_nonempty
   Salt.MR.m4_arith_door_exit
+
+-- ⟦A4 — THE FINAL FUSE (2026-07-30, wave FUSE)⟧ `M4SocketDischarge` composes the two halves
+-- that landed eight minutes apart and were deliberately left uncomposed: ⟦D5-WS⟧'s
+-- `hrows`-free assembly and ⟦ASSEMBLY-ARITH⟧'s gated arithmetic exit.
+-- ⟦THE ONE STRUCTURAL POINT⟧ the fuse does NOT go through
+-- `M4RowsChiEnd.m4_chiSummedFreeRow_of_doorAssembly_end`'s conclusion — that form carries
+-- `M4Assembly`'s UNGATED `henv`, which the arithmetic page proved is unmeetable by ANY analytic
+-- `RSbig` (at `A + s = 2` summand 3 alone exceeds `188132`).  It goes through its `hrows`
+-- SUPPLIER `m4_hrowsSlot_at_door_end` into `m4_chiSummedFreeRowBig_of_doorGradeGated`, whose
+-- `henv` is taken only at `SocketBase`.
+-- ⟦THE `T₀`-BAND, WIRED⟧ `m4_hband_at_door_slot` fills the assembly's `hband` binder from
+-- `M4T0DatumDischarge.m4_hT0band_at_door_discharged` at the door's own covering window
+-- `[calP (Adoor M) (3072M) 1, calQK (Adoor M) (3072M) M 2]` (`door_cover` /
+-- `door_window_bounds`); four of the fifteen gates are discharged in-file, two by the ladder,
+-- and the remaining eight are `DoorBandBase` — carried per base, in the open.  The supplier's
+-- `C'`/`x₀` depend on `M` through the window, so they sit inside the `∀ R M` prefix.
+-- ⟦THE COMPOSITE⟧ `m4_socket_discharged_conditional` / `m4_socket_discharged_bandfree` deliver
+-- `m4_second_road`'s THREE demands at one hypothesis set: ⟦item 11⟧, ⟦gate 4⟧ (unconditional)
+-- and the ceiling (from `hδ₀`+`hHreg` alone).  GONE from both statements: `hrows`, `henv`,
+-- ⟦gate 4⟧, the ceiling — and `hband` too from the `bandfree` form.
+-- ⟦THE ONE CARRIED ANALYTIC BINDER⟧ `hcap`, the A3 capstone family at the door pin `S ≡ 0`.
+-- Supplier `M4RowsChi.m4_rowChi_capstone` is LANDED but NOT instantiated: it is quantified over
+-- ~45 binders of which three are open supply-side objects at the door (`Rbd` with its `Cq`-gate,
+-- the `𝒯_S` budget `KS`, Lemma 12's `χ`-summed error row `E`) and its razor family lives at
+-- `(q, 2T)` with `T` bound inside the slot.  Instantiating replaces one binder by a ~45-field
+-- per-`(q,T)` bundle and discharges nothing — a wave, not a fuse.
+open Salt.Tactic in
+#audit_axioms Salt.MR.m4_chiSummedFreeRow_of_doorArith_end
+  Salt.MR.DoorBandBase
+  Salt.MR.m4_hband_at_door_slot
+  Salt.MR.m4_socket_discharged_conditional
+  Salt.MR.m4_socket_discharged_bandfree

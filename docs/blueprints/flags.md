@@ -16047,3 +16047,36 @@ one exists: gates named, ceiling met, nothing vacuous.⟧  Deviations:
 the M₀ λ-coefficient conservative at 38.06 (the 14λ packaging); the
 refuter's absorbed terms carried explicitly; the anchor's (1/3)log
 term spelled (dominated 0.564m vs 3.97e9·m).
+
+## (2026-07-30 08:25 PDT) THE FUSE lands — m4_socket_discharged_conditional IN KERNEL (M4SocketDischarge.lean 415 ln, 5/5 clean); A4 STRUCTURALLY COMPLETE
+
+**⟦THE COMPOSITE⟧**  `m4_socket_discharged_conditional` — THE
+THREE-CONJUNCT EXIT: ⟦item 11⟧ `M4ChiSummedFreeRow R M (m4ChiRowGraded
+M (fun _ H => RSanDoor H))` ∧ ⟦gate 4⟧ ∧ THE CEILING
+(`96(1+2π)²·strataResidual²·(108/5·RSanDoor) ≤ δ₀²`) — **the honest
+conditional form the CLOSE-WAVE said did not exist.**  Plus
+`_bandfree` (hband replaced by DoorBandBase + MmuChiRate — the
+band supplier folded).  THE GROUPED HYPOTHESIS LIST (the header, the
+PORT-AUDIT lesson at the terminal): SPINE-WITNESSED (hbase incl.
+⟦coefWS⟧, hframe, harith — K symbolic); REGIME (hδ₀, hHreg); DATA
+(hM, hb1, hc1); CARRIED (hcap — the ~45-binder capstone bundle, an
+INSTANTIATION WAVE not a fuse: its three open supply objects Rbd/KS/E
+live per-(q,T) — the S11 spine's job, reported not massaged);
+DISCHARGED (hrows, henv, gate 4, the ceiling — and hband in
+_bandfree).  Build 9583 green; axioms 5/5.
+
+**⟦THE FUSE'S OWN CATCHES⟧**  (1) The route does NOT go through
+`_of_doorAssembly_end`'s conclusion (its ungated henv is unmeetable —
+ARITH's finding); it goes through the hrows SUPPLIER into the gated
+socket wire — the arithmetic byte-identical.  (2) The ∃C'∃x₀ cannot
+hoist past M (the band's window is M-dependent) — the honest
+threshold shape kept, nothing absorbed.  (3) A SCALE SEPARATION
+NAMED: DoorBandBase.qfit is q ≤ (log X_d)^10 (base-side) vs
+SocketBase's q ≤ (log H)^12 (H-side) — independent, both carried.
+
+**⟦THE SUMMIT PROTOCOL ENGAGES⟧**  Seal → REFUTE → then report.  Two
+terminal refuters dispatched on this entry: REF-SOCKET-HONEST (the
+bytes vs the mathematics at the terminal) + REF-SOCKET-SAT (the joint
+inhabitation of all five frame bundles at the g-arm regime — the
+non-vacuity of the whole conditional).  NOTHING IS ANNOUNCED until
+they return and JYH reads the verdicts.
