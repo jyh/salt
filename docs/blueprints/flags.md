@@ -17158,3 +17158,5 @@ P₁^M — the four links (the row floor h ≥ Q₁; the periodization
 headroom; the bases at x; the p²-row's price), break any one; the
 sharpest form: can the seam row's floor decouple from the ladder's
 top-block width (at Adoor M/2 the collision closes 2×).
+
+## (2026-07-30 16:02 PDT) BOTH RATIFIED (JYH) — the KNOT-1 sequence (the binder ruling GRANTED, refuter → surgery) + LINK1-SCOPE on KNOT 2; dispatched
