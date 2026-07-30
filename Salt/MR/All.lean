@@ -240,6 +240,7 @@ import Salt.MR.HybridLargeValues
 import Salt.MR.HybridMoments
 import Salt.MR.USetChi
 import Salt.MR.USetChiTS
+import Salt.MR.USetGChiCount
 import Salt.MR.HalaszPrimesChi
 import Salt.MR.TwistedEdge
 import Salt.MR.MobiusChiRate
@@ -5369,3 +5370,12 @@ open Salt.Tactic in
   Salt.MR.halaszPrimesChi_pointwise_of_gates
   Salt.MR.usetChi_window_meansq_of_socket
   Salt.MR.usetChi_window_meansq_gated
+
+-- ⟦ii-2, THE PROBE (2026-07-30)⟧ `USetGChiCount` — the PAIR Lemma-8 at the GRADED threshold,
+-- first stone of the ⟦THE THRESHOLD WALL⟧ repair (C2-SCOPE; freeze v2.3): the graded
+-- uniformisation of the landed raw pair count `ramQChi_large_count`, mirroring
+-- `ramQ_graded_count` at `q = 1` with the pair genre (`FibreWellSpaced`, `chiBarCoeff`, the
+-- height `qT`, the hybrid constant `1680`).  The exact-`α` collapse survives the χ-lift
+-- untouched: the height-power exponent is exactly `2α`, with no pigeonhole factor.
+open Salt.Tactic in
+#audit_axioms Salt.MR.ramQChi_graded_count

@@ -15629,3 +15629,31 @@ unusable by every landed row).  On YES: C2 collapses as above.  On NO:
 someone must exhibit a flat-partition 𝒯-leg at q=1 — contradicting the
 corpus's own account (SeamGraded:92) and its history.  The kill of (i)
 stands under either branch.
+
+## (2026-07-30 02:42 PDT) II2-PROBE GREEN — the graded pair Lemma-8 lands first-attempt; the risk was never there
+
+**⟦PROBE GREEN, 172 ln, class B (was priced "the one stone with genuine
+risk").⟧**  `Salt/MR/USetGChiCount.lean` — `ramQChi_graded_count`: the
+FibreWellSpaced pair count at the graded threshold
+`exp(−αv/H) < ‖ramQ …‖`, bound `1680·(qT)^{2α}·VJ²·exp(2·(log qT/log P)·loglog qT)`.
+Axioms clean; build 9568 jobs; NO new warnings.  (The probe survived two
+529 kills and resumed from transcript twice — the outage pattern held.)
+
+**⟦THE FINDINGS⟧**  (1) The dossier's route was one step longer than
+needed: the `hybridblock_count` instantiation at the Ramaré base is
+ALREADY LANDED (`ramQChi_large_count`, USetChi:440, ratio gate
+discharged internally) — ii-2 is a pure GRADED UNIFORMISATION of a
+landed stone, the exact relationship `ramQ_graded_count` bears to
+`ramQ_large_count` at q=1.  (2) The pair genre passes through the
+graded collapse UNTOUCHED — the q=1 proof runs verbatim under four
+substitutions (WellSpaced→FibreWellSpaced; the χ̄-twist; T→qT;
+840→1680).  (3) The exact-α collapse survives the χ-lift with NO
+inflation and NO φ(q) (the count is of pairs).  (4) NO adapter owed
+between ii-2 and ii-3 (`not_blockSmallG_witness`'s strict form matches;
+`v` fixed in-statement).  (5) RE-PRICE SIGNAL: the graded re-lift's
+~1.02-1.64k C should be re-derived DOWNWARD; K-5's refuter check is
+untouched (this file speaks log(qT) + block scales only — the four-log
+discipline intact).
+
+**THE NIGHT CLOSES ON THIS STONE: the A4 fire order's first step is
+DONE before the council sits.**
