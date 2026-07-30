@@ -280,6 +280,7 @@ import Salt.MR.S11Hoist
 import Salt.MR.S11Arc36
 import Salt.MR.S11CoefWS
 import Salt.MR.S11Exit45
+import Salt.MR.ConstantsExposed
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -6078,3 +6079,25 @@ one substitution in each of their two forwarding proofs). -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.m4_exit_socket_split_45
   Salt.MR.tower_conjunct_45_le_five
+
+/-! ⟦THE EXPOSURE CERTIFICATE — `Cg` and `δ₀` as kernel numerals⟧ (`ConstantsExposed`,
+2026-07-30, on CG-SCOPE's byte-read).  The spine's `hMδ` floor `24·Cg/δ₀ ≤ M` is now
+DECIDABLE arithmetic: `Cg ≤ 2·10^12` (true `1.605·10^12`), `δ₀ ≥ 10^(-168)` (true
+`2.293·10^(-168)`), and the composite `24·Cg/δ₀ ≤ 2^603` (true `1.68·10^181 = 2^602.02`)
+— so the compose's closing inequality can be checked before the wave spends itself.
+`eps_admissible` certifies the pin `ε := 1/500` against all four arms of `SpineFinal`'s
+`min` (the binding arm `cD3/(16C) = 0.0023873`), and `typical_density_le_bounded` is the
+WIRED twin: the landed `typical_density_le` conclusion re-derived with `C ≤ 2·10^12` in the
+statement, so `Cg`'s numeral is a kernel fact about the theorem and not only about a closed
+form.  ⚠ THE REACHABILITY CAVEAT: the `δ₀` leaves are all `obtain`-destructed `∃`-witnesses
+(`Classical.choose`), so those bounds are proved AT THE CLOSED FORM; the identification with
+the landed `refine` witnesses is a proof-term reading, not a kernel fact.  Wiring `δ₀` the
+way `Cg` is wired is the lever program's work. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.Cg_le
+  Salt.MR.typical_density_le_bounded
+  Salt.MR.eps_admissible
+  Salt.MR.Klcm_le
+  Salt.MR.KExpr_le
+  Salt.MR.delta0_ge
+  Salt.MR.b_floor_cert

@@ -16713,3 +16713,45 @@ substitution is a pass-through).  Build 9594 green; axioms 8/8;
 first-attempt; ZERO deletions.  THE DAY CLOSES with every agent home:
 the ceiling ladder's free rung built, the floor ladder priced, the
 35-bit residual named, and the council slate drawn.
+
+## (2026-07-30 12:41 PDT) DELTA-SCOPE returns — THE 539-BIT GIANT IS ONE BYTE (CircleMethod:403); the L² restructure: b 602 → 64, closing at the FREE ceiling; + EXPOSE-CERT lands (37/37 clean)
+
+**⟦THE FINDING OF THE CAMPAIGN⟧**  K is NOT an energy constant — it is
+|Ξ|, the major-arc frequency COUNT (bigXi eps H); the door pays a full
+δ once per frequency ONLY because CircleMethod.lean:403 throws the
+second Fourier factor away at its trivial bound H (one gcongr byte,
+squared through the spine into 1e162).  THE EXCEEDANCE HYPOTHESIS
+REFUTED BY ARITHMETIC (Parseval mass 1 sits 5 orders ABOVE the target;
+Chebyshev WORSENS by 575 bits; K → K^θ unavailable below Parseval) —
+the maestro's regime-lever mechanism was wrong.  THE RIGHT DEVICE:
+**Parseval-on-the-α-independent-debit** — the sieve-insert error
+(notMemSCount) is FREQUENCY-INDEPENDENT; its total Fourier mass over
+ALL ξ is H·notMemSCount, paid ONCE, while keeping the discarded factor
+is a STRICT TIGHTENING of a landed estimate (zero new analysis; real
+Φ, ‖dft(−ξ)‖ = ‖dft ξ‖).  The new budget line: 2K·Braw + δ/2 + 8·2^k/x
+< c₀ε — K multiplies the SQUARED-scale socket grade and is ABSENT from
+the glue δ that hMδ reads.  **b: 602 → 64 vs the free ceiling 87 —
+THE COMPOSE CLOSES WITH 23 BITS OF MARGIN** (no tower work, no N0, no
+35-bit mystery; nothing in the ledger gets harder; the shed even
+halves the "irreducible" ε⁻¹⁶).  Price: ~1.1-1.3k of additive twins,
+seven stones (the head in-file per the S0-TOWER precedent).
+KILL-CHECKS for the refuter: (1) the Parseval-difference stone is
+LOAD-BEARING (without it: 2 bits); (2) the α-INDEPENDENCE CENSUS (is
+notMemSCount the only frequency-free debit?); (+) the socket's g2
+M-gate priced (relaxes here, but never counted).  Fallback if the
+stone fails: per-frequency L² gives b ≈ 324 — does NOT close.  THE
+WAVE AWAITS JYH's WORD (the head re-cut is theirs).
+
+**⟦EXPOSE-CERT LANDS⟧**  ConstantsExposed.lean (426 ln, 37 decls,
+first-attempt): `Cg_le ≤ 2e12`; `eps_admissible` (1/500 under the
+binding arm 0.0023873); `delta0_ge ≥ 1e-168`; **`b_floor_cert :
+24·Cg/δ₀ ≤ 2^603`** (true 2^602.018; roundings 0.52 bits); the full
+intermediate ladder as named lemmas; ONE kernel-wired twin
+(typical_density_le_bounded — the numeral as a fact about the
+THEOREM).  Honest unreachability report: the ∃-leaves are
+Classical.choose (no _spec derivable — monotone the wrong way); §3-§4
+proved AT the closed forms, the identification a stated proof-term
+caveat.  Byte-findings: cE = cD3 = 1/4 confirmed; H₁ = 2^100 EXACTLY
+(tA = 1e6, tB = 1e20+1, tD ≈ 2.2e6 — all ≪ N0: the N0 lever's premise
+confirmed at the bytes).  Build 9595 green; axioms 36/36; independent
+mpmath recheck of every stated bound.
