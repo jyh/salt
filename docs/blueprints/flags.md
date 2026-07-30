@@ -16926,3 +16926,48 @@ needs the glue's).
 restructured chain end-to-end (the head's payload → the exit → the
 door supply → the close) before anything is called ready for the
 compose.  NOTHING ANNOUNCED.
+
+## (2026-07-30 14:16 PDT) REF-L2-FINAL: RESTRUCTURED CHAIN READY FOR THE COMPOSE — one banked amendment (the corrected shares); THE S11 COMPOSE FIRES
+
+**⟦MEANING CONFIRMED⟧**  The terminal ends in the SAME definiendum as
+the landed road (byte-identical ¬logChowla2Fails); the wave is 2611
+insertions / ZERO deletions across 10 files (nothing landed could
+have been weakened); both poison edits absent at the bytes; δ₀
+K-free with the only /K hits on the socket-ceiling side; the count
+leak-free in the ∃-prefix.  ⟦NAMING NOTE⟧: the terminal's K is the
+LANDED opaque count — the N0 chain's 316.6 bits sit on a parallel
+branch (a pinned-ε head twin away; socket-side value only per A5).
+
+**⟦THE ONE CATCH — THE SHARE TABLE, KERNEL-KILLED AND KERNEL-
+REPAIRED⟧**  §3/§4's shares were priced against ρ < c₀ε; the finished
+head demands ≤ δ₀ = c₀ε/4 — the old extremal point fails §5's line by
+3× (probeB compiles).  THE CORRECTED ALLOCATION, kernel-certified
+(probeA sums to δ₀ EXACTLY): **glue δ = δ₀ (1/2 share via 24Cg/δ) /
+socket Bceil = δ₀/(8K) (1/4) / endpoint ≤ δ₀/4 (1/4)**.  THE b-FLOOR
+UNCHANGED: 96Cg/(c₀ε) → b = 65.124, m = 66, λ-floor 74.1975 (ARITH
+reproduced to four figures); the socket 3 bits sharper and the
+endpoint 1 — both priced at ~1e-10 relative; THE WINDOW AND THE
+20-BIT MARGIN STAND; binding pair unchanged.  THE COMPOSE MUST NOT
+READ §3/§4's TABLE — the amendment is banked here and in the brief.
+
+**⟦THE SEAM CENSUS⟧**  Seven fuses kernel-closed (the circle witness
+byte-identical; the Parseval fuse definitionally free).  **NO
+BYPASS**: M4SievedDoorSq is consumed in exactly the landed shape —
+the WHOLE A4 chain (the capwired terminal → the socket → the second
+road's eleven items) rides unchanged; re-instantiating its ∀-bound
+δ₀ at δ_sock is free — ⟦A1⟧'s entire mechanical content.  The honest
+dead-weight inventory: the CS descent + the √-pricing family + the
+L¹ door/exit/head — ALIVE AS THE FALLBACK, off the road.  The
+endpoint share kernel-certified via doorCount_le (x ≥ 128ω/δ₀ — a
+pure g-lever, H-free).
+
+**⟦THE INSTANTIATION DELTA (the checklist v2)⟧**  (1) NEW: the L²
+road-threading twin (~120-160 B — the same eleven-item census firing
+against m4_doorL2_close_split_sq); (2) the threshold re-cut (δ₀ =
+c₀ε/4 everywhere; the g-arm's new 128ω/δ₀ arm); (3) RETIRED: S-8,
+S-5, the hdel half of S-7; (4) NEW SLOT: Bceil + the H-uniform
+ceiling; (5) TWO THRESHOLDS, never unified (the kernel record of the
+324-bit cost stands guard); (6) UNCHANGED: the quantifier order, the
+S11 LAW, the p2 anchor, hcap's three objects; (7) the pinned-ε twin
+named, not blocking.  **⟦S12-COMPOSE dispatched on this entry — the
+final wave of the program.  On the capstone: SEAL NOT CELEBRATE.⟧**
