@@ -15,8 +15,10 @@ Design: `docs/exploration/port-freeze-0729.md`, §"What the refuters changed" it
 > the `χ,t`-twisted bridge is mechanical — complete multiplicativity distributes over
 > the convolution.
 
-Everything here is unconditional EXCEPT the one named input `MmuChiRate`, which is the
-port's centerpiece and is **NOT landed** (see "The honest slot" below).
+Everything here is unconditional — including, since 2026-07-30, the once-open input
+`MmuChiRate`: the port's centerpiece is **LANDED** as `PortClose.mmuChiRate_holds_gated`
+(no hypotheses; Siegel folded into the `∃ x₀`).  "The honest slot" below is kept as the
+historical record of the slot's design.
 
 ## Contents
 
@@ -126,13 +128,13 @@ landed `Nat.sqrt_le`), so a height admissible for `M_{λχ̄}(y)` must be admiss
 price of the fold, alongside the one exponent of conductor range (below): the fold spends
 half of the height range and one twelfth of the conductor range.
 
-## THE HONEST SLOT (`MmuChiRate` is NOT landed)
+## THE HONEST SLOT (`MmuChiRate` — ⟦LANDED 2026-07-30⟧ `PortClose.mmuChiRate_holds_gated`)
 
 `MmuChiRate` is a hypothesis `Prop`, the twisted twin of `Salt.TwinBar.MmuRate`
-(`LambdaRate.lean:58`).  Unlike `MmuRate` — which is LANDED as
-`Salt.SW.mmuRate_holds` (`Salt/SW/MobiusRateClose.lean:1059`) — **`MmuChiRate` has no
-proof in this corpus and is not expected to be cheap.**  It is exactly the port's two open
-obligations from the freeze:
+(`LambdaRate.lean:58`).  Like `MmuRate` (`Salt.SW.mmuRate_holds`,
+`Salt/SW/MobiusRateClose.lean:1059`), it is now LANDED — the P-5/SHALLOW/MIRROR/CLOSE
+chain discharged it with no hypotheses.  The prose below is the slot's design record;
+it was exactly the port's two obligations from the freeze:
 
 * **O4** — the `χ`-twisted μ-rate: the `MobiusRateClose` re-run at `L(s,χ)` in place of
   `ζ(s)` (freeze estimate 700–1400 ln);
@@ -484,7 +486,9 @@ theorem norm_MmuChi_le {q : ℕ} (χ : DirichletCharacter ℂ q) (t : ℝ) (y : 
 
 /-! ## 4. The rate fold: `MmuChiRate ⇒ LambdaChiSummatory` -/
 
-/-- **THE HONEST SLOT — the `χ,t`-twisted effective Möbius summatory rate.  NOT LANDED.**
+/-- **THE HONEST SLOT — the `χ,t`-twisted effective Möbius summatory rate.
+⟦LANDED 2026-07-30⟧: `PortClose.mmuChiRate_holds_gated` proves this `Prop` with no
+hypotheses.  The docstring below is the slot's design record.**
 
 `‖∑_{n ≤ y} μ(n)χ̄(n)n^{it}‖ ≤ C·y/(log y)^A` for every saving `A > 0`, **uniformly over
 the height range `|t| ≤ y` and over the modulus range `q ≤ (log y)^12`** (the freeze's
@@ -497,8 +501,9 @@ conductor range; the gate is on the modulus, which is the weaker demand since
 The header records the derivation of the ceiling and the consumers' slack.
 
 This is the twisted twin of `Salt.TwinBar.MmuRate` (`LambdaRate.lean:58`).  The untwisted
-`MmuRate` IS landed (`Salt.SW.mmuRate_holds`); **this `Prop` is not**, and is the port's
-open centerpiece: it is exactly obligation **O4** (the `MobiusRateClose` re-run at `L(s,χ)`
+`MmuRate` IS landed (`Salt.SW.mmuRate_holds`); this `Prop` now is too
+(`PortClose.mmuChiRate_holds_gated`, 2026-07-30) — it was the port's
+centerpiece: exactly obligation **O4** (the `MobiusRateClose` re-run at `L(s,χ)`
 instead of `ζ`) plus obligation **O5** (the `t`-aspect, i.e. the `χ`-VK / Landau–Page
 region — the same stone as P-6's stone B, the campaign's isolated `D`-risk).  See
 `docs/exploration/port-freeze-0729.md` §"What the refuters changed" item 3.  No part of it
@@ -709,8 +714,9 @@ theorem MlambdaChi_rate (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :
 rate at every saving `A > 0`, CONDITIONAL on the twisted μ-rate slot `MmuChiRate`.
 
 The twisted twin of `Salt.TwinBar.LambdaSummatory_of_MmuRate` (`LambdaRate.lean:577`).
-Everything in the *bridge* is unconditional; the hypothesis `MmuChiRate` is **not landed**
-and is exactly the port's obligations **O4** (the `MobiusRateClose` re-run at `L(s,χ)`) and
+Everything in the *bridge* is unconditional; the hypothesis `MmuChiRate` is
+⟦LANDED 2026-07-30⟧ (`PortClose.mmuChiRate_holds_gated`) — it was
+exactly the port's obligations **O4** (the `MobiusRateClose` re-run at `L(s,χ)`) and
 **O5** (the `t`-aspect / `χ`-VK region) — see `MmuChiRate`'s docstring and
 `docs/exploration/port-freeze-0729.md`. -/
 theorem LambdaChiSummatory_of_MmuChiRate (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :

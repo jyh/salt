@@ -25,7 +25,8 @@ restatement happened in the landed files (`MobiusChiRateClose.XiCarveWidth`,
 `xiCarveWidth_of_siegel` below then DISCHARGES the restated hypothesis outright, so:
 
 **`mmuChiRate_holds_gated : MmuChiRate` and `lambdaChiSummatory_holds_gated` carry NO
-hypothesis at all.**  The port's centerpiece — the `χ`-twisted, `t`-uniform Möbius rate — is
+analytic hypothesis: the former has literally zero binders; the latter only the
+Prop-family parameter `(A : ℝ) (hA : 0 < A)` — the saving it is stated at.**  The port's centerpiece — the `χ`-twisted, `t`-uniform Möbius rate — is
 in the kernel.  ⟦THE ADJUDICATION the brief asked for⟧ the Siegel gate did NOT have to ride as
 a hypothesis: it folds into the `∃ x₀` that `MmuChiRate` already carries.  The arithmetic:
 Siegel's `∃ K` is INEFFECTIVE, so the threshold `H₀ = max(exp(exp 100)+3, exp(exp(1/K)))` is
@@ -46,7 +47,9 @@ see that it matches the region's own literal `1/10⁸`.  Both `∃`s now expose 
 added `c_vk = 1/10^8` conjunct, the price by being stated AT the literal), which lets
 `halasz_primes_chi_pair_of_gates` fire with its price hypothesis discharged:
 `halaszPrimesChi_holds_gated` is `USetChi.HalaszPrimesChi`'s conclusion behind FOUR `q`-vs-`T`
-gates and nothing else.
+gates PLUS the uniform height floor `T₀ ≤ T` (⟦PORT-AUDIT correction, 2026-07-30⟧: the
+honest count is four `q`-dependent gates + one uniform floor — §3's docstring had it
+right; this headline undercounted), and nothing else.
 
 ⟦THE EXPOSURE WAS TWO CONJUNCTS, NOT ONE — reported as a deviation⟧
 `twisted_window_price_gated_holds` also had to expose `exp(exp 100) ≤ T₀` in place of
@@ -364,7 +367,11 @@ and all in-statement:
 3. **`Rbd`** — the pointwise co-factor bound on `𝒯_L` (NOT a `𝒰`-property: the landed rung
    says so, and the ladder cannot supply it);
 4. **the Lemma-12 error row `E`** (`HybridMoments.lemma12_meansq_all_chi` supplies it);
-5. **the per-`(q,T)` floor** — `T₀ ≤ T` and G1–G4, the price of the socket's discharge.
+5. **the per-`(q,T)` floor** — `T₀ ≤ T` and G1–G4, the price of the socket's discharge;
+
+plus the WELL-FORMEDNESS binders the five groups do not enumerate (⟦PORT-AUDIT,
+2026-07-30⟧): `hJb1`, `hJbJ`, `hδ0`, `hH2`, `hcf1`, `hM`, `hAm`, `hAsub` —
+normalization, range and measurability conditions, no analytic content.
 
 ⟦THE FOUR LOG SCALES, kept apart⟧ the gates read `log(5T+1)`, the socket's decay denominator
 reads `log(qT)`, the count and the kill read `L ≥ log(qT)`, and the `𝒯_S` level reads
