@@ -281,3 +281,25 @@ CO-FACTOR consumer (the "category error" line of v2.1's source verdict
 corrected in flags).  The surviving council ruling: the third opaque
 constant `cffKVt` in the g-arm (grant ⟹ wiring; deny ⟹ an unscoped
 majorant page).  New micro-item: `mertensM ≤ 3` (~30 ln, A).
+
+---
+
+# v2.3 NOTE (2026-07-30 01:51 PDT, C2-SCOPE folded — THE FORK COLLAPSES)
+
+Design (i) KILLED at q=3 (margin 5.2e103; the off-diagonal mixed
+term's only supplier is the hybrid MVT at Θ(q) diagonal mass; not
+g-arm repairable).  (ii) = (iii) at the set level — adopt (ii)'s
+content in the pair spelling `𝔄 : Set (DirichletCharacter ℂ q × ℝ)`.
+**⟦THE THRESHOLD WALL⟧ (new, load-bearing): A3/UsetChi lifts the FLAT
+δ-partition; every landed row reaching hrows lives on the GRADED one
+(SeamGraded.UsetG); the bridge `UsetG ⊆ Uset` is false by 3.5·M ≈
+1e62 — the port lifted the superseded route.  THE FORCED REPAIR: A3
+re-lifted at the graded threshold, fibrewise from the first line
+(~1.02-1.64k C: UsetGChi, the pair Lemma-8 ramQChi_graded_count
+[PROBE FIRST], graded thinness/bundle, the fibrewise branches) —
+mandatory under any design, so the per-χ form is FREE.**  The 𝒯-leg
+census item re-priced 1.5-3k C → 0.2-0.45k B (TLeg is datum-generic;
+only the χ-factorization page is owed).  D2 to be re-derived downward
+(double-count).  One refuter check owed at execution (K-5: graded
+gates vs the socket's four (q,T) gates).  **A4 total, combined with
+v2.2: ≈5.5-10.3k ln.  ZERO design forks remain in the port.**

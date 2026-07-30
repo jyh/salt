@@ -15556,3 +15556,76 @@ RULING: may a THIRD opaque constant ride in the g-arm** —
 (`cffKVt` = a Classical.choose of unknown growth; `mertensM` symbolic).
 GRANT ⟹ C3 closes as wiring (R1).  DENY ⟹ an effective majorant page
 for `cffKVt Qm` is owed, unscoped.
+
+## (2026-07-30 01:50 PDT) C2-SCOPE lands — design (i) KILLED, (ii)=(iii), and ⟦THE THRESHOLD WALL⟧ found underneath: the fork COLLAPSES into the mandatory graded re-lift of A3
+
+**⟦DESIGN (i) — KILLED AT q=3, margin 5.2e103.⟧**  The one-set
+intersection design's complement is `⋃_ψ 𝒯tot_ψ`, and per χ₀ the
+off-diagonal (ψ-set, χ₀-integrand) pairs have EXACTLY ONE supplier —
+the hybrid MVT — whose diagonal mass after the row weighting is
+`φ(q)²·(4/h + 14/q)`: the `14q` piece is T-independent, weight-immune,
+X-independent (survives regimeEnlargeX'), h-independent — `Θ(1)` per
+pair against a `1e-105/φ(q)²` demand.  Fatal at the SMALLEST nontrivial
+modulus; not g-arm repairable; the disjointification that respects the
+integrand's character IS design (ii).  The council prior ("⋂ with the
+union bound") is REFUTED — record the kill, retire the prior.
+
+**⟦(ii) = (iii).⟧**  `Set (χ × ℝ) ≅ (χ → Set ℝ)` — no extra generality
+exists; the pair-measure variant adds a measure layer whose Tonelli
+step undoes it (+150-350 ln for zero content).  ADOPT: (ii)'s content
+in (iii)'s pair SPELLING (`𝔄 : Set (DirichletCharacter ℂ q × ℝ)` with
+fibrewise measurability) — the branch exits then match byte-for-byte.
+The corpus is ALREADY pair-native at the discrete level (8 files);
+the continuous side is fibrewise everywhere; the only single-`A` pinch
+is `usetChi_integral_to_branches` — THREE statements re-cut, all
+restatable-additively, no iron-rule-5 exposure.
+
+**⟦THE THRESHOLD WALL — the load-bearing find, and it partly dissolves
+the fork.⟧**  A3/`UsetChi` is the χ-lift of the FLAT δ-partition
+(`Decomp.Uset`); EVERY landed row reaching the spine's `hrows`
+(`a2Rows_of_capfree3_end` ← `hUG34_unconditional_nocap3`) sits on the
+GRADED partition (`SeamGraded.UsetG`, MR eq (21)).  The bridging
+inclusion `UsetG ⊆ Uset` needs `α_Jb·(log Q_Jb/log P_Jb) ≤ 1/4 − η`,
+i.e. at the door family `(7/48)·4M ≤ 1/6` ⟺ `M ≤ 2/7` against
+`1 ≤ M` — **false by `3.5·M ≈ 6.6e62`** (3.5e747 post-C1); not tunable
+(η → 1/6 still demands M ≤ 1/2).  This is ⟦V6⟧'s α-collapse read in
+reverse: THE PORT LIFTED THE SUPERSEDED ROUTE.  **A3 must be re-lifted
+at the graded threshold (~1.02–1.64k, C: `UsetGChi` + the pair Lemma-8
+`ramQChi_graded_count` + the graded thinness/bundle pages + the
+fibrewise branches) — mandatory under ANY partition design; written
+fibrewise from the first line, design (ii) costs ZERO extra.**
+
+**⟦THE 𝒯-LEG RE-PRICE — the census item was misdiagnosed.⟧**
+`TLeg_bound`/`TLeg_feeds_capstone` are FULLY datum-generic (`∀ c a b
+Pseq Qseq …`); the χ-instantiation is free (complete multiplicativity
+distributes over the Ramaré factorization; the twisted bridges are
+landed at USetChiTS:71-90).  The item drops **1.5–3k C → 0.2–0.45k B**
+(the factorization-lift page).  REF-A4-SHAPE saw the symptom (no χ
+𝒯-machinery matching A3's partition) and priced the wrong side of the
+mismatch — the missing half was always the graded A3.
+
+**⟦FINDINGS ACROSS THE SLATE⟧**  (K-2, for C3's record): character-
+uniformity of Rbd is the price of the pair count — a per-χ Rbd at
+uniform grade is purchasable for ONE φ(q) on the 𝒯_L branch; moot
+given C3-SCOPE's free uniform supply, banked as the fallback option.
+(K-3): per-χ ball centres `t₁ χ` are the natural shape and land on the
+already-priced ball-sup leg.  (K-5, one refuter check owed): the
+graded re-lift's gates vs the socket's four `(q,T)` gates at `hbudget`
+— orthogonal by the four-log-scale discipline, verify at execution.
+D2's 1.2-2.2k needs DOWNWARD re-derivation (double-count with the
+adapters ii-7/ii-8).  PROBE FIRST: ii-2 the graded pair count — the
+one stone with genuine risk (~3 attempts, STOP genre).
+
+**⟦THE RE-PRICE, COMBINED WITH C3-SCOPE⟧**  C2 net −0.35 to −1.01k;
+C3 net −0.32 to −0.49k; **A4 honest total ≈ 5.5–10.3k ln** (from
+v2.1's 6.2–11.6).  The council's structural picture SIMPLIFIES: ONE
+design fork remains (none — the partition fork collapsed), ONE anchor
+ask (C1, the 12×), TWO grants (cffKVt in the g-arm; the graded
+re-lift ratification), and the wave plan.
+
+**⟦THE SHARPEST QUESTION, put to the council⟧**  Is A3 required at the
+GRADED threshold?  The derivation says YES (the flat A3 is structurally
+unusable by every landed row).  On YES: C2 collapses as above.  On NO:
+someone must exhibit a flat-partition 𝒯-leg at q=1 — contradicting the
+corpus's own account (SeamGraded:92) and its history.  The kill of (i)
+stands under either branch.

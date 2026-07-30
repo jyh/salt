@@ -69,22 +69,26 @@ small drifts tonight were each fixed in place before commit).*
 ## The honest picture
 
 **The port stands at ONE design block, fully mapped and priced:
-A4 ≈ 5.9–11.1k ln** (v1's 2.5–4.7k walked up by the refuters, then
-walked back down where a scoper found landed bytes — the same cascade
-the port freeze itself ran, and for the same reason: refuters finding
-unpriced stones and scopers finding paid ones is the system working).
-After A4: the socket discharge → THE S11 COMPOSE → `¬logChowla2Fails`
-under the ratified summit protocol.
+A4 ≈ 5.5–10.3k ln** (v1's 2.5–4.7k walked up by the refuters, then
+back down where the scopers found landed bytes — the same cascade the
+port freeze itself ran; refuters finding unpriced stones and scopers
+finding paid ones is the system working).  **And the structure
+simplified overnight: ZERO design forks remain.**  The partition fork
+collapsed (C2), the Rbd question dissolved (C3); what is left is one
+anchor ask (C1), two grants (the graded re-lift; `cffKVt` in the
+g-arm), the corrected arithmetic (C4), and the wave plan (C5).  After
+A4: the socket discharge → THE S11 COMPOSE → `¬logChowla2Fails` under
+the ratified summit protocol.
 
 ## THE COUNCIL'S RULINGS REQUESTED
 
 | # | item | recommendation |
 |---|---|---|
 | C1 | **THE 12× ANCHOR ASK** — gate 8 must open to `Adoor M ≥ 207.75·loglog H` (`log₂M+1: 207 → ~2484`); M is bound after `∃R`, knock-ons derived free | GRANT — it is the honest price of φ(q) on summand 2; no register statement moves, only the witness M |
-| C2 | **THE PARTITION FORK** — Σ_χ has no ordinate partition; choose: `A ⊆ ⋂_χ 𝒰_χ` (one set, mixes genres on the complement) vs per-χ `A_χ` (re-cut A3's LHS) vs a graded pair-partition | take the DESIGN BLOCK first (a scoper on the three, ~half a day); my prior: `⋂_χ 𝒰_χ` with the complement priced as `⋃_χ 𝒯tot_χ` via the union bound — but the mixing term needs bytes before ruling |
+| C2 | **THE PARTITION FORK — COLLAPSED (C2-SCOPE, ~02:40)**: design (i) KILLED at q=3 by 5.2·10¹⁰³ (the off-diagonal mixed term's only supplier is the hybrid MVT at Θ(q) — my stated prior refuted, retired); (ii)=(iii) at the set level.  UNDERNEATH: **⟦THE THRESHOLD WALL⟧** — A3 sits on the FLAT δ-partition, every landed row on the GRADED one; the bridge is false by ~10⁶² (the port lifted the superseded route).  The 𝒯-leg item was misdiagnosed: it drops 1.5–3k C → 0.2–0.45k B (TLeg is datum-generic) | RATIFY THE FORCED REPAIR: **re-lift A3 at the graded threshold, written fibrewise (pair-spelled) from the first line** (~1.0–1.6k C — mandatory under any design, and the fibrewise form then costs zero extra).  PROBE FIRST: ii-2 the graded pair Lemma-8 (the one risky stone, ~3-attempt STOP genre).  One refuter check at execution: the graded gates vs the socket's four `(q,T)` gates (K-5) |
 | C3 | **THE Rbd QUESTION — DISSOLVED (C3-SCOPE, ~02:15)**: the pocket chain fires VACUOUSLY (the floor is per-datum); the landed F4+VT-7 `_vt` sibling supplies the socket at 43× headroom under C4's arm; the value is character-uniform by construction, ZERO φ(q); the stone is ~0.3–0.7k class B wiring (was 0.6–1.2k C); DECOUPLED from C2 and from the ball leg.  ⟦Erratum absorbed: F5 killed the floor's ROW consumer, never its CO-FACTOR consumer — REF-A4-MATH's "category error" line corrected in flags.⟧ | the one surviving ruling: **may a third opaque constant (`cffKVt`, a Classical.choose) ride in the g-arm** alongside x₀?  GRANT (recommended — same genre as x₀, and the arm is already non-literal) ⟹ C3 closes as wiring; DENY ⟹ an effective-majorant page is owed, unscoped.  New micro-item either way: `mertensM ≤ 3` (~30 ln, A) |
 | C4 | **the corrected six-debit page** — ratify the 7000λ+1.25e5 arm, the M₀ window, the g-arm's full written form (`max x₀ (16ω(log H)^12·exp(exp(…)))`) | RATIFY — every number now refuter-derived from the kernel bytes |
-| C5 | **the wave plan at the v2.2 prices** — D2 (~1.2–2.2k), D3 + its four pages (~1.65–3k), the ball-sup leg (~0.4–0.7k), the 𝒯-leg lift (~1.5–3k), the Rbd wiring (~0.3–0.7k, B, on a C3 GRANT), then the assembly | AUTHORIZE contingent on C2's ruling (the one remaining fork); the fire order: C2 block → D3 (no fork) ∥ Rbd wiring ∥ D2 → legs → assembly |
+| C5 | **the wave plan at the v2.3 prices** — the graded fibrewise A3 re-lift (~1.0–1.6k C, ii-2 probe first), D3 + its four pages (~1.65–3k C), the ball-sup leg (~0.4–0.7k C, per-χ centres t₁ χ), the 𝒯-leg factorization page (~0.2–0.45k B), the Rbd wiring (~0.3–0.7k B, on the cffKVt grant), D2 re-derived DOWNWARD (double-count with the adapters — likely ~0.5–1.2k), then the assembly | AUTHORIZE — no fork remains; the fire order: the ii-2 probe → the graded re-lift ∥ D3 ∥ Rbd wiring → the legs ∥ D2 → the assembly → the socket discharge → S11 |
 | C6 | **the θ₂₉₃ lever** (1.71× on the arm at zero ε-room) | RECORD ONLY — spend never, unless a future census bites |
 
 ## Standing
