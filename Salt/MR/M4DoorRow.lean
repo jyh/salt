@@ -40,9 +40,17 @@ theorems rather than prose (§6–§7), so the next design block reads them off 
   instantiated, delivering `hMtail`, `hMtail0` and the `12·EP₂` budget line inside the K6
   existential (`m4_door_tail_supply`).
 
-## ⚠ ⟦WALL 1 — THE K-BLOCK WINDOW LAW⟧ (§6)
+## ⚠ ⟦WALL 1 — THE K-BLOCK WINDOW LAW⟧ (§6) — **DOWN: `hwinBand` DELETED by the 7/28 counter-wave**
 
-`m4_meansq_per_chi_gen` carries, at the door's own K-ladder blocks `[𝒫_j, 𝒬K_j]`, the PAIR
+⟦POINTER, added 2026-07-30 (the BRIDGE-SCOPE correction)⟧  The prose below is the
+HISTORICAL record, kept verbatim.  At HEAD the capstone `m4_meansq_per_chi_gen` no longer
+carries `hwinBand` — the 7/28 WALL1 executor deleted it from the statement (`M4MeanSq.lean`
+§⟦THE WALL⟧ notes; the six-move repair ledger at `All.lean` ⟦WALL 1 — hwinBand DELETED⟧) —
+so `band_window_ratio_lock` below is a true theorem about a binder pair NOTHING at HEAD
+carries, and it no longer blocks the door datum.  §7's header already carries its own
+repair pointer; this note brings §6 to parity, so the next reader does not repeat the miss.
+
+`m4_meansq_per_chi_gen` carried, at the door's own K-ladder blocks `[𝒫_j, 𝒬K_j]`, the PAIR
 
 ```
 hcoefBand : ∀ j ∈ [1,2], ∀ p m, p prime → 𝒫_j ≤ p ≤ 𝒬K_j → ¬p∣m →

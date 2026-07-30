@@ -15196,3 +15196,71 @@ makes A4 a genuine saving rather than a composition.  **So `m4_socket_discharged
 was NOT shipped: there is no honest conditional form of it that is not either
 vacuous (the socket assumed) or false.**  A4 is a design block, and its two named
 questions are the ones the residue design already carries.
+
+## (2026-07-30 00:49 PDT) BRIDGE-SCOPE lands — A4 re-diagnosed: the walls are DOWN, the blocker was F5, and the route is the q=1 crossing lifted
+
+**⟦THE HEADLINE — the A4 STOP's wall citation was STALE.⟧**  Byte-read at HEAD:
+⟦WALL 1⟧ `band_window_ratio_lock` locks a `hcoefBand`/`hwinBand` PAIR that the 7/28
+counter-wave DELETED from the capstone (`M4MeanSq.lean` — `hwinBand` is gone from
+`m4_meansq_per_chi_gen`'s signature; the six-move repair ledger in `All.lean`); the
+lock now hypothesises a binder pair nothing in the corpus carries.  ⟦WALL 2⟧
+`door_length_gate_iff` is the socket's own floor WORKING AS DESIGNED — it is the
+partition boundary of the landed graded split (`m4_door_meansq_carried` at
+`doorRowFloor M ≤ j`; `m4_dyadicRow_carried` routes `j < doorRowFloor M` to
+`doorRow_trivial_grade`); `M4DoorClose.lean:15-17` says it flatly: "Both are down."
+The A4 executor read `M4DoorRow`'s historical §6 prose, not the HEAD capstone — a
+VK-forgetting-class miss, now fenced: §6's header carries the counter-wave pointer
+(this commit), at parity with §7's.
+
+**⟦THE REAL BLOCKER, kernel-located: the F5/F4 q-LINEAR gates.⟧**  The per-χ door
+route (`thm_a2'` + `capFreeFloor3`) pays `q`-linear thresholds at TWO places:
+`m4_meansq_per_chi_gen`'s `32·((1/8)·log q + (1/4)·q + …) < loglog X`
+(`M4MeanSq.lean:626-630`) and the T₀-band's coefficient-700 twin
+(`M4T0Discharge.lean:308/:441/:574`).  At `q ≤ arcDen 12 H = (log H)^{12}` that IS
+F5 (fails ×9.79e4 at its best point; F4 repairs only the `(1/4)q` half of ONE of
+the two).  The erratum to the A4 STOP entry above: replace "meets M4DoorRow's two
+walls" with "meets the F5/F4 q-linear gates" — which is precisely the route the
+port REPLACES (`MmuChiRate`/`LambdaChiSummatory` unconditional, no q-linear debit).
+
+**⟦THE VERDICT (Q4): a genuine morning design block with a night-executable
+tail.⟧**  Route R1 (RECOMMENDED): lift the q=1 crossing `thm_a2_spine` →
+`thm_a2'_of_rows` pointwise in χ (the crossing layer is χ-BLIND — verbatim grep
+for χ returns 0 in Lemma14*/Seam*/Parseval*/ThmA2* — and monotone in the row
+datum; the three-move pattern of `m4_chiSummedShiftBlock_of_freeRow` /
+`lemma12_meansq_all_chi` applies), ordinate side fed by A3.  The delta: D1 the
+Σ_χ spine wrapper (250-450, B); D2 the Σ_χ row family fed from A3 (1200-2200, C);
+D3 the Σ_χ T₀-band from `lambdaChiSummatory_holds_gated` through the four-fold
+decomposition + the 𝒮-block perturbation (700-1400, C); D4 the socket wiring +
+the φ(q)-ledger page (400-700, B/C).  Total ~2.5-4.7k ln.  R2 (per-χ + F4) DEAD
+as priced (F4 is half of one gate; the coefficient-700 gate has no repair).  R3
+(fresh Σ_χ Parseval) REJECTED (the crossing is χ-blind; coupling there buys
+nothing).  Direction verified from proof bodies: ORDINATE → WINDOW, engine =
+Parseval/Schur vs the tent (`vtail_mean_sq_bound`), Perron only object-level.
+
+**⟦THE KILL-RISKS, ranked⟧**  K1 the φ(q) leak on summand 3: Σ_χ costs
+`φ(q)·(log X)^{-1/500}`, forcing the g-arm bump `~6000·loglog H + 1.3e5` vs the
+current `144·loglog H + ~2e3` — a ~42× coefficient on a consumer-chosen knob;
+should be F5-NEUTRAL (a g bump raises x, not H) but must be VERIFIED, not
+assumed.  K2 ⟦RESOLVED at this banking⟧: the dossier's "O6 unknown" was its own
+absence-census miss — `Salt/MR/MobiusChiRamare.lean` IS the O6 page (μ·g_r =
+μ ∗ w_r, the hyperbola identity `:51`, the Rankin tail, `w_r` antitone in `r`);
+D3's carrier machinery is LANDED.  K3 ⟦THE #1 SHAPE RISK⟧: A3 delivers only
+`Σ_χ ∫_A` over `(Ann ∖ ball) ∩ 𝒰`; the complement legs (𝒰-complement, ball, far
+tail) are unbuilt at Σ_χ, and routing the 𝒰-complement through the per-χ
+`capFreeFloor3_liouChi_all` brings the coefficient-28 gate STRAIGHT BACK — the
+design must name each leg's supplier BEFORE execution.  K4 the ball leg's `8S²`
+(φ(q)-debited, riding `ballSupC`; the carried sup `‖spolyA a t m‖ ≤ S·m` is the
+S11-priced item `M4DoorRow.lean:96-105`).  K5 ⟦MOOT⟧: the SLOT-WAVE landed
+(ce24d31); A4's design writes against the pointwise `HalaszPrimesChi C c q T`.
+
+**⟦THE FREEZE-GAP FINDING⟧**  port-freeze-0729.md's wave table ends at "the
+assembly + the socket discharge" and never priced the y-vs-t crossing; the
+second-road freeze's D-5/D-8(iii) had already flagged the hole ("the port's own
+X-conjuncts remain unpriced").  A4 is the UNPRICED STONE, not a stalled
+composition.  Target: `m4_second_road_rs_ceiling`'s `RSan H ≲ 2.5e-105/(loglog
+H)²` against the trivial `4(log H)^{12}` — no power of arcDen, no q.
+
+**Disposition:** the A4 bridge freeze (a4-bridge-freeze-0730.md) is the morning
+council's single item; its refuter pass runs overnight (freeze→refute→fire).  The
+night-executable tail (D1 the slot-form wrapper + D4 the socket wiring — both
+fork-neutral) fires only if the refuters confirm fork-neutrality.
