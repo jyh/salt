@@ -17233,3 +17233,37 @@ increased); (2) Route A's fire order: freeze → THE K4 CENSUS REFUTER
 — on NO, KNOT 2 closes as ~4000 ln of surgery, and THE PROGRAM'S
 LAST MATHEMATICAL QUESTION IS ANSWERED IN THE NEGATIVE) → the
 four-stage wave.  MR-SURGERY (knot 1) aloft.
+
+## (2026-07-30 16:23 PDT) LINK1-SCOPE v2 (the ceiling folded) — THE MAESTRO ERRATUM + THE MOVING FIXED POINT + THE ONE QUANTIFIER
+
+**⟦THE MAESTRO'S ERRATUM, banked⟧**  My "the repair must DROP THE
+FLOOR" inference from KNOT1-REF's cap was WRONG: the ×1280 cap sits
+ABOVE the floor — it does not bound the improvement (R1's removal of
+the p2 cap is STRUCTURAL, μ-free — not a ×K scaling the ceiling could
+bind); it CERTIFIES the target window nonempty.  The scoper confirmed
+the ×1280 arithmetic exactly (both sides ∝ M·Adoor M; 5·12288/48).
+
+**⟦THE MOVING FIXED POINT⟧**  After R1 (the p²-row L² re-pricing —
+the only new mathematics, and standard) + R2 (the pool re-cut,
+RESURRECTED — its kill was contingent on the p2 numerator R1
+retires): the μ-window is [1, 1280]·log2·M·Adoor M — SCALE-FREE;
+the m-step multiplies the floor by 2.03 ≪ 1280, so consecutive
+windows OVERLAP and cover every μ ≥ 1.41e32 with 630× to spare.
+BUT at FIXED m, μ → ∞ eventually breaks the ceiling — **hence R3:
+the ladder must track x — the capstone's ∀M ∃x₀ becomes ∀x ∃M — and
+R3 is exactly what makes R1+R2 land.**  The repair drops nothing and
+raises nothing: it makes both bounds track the same quantity, then
+lets the ladder track x.  (The R3 bill: the S13-A numerals become
+m-symbolic — the λ-window, the one-bit hMδ margin, smallGradeFits;
+plus the quantifier braid: g reads x₀(M), M reads x, R reads g — the
+design content of R3.)
+
+**⟦THE ONE QUANTIFIER — the council's question⟧**  **May M be chosen
+after x?**  YES → R1+R2+R3 close KNOT 2 and the program's last
+mathematical question is answered (the remaining work: ~300-500 R1 +
+~2900 R2 + R3's re-symbolization).  NO → the ceiling is fatal on its
+own and the length gate was never the binding question.  The spend
+census stands (𝒬K₁ ≤ h spent ONCE, source-confirmed — MR DEFINES
+Q₁ := h; the door calibrated absolute where MR calibrated relative —
+THE ARTIFACT'S BIRTHPLACE); links 2/3 dead by the scoper's own
+independent read (the primorial is information-forced; 5.55× ever).
