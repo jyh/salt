@@ -281,6 +281,7 @@ import Salt.MR.S11Arc36
 import Salt.MR.S11CoefWS
 import Salt.MR.S11Exit45
 import Salt.MR.ConstantsExposed
+import Salt.MR.M4ParsevalStone
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -6101,3 +6102,54 @@ open Salt.Tactic in
   Salt.MR.KExpr_le
   Salt.MR.delta0_ge
   Salt.MR.b_floor_cert
+
+/-! ⟦THE L² RESTRUCTURE — stone 5: THE PARSEVAL STONE + the glue mass re-export⟧
+(`M4ParsevalStone`, 2026-07-30, the freeze `docs/exploration/l2-restructure-freeze-0730.md`
+with REF-L2-STONE's R1 confirmed kernel-checked).  The door's sieve-insert error `a − 1_𝒮·a`
+is FREQUENCY-INDEPENDENT, so its total Fourier mass over all `H` frequencies is paid ONCE:
+`∑_{ξ∈ZMod H}‖(raw−sieved)^(−ξ.val/H)‖² = H·(time-side mass) ≤ H·notMemSCount`
+(`parseval_insert_error`, through `dft_parseval` at the CARRIER IDENTITY
+`offWindowSum_eq_dft` — the half-open window `(n,n+H]` ↔ `ZMod H`, the phase IS
+`ZMod.stdAddChar`).  Composed with the landed door mass (`m4_door_insert_mass_integral`, the
+`∫ notMemSCount dμ` bound transcribed out of `m4_door_glue`'s proof at the SAME constant and
+the SAME gate list), this is the freeze's budget line verbatim:
+`(1/H²)·∑_{ξ∈Ξ}∫‖raw−sieved‖²dμ ≤ δ/4 + 4·2^k/x` over ANY `Ξ ⊆ ZMod H` — the glue grade the
+spine's `hMδ` reads, now `|Ξ|`-FREE.  Additive: no landed declaration touched. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.errC_normSq_le
+  Salt.MR.offWindowSum_eq_dft
+  Salt.MR.norm_absWindowSum_eq_dft
+  Salt.MR.sum_zmod_window
+  Salt.MR.parseval_insert_error
+  Salt.MR.parseval_stone_budget
+  Salt.MR.sum_integral_logMeasure_le
+  Salt.MR.m4_door_insert_mass_integral
+  Salt.MR.parseval_insert_budget_door
+
+/-! ⟦THE L² RESTRUCTURE — stone 6: THE L²-SUMMED ARC ADAPTER⟧ (`M4Window` §5, 2026-07-30,
+the freeze `docs/exploration/l2-restructure-freeze-0730.md`).  The `L²` twin of §4's arc
+adapter: instead of handing the door one frequency at a time and paying a full `δ` at each of
+the `|Ξ_H| ≤ K` of them, it reads the whole `Ξ_H`-SUM at the SQUARED scale,
+
+  `Σ_{ξ∈Ξ_H}(1/H²)∫‖windowExpSum(−ξ.val/H)‖²dμ ≤ K·(2·Bsieve H) + 2·Binsert`,
+
+off the SAME unconditional arc supply (`bigXiArcTight_twelve`, via §4's
+`nearRatTight_of_bigXiArcTight` — the sign seam still fires exactly once).  The census the
+refuter demanded is enforced by the statement itself: `K` multiplies ONLY the `α`-dependent
+sieved leg (the socket grade `Bsieve H`, summed over `Ξ_H`), while the `α`-INDEPENDENT insert
+leg enters as ONE already-summed budget `Binsert` and is paid once — supplied by stone 5's
+`parseval_insert_budget_door`, which is downstream of `M4Window` and so enters as the named
+hypothesis `hins` (the `…_parseval` variant states it in that supplier's exact spelling).
+The two `2`s are the refuter's `(a+b)² ≤ 2a² + 2b²` re-derivation, whence the freeze's
+`2·K·Braw + δ/2 + 8·2^k/x` (`l2_budget_line`).  `mrtUniformityXiL2_of_absWindowSqBound`
+closes onto stone 3's predicate.  Additive: no landed declaration touched. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.absWindowSum_add_coeff
+  Salt.MR.norm_absWindowSum_sq_split
+  Salt.MR.integral_norm_absWindowSum_sq_split
+  Salt.MR.sum_bigXi_norm_windowExpSum_sq_le
+  Salt.MR.sum_bigXi_norm_windowExpSum_sq_le_sub
+  Salt.MR.sum_bigXi_norm_windowExpSum_sq_le_parseval
+  Salt.MR.sum_bigXi_norm_windowExpSum_sq_le_twelve
+  Salt.MR.mrtUniformityXiL2_of_absWindowSqBound
+  Salt.MR.l2_budget_line

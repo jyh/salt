@@ -678,4 +678,236 @@ theorem circle_method_estimate (C₀ : ℝ) (hC₀ : 0 < C₀) :
     have hmid : (H : ℝ) / Real.log (H : ℝ) = 0 := by rw [hlog0, div_zero]
     rw [hmid]; simp
 
+/-! ### ⟦THE L² RESTRUCTURE⟧ stone 1 — the SQUARED major arm (additive twins)
+
+`fourier_split` (above) discards the second Fourier factor on the major arc at
+its trivial bound `‖dft Φ₂ (−ξ)‖ ≤ H`.  On the DIAGONAL — `Φ₁ = Φ₂ = Φ` with `Φ`
+REAL-valued, which is the shell's only instantiation (`x₁ = x₂ = liouvilleWindow H n`,
+`Theorem23Shell.lean` reads `liouvilleWindow` twice) — that factor equals
+`‖dft Φ ξ‖` itself (`norm_dft_neg_of_real`), so KEEPING it turns the major arm
+into `(2C₀/log H)·Σ_{ξ∈Ξ}‖dft Φ ξ‖²`.  This is a STRICT TIGHTENING of the landed
+estimate (termwise: `‖dft Φ ξ‖ ≤ H`), delivered at the squared, per-`H²`
+normalization `Σ_{ξ∈Ξ}(1/H²)‖dft Φ ξ‖²` mirroring the landed `Σ_{ξ∈Ξ}(1/H)‖dft Φ ξ‖`.
+The output constant is UNCHANGED: `C = 1 + 2·C₀`.
+
+Purely additive — `fourier_split` and `circle_method_estimate` are untouched.
+The twins live in-file because the split/collapse/periodization lemmas they
+consume are `private` (the S0-TOWER precedent). -/
+
+/-- **The reality reflection.**  For a REAL-valued datum the reflected transform has the
+same modulus, `‖𝓕Φ (−ξ)‖ = ‖𝓕Φ ξ‖` (`𝓕Φ (−ξ) = conj (𝓕Φ ξ)`).  This is the identity
+that licenses KEEPING `fourier_split`'s discarded second factor on the diagonal. -/
+theorem norm_dft_neg_of_real {N : ℕ} [NeZero N] (r : ZMod N → ℝ) (ξ : ZMod N) :
+    ‖ZMod.dft (fun j => ((r j : ℝ) : ℂ)) (-ξ)‖ = ‖ZMod.dft (fun j => ((r j : ℝ) : ℂ)) ξ‖ := by
+  have hconj : ZMod.dft (fun j => ((r j : ℝ) : ℂ)) (-ξ)
+      = (starRingEnd ℂ) (ZMod.dft (fun j => ((r j : ℝ) : ℂ)) ξ) := by
+    rw [ZMod.dft_apply, ZMod.dft_apply, map_sum]
+    refine Finset.sum_congr rfl (fun j _ => ?_)
+    rw [smul_eq_mul, smul_eq_mul, map_mul, Complex.conj_ofReal]
+    congr 1
+    rw [ZMod.stdAddChar_apply, ZMod.stdAddChar_apply, ← Circle.coe_inv_eq_conj,
+      ← AddChar.map_neg_eq_inv]
+    congr 2
+    ring
+  rw [hconj, RCLike.norm_conj]
+
+/-- **Stone 1a, the squared Fourier split** (the `fourier_split` twin on the diagonal).
+
+Same minor arc (`mem_bigXi` + `dft_l1_reflect`), but the MAJOR arm keeps the second
+factor: with `hrefl : ‖𝓕Φ (−ξ)‖ = ‖𝓕Φ ξ‖` (supplied by `norm_dft_neg_of_real` at a
+real datum) each major term is `‖𝓕Φ ξ‖²·‖S_H(−ξ/H)‖ ≤ (2C₀/log H)·‖𝓕Φ ξ‖²`, so
+
+`‖Σ_ξ 𝓕Φ ξ · 𝓕Φ(−ξ) · S_H(−ξ/H)‖ ≤ ε²H²/log H + (2C₀/log H)·Σ_{ξ∈Ξ}‖𝓕Φ ξ‖²`.
+
+Against `fourier_split`'s `(2C₀H/log H)·Σ_{ξ∈Ξ}‖𝓕Φ ξ‖` this is a strict tightening
+(termwise `‖𝓕Φ ξ‖ ≤ H`). -/
+theorem fourier_split_sq {eps : ℚ} {H : ℕ} [NeZero H] (Φ : ZMod H → ℂ)
+    (h1 : ∀ j, ‖Φ j‖ ≤ 1) (hrefl : ∀ ξ : ZMod H, ‖ZMod.dft Φ (-ξ)‖ = ‖ZMod.dft Φ ξ‖)
+    {C₀ : ℝ} (hC₀ : 0 < C₀) (hlog : 0 < Real.log (H : ℝ))
+    (hcard : ((primeWindow eps H).card : ℝ) ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))) :
+    ‖∑ ξ : ZMod H, ZMod.dft Φ ξ * ZMod.dft Φ (-ξ) *
+        expSum eps H (-(ξ.val : ℝ) / (H : ℝ))‖
+      ≤ (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ)
+        + (2 * C₀ / Real.log (H : ℝ)) * ∑ ξ ∈ bigXi eps H, ‖ZMod.dft Φ ξ‖ ^ 2 := by
+  classical
+  set g : ZMod H → ℝ := fun ξ =>
+    ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ * ‖expSum eps H (-(ξ.val : ℝ) / (H : ℝ))‖ with hg
+  have hstep1 : ‖∑ ξ : ZMod H, ZMod.dft Φ ξ * ZMod.dft Φ (-ξ) *
+      expSum eps H (-(ξ.val : ℝ) / (H : ℝ))‖ ≤ ∑ ξ : ZMod H, g ξ := by
+    refine (norm_sum_le _ _).trans (le_of_eq ?_)
+    refine Finset.sum_congr rfl (fun ξ _ => ?_)
+    rw [hg]; simp only; rw [norm_mul, norm_mul]
+  refine hstep1.trans ?_
+  rw [← Finset.sum_filter_add_sum_filter_not Finset.univ (fun ξ => ξ ∈ bigXi eps H) g]
+  have hfilt : Finset.univ.filter (fun ξ => ξ ∈ bigXi eps H) = bigXi eps H := by
+    ext ξ; simp only [Finset.mem_filter, Finset.mem_univ, true_and]
+  have hmajor : ∑ ξ ∈ Finset.univ.filter (fun ξ => ξ ∈ bigXi eps H), g ξ
+      ≤ (2 * C₀ / Real.log (H : ℝ)) * ∑ ξ ∈ bigXi eps H, ‖ZMod.dft Φ ξ‖ ^ 2 := by
+    rw [hfilt, Finset.mul_sum]
+    refine Finset.sum_le_sum (fun ξ _ => ?_)
+    rw [hg]; simp only
+    have hbe : ‖expSum eps H (-(ξ.val : ℝ) / (H : ℝ))‖ ≤ 2 * C₀ / Real.log (H : ℝ) :=
+      expSum_norm_le_major hC₀ hlog hcard _
+    calc ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ * ‖expSum eps H (-(ξ.val : ℝ) / (H : ℝ))‖
+        = ‖ZMod.dft Φ ξ‖ ^ 2 * ‖expSum eps H (-(ξ.val : ℝ) / (H : ℝ))‖ := by
+          rw [hrefl ξ]; ring
+      _ ≤ ‖ZMod.dft Φ ξ‖ ^ 2 * (2 * C₀ / Real.log (H : ℝ)) := by gcongr
+      _ = 2 * C₀ / Real.log (H : ℝ) * ‖ZMod.dft Φ ξ‖ ^ 2 := by ring
+  have hminor : ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXi eps H), g ξ
+      ≤ (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ) := by
+    have hle : ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXi eps H), g ξ
+        ≤ ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXi eps H),
+            ((eps : ℝ) ^ 2 / Real.log (H : ℝ)) * (‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖) := by
+      refine Finset.sum_le_sum (fun ξ hξ => ?_)
+      rw [Finset.mem_filter] at hξ
+      have hlt : ‖expSum eps H (-(ξ.val : ℝ) / (H : ℝ))‖ < (eps : ℝ) ^ 2 / Real.log (H : ℝ) :=
+        not_le.mp (fun h => hξ.2 (mem_bigXi.mpr h))
+      rw [hg]; simp only
+      calc ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ * ‖expSum eps H (-(ξ.val : ℝ) / (H : ℝ))‖
+          ≤ ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ * ((eps : ℝ) ^ 2 / Real.log (H : ℝ)) := by
+            gcongr
+        _ = (eps : ℝ) ^ 2 / Real.log (H : ℝ) * (‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖) := by ring
+    refine hle.trans ?_
+    rw [← Finset.mul_sum]
+    have hl1 : ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXi eps H),
+        (‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖)
+          ≤ ∑ ξ : ZMod H, ‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖ :=
+      Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
+        (fun ξ _ _ => by positivity)
+    have hl2 := dft_l1_reflect Φ Φ h1 h1
+    calc (eps : ℝ) ^ 2 / Real.log (H : ℝ) *
+          ∑ ξ ∈ Finset.univ.filter (fun ξ => ¬ ξ ∈ bigXi eps H),
+            (‖ZMod.dft Φ ξ‖ * ‖ZMod.dft Φ (-ξ)‖)
+        ≤ (eps : ℝ) ^ 2 / Real.log (H : ℝ) * (H : ℝ) ^ 2 :=
+          mul_le_mul_of_nonneg_left (hl1.trans hl2) (div_nonneg (by positivity) hlog.le)
+      _ = (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ) := by ring
+  linarith [hmajor, hminor]
+
+/-- **Stone 1b, the squared circle-method estimate** — the `circle_method_estimate` twin at
+the DIAGONAL window `x₁ = x₂` (the shell's only instantiation), with the major arm's second
+Fourier factor KEPT:
+
+`|Σ_p (1/p) Σ_j x_j x_{j+p}| ≤ C·(H/log H)·(ε² + Σ_{ξ∈Ξ}(1/H²)‖𝓕Φ ξ‖²)`,  `C = 1 + 2C₀`.
+
+Same constant as `circle_method_estimate` (the `hbudget1` block downstream is unchanged);
+the only change is `Σ_{ξ∈Ξ}(1/H)‖𝓕Φ ξ‖ ↦ Σ_{ξ∈Ξ}(1/H²)‖𝓕Φ ξ‖²` — the L² socket that the
+Ξ-summed door consumes K-free. -/
+theorem circle_method_estimate_sq (C₀ : ℝ) (hC₀ : 0 < C₀) :
+    ∃ C : ℝ, 0 < C ∧
+      ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 : Fin H → ℤ),
+      (∀ i, |x1 i| ≤ 1) →
+      ((primeWindow eps H).card : ℝ)
+          ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)) →
+      |∑ p : primeWindow eps H, (1 / (p : ℝ)) *
+          ∑ j ∈ Finset.range H,
+            (windowVal H x1 j : ℝ) * (windowVal H x1 (j + (p : ℕ)) : ℝ)|
+        ≤ C * ((H : ℝ) / Real.log (H : ℝ)) *
+            ((eps : ℝ) ^ 2 + ∑ ξ ∈ bigXi eps H, (1 / (H : ℝ) ^ 2) *
+              ‖(ZMod.dft (fun j : ZMod H => (windowVal H x1 (ZMod.val j) : ℂ))) ξ‖ ^ 2) := by
+  refine ⟨1 + 2 * C₀, by positivity, ?_⟩
+  intro eps H _ x1 hx1 hcard
+  by_cases hH2 : 2 ≤ H
+  · -- main regime: H ≥ 2, so log H > 0
+    have hH1r : (1 : ℝ) < (H : ℝ) := by exact_mod_cast hH2
+    have hlog : 0 < Real.log (H : ℝ) := Real.log_pos hH1r
+    have hHpos : (0 : ℝ) < (H : ℝ) := by linarith
+    set Φ₁ : ZMod H → ℂ := fun m => ((windowVal H x1 m.val : ℤ) : ℂ) with hΦ₁
+    have h1 : ∀ j, ‖Φ₁ j‖ ≤ 1 := fun j => windowVal_c_norm_le hx1 j
+    -- the reality reflection at the (real, integer-valued) window datum
+    have hreal : Φ₁ = fun j : ZMod H => ((windowVal H x1 (ZMod.val j) : ℝ) : ℂ) := by
+      funext j
+      simp only [hΦ₁]
+      push_cast
+      ring
+    have hrefl : ∀ ξ : ZMod H, ‖ZMod.dft Φ₁ (-ξ)‖ = ‖ZMod.dft Φ₁ ξ‖ := by
+      intro ξ
+      rw [hreal]
+      exact norm_dft_neg_of_real (fun j : ZMod H => (windowVal H x1 (ZMod.val j) : ℝ)) ξ
+    set S : ℝ := ∑ ξ ∈ bigXi eps H, ‖ZMod.dft Φ₁ ξ‖ ^ 2 with hS
+    set L : ℝ := ∑ p : primeWindow eps H, (1 / (p : ℝ)) *
+        ∑ j ∈ Finset.range H, (windowVal H x1 j : ℝ) * (windowVal H x1 (j + (p : ℕ)) : ℝ) with hL
+    set T : ℂ := ∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
+        ∑ m : ZMod H, Φ₁ m * Φ₁ (m + ((p : ℕ) : ZMod H)) with hT
+    set W : ℂ := ∑ ξ : ZMod H, ZMod.dft Φ₁ ξ * ZMod.dft Φ₁ (-ξ) *
+        expSum eps H (-(ξ.val : ℝ) / (H : ℝ)) with hW
+    -- collapse and split (the SQUARED major arm)
+    have hWT : (H : ℂ) * T = W := T_collapse Φ₁ Φ₁
+    have hTnorm : (H : ℝ) * ‖T‖ = ‖W‖ := by
+      rw [← hWT, norm_mul, Complex.norm_natCast]
+    have hnormW : ‖W‖ ≤ (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ)
+        + (2 * C₀ / Real.log (H : ℝ)) * S :=
+      fourier_split_sq Φ₁ h1 hrefl hC₀ hlog hcard
+    -- cast L and periodization (the diagonal instance of `periodization_total`)
+    have hLcast : ((L : ℝ) : ℂ) = ∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
+        ((∑ j ∈ Finset.range H, (windowVal H x1 j : ℝ) *
+          (windowVal H x1 (j + (p : ℕ)) : ℝ) : ℝ) : ℂ) := by
+      rw [hL, Complex.ofReal_sum]
+      refine Finset.sum_congr rfl (fun p _ => ?_)
+      push_cast
+      ring
+    have hdiff : ((L : ℝ) : ℂ) - T = ∑ p : primeWindow eps H, (1 / ((p : ℕ) : ℂ)) *
+        (((∑ j ∈ Finset.range H, (windowVal H x1 j : ℝ) *
+            (windowVal H x1 (j + (p : ℕ)) : ℝ) : ℝ) : ℂ)
+          - ∑ m : ZMod H, ((windowVal H x1 m.val : ℤ) : ℂ) *
+              ((windowVal H x1 (m + ((p : ℕ) : ZMod H)).val : ℤ) : ℂ)) := by
+      rw [hLcast, hT, ← Finset.sum_sub_distrib]
+      exact Finset.sum_congr rfl (fun p _ => by rw [mul_sub])
+    have hperiod : ‖((L : ℝ) : ℂ) - T‖ ≤ ((primeWindow eps H).card : ℝ) := by
+      rw [hdiff]; exact periodization_total hx1 hx1
+    -- assemble
+    have hLT : |L| ≤ ‖T‖ + ((primeWindow eps H).card : ℝ) := by
+      have h := norm_add_le T (((L : ℝ) : ℂ) - T)
+      rw [add_sub_cancel] at h
+      calc |L| = ‖((L : ℝ) : ℂ)‖ := (Complex.norm_real L).symm
+        _ ≤ ‖T‖ + ‖((L : ℝ) : ℂ) - T‖ := h
+        _ ≤ ‖T‖ + ((primeWindow eps H).card : ℝ) := by linarith [hperiod]
+    have hH0 : (H : ℝ) ≠ 0 := ne_of_gt hHpos
+    have hLe0 : Real.log (H : ℝ) ≠ 0 := ne_of_gt hlog
+    have hTle : ‖T‖ ≤ (eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)
+        + 2 * C₀ / Real.log (H : ℝ) * (1 / (H : ℝ)) * S := by
+      have hHTle : (H : ℝ) * ‖T‖ ≤ (eps : ℝ) ^ 2 * (H : ℝ) ^ 2 / Real.log (H : ℝ)
+          + (2 * C₀ / Real.log (H : ℝ)) * S := hTnorm ▸ hnormW
+      have key : (H : ℝ) * ‖T‖ ≤ (H : ℝ) * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)
+          + 2 * C₀ / Real.log (H : ℝ) * (1 / (H : ℝ)) * S) := by
+        refine hHTle.trans (le_of_eq ?_)
+        field_simp
+      exact le_of_mul_le_mul_left key hHpos
+    rw [← Finset.mul_sum, ← hS]
+    have hS_nn : 0 ≤ S := Finset.sum_nonneg (fun ξ _ => sq_nonneg _)
+    have hquot_nn : 0 ≤ (eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ) := by positivity
+    have hrem_nn : 0 ≤ C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))
+        + (1 / (H : ℝ)) * S / Real.log (H : ℝ) :=
+      add_nonneg (mul_nonneg hC₀.le hquot_nn)
+        (div_nonneg (mul_nonneg (by positivity) hS_nn) hlog.le)
+    have heq : (1 + 2 * C₀) * ((H : ℝ) / Real.log (H : ℝ))
+          * ((eps : ℝ) ^ 2 + 1 / (H : ℝ) ^ 2 * S)
+        = ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)
+            + 2 * C₀ / Real.log (H : ℝ) * (1 / (H : ℝ)) * S)
+          + C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))
+          + (C₀ * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ))
+              + (1 / (H : ℝ)) * S / Real.log (H : ℝ)) := by
+      field_simp
+      ring
+    calc |L| ≤ ‖T‖ + ((primeWindow eps H).card : ℝ) := hLT
+      _ ≤ (1 + 2 * C₀) * ((H : ℝ) / Real.log (H : ℝ))
+            * ((eps : ℝ) ^ 2 + 1 / (H : ℝ) ^ 2 * S) := by
+          rw [heq]; linarith [hTle, hcard, hrem_nn]
+  · -- degenerate: H = 1
+    have hH1 : H = 1 := by have := NeZero.pos H; omega
+    have hlog0 : Real.log (H : ℝ) = 0 := by rw [hH1]; simp
+    have hL0 : (∑ p : primeWindow eps H, (1 / (p : ℝ)) *
+        ∑ j ∈ Finset.range H,
+          (windowVal H x1 j : ℝ) * (windowVal H x1 (j + (p : ℕ)) : ℝ)) = 0 := by
+      refine Finset.sum_eq_zero (fun p _ => ?_)
+      apply mul_eq_zero_of_right
+      refine Finset.sum_eq_zero (fun j hj => ?_)
+      rw [Finset.mem_range] at hj
+      have hp2 := (prime_of_mem_primeWindow p.2).two_le
+      have hge : ¬ (j + (p : ℕ) < H) := by omega
+      have hz : windowVal H x1 (j + (p : ℕ)) = 0 := by rw [windowVal, dif_neg hge]
+      rw [hz]; simp
+    rw [hL0, abs_zero]
+    have hmid : (H : ℝ) / Real.log (H : ℝ) = 0 := by rw [hlog0, div_zero]
+    rw [hmid]; simp
+
 end Salt.Entropy.Chowla

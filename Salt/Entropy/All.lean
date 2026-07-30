@@ -293,3 +293,19 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.hpt_const_le_pow35
   Salt.Entropy.Chowla.hpt_holds_500
   Salt.Entropy.Chowla.bigXi_bounded_500
+
+/-! ⟦THE L² RESTRUCTURE — stone 3: THE Ξ-SUMMED L² DOOR⟧ (`MRTDoor` §L², 2026-07-30, the
+freeze `docs/exploration/l2-restructure-freeze-0730.md` + REF-L2-STONE's BINDING amendment 1).
+`MRTUniformityXiL2 R ρ` grades the door by the TOTAL over `Ξ_H` —
+`∑_{ξ∈Ξ_H}(1/H²)∫‖windowExpSum H · (−ξ/H)‖²dμ ≤ ρ` — not per frequency: a per-`ξ` twin would
+be read `|Ξ_H|` times by the seam and would re-multiply the grade by `K`, and the whole shed of
+the restructure evaporates.  `contradiction_of_mrtDoorXiL2` is accordingly `K`-FREE (no
+`|Ξ_H| ≤ K` hypothesis, no `δ`-nonnegativity side condition): the chain is
+`c₀ε ≤ (the summed L² object) ≤ ρ < c₀ε`.  TAO-FAITHFULNESS (mandate R4): the predicate is a
+finite SUM of integrals with no `sup` inside — the seam warning of `MRTUniformity`/
+`MRTUniformityXi` is re-stated verbatim on the twin — and `mrtUniformityXiL2_of_xi` is the
+safety net: the LANDED `L¹` Ξ_H-door implies the `L²` one at `K·δ` (via `‖·‖² ≤ H‖·‖`), so
+nothing here is deeper than Prop 2.4.  Additive: the `L¹` door and its seam are untouched. -/
+open Salt.Tactic in
+#audit_axioms Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2
+  Salt.Entropy.Chowla.mrtUniformityXiL2_of_xi

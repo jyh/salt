@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.ExitClose
 import Salt.Entropy.Chowla.MRTDoor
+import Salt.Entropy.Chowla.ShiftCorr
 
 /-!
 # M4-0 — the window rewrite at the S7 approximant
@@ -276,5 +277,363 @@ theorem mrtUniformityXi_of_absWindowBound_twelve (eps : ℚ) (heps : 0 < eps) :
   intro H _ hH ξ hξ
   rw [hReps] at hξ
   exact hH₀ H hH ξ hξ
+
+/-! ## §5 — THE `L²`-SUMMED ARC ADAPTER (⟦THE L² RESTRUCTURE⟧, stone 6)
+
+The `L²` twin of §4.  §4 hands the door one frequency at a time and pays a full
+`δ` at each of the `|Ξ_H| ≤ K` of them; the restructure
+(`docs/exploration/l2-restructure-freeze-0730.md`) keeps the second Fourier
+factor and so reads the whole `Ξ_H`-SUM at once, at the SQUARED scale:
+
+    Σ_{ξ∈Ξ_H} (1/H²)∫‖windowExpSum(−ξ.val/H)‖² dμ ≤ K·(2·Bsieve) + 2·Binsert.
+
+Two things about that line, and they are the whole point:
+
+* **The count `K` multiplies ONLY the sieved (α-dependent) leg.**  The socket's
+  grade `Bsieve H` is a bound at *each* tight-major `α`, so summing it over `Ξ_H`
+  costs the cardinality — that is the `K`.
+* **The insert leg is paid ONCE.**  `Binsert` bounds the *already-summed*
+  insert energy: the raw−sieved difference is `α`-INDEPENDENT, so its total
+  Fourier mass is a single object (⟦the refuter's α-independence census⟧: the
+  two `α`-independent debits, the glue `δ/4` and the tail `4·2^k/x`, are ONE
+  object and ride together).  No `K` multiplies it.  Supplying `Binsert` is the
+  Parseval stone's job (the sibling `parseval_insert_budget_door`); this stone
+  takes it as the named hypothesis `hins` and never opens it.
+
+The split is the refuter's re-derivation `(a+b)² ≤ 2a² + 2b²` — hence the two
+`2`s, and hence `2·K·Bsieve` (not `K·Bsieve`) in the freeze's budget line.
+
+⟦THE FUSE, LIVE⟧ The conclusion is byte-shaped to the payload of
+`MRTUniformityXiL2` (`MRTDoor.lean:187`, the sibling stone, LANDED): Σ-form,
+`(1/H²)` normalisation, `‖·‖ ^ 2`, the `∀ ξ` *inside* the Σ and the Σ *outside*
+the integral — the MRTDoor seam warning applies verbatim, this is a finite sum
+of integrals with no sup inside, implied by the per-`α` door.
+`mrtUniformityXiL2_of_absWindowSqBound` below closes onto that predicate; the
+only thing it owes beyond this adapter is `hρ`, an `H`-uniform ceiling for the
+`H`-dependent right-hand side `K·(2·Bsieve H) + 2·Binsert`.
+
+⟦THE INSERT SUPPLIER⟧ `Binsert` is supplied by
+`Salt.MR.parseval_insert_budget_door` (`M4ParsevalStone.lean:341`), which is
+DOWNSTREAM of this file (it imports `M4Window`).  So the budget cannot be cited
+here and enters as the named hypothesis `hins`; the composition is stone 7's.
+`…_parseval` below states `hins` in that supplier's exact spelling — `(1/H²)`
+outside the Σ, integrand the *difference of two window sums* — so the plug is
+byte-for-byte. -/
+
+/-- `absWindowSum` is additive in its coefficient sequence (the window and the
+phase are shared; only the coefficient splits). -/
+theorem absWindowSum_add_coeff (a e : ℕ → ℂ) (H n : ℕ) (α : ℝ) :
+    absWindowSum (fun m => a m + e m) H n α
+      = absWindowSum a H n α + absWindowSum e H n α := by
+  unfold absWindowSum
+  rw [← Finset.sum_add_distrib]
+  exact Finset.sum_congr rfl fun m _ => by ring
+
+/-- **The refuter's split, pointwise**: `‖u+v‖² ≤ 2‖u‖² + 2‖v‖²` at the door's
+carrier.  This is the ONLY place the restructure's factor `2` is created. -/
+theorem norm_absWindowSum_sq_split (a e : ℕ → ℂ) (H n : ℕ) (α : ℝ) :
+    ‖absWindowSum (fun m => a m + e m) H n α‖ ^ 2
+      ≤ 2 * ‖absWindowSum a H n α‖ ^ 2 + 2 * ‖absWindowSum e H n α‖ ^ 2 := by
+  rw [absWindowSum_add_coeff]
+  have htri := norm_add_le (absWindowSum a H n α) (absWindowSum e H n α)
+  have h0 := norm_nonneg (absWindowSum a H n α)
+  have h1 := norm_nonneg (absWindowSum e H n α)
+  nlinarith [sq_nonneg (‖absWindowSum a H n α‖ - ‖absWindowSum e H n α‖),
+    norm_nonneg (absWindowSum a H n α + absWindowSum e H n α)]
+
+/-- The split, integrated against the door's measure.  Proved through
+`ShiftCorr.integral_logMeasure_eq` (the integral IS a finite harmonic sum), so
+**no integrability side condition is incurred** — the route every `logMeasure`
+inequality in the M4 chain takes. -/
+theorem integral_norm_absWindowSum_sq_split (x ω H : ℕ) (a e : ℕ → ℂ) (α : ℝ) :
+    (∫ n, ‖absWindowSum (fun m => a m + e m) H n α‖ ^ 2 ∂(logMeasure x ω))
+      ≤ 2 * (∫ n, ‖absWindowSum a H n α‖ ^ 2 ∂(logMeasure x ω))
+        + 2 * ∫ n, ‖absWindowSum e H n α‖ ^ 2 ∂(logMeasure x ω) := by
+  rw [integral_logMeasure_eq, integral_logMeasure_eq, integral_logMeasure_eq]
+  have hZ : (0 : ℝ) ≤ (∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹)⁻¹ :=
+    inv_nonneg.mpr (Finset.sum_nonneg fun n _ => by positivity)
+  have hkey : (∑ n ∈ Finset.Ioc (x / ω) x,
+        ‖absWindowSum (fun m => a m + e m) H n α‖ ^ 2 * (n : ℝ)⁻¹)
+      ≤ 2 * (∑ n ∈ Finset.Ioc (x / ω) x, ‖absWindowSum a H n α‖ ^ 2 * (n : ℝ)⁻¹)
+        + 2 * ∑ n ∈ Finset.Ioc (x / ω) x, ‖absWindowSum e H n α‖ ^ 2 * (n : ℝ)⁻¹ := by
+    rw [Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib]
+    refine Finset.sum_le_sum fun n _ => ?_
+    have hinv : (0 : ℝ) ≤ (n : ℝ)⁻¹ := by positivity
+    have hpt := norm_absWindowSum_sq_split a e H n α
+    nlinarith
+  calc (∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹)⁻¹
+        * ∑ n ∈ Finset.Ioc (x / ω) x,
+            ‖absWindowSum (fun m => a m + e m) H n α‖ ^ 2 * (n : ℝ)⁻¹
+      ≤ (∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹)⁻¹
+          * (2 * (∑ n ∈ Finset.Ioc (x / ω) x, ‖absWindowSum a H n α‖ ^ 2 * (n : ℝ)⁻¹)
+            + 2 * ∑ n ∈ Finset.Ioc (x / ω) x,
+                ‖absWindowSum e H n α‖ ^ 2 * (n : ℝ)⁻¹) :=
+        mul_le_mul_of_nonneg_left hkey hZ
+    _ = 2 * ((∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹)⁻¹
+            * ∑ n ∈ Finset.Ioc (x / ω) x, ‖absWindowSum a H n α‖ ^ 2 * (n : ℝ)⁻¹)
+          + 2 * ((∑ n ∈ Finset.Ioc (x / ω) x, (n : ℝ)⁻¹)⁻¹
+            * ∑ n ∈ Finset.Ioc (x / ω) x, ‖absWindowSum e H n α‖ ^ 2 * (n : ℝ)⁻¹) := by
+        ring
+
+/-- **THE `L²`-SUMMED ARC ADAPTER.**  Given
+
+* the arc supply at floor `H₀` (`harc`: every large-spectrum door frequency
+  `−ξ.val/H` is tight-major with denominator cap `arcDen B₅ H`), with `H₀` under
+  the regime's window floor — the SAME gate §4 rides, unweakened;
+* the coefficient split `hsplit : λ = a + e` (`a` the sieved sequence the road's
+  `L²` socket speaks about, `e` its α-independent insert complement);
+* `hB0`: the socket's grade is a grade;
+* the road's `L²` socket `hsock` — `M4Close.M4SievedDoorSq`'s per-`α` shape
+  (`M4Close.lean:368–375`) transcribed at the abstract coefficient sequence `a`,
+  because `M4SievedDoorSq` is defined DOWNSTREAM of this file and is instantiated
+  by the consumer;
+* `hXi`: the large-spectrum count gate `|Ξ_H| ≤ K` (`bigXi_bounded`'s payload);
+* `hins`: the **already-summed** insert budget `Binsert` (the Parseval stone),
+
+the `Ξ_H`-summed `L²` door bound holds at `K·(2·Bsieve H) + 2·Binsert`.
+
+`K` multiplies the sieved leg ONLY; `Binsert` is paid once.  Every gate is
+named: no floor, no count and no grade is smuggled. -/
+theorem sum_bigXi_norm_windowExpSum_sq_le (R : ChowlaRegime) (a e : ℕ → ℂ)
+    (Bsieve : ℕ → ℝ) (K Binsert : ℝ) {B₅ : ℝ} {H₀ : ℕ}
+    (hsplit : ∀ m, lamCoeff m = a m + e m)
+    (hfloor : H₀ ≤ R.Hlo)
+    (harc : ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H → ∀ ξ ∈ bigXi R.eps H,
+      NearRatTight (arcDen B₅ H) H (-(ξ.val : ℝ) / (H : ℝ)))
+    (hB0 : ∀ H : ℕ, 0 ≤ Bsieve H)
+    (hsock : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
+      NearRatTight (arcDen B₅ H) H α →
+        (∫ n, ‖absWindowSum a H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
+          ≤ Bsieve H * (H : ℝ) ^ 2)
+    (hXi : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+      ((bigXi R.eps H).card : ℝ) ≤ K)
+    (hins : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+      (∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2) *
+        ∫ n, ‖absWindowSum e H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+          ∂(logMeasure R.x R.ω)) ≤ Binsert) :
+    ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+      (∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2) *
+        ∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+          ∂(logMeasure R.x R.ω))
+        ≤ K * (2 * Bsieve H) + 2 * Binsert := by
+  intro H _ hlo hhi
+  have hH0 : H ≠ 0 := NeZero.ne H
+  have hHpos : (0 : ℝ) < (H : ℝ) := by positivity
+  have hinvpos : (0 : ℝ) < 1 / (H : ℝ) ^ 2 := by positivity
+  have hfun : lamCoeff = fun m => a m + e m := funext hsplit
+  -- ⟦the per-frequency line⟧ arc → socket → the `(a+b)²` split, at one `ξ`.
+  have hterm : ∀ ξ ∈ bigXi R.eps H,
+      (1 / (H : ℝ) ^ 2) * (∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+          ∂(logMeasure R.x R.ω))
+        ≤ 2 * Bsieve H + 2 * ((1 / (H : ℝ) ^ 2) *
+            ∫ n, ‖absWindowSum e H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+              ∂(logMeasure R.x R.ω)) := by
+    intro ξ hξ
+    have harcξ := harc H (le_trans hfloor hlo) ξ hξ
+    have hrw : (∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+          ∂(logMeasure R.x R.ω))
+        = ∫ n, ‖absWindowSum (fun m => a m + e m) H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+            ∂(logMeasure R.x R.ω) := by
+      refine integral_congr_ae (Filter.Eventually.of_forall fun n => ?_)
+      simp only [norm_windowExpSum_eq_absWindowSum, hfun]
+    rw [hrw]
+    have hspl := integral_norm_absWindowSum_sq_split R.x R.ω H a e (-(ξ.val : ℝ) / (H : ℝ))
+    have hs := hsock H hlo hhi (-(ξ.val : ℝ) / (H : ℝ)) harcξ
+    have hA : (1 / (H : ℝ) ^ 2) * (∫ n, ‖absWindowSum a H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+        ∂(logMeasure R.x R.ω)) ≤ Bsieve H := by
+      have h := mul_le_mul_of_nonneg_left hs hinvpos.le
+      have heq : (1 / (H : ℝ) ^ 2) * (Bsieve H * (H : ℝ) ^ 2) = Bsieve H := by
+        field_simp
+      linarith [h, heq.le, heq.ge]
+    have hmul := mul_le_mul_of_nonneg_left hspl hinvpos.le
+    have hexp : (1 / (H : ℝ) ^ 2) *
+        (2 * (∫ n, ‖absWindowSum a H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+              ∂(logMeasure R.x R.ω))
+          + 2 * ∫ n, ‖absWindowSum e H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+              ∂(logMeasure R.x R.ω))
+        = 2 * ((1 / (H : ℝ) ^ 2) * ∫ n, ‖absWindowSum a H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+              ∂(logMeasure R.x R.ω))
+          + 2 * ((1 / (H : ℝ) ^ 2) * ∫ n, ‖absWindowSum e H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+              ∂(logMeasure R.x R.ω)) := by ring
+    rw [hexp] at hmul
+    linarith
+  -- ⟦the census⟧ the sieved leg pays the count `K`; the insert leg pays once.
+  have hcard := hXi H hlo hhi
+  have hI := hins H hlo hhi
+  have h2B : (0 : ℝ) ≤ 2 * Bsieve H := by have := hB0 H; linarith
+  have hKB := mul_le_mul_of_nonneg_right hcard h2B
+  calc (∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2) *
+          ∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2 ∂(logMeasure R.x R.ω))
+      ≤ ∑ _ξ ∈ bigXi R.eps H, (2 * Bsieve H + 2 * ((1 / (H : ℝ) ^ 2) *
+          ∫ n, ‖absWindowSum e H n (-(_ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+            ∂(logMeasure R.x R.ω))) := Finset.sum_le_sum hterm
+    _ = ((bigXi R.eps H).card : ℝ) * (2 * Bsieve H)
+          + 2 * ∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2) *
+              ∫ n, ‖absWindowSum e H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+                ∂(logMeasure R.x R.ω) := by
+        rw [Finset.sum_add_distrib, Finset.sum_const, nsmul_eq_mul, ← Finset.mul_sum]
+    _ ≤ K * (2 * Bsieve H) + 2 * Binsert := by linarith
+
+/-- **The adapter at the subtractive spelling of the split** — for a supplier
+whose insert leg is delivered as `λ − a` rather than as a named `e`.  Same
+theorem; `hsplit` is discharged by `ring`. -/
+theorem sum_bigXi_norm_windowExpSum_sq_le_sub (R : ChowlaRegime) (a : ℕ → ℂ)
+    (Bsieve : ℕ → ℝ) (K Binsert : ℝ) {B₅ : ℝ} {H₀ : ℕ}
+    (hfloor : H₀ ≤ R.Hlo)
+    (harc : ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H → ∀ ξ ∈ bigXi R.eps H,
+      NearRatTight (arcDen B₅ H) H (-(ξ.val : ℝ) / (H : ℝ)))
+    (hB0 : ∀ H : ℕ, 0 ≤ Bsieve H)
+    (hsock : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
+      NearRatTight (arcDen B₅ H) H α →
+        (∫ n, ‖absWindowSum a H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
+          ≤ Bsieve H * (H : ℝ) ^ 2)
+    (hXi : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+      ((bigXi R.eps H).card : ℝ) ≤ K)
+    (hins : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+      (∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2) *
+        ∫ n, ‖absWindowSum (fun m => lamCoeff m - a m) H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+          ∂(logMeasure R.x R.ω)) ≤ Binsert) :
+    ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+      (∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2) *
+        ∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+          ∂(logMeasure R.x R.ω))
+        ≤ K * (2 * Bsieve H) + 2 * Binsert :=
+  sum_bigXi_norm_windowExpSum_sq_le R a (fun m => lamCoeff m - a m) Bsieve K Binsert
+    (fun m => by ring) hfloor harc hB0 hsock hXi hins
+
+/-- **The adapter at the Parseval stone's own spelling** — the byte-plug for
+`parseval_insert_budget_door` (`M4ParsevalStone.lean:341`), whose exit carries
+the `(1/H²)` OUTSIDE the `ξ`-sum and whose integrand is the *difference of two
+window sums* `absWindowSum λ − absWindowSum a`, not a window sum of a difference
+sequence.  The two spellings are identified through `absWindowSum_add_coeff` and
+`Finset.mul_sum`; no new analysis. -/
+theorem sum_bigXi_norm_windowExpSum_sq_le_parseval (R : ChowlaRegime) (a : ℕ → ℂ)
+    (Bsieve : ℕ → ℝ) (K Binsert : ℝ) {B₅ : ℝ} {H₀ : ℕ}
+    (hfloor : H₀ ≤ R.Hlo)
+    (harc : ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H → ∀ ξ ∈ bigXi R.eps H,
+      NearRatTight (arcDen B₅ H) H (-(ξ.val : ℝ) / (H : ℝ)))
+    (hB0 : ∀ H : ℕ, 0 ≤ Bsieve H)
+    (hsock : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
+      NearRatTight (arcDen B₅ H) H α →
+        (∫ n, ‖absWindowSum a H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
+          ≤ Bsieve H * (H : ℝ) ^ 2)
+    (hXi : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+      ((bigXi R.eps H).card : ℝ) ≤ K)
+    (hins : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+      (1 / (H : ℝ) ^ 2) * ∑ ξ ∈ bigXi R.eps H,
+        ∫ n, ‖absWindowSum lamCoeff H n (-(ξ.val : ℝ) / (H : ℝ))
+            - absWindowSum a H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+          ∂(logMeasure R.x R.ω) ≤ Binsert) :
+    ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+      (∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2) *
+        ∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+          ∂(logMeasure R.x R.ω))
+        ≤ K * (2 * Bsieve H) + 2 * Binsert := by
+  refine sum_bigXi_norm_windowExpSum_sq_le_sub R a Bsieve K Binsert hfloor harc hB0
+    hsock hXi ?_
+  intro H _ hlo hhi
+  have hsub : ∀ (n : ℕ) (α : ℝ),
+      absWindowSum (fun m => lamCoeff m - a m) H n α
+        = absWindowSum lamCoeff H n α - absWindowSum a H n α := by
+    intro n α
+    have h := absWindowSum_add_coeff a (fun m => lamCoeff m - a m) H n α
+    have hfun : (fun m => a m + (lamCoeff m - a m)) = lamCoeff := funext fun m => by ring
+    rw [hfun] at h
+    rw [h]
+    ring
+  have hcongr : (∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2) *
+        ∫ n, ‖absWindowSum (fun m => lamCoeff m - a m) H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+          ∂(logMeasure R.x R.ω))
+      = (1 / (H : ℝ) ^ 2) * ∑ ξ ∈ bigXi R.eps H,
+        ∫ n, ‖absWindowSum lamCoeff H n (-(ξ.val : ℝ) / (H : ℝ))
+            - absWindowSum a H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+          ∂(logMeasure R.x R.ω) := by
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl fun ξ _ => ?_
+    congr 1
+    refine integral_congr_ae (Filter.Eventually.of_forall fun n => ?_)
+    simp only [hsub]
+  rw [hcongr]
+  exact hins H hlo hhi
+
+/-- **The `L²` adapter at the frozen exponent `B₅ = 12`**, the arc gate
+DISSOLVED exactly as in §4: `bigXiArcTight_twelve` (`ExitClose.lean:773`,
+unconditional) supplies it, `nearRatTight_of_bigXiArcTight` transports the sign.
+
+Non-vacuity is §4's, verbatim: `H₀` is produced from `ε` alone, BEFORE the
+regime, matching `log_chowla_two_budget_head`'s `∀ extraFloor, ∃ R, …` interface
+(`SpineFinal.lean:749`).  Stating it as `∃ H₀, H₀ ≤ R.Hlo → …` for a *given* `R`
+would be vacuous. -/
+theorem sum_bigXi_norm_windowExpSum_sq_le_twelve (eps : ℚ) (heps : 0 < eps) :
+    ∃ H₀ : ℕ, ∀ R : ChowlaRegime, R.eps = eps → H₀ ≤ R.Hlo →
+      ∀ (a e : ℕ → ℂ) (Bsieve : ℕ → ℝ) (K Binsert : ℝ),
+        (∀ m, lamCoeff m = a m + e m) →
+        (∀ H : ℕ, 0 ≤ Bsieve H) →
+        (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
+          NearRatTight (arcDen 12 H) H α →
+            (∫ n, ‖absWindowSum a H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
+              ≤ Bsieve H * (H : ℝ) ^ 2) →
+        (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+          ((bigXi R.eps H).card : ℝ) ≤ K) →
+        (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+          (∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2) *
+            ∫ n, ‖absWindowSum e H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+              ∂(logMeasure R.x R.ω)) ≤ Binsert) →
+        ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+          (∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2) *
+            ∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+              ∂(logMeasure R.x R.ω))
+            ≤ K * (2 * Bsieve H) + 2 * Binsert := by
+  obtain ⟨H₀, hH₀⟩ := nearRatTight_of_bigXiArcTight bigXiArcTight_twelve heps
+  refine ⟨H₀, fun R hReps hfloor a e Bsieve K Binsert hsplit hB0 hsock hXi hins => ?_⟩
+  refine sum_bigXi_norm_windowExpSum_sq_le R a e Bsieve K Binsert hsplit hfloor ?_
+    hB0 hsock hXi hins
+  intro H _ hH ξ hξ
+  rw [hReps] at hξ
+  exact hH₀ H hH ξ hξ
+
+/-- **THE CLOSE ONTO THE SUMMED DOOR** — this adapter, delivered as the sibling
+stone's predicate `MRTUniformityXiL2 R ρ` (`MRTDoor.lean:187`).
+
+`hρ` is the one thing the adapter itself cannot supply: the door's grade `ρ` is
+`H`-free, while the adapter's right-hand side carries the socket grade at the
+running `H`.  Any `H`-uniform ceiling over the window range `[R.Hlo, R.Hhi]`
+does it — on the road that ceiling is the pricing's monotone bound on `Braw`.
+
+Note what is NOT here: no `|Ξ_H| ≤ K` hypothesis is consumed by the *seam*
+(`contradiction_of_mrtDoorXiL2` has none).  The count is consumed HERE, once,
+against the sieved leg only — the `K`-free `δ` of the freeze's budget line. -/
+theorem mrtUniformityXiL2_of_absWindowSqBound (R : ChowlaRegime) (a e : ℕ → ℂ)
+    (Bsieve : ℕ → ℝ) (K Binsert ρ : ℝ) {B₅ : ℝ} {H₀ : ℕ}
+    (hsplit : ∀ m, lamCoeff m = a m + e m)
+    (hfloor : H₀ ≤ R.Hlo)
+    (harc : ∀ H : ℕ, ∀ [NeZero H], H₀ ≤ H → ∀ ξ ∈ bigXi R.eps H,
+      NearRatTight (arcDen B₅ H) H (-(ξ.val : ℝ) / (H : ℝ)))
+    (hB0 : ∀ H : ℕ, 0 ≤ Bsieve H)
+    (hsock : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
+      NearRatTight (arcDen B₅ H) H α →
+        (∫ n, ‖absWindowSum a H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
+          ≤ Bsieve H * (H : ℝ) ^ 2)
+    (hXi : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+      ((bigXi R.eps H).card : ℝ) ≤ K)
+    (hins : ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+      (∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2) *
+        ∫ n, ‖absWindowSum e H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2
+          ∂(logMeasure R.x R.ω)) ≤ Binsert)
+    (hρ : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → K * (2 * Bsieve H) + 2 * Binsert ≤ ρ) :
+    MRTUniformityXiL2 R ρ := by
+  intro H _ hlo hhi
+  exact le_trans (sum_bigXi_norm_windowExpSum_sq_le R a e Bsieve K Binsert hsplit hfloor
+    harc hB0 hsock hXi hins H hlo hhi) (hρ H hlo hhi)
+
+/-- **THE FREEZE'S BUDGET LINE, named** (`l2-restructure-freeze-0730.md:21`).
+At the insert budget `Binsert := δ/4 + 4·2^k/x` — the glue spelling the `L¹`
+road already carries (`M4Close.lean:506`, `M4ClassPrice.lean:708`) — this
+adapter's right-hand side IS `2·K·Braw + δ/2 + 8·2^k/x`.  The `δ` the summed
+door reads is therefore `K`-FREE, which is the entire content of the
+restructure. -/
+theorem l2_budget_line (K B δ x : ℝ) (k : ℕ) :
+    K * (2 * B) + 2 * (δ / 4 + 4 * 2 ^ k / x) = 2 * K * B + δ / 2 + 8 * 2 ^ k / x := by
+  ring
 
 end Salt.MR

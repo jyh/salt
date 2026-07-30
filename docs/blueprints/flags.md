@@ -16850,3 +16850,44 @@ verbatim, shrinking the wave to the spine-side stones + one weighted-
 seam collision — to be adjudicated when bank A lands (the in-flight
 stones serve both architectures; nothing wasted).  **ARITH: CLEAR,
 conditional on A1.**
+
+## (2026-07-30 13:33 PDT) ⟦L² RESTRUCTURE⟧ BANK A LANDS WHOLE — three for three (W1/W2/W3); the full tree verified green at 9597
+
+**⟦W1 — stones 1+2⟧**  CircleMethod +232 (in-file, privates forced):
+`norm_dft_neg_of_real` (the refuter's ready-made, public);
+`fourier_split_sq` (the major arm KEEPS the second factor; the
+reality as an explicit hrefl hypothesis — the diagonal scoping
+discharged at the integer window datum); `circle_method_estimate_sq`
+— **C = 1+2C₀ verified UNCHANGED against the landed skeleton**.
+Theorem23Shell +121: `log_chowla_two_shell_xi_sq` — Bridge A squared
+by congrArg, Bridge B verbatim, shellError/hbudget1 untouched, **hXi
+and K GONE from the shell**; closes via W2's seam byte-exact (no fuse
+gap).  353 insertions, ZERO deletions; 4/4 axioms.
+
+**⟦W2 — stones 3+5⟧**  MRTDoor +131 (in-file — zero import edits for
+every consumer): `MRTUniformityXiL2` (the Σ INSIDE the predicate —
+amendment 1 honored), `contradiction_of_mrtDoorXiL2` (K-FREE, no
+cardinality hypothesis), `mrtUniformityXiL2_of_xi` (the R4 safety
+net), the seam warning re-stated verbatim.  M4ParsevalStone (397 ln,
+14 decls): the five probe stones ported + `m4_door_insert_mass_integral`
+(the bound EXTRACTED from inside the glue proof, same constant, every
+gate named) + **`parseval_insert_budget_door` — the freeze's line
+verbatim, |Ξ| never appears**.  14/14 axioms.
+
+**⟦W3 — stone 6⟧**  M4Window §5 (+359, 9 decls): the (a+b)² split
+created exactly once; **`sum_bigXi_norm_windowExpSum_sq_le`** — K
+multiplies the SIEVED leg only, the insert paid once; the `_parseval`
+variant byte-matched to stone 5's exit; the B₅ = 12 twin off the
+unconditional arc supply; `mrtUniformityXiL2_of_absWindowSqBound`
+closing onto W2's predicate; **`l2_budget_line` — the freeze's budget
+line AS A NAMED IDENTITY**.  The insert budget stays a named
+hypothesis (import direction — stone 7's composition, made mechanical
+by `_parseval`).  9/9 axioms.
+
+**⟦THE SEAL⟧**  Full tree INDEPENDENTLY VERIFIED green: 9597 jobs,
+exit 0 (W3's mid-flight sighting of W1's transient was already fixed
+by W1 — the maestro re-ran, per the PIPESTATUS lesson).  BANK B fires
+on this entry: W4 (the spine head twin at δ₀' = c₀ε/4-genre, K-FREE,
++ the 9/2 form) and W5 (stone 7 — the exit/close re-plumb: the L²
+door demand composed from W3+W2's stones, ⟦A1 THE BINDER SPLIT⟧
+δ_sock vs δ₀' baked in, M4DoorGates unchanged).

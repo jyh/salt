@@ -333,4 +333,125 @@ theorem log_chowla_two_shell_xi
   -- fire the Ξ_H-restricted MRT theorem-door (explicit `0 ≤ δ`).
   exact contradiction_of_mrtDoorXi R hlo hhi hHpos hδ hdoor hXi hbudget2 hlower
 
+/-- **W3-E-GLUE, the L² (Ξ-SUMMED) Theorem-2.3 conditional shell** (⟦THE L² RESTRUCTURE⟧
+stone 2).
+
+Identical content to `log_chowla_two_shell_xi`, with Bridge A SQUARED and Bridge B verbatim:
+the circle-method input `hcirc` is now the squared socket (discharger:
+`circle_method_estimate_sq`, `CircleMethod.lean` — same constant `C = 1 + 2C₀`, so
+`hbudget1` is UNCHANGED), and the door-facing conclusion is the Ξ-SUMMED L² mass
+
+`c₀·ε ≤ Σ_{ξ∈Ξ_H} (1/H²)·∫‖windowExpSum H · (−ξ.val/H)‖² dμ`.
+
+**The shed.**  `hXi : |Ξ_H| ≤ K` and the parameter `K` are GONE: the Ξ-summed door
+pays its total mass ONCE rather than once per frequency, so the closure budget is
+`ρ < c₀·ε` with `ρ` K-free (the freeze's `δ/2`-genre glue).  Everything else rides
+unchanged — `outer_combine`, the `shellError` terms (they sit outside the ξ-sum), the
+Bridge B integral exchange (`abs_integral_le_integral_abs`, `integral_finsetSum`,
+`integrable_of_finiteSupport`).
+
+**THE FUSE.**  `hdoor` is the Ξ-summed L² door predicate `MRTUniformityXiL2 R ρ`
+(`MRTDoor.lean`), and the closer is its seam `contradiction_of_mrtDoorXiL2`; the mass
+lower bound this shell derives is that seam's `hlower` slot verbatim.  The seam warning
+on `MRTUniformityXi` carries over — THE `∀ H` / `Ξ_H` QUANTIFIERS STAY OUTSIDE THE
+INTEGRAL (the predicate is a finite sum of integrals, no `sup` inside; a sup-inside form
+would be Tao (4.1), OPEN).
+
+Additive — `log_chowla_two_shell` and `log_chowla_two_shell_xi` are untouched. -/
+theorem log_chowla_two_shell_xi_sq
+    (R : ChowlaRegime) {H : ℕ} [NeZero H] (hlo : R.Hlo ≤ H) (hhi : H ≤ R.Hhi)
+    (hH : 3 ≤ H) (hlog : 1 ≤ Real.log (H : ℝ)) (hne : (primeWindow R.eps H).Nonempty)
+    (hreg : Real.sqrt (H : ℝ) ≤ (R.eps : ℝ) ^ 2 * (H : ℝ) / 2)
+    (hhead : 8 * (PH R.eps H : ℝ) ^ 2 * (R.ω : ℝ) ≤ (R.x : ℝ))
+    {t : ℝ} (ht : 0 < t) {g : ℝ} (hg : 0 < g)
+    (hgle : g ≤ (R.eps : ℝ) ^ 6 * (H : ℝ)
+        / (18 * (2 * Real.log 4) * Real.log (H : ℝ)) - Real.log 2)
+    {κ : ℝ} (hI : I[residueWindow R.eps H : liouvilleWindow H ; logMeasure R.x R.ω] ≤ κ)
+    {c₁ : ℝ} (hc₁ : 0 < c₁)
+    (h211 : c₁ * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ))
+        ≤ |∫ n, fBridgeF R.eps H (liouvilleWindow H n) (residueWindow R.eps H n)
+            ∂(logMeasure R.x R.ω)|)
+    -- the SQUARED circle-method Fourier bound (discharger: `circle_method_estimate_sq`):
+    {C : ℝ} (hC : 0 < C)
+    (hcirc : ∀ n : ℕ,
+      |∑ p : primeWindow R.eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+          (windowVal H (liouvilleWindow H n) j : ℝ)
+            * (windowVal H (liouvilleWindow H n) (j + (p : ℕ)) : ℝ)|
+        ≤ C * ((H : ℝ) / Real.log (H : ℝ))
+            * ((R.eps : ℝ) ^ 2 + ∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2)
+                * ‖ZMod.dft (fun j : ZMod H =>
+                    (windowVal H (liouvilleWindow H n) (ZMod.val j) : ℂ)) ξ‖ ^ 2))
+    -- the Ξ-SUMMED L² MRT door (`MRTDoor.lean`); NO `K`, NO `|Ξ_H| ≤ K` hypothesis:
+    {ρ c₀ : ℝ} (hdoor : MRTUniformityXiL2 R ρ)
+    -- the two numeric-closure budgets (`hbudget1` UNCHANGED; `hbudget2` is K-FREE):
+    (hbudget1 : C * ((H : ℝ) / Real.log (H : ℝ)) * (c₀ * (R.eps : ℝ))
+          + C * ((H : ℝ) / Real.log (H : ℝ)) * (R.eps : ℝ) ^ 2
+          + shellError R H t g κ
+        ≤ c₁ * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ)))
+    (hbudget2 : ρ < c₀ * (R.eps : ℝ)) :
+    False := by
+  classical
+  haveI hpm : IsProbabilityMeasure (logMeasure R.x R.ω) :=
+    isProbabilityMeasure_logMeasure R.hx R.hω
+  have hHpos : 0 < H := NeZero.pos H
+  have hlogpos : 0 < Real.log (H : ℝ) := lt_of_lt_of_le zero_lt_one hlog
+  have hApos : 0 < C * ((H : ℝ) / Real.log (H : ℝ)) :=
+    mul_pos hC (div_pos (by exact_mod_cast hHpos) hlogpos)
+  have heps1R : (R.eps : ℝ) ≤ 1 := by
+    have h : R.eps ≤ 1 := le_trans R.heps1 (by norm_num)
+    exact_mod_cast h
+  -- (I) the `outer_combine` mass lower bound (with `shellError` folded, defeq).
+  have hoc : c₁ * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ)) - shellError R H t g κ
+      ≤ |∫ n, (∑ p : primeWindow R.eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+          (windowVal H (liouvilleWindow H n) j : ℝ)
+            * (windowVal H (liouvilleWindow H n) (j + (p : ℕ)) : ℝ))
+          ∂(logMeasure R.x R.ω)| :=
+    outer_combine R.eps H R.hx R.hω R.hωx R.heps heps1R hne hreg hH hlog hhead
+      ht hg hgle hI hc₁ h211
+  -- abbreviations
+  set gm : ℕ → ℝ := fun n => ∑ p : primeWindow R.eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+      (windowVal H (liouvilleWindow H n) j : ℝ)
+        * (windowVal H (liouvilleWindow H n) (j + (p : ℕ)) : ℝ) with hgm
+  set door : ℝ := ∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2)
+      * ∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖ ^ 2 ∂(logMeasure R.x R.ω) with hdoorS
+  set RHS : ℕ → ℝ := fun n => C * ((H : ℝ) / Real.log (H : ℝ))
+      * ((R.eps : ℝ) ^ 2 + ∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2)
+          * ‖ZMod.dft (fun j : ZMod H =>
+              (windowVal H (liouvilleWindow H n) (ZMod.val j) : ℂ)) ξ‖ ^ 2) with hRHS
+  have hcirc' : ∀ n, |gm n| ≤ RHS n := hcirc
+  -- Bridge B, step 1+2: `|∫ gm| ≤ ∫ RHS`.
+  have hB : |∫ n, gm n ∂(logMeasure R.x R.ω)| ≤ ∫ n, RHS n ∂(logMeasure R.x R.ω) :=
+    le_trans abs_integral_le_integral_abs
+      (integral_mono_ae (integrable_of_finiteSupport _) (integrable_of_finiteSupport _)
+        (Filter.Eventually.of_forall hcirc'))
+  -- Bridge B, step 3: `∫ RHS = C·(H/log H)·(ε² + door)` (Bridge A SQUARED, per `ξ`).
+  have hRHSeq : ∫ n, RHS n ∂(logMeasure R.x R.ω)
+      = C * ((H : ℝ) / Real.log (H : ℝ)) * ((R.eps : ℝ) ^ 2 + door) := by
+    rw [hRHS, integral_const_mul]
+    congr 1
+    rw [integral_add (integrable_const _) (integrable_of_finiteSupport _), integral_const,
+      probReal_univ, one_smul,
+      integral_finsetSum (bigXi R.eps H) (fun ξ _ => integrable_of_finiteSupport _)]
+    congr 1
+    refine Finset.sum_congr rfl (fun ξ _ => ?_)
+    rw [integral_const_mul]
+    congr 1
+    exact integral_congr_ae
+      (Filter.Eventually.of_forall (fun n =>
+        congrArg (fun z : ℝ => z ^ 2) (windowExpSum_norm_eq_dft n ξ).symm))
+  -- (★): assemble the chain.
+  have hstar : c₁ * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ)) - shellError R H t g κ
+      ≤ C * ((H : ℝ) / Real.log (H : ℝ)) * ((R.eps : ℝ) ^ 2 + door) :=
+    le_trans hoc (le_trans hB (le_of_eq hRHSeq))
+  -- derive the door's L² mass lower bound `c₀·ε ≤ door`.
+  have hmul : C * ((H : ℝ) / Real.log (H : ℝ)) * (c₀ * (R.eps : ℝ))
+      ≤ C * ((H : ℝ) / Real.log (H : ℝ)) * door := by
+    have hexp : C * ((H : ℝ) / Real.log (H : ℝ)) * ((R.eps : ℝ) ^ 2 + door)
+        = C * ((H : ℝ) / Real.log (H : ℝ)) * (R.eps : ℝ) ^ 2
+          + C * ((H : ℝ) / Real.log (H : ℝ)) * door := by ring
+    linarith [hstar, hbudget1, hexp]
+  have hlower : c₀ * (R.eps : ℝ) ≤ door := le_of_mul_le_mul_left hmul hApos
+  -- fire the Ξ-SUMMED L² MRT theorem-door (K-FREE: one collision, no `card·δ` factor).
+  exact contradiction_of_mrtDoorXiL2 R hlo hhi hdoor hbudget2 hlower
+
 end Salt.Entropy.Chowla
