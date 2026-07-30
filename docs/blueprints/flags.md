@@ -17160,3 +17160,37 @@ sharpest form: can the seam row's floor decouple from the ladder's
 top-block width (at Adoor M/2 the collision closes 2×).
 
 ## (2026-07-30 16:02 PDT) BOTH RATIFIED (JYH) — the KNOT-1 sequence (the binder ruling GRANTED, refuter → surgery) + LINK1-SCOPE on KNOT 2; dispatched
+
+## (2026-07-30 16:17 PDT) KNOT1-REF: SURGERY FIRE w/ three corrections — the M-conflation caught; THE BUDGET CEILING found (μ ≤ 1280× the floor, M-independent) — KNOT 2 must DROP THE FLOOR
+
+**⟦R1 AMENDED — the M-conflation + the direction⟧**  The scoper's
+budget walk ran at M = 66 (= m); the true pins are M = s13M = 4.5e19
+(log 𝒬K₂ = 3.13e56, log 𝒫₂ = 1.74e36).  Re-derived: the binding leg
+is the one never walked — the bundle is X^{2μ/log 𝒫₂}, NOT X^{o(1)},
+giving **an UPPER cap μ ≤ (5/48)·log 𝒫₂ = 1280·log2·M·Adoor M** —
+against KNOT-2's floor log2·M·Adoor M: **the window is ×1280 EXACTLY,
+M-INDEPENDENT, structural** (not the claimed 20 orders).  Does not
+block the surgery (nonempty), but ⟦THE STRATEGIC CONSEQUENCE⟧: this
+ceiling is p2-GENRE — a second μ-cap linear in the door numerals —
+so **KNOT 2 cannot be repaired by raising p2's cap (bounded ×1280);
+the repair MUST drop the floor — LINK 1 is the only viable
+direction.**  Handed to LINK1-SCOPE mid-flight.
+
+**⟦R2 AMENDED — the φ(q) line's honest home⟧**  Against q ≤ (log X)^12
+it FAILS at every μ (εr ≤ θ₂₉₃ − 1/500 = 0.0014 vs 12 — both sides
+exponential, the q-side bigger).  It closes ONLY against SocketBase's
+own H-SIDE modulus (q ≤ arcDen 12 H = (log H)^12) + the hPHheadroom
+conversion: εr·μ ≥ 898-genre at the floor μ = 1.41e32 — 27 orders ✓.
+The gate written in that form or not at all.  ⟦R3 CONFIRMED⟧ w/ the
+two side conditions carried (100·log Q ≤ log X_d — the origin of the
+unstated 100-line; the band product — low as claimed); the Mtail
+fence stands, not load-bearing.
+
+**⟦THE SURGERY'S SHAPE — CONFIRMED, (a) STRONGER⟧**  The per-block
+arity is ALREADY LANDED on the untwisted track (TSG_feed_of_thin
+carries Ms : ℕ → ℕ; KS_priced j-local and Ms-independent); the
+χ-track's scalar was a deliberate collapse with EXACTLY ONE j-free
+site (hbudget) — the surgery's only real edit; the conclusion
+Mr-free; RamErrWS needs NO arity change; ONE binder type in the
+capstone's residue.  Q ≤ 2P re-derived in three lines at the bytes.
+**⟦MR-SURGERY dispatched with the three corrections baked in.⟧**
