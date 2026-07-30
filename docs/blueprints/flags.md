@@ -17114,3 +17114,47 @@ bases**, with four links in the kill chain (the row floor h ≥ Q₁;
 the periodization headroom x ≥ 4^{ε²H}; the bases at x; the p²-row's
 log X_d/P₁ price) — BREAK ANY ONE.  KNOT1-SCOPE aloft; the joint
 design freeze on both dossiers.
+
+## (2026-07-30 15:52 PDT) KNOT1-SCOPE returns — THE SCALAR-vs-FAMILY ROOT: Mr must be per-block; KNOT 1 dissolves into ~500 ln of arity surgery; THE KNOTS ARE INDEPENDENT (the convergence note struck)
+
+**⟦THE CENSUS⟧**  TWO window families, ALREADY separate binder groups
+in m4_rowChi_capstone — the hypothesis's assignment INVERTED: F1 the
+razor at the DOOR blocks (log-ratio j²M = 264 at the pins); F2 the
+ram-block window at the 𝒰 pins (P ≥ P₈₃, ratio ≤ (log X)^θ/loglog X);
+exactly ONE cross-link (budget = F1×F2).  ramErr and ramMain share
+(P,Q) DEFINITIONALLY — no re-pin exists.  **⟦THE ROOT⟧: `Mr : ℕ` is
+a SCALAR serving all blocks while the co-factor range varies by Q/P
+— range@bottom forces Mr ≥ 2X/P, Mr_sharp@top forces Mr ≤ 4X/Q ⟹
+Q ≤ 2P in three lines, no KS arithmetic at all.  The point-band
+forcing was 100% the scalar's artifact.**
+
+**⟦THE REPAIR — ARITY, THREADED⟧**  Mr : ℕ → ℕ read inside the
+existing ∀j (the supplier is ALREADY per-block — its exit j-free);
+~500 ln / 7 files / class C / ZERO new mathematics.  Post-repair:
+KS_gate DISCHARGED OUTRIGHT (the pinned KS serves every block);
+E_ge CLOSES at the 𝒰 band — the demand (log X)^{θ−ε} vs S13-B's
+number: **slack e^488 at their own walked point, growing to e^{7.3e18}
+at the regime's μ — the demand was never outside its window.**  The
+capstone's conclusion UNCHANGED; DoorCapErrWS untouched; the residue
+shifts by ONE BINDER TYPE (the JYH ruling owed — our own statement).
+THE THREE GATE LINES TO ADD: ⟦THE φ(q) LINE⟧ (4·520·φ(q) vs 3·720
+fits only at φ(q) ≤ 1.038 — for φ(q) ≥ 2 the excess exits through
+EP2: `(log X)^ε ≳ 8320·φ(q)(τ+1)` — a genuine q-vs-base gate the
+q ≤ (log X)^12 does NOT imply; closes at the regime's μ; MUST be
+written); `100 ≤ loglog X` (base-scale, unstated); the sieve-error
+product (low).  THE ONE CROSS-LINK KILL-CHECK walked: the budget at
+the TOP block needs log X ≥ 1.0e20 (loglog ≥ 46.1) — passes the
+regime's μ ≥ 5.18e21 by 20 ORDERS (latent in the scalar version too,
+never walked).  HONEST FENCE: the Mtail ≍ 1 point-band claim is
+upper-bound-only — the knot statement is "no landed route discharges
+E_ge at a point", sufficient for the re-cut, no more.
+
+**⟦THE SLATE RESOLVES⟧**  KNOT 1 → mechanism-resolved (the arity
+surgery, ruling + light refuter (the budget link, the φ(q) line, the
+fence) → fire).  **THE KNOTS ARE INDEPENDENT — the maestro's
+convergence note is STRUCK** (no interaction found; banked honestly).
+KNOT 2 stands alone as the program's remaining mathematics: the M in
+P₁^M — the four links (the row floor h ≥ Q₁; the periodization
+headroom; the bases at x; the p²-row's price), break any one; the
+sharpest form: can the seam row's floor decouple from the ladder's
+top-block width (at Adoor M/2 the collision closes 2×).
