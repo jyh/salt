@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.MR.M4Gauss
 import Salt.MR.M4BridgeBlock
+import Salt.MR.M4Collapse
 
 /-!
 # ⟦S-4⟧ — THE SECOND ROAD'S TERMINAL REGISTER (`M4SecondRoad`)
@@ -403,6 +404,56 @@ theorem m4_cover_assembly_blk2 {Cg : ℝ} {R : ChowlaRegime} {M k : ℕ} {δ : �
 block.  The shifted bases stay inside the ladder block's own doubled interval
 (`M4BridgeBlock` §5), which is the whole content of the transfer. -/
 
+/-- **⟦R-P5⟧ `2^k ≤ 4·ω` FROM THE COVER'S OWN BLOCK COUNT** (`two_pow_le_four_mul_of_count`).
+`M4Close.M4DoorGates.hcount` reads `k ≤ log ω/log 2 + 2`; exponentiating it is the ℕ fact the
+door ladder's geometric floor needs.  Below `k = 2` the claim is `2^k ≤ 4 ≤ 4ω` outright. -/
+theorem two_pow_le_four_mul_of_count {k ω : ℕ} (hω : 2 ≤ ω)
+    (hcount : (k : ℝ) ≤ Real.log (ω : ℝ) / Real.log 2 + 2) : 2 ^ k ≤ 4 * ω := by
+  by_cases hk : k ≤ 2
+  · have h1 : 2 ^ k ≤ 2 ^ 2 := Nat.pow_le_pow_right (by norm_num) hk
+    omega
+  · have hω0 : (0 : ℝ) < (ω : ℝ) := by
+      have h : (0 : ℕ) < ω := by omega
+      exact_mod_cast h
+    have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+    have hk2 : 2 ≤ k := by omega
+    have hcast : ((k - 2 : ℕ) : ℝ) = (k : ℝ) - 2 := by
+      rw [Nat.cast_sub hk2]; norm_num
+    have h1 : ((k - 2 : ℕ) : ℝ) * Real.log 2 ≤ Real.log (ω : ℝ) := by
+      rw [hcast]
+      have hstep : (k : ℝ) - 2 ≤ Real.log (ω : ℝ) / Real.log 2 := by linarith
+      calc ((k : ℝ) - 2) * Real.log 2
+          ≤ Real.log (ω : ℝ) / Real.log 2 * Real.log 2 :=
+            mul_le_mul_of_nonneg_right hstep hlog2.le
+        _ = Real.log (ω : ℝ) := by field_simp
+    have h2 : Real.log ((2 : ℝ) ^ (k - 2)) ≤ Real.log (ω : ℝ) := by
+      rw [Real.log_pow]; exact h1
+    have hp : (0 : ℝ) < (2 : ℝ) ^ (k - 2) := by positivity
+    have h3 : (2 : ℝ) ^ (k - 2) ≤ (ω : ℝ) := by
+      have h4 := Real.exp_le_exp.mpr h2
+      rwa [Real.exp_log hp, Real.exp_log hω0] at h4
+    have h4 : 2 ^ (k - 2) ≤ ω := by exact_mod_cast h3
+    have h5 : 4 * 2 ^ (k - 2) = 2 ^ k := by
+      have hkk : (k - 2) + 2 = k := by omega
+      calc 4 * 2 ^ (k - 2) = 2 ^ (k - 2) * 2 ^ 2 := by ring
+        _ = 2 ^ ((k - 2) + 2) := (pow_add 2 (k - 2) 2).symm
+        _ = 2 ^ k := by rw [hkk]
+    omega
+
+/-- **⟦R-P5⟧ THE LADDER'S x-SCALE FLOOR** (`doorLadder_ge_x_div_four_omega`) — the supply side
+of the socket's x-scale antecedent.  Every rung in the cover's range is at least `⌊x/(4ω)⌋`:
+`M4Collapse.doorLadder_pow_lower` gives `⌊x/2^i⌋ ≤ X_i` (the descent halves at worst), and
+`two_pow_le_four_mul_of_count` turns the cover's block count into `2^i ≤ 2^k ≤ 4ω`.
+
+This is the composition ⟦R-P5⟧ named: the socket's bases ARE x-scale, and this is why. -/
+theorem doorLadder_ge_x_div_four_omega {x ω H k i : ℕ} (hω : 2 ≤ ω)
+    (hcount : (k : ℝ) ≤ Real.log (ω : ℝ) / Real.log 2 + 2) (hik : i ≤ k) :
+    x / (4 * ω) ≤ doorLadder x H i := by
+  have hpow : 2 ^ i ≤ 4 * ω :=
+    le_trans (Nat.pow_le_pow_right (by norm_num) hik) (two_pow_le_four_mul_of_count hω hcount)
+  have h1 : x / (4 * ω) ≤ x / 2 ^ i := Nat.div_le_div_left hpow (Nat.two_pow_pos i)
+  exact le_trans h1 (doorLadder_pow_lower x H i)
+
 set_option maxHeartbeats 1200000 in
 -- the block sum is re-associated over the drift blocks and then over the ladder block, and
 -- the stratified bound is instantiated once per drift block; every arithmetic step is
@@ -420,6 +471,7 @@ theorem m4_blockMeanSqBlk2_of_chiSummed {R : ChowlaRegime} {M k : ℕ} {Bcl : �
     (hgate : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
       arcDen 12 H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
     (harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ))
+    (hcount : (k : ℝ) ≤ Real.log (R.ω : ℝ) / Real.log 2 + 2)
     (hchi : M4ChiSummedBlockMeanSqN R M Bcl) :
     M4BlockMeanSqBlk2 R M k blockLen
       (fun H => 8 * strataResidual H ^ 2 * Bcl H) := by
@@ -437,12 +489,60 @@ theorem m4_blockMeanSqBlk2_of_chiSummed {R : ChowlaRegime} {M k : ℕ} {Bcl : �
   set L := blockLen H q with hLdef
   set N := numBlocks H L with hN
   have hLarc : 32 * arcDen 12 H ≤ (L : ℝ) := blockLen_arc_floor (R := R) hlo harcH
-  have hAarc : 32 * arcDen 12 H ≤ (A : ℝ) := by
-    have : (H : ℝ) ≤ (A : ℝ) := by exact_mod_cast (by omega : H ≤ A)
-    nlinarith
+  have hL16 : 16 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
+    nlinarith [harcH, sq_nonneg (arcDen 12 H)]
+  -- ⟦R-P5, THE x-SCALE LADDER AT THIS RUNG⟧ the two base antecedents `M4Gauss` now asks for,
+  -- discharged from the ladder's geometric floor (`doorLadder_ge_x_div_four_omega`) and the
+  -- regime's own wave-II headroom `8·H₊·log²H₊ ≤ ⌊x/ω⌋` (whose two log factors are `≥ 1`
+  -- at `H₊ ≥ 4·10⁶`) — NO new regime field, NO `g`-arm movement
+  have hω0N : 0 < 4 * R.ω := by have := R.hω; omega
+  have hω0 : (0 : ℝ) < (R.ω : ℝ) := by
+    have h : 0 < R.ω := by have := R.hω; omega
+    exact_mod_cast h
+  have hxdiv : R.x / (4 * R.ω) ≤ A := by
+    rw [hA]
+    exact doorLadder_ge_x_div_four_omega (H := H) R.hω hcount (by omega)
+  have hHhi4 : (4000000 : ℝ) ≤ (R.Hhi : ℝ) := by
+    have h : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
+    exact_mod_cast h
+  have hlogHhi : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) := by
+    have hexp : Real.exp 1 ≤ (R.Hhi : ℝ) := by nlinarith [Real.exp_one_lt_d9]
+    exact (Real.le_log_iff_exp_le (by linarith)).mpr hexp
+  have hxω : 8 * (R.ω : ℝ) * (R.Hhi : ℝ) ≤ (R.x : ℝ) := by
+    have hh := R.hheadroom'
+    have hcast : (((R.x / R.ω : ℕ)) : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := Nat.cast_div_le
+    have hlogsq : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) := by
+      nlinarith [hlogHhi]
+    have h1 : 8 * (R.Hhi : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := by
+      calc 8 * (R.Hhi : ℝ) = 8 * (R.Hhi : ℝ) * 1 := by ring
+        _ ≤ 8 * (R.Hhi : ℝ) * (Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ)) :=
+            mul_le_mul_of_nonneg_left hlogsq (by linarith)
+        _ = 8 * (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) := by ring
+        _ ≤ (((R.x / R.ω : ℕ)) : ℝ) := hh
+        _ ≤ (R.x : ℝ) / (R.ω : ℝ) := hcast
+    rw [le_div_iff₀ hω0] at h1
+    linarith
+  have hHhiR : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast hhi
+  have h8ωH : 8 * R.ω * H ≤ R.x := by
+    have h : (8 : ℝ) * (R.ω : ℝ) * (H : ℝ) ≤ (R.x : ℝ) := by nlinarith [hxω, hHhiR, hω0]
+    exact_mod_cast h
+  have h2HA : 2 * (H : ℝ) ≤ (A : ℝ) := by
+    have hn : 2 * H ≤ A := by
+      refine le_trans ((Nat.le_div_iff_mul_le hω0N).mpr ?_) hxdiv
+      calc 2 * H * (4 * R.ω) = 8 * R.ω * H := by ring
+        _ ≤ R.x := h8ωH
+    exact_mod_cast hn
+  have hxA : (R.x : ℝ) ≤ 8 * (R.ω : ℝ) * (A : ℝ) := by
+    have hdivub : R.x ≤ 4 * R.ω * (R.x / (4 * R.ω)) + 4 * R.ω :=
+      le_mul_div_add (A := R.x) (d := 4 * R.ω) hω0N
+    have h1 := (Nat.cast_le (α := ℝ)).mpr hdivub
+    have h2 : (((R.x / (4 * R.ω) : ℕ)) : ℝ) ≤ (A : ℝ) := by exact_mod_cast hxdiv
+    push_cast at h1
+    have hbig : 8 * (R.ω : ℝ) ≤ (R.x : ℝ) := by nlinarith [hxω, hHhi4, hω0]
+    nlinarith [h1, h2, hω0, hbig]
   -- ⟦the drift blocks, one free block each⟧
   have hstrat := m4_freeBlockSup_of_chiSummed (R := R) (M := M) (Bcl := Bcl) hM hBcl0 hgate
-    hchi H hlo hhi L hℓH hℓcnt hLarc b q hq hqQ
+    hchi H hlo hhi L hℓH hℓcnt hLarc hL16 b q hq hqQ
   have hper : ∀ m ∈ Finset.range N,
       ∑ n ∈ Finset.Ioc A B, (subWindowSup (doorSievedCoeff M) L (n + m * L)
           ((b : ℝ) / (q : ℝ))) ^ 2
@@ -457,12 +557,13 @@ theorem m4_blockMeanSqBlk2_of_chiSummed {R : ChowlaRegime} {M k : ℕ} {Bcl : �
         A B _
     rw [hshift]
     have hApos' : 0 < A + m * L := by omega
-    have hAarc' : 32 * arcDen 12 H ≤ ((A + m * L : ℕ) : ℝ) := by
-      have : (A : ℝ) ≤ ((A + m * L : ℕ) : ℝ) := by
-        exact_mod_cast (by omega : A ≤ A + m * L)
-      linarith
+    have hAle : (A : ℝ) ≤ ((A + m * L : ℕ) : ℝ) := by
+      exact_mod_cast (by omega : A ≤ A + m * L)
+    have h2HA' : 2 * (H : ℝ) ≤ ((A + m * L : ℕ) : ℝ) := by linarith
+    have hxA' : (R.x : ℝ) ≤ 8 * (R.ω : ℝ) * ((A + m * L : ℕ) : ℝ) := by
+      nlinarith [hxA, hAle, hω0]
     have hfit' : (B + m * L) + L ≤ 2 * (A + m * L) := by omega
-    have h := hstrat (A + m * L) (B + m * L) hApos' hAarc' hfit'
+    have h := hstrat (A + m * L) (B + m * L) hApos' h2HA' hxA' hfit'
     have hbase : ((A + m * L : ℕ) : ℝ) ≤ 2 * (A : ℝ) := by
       have hnat : A + m * L ≤ 2 * A := by omega
       have := (Nat.cast_le (α := ℝ)).mpr hnat
@@ -526,11 +627,22 @@ its binding order):
     *consumer data.*
 11. `M4ChiSummedFreeRow R M RS` — **THE ANALYTIC SLOT**, the socket of S-1.  Inhabited
     (`m4_chiSummedFreeRow_trivial`); the port must inhabit it at the §6 ceiling.
+    **⟦R-P5, wave P-1⟧ the socket now carries THREE BASE ANTECEDENTS inside its own
+    `∀`-prefix** (`2^j ≤ A`, `√H ≤ A`, `R.x ≤ 16·R.ω·arcDen 12 H·A` — see `M4ChiSummed`'s
+    header).  They only WEAKEN the socket, so this register line gains NOTHING: no new
+    conjunct, no new gate, no anchor movement, and the port adds ZERO `H`-demand.
 
-⟦F5 CHECK, RE-RUN⟧ `R.x` occurs in this register in exactly one place — `g R.Hhi R.ω ≤ R.x`,
-an `X`-LOWER supplied by the spine — so there is no `X`-upper anywhere and no `X`-upper can
-ride with an `X`-lower in any bundle (grep re-run over `M4ChiSummed`, `M4Gauss`,
-`M4SecondRoad`: clean).  ⟦WALL-D/F5's `DoorRowCarriedT0` bundle is not reached at all.⟧  The
+⟦F5 CHECK, RE-RUN — WITH THE x-ANTECEDENT⟧ `R.x` occurs in this register in exactly one
+place — `g R.Hhi R.ω ≤ R.x`, an `X`-LOWER supplied by the spine — so there is no `X`-upper
+anywhere and no `X`-upper can ride with an `X`-lower in any bundle (grep re-run over
+`M4ChiSummed`, `M4Gauss`, `M4SecondRoad`: clean).  **The socket's new x-scale antecedent does
+NOT change this**: `R.x ≤ 16·R.ω·arcDen 12 H·A` is a HYPOTHESIS inside ⟦item 11⟧'s Prop, not
+a conjunct of this register — it is what the socket's SUPPLIER may assume, discharged here
+from the ladder's own geometric floor (`doorLadder_ge_x_div_four_omega`, §3) and the regime's
+wave-II headroom, with no new field and no `g`-arm movement.  Read as an `X`-comparison it is
+an `X`-UPPER *given to* the supplier, i.e. an `X`-LOWER *on the base* — the same direction as
+the `g`-arm, never against it.  ⟦WALL-D/F5's `DoorRowCarriedT0` bundle is not reached at
+all.⟧  The
 `H`-conjuncts are: one LOWER (⟦7⟧, regime-absorbable), two UPPERS (⟦6⟧ slack by 61 orders,
 ⟦8⟧ binding), and the rest are envelope floors on witnessed data. -/
 theorem m4_second_road :
@@ -578,7 +690,7 @@ theorem m4_second_road :
   have hBcl0 : ∀ H : ℕ, 0 ≤ m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H :=
     fun H => m4BclGraded_nonneg (by have := hRSan0 H; linarith) (by have := hRStr0 H; linarith)
   -- ⟦the blocked block mean square⟧
-  have hblk2 := m4_blockMeanSqBlk2_of_chiSummed (k := k) hM hBcl0 hdgate harc hchi
+  have hblk2 := m4_blockMeanSqBlk2_of_chiSummed (k := k) hM hBcl0 hdgate harc hgates.hcount hchi
   have hBblk0 : ∀ H : ℕ, 0 ≤ 8 * strataResidual H ^ 2
       * m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H := by
     intro H

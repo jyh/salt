@@ -17,8 +17,10 @@ LANDED unconditional ψ-PNT `Salt.BV.siegelWalfisz_psiTot` via two bridge nodes:
 * **node 1** (`Mmu_rate`, ψ → M_μ): the effective Tauberian bridge, the classical
   "equivalent forms of PNT" argument made effective. This is the one genuinely deep
   step (the μ ↔ ψ equivalence). Here it is packaged as the clean hypothesis `Prop`
-  `MmuRate`; landing it from `siegelWalfisz_psiTot` is the remaining obstruction
-  (see the module note at the end / the exploration ledger).
+  `MmuRate`, and it is now **LANDED**: `Salt.SW.mmuRate_holds : MmuRate`
+  (`Salt/SW/MobiusRateClose.lean` — the `1/ζ` smoothed-Perron contour at
+  `log T = (log x)^{1/10}` plus the two-point Riesz de-smoothing). No obstruction
+  remains here.
 * **node 2** (`Mlambda_rate`, M_μ → M_λ): the *hyperbola fold*. This file LANDS it
   unconditionally-in-`M_μ`: from the exact identity `λ = 1_{squares} ∗ μ`, i.e.
   `M_λ(y) = ∑_{d ≤ √y} M_μ(⌊y/d²⌋)` (`Mlambda_eq_sum_Mmu`, unconditional), the rate
@@ -26,8 +28,10 @@ LANDED unconditional ψ-PNT `Salt.BV.siegelWalfisz_psiTot` via two bridge nodes:
   (log y)/2`, `∑ 1/d²` converges) versus `d > y^{1/4}` (crude `|M_μ| ≤ y/d²`, tail
   `≤ y^{3/4} = o(y/(log y)^A)`).
 
-So the WALL SHIPS conditional on the single clean `MmuRate` Prop — a massive
-improvement over the retired λ-BV route.
+So the WALL SHIPS UNCONDITIONALLY: the single clean `MmuRate` Prop is discharged by
+`Salt.SW.mmuRate_holds`, and `Salt/TwinBar/WallUnconditional.lean` composes the two
+through `LambdaSummatory_of_MmuRate` — a massive improvement over the retired λ-BV
+route.
 
 ## Naming (Q6a-2 reconciliation)
 
@@ -53,8 +57,9 @@ noncomputable def Mlambda (y : ℕ) : ℝ :=
 
 /-- **The effective Möbius summatory rate** (node 1's clean interface).
 `|M_μ(y)| ≤ C·y/(log y)^A` for every saving `A > 0`, uniformly for `y` large.
-This is the effective Tauberian bridge from the ψ-PNT; landing it from
-`siegelWalfisz_psiTot` is the remaining obstruction. -/
+This is the effective Tauberian bridge from the ψ-PNT, and it is **LANDED**:
+`Salt.SW.mmuRate_holds : MmuRate` (`Salt/SW/MobiusRateClose.lean`).  Nothing here is
+conditional any more; the Prop is kept as the clean interface the fold below reads. -/
 def MmuRate : Prop :=
   ∀ A : ℝ, 0 < A → ∃ (C : ℝ) (x₀ : ℕ), 0 < C ∧ ∀ y : ℕ, x₀ ≤ y →
     |Mmu y| ≤ C * y / (Real.log y) ^ A

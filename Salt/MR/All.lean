@@ -229,6 +229,10 @@ import Salt.MR.M4ChiSummed
 import Salt.MR.M4Gauss
 import Salt.MR.M4SecondRoad
 import Salt.MR.VkTwistRegionProbe
+import Salt.MR.MVHilbertFinset
+import Salt.MR.CharFold
+import Salt.MR.HybridMVT
+import Salt.MR.LambdaRateTwisted
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -3951,6 +3955,26 @@ open Salt.Tactic in
 -- — `q`-free, as the socket demands.  ⟦WHY `Σ_χ`⟧ a per-χ socket re-imports a factor `φ(q)`
 -- at the Gauss step; the χ-SUM is what makes the composition `O(1)`.
 --
+-- ⟦R-P5 / THE KMT PORT'S x-SCALE LADDER — wave P-1, 2026-07-29⟧ all three predicates of the
+-- chain now quantify their base under THREE ANTECEDENTS: `2^j ≤ A` (`L ≤ A` at the block
+-- form), `√H ≤ A`, and `R.x ≤ 16·R.ω·arcDen 12 H·A`.  The port's supply ladder needs
+-- `loglog A ≳ 285`, unreachable at the `H`-scale without breaking the ruled `2³⁶` gate-8
+-- sandwich; the socket's bases ARE door-ladder rungs, so the socket CARRIES that fact.  They
+-- only WEAKEN the socket — every anti-vacuity witness discharges the new binders trivially,
+-- `m4_second_road`'s ⟦item 11⟧ line gains NOTHING (the antecedents live in the socket's own
+-- `∀`-prefix), the register gains no conjunct and no gate, and the port adds ZERO `H`-demand.
+-- Supply side: `doorLadder_ge_x_div_four_omega` (`M4Collapse.doorLadder_pow_lower` composed
+-- with `two_pow_le_four_mul_of_count`, i.e. `M4DoorGates.hcount`'s `2^k ≤ 4ω`) plus the
+-- regime's wave-II headroom `8·H₊·log²H₊ ≤ ⌊x/ω⌋` — NO new regime field, NO `g`-arm movement.
+-- `M4Gauss`'s stratified consumer swaps its crude base floor `32·arcDen ≤ A` for `2H ≤ A` and
+-- `R.x ≤ 8·R.ω·A` and re-derives all three at the DILATED base `⌊A/d⌋ − 1` by the `hcapnar`
+-- pattern (`capL_le_dilated_base`, `le_mul_div_add`) — the ONE `arcDen` cushion on the
+-- x-antecedent is the honest price of that dilation, already recorded at `M4BaseNarrow`'s
+-- header, and costs nothing at `loglog` since `R.x` is the consumer's own via the `g`-arm.
+-- The one shape change: the fallback bridge to the per-χ family is now POINTWISE
+-- (`chiFreeRowSq_le_of_chiSummed`), since the landed un-antecedented predicate
+-- `M4ChiFreeRowMeanSq` cannot carry base antecedents.  Nothing consumes it.
+--
 -- ⟦S-2 THE MIRRORS⟧ the landed free-base chain re-run POINTWISE-IN-χ then summed:
 -- `chiFreeShift_pointwise` (⟦W3⟧ at a per-χ constant) → `m4_chiSummedShiftBlock_of_freeRow`
 -- → `m4_chiSummedBlockN_of_shiftBlock` (⟦W4⟧'s dyadic assembly at the summed integrand) →
@@ -4003,7 +4027,7 @@ open Salt.Tactic in
   Salt.MR.chiFreeRowSq_le_four
   Salt.MR.M4ChiSummedFreeRow
   Salt.MR.m4_chiSummedFreeRow_trivial
-  Salt.MR.m4_chiFreeRow_of_chiSummed
+  Salt.MR.chiFreeRowSq_le_of_chiSummed
   Salt.MR.chiFreeShift_pointwise
   Salt.MR.M4ChiSummedFreeShiftBlock
   Salt.MR.m4_chiSummedShiftBlock_trivial
@@ -4027,6 +4051,8 @@ open Salt.Tactic in
   Salt.MR.subWindowSup_sq_le_strata
   Salt.MR.sum_inv_divisors_le
   Salt.MR.strataResidual
+  Salt.MR.capL_le_dilated_base
+  Salt.MR.le_mul_div_add
   Salt.MR.m4_freeBlockSup_of_chiSummed
   Salt.MR.four_le_arcDen_of_regime
   Salt.MR.blockLen
@@ -4037,6 +4063,8 @@ open Salt.Tactic in
   Salt.MR.m4_sievedDoorSq_of_blk2
   Salt.MR.M4BlockMeanSqBlk2
   Salt.MR.m4_cover_assembly_blk2
+  Salt.MR.two_pow_le_four_mul_of_count
+  Salt.MR.doorLadder_ge_x_div_four_omega
   Salt.MR.m4_blockMeanSqBlk2_of_chiSummed
   Salt.MR.m4_second_road
 
@@ -4133,3 +4161,120 @@ open Salt.Tactic in
   Salt.MR.LFunction_region_of_uniform_growth
   Salt.MR.LFunction_zero_free_width_law
   Salt.MR.LFunction_zero_free_region_vk_shape
+
+-- ⟦WAVE P-2 — THE HYBRID LARGE SIEVE FOR CHARACTERS (KMT Lemma 6.2)⟧ (2026-07-29, port
+-- freeze v2 wave P-2; `MVHilbertFinset` / `CharFold` / `HybridMVT`).  Four stages, all
+-- ADDITIVE (the landed `L2MVT` / `MVHilbert` / `MVCore2` / `LS.CharLS` untouched):
+--
+-- ⟦S1 THE AP GAP⟧ `log_gap_ge_of_modEq`: distinct `m, n ∈ [1,N]` with `m ≡ n [MOD q]` have
+-- `q/N ≤ |log m − log n|` — the `q`-fold sharpening of `log_gap_ge`, sharp (`n − m = q`
+-- attained), NO coprimality needed.  ⟦S2 THE FINSET RE-CUT⟧ the landed MVT assembly
+-- generalized from `Icc 1 N` to an arbitrary `s : Finset ℕ` with a *parameter* separation
+-- `δ`: `dpolyS_l2_mvt_final : ∫_{-T}^{T}‖∑_{n∈s} aₙ n^{it}‖² ≤ (2T + 2π/δ)·∑_{n∈s}‖aₙ‖²`.
+-- The Montgomery–Vaughan core is CONSUMED VERBATIM — `MVHilbertUniform` was already stated
+-- at an arbitrary `Finset ℕ` with arbitrary real frequencies, so `mvHilbertUniform_holds`
+-- (MVCore2) applies unchanged; `offdiag_term_hilbert` likewise (index-set agnostic).
+-- ⟦R-P3's MANDATE⟧ the re-cut is not cosmetic: running the MVT on `Icc 1 N` and only then
+-- splitting by class pays `φ(q)·2πN` — a factor `q` above the target.  The `1/q` is bought
+-- by the per-class separation and is NOT droppable (unlike the `φ(q)/q`, whose loss costs
+-- only a logloglog).  ⟦S3 THE ALL-χ FOLD⟧ `char_plancherel` extracts `CharLS`'s
+-- proof-internal Plancherel chain (lines 88–178) as a standalone lemma over an arbitrary
+-- `S : ZMod q → ℂ`: `∑_{χ mod q}‖∑_b χ(b)S(b)‖² = φ(q)·∑_{b unit}‖S b‖²` — ALL `φ(q)`
+-- characters, principal and imprimitive included (no primitivity filter: that belongs to
+-- the Gauss-sum argument, not here).  Plus the reindex bridge `dpolyChi_eq_class_sum`
+-- (χ(n) = 0 at non-units handles coprimality for free) and the integrability plumbing
+-- (`sum_chi_meanSq_fold`: the symmetric-window integral passes through both finite sums).
+--
+-- ⟦S4 THE ASSEMBLY⟧ `hybrid_char_mvt` — for `s ⊆ Icc 1 N`:
+--   `∑_{χ mod q} ∫_{-T}^{T} ‖∑_{n∈s} aₙ·χ(n)·n^{it}‖² dt`
+--     `≤ (2·φ(q)·T + 7·φ(q)·N/q) · ∑_{n∈s, (n,q)=1} ‖aₙ‖²`.
+-- ⟦THE CONSTANT IS 7, NOT 13⟧ the refuter priced the off-diagonal at `4π ≤ 13` from
+-- `δ = q/(2N)`; S1 is sharp at `δ = q/N`, so the off-diagonal pays `2π ≤ 7` — the sharp
+-- form, for free.  The `2` on the diagonal is exact (the two half-ranges of `[-T,T]`).
+-- The RHS mass is the SHARP coprime-filtered one (`hybrid_char_mvt_full` weakens it to all
+-- of `s` when a caller wants the crude form; needs `0 ≤ T`).  ⟦CATCH #B DISCHARGED⟧ the
+-- statement is at `n^{+it}` (KMT's convention); `dpolyS_meanSq_reflect` shows the mean
+-- square over the symmetric window is `t ↦ −t` invariant, so the corpus's `P(1−it)`
+-- callers cost nothing.
+open Salt.Tactic in
+#audit_axioms Salt.MR.log_gap_ge_of_modEq
+  Salt.MR.dpolyS_l2_expand
+  Salt.MR.dpolyS_l2_diagonal
+  Salt.MR.offdiag_eq_hilbertS
+  Salt.MR.norm_hilbertLogSumS_le
+  Salt.MR.dpolyS_l2_mvt
+  Salt.MR.dpolyS_l2_mvt_final
+  Salt.MR.dpolyS_meanSq_reflect
+  Salt.MR.char_plancherel
+  Salt.MR.dpolyChi_eq_class_sum
+  Salt.MR.sum_chi_meanSq_pointwise
+  Salt.MR.sum_chi_meanSq_fold
+  Salt.MR.classSet_meanSq_le
+  Salt.MR.sum_unitClass_mass
+  Salt.MR.hybrid_char_mvt
+  Salt.MR.hybrid_char_mvt_full
+
+-- ⟦O3 — THE TWISTED μ→λ BRIDGE⟧ (2026-07-29, KMT port wave P-1; `LambdaRateTwisted`).
+--
+-- The χ,t-twisted version of the landed `Salt.TwinBar.LambdaRate` chain, i.e. obligation O3
+-- of the port freeze (`docs/exploration/port-freeze-0729.md` §3): "the χ,t-twisted bridge,
+-- mechanical — complete multiplicativity distributes over the convolution".  It is now
+-- landed, and the "mechanical" reading held.
+--
+-- ⟦THE GENERAL LAW, NEW⟧ mathlib has `pmul`, `pmul_apply`, `pmul_comm/assoc`,
+-- `IsMultiplicative.pmul` — but NO law relating `pmul` to the Dirichlet convolution `*`, and
+-- no `IsCompletelyMultiplicative` predicate at all.  So the law is stated here:
+-- `mul_apply_mul_twist` / `pmul_mul_of_twist` — `(f ∗ g)·h = (f·h) ∗ (g·h)` for any `h`
+-- multiplicative on nonzero pairs, a `Finset` rearrangement over `divisorsAntidiagonal`.
+--
+-- ⟦THE DATUM⟧ `chiBarTwist χ t n := conj (χ n) · exp (i·t·log n)` — χ BARRED, per the corpus
+-- (`ChiFloor.lean`'s `lamChi χ n = lam n · conj (χ n)`); KMT writes `χ(n)` unbarred.  The name
+-- is `chiBarTwist` and not `chiTwist` because `Salt.MR.chiTwist` is already taken by
+-- `ChiEuler.lean`'s UNBARRED g-side datum.  The twist is in `exp` form, term-for-term
+-- `NonPret.costwist`, so `chiBarTwist χ t n = conj (χ n) * costwist t n` holds by `rfl`; the
+-- sign is `n^{+it}` and every statement is `∀ t`, so KMT's `n^{-it}` is `chiBarTwist χ (-t)`.
+--
+-- ⟦THE TRANSFER⟧ `liouville_twist_eq_sum_divisorsAntidiagonal` (the identity `λ = 1_sq ∗ μ`
+-- twisted), then `MlambdaChi_eq_sum_MmuChi` — the twisted `M_λχ̄(y) = ∑_{d ≤ √y} χ̄(d²)d^{2it}
+-- M_μχ̄(⌊y/d²⌋)`.  The five arithmetic helpers of the landed fold (`sum_inv_sq_Ioc_le`,
+-- `log_natSqrt_ge`, `le_sqrt_sqrt_of_pow4_le`, `eventually_pow4_le`, `sum_inv_sq_Icc_le`) are
+-- CHARACTER-BLIND and are cited, not re-proved; only `Mmu_abs_le` needed a twin
+-- (`norm_MmuChi_le`, `‖·‖` over ℂ instead of `|·|` over ℝ).
+--
+-- ⟦THE HYPOTHESIS SLOT, HONESTLY NOT LANDED⟧ `MmuChiRate` is the twisted twin of
+-- `Salt.TwinBar.MmuRate`: a `y(log y)^{-A}` saving on `‖MmuChi χ t y‖`, with `C` and `x₀`
+-- chosen BEFORE `q`, `χ`, `t` (uniform in the conductor range and in the height).  It is
+-- exactly obligations **O4** (the `MobiusRateClose` re-run at `L(s,χ)`) + **O5** (the t-aspect
+-- = the χ-VK/Landau–Page region, THE SAME STONE as P-6's stone B) and is NOT landed.
+-- `LambdaChiSummatory_of_MmuChiRate` is the deliverable, conditional on it.
+--
+-- ⟦THE ONE PRICE, SPENT EXPLICITLY⟧ the μ-rate is invoked at `⌊y/d²⌋`, where only
+-- `log⌊y/d²⌋ ≥ (log y)/4` is available, so the conductor gate moves by ONE exponent:
+-- hypothesis at `q ≤ (log y)^{12}` (the freeze's number), deliverable at `q ≤ (log y)^{11}`.
+-- The gate is on the MODULUS `q`, not `conductor χ`; since `conductor χ ≤ q` that demands
+-- LESS of O4/O5 than the freeze's own line.
+--
+-- ⟦THE STALE COMMENT STRUCK⟧ `Salt/TwinBar/LambdaRate.lean`'s header and `MmuRate` docstring
+-- both claimed that landing `MmuRate` from `siegelWalfisz_psiTot` "is the remaining
+-- obstruction".  It is not: `Salt.SW.mmuRate_holds` (`Salt/SW/MobiusRateClose.lean`) LANDED,
+-- and `Salt/TwinBar/WallUnconditional.lean` composes it.  Docstrings only; no declaration,
+-- statement or proof in that file moved.
+open Salt.Tactic in
+#audit_axioms Salt.MR.mul_apply_mul_twist
+  Salt.MR.pmul_mul_of_twist
+  Salt.MR.chiBarTwist
+  Salt.MR.chiBarTwist_mul
+  Salt.MR.norm_chiBarTwist_le_one
+  Salt.MR.liouville_twist_eq_sum_divisorsAntidiagonal
+  Salt.MR.MmuChi
+  Salt.MR.MlambdaChi
+  Salt.MR.MmuChi_one_zero
+  Salt.MR.MlambdaChi_one_zero
+  Salt.MR.liouville_twist_eq_sum_moebius_twist
+  Salt.MR.MmuChi_inner
+  Salt.MR.MlambdaChi_eq_sum_MmuChi
+  Salt.MR.norm_MmuChi_le
+  Salt.MR.MmuChiRate
+  Salt.MR.LambdaChiSummatory
+  Salt.MR.MlambdaChi_rate
+  Salt.MR.LambdaChiSummatory_of_MmuChiRate

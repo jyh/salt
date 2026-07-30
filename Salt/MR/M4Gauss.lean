@@ -680,6 +680,35 @@ theorem capL_le_div_succ {L d : ℕ} (_hd0 : 0 < d) : capL L d ≤ L / d + 1 := 
     omega
   · rw [if_neg hd1]
 
+/-- **⟦R-P5⟧ THE DILATED CAP FITS STRICTLY INSIDE THE DILATED BASE**
+(`capL_le_dilated_base`).  `ℕ`-division bookkeeping only: `capL L d ≤ ⌊L/d⌋ + 1`
+(`capL_le_div_succ`), `⌊L/d⌋ ≥ 32` from `32d ≤ L`, and `⌊A/d⌋ ≥ 2⌊L/d⌋` from `2L ≤ A` —
+so `⌊A/d⌋ − 1 ≥ ⌊L/d⌋ + 31`.  The two units of slack the `−1` and the `+1` need are bought
+by the `32`, never guessed.
+
+This is what supplies `M4ChiSummedBlockMeanSqN`'s LENGTH antecedent (`L ≤ A`) at the
+stratified consumer's re-indexed block. -/
+theorem capL_le_dilated_base {L d A : ℕ} (hd0 : 0 < d) (h32 : 32 * d ≤ L)
+    (h2LA : 2 * L ≤ A) : capL L d ≤ A / d - 1 := by
+  have hc := capL_le_div_succ (L := L) (d := d) hd0
+  have hLd32 : 32 ≤ L / d := (Nat.le_div_iff_mul_le hd0).mpr (by omega)
+  have h2Ld : 2 * (L / d) ≤ A / d := by
+    refine le_trans ?_ (Nat.div_le_div_right h2LA)
+    refine (Nat.le_div_iff_mul_le hd0).mpr ?_
+    have h := Nat.div_mul_le_self L d
+    calc 2 * (L / d) * d = 2 * (L / d * d) := by ring
+      _ ≤ 2 * L := Nat.mul_le_mul_left 2 h
+  -- the three ℕ atoms, abstracted so `omega` sees no variable division
+  have hkey : ∀ c l a : ℕ, c ≤ l + 1 → 32 ≤ l → 2 * l ≤ a → c ≤ a - 1 := by
+    intro c l a h1 h2 h3; omega
+  exact hkey _ _ _ hc hLd32 h2Ld
+
+/-- **⟦R-P5⟧ THE DILATED BASE'S TWO-SIDED `ℕ`-DIVISION BOUND** (`le_mul_div_add`).
+`A ≤ d·⌊A/d⌋ + d` — the `+d` is the discarded remainder, spent explicitly. -/
+theorem le_mul_div_add {A d : ℕ} (hd0 : 0 < d) : A ≤ d * (A / d) + d := by
+  conv_lhs => rw [← Nat.div_add_mod A d]
+  exact Nat.add_le_add_left (Nat.mod_lt _ hd0).le _
+
 theorem le_mul_capL {L d : ℕ} (hd0 : 0 < d) : L ≤ d * capL L d := by
   unfold capL
   by_cases hd1 : d = 1
@@ -711,7 +740,17 @@ the divisor residual `(∑_{d ∣ q} 1/d)² ≤ (1 + log arcDen)²` — `H`-only
 ⟦THE GATES⟧ two, both `H`-only, one-sided and regime-absorbable: the `M`-RELATIVE dilation
 gate `arcDen 12 H < calP (Adoor M) (3072M) 1` (never the retired numeral), and the window
 floor `32·arcDen 12 H² ≤ H`.  The latter is what makes every stratum's re-indexed block
-non-degenerate (`2d ≤ A`) and every dilated cap admissible. -/
+non-degenerate (`2d ≤ A`) and every dilated cap admissible.
+
+⟦R-P5, THE BASE ANTECEDENTS SWAPPED⟧ the crude base floor `32·arcDen 12 H ≤ A` is replaced
+by the two x-scale-ladder facts `2H ≤ A` and `R.x ≤ 8·R.ω·A`, and the window floor is read
+at its square (`16·arcDen 12 H ² ≤ H`).  All three are strictly what the socket's three base
+antecedents cost at the ONE dilation this file performs: the re-indexed block
+`(⌊A/d⌋ − 1, ⌊B/d⌋]` must satisfy `capL L d ≤ ⌊A/d⌋ − 1`, `√H ≤ ⌊A/d⌋ − 1` and
+`R.x ≤ 16·R.ω·arcDen 12 H·(⌊A/d⌋ − 1)`, and each is derived below by the same pattern as
+`hcapnar` (the narrowing at the dilated cap): one power of `arcDen 12 H` is spent because
+`d ≤ arcDen 12 H`.  `32·arcDen 12 H ≤ A` still follows (`2H ≥ 2·32·arcDen`), so nothing
+downstream of the old floor is weakened. -/
 theorem m4_freeBlockSup_of_chiSummed {R : ChowlaRegime} {M : ℕ} {Bcl : ℕ → ℝ} (hM : 1 ≤ M)
     (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
     (hgate : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
@@ -719,15 +758,20 @@ theorem m4_freeBlockSup_of_chiSummed {R : ChowlaRegime} {M : ℕ} {Bcl : ℕ →
     (hchi : M4ChiSummedBlockMeanSqN R M Bcl) :
     ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H →
       (H : ℝ) ≤ arcDen 12 H ^ 2 * (L : ℝ) → 32 * arcDen 12 H ≤ (L : ℝ) →
+      16 * arcDen 12 H ^ 2 ≤ (H : ℝ) →
       ∀ (b : ℤ) (q : ℕ), 0 < q → (q : ℝ) ≤ arcDen 12 H →
-        ∀ A B : ℕ, 0 < A → 32 * arcDen 12 H ≤ (A : ℝ) → B + L ≤ 2 * A →
+        ∀ A B : ℕ, 0 < A → 2 * (H : ℝ) ≤ (A : ℝ) →
+          (R.x : ℝ) ≤ 8 * (R.ω : ℝ) * (A : ℝ) → B + L ≤ 2 * A →
           ∑ n ∈ Finset.Ioc A B,
               (subWindowSup (doorSievedCoeff M) L n ((b : ℝ) / (q : ℝ))) ^ 2
             ≤ 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ) := by
   classical
-  intro H hlo hhi L hLH hnar hLarc b q hq hqQ A B hA hAarc hfit
+  intro H hlo hhi L hLH hnar hLarc harcsq b q hq hqQ A B hA hAH hAx hfit
   have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
   have harc0 : (0 : ℝ) < arcDen 12 H := by linarith
+  have hAarc : 32 * arcDen 12 H ≤ (A : ℝ) := by
+    have hLHR : (L : ℝ) ≤ (H : ℝ) := by exact_mod_cast hLH
+    linarith
   have hres0 : (0 : ℝ) ≤ strataResidual H := strataResidual_nonneg harc1
   have hB0 := hBcl0 H
   have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
@@ -751,6 +795,22 @@ theorem m4_freeBlockSup_of_chiSummed {R : ChowlaRegime} {M : ℕ} {Bcl : ℕ →
   have hL2 : 2 ≤ L := by
     have : (2 : ℝ) ≤ (L : ℝ) := by linarith
     exact_mod_cast this
+  -- ⟦R-P5, THE THREE ANTECEDENTS AT THE UNDILATED BASE⟧ the two arithmetic facts every
+  -- dilated instance below re-reads: `4·arcDen 12 H ≤ √H` (the window floor at its square)
+  -- and `2L ≤ A` (the length antecedent with the two units of `ℕ`-division slack)
+  have hH0 : 0 < H := by omega
+  have hH0R : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH0
+  have hLHR : (L : ℝ) ≤ (H : ℝ) := by exact_mod_cast hLH
+  have hsqrt0 : (0 : ℝ) ≤ Real.sqrt (H : ℝ) := Real.sqrt_nonneg _
+  have hsqsq : Real.sqrt (H : ℝ) ^ 2 = (H : ℝ) := Real.sq_sqrt hH0R.le
+  have harcsqrt : 4 * arcDen 12 H ≤ Real.sqrt (H : ℝ) := by
+    have h1 : Real.sqrt ((4 * arcDen 12 H) ^ 2) ≤ Real.sqrt (H : ℝ) :=
+      Real.sqrt_le_sqrt (by nlinarith)
+    rwa [Real.sqrt_sq (by positivity)] at h1
+  have hsqrtle : Real.sqrt (H : ℝ) ≤ (H : ℝ) := by nlinarith [harcsqrt, harc1]
+  have h2LA : 2 * L ≤ A := by
+    have h : (2 : ℝ) * (L : ℝ) ≤ (A : ℝ) := by linarith
+    exact_mod_cast h
   -- ⟦the per-base stratified bound, summed⟧
   have hpt : ∀ n ∈ Finset.Ioc A B,
       (subWindowSup (doorSievedCoeff M) L n ((b : ℝ) / (q : ℝ))) ^ 2
@@ -782,6 +842,12 @@ theorem m4_freeBlockSup_of_chiSummed {R : ChowlaRegime} {M : ℕ} {Bcl : ℕ →
     have hdA2 : 2 * d ≤ A := by exact_mod_cast hdA2R
     have hdA : d ≤ A := by omega
     have hdL : (d : ℝ) ≤ (L : ℝ) := by nlinarith
+    have h32dL : 32 * d ≤ L := by
+      have h : (32 : ℝ) * (d : ℝ) ≤ (L : ℝ) := by linarith
+      exact_mod_cast h
+    have hdA3 : 3 * d ≤ A := by
+      have h : (3 : ℝ) * (d : ℝ) ≤ (A : ℝ) := by linarith
+      exact_mod_cast h
     -- ⟦the reduced modulus⟧
     have hq0 : 0 < q / d := Nat.div_pos (Nat.le_of_dvd hq hdq) hd0
     have hq0Q : ((q / d : ℕ) : ℝ) ≤ arcDen 12 H :=
@@ -806,6 +872,53 @@ theorem m4_freeBlockSup_of_chiSummed {R : ChowlaRegime} {M : ℕ} {Bcl : ℕ →
     -- ⟦the re-indexed block⟧
     have hA'2 : 2 ≤ A / d := (Nat.le_div_iff_mul_le hd0).mpr (by omega)
     have hA'pos : 0 < A / d - 1 := by omega
+    have hA'3 : 3 ≤ A / d := (Nat.le_div_iff_mul_le hd0).mpr (by omega)
+    -- ⟦R-P5, THE THREE ANTECEDENTS AT THE DILATED BASE⟧ each spends exactly one power of
+    -- `arcDen 12 H` (because `d ≤ arcDen 12 H`) and the two `ℕ`-division units the `⌊·⌋` and
+    -- the `−1` cost — the same pattern as `hcapnar` above
+    have hA'cast : ((A / d - 1 : ℕ) : ℝ) = ((A / d : ℕ) : ℝ) - 1 := by
+      have h1 : 1 ≤ A / d := by omega
+      rw [Nat.cast_sub h1, Nat.cast_one]
+    have hAdiv : (A : ℝ) ≤ (d : ℝ) * ((A / d : ℕ) : ℝ) + (d : ℝ) := by
+      have h' := (Nat.cast_le (α := ℝ)).mpr (le_mul_div_add (A := A) (d := d) hd0)
+      push_cast at h'
+      linarith
+    have hA'0 : (0 : ℝ) ≤ ((A / d - 1 : ℕ) : ℝ) := Nat.cast_nonneg _
+    have hA'2R : (2 : ℝ) ≤ ((A / d - 1 : ℕ) : ℝ) := by
+      have h : (2 : ℕ) ≤ A / d - 1 := by omega
+      exact_mod_cast h
+    -- (i) THE LENGTH ANTECEDENT `capL L d ≤ ⌊A/d⌋ − 1`
+    have hcapA : capL L d ≤ A / d - 1 := capL_le_dilated_base hd0 h32dL h2LA
+    -- (ii) THE `√H` ANTECEDENT
+    have hsqA' : Real.sqrt (H : ℝ) ≤ ((A / d - 1 : ℕ) : ℝ) := by
+      rw [hA'cast]
+      have hd4 : 4 * (d : ℝ) ≤ Real.sqrt (H : ℝ) := by linarith
+      have hmul := mul_le_mul_of_nonneg_right hd4
+        (by positivity : (0 : ℝ) ≤ Real.sqrt (H : ℝ) + 2)
+      have hkey : (d : ℝ) * (Real.sqrt (H : ℝ) + 2) ≤ (A : ℝ) := by
+        nlinarith [hmul, hsqsq, hsqrtle, hAH, hH0R, hA0R]
+      have hstep : (d : ℝ) * Real.sqrt (H : ℝ)
+          ≤ (d : ℝ) * (((A / d : ℕ) : ℝ) - 1) := by nlinarith [hAdiv, hkey]
+      exact le_of_mul_le_mul_left hstep hd0R
+    -- (iii) THE x-SCALE ANTECEDENT
+    have hxA' : (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * ((A / d - 1 : ℕ) : ℝ) := by
+      have hω0 : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
+      have hAd2 : (A : ℝ) ≤ (d : ℝ) * ((A / d - 1 : ℕ) : ℝ) + 2 * (d : ℝ) := by
+        rw [hA'cast]; linarith [hAdiv]
+      have s1 : (R.x : ℝ)
+          ≤ 8 * (R.ω : ℝ) * ((d : ℝ) * ((A / d - 1 : ℕ) : ℝ) + 2 * (d : ℝ)) := by
+        have := mul_le_mul_of_nonneg_left hAd2 (by positivity : (0 : ℝ) ≤ 8 * (R.ω : ℝ))
+        linarith [hAx]
+      have s2 : (d : ℝ) * ((A / d - 1 : ℕ) : ℝ) + 2 * (d : ℝ)
+          ≤ 2 * (arcDen 12 H * ((A / d - 1 : ℕ) : ℝ)) := by
+        have h1 : (d : ℝ) * ((A / d - 1 : ℕ) : ℝ)
+            ≤ arcDen 12 H * ((A / d - 1 : ℕ) : ℝ) :=
+          mul_le_mul_of_nonneg_right hdarc hA'0
+        have h2 : 2 * arcDen 12 H ≤ arcDen 12 H * ((A / d - 1 : ℕ) : ℝ) := by
+          nlinarith [hA'2R, harc0]
+        linarith
+      have s3 := mul_le_mul_of_nonneg_left s2 (by positivity : (0 : ℝ) ≤ 8 * (R.ω : ℝ))
+      nlinarith [s1, s3]
     have hfit' : B / d + capL L d ≤ 2 * (A / d - 1) + 4 := by
       have h := dilBlock_reindex_fit (A := A) (B := B) (H := L) (d := d) hd0 hdA hfit
       have hc := capL_le_div_succ (L := L) (d := d) hd0
@@ -820,7 +933,7 @@ theorem m4_freeBlockSup_of_chiSummed {R : ChowlaRegime} {M : ℕ} {Bcl : ℕ →
       (doorChiSup χ M (capL L d) n') ^ 2) hf0 hd0 hmaps
     -- ⟦the χ-summed datum at the reduced modulus⟧
     have hdatum := hchi H hlo hhi (capL L d) hcapH hcapnar (q / d) hq0 hq0Q
-      (A / d - 1) (B / d) hA'pos hfit'
+      (A / d - 1) (B / d) hA'pos hcapA hsqA' hxA' hfit'
     -- ⟦the sharp ledger⟧
     have hled := capL_ledger (A := A) (L := L) (d := d) hd0 hB0
     have hdatum' : ∑ n' ∈ Finset.Ioc (A / d - 1) (B / d),

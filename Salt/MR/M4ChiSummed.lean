@@ -42,6 +42,36 @@ are carried EXPLICITLY at `arcDen 12 H` (never at `q`, so the predicates stay `q
 
 This is the honest price of the `Σ_χ` mirror and it is stated where it is paid.
 
+## ⟦R-P5 — THE THREE BASE ANTECEDENTS⟧ (the KMT port's x-scale ladder, wave P-1)
+
+The port's supply ladder needs `loglog A ≳ 285` at the socket's base, which is unreachable
+at the `H`-scale without breaking the ruled `2³⁶` gate-8 sandwich.  The resolution
+(`docs/exploration/port-freeze-0729.md` §4, ⟦REF-P-SHAPE⟧'s R-P5) is that the socket's
+bases **are** x-scale — they are door-ladder rungs — so the socket may CARRY that fact as
+an antecedent.  All three predicates below therefore quantify their base under
+
+1. **the length antecedent** `2 ^ j ≤ A` (`L ≤ A` at the block form) — the window never
+   exceeds its own base;
+2. **the `√H` antecedent** `Real.sqrt H ≤ A` — the base dominates the square root of the
+   ambient window, which is what a `log A ≳ log H` reading needs;
+3. **the x-scale antecedent** `R.x ≤ 16·R.ω·arcDen 12 H·A` — i.e. `A ≳ x/(16·ω·(log H)^{12})`,
+   the door ladder's own geometric floor (`M4Collapse.doorLadder_pow_lower` composed with
+   `M4Close.M4DoorGates.hcount`'s `2^k ≤ 4ω`), read through the ONE dilation the stratified
+   consumer performs.
+
+⟦WHY ANTECEDENTS AND NOT A REGISTER CONJUNCT⟧ they only WEAKEN the socket: the supplier has
+strictly fewer bases to serve, every anti-vacuity witness below survives with the new
+binders discharged trivially, and `m4_second_road`'s ⟦item 11⟧ line gains NOTHING — the
+antecedents live inside the socket's own `∀`-prefix.  `R.x` therefore does **not** become a
+register conjunct, and the F5 census is unchanged (`M4SecondRoad` §4's ⟦F5 CHECK⟧).
+
+⟦THE ONE arcDen CUSHION, HONESTLY⟧ the x-scale antecedent carries `arcDen 12 H` because the
+stratified consumer reads the block datum at the DILATED base `⌊A/d⌋ − 1`, `d ≤ arcDen 12 H`
+— the corpus already records this exact shape at `M4BaseNarrow`'s header
+(`⌊X_{i+1}/d⌋ − 1 ≥ R.x/(4·R.ω·arcDen 12 H) − 2`).  It costs nothing at `loglog`: `x` is the
+consumer's own through the `g`-arm `g R.Hhi R.ω ≤ R.x`, so dividing by `(log H)^{12}` moves
+`loglog A` not at all.
+
 ## Contents
 
 * §1 THE SOCKET — `chiFreeRowSq`, `M4ChiSummedFreeRow`, the anti-vacuity witness at
@@ -125,8 +155,10 @@ tiling is half-open, and no consumer reads the closed endpoint — the endpoint 
 belongs to whatever SUPPLIES this socket, not to the socket. -/
 def M4ChiSummedFreeRow (R : ChowlaRegime) (M : ℕ) (RS : ℕ → ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → ∀ q : ℕ, 0 < q →
-    (q : ℝ) ≤ arcDen 12 H → ∀ j ≤ Nat.log 2 L, ∀ A : ℕ, 0 < A → ∀ s ≤ L,
-      ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq χ M j (A + s) ≤ RS j H
+    (q : ℝ) ≤ arcDen 12 H → ∀ j ≤ Nat.log 2 L, ∀ A : ℕ, 0 < A →
+      2 ^ j ≤ A → Real.sqrt (H : ℝ) ≤ (A : ℝ) →
+      (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) → ∀ s ≤ L,
+        ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq χ M j (A + s) ≤ RS j H
 
 /-- **THE SOCKET IS INHABITED** (the house's anti-vacuity duty) — at
 `RS j H := 4·arcDen 12 H` the socket holds outright: each of the `φ(q)` terms is at most the
@@ -135,7 +167,7 @@ range's own gate.  So ALL of the socket's content is the grade, and the anti-vac
 is `q`-FREE — which is what the `q`-free `RS` demands. -/
 theorem m4_chiSummedFreeRow_trivial (R : ChowlaRegime) (M : ℕ) :
     M4ChiSummedFreeRow R M (fun _ H => 4 * arcDen 12 H) := by
-  intro H _ _ L _ q hq hqQ j _ A hA s _
+  intro H _ _ L _ q hq hqQ j _ A hA _ _ _ s _
   haveI : NeZero q := ⟨hq.ne'⟩
   have hAs : 0 < A + s := by omega
   have hterm : ∀ χ ∈ (Finset.univ : Finset (DirichletCharacter ℂ q)),
@@ -150,21 +182,32 @@ theorem m4_chiSummedFreeRow_trivial (R : ChowlaRegime) (M : ℕ) :
   have hφq : (q.totient : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.totient_le q
   linarith
 
-/-- **THE BRIDGE DOWN** (`m4_chiFreeRow_of_chiSummed`) — the χ-summed socket dominates the
-landed per-χ free-base row family at the SAME grade, because every term of a sum of
+/-- **THE BRIDGE DOWN** (`chiFreeRowSq_le_of_chiSummed`) — the χ-summed socket dominates the
+landed per-χ free-base row datum at the SAME grade, because every term of a sum of
 nonnegatives is under the sum.
 
 Recorded so the per-χ road stays available as a fallback (⟦D-8⟧'s honest condition: taking
-it re-imports WALLS D and F5).  Nothing below this line uses it. -/
-theorem m4_chiFreeRow_of_chiSummed {R : ChowlaRegime} {M : ℕ} {RS : ℕ → ℕ → ℝ}
-    (h : M4ChiSummedFreeRow R M RS) : M4ChiFreeRowMeanSq R M RS := by
-  intro H hlo hhi L hLH q hq hqQ χ j hjL A hA s hsL
+it re-imports WALLS D and F5).  Nothing below this line uses it.
+
+⟦R-P5, THE ONE SHAPE CHANGE⟧ this used to read `M4ChiFreeRowMeanSq R M RS` — the landed
+per-χ PREDICATE, which quantifies over EVERY base above `0 < A` and therefore cannot carry
+the socket's three base antecedents.  Since the antecedents are exactly what the x-scale
+ladder buys, the bridge is now stated POINTWISE, at a base satisfying them.  The landed
+`M4ChiFreeRowMeanSq` is untouched, and nothing consumes this bridge. -/
+theorem chiFreeRowSq_le_of_chiSummed {R : ChowlaRegime} {M : ℕ} {RS : ℕ → ℕ → ℝ}
+    (h : M4ChiSummedFreeRow R M RS) :
+    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → ∀ q : ℕ, 0 < q →
+      (q : ℝ) ≤ arcDen 12 H → ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 L,
+        ∀ A : ℕ, 0 < A → 2 ^ j ≤ A → Real.sqrt (H : ℝ) ≤ (A : ℝ) →
+        (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) → ∀ s ≤ L,
+          chiFreeRowSq χ M j (A + s) ≤ RS j H := by
+  intro H hlo hhi L hLH q hq hqQ χ j hjL A hA hAj hAsq hAx s hsL
   have hAs : 0 < A + s := by omega
   have hle : chiFreeRowSq χ M j (A + s)
       ≤ ∑ χ' : DirichletCharacter ℂ q, chiFreeRowSq χ' M j (A + s) :=
     Finset.single_le_sum (f := fun χ' => chiFreeRowSq χ' M j (A + s))
       (fun χ' _ => chiFreeRowSq_nonneg χ' M j hAs) (Finset.mem_univ χ)
-  exact le_trans hle (h H hlo hhi L hLH q hq hqQ j hjL A hA s hsL)
+  exact le_trans hle (h H hlo hhi L hLH q hq hqQ j hjL A hA hAj hAsq hAx s hsL)
 
 /-! ## §2 — THE SHIFTED BRIDGE, MIRRORED
 
@@ -298,7 +341,9 @@ which keeps the predicate `q`-free. -/
 def M4ChiSummedFreeShiftBlock (R : ChowlaRegime) (M : ℕ) (F : ℕ → ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → ∀ q : ℕ, 0 < q →
     (q : ℝ) ≤ arcDen 12 H → ∀ j ≤ Nat.log 2 L, ∀ s ≤ L,
-      ∀ A B : ℕ, 0 < A → 4 ≤ L → B + L ≤ 2 * A + 4 →
+      ∀ A B : ℕ, 0 < A → 2 ^ j ≤ A → Real.sqrt (H : ℝ) ≤ (A : ℝ) →
+      (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) →
+      4 ≤ L → B + L ≤ 2 * A + 4 →
         ∑ χ : DirichletCharacter ℂ q, ∑ n ∈ Finset.Ioc (A + s) (B + s),
             ‖∑ m ∈ doorSievedWindow M (2 ^ j) n, liouChi χ m‖ ^ 2
           ≤ F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
@@ -309,7 +354,7 @@ def M4ChiSummedFreeShiftBlock (R : ChowlaRegime) (M : ℕ) (F : ℕ → ℕ → 
 `A·(2^j)²` (window sums bounded by their length, `B − A ≤ A`). -/
 theorem m4_chiSummedShiftBlock_trivial (R : ChowlaRegime) (M : ℕ) :
     M4ChiSummedFreeShiftBlock R M (fun _ H => arcDen 12 H) := by
-  intro H _ _ L _ q hq hqQ j _ s _ A B hA hL4 hfit
+  intro H _ _ L _ q hq hqQ j _ s _ A B hA _ _ _ hL4 hfit
   haveI : NeZero q := ⟨hq.ne'⟩
   have harc0 : (0 : ℝ) ≤ arcDen 12 H := le_trans (by positivity) hqQ
   have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
@@ -353,7 +398,7 @@ the absolute drop residue, which is the ⟦φ(q) LEDGER⟧'s first entry. -/
 theorem m4_chiSummedShiftBlock_of_freeRow {R : ChowlaRegime} {M : ℕ} {RS : ℕ → ℕ → ℝ}
     (hrow : M4ChiSummedFreeRow R M RS) :
     M4ChiSummedFreeShiftBlock R M (fun j H => 2 * RS j H) := by
-  intro H hlo hhi L hLH q hq hqQ j hjL s hsL A B hA hL4 hfit
+  intro H hlo hhi L hLH q hq hqQ j hjL s hsL A B hA hAj hAsq hAx hL4 hfit
   haveI : NeZero q := ⟨hq.ne'⟩
   have hAs : 0 < A + s := by omega
   have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
@@ -392,7 +437,7 @@ theorem m4_chiSummedShiftBlock_of_freeRow {R : ChowlaRegime} {M : ℕ} {RS : ℕ
               * (8 * ((2 ^ j : ℕ) : ℝ) ^ 2) := by
           rw [← Finset.sum_mul, Finset.sum_const, Finset.card_univ, nsmul_eq_mul]
   rw [hsplit, card_dirichletCharacter_nat q]
-  have hrowsum := hrow H hlo hhi L hLH q hq hqQ j hjL A hA s hsL
+  have hrowsum := hrow H hlo hhi L hLH q hq hqQ j hjL A hA hAj hAsq hAx s hsL
   have hrow0 : (0 : ℝ) ≤ ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq χ M j (A + s) :=
     Finset.sum_nonneg fun χ _ => chiFreeRowSq_nonneg χ M j hAs
   have hφq : (q.totient : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.totient_le q
@@ -429,7 +474,8 @@ second moment leaves exactly `∑_χ (per-χ sup)²` and no `φ(q)`. -/
 def M4ChiSummedBlockMeanSqN (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ → ℝ) : Prop :=
   ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → (H : ℝ) ≤ arcDen 12 H ^ 3 * (L : ℝ) →
     ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
-      ∀ A B : ℕ, 0 < A → B + L ≤ 2 * A + 4 →
+      ∀ A B : ℕ, 0 < A → L ≤ A → Real.sqrt (H : ℝ) ≤ (A : ℝ) →
+      (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) → B + L ≤ 2 * A + 4 →
         ∑ χ : DirichletCharacter ℂ q, ∑ n ∈ Finset.Ioc A B, (doorChiSup χ M L n) ^ 2
           ≤ Bcl H * (L : ℝ) ^ 2 * (A : ℝ)
 
@@ -437,7 +483,7 @@ def M4ChiSummedBlockMeanSqN (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ → ℝ) : P
 each of the `φ(q) ≤ arcDen` characters contributes at most `5·L²·A`. -/
 theorem m4_chiSummedBlockN_trivial (R : ChowlaRegime) (M : ℕ) :
     M4ChiSummedBlockMeanSqN R M (fun H => 5 * arcDen 12 H) := by
-  intro H hlo hhi L hLH hnar q hq hqQ A B hA hfit
+  intro H hlo hhi L hLH hnar q hq hqQ A B hA _ _ _ hfit
   haveI : NeZero q := ⟨hq.ne'⟩
   have harc0 : (0 : ℝ) ≤ arcDen 12 H := le_trans (by positivity) hqQ
   have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
@@ -505,7 +551,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock {R : ChowlaRegime} {M : ℕ} {F : ℕ �
     (hfix : M4ChiSummedFreeShiftBlock R M F) :
     M4ChiSummedBlockMeanSqN R M (m4BclGraded j₀ Fan Ftr) := by
   classical
-  intro H hlo hhi L hLH hnar q hq hqQ A B hA hfit
+  intro H hlo hhi L hLH hnar q hq hqQ A B hA hAL hAsq hAx hfit
   haveI : NeZero q := ⟨hq.ne'⟩
   have hH0 : 0 < H := by have := R.hHlo_floor; omega
   have hH0R : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH0
@@ -541,6 +587,14 @@ theorem m4_chiSummedBlockN_of_shiftBlock {R : ChowlaRegime} {M : ℕ} {F : ℕ �
     linarith
   have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
   set Lg := Nat.log 2 L with hLg
+  -- ⟦R-P5, THE LENGTH ANTECEDENT PROPAGATED⟧ every dyadic window of the assembly is at most
+  -- the free length (`2^j ≤ 2^{log₂L} ≤ L`), so the block's own `L ≤ A` supplies the shifted
+  -- family's `2^j ≤ A` at every scale the analytic half reads
+  have h2jL : ∀ j : ℕ, j ≤ Lg → 2 ^ j ≤ A := by
+    intro j hj
+    have h1 : 2 ^ j ≤ 2 ^ Lg := Nat.pow_le_pow_right (by norm_num) hj
+    have h2 : 2 ^ Lg ≤ L := by rw [hLg]; exact Nat.pow_log_le_self 2 hL0.ne'
+    omega
   set X : DirichletCharacter ℂ q → ℕ → ℕ → ℕ → ℝ := fun χ j t n =>
     ‖∑ m ∈ doorSievedWindow M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2 with hX
   set Y : ℕ → ℕ → ℕ → ℝ := fun j t n => ∑ χ : DirichletCharacter ℂ q, X χ j t n with hY
@@ -622,7 +676,7 @@ theorem m4_chiSummedBlockN_of_shiftBlock {R : ChowlaRegime} {M : ℕ} {F : ℕ �
     intro j t hjLg hj₀ ht
     rw [hshiftY j t]
     have hd := hfix H hlo hhi L hLH q hq hqQ j hjLg (2 ^ (j + 1) * t) (hsle j t ht) A B hA
-      (by omega) hfit
+      (h2jL j hjLg) hAsq hAx (by omega) hfit
     have hFle := han j H hj₀
     have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
     nlinarith [mul_nonneg hP0 hA0R]
