@@ -16755,3 +16755,23 @@ caveat.  Byte-findings: cE = cD3 = 1/4 confirmed; H₁ = 2^100 EXACTLY
 (tA = 1e6, tB = 1e20+1, tD ≈ 2.2e6 — all ≪ N0: the N0 lever's premise
 confirmed at the bytes).  Build 9595 green; axioms 36/36; independent
 mpmath recheck of every stated bound.
+
+## (2026-07-30 12:43 PDT) N0-RETHREAD lands — 316.6 bits through THREE stacked levers, 21/21 clean (GoldbachEnergyN0.lean 880 ln)
+
+**⟦THE HONEST THRESHOLDS⟧**  N0 = 2^100 enters at exactly three
+places and needs only 2^20 (80 bits of laziness); the SECOND hidden
+threshold found: tB = z₀^10 = 10^20 (z₀ = 100 forced only by D3's
+log z ≥ 4 at γ = 1/8 — re-run at γ = 1/16 gives z₀ = 16, the c₀ loss
+invisible under CL); AND the CS shape was LOSSY by H₁/2 (two
+different H's read in one formula — fixed free).  THE LEDGER:
+log₂C₁ 193.3 → ≤35; **log₂K 538.2 → 221.6 (Δ = 316.6)**; b-floor
+602 → ~285 by this chain alone (matching CG-SCOPE's idealized floor
+exactly).  No consumer needs 2^100 — no hidden coupling.  The payoff
+pair: `hpt_const_le_pow35` (C₁' ≤ 2^35) + `bigXi_bounded_500` (the
+constant IN THE STATEMENT — the landed chain hid it behind three ∃s).
+Threshold-PARAMETRIC twins throughout (future ε/z₀ re-instantiate
+without re-proof).  Build 9596 green; axioms 21/21; first-attempt
+save two mechanical fixes.  WITH the L² restructure this chain
+becomes margin (the K-shed moves K off the b-floor entirely; the
+smaller K then relaxes the Braw side and halves the ε⁻¹⁶) — both
+lanes compose, neither wasted.

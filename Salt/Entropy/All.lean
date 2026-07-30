@@ -58,6 +58,7 @@ import Salt.Entropy.Chowla.ShiftCorr
 import Salt.Entropy.Chowla.GoldbachEnergyHpt
 import Salt.Entropy.Chowla.HReduce
 import Salt.Entropy.Chowla.GoldbachEnergyFinal
+import Salt.Entropy.Chowla.GoldbachEnergyN0
 import Salt.Entropy.Chowla.DilationStability
 import Salt.Entropy.Chowla.HMainAssembly
 import Salt.Entropy.Chowla.HBudget
@@ -269,3 +270,26 @@ open Salt.Tactic in
   Salt.Entropy.Chowla.chowlaRegime_exists_param_tower_45
   Salt.Entropy.Chowla.chowlaRegime_exists_param_head_tower45'
   Salt.Entropy.Chowla.log_chowla_two_budget_head_g_45
+
+/-! ⟦N0-RETHREAD — THE 318-BIT LEVER: the honest-threshold `hpt`/`bigXi` twins⟧
+(`GoldbachEnergyN0`, 2026-07-30, CG-SCOPE's `N0 = 2^100` line item).  `hpt_large`'s threshold
+`H₁ = max N0 (max tA tB tD)` is squared into `hpt_holds`'s `CS` and squared again through
+`C₁²` into `K = 32·K_lcm·C₁²/ε¹⁰`, so each bit of `log₂ H₁` costs FOUR of `log₂ K`.  The audit:
+`N0 = 2^100` is honestly `2^20` (its only consumers are `2 ≤ z` and `log z ≥ (1/20)log H`);
+the binding threshold underneath is `tB = z₀^10 = 10^20` (the Selberg main-term floor
+`M3Assembly.z0 = 100` raised by the truncation `z = ⌊H^(1/10)⌋₊`), itself lowered to `16^10`
+by re-running `D3` at `γ = 1/16` (`c₀ : 1/64 → 1/256`, invisible under `102400/ε²`); and the
+`CS` shape is lossy by `H₁/2` (the landed proof reads the card at `H₁` and the fraction at
+`H = 2`).  Additive: `hpt_holds`/`bigXi_bounded` are untouched and both chains live side by
+side.  At `ε = 1/500`: `log₂ C₁ : 193.30 → ≤ 35`, `log₂ K : 538.21 → 221.61` — 316.6 bits. -/
+open Salt.Tactic in
+#audit_axioms Salt.Entropy.Chowla.mainTermSum_ge_of_sixteen
+  Salt.Entropy.Chowla.logZ_ge_twenty
+  Salt.Entropy.Chowla.repCount_even_le_primorial_param
+  Salt.Entropy.Chowla.hpt_large_thr
+  Salt.Entropy.Chowla.hpt_holds_thr
+  Salt.Entropy.Chowla.hsq_explicit
+  Salt.Entropy.Chowla.bigXi_bounded_explicit
+  Salt.Entropy.Chowla.hpt_const_le_pow35
+  Salt.Entropy.Chowla.hpt_holds_500
+  Salt.Entropy.Chowla.bigXi_bounded_500
