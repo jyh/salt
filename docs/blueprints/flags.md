@@ -16460,3 +16460,28 @@ anchor; the direct-fields law; hcap = the ~45-binder capstone
 instantiation wave, its three open supply objects Rbd/KS/E the last
 analytic residue) → ¬logChowla2Fails → THE CAPSTONE, under the
 ratified summit protocol.
+
+## (2026-07-30 10:58 PDT) HCAP-WAVE lands — hcap DISCHARGED into DoorCapBase (58 fields), m4_socket_discharged_capwired IN KERNEL, 12/12 clean; the E-binder wall = D5 one level down
+
+**⟦THE WIRE⟧**  M4CapWire.lean (588 ln): the door datum stones; the
+58-field `DoorCapBase` (six groups: the razor at (q,Tann) / the
+socket floor / the X-frame / the ram-block frame / the co-factor /
+the 𝒯_S budget + Lemma-12 error); SIX capstone binders discharged
+IN-FILE (hc1/hTgate/hXN/hN2/hsupp/hSup — the last via the ball-empty
+door pin); `m4_hcap_at_door`; **`m4_socket_discharged_capwired`** —
+the fused terminal with hcap GONE and t₁ PINNED (it left the binder
+list entirely).  Rbd fit VERBATIM (the (χ,j) swap only; its K kept
+explicitly apart from DoorArithFrameRho's — they coincide nowhere);
+KS fit after one rpow rewrite.  Build 9588 green; axioms 12/12.
+
+**⟦THE E-BINDER WALL — D5 ONE LEVEL DOWN⟧**  The brief's supplier
+(lemma12_meansq_all_chi) is the WRONG SHAPE (spoly vs ramErr); the
+shape-correct `ramErr_meanSq_all_chi` asks the GLOBAL block
+factorization — the contract `doorRows_global_hcoef_kills_block`
+refutes at window-cut data.  Stated conditionally; E_binder carried.
+**MAESTRO RULING: executor-tier, not design-tier** — the repair is
+the D5 transplant verbatim (re-cut `ramErr_moment_split` through
+`SeamCoefWS`; the chiBarCoeff_seamCoefWS machinery is LANDED in
+M4RowsChiEnd §1; the genre landed first-attempt once already).
+⟦ERR-WS dispatched on this entry, S11-SCOPE alongside.⟧  **The S11
+spine instantiates SIX structures now, not five.**

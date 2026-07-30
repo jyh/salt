@@ -273,6 +273,7 @@ import Salt.MR.M4SocketDischarge
 import Salt.MR.M4RowsChiZero
 import Salt.MR.M4ArithZero
 import Salt.MR.M4SocketFused
+import Salt.MR.M4CapWire
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -5952,3 +5953,29 @@ NOT through `m4_arith_anchor_of_C1_rho` / `m4_arith_jfloor_of_anchor_rho`, whose
 `log (1/ρ) ≤ 10¹¹` is not derivable from the opaque `δ₀`. -/
 open Salt.Tactic in
 #audit_axioms Salt.MR.m4_socket_discharged_fused
+
+/-! ⟦THE hcap WIRE audit⟧ (`M4CapWire`, 2026-07-30, REF-SOCKET-2's S11 checklist item 14).
+**This block SUPERSEDES the "⟦THE ONE CARRIED ANALYTIC BINDER⟧" note above**: `hcap` IS now
+instantiated.  `m4_hcap_at_door` reads `M4RowsChi.m4_rowChi_capstone` at the door pin
+(`X := A+s`, `T_ann := 2T`, `N := 2(A+s)`, `a := winCutH (A+s) (doorCoeffU M)`, the K-family
+`calP/calQK/calH/mrAlpha (1/12)`, `J := 2`, `t₁ ≡ 0`, `S ≡ 0`, `εr := ε (A+s)`), discharging
+six of its binders in file (`hc1`, `hTgate`, `hXN`, `hN2`, `hsupp`, `hSup`) and carrying the
+rest as the ONE named per-base bundle `DoorCapBase` (58 fields, six groups).
+`m4_socket_discharged_capwired` is the fused terminal with `hcap` GONE and `t₁` pinned to `0`;
+its leading existential gains the capstone's five constants `Cq, cs, T₀, Kq, Ks`.
+
+⟦THE SUPPLY SIDE⟧ two of the three open objects are WIRED: `Rbd_binder` from
+`RbdSupply.rbd_binder_of_doorSocket_free` (§4a — the `_vt`-floor `K` is `cffKVt`-genre, NOT
+`DoorArithFrameRho`'s `K`), `KS_binder` from `USetPrice.KS_priced` at `δ' := (log X)^{−100}`
+(§4b, budget `20512·(log X)^{−200}·(1 + log 2T)`).  The THIRD is NOT: `E_binder`'s supplier
+`HybridMoments.ramErr_meanSq_all_chi` asks the GLOBAL block factorization, the very contract
+`doorRows_global_hcoef_kills_block` refutes at a window-cut datum — §4c is stated
+CONDITIONALLY and the field stays carried.  ⟦S11 SPINE⟧ six structures to instantiate now,
+not five. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.DoorCapBase
+  Salt.MR.m4_hcap_at_door
+  Salt.MR.m4_capRbd_at_door
+  Salt.MR.m4_capKS_at_door
+  Salt.MR.m4_capE_at_door_of_hcoef
+  Salt.MR.m4_socket_discharged_capwired
