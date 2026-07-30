@@ -238,6 +238,8 @@ import Salt.MR.HybridMVT
 import Salt.MR.LambdaRateTwisted
 import Salt.MR.HybridLargeValues
 import Salt.MR.HybridMoments
+import Salt.MR.USetChi
+import Salt.MR.USetChiTS
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -4543,3 +4545,144 @@ open Salt.Tactic in
   Salt.MR.LFunction_real_region_of_growth
   Salt.MR.LFunction_real_zero_free_region_vk_pos
   Salt.MR.LFunction_real_zero_free_region_vk
+
+-- ⟦WAVE P-6-E — THE 𝒰-LEG χ-LIFT (the index-set retype)⟧ (2026-07-29, port freeze v2 wave P-6
+-- stone E; `USetChi` / `USetChiTS`).  ⟦SPECTRUM-SCOPE⟧'s stone E: the (t : ℝ)-indexed spectrum
+-- machinery of the 𝒰-leg (`USetThin` / `USetThinTL` / `USetThinTS` / `USetBalance`) retyped to
+-- (DirichletCharacter ℂ q × ℝ)-indexed, consuming P-2/P-3/P-4's supply floor.  The datum is
+-- character-blind, so the proofs are near-verbatim; what is NOT verbatim is recorded below.
+--
+-- ⟦THE REFLECTION IS A PAIR INVOLUTION (CATCH #B ∘ N1)⟧ `reflectPair` / `reflectChi`: the
+-- σ = 1 → σ = 0 bridge `spoly N (χ̄ a) t = dpolyChi q _ (a/n) χ⁻¹ (−t)`
+-- (`HybridMoments.spoly_chiBarCoeff_eq_dpolyChi`) negates the ordinate AND conjugates the
+-- character, so the q = 1 files' "negated ordinate set" becomes the involution (χ,t) ↦ (χ⁻¹,−t).
+-- Built with `Finset.map` on an `Equiv` (not `Finset.image`), so NO `DecidableEq` on characters
+-- enters any statement — the discipline `HybridLargeValues.exists_charFibre` set.  Card,
+-- `FibreWellSpaced` and `[−T,T]` are all preserved.  Every statement declares its side: the
+-- `ramQ`/`ramR`/`ramMain`/`primeBlockPoly` carriers are σ = 1; only the four `_eq_dpolyChi`
+-- bridges and the two socket consumptions cross over.  `ramQ_chiBar_eq_halaszSum` is sign-FREE
+-- (the σ = 1 convention already carries `p^{−it}`).
+--
+-- ⟦THE BLOCK OBJECTS ARE THE LANDED ONES AT TWISTED DATA⟧ no new block carrier is minted: the
+-- retype is `ramQ H P Q j (chiBarCoeff q χ c)` etc., and the content is that the twist passes
+-- through the masks (`blockSrc_chiBar`, `ramQsrc_chiBar`, `ramRcoeff_chiBar`) and through the
+-- `1/n` of the σ = 1 convention (`chiBarCoeff_div`).  `UsetChi` is likewise the LANDED
+-- `Decomp.Uset` of the twisted datum, fibre by fibre — which is what makes the whole
+-- witness/ratio-2-chain/pigeonhole page of `USetThin` reusable at pairs.
+--
+-- ⟦REUSED VERBATIM, NO RETYPE (character-free)⟧ `dyadicPairs` + `card_dyadicPairs_le` +
+-- `dyadicPairs_card_le_exp` (the Q_J² union factor is a t-free AND χ-free family),
+-- `ratioChain` + `primeBlockPoly_chain_split` + `exists_piece_large`, `largeblock_bound_mono`
+-- (rescaled by `hybridblock_bound_mono`), `tL_kill`, `thin_sqrt_kill`, `ramQbase` and its
+-- geometry, `ramQblock_inv_sum_le` (the prime-window gain), `ramQbase_le_pow_ten`,
+-- `norm_ramMain_sq_le_of_small`, `meansq_on_subset_of_decomp`, `wellspaced_discretize`,
+-- `block_sum_bound` (at `Cq := 3C/2`, see the constant debit).
+--
+-- ⟦THE HEIGHT IS qT, AND THAT IS THE ONLY PLACE THE CHARACTER COUNT ENTERS⟧
+-- `hybrid_large_value_count` counts PAIRS at height `q·T`, so `UsetChi_thin` carries NO φ(q)
+-- union factor — the crude `|ℰ| ≤ φ(q)·max_χ|𝒯_χ|` route is not taken.  Every count/kill gate is
+-- the landed shape read at `Real.log ((q:ℝ)*T)`: `1 < qT`, `P ≤ qT`, `30 ≤ log qT/log base`,
+-- `5 ≤ loglog qT`, `log qT ≤ L`.  LAW #253: the X₀ law (`hκ30`) and the kill gate
+-- `420·L·L^{3/4}(log L)^5 ≤ c·W²` stay in-statement, verbatim, at every rung.
+--
+-- ⟦THE ONE CONSTANT DEBIT⟧ Lemma 6.5's hybrid constant is `1680 = 2·840` (the fold's bracket
+-- domination), so the landed `tL_kill` — stated at `840` — gives `|𝒯_L|·decay·(log qT)² ≤ 2`, not
+-- `≤ 1`.  The 𝒯_L bracket therefore collapses to `3·base` (not `2·base`), the killed Q-side exits
+-- at `3C` (not `2C`), and `tLChi_main_sumsq` at `81·C·Rbd²·(H/j)²` (not `54`).  `81 = 3·27`
+-- against `54 = 2·27`; `USetBalance.block_sum_bound` absorbs it verbatim at `Cq := 3C/2`.
+--
+-- ⟦THE 𝒯_S RAZOR AND ITS CHARACTER DEBIT — THE MARGIN, COMPUTED⟧ the hybrid height splits as
+-- `(qT)^{2α} = q^{2α}·T^{2α}`, so the razor's ENTIRE character cost is the single factor
+-- `q^{2α} ≤ √q`, and `thin_sqrt_kill` is reused verbatim with `W := q^{2α}·W`
+-- (`UsetChi_thin_sqrt_kill`).  `charDebit_le_rpow`: at the port's modulus gate
+-- `q ≤ (log H)^12 ≤ (log X)^12` and `2α ≤ 1/2`, `q^{2α} ≤ √q ≤ (log X)^6 ≤ X^ε` whenever
+-- `6·loglog X ≤ ε·log X` (`logpow_le_rpow_of_gate`, in-statement — nothing absorbed), and at
+-- `ε = 1/1000` — HALF the landed `2η ≥ 1/500` (`USetPins.c0_le_exit_exponent`) — the gate holds
+-- already at `log X ≥ e^40 ≈ 2.4·10^17` (`logpow_gate_of_exp_floor`, via `log L ≤ √L` and
+-- `√L ≥ e^20 ≥ 6000`).  The same file's own X₀ law forces `log X ≥ 30^{3/ρ} ≈ 10^385`, where the
+-- debit needs `6·loglog X ≈ 5.3·10^3` against `ε·log X ≈ 10^382`: **the razor tolerates the
+-- φ(q)-genre debit with ≈ 378 orders of magnitude of margin**, and pays it out of at most half the
+-- η it already had (`UsetChi_thin_sqrt_kill_absorbed`, exit `X^{1−2η+ε}` with `ε ≤ η`).
+--
+-- ⟦TWO NAMED HYPOTHESIS SLOTS (P-7 connects them)⟧
+-- (1) `HalaszPrimesChi C c T₀` — the χ-twisted MR Lemma 11, wave P-6-CORE's stone C, which that
+-- wave reports NOT ATTEMPTED (the REUSE BOUNDARY finding).  Shape: `halasz_primes_pow` with the
+-- pair index, `FibreWellSpaced` spacing, the χ̄-twisted integrand and the VK decay denominator
+-- read at `qT`.  Reading it at `qT` rather than `T` makes the slot the WEAKER hypothesis (a larger
+-- denominator is a weaker decay), so a sharper landed `halasz_primes_chi` discharges it.
+-- (2) **`HalaszIntegersChi Cint` — the χ-twisted MR Lemma 9 (Halász for integers).  A FINDING:
+-- this stone is on NEITHER the freeze's stone list (A–E) NOR in P-3/P-4's supply floor.**  The 𝒯_S
+-- branch cannot run at the landed hybrid MEAN-VALUE grade: `hybrid_wellspaced_l2` carries a
+-- `φ(q)(T+1)` row, and at the §8.3 pins `T ≍ X` while the co-factor length is `M ≍ X e^{−j/H}`, so
+-- that row exceeds the q = 1 exit (`5128 ε² M (1+log 2T)`) by the factor `e^{j/H} ≍ p` — precisely
+-- the factor the whole apparatus exists to save.  The trivial-grade row is landed anyway
+-- (`ramRChi_sq_sum_mvt`, MR Step 0's majorant above `T ≍ X`), which is what makes the gap visible
+-- rather than assumed.
+--
+-- ⟦THE BALANCE TWIN⟧ `fibrePack` (the inverse of `exists_charFibre`, built with
+-- `Finset.disjiUnion`/`Finset.map` — again instance-free), the exhaustive branch-split IDENTITY at
+-- pairs (`sum_TSChi_add_TLChi`, `tLsetChi_eq_filter_not`), and `usetChi_integral_to_branches`: the
+-- χ-summed twin of `USetBalance.uset_integral_to_branches`, with the eq-(16) Cauchy–Schwarz and
+-- the parity-halving discretisation applied PER CHARACTER and the per-(χ,j) witness sets packed
+-- into the one pair set the branch bounds speak about.  The error row is taken χ-SUMMED — exactly
+-- what `HybridMoments.lemma12_meansq_all_chi` supplies.  The §8.3 parameter page (`USetPins`:
+-- H83/P83/Q83/J/θ) is consumed as landed and the lift stays parameter-generic; the cascade
+-- re-pins are P-7's.
+open Salt.Tactic in
+#audit_axioms Salt.MR.reflectPair
+  Salt.MR.reflectChi
+  Salt.MR.mem_reflectChi
+  Salt.MR.card_reflectChi
+  Salt.MR.sum_reflectChi
+  Salt.MR.fibreWellSpaced_reflectChi
+  Salt.MR.reflectChi_subset_Icc
+  Salt.MR.fibreWellSpaced_of_subset
+  Salt.MR.chiBarCoeff_div
+  Salt.MR.blockSrc_chiBar
+  Salt.MR.primeBlockPoly_chiBar_eq_dpolyChi
+  Salt.MR.ramQsrc_chiBar
+  Salt.MR.ramQ_chiBar_eq_spoly
+  Salt.MR.ramQ_chiBar_eq_dpolyChi
+  Salt.MR.ramQ_chiBar_eq_halaszSum
+  Salt.MR.hybridblock_bound_mono
+  Salt.MR.hybridblock_count
+  Salt.MR.UsetChi
+  Salt.MR.mem_UsetChi
+  Salt.MR.UsetChi_thin
+  Salt.MR.tLsetChi
+  Salt.MR.tLsetChi_subset
+  Salt.MR.mem_tLsetChi
+  Salt.MR.tLsetChi_fibreWellSpaced
+  Salt.MR.ramQChi_large_count
+  Salt.MR.ramQChi_large_count_Tfree
+  Salt.MR.HalaszPrimesChi
+  Salt.MR.tLChi_sumsq_ramQ
+  Salt.MR.tLChi_ramQ_sumsq_killed
+  Salt.MR.tLChi_main_sumsq
+  Salt.MR.ramRcoeff_chiBar
+  Salt.MR.ramR_chiBar_eq_spoly
+  Salt.MR.ramR_chiBar_eq_dpolyChi
+  Salt.MR.ramRcoeff_chiBar_mass_le
+  Salt.MR.HalaszIntegersChi
+  Salt.MR.ramRChi_sq_sum_le
+  Salt.MR.ramRChi_sq_sum_mvt
+  Salt.MR.thinBundleChi
+  Salt.MR.thinBundleChi_nonneg
+  Salt.MR.UsetChi_thin_alpha
+  Salt.MR.UsetChi_thin_sqrt_kill
+  Salt.MR.logpow_le_rpow_of_gate
+  Salt.MR.logpow_gate_of_exp_floor
+  Salt.MR.charDebit_le_rpow
+  Salt.MR.UsetChi_thin_sqrt_kill_absorbed
+  Salt.MR.TsetSmallChi
+  Salt.MR.mem_TsetSmallChi
+  Salt.MR.TsetSmallChi_subset
+  Salt.MR.TSChi_branch_meansq
+  Salt.MR.usetChi_TS_branch_meanvalue
+  Salt.MR.tLsetChi_eq_filter_not
+  Salt.MR.sum_TSChi_add_TLChi
+  Salt.MR.fibrePack
+  Salt.MR.mem_fibrePack
+  Salt.MR.sum_fibrePack
+  Salt.MR.fibreWellSpaced_fibrePack
+  Salt.MR.usetChi_integral_to_branches
