@@ -16584,3 +16584,53 @@ except-Siegel.  The one uncertain leaf: circle_method's C — the
 CG-SCOPE is reading the bytes now.  If all four leaves are effective,
 Cg/δ₀ is a COMPUTABLE NUMERAL hidden behind lazy ∃'s — the R-2 genre
 exactly, and the giant is cardboard.
+
+## (2026-07-30 11:33 PDT) CG-SCOPE returns — ALL NINE CONSTANTS EFFECTIVE (the ineffectivity WAS a windmill) but the NUMBER is real: b ≥ 603 vs cap ≈ 88; the bits have NAMED sources
+
+**⟦THE CAPTAIN'S HALF OF THE BET — WON⟧**  Every constant in Cg/δ₀ is
+EFFECTIVE, byte-verified, computable end to end: Cg = 2e^{19/log2}+1 ≈
+1.6e12 (a literal in typical_density_le, zero inflation through nine
+pass-through sites); cD3 = 1/4 (a numeral; the PNT-ineffectivity
+quarantined in H₀ which δ₀ never reads); circle_method's C = 1+4log4 ≈
+6.545 (A ONE-TOKEN WITNESS — the "research-tier" label was WRONG);
+ε constructively choosable (1/500); K = 16Cd/ε¹⁶ effective through the
+Goldbach-energy chain (K_lcm = exp(4π²) literal; C₁ = CL+CS explicit).
+NO ineffective leaf exists.  δ₀ = 2.293e-168 exactly.
+
+**⟦THE OTHER HALF — THE NUMBER IS A REAL WALL, WITH NAMED SOURCES⟧**
+24·Cg/δ₀ = 1.68e181 = 2^602 ⟹ **b ≥ 603 vs the cap b ≤ 87.8 at
+K = 9/2 — short by 515 bits.**  THE BIT LEDGER: **N0 = 2^100 (the
+Brun-lane small-H threshold, squared twice through CS) = 318 bits**;
+the genuine ε⁻¹⁶ of Lemma 3.5 = 139; CL's 102400/ε² = 69; Cg
+ENTIRELY = 40 (nearly irrelevant!).  Even idealized (N0 killed,
+thresholds floored): b ≥ 285 vs ~106 at the honest tower 4.41 — a
+179-bit residual with no named source YET.  The hMδ crossing: fits
+iff the tower exponent K ≤ 3.63; free arithmetic reaches 4.404; 3.63
+needs a ~13% improvement on a landed estimate (research-tier).
+KILL 2 OUTRANKS KILL 1 (the K = 9/2 twin buys 67 of 515 bits — still
+worth having, S0-TOWER continues).
+
+**⟦THE RULINGS CLOSED BY ARITHMETIC⟧**  Re-parametrize: DEAD (the
+unknown sits on both sides of M in the same units; ref2_joint_window
+IS the spine-chosen-M machinery and it answers empty at b = 603).
+Stated-hypothesis: DEAD — it would be REFUTABLE by the same corpus
+(worse than unverified: known-false).  ⚠ AND THE VACUITY SWEEP: seven
+landed statements carry `2/10⁴⁹ ≤ δ₀` — at the true δ₀ = 2.3e-168
+these are KNOWN-VACUOUS; the S11 law extends: **any δ₀ lower-bound
+numeral is a vacuity trap** (the fused/capwired terminals are clean —
+they were the repair).
+
+**⟦THE RECOMMENDATION + THE GATE ON IT⟧**  Fund THE EXPOSURE
+CERTIFICATE (~250-350 ln A/B: Cg ≤ 2e12 and 1/δ₀ ≤ 1e168 as kernel
+facts) — "the single highest-value 300 lines available": it makes the
+compose's feasibility DECIDABLE before the 2.2-2.9k wave spends
+itself on a page whose closing inequality is false as priced.  THEN
+the lever program: N0 (318 bits, class B — a lazy threshold!), ε⁻¹⁶
+(139, research-adjacent), CL (69).  **BUT the scoper's own sharpest
+question gates everything: does the DRIFT deficit itself read δ₀?**
+If yes at full weight, the cap falls as the floor rises and NO K
+saves it; if the δ₀-read is negligible at scale (the maestro's quick
+in-line arithmetic suggests the shift is ~2685 absolute j₀-units
+against e^{λ₋} ≥ e^50 — negligible — but the PAGE must answer, not
+the margin), the lever program is real.  ⟦S11-SCOPE RESUMED with
+exactly this question.⟧  C-B holds until it answers.
