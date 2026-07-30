@@ -229,6 +229,9 @@ import Salt.MR.M4ChiSummed
 import Salt.MR.M4Gauss
 import Salt.MR.M4SecondRoad
 import Salt.MR.VkTwistRegionProbe
+import Salt.MR.VkTwistStrip
+import Salt.MR.VkTwistRegion
+import Salt.MR.VkTwistRegionReal
 import Salt.MR.MVHilbertFinset
 import Salt.MR.CharFold
 import Salt.MR.HybridMVT
@@ -4448,3 +4451,95 @@ open Salt.Tactic in
   Salt.MR.ramCopTail_chiBar_eq_spoly
   Salt.MR.ramErr_meanSq_all_chi
   Salt.MR.lemma12_meansq_all_chi
+
+-- ⟦WAVE P-6-CORE — THE χ-VK ZERO-FREE REGION, UNCONDITIONAL⟧ (2026-07-29, port freeze v2 wave
+-- P-6-core; `VkTwistStrip` / `VkTwistRegion` / `VkTwistRegionReal`).  ⟦SPECTRUM-SCOPE⟧ named ONE
+-- missing analytic stone for the KMT port — the VK-WIDTH zero-free region for `L(s,χ)` — and the
+-- B-probe supplied the bridge conditionally on a strip growth.  This wave discharges the
+-- hypothesis and lands the region.
+--
+-- ⟦STONE A — THE TWISTED STRIP GROWTH⟧ `vk_char_strip_growth` / `vk_char_box_growth`: for
+-- nonprincipal `χ mod q`, `|T| ≥ exp(exp 100)` and `1 − vkTheta|T| ≤ σ ≤ 2`,
+-- `‖L(σ+iT,χ)‖ ≤ vkStripConst q·(1 + log|T|)` — and the BOX form on
+-- `Re z ∈ [1 − vkTheta 3γ, 2]`, `Im z ∈ [γ−1, 3γ]` at the floor `exp(exp 100) ≤ γ − 1`, which is
+-- exactly the probe's `hgrowth` shape.  Route: the landed general-σ twisted per-block bound
+-- (`Salt.Vk.vk_dirichlet_block_twist_all`, `≤ 1348`, no upper σ-gate) over a dyadic ladder of
+-- `≤ 3(1+log t)` blocks — NO Abel fold, because the block bound already holds at the actual `σ`;
+-- then the elementary Fourier completion (`char_sum_fourier_le`, one factor `q`) and the
+-- truncation at `N = ⌈T²⌉` through `Salt.SW.norm_LFunction_sub_partial_le` at the CRUDE level
+-- bound `M = q` (`norm_char_partial_sum_le`), whose tail is `≤ 4q` since `N^{−σ} ≤ 1/|T|`.
+-- ⟦TWO DEVIATIONS, BOTH FAVOURABLE⟧ (1) `vkStripConst q = 5000·q` is LINEAR in `q`, not the
+-- freeze's `q^{3/2}(1+log q)`: Pólya–Vinogradov (primitive-only, `√q(1+log q)`) is unnecessary at
+-- truncation length `t²`, so no imprimitivity adapter and no `√q`.  (2) The growth is
+-- `Cq·(1+log|t|)`, not `Cq·(log)^{3/4}(loglog)⁴`: the sharper profile is a NEAR-1-LINE phenomenon
+-- (the geometric `M^{−Θ/2}` decay needs `σ ≥ 1 − Θ/2`, i.e. half the strip), and ζ's own strip
+-- shape is likewise `K·log t` (`Salt.Vk.zeta_growth_pow`).  The width law sees `M` only through
+-- `log M`, so keeping the FULL strip instead of halving `Θ` is worth ≈`2×` in the final constant.
+--
+-- ⟦STONE B — THE REGION⟧ `LFunction_zero_free_region_vk`: for `χ ≠ 1`, `χ² ≠ 1`, every zero with
+-- `|Im ρ| ≥ exp(exp 100) + 1` obeys
+-- `Re ρ ≤ 1 − (1/(10⁸(A+7)))·1/((log|Im ρ|)^{3/4}(loglog|Im ρ|)³)` under the `q`-scale gate
+-- `log(20000·vkStripConst q) ≤ A·loglog|Im ρ|` (i.e. `log(10⁸) + log q ≤ A·loglog|Im ρ|` — benign
+-- at `q ≤ (log H)^12`).  ⟦KR-2 BENIGN, TWICE⟧ the level cost is additive inside a logarithm AND
+-- linear in `q`.  ⟦THE HEIGHT FLOOR RE-TUNED (probe gap-4)⟧ the coarser growth needs only
+-- `2 log ℓ₃ ≤ ℓ₃`, so the floor drops from the probe's `1100 ≤ loglog|Im ρ|` to `100` — which the
+-- landed `exp(exp 100)` block already supplies: the port adds ZERO height demand.
+-- ⟦THE NEGATIVE HALF (probe gap-3)⟧ `LFunction_inv_conj`: `L(χ⁻¹, conj s) = conj(L(χ,s))` for any
+-- `χ ≠ 1` — the general-character twin of `Salt.SW.LFunction_conj` (real-only), same identity-
+-- theorem route with `conj(χ n) = χ⁻¹ n` (`MulChar.star_apply'`).  `χ⁻¹` has the same level, so
+-- the same gate and constant serve.
+--
+-- ⟦THE `χ² = 1` ARM (probe gap-2)⟧ `LFunction_real_zero_free_region_vk`: the SAME width and the
+-- SAME constant for a REAL non-principal `χ`, at the gate
+-- `log(20000·(vkStripConst q + 8104)) ≤ A·loglog|Im ρ|`.  The third 3-4-1 leg is the PRINCIPAL
+-- character, whose L has ζ's pole, so the probe's drop-all is replaced by ζ's own landed
+-- `Salt.Vk.zeta_drop_all_disc` (spheres via `Salt.Vk.Zc_ratio_sphere_bound`, gate `1 ≤ |2γ|` free)
+-- plus TWO numerals: the finite-Euler debit `neg_re_logDeriv_trivChar_le_zeta`
+-- (`Re(−L′/L(s,χ₀)) ≤ Re(−ζ′/ζ(s)) + log q`, the `Re s > 1` core of
+-- `Salt.SW.neg_re_logDeriv_trivChar_complex_le` with its CLASSICAL ζ-leg — `1080 log(|γ|+2)`,
+-- which is `≫ (log γ)^{3/4}(loglog γ)³` and would destroy the VK width — left open), and the pole
+-- correction `Re(1/(s₂−1)) ≤ 1/16` (the probe's "vacuous at VK width": `σ−1` is tiny against
+-- `|γ| ≥ 2`, so `Salt.SW.zero_free_region_real`'s conjugate-zero apparatus is NOT needed).  The
+-- chain is the probe's with `8 ⟹ 8 + log q` — the predicted `Lq = 8 + log q + 700·Pinv·W` shape —
+-- and the debit rides inside the same gate, so the constant is unchanged.  ζ's growth is
+-- re-derived with EXPLICIT constants (`zeta_strip_growth_explicit`, `‖ζ‖ ≤ 8104·log t`) so no
+-- existential leaks from `Salt.Vk.zeta_growth_pow`.
+-- ⟦NOT BUILT (P-7's, per the brief)⟧ the `∃ H₀` Siegel fold: zeros with `Im ρ = 0` are excluded by
+-- the height floor exactly as `Salt.SW.zero_free_region_all`'s `(χ² ≠ 1 ∨ Im ρ ≠ 0)` carve-out
+-- excludes them.  The consumer's dispatch: complex zeros of real `χ` ⟹ this wave; the exceptional
+-- real zero ⟹ `Salt.SW.siegel_zero_free_exceptional` (KMT's `1_{χ∈{χ₀,ξ₁}}` row); heights below
+-- the floor ⟹ the classical explicit `Salt.SW.zero_free_region_all'`.
+--
+-- ⟦STONE C NOT ATTEMPTED — the honest finding⟧ `halasz_primes_chi` (the χ-twin of
+-- `halasz_primes_pow`) needs more than a retype: the REUSE BOUNDARY inside
+-- `HalaszPrimesCore` is at the representation layer only (`primeWindow_contour_rep`,
+-- `rep_truncated` are generic in the coefficients `a : ℕ → ℂ` — genuinely reusable), while REP
+-- (`lambda_window_rep`), ZFREE-RECT, EDGE (`shifted_edge_price_strip`), RES and `per_pair_contour`
+-- are written directly at `vonMangoldt`/`riemannZeta`/`Zc` and must be re-proved.  TWO design
+-- questions the next wave must answer FIRST: (i) the EDGE price's moderate-height leg is ζ's
+-- NON-EXPLICIT compact bound (`logDeriv_Zc_compact_bound`, `∃ δ₀ C₀`) — legitimate for the fixed
+-- function ζ, but for `χ mod q` with `q` growing in `H` the constant would depend on `q`
+-- non-effectively, so the χ-twin needs either a `q`-explicit L′/L strip bound or the classical
+-- explicit region `zero_free_region_all'` carrying the low/moderate heights; (ii) the pole row
+-- (RES) VANISHES for `χ ≠ 1` as the brief says, but the principal/exceptional rows must then be
+-- carried by KMT's `1_{χ∈{χ₀,ξ₁}}` bookkeeping, which is an assembly decision, not a port.
+open Salt.Tactic in
+#audit_axioms Salt.MR.vk_twist_strip_sum_le
+  Salt.MR.vk_twist_strip_abs_le
+  Salt.MR.vk_char_strip_head_le
+  Salt.MR.vkStripConst
+  Salt.MR.one_le_vkStripConst
+  Salt.MR.vkTheta_le_thousandth
+  Salt.MR.vk_char_strip_growth
+  Salt.MR.vk_char_box_growth
+  Salt.MR.LFunction_zero_free_region_vk_pos
+  Salt.MR.LFunction_inv_conj
+  Salt.MR.LFunction_inv_conj_zero
+  Salt.MR.LFunction_zero_free_region_vk
+  Salt.MR.zeta_strip_growth_explicit
+  Salt.MR.zeta_box_growth_explicit
+  Salt.MR.neg_re_logDeriv_trivChar_le_zeta
+  Salt.MR.LFunction_real_zero_free_of_disc
+  Salt.MR.LFunction_real_region_of_growth
+  Salt.MR.LFunction_real_zero_free_region_vk_pos
+  Salt.MR.LFunction_real_zero_free_region_vk
