@@ -16080,3 +16080,66 @@ bytes vs the mathematics at the terminal) + REF-SOCKET-SAT (the joint
 inhabitation of all five frame bundles at the g-arm regime — the
 non-vacuity of the whole conditional).  NOTHING IS ANNOUNCED until
 they return and JYH reads the verdicts.
+
+## (2026-07-30 08:47 PDT) REF-SOCKET-HONEST returns — TERMINAL: DEFECT (kernel-checked); the summit protocol WORKS; nothing announced
+
+**⟦THE HEADLINE KILL — hframe unsatisfiable where the conclusion has
+content.⟧**  `DoorFuseFrame.gP1` (374784·Cs·e³/P₁ ≤ (log X_d)^{-1/500})
+is an UPPER cap on the base X_d = A+s; `SocketBase` has NO upper bound
+on A and is closed upward.  KERNEL-CHECKED at the refuter's scratch
+(axioms clean, four lemmas): `hframe_unsatisfiable` (SocketBase
+inhabited → hframe → False) and **`terminal_item11_at_zero`** — the
+terminal's own hframe proves ⟦item 11⟧ AT GRADE ZERO; RSanDoor plays
+no role in conjunct (i).  The exhaustive dichotomy: large-j inhabited
+→ vacuous; empty → conjunct (i) is the trivial inhabitant re-dressed.
+THE MIRROR of ARITH's henv catch: they ran the base DOWN, nobody ran
+it UP.  Inherited by every _doorAssembly/_doorArith form of the day.
+
+**⟦THE SECOND HORN — F5 RETURNED through the crossing's own gates.⟧**
+`gRows`' density source Cp·2/M caps loglog X ≤ 500·(ln M − ln(11520Cp));
+SocketBase's reach (doorRowFloor M ≤ j ≤ log₂L ≤ log₂H) caps
+ln M ≤ loglog H − 24.6; the arm floors loglog X ≥ 7000·loglog H.
+JOINTLY UNSATISFIABLE at every λ (e^{14λ} ≤ M ≤ e^λ) — Cp-independent
+at the maestro's re-derivation (letting M grow doesn't help; H caps
+M·Adoor M).  The flags:15347 claim "no upper cap on R.x exists on the
+port road" was FALSE AT THE TERMINAL: hgP1/hgRows ride verbatim as
+frame fields.  THE TRACE: the six-debit page (v2 A2) classified
+hgP1/hgRows "P₁/M-side, same genre as summand 2" — hgP1 IS
+anchor-absorbable (the cap ≈ e^{3e42} vs the arm's x ≈ e^{e^{6.3e14}}
+… the cap holds at the g-arm base ONCE THE BASE IS CAPPED); hgRows is
+NOT (M itself is λ-capped, the anchor grant raised Adoor not M).  The
+classification was never run M-side-against-the-arm.
+
+**⟦ALSO AMENDED⟧**  Gate-4's conjunct is a definitional tautology
+(RS defined as the splice of RSanDoor) — free, not a third demand.
+The ceiling is a theorem of the road, not a hypothesis — conjunct
+(iii) is a NON-CONTRADICTION certificate, correctly so.  **hδ₀ HAS NO
+SUPPLIER**: δ₀ is the road's opaque ∃-witness carrying only 0 < δ₀;
+no lemma gives 2/10⁴⁹ ≤ δ₀ — an unproved numeric claim about another
+theorem's existential (soft: doorRho is a free knob at
+log(1/ρ)/500 of arm budget).
+
+**⟦WHAT SURVIVES⟧**  The ARITHMETIC FACT (the five-summand pricing +
+the ceiling certificate at 1.59× slack); the WIRING FACT (SeamCoefWS
+right at the door — the wall provably cannot reach the strict law;
+the T₀-band genuinely discharged; the φ(q) ledger paid ONCE, in the
+open — check 3 CONFIRMED); the SCALES clean; the PROVENANCE clean
+(14/14 axioms; zero sorry/native_decide/axiom across the day's 29
+files).  What does NOT survive: the socket discharge itself.
+
+**⟦THE REPAIR SPACE (maestro's first read, for the design block —
+NOT fired)⟧**  (α) THE BASE CAP: add an upper antecedent (A ≤ 2·R.x
+genre) to the socket's statement — ITEM 11 SURGERY, Fable/JYH-tier
+(rule 1); must byte-verify the road's consumer reads only bounded A
+(the door ladder is ≤ (H+1)+x/2^k — plausible).  This closes horn 1
+(gP1's cap ≈ exp(3e42) comfortably above the g-arm's log x ≈
+exp(6.3e14) at the register top).  (β) horn 2 needs a PRICING
+re-route: the density term must flow χ-SUMMED through the crossing at
+the MVT-priced COUPLED form (the 1/q saving — `ramErr_meanSq_all_chi`'s
+three-pricings exhibit, the BRIDGE-SCOPE dossier's own note), making
+the demand POLY(λ) ≤ M instead of e^{12λ} ≤ e^λ — the D1
+indexed-family shape was built for exactly this consumption; the
+per-χ single_le_sum read (D2's §-read) is what pays the fatal φ(q)
+on the density.  Both = a design block + freeze v3 + refuters, THEN
+executors.  NOTHING FIRES until the freeze.  REF-SOCKET-SAT still
+aloft (corroboration expected).
