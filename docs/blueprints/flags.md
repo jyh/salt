@@ -15264,3 +15264,197 @@ H)²` against the trivial `4(log H)^{12}` — no power of arcDen, no q.
 council's single item; its refuter pass runs overnight (freeze→refute→fire).  The
 night-executable tail (D1 the slot-form wrapper + D4 the socket wiring — both
 fork-neutral) fires only if the refuters confirm fork-neutrality.
+
+## (2026-07-30 01:07 PDT) PORT-AUDIT lands — the campaign's terminal claims audited HONEST, with three doc corrections and a kernel-checked NON-VACUITY certificate
+
+**⟦THE HEADLINE⟧**  All six terminals audited at the bytes: axiom-clean 6/6
+(`[propext, Classical.choice, Quot.sound]` exactly — also re-checked on
+`xiCarveWidth_of_siegel`, `usetChi_window_meansq_of_socket`,
+`siegel_real_carve`); ZERO real `sorry` in `Salt/` (the naive grep's 261 hits
+are all doc-prose backticks); ZERO `axiom` declarations; no `native_decide`,
+no `opaque`/`unsafe`/`@[implemented_by]`/kernel-trust escapes anywhere.
+
+**⟦THE VERDICTS⟧**  `mmuChiRate_holds_gated` HONEST at the STRONG reading:
+`A` universally quantified; `C, x₀` chosen BEFORE `∀ y ∀ q ∀ χ ∀ t` (uniform
+in modulus/character/height); the npow-12 modulus gate and rpow-`A` decay
+confirmed in source.  The "effective C" claim is a PROOF-level property (the
+statement's single `∃ C x₀` cannot certify it) — verified at the proof term:
+`Ctot` is built from VK growth data only; the Siegel-carrying `X₁ = H₀` enters
+ONLY through `eventually_ge_atTop`, i.e. only the threshold.  Carry it as
+prose-with-citation, never as a statement guarantee.
+`lambdaChiSummatory_holds_gated` HONEST (nit: it carries the Prop-family
+parameter `(A, hA)` — say "for every saving A > 0, unconditionally").
+`halaszPrimesChi_pointwise_of_gates` HONEST — conclusion BYTE-IDENTICAL to
+the pre-restatement form under whitespace-normalized diff; the new def also
+drops the old `0 < q` (strictly STRONGER def; the theorem still supplies
+`[NeZero q]` — nothing weakened).  `LFunction_zero_free_region_vk` HONEST on
+linearity (`vkStripConst q = 5000*q` kernel-confirmed by `rfl`) — and the
+morning report must say: the VK-width region is stated at `χ² ≠ 1` ONLY;
+quadratic characters are covered downstream by `twisted_rect_zero_free_siegel`
+(the Siegel fold), so the region-as-consumed is carve-free.
+
+**⟦THE THREE DISCREPANCIES — ALL DOC, ALL FIXED IN THIS COMMIT⟧**
+(1) PortClose §2 said "FOUR gates and nothing else"; the bytes carry four
+`q`-gates PLUS the uniform floor `T₀ ≤ T` (§3's docstring had it right).
+(2) `usetChi_window_meansq_gated`'s five-group residue enumeration omitted
+eight well-formedness binders (`hJb1 hJbJ hδ0 hH2 hcf1 hM hAm hAsub`) — now
+listed.  (3) `LambdaRateTwisted.lean` still called `MmuChiRate` "NOT LANDED"
+in SEVEN places — all now carry the ⟦LANDED 2026-07-30⟧ pointer with the
+design prose kept as record.
+
+**⟦NON-VACUITY, PROVED NOT ARGUED⟧**  The auditor built kernel-checked
+certificates: `gates_jointly_satisfiable` (any `T₀ ≥ 3, Kq, Ks > 0, q`:
+one `T` meets the floor and G1–G4 SIMULTANEOUSLY) and `socket_nonvacuous :
+∃ C c > 0, ∀ q [NeZero q], ∃ T ≥ 3, HalaszPrimesChi C c q T` — the gated row
+inhabits the socket at EVERY modulus; plus `mmuChiRate_instantiated` (the
+rate fired at the extreme `t = y`) and `q_one_in_range`.  The price named:
+G1 binds, `log(5T+1) ≥ (2·10⁸q)⁸` — `T ≳ exp(10⁶⁶)` at `q = 1`, growth
+`exp(q⁸)`; fine for the x-scale consumers (loglog demand ~153 + 96·log log q
+vs the ladder's ≫ 285 — and K1's g-bump only raises it).  `Kq`/`Ks` are
+∃-bound with only positivity exposed: the row lives in the "T large enough"
+regime, never at a named numeric T — sound for an asymptotic socket, stated
+for honesty.  `usetChi_window_meansq_gated`'s ~40-binder gate set checked
+consistent in prose (the one candidate conflict `hgate` vs `hκ30`+`hTL`
+resolves at `378000(log L)⁵ ≤ cs·L^{1/4}`).  PORT-NONVAC executor dispatched
+to land the certificates as `Salt/MR/PortNonVacuous.lean` (additive).
+
+## (2026-07-30 01:10 PDT) REF-A4-SHAPE lands — the freeze AMENDED at the slot shape, the §3 leg census REFUTED; night tail CLEAR only under A1+A2 (adopted as v2)
+
+**⟦R-A4-5 — AMENDED: two inequivalent slot shapes, and v1 named the wrong
+one.⟧**  `thm_a2_spine`'s `Mrow` is ONE scalar uniform over the `T`-family
+(`seam_Msup_family` consumes it as a constant), so the pointwise-in-χ lift
+forces INDEXED FAMILIES `Mrow B₀ : DirichletCharacter ℂ q → ℝ` with the χ-sum
+on the CONSTANTS — while v1 §6 worded the slot as the χ-sum INSIDE the
+binders.  The two differ by a `sup_T ∑_χ` vs `∑_χ sup_T` exchange worth up to
+`φ(q) ≤ (log H)^12`, and A3's landed form (`usetChi_window_meansq_gated`,
+fixed `T`, sum inside) sits on the OTHER side from v1's wording.  v1's R3
+rejection is wrong at exactly one step: the monotone sup-over-`T` is where a
+χ-sum dies.  ⟦A1, ADOPTED⟧ D1 states the indexed-family form (it SUBSUMES the
+sum-inside form; converse fails) with the datum a generic χ-indexed family —
+fork-neutral, night-fireable.  The φ(q) this exchange costs on the ROW
+summand is g-arm-absorbable at `loglog X ≳ 3.7e3·loglog H + 7.4e4` on top of
+K1's — council arithmetic, not a night item.  CONFIRMED CLEAN, kernel-level:
+`chiFreeRowSq` is DEFEQ to `m4_door_meansq_carried`'s conclusion (the trivial
+inhabitant's proof term uses `doorRow_trivial_grade` with no unfold), and the
+graded split forces no supplier choice (`RStr` carries `j < j₀` behind gate 5;
+the ceiling constrains `RSan` only).
+
+**⟦R-A4-5(e) — D4's φ(q) page UNDER-SCOPED: six debits, not one.⟧**
+`thm_a2'_of_rows` has FIVE χ-free summands; v1 §4 priced only summand 3.
+Unpriced: summand 2 (`a2Level1 M`) whose φ(q) debit TIGHTENS ⟦gate 8⟧ — the
+register's single binding `H`-upper — by ≈12× (`loglog H ≲ 0.058·Adoor M` →
+`0.0048·Adoor M`; non-fatal, `M` chosen after `R`, but NOT g-arm-absorbable);
+the grading gates `hgP1`/`hgRows` (`P₁`/`M`-relative, same genre); the row
+summand's own φ(q) under the A1 exchange.  ⟦A2, ADOPTED⟧ D4 fires the
+socket-wiring half ONLY; the arithmetic page goes to council with the
+six-debit enumeration (g-arm-absorbable `X`-side vs gate-8-tightening
+`P₁/M`-side — the CLASSIFICATION is the page).
+
+**⟦R-A4-1 — REFUTED: the leg census misassigned a supplier and hid two
+holes.⟧**  (a) `uset_TS_branch_meanvalue`/`hU_supplied` are the 𝒰-LEG's
+suppliers (the binder `∀ t ∈ 𝒯, t ∈ Uset…` is the giveaway) — v1 §3 routed
+the 𝒰-COMPLEMENT to its neighbor's machinery, leaving the 𝒯-leg with NONE.
+The q=1 𝒯-apparatus is 4061 ln (TLeg* five files) + 2161 ln pricing, ZERO
+χ anywhere; the Σ_χ Lemma-12 half EXISTS (`lemma12_meansq_all_chi`, φ(q)
+explicit on every error term); the rest is 1.5–3k ln class C.  ALSO: no
+χ-analogue of `exists_Tset_or_mem_Uset` exists at the ORDINATE level —
+`UsetChi` is FIBREWISE (a different ordinate set per χ), so a single `A`
+serves Σ_χ only at `A ⊆ ⋂_χ 𝒰_χ`, and the complement is `⋃_χ 𝒯tot_χ` where
+the integrand MIXES 𝒰- and 𝒯-characters.  The partition stone is 150–300 ln
+class B but a DESIGN FORK (⋂_χ 𝒰 / per-χ A_χ / graded pair-partition).
+(b) CONFIRMED CLEAN, machine-verified: the gated ladder's PROOF TERM (4864
+constants walked) touches zero capFree/liouChi/pocket constants; every
+q-gate it carries is log- or fractional-power.  (c) THE Rbd HOLE — the real
+capFree dependence sits INSIDE the ruled leg: the `Rbd` slot (character-
+uniform, graded, `81·Cs·Rbd²·(H/j)²` in the exit) has as its only landed
+supplier the `pocket_collision_window` chain whose per-χ row-cap comes from
+`capFreeFloor3_liouChi_all` — the coefficient-`(1/4)q` gate RETURNS on the
+leg v1 declared safe.  A Σ_χ collision/pocket stone is ~600–1200 ln class C
+and a GENUINE design question (the pretentious floor is per-χ by nature).
+
+**⟦THE RE-PRICE⟧**  A4 honest total: D1–D4 (~2.5–4.7k) + the census gap
+(𝒯-leg lift 1.5–3k + partition 150–300 + Rbd 600–1200) = **~4.8–9.2k ln** —
+roughly double v1.  The council's deep items: the partition fork, the Rbd
+design, the six-debit page, D3's route (REF-A4-MATH pending).
+
+**⟦NIGHT TAIL: CLEAR under A1+A2, FIRED⟧** — D1 at the indexed-family shape
++ D4's wiring half, one executor, additive only.
+
+## (2026-07-30 01:13 PDT) REF-A4-MATH lands — the arithmetic refuter: two numerals corrected, the M₀ window found, the 12× anchor line, D3 re-priced, R-A4-2 refuted both ways
+
+**⟦R-A4-3(a) — AMENDED: the g-arm numeral was FALSE as written.⟧**  The
+ceiling byte-exact: `RSan H ≤ 3.6366e-103/(1+12λ)²`, `λ = loglog H` (the
+freeze's 2.5e-105/λ² is its large-λ shadow).  The honest arm:
+`loglog X ≥ 6000λ + 1000·log(1+12λ) + 124,815` — the freeze dropped the
+log term, and its literal `6000λ + 1.3e5` FAILS for every λ ≥ 33.2, i.e.
+everywhere in the composed register.  Clean form adopted:
+**`loglog X ≥ 7000·loglog H + 1.25e5`** (uses log(1+12λ) ≤ λ at the
+register's 50-guard).  ALSO: the "~42× bump" was a CATEGORY ERROR — the
+`144λ + 2e3` baseline lives nowhere in the kernel; it is the DEAD F4/F5
+route's threshold.  The honest ledger: the φ(q) debit costs **+6000λ flat
+on a baseline of 1.24e5** (it converts a constant arm to a λ-linear arm).
+`1/500` confirmed the right exponent (`hεwin` at `θ₂₉₃ − 1/500`;
+θ₂₉₃ = 1/292.955); a 1.71× lever exists at 1/293 with essentially zero
+ε-room — recorded, not spent.  188133's provenance derived exactly
+(37620·5 + 33; the sibling constants cross-check).
+
+**⟦R-A4-3(b) — CONFIRMED BY DERIVATION: F5/gate-neutral.⟧**  The
+mechanism is `regimeEnlargeX'` (RegimeParam:501-528): a g-bump moves `x`
+ALONE — ω/a/eps/Hlo/Hhi/C0/J carried verbatim.  All 11 gates walked:
+x-reading gates (the g-floor, gate 1's ladder/blocks, gate 10's
+`4·2^k/x`, gate 11's socket antecedent) are x-LOWERs or strictly eased;
+the rest read H/M/j only.  The 2³⁶ lives in `Adoor M` (M-only); the
+spine conjunct reads Hlo/Hhi only.  The freeze's one clean claim.
+
+**⟦R-A4-3(c)+(d) — THE CENSUS INCOMPLETE: the M₀ window and the 12×
+anchor line.⟧**  Summand 1 (`8448·C₁'²·e^{−M₀/e}`) was ABSENT from the
+freeze; with the ball's `8S²` it forces a TWO-SIDED `M₀` window
+`[32.62λ + 670 + 0.06·loglog X, 2.7128·loglog X − 7.54]` (upper cap from
+`hErr`) — non-empty under the bumped arm, but it must be STATED in the
+D-wave or the ledger is unclosable.  Summand 4 free but by its OWN
+`(log X)^{−43/45}` (not 𝒫₁/h); summand 5 free beyond words.
+**Summand 2 MISPRICED**: `a2Level1 = (log Q₁)^{1/3}/P₁^{1/12}` with
+`P₁ = 2^{Adoor M}` — its φ(q) absorption needs `Adoor M ≥ 207.75λ` vs
+gate 8's own `> 17.31λ`: **exactly 12× (it is P₁ vs P₁^{1/12}), on THE
+ONE BINDING H-UPPER** — `log₂M+1: 207 → ~2484`, `M: 1.9e62 → ~1e747`.
+Dischargeable (M bound after ∃R; knock-ons derived free) — but it is an
+anchor movement and GOES TO THE COUNCIL'S ANCHOR ASK.
+
+**⟦R-A4-4 — AMENDED: D3's fit holds; its supply is thinner than "O6
+LANDED".⟧**  Range fit CONFIRMED at the small-k corner (`k = X_d`,
+base X; q-fit costs ℓ ≥ 1.09λ; t trivial; hpiece IS a summatory — no
+Abel step).  The four-fold IS landed (`winCutH_doorChiCoeff_split`,
+cost exactly 4, `pieceDatum` completely multiplicative 1-bounded).  The
+rate IS landed (the refuter independently caught LambdaRateTwisted's
+stale "NOT landed" docstring — ALREADY FIXED in this session's working
+tree, convergent with PORT-AUDIT).  BUT O6 sits at (μ, SINGLE window):
+D3 owes the λ-transposition (~200-350, B), the union-mask twin for
+𝒥 = {1,2}'s two disjoint blocks (~300-500, B/C), the mass page (~150-250,
+B), and the Rankin-tail page (~300-500, C) — the carrier file SAYS both
+pages are "named, not performed" (:78-81, :659-660).  **D3 honest:
+≈1.65-3.0k ln** (was 700-1400).  Delivery is EVENTUAL: the ineffective
+`∃x₀` must ride in the g-arm as `max x₀ (…)` — free, unstated.  The
+g-arm must also be written `g H ω := 16ω(log H)^12·exp(exp(7000λ+1.25e5))`
+(the socket-antecedent division; g takes ω, legal).
+
+**⟦R-A4-2 — REFUTED BOTH WAYS.⟧**  The T₀-band's sup is NOT a second
+consumer — `m4_t0datum_sup` (LANDED) already derives it from `hpiece`;
+zero new bytes (the freeze double-counted).  The REAL ball-leg sup
+(`SeamBallWeighted:162-168`) is a DIFFERENT shape on three axes: disjoint
+t-range (`seamT0 X ≤ |t| ≤ T` vs `≤ seamT0 X`), renormalized RHS
+(`S·m/(1+|t−t₁|)` — the flat form was REPLACED as divergent), and the
+centre parameter t₁.  D3 cannot instantiate it.  **New leg: the χ-lift of
+`ball_sup_of_center`'s three binders at `pieceDatum` (hCenter at t₁ ≠ 0
+is a genuine nonzero-centre Halász instance): 2-3 statements, ≈400-700
+ln, class C, previously unpriced.**
+
+**⟦THE RE-PRICE, CUMULATIVE (SHAPE + MATH)⟧**  A4 honest total:
+D1+D4 (~0.65-1.15k) + D2 (~1.2-2.2k) + D3 (~1.65-3.0k) + the ball-sup
+leg (~0.4-0.7k) + the 𝒯-leg lift (~1.5-3k) + the partition stone
+(~0.15-0.3k) + the Rbd stone (~0.6-1.2k) ≈ **6.2-11.6k ln** — v1's
+2.5-4.7k more than doubled, by two refuters in one night.  THE NIGHT
+TAIL (D1/D4) UNTOUCHED BY EVERY FINDING — remains CLEAR and in flight.
+**The council slate, final order: (1) the 12× anchor ask (gate 8 /
+log₂M+1 → ~2484); (2) the partition fork; (3) the Rbd design; (4) the
+corrected six-debit page (the 7000λ+1.25e5 arm + the M₀ window); (5)
+D3's four owed pages + the ball-sup leg; (6) the θ₂₉₃ lever (recorded).**

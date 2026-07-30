@@ -140,3 +140,126 @@ does not force a supplier choice).⟧
 
 *The refuter pass (REF-A4: R-A4-1..5) runs overnight; verdicts bank in
 flags before the council.  — Sancho, 2026-07-30, the night watch.*
+
+---
+
+# v2 ADDENDUM (2026-07-30 01:10, REF-A4-SHAPE folded; v1 above kept as the record)
+
+The refuter pass amended the freeze before any executor consumed it —
+the law working.  Three corrections, all adopted:
+
+## A1 — THE SLOT SHAPE (v1 §6 was the wrong one of two inequivalent forms)
+
+`thm_a2_spine`'s `Mrow` is a single scalar uniform over the `T`-family,
+so the pointwise lift forces **indexed families**
+`Mrow B₀ : DirichletCharacter ℂ q → ℝ` with the χ-sum on the CONSTANTS:
+
+```
+hrowsΣ   : ∀ χ, ∀ T, X/h ≤ T → 2T ≤ X → TannGate X (2T) → 5 ≤ loglog (2T) →
+             X/h/T * ∫_{seamAnn X (2T)} ‖spoly N (a χ) t‖² ≤ Mrow χ
+hT0bandΣ : ∀ χ, ∫_{-seamT0 X}^{seamT0 X} ‖dpolyA (a χ) (seamS0 N X) t‖² ≤ B₀ χ
+  ⟹  ∑_χ (window mean square at a χ) ≤ (affine in ∑_χ Mrow χ, ∑_χ B₀ χ,
+       with φ(q) on the χ-free summands)
+```
+
+with the datum a generic χ-indexed family (not pinned to `chiBarCoeff`
+or `doorChiCoeff`; they agree up to one `mul_comm`).  This SUBSUMES the
+sum-inside form (`Mrow χ := MrowΣ`) — fork-neutral, night-fireable.  The
+`sup_T ∑_χ` vs `∑_χ sup_T` exchange costs a φ(q) on the ROW summand that
+the g-arm absorbs (`loglog X ≳ 3.7e3·loglog H + 7.4e4` on top of K1's) —
+council arithmetic.
+
+## A2 — D4 RESCOPED to the wiring half
+
+Kernel-confirmed clean: `chiFreeRowSq` is DEFEQ to
+`m4_door_meansq_carried`'s conclusion; the graded split forces no
+supplier choice; `m4_chiSummedFreeRow_trivial` carries `j < j₀`.  D4
+fires that wiring only.  The φ(q)-ledger page is COUNCIL work with the
+SIX-debit enumeration: summands 2 (tightens ⟦gate 8⟧ ≈12× — `P₁/M`-side,
+NOT g-absorbable), 3 (g-arm, K1), the ball `8S²` (K4), `hgP1`, `hgRows`,
+and the A1 row exchange.  The page's content is the CLASSIFICATION:
+g-arm-absorbable (`X`-side) vs gate-8-tightening (`P₁/M`-side).
+
+## A3′ — THE §3 LEG CENSUS CORRECTED (v1's was refuted)
+
+| leg | v2 supplier | status |
+|---|---|---|
+| ball | pointwise lift of `ball_leg_of_sup` (`8S²`, φ(q)-debited) | as v1 |
+| `(Ann∖ball) ∩ ⋂_χ 𝒰_χ` | A3 (`usetChi_window_meansq_gated`) — **v1 misfiled this machinery under the complement leg** | landed, BUT carries ⟦THE Rbd HOLE⟧ |
+| the 𝒯-leg (the complement) | **NO χ-LIFT EXISTS** (q=1 apparatus 4061+2161 ln, zero χ); the Σ_χ Lemma-12 half IS landed (`lemma12_meansq_all_chi`) | **missing: 1.5–3k ln, C** |
+| the partition itself | no ordinate-level χ-analogue of `exists_Tset_or_mem_Uset`; `UsetChi` is FIBREWISE, so one `A` works only at `A ⊆ ⋂_χ 𝒰_χ`, complement `⋃_χ 𝒯tot_χ` mixes genres | **missing: 150–300 ln, B — a DESIGN FORK** (⋂ vs per-χ `A_χ` vs graded pair-partition) |
+
+⟦THE Rbd HOLE⟧ — the deepest new item: the ruled leg's `Rbd` slot
+(character-uniform, graded) has as its only landed supplier the
+`pocket_collision_window` chain fed by `capFreeFloor3_liouChi_all` — the
+`(1/4)q` gate returns INSIDE the safe leg.  A Σ_χ collision/pocket stone:
+~600–1200 ln, class C, and a genuine design question (the pretentious
+floor is per-χ by nature; character-uniformity is not a composition).
+Machine-verified clean elsewhere: the gated ladder's proof term (4864
+constants) touches zero capFree/pocket constants.
+
+## THE RE-PRICE
+
+A4 honest total: **~4.8–9.2k ln** (v1's 2.5–4.7k roughly doubled by the
+census gap).  The council's deep items, in order: (1) the partition
+fork; (2) the Rbd design; (3) the six-debit classification page; (4)
+D3's route (REF-A4-MATH pending at this writing).
+
+## THE NIGHT TAIL (fired under A1+A2)
+
+D1 at the indexed-family shape + D4's wiring half — one executor,
+additive only, fork-neutral under the refuter's own verdict.
+
+---
+
+# v2.1 ADDENDUM (2026-07-30 01:13, REF-A4-MATH folded)
+
+## The corrected arithmetic (supersedes §4 and the v2 re-price)
+
+* **The arm:** `loglog X ≥ 7000·loglog H + 1.25·10⁵` (clean form; exact:
+  `6000λ + 1000·log(1+12λ) + 124,815`).  v1's `6000λ + 1.3e5` FAILED for
+  every λ ≥ 33.2 — the log term was dropped.  The "42× bump" framing is
+  retired: the old `144λ + 2e3` baseline priced the DEAD F4/F5 route; the
+  honest ledger is **+6000λ flat on a 1.24e5 baseline**.
+* **The g-arm's full written form:**
+  `g H ω := max x₀ (16·ω·(log H)^12 · exp(exp(7000·loglog H + 1.25e5)))`
+  — the socket-antecedent division AND the ineffective `∃x₀` both ride
+  inside g (legal: g takes ω; x₀ is a constant of a fixed Prop).
+* **The M₀ window (NEW, was unclosable unstated):** summand 1 + the ball
+  `8S²` force `M₀ ∈ [32.62λ + 670 + 0.06·loglog X, 2.7128·loglog X − 7.54]`
+  (upper cap = `hErr`).  Non-empty under the arm; MUST be stated in the
+  D-wave.
+* **⟦THE 12× ANCHOR LINE — COUNCIL ITEM #1⟧:** summand 2's φ(q)
+  absorption needs `Adoor M ≥ 207.75λ` vs gate 8's `17.31λ` — exactly
+  12× on THE ONE BINDING H-UPPER.  `log₂M+1: 207 → ~2484`,
+  `M: 1.9e62 → ~1e747`.  Knock-ons derived free; M is bound after `∃R`;
+  but this is an anchor movement and goes to JYH.
+* **F5/gate-neutrality: CONFIRMED by derivation** (regimeEnlargeX' moves
+  x alone; all 11 gates x-neutral or eased).  The freeze's cleanest claim.
+* **The θ₂₉₃ lever, recorded not spent:** re-cutting D1's pooling at
+  1/293 instead of 1/500 buys 1.71× on the whole arm, at zero ε-room.
+
+## D3 re-priced (supersedes the v2 table row)
+
+The rate and the four-fold ARE landed (cost exactly 4).  But O6 sits at
+(μ, single window); D3 owes: the λ-transposition (200–350, B), the
+union-mask twin for 𝒥 = {1,2} (300–500, B/C), the mass page (150–250,
+B), the Rankin-tail page (300–500, C).  **D3 honest: ≈1.65–3.0k ln.**
+Fit CONFIRMED at the small-k corner; hpiece is a summatory (no Abel).
+
+## R-A4-2 resolved (v1 §3 bullet 3 corrected both ways)
+
+The T₀-band sup is DERIVED from hpiece by landed bytes (`m4_t0datum_sup`)
+— not a second consumer.  The REAL ball-leg sup is a different shape
+(disjoint t-range, `S·m/(1+|t−t₁|)` renormalization, the centre t₁) —
+**a new leg: the χ-lift of `ball_sup_of_center` at `pieceDatum`,
+≈400–700 ln, class C** (hCenter at t₁ ≠ 0 is a genuine nonzero-centre
+Halász instance).
+
+## THE CUMULATIVE RE-PRICE (v2.1 final)
+
+**A4 ≈ 6.2–11.6k ln.**  The council slate, final order: (1) the 12×
+anchor ask; (2) the partition fork; (3) the Rbd design; (4) the
+corrected six-debit page (the arm + the M₀ window); (5) D3's owed pages
++ the ball-sup leg; (6) the θ₂₉₃ lever.  The night tail (D1+D4)
+untouched by every finding — in flight at this writing.
