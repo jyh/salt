@@ -53,7 +53,7 @@ not analytic facts and no page can prove them:
   — eleven fields, `M4Assembly`'s frozen frame at the base `X_d = A + s`, `h = 2^j`.
 * `harith : ∀ H L q j A s, SocketBase R M H L q j A s →`
   `DoorArithFrame M H j (A+s) (C₁ (A+s)) (M₀ (A+s)) K`
-  — five fields, ⟦C4⟧'s arm + ⟦C1⟧'s anchor + the `M₀` window + the `j`-floor + the `H`-floor,
+  — ten fields, ⟦C4⟧'s arm + ⟦C1⟧'s anchor + the `M₀` window + the `j`-floor + the `H`-floor,
   with ⟦C3⟧'s `K` SYMBOLIC (never evaluated, never `cffKVt`).
 
 **⟦REGIME⟧** — facts about the register `R` and the closing constant:
@@ -94,7 +94,7 @@ not analytic facts and no page can prove them:
 * `hband` — the `T₀`-band per character.  Carried by
   `m4_socket_discharged_conditional` (§3) and GONE from `m4_socket_discharged_bandfree`
   (§4), where it is discharged by `M4T0DatumDischarge.m4_hT0band_at_door_discharged` and
-  replaced by `DoorBandBase` (§2, eight fields) plus the supplier's own `∃C' ∃x₀` threshold
+  replaced by `DoorBandBase` (§2, nine fields) plus the supplier's own `∃C' ∃x₀` threshold
   and the landed slot `MmuChiRate`.
 
 ## ⟦WHAT THE `∃C' ∃x₀` IN §4 IS, AND WHY IT SITS WHERE IT SITS⟧

@@ -16143,3 +16143,65 @@ per-χ single_le_sum read (D2's §-read) is what pays the fatal φ(q)
 on the density.  Both = a design block + freeze v3 + refuters, THEN
 executors.  NOTHING FIRES until the freeze.  REF-SOCKET-SAT still
 aloft (corroboration expected).
+
+## (2026-07-30 08:52 PDT) REF-SOCKET-SAT corroborates — CONFLICT with GOLD CERTIFICATE; the vacuity horn CLOSED (SocketBase inhabited); THE DENSITY WALL named exactly
+
+**⟦THE GOLD CERTIFICATE⟧**  `socket_frame_arm_conflict :
+SocketBase → DoorFuseFrame → DoorArithFrame → False` — kernel-checked,
+axioms clean, plus the quantitative trio (`gRows_caps_logXd`,
+`socket_arm_floor`, `socket_frame_residual`: `log 11520 + log Cp +
+13·log M + 586 ≤ 0` — the exact residual at 0 < Cp alone).  THE WELD:
+`DoorRowEndBase.Q1_le_h` IS `SocketBase.hjfl` verbatim (`calQK … M 1 =
+2^{M·Adoor M}` — doorRowFloor IS log₂Q₁; zero margin, exact identity).
+The fixed point diverges at multiplier 14 > 1; shortfall ≥ 10^262/C.
+**AND the vacuity horn is CLOSED**: SocketBase inhabited at the tower
+regime (loglog Hhi ≥ 125,000 vs the needed 143.9… wait — 125,000 ≫
+143.9: inhabited by three orders in the double-log) — so the terminal
+is CONTRADICTORY, not vacuous.  The structural sentence: **the door's
+density ledger decays like (log H)^{-1}; its φ(q)-envelope share must
+fit under (log H)^{14}.  Exponent 1 vs exponent 14 — NOT numeric, no
+knob moves it.**  Attribution: the defect FIRST exists at
+M4ArithPage's _doorArith (RSbig := RSanDoor forces the arm alongside
+the frame); M4Assembly's own form is clean (henv leaves RSbig free).
+
+**⟦WHAT HOLDS, with the margins named⟧**  The M₀ window jointly
+non-empty (the arm a FRIEND: 488×); qfit vs the socket q-gate
+compatible (5833×); the g-arm load-bearing for FOUR fields (h_window/
+tann/Q2_le/qfit — any x-antecedent weakening kills them); the ladder
+REACHES (that reachability is exactly why the conditional is
+contradictory rather than vacuous); ⟦coefWS NOT REFUTED⟧ — the strict
+law's quantifier excludes the killed off-window pairs AND a positive
+witness is VISIBLE (on (Xd,2Xd]: winCutH·doorCoeffU(pm) = 1_𝒮(pm)λ(pm)
+splits as (1_𝒮λ)(m)·(1_𝒮λ)(p) — multiplicative across coprime factors;
+the (bU,cU) pair 1-bounded by landed lemmas); hb1/hc1 landed.  THE
+TIGHTEST O(1) MARGIN IN THE CAMPAIGN: eps_hi — the 1/500 grading eats
+58.6% of θ₂₉₃; Aexp's floor 0.499 a hard spine choice (pin 1).
+
+**⟦THE INDEPENDENT BLOCKER⟧**  `hδ₀ : 2/10⁴⁹ ≤ δ₀` NOT derivable —
+the road exposes 0 < δ₀ only; doorRho = 2^{-341} is a fixed numeral
+that must beat δ₀².  Repair genre: R-2 ("a value the proof has,
+hidden by a weaker ∃") — expose δ₀ at its source (M4Close's
+m4_exit_socket_split chain) IF the proof carries a value; else the
+ceiling page re-parametrizes in δ₀.  Blocks S11 independently.
+
+**⟦TWO ENUMERATION SLIPS⟧** (fixed in this commit): the header said
+harith "five fields" (ten) and DoorBandBase "eight fields" (nine).
+The "nothing absorbed" claim HOLDS at the bytes; the counts did not.
+
+**⟦THE REPAIR AXES (SAT's ranking + the maestro note)⟧**
+1. SPLIT the Ramaré/row parameter from the door anchor (M_row per-base,
+   free of the Q₁ ≤ 2^j containment) — an interface change to the
+   frozen a2Mrow: Fable/JYH tier.
+2. Cut the φ(q) ledger below arcDen on the density — the D₀-truncation
+   route already refuted; BUT the maestro note: the density rides the
+   Lemma-12 row whose Σ_χ form (lemma12_meansq_all_chi) carries φ(q)
+   explicitly on ERROR terms — whether the MAIN/density term's χ-sum
+   admits the MVT-COUPLED pricing (the 1/q saving; χ-varying data) vs
+   the per-χ single_le_sum read that forced φ(q) on everything is
+   UNSETTLED and is the cheapest possible escape if it works.
+3. Break the j ≤ log₂L cap — the frozen socket binder; the wave-exit's
+   own dyadic structure resists.
+Plus 4 (maestro): can the density LEAVE the crossing entirely (the
+Lemma-12 row priced outside the five-summand exit)?
+**⟦DENSITY-SCOPE dispatched on this entry⟧ — the four axes byte-scoped
+so the council rules with bytes.  NOTHING FIRES beyond the scoper.**
