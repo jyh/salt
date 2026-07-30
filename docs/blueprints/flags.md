@@ -16274,3 +16274,30 @@ dispatched on this entry) → the (α) SURGERY after both land (it edits
 the frozen socket binder + re-threads the terminal chain — no
 concurrent flight over the same consumers) → the repaired terminal
 fuse → ITS OWN summit-protocol refuter pass → the S11 compose.
+
+## (2026-07-30 09:30 PDT) RHO-PAGE lands — the hδ₀ blocker CLOSED OUTRIGHT (M4ArithRho.lean 867 ln, 31/31 clean); the honest coefficient is 500
+
+**⟦THE CLOSURE⟧**  `m4_arith_rs_ceiling_met_rho` takes `0 < ρ` and
+`110525·ρ ≤ δ₀²` — NO hypothesis on δ₀ at all (δ₀ occurs only through
+its square; strictly weaker than even the briefed "0 < δ₀ only");
+`doorRhoOfDelta δ₀ := min 1 (δ₀²/110525)` supplies it FOR EVERY REAL
+δ₀ (`_spec` unconditional; the min-1 also feeds the new `ρ ≤ 1` frame
+field for free).  `m4_arith_door_exit_of_delta` — the (i)/(ii)/(iii)
+triple at 0 < δ₀ alone.  The frozen page is the ρ = 2⁻³⁴¹ INSTANCE
+DEFINITIONALLY (`RSanDoorRho_doorRho = rfl`).  Build 9584 green;
+axioms 31/31.
+
+**⟦THE HONEST COEFFICIENT — 500, NOT 1000⟧**  The arm:
+`7000·loglog H + 500·log(1/ρ) + 6600 + 36K ≤ loglog X` (cross-check:
+at ρ = 2⁻³⁴¹ it reads 7000λ + 124790 vs the ratified 125000 ✓).  The
+dossier's 1000 was the δ₀-COEFFICIENT (the square's factor 2 appears
+only after ρ is eliminated at ρ := δ₀²/110525) — at symbolic ρ the
+weaker hypothesis is the stronger theorem, and 500 is stated.  The
+ceiling constant derived honestly: 110525 (≥ 96·53.3·21.6 at the
+page's own pi bound).  ⟦DEVIATIONS RAISED⟧: the ρ-cost rides FOUR
+fields (the arm + three H-free constants in anchor/M0_window/jfloor,
+each priced; only the arm's share enters g); the ρ-cap 1e11 as a
+register-width statement (slack ~3 orders); the M₀ window WIDENS as
+ρ shrinks (452× more room than the endpoint costs).  CONSUMER NOTE
+in-file: δ₀ leaves its ∃ BEFORE g — set ρ := doorRhoOfDelta δ₀, then
+g := gArmDoorRho; zero H-demand, no numeric claim about δ₀ anywhere.

@@ -268,6 +268,7 @@ import Salt.MR.M4RowsChi
 import Salt.MR.M4Assembly
 import Salt.MR.M4RowsChiEnd
 import Salt.MR.M4ArithPage
+import Salt.MR.M4ArithRho
 import Salt.MR.M4SocketDischarge
 import Salt.Tactic.AuditAxioms
 
