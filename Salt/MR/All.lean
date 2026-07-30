@@ -275,6 +275,10 @@ import Salt.MR.M4ArithZero
 import Salt.MR.M4SocketFused
 import Salt.MR.M4CapWire
 import Salt.MR.RamErrWS
+import Salt.MR.S11Thread
+import Salt.MR.S11Hoist
+import Salt.MR.S11Arc36
+import Salt.MR.S11CoefWS
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -6015,3 +6019,45 @@ open Salt.Tactic in
   Salt.MR.DoorCapErrWS
   Salt.MR.m4_capE_at_door
   Salt.MR.m4_socket_discharged_capwired_ws
+
+/-! ⟦THE S11 PHASE-0/1 MECHANICALS audit⟧ (`S11Thread`, `S11Hoist`, `S11Arc36`, `S11CoefWS`,
+2026-07-30 — S11-SCOPE's ⟦KILLS 3+4⟧ plus two supply stones).  Four ruling-independent
+additive stones, each a twin of a landed statement or a witness for a carried binder:
+
+* ⟦S0-THREAD⟧ `M4Exit.m4_exit_socket_split`'s tower conjunct
+  `50 ≤ loglog R.Hlo → loglog R.Hhi ≤ (loglog R.Hlo)^5` is DROPPED at
+  `M4Close.m4_door_contradiction_of_live_split` (the `-` in its `obtain`), and the spine has
+  no `λ₊` control without it.  `m4_door_contradiction_of_live_split_tower` and
+  `m4_second_road_tower` re-thread it through both forwarding stages; every other byte of the
+  register and both conclusions are verbatim.
+* ⟦S0-HOIST⟧ the band's `∃ C' x₀` was quantified AFTER `R`, but `DoorBandBase.x₀_le` floors
+  the socket's base range, which the `g`-arm fixes BEFORE the regime.  The hoist is genuine
+  because the supplier `M4T0DatumDischarge.m4_hT0band_at_door_discharged` is fired at
+  `(P, Q) = (calP (Adoor M) (3072M) 1, calQK (Adoor M) (3072M) M 2)` — `M`-dependent only.
+  `m4_hband_at_door_slot_hoisted` → `m4_socket_discharged_fused_hoisted` →
+  `m4_socket_discharged_capwired_ws_hoisted`, each the landed proof with the `intro` list
+  re-ordered.
+* ⟦S1-ARC36⟧ `m4_second_road`'s ⟦gate 7⟧ `128·(arcDen 12 H)^3 ≤ H` is `128·(log H)^{36} ≤ H`;
+  `arc36_of_floor` is `M4Spine.eight_arcDen_le_of_arcFloor`'s route at `log t ≤ 72·t^{1/72}`,
+  with `arcFloor36 = 10^{138}` clearing the cost `(128·72^{36})² ≈ 8.76·10^{137}`.
+* ⟦S2-COEFWS⟧ `M4RowsChiZero.DoorRowZeroBase.coefWS` — after `RamErrWS` discharged
+  `E_binder` to it, the ONE witnessed-data family of the cap-wired terminal — is WITNESSED at
+  `bU i := memSPunctCoeff 𝒫 𝒬K 2 i liouvilleC`, `cU := liouvilleC`.  The device is
+  `M4Puncture` §4′'s strict pair law, which is general in the completely multiplicative
+  factor (`indicator_mul_punct` at `liouvilleC_mul` in place of `liouChi_mul χ`); the
+  agreement hypothesis is `M4DoorRow.winCutH_of_mem`, the strict antecedent being exactly the
+  half-open cut's support.  ⚠ `M4Band`'s BAND law is NOT the device — its gate is false at
+  the door blocks' own windows. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.m4_door_contradiction_of_live_split_tower
+  Salt.MR.m4_second_road_tower
+  Salt.MR.m4_hband_at_door_slot_hoisted
+  Salt.MR.m4_socket_discharged_fused_hoisted
+  Salt.MR.m4_socket_discharged_capwired_ws_hoisted
+  Salt.MR.arcFloor36
+  Salt.MR.arc36_of_floor
+  Salt.MR.arc36_of_regime
+  Salt.MR.memSCoeff_seamCoefWS_punct_gen_U
+  Salt.MR.doorCoeffU_seamCoefWS_punct_H
+  Salt.MR.doorRowZeroBase_coefWS_witness
+  Salt.MR.norm_doorPunctCoeffU_le_one

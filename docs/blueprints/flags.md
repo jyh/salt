@@ -16634,3 +16634,25 @@ in-line arithmetic suggests the shift is ~2685 absolute j₀-units
 against e^{λ₋} ≥ e^50 — negligible — but the PAGE must answer, not
 the margin), the lever program is real.  ⟦S11-SCOPE RESUMED with
 exactly this question.⟧  C-B holds until it answers.
+
+## (2026-07-30 11:33 PDT) S0-MECH lands — four for four; THE WITNESSED-DATA FAMILY IS WITNESSED (12/12 clean, 9593 jobs)
+
+**⟦THE STONES⟧**  S11Thread (152 ln): `m4_second_road_tower` — the
+tower conjunct FORWARDED into the ∃R payload (token-diff: the name and
+the conjunct, nothing else).  S11Hoist (220 ln): the ∃C'x₀ hoisted AT
+ITS SOURCE + both terminals reordered (`_fused_hoisted`,
+`_capwired_ws_hoisted` — no hypothesis added/dropped/weakened,
+token-diffed).  S11Arc36 (98 ln): `arc36_of_floor` at 10^138 (factor
+1.14 over the exact 128·72³⁶ numeral) + the register wrapper.
+**S11CoefWS (119 ln): `doorRowZeroBase_coefWS_witness` — THE ONE
+WITNESSED-DATA FAMILY OF THE TERMINAL, WITNESSED for every Xd** (the
+untwisted puncture pair law at (memSPunctCoeff, liouvilleC); the
+strict antecedent IS the cut's support — no endpoint obligation; the
+band law untouched as warned).  Build 9593 green; axioms 12/12; all
+first-attempt.  The compose's "spine-witnessed" group is now FRAMES
+ONLY — every datum is supplied.
+
+**⟦IN FLIGHT⟧**  S0-TOWER (the K = 9/2 chain); S11-SCOPE resumed with
+the drift-reads-δ₀ question AT THE TRUE VALUES (log₂(1/δ₀) = 556.7)
+— the answer decides whether the lever program can ever close the
+compose or the spine's δ₀ needs re-design.  C-B holds.
