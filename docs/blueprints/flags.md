@@ -15986,3 +15986,30 @@ exit reads the base X = A+s) — the envelope-hypothesis idiom used
 discharger chooses per instance).  ⟦ASSEMBLY-ARITH dispatched in
 parallel: the C4-ratified page — a2DoorGrade at the granted g-arm /
 M₀ window / C1 anchor vs the ceiling.⟧
+
+## (2026-07-30 08:05 PDT) D5-WS lands — the strict-pair re-cut, hrows GONE from the assembly (M4RowsChiEnd.lean 927 ln, 13/13 clean)
+
+**⟦THE RE-CUT⟧**  The maestro ruling executed: SeamCoefWS following the
+q=1 `_end` idiom (`seam_row_calibratedK_nocap3_end` the template), NOT
+the per-χ capFree read.  The chain asks STRICTLY LESS on two axes:
+(1) the pair law relativized to `Xd < p·m ≤ 2Xd` (the strict family
+implied by the global one — `seamCoefWS_levels_of_global` — while the
+global one self-refutes at a live window-cut datum: the kernel fact
+PAIR); (2) `hwin` GONE from every statement (routed through
+`TLeg_feeds_capstone_gen` at the `hwin`-free FOUR-row exit).  Prefactor
+960/2880 carried visibly — HALF of Amendment G's ×4 cover spent,
+exactly the q=1 coin.  `a2Mrow` and every frozen binder untouched.
+
+**⟦THE FUSE, VERIFIED⟧**  `m4_hrowsSlot_at_door_end` meets the
+assembly's hrows binder by defeq; **`m4_chiSummedFreeRow_of_doorAssembly_end`
+— ITEM 11 with hrows GONE.**  THE COMPOSED RESIDUE, complete: hM,
+hb1/hc1 (the door data 1-bounds), DoorFuseFrame per base (11 fields),
+DoorRowEndBase per base (7 fields incl. ⟦coefWS⟧ — the strict law at
+the door's OWN blocks, a genuinely different object from the err-chain
+band law (`doorChiCoeff_seamCoefWS_at_door_H`'s gate is false at the
+door's own blocks by construction), CARRIED exactly as q=1's
+`a2Rows_of_capfree3_end` carries it — the spine's witnessed-data
+instantiation discharges it, as designed), hcap (supplier LANDED at
+the door pin S ≡ 0), hband (supplier LANDED), henv (ASSEMBLY-ARITH,
+aloft).  Build 9581 green; axioms 13/13.  The D5 contingency: fired,
+priced, repaired, fused — in one wave.

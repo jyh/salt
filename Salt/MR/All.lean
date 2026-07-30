@@ -266,6 +266,7 @@ import Salt.MR.USetGChiTS
 import Salt.MR.BallSupChi
 import Salt.MR.M4RowsChi
 import Salt.MR.M4Assembly
+import Salt.MR.M4RowsChiEnd
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -5777,3 +5778,43 @@ open Salt.Tactic in
   Salt.MR.DoorFuseFrame
   Salt.MR.m4_chiSummedFreeRow_of_doorAssembly
   Salt.MR.doorRows_global_hcoef_kills_block
+
+-- ⟦D5 — THE ENDPOINT-WALL REPAIR ON THE `χ` PAGE⟧ (`M4RowsChiEnd`, wave D5-WS).
+-- The `χ`-side answer to the wall banked just above: `m4_hrowsSum_chi_door`'s GLOBAL `hcoef`
+-- is refuted at the door's window-cut datum (`doorRows_global_hcoef_kills_block`), so the
+-- M4RowsChi chain is re-cut at `SeamRowWindowed.SeamCoefWS` — the STRICT relativized pair
+-- law the landed `q = 1` supplier `ThmA2Rows.a2Rows_of_capfree3_end` already carries.
+-- ⟦THE CUT⟧ `chiBarCoeff_seamCoefWS` lifts the strict law to the twist;
+-- `sum_lemma12RowsMR_priced_chi_end` prices `M4RowMR.lemma12RowsMR_end`'s FOUR rows at
+-- twisted data; `m4_rowChi_number_of_capstone_end` composes them through
+-- `TLegExit.TLeg_feeds_capstone_gen` (row slot OPEN) with
+-- `M4RowMR.lemma12_on_TsetG_mr_windowed_end`.
+-- ⟦THE THREE SHAPE DIFFERENCES, IN THE OPEN⟧ the pair law is strict, not global; the
+-- Lemma-12 exit is the `hwin`-FREE four-row one, so the window binder `hwin` is ABSENT from
+-- every statement here; and the row prefactor is `960` (weighed `2880`) where the three-row
+-- chain has `480` (weighed `1440`).  `m4MrowChiEnd` carries the debit, and
+-- `m4MrowChiEnd_le_a2Mrow` spends HALF of ⟦AMENDMENT G⟧'s `×4` cover — `ThmA2.a2Mrow` does
+-- not move, exactly as `ThmA2Rows.a2_term3_weigh_mr` at `q = 1`.
+-- ⟦IRON RULE 1⟧ `seamCoefWS_levels_of_global`: the landed page's global family IMPLIES this
+-- page's strict family, so nothing is strengthened; the converse fails only because the
+-- global family is self-refuting at a window-cut datum.
+-- ⟦THE FUSE⟧ `m4_hrowsSlot_at_door_end` IS `m4_chiSummedFreeRow_of_doorAssembly`'s `hrows`
+-- binder (the compile is the byte-fit certificate; the datum bridge is
+-- `chiBarCoeff_doorRowDatum`), and `m4_chiSummedFreeRow_of_doorAssembly_end` is ⟦item 11⟧
+-- with `hrows` GONE from the residue — what remains is `hM`, the two `1`-bounds,
+-- `DoorFuseFrame`, `DoorRowEndBase` (the strict law + the `X_d`-side gates), the carried A3
+-- capstone family, `hband` and `henv`.
+open Salt.Tactic in
+#audit_axioms Salt.MR.chiBarCoeff_seamCoefWS
+  Salt.MR.chiBarCoeff_seamCoefWS_levels
+  Salt.MR.seamCoefWS_levels_of_global
+  Salt.MR.sum_lemma12RowsMR_priced_chi_end
+  Salt.MR.m4_rowChi_number_of_capstone_end
+  Salt.MR.m4MrowChiEnd
+  Salt.MR.m4_rowChi_weighed_end
+  Salt.MR.m4_hrowsSum_chi_end
+  Salt.MR.m4MrowChiEnd_le_a2Mrow
+  Salt.MR.m4_hrowsSum_chi_door_end
+  Salt.MR.DoorRowEndBase
+  Salt.MR.m4_hrowsSlot_at_door_end
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_end
