@@ -16777,3 +16777,37 @@ smaller K then relaxes the Braw side and halves the ε⁻¹⁶) — both
 lanes compose, neither wasted.
 
 ## (2026-07-30 12:45 PDT) ⟦THE L² RESTRUCTURE⟧ GRANTED — the freeze sealed, REF-L2 dispatched (two refuters); on PASS the seven-stone wave fires under the standing grant
+
+## (2026-07-30 12:58 PDT) REF-L2-STONE returns — R1 CONFIRMED KERNEL-CHECKED, R2 CLEAR (no second stone); WAVE: FIRE — bank A dispatched
+
+**⟦R1⟧**  The Parseval stone DERIVED SORRY-FREE at the actual defs
+(the scratch probe compiles clean, five stones, axioms clean): the
+normalization pinned (`dft_parseval : Σ_ξ‖dft‖² = H·Σ‖f‖²` —
+unnormalized dft, H on the time side, pinned twice); `errC` support +
+unit bound exact (the indicator is bare — no leak); the carrier
+identity (the half-open window ↔ ZMod H bijection; the phase IS
+stdAddChar); `parseval_stone_budget` over ANY Ξ ⊆ ZMod H feeding the
+landed door mass — **the freeze's line verbatim**; the full
+`2K·Braw + δ/2 + 8·2^k/x` re-derived (both 2's = the (a+b)² split);
+the bonus `norm_dft_neg_of_real` — the ready-made lemma licensing the
+kept factor (strict tightening confirmed termwise).  Two prose
+amendments folded (≤ not =, favorable; the carrier naming).
+
+**⟦R2⟧**  THE CENSUS: exactly THREE terms reach the per-frequency sum
+— √Braw (α-DEPENDENT, keeps K, and the √ DISAPPEARS: the socket is
+natively L², the CS descent is DELETED not moved); the δ/4 insert
+mass and the 4·2^k/x endpoint are THE SAME OBJECT (one mass estimate,
+one Parseval page — the freeze's 8·2^k/x NOT 8K·2^k/x verified);
+terms 4/5 ride outside the ξ-sum unchanged.  The sieve α-free at
+every def.  L¹→L² priced: the square-root relaxation matches the
+dossier to the digit; `M4SievedDoorSq` needs NO change.
+
+**⟦THE THREE SCOPING AMENDMENTS, FOLDED INTO THE WAVE BRIEFS⟧**
+(1) Stone 3 is the Ξ-SUMMED predicate (a per-ξ twin re-multiplies δ
+by K and the shed EVAPORATES); (2) stone 1 scoped to the DIAGONAL
+x1 = x2 (the shell's only instantiation — norm_dft_neg_of_real needs
+real Φ); (3) R4 pre-answered: MRTUniformityXi R δ ⟹ the L² door at
+K·δ — the safety-net implication; Tao-faithfulness preserved.
+**WAVE: FIRE** — bank A (stones 1+2 / 3+5 / 6) dispatched on this
+entry; bank B (the head 4; the exit re-plumb 7) on their landing;
+REF-L2-ARITH's table folds at the compose.
