@@ -52,13 +52,14 @@ honest price is stated last and plainly.*
 5. **The four-fold × χ-summed composition is SAFE** (no per-datum
    choice of the fatal genre anywhere: M_range's t-inf is uniformized
    by the ∀v floors; t₀ is a parameter; the cost is CS-diagonal 4,
-   16 worst, never 4^J) — **with two floor-leg repairs**: the
-   margin/pieceDatum floor forms still carry the crude q-debit and
-   the e^{e^100} block (F4/VT-7's sharp family did not cover these
-   two) — `capFreeFloor3_margin_all_chi_sharp` + `_pieceDatum_sharp`
-   (~150–250, class B) join wave P-1; the pieceDatum floor at the
-   four data is LANDED (the D-slot carries the 2·ln2 deviation) —
-   v1's citation corrected.
+   16 worst, never 4^J) — the two floor-leg repairs ⟦CORRECTED at
+   P-1's landing⟧: VT-7's tail had ALREADY covered both
+   (`capFreeFloor3_margin_all_chi_vt` + `_pieceDatum_vt`,
+   VkMidSharp:505/:559 — both improvements folded, conclusions
+   byte-identical); REF-P-SHAPE's kills #1/#2 rested on a stale
+   premise (a VK-forgetting-class miss) and zero lines were owed;
+   the pieceDatum floor at the four data is LANDED (the D-slot
+   carries the 2·ln2 deviation) — v1's citation corrected.
 6. **The socket amendment (P-1) re-shaped:** all three antecedents
    stated at once (they only weaken the socket; the trivial
    witnesses survive); the piecewise-RS needs NOTHING (han reads
