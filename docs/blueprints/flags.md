@@ -16485,3 +16485,31 @@ the D5 transplant verbatim (re-cut `ramErr_moment_split` through
 M4RowsChiEnd §1; the genre landed first-attempt once already).
 ⟦ERR-WS dispatched on this entry, S11-SCOPE alongside.⟧  **The S11
 spine instantiates SIX structures now, not five.**
+
+## (2026-07-30 11:14 PDT) ERR-WS lands — the four-row transplant; E_binder DISCHARGED to coefWS; m4_socket_discharged_capwired_ws IN KERNEL (8/8 clean)
+
+**⟦THE FINDING⟧**  The three-row split is NOT recoverable at the
+strict law — `spoly_ramare_split`'s clean term runs the FULL eq-(16)
+cofactor range and substitutes at `p·m ≤ X_d` where SeamCoefWS never
+asserts (the CLEAN side, not the datum side — no hasupp repairs it).
+The executor did not stop: **the corpus already contains the honest
+transplant** — the FOUR-row `ramErr_moment_split_mr_windowed_end`
+(the window in the index set; the released endpoint fused into the
+p² row — the E-WAVE's own §3′ machinery).  The D5 device one level
+down runs on THAT.
+
+**⟦THE DELIVERABLES⟧**  RamErrWS.lean (516 ln): the twist bridges for
+the fused p² row; **`ramErr_meanSq_all_chi_ws`** (the Σ_χ error moment
+at SeamCoefWS + hasupp; the 1/q saving KEPT on both MVT rows — only
+the χ-uniform seam rows priced φ(q)-fold, exactly the landed pattern);
+the priced form (seam rows at 520·(T/X+1)/H, the p² mass direct);
+`DoorCapErrWS` (11 fields, ONE analytic: coefWS = DoorRowZeroBase's
+VERBATIM); **`m4_capE_at_door`** (the global-hcoef hypothesis GONE);
+**`m4_socket_discharged_capwired_ws`** (one hypothesis changed, iron
+rule 1 held by the fun-intro reduction).  E_BINDER: DISCHARGED —
+reduced to the coefWS the bundle already carries; ONE witnessed-data
+family remains in the whole terminal.  Fences: the X_d = N_d pin
+(forced by the datum's support, already the bundle's read); H83 ≤ X
+transplanted unchanged; the seam row's φ(q) is the door supplier's
+arithmetic (not a regression — the landed wire carries the same).
+Build 9589 green; axioms 8/8; first-attempt.

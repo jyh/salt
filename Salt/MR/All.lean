@@ -274,6 +274,7 @@ import Salt.MR.M4RowsChiZero
 import Salt.MR.M4ArithZero
 import Salt.MR.M4SocketFused
 import Salt.MR.M4CapWire
+import Salt.MR.RamErrWS
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -5979,3 +5980,38 @@ open Salt.Tactic in
   Salt.MR.m4_capKS_at_door
   Salt.MR.m4_capE_at_door_of_hcoef
   Salt.MR.m4_socket_discharged_capwired
+
+/-! ⟦THE E-BINDER WIRE audit⟧ (`RamErrWS`, 2026-07-30 — the D5 transplant ONE LEVEL DOWN).
+**This block SUPERSEDES the previous block's "THE THIRD IS NOT" note**: `E_binder` IS now
+discharged, from the STRICT relativized pair law.
+
+⟦THE BYTE-PRECISE FINDING⟧  the three-row `HybridMoments.ramErr_meanSq_all_chi` is NOT
+recoverable at `SeamCoefWS`: it spends `hcoef` at `RamareErr.ramErr_moment_split` →
+`RamareWindows.ramErr_window_decomp`:392 → `RamareWindows.spoly_ramare_split`:153, whose
+clean term runs over the FULL eq-(16) cofactor range `{m : p·m ∈ [1,N]}` and therefore READS
+the factorization at products BELOW the window (`p·m ≤ X_d`), where the strict law asserts
+nothing.  The mismatch is on the CLEAN side, so no support pin repairs it.
+
+⟦THE HONEST TRANSPLANT⟧  the four-row split whose clean term is MR's own honest cofactor
+range `ramHonMR` — `SeamRowWindowed.ramErr_moment_split_mr_windowed_end`, the STRICT law with
+the released endpoint fused into the `p²` row.  `ramErr_meanSq_all_chi_ws` is its `Σ_χ` form:
+the two seam rows `φ(q)`-fold at `RamareMR.seam_rows_grade`'s `520·(T/X+1)/H`, the FUSED `p²`
+row and the coprime tail at wave P-2's `hybrid_char_spoly_mvt` grade `2φ(q)T + 7φ(q)N/q`
+(the `1/q` saving KEPT — R-P3).  `ramErr_meanSq_all_chi_ws_priced` is `M4ErrRewire`'s
+`E_priced_mr_end` `χ`-summed; `m4_capE_at_door` reads it at the door datum
+(`X_d = N_d`, forced by the datum's own window) and `m4_socket_discharged_capwired_ws` is the
+cap-wired terminal with `E_binder` replaced by the small bundle `DoorCapErrWS` — whose
+analytic field `coefWS` is `M4RowsChiZero.DoorRowZeroBase.coefWS` VERBATIM, i.e. a field the
+door's row bundle ALREADY carries.
+
+⟦THE `φ(q)` RIDES, AND IT IS NOT NEW⟧  `DoorCapBase.E_row` is `φ(q)`-blind; meeting it
+against a `φ(q)`-fold seam price is the door supplier's arithmetic, exactly as it already was
+for `m4_capE_at_door_of_hcoef`'s `φ(q)`-fold window row.  `M4ErrRewire.err_grade_fit`
+(`4·520 = 2080 ≤ 2160 = 3·720`) is untouched. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.ramP2coeffEndMR_chiBar
+  Salt.MR.ramErr_meanSq_all_chi_ws
+  Salt.MR.ramErr_meanSq_all_chi_ws_priced
+  Salt.MR.DoorCapErrWS
+  Salt.MR.m4_capE_at_door
+  Salt.MR.m4_socket_discharged_capwired_ws
