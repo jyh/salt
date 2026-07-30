@@ -16513,3 +16513,59 @@ family remains in the whole terminal.  Fences: the X_d = N_d pin
 transplanted unchanged; the seam row's φ(q) is the door supplier's
 arithmetic (not a regression — the landed wire carries the same).
 Build 9589 green; axioms 8/8; first-attempt.
+
+## (2026-07-30 11:19 PDT) S11-SCOPE returns — THE TWO-λ SYSTEM: the compose blocked by P2/DRIFT/TOWER/FLOOR (window EMPTY at K=5); two rulings + two mechanical fixes; the full wave plan banked
+
+**⟦THE HEADLINE⟧**  The spine has TWO λ's (λ₋ = loglog Hlo, λ₊ =
+loglog Hhi) bridged only by the tower's FIFTH power; every prior
+M-side audit (incl. ref2_joint_window) priced at ONE λ.  The system:
+P2 (b ≥ f(λ₊, L) — the arm reads λ₊) vs DRIFT (b ≲ 1.443·λ₋ — the
+(4/3)^{j₀} head vs δ₀² at H = Hlo, RStr ≥ arcDen⁷ forced by G1) vs
+TOWER (λ₊ ≤ λ₋⁵) vs FLOOR (λ₋ ≥ 50).  At λ₋ = 50: **b ≥ 46.0 vs
+b ≤ 31.3 — EMPTY by 1.47×**, and the gap grows like λ⁵ vs λ.  (The
+checklist's L/1.371e8 arm re-derived exactly — REF-SOCKET-2 priced
+the L-share and never the 7000λ₊ share, both λ's equal in its walk.)
+
+**⟦KILL 1 — THE TOWER EXPONENT (ruling C-A)⟧**  The compose needs
+K ≤ 4.9; the landed tower is K = 5; the file's OWN header says the
+honest exponent is 4.41 ("the continuum truth is 4") and the proof's
+bound is w_J − w₀ ≤ 1.4826 < log 4.5 = 1.5041 — **a K = 9/2 twin is
+free arithmetic**.  At K = 9/2, λ₋ = 50: b ∈ [6.5, 31] — 4.8× wide.
+A statement-level move on the landed head (additive twins down the
+chain, ~180-260, B) — COUNCIL.
+
+**⟦KILL 2 — Cg/δ₀ (ruling C-B), the hδ₀ blocker's sibling⟧**  hMδ
+(24·Cg/δ ≤ M) floors M from TWO opaque existentials (Cg =
+m4_door_glue's sieve-mass constant; δ₀ = cD3·ε/(32·C·K) w/
+circle_method's C) while DRIFT∘TOWER caps λ₋ ABSOLUTELY (56 at K=5;
+≈88 at 9/2; ≈213 at 4) — the compose needs `Cg/δ₀ ≲ 10²⁴` (at 9/2),
+the exact genre REF-SOCKET-HONEST killed.  Options: expose (R-2,
+×3 constants, one possibly research-tier) / re-parametrize hMδ
+(the RHO-PAGE device — but the unknown sits on BOTH sides of M) /
+carry a stated numeric hypothesis in the open.  ⟦CG-SCOPE dispatched:
+the three constants' provenance — effective-and-exposable vs
+genuinely ineffective — BEFORE the ruling.⟧
+
+**⟦KILLS 3+4 — MECHANICAL, firing now⟧**  The tower conjunct is
+DROPPED at M4Close:785 ("not consumed at this stage") — without it
+the spine has NO λ₊ control at all; re-thread twins ~70-110 (S0-
+THREAD).  The band's ∃C'x₀ is born after R but consumed before it —
+the (P,Q) depend on M alone so the hoist is genuine; ~40-70
+(S0-HOIST).  Both dispatched with S1-ARC36 (the 36th-power transplant,
+~45 A) and S2-COEFWS (the untwisted puncture pair-law twin, ~25-35 A —
+the ONE witnessed-data family's supplier; the scoper found the landed
+M4Puncture §4′ machinery is general in the multiplicative datum, and
+⚠ the band law is the WRONG device — the puncture law is right).
+
+**⟦THE WAVE PLAN BANKED⟧**  Phase 0 (S0-TOWER council / S0-CG council
+/ S0-THREAD, S0-HOIST mechanical) → Phase 1 (9 parallel supply stones
+S1-S9: the frames, the gates, the g-arm, ~1.1k) → Phase 2 (S10-CAP
+58 fields 3-way split ~600-900 C; **S11-DRIFT the real page** — where
+the two-λ system is actually discharged, ~250-350 C; S12-COMPOSE
+~120 B).  Honest total ≈2.2-2.9k + the Phase-0 rulings.  Kill-risks
+ranked: Cg/δ₀ (no repair known) > the tower twin > S3-BLOCKS (the
+ladder-block floor unpriced) > E_binder (RESOLVED — ERR-WS landed) >
+the mechanicals.  The eps_hi 41.4% and Aexp pins carry no second
+consumer.  ALSO: gate 8 is NO LONGER the binding H-upper (p2 is,
+585× tighter) — the register's own docstring genre note owed at the
+compose.
