@@ -309,3 +309,39 @@ nothing here is deeper than Prop 2.4.  Additive: the `L¹` door and its seam are
 open Salt.Tactic in
 #audit_axioms Salt.Entropy.Chowla.contradiction_of_mrtDoorXiL2
   Salt.Entropy.Chowla.mrtUniformityXiL2_of_xi
+
+/-! ⟦THE L² RESTRUCTURE — stone 4: THE SPINE HEAD TWIN AT THE `K`-FREE `δ₀`⟧ (`SpineFinal`,
+2026-07-30, on bank A).  The head's door threshold is now
+
+    δ₀ = cD3/(16·C) · ε / 4        (= c₀·ε/4)      -- NOT c₀·ε/(2K)
+
+The landed `log_chowla_two_budget_head_g(_45)` divided by the frequency count because the `L¹`
+seam multiplied the door's grade by `|Ξ_H| ≤ K` (`contradiction_of_mrtDoorXi`'s
+`hsmall : K·δ < c₀ε`).  The Ξ-SUMMED `L²` seam reads that grade ONCE, so the budget is
+`hbudget2 : ρ < c₀ε` and `K` leaves the `δ`-line entirely — REF-L2-ARITH's certified table
+(`δ₀' = 1.1927·10^(-6)`, shares `1/2 + 1/8 + 1/8`, `b = 65.125` against the ceiling `m ≤ 86`,
+20 bits of margin).  The derivation is the landed `:944–953` block minus the `K` step:
+`ρ ≤ c₀ε/4 < c₀ε` since `c₀ε > 0`, the same strict-margin shape the landed proof got at
+`c₀ε/2 < c₀ε`.
+
+`spine_False_core_xi_sq` (private, in-file per the S0-TOWER precedent) is `spine_False_core_xi`
+with three forced binder changes and nothing else: the circle-method input is the SQUARED
+DIAGONAL socket (`circle_method_estimate_sq`, ONE window `x1` — the shell's only instantiation
+— and the SAME constant `C = 1 + 2C₀`, so `hbudget1` is byte-identical); `K`, `_hK`, `H₀xi`,
+`hxi` are ABSENT (the summed seam consumes no cardinality hypothesis), hence the floor binder is
+`max H₀red H₀D3 ≤ H`; and `hδ : 0 ≤ δ` is ABSENT (the summed seam derives its collision from
+`ρ < c₀ε ≤ mass` alone).  ⟦WHERE THE COUNT WENT⟧ `|Ξ_H| ≤ K` moved from the spine to the ROAD,
+where `Salt.MR.sum_bigXi_norm_windowExpSum_sq_le` spends it against the SIEVED leg only; only
+the head knows `ε`, so `log_chowla_two_budget_head_g_sq_count` EXPORTS the count gate as a
+payload conjunct, and `log_chowla_two_budget_head_g_sq` is that head with the conjunct dropped
+(one proof between them).  `K` never touches `δ₀`.  The tower payload is the `9/2` law (ruling
+C-A); `Salt.MR.tower_conjunct_45_le_five` downgrades it to `^5` free.
+
+⚠ TAO-FAITHFULNESS (mandate R4): the door hypothesis is `MRTUniformityXiL2` EXACTLY as landed —
+a finite SUM of integrals, `∑` outside `∫`, no `sup` inside — SUPPLIED by the road
+(`Salt.MR.mrtUniformityXiL2_of_absWindowSqBound`), never claimed from Prop 2.4, and in any case
+IMPLIED by the landed `L¹` theorem-door (`mrtUniformityXiL2_of_xi`).  Additive: every landed
+head and core is byte-untouched. -/
+open Salt.Tactic in
+#audit_axioms Salt.Entropy.Chowla.log_chowla_two_budget_head_g_sq_count
+  Salt.Entropy.Chowla.log_chowla_two_budget_head_g_sq

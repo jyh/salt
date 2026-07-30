@@ -1096,4 +1096,378 @@ theorem log_chowla_two_budget_head_g_45 :
     ((H : ℝ) / (Real.log H * Real.log (Real.log (Real.log H)))) (cD3 / (16 * C))
     ht hg hgle hI hbudget1 hbudget2 hfail
 
+/-! ## ⟦THE L² RESTRUCTURE⟧ stone 4 — the spine head twin at the `K`-FREE `δ₀`
+
+`docs/exploration/l2-restructure-freeze-0730.md`, stone 4, on bank A
+(`CircleMethod.circle_method_estimate_sq`, `Theorem23Shell.log_chowla_two_shell_xi_sq`,
+`MRTDoor.MRTUniformityXiL2`).  Two declarations, both additive, both in-file
+because `spine_False_core_xi` and its twin are `private` (the S0-TOWER precedent):
+
+* `spine_False_core_xi_sq` — the core at the Ξ-SUMMED `L²` door.  `K`, `_hK`,
+  `H₀xi` and `hxi` are GONE from the binder list (the shell twin takes no
+  `hXi : |Ξ_H| ≤ K`), the circle-method input is the DIAGONAL squared socket, and
+  the closure budget is the `K`-free `hbudget2 : ρ < c₀·ε`.
+* `log_chowla_two_budget_head_g_sq(_count)` — the head at
+
+  ```
+  δ₀ := cD3/(16·C) · ε / 4      (= c₀·ε/4, with c₀ = cD3/(16·C))
+  ```
+
+  **NO `1/(2K)`.**  The landed head's `δ₀ = c₀·ε/(2K)` paid the frequency count
+  because the `L¹` seam multiplied the door's grade by `|Ξ_H| ≤ K`; the summed
+  `L²` seam reads the door's grade ONCE, so the count leaves the `δ`-line
+  entirely (REF-L2-ARITH: "K IS ABSENT FROM δ₀'"; the `4` is that page's share
+  allocation `δ₀' = c₀ε/4`, the strict inequality `ρ ≤ c₀ε/4 < c₀ε` carrying the
+  ε-room the landed derivation carried at `c₀ε/2 < c₀ε`).
+
+⟦WHERE THE COUNT WENT⟧ `|Ξ_H| ≤ K` did not disappear from the argument — it moved
+from the SPINE to the ROAD, where `M4Window.sum_bigXi_norm_windowExpSum_sq_le`
+spends it against the SIEVED leg only (the α-independent insert leg is paid once,
+by Parseval).  Only the head knows `ε`, so only the head can produce that `K`:
+`log_chowla_two_budget_head_g_sq_count` therefore EXPORTS the count gate as a
+payload conjunct, and `log_chowla_two_budget_head_g_sq` is that head with the
+conjunct dropped — the brief's `K`-free shape, one proof between them.
+
+⟦THE TOWER PAYLOAD⟧ is the `9/2` law (ruling C-A, 2026-07-30), not `^5`: S11-SCOPE's
+two-λ window is EMPTY at `K = 5`.  Consumers wired to `^5` read
+`Salt.MR.tower_conjunct_45_le_five` (landed) for the free downgrade. -/
+
+/-- **The Ξ-SUMMED `L²` spine contradiction, constants lifted to parameters**
+(⟦THE L² RESTRUCTURE⟧ stone 4).  Twin of `spine_False_core_xi` threading the `L²`
+door: the shell is `log_chowla_two_shell_xi_sq`, the door hypothesis is
+`MRTUniformityXiL2 R ρ` and the closure budget is `hbudget2 : ρ < c₀·ε`.
+
+Three binder-list changes, all forced by the shell twin, none optional:
+
+* `hcirc` is the SQUARED, DIAGONAL circle-method bound (discharger
+  `circle_method_estimate_sq`, which takes ONE window `x1` — the shell's only
+  instantiation is `x1 = x2 = liouvilleWindow H n`).  The constant `C = 1 + 2C₀`
+  is UNCHANGED, so `hbudget1` is byte-identical to the landed core's.
+* `K`, `_hK`, `H₀xi`, `hxi` are ABSENT — the summed seam
+  (`contradiction_of_mrtDoorXiL2`) consumes no cardinality hypothesis — and with
+  them the `H₀xi` arm of the floor binder, which is now `max H₀red H₀D3 ≤ H`.
+* `hδ : 0 ≤ δ` is ABSENT: the summed seam derives its collision from
+  `ρ < c₀·ε ≤ (the summed L² mass)` alone.
+
+⚠ **THE SEAM WARNING** (`MRTDoor.lean:174–182`, re-stated per REF-L2 mandate R4).
+THE QUANTIFIERS STAY OUTSIDE THE INTEGRAL.  `MRTUniformityXiL2` is a FINITE SUM OF
+INTEGRALS — the frequency quantifier is a `∑` over `Ξ_H` sitting outside `∫`, and
+there is no `sup` anywhere inside the integral.  The sup-inside form is Tao
+1509.05422 (4.1), which is OPEN; moving a quantifier inside silently downgrades a
+theorem-door (Prop 2.4, PROVEN in Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into
+an open conjecture.  The `L²` door is SUPPLIED BY THE ROAD (`M4Window`'s adapter
+`mrtUniformityXiL2_of_absWindowSqBound`, over the socket + Parseval stone), never
+claimed from Prop 2.4; `MRTDoor.mrtUniformityXiL2_of_xi` is the standing proof
+that it is IMPLIED by the landed `L¹` theorem-door at grade `K·δ`.
+
+Additive — `spine_False_core` and `spine_False_core_xi` are untouched. -/
+private theorem spine_False_core_xi_sq (R : ChowlaRegime) {ρ : ℝ}
+    (hdoor : MRTUniformityXiL2 R ρ)
+    (cE : ℝ) (_hcE : 0 < cE) (H₀red : ℕ)
+    (hred : ∀ (eps : ℚ) (H x ω : ℕ),
+      2 ≤ x → 2 ≤ ω → ω ≤ x → 0 < eps → (eps : ℝ) ^ 2 ≤ 1 →
+      3 ≤ H → 1 ≤ Real.log H → (4 : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) →
+      Real.sqrt (H : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) / 2 →
+      H₀red ≤ H →
+      (eps : ℝ) ≤ cE / (32 * Real.log 4) →
+      (16 / (eps : ℝ)) * Real.log ((eps : ℝ) ^ 2 * (H : ℝ)) + 64 / (eps : ℝ) + 1
+          ≤ Real.log ω →
+      (ω : ℝ) * (H : ℝ) + 48 * (ω : ℝ) * (1 + 2 / (eps : ℝ) ^ 2) / (eps : ℝ)
+          ≤ (x : ℝ) →
+      (eps : ℝ) / 2 ≤ |∫ n, (ArithmeticFunction.liouville n : ℝ)
+          * (ArithmeticFunction.liouville (n + 1) : ℝ) ∂(logMeasure x ω)| →
+      (1 / 2) * (∑ p ∈ primeWindow eps H, (1 / (p : ℝ))) * (H : ℝ)
+          * |∫ n, (ArithmeticFunction.liouville n : ℝ)
+              * (ArithmeticFunction.liouville (n + 1) : ℝ) ∂(logMeasure x ω)|
+        ≤ |∫ n, fBridgeF eps H (liouvilleWindow H n) (residueWindow eps H n)
+            ∂(logMeasure x ω)|)
+    (cD3 : ℝ) (hcD3 : 0 < cD3) (H₀D3 : ℕ)
+    (hD3 : ∀ (eps : ℚ) (H : ℕ), H₀D3 ≤ H →
+      Real.sqrt (H : ℝ) ≤ (eps : ℝ) ^ 2 * (H : ℝ) / 2 →
+      (eps : ℝ) ^ 2 ≤ 1 →
+      cD3 / Real.log (H : ℝ) ≤ ∑ p ∈ primeWindow eps H, (1 / (p : ℝ)))
+    (C : ℝ) (hC : 0 < C)
+    -- the SQUARED, DIAGONAL circle-method estimate (`circle_method_estimate_sq`):
+    (hcm : ∀ (eps : ℚ) (H : ℕ) [NeZero H] (x1 : Fin H → ℤ),
+      (∀ i, |x1 i| ≤ 1) →
+      ((primeWindow eps H).card : ℝ)
+          ≤ (2 * Real.log 4) * ((eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)) →
+      |∑ p : primeWindow eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+          (windowVal H x1 j : ℝ) * (windowVal H x1 (j + (p : ℕ)) : ℝ)|
+        ≤ C * ((H : ℝ) / Real.log (H : ℝ))
+            * ((eps : ℝ) ^ 2 + ∑ ξ ∈ bigXi eps H, (1 / (H : ℝ) ^ 2)
+                * ‖(ZMod.dft (fun j : ZMod H =>
+                    (windowVal H x1 (ZMod.val j) : ℂ))) ξ‖ ^ 2))
+    (H : ℕ) [NeZero H] (hlo : R.Hlo ≤ H) (hhi : H ≤ R.Hhi)
+    (hH₀ : max H₀red H₀D3 ≤ H)
+    (hepsc : (R.eps : ℝ) ≤ cE / (32 * Real.log 4))
+    (t g κ c₀ : ℝ) (ht : 0 < t) (hg : 0 < g)
+    (hgle : g ≤ (R.eps : ℝ) ^ 6 * (H : ℝ)
+        / (18 * (2 * Real.log 4) * Real.log (H : ℝ)) - Real.log 2)
+    (hI : I[residueWindow R.eps H : liouvilleWindow H ; logMeasure R.x R.ω] ≤ κ)
+    (hbudget1 : C * ((H : ℝ) / Real.log (H : ℝ)) * (c₀ * (R.eps : ℝ))
+        + C * ((H : ℝ) / Real.log (H : ℝ)) * (R.eps : ℝ) ^ 2
+        + shellError R H t g κ
+      ≤ cD3 / 4 * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ)))
+    (hbudget2 : ρ < c₀ * (R.eps : ℝ))
+    (hfail : logChowla2Fails R.eps R.x R.ω) : False := by
+  classical
+  have hepsRpos : (0 : ℝ) < (R.eps : ℝ) := by exact_mod_cast R.heps
+  have hepshalf : (R.eps : ℝ) ≤ 1 / 2 := by
+    have h : (2 : ℝ) * (R.eps : ℝ) ≤ 1 := by
+      exact_mod_cast (by linarith [R.heps1] : (2 : ℚ) * R.eps ≤ 1)
+    linarith
+  have hepssq : (R.eps : ℝ) ^ 2 ≤ 1 := by nlinarith [hepshalf, hepsRpos]
+  -- floor bookkeeping
+  have hHnatM : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  have hH3 : 3 ≤ H := by omega
+  have hH₀red : H₀red ≤ H := le_trans (le_max_left _ _) hH₀
+  have hH₀D3 : H₀D3 ≤ H := le_trans (le_max_right _ _) hH₀
+  -- real-side H facts
+  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hHnatM
+  have hHpos : (0 : ℝ) < (H : ℝ) := by linarith
+  have hlogH : 1 ≤ Real.log (H : ℝ) := by
+    rw [Real.le_log_iff_exp_le hHpos]
+    exact le_trans (le_of_lt Real.exp_one_lt_d9) (by linarith)
+  have hlogHpos : 0 < Real.log (H : ℝ) := by linarith
+  -- the regime discharges (sqrt / ω / x / head)
+  have hreg : Real.sqrt (H : ℝ) ≤ (R.eps : ℝ) ^ 2 * (H : ℝ) / 2 :=
+    sqrt_le_window_at R hlo hhi
+  have hsqrt2000 : (2000 : ℝ) ≤ Real.sqrt (H : ℝ) := by
+    rw [show (2000 : ℝ) = Real.sqrt 4000000 by
+      rw [show (4000000 : ℝ) = 2000 ^ 2 by norm_num, Real.sqrt_sq (by norm_num)]]
+    exact Real.sqrt_le_sqrt hHR
+  have h4 : (4 : ℝ) ≤ (R.eps : ℝ) ^ 2 * (H : ℝ) := by nlinarith [hreg, hsqrt2000]
+  have hωbig : (16 / (R.eps : ℝ)) * Real.log ((R.eps : ℝ) ^ 2 * (H : ℝ))
+      + 64 / (R.eps : ℝ) + 1 ≤ Real.log (R.ω : ℝ) := omega_big_at R hhi h4
+  have hxbig : (R.ω : ℝ) * (H : ℝ)
+      + 48 * (R.ω : ℝ) * (1 + 2 / (R.eps : ℝ) ^ 2) / (R.eps : ℝ) ≤ (R.x : ℝ) :=
+    x_big_at R hhi
+  have hhead : 8 * (PH R.eps H : ℝ) ^ 2 * (R.ω : ℝ) ≤ (R.x : ℝ) := pH_headroom_at R hhi
+  -- 2 ≤ log ω
+  have hlogε2H_nn : (0 : ℝ) ≤ Real.log ((R.eps : ℝ) ^ 2 * (H : ℝ)) :=
+    Real.log_nonneg (by linarith [h4])
+  have hterm1 : (0 : ℝ) ≤ (16 / (R.eps : ℝ)) * Real.log ((R.eps : ℝ) ^ 2 * (H : ℝ)) :=
+    mul_nonneg (by positivity) hlogε2H_nn
+  have h64 : (128 : ℝ) ≤ 64 / (R.eps : ℝ) := by
+    rw [le_div_iff₀ hepsRpos]; nlinarith [hepshalf]
+  have hlog2 : 2 ≤ Real.log (R.ω : ℝ) := by nlinarith [hωbig, hterm1, h64]
+  -- the D3 Mertens lower bound + nonemptiness
+  set SP : ℝ := ∑ p ∈ primeWindow R.eps H, (1 / (p : ℝ)) with hSP
+  have hmert : cD3 / Real.log (H : ℝ) ≤ SP := hD3 R.eps H hH₀D3 hreg hepssq
+  have hSPnn : (0 : ℝ) ≤ SP := Finset.sum_nonneg (fun p _ => by positivity)
+  have hSPpos : (0 : ℝ) < SP := lt_of_lt_of_le (div_pos hcD3 hlogHpos) hmert
+  have hne : (primeWindow R.eps H).Nonempty := by
+    rcases (primeWindow R.eps H).eq_empty_or_nonempty with he | hn
+    · exact absurd (hSP.trans (by rw [he, Finset.sum_empty])) (ne_of_gt hSPpos)
+    · exact hn
+  -- the single-correlation seed and the reduce (h211 producer)
+  set X : ℝ := |∫ n, (ArithmeticFunction.liouville n : ℝ)
+      * (ArithmeticFunction.liouville (n + 1) : ℝ) ∂(logMeasure R.x R.ω)| with hXdef
+  have hseed : (R.eps : ℝ) / 2 ≤ X :=
+    singleCorr_of_fails R.eps R.hx R.hω R.hωx hlog2 hfail
+  have hredH : (1 / 2) * SP * (H : ℝ) * X
+      ≤ |∫ n, fBridgeF R.eps H (liouvilleWindow H n) (residueWindow R.eps H n)
+          ∂(logMeasure R.x R.ω)| :=
+    hred R.eps H R.x R.ω R.hx R.hω R.hωx R.heps hepssq hH3 hlogH h4 hreg hH₀red hepsc
+      hωbig hxbig hseed
+  -- the concrete h211 (coefficient c₁ = cD3/4)
+  have hAX : (cD3 / Real.log (H : ℝ)) * ((R.eps : ℝ) / 2) ≤ SP * X :=
+    mul_le_mul hmert hseed (by positivity) hSPnn
+  have h211 : cD3 / 4 * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ))
+      ≤ |∫ n, fBridgeF R.eps H (liouvilleWindow H n) (residueWindow R.eps H n)
+          ∂(logMeasure R.x R.ω)| := by
+    calc cD3 / 4 * ((R.eps : ℝ) * (H : ℝ) / Real.log (H : ℝ))
+        = (1 / 2) * (H : ℝ) * ((cD3 / Real.log (H : ℝ)) * ((R.eps : ℝ) / 2)) := by
+          field_simp; ring
+      _ ≤ (1 / 2) * (H : ℝ) * (SP * X) :=
+          mul_le_mul_of_nonneg_left hAX (by positivity)
+      _ = (1 / 2) * SP * (H : ℝ) * X := by ring
+      _ ≤ _ := hredH
+  -- the SQUARED circle-method bound (hcirc) via the card discharge, at the diagonal
+  have hcard : ((primeWindow R.eps H).card : ℝ)
+      ≤ (2 * Real.log 4) * ((R.eps : ℝ) ^ 2 * (H : ℝ) / Real.log (H : ℝ)) :=
+    primeWindow_card_le_of_regime R.eps H hreg hH3
+  have hcirc : ∀ n : ℕ,
+      |∑ p : primeWindow R.eps H, (1 / (p : ℝ)) * ∑ j ∈ Finset.range H,
+          (windowVal H (liouvilleWindow H n) j : ℝ)
+            * (windowVal H (liouvilleWindow H n) (j + (p : ℕ)) : ℝ)|
+        ≤ C * ((H : ℝ) / Real.log (H : ℝ))
+            * ((R.eps : ℝ) ^ 2 + ∑ ξ ∈ bigXi R.eps H, (1 / (H : ℝ) ^ 2)
+                * ‖ZMod.dft (fun j : ZMod H =>
+                    (windowVal H (liouvilleWindow H n) (ZMod.val j) : ℂ)) ξ‖ ^ 2) :=
+    fun n => hcm R.eps H (liouvilleWindow H n)
+      (fun i => abs_liouvilleWindow_le_one H n i) hcard
+  -- fire the Ξ-SUMMED L² shell (no `hXi`, no `0 ≤ δ`: the seam needs neither)
+  exact log_chowla_two_shell_xi_sq R hlo hhi hH3 hlogH hne hreg hhead ht hg hgle hI
+    (by positivity) h211 hC hcirc hdoor hbudget1 hbudget2
+
+/-- **THE `L²` SPINE-BUDGET HEAD, count-exporting form**
+(`log_chowla_two_budget_head_g_sq_count`, ⟦THE L² RESTRUCTURE⟧ stone 4).
+
+The twin of `log_chowla_two_budget_head_g_45` at the Ξ-SUMMED `L²` door, with
+
+```
+δ₀ := cD3 / (16 · C) · ε / 4          -- = c₀·ε/4,  c₀ = cD3/(16·C)
+```
+
+— **`K`-FREE**.  The landed head's `δ₀ = c₀·ε/(2K)` divided by the frequency
+count because the `L¹` seam multiplied the door's grade by `|Ξ_H| ≤ K`
+(`contradiction_of_mrtDoorXi`'s `hsmall : K·δ < c₀·ε`).  The summed `L²` seam
+(`contradiction_of_mrtDoorXiL2`) reads the door's grade ONCE, so its budget is
+`hbudget2 : ρ < c₀·ε` and the count leaves the `δ`-line entirely.  The `4` is
+REF-L2-ARITH's share allocation (`δ₀' = c₀ε/4`, `1.19·10^(-6)` at the certified
+constants); the derivation is the landed `:944–953` block minus the `K` step —
+`ρ ≤ c₀ε/4 < c₀ε` since `c₀ε > 0`, the same strict-margin shape the landed proof
+got from `K·δ ≤ c₀ε/2 < c₀ε`.
+
+⟦THE COUNT, EXPORTED⟧  `|Ξ_H| ≤ K` has not left the argument, only the spine: in
+the `L²` architecture the road spends it (`M4Window`'s adapter multiplies the
+SIEVED leg by `K`, the α-independent insert leg being paid once by Parseval).
+Only the head knows `ε`, hence only the head can produce the `K` that goes with
+it — so this form carries `K` in the `∃`-prefix and delivers the gate
+
+```
+∀ H, [NeZero H] → R.Hlo ≤ H → H ≤ R.Hhi → (|Ξ_H| : ℝ) ≤ K
+```
+
+as a payload conjunct, placing `bigXi_bounded`'s own floor `H₀xi` under `R.Hlo`
+exactly as the landed head does.  `K` NEVER touches `δ₀`.
+
+⟦THE TOWER PAYLOAD⟧ is the `9/2` law (ruling C-A) as in
+`log_chowla_two_budget_head_g_45`; `Salt.MR.tower_conjunct_45_le_five` downgrades
+it to `^5` for consumers wired to the landed exponent.
+
+⚠ **THE SEAM WARNING** (`MRTDoor.lean:174–182`, REF-L2 mandate R4, re-stated on
+the twin per the doctrine).  THE QUANTIFIERS STAY OUTSIDE THE INTEGRAL.
+`MRTUniformityXiL2 R ρ` is a FINITE SUM OF INTEGRALS — the frequency quantifier is
+a `∑` over `Ξ_H` outside `∫`, with no `sup` inside.  The sup-inside form is Tao
+1509.05422 (4.1), which is OPEN; moving a quantifier inside silently downgrades a
+theorem-door (Prop 2.4, PROVEN in Matomäki–Radziwiłł–Tao, arXiv:1503.05121) into
+an open conjecture.  This head does not CLAIM the `L²` door from Prop 2.4: it is
+supplied by the ROAD (`Salt.MR.mrtUniformityXiL2_of_absWindowSqBound`, over the
+sieved socket and the Parseval insert stone), and
+`MRTDoor.mrtUniformityXiL2_of_xi` records that it is in any case IMPLIED by the
+landed `L¹` theorem-door at grade `K·δ`.
+
+Everything else is `log_chowla_two_budget_head_g_45`'s proof verbatim: the same
+`ε` choice below `min(min(min (cE/(32·log4)) (1/2)) (cD3/16)) (cD3/(16·C))`, the
+same `hbudget1_witness` discharge at `c₀ = cD3/(16·C)`, the same five-arm floor,
+the same `chowlaRegime_exists_param_head_tower45'` builder.  `C` now comes from
+`circle_method_estimate_sq` — the SAME constant `1 + 2·C₀`, so `hbudget1` is
+untouched. -/
+theorem log_chowla_two_budget_head_g_sq_count :
+    ∃ (ε : ℚ) (K δ₀ : ℝ), 0 < ε ∧ 0 < K ∧ 0 < δ₀ ∧
+      ∀ (extraFloor U1floor : ℕ) (g : ℕ → ℕ → ℕ), ∃ R : ChowlaRegime,
+        R.eps = ε ∧ extraFloor ≤ R.Hlo ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+        (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+          ((bigXi R.eps H).card : ℝ) ≤ K) ∧
+        (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+          Real.log (Real.log (R.Hhi : ℝ))
+            ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+        ∀ ρ : ℝ, 0 < ρ → ρ ≤ δ₀ → MRTUniformityXiL2 R ρ →
+          ¬ logChowla2Fails R.eps R.x R.ω := by
+  classical
+  obtain ⟨cE, hcE, H₀red, hred⟩ := hreduce_holds_final
+  obtain ⟨cD3, hcD3, H₀D3, hD3⟩ := primeWindow_sum_inv_ge
+  -- ⟦THE ONE CHANGED PRODUCER⟧ the SQUARED circle-method estimate; `C = 1 + 2C₀` unchanged
+  obtain ⟨C, hC, hcm⟩ := circle_method_estimate_sq (2 * Real.log 4)
+    (by have := Real.log_pos (by norm_num : (1 : ℝ) < 4); linarith)
+  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  -- choose ε below `min(min(min (cE/(32·log4)) (1/2)) (cD3/16)) (cD3/(16·C))`
+  have hbound_pos : (0 : ℝ) < min (min (min (cE / (32 * Real.log 4)) (1 / 2))
+      (cD3 / 16)) (cD3 / (16 * C)) := by
+    refine lt_min (lt_min (lt_min ?_ ?_) ?_) ?_
+    · exact div_pos hcE (mul_pos (by norm_num) hlog4)
+    · norm_num
+    · exact div_pos hcD3 (by norm_num)
+    · exact div_pos hcD3 (mul_pos (by norm_num) hC)
+  obtain ⟨ε, hε0, hεlt⟩ := exists_rat_btwn hbound_pos
+  have hεR0 : (0 : ℝ) < (ε : ℝ) := hε0
+  have hεQpos : 0 < ε := by exact_mod_cast hεR0
+  have hεcE : (ε : ℝ) ≤ cE / (32 * Real.log 4) := le_of_lt (lt_of_lt_of_le hεlt
+    (le_trans (le_trans (min_le_left _ _) (min_le_left _ _)) (min_le_left _ _)))
+  have hε_half_lt : (ε : ℝ) < 1 / 2 := lt_of_lt_of_le hεlt
+    (le_trans (le_trans (min_le_left _ _) (min_le_left _ _)) (min_le_right _ _))
+  have hε_D3 : (ε : ℝ) ≤ cD3 / 16 := le_of_lt (lt_of_lt_of_le hεlt
+    (le_trans (min_le_left _ _) (min_le_right _ _)))
+  have hε_D3C : (ε : ℝ) ≤ cD3 / (16 * C) := le_of_lt (lt_of_lt_of_le hεlt (min_le_right _ _))
+  have hεQ1 : ε ≤ 1 / 2 := by
+    have h2 : (2 : ℝ) * (ε : ℝ) < 1 := by linarith [hε_half_lt]
+    have h2Q : (2 : ℚ) * ε < 1 := by exact_mod_cast h2
+    linarith
+  have hε2 : (ε : ℝ) ^ 2 < 1 / 2 := by nlinarith [hεR0, hε_half_lt]
+  obtain ⟨K, hK, H₀xi, _hH₀xi2, hxi⟩ := bigXi_bounded ε hεQpos hε2
+  -- ⟦THE K-FREE δ₀⟧ `c₀·ε/4`, NOT `c₀·ε/(2K)`
+  refine ⟨ε, K, cD3 / (16 * C) * (ε : ℝ) / 4, hεQpos, hK,
+    div_pos (mul_pos (div_pos hcD3 (mul_pos (by norm_num) hC)) hεR0) (by norm_num), ?_⟩
+  intro extraFloor U1floor g₅
+  obtain ⟨R, hReps, hRHlo, hRg, hRtow⟩ := chowlaRegime_exists_param_head_tower45' ε hεQpos hεQ1
+    (max (max (max (max H₀red H₀D3) H₀xi)
+      (budgetFloor (ε : ℝ) (cD3 * (ε : ℝ) / (144 * Real.log 4)))) (max extraFloor U1floor)) g₅
+  have hxiHlo : H₀xi ≤ R.Hlo :=
+    le_trans (le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) (le_max_left _ _)) hRHlo
+  refine ⟨R, hReps, le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hRHlo,
+    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hRHlo, hRg, ?_, hRtow, ?_⟩
+  · -- ⟦THE EXPORTED COUNT GATE⟧ the road's `hXi`, at this head's own `ε`
+    intro H' _ hlo' _
+    rw [hReps]
+    exact hxi H' (le_trans hxiHlo hlo')
+  intro ρ _hρpos hρ hdoor hfail
+  obtain ⟨H, hlo, hhi, _hdvd, hMI⟩ := entropy_decrement R
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  haveI : NeZero H := ⟨by omega⟩
+  have hI : I[residueWindow R.eps H : liouvilleWindow H ; logMeasure R.x R.ω]
+      ≤ (H : ℝ) / (Real.log H * Real.log (Real.log (Real.log H))) := by
+    rw [mutualInfo_window_comm']; exact hMI
+  have hepscR : (R.eps : ℝ) ≤ cE / (32 * Real.log 4) := by rw [hReps]; exact hεcE
+  have hH₀ : max H₀red H₀D3 ≤ H :=
+    le_trans (le_trans (le_trans (le_trans (le_max_left _ _) (le_max_left _ _))
+      (le_max_left _ _)) hRHlo) hlo
+  have hfloorH : budgetFloor (R.eps : ℝ)
+      (cD3 * (R.eps : ℝ) / (144 * Real.log 4)) ≤ H := by
+    rw [hReps]
+    exact le_trans (le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hRHlo) hlo
+  obtain ⟨t, g, ht, hg, hgle, hbudget1⟩ :=
+    hbudget1_witness R H cD3 C hcD3 hC
+      (by rw [hReps]; exact le_of_lt hε_half_lt)
+      (by rw [hReps]; exact hε_D3)
+      (by rw [hReps]; exact hε_D3C) hhi hfloorH
+  -- ⟦THE K-FREE hbudget2⟧ `ρ ≤ c₀ε/4 < c₀ε` (the landed `:944–953` chain minus the K step)
+  have hbudget2 : ρ < cD3 / (16 * C) * (R.eps : ℝ) := by
+    rw [hReps]
+    have hc0pos : (0 : ℝ) < cD3 / (16 * C) := div_pos hcD3 (mul_pos (by norm_num) hC)
+    have hpos : (0 : ℝ) < cD3 / (16 * C) * (ε : ℝ) := mul_pos hc0pos hεR0
+    linarith [hρ, hpos]
+  exact spine_False_core_xi_sq R hdoor cE hcE H₀red hred cD3 hcD3 H₀D3 hD3
+    C hC hcm H hlo hhi hH₀ hepscR t g
+    ((H : ℝ) / (Real.log H * Real.log (Real.log (Real.log H)))) (cD3 / (16 * C))
+    ht hg hgle hI hbudget1 hbudget2 hfail
+
+/-- **THE `L²` SPINE-BUDGET HEAD** (`log_chowla_two_budget_head_g_sq`) — the
+count-exporting head with its count conjunct dropped, i.e. the exact `∃ ε δ₀`
+shape of `log_chowla_two_budget_head_g(_45)` with
+
+* the door hypothesis `MRTUniformityXiL2 R ρ` (Ξ-SUMMED, `L²`-integrand) in place
+  of `MRTUniformityXi R δ`, and
+* the **`K`-FREE** threshold `δ₀ = cD3/(16·C) · ε / 4` in place of
+  `cD3/(16·C) · ε / (2K)`.
+
+Use `log_chowla_two_budget_head_g_sq_count` when the consumer also needs the
+large-spectrum count `|Ξ_H| ≤ K` (the `L²` road does: `M4Window`'s adapter spends
+it on the sieved leg).  The seam warning on that head rides here unchanged. -/
+theorem log_chowla_two_budget_head_g_sq :
+    ∃ (ε : ℚ) (δ₀ : ℝ), 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (extraFloor U1floor : ℕ) (g : ℕ → ℕ → ℕ), ∃ R : ChowlaRegime,
+        R.eps = ε ∧ extraFloor ≤ R.Hlo ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+        (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+          Real.log (Real.log (R.Hhi : ℝ))
+            ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+        ∀ ρ : ℝ, 0 < ρ → ρ ≤ δ₀ → MRTUniformityXiL2 R ρ →
+          ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨ε, _K, δ₀, hε, _hK, hδ₀, hbody⟩ := log_chowla_two_budget_head_g_sq_count
+  refine ⟨ε, δ₀, hε, hδ₀, fun extraFloor U1floor g => ?_⟩
+  obtain ⟨R, hReps, hExtra, hU1, hRg, _hcount, hRtow, hR⟩ := hbody extraFloor U1floor g
+  exact ⟨R, hReps, hExtra, hU1, hRg, hRtow, hR⟩
+
 end Salt.Entropy.Chowla

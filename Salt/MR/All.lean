@@ -282,6 +282,8 @@ import Salt.MR.S11CoefWS
 import Salt.MR.S11Exit45
 import Salt.MR.ConstantsExposed
 import Salt.MR.M4ParsevalStone
+import Salt.MR.S11ExitL2
+import Salt.MR.M4DoorL2
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -6153,3 +6155,87 @@ open Salt.Tactic in
   Salt.MR.sum_bigXi_norm_windowExpSum_sq_le_twelve
   Salt.MR.mrtUniformityXiL2_of_absWindowSqBound
   Salt.MR.l2_budget_line
+
+/-! ⟦THE L² RESTRUCTURE — stone 4, MR side: the split socket at the `K`-FREE head⟧
+(`S11ExitL2`, 2026-07-30).  `SpineFinal.log_chowla_two_budget_head_g_sq` fixes the spine's
+threshold at `δ₀ = cD3/(16·C)·ε/4` — the landed head's `c₀·ε/(2K)` with the frequency count
+GONE, because the summed `L²` seam reads the door's grade once instead of `|Ξ_H|` times.  Two
+sockets carry that head to the road, both with the `9/2` tower conjunct
+(`tower_conjunct_45_le_five` downgrades to `^5` free):
+
+* `m4_exit_socket_split_sq` — DOOR form.  `m4_exit_socket_split_45`'s statement with its single
+  open binder replaced by `MRTUniformityXiL2 R δ₀`; `extraFloor` fired at `0` as there.
+* `m4_exit_socket_split_sq_arc` — ROAD form.  Absorbs the two `ε`-determined floors the road
+  cannot place for itself — M4-0's arc floor (`sum_bigXi_norm_windowExpSum_sq_le_twelve`) and
+  `bigXi_bounded`'s count floor (via the head's EXPORTED count gate) — and delivers `K` in the
+  `∃`-prefix beside `ε` and `δ₀`.  What stays open is exactly the road's own supply: the
+  coefficient split, the sieved `L²` socket grade `Bsieve`, the already-summed Parseval insert
+  budget `Binsert`, and the closing line `K·(2·Bsieve H) + 2·Binsert ≤ δ₀` — the freeze's
+  `2K·Braw + δ/2 + 8·2^k/x` (`l2_budget_line`).
+
+⟦WHERE THE COUNT WENT⟧ `|Ξ_H| ≤ K` moved from the SPINE to the ROAD (it now multiplies the
+sieved leg only, inside `sum_bigXi_norm_windowExpSum_sq_le`), and only the head knows `ε` — so
+the head exports it.  `K` never touches `δ₀`.  ⟦A1 THE BINDER SPLIT⟧ is respected by shape:
+`Bsieve` (the socket's `δ_sock`-scale ceiling) and `Binsert`/`δ₀` (the glue scale) are
+independent binders, coupled only by the budget line.  Additive: no landed declaration is
+touched, and the `L¹` sockets `m4_exit_socket_split`/`_45` stand beside these. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.m4_exit_socket_split_sq
+  Salt.MR.m4_exit_socket_split_sq_arc
+
+/-! ⟦THE L² RESTRUCTURE — stone 7: THE ROAD-SIDE RE-PLUMB + ⟦A1 THE BINDER SPLIT⟧⟧
+(`M4DoorL2`, 2026-07-30, the freeze `docs/exploration/l2-restructure-freeze-0730.md` with
+⟦REF-L2-ARITH⟧'s A1 baked in).  Bank A left the `L²` door supply in three pieces with the
+fuse open, because `M4Window` (the adapter) is UPSTREAM of `M4ParsevalStone` (the insert
+budget) and could not cite it.  This file imports both and closes it.
+
+**§1 THE COMPOSITION** — `m4_doorL2_supply`: from the road's per-`α` `L²` socket
+(`M4Close.M4SievedDoorSq`, at the band transport), the door-glue bundle `M4DoorGates`
+(consumed UNCHANGED, field for field — it is exactly `parseval_insert_budget_door`'s gate
+list) and the count `|Ξ_H| ≤ K`, the `Ξ`-summed door holds at the freeze's line
+`ρ = 2·K·Bceil + δ/2 + 8·2^k/x`.  The adapter's named hypothesis `hins` is discharged from
+the Parseval stone in the `…_parseval` byte-spelling; `l2_budget_line` assembles the three
+summands.  What the `L²` route DELETES: the Cauchy–Schwarz descent of `m4_hbd_of_live` — the
+socket is natively `L²`, so its ceiling relaxes by a full square.  `m4_doorL2_supply_500`
+runs the same composition against `bigXi_bounded_500` (the N0-RETHREAD count, constant IN the
+statement) at the `ε = 1/500` pin.
+
+**§2 ⟦A1 THE BINDER SPLIT⟧** — the load-bearing byte.  `m4_doorL2_grade_split` states the
+road's budget at TWO NAMED, NEVER-UNIFIED thresholds: the socket-ceiling side at `δ_sock`
+(the `∀`-bound `δ₀` of the terminals' ceiling conjunct, read at the `√(c₀ε/4K)`-genre price;
+`m4_doorL2_socket_ceiling_at_sock` fires the `ρ`-page at `doorRhoOfDelta δ_sock`) and the
+glue/`hMδ` side at the SPINE's `δ₀'`.  The mechanism is certified in the kernel:
+`m4_doorL2_binder_floor_split` — the split `M`-floor is `96·Cg/(c₀ε)`, **`K`-FREE**;
+`m4_doorL2_binder_floor_unified` — the unified floor obeys `2304·K/(c₀ε) ≤ floor²`, so it
+carries `√K`.  That single `√K` is ⟦REF-L2-ARITH⟧'s "unified ⟹ `b = 324` and the compose
+FAILS — the freeze's own fallback number arriving as a plumbing bug".
+
+**§3 THE GRADE LINE TWIN** — `M4GradeGateL2`, a NEW gate beside the untouched
+`M4Close.M4GradeGateSplit`: the same three summands with the `√` DELETED and the target
+`c₀·ε` (strict, because `contradiction_of_mrtDoorXiL2` is).  Discharged from §2 by
+`m4_gradeGateL2_of_binder_split`; read at the `H`-free door grade by `m4_gradeGateL2_const`.
+
+**§4 THE SEAM** — `M4DoorL2HeadDemand` + `m4_doorL2_feeds_head(_split)`: the head-agnostic
+door-to-head seam at the freeze's own line.
+
+**§5 THE LOOP CLOSED** — `m4_doorL2_close_split_sq`, against W4's landed
+`m4_exit_socket_split_sq_arc`: `ε`, `K` and the `K`-FREE `δ₀` fixed first, then for every
+floor/outer-scale demand a regime at which log-Chowla-2 does not fail, conditional on exactly
+`M4DoorGates` (UNCHANGED) + `0 ≤ Braw` + `M4SievedDoorSq` (UNCHANGED — the six-structure
+residue, carried) + the `H`-uniform ceiling + the budget line.  `sum_bigXi_insert_spelling_eq`
+identifies the two insert spellings (`e`-form vs difference-form) so the plug is byte-exact.
+
+Additive: not one landed declaration is touched anywhere in this file. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.m4_doorL2_supply
+  Salt.MR.m4_doorL2_supply_500
+  Salt.MR.m4_doorL2_socket_ceiling_at_sock
+  Salt.MR.m4_doorL2_binder_floor_split
+  Salt.MR.m4_doorL2_binder_floor_unified
+  Salt.MR.m4_doorL2_grade_split
+  Salt.MR.m4_gradeGateL2_of_binder_split
+  Salt.MR.m4_gradeGateL2_const
+  Salt.MR.m4_doorL2_feeds_head
+  Salt.MR.m4_doorL2_feeds_head_split
+  Salt.MR.sum_bigXi_insert_spelling_eq
+  Salt.MR.m4_doorL2_close_split_sq

@@ -16891,3 +16891,38 @@ on this entry: W4 (the spine head twin at δ₀' = c₀ε/4-genre, K-FREE,
 + the 9/2 form) and W5 (stone 7 — the exit/close re-plumb: the L²
 door demand composed from W3+W2's stones, ⟦A1 THE BINDER SPLIT⟧
 δ_sock vs δ₀' baked in, M4DoorGates unchanged).
+
+## (2026-07-30 13:56 PDT) ⟦L² RESTRUCTURE⟧ BANK B LANDS — THE SEVEN-STONE WAVE COMPLETE; the loop CLOSED (m4_doorL2_close_split_sq → ¬logChowla2Fails); 9599 verified
+
+**⟦W4 — the head at the K-FREE δ₀⟧**  SpineFinal +374 (in-file):
+`spine_False_core_xi_sq` (K/hXi/hδ ABSENT from the core);
+**`log_chowla_two_budget_head_g_sq` — δ₀ := cD3/(16C)·ε/4, NO 1/(2K)
+ANYWHERE** + the `_count` variant (the design call flagged and
+ratified at this banking: only the head knows ε, so K rides the
+payload as the count gate, never touching δ₀); S11ExitL2 (158 ln):
+`m4_exit_socket_split_sq` + the road-form `_arc` socket absorbing
+both ε-floors.  The 9/2 payload, the free downgrade for ^5 readers.
+4/4 axioms; 9598 at its landing.
+
+**⟦W5 — the road re-plumb, the loop closed⟧**  M4DoorL2 (649 ln, 14
+decls): `m4_doorL2_supply` (the composition — the Parseval fuse
+byte-exact at liouvilleC, NO √ anywhere, the CS descent deleted;
+`_500` at the improved count, the landed count for general ε);
+⟦A1 THE BINDER SPLIT⟧ stated VERBATIM with the warning in the
+docstring + `m4_doorL2_binder_floor_unified` exhibiting the unified
+branch's √K (no one un-splits silently); `M4GradeGateL2` the NEW gate
+(the landed one untouched); the seam; **`m4_doorL2_close_split_sq` —
+∃Cg ε K δ₀ … door gates + L² socket + budget line → ¬logChowla2Fails
+— THE LOOP CLOSED against W4's socket, the six-structure residue
+carried honestly.**  M4DoorGates consumed UNCHANGED (its gate list
+WAS the Parseval stone's).  12/12 axioms; 9599 verified exit-0 by the
+maestro.  ⟦THE THRESHOLD NOTE, ledger-adopted⟧: the head absorbed the
+1/4 share — the ledger reads §5's `≤ δ₀` line (δ₀ = c₀ε/4), not the
+freeze's `< c₀ε`.  ⟦Cg NOTE⟧: M4DoorL2's Cg is the Parseval stone's
+choose-term (same provenance, distinct term — the L² route never
+needs the glue's).
+
+**⟦THE SUMMIT PROTOCOL ENGAGES — REF-L2-FINAL dispatched⟧**  The
+restructured chain end-to-end (the head's payload → the exit → the
+door supply → the close) before anything is called ready for the
+compose.  NOTHING ANNOUNCED.
