@@ -15681,3 +15681,138 @@ RBD-WIRE (C3-SCOPE R1 items a–e incl. mertensM ≤ 3);
 TLEG-FACT (the 𝒯-leg χ-factorization page).
 Second bank on their landings: RELIFT-B (ii-5+ii-6 + the K-5 refuter
 check), D3-DISCHARGE, the ball-sup leg, D2 re-derived.
+
+## (2026-07-30 06:12 PDT) RELIFT-A lands — ii-1 + ii-3 + ii-4 first-attempt, 14/14 clean (USetGChi.lean 522 ln)
+
+**⟦THE GRADED χ-𝒰 STACK⟧**  §1 `UsetGChi` (the pair-level graded set,
+fibrewise; `mem_` by Iff.rfl; the witness lemma typechecks BY DEFEQ —
+the probe's no-adapter finding kernel-confirmed).  §2 `UsetGChi_thin`
++ `_Q` + `_pin` (consuming `ramQChi_graded_count` exactly as the q=1
+template; the cover by |ramI| copies).  §3 `thinBundleGChi` + the
+sqrt-kill chain + `_at_debit` (`charDebit_le_rpow` REUSED VERBATIM —
+no graded twin needed; the razor's whole character cost is the single
+`q^{2α_Jb}`).  Build 9569 jobs green, zero warnings, axioms 14/14.
+
+**⟦FINDINGS⟧**  (1) The graded simplification MEASURED: no K₀
+pigeonhole, no ratioChain, no dyadicPairs, no δ — four flat-stack
+hypotheses simply absent; ii-3 at 186 ln.  (2) No `_thin_alpha`
+analogue wanted: the exact-α collapse is already inside the count, so
+the bundle step is a `ring` identity (deliberate structural deviation,
+documented).  (3) No φ(q) anywhere in the file — no union over
+characters exists.  (4) Four-log discipline held and STATED in the
+header for RELIFT-B's K-5 check (log X enters exactly twice, both
+gated, both where the q=1 template puts it).  Git seal batched with
+the bank (siblings mid-flight in All.lean).
+
+## (2026-07-30 06:16 PDT) TLEG-FACT lands — the 𝒯-leg χ-page first-attempt, 8/8 clean (TLegChi.lean 368 ln)
+
+**⟦THE PAGE⟧**  §1 the three datum lifts (the level-indexed Ramaré
+factorization at χ̄ — the one genuine debt; the norm/window lifts) —
+two planned lifts were ALREADY LANDED (`chiBar_hcoef`,
+`conj_chi_natCast_mul`; the build itself caught the redeclaration).
+§2–§4 `TLeg_bound_chi` + `TLeg_feeds_capstone_chi` (per-χ, `C` bound
+OUTSIDE q and χ — character- and modulus-uniform) + the summed forms
+`TLeg_bound_chiSummed`/`_totient` (φ(q) VISIBLE in front of the two
+character-free terms; `Σ_χ Σ_j lemma12Rows` left standing for the
+pricing side).  Every proof exact-level; build 9570 jobs green;
+axioms 8/8.
+
+**⟦FINDINGS⟧**  (1) The C2-SCOPE re-price CONFIRMED: zero proof
+design (the misdiagnosed 1.5-3k was transcription).  (2) The
+fibrewise partition set is FREE at the leg: the twisted instantiation
+lands on `seamTtotG (chiBarCoeff q χ c)` per character — C2's
+ratified pair-set read fibrewise with nothing arranged; the prime
+factor keeps the c-slot, the co-factor the b-slot — THE TWIST DOES
+NOT MOVE THE SEAM.  (3) No φ(q) spent per character.  (4) The scope
+fence held: no row assembly (the twisted PRICING side — TypicalPriceK's
+χ-twin — does not exist yet; the per-χ fuse would be vacuous; noted
+for the second bank's D2 re-derivation).
+
+## (2026-07-30 06:25 PDT) RBD-WIRE-2 lands — all five R1 items, 18/18 clean (RbdSupply.lean 546 ln); the Rbd hole is CLOSED IN THE KERNEL
+
+**⟦THE WIRE⟧**  §1 the datum adapter (doorCofactor0 at shift 1 =
+chiBarCoeff of the masked Liouville datum).  §2 the socket→binder
+bridge incl. `rbd_binder_of_doorSocket_free` — THE PAYOFF SHAPE: the
+∀χ door socket at Ps = 1 IS the A3 Rbd binder (t₁ freely instantiated
+at Rrad + T, the radial condition by le_abs_self).  §3
+`m4_supplier_all_chi` — the 31-conjunct bundle carried verbatim, the
+one χ-dependent conjunct replaced by the _vt floor's three.  §4
+**mertensM ≤ 2/3** (STRENGTHENED from the asked ≤ 3: the corpus's own
+M = γ − B + mathlib's γ < 2/3 — four lines; the briefed t≈90 decide
+route avoided).  §5 the threshold arithmetic page, exit
+`capFreeFloor3_pieceDatum_arcDen` at q ≤ arcDen 12 H.  Build 9571
+green (no All.lean race despite two sibling edits landing mid-flight);
+axioms 18/18.  The spurious-safeguard kill was beaten by a FRESH
+dispatch with the spec inlined (the poisoned transcript retriggered on
+resume — the recovery pattern for that genre is re-dispatch, banked).
+
+**⟦THE HONEST FINDINGS⟧**  (1) The threshold at q ≤ (log H)^12 reads
+`336·loglog H + O(logloglog) < loglog X` — a GENUINE scale-separation
+condition, NOT free at H = X^θ; the C4 arm (7000λ + 1.25e5) clears it
+~21×, and the docstrings state the separation honestly (the scoper's
+162λ estimate was optimistic; the executor's derived 336λ stands).
+(2) ⟦THE cffKVt LEDGER NOTE⟧: the piece floor's K comes from
+`capFreeFloor3_margin_all_chi_vt`, NOT from `cffKVt` (the un-margined
+Classical.choose) — §5 re-exports its own ∃K, NO identification
+asserted; the C3-granted symbolic constant in the g-arm must be THIS
+K.  (3) One binder traded not weakened (exp(exp 1) ≤ X replaces the
+redundant exp 1 ≤ log X).
+
+## (2026-07-30 06:27 PDT) D3-CARRIERS-2 lands — the mass + Rankin pages, 25/25 clean (RamareMassTail.lean 697 ln)
+
+**⟦ONE ENGINE, TWO EXPONENTS⟧**  §1 `windowSmooth_rpow_sum_le` — the
+divisor-domination stone (a smooth b ≤ z divides the band power N;
+ζ ∗ n^{−u} factors over the band; the bound z-FREE), riding the landed
+`blockWindow_mertens_const` via `primeBand`.  §2 THE MASS PAGE:
+`ramTailWeight_mass_le` r-uniform on [0,1], z/y/H/X-free;
+`windowMassConst_eq_ratio_rpow` = the refuter's `e^{25}·(log Q/log P)`
+shape exactly (c = 1 + 1/(P−1), astronomically near 1 at the door);
+the door corollary at log M.  §3 THE RANKIN PAGE: σ-parameterized
+(consumer picks σ), the o(1) EXPOSED as the named gate `hgateO1`,
+never absorbed; `ramTailWeight_htail_door` delivers the carrier's
+`htail` VERBATIM at z = ⌊√y⌋ under three in-statement gates.  Build
+9572 green; axioms 25/25.
+
+**⟦THE COMPOSITION SMOKE TEST⟧**  `MmuGrChi_rate` ACCEPTS
+`ramTailWeight_mass_le` + `ramTailWeight_htail_door` as hmass/htail
+with NO adapter (scratch-typechecked, not committed).  The honest
+residue for D3-DISCHARGE: the §3 gates are y-dependent while the
+carrier's ∃C',x₀ is P,Q-uniform — the quantifier order moves, noted
+not presumed.  Deviations all stated in-file: crude-σ Rankin (the
+surplus exponent pays the window constant through `hgateWin`);
+`4 ≤ P` for the geometric factor (free at the door).
+
+## (2026-07-30 06:29 PDT) D3-CARRIERS-1 lands — the λ-transposition + the mask-general union page, 82/82 clean; ONE REFUTER ERRATUM (the second on the same verdict)
+
+**⟦THE ERRATUM — executor-refutes-refuter, banked honestly.⟧**
+REF-A4-MATH's λ-transposition mechanism (`λg(n) = ∑_{d²|n}(μg)(n/d²)·g(d)²`)
+is FALSE for the damped datum: it requires g completely multiplicative,
+and `g_r(p²) = r ≠ r² = g_r(p)²` (witness in the file header).  The
+d²-fold route is CLOSED.  The honest transposition runs O6's own
+convolution device at λ: `D(λ·g_r) = D(λ)·∏(1+(1−r)p^{−s})`, carrier =
+the SQUAREFREE restriction `v_r = μ²·w_r`, identity `λ·g_r = λ ∗ v_r`
+(verified at prime powers).  Price: 855 ln vs the 200-350 estimate —
+the transposition is a §1-§6 re-run, not a light fold.  (Second
+erratum on the same refuter verdict, after the 144λ category error —
+the freeze→refute→fire cascade needs the executor floor too; the
+system worked.)
+
+**⟦THE PAGES⟧**  LambdaChiRamare.lean (855 ln, 33 decls): lamGr,
+the v_r carrier stack, the twisted hyperbola fold, `MlamGrChi_rate`
+(q ≤ (log y)^10, |t| ≤ y^{1/4} — each fold spends one conductor
+exponent + one halving, PRICES STATED WHERE PAID, free at the door
+with two exponents of slack), the ∫₀¹dr Ramaré-weighted deliverable
+`MlamRamChi_rate`.  MobiusChiRamareUnion.lean (899 ln, 60 decls):
+the MASK-GENERAL §1-§6 (any 𝒥 free), §7 the union instance
+(`unionOmega_eq_add_of_lt` at Q₁ < P₂), and FIVE twin-fidelity
+bridges proving O6's landed carriers ARE the blockMask instance —
+O6 a corollary, proved not asserted.  The union page's prices are
+IDENTICAL to O6's (the mask is invisible to every gate).  Build 9574
+green; axioms 82/82 within the permitted set.
+
+**⟦CONVERGENCE + THE RESIDUE⟧**  RamareMassTail's two pages feed the
+λ rates with NO adapter (both deliverables carry O6's hypotheses on
+`ramTailWeight`, legal by domination `v_r ≤ w_r`).  Still owed at the
+consumer (named, not performed): the r = 0 UNION MASS = the product
+of the two block masses via `blockWindow_mertens_const` — a
+D3-DISCHARGE item.  THE FIRST BANK IS 5/5 — batch seal follows.

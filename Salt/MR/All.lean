@@ -241,6 +241,8 @@ import Salt.MR.HybridMoments
 import Salt.MR.USetChi
 import Salt.MR.USetChiTS
 import Salt.MR.USetGChiCount
+import Salt.MR.USetGChi
+import Salt.MR.TLegChi
 import Salt.MR.HalaszPrimesChi
 import Salt.MR.TwistedEdge
 import Salt.MR.MobiusChiRate
@@ -254,6 +256,10 @@ import Salt.MR.PortClose
 import Salt.MR.PortNonVacuous
 import Salt.MR.ThmA2ChiSummed
 import Salt.MR.M4ChiSocketWire
+import Salt.MR.RbdSupply
+import Salt.MR.RamareMassTail
+import Salt.MR.LambdaChiRamare
+import Salt.MR.MobiusChiRamareUnion
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -5379,3 +5385,207 @@ open Salt.Tactic in
 -- untouched: the height-power exponent is exactly `2α`, with no pigeonhole factor.
 open Salt.Tactic in
 #audit_axioms Salt.MR.ramQChi_graded_count
+
+-- ⟦TLEG-FACT (2026-07-30)⟧ `TLegChi` — the `𝒯`-leg's χ-FACTORIZATION PAGE (council C5's
+-- ⟦THE 𝒯-LEG RE-PRICE⟧): `TLegExit`'s two exits are fully datum-generic, so the χ-lift of the
+-- graded `𝒯`-leg is an INSTANTIATION, not a port.  The three datum hypotheses lift for free —
+-- the Ramaré factorization by complete multiplicativity of the twist (`chiBar_hcoef` at each
+-- level), the two `1`-bounds by `‖χ̄(n)‖ ≤ 1`, the dyadic window because the twisted support is
+-- a SUBSET of the untwisted one — and the ladder gates never mention the datum.  The partition
+-- set becomes `𝒯totG(χ̄c)`, one per character: C2's ratified fibrewise shape, for free.  NO
+-- `φ(q)` is spent per character; the summed corollary carries it VISIBLY in front of the two
+-- character-free terms (A2).  Row assembly is NOT attempted (the twisted pricing side of
+-- `SeamNumber.seam_row_number` does not exist yet).
+open Salt.Tactic in
+#audit_axioms Salt.MR.chiBarCoeff_ramare
+  Salt.MR.chiBarCoeff_window
+  Salt.MR.TLeg_bound_chi
+  Salt.MR.TLeg_feeds_capstone_chi
+  Salt.MR.TLeg_bound_chiSummed
+  Salt.MR.TLeg_bound_chi_totient
+
+-- ⟦O6's TWO OWED CARRIER PAGES (2026-07-30, D3 wave) — THE WINDOW MASS + THE RANKIN TAIL⟧
+-- (`RamareMassTail`).  `MobiusChiRamare` states its two window rows as NAMED hypotheses and
+-- says twice that they are "named as the consumer's route, not performed here" (`:78-83`,
+-- `:659-660`).  Both are now performed, at `r = 0` — which by the carrier's own
+-- `ramTailWeight_le_zero_param` is the WORST CASE, so every bound is `r`-UNIFORM on `[0,1]`.
+--
+-- ⟦ONE ENGINE, TWO EXPONENTS⟧ `windowSmooth_rpow_sum_le`: `∑_{b≤z, b [P,Q]-smooth} b^{−u} ≤
+-- ∏_{P≤p≤Q}(1−p^{−u})^{−1}` for every `u > 0`, by DIVISOR DOMINATION — a window-smooth `b ≤ z`
+-- divides `N = ∏_{P≤p≤Q} p^z` (exponents `< b ≤ z`, `Nat.factorization_lt`), and
+-- `∑_{d∣N} d^{−u} = (ζ ∗ n^{−u})(N)` factors over the band into geometric series.  Finite
+-- Finset algebra only: no smooth-number counting, no tsum over an infinite support.  The bound
+-- is `z`-FREE.
+--
+-- ⟦THE MASS PAGE⟧ `ramTailWeight_mass_le` (the `hmass`/`M` slot of `norm_MmuGrChi_le_split` and
+-- `MmuGrChi_rate`): `∑_{b≤z} w_r(b)/b ≤ windowMassConst P Q = exp(c·(loglog Q − loglog P + 25))`
+-- with `c = 1 + 1/(P−1)` (the ONLY price of `1/(p−1)` vs `1/p`), composing the LANDED Mertens
+-- window constant `blockWindow_mertens_const` (`CofactorDist:139`) at `X = Q`.  The `H`-free
+-- ratio form is `windowMassConst_eq_ratio_rpow`: `e^{25c}·(log Q/log P)^c` — the freeze's O6
+-- shape with the whole constant explicit.  At the door windows `log Q₁/log P₁ = M` EXACTLY
+-- (`loglog_calQK_sub_calP`, from `calE_one` + `log_calQK`), so the door value is
+-- `exp(c·(log M + 25)) ≈ e^{25}·M` (`ramTailWeight_mass_door`) — no `H`, no `X`, no `y`.
+--
+-- ⟦THE RANKIN-TAIL PAGE⟧ `ramTailWeight_tail_le`, `σ`-PARAMETERIZED (the consumer picks `σ`):
+-- `∑_{z<b≤y} w_r(b)/b ≤ z^{−σ}·exp(2·Q^σ·(loglog Q − loglog P + 25))` for every `σ ∈ (0,1/2]`.
+-- Calibrated at `σ = 2A·loglog y/log z` (`ramTailWeight_tail_calibrated`) it delivers
+-- `(log y)^{−2A}` times the window constant, with TWO gates riding in-statement: `σ ≤ 1/2`, and
+-- **THE `o(1)` GATE** `2A·loglog y·log Q ≤ log z` (i.e. `σ·log Q ≤ 1`, `Q^σ ≤ e`) — the exact
+-- `O(A·loglog y·log Q/log y)` coupling the carrier's header names as the failure regime
+-- (`log Q ≍ log y`).  At `z = ⌊√y⌋` (through the LANDED `Salt.TwinBar.log_natSqrt_ge`) the door
+-- form `ramTailWeight_htail_door` delivers the carrier's hypothesis VERBATIM,
+-- `≤ 1/(log y)^A`, under three explicit numeric gates; the surplus exponent `(log y)^{−2A}` vs
+-- the demanded `(log y)^{−A}` is what pays the window constant (`hgateWin`).
+--
+-- ⟦WHAT IS NOT DONE, STATED⟧ the tail is Rankin at a CONSTANT `σ`; no `σ→0` optimisation and no
+-- `A!`-genre log-moment variant.  The COMPOSITION into `MmuGrChi_rate` (an eventual-in-`y`
+-- statement at a fixed window) is the consumer's step: both gates are `y`-dependent while the
+-- carrier's `∃C',x₀` is uniform in `P,Q`, so the quantifier order moves.  Verified in scratch
+-- (not committed): `MmuGrChi_rate` accepts `ramTailWeight_mass_le` and
+-- `ramTailWeight_htail_door` as its two hypotheses with no adapter.
+open Salt.Tactic in
+#audit_axioms Salt.MR.windowSmooth_rpow_sum_le
+  Salt.MR.divisorRpow_prime_pow_le
+  Salt.MR.windowSmooth_dvd_bandPow
+  Salt.MR.sum_inv_primeBand_le
+  Salt.MR.prod_band_geom_one_le
+  Salt.MR.ramTailWeight_mass_le
+  Salt.MR.windowMassConst_eq_ratio_rpow
+  Salt.MR.loglog_calQK_sub_calP
+  Salt.MR.ramTailWeight_mass_door
+  Salt.MR.prod_band_geom_shift_le
+  Salt.MR.ramTailWeight_tail_le
+  Salt.MR.ramTailWeight_tail_calibrated
+  Salt.MR.ramTailWeight_htail_door
+
+-- ⟦D3 CARRIER PAGE 1 — THE λ-TRANSPOSITION of the g_r perturbation⟧
+-- (2026-07-30, the 0730 council's C5; `LambdaChiRamare`).
+--
+-- ⟦THE BRIEF'S MECHANISM WAS FALSE, AND IS REFUTED IN THE HEADER⟧ REF-A4-4 proposed
+-- `(λ·g)(n) = ∑_{d²∣n}(μ·g)(n/d²)·g(d)²`, which needs `g` COMPLETELY multiplicative; `g_r(n) =
+-- r^{ω(n;P,Q)}` is NOT (`g_r(p²) = r ≠ r² = g_r(p)²`; witness `P = Q = p`, `n = p²`, `d = p`).
+-- So the `d²`-fold of `MlambdaChi_eq_sum_MmuChi` with a damped inner sum is CLOSED.  The honest
+-- transposition is O6's OWN device at `λ`: reading the Euler factors, `D(λ·g_r) = D(λ)·∏_{P≤p≤Q}
+-- (1 + (1−r)p^{−s})`, i.e. the coefficient is `(1−r)` at `p¹` and **`0` at every `p^k`, `k ≥ 2`**
+-- — the carrier is the SQUAREFREE RESTRICTION `v_r = μ²·w_r` of O6's `w_r`, and the identity
+-- proved is `λ·g_r = λ ∗ v_r` (`lamTailWeight_mul_liouville`, checked at prime powers; the trim
+-- to `i ∈ {0,1}` IS the `μ²`).
+--
+-- ⟦THE CONSUMER PAYS NOTHING FOR THE CARRIER SWAP⟧ `lamTailWeight_le_ramTailWeight` (`μ² ≤ 1`,
+-- `w_r ≥ 0`) lets BOTH deliverables carry O6's own hypotheses, on `ramTailWeight`, byte-identical
+-- to `MmuGrChi_rate`/`MmuRamChi_rate`'s.  CONVERGENCE: D3's mass/tail page (`RamareMassTail`,
+-- landed the same night) discharges them ONCE for the μ-side and the λ-side together —
+-- `ramTailWeight_mass_le` + `ramTailWeight_htail_door` feed `MlamGrChi_rate` with no adapter.
+--
+-- ⟦PRICES, COMPOSED⟧ two sequential folds, each spending one conductor exponent and one height
+-- halving: `MmuChiRate` (12, `|t| ≤ y`) → `MlambdaChi_rate` (11, `⌊√y⌋`) → HERE (**10,
+-- `⌊√⌊√y⌋⌋ ≈ y^{1/4}`**).  Both free at the door: the consumer's conductor gate `arcDen 12 H ≍
+-- (log H)^12` fits inside `(log y)^10` at the REF-A4-4 range fit (`log H ≤ (log y)^{5/6}`,
+-- two exponents of slack), and the consumer's band is `seamT0 X = (log X)^{1/45}` against
+-- `y^{1/4}`.  Paid in `hgate` (`log y ≥ 4^11`) and `hht` (`Nat.sqrt_le_sqrt`).  Free by-product:
+-- `sum_filter_dvd_div_eq`, the multiples bijection with the coefficient FREED (any
+-- `AddCommMonoid`), and `norm_MlambdaChi_le`, the crude λ-side tail bound.
+
+open Salt.Tactic in
+#audit_axioms Salt.MR.lamGr
+  Salt.MR.lamGr_isMultiplicative
+  Salt.MR.lamTailWeight
+  Salt.MR.lamTailWeight_apply_of
+  Salt.MR.lamTailWeight_eq_zero_of_not_squarefree
+  Salt.MR.lamTailWeight_nonneg
+  Salt.MR.lamTailWeight_le_ramTailWeight
+  Salt.MR.lamTailWeight_support
+  Salt.MR.lamTailWeight_le_zero_param
+  Salt.MR.lamTailWeight_isMultiplicative
+  Salt.MR.lamTailWeight_prime_pow
+  Salt.MR.lamTailWeight_mul_liouville
+  Salt.MR.liouville_mul_lamTailWeight
+  Salt.MR.lamGr_eq_sum_divisorsAntidiagonal
+  Salt.MR.lamGr_twist_eq_sum_divisorsAntidiagonal
+  Salt.MR.sum_filter_dvd_div_eq
+  Salt.MR.MlambdaChi_inner_dvd
+  Salt.MR.MlamGrChi
+  Salt.MR.MlamGrChi_eq_sum
+  Salt.MR.norm_MlambdaChi_le
+  Salt.MR.norm_MlamGrChi_le_split
+  Salt.MR.MlamGrChi_rate
+  Salt.MR.MlamRamChi
+  Salt.MR.MlamRamChi_eq_integral
+  Salt.MR.norm_MlamRamChi_le_of_uniform
+  Salt.MR.MlamRamChi_rate
+
+-- ⟦D3 CARRIER PAGE 2 — THE UNION-MASK TWIN (𝒥 = {1,2}, two disjoint blocks)⟧
+-- (2026-07-30, the 0730 council's C5; `MobiusChiRamareUnion`).
+--
+-- O6 sits at a SINGLE window `[P,Q]`; the door runs at `𝒥 = {1,2}` and the union of two disjoint
+-- intervals is not an interval, so no instantiation of O6 reaches it.  ⟦THE GENERALIZATION⟧ O6's
+-- argument never inspects the interval structure — only "the distinct prime factors lying in a
+-- fixed set" — so this file carries a PRIME MASK `mask : ℕ → Bool` and re-runs O6 verbatim at
+-- `ω(n;mask)`, `w_r(n) = (1−r)^{ω(n;mask)}` on the mask-smooth support.  The refuter's local
+-- factor `(1 − g₁g₂(p)p^{−s})/(1 − p^{−s})` is the mask factor at `mask₁ ∨ mask₂`; on the damping
+-- side that reads `unionOmega_eq_add_of_lt` (`Q₁ < P₂` ⟹ `ω(n;∪) = ω₁(n) + ω₂(n)`) and
+-- `unionDamp_eq_mul` (`r^{ω(n;∪)} = r^{ω₁}·r^{ω₂}`) — the bridge to the corpus's `blockOmega`,
+-- which is what `RamWeight.ramRdamp`/`Decomp.ramareWeight` read.  Disjointness is spent EXACTLY
+-- ONCE (the two masked prime-divisor sets are disjoint); nothing else in the file uses it.
+--
+-- ⟦TWIN FIDELITY, PROVED NOT ASSERTED⟧ the LANDED single-window carriers are literally the
+-- `blockMask P Q` instance: `maskOmega_blockMask`, `maskTailWeight_blockMask`,
+-- `muGrMask_blockMask`, `MmuGrChiMask_blockMask`, `MmuRamChiMask_blockMask`.  So O6 is a
+-- corollary of this page, not a parallel object — and `𝒥 = {1,…,J}` is one more instantiation at
+-- zero further bytes.  ⟦PRICES⟧ IDENTICAL to O6's (`(log y)^11`, `|t| ≤ ⌊√y⌋`, `4^A`): the mask
+-- is invisible to every gate and enters ONLY through `M` and `ε`.  At the union window and
+-- `Q₁ < P₂` the `r = 0` mass is `∏_{∪}(1−1/p)^{−1}` = the PRODUCT of the two block masses, i.e.
+-- `≍ (log Q₁/log P₁)(log Q₂/log P₂)` by the landed `blockWindow_mertens_const` — named as the
+-- consumer's route, carried abstractly here (`CofactorDist` is outside the import cone), exactly
+-- as O6 does it.
+
+open Salt.Tactic in
+#audit_axioms Salt.MR.MaskPrimeDivs
+  Salt.MR.maskOmega
+  Salt.MR.MaskSmooth
+  Salt.MR.maskOmega_mul_coprime
+  Salt.MR.maskOmega_prime_pow
+  Salt.MR.maskSmooth_prime_pow_iff
+  Salt.MR.muGrMask
+  Salt.MR.muGrMask_isMultiplicative
+  Salt.MR.maskTailWeight
+  Salt.MR.maskTailWeight_apply_of
+  Salt.MR.maskTailWeight_nonneg
+  Salt.MR.maskTailWeight_support
+  Salt.MR.maskTailWeight_zero_param
+  Salt.MR.maskTailWeight_le_zero_param
+  Salt.MR.maskTailWeight_isMultiplicative
+  Salt.MR.maskTailWeight_prime_pow
+  Salt.MR.maskTailWeight_eq_zeta_mul_muGrMask
+  Salt.MR.maskTailWeight_eq_sum_divisors
+  Salt.MR.mu_mul_maskTailWeight
+  Salt.MR.muGrMask_eq_sum_divisorsAntidiagonal
+  Salt.MR.MmuGrChiMask
+  Salt.MR.muGrMask_twist_eq_sum_divisorsAntidiagonal
+  Salt.MR.MmuGrChiMask_eq_sum
+  Salt.MR.norm_MmuGrChiMask_le_split
+  Salt.MR.MmuGrChiMask_rate
+  Salt.MR.MmuRamChiMask
+  Salt.MR.MmuRamChiMask_eq_integral
+  Salt.MR.norm_MmuRamChiMask_le_of_uniform
+  Salt.MR.MmuRamChiMask_rate
+  Salt.MR.blockMask
+  Salt.MR.unionMask
+  Salt.MR.unionOmega
+  Salt.MR.UnionSmooth
+  Salt.MR.maskOmega_blockMask
+  Salt.MR.maskSmooth_blockMask_iff
+  Salt.MR.muGrMask_blockMask
+  Salt.MR.maskTailWeight_blockMask
+  Salt.MR.MmuGrChiMask_blockMask
+  Salt.MR.MmuRamChiMask_blockMask
+  Salt.MR.unionOmega_eq_add_of_lt
+  Salt.MR.unionDamp_eq_mul
+  Salt.MR.muGrU
+  Salt.MR.ramTailWeightU
+  Salt.MR.MmuGrChiU
+  Salt.MR.MmuRamChiU
+  Salt.MR.muGrU_apply_of_lt
+  Salt.MR.MmuGrChiU_eq_sum
+  Salt.MR.MmuGrChiU_rate
+  Salt.MR.MmuRamChiU_rate
