@@ -877,7 +877,8 @@ The `ζ`-twin is `shifted_edge_price_strip` (whose grade is `D₄` against a `D�
 legs: `twisted_edge_disc_core` above stone C's floor `exp(exp 100) + 1`, `twisted_edge_moderate`
 below it — no conjugation leg, no compactness constant. -/
 theorem twisted_edge_price_strip :
-    ∃ (c_vk CE T₀ : ℝ), 0 < c_vk ∧ c_vk ≤ 1 ∧ 0 < CE ∧ Real.exp (Real.exp 100) ≤ T₀ ∧
+    ∃ (c_vk CE T₀ : ℝ), 0 < c_vk ∧ c_vk ≤ 1 ∧ c_vk = 1 / 10 ^ 8 ∧
+      0 < CE ∧ Real.exp (Real.exp 100) ≤ T₀ ∧
       ∀ (q : ℕ) [NeZero q] (ψ : DirichletCharacter ℂ q), ψ ≠ 1 →
       ∀ (T x γ : ℝ), T₀ ≤ T →
         8 * Real.log (40000 * vkStripConst q) ≤ Real.log (Real.log (5 * T + 1)) →
@@ -894,7 +895,7 @@ theorem twisted_edge_price_strip :
               * (Real.log (Real.log (5 * T + 1))) ^ (5 : ℕ)) := by
   refine ⟨1 / 10 ^ 8, (10 ^ 8 + 200 / (1 / 10 ^ 8 : ℝ))
       + 300 * (twistedEdgeLowConst + 1) * (1 + 1 / (1 / 10 ^ 8 : ℝ)),
-    Real.exp (Real.exp 100), by norm_num, by norm_num, ?_, le_refl _, ?_⟩
+    Real.exp (Real.exp 100), by norm_num, by norm_num, rfl, ?_, le_refl _, ?_⟩
   · have h := twistedEdgeLowConst_pos; positivity
   intro q hq ψ hψ1 T x γ hT hqgate hmargin hxlb hxub hγT
   have hCl0 : 0 < twistedEdgeLowConst := twistedEdgeLowConst_pos
@@ -1104,9 +1105,11 @@ set_option maxHeartbeats 12800000 in
 `per_pair_contour`; the pole row is gone (Cauchy–Goursat replaces the residue extraction, and
 there is no main term). -/
 theorem twisted_window_price_gated_holds :
-    ∃ (c_vk C₁ C₂ C₃ T₀ : ℝ), 0 < c_vk ∧ 0 < C₁ ∧ 0 < C₂ ∧ 0 < C₃ ∧ 3 ≤ T₀ ∧
-      TwistedWindowPriceGated c_vk C₁ C₂ C₃ T₀ := by
-  obtain ⟨c_vk, CE, T₀e, hc_vk0, hc_vk1, hCE0, hT₀efloor, hedge⟩ := twisted_edge_price_strip
+    ∃ (C₁ C₂ C₃ T₀ : ℝ), 0 < C₁ ∧ 0 < C₂ ∧ 0 < C₃ ∧ Real.exp (Real.exp 100) ≤ T₀ ∧
+      TwistedWindowPriceGated (1 / 10 ^ 8) C₁ C₂ C₃ T₀ := by
+  obtain ⟨c_vk, CE, T₀e, hc_vk0, hc_vk1, hc_vkval, hCE0, hT₀efloor, hedge⟩ :=
+    twisted_edge_price_strip
+  rw [← hc_vkval]
   obtain ⟨C₀, hC₀0, hcline⟩ := sum_vonMangoldt_cline_bound
   obtain ⟨δ₀, C₀z, hδ₀0, hcptZ⟩ :=
     logDeriv_Zc_compact_bound (M := 0) (c := 2) (le_refl 0) (by norm_num)
@@ -1125,8 +1128,8 @@ theorem twisted_window_price_gated_holds :
   have hCHpos : 0 < CH := by rw [hCHdef]; positivity
   set CT : ℝ := 2 / 3 * Kc * (1 + C₀ / Real.log 2) with hCTdef
   have hCTpos : 0 < CT := by rw [hCTdef]; positivity
-  refine ⟨c_vk, CL / (2 * Real.pi), CT / (2 * Real.pi), 2 * CH / (2 * Real.pi),
-    T₀e, hc_vk0, div_pos hCLpos (by positivity), div_pos hCTpos (by positivity),
+  refine ⟨CL / (2 * Real.pi), CT / (2 * Real.pi), 2 * CH / (2 * Real.pi),
+    T₀e, div_pos hCLpos (by positivity), div_pos hCTpos (by positivity),
     div_pos (by positivity) (by positivity), by linarith [hT₀efloor, hEbig], ?_⟩
   intro q hq ψ hψ1 T P u hT hP hu hqgate hmargin
   have hEfloor : Real.exp (Real.exp 100) ≤ T := le_trans hT₀efloor hT

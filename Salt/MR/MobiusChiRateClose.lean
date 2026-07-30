@@ -1088,6 +1088,33 @@ Everything composes here: §1's contour shift with the carrier `g s = (L(s − i
 rides in as the named hypothesis in the STRONG `Re < 1/2` form — the shape wave P-7's Siegel
 fold delivers, and exactly what `MmuChiRate_residue_sharp` already carries. -/
 
+/-- **THE ξ₁ CARVE-OUT, AT THE WIDTH** ⟦R-1, wave CLOSE⟧ — the real-zero hypothesis in the
+shape the Siegel fold actually delivers.
+
+`PortAssembly.lean` §7 is the adjudication: the STRONG form (`Re ρ < 1/2` for every real zero)
+is a GRH fragment — Chowla's conjecture for real `χ` — and NO threshold in `H` or restriction of
+the `q`-range weakens it, so it is not Siegel-foldable.  The WIDTH form below IS: at
+`q ≤ (log H)^{12}` Siegel with `ε = 1/16` beats `vkShallowWidth (10⁻⁶) q H`, because
+`q^{1/16} ≤ (log H)^{3/4}` is exactly the width's own leading factor (`16 = 12/(3/4)`).
+
+Two gates ride with it, and both are free downstream: the modulus gate `q ≤ (log H)^{12}` is
+`MmuChiRate`'s own, and the threshold `H₀` — which carries Siegel's INEFFECTIVITY — folds into
+`MmuChiRate`'s `∃ x₀`.  This is the WEAKER hypothesis: `xiCarveWidth_of_half` derives it from
+the strong form through `carve_of_half`, which is all `mmuChiRate_nonprincipal` ever used. -/
+def XiCarveWidth (H₀ : ℝ) : Prop :=
+  ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
+    ∀ H : ℝ, H₀ ≤ H → (q : ℝ) ≤ Real.log H ^ (12 : ℕ) →
+    ∀ ρ : ℂ, LFunction χ⁻¹ ρ = 0 → ρ.im = 0 →
+      ρ.re ≤ 1 - vkShallowWidth (1 / 10 ^ 6) q H
+
+/-- The strong `Re < 1/2` form implies the width form at every threshold above the region's
+floor (`carve_of_half`), so the ⟦R-1⟧ restatement loses nothing that was provable before. -/
+lemma xiCarveWidth_of_half {H₀ : ℝ} (hH₀ : Real.exp (Real.exp 100) + 1 ≤ H₀)
+    (hhalf : ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
+        ∀ ρ : ℂ, LFunction χ⁻¹ ρ = 0 → ρ.im = 0 → ρ.re < 1 / 2) :
+    XiCarveWidth H₀ :=
+  fun q _ χ hχ1 _H hH _ => carve_of_half (le_trans hH₀ hH) (hhalf q χ hχ1)
+
 set_option maxHeartbeats 4000000 in
 -- The assembly threads the shallow package, the two width comparisons, the shifted-box
 -- discharge and four carrier properties into one application of §1, then §2 and §3; the
@@ -1095,10 +1122,10 @@ set_option maxHeartbeats 4000000 in
 /-- **⟦D1⟧ THE NON-PRINCIPAL ROW.**  For every `χ ≠ 1` mod `q`, at the ⟦D1⟧-amended gates
 (`|t| ≤ y`, `q ≤ (log y)^{12}`), `‖∑_{n ≤ y} μ(n)χ̄(n)n^{it}‖ ≤ C·y/(log y)^A` for every
 `A > 0`, with `C` and `y₀` uniform in `q`, `χ`, `t`.  Conditional ONLY on the ξ₁/Siegel
-carve-out in the strong form. -/
-theorem mmuChiRate_nonprincipal
-    (hxi : ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
-        ∀ ρ : ℂ, LFunction χ⁻¹ ρ = 0 → ρ.im = 0 → ρ.re < 1 / 2) :
+carve-out ⟦R-1: in the WIDTH form `XiCarveWidth H₀`, the shape P-7's fold delivers; the
+threshold `H₀` is spent as the pinned `X₁`, i.e. it rides inside the conclusion's `∃ x₀`⟧. -/
+theorem mmuChiRate_nonprincipal {H₀ : ℝ} (hH₀ : Real.exp (Real.exp 100) + 3 ≤ H₀)
+    (hxi : XiCarveWidth H₀) :
     ∀ A : ℝ, 0 < A → ∃ (C : ℝ) (x₀ : ℕ), 0 < C ∧ ∀ y : ℕ, x₀ ≤ y →
       ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
         (q : ℝ) ≤ Real.log y ^ (12 : ℕ) → ∀ t : ℝ, |t| ≤ (y : ℝ) →
@@ -1121,8 +1148,10 @@ theorem mmuChiRate_nonprincipal
   have hKple : K * 13 ^ m ≤ Kp := le_max_right _ _
   refine mmuChiRate_of_smoothed (fun q χ => χ ≠ 1) ?_
   refine mmu1Chi_rate_of_pinned (c₅ := c₅) (K := Kp) (m := 2 * m)
-    (X₁ := Real.exp (Real.exp 100) + 3) hc₅0 hc₅1 hKp1 (fun q χ => χ ≠ 1) ?_
-  intro x hxX1 q _ χ hχ1 hq t ht
+    (X₁ := H₀) hc₅0 hc₅1 hKp1 (fun q χ => χ ≠ 1) ?_
+  intro x hxH₀ q _ χ hχ1 hq t ht
+  -- ⟦R-1⟧ the pinned floor is now `H₀`; the old scale floor is one `le_trans` away
+  have hxX1 : Real.exp (Real.exp 100) + 3 ≤ x := le_trans hH₀ hxH₀
   obtain ⟨hxpos, hL101, hL2lo, hL2hi, hll⟩ := pin_scale_facts hxX1
   have hEpos : (0 : ℝ) < Real.exp (Real.exp 100) := Real.exp_pos _
   have hx1 : (1 : ℝ) ≤ x := by linarith
@@ -1178,13 +1207,21 @@ theorem mmuChiRate_nonprincipal
       (div_le_div_iff_of_pos_right hlogpos).mpr hc₀le
     linarith [hcl' q χ⁻¹ hχinv1 hρ0 hρre hor, hmono]
   -- ⟦the carve-out, at both heights the two consumers need⟧
+  -- ⟦R-1⟧ the width form is read directly at each height; the modulus gate transfers by
+  -- `log x ≤ log(2x)` and `log x ≤ log(2x−1)` (both `≥ x` at `x ≥ 1`).
+  have hlogx0 : (0 : ℝ) ≤ Real.log x := by linarith
+  have hq2x : (q : ℝ) ≤ Real.log (2 * x) ^ (12 : ℕ) :=
+    le_trans hq (pow_le_pow_left₀ hlogx0 hL2lo 12)
+  have hq2x1 : (q : ℝ) ≤ Real.log (2 * x - 1) ^ (12 : ℕ) :=
+    le_trans hq (pow_le_pow_left₀ hlogx0
+      (Real.log_le_log hxpos (by linarith)) 12)
   have hcarve2x : ∀ ρ : ℂ, LFunction χ⁻¹ ρ = 0 → ρ.im = 0 →
       ρ.re ≤ 1 - vkShallowWidth (1 / 10 ^ 6) q (2 * x) :=
-    carve_of_half (by linarith) (hxi q χ hχ1)
+    hxi q χ hχ1 (2 * x) (by linarith) hq2x
   have hcarveBox : ∀ ρ : ℂ, LFunction χ⁻¹ ρ = 0 → ρ.im = 0 →
       ρ.re ≤ 1 - boxWidth c₀ (shallowA q) q (2 * x) := by
     intro ρ h0 him
-    have h1 := carve_of_half (H := 2 * x - 1) (by linarith) (hxi q χ hχ1) ρ h0 him
+    have h1 := hxi q χ hχ1 (2 * x - 1) (by linarith) hq2x1 ρ h0 him
     have h2 := boxWidth_le_carve (c₀ := c₀) (q := q) (H := 2 * x - 1) (by linarith)
     rw [show (2 * x - 1 + 1) = 2 * x by ring] at h2
     linarith
@@ -1318,24 +1355,22 @@ theorem mmuChiRate_of_rows
     exact le_max_left _ _
 
 /-- **⟦THE MIRROR'S DELIVERABLE⟧ — `MmuChiRate` from the two named inputs.**  The ξ₁/Siegel
-carve-out (wave P-7's fold, in the strong `Re < 1/2` form) plus the principal row.  This is
-`MmuChiRate_residue_sharp` with its `LFunctionInvShallowVkSharp` slot DISCHARGED (that Prop is
-landed, `lFunctionInvShallowVkSharp_holds`) and its mechanical mirror LANDED (§§1–4): what is
-left is exactly the χ₀ row. -/
-theorem mmuChiRate_of_carve_and_principal
-    (hxi : ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
-        ∀ ρ : ℂ, LFunction χ⁻¹ ρ = 0 → ρ.im = 0 → ρ.re < 1 / 2)
+carve-out (wave P-7's fold, ⟦R-1⟧ in the WIDTH form `XiCarveWidth H₀`) plus the principal row.
+This is `MmuChiRate_residue_sharp` with its `LFunctionInvShallowVkSharp` slot DISCHARGED (that
+Prop is landed, `lFunctionInvShallowVkSharp_holds`) and its mechanical mirror LANDED (§§1–4):
+what is left is exactly the χ₀ row. -/
+theorem mmuChiRate_of_carve_and_principal {H₀ : ℝ}
+    (hH₀ : Real.exp (Real.exp 100) + 3 ≤ H₀) (hxi : XiCarveWidth H₀)
     (hpr : MmuChiRatePrincipal) : MmuChiRate :=
-  mmuChiRate_of_rows (mmuChiRate_nonprincipal hxi) hpr
+  mmuChiRate_of_rows (mmuChiRate_nonprincipal hH₀ hxi) hpr
 
 /-- **The bridge to O3, threaded.**  `LambdaChiSummatory A` at the fold's own gates
 (`q ≤ (log y)^{11}`, `|t| ≤ ⌊√y⌋`) from the two named inputs — the composition
 `LambdaChiSummatory_of_MmuChiRate ∘ mmuChiRate_of_carve_and_principal`. -/
-theorem lambdaChiSummatory_of_carve_and_principal
-    (hxi : ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
-        ∀ ρ : ℂ, LFunction χ⁻¹ ρ = 0 → ρ.im = 0 → ρ.re < 1 / 2)
+theorem lambdaChiSummatory_of_carve_and_principal {H₀ : ℝ}
+    (hH₀ : Real.exp (Real.exp 100) + 3 ≤ H₀) (hxi : XiCarveWidth H₀)
     (hpr : MmuChiRatePrincipal) (A : ℝ) (hA : 0 < A) : LambdaChiSummatory A :=
-  LambdaChiSummatory_of_MmuChiRate (mmuChiRate_of_carve_and_principal hxi hpr) A hA
+  LambdaChiSummatory_of_MmuChiRate (mmuChiRate_of_carve_and_principal hH₀ hxi hpr) A hA
 
 /-! ## §6 — ⟦D2 THE χ₀ ROW⟧: reduced to ONE analytic `Prop`
 
@@ -1673,18 +1708,16 @@ theorem mmuChiRatePrincipal_of_zetaShallow (hz : ZetaInvShallowVk) : MmuChiRateP
 ξ₁/Siegel carve-out (wave P-7's fold, strong form) and the ζ shallow twin at VK width.
 Everything else — the twisted contour shift, the budget, the de-smoothing, the χ-VK edge bound
 and region, the χ₀ row's pole normalization and Euler factor — is landed. -/
-theorem mmuChiRate_of_carve_and_zetaShallow
-    (hxi : ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
-        ∀ ρ : ℂ, LFunction χ⁻¹ ρ = 0 → ρ.im = 0 → ρ.re < 1 / 2)
+theorem mmuChiRate_of_carve_and_zetaShallow {H₀ : ℝ}
+    (hH₀ : Real.exp (Real.exp 100) + 3 ≤ H₀) (hxi : XiCarveWidth H₀)
     (hz : ZetaInvShallowVk) : MmuChiRate :=
-  mmuChiRate_of_carve_and_principal hxi (mmuChiRatePrincipal_of_zetaShallow hz)
+  mmuChiRate_of_carve_and_principal hH₀ hxi (mmuChiRatePrincipal_of_zetaShallow hz)
 
 /-- The O3 bridge at the full pair of inputs. -/
-theorem lambdaChiSummatory_of_carve_and_zetaShallow
-    (hxi : ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
-        ∀ ρ : ℂ, LFunction χ⁻¹ ρ = 0 → ρ.im = 0 → ρ.re < 1 / 2)
+theorem lambdaChiSummatory_of_carve_and_zetaShallow {H₀ : ℝ}
+    (hH₀ : Real.exp (Real.exp 100) + 3 ≤ H₀) (hxi : XiCarveWidth H₀)
     (hz : ZetaInvShallowVk) (A : ℝ) (hA : 0 < A) : LambdaChiSummatory A :=
-  LambdaChiSummatory_of_MmuChiRate (mmuChiRate_of_carve_and_zetaShallow hxi hz) A hA
+  LambdaChiSummatory_of_MmuChiRate (mmuChiRate_of_carve_and_zetaShallow hH₀ hxi hz) A hA
 
 /-! ### ⟦THE RESIDUE — the χ₀ row, and exactly what closes it⟧
 

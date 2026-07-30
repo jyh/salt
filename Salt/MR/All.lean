@@ -249,6 +249,7 @@ import Salt.MR.LFunctionInvShallow
 import Salt.MR.MobiusChiRateClose
 import Salt.MR.ZetaInvShallow
 import Salt.MR.PortAssembly
+import Salt.MR.PortClose
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -5169,6 +5170,8 @@ open Salt.Tactic in
   Salt.MR.desmooth_identity_chi
   Salt.MR.remainder_bound_chi
   Salt.MR.mmuChiRate_of_smoothed
+  Salt.MR.XiCarveWidth
+  Salt.MR.xiCarveWidth_of_half
   Salt.MR.mmuChiRate_nonprincipal
   Salt.MR.MmuChiRatePrincipal
   Salt.MR.mmuChiRate_of_rows
@@ -5291,3 +5294,53 @@ open Salt.Tactic in
   Salt.MR.siegel_real_carve
   Salt.MR.twisted_rect_zero_free_siegel
   Salt.MR.halasz_primes_chi_pair_of_gates
+
+-- ## `Salt/MR/PortClose.lean` — ⟦WAVE CLOSE⟧ the two ruled exposures, fired
+--
+-- ⟦R-1 — THE RATE CHAIN'S `hxi`, RESTATED AND DISCHARGED⟧ P-7 ruled the STRONG carve-out
+-- (`Re ρ < 1/2` at every real zero) unfoldable — it is a GRH fragment — and the WIDTH form
+-- foldable.  The restatement is in the landed files (`MobiusChiRateClose.XiCarveWidth` + the
+-- five wrappers + `ZetaInvShallow`'s two); `xiCarveWidth_of_half` records that the old shape
+-- still implies the new one, so nothing provable was lost.  `xiCarveWidth_of_siegel` then
+-- DISCHARGES it: at `q ≤ (log H)^{12}` the gate `q^{1/16}·vkShallowWidth(10⁻⁶) q H ≤ K`
+-- collapses to `10⁻⁶/((log q+1)(loglog H)³) ≤ K` because `q^{1/16} ≤ (log H)^{3/4}` cancels
+-- the width's own leading factor — `16 = 12/(3/4)` — and only `loglog H ≥ 1/K` is asked of
+-- `H`.  **THE ADJUDICATION: the Siegel gate does NOT ride as a hypothesis.**  The threshold
+-- `H₀ = max(exp(exp 100)+3, exp(exp(1/K)))` is ineffective (Siegel's `K` is), and it folds
+-- into the `∃ x₀` that `MmuChiRate` already carries.  So `mmuChiRate_holds_gated : MmuChiRate`
+-- and `lambdaChiSummatory_holds_gated` are UNCONDITIONAL: the port's centerpiece — the
+-- χ-twisted, `t`-uniform Möbius rate at `q ≤ (log y)^{12}`, `|t| ≤ y` — is in the kernel, with
+-- `C` and the `(log y)^{−A}` decay effective and only the threshold ineffective.
+--
+-- ⟦R-2 — `c_vk = 1/10⁸`, EXPOSED⟧ `twisted_edge_price_strip` gained the conjunct
+-- `c_vk = 1/10^8` (the value its own `refine` supplies) and `twisted_window_price_gated_holds`
+-- is now stated AT that literal, with `exp(exp 100) ≤ T₀` in place of `3 ≤ T₀` (the second
+-- exposure, same genre: a value the proof had, hidden by a weaker `∃` body).  So §9 fires:
+-- `halaszPrimesChi_holds_gated` is `USetChi.HalaszPrimesChi`'s conclusion, UNCONDITIONAL,
+-- behind FOUR `q`-vs-`T` gates (edge `q`-scale; the region's `A`-absorption; the below-floor
+-- comparison `Kq`; the Siegel gate `Ks`) and nothing else.
+--
+-- ⟦A3 — THE 𝒰-EXIT COMPOSE⟧ `usetChi_window_meansq_of_socket`: the lifted ladder's two
+-- branches joined through `usetChi_integral_to_branches` — the `𝒯_S` branch at the re-pinned
+-- level `ε_Q = (log X)^{−106}` (UNCONDITIONAL: `halaszIntegersChiPhi_holds` + the `φ(q)` debit
+-- repaid) and the `𝒯_L` branch at the same level, where the pair socket is spent.
+-- **THE SOCKET ENTERS NAMED, AND THAT IS A FINDING**: `HalaszPrimesChi C c T₀` fixes `T₀`
+-- BEFORE quantifying `∀ q`, while each of §2's four gates asks `T ≥ T₁(q)` with `T₁`
+-- increasing in `q` — so the gated row cannot discharge the slot AS STATED, though every
+-- consumer instantiates it at a single `(q,T)`.  The repair is a pointwise restatement of the
+-- slot; Fable-tier, named not made.
+--
+-- ⟦A4 — NOT REACHED, and the blocker is kernel-stated⟧ `M4ChiSummedFreeRow`'s datum is a
+-- `y`-aspect short-sum window mean square (`chiFreeRowSq`), the ladder's is a `t`-aspect
+-- ordinate mean square; the bridge is the door row, whose χ-lift meets `M4DoorRow`'s TWO
+-- WALLS (`band_window_ratio_lock`, `door_length_gate_fails_of_small` / `door_length_gate_iff`)
+-- — obstructions stated as theorems, not prose.  The socket's only landed inhabitant is the
+-- trivial grade `4·arcDen 12 H` (`m4_chiSummedFreeRow_trivial`), which cannot meet
+-- `m4_second_road_rs_ceiling`'s `δ₀²` budget.  So A4 remains a design block, not a
+-- composition.
+open Salt.Tactic in
+#audit_axioms Salt.MR.xiCarveWidth_of_siegel
+  Salt.MR.mmuChiRate_holds_gated
+  Salt.MR.lambdaChiSummatory_holds_gated
+  Salt.MR.halaszPrimesChi_holds_gated
+  Salt.MR.usetChi_window_meansq_of_socket

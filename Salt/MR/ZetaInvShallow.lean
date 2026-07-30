@@ -889,18 +889,16 @@ theorem mmuChiRatePrincipal_holds : MmuChiRatePrincipal :=
   mmuChiRatePrincipal_of_zetaShallow zetaInvShallowVk_holds
 
 /-- **The mirror's deliverable at ONE input.**  `MmuChiRate` now needs only the ξ₁/Siegel
-carve-out (wave P-7's fold): the ζ shallow stone is discharged. -/
-theorem mmuChiRate_of_carve
-    (hxi : ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
-        ∀ ρ : ℂ, LFunction χ⁻¹ ρ = 0 → ρ.im = 0 → ρ.re < 1 / 2) : MmuChiRate :=
-  mmuChiRate_of_carve_and_zetaShallow hxi zetaInvShallowVk_holds
+carve-out (wave P-7's fold), ⟦R-1⟧ in the WIDTH form `XiCarveWidth H₀`: the ζ shallow stone is
+discharged. -/
+theorem mmuChiRate_of_carve {H₀ : ℝ} (hH₀ : Real.exp (Real.exp 100) + 3 ≤ H₀)
+    (hxi : XiCarveWidth H₀) : MmuChiRate :=
+  mmuChiRate_of_carve_and_zetaShallow hH₀ hxi zetaInvShallowVk_holds
 
 /-- The O3 bridge at ONE input. -/
-theorem lambdaChiSummatory_of_carve
-    (hxi : ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
-        ∀ ρ : ℂ, LFunction χ⁻¹ ρ = 0 → ρ.im = 0 → ρ.re < 1 / 2)
-    (A : ℝ) (hA : 0 < A) : LambdaChiSummatory A :=
-  lambdaChiSummatory_of_carve_and_zetaShallow hxi zetaInvShallowVk_holds A hA
+theorem lambdaChiSummatory_of_carve {H₀ : ℝ} (hH₀ : Real.exp (Real.exp 100) + 3 ≤ H₀)
+    (hxi : XiCarveWidth H₀) (A : ℝ) (hA : 0 < A) : LambdaChiSummatory A :=
+  lambdaChiSummatory_of_carve_and_zetaShallow hH₀ hxi zetaInvShallowVk_holds A hA
 
 end Salt.MR
 

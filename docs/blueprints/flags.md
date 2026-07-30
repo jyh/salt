@@ -15112,3 +15112,87 @@ mirror. O6 landed modulo the named tail hypothesis. The `𝒯_S` connector
 closed at the φ-graded row with the level re-pinned. Two amendments now owed
 to the freeze, both from this wave: the slot's height gate (RULED and applied)
 and the possible `√q` in `HalaszIntegersChi` (open, Fable-tier).
+
+---
+
+## ⟦THE CLOSE WAVE: R-1 + R-2 FIRED, A3 COMPOSED, A4 STOPPED AT A KERNEL-STATED WALL⟧ — the port's centerpiece is UNCONDITIONAL (2026-07-30 00:25 PDT)
+
+Full `lake build` **RC 0 at 9564 jobs**, zero new warnings; every new/restated
+declaration axiom-clean (`propext, Classical.choice, Quot.sound` ×16).  New file
+`Salt/MR/PortClose.lean` (5 decls); in-place edits to `MobiusChiRateClose.lean`,
+`ZetaInvShallow.lean`, `TwistedEdge.lean` (the two ruled exposures) and `All.lean`.
+
+**⟦R-1 — VERDICT: the width restatement is FREE, and the Siegel gate DOES NOT
+RIDE.⟧** `XiCarveWidth H₀` (`MobiusChiRateClose`) replaces the strong `Re < 1/2`
+hypothesis at `mmuChiRate_nonprincipal` and its five wrappers
+(`mmuChiRate_of_carve_and_principal`, `lambdaChiSummatory_of_carve_and_principal`,
+`…_of_carve_and_zetaShallow` ×2, `ZetaInvShallow.mmuChiRate_of_carve` /
+`lambdaChiSummatory_of_carve`).  **Consumer census: those seven are the ONLY
+consumers in the corpus** (`carve_of_half` itself is untouched and still landed;
+`xiCarveWidth_of_half` proves strong ⟹ width, so nothing provable was lost;
+`MmuChiRate_residue` / `MmuChiRate_residue_sharp` are historical `Prop` records
+and were left byte-identical).  The proof change inside the mirror is four lines:
+the pinned floor moves from `exp(exp 100)+3` to `H₀` (one `le_trans` restores the
+old scale facts), and the two `carve_of_half` calls become direct reads of the
+width at `H = 2x` and `H = 2x−1`, with the modulus gate transferred by
+`log x ≤ log(2x)` and `log x ≤ log(2x−1)`.
+
+**THE ADJUDICATION (the brief's question, answered): the honest form is the
+NEAR-UNCONDITIONAL one.**  `xiCarveWidth_of_siegel` discharges the restated
+hypothesis outright at `H₀ = max(exp(exp 100)+3, exp(exp(1/K)))`, so
+**`mmuChiRate_holds_gated : MmuChiRate` and `lambdaChiSummatory_holds_gated` carry
+NO hypothesis**.  The gate's arithmetic: at `q ≤ (log H)^{12}`,
+`q^{1/16} ≤ (log H)^{3/4}` cancels `vkShallowWidth`'s OWN leading factor, leaving
+`10⁻⁶/((log q+1)(loglog H)³) ≤ K`, which `loglog H ≥ 1/K` closes with `(log q+1)`
+and two powers of `loglog H` unspent (`16 = 12/(3/4)`, once more).  Siegel's
+ineffectivity lands exactly where an ineffective constant is allowed to land: in
+the `∃ x₀` that `MmuChiRate` already carried.  `C` and the `(log y)^{−A}` decay
+stay effective and uniform in `q ≤ (log y)^{12}`, `|t| ≤ y`, `χ`.
+
+**⟦R-2 — VERDICT: fired, at the price of TWO conjuncts, not one.⟧**
+`twisted_edge_price_strip` gained `c_vk = 1/10^8` (supplied by `rfl` — the value
+its own `refine` already provides) and `twisted_window_price_gated_holds` is now
+stated AT the literal (`rw [← hc_vkval]`, proof body verbatim).  **The deviation:
+that theorem also had to expose `exp(exp 100) ≤ T₀` in place of `3 ≤ T₀`**, because
+§9 demands the floor and the `∃` body was hiding it — same genre (a value the proof
+has), reported rather than absorbed.  Consumer check: those two `∃`s have NO other
+consumers in the corpus.  `halaszPrimesChi_holds_gated` is then
+`USetChi.HalaszPrimesChi`'s conclusion, UNCONDITIONAL, behind the four `q`-vs-`T`
+gates and nothing else.
+
+**⟦A3 — COMPOSED, with the socket NAMED — and the naming is a FINDING.⟧**
+`usetChi_window_meansq_of_socket` joins the ladder's two branches through
+`usetChi_integral_to_branches`: the `𝒯_S` branch at the re-pinned level
+`ε_Q = (log X)^{−106}` (UNCONDITIONAL — `halaszIntegersChiPhi_holds` plus
+`phi_debit_level_repin`) and the `𝒯_L` branch at the same level, where the pair
+socket is spent once per block.  Remaining hypotheses, ALL named and in-statement:
+`hslot : HalaszPrimesChi Cs cs T₀`; the `𝒰`-thinness package (`α, η, ε`, `hbudget`,
+`hUA`); the per-`j` block gates uniform on `ramI H P Q` (`hB3, hBT, hκ30, hBT10,
+hWL, hgate, hHj`); the pointwise co-factor bound `Rbd` on `𝒯_L` (not a
+`𝒰`-property — the landed rung says so); and the Lemma-12 error row `E`.
+
+**WHY THE SOCKET IS NAMED AND NOT DISCHARGED BY R-2 — the quantifier-order
+finding.** `HalaszPrimesChi C c T₀` fixes `T₀` BEFORE quantifying `∀ q`, while each
+of §9's four gates asks `T ≥ T₁(q)` with `T₁` increasing in `q`.  No choice of `T₀`
+bridges that, so **the gated row cannot discharge the slot as the slot is stated**,
+even though every consumer instantiates it at a single `(q, T)` where the gates are
+exactly the freeze's own arithmetic.  The repair is a POINTWISE restatement of the
+slot (`∀ q, ∀ T ≥ T₁ q, …`) plus the same re-run of `tLChi_sumsq_ramQ` /
+`tLChi_ramQ_sumsq_killed` / `tLChi_main_sumsq` (~250 ln) — a statement change in a
+landed file, hence Fable-tier: named here, not made.
+
+**⟦A4 — STOP, and the blocker is kernel-stated, not prose.⟧**
+`M4ChiSummedFreeRow`'s datum `chiFreeRowSq` is a `y`-aspect SHORT-SUM window mean
+square; A3's output is a `t`-aspect ORDINATE mean square.  The bridge is the door
+row, and its χ-lift meets `M4DoorRow`'s two walls —
+`band_window_ratio_lock` (⟦WALL 1⟧: the capstone's `hcoefBand`/`hwinBand` pair locks
+two live block primes to a factor `2`, while the door's level-1 K-block spans
+`2^{(M−1)·2^18}`) and `door_length_gate_iff` / `door_length_gate_fails_of_small`
+(⟦WALL 2⟧: the window gate IS `doorRowFloor M = M·Adoor M ≤ j`, so the small-`j`
+instances are outside the capstone's statement).  The socket's only landed
+inhabitant is the trivial grade `4·arcDen 12 H` (`m4_chiSummedFreeRow_trivial`),
+which cannot meet `m4_second_road_rs_ceiling`'s `δ₀²` budget — the ceiling is what
+makes A4 a genuine saving rather than a composition.  **So `m4_socket_discharged`
+was NOT shipped: there is no honest conditional form of it that is not either
+vacuous (the socket assumed) or false.**  A4 is a design block, and its two named
+questions are the ones the residue design already carries.
