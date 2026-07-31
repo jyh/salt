@@ -306,6 +306,10 @@ import Salt.MR.S13BandBase
 import Salt.MR.HloExportMR
 import Salt.MR.S12FuseCompose
 import Salt.MR.S11HoistGrade
+import Salt.MR.S13CapGrid
+import Salt.MR.S13CapFloor
+import Salt.MR.S13CapEps
+import Salt.MR.S13CapRbd
 import Salt.MR.S14Compose
 import Salt.MR.S12ConstCompose
 import Salt.Tactic.AuditAxioms

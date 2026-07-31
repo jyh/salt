@@ -17948,3 +17948,59 @@ new files, NO All.lean edits (the maestro adds the imports at the
 seal — the four-way append race avoided).  ⟦W-GRID + W-FLOOR +
 W-EPS + W-RBD + LAMBDA-RECON dispatched; W-SEAL after; W-BUDGET
 rides LAMBDA-RECON's verdict⟧.
+
+## (2026-07-30 22:38 PDT) THE CAPGATE SUPPLY LANDS 37/37 (four waves, first-attempt, zero adapters) + LAMBDA-RECON FINDS THE TRUE FORK: the WIDTH LAW -- the landed lambda-table was internally infeasible; the fork is Captain-tier, WIDTH-SCOPE flies
+
+⟦THE SUPPLY⟧ S13CapGrid (1029, 18 fields incl. gate + the ONE new
+analytic page band_product at 21 orders; the near-kill honored —
+TannGate appears NOWHERE, the T-floor is hTlo + 2^j ≤ H) /
+S13CapFloor (675, 8 fields; PortNonVacuous's body inlined at the
+GIVEN Tann — no T-collision) / S13CapEps (706, 7 fields; EP2 := the
+max-of-three-rows design; ONE master stone serves all four charges;
+the reserve's abs8640 at general monotone εr; the load-bearing
+hgrade found AND discharged at the corpus pins via
+s13CapEps_pins_supply) / S13CapRbd (195, 4 fields; ruling 9's
+posture — Rbd_grade/Cq_gate carried verbatim as the six-site
+register; m4_supplier_all_chi at J=2, Ps=1).  All shape-checked
+BYTE-COMPATIBLE into S13CapGatePerBlock by kernel refine — ZERO
+adapters.  Registers honest: hblock + hcs (grid), the T0/Kq/Ks
+bounds (floor), log C ≤ 40 at 150000× margin (eps), the 31
+wide-supply gates + 2 pins (rbd).  Temp audit sections stripped at
+the seal; imports added; build 9628 exit-0 maestro-verified.
+
+⟦LAMBDA-RECON: THE TRUE FORK — THE WIDTH LAW⟧ 20 probes green.
+(1) S11Thread:18 CONFIRMED at the bytes: the door arm prices at λ₊
+(gRows/g2_jfloor/gate8 read loglog Hhi linearly), the drift arm at
+λ₋ (winFit at H = Hlo).  (2) THE BUDGET GHOST derived exactly:
+Λ_x ≤ 1280·log2·doorRowFloor M (the census ×1280, kernel-exact,
+probe_1280) — and Λ_x's socket floor reads H₊ (the ∀-H family),
+so the ceiling binds λ₊ while winFit binds λ₋: THE JOINT WINDOW IS
+NONEMPTY IFF λ₊ ≤ λ₋ + log(1280·log2/0.7) = λ₋ + 7.1448 — AN
+UNLANDED DEMAND (log H₊ ≤ 1280·log2·doorRowFloor M has NO field
+anywhere); the only bridge (the 9/2 tower) permits λ₊ ≤ λ₋^{9/2} —
+3.5e6× TOO WEAK.  (3) m → 69 REFUTED outright (winFit fails 5.9× at
+the bottom; m = 67 already fails 1.42×; m = 65 fails at the top):
+m = 66 IS UNIQUE in the λ₋-reading — the fork is NOT on m.  (4) THE
+LANDED TABLE [74.198, 83.667] IS ITSELF INFEASIBLE at every M
+(width 9.469 > 7.1448; REF-L2-ARITH read the width as headroom —
+it is the CONSTRAINED quantity; erratum banked).  The LIVE window
+at m = 66: [74.039, 81.184], width EXACTLY the law's 7.1448; §9's
+81.184 IS the sharp ceiling (the "2× margin" was the floor-form
+factor, not headroom).  (5) The const road consumes NONE of the
+table numerals (only λ₋ ≥ 50 + the tower) — the tables are
+documentation + two unconsumed certificates.
+
+⟦THE FORK, stated for the Captain⟧ the cap bundle's ∀-H family
+forces the budget ghost at H = H₊, demanding the REGIME WINDOW be
+NARROW (λ₊ − λ₋ ≤ 7.14, i.e. Hhi ≤ Hlo^{~1267}, a polynomial
+window) — while the entropy spine's builder constructs a
+TOWER-sized window.  Directions: (a) narrow the cap family's ∀-H
+(a residue-item re-cut); (b) re-price the thinBundle tail (the
+S^{2loglogS/log𝒫₂} leg); (c) a regime with a polynomial window IF
+the spine's lower demand on Hhi permits (UNKNOWN — the decisive
+fact).  ⟦WIDTH-SCOPE dispatched⟧: what LOWER bound on Hhi/the
+window does the spine actually consume, at the bytes — if the
+builder's Hhi is free to shrink to polynomial, the fork DISSOLVES
+by one more conjunct-carry (the HLO-EXPORT genre); if the entropy
+budget genuinely needs the tower, the fork is REAL and goes to
+coffee with all three directions priced.
