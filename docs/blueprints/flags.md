@@ -18085,3 +18085,33 @@ next Fable-tier re-cut).  S15SupplyGraded replaces the ∀C' wall
 clause with the ℕ-floor.  Axioms 3/3; build 9629 exit-0 maestro-
 verified; audit tails stripped.  ERR-REF is the last agent aloft —
 the coffee brief composes on its verdict.
+
+## (2026-07-30 23:38 PDT) ERR-REF: SECOND LEG DISSOLVED (the arm-at-top pays err with NO lambda-plus cap) -- BUT S15Sel.err is EMPTY at every buildable regime: the landed conditional VACUOUS; the repair spec exact -- ERR-REPAIR flies
+
+⟦DISSOLVED⟧ the "487.9·λ₋" was the arm read at H₋; the compose's own
+hRarm/hgarm pin R.x by the arm AT H₊, and SocketBase's x-scale field
+then gives loglog A ≥ 7000·λ₊ + 500·log(1/ρ) + 6600 at EVERY base
+(errref_arm_at_top, kernel) — the err demand (14·λ₊ + ...) closes on
+the CONSTANT TERM alone (6439.62 vs 16.39).  The T₀-band err leg
+carries NO width law; independent of B4 (which is a λ₊-λ₋ law
+through M; err is priced against the outer scale x).
+⟦CONFIRMED UNDERNEATH⟧ errref_S15Sel_err_empty (kernel): the LANDED
+S15Sel.err numeral line (λ₊ ≤ 24849, a weakening artifact — the
+356600 floor spent to make the line constant, throwing away all of
+loglog X_d above it) contradicts the tower's λ₊ ≥ λ₋³ ≥ 125000 —
+S15Sel IS EMPTY at every regime the spine can build ⟹
+logChowla2_conditional AS LANDED IS VACUOUSLY TRUE.  The
+inhabitation certificate fenced SOCKET vacuity, not REGISTER
+vacuity — the summit refuter caught the vacuous conditional before
+the Captain's coffee, exactly as the protocol intends.  Next-
+tightest cap after the repair: S15Sel.anchor → λ₋ ≤ 654 (satisfied;
+probe C).
+⟦THE REPAIR, exact⟧ no numeral can work (λ₊ unbounded above) — the
+err line is DELETED, not re-numeraled: the parallel sharp gate
+(err at hgate : 14λ₊ + ... ≤ 0.9757·loglog X_d) + doorBandBase_
+family' + s13_hband_at_door_of_gate' (the arm-at-top route, the
+~30-ln errref_arm_at_top core ported) + the S15Sel re-cut (err
+deleted; Mfl folded in as .mfloor while the register is open) + the
+graded compose twins re-fired.  Constants 7000/500/6600/0.9757 all
+UNCHANGED; DoorArithFrameRho untouched (the parallel-gate path).
+⟦ERR-REPAIR dispatched — the night's last wave⟧.
