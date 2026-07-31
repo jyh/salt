@@ -17799,3 +17799,35 @@ B5 grade split-hoist spec, needed on ANY road⟧.  If const also
 dies: the three statement-level repair directions (H-relative door
 family / non-decaying pool / weaker x-scale) go to the Captain at
 coffee as the design fork.
+
+## (2026-07-30 21:36 PDT) STOP-SCOUT: B4-raw is a THIRD REFUTATION (the 4320x seam shortfall, kernel-certified) -- every road converges on constPool + positive epsr; the B5 hoist mapped and GREEN-probed (~465, class B)
+
+⟦ITEM 1 — B4 RAW: NOT A REPAIR⟧ the twin's own binders pin epsrf ≡ 0
+(probe_epsrf_pinned); the landed chain to the B4 bytes EXISTS and is
+byte-exact (m4_fuse_hcap_of_capWS — zero adapter) BUT every link
+carries abs8640, false at εr = 0 (8640 ≤ 1, kernel); and beneath:
+rem_priced's inputs give 4320·(...)·(log X)^{−θ} against a target of
+1·(...) — a HARD multiplicative 4320× (8640× with the EP2 half),
+kernel-certified BY COUNTER-WITNESS (probe_rem_shortfall_at_zero: all
+hypotheses met, conclusion broken — no proof repair can close it).
+Closing needs a 4320× improvement on MR's own seam-row constant 720
+(sharpest landed variant 520 = 1.38×; RamareP2End records 80·g/H of
+headroom left).  CLASS D — not a wave.  The M4AssemblyFrames §9
+ledger line "spine-witnessed; carried" was OPTIMISTIC — nothing
+witnesses it; banked as an erratum.  THE ESCAPE: free εr > 0 — the
+eps_pool stone at 0 < ε < θ₂₉₃, which constPool ADMITS and decayPool
+does NOT.  ⟹ ruling 7's rawcap' road is dead WITH the decay road;
+the convergent road = constPool + positive εr + B4 through the cap
+bundle (abs8640 then honest — and MSelect2's x-scale discharge, the
+RESERVE, becomes load-bearing exactly as designed).
+⟦ITEM 2 — THE B5 HOIST: READY⟧ seven links mapped (the separation
+point = S11Hoist:323-325, the ONLY place M enters); the ~40-line
+escape DEAD (log 𝒬₂/log 𝒫₁ = 49152·M² EXACTLY — no M-uniform mass
+bound) BUT the absorption WORKS: windowMassConst ≤ e^{26.25}·
+49152^{1.05}·M^{2.1} (kernel-green, probe_absorb) vs the grade RHS
+M^{2.501} — headroom M^{0.401}; grade becomes an ordinary M-floor
+(M₀ = 1 for any C ≤ 7.7e8).  Twin chain spec: one conjunct per link,
+bodies byte-identical, links 1&5 twin statements elaborate green.
+~465 ln, class B, the C-step DONE.  ⟦B5-HOIST dispatched⟧ —
+road-independent, consumed by whichever capstone twin survives
+CONST-VERDICT.
