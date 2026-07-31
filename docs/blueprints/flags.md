@@ -18115,3 +18115,38 @@ deleted; Mfl folded in as .mfloor while the register is open) + the
 graded compose twins re-fired.  Constants 7000/500/6600/0.9757 all
 UNCHANGED; DoorArithFrameRho untouched (the parallel-gate path).
 ⟦ERR-REPAIR dispatched — the night's last wave⟧.
+
+## (2026-07-30 23:52 PDT) ERR-REPAIR lands first-attempt (+504, 8 decls, ONE loud stop): the register REPAIRED -- logChowla2_conditional_sharp with survivors EXACT (S15Sel' + S15CrossingBound); THE NIGHT BOARD CLOSES
+
+S13BandBase §6: the arm-at-top + err-free stones ported (err at
+EVERY base, NO λ₊ cap); S13BandGate' (four lines; ρ DROPS OUT — it
+lived only in the dead line); doorBandBase_family' (conclusion
+byte-identical; the extra hypotheses all already carried at the
+compose).  S15Compose §9: S15Sel' (.err DELETED, .mfloor folded);
+logChowla2_conditional_sharp (the graded compose re-fired; fire
+argument list unchanged); the socket fence re-read;
+s15_sel'_anchor_cap (probe C ported: with err gone the tightest
+λ₊-cap is anchor → λ₋ ≤ 654, satisfied where err's 29.2 failed —
+ERR-REF's contradiction GONE).  ⟦THE ONE LOUD STOP⟧ the full
+∃(R,M) register witness NOT attempted — blk/half/gRows/gP1/lvl
+must be met against the OPAQUE Cg/δ₀/Ct/x₀/Mfl the capstone
+produces existentially, and no landed statement bounds those;
+forcing = inventing bounds; the docstring carries an explicit
+"THIS IS NOT A WITNESS" clause.  Constants unchanged; landed decls
+untouched; build 9629 exit-0 maestro-verified; axioms 8/8.
+
+**THE NIGHT BOARD (7/30 evening → 7/31 ~05:00), CLOSED.**  Sealed
+bcefe3f → HEAD: ~30 commits, ~12 executors + 8 scopers/refuters/
+adjudicators + 2 workflows, EVERY executor first-attempt.  IN THE
+KERNEL AT CLOSE: logChowla2_conditional_sharp — log-averaged
+2-point Chowla at the witnessed scale, conditional on EXACTLY
+S15Sel' (the 11-line register; anchor-cap evidence banked, full
+witness honestly open) + S15CrossingBound (B4, walled by THE WIDTH
+LAW: λ₋³ ≤ λ₊ ≤ λ₋ + 7.1448, kernel-proven both sides, all three
+escape directions priced).  THE COFFEE DOCKET: (1) the width
+giant — the B4 re-supply that never routes through budget (the
+seam-row 720, the ~70-decl census, the eps-side alternatives — a
+design block worthy of the name); (2) the register witness (the
+opaque-constant bounds — statement-tier); (3) the errata parade
+ratifications (rulings 1-11 + the three banked maestro errata);
+(4) the name of the theorem — held, as always, for the Captain.
