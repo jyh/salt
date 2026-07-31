@@ -299,6 +299,7 @@ import Salt.MR.M4MeanSqPrime
 import Salt.MR.M4RowsChiEndPrime
 import Salt.MR.M4RowsChiZeroPrime
 import Salt.MR.M4DoorClosePool
+import Salt.MR.M4ClosureRepair
 import Salt.Tactic.AuditAxioms
 
 /-!

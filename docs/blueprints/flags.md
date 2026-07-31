@@ -17495,3 +17495,29 @@ whether MSelect survives as an object — ⟦1⟧/⟦3⟧/⟦5⟧ carry the whol
 load); the DoorBandBase supplier (~500-900, new genre); MSelect v2
 (⟦2⟧ restated at 7/10·doorRowFloor + 3G, ⟦4⟧ deleted for the x-scale
 discharge).  THE ASSEMBLY HOLDS until the ruling.
+
+## (2026-07-30 19:00 PDT) R5-REPAIR lands four for four (M4ClosureRepair.lean 807 ln, 23 decls, 19/19 axioms, first-attempt) -- D1/D3/D4/D7 repaired + THE FUSES; one design finding banked
+
+⟦D1⟧ decayPool + P4's stones ported (band threshold at the corrected
+1−1/500−θ₂₉₃; hε : ε ≤ 0 the strict generalization) +
+doorFuseFrame_pool'_of_gates_decay (hone-FREE) +
+price_at_decayPool_socket (the hprice binder verbatim from the ARM
+alone).  ⟦D3⟧ GRowsZeroGate''' (four slots at π₀/4, dens =
+5760·Ccc·(2/M) ≤ π₀/4) + the join-exit twin at free Ccc + the
+composed _cc_decay.  ⟦D4⟧ the gated twins _pool_end'/zero'_gated on
+R2's template; the ungated henv appears NOWHERE on the fused path.
+⟦D7⟧ ege_line_gate + ege_line_of_loglog at 8500·λ + 7800 (the
+executor's honest re-rounding — the examiner's 8490/7660 left only
+6.5e-8 margin; both strictly above the 8489.6/7653.5 worst case).
+⟦§5 THE FUSES⟧ m4_closure_fuse_end'/zero': gates-only →
+M4ChiSummedFreeRow at RSanDoorRho — no hone, no hprice, no hframe
+binder; item 11 CLOSED on the fused path.  Build 9615 exit-0
+maestro-verified.
+
+**⟦THE FINDING⟧ the decay pool re-introduces base UPPER caps** (gP1 /
+level1 / p2 / dens decay in X_d; ~1.7× tighter log-exponent than the
+pre-R2 caps; absorbed by SocketBase's A ≤ 2·R.x + the g-arm check —
+but a real cost).  THE ALTERNATIVE the pinch admits: the CONSTANT
+pool π₀ := ρ/(376266·e^{14·loglog R.Hhi}) — base-free everywhere,
+~40 ln.  ⟦R5b dispatched⟧ to mint it so BOTH pool forms sit on the
+Captain's desk as kernel objects; the choice is theirs at coffee.
