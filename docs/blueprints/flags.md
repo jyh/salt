@@ -18004,3 +18004,40 @@ builder's Hhi is free to shrink to polynomial, the fork DISSOLVES
 by one more conjunct-carry (the HLO-EXPORT genre); if the entropy
 budget genuinely needs the tower, the fork is REAL and goes to
 coffee with all three directions priced.
+
+## (2026-07-30 22:50 PDT) WIDTH-SCOPE: GIANT, kernel-proven BOTH WAYS -- the tower is a THEOREM about every regime (lambda-cubed vs the 7.14 window; deficit 5000x); all three directions priced DEAD-or-2x; AND the gold: exactly ONE binder blocked -- COMPOSE #2 fires at the fifteen
+
+⟦W1, kernel⟧ probe_regime_width_forced: EVERY ChowlaRegime at
+C0=2, a=1, λ₋ ≥ 50 has λ₊ ≥ λ₋³ — hJcon (the entropy budget's own
+log-2 crossing, via towerDropSum_le_half_log_ratio_mul) FORCES the
+tower; Hhi is pinned from BELOW by hfit+hJcon, not chosen.  The
+demand is NOT a scale count — it is the telescoped decrement
+clearing log 2; C0/a knobs only WIDEN it.  ⟦W2, kernel⟧
+probe_width_collision: NO regime satisfies λ₊ ≤ λ₋ + 8.  THE
+COLLISION: λ₋³ ≤ λ₊ ≤ λ₋ + 7.1448 ⟹ λ₋ ≤ 2.13 vs λ₋ ≥ 50/74.
+Deficit 4999× (landed K=3) / 1.2e5× (honest 3.74) / 3.7e5×
+(continuum); in entropy currency the widest cap-legal window
+delivers S = 0.0106 vs log 2 — 65× short.  THE DIRECTIONS: (a)
+narrow the ∀-H — DEAD AT THE SOURCE (entropy_decrement's pigeonhole
+∃H has no index control; that IS the tower's point); (b) re-price
+the thinBundle tail — buys ≤ 2× (LINK1-SCOPE's own census) vs
+e^{9.9e6} needed; the X_d-SCALE COLLISION seen from the μ side, NO
+FIXED POINT; (c) the polynomial-window regime — hJcon unsatisfiable
+⟹ the spine deletes.  THE WIDTH LAW IS THE CAMPAIGN'S REAL WALL:
+the budget-route supply of the B4 crossing bound is impossible AT
+EVERY REGIME THE SPINE CAN BUILD.  CAPGATE's W-BUDGET fork resolved:
+neither λ₋ nor λ₊ — the fork was deeper.
+
+⟦THE GOLD⟧ the const twin's SIXTEEN residue binders: the width law
+blocks EXACTLY ONE — hcapraw (B4; its only route passes through
+budget).  The other fifteen are width-compatible AND supplied
+(hj0/hdgate read λ₊ LINEARLY off the 9/2 upper law; the const gates
+clear through constPool at the j₀ scale; hthr BENEFITS from large
+Λ; hbandbase via doorBandBase_family; harith via the family).
+⟦MAESTRO RULING 11⟧ COMPOSE #2 FIRES NOW at the fifteen: the
+deliverable = the capstone MODULO ONE NAMED CROSSING BOUND — the
+honest partial, which is the exact shape the twin already has.  The
+B4 re-supply (a crossing-bound pricing that does NOT route through
+budget — the seam-row constant, the ~70-declaration census, the
+eps_pool-side alternatives) is THE design question for the
+Captain's coffee, with the width law as its wall map.
