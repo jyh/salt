@@ -17558,3 +17558,46 @@ m-symbolic re-derivations needed); the pool choice (decay vs const —
 both landed, both fused, the comparison datum in R5b's entry); the
 DoorBandBase supplier (the one unbuilt object: hypothesis in six files,
 theorem in none, ~500-900 ln, new genre); then THE FINAL ASSEMBLY.
+
+## (2026-07-30 20:25 PDT) HEAD-SCOUT: the terminal-to-theorem map -- NINE EDGES; two maestro rulings under the push-forward grant; two executors fired
+
+THE FINDINGS (full report in the session ledger): (E0) THE NAMED
+THEOREM DOES NOT EXIST — nothing consumes ¬logChowla2Fails; the
+honest statement drafted (∃ ε > 0, ∀ U1floor g, ∃ R, ... ¬Fails at
+R.eps R.x R.ω — "the log-averaged two-point Chowla bound at a
+witnessed scale"; the naming fences: ε opaque-not-universal, x
+lower-bounded only, the content = fixed-factor cancellation at the
+witnessed scale; the ∀ε-upgrade a separately-priceable wave; THE NAME
+itself held for the Captain).  (E1 TOP) capstone hframe = the PRE-R1
+DoorFuseFrame at a2RowsSum's growing p2-row — unprovable at any
+M ≥ 2 (the shortfall exactly ×M; only vacuity could discharge it).
+(E5) the M-band is TWO-SIDED in λ (≲289) but the head exports no
+R.Hlo upper — the builder's equality (RegimeParam:403) is discarded
+at :389; a seven-statement conjunct-carry recovers it.  (E4) epsrf ≡ 0
+is a TRAP (kills abs8640); pin epsrf := θ₂₉₃ − 1/500.  (E7) compose
+at SYMBOLIC Λ := (loglog R.Hlo)^{9/2} off the tower conjunct, no
+numeral.  (E8 favorable) bfloor discharges by ⌈24Cg/δ₀⌉-choice since
+M is picked after the constant block — the standing caveat retired.
+(E3) S13CapGatePerBlock: ~31 fields, no supplier (B4 reduced-not-
+closed).  (E9) DoorArithFrameRho: fields supplied, FAMILY ASSEMBLY
+unbuilt; the arm-vs-ege fork (7000λ vs 8500λ) rides as the standalone
+gate.  (E2/E6) = the examiner's D6/D2, confirmed.  + the seal
+checklist: the audit target list, leanchecker per CONTENT module
+(never .All; one --fresh gold replay), the six statement-honesty
+mandate lines (SocketBase inhabitation AT the compose's (R,M) as a
+kernel certificate the sharpest).
+
+⟦MAESTRO RULING 1 (push-forward grant)⟧ EDGE-1 exit = ROUTE (b): the
+capstone twin composes FROM THE FUSES (m4_closure_fuse_*), not from a
+re-threaded hoist chain — strictly smaller graph (1 twin + 2 wire
+re-plumbs vs 5 hoist twins + the same B1 restatement); the two extra
+terminal conjuncts are cheap (hgate4 definitional; hceilconj = the
+0.48%-slack norm_num stone at doorRhoOfDelta's divisor).
+⟦CAPSTONE-RECUT dispatched⟧.
+⟦MAESTRO RULING 2⟧ EDGE-5: the seven-statement R.Hlo-upper conjunct-
+carry is FORCED (no symbolic alternative exists) and is the
+established tower-conjunct-threading genre.  ⟦HLO-EXPORT dispatched⟧.
+Queued behind wave 1: ARITHRHO-FAMILY (E9's assembly), the CapGate
+supply scope (E3), DoorBandBase per BANDBASE-SCOPE's plan.  The
+compose brief inherits: symbolic Λ, the epsrf pin, MSelect v2 BEFORE
+the compose (E6), the fuse route, the Hlo export.
