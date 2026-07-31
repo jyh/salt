@@ -18307,3 +18307,28 @@ byte-uniform; J stays 2 EVERYWHERE; re-derivations mechanical
 (calE_door_two, log_calE_door_two at (2L+52+K), the S15Witness
 numerals), all monotone-safe.  COUNCIL v2: the statement re-cut is
 THE CAPTAIN'S RULING.
+
+## () X0MFL-TRACE: neither fits AS CUT -- and all three walls are OUR OWN DISCARDED FACTORS; restored, both absorb at 10-27x slack and the 1-bit margin becomes ~290 bits; ONE research-tier residue honestly named (Siegel) -- SEL-RECUT flies
+
+⟦THE NUMBERS⟧ Mfl ≥ 2^158 even at C = 1 (probe_Mfl_overflow) vs the
+2^66 ceiling; x₀ ≥ 2^{1.55e44} (the exp(exp 100) floor, twice
+squared by the √-folds) AND ineffective above it (Siegel's K — the
+port's single ineffective constant, PortClose:157's own docstring).
+⟦THE THREE DISCARDS⟧ (1) S15Sel'.x0M carries x₀ ≤ M — the band
+gate's OWN line is x₀ ≤ 2^doorRowFloor M (astronomically tolerant;
+s15_x0_le is a throwaway bridge); (2) the register reads anchor at
+log₂M+1 ≥ 1 — the frame's statement carries ·(log₂M+1): restored,
+26.7× slack at the x₀-demanded point, 9.8× at Mfl-as-is; (3)
+s11_grade_absorption throws away the (4e10)^{2.501} floor its own
+neighbor supplies (hone : 1 ≤ ...): kept, Mfl = 2 for C ≤ 3e7
+(probe_repair_pays).  ⟦THE BONUS⟧ the ~1-bit margin was the SAME
+artifact: restored anchor moves the M-ceiling 2^66 → 2^356 (λ₋ ≤
+277.9), the margin to ~290 bits, and the b_floor gap 529 → ~247.
+⟦THE HONEST RESIDUE⟧ the restored register absorbs any x₀ ≤
+e^{e^{277.9}} vs the chain's effective floor e^{e^{101.75}} — 176
+double-log units of room — but K is INEFFECTIVE, so no theorem
+proves the window met without effective Siegel/Landau-Page
+(research-tier D; the field's own wall; the conditional carries it
+honestly, the exceedance/regime-lever genre the possible future).
+⟦SEL-RECUT dispatched⟧ the three restorations (~200 + 15 ln, class
+A/B, S15Compose/S15Witness/S11HoistGrade) + the witness re-numeral.
