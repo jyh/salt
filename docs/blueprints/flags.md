@@ -17699,3 +17699,34 @@ fires the moment the lanes clear, applied by the maestro's own hand.
 surgery landing after the correction — the 16:42/16:50 gap is the
 whole fossil; the dispatch protocol now includes "re-read the flags
 tail at fire time, not brief time."
+
+## (2026-07-30 20:46 PDT) CAPSTONE-RECUT lands (S12FuseCompose.lean 722, 7/7 axioms, first-attempt): the twin at the fuse route + THE EPSILON-R COLLISION found and answered in the same wave
+
+PART 1 the wires: m4_fuse_hcap_of_capWS (the hoist's inner block
+extracted); hband's re-plumb cost ZERO (the landed slot-split IS the
+fuse binder byte-for-byte; DoorBandBase's consumption re-routed, the
+item itself untouched).  PART 2 both terminal conjuncts already on
+the ρ-page (gate4 definitional; the 0.48% stone banked inside
+m4_arith_rs_ceiling_met_rho — no new arithmetic).  PART 3 TWO twins:
+logChowla2_capstone_final' (byte-compatible; B1 REMOVED for the five
+fuse demands; epsf inert; + Hcap and the Hlo-cap conjunct carried
+EXACTLY at the enlarged floor via max-assoc) and
+logChowla2_capstone_final_rawcap' (B4 carried raw at the crossing
+bound).  THE FINDING: the fuses feed ONE ε to hcap and eps_pool;
+eps_pool at decayPool forces ε ≤ 0, epsr_nonneg forces ≥ 0 — final'
+pins epsrf ≡ 0 where abs8640 reads 8640 ≤ 1 (a property of the
+LANDED pool forms, not the pool choice); the positive-ε eps_pool
+stone exists only on the constPool side.  final_rawcap' is
+collision-free and equals the examiner's ε := 0 probe intent;
+consistent with M4AssemblyFrames §9's raw-hcap ledger.
+
+⟦MAESTRO RULING 7⟧ THE COMPOSE ROAD = logChowla2_capstone_final_
+rawcap' (the executor's recommendation adopted; no known-
+unsatisfiable residue item on that road; the DECAY choice SURVIVES
+via raw-B4 at epsrf ≡ 0 — MSelect''s abs8640 x-scale discharge is
+not needed on this road and stands as reserve).  final' stays landed
+as the kernel record of the collision; if the Captain ever wants the
+cap-bundle route live at positive εr, the one new stone is
+eps_pool-at-constPool — priced, not fired.  Build 9620 executor-
+verified; maestro re-verify at the lane-clear batch seal (W-BAND-1
+mid-build — no concurrent lake).
