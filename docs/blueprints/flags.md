@@ -17831,3 +17831,42 @@ bodies byte-identical, links 1&5 twin statements elaborate green.
 ~465 ln, class B, the C-step DONE.  ⟦B5-HOIST dispatched⟧ —
 road-independent, consumed by whichever capstone twin survives
 CONST-VERDICT.
+
+## (2026-07-30 21:49 PDT) CONST-VERDICT: THE CONST ROAD IS ALIVE (33 kernel theorems, 814 ln of certificates) -- the compose executor's prose kill REFUTED; the ANTI-KILL at the same witness tuple; the twin delta EXACT -- CONST-TWIN + CAPGATE-SCOPE fly
+
+THE CERTIFICATES (scratchpad/constv/, all standard axioms):
+constv_gate_base_transfer — GRowsZeroGate''' at constPool is monotone
+UPWARD in the base (the whole gate transfers to any larger X_d; at
+decay the same transfer is FALSE) — const's only X_d-reading demands
+(endpt/heps293/hband4096) read from BELOW where the socket is
+astronomic; decay's π₀ read from ABOVE.  THAT IS THE WHOLE
+DIFFERENCE.  The four slots certified both directions; THE SHARP
+NUMBER constv_level1_forces_243: level1 (not p2 — maestro hand-walk
+erratum, direction right, slot wrong) forces Adoor M ≥ 242.37Λ + 390
+— 0.37Λ above MSelect'.gRows's 242Λ, so the compose's M-floor set
+takes the 243-line (both lower bounds, compatible).  dens: FREE at
+Cp = 0, CONFLICT at any Cp > 0 (Cp ≤ 1e-80) — THE CONST ROAD ENTERS
+AT Cp := 0 (the twin's ∀ Cp ≥ 0 permits).  heps293/hband4096
+DISCHARGED at every socket base (~10 orders; the λ-engine
+constv_lambda_core: 14λ^{9/2} + 1e15 ≤ 0.0017·e^λ at λ ≥ 50).  THE
+ANTI-KILL constv_anti_kill: at s14_socketBase_witness's OWN tuple,
+const's gate HOLDS where decay's dies.  THE M-WINDOW: k ∈
+[3.53e-9·Λ, 1.443λ−34], nonempty iff Λ ≲ 4.1e8·λ; at the certified
+λ ∈ [74.198, 83.667]: k ∈ [2, ~70], 54-78× headroom, NOT self-
+contradictory at any M.  The full binder sweep 13+A: everything
+SUPPLIED or certified-satisfiable except the two SHARED stops (B4
+raw / B5 grade — B5-HOIST in flight).
+
+⟦MAESTRO RULING 8⟧ THE ROAD = CONST at Cp := 0, εr freed positive by
+the ONE new stone (eps_pool at 0 < ε < θ₂₉₃ against constPool — a
+base-LOWER since −θ+ε < 0, exactly why const admits it), B4 through
+the cap bundle at εr := θ₂₉₃ − 1/500 where abs8640 discharges from
+the x-scale RESERVE (S13MSelect2 — built as reserve, load-bearing as
+designed).  ⟦CONST-TWIN dispatched⟧: the stone + the frame twin at
+positive ε + zero'_const_nonneg (~25, model exists) + the capstone
+twin (3 binders OUT, 4 IN, prefix/conclusion/rest VERBATIM).
+⟦CAPGATE-SCOPE dispatched⟧: S13CapGatePerBlock (~31 fields, the last
+unsupplied bundle) field-by-field at εr = θ₂₉₃ − 1/500 — the
+BANDBASE-SCOPE genre that turned D6 from "new genre" into "class B
+with probes".  THE REMAINING ROAD TO THE FIRED CAPSTONE: CONST-TWIN
++ B5-HOIST (flying) + eps stone + CAPGATE supply + COMPOSE #2.
