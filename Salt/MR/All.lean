@@ -313,6 +313,7 @@ import Salt.MR.S13CapRbd
 import Salt.MR.S14Compose
 import Salt.MR.S12ConstCompose
 import Salt.MR.S15Compose
+import Salt.MR.S15Witness
 import Salt.Tactic.AuditAxioms
 
 /-!

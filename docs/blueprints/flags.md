@@ -18210,3 +18210,36 @@ the verify-posture refuter on the THREE hand-arithmetic claims: the
 table incl. the k-amplification at large J⟧.  On PASS → COUNCIL v2:
 the J re-cut is a statement change across the capstone family — THE
 CAPTAIN'S RULING REQUIRED.
+
+## (2026-07-31 07:45 PDT) SEL-WITNESS lands (723 ln, 33 decls): THE PEARL BANKED -- S15Sel' DISCHARGED at numerals, S15CrossingBound THE ONLY SURVIVING OBJECT; + the loud-stop theorem DIAGNOSED STALE by the maestro; + a ledger correction (J-REF was claimed dispatched before the dispatch)
+
+⟦THE PEARL⟧ logChowla2_conditional_sharp_nonvacuous (S15Witness:544):
+the witness tuple (Hlo = ⌈e^{10³⁰}⌉, λ₋ ∈ [50, 69.3], M = the max of
+the floors ≤ 2^56, ρ ≥ 2⁻⁵¹) discharges ALL ELEVEN S15Sel' lines at
+numerals — the register vacuity CLOSED with a kernel witness;
+**S15CrossingBound is the one surviving object between us and the
+unconditional theorem.**  Build 9630 exit-0 maestro-verified; 10/10
+axioms.
+
+⟦THE LOUD STOP — AND ITS DIAGNOSIS⟧ the executor's theorem
+s15_sel'_empty_at_closed_forms (the register empty at CgExpr/
+delta0Expr inside the tower window; 529-bit gap) measures THE STALE
+EXPRESSIONS: delta0Expr = ConstantsExposed's OLD-chain value
+(2.29e-168, b = 602) — but the LIVE road consumes the L²-restructured
+head (δ₀ = c₀ε/4, THE SLAIN GIANT's replacement, b ≈ 65 per
+s13_b_floor_cert and LAMBDA-RECON's own bfloor row: 2^65.125 ≤ 2^66
+at m = 66, vs the window's 2^74 — NINE BITS OF ROOM).  The executor's
+conservative numerals (δ₀ ≥ 2^-10) sit between the two worlds; the
+"0.18-exponent" escape pricing is moot if the diagnosis holds.
+⟦WITNESS-LIVE dispatched⟧: re-run §7 at the LIVE closed forms — the
+expected verdict is the register NON-empty at the true constants and
+the reachability caveat closing.
+
+⟦LEDGER CORRECTION⟧ the B4-SUPPLY entry claimed "J-REF dispatched"
+BEFORE the dispatch existed — the maestro banked the entry, was
+interrupted by the council's PR items, and never fired the agent.
+The claim-then-act gap is exactly the genre the ledger law forbids;
+caught on the next landing.  ⟦J-REF ACTUALLY dispatched now⟧ — the
+three hand-arithmetic claims of the J-lever (the λ-currency law, the
+J ≈ 2700 closure at the pinned base, the cost table + k-amplification
+at large J).
