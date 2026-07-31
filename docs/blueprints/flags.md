@@ -17908,3 +17908,43 @@ abs8640 is honest and the x-scale reserve discharges it.  Deviation
 bundle in via m4_fuse_hcap_of_capWS with constants decoupled across
 the ∃; no capWS-shaped sibling needed).  Build 9624 exit-0
 maestro-verified.  THE ROAD AWAITS ONLY CAPGATE.
+
+## (2026-07-30 22:09 PDT) CAPGATE-SCOPE: class-B ~1700, D-RISK 2 -- abs8640 fit CERTIFIED, NO second epsr collision; the budget field = mu_cap's honest ghost (a lambda-ceiling, PASSES at 81.184); rulings 9-10; FIVE fly
+
+37 fields (not 31 — the count predates the excision): 12 SUPPLIED /
+14 WIRING / 9 B / 2 D-RISK; 13 kernel probes green.  THE FIT:
+s13_abs8640_at_shift is BYTE-EXACT at εr = θ₂₉₃ − 1/500 (zero
+adapter — the reserve load-bearing as designed).  THE εr ANSWER:
+exactly three readers, all monotone-WEAKENING, the pin at the
+maximum serves all three — NO SECOND COLLISION.  THE NEAR-KILL
+WALKED BACK (executors MUST know): TannGate is NOT the binding
+T-floor — SocketBase's 2^j ≤ H forces log Tann ≥ μ − log H via
+hTlo; the kappa30/BT chain closes there.  tail_row 5e14 short at
+gArmEge's floor but RESCUED by the x-scale (route through
+loglogFloor50, NOT a gArmEge bump — no landed-def change).
+PortNonVacuous:75 is the wrong SHAPE for floors 1-4 (existential in
+T); inline its body at the GIVEN Tann.
+
+⟦D-RISK 1 = THE BUDGET GHOST + MAESTRO ERRATUM on ruling 6⟧ the
+mu_cap DEMAND lives on inside budget (the thinBundle tail is
+S^{2·loglog S/log 𝒫₂}, a positive power of the base): "zero readers"
+was true of the FIELD and false of the CONSTRAINT.  The excision
+STANDS (the field's log-form was contradictory; budget's internal
+loglog-form is the honest shape) — but the demand is now a
+λ-ceiling λ*(m) = 32.434 + log m + (m−1)·log 2: PASSES at §9's
+81.184 (2× margin, kernel), FAILS at the stale table top 83.667
+(~6×), λ*(69) = 83.79 clears even that, inside the const window
+k ∈ [2,70].  The two Λ-registries (const page vs cap page) are NOT
+the same quantity — reconciliation owed BEFORE any numeral moves.
+⟦LAMBDA-RECON dispatched⟧: which λ the door arm prices at (S11Thread
+:18 says λ₊ — verify at the bytes), the live-vs-landed window, the
+two registries reconciled, m = 66 vs 69 adjudicated with probes.
+⟦MAESTRO RULING 9⟧ W-RBD carries Rbd_grade + Cq_gate as SUPPLIER
+HYPOTHESES (the fallback — hypothesis at all six landed sites
+already; the corpus posture unchanged; D-RISK drops to 1; the
+wide-arm grading page a separate later wave if wanted).
+⟦MAESTRO RULING 10⟧ the four field waves fly PARALLEL in separate
+new files, NO All.lean edits (the maestro adds the imports at the
+seal — the four-way append race avoided).  ⟦W-GRID + W-FLOOR +
+W-EPS + W-RBD + LAMBDA-RECON dispatched; W-SEAL after; W-BUDGET
+rides LAMBDA-RECON's verdict⟧.
