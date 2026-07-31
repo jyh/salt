@@ -784,4 +784,127 @@ theorem MlamGrChiMask_rate_split (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :
   have h : (0 : ℝ) ≤ C * (4 : ℝ) ^ A * M := mul_nonneg (mul_nonneg hCpos.le h4A.le) hM
   linarith
 
+/-! ## §8 — ⟦THE SPLIT-HOIST, GRADED⟧ (R3, 2026-07-30): THE `Aexp`-ONLY CONSTANT `C`, EXPOSED
+
+⟦B5-HOIST, link 1⟧  §7 put the threshold `x₀` before the mass budget `M`.  The band gate
+`S13BandGate.grade` needs one level more: it asks `8·C' ≤ (log 2 · doorRowFloor M)^{5/2+1/1000}`
+with `M` chosen BEFORE `C'` is revealed, so the gate can only become an ordinary `M`-floor if
+the SHAPE of `C'` in `M` is visible at the statement.  It is: the landed proof exhibits
+`C' = C·4^A·M + 1` where `C` is `MlambdaChi_rate`'s constant — a function of `hMmu` and `A`
+alone, exactly like `x₀`.
+
+So this twin carries ONE new conjunct, `C' ≤ C·4^A·M + 1`, with `C` hoisted into the top
+constant block beside `x₀`.  The body is byte-identical to §7's (`le_rfl` pays the conjunct);
+nothing is added or weakened, and `MlamGrChiMask_rate_split` is untouched. -/
+
+/-- **⟦D3, SPLIT-HOISTED + GRADED⟧ THE RATE WITH ITS MASS-SLOPE VISIBLE**
+(`MlamGrChiMask_rate_split_graded`) — `MlamGrChiMask_rate_split` with the `Aexp`-only constant
+`C` quantified beside `x₀` and the explicit cap `C' ≤ C·4^A·M + 1` carried. -/
+theorem MlamGrChiMask_rate_split_graded (hMmu : MmuChiRate) (A : ℝ) (hA : 0 < A) :
+    ∃ (x₀ : ℕ) (C : ℝ), 0 < C ∧ ∀ M : ℝ, 0 ≤ M → ∃ C' : ℝ, 0 < C' ∧
+      C' ≤ C * (4 : ℝ) ^ A * M + 1 ∧ ∀ y : ℕ, x₀ ≤ y →
+      ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
+        (q : ℝ) ≤ (Real.log y) ^ (10 : ℕ) →
+          ∀ t : ℝ, |t| ≤ (Nat.sqrt (Nat.sqrt y) : ℝ) →
+            ∀ (mask : ℕ → Bool) (r : ℝ), 0 ≤ r → r ≤ 1 →
+              (∑ b ∈ Finset.Icc 1 (Nat.sqrt y), maskTailWeight mask r b / (b : ℝ)) ≤ M →
+              (∑ b ∈ Finset.Ioc (Nat.sqrt y) y, maskTailWeight mask r b / (b : ℝ))
+                  ≤ 1 / (Real.log y) ^ A →
+              ‖MlamGrChiMask χ t mask r y‖ ≤ C' * y / (Real.log y) ^ A := by
+  obtain ⟨C, x₀lam, hCpos, hLamBound⟩ := MlambdaChi_rate hMmu A hA
+  have h4A : (0 : ℝ) < (4 : ℝ) ^ A := Real.rpow_pos_of_pos (by norm_num) A
+  have key : ∀ᶠ y : ℕ in Filter.atTop,
+      ∀ M : ℝ, 0 ≤ M →
+      ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
+        (q : ℝ) ≤ (Real.log y) ^ (10 : ℕ) →
+          ∀ t : ℝ, |t| ≤ (Nat.sqrt (Nat.sqrt y) : ℝ) →
+            ∀ (mask : ℕ → Bool) (r : ℝ), 0 ≤ r → r ≤ 1 →
+              (∑ b ∈ Finset.Icc 1 (Nat.sqrt y), maskTailWeight mask r b / (b : ℝ)) ≤ M →
+              (∑ b ∈ Finset.Ioc (Nat.sqrt y) y, maskTailWeight mask r b / (b : ℝ))
+                  ≤ 1 / (Real.log y) ^ A →
+              ‖MlamGrChiMask χ t mask r y‖
+                ≤ (C * (4 : ℝ) ^ A * M + 1) * y / (Real.log y) ^ A := by
+    filter_upwards [Filter.eventually_ge_atTop 16, Filter.eventually_ge_atTop (x₀lam ^ 2),
+        eventually_log_ge_lamMask ((4 : ℝ) ^ (11 : ℕ))] with y hy16 hyx0 hlog4
+    intro M hM q _ χ hq t ht mask r hr0 hr1 hmass htail
+    have hLpos : 0 < Real.log y := lt_of_lt_of_le (by positivity) hlog4
+    have hL0 : (0 : ℝ) ≤ Real.log y := hLpos.le
+    have hLApos : (0 : ℝ) < (Real.log y) ^ A := Real.rpow_pos_of_pos hLpos A
+    have hs1 : 1 ≤ Nat.sqrt y := Nat.le_sqrt.mpr (by nlinarith [hy16])
+    have hs_ge_x0 : x₀lam ≤ Nat.sqrt y := by
+      rw [Nat.le_sqrt]
+      calc x₀lam * x₀lam = x₀lam ^ 2 := by ring
+        _ ≤ y := hyx0
+    have hlogs : Real.log y / 4 ≤ Real.log (Nat.sqrt y) := Salt.TwinBar.log_natSqrt_ge hy16
+    have hL4pos : 0 < Real.log y / 4 := by linarith
+    have hsmall : ∀ b ∈ Finset.Icc 1 (Nat.sqrt y),
+        ‖MlambdaChi χ t (y / b)‖
+          ≤ (C * (4 : ℝ) ^ A / (Real.log y) ^ A) * (y : ℝ) / (b : ℝ) := by
+      intro b hb
+      rw [Finset.mem_Icc] at hb
+      obtain ⟨hb1, hbs⟩ := hb
+      have hbpos : 0 < b := hb1
+      have hts : Nat.sqrt y ≤ y / b := by
+        rw [Nat.le_div_iff_mul_le hbpos]
+        calc Nat.sqrt y * b ≤ Nat.sqrt y * Nat.sqrt y := by gcongr
+          _ ≤ y := Nat.sqrt_le y
+      have htx : x₀lam ≤ y / b := le_trans hs_ge_x0 hts
+      have hlogt : Real.log y / 4 ≤ Real.log ((y / b : ℕ) : ℝ) := by
+        refine le_trans hlogs ?_
+        apply Real.log_le_log (by exact_mod_cast (by omega : 0 < Nat.sqrt y))
+        exact_mod_cast hts
+      have hgate : (q : ℝ) ≤ (Real.log ((y / b : ℕ) : ℝ)) ^ (11 : ℕ) := by
+        have hratio : (1 : ℝ) ≤ Real.log y / (4 : ℝ) ^ (11 : ℕ) :=
+          (one_le_div (by positivity)).mpr hlog4
+        have h10 : (Real.log y) ^ (10 : ℕ) ≤ (Real.log y / 4) ^ (11 : ℕ) := by
+          calc (Real.log y) ^ (10 : ℕ) = (Real.log y) ^ (10 : ℕ) * 1 := by ring
+            _ ≤ (Real.log y) ^ (10 : ℕ) * (Real.log y / (4 : ℝ) ^ (11 : ℕ)) :=
+                mul_le_mul_of_nonneg_left hratio (pow_nonneg hL0 10)
+            _ = (Real.log y / 4) ^ (11 : ℕ) := by rw [div_pow]; ring
+        have h11 : (Real.log y / 4) ^ (11 : ℕ)
+            ≤ (Real.log ((y / b : ℕ) : ℝ)) ^ (11 : ℕ) := by
+          have h04 : (0 : ℝ) ≤ Real.log y / 4 := by linarith
+          gcongr
+        linarith
+      have hht : |t| ≤ (Nat.sqrt (y / b) : ℝ) :=
+        le_trans ht (by exact_mod_cast Nat.sqrt_le_sqrt hts)
+      have hMt := hLamBound (y / b) htx q χ hgate t hht
+      have hrpow : (Real.log y / 4) ^ A ≤ (Real.log ((y / b : ℕ) : ℝ)) ^ A :=
+        Real.rpow_le_rpow hL4pos.le hlogt hA.le
+      have hcast : ((y / b : ℕ) : ℝ) ≤ (y : ℝ) / (b : ℝ) :=
+        Nat.cast_div_le (m := y) (n := b) (α := ℝ)
+      calc ‖MlambdaChi χ t (y / b)‖
+          ≤ C * ((y / b : ℕ) : ℝ) / (Real.log ((y / b : ℕ) : ℝ)) ^ A := hMt
+        _ ≤ C * ((y / b : ℕ) : ℝ) / (Real.log y / 4) ^ A :=
+              div_le_div_of_nonneg_left (mul_nonneg hCpos.le (Nat.cast_nonneg _))
+                (Real.rpow_pos_of_pos hL4pos A) hrpow
+        _ = C * (4 : ℝ) ^ A * ((y / b : ℕ) : ℝ) / (Real.log y) ^ A := by
+              rw [Real.div_rpow hL0 (by norm_num), div_div_eq_mul_div]; ring
+        _ ≤ C * (4 : ℝ) ^ A * ((y : ℝ) / (b : ℝ)) / (Real.log y) ^ A := by
+              have hCoef : (0 : ℝ) ≤ C * (4 : ℝ) ^ A := mul_nonneg hCpos.le h4A.le
+              gcongr
+        _ = (C * (4 : ℝ) ^ A / (Real.log y) ^ A) * (y : ℝ) / (b : ℝ) := by ring
+    have hBnn : (0 : ℝ) ≤ C * (4 : ℝ) ^ A / (Real.log y) ^ A :=
+      div_nonneg (mul_nonneg hCpos.le h4A.le) hLApos.le
+    have hmono : ∀ b : ℕ,
+        lamTailWeightMask mask r b / (b : ℝ) ≤ maskTailWeight mask r b / (b : ℝ) := by
+      intro b
+      have h := lamTailWeightMask_le_maskTailWeight (mask := mask) hr1 b
+      gcongr
+    have hsplit := norm_MlamGrChiMask_le_split χ t mask r y hr1 hBnn hsmall
+      (le_trans (Finset.sum_le_sum fun b _ => hmono b) hmass)
+      (le_trans (Finset.sum_le_sum fun b _ => hmono b) htail)
+    calc ‖MlamGrChiMask χ t mask r y‖
+        ≤ (C * (4 : ℝ) ^ A / (Real.log y) ^ A) * M * (y : ℝ)
+            + (1 / (Real.log y) ^ A) * (y : ℝ) := hsplit
+      _ = (C * (4 : ℝ) ^ A * M + 1) * y / (Real.log y) ^ A := by
+          field_simp
+  rw [Filter.eventually_atTop] at key
+  obtain ⟨N, hN⟩ := key
+  refine ⟨N, C, hCpos, ?_⟩
+  intro M hM
+  refine ⟨C * (4 : ℝ) ^ A * M + 1, ?_, le_rfl, fun y hy => hN y hy M hM⟩
+  have h : (0 : ℝ) ≤ C * (4 : ℝ) ^ A * M := mul_nonneg (mul_nonneg hCpos.le h4A.le) hM
+  linarith
+
 end Salt.MR

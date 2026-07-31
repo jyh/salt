@@ -17870,3 +17870,21 @@ unsupplied bundle) field-by-field at εr = θ₂₉₃ − 1/500 — the
 BANDBASE-SCOPE genre that turned D6 from "new genre" into "class B
 with probes".  THE REMAINING ROAD TO THE FIRED CAPSTONE: CONST-TWIN
 + B5-HOIST (flying) + eps stone + CAPGATE supply + COMPOSE #2.
+
+## (2026-07-30 21:52 PDT) B5-HOIST lands 9/9 first-attempt (+765, 18 decls): THE GRADE GATE BECOMES A CONCLUSION -- the C-prime hoist chain complete, the absorption at the uniform M-floor
+
+The seven _graded twins (LambdaChiMask §8 / M4T0DatumDischarge §8 /
+S11Hoist §6) + the fuse wire + S11HoistGrade.lean: the conjunct
+C' ≤ C·4^A·windowMassConst P Q + 1 threaded at abstract (P,Q) through
+links 1-4, CONVERTED at the separation point (link 5) to C' ≤
+Cb·M^{2.1} with Cb := C·4^Aexp·(e^{26.25}·49152^{1.05}) + 1, carried
+to the terminal; s11_grade_absorption: M₀ := ⌈(max 1 (8Cb))^{5/2}⌉+1
+UNIFORM (no numeric hypothesis — the honest max-form; finiteness
+rests entirely on the 0.401 gap); s11_hband_slot_grade_discharged
+(hMmu : MmuChiRate): S13BandGate.grade BYTE-IDENTICAL as a
+CONCLUSION + the fuse's hband body at s13Aexp.  x0_le remains the
+one gate line of the pair (absorbed into the M-floor at the
+compose).  No private transcription needed; link 1 appended in-file
+(private filter_upwards arg).  Axioms 18/18 standard (one at
+[propext] alone); build 9623 exit-0 maestro-verified.  The B5 stop
+is REPAIRED on every road.

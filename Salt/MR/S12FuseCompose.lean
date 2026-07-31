@@ -717,6 +717,34 @@ theorem logChowla2_capstone_final_rawcap' (Aexp : ℝ) (hAexp : 0 < Aexp) :
     rw [hval]
     linarith [hend]
 
+/-! ## §6 — ⟦THE FUSE WIRE, GRADED⟧ (R3, 2026-07-30): THE `M`-SLOPE AT THE FUSE'S BINDER
+
+`S11Hoist` §6 exposes the band constant's shape in `M`: `C' ≤ Cb·M^{2.1}` with `Cb` in the top
+constant block.  This section restates that at the fuse's binder — the same re-plumb §1 does
+for the ungraded split, one conjunct richer — so that a capstone twin can pay
+`S13BandGate.grade` from `S11HoistGrade.s11_grade_absorption` instead of carrying it.
+
+⚠ `DoorBandBase` remains a HYPOTHESIS everywhere and a theorem nowhere; only its CONSUMPTION
+is re-routed, exactly as in §1. -/
+
+/-- **⟦THE FUSE'S `hband`, FROM THE CAPSTONE'S `DoorBandBase`, GRADED⟧**
+(`m4_fuse_hband_of_bandBase_graded`) — §1's wire with `S11Hoist`'s explicit `M`-slope conjunct
+`C' ≤ Cb·M^{2.1}` carried through.  Conclusion byte-identical to §1's. -/
+theorem m4_fuse_hband_of_bandBase_graded (hMmu : MmuChiRate) (Aexp : ℝ) (hAexp : 0 < Aexp) :
+    ∃ (x₀ : ℕ) (Cb : ℝ), 0 < Cb ∧ ∀ (M : ℕ), 1 ≤ M →
+      ∃ C' : ℝ, 0 < C' ∧ C' ≤ Cb * (M : ℝ) ^ (2.1 : ℝ) ∧
+        ∀ (R : ChowlaRegime) (C₁ M₀ : ℕ → ℝ),
+          ((∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorBandBase x₀ C' Aexp M (A + s) q (C₁ (A + s)) (M₀ (A + s))) →
+            ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              ∀ χ : DirichletCharacter ℂ q,
+                (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+                  ‖dpolyA (winCutH (A + s) (doorChiCoeff χ M))
+                    (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+                  ≤ t0BandB (((A + s : ℕ)) : ℝ)
+                      (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (M₀ (A + s))) :=
+  m4_hband_at_door_slot_split_graded hMmu Aexp hAexp
+
 end Salt.MR
 
 end
