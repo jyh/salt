@@ -18544,3 +18544,34 @@ final prose); the per-hypothesis table (hx0win GENUINELY the only
 Siegel item; the cofactor predicate byte-exact, no smuggle; no
 overclaim anywhere in the files).  NOTHING IS ANNOUNCED; the seal
 is NOT granted; the K re-cut + re-refutation is the path back.
+
+## () REF-REPAIR lands 7/7 (11/11 axioms) -- the delta0 vacuity DEAD, three riders now THEOREMS, K re-cut certified at 4.07% -- AND THE WALL'S TRUE FACE: riders 4+12 JOINTLY UNSATISFIABLE AT EVERY K (the lever's cost lands on M through the band mass) -- THE SEAL IS NOT GRANTED; THE DOSSIER GOES TO THE CAPTAIN
+
+⟦LANDED PERMANENT VALUE⟧ logChowla2_witnessed_scale_final' at
+K = 32000000: ε ≥ 1/500, δ₀ ≥ 1/838400, Cg ≤ 2e12 PROVEN in the
+∃-prefix (removed-because-proven, each documented); the ρ-chain at
+43; the Mfl wire connected; the cap demand met at the re-cut
+(λ₋³ ≤ loglog 𝒫₂ at 4.07%); the weak-floor prose retracted in
+place.  Riders remaining: Kc/Ct/Hcap + the five constants + hx0win
+(Siegel) + the two predicates.
+⟦THE THIRD STRUCTURAL FINDING — the wall's true face⟧ the lever
+multiplies log 𝒬₂ by 2^K while log 𝒫₁ is level-1 invariant → the
+band's windowMassConst gains (49152·2^K)^{1.05} → Cb → Mfl ≈
+2^{2.63K}; the M-window (winFit) caps K ≲ 0.55·λ₋ − 41 while the
+budget cap demands K ≥ 1.443·λ₋³ − 413: THEY MEET ONLY AT λ₋ ≲ 6.4
+vs the floor λ₋ ≥ 50.  NOT kernel-false (the opaque C shields a
+theorem) but read at the proof's own witnesses; the warning written
+into the S16 header above the theorem — no consumer can miss it.
+THE WALL, three-faced and honest: (i) the pigeonhole hands an
+uncontrolled H ∈ [H₋, H₊] (entropy_decrement — WIDTH-SCOPE's
+dead-at-source stands); (ii) at H = H₊ the socket headroom forces
+loglog X_d ≥ e^{λ₊}/2 with λ₊ ≥ λ₋³ (the tower theorem); (iii) the
+budget ceiling is K-linear, K ≤ 1.7e8 by the frame AND K ≲ λ₋ by
+the lever's own band cost.  THE UNPRICED ESCAPE noted for the
+council: the band chain instantiated at the LEVEL-2 PAIR (𝒫₂, 𝒬₂)
+— the mass ratio then K-free — nobody has walked it.
+⟦THE PROTOCOL⟧ the seal is NOT granted.  The dossier goes to the
+Captain: the object as landed (real, conditional, with the empty
+pair NAMED in its own header), the three-faced wall, the unpriced
+escape, the companion-certificate question.  The next move is a
+DESIGN COUNCIL, not an executor.

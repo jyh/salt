@@ -34,16 +34,28 @@ while `i/H₈₃ ≤ log Q ≤ μ/Λ`, this reduces to
 
   **`loglog X_d ≤ (5/48)·log 𝒫₂`**  —  a `loglog`, not a `log`.
 
-⚠ **⟦ERRATUM — THE WIDTH LAW WAS ONE LOG TOO STRONG⟧** the `LAMBDA-RECON`/`CAPGATE-SCOPE`
-reading (flags 2026-07-30 22:38, 22:09) put `Λ_x = log H₊ = e^{λ₊}` on the left of the same
-ceiling and so derived `λ₊ ≤ λ₋ + 7.1448` — the "width law" whose collision with the tower
-(`λ₊ ≥ λ₋³`, `WIDTH-SCOPE`'s kernel probe, which stands) was read as the campaign's wall.
-At the bytes the left side is `loglog X_d`, whose socket floor is `≈ 7000·λ₊` (the arm-at-top
-of `ERR-REF`), not `e^{λ₊}`.  The honest demand at the sharp2 witness (`M = 2^355`,
-`λ₋ = 277.2589`, `λ₊ ≤ 9.87·10^10`) is `6.9·10^14 ≤ (5/48)·log 𝒫₂`; the ceiling is
-`e^{346857}` at the lever `K = 500000` and already `e^{283}` at `K = 0`.  **The budget closes
-with ~150000 orders of room at the lever and ~108 orders WITHOUT it** — the width wall does
-not obstruct `budget`, and the G-lever, while harmless, was not needed for this field.
+⚠ **⟦ERRATUM, RETRACTED IN FULL — corrected per REF-FINAL-HONEST⟧** an earlier revision of
+this header claimed the width law was "one log too strong", reading the socket's floor for
+`loglog X_d` off `ERR-REF`'s arm bound `≈ 7000·λ₊` and concluding that the width wall never
+existed at the budget leg.  **That retraction was itself the misread.**  This file's own
+supplier chain proves the SHARP floor `s13CapGrid.s13CapGrid_Lambda_sharp`:
+
+  `½·log H ≤ loglog X_d`   at every socket base,
+
+so at `H = H₊` the floor is `e^{λ₊}/2`, not `7000·λ₊` — `LAMBDA-RECON`'s original reading was
+right to within `log 2`.  **THE WIDTH WALL IS REAL at the budget leg**, the G-lever campaign
+was correctly fired, and the cap below is a genuine constraint on `λ₊`, not a formality.
+⟦THE LAW⟧ when two lower bounds compete, the reduction must be probed at the STRONGER one.
+
+⟦WHAT THE CAP THEN DEMANDS OF THE LEVER⟧ `S16BaseScaleCap_gk` + the sharp floor cap `λ₊` by
+`log(log 𝒫₂) − log 12`; the tower `λ₋³ ≤ λ₊` (`WIDTH-SCOPE`, standing) therefore forces
+
+  `λ₋³ ≤ log (log 𝒫₂) = (K + 413.06)·log 2 + log log 2`.
+
+At the sharp2 witness (`M = 2^355`, `λ₋ = 277.2589`, `λ₋³ = 2.1314·10^7`) that is
+`K ≥ 3.075·10^7` — INSIDE the frame's own ceiling `1.7·10^8`, and 61.5× ABOVE the pin
+`K = 500000` the landed terminal used.  §6 re-pins at `K = 3.2·10^7` and certifies the
+demand met in the kernel (`s16_recut_cap_demand_met`, 4.07% of room).
 
 ## §1–§2 — the shape stones and the field
 
@@ -55,7 +67,8 @@ not obstruct `budget`, and the G-lever, while harmless, was not needed for this 
 a cap on the SOCKET's base scale.  It is not derivable from the compose: `SocketBase` pins
 `X_d = A + s` to `R.x`-scale (`A ≤ 2R.x`, `R.x ≤ 16ω(log H)^{12}A`) and `ChowlaRegime` bounds
 `R.x` only from BELOW (`hheadroom : Hhi ≤ x/ω`).  So it is carried, named, at `/24` — a
-`2.4×` margin over the `(5/48)` demand.
+`1.5×` margin over what `s16_budget_num` actually spends (corrected per REF-FINAL-HONEST;
+the earlier `2.4×` read the `(5/48)` prose demand, not the proof's own line).
 
 ## §3 — the cap gate
 
@@ -73,7 +86,8 @@ move the debt, not discharge it, so the predicate is carried at the four fields 
 perBlock_gk` and `m4_fuse_hcap_of_capWS_gk` at `cU := liouvilleC`, `ε ≡ θ₂₉₃ − 1/500`, and
 lands `S15CrossingBound_gk K R M`.  `logChowla2_witnessed_scale_final` composes it with
 `logChowla2_conditional_sharp2_nonvacuous_gk`.  ⟦THE SURVIVOR LIST, EXACT⟧ the twin's eight
-numeral bounds + `hx0win` (Siegel, undischargeable); the five constant riders `1 ≤ cs`,
+numeral bounds, INCLUDING `hx0win` (Siegel, undischargeable — corrected per
+REF-FINAL-HONEST: it is one of the eight, not a ninth); the five constant riders `1 ≤ cs`,
 `T₀ ≤ e^{e^{100}}`, `Kq ≤ e^{100}`, `e^{−100} ≤ Ks`, `log C ≤ 40` on the fuse's and the band
 lemma's own constants; `S16CofactorSupply_gk` (⟦RULING 9⟧'s shelved debt); and
 `S16BaseScaleCap_gk` (§2's base-scale cap).  Nothing else, and nothing hidden.
@@ -619,5 +633,175 @@ theorem logChowla2_witnessed_scale_final :
   have hblk : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s → s13BlockFloor_gk K M ≤ A + s := by
     intro H L q j A s hb
     exact s15_block_at_socket_gk K hb (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
+  exact hfire (hsupply hcs hT₀ hKq hKs hC R M hsel.hM hfl hblk hcof hcap)
+
+/-! ## §6 — ⟦REF-REPAIR⟧ THE REPAIRED TERMINAL, AT THE RE-CUT LEVER
+
+⟦THE THREE DEFECTS REPAIRED⟧ (all found by the summit refuters, 2026-07-31)
+
+1. **THE RIDER VACUITY** (`REF-FINAL-SAT`) — §5's object carries `1/2^10 ≤ δ₀`, FALSE at the
+   chain's own pinned `δ₀ = s13Delta0 ≈ 2^{-19.68}` (818× short) and unreachable at any `ε`.
+   Repaired in `S15Witness` §1'/§GK.8': the demand relaxes to `1/2^20` and the `ρ`-charge
+   `36 → 43`; all five `ρ`-lines of the `M = 2^355` register still close.
+2. **THE CARRIED PINS** (`REF-FINAL-SAT`) — the capstone consumed the UNPINNED road, so
+   `ε`/`δ₀`/`Cg` had to ride as hypotheses.  Repaired by
+   `S12ConstCompose.logChowla2_capstone_final_const'_graded_gk_pinned`, which consumes
+   `HloExportMR.m4_second_road_L2_hloCap_pinned_gk`: `Cg ≤ 2·10^{12}`, `1/500 ≤ ε`,
+   `1/838400 ≤ δ₀` are now `∃`-prefix THEOREMS, and the three riders they discharge are GONE
+   from the hypothesis list — removed BECAUSE PROVEN, not weakened.
+3. **THE MIS-PINNED LEVER** (`REF-FINAL-HONEST`) — `K = 500000` was calibrated to the OLD
+   witness (`λ₋ = 69`) and never re-cut when `s15WitFloor2` moved `λ₋` to `277.2589`.  At
+   `K = 500000` the base-scale cap and the tower are mutually exclusive (deficit 61.5×), so
+   §5's inner implication is vacuous.  Re-pinned here at `K = 3.2·10^7`, with the demand
+   certified in the kernel below.
+
+⚠ ⟦THE ONE DEFECT **NOT** REPAIRED — READ THIS BEFORE ANY SEAL⟧ the rider `Mfl ≤ 2^355`.
+The exported `Mfl` is the band-gate grade floor at the LEVERED band constant
+`Cb = C·4^{Aexp}·(exp 26.25·(49152·2^K)^{1.05}) + 1`, so `Mfl` grows like `2^{2.63·K}` while
+the register's `M`-window is capped near `2^{356}` by the `half` line.  The `Mfl` wire below
+(`s11_grade_absorption'` in place of `s11_grade_absorption`) shrinks the floor by the full
+`(4·10^{10})^{2.5·2.501} ≈ 2^{221}` that `S11HoistGrade` §4 restored — but `2^{221}` does not
+close a `2^{2.63K}` gap.  The rider is satisfiable only for `K ≲ 160`, while §6.1's cap
+certificate demands `K ≥ 3.075·10^7`.  **`Mfl` and `S16BaseScaleCap_gk` are jointly
+unsatisfiable at EVERY `K` and every base floor**: the `M`-window gives
+`K ≤ 0.55·λ₋ − 41`, the cap gives `K ≥ 1.443·λ₋³ − 413`, and the two meet only at
+`λ₋ ≲ 6.4` — while `loglogFloor50` forces `λ₋ ≥ 50`.  (`M` grows like `log₂ log H₋`; the
+cap's demand grows like `(log log H₋)³`.)  ⟦NOT KERNEL-CERTIFIED⟧ the band constant carries
+an OPAQUE factor `C` (from `M4T0DatumDischarge.m4_hT0band_at_door_discharged_split_graded_gk`),
+so no theorem states `Mfl > 2^355`; the read is at the proof's own witness, where
+`X0MFL-TRACE`'s `probe_Mfl_overflow` already puts `Mfl ≥ 2^158` at `C = 1`, `K = 0`.
+This is a DESIGN question, not a porting question; it is named here and reported, not hidden.
+
+## §6.1 — the re-cut acceptance certificate -/
+
+set_option exponentiation.threshold 4000 in
+/-- The levered level-2 base at the witness modulus, from below:
+`2^{K+413} ≤ calE (A(2^355)) (G_K(2^355)) 2 = 4·(A·G)`.  (`4·356·3072 = 4374528 ≥ 2^{22}`.) -/
+theorem s16_recut_calE_ge (K : ℕ) :
+    2 ^ (K + 413) ≤ 4 * (Adoor (2 ^ 355) * s13GK K (2 ^ 355)) := by
+  rw [s15w2_Adoor, s13GK]
+  have h1 : (4 : ℕ) * (2 ^ 36 * 356 * (3072 * 2 ^ K * 2 ^ 355))
+      = (4 * 356 * 3072 * 2 ^ 36 * 2 ^ 355) * 2 ^ K := by ring
+  have h2 : (2 : ℕ) ^ (K + 413) = 2 ^ 413 * 2 ^ K := by rw [pow_add]; ring
+  rw [h1, h2]
+  refine Nat.mul_le_mul_right _ ?_
+  have h3 : (4 : ℕ) * 356 * 3072 * 2 ^ 36 * 2 ^ 355 = 4374528 * 2 ^ 391 := by
+    rw [show (2 : ℕ) ^ 391 = 2 ^ 36 * 2 ^ 355 by rw [← pow_add]]; ring
+  have h4 : (2 : ℕ) ^ 413 = 4194304 * 2 ^ 391 := by
+    rw [show (413 : ℕ) = 22 + 391 by norm_num, pow_add]; norm_num
+  rw [h3, h4]
+  exact Nat.mul_le_mul_right _ (by norm_num)
+
+set_option exponentiation.threshold 4000 in
+/-- **⟦THE LEVER'S OWN CEILING, FROM BELOW⟧** `(K + 412)·log 2 ≤ log(log 𝒫₂)` at
+`M = 2^355`.  (`log 𝒫₂ = 4(A·G)·log 2`; the `−log 2` pays `log(log 2) ≥ −log 2`.) -/
+theorem s16_recut_logLogP2_ge (K : ℕ) :
+    ((K : ℝ) + 412) * Real.log 2
+      ≤ Real.log (Real.log ((calP (Adoor (2 ^ 355)) (s13GK K (2 ^ 355)) 2 : ℕ) : ℝ)) := by
+  have hl2 : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  set n : ℕ := 4 * (Adoor (2 ^ 355) * s13GK K (2 ^ 355)) with hn
+  have hge : (2 : ℕ) ^ (K + 413) ≤ n := s16_recut_calE_ge K
+  have hgeR : (2 : ℝ) ^ (K + 413) ≤ ((n : ℕ) : ℝ) := by
+    have h : (((2 : ℕ) ^ (K + 413) : ℕ) : ℝ) ≤ ((n : ℕ) : ℝ) := by exact_mod_cast hge
+    calc (2 : ℝ) ^ (K + 413) = (((2 : ℕ) ^ (K + 413) : ℕ) : ℝ) := by push_cast; ring
+      _ ≤ _ := h
+  have hn0 : (0 : ℝ) < ((n : ℕ) : ℝ) := by
+    have hp : (0 : ℝ) < (2 : ℝ) ^ (K + 413) := by positivity
+    linarith
+  have hlogn : ((K : ℝ) + 413) * Real.log 2 ≤ Real.log ((n : ℕ) : ℝ) := by
+    have h := Real.log_le_log (by positivity : (0 : ℝ) < (2 : ℝ) ^ (K + 413)) hgeR
+    rw [Real.log_pow] at h
+    push_cast at h
+    linarith
+  have hll : -Real.log 2 ≤ Real.log (Real.log 2) := by
+    have h := Real.log_le_log (by norm_num : (0 : ℝ) < 1 / 2)
+      (by linarith : (1 : ℝ) / 2 ≤ Real.log 2)
+    rwa [show Real.log (1 / 2 : ℝ) = -Real.log 2 by rw [one_div, Real.log_inv]] at h
+  rw [s16_logP2, ← hn, Real.log_mul (by linarith) (by linarith)]
+  linarith
+
+/-- **⟦THE RE-CUT, CERTIFIED⟧** (`s16_recut_cap_demand_met`) — at the new pin
+`K = 3.2·10^7` the base-scale cap's demand `λ₋³ ≤ log(log 𝒫₂)` HOLDS at the sharp2 witness:
+`2.1314·10^7 ≤ 2.2181·10^7`, 4.07% of room.  (At the landed pin `K = 500000` the same
+quantity is `3.47·10^5` — short by 61.5×, which is `REF-FINAL-HONEST`'s kill.)  ⟦WHY
+`3.2·10^7` AND NOT `3.08·10^7`⟧ the bare demand is met at `K = 3.075·10^7` but with < 1% of
+margin; `3.1·10^7` gives 0.82%, still under the amendment's 1% floor.  `3.2·10^7` gives
+4.07%. -/
+theorem s16_recut_cap_demand_met :
+    (Real.log (Real.log ((s15WitFloor2 : ℕ) : ℝ))) ^ 3
+      ≤ Real.log (Real.log
+          ((calP (Adoor (2 ^ 355)) (s13GK 32000000 (2 ^ 355)) 2 : ℕ) : ℝ)) := by
+  have hlam := s15WitFloor2_loglog_le
+  have h50 := s15WitFloor2_loglog_ge
+  set u : ℝ := Real.log (Real.log ((s15WitFloor2 : ℕ) : ℝ)) with hu
+  have hu0 : (0 : ℝ) ≤ u := by linarith
+  have hsq : u ^ 2 ≤ (2772589 / 10000 : ℝ) ^ 2 := by nlinarith
+  have hcb : u ^ 3 ≤ (2772589 / 10000 : ℝ) ^ 3 := by nlinarith
+  have hnum : (2772589 / 10000 : ℝ) ^ 3 ≤ 21313585 := by norm_num
+  refine le_trans (le_trans hcb hnum) (le_trans ?_ (s16_recut_logLogP2_ge 32000000))
+  have hl2 : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  push_cast
+  linarith
+
+/-! ## §6.2 — ⟦THE REPAIRED TERMINAL⟧ -/
+
+set_option maxHeartbeats 1000000 in
+-- the twin's eighteen-binder prefix re-elaborates beside the crossing supply's six constants
+/-- **⟦THE REPAIRED TERMINAL⟧** (`logChowla2_witnessed_scale_final'`) — §5's object with
+repairs 1–3 of §6 in place, at the re-cut pin `K = 3.2·10^7`.
+
+⟦THE HYPOTHESIS LIST, EXACT AND COMPLETE⟧ everything the inner implication asks for:
+
+* `Kc ≤ 2^20`, `Ct ≤ 2^20` — the two constant-pool numerals (EPSPIN/CgPin genre);
+* `(x₀ : ℝ) ≤ e^{e^{275}}` — ⟦`hx0win`⟧ **the one Siegel item**: `x₀` is Siegel-ineffective,
+  no theorem places it in any window, and the conditional carries it named;
+* `Mfl ≤ 2^355` — ⚠ see §6's warning: NOT satisfiable at this `K`;
+* `Hcap ≤ s15WitFloor2` — the road's own base cap against the witness floor;
+* `1 ≤ cs`, `T₀ ≤ e^{e^{100}}`, `Kq ≤ e^{100}`, `e^{−100} ≤ Ks`, `log C ≤ 40` — the five
+  constant riders of the fuse and the band lemma;
+* `S16CofactorSupply_gk` — ⟦RULING 9⟧'s shelved `Rbd`/`Cq` debt, carried not re-dressed;
+* `S16BaseScaleCap_gk` — §2's base-scale cap, certified compatible with the tower at this
+  `K` by `s16_recut_cap_demand_met`.
+
+⟦WHAT LEFT THE LIST, AND WHY⟧ three hypotheses of §5 are GONE, each REMOVED-BECAUSE-PROVEN:
+
+* `(1:ℚ)/2^9 ≤ ε` — discharged from `1/500 ≤ ε` (the `∃`-prefix conjunct, 2.4% margin);
+* `1/2^10 ≤ δ₀` — was FALSE; its repaired form `1/2^20 ≤ δ₀` is discharged from
+  `1/838400 ≤ δ₀` (the `∃`-prefix conjunct, 25% margin);
+* `24·Cg/δ₀ ≤ 2^355` — discharged from `Cg ≤ 2·10^{12}` and the `δ₀` pin
+  (`4.02·10^{19} ≤ 2^{355}`, 290 bits).
+
+The three discharging facts ride in the `∃`-prefix, so a consumer can read them off. -/
+theorem logChowla2_witnessed_scale_final' :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct : ℝ) (x₀ Hcap Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧
+      Cg ≤ 2 * 10 ^ 12 ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧
+      (Kc ≤ 2 ^ 20 → Ct ≤ 2 ^ 20 → (x₀ : ℝ) ≤ Real.exp (Real.exp 275) → Mfl ≤ 2 ^ 355 →
+        Hcap ≤ s15WitFloor2 →
+        1 ≤ cs → T₀ ≤ Real.exp (Real.exp 100) → Kq ≤ Real.exp 100 →
+        Real.exp (-100) ≤ Ks → Real.log C ≤ 40 →
+        ∀ g : ℕ → ℕ → ℕ, ∃ (R : ChowlaRegime) (M : ℕ),
+          R.eps = ε ∧ R.Hlo = s15WitFloor2 ∧ g R.Hhi R.ω ≤ R.x ∧
+          S15Sel''_gk 32000000 Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ Mfl R M ∧
+          (S16CofactorSupply_gk 32000000 Cq R M → S16BaseScaleCap_gk 32000000 R M →
+            ¬ logChowla2Fails R.eps R.x R.ω)) := by
+  obtain ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl1, hCgle, hεpin,
+    hδpin, hbody⟩ := logChowla2_conditional_sharp2_nonvacuous_gk' 32000000 (by norm_num)
+  obtain ⟨Cq, cs, T₀, Kq, Ks, C, hCq, hcs0, hT₀3, hKq0, hKs0, hC0, hsupply⟩ :=
+    s15_crossing_supplied_gk 32000000
+  refine ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, Cq, cs, T₀, Kq, Ks, C,
+    hε, hCg, hKc, hδ₀, hCt, hMfl1, hCq, hcs0, hT₀3, hKq0, hKs0, hC0,
+    hCgle, hεpin, hδpin, ?_⟩
+  intro h4 h5 h6 h7 h8 hcs hT₀ hKq hKs hC g
+  obtain ⟨R, M, hReps, hHlo, hRg, hsel, hfire⟩ := hbody h4 h5 h6 h7 h8 g
+  refine ⟨R, M, hReps, hHlo, hRg, hsel, ?_⟩
+  intro hcof hcap
+  have hfl : loglogFloor50 ≤ R.Hlo := by rw [hHlo]; exact s15WitFloor2_ll
+  have hblk : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      s13BlockFloor_gk 32000000 M ≤ A + s := by
+    intro H L q j A s hb
+    exact s15_block_at_socket_gk 32000000 hb
+      (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
   exact hfire (hsupply hcs hT₀ hKq hKs hC R M hsel.hM hfl hblk hcof hcap)
 

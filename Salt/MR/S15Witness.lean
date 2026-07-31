@@ -132,6 +132,42 @@ theorem s15w_neglog_rho_le {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K)
   rw [h2] at h1
   linarith
 
+/-! ### §1' — ⟦REF-REPAIR (a)⟧ THE SAME FLOOR AT THE REACHABLE `δ₀`
+
+⚠ ⟦THE DEFECT THESE REPAIR⟧ §1's `1/2^10 ≤ δ₀` is FALSE at the chain's own pinned constant:
+`EPSPIN` fixes `δ₀ = s13Delta0 ≥ 1/838400 ≈ 2^{-19.68}`, i.e. 818× BELOW `2^{-10}`, and
+`REF-FINAL-SAT`'s `probe_A4` shows the demand is unreachable at ANY admissible `ε` (it would
+force the prime-window Mertens constant above the circle-method constant).  Relaxing the
+demand to `1/2^20` — which the pinned floor clears with 25% to spare (`probe_A2`/`E3`) —
+costs exactly ELEVEN of the `ρ`-charge: `ρ ≥ 2^{-62}`, `log(1/ρ) ≤ 43`.  Every binding line
+of the `M = 2^355` register still closes (`probe_B3_*`; the binding `anchor`/`lvl` margins
+move from 0.48%/2.3% to 0.48%/2.3% — the `43` is invisible against `14·λ₊`). -/
+
+/-- **⟦THE `ρ` FLOOR, AT THE REACHABLE `δ₀`⟧** (`s15w_rho_ge'`) — `2^{-62} ≤ ρ` at
+`1/2^20 ≤ δ₀`.  `s15w_rho_ge` (:112) with the one relaxed numeral. -/
+theorem s15w_rho_ge' {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K)
+    (hδb : 1 / 2 ^ 20 ≤ δ₀) (hKb : K ≤ 2 ^ 20) :
+    (1 : ℝ) / 2 ^ 62 ≤ doorRhoOfDelta (s12DeltaSock δ₀ K) := by
+  rw [doorRhoOfDelta, le_min_iff]
+  refine ⟨by norm_num, ?_⟩
+  rw [s12DeltaSock_sq hδ hK, div_div, le_div_iff₀ (by positivity)]
+  nlinarith [hKb, hδb, hK]
+
+/-- **⟦THE CLEARING CHARGE, RE-NUMERALLED⟧** (`s15w_neglog_rho_le'`) — `log(1/ρ) ≤ 43`. -/
+theorem s15w_neglog_rho_le' {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K)
+    (hδb : 1 / 2 ^ 20 ≤ δ₀) (hKb : K ≤ 2 ^ 20) :
+    -Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) ≤ 43 := by
+  have hge := s15w_rho_ge' hδ hK hδb hKb
+  have h1 : Real.log ((1 : ℝ) / 2 ^ 62)
+      ≤ Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) :=
+    Real.log_le_log (by norm_num) hge
+  have h2 : Real.log ((1 : ℝ) / 2 ^ 62) = -(62 * Real.log 2) := by
+    rw [one_div, Real.log_inv, Real.log_pow]
+    push_cast; ring
+  have hlt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  rw [h2] at h1
+  linarith
+
 /-! ## §2 — THE WITNESS MODULUS AND ITS TWO-SIDED BOUND -/
 
 /-- **⟦THE WITNESS MODULUS⟧** (`s15WitM`) — the join of the register's three `M`-LOWERS:
@@ -1668,4 +1704,198 @@ theorem logChowla2_conditional_sharp2_nonvacuous_gk :
     hMflb hx0b heps hlo hhi
   exact ⟨R, 2 ^ 355, hReps, hHlo, hRg, hwit, hfire (2 ^ 355) hwit⟩
 
--- #audit (temporary)
+/-! ### §GK.8' — ⟦REF-REPAIR⟧ THE WITNESS AT THE REACHABLE `δ₀`, ON THE PINNED ROAD
+
+The repaired re-cut register.  TWO changes against §GK.8, both forced by `REF-FINAL-SAT`:
+
+⟦(a) THE RIDER RELAXATION⟧ `1/2^10 ≤ δ₀` → `1/2^20 ≤ δ₀` (§1' above), and with it the
+`ρ`-charge `36` → `43`.  Five lines of the register spend the charge (`half`, `rho`,
+`anchor`, `gP1`, `lvl`); all five still close at `M = 2^355` — the binding pair remains
+`anchor` (0.48%) and `lvl` (2.3%), unmoved, because `43 − 36 = 7` is invisible beside
+`14·λ₊ = 1.38·10^{12}`.
+
+⟦(b) THE ROAD SWAP⟧ the compose consumes `logChowla2_conditional_sharp2_atK_gk_pinned`, whose
+`∃`-prefix CARRIES `Cg ≤ 2·10^{12}`, `1/500 ≤ ε`, `1/838400 ≤ δ₀`.  Three riders of the
+landed twin therefore become THEOREMS and LEAVE the hypothesis list:
+
+* `(1:ℚ)/2^9 ≤ ε` — from `1/500 ≤ ε` (`1/512 ≤ 1/500`, 2.4% margin);
+* `1/2^20 ≤ δ₀` — from `1/838400 ≤ δ₀` (25% margin);
+* `24·Cg/δ₀ ≤ 2^355` — from `Cg ≤ 2·10^{12}` and the `δ₀` pin
+  (`24·2·10^{12}·838400 = 4.02·10^{19} ≤ 2^{355}`, 290 bits of room).
+
+⟦WHAT STILL RIDES⟧ `Kc ≤ 2^20`, `Ct ≤ 2^20`, `hx0win` (Siegel — undischargeable, the field's
+own wall), `Mfl ≤ 2^355`, `Hcap ≤ s15WitFloor2`.  Nothing is weakened; each removal above is
+REMOVED-BECAUSE-PROVEN.
+
+⟦K IS A PARAMETER HERE⟧ §GK.8's twin pinned `K = 500000`; `REF-FINAL-HONEST` showed that pin
+was calibrated to the OLD witness (`λ₋ = 69`) and never re-cut when `s15WitFloor2` moved
+`λ₋` to `277.2589`.  This twin leaves `K` free so the pin is taken once, at the terminal,
+where the base-scale cap's demand can be read off. -/
+
+/-- `s15w2_lvl_num (:920)` at the relaxed `ρ`-charge `43`. -/
+theorem s15w2_lvl_num' {X Q Y : ℝ} (hX : X ≤ 987 * 10 ^ 8) (hQ : Q ≤ 277) (hY : -Y ≤ 43) :
+    26 + 14 * X + 1 / 3 * Q + -Y ≤ 1 / 12 * 24464133718016 * Real.log 2 := by
+  linarith only [Real.log_two_gt_d9, hX, hQ, hY]
+
+set_option maxHeartbeats 1600000 in
+-- same cause as §GK.8: eleven register lines at `M = 2^355`, the `blk` line carrying
+-- `2^(2K+1542)`-sized casts and the `x0M` line an `exp∘exp` chain
+/-- `s15_sel''_witness_gk` (:1525) at the reachable `δ₀`.  The ONLY changes are the relaxed
+hypothesis `1/2^20 ≤ δ₀` and the `ρ`-charge `43` in the five lines that spend it. -/
+theorem s15_sel''_witness_gk' (Klev : ℕ) (hKle : Klev ≤ 170000000) {Cg δ₀ Ct K : ℝ}
+    {x₀ Mfl : ℕ} {R : ChowlaRegime}
+    (hδ : 0 < δ₀) (hδb : 1 / 2 ^ 20 ≤ δ₀)
+    (hK : 0 < K) (hKb : K ≤ 2 ^ 20)
+    (hCt : 0 < Ct) (hCtb : Ct ≤ 2 ^ 20)
+    (hbfl : 24 * Cg / δ₀ ≤ 2 ^ 355)
+    (hMfl : Mfl ≤ 2 ^ 355)
+    (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp 275))
+    (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
+    (hlo : (2 : ℝ) ^ 400 ≤ Real.log ((R.Hlo : ℕ) : ℝ))
+    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 987 * 10 ^ 8) :
+    S15Sel''_gk Klev Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R (2 ^ 355) := by
+  have hρlog : -Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) ≤ 43 :=
+    s15w_neglog_rho_le' hδ hK hδb hKb
+  have hinv : Real.log (1 / doorRhoOfDelta (s12DeltaSock δ₀ K))
+      = -Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) := by
+    rw [one_div, Real.log_inv]
+  have hlog2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hlog2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  -- ⟦the door row, exactly⟧
+  have hAdR : ((Adoor (2 ^ 355) : ℕ) : ℝ) = 24464133718016 := by
+    rw [s15w2_Adoor]; norm_num
+  have hdrfR : ((doorRowFloor (2 ^ 355) : ℕ) : ℝ) = 356 * 2 ^ 391 := by
+    rw [s15w2_doorRowFloor]; push_cast; ring
+  have hnR : ((Nat.log 2 (2 ^ 355) + 1 : ℕ) : ℝ) = 356 := by
+    rw [Nat.log_pow (by norm_num)]; norm_num
+  refine
+    { hM := Nat.one_le_two_pow
+      mfloor := hMfl
+      bfloor := ?_
+      gRows := ?_
+      x0M := ?_
+      blk := ?_
+      half := ?_
+      rho := ?_
+      anchor := ?_
+      gP1 := ?_
+      lvl := ?_ }
+  · -- ⟦`M`-LOWER 1⟧ the spine's `hMδ`, stated at the window
+    exact_mod_cast hbfl
+  · -- ⟦`M`-LOWER 2⟧ `242·λ₊ ≤ A(M)`
+    rw [hAdR]; linarith [hhi]
+  · -- ⟦RESTORED⟧ `x₀ ≤ 2^{doorRowFloor M}`
+    have h398 : Real.exp 275 ≤ (2 : ℝ) ^ (398 : ℕ) := by
+      have hl : (275 : ℝ) ≤ Real.log ((2 : ℝ) ^ (398 : ℕ)) := by
+        rw [Real.log_pow]; push_cast; linarith
+      calc Real.exp 275 ≤ Real.exp (Real.log ((2 : ℝ) ^ (398 : ℕ))) := Real.exp_le_exp.mpr hl
+        _ = (2 : ℝ) ^ (398 : ℕ) := Real.exp_log (by positivity)
+    have hrow : (2 : ℝ) ^ (398 : ℕ)
+        ≤ ((doorRowFloor (2 ^ 355) : ℕ) : ℝ) * Real.log 2 := by
+      rw [hdrfR]; nlinarith [hlog2lo]
+    have hpowid : ((2 : ℝ) ^ (doorRowFloor (2 ^ 355) : ℕ))
+        = Real.exp (((doorRowFloor (2 ^ 355) : ℕ) : ℝ) * Real.log 2) := by
+      rw [← Real.log_pow]
+      exact (Real.exp_log (by positivity)).symm
+    have hfin : (x₀ : ℝ) ≤ (2 : ℝ) ^ (doorRowFloor (2 ^ 355) : ℕ) := by
+      rw [hpowid]
+      refine le_trans hx0win (Real.exp_le_exp.mpr ?_)
+      linarith [h398, hrow]
+    exact_mod_cast hfin
+  · -- ⟦`M`-UPPER 1⟧ the block ceiling, at the LEVERED exponent `2^(2K+1542)`
+    have hbe : ((s13BlockExp_gk Klev (2 ^ 355) : ℕ) : ℝ) ≤ 2 ^ (2 * Klev + 1542) := by
+      have h := s15w2_blockExp_le_gk Klev
+      have h' : ((s13BlockExp_gk Klev (2 ^ 355) : ℕ) : ℝ)
+          ≤ ((2 ^ (2 * Klev + 1542) : ℕ) : ℝ) := by exact_mod_cast h
+      calc ((s13BlockExp_gk Klev (2 ^ 355) : ℕ) : ℝ) ≤ ((2 ^ (2 * Klev + 1542) : ℕ) : ℝ) := h'
+        _ = 2 ^ (2 * Klev + 1542) := by push_cast; ring
+    have hfl := s15w2_blk_floor_gk Klev hKle heps hlo
+    have hfl' : (2 : ℝ) ^ (2 * Klev + 1541) ≤ ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) := by
+      have h : ((2 ^ (2 * Klev + 1541) : ℕ) : ℝ) ≤ ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) := by
+        exact_mod_cast hfl
+      calc (2 : ℝ) ^ (2 * Klev + 1541) = ((2 ^ (2 * Klev + 1541) : ℕ) : ℝ) := by push_cast; ring
+        _ ≤ _ := h
+    have hdbl : (2 : ℝ) ^ (2 * Klev + 1542) = 2 * (2 : ℝ) ^ (2 * Klev + 1541) := by
+      rw [show 2 * Klev + 1542 = (2 * Klev + 1541) + 1 by omega, pow_succ]; ring
+    have hbig : (2 : ℝ) ^ (1541 : ℕ) ≤ (2 : ℝ) ^ (2 * Klev + 1541) :=
+      pow_le_pow_right₀ (by norm_num) (by omega)
+    have hnum : (1 : ℝ) + 18 * (987 * 10 ^ 8) ≤ (2 : ℝ) ^ (1541 : ℕ) := by norm_num
+    linarith [hbe, hfl', hhi, hdbl, hbig, hnum]
+  · -- ⟦`M`-UPPER 2⟧ the window gate, at the relaxed charge
+    rw [hinv, hdrfR]
+    have h2 : (7 / 10 : ℝ) * (356 * 2 ^ 391) + 3 * 43 ≤ (2 : ℝ) ^ 400 / 2 := by norm_num
+    linarith [h2, hρlog, hlo]
+  · -- the clearing charge
+    linarith [hρlog]
+  · -- ⟦RESTORED⟧ the `ρ`-frame's anchor at `3.9·10^9·(log₂M + 1)`
+    rw [hinv, hnR]
+    linarith [hhi, hρlog]
+  · -- the `𝒯`-leg budget
+    rw [hAdR]
+    have hCtl : Real.log Ct ≤ 20 * Real.log 2 := by
+      have h := Real.log_le_log hCt hCtb
+      rwa [Real.log_pow] at h
+    have hρ' : -(43 : ℝ) ≤ Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) := by
+      linarith [hρlog]
+    nlinarith [hlog2lo, hhi, hCtl, hρ', hlog2hi]
+  · -- the `level1` budget
+    rw [hAdR, s15_log_calQK_one_gk Klev (2 ^ 355), hdrfR]
+    have hQ : Real.log ((356 : ℝ) * 2 ^ 391 * Real.log 2) ≤ 277 := by
+      have hl2 : (0 : ℝ) < Real.log 2 := by linarith only [hlog2lo]
+      have hpos : (0 : ℝ) < 356 * 2 ^ 391 * Real.log 2 := by positivity
+      have hle : (356 : ℝ) * 2 ^ 391 * Real.log 2 ≤ (2 : ℝ) ^ (399 : ℕ) := by
+        linarith only [hlog2hi]
+      have h := Real.log_le_log hpos hle
+      rw [Real.log_pow] at h
+      push_cast at h
+      linarith only [h, hlog2hi]
+    exact s15w2_lvl_num' hhi hQ hρlog
+
+/-- **⟦THE RE-CUT CONDITIONAL, REPAIRED⟧** (`logChowla2_conditional_sharp2_nonvacuous_gk'`) —
+`logChowla2_conditional_sharp2_nonvacuous_gk` (:1638) with the three EPSPIN riders DISCHARGED
+and `K` left free.  ⚠ `hx0win` rides as before: `x₀` is Siegel-ineffective and NO theorem
+discharges it — the field's wall, carried honestly and named. -/
+theorem logChowla2_conditional_sharp2_nonvacuous_gk' (Klev : ℕ) (hKle : Klev ≤ 170000000) :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct : ℝ) (x₀ Hcap Mfl : ℕ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      Cg ≤ 2 * 10 ^ 12 ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧
+      (Kc ≤ 2 ^ 20 → Ct ≤ 2 ^ 20 → (x₀ : ℝ) ≤ Real.exp (Real.exp 275) → Mfl ≤ 2 ^ 355 →
+        Hcap ≤ s15WitFloor2 →
+        ∀ g : ℕ → ℕ → ℕ, ∃ (R : ChowlaRegime) (M : ℕ),
+          R.eps = ε ∧ R.Hlo = s15WitFloor2 ∧ g R.Hhi R.ω ≤ R.x ∧
+          S15Sel''_gk Klev Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ Mfl R M ∧
+          (S15CrossingBound_gk Klev R M → ¬ logChowla2Fails R.eps R.x R.ω)) := by
+  obtain ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl1, hCgle, hεpin,
+    hδpin, hbody⟩ := logChowla2_conditional_sharp2_atK_gk_pinned Klev hKle
+  refine ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl1, hCgle, hεpin,
+    hδpin, ?_⟩
+  intro hKcb hCtb hx0b hMflb hHcap g
+  -- ⟦THE THREE DISCHARGES⟧ the pinned road's own conjuncts, spent
+  have hεb : (1 : ℚ) / 2 ^ 9 ≤ ε := le_trans (by norm_num) hεpin
+  have hδb : (1 : ℝ) / 2 ^ 20 ≤ δ₀ := le_trans (by norm_num) hδpin
+  have hbfl : 24 * Cg / δ₀ ≤ (2 : ℝ) ^ 355 := by
+    rw [div_le_iff₀ hδ₀]
+    have hnum : (24 : ℝ) * Cg ≤ 48 * 10 ^ 12 := by linarith
+    have hkey : (48 : ℝ) * 10 ^ 12 ≤ (2 : ℝ) ^ 355 * (1 / 838400) := by norm_num
+    have hmono : (2 : ℝ) ^ 355 * (1 / 838400) ≤ (2 : ℝ) ^ 355 * δ₀ :=
+      mul_le_mul_of_nonneg_left hδpin (by positivity)
+    linarith
+  have hU : max Hcap (max arcFloor36 loglogFloor50) ≤ s15WitFloor2 := by
+    have h1 := s15WitFloor2_arc
+    have h2 := s15WitFloor2_ll
+    omega
+  obtain ⟨R, hReps, hHlo, hRg, hRtow, hfire⟩ := hbody s15WitFloor2 g hU
+  have hlo : (2 : ℝ) ^ 400 ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
+    rw [hHlo]; exact s15WitFloor2_log_ge
+  have h50 : (50 : ℝ) ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) := by
+    rw [hHlo]; exact s15WitFloor2_loglog_ge
+  have hlam : Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) ≤ 2772589 / 10000 := by
+    rw [hHlo]; exact s15WitFloor2_loglog_le
+  have hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 987 * 10 ^ 8 := by
+    refine le_trans (hRtow h50) ?_
+    exact s15w2_tower_bound (by linarith) hlam
+  have heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps := by rw [hReps]; exact hεb
+  have hwit := s15_sel''_witness_gk' Klev hKle hδ₀ hδb hKc hKcb hCt hCtb hbfl
+    hMflb hx0b heps hlo hhi
+  exact ⟨R, 2 ^ 355, hReps, hHlo, hRg, hwit, hfire (2 ^ 355) hwit⟩
+

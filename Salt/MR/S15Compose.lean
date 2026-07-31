@@ -2741,4 +2741,111 @@ theorem logChowla2_conditional_sharp2_gk :
     logChowla2_conditional_sharp2_atK_gk 500000 (by norm_num)
   exact ⟨500000, ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl, hbody⟩
 
--- #audit (temporary)
+/-! ### §GK.10-PINNED — ⟦REF-REPAIR (b)⟧ THE SAME COMPOSE ON THE PINNED CAPSTONE
+
+`logChowla2_conditional_sharp2_atK_gk` (:2631) with its capstone call redirected to
+`S12ConstCompose.logChowla2_capstone_final_const'_graded_gk_pinned` — the twin that consumes
+`HloExportMR.m4_second_road_L2_hloCap_pinned_gk`.  The proof is BYTE-IDENTICAL; the statement
+gains the three EPSPIN conjuncts at the end of its `∃`-prefix, where the witness page turns
+them into discharges of the `ε`/`δ₀`/`Cg` riders.  PURELY ADDITIVE. -/
+
+set_option maxHeartbeats 1000000 in
+-- Same cause as the landed §GK.10: the twin's residue re-elaborates against the prefix.
+/-- `logChowla2_conditional_sharp2_atK_gk (:2631)` on the pinned road.  ⟦WHAT IS CARRIED⟧
+`S15Sel''_gk K` and `S15CrossingBound_gk K`; ⟦WHAT IS NOW CERTIFIED⟧ `Cg ≤ 2·10^{12}`,
+`1/500 ≤ ε`, `1/838400 ≤ δ₀`. -/
+theorem logChowla2_conditional_sharp2_atK_gk_pinned (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct : ℝ) (x₀ Hcap Mfl : ℕ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      Cg ≤ 2 * 10 ^ 12 ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        max Hcap (max arcFloor36 loglogFloor50) ≤ U1floor →
+        ∃ R : ChowlaRegime, R.eps = ε ∧ R.Hlo = U1floor ∧ g R.Hhi R.ω ≤ R.x ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+          ∀ M : ℕ, S15Sel''_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ Mfl R M →
+            S15CrossingBound_gk K R M → ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, Kc, δ₀, Ct, Cq, cs, T₀, Kq, Ks, x₀, Hcap, Mfl, hCg, hε, hKc, hδ₀, hCt, hCq,
+    hcs, hT₀, hKq, hKs, hMfl, hCgle, hεpin, hδpin, hmain⟩ :=
+    logChowla2_capstone_final_const'_graded_gk_pinned K hK s13Aexp s13Aexp_pos
+  refine ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl,
+    hCgle, hεpin, hδpin, ?_⟩
+  intro U1floor g hU
+  set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
+  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
+  set ρ : ℝ := doorRhoOfDelta δs with hρdef
+  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
+  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
+  obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
+    hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω)
+  have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
+  have hRgg : g R.Hhi R.ω ≤ R.x := by omega
+  -- ⟦THE BASE PIN⟧ `R.Hlo = U1floor`
+  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
+  have hHlo : R.Hlo = U1floor := by
+    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
+    omega
+  have hfl : loglogFloor50 ≤ R.Hlo := by
+    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
+    omega
+  have harcfl : arcFloor36 ≤ R.Hlo := by
+    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
+    omega
+  refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
+  intro M hsel
+  obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
+  intro hcap
+  -- ⟦the two scale floors⟧
+  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
+  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2) := hRtow hlam50
+  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
+    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  -- ⟦the arm, both halves⟧
+  have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
+    le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
+  have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
+  have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
+    intro H hlo hhi
+    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
+    have hreg := hHreg H hlo hhi
+    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
+    linarith
+  -- ⟦ITEM 16⟧ the arithmetic frame family, at the RESTORED anchor
+  have harith := s15_doorArithFrameRho_family'' (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
+    hsel.anchor hHreg hgarm (fun _ => zero_le_one)
+  -- ⟦the `M`-selection system⟧
+  have hS : MSelect'_gk K Cg δ₀ (Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) ρ R M :=
+    s13_MSelect'_of_halfWindow_gk K hfl hsel.bfloor hsel.gRows hsel.half
+      (hsel.head (by linarith))
+  -- ⟦the band register, at the RESTORED `x0_le`⟧
+  have hgate : S13BandGate'_gk K R M x₀ C' (fun _ => 1) :=
+    s15_bandGate''_of_grade_gk K hfl hsel hgrade
+  -- ⟦THE FIRE⟧
+  refine hgo (fun _ => (1 : ℝ)) (s13BandM0 R ρ (fun _ => (1 : ℝ))) (fun _ => (0 : ℝ))
+    (fun _ => theta293 - 1 / 500) 0 (doorCount R.ω)
+    (s13_doorGates_of_MSelect'_gk K hsel.hM hδ₀ hS harmdem)
+    (s13_endpoint_of_arm' hδ₀ harmdem)
+    (s13_g2_jfloor le_rfl (s13_g2_jfloor_of_MSelect'_gk K hsel.hM (by linarith) hS))
+    (s15_gate8_gk K le_rfl (s13_gate8_of_MSelect'_gk K (by linarith) hS))
+    (s13_smallGradeFits_of_MSelect'_gk K hρ0 hρ1 hS)
+    (fun H L q j A s hb => doorBaseFrame_at_socket hb (harith H L q j A s hb))
+    (fun _ _ _ _ _ _ _ => s15_gP1_of_budget_gk K hCt hρ0 hsel.gP1)
+    (fun H L q j A s hb =>
+      s15_gRows_const_at_socket_gk K hfl hb hsel.hM hρ0 hρ1 htow hsel.rho hsel.lvl)
+    (fun H L q j A s hb =>
+      s12c_eps_threshold_at_socket hfl hb hlam50 htow hsel.rho le_rfl)
+    (fun H L q j A s hb => s15_heps293_at_socket hfl hb hρ0 hlam50 htow hsel.rho)
+    (fun H L q j A s hb => s15_hband4096_at_socket hfl hb hρ0 hlam50 htow hsel.rho)
+    (fun _ _ _ _ _ _ _ => ⟨by have := s13_theta293_margin_lo; linarith, le_rfl⟩)
+    (fun H L q j A s hb =>
+      s13_doorRowZeroBase_five_gk K hsel.hM (hgate.block H L q j A s hb) hb.2.2.2.2.2.2.1)
+    hcap
+    (doorBandBase_family'_gk K hsel.hM hρ0 hρ1 (fun _ => le_rfl) hHreg
+      (hgarm R.Hhi R.hHlohi le_rfl) harith hgate)
+    harith
+

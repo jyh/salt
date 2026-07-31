@@ -371,4 +371,3 @@ theorem s11_hband_slot_grade_discharged_gk (K : ℕ) (hMmu : MmuChiRate) :
   obtain ⟨C', hC'pos, hC'le, hbody⟩ := hband M (le_trans hM₀ hM)
   exact ⟨C', hC'pos, habs M hM C' hC'le, hbody⟩
 
--- #audit (temporary)
