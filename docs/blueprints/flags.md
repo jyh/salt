@@ -18069,3 +18069,19 @@ AND the T₀-band err), not one.  HAND ARITHMETIC, NOT KERNEL-CHECKED
 — ⟦ERR-REF dispatched⟧ per the verify posture; the coffee brief
 waits for its verdict.  Build 9629 exit-0 maestro-verified; audit
 tail stripped at the seal.
+
+## (2026-07-30 23:34 PDT) GRADE-RECUT lands first-attempt (+371 across the pair): the graded twin + graded compose -- THE SURVIVOR LIST IS NOW EXACT: S15CrossingBound + S15Sel (+ the one Mfl floor, selection-genre)
+
+S12ConstCompose §5: logChowla2_capstone_final_const'_graded — the
+delta vs §4 exactly TWO statement lines (Mfl in the top block; the
+DELIVERED grade conjunct in the payload); the proof delta 5 lines
+(the graded wire + s11_grade_absorption spent).  S15Compose §8:
+logChowla2_conditional_graded — the naked grade line GONE and the
+whole ∃C' wrapper DELETED (C' appears nowhere in the compose's
+statement); s15_bandGate_of_grade consumed unchanged; hbandbase
+discharged with grade PAID.  Survivors: S15CrossingBound + S15Sel +
+Mfl ≤ M (genre-identical to x0M; folds into S15Sel.mfloor at the
+next Fable-tier re-cut).  S15SupplyGraded replaces the ∀C' wall
+clause with the ℕ-floor.  Axioms 3/3; build 9629 exit-0 maestro-
+verified; audit tails stripped.  ERR-REF is the last agent aloft —
+the coffee brief composes on its verdict.

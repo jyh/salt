@@ -94,7 +94,9 @@ the capstone fires**.
 * §4 `S15Sel`, the `M`-selection register;
 * §5 ⟦THE COMPOSE⟧ `logChowla2_conditional`;
 * §6 the witnessed-scale corollary;
-* §7 the inhabitation certificate (the vacuity fence).
+* §7 the inhabitation certificate (the vacuity fence);
+* §8 ⟦GRADE-RECUT⟧ the same compose at the GRADED twin (`S12ConstCompose` §5): `grade` PAID
+  inside the twin, so the carried list is `S15Sel` + `S15CrossingBound` + one `ℕ`-floor.
 -/
 
 noncomputable section
@@ -1016,7 +1018,155 @@ theorem s15_compose_nonvacuous :
   exact s15_socketBase_inhabited hfl (doorRhoOfDelta_pos (s12DeltaSock_pos hδ₀ hK).ne')
     (doorRhoOfDelta_le_one _) hsel
 
-end Salt.MR
 
-end
+/-! ## §8 — ⟦GRADE-RECUT⟧ THE SAME COMPOSE AT THE GRADED TWIN
+
+`S12ConstCompose` §5 re-cuts the const capstone twin onto the GRADED band wire
+(`S12FuseCompose.m4_fuse_hband_of_bandBase_graded`, `C' ≤ Cb·M^{2.1}` with `Cb` in the top
+constant block), so `S11HoistGrade.s11_grade_absorption` pays `S13BandGate.grade` INSIDE the
+twin at an explicit `M`-floor `Mfl`.  This section fires that twin at §5's working point.
+
+⟦THE DELTA AGAINST §5⟧ the naked `grade` hypothesis
+`8·C' ≤ (log 2·doorRowFloor M)^{2.501}` is GONE from the compose's hypothesis list, and with
+it the whole `∃ C' > 0` payload wrapper — `C'` is now internal to the twin.  In its place the
+`M`-quantifier carries `Mfl ≤ M`, an ordinary `ℕ`-floor against a constant of the top block,
+of the same genre as `S15Sel.x0M` (`x₀ ≤ M`) — when `S15Sel` is next re-cut this is one more
+`M`-LOWER line, `mfloor : Mfl ≤ M`, and the survivor list is then `S15CrossingBound` +
+`S15Sel` alone.  `s15_bandGate_of_grade` is unchanged: it consumes the DELIVERED grade exactly
+as it consumed the assumed one, so the band bundle (`hbandbase`, ledger row 15) is discharged
+with `grade` PAID.  Nothing else moves — ⟦B4⟧'s crossing bound is still the analytic survivor.
+-/
+
+set_option maxHeartbeats 1000000 in
+-- Same cause as §5: the twin's residue re-elaborates against the instantiated prefix.
+/-- **⟦THE CAPSTONE, FIRED AT THE GRADED TWIN⟧** (`logChowla2_conditional_graded`).
+
+§5's `logChowla2_conditional` at `S12ConstCompose.logChowla2_capstone_final_const'_graded`.
+Same instantiation (§A), same fifteen discharges (§B), same base pin.  Two changes and no
+others:
+
+* the `grade` hypothesis `8·C' ≤ (log 2·doorRowFloor M)^{s13Aexp − 1/2 + 1/1000}` is GONE —
+  the twin delivers it — and so is the `∃ C' : ℝ, 0 < C' ∧ …` wrapper it was stated in;
+* the top block gains `Mfl : ℕ` (`1 ≤ Mfl`) and the `M`-quantifier gains `Mfl ≤ M`.
+
+⟦WHAT IS CARRIED⟧ `S15Sel` (§4), `S15CrossingBound` (§4), and the `M`-floor `Mfl ≤ M`.
+Nothing else. -/
+theorem logChowla2_conditional_graded :
+    ∃ (ε : ℚ) (Cg K δ₀ Ct : ℝ) (x₀ Hcap Mfl : ℕ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < K ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        max Hcap (max arcFloor36 loglogFloor50) ≤ U1floor →
+        ∃ R : ChowlaRegime, R.eps = ε ∧ R.Hlo = U1floor ∧ g R.Hhi R.ω ≤ R.x ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+          ∀ M : ℕ, Mfl ≤ M →
+            S15Sel Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ R M →
+              S15CrossingBound R M → ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, K, δ₀, Ct, Cq, cs, T₀, Kq, Ks, x₀, Hcap, Mfl, hCg, hε, hK, hδ₀, hCt, hCq,
+    hcs, hT₀, hKq, hKs, hMfl, hmain⟩ :=
+    logChowla2_capstone_final_const'_graded s13Aexp s13Aexp_pos
+  refine ⟨ε, Cg, K, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hK, hδ₀, hCt, hMfl, ?_⟩
+  intro U1floor g hU
+  set δs : ℝ := s12DeltaSock δ₀ K with hδsdef
+  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hK
+  set ρ : ℝ := doorRhoOfDelta δs with hρdef
+  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
+  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
+  obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
+    hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω)
+  have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
+  have hRgg : g R.Hhi R.ω ≤ R.x := by omega
+  -- ⟦THE BASE PIN⟧ `R.Hlo = U1floor`
+  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
+  have hHlo : R.Hlo = U1floor := by
+    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
+    omega
+  have hfl : loglogFloor50 ≤ R.Hlo := by
+    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
+    omega
+  have harcfl : arcFloor36 ≤ R.Hlo := by
+    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
+    omega
+  refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
+  intro M hMfloor hsel
+  obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hMfloor
+  intro hcap
+  -- ⟦the two scale floors⟧
+  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
+  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2) := hRtow hlam50
+  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
+    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  -- ⟦the arm, both halves⟧
+  have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
+    le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
+  have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
+  have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
+    intro H hlo hhi
+    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
+    have hreg := hHreg H hlo hhi
+    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
+    linarith
+  -- ⟦ITEM 16⟧ the arithmetic frame family
+  have harith := s15_doorArithFrameRho_family (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
+    hsel.anchor hHreg hgarm (fun _ => zero_le_one)
+  -- ⟦the `M`-selection system⟧
+  have hS : MSelect' Cg δ₀ (Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) ρ R M :=
+    s13_MSelect'_of_halfWindow hfl hsel.bfloor hsel.gRows hsel.half
+      (hsel.head (by linarith))
+  -- ⟦the band register, four of five⟧
+  have hgate : S13BandGate R M x₀ C' ρ (fun _ => 1) :=
+    s15_bandGate_of_grade hfl hsel hgrade
+  -- ⟦THE FIRE⟧
+  refine hgo (fun _ => (1 : ℝ)) (s13BandM0 R ρ (fun _ => (1 : ℝ))) (fun _ => (0 : ℝ))
+    (fun _ => theta293 - 1 / 500) 0 (doorCount R.ω)
+    (s13_doorGates_of_MSelect' hsel.hM hδ₀ hS harmdem)
+    (s13_endpoint_of_arm' hδ₀ harmdem)
+    (s13_g2_jfloor le_rfl (s13_g2_jfloor_of_MSelect' hsel.hM (by linarith) hS))
+    (s13_gate8 le_rfl (s13_gate8_of_MSelect' (by linarith) hS))
+    (s13_smallGradeFits_of_MSelect' hρ0 hρ1 hS)
+    (fun H L q j A s hb => doorBaseFrame_at_socket hb (harith H L q j A s hb))
+    (fun _ _ _ _ _ _ _ => s15_gP1_of_budget hCt hρ0 hsel.gP1)
+    (fun H L q j A s hb =>
+      s15_gRows_const_at_socket hfl hb hsel.hM hρ0 hρ1 htow hsel.rho hsel.lvl)
+    (fun H L q j A s hb =>
+      s12c_eps_threshold_at_socket hfl hb hlam50 htow hsel.rho le_rfl)
+    (fun H L q j A s hb => s15_heps293_at_socket hfl hb hρ0 hlam50 htow hsel.rho)
+    (fun H L q j A s hb => s15_hband4096_at_socket hfl hb hρ0 hlam50 htow hsel.rho)
+    (fun _ _ _ _ _ _ _ => ⟨by have := s13_theta293_margin_lo; linarith, le_rfl⟩)
+    (fun H L q j A s hb =>
+      s13_doorRowZeroBase_five hsel.hM (hgate.block H L q j A s hb) hb.2.2.2.2.2.2.1)
+    hcap
+    (doorBandBase_family hsel.hM harith hgate)
+    harith
+
+/-- **⟦THE REGISTER SUPPLY, GRADED⟧** (`S15SupplyGraded`) — §6's `S15Supply` with the `∀ C'`
+clause DELETED and the `M`-floor in its place.  That `∀ C'` was the ⟦B5 `grade`⟧ wall stated
+precisely (a supplier fixing `M` first had to cover whatever `C'` the band wire then produced);
+the graded twin pays it internally, so what remains is the selection register, the crossing
+bound, and one `ℕ`-floor. -/
+def S15SupplyGraded (Cg δ₀ Ct ρ : ℝ) (x₀ Mfl : ℕ) (R : ChowlaRegime) : Prop :=
+  ∃ M : ℕ, Mfl ≤ M ∧ S15Sel Cg δ₀ Ct ρ x₀ R M ∧ S15CrossingBound R M
+
+/-- **⟦THE WITNESSED-SCALE STATEMENT, ON THE GRADED REGISTER⟧**
+(`logChowla2_witnessed_scale_conditional_graded`) — §6's corollary at §8's compose. -/
+theorem logChowla2_witnessed_scale_conditional_graded :
+    ∃ (Cg K δ₀ Ct : ℝ) (x₀ Mfl : ℕ), 1 ≤ Cg ∧ 0 < K ∧ 0 < δ₀ ∧ 0 < Ct ∧
+      ((∀ R : ChowlaRegime,
+          S15SupplyGraded Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R) →
+        LogChowla2WitnessedScale) := by
+  obtain ⟨ε, Cg, K, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hK, hδ₀, hCt, hMfl, hbody⟩ :=
+    logChowla2_conditional_graded
+  refine ⟨Cg, K, δ₀, Ct, x₀, Mfl, hCg, hK, hδ₀, hCt, ?_⟩
+  intro hsup
+  refine logChowla2_witnessed_scale_of_fired ⟨ε, hε, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hHlo, hRg, -, hM⟩ :=
+    hbody (max U1floor (max Hcap (max arcFloor36 loglogFloor50))) g (le_max_right _ _)
+  obtain ⟨M, hMfloor, hsel, hcap⟩ := hsup R
+  exact ⟨R, hReps, by omega, hRg, hM M hMfloor hsel hcap⟩
 
