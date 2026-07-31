@@ -928,30 +928,33 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_end :
 
 The strict/fused door row page at `G := s13GK K M`.
 
-⟦THE ONE STRUCTURAL NOTE⟧  `M4Assembly` carries **no** `§GK` section — it is in none of this
-dispatch's six file groups, and `M4ArithPage`'s and `M4DoorClose`'s `§GK` headers both record
-being blocked on its twins.  Three of its declarations are needed HERE and are minted below
-as ⟦PROVISIONAL⟧ duplicates: `doorCoeffU_gk`, `chiBarCoeff_doorCoeffU_gk`,
-`chiBarCoeff_doorRowDatum_gk`.  Delete them the moment `M4Assembly` grows its own.
+⟦THE ONE STRUCTURAL NOTE — SETTLED, THE THREE MINTS ARE PERMANENT⟧  `M4Assembly` now HAS a
+`§GK` section, and its header rules the collision the other way: `doorCoeffU_gk`,
+`chiBarCoeff_doorCoeffU_gk` and `chiBarCoeff_doorRowDatum_gk` are LEFT HERE and are NOT
+re-declared there, because `M4RowsChiEnd` is a SIBLING of `M4Assembly`, not an ancestor —
+declaring them twice makes the two branches unmergeable at their first common descendant
+(`M4ArithZero` would fail with `environment already contains 'Salt.MR.doorCoeffU_gk'`).  So
+the ⟦PROVISIONAL⟧ tag below is DISCHARGED: these three are the canonical mints.  Moving them
+back into `M4Assembly` is a one-commit maestro decision, not an executor's; nothing
+downstream is missing either way.
 
-⟦BLOCKED, NOT ATTEMPTED⟧ `m4_chiSummedFreeRow_of_doorAssembly_end` (:885).  Its proof is one
-`exact` at `M4Assembly.m4_chiSummedFreeRow_of_doorAssembly`, which needs
-`M4Assembly.DoorFuseFrame_gk` and `M4Assembly.m4_chiFreeRowSq_sum_at_door_gk` — neither
-exists.  (`DoorFuseFrame` moves ONLY through its `gRows` field, `ThmA2.a2RowsSum M Xd`; its
-`gP1` field is level-1 and does not move.  `SocketBase`, `a2DoorGrade` and `m4ChiRowGraded`
-are `G`-FREE and are reused verbatim.) -/
+⟦THE BLOCK IS CLEARED⟧ `m4_chiSummedFreeRow_of_doorAssembly_end` (:885) was banked BLOCKED on
+`M4Assembly.DoorFuseFrame_gk` and `M4Assembly.m4_chiFreeRowSq_sum_at_door_gk`.  Both exist
+now, and the twin is landed in `§GK.wire` below — one `exact`, as predicted.
+(`DoorFuseFrame` moves ONLY through its `gRows` field, `ThmA2.a2RowsSum M Xd`; its `gP1`
+field is level-1 and does not move.  `SocketBase`, `a2DoorGrade` and `m4ChiRowGraded` are
+`G`-FREE and are reused verbatim.) -/
 
-/-- ⟦PROVISIONAL, M4Assembly-SIDE⟧ **THE UNTWISTED DOOR DATUM AT THE G-LEVER**
+/-- ⟦THE CANONICAL M4Assembly-SIDE MINT⟧ **THE UNTWISTED DOOR DATUM AT THE G-LEVER**
 (`doorCoeffU_gk`) — `M4Assembly.doorCoeffU` (:171) at `G := s13GK K M`.
 
-It is minted HERE, not in `M4Assembly`, because that file carries no `§GK` section: it is not
-in this dispatch's six file groups, and three other groups' `§GK` headers already record being
-blocked on it.  Should `M4Assembly` acquire its own `doorCoeffU_gk`, THIS declaration (and the
-two bridges below) are the byte-identical duplicates to delete. -/
+It is minted HERE, not in `M4Assembly`, and `M4Assembly`'s own `§GK` header ratifies that:
+the two files are SIBLINGS, so a second declaration there would collide at their first common
+descendant.  This mint and the two bridges below are the canonical ones. -/
 def doorCoeffU_gk (K M : ℕ) : ℕ → ℂ :=
   memSCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC
 
-/-- ⟦PROVISIONAL, M4Assembly-SIDE⟧ the `χ̄`-twist of the levered untwisted datum IS the
+/-- ⟦THE CANONICAL M4Assembly-SIDE MINT⟧ the `χ̄`-twist of the levered untwisted datum IS the
 levered sieved χ-twisted datum — `M4Assembly.chiBarCoeff_doorCoeffU` (:175). -/
 theorem chiBarCoeff_doorCoeffU_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M : ℕ) :
     chiBarCoeff q χ (doorCoeffU_gk K M) = doorChiCoeff_gk K χ M := by
@@ -961,7 +964,7 @@ theorem chiBarCoeff_doorCoeffU_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter �
   · ring
   · rw [mul_zero]
 
-/-- ⟦PROVISIONAL, M4Assembly-SIDE⟧ **THE BRIDGE AT THE G-LEVER** —
+/-- ⟦THE CANONICAL M4Assembly-SIDE MINT⟧ **THE BRIDGE AT THE G-LEVER** —
 `M4Assembly.chiBarCoeff_doorRowDatum` (:195).  `chiBarCoeff_winCutH` is datum-generic and is
 reused verbatim. -/
 theorem chiBarCoeff_doorRowDatum_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd : ℕ) :
@@ -1151,5 +1154,58 @@ theorem m4_hrowsSlot_at_door_end_gk (K : ℕ) (hK : K ≤ 170000000) :
   simpa only [chiBarCoeff_doorRowDatum_gk] using hslot
 
 -- #audit (temporary)
+
+
+/-! ### §GK.wire — THE BLOCKED ASSEMBLY WIRE, LANDED
+
+⟦THE BLOCK ABOVE IS CLEARED⟧ `M4Assembly` / `M4AssemblyPrime` grew their own `§GK`
+(`DoorFuseFrame_gk`, `DoorFuseFrame_pool'_gk`, `m4_chiFreeRowSq_sum_at_door_gk`,
+`m4_chiSummedFreeRow_of_doorAssembly{,_pool'}_gk`), so the wire below is the landed proof
+with those names substituted.  `hK : K ≤ 1.7·10⁸` is the slot supplier's frame side
+condition, inherited. -/
+
+/-- **⟦ITEM 11⟧ AT THE ASSEMBLY WIRE, AT THE LEVER** —
+`m4_chiSummedFreeRow_of_doorAssembly_end` (:885). -/
+theorem m4_chiSummedFreeRow_of_doorAssembly_end_gk (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
+      ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε : ℕ → ℝ) (RSbig : ℕ → ℕ → ℝ)
+        (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ) (t₁ : ∀ q : ℕ, DirichletCharacter ℂ q → ℝ),
+        1 ≤ M → (∀ i m : ℕ, ‖bU i m‖ ≤ 1) → (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          DoorFuseFrame_gk K M (A + s) j Ct Cp (ε (A + s))) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s → DoorRowEndBase_gk K M (A + s) j cU bU) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) (t₁ q χ))
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (Adoor M) (s13GK K M))
+                        (calQK (Adoor M) (s13GK K M) M) (calH (H1door M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s)))) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q,
+            (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+              ‖dpolyA (winCutH (A + s) (doorChiCoeff_gk K χ M))
+                (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+              ≤ t0BandB (((A + s : ℕ)) : ℝ)
+                  (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (M₀ (A + s))) →
+        (∀ H j A s : ℕ, doorRowFloor M ≤ j →
+          arcDen 12 H * a2DoorGrade_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+              (M₀ (A + s))
+            ≤ RSbig j H) →
+        M4ChiSummedFreeRow_gk K R M (m4ChiRowGraded M RSbig) := by
+  obtain ⟨Ct, Cp, hCt, hCp, hslot⟩ := m4_hrowsSlot_at_door_end_gk K hK
+  refine ⟨Ct, Cp, hCt, hCp, ?_⟩
+  intro R M C₁ M₀ ε RSbig cU bU t₁ hM hb1 hc1 hframe hbase hcap hband henv
+  exact m4_chiSummedFreeRow_of_doorAssembly_gk K (Cs := fun _ => Ct) (Ccc := fun _ => Cp)
+    (C₁ := C₁) (M₀ := M₀) (ε := ε) hM hframe
+    (hslot R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband henv
 
 end Salt.MR

@@ -939,9 +939,9 @@ constant inside `DoorArithFrameRho`.  It is ALPHA-RENAMED to `Kar` so the lever'
 go first.  Those two twins also carry the lever's own side condition `hK : K ≤ 1.7·10⁸`, which
 rides in from `M4SocketFused.m4_socket_discharged_fused_gk`.
 
-⚠ `doorCoeffU_gk` and `chiBarCoeff_doorRowDatum_gk` are `M4RowsChiEnd`'s (its `§GK` marks them
-⟦PROVISIONAL, M4Assembly-SIDE⟧); `M4Assembly`'s own `§GK` records why they are not re-declared
-there. -/
+⚠ `doorCoeffU_gk` and `chiBarCoeff_doorRowDatum_gk` are `M4RowsChiEnd`'s CANONICAL mints (the
+⟦PROVISIONAL⟧ tag is discharged: they stay there, and `M4Assembly`'s own `§GK` records why a
+second declaration on its side would collide). -/
 
 /-- `doorCoeffU_eq` (:117), at the lever. -/
 theorem doorCoeffU_eq_gk (K M : ℕ) :

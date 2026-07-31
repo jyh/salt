@@ -790,9 +790,9 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_pool_zero' :
 The density-free primed door page at `G := s13GK K M`.  `M4RowsChiZero.DoorRowZeroBase_gk`
 and `blockLive_winCutH_doorCoeffU_gk` are reused unchanged.
 
-⟦BLOCKED, NOT ATTEMPTED⟧ `m4_chiSummedFreeRow_of_doorAssembly_pool_zero'` (:744) — one
-`exact` at `M4AssemblyPrime.m4_chiSummedFreeRow_of_doorAssembly_pool'`, which carries no
-`_gk` sibling. -/
+⟦THE BLOCK IS CLEARED⟧ `m4_chiSummedFreeRow_of_doorAssembly_pool_zero'` (:744) was banked
+BLOCKED on `M4AssemblyPrime.m4_chiSummedFreeRow_of_doorAssembly_pool'_gk`, which exists now;
+the twin is landed in `§GK.wire` below — one `exact`, as predicted. -/
 
 /-- **⟦THE `a2Mrow'`-GENRE ROW FAMILY AT THE DOOR, DENSITY-FREE⟧ AT THE
 G-LEVER** (`m4_hrowsSum_chi_door_zero'_gk`).  Frame: `ThmA2.calFrameK_doorH1_at_gk`, whence
@@ -896,5 +896,61 @@ theorem m4_hrowsSlot_at_door_zero'_gk (K : ℕ) (hK : K ≤ 170000000) :
   simpa only [chiBarCoeff_doorRowDatum_gk] using hslot
 
 -- #audit (temporary)
+
+
+/-! ### §GK.wire — THE BLOCKED ASSEMBLY WIRE, LANDED
+
+⟦THE BLOCK ABOVE IS CLEARED⟧ `M4Assembly` / `M4AssemblyPrime` grew their own `§GK`
+(`DoorFuseFrame_gk`, `DoorFuseFrame_pool'_gk`, `m4_chiFreeRowSq_sum_at_door_gk`,
+`m4_chiSummedFreeRow_of_doorAssembly{,_pool'}_gk`), so the wire below is the landed proof
+with those names substituted.  `hK : K ≤ 1.7·10⁸` is the slot supplier's frame side
+condition, inherited. -/
+
+/-- **THE FUSE, DENSITY-FREE, AT THE LEVER** —
+`m4_chiSummedFreeRow_of_doorAssembly_pool_zero'` (:744). -/
+theorem m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_gk (K : ℕ)
+    (hK : K ≤ 170000000) :
+    ∃ Ct : ℝ, 0 < Ct ∧
+      ∀ (Cp : ℝ), 0 < Cp →
+      ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε π₀ : ℕ → ℝ) (RSbig : ℕ → ℕ → ℝ)
+        (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ) (t₁ : ∀ q : ℕ, DirichletCharacter ℂ q → ℝ),
+        1 ≤ M → (∀ i m : ℕ, ‖bU i m‖ ≤ 1) → (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          DoorFuseFrame_pool'_gk K M (A + s) j Ct Cp (ε (A + s)) (π₀ (A + s))) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s → DoorRowZeroBase_gk K M (A + s) j cU bU) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) (t₁ q χ))
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (Adoor M) (s13GK K M))
+                        (calQK (Adoor M) (s13GK K M) M) (calH (H1door M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s)))) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q,
+            (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+              ‖dpolyA (winCutH (A + s) (doorChiCoeff_gk K χ M))
+                (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+              ≤ t0BandB (((A + s : ℕ)) : ℝ) (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s)))
+                  (M₀ (A + s))) →
+        (∀ A : ℕ, 0 ≤ π₀ A) →
+        (∀ H j A s : ℕ, doorRowFloor M ≤ j →
+          arcDen 12 H * a2DoorGrade_pool_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ)
+              (C₁ (A + s)) (M₀ (A + s)) (π₀ (A + s))
+            ≤ RSbig j H) →
+        M4ChiSummedFreeRow_gk K R M (m4ChiRowGraded M RSbig) := by
+  obtain ⟨Ct, hCt, hslot⟩ := m4_hrowsSlot_at_door_zero'_gk K hK
+  refine ⟨Ct, hCt, ?_⟩
+  intro Cp hCp R M C₁ M₀ ε π₀ RSbig cU bU t₁ hM hb1 hc1 hframe hbase hcap hband hpool henv
+  exact m4_chiSummedFreeRow_of_doorAssembly_pool'_gk K (Cs := fun _ => Ct) (Ccc := fun _ => Cp)
+    (C₁ := C₁) (M₀ := M₀) (ε := ε) (π₀ := π₀) hM hframe
+    (hslot Cp hCp.le R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband hpool henv
 
 end Salt.MR

@@ -575,8 +575,8 @@ base rewritten to `s13GK K M`.  `J` stays `2`; `Adoor M` is unchanged.
 ⟦THE §2 TRIO IS NOT RE-DECLARED HERE — CROSS-GROUP COLLISION, RESOLVED IN FAVOUR OF THE
 LANDED COPY⟧  `doorCoeffU_gk` (:171), `chiBarCoeff_doorCoeffU_gk` (:175) and
 `chiBarCoeff_doorRowDatum_gk` (:195) are ALREADY LANDED, byte-identically, in
-`M4RowsChiEnd`'s own `§GK` (its header marks them ⟦PROVISIONAL, M4Assembly-SIDE⟧ and says to
-delete them here if this file ever grows its own).  `M4RowsChiEnd` is a SIBLING of this file,
+`M4RowsChiEnd`'s own `§GK` (whose header now records the ruling below and marks them the
+CANONICAL mints, the ⟦PROVISIONAL⟧ tag discharged).  `M4RowsChiEnd` is a SIBLING of this file,
 not an ancestor, so declaring them a second time makes the two branches unmergeable: the
 first common descendant (`M4ArithZero`) fails with `environment already contains
 'Salt.MR.doorCoeffU_gk'`.  They are therefore left where they are; nothing downstream is

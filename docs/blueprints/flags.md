@@ -18404,3 +18404,32 @@ hardness reported anywhere (missing NAMES, not failed attempts);
 map): S15Sel''_gk + logChowla2_conditional_sharp2_gk + the 2^355
 witness twin.  ⟦GK-7 dispatched — the residue wave⟧.  Then
 COMPOSE #3 stands at the door with the lever in hand.
+
+## () GK-7 lands 34/34, RESIDUE ZERO -- the G-lever campaign COMPLETE (~524 twins); the sharp2 terminal at K=500000 in kernel (ONE survivor: S15CrossingBound_gk; + hx0win the Siegel wall) -- COMPOSE-3 fires: the crossing-bound supply at the levered base
+
+WAVE A 4/4 (the root; the one non-mechanical step banked: the
+lever SHRINKS a2RowsSum — the gk gate is the stronger direction,
+linarith closes).  WAVE B 21/21 (the Klev binder-shadow convention
+at the inner-K files; the ChiEnd provisionals CANONICALIZED).
+WAVE C 9/9: S15Sel''_gk + logChowla2_conditional_sharp2_gk +
+**logChowla2_conditional_sharp2_nonvacuous_gk** — K = 500000 in the
+∃-prefix, M = 2^355 STANDS (the levered block exponent 2^{2K+1542}
+costs 6.9e5 of log H₋ against the 2^400 floor — 115 ORDERS; the
+binding line stays anchor/lvl at 0.48%); hypothesis set = eight
+numeral bounds + hx0win (Siegel, named, undischargeable) + the ONE
+survivor S15CrossingBound_gk K R M.  The G-FREE '' frame family
+correctly NOT twinned (byte-duplicates; the kernel consumes the
+landed forms).  Build 9634 exit-0 maestro-verified; 34/34 axioms.
+⟦MAESTRO NOTE⟧ M4ArithRho's private doorGradeGated_bridge_gk is now
+a duplicate — left in place, removal deferred to a cleanup pass.
+
+⟦COMPOSE-3 dispatched — THE LAST SUPPLY⟧ at K = 500000 the width
+demand CLOSES (probe_G_lever_ceiling), so the one never-built field
+becomes buildable: W-BUDGET_gk (the budget-field supplier at the
+levered 𝒫₂, ~180 ln per CAPGATE-SCOPE) + the levered cap chain
+(CapGate_gk supply → doorCapBundle_family_perBlock_gk →
+m4_fuse_hcap_of_capWS_gk at εr = θ₂₉₃ − 1/500, abs8640 via the
+reserve, the 4320× dissolved at positive εr) → S15CrossingBound_gk
+DISCHARGED.  The honest survivors after: hx0win (Siegel) + the
+shelved Rbd_grade/Cq_gate supplier hypotheses (ruling 9's debt,
+discharge-with-intent).  THE PEARL'S LAST WIRE.

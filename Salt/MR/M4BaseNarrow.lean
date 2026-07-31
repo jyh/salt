@@ -1246,11 +1246,10 @@ dilation gate read at `calP (Adoor M) (s13GK K M) 1` — which is the LANDED lev
 
 ⟦WHAT IS NOT HERE, AND WHY⟧
 
-* `m4_rowDatum_dilated` (:907) — BLOCKED, not attempted.  It composes
-  `M4T0Discharge.doorRowCarried_of_t0free` with `M4DoorClose.m4_door_meansq_carried`, and
-  NEITHER carries a `_gk` sibling (the same gap `M4DoorClose`'s own §GK flags: the
-  `M4DoorRow` / `M4T0Datum` / `M4Puncture` door-row suppliers are untwinned).  The rewrite
-  is mechanical once those land; nothing here is a numeral question.
+* `m4_rowDatum_dilated` (:907) — banked BLOCKED on `M4T0Discharge.doorRowCarried_of_t0free`
+  and `M4DoorClose.m4_door_meansq_carried`, neither of which carried a `_gk` sibling.  Both
+  do now, and the twin is landed in `§GK.dilated` below — the mechanical rewrite that note
+  promised, no numeral in question.
 * `narrow_dilate` (:864), `arcDen_le_arcDen_Hhi` (:1016), `m4_modulusCap_discharged`
   (:1046) — these read NO door object, so they keep their landed names: a twin would carry
   an unused `K`.
@@ -1937,6 +1936,124 @@ theorem m4_coprimeNN_supplied_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {MS : �
   exact m4_coprimeBlock_at_gk K (R := R) hlo hLH hnar hq hcop hA hfit (hMSan0 H) (hMStr0 H)
     (fun j hj => han j H hj) (hG1 H hlo hhi) (hG2 H hlo hhi) (harc8 H hlo hhi)
     (fun χ => m4_rowDatumAt_of_freeRowN_gk K hrow hlo hhi hLH hq hqQ χ hA hΦ)
+
+
+/-! ### §GK.dilated — THE BLOCKED COMPOSITION, LANDED
+
+⟦THE BLOCK ABOVE IS CLEARED⟧ both suppliers now exist:
+`M4T0Discharge.doorRowCarried_of_t0free_gk` and `M4DoorClose.m4_door_meansq_carried_gk`.
+The twin below is the landed proof with `DoorRowCarriedT0_gk` / `DoorRowCarried_gk` /
+`doorChiCoeff_gk` / `M4RowDatumAt_gk` substituted; `hK : K ≤ 1.7·10⁸` is
+`m4_meansq_per_chi_gen_gk`'s frame side condition, inherited. -/
+
+/-- **THE ROW DATUM AT EVERY DILATED BASE, AT THE LEVER** — `m4_rowDatum_dilated`
+(:907). -/
+theorem m4_rowDatum_dilated_gk (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ)
+        (Kbox X₀w : ℕ → ℝ),
+      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
+      0 < Xsk ∧ (∀ Qm : ℕ, 0 ≤ Kcf Qm) ∧ 0 < Ctail ∧ (∀ Qm : ℕ, 0 ≤ Kbox Qm) ∧
+      (∀ Qm : ℕ, 0 < X₀w Qm) ∧
+      ∀ (R : ChowlaRegime) (Qm M k : ℕ) (MS : ℕ → ℕ → ℝ), 1 ≤ M →
+        (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ (Qm : ℝ)) →
+        (∀ j H : ℕ, j < doorRowFloor M → 4 ≤ MS j H) →
+        (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ)) →
+        (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+          ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H,
+            doorRowFloor M ≤ j → ∀ d : ℕ, 0 < d → (d : ℝ) ≤ arcDen 12 H →
+              ∀ s ≤ H / d + 1,
+                DoorRowCarriedT0_gk K (Kbox Qm) (X₀w Qm) Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk
+                    (Kcf Qm) Ctail χ M
+                  (doorLadder R.x H (i + 1) / d - 1 + s) j (MS j H)) →
+          (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+            ∀ i < k, ∀ χ : DirichletCharacter ℂ q,
+              M4RowDatumAt_gk K M MS H H χ (doorLadder R.x H (i + 1)))
+            ∧ (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ d : ℕ, 2 ≤ d →
+                (d : ℝ) ≤ arcDen 12 H →
+                  M4RowDatumAt_gk K M MS H (H / d + 1) χ
+                    (doorLadder R.x H (i + 1) / d - 1)) := by
+  -- ⟦THE SKOLEM CUT⟧ the `T₀`-bridge's two constants, as functions of the modulus range
+  choose Kbox X₀w hK0 hX₀0 hbridge using doorRowCarried_of_t0free_gk K
+  obtain ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
+    hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hmeansq⟩ :=
+    m4_door_meansq_carried_gk K hK
+  refine ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, Kbox, X₀w,
+    hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hK0, hX₀0, ?_⟩
+  intro R Qm M k MS hM hQm htriv harc hcarT0
+  -- ⟦the carried form, at every dilated base⟧
+  have hcar : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+      ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H, doorRowFloor M ≤ j →
+        ∀ d : ℕ, 0 < d → (d : ℝ) ≤ arcDen 12 H → ∀ s ≤ H / d + 1,
+          DoorRowCarried_gk K Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk (Kcf Qm) Ctail χ M
+            (doorLadder R.x H (i + 1) / d - 1 + s) j (MS j H) := by
+    intro H hlo hhi q hq hqQ i hik χ j hjH hj0 d hd hdA s hsL
+    haveI : NeZero q := ⟨by omega⟩
+    have hqQm : q ≤ Qm := by
+      have hRq : (q : ℝ) ≤ (Qm : ℝ) := le_trans hqQ (hQm H hlo hhi)
+      exact_mod_cast hRq
+    exact hbridge Qm Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk (Kcf Qm) Ctail q χ M
+      (doorLadder R.x H (i + 1) / d - 1 + s) j (MS j H) hqQm
+      (hcarT0 H hlo hhi q hq hqQ i hik χ j hjH hj0 d hd hdA s hsL)
+  -- ⟦the mean square at every dilated base and every dyadic length⟧
+  have hms : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+      ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H,
+        ∀ d : ℕ, 0 < d → (d : ℝ) ≤ arcDen 12 H → ∀ s ≤ H / d + 1,
+          1 / ((doorLadder R.x H (i + 1) / d - 1 + s : ℕ) : ℝ)
+              * (∫ y in ((doorLadder R.x H (i + 1) / d - 1 + s : ℕ) : ℝ)..(2
+                    * ((doorLadder R.x H (i + 1) / d - 1 + s : ℕ) : ℝ)),
+                  ‖((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
+                      * shortSum (doorChiCoeff_gk K χ M)
+                          (seamS0 (2 * (doorLadder R.x H (i + 1) / d - 1 + s))
+                            ((doorLadder R.x H (i + 1) / d - 1 + s : ℕ) : ℝ)) y
+                          ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
+            ≤ MS j H := by
+    intro H hlo hhi q hq hqQ i hik χ j hjH d hd hdA s hsL
+    -- ⟦the dilated base is positive: `2d ≤ H < X_{i+1}` forces `⌊X_{i+1}/d⌋ ≥ 2`⟧
+    have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+    have hAfl : H + 1 ≤ doorLadder R.x H (i + 1) := doorLadder_floor hxH (i + 1)
+    have h2d : 2 * d ≤ H := by
+      have hR : ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) := by
+        push_cast
+        have := harc H hlo hhi
+        linarith
+      exact_mod_cast hR
+    have hA2 : 2 ≤ doorLadder R.x H (i + 1) / d :=
+      (Nat.le_div_iff_mul_le hd).mpr (by omega)
+    have hXpos : 0 < doorLadder R.x H (i + 1) / d - 1 + s := by omega
+    by_cases hcase : doorRowFloor M ≤ j
+    · have hqQm : q ≤ Qm := by
+        have hRq : (q : ℝ) ≤ (Qm : ℝ) := le_trans hqQ (hQm H hlo hhi)
+        exact_mod_cast hRq
+      exact hmeansq Qm q χ hq hqQm M (doorLadder R.x H (i + 1) / d - 1 + s) j (MS j H) hM
+        hcase
+        (hcar H hlo hhi q hq hqQ i hik χ j hjH hcase d hd hdA s hsL)
+    · exact le_trans (doorRow_trivial_grade_gk K χ M j hXpos) (htriv j H (not_le.mp hcase))
+  constructor
+  · -- ⟦the ladder bases: the `d = 1` instance at the shift `s + 1`⟧
+    intro H hlo hhi q hq hqQ i hik χ j hjL s hsL
+    have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+    have hAfl : H + 1 ≤ doorLadder R.x H (i + 1) := doorLadder_floor hxH (i + 1)
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    have hd1 : ((1 : ℕ) : ℝ) ≤ arcDen 12 H := by push_cast; linarith
+    have heq : doorLadder R.x H (i + 1) / 1 - 1 + (s + 1) = doorLadder R.x H (i + 1) + s := by
+      rw [Nat.div_one]; omega
+    have h := hms H hlo hhi q hq hqQ i hik χ j hjL 1 (by norm_num) hd1 (s + 1)
+      (by rw [Nat.div_one]; omega)
+    rwa [heq] at h
+  · -- ⟦the dilated bases⟧
+    intro H hlo hhi q hq hqQ i hik χ d hd2 hdA j hjL s hsL
+    have hH2 : H / d + 1 ≤ H := by
+      have h2d : 2 * d ≤ H := by
+        have hR : ((2 * d : ℕ) : ℝ) ≤ (H : ℝ) := by
+          push_cast
+          have := harc H hlo hhi
+          linarith
+        exact_mod_cast hR
+      have hstep : H / d ≤ H / 2 := Nat.div_le_div_left hd2 (by norm_num)
+      omega
+    exact hms H hlo hhi q hq hqQ i hik χ j (le_trans hjL (Nat.log_mono_right hH2)) d
+      (by omega) hdA s hsL
 
 end Salt.MR
 

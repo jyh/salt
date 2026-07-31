@@ -598,7 +598,7 @@ theorem m4_register_forces_endpoint_interval
   have hz := doorRowCarriedT0_endpoint hreg
   simpa using hz
 
-/-! ## §GK — the G-lever twin (BLOCKED, no declarations)
+/-! ## §GK — the G-lever twin
 
 Both of this file's `G`-reading declarations — `doorRowCarriedT0_endpoint` (:563) and
 `m4_register_forces_endpoint_interval` (:578) — are stated at
@@ -607,11 +607,45 @@ datum side has its twin (`doorChiCoeff_gk`, `M4WaveClosed` §GK); the REGISTER s
 `DoorRowCarriedT0` lives in `M4T0Discharge`, a file owned by another group, and carries no
 `_gk` sibling yet.
 
-So `doorRowCarriedT0_endpoint_gk` and `m4_register_forces_endpoint_interval_gk` cannot even
-be STATED here.  They are flagged, not attempted; both proofs are pure projection/α-transport
-and will transfer byte-for-byte once `DoorRowCarriedT0_gk` lands.
+⟦THE BLOCK IS CLEARED⟧ `M4T0Discharge.DoorRowCarriedT0_gk` landed, so both twins can now be
+stated — and their proofs did transfer byte-for-byte, exactly as this note predicted. -/
 
--- #audit (temporary)
--/
+
+/-- **THE REGISTER PINS THE ENDPOINT, AT THE LEVER** — `doorRowCarriedT0_endpoint`
+(:563). -/
+theorem doorRowCarriedT0_endpoint_gk (K : ℕ) {Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ}
+    {q : ℕ} {χ : DirichletCharacter ℂ q} {M Xd j : ℕ} {B : ℝ}
+    (hreg : DoorRowCarriedT0_gk K Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M Xd j B) :
+    doorChiCoeff_gk K χ M Xd = 0 := by
+  obtain ⟨P, Q, Ddis, Mt, kk, Dd, Xa, X, hwin, δ', V, VJ, L, Cb, kmin, Ymax, εw, Xw, cqS,
+    cgS, cW, SW, Rbar0, Dmask, hc⟩ := hreg
+  repeat (first | exact hc.1 | replace hc := hc.2)
+
+/-- **THE REGISTER FORCES THE WHOLE INTERVAL, AT THE LEVER** —
+`m4_register_forces_endpoint_interval` (:578). -/
+theorem m4_register_forces_endpoint_interval_gk (K : ℕ)
+    {R : ChowlaRegime} {M k : ℕ} {MS : ℕ → ℕ → ℝ}
+    {Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ}
+    (hcar : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+      ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H,
+        doorRowFloor M ≤ j → ∀ d : ℕ, 0 < d → (d : ℝ) ≤ arcDen 12 H →
+          ∀ s ≤ H / d + 1,
+            DoorRowCarriedT0_gk K Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
+              (doorLadder R.x H (i + 1) / d - 1 + s) j (MS j H))
+    {H : ℕ} (hlo : R.Hlo ≤ H) (hhi : H ≤ R.Hhi) {q : ℕ} (hq : 0 < q)
+    (hqQ : (q : ℝ) ≤ arcDen 12 H) (χ : DirichletCharacter ℂ q) {i : ℕ} (hik : i < k)
+    {j : ℕ} (hjL : j ≤ Nat.log 2 H) (hj0 : doorRowFloor M ≤ j) :
+    ∀ s ≤ H + 1, doorChiCoeff_gk K χ M (doorLadder R.x H (i + 1) - 1 + s) = 0 := by
+  intro s hs
+  have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hd1 : ((1 : ℕ) : ℝ) ≤ arcDen 12 H := by
+    have : (1 : ℝ) ≤ arcDen 12 H := le_trans hq1 hqQ
+    simpa using this
+  have hreg := hcar H hlo hhi q hq hqQ i hik χ j hjL hj0 1 (by norm_num) hd1 s
+    (by simpa using hs)
+  have hz := doorRowCarriedT0_endpoint_gk K hreg
+  simpa using hz
 
 end Salt.MR
+
+-- #audit (temporary)

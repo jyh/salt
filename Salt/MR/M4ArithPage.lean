@@ -996,11 +996,12 @@ declared in this file:
   so it moves; with it moves `M4Assembly.m4_chiFreeRowSq_sum_at_door`.
 
 Consequently `m4_chiSummedFreeRowBig_of_doorGradeGated`, `m4_chiSummedFreeRow_of_doorArith`
-and `m4_arith_door_exit` DO need `_gk` twins, but each of them is BLOCKED on twins owned by
+and `m4_arith_door_exit` DO need `_gk` twins.  They were banked BLOCKED on twins owned by
 other files (`doorChiCoeff_gk`, `chiFreeRowSq_gk`, `M4ChiSummedFreeRow{,Big}_gk`,
-`DoorFuseFrame_gk`, `m4_chiFreeRowSq_sum_at_door_gk`).  Their proofs are otherwise the landed
-ones verbatim — `ThmA2.a2Mrow_gk` (this group) is the only moved object they read here — so
-they are one-line rewires once those land. -/
+`DoorFuseFrame_gk`, `m4_chiFreeRowSq_sum_at_door_gk`); ALL of those are landed now, and the
+three twins are landed below in `§GK.socket` — one-line rewires, exactly as predicted.  Their
+proofs are otherwise the landed ones verbatim; `ThmA2.a2Mrow_gk` is the only moved object
+they read here. -/
 
 /-- **`P₁` AT THE LEVER IS THE SAME NUMERAL** — `calP_door_one` re-read at `s13GK K M`. -/
 theorem calP_door_one_at_lever (K M : ℕ) : calP (Adoor M) (s13GK K M) 1 = 2 ^ Adoor M := by
@@ -1011,6 +1012,123 @@ theorem calQK_door_one_at_lever (K M : ℕ) :
     calQK (Adoor M) (s13GK K M) M 1 = 2 ^ (M * Adoor M) := by
   rw [calQK, calE_gk_one]
   norm_num
+
+/-! ### §GK.socket — THE THREE MOVED WIRES, LANDED
+
+⟦THE BLOCK ABOVE IS CLEARED⟧ every twin the note names is landed: `doorChiCoeff_gk`
+(`M4WaveClosed`), `chiFreeRowSq_gk` / `M4ChiSummedFreeRow_gk` (`M4ChiSummed`),
+`M4ChiSummedFreeRowBig_gk` / `m4_chiSummedFreeRow_of_big_gk` (`M4ChiSocketWire`),
+`DoorFuseFrame_gk` / `m4_chiFreeRowSq_sum_at_door_gk` / `a2DoorGrade_gk` (`M4Assembly`) and
+`a2Mrow_gk` (`ThmA2`).  The three wires below are the landed proofs with those names
+substituted; nothing else moves.
+
+⟦THE BINDER IS `Klev`, NOT `K` — A FORCED DEVIATION⟧ two of the three statements already
+bind `{K : ℝ}` (⟦C3⟧'s symbolic margined-floor constant, inside `DoorArithFrame`).  The
+lever's binder is therefore named `Klev` throughout this section so the shadow cannot bite;
+it is still the FIRST explicit binder, and every consumer passes it positionally.  The
+`a2DoorGrade_gk`/`a2DoorGrade` pair is definitionally equal (`a2DoorGrade_gk_eq` is `rfl`),
+which is why the `G`-free `m4_arith_henv` still plugs into the levered gated socket. -/
+
+/-- **⟦THE GATED SOCKET⟧ AT THE LEVER** — `m4_chiSummedFreeRowBig_of_doorGradeGated`
+(:662). -/
+theorem m4_chiSummedFreeRowBig_of_doorGradeGated_gk (Klev : ℕ) {R : ChowlaRegime} {M : ℕ}
+    {C₁ M₀ : ℕ → ℝ}
+    {RSbig : ℕ → ℕ → ℝ}
+    (hgrade : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq_gk Klev χ M j (A + s)
+        ≤ (q.totient : ℝ)
+            * a2DoorGrade_gk Klev M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s)) (M₀ (A + s)))
+    (henv : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      arcDen 12 H * a2DoorGrade_gk Klev M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+          (M₀ (A + s))
+        ≤ RSbig j H) :
+    M4ChiSummedFreeRowBig_gk Klev R M RSbig := by
+  intro H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx hAcap s hsL
+  have hb : SocketBase R M H L q j A s :=
+    ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩
+  have hh1 : (1 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) := by
+    exact_mod_cast (Nat.one_le_two_pow : 1 ≤ 2 ^ j)
+  have hh0 : (0 : ℝ) < ((2 ^ j : ℕ) : ℝ) := by linarith
+  have hG0 : 0 ≤ a2DoorGrade_gk Klev M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+      (M₀ (A + s)) := a2DoorGrade_nonneg_gk Klev M (log_natCast_nonneg' (A + s)) hh0
+  have hφq : (q.totient : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.totient_le q
+  have hφarc : (q.totient : ℝ) ≤ arcDen 12 H := le_trans hφq hqQ
+  refine le_trans (hgrade H L q j A s hb) ?_
+  refine le_trans (mul_le_mul_of_nonneg_right hφarc hG0) ?_
+  exact henv H L q j A s hb
+
+/-- **⟦ITEM 11⟧ AT THE LEVER** — `m4_chiSummedFreeRow_of_doorArith` (:768). -/
+theorem m4_chiSummedFreeRow_of_doorArith_gk (Klev : ℕ) {R : ChowlaRegime} {M : ℕ}
+    {Cs Ccc C₁ M₀ ε : ℕ → ℝ} {K : ℝ}
+    (hM : 1 ≤ M)
+    (hframe : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorFuseFrame_gk Klev M (A + s) j (Cs (A + s)) (Ccc (A + s)) (ε (A + s)))
+    (hrows : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+        (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+        TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+        (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) / T
+            * (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk Klev χ M)) t‖ ^ 2)
+          ≤ a2Mrow_gk Klev (Cs (A + s)) (Ccc (A + s)) M (A + s) (((A + s : ℕ)) : ℝ) (ε (A + s)))
+    (hband : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∀ χ : DirichletCharacter ℂ q,
+        (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+          ‖dpolyA (winCutH (A + s) (doorChiCoeff_gk Klev χ M))
+            (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+          ≤ t0BandB (((A + s : ℕ)) : ℝ) (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (M₀ (A + s)))
+    (harith : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorArithFrame M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) K) :
+    M4ChiSummedFreeRow_gk Klev R M (m4ChiRowGraded M (fun _ H => RSanDoor H)) := by
+  refine m4_chiSummedFreeRow_of_big_gk Klev
+    (m4_chiSummedFreeRowBig_of_doorGradeGated_gk Klev (C₁ := C₁) (M₀ := M₀) ?_
+      (m4_arith_henv harith))
+  intro H L q j A s hb
+  obtain ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩ := hb
+  haveI : NeZero q := ⟨hq.ne'⟩
+  have hbb : SocketBase R M H L q j A s :=
+    ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩
+  have hF := hframe H L q j A s hbb
+  exact m4_chiFreeRowSq_sum_at_door_gk Klev hM hF.X_exp hF.X_three hF.h_four hF.h_window hF.tann
+    hF.ceil5 (hrows H L q j A s hbb) (hband H L q j A s hbb) hF.gP1 hF.gRows
+    ⟨hF.eps_lo, hF.eps_hi⟩ hF.L4096
+
+/-- **THE ARITHMETIC PAGE'S EXIT AT THE LEVER** — `m4_arith_door_exit` (:936). -/
+theorem m4_arith_door_exit_gk (Klev : ℕ) {R : ChowlaRegime} {M : ℕ}
+    {Cs Ccc C₁ M₀ ε : ℕ → ℝ} {K δ₀ : ℝ}
+    (hM : 1 ≤ M) (hδ₀ : 2 / 10 ^ 49 ≤ δ₀)
+    (hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)))
+    (hframe : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorFuseFrame_gk Klev M (A + s) j (Cs (A + s)) (Ccc (A + s)) (ε (A + s)))
+    (hrows : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+        (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+        TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+        (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) / T
+            * (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk Klev χ M)) t‖ ^ 2)
+          ≤ a2Mrow_gk Klev (Cs (A + s)) (Ccc (A + s)) M (A + s) (((A + s : ℕ)) : ℝ) (ε (A + s)))
+    (hband : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∀ χ : DirichletCharacter ℂ q,
+        (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+          ‖dpolyA (winCutH (A + s) (doorChiCoeff_gk Klev χ M))
+            (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+          ≤ t0BandB (((A + s : ℕ)) : ℝ) (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (M₀ (A + s)))
+    (harith : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorArithFrame M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) K) :
+    M4ChiSummedFreeRow_gk Klev R M (m4ChiRowGraded M (fun _ H => RSanDoor H))
+      ∧ (∀ j H : ℕ, doorRowFloor M ≤ j →
+          m4ChiRowGraded M (fun _ H => RSanDoor H) j H ≤ RSanDoor H)
+      ∧ (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+          96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 * (108 / 5 * RSanDoor H)
+            ≤ δ₀ ^ 2) := by
+  refine ⟨m4_chiSummedFreeRow_of_doorArith_gk Klev hM hframe hrows hband harith,
+    m4_arith_gate4 M, ?_⟩
+  intro H hlo hhi
+  obtain ⟨hL0, hlam⟩ := hHreg H hlo hhi
+  exact m4_arith_rs_ceiling_met hδ₀ hL0 hlam
+
 
 -- #audit (temporary)
 

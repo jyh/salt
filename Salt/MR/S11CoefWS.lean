@@ -116,9 +116,9 @@ theorem norm_doorPunctCoeffU_le_one (M i n : ℕ) :
 
 /-! ## §GK — the G-lever twin
 
-The S11 `coefWS` witness at `G := s13GK K M`.  `doorCoeffU_gk` is `M4RowsChiEnd`'s
-⟦PROVISIONAL⟧ mint (see that file's `§GK`); `memSCoeff_seamCoefWS_punct_gen_U` above is
-`G`-FREE and is reused verbatim. -/
+The S11 `coefWS` witness at `G := s13GK K M`.  `doorCoeffU_gk` is `M4RowsChiEnd`'s CANONICAL
+mint on `M4Assembly`'s behalf (see that file's `§GK`; the ⟦PROVISIONAL⟧ tag is discharged);
+`memSCoeff_seamCoefWS_punct_gen_U` above is `G`-FREE and is reused verbatim. -/
 
 /-- **`hcoefBand` AT THE DOOR, UNTWISTED AND STRICT, AT THE G-LEVER**
 (`doorCoeffU_seamCoefWS_punct_H_gk`).  `memSCoeff_seamCoefWS_punct_gen_U` is `(Pseq, Qseq)`-

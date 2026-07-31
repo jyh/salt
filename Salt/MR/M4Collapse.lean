@@ -323,26 +323,158 @@ theorem doorLadder_pow_lower (x H i : ℕ) : x / 2 ^ i ≤ doorLadder x H i := b
       rw [doorLadder_succ, hdiv]
       omega
 
-/-! ## §GK — the G-lever twin (BLOCKED, no declarations)
+/-! ## §GK — the G-lever twin
 
-Both of this file's exits — `m4_wave_closed_coprime_discharged` (:158) and
-`m4_wave_closed_coprime_discharged_False` (:254) — compose five suppliers that live in files
-owned by other groups and that carry no `_gk` sibling yet:
+⟦THE BLOCK IS CLEARED⟧ this section was banked BLOCKED: both exits compose five suppliers
+owned by other files, and none carried a `_gk` sibling.  All five now do —
+`M4T0Discharge`'s `DoorRowCarriedT0_gk` / `doorRowCarried_of_t0free_gk`, `M4DoorClose`'s
+`m4_dyadicRow_carried_gk`, `M4Maximal`'s `m4_wave_closed_of_dyadicRow_gk`,
+`M4CoprimeSupply`'s `M4ChiFreeRowMeanSq_gk` / `m4_coprimeN_supplied_gk` and
+`M4NonCoprime`'s `M4CoprimeBlockMeanSqN_gk` / `m4_nonCoprime_classMeanSq_N_gk` — so the two
+twins below are the landed proofs with those names substituted.
 
-* `M4T0Discharge`: `DoorRowCarriedT0`, `doorRowCarried_of_t0free`;
-* `M4DoorClose`: `m4_dyadicRow_carried` (itself blocked — see that file's `§GK` note);
-* `M4Maximal`: `m4_wave_closed_of_dyadicRow`;
-* `M4CoprimeSupply`: `M4ChiFreeRowMeanSq`, `m4_coprimeN_supplied`;
-* `M4NonCoprime`: `M4CoprimeBlockMeanSqN`, `m4_nonCoprime_classMeanSq_N`.
-
-Each reads the door datum at the LANDED base, so the two twins here are blocked on their
-`_gk` siblings, not on any numeral.  The only literal this file reads directly is
+The only literal this file reads directly is
 `arcDen 12 H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)` — LEVEL 1, hence K-INVARIANT
-(`GLever.calP_gk_one_eq`): that gate transports, it does not move.
+(`GLever.calP_gk_one_eq`); it is written at `s13GK K M` for uniformity with
+`m4_nonCoprime_classMeanSq_N_gk`'s slot, which is the SAME symbol.  `hK : K ≤ 1.7·10⁸` is
+`m4_meansq_per_chi_gen_gk`'s frame side condition, inherited through `M4DoorClose`. -/
 
--- #audit (temporary)
--/
+
+/-- **THE M4 WAVE, BOTH ARMS DISCHARGED, AT THE LEVER** — `m4_wave_closed_coprime_discharged`
+(:158). -/
+theorem m4_wave_closed_coprime_discharged_gk (K : ℕ) (hK : K ≤ 170000000) (Qm : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail Kbox X₀w : ℝ),
+      1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
+      0 < Xsk ∧ 0 ≤ Kcf ∧ 0 < Ctail ∧ 0 ≤ Kbox ∧ 0 < X₀w ∧
+      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (MS : ℕ → ℕ → ℝ) (MSan MStr : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ → 1 ≤ M →
+            (∀ H : ℕ, 0 ≤ MSan H) → (∀ H : ℕ, 0 ≤ MStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ j H : ℕ, doorRowFloor M ≤ j → MS j H ≤ MSan H) →
+            (∀ j H : ℕ, j < doorRowFloor M → MS j H ≤ MStr H) →
+            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
+                  * ((q : ℝ) ^ 2 * (3 * m4BclGraded (doorRowFloor M)
+                      (fun H => 2 * MSan H) (fun H => 2 * MStr H) H)) ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              Real.sqrt (Braw H) ≤ mrtDeliveredGrade (C / 2) H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ mrtDeliveredGrade (C / 2) H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ (Qm : ℝ)) →
+            (∀ j H : ℕ, j < doorRowFloor M → 4 ≤ MS j H) →
+            -- ⟦ARM 1 DISCHARGED: the T₀-free per-instance register⟧
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H,
+                doorRowFloor M ≤ j → ∀ s ≤ H,
+                  DoorRowCarriedT0_gk K Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
+                    (doorLadder R.x H (i + 1) + s) j (MS j H)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              arcDen 12 H < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ)) →
+            -- ⟦the regime fact⟧ (subsumes the line above)
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ≤ (H : ℝ)) →
+            -- ⟦G1⟧ the trivial envelope dominates the arc denominator
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ^ 2 ≤ MStr H) →
+            -- ⟦G2⟧ the slack-`4` residue against the floor's own constant
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              44 * MSan H + 87 ≤ (4 / 3 : ℝ) ^ doorRowFloor M) →
+            -- ⟦ARM 2 DISCHARGED: the free-base row datum is the ONLY analytic carry left⟧
+            M4ChiFreeRowMeanSq_gk K R M MS →
+            ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Kbox, X₀w, hK0, hX₀0, hbridge⟩ := doorRowCarried_of_t0free_gk K Qm
+  obtain ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
+    hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hrow⟩ :=
+    m4_dyadicRow_carried_gk K hK
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_wave_closed_of_dyadicRow_gk K
+  refine ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl Qm, Xsk, Kcf Qm, Ctail, Kbox, X₀w,
+    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl Qm, hXsk0, hKcf0 Qm, hCtail0,
+    hK0, hX₀0, ?_⟩
+  intro C hC U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
+  refine ⟨R, hReps, hU1, hRg, ?_⟩
+  intro δ Braw MS MSan MStr M k hgates hM hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
+    hQm htriv hcarT0 hgate harc harc8 hG1 hG2 hrowfree
+  -- ⟦ARM 1⟧ the T₀-free register becomes the carried one, instance by instance
+  have hcar : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+      ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H, doorRowFloor M ≤ j →
+        ∀ s ≤ H,
+          DoorRowCarried_gk K Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk (Kcf Qm) Ctail χ M
+            (doorLadder R.x H (i + 1) + s) j (MS j H) := by
+    intro H hlo hhi q hq hqQ i hik χ j hjL hj0 s hsH
+    haveI : NeZero q := ⟨by omega⟩
+    have hqQm : q ≤ Qm := by
+      have hRq : (q : ℝ) ≤ (Qm : ℝ) := le_trans hqQ (hQm H hlo hhi)
+      exact_mod_cast hRq
+    exact hbridge Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk (Kcf Qm) Ctail q χ M
+      (doorLadder R.x H (i + 1) + s) j (MS j H) hqQm
+      (hcarT0 H hlo hhi q hq hqQ i hik χ j hjL hj0 s hsH)
+  -- ⟦ARM 2⟧ the row datum → the narrowed coprime family → every class of `q`
+  have hBcl0 : ∀ H : ℕ, 0 ≤ m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H)
+      (fun H => 2 * MStr H) H := fun H =>
+    m4BclGraded_nonneg (Fan := fun H => 2 * MSan H) (Ftr := fun H => 2 * MStr H)
+      (show (0 : ℝ) ≤ 2 * MSan H by have := hMSan0 H; linarith)
+      (show (0 : ℝ) ≤ 2 * MStr H by have := hMStr0 H; linarith)
+  have hcpN : M4CoprimeBlockMeanSqN_gk K R M
+      (m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) :=
+    m4_coprimeN_supplied_gk K (doorRowFloor M) hMSan0 hMStr0 han hG1 hG2 harc8 hrowfree
+  have hnc : M4ClassBlockMeanSq_gk K R M k
+      (m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) :=
+    m4_nonCoprime_classMeanSq_N_gk K (k := k) hM hBcl0 hgate harc hcpN
+  refine hR δ Braw MS MSan MStr (doorRowFloor M) M k hgates hMSan0 hMStr0 hBraw0 han htr
+    hdrift hdel hrest (hrow R Qm M k MS hM hQm htriv hcar) ?_
+  intro H hlo hhi q hq hqQ i hik r hrq _hncop
+  exact hnc H hlo hhi q hq hqQ i hik r hrq
+
+/-- **THE SAME, IN `False` FORM, AT THE LEVER** —
+`m4_wave_closed_coprime_discharged_False` (:254). -/
+theorem m4_wave_closed_coprime_discharged_False_gk (K : ℕ) (hK : K ≤ 170000000)
+    (Qm : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail Kbox X₀w : ℝ),
+      1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
+      0 < Xsk ∧ 0 ≤ Kcf ∧ 0 < Ctail ∧ 0 ≤ Kbox ∧ 0 < X₀w ∧
+      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (MS : ℕ → ℕ → ℝ) (MSan MStr : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ → 1 ≤ M →
+            (∀ H : ℕ, 0 ≤ MSan H) → (∀ H : ℕ, 0 ≤ MStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ j H : ℕ, doorRowFloor M ≤ j → MS j H ≤ MSan H) →
+            (∀ j H : ℕ, j < doorRowFloor M → MS j H ≤ MStr H) →
+            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
+                  * ((q : ℝ) ^ 2 * (3 * m4BclGraded (doorRowFloor M)
+                      (fun H => 2 * MSan H) (fun H => 2 * MStr H) H)) ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              Real.sqrt (Braw H) ≤ mrtDeliveredGrade (C / 2) H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ mrtDeliveredGrade (C / 2) H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ (Qm : ℝ)) →
+            (∀ j H : ℕ, j < doorRowFloor M → 4 ≤ MS j H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H,
+                doorRowFloor M ≤ j → ∀ s ≤ H,
+                  DoorRowCarriedT0_gk K Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
+                    (doorLadder R.x H (i + 1) + s) j (MS j H)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              arcDen 12 H < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ≤ (H : ℝ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ^ 2 ≤ MStr H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              44 * MSan H + 87 ≤ (4 / 3 : ℝ) ^ doorRowFloor M) →
+            M4ChiFreeRowMeanSq_gk K R M MS →
+            logChowla2Fails R.eps R.x R.ω → False := by
+  obtain ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, Kbox, X₀w,
+    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0,
+    hK0, hX₀0, hmain⟩ := m4_wave_closed_coprime_discharged_gk K hK Qm
+  exact ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, Kbox, X₀w,
+    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0,
+    hK0, hX₀0, hmain⟩
 
 end Salt.MR
 
 end
+
+-- #audit (temporary)

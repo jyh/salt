@@ -255,12 +255,11 @@ landed original with `(K : ℕ)` as a new FIRST binder and the socket's row squa
 `chiFreeRowSq_gk`.  `J` stays `2`; `m4ChiRowGraded` and its three lemmas read no door
 object and keep their landed names, as does `doorRowFloor M` (LEVEL 1, K-INVARIANT).
 
-⟦WHAT IS NOT HERE, AND WHY⟧ §3's two door-carried wires,
+⟦THE TWO DOOR-CARRIED WIRES WERE BLOCKED; THE BLOCK IS CLEARED⟧ §3's
 `m4_chiSummedFreeRowBig_of_doorCarried` (:171) and `m4_chiSummedFreeRow_of_doorCarried`
-(:227), are BLOCKED, not attempted: both discharge `DoorRowCarried` through
-`M4DoorClose.m4_door_meansq_carried`, which carries no `_gk` sibling (`M4DoorClose`'s own
-§GK flags the gap — its door-row suppliers in `M4DoorRow`/`M4T0Datum`/`M4Puncture` are
-untwinned).  The rewrite is mechanical once that lands; no numeral is in question.
+(:227) both discharge `DoorRowCarried` through `M4DoorClose.m4_door_meansq_carried`, which
+now carries its `_gk` sibling (its door-row suppliers in `M4DoorRow`/`M4T0Datum`/`M4Puncture`
+are all twinned).  Both twins are landed in `§GK.3` below; no numeral was in question.
 -/
 
 /-- `M4ChiSummedFreeRowBig` (:96), at the lever. -/
@@ -283,6 +282,90 @@ theorem m4_chiSummedFreeRow_of_big_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {RS
   · rw [m4ChiRowGraded_small M RSbig H hcase]
     exact m4_chiSummedFreeRow_trivial_gk K R M H hlo hhi L hLH q hq hqQ j hjL A hA hAj hAsq hAx
       hAcap s hsL
+
+
+/-! ### §GK.3 — THE TWO DOOR-CARRIED WIRES, LANDED
+
+⟦THE BLOCK ABOVE IS CLEARED⟧ `M4DoorClose.m4_door_meansq_carried_gk` landed (its own §GK's
+⟦THE CROSS-GROUP BLOCK, CLEARED⟧ note), so both wires are the landed proofs with
+`DoorRowCarried_gk` / `chiFreeRowSq_gk` / `M4ChiSummedFreeRow{,Big}_gk` substituted.
+`hK : K ≤ 1.7·10⁸` is `m4_meansq_per_chi_gen_gk`'s frame side condition, inherited through
+`M4DoorClose`. -/
+
+/-- **⟦THE DOOR-CARRIED BIG WIRE⟧ AT THE LEVER** — `m4_chiSummedFreeRowBig_of_doorCarried`
+(:171). -/
+theorem m4_chiSummedFreeRowBig_of_doorCarried_gk (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ),
+      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
+      0 < Xsk ∧ (∀ Qm : ℕ, 0 ≤ Kcf Qm) ∧ 0 < Ctail ∧
+      ∀ (R : ChowlaRegime) (Qm M : ℕ) (Bd : ℕ → ℕ → ℝ), 1 ≤ M →
+        (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ (Qm : ℝ)) →
+        (∀ j H : ℕ, 0 ≤ Bd j H) →
+        (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → ∀ q : ℕ, 0 < q →
+          (q : ℝ) ≤ arcDen 12 H → ∀ j ≤ Nat.log 2 L, doorRowFloor M ≤ j → ∀ A : ℕ, 0 < A →
+            2 ^ j ≤ A → Real.sqrt (H : ℝ) ≤ (A : ℝ) →
+            (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) →
+            (A : ℝ) ≤ 2 * (R.x : ℝ) → ∀ s ≤ L,
+              ∀ χ : DirichletCharacter ℂ q,
+                DoorRowCarried_gk K Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk (Kcf Qm) Ctail χ M (A + s) j
+                  (Bd j H)) →
+        M4ChiSummedFreeRowBig_gk K R M (fun j H => arcDen 12 H * Bd j H) := by
+  obtain ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
+    hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hrow⟩ :=
+    m4_door_meansq_carried_gk K hK
+  refine ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
+    hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, ?_⟩
+  intro R Qm M Bd hM hQm hBd0 hcar H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx
+    hAcap s hsL
+  haveI : NeZero q := ⟨hq.ne'⟩
+  -- ⟦the modulus range: the socket's cap put inside the capstone's⟧
+  have hqQm : q ≤ Qm := by
+    have hR : (q : ℝ) ≤ (Qm : ℝ) := le_trans hqQ (hQm H hlo hhi)
+    exact_mod_cast hR
+  -- ⟦the row, PER CHARACTER — the conclusion is `chiFreeRowSq` at the byte⟧
+  have hper : ∀ χ ∈ (Finset.univ : Finset (DirichletCharacter ℂ q)),
+      chiFreeRowSq_gk K χ M j (A + s) ≤ Bd j H := fun χ _ =>
+    hrow Qm q χ hq hqQm M (A + s) j (Bd j H) hM hjfl
+      (hcar H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx hAcap s hsL χ)
+  -- ⟦the character sum: the ledger's factor, in the open⟧
+  have hsum : ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq_gk K χ M j (A + s)
+      ≤ ((Fintype.card (DirichletCharacter ℂ q) : ℕ) : ℝ) * Bd j H := by
+    calc ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq_gk K χ M j (A + s)
+        ≤ ∑ _χ : DirichletCharacter ℂ q, Bd j H := Finset.sum_le_sum hper
+      _ = ((Fintype.card (DirichletCharacter ℂ q) : ℕ) : ℝ) * Bd j H := by
+          rw [Finset.sum_const, Finset.card_univ, nsmul_eq_mul]
+  rw [card_dirichletCharacter_nat q] at hsum
+  have hφq : (q.totient : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.totient_le q
+  have hφarc : (q.totient : ℝ) ≤ arcDen 12 H := le_trans hφq hqQ
+  have hmid : (q.totient : ℝ) * Bd j H ≤ arcDen 12 H * Bd j H :=
+    mul_le_mul_of_nonneg_right hφarc (hBd0 j H)
+  exact le_trans hsum hmid
+
+/-- **⟦THE DOOR-CARRIED WIRE⟧ AT THE LEVER** — `m4_chiSummedFreeRow_of_doorCarried`
+(:227). -/
+theorem m4_chiSummedFreeRow_of_doorCarried_gk (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ (Cq cq T₀ Xcap Cs Ccc : ℝ) (Kfl : ℕ → ℝ) (Xsk : ℝ) (Kcf : ℕ → ℝ) (Ctail : ℝ),
+      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ (∀ Qm : ℕ, 0 ≤ Kfl Qm) ∧
+      0 < Xsk ∧ (∀ Qm : ℕ, 0 ≤ Kcf Qm) ∧ 0 < Ctail ∧
+      ∀ (R : ChowlaRegime) (Qm M : ℕ) (Bd : ℕ → ℕ → ℝ), 1 ≤ M →
+        (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ (Qm : ℝ)) →
+        (∀ j H : ℕ, 0 ≤ Bd j H) →
+        (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → ∀ q : ℕ, 0 < q →
+          (q : ℝ) ≤ arcDen 12 H → ∀ j ≤ Nat.log 2 L, doorRowFloor M ≤ j → ∀ A : ℕ, 0 < A →
+            2 ^ j ≤ A → Real.sqrt (H : ℝ) ≤ (A : ℝ) →
+            (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) →
+            (A : ℝ) ≤ 2 * (R.x : ℝ) → ∀ s ≤ L,
+              ∀ χ : DirichletCharacter ℂ q,
+                DoorRowCarried_gk K Cq cq T₀ Xcap Cs Ccc (Kfl Qm) Xsk (Kcf Qm) Ctail χ M (A + s) j
+                  (Bd j H)) →
+        M4ChiSummedFreeRow_gk K R M (m4ChiRowGraded M (fun j H => arcDen 12 H * Bd j H)) := by
+  obtain ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
+    hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hbig⟩ :=
+    m4_chiSummedFreeRowBig_of_doorCarried_gk K hK
+  refine ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
+    hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, ?_⟩
+  intro R Qm M Bd hM hQm hBd0 hcar
+  exact m4_chiSummedFreeRow_of_big_gk K (hbig R Qm M Bd hM hQm hBd0 hcar)
 
 end Salt.MR
 

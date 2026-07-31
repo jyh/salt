@@ -911,12 +911,14 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_zero :
 /-! ## §GK — the G-lever twin
 
 The density-free door row page at `G := s13GK K M`.  `doorCoeffU_gk` and
-`chiBarCoeff_doorRowDatum_gk` come from `M4RowsChiEnd`'s `§GK` (where they are minted
-⟦PROVISIONAL⟧ on `M4Assembly`'s behalf).
+`chiBarCoeff_doorRowDatum_gk` come from `M4RowsChiEnd`'s `§GK`, where they are the CANONICAL
+mints on `M4Assembly`'s behalf (the ⟦PROVISIONAL⟧ tag is discharged — `M4Assembly`'s own `§GK`
+records why they stay there).
 
-⟦BLOCKED, NOT ATTEMPTED⟧ `m4_chiSummedFreeRow_of_doorAssembly_zero` (:868) — one `exact` at
-`M4Assembly.m4_chiSummedFreeRow_of_doorAssembly`, which has no `_gk` sibling
-(`DoorFuseFrame_gk` / `m4_chiFreeRowSq_sum_at_door_gk` missing). -/
+⟦THE BLOCK IS CLEARED⟧ `m4_chiSummedFreeRow_of_doorAssembly_zero` (:868) was banked BLOCKED
+on `M4Assembly.m4_chiSummedFreeRow_of_doorAssembly_gk` (and its `DoorFuseFrame_gk` /
+`m4_chiFreeRowSq_sum_at_door_gk`).  All three exist now, and the twin is landed in `§GK.wire`
+below — one `exact`, as predicted. -/
 
 /-- ⟦PROBE 2⟧ AT THE G-LEVER (`blockLive_winCutH_doorCoeffU_gk`). -/
 theorem blockLive_winCutH_doorCoeffU_gk (K : ℕ) (M Xd : ℕ) {i : ℕ}
@@ -1053,5 +1055,59 @@ theorem m4_hrowsSlot_at_door_zero_gk (K : ℕ) (hK : K ≤ 170000000) :
   simpa only [chiBarCoeff_doorRowDatum_gk] using hslot
 
 -- #audit (temporary)
+
+
+/-! ### §GK.wire — THE BLOCKED ASSEMBLY WIRE, LANDED
+
+⟦THE BLOCK ABOVE IS CLEARED⟧ `M4Assembly` / `M4AssemblyPrime` grew their own `§GK`
+(`DoorFuseFrame_gk`, `DoorFuseFrame_pool'_gk`, `m4_chiFreeRowSq_sum_at_door_gk`,
+`m4_chiSummedFreeRow_of_doorAssembly{,_pool'}_gk`), so the wire below is the landed proof
+with those names substituted.  `hK : K ≤ 1.7·10⁸` is the slot supplier's frame side
+condition, inherited. -/
+
+/-- **⟦ITEM 11⟧ AT THE ASSEMBLY WIRE, DENSITY-FREE, AT THE LEVER** —
+`m4_chiSummedFreeRow_of_doorAssembly_zero` (:868). -/
+theorem m4_chiSummedFreeRow_of_doorAssembly_zero_gk (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ Ct : ℝ, 0 < Ct ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp →
+      ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε : ℕ → ℝ) (RSbig : ℕ → ℕ → ℝ)
+        (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ) (t₁ : ∀ q : ℕ, DirichletCharacter ℂ q → ℝ),
+        1 ≤ M → (∀ i m : ℕ, ‖bU i m‖ ≤ 1) → (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          DoorFuseFrame_gk K M (A + s) j Ct Cp (ε (A + s))) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s → DoorRowZeroBase_gk K M (A + s) j cU bU) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) (t₁ q χ))
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (Adoor M) (s13GK K M))
+                        (calQK (Adoor M) (s13GK K M) M) (calH (H1door M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s)))) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q,
+            (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+              ‖dpolyA (winCutH (A + s) (doorChiCoeff_gk K χ M))
+                (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+              ≤ t0BandB (((A + s : ℕ)) : ℝ)
+                  (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (M₀ (A + s))) →
+        (∀ H j A s : ℕ, doorRowFloor M ≤ j →
+          arcDen 12 H * a2DoorGrade_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+              (M₀ (A + s))
+            ≤ RSbig j H) →
+        M4ChiSummedFreeRow_gk K R M (m4ChiRowGraded M RSbig) := by
+  obtain ⟨Ct, hCt, hslot⟩ := m4_hrowsSlot_at_door_zero_gk K hK
+  refine ⟨Ct, hCt, ?_⟩
+  intro Cp hCp R M C₁ M₀ ε RSbig cU bU t₁ hM hb1 hc1 hframe hbase hcap hband henv
+  exact m4_chiSummedFreeRow_of_doorAssembly_gk K (Cs := fun _ => Ct) (Ccc := fun _ => Cp)
+    (C₁ := C₁) (M₀ := M₀) (ε := ε) hM hframe
+    (hslot Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband henv
 
 end Salt.MR

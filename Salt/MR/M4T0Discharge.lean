@@ -840,12 +840,11 @@ The `T₀`-discharge page at `G := s13GK K M`.
   (X Xw Dmask : ℝ)`, with no `M` and no ladder read anywhere.  Its `_gk` sibling would be a
   byte-identical duplicate, so it keeps its landed name inside `DoorRowCarriedT0_gk`, exactly
   as `doorRowFloor` does.
-* `m4_wave_closed_T0_discharged` (:776) is **BLOCKED**: its proof is
-  `doorRowCarried_of_t0free` composed with `M4DoorClose.m4_wave_structurally_closed`, and that
-  theorem carries no `_gk` sibling (its own file's `§GK` flags it as blocked on the door-row
-  suppliers).  The composition below (`doorRowCarried_of_t0free_gk`) is the half that CAN
-  land; the wave-closure twin is a one-line `exact` away once
-  `M4DoorClose.m4_wave_structurally_closed_gk` exists. -/
+* `m4_wave_closed_T0_discharged` (:776) was banked **BLOCKED**: its proof is
+  `doorRowCarried_of_t0free` composed with `M4DoorClose.m4_wave_structurally_closed`, which
+  carried no `_gk` sibling.  It does now, so BOTH halves are here: the bridge
+  (`doorRowCarried_of_t0free_gk`) and, in `§GK.5`, the wave-closure twin — the one-line
+  composition that note promised. -/
 
 /-- **THE DOOR ROW'S CARRIED REGISTER, ARM 1 DISCHARGED, AT THE G-LEVER**
 (`DoorRowCarriedT0_gk`) — `DoorRowCarriedT0` (:581) with `(K : ℕ)` first and every
@@ -1126,6 +1125,76 @@ theorem doorRowCarried_of_t0free_gk (K : ℕ) (Qm : ℕ) :
     d50, d51, d52, d53, d54, d55, d56, d57, d58, d59, d60, d61, d62, d63, d64, d65, d66, d67,
     d68, d69, d70, d71, d72, d73, d74, d75, d76, d77, d78, d79, d80, d81, d82, d83, d84, d85,
     d86, d87, d88, d89, d90, d91, d92, hT0, d94, d95, d96, d97, d98⟩
+
+/-! ### §GK.5 — the wave closure at the lever
+
+⟦THE BLOCK ABOVE IS CLEARED⟧ `M4DoorClose.m4_wave_structurally_closed_gk` landed, so this is
+the composition it was waiting on: `doorRowCarried_of_t0free_gk` into the levered wave
+closure, verbatim.  `hK : K ≤ 1.7·10⁸` is `m4_meansq_per_chi_gen_gk`'s frame side condition,
+inherited through `M4DoorClose`. -/
+
+set_option maxHeartbeats 1600000 in
+-- `m4_wave_structurally_closed_gk`'s own budget: the register mentions `DoorRowCarriedT0_gk`
+-- under six binders, and that is the whole cost
+/-- **THE M4 WAVE, `T₀`-ARM DISCHARGED, AT THE LEVER** — `m4_wave_closed_T0_discharged`
+(:776). -/
+theorem m4_wave_closed_T0_discharged_gk (K : ℕ) (hK : K ≤ 170000000) (Qm : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail Kbox X₀w : ℝ),
+      1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
+      0 < Xsk ∧ 0 ≤ Kcf ∧ 0 < Ctail ∧ 0 ≤ Kbox ∧ 0 < X₀w ∧
+      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (MS : ℕ → ℕ → ℝ) (MSan MStr : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ → 1 ≤ M →
+            (∀ H : ℕ, 0 ≤ MSan H) → (∀ H : ℕ, 0 ≤ MStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ j H : ℕ, doorRowFloor M ≤ j → MS j H ≤ MSan H) →
+            (∀ j H : ℕ, j < doorRowFloor M → MS j H ≤ MStr H) →
+            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
+                  * ((q : ℝ) ^ 2 * (3 * m4BclGraded (doorRowFloor M)
+                      (fun H => 2 * MSan H) (fun H => 2 * MStr H) H)) ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              Real.sqrt (Braw H) ≤ mrtDeliveredGrade (C / 2) H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ mrtDeliveredGrade (C / 2) H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ (Qm : ℝ)) →
+            (∀ j H : ℕ, j < doorRowFloor M → 4 ≤ MS j H) →
+            -- ⟦ARM 1 DISCHARGED: the T₀-free per-instance register⟧
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H,
+                doorRowFloor M ≤ j → ∀ s ≤ H,
+                  DoorRowCarriedT0_gk K Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
+                    (doorLadder R.x H (i + 1) + s) j (MS j H)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              arcDen 12 H < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ)) →
+            -- ⟦ARM 2: the coprime supply, interval/length-general — the ONLY analytic carry left⟧
+            M4CoprimeBlockMeanSq_gk K R M
+              (m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) →
+            ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Kbox, X₀w, hK0, hX₀0, hbridge⟩ := doorRowCarried_of_t0free_gk K Qm
+  obtain ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
+    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hmain⟩ :=
+    m4_wave_structurally_closed_gk K hK Qm
+  refine ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, Kbox, X₀w,
+    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0,
+    hK0, hX₀0, ?_⟩
+  intro C hC U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
+  refine ⟨R, hReps, hU1, hRg, ?_⟩
+  intro δ Braw MS MSan MStr M k hgates hM hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
+    hQm htriv hcar hgate harc hcp
+  refine hR δ Braw MS MSan MStr M k hgates hM hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
+    hQm htriv ?_ hgate harc hcp
+  intro H hlo hhi q hq hqQ i hik χ j hjL hj0 s hsH
+  haveI : NeZero q := ⟨by omega⟩
+  have hqQm : q ≤ Qm := by
+    have hRq : (q : ℝ) ≤ (Qm : ℝ) := le_trans hqQ (hQm H hlo hhi)
+    exact_mod_cast hRq
+  exact hbridge Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail q χ M
+    (doorLadder R.x H (i + 1) + s) j (MS j H) hqQm
+    (hcar H hlo hhi q hq hqQ i hik χ j hjL hj0 s hsH)
 
 -- #audit (temporary)
 

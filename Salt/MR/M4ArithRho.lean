@@ -884,13 +884,13 @@ KDESIGN, and the ⟦C3⟧ constant is ALPHA-RENAMED to `Kar` in the twins.  Noth
 variable's name changes; every twin's statement is alpha-equivalent to the landed one with the
 grade symbol swapped.
 
-⚠ ⟦THE ONE LOCAL BRIDGE⟧ `M4ArithPage.m4_chiSummedFreeRowBig_of_doorGradeGated` — the socket
-wire re-quantified over `SocketBase` — owes a `_gk` sibling that `M4ArithPage`'s own `§GK`
-records as BLOCKED (it was blocked on `a2DoorGrade_gk`, which now exists).  `M4ArithPage` is
-not this executor's file, so the wire is re-proved HERE as a **private** bridge
-(`doorGradeGated_bridge_gk`), byte for byte from the landed proof.  Being private it cannot
-collide with the public twin when `M4ArithPage` grows one; at that point this bridge is the
-duplicate to delete. -/
+⚠ ⟦THE ONE LOCAL BRIDGE — NOW A DUPLICATE, DELIBERATELY KEPT⟧
+`M4ArithPage.m4_chiSummedFreeRowBig_of_doorGradeGated` — the socket wire re-quantified over
+`SocketBase` — owed a `_gk` sibling that `M4ArithPage`'s `§GK` recorded as BLOCKED.  That
+sibling has since landed (`m4_chiSummedFreeRowBig_of_doorGradeGated_gk`, at the binder
+`Klev`).  The wire re-proved HERE as a **private** bridge (`doorGradeGated_bridge_gk`) is
+therefore now a duplicate; being private it cannot collide, and removing it is a maestro
+call, not an executor's — nothing downstream reads it but this file. -/
 
 set_option linter.unusedVariables false in
 /-- `doorGrade_summand2_priced_rho` (:283), at the lever.  `a2Level1 M` is LEVEL 1, so the
