@@ -18358,3 +18358,15 @@ the twins are mid-flight in DoorFrame/S13GK/GLever lanes and a race
 now would be noise).  TACTIC NOTE banked: linarith degrades in large
 elaboration contexts — extract top-level numeral lemmas (the
 s15w2_lvl_num remedy).
+
+## () FOR THE RECORD: THE COPYRIGHT WAIVER IS GRANTED (JYH, in session) -- the public gate's legal side is clear
+
+What it unlocks: (1) the Pi affiliation/COI answer cleans up —
+personal-capacity submission with the covering-letter COI line, no
+ambiguity left for the letter to manage; (2) the salt-public gate's
+LEGAL side is cleared — the remaining gates are our own choices
+(the history purge + the SaltBench wave boundary + JYH's word); (3)
+the approval story is now complete end-to-end: the approval cleared
+PUBLISHING (7/30), the copyright-waiver filing cleared OWNERSHIP (7/31).  The firewall
+DISCIPLINE stands unchanged as practice (ideas person→work only;
+outside-lane material never here) — the fence was never only legal.
