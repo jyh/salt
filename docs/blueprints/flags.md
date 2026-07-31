@@ -18575,3 +18575,5 @@ Captain: the object as landed (real, conditional, with the empty
 pair NAMED in its own header), the three-faced wall, the unpriced
 escape, the companion-certificate question.  The next move is a
 DESIGN COUNCIL, not an executor.
+
+## () WIDTH COUNCIL RULED: C1 GO (the level-2 band-pair scope); C2 BOTH LAWS RATIFIED (companion certificate; R.x exposure); C3 decide-after with THE CAPTAIN'S STATED PREFERENCE ("I don't like the conditional outcome" -- the unconditional is the target; if exit (a) dies the design work CONTINUES, it does not settle); C4 the rider lane GO; C5 the ceremony fires this weekend
