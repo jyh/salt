@@ -17762,3 +17762,40 @@ B5 (doorBandBase_family + the five gate lines), B6 (the ArithRho
 fields — the FAMILY assembly is the one wiring page left), + the
 register group + Hcap-pinned base.  NEXT: THE FINAL COMPOSE (+ the
 parallel SAT-refuter per the verify posture).
+
+## (2026-07-30 21:20 PDT) THE FINAL COMPOSE STOPS -- KERNEL-CERTIFIED (S14Compose.lean 458, 12/12 axioms): the DECAY road refuted at every socket base; the STOP is the iron rules working at the terminal
+
+⟦THE KILL, in the kernel⟧ s14_gRows_kill: GRowsZeroGate''' at
+decayPool is FALSE at any socket base under the road's own
+loglogFloor50 — three LANDED facts collide: the j-floor (log H ≥
+log2·doorRowFloor M), the x-scale (loglog X_d ≥ ½·log H — THE SAME
+fact that gave abs8640 its 18 orders), and p2-in-logs (θ₂₉₃·loglog
+X_d ≤ Adoor M·log2).  Squeeze: M ≤ 589 AND Adoor M ≥ 1e12 (needs
+M ≥ ~12000).  EMPTY, M-uniform, no opaque constant enters.  This is
+All.lean's banked ⚠ X_d-SCALE COLLISION in closed form: the door's
+grading gates are M-relative, the socket's base window-relative;
+∀x∃M does not help.  ⟦THE FENCE⟧ s14_socketBase_witness + s14_window_
+floor_of_winFit + s14_compose_stops_of_MSelect' + s14_rawcap_forces_
+empty_window: the vacuity escape CLOSED — entering the road at all
+forces the whole window below the door row floor.  ⟦DELIVERED⟧
+LogChowla2WitnessedScale STATED at E0's shape (name = the Captain's)
++ logChowla2_witnessed_scale_of_fired (the last mile, ready).
+⟦SECOND STOP recorded⟧ B5-grade: C' is quantified AFTER M in every
+landed export — cannot absorb into an M-floor; repair = one more
+split-hoist link (the x₀ precedent, ~7 links).  ⟦B4 raw⟧ still
+witness-less.  Build 9622 exit-0 maestro-verified.
+
+⟦THE OPEN ADJUDICATION⟧ the executor's "the same reading kills the
+constant pool (1/500 for θ₂₉₃)" is PROSE, not a certificate — and
+the maestro's own walk suggests the OPPOSITE (constPool decays in
+loglog Hhi ~ λ^{4.5}, not in loglog X_d ~ e^λ/2; p2-at-const needs
+only Adoor M·log2 ≥ 14Λ + O(1), free at 2^36; heps293/hband4096
+massively met at the socket).  THE CONST ROAD STANDS AT FUSE-PARITY
+(R5b/R5c) and may be the escape THE DECAY ROAD's kill leaves open —
+JYH's "let's see" answered honestly for decay, the alternative
+tested next.  ⟦CONST-VERDICT dispatched — kernel certificates both
+directions⟧; ⟦STOP-SCOUT dispatched — the B4 witness hunt + the
+B5 grade split-hoist spec, needed on ANY road⟧.  If const also
+dies: the three statement-level repair directions (H-relative door
+family / non-decaying pool / weaker x-scale) go to the Captain at
+coffee as the design fork.
