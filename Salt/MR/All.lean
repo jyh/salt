@@ -307,6 +307,7 @@ import Salt.MR.HloExportMR
 import Salt.MR.S12FuseCompose
 import Salt.MR.S11HoistGrade
 import Salt.MR.S14Compose
+import Salt.MR.S12ConstCompose
 import Salt.Tactic.AuditAxioms
 
 /-!

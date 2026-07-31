@@ -17888,3 +17888,23 @@ compose).  No private transcription needed; link 1 appended in-file
 (private filter_upwards arg).  Axioms 18/18 standard (one at
 [propext] alone); build 9623 exit-0 maestro-verified.  The B5 stop
 is REPAIRED on every road.
+
+## (2026-07-30 22:05 PDT) CONST-TWIN lands 4/4 first-attempt (S12ConstCompose.lean 647, 8/8 axioms): logChowla2_capstone_final_const' IN KERNEL -- the capstone on the LIVING road, epsr FREED
+
+§1 THE STONE eps_pool_const_pos + the socket discharge (the λ-engine
+restated at 2e-4 — the executor's honest re-round of the verdict's
+1.7e-3 for the 500× coefficient; internal margin 715×, socket margin
+5× on top).  §2 the frame twin at the threshold (no sign condition —
+STRICTLY more general than briefed; ε := θ₂₉₃ − 1/500 an instance).
+§3 the fuse at 0 ≤ Cp (piece-3 ρ-strengthening harmless).  §4 THE
+TWIN, machine-diffed vs rawcap': OUT 4 (both decay gates, the
+εr ≡ 0 pool pin, the decay threshold), IN 5 (the const gates + THE
+BUDGET LINE 14Λ + log 376266 − log ρ ≤ (θ₂₉₃ − epsrf)·loglog X_d
+replacing the pin), everything else BYTE-IDENTICAL incl. the Hcap
+carry.  ⟦B2⟧'s window now satisfiable at its UPPER ENDPOINT — where
+abs8640 is honest and the x-scale reserve discharges it.  Deviation
+4 ruled GOOD by the maestro: the raw-B4 twin is strictly STRONGER
+(mentions none of Cq cs T₀ Kq Ks — the compose routes the cap
+bundle in via m4_fuse_hcap_of_capWS with constants decoupled across
+the ∃; no capWS-shaped sibling needed).  Build 9624 exit-0
+maestro-verified.  THE ROAD AWAITS ONLY CAPGATE.
