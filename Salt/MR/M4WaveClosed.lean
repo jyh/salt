@@ -870,6 +870,502 @@ theorem m4_wave_closed_of_row :
     (fun H => by have := hMS0 H; have := hCmax0 H; positivity) hBraw0 hdrift hdel hrest
     (m4_chiBlockMeanSq_of_row hCmax0 hmax hrow) hnoncop
 
+/-! ## §GK — the G-lever twin
+
+The additive `_gk` family at `G := s13GK K M` (`GLever`): each declaration is its landed
+sibling with `(K : ℕ)` inserted as the FIRST binder and every literal `3072 * M` rewritten to
+`s13GK K M`.
+
+⟦THE FORCED α-RENAMINGS⟧ three landed statements already bind a variable named `K` — the
+SUB-WINDOW LENGTH (`doorSievedWindow`, `doorChiSup`, `le_doorChiSup`) and the band constant
+`K : ℝ` (`m4_rawMS_priced_decay`).  The lever's binder takes that name by the kdesign's
+uniform convention, so those landed binders are α-renamed (`Kw` for the window length, `Kb`
+for the band constant).  The statements are alpha-equivalent; nothing else moves.
+
+The class machinery of §1 (`classSup`, `subWindowSup_le_sum_classSup`,
+`sq_inv_totient_sum_le_sum_sq`, `classSup_le_of_norm_le_one`) is datum-abstract and is
+re-instantiated at the lever's datum, never twinned. -/
+
+/-- **THE ANALYTIC ITEM AT THE LEVER** — `M4ClassBlockMeanSq` (:198). -/
+def M4ClassBlockMeanSq_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (Bcl : ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+    ∀ i < k, ∀ r, r < q →
+      ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
+        ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)
+
+/-- **THE ANTI-VACUITY WITNESS AT THE LEVER** — `m4_classBlockMeanSq_trivial` (:210). -/
+theorem m4_classBlockMeanSq_trivial_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) :
+    M4ClassBlockMeanSq_gk K R M k (fun _ => 1) := by
+  intro H _ hhi q _ _ i _ r _
+  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+  have hterm : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+      (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2 ≤ (H : ℝ) ^ 2 := by
+    intro n _
+    have h := classSup_le_of_norm_le_one (norm_doorSievedCoeff_le_one_gk K M) H n q r
+    have h0 := classSup_nonneg (doorSievedCoeff_gk K M) H n q r
+    nlinarith
+  have hsum : ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+      (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
+      ≤ ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
+        * (H : ℝ) ^ 2 := by
+    calc ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
+        ≤ ∑ _n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i), (H : ℝ) ^ 2 :=
+          Finset.sum_le_sum hterm
+      _ = ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
+            * (H : ℝ) ^ 2 := by rw [Finset.sum_const, nsmul_eq_mul]
+  have hc : ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
+      ≤ (doorLadder R.x H (i + 1) : ℝ) := by
+    rw [Nat.card_Ioc]
+    have hfit := doorLadder_fit R.x H i
+    have hn : doorLadder R.x H i - doorLadder R.x H (i + 1) ≤ doorLadder R.x H (i + 1) := by
+      omega
+    exact_mod_cast hn
+  have hpos := doorLadder_pos hxH (i + 1)
+  nlinarith
+
+/-- **THE ASSEMBLY AT THE LEVER** — `m4_blockMeanSqSupQ_of_classMeanSq` (:256). -/
+theorem m4_blockMeanSqSupQ_of_classMeanSq_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ}
+    {Bcl : ℕ → ℝ}
+    (hcl : M4ClassBlockMeanSq_gk K R M k Bcl) : M4BlockMeanSqSupQ_gk K R M k Bcl := by
+  intro H hlo hhi b q hq hqQ i hik
+  have hq0 : (0 : ℝ) ≤ (q : ℝ) := Nat.cast_nonneg q
+  -- ⟦pointwise: the split, then Chebyshev⟧
+  have hpt : ∀ n : ℕ,
+      (subWindowSup (doorSievedCoeff_gk K M) H n ((b : ℝ) / (q : ℝ))) ^ 2
+        ≤ (q : ℝ) * ∑ r ∈ Finset.range q,
+            (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2 := by
+    intro n
+    have hsplit := subWindowSup_le_sum_classSup (doorSievedCoeff_gk K M) H n hq b
+    have h0 := subWindowSup_nonneg (doorSievedCoeff_gk K M) H n ((b : ℝ) / (q : ℝ))
+    have hsq : (subWindowSup (doorSievedCoeff_gk K M) H n ((b : ℝ) / (q : ℝ))) ^ 2
+        ≤ (∑ r ∈ Finset.range q, classSup (doorSievedCoeff_gk K M) H n q r) ^ 2 := by
+      nlinarith
+    refine hsq.trans ?_
+    have hcheb := sq_sum_le_card_mul_sum_sq
+      (s := Finset.range q) (f := fun r => classSup (doorSievedCoeff_gk K M) H n q r)
+    rwa [Finset.card_range] at hcheb
+  -- ⟦the block sum⟧
+  have hstep1 : ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+      (subWindowSup (doorSievedCoeff_gk K M) H n ((b : ℝ) / (q : ℝ))) ^ 2
+      ≤ ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          (q : ℝ) * ∑ r ∈ Finset.range q,
+            (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2 :=
+    Finset.sum_le_sum fun n _ => hpt n
+  have hswap : ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+      (q : ℝ) * ∑ r ∈ Finset.range q, (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
+      = (q : ℝ) * ∑ r ∈ Finset.range q,
+          ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+            (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2 := by
+    rw [← Finset.mul_sum, Finset.sum_comm]
+  have hper : ∑ r ∈ Finset.range q,
+      ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+        (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
+      ≤ (q : ℝ) * (Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)) := by
+    calc ∑ r ∈ Finset.range q,
+          ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+            (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
+        ≤ ∑ _r ∈ Finset.range q,
+            (Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)) :=
+          Finset.sum_le_sum fun r hr =>
+            hcl H hlo hhi q hq hqQ i hik r (Finset.mem_range.mp hr)
+      _ = (q : ℝ) * (Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)) := by
+          rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul]
+  calc ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+        (subWindowSup (doorSievedCoeff_gk K M) H n ((b : ℝ) / (q : ℝ))) ^ 2
+      ≤ (q : ℝ) * ∑ r ∈ Finset.range q,
+          ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+            (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2 := by rw [← hswap]; exact hstep1
+    _ ≤ (q : ℝ) * ((q : ℝ) * (Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ))) :=
+        mul_le_mul_of_nonneg_left hper hq0
+    _ = Bcl H * (q : ℝ) ^ 2 * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ) := by ring
+
+/-- **THE SOCKET EXIT AT THE LEVER** — `m4_sievedDoorSq_of_classMeanSq` (:318). -/
+theorem m4_sievedDoorSq_of_classMeanSq_gk (K : ℕ) {Cg : ℝ} {R : ChowlaRegime} {M k : ℕ}
+    {δ : ℝ} {Bcl Braw : ℕ → ℝ}
+    (hgates : M4DoorGates_gk K Cg R M k δ) (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
+    (hdrift : ∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+      (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2 * ((q : ℝ) ^ 2 * (3 * Bcl H))
+        ≤ Braw H)
+    (hcl : M4ClassBlockMeanSq_gk K R M k Bcl) :
+    M4SievedDoorSq_gk K R M Braw :=
+  m4_sievedDoorSq_of_sup_gk K hdrift
+    (m4_cover_assembly_supQ_gk K hgates hBcl0 (m4_blockMeanSqSupQ_of_classMeanSq_gk K hcl))
+
+/-- **THE DOOR'S SIEVED WINDOW AT THE LEVER** — `doorSievedWindow` (:364), with the
+sub-window binder α-renamed `K ↦ Kw`.  THE SIEVE SET GENUINELY MOVES: `𝒫`, `𝒬` grow with the
+lever, so this is a different `Finset`. -/
+def doorSievedWindow_gk (K M Kw n : ℕ) : Finset ℕ :=
+  sievedWindow (MemS (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2) Kw n
+
+/-- **THE χ-TWISTED SUP AT THE LEVER** — `doorChiSup` (:369). -/
+def doorChiSup_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) : ℝ :=
+  (Finset.Icc 0 H).sup' ⟨0, Finset.mem_Icc.mpr ⟨le_rfl, Nat.zero_le H⟩⟩
+    (fun Kw => ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖)
+
+theorem le_doorChiSup_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) {Kw : ℕ}
+    (hK : Kw ≤ H) :
+    ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖ ≤ doorChiSup_gk K χ M H n :=
+  Finset.le_sup' (f := fun Kw => ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖)
+    (Finset.mem_Icc.mpr ⟨Nat.zero_le Kw, hK⟩)
+
+theorem doorChiSup_nonneg_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) :
+    0 ≤ doorChiSup_gk K χ M H n :=
+  le_trans (norm_nonneg _) (le_doorChiSup_gk K χ M H n (Nat.zero_le H))
+
+/-- **THE χ-UNIFORM BLOCK MEAN SQUARE AT THE LEVER** — `M4ChiBlockMeanSq` (:384). -/
+def M4ChiBlockMeanSq_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (Bcl : ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+    ∀ i < k, ∀ χ : DirichletCharacter ℂ q,
+      ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          (doorChiSup_gk K χ M H n) ^ 2
+        ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)
+
+/-- **THE POINTWISE HALF AT THE LEVER** — `classSup_le_inv_totient_sum_doorChiSup`
+(:395). -/
+theorem classSup_le_inv_totient_sum_doorChiSup_gk (K : ℕ) {q : ℕ} [NeZero q] {r : ℕ}
+    (hcop : Nat.Coprime q r) (M H n : ℕ) :
+    classSup (doorSievedCoeff_gk K M) H n q r
+      ≤ (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, doorChiSup_gk K χ M H n := by
+  refine classSup_le fun Kw hKw => ?_
+  have hfilt : ∑ m ∈ windowClass Kw n q r, doorSievedCoeff_gk K M m
+      = ∑ m ∈ residueClassOn q r (doorSievedWindow_gk K M Kw n), liouvilleC m := by
+    simpa only [doorSievedCoeff_gk, doorSievedWindow_gk] using
+      sum_windowClass_memSCoeff (calP (Adoor M) (s13GK K M))
+        (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC Kw n q r
+  rw [hfilt]
+  refine le_trans (norm_sum_residueClassOn_liou_le hcop (doorSievedWindow_gk K M Kw n)) ?_
+  have hφ : (0 : ℝ) < (q.totient : ℝ) := totient_cast_pos q
+  refine mul_le_mul_of_nonneg_left ?_ (by positivity)
+  exact Finset.sum_le_sum fun χ _ => le_doorChiSup_gk K χ M H n hKw
+
+/-- **THE χ-REDUCTION AT THE LEVER** — `m4_classMeanSq_of_chiMeanSq` (:416). -/
+theorem m4_classMeanSq_of_chiMeanSq_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}
+    (hchi : M4ChiBlockMeanSq_gk K R M k Bcl) :
+    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+      ∀ i < k, ∀ r, r < q → Nat.Coprime q r →
+        ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+            (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
+          ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ) := by
+  intro H hlo hhi q hq hqQ i hik r _ hcop
+  haveI : NeZero q := ⟨hq.ne'⟩
+  -- ⟦pointwise: the χ-average, squared⟧
+  have hpt : ∀ n : ℕ, (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
+      ≤ (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, (doorChiSup_gk K χ M H n) ^ 2 := by
+    intro n
+    have hle := classSup_le_inv_totient_sum_doorChiSup_gk K hcop M H n
+    have h0 := classSup_nonneg (doorSievedCoeff_gk K M) H n q r
+    have hsq : (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
+        ≤ ((q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, doorChiSup_gk K χ M H n) ^ 2 := by
+      nlinarith
+    exact hsq.trans (sq_inv_totient_sum_le_sum_sq (fun χ => doorChiSup_gk K χ M H n))
+  -- ⟦the block sum, then the χ-average and the `n`-sum commute⟧
+  have hstep1 : ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+      (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
+      ≤ ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, (doorChiSup_gk K χ M H n) ^ 2 :=
+    Finset.sum_le_sum fun n _ => hpt n
+  have hswap : ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+      (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, (doorChiSup_gk K χ M H n) ^ 2
+      = (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q,
+          ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+            (doorChiSup_gk K χ M H n) ^ 2 := by
+    rw [← Finset.mul_sum, Finset.sum_comm]
+  rw [hswap] at hstep1
+  refine hstep1.trans ?_
+  exact inv_totient_sum_le (fun χ => hchi H hlo hhi q hq hqQ i hik χ)
+
+/-- **THE FIVE SUMMANDS, PRICED, AT THE LEVER** — `m4_rawMS_priced_decay` (:464), with the
+band-constant binder α-renamed `K ↦ Kb`. -/
+theorem m4_rawMS_priced_decay_gk (K : ℕ) {X C₁ Kb h G : ℝ} {q M : ℕ} (hX : 0 < Real.log X)
+    (g1 : m4DecayGrade Kb q X C₁ ≤ G / 5)
+    (g2 : 1787702400 * a2Level1 M ≤ G / 5)
+    (g3 : 188133 * (Real.log X) ^ (-(1 : ℝ) / 500) ≤ G / 5)
+    (g4 : 304128 * ballSupC ^ 2
+        * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2) ≤ G / 5)
+    (g5 : 6315000 / h ≤ G / 5) :
+    m4RawMS_gk K (cfbC₁ X C₁) (cfbM0 Kb q X) M X h ≤ G := by
+  have hdec : 8448 * cfbC₁ X C₁ ^ 2 * Real.exp (-(1 / Real.exp 1) * cfbM0 Kb q X)
+      = m4DecayGrade Kb q X C₁ := m4_decay_summand_eq hX
+  unfold m4RawMS_gk
+  rw [hdec]
+  linarith
+
+/-- **THE M4 WAVE'S CLOSED THEOREM AT THE LEVER** — `m4_wave_closed` (:525). -/
+theorem m4_wave_closed_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw Bcl : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ →
+            (∀ H : ℕ, 0 ≤ Bcl H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2 * ((q : ℝ) ^ 2 * (3 * Bcl H))
+                ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              Real.sqrt (Braw H) ≤ mrtDeliveredGrade (C / 2) H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ mrtDeliveredGrade (C / 2) H) →
+            M4ClassBlockMeanSq_gk K R M k Bcl →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_door_contradiction_of_live_gk K
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro C hC U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ Braw Bcl M k hgates hBcl0 hBraw0 hdrift hdel hrest
+    hcl => ?_⟩
+  exact hR δ Braw M k hgates hBraw0 (m4_gradeGate_direct hdel hrest)
+    (m4_sievedDoorSq_of_classMeanSq_gk K hgates hBcl0 hdrift hcl)
+
+/-- **The close's collision form at the lever** — `m4_wave_closed_False` (:552). -/
+theorem m4_wave_closed_False_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw Bcl : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ →
+            (∀ H : ℕ, 0 ≤ Bcl H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2 * ((q : ℝ) ^ 2 * (3 * Bcl H))
+                ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              Real.sqrt (Braw H) ≤ mrtDeliveredGrade (C / 2) H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ mrtDeliveredGrade (C / 2) H) →
+            M4ClassBlockMeanSq_gk K R M k Bcl →
+              logChowla2Fails R.eps R.x R.ω → False := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_door_False_of_live_gk K
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro C hC U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ Braw Bcl M k hgates hBcl0 hBraw0 hdrift hdel hrest
+    hcl => ?_⟩
+  exact hR δ Braw M k hgates hBraw0 (m4_gradeGate_direct hdel hrest)
+    (m4_sievedDoorSq_of_classMeanSq_gk K hgates hBcl0 hdrift hcl)
+
+/-- **THE CLOSE AT THE χ-UNIFORM DATUM, AT THE LEVER** — `m4_wave_closed_of_chi` (:583). -/
+theorem m4_wave_closed_of_chi_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw Bcl : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ →
+            (∀ H : ℕ, 0 ≤ Bcl H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2 * ((q : ℝ) ^ 2 * (3 * Bcl H))
+                ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              Real.sqrt (Braw H) ≤ mrtDeliveredGrade (C / 2) H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ mrtDeliveredGrade (C / 2) H) →
+            M4ChiBlockMeanSq_gk K R M k Bcl →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              ∀ i < k, ∀ r, r < q → ¬ Nat.Coprime q r →
+                ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+                    (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
+                  ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)) →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_wave_closed_gk K
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro C hC U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ Braw Bcl M k hgates hBcl0 hBraw0 hdrift hdel hrest
+    hchi hnoncop => ?_⟩
+  refine hR δ Braw Bcl M k hgates hBcl0 hBraw0 hdrift hdel hrest ?_
+  intro H hlo hhi q hq hqQ i hik r hr
+  by_cases hcop : Nat.Coprime q r
+  · exact m4_classMeanSq_of_chiMeanSq_gk K hchi H hlo hhi q hq hqQ i hik r hr hcop
+  · exact hnoncop H hlo hhi q hq hqQ i hik r hr hcop
+
+/-- **THE M4 WAVE'S CLOSED THEOREM, SPLIT, AT THE LEVER** — `m4_wave_closed_split`
+(:635). -/
+theorem m4_wave_closed_split_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw Bcl : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ →
+            (∀ H : ℕ, 0 ≤ Bcl H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2 * ((q : ℝ) ^ 2 * (3 * Bcl H))
+                ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Real.sqrt (Braw H) ≤ δ₀ / 2) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 2) →
+            M4ClassBlockMeanSq_gk K R M k Bcl →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_door_contradiction_of_live_split_gk K
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ Braw Bcl M k hgates hBcl0 hBraw0 hdrift hdel hrest
+    hcl => ?_⟩
+  exact hR δ Braw M k hgates hBraw0 (m4_gradeGate_direct_split hdel hrest)
+    (m4_sievedDoorSq_of_classMeanSq_gk K hgates hBcl0 hdrift hcl)
+
+/-- **THE CLOSE AT THE χ-UNIFORM DATUM, SPLIT, AT THE LEVER** — `m4_wave_closed_of_chi_split`
+(:663). -/
+theorem m4_wave_closed_of_chi_split_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw Bcl : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ →
+            (∀ H : ℕ, 0 ≤ Bcl H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2 * ((q : ℝ) ^ 2 * (3 * Bcl H))
+                ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Real.sqrt (Braw H) ≤ δ₀ / 2) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 2) →
+            M4ChiBlockMeanSq_gk K R M k Bcl →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              ∀ i < k, ∀ r, r < q → ¬ Nat.Coprime q r →
+                ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+                    (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
+                  ≤ Bcl H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)) →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_wave_closed_split_gk K
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ Braw Bcl M k hgates hBcl0 hBraw0 hdrift hdel hrest
+    hchi hnoncop => ?_⟩
+  refine hR δ Braw Bcl M k hgates hBcl0 hBraw0 hdrift hdel hrest ?_
+  intro H hlo hhi q hq hqQ i hik r hr
+  by_cases hcop : Nat.Coprime q r
+  · exact m4_classMeanSq_of_chiMeanSq_gk K hchi H hlo hhi q hq hqQ i hik r hr hcop
+  · exact hnoncop H hlo hhi q hq hqQ i hik r hr hcop
+
+/-- **THE SIEVED, χ-TWISTED DATUM AT THE LEVER** — `doorChiCoeff` (:708). -/
+def doorChiCoeff_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M : ℕ) : ℕ → ℂ :=
+  memSCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 (liouChi χ)
+
+/-- The indicator-restricted window sum IS the sum over the levered sieved window —
+`absWindowSum_doorChiCoeff_zero` (:712). -/
+theorem absWindowSum_doorChiCoeff_zero_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q)
+    (M H n : ℕ) :
+    absWindowSum (doorChiCoeff_gk K χ M) H n 0
+      = ∑ m ∈ doorSievedWindow_gk K M H n, liouChi χ m := by
+  rw [absWindowSum_zero, doorSievedWindow_gk, sievedWindow, Finset.sum_filter]
+  rfl
+
+/-- **THE ROW INPUT, PER CHARACTER, AT THE LEVER** — `M4ChiRowMeanSq` (:726). -/
+def M4ChiRowMeanSq_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (MS : ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+    ∀ i < k, ∀ χ : DirichletCharacter ℂ q,
+      1 / (doorLadder R.x H (i + 1) : ℝ)
+          * (∫ y in (doorLadder R.x H (i + 1) : ℝ)..(2 * (doorLadder R.x H (i + 1) : ℝ)),
+              ‖((1 / (H : ℝ) : ℝ) : ℂ)
+                  * shortSum (doorChiCoeff_gk K χ M)
+                      (seamS0 (2 * doorLadder R.x H (i + 1))
+                        (doorLadder R.x H (i + 1) : ℝ)) y (H : ℝ)‖ ^ 2)
+        ≤ MS H
+
+/-- **THE ROW BRIDGE AT THE LEVER** — `m4_chiBlock_fixed_of_chiRow` (:748). -/
+theorem m4_chiBlock_fixed_of_chiRow_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {MS : ℕ → ℝ}
+    (hrow : M4ChiRowMeanSq_gk K R M k MS) :
+    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+      ∀ i < k, ∀ χ : DirichletCharacter ℂ q,
+        ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+            ‖∑ m ∈ doorSievedWindow_gk K M H n, liouChi χ m‖ ^ 2
+          ≤ 2 * MS H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ) := by
+  intro H hlo hhi q hq hqQ i hik χ
+  have hH0 : 0 < H := by have := R.hHlo_floor; omega
+  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+  have hfit := doorLadder_fit R.x H i
+  -- ⟦the coverage datum is free at the block's own seam index set⟧
+  have hcov : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+      ∀ m ∈ Finset.Ioc n (n + H), m ∉ seamS0 (2 * doorLadder R.x H (i + 1))
+          (doorLadder R.x H (i + 1) : ℝ) → doorChiCoeff_gk K χ M m = 0 :=
+    hcov_of_seamS0 (doorChiCoeff_gk K χ M) (A := doorLadder R.x H (i + 1))
+      (B := doorLadder R.x H i) (N := 2 * doorLadder R.x H (i + 1)) (H := H) le_rfl
+      (by omega)
+  -- ⟦the row datum, read at the removed phase⟧
+  have hMS0 : 1 / ((doorLadder R.x H (i + 1) : ℕ) : ℝ)
+      * (∫ y in ((doorLadder R.x H (i + 1) : ℕ) : ℝ)..(2
+            * ((doorLadder R.x H (i + 1) : ℕ) : ℝ)),
+          ‖((1 / (H : ℝ) : ℝ) : ℂ)
+              * shortSum (doorCoeffPhase (doorChiCoeff_gk K χ M) 0)
+                  (seamS0 (2 * doorLadder R.x H (i + 1))
+                    (doorLadder R.x H (i + 1) : ℝ)) y (H : ℝ)‖ ^ 2)
+      ≤ MS H := by
+    rw [doorCoeffPhase_zero]
+    exact hrow H hlo hhi q hq hqQ i hik χ
+  -- ⟦B-4: the harmonic-weighted block bound⟧
+  have hladder := sum_Ioc_absWindowSum_sq_div_le_ladder (doorChiCoeff_gk K χ M)
+    (seamS0 (2 * doorLadder R.x H (i + 1)) (doorLadder R.x H (i + 1) : ℝ)) 0
+    (x := R.x) (H := H) (i := i) (MS := MS H) hH0 hxH hcov hMS0
+  -- ⟦the exchange⟧
+  have hflat := sum_Ioc_le_two_mul_of_harmonic (x := R.x) (H := H) (i := i)
+    (f := fun n => ‖absWindowSum (doorChiCoeff_gk K χ M) H n 0‖ ^ 2)
+    (V := (H : ℝ) ^ 2 * MS H) hxH (fun n _ => by positivity) hladder
+  simp only [absWindowSum_doorChiCoeff_zero_gk] at hflat
+  have heq : 2 * ((H : ℝ) ^ 2 * MS H) * (doorLadder R.x H (i + 1) : ℝ)
+      = 2 * MS H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ) := by ring
+  rw [heq] at hflat
+  exact hflat
+
+/-- **⟦R1⟧ AT THE LEVER** — `M4ChiMaximalStep` (:797). -/
+def M4ChiMaximalStep_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (Cmax : ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+    ∀ i < k, ∀ χ : DirichletCharacter ℂ q,
+      ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          (doorChiSup_gk K χ M H n) ^ 2
+        ≤ Cmax H
+          * ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+              ‖∑ m ∈ doorSievedWindow_gk K M H n, liouChi χ m‖ ^ 2
+
+/-- **THE χ-DATUM, ASSEMBLED, AT THE LEVER** — `m4_chiBlockMeanSq_of_row` (:810). -/
+theorem m4_chiBlockMeanSq_of_row_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {MS Cmax : ℕ → ℝ}
+    (hCmax0 : ∀ H : ℕ, 0 ≤ Cmax H) (hmax : M4ChiMaximalStep_gk K R M k Cmax)
+    (hrow : M4ChiRowMeanSq_gk K R M k MS) :
+    M4ChiBlockMeanSq_gk K R M k (fun H => Cmax H * (2 * MS H)) := by
+  intro H hlo hhi q hq hqQ i hik χ
+  refine le_trans (hmax H hlo hhi q hq hqQ i hik χ) ?_
+  have hb := m4_chiBlock_fixed_of_chiRow_gk K hrow H hlo hhi q hq hqQ i hik χ
+  have hle := mul_le_mul_of_nonneg_left hb (hCmax0 H)
+  refine le_trans hle (le_of_eq ?_)
+  ring
+
+/-- **THE CLOSE AT THE CAPSTONE'S OWN CURRENCY, AT THE LEVER** — `m4_wave_closed_of_row`
+(:840). -/
+theorem m4_wave_closed_of_row_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw MS Cmax : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ →
+            (∀ H : ℕ, 0 ≤ MS H) → (∀ H : ℕ, 0 ≤ Cmax H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
+                  * ((q : ℝ) ^ 2 * (3 * (Cmax H * (2 * MS H)))) ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              Real.sqrt (Braw H) ≤ mrtDeliveredGrade (C / 2) H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ mrtDeliveredGrade (C / 2) H) →
+            M4ChiMaximalStep_gk K R M k Cmax →
+            M4ChiRowMeanSq_gk K R M k MS →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              ∀ i < k, ∀ r, r < q → ¬ Nat.Coprime q r →
+                ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+                    (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
+                  ≤ (Cmax H * (2 * MS H)) * (H : ℝ) ^ 2
+                      * (doorLadder R.x H (i + 1) : ℝ)) →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_wave_closed_of_chi_gk K
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro C hC U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ Braw MS Cmax M k hgates hMS0 hCmax0 hBraw0 hdrift hdel
+    hrest hmax hrow hnoncop => ?_⟩
+  refine hR δ Braw (fun H => Cmax H * (2 * MS H)) M k hgates
+    (fun H => by have := hMS0 H; have := hCmax0 H; positivity) hBraw0 hdrift hdel hrest
+    (m4_chiBlockMeanSq_of_row_gk K hCmax0 hmax hrow) hnoncop
+
+-- #audit (temporary)
+
 end Salt.MR
 
 end

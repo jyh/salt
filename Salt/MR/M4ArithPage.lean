@@ -968,4 +968,50 @@ theorem m4_arith_door_exit {R : ChowlaRegime} {M : ℕ}
   obtain ⟨hL0, hlam⟩ := hHreg H hlo hhi
   exact m4_arith_rs_ceiling_met hδ₀ hL0 hlam
 
+/-! ## §GK — the G-lever: what this page owes the lever, and what it does not
+
+⟦THE ARITHMETIC OF THIS PAGE IS K-INVARIANT.⟧  Run the transitive K-invariance test on each
+statement:
+
+* `calP_door_one`, `calQK_door_one` — LEVEL 1, hence `G`-blind (`GLever.calE_gk_one`).  They
+  are re-read at the lever below (`calP_door_one_at_lever`, `calQK_door_one_at_lever`) and
+  the values are **the same numerals**, `2^{A}` and `2^{M·A}`.
+* `a2Level1 M` — level 1, so `M4Assembly.a2DoorGrade` is `G`-FREE outright: none of its five
+  summands reads the ladder above level 1.  Therefore
+  `doorGrade_summand1..5_priced`, `a2DoorGrade_priced`, `m4_arith_gate4`,
+  `m4_arith_rs_ceiling_met`, `m4_arith_henv`, `m4_arith_anchor_of_C1`,
+  `m4_arith_jfloor_of_anchor`, `m4_arith_arm_of_gArm`, the `M₀`-window pair and the whole
+  `DoorArithFrame`/`RSanDoor`/`doorRho` block **carry over verbatim** — they get NO twin, and
+  a `_gk` sibling of any of them would be a byte-for-byte duplicate.
+  (`doorRowFloor M = M·Adoor M` is `G`-free too, so `m4ChiRowGraded`'s splice does not move.)
+
+⟦WHAT IS NOT K-INVARIANT, AND WHERE IT LIVES.⟧  Exactly the socket wiring, and none of it is
+declared in this file:
+
+* `M4ChiSummed.chiFreeRowSq` reads `M4WaveClosed.doorChiCoeff χ M
+  = memSCoeff (calP (Adoor M) (3072M)) (calQK (Adoor M) (3072M) M) 2 …` — LEVEL 2, so it
+  moves;  with it move `M4ChiSocketWire.M4ChiSummedFreeRowBig` and
+  `M4ChiSummed.M4ChiSummedFreeRow`.
+* `M4Assembly.DoorFuseFrame` carries `ThmA2.a2RowsSum M Xd` (level 2) in its `gRows` field,
+  so it moves; with it moves `M4Assembly.m4_chiFreeRowSq_sum_at_door`.
+
+Consequently `m4_chiSummedFreeRowBig_of_doorGradeGated`, `m4_chiSummedFreeRow_of_doorArith`
+and `m4_arith_door_exit` DO need `_gk` twins, but each of them is BLOCKED on twins owned by
+other files (`doorChiCoeff_gk`, `chiFreeRowSq_gk`, `M4ChiSummedFreeRow{,Big}_gk`,
+`DoorFuseFrame_gk`, `m4_chiFreeRowSq_sum_at_door_gk`).  Their proofs are otherwise the landed
+ones verbatim — `ThmA2.a2Mrow_gk` (this group) is the only moved object they read here — so
+they are one-line rewires once those land. -/
+
+/-- **`P₁` AT THE LEVER IS THE SAME NUMERAL** — `calP_door_one` re-read at `s13GK K M`. -/
+theorem calP_door_one_at_lever (K M : ℕ) : calP (Adoor M) (s13GK K M) 1 = 2 ^ Adoor M := by
+  rw [calP, calE_gk_one]
+
+/-- **`Q₁` AT THE LEVER IS THE SAME NUMERAL** — `calQK_door_one` re-read at `s13GK K M`. -/
+theorem calQK_door_one_at_lever (K M : ℕ) :
+    calQK (Adoor M) (s13GK K M) M 1 = 2 ^ (M * Adoor M) := by
+  rw [calQK, calE_gk_one]
+  norm_num
+
+-- #audit (temporary)
+
 end Salt.MR

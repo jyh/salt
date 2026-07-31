@@ -924,4 +924,232 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_end :
     (C₁ := C₁) (M₀ := M₀) (ε := ε) hM hframe
     (hslot R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband henv
 
+/-! ## §GK — the G-lever twin
+
+The strict/fused door row page at `G := s13GK K M`.
+
+⟦THE ONE STRUCTURAL NOTE⟧  `M4Assembly` carries **no** `§GK` section — it is in none of this
+dispatch's six file groups, and `M4ArithPage`'s and `M4DoorClose`'s `§GK` headers both record
+being blocked on its twins.  Three of its declarations are needed HERE and are minted below
+as ⟦PROVISIONAL⟧ duplicates: `doorCoeffU_gk`, `chiBarCoeff_doorCoeffU_gk`,
+`chiBarCoeff_doorRowDatum_gk`.  Delete them the moment `M4Assembly` grows its own.
+
+⟦BLOCKED, NOT ATTEMPTED⟧ `m4_chiSummedFreeRow_of_doorAssembly_end` (:885).  Its proof is one
+`exact` at `M4Assembly.m4_chiSummedFreeRow_of_doorAssembly`, which needs
+`M4Assembly.DoorFuseFrame_gk` and `M4Assembly.m4_chiFreeRowSq_sum_at_door_gk` — neither
+exists.  (`DoorFuseFrame` moves ONLY through its `gRows` field, `ThmA2.a2RowsSum M Xd`; its
+`gP1` field is level-1 and does not move.  `SocketBase`, `a2DoorGrade` and `m4ChiRowGraded`
+are `G`-FREE and are reused verbatim.) -/
+
+/-- ⟦PROVISIONAL, M4Assembly-SIDE⟧ **THE UNTWISTED DOOR DATUM AT THE G-LEVER**
+(`doorCoeffU_gk`) — `M4Assembly.doorCoeffU` (:171) at `G := s13GK K M`.
+
+It is minted HERE, not in `M4Assembly`, because that file carries no `§GK` section: it is not
+in this dispatch's six file groups, and three other groups' `§GK` headers already record being
+blocked on it.  Should `M4Assembly` acquire its own `doorCoeffU_gk`, THIS declaration (and the
+two bridges below) are the byte-identical duplicates to delete. -/
+def doorCoeffU_gk (K M : ℕ) : ℕ → ℂ :=
+  memSCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC
+
+/-- ⟦PROVISIONAL, M4Assembly-SIDE⟧ the `χ̄`-twist of the levered untwisted datum IS the
+levered sieved χ-twisted datum — `M4Assembly.chiBarCoeff_doorCoeffU` (:175). -/
+theorem chiBarCoeff_doorCoeffU_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M : ℕ) :
+    chiBarCoeff q χ (doorCoeffU_gk K M) = doorChiCoeff_gk K χ M := by
+  funext n
+  simp only [chiBarCoeff_apply, doorCoeffU_gk, doorChiCoeff_gk, memSCoeff, liouChi]
+  split_ifs
+  · ring
+  · rw [mul_zero]
+
+/-- ⟦PROVISIONAL, M4Assembly-SIDE⟧ **THE BRIDGE AT THE G-LEVER** —
+`M4Assembly.chiBarCoeff_doorRowDatum` (:195).  `chiBarCoeff_winCutH` is datum-generic and is
+reused verbatim. -/
+theorem chiBarCoeff_doorRowDatum_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd : ℕ) :
+    chiBarCoeff q χ (winCutH Xd (doorCoeffU_gk K M)) = winCutH Xd (doorChiCoeff_gk K χ M) := by
+  rw [chiBarCoeff_winCutH, chiBarCoeff_doorCoeffU_gk]
+
+/-- **THE DOOR BRIDGE, STRICT/FUSED, AT THE G-LEVER**
+(`m4MrowChiEnd_le_a2Mrow_gk`).  Re-derived, NOT weakened through `a2Mrow_gk_le`: the target
+`a2Mrow_gk` is the SMALLER number, so the polarity forbids a `le_trans` through the landed
+bridge. -/
+theorem m4MrowChiEnd_le_a2Mrow_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd)
+    {Ct Cp X ε : ℝ}
+    (hCp : 0 ≤ Cp) :
+    m4MrowChiEnd Ct Cp (Adoor M) (s13GK K M) M 2 Xd (H1door M) (1 / 12) X ε 0
+      ≤ a2Mrow_gk K Ct Cp M Xd X ε := by
+  have hM0 : (0 : ℝ) < (M : ℝ) := by exact_mod_cast hM
+  have hlvl := level1_term_door_decays_gk K (M := M) hM (R := 9) (by norm_num)
+  have hRS0 : (0 : ℝ) ≤ (∑ j ∈ Finset.Icc 1 2,
+      ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH (H1door M) j + 1)
+          * (Real.exp 1 / (Xd : ℝ) ^ 2))
+        + 16 * Real.logb 2 (2 * (Xd : ℝ))
+            / ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ)
+        + 1 / (Xd : ℝ))) + Cp * (2 / (M : ℝ)) := by
+    have h2 : (0 : ℝ) ≤ Cp * (2 / (M : ℝ)) := by positivity
+    linarith [d5_rowsSum_nonneg (A := Adoor M) (G := s13GK K M) (Jb := 2) (Xd := Xd)
+      (H1 := H1door M) hXd (H1door_two hM)]
+  unfold m4MrowChiEnd a2Mrow_gk a2RowsSum_gk
+  rw [← a2Level1_gk_eq K M]
+  have hlvl' : 18 * (calH (H1door M) 1
+        * Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) + 1)
+      * ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) ^ (-(2 * mrAlpha (1 / 12 : ℝ) 1))
+      * (4 * (calH (H1door M) 1 / (1 - 2 * mrAlpha (1 / 12 : ℝ) 1))
+            * Real.exp ((1 - 2 * mrAlpha (1 / 12 : ℝ) 1) / calH (H1door M) 1)
+          + 60 * (calH (H1door M) 1 / mrAlpha (1 / 12 : ℝ) 1)
+              * Real.exp (4 * mrAlpha (1 / 12 : ℝ) 1 / calH (H1door M) 1))
+      ≤ 47520 * ((Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ)) ^ ((1 : ℝ) / 3)
+          / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 12)) := by
+    calc 18 * (calH (H1door M) 1
+            * Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) + 1)
+          * ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) ^ (-(2 * mrAlpha (1 / 12 : ℝ) 1))
+          * (4 * (calH (H1door M) 1 / (1 - 2 * mrAlpha (1 / 12 : ℝ) 1))
+                * Real.exp ((1 - 2 * mrAlpha (1 / 12 : ℝ) 1) / calH (H1door M) 1)
+              + 60 * (calH (H1door M) 1 / mrAlpha (1 / 12 : ℝ) 1)
+                  * Real.exp (4 * mrAlpha (1 / 12 : ℝ) 1 / calH (H1door M) 1))
+        = 2 * (calH (H1door M) 1
+              * Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) + 1) * 9
+            * ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) ^ (-(2 * mrAlpha (1 / 12 : ℝ) 1))
+            * (4 * (calH (H1door M) 1 / (1 - 2 * mrAlpha (1 / 12 : ℝ) 1))
+                  * Real.exp ((1 - 2 * mrAlpha (1 / 12 : ℝ) 1) / calH (H1door M) 1)
+                + 60 * (calH (H1door M) 1 / mrAlpha (1 / 12 : ℝ) 1)
+                    * Real.exp (4 * mrAlpha (1 / 12 : ℝ) 1 / calH (H1door M) 1)) := by ring
+      _ ≤ 5280 * 9 * ((Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ)) ^ ((1 : ℝ) / 3)
+            / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 12)) := hlvl
+      _ = 47520 * ((Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ)) ^ ((1 : ℝ) / 3)
+            / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 12)) := by ring
+  linarith
+
+/-- **⟦THE D5 DELIVERABLE AT THE DOOR⟧ THE `a2Mrow`-GENRE ROW FAMILY,
+STRICT/FUSED, AT THE G-LEVER** (`m4_hrowsSum_chi_door_end_gk`).  Frame:
+`ThmA2.calFrameK_doorH1_at_gk`, whence `K ≤ 1.7·10⁸`. -/
+theorem m4_hrowsSum_chi_door_end_gk (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
+      ∀ (q : ℕ) [NeZero q] (c a : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ),
+        (∀ n : ℕ, ‖a n‖ ≤ 1) → (∀ j m : ℕ, ‖bfam j m‖ ≤ 1) → (∀ p : ℕ, ‖c p‖ ≤ 1) →
+      ∀ (N Xd M : ℕ) (X h ε : ℝ) (t₁ : DirichletCharacter ℂ q → ℝ),
+        1 ≤ M → calQK (Adoor M) (s13GK K M) M 2 ≤ Xd →
+        2 * Xd ≤ N → (N : ℝ) ≤ 4 * (Xd : ℝ) →
+        -- ⟦THE STRICT RELATIVIZED PAIR LAW⟧ in place of the refuted global `hcoef`
+        (∀ j ∈ Finset.Icc 1 2,
+          SeamCoefWS Xd (calP (Adoor M) (s13GK K M) j) (calQK (Adoor M) (s13GK K M) M j)
+            a (bfam j) c) →
+        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+        Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+            ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (∀ j ∈ Finset.Icc 1 2,
+          ((Nat.sqrt Xd : ℝ) + 1)
+              * ∏ p ∈ primeBand (calP (Adoor M) (s13GK K M) j)
+                    (calQK (Adoor M) (s13GK K M) M j), (1 + 3 / (p : ℝ))
+            ≤ (Xd : ℝ) * (Real.log ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ)
+                / Real.log ((calQK (Adoor M) (s13GK K M) M j : ℕ) : ℝ))) →
+        4 ≤ h → 0 < X → 0 ≤ Real.log X → X ≤ 4 * (Xd : ℝ) →
+        ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ h →
+        (∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X →
+          TannGate X (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+          (∫ t in seamAnn X (2 * T), ‖spoly N (chiBarCoeff q χ a) t‖ ^ 2)
+            ≤ 8 * (0 : ℝ) ^ 2
+              + (∫ t in (seamAnn X (2 * T) \ seamBall X (t₁ χ))
+                  ∩ seamTtotG (chiBarCoeff q χ c) (calP (Adoor M) (s13GK K M))
+                      (calQK (Adoor M) (s13GK K M) M) (calH (H1door M))
+                      (mrAlpha (1 / 12)) 2,
+                  ‖spoly N (chiBarCoeff q χ a) t‖ ^ 2)
+              + 2 * ((2 * T / X + 1) * (Real.log X) ^ (-theta293 + ε))) →
+        ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X →
+          TannGate X (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+          X / h / T * (∫ t in seamAnn X (2 * T), ‖spoly N (chiBarCoeff q χ a) t‖ ^ 2)
+            ≤ a2Mrow_gk K Ct Cp M Xd X ε := by
+  obtain ⟨Ct, Cp, hCt, hCp, hrows⟩ := m4_hrowsSum_chi_end
+  refine ⟨Ct, Cp, hCt, hCp, ?_⟩
+  intro q _ c a bfam ha1 hb1 hc1 N Xd M X h ε t₁ hM hXdQ hNXd hN4 hcoefWS hasupp hQXd
+    hXdbig hdom hh4 hX0 hL0 hX4Xd hQ1h hcap χ T hT hTX2 hTgate hTll
+  have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (Adoor M) (s13GK K M) M 2) hXdQ
+  refine (hrows q c a bfam ha1 hb1 hc1 N Xd (Adoor M) (s13GK K M) M 2 (H1door M) X h
+    (1 / 12) ε t₁ (fun _ => 0) (calFrameK_doorH1_at_gk K M Xd hM hK hXdQ) hNXd hN4 hcoefWS
+    hasupp hQXd hXdbig hdom hh4 hX0 hL0 hX4Xd hQ1h hcap χ T hT hTX2 hTgate hTll).trans ?_
+  exact m4MrowChiEnd_le_a2Mrow_gk K hM hXd1 hCp.le
+
+/-- **THE PER-BASE GATE BUNDLE OF THE DOOR ROW SUPPLIER, AT THE G-LEVER**
+(`DoorRowEndBase_gk`).  Seven fields, names UNCHANGED: `Q2_le`, `coefWS`, `reg`, `big`,
+`dom`, `h_four`, `Q1_le_h`.  `Q1_le_h` is LEVEL 1 and therefore K-INVARIANT in content
+(`GLever.calQK_gk_one_eq`), but it is written at the levered symbol so the bundle reads
+uniformly. -/
+structure DoorRowEndBase_gk (K : ℕ) (M Xd j : ℕ) (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ) : Prop where
+  /-- The door's cutoff `Q₂ ≤ X_d`, which is also `CalFrameK`'s at the door family. -/
+  Q2_le : calQK (Adoor M) (s13GK K M) M 2 ≤ Xd
+  /-- ⟦THE REPAIR⟧ the STRICT relativized pair law, level by level. -/
+  coefWS : ∀ i ∈ Finset.Icc 1 2,
+    SeamCoefWS Xd (calP (Adoor M) (s13GK K M) i) (calQK (Adoor M) (s13GK K M) M i)
+      (winCutH Xd (doorCoeffU_gk K M)) (bU i) cU
+  /-- (R1) `log Q₂ ≤ √(log X_d)`. -/
+  reg : Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ))
+  /-- (R2) `100 ≤ √(log X_d)`. -/
+  big : (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ))
+  /-- (R4) the per-level error-domination product. -/
+  dom : ∀ i ∈ Finset.Icc 1 2,
+    ((Nat.sqrt Xd : ℝ) + 1)
+        * ∏ p ∈ primeBand (calP (Adoor M) (s13GK K M) i)
+              (calQK (Adoor M) (s13GK K M) M i), (1 + 3 / (p : ℝ))
+      ≤ (Xd : ℝ) * (Real.log ((calP (Adoor M) (s13GK K M) i : ℕ) : ℝ)
+          / Real.log ((calQK (Adoor M) (s13GK K M) M i : ℕ) : ℝ))
+  /-- The weighting frame's floor `4 ≤ 2^j` (`DoorFuseFrame.h_four`'s twin). -/
+  h_four : (4 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ)
+  /-- The weighting frame's `Q₁ ≤ h` at `h = 2^j`. -/
+  Q1_le_h : ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ)
+
+/-- **⟦THE SLOT, MET⟧ AT THE G-LEVER** (`m4_hrowsSlot_at_door_end_gk`). -/
+theorem m4_hrowsSlot_at_door_end_gk (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
+      ∀ (R : ChowlaRegime) (M : ℕ) (ε : ℕ → ℝ) (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ)
+        (t₁ : ∀ q : ℕ, DirichletCharacter ℂ q → ℝ),
+        1 ≤ M → (∀ i m : ℕ, ‖bU i m‖ ≤ 1) → (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s → DoorRowEndBase_gk K M (A + s) j cU bU) →
+        -- ⟦THE CARRIED A3 CAPSTONE FAMILY⟧ at the door pin `S ≡ 0`
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) (t₁ q χ))
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (Adoor M) (s13GK K M))
+                        (calQK (Adoor M) (s13GK K M) M) (calH (H1door M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s)))) →
+        ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) / T
+                * (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+              ≤ a2Mrow_gk K Ct Cp M (A + s) (((A + s : ℕ)) : ℝ) (ε (A + s)) := by
+  obtain ⟨Ct, Cp, hCt, hCp, hrows⟩ := m4_hrowsSum_chi_door_end_gk K hK
+  refine ⟨Ct, Cp, hCt, hCp, ?_⟩
+  intro R M ε cU bU t₁ hM hb1 hc1 hbase hcap H L q j A s hb χ T hT hTX2 hTgate hTll
+  have hq : 0 < q := hb.2.2.2.1
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  haveI : NeZero q := ⟨hq.ne'⟩
+  have hD := hbase H L q j A s hb
+  -- ⟦THE DOOR INSTANCE'S OWN FRAME⟧
+  have hAs : 0 < A + s := lt_of_lt_of_le hA (Nat.le_add_right A s)
+  have hAsR : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by exact_mod_cast hAs
+  have hN4 : (((2 * (A + s) : ℕ)) : ℝ) ≤ 4 * (((A + s : ℕ)) : ℝ) := by push_cast; linarith
+  have ha1 : ∀ n : ℕ, ‖winCutH (A + s) (doorCoeffU_gk K M) n‖ ≤ 1 :=
+    fun n => norm_winCutH_le
+      (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ 2 m) n
+  have hslot := hrows q cU (winCutH (A + s) (doorCoeffU_gk K M)) bU ha1 hb1 hc1
+    (2 * (A + s)) (A + s) M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (ε (A + s)) (t₁ q)
+    hM hD.Q2_le le_rfl hN4 hD.coefWS (fun n hn => winCutH_asupp hn) hD.reg hD.big hD.dom
+    hD.h_four hAsR (log_natCast_nonneg' (A + s)) (by linarith) hD.Q1_le_h
+    (by simpa only [chiBarCoeff_doorRowDatum_gk] using hcap H L q j A s hb) χ T
+    hT hTX2 hTgate hTll
+  simpa only [chiBarCoeff_doorRowDatum_gk] using hslot
+
+-- #audit (temporary)
+
 end Salt.MR

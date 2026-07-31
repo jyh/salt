@@ -864,4 +864,199 @@ theorem m4_arith_door_exit_of_delta {R : ChowlaRegime} {M : ℕ}
   m4_arith_door_exit_rho hM (doorRhoOfDelta_pos hδ₀.ne') (doorRhoOfDelta_spec δ₀) hHreg
     hframe hrows hband harith
 
+/-! ## §GK — the G-lever twin
+
+The `ρ`-page at `G := s13GK K M` (`GLever`), `(K : ℕ)` first.
+
+⟦WHAT IS K-INVARIANT HERE, AND KEEPS ITS LANDED NAME⟧ almost everything: `RSanDoorRho`,
+`DoorArithFrameRho` and its five derived lemmas, `gArmDoorRho`, `doorRhoOfDelta`,
+`m4_arith_gate4_rho`, `m4_arith_rs_ceiling_met_rho`, `m4_arith_arm_of_gArmRho`,
+`m4_arith_anchor_of_C1_rho`, `m4_arith_jfloor_of_anchor_rho`, the two `M₀`-window lemmas and
+summands 1, 3, 4, 5 read no door ladder at all (`M4ArithPage`'s own `§GK` records the same
+verdict for its landed originals).  Summand 2 reads the ladder only through `a2Level1 M`,
+which is LEVEL 1 and therefore K-INVARIANT — so `doorGrade_summand2_priced_rho_gk`'s statement
+is byte-identical to the landed one and its proof IS the landed one; the twin exists for
+uniformity of the family's shape.
+
+⚠ ⟦THE BINDER SHADOW⟧ this page's landed statements already bind a REAL `K` — ⟦C3⟧'s symbolic
+margined-floor constant inside `DoorArithFrameRho`.  The lever's `(K : ℕ)` goes first, per THE
+KDESIGN, and the ⟦C3⟧ constant is ALPHA-RENAMED to `Kar` in the twins.  Nothing but the bound
+variable's name changes; every twin's statement is alpha-equivalent to the landed one with the
+grade symbol swapped.
+
+⚠ ⟦THE ONE LOCAL BRIDGE⟧ `M4ArithPage.m4_chiSummedFreeRowBig_of_doorGradeGated` — the socket
+wire re-quantified over `SocketBase` — owes a `_gk` sibling that `M4ArithPage`'s own `§GK`
+records as BLOCKED (it was blocked on `a2DoorGrade_gk`, which now exists).  `M4ArithPage` is
+not this executor's file, so the wire is re-proved HERE as a **private** bridge
+(`doorGradeGated_bridge_gk`), byte for byte from the landed proof.  Being private it cannot
+collide with the public twin when `M4ArithPage` grows one; at that point this bridge is the
+duplicate to delete. -/
+
+set_option linter.unusedVariables false in
+/-- `doorGrade_summand2_priced_rho` (:283), at the lever.  `a2Level1 M` is LEVEL 1, so the
+statement does not move; the twin exists for uniformity of the family's shape. -/
+theorem doorGrade_summand2_priced_rho_gk (K : ℕ) {M H : ℕ} {ρ : ℝ} (hρ : 0 < ρ) (hM : 1 ≤ M)
+    (hanchor : 14 * Real.log (Real.log (H : ℝ)) + Real.log (1 / ρ) + 33
+      ≤ 39 * 10 ^ 8 * ((Nat.log 2 M + 1 : ℕ) : ℝ)) :
+    1787702400 * a2Level1 M * Real.exp (14 * Real.log (Real.log (H : ℝ))) ≤ ρ / 8 :=
+  doorGrade_summand2_priced_rho hρ hM hanchor
+
+/-- `a2DoorGrade_priced_rho` (:470), at the lever.  `a2DoorGrade_gk` is the landed grade under
+a levered name (`M4Assembly.a2DoorGrade_gk_eq`), so the pricing carries over unchanged. -/
+theorem a2DoorGrade_priced_rho_gk (K : ℕ) {M H j : ℕ} {X C₁ M₀ Kar ρ : ℝ}
+    (hfr : DoorArithFrameRho M H j X C₁ M₀ Kar ρ) :
+    arcDen 12 H * a2DoorGrade_gk K M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ ≤ RSanDoorRho ρ H := by
+  rw [a2DoorGrade_gk_eq]
+  exact a2DoorGrade_priced_rho hfr
+
+/-- `m4_arith_henv_rho` (:518), at the lever. -/
+theorem m4_arith_henv_rho_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {C₁ M₀ : ℕ → ℝ} {Kar ρ : ℝ}
+    (harith : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kar ρ) :
+    ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      arcDen 12 H * a2DoorGrade_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+          (M₀ (A + s))
+        ≤ RSanDoorRho ρ H :=
+  fun H L q j A s hb => a2DoorGrade_priced_rho_gk K (harith H L q j A s hb)
+
+/-- ⟦LOCAL BRIDGE, M4ArithPage-SIDE⟧ `M4ArithPage.m4_chiSummedFreeRowBig_of_doorGradeGated`
+(:662) at the lever, re-proved here because `M4ArithPage` is another group's file.  Private:
+it cannot collide with the public twin when that file grows one. -/
+private theorem doorGradeGated_bridge_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {C₁ M₀ : ℕ → ℝ}
+    {RSbig : ℕ → ℕ → ℝ}
+    (hgrade : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq_gk K χ M j (A + s)
+        ≤ (q.totient : ℝ)
+            * a2DoorGrade_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+                (M₀ (A + s)))
+    (henv : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      arcDen 12 H * a2DoorGrade_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+          (M₀ (A + s))
+        ≤ RSbig j H) :
+    M4ChiSummedFreeRowBig_gk K R M RSbig := by
+  intro H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx hAcap s hsL
+  have hb : SocketBase R M H L q j A s :=
+    ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩
+  have hh1 : (1 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) := by
+    exact_mod_cast (Nat.one_le_two_pow : 1 ≤ 2 ^ j)
+  have hh0 : (0 : ℝ) < ((2 ^ j : ℕ) : ℝ) := by linarith
+  have hG0 : 0 ≤ a2DoorGrade_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+      (M₀ (A + s)) := a2DoorGrade_nonneg_gk K M (log_natCast_nonneg' (A + s)) hh0
+  have hφq : (q.totient : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.totient_le q
+  have hφarc : (q.totient : ℝ) ≤ arcDen 12 H := le_trans hφq hqQ
+  refine le_trans (hgrade H L q j A s hb) ?_
+  refine le_trans (mul_le_mul_of_nonneg_right hφarc hG0) ?_
+  exact henv H L q j A s hb
+
+/-- `m4_chiSummedFreeRow_of_doorArithRho` (:617), at the lever. -/
+theorem m4_chiSummedFreeRow_of_doorArithRho_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ}
+    {Cs Ccc C₁ M₀ ε : ℕ → ℝ} {Kar ρ : ℝ}
+    (hM : 1 ≤ M)
+    (hframe : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorFuseFrame_gk K M (A + s) j (Cs (A + s)) (Ccc (A + s)) (ε (A + s)))
+    (hrows : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+        (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+        TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+        (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) / T
+            * (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+          ≤ a2Mrow_gk K (Cs (A + s)) (Ccc (A + s)) M (A + s) (((A + s : ℕ)) : ℝ) (ε (A + s)))
+    (hband : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∀ χ : DirichletCharacter ℂ q,
+        (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+          ‖dpolyA (winCutH (A + s) (doorChiCoeff_gk K χ M))
+            (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+          ≤ t0BandB (((A + s : ℕ)) : ℝ) (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (M₀ (A + s)))
+    (harith : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kar ρ) :
+    M4ChiSummedFreeRow_gk K R M (m4ChiRowGraded M (fun _ H => RSanDoorRho ρ H)) := by
+  refine m4_chiSummedFreeRow_of_big_gk K
+    (doorGradeGated_bridge_gk K (C₁ := C₁) (M₀ := M₀) ?_ (m4_arith_henv_rho_gk K harith))
+  intro H L q j A s hb
+  obtain ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩ := hb
+  haveI : NeZero q := ⟨hq.ne'⟩
+  have hbb : SocketBase R M H L q j A s :=
+    ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩
+  have hF := hframe H L q j A s hbb
+  exact m4_chiFreeRowSq_sum_at_door_gk K hM hF.X_exp hF.X_three hF.h_four hF.h_window hF.tann
+    hF.ceil5 (hrows H L q j A s hbb) (hband H L q j A s hbb) hF.gP1 hF.gRows
+    ⟨hF.eps_lo, hF.eps_hi⟩ hF.L4096
+
+/-- `m4_arith_door_exit_rho` (:793), at the lever.  ⟦ii⟧ and ⟦iii⟧ are `G`-FREE and are the
+landed statements verbatim; only ⟦i⟧ moves. -/
+theorem m4_arith_door_exit_rho_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ}
+    {Cs Ccc C₁ M₀ ε : ℕ → ℝ} {Kar ρ δ₀ : ℝ}
+    (hM : 1 ≤ M) (hρ : 0 < ρ) (hρδ : 110525 * ρ ≤ δ₀ ^ 2)
+    (hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)))
+    (hframe : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorFuseFrame_gk K M (A + s) j (Cs (A + s)) (Ccc (A + s)) (ε (A + s)))
+    (hrows : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+        (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+        TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+        (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) / T
+            * (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+          ≤ a2Mrow_gk K (Cs (A + s)) (Ccc (A + s)) M (A + s) (((A + s : ℕ)) : ℝ) (ε (A + s)))
+    (hband : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∀ χ : DirichletCharacter ℂ q,
+        (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+          ‖dpolyA (winCutH (A + s) (doorChiCoeff_gk K χ M))
+            (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+          ≤ t0BandB (((A + s : ℕ)) : ℝ) (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (M₀ (A + s)))
+    (harith : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kar ρ) :
+    M4ChiSummedFreeRow_gk K R M (m4ChiRowGraded M (fun _ H => RSanDoorRho ρ H))
+      ∧ (∀ j H : ℕ, doorRowFloor M ≤ j →
+          m4ChiRowGraded M (fun _ H => RSanDoorRho ρ H) j H ≤ RSanDoorRho ρ H)
+      ∧ (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+          96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 * (108 / 5 * RSanDoorRho ρ H)
+            ≤ δ₀ ^ 2) := by
+  refine ⟨m4_chiSummedFreeRow_of_doorArithRho_gk K hM hframe hrows hband harith,
+    m4_arith_gate4_rho M ρ, ?_⟩
+  intro H hlo hhi
+  obtain ⟨hL0, hlam⟩ := hHreg H hlo hhi
+  exact m4_arith_rs_ceiling_met_rho hρ hρδ hL0 hlam
+
+/-- `m4_arith_door_exit_of_delta` (:831), at the lever. -/
+theorem m4_arith_door_exit_of_delta_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ}
+    {Cs Ccc C₁ M₀ ε : ℕ → ℝ} {Kar δ₀ : ℝ}
+    (hM : 1 ≤ M) (hδ₀ : 0 < δ₀)
+    (hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)))
+    (hframe : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorFuseFrame_gk K M (A + s) j (Cs (A + s)) (Ccc (A + s)) (ε (A + s)))
+    (hrows : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+        (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+        TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+        (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) / T
+            * (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+          ≤ a2Mrow_gk K (Cs (A + s)) (Ccc (A + s)) M (A + s) (((A + s : ℕ)) : ℝ) (ε (A + s)))
+    (hband : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∀ χ : DirichletCharacter ℂ q,
+        (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+          ‖dpolyA (winCutH (A + s) (doorChiCoeff_gk K χ M))
+            (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+          ≤ t0BandB (((A + s : ℕ)) : ℝ) (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (M₀ (A + s)))
+    (harith : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kar
+        (doorRhoOfDelta δ₀)) :
+    M4ChiSummedFreeRow_gk K R M
+        (m4ChiRowGraded M (fun _ H => RSanDoorRho (doorRhoOfDelta δ₀) H))
+      ∧ (∀ j H : ℕ, doorRowFloor M ≤ j →
+          m4ChiRowGraded M (fun _ H => RSanDoorRho (doorRhoOfDelta δ₀) H) j H
+            ≤ RSanDoorRho (doorRhoOfDelta δ₀) H)
+      ∧ (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+          96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+              * (108 / 5 * RSanDoorRho (doorRhoOfDelta δ₀) H)
+            ≤ δ₀ ^ 2) :=
+  m4_arith_door_exit_rho_gk K hM (doorRhoOfDelta_pos hδ₀.ne') (doorRhoOfDelta_spec δ₀) hHreg
+    hframe hrows hband harith
+
 end Salt.MR
+
+-- #audit (temporary)

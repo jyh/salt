@@ -323,6 +323,26 @@ theorem doorLadder_pow_lower (x H i : ℕ) : x / 2 ^ i ≤ doorLadder x H i := b
       rw [doorLadder_succ, hdiv]
       omega
 
+/-! ## §GK — the G-lever twin (BLOCKED, no declarations)
+
+Both of this file's exits — `m4_wave_closed_coprime_discharged` (:158) and
+`m4_wave_closed_coprime_discharged_False` (:254) — compose five suppliers that live in files
+owned by other groups and that carry no `_gk` sibling yet:
+
+* `M4T0Discharge`: `DoorRowCarriedT0`, `doorRowCarried_of_t0free`;
+* `M4DoorClose`: `m4_dyadicRow_carried` (itself blocked — see that file's `§GK` note);
+* `M4Maximal`: `m4_wave_closed_of_dyadicRow`;
+* `M4CoprimeSupply`: `M4ChiFreeRowMeanSq`, `m4_coprimeN_supplied`;
+* `M4NonCoprime`: `M4CoprimeBlockMeanSqN`, `m4_nonCoprime_classMeanSq_N`.
+
+Each reads the door datum at the LANDED base, so the two twins here are blocked on their
+`_gk` siblings, not on any numeral.  The only literal this file reads directly is
+`arcDen 12 H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)` — LEVEL 1, hence K-INVARIANT
+(`GLever.calP_gk_one_eq`): that gate transports, it does not move.
+
+-- #audit (temporary)
+-/
+
 end Salt.MR
 
 end

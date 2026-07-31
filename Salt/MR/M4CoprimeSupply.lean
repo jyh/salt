@@ -776,6 +776,612 @@ theorem m4_coprimeN_supplied {R : ChowlaRegime} {M : ℕ} {MS : ℕ → ℕ → 
   · intro H hlo hhi; have := hG1 H hlo hhi; linarith
   · intro H hlo hhi; have := hG2 H hlo hhi; have := hMSan0 H; linarith
 
+/-! ## §GK — the G-lever twin
+
+The additive `_gk` family at `G := s13GK K M` (`GLever`): each declaration below is its
+landed original with `(K : ℕ)` as a new FIRST binder and the door datum read at the lever
+(`doorSievedWindow_gk`, `doorChiSup_gk`, `doorChiCoeff_gk`, `doorSievedCoeff_gk`).  The
+window binder `K` of the two §0 bounds is α-renamed `Kw`; `J` stays `2`.
+
+ONE deviation, forced by the import graph: `M4DoorRow.norm_doorChiCoeff_le_one`'s twin
+`norm_doorChiCoeff_le_one_gk` lives in `M4DoorClose`, which is DOWNSTREAM of this file, so
+⟦W3⟧'s twin re-proves its one-line body inline
+(`norm_memSCoeff_le_one (norm_liouChi_le_one χ) _ _ 2`) rather than adding an import edge.
+-/
+
+/-- A sieved χ-twisted window sum at the lever is bounded by its window length —
+`norm_sum_doorSievedWindow_le` (:105). -/
+theorem norm_sum_doorSievedWindow_le_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M Kw n : ℕ) :
+    ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖ ≤ (Kw : ℝ) := by
+  have hsub : doorSievedWindow_gk K M Kw n ⊆ Finset.Ioc n (n + Kw) := by
+    simp only [doorSievedWindow_gk, sievedWindow]
+    exact Finset.filter_subset _ _
+  have hcard : (doorSievedWindow_gk K M Kw n).card ≤ Kw := by
+    calc (doorSievedWindow_gk K M Kw n).card ≤ (Finset.Ioc n (n + Kw)).card :=
+          Finset.card_le_card hsub
+      _ = Kw := by simp [Nat.card_Ioc]
+  refine le_trans (norm_sum_le _ _) ?_
+  calc ∑ m ∈ doorSievedWindow_gk K M Kw n, ‖liouChi χ m‖
+      ≤ ∑ _m ∈ doorSievedWindow_gk K M Kw n, (1 : ℝ) :=
+        Finset.sum_le_sum fun m _ => norm_liouChi_le_one χ m
+    _ = ((doorSievedWindow_gk K M Kw n).card : ℝ) := by simp
+    _ ≤ (Kw : ℝ) := by exact_mod_cast hcard
+
+/-- The levered χ-twisted sub-window sup is bounded by the window length —
+`doorChiSup_le_len` (:123). -/
+theorem doorChiSup_le_len_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M L n : ℕ) :
+    doorChiSup_gk K χ M L n ≤ (L : ℝ) := by
+  unfold doorChiSup_gk
+  refine Finset.sup'_le _ _ fun Kw hK => ?_
+  exact le_trans (norm_sum_doorSievedWindow_le_gk K χ M Kw n)
+    (by exact_mod_cast (Finset.mem_Icc.mp hK).2)
+
+/-- **THE χ-UNIFORM FREE BLOCK MEAN SQUARE, NARROWED, AT THE LEVER** —
+`M4CoprimeChiBlockMeanSqN` (:142). -/
+def M4CoprimeChiBlockMeanSqN_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Bcl : ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → (H : ℝ) ≤ arcDen 12 H * (L : ℝ) →
+    ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H → ∀ χ : DirichletCharacter ℂ q,
+      ∀ A B : ℕ, 0 < A → B + L ≤ 2 * A + 4 →
+        ∑ n ∈ Finset.Ioc A B, (doorChiSup_gk K χ M L n) ^ 2 ≤ Bcl H * (L : ℝ) ^ 2 * (A : ℝ)
+
+/-- **THE ANTI-VACUITY WITNESS AT THE LEVER** —
+`m4_coprimeChiBlockMeanSqN_trivial` (:152). -/
+theorem m4_coprimeChiBlockMeanSqN_trivial_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) :
+    M4CoprimeChiBlockMeanSqN_gk K R M (fun _ => 5) := by
+  intro _ _ _ L _ _ q _ _ χ A B hA hfit
+  have hterm : ∀ n ∈ Finset.Ioc A B, (doorChiSup_gk K χ M L n) ^ 2 ≤ (L : ℝ) ^ 2 := by
+    intro n _
+    have h := doorChiSup_le_len_gk K χ M L n
+    have h0 := doorChiSup_nonneg_gk K χ M L n
+    nlinarith
+  have hsum : ∑ n ∈ Finset.Ioc A B, (doorChiSup_gk K χ M L n) ^ 2
+      ≤ ((Finset.Ioc A B).card : ℝ) * (L : ℝ) ^ 2 := by
+    calc ∑ n ∈ Finset.Ioc A B, (doorChiSup_gk K χ M L n) ^ 2
+        ≤ ∑ _n ∈ Finset.Ioc A B, (L : ℝ) ^ 2 := Finset.sum_le_sum hterm
+      _ = ((Finset.Ioc A B).card : ℝ) * (L : ℝ) ^ 2 := by
+          rw [Finset.sum_const, nsmul_eq_mul]
+  have hc : ((Finset.Ioc A B).card : ℝ) ≤ 5 * (A : ℝ) := by
+    rw [Nat.card_Ioc]
+    have hn : B - A ≤ 5 * A := by omega
+    exact_mod_cast hn
+  have hL0 : (0 : ℝ) ≤ (L : ℝ) ^ 2 := sq_nonneg _
+  nlinarith
+
+/-- **⟦W2⟧ THE χ-REDUCTION AT THE FREE BLOCK, AT THE LEVER** —
+`m4_coprimeMeanSqN_of_chiMeanSqN` (:178). -/
+theorem m4_coprimeMeanSqN_of_chiMeanSqN_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {Bcl : ℕ → ℝ}
+    (hchi : M4CoprimeChiBlockMeanSqN_gk K R M Bcl) : M4CoprimeBlockMeanSqN_gk K R M Bcl := by
+  intro H hlo hhi L hLH hnar q hq hqQ r _ hcop A B hA hfit
+  haveI : NeZero q := ⟨hq.ne'⟩
+  -- ⟦pointwise: the χ-average, squared⟧
+  have hpt : ∀ n : ℕ, (classSup (doorSievedCoeff_gk K M) L n q r) ^ 2
+      ≤ (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, (doorChiSup_gk K χ M L n) ^ 2 := by
+    intro n
+    have hle := classSup_le_inv_totient_sum_doorChiSup_gk K hcop M L n
+    have h0 := classSup_nonneg (doorSievedCoeff_gk K M) L n q r
+    have hsq : (classSup (doorSievedCoeff_gk K M) L n q r) ^ 2
+        ≤ ((q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, doorChiSup_gk K χ M L n) ^ 2 := by
+      nlinarith
+    exact hsq.trans (sq_inv_totient_sum_le_sum_sq (fun χ => doorChiSup_gk K χ M L n))
+  -- ⟦the block sum, then the χ-average and the `n`-sum commute⟧
+  have hstep1 : ∑ n ∈ Finset.Ioc A B, (classSup (doorSievedCoeff_gk K M) L n q r) ^ 2
+      ≤ ∑ n ∈ Finset.Ioc A B,
+          (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, (doorChiSup_gk K χ M L n) ^ 2 :=
+    Finset.sum_le_sum fun n _ => hpt n
+  have hswap : ∑ n ∈ Finset.Ioc A B,
+      (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q, (doorChiSup_gk K χ M L n) ^ 2
+      = (q.totient : ℝ)⁻¹ * ∑ χ : DirichletCharacter ℂ q,
+          ∑ n ∈ Finset.Ioc A B, (doorChiSup_gk K χ M L n) ^ 2 := by
+    rw [← Finset.mul_sum, Finset.sum_comm]
+  rw [hswap] at hstep1
+  refine hstep1.trans ?_
+  exact inv_totient_sum_le (fun χ => hchi H hlo hhi L hLH hnar q hq hqQ χ A B hA hfit)
+
+/-- **THE FREE-BASE ROW INPUT AT THE LEVER** — `M4ChiFreeRowMeanSq` (:230). -/
+def M4ChiFreeRowMeanSq_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (MS : ℕ → ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → ∀ q : ℕ, 0 < q →
+    (q : ℝ) ≤ arcDen 12 H → ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 L,
+      ∀ A : ℕ, 0 < A → ∀ s ≤ L,
+        1 / ((A + s : ℕ) : ℝ)
+            * (∫ y in ((A + s : ℕ) : ℝ)..(2 * ((A + s : ℕ) : ℝ)),
+                ‖((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
+                    * shortSum (doorChiCoeff_gk K χ M)
+                        (seamS0 (2 * (A + s)) ((A + s : ℕ) : ℝ)) y ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
+          ≤ MS j H
+
+/-- **THE FREE SHIFTED FIXED-LENGTH DATUM AT THE LEVER** —
+`M4ChiFreeShiftBlockMeanSq` (:249). -/
+def M4ChiFreeShiftBlockMeanSq_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (F : ℕ → ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → ∀ q : ℕ, 0 < q →
+    (q : ℝ) ≤ arcDen 12 H → ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 L, ∀ s ≤ L,
+      ∀ A B : ℕ, 0 < A → 4 ≤ L → B + L ≤ 2 * A + 4 →
+        ∑ n ∈ Finset.Ioc (A + s) (B + s),
+            ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) n, liouChi χ m‖ ^ 2
+          ≤ F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
+            + (2 * F j H + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2
+
+/-- **ANTI-VACUITY** for the levered free shifted family —
+`m4_chiFreeShiftBlock_trivial` (:262). -/
+theorem m4_chiFreeShiftBlock_trivial_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) :
+    M4ChiFreeShiftBlockMeanSq_gk K R M (fun _ _ => 1) := by
+  intro _ _ _ L _ q _ _ χ j _ s _ A B hA hL4 hfit
+  have hterm : ∀ n ∈ Finset.Ioc (A + s) (B + s),
+      ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) n, liouChi χ m‖ ^ 2 ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := by
+    intro n _
+    have h := norm_sum_doorSievedWindow_le_gk K χ M (2 ^ j) n
+    have h0 : (0 : ℝ) ≤ ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) n, liouChi χ m‖ := norm_nonneg _
+    nlinarith
+  refine le_trans (Finset.sum_le_sum hterm) ?_
+  rw [Finset.sum_const, Nat.card_Ioc, nsmul_eq_mul]
+  have hcast : ((B + s - (A + s) : ℕ) : ℝ) ≤ (A : ℝ) := by
+    have hnat : B + s - (A + s) ≤ A := by omega
+    exact_mod_cast hnat
+  have h2j : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := by positivity
+  nlinarith
+
+/-- **⟦W3⟧ THE FREE SHIFTED BRIDGE AT THE LEVER** —
+`m4_chiFreeShiftBlock_of_freeRow` (:291). -/
+theorem m4_chiFreeShiftBlock_of_freeRow_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {MS : ℕ → ℕ → ℝ}
+    (hrow : M4ChiFreeRowMeanSq_gk K R M MS) :
+    M4ChiFreeShiftBlockMeanSq_gk K R M (fun j H => 2 * MS j H) := by
+  intro H hlo hhi L hLH q hq hqQ χ j hjL s hsL A B hA hL4 hfit
+  have hL0 : 0 < L := by omega
+  have h2j : 2 ^ j ≤ L :=
+    le_trans (Nat.pow_le_pow_right (by norm_num) hjL) (Nat.pow_log_le_self 2 hL0.ne')
+  have hh0 : 0 < 2 ^ j := Nat.two_pow_pos _
+  have hAs : 0 < A + s := by omega
+  have hAsR : (0 : ℝ) < ((A + s : ℕ) : ℝ) := by exact_mod_cast hAs
+  -- ⟦the fit, at the interface's slack⟧
+  have hfitS : (B + s) + 2 ^ j ≤ 2 * (A + s) + 4 := by omega
+  -- ⟦the coverage, on the DROPPED block⟧
+  -- (the fit `(B+s−4) + 2^j ≤ 2(A+s)` is available only when the dropped block is
+  -- INHABITED — at `A = 1`, `L = 4`, `B = 2`, `s = 0` it fails and the block is empty, so
+  -- the membership is read first and the fit derived from it)
+  have hcov : ∀ n ∈ Finset.Ioc (A + s) (B + s - 4), ∀ m ∈ Finset.Ioc n (n + 2 ^ j),
+      m ∉ seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ) → doorChiCoeff_gk K χ M m = 0 := by
+    intro n hn m hm hns
+    have hn' := Finset.mem_Ioc.mp hn
+    have hne : A + s < B + s - 4 := lt_of_lt_of_le hn'.1 hn'.2
+    exact absurd (mem_seamS0_of_block_window (X := (((A + s : ℕ)) : ℝ))
+      (N := 2 * (A + s)) le_rfl (by omega) hn hm) hns
+  -- ⟦the row datum, read at the removed phase⟧
+  have hMSrow : 1 / (((A + s : ℕ)) : ℝ)
+      * (∫ y in (((A + s : ℕ)) : ℝ)..(2 * (((A + s : ℕ)) : ℝ)),
+          ‖((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
+              * shortSum (doorCoeffPhase (doorChiCoeff_gk K χ M) 0)
+                  (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) y ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
+      ≤ MS j H := by
+    rw [doorCoeffPhase_zero]
+    exact hrow H hlo hhi L hLH q hq hqQ χ j hjL A hA s hsL
+  have hMS0 : (0 : ℝ) ≤ MS j H :=
+    le_trans (meanSq_nonneg (doorCoeffPhase (doorChiCoeff_gk K χ M) 0)
+      (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) ((2 ^ j : ℕ) : ℝ) hAsR) hMSrow
+  -- ⟦the slack-`4` block bound⟧
+  have hslack := sum_Ioc_absWindowSum_sq_div_le_slack4
+    (c := doorChiCoeff_gk K χ M) (fun m => norm_memSCoeff_le_one (norm_liouChi_le_one χ) _ _ 2 m)
+    (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) 0 (H := 2 ^ j) (A := A + s) (B := B + s)
+    (MS := MS j H) hh0 hAs hfitS hcov hMSrow
+  -- ⟦the exchange at the shifted block⟧
+  have hterm : ∀ n ∈ Finset.Ioc (A + s) (B + s),
+      ‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2
+        ≤ (((B + s : ℕ)) : ℝ)
+            * (‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) := by
+    intro n hn
+    obtain ⟨hn1, hn2⟩ := Finset.mem_Ioc.mp hn
+    have hn0 : (0 : ℝ) < (n : ℝ) := by
+      have : 0 < n := by omega
+      exact_mod_cast this
+    have hnB : (n : ℝ) ≤ (((B + s : ℕ)) : ℝ) := by exact_mod_cast hn2
+    have hvnn : (0 : ℝ) ≤ ‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ) := by
+      positivity
+    calc ‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2
+        = (n : ℝ) * (‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) := by
+          field_simp
+      _ ≤ (((B + s : ℕ)) : ℝ)
+            * (‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) :=
+          mul_le_mul_of_nonneg_right hnB hvnn
+  have hex : ∑ n ∈ Finset.Ioc (A + s) (B + s),
+      ‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2
+      ≤ (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H
+          + 4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ))) := by
+    refine le_trans (Finset.sum_le_sum hterm) ?_
+    rw [← Finset.mul_sum]
+    exact mul_le_mul_of_nonneg_left hslack (Nat.cast_nonneg _)
+  -- ⟦the two comparisons the free block affords⟧
+  have hBs2 : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) + 4 := by
+    have hnat : B + s ≤ 2 * A + 4 := by omega
+    have := (Nat.cast_le (α := ℝ)).mpr hnat
+    push_cast at this ⊢
+    linarith
+  have hBAs : (((B + s : ℕ)) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
+    have hnat : B + s ≤ 2 * (A + s) := by omega
+    have := (Nat.cast_le (α := ℝ)).mpr hnat
+    push_cast at this ⊢
+    linarith
+  have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
+  have hD0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ) := by positivity
+  have h1 : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H)
+      ≤ (2 * (A : ℝ) + 4) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H) :=
+    mul_le_mul_of_nonneg_right hBs2 (by positivity)
+  have h2 : (((B + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ)))
+      ≤ 2 * (((A + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ))) :=
+    mul_le_mul_of_nonneg_right hBAs (by positivity)
+  have h3 : 2 * (((A + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ)))
+      = 8 * ((2 ^ j : ℕ) : ℝ) ^ 2 := by
+    field_simp
+    ring
+  have hsplit : (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H
+        + 4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ)))
+      = (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H)
+        + (((B + s : ℕ)) : ℝ) * (4 * (((2 ^ j : ℕ) : ℝ) ^ 2 / (((A + s : ℕ)) : ℝ))) := by
+    ring
+  have hr : (2 * (A : ℝ) + 4) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H)
+      = 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
+        + 4 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 := by ring
+  have hfinal : ∑ n ∈ Finset.Ioc (A + s) (B + s),
+      ‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2
+      ≤ 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
+        + (2 * (2 * MS j H) + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2 := by
+    rw [hsplit] at hex
+    have hgoal : 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
+        + (2 * (2 * MS j H) + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2
+        = (2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
+            + 4 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2) + 8 * ((2 ^ j : ℕ) : ℝ) ^ 2 := by ring
+    rw [hgoal, ← hr, ← h3]
+    linarith
+  simpa only [absWindowSum_doorChiCoeff_zero_gk K] using hfinal
+
+set_option maxHeartbeats 1600000 in
+-- the dyadic assembly is `M4Maximal`'s at a free block: the triple-nested `Finset` sums
+-- are re-elaborated against the free `(A, B]` and `L`, which is what costs the heartbeats
+-- (no tactic search below is unbounded — every arithmetic step is `linarith` with hints)
+/-- **⟦W4⟧ THE FREE MAXIMAL STEP AT THE LEVER** —
+`m4_coprimeChiN_of_freeShiftBlock` (:422). -/
+theorem m4_coprimeChiN_of_freeShiftBlock_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {F : ℕ → ℕ → ℝ}
+    {Fan Ftr : ℕ → ℝ} (j₀ : ℕ)
+    (hFan0 : ∀ H : ℕ, 0 ≤ Fan H) (hFtr0 : ∀ H : ℕ, 0 ≤ Ftr H)
+    (han : ∀ j H : ℕ, j₀ ≤ j → F j H ≤ Fan H)
+    (hG1 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ^ 2 ≤ Ftr H)
+    (hG2 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 108 / 5 * Fan H + 432 / 5 ≤ (4 / 3 : ℝ) ^ j₀)
+    (harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ≤ (H : ℝ))
+    (hfix : M4ChiFreeShiftBlockMeanSq_gk K R M F) :
+    M4CoprimeChiBlockMeanSqN_gk K R M (m4BclGraded j₀ Fan Ftr) := by
+  classical
+  intro H hlo hhi L hLH hnar q hq hqQ χ A B hA hfit
+  have hH0 : 0 < H := by have := R.hHlo_floor; omega
+  have hH0R : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH0
+  have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+  have harc0 : (0 : ℝ) < arcDen 12 H := by linarith
+  have hBcl0 : (0 : ℝ) ≤ m4BclGraded j₀ Fan Ftr H :=
+    m4BclGraded_nonneg (hFan0 H) (hFtr0 H)
+  -- ⟦THE NARROWING, read against the arc gate: the free length cannot be short⟧
+  have hL8R : (8 : ℝ) ≤ (L : ℝ) :=
+    le_of_mul_le_mul_left
+      (by have := harc8 H hlo hhi; linarith :
+        arcDen 12 H * 8 ≤ arcDen 12 H * (L : ℝ)) harc0
+  have hL8 : 8 ≤ L := by exact_mod_cast hL8R
+  have hL0 : 0 < L := by omega
+  have hL0R : (0 : ℝ) < (L : ℝ) := by exact_mod_cast hL0
+  by_cases hAB : B < A
+  · -- ⟦the empty block⟧
+    rw [Finset.Ioc_eq_empty (by omega), Finset.sum_empty]
+    exact mul_nonneg (mul_nonneg hBcl0 (sq_nonneg _)) (Nat.cast_nonneg _)
+  rw [Nat.not_lt] at hAB
+  -- ⟦the non-empty block: the fit's three consequences⟧
+  have hA4 : 4 ≤ A := by omega
+  have hB2A : B ≤ 2 * A := by omega
+  have hL2A : (L : ℝ) ≤ 2 * (A : ℝ) := by
+    have hnat : L ≤ 2 * A := by omega
+    have := (Nat.cast_le (α := ℝ)).mpr hnat
+    push_cast at this ⊢
+    linarith
+  have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
+  set Lg := Nat.log 2 L with hLg
+  set X : ℕ → ℕ → ℕ → ℝ := fun j t n =>
+    ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2 with hX
+  set SL : ℝ := ∑ j ∈ Finset.range (Lg + 1), (3 / 2 : ℝ) ^ j with hSL
+  have hSL0 : (0 : ℝ) ≤ SL := (geom_weight_sum_pos Lg).le
+  -- ⟦STEP 1⟧ the pointwise maximal bound, at the free length and the geometric weights
+  have hstep1 : ∑ n ∈ Finset.Ioc A B, (doorChiSup_gk K χ M L n) ^ 2
+      ≤ ∑ n ∈ Finset.Ioc A B, SL
+          * ∑ j ∈ Finset.range (Lg + 1),
+              (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j :=
+    Finset.sum_le_sum fun n _ => doorChiSup_sq_le_dyadic_gk K χ M L n
+  -- ⟦STEP 2⟧ the sums commute (the weight rides the `j`-index only)
+  have hswap : ∑ n ∈ Finset.Ioc A B, SL
+        * ∑ j ∈ Finset.range (Lg + 1),
+            (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
+      = SL * ∑ j ∈ Finset.range (Lg + 1),
+          (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
+            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j := by
+    rw [← Finset.mul_sum]
+    congr 1
+    rw [Finset.sum_comm]
+    refine Finset.sum_congr rfl fun j _ => ?_
+    rw [← Finset.sum_mul]
+    congr 1
+    exact Finset.sum_comm
+  -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
+  have hsle : ∀ j t : ℕ, t ≤ L / 2 ^ (j + 1) → 2 ^ (j + 1) * t ≤ L := by
+    intro j t ht
+    calc 2 ^ (j + 1) * t ≤ 2 ^ (j + 1) * (L / 2 ^ (j + 1)) := Nat.mul_le_mul_left _ ht
+      _ = L / 2 ^ (j + 1) * 2 ^ (j + 1) := Nat.mul_comm _ _
+      _ ≤ L := Nat.div_mul_le_self L (2 ^ (j + 1))
+  have hshift : ∀ j t : ℕ, ∑ n ∈ Finset.Ioc A B, X j t n
+      = ∑ n ∈ Finset.Ioc (A + 2 ^ (j + 1) * t) (B + 2 ^ (j + 1) * t),
+          ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) n, liouChi χ m‖ ^ 2 := fun j t =>
+    sum_Ioc_shift (fun n => ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) n, liouChi χ m‖ ^ 2) A B _
+  -- ⟦the analytic half: the datum, read through the envelope⟧
+  have hjtL : ∀ j t : ℕ, j ≤ Lg → j₀ ≤ j → t ≤ L / 2 ^ (j + 1) →
+      ∑ n ∈ Finset.Ioc A B, X j t n
+        ≤ Fan H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
+          + (2 * Fan H + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2 := by
+    intro j t hjLg hj₀ ht
+    rw [hshift j t]
+    have hd := hfix H hlo hhi L hLH q hq hqQ χ j hjLg (2 ^ (j + 1) * t) (hsle j t ht) A B hA
+      (by omega) hfit
+    have hFle := han j H hj₀
+    have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := sq_nonneg _
+    nlinarith [mul_nonneg hP0 hA0R]
+  -- ⟦the trivial half: the ABSOLUTE grade `1`, no row datum consulted⟧
+  have hjtS : ∀ j t : ℕ, ∑ n ∈ Finset.Ioc A B, X j t n ≤ (A : ℝ) * ((2 ^ j : ℕ) : ℝ) ^ 2 := by
+    intro j t
+    rw [hshift j t]
+    have hterm : ∀ n ∈ Finset.Ioc (A + 2 ^ (j + 1) * t) (B + 2 ^ (j + 1) * t),
+        ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) n, liouChi χ m‖ ^ 2
+          ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := by
+      intro n _
+      have h := norm_sum_doorSievedWindow_le_gk K χ M (2 ^ j) n
+      have h0 : (0 : ℝ) ≤ ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) n, liouChi χ m‖ := norm_nonneg _
+      nlinarith
+    refine le_trans (Finset.sum_le_sum hterm) ?_
+    rw [Finset.sum_const, Nat.card_Ioc, nsmul_eq_mul]
+    have hcast : ((B + 2 ^ (j + 1) * t - (A + 2 ^ (j + 1) * t) : ℕ) : ℝ) ≤ (A : ℝ) := by
+      have hnat : B + 2 ^ (j + 1) * t - (A + 2 ^ (j + 1) * t) ≤ A := by omega
+      exact_mod_cast hnat
+    have h2j : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := by positivity
+    nlinarith
+  -- ⟦STEP 4⟧ the per-scale count × weight
+  set W : ℕ → ℝ := fun j =>
+    (((L / 2 ^ (j + 1) : ℕ) : ℝ) + 1) * (((2 ^ j : ℕ) : ℝ)) ^ 2 with hW
+  have hW0 : ∀ j, (0 : ℝ) ≤ W j := fun j => dyadic_count_weight_term_nonneg L j
+  have hWw0 : ∀ j, (0 : ℝ) ≤ W j * (2 / 3 : ℝ) ^ j := fun j =>
+    mul_nonneg (hW0 j) (by positivity)
+  have hjL : ∀ j ∈ (Finset.range (Lg + 1)).filter (fun j => j₀ ≤ j),
+      (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
+          * (2 / 3 : ℝ) ^ j
+        ≤ (Fan H * (A : ℝ) + (2 * Fan H + 8)) * (W j * (2 / 3 : ℝ) ^ j) := by
+    intro j hjm
+    have hjmem := Finset.mem_filter.mp hjm
+    have hjLg : j ≤ Lg := by have := Finset.mem_range.mp hjmem.1; omega
+    have hle : ∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
+        ≤ ∑ _t ∈ Finset.range (L / 2 ^ (j + 1) + 1),
+            (Fan H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)
+              + (2 * Fan H + 8) * ((2 ^ j : ℕ) : ℝ) ^ 2) :=
+      Finset.sum_le_sum fun t ht =>
+        hjtL j t hjLg hjmem.2 (by have := Finset.mem_range.mp ht; omega)
+    rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul] at hle
+    have hstep : ∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
+        ≤ (Fan H * (A : ℝ) + (2 * Fan H + 8)) * W j := by
+      refine hle.trans (le_of_eq ?_)
+      simp only [hW]
+      push_cast
+      ring
+    calc (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
+          * (2 / 3 : ℝ) ^ j
+        ≤ ((Fan H * (A : ℝ) + (2 * Fan H + 8)) * W j) * (2 / 3 : ℝ) ^ j :=
+          mul_le_mul_of_nonneg_right hstep (by positivity)
+      _ = (Fan H * (A : ℝ) + (2 * Fan H + 8)) * (W j * (2 / 3 : ℝ) ^ j) := by ring
+  have hjS : ∀ j ∈ (Finset.range (Lg + 1)).filter (fun j => ¬ j₀ ≤ j),
+      (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
+          * (2 / 3 : ℝ) ^ j
+        ≤ (A : ℝ) * (W j * (2 / 3 : ℝ) ^ j) := by
+    intro j _
+    have hle : ∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
+        ≤ ∑ _t ∈ Finset.range (L / 2 ^ (j + 1) + 1), (A : ℝ) * ((2 ^ j : ℕ) : ℝ) ^ 2 :=
+      Finset.sum_le_sum fun t _ => hjtS j t
+    rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul] at hle
+    have hstep : ∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
+        ≤ (A : ℝ) * W j := by
+      refine hle.trans (le_of_eq ?_)
+      simp only [hW]
+      push_cast
+      ring
+    calc (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
+          * (2 / 3 : ℝ) ^ j
+        ≤ ((A : ℝ) * W j) * (2 / 3 : ℝ) ^ j :=
+          mul_le_mul_of_nonneg_right hstep (by positivity)
+      _ = (A : ℝ) * (W j * (2 / 3 : ℝ) ^ j) := by ring
+  -- ⟦STEP 5⟧ THE SPLIT: the weighted full count against the analytic half, the weighted head
+  -- against the trivial one
+  have hCan0 : (0 : ℝ) ≤ Fan H * (A : ℝ) + (2 * Fan H + 8) := by
+    have := hFan0 H; nlinarith
+  have hlarge : ∑ j ∈ (Finset.range (Lg + 1)).filter (fun j => j₀ ≤ j),
+        (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
+          * (2 / 3 : ℝ) ^ j
+      ≤ (Fan H * (A : ℝ) + (2 * Fan H + 8))
+          * ∑ j ∈ Finset.range (Lg + 1), W j * (2 / 3 : ℝ) ^ j := by
+    calc ∑ j ∈ (Finset.range (Lg + 1)).filter (fun j => j₀ ≤ j),
+          (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
+            * (2 / 3 : ℝ) ^ j
+        ≤ ∑ j ∈ (Finset.range (Lg + 1)).filter (fun j => j₀ ≤ j),
+            (Fan H * (A : ℝ) + (2 * Fan H + 8)) * (W j * (2 / 3 : ℝ) ^ j) :=
+          Finset.sum_le_sum hjL
+      _ ≤ ∑ j ∈ Finset.range (Lg + 1),
+            (Fan H * (A : ℝ) + (2 * Fan H + 8)) * (W j * (2 / 3 : ℝ) ^ j) :=
+          Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
+            (fun j _ _ => mul_nonneg hCan0 (hWw0 j))
+      _ = (Fan H * (A : ℝ) + (2 * Fan H + 8))
+            * ∑ j ∈ Finset.range (Lg + 1), W j * (2 / 3 : ℝ) ^ j := by
+          rw [Finset.mul_sum]
+  have hsmall : ∑ j ∈ (Finset.range (Lg + 1)).filter (fun j => ¬ j₀ ≤ j),
+        (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
+          * (2 / 3 : ℝ) ^ j
+      ≤ (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j := by
+    have hsub : (Finset.range (Lg + 1)).filter (fun j => ¬ j₀ ≤ j) ⊆ Finset.range j₀ := by
+      intro j hjm
+      have := (Finset.mem_filter.mp hjm).2
+      exact Finset.mem_range.mpr (by omega)
+    calc ∑ j ∈ (Finset.range (Lg + 1)).filter (fun j => ¬ j₀ ≤ j),
+          (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
+            * (2 / 3 : ℝ) ^ j
+        ≤ ∑ j ∈ (Finset.range (Lg + 1)).filter (fun j => ¬ j₀ ≤ j),
+            (A : ℝ) * (W j * (2 / 3 : ℝ) ^ j) := Finset.sum_le_sum hjS
+      _ ≤ ∑ j ∈ Finset.range j₀, (A : ℝ) * (W j * (2 / 3 : ℝ) ^ j) :=
+          Finset.sum_le_sum_of_subset_of_nonneg hsub
+            (fun j _ _ => mul_nonneg hA0R (hWw0 j))
+      _ = (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j := by rw [Finset.mul_sum]
+  have hcount : ∑ j ∈ Finset.range (Lg + 1),
+        (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
+          * (2 / 3 : ℝ) ^ j
+      ≤ (Fan H * (A : ℝ) + (2 * Fan H + 8))
+            * ∑ j ∈ Finset.range (Lg + 1), W j * (2 / 3 : ℝ) ^ j
+        + (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j := by
+    rw [← Finset.sum_filter_add_sum_filter_not (Finset.range (Lg + 1)) (fun j => j₀ ≤ j)]
+    linarith
+  -- ⟦THE ASSEMBLY⟧ §4's two weighted counts, then the ledger
+  have hLgN : Nat.log 2 L ≤ Nat.log 2 H := Nat.log_mono_right hLH
+  have hgl1 : (1 : ℝ) ≤ (3 / 2 : ℝ) ^ Lg := one_le_pow₀ (by norm_num)
+  have hglg : (3 / 2 : ℝ) ^ Lg ≤ (3 / 2 : ℝ) ^ (Nat.log 2 H) := by
+    rw [hLg]; gcongr; norm_num
+  have hg0 : (0 : ℝ) < (3 / 2 : ℝ) ^ (Nat.log 2 H) := by positivity
+  have hfull : SL * ∑ j ∈ Finset.range (Lg + 1), W j * (2 / 3 : ℝ) ^ j
+      ≤ 54 / 5 * (L : ℝ) ^ 2 := by
+    rw [hSL, hW, hLg]
+    exact dyadic_count_weight_geom_le hL0
+  have hhead : SL * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j
+      ≤ 9 / 2 * (L : ℝ) * (3 / 2 : ℝ) ^ Lg * (4 / 3 : ℝ) ^ j₀
+        + 9 / 5 * (3 / 2 : ℝ) ^ Lg * (8 / 3 : ℝ) ^ j₀ := by
+    rw [hSL, hW, hLg]
+    exact dyadic_count_weight_geom_small_le hL0 j₀
+  -- ⟦G1, STRENGTHENED⟧ the two consequences the weighted head needs
+  have harc2 : (1 : ℝ) ≤ arcDen 12 H ^ 2 := by nlinarith
+  have hG1H := hG1 H hlo hhi
+  have hFtrL : 2 * (H : ℝ) ≤ Ftr H * (L : ℝ) := by
+    have h2 : 2 * arcDen 12 H * (L : ℝ) ≤ Ftr H * (L : ℝ) :=
+      mul_le_mul_of_nonneg_right (by nlinarith) hL0R.le
+    linarith [hnar]
+  have hFtrL2 : (H : ℝ) ^ 2 ≤ Ftr H * (L : ℝ) ^ 2 := by
+    have hsq : (H : ℝ) ^ 2 ≤ (arcDen 12 H * (L : ℝ)) ^ 2 := by nlinarith [hnar, hH0R.le]
+    nlinarith [hsq, sq_nonneg ((L : ℝ))]
+  -- ⟦the first budget line⟧ the trivial head's `(4/3)^{j₀}` half AND the slack residue
+  have hEkey : 9 * (4 / 3 : ℝ) ^ j₀ * (L : ℝ) * (3 / 2 : ℝ) ^ Lg
+      ≤ 9 / 2 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (4 / 3 : ℝ) ^ j₀ / (H : ℝ) * Ftr H * (L : ℝ) ^ 2 :=
+    by
+    rw [div_mul_eq_mul_div, div_mul_eq_mul_div, le_div_iff₀ hH0R]
+    have hstep : 9 * (4 / 3 : ℝ) ^ j₀ * (L : ℝ) * (3 / 2 : ℝ) ^ Lg * (H : ℝ)
+        ≤ 9 * (4 / 3 : ℝ) ^ j₀ * (L : ℝ) * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (H : ℝ) := by
+      have h := mul_le_mul_of_nonneg_left hglg
+        (by positivity : (0 : ℝ) ≤ 9 * (4 / 3 : ℝ) ^ j₀ * (L : ℝ))
+      nlinarith [h, hH0R.le]
+    have hmain : 9 * (4 / 3 : ℝ) ^ j₀ * (L : ℝ) * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (H : ℝ)
+        ≤ 9 / 2 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (4 / 3 : ℝ) ^ j₀ * Ftr H * (L : ℝ) ^ 2 := by
+      have h := mul_le_mul_of_nonneg_left hFtrL
+        (by positivity : (0 : ℝ) ≤ 9 / 2 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (4 / 3 : ℝ) ^ j₀
+          * (L : ℝ))
+      nlinarith [h]
+    linarith
+  have hres : 54 / 5 * (2 * Fan H + 8) * (L : ℝ) ^ 2
+        + (A : ℝ) * (9 / 2 * (L : ℝ) * (3 / 2 : ℝ) ^ Lg * (4 / 3 : ℝ) ^ j₀)
+      ≤ 9 / 2 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (4 / 3 : ℝ) ^ j₀ / (H : ℝ) * Ftr H
+          * (L : ℝ) ^ 2 * (A : ℝ) := by
+    have hg2 := hG2 H hlo hhi
+    have hstep : 54 / 5 * (2 * Fan H + 8) * (L : ℝ) ^ 2
+        ≤ (4 / 3 : ℝ) ^ j₀ * (L : ℝ) * (2 * (A : ℝ)) := by
+      have h1 : 54 / 5 * (2 * Fan H + 8) * (L : ℝ) ^ 2 ≤ (4 / 3 : ℝ) ^ j₀ * (L : ℝ) ^ 2 := by
+        have := mul_le_mul_of_nonneg_right hg2 (sq_nonneg ((L : ℝ)))
+        nlinarith [this]
+      nlinarith [mul_le_mul_of_nonneg_left hL2A
+        (by positivity : (0 : ℝ) ≤ (4 / 3 : ℝ) ^ j₀ * (L : ℝ))]
+    have hgl : (4 / 3 : ℝ) ^ j₀ * (L : ℝ) * (2 * (A : ℝ))
+        ≤ (2 / 9) * ((A : ℝ) * (9 * (4 / 3 : ℝ) ^ j₀ * (L : ℝ) * (3 / 2 : ℝ) ^ Lg)) := by
+      nlinarith [mul_le_mul_of_nonneg_left hgl1
+        (by positivity : (0 : ℝ) ≤ (4 / 3 : ℝ) ^ j₀ * (L : ℝ) * (A : ℝ))]
+    have hbud := mul_le_mul_of_nonneg_left hEkey hA0R
+    nlinarith [hstep, hgl, hbud]
+  -- ⟦the second budget line⟧ the trivial head's `(8/3)^{j₀}` half — ⟦G1⟧ at `arcDen²`
+  have hres2 : (A : ℝ) * (9 / 5 * (3 / 2 : ℝ) ^ Lg * (8 / 3 : ℝ) ^ j₀)
+      ≤ 9 / 5 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (8 / 3 : ℝ) ^ j₀ / (H : ℝ) ^ 2 * Ftr H
+          * (L : ℝ) ^ 2 * (A : ℝ) := by
+    have hH2 : (0 : ℝ) < (H : ℝ) ^ 2 := by positivity
+    have hkey : 9 / 5 * (3 / 2 : ℝ) ^ Lg * (8 / 3 : ℝ) ^ j₀ * (H : ℝ) ^ 2
+        ≤ 9 / 5 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (8 / 3 : ℝ) ^ j₀ * (Ftr H * (L : ℝ) ^ 2) := by
+      have h1 : 9 / 5 * (3 / 2 : ℝ) ^ Lg * (8 / 3 : ℝ) ^ j₀ * (H : ℝ) ^ 2
+          ≤ 9 / 5 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (8 / 3 : ℝ) ^ j₀ * (H : ℝ) ^ 2 := by
+        have h := mul_le_mul_of_nonneg_left hglg
+          (by positivity : (0 : ℝ) ≤ 9 / 5 * (8 / 3 : ℝ) ^ j₀ * (H : ℝ) ^ 2)
+        nlinarith [h]
+      have h2 : 9 / 5 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (8 / 3 : ℝ) ^ j₀ * (H : ℝ) ^ 2
+          ≤ 9 / 5 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (8 / 3 : ℝ) ^ j₀ * (Ftr H * (L : ℝ) ^ 2) :=
+        mul_le_mul_of_nonneg_left hFtrL2 (by positivity)
+      linarith
+    have hdiv : 9 / 5 * (3 / 2 : ℝ) ^ Lg * (8 / 3 : ℝ) ^ j₀
+        ≤ 9 / 5 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (8 / 3 : ℝ) ^ j₀ / (H : ℝ) ^ 2
+            * (Ftr H * (L : ℝ) ^ 2) := by
+      have hrw : 9 / 5 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (8 / 3 : ℝ) ^ j₀ / (H : ℝ) ^ 2
+            * (Ftr H * (L : ℝ) ^ 2)
+          = (9 / 5 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (8 / 3 : ℝ) ^ j₀ * (Ftr H * (L : ℝ) ^ 2))
+              / (H : ℝ) ^ 2 := by
+        field_simp
+      rw [hrw, le_div_iff₀ hH2]
+      linarith [hkey]
+    nlinarith [mul_le_mul_of_nonneg_left hdiv hA0R]
+  have hfinal : (Fan H * (A : ℝ) + (2 * Fan H + 8)) * (54 / 5 * (L : ℝ) ^ 2)
+        + (A : ℝ) * (9 / 2 * (L : ℝ) * (3 / 2 : ℝ) ^ Lg * (4 / 3 : ℝ) ^ j₀
+          + 9 / 5 * (3 / 2 : ℝ) ^ Lg * (8 / 3 : ℝ) ^ j₀)
+      ≤ m4BclGraded j₀ Fan Ftr H * (L : ℝ) ^ 2 * (A : ℝ) := by
+    have hexp : m4BclGraded j₀ Fan Ftr H * (L : ℝ) ^ 2 * (A : ℝ)
+        = 54 / 5 * Fan H * (A : ℝ) * (L : ℝ) ^ 2
+          + 9 / 2 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (4 / 3 : ℝ) ^ j₀ / (H : ℝ) * Ftr H
+              * (L : ℝ) ^ 2 * (A : ℝ)
+          + 9 / 5 * (3 / 2 : ℝ) ^ (Nat.log 2 H) * (8 / 3 : ℝ) ^ j₀ / (H : ℝ) ^ 2 * Ftr H
+              * (L : ℝ) ^ 2 * (A : ℝ) := by
+      unfold m4BclGraded m4Cmax
+      ring
+    rw [hexp]
+    nlinarith [hres, hres2]
+  calc ∑ n ∈ Finset.Ioc A B, (doorChiSup_gk K χ M L n) ^ 2
+      ≤ SL * ∑ j ∈ Finset.range (Lg + 1),
+          (∑ t ∈ Finset.range (L / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
+            * (2 / 3 : ℝ) ^ j := by
+        rw [← hswap]; exact hstep1
+    _ ≤ SL * ((Fan H * (A : ℝ) + (2 * Fan H + 8))
+            * ∑ j ∈ Finset.range (Lg + 1), W j * (2 / 3 : ℝ) ^ j
+          + (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j) :=
+        mul_le_mul_of_nonneg_left hcount hSL0
+    _ = (Fan H * (A : ℝ) + (2 * Fan H + 8))
+            * (SL * ∑ j ∈ Finset.range (Lg + 1), W j * (2 / 3 : ℝ) ^ j)
+          + (A : ℝ) * (SL * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j) := by ring
+    _ ≤ (Fan H * (A : ℝ) + (2 * Fan H + 8)) * (54 / 5 * (L : ℝ) ^ 2)
+          + (A : ℝ) * (9 / 2 * (L : ℝ) * (3 / 2 : ℝ) ^ Lg * (4 / 3 : ℝ) ^ j₀
+            + 9 / 5 * (3 / 2 : ℝ) ^ Lg * (8 / 3 : ℝ) ^ j₀) := by
+        have h1 := mul_le_mul_of_nonneg_left hfull hCan0
+        have h2 := mul_le_mul_of_nonneg_left hhead hA0R
+        linarith
+    _ ≤ m4BclGraded j₀ Fan Ftr H * (L : ℝ) ^ 2 * (A : ℝ) := hfinal
+
+/-- **THE COPRIME-SUPPLY ARM, SUPPLIED, AT THE LEVER** — `m4_coprimeN_supplied` (:760). -/
+theorem m4_coprimeN_supplied_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {MS : ℕ → ℕ → ℝ}
+    {MSan MStr : ℕ → ℝ} (j₀ : ℕ)
+    (hMSan0 : ∀ H : ℕ, 0 ≤ MSan H) (hMStr0 : ∀ H : ℕ, 0 ≤ MStr H)
+    (han : ∀ j H : ℕ, j₀ ≤ j → MS j H ≤ MSan H)
+    (hG1 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ^ 2 ≤ MStr H)
+    (hG2 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 44 * MSan H + 87 ≤ (4 / 3 : ℝ) ^ j₀)
+    (harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ≤ (H : ℝ))
+    (hrow : M4ChiFreeRowMeanSq_gk K R M MS) :
+    M4CoprimeBlockMeanSqN_gk K R M
+      (m4BclGraded j₀ (fun H => 2 * MSan H) (fun H => 2 * MStr H)) := by
+  refine m4_coprimeMeanSqN_of_chiMeanSqN_gk K
+    (m4_coprimeChiN_of_freeShiftBlock_gk K (F := fun j H => 2 * MS j H) j₀ ?_ ?_ ?_ ?_ ?_ harc8
+      (m4_chiFreeShiftBlock_of_freeRow_gk K hrow))
+  · intro H; have := hMSan0 H; linarith
+  · intro H; have := hMStr0 H; linarith
+  · intro j H hj; have := han j H hj; linarith
+  · intro H hlo hhi; have := hG1 H hlo hhi; linarith
+  · intro H hlo hhi; have := hG2 H hlo hhi; have := hMSan0 H; linarith
+
 end Salt.MR
 
 end
+
+-- #audit (temporary)

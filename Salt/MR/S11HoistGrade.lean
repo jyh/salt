@@ -330,3 +330,45 @@ theorem s11_grade_floor_hoistCb_two (C : ℝ) (hC0 : 0 < C) (hC : C ≤ 30) :
       = 2 :=
   s11GradeFloor_eq_two _ (s11_hoistCb_le C hC0 hC)
 
+/-! ## §GK — the G-lever twin
+
+⟦WHAT MOVES AND WHAT DOES NOT⟧ §1's `s11_grade_rhs_floor`, §2's `s11_grade_absorption` and
+all of §4 are `Cb`-ABSTRACT and `G`-FREE — they read `doorRowFloor M` (LEVEL 1, K-invariant)
+and `s13Aexp` only — so they are reused VERBATIM.  The one twin this page owes is §3's
+terminal, and its whole `K`-dependence sits inside the levered band constant
+`Cb = C·4^{Aexp}·(exp 26.25 · (49152·2^K)^{1.05}) + 1`, which the absorption swallows because
+`s11_grade_absorption` takes `Cb` as a parameter: **the `M`-slope `M^{2.1}` does not move**, so
+the gate's `M^{2.501}` still beats it and the floor `M₀` is merely larger.
+
+⚠ ⟦THE ROUTE⟧ the landed §3 fires `S12FuseCompose.m4_fuse_hband_of_bandBase_graded`, which is
+that file's one-line re-export of `S11Hoist.m4_hband_at_door_slot_split_graded` (`:733`).
+`S12FuseCompose` carries no `§GK` and is not this executor's file, so the twin fires
+`S11Hoist.m4_hband_at_door_slot_split_graded_gk` DIRECTLY — the same theorem under the name
+that has a levered sibling.  When `S12FuseCompose` grows its own re-export the call may be
+redirected with no change of statement. -/
+
+/-- `s11_hband_slot_grade_discharged` (:149), at the lever. -/
+theorem s11_hband_slot_grade_discharged_gk (K : ℕ) (hMmu : MmuChiRate) :
+    ∃ (x₀ M₀ : ℕ), 1 ≤ M₀ ∧ ∀ (M : ℕ), M₀ ≤ M →
+      ∃ C' : ℝ, 0 < C' ∧
+        8 * C' ≤ (Real.log 2 * ((doorRowFloor M : ℕ) : ℝ))
+            ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 / 1000)) ∧
+        ∀ (R : ChowlaRegime) (C₁ Mb : ℕ → ℝ),
+          ((∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorBandBase_gk K x₀ C' s13Aexp M (A + s) q (C₁ (A + s)) (Mb (A + s))) →
+            ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              ∀ χ : DirichletCharacter ℂ q,
+                (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+                  ‖dpolyA (winCutH (A + s) (doorChiCoeff_gk K χ M))
+                    (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+                  ≤ t0BandB (((A + s : ℕ)) : ℝ)
+                      (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (Mb (A + s))) := by
+  obtain ⟨x₀, Cb, hCb, hband⟩ :=
+    m4_hband_at_door_slot_split_graded_gk K hMmu s13Aexp s13Aexp_pos
+  obtain ⟨M₀, hM₀, habs⟩ := s11_grade_absorption Cb hCb
+  refine ⟨x₀, M₀, hM₀, ?_⟩
+  intro M hM
+  obtain ⟨C', hC'pos, hC'le, hbody⟩ := hband M (le_trans hM₀ hM)
+  exact ⟨C', hC'pos, habs M hM C' hC'le, hbody⟩
+
+-- #audit (temporary)

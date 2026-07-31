@@ -1495,6 +1495,987 @@ theorem doorCapBundle_family_perBlock {Cq cs T₀ Kq Ks : ℝ} {R : ChowlaRegime
   have hT1 : (1 : ℝ) < 2 * T := by linarith
   exact doorCapBundle_at_workingPoint_perBlock hband hM hNd hq hg hT1 hThi hTll
 
+/-! ## §GK — the G-lever twin -/
+
+/-- `doorCoeffU_seamCoefWS_band_H (:170)` at the lever. The band pair law at `G := s13GK K M`. -/
+theorem doorCoeffU_seamCoefWS_band_H_gk (K : ℕ) (M Xd P Q : ℕ)
+    (hgate : ∀ i ∈ Finset.Icc 1 2, calQK (Adoor M) (s13GK K M) M i < P) :
+    SeamCoefWS Xd P Q (winCutH Xd (doorCoeffU_gk K M)) (doorCoeffU_gk K M) liouvilleC :=
+  memSCoeff_seamCoefWS_band_gen_U (calP (Adoor M) (s13GK K M))
+    (calQK (Adoor M) (s13GK K M) M) 2 Xd P Q _ hgate
+    (fun _ h1 h2 => winCutH_of_mem _ h1 h2)
+
+/-! ## §2 — ⟦THE SPINE CHOICES⟧, as defs with their derivations -/
+
+/-- `s13VJ (:198)` at the lever. RE-DERIVED: `𝒬K₂` carries the lever's `2^K`. -/
+def s13VJ_gk (K : ℕ) (M : ℕ) : ℝ :=
+  Real.exp (mrAlpha (1 / 12) 2 * Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ))
+
+/-- `s13Mtail (:227)` at the lever. The tail sum at the levered datum. -/
+def s13Mtail_gk (K : ℕ) (M Nd P Q : ℕ) : ℝ :=
+  ∑ n ∈ (Finset.Icc 1 (2 * Nd)).filter (fun n => blockOmega P Q n = 0),
+    ‖winCutH Nd (doorCoeffU_gk K M) n‖ ^ 2 / (n : ℝ) ^ 2
+
+/-! ## §3 — ⟦THE NAMED RESIDUE⟧ `S13CapGate_gk K` -/
+
+/-- `S13CapGate (:248)` at the lever.  Nine fields read the base;
+`calH (H1door M)` is LEVEL 1 and stays. -/
+structure S13CapGate_gk (K : ℕ) (Cq cs T₀ Kq Ks : ℝ) (M Nd q P Q Mr : ℕ) (m₀ : ℕ → ℕ)
+    (Tann Rrad Rbd CR EP2 εr : ℝ) : Prop where
+  -- ⟦THE SCALE FLOOR — the one line every discharged field reads⟧
+  /-- `4 ≤ log X` — `DoorCapBase_gk K.logX_four` verbatim; `logX_pos` and `logX_exp` come off it. -/
+  logX_four : 4 ≤ Real.log ((Nd : ℕ) : ℝ)
+  /-- `2 ≤ H₈₃ X θ₂₉₃` — the two levered bundles' shared field. -/
+  H83_two : 2 ≤ H83 ((Nd : ℕ) : ℝ) theta293
+  -- ⟦(A) THE RAZOR — the three that do not reduce⟧
+  /-- `𝒬K₂ ≤ q·T_ann` — `DoorCapBase_gk K.QTann` at `Jb = 2`. -/
+  QTann : ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ (q : ℝ) * Tann
+  /-- ⟦MR (21)⟧'s κ-gate at the designated level — `DoorCapBase_gk K.kappa30Q`. -/
+  kappa30Q : 30 ≤ Real.log ((q : ℝ) * Tann)
+    / Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+  /-- `q ≤ (log X)^{12}` — `DoorCapBase_gk K.q_logX`.  (Independent of `DoorBandBase.qfit`'s
+  base-side `q ≤ (log X_d)^{10}`; the two are never identified.) -/
+  q_logX : (q : ℝ) ≤ (Real.log ((Nd : ℕ) : ℝ)) ^ 12
+  -- ⟦(B) THE SOCKET FLOOR AT `(q, T_ann)`⟧
+  /-- `T₀ ≤ T_ann` — the capstone's own height floor at its opaque `T₀`. -/
+  T0_Tann : T₀ ≤ Tann
+  /-- Floor gate 1 — the VK strip constant against `loglog(5T+1)`. -/
+  floor1 : 8 * Real.log (40000 * vkStripConst q) ≤ Real.log (Real.log (5 * Tann + 1))
+  /-- Floor gate 2. -/
+  floor2 : 8 + Real.log (20000 * (vkStripConst q + 8104)) / 100
+    ≤ Real.log (Real.log (5 * Tann + 1))
+  /-- Floor gate 3 — the `Kq` arm. -/
+  floor3 : Kq * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
+    ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+      * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)
+  /-- Floor gate 4 — the `Ks` arm. -/
+  floor4 : (q : ℝ) ^ ((1 : ℝ) / 16)
+    ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+      * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ))
+  /-- `log(q·T_ann) ≤ Lr` AT THE PINNED `Lr = (log X)^{11/10}` — `DoorCapBase_gk K.logqT_L`. -/
+  logqT_L : Real.log ((q : ℝ) * Tann) ≤ s13Lr Nd
+  -- ⟦(D) THE RAM-BLOCK FRAME⟧
+  /-- `P₈₃ X θ₂₉₃ ≤ P` — `DoorCapBase_gk K.P_low`; also the band gate §1 reads. -/
+  P_low : P83 ((Nd : ℕ) : ℝ) theta293 ≤ (P : ℝ)
+  /-- `log 𝒬K₂ ≤ √(log X)` — `M4RowsChiZero.DoorRowZeroBase.reg` VERBATIM (the spine's row
+  bundle already carries it at this base); §1's band gate is `door_band_gate_of_log` off it. -/
+  Q2_reg : Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+    ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ))
+  /-- `0 < Q`. -/
+  Q_pos : 0 < Q
+  /-- `Q ≤ Q₈₃ X`. -/
+  Q_high : (Q : ℝ) ≤ Q83 ((Nd : ℕ) : ℝ)
+  /-- The co-factor range sits in `[1, Mr]` at every block. -/
+  range : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+    ramRrange (H83 ((Nd : ℕ) : ℝ) theta293) (2 * Nd) Nd j ⊆ Finset.Icc 1 Mr
+  /-- ⟦THE GRADED BUDGET⟧ at the pinned `VJ`, `η`, `εd`. -/
+  budget : thinBundleGChi ((q : ℝ) * Tann) (s13VJ_gk K M) (calH (H1door M) 2)
+      (calP (Adoor M) (s13GK K M) 2) (calQK (Adoor M) (s13GK K M) M 2)
+      * ((Nd : ℕ) : ℝ) ^ (1 - 2 * s13Eta + s13EpsD q Nd) ≤ (Mr : ℝ)
+  /-- `H₈₃ ≤ j` on the grid. -/
+  Hj : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+    H83 ((Nd : ℕ) : ℝ) theta293 ≤ (j : ℝ)
+  /-- `3 ≤ Q_base` on the grid. -/
+  B3 : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+    3 ≤ ramQbase (H83 ((Nd : ℕ) : ℝ) theta293) P j
+  /-- `Q_base ≤ q·T_ann` on the grid. -/
+  BT : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+    (ramQbase (H83 ((Nd : ℕ) : ℝ) theta293) P j : ℝ) ≤ (q : ℝ) * Tann
+  /-- The κ-gate on the grid. -/
+  kappa30 : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+    30 ≤ Real.log ((q : ℝ) * Tann)
+      / Real.log (ramQbase (H83 ((Nd : ℕ) : ℝ) theta293) P j)
+  /-- `Q_base ≤ T_ann^{10}` on the grid. -/
+  BT10 : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+    (ramQbase (H83 ((Nd : ℕ) : ℝ) theta293) P j : ℝ) ≤ Tann ^ 10
+  /-- `log Q_base ≤ Lr` on the grid, at the pinned `Lr`. -/
+  WL : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+    Real.log (ramQbase (H83 ((Nd : ℕ) : ℝ) theta293) P j) ≤ s13Lr Nd
+  /-- The `cs`-gate on the grid, at the pinned `Lr` — the field that CAPS `Lr` from above. -/
+  gate : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+    420 * s13Lr Nd * (s13Lr Nd) ^ ((3 : ℝ) / 4) * (Real.log (s13Lr Nd)) ^ 5
+      ≤ cs * (Real.log (ramQbase (H83 ((Nd : ℕ) : ℝ) theta293) P j)) ^ 2
+  -- ⟦(E) THE CO-FACTOR BOUND AND ITS GRADE⟧
+  /-- `0 ≤ Rbd`. -/
+  Rbd_nonneg : 0 ≤ Rbd
+  /-- ⟦THE ZENO LINE⟧ `Rbd ≤ CR·(log X)^{−ρ₂₉₃}`. -/
+  Rbd_grade : Rbd ≤ CR * (Real.log ((Nd : ℕ) : ℝ)) ^ (-rho293)
+  /-- ⟦THE `Cq`-GATE⟧ `1728·Cq·CR² ≤ (log X)^{2θ₂₉₃}`. -/
+  Cq_gate : 1728 * Cq * CR ^ 2 ≤ (Real.log ((Nd : ℕ) : ℝ)) ^ (2 * theta293)
+  /-- ⟦THE `Rbd` SUPPLY⟧ the door's un-phased co-factor socket, at the door pin's FREE centre
+  (`RbdSupply.m4_supplier_all_chi`'s own conclusion shape at `Ps := 1`).  `M4CapWire`
+  §4a converts it into `DoorCapBase_gk K.Rbd_binder`; its threshold constant is the `_vt` floor's
+  `K` (a `cffKVt`-genre symbol), **never** `DoorArithFrameRho`'s `K`. -/
+  Rbd_socket : ∀ (t₁ : ℝ) (χ : DirichletCharacter ℂ q),
+    CofactorSocket (H83 ((Nd : ℕ) : ℝ) theta293) (2 * Nd) Nd P Q Tann Rrad t₁ Rbd
+      (doorCofactor0 χ (calP (Adoor M) (s13GK K M))
+        (calQK (Adoor M) (s13GK K M) M) 2 1)
+  -- ⟦(F) THE `𝒯_S` BUDGET AND LEMMA 12's ERROR ROW⟧
+  /-- ⟦V4a⟧'s co-factor length family, lower pin. -/
+  m0_two : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q, 2 ≤ m₀ j
+  /-- ⟦V4a⟧'s co-factor length family against `ramRbot`. -/
+  m0_bot : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+    ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 ((Nd : ℕ) : ℝ) theta293) Nd j
+  /-- The sharpness gate `Mr ≤ 4(m₀ j − 1)` — with `range`, the pair that pins `Mr ≍ ramRbot`. -/
+  Mr_sharp : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+    ((Mr : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)
+  /-- ⟦THE `𝒯_S` GRADE GATE⟧ at the pinned `KS`. ⚠ one half of the band-width tension. -/
+  KS_gate : 32 * (Real.log ((Nd : ℕ) : ℝ)) ^ (2 + 2 * theta293) * s13KS Nd Tann
+    ≤ (Real.log ((Nd : ℕ) : ℝ)) ^ (-theta293)
+  /-- `0 ≤ εr`. -/
+  epsr_nonneg : 0 ≤ εr
+  /-- `8640 ≤ (log X)^{εr}`. -/
+  abs8640 : 8640 ≤ (Real.log ((Nd : ℕ) : ℝ)) ^ εr
+  /-- The `p²`-correction row's absorption. -/
+  EP2_gate : 12 * EP2 ≤ (Real.log ((Nd : ℕ) : ℝ)) ^ (-theta293 + εr)
+  /-- ⟦`DoorCapErrWS_gk K.E_ge`⟧ at the pinned `E` and `Mtail`. ⚠ the other half of the tension. -/
+  E_ge : 4 * ((q.totient : ℝ)
+        * (520 * (Tann / ((Nd : ℕ) : ℝ) + 1) / H83 ((Nd : ℕ) : ℝ) theta293)
+      + (2 * (q.totient : ℝ) * Tann + 7 * (q.totient : ℝ) * (((2 * Nd : ℕ)) : ℝ) / q)
+          * (16 * Real.logb 2 (2 * ((Nd : ℕ) : ℝ)) / (((Nd : ℕ) : ℝ) * (P : ℝ))
+            + endMass Nd)
+      + (2 * (q.totient : ℝ) * Tann + 7 * (q.totient : ℝ) * (((2 * Nd : ℕ)) : ℝ) / q)
+          * s13Mtail_gk K M Nd P Q) ≤ s13E Nd Tann EP2
+
+/-! ## §4 — THE SCALE STONES
+
+The handful of facts every group reads off the gate's ONE scale line `4 ≤ log X`. -/
+
+/-- `s13_doorCapErrWS (:408)` at the lever. -/
+theorem s13_doorCapErrWS_gk (K : ℕ) {Cq cs T₀ Kq Ks : ℝ} {M Nd q P Q Mr : ℕ} {m₀ : ℕ → ℕ}
+    {Tann Rrad Rbd CR EP2 εr : ℝ} (hM : 1 ≤ M) (hNd : 1 ≤ Nd)
+    (hg : S13CapGate_gk K Cq cs T₀ Kq Ks M Nd q P Q Mr m₀ Tann Rrad Rbd CR EP2 εr)
+    (hT1 : 1 ≤ Tann) :
+    DoorCapErrWS_gk K M Nd q Nd P Q (doorCoeffU_gk K M) liouvilleC Tann
+      (s13E Nd Tann EP2) (s13Mtail_gk K M Nd P Q) := by
+  have hlogX1 : (1 : ℝ) < Real.log ((Nd : ℕ) : ℝ) := by have := hg.logX_four; linarith
+  have hP1 : 1 ≤ P := by
+    have hP0 : (0 : ℝ) < P83 ((Nd : ℕ) : ℝ) theta293 := by rw [P83]; exact Real.exp_pos _
+    have : (0 : ℝ) < (P : ℝ) := lt_of_lt_of_le hP0 hg.P_low
+    exact_mod_cast Nat.one_le_iff_ne_zero.mpr (by
+      intro h0
+      rw [h0] at this
+      simp at this)
+  refine
+    { Xd_eq := rfl
+      Nd_one := hNd
+      H83_two := hg.H83_two
+      H83_le := s13_H83_le hg.logX_four
+      P_one := hP1
+      Tann_nonneg := by linarith
+      b_one := norm_doorCoeffU_le_one_gk K M
+      cf_one := liouvilleC_norm_le_one
+      coefWS := ?_
+      tail := le_rfl
+      E_ge := hg.E_ge }
+  exact doorCoeffU_seamCoefWS_band_H_gk K M Nd P Q
+    (door_band_gate_of_log (one_le_s13GK K hM) hlogX1 hg.Q2_reg hg.P_low)
+
+/-- `s13_doorCapBase (:442)` at the lever. -/
+theorem s13_doorCapBase_gk (K : ℕ) {Cq cs T₀ Kq Ks : ℝ} {M Nd q P Q Mr : ℕ} {m₀ : ℕ → ℕ}
+    {Tann Rrad Rbd CR EP2 εr : ℝ} (hM : 1 ≤ M) (hNd : 1 ≤ Nd)
+    (hg : S13CapGate_gk K Cq cs T₀ Kq Ks M Nd q P Q Mr m₀ Tann Rrad Rbd CR EP2 εr)
+    (hq : 1 ≤ q) (hT1 : 1 < Tann) (hTX : Tann ≤ ((Nd : ℕ) : ℝ))
+    (hTll : 5 ≤ Real.log (Real.log Tann))
+    (hE : (∑ χ : DirichletCharacter ℂ q, ∫ t in (-Tann)..Tann,
+        ‖ramErr (H83 ((Nd : ℕ) : ℝ) theta293) (2 * Nd) Nd P Q
+          (chiBarCoeff q χ (winCutH Nd (doorCoeffU_gk K M))) (chiBarCoeff q χ (doorCoeffU_gk K M))
+          (chiBarCoeff q χ liouvilleC) t‖ ^ 2) ≤ s13E Nd Tann EP2) :
+    DoorCapBase_gk K Cq cs T₀ Kq Ks M Nd q Nd P Q Mr s13Jb (doorCoeffU_gk K M) liouvilleC Tann
+      (s13VJ_gk K M) (s13V Nd) (s13Lr Nd) s13Eta (s13EpsD q Nd) εr Rbd CR
+      (s13KS Nd Tann) (s13E Nd Tann EP2) EP2 := by
+  have hLX4 := hg.logX_four
+  have hLX1 : (1 : ℝ) ≤ Real.log ((Nd : ℕ) : ℝ) := by linarith
+  have hLX0 : (0 : ℝ) < Real.log ((Nd : ℕ) : ℝ) := by linarith
+  have hNdR : (0 : ℝ) < ((Nd : ℕ) : ℝ) := by
+    have : (1 : ℝ) ≤ ((Nd : ℕ) : ℝ) := by exact_mod_cast hNd
+    linarith
+  have hqR : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hqR0 : (0 : ℝ) < (q : ℝ) := by linarith
+  -- ⟦the razor's level and its exponent⟧
+  have halpha : mrAlpha (1 / 12) 2 = 7 / 48 := by
+    rw [mrAlpha]; norm_num
+  have hH1 : (2 : ℝ) ≤ H1door M := H1door_two hM
+  have hcalH : calH (H1door M) 2 = 4 * H1door M := by rw [calH]; norm_num
+  have hcalH0 : (0 : ℝ) < calH (H1door M) 2 := by rw [hcalH]; linarith
+  -- ⟦the height scale⟧
+  have hqT1 : (1 : ℝ) < (q : ℝ) * Tann := by nlinarith
+  have hlogqT0 : (0 : ℝ) < Real.log ((q : ℝ) * Tann) := Real.log_pos hqT1
+  have hloglog5 : (5 : ℝ) ≤ Real.log (Real.log ((q : ℝ) * Tann)) := by
+    have hTpos : (0 : ℝ) < Tann := by linarith
+    have h1 : Real.log Tann ≤ Real.log ((q : ℝ) * Tann) :=
+      Real.log_le_log hTpos (by nlinarith)
+    have hlogT0 : (0 : ℝ) < Real.log Tann := Real.log_pos hT1
+    exact le_trans hTll (Real.log_le_log hlogT0 h1)
+  have hlogqT1 : (1 : ℝ) ≤ Real.log ((q : ℝ) * Tann) := by
+    by_cases hc : (1 : ℝ) ≤ Real.log ((q : ℝ) * Tann)
+    · exact hc
+    · exfalso
+      have hlt : Real.log ((q : ℝ) * Tann) < 1 := not_le.mp hc
+      have : Real.log (Real.log ((q : ℝ) * Tann)) < 0 := Real.log_neg hlogqT0 hlt
+      linarith
+  -- ⟦the ladder⟧
+  have hA0 : 0 < Adoor M := by
+    rw [Adoor]; exact Nat.mul_pos (by norm_num) (Nat.succ_pos _)
+  have hE2 : 2 ≤ calE (Adoor M) (s13GK K M) 2 := by
+    have h : calE (Adoor M) (s13GK K M) 2 = Adoor M * (s13GK K M) * 4 := by
+      rw [calE]; norm_num [Nat.factorial]
+    rw [h]
+    have h1 : 1 ≤ Adoor M := hA0
+    have h2 : 1 ≤ s13GK K M := one_le_s13GK K hM
+    nlinarith
+  -- ⟦the pinned `Lr` and `V`⟧
+  have hLr : s13Lr Nd = (Real.log ((Nd : ℕ) : ℝ)) ^ ((11 : ℝ) / 10) := rfl
+  have hLrge : Real.log ((Nd : ℕ) : ℝ) ≤ s13Lr Nd := by
+    rw [hLr]
+    have := Real.rpow_le_rpow_of_exponent_le hLX1 (by norm_num : (1 : ℝ) ≤ (11 : ℝ) / 10)
+    rwa [Real.rpow_one] at this
+  have hLrpos : (0 : ℝ) < s13Lr Nd := by linarith
+  have hlogLr : Real.log (s13Lr Nd) = (11 / 10 : ℝ) * Real.log (Real.log ((Nd : ℕ) : ℝ)) := by
+    rw [hLr, Real.log_rpow hLX0]
+  have hlogLXnn : (0 : ℝ) ≤ Real.log (Real.log ((Nd : ℕ) : ℝ)) := Real.log_nonneg hLX1
+  refine
+    { Jb_lo := by rw [s13Jb]; norm_num
+      Jb_hi := by rw [s13Jb]
+      Hseq_two := ?_
+      alpha_nonneg := by rw [s13Jb, halpha]; norm_num
+      Tann_one := by linarith
+      qTann_one := hqT1
+      P_three := ?_
+      PQ := ?_
+      QTann := hg.QTann
+      kappa30Q := hg.kappa30Q
+      loglog5 := hloglog5
+      VJ_bound := ?_
+      alpha_eta := by rw [s13Jb, halpha, s13Eta]; norm_num
+      eta_half := by rw [s13Eta]; norm_num
+      Tann_X := hTX
+      X_pos := hNdR
+      debit := ?_
+      logX_pos := hLX0
+      q_logX := hg.q_logX
+      V_one := ?_
+      V_inv := ?_
+      T0_Tann := hg.T0_Tann
+      floor1 := hg.floor1
+      floor2 := hg.floor2
+      floor3 := hg.floor3
+      floor4 := hg.floor4
+      logqT_one := hlogqT1
+      logqT_L := hg.logqT_L
+      L_exp := ?_
+      logV_L := ?_
+      H83_two := hg.H83_two
+      logX_exp := ?_
+      logX_four := hLX4
+      cf_one := liouvilleC_norm_le_one
+      P_low := hg.P_low
+      Q_pos := hg.Q_pos
+      Q_high := hg.Q_high
+      range := hg.range
+      budget := hg.budget
+      Hj := hg.Hj
+      B3 := hg.B3
+      BT := hg.BT
+      kappa30 := hg.kappa30
+      BT10 := hg.BT10
+      WL := hg.WL
+      gate := hg.gate
+      Rbd_nonneg := hg.Rbd_nonneg
+      Rbd_grade := hg.Rbd_grade
+      Cq_gate := hg.Cq_gate
+      Rbd_binder := m4_capRbd_at_door_gk K hg.Rbd_socket
+      KS_nonneg := ?_
+      KS_binder := ?_
+      KS_gate := hg.KS_gate
+      epsr_nonneg := hg.epsr_nonneg
+      abs8640 := hg.abs8640
+      EP2_gate := hg.EP2_gate
+      E_row := le_rfl
+      E_binder := hE }
+  · -- ⟦`Hseq_two`⟧ `2 ≤ 4·H₁` at `H₁ ≥ 2`
+    rw [s13Jb, hcalH]; linarith
+  · -- ⟦`P_three`⟧ `𝒫₂ = 2^{e₂}` with `e₂ ≥ 2`
+    rw [s13Jb, calP]
+    calc (3 : ℕ) ≤ 2 ^ 2 := by norm_num
+      _ ≤ 2 ^ calE (Adoor M) (s13GK K M) 2 := Nat.pow_le_pow_right (by norm_num) hE2
+  · -- ⟦`PQ`⟧ `2^{e₂} ≤ 2^{4M·e₂}`
+    rw [s13Jb, calP, calQK]
+    refine Nat.pow_le_pow_right (by norm_num) ?_
+    have : 1 * calE (Adoor M) (s13GK K M) 2 ≤ (2 ^ 2 * M) * calE (Adoor M) (s13GK K M) 2 :=
+      Nat.mul_le_mul_right _ (by omega)
+    simpa using this
+  · -- ⟦`VJ_bound`⟧ the grid cap at its top point
+    intro v hv
+    rw [s13VJ_gk, s13Jb]
+    refine Real.exp_le_exp.mpr ?_
+    rw [halpha]
+    have hvle : (v : ℝ) ≤ calH (H1door M) 2
+        * Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) := by
+      rw [ramI, Finset.mem_Icc] at hv
+      have h1 : (v : ℝ) ≤ (⌊calH (H1door M) 2
+          * Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)⌋₊ : ℝ) := by
+        exact_mod_cast hv.2
+      have hQ1 : (1 : ℝ) ≤ ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) := by
+        exact_mod_cast one_le_calQK (Adoor M) (s13GK K M) M 2
+      have h2 : (0 : ℝ) ≤ calH (H1door M) 2
+          * Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) := by
+        have := Real.log_nonneg hQ1
+        positivity
+      exact le_trans h1 (Nat.floor_le h2)
+    rw [div_le_iff₀ hcalH0]
+    nlinarith [hvle, hcalH0]
+  · -- ⟦`debit`⟧ an EQUALITY at the pinned `εd`
+    rw [s13Jb, s13EpsD, halpha]
+    have h1 : ((Nd : ℕ) : ℝ) ^ (2 * (7 / 48 : ℝ) * Real.log ((q : ℕ) : ℝ)
+        / Real.log ((Nd : ℕ) : ℝ))
+        = Real.exp (2 * (7 / 48 : ℝ) * Real.log ((q : ℕ) : ℝ)) := by
+      rw [Real.rpow_def_of_pos hNdR]
+      congr 1
+      field_simp
+    have h2 : (q : ℝ) ^ (2 * (7 / 48 : ℝ))
+        = Real.exp (Real.log ((q : ℕ) : ℝ) * (2 * (7 / 48 : ℝ))) :=
+      Real.rpow_def_of_pos hqR0 _
+    rw [h1, h2]
+    exact Real.exp_le_exp.mpr (le_of_eq (by ring))
+  · -- ⟦`V_one`⟧
+    rw [s13V]
+    have := Real.rpow_le_rpow_of_exponent_le hLX1 (by norm_num : (0 : ℝ) ≤ (106 : ℝ))
+    rwa [Real.rpow_zero] at this
+  · -- ⟦`V_inv`⟧ an EQUALITY at the pinned `V`
+    rw [s13V, ← Real.rpow_neg hLX0.le]
+  · -- ⟦`L_exp`⟧ `e ≤ log X ≤ Lr`
+    have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
+    linarith
+  · -- ⟦`logV_L`⟧ `106·loglog X ≤ 110·loglog X`
+    rw [s13V, Real.log_rpow hLX0, hlogLr]
+    linarith
+  · -- ⟦`logX_exp`⟧
+    have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
+    linarith
+  · -- ⟦`KS_nonneg`⟧
+    rw [s13KS]
+    have h1 : (0 : ℝ) < (Real.log ((Nd : ℕ) : ℝ)) ^ (-200 : ℝ) := Real.rpow_pos_of_pos hLX0 _
+    have h2 : (0 : ℝ) ≤ Real.log (2 * Tann) := Real.log_nonneg (by linarith)
+    positivity
+  · -- ⟦`KS_binder`⟧ through `M4CapWire` §4b
+    rw [s13KS]
+    exact m4_capKS_at_door_gk K m₀ hLX0.le (by linarith) hg.m0_two hg.m0_bot hg.range hg.Mr_sharp
+
+/-! ## §6 — ⟦THE COMPOSITE⟧ at `S12Compose`'s exact binder shape -/
+
+/-- `doorCapBundle_at_workingPoint (:636)` at the lever. -/
+theorem doorCapBundle_at_workingPoint_gk (K : ℕ) {Cq cs T₀ Kq Ks : ℝ}
+    {M Nd q P Q Mr : ℕ} {m₀ : ℕ → ℕ}
+    {Tann Rrad Rbd CR EP2 εr : ℝ} (hM : 1 ≤ M) (hNd : 1 ≤ Nd) (hq : 1 ≤ q)
+    (hg : S13CapGate_gk K Cq cs T₀ Kq Ks M Nd q P Q Mr m₀ Tann Rrad Rbd CR EP2 εr)
+    (hT1 : 1 < Tann) (hTX : Tann ≤ ((Nd : ℕ) : ℝ))
+    (hTll : 5 ≤ Real.log (Real.log Tann)) :
+    ∃ (Xd P' Q' Mr' Jb : ℕ) (b cf : ℕ → ℂ)
+      (VJ V Lr η εd Rbd' CR' KS E EP2' Mtail : ℝ),
+      DoorCapErrWS_gk K M Nd q Xd P' Q' b cf Tann E Mtail
+        ∧ ((∑ χ : DirichletCharacter ℂ q, ∫ t in (-Tann)..Tann,
+              ‖ramErr (H83 ((Nd : ℕ) : ℝ) theta293) (2 * Nd) Xd P' Q'
+                (chiBarCoeff q χ (winCutH Nd (doorCoeffU_gk K M)))
+                (chiBarCoeff q χ b) (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E
+            → DoorCapBase_gk K Cq cs T₀ Kq Ks M Nd q Xd P' Q' Mr' Jb b cf Tann
+                VJ V Lr η εd εr Rbd' CR' KS E EP2') := by
+  refine ⟨Nd, P, Q, Mr, s13Jb, doorCoeffU_gk K M, liouvilleC, s13VJ_gk K M, s13V Nd, s13Lr Nd,
+    s13Eta, s13EpsD q Nd, Rbd, CR, s13KS Nd Tann, s13E Nd Tann EP2, EP2, s13Mtail_gk K M Nd P Q,
+    s13_doorCapErrWS_gk K hM hNd hg (le_of_lt hT1), ?_⟩
+  intro hE
+  exact s13_doorCapBase_gk K hM hNd hg hq hT1 hTX hTll hE
+
+/-! ## §7 — ⟦THE SLOT⟧ `S12Compose`'s `hcapWS` hypothesis, byte for byte -/
+
+/-- `doorCapBundle_family (:666)` at the lever. -/
+theorem doorCapBundle_family_gk (K : ℕ) {Cq cs T₀ Kq Ks : ℝ} {R : ChowlaRegime} {M : ℕ} (hM : 1 ≤ M)
+    {epsf : ℕ → ℝ}
+    (hgate : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+        2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+        5 ≤ Real.log (Real.log (2 * T)) →
+        ∃ (P Q Mr : ℕ) (m₀ : ℕ → ℕ) (Rrad Rbd CR EP2 : ℝ),
+          S13CapGate_gk K Cq cs T₀ Kq Ks M (A + s) q P Q Mr m₀ (2 * T) Rrad Rbd CR EP2
+            (epsf (A + s))) :
+    ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+        2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+        5 ≤ Real.log (Real.log (2 * T)) →
+        ∃ (Xd P Q Mr Jb : ℕ) (b cf : ℕ → ℂ)
+          (VJ V Lr η εd Rbd CR KS E EP2 Mtail : ℝ),
+          DoorCapErrWS_gk K M (A + s) q Xd P Q b cf (2 * T) E Mtail
+            ∧ ((∑ χ : DirichletCharacter ℂ q, ∫ t in (-(2 * T))..(2 * T),
+                  ‖ramErr (H83 (((A + s : ℕ)) : ℝ) theta293) (2 * (A + s)) Xd P Q
+                    (chiBarCoeff q χ (winCutH (A + s) (doorCoeffU_gk K M)))
+                    (chiBarCoeff q χ b) (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E
+                → DoorCapBase_gk K Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr Jb b cf (2 * T)
+                    VJ V Lr η εd (epsf (A + s)) Rbd CR KS E EP2) := by
+  intro H L q j A s hsb T hTlo hThi hTgate hTll
+  obtain ⟨P, Q, Mr, m₀, Rrad, Rbd, CR, EP2, hg⟩ := hgate H L q j A s hsb T hTlo hThi hTgate hTll
+  have hq : 1 ≤ q := hsb.2.2.2.1
+  have hA : 0 < A := hsb.2.2.2.2.2.2.2.1
+  have hNd : 1 ≤ A + s := by omega
+  -- ⟦`1 < T_ann`⟧ off the slot's own `TannGate` against the gate's scale floor
+  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by have := hg.logX_four; linarith
+  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
+    Real.rpow_pos_of_pos hlogX0 _
+  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
+      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
+  have hT1 : (1 : ℝ) < 2 * T := by linarith
+  exact doorCapBundle_at_workingPoint_gk K hM hNd hq hg hT1 hThi hTll
+
+/-! ## §8 — ⟦KNOT-1 ARITY SURGERY⟧ THE PER-BLOCK PINS
+
+⟦WHAT THE SURGERY BOUGHT⟧  §3's gate carried `range` and `Mr_sharp` as two independent lines
+about ONE scalar `Mr`.  Read at the two ends of the ram band they force `Q ≤ 2P` — the
+⟦BAND-WIDTH TENSION⟧ of the header, met from the `KS` side.  KNOT1-SCOPE (flags, 2026-07-30)
+identified the scalar as the whole cause; `M4CapWire.DoorCapBasePerBlock_gk K` reads `Mr : ℕ → ℕ`
+inside the ∀`j` the bundle already carries, and this section PINS it:
+
+| pin | value | what it discharges |
+|---|---|---|
+| `s13Mr Nd j` | `⌈2·N_d·e^{−j/H₈₃}⌉₊` | `range` — DEFINITIONAL (the window's own top, rounded up) |
+| `s13m0 Nd j` | `⌊N_d·e^{−j/H₈₃}⌋₊` | `m0_two`, `m0_bot` — `Nat.floor` facts |
+| — | — | `Mr_sharp` at `N_d e^{−j/H} ≥ 9/2`, itself FREE on the grid (§8a) |
+| `s13KS` | unchanged | `KS_gate` — DISCHARGED (§8c), `(log X)^{197}`-genre room |
+| `s13MtailBand C Nd P Q` | `C(log P/log Q)/N_d + 1/N_d²` | `DoorCapErrWS_gk K.tail`, through
+  `M4RowSupply.m4_tail_mass_at_band` |
+
+⟦§8a — WHY `Mr_sharp` IS NOW FREE⟧  `range` and `Mr_sharp` are read at the SAME `j`, so the
+only demand left is the per-block `N_d e^{−j/H} ≥ 9/2` (from `⌈2B⌉₊ ≤ 2B+1` and
+`⌊B⌋₊ > B−1`: `2B+1 ≤ 4(B−2)` ⟺ `B ≥ 9/2`).  On the grid `j ≤ ⌊H log Q⌋₊`, so
+`B ≥ N_d/Q`, and `Q ≤ Q₈₃ X = exp(μ/log μ)` against `N_d = e^μ` closes it at `μ ≥ 8` with
+room to spare.  **The point-band forcing is gone** — nothing in this section relates `P` and
+`Q` beyond `P ≤ Q`.
+
+⟦§8c — THE `KS_gate` DISCHARGE⟧  `32·μ^{2+2θ}·20512·μ^{−200}(1+log 2T_ann) ≤ μ^{−θ}` reduces,
+at `T_ann ≤ X`, to `656384(2+μ) ≤ μ^{198−3θ}` — a `μ^{197}`-genre demand against a linear one.
+Proved off `8^7 = 2097152 ≥ 1312768`.  **The `KS_gate` half of the header's ⟦BAND-WIDTH
+TENSION⟧ is therefore resolved outright**: it never constrained the band; it constrained the
+scalar.
+
+⟦§8d — THE `E_ge` LINE, ROW BY ROW⟧  `DoorCapErrWS_gk K.E_ge` is discharged from THREE named gate
+lines, one per row of `ramErr_meanSq_all_chi_ws_priced`'s bound, each charged to `EP2` (the
+`s13E` pin gives the row sum exactly `2160·W + 3·EP2`, so no slack is lost in the split):
+
+* ⟦THE `φ(q)` LINE⟧ `phi_row` — `4·520·φ(q)·W ≤ 2160·W + EP2`, sufficient form
+  `4160·φ(q)·μ^{−θ₂₉₃} ≤ EP2` at `W ≤ 2μ^{−θ₂₉₃}`.  **`4·520·φ(q)` against `3·720` fits only
+  at `φ(q) ≤ 1.038`; for `φ(q) ≥ 2` the excess exits through `EP2`, and that is a genuine
+  `q`-vs-base gate.**  ⟦CORRECTION 3 — ITS HONEST HOME⟧ it does NOT close against the
+  capstone's `q ≤ (log X)^{12}` (there both sides are exponential and the `q`-side is bigger
+  at every `μ`); it closes ONLY against `SocketBase`'s own H-SIDE modulus ledger
+  `q ≤ arcDen 12 H = (log H)^{12}` — carried here as `q_arcDen` — through the `hPHheadroom`
+  conversion, in the refuter's form `εr·μ ≥ log 16640 + 12·log log H + log(8Cμ)` with
+  `εr ≤ θ₂₉₃ − 1/500`, closing at the floor `μ = 1.41·10³²` by 27 orders.
+* `p2_row` — the `p²`-correction and end-mass row against `EP2`;
+* `tail_row` — the coprime-tail row at the BAND value of `Mtail`, against `EP2`.
+
+⚠ `epsr_theta` (`εr ≤ θ₂₉₃ − 1/500`), the refuter's companion to the `φ(q)` line, is
+**deliberately NOT a field of the gate**: read together with the landed `abs8640`
+(`8640 ≤ μ^{εr}`, i.e. `εr ≥ log 8640/log μ ≈ 0.122` at the floor) it is in tension, and a
+contradictory field would make the whole gate vacuous — a silent trivialization this file
+refuses.  The pair is recorded here as the adjudication owed, exactly as §3's header records
+`KS_gate`/`E_ge`.
+
+⟦THE BUDGET's CEILING — RETIRED 7/30 (MUCAP-SCOPE; maestro ruling 6)⟧ this file briefly
+carried a `mu_cap` field (`log Nd ≤ (5/48)·log 𝒫₂`), transcribed from the KNOT1-REF freeze
+at the `μ = log X_d` reading — 8 minutes after K4-CENSUS had pinned `μ = log H` (the
+stale-freeze catch, flags #99).  The field had ZERO readers, and was kernel-refuted from
+the gate's own `Q2_reg` at every `M ≥ 1` (probe_mucap_internal_kill).  The honest facts:
+the bundle's leg is `exp(2·(log S/log 𝒫₂)·loglog S)` at `S = q·Tann` — its absorption
+demand sits verbatim inside the carried `budget` field below; the ×1280 window's own
+bookkeeping is `MSelect'.winFit` (`S13MSelect2`); the one-more-log shape
+`loglog X_d ≤ (5/48)·log 𝒫₂` is kernel-verified satisfiable at the block floor
+(scratch probe_mucap_repaired_at_floor) if a documented ceiling is ever wanted.
+
+**PURELY ADDITIVE.**  §1–§7 stand unmodified. -/
+
+/-- `S13CapGatePerBlock (:990)` at the lever. -/
+structure S13CapGatePerBlock_gk (K : ℕ) (Cq cs T₀ Kq Ks C : ℝ) (M Nd q P Q Hreg : ℕ)
+    (Tann Rrad Rbd CR EP2 εr : ℝ) : Prop where
+  -- ⟦THE SCALE FLOOR⟧
+  /-- `8 ≤ log X` — §3's `logX_four` strengthened by one octave (§8a's grid floor). -/
+  logX_eight : 8 ≤ Real.log ((Nd : ℕ) : ℝ)
+  /-- `2 ≤ H₈₃ X θ₂₉₃` — ONE field for both bundles. -/
+  H83_two : 2 ≤ H83 ((Nd : ℕ) : ℝ) theta293
+  -- ⟦(A) THE RAZOR — the three that do not reduce⟧
+  /-- `𝒬K₂ ≤ q·T_ann`. -/
+  QTann : ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ (q : ℝ) * Tann
+  /-- ⟦MR (21)⟧'s κ-gate at the designated level. -/
+  kappa30Q : 30 ≤ Real.log ((q : ℝ) * Tann)
+    / Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+  /-- `q ≤ (log X)^{12}` — the capstone's base-side modulus gate. -/
+  q_logX : (q : ℝ) ≤ (Real.log ((Nd : ℕ) : ℝ)) ^ 12
+  -- ⟦(B) THE SOCKET FLOOR AT `(q, T_ann)`⟧
+  /-- `T₀ ≤ T_ann`. -/
+  T0_Tann : T₀ ≤ Tann
+  /-- Floor gate 1. -/
+  floor1 : 8 * Real.log (40000 * vkStripConst q) ≤ Real.log (Real.log (5 * Tann + 1))
+  /-- Floor gate 2. -/
+  floor2 : 8 + Real.log (20000 * (vkStripConst q + 8104)) / 100
+    ≤ Real.log (Real.log (5 * Tann + 1))
+  /-- Floor gate 3 — the `Kq` arm. -/
+  floor3 : Kq * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
+    ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+      * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)
+  /-- Floor gate 4 — the `Ks` arm. -/
+  floor4 : (q : ℝ) ^ ((1 : ℝ) / 16)
+    ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+      * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ))
+  /-- `log(q·T_ann) ≤ Lr` at the pinned `Lr = (log X)^{11/10}`. -/
+  logqT_L : Real.log ((q : ℝ) * Tann) ≤ s13Lr Nd
+  -- ⟦(D) THE RAM-BLOCK FRAME⟧
+  /-- `P₈₃ X θ₂₉₃ ≤ P`. -/
+  P_low : P83 ((Nd : ℕ) : ℝ) theta293 ≤ (P : ℝ)
+  /-- `log 𝒬K₂ ≤ √(log X)` — `DoorRowZeroBase.reg` VERBATIM (§1's band gate). -/
+  Q2_reg : Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+    ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ))
+  /-- `0 < Q`. -/
+  Q_pos : 0 < Q
+  /-- `Q ≤ Q₈₃ X`. -/
+  Q_high : (Q : ℝ) ≤ Q83 ((Nd : ℕ) : ℝ)
+  /-- `P ≤ Q` — the band is a band.  ⟦NOTHING relates `P` and `Q` beyond this⟧: the
+  point-band forcing of §3's header was the scalar `Mr`'s artifact and is gone. -/
+  P_le_Q : P ≤ Q
+  /-- ⟦THE GRADED BUDGET, PER-BLOCK⟧ at the pinned `VJ`, `η`, `εd` and the per-block cap. -/
+  budget : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+    thinBundleGChi ((q : ℝ) * Tann) (s13VJ_gk K M) (calH (H1door M) 2)
+        (calP (Adoor M) (s13GK K M) 2) (calQK (Adoor M) (s13GK K M) M 2)
+      * ((Nd : ℕ) : ℝ) ^ (1 - 2 * s13Eta + s13EpsD q Nd) ≤ ((s13Mr Nd j : ℕ) : ℝ)
+  /-- `H₈₃ ≤ j` on the grid. -/
+  Hj : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+    H83 ((Nd : ℕ) : ℝ) theta293 ≤ (j : ℝ)
+  /-- `3 ≤ Q_base` on the grid. -/
+  B3 : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+    3 ≤ ramQbase (H83 ((Nd : ℕ) : ℝ) theta293) P j
+  /-- `Q_base ≤ q·T_ann` on the grid. -/
+  BT : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+    (ramQbase (H83 ((Nd : ℕ) : ℝ) theta293) P j : ℝ) ≤ (q : ℝ) * Tann
+  /-- The κ-gate on the grid. -/
+  kappa30 : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+    30 ≤ Real.log ((q : ℝ) * Tann)
+      / Real.log (ramQbase (H83 ((Nd : ℕ) : ℝ) theta293) P j)
+  /-- `Q_base ≤ T_ann^{10}` on the grid. -/
+  BT10 : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+    (ramQbase (H83 ((Nd : ℕ) : ℝ) theta293) P j : ℝ) ≤ Tann ^ 10
+  /-- `log Q_base ≤ Lr` on the grid. -/
+  WL : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+    Real.log (ramQbase (H83 ((Nd : ℕ) : ℝ) theta293) P j) ≤ s13Lr Nd
+  /-- The `cs`-gate on the grid — the field that CAPS `Lr` from above. -/
+  gate : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+    420 * s13Lr Nd * (s13Lr Nd) ^ ((3 : ℝ) / 4) * (Real.log (s13Lr Nd)) ^ 5
+      ≤ cs * (Real.log (ramQbase (H83 ((Nd : ℕ) : ℝ) theta293) P j)) ^ 2
+  -- ⟦(E) THE CO-FACTOR BOUND AND ITS GRADE⟧
+  /-- `0 ≤ Rbd`. -/
+  Rbd_nonneg : 0 ≤ Rbd
+  /-- ⟦THE ZENO LINE⟧. -/
+  Rbd_grade : Rbd ≤ CR * (Real.log ((Nd : ℕ) : ℝ)) ^ (-rho293)
+  /-- ⟦THE `Cq`-GATE⟧. -/
+  Cq_gate : 1728 * Cq * CR ^ 2 ≤ (Real.log ((Nd : ℕ) : ℝ)) ^ (2 * theta293)
+  /-- ⟦THE `Rbd` SUPPLY⟧ the door's un-phased co-factor socket at the free centre. -/
+  Rbd_socket : ∀ (t₁ : ℝ) (χ : DirichletCharacter ℂ q),
+    CofactorSocket (H83 ((Nd : ℕ) : ℝ) theta293) (2 * Nd) Nd P Q Tann Rrad t₁ Rbd
+      (doorCofactor0 χ (calP (Adoor M) (s13GK K M))
+        (calQK (Adoor M) (s13GK K M) M) 2 1)
+  -- ⟦(F) LEMMA 12's ERROR ROW, ROW BY ROW⟧
+  /-- `0 ≤ εr`. -/
+  epsr_nonneg : 0 ≤ εr
+  /-- `8640 ≤ (log X)^{εr}`. -/
+  abs8640 : 8640 ≤ (Real.log ((Nd : ℕ) : ℝ)) ^ εr
+  /-- The `p²`-correction row's absorption. -/
+  EP2_gate : 12 * EP2 ≤ (Real.log ((Nd : ℕ) : ℝ)) ^ (-theta293 + εr)
+  /-- ⟦THE `φ(q)` LINE — correction 3's honest home⟧ `q ≤ arcDen 12 H = (log H)^{12}`, the
+  H-SIDE modulus ledger `SocketBase` itself carries.  The `φ(q)` row does NOT close against
+  the base-side `q_logX`; it closes here. -/
+  q_arcDen : (q : ℝ) ≤ arcDen 12 Hreg
+  /-- ⟦THE `φ(q)` ROW⟧ `4·520·φ(q)·W ≤ EP2` in the sufficient form `W ≤ 2μ^{−θ₂₉₃}` — the
+  `4·520·φ(q)` vs `3·720` excess, charged to `EP2`.  Refuter form:
+  `εr·μ ≥ log 16640 + 12·log log H + log(8Cμ)` (27 orders at the floor). -/
+  phi_row : 4160 * (q.totient : ℝ) * (Real.log ((Nd : ℕ) : ℝ)) ^ (-theta293) ≤ EP2
+  /-- ⟦THE `p²`/END-MASS ROW⟧ against `EP2`. -/
+  p2_row : 4 * (2 * (q.totient : ℝ) * Tann
+        + 7 * (q.totient : ℝ) * (((2 * Nd : ℕ)) : ℝ) / q)
+      * (16 * Real.logb 2 (2 * ((Nd : ℕ) : ℝ)) / (((Nd : ℕ) : ℝ) * (P : ℝ)) + endMass Nd)
+    ≤ EP2
+  /-- ⟦THE COPRIME-TAIL ROW⟧ at the BAND value of `Mtail`, against `EP2`. -/
+  tail_row : 4 * (2 * (q.totient : ℝ) * Tann
+        + 7 * (q.totient : ℝ) * (((2 * Nd : ℕ)) : ℝ) / q) * s13MtailBand C Nd P Q
+    ≤ EP2
+  /-- ⟦THE TAIL BAND's SIDE CONDITION 1⟧ `100·log Q ≤ log X_d`. -/
+  Q_hundred : 100 * Real.log (Q : ℝ) ≤ Real.log ((Nd : ℕ) : ℝ)
+  /-- ⟦THE TAIL BAND's SIDE CONDITION 2⟧ the band product. -/
+  band_product : ((Nat.sqrt Nd : ℝ) + 1) * ∏ p ∈ primeBand P Q, (1 + 3 / (p : ℝ))
+    ≤ ((Nd : ℕ) : ℝ) * (Real.log (P : ℝ) / Real.log (Q : ℝ))
+
+/-! ### §8e — the two bundles at the per-block pins -/
+
+/-- `s13_doorCapErrWS_perBlock (:1128)` at the lever. -/
+theorem s13_doorCapErrWS_perBlock_gk (K : ℕ) {Cq cs T₀ Kq Ks C : ℝ} {M Nd q P Q Hreg : ℕ}
+    {Tann Rrad Rbd CR EP2 εr : ℝ}
+    (hband : ∀ (P Q Xd N : ℕ) (a : ℕ → ℂ),
+      2 ≤ P → P ≤ Q → 1 ≤ Xd → 100 * Real.log Q ≤ Real.log Xd →
+      ((Nat.sqrt Xd : ℝ) + 1) * ∏ p ∈ primeBand P Q, (1 + 3 / (p : ℝ))
+          ≤ (Xd : ℝ) * (Real.log P / Real.log Q) →
+      (∀ n, ‖a n‖ ≤ 1) → (∀ n, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+      ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+          ‖a n‖ ^ 2 / (n : ℝ) ^ 2
+        ≤ C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2)
+    (hM : 1 ≤ M) (hNd : 1 ≤ Nd)
+    (hg : S13CapGatePerBlock_gk K Cq cs T₀ Kq Ks C M Nd q P Q Hreg Tann Rrad Rbd CR EP2 εr)
+    (hT1 : 1 < Tann) (hTX : Tann ≤ ((Nd : ℕ) : ℝ)) :
+    DoorCapErrWS_gk K M Nd q Nd P Q (doorCoeffU_gk K M) liouvilleC Tann
+      (s13E Nd Tann EP2) (s13MtailBand C Nd P Q) := by
+  have h8 := hg.logX_eight
+  have hNd0 : (0 : ℝ) < ((Nd : ℕ) : ℝ) := s13_Nd_pos h8
+  have hlogX1 : (1 : ℝ) < Real.log ((Nd : ℕ) : ℝ) := by linarith
+  have hP2 : 2 ≤ P := s13_P_two h8 hg.P_low
+  -- ⟦the datum's window pin⟧
+  have hasupp : ∀ n : ℕ, winCutH Nd (doorCoeffU_gk K M) n ≠ 0 → Nd ≤ n ∧ n ≤ 2 * Nd := by
+    intro n hn
+    obtain ⟨h1, h2⟩ := winCutH_asupp hn
+    exact ⟨h1, h2⟩
+  refine
+    { Xd_eq := rfl
+      Nd_one := hNd
+      H83_two := hg.H83_two
+      H83_le := s13_H83_le (by linarith)
+      P_one := by omega
+      Tann_nonneg := by linarith
+      b_one := norm_doorCoeffU_le_one_gk K M
+      cf_one := liouvilleC_norm_le_one
+      coefWS := doorCoeffU_seamCoefWS_band_H_gk K M Nd P Q
+        (door_band_gate_of_log (one_le_s13GK K hM) hlogX1 hg.Q2_reg hg.P_low)
+      tail := ?_
+      E_ge := ?_ }
+  · -- ⟦the tail, WIRED at the band⟧
+    exact hband P Q Nd (2 * Nd) (winCutH Nd (doorCoeffU_gk K M)) hP2 hg.P_le_Q hNd
+      hg.Q_hundred hg.band_product (fun n => norm_doorRowDatumU_le_one_gk K M Nd n) hasupp
+  · -- ⟦`E_ge`, row by row⟧
+    have hH0 : (0 : ℝ) < H83 ((Nd : ℕ) : ℝ) theta293 := by
+      rw [H83]; exact Real.rpow_pos_of_pos (by linarith) _
+    have hφ0 : (0 : ℝ) ≤ (q.totient : ℝ) := Nat.cast_nonneg _
+    -- ⟦`W ≤ 2·μ^{−θ}` and `0 ≤ W`⟧
+    have hWnn : (0 : ℝ) ≤ (Tann / ((Nd : ℕ) : ℝ) + 1) / H83 ((Nd : ℕ) : ℝ) theta293 := by
+      have : (0 : ℝ) ≤ Tann / ((Nd : ℕ) : ℝ) := by positivity
+      positivity
+    have hWle : (Tann / ((Nd : ℕ) : ℝ) + 1) / H83 ((Nd : ℕ) : ℝ) theta293
+        ≤ 2 * (Real.log ((Nd : ℕ) : ℝ)) ^ (-theta293) := by
+      have h2 : Tann / ((Nd : ℕ) : ℝ) + 1 ≤ 2 := by
+        have : Tann / ((Nd : ℕ) : ℝ) ≤ 1 := (div_le_one hNd0).mpr hTX
+        linarith
+      have hHinv : (0 : ℝ) ≤ (H83 ((Nd : ℕ) : ℝ) theta293)⁻¹ := (inv_pos.mpr hH0).le
+      have h3 : (Tann / ((Nd : ℕ) : ℝ) + 1) / H83 ((Nd : ℕ) : ℝ) theta293
+          ≤ 2 / H83 ((Nd : ℕ) : ℝ) theta293 := by
+        rw [div_eq_mul_inv, div_eq_mul_inv]
+        exact mul_le_mul_of_nonneg_right h2 hHinv
+      have h4 : (2 : ℝ) / H83 ((Nd : ℕ) : ℝ) theta293
+          = 2 * (Real.log ((Nd : ℕ) : ℝ)) ^ (-theta293) := by
+        rw [H83, Real.rpow_neg (by linarith : (0 : ℝ) ≤ Real.log ((Nd : ℕ) : ℝ)),
+          div_eq_mul_inv]
+      linarith [h3, h4.le, h4.ge]
+    -- ⟦row 1 — the `φ(q)` line⟧
+    have hrow1 : 4 * ((q.totient : ℝ)
+          * (520 * (Tann / ((Nd : ℕ) : ℝ) + 1) / H83 ((Nd : ℕ) : ℝ) theta293))
+        ≤ 3 * (720 * (Tann / ((Nd : ℕ) : ℝ) + 1) / H83 ((Nd : ℕ) : ℝ) theta293) + EP2 := by
+      have hstep : (q.totient : ℝ)
+            * ((Tann / ((Nd : ℕ) : ℝ) + 1) / H83 ((Nd : ℕ) : ℝ) theta293)
+          ≤ (q.totient : ℝ) * (2 * (Real.log ((Nd : ℕ) : ℝ)) ^ (-theta293)) :=
+        mul_le_mul_of_nonneg_left hWle hφ0
+      have hnn : (0 : ℝ) ≤ 3 * (720 * (Tann / ((Nd : ℕ) : ℝ) + 1)
+          / H83 ((Nd : ℕ) : ℝ) theta293) := by
+        have : (0 : ℝ) ≤ Tann / ((Nd : ℕ) : ℝ) := by positivity
+        positivity
+      calc 4 * ((q.totient : ℝ)
+              * (520 * (Tann / ((Nd : ℕ) : ℝ) + 1) / H83 ((Nd : ℕ) : ℝ) theta293))
+          = 2080 * ((q.totient : ℝ)
+              * ((Tann / ((Nd : ℕ) : ℝ) + 1) / H83 ((Nd : ℕ) : ℝ) theta293)) := by
+            ring
+        _ ≤ 2080 * ((q.totient : ℝ)
+              * (2 * (Real.log ((Nd : ℕ) : ℝ)) ^ (-theta293))) :=
+            mul_le_mul_of_nonneg_left hstep (by norm_num)
+        _ = 4160 * (q.totient : ℝ) * (Real.log ((Nd : ℕ) : ℝ)) ^ (-theta293) := by ring
+        _ ≤ EP2 := hg.phi_row
+        _ ≤ 3 * (720 * (Tann / ((Nd : ℕ) : ℝ) + 1)
+              / H83 ((Nd : ℕ) : ℝ) theta293) + EP2 := by linarith
+    -- ⟦rows 2 and 3⟧
+    have hrow2 := hg.p2_row
+    have hrow3 := hg.tail_row
+    rw [s13E]
+    linarith [hrow1, hrow2, hrow3]
+
+set_option maxHeartbeats 1000000 in
+-- the bundle has fifty-eight fields; one `refine` elaborates the whole list
+/-- `s13_doorCapBase_perBlock (:1228)` at the lever. -/
+theorem s13_doorCapBase_perBlock_gk (K : ℕ) {Cq cs T₀ Kq Ks C : ℝ} {M Nd q P Q Hreg : ℕ}
+    {Tann Rrad Rbd CR EP2 εr : ℝ} (hM : 1 ≤ M) (hNd : 1 ≤ Nd)
+    (hg : S13CapGatePerBlock_gk K Cq cs T₀ Kq Ks C M Nd q P Q Hreg Tann Rrad Rbd CR EP2 εr)
+    (hq : 1 ≤ q) (hT1 : 1 < Tann) (hTX : Tann ≤ ((Nd : ℕ) : ℝ))
+    (hTll : 5 ≤ Real.log (Real.log Tann))
+    (hE : (∑ χ : DirichletCharacter ℂ q, ∫ t in (-Tann)..Tann,
+        ‖ramErr (H83 ((Nd : ℕ) : ℝ) theta293) (2 * Nd) Nd P Q
+          (chiBarCoeff q χ (winCutH Nd (doorCoeffU_gk K M))) (chiBarCoeff q χ (doorCoeffU_gk K M))
+          (chiBarCoeff q χ liouvilleC) t‖ ^ 2) ≤ s13E Nd Tann EP2) :
+    DoorCapBasePerBlock_gk K Cq cs T₀ Kq Ks M Nd q Nd P Q (s13Mr Nd) s13Jb (doorCoeffU_gk K M)
+      liouvilleC Tann (s13VJ_gk K M) (s13V Nd) (s13Lr Nd) s13Eta (s13EpsD q Nd) εr Rbd CR
+      (s13KS Nd Tann) (s13E Nd Tann EP2) EP2 := by
+  have h8 := hg.logX_eight
+  have hLX4 : (4 : ℝ) ≤ Real.log ((Nd : ℕ) : ℝ) := by linarith
+  have hLX1 : (1 : ℝ) ≤ Real.log ((Nd : ℕ) : ℝ) := by linarith
+  have hLX0 : (0 : ℝ) < Real.log ((Nd : ℕ) : ℝ) := by linarith
+  have hNdR : (0 : ℝ) < ((Nd : ℕ) : ℝ) := by
+    have : (1 : ℝ) ≤ ((Nd : ℕ) : ℝ) := by exact_mod_cast hNd
+    linarith
+  have hqR : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hqR0 : (0 : ℝ) < (q : ℝ) := by linarith
+  -- ⟦the razor's level and its exponent⟧
+  have halpha : mrAlpha (1 / 12) 2 = 7 / 48 := by rw [mrAlpha]; norm_num
+  have hH1 : (2 : ℝ) ≤ H1door M := H1door_two hM
+  have hcalH : calH (H1door M) 2 = 4 * H1door M := by rw [calH]; norm_num
+  have hcalH0 : (0 : ℝ) < calH (H1door M) 2 := by rw [hcalH]; linarith
+  -- ⟦the height scale⟧
+  have hqT1 : (1 : ℝ) < (q : ℝ) * Tann := by nlinarith
+  have hlogqT0 : (0 : ℝ) < Real.log ((q : ℝ) * Tann) := Real.log_pos hqT1
+  have hloglog5 : (5 : ℝ) ≤ Real.log (Real.log ((q : ℝ) * Tann)) := by
+    have hTpos : (0 : ℝ) < Tann := by linarith
+    have h1 : Real.log Tann ≤ Real.log ((q : ℝ) * Tann) :=
+      Real.log_le_log hTpos (by nlinarith)
+    have hlogT0 : (0 : ℝ) < Real.log Tann := Real.log_pos hT1
+    exact le_trans hTll (Real.log_le_log hlogT0 h1)
+  have hlogqT1 : (1 : ℝ) ≤ Real.log ((q : ℝ) * Tann) := by
+    by_cases hc : (1 : ℝ) ≤ Real.log ((q : ℝ) * Tann)
+    · exact hc
+    · exfalso
+      have hlt : Real.log ((q : ℝ) * Tann) < 1 := not_le.mp hc
+      have : Real.log (Real.log ((q : ℝ) * Tann)) < 0 := Real.log_neg hlogqT0 hlt
+      linarith
+  -- ⟦the ladder⟧
+  have hA0 : 0 < Adoor M := by
+    rw [Adoor]; exact Nat.mul_pos (by norm_num) (Nat.succ_pos _)
+  have hE2 : 2 ≤ calE (Adoor M) (s13GK K M) 2 := by
+    have h : calE (Adoor M) (s13GK K M) 2 = Adoor M * (s13GK K M) * 4 := by
+      rw [calE]; norm_num [Nat.factorial]
+    rw [h]
+    have h1 : 1 ≤ Adoor M := hA0
+    have h2 : 1 ≤ s13GK K M := one_le_s13GK K hM
+    nlinarith
+  -- ⟦the pinned `Lr` and `V`⟧
+  have hLr : s13Lr Nd = (Real.log ((Nd : ℕ) : ℝ)) ^ ((11 : ℝ) / 10) := rfl
+  have hLrge : Real.log ((Nd : ℕ) : ℝ) ≤ s13Lr Nd := by
+    rw [hLr]
+    have := Real.rpow_le_rpow_of_exponent_le hLX1 (by norm_num : (1 : ℝ) ≤ (11 : ℝ) / 10)
+    rwa [Real.rpow_one] at this
+  have hLrpos : (0 : ℝ) < s13Lr Nd := by linarith
+  have hlogLr : Real.log (s13Lr Nd) = (11 / 10 : ℝ) * Real.log (Real.log ((Nd : ℕ) : ℝ)) := by
+    rw [hLr, Real.log_rpow hLX0]
+  have hlogLXnn : (0 : ℝ) ≤ Real.log (Real.log ((Nd : ℕ) : ℝ)) := Real.log_nonneg hLX1
+  refine
+    { Jb_lo := by rw [s13Jb]; norm_num
+      Jb_hi := by rw [s13Jb]
+      Hseq_two := ?_
+      alpha_nonneg := by rw [s13Jb, halpha]; norm_num
+      Tann_one := by linarith
+      qTann_one := hqT1
+      P_three := ?_
+      PQ := ?_
+      QTann := hg.QTann
+      kappa30Q := hg.kappa30Q
+      loglog5 := hloglog5
+      VJ_bound := ?_
+      alpha_eta := by rw [s13Jb, halpha, s13Eta]; norm_num
+      eta_half := by rw [s13Eta]; norm_num
+      Tann_X := hTX
+      X_pos := hNdR
+      debit := ?_
+      logX_pos := hLX0
+      q_logX := hg.q_logX
+      V_one := ?_
+      V_inv := ?_
+      T0_Tann := hg.T0_Tann
+      floor1 := hg.floor1
+      floor2 := hg.floor2
+      floor3 := hg.floor3
+      floor4 := hg.floor4
+      logqT_one := hlogqT1
+      logqT_L := hg.logqT_L
+      L_exp := ?_
+      logV_L := ?_
+      H83_two := hg.H83_two
+      logX_exp := ?_
+      logX_four := hLX4
+      cf_one := liouvilleC_norm_le_one
+      P_low := hg.P_low
+      Q_pos := hg.Q_pos
+      Q_high := hg.Q_high
+      range := s13_range_perBlock Nd P Q
+      budget := hg.budget
+      Hj := hg.Hj
+      B3 := hg.B3
+      BT := hg.BT
+      kappa30 := hg.kappa30
+      BT10 := hg.BT10
+      WL := hg.WL
+      gate := hg.gate
+      Rbd_nonneg := hg.Rbd_nonneg
+      Rbd_grade := hg.Rbd_grade
+      Cq_gate := hg.Cq_gate
+      Rbd_binder := m4_capRbd_at_door_gk K hg.Rbd_socket
+      KS_nonneg := ?_
+      KS_binder := ?_
+      KS_gate := s13_KS_gate h8 hT1 hTX
+      epsr_nonneg := hg.epsr_nonneg
+      abs8640 := hg.abs8640
+      EP2_gate := hg.EP2_gate
+      E_row := le_rfl
+      E_binder := hE }
+  · -- ⟦`Hseq_two`⟧
+    rw [s13Jb, hcalH]; linarith
+  · -- ⟦`P_three`⟧
+    rw [s13Jb, calP]
+    calc (3 : ℕ) ≤ 2 ^ 2 := by norm_num
+      _ ≤ 2 ^ calE (Adoor M) (s13GK K M) 2 := Nat.pow_le_pow_right (by norm_num) hE2
+  · -- ⟦`PQ`⟧
+    rw [s13Jb, calP, calQK]
+    refine Nat.pow_le_pow_right (by norm_num) ?_
+    have : 1 * calE (Adoor M) (s13GK K M) 2 ≤ (2 ^ 2 * M) * calE (Adoor M) (s13GK K M) 2 :=
+      Nat.mul_le_mul_right _ (by omega)
+    simpa using this
+  · -- ⟦`VJ_bound`⟧
+    intro v hv
+    rw [s13VJ_gk, s13Jb]
+    refine Real.exp_le_exp.mpr ?_
+    rw [halpha]
+    have hvle : (v : ℝ) ≤ calH (H1door M) 2
+        * Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) := by
+      rw [ramI, Finset.mem_Icc] at hv
+      have h1 : (v : ℝ) ≤ (⌊calH (H1door M) 2
+          * Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)⌋₊ : ℝ) := by
+        exact_mod_cast hv.2
+      have hQ1 : (1 : ℝ) ≤ ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) := by
+        exact_mod_cast one_le_calQK (Adoor M) (s13GK K M) M 2
+      have h2 : (0 : ℝ) ≤ calH (H1door M) 2
+          * Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) := by
+        have := Real.log_nonneg hQ1
+        positivity
+      exact le_trans h1 (Nat.floor_le h2)
+    rw [div_le_iff₀ hcalH0]
+    nlinarith [hvle, hcalH0]
+  · -- ⟦`debit`⟧ an EQUALITY at the pinned `εd`
+    rw [s13Jb, s13EpsD, halpha]
+    have h1 : ((Nd : ℕ) : ℝ) ^ (2 * (7 / 48 : ℝ) * Real.log ((q : ℕ) : ℝ)
+        / Real.log ((Nd : ℕ) : ℝ))
+        = Real.exp (2 * (7 / 48 : ℝ) * Real.log ((q : ℕ) : ℝ)) := by
+      rw [Real.rpow_def_of_pos hNdR]
+      congr 1
+      field_simp
+    have h2 : (q : ℝ) ^ (2 * (7 / 48 : ℝ))
+        = Real.exp (Real.log ((q : ℕ) : ℝ) * (2 * (7 / 48 : ℝ))) :=
+      Real.rpow_def_of_pos hqR0 _
+    rw [h1, h2]
+    exact Real.exp_le_exp.mpr (le_of_eq (by ring))
+  · -- ⟦`V_one`⟧
+    rw [s13V]
+    have := Real.rpow_le_rpow_of_exponent_le hLX1 (by norm_num : (0 : ℝ) ≤ (106 : ℝ))
+    rwa [Real.rpow_zero] at this
+  · -- ⟦`V_inv`⟧
+    rw [s13V, ← Real.rpow_neg hLX0.le]
+  · -- ⟦`L_exp`⟧
+    have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
+    linarith
+  · -- ⟦`logV_L`⟧
+    rw [s13V, Real.log_rpow hLX0, hlogLr]
+    linarith
+  · -- ⟦`logX_exp`⟧
+    have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
+    linarith
+  · -- ⟦`KS_nonneg`⟧
+    rw [s13KS]
+    have h1 : (0 : ℝ) < (Real.log ((Nd : ℕ) : ℝ)) ^ (-200 : ℝ) := Real.rpow_pos_of_pos hLX0 _
+    have h2 : (0 : ℝ) ≤ Real.log (2 * Tann) := Real.log_nonneg (by linarith)
+    positivity
+  · -- ⟦`KS_binder`⟧ through `M4CapWire` §6b, at the per-block cap
+    rw [s13KS]
+    exact m4_capKS_at_door_perBlock_gk K (s13m0 Nd) hLX0.le (by linarith)
+      (s13_m0_two h8 hg.Q_pos hg.Q_high) (s13_m0_bot Nd P Q) (s13_range_perBlock Nd P Q)
+      (s13_Mr_sharp h8 hg.Q_pos hg.Q_high)
+
+/-! ### §8f — ⟦THE COMPOSITE⟧ at `S12Compose` §3's exact binder shape -/
+
+/-- `doorCapBundle_at_workingPoint_perBlock (:1423)` at the lever. -/
+theorem doorCapBundle_at_workingPoint_perBlock_gk (K : ℕ) {Cq cs T₀ Kq Ks C : ℝ}
+    {M Nd q P Q Hreg : ℕ} {Tann Rrad Rbd CR EP2 εr : ℝ}
+    (hband : ∀ (P Q Xd N : ℕ) (a : ℕ → ℂ),
+      2 ≤ P → P ≤ Q → 1 ≤ Xd → 100 * Real.log Q ≤ Real.log Xd →
+      ((Nat.sqrt Xd : ℝ) + 1) * ∏ p ∈ primeBand P Q, (1 + 3 / (p : ℝ))
+          ≤ (Xd : ℝ) * (Real.log P / Real.log Q) →
+      (∀ n, ‖a n‖ ≤ 1) → (∀ n, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+      ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+          ‖a n‖ ^ 2 / (n : ℝ) ^ 2
+        ≤ C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2)
+    (hM : 1 ≤ M) (hNd : 1 ≤ Nd) (hq : 1 ≤ q)
+    (hg : S13CapGatePerBlock_gk K Cq cs T₀ Kq Ks C M Nd q P Q Hreg Tann Rrad Rbd CR EP2 εr)
+    (hT1 : 1 < Tann) (hTX : Tann ≤ ((Nd : ℕ) : ℝ))
+    (hTll : 5 ≤ Real.log (Real.log Tann)) :
+    ∃ (Xd P' Q' : ℕ) (Mr' : ℕ → ℕ) (Jb : ℕ) (b cf : ℕ → ℂ)
+      (VJ V Lr η εd Rbd' CR' KS E EP2' Mtail : ℝ),
+      DoorCapErrWS_gk K M Nd q Xd P' Q' b cf Tann E Mtail
+        ∧ ((∑ χ : DirichletCharacter ℂ q, ∫ t in (-Tann)..Tann,
+              ‖ramErr (H83 ((Nd : ℕ) : ℝ) theta293) (2 * Nd) Xd P' Q'
+                (chiBarCoeff q χ (winCutH Nd (doorCoeffU_gk K M)))
+                (chiBarCoeff q χ b) (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E
+            → DoorCapBasePerBlock_gk K Cq cs T₀ Kq Ks M Nd q Xd P' Q' Mr' Jb b cf Tann
+                VJ V Lr η εd εr Rbd' CR' KS E EP2') := by
+  refine ⟨Nd, P, Q, s13Mr Nd, s13Jb, doorCoeffU_gk K M, liouvilleC, s13VJ_gk K M, s13V Nd, s13Lr Nd,
+    s13Eta, s13EpsD q Nd, Rbd, CR, s13KS Nd Tann, s13E Nd Tann EP2, EP2,
+    s13MtailBand C Nd P Q,
+    s13_doorCapErrWS_perBlock_gk K hband hM hNd hg hT1 hTX, ?_⟩
+  intro hE
+  exact s13_doorCapBase_perBlock_gk K hM hNd hg hq hT1 hTX hTll hE
+
+/-- `doorCapBundle_family_perBlock (:1458)` at the lever. -/
+theorem doorCapBundle_family_perBlock_gk (K : ℕ) {Cq cs T₀ Kq Ks : ℝ} {R : ChowlaRegime} {M : ℕ}
+    (hM : 1 ≤ M) {epsf : ℕ → ℝ} :
+    ∃ C : ℝ, 0 < C ∧
+      ((∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+        ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+          2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+          5 ≤ Real.log (Real.log (2 * T)) →
+          ∃ (P Q : ℕ) (Rrad Rbd CR EP2 : ℝ),
+            S13CapGatePerBlock_gk K Cq cs T₀ Kq Ks C M (A + s) q P Q H (2 * T) Rrad Rbd CR EP2
+              (epsf (A + s))) →
+      ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+        ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+          2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+          5 ≤ Real.log (Real.log (2 * T)) →
+          ∃ (Xd P Q : ℕ) (Mr : ℕ → ℕ) (Jb : ℕ) (b cf : ℕ → ℂ)
+            (VJ V Lr η εd Rbd CR KS E EP2 Mtail : ℝ),
+            DoorCapErrWS_gk K M (A + s) q Xd P Q b cf (2 * T) E Mtail
+              ∧ ((∑ χ : DirichletCharacter ℂ q, ∫ t in (-(2 * T))..(2 * T),
+                    ‖ramErr (H83 (((A + s : ℕ)) : ℝ) theta293) (2 * (A + s)) Xd P Q
+                      (chiBarCoeff q χ (winCutH (A + s) (doorCoeffU_gk K M)))
+                      (chiBarCoeff q χ b) (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E
+                  → DoorCapBasePerBlock_gk K Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr Jb b cf (2 * T)
+                      VJ V Lr η εd (epsf (A + s)) Rbd CR KS E EP2)) := by
+  obtain ⟨C, hC, hband⟩ := m4_tail_mass_at_band
+  refine ⟨C, hC, ?_⟩
+  intro hgate H L q j A s hsb T hTlo hThi hTgate hTll
+  obtain ⟨P, Q, Rrad, Rbd, CR, EP2, hg⟩ := hgate H L q j A s hsb T hTlo hThi hTgate hTll
+  have hq : 1 ≤ q := hsb.2.2.2.1
+  have hA : 0 < A := hsb.2.2.2.2.2.2.2.1
+  have hNd : 1 ≤ A + s := by omega
+  -- ⟦`1 < T_ann`⟧ off the slot's own `TannGate` against the gate's scale floor
+  have hlogX0 : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by have := hg.logX_eight; linarith
+  have hpow : (0 : ℝ) < (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) :=
+    Real.rpow_pos_of_pos hlogX0 _
+  have hexp : 30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2) + 1
+      ≤ Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) := Real.add_one_le_exp _
+  have hgate2 : Real.exp (30 * (Real.log (((A + s : ℕ)) : ℝ)) ^ ((1 : ℝ) / 2)) ≤ 2 * T := hTgate
+  have hT1 : (1 : ℝ) < 2 * T := by linarith
+  exact doorCapBundle_at_workingPoint_perBlock_gk K hband hM hNd hq hg hT1 hThi hTll
+
+-- #audit (temporary)
+
 end Salt.MR
 
 end

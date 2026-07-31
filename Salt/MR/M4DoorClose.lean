@@ -639,6 +639,249 @@ theorem m4_wave_structurally_closed (Qm : ℕ) :
   intro H hlo hhi q hq hqQ i hik r hrq _hncop
   exact hnc H hlo hhi q hq hqQ i hik r hrq
 
+/-! ## §GK — the G-lever twin
+
+The additive `_gk` family at `G := s13GK K M` (`GLever`): each declaration is its landed
+sibling with `(K : ℕ)` inserted as the FIRST binder and every literal `3072 * M` rewritten to
+`s13GK K M`.  `calH (H1door M)`, `a2Level1 M`, `a2RowsSum M Xd` and `doorRowFloor M` are
+LEVEL 1 and therefore K-INVARIANT — they keep their landed names inside the twin.
+
+⟦WHAT IS NOT HERE, AND WHY⟧ three of this file's five declarations —
+`m4_door_meansq_carried` (:389), `m4_dyadicRow_carried` (:523) and
+`m4_wave_structurally_closed` (:579) — consume door-row suppliers that live in files owned by
+OTHER groups and that carry no `_gk` sibling yet:
+
+* `M4DoorRow`: `norm_doorChiCoeff_le_one`, `norm_doorPunctCoeff_le_one`, `doorRow_ha1`,
+  `doorRow_hsupp0`, `doorRow_hasupp`, `m4_door_tail_supply`;
+* `M4T0Datum` / `M4Puncture`: `doorChiCoeff_seamCoefW_at_door_H`,
+  `doorChiCoeff_seamCoefW_punct_H`, `cofactorSocket_doorChiCoeff`;
+* `M4Maximal`: `M4ChiDyadicRowMeanSq`, `m4_wave_closed_of_dyadicRow`;
+* `M4NonCoprime`: `M4CoprimeBlockMeanSq`, `m4_nonCoprime_classMeanSq`.
+
+Each of those reads the door datum `doorChiCoeff χ M` / `doorSievedCoeff M` at the LANDED
+base, so the three twins here are blocked on their `_gk` siblings, not on any numeral.  They
+are flagged, not attempted: the rewrite is mechanical once those land. -/
+
+/-- **THE DOOR ROW'S CARRIED REGISTER AT THE LEVER** — `DoorRowCarried` (:146). -/
+def DoorRowCarried_gk (K : ℕ) (Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ)
+    {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd j : ℕ) (B : ℝ) : Prop :=
+  ∃ (P Q : ℕ) (Mt kk Dd : ℕ → ℕ) (Xa : ℕ → ℝ)
+    (X h δ' V VJ L Cb kmin Ymax ε C₁' M₀ cqS cgS cW SW Rbar0 Dmask : ℝ),
+    -- ⟦the two pins⟧
+    ((Xd : ℝ) = X) ∧ (((2 ^ j : ℕ) : ℝ) = h) ∧
+    -- ⟦the scale page, at the BLOCK scale⟧
+    (Real.exp (Real.exp 1) ≤ X) ∧ (Real.exp 2 ≤ Real.log X) ∧
+    (h ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ))) ∧
+    (Real.log h + 30 * (Real.log X / Real.log (Real.log X)) ≤ Real.log X) ∧
+    TannGate X (2 * (X / h)) ∧ (5 ≤ Real.log (Real.log (2 * (X / h)))) ∧
+    (T₀ ≤ 2 * (X / h)) ∧ (Real.exp 1 ≤ 2 * (X / h)) ∧
+    (Real.log X ≤ L) ∧ (Real.exp 1 ≤ L) ∧ ((256 : ℝ) ≤ Real.log X) ∧
+    -- ⟦the door and the band⟧
+    (calQK (Adoor M) (s13GK K M) M 2 ≤ Xd) ∧
+    (3 ≤ P) ∧ ((2 : ℝ) ≤ Real.log (P : ℝ)) ∧ ((Q : ℝ) ≤ 2 * (X / h)) ∧
+    (Real.log (Q : ℝ) ≤ Real.log X / Real.log (Real.log X)) ∧
+    (Real.log (Q : ℝ) ≤ L) ∧
+    (P83 X theta293 ≤ (P : ℝ)) ∧ ((Q : ℝ) ≤ Q83 X) ∧ (P ≤ Q) ∧ (0 < Q) ∧
+    (H83 X theta293 ≤ (Xd : ℝ)) ∧ ((2 : ℝ) ≤ H83 X theta293) ∧
+    ((1 : ℝ) < ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ)) ∧
+    (Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ))) ∧
+    ((100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ))) ∧
+    (∀ i ∈ Finset.Icc 1 2,
+      ((Nat.sqrt Xd : ℝ) + 1)
+          * ∏ p ∈ primeBand (calP (Adoor M) (s13GK K M) i)
+                (calQK (Adoor M) (s13GK K M) M i), (1 + 3 / (p : ℝ))
+        ≤ (Xd : ℝ) * (Real.log ((calP (Adoor M) (s13GK K M) i : ℕ) : ℝ)
+            / Real.log ((calQK (Adoor M) (s13GK K M) M i : ℕ) : ℝ))) ∧
+    -- ⟦the window floors at the witness ladder⟧
+    (∀ v ∈ ramI (H83 X theta293) P Q, (5 : ℝ) ≤ ramRbot (H83 X theta293) Xd v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      ballQuarterThreshold + 1 ≤ ramRbot (H83 X theta293) Xd v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, 2 * ramRbot (H83 X theta293) Xd v ≤ X) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      18 + Real.log (Real.log X)
+          - Real.log (Real.log (ramRbot (H83 X theta293) Xd v - 1))
+        ≤ 32 * theta293 * Real.log (Real.log X)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      seamRad X ≤ Real.sqrt 2 * ramRbot (H83 X theta293) Xd v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      thinBundleG X VJ (calH (H1door M) 2) (calP (Adoor M) (s13GK K M) 2)
+          (calQK (Adoor M) (s13GK K M) M 2) * X ^ (1 - 2 * (1 / 12 : ℝ))
+        ≤ ramRbot (H83 X theta293) Xd v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      pin2Gate ≤ ((witMt (H83 X theta293) Xd v : ℕ) : ℝ)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, kmin ≤ ((witKk (H83 X theta293) Xd v : ℕ) : ℝ)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, ((witMt (H83 X theta293) Xd v : ℕ) : ℝ) ≤ Ymax) ∧
+    -- ⟦the calibration, the radius, the short-interval datum⟧
+    ((0 : ℝ) < seamRad X) ∧
+    ((1 : ℝ) ≤ V) ∧ (V⁻¹ ≤ δ') ∧ (Real.log V ≤ 100 * Real.log L) ∧
+    (δ' ^ 2 ≤ (Real.log X) ^ (-(6 : ℝ))) ∧
+    (656384 * (1 + Real.log (2 * X)) ≤ (Real.log X) ^ (4 - 3 * theta293)) ∧
+    (Real.exp (mrAlpha (1 / 12) 2
+        * Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)) ≤ VJ) ∧
+    ((0 : ℝ) ≤ Cb) ∧ ShortIntervalDatum Cb ∧
+    (2 * (Real.log X) ^ ((3 : ℝ) / 5) ≤ Real.log X) ∧
+    -- ⟦the `kmin`/`Ymax` ladder⟧
+    (Xcap ≤ kmin) ∧ ((0 : ℝ) ≤ cofactorMfl X theta293 kmin) ∧
+    ((2 : ℝ) ≤ kmin) ∧ (kmin ≤ X) ∧
+    ((1 - 1 / Real.log (Real.log X)) * Real.log X ≤ Real.log kmin) ∧
+    (pin2Gate ≤ Ymax) ∧ (Real.log Ymax ≤ 2 * Real.log kmin) ∧
+    (Real.log X ≤ Real.log Ymax) ∧
+    (32 * ballSupC34 ≤ (Real.log Ymax) ^ ((3 : ℝ) / 20 - rho293)) ∧
+    -- ⟦THE TWO OPAQUE CAPSTONE GATES (K6)⟧
+    (420 * L * L ^ ((3 : ℝ) / 4) * (Real.log L) ^ 5 ≤ cq * (Real.log (P : ℝ)) ^ 2) ∧
+    (1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293)) ∧
+    -- ⟦the ε-window⟧
+    ((0 : ℝ) ≤ ε) ∧ (ε ≤ theta293 - 1 / 500) ∧ ((8640 : ℝ) ≤ (Real.log X) ^ ε) ∧
+    -- ⟦the coprime-tail page (⟦THE K6 PATTERN⟧: the threshold where `Ctail` is bound)⟧
+    (100 * Real.log (Q : ℝ) ≤ Real.log (Xd : ℝ)) ∧
+    (((Nat.sqrt Xd : ℝ) + 1) * ∏ p ∈ primeBand P Q, (1 + 3 / (p : ℝ))
+      ≤ (Xd : ℝ) * (Real.log (P : ℝ) / Real.log (Q : ℝ))) ∧
+    (10752 * Real.logb 2 (2 * X) ≤ (Real.log X) ^ (2 : ℝ)) ∧
+    (Real.log (P : ℝ) / Real.log (Q : ℝ)
+      ≤ 2 * (Real.log (Real.log X) * (Real.log X) ^ (-theta293))) ∧
+    (2688 * Ctail * Real.log (Real.log X) ≤ (Real.log X) ^ ε) ∧
+    -- ⟦the per-piece cap-free floor: only the Mertens mask debit is carried⟧
+    ((0 : ℝ) ≤ Dmask) ∧
+    (∀ 𝒥 ∈ (Finset.Icc 1 2).powerset,
+      (∑ i ∈ 𝒥, ∑ p ∈ blockWindowPrimes (calP (Adoor M) (s13GK K M) i)
+          (calQK (Adoor M) (s13GK K M) M i) X, (1 : ℝ) / (p : ℝ)) ≤ Dmask) ∧
+    (40 * Real.log (Real.log (Real.log X))
+        + 32 * ((1 / 8) * Real.log q + (1 / 4) * (q : ℝ)
+            + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebit q + Kcf + 25
+            + Dmask)
+      < Real.log (Real.log X)) ∧
+    -- ⟦THE SOCKET'S GATES⟧ (`m4_supplier_complete` at `Ps := 1`, `J := 2`)
+    ((0 : ℝ) < cW) ∧ (cW ≤ 1 / Real.exp 1) ∧ (2 * cW < 1) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      TLBlockGates34 cqS (H83 X theta293) P (2 * Xd) Xd Mt kk X L cgS Cb X theta293
+        (seamRad X) v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ, |t| ≤ X →
+      |t| + Tstar2 ((Mt v : ℕ) : ℝ) (Real.log ((Mt v : ℕ) : ℝ)) ≤ 3 * X) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, 1 ≤ Dd v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, Dd v ≤ kk v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, Xsk ≤ Real.sqrt (Xa v)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, Real.sqrt (Xa v) ≤ ((kk v / Dd v : ℕ) : ℝ)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, pin2Gate ≤ ((kk v / Dd v : ℕ) : ℝ)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, Real.exp 1 ≤ Xa v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, ((Mt v : ℕ) : ℝ) ≤ 2 * Xa v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, 2 * Xa v ≤ X) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      (0 : ℝ) ≤ cofactorMfl X theta293 ((kk v / Dd v : ℕ) : ℝ)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ, |t| ≤ X → ∀ i : ℕ,
+      ((kk v / Dd v : ℕ) : ℝ) ≤ (i : ℝ) → (i : ℝ) ≤ 2 * Xa v →
+        |t| + Tstar2 (i : ℝ) (Real.log (i : ℝ)) ≤ 3 * X) ∧
+    ((0 : ℝ) ≤ SW) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      cSq * caseASwide cW Cb (cofactorMfl X theta293 ((kk v / Dd v : ℕ) : ℝ))
+          ((kk v / Dd v : ℕ) : ℝ) (Xa v)
+        + cSq * ((Dd v : ℕ) : ℝ) ^ (-(1 / 4 : ℝ)) ≤ SW) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, 2 / ramRbot (H83 X theta293) Xd v
+      ≤ cofactorRbdGen SW ((kk v : ℕ) : ℝ) ((Mt v : ℕ) : ℝ)
+          (Tstar2 ((Mt v : ℕ) : ℝ) (Real.log ((Mt v : ℕ) : ℝ))) (seamRad X) / 3) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      cofactorRbdGen SW ((kk v : ℕ) : ℝ) ((Mt v : ℕ) : ℝ)
+          (Tstar2 ((Mt v : ℕ) : ℝ) (Real.log ((Mt v : ℕ) : ℝ))) (seamRad X) ≤ Rbar0) ∧
+    ((0 : ℝ) ≤ Rbar0) ∧
+    (4 * Rbar0 ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293)) ∧
+    -- ⟦THE ENDPOINT⟧ (`M4Band.memSCoeff_endpoint_zero_of_seamCoefW` is the converse)
+    (doorChiCoeff_gk K χ M Xd = 0) ∧
+    -- ⟦THE CARRY: the `T₀`-band arm, at `m4_hT0band_at_door`'s own conclusion⟧
+    ((∫ t in (-(seamT0 X))..(seamT0 X),
+        ‖dpolyA (winCutH Xd (doorChiCoeff_gk K χ M)) (seamS0 (2 * Xd) X) t‖ ^ 2)
+      ≤ t0BandB X C₁' M₀) ∧
+    -- ⟦the assembled floor's threshold and the interface's grading gates⟧
+    (40 * Real.log (Real.log (Real.log X))
+        + 32 * ((1 / 8) * Real.log q + (1 / 4) * (q : ℝ)
+            + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebit q + Kfl + 25)
+      < Real.log (Real.log X)) ∧
+    (374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+      ≤ (Real.log X) ^ (-(1 : ℝ) / 500)) ∧
+    (5760 * (a2RowsSum M Xd + Ccc * (2 / (M : ℝ))) ≤ (Real.log X) ^ (-(1 : ℝ) / 500)) ∧
+    ((4096 : ℝ) ≤ (Real.log X) ^ (1 - (1 : ℝ) / 250)) ∧
+    -- ⟦THE ENVELOPE: the five-summand right-hand side at this instance⟧
+    (8448 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
+        + 1787702400 * a2Level1 M
+        + 188133 * (Real.log X) ^ (-(1 : ℝ) / 500)
+        + 304128 * ballSupC ^ 2
+            * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
+        + 6315000 / h
+      ≤ B)
+
+/-- The lever's sieved, χ-twisted datum is `1`-bounded — the `_gk` reading of
+`M4DoorRow.norm_doorChiCoeff_le_one` (`memSCoeff` only deletes terms, at any base). -/
+theorem norm_doorChiCoeff_le_one_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M n : ℕ) :
+    ‖doorChiCoeff_gk K χ M n‖ ≤ 1 :=
+  norm_memSCoeff_le_one (norm_liouChi_le_one χ) _ _ 2 n
+
+/-- **THE TRIVIAL GRADE AT THE DOOR ROW, AT THE LEVER** — `doorRow_trivial_grade`
+(:301). -/
+theorem doorRow_trivial_grade_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M : ℕ)
+    {Xd : ℕ} (j : ℕ) (hXd : 0 < Xd) :
+    1 / ((Xd : ℕ) : ℝ)
+        * (∫ y in ((Xd : ℕ) : ℝ)..(2 * ((Xd : ℕ) : ℝ)),
+            ‖((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
+                * shortSum (doorChiCoeff_gk K χ M) (seamS0 (2 * Xd) ((Xd : ℕ) : ℝ)) y
+                    ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
+      ≤ 4 := by
+  have hXd0 : (0 : ℝ) < ((Xd : ℕ) : ℝ) := by exact_mod_cast hXd
+  have hhN : 0 < 2 ^ j := Nat.two_pow_pos j
+  have hh1 : (1 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) := by exact_mod_cast hhN
+  have hh0 : (0 : ℝ) < ((2 ^ j : ℕ) : ℝ) := by linarith
+  -- ⟦the pointwise bound⟧
+  have hpt : ∀ y ∈ Set.Icc ((Xd : ℕ) : ℝ) (2 * ((Xd : ℕ) : ℝ)),
+      ‖((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
+          * shortSum (doorChiCoeff_gk K χ M) (seamS0 (2 * Xd) ((Xd : ℕ) : ℝ)) y
+              ((2 ^ j : ℕ) : ℝ)‖ ^ 2 ≤ 4 := by
+    intro y hy
+    have hy0 : (0 : ℝ) ≤ y := le_trans hXd0.le hy.1
+    have hs := norm_shortSum_le (norm_doorChiCoeff_le_one_gk K χ M)
+      (seamS0 (2 * Xd) ((Xd : ℕ) : ℝ)) (x := y) (hlen := ((2 ^ j : ℕ) : ℝ)) hy0 hh0.le
+    have hnm : ‖((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
+        * shortSum (doorChiCoeff_gk K χ M) (seamS0 (2 * Xd) ((Xd : ℕ) : ℝ)) y
+            ((2 ^ j : ℕ) : ℝ)‖
+        = 1 / ((2 ^ j : ℕ) : ℝ)
+            * ‖shortSum (doorChiCoeff_gk K χ M) (seamS0 (2 * Xd) ((Xd : ℕ) : ℝ)) y
+                ((2 ^ j : ℕ) : ℝ)‖ := by
+      rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (by positivity)]
+    have hb : ‖((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
+        * shortSum (doorChiCoeff_gk K χ M) (seamS0 (2 * Xd) ((Xd : ℕ) : ℝ)) y
+            ((2 ^ j : ℕ) : ℝ)‖ ≤ 2 := by
+      rw [hnm]
+      have h2h : ‖shortSum (doorChiCoeff_gk K χ M) (seamS0 (2 * Xd) ((Xd : ℕ) : ℝ)) y
+          ((2 ^ j : ℕ) : ℝ)‖ ≤ 2 * ((2 ^ j : ℕ) : ℝ) := by linarith
+      calc 1 / ((2 ^ j : ℕ) : ℝ)
+            * ‖shortSum (doorChiCoeff_gk K χ M) (seamS0 (2 * Xd) ((Xd : ℕ) : ℝ)) y
+                ((2 ^ j : ℕ) : ℝ)‖
+          ≤ 1 / ((2 ^ j : ℕ) : ℝ) * (2 * ((2 ^ j : ℕ) : ℝ)) :=
+            mul_le_mul_of_nonneg_left h2h (by positivity)
+        _ = 2 := by field_simp
+    have h0 := norm_nonneg (((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
+      * shortSum (doorChiCoeff_gk K χ M) (seamS0 (2 * Xd) ((Xd : ℕ) : ℝ)) y
+          ((2 ^ j : ℕ) : ℝ))
+    nlinarith
+  -- ⟦the mean⟧
+  have hint := shortSum_sq_intervalIntegrable (doorChiCoeff_gk K χ M)
+    (seamS0 (2 * Xd) ((Xd : ℕ) : ℝ)) ((2 ^ j : ℕ) : ℝ) ((Xd : ℕ) : ℝ) (2 * ((Xd : ℕ) : ℝ))
+  have hmono := intervalIntegral.integral_mono_on (a := ((Xd : ℕ) : ℝ))
+    (b := 2 * ((Xd : ℕ) : ℝ)) (by linarith) hint intervalIntegrable_const hpt
+  rw [intervalIntegral.integral_const, smul_eq_mul] at hmono
+  have hbound : (∫ y in ((Xd : ℕ) : ℝ)..(2 * ((Xd : ℕ) : ℝ)),
+      ‖((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
+          * shortSum (doorChiCoeff_gk K χ M) (seamS0 (2 * Xd) ((Xd : ℕ) : ℝ)) y
+              ((2 ^ j : ℕ) : ℝ)‖ ^ 2) ≤ ((Xd : ℕ) : ℝ) * 4 := by
+    calc _ ≤ (2 * ((Xd : ℕ) : ℝ) - ((Xd : ℕ) : ℝ)) * 4 := hmono
+      _ = ((Xd : ℕ) : ℝ) * 4 := by ring
+  calc 1 / ((Xd : ℕ) : ℝ)
+        * (∫ y in ((Xd : ℕ) : ℝ)..(2 * ((Xd : ℕ) : ℝ)),
+            ‖((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
+                * shortSum (doorChiCoeff_gk K χ M) (seamS0 (2 * Xd) ((Xd : ℕ) : ℝ)) y
+                    ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
+      ≤ 1 / ((Xd : ℕ) : ℝ) * (((Xd : ℕ) : ℝ) * 4) :=
+        mul_le_mul_of_nonneg_left hbound (by positivity)
+    _ = 4 := by field_simp
+
+-- #audit (temporary)
+
 end Salt.MR
 
 end

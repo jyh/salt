@@ -248,4 +248,44 @@ theorem m4_chiSummedFreeRow_of_doorCarried :
   intro R Qm M Bd hM hQm hBd0 hcar
   exact m4_chiSummedFreeRow_of_big (hbig R Qm M Bd hM hQm hBd0 hcar)
 
+/-! ## §GK — the G-lever twin
+
+The additive `_gk` family at `G := s13GK K M` (`GLever`): each declaration below is its
+landed original with `(K : ℕ)` as a new FIRST binder and the socket's row square read at
+`chiFreeRowSq_gk`.  `J` stays `2`; `m4ChiRowGraded` and its three lemmas read no door
+object and keep their landed names, as does `doorRowFloor M` (LEVEL 1, K-INVARIANT).
+
+⟦WHAT IS NOT HERE, AND WHY⟧ §3's two door-carried wires,
+`m4_chiSummedFreeRowBig_of_doorCarried` (:171) and `m4_chiSummedFreeRow_of_doorCarried`
+(:227), are BLOCKED, not attempted: both discharge `DoorRowCarried` through
+`M4DoorClose.m4_door_meansq_carried`, which carries no `_gk` sibling (`M4DoorClose`'s own
+§GK flags the gap — its door-row suppliers in `M4DoorRow`/`M4T0Datum`/`M4Puncture` are
+untwinned).  The rewrite is mechanical once that lands; no numeral is in question.
+-/
+
+/-- `M4ChiSummedFreeRowBig` (:96), at the lever. -/
+def M4ChiSummedFreeRowBig_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (RSbig : ℕ → ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → ∀ q : ℕ, 0 < q →
+    (q : ℝ) ≤ arcDen 12 H → ∀ j ≤ Nat.log 2 L, doorRowFloor M ≤ j → ∀ A : ℕ, 0 < A →
+      2 ^ j ≤ A → Real.sqrt (H : ℝ) ≤ (A : ℝ) →
+      (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) → (A : ℝ) ≤ 2 * (R.x : ℝ) →
+      ∀ s ≤ L,
+        ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq_gk K χ M j (A + s) ≤ RSbig j H
+
+/-- `m4_chiSummedFreeRow_of_big` (:137), at the lever. -/
+theorem m4_chiSummedFreeRow_of_big_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {RSbig : ℕ → ℕ → ℝ}
+    (hbig : M4ChiSummedFreeRowBig_gk K R M RSbig) :
+    M4ChiSummedFreeRow_gk K R M (m4ChiRowGraded M RSbig) := by
+  intro H hlo hhi L hLH q hq hqQ j hjL A hA hAj hAsq hAx hAcap s hsL
+  by_cases hcase : doorRowFloor M ≤ j
+  · rw [m4ChiRowGraded_big M RSbig H hcase]
+    exact hbig H hlo hhi L hLH q hq hqQ j hjL hcase A hA hAj hAsq hAx hAcap s hsL
+  · rw [m4ChiRowGraded_small M RSbig H hcase]
+    exact m4_chiSummedFreeRow_trivial_gk K R M H hlo hhi L hLH q hq hqQ j hjL A hA hAj hAsq hAx
+      hAcap s hsL
+
 end Salt.MR
+
+end
+
+-- #audit (temporary)

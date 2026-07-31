@@ -273,4 +273,65 @@ theorem thm_a2'_of_rows_chiSummed {q : ℕ} [NeZero q] {N M Xd : ℕ}
   refine le_trans (Finset.sum_le_sum hper) ?_
   rw [a2_sum_head_split]
 
+/-! ## §GK — the G-lever twin
+
+The `χ`-summed crossing at `G := s13GK K M`.  The conclusion is BYTE-IDENTICAL to the landed
+one (`a2Level1 M` is level-1 and therefore K-invariant); the two moved hypothesis slots are
+`hrowsSum` (at `a2Mrow_gk`) and `hgRows` (at `a2RowsSum_gk`), plus `hgP1`'s `𝒫₁` written at
+the lever's base — the same symbol.  Proved by ⟦THE `Ccc`-SHIFT⟧ (`ThmA2.a2Mrow_shift_gk`),
+per character. -/
+
+/-- **thm_A2′ χ-SUMMED, AT THE G-LEVER** (`thm_a2'_of_rows_chiSummed_gk`). -/
+theorem thm_a2'_of_rows_chiSummed_gk (K : ℕ) {q : ℕ} [NeZero q] {N M Xd : ℕ}
+    {a : DirichletCharacter ℂ q → ℕ → ℂ} {X h : ℝ}
+    {Cs Ccc C₁' M₀ ε : DirichletCharacter ℂ q → ℝ}
+    (hM : 1 ≤ M)
+    (hX : Real.exp 1 ≤ X) (hX3 : 3 ≤ X) (hh4 : 4 ≤ h)
+    (hhX : h ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ)))
+    (ha : ∀ χ : DirichletCharacter ℂ q, ∀ n : ℕ, ‖a χ n‖ ≤ 1)
+    (hsupp : ∀ χ : DirichletCharacter ℂ q, ∀ n : ℕ, (n : ℝ) ≤ X → a χ n = 0)
+    (hN2 : (N : ℝ) ≤ 2 * X)
+    (hTann : TannGate X (2 * (X / h)))
+    (hceil : 5 ≤ Real.log (Real.log (2 * (X / h))))
+    (hrowsSum : ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X →
+      TannGate X (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+      X / h / T * (∫ t in seamAnn X (2 * T), ‖spoly N (a χ) t‖ ^ 2)
+        ≤ a2Mrow_gk K (Cs χ) (Ccc χ) M Xd X (ε χ))
+    (hT0bandSum : ∀ χ : DirichletCharacter ℂ q,
+      (∫ t in (-(seamT0 X))..(seamT0 X), ‖dpolyA (a χ) (seamS0 N X) t‖ ^ 2)
+        ≤ t0BandB X (C₁' χ) (M₀ χ))
+    (hgP1 : ∀ χ : DirichletCharacter ℂ q,
+      374784 * Cs χ * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+        ≤ (Real.log X) ^ (-(1 : ℝ) / 500))
+    (hgRows : ∀ χ : DirichletCharacter ℂ q,
+      5760 * (a2RowsSum_gk K M Xd + Ccc χ * (2 / (M : ℝ)))
+        ≤ (Real.log X) ^ (-(1 : ℝ) / 500))
+    (hεwin : ∀ χ : DirichletCharacter ℂ q, 0 ≤ ε χ ∧ ε χ ≤ theta293 - 1 / 500)
+    (hL4096 : 4096 ≤ (Real.log X) ^ (1 - (1 : ℝ) / 250)) :
+    ∑ χ : DirichletCharacter ℂ q,
+        1 / X * (∫ x in X..(2 * X),
+          ‖((1 / h : ℝ) : ℂ) * shortSum (a χ) (seamS0 N X) x h‖ ^ 2)
+      ≤ (∑ χ : DirichletCharacter ℂ q,
+            8448 * C₁' χ ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀ χ))
+        + (q.totient : ℝ)
+            * (1787702400 * a2Level1 M
+              + 188133 * (Real.log X) ^ (-(1 : ℝ) / 500)
+              + 304128 * ballSupC ^ 2
+                  * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
+              + 6315000 / h) := by
+  refine thm_a2'_of_rows_chiSummed (Xd := Xd) (Cs := Cs) (Ccc := fun χ =>
+      Ccc χ + (M : ℝ) / 2 * (a2RowsSum_gk K M Xd - a2RowsSum M Xd))
+    hM hX hX3 hh4 hhX ha hsupp hN2 hTann hceil ?_ hT0bandSum ?_ ?_ hεwin hL4096
+  · intro χ T h1 h2 h3 h4
+    exact (hrowsSum χ T h1 h2 h3 h4).trans
+      (le_of_eq (a2Mrow_shift_gk K (Cs χ) (Ccc χ) (M := M) Xd X (ε χ) hM).symm)
+  · intro χ
+    rw [← calP_door_one_gk (K := K)]
+    exact hgP1 χ
+  · intro χ
+    rw [a2RowsSum_shift_gk K (Ccc χ) (M := M) Xd hM]
+    exact hgRows χ
+
+-- #audit (temporary)
+
 end Salt.MR

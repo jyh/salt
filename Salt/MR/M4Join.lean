@@ -594,6 +594,227 @@ theorem m4_wave_exit_sup_split :
     (m4_sievedDoorSq_of_sup_uniform (fun H => by have := hB0 H; linarith) hdrift
       (m4_cover_assembly_sup hgates hB0 hblk))
 
+/-! ## §GK — the G-lever twin
+
+The additive `_gk` family at `G := s13GK K M` (`GLever`): each declaration below is its
+landed original with `(K : ℕ)` as a new FIRST binder and the door datum read at the lever
+(`doorSievedCoeff_gk`), through the levered gates (`M4DoorGates_gk`) and the levered door
+exits (`m4_door_contradiction_of_blockMeanSq_gk` and its family).  `J` stays `2`; the
+capstone stones of §0 read no `G` and keep their landed names.
+-/
+
+/-- `M4BlockMeanSqSup` (:203), at the lever. -/
+def M4BlockMeanSqSup_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (Bblk : ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ (b : ℤ) (q : ℕ), 0 < q → (q : ℝ) ≤ arcDen 12 H →
+    ∀ i < k,
+      ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          (subWindowSup (doorSievedCoeff_gk K M) H n ((b : ℝ) / (q : ℝ))) ^ 2
+        ≤ Bblk H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)
+
+/-- `m4_cover_assembly_sup` (:216), at the lever. -/
+theorem m4_cover_assembly_sup_gk (K : ℕ) {Cg : ℝ} {R : ChowlaRegime} {M k : ℕ} {δ : ℝ}
+    {Bblk : ℕ → ℝ}
+    (hgates : M4DoorGates_gk K Cg R M k δ) (hB0 : ∀ H : ℕ, 0 ≤ Bblk H)
+    (hblk : M4BlockMeanSqSup_gk K R M k Bblk) :
+    M4SievedDoorSqSup_gk K R M (fun H => 3 * Bblk H) := by
+  intro _ H _ hlo hhi b q hq hqQ
+  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+  have hP : (0 : ℝ) ≤ Bblk H * (H : ℝ) ^ 2 := mul_nonneg (hB0 H) (by positivity)
+  have hmain := integral_door_cover_le_clean (x := R.x) (ω := R.ω) (H := H) (k := k)
+    (g := fun n => (subWindowSup (doorSievedCoeff_gk K M) H n ((b : ℝ) / (q : ℝ))) ^ 2)
+    (P := Bblk H * (H : ℝ) ^ 2)
+    R.hx R.hω R.hωx hgates.hlogω hgates.hcount (fun n => by positivity) hP hxH
+    (hgates.hreach H hlo hhi) hgates.hpow (hblk H hlo hhi b q hq hqQ)
+  simp only [doorSievedCoeff_gk] at hmain
+  have heq : 3 * (Bblk H * (H : ℝ) ^ 2) = 3 * Bblk H * (H : ℝ) ^ 2 := by ring
+  rw [heq] at hmain
+  -- ⟦B-2's `q`-graded socket: the `q`-free block bound is read at `q ≥ 1`⟧
+  refine le_trans hmain ?_
+  have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hq2 : (1 : ℝ) ≤ (q : ℝ) ^ 2 := by nlinarith
+  have hB : (0 : ℝ) ≤ 3 * Bblk H := by have := hB0 H; linarith
+  nlinarith [mul_nonneg hB (sq_nonneg ((H : ℕ) : ℝ)), sq_nonneg ((H : ℕ) : ℝ)]
+
+/-- `m4_blockMeanSqSup_trivial` (:242), at the lever. -/
+theorem m4_blockMeanSqSup_trivial_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) :
+    M4BlockMeanSqSup_gk K R M k (fun _ => 1) := by
+  intro H _ hhi b q _ _ i _
+  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+  have hterm : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+      (subWindowSup (doorSievedCoeff_gk K M) H n ((b : ℝ) / (q : ℝ))) ^ 2 ≤ (H : ℝ) ^ 2 := by
+    intro n _
+    have h := subWindowSup_le_of_norm_le_one (a := doorSievedCoeff_gk K M)
+      (norm_doorSievedCoeff_le_one_gk K M) H n ((b : ℝ) / (q : ℝ))
+    have h0 := subWindowSup_nonneg (doorSievedCoeff_gk K M) H n ((b : ℝ) / (q : ℝ))
+    nlinarith
+  have hcard : ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+      (subWindowSup (doorSievedCoeff_gk K M) H n ((b : ℝ) / (q : ℝ))) ^ 2
+      ≤ ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
+        * (H : ℝ) ^ 2 := by
+    calc ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          (subWindowSup (doorSievedCoeff_gk K M) H n ((b : ℝ) / (q : ℝ))) ^ 2
+        ≤ ∑ _n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i), (H : ℝ) ^ 2 :=
+          Finset.sum_le_sum hterm
+      _ = ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
+            * (H : ℝ) ^ 2 := by
+          rw [Finset.sum_const, nsmul_eq_mul]
+  have hc : ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
+      ≤ (doorLadder R.x H (i + 1) : ℝ) := by
+    rw [Nat.card_Ioc]
+    have hfit := doorLadder_fit R.x H i
+    have hn : doorLadder R.x H i - doorLadder R.x H (i + 1) ≤ doorLadder R.x H (i + 1) := by
+      omega
+    exact_mod_cast hn
+  have hpos := doorLadder_pos hxH (i + 1)
+  nlinarith
+
+/-- `M4RowMeanSq` (:311), at the lever. -/
+def M4RowMeanSq_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (MS : ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ, NearRatTight (arcDen 12 H) H α → ∀ i < k,
+    1 / (doorLadder R.x H (i + 1) : ℝ)
+        * (∫ y in (doorLadder R.x H (i + 1) : ℝ)..(2 * (doorLadder R.x H (i + 1) : ℝ)),
+            ‖((1 / (H : ℝ) : ℝ) : ℂ)
+                * shortSum (doorCoeffPhase (doorSievedCoeff_gk K M) α)
+                    (seamS0 (2 * doorLadder R.x H (i + 1))
+                      (doorLadder R.x H (i + 1) : ℝ)) y (H : ℝ)‖ ^ 2)
+      ≤ MS H
+
+/-- `m4_blockMeanSq_of_rowMeanSq` (:326), at the lever. -/
+theorem m4_blockMeanSq_of_rowMeanSq_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {MS : ℕ → ℝ}
+    (hrow : M4RowMeanSq_gk K R M k MS) :
+    M4BlockMeanSq_gk K R M k (fun H => 2 * MS H) := by
+  intro H hlo hhi α harc i hik
+  have hH0 : 0 < H := by
+    have := R.hHlo_floor
+    omega
+  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+  have hfit := doorLadder_fit R.x H i
+  -- ⟦the coverage datum is free at the block's own seam index set⟧
+  have hcov : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+      ∀ m ∈ Finset.Ioc n (n + H), m ∉ seamS0 (2 * doorLadder R.x H (i + 1))
+          (doorLadder R.x H (i + 1) : ℝ) → doorSievedCoeff_gk K M m = 0 :=
+    hcov_of_seamS0 (doorSievedCoeff_gk K M) (A := doorLadder R.x H (i + 1))
+      (B := doorLadder R.x H i) (N := 2 * doorLadder R.x H (i + 1)) (H := H) le_rfl
+      (by omega)
+  -- ⟦B-4: the harmonic-weighted block bound⟧
+  have hladder := sum_Ioc_absWindowSum_sq_div_le_ladder (doorSievedCoeff_gk K M)
+    (seamS0 (2 * doorLadder R.x H (i + 1)) (doorLadder R.x H (i + 1) : ℝ)) α
+    (x := R.x) (H := H) (i := i) (MS := MS H) hH0 hxH hcov (hrow H hlo hhi α harc i hik)
+  -- ⟦§3: the exchange⟧
+  have hflat := sum_Ioc_le_two_mul_of_harmonic (x := R.x) (H := H) (i := i)
+    (f := fun n => ‖absWindowSum (doorSievedCoeff_gk K M) H n α‖ ^ 2)
+    (V := (H : ℝ) ^ 2 * MS H) hxH (fun n _ => by positivity) hladder
+  have heq : 2 * ((H : ℝ) ^ 2 * MS H) * (doorLadder R.x H (i + 1) : ℝ)
+      = 2 * MS H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ) := by ring
+  rw [heq] at hflat
+  exact hflat
+
+/-- `m4_wave_exit` (:410), at the lever. -/
+theorem m4_wave_exit_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (C : ℝ), 2 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (MS : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ → (∀ H : ℕ, 0 ≤ MS H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 6 * MS H ≤ m4Saving H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ mrtDeliveredGrade (C / 2) H) →
+            M4RowMeanSq_gk K R M k MS →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_door_contradiction_of_blockMeanSq_gk K
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro C hC U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C (by linarith) U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ MS M k hgates hMS0 hprice hrest hrow => ?_⟩
+  exact hR δ (fun H => 2 * MS H) M k hgates (m4_blockGrade_nonneg hMS0)
+    (m4_wave_gradeGate hC hprice hrest) (m4_blockMeanSq_of_rowMeanSq_gk K hrow)
+
+/-- `m4_wave_False` (:431), at the lever. -/
+theorem m4_wave_False_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (C : ℝ), 2 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (MS : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ → (∀ H : ℕ, 0 ≤ MS H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 6 * MS H ≤ m4Saving H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ mrtDeliveredGrade (C / 2) H) →
+            M4RowMeanSq_gk K R M k MS →
+              logChowla2Fails R.eps R.x R.ω → False := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_door_False_of_blockMeanSq_gk K
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro C hC U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C (by linarith) U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ MS M k hgates hMS0 hprice hrest hrow => ?_⟩
+  exact hR δ (fun H => 2 * MS H) M k hgates (m4_blockGrade_nonneg hMS0)
+    (m4_wave_gradeGate hC hprice hrest) (m4_blockMeanSq_of_rowMeanSq_gk K hrow)
+
+/-- `m4_wave_exit_sup` (:467), at the lever. -/
+theorem m4_wave_exit_sup_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw Bblk : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ → (∀ H : ℕ, 0 ≤ Bblk H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              (1 + 2 * Real.pi) ^ 2 * (arcDen 12 H ^ 2 * (3 * Bblk H)) ≤ Braw H) →
+            M4GradeGate R C δ Braw k →
+            M4BlockMeanSqSup_gk K R M k Bblk →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_door_contradiction_of_live_gk K
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro C hC U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
+  refine ⟨R, hReps, hU1, hRg,
+    fun δ Braw Bblk M k hgates hB0 hBraw0 hdrift hgrade hblk => ?_⟩
+  exact hR δ Braw M k hgates hBraw0 hgrade
+    (m4_sievedDoorSq_of_sup_uniform_gk K (fun H => by have := hB0 H; linarith) hdrift
+      (m4_cover_assembly_sup_gk K hgates hB0 hblk))
+
+/-- `m4_wave_exit_split` (:533), at the lever. -/
+theorem m4_wave_exit_split_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (MS : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ → (∀ H : ℕ, 0 ≤ MS H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 6 * MS H ≤ (δ₀ / 2) ^ 2) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 2) →
+            M4RowMeanSq_gk K R M k MS →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_door_contradiction_of_blockMeanSq_split_gk K
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ MS M k hgates hMS0 hprice hrest hrow => ?_⟩
+  exact hR δ (fun H => 2 * MS H) M k hgates (m4_blockGrade_nonneg hMS0)
+    (m4_wave_gradeGate_split hδ₀.le hprice hrest) (m4_blockMeanSq_of_rowMeanSq_gk K hrow)
+
+/-- `m4_wave_exit_sup_split` (:576), at the lever. -/
+theorem m4_wave_exit_sup_split_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw Bblk : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ → (∀ H : ℕ, 0 ≤ Bblk H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              (1 + 2 * Real.pi) ^ 2 * (arcDen 12 H ^ 2 * (3 * Bblk H)) ≤ Braw H) →
+            M4GradeGateSplit R δ₀ δ Braw k →
+            M4BlockMeanSqSup_gk K R M k Bblk →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_door_contradiction_of_live_split_gk K
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain U1floor g
+  refine ⟨R, hReps, hU1, hRg,
+    fun δ Braw Bblk M k hgates hB0 hBraw0 hdrift hgrade hblk => ?_⟩
+  exact hR δ Braw M k hgates hBraw0 hgrade
+    (m4_sievedDoorSq_of_sup_uniform_gk K (fun H => by have := hB0 H; linarith) hdrift
+      (m4_cover_assembly_sup_gk K hgates hB0 hblk))
+
 end Salt.MR
 
 end
+
+-- #audit (temporary)

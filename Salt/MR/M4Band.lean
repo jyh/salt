@@ -393,4 +393,69 @@ theorem memSCoeff_endpoint_zero_of_seamCoefW {q : ℕ} (χ : DirichletCharacter 
   rw [← hXd, hEq]
   exact hzero
 
+/-! ## §GK — the G-lever twin
+
+The five door-side band pair laws re-instantiated at `G := s13GK K M`.  Every one of them is
+a pure re-instantiation of the `Pseq`/`Qseq`-generic law above (`memSCoeff_seamCoefW_band`,
+`memSCoeff_seamCoefW_band_H`, `memSCoeff_seamCoefWS_band_H`), so the lever costs nothing at
+all here: the datum is `doorChiCoeff_gk K χ M` (`M4WaveClosed`), which unfolds to the same
+`memSCoeff` at the levered K-family.  The only non-mechanical step is the `1 ≤ G` side
+condition of `door_band_gate_of_log`, which is `GLever.one_le_s13GK` instead of `by omega`. -/
+
+/-- **THE DOOR'S BAND PAIR LAW, AT THE G-LEVER** (`doorChiCoeff_seamCoefW_band_gk`). -/
+theorem doorChiCoeff_seamCoefW_band_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q)
+    (M Xd P Q : ℕ)
+    (hgate : ∀ j ∈ Finset.Icc 1 2, calQK (Adoor M) (s13GK K M) M j < P) :
+    SeamCoefW Xd P Q (winCut Xd (doorChiCoeff_gk K χ M)) (doorChiCoeff_gk K χ M)
+      (liouChi χ) :=
+  memSCoeff_seamCoefW_band χ (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2
+    Xd P Q hgate
+
+/-- **THE DOOR'S STRICT HALF-OPEN BAND PAIR LAW, AT THE G-LEVER**
+(`doorChiCoeff_seamCoefWS_band_H_gk`). -/
+theorem doorChiCoeff_seamCoefWS_band_H_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q)
+    (M Xd P Q : ℕ) (a : ℕ → ℂ)
+    (hgate : ∀ j ∈ Finset.Icc 1 2, calQK (Adoor M) (s13GK K M) M j < P)
+    (haH : ∀ n : ℕ, Xd < n → n ≤ 2 * Xd → a n = doorChiCoeff_gk K χ M n) :
+    SeamCoefWS Xd P Q a (doorChiCoeff_gk K χ M) (liouChi χ) :=
+  memSCoeff_seamCoefWS_band_H χ (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M)
+    2 Xd P Q a hgate haH
+
+/-- **`hcoefPin` AT THE DOOR, STRICT, AT THE G-LEVER**
+(`doorChiCoeff_seamCoefWS_at_door_H_gk`).  The band gate is the calibration's own at the
+levered base; `1 ≤ s13GK K M` is `GLever.one_le_s13GK`. -/
+theorem doorChiCoeff_seamCoefWS_at_door_H_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q)
+    {M Xd P Q : ℕ} {X : ℝ} {a : ℕ → ℂ} (hM : 1 ≤ M) (hX : 1 < Real.log X)
+    (hQlog : Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log X))
+    (hPlow : P83 X theta293 ≤ (P : ℝ))
+    (haH : ∀ n : ℕ, Xd < n → n ≤ 2 * Xd → a n = doorChiCoeff_gk K χ M n) :
+    SeamCoefWS Xd P Q a (doorChiCoeff_gk K χ M) (liouChi χ) :=
+  doorChiCoeff_seamCoefWS_band_H_gk K χ M Xd P Q a
+    (door_band_gate_of_log (one_le_s13GK K hM) hX hQlog hPlow) haH
+
+/-- **THE DOOR'S HALF-OPEN BAND PAIR LAW, AT THE G-LEVER**
+(`doorChiCoeff_seamCoefW_band_H_gk`). -/
+theorem doorChiCoeff_seamCoefW_band_H_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q)
+    (M Xd P Q : ℕ) (a : ℕ → ℂ)
+    (hgate : ∀ j ∈ Finset.Icc 1 2, calQK (Adoor M) (s13GK K M) M j < P)
+    (haH : ∀ n : ℕ, Xd < n → n ≤ 2 * Xd → a n = doorChiCoeff_gk K χ M n)
+    (ha0 : a Xd = 0) (hend : doorChiCoeff_gk K χ M Xd = 0) :
+    SeamCoefW Xd P Q a (doorChiCoeff_gk K χ M) (liouChi χ) :=
+  memSCoeff_seamCoefW_band_H χ (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2
+    Xd P Q a hgate haH ha0 hend
+
+/-- **`hcoefPin` AT THE DOOR, HALF-OPEN, AT THE G-LEVER**
+(`doorChiCoeff_seamCoefW_at_door_H_gk`). -/
+theorem doorChiCoeff_seamCoefW_at_door_H_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q)
+    {M Xd P Q : ℕ} {X : ℝ} {a : ℕ → ℂ} (hM : 1 ≤ M) (hX : 1 < Real.log X)
+    (hQlog : Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log X))
+    (hPlow : P83 X theta293 ≤ (P : ℝ))
+    (haH : ∀ n : ℕ, Xd < n → n ≤ 2 * Xd → a n = doorChiCoeff_gk K χ M n)
+    (ha0 : a Xd = 0) (hend : doorChiCoeff_gk K χ M Xd = 0) :
+    SeamCoefW Xd P Q a (doorChiCoeff_gk K χ M) (liouChi χ) :=
+  doorChiCoeff_seamCoefW_band_H_gk K χ M Xd P Q a
+    (door_band_gate_of_log (one_le_s13GK K hM) hX hQlog hPlow) haH ha0 hend
+
+-- #audit (temporary)
+
 end Salt.MR

@@ -474,7 +474,313 @@ theorem m4_second_road_L2_hloCap_pinned :
     have hB := hBcl0 H
     nlinarith [h]
 
+/-! ## §GK — the G-lever twin
+
+The `L²` door export at `G := s13GK K M` (`GLever`), `(K : ℕ)` first.
+
+⟦§1 IS `G`-FREE AND IS REUSED VERBATIM⟧ `m4_exit_socket_split_sq_arc_hloCap` (:68) and its
+pinned twin (:277) speak an ABSTRACT split `(a, e)` — no door object occurs in either
+statement — so both are consumed unchanged by the twins below.  `parseval_insert_budget_door`,
+its bounded twin, `sum_bigXi_insert_spelling_eq` and `l2_budget_line` are `(A, G)`-ABSTRACT or
+datum-abstract and are RE-INSTANTIATED at `calP (Adoor M) (s13GK K M)` /
+`calQK (Adoor M) (s13GK K M) M`; `m4_bandTransport` is `G`-blind.
+
+⟦WHY THESE FOUR DO NEED TWINS⟧ their own text reads the ladder only at LEVEL 1 (`hdgate`'s
+`𝒫₁`), but they carry `M4Close.M4SievedDoorSq`, `M4Close.M4DoorGates` and
+`M4ChiSummed.M4ChiSummedFreeRow` in their hypothesis lists, and all three read the door datum
+`memSCoeff (calP (Adoor M) (3072M)) (calQK (Adoor M) (3072M) M) 2 …` at LEVEL 2.  The twins
+are at `M4SievedDoorSq_gk`, `M4DoorGates_gk`, `M4ChiSummedFreeRow_gk` (all landed elsewhere in
+this dispatch).
+
+⚠ ⟦THE BINDER SHADOW⟧ all four landed statements bind a REAL `K` in their `∃`-prefix — the
+`L²` budget constant.  It is ALPHA-RENAMED to `Kb` so the lever's `(K : ℕ)` can go first, per
+THE KDESIGN. -/
+
+/-- `m4_doorL2_close_split_sq_hloCap` (:112), at the lever. -/
+theorem m4_doorL2_close_split_sq_hloCap_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ : ℝ) (Hcap : ℕ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < Kb ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+          R.Hlo ≤ max Hcap U1floor ∧
+          ∀ (Braw : ℕ → ℝ) (Bceil δ : ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ →
+            (∀ H : ℕ, 0 ≤ Braw H) →
+            M4SievedDoorSq_gk K R M Braw →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Braw H ≤ Bceil) →
+            2 * Kb * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, hCg, hpars⟩ := parseval_insert_budget_door
+  obtain ⟨ε, Kb, δ₀, Hcap, hε, hKb, hδ₀, hexit⟩ := m4_exit_socket_split_sq_arc_hloCap
+  refine ⟨Cg, ε, Kb, δ₀, Hcap, hCg, hε, hKb, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hR⟩ := hexit U1floor g
+  refine ⟨R, hReps, hU1, hRg, hRtow, hRcap, ?_⟩
+  intro Braw Bceil δ M k hgates hBraw0 hsock hceil hbudget
+  -- ⟦the door's own scales, off the regime⟧
+  have hA : 1 ≤ Adoor M := by
+    have h := Adoor_ge M
+    omega
+  have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
+  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
+    intro H hhi
+    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
+    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
+    have h2 : 2 ≤ R.x := R.hx
+    omega
+  refine hR (memSCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2
+      liouvilleC)
+    (fun m => lamCoeff m - memSCoeff (calP (Adoor M) (s13GK K M))
+      (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC m)
+    Braw (δ / 4 + 4 * 2 ^ k / (R.x : ℝ)) (fun m => by ring) hBraw0
+    (hsock m4_bandTransport) ?_ ?_
+  · -- ⟦THE FUSE⟧ the insert budget, from the Parseval stone, in W4's own spelling
+    intro H _ hlo hhi
+    rw [sum_bigXi_insert_spelling_eq R
+      (memSCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC) H]
+    simp only [lamCoeff_eq_liouvilleC]
+    exact hpars (Adoor M) (s13GK K M) M 2 R.x R.ω H k liouvilleC δ (bigXi R.eps H)
+      liouvilleC_norm_le_one hA hG hgates.hM hgates.hδ hgates.hMδ R.hx R.hω R.hωx
+      hgates.hlogω (hHx H hhi) (hgates.hreach H hlo hhi) hgates.hpow hgates.hcount
+      (hgates.hblocks H hlo hhi)
+  · -- ⟦the budget line⟧ `l2_budget_line`, then the `H`-uniform ceiling on the socket leg
+    intro H hlo hhi
+    rw [l2_budget_line Kb (Braw H) δ (R.x : ℝ) k]
+    have hmono : 2 * Kb * Braw H ≤ 2 * Kb * Bceil :=
+      mul_le_mul_of_nonneg_left (hceil H hlo hhi) (by linarith)
+    linarith
+
+/-- `m4_second_road_L2_hloCap` (:188), at the lever. -/
+theorem m4_second_road_L2_hloCap_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ : ℝ) (Hcap : ℕ),
+      1 ≤ Cg ∧ 0 < ε ∧ 0 < Kb ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+          R.Hlo ≤ max Hcap U1floor ∧
+          ∀ (δ Bceil : ℝ) (RS : ℕ → ℕ → ℝ) (RSan RStr Braw : ℕ → ℝ) (M k j₀ : ℕ),
+            M4DoorGates_gk K Cg R M k δ → 1 ≤ M →
+            (∀ H : ℕ, 0 ≤ RSan H) → (∀ H : ℕ, 0 ≤ RStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ j H : ℕ, j₀ ≤ j → RS j H ≤ RSan H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ^ 7 ≤ RStr H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              44 * RSan H + 87 * arcDen 12 H ≤ (4 / 3 : ℝ) ^ j₀) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 3 ≤ (H : ℝ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              arcDen 12 H < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+                  * m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H
+                ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Braw H ≤ Bceil) →
+            2 * Kb * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ →
+            M4ChiSummedFreeRow_gk K R M RS →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, Kb, δ₀, Hcap, hCg, hε, hKb, hδ₀, hmain⟩ :=
+    m4_doorL2_close_split_sq_hloCap_gk K
+  refine ⟨Cg, ε, Kb, δ₀, Hcap, hCg, hε, hKb, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hR⟩ := hmain U1floor g
+  refine ⟨R, hReps, hU1, hRg, hRtow, hRcap, ?_⟩
+  intro δ Bceil RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3
+    hdgate hdrift hceil hbudget hrow
+  -- ⟦the window floor, read at the two powers the chain spends⟧
+  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
+    intro H hlo hhi
+    have h1 := harc3 H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    nlinarith [h1, harc1]
+  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
+    intro H hlo hhi
+    have h1 := harc3 H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    nlinarith [h1, harc1]
+  have hchi : M4ChiSummedBlockMeanSqN_gk K R M
+      (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
+    m4_chiSummedN_supplied_gk K j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
+  have hBcl0 : ∀ H : ℕ, 0 ≤ m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H :=
+    fun H => m4BclGraded_nonneg (by have := hRSan0 H; linarith) (by have := hRStr0 H; linarith)
+  -- ⟦the blocked block mean square⟧
+  have hblk2 :=
+    m4_blockMeanSqBlk2_of_chiSummed_gk K (k := k) hM hBcl0 hdgate harc hgates.hcount hchi
+  have hBblk0 : ∀ H : ℕ, 0 ≤ 8 * strataResidual H ^ 2
+      * m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H := by
+    intro H
+    have := hBcl0 H
+    positivity
+  -- ⟦the cover, then the socket⟧
+  have hcov := m4_cover_assembly_blk2_gk K hgates hBblk0 hblk2
+  refine hR Braw Bceil δ M k hgates hBraw0 ?_ hceil hbudget
+  refine m4_sievedDoorSq_of_blk2_gk K (ℓ := blockLen)
+    (fun H => by have := hBblk0 H; positivity)
+    (fun H q _ _ _ _ => one_le_blockLen H q) ?_ ?_ ?_ ?_ hcov
+  · intro H q hlo hhi _ _
+    have h1 := harc H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    have hH1 : 1 ≤ H := by
+      have : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
+      exact_mod_cast this
+    exact blockLen_le H q hH1
+  · intro H q hlo hhi _ _
+    exact blockLen_narrow (R := R) hlo (harc H hlo hhi)
+  · intro H q hlo hhi hq _
+    exact blockLen_drift (R := R) hlo hq (harc H hlo hhi)
+  · intro H hlo hhi
+    have h := hdrift H hlo hhi
+    have hres0 : (0 : ℝ) ≤ strataResidual H :=
+      strataResidual_nonneg (one_le_arcDen_of_regime (R := R) hlo)
+    have hB := hBcl0 H
+    nlinarith [h]
+
+/-- `m4_doorL2_close_split_sq_hloCap_pinned` (:320), at the lever. -/
+theorem m4_doorL2_close_split_sq_hloCap_pinned_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ : ℝ) (Hcap : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
+      0 < ε ∧ 0 < Kb ∧ 0 < δ₀ ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+          R.Hlo ≤ max Hcap U1floor ∧
+          ∀ (Braw : ℕ → ℝ) (Bceil δ : ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ →
+            (∀ H : ℕ, 0 ≤ Braw H) →
+            M4SievedDoorSq_gk K R M Braw →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Braw H ≤ Bceil) →
+            2 * Kb * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, hCg, hCgle, hpars⟩ := parseval_insert_budget_door_bounded
+  obtain ⟨ε, Kb, δ₀, Hcap, hε, hKb, hδ₀, hεpin, hδpin, hexit⟩ :=
+    m4_exit_socket_split_sq_arc_hloCap_pinned
+  refine ⟨Cg, ε, Kb, δ₀, Hcap, hCg, hCgle, hε, hKb, hδ₀, hεpin, hδpin, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hR⟩ := hexit U1floor g
+  refine ⟨R, hReps, hU1, hRg, hRtow, hRcap, ?_⟩
+  intro Braw Bceil δ M k hgates hBraw0 hsock hceil hbudget
+  -- ⟦the door's own scales, off the regime⟧
+  have hA : 1 ≤ Adoor M := by
+    have h := Adoor_ge M
+    omega
+  have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
+  have hHx : ∀ H : ℕ, H ≤ R.Hhi → H + 1 ≤ R.x := by
+    intro H hhi
+    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
+    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
+    have h2 : 2 ≤ R.x := R.hx
+    omega
+  refine hR (memSCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2
+      liouvilleC)
+    (fun m => lamCoeff m - memSCoeff (calP (Adoor M) (s13GK K M))
+      (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC m)
+    Braw (δ / 4 + 4 * 2 ^ k / (R.x : ℝ)) (fun m => by ring) hBraw0
+    (hsock m4_bandTransport) ?_ ?_
+  · -- ⟦THE FUSE⟧ the insert budget, from the Parseval stone, in W4's own spelling
+    intro H _ hlo hhi
+    rw [sum_bigXi_insert_spelling_eq R
+      (memSCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC) H]
+    simp only [lamCoeff_eq_liouvilleC]
+    exact hpars (Adoor M) (s13GK K M) M 2 R.x R.ω H k liouvilleC δ (bigXi R.eps H)
+      liouvilleC_norm_le_one hA hG hgates.hM hgates.hδ hgates.hMδ R.hx R.hω R.hωx
+      hgates.hlogω (hHx H hhi) (hgates.hreach H hlo hhi) hgates.hpow hgates.hcount
+      (hgates.hblocks H hlo hhi)
+  · -- ⟦the budget line⟧ `l2_budget_line`, then the `H`-uniform ceiling on the socket leg
+    intro H hlo hhi
+    rw [l2_budget_line Kb (Braw H) δ (R.x : ℝ) k]
+    have hmono : 2 * Kb * Braw H ≤ 2 * Kb * Bceil :=
+      mul_le_mul_of_nonneg_left (hceil H hlo hhi) (by linarith)
+    linarith
+
+/-- `m4_second_road_L2_hloCap_pinned` (:394), at the lever. -/
+theorem m4_second_road_L2_hloCap_pinned_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ : ℝ) (Hcap : ℕ),
+      1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧ 0 < ε ∧ 0 < Kb ∧ 0 < δ₀ ∧
+      1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+          R.Hlo ≤ max Hcap U1floor ∧
+          ∀ (δ Bceil : ℝ) (RS : ℕ → ℕ → ℝ) (RSan RStr Braw : ℕ → ℝ) (M k j₀ : ℕ),
+            M4DoorGates_gk K Cg R M k δ → 1 ≤ M →
+            (∀ H : ℕ, 0 ≤ RSan H) → (∀ H : ℕ, 0 ≤ RStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ j H : ℕ, j₀ ≤ j → RS j H ≤ RSan H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ^ 7 ≤ RStr H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              44 * RSan H + 87 * arcDen 12 H ≤ (4 / 3 : ℝ) ^ j₀) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 3 ≤ (H : ℝ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              arcDen 12 H < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+                  * m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H
+                ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Braw H ≤ Bceil) →
+            2 * Kb * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ →
+            M4ChiSummedFreeRow_gk K R M RS →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, Kb, δ₀, Hcap, hCg, hCgle, hε, hKb, hδ₀, hεpin, hδpin, hmain⟩ :=
+    m4_doorL2_close_split_sq_hloCap_pinned_gk K
+  refine ⟨Cg, ε, Kb, δ₀, Hcap, hCg, hCgle, hε, hKb, hδ₀, hεpin, hδpin, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hR⟩ := hmain U1floor g
+  refine ⟨R, hReps, hU1, hRg, hRtow, hRcap, ?_⟩
+  intro δ Bceil RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3
+    hdgate hdrift hceil hbudget hrow
+  -- ⟦the window floor, read at the two powers the chain spends⟧
+  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
+    intro H hlo hhi
+    have h1 := harc3 H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    nlinarith [h1, harc1]
+  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
+    intro H hlo hhi
+    have h1 := harc3 H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    nlinarith [h1, harc1]
+  have hchi : M4ChiSummedBlockMeanSqN_gk K R M
+      (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
+    m4_chiSummedN_supplied_gk K j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
+  have hBcl0 : ∀ H : ℕ, 0 ≤ m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H :=
+    fun H => m4BclGraded_nonneg (by have := hRSan0 H; linarith) (by have := hRStr0 H; linarith)
+  -- ⟦the blocked block mean square⟧
+  have hblk2 :=
+    m4_blockMeanSqBlk2_of_chiSummed_gk K (k := k) hM hBcl0 hdgate harc hgates.hcount hchi
+  have hBblk0 : ∀ H : ℕ, 0 ≤ 8 * strataResidual H ^ 2
+      * m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H := by
+    intro H
+    have := hBcl0 H
+    positivity
+  -- ⟦the cover, then the socket⟧
+  have hcov := m4_cover_assembly_blk2_gk K hgates hBblk0 hblk2
+  refine hR Braw Bceil δ M k hgates hBraw0 ?_ hceil hbudget
+  refine m4_sievedDoorSq_of_blk2_gk K (ℓ := blockLen)
+    (fun H => by have := hBblk0 H; positivity)
+    (fun H q _ _ _ _ => one_le_blockLen H q) ?_ ?_ ?_ ?_ hcov
+  · intro H q hlo hhi _ _
+    have h1 := harc H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    have hH1 : 1 ≤ H := by
+      have : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
+      exact_mod_cast this
+    exact blockLen_le H q hH1
+  · intro H q hlo hhi _ _
+    exact blockLen_narrow (R := R) hlo (harc H hlo hhi)
+  · intro H q hlo hhi hq _
+    exact blockLen_drift (R := R) hlo hq (harc H hlo hhi)
+  · intro H hlo hhi
+    have h := hdrift H hlo hhi
+    have hres0 : (0 : ℝ) ≤ strataResidual H :=
+      strataResidual_nonneg (one_le_arcDen_of_regime (R := R) hlo)
+    have hB := hBcl0 H
+    nlinarith [h]
+
 end Salt.MR
 
 end
 
+-- #audit (temporary)

@@ -885,6 +885,591 @@ theorem logChowla2_capstone_final (Aexp : ℝ) (hAexp : 0 < Aexp) :
     rw [hval]
     linarith [hend]
 
+/-! ## §GK — the G-lever twin -/
+
+/-- `m4_second_road_L2` (:100) at the lever.  Every door-side object moves to `s13GK K M`;
+the regime, the arc page and the share table are `G`-free. -/
+theorem m4_second_road_L2_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (Kc δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < Kc ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+          ∀ (δ Bceil : ℝ) (RS : ℕ → ℕ → ℝ) (RSan RStr Braw : ℕ → ℝ) (M k j₀ : ℕ),
+            M4DoorGates_gk K Cg R M k δ → 1 ≤ M →
+            (∀ H : ℕ, 0 ≤ RSan H) → (∀ H : ℕ, 0 ≤ RStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ j H : ℕ, j₀ ≤ j → RS j H ≤ RSan H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ^ 7 ≤ RStr H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              44 * RSan H + 87 * arcDen 12 H ≤ (4 / 3 : ℝ) ^ j₀) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 3 ≤ (H : ℝ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              arcDen 12 H < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+                  * m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H
+                ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Braw H ≤ Bceil) →
+            2 * Kc * Bceil + δ / 2 + 8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ →
+            M4ChiSummedFreeRow_gk K R M RS →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, Kc, δ₀, hCg, hε, hK, hδ₀, hmain⟩ := m4_doorL2_close_split_sq_gk K
+  refine ⟨Cg, ε, Kc, δ₀, hCg, hε, hK, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hRtow, hR⟩ := hmain U1floor g
+  refine ⟨R, hReps, hU1, hRg, hRtow, ?_⟩
+  intro δ Bceil RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3
+    hdgate hdrift hceil hbudget hrow
+  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
+    intro H hlo hhi
+    have h1 := harc3 H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    nlinarith [h1, harc1]
+  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
+    intro H hlo hhi
+    have h1 := harc3 H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    nlinarith [h1, harc1]
+  have hchi : M4ChiSummedBlockMeanSqN_gk K R M
+      (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
+    m4_chiSummedN_supplied_gk K j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
+  have hBcl0 : ∀ H : ℕ, 0 ≤ m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H :=
+    fun H => m4BclGraded_nonneg (by have := hRSan0 H; linarith) (by have := hRStr0 H; linarith)
+  have hblk2 :=
+    m4_blockMeanSqBlk2_of_chiSummed_gk K (k := k) hM hBcl0 hdgate harc hgates.hcount hchi
+  have hBblk0 : ∀ H : ℕ, 0 ≤ 8 * strataResidual H ^ 2
+      * m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H := by
+    intro H
+    have := hBcl0 H
+    positivity
+  have hcov := m4_cover_assembly_blk2_gk K hgates hBblk0 hblk2
+  refine hR Braw Bceil δ M k hgates hBraw0 ?_ hceil hbudget
+  refine m4_sievedDoorSq_of_blk2_gk K (ℓ := blockLen)
+    (fun H => by have := hBblk0 H; positivity)
+    (fun H q _ _ _ _ => one_le_blockLen H q) ?_ ?_ ?_ ?_ hcov
+  · intro H q hlo hhi _ _
+    have h1 := harc H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    have hH1 : 1 ≤ H := by
+      have : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
+      exact_mod_cast this
+    exact blockLen_le H q hH1
+  · intro H q hlo hhi _ _
+    exact blockLen_narrow (R := R) hlo (harc H hlo hhi)
+  · intro H q hlo hhi hq _
+    exact blockLen_drift (R := R) hlo hq (harc H hlo hhi)
+  · intro H hlo hhi
+    have h := hdrift H hlo hhi
+    have hres0 : (0 : ℝ) ≤ strataResidual H :=
+      strataResidual_nonneg (one_le_arcDen_of_regime (R := R) hlo)
+    have hB := hBcl0 H
+    nlinarith [h]
+
+/-- `doorFuseFrame_reEps` (:696) at the lever.  Ten of the eleven fields do not mention the
+exponent, and the two that do are `G`-free. -/
+theorem doorFuseFrame_reEps_gk (K : ℕ) {M Xd j : ℕ} {Cs Ccc ε ε' : ℝ}
+    (hF : DoorFuseFrame_gk K M Xd j Cs Ccc ε) (h0 : 0 ≤ ε')
+    (h1 : ε' ≤ theta293 - 1 / 500) :
+    DoorFuseFrame_gk K M Xd j Cs Ccc ε' :=
+  { X_exp := hF.X_exp, X_three := hF.X_three, h_four := hF.h_four, h_window := hF.h_window,
+    tann := hF.tann, ceil5 := hF.ceil5, gP1 := hF.gP1, gRows := hF.gRows,
+    eps_lo := h0, eps_hi := h1, L4096 := hF.L4096 }
+
+set_option maxHeartbeats 1000000 in
+-- the statement re-elaborates the full levered residue against the capstone's binder list
+/-- `logChowla2_capstone_conditional` (:283) at the lever.  The `K ≤ 1.7·10⁸` side condition
+rides in from `S11Hoist`'s levered terminal (ultimately `DoorFrame`'s `A_gate_logK`). -/
+theorem logChowla2_capstone_conditional_gk (K : ℕ) (hK : K ≤ 170000000)
+    (Aexp : ℝ) (hAexp : 0 < Aexp) :
+    ∃ (Cg : ℝ) (ε : ℚ) (Kc δ₀ Ct Cq cs T₀ Kq Ks : ℝ),
+      1 ≤ Cg ∧ 0 < ε ∧ 0 < Kc ∧ 0 < δ₀ ∧
+        0 < Ct ∧ 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp → ∀ (M : ℕ), 1 ≤ M →
+        ∃ (C' : ℝ) (x₀ : ℕ), 0 < C' ∧
+          ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+            ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+              (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+                Real.log (Real.log (R.Hhi : ℝ))
+                  ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+              ∀ (C₁ M₀ epsf : ℕ → ℝ) (Kf : ℝ) (k : ℕ),
+                M4DoorGates_gk K Cg R M k δ₀ →
+                8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 4 →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  4 * Real.log (263 * max 1 (arcDen 12 H)) ≤ ((doorRowFloor M : ℕ) : ℝ)) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  arcDen 12 H < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  m4SmallGradeFits (doorRowFloor M)
+                    (fun H => 2 * RSanDoorRho (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) H)
+                    (fun H => 2 * rStrWitness H) H) →
+                (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                  DoorFuseFrame_gk K M (A + s) j Ct Cp (epsf (A + s))) →
+                (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                  calQK (Adoor M) (s13GK K M) M 2 ≤ A + s ∧
+                    Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+                        ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) ∧
+                    (100 : ℝ) ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) ∧
+                    (4 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ∧
+                    ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ)) →
+                (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                  ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+                    2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+                    5 ≤ Real.log (Real.log (2 * T)) →
+                    ∃ (Xd P Q Mr Jb : ℕ) (b cf : ℕ → ℂ)
+                      (VJ V Lr η εd Rbd CR KS E EP2 Mtail : ℝ),
+                      DoorCapErrWS_gk K M (A + s) q Xd P Q b cf (2 * T) E Mtail
+                        ∧ ((∑ χ : DirichletCharacter ℂ q, ∫ t in (-(2 * T))..(2 * T),
+                              ‖ramErr (H83 (((A + s : ℕ)) : ℝ) theta293) (2 * (A + s)) Xd P Q
+                                (chiBarCoeff q χ (winCutH (A + s) (doorCoeffU_gk K M)))
+                                (chiBarCoeff q χ b) (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E
+                            → DoorCapBase_gk K Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr Jb b cf
+                                (2 * T) VJ V Lr η εd (epsf (A + s)) Rbd CR KS E EP2)) →
+                (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                  DoorBandBase_gk K x₀ C' Aexp M (A + s) q (C₁ (A + s)) (M₀ (A + s))) →
+                (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                  DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kf
+                    (doorRhoOfDelta (s12DeltaSock δ₀ Kc))) →
+                  ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, Kc, δ₀, hCg, hε, hKc, hδ₀, hroad⟩ := m4_second_road_L2_gk K
+  obtain ⟨Ct, Cq, cs, T₀, Kq, Ks, hCt, hCq, hcs, hT₀, hKq, hKs, hterm⟩ :=
+    m4_socket_discharged_capwired_ws_hoisted_gk K hK mmuChiRate_holds_gated Aexp hAexp
+  refine ⟨Cg, ε, Kc, δ₀, Ct, Cq, cs, T₀, Kq, Ks, hCg, hε, hKc, hδ₀, hCt, hCq, hcs, hT₀, hKq,
+    hKs, ?_⟩
+  intro Cp hCp M hM
+  obtain ⟨C', x₀, hC'pos, hsockterm⟩ := hterm Cp hCp M hM
+  refine ⟨C', x₀, hC'pos, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hRtow, hR⟩ :=
+    hroad (max U1floor (max arcFloor36 loglogFloor50)) g
+  refine ⟨R, hReps, le_trans (le_max_left _ _) hU1, hRg, hRtow, ?_⟩
+  intro C₁ M₀ epsf Kf k hgates hend hj0 hdgate hfit hframe hbase5 hcapWS hbandbase harith
+  have harcfl : arcFloor36 ≤ R.Hlo :=
+    le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU1
+  have hllfl : loglogFloor50 ≤ R.Hlo :=
+    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU1
+  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
+    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
+  set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
+  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
+  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
+  set ρ : ℝ := doorRhoOfDelta δs with hρdef
+  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
+  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
+  have hbase : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorRowZeroBase_gk K M (A + s) j liouvilleC
+        (fun i => memSPunctCoeff (calP (Adoor M) (s13GK K M))
+          (calQK (Adoor M) (s13GK K M) M) 2 i liouvilleC) := by
+    intro H L q j A s hb
+    obtain ⟨h1, h2, h3, h4, h5⟩ := hbase5 H L q j A s hb
+    exact ⟨h1, doorRowZeroBase_coefWS_witness_gk K (A + s) hM, h2, h3, h4, h5⟩
+  obtain ⟨hrow, hgate4, hceilconj⟩ := hsockterm R C₁ M₀ epsf liouvilleC
+    (fun i => memSPunctCoeff (calP (Adoor M) (s13GK K M))
+      (calQK (Adoor M) (s13GK K M) M) 2 i liouvilleC) Kf δs hδs hHreg
+    (fun i m => norm_doorPunctCoeffU_le_one_gk K M i m) (fun p => liouvilleC_norm_le_one p)
+    hframe hbase hcapWS hbandbase harith
+  refine hR δ₀ (δ₀ / (8 * Kc))
+    (m4ChiRowGraded M (fun _ H => RSanDoorRho ρ H)) (RSanDoorRho ρ) rStrWitness
+    (fun H => 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+      * m4BclGraded (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
+          (fun H => 2 * rStrWitness H) H)
+    M k (doorRowFloor M) hgates hM (fun H => RSanDoorRho_nonneg hρpos.le H)
+    rStrWitness_nonneg ?_ hgate4 (fun H _ _ => rStrWitness_G1 H) ?_
+    (arc36_of_regime harcfl) hdgate (fun H _ _ => le_rfl) ?_ ?_ hrow
+  · intro H
+    have hb := m4BclGraded_nonneg (j₀ := doorRowFloor M)
+      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) (H := H)
+      (by have := RSanDoorRho_nonneg hρpos.le H
+          simpa using (by linarith : (0:ℝ) ≤ 2 * RSanDoorRho ρ H))
+      (by have := rStrWitness_nonneg H
+          simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
+    positivity
+  · intro H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
+      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
+      unfold strataResidual
+      linarith
+    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
+    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
+      have h1 : RSanDoorRho ρ H ≤ 1 := by
+        unfold RSanDoorRho
+        rw [div_le_one (by nlinarith)]
+        linarith
+      exact le_trans h1 (le_max_left _ _)
+    have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
+    linarith
+  · intro H hlo hhi
+    have hH0 : 0 < H := by
+      have := R.hHlo_floor
+      omega
+    have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
+      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
+      (hfit H hlo hhi)
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    have hfac0 : (0 : ℝ) ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 := by positivity
+    have hceil := hceilconj H hlo hhi
+    have hstep : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+        * m4BclGraded (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
+            (fun H => 2 * rStrWitness H) H
+        ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+            * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H))) :=
+      mul_le_mul_of_nonneg_left hle hfac0
+    have hval : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+          * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H)))
+        = 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+            * (108 / 5 * RSanDoorRho ρ H)) := by
+      unfold m4Cmax
+      ring
+    rw [hval] at hstep
+    have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+        * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
+    have hKpos : (0 : ℝ) < 16 * Kc := by linarith
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
+      rw [hδssq]
+      field_simp
+      ring
+    linarith [hstep, h2, hval2.le, hval2.ge]
+  · have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
+      field_simp
+      ring
+    rw [hval]
+    linarith [hend]
+
+set_option maxHeartbeats 1000000 in
+-- the statement re-elaborates the full levered residue against the capstone's binder list
+/-- `logChowla2_capstone_conditional_perBlock` (:471) at the lever. -/
+theorem logChowla2_capstone_conditional_perBlock_gk (K : ℕ) (hK : K ≤ 170000000)
+    (Aexp : ℝ) (hAexp : 0 < Aexp) :
+    ∃ (Cg : ℝ) (ε : ℚ) (Kc δ₀ Ct Cq cs T₀ Kq Ks : ℝ),
+      1 ≤ Cg ∧ 0 < ε ∧ 0 < Kc ∧ 0 < δ₀ ∧
+        0 < Ct ∧ 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp → ∀ (M : ℕ), 1 ≤ M →
+        ∃ (C' : ℝ) (x₀ : ℕ), 0 < C' ∧
+          ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+            ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+              (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+                Real.log (Real.log (R.Hhi : ℝ))
+                  ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+              ∀ (C₁ M₀ epsf : ℕ → ℝ) (Kf : ℝ) (k : ℕ),
+                M4DoorGates_gk K Cg R M k δ₀ →
+                8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 4 →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  4 * Real.log (263 * max 1 (arcDen 12 H)) ≤ ((doorRowFloor M : ℕ) : ℝ)) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  arcDen 12 H < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) →
+                (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  m4SmallGradeFits (doorRowFloor M)
+                    (fun H => 2 * RSanDoorRho (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) H)
+                    (fun H => 2 * rStrWitness H) H) →
+                (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                  DoorFuseFrame_gk K M (A + s) j Ct Cp (epsf (A + s))) →
+                (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                  calQK (Adoor M) (s13GK K M) M 2 ≤ A + s ∧
+                    Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+                        ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) ∧
+                    (100 : ℝ) ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) ∧
+                    (4 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ∧
+                    ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ)) →
+                (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                  ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+                    2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+                    5 ≤ Real.log (Real.log (2 * T)) →
+                    ∃ (Xd P Q : ℕ) (Mr : ℕ → ℕ) (Jb : ℕ) (b cf : ℕ → ℂ)
+                      (VJ V Lr η εd Rbd CR KS E EP2 Mtail : ℝ),
+                      DoorCapErrWS_gk K M (A + s) q Xd P Q b cf (2 * T) E Mtail
+                        ∧ ((∑ χ : DirichletCharacter ℂ q, ∫ t in (-(2 * T))..(2 * T),
+                              ‖ramErr (H83 (((A + s : ℕ)) : ℝ) theta293) (2 * (A + s)) Xd P Q
+                                (chiBarCoeff q χ (winCutH (A + s) (doorCoeffU_gk K M)))
+                                (chiBarCoeff q χ b) (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E
+                            → DoorCapBasePerBlock_gk K Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr Jb
+                                b cf (2 * T) VJ V Lr η εd (epsf (A + s)) Rbd CR KS E EP2)) →
+                (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                  DoorBandBase_gk K x₀ C' Aexp M (A + s) q (C₁ (A + s)) (M₀ (A + s))) →
+                (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                  DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kf
+                    (doorRhoOfDelta (s12DeltaSock δ₀ Kc))) →
+                  ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, Kc, δ₀, hCg, hε, hKc, hδ₀, hroad⟩ := m4_second_road_L2_gk K
+  obtain ⟨Ct, Cq, cs, T₀, Kq, Ks, hCt, hCq, hcs, hT₀, hKq, hKs, hterm⟩ :=
+    m4_socket_discharged_capwired_ws_hoisted_perBlock_gk K hK mmuChiRate_holds_gated Aexp hAexp
+  refine ⟨Cg, ε, Kc, δ₀, Ct, Cq, cs, T₀, Kq, Ks, hCg, hε, hKc, hδ₀, hCt, hCq, hcs, hT₀, hKq,
+    hKs, ?_⟩
+  intro Cp hCp M hM
+  obtain ⟨C', x₀, hC'pos, hsockterm⟩ := hterm Cp hCp M hM
+  refine ⟨C', x₀, hC'pos, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hRtow, hR⟩ :=
+    hroad (max U1floor (max arcFloor36 loglogFloor50)) g
+  refine ⟨R, hReps, le_trans (le_max_left _ _) hU1, hRg, hRtow, ?_⟩
+  intro C₁ M₀ epsf Kf k hgates hend hj0 hdgate hfit hframe hbase5 hcapWS hbandbase harith
+  have harcfl : arcFloor36 ≤ R.Hlo :=
+    le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU1
+  have hllfl : loglogFloor50 ≤ R.Hlo :=
+    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU1
+  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
+    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
+  set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
+  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
+  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
+  set ρ : ℝ := doorRhoOfDelta δs with hρdef
+  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
+  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
+  have hbase : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorRowZeroBase_gk K M (A + s) j liouvilleC
+        (fun i => memSPunctCoeff (calP (Adoor M) (s13GK K M))
+          (calQK (Adoor M) (s13GK K M) M) 2 i liouvilleC) := by
+    intro H L q j A s hb
+    obtain ⟨h1, h2, h3, h4, h5⟩ := hbase5 H L q j A s hb
+    exact ⟨h1, doorRowZeroBase_coefWS_witness_gk K (A + s) hM, h2, h3, h4, h5⟩
+  obtain ⟨hrow, hgate4, hceilconj⟩ := hsockterm R C₁ M₀ epsf liouvilleC
+    (fun i => memSPunctCoeff (calP (Adoor M) (s13GK K M))
+      (calQK (Adoor M) (s13GK K M) M) 2 i liouvilleC) Kf δs hδs hHreg
+    (fun i m => norm_doorPunctCoeffU_le_one_gk K M i m) (fun p => liouvilleC_norm_le_one p)
+    hframe hbase hcapWS hbandbase harith
+  refine hR δ₀ (δ₀ / (8 * Kc))
+    (m4ChiRowGraded M (fun _ H => RSanDoorRho ρ H)) (RSanDoorRho ρ) rStrWitness
+    (fun H => 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+      * m4BclGraded (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
+          (fun H => 2 * rStrWitness H) H)
+    M k (doorRowFloor M) hgates hM (fun H => RSanDoorRho_nonneg hρpos.le H)
+    rStrWitness_nonneg ?_ hgate4 (fun H _ _ => rStrWitness_G1 H) ?_
+    (arc36_of_regime harcfl) hdgate (fun H _ _ => le_rfl) ?_ ?_ hrow
+  · intro H
+    have hb := m4BclGraded_nonneg (j₀ := doorRowFloor M)
+      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) (H := H)
+      (by have := RSanDoorRho_nonneg hρpos.le H
+          simpa using (by linarith : (0:ℝ) ≤ 2 * RSanDoorRho ρ H))
+      (by have := rStrWitness_nonneg H
+          simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
+    positivity
+  · intro H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
+      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
+      unfold strataResidual
+      linarith
+    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
+    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
+      have h1 : RSanDoorRho ρ H ≤ 1 := by
+        unfold RSanDoorRho
+        rw [div_le_one (by nlinarith)]
+        linarith
+      exact le_trans h1 (le_max_left _ _)
+    have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
+    linarith
+  · intro H hlo hhi
+    have hH0 : 0 < H := by
+      have := R.hHlo_floor
+      omega
+    have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
+      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
+      (hfit H hlo hhi)
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    have hfac0 : (0 : ℝ) ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 := by positivity
+    have hceil := hceilconj H hlo hhi
+    have hstep : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+        * m4BclGraded (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
+            (fun H => 2 * rStrWitness H) H
+        ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+            * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H))) :=
+      mul_le_mul_of_nonneg_left hle hfac0
+    have hval : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+          * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H)))
+        = 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+            * (108 / 5 * RSanDoorRho ρ H)) := by
+      unfold m4Cmax
+      ring
+    rw [hval] at hstep
+    have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+        * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
+    have hKpos : (0 : ℝ) < 16 * Kc := by linarith
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
+      rw [hδssq]
+      field_simp
+      ring
+    linarith [hstep, h2, hval2.le, hval2.ge]
+  · have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
+      field_simp
+      ring
+    rw [hval]
+    linarith [hend]
+
+set_option maxHeartbeats 1000000 in
+-- the statement re-elaborates the full levered residue against the re-cut prefix
+/-- `logChowla2_capstone_final` (:710) at the lever — the `∀x ∃M` prefix, levered. -/
+theorem logChowla2_capstone_final_gk (K : ℕ) (hK : K ≤ 170000000)
+    (Aexp : ℝ) (hAexp : 0 < Aexp) :
+    ∃ (Cg : ℝ) (ε : ℚ) (Kc δ₀ Ct Cq cs T₀ Kq Ks : ℝ) (x₀ : ℕ),
+      1 ≤ Cg ∧ 0 < ε ∧ 0 < Kc ∧ 0 < δ₀ ∧
+        0 < Ct ∧ 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp →
+        ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+          ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+            (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+              Real.log (Real.log (R.Hhi : ℝ))
+                ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+            ∀ (M : ℕ), 1 ≤ M →
+              ∃ C' : ℝ, 0 < C' ∧
+                ∀ (C₁ M₀ epsf epsrf : ℕ → ℝ) (Kf : ℝ) (k : ℕ),
+                  M4DoorGates_gk K Cg R M k δ₀ →
+                  8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 4 →
+                  (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                    4 * Real.log (263 * max 1 (arcDen 12 H)) ≤ ((doorRowFloor M : ℕ) : ℝ)) →
+                  (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                    arcDen 12 H < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) →
+                  (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                    m4SmallGradeFits (doorRowFloor M)
+                      (fun H => 2 * RSanDoorRho (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) H)
+                      (fun H => 2 * rStrWitness H) H) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    DoorFuseFrame_gk K M (A + s) j Ct Cp (epsf (A + s))) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    0 ≤ epsrf (A + s) ∧ epsrf (A + s) ≤ theta293 - 1 / 500) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    calQK (Adoor M) (s13GK K M) M 2 ≤ A + s ∧
+                      Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+                          ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) ∧
+                      (100 : ℝ) ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) ∧
+                      (4 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ∧
+                      ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ)) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+                      2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+                      5 ≤ Real.log (Real.log (2 * T)) →
+                      ∃ (Xd P Q : ℕ) (Mr : ℕ → ℕ) (Jb : ℕ) (b cf : ℕ → ℂ)
+                        (VJ V Lr η εd Rbd CR KS E EP2 Mtail : ℝ),
+                        DoorCapErrWS_gk K M (A + s) q Xd P Q b cf (2 * T) E Mtail
+                          ∧ ((∑ χ : DirichletCharacter ℂ q, ∫ t in (-(2 * T))..(2 * T),
+                                ‖ramErr (H83 (((A + s : ℕ)) : ℝ) theta293) (2 * (A + s)) Xd P Q
+                                  (chiBarCoeff q χ (winCutH (A + s) (doorCoeffU_gk K M)))
+                                  (chiBarCoeff q χ b) (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E
+                              → DoorCapBasePerBlock_gk K Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr
+                                  Jb b cf (2 * T) VJ V Lr η εd (epsrf (A + s)) Rbd CR KS E
+                                  EP2)) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    DoorBandBase_gk K x₀ C' Aexp M (A + s) q (C₁ (A + s)) (M₀ (A + s))) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kf
+                      (doorRhoOfDelta (s12DeltaSock δ₀ Kc))) →
+                    ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, Kc, δ₀, hCg, hε, hKc, hδ₀, hroad⟩ := m4_second_road_L2_gk K
+  obtain ⟨Ct, Cq, cs, T₀, Kq, Ks, x₀, hCt, hCq, hcs, hT₀, hKq, hKs, hterm⟩ :=
+    m4_socket_discharged_capwired_ws_hoisted_perBlock_split_gk K hK mmuChiRate_holds_gated
+      Aexp hAexp
+  refine ⟨Cg, ε, Kc, δ₀, Ct, Cq, cs, T₀, Kq, Ks, x₀, hCg, hε, hKc, hδ₀, hCt, hCq, hcs, hT₀,
+    hKq, hKs, ?_⟩
+  intro Cp hCp U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hRtow, hR⟩ :=
+    hroad (max U1floor (max arcFloor36 loglogFloor50)) g
+  refine ⟨R, hReps, le_trans (le_max_left _ _) hU1, hRg, hRtow, ?_⟩
+  intro M hM
+  obtain ⟨C', hC'pos, hsockterm⟩ := hterm Cp hCp M hM
+  refine ⟨C', hC'pos, ?_⟩
+  intro C₁ M₀ epsf epsrf Kf k hgates hend hj0 hdgate hfit hframe hepsr hbase5 hcapWS hbandbase
+    harith
+  have harcfl : arcFloor36 ≤ R.Hlo :=
+    le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU1
+  have hllfl : loglogFloor50 ≤ R.Hlo :=
+    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU1
+  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
+    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
+  have hframeR : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorFuseFrame_gk K M (A + s) j Ct Cp (epsrf (A + s)) := by
+    intro H L q j A s hb
+    exact doorFuseFrame_reEps_gk K (hframe H L q j A s hb) (hepsr H L q j A s hb).1
+      (hepsr H L q j A s hb).2
+  set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
+  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
+  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
+  set ρ : ℝ := doorRhoOfDelta δs with hρdef
+  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
+  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
+  have hbase : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorRowZeroBase_gk K M (A + s) j liouvilleC
+        (fun i => memSPunctCoeff (calP (Adoor M) (s13GK K M))
+          (calQK (Adoor M) (s13GK K M) M) 2 i liouvilleC) := by
+    intro H L q j A s hb
+    obtain ⟨h1, h2, h3, h4, h5⟩ := hbase5 H L q j A s hb
+    exact ⟨h1, doorRowZeroBase_coefWS_witness_gk K (A + s) hM, h2, h3, h4, h5⟩
+  obtain ⟨hrow, hgate4, hceilconj⟩ := hsockterm R C₁ M₀ epsrf liouvilleC
+    (fun i => memSPunctCoeff (calP (Adoor M) (s13GK K M))
+      (calQK (Adoor M) (s13GK K M) M) 2 i liouvilleC) Kf δs hδs hHreg
+    (fun i m => norm_doorPunctCoeffU_le_one_gk K M i m) (fun p => liouvilleC_norm_le_one p)
+    hframeR hbase hcapWS hbandbase harith
+  refine hR δ₀ (δ₀ / (8 * Kc))
+    (m4ChiRowGraded M (fun _ H => RSanDoorRho ρ H)) (RSanDoorRho ρ) rStrWitness
+    (fun H => 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+      * m4BclGraded (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
+          (fun H => 2 * rStrWitness H) H)
+    M k (doorRowFloor M) hgates hM (fun H => RSanDoorRho_nonneg hρpos.le H)
+    rStrWitness_nonneg ?_ hgate4 (fun H _ _ => rStrWitness_G1 H) ?_
+    (arc36_of_regime harcfl) hdgate (fun H _ _ => le_rfl) ?_ ?_ hrow
+  · intro H
+    have hb := m4BclGraded_nonneg (j₀ := doorRowFloor M)
+      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) (H := H)
+      (by have := RSanDoorRho_nonneg hρpos.le H
+          simpa using (by linarith : (0:ℝ) ≤ 2 * RSanDoorRho ρ H))
+      (by have := rStrWitness_nonneg H
+          simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
+    positivity
+  · intro H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
+      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
+      unfold strataResidual
+      linarith
+    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
+    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
+      have h1 : RSanDoorRho ρ H ≤ 1 := by
+        unfold RSanDoorRho
+        rw [div_le_one (by nlinarith)]
+        linarith
+      exact le_trans h1 (le_max_left _ _)
+    have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
+    linarith
+  · intro H hlo hhi
+    have hH0 : 0 < H := by
+      have := R.hHlo_floor
+      omega
+    have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
+      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
+      (hfit H hlo hhi)
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    have hfac0 : (0 : ℝ) ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 := by positivity
+    have hceil := hceilconj H hlo hhi
+    have hstep : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+        * m4BclGraded (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
+            (fun H => 2 * rStrWitness H) H
+        ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+            * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H))) :=
+      mul_le_mul_of_nonneg_left hle hfac0
+    have hval : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+          * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H)))
+        = 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+            * (108 / 5 * RSanDoorRho ρ H)) := by
+      unfold m4Cmax
+      ring
+    rw [hval] at hstep
+    have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+        * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
+    have hKpos : (0 : ℝ) < 16 * Kc := by linarith
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
+      rw [hδssq]
+      field_simp
+      ring
+    linarith [hstep, h2, hval2.le, hval2.ge]
+  · have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
+      field_simp
+      ring
+    rw [hval]
+    linarith [hend]
+
+-- #audit (temporary)
+
 end Salt.MR
 
 end

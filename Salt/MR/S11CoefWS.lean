@@ -114,6 +114,46 @@ theorem norm_doorPunctCoeffU_le_one (M i n : ℕ) :
       liouvilleC n‖ ≤ 1 :=
   norm_memSPunctCoeff_le_one liouvilleC_norm_le_one _ _ 2 i n
 
+/-! ## §GK — the G-lever twin
+
+The S11 `coefWS` witness at `G := s13GK K M`.  `doorCoeffU_gk` is `M4RowsChiEnd`'s
+⟦PROVISIONAL⟧ mint (see that file's `§GK`); `memSCoeff_seamCoefWS_punct_gen_U` above is
+`G`-FREE and is reused verbatim. -/
+
+/-- **`hcoefBand` AT THE DOOR, UNTWISTED AND STRICT, AT THE G-LEVER**
+(`doorCoeffU_seamCoefWS_punct_H_gk`).  `memSCoeff_seamCoefWS_punct_gen_U` is `(Pseq, Qseq)`-
+generic and is reused verbatim; the separation is `M4Puncture.door_block_sep_at_gk`. -/
+theorem doorCoeffU_seamCoefWS_punct_H_gk (K : ℕ) {M Xd : ℕ} {a : ℕ → ℂ} (hM : 1 ≤ M)
+    (haH : ∀ n : ℕ, Xd < n → n ≤ 2 * Xd → a n = doorCoeffU_gk K M n) :
+    ∀ i ∈ Finset.Icc 1 2,
+      SeamCoefWS Xd (calP (Adoor M) (s13GK K M) i) (calQK (Adoor M) (s13GK K M) M i) a
+        (memSPunctCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 i
+          liouvilleC) liouvilleC := by
+  intro i hi
+  exact memSCoeff_seamCoefWS_punct_gen_U (calP (Adoor M) (s13GK K M))
+    (calQK (Adoor M) (s13GK K M) M) 2 i Xd a hi
+    (fun p hp hlo hhi => door_block_sep_at_gk K hM hi hlo hhi) haH
+
+/-- **⟦THE ONE WITNESSED-DATA FAMILY, WITNESSED⟧ AT THE G-LEVER**
+(`doorRowZeroBase_coefWS_witness_gk`) — `M4RowsChiZero.DoorRowZeroBase_gk.coefWS` at
+`bU i := memSPunctCoeff 𝒫 𝒬K 2 i liouvilleC`, `cU := liouvilleC`, for EVERY `X_d`. -/
+theorem doorRowZeroBase_coefWS_witness_gk (K : ℕ) {M : ℕ} (Xd : ℕ) (hM : 1 ≤ M) :
+    ∀ i ∈ Finset.Icc 1 2,
+      SeamCoefWS Xd (calP (Adoor M) (s13GK K M) i) (calQK (Adoor M) (s13GK K M) M i)
+        (winCutH Xd (doorCoeffU_gk K M))
+        (memSPunctCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 i
+          liouvilleC) liouvilleC :=
+  doorCoeffU_seamCoefWS_punct_H_gk K hM (fun _ h1 h2 => winCutH_of_mem _ h1 h2)
+
+/-- The levered witness's `b`-slot is `1`-bounded
+(`norm_doorPunctCoeffU_le_one_gk`). -/
+theorem norm_doorPunctCoeffU_le_one_gk (K : ℕ) (M i n : ℕ) :
+    ‖memSPunctCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 i
+      liouvilleC n‖ ≤ 1 :=
+  norm_memSPunctCoeff_le_one liouvilleC_norm_le_one _ _ 2 i n
+
+-- #audit (temporary)
+
 end Salt.MR
 
 end

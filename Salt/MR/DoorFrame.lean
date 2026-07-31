@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.MR.SeamCalibrationK
+import Salt.MR.GLever
 
 /-!
 # `DoorFrame` — the K-station frame at the door's `M`, PARAMETRIC
@@ -266,5 +267,165 @@ lemma log_calQK_door_one (M : ℕ) :
   rw [log_calQK, calE_one]
   push_cast
   ring
+
+/-! ## §GK — the G-lever twin
+
+The door frame re-read at `G := s13GK K M = 3072·2^K·M` (`GLever`).  `Adoor M` is unchanged
+and `Jb` stays `2`; only the base moves.
+
+Three things land: the level-2 exponent identity (`calE_door_two_gk`, the landed numeral
+times `2^K`), its logarithm at the RE-DERIVED `(2L + 52 + K)` form
+(`log_calE_door_two_gk` — ported verbatim from the refuter probe `probe_G_lever_calE_ub`),
+and the frame inhabitant `calFrameK_satisfiable_door_gk`, whose `A_gate_logK` leg is the
+probe `probe_G_lever_Agate` and therefore carries the probe's own side condition
+`K ≤ 1.7·10⁸` (the working pin `K = 500000` clears it by ~340×).  `G_gateK` is a LOWER bound
+on `G`, so it survives the lever a fortiori (`le_s13GK`).
+
+`log_calQK_door_one` is LEVEL 1 and therefore **K-INVARIANT**: `calQK_gk_one_eq` transports
+it, and it gets NO twin.  Same for every level-1 read downstream. -/
+
+/-- **THE LEVEL-1 TRANSPORT AT THE DOOR** — `log Q₁` does not move under the lever, so
+`log_calQK_door_one` is reused verbatim inside every `_gk` consumer. -/
+lemma log_calQK_door_one_gk (K M : ℕ) :
+    Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ)
+      = (M : ℝ) * ((Adoor M : ℕ) : ℝ) * Real.log 2 := by
+  rw [calQK_gk_one_eq]
+  exact log_calQK_door_one M
+
+/-- **THE LEVEL-1 `𝒫` TRANSPORT AT THE DOOR** — `P₁` does not move under the lever. -/
+lemma calP_door_one_gk (K M : ℕ) :
+    calP (Adoor M) (s13GK K M) 1 = calP (Adoor M) (3072 * M) 1 :=
+  calP_gk_one_eq (Adoor M) K M
+
+/-- **The door's `e₂` at the lever**, as a ℕ identity: `e₂ = 2^K·(3·2^{48}(L+1)M)`.  The
+landed `calE_door_two` numeral, times the lever's own factor (`calE_gk_two`). -/
+lemma calE_door_two_gk (K M : ℕ) :
+    calE (Adoor M) (s13GK K M) 2 = 2 ^ K * (844424930131968 * ((Nat.log 2 M + 1) * M)) := by
+  rw [calE_gk_two, calE_door_two]
+
+/-- **`A_gate_logK`'s second logarithm, AT THE LEVER**: `log e₂ ≤ (2L + 52 + K) log 2`.
+The re-derived numeral of the G-lever design: the landed `(2L + 52)` gains exactly the
+lever's `K`, nothing more.  Ported from the refuter probe `probe_G_lever_calE_ub`. -/
+lemma log_calE_door_two_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
+    Real.log ((calE (Adoor M) (s13GK K M) 2 : ℕ) : ℝ)
+      ≤ (2 * (Nat.log 2 M : ℝ) + 52 + (K : ℝ)) * Real.log 2 := by
+  have hMle : M ≤ 2 ^ (Nat.log 2 M + 1) := (Nat.lt_pow_succ_log_self (b := 2) (by norm_num) M).le
+  have hLle : Nat.log 2 M + 1 ≤ 2 ^ (Nat.log 2 M + 1) := (Nat.log 2 M + 1).lt_two_pow_self.le
+  have hN : calE (Adoor M) (s13GK K M) 2 ≤ 2 ^ (2 * Nat.log 2 M + 52 + K) := by
+    rw [calE_door_two_gk]
+    calc 2 ^ K * (844424930131968 * ((Nat.log 2 M + 1) * M))
+        ≤ 2 ^ K * (2 ^ 50 * (2 ^ (Nat.log 2 M + 1) * 2 ^ (Nat.log 2 M + 1))) :=
+          Nat.mul_le_mul le_rfl (Nat.mul_le_mul (by norm_num) (Nat.mul_le_mul hLle hMle))
+      _ = 2 ^ (2 * Nat.log 2 M + 52 + K) := by
+          rw [← pow_add, ← pow_add, ← pow_add]
+          congr 1
+          ring
+  have hNR : ((calE (Adoor M) (s13GK K M) 2 : ℕ) : ℝ)
+      ≤ (2 : ℝ) ^ (2 * Nat.log 2 M + 52 + K) := by exact_mod_cast hN
+  have hpos : (0 : ℝ) < ((calE (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) := by
+    have hEpos : 0 < calE (Adoor M) (s13GK K M) 2 := by
+      rw [calE_door_two_gk]
+      exact Nat.mul_pos (Nat.two_pow_pos K)
+        (Nat.mul_pos (by norm_num) (Nat.mul_pos (Nat.succ_pos _) hM))
+    exact_mod_cast hEpos
+  refine le_trans (log_le_pow_two hpos hNR) (le_of_eq ?_)
+  push_cast
+  ring
+
+/-- **THE DOOR'S K-STATION FRAME, AT THE G-LEVER** (`calFrameK_satisfiable_door_gk`).
+`DoorFrame.calFrameK_satisfiable_door` verbatim at `G := s13GK K M`, for every `M ≥ 1` and
+every `K ≤ 1.7·10⁸`.
+
+Two fields move and ten do not.
+
+* `G_gateK` `64·(2²M) = 256M ≤ (1/12)·3072·2^K·M`: the landed frame sat at EQUALITY here, and
+  the lever only GROWS `G`, so the gate survives a fortiori with `2^K − 1` to spare.
+* `A_gate_logK` `16(log 4M + log e₂) ≤ (1/24)(A log 2 − 1)`: the second logarithm is now
+  `(2L + 52 + K) log 2` (`log_calE_door_two_gk`), so the left side is
+  `(48L + 880 + 16K) log 2` against `(1/24)(68719476736(L+1) log 2 − 1)`.  The `K`-term is
+  what the side condition `K ≤ 1.7·10⁸` pays for; the working pin `K = 500000` clears it by
+  a factor ~340.  This leg is the refuter probe `probe_G_lever_Agate`, verbatim.
+
+`H1_two`/`H1_pin` are LEVEL 1 and therefore untouched (`calP_gk_one_eq`), as are
+`A_gate_lin`, `A_floor`, the `η`-range and `one_le_M`; `one_le_G` is `one_le_s13GK` and
+`Q_le_Xd` is `le_rfl`. -/
+theorem calFrameK_satisfiable_door_gk (K M : ℕ) (hM : 1 ≤ M) (hK : K ≤ 170000000) :
+    CalFrameK (1 / 12) (((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 6))
+      (Adoor M) (s13GK K M) M 2 (calQK (Adoor M) (s13GK K M) M 2) := by
+  have hL0 : (0 : ℝ) ≤ (Nat.log 2 M : ℝ) := Nat.cast_nonneg _
+  have hL0' : (0 : ℝ) ≤ (Nat.log 2 M : ℝ) * Real.log 2 :=
+    mul_nonneg hL0 (Real.log_nonneg (by norm_num))
+  have hK0 : (0 : ℝ) ≤ (K : ℝ) := Nat.cast_nonneg _
+  have hKR : (K : ℝ) ≤ 170000000 := by exact_mod_cast hK
+  -- `P₁ ≥ 64`, symbolically (the exponent is never expanded; level 1 is K-invariant)
+  have h64 : (64 : ℕ) ≤ calP (Adoor M) (s13GK K M) 1 := by
+    have hE : (6 : ℕ) ≤ calE (Adoor M) (s13GK K M) 1 := by
+      rw [calE_gk_one]
+      exact le_trans (by norm_num) (Adoor_ge M)
+    have h6 : (64 : ℕ) = 2 ^ 6 := by norm_num
+    rw [calP, h6]
+    exact Nat.pow_le_pow_right (by norm_num) hE
+  have h64R : (64 : ℝ) ≤ ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) := by exact_mod_cast h64
+  have hP1pos : (0 : ℝ) < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) := by linarith
+  -- `G = 3072·2^K·M ≥ 3072M`, in ℝ — the a-fortiori direction for `G_gateK`
+  have hGle : (3072 : ℝ) * (M : ℝ) ≤ ((s13GK K M : ℕ) : ℝ) := by
+    have h : 3072 * M ≤ s13GK K M := le_s13GK K M
+    have := (Nat.cast_le (α := ℝ)).mpr h
+    push_cast at this
+    linarith
+  refine
+    { eta_pos := by norm_num, eta_lt := by norm_num, one_le_Jb := by norm_num,
+      one_le_G := one_le_s13GK K hM, one_le_M := hM, G_gateK := ?_,
+      A_gate_lin := ?_, A_gate_logK := ?_, A_floor := le_trans (by norm_num) (Adoor_ge M),
+      H1_two := ?_, H1_pin := ?_, Q_le_Xd := le_rfl }
+  · -- `G_gateK`: `64·(2²M) = 256M ≤ (1/12)·G`, a LOWER bound on `G` — a fortiori
+    push_cast
+    linarith [hGle]
+  · -- `A_gate_lin`: `2Jb = 4 ≤ 2^36 ≤ Adoor M`
+    rw [Adoor_cast]
+    push_cast
+    linarith
+  · -- `A_gate_logK`: the lever costs exactly `16K log 2` on the left
+    push_cast
+    rw [Adoor_cast]
+    refine le_trans (mul_le_mul_of_nonneg_left
+      (add_le_add (log_four_M_door hM) (log_calE_door_two_gk K hM)) (by norm_num)) ?_
+    have hKl2 : (K : ℝ) * Real.log 2 ≤ 170000000 * Real.log 2 :=
+      mul_le_mul_of_nonneg_right hKR (Real.log_nonneg (by norm_num))
+    linarith [Real.log_two_gt_d9, hL0, hL0', hKl2]
+  · -- `H1_two`: `2 = 64^{1/6} ≤ P₁^{1/6}`
+    calc (2 : ℝ) = (64 : ℝ) ^ ((1 : ℝ) / 6) := by
+          rw [show (64 : ℝ) = 2 ^ (6 : ℕ) by norm_num, ← Real.rpow_natCast 2 6,
+            ← Real.rpow_mul (by norm_num)]
+          norm_num
+      _ ≤ ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 6) :=
+          Real.rpow_le_rpow (by norm_num) h64R (by norm_num)
+  · -- `H1_pin`: `(P₁^{1/6})³ = P₁^{1/2}` — equality, level 1, untouched by the lever
+    have hid : ((((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 6)) ^ (3 : ℕ))
+        = ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 2) := by
+      rw [← Real.rpow_natCast (((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 6)) 3,
+        ← Real.rpow_mul hP1pos.le, show (1 : ℝ) / 6 * ((3 : ℕ) : ℝ) = (1 : ℝ) / 2 by norm_num]
+    rw [hid]
+
+/-- **The twelve `LevelGates` at the levered door family**, free from the frame. -/
+theorem levelGates_calibrated_door_gk (K M : ℕ) (hM : 1 ≤ M) (hK : K ≤ 170000000) :
+    ∀ j ∈ Finset.Icc 2 2,
+      LevelGates (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M)
+        (calH ((((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 6)))) (1 / 12)
+        ((calP (Adoor M) (s13GK K M)) 1) (calQK (Adoor M) (s13GK K M) M 2) j :=
+  levelGates_calibratedK (calFrameK_satisfiable_door_gk K M hM hK)
+
+/-- **MR eq (28) at the levered door family** — `eq28_clears_of_M` composed at the lever's
+base.  The demand is `8/δ ≤ M`, unchanged: eq (28) reads `log P_j/log Q_j = 1/(j²M)`, which
+is `G`-free. -/
+theorem eq28_door_clears_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) (Jb : ℕ) {δ : ℝ} (hδ : 0 < δ)
+    (hMδ : 8 / δ ≤ (M : ℝ)) :
+    δ / 50 + (2 + 1 / 50) * ∑ j ∈ Finset.Icc 1 Jb,
+        Real.log ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ)
+          / Real.log ((calQK (Adoor M) (s13GK K M) M j : ℕ) : ℝ)
+      ≤ δ :=
+  eq28_clears_of_M (one_le_Adoor M) (one_le_s13GK K hM) hM Jb hδ hMδ
+
+-- #audit (temporary)
 
 end Salt.MR

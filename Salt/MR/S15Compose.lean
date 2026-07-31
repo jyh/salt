@@ -1744,3 +1744,796 @@ theorem s15_socketBase_inhabited'' {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : 
     s14_window_floor_of_winFit hρ0 hρ1 (hS.winFit R.Hlo le_rfl R.hHlohi)
   exact s14_socketBase_witness (le_trans hwin R.hHlohi)
 
+/-! ## §GK — the G-lever twin -/
+
+/-- `s15_log_calQK_one` (:161) TRANSPORTED to the lever — LEVEL 1 is K-INVARIANT. -/
+theorem s15_log_calQK_one_gk (K M : ℕ) :
+    Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ)
+      = ((doorRowFloor M : ℕ) : ℝ) * Real.log 2 := by
+  rw [calQK_gk_one_eq]
+  exact s15_log_calQK_one M
+
+/-- `s15_log_calQK_one_pos` (:174) TRANSPORTED to the lever. -/
+theorem s15_log_calQK_one_pos_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
+    (0 : ℝ) < Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) := by
+  rw [calQK_gk_one_eq]
+  exact s15_log_calQK_one_pos hM
+
+/-- `s15_loglogQ1_nonneg` (:182) TRANSPORTED to the lever. -/
+theorem s15_loglogQ1_nonneg_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
+    (0 : ℝ) ≤ Real.log (Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ)) := by
+  rw [calQK_gk_one_eq]
+  exact s15_loglogQ1_nonneg hM
+
+/-- `s15_a2Level1_exp` (:192) TRANSPORTED to the lever — `a2Level1` is LEVEL 1. -/
+theorem s15_a2Level1_exp_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
+    a2Level1 M = Real.exp ((1 / 3) * Real.log (Real.log
+        ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ))
+      - (1 / 12) * ((Adoor M : ℕ) : ℝ) * Real.log 2) := by
+  rw [calQK_gk_one_eq]
+  exact s15_a2Level1_exp hM
+
+/-- `s15_level1_of_budget` (:247) TRANSPORTED — the conclusion is `G`-FREE and the budget's
+only `G`-read is LEVEL 1. -/
+theorem s15_level1_of_budget_gk (K : ℕ) {M Hhi : ℕ} {ρ : ℝ} (hM : 1 ≤ M) (hρ : 0 < ρ)
+    (hbudget : 26 + 14 * Real.log (Real.log (Hhi : ℝ))
+        + (1 / 3) * Real.log (Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ))
+      ≤ (1 / 12) * ((Adoor M : ℕ) : ℝ) * Real.log 2 + Real.log ρ) :
+    14400 * Real.exp 1 ^ 2 * a2Level1 M ≤ 1 / 4 * constPool ρ Hhi := by
+  rw [calQK_gk_one_eq] at hbudget
+  exact s15_level1_of_budget hM hρ hbudget
+
+/-- `s15_gP1_of_budget` (:278) TRANSPORTED — `𝒫₁` is LEVEL 1, so the budget line does not
+move under the lever. -/
+theorem s15_gP1_of_budget_gk (K : ℕ) {M Hhi : ℕ} {Cs ρ : ℝ} (hCs : 0 < Cs) (hρ : 0 < ρ)
+    (hbudget : 29 + Real.log Cs + 14 * Real.log (Real.log (Hhi : ℝ))
+      ≤ ((Adoor M : ℕ) : ℝ) * Real.log 2 + Real.log ρ) :
+    374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+      ≤ constPool ρ Hhi := by
+  rw [calP_gk_one_eq]
+  exact s15_gP1_of_budget hCs hρ hbudget
+
+/-- `S13FramesA.s13_gate8` (:524) TRANSPORTED to the lever — ⟦gate 8⟧ reads `𝒫₁`, which is
+LEVEL 1, so the numeral `12Λ < Adoor M·log 2` is unchanged. -/
+theorem s15_gate8_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {Λ : ℝ}
+    (hΛ : Real.log (Real.log (R.Hhi : ℝ)) ≤ Λ)
+    (hgate : 12 * Λ < (Adoor M : ℝ) * Real.log 2) :
+    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      arcDen 12 H < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) := by
+  intro H hlo hhi
+  rw [calP_gk_one_eq]
+  exact s13_gate8 hΛ hgate H hlo hhi
+
+
+/-- `s15_calP_one_le_two (:146)` at the lever. -/
+theorem s15_calP_one_le_two_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
+    (calP (Adoor M) (s13GK K M) 1) ≤ (calP (Adoor M) (s13GK K M) 2) := by
+  have hE : calE (Adoor M) (s13GK K M) 1 ≤ calE (Adoor M) (s13GK K M) 2 := by
+    have h1 : calE (Adoor M) (s13GK K M) 1 = Adoor M := calE_one _ _
+    have h2 : calE (Adoor M) (s13GK K M) 2 = Adoor M * (s13GK K M) * 4 := by
+      simp [calE, Nat.factorial]
+    rw [h1, h2]
+    calc Adoor M = Adoor M * 1 * 1 := by ring
+      _ ≤ Adoor M * (s13GK K M) * 4 := by
+          have : 1 ≤ s13GK K M := one_le_s13GK K hM
+          exact Nat.mul_le_mul (Nat.mul_le_mul_left _ this) (by omega)
+  rw [calP, calP]
+  exact Nat.pow_le_pow_right (by norm_num) hE
+
+/-- `s15_p2_of_budget` (:206) at the lever.  `1/𝒫₂` only SHRINKS under the
+lever, and the proof drops it anyway. -/
+theorem s15_p2_of_budget_gk (K : ℕ) {M Hhi : ℕ} {ρ : ℝ} (hM : 1 ≤ M) (hρ : 0 < ρ)
+    (hbudget : 27 + 14 * Real.log (Real.log (Hhi : ℝ))
+      ≤ ((Adoor M : ℕ) : ℝ) * Real.log 2 + Real.log ρ) :
+    138240 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)
+        + 1 / ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ))
+      ≤ 1 / 4 * constPool ρ (Hhi) := by
+  have hP1pos : (0 : ℝ) < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) := by
+    have h : 0 < calP (Adoor M) (s13GK K M) 1 := by rw [calP]; exact Nat.two_pow_pos _
+    exact_mod_cast h
+  have hP2pos : (0 : ℝ) < ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) := by
+    have h : 0 < calP (Adoor M) (s13GK K M) 2 := by rw [calP]; exact Nat.two_pow_pos _
+    exact_mod_cast h
+  have hP12 : ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)
+      ≤ ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) := by
+    exact_mod_cast s15_calP_one_le_two_gk K hM
+  have hinv : 1 / ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ)
+      ≤ 1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) :=
+    one_div_le_one_div_of_le hP1pos hP12
+  set E : ℝ := Real.exp (14 * Real.log (Real.log (Hhi : ℝ))) with hE
+  have hEpos : (0 : ℝ) < E := Real.exp_pos _
+  have hpool : (1 : ℝ) / 4 * constPool ρ Hhi = ρ / (1505064 * E) := by
+    rw [constPool_def, hE]; field_simp; ring
+  have hkey : 416120094720 * E ≤ ρ * ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) := by
+    have hmul : ρ * ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)
+        = Real.exp (Real.log ρ + Real.log ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) := by
+      rw [Real.exp_add, Real.exp_log hρ, Real.exp_log hP1pos]
+    calc 416120094720 * E ≤ Real.exp 27 * E := by nlinarith [s15_exp27, hEpos]
+      _ = Real.exp (27 + 14 * Real.log (Real.log (Hhi : ℝ))) := by rw [hE, ← Real.exp_add]
+      _ ≤ Real.exp (Real.log ρ + Real.log ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) := by
+          refine Real.exp_le_exp.mpr ?_
+          rw [s13_band_log_calP_one_gk K M]; linarith
+      _ = ρ * ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) := hmul.symm
+  have hhalf : 276480 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+      ≤ 1 / 4 * constPool ρ Hhi := by
+    rw [hpool, show (276480 : ℝ) * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+        = 276480 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) by ring,
+      div_le_div_iff₀ hP1pos (by positivity)]
+    nlinarith [hkey]
+  nlinarith [hinv, hhalf, hP1pos]
+
+/-- `s15_gRows_const_at_socket (:447)` at the lever. -/
+theorem s15_gRows_const_at_socket_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} {ρ : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s) (hM : 1 ≤ M)
+    (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1)
+    (htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2))
+    (hrho : -Real.log ρ ≤ 100000000000000)
+    (hbud : 26 + 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+        + (1 / 3) * Real.log (Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ))
+        + (-Real.log ρ)
+      ≤ (1 / 12) * ((Adoor M : ℕ) : ℝ) * Real.log 2) :
+    GRowsZeroGate'''_gk K M (A + s) 0 (constPool ρ R.Hhi) := by
+  have hlogρ : Real.log ρ ≤ 0 := Real.log_nonpos hρ0.le hρ1
+  have hQ0 := s15_loglogQ1_nonneg_gk K hM
+  obtain ⟨-, hL50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hAs : 0 < A + s := by omega
+  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
+  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
+    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
+  obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hb
+  have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
+    have := Real.log_le_log hA0 hAX; linarith
+  have hllle : Real.log (Real.log (((A + s : ℕ)) : ℝ)) ≤ Real.log (((A + s : ℕ)) : ℝ) - 1 :=
+    Real.log_le_sub_one_of_pos (by linarith)
+  have hll := s12c_llX_ge hfl hb
+  have hcore := s15_lambda_core17 hlam50
+  have hexp0 : (0 : ℝ) < Real.exp (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) := Real.exp_pos _
+  have hendbud : 26 + 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + (-Real.log ρ)
+      ≤ Real.log (((A + s : ℕ)) : ℝ) := by
+    have h1 : 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+        ≤ 14 * (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2) := by linarith
+    linarith [hcore, hll, hllle, hrho, h1]
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · exact s15_level1_of_budget_gk K hM hρ0 (by linarith)
+  · exact s15_endpt_at_constPool hAs hρ0 hendbud
+  · refine s15_p2_of_budget_gk K hM hρ0 ?_
+    linarith [hbud, hQ0, hL50, hlogρ]
+  · exact s15_dens_at_zero hρ0.le
+
+/-- `s15_block_at_socket (:654)` at the lever. RE-READ at the LEVERED block exponent. -/
+theorem s15_block_at_socket_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hb : SocketBase R M H L q j A s)
+    (hHreg : 0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)))
+    (hblk : ((s13BlockExp_gk K M : ℕ) : ℝ) + 1
+        + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)) :
+    s13BlockFloor_gk K M ≤ A + s := by
+  have hlo : R.Hlo ≤ H := hb.1
+  have hhi : H ≤ R.Hhi := hb.2.1
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hApos : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
+  have hlogH0 : (0 : ℝ) < Real.log (H : ℝ) :=
+    lt_of_lt_of_le (by norm_num) (one_lt_log_of_loglog_ge hHreg.1 (by norm_num) hHreg.2).le
+  have hllH : Real.log (Real.log (H : ℝ)) ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) :=
+    s13_loglog_le_of_range (R := R) hlo hhi
+  have hll0 : (0 : ℝ) ≤ Real.log (Real.log (H : ℝ)) := by linarith [hHreg.2]
+  set m : ℕ := ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ with hm
+  have hxs : ((4 ^ m : ℕ) : ℝ) ^ 2 ≤ 2 * arcDen 12 H * (A : ℝ) := s13_socketBase_xscale hb
+  have harcpow : arcDen 12 H = Real.log (H : ℝ) ^ (12 : ℕ) := by
+    rw [arcDen, show (12 : ℝ) = ((12 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+  have hlhs0 : (0 : ℝ) < ((4 ^ m : ℕ) : ℝ) ^ 2 := by positivity
+  have hlog := Real.log_le_log hlhs0 hxs
+  have hLid : Real.log (((4 ^ m : ℕ) : ℝ) ^ 2) = 4 * (m : ℝ) * Real.log 2 := by
+    have h4 : ((4 ^ m : ℕ) : ℝ) = (4 : ℝ) ^ m := by push_cast; ring
+    rw [h4, ← pow_mul, Real.log_pow, show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]
+    push_cast; ring
+  have hRR : Real.log (2 * arcDen 12 H * (A : ℝ))
+      = Real.log 2 + 12 * Real.log (Real.log (H : ℝ)) + Real.log (A : ℝ) := by
+    rw [harcpow, Real.log_mul (by positivity) (by positivity),
+      Real.log_mul (by norm_num) (by positivity), Real.log_pow]
+    push_cast; ring
+  rw [hLid, hRR] at hlog
+  have hl2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hl2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hE : ((s13BlockExp_gk K M : ℕ) : ℝ) * Real.log 2 ≤ Real.log (A : ℝ) := by
+    nlinarith [hblk, hlog, hllH, hll0, hl2lo, hl2hi]
+  have hpow : ((2 : ℝ)) ^ (s13BlockExp_gk K M) ≤ (A : ℝ) := by
+    have hlt : Real.log (((2 : ℝ)) ^ (s13BlockExp_gk K M)) ≤ Real.log (A : ℝ) := by
+      rw [Real.log_pow]; linarith
+    exact (Real.log_le_log_iff (by positivity) hApos).mp hlt
+  have hcast : ((2 ^ s13BlockExp_gk K M : ℕ) : ℝ) ≤ (A : ℝ) := by push_cast; exact hpow
+  have hnat : (2 : ℕ) ^ s13BlockExp_gk K M ≤ A := by exact_mod_cast hcast
+  rw [s13BlockFloor_gk]; omega
+
+/-- `S15Sel (:724)` at the lever. -/
+structure S15Sel_gk (K : ℕ) (Cg δ₀ Ct ρ : ℝ) (x₀ : ℕ) (R : ChowlaRegime) (M : ℕ) : Prop where
+  /-- the door's parameter is a modulus. -/
+  hM : 1 ≤ M
+  /-- ⟦`M`-LOWER 1⟧ `MSelect'_gk K.bfloor` = `M4DoorGates.hMδ`. -/
+  bfloor : 24 * Cg / δ₀ ≤ (M : ℝ)
+  /-- ⟦`M`-LOWER 2⟧ `MSelect'_gk K.gRows` — pays ⟦gate 8⟧ (`hdgate`) and ⟦G2⟧ (`hj0`). -/
+  gRows : 242 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ ((Adoor M : ℕ) : ℝ)
+  /-- ⟦`M`-LOWER 3⟧ the opaque threshold, as a plain `ℕ` floor (`S13BandGate_gk K.x0_le`). -/
+  x0M : x₀ ≤ M
+  /-- ⟦`M`-UPPER 1⟧ `MSelect'_gk K.blockCeil` AND ⟦F3⟧'s `block`, off `hPHheadroom` (`§3b`). -/
+  blk : ((s13BlockExp_gk K M : ℕ) : ℝ) + 1 + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+    ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)
+  /-- ⟦`M`-UPPER 2⟧ THE WINDOW GATE at the half-window floor (`s13_winFit_of_halfWindow`). -/
+  half : (7 / 10 : ℝ) * ((doorRowFloor M : ℕ) : ℝ) + 3 * Real.log (1 / ρ)
+    ≤ Real.log ((R.Hlo : ℕ) : ℝ) / 2
+  /-- the clearing charge — `ρ ≥ e^{−10^{14}}`. -/
+  rho : -Real.log ρ ≤ 100000000000000
+  /-- the `ρ`-frame's ⟦C1⟧ anchor, at its OWN statement (no `2^{2483}` floor). -/
+  anchor : 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + Real.log (1 / ρ) + 33 ≤ 39 * 10 ^ 8
+  /-- the `𝒯`-leg budget at `constPool` (`s15_gP1_of_budget_gk K`). -/
+  gP1 : 29 + Real.log Ct + 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+    ≤ ((Adoor M : ℕ) : ℝ) * Real.log 2 + Real.log ρ
+  /-- the `T₀`-band residue line after the `e`-cancellation (`S13BandGate_gk K.err_res`). -/
+  err : 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + Real.log (1 / ρ) + 17 ≤ 347900
+  /-- the `level1` budget — the BINDING const-pool line (`Adoor M ≳ 242.4·Λ`). -/
+  lvl : 26 + 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      + (1 / 3) * Real.log (Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ))
+      + (-Real.log ρ)
+    ≤ (1 / 12) * ((Adoor M : ℕ) : ℝ) * Real.log 2
+
+/-- `S15Sel.head (:755)` at the lever. -/
+theorem S15Sel_gk.head {K : ℕ} {Cg δ₀ Ct ρ : ℝ} {x₀ : ℕ} {R : ChowlaRegime} {M : ℕ}
+    (hsel : S15Sel_gk K Cg δ₀ Ct ρ x₀ R M) (hΛ : 0 ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) :
+    s13BlockExp_gk K M ≤ 4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ + 1 := by
+  have h := hsel.blk
+  have hR : ((s13BlockExp_gk K M : ℕ) : ℝ) ≤ ((4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) := by
+    push_cast; linarith
+  have : s13BlockExp_gk K M ≤ 4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ := by exact_mod_cast hR
+  omega
+
+/-- `s15_bandGate_of_grade (:767)` at the lever. -/
+theorem s15_bandGate_of_grade_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ : ℕ} {R : ChowlaRegime}
+    {M : ℕ} {C' : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hsel : S15Sel_gk K Cg δ₀ Ct ρ x₀ R M)
+    (hgrade : 8 * C' ≤ (Real.log 2 * ((doorRowFloor M : ℕ) : ℝ))
+      ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 / 1000))) :
+    S13BandGate_gk K R M x₀ C' ρ (fun _ => 1) where
+  x0_le := s15_x0_le hsel.x0M
+  C1_one := fun _ => le_rfl
+  grade := hgrade
+  err_res := fun n => by
+    have h2 : Real.log 2 ≤ 1 := by
+      have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 2); linarith
+    have h3 := hsel.err
+    change 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + 2 * Real.log ((1 : ℝ) + 1)
+      + Real.log (1 / ρ) + 15 ≤ 347900
+    rw [show ((1 : ℝ) + 1) = 2 by norm_num]
+    linarith
+  block := by
+    intro H L q j A s hb
+    exact s15_block_at_socket_gk K hb (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
+
+/-- `S15CrossingBound` (:799) at the lever — the crossing-bound bytes at the
+levered `𝒫`/`𝒬K`; `calH (H1door M)` is LEVEL 1 and stays. -/
+def S15CrossingBound_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) : Prop :=
+  ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+    ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+      (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+      2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+      5 ≤ Real.log (Real.log (2 * T)) →
+      (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+          ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+        ≤ 8 * (0 : ℝ) ^ 2
+          + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                \ seamBall (((A + s : ℕ)) : ℝ) 0)
+              ∩ seamTtotG (chiBarCoeff q χ liouvilleC)
+                  (calP (Adoor M) (s13GK K M))
+                  (calQK (Adoor M) (s13GK K M) M) (calH (H1door M))
+                  (mrAlpha (1 / 12)) 2,
+              ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+          + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+              * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + (theta293 - 1 / 500)))
+
+set_option maxHeartbeats 1000000 in
+-- Same cause as `S12ConstCompose` §4: the twin's sixteen-binder residue re-elaborates against
+-- the instantiated prefix.
+/-- `logChowla2_conditional (:841)` at the lever. -/
+theorem logChowla2_conditional_gk (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct : ℝ) (x₀ Hcap : ℕ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        max Hcap (max arcFloor36 loglogFloor50) ≤ U1floor →
+        ∃ R : ChowlaRegime, R.eps = ε ∧ R.Hlo = U1floor ∧ g R.Hhi R.ω ≤ R.x ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+          ∀ M : ℕ, S15Sel_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ R M →
+            ∃ C' : ℝ, 0 < C' ∧
+              (8 * C' ≤ (Real.log 2 * ((doorRowFloor M : ℕ) : ℝ))
+                  ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 / 1000)) →
+                S15CrossingBound_gk K R M →
+                  ¬ logChowla2Fails R.eps R.x R.ω) := by
+  obtain ⟨Cg, ε, Kc, δ₀, Ct, Cq, cs, T₀, Kq, Ks, x₀, Hcap, hCg, hε, hKc, hδ₀, hCt, hCq, hcs,
+    hT₀, hKq, hKs, hmain⟩ := logChowla2_capstone_final_const'_gk K hK s13Aexp s13Aexp_pos
+  refine ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, hε, hCg, hKc, hδ₀, hCt, ?_⟩
+  intro U1floor g hU
+  set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
+  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
+  set ρ : ℝ := doorRhoOfDelta δs with hρdef
+  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
+  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
+  obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
+    hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω)
+  have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
+  have hRgg : g R.Hhi R.ω ≤ R.x := by omega
+  -- ⟦THE BASE PIN⟧ `R.Hlo = U1floor`
+  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
+  have hHlo : R.Hlo = U1floor := by
+    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
+    omega
+  have hfl : loglogFloor50 ≤ R.Hlo := by
+    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
+    omega
+  have harcfl : arcFloor36 ≤ R.Hlo := by
+    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
+    omega
+  refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
+  intro M hsel
+  obtain ⟨C', hC'pos, hgo⟩ := hfire M hsel.hM
+  refine ⟨C', hC'pos, ?_⟩
+  intro hgrade hcap
+  -- ⟦the two scale floors⟧
+  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
+  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2) := hRtow hlam50
+  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
+    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  -- ⟦the arm, both halves⟧
+  have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
+    le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
+  have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
+  have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
+    intro H hlo hhi
+    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
+    have hreg := hHreg H hlo hhi
+    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
+    linarith
+  -- ⟦ITEM 16⟧ the arithmetic frame family
+  have harith := s15_doorArithFrameRho_family (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
+    hsel.anchor hHreg hgarm (fun _ => zero_le_one)
+  -- ⟦the `M`-selection system⟧
+  have hS : MSelect'_gk K Cg δ₀ (Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) ρ R M :=
+    s13_MSelect'_of_halfWindow_gk K hfl hsel.bfloor hsel.gRows hsel.half
+      (hsel.head (by linarith))
+  -- ⟦the band register, four of five⟧
+  have hgate : S13BandGate_gk K R M x₀ C' ρ (fun _ => 1) :=
+    s15_bandGate_of_grade_gk K hfl hsel hgrade
+  -- ⟦THE FIRE⟧
+  refine hgo (fun _ => (1 : ℝ)) (s13BandM0 R ρ (fun _ => (1 : ℝ))) (fun _ => (0 : ℝ))
+    (fun _ => theta293 - 1 / 500) 0 (doorCount R.ω)
+    (s13_doorGates_of_MSelect'_gk K hsel.hM hδ₀ hS harmdem)
+    (s13_endpoint_of_arm' hδ₀ harmdem)
+    (s13_g2_jfloor le_rfl (s13_g2_jfloor_of_MSelect'_gk K hsel.hM (by linarith) hS))
+    (s15_gate8_gk K le_rfl (s13_gate8_of_MSelect'_gk K (by linarith) hS))
+    (s13_smallGradeFits_of_MSelect'_gk K hρ0 hρ1 hS)
+    (fun H L q j A s hb => doorBaseFrame_at_socket hb (harith H L q j A s hb))
+    (fun _ _ _ _ _ _ _ => s15_gP1_of_budget_gk K hCt hρ0 hsel.gP1)
+    (fun H L q j A s hb =>
+      s15_gRows_const_at_socket_gk K hfl hb hsel.hM hρ0 hρ1 htow hsel.rho hsel.lvl)
+    (fun H L q j A s hb =>
+      s12c_eps_threshold_at_socket hfl hb hlam50 htow hsel.rho le_rfl)
+    (fun H L q j A s hb => s15_heps293_at_socket hfl hb hρ0 hlam50 htow hsel.rho)
+    (fun H L q j A s hb => s15_hband4096_at_socket hfl hb hρ0 hlam50 htow hsel.rho)
+    (fun _ _ _ _ _ _ _ => ⟨by have := s13_theta293_margin_lo; linarith, le_rfl⟩)
+    (fun H L q j A s hb =>
+      s13_doorRowZeroBase_five_gk K hsel.hM (hgate.block H L q j A s hb) hb.2.2.2.2.2.2.1)
+    hcap
+    (doorBandBase_family_gk K hsel.hM harith hgate)
+    harith
+
+/-- `S15Supply (:954)` at the lever. -/
+def S15Supply_gk (K : ℕ) (Cg δ₀ Ct ρ : ℝ) (x₀ : ℕ) (R : ChowlaRegime) : Prop :=
+  ∃ M : ℕ, S15Sel_gk K Cg δ₀ Ct ρ x₀ R M ∧ S15CrossingBound_gk K R M ∧
+    ∀ C' : ℝ, 0 < C' → 8 * C' ≤ (Real.log 2 * ((doorRowFloor M : ℕ) : ℝ))
+      ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 / 1000))
+
+/-- `logChowla2_witnessed_scale_conditional (:962)` at the lever. -/
+theorem logChowla2_witnessed_scale_conditional_gk (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ (Cg Kc δ₀ Ct : ℝ) (x₀ : ℕ), 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧
+      ((∀ R : ChowlaRegime, S15Supply_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ R) →
+        LogChowla2WitnessedScale) := by
+  obtain ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, hε, hCg, hKc, hδ₀, hCt, hbody⟩ :=
+    logChowla2_conditional_gk K hK
+  refine ⟨Cg, Kc, δ₀, Ct, x₀, hCg, hKc, hδ₀, hCt, ?_⟩
+  intro hsup
+  refine logChowla2_witnessed_scale_of_fired ⟨ε, hε, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hHlo, hRg, -, hM⟩ :=
+    hbody (max U1floor (max Hcap (max arcFloor36 loglogFloor50))) g (le_max_right _ _)
+  obtain ⟨M, hsel, hcap, hgate⟩ := hsup R
+  obtain ⟨C', hC'pos, hfin⟩ := hM M hsel
+  exact ⟨R, hReps, by omega, hRg, hfin (hgate C' hC'pos) hcap⟩
+
+/-- `s15_socketBase_inhabited (:986)` at the lever. -/
+theorem s15_socketBase_inhabited_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ : ℕ} {R : ChowlaRegime} {M : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1)
+    (hsel : S15Sel_gk K Cg δ₀ Ct ρ x₀ R M) :
+    SocketBase R M R.Hhi R.Hhi 1 (doorRowFloor M) (2 * R.x) 0 := by
+  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  have hS : MSelect'_gk K Cg δ₀ (Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) ρ R M :=
+    s13_MSelect'_of_halfWindow_gk K hfl hsel.bfloor hsel.gRows hsel.half
+      (hsel.head (by linarith))
+  have hwin : 2 ^ doorRowFloor M ≤ R.Hlo :=
+    s14_window_floor_of_winFit hρ0 hρ1 (hS.winFit R.Hlo le_rfl R.hHlohi)
+  exact s14_socketBase_witness (le_trans hwin R.hHlohi)
+
+/-- `s15_compose_nonvacuous (:1001)` at the lever. -/
+theorem s15_compose_nonvacuous_gk (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct : ℝ) (x₀ Hcap : ℕ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        max Hcap (max arcFloor36 loglogFloor50) ≤ U1floor →
+        ∃ R : ChowlaRegime, R.eps = ε ∧ R.Hlo = U1floor ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ M : ℕ, S15Sel_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ R M →
+            SocketBase R M R.Hhi R.Hhi 1 (doorRowFloor M) (2 * R.x) 0 := by
+  obtain ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, hε, hCg, hKc, hδ₀, hCt, hbody⟩ :=
+    logChowla2_conditional_gk K hK
+  refine ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, hε, hCg, hKc, hδ₀, hCt, ?_⟩
+  intro U1floor g hU
+  obtain ⟨R, hReps, hHlo, hRg, -, -⟩ := hbody U1floor g hU
+  refine ⟨R, hReps, hHlo, hRg, ?_⟩
+  intro M hsel
+  have hfl : loglogFloor50 ≤ R.Hlo := by
+    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
+    omega
+  exact s15_socketBase_inhabited_gk K hfl (doorRhoOfDelta_pos (s12DeltaSock_pos hδ₀ hKc).ne')
+    (doorRhoOfDelta_le_one _) hsel
+
+set_option maxHeartbeats 1000000 in
+-- Same cause as §5: the twin's residue re-elaborates against the instantiated prefix.
+/-- `logChowla2_conditional_graded (:1054)` at the lever. -/
+theorem logChowla2_conditional_graded_gk (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct : ℝ) (x₀ Hcap Mfl : ℕ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        max Hcap (max arcFloor36 loglogFloor50) ≤ U1floor →
+        ∃ R : ChowlaRegime, R.eps = ε ∧ R.Hlo = U1floor ∧ g R.Hhi R.ω ≤ R.x ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+          ∀ M : ℕ, Mfl ≤ M →
+            S15Sel_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ R M →
+              S15CrossingBound_gk K R M → ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, Kc, δ₀, Ct, Cq, cs, T₀, Kq, Ks, x₀, Hcap, Mfl, hCg, hε, hKc, hδ₀, hCt, hCq,
+    hcs, hT₀, hKq, hKs, hMfl, hmain⟩ :=
+    logChowla2_capstone_final_const'_graded_gk K hK s13Aexp s13Aexp_pos
+  refine ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl, ?_⟩
+  intro U1floor g hU
+  set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
+  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
+  set ρ : ℝ := doorRhoOfDelta δs with hρdef
+  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
+  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
+  obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
+    hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω)
+  have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
+  have hRgg : g R.Hhi R.ω ≤ R.x := by omega
+  -- ⟦THE BASE PIN⟧ `R.Hlo = U1floor`
+  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
+  have hHlo : R.Hlo = U1floor := by
+    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
+    omega
+  have hfl : loglogFloor50 ≤ R.Hlo := by
+    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
+    omega
+  have harcfl : arcFloor36 ≤ R.Hlo := by
+    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
+    omega
+  refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
+  intro M hMfloor hsel
+  obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hMfloor
+  intro hcap
+  -- ⟦the two scale floors⟧
+  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
+  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2) := hRtow hlam50
+  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
+    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  -- ⟦the arm, both halves⟧
+  have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
+    le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
+  have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
+  have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
+    intro H hlo hhi
+    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
+    have hreg := hHreg H hlo hhi
+    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
+    linarith
+  -- ⟦ITEM 16⟧ the arithmetic frame family
+  have harith := s15_doorArithFrameRho_family (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
+    hsel.anchor hHreg hgarm (fun _ => zero_le_one)
+  -- ⟦the `M`-selection system⟧
+  have hS : MSelect'_gk K Cg δ₀ (Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) ρ R M :=
+    s13_MSelect'_of_halfWindow_gk K hfl hsel.bfloor hsel.gRows hsel.half
+      (hsel.head (by linarith))
+  -- ⟦the band register, four of five⟧
+  have hgate : S13BandGate_gk K R M x₀ C' ρ (fun _ => 1) :=
+    s15_bandGate_of_grade_gk K hfl hsel hgrade
+  -- ⟦THE FIRE⟧
+  refine hgo (fun _ => (1 : ℝ)) (s13BandM0 R ρ (fun _ => (1 : ℝ))) (fun _ => (0 : ℝ))
+    (fun _ => theta293 - 1 / 500) 0 (doorCount R.ω)
+    (s13_doorGates_of_MSelect'_gk K hsel.hM hδ₀ hS harmdem)
+    (s13_endpoint_of_arm' hδ₀ harmdem)
+    (s13_g2_jfloor le_rfl (s13_g2_jfloor_of_MSelect'_gk K hsel.hM (by linarith) hS))
+    (s15_gate8_gk K le_rfl (s13_gate8_of_MSelect'_gk K (by linarith) hS))
+    (s13_smallGradeFits_of_MSelect'_gk K hρ0 hρ1 hS)
+    (fun H L q j A s hb => doorBaseFrame_at_socket hb (harith H L q j A s hb))
+    (fun _ _ _ _ _ _ _ => s15_gP1_of_budget_gk K hCt hρ0 hsel.gP1)
+    (fun H L q j A s hb =>
+      s15_gRows_const_at_socket_gk K hfl hb hsel.hM hρ0 hρ1 htow hsel.rho hsel.lvl)
+    (fun H L q j A s hb =>
+      s12c_eps_threshold_at_socket hfl hb hlam50 htow hsel.rho le_rfl)
+    (fun H L q j A s hb => s15_heps293_at_socket hfl hb hρ0 hlam50 htow hsel.rho)
+    (fun H L q j A s hb => s15_hband4096_at_socket hfl hb hρ0 hlam50 htow hsel.rho)
+    (fun _ _ _ _ _ _ _ => ⟨by have := s13_theta293_margin_lo; linarith, le_rfl⟩)
+    (fun H L q j A s hb =>
+      s13_doorRowZeroBase_five_gk K hsel.hM (hgate.block H L q j A s hb) hb.2.2.2.2.2.2.1)
+    hcap
+    (doorBandBase_family_gk K hsel.hM harith hgate)
+    harith
+
+/-- `S15SupplyGraded (:1152)` at the lever. -/
+def S15SupplyGraded_gk (K : ℕ) (Cg δ₀ Ct ρ : ℝ) (x₀ Mfl : ℕ) (R : ChowlaRegime) : Prop :=
+  ∃ M : ℕ, Mfl ≤ M ∧ S15Sel_gk K Cg δ₀ Ct ρ x₀ R M ∧ S15CrossingBound_gk K R M
+
+/-- `logChowla2_witnessed_scale_conditional_graded (:1157)` at the lever. -/
+theorem logChowla2_witnessed_scale_conditional_graded_gk (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ (Cg Kc δ₀ Ct : ℝ) (x₀ Mfl : ℕ), 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧
+      ((∀ R : ChowlaRegime,
+          S15SupplyGraded_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ Mfl R) →
+        LogChowla2WitnessedScale) := by
+  obtain ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl, hbody⟩ :=
+    logChowla2_conditional_graded_gk K hK
+  refine ⟨Cg, Kc, δ₀, Ct, x₀, Mfl, hCg, hKc, hδ₀, hCt, ?_⟩
+  intro hsup
+  refine logChowla2_witnessed_scale_of_fired ⟨ε, hε, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hHlo, hRg, -, hM⟩ :=
+    hbody (max U1floor (max Hcap (max arcFloor36 loglogFloor50))) g (le_max_right _ _)
+  obtain ⟨M, hMfloor, hsel, hcap⟩ := hsup R
+  exact ⟨R, hReps, by omega, hRg, hM M hMfloor hsel hcap⟩
+
+/-- `S15Sel' (:1217)` at the lever. -/
+structure S15Sel'_gk (K : ℕ) (Cg δ₀ Ct ρ : ℝ) (x₀ Mfl : ℕ) (R : ChowlaRegime) (M : ℕ) : Prop where
+  /-- the door's parameter is a modulus. -/
+  hM : 1 ≤ M
+  /-- ⟦`M`-LOWER 0⟧ the graded twin's own `ℕ`-floor (§8's quantifier hypothesis, folded in). -/
+  mfloor : Mfl ≤ M
+  /-- ⟦`M`-LOWER 1⟧ `MSelect'_gk K.bfloor` = `M4DoorGates.hMδ`. -/
+  bfloor : 24 * Cg / δ₀ ≤ (M : ℝ)
+  /-- ⟦`M`-LOWER 2⟧ `MSelect'_gk K.gRows` — pays ⟦gate 8⟧ (`hdgate`) and ⟦G2⟧ (`hj0`). -/
+  gRows : 242 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ ((Adoor M : ℕ) : ℝ)
+  /-- ⟦`M`-LOWER 3⟧ the opaque threshold, as a plain `ℕ` floor (`S13BandGate'_gk K.x0_le`). -/
+  x0M : x₀ ≤ M
+  /-- ⟦`M`-UPPER 1⟧ `MSelect'_gk K.blockCeil` AND ⟦F3⟧'s `block`, off `hPHheadroom` (`§3b`). -/
+  blk : ((s13BlockExp_gk K M : ℕ) : ℝ) + 1 + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+    ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ)
+  /-- ⟦`M`-UPPER 2⟧ THE WINDOW GATE at the half-window floor (`s13_winFit_of_halfWindow`). -/
+  half : (7 / 10 : ℝ) * ((doorRowFloor M : ℕ) : ℝ) + 3 * Real.log (1 / ρ)
+    ≤ Real.log ((R.Hlo : ℕ) : ℝ) / 2
+  /-- the clearing charge — `ρ ≥ e^{−10^{14}}`. -/
+  rho : -Real.log ρ ≤ 100000000000000
+  /-- the `ρ`-frame's ⟦C1⟧ anchor, at its OWN statement (no `2^{2483}` floor). -/
+  anchor : 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + Real.log (1 / ρ) + 33 ≤ 39 * 10 ^ 8
+  /-- the `𝒯`-leg budget at `constPool` (`s15_gP1_of_budget_gk K`). -/
+  gP1 : 29 + Real.log Ct + 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+    ≤ ((Adoor M : ℕ) : ℝ) * Real.log 2 + Real.log ρ
+  /-- the `level1` budget — the BINDING const-pool line (`Adoor M ≳ 242.4·Λ`). -/
+  lvl : 26 + 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      + (1 / 3) * Real.log (Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ))
+      + (-Real.log ρ)
+    ≤ (1 / 12) * ((Adoor M : ℕ) : ℝ) * Real.log 2
+
+/-- `S15Sel'.head (:1249)` at the lever. -/
+theorem S15Sel'_gk.head {K : ℕ} {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
+    (hsel : S15Sel'_gk K Cg δ₀ Ct ρ x₀ Mfl R M)
+    (hΛ : 0 ≤ Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) :
+    s13BlockExp_gk K M ≤ 4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ + 1 := by
+  have h := hsel.blk
+  have hR : ((s13BlockExp_gk K M : ℕ) : ℝ) ≤ ((4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) := by
+    push_cast; linarith
+  have : s13BlockExp_gk K M ≤ 4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ := by exact_mod_cast hR
+  omega
+
+/-- `s15_bandGate'_of_grade (:1263)` at the lever. -/
+theorem s15_bandGate'_of_grade_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
+    {C' : ℝ} (hfl : loglogFloor50 ≤ R.Hlo) (hsel : S15Sel'_gk K Cg δ₀ Ct ρ x₀ Mfl R M)
+    (hgrade : 8 * C' ≤ (Real.log 2 * ((doorRowFloor M : ℕ) : ℝ))
+      ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 / 1000))) :
+    S13BandGate'_gk K R M x₀ C' (fun _ => 1) where
+  x0_le := s15_x0_le hsel.x0M
+  C1_one := fun _ => le_rfl
+  grade := hgrade
+  block := by
+    intro H L q j A s hb
+    exact s15_block_at_socket_gk K hb (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
+
+set_option maxHeartbeats 1000000 in
+-- Same cause as §5 and §8: the twin's residue re-elaborates against the instantiated prefix.
+/-- `logChowla2_conditional_sharp` (:1290) at the lever, UNIFORM IN `K` — the pin
+`K := 500000` is taken one declaration below, in `logChowla2_conditional_sharp_gk`. -/
+theorem logChowla2_conditional_sharp_atK_gk (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct : ℝ) (x₀ Hcap Mfl : ℕ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        max Hcap (max arcFloor36 loglogFloor50) ≤ U1floor →
+        ∃ R : ChowlaRegime, R.eps = ε ∧ R.Hlo = U1floor ∧ g R.Hhi R.ω ≤ R.x ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+          ∀ M : ℕ, S15Sel'_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ Mfl R M →
+            S15CrossingBound_gk K R M → ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, Kc, δ₀, Ct, Cq, cs, T₀, Kq, Ks, x₀, Hcap, Mfl, hCg, hε, hKc, hδ₀, hCt, hCq,
+    hcs, hT₀, hKq, hKs, hMfl, hmain⟩ :=
+    logChowla2_capstone_final_const'_graded_gk K hK s13Aexp s13Aexp_pos
+  refine ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl, ?_⟩
+  intro U1floor g hU
+  set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
+  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
+  set ρ : ℝ := doorRhoOfDelta δs with hρdef
+  have hρ0 : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
+  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
+  obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hfire⟩ :=
+    hmain 0 le_rfl U1floor (fun Hhi ω => s15Arm δ₀ ρ Hhi ω + g Hhi ω)
+  have hRarm : s15Arm δ₀ ρ R.Hhi R.ω ≤ R.x := by omega
+  have hRgg : g R.Hhi R.ω ≤ R.x := by omega
+  -- ⟦THE BASE PIN⟧ `R.Hlo = U1floor`
+  have hHcapU : Hcap ≤ U1floor := le_trans (le_max_left _ _) hU
+  have hHlo : R.Hlo = U1floor := by
+    have : max Hcap U1floor = U1floor := max_eq_right hHcapU
+    omega
+  have hfl : loglogFloor50 ≤ R.Hlo := by
+    have := le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU
+    omega
+  have harcfl : arcFloor36 ≤ R.Hlo := by
+    have := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU
+    omega
+  refine ⟨R, hReps, hHlo, hRgg, hRtow, ?_⟩
+  intro M hsel
+  obtain ⟨C', hC'pos, hgrade, hgo⟩ := hfire M hsel.mfloor
+  intro hcap
+  -- ⟦the two scale floors⟧
+  obtain ⟨-, hlam50⟩ := regime_Hfloor_of_loglogFloor50 hfl
+  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  have htow : Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ (Real.log (Real.log ((R.Hlo : ℕ) : ℝ))) ^ ((9 : ℝ) / 2) := hRtow hlam50
+  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
+    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  -- ⟦the arm, both halves⟧
+  have harmdem : s13GArm' δ₀ R.Hhi R.ω ≤ R.x :=
+    le_trans (s15Arm_demoted δ₀ ρ R.Hhi R.ω) hRarm
+  have hωpos : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
+  have hgarm : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      gArmDoorRho 0 0 (R.ω : ℝ) ρ H ≤ (R.x : ℝ) := by
+    intro H hlo hhi
+    refine le_trans (s15_gArmDoorRho_mono hωpos ?_ hhi) (s15Arm_rho hRarm)
+    have hreg := hHreg H hlo hhi
+    have := one_lt_log_of_loglog_ge hreg.1 (by norm_num : (0:ℝ) < 50) hreg.2
+    linarith
+  -- ⟦ITEM 16⟧ the arithmetic frame family
+  have harith := s15_doorArithFrameRho_family (C₁ := fun _ : ℕ => (1 : ℝ)) hsel.hM hρ0 hρ1
+    hsel.anchor hHreg hgarm (fun _ => zero_le_one)
+  -- ⟦the `M`-selection system⟧
+  have hS : MSelect'_gk K Cg δ₀ (Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) ρ R M :=
+    s13_MSelect'_of_halfWindow_gk K hfl hsel.bfloor hsel.gRows hsel.half
+      (hsel.head (by linarith))
+  -- ⟦the sharp band register, three of four⟧
+  have hgate : S13BandGate'_gk K R M x₀ C' (fun _ => 1) :=
+    s15_bandGate'_of_grade_gk K hfl hsel hgrade
+  -- ⟦THE FIRE⟧
+  refine hgo (fun _ => (1 : ℝ)) (s13BandM0 R ρ (fun _ => (1 : ℝ))) (fun _ => (0 : ℝ))
+    (fun _ => theta293 - 1 / 500) 0 (doorCount R.ω)
+    (s13_doorGates_of_MSelect'_gk K hsel.hM hδ₀ hS harmdem)
+    (s13_endpoint_of_arm' hδ₀ harmdem)
+    (s13_g2_jfloor le_rfl (s13_g2_jfloor_of_MSelect'_gk K hsel.hM (by linarith) hS))
+    (s15_gate8_gk K le_rfl (s13_gate8_of_MSelect'_gk K (by linarith) hS))
+    (s13_smallGradeFits_of_MSelect'_gk K hρ0 hρ1 hS)
+    (fun H L q j A s hb => doorBaseFrame_at_socket hb (harith H L q j A s hb))
+    (fun _ _ _ _ _ _ _ => s15_gP1_of_budget_gk K hCt hρ0 hsel.gP1)
+    (fun H L q j A s hb =>
+      s15_gRows_const_at_socket_gk K hfl hb hsel.hM hρ0 hρ1 htow hsel.rho hsel.lvl)
+    (fun H L q j A s hb =>
+      s12c_eps_threshold_at_socket hfl hb hlam50 htow hsel.rho le_rfl)
+    (fun H L q j A s hb => s15_heps293_at_socket hfl hb hρ0 hlam50 htow hsel.rho)
+    (fun H L q j A s hb => s15_hband4096_at_socket hfl hb hρ0 hlam50 htow hsel.rho)
+    (fun _ _ _ _ _ _ _ => ⟨by have := s13_theta293_margin_lo; linarith, le_rfl⟩)
+    (fun H L q j A s hb =>
+      s13_doorRowZeroBase_five_gk K hsel.hM (hgate.block H L q j A s hb) hb.2.2.2.2.2.2.1)
+    hcap
+    (doorBandBase_family'_gk K hsel.hM hρ0 hρ1 (fun _ => le_rfl) hHreg
+      (hgarm R.Hhi R.hHlohi le_rfl) harith hgate)
+    harith
+
+/-- **⟦THE PIN⟧** (`logChowla2_conditional_sharp_gk`) — `logChowla2_conditional_sharp` (:1290)
+at the lever, with `K` MOVED INTO THE ∃-PREFIX and instantiated at the working value
+`K = 500000` (which clears `DoorFrame`'s `A_gate_logK` side condition `K ≤ 1.7·10⁸` by ~340×,
+discharged here by `norm_num`).  The ℝ-valued constant the landed statement called `K` is
+written `Kc` so the lever's binder is unshadowed.
+
+Below this point the family is no longer uniform in `K`: this is where the numeral enters. -/
+theorem logChowla2_conditional_sharp_gk :
+    ∃ (K : ℕ) (ε : ℚ) (Cg Kc δ₀ Ct : ℝ) (x₀ Hcap Mfl : ℕ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        max Hcap (max arcFloor36 loglogFloor50) ≤ U1floor →
+        ∃ R : ChowlaRegime, R.eps = ε ∧ R.Hlo = U1floor ∧ g R.Hhi R.ω ≤ R.x ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+          ∀ M : ℕ, S15Sel'_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ Mfl R M →
+            S15CrossingBound_gk K R M → ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl, hbody⟩ :=
+    logChowla2_conditional_sharp_atK_gk 500000 (by norm_num)
+  exact ⟨500000, ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl, hbody⟩
+
+/-- `s15_socketBase_inhabited' (:1387)` at the lever. -/
+theorem s15_socketBase_inhabited'_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ}
+    {R : ChowlaRegime} {M : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1)
+    (hsel : S15Sel'_gk K Cg δ₀ Ct ρ x₀ Mfl R M) :
+    SocketBase R M R.Hhi R.Hhi 1 (doorRowFloor M) (2 * R.x) 0 := by
+  obtain ⟨-, hΛ50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl R.hHlohi)
+  have hS : MSelect'_gk K Cg δ₀ (Real.log (Real.log ((R.Hhi : ℕ) : ℝ))) ρ R M :=
+    s13_MSelect'_of_halfWindow_gk K hfl hsel.bfloor hsel.gRows hsel.half
+      (hsel.head (by linarith))
+  have hwin : 2 ^ doorRowFloor M ≤ R.Hlo :=
+    s14_window_floor_of_winFit hρ0 hρ1 (hS.winFit R.Hlo le_rfl R.hHlohi)
+  exact s14_socketBase_witness (le_trans hwin R.hHlohi)
+
+/-- `s15_sel'_anchor_cap (:1412)` at the lever. -/
+theorem s15_sel'_anchor_cap_gk (K : ℕ) {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
+    (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1)
+    (h50 : 50 ≤ Real.log (Real.log (R.Hlo : ℝ)))
+    (hwidth : (Real.log (Real.log (R.Hlo : ℝ))) ^ 3 ≤ Real.log (Real.log (R.Hhi : ℝ)))
+    (hsel : S15Sel'_gk K Cg δ₀ Ct ρ x₀ Mfl R M) :
+    Real.log (Real.log (R.Hlo : ℝ)) ≤ 654 := by
+  have hlρ : (0 : ℝ) ≤ Real.log (1 / ρ) := by
+    rw [one_div, Real.log_inv]
+    have : Real.log ρ ≤ 0 := Real.log_nonpos hρ0.le hρ1
+    linarith
+  have hanc := hsel.anchor
+  set u : ℝ := Real.log (Real.log (R.Hlo : ℝ)) with hudef
+  by_contra hcon
+  rw [not_le] at hcon
+  have hsq : (654 : ℝ) ^ 2 ≤ u ^ 2 := by nlinarith [hcon, h50]
+  have hcube : (279726264 : ℝ) ≤ u ^ 3 := by nlinarith [hsq, hcon, h50]
+  norm_num at hanc hlρ ⊢
+  linarith [hwidth, hcube, hanc, hlρ]
+
+/-- `S15SupplySharp (:1434)` at the lever. -/
+def S15SupplySharp_gk (K : ℕ) (Cg δ₀ Ct ρ : ℝ) (x₀ Mfl : ℕ) (R : ChowlaRegime) : Prop :=
+  ∃ M : ℕ, S15Sel'_gk K Cg δ₀ Ct ρ x₀ Mfl R M ∧ S15CrossingBound_gk K R M
+
+/-- `logChowla2_witnessed_scale_sharp (:1440)` at the lever. -/
+theorem logChowla2_witnessed_scale_sharp_gk (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ (Cg Kc δ₀ Ct : ℝ) (x₀ Mfl : ℕ), 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧
+      ((∀ R : ChowlaRegime,
+          S15SupplySharp_gk K Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) x₀ Mfl R) →
+        LogChowla2WitnessedScale) := by
+  obtain ⟨ε, Cg, Kc, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl, hbody⟩ :=
+    logChowla2_conditional_sharp_atK_gk K hK
+  refine ⟨Cg, Kc, δ₀, Ct, x₀, Mfl, hCg, hKc, hδ₀, hCt, ?_⟩
+  intro hsup
+  refine logChowla2_witnessed_scale_of_fired ⟨ε, hε, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hHlo, hRg, -, hM⟩ :=
+    hbody (max U1floor (max Hcap (max arcFloor36 loglogFloor50))) g (le_max_right _ _)
+  obtain ⟨M, hsel, hcap⟩ := hsup R
+  exact ⟨R, hReps, by omega, hRg, hM M hsel hcap⟩
+
+-- #audit (temporary)

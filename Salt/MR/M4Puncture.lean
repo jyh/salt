@@ -321,4 +321,75 @@ theorem norm_doorPunctCoeff_le_one {q : ℕ} (χ : DirichletCharacter ℂ q) (M 
       (liouChi χ) n‖ ≤ 1 :=
   norm_memSPunctCoeff_le_one (norm_liouChi_le_one χ) _ _ 2 j n
 
+/-! ## §GK — the G-lever twin
+
+The puncture page at `G := s13GK K M`.  Only ONE step is not a literal swap: the door's block
+separation asks `M < 4G`, which at the landed base is `M < 12288M` (`by omega`) and at the
+lever is that same fact pushed through `GLever.le_s13GK` — the lever only GROWS `G`, so the
+separation gate survives a fortiori. -/
+
+/-- **THE DOOR'S BLOCK SEPARATION, AT THE G-LEVER** (`door_block_separation_gk`).  `M < 4G`
+at `G = s13GK K M` follows from `M < 4·(3072M)` and `3072M ≤ s13GK K M`. -/
+theorem door_block_separation_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
+    calQK (Adoor M) (s13GK K M) M 1 < calP (Adoor M) (s13GK K M) 2 :=
+  calQK_one_lt_calP_two (one_le_Adoor M)
+    (lt_of_lt_of_le (show M < 4 * (3072 * M) by omega)
+      (Nat.mul_le_mul_left 4 (le_s13GK K M)))
+
+/-- **THE DOOR'S TWO BLOCKS ARE SEPARATED, POINTWISE, AT THE G-LEVER**
+(`door_block_sep_at_gk`). -/
+theorem door_block_sep_at_gk (K : ℕ) {M j p : ℕ} (hM : 1 ≤ M) (hj : j ∈ Finset.Icc 1 2)
+    (hlo : calP (Adoor M) (s13GK K M) j ≤ p)
+    (hhi : p ≤ calQK (Adoor M) (s13GK K M) M j) :
+    ∀ i ∈ Finset.Icc 1 2, i ≠ j →
+      ¬ (calP (Adoor M) (s13GK K M) i ≤ p ∧ p ≤ calQK (Adoor M) (s13GK K M) M i) := by
+  have hsplit := door_block_separation_gk K hM
+  rw [Finset.mem_Icc] at hj
+  obtain ⟨hj1, hj2⟩ := hj
+  intro i hi hij
+  rw [Finset.mem_Icc] at hi
+  obtain ⟨hi1, hi2⟩ := hi
+  rintro ⟨hilo, hihi⟩
+  -- `j` and `i` are the two distinct levels of `{1, 2}`
+  interval_cases j <;> interval_cases i <;> omega
+
+/-- **`hcoefBand` AT THE DOOR, HALF-OPEN, AT THE G-LEVER**
+(`doorChiCoeff_seamCoefW_punct_H_gk`). -/
+theorem doorChiCoeff_seamCoefW_punct_H_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q)
+    {M Xd : ℕ} {a : ℕ → ℂ} (hM : 1 ≤ M)
+    (haH : ∀ n : ℕ, Xd < n → n ≤ 2 * Xd → a n = doorChiCoeff_gk K χ M n)
+    (ha0 : a Xd = 0) (hend : doorChiCoeff_gk K χ M Xd = 0) :
+    ∀ j ∈ Finset.Icc 1 2,
+      SeamCoefW Xd (calP (Adoor M) (s13GK K M) j) (calQK (Adoor M) (s13GK K M) M j) a
+        (memSPunctCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 j
+          (liouChi χ)) (liouChi χ) := by
+  intro j hj
+  exact memSCoeff_seamCoefW_punct_H χ (calP (Adoor M) (s13GK K M))
+    (calQK (Adoor M) (s13GK K M) M) 2 j Xd a hj
+    (fun p hp hlo hhi => door_block_sep_at_gk K hM hj hlo hhi) haH ha0 hend
+
+/-- **`hcoefBand` AT THE DOOR, STRICT, AT THE G-LEVER**
+(`doorChiCoeff_seamCoefWS_punct_H_gk`). -/
+theorem doorChiCoeff_seamCoefWS_punct_H_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q)
+    {M Xd : ℕ} {a : ℕ → ℂ} (hM : 1 ≤ M)
+    (haH : ∀ n : ℕ, Xd < n → n ≤ 2 * Xd → a n = doorChiCoeff_gk K χ M n) :
+    ∀ j ∈ Finset.Icc 1 2,
+      SeamCoefWS Xd (calP (Adoor M) (s13GK K M) j) (calQK (Adoor M) (s13GK K M) M j) a
+        (memSPunctCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 j
+          (liouChi χ)) (liouChi χ) := by
+  intro j hj
+  exact memSCoeff_seamCoefWS_punct_H χ (calP (Adoor M) (s13GK K M))
+    (calQK (Adoor M) (s13GK K M) M) 2 j Xd a hj
+    (fun p hp hlo hhi => door_block_sep_at_gk K hM hj hlo hhi) haH
+
+/-- The door's punctured co-factor family at the G-lever is `1`-bounded
+(`norm_doorPunctCoeff_le_one_gk`). -/
+theorem norm_doorPunctCoeff_le_one_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q)
+    (M j n : ℕ) :
+    ‖memSPunctCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 j
+      (liouChi χ) n‖ ≤ 1 :=
+  norm_memSPunctCoeff_le_one (norm_liouChi_le_one χ) _ _ 2 j n
+
+-- #audit (temporary)
+
 end Salt.MR

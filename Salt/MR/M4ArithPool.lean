@@ -302,4 +302,119 @@ theorem m4_chiSummedFreeRow_of_doorArithRho_pool {R : ChowlaRegime} {M : ℕ}
     hF.ceil5 (hrows H L q j A s hbb) (hband H L q j A s hbb) hF.gP1 hF.gRows hF.eps_pool
     hF.band_pool
 
+/-! ## §GK — the G-lever twin
+
+The pooled pricing at `G := s13GK K M` (`GLever`), `(K : ℕ)` first.
+
+⟦K-INVARIANT, KEEPS ITS LANDED NAME⟧ the four summand-3 lemmas of §1 read `π₀` and `log X`
+only — no door ladder — so they carry over verbatim and get no twin, as do `RSanDoor`,
+`RSanDoorRho`, `m4ChiRowGraded`, `m4_arith_gate4_rho` and `DoorArithFrame{,Rho}`.
+`a2DoorGrade_pool_gk` is the landed pooled grade under a levered name
+(`M4AssemblyPool.a2DoorGrade_pool_gk_eq`), so §2's two pricings transport in one rewrite.
+
+⚠ ⟦THE BINDER SHADOW⟧ as on `M4ArithRho`'s page, ⟦C3⟧'s REAL constant `K` inside
+`DoorArithFrame{,Rho}` is alpha-renamed to `Kar` so the lever's `(K : ℕ)` can go first. -/
+
+/-- `a2DoorGrade_pool_priced` (:110), at the lever. -/
+theorem a2DoorGrade_pool_priced_gk (K : ℕ) {M H j : ℕ} {X C₁ M₀ Kar π₀ : ℝ}
+    (hfr : DoorArithFrame M H j X C₁ M₀ Kar) (hpool : 0 ≤ π₀)
+    (hprice : 188133 * π₀ * Real.exp (14 * Real.log (Real.log (H : ℝ))) ≤ 1 / 2 ^ 342) :
+    arcDen 12 H * a2DoorGrade_pool_gk K M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀ ≤ RSanDoor H := by
+  rw [a2DoorGrade_pool_gk_eq]
+  exact a2DoorGrade_pool_priced hfr hpool hprice
+
+/-- `a2DoorGrade_pool_priced_rho` (:165), at the lever. -/
+theorem a2DoorGrade_pool_priced_rho_gk (K : ℕ) {M H j : ℕ} {X C₁ M₀ Kar ρ π₀ : ℝ}
+    (hfr : DoorArithFrameRho M H j X C₁ M₀ Kar ρ) (hpool : 0 ≤ π₀)
+    (hprice : 188133 * π₀ * Real.exp (14 * Real.log (Real.log (H : ℝ))) ≤ ρ / 2) :
+    arcDen 12 H * a2DoorGrade_pool_gk K M X ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀ ≤ RSanDoorRho ρ H := by
+  rw [a2DoorGrade_pool_gk_eq]
+  exact a2DoorGrade_pool_priced_rho hfr hpool hprice
+
+/-- `m4_chiSummedFreeRowBig_of_doorGradeGated_pool` (:214), at the lever. -/
+theorem m4_chiSummedFreeRowBig_of_doorGradeGated_pool_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ}
+    {C₁ M₀ π₀ : ℕ → ℝ} {RSbig : ℕ → ℕ → ℝ}
+    (hpool : ∀ A : ℕ, 0 ≤ π₀ A)
+    (hgrade : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq_gk K χ M j (A + s)
+        ≤ (q.totient : ℝ)
+            * a2DoorGrade_pool_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+                (M₀ (A + s)) (π₀ (A + s)))
+    (henv : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      arcDen 12 H * a2DoorGrade_pool_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+          (M₀ (A + s)) (π₀ (A + s))
+        ≤ RSbig j H) :
+    M4ChiSummedFreeRowBig_gk K R M RSbig := by
+  intro H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx hAcap s hsL
+  have hb : SocketBase R M H L q j A s :=
+    ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩
+  have hh1 : (1 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) := by
+    exact_mod_cast (Nat.one_le_two_pow : 1 ≤ 2 ^ j)
+  have hh0 : (0 : ℝ) < ((2 ^ j : ℕ) : ℝ) := by linarith
+  have hG0 : 0 ≤ a2DoorGrade_pool_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+      (M₀ (A + s)) (π₀ (A + s)) :=
+    a2DoorGrade_pool_nonneg_gk K M (log_natCast_nonneg' (A + s)) hh0 (hpool (A + s))
+  have hφq : (q.totient : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.totient_le q
+  have hφarc : (q.totient : ℝ) ≤ arcDen 12 H := le_trans hφq hqQ
+  refine le_trans (hgrade H L q j A s hb) ?_
+  refine le_trans (mul_le_mul_of_nonneg_right hφarc hG0) ?_
+  exact henv H L q j A s hb
+
+/-- `m4_arith_henv_rho_pool` (:245), at the lever. -/
+theorem m4_arith_henv_rho_pool_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {C₁ M₀ π₀ : ℕ → ℝ}
+    {Kar ρ : ℝ}
+    (hpool : ∀ A : ℕ, 0 ≤ π₀ A)
+    (harith : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kar ρ)
+    (hprice : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      188133 * π₀ (A + s) * Real.exp (14 * Real.log (Real.log (H : ℝ))) ≤ ρ / 2) :
+    ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      arcDen 12 H * a2DoorGrade_pool_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+          (M₀ (A + s)) (π₀ (A + s))
+        ≤ RSanDoorRho ρ H :=
+  fun H L q j A s hb =>
+    a2DoorGrade_pool_priced_rho_gk K (harith H L q j A s hb) (hpool (A + s))
+      (hprice H L q j A s hb)
+
+/-- `m4_chiSummedFreeRow_of_doorArithRho_pool` (:267), at the lever. -/
+theorem m4_chiSummedFreeRow_of_doorArithRho_pool_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ}
+    {Cs Ccc C₁ M₀ ε π₀ : ℕ → ℝ} {Kar ρ : ℝ}
+    (hM : 1 ≤ M)
+    (hframe : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorFuseFrame_pool_gk K M (A + s) j (Cs (A + s)) (Ccc (A + s)) (ε (A + s)) (π₀ (A + s)))
+    (hrows : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+        (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+        TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+        (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) / T
+            * (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+          ≤ a2Mrow_gk K (Cs (A + s)) (Ccc (A + s)) M (A + s) (((A + s : ℕ)) : ℝ) (ε (A + s)))
+    (hband : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∀ χ : DirichletCharacter ℂ q,
+        (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+          ‖dpolyA (winCutH (A + s) (doorChiCoeff_gk K χ M))
+            (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+          ≤ t0BandB (((A + s : ℕ)) : ℝ) (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (M₀ (A + s)))
+    (harith : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kar ρ)
+    (hprice : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      188133 * π₀ (A + s) * Real.exp (14 * Real.log (Real.log (H : ℝ))) ≤ ρ / 2)
+    (hpool : ∀ A : ℕ, 0 ≤ π₀ A) :
+    M4ChiSummedFreeRow_gk K R M (m4ChiRowGraded M (fun _ H => RSanDoorRho ρ H)) := by
+  refine m4_chiSummedFreeRow_of_big_gk K
+    (m4_chiSummedFreeRowBig_of_doorGradeGated_pool_gk K (C₁ := C₁) (M₀ := M₀) (π₀ := π₀)
+      hpool ?_ (m4_arith_henv_rho_pool_gk K hpool harith hprice))
+  intro H L q j A s hb
+  obtain ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩ := hb
+  haveI : NeZero q := ⟨hq.ne'⟩
+  have hbb : SocketBase R M H L q j A s :=
+    ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩
+  have hF := hframe H L q j A s hbb
+  exact m4_chiFreeRowSq_sum_at_door_pool_gk K hM hF.X_exp hF.X_three hF.h_four hF.h_window
+    hF.tann hF.ceil5 (hrows H L q j A s hbb) (hband H L q j A s hbb) hF.gP1 hF.gRows
+    hF.eps_pool hF.band_pool
+
 end Salt.MR
+
+-- #audit (temporary)

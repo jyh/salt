@@ -646,4 +646,146 @@ theorem band_floor_M0_doorPiece (Q : ℕ) :
   rw [hval] at hdeb
   exact hK q χ _ _ 𝒥 X v _ hq hX hv hdeb
 
+/-! ## §GK — the G-lever twin
+
+The `T₀`-datum page at `G := s13GK K M`.  A pure literal swap: the split's pieces are read at
+the levered K-family, `doorCofactor0_door_eq_gk` supplies the middle step, and the analytic
+composition (`cfb_sup_of_center_cut`, `norm_spolyA_of_pieces`, `cfb_t0band_supply_of_sup`,
+`piece_center_of_wide`) is `G`-generic and is reused verbatim.
+
+⟦ABSTAINED, per the dispatch⟧ `two_le_calE_door` and `band_floor_M0_doorPiece` — off the
+compose cone; no `_gk` sibling is minted for them here. -/
+
+/-- **THE DOOR DATUM'S FOUR-PIECE SPLIT, AT THE G-LEVER** (`winCutH_doorChiCoeff_split_gk`)
+-- the levered K-family in the pieces, `doorCofactor0_door_eq_gk` in the middle. -/
+theorem winCutH_doorChiCoeff_split_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q)
+    (M Xd n : ℕ) :
+    winCutH Xd (doorChiCoeff_gk K χ M) n
+      = ∑ 𝒥 ∈ (Finset.Icc 1 2).powerset,
+          pieceSign 𝒥 (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 1
+            * winCutH Xd (pieceDatum χ 𝒥 (calP (Adoor M) (s13GK K M))
+                (calQK (Adoor M) (s13GK K M) M)) n := by
+  refine winCutH_sum_finset _ Xd _ _ (fun m => ?_) n
+  rw [← doorCofactor0_door_eq_gk K χ M]
+  exact doorCofactor0_split χ _ _ 2 1 le_rfl m
+
+/-- **THE DOOR DATUM'S PER-FREQUENCY BAND SUP, AT THE G-LEVER** (`m4_t0datum_sup_gk`).  The
+`8` is `4 = #𝒫([1,2])` pieces times the half-open cut's factor `2`, exactly as landed. -/
+theorem m4_t0datum_sup_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M : ℕ)
+    {Xd N : ℕ} {X S₀ : ℝ}
+    (hN : N ≤ 2 * Xd) (hS₀ : 0 ≤ S₀)
+    (hpiece : ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset, ∀ t : ℝ, |t| ≤ seamT0 X →
+      ∀ k : ℕ, Xd ≤ k → k ≤ N →
+        ‖∑ n ∈ Finset.Icc 1 k,
+            pieceDatum χ 𝒥 (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) n
+              * eIu (-t) n‖ ≤ S₀ * (k : ℝ)) :
+    ∀ t : ℝ, |t| ≤ seamT0 X → ∀ m : ℕ, m ≤ N →
+      ‖spolyA (winCutH Xd (doorChiCoeff_gk K χ M)) t m‖ ≤ (8 * S₀) * (m : ℝ) := by
+  intro t ht m hm
+  have hb : ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset,
+      ‖spolyA (winCutH Xd (pieceDatum χ 𝒥 (calP (Adoor M) (s13GK K M))
+        (calQK (Adoor M) (s13GK K M) M))) t m‖ ≤ 2 * S₀ * (m : ℝ) :=
+    fun 𝒥 h𝒥 => cfb_sup_of_center_cut hS₀ hN (hpiece 𝒥 h𝒥 t ht) m hm
+  have hmain := norm_spolyA_of_pieces
+    (s := (Finset.Icc 1 2).powerset)
+    (ε := fun 𝒥 => pieceSign 𝒥 (calP (Adoor M) (s13GK K M))
+      (calQK (Adoor M) (s13GK K M) M) 1)
+    (fun 𝒥 _ => norm_pieceSign_le_one 𝒥 _ _ 1)
+    (winCutH_doorChiCoeff_split_gk K χ M Xd) hb
+  rw [door_powerset_card] at hmain
+  have h4 : ((4 : ℕ) : ℝ) * (2 * S₀ * (m : ℝ)) = (8 * S₀) * (m : ℝ) := by push_cast; ring
+  linarith [hmain, h4.le, h4.ge]
+
+/-- **THE `hT0band` SLOT AT THE DOOR DATUM, AT THE G-LEVER** (`m4_hT0band_at_door_gk`). -/
+theorem m4_hT0band_at_door_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M : ℕ) {Xd N : ℕ}
+    {X C₁ M₀ S₀ : ℝ}
+    (hX3 : (3 : ℝ) ≤ X) (hXd : ((Xd : ℕ) : ℝ) = X) (hXdN : Xd ≤ N) (hN : N ≤ 2 * Xd)
+    (hC₁ : 1 ≤ C₁) (hS₀ : 0 ≤ S₀)
+    (hSle : 8 * S₀ ≤ 2 * (C₁ * Real.exp (-(1 / (2 * Real.exp 1)) * M₀)
+        + 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)))
+    (hpiece : ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset, ∀ t : ℝ, |t| ≤ seamT0 X →
+      ∀ k : ℕ, Xd ≤ k → k ≤ N →
+        ‖∑ n ∈ Finset.Icc 1 k,
+            pieceDatum χ 𝒥 (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) n
+              * eIu (-t) n‖ ≤ S₀ * (k : ℝ))
+    (hErr : 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)
+        ≤ Real.exp (-(1 / (2 * Real.exp 1)) * M₀)) :
+    (∫ t in (-(seamT0 X))..(seamT0 X),
+        ‖dpolyA (winCutH Xd (doorChiCoeff_gk K χ M)) (seamS0 N X) t‖ ^ 2)
+      ≤ t0BandB X (cfbC₁ X C₁) M₀ := by
+  have hXN : X ≤ (N : ℝ) := by
+    rw [← hXd]; exact Nat.cast_le.mpr hXdN
+  have hN2 : (N : ℝ) ≤ 2 * X := by
+    rw [← hXd]
+    have : (N : ℝ) ≤ ((2 * Xd : ℕ) : ℝ) := Nat.cast_le.mpr hN
+    push_cast at this
+    linarith
+  refine cfb_t0band_supply_of_sup hX3 hXN hN2 hC₁ ?_ (by linarith) hSle ?_ hErr
+  · intro n hn
+    exact winCutH_supp0 _ (by rw [hXd]; exact hn)
+  · exact m4_t0datum_sup_gk K χ M hN hS₀ hpiece
+
+/-- **THE SLOT, FULLY REDUCED TO THE WIDE SUPPLY, AT THE G-LEVER**
+(`m4_hT0band_at_door_of_wide_gk`).  The `∃X₀` is `center_halasz_supply_wideA`'s, unmoved by
+the lever: the wide centre supply never reads `G`. -/
+theorem m4_hT0band_at_door_of_wide_gk (K : ℕ) (Y : ℝ → ℝ) :
+    ∃ X₀ : ℝ, 0 < X₀ ∧
+      ∀ {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd N D : ℕ) (X Xw B C₁ M₀ : ℝ),
+        (3 : ℝ) ≤ X → ((Xd : ℕ) : ℝ) = X → Xd ≤ N → N ≤ 2 * Xd → 1 ≤ C₁ →
+        X₀ ≤ Real.sqrt X → Real.sqrt X ≤ Xw → 0 ≤ B → 1 ≤ D →
+        (D : ℝ) * (Xw + 1) ≤ X - 1 →
+        (∀ k : ℕ, Xw ≤ (k : ℝ) → (k : ℝ) ≤ 2 * X → 10 ≤ Y (k : ℝ)) →
+        (∀ k : ℕ, Xw ≤ (k : ℝ) → (k : ℝ) ≤ 2 * X → Y (k : ℝ) ≤ Real.sqrt (k : ℝ)) →
+        (∀ k : ℕ, Xw ≤ (k : ℝ) → (k : ℝ) ≤ 2 * X →
+            Real.sqrt (Real.log (k : ℝ)) ≤ Y (k : ℝ)) →
+        (∀ k : ℕ, Xw ≤ (k : ℝ) → (k : ℝ) ≤ 2 * X →
+            Real.log (Y (k : ℝ)) ≤ Real.sqrt (Real.log (k : ℝ))) →
+        (∀ 𝒥 ∈ (Finset.Icc 1 2).powerset, ∀ t : ℝ, |t| ≤ seamT0 X →
+          ∀ k : ℕ, Xw ≤ (k : ℝ) → (k : ℝ) ≤ 2 * X →
+            ‖prop21RHS (fun p => pieceDatum χ 𝒥 (calP (Adoor M) (s13GK K M))
+                    (calQK (Adoor M) (s13GK K M) M) p
+                  * (p : ℂ) ^ (-((0 + t : ℝ) : ℂ) * I)) (0 + t)
+                (k : ℝ) ((k : ℝ) / Real.sqrt (Real.log (k : ℝ))) (1 + 1 / Real.log (k : ℝ))
+                (Y (k : ℝ)) (1 / Real.log (Y (k : ℝ)))‖
+              ≤ B * (k : ℝ)) →
+        8 * (cSq * (B + 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000))
+              + cSq * (D : ℝ) ^ (-(1 / 4 : ℝ)))
+            ≤ 2 * (C₁ * Real.exp (-(1 / (2 * Real.exp 1)) * M₀)
+              + 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)) →
+        4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)
+            ≤ Real.exp (-(1 / (2 * Real.exp 1)) * M₀) →
+        (∫ t in (-(seamT0 X))..(seamT0 X),
+            ‖dpolyA (winCutH Xd (doorChiCoeff_gk K χ M)) (seamS0 N X) t‖ ^ 2)
+          ≤ t0BandB X (cfbC₁ X C₁) M₀ := by
+  obtain ⟨X₀, hX₀0, hwide⟩ := piece_center_of_wide Y
+  refine ⟨X₀, hX₀0, ?_⟩
+  intro q χ M Xd N D X Xw B C₁ M₀ hX3 hXd hXdN hN hC₁ hXlb hXw hB0 hD hDgate hY10 hYsq
+    hYlow hYlog hRHS hgrade hErr
+  have hN2 : (N : ℝ) ≤ 2 * X := by
+    rw [← hXd]
+    have h : (N : ℝ) ≤ ((2 * Xd : ℕ) : ℝ) := Nat.cast_le.mpr hN
+    push_cast at h
+    linarith
+  have hX1 : (1 : ℝ) ≤ X := by linarith
+  have hP0 : (0 : ℝ) ≤ Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000) :=
+    Real.rpow_nonneg (Real.log_nonneg hX1) _
+  have hcS : (0 : ℝ) ≤ cSq := by rw [cSq]; norm_num
+  have hDp : (0 : ℝ) ≤ (D : ℝ) ^ (-(1 / 4 : ℝ)) := Real.rpow_nonneg (Nat.cast_nonneg D) _
+  have hS₀ : (0 : ℝ) ≤ cSq * (B + 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000))
+      + cSq * (D : ℝ) ^ (-(1 / 4 : ℝ)) := by
+    have h1 : (0 : ℝ) ≤ cSq * (B + 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)) :=
+      mul_nonneg hcS (by linarith)
+    have h2 : (0 : ℝ) ≤ cSq * (D : ℝ) ^ (-(1 / 4 : ℝ)) := mul_nonneg hcS hDp
+    linarith
+  refine m4_hT0band_at_door_gk K χ M hX3 hXd hXdN hN hC₁ hS₀ hgrade ?_ hErr
+  intro 𝒥 h𝒥 t ht k hk1 hk2
+  have hkX : X - 1 < (k : ℝ) := by
+    have h : ((Xd : ℕ) : ℝ) ≤ (k : ℝ) := Nat.cast_le.mpr hk1
+    rw [hXd] at h
+    linarith
+  exact hwide χ 𝒥 _ _ X Xw B N D t hXlb hXw hB0 hD hDgate hN2 hY10 hYsq hYlow hYlog
+    (hRHS 𝒥 h𝒥 t ht) k hkX hk2
+
+-- #audit (temporary)
+
 end Salt.MR

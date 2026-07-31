@@ -1027,3 +1027,87 @@ theorem s13CapGrid_all {R : ChowlaRegime} {M H L q j A s : ℕ} {cs T : ℝ}
     s13CapGrid_WL hμ hΛ, s13CapGrid_gate hcs hμ hΛ, s13CapGrid_Q_hundred hμ hΛ,
     s13CapGrid_band_product hμ hΛ⟩
 
+/-! ## §GK — the G-lever twin -/
+
+/-- `s13CapGrid_Q2_reg (:935)` at the lever.  RE-RUN: `log 𝒬K₂` gains the lever's
+`2^K`, and the levered block floor pays it —
+the bound is `s13_doorRowZeroBase_five_gk`'s second conjunct, byte for byte. -/
+theorem s13CapGrid_Q2_reg_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} (hM : 1 ≤ M)
+    (hb : SocketBase R M H L q j A s) (hblock : s13BlockFloor_gk K M ≤ A + s) :
+    Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+      ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) :=
+  (s13_doorRowZeroBase_five_gk K hM hblock hb.2.2.2.2.2.2.1).2.1
+
+/-- `s13CapGrid_all (:959)` at the lever. -/
+theorem s13CapGrid_all_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} {cs T : ℝ}
+    (hM : 1 ≤ M) (hcs : 1 ≤ cs) (hfl : loglogFloor50 ≤ R.Hlo)
+    (hb : SocketBase R M H L q j A s) (hblock : s13BlockFloor_gk K M ≤ A + s)
+    (hTlo : (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T)
+    (hThi : 2 * T ≤ (((A + s : ℕ)) : ℝ)) :
+    -- ⟦logX_eight⟧
+    8 ≤ Real.log (((A + s : ℕ)) : ℝ)
+    -- ⟦H83_two⟧
+    ∧ 2 ≤ H83 (((A + s : ℕ)) : ℝ) theta293
+    -- ⟦q_logX⟧
+    ∧ (q : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ 12
+    -- ⟦logqT_L⟧
+    ∧ Real.log ((q : ℝ) * (2 * T)) ≤ s13Lr (A + s)
+    -- ⟦P_low⟧
+    ∧ P83 (((A + s : ℕ)) : ℝ) theta293 ≤ ((s13BandP (A + s) : ℕ) : ℝ)
+    -- ⟦Q2_reg⟧
+    ∧ Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+        ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ))
+    -- ⟦Q_pos⟧
+    ∧ 0 < s13BandQ (A + s)
+    -- ⟦Q_high⟧
+    ∧ ((s13BandQ (A + s) : ℕ) : ℝ) ≤ Q83 (((A + s : ℕ)) : ℝ)
+    -- ⟦P_le_Q⟧
+    ∧ s13BandP (A + s) ≤ s13BandQ (A + s)
+    -- ⟦Hj⟧
+    ∧ (∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
+        H83 (((A + s : ℕ)) : ℝ) theta293 ≤ (i : ℝ))
+    -- ⟦B3⟧
+    ∧ (∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
+        3 ≤ ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) i)
+    -- ⟦BT⟧
+    ∧ (∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
+        ((ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) i : ℕ) : ℝ)
+          ≤ (q : ℝ) * (2 * T))
+    -- ⟦kappa30⟧
+    ∧ (∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
+        30 ≤ Real.log ((q : ℝ) * (2 * T))
+          / Real.log (ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) i))
+    -- ⟦BT10⟧
+    ∧ (∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
+        ((ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) i : ℕ) : ℝ)
+          ≤ (2 * T) ^ 10)
+    -- ⟦WL⟧
+    ∧ (∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
+        Real.log (ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) i)
+          ≤ s13Lr (A + s))
+    -- ⟦gate⟧
+    ∧ (∀ i ∈ ramI (H83 (((A + s : ℕ)) : ℝ) theta293) (s13BandP (A + s)) (s13BandQ (A + s)),
+        420 * s13Lr (A + s) * (s13Lr (A + s)) ^ ((3 : ℝ) / 4)
+            * (Real.log (s13Lr (A + s))) ^ 5
+          ≤ cs * (Real.log (ramQbase (H83 (((A + s : ℕ)) : ℝ) theta293)
+              (s13BandP (A + s)) i)) ^ 2)
+    -- ⟦Q_hundred⟧
+    ∧ 100 * Real.log ((s13BandQ (A + s) : ℕ) : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ)
+    -- ⟦band_product⟧
+    ∧ ((Nat.sqrt (A + s) : ℝ) + 1)
+          * ∏ p ∈ primeBand (s13BandP (A + s)) (s13BandQ (A + s)), (1 + 3 / (p : ℝ))
+        ≤ (((A + s : ℕ)) : ℝ)
+          * (Real.log ((s13BandP (A + s) : ℕ) : ℝ)
+              / Real.log ((s13BandQ (A + s) : ℕ) : ℝ)) := by
+  have hμ : (2000 : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := s13CapGrid_mu_2000 hfl hb
+  have hΛ : (10 : ℝ) ^ (21 : ℕ) ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) :=
+    s13CapGrid_Lambda_lo hfl hb
+  exact ⟨s13CapGrid_logX_eight hfl hb, s13CapGrid_H83_two hμ hΛ, s13CapGrid_q_logX hfl hb,
+    s13CapGrid_logqT_L hfl hb hTlo hThi, s13CapGrid_P_low (A + s),
+    s13CapGrid_Q2_reg_gk K hM hb hblock, s13CapGrid_Q_pos hμ, s13CapGrid_Q_high (A + s),
+    s13CapGrid_P_le_Q hμ hΛ, s13CapGrid_Hj hμ hΛ, s13CapGrid_B3 hμ hΛ,
+    s13CapGrid_BT hfl hb hTlo, s13CapGrid_kappa30 hfl hb hTlo, s13CapGrid_BT10 hfl hb hTlo,
+    s13CapGrid_WL hμ hΛ, s13CapGrid_gate hcs hμ hΛ, s13CapGrid_Q_hundred hμ hΛ,
+    s13CapGrid_band_product hμ hΛ⟩
+
+-- #audit (temporary)

@@ -1004,6 +1004,354 @@ theorem m4_second_road_rs_ceiling {R : ChowlaRegime} {δ₀ δ : ℝ} {RSan RStr
     _ ≤ Braw H := hd
     _ ≤ δ₀ ^ 2 := hBrawδ
 
+/-! ## §GK — the G-lever twin
+
+The additive `_gk` family at `G := s13GK K M` (`GLever`): each declaration below is its
+landed original with `(K : ℕ)` as a new FIRST binder, every literal `3072 * M` rewritten to
+`s13GK K M`, and the door datum read at the lever (`doorSievedCoeff_gk`, `doorChiSup_gk`).
+`J` stays `2`; ⟦gate 8⟧'s `arcDen 12 H < calP (Adoor M) (s13GK K M) 1` is the LANDED level-1
+symbol (`GLever.calP_gk_one_eq`), so the `M`-RELATIVE dilation gate is unmoved by the lever.
+The block-length page (`blockLen` and its five lemmas), the truncation budget
+(`truncBudget`, `truncD`) and the witness envelopes read no door object and keep their
+landed names.
+-/
+
+/-- `M4SievedDoorSqBlk2` (:291), at the lever. -/
+def M4SievedDoorSqBlk2_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (ℓ : ℕ → ℕ → ℕ)
+    (Bblk : ℕ → ℝ) : Prop :=
+  M4BandTransport →
+    ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ (b : ℤ) (q : ℕ), 0 < q →
+      (q : ℝ) ≤ arcDen 12 H → 1 ≤ ℓ H q → ℓ H q ≤ H →
+      (H : ℝ) ≤ arcDen 12 H ^ 2 * (ℓ H q : ℝ) →
+        (∫ n, blockSupSq (doorSievedCoeff_gk K M) H (ℓ H q) n ((b : ℝ) / (q : ℝ))
+            ∂(logMeasure R.x R.ω))
+          ≤ Bblk H * (numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2
+
+/-- `m4_sievedDoorSq_of_blk2` (:303), at the lever. -/
+theorem m4_sievedDoorSq_of_blk2_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {ℓ : ℕ → ℕ → ℕ}
+    {Bblk Braw : ℕ → ℝ}
+    (hB0 : ∀ H : ℕ, 0 ≤ Bblk H)
+    (hℓ1 : ∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H → 1 ≤ ℓ H q)
+    (hℓH : ∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H → ℓ H q ≤ H)
+    (hℓcnt : ∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+      (H : ℝ) ≤ arcDen 12 H ^ 2 * (ℓ H q : ℝ))
+    (hℓdrift : ∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+      arcDen 12 H * (ℓ H q : ℝ) ≤ (q : ℝ) * (H : ℝ))
+    (hgrade : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      4 * (1 + 2 * Real.pi) ^ 2 * Bblk H ≤ Braw H)
+    (hblk : M4SievedDoorSqBlk2_gk K R M ℓ Bblk) : M4SievedDoorSq_gk K R M Braw := by
+  intro htr H _ hlo hhi α hα
+  have hH : 0 < H := Nat.pos_of_ne_zero (NeZero.ne H)
+  obtain ⟨b, q, hq, hqQ, hd⟩ := hα
+  have hℓ1' := hℓ1 H q hlo hhi hq hqQ
+  have hℓH' := hℓH H q hlo hhi hq hqQ
+  have hℓcnt' := hℓcnt H q hlo hhi hq hqQ
+  have hℓdrift' := hℓdrift H q hlo hhi hq hqQ
+  have hℓ0 : 0 < ℓ H q := hℓ1'
+  set c := doorSievedCoeff_gk K M with hc
+  set β : ℝ := (b : ℝ) / (q : ℝ) with hβ
+  set L := ℓ H q with hL
+  set N := numBlocks H L with hN
+  have hpt : ∀ n : ℕ, ‖absWindowSum c H n α‖ ^ 2
+      ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * blockSupSq c H L n β := by
+    intro n
+    have h := norm_absWindowSum_sq_le_drift_blocked (B₅ := 12) (H := H) (q := q) (n := n)
+      (ℓ := L) hq hH hℓ0 (β := β) (θ := α - β) hd hℓdrift' c
+    have he : β + (α - β) = α := by ring
+    rw [he] at h
+    exact h
+  have hmono : (∫ n, ‖absWindowSum c H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
+      ≤ ∫ n, (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * blockSupSq c H L n β ∂(logMeasure R.x R.ω) :=
+    integral_logMeasure_mono hpt
+  have hconst : (∫ n, (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * blockSupSq c H L n β
+        ∂(logMeasure R.x R.ω))
+      = (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * ∫ n, blockSupSq c H L n β ∂(logMeasure R.x R.ω) :=
+    integral_logMeasure_const_mul _ _
+  have hsupply := hblk htr H hlo hhi b q hq hqQ hℓ1' hℓH' hℓcnt'
+  have hfac0 : (0 : ℝ) ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) := by positivity
+  have hstep : (∫ n, ‖absWindowSum c H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
+      ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := by
+    rw [hconst] at hmono
+    exact le_trans hmono (mul_le_mul_of_nonneg_left hsupply hfac0)
+  have hNL : N * L ≤ 2 * H := by
+    have h1 : N * L ≤ H + L := by rw [hN]; exact numBlocks_mul_le H L
+    omega
+  have hNLR : (N : ℝ) * (L : ℝ) ≤ 2 * (H : ℝ) := by
+    have : ((N * L : ℕ) : ℝ) ≤ ((2 * H : ℕ) : ℝ) := by exact_mod_cast hNL
+    push_cast at this
+    linarith
+  have hNL0 : (0 : ℝ) ≤ (N : ℝ) * (L : ℝ) := by positivity
+  have hsq : ((N : ℝ) * (L : ℝ)) ^ 2 ≤ 4 * (H : ℝ) ^ 2 := by nlinarith
+  have hB := hB0 H
+  have hpi2 : (0 : ℝ) ≤ (1 + 2 * Real.pi) ^ 2 := sq_nonneg _
+  have hfin : (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
+      ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by
+    calc (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
+        = (1 + 2 * Real.pi) ^ 2 * Bblk H * (((N : ℝ) * (L : ℝ)) ^ 2) := by ring
+      _ ≤ (1 + 2 * Real.pi) ^ 2 * Bblk H * (4 * (H : ℝ) ^ 2) :=
+          mul_le_mul_of_nonneg_left hsq (mul_nonneg hpi2 hB)
+      _ = 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by ring
+  have hgr := hgrade H hlo hhi
+  calc (∫ n, ‖absWindowSum c H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
+      ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := hstep
+    _ ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := hfin
+    _ ≤ Braw H * (H : ℝ) ^ 2 := mul_le_mul_of_nonneg_right hgr (sq_nonneg _)
+
+/-- `M4BlockMeanSqBlk2` (:372), at the lever. -/
+def M4BlockMeanSqBlk2_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (ℓ : ℕ → ℕ → ℕ)
+    (Bblk : ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ (b : ℤ) (q : ℕ), 0 < q → (q : ℝ) ≤ arcDen 12 H →
+    1 ≤ ℓ H q → ℓ H q ≤ H → (H : ℝ) ≤ arcDen 12 H ^ 2 * (ℓ H q : ℝ) →
+    ∀ i < k,
+      ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          blockSupSq (doorSievedCoeff_gk K M) H (ℓ H q) n ((b : ℝ) / (q : ℝ))
+        ≤ Bblk H * (numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2
+            * (doorLadder R.x H (i + 1) : ℝ)
+
+/-- `m4_cover_assembly_blk2` (:383), at the lever. -/
+theorem m4_cover_assembly_blk2_gk (K : ℕ) {Cg : ℝ} {R : ChowlaRegime} {M k : ℕ} {δ : ℝ}
+    {ℓ : ℕ → ℕ → ℕ} {Bblk : ℕ → ℝ}
+    (hgates : M4DoorGates_gk K Cg R M k δ) (hB0 : ∀ H : ℕ, 0 ≤ Bblk H)
+    (hblk : M4BlockMeanSqBlk2_gk K R M k ℓ Bblk) :
+    M4SievedDoorSqBlk2_gk K R M ℓ (fun H => 3 * Bblk H) := by
+  intro _ H _ hlo hhi b q hq hqQ h1 h2 h3
+  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+  have hP : (0 : ℝ) ≤ Bblk H * (numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2 := by
+    have := hB0 H; positivity
+  have hmain := integral_door_cover_le_clean (x := R.x) (ω := R.ω) (H := H) (k := k)
+    (g := fun n => blockSupSq (doorSievedCoeff_gk K M) H (ℓ H q) n ((b : ℝ) / (q : ℝ)))
+    (P := Bblk H * (numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2)
+    R.hx R.hω R.hωx hgates.hlogω hgates.hcount
+    (fun n => blockSupSq_nonneg _ _ _ _ _) hP hxH
+    (hgates.hreach H hlo hhi) hgates.hpow (hblk H hlo hhi b q hq hqQ h1 h2 h3)
+  refine le_trans hmain (le_of_eq ?_)
+  ring
+
+set_option maxHeartbeats 1200000 in
+-- the block sum is re-associated over the drift blocks and then over the ladder block, and
+-- the stratified bound is instantiated once per drift block; every arithmetic step is
+-- `linarith`/`nlinarith` with hints
+/-- `m4_blockMeanSqBlk2_of_chiSummed` (:485), at the lever. -/
+theorem m4_blockMeanSqBlk2_of_chiSummed_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {Bcl : ℕ → ℝ}
+    (hM : 1 ≤ M) (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
+    (hgate : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      arcDen 12 H < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+    (harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ))
+    (hcount : (k : ℝ) ≤ Real.log (R.ω : ℝ) / Real.log 2 + 2)
+    (hchi : M4ChiSummedBlockMeanSqN_gk K R M Bcl) :
+    M4BlockMeanSqBlk2_gk K R M k blockLen
+      (fun H => 8 * strataResidual H ^ 2 * Bcl H) := by
+  intro H hlo hhi b q hq hqQ hℓ1 hℓH hℓcnt i hik
+  have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+  have harcH := harc H hlo hhi
+  have hres0 : (0 : ℝ) ≤ strataResidual H := strataResidual_nonneg harc1
+  have hB0 := hBcl0 H
+  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+  have hAfl : H + 1 ≤ doorLadder R.x H (i + 1) := doorLadder_floor hxH (i + 1)
+  have hfit : doorLadder R.x H i + H ≤ 2 * doorLadder R.x H (i + 1) := doorLadder_fit R.x H i
+  have hApos : 0 < doorLadder R.x H (i + 1) := by omega
+  set A := doorLadder R.x H (i + 1) with hA
+  set B := doorLadder R.x H i with hB
+  set L := blockLen H q with hLdef
+  set N := numBlocks H L with hN
+  have hLarc : 32 * arcDen 12 H ≤ (L : ℝ) := blockLen_arc_floor (R := R) hlo harcH
+  have hL16 : 16 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
+    nlinarith [harcH, sq_nonneg (arcDen 12 H)]
+  -- ⟦R-P5, THE x-SCALE LADDER AT THIS RUNG⟧ the base antecedents `M4Gauss` now asks for,
+  -- discharged from the ladder's geometric floor (`doorLadder_ge_x_div_four_omega`), its
+  -- CEILING (`doorLadder_le_start`, the (α) base cap) and the regime's own wave-II headroom
+  -- `8·H₊·log²H₊ ≤ ⌊x/ω⌋` (whose two log factors are `≥ 1` at `H₊ ≥ 4·10⁶`)
+  -- — NO new regime field, NO `g`-arm movement
+  have hω0N : 0 < 4 * R.ω := by have := R.hω; omega
+  have hω0 : (0 : ℝ) < (R.ω : ℝ) := by
+    have h : 0 < R.ω := by have := R.hω; omega
+    exact_mod_cast h
+  have hxdiv : R.x / (4 * R.ω) ≤ A := by
+    rw [hA]
+    exact doorLadder_ge_x_div_four_omega (H := H) R.hω hcount (by omega)
+  -- ⟦(α) THE BASE CAP AT THIS RUNG⟧ the ceiling side of the socket's fourth base antecedent
+  -- (the (α) base-cap surgery, JYH-granted 2026-07-30): the ladder never exceeds its own
+  -- top, so `X_{i+1} ≤ x` and every drift-shifted base is `≤ x + H ≤ 2x`
+  have hAtop : A ≤ R.x := by
+    rw [hA]
+    exact doorLadder_le_start hxH (i + 1)
+  have hHhi4 : (4000000 : ℝ) ≤ (R.Hhi : ℝ) := by
+    have h : 4000000 ≤ R.Hhi := le_trans R.hHlo_floor R.hHlohi
+    exact_mod_cast h
+  have hlogHhi : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) := by
+    have hexp : Real.exp 1 ≤ (R.Hhi : ℝ) := by nlinarith [Real.exp_one_lt_d9]
+    exact (Real.le_log_iff_exp_le (by linarith)).mpr hexp
+  have hxω : 8 * (R.ω : ℝ) * (R.Hhi : ℝ) ≤ (R.x : ℝ) := by
+    have hh := R.hheadroom'
+    have hcast : (((R.x / R.ω : ℕ)) : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := Nat.cast_div_le
+    have hlogsq : (1 : ℝ) ≤ Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) := by
+      nlinarith [hlogHhi]
+    have h1 : 8 * (R.Hhi : ℝ) ≤ (R.x : ℝ) / (R.ω : ℝ) := by
+      calc 8 * (R.Hhi : ℝ) = 8 * (R.Hhi : ℝ) * 1 := by ring
+        _ ≤ 8 * (R.Hhi : ℝ) * (Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ)) :=
+            mul_le_mul_of_nonneg_left hlogsq (by linarith)
+        _ = 8 * (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) * Real.log (R.Hhi : ℝ) := by ring
+        _ ≤ (((R.x / R.ω : ℕ)) : ℝ) := hh
+        _ ≤ (R.x : ℝ) / (R.ω : ℝ) := hcast
+    rw [le_div_iff₀ hω0] at h1
+    linarith
+  have hHhiR : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast hhi
+  have h8ωH : 8 * R.ω * H ≤ R.x := by
+    have h : (8 : ℝ) * (R.ω : ℝ) * (H : ℝ) ≤ (R.x : ℝ) := by nlinarith [hxω, hHhiR, hω0]
+    exact_mod_cast h
+  have h2HA : 2 * (H : ℝ) ≤ (A : ℝ) := by
+    have hn : 2 * H ≤ A := by
+      refine le_trans ((Nat.le_div_iff_mul_le hω0N).mpr ?_) hxdiv
+      calc 2 * H * (4 * R.ω) = 8 * R.ω * H := by ring
+        _ ≤ R.x := h8ωH
+    exact_mod_cast hn
+  have hxA : (R.x : ℝ) ≤ 8 * (R.ω : ℝ) * (A : ℝ) := by
+    have hdivub : R.x ≤ 4 * R.ω * (R.x / (4 * R.ω)) + 4 * R.ω :=
+      le_mul_div_add (A := R.x) (d := 4 * R.ω) hω0N
+    have h1 := (Nat.cast_le (α := ℝ)).mpr hdivub
+    have h2 : (((R.x / (4 * R.ω) : ℕ)) : ℝ) ≤ (A : ℝ) := by exact_mod_cast hxdiv
+    push_cast at h1
+    have hbig : 8 * (R.ω : ℝ) ≤ (R.x : ℝ) := by nlinarith [hxω, hHhi4, hω0]
+    nlinarith [h1, h2, hω0, hbig]
+  -- ⟦the drift blocks, one free block each⟧
+  have hstrat := m4_freeBlockSup_of_chiSummed_gk K (R := R) (M := M) (Bcl := Bcl) hM hBcl0 hgate
+    hchi H hlo hhi L hℓH hℓcnt hLarc hL16 b q hq hqQ
+  have hper : ∀ m ∈ Finset.range N,
+      ∑ n ∈ Finset.Ioc A B, (subWindowSup (doorSievedCoeff_gk K M) L (n + m * L)
+          ((b : ℝ) / (q : ℝ))) ^ 2
+        ≤ 8 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ) := by
+    intro m hm
+    have hmL : m * L ≤ H := mul_le_of_lt_numBlocks (Finset.mem_range.mp hm)
+    have hshift : ∑ n ∈ Finset.Ioc A B,
+        (subWindowSup (doorSievedCoeff_gk K M) L (n + m * L) ((b : ℝ) / (q : ℝ))) ^ 2
+        = ∑ n ∈ Finset.Ioc (A + m * L) (B + m * L),
+            (subWindowSup (doorSievedCoeff_gk K M) L n ((b : ℝ) / (q : ℝ))) ^ 2 :=
+      sum_Ioc_shift (fun n => (subWindowSup (doorSievedCoeff_gk K M) L n ((b : ℝ) / (q : ℝ))) ^ 2)
+        A B _
+    rw [hshift]
+    have hApos' : 0 < A + m * L := by omega
+    have hAle : (A : ℝ) ≤ ((A + m * L : ℕ) : ℝ) := by
+      exact_mod_cast (by omega : A ≤ A + m * L)
+    have h2HA' : 2 * (H : ℝ) ≤ ((A + m * L : ℕ) : ℝ) := by linarith
+    have hxA' : (R.x : ℝ) ≤ 8 * (R.ω : ℝ) * ((A + m * L : ℕ) : ℝ) := by
+      nlinarith [hxA, hAle, hω0]
+    have hcapA' : ((A + m * L : ℕ) : ℝ) ≤ 2 * (R.x : ℝ) := by
+      have hnat : A + m * L ≤ 2 * R.x :=
+        calc A + m * L ≤ R.x + H := Nat.add_le_add hAtop hmL
+          _ ≤ 2 * R.x := by omega
+      have := (Nat.cast_le (α := ℝ)).mpr hnat
+      push_cast at this ⊢
+      linarith
+    have hfit' : (B + m * L) + L ≤ 2 * (A + m * L) := by omega
+    have h := hstrat (A + m * L) (B + m * L) hApos' h2HA' hxA' hcapA' hfit'
+    have hbase : ((A + m * L : ℕ) : ℝ) ≤ 2 * (A : ℝ) := by
+      have hnat : A + m * L ≤ 2 * A := by omega
+      have := (Nat.cast_le (α := ℝ)).mpr hnat
+      push_cast at this ⊢
+      linarith
+    have hfac0 : (0 : ℝ) ≤ 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 := by positivity
+    nlinarith [mul_le_mul_of_nonneg_left hbase hfac0]
+  -- ⟦the drift-block sum⟧
+  have hswap : ∑ n ∈ Finset.Ioc A B, blockSupSq (doorSievedCoeff_gk K M) H L n ((b : ℝ) / (q : ℝ))
+      = ∑ m ∈ Finset.range N, ∑ n ∈ Finset.Ioc A B,
+          (subWindowSup (doorSievedCoeff_gk K M) L (n + m * L) ((b : ℝ) / (q : ℝ))) ^ 2 := by
+    unfold blockSupSq
+    exact Finset.sum_comm
+  rw [hswap]
+  refine le_trans (Finset.sum_le_sum hper) ?_
+  rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul]
+  refine le_of_eq ?_
+  ring
+
+/-- `m4_second_road` (:683), at the lever. -/
+theorem m4_second_road_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (RS : ℕ → ℕ → ℝ) (RSan RStr Braw : ℕ → ℝ) (M k j₀ : ℕ),
+            M4DoorGates_gk K Cg R M k δ → 1 ≤ M →
+            (∀ H : ℕ, 0 ≤ RSan H) → (∀ H : ℕ, 0 ≤ RStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ j H : ℕ, j₀ ≤ j → RS j H ≤ RSan H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ^ 7 ≤ RStr H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              44 * RSan H + 87 * arcDen 12 H ≤ (4 / 3 : ℝ) ^ j₀) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 3 ≤ (H : ℝ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              arcDen 12 H < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+                  * m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H
+                ≤ Braw H) →
+            M4GradeGateSplit R δ₀ δ Braw k →
+            M4ChiSummedFreeRow_gk K R M RS →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_door_contradiction_of_live_split_gk K
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain U1floor g
+  refine ⟨R, hReps, hU1, hRg, ?_⟩
+  intro δ RS RSan RStr Braw M k j₀ hgates hM hRSan0 hRStr0 hBraw0 han hG1 hG2 harc3 hdgate
+    hdrift hgrade hrow
+  -- ⟦the window floor, read at the two powers the chain spends⟧
+  have harc8 : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 8 * arcDen 12 H ^ 3 ≤ (H : ℝ) := by
+    intro H hlo hhi
+    have h1 := harc3 H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    nlinarith [h1, harc1]
+  have harc : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 128 * arcDen 12 H ^ 2 ≤ (H : ℝ) := by
+    intro H hlo hhi
+    have h1 := harc3 H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    nlinarith [h1, harc1]
+  have hchi : M4ChiSummedBlockMeanSqN_gk K R M
+      (m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H)) :=
+    m4_chiSummedN_supplied_gk K j₀ hRSan0 hRStr0 han hG1 hG2 harc8 hrow
+  have hBcl0 : ∀ H : ℕ, 0 ≤ m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H :=
+    fun H => m4BclGraded_nonneg (by have := hRSan0 H; linarith) (by have := hRStr0 H; linarith)
+  -- ⟦the blocked block mean square⟧
+  have hblk2 := m4_blockMeanSqBlk2_of_chiSummed_gk K (k := k) hM hBcl0 hdgate harc
+    hgates.hcount hchi
+  have hBblk0 : ∀ H : ℕ, 0 ≤ 8 * strataResidual H ^ 2
+      * m4BclGraded j₀ (fun H => 2 * RSan H) (fun H => 2 * RStr H) H := by
+    intro H
+    have := hBcl0 H
+    positivity
+  -- ⟦the cover, then the socket⟧
+  have hcov := m4_cover_assembly_blk2_gk K hgates hBblk0 hblk2
+  refine hR δ Braw M k hgates hBraw0 hgrade ?_
+  refine m4_sievedDoorSq_of_blk2_gk K (ℓ := blockLen)
+    (fun H => by have := hBblk0 H; positivity)
+    (fun H q _ _ _ _ => one_le_blockLen H q) ?_ ?_ ?_ ?_ hcov
+  · intro H q hlo hhi _ _
+    have h1 := harc H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    have hH1 : 1 ≤ H := by
+      have : (1 : ℝ) ≤ (H : ℝ) := by nlinarith
+      exact_mod_cast this
+    exact blockLen_le H q hH1
+  · intro H q hlo hhi _ _
+    exact blockLen_narrow (R := R) hlo (harc H hlo hhi)
+  · intro H q hlo hhi hq _
+    exact blockLen_drift (R := R) hlo hq (harc H hlo hhi)
+  · intro H hlo hhi
+    have h := hdrift H hlo hhi
+    have hres0 : (0 : ℝ) ≤ strataResidual H :=
+      strataResidual_nonneg (one_le_arcDen_of_regime (R := R) hlo)
+    have hB := hBcl0 H
+    nlinarith [h]
+
+/-- `stratum_sq_le_chiSummed_at_truncD` (:848), at the lever. -/
+theorem stratum_sq_le_chiSummed_at_truncD_gk (K : ℕ) {M Kw n q d Lw : ℕ} {δ₀ : ℝ} (hM : 1 ≤ M)
+    (hq : 0 < q) (hd0 : 0 < d) (hdq : d ∣ q) (hdD : (d : ℝ) ≤ ((truncD δ₀ : ℕ) : ℝ))
+    (hgate : ((truncD δ₀ : ℕ) : ℝ) < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) (b : ℤ)
+    (hlen : dilLen Kw n d ≤ Lw) :
+    ‖∑ r ∈ (Finset.range q).filter (fun r => Nat.gcd r q = d),
+        ratPhase b q r * ∑ m ∈ windowClass Kw n q r, doorSievedCoeff_gk K M m‖ ^ 2
+      ≤ ∑ χ : DirichletCharacter ℂ (q / d), (doorChiSup_gk K χ M Lw (n / d)) ^ 2 :=
+  stratum_sq_le_chiSummed_gk K hM hq hd0 hdq hdD hgate b hlen
+
 end Salt.MR
 
 end
+
+-- #audit (temporary)

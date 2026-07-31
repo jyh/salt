@@ -453,6 +453,162 @@ theorem logChowla2_witnessed_scale_of_fired
         ¬ logChowla2Fails R.eps R.x R.ω) :
     LogChowla2WitnessedScale := h
 
+/-! ## §GK — the G-lever twin -/
+
+/-- `s14_p2_in_logs (:166)` at the lever. `𝒫₁` is LEVEL 1, so the numeral does not move. -/
+theorem s14_p2_in_logs_gk (K : ℕ) {M Xd : ℕ} {Cp : ℝ} (hX1 : (1 : ℝ) < Real.log ((Xd : ℕ) : ℝ))
+    (hg : GRowsZeroGate'''_gk K M Xd Cp (decayPool Xd)) :
+    Real.log 552960 + theta293 * Real.log (Real.log ((Xd : ℕ) : ℝ))
+      ≤ ((Adoor M : ℕ) : ℝ) * Real.log 2 := by
+  have hp2 := hg.p2
+  have hP1pos : (0 : ℝ) < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) := by
+    have h : 0 < calP (Adoor M) (s13GK K M) 1 := by rw [calP]; exact Nat.two_pow_pos _
+    exact_mod_cast h
+  have hP2pos : (0 : ℝ) < ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) := by
+    have h : 0 < calP (Adoor M) (s13GK K M) 2 := by rw [calP]; exact Nat.two_pow_pos _
+    exact_mod_cast h
+  have hL0 : (0 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by linarith
+  have hpool : decayPool Xd
+      = Real.exp (-(theta293 * Real.log (Real.log ((Xd : ℕ) : ℝ)))) := by
+    rw [decayPool_def, Real.rpow_def_of_pos hL0]; ring_nf
+  have hstep : 138240 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+      ≤ 1 / 4 * decayPool Xd := by
+    have hpos : (0 : ℝ) < 1 / ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) :=
+      one_div_pos.mpr hP2pos
+    linarith
+  rw [hpool] at hstep
+  have hE : (0 : ℝ) < Real.exp (theta293 * Real.log (Real.log ((Xd : ℕ) : ℝ))) :=
+    Real.exp_pos _
+  have hrw1 : 138240 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+      = 138240 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) := by ring
+  have hrw2 : (1 : ℝ) / 4 * (Real.exp (theta293 * Real.log (Real.log ((Xd : ℕ) : ℝ))))⁻¹
+      = 1 / (4 * Real.exp (theta293 * Real.log (Real.log ((Xd : ℕ) : ℝ)))) := by
+    field_simp
+  rw [Real.exp_neg, hrw1, hrw2, div_le_div_iff₀ hP1pos (by positivity)] at hstep
+  have hkey : 552960 * Real.exp (theta293 * Real.log (Real.log ((Xd : ℕ) : ℝ)))
+      ≤ ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) := by linarith
+  have hlog := Real.log_le_log (by positivity) hkey
+  rw [Real.log_mul (by norm_num) (Real.exp_pos _).ne', Real.log_exp,
+    s13_band_log_calP_one_gk K M] at hlog
+  linarith
+
+/-! ## §3 — ⟦THE KILL⟧
+
+The `p²` cap, read twice against the same socket base, contradicts itself.
+
+* AGAINST THE `j`-FLOOR (§1): `loglog X_d ≥ ½·log 2·M·Adoor M`, so the cap forces
+  `θ₂₉₃·½·log 2·M·Adoor M ≤ Adoor M·log 2`, i.e. `M ≤ 2/θ₂₉₃ ≤ 589` — hence
+  `Nat.log 2 M ≤ 9` and `Adoor M ≤ 2^{36}·10 = 6.872·10^{11}`.
+* AGAINST `loglogFloor50` (the capstone's own absorbed floor): `log H ≥ e^{50} ≥ 10^{21}`, so
+  `loglog X_d ≥ ½·10^{21}` and the cap forces `Adoor M ≥ 10^{12}`.
+
+`6.872·10^{11} < 10^{12}`.  The margin is deliberately coarse: the true figures are
+`Adoor M ≥ 1.27·10^{19}` against `Adoor M ≤ 6.87·10^{11}`, seven orders. -/
+
+/-- `s14_gRows_kill (:230)` at the lever. -/
+theorem s14_gRows_kill_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} {Cp : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s)
+    (hg : GRowsZeroGate'''_gk K M (A + s) Cp (decayPool (A + s))) : False := by
+  have hlo : R.Hlo ≤ H := hb.1
+  obtain ⟨-, h50⟩ := regime_Hfloor_of_loglogFloor50 (le_trans hfl hlo)
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  have hHR : (4000000 : ℝ) ≤ (H : ℝ) := by exact_mod_cast hH4
+  have hlogHpos : (0 : ℝ) < Real.log (H : ℝ) := Real.log_pos (by linarith)
+  have hexp50 : Real.exp 50 ≤ Real.log (H : ℝ) := by
+    have h := Real.exp_le_exp.mpr h50
+    rwa [Real.exp_log hlogHpos] at h
+  have hlogHbig : (10 : ℝ) ^ 21 ≤ Real.log (H : ℝ) := le_trans s14_exp50_ge hexp50
+  obtain ⟨h2000, -⟩ := s13_socketBase_loglogA hfl hb
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hA0 : (0 : ℝ) < (A : ℝ) := by exact_mod_cast hA
+  have hAX : (A : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by
+    push_cast; linarith [Nat.cast_nonneg (α := ℝ) s]
+  have hX1 : (1 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := by
+    have := Real.log_le_log hA0 hAX; linarith
+  have hp2 := s14_p2_in_logs_gk K hX1 hg
+  have hll := s14_loglogX_ge_of_socket hfl hb
+  have hlogHj := s14_logH_ge_of_socket hb
+  have hθ : (0.0034 : ℝ) ≤ theta293 := by have := s13_theta293_margin_lo; linarith
+  have hlog552960 : (0 : ℝ) ≤ Real.log 552960 := Real.log_nonneg (by norm_num)
+  have hlog2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hlog2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hAd1 : 1 ≤ Adoor M := one_le_Adoor M
+  have hAd0 : (0 : ℝ) < ((Adoor M : ℕ) : ℝ) := by exact_mod_cast hAd1
+  have hM0 : (0 : ℝ) ≤ (M : ℝ) := Nat.cast_nonneg _
+  have hdr : ((doorRowFloor M : ℕ) : ℝ) = (M : ℝ) * ((Adoor M : ℕ) : ℝ) := by
+    rw [doorRowFloor]; push_cast; ring
+  -- ⟦reading 2⟧ the `e^{50}` floor forces `Adoor M ≥ 10^{12}`
+  have hAbig : (10 : ℝ) ^ 12 ≤ ((Adoor M : ℕ) : ℝ) := by
+    nlinarith [hp2, hll, hlogHbig, hθ, hlog552960, hlog2hi, hlog2lo, hAd0]
+  -- ⟦reading 1⟧ the `j`-floor caps `M`
+  have hMle : (M : ℝ) ≤ 589 := by
+    nlinarith [hp2, hll, hlogHj, hθ, hlog552960, hlog2lo, hAd0, hM0, hdr]
+  have hMn : M ≤ 589 := by exact_mod_cast hMle
+  have hlogM : Nat.log 2 M ≤ 9 := by
+    rcases Nat.eq_zero_or_pos M with h | h
+    · simp [h]
+    · have hlt : M < 2 ^ 10 := by norm_num; omega
+      have := Nat.log_lt_of_lt_pow (by omega : M ≠ 0) hlt
+      omega
+  have hAdle : Adoor M ≤ 687194767360 := by
+    have h : Adoor M ≤ 2 ^ 36 * 10 := by
+      rw [Adoor]; exact Nat.mul_le_mul_left _ (by omega)
+    omega
+  have hAdleR : ((Adoor M : ℕ) : ℝ) ≤ 687194767360 := by exact_mod_cast hAdle
+  norm_num at hAbig
+  linarith
+
+/-- `s14_socket_empty_of_gRows (:288)` at the lever. -/
+theorem s14_socket_empty_of_gRows_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {Cp : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo)
+    (hg : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      GRowsZeroGate'''_gk K M (A + s) Cp (decayPool (A + s))) :
+    ∀ H L q j A s : ℕ, ¬ SocketBase R M H L q j A s :=
+  fun H L q j A s hb => s14_gRows_kill_gk K hfl hb (hg H L q j A s hb)
+
+/-! ## §4 — ⟦THE INHABITATION CERTIFICATE⟧ AND THE STOP
+
+The summit checklist's sharpest line: exhibit a tuple at which `SocketBase R M H L q j A s`
+holds, at the compose's own `(R, M)`.  §4 does, under the ONE side condition
+`2^{doorRowFloor M} ≤ R.Hhi` — and then shows that condition is FORCED by the very gate that
+supplies the twin's ⟦A5⟧ slot, so the vacuity escape of §3's dichotomy is closed. -/
+
+/-- `s14_compose_stops_of_MSelect' (:393)` at the lever. -/
+theorem s14_compose_stops_of_MSelect'_gk (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime} {M : ℕ} {Cp : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1)
+    (hS : MSelect'_gk K Cg δ₀ Λ ρ R M)
+    (hg : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      GRowsZeroGate'''_gk K M (A + s) Cp (decayPool (A + s))) :
+    False := by
+  have hwin : 2 ^ doorRowFloor M ≤ R.Hlo :=
+    s14_window_floor_of_winFit hρ0 hρ1 (hS.winFit R.Hlo le_rfl R.hHlohi)
+  exact s14_socket_empty_of_gRows_gk K hfl hg _ _ _ _ _ _
+    (s14_socketBase_witness (le_trans hwin R.hHlohi))
+
+/-- `s14_rawcap_forces_empty_window (:412)` at the lever. -/
+theorem s14_rawcap_forces_empty_window_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {Cp : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo)
+    (hg : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      GRowsZeroGate'''_gk K M (A + s) Cp (decayPool (A + s))) :
+    R.Hhi < 2 ^ doorRowFloor M := by
+  by_contra hcon
+  exact s14_socket_empty_of_gRows_gk K hfl hg _ _ _ _ _ _
+    (s14_socketBase_witness (by omega))
+
+/-! ## §5 — THE TARGET, NAMED
+
+HEAD-SCOUT's drafted statement (`docs/blueprints/flags.md`, 2026-07-30 20:25, ⟦E0⟧), written
+here so the campaign owns the shape in the kernel.  **THE FINAL NAME IS THE CAPTAIN'S** — the
+working name below is a placeholder, and the fences HEAD-SCOUT recorded stand: `ε` is OPAQUE
+(not universal), `x` is LOWER-bounded only, and the content is fixed-factor cancellation at
+the witnessed scale, not a `∀ε` statement.
+
+⚠ **NOT DERIVED.**  The road that was to derive it — `logChowla2_capstone_final_rawcap'` at the
+decay pool — is refuted at ⟦B1'-3⟧ by §3.  It is stated, not proved, and nothing in this file
+weakens it. -/
+
+-- #audit (temporary)
+
 end Salt.MR
 
 end

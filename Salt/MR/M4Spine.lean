@@ -598,4 +598,20 @@ theorem m4_register_forces_endpoint_interval
   have hz := doorRowCarriedT0_endpoint hreg
   simpa using hz
 
+/-! ## §GK — the G-lever twin (BLOCKED, no declarations)
+
+Both of this file's `G`-reading declarations — `doorRowCarriedT0_endpoint` (:563) and
+`m4_register_forces_endpoint_interval` (:578) — are stated at
+`M4T0Discharge.DoorRowCarriedT0` and conclude about `M4WaveClosed.doorChiCoeff χ M`.  The
+datum side has its twin (`doorChiCoeff_gk`, `M4WaveClosed` §GK); the REGISTER side does not:
+`DoorRowCarriedT0` lives in `M4T0Discharge`, a file owned by another group, and carries no
+`_gk` sibling yet.
+
+So `doorRowCarriedT0_endpoint_gk` and `m4_register_forces_endpoint_interval_gk` cannot even
+be STATED here.  They are flagged, not attempted; both proofs are pure projection/α-transport
+and will transfer byte-for-byte once `DoorRowCarriedT0_gk` lands.
+
+-- #audit (temporary)
+-/
+
 end Salt.MR

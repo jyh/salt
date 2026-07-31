@@ -774,4 +774,196 @@ theorem gRows_at_socketBase {R : ChowlaRegime} {M H L q j A s : ℕ}
   rw [hid]
   linarith
 
+/-! ## §GK — the G-lever twin
+
+§3–§5 at `G := s13GK K M` (`GLever`): `(K : ℕ)` first, the row sums at `ThmA2.a2RowsSum_gk` /
+`a2RowsSum'_gk`, and every `𝒫ⱼ`/`𝒬ⱼ` read at the levered base.
+
+⟦WHAT KEEPS ITS LANDED NAME⟧ `one_div_H1door_eq_a2Level1` (:326) is LEVEL 1 on both sides
+(`H1door M` and `a2Level1 M` read the ladder only at `j = 1`, where `calE A G 1 = A`), so it
+is **K-INVARIANT** and is reused VERBATIM inside every twin below — it gets no `_gk` sibling.
+So are `H1door_two`, `calH`, `window_row_eq`, `slot_of_log_gate` and `pricing_numerals`.
+
+⟦THE TWO TRANSPORT PROOFS⟧ `gRows_zero_of_gate{,'}_gk` are proved from their LANDED originals,
+not by re-running the pricing: the gate's `level1` field is a LEVEL-1 read
+(`GLever.calQK_gk_one_eq`), so `GRowsZeroGate_gk K M Xd` and `GRowsZeroGate M Xd` are the same
+demand (`toLanded`), and the levered row sum is SMALLER (`ThmA2.a2RowsSum_gk_le`,
+`a2RowsSum'_gk_le` — the lever grows `𝒫₂`, which sits in a denominator).  No estimate is
+re-run and no numeral moves.
+
+⟦WHAT IS NOT HERE, AND WHY⟧ §1's `m4_chiSummedFreeRow_of_doorArith_zero` (:140) and §2's
+`m4_socket_discharged_conditional_zero` (:198) / `m4_socket_discharged_bandfree_zero` (:252)
+are BLOCKED, not attempted: all three fire `M4ArithPage.m4_chiSummedFreeRowBig_of_doorGradeGated`
+and `m4_arith_henv`, and `M4ArithPage`'s own `§GK` records that the GATED socket wire owes a
+`_gk` sibling which is not declared there.  The rewire is mechanical once it lands (their other
+moved reads — `DoorFuseFrame_gk`, `m4_chiFreeRowSq_sum_at_door_gk`, `DoorRowZeroBase_gk`,
+`m4_hrowsSlot_at_door_zero_gk`, `m4_hband_at_door_slot_gk`, `DoorBandBase_gk` — are all
+landed); no numeral is in question.  ⚠ Their statements also bind an inner `K : ℝ`
+(`DoorArithFrame`'s constant), so the lever's binder will have to be threaded past a shadow. -/
+
+/-- `log_calP_door_one` (:307), at the lever.  Same numeral: `𝒫₁ = 2^{Adoor M}` is LEVEL 1. -/
+lemma log_calP_door_one_gk (K M : ℕ) :
+    Real.log ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) = (Adoor M : ℝ) * Real.log 2 := by
+  rw [calP, calE_gk_one]
+  push_cast
+  rw [Real.log_pow]
+
+/-- `calP_door_one_le_two` (:314), at the lever.  `e₂ = 4·A·G ≥ A = e₁` needs `0 < G`, which
+`GLever.s13GK_pos` supplies. -/
+lemma calP_door_one_le_two_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
+    calP (Adoor M) (s13GK K M) 1 ≤ calP (Adoor M) (s13GK K M) 2 := by
+  refine Nat.pow_le_pow_right (by norm_num) ?_
+  rw [calE_one, calE]
+  have h1 : 1 ≤ (s13GK K M) ^ (2 - 1) := Nat.one_le_pow _ _ (s13GK_pos K hM)
+  have h2 : 1 ≤ (Nat.factorial 2) ^ 2 := Nat.one_le_pow _ _ (Nat.factorial_pos 2)
+  calc Adoor M = Adoor M * 1 * 1 := by ring
+    _ ≤ Adoor M * (s13GK K M) ^ (2 - 1) * (Nat.factorial 2) ^ 2 :=
+        Nat.mul_le_mul (Nat.mul_le_mul_left _ h1) h2
+
+/-- `a2RowsSum_door_decomp` (:346), at the lever.  `1/H1door M = a2Level1 M` is K-INVARIANT
+and is used verbatim; only the two `𝒫ⱼ` denominators move. -/
+theorem a2RowsSum_door_decomp_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) :
+    a2RowsSum_gk K M Xd
+      = 5 / 2 * Real.exp 1 ^ 2 * a2Level1 M
+        + (2 * Real.exp 1 + 2) / (Xd : ℝ)
+        + 16 * Real.logb 2 (2 * (Xd : ℝ))
+            * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)
+              + 1 / ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ)) := by
+  have hXd0 : (0 : ℝ) < (Xd : ℝ) := by exact_mod_cast hXd
+  have hH2 : (2 : ℝ) ≤ H1door M := H1door_two hM
+  have hH0 : (0 : ℝ) < H1door M := by linarith
+  have hIcc : Finset.Icc 1 2 = ({1, 2} : Finset ℕ) := by decide
+  rw [a2RowsSum_gk, hIcc, Finset.sum_insert (by decide), Finset.sum_singleton,
+    show calH (H1door M) 1 = H1door M by rw [calH]; norm_num,
+    show calH (H1door M) 2 = 4 * H1door M by rw [calH]; norm_num,
+    window_row_eq hXd0 hH0, window_row_eq hXd0 (by linarith : (0 : ℝ) < 4 * H1door M),
+    ← one_div_H1door_eq_a2Level1]
+  ring
+
+/-- `GRowsZeroGate` (:397), at the lever.  Only `level1`'s `𝒬₁` is rewritten — and it is a
+LEVEL-1 read, so the demand is literally the landed one (`toLanded`). -/
+structure GRowsZeroGate_gk (K : ℕ) (M Xd : ℕ) : Prop where
+  /-- `1 ≤ log X_d`. -/
+  base : 1 ≤ Real.log (Xd : ℝ)
+  /-- ⟦THE LEVEL-1 SLOT⟧ `μ/500 + loglog Q₁/3 + 14 ≤ (log 2/12)·Adoor M`. -/
+  level1 : Real.log (Real.log (Xd : ℝ)) / 500
+      + Real.log (Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ)) / 3 + 14
+    ≤ Real.log 2 / 12 * (Adoor M : ℝ)
+  /-- ⟦THE ENDPOINT SLOT⟧ `μ/500 + 13 ≤ log X_d`. -/
+  endpt : Real.log (Real.log (Xd : ℝ)) / 500 + 13 ≤ Real.log (Xd : ℝ)
+  /-- ⟦THE `p²` SLOT⟧ `μ·(1 + 1/500) + 15 ≤ (log 2)·Adoor M`. -/
+  p2 : Real.log (Real.log (Xd : ℝ)) * (1 + 1 / 500) + 15 ≤ Real.log 2 * (Adoor M : ℝ)
+
+/-- The levered gate IS the landed gate — `𝒬₁` is LEVEL 1 (`GLever.calQK_gk_one_eq`). -/
+theorem GRowsZeroGate_gk.toLanded {K M Xd : ℕ} (h : GRowsZeroGate_gk K M Xd) :
+    GRowsZeroGate M Xd where
+  base := h.base
+  level1 := by rw [← calQK_gk_one_eq (Adoor M) K M M]; exact h.level1
+  endpt := h.endpt
+  p2 := h.p2
+
+/-- `gRows_zero_of_gate` (:433), at the lever — a TRANSPORT: the gate is the landed one and
+the levered row sum is smaller (`ThmA2.a2RowsSum_gk_le`). -/
+theorem gRows_zero_of_gate_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd)
+    (hg : GRowsZeroGate_gk K M Xd) :
+    5760 * (a2RowsSum_gk K M Xd + (0 : ℝ) * (2 / (M : ℝ)))
+      ≤ (Real.log (Xd : ℝ)) ^ (-(1 : ℝ) / 500) := by
+  have hlanded := gRows_zero_of_gate hM hXd hg.toLanded
+  have hle := a2RowsSum_gk_le K M Xd
+  linarith
+
+/-- `a2RowsSum'_door_decomp` (:570), at the lever. -/
+theorem a2RowsSum'_door_decomp_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) :
+    a2RowsSum'_gk K M Xd
+      = 5 / 2 * Real.exp 1 ^ 2 * a2Level1 M
+        + (2 * Real.exp 1 + 2) / (Xd : ℝ)
+        + 24 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)
+              + 1 / ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ)) := by
+  have hXd0 : (0 : ℝ) < (Xd : ℝ) := by exact_mod_cast hXd
+  have hH2 : (2 : ℝ) ≤ H1door M := H1door_two hM
+  have hH0 : (0 : ℝ) < H1door M := by linarith
+  have hIcc : Finset.Icc 1 2 = ({1, 2} : Finset ℕ) := by decide
+  rw [a2RowsSum'_gk, hIcc, Finset.sum_insert (by decide), Finset.sum_singleton,
+    show calH (H1door M) 1 = H1door M by rw [calH]; norm_num,
+    show calH (H1door M) 2 = 4 * H1door M by rw [calH]; norm_num,
+    window_row_eq hXd0 hH0, window_row_eq hXd0 (by linarith : (0 : ℝ) < 4 * H1door M),
+    ← one_div_H1door_eq_a2Level1]
+  ring
+
+/-- `GRowsZeroGate'` (:595), at the lever. -/
+structure GRowsZeroGate'_gk (K : ℕ) (M Xd : ℕ) : Prop where
+  /-- `1 ≤ log X_d`. -/
+  base : 1 ≤ Real.log (Xd : ℝ)
+  /-- ⟦THE LEVEL-1 SLOT⟧ `μ/500 + loglog Q₁/3 + 14 ≤ (log 2/12)·Adoor M`. -/
+  level1 : Real.log (Real.log (Xd : ℝ)) / 500
+      + Real.log (Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ)) / 3 + 14
+    ≤ Real.log 2 / 12 * (Adoor M : ℝ)
+  /-- ⟦THE ENDPOINT SLOT⟧ `μ/500 + 13 ≤ log X_d`. -/
+  endpt : Real.log (Real.log (Xd : ℝ)) / 500 + 13 ≤ Real.log (Xd : ℝ)
+  /-- ⟦THE `p²` SLOT, R1⟧ `μ/500 + 15 ≤ (log 2)·Adoor M`. -/
+  p2 : Real.log (Real.log (Xd : ℝ)) * (1 / 500) + 15 ≤ Real.log 2 * (Adoor M : ℝ)
+
+/-- The levered R1 gate IS the landed R1 gate — `𝒬₁` is LEVEL 1. -/
+theorem GRowsZeroGate'_gk.toLanded {K M Xd : ℕ} (h : GRowsZeroGate'_gk K M Xd) :
+    GRowsZeroGate' M Xd where
+  base := h.base
+  level1 := by rw [← calQK_gk_one_eq (Adoor M) K M M]; exact h.level1
+  endpt := h.endpt
+  p2 := h.p2
+
+/-- `gRows_zero_of_gate'` (:611), at the lever — the same TRANSPORT, through
+`ThmA2.a2RowsSum'_gk_le`. -/
+theorem gRows_zero_of_gate'_gk (K : ℕ) {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd)
+    (hg : GRowsZeroGate'_gk K M Xd) :
+    5760 * (a2RowsSum'_gk K M Xd + (0 : ℝ) * (2 / (M : ℝ)))
+      ≤ (Real.log (Xd : ℝ)) ^ (-(1 : ℝ) / 500) := by
+  have hlanded := gRows_zero_of_gate' hM hXd hg.toLanded
+  have hle := a2RowsSum'_gk_le K M Xd
+  linarith
+
+/-- `gRows_at_socketBase` (:737), at the lever.  `SocketBase` and
+`socketBase_base_le_three_x` are `G`-FREE and are reused verbatim; only the bracket's two
+`𝒫ⱼ` denominators move, so the antitone collapse is the landed argument unchanged. -/
+theorem gRows_at_socketBase_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hM : 1 ≤ M) (hb : SocketBase R M H L q j A s)
+    (hX1 : (1 : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ))
+    (htop : 5760 * (5 / 2 * Real.exp 1 ^ 2 * a2Level1 M
+          + 24 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)
+              + 1 / ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ)))
+        ≤ 1 / 2 * Real.log (3 * (R.x : ℝ)) ^ (-(1 : ℝ) / 500))
+    (hend : 5760 * ((2 * Real.exp 1 + 2) / (((A + s : ℕ)) : ℝ))
+        ≤ 1 / 2 * Real.log (((A + s : ℕ)) : ℝ) ^ (-(1 : ℝ) / 500)) :
+    5760 * (a2RowsSum'_gk K M (A + s) + (0 : ℝ) * (2 / (M : ℝ)))
+      ≤ Real.log (((A + s : ℕ)) : ℝ) ^ (-(1 : ℝ) / 500) := by
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hXdN : 1 ≤ A + s := by omega
+  have hX0 : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by
+    have hpos : 0 < A + s := by omega
+    exact_mod_cast hpos
+  -- ⟦THE ANTITONE COLLAPSE⟧ the `X_d`-free bracket, from the top of the capped range
+  have hcap : (((A + s : ℕ)) : ℝ) ≤ 3 * (R.x : ℝ) := socketBase_base_le_three_x hb
+  have hmono : Real.log (3 * (R.x : ℝ)) ^ (-(1 : ℝ) / 500)
+      ≤ Real.log (((A + s : ℕ)) : ℝ) ^ (-(1 : ℝ) / 500) :=
+    Real.rpow_le_rpow_of_nonpos (by linarith) (Real.log_le_log hX0 hcap) (by norm_num)
+  have hconst : 5760 * (5 / 2 * Real.exp 1 ^ 2 * a2Level1 M
+        + 24 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)
+            + 1 / ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ)))
+      ≤ 1 / 2 * Real.log (((A + s : ℕ)) : ℝ) ^ (-(1 : ℝ) / 500) := by
+    refine htop.trans ?_
+    linarith
+  rw [a2RowsSum'_door_decomp_gk K hM hXdN]
+  have hid : 5760 * (5 / 2 * Real.exp 1 ^ 2 * a2Level1 M
+        + (2 * Real.exp 1 + 2) / (((A + s : ℕ)) : ℝ)
+        + 24 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)
+            + 1 / ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ))
+        + (0 : ℝ) * (2 / (M : ℝ)))
+      = 5760 * (5 / 2 * Real.exp 1 ^ 2 * a2Level1 M
+          + 24 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)
+              + 1 / ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ)))
+        + 5760 * ((2 * Real.exp 1 + 2) / (((A + s : ℕ)) : ℝ)) := by ring
+  rw [hid]
+  linarith
+
 end Salt.MR
+
+-- #audit (temporary)

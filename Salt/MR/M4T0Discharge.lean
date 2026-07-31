@@ -831,6 +831,304 @@ theorem m4_wave_closed_T0_discharged (Qm : ℕ) :
     (doorLadder R.x H (i + 1) + s) j (MS j H) hqQm
     (hcar H hlo hhi q hq hqQ i hik χ j hjL hj0 s hsH)
 
+/-! ## §GK — the G-lever twin
+
+The `T₀`-discharge page at `G := s13GK K M`.
+
+⟦NOT TWINNED, AND WHY⟧
+* `DoorRowT0Gates` (:571) is **`G`-FREE** — its binders are `(Kbox X₀w : ℝ) (q Ddis : ℕ)
+  (X Xw Dmask : ℝ)`, with no `M` and no ladder read anywhere.  Its `_gk` sibling would be a
+  byte-identical duplicate, so it keeps its landed name inside `DoorRowCarriedT0_gk`, exactly
+  as `doorRowFloor` does.
+* `m4_wave_closed_T0_discharged` (:776) is **BLOCKED**: its proof is
+  `doorRowCarried_of_t0free` composed with `M4DoorClose.m4_wave_structurally_closed`, and that
+  theorem carries no `_gk` sibling (its own file's `§GK` flags it as blocked on the door-row
+  suppliers).  The composition below (`doorRowCarried_of_t0free_gk`) is the half that CAN
+  land; the wave-closure twin is a one-line `exact` away once
+  `M4DoorClose.m4_wave_structurally_closed_gk` exists. -/
+
+/-- **THE DOOR ROW'S CARRIED REGISTER, ARM 1 DISCHARGED, AT THE G-LEVER**
+(`DoorRowCarriedT0_gk`) — `DoorRowCarriedT0` (:581) with `(K : ℕ)` first and every
+`3072·M` at `s13GK K M`.  `a2RowsSum M Xd`, `a2Level1 M`, `calH (H1door M)` and
+`doorRowFloor M` are LEVEL 1, hence K-INVARIANT, and keep their landed names — the same
+convention `M4DoorClose.DoorRowCarried_gk` fixes.  `DoorRowT0Gates` is `G`-FREE (it names no
+`M` at all) and is NOT twinned. -/
+def DoorRowCarriedT0_gk (K : ℕ) (Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ)
+    {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd j : ℕ) (B : ℝ) : Prop :=
+  ∃ (P Q Ddis : ℕ) (Mt kk Dd : ℕ → ℕ) (Xa : ℕ → ℝ)
+    (X h δ' V VJ L Cb kmin Ymax ε Xw cqS cgS cW SW Rbar0 Dmask : ℝ),
+    -- ⟦the two pins⟧
+    ((Xd : ℝ) = X) ∧ (((2 ^ j : ℕ) : ℝ) = h) ∧
+    -- ⟦the scale page, at the BLOCK scale⟧
+    (Real.exp (Real.exp 1) ≤ X) ∧ (Real.exp 2 ≤ Real.log X) ∧
+    (h ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ))) ∧
+    (Real.log h + 30 * (Real.log X / Real.log (Real.log X)) ≤ Real.log X) ∧
+    TannGate X (2 * (X / h)) ∧ (5 ≤ Real.log (Real.log (2 * (X / h)))) ∧
+    (T₀ ≤ 2 * (X / h)) ∧ (Real.exp 1 ≤ 2 * (X / h)) ∧
+    (Real.log X ≤ L) ∧ (Real.exp 1 ≤ L) ∧ ((256 : ℝ) ≤ Real.log X) ∧
+    -- ⟦the door and the band⟧
+    (calQK (Adoor M) (s13GK K M) M 2 ≤ Xd) ∧
+    (3 ≤ P) ∧ ((2 : ℝ) ≤ Real.log (P : ℝ)) ∧ ((Q : ℝ) ≤ 2 * (X / h)) ∧
+    (Real.log (Q : ℝ) ≤ Real.log X / Real.log (Real.log X)) ∧
+    (Real.log (Q : ℝ) ≤ L) ∧
+    (P83 X theta293 ≤ (P : ℝ)) ∧ ((Q : ℝ) ≤ Q83 X) ∧ (P ≤ Q) ∧ (0 < Q) ∧
+    (H83 X theta293 ≤ (Xd : ℝ)) ∧ ((2 : ℝ) ≤ H83 X theta293) ∧
+    ((1 : ℝ) < ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ)) ∧
+    (Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ))) ∧
+    ((100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ))) ∧
+    (∀ i ∈ Finset.Icc 1 2,
+      ((Nat.sqrt Xd : ℝ) + 1)
+          * ∏ p ∈ primeBand (calP (Adoor M) (s13GK K M) i)
+                (calQK (Adoor M) (s13GK K M) M i), (1 + 3 / (p : ℝ))
+        ≤ (Xd : ℝ) * (Real.log ((calP (Adoor M) (s13GK K M) i : ℕ) : ℝ)
+            / Real.log ((calQK (Adoor M) (s13GK K M) M i : ℕ) : ℝ))) ∧
+    -- ⟦the window floors at the witness ladder⟧
+    (∀ v ∈ ramI (H83 X theta293) P Q, (5 : ℝ) ≤ ramRbot (H83 X theta293) Xd v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      ballQuarterThreshold + 1 ≤ ramRbot (H83 X theta293) Xd v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, 2 * ramRbot (H83 X theta293) Xd v ≤ X) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      18 + Real.log (Real.log X)
+          - Real.log (Real.log (ramRbot (H83 X theta293) Xd v - 1))
+        ≤ 32 * theta293 * Real.log (Real.log X)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      seamRad X ≤ Real.sqrt 2 * ramRbot (H83 X theta293) Xd v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      thinBundleG X VJ (calH (H1door M) 2) (calP (Adoor M) (s13GK K M) 2)
+          (calQK (Adoor M) (s13GK K M) M 2) * X ^ (1 - 2 * (1 / 12 : ℝ))
+        ≤ ramRbot (H83 X theta293) Xd v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      pin2Gate ≤ ((witMt (H83 X theta293) Xd v : ℕ) : ℝ)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, kmin ≤ ((witKk (H83 X theta293) Xd v : ℕ) : ℝ)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, ((witMt (H83 X theta293) Xd v : ℕ) : ℝ) ≤ Ymax) ∧
+    -- ⟦the calibration, the radius, the short-interval datum⟧
+    ((0 : ℝ) < seamRad X) ∧
+    ((1 : ℝ) ≤ V) ∧ (V⁻¹ ≤ δ') ∧ (Real.log V ≤ 100 * Real.log L) ∧
+    (δ' ^ 2 ≤ (Real.log X) ^ (-(6 : ℝ))) ∧
+    (656384 * (1 + Real.log (2 * X)) ≤ (Real.log X) ^ (4 - 3 * theta293)) ∧
+    (Real.exp (mrAlpha (1 / 12) 2
+        * Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)) ≤ VJ) ∧
+    ((0 : ℝ) ≤ Cb) ∧ ShortIntervalDatum Cb ∧
+    (2 * (Real.log X) ^ ((3 : ℝ) / 5) ≤ Real.log X) ∧
+    -- ⟦the `kmin`/`Ymax` ladder⟧
+    (Xcap ≤ kmin) ∧ ((0 : ℝ) ≤ cofactorMfl X theta293 kmin) ∧
+    ((2 : ℝ) ≤ kmin) ∧ (kmin ≤ X) ∧
+    ((1 - 1 / Real.log (Real.log X)) * Real.log X ≤ Real.log kmin) ∧
+    (pin2Gate ≤ Ymax) ∧ (Real.log Ymax ≤ 2 * Real.log kmin) ∧
+    (Real.log X ≤ Real.log Ymax) ∧
+    (32 * ballSupC34 ≤ (Real.log Ymax) ^ ((3 : ℝ) / 20 - rho293)) ∧
+    -- ⟦THE TWO OPAQUE CAPSTONE GATES (K6)⟧
+    (420 * L * L ^ ((3 : ℝ) / 4) * (Real.log L) ^ 5 ≤ cq * (Real.log (P : ℝ)) ^ 2) ∧
+    (1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293)) ∧
+    -- ⟦the ε-window⟧
+    ((0 : ℝ) ≤ ε) ∧ (ε ≤ theta293 - 1 / 500) ∧ ((8640 : ℝ) ≤ (Real.log X) ^ ε) ∧
+    -- ⟦the coprime-tail page (⟦THE K6 PATTERN⟧: the threshold where `Ctail` is bound)⟧
+    (100 * Real.log (Q : ℝ) ≤ Real.log (Xd : ℝ)) ∧
+    (((Nat.sqrt Xd : ℝ) + 1) * ∏ p ∈ primeBand P Q, (1 + 3 / (p : ℝ))
+      ≤ (Xd : ℝ) * (Real.log (P : ℝ) / Real.log (Q : ℝ))) ∧
+    (10752 * Real.logb 2 (2 * X) ≤ (Real.log X) ^ (2 : ℝ)) ∧
+    (Real.log (P : ℝ) / Real.log (Q : ℝ)
+      ≤ 2 * (Real.log (Real.log X) * (Real.log X) ^ (-theta293))) ∧
+    (2688 * Ctail * Real.log (Real.log X) ≤ (Real.log X) ^ ε) ∧
+    -- ⟦the per-piece cap-free floor: only the Mertens mask debit is carried⟧
+    ((0 : ℝ) ≤ Dmask) ∧
+    (∀ 𝒥 ∈ (Finset.Icc 1 2).powerset,
+      (∑ i ∈ 𝒥, ∑ p ∈ blockWindowPrimes (calP (Adoor M) (s13GK K M) i)
+          (calQK (Adoor M) (s13GK K M) M i) X, (1 : ℝ) / (p : ℝ)) ≤ Dmask) ∧
+    (40 * Real.log (Real.log (Real.log X))
+        + 32 * ((1 / 8) * Real.log q + (1 / 4) * (q : ℝ)
+            + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebit q + Kcf + 25
+            + Dmask)
+      < Real.log (Real.log X)) ∧
+    -- ⟦THE SOCKET'S GATES⟧ (`m4_supplier_complete` at `Ps := 1`, `J := 2`)
+    ((0 : ℝ) < cW) ∧ (cW ≤ 1 / Real.exp 1) ∧ (2 * cW < 1) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      TLBlockGates34 cqS (H83 X theta293) P (2 * Xd) Xd Mt kk X L cgS Cb X theta293
+        (seamRad X) v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ, |t| ≤ X →
+      |t| + Tstar2 ((Mt v : ℕ) : ℝ) (Real.log ((Mt v : ℕ) : ℝ)) ≤ 3 * X) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, 1 ≤ Dd v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, Dd v ≤ kk v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, Xsk ≤ Real.sqrt (Xa v)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, Real.sqrt (Xa v) ≤ ((kk v / Dd v : ℕ) : ℝ)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, pin2Gate ≤ ((kk v / Dd v : ℕ) : ℝ)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, Real.exp 1 ≤ Xa v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, ((Mt v : ℕ) : ℝ) ≤ 2 * Xa v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, 2 * Xa v ≤ X) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      (0 : ℝ) ≤ cofactorMfl X theta293 ((kk v / Dd v : ℕ) : ℝ)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ, |t| ≤ X → ∀ i : ℕ,
+      ((kk v / Dd v : ℕ) : ℝ) ≤ (i : ℝ) → (i : ℝ) ≤ 2 * Xa v →
+        |t| + Tstar2 (i : ℝ) (Real.log (i : ℝ)) ≤ 3 * X) ∧
+    ((0 : ℝ) ≤ SW) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      cSq * caseASwide cW Cb (cofactorMfl X theta293 ((kk v / Dd v : ℕ) : ℝ))
+          ((kk v / Dd v : ℕ) : ℝ) (Xa v)
+        + cSq * ((Dd v : ℕ) : ℝ) ^ (-(1 / 4 : ℝ)) ≤ SW) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, 2 / ramRbot (H83 X theta293) Xd v
+      ≤ cofactorRbdGen SW ((kk v : ℕ) : ℝ) ((Mt v : ℕ) : ℝ)
+          (Tstar2 ((Mt v : ℕ) : ℝ) (Real.log ((Mt v : ℕ) : ℝ))) (seamRad X) / 3) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      cofactorRbdGen SW ((kk v : ℕ) : ℝ) ((Mt v : ℕ) : ℝ)
+          (Tstar2 ((Mt v : ℕ) : ℝ) (Real.log ((Mt v : ℕ) : ℝ))) (seamRad X) ≤ Rbar0) ∧
+    ((0 : ℝ) ≤ Rbar0) ∧
+    (4 * Rbar0 ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293)) ∧
+    -- ⟦THE ENDPOINT⟧ (`M4Band.memSCoeff_endpoint_zero_of_seamCoefW` is the converse)
+    (doorChiCoeff_gk K χ M Xd = 0) ∧
+    -- ⟦ARM 1 DISCHARGED: the T₀-band gates, not the T₀-band integral⟧
+    DoorRowT0Gates Kbox X₀w q Ddis X Xw Dmask ∧
+    -- ⟦the assembled floor's threshold and the interface's grading gates⟧
+    (40 * Real.log (Real.log (Real.log X))
+        + 32 * ((1 / 8) * Real.log q + (1 / 4) * (q : ℝ)
+            + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebit q + Kfl + 25)
+      < Real.log (Real.log X)) ∧
+    (374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+      ≤ (Real.log X) ^ (-(1 : ℝ) / 500)) ∧
+    (5760 * (a2RowsSum M Xd + Ccc * (2 / (M : ℝ))) ≤ (Real.log X) ^ (-(1 : ℝ) / 500)) ∧
+    ((4096 : ℝ) ≤ (Real.log X) ^ (1 - (1 : ℝ) / 250)) ∧
+    -- ⟦THE ENVELOPE: the five-summand right-hand side at this instance⟧
+    (8448 * (cfbC₁ X (t0dC1 Cb)) ^ 2 * Real.exp (-(1 / Real.exp 1) * t0dM0 X)
+        + 1787702400 * a2Level1 M
+        + 188133 * (Real.log X) ^ (-(1 : ℝ) / 500)
+        + 304128 * ballSupC ^ 2
+            * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
+        + 6315000 / h
+      ≤ B)
+
+/-- **⟦D3 — THE `T₀`-BAND, DISCHARGED⟧ AT THE G-LEVER** (`m4_t0band_discharged_gk`).  The
+landed existential `∃K` is α-renamed `Kb` here, since `K` is now the lever's binder.
+`t0d_piece_hRHS` is stated at an ABSTRACT `(Pseq, Qseq)` and is `G`-FREE, so only the door
+instantiation moves; the composition is `m4_hT0band_at_door_of_wide_gk`. -/
+theorem m4_t0band_discharged_gk (K : ℕ) (Q : ℕ) :
+    ∃ Kb X₀ : ℝ, 0 ≤ Kb ∧ 0 < X₀ ∧
+      ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (M Xd D : ℕ)
+        (X Xw Cb Dmask : ℝ), q ≤ Q →
+        X₀ ≤ Real.sqrt X → ((Xd : ℕ) : ℝ) = X →
+        Real.sqrt X ≤ Xw → Xw ≤ X → 1 ≤ D → (D : ℝ) * (Xw + 1) ≤ X - 1 →
+        0 ≤ Cb → ShortIntervalDatum Cb →
+        (∀ 𝒥 ∈ (Finset.Icc 1 2).powerset,
+          (∑ i ∈ 𝒥, ∑ p ∈ blockWindowPrimes (calP (Adoor M) (s13GK K M) i)
+              (calQK (Adoor M) (s13GK K M) M i) X, (1 : ℝ) / (p : ℝ)) ≤ Dmask) →
+        700 * ((5 / 4) * Real.log (Real.log (Real.log X)) + (3 / 4) * Real.log (q : ℝ)
+                + (q : ℝ) + (Kb + (Dmask + 4))) ≤ Real.log (Real.log X) →
+        seamT0 X + Tstar (2 * X) (Real.log (2 * X)) ≤ 3 * X →
+        (D : ℝ) ^ (-(1 / 4 : ℝ)) ≤ Real.log X ^ (-(1009 : ℝ) / 90000) →
+          (∫ t in (-(seamT0 X))..(seamT0 X),
+              ‖dpolyA (winCutH Xd (doorChiCoeff_gk K χ M)) (seamS0 (2 * Xd) X) t‖ ^ 2)
+            ≤ t0BandB X (cfbC₁ X (t0dC1 Cb)) (t0dM0 X) := by
+  obtain ⟨X₀, hX₀0, hwide⟩ := m4_hT0band_at_door_of_wide_gk K (fun x => Real.log x ^ 4)
+  obtain ⟨Kb, hK0, hpiece⟩ := t0d_piece_hRHS Q
+  refine ⟨Kb, max X₀ (Real.exp 4096), hK0,
+    lt_of_lt_of_le (Real.exp_pos 4096) (le_max_right _ _), ?_⟩
+  intro q _ χ M Xd D X Xw Cb Dmask hq hX0lb hXd hsqXw hXwX hD hDgate hCb0 hCbound hdebit
+    hthr hgateT hDdec
+  have hX₀ : X₀ ≤ Real.sqrt X := le_trans (le_max_left _ _) hX0lb
+  have hsq4096 : Real.exp 4096 ≤ Real.sqrt X := le_trans (le_max_right _ _) hX0lb
+  -- ⟦the scale page⟧
+  have hsq0 : (0 : ℝ) < Real.sqrt X := lt_of_lt_of_le (Real.exp_pos _) hsq4096
+  have hX0 : (0 : ℝ) < X := Real.sqrt_pos.mp hsq0
+  have hsqsq : Real.sqrt X * Real.sqrt X = X := Real.mul_self_sqrt hX0.le
+  have hexp4097 : (4097 : ℝ) ≤ Real.exp 4096 := by linarith [Real.add_one_le_exp (4096 : ℝ)]
+  have hsq1 : (1 : ℝ) ≤ Real.sqrt X := by linarith
+  have hsqX : Real.sqrt X ≤ X := by nlinarith
+  have hXexp : Real.exp 8192 ≤ X := by
+    have hsplit : Real.exp 8192 = Real.exp 4096 * Real.exp 4096 := by
+      rw [← Real.exp_add]; norm_num
+    nlinarith [Real.exp_pos (4096 : ℝ)]
+  have hLX : (8192 : ℝ) ≤ Real.log X := by
+    rw [← Real.log_exp 8192]; exact Real.log_le_log (Real.exp_pos _) hXexp
+  have hL0 : (0 : ℝ) < Real.log X := by linarith
+  have hX3 : (3 : ℝ) ≤ X := by
+    have : (4097 : ℝ) ≤ X := le_trans (le_trans hexp4097 hsq4096) hsqX
+    linarith
+  have he1 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.exp_one_gt_d9]
+  have hc1 : 2 * (1 / (2 * Real.exp 1)) < 1 := by
+    rw [mul_one_div, div_lt_one (by positivity)]; linarith
+  have hG0 : (0 : ℝ) ≤ gradeAbsConstC (1 / (2 * Real.exp 1)) Cb :=
+    gradeAbsConstC_nonneg hc1 hCb0
+  -- ⟦the four `Y`-gates⟧
+  have hk4096 : ∀ k : ℕ, Xw ≤ (k : ℝ) → Real.exp 4096 ≤ (k : ℝ) :=
+    fun k h => le_trans (le_trans hsq4096 hsqXw) h
+  -- ⟦the numerals⟧
+  have hE0 : (0 : ℝ) ≤ Real.log X ^ (-(1009 : ℝ) / 90000) := Real.rpow_nonneg hL0.le _
+  have hQ0 : (0 : ℝ) ≤ (Real.log X / 2) ^ (-(1 / (32 * Real.exp 1))) :=
+    Real.rpow_nonneg (by linarith) _
+  have hP0 : (0 : ℝ) ≤ Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000) := Real.rpow_nonneg hL0.le _
+  have hB0 : (0 : ℝ) ≤ t0dB X Cb := by
+    unfold t0dB
+    have h1 : (0 : ℝ) ≤ gradeAbsConstC (1 / (2 * Real.exp 1)) Cb
+        * Real.log X ^ (-(1009 : ℝ) / 90000) := mul_nonneg hG0 hE0
+    have h2 : (0 : ℝ) ≤ farCStar * (Real.log X / 2) ^ (-(1 / (32 * Real.exp 1))) :=
+      mul_nonneg farCStar_nonneg hQ0
+    linarith
+  have hEdef : Real.exp (-(1 / (2 * Real.exp 1)) * t0dM0 X)
+      = Real.log X ^ (-(1009 : ℝ) / 90000) := t0d_decay_eq hL0
+  -- ⟦hErr⟧
+  have hErr : 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)
+      ≤ Real.exp (-(1 / (2 * Real.exp 1)) * t0dM0 X) := by
+    rw [hEdef]; exact t0d_err_le (by linarith)
+  -- ⟦hgrade⟧: the four residues charged against the gate value
+  have hFle : farCStar * (Real.log X / 2) ^ (-(1 / (32 * Real.exp 1)))
+      ≤ 2 * farCStar * Real.log X ^ (-(1009 : ℝ) / 90000) := by
+    have h := t0d_far_le (X := X) (by linarith)
+    nlinarith [farCStar_nonneg]
+  have hPle : Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)
+      ≤ Real.log X ^ (-(1009 : ℝ) / 90000) := t0d_P_le (by linarith)
+  have hcs : cSq = 20736 := rfl
+  have hgrade : 8 * (cSq * (t0dB X Cb + 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000))
+        + cSq * (D : ℝ) ^ (-(1 / 4 : ℝ)))
+      ≤ 2 * (t0dC1 Cb * Real.exp (-(1 / (2 * Real.exp 1)) * t0dM0 X)
+        + 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)) := by
+    rw [hEdef]
+    unfold t0dB t0dC1
+    rw [hcs]
+    linarith
+  refine hwide χ M Xd (2 * Xd) D X Xw (t0dB X Cb) (t0dC1 Cb) (t0dM0 X)
+    hX3 hXd (by omega) le_rfl (one_le_t0dC1 hc1 hCb0) hX₀ hsqXw hB0 hD hDgate
+    (fun k h _ => (ypin4_gates_t0d (hk4096 k h)).1)
+    (fun k h _ => (ypin4_gates_t0d (hk4096 k h)).2.1)
+    (fun k h _ => (ypin4_gates_t0d (hk4096 k h)).2.2.1)
+    (fun k h _ => (ypin4_gates_t0d (hk4096 k h)).2.2.2)
+    ?_ hgrade hErr
+  intro 𝒥 h𝒥 t ht k hkXw hk2X
+  have hgt : |t| + Tstar (2 * X) (Real.log (2 * X)) ≤ 3 * X := by linarith
+  exact hpiece q χ (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 𝒥 X Xw Cb
+    Dmask t k hq hsq4096 hsqXw hXwX hCb0 hCbound (hdebit 𝒥 h𝒥) hthr hgt hkXw hk2X
+
+set_option maxHeartbeats 4000000 in
+/-- **THE BRIDGE, AT THE G-LEVER** (`doorRowCarried_of_t0free_gk`) — the
+levered `T₀`-free register implies `M4DoorClose.DoorRowCarried_gk`, conjunct by conjunct. -/
+theorem doorRowCarried_of_t0free_gk (K : ℕ) (Qm : ℕ) :
+    ∃ Kbox X₀w : ℝ, 0 ≤ Kbox ∧ 0 < X₀w ∧
+      ∀ (Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ) (q : ℕ) [NeZero q]
+        (χ : DirichletCharacter ℂ q) (M Xd j : ℕ) (B : ℝ), q ≤ Qm →
+        DoorRowCarriedT0_gk K Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M Xd j B →
+          DoorRowCarried_gk K Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M Xd j B := by
+  obtain ⟨Kbox, X₀w, hK0, hX₀0, hdis⟩ := m4_t0band_discharged_gk K Qm
+  refine ⟨Kbox, X₀w, hK0, hX₀0, ?_⟩
+  intro Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail q _ χ M Xd j B hq hfree
+  obtain ⟨P, Q, Ddis, Mt, kk, Dd, Xa, X, h, δ', V, VJ, L, Cb, kmin, Ymax, ε, Xw, cqS, cgS, cW, SW,
+    Rbar0, Dmask, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17,
+    d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31, d32, d33, d34, d35,
+    d36, d37, d38, d39, d40, d41, d42, d43, d44, d45, d46, d47, d48, d49, d50, d51, d52, d53,
+    d54, d55, d56, d57, d58, d59, d60, d61, d62, d63, d64, d65, d66, d67, d68, d69, d70, d71,
+    d72, d73, d74, d75, d76, d77, d78, d79, d80, d81, d82, d83, d84, d85, d86, d87, d88, d89,
+    d90, d91, d92, d93, d94, d95, d96, d97, d98⟩ := hfree
+  obtain ⟨g1, g2, g3, g4, g5, g6, g7, g8⟩ := d93
+  have hT0 : (∫ t in (-(seamT0 X))..(seamT0 X),
+      ‖dpolyA (winCutH Xd (doorChiCoeff_gk K χ M)) (seamS0 (2 * Xd) X) t‖ ^ 2)
+        ≤ t0BandB X (cfbC₁ X (t0dC1 Cb)) (t0dM0 X) :=
+    hdis q χ M Xd Ddis X Xw Cb Dmask hq g1 d1 g2 g3 g4 g5 d46 d47 d69 g6 g7 g8
+  exact ⟨P, Q, Mt, kk, Dd, Xa, X, h, δ', V, VJ, L, Cb, kmin, Ymax, ε, cfbC₁ X (t0dC1 Cb), t0dM0 X,
+    cqS, cgS, cW, SW, Rbar0, Dmask, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13,
+    d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31,
+    d32, d33, d34, d35, d36, d37, d38, d39, d40, d41, d42, d43, d44, d45, d46, d47, d48, d49,
+    d50, d51, d52, d53, d54, d55, d56, d57, d58, d59, d60, d61, d62, d63, d64, d65, d66, d67,
+    d68, d69, d70, d71, d72, d73, d74, d75, d76, d77, d78, d79, d80, d81, d82, d83, d84, d85,
+    d86, d87, d88, d89, d90, d91, d92, hT0, d94, d95, d96, d97, d98⟩
+
+-- #audit (temporary)
+
 end Salt.MR
 
 end

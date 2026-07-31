@@ -18376,3 +18376,31 @@ outside-lane material never here) — the fence was never only legal.
 ## () The copyright-waiver determination filed to the provenance record; two scope corrections banked; one clause flagged for JYH
 
 ## () JYH RULES on clause 6: a dropdown artifact (the accessible entry chosen); JYH WILL REAPPLY naming Claude -- joined to the 8/4-8/5 the copyright-waiver filing sitting with the jas request; NOT a blocker: arXiv PROCEEDS (within the intent as submitted; publishing approval in hand) -- the Captain's judgment, recorded verbatim in spirit
+
+## () THE G-LEVER RE-CUT LANDS: ~490 _gk twins across 78 files, 7/7 agents, 4h44m, 2.6M tokens -- THE TERMINAL TWIN IN KERNEL (logChowla2_conditional_sharp_nonvacuous_gk at K = 500000); build 9634 exit-0 MAESTRO-VERIFIED; the residue mapped to one dependency web + the sharp2 road -- GK-7 flies
+
+THE MAP's discipline held: s13GK K M := 3072·2^K·M via the ONE
+import (GLever → DoorFrame, the verified common ancestor); K the
+uniform FIRST binder; level 1 K-INVARIANT (transport equalities,
+never twins — the floor keeps its landed names); level 2
+multiplicative; the abstains enumerated incl. THE ONE TWIN THAT MUST
+NOT EXIST (the old wall theorem s15_sel'_empty_at_closed_forms —
+the contradiction the lever kills; left landed, untouched, un-twinned).
+THE GROUPS: GK-1 78 (the lever base + rows) / GK-2 75 + 5 blocked /
+GK-3 79 + 3 blocked / GK-4 73 + 8 blocked + provisionals / GK-5 106
++ 3 stopped / GK-6 119 + ZERO stops (the terminal group whole:
+S13Frames/BandBase/MSelect2/CapGrid-Floor-Rbd/AssemblyFrames/S12×3/
+S14/S15Compose 32/S15Witness 7).  THE PIN: the K-uniform body
+_atK_gk (K ≤ 1.7e8) fired at 500000, K FIRST in the ∃-prefix.  FOUR
+re-derived numerals incl. s13BlockExp_gk ≤ 2^{2K+342} (the honest
+exponent, not the estimate's 2K+230) — paid by the 10^30 floor.
+THE RESIDUE, exactly: (a) the blocked web — M4DoorClose's
+m4_door_meansq_carried_gk + m4_wave_structurally_closed_gk at its
+root, cascading to M4ArithPage's doorGradeGated_gk, T0Discharge's
+closer (one exact away), the RowsChi end/zero assembly links, and
+M4ArithZero's three — ~20 decls, dependency-ordered, no proof
+hardness reported anywhere (missing NAMES, not failed attempts);
+(b) THE SHARP2 ROAD (SEL-RECUT's restored register, born after the
+map): S15Sel''_gk + logChowla2_conditional_sharp2_gk + the 2^355
+witness twin.  ⟦GK-7 dispatched — the residue wave⟧.  Then
+COMPOSE #3 stands at the door with the lever in hand.

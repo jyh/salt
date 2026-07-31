@@ -488,4 +488,69 @@ theorem residue_split_dilate_door {g : ℕ → ℂ} (hg : ∀ a b : ℕ, g (a * 
     door_dilation_gate (M := M) h1 h2 (Nat.le_of_dvd hq (Nat.gcd_dvd_right b q)) hqW
   exact lt_of_lt_of_le hgate (calP_door_mono hM (Finset.mem_Icc.mp hj).1)
 
+/-! ## §GK — the G-lever twin
+
+**THE WHOLE DILATION-GATE PAGE IS LEVEL 1, HENCE K-INVARIANT.**  `calP_door_one_eq`,
+`two_pow_le_calP_door_one`, `lt_calP_door_one`, `d_lt_calP_door_one`, `logH_pow_twelve_lt`,
+`door_dilation_gate`, `door_dilation_gate'` and `door_dilation_gate_calP` all read the door's
+ladder at `j = 1` only, where `calE A G 1 = A` (`GLever.calE_gk_one`) — so they keep their
+landed names and are TRANSPORTED, not twinned.  The transport is one rewrite
+(`DoorFrame.calP_door_one_gk`), recorded below as `door_dilation_gate_gk` so the three real
+twins read cleanly.
+
+What genuinely moves is anything reading the ladder at a FREE level `j`: the monotonicity
+`calP_door_mono` and the two `MemS`-carrying stones built on it. -/
+
+/-- The bottom-block gate, transported to the lever (level 1 is K-invariant). -/
+theorem door_dilation_gate_gk (K : ℕ) {M d q : ℕ} {H : ℝ} (h1 : 1 ≤ Real.log H)
+    (h2 : Real.log H ≤ (2 : ℝ) ^ (21845 : ℕ)) (hdq : d ≤ q)
+    (hqW : (q : ℝ) ≤ Real.log H ^ (12 : ℕ)) :
+    d < calP (Adoor M) (s13GK K M) 1 := by
+  rw [calP_door_one_gk]
+  exact door_dilation_gate h1 h2 hdq hqW
+
+/-- The `M`-relative gate, transported to the lever. -/
+theorem door_dilation_gate'_gk (K : ℕ) {M d q : ℕ} {W : ℝ} (hdq : d ≤ q) (hqW : (q : ℝ) ≤ W)
+    (hW : W < (2 : ℝ) ^ Adoor M) :
+    d < calP (Adoor M) (s13GK K M) 1 := by
+  rw [calP_door_one_gk]
+  exact door_dilation_gate' hdq hqW hW
+
+/-- The door `P`-ladder at the lever is monotone (`calE_mono` at `G = s13GK K M ≥ 1`). -/
+theorem calP_door_mono_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
+    Monotone (calP (Adoor M) (s13GK K M)) := by
+  intro i j hij
+  refine Nat.pow_le_pow_right (by norm_num) ?_
+  exact calE_mono (Adoor M) (one_le_s13GK K hM) hij
+
+/-- **THE ROW'S CAPSTONE AT THE G-LEVER** — `𝒮`-transfer at the levered door inhabitant.
+The gate is level-1 and therefore unchanged; only the block family moves. -/
+theorem memS_dilate_door_gk (K : ℕ) {M J d q m : ℕ} {H : ℝ} (hM : 1 ≤ M)
+    (h1 : 1 ≤ Real.log H) (h2 : Real.log H ≤ (2 : ℝ) ^ (21845 : ℕ)) (hd : d ≠ 0) (hm : m ≠ 0)
+    (hdq : d ≤ q) (hqW : (q : ℝ) ≤ Real.log H ^ (12 : ℕ)) :
+    MemS (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) J (d * m)
+      ↔ MemS (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) J m :=
+  memS_dilate_of_lt_bot (calP_door_mono_gk K hM) hd hm
+    (door_dilation_gate_gk K (M := M) h1 h2 hdq hqW)
+
+/-- **The residue split at the levered door**, the form M4-3/M4-4 consume. -/
+theorem residue_split_dilate_door_gk (K : ℕ) {g : ℕ → ℂ}
+    (hg : ∀ a b : ℕ, g (a * b) = g a * g b)
+    {b q J M : ℕ} {A : Finset ℕ} {H : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
+    (h1 : 1 ≤ Real.log H) (h2 : Real.log H ≤ (2 : ℝ) ^ (21845 : ℕ))
+    (hA : ∀ n ∈ A, Nat.ModEq q n b) (h0 : (0 : ℕ) ∉ A)
+    (hqW : (q : ℝ) ≤ Real.log H ^ (12 : ℕ)) :
+    ∑ n ∈ A.filter
+        (fun n => MemS (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) J n), g n
+      = g (Nat.gcd b q)
+        * ∑ m ∈ (A.image (fun n => n / Nat.gcd b q)).filter
+            (fun m =>
+              MemS (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) J m), g m := by
+  refine residue_split_dilate hg hq hA h0 (fun j hj => ?_)
+  have hgate : Nat.gcd b q < calP (Adoor M) (s13GK K M) 1 :=
+    door_dilation_gate_gk K (M := M) h1 h2 (Nat.le_of_dvd hq (Nat.gcd_dvd_right b q)) hqW
+  exact lt_of_lt_of_le hgate (calP_door_mono_gk K hM (Finset.mem_Icc.mp hj).1)
+
+-- #audit (temporary)
+
 end Salt.MR

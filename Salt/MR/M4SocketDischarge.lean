@@ -518,4 +518,119 @@ theorem gP1_at_socketBase {R : ChowlaRegime} {M H L q j A s : ℕ} {Cs : ℝ}
     exact_mod_cast hpos
   exact gP1_of_le hX0 hX1 (socketBase_base_le_three_x hb) htop
 
+/-! ## §GK — the G-lever twin
+
+The socket-discharge page at `G := s13GK K M`.
+
+⟦BLOCKED, NOT ATTEMPTED — three of the seven⟧
+* `m4_chiSummedFreeRow_of_doorArith_end` (:196),
+* `m4_socket_discharged_conditional` (:344),
+* `m4_socket_discharged_bandfree` (:412).
+
+All three route through ⟦item 11⟧, i.e. through
+`M4ArithPage.m4_chiSummedFreeRowBig_of_doorGradeGated` and
+`M4Assembly.m4_chiFreeRowSq_sum_at_door` / `M4Assembly.DoorFuseFrame`.  `M4ArithPage`'s own
+`§GK` header already records itself blocked on exactly those, and `M4Assembly` carries no
+`§GK` section at all.  Everything else they need — `m4_hrowsSlot_at_door_end_gk`,
+`DoorRowEndBase_gk`, `m4_hband_at_door_slot_gk`, `DoorBandBase_gk` — is landed here and in
+`M4RowsChiEnd`, so each is a one-`exact` rewire once the two upstream twins exist.
+(`SocketBase`, `a2DoorGrade`, `m4ChiRowGraded`, `RSanDoor`, `doorRowFloor`, `strataResidual`
+are all `G`-FREE; `m4_arith_gate4` and `m4_arith_rs_ceiling_met` need no twins either.) -/
+
+/-- **THE PER-BASE GATE BUNDLE OF THE `T₀`-BAND SUPPLIER, AT THE G-LEVER**
+(`DoorBandBase_gk`).  NINE fields, names UNCHANGED and in this order: `X400`, `C₁_one`,
+`x₀_le`, `qfit`, `gHalf`, `gO1`, `gWin`, `grade`, `err`.  Only `gO1` and `gWin` read the
+ladder, and both read it at LEVEL 2 (`𝒬₂`) and level 1 (`𝒫₁`) — so `gWin`'s `log log 𝒫₁` leg
+is K-INVARIANT and only its `𝒬₂` leg moves. -/
+structure DoorBandBase_gk (K : ℕ) (x₀ : ℕ) (C' Aexp : ℝ) (M Xd q : ℕ) (C₁ M₀ : ℝ) : Prop where
+  /-- `400 ≤ X_d` — the supplier's base floor (it also gives `16 ≤ X_d`). -/
+  X400 : (400 : ℝ) ≤ ((Xd : ℕ) : ℝ)
+  /-- `1 ≤ C₁` — the band constant's normalisation. -/
+  C₁_one : (1 : ℝ) ≤ C₁
+  /-- `x₀ ≤ X_d` — the supplier's threshold, VISIBLE. -/
+  x₀_le : x₀ ≤ Xd
+  /-- `q ≤ (log X_d)^{10}` — the BASE-side conductor gate.  **Not** `SocketBase`'s
+  `q ≤ arcDen 12 H`, which is an `H`-side gate; the two are independent. -/
+  qfit : (q : ℝ) ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (10 : ℕ)
+  /-- The half-range mass gate, on `[X_d, 2X_d]`. -/
+  gHalf : ∀ k : ℕ, Xd ≤ k → k ≤ 2 * Xd →
+    16 * Aexp * Real.log (Real.log (k : ℝ)) ≤ Real.log (k : ℝ)
+  /-- The `O(1)`-range Rankin gate at the door's upper cutoff `Q₂`. -/
+  gO1 : ∀ k : ℕ, Xd ≤ k → k ≤ 2 * Xd →
+    8 * Aexp * Real.log (Real.log (k : ℝ))
+        * Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+      ≤ Real.log (k : ℝ)
+  /-- The covering-window gate at `[P₁, Q₂]`. -/
+  gWin : ∀ k : ℕ, Xd ≤ k → k ≤ 2 * Xd →
+    Real.exp (2 * Real.exp 1
+        * (Real.log (Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ))
+            - Real.log (Real.log ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) + 25))
+      ≤ (Real.log (k : ℝ)) ^ Aexp
+  /-- The grade fit `8C' ≤ (log X_d)^{A − 1/2 + 1/1000}`. -/
+  grade : 8 * C' ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (Aexp + (-(1 : ℝ) / 2 + 1 / 1000))
+  /-- `cfb_t0band_supply_of_sup`'s own `hErr`. -/
+  err : 4 * Real.log ((Xd : ℕ) : ℝ) ^ (-(1 : ℝ) / 2 + 1 / 1000)
+    ≤ Real.exp (-(1 / (2 * Real.exp 1)) * M₀)
+
+/-- **⟦THE `hband` SLOT, MET⟧ AT THE G-LEVER**
+(`m4_hband_at_door_slot_gk`).  Composition: `door_window_bounds_gk` ∘ `door_cover_gk` ∘
+`m4_hT0band_at_door_discharged_gk`, all three landed in this group. -/
+theorem m4_hband_at_door_slot_gk (K : ℕ) (hMmu : MmuChiRate) (Aexp : ℝ) (hAexp : 0 < Aexp)
+    (R : ChowlaRegime) (M : ℕ) (hM : 1 ≤ M) (C₁ M₀ : ℕ → ℝ) :
+    ∃ (C' : ℝ) (x₀ : ℕ), 0 < C' ∧
+      ((∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          DoorBandBase_gk K x₀ C' Aexp M (A + s) q (C₁ (A + s)) (M₀ (A + s))) →
+        ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q,
+            (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+              ‖dpolyA (winCutH (A + s) (doorChiCoeff_gk K χ M))
+                (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+              ≤ t0BandB (((A + s : ℕ)) : ℝ)
+                  (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (M₀ (A + s))) := by
+  obtain ⟨hP4, hPQ⟩ := door_window_bounds_gk K M hM
+  obtain ⟨C', x₀, hC'pos, hband⟩ := m4_hT0band_at_door_discharged_gk K hMmu Aexp hAexp
+    (calP (Adoor M) (s13GK K M) 1) (calQK (Adoor M) (s13GK K M) M 2) hP4 hPQ
+  obtain ⟨hcovP, hcovQ⟩ := door_cover_gk K M hM
+  refine ⟨C', x₀, hC'pos, ?_⟩
+  intro hgates H L q j A s hb χ
+  have hq : 0 < q := hb.2.2.2.1
+  haveI : NeZero q := ⟨hq.ne'⟩
+  have hD := hgates H L q j A s hb
+  have h16 : 16 ≤ A + s := by
+    have h400 : (400 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := hD.X400
+    have : (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by linarith
+    exact_mod_cast this
+  exact hband q χ M (A + s) (2 * (A + s)) rfl hD.X400 (by omega) le_rfl hD.C₁_one
+    hD.x₀_le h16 hD.qfit hcovP hcovQ hD.gHalf hD.gO1 hD.gWin hD.grade hD.err
+
+/-- **⟦THE FRAME'S DECAYING CAP IS ANTITONE IN THE BASE⟧ AT THE G-LEVER**
+(`gP1_of_le_gk`) — `𝒫₁` is LEVEL 1, hence K-INVARIANT: the twin is a transport through
+`GLever.calP_gk_one_eq`, and the antitonicity argument is the landed one, unrepeated. -/
+theorem gP1_of_le_gk (K : ℕ) {M : ℕ} {Cs X Y : ℝ} (hX0 : 0 < X) (hX1 : (1 : ℝ) ≤ Real.log X)
+    (hXY : X ≤ Y)
+    (h : 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+      ≤ Real.log Y ^ (-(1 : ℝ) / 500)) :
+    374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+      ≤ Real.log X ^ (-(1 : ℝ) / 500) := by
+  rw [calP_gk_one_eq] at h ⊢
+  exact gP1_of_le hX0 hX1 hXY h
+
+/-- **⟦`gP1` ON THE WHOLE CAPPED RANGE, FROM ONE INSTANCE⟧ AT THE
+G-LEVER** (`gP1_at_socketBase_gk`).  `SocketBase` and `socketBase_base_le_three_x` are
+`G`-FREE and are reused verbatim. -/
+theorem gP1_at_socketBase_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} {Cs : ℝ}
+    (hb : SocketBase R M H L q j A s)
+    (hX1 : (1 : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ))
+    (htop : 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+      ≤ Real.log (3 * (R.x : ℝ)) ^ (-(1 : ℝ) / 500)) :
+    374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+      ≤ Real.log (((A + s : ℕ)) : ℝ) ^ (-(1 : ℝ) / 500) := by
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hX0 : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by
+    have hpos : 0 < A + s := by omega
+    exact_mod_cast hpos
+  exact gP1_of_le_gk K hX0 hX1 (socketBase_base_le_three_x hb) htop
+
+-- #audit (temporary)
+
 end Salt.MR

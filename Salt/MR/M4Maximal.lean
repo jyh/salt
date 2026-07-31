@@ -1272,6 +1272,443 @@ theorem m4_wave_closed_of_dyadicRow_split :
     hBraw0 hdrift hdel hrest
     (m4_chiBlockMeanSq_of_dyadicRow j₀ hMSan0 hMStr0 han htr hrow) hnoncop
 
+/-! ## §GK — the G-lever twin
+
+The additive `_gk` family at `G := s13GK K M` (`GLever`): each declaration below is its
+landed original with `(K : ℕ)` as a new FIRST binder and the door datum read at the lever
+(`doorSievedWindow_gk`, `doorChiSup_gk`, `doorSievedCoeff_gk`).  `J` stays `2`; the sup's
+window binder `K` in §3 is α-renamed `Kw`; every other byte of the proof text is the landed
+one's, with `_gk` names in place of their landed originals.
+-/
+
+/-- **THE POINTWISE MAXIMAL BOUND AT THE LEVER** — `doorChiSup_sq_le_dyadic` (:396). -/
+theorem doorChiSup_sq_le_dyadic_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M H n : ℕ) :
+    (doorChiSup_gk K χ M H n) ^ 2
+      ≤ (∑ j ∈ Finset.range (Nat.log 2 H + 1), (3 / 2 : ℝ) ^ j)
+        * ∑ j ∈ Finset.range (Nat.log 2 H + 1),
+            (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
+              ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2)
+              * (2 / 3 : ℝ) ^ j := by
+  obtain ⟨Kw, hKmem, hKeq⟩ :=
+    Finset.exists_mem_eq_sup' (s := Finset.Icc 0 H)
+      ⟨0, Finset.mem_Icc.mpr ⟨le_rfl, Nat.zero_le H⟩⟩
+      (fun Kw => ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖)
+  have hKH : Kw ≤ H := (Finset.mem_Icc.mp hKmem).2
+  have hval : doorChiSup_gk K χ M H n = ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖ := hKeq
+  rw [hval]
+  simp only [doorSievedWindow_gk]
+  exact norm_sum_sievedWindow_sq_le_dyadic _ (liouChi χ) H Kw n hKH
+
+/-- **THE SHIFTED FIXED-LENGTH FAMILY AT THE LEVER** — `M4ChiShiftBlockMeanSq` (:776). -/
+def M4ChiShiftBlockMeanSq_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (F : ℕ → ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+    ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H, ∀ s ≤ H,
+      ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1) + s) (doorLadder R.x H i + s),
+          ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) n, liouChi χ m‖ ^ 2
+        ≤ F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)
+
+/-- **ANTI-VACUITY AT THE LEVER** — `m4_chiShiftBlock_trivial` (:789). -/
+theorem m4_chiShiftBlock_trivial_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) :
+    M4ChiShiftBlockMeanSq_gk K R M k (fun _ _ => 1) := by
+  intro H hlo hhi q hq hqQ i hik χ j hjL s hsH
+  have hH0 : 0 < H := by have := R.hHlo_floor; omega
+  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+  have hfit := doorLadder_fit R.x H i
+  set A := doorLadder R.x H (i + 1) with hA
+  set B := doorLadder R.x H i with hB
+  have hterm : ∀ n ∈ Finset.Ioc (A + s) (B + s),
+      ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) n, liouChi χ m‖ ^ 2 ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := by
+    intro n _
+    have hsub : doorSievedWindow_gk K M (2 ^ j) n ⊆ Finset.Ioc n (n + 2 ^ j) := by
+      simp only [doorSievedWindow_gk, sievedWindow]
+      exact Finset.filter_subset _ _
+    have hcard : (doorSievedWindow_gk K M (2 ^ j) n).card ≤ 2 ^ j := by
+      calc (doorSievedWindow_gk K M (2 ^ j) n).card ≤ (Finset.Ioc n (n + 2 ^ j)).card :=
+            Finset.card_le_card hsub
+        _ = 2 ^ j := by simp [Nat.card_Ioc]
+    have hnorm : ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) n, liouChi χ m‖ ≤ ((2 ^ j : ℕ) : ℝ) := by
+      refine le_trans (norm_sum_le _ _) ?_
+      calc ∑ m ∈ doorSievedWindow_gk K M (2 ^ j) n, ‖liouChi χ m‖
+          ≤ ∑ _m ∈ doorSievedWindow_gk K M (2 ^ j) n, (1 : ℝ) :=
+            Finset.sum_le_sum fun m _ => norm_liouChi_le_one χ m
+        _ = ((doorSievedWindow_gk K M (2 ^ j) n).card : ℝ) := by simp
+        _ ≤ ((2 ^ j : ℕ) : ℝ) := by exact_mod_cast hcard
+    have h0 : (0 : ℝ) ≤ ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) n, liouChi χ m‖ := norm_nonneg _
+    nlinarith
+  refine le_trans (Finset.sum_le_sum hterm) ?_
+  rw [Finset.sum_const, Nat.card_Ioc, nsmul_eq_mul]
+  have hcast : ((B + s - (A + s) : ℕ) : ℝ) ≤ (A : ℝ) := by
+    have hnat : B + s - (A + s) ≤ A := by omega
+    exact_mod_cast hnat
+  have h2j : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 := by positivity
+  calc ((B + s - (A + s) : ℕ) : ℝ) * ((2 ^ j : ℕ) : ℝ) ^ 2
+      ≤ (A : ℝ) * ((2 ^ j : ℕ) : ℝ) ^ 2 := mul_le_mul_of_nonneg_right hcast h2j
+    _ = 1 * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) := by ring
+
+/-- **THE MAXIMAL STEP AT THE LEVER** — `m4_chiBlockMeanSq_of_shiftBlock` (:838). -/
+theorem m4_chiBlockMeanSq_of_shiftBlock_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {F : ℕ → ℕ → ℝ}
+    {Fan Ftr : ℕ → ℝ} (j₀ : ℕ)
+    (hFan0 : ∀ H : ℕ, 0 ≤ Fan H) (hFtr0 : ∀ H : ℕ, 0 ≤ Ftr H)
+    (han : ∀ j H : ℕ, j₀ ≤ j → F j H ≤ Fan H)
+    (htr : ∀ j H : ℕ, j < j₀ → F j H ≤ Ftr H)
+    (hfix : M4ChiShiftBlockMeanSq_gk K R M k F) :
+    M4ChiBlockMeanSq_gk K R M k (m4BclGraded j₀ Fan Ftr) := by
+  classical
+  intro H hlo hhi q hq hqQ i hik χ
+  have hH0 : 0 < H := by have := R.hHlo_floor; omega
+  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+  set L := Nat.log 2 H with hL
+  set A := doorLadder R.x H (i + 1) with hA
+  set B := doorLadder R.x H i with hB
+  set X : ℕ → ℕ → ℕ → ℝ := fun j t n =>
+    ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) (n + 2 ^ (j + 1) * t), liouChi χ m‖ ^ 2 with hX
+  have hA0 : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
+  set S : ℝ := ∑ j ∈ Finset.range (L + 1), (3 / 2 : ℝ) ^ j with hS
+  have hS0 : (0 : ℝ) ≤ S := (geom_weight_sum_pos L).le
+  -- ⟦STEP 1⟧ the pointwise maximal bound (§3), at the geometric weights
+  have hstep1 : ∑ n ∈ Finset.Ioc A B, (doorChiSup_gk K χ M H n) ^ 2
+      ≤ ∑ n ∈ Finset.Ioc A B, S
+          * ∑ j ∈ Finset.range (L + 1),
+              (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j :=
+    Finset.sum_le_sum fun n _ => doorChiSup_sq_le_dyadic_gk K χ M H n
+  -- ⟦STEP 2⟧ the sums commute (the weight rides the `j`-index only)
+  have hswap : ∑ n ∈ Finset.Ioc A B, S
+        * ∑ j ∈ Finset.range (L + 1),
+            (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), X j t n) * (2 / 3 : ℝ) ^ j
+      = S * ∑ j ∈ Finset.range (L + 1),
+          (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
+            ∑ n ∈ Finset.Ioc A B, X j t n) * (2 / 3 : ℝ) ^ j := by
+    rw [← Finset.mul_sum]
+    congr 1
+    rw [Finset.sum_comm]
+    refine Finset.sum_congr rfl fun j _ => ?_
+    rw [← Finset.sum_mul]
+    congr 1
+    exact Finset.sum_comm
+  -- ⟦STEP 3⟧ each (scale, offset) pair is a shifted fixed-length block sum
+  have hjt : ∀ j ∈ Finset.range (L + 1), ∀ t ∈ Finset.range (H / 2 ^ (j + 1) + 1),
+      ∑ n ∈ Finset.Ioc A B, X j t n ≤ F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) := by
+    intro j hj t ht
+    have hjL : j ≤ L := by
+      have := Finset.mem_range.mp hj
+      omega
+    have ht' : t ≤ H / 2 ^ (j + 1) := by
+      have := Finset.mem_range.mp ht
+      omega
+    have hs : 2 ^ (j + 1) * t ≤ H := by
+      calc 2 ^ (j + 1) * t ≤ 2 ^ (j + 1) * (H / 2 ^ (j + 1)) := Nat.mul_le_mul_left _ ht'
+        _ = H / 2 ^ (j + 1) * 2 ^ (j + 1) := Nat.mul_comm _ _
+        _ ≤ H := Nat.div_mul_le_self H (2 ^ (j + 1))
+    have hre : ∑ n ∈ Finset.Ioc A B, X j t n
+        = ∑ n ∈ Finset.Ioc (A + 2 ^ (j + 1) * t) (B + 2 ^ (j + 1) * t),
+            ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) n, liouChi χ m‖ ^ 2 :=
+      sum_Ioc_shift (fun n => ‖∑ m ∈ doorSievedWindow_gk K M (2 ^ j) n, liouChi χ m‖ ^ 2) A B _
+    rw [hre]
+    exact hfix H hlo hhi q hq hqQ i hik χ j hjL _ hs
+  -- ⟦STEP 4⟧ the per-scale count × weight
+  set W : ℕ → ℝ := fun j => (((H / 2 ^ (j + 1) : ℕ) : ℝ) + 1) * (((2 ^ j : ℕ) : ℝ)) ^ 2 with hW
+  have hW0 : ∀ j, (0 : ℝ) ≤ W j := fun j => dyadic_count_weight_term_nonneg H j
+  have hj : ∀ j ∈ Finset.range (L + 1),
+      (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
+          * (2 / 3 : ℝ) ^ j
+        ≤ (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) := by
+    intro j hjm
+    have hle : ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
+        ≤ ∑ _t ∈ Finset.range (H / 2 ^ (j + 1) + 1), F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) :=
+      Finset.sum_le_sum fun t ht => hjt j hjm t ht
+    rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul] at hle
+    have hstep : ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
+        ≤ (F j H * (A : ℝ)) * W j := by
+      calc ∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n
+          ≤ (((H / 2 ^ (j + 1) : ℕ) + 1 : ℕ) : ℝ) * (F j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ)) :=
+            hle
+        _ = (F j H * (A : ℝ)) * W j := by
+            simp only [hW]
+            push_cast
+            ring
+    calc (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
+          * (2 / 3 : ℝ) ^ j
+        ≤ ((F j H * (A : ℝ)) * W j) * (2 / 3 : ℝ) ^ j :=
+          mul_le_mul_of_nonneg_right hstep (by positivity)
+      _ = (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) := by ring
+  -- ⟦STEP 5⟧ THE SPLIT: the large lengths against the weighted full count, the small ones
+  -- against the weighted head.  This is the only place the floor `j₀` is read.
+  have hWw0 : ∀ j, (0 : ℝ) ≤ W j * (2 / 3 : ℝ) ^ j := fun j =>
+    mul_nonneg (hW0 j) (by positivity)
+  have hlarge : ∑ j ∈ (Finset.range (L + 1)).filter (fun j => j₀ ≤ j),
+        (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j)
+      ≤ Fan H * (A : ℝ) * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j := by
+    have hFanA : (0 : ℝ) ≤ Fan H * (A : ℝ) := mul_nonneg (hFan0 H) hA0
+    calc ∑ j ∈ (Finset.range (L + 1)).filter (fun j => j₀ ≤ j),
+          (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j)
+        ≤ ∑ j ∈ (Finset.range (L + 1)).filter (fun j => j₀ ≤ j),
+            (Fan H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) := by
+          refine Finset.sum_le_sum fun j hjm => ?_
+          have hj₀ := (Finset.mem_filter.mp hjm).2
+          exact mul_le_mul_of_nonneg_right
+            (mul_le_mul_of_nonneg_right (han j H hj₀) hA0) (hWw0 j)
+      _ ≤ ∑ j ∈ Finset.range (L + 1), (Fan H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) :=
+          Finset.sum_le_sum_of_subset_of_nonneg (Finset.filter_subset _ _)
+            (fun j _ _ => mul_nonneg hFanA (hWw0 j))
+      _ = Fan H * (A : ℝ) * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j := by
+          rw [Finset.mul_sum]
+  have hsmall : ∑ j ∈ (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j),
+        (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j)
+      ≤ Ftr H * (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j := by
+    have hFtrA : (0 : ℝ) ≤ Ftr H * (A : ℝ) := mul_nonneg (hFtr0 H) hA0
+    have hsub : (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j) ⊆ Finset.range j₀ := by
+      intro j hjm
+      have := (Finset.mem_filter.mp hjm).2
+      exact Finset.mem_range.mpr (by omega)
+    calc ∑ j ∈ (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j),
+          (F j H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j)
+        ≤ ∑ j ∈ (Finset.range (L + 1)).filter (fun j => ¬ j₀ ≤ j),
+            (Ftr H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) := by
+          refine Finset.sum_le_sum fun j hjm => ?_
+          have hj₀ : j < j₀ := by have := (Finset.mem_filter.mp hjm).2; omega
+          exact mul_le_mul_of_nonneg_right
+            (mul_le_mul_of_nonneg_right (htr j H hj₀) hA0) (hWw0 j)
+      _ ≤ ∑ j ∈ Finset.range j₀, (Ftr H * (A : ℝ)) * (W j * (2 / 3 : ℝ) ^ j) :=
+          Finset.sum_le_sum_of_subset_of_nonneg hsub
+            (fun j _ _ => mul_nonneg hFtrA (hWw0 j))
+      _ = Ftr H * (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j := by
+          rw [Finset.mul_sum]
+  have hcount : ∑ j ∈ Finset.range (L + 1),
+        (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
+          * (2 / 3 : ℝ) ^ j
+      ≤ Fan H * (A : ℝ) * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j
+        + Ftr H * (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j := by
+    refine le_trans (Finset.sum_le_sum hj) ?_
+    rw [← Finset.sum_filter_add_sum_filter_not (Finset.range (L + 1)) (fun j => j₀ ≤ j)]
+    linarith
+  -- ⟦THE ASSEMBLY⟧ the two weighted counts, prefactor included (§4)
+  have hHne : ((H : ℝ)) ≠ 0 := by
+    have : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH0
+    exact ne_of_gt this
+  have hfull : S * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j ≤ 54 / 5 * (H : ℝ) ^ 2 := by
+    rw [hS, hW, hL]
+    exact dyadic_count_weight_geom_le hH0
+  have hhead : S * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j
+      ≤ 9 / 2 * (H : ℝ) * (3 / 2 : ℝ) ^ L * (4 / 3 : ℝ) ^ j₀
+        + 9 / 5 * (3 / 2 : ℝ) ^ L * (8 / 3 : ℝ) ^ j₀ := by
+    rw [hS, hW, hL]
+    exact dyadic_count_weight_geom_small_le hH0 j₀
+  have hFanA : (0 : ℝ) ≤ Fan H * (A : ℝ) := mul_nonneg (hFan0 H) hA0
+  have hFtrA : (0 : ℝ) ≤ Ftr H * (A : ℝ) := mul_nonneg (hFtr0 H) hA0
+  calc ∑ n ∈ Finset.Ioc A B, (doorChiSup_gk K χ M H n) ^ 2
+      ≤ S * ∑ j ∈ Finset.range (L + 1),
+          (∑ t ∈ Finset.range (H / 2 ^ (j + 1) + 1), ∑ n ∈ Finset.Ioc A B, X j t n)
+            * (2 / 3 : ℝ) ^ j := by
+        rw [← hswap]; exact hstep1
+    _ ≤ S * (Fan H * (A : ℝ) * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j
+          + Ftr H * (A : ℝ) * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j) :=
+        mul_le_mul_of_nonneg_left hcount hS0
+    _ = Fan H * (A : ℝ) * (S * ∑ j ∈ Finset.range (L + 1), W j * (2 / 3 : ℝ) ^ j)
+          + Ftr H * (A : ℝ) * (S * ∑ j ∈ Finset.range j₀, W j * (2 / 3 : ℝ) ^ j) := by ring
+    _ ≤ Fan H * (A : ℝ) * (54 / 5 * (H : ℝ) ^ 2)
+          + Ftr H * (A : ℝ) * (9 / 2 * (H : ℝ) * (3 / 2 : ℝ) ^ L * (4 / 3 : ℝ) ^ j₀
+            + 9 / 5 * (3 / 2 : ℝ) ^ L * (8 / 3 : ℝ) ^ j₀) := by
+        have h1 := mul_le_mul_of_nonneg_left hfull hFanA
+        have h2 := mul_le_mul_of_nonneg_left hhead hFtrA
+        linarith
+    _ = m4BclGraded j₀ Fan Ftr H * (H : ℝ) ^ 2 * (A : ℝ) := by
+        unfold m4BclGraded m4Cmax
+        rw [← hL]
+        field_simp
+
+/-- **THE GRADED DYADIC ROW DATUM AT THE LEVER** — `M4ChiDyadicRowMeanSq` (:1026). -/
+def M4ChiDyadicRowMeanSq_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (MS : ℕ → ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+    ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H, ∀ s ≤ H,
+      1 / ((doorLadder R.x H (i + 1) + s : ℕ) : ℝ)
+          * (∫ y in ((doorLadder R.x H (i + 1) + s : ℕ) : ℝ)..(2
+                * ((doorLadder R.x H (i + 1) + s : ℕ) : ℝ)),
+              ‖((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
+                  * shortSum (doorChiCoeff_gk K χ M)
+                      (seamS0 (2 * (doorLadder R.x H (i + 1) + s))
+                        ((doorLadder R.x H (i + 1) + s : ℕ) : ℝ)) y ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
+        ≤ MS j H
+
+/-- **THE SHIFTED BRIDGE AT THE LEVER** — `m4_chiShiftBlock_of_dyadicRow` (:1042). -/
+theorem m4_chiShiftBlock_of_dyadicRow_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {MS : ℕ → ℕ → ℝ}
+    (hrow : M4ChiDyadicRowMeanSq_gk K R M k MS) :
+    M4ChiShiftBlockMeanSq_gk K R M k (fun j H => 2 * MS j H) := by
+  intro H hlo hhi q hq hqQ i hik χ j hjL s hsH
+  have hH0 : 0 < H := by have := R.hHlo_floor; omega
+  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+  have hfit := doorLadder_fit R.x H i
+  have hstepd := doorLadder_step_le hxH i
+  have hfloor := doorLadder_floor hxH (i + 1)
+  have h2j : 2 ^ j ≤ H := by
+    calc 2 ^ j ≤ 2 ^ Nat.log 2 H := Nat.pow_le_pow_right (by norm_num) hjL
+      _ ≤ H := Nat.pow_log_le_self 2 hH0.ne'
+  set A := doorLadder R.x H (i + 1) with hA
+  set B := doorLadder R.x H i with hB
+  have hh0 : 0 < 2 ^ j := Nat.two_pow_pos _
+  have hAB : A + s ≤ B + s := by omega
+  have hXpos : (0 : ℝ) < ((A + s : ℕ) : ℝ) := by
+    have : 0 < A + s := by omega
+    exact_mod_cast this
+  have hBfit : (((B + s : ℕ)) : ℝ) + ((2 ^ j : ℕ) : ℝ) ≤ 2 * (((A + s : ℕ)) : ℝ) := by
+    have hnat : B + s + 2 ^ j ≤ 2 * (A + s) := by omega
+    have := (Nat.cast_le (α := ℝ)).mpr hnat
+    push_cast at this ⊢
+    linarith
+  have hcov : ∀ n ∈ Finset.Ioc (A + s) (B + s), ∀ m ∈ Finset.Ioc n (n + 2 ^ j),
+      m ∉ seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ) → doorChiCoeff_gk K χ M m = 0 :=
+    hcov_of_seamS0 (doorChiCoeff_gk K χ M) (A := A + s) (B := B + s) (N := 2 * (A + s))
+      (H := 2 ^ j) le_rfl (by omega)
+  have hMSrow : 1 / (((A + s : ℕ)) : ℝ)
+      * (∫ y in (((A + s : ℕ)) : ℝ)..(2 * (((A + s : ℕ)) : ℝ)),
+          ‖((1 / ((2 ^ j : ℕ) : ℝ) : ℝ) : ℂ)
+              * shortSum (doorCoeffPhase (doorChiCoeff_gk K χ M) 0)
+                  (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) y ((2 ^ j : ℕ) : ℝ)‖ ^ 2)
+      ≤ MS j H := by
+    rw [doorCoeffPhase_zero]
+    exact hrow H hlo hhi q hq hqQ i hik χ j hjL s hsH
+  have hladder := sum_Ioc_absWindowSum_sq_div_le (doorChiCoeff_gk K χ M)
+    (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) 0 (H := 2 ^ j) (A := A + s) (B := B + s)
+    (X := (((A + s : ℕ)) : ℝ)) (MS := MS j H) hh0 hAB hXpos le_rfl hBfit hcov hMSrow
+  -- ⟦the grade is nonnegative, because the harmonic sum is⟧
+  have hP0 : (0 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H :=
+    le_trans (Finset.sum_nonneg fun n _ => by positivity) hladder
+  -- ⟦the exchange at the shifted block⟧
+  have hterm : ∀ n ∈ Finset.Ioc (A + s) (B + s),
+      ‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2
+        ≤ (((B + s : ℕ)) : ℝ)
+            * (‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) := by
+    intro n hn
+    obtain ⟨hn1, hn2⟩ := Finset.mem_Ioc.mp hn
+    have hn0 : (0 : ℝ) < (n : ℝ) := by
+      have : 0 < n := by omega
+      exact_mod_cast this
+    have hnB : (n : ℝ) ≤ (((B + s : ℕ)) : ℝ) := by exact_mod_cast hn2
+    have hvnn : (0 : ℝ) ≤ ‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ) := by
+      positivity
+    calc ‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2
+        = (n : ℝ) * (‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) := by
+          field_simp
+      _ ≤ (((B + s : ℕ)) : ℝ)
+            * (‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2 / (n : ℝ)) :=
+          mul_le_mul_of_nonneg_right hnB hvnn
+  have hex : ∑ n ∈ Finset.Ioc (A + s) (B + s),
+      ‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2
+      ≤ (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H) := by
+    refine le_trans (Finset.sum_le_sum hterm) ?_
+    rw [← Finset.mul_sum]
+    exact mul_le_mul_of_nonneg_left hladder (Nat.cast_nonneg _)
+  have hBs : (((B + s : ℕ)) : ℝ) ≤ 2 * (A : ℝ) := by
+    have hnat : B + s ≤ 2 * A := by omega
+    have := (Nat.cast_le (α := ℝ)).mpr hnat
+    push_cast at this ⊢
+    linarith
+  have hfinal : ∑ n ∈ Finset.Ioc (A + s) (B + s),
+      ‖absWindowSum (doorChiCoeff_gk K χ M) (2 ^ j) n 0‖ ^ 2
+      ≤ 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) := by
+    refine le_trans hex ?_
+    have := mul_le_mul_of_nonneg_right hBs hP0
+    calc (((B + s : ℕ)) : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H)
+        ≤ 2 * (A : ℝ) * (((2 ^ j : ℕ) : ℝ) ^ 2 * MS j H) := this
+      _ = 2 * MS j H * ((2 ^ j : ℕ) : ℝ) ^ 2 * (A : ℝ) := by ring
+  simpa only [absWindowSum_doorChiCoeff_zero_gk K] using hfinal
+
+/-- **THE χ-BLOCK STEP AT THE LEVER** — `m4_chiBlockMeanSq_of_dyadicRow` (:1134). -/
+theorem m4_chiBlockMeanSq_of_dyadicRow_gk (K : ℕ) {R : ChowlaRegime} {M k : ℕ} {MS : ℕ → ℕ → ℝ}
+    {MSan MStr : ℕ → ℝ} (j₀ : ℕ)
+    (hMSan0 : ∀ H : ℕ, 0 ≤ MSan H) (hMStr0 : ∀ H : ℕ, 0 ≤ MStr H)
+    (han : ∀ j H : ℕ, j₀ ≤ j → MS j H ≤ MSan H)
+    (htr : ∀ j H : ℕ, j < j₀ → MS j H ≤ MStr H)
+    (hrow : M4ChiDyadicRowMeanSq_gk K R M k MS) :
+    M4ChiBlockMeanSq_gk K R M k
+      (m4BclGraded j₀ (fun H => 2 * MSan H) (fun H => 2 * MStr H)) := by
+  refine m4_chiBlockMeanSq_of_shiftBlock_gk K (F := fun j H => 2 * MS j H) j₀ ?_ ?_ ?_ ?_
+    (m4_chiShiftBlock_of_dyadicRow_gk K hrow)
+  · intro H; have := hMSan0 H; linarith
+  · intro H; have := hMStr0 H; linarith
+  · intro j H hj; have := han j H hj; linarith
+  · intro j H hj; have := htr j H hj; linarith
+
+/-- **THE CLOSE AT THE GRADED DYADIC ROW DATUM, AT THE LEVER** —
+`m4_wave_closed_of_dyadicRow` (:1181). -/
+theorem m4_wave_closed_of_dyadicRow_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (MS : ℕ → ℕ → ℝ) (MSan MStr : ℕ → ℝ) (j₀ M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ →
+            (∀ H : ℕ, 0 ≤ MSan H) → (∀ H : ℕ, 0 ≤ MStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ j H : ℕ, j₀ ≤ j → MS j H ≤ MSan H) →
+            (∀ j H : ℕ, j < j₀ → MS j H ≤ MStr H) →
+            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
+                  * ((q : ℝ) ^ 2 * (3 * m4BclGraded j₀ (fun H => 2 * MSan H)
+                      (fun H => 2 * MStr H) H)) ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              Real.sqrt (Braw H) ≤ mrtDeliveredGrade (C / 2) H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ mrtDeliveredGrade (C / 2) H) →
+            M4ChiDyadicRowMeanSq_gk K R M k MS →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              ∀ i < k, ∀ r, r < q → ¬ Nat.Coprime q r →
+                ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+                    (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
+                  ≤ m4BclGraded j₀ (fun H => 2 * MSan H) (fun H => 2 * MStr H) H
+                      * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)) →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_wave_closed_of_chi_gk K
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro C hC U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ Braw MS MSan MStr j₀ M k hgates hMSan0 hMStr0 hBraw0
+    han htr hdrift hdel hrest hrow hnoncop => ?_⟩
+  refine hR δ Braw (m4BclGraded j₀ (fun H => 2 * MSan H) (fun H => 2 * MStr H)) M k hgates
+    (fun H => m4BclGraded_nonneg (Fan := fun H => 2 * MSan H) (Ftr := fun H => 2 * MStr H)
+      (show (0 : ℝ) ≤ 2 * MSan H by have := hMSan0 H; linarith)
+      (show (0 : ℝ) ≤ 2 * MStr H by have := hMStr0 H; linarith))
+    hBraw0 hdrift hdel hrest
+    (m4_chiBlockMeanSq_of_dyadicRow_gk K j₀ hMSan0 hMStr0 han htr hrow) hnoncop
+
+/-- **THE CLOSE AT THE GRADED DYADIC ROW DATUM, SPLIT, AT THE LEVER** —
+`m4_wave_closed_of_dyadicRow_split` (:1238). -/
+theorem m4_wave_closed_of_dyadicRow_split_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (MS : ℕ → ℕ → ℝ) (MSan MStr : ℕ → ℝ) (j₀ M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ →
+            (∀ H : ℕ, 0 ≤ MSan H) → (∀ H : ℕ, 0 ≤ MStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ j H : ℕ, j₀ ≤ j → MS j H ≤ MSan H) →
+            (∀ j H : ℕ, j < j₀ → MS j H ≤ MStr H) →
+            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
+                  * ((q : ℝ) ^ 2 * (3 * m4BclGraded j₀ (fun H => 2 * MSan H)
+                      (fun H => 2 * MStr H) H)) ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → Real.sqrt (Braw H) ≤ δ₀ / 2) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 2) →
+            M4ChiDyadicRowMeanSq_gk K R M k MS →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              ∀ i < k, ∀ r, r < q → ¬ Nat.Coprime q r →
+                ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+                    (classSup (doorSievedCoeff_gk K M) H n q r) ^ 2
+                  ≤ m4BclGraded j₀ (fun H => 2 * MSan H) (fun H => 2 * MStr H) H
+                      * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)) →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_wave_closed_of_chi_split_gk K
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ Braw MS MSan MStr j₀ M k hgates hMSan0 hMStr0 hBraw0
+    han htr hdrift hdel hrest hrow hnoncop => ?_⟩
+  refine hR δ Braw (m4BclGraded j₀ (fun H => 2 * MSan H) (fun H => 2 * MStr H)) M k hgates
+    (fun H => m4BclGraded_nonneg (Fan := fun H => 2 * MSan H) (Ftr := fun H => 2 * MStr H)
+      (show (0 : ℝ) ≤ 2 * MSan H by have := hMSan0 H; linarith)
+      (show (0 : ℝ) ≤ 2 * MStr H by have := hMStr0 H; linarith))
+    hBraw0 hdrift hdel hrest
+    (m4_chiBlockMeanSq_of_dyadicRow_gk K j₀ hMSan0 hMStr0 han htr hrow) hnoncop
+
 end Salt.MR
 
 end
+
+-- #audit (temporary)

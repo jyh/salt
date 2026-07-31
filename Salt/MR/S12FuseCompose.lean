@@ -745,6 +745,559 @@ theorem m4_fuse_hband_of_bandBase_graded (hMmu : MmuChiRate) (Aexp : ℝ) (hAexp
                       (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (M₀ (A + s))) :=
   m4_hband_at_door_slot_split_graded hMmu Aexp hAexp
 
+/-! ## §GK — the G-lever twin -/
+
+set_option maxHeartbeats 1000000 in
+-- The eighteen-slot `hcapWS` body re-elaborates against the wire's own family shape (the same
+-- cause as `S11Hoist` §5, from which this block is extracted).
+/-- `m4_fuse_hcap_of_capWS (:122)` at the lever. -/
+theorem m4_fuse_hcap_of_capWS_gk (K : ℕ) :
+    ∃ Cq cs T₀ Kq Ks : ℝ, 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧
+      ∀ (R : ChowlaRegime) (M : ℕ) (cU : ℕ → ℂ) (ε : ℕ → ℝ),
+        (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+            2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+            5 ≤ Real.log (Real.log (2 * T)) →
+            ∃ (Xd P Q : ℕ) (Mr : ℕ → ℕ) (Jb : ℕ) (b cf : ℕ → ℂ)
+              (VJ V Lr η εd Rbd CR KS E EP2 Mtail : ℝ),
+              DoorCapErrWS_gk K M (A + s) q Xd P Q b cf (2 * T) E Mtail
+                ∧ ((∑ χ : DirichletCharacter ℂ q, ∫ t in (-(2 * T))..(2 * T),
+                      ‖ramErr (H83 (((A + s : ℕ)) : ℝ) theta293) (2 * (A + s)) Xd P Q
+                        (chiBarCoeff q χ (winCutH (A + s) (doorCoeffU_gk K M)))
+                        (chiBarCoeff q χ b) (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E
+                    → DoorCapBasePerBlock_gk K Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr Jb b cf
+                        (2 * T) VJ V Lr η εd (ε (A + s)) Rbd CR KS E EP2)) →
+        ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) 0)
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (Adoor M) (s13GK K M))
+                        (calQK (Adoor M) (s13GK K M) M) (calH (H1door M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s))) := by
+  obtain ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hT₀, hKq, hKs, hwire⟩ := m4_hcap_at_door_perBlock_gk K
+  refine ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hT₀, hKq, hKs, ?_⟩
+  intro R M cU ε hc1 hcapWS
+  refine hwire R M cU ε hc1 ?_
+  intro H L q j A s hsb T hTlo hThi hTgate hTll
+  obtain ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2, Mtail, hws, hrest⟩ :=
+    hcapWS H L q j A s hsb T hTlo hThi hTgate hTll
+  haveI : NeZero q := ⟨hsb.2.2.2.1.ne'⟩
+  exact ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2,
+    hrest (m4_capE_at_door_gk K hws)⟩
+
+/-- `m4_fuse_hband_of_bandBase (:175)` at the lever. -/
+theorem m4_fuse_hband_of_bandBase_gk (K : ℕ) (hMmu : MmuChiRate) (Aexp : ℝ)
+    (hAexp : 0 < Aexp) :
+    ∃ x₀ : ℕ, ∀ (M : ℕ), 1 ≤ M →
+      ∃ C' : ℝ, 0 < C' ∧
+        ∀ (R : ChowlaRegime) (C₁ M₀ : ℕ → ℝ),
+          ((∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorBandBase_gk K x₀ C' Aexp M (A + s) q (C₁ (A + s)) (M₀ (A + s))) →
+            ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              ∀ χ : DirichletCharacter ℂ q,
+                (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+                  ‖dpolyA (winCutH (A + s) (doorChiCoeff_gk K χ M))
+                    (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+                  ≤ t0BandB (((A + s : ℕ)) : ℝ)
+                      (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (M₀ (A + s))) :=
+  m4_hband_at_door_slot_split_gk K hMmu Aexp hAexp
+
+/-! ## §2 — THE TWO TERMINAL CONJUNCTS -/
+
+/-- `m4_closure_fuse_zero'_nonneg (:225)` at the lever. -/
+theorem m4_closure_fuse_zero'_nonneg_gk (K : ℕ) (hK : K ≤ 170000000) :
+    ∃ Ct : ℝ, 0 < Ct ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp →
+      ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε : ℕ → ℝ) (Kc ρ : ℝ)
+        (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ) (t₁ : ∀ q : ℕ, DirichletCharacter ℂ q → ℝ),
+        1 ≤ M → (∀ i m : ℕ, ‖bU i m‖ ≤ 1) → (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s → DoorBaseFrame (A + s) j) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          374784 * Ct * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+            ≤ decayPool (A + s)) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          GRowsZeroGate'''_gk K M (A + s) Cp (decayPool (A + s))) →
+        (∀ A : ℕ, ε A ≤ 0) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          (4096 : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (1 - (1 : ℝ) / 500 - theta293)) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s → DoorRowZeroBase_gk K M (A + s) j cU bU) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) (t₁ q χ))
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (Adoor M) (s13GK K M))
+                        (calQK (Adoor M) (s13GK K M) M) (calH (H1door M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s)))) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q,
+            (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+              ‖dpolyA (winCutH (A + s) (doorChiCoeff_gk K χ M))
+                (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+              ≤ t0BandB (((A + s : ℕ)) : ℝ) (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s)))
+                  (M₀ (A + s))) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kc ρ) →
+        M4ChiSummedFreeRow_gk K R M (m4ChiRowGraded M (fun _ H => RSanDoorRho ρ H)) := by
+  obtain ⟨Ct, hCt, hslot⟩ := m4_hrowsSlot_at_door_zero'_gk K hK
+  refine ⟨Ct, hCt, ?_⟩
+  intro Cp hCp R M C₁ M₀ ε Kc ρ cU bU t₁ hM hb1 hc1 hbf hgP1 hgRows heps hL4096 hbase hcap
+    hband harith
+  refine m4_chiSummedFreeRow_of_doorAssembly_pool'_gated_gk K (Cs := fun _ => Ct)
+    (Ccc := fun _ => Cp) (C₁ := C₁) (M₀ := M₀) (ε := ε) (π₀ := decayPool)
+    (RSbig := fun _ H => RSanDoorRho ρ H) hM ?_
+    (hslot Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap) hband decayPool_nonneg
+    (m4_arith_henv_rho_pool_gk K decayPool_nonneg harith (price_at_decayPool_socket harith))
+  intro H L q j A s hb
+  have hXd : 1 ≤ A + s := by
+    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+    omega
+  exact doorFuseFrame_pool'_of_gates_cc_decay_gk K (hbf H L q j A s hb) (hgP1 H L q j A s hb)
+    (hgRows H L q j A s hb) (heps (A + s)) hM hXd (hL4096 H L q j A s hb)
+
+/-! ## §4 — THE TWIN -/
+
+set_option maxHeartbeats 1000000 in
+-- The statement re-elaborates the full residue against the re-cut prefix (as in `S12Compose`
+-- §3/§4).
+/-- `logChowla2_capstone_final' (:318)` at the lever. -/
+theorem logChowla2_capstone_final'_gk (K : ℕ) (hK : K ≤ 170000000)
+    (Aexp : ℝ) (hAexp : 0 < Aexp) :
+    ∃ (Cg : ℝ) (ε : ℚ) (Kc δ₀ Ct Cq cs T₀ Kq Ks : ℝ) (x₀ Hcap : ℕ),
+      1 ≤ Cg ∧ 0 < ε ∧ 0 < Kc ∧ 0 < δ₀ ∧
+        0 < Ct ∧ 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp →
+        ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+          ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+            (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+              Real.log (Real.log (R.Hhi : ℝ))
+                ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+            R.Hlo ≤ max Hcap U1floor ∧
+            ∀ (M : ℕ), 1 ≤ M →
+              ∃ C' : ℝ, 0 < C' ∧
+                ∀ (C₁ M₀ _epsf epsrf : ℕ → ℝ) (Kf : ℝ) (k : ℕ),
+                  -- ⟦A⟧ THE SPINE ARITHMETIC
+                  M4DoorGates_gk K Cg R M k δ₀ →
+                  8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 4 →
+                  (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                    4 * Real.log (263 * max 1 (arcDen 12 H)) ≤ ((doorRowFloor M : ℕ) : ℝ)) →
+                  (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                    arcDen 12 H < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) →
+                  (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                    m4SmallGradeFits (doorRowFloor M)
+                      (fun H => 2 * RSanDoorRho (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) H)
+                      (fun H => 2 * rStrWitness H) H) →
+                  -- ⟦B1'⟧ THE FUSE'S OWN DEMANDS AT THE DECAY POOL
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s → DoorBaseFrame (A + s) j) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    374784 * Ct * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+                      ≤ decayPool (A + s)) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    GRowsZeroGate'''_gk K M (A + s) Cp (decayPool (A + s))) →
+                  (∀ A : ℕ, epsrf A ≤ 0) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    (4096 : ℝ)
+                      ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (1 - (1 : ℝ) / 500 - theta293)) →
+                  -- ⟦THE εr/ε SPLIT⟧ the absorption exponent's own window
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    0 ≤ epsrf (A + s) ∧ epsrf (A + s) ≤ theta293 - 1 / 500) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    calQK (Adoor M) (s13GK K M) M 2 ≤ A + s ∧
+                      Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+                          ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) ∧
+                      (100 : ℝ) ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) ∧
+                      (4 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ∧
+                      ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ)) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+                      2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+                      5 ≤ Real.log (Real.log (2 * T)) →
+                      ∃ (Xd P Q : ℕ) (Mr : ℕ → ℕ) (Jb : ℕ) (b cf : ℕ → ℂ)
+                        (VJ V Lr η εd Rbd CR KS E EP2 Mtail : ℝ),
+                        DoorCapErrWS_gk K M (A + s) q Xd P Q b cf (2 * T) E Mtail
+                          ∧ ((∑ χ : DirichletCharacter ℂ q, ∫ t in (-(2 * T))..(2 * T),
+                                ‖ramErr (H83 (((A + s : ℕ)) : ℝ) theta293) (2 * (A + s)) Xd P Q
+                                  (chiBarCoeff q χ (winCutH (A + s) (doorCoeffU_gk K M)))
+                                  (chiBarCoeff q χ b) (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E
+                              → DoorCapBasePerBlock_gk K Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr Jb
+                                  b cf (2 * T) VJ V Lr η εd (epsrf (A + s)) Rbd CR KS E EP2)) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    DoorBandBase_gk K x₀ C' Aexp M (A + s) q (C₁ (A + s)) (M₀ (A + s))) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kf
+                      (doorRhoOfDelta (s12DeltaSock δ₀ Kc))) →
+                    ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, Kc, δ₀, Hcap, hCg, hε, hKc, hδ₀, hroad⟩ := m4_second_road_L2_hloCap_gk K
+  obtain ⟨Ct, hCt, hfuse⟩ := m4_closure_fuse_zero'_nonneg_gk K hK
+  obtain ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hT₀, hKq, hKs, hcapwire⟩ := m4_fuse_hcap_of_capWS_gk K
+  obtain ⟨x₀, hbandsplit⟩ := m4_fuse_hband_of_bandBase_gk K mmuChiRate_holds_gated Aexp hAexp
+  refine ⟨Cg, ε, Kc, δ₀, Ct, Cq, cs, T₀, Kq, Ks, x₀,
+    max Hcap (max arcFloor36 loglogFloor50), hCg, hε, hKc, hδ₀, hCt, hCq, hcs, hT₀, hKq,
+    hKs, ?_⟩
+  intro Cp hCp U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hR⟩ :=
+    hroad (max U1floor (max arcFloor36 loglogFloor50)) g
+  refine ⟨R, hReps, le_trans (le_max_left _ _) hU1, hRg, hRtow, by omega, ?_⟩
+  intro M hM
+  obtain ⟨C', hC'pos, hbandslot⟩ := hbandsplit M hM
+  refine ⟨C', hC'pos, ?_⟩
+  intro C₁ M₀ _epsf epsrf Kf k hgates hend hj0 hdgate hfit hbf hgP1 hgRows heps hL4096
+    _hepsr hbase5 hcapWS hbandbase harith
+  -- ⟦the two absorbed floors⟧
+  have harcfl : arcFloor36 ≤ R.Hlo :=
+    le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU1
+  have hllfl : loglogFloor50 ≤ R.Hlo :=
+    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU1
+  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
+    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
+  -- ⟦A1⟧ the socket's own threshold, and its `ρ`
+  set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
+  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
+  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
+  set ρ : ℝ := doorRhoOfDelta δs with hρdef
+  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
+  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
+  -- ⟦S2-COEFWS⟧ the row bundle's ONE analytic field, witnessed; the family pinned
+  have hbase : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorRowZeroBase_gk K M (A + s) j liouvilleC
+        (fun i => memSPunctCoeff (calP (Adoor M) (s13GK K M))
+          (calQK (Adoor M) (s13GK K M) M) 2 i liouvilleC) := by
+    intro H L q j A s hb
+    obtain ⟨h1, h2, h3, h4, h5⟩ := hbase5 H L q j A s hb
+    exact ⟨h1, doorRowZeroBase_coefWS_witness_gk K (A + s) hM, h2, h3, h4, h5⟩
+  -- ⟦ITEM 11, FROM THE FUSE⟧ at the door pin `t₁ ≡ 0`
+  have hrow : M4ChiSummedFreeRow_gk K R M (m4ChiRowGraded M (fun _ H => RSanDoorRho ρ H)) :=
+    hfuse Cp hCp R M C₁ M₀ epsrf Kf ρ liouvilleC
+      (fun i => memSPunctCoeff (calP (Adoor M) (s13GK K M))
+        (calQK (Adoor M) (s13GK K M) M) 2 i liouvilleC)
+      (fun _ _ => (0 : ℝ)) hM (fun i m => norm_doorPunctCoeffU_le_one_gk K M i m)
+      (fun p => liouvilleC_norm_le_one p) hbf hgP1 hgRows heps hL4096 hbase
+      (hcapwire R M liouvilleC epsrf (fun p => liouvilleC_norm_le_one p) hcapWS)
+      (hbandslot R C₁ M₀ hbandbase) harith
+  -- ⟦THE TWO TERMINAL CONJUNCTS⟧ minted in §2
+  have hgate4 : ∀ j H : ℕ, doorRowFloor M ≤ j →
+      m4ChiRowGraded M (fun _ H => RSanDoorRho ρ H) j H ≤ RSanDoorRho ρ H :=
+    m4_arith_gate4_rho M ρ
+  have hceilconj : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 * (108 / 5 * RSanDoorRho ρ H)
+        ≤ δs ^ 2 := by
+    intro H hlo hhi
+    exact m4_arith_rs_ceiling_met_of_delta hδs.ne' (hHreg H hlo hhi).1 (hHreg H hlo hhi).2
+  -- ⟦the road, fired at the share table⟧
+  refine hR δ₀ (δ₀ / (8 * Kc))
+    (m4ChiRowGraded M (fun _ H => RSanDoorRho ρ H)) (RSanDoorRho ρ) rStrWitness
+    (fun H => 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+      * m4BclGraded (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
+          (fun H => 2 * rStrWitness H) H)
+    M k (doorRowFloor M) hgates hM (fun H => RSanDoorRho_nonneg hρpos.le H)
+    rStrWitness_nonneg ?_ hgate4 (fun H _ _ => rStrWitness_G1 H) ?_
+    (arc36_of_regime harcfl) hdgate (fun H _ _ => le_rfl) ?_ ?_ hrow
+  · -- ⟦gate 3c⟧ `0 ≤ Braw`
+    intro H
+    have hb := m4BclGraded_nonneg (j₀ := doorRowFloor M)
+      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) (H := H)
+      (by have := RSanDoorRho_nonneg hρpos.le H
+          simpa using (by linarith : (0:ℝ) ≤ 2 * RSanDoorRho ρ H))
+      (by have := rStrWitness_nonneg H
+          simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
+    positivity
+  · -- ⟦gate 6⟧ ⟦G2⟧ at the `j₀`-floor
+    intro H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
+      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
+      unfold strataResidual
+      linarith
+    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
+    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
+      have h1 : RSanDoorRho ρ H ≤ 1 := by
+        unfold RSanDoorRho
+        rw [div_le_one (by nlinarith)]
+        linarith
+      exact le_trans h1 (le_max_left _ _)
+    have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
+    linarith
+  · -- ⟦gate 10a⟧ the `H`-uniform ceiling, at TWO `δ_sock²`
+    intro H hlo hhi
+    have hH0 : 0 < H := by
+      have := R.hHlo_floor
+      omega
+    have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
+      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
+      (hfit H hlo hhi)
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    have hfac0 : (0 : ℝ) ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 := by positivity
+    have hceil := hceilconj H hlo hhi
+    have hstep : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+        * m4BclGraded (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
+            (fun H => 2 * rStrWitness H) H
+        ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+            * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H))) :=
+      mul_le_mul_of_nonneg_left hle hfac0
+    have hval : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+          * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H)))
+        = 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+            * (108 / 5 * RSanDoorRho ρ H)) := by
+      unfold m4Cmax
+      ring
+    rw [hval] at hstep
+    have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+        * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
+    have hKcpos : (0 : ℝ) < 16 * Kc := by linarith
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
+      rw [hδssq]
+      field_simp
+      ring
+    linarith [hstep, h2, hval2.le, hval2.ge]
+  · -- ⟦gate 10b⟧ the budget line: the share table sums to `δ₀` exactly
+    have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
+      field_simp
+      ring
+    rw [hval]
+    linarith [hend]
+
+/-! ## §5 — THE TWIN AT THE RAW CAP -/
+
+set_option maxHeartbeats 1000000 in
+-- Same cause as §4.
+/-- `logChowla2_capstone_final_rawcap' (:530)` at the lever. -/
+theorem logChowla2_capstone_final_rawcap'_gk (K : ℕ) (hK : K ≤ 170000000)
+    (Aexp : ℝ) (hAexp : 0 < Aexp) :
+    ∃ (Cg : ℝ) (ε : ℚ) (Kc δ₀ Ct Cq cs T₀ Kq Ks : ℝ) (x₀ Hcap : ℕ),
+      1 ≤ Cg ∧ 0 < ε ∧ 0 < Kc ∧ 0 < δ₀ ∧
+        0 < Ct ∧ 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp →
+        ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+          ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+            (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+              Real.log (Real.log (R.Hhi : ℝ))
+                ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+            R.Hlo ≤ max Hcap U1floor ∧
+            ∀ (M : ℕ), 1 ≤ M →
+              ∃ C' : ℝ, 0 < C' ∧
+                ∀ (C₁ M₀ _epsf epsrf : ℕ → ℝ) (Kf : ℝ) (k : ℕ),
+                  -- ⟦A⟧ THE SPINE ARITHMETIC
+                  M4DoorGates_gk K Cg R M k δ₀ →
+                  8 * 2 ^ k / (R.x : ℝ) ≤ δ₀ / 4 →
+                  (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                    4 * Real.log (263 * max 1 (arcDen 12 H)) ≤ ((doorRowFloor M : ℕ) : ℝ)) →
+                  (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                    arcDen 12 H < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) →
+                  (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                    m4SmallGradeFits (doorRowFloor M)
+                      (fun H => 2 * RSanDoorRho (doorRhoOfDelta (s12DeltaSock δ₀ Kc)) H)
+                      (fun H => 2 * rStrWitness H) H) →
+                  -- ⟦B1'⟧ THE FUSE'S OWN DEMANDS AT THE DECAY POOL
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s → DoorBaseFrame (A + s) j) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    374784 * Ct * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+                      ≤ decayPool (A + s)) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    GRowsZeroGate'''_gk K M (A + s) Cp (decayPool (A + s))) →
+                  (∀ A : ℕ, epsrf A ≤ 0) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    (4096 : ℝ)
+                      ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (1 - (1 : ℝ) / 500 - theta293)) →
+                  -- ⟦THE εr/ε SPLIT⟧ the absorption exponent's own window
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    0 ≤ epsrf (A + s) ∧ epsrf (A + s) ≤ theta293 - 1 / 500) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    calQK (Adoor M) (s13GK K M) M 2 ≤ A + s ∧
+                      Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+                          ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) ∧
+                      (100 : ℝ) ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) ∧
+                      (4 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ∧
+                      ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ)) →
+                  -- ⟦B4 RAW⟧ the crossing bound, carried
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+                      (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+                      2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+                      5 ≤ Real.log (Real.log (2 * T)) →
+                      (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                          ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+                        ≤ 8 * (0 : ℝ) ^ 2
+                          + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                                \ seamBall (((A + s : ℕ)) : ℝ) 0)
+                              ∩ seamTtotG (chiBarCoeff q χ liouvilleC)
+                                  (calP (Adoor M) (s13GK K M))
+                                  (calQK (Adoor M) (s13GK K M) M) (calH (H1door M))
+                                  (mrAlpha (1 / 12)) 2,
+                              ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+                          + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                              * (Real.log (((A + s : ℕ)) : ℝ))
+                                  ^ (-theta293 + epsrf (A + s)))) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    DoorBandBase_gk K x₀ C' Aexp M (A + s) q (C₁ (A + s)) (M₀ (A + s))) →
+                  (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+                    DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kf
+                      (doorRhoOfDelta (s12DeltaSock δ₀ Kc))) →
+                    ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, Kc, δ₀, Hcap, hCg, hε, hKc, hδ₀, hroad⟩ := m4_second_road_L2_hloCap_gk K
+  obtain ⟨Ct, hCt, hfuse⟩ := m4_closure_fuse_zero'_nonneg_gk K hK
+  obtain ⟨Cq, cs, T₀, Kq, Ks, hCq, hcs, hT₀, hKq, hKs, -⟩ := m4_fuse_hcap_of_capWS_gk K
+  obtain ⟨x₀, hbandsplit⟩ := m4_fuse_hband_of_bandBase_gk K mmuChiRate_holds_gated Aexp hAexp
+  refine ⟨Cg, ε, Kc, δ₀, Ct, Cq, cs, T₀, Kq, Ks, x₀,
+    max Hcap (max arcFloor36 loglogFloor50), hCg, hε, hKc, hδ₀, hCt, hCq, hcs, hT₀, hKq,
+    hKs, ?_⟩
+  intro Cp hCp U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hRtow, hRcap, hR⟩ :=
+    hroad (max U1floor (max arcFloor36 loglogFloor50)) g
+  refine ⟨R, hReps, le_trans (le_max_left _ _) hU1, hRg, hRtow, by omega, ?_⟩
+  intro M hM
+  obtain ⟨C', hC'pos, hbandslot⟩ := hbandsplit M hM
+  refine ⟨C', hC'pos, ?_⟩
+  intro C₁ M₀ _epsf epsrf Kf k hgates hend hj0 hdgate hfit hbf hgP1 hgRows heps hL4096
+    _hepsr hbase5 hcapraw hbandbase harith
+  have harcfl : arcFloor36 ≤ R.Hlo :=
+    le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hU1
+  have hllfl : loglogFloor50 ≤ R.Hlo :=
+    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hU1
+  have hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)) :=
+    fun H hlo _ => regime_Hfloor_of_loglogFloor50 (le_trans hllfl hlo)
+  set δs : ℝ := s12DeltaSock δ₀ Kc with hδsdef
+  have hδs : 0 < δs := s12DeltaSock_pos hδ₀ hKc
+  have hδssq : δs ^ 2 = δ₀ / (16 * Kc) := s12DeltaSock_sq hδ₀ hKc
+  set ρ : ℝ := doorRhoOfDelta δs with hρdef
+  have hρpos : 0 < ρ := doorRhoOfDelta_pos hδs.ne'
+  have hρ1 : ρ ≤ 1 := doorRhoOfDelta_le_one δs
+  have hbase : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorRowZeroBase_gk K M (A + s) j liouvilleC
+        (fun i => memSPunctCoeff (calP (Adoor M) (s13GK K M))
+          (calQK (Adoor M) (s13GK K M) M) 2 i liouvilleC) := by
+    intro H L q j A s hb
+    obtain ⟨h1, h2, h3, h4, h5⟩ := hbase5 H L q j A s hb
+    exact ⟨h1, doorRowZeroBase_coefWS_witness_gk K (A + s) hM, h2, h3, h4, h5⟩
+  have hrow : M4ChiSummedFreeRow_gk K R M (m4ChiRowGraded M (fun _ H => RSanDoorRho ρ H)) :=
+    hfuse Cp hCp R M C₁ M₀ epsrf Kf ρ liouvilleC
+      (fun i => memSPunctCoeff (calP (Adoor M) (s13GK K M))
+        (calQK (Adoor M) (s13GK K M) M) 2 i liouvilleC)
+      (fun _ _ => (0 : ℝ)) hM (fun i m => norm_doorPunctCoeffU_le_one_gk K M i m)
+      (fun p => liouvilleC_norm_le_one p) hbf hgP1 hgRows heps hL4096 hbase hcapraw
+      (hbandslot R C₁ M₀ hbandbase) harith
+  have hgate4 : ∀ j H : ℕ, doorRowFloor M ≤ j →
+      m4ChiRowGraded M (fun _ H => RSanDoorRho ρ H) j H ≤ RSanDoorRho ρ H :=
+    m4_arith_gate4_rho M ρ
+  have hceilconj : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 * (108 / 5 * RSanDoorRho ρ H)
+        ≤ δs ^ 2 := by
+    intro H hlo hhi
+    exact m4_arith_rs_ceiling_met_of_delta hδs.ne' (hHreg H hlo hhi).1 (hHreg H hlo hhi).2
+  refine hR δ₀ (δ₀ / (8 * Kc))
+    (m4ChiRowGraded M (fun _ H => RSanDoorRho ρ H)) (RSanDoorRho ρ) rStrWitness
+    (fun H => 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+      * m4BclGraded (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
+          (fun H => 2 * rStrWitness H) H)
+    M k (doorRowFloor M) hgates hM (fun H => RSanDoorRho_nonneg hρpos.le H)
+    rStrWitness_nonneg ?_ hgate4 (fun H _ _ => rStrWitness_G1 H) ?_
+    (arc36_of_regime harcfl) hdgate (fun H _ _ => le_rfl) ?_ ?_ hrow
+  · intro H
+    have hb := m4BclGraded_nonneg (j₀ := doorRowFloor M)
+      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) (H := H)
+      (by have := RSanDoorRho_nonneg hρpos.le H
+          simpa using (by linarith : (0:ℝ) ≤ 2 * RSanDoorRho ρ H))
+      (by have := rStrWitness_nonneg H
+          simpa using (by linarith : (0:ℝ) ≤ 2 * rStrWitness H))
+    positivity
+  · intro H hlo hhi
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    have hSR1 : (1 : ℝ) ≤ strataResidual H := by
+      have : (0 : ℝ) ≤ Real.log (arcDen 12 H) := Real.log_nonneg harc1
+      unfold strataResidual
+      linarith
+    have hSRsq : (1 : ℝ) ≤ strataResidual H ^ 2 := by nlinarith
+    have hRSle : RSanDoorRho ρ H ≤ rSanWitness H := by
+      have h1 : RSanDoorRho ρ H ≤ 1 := by
+        unfold RSanDoorRho
+        rw [div_le_one (by nlinarith)]
+        linarith
+      exact le_trans h1 (le_max_left _ _)
+    have hG := g2_of_j0_floor H (j₀ := doorRowFloor M) (hj0 H hlo hhi)
+    linarith
+  · intro H hlo hhi
+    have hH0 : 0 < H := by
+      have := R.hHlo_floor
+      omega
+    have hle := m4BclGraded_le_of_fits (j₀ := doorRowFloor M)
+      (Fan := fun H => 2 * RSanDoorRho ρ H) (Ftr := fun H => 2 * rStrWitness H) hH0
+      (hfit H hlo hhi)
+    have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+    have hfac0 : (0 : ℝ) ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2 := by positivity
+    have hceil := hceilconj H hlo hhi
+    have hstep : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+        * m4BclGraded (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
+            (fun H => 2 * rStrWitness H) H
+        ≤ 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+            * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H))) :=
+      mul_le_mul_of_nonneg_left hle hfac0
+    have hval : 96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+          * (2 * (m4Cmax H * (2 * RSanDoorRho ρ H)))
+        = 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+            * (108 / 5 * RSanDoorRho ρ H)) := by
+      unfold m4Cmax
+      ring
+    rw [hval] at hstep
+    have h2 : 2 * (96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+        * (108 / 5 * RSanDoorRho ρ H)) ≤ 2 * δs ^ 2 := by linarith
+    have hKcpos : (0 : ℝ) < 16 * Kc := by linarith
+    have hval2 : 2 * δs ^ 2 = δ₀ / (8 * Kc) := by
+      rw [hδssq]
+      field_simp
+      ring
+    linarith [hstep, h2, hval2.le, hval2.ge]
+  · have hval : 2 * Kc * (δ₀ / (8 * Kc)) = δ₀ / 4 := by
+      field_simp
+      ring
+    rw [hval]
+    linarith [hend]
+
+/-! ## §6 — ⟦THE FUSE WIRE, GRADED⟧ (R3, 2026-07-30): THE `M`-SLOPE AT THE FUSE'S BINDER
+
+`S11Hoist` §6 exposes the band constant's shape in `M`: `C' ≤ Cb·M^{2.1}` with `Cb` in the top
+constant block.  This section restates that at the fuse's binder — the same re-plumb §1 does
+for the ungraded split, one conjunct richer — so that a capstone twin can pay
+`S13BandGate.grade` from `S11HoistGrade.s11_grade_absorption` instead of carrying it.
+
+⚠ `DoorBandBase_gk K` remains a HYPOTHESIS everywhere and a theorem nowhere; only its CONSUMPTION
+is re-routed, exactly as in §1. -/
+
+/-- `m4_fuse_hband_of_bandBase_graded (:733)` at the lever. -/
+theorem m4_fuse_hband_of_bandBase_graded_gk (K : ℕ) (hMmu : MmuChiRate) (Aexp : ℝ)
+    (hAexp : 0 < Aexp) :
+    ∃ (x₀ : ℕ) (Cb : ℝ), 0 < Cb ∧ ∀ (M : ℕ), 1 ≤ M →
+      ∃ C' : ℝ, 0 < C' ∧ C' ≤ Cb * (M : ℝ) ^ (2.1 : ℝ) ∧
+        ∀ (R : ChowlaRegime) (C₁ M₀ : ℕ → ℝ),
+          ((∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorBandBase_gk K x₀ C' Aexp M (A + s) q (C₁ (A + s)) (M₀ (A + s))) →
+            ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              ∀ χ : DirichletCharacter ℂ q,
+                (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+                  ‖dpolyA (winCutH (A + s) (doorChiCoeff_gk K χ M))
+                    (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+                  ≤ t0BandB (((A + s : ℕ)) : ℝ)
+                      (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (M₀ (A + s))) :=
+  m4_hband_at_door_slot_split_graded_gk K hMmu Aexp hAexp
+
+-- #audit (temporary)
+
 end Salt.MR
 
 end

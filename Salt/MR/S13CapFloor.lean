@@ -671,5 +671,91 @@ theorem s13CapFloor_all {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {T₀ Kq Ks 
    capfloor_floor4 hfl hb hAN hTlo hKs,
    hQ2reg⟩
 
+/-! ## §GK — the G-lever twin -/
+
+/-- `capfloor_one_lt_QK2 (:532)` at the lever. -/
+theorem capfloor_one_lt_QK2_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
+    1 < ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) := by
+  have hA : 0 < Adoor M := by rw [Adoor]; positivity
+  have hE : 0 < calE (Adoor M) (s13GK K M) 2 := by
+    rw [calE]
+    refine Nat.mul_pos (Nat.mul_pos hA (pow_pos (s13GK_pos K hM) _)) ?_
+    positivity
+  have h : 1 < calQK (Adoor M) (s13GK K M) M 2 := by
+    rw [calQK]
+    refine Nat.one_lt_two_pow_iff.mpr ?_
+    have : 0 < (2 ^ 2 * M) * calE (Adoor M) (s13GK K M) 2 :=
+      Nat.mul_pos (by positivity) hE
+    omega
+  exact_mod_cast h
+
+/-- `capfloor_QTann (:595)` at the lever.  `Q2_reg` is a HYPOTHESIS, so the `2^K`
+it gains rides in. -/
+theorem capfloor_QTann_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s) (hAN : A ≤ Nd) (hM : 1 ≤ M)
+    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
+    (hQ2reg : Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+      ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ))) :
+    ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ (q : ℝ) * Tann := by
+  have hgate := capfloor_tannGate hfl hb hAN hTlo (q := q)
+  unfold TannGate at hgate
+  rw [rpow_half_eq_sqrt] at hgate
+  have hQ1 : 1 < ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) := capfloor_one_lt_QK2_gk K hM
+  have hQ0 : (0 : ℝ) < ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) := by linarith
+  have hr0 : (0 : ℝ) ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ)) := Real.sqrt_nonneg _
+  calc ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+      = Real.exp (Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)) := (Real.exp_log hQ0).symm
+    _ ≤ Real.exp (30 * Real.sqrt (Real.log ((Nd : ℕ) : ℝ))) :=
+        Real.exp_le_exp.mpr (by linarith)
+    _ ≤ (q : ℝ) * Tann := hgate
+
+/-- `capfloor_kappa30Q (:615)` at the lever. -/
+theorem capfloor_kappa30Q_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {Tann : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s) (hAN : A ≤ Nd) (hM : 1 ≤ M)
+    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
+    (hQ2reg : Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+      ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ))) :
+    30 ≤ Real.log ((q : ℝ) * Tann)
+      / Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) := by
+  refine kappa30_of_TannGate ((Nd : ℕ) : ℝ) ((q : ℝ) * Tann) (calQK (Adoor M) (s13GK K M) M 2)
+    (capfloor_one_lt_QK2_gk K hM) ?_ (capfloor_tannGate hfl hb hAN hTlo)
+  rw [rpow_half_eq_sqrt]; exact hQ2reg
+
+/-! ### §5 — ⟦THE BUNDLE⟧ the eight fields at the shared binder + the register -/
+
+/-- `s13CapFloor_all (:643)` at the lever. -/
+theorem s13CapFloor_all_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s Nd : ℕ} {T₀ Kq Ks Tann : ℝ}
+    (hfl : loglogFloor50 ≤ R.Hlo) (hb : SocketBase R M H L q j A s) (hM : 1 ≤ M) (hAN : A ≤ Nd)
+    (hTlo : ((Nd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ Tann)
+    (hQ2reg : Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+      ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ)))
+    (hT₀ : T₀ ≤ Real.exp (Real.exp 100)) (hKq : Kq ≤ Real.exp 100)
+    (hKs : Real.exp (-100) ≤ Ks) :
+    ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ (q : ℝ) * Tann ∧
+    30 ≤ Real.log ((q : ℝ) * Tann)
+      / Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) ∧
+    T₀ ≤ Tann ∧
+    8 * Real.log (40000 * vkStripConst q) ≤ Real.log (Real.log (5 * Tann + 1)) ∧
+    8 + Real.log (20000 * (vkStripConst q + 8104)) / 100
+      ≤ Real.log (Real.log (5 * Tann + 1)) ∧
+    Kq * Real.log ((q : ℝ) * (Real.exp (Real.exp 100) + 3))
+      ≤ (Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ) ∧
+    (q : ℝ) ^ ((1 : ℝ) / 16)
+      ≤ Ks * ((Real.log (5 * Tann + 1)) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log (5 * Tann + 1))) ^ (4 : ℕ)) ∧
+    Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+      ≤ Real.sqrt (Real.log ((Nd : ℕ) : ℝ)) :=
+  ⟨capfloor_QTann_gk K hfl hb hAN hM hTlo hQ2reg,
+   capfloor_kappa30Q_gk K hfl hb hAN hM hTlo hQ2reg,
+   capfloor_T0_Tann hfl hb hAN hTlo hT₀,
+   capfloor_floor1 hfl hb hAN hTlo,
+   capfloor_floor2 hfl hb hAN hTlo,
+   capfloor_floor3 hfl hb hAN hTlo hKq,
+   capfloor_floor4 hfl hb hAN hTlo hKs,
+   hQ2reg⟩
+
+-- #audit (temporary)
+
 end Salt.MR
 

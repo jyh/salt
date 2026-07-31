@@ -544,4 +544,119 @@ theorem s13_MSelect'_of_halfWindow {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime} {M 
     MSelect' Cg δ₀ Λ ρ R M :=
   s13_MSelect'_of_headroom hbf hgr (s13_winFit_of_halfWindow hfl hhalf) hhead
 
+/-! ## §GK — the G-lever twin -/
+
+/-- `MSelect' (:359)` at the lever. Only `blockCeil` moves — to the levered block floor. -/
+structure MSelect'_gk (K : ℕ) (Cg δ₀ Λ ρ : ℝ) (R : ChowlaRegime) (M : ℕ) : Prop where
+  /-- ⟦1⟧ the `b`-floor — `M4DoorGates_gk K.hMδ`.  (`MSelect.bfloor`, verbatim.) -/
+  bfloor : 24 * Cg / δ₀ ≤ (M : ℝ)
+  /-- ⟦2⟧ the surviving `gRows` demand, `Adoor M ≳ 242·λ₊`.  (`MSelect.gRows`, verbatim.) -/
+  gRows : 242 * Λ ≤ (Adoor M : ℝ)
+  /-- ⟦3⟧ the DEMOTED arm summand — the `400·(A·G·M)²` block ceiling against `x`.
+  (`MSelect.blockCeil`, verbatim.) -/
+  blockCeil : 4 * R.ω * s13BlockFloor_gk K M ≤ R.x
+  /-- ⟦4⟧ **THE TRUE WINDOW GATE** — `s13_smallGradeFits`' `hfit` slot, at every admissible
+  window length: `(7/10)·doorRowFloor M + 3·G ≤ log H` with
+  `G = log 9 + 84·loglog H + 2·log(strataResidual H) − log ρ`. -/
+  winFit : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+    (7 / 10 : ℝ) * ((doorRowFloor M : ℕ) : ℝ)
+        + 3 * (Real.log 9 + 84 * Real.log (Real.log (H : ℝ))
+            + 2 * Real.log (strataResidual H) - Real.log ρ)
+      ≤ Real.log (H : ℝ)
+
+/-! ## §4 — THE CONSUMER BRIDGES, RE-ROUTED AT `MSelect'_gk K`
+
+The three landed consumers read only `gRows`/`bfloor`/`blockCeil`, so each re-routes with its
+landed proof unchanged.  The fourth bridge is new: it is what `winFit` was minted for. -/
+
+/-- `s13_gate8_of_MSelect' (:383)` at the lever. -/
+theorem s13_gate8_of_MSelect'_gk (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime} {M : ℕ} (hΛ : 0 < Λ)
+    (hS : MSelect'_gk K Cg δ₀ Λ ρ R M) : 12 * Λ < (Adoor M : ℝ) * Real.log 2 := by
+  have hlog2 : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have h := hS.gRows
+  nlinarith [hΛ, h, hlog2]
+
+/-- `s13_g2_jfloor_of_MSelect' (:391)` at the lever. -/
+theorem s13_g2_jfloor_of_MSelect'_gk (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime} {M : ℕ} (hM : 1 ≤ M)
+    (hΛ : 1 ≤ Λ) (hS : MSelect'_gk K Cg δ₀ Λ ρ R M) :
+    4 * Real.log 263 + 48 * Λ ≤ ((doorRowFloor M : ℕ) : ℝ) := by
+  have hlog := s13_log263_le_six
+  have hdr : (Adoor M : ℝ) ≤ ((doorRowFloor M : ℕ) : ℝ) := by
+    have h : Adoor M ≤ doorRowFloor M := by
+      rw [doorRowFloor]
+      calc Adoor M = 1 * Adoor M := (one_mul _).symm
+        _ ≤ M * Adoor M := Nat.mul_le_mul_right _ hM
+    exact_mod_cast h
+  have h := hS.gRows
+  linarith
+
+/-- `s13_doorGates_of_MSelect' (:406)` at the lever. -/
+theorem s13_doorGates_of_MSelect'_gk (K : ℕ) {Cg δ Λ ρ : ℝ} {R : ChowlaRegime} {M : ℕ}
+    (hM : 1 ≤ M) (hδ : 0 < δ) (hS : MSelect'_gk K Cg δ Λ ρ R M)
+    (harm : s13GArm' δ R.Hhi R.ω ≤ R.x) :
+    M4DoorGates_gk K Cg R M (doorCount R.ω) δ :=
+  s13_doorGates_of_arm'_gk K hM hδ hS.bfloor harm hS.blockCeil
+
+/-- `s13_smallGradeFits_of_MSelect' (:420)` at the lever. -/
+theorem s13_smallGradeFits_of_MSelect'_gk (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime} {M : ℕ}
+    (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1) (hS : MSelect'_gk K Cg δ₀ Λ ρ R M) :
+    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      m4SmallGradeFits (doorRowFloor M) (fun H => 2 * RSanDoorRho ρ H)
+        (fun H => 2 * rStrWitness H) H :=
+  fun H hlo hhi => s13_smallGradeFits hρ0 hρ1 hlo (hS.winFit H hlo hhi)
+
+/-! ## §5 — THE `winFit` DISCHARGE, AND THE SATISFACTION THEOREMS
+
+The gate `(7/10)·j₀ + 3·G ≤ log H` is one inequality in `log H`, and `G` is `loglog`-genre:
+at `λ := log H` it reads `252·log λ + 6·log(1 + 12·log λ) + 3·log 9 + 3·log(1/ρ)`.  So the
+whole gate is bought by a HALF-window floor at the window's own lower endpoint
+
+  `(7/10)·j₀ + 3·log(1/ρ) ≤ ½·log H₋` ,
+
+whose leftover half pays `3·G` with room to spare: at `√λ ≥ 2000` (the `loglogFloor50`
+absorption gives `λ ≥ e^{50}`) the `loglog` charge is under `648·√λ`, against `½λ = ½·(√λ)²`.
+At the certified point `(7/10)·j₀ = 1.43·10³²` against `½·log H₋ = 9.5·10³⁴` — the floor
+clears with 665× slack, and the `G`-side charge is `6.5·10³`.  Nothing here reads a numeral
+the tables do not carry. -/
+
+/-- `s13_MSelect'_of_headroom (:507)` at the lever. -/
+theorem s13_MSelect'_of_headroom_gk (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime} {M : ℕ}
+    (hbf : 24 * Cg / δ₀ ≤ (M : ℝ))
+    (hgr : 242 * Λ ≤ (Adoor M : ℝ))
+    (hwf : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      (7 / 10 : ℝ) * ((doorRowFloor M : ℕ) : ℝ)
+          + 3 * (Real.log 9 + 84 * Real.log (Real.log (H : ℝ))
+              + 2 * Real.log (strataResidual H) - Real.log ρ)
+        ≤ Real.log (H : ℝ))
+    (hhead : s13BlockExp_gk K M ≤ 4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ + 1) :
+    MSelect'_gk K Cg δ₀ Λ ρ R M := by
+  refine ⟨hbf, hgr, ?_, hwf⟩
+  have hfield := R.hPHheadroom
+  set m : ℕ := ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ with hm
+  have hnat : 4 * s13BlockFloor_gk K M ≤ 8 * (4 ^ m) ^ 2 := by
+    have h1 : 4 * s13BlockFloor_gk K M = 2 ^ (s13BlockExp_gk K M + 2) := by
+      rw [s13BlockFloor_gk, pow_add]; ring
+    rw [h1, s13_headroom_pow']
+    exact Nat.pow_le_pow_right (by norm_num) (by omega)
+  have hcast : ((4 * s13BlockFloor_gk K M : ℕ) : ℝ) ≤ ((8 * (4 ^ m) ^ 2 : ℕ) : ℝ) := by
+    exact_mod_cast hnat
+  have hω0 : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
+  have hchain : ((4 * R.ω * s13BlockFloor_gk K M : ℕ) : ℝ) ≤ (R.x : ℝ) := by
+    push_cast at hcast hfield ⊢
+    nlinarith [hcast, hfield, hω0]
+  exact_mod_cast hchain
+
+/-- `s13_MSelect'_of_halfWindow (:537)` at the lever. -/
+theorem s13_MSelect'_of_halfWindow_gk (K : ℕ) {Cg δ₀ Λ ρ : ℝ} {R : ChowlaRegime} {M : ℕ}
+    (hfl : loglogFloor50 ≤ R.Hlo)
+    (hbf : 24 * Cg / δ₀ ≤ (M : ℝ))
+    (hgr : 242 * Λ ≤ (Adoor M : ℝ))
+    (hhalf : (7 / 10 : ℝ) * ((doorRowFloor M : ℕ) : ℝ) + 3 * Real.log (1 / ρ)
+      ≤ Real.log (R.Hlo : ℝ) / 2)
+    (hhead : s13BlockExp_gk K M ≤ 4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ + 1) :
+    MSelect'_gk K Cg δ₀ Λ ρ R M :=
+  s13_MSelect'_of_headroom_gk K hbf hgr (s13_winFit_of_halfWindow hfl hhalf) hhead
+
+-- #audit (temporary)
+
 end Salt.MR

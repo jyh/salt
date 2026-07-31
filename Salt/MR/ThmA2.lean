@@ -798,4 +798,225 @@ the `t₀`-shifted datum), so it must be carried as a conditional in-statement h
 `∀ v, |v| ≤ X → 𝔻²(g, p^{iv}; X) ≤ (1/32)loglog X + 25 → (the A-10 cap at v)`.
 ⟦AMENDMENT B⟧ flagged it; nothing here hides it. -/
 
+/-! ## §GK — the G-lever twin
+
+The row page re-read at `G := s13GK K M` (`GLever`).  Three of the four objects move and one
+does not:
+
+* `a2Level1 M` — LEVEL 1 ONLY, hence **K-INVARIANT** (`a2Level1_gk_eq`).  It keeps its landed
+  name inside every twin below, and inside `thm_a2'_of_rows_gk`'s conclusion.
+* `a2RowsSum`, `a2RowsSum'` — the `j`-sum runs over `Icc 1 2`, so the `j = 2` slot reads
+  `𝒫₂` and DOES move; the twins are `a2RowsSum_gk`, `a2RowsSum'_gk`.
+* `a2Mrow` — level-1 in its own text but built on `a2RowsSum`, so the K-invariance test
+  fails TRANSITIVELY: `a2Mrow_gk`.
+
+**The lever only helps**: it grows `G`, hence grows `𝒫ⱼ`, hence SHRINKS the `1/𝒫ⱼ` reads —
+`a2RowsSum_gk_le`, `a2RowsSum'_gk_le`, `a2Mrow_gk_le`.  So every gate met at the landed base
+is met at the lever, and the twin's own gates are strictly weaker hypotheses.
+
+`thm_a2'_of_rows_gk` is proved by the `Ccc`-SHIFT: the twin's row number is the landed
+`a2Mrow` at the shifted constant `Ccc + (M/2)(a2RowsSum_gk − a2RowsSum)`, so no estimate is
+re-run — the landed theorem is instantiated, once. -/
+
+/-- **THE LEVEL-1 GRADE IS K-INVARIANT** (`a2Level1_gk_eq`).  `(log Q₁)^{1/3}/P₁^{1/12}` at
+the lever's base IS `a2Level1 M`: both reads are at level 1 (`GLever.calE_gk_one`). -/
+lemma a2Level1_gk_eq (K M : ℕ) :
+    (Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ)) ^ ((1 : ℝ) / 3)
+        / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 12)
+      = a2Level1 M := by
+  rw [calP_gk_one_eq, calQK_gk_one_eq, a2Level1]
+
+/-- `a2Level1 M ≥ 0` — level-1, hence stated once and reused by every `_gk` consumer. -/
+lemma a2Level1_nonneg {M : ℕ} (hM : 1 ≤ M) : 0 ≤ a2Level1 M := by
+  have hP0 : (0 : ℝ) < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by
+    linarith [calP_door_one_ge M]
+  unfold a2Level1
+  exact div_nonneg
+    (Real.rpow_nonneg (le_trans (by norm_num) (one_le_log_calQK_door_one hM)) _)
+    (Real.rpow_pos_of_pos hP0 _).le
+
+/-- The Lemma-12 row sum at the G-lever (`a2RowsSum` with `G := s13GK K M`; `H1door M` is
+K-invariant and keeps its landed name). -/
+noncomputable def a2RowsSum_gk (K M Xd : ℕ) : ℝ :=
+  ∑ j ∈ Finset.Icc 1 2,
+    ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH (H1door M) j + 1)
+        * (Real.exp 1 / (Xd : ℝ) ^ 2))
+      + 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ)
+      + 1 / (Xd : ℝ))
+
+/-- ⟦R1⟧'s `X_d`-free row sum at the G-lever (`a2RowsSum'` with `G := s13GK K M`). -/
+noncomputable def a2RowsSum'_gk (K M Xd : ℕ) : ℝ :=
+  ∑ j ∈ Finset.Icc 1 2,
+    ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH (H1door M) j + 1)
+        * (Real.exp 1 / (Xd : ℝ) ^ 2))
+      + 24 / ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ)
+      + 1 / (Xd : ℝ))
+
+/-- `𝒫ⱼ > 0` at any base — the ladder is a power of two, never evaluated. -/
+private lemma calP_pos_real (A G j : ℕ) : (0 : ℝ) < ((calP A G j : ℕ) : ℝ) := by
+  have h : 0 < calP A G j := by rw [calP]; positivity
+  exact_mod_cast h
+
+/-- `log₂(2X_d) ≥ 0` at every natural `X_d` (at `X_d = 0` the logarithm is `0` by
+convention). -/
+private lemma logb_two_two_mul_nonneg (Xd : ℕ) : (0 : ℝ) ≤ Real.logb 2 (2 * (Xd : ℝ)) := by
+  rcases Nat.eq_zero_or_pos Xd with h | h
+  · simp [h, Real.logb]
+  · have h1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast h
+    exact Real.logb_nonneg (by norm_num) (by linarith)
+
+/-- **THE LEVER SHRINKS THE ROW SUM** (`a2RowsSum_gk_le`).  `3072M ≤ s13GK K M` grows `𝒫ⱼ`
+(`GLever.calP_le_gk`), and `𝒫ⱼ` sits in a denominator. -/
+lemma a2RowsSum_gk_le (K M Xd : ℕ) : a2RowsSum_gk K M Xd ≤ a2RowsSum M Xd := by
+  rw [a2RowsSum_gk, a2RowsSum]
+  refine Finset.sum_le_sum (fun j _ => ?_)
+  have hP0 : (0 : ℝ) < ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ) := calP_pos_real _ _ _
+  have hle : ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ)
+      ≤ ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ) := by
+    exact_mod_cast calP_le_gk (Adoor M) j K M
+  have hnum : (0 : ℝ) ≤ 16 * Real.logb 2 (2 * (Xd : ℝ)) := by
+    linarith [logb_two_two_mul_nonneg Xd]
+  have hdiv : 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ)
+      ≤ 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ) :=
+    div_le_div_of_nonneg_left hnum hP0 hle
+  linarith
+
+/-- The same, for ⟦R1⟧'s `X_d`-free row sum. -/
+lemma a2RowsSum'_gk_le (K M Xd : ℕ) : a2RowsSum'_gk K M Xd ≤ a2RowsSum' M Xd := by
+  rw [a2RowsSum'_gk, a2RowsSum']
+  refine Finset.sum_le_sum (fun j _ => ?_)
+  have hP0 : (0 : ℝ) < ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ) := calP_pos_real _ _ _
+  have hle : ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ)
+      ≤ ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ) := by
+    exact_mod_cast calP_le_gk (Adoor M) j K M
+  have hdiv : (24 : ℝ) / ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ)
+      ≤ 24 / ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ) :=
+    div_le_div_of_nonneg_left (by norm_num) hP0 hle
+  linarith
+
+/-- `a2RowsSum'_le_a2RowsSum` at the lever, verbatim. -/
+lemma a2RowsSum'_le_a2RowsSum_gk {K M Xd : ℕ} (hXd : 2 ≤ Xd) :
+    a2RowsSum'_gk K M Xd ≤ a2RowsSum_gk K M Xd := by
+  have hXd2 : (2 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
+  have hXd0 : (0 : ℝ) < (Xd : ℝ) := by linarith
+  have hlogb : (3 / 2 : ℝ) ≤ Real.logb 2 (2 * (Xd : ℝ)) := by
+    have hl2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+    have hlt2 := Real.log_two_lt_d9
+    have hgt2 := Real.log_two_gt_d9
+    have hlogXd : Real.log 2 ≤ Real.log (Xd : ℝ) := Real.log_le_log (by norm_num) hXd2
+    have hmul : Real.log (2 * (Xd : ℝ)) = Real.log 2 + Real.log (Xd : ℝ) :=
+      Real.log_mul (by norm_num) (ne_of_gt hXd0)
+    rw [Real.logb, le_div_iff₀ hl2, hmul]
+    linarith
+  rw [a2RowsSum'_gk, a2RowsSum_gk]
+  refine Finset.sum_le_sum (fun j _ => ?_)
+  have hP0 : (0 : ℝ) < ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ) := calP_pos_real _ _ _
+  have hterm : (24 : ℝ) / ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ)
+      ≤ 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ) := by
+    gcongr
+    linarith
+  linarith
+
+/-- **THE FLAT ROW NUMBER AT THE G-LEVER** (`a2Mrow_gk`).  `a2Mrow` with `G := s13GK K M`;
+`a2Level1 M` and `H1door M` keep their landed names (both are level-1 objects). -/
+noncomputable def a2Mrow_gk (K : ℕ) (Cs C : ℝ) (M Xd : ℕ) (X ε : ℝ) : ℝ :=
+  47520 * a2Level1 M
+    + 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+    + 5760 * (a2RowsSum_gk K M Xd + C * (2 / (M : ℝ)))
+    + 3 * (Real.log X) ^ (-theta293 + ε)
+
+/-- **THE LEVER SHRINKS THE ROW NUMBER** (`a2Mrow_gk_le`).  The `𝒫₁` summand is level-1 and
+does not move; the row-sum summand shrinks (`a2RowsSum_gk_le`); the other two are `G`-free. -/
+lemma a2Mrow_gk_le (K : ℕ) (Cs C : ℝ) (M Xd : ℕ) (X ε : ℝ) :
+    a2Mrow_gk K Cs C M Xd X ε ≤ a2Mrow Cs C M Xd X ε := by
+  rw [a2Mrow_gk, a2Mrow, calP_door_one_gk]
+  linarith [a2RowsSum_gk_le K M Xd]
+
+/-- **⟦THE `Ccc`-SHIFT⟧, the row-sum slot** (`a2RowsSum_shift_gk`).  The twin's row-sum gate
+is the LANDED gate at the shifted free constant
+
+  `Ccc_gk := Ccc + (M/2)·(a2RowsSum_gk K M X_d − a2RowsSum M X_d)`   (`≤ Ccc`).
+
+`a2Mrow`/`a2RowsSum` have exactly one free-constant slot, entering as `C·(2/M)`, so the whole
+lever motion in the row page is absorbed by a shift of that constant — no estimate is
+re-run anywhere downstream. -/
+lemma a2RowsSum_shift_gk (K : ℕ) (C : ℝ) {M : ℕ} (Xd : ℕ) (hM : 1 ≤ M) :
+    a2RowsSum M Xd + (C + (M : ℝ) / 2 * (a2RowsSum_gk K M Xd - a2RowsSum M Xd))
+        * (2 / (M : ℝ))
+      = a2RowsSum_gk K M Xd + C * (2 / (M : ℝ)) := by
+  have hM0 : (0 : ℝ) < (M : ℝ) := by exact_mod_cast hM
+  have hcancel : (M : ℝ) / 2 * (2 / (M : ℝ)) = 1 := by field_simp
+  have hexp : (C + (M : ℝ) / 2 * (a2RowsSum_gk K M Xd - a2RowsSum M Xd)) * (2 / (M : ℝ))
+      = C * (2 / (M : ℝ))
+        + ((M : ℝ) / 2 * (2 / (M : ℝ))) * (a2RowsSum_gk K M Xd - a2RowsSum M Xd) := by
+    ring
+  rw [hexp, hcancel]
+  ring
+
+/-- **⟦THE `Ccc`-SHIFT⟧, the row-number slot** (`a2Mrow_shift_gk`). -/
+lemma a2Mrow_shift_gk (K : ℕ) (Cs C : ℝ) {M : ℕ} (Xd : ℕ) (X ε : ℝ) (hM : 1 ≤ M) :
+    a2Mrow Cs (C + (M : ℝ) / 2 * (a2RowsSum_gk K M Xd - a2RowsSum M Xd)) M Xd X ε
+      = a2Mrow_gk K Cs C M Xd X ε := by
+  rw [a2Mrow, a2Mrow_gk, calP_door_one_gk, a2RowsSum_shift_gk K C Xd hM]
+
+/-- **THE DOOR FRAME AT THE ROW'S SCALE, AT THE G-LEVER** (`calFrameK_doorH1_at_gk`).
+`calFrameK_doorH1_at` with `G := s13GK K M`; the single `X_d`-mentioning field is relaxed
+from equality exactly as in the landed statement. -/
+theorem calFrameK_doorH1_at_gk (K M Xd : ℕ) (hM : 1 ≤ M) (hK : K ≤ 170000000)
+    (hXd : calQK (Adoor M) (s13GK K M) M 2 ≤ Xd) :
+    CalFrameK (1 / 12) (H1door M) (Adoor M) (s13GK K M) M 2 Xd := by
+  have hF := calFrameK_satisfiable_doorH1_gk K M hM hK
+  exact ⟨hF.eta_pos, hF.eta_lt, hF.one_le_Jb, hF.one_le_G, hF.one_le_M, hF.G_gateK,
+    hF.A_gate_lin, hF.A_gate_logK, hF.A_floor, hF.H1_two, hF.H1_pin, hXd⟩
+
+/-- **thm_A2′ AT THE G-LEVER** (`thm_a2'_of_rows_gk`).  `thm_a2'_of_rows` verbatim with
+`G := s13GK K M`: the row family is taken at `a2Mrow_gk`, the `𝒫₁` gate at the lever's `𝒫₁`
+(same symbol — level 1), and the row-sum gate at `a2RowsSum_gk`.  The conclusion is
+BYTE-IDENTICAL to the landed one, `a2Level1 M` included, because every summand of the
+five-summand interface is either `G`-free or level-1.
+
+The proof spends no new estimate.  The twin's row number is the LANDED `a2Mrow` at the
+shifted constant
+
+  `Ccc_gk := Ccc + (M/2)·(a2RowsSum_gk K M X_d − a2RowsSum M X_d)   (≤ Ccc)`,
+
+so `thm_a2'_of_rows` is instantiated once, at that constant, and the three moved hypotheses
+match on the nose. -/
+theorem thm_a2'_of_rows_gk (K : ℕ) {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁' M₀ ε : ℝ}
+    (hM : 1 ≤ M)
+    (hX : Real.exp 1 ≤ X) (hX3 : 3 ≤ X) (hh4 : 4 ≤ h)
+    (hhX : h ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ)))
+    (ha : ∀ n : ℕ, ‖a n‖ ≤ 1) (hsupp : ∀ n : ℕ, (n : ℝ) ≤ X → a n = 0)
+    (hN2 : (N : ℝ) ≤ 2 * X)
+    (hTann : TannGate X (2 * (X / h)))
+    (hceil : 5 ≤ Real.log (Real.log (2 * (X / h))))
+    (hrows : ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X → TannGate X (2 * T) →
+      5 ≤ Real.log (Real.log (2 * T)) →
+      X / h / T * (∫ t in seamAnn X (2 * T), ‖spoly N a t‖ ^ 2)
+        ≤ a2Mrow_gk K Cs Ccc M Xd X ε)
+    (hT0band : (∫ t in (-(seamT0 X))..(seamT0 X),
+      ‖dpolyA a (seamS0 N X) t‖ ^ 2) ≤ t0BandB X C₁' M₀)
+    (hgP1 : 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+      ≤ (Real.log X) ^ (-(1 : ℝ) / 500))
+    (hgRows : 5760 * (a2RowsSum_gk K M Xd + Ccc * (2 / (M : ℝ)))
+      ≤ (Real.log X) ^ (-(1 : ℝ) / 500))
+    (hεwin : 0 ≤ ε ∧ ε ≤ theta293 - 1 / 500)
+    (hL4096 : 4096 ≤ (Real.log X) ^ (1 - (1 : ℝ) / 250)) :
+    1 / X * (∫ x in X..(2 * X), ‖((1 / h : ℝ) : ℂ) * shortSum a (seamS0 N X) x h‖ ^ 2)
+      ≤ 8448 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
+        + 1787702400 * a2Level1 M
+        + 188133 * (Real.log X) ^ (-(1 : ℝ) / 500)
+        + 304128 * ballSupC ^ 2
+            * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
+        + 6315000 / h := by
+  -- ⟦THE `Ccc`-SHIFT⟧ the twin's row number IS the landed one at this constant
+  have hrowsum := a2RowsSum_shift_gk K Ccc (M := M) Xd hM
+  have hMrow := a2Mrow_shift_gk K Cs Ccc (M := M) Xd X ε hM
+  exact thm_a2'_of_rows hM hX hX3 hh4 hhX ha hsupp hN2 hTann hceil
+    (fun T h1 h2 h3 h4 => (hrows T h1 h2 h3 h4).trans (le_of_eq hMrow.symm)) hT0band
+    (by rw [← calP_door_one_gk (K := K)]; exact hgP1)
+    (by rw [hrowsum]; exact hgRows) hεwin hL4096
+
+-- #audit (temporary)
+
 end Salt.MR

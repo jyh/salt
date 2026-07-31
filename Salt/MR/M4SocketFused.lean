@@ -129,6 +129,78 @@ theorem m4_socket_discharged_fused (hMmu : MmuChiRate) (Aexp : ℝ) (hAexp : 0 <
   exact m4_arith_door_exit_of_delta (Cs := fun _ => Ct) (Ccc := fun _ => Cp) hM hδ₀ hHreg
     hframe (hslot Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap) (hbandslot hbandbase) harith
 
+/-! ## §GK — the G-lever twin
+
+The fused terminal at `G := s13GK K M` (`GLever`), `(K : ℕ)` first.
+
+⟦THE ONE NEW HYPOTHESIS⟧ `hK : K ≤ 1.7·10⁸`.  It is not this file's: it rides in from
+`M4RowsChiZero.m4_hrowsSlot_at_door_zero_gk`, whose own row family needs the `A_gate_logK`
+leg of the levered `CalFrameK` inhabitant (`DoorFrame.calFrameK_satisfiable_door_gk`), and
+that leg holds exactly on `K ≤ 1.7·10⁸` (J-REF).  Everything else on this page is the landed
+composition with `_gk` names.
+
+⚠ ⟦THE BINDER SHADOW⟧ the landed statement binds a REAL `K` — ⟦C3⟧'s margined-floor constant
+inside `DoorArithFrameRho`.  It is ALPHA-RENAMED to `Kar` so the lever's `(K : ℕ)` can go
+first, per THE KDESIGN.  `RSanDoorRho`, `doorRhoOfDelta`, `m4ChiRowGraded`, `doorRowFloor`,
+`strataResidual` and `calH (H1door M)` are `G`-FREE (or LEVEL 1) and keep their landed names. -/
+
+/-- `m4_socket_discharged_fused` (:79), at the lever. -/
+theorem m4_socket_discharged_fused_gk (K : ℕ) (hK : K ≤ 170000000) (hMmu : MmuChiRate)
+    (Aexp : ℝ) (hAexp : 0 < Aexp) :
+    ∃ Ct : ℝ, 0 < Ct ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp →
+      ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ : ℕ → ℝ), 1 ≤ M →
+        ∃ (C' : ℝ) (x₀ : ℕ), 0 < C' ∧
+          ∀ (ε : ℕ → ℝ) (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ)
+            (t₁ : ∀ q : ℕ, DirichletCharacter ℂ q → ℝ) (Kar δ₀ : ℝ),
+            0 < δ₀ →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ))) →
+            (∀ i m : ℕ, ‖bU i m‖ ≤ 1) → (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorFuseFrame_gk K M (A + s) j Ct Cp (ε (A + s))) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorRowZeroBase_gk K M (A + s) j cU bU) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+                (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+                TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+                (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+                  ≤ 8 * (0 : ℝ) ^ 2
+                    + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                          \ seamBall (((A + s : ℕ)) : ℝ) (t₁ q χ))
+                        ∩ seamTtotG (chiBarCoeff q χ cU) (calP (Adoor M) (s13GK K M))
+                            (calQK (Adoor M) (s13GK K M) M) (calH (H1door M))
+                            (mrAlpha (1 / 12)) 2,
+                        ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+                    + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                        * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s)))) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorBandBase_gk K x₀ C' Aexp M (A + s) q (C₁ (A + s)) (M₀ (A + s))) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kar
+                (doorRhoOfDelta δ₀)) →
+            M4ChiSummedFreeRow_gk K R M
+                (m4ChiRowGraded M (fun _ H => RSanDoorRho (doorRhoOfDelta δ₀) H))
+              ∧ (∀ j H : ℕ, doorRowFloor M ≤ j →
+                  m4ChiRowGraded M (fun _ H => RSanDoorRho (doorRhoOfDelta δ₀) H) j H
+                    ≤ RSanDoorRho (doorRhoOfDelta δ₀) H)
+              ∧ (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+                      * (108 / 5 * RSanDoorRho (doorRhoOfDelta δ₀) H)
+                    ≤ δ₀ ^ 2) := by
+  obtain ⟨Ct, hCt, hslot⟩ := m4_hrowsSlot_at_door_zero_gk K hK
+  refine ⟨Ct, hCt, ?_⟩
+  intro Cp hCp R M C₁ M₀ hM
+  obtain ⟨C', x₀, hC'pos, hbandslot⟩ := m4_hband_at_door_slot_gk K hMmu Aexp hAexp R M hM C₁ M₀
+  refine ⟨C', x₀, hC'pos, ?_⟩
+  intro ε cU bU t₁ Kar δ₀ hδ₀ hHreg hb1 hc1 hframe hbase hcap hbandbase harith
+  exact m4_arith_door_exit_of_delta_gk K (Cs := fun _ => Ct) (Ccc := fun _ => Cp) hM hδ₀ hHreg
+    hframe (hslot Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap) (hbandslot hbandbase) harith
+
 end Salt.MR
+
+-- #audit (temporary)
 
 end

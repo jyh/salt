@@ -250,4 +250,161 @@ theorem m4_chiSummedFreeRow_of_doorAssembly_pool' {R : ChowlaRegime} {M : ℕ}
     hF.ceil5 (hrows H L q j A s hb) (hband H L q j A s hb) hF.gP1 hF.gRows hF.eps_pool
     hF.band_pool
 
+/-! ## §GK — the G-lever twin
+
+The R1×R2 join at `G := s13GK K M` (`GLever`): `(K : ℕ)` first, the door datum at
+`doorChiCoeff_gk`, the row number at `ThmA2Prime.a2Mrow'_gk` and the primed row sum at
+`ThmA2Prime.a2RowsSum'_gk`.  The exit lands in the SAME pooled grade
+(`M4AssemblyPool.a2DoorGrade_pool_gk`), because the pooled grade mentions no row sum. -/
+
+/-- `DoorFuseFrame_pool'` (:75), at the lever.  Two of the ten fields move: `gP1`'s `𝒫₁` is
+written at the levered base and `gRows` reads `ThmA2Prime.a2RowsSum'_gk`. -/
+structure DoorFuseFrame_pool'_gk (K : ℕ) (M Xd j : ℕ) (Cs Ccc ε π₀ : ℝ) : Prop where
+  /-- `e ≤ X_d` — the frozen interface's lower scale pin. -/
+  X_exp : Real.exp 1 ≤ ((Xd : ℕ) : ℝ)
+  /-- `3 ≤ X_d`. -/
+  X_three : (3 : ℝ) ≤ ((Xd : ℕ) : ℝ)
+  /-- `4 ≤ 2^j` — the AS-2 MVT guard (NOT `3`). -/
+  h_four : (4 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ)
+  /-- Lemma 14's window frame `2^j ≤ X_d·(log X_d)^{−1/5}`. -/
+  h_window : ((2 ^ j : ℕ) : ℝ)
+    ≤ ((Xd : ℕ) : ℝ) * (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 / 5 : ℝ))
+  /-- `TannGate X_d (2X_d/2^j)` — the annulus gate at the family's bottom height. -/
+  tann : TannGate ((Xd : ℕ) : ℝ) (2 * (((Xd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ)))
+  /-- `5 ≤ loglog(2X_d/2^j)` — the `h`-ceiling. -/
+  ceil5 : 5 ≤ Real.log (Real.log (2 * (((Xd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ))))
+  /-- The first GRADING gate, on the `𝒯`-leg constant `Cs`, AT THE POOL AND THE LEVER. -/
+  gP1 : 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) ≤ π₀
+  /-- **THE SECOND GRADING GATE, AT THE POOL AND AT ⟦R1⟧'s LEVERED ROW SUM** — the `p²` slot
+  is the `X_d`-FREE constant `24/𝒫ⱼ`, so nothing in this field grows with the base. -/
+  gRows : 5760 * (a2RowsSum'_gk K M Xd + Ccc * (2 / (M : ℝ))) ≤ π₀
+  /-- **THE `𝒰`-LEG, POOLED** — `ε` carries no exponent-room constraint. -/
+  eps_pool : (Real.log ((Xd : ℕ) : ℝ)) ^ (-theta293 + ε) ≤ π₀
+  /-- **THE BAND ABSORPTION, POOLED**. -/
+  band_pool : 4096 * (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 : ℝ) + 1 / 500) ≤ π₀
+
+namespace DoorFuseFrame_pool'_gk
+
+variable {K : ℕ} {M Xd j : ℕ} {Cs Ccc ε π₀ : ℝ}
+
+/-- `DoorFuseFrame_pool'.pool_nonneg` (:105), at the lever. -/
+theorem pool_nonneg (h : DoorFuseFrame_pool'_gk K M Xd j Cs Ccc ε π₀) : 0 ≤ π₀ := by
+  have hL0 : (0 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by
+    have h3 : Real.log 3 ≤ Real.log ((Xd : ℕ) : ℝ) := Real.log_le_log (by norm_num) h.X_three
+    have : (0 : ℝ) < Real.log 3 := Real.log_pos (by norm_num)
+    linarith
+  have hrp : (0 : ℝ) < (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 : ℝ) + 1 / 500) :=
+    Real.rpow_pos_of_pos hL0 _
+  have := h.band_pool
+  linarith
+
+/-- `DoorFuseFrame_pool'.of_pool` (:119), at the lever — the SAME one-way fidelity direction,
+now through `ThmA2.a2RowsSum'_le_a2RowsSum_gk`. -/
+theorem of_pool (h : DoorFuseFrame_pool_gk K M Xd j Cs Ccc ε π₀) (hXd : 2 ≤ Xd) :
+    DoorFuseFrame_pool'_gk K M Xd j Cs Ccc ε π₀ where
+  X_exp := h.X_exp
+  X_three := h.X_three
+  h_four := h.h_four
+  h_window := h.h_window
+  tann := h.tann
+  ceil5 := h.ceil5
+  gP1 := h.gP1
+  gRows := by
+    have hle := a2RowsSum'_le_a2RowsSum_gk (K := K) (M := M) (Xd := Xd) hXd
+    have := h.gRows
+    linarith
+  eps_pool := h.eps_pool
+  band_pool := h.band_pool
+
+end DoorFuseFrame_pool'_gk
+
+/-- `m4_chiFreeRowSq_sum_at_door_pool'` (:151), at the lever. -/
+theorem m4_chiFreeRowSq_sum_at_door_pool'_gk (K : ℕ) {q : ℕ} [NeZero q] {M Xd j : ℕ}
+    {Cs Ccc C₁ M₀ ε π₀ : ℝ}
+    (hM : 1 ≤ M)
+    (hX : Real.exp 1 ≤ ((Xd : ℕ) : ℝ)) (hX3 : (3 : ℝ) ≤ ((Xd : ℕ) : ℝ))
+    (hh4 : (4 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ))
+    (hhX : ((2 ^ j : ℕ) : ℝ)
+      ≤ ((Xd : ℕ) : ℝ) * (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 / 5 : ℝ)))
+    (hTann : TannGate ((Xd : ℕ) : ℝ) (2 * (((Xd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ))))
+    (hceil : 5 ≤ Real.log (Real.log (2 * (((Xd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ)))))
+    (hrowsSum : ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+      ((Xd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ ((Xd : ℕ) : ℝ) →
+      TannGate ((Xd : ℕ) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+      ((Xd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) / T
+          * (∫ t in seamAnn ((Xd : ℕ) : ℝ) (2 * T),
+              ‖spoly (2 * Xd) (winCutH Xd (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+        ≤ a2Mrow'_gk K Cs Ccc M Xd ((Xd : ℕ) : ℝ) ε)
+    (hT0bandSum : ∀ χ : DirichletCharacter ℂ q,
+      (∫ t in (-(seamT0 ((Xd : ℕ) : ℝ)))..(seamT0 ((Xd : ℕ) : ℝ)),
+        ‖dpolyA (winCutH Xd (doorChiCoeff_gk K χ M)) (seamS0 (2 * Xd) ((Xd : ℕ) : ℝ)) t‖ ^ 2)
+        ≤ t0BandB ((Xd : ℕ) : ℝ) (cfbC₁ ((Xd : ℕ) : ℝ) C₁) M₀)
+    (hgP1 : 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) ≤ π₀)
+    (hgRows : 5760 * (a2RowsSum'_gk K M Xd + Ccc * (2 / (M : ℝ))) ≤ π₀)
+    (hgU : (Real.log ((Xd : ℕ) : ℝ)) ^ (-theta293 + ε) ≤ π₀)
+    (hgBand : 4096 * (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 : ℝ) + 1 / 500) ≤ π₀) :
+    ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq_gk K χ M j Xd
+      ≤ (q.totient : ℝ)
+          * a2DoorGrade_pool_gk K M ((Xd : ℕ) : ℝ) ((2 ^ j : ℕ) : ℝ) C₁ M₀ π₀ := by
+  have hpool : (0 : ℝ) ≤ π₀ := by
+    have hL0 : (0 : ℝ) < Real.log ((Xd : ℕ) : ℝ) := by
+      have h3 : Real.log 3 ≤ Real.log ((Xd : ℕ) : ℝ) := Real.log_le_log (by norm_num) hX3
+      have : (0 : ℝ) < Real.log 3 := Real.log_pos (by norm_num)
+      linarith
+    have hrp : (0 : ℝ) < (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 : ℝ) + 1 / 500) :=
+      Real.rpow_pos_of_pos hL0 _
+    linarith
+  have hN2 : (((2 * Xd : ℕ)) : ℝ) ≤ 2 * ((Xd : ℕ) : ℝ) := by push_cast; exact le_rfl
+  have hbase := thm_a2'_of_rows_chiSummed_pool'_gk K (q := q) (N := 2 * Xd) (M := M) (Xd := Xd)
+    (a := fun χ => winCutH Xd (doorChiCoeff_gk K χ M)) (X := ((Xd : ℕ) : ℝ))
+    (h := ((2 ^ j : ℕ) : ℝ)) (π₀ := π₀) (Cs := fun _ => Cs) (Ccc := fun _ => Ccc)
+    (C₁' := fun _ => cfbC₁ ((Xd : ℕ) : ℝ) C₁) (M₀ := fun _ => M₀) (ε := fun _ => ε)
+    hM hX hX3 hh4 hhX (fun χ n => doorRow_ha1_gk K χ M Xd n)
+    (fun χ n hn => doorRow_hsupp0_gk K χ M Xd n hn) hN2 hTann hceil hrowsSum hT0bandSum
+    hpool (fun _ => hgP1) (fun _ => hgRows) (fun _ => hgU) hgBand
+  simp only [shortSum_winCutH_seamS0] at hbase
+  refine le_trans hbase (le_of_eq ?_)
+  rw [a2_sum_const_chars]
+  unfold a2DoorGrade_pool_gk
+  ring
+
+/-- `m4_chiSummedFreeRow_of_doorAssembly_pool'` (:218), at the lever — **THE EXIT**, levered. -/
+theorem m4_chiSummedFreeRow_of_doorAssembly_pool'_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ}
+    {Cs Ccc C₁ M₀ ε π₀ : ℕ → ℝ} {RSbig : ℕ → ℕ → ℝ}
+    (hM : 1 ≤ M)
+    (hframe : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorFuseFrame_pool'_gk K M (A + s) j (Cs (A + s)) (Ccc (A + s)) (ε (A + s)) (π₀ (A + s)))
+    (hrows : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+        (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+        TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+        (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) / T
+            * (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+          ≤ a2Mrow'_gk K (Cs (A + s)) (Ccc (A + s)) M (A + s) (((A + s : ℕ)) : ℝ) (ε (A + s)))
+    (hband : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∀ χ : DirichletCharacter ℂ q,
+        (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+          ‖dpolyA (winCutH (A + s) (doorChiCoeff_gk K χ M))
+            (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+          ≤ t0BandB (((A + s : ℕ)) : ℝ) (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (M₀ (A + s)))
+    (hpool : ∀ A : ℕ, 0 ≤ π₀ A)
+    (henv : ∀ H j A s : ℕ, doorRowFloor M ≤ j →
+      arcDen 12 H * a2DoorGrade_pool_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+          (M₀ (A + s)) (π₀ (A + s))
+        ≤ RSbig j H) :
+    M4ChiSummedFreeRow_gk K R M (m4ChiRowGraded M RSbig) := by
+  refine m4_chiSummedFreeRow_of_doorGrade_pool_gk K (C₁ := C₁) (M₀ := M₀) (π₀ := π₀) hpool ?_
+    henv
+  intro H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx hAcap s hsL
+  haveI : NeZero q := ⟨hq.ne'⟩
+  have hb : SocketBase R M H L q j A s :=
+    ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩
+  have hF := hframe H L q j A s hb
+  exact m4_chiFreeRowSq_sum_at_door_pool'_gk K hM hF.X_exp hF.X_three hF.h_four hF.h_window
+    hF.tann hF.ceil5 (hrows H L q j A s hb) (hband H L q j A s hb) hF.gP1 hF.gRows hF.eps_pool
+    hF.band_pool
+
 end Salt.MR
+
+-- #audit (temporary)

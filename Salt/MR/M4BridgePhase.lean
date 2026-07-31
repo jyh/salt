@@ -507,4 +507,93 @@ theorem m4_sievedDoorSqSup_trivial (R : ChowlaRegime) (M : ℕ) :
       ≤ (H : ℝ) ^ 2 := by nlinarith
   nlinarith [sq_nonneg ((H : ℕ) : ℝ)]
 
+/-! ## §GK — the G-lever twin
+
+The additive `_gk` family at `G := s13GK K M` (`GLever`): each declaration is its landed
+sibling with `(K : ℕ)` inserted as the FIRST binder and every literal `3072 * M` rewritten to
+`s13GK K M`.  The phase machinery of §1–§3 (`subWindowSup`, the drift bound, the `q`-graded
+price) is datum-abstract and is re-instantiated, never twinned. -/
+
+/-- **THE SUB-WINDOW-UNIFORM SOCKET AT THE LEVER** — `M4SievedDoorSqSup` (:384) at
+`G := s13GK K M`. -/
+def M4SievedDoorSqSup_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Braw : ℕ → ℝ) : Prop :=
+  M4BandTransport →
+    ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ (b : ℤ) (q : ℕ), 0 < q →
+      (q : ℝ) ≤ arcDen 12 H →
+        (∫ n, (subWindowSup (memSCoeff (calP (Adoor M) (s13GK K M))
+              (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC) H n ((b : ℝ) / (q : ℝ))) ^ 2
+            ∂(logMeasure R.x R.ω))
+          ≤ Braw H * (q : ℝ) ^ 2 * (H : ℝ) ^ 2
+
+/-- **THE HOOK AT THE LEVER, `q`-GRADED** — `m4_sievedDoorSq_of_sup` (:434) verbatim. -/
+theorem m4_sievedDoorSq_of_sup_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {Braw Braw' : ℕ → ℝ}
+    (hgrade : ∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+      (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2 * ((q : ℝ) ^ 2 * Braw' H) ≤ Braw H)
+    (hsup : M4SievedDoorSqSup_gk K R M Braw') : M4SievedDoorSq_gk K R M Braw := by
+  intro htr H _ hlo hhi α hα
+  have hH : 0 < H := Nat.pos_of_ne_zero (NeZero.ne H)
+  obtain ⟨b, q, hq, hqQ, hd⟩ := hα
+  set c := memSCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC
+    with hc
+  set β : ℝ := (b : ℝ) / (q : ℝ) with hβ
+  -- ⟦the pointwise drift bound, squared — THE `q`-GRADING KEPT (no `hden` demotion)⟧
+  have hpt : ∀ n : ℕ, ‖absWindowSum c H n α‖ ^ 2
+      ≤ (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2 * (subWindowSup c H n β) ^ 2 := by
+    intro n
+    have h := norm_absWindowSum_le_drift (B₅ := 12) (H := H) (q := q) (n := n)
+      (β := β) (θ := α - β) hq hH hd c
+    have he : β + (α - β) = α := by ring
+    rw [he] at h
+    calc ‖absWindowSum c H n α‖ ^ 2
+        ≤ ((1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) * subWindowSup c H n β) ^ 2 := by
+          gcongr
+      _ = (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
+            * (subWindowSup c H n β) ^ 2 := by ring
+  -- ⟦the integral, and the grade⟧
+  calc (∫ n, ‖absWindowSum c H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
+      ≤ ∫ n, (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2 * (subWindowSup c H n β) ^ 2
+          ∂(logMeasure R.x R.ω) := integral_logMeasure_mono hpt
+    _ = (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
+          * ∫ n, (subWindowSup c H n β) ^ 2 ∂(logMeasure R.x R.ω) :=
+        integral_logMeasure_const_mul _ _
+    _ ≤ (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
+          * (Braw' H * (q : ℝ) ^ 2 * (H : ℝ) ^ 2) :=
+        mul_le_mul_of_nonneg_left (hsup htr H hlo hhi b q hq hqQ) (sq_nonneg _)
+    _ = ((1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2 * ((q : ℝ) ^ 2 * Braw' H))
+          * (H : ℝ) ^ 2 := by ring
+    _ ≤ Braw H * (H : ℝ) ^ 2 :=
+        mul_le_mul_of_nonneg_right (hgrade H q hlo hhi hq hqQ) (sq_nonneg _)
+
+/-- **THE `q`-FREE READING AT THE LEVER** — `m4_sievedDoorSq_of_sup_uniform` (:475). -/
+theorem m4_sievedDoorSq_of_sup_uniform_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ}
+    {Braw Braw' : ℕ → ℝ}
+    (hB0 : ∀ H : ℕ, 0 ≤ Braw' H)
+    (hgrade : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      (1 + 2 * Real.pi) ^ 2 * (arcDen 12 H ^ 2 * Braw' H) ≤ Braw H)
+    (hsup : M4SievedDoorSqSup_gk K R M Braw') : M4SievedDoorSq_gk K R M Braw :=
+  m4_sievedDoorSq_of_sup_gk K
+    (fun H _q hlo hhi hq hqQ =>
+      le_trans (qgraded_drift_price_le hq hqQ (hB0 H)) (hgrade H hlo hhi)) hsup
+
+/-- **THE LEVER'S SUP SOCKET IS INHABITED** — `m4_sievedDoorSqSup_trivial` (:492). -/
+theorem m4_sievedDoorSqSup_trivial_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) :
+    M4SievedDoorSqSup_gk K R M (fun _ => 1) := by
+  intro _ H _ _ _ b q hq _
+  have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hq2 : (1 : ℝ) ≤ (q : ℝ) ^ 2 := by nlinarith
+  refine integral_logMeasure_le_of_le R.hx R.hω (fun n => ?_)
+  have hle := subWindowSup_le_of_norm_le_one
+    (a := memSCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC)
+    (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ 2 m) H n
+    ((b : ℝ) / (q : ℝ))
+  have h0 := subWindowSup_nonneg
+    (memSCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC)
+    H n ((b : ℝ) / (q : ℝ))
+  have hsq : (subWindowSup (memSCoeff (calP (Adoor M) (s13GK K M))
+      (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC) H n ((b : ℝ) / (q : ℝ))) ^ 2
+      ≤ (H : ℝ) ^ 2 := by nlinarith
+  nlinarith [sq_nonneg ((H : ℕ) : ℝ)]
+
+-- #audit (temporary)
+
 end Salt.MR

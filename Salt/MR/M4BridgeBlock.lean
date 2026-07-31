@@ -584,4 +584,171 @@ theorem blockBase_le_two_mul {x H ℓ i m n : ℕ} (hxH : H + 1 ≤ x)
   push_cast at this
   linarith
 
+/-! ## §GK — the G-lever twin
+
+The additive `_gk` family at `G := s13GK K M` (`GLever`): each declaration is its landed
+sibling with `(K : ℕ)` inserted as the FIRST binder and the door datum read at
+`doorSievedCoeff_gk K M` in place of `doorSievedCoeff M`.  The blocking machinery (`numBlocks`,
+`blockCut`, `blockSupSq`, the blocked drift) is datum-abstract and is re-instantiated. -/
+
+/-- **THE BLOCKED SOCKET AT THE LEVER** — `M4SievedDoorSqBlk` (:369). -/
+def M4SievedDoorSqBlk_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (ℓ : ℕ → ℕ → ℕ)
+    (Bblk : ℕ → ℝ) : Prop :=
+  M4BandTransport →
+    ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ (b : ℤ) (q : ℕ), 0 < q →
+      (q : ℝ) ≤ arcDen 12 H → 1 ≤ ℓ H q → ℓ H q ≤ H →
+      (H : ℝ) ≤ arcDen 12 H * (ℓ H q : ℝ) →
+        (∫ n, blockSupSq (doorSievedCoeff_gk K M) H (ℓ H q) n ((b : ℝ) / (q : ℝ))
+            ∂(logMeasure R.x R.ω))
+          ≤ Bblk H * (numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2
+
+/-- **THE BLOCKED SOCKET THEOREM AT THE LEVER** — `m4_sievedDoorSq_of_blk` (:386). -/
+theorem m4_sievedDoorSq_of_blk_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {ℓ : ℕ → ℕ → ℕ}
+    {Bblk Braw : ℕ → ℝ}
+    (hB0 : ∀ H : ℕ, 0 ≤ Bblk H)
+    (hℓ1 : ∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H → 1 ≤ ℓ H q)
+    (hℓH : ∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H → ℓ H q ≤ H)
+    (hℓcnt : ∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+      (H : ℝ) ≤ arcDen 12 H * (ℓ H q : ℝ))
+    (hℓdrift : ∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+      arcDen 12 H * (ℓ H q : ℝ) ≤ (q : ℝ) * (H : ℝ))
+    (hgrade : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      4 * (1 + 2 * Real.pi) ^ 2 * Bblk H ≤ Braw H)
+    (hblk : M4SievedDoorSqBlk_gk K R M ℓ Bblk) : M4SievedDoorSq_gk K R M Braw := by
+  intro htr H _ hlo hhi α hα
+  have hH : 0 < H := Nat.pos_of_ne_zero (NeZero.ne H)
+  obtain ⟨b, q, hq, hqQ, hd⟩ := hα
+  have hℓ1' := hℓ1 H q hlo hhi hq hqQ
+  have hℓH' := hℓH H q hlo hhi hq hqQ
+  have hℓcnt' := hℓcnt H q hlo hhi hq hqQ
+  have hℓdrift' := hℓdrift H q hlo hhi hq hqQ
+  have hℓ0 : 0 < ℓ H q := hℓ1'
+  set c := doorSievedCoeff_gk K M with hc
+  set β : ℝ := (b : ℝ) / (q : ℝ) with hβ
+  set L := ℓ H q with hL
+  set N := numBlocks H L with hN
+  -- ⟦the pointwise blocked drift, squared⟧
+  have hpt : ∀ n : ℕ, ‖absWindowSum c H n α‖ ^ 2
+      ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * blockSupSq c H L n β := by
+    intro n
+    have h := norm_absWindowSum_sq_le_drift_blocked (B₅ := 12) (H := H) (q := q) (n := n)
+      (ℓ := L) hq hH hℓ0 (β := β) (θ := α - β) hd hℓdrift' c
+    have he : β + (α - β) = α := by ring
+    rw [he] at h
+    exact h
+  -- ⟦the integral, and the grade⟧
+  have hmono : (∫ n, ‖absWindowSum c H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
+      ≤ ∫ n, (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * blockSupSq c H L n β ∂(logMeasure R.x R.ω) :=
+    integral_logMeasure_mono hpt
+  have hconst : (∫ n, (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * blockSupSq c H L n β
+        ∂(logMeasure R.x R.ω))
+      = (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * ∫ n, blockSupSq c H L n β ∂(logMeasure R.x R.ω) :=
+    integral_logMeasure_const_mul _ _
+  have hsupply := hblk htr H hlo hhi b q hq hqQ hℓ1' hℓH' hℓcnt'
+  have hfac0 : (0 : ℝ) ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) := by positivity
+  have hstep : (∫ n, ‖absWindowSum c H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
+      ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := by
+    rw [hconst] at hmono
+    exact le_trans hmono (mul_le_mul_of_nonneg_left hsupply hfac0)
+  -- ⟦`N²ℓ² ≤ 4H²`: the blocking is loss-free up to the absolute factor `4`⟧
+  have hNL : N * L ≤ 2 * H := by
+    have h1 : N * L ≤ H + L := by rw [hN]; exact numBlocks_mul_le H L
+    omega
+  have hNLR : (N : ℝ) * (L : ℝ) ≤ 2 * (H : ℝ) := by
+    have : ((N * L : ℕ) : ℝ) ≤ ((2 * H : ℕ) : ℝ) := by exact_mod_cast hNL
+    push_cast at this
+    linarith
+  have hNL0 : (0 : ℝ) ≤ (N : ℝ) * (L : ℝ) := by positivity
+  have hsq : ((N : ℝ) * (L : ℝ)) ^ 2 ≤ 4 * (H : ℝ) ^ 2 := by nlinarith
+  have hB := hB0 H
+  have hpi2 : (0 : ℝ) ≤ (1 + 2 * Real.pi) ^ 2 := sq_nonneg _
+  have hfin : (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
+      ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by
+    calc (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2)
+        = (1 + 2 * Real.pi) ^ 2 * Bblk H * (((N : ℝ) * (L : ℝ)) ^ 2) := by ring
+      _ ≤ (1 + 2 * Real.pi) ^ 2 * Bblk H * (4 * (H : ℝ) ^ 2) :=
+          mul_le_mul_of_nonneg_left hsq (mul_nonneg hpi2 hB)
+      _ = 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := by ring
+  have hgr := hgrade H hlo hhi
+  calc (∫ n, ‖absWindowSum c H n α‖ ^ 2 ∂(logMeasure R.x R.ω))
+      ≤ (1 + 2 * Real.pi) ^ 2 * (N : ℝ) * (Bblk H * (N : ℝ) * (L : ℝ) ^ 2) := hstep
+    _ ≤ 4 * (1 + 2 * Real.pi) ^ 2 * Bblk H * (H : ℝ) ^ 2 := hfin
+    _ ≤ Braw H * (H : ℝ) ^ 2 := mul_le_mul_of_nonneg_right hgr (sq_nonneg _)
+
+/-- **THE LEVER'S BLOCKED SOCKET IS INHABITED** — `m4_sievedDoorSqBlk_trivial` (:463). -/
+theorem m4_sievedDoorSqBlk_trivial_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ)
+    (ℓ : ℕ → ℕ → ℕ) :
+    M4SievedDoorSqBlk_gk K R M ℓ (fun _ => 1) := by
+  intro _ H _ _ _ b q _ _ _ _ _
+  refine integral_logMeasure_le_of_le R.hx R.hω (fun n => ?_)
+  have h := blockSupSq_le_of_norm_le_one (a := doorSievedCoeff_gk K M)
+    (norm_doorSievedCoeff_le_one_gk K M) H (ℓ H q) n ((b : ℝ) / (q : ℝ))
+  linarith [h]
+
+/-- **THE PER-LADDER-BLOCK BLOCKED MEAN SQUARE AT THE LEVER** — `M4BlockMeanSqBlk`
+(:485). -/
+def M4BlockMeanSqBlk_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (ℓ : ℕ → ℕ → ℕ)
+    (Bblk : ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ (b : ℤ) (q : ℕ), 0 < q → (q : ℝ) ≤ arcDen 12 H →
+    1 ≤ ℓ H q → ℓ H q ≤ H → (H : ℝ) ≤ arcDen 12 H * (ℓ H q : ℝ) →
+    ∀ i < k,
+      ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          blockSupSq (doorSievedCoeff_gk K M) H (ℓ H q) n ((b : ℝ) / (q : ℝ))
+        ≤ Bblk H * (numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2
+            * (doorLadder R.x H (i + 1) : ℝ)
+
+/-- **THE BLOCKED ROUTE'S COVERING SIDE AT THE LEVER** — `m4_cover_assembly_blk` (:499). -/
+theorem m4_cover_assembly_blk_gk (K : ℕ) {Cg : ℝ} {R : ChowlaRegime} {M k : ℕ} {δ : ℝ}
+    {ℓ : ℕ → ℕ → ℕ} {Bblk : ℕ → ℝ}
+    (hgates : M4DoorGates_gk K Cg R M k δ) (hB0 : ∀ H : ℕ, 0 ≤ Bblk H)
+    (hblk : M4BlockMeanSqBlk_gk K R M k ℓ Bblk) :
+    M4SievedDoorSqBlk_gk K R M ℓ (fun H => 3 * Bblk H) := by
+  intro _ H _ hlo hhi b q hq hqQ h1 h2 h3
+  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+  have hP : (0 : ℝ) ≤ Bblk H * (numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2 := by
+    have := hB0 H; positivity
+  have hmain := integral_door_cover_le_clean (x := R.x) (ω := R.ω) (H := H) (k := k)
+    (g := fun n => blockSupSq (doorSievedCoeff_gk K M) H (ℓ H q) n ((b : ℝ) / (q : ℝ)))
+    (P := Bblk H * (numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2)
+    R.hx R.hω R.hωx hgates.hlogω hgates.hcount
+    (fun n => blockSupSq_nonneg _ _ _ _ _) hP hxH
+    (hgates.hreach H hlo hhi) hgates.hpow (hblk H hlo hhi b q hq hqQ h1 h2 h3)
+  refine le_trans hmain (le_of_eq ?_)
+  ring
+
+/-- **THE LEVER'S BLOCKED BLOCK HYPOTHESIS IS INHABITED** — `m4_blockMeanSqBlk_trivial`
+(:520). -/
+theorem m4_blockMeanSqBlk_trivial_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ)
+    (ℓ : ℕ → ℕ → ℕ) :
+    M4BlockMeanSqBlk_gk K R M k ℓ (fun _ => 1) := by
+  intro H _ hhi b q _ _ _ _ _ i _
+  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+  have hterm : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+      blockSupSq (doorSievedCoeff_gk K M) H (ℓ H q) n ((b : ℝ) / (q : ℝ))
+        ≤ (numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2 := fun n _ =>
+    blockSupSq_le_of_norm_le_one (norm_doorSievedCoeff_le_one_gk K M) H (ℓ H q) n _
+  have hcard : ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+      blockSupSq (doorSievedCoeff_gk K M) H (ℓ H q) n ((b : ℝ) / (q : ℝ))
+      ≤ ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
+        * ((numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2) := by
+    calc ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          blockSupSq (doorSievedCoeff_gk K M) H (ℓ H q) n ((b : ℝ) / (q : ℝ))
+        ≤ ∑ _n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+            ((numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2) := Finset.sum_le_sum hterm
+      _ = ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
+            * ((numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2) := by
+          rw [Finset.sum_const, nsmul_eq_mul]
+  have hc : ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
+      ≤ (doorLadder R.x H (i + 1) : ℝ) := by
+    rw [Nat.card_Ioc]
+    have hfit := doorLadder_fit R.x H i
+    have hn : doorLadder R.x H i - doorLadder R.x H (i + 1) ≤ doorLadder R.x H (i + 1) := by
+      omega
+    exact_mod_cast hn
+  have hpos := doorLadder_pos hxH (i + 1)
+  have hQ : (0 : ℝ) ≤ (numBlocks H (ℓ H q) : ℝ) * (ℓ H q : ℝ) ^ 2 := by positivity
+  nlinarith
+
+-- #audit (temporary)
+
 end Salt.MR

@@ -710,6 +710,268 @@ theorem m4_socket_discharged_capwired_ws_perBlock (hMmu : MmuChiRate) (Aexp : �
   exact ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2,
     hrest (m4_capE_at_door hws)⟩
 
+/-! ## §GK — the G-lever twin
+
+⚠ ⟦THE CORRECTION TO THE BRIEF⟧ this file carries NO `3072 * M` literal at all — its only
+mentions of the landed base are in DOCSTRINGS (`:421-422`).  It still owes six twins, because
+`DoorCapErrWS{,'}` read the levered door datum `winCutH Nd (doorCoeffU_gk K M)` through their
+`coefWS` and `tail` fields, and the two composites carry `M4CapWire.DoorCapBase{,PerBlock}_gk`,
+`M4RowsChiZero.DoorRowZeroBase_gk`, `M4SocketDischarge.DoorBandBase_gk` and
+`M4Assembly.DoorFuseFrame_gk` in their hypothesis lists.
+
+⟦RE-INSTANTIATED, NOT TWINNED⟧ §1's three twist lifts and §2's three `Σ_χ` error moments
+(`ramErr_meanSq_all_chi_ws{,_priced,_priced'}`) are `(P, Q)`-ABSTRACT and datum-abstract;
+they are re-fired at the levered datum with no new estimate.  `endMass`, `H83`, `blockOmega`
+and `SeamCoefWS` read no door ladder.
+
+⚠ ⟦THE BINDER SHADOW⟧ §4's and §5's landed statements bind a REAL `K` (⟦C3⟧'s margined-floor
+constant); it is ALPHA-RENAMED to `Kar`.  Both composites carry the lever's own side condition
+`hK : K ≤ 1.7·10⁸`, inherited from `M4CapWire.m4_socket_discharged_capwired{,_perBlock}_gk`. -/
+
+/-- `DoorCapErrWS` (:424), at the lever.  Two of the eleven fields move — `coefWS` and `tail`,
+both at the levered datum `winCutH Nd (doorCoeffU_gk K M)`; the other nine are VERBATIM. -/
+structure DoorCapErrWS_gk (K : ℕ) (M Nd q Xd P Q : ℕ) (b cf : ℕ → ℂ)
+    (Tann E Mtail : ℝ) : Prop where
+  /-- ⟦THE PIN⟧ the ram-block dyadic parameter IS the socket base. -/
+  Xd_eq : Xd = Nd
+  /-- `1 ≤ N_d`. -/
+  Nd_one : 1 ≤ Nd
+  /-- `2 ≤ H₈₃ X θ₂₉₃`. -/
+  H83_two : 2 ≤ H83 ((Nd : ℕ) : ℝ) theta293
+  /-- `H₈₃ X θ₂₉₃ ≤ X`. -/
+  H83_le : H83 ((Nd : ℕ) : ℝ) theta293 ≤ ((Nd : ℕ) : ℝ)
+  /-- `1 ≤ P`. -/
+  P_one : 1 ≤ P
+  /-- `0 ≤ T_ann`. -/
+  Tann_nonneg : 0 ≤ Tann
+  /-- `‖b m‖ ≤ 1`. -/
+  b_one : ∀ m, ‖b m‖ ≤ 1
+  /-- `‖cf p‖ ≤ 1`. -/
+  cf_one : ∀ p, ‖cf p‖ ≤ 1
+  /-- ⟦THE REPAIR⟧ the STRICT relativized pair law at the LEVERED door datum. -/
+  coefWS : SeamCoefWS Xd P Q (winCutH Nd (doorCoeffU_gk K M)) b cf
+  /-- ⟦R3a⟧ the coprime-tail mass at the levered datum, priced not pinned. -/
+  tail : ∑ n ∈ (Finset.Icc 1 (2 * Nd)).filter (fun n => blockOmega P Q n = 0),
+      ‖winCutH Nd (doorCoeffU_gk K M) n‖ ^ 2 / (n : ℝ) ^ 2 ≤ Mtail
+  /-- `E` dominates the priced four-row bound. -/
+  E_ge : 4 * ((q.totient : ℝ)
+        * (520 * (Tann / ((Nd : ℕ) : ℝ) + 1) / H83 ((Nd : ℕ) : ℝ) theta293)
+      + (2 * (q.totient : ℝ) * Tann
+            + 7 * (q.totient : ℝ) * (((2 * Nd : ℕ)) : ℝ) / q)
+          * (16 * Real.logb 2 (2 * ((Nd : ℕ) : ℝ)) / (((Nd : ℕ) : ℝ) * (P : ℝ))
+            + endMass Nd)
+      + (2 * (q.totient : ℝ) * Tann
+            + 7 * (q.totient : ℝ) * (((2 * Nd : ℕ)) : ℝ) / q) * Mtail) ≤ E
+
+/-- `m4_capE_at_door` (:466), at the lever. -/
+theorem m4_capE_at_door_gk (K : ℕ) {q M Nd Xd P Q : ℕ} [NeZero q] {b cf : ℕ → ℂ}
+    {Tann E Mtail : ℝ}
+    (h : DoorCapErrWS_gk K M Nd q Xd P Q b cf Tann E Mtail) :
+    (∑ χ : DirichletCharacter ℂ q, ∫ t in (-Tann)..Tann,
+        ‖ramErr (H83 ((Nd : ℕ) : ℝ) theta293) (2 * Nd) Xd P Q
+          (chiBarCoeff q χ (winCutH Nd (doorCoeffU_gk K M))) (chiBarCoeff q χ b)
+          (chiBarCoeff q χ cf) t‖ ^ 2)
+      ≤ E := by
+  obtain ⟨hXd, hNd, hH2, hHle, hP1, hT, hb1, hcf1, hcoef, htail, hE⟩ := h
+  subst hXd
+  refine le_trans ?_ hE
+  have hN2 : (((2 * Xd : ℕ)) : ℝ) ≤ 2 * ((Xd : ℕ) : ℝ) := by push_cast; exact le_rfl
+  have hasupp : ∀ n : ℕ, winCutH Xd (doorCoeffU_gk K M) n ≠ 0 →
+      ((Xd : ℕ) : ℝ) ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * ((Xd : ℕ) : ℝ) := by
+    intro n hn
+    obtain ⟨h1, h2⟩ := winCutH_asupp hn
+    constructor
+    · exact_mod_cast h1
+    · have : ((n : ℕ) : ℝ) ≤ ((2 * Xd : ℕ) : ℝ) := by exact_mod_cast h2
+      push_cast at this
+      linarith
+  exact ramErr_meanSq_all_chi_ws_priced q (H83 ((Xd : ℕ) : ℝ) theta293) hH2 (2 * Xd) Xd P Q
+    hNd le_rfl hN2 hHle hP1 (winCutH Xd (doorCoeffU_gk K M)) b cf hcoef
+    (fun n => norm_doorRowDatumU_le_one_gk K M Xd n) hb1 hcf1 hasupp Mtail htail Tann hT
+
+/-- `DoorCapErrWS'` (:499), at the lever. -/
+structure DoorCapErrWS'_gk (K : ℕ) (M Nd q Xd P Q : ℕ) (b cf : ℕ → ℂ)
+    (Tann E Mtail : ℝ) : Prop where
+  /-- ⟦THE PIN⟧ the ram-block dyadic parameter IS the socket base. -/
+  Xd_eq : Xd = Nd
+  /-- `1 ≤ N_d`. -/
+  Nd_one : 1 ≤ Nd
+  /-- `2 ≤ H₈₃ X θ₂₉₃`. -/
+  H83_two : 2 ≤ H83 ((Nd : ℕ) : ℝ) theta293
+  /-- `H₈₃ X θ₂₉₃ ≤ X`. -/
+  H83_le : H83 ((Nd : ℕ) : ℝ) theta293 ≤ ((Nd : ℕ) : ℝ)
+  /-- ⟦R1's FLOOR⟧ `4 ≤ P` — free at the levered door (`𝒫₁ ≥ 64`, K-INVARIANT). -/
+  P_four : 4 ≤ P
+  /-- `0 ≤ T_ann`. -/
+  Tann_nonneg : 0 ≤ Tann
+  /-- `‖b m‖ ≤ 1`. -/
+  b_one : ∀ m, ‖b m‖ ≤ 1
+  /-- `‖cf p‖ ≤ 1`. -/
+  cf_one : ∀ p, ‖cf p‖ ≤ 1
+  /-- The STRICT relativized pair law at the LEVERED door datum. -/
+  coefWS : SeamCoefWS Xd P Q (winCutH Nd (doorCoeffU_gk K M)) b cf
+  /-- The coprime-tail mass at the levered datum, priced not pinned. -/
+  tail : ∑ n ∈ (Finset.Icc 1 (2 * Nd)).filter (fun n => blockOmega P Q n = 0),
+      ‖winCutH Nd (doorCoeffU_gk K M) n‖ ^ 2 / (n : ℝ) ^ 2 ≤ Mtail
+  /-- `E` dominates the R1-priced four-row bound. -/
+  E_ge : 4 * ((q.totient : ℝ)
+        * (520 * (Tann / ((Nd : ℕ) : ℝ) + 1) / H83 ((Nd : ℕ) : ℝ) theta293)
+      + (2 * (q.totient : ℝ) * Tann
+            + 7 * (q.totient : ℝ) * (((2 * Nd : ℕ)) : ℝ) / q)
+          * (24 / (((Nd : ℕ) : ℝ) * (P : ℝ)) + endMass Nd)
+      + (2 * (q.totient : ℝ) * Tann
+            + 7 * (q.totient : ℝ) * (((2 * Nd : ℕ)) : ℝ) / q) * Mtail) ≤ E
+
+/-- `m4_capE_at_door'` (:532), at the lever. -/
+theorem m4_capE_at_door'_gk (K : ℕ) {q M Nd Xd P Q : ℕ} [NeZero q] {b cf : ℕ → ℂ}
+    {Tann E Mtail : ℝ}
+    (h : DoorCapErrWS'_gk K M Nd q Xd P Q b cf Tann E Mtail) :
+    (∑ χ : DirichletCharacter ℂ q, ∫ t in (-Tann)..Tann,
+        ‖ramErr (H83 ((Nd : ℕ) : ℝ) theta293) (2 * Nd) Xd P Q
+          (chiBarCoeff q χ (winCutH Nd (doorCoeffU_gk K M))) (chiBarCoeff q χ b)
+          (chiBarCoeff q χ cf) t‖ ^ 2)
+      ≤ E := by
+  obtain ⟨hXd, hNd, hH2, hHle, hP4, hT, hb1, hcf1, hcoef, htail, hE⟩ := h
+  subst hXd
+  refine le_trans ?_ hE
+  have hN2 : (((2 * Xd : ℕ)) : ℝ) ≤ 2 * ((Xd : ℕ) : ℝ) := by push_cast; exact le_rfl
+  have hasupp : ∀ n : ℕ, winCutH Xd (doorCoeffU_gk K M) n ≠ 0 →
+      ((Xd : ℕ) : ℝ) ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * ((Xd : ℕ) : ℝ) := by
+    intro n hn
+    obtain ⟨h1, h2⟩ := winCutH_asupp hn
+    constructor
+    · exact_mod_cast h1
+    · have : ((n : ℕ) : ℝ) ≤ ((2 * Xd : ℕ) : ℝ) := by exact_mod_cast h2
+      push_cast at this
+      linarith
+  exact ramErr_meanSq_all_chi_ws_priced' q (H83 ((Xd : ℕ) : ℝ) theta293) hH2 (2 * Xd) Xd P Q
+    hNd le_rfl hN2 hHle hP4 (winCutH Xd (doorCoeffU_gk K M)) b cf hcoef
+    (fun n => norm_doorRowDatumU_le_one_gk K M Xd n) hb1 hcf1 hasupp Mtail htail Tann hT
+
+set_option maxHeartbeats 1000000 in
+-- The statement re-elaborates the cap-wired terminal's full binder list (same cause as §4).
+/-- `m4_socket_discharged_capwired_ws` (:581), at the lever. -/
+theorem m4_socket_discharged_capwired_ws_gk (K : ℕ) (hK : K ≤ 170000000) (hMmu : MmuChiRate)
+    (Aexp : ℝ) (hAexp : 0 < Aexp) :
+    ∃ Ct Cq cs T₀ Kq Ks : ℝ,
+      0 < Ct ∧ 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp →
+      ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ : ℕ → ℝ), 1 ≤ M →
+        ∃ (C' : ℝ) (x₀ : ℕ), 0 < C' ∧
+          ∀ (ε : ℕ → ℝ) (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ) (Kar δ₀ : ℝ),
+            0 < δ₀ →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ))) →
+            (∀ i m : ℕ, ‖bU i m‖ ≤ 1) → (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorFuseFrame_gk K M (A + s) j Ct Cp (ε (A + s))) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorRowZeroBase_gk K M (A + s) j cU bU) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+                2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+                5 ≤ Real.log (Real.log (2 * T)) →
+                ∃ (Xd P Q Mr Jb : ℕ) (b cf : ℕ → ℂ)
+                  (VJ V Lr η εd Rbd CR KS E EP2 Mtail : ℝ),
+                  DoorCapErrWS_gk K M (A + s) q Xd P Q b cf (2 * T) E Mtail
+                    ∧ ((∑ χ : DirichletCharacter ℂ q, ∫ t in (-(2 * T))..(2 * T),
+                          ‖ramErr (H83 (((A + s : ℕ)) : ℝ) theta293) (2 * (A + s)) Xd P Q
+                            (chiBarCoeff q χ (winCutH (A + s) (doorCoeffU_gk K M)))
+                            (chiBarCoeff q χ b) (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E
+                        → DoorCapBase_gk K Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr Jb b cf
+                            (2 * T) VJ V Lr η εd (ε (A + s)) Rbd CR KS E EP2)) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorBandBase_gk K x₀ C' Aexp M (A + s) q (C₁ (A + s)) (M₀ (A + s))) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kar
+                (doorRhoOfDelta δ₀)) →
+            M4ChiSummedFreeRow_gk K R M
+                (m4ChiRowGraded M (fun _ H => RSanDoorRho (doorRhoOfDelta δ₀) H))
+              ∧ (∀ j H : ℕ, doorRowFloor M ≤ j →
+                  m4ChiRowGraded M (fun _ H => RSanDoorRho (doorRhoOfDelta δ₀) H) j H
+                    ≤ RSanDoorRho (doorRhoOfDelta δ₀) H)
+              ∧ (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+                      * (108 / 5 * RSanDoorRho (doorRhoOfDelta δ₀) H)
+                    ≤ δ₀ ^ 2) := by
+  obtain ⟨Ct, Cq, cs, T₀, Kq, Ks, hCt, hCq, hcs, hT₀, hKq, hKs, hwired⟩ :=
+    m4_socket_discharged_capwired_gk K hK hMmu Aexp hAexp
+  refine ⟨Ct, Cq, cs, T₀, Kq, Ks, hCt, hCq, hcs, hT₀, hKq, hKs, ?_⟩
+  intro Cp hCp R M C₁ M₀ hM
+  obtain ⟨C', x₀, hC'pos, hterm⟩ := hwired Cp hCp R M C₁ M₀ hM
+  refine ⟨C', x₀, hC'pos, ?_⟩
+  intro ε cU bU Kar δ₀ hδ₀ hHreg hb1 hc1 hframe hbase hcapWS hbandbase harith
+  refine hterm ε cU bU Kar δ₀ hδ₀ hHreg hb1 hc1 hframe hbase ?_ hbandbase harith
+  intro H L q j A s hsb T hTlo hThi hTgate hTll
+  obtain ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2, Mtail, hws, hrest⟩ :=
+    hcapWS H L q j A s hsb T hTlo hThi hTgate hTll
+  haveI : NeZero q := ⟨hsb.2.2.2.1.ne'⟩
+  exact ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2,
+    hrest (m4_capE_at_door_gk K hws)⟩
+
+set_option maxHeartbeats 1000000 in
+-- Same cause as §4.
+/-- `m4_socket_discharged_capwired_ws_perBlock` (:655), at the lever. -/
+theorem m4_socket_discharged_capwired_ws_perBlock_gk (K : ℕ) (hK : K ≤ 170000000)
+    (hMmu : MmuChiRate) (Aexp : ℝ) (hAexp : 0 < Aexp) :
+    ∃ Ct Cq cs T₀ Kq Ks : ℝ,
+      0 < Ct ∧ 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp →
+      ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ : ℕ → ℝ), 1 ≤ M →
+        ∃ (C' : ℝ) (x₀ : ℕ), 0 < C' ∧
+          ∀ (ε : ℕ → ℝ) (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ) (Kar δ₀ : ℝ),
+            0 < δ₀ →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ))) →
+            (∀ i m : ℕ, ‖bU i m‖ ≤ 1) → (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorFuseFrame_gk K M (A + s) j Ct Cp (ε (A + s))) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorRowZeroBase_gk K M (A + s) j cU bU) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              ∀ T : ℝ, (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T →
+                2 * T ≤ (((A + s : ℕ)) : ℝ) → TannGate (((A + s : ℕ)) : ℝ) (2 * T) →
+                5 ≤ Real.log (Real.log (2 * T)) →
+                ∃ (Xd P Q : ℕ) (Mr : ℕ → ℕ) (Jb : ℕ) (b cf : ℕ → ℂ)
+                  (VJ V Lr η εd Rbd CR KS E EP2 Mtail : ℝ),
+                  DoorCapErrWS_gk K M (A + s) q Xd P Q b cf (2 * T) E Mtail
+                    ∧ ((∑ χ : DirichletCharacter ℂ q, ∫ t in (-(2 * T))..(2 * T),
+                          ‖ramErr (H83 (((A + s : ℕ)) : ℝ) theta293) (2 * (A + s)) Xd P Q
+                            (chiBarCoeff q χ (winCutH (A + s) (doorCoeffU_gk K M)))
+                            (chiBarCoeff q χ b) (chiBarCoeff q χ cf) t‖ ^ 2) ≤ E
+                        → DoorCapBasePerBlock_gk K Cq cs T₀ Kq Ks M (A + s) q Xd P Q Mr Jb b
+                            cf (2 * T) VJ V Lr η εd (ε (A + s)) Rbd CR KS E EP2)) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorBandBase_gk K x₀ C' Aexp M (A + s) q (C₁ (A + s)) (M₀ (A + s))) →
+            (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+              DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) Kar
+                (doorRhoOfDelta δ₀)) →
+            M4ChiSummedFreeRow_gk K R M
+                (m4ChiRowGraded M (fun _ H => RSanDoorRho (doorRhoOfDelta δ₀) H))
+              ∧ (∀ j H : ℕ, doorRowFloor M ≤ j →
+                  m4ChiRowGraded M (fun _ H => RSanDoorRho (doorRhoOfDelta δ₀) H) j H
+                    ≤ RSanDoorRho (doorRhoOfDelta δ₀) H)
+              ∧ (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+                  96 * (1 + 2 * Real.pi) ^ 2 * strataResidual H ^ 2
+                      * (108 / 5 * RSanDoorRho (doorRhoOfDelta δ₀) H)
+                    ≤ δ₀ ^ 2) := by
+  obtain ⟨Ct, Cq, cs, T₀, Kq, Ks, hCt, hCq, hcs, hT₀, hKq, hKs, hwired⟩ :=
+    m4_socket_discharged_capwired_perBlock_gk K hK hMmu Aexp hAexp
+  refine ⟨Ct, Cq, cs, T₀, Kq, Ks, hCt, hCq, hcs, hT₀, hKq, hKs, ?_⟩
+  intro Cp hCp R M C₁ M₀ hM
+  obtain ⟨C', x₀, hC'pos, hterm⟩ := hwired Cp hCp R M C₁ M₀ hM
+  refine ⟨C', x₀, hC'pos, ?_⟩
+  intro ε cU bU Kar δ₀ hδ₀ hHreg hb1 hc1 hframe hbase hcapWS hbandbase harith
+  refine hterm ε cU bU Kar δ₀ hδ₀ hHreg hb1 hc1 hframe hbase ?_ hbandbase harith
+  intro H L q j A s hsb T hTlo hThi hTgate hTll
+  obtain ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2, Mtail, hws, hrest⟩ :=
+    hcapWS H L q j A s hsb T hTlo hThi hTgate hTll
+  haveI : NeZero q := ⟨hsb.2.2.2.1.ne'⟩
+  exact ⟨Xd, P, Q, Mr, Jb, b, cf, VJ, V, Lr, η, εd, Rbd, CR, KS, E, EP2,
+    hrest (m4_capE_at_door_gk K hws)⟩
+
 end Salt.MR
 
 end
+
+-- #audit (temporary)

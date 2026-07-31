@@ -367,4 +367,185 @@ theorem thm_a2'_of_rows' {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁' M₀
   exact thm_a2'_of_rows_pool' hM hX hX3 hh4 hhX ha hsupp hN2 hTann hceil hrows hT0band
     hrp500.le hgP1 hgRows hgU hgBand
 
+/-! ## §GK — the G-lever twin
+
+⟦R1⟧'s primed thread at `G := s13GK K M`.  `a2Mrow'` differs from `a2Mrow` only in its
+Lemma-12 slot, so the lever moves it in exactly the same place and ⟦THE `Ccc`-SHIFT⟧ carries
+over verbatim (`a2Mrow'_shift_gk`).  All three conclusions are BYTE-IDENTICAL to the landed
+ones; `a2Level1 M` stays, being level-1. -/
+
+/-- **THE FLAT ROW NUMBER — R1, AT THE G-LEVER** (`a2Mrow'_gk`). -/
+noncomputable def a2Mrow'_gk (K : ℕ) (Cs C : ℝ) (M Xd : ℕ) (X ε : ℝ) : ℝ :=
+  47520 * a2Level1 M
+    + 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+    + 5760 * (a2RowsSum'_gk K M Xd + C * (2 / (M : ℝ)))
+    + 3 * (Real.log X) ^ (-theta293 + ε)
+
+/-- `a2Mrow'_le_a2Mrow` at the lever, verbatim. -/
+lemma a2Mrow'_le_a2Mrow_gk (K : ℕ) {Cs C : ℝ} {M Xd : ℕ} {X ε : ℝ} (hXd : 2 ≤ Xd) :
+    a2Mrow'_gk K Cs C M Xd X ε ≤ a2Mrow_gk K Cs C M Xd X ε := by
+  have h := a2RowsSum'_le_a2RowsSum_gk (K := K) (M := M) (Xd := Xd) hXd
+  unfold a2Mrow'_gk a2Mrow_gk
+  linarith
+
+/-- ⟦THE `Ccc`-SHIFT⟧ at the primed row sum. -/
+lemma a2RowsSum'_shift_gk (K : ℕ) (C : ℝ) {M : ℕ} (Xd : ℕ) (hM : 1 ≤ M) :
+    a2RowsSum' M Xd + (C + (M : ℝ) / 2 * (a2RowsSum'_gk K M Xd - a2RowsSum' M Xd))
+        * (2 / (M : ℝ))
+      = a2RowsSum'_gk K M Xd + C * (2 / (M : ℝ)) := by
+  have hM0 : (0 : ℝ) < (M : ℝ) := by exact_mod_cast hM
+  have hcancel : (M : ℝ) / 2 * (2 / (M : ℝ)) = 1 := by field_simp
+  have hexp : (C + (M : ℝ) / 2 * (a2RowsSum'_gk K M Xd - a2RowsSum' M Xd)) * (2 / (M : ℝ))
+      = C * (2 / (M : ℝ))
+        + ((M : ℝ) / 2 * (2 / (M : ℝ))) * (a2RowsSum'_gk K M Xd - a2RowsSum' M Xd) := by
+    ring
+  rw [hexp, hcancel]
+  ring
+
+/-- ⟦THE `Ccc`-SHIFT⟧ at the primed row number. -/
+lemma a2Mrow'_shift_gk (K : ℕ) (Cs C : ℝ) {M : ℕ} (Xd : ℕ) (X ε : ℝ) (hM : 1 ≤ M) :
+    a2Mrow' Cs (C + (M : ℝ) / 2 * (a2RowsSum'_gk K M Xd - a2RowsSum' M Xd)) M Xd X ε
+      = a2Mrow'_gk K Cs C M Xd X ε := by
+  rw [a2Mrow', a2Mrow'_gk, calP_door_one_gk, a2RowsSum'_shift_gk K C Xd hM]
+
+/-- **⟦THE R1×R2 JOIN⟧ AT THE G-LEVER** (`thm_a2'_of_rows_pool'_gk`). -/
+theorem thm_a2'_of_rows_pool'_gk (K : ℕ) {N M Xd : ℕ} {a : ℕ → ℂ}
+    {X h Cs Ccc C₁' M₀ ε π₀ : ℝ}
+    (hM : 1 ≤ M)
+    (hX : Real.exp 1 ≤ X) (hX3 : 3 ≤ X) (hh4 : 4 ≤ h)
+    (hhX : h ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ)))
+    (ha : ∀ n : ℕ, ‖a n‖ ≤ 1) (hsupp : ∀ n : ℕ, (n : ℝ) ≤ X → a n = 0)
+    (hN2 : (N : ℝ) ≤ 2 * X)
+    (hTann : TannGate X (2 * (X / h)))
+    (hceil : 5 ≤ Real.log (Real.log (2 * (X / h))))
+    (hrows : ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X → TannGate X (2 * T) →
+      5 ≤ Real.log (Real.log (2 * T)) →
+      X / h / T * (∫ t in seamAnn X (2 * T), ‖spoly N a t‖ ^ 2)
+        ≤ a2Mrow'_gk K Cs Ccc M Xd X ε)
+    (hT0band : (∫ t in (-(seamT0 X))..(seamT0 X),
+      ‖dpolyA a (seamS0 N X) t‖ ^ 2) ≤ t0BandB X C₁' M₀)
+    (hpool : 0 ≤ π₀)
+    (hgP1 : 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) ≤ π₀)
+    (hgRows : 5760 * (a2RowsSum'_gk K M Xd + Ccc * (2 / (M : ℝ))) ≤ π₀)
+    (hgU : (Real.log X) ^ (-theta293 + ε) ≤ π₀)
+    (hgBand : 4096 * (Real.log X) ^ (-(1 : ℝ) + 1 / 500) ≤ π₀) :
+    1 / X * (∫ x in X..(2 * X), ‖((1 / h : ℝ) : ℂ) * shortSum a (seamS0 N X) x h‖ ^ 2)
+      ≤ 8448 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
+        + 1787702400 * a2Level1 M
+        + 188133 * π₀
+        + 304128 * ballSupC ^ 2
+            * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
+        + 6315000 / h := by
+  refine thm_a2'_of_rows_pool' (Xd := Xd) (Cs := Cs)
+    (Ccc := Ccc + (M : ℝ) / 2 * (a2RowsSum'_gk K M Xd - a2RowsSum' M Xd))
+    hM hX hX3 hh4 hhX ha hsupp hN2 hTann hceil ?_ hT0band hpool ?_ ?_ hgU hgBand
+  · intro T h1 h2 h3 h4
+    exact (hrows T h1 h2 h3 h4).trans
+      (le_of_eq (a2Mrow'_shift_gk K Cs Ccc (M := M) Xd X ε hM).symm)
+  · rw [← calP_door_one_gk (K := K)]
+    exact hgP1
+  · rw [a2RowsSum'_shift_gk K Ccc (M := M) Xd hM]
+    exact hgRows
+
+/-- **⟦THE R1×R2 JOIN, χ-SUMMED⟧ AT THE G-LEVER**
+(`thm_a2'_of_rows_chiSummed_pool'_gk`). -/
+theorem thm_a2'_of_rows_chiSummed_pool'_gk (K : ℕ) {q : ℕ} [NeZero q] {N M Xd : ℕ}
+    {a : DirichletCharacter ℂ q → ℕ → ℂ} {X h π₀ : ℝ}
+    {Cs Ccc C₁' M₀ ε : DirichletCharacter ℂ q → ℝ}
+    (hM : 1 ≤ M)
+    (hX : Real.exp 1 ≤ X) (hX3 : 3 ≤ X) (hh4 : 4 ≤ h)
+    (hhX : h ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ)))
+    (ha : ∀ χ : DirichletCharacter ℂ q, ∀ n : ℕ, ‖a χ n‖ ≤ 1)
+    (hsupp : ∀ χ : DirichletCharacter ℂ q, ∀ n : ℕ, (n : ℝ) ≤ X → a χ n = 0)
+    (hN2 : (N : ℝ) ≤ 2 * X)
+    (hTann : TannGate X (2 * (X / h)))
+    (hceil : 5 ≤ Real.log (Real.log (2 * (X / h))))
+    (hrowsSum : ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X →
+      TannGate X (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+      X / h / T * (∫ t in seamAnn X (2 * T), ‖spoly N (a χ) t‖ ^ 2)
+        ≤ a2Mrow'_gk K (Cs χ) (Ccc χ) M Xd X (ε χ))
+    (hT0bandSum : ∀ χ : DirichletCharacter ℂ q,
+      (∫ t in (-(seamT0 X))..(seamT0 X), ‖dpolyA (a χ) (seamS0 N X) t‖ ^ 2)
+        ≤ t0BandB X (C₁' χ) (M₀ χ))
+    (hpool : 0 ≤ π₀)
+    (hgP1 : ∀ χ : DirichletCharacter ℂ q,
+      374784 * Cs χ * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) ≤ π₀)
+    (hgRows : ∀ χ : DirichletCharacter ℂ q,
+      5760 * (a2RowsSum'_gk K M Xd + Ccc χ * (2 / (M : ℝ))) ≤ π₀)
+    (hgU : ∀ χ : DirichletCharacter ℂ q, (Real.log X) ^ (-theta293 + ε χ) ≤ π₀)
+    (hgBand : 4096 * (Real.log X) ^ (-(1 : ℝ) + 1 / 500) ≤ π₀) :
+    ∑ χ : DirichletCharacter ℂ q,
+        1 / X * (∫ x in X..(2 * X),
+          ‖((1 / h : ℝ) : ℂ) * shortSum (a χ) (seamS0 N X) x h‖ ^ 2)
+      ≤ (∑ χ : DirichletCharacter ℂ q,
+            8448 * C₁' χ ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀ χ))
+        + (q.totient : ℝ)
+            * (1787702400 * a2Level1 M
+              + 188133 * π₀
+              + 304128 * ballSupC ^ 2
+                  * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
+              + 6315000 / h) := by
+  refine thm_a2'_of_rows_chiSummed_pool' (Xd := Xd) (Cs := Cs) (Ccc := fun χ =>
+      Ccc χ + (M : ℝ) / 2 * (a2RowsSum'_gk K M Xd - a2RowsSum' M Xd))
+    hM hX hX3 hh4 hhX ha hsupp hN2 hTann hceil ?_ hT0bandSum hpool ?_ ?_ hgU hgBand
+  · intro χ T h1 h2 h3 h4
+    exact (hrowsSum χ T h1 h2 h3 h4).trans
+      (le_of_eq (a2Mrow'_shift_gk K (Cs χ) (Ccc χ) (M := M) Xd X (ε χ) hM).symm)
+  · intro χ
+    rw [← calP_door_one_gk (K := K)]
+    exact hgP1 χ
+  · intro χ
+    rw [a2RowsSum'_shift_gk K (Ccc χ) (M := M) Xd hM]
+    exact hgRows χ
+
+/-- **thm_A2′ AT THE PRIMED ROW SUM, AT THE G-LEVER** (`thm_a2'_of_rows'_gk`) — the frozen
+five-summand conclusion, BYTE-IDENTICAL, carrying the two WEAKEST gates of the whole family:
+the primed row sum AND the lever's larger `𝒫₂`. -/
+theorem thm_a2'_of_rows'_gk (K : ℕ) {N M Xd : ℕ} {a : ℕ → ℂ} {X h Cs Ccc C₁' M₀ ε : ℝ}
+    (hM : 1 ≤ M)
+    (hX : Real.exp 1 ≤ X) (hX3 : 3 ≤ X) (hh4 : 4 ≤ h)
+    (hhX : h ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ)))
+    (ha : ∀ n : ℕ, ‖a n‖ ≤ 1) (hsupp : ∀ n : ℕ, (n : ℝ) ≤ X → a n = 0)
+    (hN2 : (N : ℝ) ≤ 2 * X)
+    (hTann : TannGate X (2 * (X / h)))
+    (hceil : 5 ≤ Real.log (Real.log (2 * (X / h))))
+    (hrows : ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X → TannGate X (2 * T) →
+      5 ≤ Real.log (Real.log (2 * T)) →
+      X / h / T * (∫ t in seamAnn X (2 * T), ‖spoly N a t‖ ^ 2)
+        ≤ a2Mrow'_gk K Cs Ccc M Xd X ε)
+    (hT0band : (∫ t in (-(seamT0 X))..(seamT0 X),
+      ‖dpolyA a (seamS0 N X) t‖ ^ 2) ≤ t0BandB X C₁' M₀)
+    (hgP1 : 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+      ≤ (Real.log X) ^ (-(1 : ℝ) / 500))
+    (hgRows : 5760 * (a2RowsSum'_gk K M Xd + Ccc * (2 / (M : ℝ)))
+      ≤ (Real.log X) ^ (-(1 : ℝ) / 500))
+    (hεwin : 0 ≤ ε ∧ ε ≤ theta293 - 1 / 500)
+    (hL4096 : 4096 ≤ (Real.log X) ^ (1 - (1 : ℝ) / 250)) :
+    1 / X * (∫ x in X..(2 * X), ‖((1 / h : ℝ) : ℂ) * shortSum a (seamS0 N X) x h‖ ^ 2)
+      ≤ 8448 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
+        + 1787702400 * a2Level1 M
+        + 188133 * (Real.log X) ^ (-(1 : ℝ) / 500)
+        + 304128 * ballSupC ^ 2
+            * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
+        + 6315000 / h := by
+  have hL1 : (1 : ℝ) ≤ Real.log X := by
+    rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hX
+  have hL0 : (0 : ℝ) < Real.log X := by linarith
+  have hrp500 : (0 : ℝ) < (Real.log X) ^ (-(1 : ℝ) / 500) := Real.rpow_pos_of_pos hL0 _
+  have hgU : (Real.log X) ^ (-theta293 + ε) ≤ (Real.log X) ^ (-(1 : ℝ) / 500) := by
+    have hθ : theta293 < 1 / 32 := theta293_lt_one_div_32
+    exact Real.rpow_le_rpow_of_exponent_le hL1 (by linarith [hεwin.1, hεwin.2])
+  have hgBand : 4096 * (Real.log X) ^ (-(1 : ℝ) + 1 / 500)
+      ≤ (Real.log X) ^ (-(1 : ℝ) / 500) := by
+    have hsp : (Real.log X) ^ (-(1 : ℝ) / 500)
+        = (Real.log X) ^ (1 - (1 : ℝ) / 250) * (Real.log X) ^ (-(1 : ℝ) + 1 / 500) := by
+      rw [← Real.rpow_add hL0]; norm_num
+    rw [hsp]
+    exact mul_le_mul_of_nonneg_right hL4096
+      (le_of_lt (Real.rpow_pos_of_pos hL0 _))
+  exact thm_a2'_of_rows_pool'_gk K hM hX hX3 hh4 hhX ha hsupp hN2 hTann hceil hrows hT0band
+    hrp500.le hgP1 hgRows hgU hgBand
+
+-- #audit (temporary)
+
 end Salt.MR

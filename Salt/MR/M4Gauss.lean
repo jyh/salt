@@ -994,6 +994,480 @@ theorem m4_freeBlockSup_of_chiSummed {R : ChowlaRegime} {M : ℕ} {Bcl : ℕ →
         nlinarith [hdivres, hdiv0]
     _ = 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ) := by ring
 
+/-! ## §GK — the G-lever twin
+
+The additive `_gk` family at `G := s13GK K M` (`GLever`): each declaration below is its
+landed original with `(K : ℕ)` as a new FIRST binder, every literal `3072 * M` rewritten to
+`s13GK K M`, and the door datum read at the lever (`doorSievedCoeff_gk`,
+`doorSievedWindow_gk`, `doorChiSup_gk`).  `J` stays `2`, and the `M`-RELATIVE dilation gate
+`W < calP (Adoor M) (s13GK K M) 1` is the LANDED level-1 symbol (`GLever.calP_gk_one_eq`),
+so it neither tightens nor loosens under the lever.  The window binder `K` of §2–§5 is
+α-renamed `Kw`; the Gauss-sum page (§1) and the `capL` ledger read no door object and keep
+their landed names.
+-/
+
+/-- `coprime_window_expansion` (:214), at the lever. -/
+theorem coprime_window_expansion_gk (K : ℕ) {q : ℕ} [NeZero q] (M Kw n : ℕ) (b : ℤ) :
+    ∑ r ∈ (Finset.range q).filter (fun r => Nat.Coprime q r),
+        ratPhase b q r * ∑ m ∈ windowClass Kw n q r, doorSievedCoeff_gk K M m
+      = ((q.totient : ℕ) : ℂ)⁻¹ * ∑ χ : DirichletCharacter ℂ q,
+          chiGaussSum χ b * ∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m := by
+  classical
+  have hclass : ∀ r ∈ (Finset.range q).filter (fun r => Nat.Coprime q r),
+      ∑ m ∈ windowClass Kw n q r, doorSievedCoeff_gk K M m
+        = ((q.totient : ℕ) : ℂ)⁻¹ * ∑ χ : DirichletCharacter ℂ q,
+            χ ((r : ℕ) : ZMod q) * ∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m := by
+    intro r hr
+    have hcop : Nat.Coprime q r := (Finset.mem_filter.mp hr).2
+    have hfilt : ∑ m ∈ windowClass Kw n q r, doorSievedCoeff_gk K M m
+        = ∑ m ∈ residueClassOn q r (doorSievedWindow_gk K M Kw n), liouvilleC m := by
+      simpa only [doorSievedCoeff_gk, doorSievedWindow_gk] using
+        sum_windowClass_memSCoeff (calP (Adoor M) (s13GK K M))
+          (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC Kw n q r
+    rw [hfilt]
+    exact sum_residueClassOn_liou_eq hcop (doorSievedWindow_gk K M Kw n)
+  have hstep : ∑ r ∈ (Finset.range q).filter (fun r => Nat.Coprime q r),
+        ratPhase b q r * ∑ m ∈ windowClass Kw n q r, doorSievedCoeff_gk K M m
+      = ∑ r ∈ (Finset.range q).filter (fun r => Nat.Coprime q r),
+          ratPhase b q r * (((q.totient : ℕ) : ℂ)⁻¹ * ∑ χ : DirichletCharacter ℂ q,
+            χ ((r : ℕ) : ZMod q) * ∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m) :=
+    Finset.sum_congr rfl fun r hr => by rw [hclass r hr]
+  rw [hstep]
+  calc ∑ r ∈ (Finset.range q).filter (fun r => Nat.Coprime q r),
+        ratPhase b q r * (((q.totient : ℕ) : ℂ)⁻¹ * ∑ χ : DirichletCharacter ℂ q,
+          χ ((r : ℕ) : ZMod q) * ∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m)
+      = ∑ r ∈ (Finset.range q).filter (fun r => Nat.Coprime q r),
+          ∑ χ : DirichletCharacter ℂ q, ((q.totient : ℕ) : ℂ)⁻¹
+            * ((ratPhase b q r * χ ((r : ℕ) : ZMod q))
+              * ∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m) := by
+        refine Finset.sum_congr rfl fun r _ => ?_
+        rw [Finset.mul_sum, Finset.mul_sum]
+        exact Finset.sum_congr rfl fun χ _ => by ring
+    _ = ∑ χ : DirichletCharacter ℂ q,
+          ∑ r ∈ (Finset.range q).filter (fun r => Nat.Coprime q r),
+            ((q.totient : ℕ) : ℂ)⁻¹
+              * ((ratPhase b q r * χ ((r : ℕ) : ZMod q))
+                * ∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m) := Finset.sum_comm
+    _ = ((q.totient : ℕ) : ℂ)⁻¹ * ∑ χ : DirichletCharacter ℂ q,
+          chiGaussSum χ b * ∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m := by
+        rw [Finset.mul_sum]
+        refine Finset.sum_congr rfl fun χ _ => ?_
+        rw [chiGaussSum, Finset.sum_mul, Finset.mul_sum]
+        exact Finset.sum_congr rfl fun r _ => by ring
+
+/-- `norm_sq_coprime_window_le` (:302), at the lever. -/
+theorem norm_sq_coprime_window_le_gk (K : ℕ) {q : ℕ} [NeZero q] (M : ℕ) {Kw Lw : ℕ} (hK : Kw ≤ Lw)
+    (n : ℕ) (b : ℤ) :
+    ‖∑ r ∈ (Finset.range q).filter (fun r => Nat.Coprime q r),
+        ratPhase b q r * ∑ m ∈ windowClass Kw n q r, doorSievedCoeff_gk K M m‖ ^ 2
+      ≤ ∑ χ : DirichletCharacter ℂ q, (doorChiSup_gk K χ M Lw n) ^ 2 := by
+  rw [coprime_window_expansion_gk K M Kw n b]
+  refine le_trans (norm_sq_inv_totient_gauss_le b
+    (fun χ => ∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m)) ?_
+  refine Finset.sum_le_sum fun χ _ => ?_
+  have h := le_doorChiSup_gk K χ M Lw n hK
+  have h0 : (0 : ℝ) ≤ ‖∑ m ∈ doorSievedWindow_gk K M Kw n, liouChi χ m‖ := norm_nonneg _
+  nlinarith
+
+/-- `class_rat_dilate` (:398), at the lever. -/
+theorem class_rat_dilate_gk (K : ℕ) {M Kw n q r : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
+    (hdW : ((Nat.gcd r q : ℕ) : ℝ) ≤ W)
+    (hW : W < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) :
+    ∑ m ∈ windowClass Kw n q r, doorSievedCoeff_gk K M m
+      = liouvilleC (Nat.gcd r q)
+        * ∑ m ∈ windowClass (dilLen Kw n (Nat.gcd r q)) (n / Nat.gcd r q)
+            (q / Nat.gcd r q) (r / Nat.gcd r q), doorSievedCoeff_gk K M m := by
+  have hd : 0 < Nat.gcd r q := Nat.gcd_pos_of_pos_right r hq
+  simp only [doorSievedCoeff_gk]
+  calc ∑ m ∈ windowClass Kw n q r, memSCoeff (calP (Adoor M) (s13GK K M))
+        (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC m
+      = classWindowSum (memSCoeff (calP (Adoor M) (s13GK K M))
+          (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC) Kw n q r 0 := by
+        rw [classWindowSum_eq_classPhaseSum, classPhaseSum_zero]
+    _ = absWindowSum (dilCoeff (memSCoeff (calP (Adoor M) (s13GK K M))
+          (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC) (Nat.gcd r q) (q / Nat.gcd r q)
+            (r / Nat.gcd r q)) (dilLen Kw n (Nat.gcd r q)) (n / Nat.gcd r q) 0 := by
+        have h := classWindowSum_dilate (memSCoeff (calP (Adoor M) (s13GK K M))
+          (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC) hq r Kw n 0
+        rwa [mul_zero] at h
+    _ = liouvilleC (Nat.gcd r q) * absWindowSum (classCoeff (memSCoeff
+          (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC)
+            (q / Nat.gcd r q) (r / Nat.gcd r q)) (dilLen Kw n (Nat.gcd r q))
+              (n / Nat.gcd r q) 0 :=
+        absWindowSum_dilCoeff_memS_door_gk K (J := 2) (q := Nat.gcd r q) hM hd.ne' le_rfl hdW hW 0
+    _ = liouvilleC (Nat.gcd r q) * ∑ m ∈ windowClass (dilLen Kw n (Nat.gcd r q))
+          (n / Nat.gcd r q) (q / Nat.gcd r q) (r / Nat.gcd r q),
+            memSCoeff (calP (Adoor M) (s13GK K M))
+              (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC m := by
+        rw [absWindowSum_classCoeff_zero]
+
+/-- `stratum_sq_le_chiSummed` (:448), at the lever. -/
+theorem stratum_sq_le_chiSummed_gk (K : ℕ) {M Kw n q d Lw : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
+    (hd0 : 0 < d) (hdq : d ∣ q) (hdW : (d : ℝ) ≤ W)
+    (hW : W < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) (b : ℤ)
+    (hlen : dilLen Kw n d ≤ Lw) :
+    ‖∑ r ∈ (Finset.range q).filter (fun r => Nat.gcd r q = d),
+        ratPhase b q r * ∑ m ∈ windowClass Kw n q r, doorSievedCoeff_gk K M m‖ ^ 2
+      ≤ ∑ χ : DirichletCharacter ℂ (q / d), (doorChiSup_gk K χ M Lw (n / d)) ^ 2 := by
+  classical
+  have hq0 : 0 < q / d := Nat.div_pos (Nat.le_of_dvd hq hdq) hd0
+  haveI : NeZero (q / d) := ⟨hq0.ne'⟩
+  -- ⟦each class of the fibre, dilated⟧
+  have hterm : ∀ r ∈ (Finset.range q).filter (fun r => Nat.gcd r q = d),
+      ratPhase b q r * ∑ m ∈ windowClass Kw n q r, doorSievedCoeff_gk K M m
+        = liouvilleC d * (ratPhase b (q / d) (r / d)
+          * ∑ m ∈ windowClass (dilLen Kw n d) (n / d) (q / d) (r / d),
+              doorSievedCoeff_gk K M m) := by
+    intro r hr
+    have hgcd : Nat.gcd r q = d := (Finset.mem_filter.mp hr).2
+    have hdr : d ∣ r := hgcd ▸ Nat.gcd_dvd_left r q
+    have hdil := class_rat_dilate_gk K (M := M) (Kw := Kw) (n := n) (q := q) (r := r) hM hq
+      (by rw [hgcd]; exact hdW) hW
+    rw [hgcd] at hdil
+    rw [hdil, ratPhase_dilate hd0 hq hdq hdr b]
+    ring
+  rw [Finset.sum_congr rfl hterm, ← Finset.mul_sum,
+    sum_fibre_eq_coprime hq hd0 hdq
+      (fun r => ratPhase b (q / d) (r / d)
+        * ∑ m ∈ windowClass (dilLen Kw n d) (n / d) (q / d) (r / d), doorSievedCoeff_gk K M m)]
+  -- ⟦the `λ(d)` is unimodular⟧
+  have hround : ∀ r₀ ∈ (Finset.range (q / d)).filter (fun r₀ => Nat.Coprime (q / d) r₀),
+      ratPhase b (q / d) ((d * r₀) / d)
+          * ∑ m ∈ windowClass (dilLen Kw n d) (n / d) (q / d) ((d * r₀) / d),
+              doorSievedCoeff_gk K M m
+        = ratPhase b (q / d) r₀
+          * ∑ m ∈ windowClass (dilLen Kw n d) (n / d) (q / d) r₀, doorSievedCoeff_gk K M m := by
+    intro r₀ _
+    rw [Nat.mul_div_cancel_left r₀ hd0]
+  rw [Finset.sum_congr rfl hround, norm_mul, liouvilleC_norm hd0.ne', one_mul]
+  exact norm_sq_coprime_window_le_gk K M hlen (n / d) b
+
+/-- `strataTerm` (:565), at the lever. -/
+def strataTerm_gk (K : ℕ) (M q L d n : ℕ) : ℝ :=
+  ∑ χ : DirichletCharacter ℂ (q / d), (doorChiSup_gk K χ M (capL L d) (n / d)) ^ 2
+
+/-- `strataTerm_nonneg` (:568), at the lever. -/
+theorem strataTerm_nonneg_gk (K : ℕ) (M q L d n : ℕ) : 0 ≤ strataTerm_gk K M q L d n :=
+  Finset.sum_nonneg fun _ _ => sq_nonneg _
+
+/-- `subWindowSup_sq_le_strata` (:577), at the lever. -/
+theorem subWindowSup_sq_le_strata_gk (K : ℕ) {M n q L : ℕ} {W : ℝ} (hM : 1 ≤ M) (hq : 0 < q)
+    (hqW : (q : ℝ) ≤ W) (hW : W < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) (b : ℤ) :
+    (subWindowSup (doorSievedCoeff_gk K M) L n ((b : ℝ) / (q : ℝ))) ^ 2
+      ≤ (∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
+        * ∑ d ∈ q.divisors, (d : ℝ) * strataTerm_gk K M q L d n := by
+  classical
+  set T := ∑ d ∈ q.divisors, Real.sqrt (strataTerm_gk K M q L d n) with hT
+  -- ⟦every sub-window is under the sum of the strata's square roots⟧
+  have hstrat : ∀ Kw, Kw ≤ L →
+      ‖absWindowSum (doorSievedCoeff_gk K M) Kw n ((b : ℝ) / (q : ℝ))‖ ≤ T := by
+    intro Kw hK
+    have hsplit : absWindowSum (doorSievedCoeff_gk K M) Kw n ((b : ℝ) / (q : ℝ))
+        = ∑ r ∈ Finset.range q,
+            ratPhase b q r * ∑ m ∈ windowClass Kw n q r, doorSievedCoeff_gk K M m := by
+      have h := absWindowSum_residue_split (doorSievedCoeff_gk K M) Kw n hq b 0
+      rw [add_zero] at h
+      simpa only [classPhaseSum_zero] using h
+    have hmaps : ∀ r ∈ Finset.range q, Nat.gcd r q ∈ q.divisors := fun r _ =>
+      Nat.mem_divisors.mpr ⟨Nat.gcd_dvd_right r q, hq.ne'⟩
+    rw [hsplit, ← Finset.sum_fiberwise_of_maps_to hmaps
+      (fun r => ratPhase b q r * ∑ m ∈ windowClass Kw n q r, doorSievedCoeff_gk K M m)]
+    refine le_trans (norm_sum_le _ _) ?_
+    refine Finset.sum_le_sum fun d hd => ?_
+    have hd0 : 0 < d := Nat.pos_of_mem_divisors hd
+    have hdq : d ∣ q := (Nat.mem_divisors.mp hd).1
+    have hdW : (d : ℝ) ≤ W :=
+      le_trans (by exact_mod_cast Nat.le_of_dvd hq hdq) hqW
+    have hsq := stratum_sq_le_chiSummed_gk K (M := M) (Kw := Kw) (n := n) (q := q) (d := d)
+      (Lw := capL L d) hM hq hd0 hdq hdW hW b (dilLen_le_capL hd0 hK)
+    have h0 : (0 : ℝ) ≤ ‖∑ r ∈ (Finset.range q).filter (fun r => Nat.gcd r q = d),
+        ratPhase b q r * ∑ m ∈ windowClass Kw n q r, doorSievedCoeff_gk K M m‖ := norm_nonneg _
+    calc ‖∑ r ∈ (Finset.range q).filter (fun r => Nat.gcd r q = d),
+            ratPhase b q r * ∑ m ∈ windowClass Kw n q r, doorSievedCoeff_gk K M m‖
+        = Real.sqrt (‖∑ r ∈ (Finset.range q).filter (fun r => Nat.gcd r q = d),
+            ratPhase b q r * ∑ m ∈ windowClass Kw n q r, doorSievedCoeff_gk K M m‖ ^ 2) :=
+          (Real.sqrt_sq h0).symm
+      _ ≤ Real.sqrt (strataTerm_gk K M q L d n) := Real.sqrt_le_sqrt hsq
+  have hsup : subWindowSup (doorSievedCoeff_gk K M) L n ((b : ℝ) / (q : ℝ)) ≤ T :=
+    subWindowSup_le hstrat
+  have hsup0 : (0 : ℝ) ≤ subWindowSup (doorSievedCoeff_gk K M) L n ((b : ℝ) / (q : ℝ)) :=
+    subWindowSup_nonneg _ _ _ _
+  -- ⟦the weighted Cauchy–Schwarz over the strata⟧
+  have hcs := Finset.sum_mul_sq_le_sq_mul_sq q.divisors
+    (fun d => (Real.sqrt (d : ℝ))⁻¹)
+    (fun d => Real.sqrt (d : ℝ) * Real.sqrt (strataTerm_gk K M q L d n))
+  have hprod : ∀ d ∈ q.divisors,
+      (Real.sqrt (d : ℝ))⁻¹ * (Real.sqrt (d : ℝ) * Real.sqrt (strataTerm_gk K M q L d n))
+        = Real.sqrt (strataTerm_gk K M q L d n) := by
+    intro d hd
+    have hd0 : 0 < d := Nat.pos_of_mem_divisors hd
+    have hd0R : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd0
+    have hs : Real.sqrt (d : ℝ) ≠ 0 := by positivity
+    field_simp
+  have hf2 : ∀ d ∈ q.divisors,
+      ((Real.sqrt (d : ℝ))⁻¹) ^ 2 = (1 : ℝ) / (d : ℝ) := by
+    intro d hd
+    have hd0 : 0 < d := Nat.pos_of_mem_divisors hd
+    have hd0R : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd0
+    rw [inv_pow, Real.sq_sqrt hd0R.le, one_div]
+  have hg2 : ∀ d ∈ q.divisors,
+      (Real.sqrt (d : ℝ) * Real.sqrt (strataTerm_gk K M q L d n)) ^ 2
+        = (d : ℝ) * strataTerm_gk K M q L d n := by
+    intro d hd
+    have hd0 : 0 < d := Nat.pos_of_mem_divisors hd
+    have hd0R : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd0
+    rw [mul_pow, Real.sq_sqrt hd0R.le, Real.sq_sqrt (strataTerm_nonneg_gk K M q L d n)]
+  rw [Finset.sum_congr rfl hprod, Finset.sum_congr rfl hf2, Finset.sum_congr rfl hg2] at hcs
+  calc (subWindowSup (doorSievedCoeff_gk K M) L n ((b : ℝ) / (q : ℝ))) ^ 2
+      ≤ T ^ 2 := by nlinarith
+    _ ≤ (∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
+          * ∑ d ∈ q.divisors, (d : ℝ) * strataTerm_gk K M q L d n := hcs
+
+set_option maxHeartbeats 1600000 in
+-- the stratified assembly re-elaborates the divisor sum, the fibre count, the χ-datum and
+-- the ledger at every stratum, and each step carries the full `strataTerm_gk K` expansion; the
+-- arithmetic steps are all `linarith`/`nlinarith` with explicit hints (no unbounded search)
+/-- `m4_freeBlockSup_of_chiSummed` (:760), at the lever. -/
+theorem m4_freeBlockSup_of_chiSummed_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ} {Bcl : ℕ → ℝ}
+    (hM : 1 ≤ M)
+    (hBcl0 : ∀ H : ℕ, 0 ≤ Bcl H)
+    (hgate : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      arcDen 12 H < ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+    (hchi : M4ChiSummedBlockMeanSqN_gk K R M Bcl) :
+    ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H →
+      (H : ℝ) ≤ arcDen 12 H ^ 2 * (L : ℝ) → 32 * arcDen 12 H ≤ (L : ℝ) →
+      16 * arcDen 12 H ^ 2 ≤ (H : ℝ) →
+      ∀ (b : ℤ) (q : ℕ), 0 < q → (q : ℝ) ≤ arcDen 12 H →
+        ∀ A B : ℕ, 0 < A → 2 * (H : ℝ) ≤ (A : ℝ) →
+          (R.x : ℝ) ≤ 8 * (R.ω : ℝ) * (A : ℝ) → (A : ℝ) ≤ 2 * (R.x : ℝ) → B + L ≤ 2 * A →
+          ∑ n ∈ Finset.Ioc A B,
+              (subWindowSup (doorSievedCoeff_gk K M) L n ((b : ℝ) / (q : ℝ))) ^ 2
+            ≤ 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ) := by
+  classical
+  intro H hlo hhi L hLH hnar hLarc harcsq b q hq hqQ A B hA hAH hAx hAcap hfit
+  have harc1 : (1 : ℝ) ≤ arcDen 12 H := one_le_arcDen_of_regime (R := R) hlo
+  have harc0 : (0 : ℝ) < arcDen 12 H := by linarith
+  have hAarc : 32 * arcDen 12 H ≤ (A : ℝ) := by
+    have hLHR : (L : ℝ) ≤ (H : ℝ) := by exact_mod_cast hLH
+    linarith
+  have hres0 : (0 : ℝ) ≤ strataResidual H := strataResidual_nonneg harc1
+  have hB0 := hBcl0 H
+  have hA0R : (0 : ℝ) ≤ (A : ℝ) := Nat.cast_nonneg _
+  have hL0R : (0 : ℝ) ≤ (L : ℝ) := Nat.cast_nonneg _
+  have hdiv0 : (0 : ℝ) ≤ ∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ) :=
+    Finset.sum_nonneg fun d _ => by positivity
+  have hdivres : ∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ) ≤ strataResidual H := by
+    refine le_trans (sum_inv_divisors_le hq) ?_
+    unfold strataResidual
+    have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+    have := Real.log_le_log (by linarith) hqQ
+    linarith
+  by_cases hAB : B < A
+  · rw [Finset.Ioc_eq_empty (by omega), Finset.sum_empty]
+    positivity
+  rw [Nat.not_lt] at hAB
+  -- ⟦the block's own consequences: the tight fit and the two arc floors⟧
+  have hLA : L ≤ A := by omega
+  have hLAR : (L : ℝ) ≤ (A : ℝ) := by exact_mod_cast hLA
+  have hL32 : (32 : ℝ) ≤ (L : ℝ) := by nlinarith
+  have hL2 : 2 ≤ L := by
+    have : (2 : ℝ) ≤ (L : ℝ) := by linarith
+    exact_mod_cast this
+  -- ⟦R-P5, THE THREE ANTECEDENTS AT THE UNDILATED BASE⟧ the two arithmetic facts every
+  -- dilated instance below re-reads: `4·arcDen 12 H ≤ √H` (the window floor at its square)
+  -- and `2L ≤ A` (the length antecedent with the two units of `ℕ`-division slack)
+  have hH0 : 0 < H := by omega
+  have hH0R : (0 : ℝ) < (H : ℝ) := by exact_mod_cast hH0
+  have hLHR : (L : ℝ) ≤ (H : ℝ) := by exact_mod_cast hLH
+  have hsqrt0 : (0 : ℝ) ≤ Real.sqrt (H : ℝ) := Real.sqrt_nonneg _
+  have hsqsq : Real.sqrt (H : ℝ) ^ 2 = (H : ℝ) := Real.sq_sqrt hH0R.le
+  have harcsqrt : 4 * arcDen 12 H ≤ Real.sqrt (H : ℝ) := by
+    have h1 : Real.sqrt ((4 * arcDen 12 H) ^ 2) ≤ Real.sqrt (H : ℝ) :=
+      Real.sqrt_le_sqrt (by nlinarith)
+    rwa [Real.sqrt_sq (by positivity)] at h1
+  have hsqrtle : Real.sqrt (H : ℝ) ≤ (H : ℝ) := by nlinarith [harcsqrt, harc1]
+  have h2LA : 2 * L ≤ A := by
+    have h : (2 : ℝ) * (L : ℝ) ≤ (A : ℝ) := by linarith
+    exact_mod_cast h
+  -- ⟦the per-base stratified bound, summed⟧
+  have hpt : ∀ n ∈ Finset.Ioc A B,
+      (subWindowSup (doorSievedCoeff_gk K M) L n ((b : ℝ) / (q : ℝ))) ^ 2
+        ≤ (∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
+          * ∑ d ∈ q.divisors, (d : ℝ) * strataTerm_gk K M q L d n := fun n _ =>
+    subWindowSup_sq_le_strata_gk K hM hq hqQ (hgate H hlo hhi) b
+  refine le_trans (Finset.sum_le_sum hpt) ?_
+  have hswap : ∑ n ∈ Finset.Ioc A B,
+        ((∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
+          * ∑ d ∈ q.divisors, (d : ℝ) * strataTerm_gk K M q L d n)
+      = (∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
+        * ∑ d ∈ q.divisors, (d : ℝ) * ∑ n ∈ Finset.Ioc A B, strataTerm_gk K M q L d n := by
+    rw [← Finset.mul_sum]
+    congr 1
+    rw [Finset.sum_comm]
+    exact Finset.sum_congr rfl fun d _ => by rw [Finset.mul_sum]
+  rw [hswap]
+  -- ⟦THE PER-STRATUM BUDGET⟧ the fibre count, the χ-datum, the sharp ledger
+  have hstr : ∀ d ∈ q.divisors,
+      (d : ℝ) * ∑ n ∈ Finset.Ioc A B, strataTerm_gk K M q L d n
+        ≤ (4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ)) * ((1 : ℝ) / (d : ℝ)) := by
+    intro d hd
+    have hd0 : 0 < d := Nat.pos_of_mem_divisors hd
+    have hd0R : (0 : ℝ) < (d : ℝ) := by exact_mod_cast hd0
+    have hdq : d ∣ q := (Nat.mem_divisors.mp hd).1
+    have hdarc : (d : ℝ) ≤ arcDen 12 H :=
+      le_trans (by exact_mod_cast Nat.le_of_dvd hq hdq) hqQ
+    have hdA2R : 2 * (d : ℝ) ≤ (A : ℝ) := by nlinarith
+    have hdA2 : 2 * d ≤ A := by exact_mod_cast hdA2R
+    have hdA : d ≤ A := by omega
+    have hdL : (d : ℝ) ≤ (L : ℝ) := by nlinarith
+    have h32dL : 32 * d ≤ L := by
+      have h : (32 : ℝ) * (d : ℝ) ≤ (L : ℝ) := by linarith
+      exact_mod_cast h
+    have hdA3 : 3 * d ≤ A := by
+      have h : (3 : ℝ) * (d : ℝ) ≤ (A : ℝ) := by linarith
+      exact_mod_cast h
+    -- ⟦the reduced modulus⟧
+    have hq0 : 0 < q / d := Nat.div_pos (Nat.le_of_dvd hq hdq) hd0
+    have hq0Q : ((q / d : ℕ) : ℝ) ≤ arcDen 12 H :=
+      le_trans (by exact_mod_cast Nat.div_le_self q d) hqQ
+    -- ⟦the dilated cap is admissible⟧
+    have hcapL : capL L d ≤ L := capL_le hd0 hL2
+    have hcapH : capL L d ≤ H := le_trans hcapL hLH
+    have hcapmul : (L : ℝ) ≤ (d : ℝ) * ((capL L d : ℕ) : ℝ) := by
+      exact_mod_cast le_mul_capL (L := L) (d := d) hd0
+    have hcap0 : (0 : ℝ) ≤ ((capL L d : ℕ) : ℝ) := Nat.cast_nonneg _
+    have hcapnar : (H : ℝ) ≤ arcDen 12 H ^ 3 * ((capL L d : ℕ) : ℝ) := by
+      have h1 : (L : ℝ) ≤ arcDen 12 H * ((capL L d : ℕ) : ℝ) := by
+        have := mul_le_mul_of_nonneg_right hdarc hcap0
+        linarith [hcapmul]
+      have h2 : arcDen 12 H ^ 2 * (L : ℝ)
+          ≤ arcDen 12 H ^ 2 * (arcDen 12 H * ((capL L d : ℕ) : ℝ)) :=
+        mul_le_mul_of_nonneg_left h1 (by positivity)
+      have heq : arcDen 12 H ^ 2 * (arcDen 12 H * ((capL L d : ℕ) : ℝ))
+          = arcDen 12 H ^ 3 * ((capL L d : ℕ) : ℝ) := by ring
+      rw [heq] at h2
+      linarith [hnar]
+    -- ⟦the re-indexed block⟧
+    have hA'2 : 2 ≤ A / d := (Nat.le_div_iff_mul_le hd0).mpr (by omega)
+    have hA'pos : 0 < A / d - 1 := by omega
+    have hA'3 : 3 ≤ A / d := (Nat.le_div_iff_mul_le hd0).mpr (by omega)
+    -- ⟦R-P5, THE THREE ANTECEDENTS AT THE DILATED BASE⟧ each spends exactly one power of
+    -- `arcDen 12 H` (because `d ≤ arcDen 12 H`) and the two `ℕ`-division units the `⌊·⌋` and
+    -- the `−1` cost — the same pattern as `hcapnar` above
+    have hA'cast : ((A / d - 1 : ℕ) : ℝ) = ((A / d : ℕ) : ℝ) - 1 := by
+      have h1 : 1 ≤ A / d := by omega
+      rw [Nat.cast_sub h1, Nat.cast_one]
+    have hAdiv : (A : ℝ) ≤ (d : ℝ) * ((A / d : ℕ) : ℝ) + (d : ℝ) := by
+      have h' := (Nat.cast_le (α := ℝ)).mpr (le_mul_div_add (A := A) (d := d) hd0)
+      push_cast at h'
+      linarith
+    have hA'0 : (0 : ℝ) ≤ ((A / d - 1 : ℕ) : ℝ) := Nat.cast_nonneg _
+    have hA'2R : (2 : ℝ) ≤ ((A / d - 1 : ℕ) : ℝ) := by
+      have h : (2 : ℕ) ≤ A / d - 1 := by omega
+      exact_mod_cast h
+    -- (i) THE LENGTH ANTECEDENT `capL L d ≤ ⌊A/d⌋ − 1`
+    have hcapA : capL L d ≤ A / d - 1 := capL_le_dilated_base hd0 h32dL h2LA
+    -- (ii) THE `√H` ANTECEDENT
+    have hsqA' : Real.sqrt (H : ℝ) ≤ ((A / d - 1 : ℕ) : ℝ) := by
+      rw [hA'cast]
+      have hd4 : 4 * (d : ℝ) ≤ Real.sqrt (H : ℝ) := by linarith
+      have hmul := mul_le_mul_of_nonneg_right hd4
+        (by positivity : (0 : ℝ) ≤ Real.sqrt (H : ℝ) + 2)
+      have hkey : (d : ℝ) * (Real.sqrt (H : ℝ) + 2) ≤ (A : ℝ) := by
+        nlinarith [hmul, hsqsq, hsqrtle, hAH, hH0R, hA0R]
+      have hstep : (d : ℝ) * Real.sqrt (H : ℝ)
+          ≤ (d : ℝ) * (((A / d : ℕ) : ℝ) - 1) := by nlinarith [hAdiv, hkey]
+      exact le_of_mul_le_mul_left hstep hd0R
+    -- (iii) THE x-SCALE ANTECEDENT
+    have hxA' : (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * ((A / d - 1 : ℕ) : ℝ) := by
+      have hω0 : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
+      have hAd2 : (A : ℝ) ≤ (d : ℝ) * ((A / d - 1 : ℕ) : ℝ) + 2 * (d : ℝ) := by
+        rw [hA'cast]; linarith [hAdiv]
+      have s1 : (R.x : ℝ)
+          ≤ 8 * (R.ω : ℝ) * ((d : ℝ) * ((A / d - 1 : ℕ) : ℝ) + 2 * (d : ℝ)) := by
+        have := mul_le_mul_of_nonneg_left hAd2 (by positivity : (0 : ℝ) ≤ 8 * (R.ω : ℝ))
+        linarith [hAx]
+      have s2 : (d : ℝ) * ((A / d - 1 : ℕ) : ℝ) + 2 * (d : ℝ)
+          ≤ 2 * (arcDen 12 H * ((A / d - 1 : ℕ) : ℝ)) := by
+        have h1 : (d : ℝ) * ((A / d - 1 : ℕ) : ℝ)
+            ≤ arcDen 12 H * ((A / d - 1 : ℕ) : ℝ) :=
+          mul_le_mul_of_nonneg_right hdarc hA'0
+        have h2 : 2 * arcDen 12 H ≤ arcDen 12 H * ((A / d - 1 : ℕ) : ℝ) := by
+          nlinarith [hA'2R, harc0]
+        linarith
+      have s3 := mul_le_mul_of_nonneg_left s2 (by positivity : (0 : ℝ) ≤ 8 * (R.ω : ℝ))
+      nlinarith [s1, s3]
+    -- (iv) THE BASE CAP, INHERITED (the (α) base-cap surgery, JYH-granted 2026-07-30):
+    -- `⌊A/d⌋ − 1 ≤ A`, so the cap passes to the dilated base with NO `arcDen` power spent
+    have hcapA' : ((A / d - 1 : ℕ) : ℝ) ≤ 2 * (R.x : ℝ) := by
+      have hle : ((A / d - 1 : ℕ) : ℝ) ≤ (A : ℝ) := by
+        have hnat : A / d - 1 ≤ A := le_trans (Nat.sub_le _ _) (Nat.div_le_self A d)
+        exact_mod_cast hnat
+      linarith
+    have hfit' : B / d + capL L d ≤ 2 * (A / d - 1) + 4 := by
+      have h := dilBlock_reindex_fit (A := A) (B := B) (H := L) (d := d) hd0 hdA hfit
+      have hc := capL_le_div_succ (L := L) (d := d) hd0
+      omega
+    -- ⟦the fibre count⟧
+    have hf0 : ∀ n' : ℕ, (0 : ℝ) ≤ ∑ χ : DirichletCharacter ℂ (q / d),
+        (doorChiSup_gk K χ M (capL L d) n') ^ 2 := fun n' =>
+      Finset.sum_nonneg fun _ _ => sq_nonneg _
+    have hmaps : ∀ n ∈ Finset.Ioc A B, n / d ∈ Finset.Ioc (A / d - 1) (B / d) := fun n hn =>
+      div_mem_reindexed hd0 hdA hn
+    have hfib := sum_Ioc_comp_div_le (f := fun n' => ∑ χ : DirichletCharacter ℂ (q / d),
+      (doorChiSup_gk K χ M (capL L d) n') ^ 2) hf0 hd0 hmaps
+    -- ⟦the χ-summed datum at the reduced modulus⟧
+    have hdatum := hchi H hlo hhi (capL L d) hcapH hcapnar (q / d) hq0 hq0Q
+      (A / d - 1) (B / d) hA'pos hcapA hsqA' hxA' hcapA' hfit'
+    -- ⟦the sharp ledger⟧
+    have hled := capL_ledger (A := A) (L := L) (d := d) hd0 hB0
+    have hdatum' : ∑ n' ∈ Finset.Ioc (A / d - 1) (B / d),
+          ∑ χ : DirichletCharacter ℂ (q / d), (doorChiSup_gk K χ M (capL L d) n') ^ 2
+        ≤ Bcl H * ((capL L d : ℕ) : ℝ) ^ 2 * ((A / d - 1 : ℕ) : ℝ) := by
+      rw [Finset.sum_comm]
+      exact hdatum
+    have hchain : ∑ n ∈ Finset.Ioc A B, strataTerm_gk K M q L d n
+        ≤ (d : ℝ) * (Bcl H * ((capL L d : ℕ) : ℝ) ^ 2 * ((A / d - 1 : ℕ) : ℝ)) := by
+      refine le_trans hfib ?_
+      exact mul_le_mul_of_nonneg_left hdatum' hd0R.le
+    have hfinal : ∑ n ∈ Finset.Ioc A B, strataTerm_gk K M q L d n
+        ≤ Bcl H * ((L : ℝ) + (d : ℝ)) ^ 2 * (A : ℝ) / (d : ℝ) ^ 2 := le_trans hchain hled
+    have hLd : ((L : ℝ) + (d : ℝ)) ^ 2 ≤ 4 * (L : ℝ) ^ 2 := by nlinarith
+    have hstep : (d : ℝ) * ∑ n ∈ Finset.Ioc A B, strataTerm_gk K M q L d n
+        ≤ (d : ℝ) * (Bcl H * ((L : ℝ) + (d : ℝ)) ^ 2 * (A : ℝ) / (d : ℝ) ^ 2) :=
+      mul_le_mul_of_nonneg_left hfinal hd0R.le
+    have hdne : ((d : ℝ)) ≠ 0 := ne_of_gt hd0R
+    have hrw : (d : ℝ) * (Bcl H * ((L : ℝ) + (d : ℝ)) ^ 2 * (A : ℝ) / (d : ℝ) ^ 2)
+        = (Bcl H * ((L : ℝ) + (d : ℝ)) ^ 2 * (A : ℝ)) * ((1 : ℝ) / (d : ℝ)) := by
+      field_simp
+    refine le_trans hstep ?_
+    rw [hrw]
+    refine mul_le_mul_of_nonneg_right ?_ (by positivity)
+    linarith [mul_le_mul_of_nonneg_left hLd (mul_nonneg hB0 hA0R)]
+  -- ⟦the recombination⟧
+  have hsum : ∑ d ∈ q.divisors, (d : ℝ) * ∑ n ∈ Finset.Ioc A B, strataTerm_gk K M q L d n
+      ≤ (4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ)) * ∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ) := by
+    rw [Finset.mul_sum]
+    exact Finset.sum_le_sum hstr
+  have hbig0 : (0 : ℝ) ≤ 4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ) := by positivity
+  calc (∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
+        * ∑ d ∈ q.divisors, (d : ℝ) * ∑ n ∈ Finset.Ioc A B, strataTerm_gk K M q L d n
+      ≤ (∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ))
+          * ((4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ))
+            * ∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ)) :=
+        mul_le_mul_of_nonneg_left hsum hdiv0
+    _ ≤ strataResidual H * ((4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ)) * strataResidual H) := by
+        have h1 : (4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ))
+              * ∑ d ∈ q.divisors, (1 : ℝ) / (d : ℝ)
+            ≤ (4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ)) * strataResidual H :=
+          mul_le_mul_of_nonneg_left hdivres hbig0
+        have h2 : (0 : ℝ) ≤ (4 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ)) * strataResidual H := by
+          positivity
+        nlinarith [hdivres, hdiv0]
+    _ = 4 * strataResidual H ^ 2 * Bcl H * (L : ℝ) ^ 2 * (A : ℝ) := by ring
+
 end Salt.MR
 
 end
+
+-- #audit (temporary)

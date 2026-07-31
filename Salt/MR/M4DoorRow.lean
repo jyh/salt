@@ -499,6 +499,162 @@ theorem door_smallGrade_fits {M H : ℕ} {MSan MStr : ℕ → ℝ} {D : ℝ}
     m4SmallGradeFits (doorRowFloor M) MSan MStr H :=
   m4SmallGradeFits_of_threshold hMStr hMSan hthr
 
+/-! ## §GK — the G-lever twin
+
+The door row page at `G := s13GK K M`.  Two genres appear here and they are worth naming,
+because everything downstream inherits the split:
+
+* **THE LEVEL-1 QUARTET IS K-INVARIANT.**  `door_block_one_wide`, `door_length_gate`,
+  `door_length_gate_fails_of_small`, `door_length_gate_iff` read the ladder ONLY at level 1,
+  where `calE A G 1 = A` does not see `G` at all.  Their `_gk` siblings are therefore
+  TRANSPORTS — `GLever.calP_gk_one_eq` / `GLever.calQK_gk_one_eq` rewrite the levered symbol
+  to the landed one and the landed theorem finishes.  In particular `doorRowFloor M` is
+  `G`-FREE and keeps its landed name: the floor `M·Adoor M` does not move under the lever.
+* **THE REST IS A LITERAL SWAP** at the levered K-family, with the datum
+  `doorChiCoeff_gk K χ M` (`M4WaveClosed`).
+
+`norm_doorChiCoeff_le_one_gk` is NOT re-declared here — it is already landed downstream in
+`M4DoorClose`; the four datum slots below inline `norm_memSCoeff_le_one` instead. -/
+
+/-- `ha1` at the levered door row datum. -/
+theorem doorRow_ha1_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd : ℕ) (n : ℕ) :
+    ‖winCutH Xd (doorChiCoeff_gk K χ M) n‖ ≤ 1 :=
+  norm_winCutH_le (fun m => norm_memSCoeff_le_one (norm_liouChi_le_one χ) _ _ 2 m) n
+
+/-- `hsupp0` at the levered door row datum. -/
+theorem doorRow_hsupp0_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd : ℕ) (n : ℕ)
+    (h : (n : ℝ) ≤ ((Xd : ℕ) : ℝ)) :
+    winCutH Xd (doorChiCoeff_gk K χ M) n = 0 :=
+  winCutH_supp0 _ h
+
+/-- `hasupp` at the levered door row datum. -/
+theorem doorRow_hasupp_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd : ℕ) (n : ℕ)
+    (h : winCutH Xd (doorChiCoeff_gk K χ M) n ≠ 0) :
+    Xd ≤ n ∧ n ≤ 2 * Xd :=
+  winCutH_asupp h
+
+/-- The supplier's datum at the shift `1` IS the levered door datum
+(`doorCofactor0_door_eq_gk`). -/
+theorem doorCofactor0_door_eq_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) (M : ℕ) :
+    doorCofactor0 χ (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 1
+      = doorChiCoeff_gk K χ M :=
+  doorCofactor0_at_one χ _ _ 2
+
+/-- **THE SOCKET, AT THE CAPSTONE'S `b`-SLOT, AT THE G-LEVER**
+(`cofactorSocket_doorChiCoeff_gk`). -/
+theorem cofactorSocket_doorChiCoeff_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q) {M : ℕ}
+    {H : ℝ} {N Xd P Q : ℕ} {Tann Rrad t₁ Rbar : ℝ}
+    (h : CofactorSocket H N Xd P Q Tann Rrad t₁ Rbar
+      (doorCofactor0 χ (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 1)) :
+    CofactorSocket H N Xd P Q Tann Rrad t₁ Rbar (doorChiCoeff_gk K χ M) := by
+  rwa [doorCofactor0_door_eq_gk] at h
+
+/-- **`hcoefPin`, AT THE DOOR, AT THE G-LEVER** (`doorChiCoeff_seamCoefW_at_door_gk`). -/
+theorem doorChiCoeff_seamCoefW_at_door_gk (K : ℕ) {q : ℕ} (χ : DirichletCharacter ℂ q)
+    {M Xd P Q : ℕ} {X : ℝ} (hM : 1 ≤ M) (hX : 1 < Real.log X)
+    (hQlog : Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log X))
+    (hPlow : P83 X theta293 ≤ (P : ℝ)) :
+    SeamCoefW Xd P Q (winCut Xd (doorChiCoeff_gk K χ M)) (doorChiCoeff_gk K χ M)
+      (liouChi χ) :=
+  doorChiCoeff_seamCoefW_band_gk K χ M Xd P Q
+    (door_band_gate_of_log (one_le_s13GK K hM) hX hQlog hPlow)
+
+/-- **THE DOOR ROW'S TAIL TRIPLE, AT THE G-LEVER** (`m4_door_tail_supply_gk`). -/
+theorem m4_door_tail_supply_gk (K : ℕ) :
+    ∃ C : ℝ, 0 < C ∧
+      ∀ (q : ℕ) (χ : DirichletCharacter ℂ q) (M P Q Xd N : ℕ) (X ε : ℝ),
+        (Xd : ℝ) = X → (N : ℝ) = 2 * X → 0 < X → 256 ≤ Real.log X →
+        2 ≤ P → P ≤ Q → 1 ≤ Xd →
+        100 * Real.log Q ≤ Real.log Xd →
+        ((Nat.sqrt Xd : ℝ) + 1) * ∏ p ∈ primeBand P Q, (1 + 3 / (p : ℝ))
+            ≤ (Xd : ℝ) * (Real.log P / Real.log Q) →
+        P83 X theta293 ≤ (P : ℝ) →
+        10752 * Real.logb 2 (2 * X) ≤ (Real.log X) ^ (2 : ℝ) →
+        8640 ≤ (Real.log X) ^ ε →
+        Real.log (P : ℝ) / Real.log (Q : ℝ)
+          ≤ 2 * (Real.log (Real.log X) * (Real.log X) ^ (-theta293)) →
+        2688 * C * Real.log (Real.log X) ≤ (Real.log X) ^ ε →
+        (∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+              ‖winCutH Xd (doorChiCoeff_gk K χ M) n‖ ^ 2 / (n : ℝ) ^ 2
+            ≤ C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2)
+          ∧ 0 ≤ C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2
+          ∧ 12 * (witEP2 X N Xd P
+              + 4 / 3 * ((2 * X + 20 * (N : ℝ))
+                * (C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2)))
+            ≤ (Real.log X) ^ (-theta293 + ε) := by
+  obtain ⟨C, hC0, hband⟩ := m4_tail_supply_at_band
+  refine ⟨C, hC0, ?_⟩
+  intro q χ M P Q Xd N X ε hXd hN hX0 hL hP2 hPQ hXd1 hgate hdom hP83 hthr habs hgrade hthr2
+  exact hband P Q Xd N (winCutH Xd (doorChiCoeff_gk K χ M)) X ε hXd hN hX0 hL hP2 hPQ hXd1
+    hgate hdom (doorRow_ha1_gk K χ M Xd) (fun n hn => doorRow_hasupp_gk K χ M Xd n hn) hP83
+    hthr habs hgrade hthr2
+
+/-- **THE DOOR ROW'S TAIL TRIPLE, WITH THE ENDPOINT CRUMB, AT THE G-LEVER**
+(`m4_door_tail_supply_end_gk`). -/
+theorem m4_door_tail_supply_end_gk (K : ℕ) :
+    ∃ C : ℝ, 0 < C ∧
+      ∀ (q : ℕ) (χ : DirichletCharacter ℂ q) (M P Q Xd N : ℕ) (X ε : ℝ),
+        (Xd : ℝ) = X → (N : ℝ) = 2 * X → 0 < X → 256 ≤ Real.log X →
+        2 ≤ P → P ≤ Q → 1 ≤ Xd →
+        100 * Real.log Q ≤ Real.log Xd →
+        ((Nat.sqrt Xd : ℝ) + 1) * ∏ p ∈ primeBand P Q, (1 + 3 / (p : ℝ))
+            ≤ (Xd : ℝ) * (Real.log P / Real.log Q) →
+        P83 X theta293 ≤ (P : ℝ) →
+        10752 * Real.logb 2 (2 * X) ≤ (Real.log X) ^ (2 : ℝ) →
+        8640 ≤ (Real.log X) ^ ε →
+        Real.log (P : ℝ) / Real.log (Q : ℝ)
+          ≤ 2 * (Real.log (Real.log X) * (Real.log X) ^ (-theta293)) →
+        2688 * C * Real.log (Real.log X) ≤ (Real.log X) ^ ε →
+        (∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+              ‖winCutH Xd (doorChiCoeff_gk K χ M) n‖ ^ 2 / (n : ℝ) ^ 2
+            ≤ C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2)
+          ∧ 0 ≤ C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2
+          ∧ 12 * (witEP2 X N Xd P
+              + 4 / 3 * ((2 * X + 20 * (N : ℝ))
+                * (C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2))
+              + 4 / 3 * ((2 * X + 20 * (N : ℝ)) * endMass Xd))
+            ≤ (Real.log X) ^ (-theta293 + ε) := by
+  obtain ⟨C, hC0, hband⟩ := m4_tail_supply_at_band_end
+  refine ⟨C, hC0, ?_⟩
+  intro q χ M P Q Xd N X ε hXd hN hX0 hL hP2 hPQ hXd1 hgate hdom hP83 hthr habs hgrade hthr2
+  exact hband P Q Xd N (winCutH Xd (doorChiCoeff_gk K χ M)) X ε hXd hN hX0 hL hP2 hPQ hXd1
+    hgate hdom (doorRow_ha1_gk K χ M Xd) (fun n hn => doorRow_hasupp_gk K χ M Xd n hn) hP83
+    hthr habs hgrade hthr2
+
+/-! ### the level-1 quartet — K-INVARIANT, transports only -/
+
+/-- **THE DOOR'S LEVEL-1 K-BLOCK IS WIDE, AT THE G-LEVER** (`door_block_one_wide_gk`) —
+LEVEL 1, hence a transport: both sides are the landed symbols. -/
+theorem door_block_one_wide_gk (K : ℕ) {M : ℕ} (hM : 2 ≤ M) :
+    4 * calP (Adoor M) (s13GK K M) 1 ≤ calQK (Adoor M) (s13GK K M) M 1 := by
+  rw [calP_gk_one_eq, calQK_gk_one_eq]
+  exact door_block_one_wide hM
+
+/-- **THE LENGTH GATE, SOLVED, AT THE G-LEVER** (`door_length_gate_gk`) — LEVEL 1, hence a
+transport; the floor is the landed `M·Adoor M`, unmoved. -/
+theorem door_length_gate_gk (K : ℕ) {M j : ℕ}
+    (h : ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ)) :
+    M * Adoor M ≤ j := by
+  rw [calQK_gk_one_eq] at h
+  exact door_length_gate h
+
+/-- **THE SMALL-`j` INSTANCES ARE UNREACHABLE, AT THE G-LEVER**
+(`door_length_gate_fails_of_small_gk`) — LEVEL 1, hence a transport. -/
+theorem door_length_gate_fails_of_small_gk (K : ℕ) {M j : ℕ} (hM : 1 ≤ M) (hj : j < 2 ^ 18) :
+    ¬ ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) := by
+  rw [calQK_gk_one_eq]
+  exact door_length_gate_fails_of_small hM hj
+
+/-- **THE LENGTH GATE, BOTH WAYS, AT THE G-LEVER** (`door_length_gate_iff_gk`) — LEVEL 1,
+hence a transport.  `doorRowFloor M` is `G`-FREE and is NOT twinned. -/
+theorem door_length_gate_iff_gk (K : ℕ) {M j : ℕ} :
+    ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ)
+      ↔ doorRowFloor M ≤ j := by
+  rw [calQK_gk_one_eq]
+  exact door_length_gate_iff
+
+-- #audit (temporary)
+
 end Salt.MR
 
 end

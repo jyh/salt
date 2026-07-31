@@ -553,4 +553,231 @@ theorem doorRows_global_hcoef_kills_block {a b c : ℕ → ℂ} {M Xd j : ℕ}
     ∀ m : ℕ, ¬ p₁ ∣ m → a (p₁ * m) = 0 :=
   seam_coef_contract_forces_vanishing hasupp hcoef hp₀ hP₀ hQ₀ hd₀ hlive hp₁ hP₁ hQ₁ hd₁ hoff
 
+/-! ## §GK — the G-lever twin
+
+The additive `_gk` family at `G := s13GK K M` (`GLever`): each declaration below is its landed
+original with `(K : ℕ)` as a new FIRST binder and every `3072 * M` read of the door's growth
+base rewritten to `s13GK K M`.  `J` stays `2`; `Adoor M` is unchanged.
+
+⟦WHAT KEEPS ITS LANDED NAME, AND WHY⟧
+
+* `doorRowFloor M = M · Adoor M` and `SocketBase` are `G`-FREE — the socket's base condition is
+  reused VERBATIM by every twin below.
+* `a2Level1 M` is LEVEL 1 and therefore K-INVARIANT (`GLever.calP_gk_one_eq`,
+  `calQK_gk_one_eq`), so `a2DoorGrade_gk`'s body is byte-identical to `a2DoorGrade`'s: the
+  grade's five summands read the ladder only at level 1 (through `a2Level1`) or not at all.
+  The twin is declared anyway, uniformly in `K`, so that every consumer below reads ONE symbol
+  and the family stays mechanical.
+* `chiBarCoeff_winCutH` (:184) and `log_natCast_nonneg'` (:223) are datum-generic and
+  `G`-blind; `m4_hSup_door_at_zero` (:104) and `m4_hSup_pieceDatum_perChi` (:125) speak an
+  abstract datum.  None of the four is twinned.
+
+⟦THE §2 TRIO IS NOT RE-DECLARED HERE — CROSS-GROUP COLLISION, RESOLVED IN FAVOUR OF THE
+LANDED COPY⟧  `doorCoeffU_gk` (:171), `chiBarCoeff_doorCoeffU_gk` (:175) and
+`chiBarCoeff_doorRowDatum_gk` (:195) are ALREADY LANDED, byte-identically, in
+`M4RowsChiEnd`'s own `§GK` (its header marks them ⟦PROVISIONAL, M4Assembly-SIDE⟧ and says to
+delete them here if this file ever grows its own).  `M4RowsChiEnd` is a SIBLING of this file,
+not an ancestor, so declaring them a second time makes the two branches unmergeable: the
+first common descendant (`M4ArithZero`) fails with `environment already contains
+'Salt.MR.doorCoeffU_gk'`.  They are therefore left where they are; nothing downstream is
+missing.  Moving them back here is a one-commit maestro decision, not an executor's.
+
+The two moved slots that DO carry the lever into a statement are `hgP1` (the level-1 `𝒫₁` at
+the levered base — the same symbol by `calP_gk_one_eq`, written at the lever for uniformity)
+and `hgRows` (at `ThmA2.a2RowsSum_gk`, which reads `𝒫₂` and genuinely moves). -/
+
+set_option linter.unusedVariables false in
+/-- `a2DoorGrade` (:213), at the lever.  The body is byte-identical: the only ladder read is
+`a2Level1 M`, which is LEVEL 1 and K-invariant.  The twin exists for uniformity of the
+family's shape (`K` first, everywhere), exactly as `M4Close.m4RawMS_gk` does. -/
+def a2DoorGrade_gk (K : ℕ) (M : ℕ) (X h C₁ M₀ : ℝ) : ℝ :=
+  8448 * cfbC₁ X C₁ ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
+    + 1787702400 * a2Level1 M
+    + 188133 * (Real.log X) ^ (-(1 : ℝ) / 500)
+    + 304128 * ballSupC ^ 2
+        * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
+    + 6315000 / h
+
+/-- The levered grade IS the landed one — recorded so the twin's fidelity is a checked object
+and not a claim (`a2Level1` is K-invariant). -/
+theorem a2DoorGrade_gk_eq (K : ℕ) (M : ℕ) (X h C₁ M₀ : ℝ) :
+    a2DoorGrade_gk K M X h C₁ M₀ = a2DoorGrade M X h C₁ M₀ := rfl
+
+/-- `a2DoorGrade_nonneg` (:229), at the lever. -/
+theorem a2DoorGrade_nonneg_gk (K : ℕ) (M : ℕ) {X h C₁ M₀ : ℝ} (hX : 0 ≤ Real.log X)
+    (hh : 0 < h) : 0 ≤ a2DoorGrade_gk K M X h C₁ M₀ :=
+  a2DoorGrade_nonneg M hX hh
+
+/-- `m4_chiFreeRowSq_sum_at_door` (:289), at the lever. -/
+theorem m4_chiFreeRowSq_sum_at_door_gk (K : ℕ) {q : ℕ} [NeZero q] {M Xd j : ℕ}
+    {Cs Ccc C₁ M₀ ε : ℝ}
+    (hM : 1 ≤ M)
+    (hX : Real.exp 1 ≤ ((Xd : ℕ) : ℝ)) (hX3 : (3 : ℝ) ≤ ((Xd : ℕ) : ℝ))
+    (hh4 : (4 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ))
+    (hhX : ((2 ^ j : ℕ) : ℝ)
+      ≤ ((Xd : ℕ) : ℝ) * (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 / 5 : ℝ)))
+    (hTann : TannGate ((Xd : ℕ) : ℝ) (2 * (((Xd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ))))
+    (hceil : 5 ≤ Real.log (Real.log (2 * (((Xd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ)))))
+    (hrowsSum : ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+      ((Xd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ ((Xd : ℕ) : ℝ) →
+      TannGate ((Xd : ℕ) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+      ((Xd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ) / T
+          * (∫ t in seamAnn ((Xd : ℕ) : ℝ) (2 * T),
+              ‖spoly (2 * Xd) (winCutH Xd (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+        ≤ a2Mrow_gk K Cs Ccc M Xd ((Xd : ℕ) : ℝ) ε)
+    (hT0bandSum : ∀ χ : DirichletCharacter ℂ q,
+      (∫ t in (-(seamT0 ((Xd : ℕ) : ℝ)))..(seamT0 ((Xd : ℕ) : ℝ)),
+        ‖dpolyA (winCutH Xd (doorChiCoeff_gk K χ M)) (seamS0 (2 * Xd) ((Xd : ℕ) : ℝ)) t‖ ^ 2)
+        ≤ t0BandB ((Xd : ℕ) : ℝ) (cfbC₁ ((Xd : ℕ) : ℝ) C₁) M₀)
+    (hgP1 : 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+      ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 : ℝ) / 500))
+    (hgRows : 5760 * (a2RowsSum_gk K M Xd + Ccc * (2 / (M : ℝ)))
+      ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 : ℝ) / 500))
+    (hεwin : 0 ≤ ε ∧ ε ≤ theta293 - 1 / 500)
+    (hL4096 : 4096 ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (1 - (1 : ℝ) / 250)) :
+    ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq_gk K χ M j Xd
+      ≤ (q.totient : ℝ) * a2DoorGrade_gk K M ((Xd : ℕ) : ℝ) ((2 ^ j : ℕ) : ℝ) C₁ M₀ := by
+  have hN2 : (((2 * Xd : ℕ)) : ℝ) ≤ 2 * ((Xd : ℕ) : ℝ) := by push_cast; exact le_rfl
+  have hbase := thm_a2'_of_rows_chiSummed_gk K (q := q) (N := 2 * Xd) (M := M) (Xd := Xd)
+    (a := fun χ => winCutH Xd (doorChiCoeff_gk K χ M)) (X := ((Xd : ℕ) : ℝ))
+    (h := ((2 ^ j : ℕ) : ℝ)) (Cs := fun _ => Cs) (Ccc := fun _ => Ccc)
+    (C₁' := fun _ => cfbC₁ ((Xd : ℕ) : ℝ) C₁) (M₀ := fun _ => M₀) (ε := fun _ => ε)
+    hM hX hX3 hh4 hhX (fun χ n => doorRow_ha1_gk K χ M Xd n)
+    (fun χ n hn => doorRow_hsupp0_gk K χ M Xd n hn) hN2 hTann hceil hrowsSum hT0bandSum
+    (fun _ => hgP1) (fun _ => hgRows) (fun _ => hεwin) hL4096
+  simp only [shortSum_winCutH_seamS0] at hbase
+  refine le_trans hbase (le_of_eq ?_)
+  rw [a2_sum_const_chars]
+  unfold a2DoorGrade_gk
+  ring
+
+/-- `DoorFuseFrame` (:440), at the lever.  Two of the eleven fields move: `gP1`'s `𝒫₁` is
+written at the levered base and `gRows` reads `ThmA2.a2RowsSum_gk`. -/
+structure DoorFuseFrame_gk (K : ℕ) (M Xd j : ℕ) (Cs Ccc ε : ℝ) : Prop where
+  /-- `e ≤ X_d` — the frozen interface's lower scale pin. -/
+  X_exp : Real.exp 1 ≤ ((Xd : ℕ) : ℝ)
+  /-- `3 ≤ X_d`. -/
+  X_three : (3 : ℝ) ≤ ((Xd : ℕ) : ℝ)
+  /-- `4 ≤ 2^j` — the AS-2 MVT guard (NOT `3`). -/
+  h_four : (4 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ)
+  /-- Lemma 14's window frame `2^j ≤ X_d·(log X_d)^{−1/5}`. -/
+  h_window : ((2 ^ j : ℕ) : ℝ)
+    ≤ ((Xd : ℕ) : ℝ) * (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 / 5 : ℝ))
+  /-- `TannGate X_d (2X_d/2^j)` — the annulus gate at the family's bottom height. -/
+  tann : TannGate ((Xd : ℕ) : ℝ) (2 * (((Xd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ)))
+  /-- `5 ≤ loglog(2X_d/2^j)` — the `h`-ceiling. -/
+  ceil5 : 5 ≤ Real.log (Real.log (2 * (((Xd : ℕ) : ℝ) / ((2 ^ j : ℕ) : ℝ))))
+  /-- The first GRADING gate, on the `𝒯`-leg constant `Cs`, AT THE LEVER. -/
+  gP1 : 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ))
+    ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 : ℝ) / 500)
+  /-- The second GRADING gate, at the levered row sum. -/
+  gRows : 5760 * (a2RowsSum_gk K M Xd + Ccc * (2 / (M : ℝ)))
+    ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 : ℝ) / 500)
+  /-- The `𝒰`-leg's exponent room, lower end. -/
+  eps_lo : 0 ≤ ε
+  /-- The `𝒰`-leg's exponent room, upper end (`θ₂₉₃ = 1/(32(3e+1))`). -/
+  eps_hi : ε ≤ theta293 - 1 / 500
+  /-- The third GRADING gate. -/
+  L4096 : 4096 ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (1 - (1 : ℝ) / 250)
+
+/-- `m4_chiSummedFreeRowBig_of_doorGrade` (:355), at the lever. -/
+theorem m4_chiSummedFreeRowBig_of_doorGrade_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ}
+    {C₁ M₀ : ℕ → ℝ} {RSbig : ℕ → ℕ → ℝ}
+    (hgrade : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → ∀ q : ℕ, 0 < q →
+      (q : ℝ) ≤ arcDen 12 H → ∀ j ≤ Nat.log 2 L, doorRowFloor M ≤ j → ∀ A : ℕ, 0 < A →
+        2 ^ j ≤ A → Real.sqrt (H : ℝ) ≤ (A : ℝ) →
+        (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) →
+        (A : ℝ) ≤ 2 * (R.x : ℝ) → ∀ s ≤ L,
+          ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq_gk K χ M j (A + s)
+            ≤ (q.totient : ℝ)
+                * a2DoorGrade_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+                    (M₀ (A + s)))
+    (henv : ∀ H j A s : ℕ, doorRowFloor M ≤ j →
+      arcDen 12 H * a2DoorGrade_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+          (M₀ (A + s))
+        ≤ RSbig j H) :
+    M4ChiSummedFreeRowBig_gk K R M RSbig := by
+  intro H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx hAcap s hsL
+  have hh1 : (1 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) := by
+    exact_mod_cast (Nat.one_le_two_pow : 1 ≤ 2 ^ j)
+  have hh0 : (0 : ℝ) < ((2 ^ j : ℕ) : ℝ) := by linarith
+  have hG0 : 0 ≤ a2DoorGrade_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+      (M₀ (A + s)) := a2DoorGrade_nonneg_gk K M (log_natCast_nonneg' (A + s)) hh0
+  have hφq : (q.totient : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.totient_le q
+  have hφarc : (q.totient : ℝ) ≤ arcDen 12 H := le_trans hφq hqQ
+  refine le_trans
+    (hgrade H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx hAcap s hsL) ?_
+  refine le_trans (mul_le_mul_of_nonneg_right hφarc hG0) ?_
+  exact henv H j A s hjfl
+
+/-- `m4_chiSummedFreeRow_of_doorGrade` (:392), at the lever. -/
+theorem m4_chiSummedFreeRow_of_doorGrade_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ}
+    {C₁ M₀ : ℕ → ℝ} {RSbig : ℕ → ℕ → ℝ}
+    (hgrade : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ L : ℕ, L ≤ H → ∀ q : ℕ, 0 < q →
+      (q : ℝ) ≤ arcDen 12 H → ∀ j ≤ Nat.log 2 L, doorRowFloor M ≤ j → ∀ A : ℕ, 0 < A →
+        2 ^ j ≤ A → Real.sqrt (H : ℝ) ≤ (A : ℝ) →
+        (R.x : ℝ) ≤ 16 * (R.ω : ℝ) * arcDen 12 H * (A : ℝ) →
+        (A : ℝ) ≤ 2 * (R.x : ℝ) → ∀ s ≤ L,
+          ∑ χ : DirichletCharacter ℂ q, chiFreeRowSq_gk K χ M j (A + s)
+            ≤ (q.totient : ℝ)
+                * a2DoorGrade_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+                    (M₀ (A + s)))
+    (henv : ∀ H j A s : ℕ, doorRowFloor M ≤ j →
+      arcDen 12 H * a2DoorGrade_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+          (M₀ (A + s))
+        ≤ RSbig j H) :
+    M4ChiSummedFreeRow_gk K R M (m4ChiRowGraded M RSbig) :=
+  m4_chiSummedFreeRow_of_big_gk K (m4_chiSummedFreeRowBig_of_doorGrade_gk K hgrade henv)
+
+/-- `m4_chiSummedFreeRow_of_doorAssembly` (:492), at the lever. -/
+theorem m4_chiSummedFreeRow_of_doorAssembly_gk (K : ℕ) {R : ChowlaRegime} {M : ℕ}
+    {Cs Ccc C₁ M₀ ε : ℕ → ℝ} {RSbig : ℕ → ℕ → ℝ}
+    (hM : 1 ≤ M)
+    (hframe : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorFuseFrame_gk K M (A + s) j (Cs (A + s)) (Ccc (A + s)) (ε (A + s)))
+    (hrows : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+        (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+        TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+        (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) / T
+            * (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_gk K χ M)) t‖ ^ 2)
+          ≤ a2Mrow_gk K (Cs (A + s)) (Ccc (A + s)) M (A + s) (((A + s : ℕ)) : ℝ) (ε (A + s)))
+    (hband : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      ∀ χ : DirichletCharacter ℂ q,
+        (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+          ‖dpolyA (winCutH (A + s) (doorChiCoeff_gk K χ M))
+            (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+          ≤ t0BandB (((A + s : ℕ)) : ℝ) (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (M₀ (A + s)))
+    (henv : ∀ H j A s : ℕ, doorRowFloor M ≤ j →
+      arcDen 12 H * a2DoorGrade_gk K M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+          (M₀ (A + s))
+        ≤ RSbig j H) :
+    M4ChiSummedFreeRow_gk K R M (m4ChiRowGraded M RSbig) := by
+  refine m4_chiSummedFreeRow_of_doorGrade_gk K (C₁ := C₁) (M₀ := M₀) ?_ henv
+  intro H hlo hhi L hLH q hq hqQ j hjL hjfl A hA hAj hAsq hAx hAcap s hsL
+  haveI : NeZero q := ⟨hq.ne'⟩
+  have hb : SocketBase R M H L q j A s :=
+    ⟨hlo, hhi, hLH, hq, hqQ, hjL, hjfl, hA, hAj, hAsq, hAx, hAcap, hsL⟩
+  have hF := hframe H L q j A s hb
+  exact m4_chiFreeRowSq_sum_at_door_gk K hM hF.X_exp hF.X_three hF.h_four hF.h_window hF.tann
+    hF.ceil5 (hrows H L q j A s hb) (hband H L q j A s hb) hF.gP1 hF.gRows
+    ⟨hF.eps_lo, hF.eps_hi⟩ hF.L4096
+
+/-- `doorRows_global_hcoef_kills_block` (:543), at the lever. -/
+theorem doorRows_global_hcoef_kills_block_gk (K : ℕ) {a b c : ℕ → ℂ} {M Xd j : ℕ}
+    (hasupp : ∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd)
+    (hcoef : ∀ p m : ℕ, p.Prime → calP (Adoor M) (s13GK K M) j ≤ p →
+      p ≤ calQK (Adoor M) (s13GK K M) M j → ¬ p ∣ m → a (p * m) = b m * c p)
+    {p₀ p₁ m₀ : ℕ} (hp₀ : p₀.Prime) (hP₀ : calP (Adoor M) (s13GK K M) j ≤ p₀)
+    (hQ₀ : p₀ ≤ calQK (Adoor M) (s13GK K M) M j) (hd₀ : ¬ p₀ ∣ m₀)
+    (hlive : a (p₀ * m₀) ≠ 0)
+    (hp₁ : p₁.Prime) (hP₁ : calP (Adoor M) (s13GK K M) j ≤ p₁)
+    (hQ₁ : p₁ ≤ calQK (Adoor M) (s13GK K M) M j) (hd₁ : ¬ p₁ ∣ m₀)
+    (hoff : 2 * Xd < p₁ * m₀) :
+    ∀ m : ℕ, ¬ p₁ ∣ m → a (p₁ * m) = 0 :=
+  seam_coef_contract_forces_vanishing hasupp hcoef hp₀ hP₀ hQ₀ hd₀ hlive hp₁ hP₁ hQ₁ hd₁ hoff
+
 end Salt.MR
+
+-- #audit (temporary)

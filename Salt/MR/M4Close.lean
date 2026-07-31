@@ -786,6 +786,260 @@ theorem m4_door_contradiction_of_live_split :
   exact ⟨R, hReps, hU1, hRg, fun δ Braw M k hgates hBraw0 hgrade hsock =>
     hR (hhbd R δ₀ δ Braw M k hgates hBraw0 hgrade hsock)⟩
 
+/-! ## §GK — the G-lever twin
+
+The additive `_gk` family at `G := s13GK K M = 3072·2^K·M` (`GLever`).  Every declaration
+below is its landed sibling with `(K : ℕ)` inserted as the FIRST binder and every literal
+`3072 * M` rewritten to `s13GK K M`; nothing else moves.
+
+The door datum genuinely changes here — `calP (Adoor M) (s13GK K M) 2` and
+`calQK (Adoor M) (s13GK K M) M 2` are strictly larger than at the landed base, so the sieve
+set `𝒮` moves and these cannot be transports.  What does NOT move: `a2Level1 M` (LEVEL 1 IS
+K-INVARIANT, `calP_gk_one_eq`), `M4GradeGate`/`M4GradeGateSplit` (no `G` in sight),
+`m4Saving`, `mrtDeliveredGrade`, and the whole `M4Exit` socket chain.
+
+The door glue `m4_door_glue_liouville` is `(A,G)`-ABSTRACT — its only demand on the base is
+`1 ≤ G`, discharged at the lever by `one_le_s13GK`.  That single line is the entire proof
+diff across §GK. -/
+
+set_option linter.unusedVariables false in
+/-- **`m4RawMS` AT THE LEVER.**  The five raw summands do not read `G` at all: the level-1
+summand is `a2Level1 M`, which is K-INVARIANT.  The twin exists for uniformity of the
+family's shape (`K` first, everywhere), and is definitionally the landed constant. -/
+def m4RawMS_gk (K : ℕ) (C₁' M₀ : ℝ) (M : ℕ) (X h : ℝ) : ℝ :=
+  8448 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
+    + 1787702400 * a2Level1 M
+    + 188133 * (Real.log X) ^ (-(1 : ℝ) / 500)
+    + 304128 * ballSupC ^ 2
+        * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
+    + 6315000 / h
+
+/-- **THE ARITHMETIC CLOSE OF THE MEAN SQUARE, AT THE LEVER.**  `m4_rawMS_le` (:249)
+verbatim. -/
+theorem m4_rawMS_le_gk (K : ℕ) {C₁' M₀ W X h G : ℝ} {M : ℕ} (hW : 1 ≤ W)
+    (hM : m4Demand W ≤ M₀)
+    (g1 : 8448 * C₁' ^ 2 * W ^ (-(5 : ℝ) / 2) ≤ G / 5)
+    (g2 : 1787702400 * a2Level1 M ≤ G / 5)
+    (g3 : 188133 * (Real.log X) ^ (-(1 : ℝ) / 500) ≤ G / 5)
+    (g4 : 304128 * ballSupC ^ 2
+        * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2) ≤ G / 5)
+    (g5 : 6315000 / h ≤ G / 5) :
+    m4RawMS_gk K C₁' M₀ M X h ≤ G := by
+  have h1 := m4_quality_summand_le (C₁' := C₁') hW hM
+  unfold m4RawMS_gk
+  linarith
+
+/-- The lever's close at the door's own cap `W = m4W H` — `m4_rawMS_le_saving` (:264). -/
+theorem m4_rawMS_le_saving_gk (K : ℕ) {C₁' M₀ X h : ℝ} {M H : ℕ} (hW : 1 ≤ m4W H)
+    (hM : m4Demand (m4W H) ≤ M₀)
+    (g1 : 8448 * C₁' ^ 2 * (m4W H) ^ (-(5 : ℝ) / 2) ≤ m4Saving H / 5)
+    (g2 : 1787702400 * a2Level1 M ≤ m4Saving H / 5)
+    (g3 : 188133 * (Real.log X) ^ (-(1 : ℝ) / 500) ≤ m4Saving H / 5)
+    (g4 : 304128 * ballSupC ^ 2
+        * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
+      ≤ m4Saving H / 5)
+    (g5 : 6315000 / h ≤ m4Saving H / 5) :
+    m4RawMS_gk K C₁' M₀ M X h ≤ m4Saving H :=
+  m4_rawMS_le_gk K hW hM g1 g2 g3 g4 g5
+
+/-- **THE M4-7 SOCKET AT THE LEVER** — `M4SievedDoorSq` (:368) at `G := s13GK K M`.  The
+sieve set moves with `K`; the shape does not. -/
+def M4SievedDoorSq_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) (Braw : ℕ → ℝ) : Prop :=
+  M4BandTransport →
+    ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
+      NearRatTight (arcDen 12 H) H α →
+        (∫ n, ‖absWindowSum (memSCoeff (calP (Adoor M) (s13GK K M))
+              (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC) H n α‖ ^ 2
+            ∂(logMeasure R.x R.ω))
+          ≤ Braw H * (H : ℝ) ^ 2
+
+/-- **THE LEVER'S SOCKET IS INHABITED** — `m4_sievedDoorSq_trivial` (:384) verbatim: the
+1-boundedness of `memSCoeff` is `G`-uniform. -/
+theorem m4_sievedDoorSq_trivial_gk (K : ℕ) (R : ChowlaRegime) (M : ℕ) :
+    M4SievedDoorSq_gk K R M (fun _ => 1) := by
+  intro _ H _ _ _ α _
+  refine integral_logMeasure_le_of_le R.hx R.hω (fun n => ?_)
+  have h := norm_absWindowSum_le
+    (a := memSCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC)
+    (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ 2 m) H n α
+  have h0 := norm_nonneg (absWindowSum (memSCoeff (calP (Adoor M) (s13GK K M))
+    (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC) H n α)
+  nlinarith
+
+/-- **THE DOOR-DATA GATE BUNDLE AT THE LEVER** — `M4DoorGates` (:403) with the per-block
+`SieveBlockGate` read at `G := s13GK K M`. -/
+structure M4DoorGates_gk (K : ℕ) (Cg : ℝ) (R : ChowlaRegime) (M k : ℕ) (δ : ℝ) : Prop where
+  /-- the K-family's re-pin parameter is a genuine modulus -/
+  hM : 1 ≤ M
+  /-- the door grade is positive -/
+  hδ : 0 < δ
+  /-- the `M`-gate, after M4-8's `log ω` absorption -/
+  hMδ : 24 * Cg / δ ≤ (M : ℝ)
+  /-- the absorption's floor: `log ω ≥ 4` (where the cover/normaliser ratio is `< 3`) -/
+  hlogω : 4 ≤ Real.log (R.ω : ℝ)
+  /-- the geometric gate for the endpoint sum -/
+  hpow : 2 ^ (k + 1) ≤ R.x
+  /-- the cover count, IN-STATEMENT (law #253) -/
+  hcount : (k : ℝ) ≤ Real.log (R.ω : ℝ) / Real.log 2 + 2
+  /-- the ladder exhausts the door window, at every window length in range -/
+  hreach : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → doorLadder R.x H k ≤ R.x / R.ω
+  /-- HS-3's analytic bundle, one per block, at every window length in range -/
+  hblocks : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ i < k,
+    SieveBlockGate (Adoor M) (s13GK K M) M 2 (doorLadder R.x H (i + 1))
+
+/-- **THE M4-7 DELIVERABLE AT THE LEVER** — `m4_hbd_of_live` (:464).  The one proof diff:
+`1 ≤ s13GK K M` comes from `one_le_s13GK` where the landed line used `omega`. -/
+theorem m4_hbd_of_live_gk (K : ℕ) :
+    ∃ Cg : ℝ, 1 ≤ Cg ∧
+      ∀ (R : ChowlaRegime) (C δ : ℝ) (Braw : ℕ → ℝ) (M k : ℕ),
+        M4DoorGates_gk K Cg R M k δ → (∀ H : ℕ, 0 ≤ Braw H) → M4GradeGate R C δ Braw k →
+        M4SievedDoorSq_gk K R M Braw →
+          ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
+            NearRatTight (arcDen 12 H) H α →
+              (∫ n, ‖absWindowSum lamCoeff H n α‖ ∂(logMeasure R.x R.ω))
+                ≤ mrtDeliveredGrade C H * (H : ℝ) := by
+  obtain ⟨Cg, hCg, hglue⟩ := m4_door_glue_liouville
+  refine ⟨Cg, hCg, ?_⟩
+  intro R C δ Braw M k hgates hBraw0 hgrade hsock H _ hlo hhi α harc
+  -- ⟦the door's own scales, off the regime⟧
+  have hA : 1 ≤ Adoor M := by
+    have h := Adoor_ge M
+    omega
+  have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
+  have hHx : H + 1 ≤ R.x := by
+    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
+    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
+    have h2 : 2 ≤ R.x := R.hx
+    omega
+  -- ⟦M4-8's glue, consumed at the lever's base⟧
+  have hglueH := hglue (Adoor M) (s13GK K M) M 2 R.x R.ω H k α δ hA hG hgates.hM hgates.hδ
+    hgates.hMδ R.hx R.hω R.hωx hgates.hlogω hHx (hgates.hreach H hlo hhi) hgates.hpow
+    hgates.hcount (hgates.hblocks H hlo hhi)
+  -- ⟦the socket, and §1's `L²→L¹` descent⟧
+  have hsq := hsock m4_bandTransport H hlo hhi α harc
+  have hcs := integral_logMeasure_le_sqrt_of_sq (x := R.x) (ω := R.ω) R.hx R.hω
+    (f := fun n => ‖absWindowSum (memSCoeff (calP (Adoor M) (s13GK K M))
+      (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC) H n α‖)
+    (fun n => norm_nonneg _) hsq
+  have hsplit : Real.sqrt (Braw H * (H : ℝ) ^ 2) = Real.sqrt (Braw H) * (H : ℝ) := by
+    rw [Real.sqrt_mul (hBraw0 H), Real.sqrt_sq (Nat.cast_nonneg H)]
+  rw [hsplit] at hcs
+  -- ⟦the spelling bridge and the budget line⟧
+  rw [integral_absWindowSum_lamCoeff_eq]
+  calc (∫ n, ‖absWindowSum liouvilleC H n α‖ ∂(logMeasure R.x R.ω))
+      ≤ (∫ n, ‖absWindowSum (memSCoeff (calP (Adoor M) (s13GK K M))
+            (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC) H n α‖ ∂(logMeasure R.x R.ω))
+          + δ / 4 * (H : ℝ) + 4 * 2 ^ k * (H : ℝ) / (R.x : ℝ) := hglueH
+    _ ≤ Real.sqrt (Braw H) * (H : ℝ) + δ / 4 * (H : ℝ)
+          + 4 * 2 ^ k * (H : ℝ) / (R.x : ℝ) := by linarith
+    _ = (Real.sqrt (Braw H) + δ / 4 + 4 * 2 ^ k / (R.x : ℝ)) * (H : ℝ) := by ring
+    _ ≤ mrtDeliveredGrade C H * (H : ℝ) :=
+        mul_le_mul_of_nonneg_right (hgrade H hlo hhi) (Nat.cast_nonneg H)
+
+/-- **THE WAVE'S EXIT AT THE LEVER** — `m4_door_contradiction_of_live` (:537). -/
+theorem m4_door_contradiction_of_live_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ → (∀ H : ℕ, 0 ≤ Braw H) → M4GradeGate R C δ Braw k →
+            M4SievedDoorSq_gk K R M Braw →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, hCg, hhbd⟩ := m4_hbd_of_live_gk K
+  obtain ⟨ε, δ₀, hε, hδ₀, hexit⟩ := m4_exit_socket
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro C hC U1floor g
+  obtain ⟨R, hReps, hU1, hRg, _, _, _, hR⟩ := hexit C hC U1floor g
+  exact ⟨R, hReps, hU1, hRg, fun δ Braw M k hgates hBraw0 hgrade hsock =>
+    hR (hhbd R C δ Braw M k hgates hBraw0 hgrade hsock)⟩
+
+/-- **The lever's exit, collision form** — `m4_door_False_of_live` (:555). -/
+theorem m4_door_False_of_live_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ → (∀ H : ℕ, 0 ≤ Braw H) → M4GradeGate R C δ Braw k →
+            M4SievedDoorSq_gk K R M Braw →
+              logChowla2Fails R.eps R.x R.ω → False := by
+  obtain ⟨Cg, hCg, hhbd⟩ := m4_hbd_of_live_gk K
+  obtain ⟨ε, δ₀, hε, hδ₀, hexit⟩ := m4_exit_socket_False
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro C hC U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hexit C hC U1floor g
+  exact ⟨R, hReps, hU1, hRg, fun δ Braw M k hgates hBraw0 hgrade hsock hfail =>
+    hR (hhbd R C δ Braw M k hgates hBraw0 hgrade hsock) hfail⟩
+
+/-- **THE M4-7 DELIVERABLE, SPLIT, AT THE LEVER** — `m4_hbd_of_live_split` (:710). -/
+theorem m4_hbd_of_live_split_gk (K : ℕ) :
+    ∃ Cg : ℝ, 1 ≤ Cg ∧
+      ∀ (R : ChowlaRegime) (δ₀ δ : ℝ) (Braw : ℕ → ℝ) (M k : ℕ),
+        M4DoorGates_gk K Cg R M k δ → (∀ H : ℕ, 0 ≤ Braw H) →
+        M4GradeGateSplit R δ₀ δ Braw k →
+        M4SievedDoorSq_gk K R M Braw →
+          ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
+            NearRatTight (arcDen 12 H) H α →
+              (∫ n, ‖absWindowSum lamCoeff H n α‖ ∂(logMeasure R.x R.ω))
+                ≤ δ₀ * (H : ℝ) := by
+  obtain ⟨Cg, hCg, hglue⟩ := m4_door_glue_liouville
+  refine ⟨Cg, hCg, ?_⟩
+  intro R δ₀ δ Braw M k hgates hBraw0 hgrade hsock H _ hlo hhi α harc
+  -- ⟦the door's own scales, off the regime⟧
+  have hA : 1 ≤ Adoor M := by
+    have h := Adoor_ge M
+    omega
+  have hG : 1 ≤ s13GK K M := one_le_s13GK K hgates.hM
+  have hHx : H + 1 ≤ R.x := by
+    have hdiv : R.x / R.ω ≤ R.x / 2 := Nat.div_le_div_left R.hω (by norm_num)
+    have hle : H ≤ R.x / 2 := le_trans (le_trans hhi R.hheadroom) hdiv
+    have h2 : 2 ≤ R.x := R.hx
+    omega
+  -- ⟦M4-8's glue, consumed at the lever's base⟧
+  have hglueH := hglue (Adoor M) (s13GK K M) M 2 R.x R.ω H k α δ hA hG hgates.hM hgates.hδ
+    hgates.hMδ R.hx R.hω R.hωx hgates.hlogω hHx (hgates.hreach H hlo hhi) hgates.hpow
+    hgates.hcount (hgates.hblocks H hlo hhi)
+  -- ⟦the socket, and §1's `L²→L¹` descent⟧
+  have hsq := hsock m4_bandTransport H hlo hhi α harc
+  have hcs := integral_logMeasure_le_sqrt_of_sq (x := R.x) (ω := R.ω) R.hx R.hω
+    (f := fun n => ‖absWindowSum (memSCoeff (calP (Adoor M) (s13GK K M))
+      (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC) H n α‖)
+    (fun n => norm_nonneg _) hsq
+  have hsplit : Real.sqrt (Braw H * (H : ℝ) ^ 2) = Real.sqrt (Braw H) * (H : ℝ) := by
+    rw [Real.sqrt_mul (hBraw0 H), Real.sqrt_sq (Nat.cast_nonneg H)]
+  rw [hsplit] at hcs
+  -- ⟦the spelling bridge and the SPLIT budget line⟧
+  rw [integral_absWindowSum_lamCoeff_eq]
+  calc (∫ n, ‖absWindowSum liouvilleC H n α‖ ∂(logMeasure R.x R.ω))
+      ≤ (∫ n, ‖absWindowSum (memSCoeff (calP (Adoor M) (s13GK K M))
+            (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC) H n α‖ ∂(logMeasure R.x R.ω))
+          + δ / 4 * (H : ℝ) + 4 * 2 ^ k * (H : ℝ) / (R.x : ℝ) := hglueH
+    _ ≤ Real.sqrt (Braw H) * (H : ℝ) + δ / 4 * (H : ℝ)
+          + 4 * 2 ^ k * (H : ℝ) / (R.x : ℝ) := by linarith
+    _ = (Real.sqrt (Braw H) + δ / 4 + 4 * 2 ^ k / (R.x : ℝ)) * (H : ℝ) := by ring
+    _ ≤ δ₀ * (H : ℝ) :=
+        mul_le_mul_of_nonneg_right (hgrade H hlo hhi) (Nat.cast_nonneg H)
+
+/-- **THE WAVE'S EXIT, SPLIT, AT THE LEVER** — `m4_door_contradiction_of_live_split`
+(:771). -/
+theorem m4_door_contradiction_of_live_split_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ → (∀ H : ℕ, 0 ≤ Braw H) →
+            M4GradeGateSplit R δ₀ δ Braw k →
+            M4SievedDoorSq_gk K R M Braw →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, hCg, hhbd⟩ := m4_hbd_of_live_split_gk K
+  obtain ⟨ε, δ₀, hε, hδ₀, hexit⟩ := m4_exit_socket_split
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, -, hR⟩ := hexit U1floor g
+  exact ⟨R, hReps, hU1, hRg, fun δ Braw M k hgates hBraw0 hgrade hsock =>
+    hR (hhbd R δ₀ δ Braw M k hgates hBraw0 hgrade hsock)⟩
+
+-- #audit (temporary)
+
 end Salt.MR
 
 end

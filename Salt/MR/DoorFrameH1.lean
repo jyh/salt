@@ -458,4 +458,82 @@ theorem level1_term_door_decays {M : ℕ} (hM : 1 ≤ M) {R : ℝ} (hR : 0 ≤ R
   exact level1_shape (H1door_two hM) (one_le_log_calQK_door_one hM)
     (Real.rpow_pos_of_pos hP0 _) hR
 
+/-! ## §GK — the G-lever twin
+
+**THIS WHOLE PAGE IS K-INVARIANT EXCEPT THE FRAME.**  `H1door M = P₁^{1/12}/(log Q₁)^{1/3}`
+reads the door's ladder at LEVEL 1 ONLY, and level 1 does not see `G` (`GLever.calE_gk_one`).
+So `H1door`, `calP_door_one_ge`, `calP_door_one_rpow_quarter`, `one_le_log_calQK_door_one`,
+`H1door_two`, `H1door_cube`, `H1door_pin`, `H1door_level1_identity`,
+`H1door_level1_certificate` and `level1_term_door_decays` **KEEP THEIR LANDED NAMES** under
+the lever and are used verbatim inside every `_gk` consumer.  What they get is the transport
+equality `H1door_gk_eq` (and `calP_door_one_gk`/`log_calQK_door_one_gk` upstream), not a twin.
+
+The ONE object that genuinely moves is the frame inhabitant, because `A_gate_logK` and
+`G_gateK` read level `Jb = 2`. -/
+
+/-- **THE WIDTH IS K-INVARIANT** (`H1door_gk_eq`).  MR's own `H₁` re-read at the lever's base
+IS `H1door M` — both of its ladder reads are at level 1.  This is why the whole `DoorFrameH1`
+page survives the G-lever with no twin at all. -/
+lemma H1door_gk_eq (K M : ℕ) :
+    ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 12)
+        / (Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ)) ^ ((1 : ℝ) / 3)
+      = H1door M := by
+  rw [calP_gk_one_eq, calQK_gk_one_eq, H1door]
+
+/-- `P₁ ≥ 64` at the lever — level-1 transport of `calP_door_one_ge`. -/
+lemma calP_door_one_ge_gk (K M : ℕ) :
+    (64 : ℝ) ≤ ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) := by
+  rw [calP_door_one_gk]
+  exact calP_door_one_ge M
+
+/-- `log Q₁ ≥ 1` at the lever — level-1 transport of `one_le_log_calQK_door_one`. -/
+lemma one_le_log_calQK_door_one_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) :
+    (1 : ℝ) ≤ Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) := by
+  rw [calQK_gk_one_eq]
+  exact one_le_log_calQK_door_one hM
+
+/-- **G6 AT THE LEVER** — `level1_term_door_decays` transported.  Every symbol in the §8.1
+level-1 factor is level-1, so the lever leaves the decay certificate untouched. -/
+theorem level1_term_door_decays_gk (K : ℕ) {M : ℕ} (hM : 1 ≤ M) {R : ℝ} (hR : 0 ≤ R) :
+    2 * (calH (H1door M) 1 * Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) + 1) * R
+        * ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) ^ (-(2 * mrAlpha (1 / 12) 1))
+        * (4 * (calH (H1door M) 1 / (1 - 2 * mrAlpha (1 / 12) 1))
+              * Real.exp ((1 - 2 * mrAlpha (1 / 12) 1) / calH (H1door M) 1)
+            + 60 * (calH (H1door M) 1 / mrAlpha (1 / 12) 1)
+                * Real.exp (4 * mrAlpha (1 / 12) 1 / calH (H1door M) 1))
+      ≤ 5280 * R
+          * ((Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ)) ^ ((1 : ℝ) / 3)
+              / ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 12)) := by
+  rw [calP_door_one_gk, calQK_gk_one_eq]
+  exact level1_term_door_decays hM hR
+
+/-- **THE DOOR'S K-STATION FRAME AT MR'S OWN `H₁`, AT THE G-LEVER**
+(`calFrameK_satisfiable_doorH1_gk`).  `CalFrameK` at `η = 1/12`, `A = Adoor M`,
+`G = s13GK K M`, `Jb = 2`, `H₁ = H1door M` (the LANDED width — it is K-invariant),
+`X_d = Q_{Jb}`, for every `M ≥ 1` and every `K ≤ 1.7·10⁸`.
+
+Exactly as in the landed file, only `H1_two` and `H1_pin` mention `H₁`, and both are the
+landed lemmas: `H1_two` does not mention `G` at all, and `H1_pin`'s `P₁` is level 1
+(`calP_door_one_gk`).  The other ten fields are `calFrameK_satisfiable_door_gk`'s, which is
+where the lever's only real cost — the `+K` inside `A_gate_logK`'s second logarithm — is
+paid, hence the same `K ≤ 1.7·10⁸` side condition. -/
+theorem calFrameK_satisfiable_doorH1_gk (K M : ℕ) (hM : 1 ≤ M) (hK : K ≤ 170000000) :
+    CalFrameK (1 / 12) (H1door M) (Adoor M) (s13GK K M) M 2
+      (calQK (Adoor M) (s13GK K M) M 2) := by
+  have hF := calFrameK_satisfiable_door_gk K M hM hK
+  refine ⟨hF.eta_pos, hF.eta_lt, hF.one_le_Jb, hF.one_le_G, hF.one_le_M, hF.G_gateK,
+    hF.A_gate_lin, hF.A_gate_logK, hF.A_floor, H1door_two hM, ?_, hF.Q_le_Xd⟩
+  rw [calP_door_one_gk]
+  exact H1door_pin hM
+
+/-- **The twelve `LevelGates` at the levered corrected door family**, free from the frame. -/
+theorem levelGates_calibrated_doorH1_gk (K M : ℕ) (hM : 1 ≤ M) (hK : K ≤ 170000000) :
+    ∀ j ∈ Finset.Icc 2 2,
+      LevelGates (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M)
+        (calH (H1door M)) (1 / 12)
+        ((calP (Adoor M) (s13GK K M)) 1) (calQK (Adoor M) (s13GK K M) M 2) j :=
+  levelGates_calibratedK (calFrameK_satisfiable_doorH1_gk K M hM hK)
+
+-- #audit (temporary)
+
 end Salt.MR

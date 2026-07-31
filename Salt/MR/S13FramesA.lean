@@ -1121,6 +1121,434 @@ theorem s13_loglogHhi_le_tight {R : ChowlaRegime}
     _ ≤ (81184 / 1000 : ℝ) ^ (4 : ℕ) * (9011 / 1000 : ℝ) := hprod
     _ ≤ 392000000 := hnum
 
+/-! ## §GK — the G-lever twin -/
+
+/-- `s13BlockExp` (:128) at the lever.  RE-DERIVED numeral: the third summand is QUADRATIC in
+the base, so `400·(A·G·M)²` reads `G = s13GK K M` and the exponent grows like `2^{2K}`.  The
+first two summands are `G`-free. -/
+def s13BlockExp_gk (K M : ℕ) : ℕ :=
+  14427 + (64 + 8 * (Nat.log 2 M + 1)) + 400 * (Adoor M * s13GK K M * M) ^ 2
+
+/-- `s13BlockFloor` (:132) at the lever. -/
+def s13BlockFloor_gk (K M : ℕ) : ℕ := 2 ^ s13BlockExp_gk K M
+
+set_option maxHeartbeats 1000000 in
+-- the four analytic conjuncts are re-elaborated at the LEVERED exponent `400*(A*G*M)^2`;
+-- the symbolic `nlinarith`/`positivity` chain is the landed one and needs the same budget
+/-- `s13_sieveBlockGate` (:145) at the lever.  Statement verbatim at `G := s13GK K M`; the
+only proof diffs are `1 ≤ G` (now `one_le_s13GK`) and the regularity gate, which is proved
+symbolically in `G` and therefore never touched the literal. -/
+theorem s13_sieveBlockGate_gk (K : ℕ) {M X : ℕ} (hM : 1 ≤ M) (hX : s13BlockFloor_gk K M ≤ X) :
+    SieveBlockGate (Adoor M) (s13GK K M) M 2 X := by
+  have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  have hlog2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hlog2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  set N := s13BlockExp_gk K M with hN
+  have hXN : ((2 : ℝ)) ^ N ≤ (X : ℝ) := by
+    have h : ((2 ^ N : ℕ) : ℝ) ≤ (X : ℝ) := by exact_mod_cast hX
+    simpa using h
+  have h2pos : (0 : ℝ) < (2 : ℝ) ^ N := by positivity
+  have hX0 : (0 : ℝ) < (X : ℝ) := lt_of_lt_of_le h2pos hXN
+  have hX1 : 1 ≤ X := by
+    have : (0 : ℕ) < X := by exact_mod_cast hX0
+    omega
+  have hsplit : ∀ a : ℕ, a ≤ N → ((2 : ℝ)) ^ a ≤ (X : ℝ) := by
+    intro a ha
+    refine le_trans (pow_le_pow_right₀ (by norm_num) ha) hXN
+  have hA : 14427 ≤ N := by rw [hN, s13BlockExp_gk]; omega
+  have hB : 64 + 8 * (Nat.log 2 M + 1) ≤ N := by rw [hN, s13BlockExp_gk]; omega
+  have hC : 400 * (Adoor M * s13GK K M * M) ^ 2 ≤ N := by rw [hN, s13BlockExp_gk]; omega
+  -- ⟦GATE (b)⟧
+  have hexp : Real.exp 10000 ≤ (X : ℝ) := by
+    have hpow : ((2 : ℝ)) ^ (14427 : ℕ) = Real.exp ((14427 : ℕ) * Real.log 2) := by
+      rw [← Real.log_pow, Real.exp_log (by positivity)]
+    have hle : (10000 : ℝ) ≤ ((14427 : ℕ) : ℝ) * Real.log 2 := by
+      push_cast
+      nlinarith [hlog2lo]
+    calc Real.exp 10000 ≤ Real.exp (((14427 : ℕ) : ℝ) * Real.log 2) := Real.exp_le_exp.mpr hle
+      _ = ((2 : ℝ)) ^ (14427 : ℕ) := hpow.symm
+      _ ≤ (X : ℝ) := hsplit _ hA
+  have hbig : (100 : ℝ) ≤ Real.sqrt (Real.log X) := hbig_of_floor hexp
+  have hlogX : ((N : ℕ) : ℝ) * Real.log 2 ≤ Real.log (X : ℝ) := by
+    have h1 : Real.log (((2 : ℝ)) ^ N) ≤ Real.log (X : ℝ) := Real.log_le_log h2pos hXN
+    rwa [Real.log_pow] at h1
+  have hAd : (1 : ℝ) ≤ (Adoor M : ℝ) := by
+    have : 1 ≤ Adoor M := by
+      rw [Adoor]
+      have : 0 < 2 ^ 36 * (Nat.log 2 M + 1) := by positivity
+      omega
+    exact_mod_cast this
+  have hGn : 1 ≤ s13GK K M := one_le_s13GK K hM
+  have hG : (1 : ℝ) ≤ ((s13GK K M : ℕ) : ℝ) := by exact_mod_cast hGn
+  have hMR : (1 : ℝ) ≤ (M : ℝ) := by exact_mod_cast hM
+  set W : ℝ := (Adoor M : ℝ) * ((s13GK K M : ℕ) : ℝ) * (M : ℝ) with hW
+  have hAG1 : (1 : ℝ) ≤ (Adoor M : ℝ) * ((s13GK K M : ℕ) : ℝ) := by nlinarith
+  have hW1 : (1 : ℝ) ≤ W := by rw [hW]; nlinarith
+  have hWN : (400 : ℝ) * W ^ 2 ≤ ((N : ℕ) : ℝ) := by
+    have h : ((400 * (Adoor M * s13GK K M * M) ^ 2 : ℕ) : ℝ) ≤ ((N : ℕ) : ℝ) := by
+      exact_mod_cast hC
+    rw [hW]
+    push_cast at h ⊢
+    linarith
+  have hreg2 : (256 : ℝ) * W ^ 2 ≤ Real.log (X : ℝ) := by
+    have h1 : (400 : ℝ) * W ^ 2 * Real.log 2 ≤ ((N : ℕ) : ℝ) * Real.log 2 :=
+      mul_le_mul_of_nonneg_right hWN hlog2.le
+    nlinarith [sq_nonneg W, hW1]
+  have hsqrtW : (16 : ℝ) * W ≤ Real.sqrt (Real.log X) := by
+    have h1 : ((16 : ℝ) * W) ^ 2 ≤ Real.log (X : ℝ) := by nlinarith
+    have h2 : Real.sqrt (((16 : ℝ) * W) ^ 2) ≤ Real.sqrt (Real.log X) := Real.sqrt_le_sqrt h1
+    rwa [Real.sqrt_sq (by nlinarith)] at h2
+  have hregj : ∀ j ∈ Finset.Icc 1 2,
+      Real.log ((calQK (Adoor M) (s13GK K M) M j : ℕ) : ℝ) ≤ Real.sqrt (Real.log X) := by
+    intro j hj
+    rw [Finset.mem_Icc] at hj
+    obtain ⟨hj1, hj2⟩ := hj
+    refine le_trans ?_ hsqrtW
+    rw [log_calQK]
+    have hAd0 : (0 : ℝ) < (Adoor M : ℝ) := by linarith
+    have hM0 : (0 : ℝ) < (M : ℝ) := by linarith
+    have hG0 : (0 : ℝ) < ((s13GK K M : ℕ) : ℝ) := by linarith
+    interval_cases j
+    · rw [calE_one, hW]
+      push_cast
+      nlinarith [hlog2hi, hlog2, hAd, hMR, hG, hAd0, hM0, hG0,
+        mul_pos hAd0 hM0, mul_pos (mul_pos hAd0 hG0) hM0,
+        mul_nonneg (mul_pos hAd0 hM0).le (sub_nonneg.mpr hG)]
+    · rw [calE_two, hW]
+      push_cast
+      nlinarith [hlog2hi, hlog2, hAd, hMR, hG, hAd0, hM0, hG0,
+        mul_pos (mul_pos hAd0 hG0) hM0]
+  -- ⟦GATE (d)⟧
+  have hM8 : (M : ℝ) ^ 8 ≤ ((2 : ℝ)) ^ (8 * (Nat.log 2 M + 1)) := by
+    have hlt : M < 2 ^ (Nat.log 2 M + 1) := Nat.lt_pow_succ_log_self (by norm_num) M
+    have hltR : (M : ℝ) ≤ ((2 : ℝ)) ^ (Nat.log 2 M + 1) := by
+      have : ((M : ℕ) : ℝ) ≤ ((2 ^ (Nat.log 2 M + 1) : ℕ) : ℝ) := by exact_mod_cast hlt.le
+      simpa using this
+    calc (M : ℝ) ^ 8 ≤ (((2 : ℝ)) ^ (Nat.log 2 M + 1)) ^ 8 :=
+          pow_le_pow_left₀ (by positivity) hltR 8
+      _ = ((2 : ℝ)) ^ (8 * (Nat.log 2 M + 1)) := by rw [← pow_mul, Nat.mul_comm]
+  have hXM : ((2 : ℝ)) ^ (64 : ℕ) * (M : ℝ) ^ 8 ≤ (X : ℝ) := by
+    calc ((2 : ℝ)) ^ (64 : ℕ) * (M : ℝ) ^ 8
+        ≤ ((2 : ℝ)) ^ (64 : ℕ) * ((2 : ℝ)) ^ (8 * (Nat.log 2 M + 1)) := by
+          have : (0 : ℝ) < ((2 : ℝ)) ^ (64 : ℕ) := by positivity
+          nlinarith [hM8]
+      _ = ((2 : ℝ)) ^ (64 + 8 * (Nat.log 2 M + 1)) := by rw [← pow_add]
+      _ ≤ (X : ℝ) := hsplit _ hB
+  have hsqrtX : ((2 : ℝ)) ^ (32 : ℕ) * (M : ℝ) ^ 4 ≤ Real.sqrt X := by
+    have h1 : (((2 : ℝ)) ^ (32 : ℕ) * (M : ℝ) ^ 4) ^ 2 ≤ (X : ℝ) := by
+      have : (((2 : ℝ)) ^ (32 : ℕ) * (M : ℝ) ^ 4) ^ 2
+          = ((2 : ℝ)) ^ (64 : ℕ) * (M : ℝ) ^ 8 := by ring
+      rw [this]; exact hXM
+    have h2 : Real.sqrt ((((2 : ℝ)) ^ (32 : ℕ) * (M : ℝ) ^ 4) ^ 2) ≤ Real.sqrt X :=
+      Real.sqrt_le_sqrt h1
+    rwa [Real.sqrt_sq (by positivity)] at h2
+  have hlogP1 : (57 : ℝ) ≤ Real.log ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) := by
+    rw [calP_gk_one_eq, log_calP_door_one]
+    have hAd36 : ((2 : ℝ)) ^ (36 : ℕ) ≤ (Adoor M : ℝ) := by
+      have : 2 ^ 36 ≤ Adoor M := by
+        rw [Adoor]
+        have : 1 ≤ Nat.log 2 M + 1 := by omega
+        calc 2 ^ 36 = 2 ^ 36 * 1 := by ring
+          _ ≤ 2 ^ 36 * (Nat.log 2 M + 1) := by exact Nat.mul_le_mul_left _ this
+      exact_mod_cast this
+    have h36 : ((2 : ℝ)) ^ (36 : ℕ) = 68719476736 := by norm_num
+    rw [h36] at hAd36
+    nlinarith [hlog2lo, hAd36]
+  have hexp57 : ∀ j : ℕ, 1 ≤ j →
+      Real.exp (57 / Real.log ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ)) ≤ 3 := by
+    intro j hj
+    have hmono : Real.log ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)
+        ≤ Real.log ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ) := by
+      rw [log_calP, log_calP]
+      have hE : calE (Adoor M) (s13GK K M) 1 ≤ calE (Adoor M) (s13GK K M) j :=
+        calE_mono (Adoor M) hGn hj
+      have hEc : ((calE (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)
+          ≤ ((calE (Adoor M) (s13GK K M) j : ℕ) : ℝ) := by exact_mod_cast hE
+      exact mul_le_mul_of_nonneg_right hEc hlog2.le
+    have hlogPj : (57 : ℝ) ≤ Real.log ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ) :=
+      le_trans hlogP1 hmono
+    have hlogPj0 : (0 : ℝ) < Real.log ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ) := by
+      linarith
+    have hdiv : 57 / Real.log ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ) ≤ 1 :=
+      (div_le_one hlogPj0).mpr (by linarith)
+    calc Real.exp (57 / Real.log ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ))
+        ≤ Real.exp 1 := Real.exp_le_exp.mpr hdiv
+      _ ≤ 3 := by linarith [Real.exp_one_lt_d9]
+  have herrj : ∀ j ∈ Finset.Icc 1 2,
+      ((Nat.sqrt X : ℝ) + 1)
+          * ∏ p ∈ primeBand (calP (Adoor M) (s13GK K M) j)
+              (calQK (Adoor M) (s13GK K M) M j), (1 + 3 / (p : ℝ))
+        ≤ (X : ℝ) * (Real.log ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ)
+            / Real.log ((calQK (Adoor M) (s13GK K M) M j : ℕ) : ℝ)) := by
+    intro j hj
+    rw [Finset.mem_Icc] at hj
+    refine herr_of_floor (by
+      have : 1 ≤ Adoor M := by
+        rw [Adoor]
+        have : 0 < 2 ^ 36 * (Nat.log 2 M + 1) := by positivity
+        omega
+      exact this) hGn hM hj.1 hX1 ?_
+    have hjR : ((j : ℝ)) ^ 2 * (M : ℝ) ≤ 4 * (M : ℝ) := by
+      have hjle : ((j : ℝ)) ≤ 2 := by exact_mod_cast hj.2
+      have hj0 : (0 : ℝ) ≤ (j : ℝ) := Nat.cast_nonneg j
+      have hjsq : ((j : ℝ)) ^ 2 ≤ 4 := by nlinarith
+      exact mul_le_mul_of_nonneg_right hjsq (Nat.cast_nonneg M)
+    have hj4 : (((j : ℝ)) ^ 2 * (M : ℝ)) ^ 4 ≤ 256 * (M : ℝ) ^ 4 := by
+      have h0 : (0 : ℝ) ≤ ((j : ℝ)) ^ 2 * (M : ℝ) := by positivity
+      calc (((j : ℝ)) ^ 2 * (M : ℝ)) ^ 4 ≤ (4 * (M : ℝ)) ^ 4 :=
+            pow_le_pow_left₀ h0 hjR 4
+        _ = 256 * (M : ℝ) ^ 4 := by ring
+    have hE := hexp57 j hj.1
+    have hE0 : (0 : ℝ) < Real.exp (57 / Real.log ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ)) :=
+      Real.exp_pos _
+    have hM4 : (0 : ℝ) < (M : ℝ) ^ 4 := by positivity
+    calc 16 * (((j : ℝ)) ^ 2 * (M : ℝ)) ^ 4
+            * Real.exp (57 / Real.log ((calP (Adoor M) (s13GK K M) j : ℕ) : ℝ))
+        ≤ 16 * (256 * (M : ℝ) ^ 4) * 3 := by nlinarith
+      _ = 12288 * (M : ℝ) ^ 4 := by ring
+      _ ≤ ((2 : ℝ)) ^ (32 : ℕ) * (M : ℝ) ^ 4 := by
+          have h12 : (12288 : ℝ) ≤ ((2 : ℝ)) ^ (32 : ℕ) := by norm_num
+          exact mul_le_mul_of_nonneg_right h12 (by positivity)
+      _ ≤ Real.sqrt X := hsqrtX
+  exact ⟨hX0, hbig, hregj, herrj⟩
+
+/-- `s13GArm` (:340) at the lever — the third summand reads the levered block floor. -/
+def s13GArm_gk (K M : ℕ) (δ : ℝ) : ℕ → ℕ → ℕ := fun Hhi ω =>
+  2 * ω * (Hhi + 2) + 8 * ω + 4 * ω * s13BlockFloor_gk K M + ⌈128 * (ω : ℝ) / δ⌉₊
+
+/-- `s13_doorGates_of_arm` (:375) at the lever. -/
+theorem s13_doorGates_of_arm_gk (K : ℕ) {Cg δ : ℝ} {R : ChowlaRegime} {M : ℕ}
+    (hM : 1 ≤ M) (hδ : 0 < δ) (hMδ : 24 * Cg / δ ≤ (M : ℝ))
+    (harm : s13GArm_gk K M δ R.Hhi R.ω ≤ R.x) :
+    M4DoorGates_gk K Cg R M (doorCount R.ω) δ := by
+  have hω1 : 1 ≤ R.ω := by have := R.hω; omega
+  have hcount : ((doorCount R.ω : ℕ) : ℝ) ≤ Real.log (R.ω : ℝ) / Real.log 2 + 2 :=
+    doorCount_le hω1
+  have harm1 : 2 * R.ω * (R.Hhi + 2) ≤ R.x := by
+    rw [s13GArm_gk] at harm; omega
+  have harm2 : 8 * R.ω ≤ R.x := by rw [s13GArm_gk] at harm; omega
+  have harm3 : 4 * R.ω * s13BlockFloor_gk K M ≤ R.x := by rw [s13GArm_gk] at harm; omega
+  refine ⟨hM, hδ, hMδ, s13_logOmega_ge R, ?_, hcount, ?_, ?_⟩
+  · have h4 : 2 ^ (doorCount R.ω) ≤ 4 * R.ω :=
+      two_pow_le_four_mul_of_count R.hω hcount
+    have : 2 ^ (doorCount R.ω + 1) = 2 ^ (doorCount R.ω) * 2 := by rw [pow_succ]
+    omega
+  · intro H hlo hhi
+    have hbig : 2 * (R.ω : ℝ) * ((H : ℝ) + 2) ≤ (R.x : ℝ) := by
+      have hHle : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast hhi
+      have hω0 : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
+      have h1 : ((2 * R.ω * (R.Hhi + 2) : ℕ) : ℝ) ≤ (R.x : ℝ) := by exact_mod_cast harm1
+      push_cast at h1
+      nlinarith
+    exact (doorCount_gates hω1 hbig).1
+  · intro H hlo hhi i hik
+    have hmid : s13BlockFloor_gk K M ≤ R.x / (4 * R.ω) := by
+      rw [Nat.le_div_iff_mul_le (by omega)]
+      calc s13BlockFloor_gk K M * (4 * R.ω) = 4 * R.ω * s13BlockFloor_gk K M := by ring
+        _ ≤ R.x := harm3
+    exact s13_sieveBlockGate_gk K hM
+      (le_trans hmid (doorLadder_ge_x_div_four_omega (H := H) R.hω hcount (by omega)))
+
+/-- `s13_endpoint_of_arm` (:414) at the lever.  The endpoint share never read the base. -/
+theorem s13_endpoint_of_arm_gk (K : ℕ) {δ : ℝ} {R : ChowlaRegime} {M : ℕ} (hδ : 0 < δ)
+    (harm : s13GArm_gk K M δ R.Hhi R.ω ≤ R.x) :
+    8 * 2 ^ (doorCount R.ω) / (R.x : ℝ) ≤ δ / 4 := by
+  have hω1 : 1 ≤ R.ω := by have := R.hω; omega
+  have hcount := doorCount_le hω1
+  have h4 : 2 ^ (doorCount R.ω) ≤ 4 * R.ω := two_pow_le_four_mul_of_count R.hω hcount
+  have h4R : ((2 ^ (doorCount R.ω) : ℕ) : ℝ) ≤ 4 * (R.ω : ℝ) := by exact_mod_cast h4
+  have harm4 : ⌈128 * (R.ω : ℝ) / δ⌉₊ ≤ R.x := by rw [s13GArm_gk] at harm; omega
+  have hceil : 128 * (R.ω : ℝ) / δ ≤ (R.x : ℝ) := by
+    refine le_trans (Nat.le_ceil _) ?_
+    exact_mod_cast harm4
+  have hx0 : (0 : ℝ) < (R.x : ℝ) := by
+    have : 0 < R.x := by have := R.hx; omega
+    exact_mod_cast this
+  have hkey : 128 * (R.ω : ℝ) ≤ δ * (R.x : ℝ) := by
+    rw [div_le_iff₀ hδ] at hceil
+    linarith
+  rw [div_le_div_iff₀ hx0 (by norm_num : (0:ℝ) < 4)]
+  have h2R : (8 : ℝ) * ((2 : ℝ) ^ (doorCount R.ω)) ≤ 32 * (R.ω : ℝ) := by
+    have : ((2 : ℝ)) ^ (doorCount R.ω) ≤ 4 * (R.ω : ℝ) := by
+      simpa using h4R
+    linarith
+  linarith
+
+/-- `s13GArm'_le` (:851) at the lever.  `s13GArm'` is `M`- and `G`-free, so only the right
+side moves. -/
+theorem s13GArm'_le_gk (K M : ℕ) (δ : ℝ) (Hhi ω : ℕ) :
+    s13GArm' δ Hhi ω ≤ s13GArm_gk K M δ Hhi ω := by
+  rw [s13GArm', s13GArm_gk]; omega
+
+/-- `s13_doorGates_of_arm'` (:857) at the lever. -/
+theorem s13_doorGates_of_arm'_gk (K : ℕ) {Cg δ : ℝ} {R : ChowlaRegime} {M : ℕ}
+    (hM : 1 ≤ M) (hδ : 0 < δ) (hMδ : 24 * Cg / δ ≤ (M : ℝ))
+    (harm : s13GArm' δ R.Hhi R.ω ≤ R.x)
+    (hblk : 4 * R.ω * s13BlockFloor_gk K M ≤ R.x) :
+    M4DoorGates_gk K Cg R M (doorCount R.ω) δ := by
+  have hω1 : 1 ≤ R.ω := by have := R.hω; omega
+  have hcount : ((doorCount R.ω : ℕ) : ℝ) ≤ Real.log (R.ω : ℝ) / Real.log 2 + 2 :=
+    doorCount_le hω1
+  have harm1 : 2 * R.ω * (R.Hhi + 2) ≤ R.x := by rw [s13GArm'] at harm; omega
+  have harm2 : 8 * R.ω ≤ R.x := by rw [s13GArm'] at harm; omega
+  refine ⟨hM, hδ, hMδ, s13_logOmega_ge R, ?_, hcount, ?_, ?_⟩
+  · have h4 : 2 ^ (doorCount R.ω) ≤ 4 * R.ω :=
+      two_pow_le_four_mul_of_count R.hω hcount
+    have : 2 ^ (doorCount R.ω + 1) = 2 ^ (doorCount R.ω) * 2 := by rw [pow_succ]
+    omega
+  · intro H hlo hhi
+    have hbig : 2 * (R.ω : ℝ) * ((H : ℝ) + 2) ≤ (R.x : ℝ) := by
+      have hHle : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast hhi
+      have hω0 : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
+      have h1 : ((2 * R.ω * (R.Hhi + 2) : ℕ) : ℝ) ≤ (R.x : ℝ) := by exact_mod_cast harm1
+      push_cast at h1
+      nlinarith
+    exact (doorCount_gates hω1 hbig).1
+  · intro H hlo hhi i hik
+    have hmid : s13BlockFloor_gk K M ≤ R.x / (4 * R.ω) := by
+      rw [Nat.le_div_iff_mul_le (by omega)]
+      calc s13BlockFloor_gk K M * (4 * R.ω) = 4 * R.ω * s13BlockFloor_gk K M := by ring
+        _ ≤ R.x := hblk
+    exact s13_sieveBlockGate_gk K hM
+      (le_trans hmid (doorLadder_ge_x_div_four_omega (H := H) R.hω hcount (by omega)))
+
+/-- `s13_calQK_door_two` (:749) at the lever.  RE-DERIVED numeral: `𝒬₂ = 2^{16·A·G·M}` with
+`G = s13GK K M`, i.e. the landed exponent times `2^K`. -/
+theorem s13_calQK_door_two_gk (K : ℕ) : ∀ M : ℕ,
+    calQK (Adoor M) (s13GK K M) M 2 = 2 ^ (16 * (Adoor M * s13GK K M * M)) := by
+  intro M
+  rw [calQK, calE_two]
+  ring_nf
+
+/-- `s13_doorRowZeroBase_five` (:761) at the lever.  `calQK … 1` is LEVEL 1 and therefore
+K-INVARIANT — `s13_calQK_door_one` is reused verbatim through `calQK_gk_one_eq`. -/
+theorem s13_doorRowZeroBase_five_gk (K : ℕ) {M Xd j : ℕ} (hM : 1 ≤ M)
+    (hXd : s13BlockFloor_gk K M ≤ Xd) (hj : doorRowFloor M ≤ j) :
+    calQK (Adoor M) (s13GK K M) M 2 ≤ Xd ∧
+      Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+          ≤ Real.sqrt (Real.log (Xd : ℝ)) ∧
+      (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) ∧
+      (4 : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) ∧
+      ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) := by
+  have hgate := s13_sieveBlockGate_gk K hM hXd
+  have hAd1 : 1 ≤ Adoor M := by
+    rw [Adoor]
+    have : 0 < 2 ^ 36 * (Nat.log 2 M + 1) := by positivity
+    omega
+  have hGn : 1 ≤ s13GK K M := one_le_s13GK K hM
+  have ht1 : 1 ≤ Adoor M * s13GK K M * M := by
+    calc 1 = 1 * 1 * 1 := by ring
+      _ ≤ Adoor M * s13GK K M * M := Nat.mul_le_mul (Nat.mul_le_mul hAd1 hGn) hM
+  have hjfl : doorRowFloor M ≤ j := hj
+  have hj2 : 2 ≤ j := by
+    have h36 : 2 ^ 36 ≤ Adoor M := by
+      rw [Adoor]
+      have h1 : 1 ≤ Nat.log 2 M + 1 := by omega
+      calc 2 ^ 36 = 2 ^ 36 * 1 := by ring
+        _ ≤ 2 ^ 36 * (Nat.log 2 M + 1) := Nat.mul_le_mul_left _ h1
+    have hfl : 2 ^ 36 ≤ doorRowFloor M := by
+      rw [doorRowFloor]
+      calc 2 ^ 36 = 1 * 2 ^ 36 := by ring
+        _ ≤ M * Adoor M := Nat.mul_le_mul hM h36
+    have : (2 : ℕ) ^ 36 = 68719476736 := by norm_num
+    omega
+  refine ⟨?_, hgate.2.2.1 2 (by simp), hgate.2.1, ?_, ?_⟩
+  · rw [s13_calQK_door_two_gk]
+    have hstep : 16 * (Adoor M * s13GK K M * M)
+        ≤ 400 * (Adoor M * s13GK K M * M) ^ 2 := by
+      have h : (Adoor M * s13GK K M * M) ^ 2 = (Adoor M * s13GK K M * M)
+          * (Adoor M * s13GK K M * M) := by ring
+      rw [h]
+      calc 16 * (Adoor M * s13GK K M * M) ≤ 400 * (Adoor M * s13GK K M * M) := by omega
+        _ = 400 * (Adoor M * s13GK K M * M) * 1 := by ring
+        _ ≤ 400 * (Adoor M * s13GK K M * M) * (Adoor M * s13GK K M * M) :=
+            Nat.mul_le_mul_left _ ht1
+        _ = 400 * ((Adoor M * s13GK K M * M) * (Adoor M * s13GK K M * M)) := by ring
+    have hexp : 16 * (Adoor M * s13GK K M * M) ≤ s13BlockExp_gk K M := by
+      rw [s13BlockExp_gk]; omega
+    have hfl : (2 : ℕ) ^ (16 * (Adoor M * s13GK K M * M)) ≤ s13BlockFloor_gk K M := by
+      rw [s13BlockFloor_gk]
+      exact Nat.pow_le_pow_right (by norm_num) hexp
+    exact le_trans hfl hXd
+  · have h : (2 : ℕ) ^ 2 ≤ 2 ^ j := Nat.pow_le_pow_right (by norm_num) hj2
+    have hR : ((2 ^ 2 : ℕ) : ℝ) ≤ ((2 ^ j : ℕ) : ℝ) := by exact_mod_cast h
+    simpa using hR
+  · rw [calQK_gk_one_eq, s13_calQK_door_one]
+    have h : (2 : ℕ) ^ doorRowFloor M ≤ 2 ^ j := Nat.pow_le_pow_right (by norm_num) hjfl
+    exact_mod_cast h
+
+/-- `MSelect` (:951) at the lever — only field ⟦5⟧ moves, and it moves to the levered floor. -/
+structure MSelect_gk (K : ℕ) (Cg δ₀ Λ : ℝ) (R : ChowlaRegime) (M : ℕ) : Prop where
+  /-- ⟦1⟧ the `b`-floor — `M4DoorGates.hMδ`. -/
+  bfloor : 24 * Cg / δ₀ ≤ (M : ℝ)
+  /-- ⟦2⟧ the ×1280 window's floor (LEVEL 1: `doorRowFloor` is K-INVARIANT). -/
+  winFloor : Real.log 2 * ((doorRowFloor M : ℕ) : ℝ) ≤ Real.log (R.Hlo : ℝ)
+  /-- ⟦3⟧ the surviving `gRows` demand, `Adoor M ≳ 242·λ₊`. -/
+  gRows : 242 * Λ ≤ (Adoor M : ℝ)
+  /-- ⟦4⟧ the `𝒰`-leg absorption line at the crossing window's own exponent. -/
+  absorb : Real.log 8640
+    ≤ (theta293 - 1 / 500) * Real.log (Real.log 2 * ((doorRowFloor M : ℕ) : ℝ))
+  /-- ⟦5⟧ the DEMOTED arm summand — the LEVERED `400·(A·G·M)²` block ceiling against `x`. -/
+  blockCeil : 4 * R.ω * s13BlockFloor_gk K M ≤ R.x
+
+/-- `s13_gate8_of_MSelect` (:983) at the lever.  The conclusion is `Adoor`-only, hence
+K-free; only the hypothesis moves. -/
+theorem s13_gate8_of_MSelect_gk (K : ℕ) {Cg δ₀ Λ : ℝ} {R : ChowlaRegime} {M : ℕ} (hΛ : 0 < Λ)
+    (hS : MSelect_gk K Cg δ₀ Λ R M) : 12 * Λ < (Adoor M : ℝ) * Real.log 2 := by
+  have hlog2 : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have h := hS.gRows
+  nlinarith [hΛ, h, hlog2]
+
+/-- `s13_g2_jfloor_of_MSelect` (:992) at the lever. -/
+theorem s13_g2_jfloor_of_MSelect_gk (K : ℕ) {Cg δ₀ Λ : ℝ} {R : ChowlaRegime} {M : ℕ}
+    (hM : 1 ≤ M) (hΛ : 1 ≤ Λ) (hS : MSelect_gk K Cg δ₀ Λ R M) :
+    4 * Real.log 263 + 48 * Λ ≤ ((doorRowFloor M : ℕ) : ℝ) := by
+  have hlog := s13_log263_le_six
+  have hdr : (Adoor M : ℝ) ≤ ((doorRowFloor M : ℕ) : ℝ) := by
+    have h : Adoor M ≤ doorRowFloor M := by
+      rw [doorRowFloor]
+      calc Adoor M = 1 * Adoor M := (one_mul _).symm
+        _ ≤ M * Adoor M := Nat.mul_le_mul_right _ hM
+    exact_mod_cast h
+  have h := hS.gRows
+  linarith
+
+/-- `s13_MSelect_of_headroom` (:1030) at the lever.  The headroom comparison is unchanged in
+shape; it is now read against the LEVERED exponent `s13BlockExp_gk K M`, which is what the
+`4·⌊ε²H₊⌋₊ + 1` hypothesis must clear. -/
+theorem s13_MSelect_of_headroom_gk (K : ℕ) {Cg δ₀ Λ : ℝ} {R : ChowlaRegime} {M : ℕ}
+    (hbf : 24 * Cg / δ₀ ≤ (M : ℝ))
+    (hwin : Real.log 2 * ((doorRowFloor M : ℕ) : ℝ) ≤ Real.log (R.Hlo : ℝ))
+    (hgr : 242 * Λ ≤ (Adoor M : ℝ))
+    (habs : Real.log 8640
+      ≤ (theta293 - 1 / 500) * Real.log (Real.log 2 * ((doorRowFloor M : ℕ) : ℝ)))
+    (hhead : s13BlockExp_gk K M ≤ 4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ + 1) :
+    MSelect_gk K Cg δ₀ Λ R M := by
+  refine ⟨hbf, hwin, hgr, habs, ?_⟩
+  have hfield := R.hPHheadroom
+  set m : ℕ := ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ with hm
+  have hnat : 4 * s13BlockFloor_gk K M ≤ 8 * (4 ^ m) ^ 2 := by
+    have h1 : 4 * s13BlockFloor_gk K M = 2 ^ (s13BlockExp_gk K M + 2) := by
+      rw [s13BlockFloor_gk, pow_add]; ring
+    rw [h1, s13_headroom_pow]
+    exact Nat.pow_le_pow_right (by norm_num) (by omega)
+  have hcast : ((4 * s13BlockFloor_gk K M : ℕ) : ℝ) ≤ ((8 * (4 ^ m) ^ 2 : ℕ) : ℝ) := by
+    exact_mod_cast hnat
+  have hω0 : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
+  have hchain : ((4 * R.ω * s13BlockFloor_gk K M : ℕ) : ℝ) ≤ (R.x : ℝ) := by
+    push_cast at hcast hfield ⊢
+    nlinarith [hcast, hfield, hω0]
+  exact_mod_cast hchain
+
+/-- `s13_doorGates_of_MSelect` (:1059) at the lever. -/
+theorem s13_doorGates_of_MSelect_gk (K : ℕ) {Cg δ Λ : ℝ} {R : ChowlaRegime} {M : ℕ}
+    (hM : 1 ≤ M) (hδ : 0 < δ) (hS : MSelect_gk K Cg δ Λ R M)
+    (harm : s13GArm' δ R.Hhi R.ω ≤ R.x) :
+    M4DoorGates_gk K Cg R M (doorCount R.ω) δ :=
+  s13_doorGates_of_arm'_gk K hM hδ hS.bfloor harm hS.blockCeil
+
+-- #audit (temporary)
+
 end Salt.MR
 
 end

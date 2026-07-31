@@ -809,3 +809,266 @@ theorem doorBandBase_family' {R : ChowlaRegime} {M x₀ : ℕ} {C' K ρ : ℝ} {
     rw [s13Aexp]; norm_num
   · -- ⟦`err`⟧ THE ARM AT THE TOP — no `λ₊` cap anywhere
     exact s13_band_err_free hρ0 hρ1 (hgate.C1_one (A + s)) (hC1hi (A + s)) hHreg hg hb
+
+/-! ## §GK — the G-lever twin -/
+
+/-- `s13_band_log_calP_one` (:194) TRANSPORTED to the lever.  LEVEL 1 is K-INVARIANT
+(`calP_gk_one_eq`), so this is the landed numeral re-read at the levered symbol, not a twin. -/
+theorem s13_band_log_calP_one_gk (K M : ℕ) :
+    Real.log ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) = ((Adoor M : ℕ) : ℝ) * Real.log 2 := by
+  rw [calP_gk_one_eq]
+  exact s13_band_log_calP_one M
+
+/-- `s13_band_loglog_calP_one` (:239) TRANSPORTED to the lever — the `𝒫₁` floor `24.58` is
+LEVEL 1 and therefore does not move. -/
+theorem s13_band_loglog_calP_one_gk (K M : ℕ) :
+    (2458 / 100 : ℝ) ≤ Real.log (Real.log ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) := by
+  rw [calP_gk_one_eq]
+  exact s13_band_loglog_calP_one M
+
+/-- `s13_band_log_calQK_two (:201)` at the lever.  RE-DERIVED: the `16·(A·G·M)`
+form now carries the lever's `2^K` inside `G`. -/
+theorem s13_band_log_calQK_two_gk (K : ℕ) (M : ℕ) :
+    Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+      = ((16 * (Adoor M * (s13GK K M) * M) : ℕ) : ℝ) * Real.log 2 := by
+  rw [s13_calQK_door_two_gk K]
+  push_cast
+  rw [Real.log_pow]
+  push_cast
+  ring
+
+/-- `s13_band_log_calQK_two_ge (:257)` at the lever. -/
+theorem s13_band_log_calQK_two_ge_gk (K : ℕ) (M : ℕ) (hM : 1 ≤ M) :
+    (1 : ℝ) ≤ Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) := by
+  have hlo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have h1 : 1 ≤ Adoor M * (s13GK K M) * M := by
+    have hA := one_le_Adoor M
+    have h2 : 1 ≤ s13GK K M := one_le_s13GK K hM
+    calc 1 = 1 * 1 * 1 := by ring
+      _ ≤ Adoor M * (s13GK K M) * M := Nat.mul_le_mul (Nat.mul_le_mul hA h2) hM
+  have h16 : (16 : ℕ) ≤ 16 * (Adoor M * (s13GK K M) * M) := by omega
+  have h16R : (16 : ℝ) ≤ ((16 * (Adoor M * (s13GK K M) * M) : ℕ) : ℝ) := by exact_mod_cast h16
+  rw [s13_band_log_calQK_two_gk K]
+  nlinarith [h16R, hlo]
+
+/-! ## §3 — THE CONDUCTOR GATE AND THE ANALYTIC TRIO
+
+`qfit` is the `12`-vs-`10` conductor mismatch, and it goes off `DoorArithFrameRho.arm`
+(`7000·λ_H ≤ Λ`), NOT off `SocketBase`'s own `q`-field: the socket bounds `q` by
+`arcDen 12 H = (log H)^{12}`, an `H`-side object, and the band asks for `(log X_d)^{10}`, an
+`X_d`-side object.  The arm converts one into the other with a factor `5833` to spare.
+
+The trio is `M`-uniform at `Aexp = 3` (⟦F1⟧): every hypothesis is a scale floor of §2. -/
+
+/-- `S13BandGate (:481)` at the lever. Only `block` moves (to the levered floor). -/
+structure S13BandGate_gk (K : ℕ) (R : ChowlaRegime) (M x₀ : ℕ) (C' ρ : ℝ) (C₁ : ℕ → ℝ) : Prop where
+  /-- ⟦1⟧ the opaque threshold, floored at the socket's own `j`-floor. -/
+  x0_le : x₀ ≤ 2 ^ doorRowFloor M
+  /-- ⟦2⟧ the band constant's normalisation (free at `C₁ ≡ 1`). -/
+  C1_one : ∀ n : ℕ, (1 : ℝ) ≤ C₁ n
+  /-- ⟦3⟧ the grade fit, at the `M`-only floor `log 2 · doorRowFloor M`. -/
+  grade : 8 * C' ≤ (Real.log 2 * ((doorRowFloor M : ℕ) : ℝ))
+    ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 / 1000))
+  /-- ⟦4⟧ the `T₀`-band residue line at the pin, after the `e`-cancellation. -/
+  err_res : ∀ n : ℕ, 14 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) + 2 * Real.log (C₁ n + 1)
+    + Real.log (1 / ρ) + 15 ≤ 347900
+  /-- ⟦5⟧ ⟦F3⟧ the block-scale floor at every socket base. -/
+  block : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s → s13BlockFloor_gk K M ≤ A + s
+
+/-- `doorBandBase_family (:509)` at the lever. -/
+theorem doorBandBase_family_gk (K : ℕ) {R : ChowlaRegime} {M x₀ : ℕ} {C' Kar ρ : ℝ} {C₁ : ℕ → ℝ}
+    (hM : 1 ≤ M)
+    (harith : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s))
+        (s13BandM0 R ρ C₁ (A + s)) Kar ρ)
+    (hgate : S13BandGate_gk K R M x₀ C' ρ C₁) :
+    ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorBandBase_gk K x₀ C' s13Aexp M (A + s) q (C₁ (A + s)) (s13BandM0 R ρ C₁ (A + s)) := by
+  intro H L q j A s hb
+  have hfr := harith H L q j A s hb
+  -- ⟦the arm's two consequences⟧
+  have hΛ : (356600 : ℝ) ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := hfr.loglogX_ge
+  have hμ : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := lt_trans (by norm_num) hfr.one_lt_logX
+  obtain ⟨hbig, h48, h24⟩ := s13_band_floors hμ hΛ
+  have hΛ0 : (0 : ℝ) ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by linarith
+  have hX2 : (2 : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := by linarith
+  -- ⟦the row-zero bundle at this base — the block-floor line⟧
+  have hjfl : doorRowFloor M ≤ j := hb.2.2.2.2.2.2.1
+  have hfive := s13_doorRowZeroBase_five_gk K hM (hgate.block H L q j A s hb) hjfl
+  have hreg : Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+      ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) := hfive.2.1
+  refine
+    { X400 := s13_band_X400 hM hb
+      C₁_one := hgate.C1_one (A + s)
+      x₀_le := ?_
+      qfit := ?_
+      gHalf := ?_
+      gO1 := ?_
+      gWin := ?_
+      grade := ?_
+      err := ?_ }
+  · -- ⟦`x₀_le`⟧ the gate line, transported by `2^{doorRowFloor M} ≤ 2^j ≤ A`
+    have hAj : 2 ^ j ≤ A := hb.2.2.2.2.2.2.2.2.1
+    have hpow : (2 : ℕ) ^ doorRowFloor M ≤ 2 ^ j := Nat.pow_le_pow_right (by norm_num) hjfl
+    exact le_trans hgate.x0_le (le_trans hpow (le_trans hAj (Nat.le_add_right A s)))
+  · -- ⟦`qfit`⟧ off the ARM
+    refine s13_band_qfit hb.2.2.2.2.1 (lt_trans (by norm_num) hfr.one_lt_logH) hμ ?_ ?_
+    · linarith [hfr.Hfloor]
+    · have := hfr.armWeak
+      have := hfr.logInvRho_nonneg
+      linarith
+  · -- ⟦`gHalf`⟧
+    intro k hk1 hk2
+    have h := s13_band_gHalf hX2 h48 k hk1 hk2
+    simp only [s13Aexp]
+    linarith
+  · -- ⟦`gO1`⟧
+    intro k hk1 hk2
+    have hQ0 : (0 : ℝ) ≤ Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) := by
+      linarith [s13_band_log_calQK_two_ge_gk K M hM]
+    have h := s13_band_gO1 hX2 hQ0 hreg h24 k hk1 hk2
+    simp only [s13Aexp]
+    linarith
+  · -- ⟦`gWin`⟧
+    intro k hk1 hk2
+    have h := s13_band_gWin (by linarith) hX2 (s13_band_loglog_calP_one_gk K M)
+      (s13_band_log_calQK_two_ge_gk K M hM) hreg k hk1 hk2
+    simpa only [s13Aexp] using h
+  · -- ⟦`grade`⟧ the gate line, transported by the base-floor bridge
+    refine le_trans hgate.grade ?_
+    refine Real.rpow_le_rpow (by positivity) (s13_band_baseFloor hb) ?_
+    rw [s13Aexp]; norm_num
+  · -- ⟦`err`⟧ the exact cancellation at the pin, under the residue line
+    refine s13_band_err_at_pin hμ hΛ0 ?_
+    have := hgate.err_res (A + s)
+    linarith
+
+open MeasureTheory in
+/-- `s13_hband_at_door_of_gate (:585)` at the lever. -/
+theorem s13_hband_at_door_of_gate_gk (K : ℕ) (hMmu : MmuChiRate) (R : ChowlaRegime)
+    (M : ℕ) (hM : 1 ≤ M)
+    (Kar ρ : ℝ) (C₁ : ℕ → ℝ)
+    (harith : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s))
+        (s13BandM0 R ρ C₁ (A + s)) Kar ρ) :
+    ∃ (C' : ℝ) (x₀ : ℕ), 0 < C' ∧
+      (S13BandGate_gk K R M x₀ C' ρ C₁ →
+        ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q,
+            (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+              ‖dpolyA (winCutH (A + s) (doorChiCoeff_gk K χ M))
+                (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+              ≤ t0BandB (((A + s : ℕ)) : ℝ)
+                  (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (s13BandM0 R ρ C₁ (A + s))) := by
+  obtain ⟨C', x₀, hC'pos, hband⟩ :=
+    m4_hband_at_door_slot_hoisted_gk K hMmu s13Aexp s13Aexp_pos M hM
+  exact ⟨C', x₀, hC'pos, fun hgate => hband R C₁ (s13BandM0 R ρ C₁)
+    (doorBandBase_family_gk K hM harith hgate)⟩
+
+/-! ## §6 — ⟦ERR-REPAIR⟧ THE SHARP ARM AT THE WINDOW TOP, AND `err` FOR FREE
+
+PURELY ADDITIVE: §5's `S13BandGate_gk K` and `doorBandBase_family_gk K` are untouched; this section
+builds a PARALLEL gate with one fewer line.
+
+⟦WHY⟧ `S13BandGate_gk K.err_res` is a NUMERAL line (`14·λ₊ + … ≤ 347900`), obtained by spending
+the arm's floor `Λ ≥ 356600` and throwing the rest of `loglog X_d` away.  Read as a cap on
+the window top it says `λ₊ ≤ 24849`; the refuter's kernel probe (`ERR-REF`, flags 2026-07-30
+23:38) then showed that against WIDTH-SCOPE's forced tower `λ₊ ≥ λ₋³ ≥ 125000` the whole
+selection register is EMPTY at every regime the spine can build.  No numeral can repair it:
+`λ₊` has no upper bound on the register.  The line is DELETED here, not re-numeraled.
+
+⟦THE ROUTE⟧ the compose pins `R.x` by its own `g`-arm read AT THE WINDOW TOP `H₊` — not at
+the per-base `H` that `DoorArithFrameRho.arm` records — and `SocketBase`'s x-scale field caps
+`R.x` by `16·ω·arcDen 12 H·A` at that base's `H ≤ H₊`.  `arcDen 12` is monotone in `H`, so
+the `H₊`-form of the arm survives at EVERY base (`s13_band_arm_at_top`), and the residue line
+closes on its CONSTANT term alone: `0.9757·(7000λ₊ + 500·log(1/ρ) + 6600)` beats
+`14λ₊ + 2log(C₁+1) + log(1/ρ) + 15` with `6439.62` against `17` before a single `λ₊` is
+spent.  The `err` leg therefore carries NO width law at all — it is priced against the OUTER
+scale `x`, where ⟦B4⟧'s crossing bound is a `λ₊`-`λ₋` law through `M`.
+
+Constants `7000 / 500 / 6600 / 0.9757` are unchanged, and `DoorArithFrameRho` is not read
+differently: the arm at `H₊` is derived directly from `m4_arith_arm_of_gArmRho`, the frame's
+own supplier lemma, at the socket's own antecedent. -/
+
+/-- `S13BandGate' (:725)` at the lever. -/
+structure S13BandGate'_gk (K : ℕ) (R : ChowlaRegime) (M x₀ : ℕ) (C' : ℝ) (C₁ : ℕ → ℝ) : Prop where
+  /-- ⟦1⟧ the opaque threshold, floored at the socket's own `j`-floor. -/
+  x0_le : x₀ ≤ 2 ^ doorRowFloor M
+  /-- ⟦2⟧ the band constant's normalisation (free at `C₁ ≡ 1`). -/
+  C1_one : ∀ n : ℕ, (1 : ℝ) ≤ C₁ n
+  /-- ⟦3⟧ the grade fit, at the `M`-only floor `log 2 · doorRowFloor M`. -/
+  grade : 8 * C' ≤ (Real.log 2 * ((doorRowFloor M : ℕ) : ℝ))
+    ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 / 1000))
+  /-- ⟦4⟧ ⟦F3⟧ the block-scale floor at every socket base. -/
+  block : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s → s13BlockFloor_gk K M ≤ A + s
+
+/-- `doorBandBase_family' (:745)` at the lever. -/
+theorem doorBandBase_family'_gk (K : ℕ) {R : ChowlaRegime} {M x₀ : ℕ} {C' Kar ρ : ℝ} {C₁ : ℕ → ℝ}
+    (hM : 1 ≤ M) (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1) (hC1hi : ∀ n : ℕ, C₁ n ≤ 1)
+    (hHreg : ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+      0 ≤ Real.log (H : ℝ) ∧ 50 ≤ Real.log (Real.log (H : ℝ)))
+    (hg : gArmDoorRho 0 0 (R.ω : ℝ) ρ R.Hhi ≤ (R.x : ℝ))
+    (harith : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s))
+        (s13BandM0 R ρ C₁ (A + s)) Kar ρ)
+    (hgate : S13BandGate'_gk K R M x₀ C' C₁) :
+    ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorBandBase_gk K x₀ C' s13Aexp M (A + s) q (C₁ (A + s)) (s13BandM0 R ρ C₁ (A + s)) := by
+  intro H L q j A s hb
+  have hfr := harith H L q j A s hb
+  -- ⟦the arm's two consequences⟧
+  have hΛ : (356600 : ℝ) ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := hfr.loglogX_ge
+  have hμ : (0 : ℝ) < Real.log (((A + s : ℕ)) : ℝ) := lt_trans (by norm_num) hfr.one_lt_logX
+  obtain ⟨hbig, h48, h24⟩ := s13_band_floors hμ hΛ
+  have hΛ0 : (0 : ℝ) ≤ Real.log (Real.log (((A + s : ℕ)) : ℝ)) := by linarith
+  have hX2 : (2 : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ) := by linarith
+  -- ⟦the row-zero bundle at this base — the block-floor line⟧
+  have hjfl : doorRowFloor M ≤ j := hb.2.2.2.2.2.2.1
+  have hfive := s13_doorRowZeroBase_five_gk K hM (hgate.block H L q j A s hb) hjfl
+  have hreg : Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+      ≤ Real.sqrt (Real.log (((A + s : ℕ)) : ℝ)) := hfive.2.1
+  refine
+    { X400 := s13_band_X400 hM hb
+      C₁_one := hgate.C1_one (A + s)
+      x₀_le := ?_
+      qfit := ?_
+      gHalf := ?_
+      gO1 := ?_
+      gWin := ?_
+      grade := ?_
+      err := ?_ }
+  · -- ⟦`x₀_le`⟧ the gate line, transported by `2^{doorRowFloor M} ≤ 2^j ≤ A`
+    have hAj : 2 ^ j ≤ A := hb.2.2.2.2.2.2.2.2.1
+    have hpow : (2 : ℕ) ^ doorRowFloor M ≤ 2 ^ j := Nat.pow_le_pow_right (by norm_num) hjfl
+    exact le_trans hgate.x0_le (le_trans hpow (le_trans hAj (Nat.le_add_right A s)))
+  · -- ⟦`qfit`⟧ off the ARM
+    refine s13_band_qfit hb.2.2.2.2.1 (lt_trans (by norm_num) hfr.one_lt_logH) hμ ?_ ?_
+    · linarith [hfr.Hfloor]
+    · have := hfr.armWeak
+      have := hfr.logInvRho_nonneg
+      linarith
+  · -- ⟦`gHalf`⟧
+    intro k hk1 hk2
+    have h := s13_band_gHalf hX2 h48 k hk1 hk2
+    simp only [s13Aexp]
+    linarith
+  · -- ⟦`gO1`⟧
+    intro k hk1 hk2
+    have hQ0 : (0 : ℝ) ≤ Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ) := by
+      linarith [s13_band_log_calQK_two_ge_gk K M hM]
+    have h := s13_band_gO1 hX2 hQ0 hreg h24 k hk1 hk2
+    simp only [s13Aexp]
+    linarith
+  · -- ⟦`gWin`⟧
+    intro k hk1 hk2
+    have h := s13_band_gWin (by linarith) hX2 (s13_band_loglog_calP_one_gk K M)
+      (s13_band_log_calQK_two_ge_gk K M hM) hreg k hk1 hk2
+    simpa only [s13Aexp] using h
+  · -- ⟦`grade`⟧ the gate line, transported by the base-floor bridge
+    refine le_trans hgate.grade ?_
+    refine Real.rpow_le_rpow (by positivity) (s13_band_baseFloor hb) ?_
+    rw [s13Aexp]; norm_num
+  · -- ⟦`err`⟧ THE ARM AT THE TOP — no `λ₊` cap anywhere
+    exact s13_band_err_free hρ0 hρ1 (hgate.C1_one (A + s)) (hC1hi (A + s)) hHreg hg hb
+
+-- #audit (temporary)

@@ -952,4 +952,106 @@ theorem levelGates_calibrated_Ah (δinv h : ℕ) (hδ : 1 ≤ δinv)
         (calQK (Ah δinv h) (3072 * (8 * δinv)) (8 * δinv) 2) j :=
   levelGates_calibratedK (calFrameK_satisfiable_Ah δinv h hδ hfloor)
 
+/-! ## §GK — the G-lever twin
+
+`calFrameK_satisfiable_scaled` at `G := s13GK K M`.  Two logarithms now sit on the left of
+`A_gate_logK` — the scaling's `log k` (landed) and the lever's `K log 2`
+(`DoorFrame.log_calE_door_two_gk`) — and both are absorbed by the same anchor.  The
+arithmetic certificate is `gate_log_arith` with the lever's term carried explicitly; the
+side condition `K ≤ 1.7·10⁸` is the probe's own, and at `k = 1` this twin IS
+`DoorFrame.calFrameK_satisfiable_door_gk`. -/
+
+/-- `gate_log_arith` with the lever's `K log 2` on the left.  At the extreme point
+`L = 0`, `k = 1` the left side is `(880 + 16K) log 2` against `(1/24)(68719476736 log 2 − 1)`
+— a margin of `1.05×` at `K = 1.7·10⁸`, widening linearly in `L` and `k`. -/
+private lemma gate_log_arith_gk {L kk KK a1 a2 a3 l2 : ℝ} (hl2 : 0.6931471803 < l2)
+    (hL0' : 0 ≤ L * l2) (hb1 : a1 ≤ (L + 3) * l2) (hb2 : a3 ≤ (2 * L + 52 + KK) * l2)
+    (hKl2 : KK * l2 ≤ 170000000 * l2)
+    (hlogk : a2 ≤ kk - 1) (hp2 : 0 ≤ (kk - 1) * l2) (hp3 : 0 ≤ L * l2 * (kk - 1))
+    (hkey : 16 * (kk - 1) ≤ 24 * ((kk - 1) * l2)) :
+    4 * 2 ^ 2 * (a1 + (a2 + a3)) ≤ 1 / 12 / 2 * (68719476736 * (L + 1) * kk * l2 - 1) := by
+  linarith
+
+/-- **The `k`-scaled door frame AT THE G-LEVER** (`calFrameK_satisfiable_scaled_gk`). -/
+theorem calFrameK_satisfiable_scaled_gk (K : ℕ) {M k : ℕ} (hM : 1 ≤ M) (hk : 1 ≤ k)
+    (hK : K ≤ 170000000) :
+    CalFrameK (1 / 12)
+      (((calP (Adoor M * k) (s13GK K M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 6))
+      (Adoor M * k) (s13GK K M) M 2 (calQK (Adoor M * k) (s13GK K M) M 2) := by
+  have hL0 : (0 : ℝ) ≤ (Nat.log 2 M : ℝ) := Nat.cast_nonneg _
+  have hl2 : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hlog2nn : (0 : ℝ) ≤ Real.log 2 := Real.log_nonneg (by norm_num)
+  have hL0' : (0 : ℝ) ≤ (Nat.log 2 M : ℝ) * Real.log 2 := mul_nonneg hL0 hlog2nn
+  have hkR : (1 : ℝ) ≤ (k : ℝ) := by exact_mod_cast hk
+  have hkpos : (0 : ℝ) < (k : ℝ) := lt_of_lt_of_le zero_lt_one hkR
+  have hKR : (K : ℝ) ≤ 170000000 := by exact_mod_cast hK
+  have hA24 : (24 : ℕ) ≤ Adoor M * k :=
+    le_trans (le_trans (by norm_num) (Adoor_ge M)) (Nat.le_mul_of_pos_right _ (by omega))
+  have h64 : (64 : ℕ) ≤ calP (Adoor M * k) (s13GK K M) 1 := by
+    have hE : (6 : ℕ) ≤ calE (Adoor M * k) (s13GK K M) 1 := by
+      rw [calE_gk_one]; omega
+    have h6 : (64 : ℕ) = 2 ^ 6 := by norm_num
+    rw [calP, h6]
+    exact Nat.pow_le_pow_right (by norm_num) hE
+  have h64R : (64 : ℝ) ≤ ((calP (Adoor M * k) (s13GK K M) 1 : ℕ) : ℝ) := by exact_mod_cast h64
+  have hP1pos : (0 : ℝ) < ((calP (Adoor M * k) (s13GK K M) 1 : ℕ) : ℝ) := by linarith
+  have hcalE2 : calE (Adoor M * k) (s13GK K M) 2 = k * calE (Adoor M) (s13GK K M) 2 := by
+    simp only [calE]
+    ring
+  have hEpos : 0 < calE (Adoor M) (s13GK K M) 2 := by
+    rw [calE_door_two_gk]
+    exact Nat.mul_pos (Nat.two_pow_pos K)
+      (Nat.mul_pos (by norm_num) (Nat.mul_pos (Nat.succ_pos _) hM))
+  have hGle : (3072 : ℝ) * (M : ℝ) ≤ ((s13GK K M : ℕ) : ℝ) := by
+    have h : 3072 * M ≤ s13GK K M := le_s13GK K M
+    have := (Nat.cast_le (α := ℝ)).mpr h
+    push_cast at this
+    linarith
+  refine
+    { eta_pos := by norm_num, eta_lt := by norm_num, one_le_Jb := by norm_num,
+      one_le_G := one_le_s13GK K hM, one_le_M := hM, G_gateK := by push_cast; linarith,
+      A_gate_lin := ?_, A_gate_logK := ?_, A_floor := hA24,
+      H1_two := ?_, H1_pin := ?_, Q_le_Xd := le_rfl }
+  · -- `A_gate_lin`: `2Jb = 4 ≤ 24 ≤ Adoor M · k`
+    have h4 : ((24 : ℕ) : ℝ) ≤ ((Adoor M * k : ℕ) : ℝ) := by exact_mod_cast hA24
+    push_cast at h4 ⊢
+    linarith
+  · -- `A_gate_logK`: `DoorFrame`'s levered estimate, plus the one logarithm `log k`
+    have hlogsplit : Real.log ((k * calE (Adoor M) (s13GK K M) 2 : ℕ) : ℝ)
+        = Real.log (k : ℝ) + Real.log ((calE (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) := by
+      have hk0 : ((k : ℕ) : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr (by omega)
+      have hE0 : ((calE (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr hEpos.ne'
+      push_cast
+      exact Real.log_mul hk0 hE0
+    have hlogk : Real.log (k : ℝ) ≤ (k : ℝ) - 1 := Real.log_le_sub_one_of_pos hkpos
+    have hb1 := log_four_M_door hM
+    have hb2 := log_calE_door_two_gk K hM
+    have hKl2 : (K : ℝ) * Real.log 2 ≤ 170000000 * Real.log 2 :=
+      mul_le_mul_of_nonneg_right hKR hlog2nn
+    have hp1 : ((k : ℝ) - 1) * 0.6931471803 ≤ ((k : ℝ) - 1) * Real.log 2 :=
+      mul_le_mul_of_nonneg_left hl2.le (by linarith)
+    have hp2 : (0 : ℝ) ≤ ((k : ℝ) - 1) * Real.log 2 := by nlinarith
+    have hp3 : (0 : ℝ) ≤ (Nat.log 2 M : ℝ) * Real.log 2 * ((k : ℝ) - 1) :=
+      mul_nonneg hL0' (by linarith)
+    have hkey : 16 * ((k : ℝ) - 1) ≤ 24 * (((k : ℝ) - 1) * Real.log 2) := by linarith
+    rw [hcalE2, hlogsplit]
+    push_cast
+    rw [Adoor_cast]
+    exact gate_log_arith_gk hl2 hL0' hb1 hb2 hKl2 hlogk hp2 hp3 hkey
+  · -- `H1_two`: `2 = 64^{1/6} ≤ P₁^{1/6}`
+    calc (2 : ℝ) = (64 : ℝ) ^ ((1 : ℝ) / 6) := by
+          rw [show (64 : ℝ) = 2 ^ (6 : ℕ) by norm_num, ← Real.rpow_natCast 2 6,
+            ← Real.rpow_mul (by norm_num)]
+          norm_num
+      _ ≤ ((calP (Adoor M * k) (s13GK K M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 6) :=
+          Real.rpow_le_rpow (by norm_num) h64R (by norm_num)
+  · -- `H1_pin`: `(P₁^{1/6})³ = P₁^{1/2}` — equality, as at the pinned frame
+    have hid : ((((calP (Adoor M * k) (s13GK K M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 6)) ^ (3 : ℕ))
+        = ((calP (Adoor M * k) (s13GK K M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 2) := by
+      rw [← Real.rpow_natCast (((calP (Adoor M * k) (s13GK K M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 6)) 3,
+        ← Real.rpow_mul hP1pos.le, show (1 : ℝ) / 6 * ((3 : ℕ) : ℝ) = (1 : ℝ) / 2 by norm_num]
+    rw [hid]
+
+-- #audit (temporary)
+
 end Salt.MR

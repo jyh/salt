@@ -189,6 +189,97 @@ theorem s13CapRbd_all (Qm : ℕ) :
     theta293_lt_one_div_32.le hPlow hQhigh hPQ hblk hbox hD1 hDk hX₀j hsqXa hpin hXae
     hMXa hXaX hMfl0 hboxw hS0 hSbd hendGen hRbdU χ
 
+/-! ## §GK — the G-lever twin -/
+
+/-- `s13CapRbd_all (:107)` at the lever.  The supplier's own `∃ K : ℝ` is written `Kv`
+to keep the lever's binder unshadowed. -/
+theorem s13CapRbd_all_gk (K : ℕ) (Qm : ℕ) :
+    ∃ X₀ : ℝ, 0 < X₀ ∧ ∃ Kv : ℝ, 0 ≤ Kv ∧
+      ∀ (q : ℕ) [NeZero q] (M Nd P Q : ℕ) (Mt kk Dd : ℕ → ℕ) (Xa : ℕ → ℝ)
+        (cq L cg Cb Cq Rrad Tann Rbar0 c S D CR Rbd : ℝ),
+        -- ⟦THE TWO PINS⟧
+        CR = gradeCR2 Cb →
+        Rbd = 2 ^ 2 * Rbar0 →
+        -- ⟦THE WIDE-SUPPLY GATES⟧ (`m4_supplier_all_chi`, at the S13 pin)
+        q ≤ Qm →
+        Real.exp (Real.exp 1) ≤ ((Nd : ℕ) : ℝ) →
+        0 ≤ D →
+        (∀ 𝒥 ∈ (Finset.Icc 1 2).powerset,
+          (∑ i ∈ 𝒥, ∑ p ∈ blockWindowPrimes (calP (Adoor M) (s13GK K M) i)
+              (calQK (Adoor M) (s13GK K M) M i) ((Nd : ℕ) : ℝ), (1 : ℝ) / (p : ℝ)) ≤ D) →
+        40 * Real.log (Real.log (Real.log ((Nd : ℕ) : ℝ)))
+            + 32 * ((1 / 8) * Real.log q + (1 / 4) * mertensCap q
+                + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebitSharp q
+                + Kv + 25 + D)
+          < Real.log (Real.log ((Nd : ℕ) : ℝ)) →
+        0 < c → c ≤ 1 / Real.exp 1 → 2 * c < 1 → 0 ≤ Cb → ShortIntervalDatum Cb →
+        1 ≤ P → 0 < Rrad →
+        P83 ((Nd : ℕ) : ℝ) theta293 ≤ (P : ℝ) → (Q : ℝ) ≤ Q83 ((Nd : ℕ) : ℝ) → P ≤ Q →
+        (∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+          TLBlockGates34 cq (H83 ((Nd : ℕ) : ℝ) theta293) P (2 * Nd) Nd Mt kk Tann L cg Cb
+            ((Nd : ℕ) : ℝ) theta293 Rrad j) →
+        (∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q, ∀ t : ℝ, |t| ≤ Tann →
+          |t| + Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ)) ≤ 3 * ((Nd : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q, 1 ≤ Dd j) →
+        (∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q, Dd j ≤ kk j) →
+        (∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q, X₀ ≤ Real.sqrt (Xa j)) →
+        (∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+          Real.sqrt (Xa j) ≤ ((kk j / Dd j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+          pin2Gate ≤ ((kk j / Dd j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q, Real.exp 1 ≤ Xa j) →
+        (∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q, ((Mt j : ℕ) : ℝ) ≤ 2 * Xa j) →
+        (∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q, 2 * Xa j ≤ ((Nd : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+          0 ≤ cofactorMfl ((Nd : ℕ) : ℝ) theta293 ((kk j / Dd j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q, ∀ t : ℝ, |t| ≤ Tann → ∀ i : ℕ,
+          ((kk j / Dd j : ℕ) : ℝ) ≤ (i : ℝ) → (i : ℝ) ≤ 2 * Xa j →
+            |t| + Tstar2 (i : ℝ) (Real.log (i : ℝ)) ≤ 3 * ((Nd : ℕ) : ℝ)) →
+        0 ≤ S →
+        (∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+          cSq * caseASwide c Cb
+              (cofactorMfl ((Nd : ℕ) : ℝ) theta293 ((kk j / Dd j : ℕ) : ℝ))
+              ((kk j / Dd j : ℕ) : ℝ) (Xa j)
+            + cSq * ((Dd j : ℕ) : ℝ) ^ (-(1 / 4 : ℝ)) ≤ S) →
+        (∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+          2 / ramRbot (H83 ((Nd : ℕ) : ℝ) theta293) Nd j
+            ≤ cofactorRbdGen S ((kk j : ℕ) : ℝ) ((Mt j : ℕ) : ℝ)
+                (Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ))) Rrad / 3) →
+        (∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
+          cofactorRbdGen S ((kk j : ℕ) : ℝ) ((Mt j : ℕ) : ℝ)
+              (Tstar2 ((Mt j : ℕ) : ℝ) (Real.log ((Mt j : ℕ) : ℝ))) Rrad ≤ Rbar0) →
+        -- ⟦RULING 9 — the three carried register lines (`M4DoorClose:264`, `:265`, `:211`)⟧
+        0 ≤ Rbar0 →
+        4 * Rbar0 ≤ gradeCR2 Cb * (Real.log ((Nd : ℕ) : ℝ)) ^ (-rho293) →
+        1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log ((Nd : ℕ) : ℝ)) ^ (2 * theta293) →
+        -- ⟦THE FOUR FIELDS⟧
+        (0 ≤ Rbd)
+          ∧ (Rbd ≤ CR * (Real.log ((Nd : ℕ) : ℝ)) ^ (-rho293))
+          ∧ (1728 * Cq * CR ^ 2 ≤ (Real.log ((Nd : ℕ) : ℝ)) ^ (2 * theta293))
+          ∧ (∀ (t₁ : ℝ) (χ : DirichletCharacter ℂ q),
+              CofactorSocket (H83 ((Nd : ℕ) : ℝ) theta293) (2 * Nd) Nd P Q Tann Rrad t₁ Rbd
+                (doorCofactor0 χ (calP (Adoor M) (s13GK K M))
+                  (calQK (Adoor M) (s13GK K M) M) 2 1)) := by
+  obtain ⟨X₀, hX₀0, Kv, hKv0, hsup⟩ := m4_supplier_all_chi Qm
+  refine ⟨X₀, hX₀0, Kv, hKv0, ?_⟩
+  intro q _ M Nd P Q Mt kk Dd Xa cq L cg Cb Cq Rrad Tann Rbar0 c S D CR Rbd
+    hCR hRbd hq hXee hD0 hdebit hthr hc0 hce hc1 hCb0 hCbound hP1 hR0 hPlow hQhigh hPQ
+    hblk hbox hD1 hDk hX₀j hsqXa hpin hXae hMXa hXaX hMfl0 hboxw hS0 hSbd hendGen hRbdU
+    hRbar0 hgrade hCqgate
+  subst hCR
+  subst hRbd
+  have hfour : (2 : ℝ) ^ 2 * Rbar0 = 4 * Rbar0 := by norm_num
+  refine ⟨by rw [hfour]; linarith, by rw [hfour]; exact hgrade, hCqgate, ?_⟩
+  intro t₁ χ
+  exact hsup q (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M)
+    (H83 ((Nd : ℕ) : ℝ) theta293) (2 * Nd) Nd P Q 2 1 Mt kk Dd Xa cq L cg Cb
+    ((Nd : ℕ) : ℝ) theta293 Rrad Tann t₁ Rbar0 c S D
+    hq hXee hD0 hdebit hthr hc0 hce hc1 hCb0 hCbound hP1 le_rfl hR0 theta293_pos
+    theta293_lt_one_div_32.le hPlow hQhigh hPQ hblk hbox hD1 hDk hX₀j hsqXa hpin hXae
+    hMXa hXaX hMfl0 hboxw hS0 hSbd hendGen hRbdU χ
+
+-- #audit (temporary)
+
 end Salt.MR
 
 end

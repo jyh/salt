@@ -562,6 +562,148 @@ theorem m4_door_contradiction_of_blockMeanSq_split :
   exact hR δ (fun H => 3 * Bblk H) M k hgates
     (fun H => by have := hB0 H; linarith) hgrade (m4_cover_assembly hgates hB0 hblk)
 
+/-! ## §GK — the G-lever twin
+
+The additive `_gk` family at `G := s13GK K M` (`GLever`).  Every declaration below is its
+landed sibling with `(K : ℕ)` inserted as the FIRST binder and every literal `3072 * M`
+rewritten to `s13GK K M`; nothing else moves.
+
+The covering machinery of §1–§4 (`integral_door_cover_le_clean`, `door_weight_absorb`,
+`block_weight_exchange`) is datum-abstract — it never reads `G` — so the assembly transfers
+byte-for-byte once `doorSievedCoeff_gk` is in place.  What genuinely moves is the SIEVE SET:
+`calP (Adoor M) (s13GK K M) 2` and `calQK (Adoor M) (s13GK K M) M 2` grow with `K`
+(`calP_mono_G`, `calQK_mono_G`), so `𝒮` is a different set and these are true twins, not
+transports. -/
+
+/-- **THE DOOR'S SIEVED DATUM AT THE LEVER** — `doorSievedCoeff` (:361) at `G := s13GK K M`.
+Byte-exactly the coefficient sequence inside `M4Close.M4SievedDoorSq_gk`. -/
+def doorSievedCoeff_gk (K M : ℕ) : ℕ → ℂ :=
+  memSCoeff (calP (Adoor M) (s13GK K M)) (calQK (Adoor M) (s13GK K M) M) 2 liouvilleC
+
+/-- The lever's sieved datum is 1-bounded — `norm_doorSievedCoeff_le_one` (:365); the
+indicator only ever deletes terms, at any base. -/
+theorem norm_doorSievedCoeff_le_one_gk (K M m : ℕ) : ‖doorSievedCoeff_gk K M m‖ ≤ 1 :=
+  norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ 2 m
+
+/-- **THE PER-BLOCK MEAN SQUARE AT THE LEVER** — `M4BlockMeanSq` (:386). -/
+def M4BlockMeanSq_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) (Bblk : ℕ → ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ, NearRatTight (arcDen 12 H) H α →
+    ∀ i < k,
+      ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          ‖absWindowSum (doorSievedCoeff_gk K M) H n α‖ ^ 2
+        ≤ Bblk H * (H : ℝ) ^ 2 * (doorLadder R.x H (i + 1) : ℝ)
+
+/-- **BRIDGE 5's EXIT AT THE LEVER** — `m4_cover_assembly` (:404) verbatim: the covering
+side never reads `G`. -/
+theorem m4_cover_assembly_gk (K : ℕ) {Cg : ℝ} {R : ChowlaRegime} {M k : ℕ} {δ : ℝ}
+    {Bblk : ℕ → ℝ}
+    (hgates : M4DoorGates_gk K Cg R M k δ) (hB0 : ∀ H : ℕ, 0 ≤ Bblk H)
+    (hblk : M4BlockMeanSq_gk K R M k Bblk) :
+    M4SievedDoorSq_gk K R M (fun H => 3 * Bblk H) := by
+  intro _ H _ hlo hhi α harc
+  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+  have hP : (0 : ℝ) ≤ Bblk H * (H : ℝ) ^ 2 := mul_nonneg (hB0 H) (by positivity)
+  have hmain := integral_door_cover_le_clean (x := R.x) (ω := R.ω) (H := H) (k := k)
+    (g := fun n => ‖absWindowSum (doorSievedCoeff_gk K M) H n α‖ ^ 2)
+    (P := Bblk H * (H : ℝ) ^ 2)
+    R.hx R.hω R.hωx hgates.hlogω hgates.hcount (fun n => by positivity) hP hxH
+    (hgates.hreach H hlo hhi) hgates.hpow (hblk H hlo hhi α harc)
+  simp only [doorSievedCoeff_gk] at hmain
+  have heq : 3 * (Bblk H * (H : ℝ) ^ 2) = 3 * Bblk H * (H : ℝ) ^ 2 := by ring
+  rw [heq] at hmain
+  exact hmain
+
+/-- **THE LEVER'S PER-BLOCK HYPOTHESIS IS INHABITED** — `m4_blockMeanSq_trivial` (:426). -/
+theorem m4_blockMeanSq_trivial_gk (K : ℕ) (R : ChowlaRegime) (M k : ℕ) :
+    M4BlockMeanSq_gk K R M k (fun _ => 1) := by
+  intro H _ hhi α _ i _
+  have hxH : H + 1 ≤ R.x := regime_window_headroom R hhi
+  have hH2 : (0 : ℝ) ≤ (H : ℝ) ^ 2 := by positivity
+  have hterm : ∀ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+      ‖absWindowSum (doorSievedCoeff_gk K M) H n α‖ ^ 2 ≤ (H : ℝ) ^ 2 := by
+    intro n _
+    have h := norm_absWindowSum_le (norm_doorSievedCoeff_le_one_gk K M) H n α
+    have h0 := norm_nonneg (absWindowSum (doorSievedCoeff_gk K M) H n α)
+    nlinarith
+  have hcard : ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+      ‖absWindowSum (doorSievedCoeff_gk K M) H n α‖ ^ 2
+      ≤ ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
+          * (H : ℝ) ^ 2 := by
+    calc ∑ n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i),
+          ‖absWindowSum (doorSievedCoeff_gk K M) H n α‖ ^ 2
+        ≤ ∑ _n ∈ Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i), (H : ℝ) ^ 2 :=
+          Finset.sum_le_sum hterm
+      _ = ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
+            * (H : ℝ) ^ 2 := by
+          rw [Finset.sum_const, nsmul_eq_mul]
+  have hc : ((Finset.Ioc (doorLadder R.x H (i + 1)) (doorLadder R.x H i)).card : ℝ)
+      ≤ (doorLadder R.x H (i + 1) : ℝ) := by
+    rw [Nat.card_Ioc]
+    have hfit := doorLadder_fit R.x H i
+    have hn : doorLadder R.x H i - doorLadder R.x H (i + 1) ≤ doorLadder R.x H (i + 1) := by
+      omega
+    exact_mod_cast hn
+  have hpos := doorLadder_pos hxH (i + 1)
+  nlinarith
+
+/-- **THE WAVE'S EXIT AT THE PER-BLOCK HYPOTHESIS, AT THE LEVER** —
+`m4_door_contradiction_of_blockMeanSq` (:488). -/
+theorem m4_door_contradiction_of_blockMeanSq_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Bblk : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ → (∀ H : ℕ, 0 ≤ Bblk H) →
+            M4GradeGate R C δ (fun H => 3 * Bblk H) k →
+            M4BlockMeanSq_gk K R M k Bblk →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_door_contradiction_of_live_gk K
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro C hC U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ Bblk M k hgates hB0 hgrade hblk => ?_⟩
+  exact hR δ (fun H => 3 * Bblk H) M k hgates
+    (fun H => by have := hB0 H; linarith) hgrade (m4_cover_assembly_gk K hgates hB0 hblk)
+
+/-- The lever's join, collision form — `m4_door_False_of_blockMeanSq` (:506). -/
+theorem m4_door_False_of_blockMeanSq_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Bblk : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ → (∀ H : ℕ, 0 ≤ Bblk H) →
+            M4GradeGate R C δ (fun H => 3 * Bblk H) k →
+            M4BlockMeanSq_gk K R M k Bblk →
+              logChowla2Fails R.eps R.x R.ω → False := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_door_False_of_live_gk K
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro C hC U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ Bblk M k hgates hB0 hgrade hblk => ?_⟩
+  exact hR δ (fun H => 3 * Bblk H) M k hgates
+    (fun H => by have := hB0 H; linarith) hgrade (m4_cover_assembly_gk K hgates hB0 hblk)
+
+/-- **THE WAVE'S EXIT AT THE PER-BLOCK HYPOTHESIS, SPLIT, AT THE LEVER** —
+`m4_door_contradiction_of_blockMeanSq_split` (:548). -/
+theorem m4_door_contradiction_of_blockMeanSq_split_gk (K : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ : ℝ), 1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Bblk : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates_gk K Cg R M k δ → (∀ H : ℕ, 0 ≤ Bblk H) →
+            M4GradeGateSplit R δ₀ δ (fun H => 3 * Bblk H) k →
+            M4BlockMeanSq_gk K R M k Bblk →
+              ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_door_contradiction_of_live_split_gk K
+  refine ⟨Cg, ε, δ₀, hCg, hε, hδ₀, ?_⟩
+  intro U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain U1floor g
+  refine ⟨R, hReps, hU1, hRg, fun δ Bblk M k hgates hB0 hgrade hblk => ?_⟩
+  exact hR δ (fun H => 3 * Bblk H) M k hgates
+    (fun H => by have := hB0 H; linarith) hgrade (m4_cover_assembly_gk K hgates hB0 hblk)
+
+-- #audit (temporary)
+
 end Salt.MR
 
 end
