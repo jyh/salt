@@ -74,7 +74,9 @@ and the sufficiency form, a base-LOWER demand on `loglog X_d`.
 * §4 ⟦D7⟧ `ege_line_gate`, `ege_line_of_loglog`;
 * §5 **THE FUSE** — `m4_closure_fuse_end'` / `m4_closure_fuse_zero'`: ⟦item 11⟧ at
   `RSanDoorRho ρ`, from the gates alone, at the decaying pool, with NO `hone` and NO
-  `hprice`.
+  `hprice`;
+* §6 ⟦R5b⟧ **THE CONSTANT POOL** — `constPool`, its price, its socket wrapper and its frame
+  supplier: the base-UPPER-cap-free alternative to §1's decaying pool.
 
 Additive: no landed declaration is touched.
 -/
@@ -803,5 +805,183 @@ theorem m4_closure_fuse_zero' :
     omega
   exact doorFuseFrame_pool'_of_gates_cc_decay (hbf H L q j A s hb) (hgP1 H L q j A s hb)
     (hgRows H L q j A s hb) (heps (A + s)) hM hXd (hL4096 H L q j A s hb)
+
+/-! ## §6 — ⟦R5b⟧ THE CONSTANT POOL
+
+⟦THE FINDING R5-REPAIR BANKED⟧ §1's `decayPool` pays the summand-3 price out of the frozen
+ARM, but it re-introduces base UPPER caps: `gP1`, `GRowsZeroGate'''`'s `level1`/`p2`/`dens`
+slots all read `π₀ = (log X_d)^{−θ₂₉₃}` on the RIGHT, and that side DECAYS in `X_d`.  Each of
+those four gates therefore caps the base from above.
+
+This section mints the alternative the pinch also admits: the pool is a CONSTANT in the base,
+
+  `constPool ρ H₊ := ρ / (376266 · e^{14·loglog H₊})` ,
+
+so **no gate has `X_d` on the right anywhere**.  The trade, field by field:
+
+| field | at `decayPool` | at `constPool` |
+|---|---|---|
+| `gP1` | base UPPER cap | **base-free** — a pure constant inequality |
+| `gRows.level1`/`.p2`/`.dens` | base UPPER cap | **base-free** |
+| `gRows.endpt` | base-LOWER | base-LOWER (`1/X_d → 0`) |
+| `eps_pool` | equality at `ε = 0` | base-LOWER (`heps293` below) |
+| `band_pool` | base-LOWER (`hL4096`) | base-LOWER (`hband4096` below) |
+| the price | the ARM, per base | `H ≤ H₊` monotonicity, EXACT at `H = H₊` |
+
+The two surviving base-side demands are LOWER, so the socket's `A ≤ 2·R.x` cap is not spent
+on them.  `376266 = 2·188133` is chosen so the price closes with equality at `H = H₊`: it is
+the largest constant pool the summand-3 slot admits over the regime's whole `H`-window. -/
+
+/-- **⟦THE CONSTANT POOL⟧** (`constPool`) — `ρ/(376266·e^{14·loglog H₊})`, the pool value the
+summand-3 slot admits UNIFORMLY over the regime's `H`-window `[H₋, H₊]`.  Base-free: the
+argument is the regime's UPPER `H`-endpoint, never `X_d`. -/
+def constPool (ρ : ℝ) (Hhi : ℕ) : ℝ :=
+  ρ / (376266 * Real.exp (14 * Real.log (Real.log (Hhi : ℝ))))
+
+theorem constPool_def (ρ : ℝ) (Hhi : ℕ) :
+    constPool ρ Hhi = ρ / (376266 * Real.exp (14 * Real.log (Real.log (Hhi : ℝ)))) := rfl
+
+/-- The constant pool is positive at a positive clearing parameter. -/
+theorem constPool_pos {ρ : ℝ} {Hhi : ℕ} (hρ : 0 < ρ) : 0 < constPool ρ Hhi :=
+  div_pos hρ (by positivity)
+
+/-- The constant pool is nonnegative — the form `m4_arith_henv_rho_pool`'s `hpool` binder and
+`DoorFuseFrame_pool'` both want. -/
+theorem constPool_nonneg {ρ : ℝ} {Hhi : ℕ} (hρ : 0 ≤ ρ) : 0 ≤ constPool ρ Hhi :=
+  div_nonneg hρ (by positivity)
+
+/-- `loglog` is monotone on the regime's `H`-window: `H ≤ H₊` with `log H > 0` gives
+`loglog H ≤ loglog H₊`.  This is the ONLY analytic input the constant pool's price needs. -/
+theorem loglog_le_of_le {H Hhi : ℕ} (hHpos : 0 < H) (hlogH : 0 < Real.log (H : ℝ))
+    (hle : H ≤ Hhi) :
+    Real.log (Real.log (H : ℝ)) ≤ Real.log (Real.log (Hhi : ℝ)) := by
+  have hcast : ((H : ℕ) : ℝ) ≤ ((Hhi : ℕ) : ℝ) := by exact_mod_cast hle
+  have h1 : Real.log (H : ℝ) ≤ Real.log (Hhi : ℝ) :=
+    Real.log_le_log (by exact_mod_cast hHpos) hcast
+  exact Real.log_le_log hlogH h1
+
+/-- **⟦THE PRICE AT THE CONSTANT POOL⟧** (`price_at_constPool`) — the summand-3 price
+`188133·π₀·e^{14·loglog H} ≤ ρ/2` at `π₀ := constPool ρ H₊`, from `loglog H ≤ loglog H₊`
+ALONE.  No frame field, no ARM, no base: the `376266 = 2·188133` normalisation makes the
+inequality an EQUALITY at `H = H₊` and monotone below it. -/
+theorem price_at_constPool {H Hhi : ℕ} {ρ : ℝ} (hρ : 0 < ρ)
+    (hmono : Real.log (Real.log (H : ℝ)) ≤ Real.log (Real.log (Hhi : ℝ))) :
+    188133 * constPool ρ Hhi * Real.exp (14 * Real.log (Real.log (H : ℝ))) ≤ ρ / 2 := by
+  have hEne : Real.exp (14 * Real.log (Real.log (Hhi : ℝ))) ≠ 0 := (Real.exp_pos _).ne'
+  have hle : Real.exp (14 * Real.log (Real.log (H : ℝ)))
+      ≤ Real.exp (14 * Real.log (Real.log (Hhi : ℝ))) := Real.exp_le_exp.mpr (by linarith)
+  have hc0 : (0 : ℝ)
+      ≤ 188133 * (ρ / (376266 * Real.exp (14 * Real.log (Real.log (Hhi : ℝ))))) :=
+    mul_nonneg (by norm_num) (div_nonneg hρ.le (by positivity))
+  rw [constPool_def]
+  calc 188133 * (ρ / (376266 * Real.exp (14 * Real.log (Real.log (Hhi : ℝ)))))
+        * Real.exp (14 * Real.log (Real.log (H : ℝ)))
+      ≤ 188133 * (ρ / (376266 * Real.exp (14 * Real.log (Real.log (Hhi : ℝ)))))
+        * Real.exp (14 * Real.log (Real.log (Hhi : ℝ))) := mul_le_mul_of_nonneg_left hle hc0
+    _ = ρ / 2 := by field_simp; ring
+
+/-- **⟦THE PRICE WRAPPER, PER SOCKET BASE⟧** (`price_at_constPool_socket`) — the twin of
+`price_at_decayPool_socket`: exactly the `hprice` binder of `M4ArithPool.m4_arith_henv_rho_pool`
+at `π₀ := fun _ => constPool ρ R.Hhi`.  What discharges it is NOT the ARM but the socket's own
+window field `H ≤ R.Hhi` (plus `R.Hlo ≤ H` and the regime's `hHlo_floor` for positivity, and
+`DoorArithFrameRho.rho_pos`/`.one_lt_logH` for the two scalar side conditions). -/
+theorem price_at_constPool_socket {R : ChowlaRegime} {M : ℕ} {C₁ M₀ : ℕ → ℝ} {K ρ : ℝ}
+    (harith : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) K ρ) :
+    ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      188133 * constPool ρ R.Hhi * Real.exp (14 * Real.log (Real.log (H : ℝ))) ≤ ρ / 2 := by
+  intro H L q j A s hb
+  have hfr := harith H L q j A s hb
+  have hlo : R.Hlo ≤ H := hb.1
+  have hhi : H ≤ R.Hhi := hb.2.1
+  have hHpos : 0 < H := by have := R.hHlo_floor; omega
+  have hlogH : (0 : ℝ) < Real.log (H : ℝ) := by have := hfr.one_lt_logH; linarith
+  exact price_at_constPool hfr.rho_pos (loglog_le_of_le hHpos hlogH hhi)
+
+/-- **⟦THE ARITHMETIC GATE AT THE CONSTANT POOL⟧** (`m4_arith_henv_constPool`) — the composed
+witness that the wrapper fills `m4_arith_henv_rho_pool` verbatim: `henv` at
+`RSbig j H := RSanDoorRho ρ H`, with the pool a CONSTANT in the base. -/
+theorem m4_arith_henv_constPool {R : ChowlaRegime} {M : ℕ} {C₁ M₀ : ℕ → ℝ} {K ρ : ℝ}
+    (hρ : 0 ≤ ρ)
+    (harith : ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) K ρ) :
+    ∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+      arcDen 12 H * a2DoorGrade_pool M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (C₁ (A + s))
+          (M₀ (A + s)) (constPool ρ R.Hhi)
+        ≤ RSanDoorRho ρ H :=
+  m4_arith_henv_rho_pool (π₀ := fun _ => constPool ρ R.Hhi)
+    (fun _ => constPool_nonneg hρ) harith (price_at_constPool_socket harith)
+
+/-- **⟦`eps_pool` FROM A BASE-LOWER THRESHOLD⟧** (`eps_pool_of_threshold`) — pool-generic: at
+`ε ≤ 0` the `𝒰`-leg field follows from `(log X_d)^{−θ₂₉₃} ≤ π₀`, a demand that WEAKENS as the
+base grows.  At `π₀ := constPool ρ H₊` it reads
+`θ₂₉₃·loglog X_d ≥ 14·loglog H₊ + log(376266/ρ)`, i.e.
+`loglog X_d ≥ 4102·loglog H₊ + 293·log(376266/ρ)` — the same genre as the frozen ARM's
+`7000·loglog H`, and a SMALLER `λ`-coefficient, but read at the window's upper endpoint. -/
+theorem eps_pool_of_threshold {Xd : ℕ} {ε π₀ : ℝ}
+    (hL1 : (1 : ℝ) ≤ Real.log ((Xd : ℕ) : ℝ)) (hε : ε ≤ 0)
+    (hthr : (Real.log ((Xd : ℕ) : ℝ)) ^ (-theta293) ≤ π₀) :
+    (Real.log ((Xd : ℕ) : ℝ)) ^ (-theta293 + ε) ≤ π₀ :=
+  le_trans (Real.rpow_le_rpow_of_exponent_le hL1 (by linarith)) hthr
+
+/-- **⟦`band_pool` FROM A BASE-LOWER THRESHOLD⟧** (`band_pool_of_threshold`) — pool-generic:
+`4096 ≤ (log X_d)^{1−1/500}·π₀` gives the band field exactly (the two rpow exponents sum to
+`0`).  At `π₀ := (log X_d)^{−θ₂₉₃}` this IS §1's `hL4096`; at `π₀ := constPool ρ H₊` it is a
+base-LOWER threshold with no `X_d` on the right. -/
+theorem band_pool_of_threshold {Xd : ℕ} {π₀ : ℝ} (h : (0 : ℝ) < Real.log ((Xd : ℕ) : ℝ))
+    (hL : (4096 : ℝ) ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (1 - (1 : ℝ) / 500) * π₀) :
+    4096 * (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 : ℝ) + 1 / 500) ≤ π₀ := by
+  have hid : (Real.log ((Xd : ℕ) : ℝ)) ^ (1 - (1 : ℝ) / 500)
+      * (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 : ℝ) + 1 / 500) = 1 := by
+    rw [← Real.rpow_add h]; norm_num
+  have hstep := mul_le_mul_of_nonneg_right hL
+    (Real.rpow_pos_of_pos h (-(1 : ℝ) + 1 / 500)).le
+  have heq : (Real.log ((Xd : ℕ) : ℝ)) ^ (1 - (1 : ℝ) / 500) * π₀
+      * (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 : ℝ) + 1 / 500) = π₀ := by
+    calc (Real.log ((Xd : ℕ) : ℝ)) ^ (1 - (1 : ℝ) / 500) * π₀
+          * (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 : ℝ) + 1 / 500)
+        = π₀ * ((Real.log ((Xd : ℕ) : ℝ)) ^ (1 - (1 : ℝ) / 500)
+            * (Real.log ((Xd : ℕ) : ℝ)) ^ (-(1 : ℝ) + 1 / 500)) := by ring
+      _ = π₀ := by rw [hid, mul_one]
+  linarith [hstep, heq]
+
+/-- **⟦R5b — THE FRAME AT THE CONSTANT POOL⟧** (`doorFuseFrame_pool'_of_gates_const`) — the
+twin of `doorFuseFrame_pool'_of_gates_decay` (and of its `C_cc`-free composition
+`doorFuseFrame_pool'_of_gates_cc_decay`, whose four-slot `gRows` gate it carries) at
+`π₀ := constPool ρ H₊`.
+
+⟦THE HYPOTHESIS SET, AGAINST THE DECAY TWIN'S⟧ field for field the same SHAPE — `hb`, `hgP1`,
+`hg`, `hε`, `hM`, `hXd` and one `4096`-threshold — with two differences, both in the same
+direction:
+
+* `hgP1` and `hg` are now BASE-FREE on the right (`constPool` carries no `X_d`), where the
+  decay twin's were base UPPER caps;
+* the single decay threshold `hL4096 : 4096 ≤ (log X_d)^{1−1/500−θ₂₉₃}` splits into TWO
+  base-LOWER thresholds, `heps293` and `hband4096`, because at a constant pool the `𝒰`-leg no
+  longer discharges by rpow-exponent monotonicity into `π₀` itself.
+
+Nothing else changes; `ε ≤ 0` is reused verbatim. -/
+theorem doorFuseFrame_pool'_of_gates_const {M Xd j Hhi : ℕ} {Cs Ccc ε ρ : ℝ}
+    (hb : DoorBaseFrame Xd j)
+    (hgP1 : 374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
+      ≤ constPool ρ Hhi)
+    (hg : GRowsZeroGate''' M Xd Ccc (constPool ρ Hhi))
+    (hε : ε ≤ 0)
+    (hM : 1 ≤ M) (hXd : 1 ≤ Xd)
+    (heps293 : (Real.log ((Xd : ℕ) : ℝ)) ^ (-theta293) ≤ constPool ρ Hhi)
+    (hband4096 : (4096 : ℝ)
+      ≤ (Real.log ((Xd : ℕ) : ℝ)) ^ (1 - (1 : ℝ) / 500) * constPool ρ Hhi) :
+    DoorFuseFrame_pool' M Xd j Cs Ccc ε (constPool ρ Hhi) where
+  X_exp := hb.X_exp
+  X_three := hb.X_three
+  h_four := hb.h_four
+  h_window := hb.h_window
+  tann := hb.tann
+  ceil5 := hb.ceil5
+  gP1 := hgP1
+  gRows := gRows_zero_of_gate''' hM hXd hg
+  eps_pool := eps_pool_of_threshold (r5_one_le_log_of_three_le hb.X_three) hε heps293
+  band_pool := band_pool_of_threshold
+    (by have := r5_one_le_log_of_three_le hb.X_three; linarith) hband4096
 
 end Salt.MR

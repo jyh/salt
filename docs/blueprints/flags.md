@@ -17521,3 +17521,21 @@ but a real cost).  THE ALTERNATIVE the pinch admits: the CONSTANT
 pool π₀ := ρ/(376266·e^{14·loglog R.Hhi}) — base-free everywhere,
 ~40 ln.  ⟦R5b dispatched⟧ to mint it so BOTH pool forms sit on the
 Captain's desk as kernel objects; the choice is theirs at coffee.
+
+## (2026-07-30 19:09 PDT) R5b lands first-attempt (+180, 11/11 axioms): constPool -- the base-free alternative is a kernel object; the Captain's comparison datum banked
+
+M4ClosureRepair §6: constPool ρ Hhi := ρ/(376266·e^{14·loglog Hhi}) +
+positivity + the FRAME-FREE price (only 0<ρ and loglog-monotonicity
+on the regime's window — the ARM unspent; exact at H = Hhi) +
+price_at_constPool_socket (the hprice binder verbatim) +
+m4_arith_henv_constPool + the pool-generic threshold lemmas +
+doorFuseFrame_pool'_of_gates_const.  THE COMPARISON DATUM: vs the
+decay twin, the single hL4096 splits into TWO base-lowers (heps293 =
+"loglog X_d ≥ 4102·loglog H₊ + 293·log(376266/ρ)" — the ARM's genre,
+smaller λ-coefficient, read at the window's TOP; + hband4096); in
+exchange hgP1 and all four GRowsZeroGate''' slots go BASE-FREE on the
+right — no X_d cap anywhere; only endpt/heps293/hband4096 read the
+base, all from BELOW.  Scratch R5bFuse.lean: the full const fuse
+elaborates exit-0 (~65 ln each to land).  ⟦R5c dispatched — the two
+const fuses, fuse-parity for the coffee choice.⟧  Build 9615 exit-0
+maestro-verified.
