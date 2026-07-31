@@ -18476,3 +18476,29 @@ maestro-verified.
 non-vacuity of the full hypothesis set jointly) → THE CAPTAIN'S
 READ → only then any word of completion.  NOTHING IS ANNOUNCED.
 ⟦REF-FINAL-HONEST + REF-FINAL-SAT dispatched⟧.
+
+## () REF-FINAL-SAT: GAP -- the terminal VACUOUS as landed (1/2^10 <= delta0 FALSE at the object's own constants; 673x; impossible at ANY eps -- probe_A4: it would need Mertens > circle-method, off 26x); THE REPAIR CERTIFIED IN THE SAME REPORT -- REF-REPAIR fires
+
+The register-vacuity genre at the summit door — the THIRD catch of
+our own compose by our own refuters (the socket fence, the empty
+err line, now the unreconciled rider).  The rider was minted for
+-log ρ ≤ 36 (S15Witness §1) and never checked against EPSPIN's
+1/838400 pin.  20 probes, all kernel.  ⟦THE CERTIFIED REPAIR⟧
+(a) 1/2^10 → 1/2^20 (probe_A2/E3: the pinned floor clears at 25%)
++ 36 → 43 (probe_B1-B3: ρ ≥ 2^-62; all five ρ-lines close at the
+2^355 witness); (b) the capstone's road swap → m4_second_road_L2_
+hloCap_pinned_gk (LANDED; ε/δ₀/Cg become ∃-prefix THEOREMS).
+⟦THE FULL TABLE banked⟧ hx0win = Siegel (nothing contradicts;
+X0MFL's effective floor sits strictly inside e^{e^275});
+S16CofactorSupply open-but-priced (threshold met 213× at the
+working point; ruling 9's debt); S16BaseScaleCap satisfiable with
+10^100 room BUT item W: the ∃R exposes no R.x UPPER — a
+STATEMENT-SHAPE defect (a consumer cannot verify the cap; a large g
+can break it) — REF-FINAL-HONEST's verdict to be read alongside;
+the five riders + Kc/Ct/Mfl/Hcap = the EPSPIN/CgPin genre, cheap
+one at a time; ⚠ SEL-RECUT's Mfl = 2 repair (s11_grade_absorption')
+is landed but NOT WIRED into the capstone (S12ConstCompose calls
+the unprimed form) — joins the repair list.  THE VALUE STATEMENT
+banked verbatim in the report.  ⟦REF-REPAIR dispatched: (a) + (b)
++ the Mfl wire⟧; the delta re-refutation follows; THE CAPTAIN'S
+READ after both refuters + the repair stand together.
