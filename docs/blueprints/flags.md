@@ -18164,3 +18164,5 @@ around them lie.  (JYH asleep 21-05; the brief waits for their
 morning coffee 7/31, which is the one time-claim that was right.)
 
 ## (2026-07-31 07:27 PDT) COUNCIL 0731 C3 RATIFIED: rulings 1-11 whole ("to the const road!"); Rbd_grade SHELVED-with-intent (discharge in whatever form survives B4-SUPPLY); the ruling-6 erratum acknowledged ("a census of readers is not a census of demands")
+
+## (2026-07-31 07:33 PDT) C4 RATIFIED — THE CHRISTENING: house name "the Pearl"; paper #2 = "THE WITNESS" (subtitle: a machine-checked windowed Chowla bound at witnessed scales); the Steinbeck epigraph at the door; JYH's wife's read pending
