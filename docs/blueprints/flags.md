@@ -17647,3 +17647,18 @@ FALSE — the window is EMPTY.  The exits: retire mu_cap + re-price
 the X^{2μ/log𝒫₂} leg, or re-derive the KNOT1-REF budget correction.
 BLOCKS THE FINAL ASSEMBLY regardless of the band wave.
 ⟦MUCAP-SCOPE dispatched⟧ — the Captain rules on its verdict.**
+
+## (2026-07-30 20:41 PDT) HLO-EXPORT lands (7 twins, 2 files, first-attempt): the Hlo-upper carried head-to-terminal -- THE BASE PINS at U1floor >= Hcap
+
+HloExport.lean + HloExportMR.lean: the builder's EQUALITY (RegimeParam
+:403 bytes) carried as _hloCap twins through all seven statements;
+Hcap HOISTED to the ∃-prefix at step 4 (ε-alone, consumer-free); the
+terminal m4_second_road_L2_hloCap carries R.Hlo ≤ max Hcap U1floor
+beside the 9/2 tower conjunct.  THE PAYOFF: fired at U1floor ≥ Hcap,
+U1floor ≤ R.Hlo ≤ U1floor — THE BASE PINS; the two-sided λ-band
+(EDGE 5) closes.  The one non-mechanical step banked: the private
+core transcribed in-file under a fresh name (_cap; the All.lean:327
+precedent; split to dodge the 200k heartbeat ceiling, no bump
+needed).  m4_exit_socket_split_sq needed NO twin (the arc form reads
+the head directly).  Axioms 7/7; build 9619 exit-0 maestro-verified.
+⟦CAPSTONE-RECUT amended mid-flight: consume the _hloCap terminal.⟧
