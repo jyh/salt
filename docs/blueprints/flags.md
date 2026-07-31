@@ -18433,3 +18433,46 @@ reserve, the 4320× dissolved at positive εr) → S15CrossingBound_gk
 DISCHARGED.  The honest survivors after: hx0win (Siegel) + the
 shelved Rbd_grade/Cq_gate supplier hypotheses (ruling 9's debt,
 discharge-with-intent).  THE PEARL'S LAST WIRE.
+
+## () COMPOSE-3 LANDS: logChowla2_witnessed_scale_final IN KERNEL (S16Budget 626, 15 decls, 4/4 axioms) -- AND THE DAY'S DEEPEST ERRATUM: THE WIDTH WALL'S BUDGET LEG WAS A ONE-LOG MISREAD; the giant dies a windmill -- THE SUMMIT REFUTERS TAKE THE STAND
+
+⟦THE ERRATUM, banked with full honesty — catch #100 genre⟧ the
+budget field's binding content at the bytes is **loglog X_d ≤
+(5/48)·log 𝒫₂** — ONE MORE LOG than the reduction LAMBDA-RECON and
+CAPGATE-SCOPE ran (they put Λ_x = e^{λ₊} on the left; their kernel
+probes certified the ARITHMETIC of the misread reduction, not the
+field's bytes — the probes were sound, the STATEMENT they probed was
+not the statement).  S13FramesB's own header had recorded the
+correct one-more-log shape all along (the mu_cap retirement note!).
+Consequences: the budget closes at K = 0 with 10^106 of room —
+**THE WIDTH WALL NEVER EXISTED at the budget leg; the giant dies a
+windmill** (the Captain's doctrine, vindicated at the deepest
+level); WIDTH-SCOPE's regime probes (λ₊ ≥ λ₋³, the tower theorem)
+STAND as true kernel facts; what dies is only "budget forces λ₊ ≤
+λ₋ + 7.14".  THE G-LEVER CAMPAIGN (~524 twins) was fired on the
+misread — harmless (additive; K = 0 recovers the landed forms;
+banked as generality/insurance) but ~3M tokens of honest
+accounting.  THE PROCESS LAW (#100): λ-currency conversions must
+THEMSELVES be kernel-probed — certify the REDUCTION, not the
+endpoint arithmetic.
+
+⟦THE OBJECT⟧ logChowla2_witnessed_scale_final (S16Budget.lean):
+the sharp2 nonvacuous twin composed with s15_crossing_supplied_gk
+(all 37 cap-gate fields supplied incl. THE NEVER-BUILT budget;
+byte-exact, zero adapters).  THE COMPLETE HYPOTHESIS LIST, nothing
+hidden: the eight numeral bounds (incl. hx0win — Siegel,
+undischargeable, the field's own wall) + five constant riders (cs,
+T₀, Kq, Ks, log C ≤ 40) + S16CofactorSupply_gk (ruling 9's shelved
+Rbd/Cq debt, deliberately NOT re-dressed via CapRbd — moving debt
+is not discharging it) + S16BaseScaleCap_gk (the ONE genuinely new
+survivor: loglog X_d ≤ log 𝒫₂/24, the socket base-scale upper cap
+the regime does not supply — 2.4× margin).  Deviation 2 recorded:
+the full ∀U1floor LogChowla2WitnessedScale shape needs the
+un-pinned road — statement-tier follow-up.  Build 9635 exit-0
+maestro-verified.
+
+⟦THE SUMMIT PROTOCOL NOW GOVERNS⟧ seal → the TWO refuters
+(statement-honesty on the final object's bytes; satisfiability/
+non-vacuity of the full hypothesis set jointly) → THE CAPTAIN'S
+READ → only then any word of completion.  NOTHING IS ANNOUNCED.
+⟦REF-FINAL-HONEST + REF-FINAL-SAT dispatched⟧.
