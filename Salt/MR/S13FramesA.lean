@@ -92,7 +92,8 @@ theorem s13M_pos : 1 ≤ s13M := by rw [s13M]; norm_num
 /-- **THE `b`-FLOOR CERTIFICATE AT THE `L²` THRESHOLD** (`s13_b_floor_cert`) —
 `24·Cg/δ₀ ≤ s13M`, i.e. `M4DoorGates.hMδ` holds at the working modulus.
 
-The true value is `24·(2·e^{19/log 2}+1)·128000·C_cm = 4.0243·10¹⁹ = 2^65.125`; `s13M` is
+The certified bound is `24·(2·e^{19/log 2}+1)·128000·C_cm ≤ 4.0243·10¹⁹ = 2^65.125` (the
+exact-constants value is `3.23·10¹⁹ = 2^64.807`); `s13M` is
 `4.5·10¹⁹ < 2^66`.  This is the whole `b`-floor ledger of the `L²` route, in one line. -/
 theorem s13_b_floor_cert : 24 * CgExpr / s13Delta0 ≤ (s13M : ℝ) := by
   have hCg := Cg_le
