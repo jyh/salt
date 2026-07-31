@@ -18374,3 +18374,5 @@ outside-lane material never here) — the fence was never only legal.
 ## () SCHEDULED (JYH, departing): the jas the copyright-waiver filing request -- submit AFTER breathing room, joined to the 8/4-8/5 human-arc morning (approval re-surface 8/4; endorsement nudge/third-endorser decision 8/5; + the jas the copyright-waiver filing request prep). Sancho preps the request FACTS (the jas repo/paper/public-status summary) for JYH's filing; JYH files.
 
 ## () The copyright-waiver determination filed to the provenance record; two scope corrections banked; one clause flagged for JYH
+
+## () JYH RULES on clause 6: a dropdown artifact (the accessible entry chosen); JYH WILL REAPPLY naming Claude -- joined to the 8/4-8/5 the copyright-waiver filing sitting with the jas request; NOT a blocker: arXiv PROCEEDS (within the intent as submitted; publishing approval in hand) -- the Captain's judgment, recorded verbatim in spirit
