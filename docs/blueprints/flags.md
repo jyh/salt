@@ -17404,3 +17404,25 @@ twin (~150-line restatement — the brief's "4-line" was wrong, banked);
 site through its whole consumer chain).  All the established re-run
 genre.  Build 9611 exit-0 maestro-verified twice.  ⟦R4-RESIDUE
 dispatched; the closure's FINAL EXAMINER queues on its landing.⟧
+
+## (2026-07-30 18:21 PDT) R4-RESIDUE LANDS — three for three (2590 ln, 29/29); the fuses byte-exact; the closure examiner takes the stand
+
+**⟦THE THREE⟧**  Item 1 (M4RowsChiEndPrime, 764): the χ-side supplier
+at a2Mrow' — the brief's "weakens the demand" premise CORRECTED at
+the bytes (the bridge exists only because the object moves on BOTH
+sides — the full §2-§7 re-run at m4MrowChiEnd', not a patch); the
+exit `..._pool_end'` consumes the R3 assembly with hrows GONE,
+byte-exact.  Item 2 (M4DoorClosePool, 1038): DoorRowCarriedPool (99
+conjuncts; the diff exactly THREE places, 95 untouched; erratum #2
+honoured — abs8640 KEPT) + the T0 mirror + the wave closers at the
+pool + §6 the JOIN forms; the textual-transform device (defs
+generated, not retyped).  Item 3 (M4RowsChiZeroPrime, 788): the
+cube-gate stone + the full consumer re-run at free Cp; the six-field
+base verbatim.  Build 9614 exit-0 maestro-verified; axioms 29/29.
+
+**⟦THE HONEST RESIDUE⟧**  (1) the T0-JOIN mirrors (~250, mechanical
+repeats — ⟦T0JOIN dispatched⟧); (2) the layer meeting at item 11
+(the FINAL ASSEMBLY's scope, as designed); (3) the end'/zero' slot
+duality noted (seven- vs six-field base; the consumer picks by the
+density gate).  ⟦THE CLOSURE EXAMINER dispatched — the summit
+protocol on the whole ⟦KNOT-2 CLOSURE⟧.⟧
