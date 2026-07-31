@@ -18276,3 +18276,34 @@ the 1-bit margin directly; UNTRACED.  ⟦EPSPIN dispatched (the
 re-thread) + X0MFL-TRACE dispatched (the pricing)⟧.
 
 ## () PREP-PI lands: The Fulcrum vs Pi -- "structurally strong, procedurally not submittable today"; five gaps (two Captain-tier), the AI-policy surprise (the paper EXCEEDS it; one framing decision), the full dossier at docs/exploration/pi-prep-0731.md
+
+## () J-REF: the J-LEVER REFUTED (G_gateK an EQUALITY at J=2; A_gate caps J <= 505; deficit e^89325) -- AND THE GOLD: THE LEVER IS G, NOT J -- the width wall DIES BY ONE NUMERAL, kernel-certified; COUNCIL v2
+
+18 probes green.  CLAIM 1 refuted as stated (G = 768·J²M is the
+frame's OWN equality — log G ≥ log 768 + 2 log J + log M; the
+corrected law reproduces the landed 7.1448 to FOUR decimals at
+J = 2; the winFit offset corrected 24.6 → 28.06).  CLAIM 2 refuted
+at EVERY J (A_gate_logK is quadratic-in-J times the lever's own
+quantity: J ≤ 505, ceiling 35675 vs 125000; the scoper's ~2700 was
+two compensating errors).  CLAIM 3 all four costs CONFIRMED benign
++ (c) THE WORRY BACKWARDS: pack_exp_le carries hκ30 as its own
+hypothesis — k ≥ 30 always, no k = 1 degradation; + the missed
+G-reader s13BlockExp (quadratic in G) benign (a λ₊ LOWER of 12.4 vs
+the 125000 demand).
+
+⟦THE GOLD — THE G-LEVER AT J = 2⟧ THE FLOOR IS G-FREE (winFit reads
+doorRowFloor = M·Adoor M; H1door reads calE A G 1 = A — kernel:
+probe_calP_one_Gfree/probe_doorRowFloor_Gfree): a G re-cut moves
+THE CEILING AND NOTHING ELSE.  probe_G_lever_calE: e₂(3072·2^K·M) =
+2^K·e₂(3072M) — multiplicative in ONE numeral.  probe_G_lever_Ggate:
+G_gateK is a LOWER bound, survives a fortiori.  probe_G_lever_Agate:
+the J-killer gate holds for every M and every K ≤ 1.7e8.
+**probe_G_lever_ceiling: at K = 180300, the width demand λ₊ ≥ λ₋³ =
+125000 at the pinned base CLOSES for every M ≥ 1.**  After the
+re-cut the binding cap is the register's OWN anchor (λ₋ ≤ 654) —
+THE WIDTH WALL IS DEAD.  For the witness's λ₋ = 69.078: K = 475432.
+COST: the numeral 3072 in 3072*M — 1454 occurrences, ~30 files,
+byte-uniform; J stays 2 EVERYWHERE; re-derivations mechanical
+(calE_door_two, log_calE_door_two at (2L+52+K), the S15Witness
+numerals), all monotone-safe.  COUNCIL v2: the statement re-cut is
+THE CAPTAIN'S RULING.
