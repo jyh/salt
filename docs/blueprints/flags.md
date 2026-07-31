@@ -17426,3 +17426,16 @@ repeats — ⟦T0JOIN dispatched⟧); (2) the layer meeting at item 11
 duality noted (seven- vs six-field base; the consumer picks by the
 density gate).  ⟦THE CLOSURE EXAMINER dispatched — the summit
 protocol on the whole ⟦KNOT-2 CLOSURE⟧.⟧
+
+## (2026-07-30 18:27 PDT) T0JOIN lands first-attempt (+328): the four join mirrors -- the mechanical residue of R4 is ZERO
+
+M4DoorClosePool §7: `DoorRowCarriedT0Join` → `doorRowCarried_of_t0free_join`
+→ `m4_wave_structurally_closed_join` + `m4_wave_closed_T0_discharged_join`.
+Axioms 3/3 standard; 9614 jobs exit-0 maestro-verified; purely additive
+(328 ins, 0 del).  THE DESIGN FACT banked in the docstring: the d69→d68
+lesson did NOT bite at the join — the a2RowsSum→a2RowsSum' swap is a
+VALUE swap inside conjunct 96, not an insertion; the 99-conjunct
+destructure and the discharge read (d46 d47 d68) are §4-byte-verbatim.
+m4_t0band_discharged is blind to R1+R2 (X-side gates only).  The
+closure's mechanical residue is now ZERO; the examiner's verdict is the
+only gate before THE FINAL ASSEMBLY.

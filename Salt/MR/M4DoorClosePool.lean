@@ -51,6 +51,9 @@ difference from `DoorRowCarried` is that its `T₀` conjunct is the discharge's 
 * §6 **THE FUSE**: `DoorRowCarriedJoin`, `m4_door_meansq_carried_join` and
   `m4_dyadicRow_carried_join` — the register at the R1×R2 JOIN, i.e. §1 with its `gRows`
   conjunct at `ThmA2.a2RowsSum'`, over `M4MeanSqPrime.m4_meansq_per_chi_gen_join`.
+* §7 **THE T₀ MIRROR OF THE FUSE**: `DoorRowCarriedT0Join`, `doorRowCarried_of_t0free_join`,
+  `m4_wave_structurally_closed_join` and `m4_wave_closed_T0_discharged_join` — §4 and §5 at
+  the joined register.
 
 ⟦PURELY ADDITIVE⟧  No landed declaration is touched.  Setting `π₀ := (log X)^{−1/500}`
 recovers the landed registers, `gU`/`gBand` then being derivable from the dropped `ε`-room
@@ -1034,5 +1037,330 @@ theorem m4_dyadicRow_carried_join :
     exact hrow Qm q χ hq hqQm M (doorLadder R.x H (i + 1) + s) j (MS j H) hM hcase
       (hcar H hlo hhi q hq hqQ i hik χ j hjL hcase s hsH)
   · exact le_trans (doorRow_trivial_grade χ M j hApos) (htriv j H (not_le.mp hcase))
+
+/-! ## §7 — ⟦THE T₀ MIRROR OF THE FUSE⟧: THE DISCHARGED REGISTER AND THE WAVE CLOSERS AT THE JOIN
+
+§6 minted the register at the R1×R2 join and its two row theorems.  This section completes the
+join column with the three declarations §4–§5 supply at the pool:
+
+* `DoorRowCarriedT0Join` — `DoorRowCarriedT0Pool` with the `gRows` conjunct at
+  `ThmA2.a2RowsSum'` (the §6 swap), i.e. equivalently `DoorRowCarriedJoin` with its `T₀`-band
+  integral replaced by `DoorRowT0Gates`.  ⚠ the conjunct COUNT does not move: this is a value
+  swap inside one conjunct, so §4's destructure indices carry over unchanged;
+* `doorRowCarried_of_t0free_join` — the bridge, §4's proof verbatim.  The discharge
+  `M4T0Discharge.m4_t0band_discharged` is blind to BOTH ⟦R1⟧ and ⟦R2⟧: it reads only the
+  `X`-side gates, the `(X_d : ℝ) = X` pin, the `Cb` page and the mask debit, none of which the
+  join touches;
+* `m4_wave_structurally_closed_join` and `m4_wave_closed_T0_discharged_join` — §5's two
+  closers with the register name swapped, over `m4_dyadicRow_carried_join`.
+
+⟦PURELY ADDITIVE⟧  Nothing in §1–§6 is touched. -/
+
+def DoorRowCarriedT0Join (Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ)
+    {q : ℕ} (χ : DirichletCharacter ℂ q) (M Xd j : ℕ) (B : ℝ) : Prop :=
+  ∃ (P Q Ddis : ℕ) (Mt kk Dd : ℕ → ℕ) (Xa : ℕ → ℝ)
+    (X h δ' V VJ L Cb kmin Ymax ε Xw cqS cgS cW SW Rbar0 Dmask π₀ : ℝ),
+    -- ⟦the two pins⟧
+    ((Xd : ℝ) = X) ∧ (((2 ^ j : ℕ) : ℝ) = h) ∧
+    -- ⟦the scale page, at the BLOCK scale⟧
+    (Real.exp (Real.exp 1) ≤ X) ∧ (Real.exp 2 ≤ Real.log X) ∧
+    (h ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ))) ∧
+    (Real.log h + 30 * (Real.log X / Real.log (Real.log X)) ≤ Real.log X) ∧
+    TannGate X (2 * (X / h)) ∧ (5 ≤ Real.log (Real.log (2 * (X / h)))) ∧
+    (T₀ ≤ 2 * (X / h)) ∧ (Real.exp 1 ≤ 2 * (X / h)) ∧
+    (Real.log X ≤ L) ∧ (Real.exp 1 ≤ L) ∧ ((256 : ℝ) ≤ Real.log X) ∧
+    -- ⟦the door and the band⟧
+    (calQK (Adoor M) (3072 * M) M 2 ≤ Xd) ∧
+    (3 ≤ P) ∧ ((2 : ℝ) ≤ Real.log (P : ℝ)) ∧ ((Q : ℝ) ≤ 2 * (X / h)) ∧
+    (Real.log (Q : ℝ) ≤ Real.log X / Real.log (Real.log X)) ∧
+    (Real.log (Q : ℝ) ≤ L) ∧
+    (P83 X theta293 ≤ (P : ℝ)) ∧ ((Q : ℝ) ≤ Q83 X) ∧ (P ≤ Q) ∧ (0 < Q) ∧
+    (H83 X theta293 ≤ (Xd : ℝ)) ∧ ((2 : ℝ) ≤ H83 X theta293) ∧
+    ((1 : ℝ) < ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ)) ∧
+    (Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ))) ∧
+    ((100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ))) ∧
+    (∀ i ∈ Finset.Icc 1 2,
+      ((Nat.sqrt Xd : ℝ) + 1)
+          * ∏ p ∈ primeBand (calP (Adoor M) (3072 * M) i)
+                (calQK (Adoor M) (3072 * M) M i), (1 + 3 / (p : ℝ))
+        ≤ (Xd : ℝ) * (Real.log ((calP (Adoor M) (3072 * M) i : ℕ) : ℝ)
+            / Real.log ((calQK (Adoor M) (3072 * M) M i : ℕ) : ℝ))) ∧
+    -- ⟦the window floors at the witness ladder⟧
+    (∀ v ∈ ramI (H83 X theta293) P Q, (5 : ℝ) ≤ ramRbot (H83 X theta293) Xd v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      ballQuarterThreshold + 1 ≤ ramRbot (H83 X theta293) Xd v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, 2 * ramRbot (H83 X theta293) Xd v ≤ X) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      18 + Real.log (Real.log X)
+          - Real.log (Real.log (ramRbot (H83 X theta293) Xd v - 1))
+        ≤ 32 * theta293 * Real.log (Real.log X)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      seamRad X ≤ Real.sqrt 2 * ramRbot (H83 X theta293) Xd v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      thinBundleG X VJ (calH (H1door M) 2) (calP (Adoor M) (3072 * M) 2)
+          (calQK (Adoor M) (3072 * M) M 2) * X ^ (1 - 2 * (1 / 12 : ℝ))
+        ≤ ramRbot (H83 X theta293) Xd v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      pin2Gate ≤ ((witMt (H83 X theta293) Xd v : ℕ) : ℝ)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, kmin ≤ ((witKk (H83 X theta293) Xd v : ℕ) : ℝ)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, ((witMt (H83 X theta293) Xd v : ℕ) : ℝ) ≤ Ymax) ∧
+    -- ⟦the calibration, the radius, the short-interval datum⟧
+    ((0 : ℝ) < seamRad X) ∧
+    ((1 : ℝ) ≤ V) ∧ (V⁻¹ ≤ δ') ∧ (Real.log V ≤ 100 * Real.log L) ∧
+    (δ' ^ 2 ≤ (Real.log X) ^ (-(6 : ℝ))) ∧
+    (656384 * (1 + Real.log (2 * X)) ≤ (Real.log X) ^ (4 - 3 * theta293)) ∧
+    (Real.exp (mrAlpha (1 / 12) 2
+        * Real.log ((calQK (Adoor M) (3072 * M) M 2 : ℕ) : ℝ)) ≤ VJ) ∧
+    ((0 : ℝ) ≤ Cb) ∧ ShortIntervalDatum Cb ∧
+    (2 * (Real.log X) ^ ((3 : ℝ) / 5) ≤ Real.log X) ∧
+    -- ⟦the `kmin`/`Ymax` ladder⟧
+    (Xcap ≤ kmin) ∧ ((0 : ℝ) ≤ cofactorMfl X theta293 kmin) ∧
+    ((2 : ℝ) ≤ kmin) ∧ (kmin ≤ X) ∧
+    ((1 - 1 / Real.log (Real.log X)) * Real.log X ≤ Real.log kmin) ∧
+    (pin2Gate ≤ Ymax) ∧ (Real.log Ymax ≤ 2 * Real.log kmin) ∧
+    (Real.log X ≤ Real.log Ymax) ∧
+    (32 * ballSupC34 ≤ (Real.log Ymax) ^ ((3 : ℝ) / 20 - rho293)) ∧
+    -- ⟦THE TWO OPAQUE CAPSTONE GATES (K6)⟧
+    (420 * L * L ^ ((3 : ℝ) / 4) * (Real.log L) ^ 5 ≤ cq * (Real.log (P : ℝ)) ^ 2) ∧
+    (1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293)) ∧
+    -- ⟦the ε-window⟧
+    ((0 : ℝ) ≤ ε) ∧ ((8640 : ℝ) ≤ (Real.log X) ^ ε) ∧
+    -- ⟦the coprime-tail page (⟦THE K6 PATTERN⟧: the threshold where `Ctail` is bound)⟧
+    (100 * Real.log (Q : ℝ) ≤ Real.log (Xd : ℝ)) ∧
+    (((Nat.sqrt Xd : ℝ) + 1) * ∏ p ∈ primeBand P Q, (1 + 3 / (p : ℝ))
+      ≤ (Xd : ℝ) * (Real.log (P : ℝ) / Real.log (Q : ℝ))) ∧
+    (10752 * Real.logb 2 (2 * X) ≤ (Real.log X) ^ (2 : ℝ)) ∧
+    (Real.log (P : ℝ) / Real.log (Q : ℝ)
+      ≤ 2 * (Real.log (Real.log X) * (Real.log X) ^ (-theta293))) ∧
+    (2688 * Ctail * Real.log (Real.log X) ≤ (Real.log X) ^ ε) ∧
+    -- ⟦the per-piece cap-free floor: only the Mertens mask debit is carried⟧
+    ((0 : ℝ) ≤ Dmask) ∧
+    (∀ 𝒥 ∈ (Finset.Icc 1 2).powerset,
+      (∑ i ∈ 𝒥, ∑ p ∈ blockWindowPrimes (calP (Adoor M) (3072 * M) i)
+          (calQK (Adoor M) (3072 * M) M i) X, (1 : ℝ) / (p : ℝ)) ≤ Dmask) ∧
+    (40 * Real.log (Real.log (Real.log X))
+        + 32 * ((1 / 8) * Real.log q + (1 / 4) * (q : ℝ)
+            + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebit q + Kcf + 25
+            + Dmask)
+      < Real.log (Real.log X)) ∧
+    -- ⟦THE SOCKET'S GATES⟧ (`m4_supplier_complete` at `Ps := 1`, `J := 2`)
+    ((0 : ℝ) < cW) ∧ (cW ≤ 1 / Real.exp 1) ∧ (2 * cW < 1) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      TLBlockGates34 cqS (H83 X theta293) P (2 * Xd) Xd Mt kk X L cgS Cb X theta293
+        (seamRad X) v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ, |t| ≤ X →
+      |t| + Tstar2 ((Mt v : ℕ) : ℝ) (Real.log ((Mt v : ℕ) : ℝ)) ≤ 3 * X) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, 1 ≤ Dd v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, Dd v ≤ kk v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, Xsk ≤ Real.sqrt (Xa v)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, Real.sqrt (Xa v) ≤ ((kk v / Dd v : ℕ) : ℝ)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, pin2Gate ≤ ((kk v / Dd v : ℕ) : ℝ)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, Real.exp 1 ≤ Xa v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, ((Mt v : ℕ) : ℝ) ≤ 2 * Xa v) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, 2 * Xa v ≤ X) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      (0 : ℝ) ≤ cofactorMfl X theta293 ((kk v / Dd v : ℕ) : ℝ)) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, ∀ t : ℝ, |t| ≤ X → ∀ i : ℕ,
+      ((kk v / Dd v : ℕ) : ℝ) ≤ (i : ℝ) → (i : ℝ) ≤ 2 * Xa v →
+        |t| + Tstar2 (i : ℝ) (Real.log (i : ℝ)) ≤ 3 * X) ∧
+    ((0 : ℝ) ≤ SW) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      cSq * caseASwide cW Cb (cofactorMfl X theta293 ((kk v / Dd v : ℕ) : ℝ))
+          ((kk v / Dd v : ℕ) : ℝ) (Xa v)
+        + cSq * ((Dd v : ℕ) : ℝ) ^ (-(1 / 4 : ℝ)) ≤ SW) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q, 2 / ramRbot (H83 X theta293) Xd v
+      ≤ cofactorRbdGen SW ((kk v : ℕ) : ℝ) ((Mt v : ℕ) : ℝ)
+          (Tstar2 ((Mt v : ℕ) : ℝ) (Real.log ((Mt v : ℕ) : ℝ))) (seamRad X) / 3) ∧
+    (∀ v ∈ ramI (H83 X theta293) P Q,
+      cofactorRbdGen SW ((kk v : ℕ) : ℝ) ((Mt v : ℕ) : ℝ)
+          (Tstar2 ((Mt v : ℕ) : ℝ) (Real.log ((Mt v : ℕ) : ℝ))) (seamRad X) ≤ Rbar0) ∧
+    ((0 : ℝ) ≤ Rbar0) ∧
+    (4 * Rbar0 ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293)) ∧
+    -- ⟦THE ENDPOINT⟧ (`M4Band.memSCoeff_endpoint_zero_of_seamCoefW` is the converse)
+    (doorChiCoeff χ M Xd = 0) ∧
+    -- ⟦ARM 1 DISCHARGED: the T₀-band gates, not the T₀-band integral⟧
+    DoorRowT0Gates Kbox X₀w q Ddis X Xw Dmask ∧
+    -- ⟦the assembled floor's threshold and the interface's grading gates⟧
+    (40 * Real.log (Real.log (Real.log X))
+        + 32 * ((1 / 8) * Real.log q + (1 / 4) * (q : ℝ)
+            + vkDebitConst (vkEulerCorr q * vkTwistConst q) + vkMidDebit q + Kfl + 25)
+      < Real.log (Real.log X)) ∧
+    ((0 : ℝ) ≤ π₀) ∧
+    (374784 * Cs * Real.exp 3 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) ≤ π₀) ∧
+    (5760 * (a2RowsSum' M Xd + Ccc * (2 / (M : ℝ))) ≤ π₀) ∧
+    ((Real.log X) ^ (-theta293 + ε) ≤ π₀) ∧
+    (4096 * (Real.log X) ^ (-(1 : ℝ) + 1 / 500) ≤ π₀) ∧
+    -- ⟦THE ENVELOPE: the five-summand right-hand side at this instance⟧
+    (8448 * (cfbC₁ X (t0dC1 Cb)) ^ 2 * Real.exp (-(1 / Real.exp 1) * t0dM0 X)
+        + 1787702400 * a2Level1 M
+        + 188133 * π₀
+        + 304128 * ballSupC ^ 2
+            * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
+        + 6315000 / h
+      ≤ B)
+
+set_option maxHeartbeats 4000000 in
+-- the same cause as `M4T0Discharge.doorRowCarried_of_t0free`: two ~99-conjunct registers are
+-- elaborated against each other; no tactic search happens, every step is a projection
+/-- **THE BRIDGE, AT THE JOIN** (`doorRowCarried_of_t0free_join`).
+`M4T0Discharge.doorRowCarried_of_t0free` at the JOINED pair.  The conjunct COUNT is
+unchanged from §4 (the `a2RowsSum` → `a2RowsSum'` swap is a value swap inside conjunct 96),
+so the destructure indices `d1 … d99` and the discharge's reads `d46 d47 d68` are §4's
+verbatim. -/
+theorem doorRowCarried_of_t0free_join (Qm : ℕ) :
+    ∃ Kbox X₀w : ℝ, 0 ≤ Kbox ∧ 0 < X₀w ∧
+      ∀ (Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ) (q : ℕ) [NeZero q]
+        (χ : DirichletCharacter ℂ q) (M Xd j : ℕ) (B : ℝ), q ≤ Qm →
+        DoorRowCarriedT0Join Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M Xd j B →
+          DoorRowCarriedJoin Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M Xd j B := by
+  obtain ⟨Kbox, X₀w, hK0, hX₀0, hdis⟩ := m4_t0band_discharged Qm
+  refine ⟨Kbox, X₀w, hK0, hX₀0, ?_⟩
+  intro Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail q _ χ M Xd j B hq hfree
+  obtain ⟨P, Q, Ddis, Mt, kk, Dd, Xa, X, h, δ', V, VJ, L, Cb, kmin, Ymax, ε, Xw, cqS, cgS, cW,
+    SW, Rbar0, Dmask, π₀, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15,
+    d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31, d32, d33,
+    d34, d35, d36, d37, d38, d39, d40, d41, d42, d43, d44, d45, d46, d47, d48, d49, d50, d51,
+    d52, d53, d54, d55, d56, d57, d58, d59, d60, d61, d62, d63, d64, d65, d66, d67, d68, d69,
+    d70, d71, d72, d73, d74, d75, d76, d77, d78, d79, d80, d81, d82, d83, d84, d85, d86, d87,
+    d88, d89, d90, d91, d92, d93, d94, d95, d96, d97, d98, d99⟩ := hfree
+  obtain ⟨g1, g2, g3, g4, g5, g6, g7, g8⟩ := d92
+  have hT0 : (∫ t in (-(seamT0 X))..(seamT0 X),
+      ‖dpolyA (winCutH Xd (doorChiCoeff χ M)) (seamS0 (2 * Xd) X) t‖ ^ 2)
+        ≤ t0BandB X (cfbC₁ X (t0dC1 Cb)) (t0dM0 X) :=
+    hdis q χ M Xd Ddis X Xw Cb Dmask hq g1 d1 g2 g3 g4 g5 d46 d47 d68 g6 g7 g8
+  exact ⟨P, Q, Mt, kk, Dd, Xa, X, h, δ', V, VJ, L, Cb, kmin, Ymax, ε, cfbC₁ X (t0dC1 Cb),
+    t0dM0 X, cqS, cgS, cW, SW, Rbar0, Dmask, π₀, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11,
+    d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29,
+    d30, d31, d32, d33, d34, d35, d36, d37, d38, d39, d40, d41, d42, d43, d44, d45, d46, d47,
+    d48, d49, d50, d51, d52, d53, d54, d55, d56, d57, d58, d59, d60, d61, d62, d63, d64, d65,
+    d66, d67, d68, d69, d70, d71, d72, d73, d74, d75, d76, d77, d78, d79, d80, d81, d82, d83,
+    d84, d85, d86, d87, d88, d89, d90, d91, hT0, d93, d94, d95, d96, d97, d98, d99⟩
+
+
+set_option maxHeartbeats 1600000 in
+-- `m4_wave_structurally_closed`'s own budget: the register mentions `DoorRowCarriedJoin`
+-- under six binders, and that is the whole cost
+theorem m4_wave_structurally_closed_join (Qm : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail : ℝ),
+      1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
+      0 < Xsk ∧ 0 ≤ Kcf ∧ 0 < Ctail ∧
+      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (MS : ℕ → ℕ → ℝ) (MSan MStr : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates Cg R M k δ → 1 ≤ M →
+            (∀ H : ℕ, 0 ≤ MSan H) → (∀ H : ℕ, 0 ≤ MStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ j H : ℕ, doorRowFloor M ≤ j → MS j H ≤ MSan H) →
+            (∀ j H : ℕ, j < doorRowFloor M → MS j H ≤ MStr H) →
+            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
+                  * ((q : ℝ) ^ 2 * (3 * m4BclGraded (doorRowFloor M)
+                      (fun H => 2 * MSan H) (fun H => 2 * MStr H) H)) ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              Real.sqrt (Braw H) ≤ mrtDeliveredGrade (C / 2) H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ mrtDeliveredGrade (C / 2) H) →
+            -- ⟦the modulus cap: the door's characters inside the capstone's range⟧
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ (Qm : ℝ)) →
+            -- ⟦the small lengths' trivial grade⟧
+            (∀ j H : ℕ, j < doorRowFloor M → 4 ≤ MS j H) →
+            -- ⟦ARM 1 + the regime gates: the per-instance register⟧
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H,
+                doorRowFloor M ≤ j → ∀ s ≤ H,
+                  DoorRowCarriedJoin Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
+                    (doorLadder R.x H (i + 1) + s) j (MS j H)) →
+            -- ⟦R2's two gates⟧
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              arcDen 12 H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ)) →
+            -- ⟦ARM 2: the coprime supply, interval/length-general⟧
+            M4CoprimeBlockMeanSq R M
+              (m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) →
+            ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
+    hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hrow⟩ :=
+    m4_dyadicRow_carried_join
+  obtain ⟨Cg, ε, δ₀, hCg, hε, hδ₀, hmain⟩ := m4_wave_closed_of_dyadicRow
+  refine ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl Qm, Xsk, Kcf Qm, Ctail,
+    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl Qm, hXsk0, hKcf0 Qm, hCtail0, ?_⟩
+  intro C hC U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
+  refine ⟨R, hReps, hU1, hRg, ?_⟩
+  intro δ Braw MS MSan MStr M k hgates hM hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
+    hQm htriv hcar hgate harc hcp
+  have hBcl0 : ∀ H : ℕ, 0 ≤ m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H)
+      (fun H => 2 * MStr H) H := fun H =>
+    m4BclGraded_nonneg (Fan := fun H => 2 * MSan H) (Ftr := fun H => 2 * MStr H)
+      (show (0 : ℝ) ≤ 2 * MSan H by have := hMSan0 H; linarith)
+      (show (0 : ℝ) ≤ 2 * MStr H by have := hMStr0 H; linarith)
+  -- ⟦R2⟧ the wave asks only the NON-COPRIME classes; `m4_nonCoprime_classMeanSq` delivers all
+  have hnc : M4ClassBlockMeanSq R M k
+      (m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) :=
+    m4_nonCoprime_classMeanSq (k := k) hM hBcl0 hgate harc hcp
+  refine hR δ Braw MS MSan MStr (doorRowFloor M) M k hgates hMSan0 hMStr0 hBraw0 han htr
+    hdrift hdel hrest (hrow R Qm M k MS hM hQm htriv hcar) ?_
+  intro H hlo hhi q hq hqQ i hik r hrq _hncop
+  exact hnc H hlo hhi q hq hqQ i hik r hrq
+
+set_option maxHeartbeats 1600000 in
+-- `m4_wave_closed_T0_discharged`'s own budget, at the joined register
+theorem m4_wave_closed_T0_discharged_join (Qm : ℕ) :
+    ∃ (Cg : ℝ) (ε : ℚ) (δ₀ Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail Kbox X₀w : ℝ),
+      1 ≤ Cg ∧ 0 < ε ∧ 0 < δ₀ ∧
+      0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < Xcap ∧ 0 < Cs ∧ 0 < Ccc ∧ 0 ≤ Kfl ∧
+      0 < Xsk ∧ 0 ≤ Kcf ∧ 0 < Ctail ∧ 0 ≤ Kbox ∧ 0 < X₀w ∧
+      ∀ (C : ℝ), 0 ≤ C → ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
+        ∃ R : ChowlaRegime, R.eps = ε ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+          ∀ (δ : ℝ) (Braw : ℕ → ℝ) (MS : ℕ → ℕ → ℝ) (MSan MStr : ℕ → ℝ) (M k : ℕ),
+            M4DoorGates Cg R M k δ → 1 ≤ M →
+            (∀ H : ℕ, 0 ≤ MSan H) → (∀ H : ℕ, 0 ≤ MStr H) → (∀ H : ℕ, 0 ≤ Braw H) →
+            (∀ j H : ℕ, doorRowFloor M ≤ j → MS j H ≤ MSan H) →
+            (∀ j H : ℕ, j < doorRowFloor M → MS j H ≤ MStr H) →
+            (∀ (H q : ℕ), R.Hlo ≤ H → H ≤ R.Hhi → 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              (1 + 2 * Real.pi * (arcDen 12 H / (q : ℝ))) ^ 2
+                  * ((q : ℝ) ^ 2 * (3 * m4BclGraded (doorRowFloor M)
+                      (fun H => 2 * MSan H) (fun H => 2 * MStr H) H)) ≤ Braw H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              Real.sqrt (Braw H) ≤ mrtDeliveredGrade (C / 2) H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              δ / 4 + 4 * 2 ^ k / (R.x : ℝ) ≤ mrtDeliveredGrade (C / 2) H) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → arcDen 12 H ≤ (Qm : ℝ)) →
+            (∀ j H : ℕ, j < doorRowFloor M → 4 ≤ MS j H) →
+            -- ⟦ARM 1 DISCHARGED: the T₀-free per-instance register⟧
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ q : ℕ, 0 < q → (q : ℝ) ≤ arcDen 12 H →
+              ∀ i < k, ∀ χ : DirichletCharacter ℂ q, ∀ j ≤ Nat.log 2 H,
+                doorRowFloor M ≤ j → ∀ s ≤ H,
+                  DoorRowCarriedT0Join Kbox X₀w Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail χ M
+                    (doorLadder R.x H (i + 1) + s) j (MS j H)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
+              arcDen 12 H < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) →
+            (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → 2 * arcDen 12 H ≤ (H : ℝ)) →
+            -- ⟦ARM 2: the coprime supply, interval/length-general — the ONLY analytic carry left⟧
+            M4CoprimeBlockMeanSq R M
+              (m4BclGraded (doorRowFloor M) (fun H => 2 * MSan H) (fun H => 2 * MStr H)) →
+            ¬ logChowla2Fails R.eps R.x R.ω := by
+  obtain ⟨Kbox, X₀w, hK0, hX₀0, hbridge⟩ := doorRowCarried_of_t0free_join Qm
+  obtain ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail,
+    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0, hmain⟩ :=
+    m4_wave_structurally_closed_join Qm
+  refine ⟨Cg, ε, δ₀, Cq, cq, T₀, Xcap, Cs, Ccc, Kfl, Xsk, Kcf, Ctail, Kbox, X₀w,
+    hCg, hε, hδ₀, hCq, hcq, hT₀, hXcap, hCs, hCcc, hKfl, hXsk0, hKcf0, hCtail0,
+    hK0, hX₀0, ?_⟩
+  intro C hC U1floor g
+  obtain ⟨R, hReps, hU1, hRg, hR⟩ := hmain C hC U1floor g
+  refine ⟨R, hReps, hU1, hRg, ?_⟩
+  intro δ Braw MS MSan MStr M k hgates hM hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
+    hQm htriv hcar hgate harc hcp
+  refine hR δ Braw MS MSan MStr M k hgates hM hMSan0 hMStr0 hBraw0 han htr hdrift hdel hrest
+    hQm htriv ?_ hgate harc hcp
+  intro H hlo hhi q hq hqQ i hik χ j hjL hj0 s hsH
+  haveI : NeZero q := ⟨by omega⟩
+  have hqQm : q ≤ Qm := by
+    have hRq : (q : ℝ) ≤ (Qm : ℝ) := le_trans hqQ (hQm H hlo hhi)
+    exact_mod_cast hRq
+  exact hbridge Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail q χ M
+    (doorLadder R.x H (i + 1) + s) j (MS j H) hqQm
+    (hcar H hlo hhi q hq hqQ i hik χ j hjL hj0 s hsH)
 
 end Salt.MR
