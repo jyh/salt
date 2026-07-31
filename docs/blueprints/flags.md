@@ -18502,3 +18502,45 @@ the unprimed form) — joins the repair list.  THE VALUE STATEMENT
 banked verbatim in the report.  ⟦REF-REPAIR dispatched: (a) + (b)
 + the Mfl wire⟧; the delta re-refutation follows; THE CAPTAIN'S
 READ after both refuters + the repair stand together.
+
+## () REF-FINAL-HONEST: DEFECT (the S16 cap unsatisfiable vs the tower at the proof's own witnesses -- 61.5x) AND THE ERRATUM-OF-THE-ERRATUM: COMPOSE-3's "windmill" retraction was ITSELF the misread -- THE WIDTH WALL IS REAL, THE G-LEVER WAS RIGHT, only K was mis-pinned (500000 calibrated to the OLD witness; the landed witness needs 30.8M -- INSIDE the 1.7e8 ceiling)
+
+⟦THE KILL, kernel (P2, 5 theorems)⟧ the final object's own
+inhabitation tuple (H = H₊, A = 2x) + the budget chain's OWN lemma
+s13CapGrid_Lambda_sharp (loglog X_d ≥ e^{λ₊}/2 — the sharp floor,
+NOT ERR-REF's weaker 7000·λ₊ arm bound) ⟹ S16BaseScaleCap_gk caps
+λ₊ ≤ log(log 𝒫₂) − log 12 ≈ 3.47e5 at K = 500000 — against the
+tower's λ₊ ≥ λ₋³ = 2.13e7 at the PINNED λ₋ = 277.26.  Deficit
+61.5×.  The cap and the inhabitation certificate are mutually
+exclusive: the inner implication vacuous as landed.
+⟦CATCH #100 COMMITTED TWICE — the maestro's own⟧ COMPOSE-3's
+"the giant dies a windmill" erratum used the WEAK floor (7000λ₊,
+prose-only, in no proof) where the chain's own sharp floor is
+e^{λ₊}/2 — LAMBDA-RECON's original reading was RIGHT to within
+log 2.  RETRACTED IN FULL: THE WIDTH WALL EXISTS at the budget leg;
+the G-lever campaign (~524 twins) was CORRECTLY fired; the ~3M
+tokens were spent on a real giant after all.  The ledger now holds
+an erratum-of-an-erratum — banked without flinching; the law's
+final form: THE SHARP FLOOR, NOT THE CONVENIENT ONE — when two
+lower bounds compete, the reduction must be probed at the STRONGER.
+⟦THE REPAIR, exact⟧ K was never re-cut when X0MFL's witness moved
+λ₋ 69 → 277: the demand is K ≈ 3.075e7 — INSIDE the frame's own
+ceiling 1.7e8 (the lever ceiling J-REF certified).  One numeral at
+S15Witness:1649 (500000 → 30800000) + hK norm_num + the M-window
+re-verify (blk is a λ₊-lower of 12.4, benign) + the S16 supply
+re-verified at the new K.  ⟦REF-REPAIR AMENDED mid-flight⟧: + the
+K re-cut + the prose corrections (S16Budget:41's weak-floor line;
+the 2.4×→1.5× margin honesty; the eight-incl-hx0win wording).
+⟦THE STRUCTURAL NOTE for the dossier⟧ the summit object's shape
+∃c, P c ∧ (Q c → R c) asserts Q nowhere — a COMPANION NON-VACUITY
+CERTIFICATE (the dischargeable riders proven at the witnesses, the
+opaques NAMED) must compose into any sealed final form:
+statement-tier, THE CAPTAIN'S DOSSIER.  Also banked: the unfolded
+plain-language statement (§4 of the report — the Captain's reading
+paragraph); the bounded-window consequence of the cap (loglog x ∈
+[2^400-genre, log 𝒫₂/24] — the ∀g device does NOT deliver
+arbitrarily large scales under the cap; must be stated in any
+final prose); the per-hypothesis table (hx0win GENUINELY the only
+Siegel item; the cofactor predicate byte-exact, no smuggle; no
+overclaim anywhere in the files).  NOTHING IS ANNOUNCED; the seal
+is NOT granted; the K re-cut + re-refutation is the path back.
