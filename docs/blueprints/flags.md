@@ -18370,3 +18370,5 @@ the approval story is now complete end-to-end: the approval cleared
 PUBLISHING (7/30), the copyright-waiver filing cleared OWNERSHIP (7/31).  The firewall
 DISCIPLINE stands unchanged as practice (ideas person→work only;
 outside-lane material never here) — the fence was never only legal.
+
+## () SCHEDULED (JYH, departing): the jas the copyright-waiver filing request -- submit AFTER breathing room, joined to the 8/4-8/5 human-arc morning (approval re-surface 8/4; endorsement nudge/third-endorser decision 8/5; + the jas the copyright-waiver filing request prep). Sancho preps the request FACTS (the jas repo/paper/public-status summary) for JYH's filing; JYH files.
