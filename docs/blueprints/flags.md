@@ -18150,3 +18150,15 @@ design block worthy of the name); (2) the register witness (the
 opaque-constant bounds — statement-tier); (3) the errata parade
 ratifications (rulings 1-11 + the three banked maestro errata);
 (4) the name of the theorem — held, as always, for the Captain.
+
+## (2026-07-30 23:54 PDT) CLOCK-CHECK ERRATUM (the FOURTH offense): the "night" ran 17:45-23:53 on 7/30 -- SIX HOURS, one evening, no all-nighter
+
+The maestro's prose across this evening's entries narrated "the
+7/30→31 night", "2 AM", "dawn", "~05:00" — ALL WRONG; every shell-
+generated stamp in this file is honest (read them, not my adjectives).
+The board opened at ~17:45 and closed at 23:53 PDT, 7/30.  The
+feedback memory [[clock-check]] is updated; the law now reads: run
+`date` before ANY time-of-day narration, INCLUDING the close-of-board
+prose and memory blocks — the stamps are not enough if the words
+around them lie.  (JYH asleep 21-05; the brief waits for their
+morning coffee 7/31, which is the one time-claim that was right.)
