@@ -817,6 +817,309 @@ theorem s13_doorRowZeroBase_five {M Xd j : ℕ} (hM : 1 ≤ M)
     have h : (2 : ℕ) ^ doorRowFloor M ≤ 2 ^ j := Nat.pow_le_pow_right (by norm_num) hjfl
     exact_mod_cast h
 
+/-! ## §7 — ⟦R3: THE ARM DEMOTION⟧ THE `g`-ARM GOES `M`-FREE
+
+⟦K4-CENSUS's MOVE 2⟧ (`flags.md` 2026-07-30 16:42).  In the re-cut prefix
+`S12Compose.logChowla2_capstone_final` the regime `R` is chosen BEFORE `M`, so the `∀ g` slot
+is entered before `M` exists and §2's `s13GArm M δ` — whose third summand `4ω·s13BlockFloor M`
+reads `M` — is no longer legal there.  The census's adjudication is a DEMOTION, not a
+majorant: the arm keeps its three `M`-free summands, and the `M`-reading one becomes an
+**`M`-SELECTION condition** `4ω·s13BlockFloor M ≤ R.x` checked AFTER `R` is in hand.
+
+That is sound because `hblocks` is the only field of `M4DoorGates` that spends the summand, and
+it is spent as a plain `x`-floor — the arm never needed `M` for any other purpose.  Under the
+re-cut the condition sits in the `M`-selection system `MSelect` (§8), where the regime's own
+`hPHheadroom` discharges it. -/
+
+/-- **⟦THE DEMOTED `g`-ARM⟧** (`s13GArm' δ`) — `s13GArm M δ` with the `M`-reading summand
+`4·ω·s13BlockFloor M` DROPPED.  `M`-FREE, hence legal in the re-cut capstone's `∀ g` slot,
+which is entered before `M` is chosen.
+
+| summand | what it buys |
+|---|---|
+| `2·ω·(H₊+2)` | `M4Door.doorCount_gates` — `hreach` and `hcount` at `k := doorCount ω` |
+| `8·ω` | `hpow`: `2^{k+1} ≤ 8ω` through `2^k ≤ 4ω` |
+| `⌈128·ω/δ⌉₊` | the endpoint share `8·2^k/x ≤ δ/4` |
+
+The dropped summand reappears as `MSelect.blockCeil`. -/
+def s13GArm' (δ : ℝ) : ℕ → ℕ → ℕ := fun Hhi ω =>
+  2 * ω * (Hhi + 2) + 8 * ω + ⌈128 * (ω : ℝ) / δ⌉₊
+
+/-- The demoted arm is below the landed one: every `x` clearing `s13GArm` clears `s13GArm'`.
+(The demotion weakens the `g`-arm; what it drops is re-charged to `MSelect`.) -/
+theorem s13GArm'_le (M : ℕ) (δ : ℝ) (Hhi ω : ℕ) : s13GArm' δ Hhi ω ≤ s13GArm M δ Hhi ω := by
+  rw [s13GArm', s13GArm]; omega
+
+/-- **⟦A-1, DEMOTED⟧ THE DOOR-GLUE REGISTER** (`s13_doorGates_of_arm'`) — `s13_doorGates_of_arm`
+off the `M`-FREE arm plus the demoted block condition as a separate hypothesis.  The proof is
+the landed one with `harm3` replaced by that hypothesis; nothing else changes. -/
+theorem s13_doorGates_of_arm' {Cg δ : ℝ} {R : ChowlaRegime} {M : ℕ}
+    (hM : 1 ≤ M) (hδ : 0 < δ) (hMδ : 24 * Cg / δ ≤ (M : ℝ))
+    (harm : s13GArm' δ R.Hhi R.ω ≤ R.x)
+    (hblk : 4 * R.ω * s13BlockFloor M ≤ R.x) :
+    M4DoorGates Cg R M (doorCount R.ω) δ := by
+  have hω1 : 1 ≤ R.ω := by have := R.hω; omega
+  have hcount : ((doorCount R.ω : ℕ) : ℝ) ≤ Real.log (R.ω : ℝ) / Real.log 2 + 2 :=
+    doorCount_le hω1
+  have harm1 : 2 * R.ω * (R.Hhi + 2) ≤ R.x := by rw [s13GArm'] at harm; omega
+  have harm2 : 8 * R.ω ≤ R.x := by rw [s13GArm'] at harm; omega
+  refine ⟨hM, hδ, hMδ, s13_logOmega_ge R, ?_, hcount, ?_, ?_⟩
+  · -- ⟦hpow⟧ `2^{k+1} ≤ 8ω ≤ x`
+    have h4 : 2 ^ (doorCount R.ω) ≤ 4 * R.ω :=
+      two_pow_le_four_mul_of_count R.hω hcount
+    have : 2 ^ (doorCount R.ω + 1) = 2 ^ (doorCount R.ω) * 2 := by rw [pow_succ]
+    omega
+  · -- ⟦hreach⟧ the ladder exhausts the window, off `2ω(H+2) ≤ x`
+    intro H hlo hhi
+    have hbig : 2 * (R.ω : ℝ) * ((H : ℝ) + 2) ≤ (R.x : ℝ) := by
+      have hHle : (H : ℝ) ≤ (R.Hhi : ℝ) := by exact_mod_cast hhi
+      have hω0 : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
+      have h1 : ((2 * R.ω * (R.Hhi + 2) : ℕ) : ℝ) ≤ (R.x : ℝ) := by exact_mod_cast harm1
+      push_cast at h1
+      nlinarith
+    exact (doorCount_gates hω1 hbig).1
+  · -- ⟦hblocks⟧ every rung sits above `⌊x/(4ω)⌋`, off the DEMOTED condition
+    intro H hlo hhi i hik
+    have hmid : s13BlockFloor M ≤ R.x / (4 * R.ω) := by
+      rw [Nat.le_div_iff_mul_le (by omega)]
+      calc s13BlockFloor M * (4 * R.ω) = 4 * R.ω * s13BlockFloor M := by ring
+        _ ≤ R.x := hblk
+    exact s13_sieveBlockGate hM
+      (le_trans hmid (doorLadder_ge_x_div_four_omega (H := H) R.hω hcount (by omega)))
+
+/-- **⟦A-2, DEMOTED⟧ THE ENDPOINT SHARE** (`s13_endpoint_of_arm'`) — `s13_endpoint_of_arm` off
+the `M`-free arm.  The endpoint share never read `M`. -/
+theorem s13_endpoint_of_arm' {δ : ℝ} {R : ChowlaRegime} (hδ : 0 < δ)
+    (harm : s13GArm' δ R.Hhi R.ω ≤ R.x) :
+    8 * 2 ^ (doorCount R.ω) / (R.x : ℝ) ≤ δ / 4 := by
+  have hω1 : 1 ≤ R.ω := by have := R.hω; omega
+  have hcount := doorCount_le hω1
+  have h4 : 2 ^ (doorCount R.ω) ≤ 4 * R.ω := two_pow_le_four_mul_of_count R.hω hcount
+  have h4R : ((2 ^ (doorCount R.ω) : ℕ) : ℝ) ≤ 4 * (R.ω : ℝ) := by exact_mod_cast h4
+  have harm4 : ⌈128 * (R.ω : ℝ) / δ⌉₊ ≤ R.x := by rw [s13GArm'] at harm; omega
+  have hceil : 128 * (R.ω : ℝ) / δ ≤ (R.x : ℝ) := by
+    refine le_trans (Nat.le_ceil _) ?_
+    exact_mod_cast harm4
+  have hx0 : (0 : ℝ) < (R.x : ℝ) := by
+    have : 0 < R.x := by have := R.hx; omega
+    exact_mod_cast this
+  have hkey : 128 * (R.ω : ℝ) ≤ δ * (R.x : ℝ) := by
+    rw [div_le_iff₀ hδ] at hceil
+    linarith
+  rw [div_le_div_iff₀ hx0 (by norm_num : (0:ℝ) < 4)]
+  have h2R : (8 : ℝ) * ((2 : ℝ) ^ (doorCount R.ω)) ≤ 32 * (R.ω : ℝ) := by
+    have : ((2 : ℝ)) ^ (doorCount R.ω) ≤ 4 * (R.ω : ℝ) := by
+      simpa using h4R
+    linarith
+  linarith
+
+/-! ## §8 — ⟦R3: THE `M`-SELECTION SYSTEM⟧ `MSelect`, AND ITS NONEMPTINESS
+
+Under the re-cut prefix (`∀x ∃M`) every demand that used to be discharged by pinning `M` to a
+numeral becomes a CONDITION ON THE CHOICE OF `M`, made after the regime `R` is in hand.  The
+K4-CENSUS walked five of them; this section names them as one system and kernelizes the
+census's nonemptiness walk.
+
+⟦THE FIVE⟧ — three are `M`-LOWER demands (satisfied at every large enough `M`), two are
+`M`-UPPER (the window floor and the block ceiling).  The system is nonempty exactly when the
+regime's headroom separates the two families, which is what §8's `s13_MSelect_of_headroom`
+converts into a single exponent comparison against `hPHheadroom`.
+
+⟦THE `μ`-SCALE⟧ pinned by the census: `μ = log H` (NOT `log X_d`).  `Λ` below is the window
+ceiling `λ₊ = loglog H₊` of §3. -/
+
+/-- **⟦THE `M`-SELECTION SYSTEM⟧** (`MSelect Cg δ₀ Λ R M`) — the five conditions the re-cut
+capstone's `M` must meet, once the regime `R` and the window ceiling `Λ ≥ λ₊` are in hand.
+
+| # | field | direction | what it is |
+|---|---|---|---|
+| 1 | `bfloor` | `M`-LOWER | the `b`-floor `24·Cg/δ₀ ≤ M`, i.e. `M4DoorGates.hMδ` |
+| 2 | `winFloor` | `M`-UPPER | the ×1280 window's FLOOR `log2·M·Adoor M ≤ μ = log H₋` |
+| 3 | `gRows` | `M`-LOWER | `242·Λ ≤ Adoor M` — K1's surviving `gRows` term (`2e²/𝓗ⱼ`, 12×`gP1`) |
+| 4 | `absorb` | `M`-LOWER | the `𝒰`-leg's `abs8640` at the crossing window's own exponent |
+| 5 | `blockCeil` | `M`-UPPER | the DEMOTED arm summand `4ω·s13BlockFloor M ≤ x` (`400·(A·G·M)²`) |
+
+⟦FIELD 4, and R3-B's finding⟧  `DoorCapErrWS`/`DoorCapBasePerBlock` carry
+`abs8640 : 8640 ≤ (log X_d)^{εr}`, and the maestro erratum #2 asked whether the εr/ε split
+frees it.  It does not (see `S12Compose` §4's header): the wire emits the crossing bound AT
+`εr`, so `εr ≤ θ₂₉₃ − 1/500` regardless of the split.  Taking logs, `abs8640` at the smallest
+base the socket reaches (`X_d ≥ 2^{j} ≥ 2^{doorRowFloor M}`) is exactly this field, an
+`M`-LOWER demand: at `εr = θ₂₉₃ − 1/500 = 1.41349·10⁻³` it asks `loglog X_d ≥ 6412.6`, i.e.
+`M·Adoor M ≥ e^{6412.6}/log 2`.  That is the genre R3 retires, and it is why `abs8640` belongs
+here and not in the frame. -/
+structure MSelect (Cg δ₀ Λ : ℝ) (R : ChowlaRegime) (M : ℕ) : Prop where
+  /-- ⟦1⟧ the `b`-floor — `M4DoorGates.hMδ`. -/
+  bfloor : 24 * Cg / δ₀ ≤ (M : ℝ)
+  /-- ⟦2⟧ the ×1280 window's floor: the door's own `j₀` must fit under `μ = log H₋`. -/
+  winFloor : Real.log 2 * ((doorRowFloor M : ℕ) : ℝ) ≤ Real.log (R.Hlo : ℝ)
+  /-- ⟦3⟧ the surviving `gRows` demand, `Adoor M ≳ 242·λ₊`. -/
+  gRows : 242 * Λ ≤ (Adoor M : ℝ)
+  /-- ⟦4⟧ the `𝒰`-leg absorption line at the crossing window's own exponent. -/
+  absorb : Real.log 8640
+    ≤ (theta293 - 1 / 500) * Real.log (Real.log 2 * ((doorRowFloor M : ℕ) : ℝ))
+  /-- ⟦5⟧ the DEMOTED arm summand — the `400·(A·G·M)²` block ceiling against `x`. -/
+  blockCeil : 4 * R.ω * s13BlockFloor M ≤ R.x
+
+/-- `log 263 ≤ 6` — the one numeral ⟦A-3⟧'s `j₀`-floor spends. -/
+theorem s13_log263_le_six : Real.log 263 ≤ 6 := by
+  have h1 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
+  have h0 : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
+  have e2 : (7.389 : ℝ) < Real.exp 2 := by
+    have h : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
+    rw [h]; nlinarith
+  have e4 : (54.5 : ℝ) < Real.exp 4 := by
+    have h : Real.exp 4 = Real.exp 2 * Real.exp 2 := by rw [← Real.exp_add]; norm_num
+    rw [h]; nlinarith [Real.exp_pos (2:ℝ)]
+  have e6 : (402 : ℝ) < Real.exp 6 := by
+    have h : Real.exp 6 = Real.exp 4 * Real.exp 2 := by rw [← Real.exp_add]; norm_num
+    rw [h]; nlinarith [Real.exp_pos (2:ℝ), Real.exp_pos (4:ℝ)]
+  have h263 : (263 : ℝ) ≤ Real.exp 6 := by linarith
+  have := Real.log_le_log (by norm_num : (0:ℝ) < 263) h263
+  rwa [Real.log_exp] at this
+
+/-- **⟦A-4 FROM `MSelect`⟧** (`s13_gate8_of_MSelect`) — ⟦gate 8⟧'s numeral gate
+`12·Λ < Adoor M·log 2` off field ⟦3⟧ alone (`242·log 2 = 167.7 > 12`). -/
+theorem s13_gate8_of_MSelect {Cg δ₀ Λ : ℝ} {R : ChowlaRegime} {M : ℕ} (hΛ : 0 < Λ)
+    (hS : MSelect Cg δ₀ Λ R M) : 12 * Λ < (Adoor M : ℝ) * Real.log 2 := by
+  have hlog2 : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have h := hS.gRows
+  nlinarith [hΛ, h, hlog2]
+
+/-- **⟦A-3 FROM `MSelect`⟧** (`s13_g2_jfloor_of_MSelect`) — ⟦G2⟧'s `j₀`-floor
+`4·log 263 + 48·Λ ≤ doorRowFloor M` off field ⟦3⟧ and `1 ≤ M`
+(`doorRowFloor M = M·Adoor M ≥ Adoor M ≥ 242Λ = 48Λ + 194Λ ≥ 48Λ + 4·log 263` at `Λ ≥ 1`). -/
+theorem s13_g2_jfloor_of_MSelect {Cg δ₀ Λ : ℝ} {R : ChowlaRegime} {M : ℕ} (hM : 1 ≤ M)
+    (hΛ : 1 ≤ Λ) (hS : MSelect Cg δ₀ Λ R M) :
+    4 * Real.log 263 + 48 * Λ ≤ ((doorRowFloor M : ℕ) : ℝ) := by
+  have hlog := s13_log263_le_six
+  have hdr : (Adoor M : ℝ) ≤ ((doorRowFloor M : ℕ) : ℝ) := by
+    have h : Adoor M ≤ doorRowFloor M := by
+      rw [doorRowFloor]
+      calc Adoor M = 1 * Adoor M := (one_mul _).symm
+        _ ≤ M * Adoor M := Nat.mul_le_mul_right _ hM
+    exact_mod_cast h
+  have h := hS.gRows
+  linarith
+
+/-- `8·(4^m)² = 2^{4m+3}` — the headroom field's exponent, normalised. -/
+private theorem s13_headroom_pow (m : ℕ) : 8 * (4 ^ m) ^ 2 = 2 ^ (4 * m + 3) := by
+  have h1 : (4 : ℕ) ^ m = 2 ^ (2 * m) := by rw [pow_mul]; norm_num
+  have h2 : ((2 : ℕ) ^ (2 * m)) ^ 2 = 2 ^ (4 * m) := by
+    rw [← pow_mul]
+    congr 1
+    ring
+  rw [h1, h2, pow_add]
+  ring
+
+/-- **⟦THE `M`-SELECTION SYSTEM IS NONEMPTY AT THE REGIME'S HEADROOM⟧**
+(`s13_MSelect_of_headroom`) — the census's walk, kernelized.
+
+The four demands that do NOT read the regime's scale are carried as hypotheses: they are all
+monotone in `M` (fields ⟦1⟧, ⟦3⟧, ⟦4⟧ are `M`-LOWER; ⟦2⟧ is an `M`-UPPER demand read against
+the window's own lower endpoint), so any `M` in the band satisfies them and the band is an
+interval.  The ONE structural condition — the demoted block ceiling ⟦5⟧ — is DISCHARGED here
+from the regime's own field `hPHheadroom`
+
+  `8·(4^{⌊ε²H₊⌋₊})²·ω ≤ x`,  i.e.  `2^{4m+3}·ω ≤ 8·2^{4m}·ω ≤ x`  at  `m = ⌊ε²H₊⌋₊`,
+
+against the block exponent: `4ω·2^{E} ≤ x` whenever `E ≤ 4m + 1`.  That single comparison is
+the whole content of "the headroom sits exponentially above every floor": `log₂ x ≥ 4·ε²H₊`
+and the floor's exponent is `s13BlockExp M ≈ 400·(A·G·M)²`, so pushing `U1floor` (hence `H₊`,
+hence `m`) up opens the `M`-band without bound. -/
+theorem s13_MSelect_of_headroom {Cg δ₀ Λ : ℝ} {R : ChowlaRegime} {M : ℕ}
+    (hbf : 24 * Cg / δ₀ ≤ (M : ℝ))
+    (hwin : Real.log 2 * ((doorRowFloor M : ℕ) : ℝ) ≤ Real.log (R.Hlo : ℝ))
+    (hgr : 242 * Λ ≤ (Adoor M : ℝ))
+    (habs : Real.log 8640
+      ≤ (theta293 - 1 / 500) * Real.log (Real.log 2 * ((doorRowFloor M : ℕ) : ℝ)))
+    (hhead : s13BlockExp M ≤ 4 * ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ + 1) :
+    MSelect Cg δ₀ Λ R M := by
+  refine ⟨hbf, hwin, hgr, habs, ?_⟩
+  have hfield := R.hPHheadroom
+  set m : ℕ := ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ with hm
+  -- ⟦the exponent comparison⟧ `4·2^{s13BlockExp M} ≤ 2^{4m+3} = 8·(4^m)²`, in ℕ
+  have hnat : 4 * s13BlockFloor M ≤ 8 * (4 ^ m) ^ 2 := by
+    have h1 : 4 * s13BlockFloor M = 2 ^ (s13BlockExp M + 2) := by
+      rw [s13BlockFloor, pow_add]; ring
+    rw [h1, s13_headroom_pow]
+    exact Nat.pow_le_pow_right (by norm_num) (by omega)
+  -- ⟦the headroom, in ℝ⟧
+  have hcast : ((4 * s13BlockFloor M : ℕ) : ℝ) ≤ ((8 * (4 ^ m) ^ 2 : ℕ) : ℝ) := by
+    exact_mod_cast hnat
+  have hω0 : (0 : ℝ) ≤ (R.ω : ℝ) := Nat.cast_nonneg _
+  have hchain : ((4 * R.ω * s13BlockFloor M : ℕ) : ℝ) ≤ (R.x : ℝ) := by
+    push_cast at hcast hfield ⊢
+    nlinarith [hcast, hfield, hω0]
+  exact_mod_cast hchain
+
+/-- **⟦THE (A) GROUP AT THE DEMOTED ARM AND `MSelect`⟧** (`s13_doorGates_of_MSelect`) —
+`M4DoorGates` off the `M`-FREE arm plus the selection system: field ⟦1⟧ is `hMδ`, field ⟦5⟧ is
+the demoted `hblocks` summand.  This is the (A)-group's entry point under the re-cut prefix. -/
+theorem s13_doorGates_of_MSelect {Cg δ Λ : ℝ} {R : ChowlaRegime} {M : ℕ}
+    (hM : 1 ≤ M) (hδ : 0 < δ) (hS : MSelect Cg δ Λ R M)
+    (harm : s13GArm' δ R.Hhi R.ω ≤ R.x) :
+    M4DoorGates Cg R M (doorCount R.ω) δ :=
+  s13_doorGates_of_arm' hM hδ hS.bfloor harm hS.blockCeil
+
+/-! ## §9 — ⟦THE λ-TABLE ERRATUM⟧ THE WINDOW CEILING AT THE HONEST `λ₋`
+
+⟦K4-CENSUS's K4 finding⟧ (`flags.md` 2026-07-30 16:42): "**the budget ceiling at `m = 66` is
+81.184, i.e. 2.48 BELOW the landed 83.66** — the four landed tables are WIDER than live;
+tightening `hlam` is sound".
+
+§3's `s13_loglogHhi_le` carries `hlam : λ₋ ≤ 83.66`.  Tightening an ANTECEDENT is sound in the
+iron-rule sense (the twin is strictly weaker as a theorem and strictly safer as a design
+claim), so this section mints the tightened twin rather than editing the landed one.
+
+⚠ ⟦R3-B's ARITHMETIC CORRECTION TO THE ERRATUM'S SECOND CLAUSE⟧  The census's "eases
+`g2_jfloor`/`gate8` by 5.5·10⁶×" does not reproduce.  `Λ = λ₊` is the TOWER IMAGE of the
+`λ₋`-ceiling, so the easing is `(83.66/81.184)^{9/2} = 1.0305^{4.5} = 1.1447`:
+
+  landed   `λ₋ ≤ 83.66`   ⟹  `λ₊ ≤ 4.48055·10⁸`  (`s13_loglogHhi_le`)
+  tight    `λ₋ ≤ 81.184`  ⟹  `λ₊ ≤ 3.91431·10⁸`  (`s13_loglogHhi_le_tight`, below)
+
+and `g2_jfloor`/`gate8` read `Λ` LINEARLY (`48·Λ`, `12·Λ`), so both ease by exactly that
+1.1447×, not by 5.5·10⁶×.  The tightening is still worth minting — it is the honest ceiling —
+but it buys 14%, not seven orders.  The 5.5·10⁶ figure is banked as unreproduced. -/
+
+/-- **⟦THE WINDOW CEILING, AT THE HONEST `λ₋`⟧** (`s13_loglogHhi_le_tight`) —
+`s13_loglogHhi_le` with the antecedent tightened from the landed table's `83.66` to the
+census's budget ceiling `81.184`:
+
+  `81.184^{9/2} = 81.184⁴·√81.184 ≤ 43439196.4·9.011 = 3.91431·10⁸`.
+
+Every consumer of the window ceiling (`s13_g2_jfloor`, `s13_gate8`) takes `Λ` as a parameter,
+so no further twin is needed: instantiate them at `Λ := 392000000`. -/
+theorem s13_loglogHhi_le_tight {R : ChowlaRegime}
+    (h50 : 50 ≤ Real.log (Real.log (R.Hlo : ℝ)))
+    (htow : 50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+      Real.log (Real.log (R.Hhi : ℝ)) ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2))
+    (hlam : Real.log (Real.log (R.Hlo : ℝ)) ≤ 81184 / 1000) :
+    Real.log (Real.log (R.Hhi : ℝ)) ≤ 392000000 := by
+  set x : ℝ := Real.log (Real.log (R.Hlo : ℝ)) with hx
+  have hx0 : (0 : ℝ) < x := by linarith
+  have hsplit : x ^ ((9 : ℝ) / 2) = x ^ (4 : ℕ) * Real.sqrt x := by
+    rw [Real.sqrt_eq_rpow, ← Real.rpow_natCast x 4, ← Real.rpow_add hx0]
+    norm_num
+  have hp4 : x ^ (4 : ℕ) ≤ (81184 / 1000 : ℝ) ^ (4 : ℕ) :=
+    pow_le_pow_left₀ hx0.le hlam 4
+  have hsq : Real.sqrt x ≤ 9011 / 1000 := by
+    have hle : x ≤ (9011 / 1000 : ℝ) ^ 2 := by
+      have : (81184 / 1000 : ℝ) ≤ (9011 / 1000 : ℝ) ^ 2 := by norm_num
+      linarith
+    have h := Real.sqrt_le_sqrt hle
+    rwa [Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 9011 / 1000)] at h
+  have hsq0 : (0 : ℝ) ≤ Real.sqrt x := Real.sqrt_nonneg _
+  have hp40 : (0 : ℝ) ≤ x ^ (4 : ℕ) := by positivity
+  have hprod : x ^ (4 : ℕ) * Real.sqrt x
+      ≤ (81184 / 1000 : ℝ) ^ (4 : ℕ) * (9011 / 1000 : ℝ) :=
+    mul_le_mul hp4 hsq hsq0 (by positivity)
+  have hnum : (81184 / 1000 : ℝ) ^ (4 : ℕ) * (9011 / 1000 : ℝ) ≤ 392000000 := by norm_num
+  calc Real.log (Real.log (R.Hhi : ℝ)) ≤ x ^ ((9 : ℝ) / 2) := htow h50
+    _ = x ^ (4 : ℕ) * Real.sqrt x := hsplit
+    _ ≤ (81184 / 1000 : ℝ) ^ (4 : ℕ) * (9011 / 1000 : ℝ) := hprod
+    _ ≤ 392000000 := hnum
+
 end Salt.MR
 
 end

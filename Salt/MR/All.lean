@@ -290,6 +290,12 @@ import Salt.MR.S13FramesA
 import Salt.MR.ThmA2Pool
 import Salt.MR.M4AssemblyPool
 import Salt.MR.M4ArithPool
+import Salt.MR.ThmA2Prime
+import Salt.MR.A3Middle
+import Salt.MR.M4AssemblyPrime
+import Salt.MR.M4ArithPrime
+import Salt.MR.M4MeanSqPool
+import Salt.MR.M4MeanSqPrime
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -6439,3 +6445,161 @@ open Salt.Tactic in
   Salt.MR.m4_arith_henv_rho_pool
   Salt.MR.m4_chiSummedFreeRow_of_doorArithRho_pool
   Salt.MR.s13_doorRowZeroBase_five
+
+
+/-! ## ⟦R3-A⟧ THE R1×R2 JOIN + THE A3 MIDDLE — `ThmA2Prime`, `A3Middle`, `M4AssemblyPrime`,
+`M4ArithPrime`, `M4MeanSqPool`, `M4MeanSqPrime`
+
+Design provenance: `docs/exploration/knot2-closure-freeze-0730.md`, wave **R3**, dispatched on
+`flags.md` 2026-07-30 17:24 (⟦R1⟧ + ⟦R2⟧ LAND).
+
+**THE JOIN.**  ⟦R1⟧ re-priced the `p²` row to the `X_d`-FREE `24/𝒫ⱼ` (`ThmA2.a2RowsSum'`);
+⟦R2⟧ freed the three `X`-side sources into one constant pool `π₀`.  `ThmA2Prime` states them
+together: `a2Mrow'` is `a2Mrow` at the primed sum, and `thm_a2'_of_rows_pool'` is the crossing
+at BOTH.  Its `Σ_χ` wrapper keeps the ⟦φ(q) LEDGER⟧ byte-identical (the pool stays a `χ`-free
+SCALAR).  `thm_a2'_of_rows'` is the primed crossing at the LANDED decaying right-hand side —
+⟦R1⟧'s own fence, and the sentence "THE S8 SUMMIT BECOMES STRICTLY STRONGER" as a kernel
+object: two hypothesis slots move, both to the smaller side, and the frozen five-summand
+conclusion does not move at all.
+
+⚠ **THE JOIN DIRECTION.**  `a2RowsSum' ≤ a2RowsSum` makes a primed gate WEAKER, so the
+inequality runs the wrong way for discharging: **no landed-form gate discharges a primed
+slot**.  `a2Mrow'_le_a2Mrow` and `DoorFuseFrame_pool'.of_pool` are recorded as FIDELITY facts
+and are never used to prove a primed statement from a landed one.  Hence the A3 middle.
+
+**THE A3 MIDDLE.**  `A3Middle` carries ⟦R1⟧'s bracket up BOTH arms of the crossing chain:
+§2–§4 the STRICT/FUSED arm (`seam_row_number_nocap3_end'` → `seam_row_number_capfree3_end'` →
+`a2Rows_of_capfree3_end'`, the door's half-open cut) and §5–§7 the CLOSED-window arm
+(`…nocap3'` → `…capfree3'` → `a2Rows_of_capfree3'`, which is what `M4MeanSq`'s capstone
+consumes).  Each step re-runs the landed proof against `M4RowMR`'s primed pricer; the ONE
+moved read is `1 ≤ A ↦ 2 ≤ A`, free from `CalFrameK.A_floor` (`24 ≤ A`).  The hypothesis
+lists, the weighting numerals `9`/`244`/`3`/`3/2` and the `960 → 5760` cover are the landed
+ones verbatim.
+
+**THE DOOR.**  `M4AssemblyPrime` carries the join through the door: `DoorFuseFrame_pool'`
+(ten fields, `gRows` at `a2RowsSum'`), the slot fuse `m4_chiFreeRowSq_sum_at_door_pool'`, and
+the exit `m4_chiSummedFreeRow_of_doorAssembly_pool'`.  `M4AssemblyPool`'s grade-level wires
+are reused VERBATIM — `a2DoorGrade_pool` mentions no row sum, so the R1 half is invisible to
+them.
+
+**THE LAST `μ/500`.**  `M4ArithPrime.GRowsZeroGate''` is the `gRows` gate with NO `loglog X_d`
+in it:
+
+  landed `p2 : μ(1 + 1/500) + 15 ≤ (log 2)·Adoor M`  →  ⟦R1⟧ `μ/500 + 15 ≤ …`
+  →  ⟦JOIN⟧ `138240·(1/𝒫₁ + 1/𝒫₂) ≤ π₀/3`.
+
+R1 removed the `μ`-coefficient (the `log₂(2X_d)` numerator), R2 removed the residual `1/500`
+(the decaying target); **neither alone suffices** — K4-CENSUS's "R1+R2 alone close nothing" at
+one concrete field.  `doorFuseFrame_pool'_of_gates` then builds the whole ten-field frame from
+four gates, and `m4_chiSummedFreeRow_of_doorAssembly_join` is ⟦item 11⟧ from gates that read
+the base only from BELOW: no field caps `X_d`, so no antitone collapse (`gP1_of_le`,
+`gRows_at_socketBase`) is needed on this route.
+
+**THE CAPSTONES.**  `M4MeanSqPool` re-states `M4MeanSq`'s two ∃-capstones at the pool
+(⟦R2⟧'s deferred item), and `M4MeanSqPrime` at the full join.  ⚠ **MAESTRO ERRATUM #2 is
+honoured**: `8640 ≤ (log X)^ε` SURVIVES verbatim — it is a `𝒰`-LEG gate, not a pool gate; the
+pool frees the exponent ROOM `ε ≤ θ₂₉₃ − 1/500`, which is what these statements drop.  THE
+εr/ε SPLIT (the crossing's exponent vs the cap bundle's absorption exponent as separate roles)
+is a perBlock-capstone binder change and is NOT performed here.
+
+Additive: no landed declaration is touched. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.a2Mrow'_le_a2Mrow
+  Salt.MR.thm_a2'_of_rows_pool'
+  Salt.MR.thm_a2'_of_rows_chiSummed_pool'
+  Salt.MR.thm_a2'_of_rows'
+  Salt.MR.seam_row_number_nocap3_end'
+  Salt.MR.seam_row_number_capfree3_end'
+  Salt.MR.a2Rows_of_capfree3_end'
+  Salt.MR.seam_row_number_nocap3'
+  Salt.MR.seam_row_number_capfree3'
+  Salt.MR.a2Rows_of_capfree3'
+  Salt.MR.DoorFuseFrame_pool'.pool_nonneg
+  Salt.MR.DoorFuseFrame_pool'.of_pool
+  Salt.MR.m4_chiFreeRowSq_sum_at_door_pool'
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool'
+  Salt.MR.gRows_zero_of_gate''
+  Salt.MR.doorFuseFrame_pool'_of_gates
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_join
+  Salt.MR.m4_meansq_per_chi_gen_pool
+  Salt.MR.m4_meansq_or_trivial_pool
+  Salt.MR.m4_meansq_per_chi_gen_join
+  Salt.MR.m4_meansq_or_trivial_join
+/-! ⟦R3-B — THE QUANTIFIER RE-CUT⟧ (`LambdaChiMask` §7, `M4T0DatumDischarge` §7,
+`S11Hoist` §5, `S12Compose` §4, `S13FramesA` §7–§9), the KNOT-2 closure freeze's THIRD and
+load-bearing wave (`docs/exploration/knot2-closure-freeze-0730.md`; the braid adjudicated by
+K4-CENSUS, `flags.md` 2026-07-30 16:42; the εr/ε assignment by maestro erratum #2, 17:24).
+
+**THE GRANT** (JYH, 2026-07-30 16:25 PDT): **`M` is chosen after `x`** (`∀x ∃M`) — the ladder
+tracks the window, as MR's own calibration does (`Q₁ := h`).
+
+**MOVE 1 — THE SPLIT-HOIST.**  `x₀` is `Aexp`-ONLY at its birth: the `Filter.eventually_atTop`
+block inside `MlamGrChiMask_rate` reads neither the mass budget `M`, nor the mask, modulus,
+character, height or `r`.  So the landed `∃ C' x₀` SPLITS — `x₀` to the top constant block,
+`C'` (the only constant reading the door's `M`-dependent window, through `windowMassConst`)
+left after `M`.  Seven pure intro-reorders: `MlamGrChiMask_rate_split` →
+`piece_partial_sum_rate_split` → `m4_hpiece_at_door_split` →
+`m4_hT0band_at_door_discharged_split` → `m4_hband_at_door_slot_split` →
+`m4_socket_discharged_fused_split` → `m4_socket_discharged_capwired_ws_hoisted_perBlock_split`.
+Not one hypothesis is weakened or added; the conclusions are byte-identical.
+
+**MOVE 2 — THE ARM DEMOTION.**  `s13GArm'` drops `s13GArm`'s `M`-reading summand
+`4ω·s13BlockFloor M`; the arm is `M`-FREE, hence legal in the re-cut `∀ g` slot, which is
+entered before `M` exists.  The dropped summand becomes an `M`-SELECTION condition
+(`MSelect.blockCeil`), checked after `R`.  `s13_doorGates_of_arm'`/`s13_endpoint_of_arm'` are
+§2's twins at the demoted arm.
+
+**MOVE 3 — THE PREFIX.**  `logChowla2_capstone_final`:
+
+  `∃ Cg ε K δ₀ Ct Cq cs T₀ Kq Ks x₀, ⟨positivity⟩ ∧ ∀ Cp ≥ 0, ∀ U1floor g,`
+  `  ∃ R, ⟨R.eps = ε, U1floor ≤ R.Hlo, g R.Hhi R.ω ≤ R.x, tower 9/2⟩ ∧`
+  `    ∀ M ≥ 1, ∃ C' > 0, ∀ C₁ M₀ epsf epsrf Kf k, [RESIDUE] → ¬logChowla2Fails R.eps R.x R.ω`
+
+⟦THE ROAD NEEDS ZERO CHANGE⟧ `m4_second_road_L2` already binds `M` after its `∃ R`; the
+inversion was the TERMINAL's, and the split-hoist is its whole repair.  The ten gate
+discharges, the share table and every frame family are §3's, verbatim.
+
+**MOVE 4 — THE εr/ε SPLIT, `MSelect`, THE λ-ERRATUM.**  `doorFuseFrame_reEps` is the kernel
+form of the split: ten of `DoorFuseFrame`'s eleven fields do not mention the exponent, so the
+frame transports between exponents for free.  The `_final` twin therefore carries `epsf` (the
+frame) and `epsrf` (the cap bundle) as SEPARATE functions.
+⚠ ⟦R3-B's FINDING⟧ the split does NOT free `abs8640` from `θ₂₉₃`: `m4_hcap_at_door_perBlock`
+emits the crossing bound AT the cap bundle's own exponent, which `m4_hrowsSlot_at_door_zero`
+then reads as `a2Mrow … εr` under `ThmA2`'s window `0 ≤ εr ≤ θ₂₉₃ − 1/500`.  So `εr ≈ 0.122`
+is unreachable in EITHER quantifier order, and `abs8640`'s honest home is an `M`-LOWER demand
+(`MSelect.absorb`: `loglog X_d ≥ log 8640/εr = 6412.6` at the window's top).
+
+`MSelect Cg δ₀ Λ R M` names the five conditions — ⟦1⟧ the `b`-floor, ⟦2⟧ the ×1280 window's
+floor, ⟦3⟧ `242Λ ≤ Adoor M` (K1's surviving `gRows` term), ⟦4⟧ the `𝒰`-leg absorption line,
+⟦5⟧ the demoted block ceiling.  `s13_gate8_of_MSelect`/`s13_g2_jfloor_of_MSelect` derive ⟦A-4⟧
+and ⟦A-3⟧ from field ⟦3⟧ alone; `s13_MSelect_of_headroom` kernelizes the census's NONEMPTINESS
+walk — the four scale-free demands are carried (all monotone in `M`) and the ONE structural
+condition ⟦5⟧ is DISCHARGED from the regime's own `hPHheadroom` by a single exponent
+comparison `s13BlockExp M ≤ 4⌊ε²H₊⌋₊ + 1`.
+
+⚠ ⟦THE λ-TABLE ERRATUM, half-confirmed⟧ `s13_loglogHhi_le_tight` mints the honest ceiling
+`λ₋ ≤ 81.184` (2.48 below the landed table's 83.66), giving `λ₊ ≤ 3.91431·10⁸` against
+`s13_loglogHhi_le`'s `4.48055·10⁸`.  The census's "eases `g2_jfloor`/`gate8` by 5.5·10⁶×"
+does NOT reproduce: `Λ = λ₊` is the TOWER IMAGE of the `λ₋`-ceiling, both consumers read `Λ`
+LINEARLY, so the easing is `(83.66/81.184)^{9/2} = 1.1447×`.  Banked as unreproduced.
+
+Additive: no landed declaration is touched. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.MlamGrChiMask_rate_split
+  Salt.MR.piece_partial_sum_rate_split
+  Salt.MR.m4_hpiece_at_door_split
+  Salt.MR.m4_hT0band_at_door_discharged_split
+  Salt.MR.m4_hband_at_door_slot_split
+  Salt.MR.m4_socket_discharged_fused_split
+  Salt.MR.m4_socket_discharged_capwired_ws_hoisted_perBlock_split
+  Salt.MR.s13GArm'_le
+  Salt.MR.s13_doorGates_of_arm'
+  Salt.MR.s13_endpoint_of_arm'
+  Salt.MR.doorFuseFrame_reEps
+  Salt.MR.logChowla2_capstone_final
+  Salt.MR.s13_log263_le_six
+  Salt.MR.s13_gate8_of_MSelect
+  Salt.MR.s13_g2_jfloor_of_MSelect
+  Salt.MR.s13_MSelect_of_headroom
+  Salt.MR.s13_doorGates_of_MSelect
+  Salt.MR.s13_loglogHhi_le_tight

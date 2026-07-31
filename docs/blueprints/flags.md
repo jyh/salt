@@ -17371,3 +17371,36 @@ twin (εr its own function).  To R3's brief.  Build 9605 exit-0
 maestro-verified; R3 fires: R3-A (the join + the A3 middle + the
 deferred R2 threading) ∥ R3-B (the quantifier re-cut + the
 M-selection certificate + the λ-erratum + the εr split).
+
+## (2026-07-30 17:51 PDT) R3-A + R3-B LAND — THE QUANTIFIER RE-CUT COMPLETE: the prefix in kernel, NO FIELD CAPS THE BASE (a kernel object); the residue = three supplier re-runs
+
+**⟦R3-B⟧**  (+1166, 18/18): the SPLIT-HOIST through seven links (pure
+reorders, the byte-warrant confirmed); the ARM DEMOTION (s13GArm'
+M-free); **`logChowla2_capstone_final` — THE PREFIX VERBATIM at
+∀x ∃M** (ZERO road change confirmed); `MSelect` (5 fields) with the
+headroom nonemptiness KERNELIZED (⟦5⟧ discharged from hPHheadroom by
+one exponent comparison); TWO honest refutations of its own brief:
+the census's 5.5e6× easing does not reproduce (1.1447× the true
+figure — both consumers read Λ linearly through the tower); the εr
+assignment unavailable in EITHER quantifier order — abs8640's honest
+home is **MSelect.absorb, an M-LOWER — precisely the genre R3
+retires**; the ε-split landed as the binder form (epsf/epsrf).
+
+**⟦R3-A⟧**  (+2642, 25/25, six files): THE JOIN (`thm_a2'_of_rows_pool'`
+— the crossing at the primed sum AND the free pool; two slots moved,
+conclusion byte-identical; the fidelity chain); THE A3 MIDDLE both
+arms (strict/fused + closed-window; the one moved read 1 ≤ A → 2 ≤ A
+free from the frame's 24-floor); the exit assembly + **THE FINAL GATE
+TABLE: NO FIELD CAPS THE BASE** — the three-step retirement
+(landed → R1's μ/500 → the join's base-free 138240/𝒫) a KERNEL
+OBJECT, R1 and R2 each necessary, neither sufficient.  The M4MeanSq
+pool+join twins landed (R2's deferred).  SeamNumber' moot (the live
+chain prices through the MR pricer — threaded there).
+
+**⟦THE RESIDUE (the R4 wave)⟧**  (1) the χ-side hrows supplier at
+a2Mrow' (the M4RowsChiEnd genre re-run); (2) the DoorRowCarried def
+twin (~150-line restatement — the brief's "4-line" was wrong, banked);
+(3) the χ-zero file's L² re-run (~911 ln — the cube-gate's second
+site through its whole consumer chain).  All the established re-run
+genre.  Build 9611 exit-0 maestro-verified twice.  ⟦R4-RESIDUE
+dispatched; the closure's FINAL EXAMINER queues on its landing.⟧
