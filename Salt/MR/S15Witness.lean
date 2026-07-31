@@ -49,7 +49,7 @@ Every one of these is generous EXCEPT the `δ₀` floor.  The binding chain is
   ONLY exported `λ₊`-handle is its `9/2` tower conjunct `λ₊ ≤ λ₋^{9/2}`, so `anchor` is
   PROVABLE only where `λ₋^{9/2} ≤ 2.7857·10^8`, i.e. `λ₋ ≤ 75.28`, hence
   `log H₋ ≤ e^{75.28} = 1.87·10^32 ≤ 2^110` and `M ≤ 2^74` (crude, at `A(M) ≥ 2^36`;
-  `2^{64.6}` reading `A(M) = 2^36·(⌊log₂M⌋+1)` exactly).
+  `2^{66.05}` reading `A(M) = 2^36·(⌊log₂M⌋+1)` exactly).
 
 So the register is witnessable through the exported interface exactly when
 `24·Cg/δ₀ ≤ 2^74`.  `ConstantsExposed.b_floor_cert` certifies the road's own value at

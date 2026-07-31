@@ -18245,3 +18245,32 @@ J ≈ 2700 closure at the pinned base, the cost table + k-amplification
 at large J).
 
 ## () COUNCIL 0731 C5 CLOSED (one by one, all ruled): the PR module-fix pushed + the trim PREPARED-unpushed; endorsements = patience, the nudge/third-endorser decision joined to 8/5; Pi prep = GO (Fulcrum only; scrupulous silence on editors); The Witness queues for its own approval round -- PREP-PI dispatched
+
+## () WITNESS-LIVE: STALE CONFIRMED -- the register NON-EMPTY at the live forms (kernel, probe_live_sel'_witness); the margin corrected to ~1 BIT; the 2.63x prose slip caught and fixed; the reachability price COLLAPSES (3 leaves, K-free) -- EPSPIN + X0MFL fly
+
+THE VERDICT at the bytes: the live head (HloExport:433) emits δ₀ =
+cD3/(16C)·ε/4 — K-FREE, /4 not /(2K); delta0Expr certifies the OLD
+L¹ head (SpineFinal:873, /(2K), 2^-556.89) which the live road NEVER
+consumes.  The live closed form s13Delta0 = 2^-19.676; the live
+b-floor 2^64.807 true / 2^65.125 certified; Cg traced 8 links
+verbatim to CgExpr's wired root — THE SAME OBJECT.  probe_live_no_
+crossing: 24CgExpr/s13Delta0 ≤ 2^74 — the emptiness crossing DOES
+NOT OCCUR live; probe_live_sel'_witness: ALL TEN lines discharged at
+the live values; probe_live_window_witness: the needed window =
+exactly Cg_le + s13Delta0_ge, both LANDED.  ⟦THE MARGIN, honest⟧
+the refined ceiling is M ≤ 2^66.07 (not 2^74 crude, not 2^64.6 —
+the slip): 0.94 bits over the certified floor; tightest lines at
+3.8-5.9%.  ⟦ERRATA FIXED by maestro hand⟧ S15Witness:51's e^{75.28}
+prose (1.87e32 → 4.92e32; 2^64.6 → 2^66.05 — LOAD-BEARING: at the
+wrong numeral the verdict flips) + S13FramesA:95's "true value"
+phrasing.  Docstring-only edits; build re-verified.
+⟦REACHABILITY, priced⟧ the head's δ₀ reads THREE leaves: cD3 ≥ 1/4
+(literal), C ≤ 1+2C₀ (literal), ε (exists_rat_btwn — unbounded
+below AS STATED; the repair = the epsPin replacement licensed by
+eps_admissible + the cE arm's two verbatim carries; binding arm 19%
+headroom).  1 leaf twin + 2 carries + 1 head replay (~130 ln) — NOT
+a 20-leaf campaign (K enters only via −log ρ ≤ 450 vs anchor's
+1.4e8 tolerance; Ct crude-bounded).  ⟦THE ONE NON-SLACK ITEM⟧
+x₀ (mmuChiRate) and Mfl (the hoist's Cb) must be ≤ ~4e19 — they eat
+the 1-bit margin directly; UNTRACED.  ⟦EPSPIN dispatched (the
+re-thread) + X0MFL-TRACE dispatched (the pricing)⟧.
