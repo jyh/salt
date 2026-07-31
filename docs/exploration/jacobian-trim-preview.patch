@@ -1,0 +1,101 @@
+diff --git a/Counterexamples/JacobianConjecture.lean b/Counterexamples/JacobianConjecture.lean
+index 7a5e917df9..c4110dfd07 100644
+--- a/Counterexamples/JacobianConjecture.lean
++++ b/Counterexamples/JacobianConjecture.lean
+@@ -31,38 +31,21 @@ where `x = X 0`, `y = X 1`, `z = X 2`.
+ 
+ ## Main statements
+ 
+-* `Keller.jacobian_det` : the formal Jacobian determinant `det (pderiv j (F i))` equals the
+-  constant polynomial `-2`, an identity in `MvPolynomial (Fin 3) ℚ` (hence over every field of
+-  characteristic zero, as all coefficients are rational).
+-* `Keller.keller_not_injective` : the induced evaluation map on `ℚ³` is not injective; concretely
+-  the three distinct rational points `(0, 0, -1/4)`, `(1, -3/2, 13/2)`, `(-1, 3/2, 13/2)` all map
+-  to `(-1/4, 0, 0)`.
+-* `Keller.not_jacobianConjecture` : the conjecture itself, stated as `Keller.JacobianConjecture`,
+-  is false over `ℚ`. A map with a unit Jacobian determinant which is not injective on points can
+-  have no compositional inverse.
+-* `Keller.keller_not_injective_C` : the same collision transferred to `ℂ` via `algebraMap ℚ ℂ`.
+-
+-A nonzero constant Jacobian together with a non-injective map is exactly a Keller map that is not
+-a polynomial automorphism.
++* `Keller.jacobian_det` : the formal Jacobian determinant of `F` is the constant `-2`.
++* `Keller.keller_not_injective` : the induced map on `ℚ³` is not injective.
++* `Keller.not_jacobianConjecture` : the conjecture, stated as `Keller.JacobianConjecture` in the
++  formulation of the `formal-conjectures` project, is false over `ℚ`.
++* `Keller.keller_not_injective_C` : the collision transferred to `ℂ`.
+ 
+ ## References
+ 
+-The polynomial map is the dimension-`3` counterexample announced by Levent Alpöge, crediting
+-Akhil Mathew, in *A counterexample to the Jacobian conjecture* (2026), Theorem 3.1. This file
+-certifies the algebraic identity of Theorem 3.1 and the rational (hence characteristic-zero)
+-fiber collision. It does not verify the preprint's global-geometry sections, the
+-behaviour-at-infinity and properness analysis, or the stabilization to dimensions `n > 3`.
+-
+-The statement `JacobianConjecture` below is aligned with the formulation used by the
+-`formal-conjectures` project, in `FormalConjectures/Wikipedia/JacobianConjecture.lean`
+-(`google-deepmind/formal-conjectures`, PR #4474, merged 2026-07-26). The correspondence is
+-recorded in detail before the statement. Only the shape of the statement is taken from there; the
+-proofs below are independent.
+-
+-Several formalizations of this counterexample were written independently in the days following
+-the announcement, and are collected in the Lean Zulip thread
+-https://leanprover.zulipchat.com/#narrow/channel/583339-AI-authored-projects/topic/Counterexample.20to.20the.20Jacobean.20conjecture
+-The verification adapted in this file is at https://github.com/jyh/jacobian-verify
++The map is the dimension-`3` counterexample announced by Levent Alpöge, crediting Akhil Mathew,
++in *A counterexample to the Jacobian conjecture* (2026), Theorem 3.1. This file certifies the
++Theorem 3.1 identity and the rational fiber collision; it does not verify the preprint's
++global-geometry sections or the stabilization to `n > 3`. Independent formalizations are
++collected in the Lean Zulip thread
++https://leanprover.zulipchat.com/#narrow/channel/583339-AI-authored-projects/topic/Counterexample.20to.20the.20Jacobean.20conjecture ;
++this file adapts https://github.com/jyh/jacobian-verify
+ -/
+ 
+ open MvPolynomial
+@@ -100,8 +83,7 @@ private theorem pderiv_ofNat (i : Fin 3) (n : ℕ) [n.AtLeastTwo] :
+   exact (pderiv i).map_natCast _
+ 
+ /-- **Theorem 3.1, first identity.** The formal Jacobian determinant of `F` is the constant
+-polynomial `-2`. This is an identity in `MvPolynomial (Fin 3) ℚ`, verified by expanding the nine
+-partial derivatives and evaluating the determinant with `eval_det`. -/
++polynomial `-2`, an identity in `MvPolynomial (Fin 3) ℚ`. -/
+ theorem jacobian_det : J.det = C (-2) := by
+   have hC : (C (-2 : ℚ) : MvPolynomial (Fin 3) ℚ) = -2 := by
+     rw [map_neg, _root_.map_ofNat]
+@@ -178,29 +160,12 @@ theorem jacobian_conjecture_counterexample :
+ 
+ /-! ### The conjecture as a statement, and its refutation
+ 
+-The definitions below spell out the Jacobian conjecture itself, in the formulation used by the
+-`formal-conjectures` project (see the module docstring). Term by term, the correspondence with
+-that formulation is:
+-
+-* `RegularFunction k σ τ` is `τ → MvPolynomial σ k`: a `τ`-tuple of polynomials in the variables
+-  indexed by `σ`. Same.
+-* `Jacobian f` is `Matrix.of fun i j => pderiv i (f j)`. Same. Note that this is the transpose of
+-  `J` above, which uses the convention `J i j = pderiv j (F i)`; `Matrix.det_transpose` makes the
+-  two determinants equal, so the hypothesis below is the one intended.
+-* `comp f g` is `fun i => bind₁ f (g i)`, that is, substitution of `f` into `g`. Same. In this
+-  diagrammatic order `f.comp g` applies `f` first, so it is the *second* conjunct `f.comp g = id`
+-  that exhibits `g` as a left inverse of `f` on points, and that is the conjunct used below.
+-* `id k σ` is `MvPolynomial.X`. Same.
+-* The hypothesis is `IsUnit f.Jacobian.det`, a unit in `MvPolynomial σ k` rather than the value
+-  `1`. Same. Over a field this is equivalent to the determinant being a nonzero constant.
+-* The conclusion is the existence of a two-sided compositional inverse. Same.
+-
+-Two differences, both deliberate. First, `σ` carries `[DecidableEq σ]` here, where the reference
+-formulation supplies that instance through `open Classical`; the two determinants agree, so the
+-statement below is implied by the reference one and refuting it refutes the reference one.
+-Second, the reference quantifies over every field of characteristic zero, while
+-`not_jacobianConjecture` refutes the statement at `k := ℚ`. One field suffices to refute a claim
+-made about all of them.
++The definitions below state the conjecture in the formulation of the `formal-conjectures`
++project (`FormalConjectures/Wikipedia/JacobianConjecture.lean`), term-for-term, with two
++deliberate differences: `σ` carries `[DecidableEq σ]` explicitly (the reference uses
++`open Classical`; the determinants agree, so refuting this statement refutes the reference one),
++and the refutation is at `k := ℚ` (one field suffices to refute a claim about all of them).
++Note `Jacobian` is the transpose of `J` above; `Matrix.det_transpose` reconciles the two.
+ -/
+ 
+ section Statement

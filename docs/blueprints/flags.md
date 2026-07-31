@@ -18243,3 +18243,5 @@ caught on the next landing.  ⟦J-REF ACTUALLY dispatched now⟧ — the
 three hand-arithmetic claims of the J-lever (the λ-currency law, the
 J ≈ 2700 closure at the pinned base, the cost table + k-amplification
 at large J).
+
+## () COUNCIL 0731 C5 CLOSED (one by one, all ruled): the PR module-fix pushed + the trim PREPARED-unpushed; endorsements = patience, the nudge/third-endorser decision joined to 8/5; Pi prep = GO (Fulcrum only; scrupulous silence on editors); The Witness queues for its own approval round -- PREP-PI dispatched
