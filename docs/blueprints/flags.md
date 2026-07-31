@@ -17662,3 +17662,40 @@ precedent; split to dodge the 200k heartbeat ceiling, no bump
 needed).  m4_exit_socket_split_sq needed NO twin (the arc form reads
 the head directly).  Axioms 7/7; build 9619 exit-0 maestro-verified.
 ⟦CAPSTONE-RECUT amended mid-flight: consume the _hloCap terminal.⟧
+
+## (2026-07-30 20:43 PDT) MUCAP-SCOPE: F4 RESOLVED -- mu_cap is a WRITE-ONLY FOSSIL (zero readers; the gate self-contradictory from its OWN fields); maestro rules DELETE OUTRIGHT; the process catch banked
+
+THE VERDICT (probes at scratchpad/mucap/, all kernel-certified):
+(1) the kill CONFIRMED both chains AND STRICTLY WORSE — Q2_reg +
+mu_cap + logX_eight ⟹ False for every M ≥ 1 WITH NO EXTERNAL BINDER
+(probe_mucap_internal_kill); the base-mismatch escape arithmetically
+unavailable (two fields of one structure reading the same Nd).
+(2) READER CENSUS: ZERO — no projection .mu_cap exists anywhere; all
+four consumers enumerated field-by-field; the X^{2μ/log𝒫₂} leg
+pricing is not read from it ANYWHERE (the real demand sits verbatim
+in the carried budget field).  (3) THE ORIGIN, dated to the minute:
+K4-CENSUS pinned μ = log H at 16:42 ("had it been log X_d the block
+floor breaks the ×1280 by 78 orders — walked, does not apply");
+MR-SURGERY landed mu_cap at log X_d at 16:50 off the STALE freeze —
+and the bundle's leg carries exp(2·(log S/log 𝒫₂)·loglog S): the
+outer LOG was dropped; the fossil is η's numeral wearing μ where
+log μ belongs.  (4) exits priced: (b1) honest exponent at the current
+base needs E ≥ 1.27e74 vs 5/48 — DEAD; (b2) the one-more-log shape
+loglog X_d ≤ (5/48)·log 𝒫₂ VIABLE (probe_mucap_repaired_at_floor;
+33 orders of room) but strictly redundant with budget; (a) RETIRE =
+16 lines, zero proofs, all consumers compile unchanged.
+
+⟦MAESTRO RULING 6 (fleet captain, Fable-tier statement authority)⟧
+DELETE OUTRIGHT — the scoper's recommendation adopted: the leg's
+demand already lives in the budget field; the honest shape and the
+μ-scale correction go into the header PROSE (documentation without a
+redundant field); the loglog form stays kernel-verified in the probe,
+recoverable any time if the Captain prefers it at coffee.  W-MUCAP-1
+(the 16-line surgery) HELD until CAPSTONE-RECUT + W-BAND-1 land — an
+S13FramesB edit mid-flight would race their concurrent builds; it
+fires the moment the lanes clear, applied by the maestro's own hand.
+
+⟦PROCESS CATCH #99 banked⟧ a corrected freeze must be RE-READ by any
+surgery landing after the correction — the 16:42/16:50 gap is the
+whole fossil; the dispatch protocol now includes "re-read the flags
+tail at fire time, not brief time."
