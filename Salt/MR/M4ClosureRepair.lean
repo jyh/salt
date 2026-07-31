@@ -984,4 +984,148 @@ theorem doorFuseFrame_pool'_of_gates_const {M Xd j Hhi : ℕ} {Cs Ccc ε ρ : �
   band_pool := band_pool_of_threshold
     (by have := r5_one_le_log_of_three_le hb.X_three; linarith) hband4096
 
+/-! ## §7 — ⟦R5c⟧ THE FUSE AT THE CONSTANT POOL
+
+§5 fused the four repairs at `π₀ := decayPool`; §6 minted the constant pool and its frame
+`doorFuseFrame_pool'_of_gates_const`.  This section closes the parity: the SAME two ⟦item 11⟧
+exits (`..._pool_end'_gated` / `..._pool_zero'_gated`), now instantiated at
+`π₀ := fun _ => constPool ρ R.Hhi`.
+
+⟦THE BINDER DELTA AGAINST §5⟧, per fuse, and nothing else:
+
+* `hρ : 0 ≤ ρ` is NEW — at the decay pool the `hpool` binder was `decayPool_nonneg`, a closed
+  fact; at the constant pool nonnegativity is inherited from the clearing parameter;
+* the single decay threshold `hL4096` SPLITS into `heps293` and `hband4096`, exactly as
+  `doorFuseFrame_pool'_of_gates_const` demands (§6's table);
+* `gP1` and the four-slot `gRows` gate are read at `constPool ρ R.Hhi`, so they carry NO `X_d`
+  on the right — base-free where §5's were base UPPER caps;
+* the price is paid by `m4_arith_henv_constPool` (the socket's own `H ≤ R.Hhi` window field),
+  not by `price_at_decayPool_socket`'s ARM.
+
+**NO `hone`.  NO `hprice`.**  As in §5. -/
+
+/-- **⟦THE FUSE AT `constPool`, `end'` CHAIN⟧** (`m4_closure_fuse_end'_const`) — ⟦item 11⟧ at
+`RSanDoorRho ρ`, at the CONSTANT pool `π₀ := fun _ => constPool ρ R.Hhi`.  The twin of
+`m4_closure_fuse_end'`, binder for binder, with `hρ` added and `hL4096` split into the two
+base-LOWER thresholds `heps293`/`hband4096`. -/
+theorem m4_closure_fuse_end'_const :
+    ∃ Ct Cp : ℝ, 0 < Ct ∧ 0 < Cp ∧
+      ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε : ℕ → ℝ) (K ρ : ℝ)
+        (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ) (t₁ : ∀ q : ℕ, DirichletCharacter ℂ q → ℝ),
+        1 ≤ M → 0 ≤ ρ → (∀ i m : ℕ, ‖bU i m‖ ≤ 1) → (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s → DoorBaseFrame (A + s) j) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          374784 * Ct * Real.exp 3 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
+            ≤ constPool ρ R.Hhi) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          GRowsZeroGate''' M (A + s) Cp (constPool ρ R.Hhi)) →
+        (∀ A : ℕ, ε A ≤ 0) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293) ≤ constPool ρ R.Hhi) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          (4096 : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (1 - (1 : ℝ) / 500)
+            * constPool ρ R.Hhi) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s → DoorRowEndBase M (A + s) j cU bU) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) (t₁ q χ))
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (Adoor M) (3072 * M))
+                        (calQK (Adoor M) (3072 * M) M) (calH (H1door M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s)))) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q,
+            (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+              ‖dpolyA (winCutH (A + s) (doorChiCoeff χ M))
+                (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+              ≤ t0BandB (((A + s : ℕ)) : ℝ) (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s)))
+                  (M₀ (A + s))) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) K ρ) →
+        M4ChiSummedFreeRow R M (m4ChiRowGraded M (fun _ H => RSanDoorRho ρ H)) := by
+  obtain ⟨Ct, Cp, hCt, hCp, hexit⟩ := m4_chiSummedFreeRow_of_doorAssembly_pool_end'_gated
+  refine ⟨Ct, Cp, hCt, hCp, ?_⟩
+  intro R M C₁ M₀ ε K ρ cU bU t₁ hM hρ hb1 hc1 hbf hgP1 hgRows heps heps293 hband4096 hbase
+    hcap hband harith
+  refine hexit R M C₁ M₀ ε (fun _ => constPool ρ R.Hhi) (fun _ H => RSanDoorRho ρ H) cU bU t₁
+    hM hb1 hc1 ?_ hbase hcap hband (fun _ => constPool_nonneg hρ)
+    (m4_arith_henv_constPool hρ harith)
+  intro H L q j A s hb
+  have hXd : 1 ≤ A + s := by
+    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+    omega
+  exact doorFuseFrame_pool'_of_gates_const (hbf H L q j A s hb) (hgP1 H L q j A s hb)
+    (hgRows H L q j A s hb) (heps (A + s)) hM hXd (heps293 H L q j A s hb)
+    (hband4096 H L q j A s hb)
+
+/-- **⟦THE FUSE AT `constPool`, `zero'` CHAIN⟧** (`m4_closure_fuse_zero'_const`) — the same at
+`M4RowsChiZeroPrime`'s density-free chain: `C_p` is a FREE positive parameter and the per-base
+bundle is the six-field `DoorRowZeroBase`. -/
+theorem m4_closure_fuse_zero'_const :
+    ∃ Ct : ℝ, 0 < Ct ∧
+      ∀ (Cp : ℝ), 0 < Cp →
+      ∀ (R : ChowlaRegime) (M : ℕ) (C₁ M₀ ε : ℕ → ℝ) (K ρ : ℝ)
+        (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ) (t₁ : ∀ q : ℕ, DirichletCharacter ℂ q → ℝ),
+        1 ≤ M → 0 ≤ ρ → (∀ i m : ℕ, ‖bU i m‖ ≤ 1) → (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s → DoorBaseFrame (A + s) j) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          374784 * Ct * Real.exp 3 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ))
+            ≤ constPool ρ R.Hhi) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          GRowsZeroGate''' M (A + s) Cp (constPool ρ R.Hhi)) →
+        (∀ A : ℕ, ε A ≤ 0) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293) ≤ constPool ρ R.Hhi) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          (4096 : ℝ) ≤ (Real.log (((A + s : ℕ)) : ℝ)) ^ (1 - (1 : ℝ) / 500)
+            * constPool ρ R.Hhi) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s → DoorRowZeroBase M (A + s) j cU bU) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) (t₁ q χ))
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (Adoor M) (3072 * M))
+                        (calQK (Adoor M) (3072 * M) M) (calH (H1door M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s)))) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q,
+            (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+              ‖dpolyA (winCutH (A + s) (doorChiCoeff χ M))
+                (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+              ≤ t0BandB (((A + s : ℕ)) : ℝ) (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s)))
+                  (M₀ (A + s))) →
+        (∀ H L q j A s : ℕ, SocketBase R M H L q j A s →
+          DoorArithFrameRho M H j (((A + s : ℕ)) : ℝ) (C₁ (A + s)) (M₀ (A + s)) K ρ) →
+        M4ChiSummedFreeRow R M (m4ChiRowGraded M (fun _ H => RSanDoorRho ρ H)) := by
+  obtain ⟨Ct, hCt, hexit⟩ := m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_gated
+  refine ⟨Ct, hCt, ?_⟩
+  intro Cp hCp R M C₁ M₀ ε K ρ cU bU t₁ hM hρ hb1 hc1 hbf hgP1 hgRows heps heps293 hband4096
+    hbase hcap hband harith
+  refine hexit Cp hCp R M C₁ M₀ ε (fun _ => constPool ρ R.Hhi) (fun _ H => RSanDoorRho ρ H)
+    cU bU t₁ hM hb1 hc1 ?_ hbase hcap hband (fun _ => constPool_nonneg hρ)
+    (m4_arith_henv_constPool hρ harith)
+  intro H L q j A s hb
+  have hXd : 1 ≤ A + s := by
+    have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+    omega
+  exact doorFuseFrame_pool'_of_gates_const (hbf H L q j A s hb) (hgP1 H L q j A s hb)
+    (hgRows H L q j A s hb) (heps (A + s)) hM hXd (heps293 H L q j A s hb)
+    (hband4096 H L q j A s hb)
+
 end Salt.MR

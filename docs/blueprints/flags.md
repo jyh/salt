@@ -17539,3 +17539,22 @@ base, all from BELOW.  Scratch R5bFuse.lean: the full const fuse
 elaborates exit-0 (~65 ln each to land).  ⟦R5c dispatched — the two
 const fuses, fuse-parity for the coffee choice.⟧  Build 9615 exit-0
 maestro-verified.
+
+## (2026-07-30 19:13 PDT) R5c lands (+144): FUSE-PARITY -- both pool forms carry both chains; the night board CLOSES
+
+M4ClosureRepair §7: m4_closure_fuse_end'_const + m4_closure_fuse_zero'_const
+(R5b's probe ported verbatim + the zero' twin).  All FOUR fuses land the
+same conclusion M4ChiSummedFreeRow R M (m4ChiRowGraded M RSanDoorRho).
+Axioms 2/2 standard; 9615 exit-0 maestro-verified; 144 ins, 0 del.
+
+**THE NIGHT LEDGER (7/30→31)**: R4-RESIDUE (3/3, 2590) → T0JOIN (+328,
+mechanical residue ZERO) → THE CLOSURE EXAMINER (terminal CONFIRMED;
+five defects, two kernel-certified; THE WORKING POINT SURVIVES — R3-B's
+abs8640 finding refuted at x-scale) → R5-REPAIR (4/4 + the fuses, 807)
+→ R5b (constPool, +180) → R5c (fuse-parity, +144).  Every executor
+first-attempt.  HELD FOR THE CAPTAIN: the D2 freeze correction ruling
+(MSelect's fate; the x-scale discharge; the budget REDUCTION — no
+m-symbolic re-derivations needed); the pool choice (decay vs const —
+both landed, both fused, the comparison datum in R5b's entry); the
+DoorBandBase supplier (the one unbuilt object: hypothesis in six files,
+theorem in none, ~500-900 ln, new genre); then THE FINAL ASSEMBLY.
