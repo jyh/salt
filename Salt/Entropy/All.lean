@@ -72,6 +72,7 @@ import Salt.Entropy.Chowla.SpineFinal
 import Salt.Entropy.Chowla.TransportWall
 import Salt.Entropy.Chowla.Windows
 import Salt.Entropy.Chowla.PrimeWindow
+import Salt.Entropy.Chowla.HeadPinLeaves
 import Salt.Entropy.Chowla.HloExport
 import Salt.Entropy.ConsumerTest
 import Salt.Tactic.AuditAxioms

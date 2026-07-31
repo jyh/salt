@@ -303,6 +303,7 @@ import Salt.MR.M4ClosureRepair
 import Salt.MR.M4AssemblyFrames
 import Salt.MR.S13MSelect2
 import Salt.MR.S13BandBase
+import Salt.MR.CgPin
 import Salt.MR.HloExportMR
 import Salt.MR.S12FuseCompose
 import Salt.MR.S11HoistGrade

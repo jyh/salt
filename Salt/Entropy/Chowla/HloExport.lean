@@ -55,6 +55,7 @@ own proof is then `SpineFinal.lean:1370–1445` with exactly two edits: the buil
 call (§2) and the core name.
 -/
 import Salt.Entropy.Chowla.SpineFinal
+import Salt.Entropy.Chowla.HeadPinLeaves
 
 open MeasureTheory ProbabilityTheory
 open scoped BigOperators
@@ -481,4 +482,140 @@ theorem log_chowla_two_budget_head_g_sq_count_hloCap :
     ((H : ℝ) / (Real.log H * Real.log (Real.log (Real.log H)))) (cD3 / (16 * C))
     ht hg hgle hI hbudget1 hbudget2 hfail
 
+/-! ## §4 — THE PINNED HEAD: `ε` and `δ₀` citable from below -/
+
+/-- **THE `L²` SPINE-BUDGET HEAD, COUNT-EXPORTING, CAPPED — AND PINNED**
+(`log_chowla_two_budget_head_g_sq_count_hloCap_pinned`) — §3 plus TWO conjuncts,
+
+```
+1/500 ≤ ε   and   1/838400 ≤ δ₀
+```
+
+hoisted into the `∃`-prefix beside `0 < ε`, `0 < K`, `0 < δ₀`.  Nothing else in
+the statement moves: the payload is §3's, item for item.
+
+⟦WHAT THE PIN REPAIRS⟧  §3 chooses `ε` by `exists_rat_btwn` under the four-arm
+`min` of three `obtain`-ed leaf constants, so its `δ₀ = cD3/(16·C)·ε/4` is
+UNBOUNDED BELOW as stated — a consumer can cite `0 < δ₀` and nothing more, and
+the capstone's register (`24·Cg/δ₀ ≤ M`) is unreachable at numerals.  This twin
+replays §3's body with the three leaves read from their PINNED twins
+(`HeadPinLeaves.lean`: `1/4 ≤ cE`, `1/4 ≤ cD3`, `C ≤ 1 + 2·C₀`) and the
+`exists_rat_btwn` step DELETED in favour of the explicit `ε := 1/500` —
+`ConstantsExposed.epsPin`, whose admissibility at exactly these leaf values is
+`ConstantsExposed.eps_admissible`.  All four smallness demands are re-derived
+here at the numeral (they are re-proved rather than cited so that this file
+keeps its `Salt.Entropy.Chowla`-only import surface):
+
+| arm | demand | at the pin | slack |
+|---|---|---|---|
+| `cE` | `ε ≤ cE/(32·log 4)` | `0.002 ≤ 0.005636` | 2.8× |
+| — | `ε < 1/2` | `0.002 < 0.5` | 250× |
+| `cD3` | `ε ≤ cD3/16` | `0.002 ≤ 0.015625` | 7.8× |
+| `cD3/C` | `ε ≤ cD3/(16·C)` | `0.002 ≤ 0.0023873` | 1.19× |
+
+The last is the binding arm (19% headroom); the `δ₀` floor is its worst case,
+`cD3/(16·C)·ε/4 ≥ (1/4)/(16·6.55)·(1/500)/4 = 1/838400`, i.e. exactly
+`S13FramesA.s13Delta0_ge`'s numeral at `S13FramesA.s13Delta0`. -/
+theorem log_chowla_two_budget_head_g_sq_count_hloCap_pinned :
+    ∃ (ε : ℚ) (K δ₀ : ℝ) (Hcap : ℕ), 0 < ε ∧ 0 < K ∧ 0 < δ₀ ∧
+      1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧
+      ∀ (extraFloor U1floor : ℕ) (g : ℕ → ℕ → ℕ), ∃ R : ChowlaRegime,
+        R.eps = ε ∧ extraFloor ≤ R.Hlo ∧ U1floor ≤ R.Hlo ∧ g R.Hhi R.ω ≤ R.x ∧
+        (∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi →
+          ((bigXi R.eps H).card : ℝ) ≤ K) ∧
+        (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+          Real.log (Real.log (R.Hhi : ℝ))
+            ≤ Real.log (Real.log (R.Hlo : ℝ)) ^ ((9 : ℝ) / 2)) ∧
+        R.Hlo ≤ max Hcap (max extraFloor U1floor) ∧
+        ∀ ρ : ℝ, 0 < ρ → ρ ≤ δ₀ → MRTUniformityXiL2 R ρ →
+          ¬ logChowla2Fails R.eps R.x R.ω := by
+  classical
+  obtain ⟨cE, hcE, hcEge, H₀red, hred⟩ := hreduce_holds_final_bounded
+  obtain ⟨cD3, hcD3, hcD3ge, H₀D3, hD3⟩ := primeWindow_sum_inv_ge_bounded
+  obtain ⟨C, hC, hCcap, hcm⟩ := circle_method_estimate_sq_bounded (2 * Real.log 4)
+    (by have := Real.log_pos (by norm_num : (1 : ℝ) < 4); linarith)
+  have hlog4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  -- ⟦THE LEAF NUMERALS⟧ `log 4 = 2·log 2 < 1.3863`, hence `C ≤ 6.55`
+  have hlog2lt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hlog4eq : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
+  have hCnum : C ≤ 655 / 100 := by
+    rw [hlog4eq] at hCcap; linarith
+  -- ⟦THE PIN⟧ `ε := 1/500` in place of the landed `exists_rat_btwn`
+  obtain ⟨ε, hεdef⟩ : ∃ e : ℚ, e = 1 / 500 := ⟨_, rfl⟩
+  have hεR : ((ε : ℚ) : ℝ) = 1 / 500 := by rw [hεdef]; norm_num
+  have hεR0 : (0 : ℝ) < (ε : ℝ) := by rw [hεR]; norm_num
+  have hεQpos : 0 < ε := by exact_mod_cast hεR0
+  have hεcE : (ε : ℝ) ≤ cE / (32 * Real.log 4) := by
+    rw [hεR, le_div_iff₀ (by positivity), hlog4eq]
+    linarith
+  have hε_half_lt : (ε : ℝ) < 1 / 2 := by rw [hεR]; norm_num
+  have hε_D3 : (ε : ℝ) ≤ cD3 / 16 := by
+    rw [hεR, le_div_iff₀ (by norm_num : (0 : ℝ) < 16)]; linarith
+  have hε_D3C : (ε : ℝ) ≤ cD3 / (16 * C) := by
+    rw [hεR, le_div_iff₀ (by positivity : (0 : ℝ) < 16 * C)]; linarith
+  have hεQ1 : ε ≤ 1 / 2 := by rw [hεdef]; norm_num
+  have hε2 : (ε : ℝ) ^ 2 < 1 / 2 := by rw [hεR]; norm_num
+  -- ⟦THE `δ₀` FLOOR⟧ the binding arm at its worst case
+  have hδ₀ge : (1 : ℝ) / 838400 ≤ cD3 / (16 * C) * (ε : ℝ) / 4 := by
+    have hkey : (5 : ℝ) / 2096 ≤ cD3 / (16 * C) := by
+      rw [le_div_iff₀ (by positivity : (0 : ℝ) < 16 * C)]; linarith
+    rw [hεR]; linarith
+  obtain ⟨K, hK, H₀xi, _hH₀xi2, hxi⟩ := bigXi_bounded ε hεQpos hε2
+  -- ⟦THE HEAD'S OWN FOUR-ARM FLOOR⟧ and the consumer-free cap it induces
+  obtain ⟨A, hAdef⟩ : ∃ A : ℕ, A = max (max (max H₀red H₀D3) H₀xi)
+      (budgetFloor (ε : ℝ) (cD3 * (ε : ℝ) / (144 * Real.log 4))) := ⟨_, rfl⟩
+  refine ⟨ε, K, cD3 / (16 * C) * (ε : ℝ) / 4,
+    max 4000000 (max A (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)), hεQpos, hK,
+    div_pos (mul_pos (div_pos hcD3 (mul_pos (by norm_num) hC)) hεR0) (by norm_num),
+    hεdef.ge, hδ₀ge, ?_⟩
+  intro extraFloor U1floor g₅
+  obtain ⟨R, hReps, hRHlo, hRg, hRtow, hRcap⟩ :=
+    chowlaRegime_exists_param_head_tower45'_hloCap ε hεQpos hεQ1
+      (max A (max extraFloor U1floor)) g₅
+  rw [hAdef] at hRHlo
+  have hxiHlo : H₀xi ≤ R.Hlo :=
+    le_trans (le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) (le_max_left _ _)) hRHlo
+  refine ⟨R, hReps, le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hRHlo,
+    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hRHlo, hRg, ?_, hRtow, ?_, ?_⟩
+  · -- ⟦THE EXPORTED COUNT GATE⟧ the road's `hXi`, at this head's own `ε`
+    intro H' _ hlo' _
+    rw [hReps]
+    exact hxi H' (le_trans hxiHlo hlo')
+  · -- ⟦THE CAP⟧ the builder's base equation, shuffled onto the consumer's floors
+    rw [hRcap]
+    exact hloCap_shuffle _ _ _ _ _
+  intro ρ _hρpos hρ hdoor hfail
+  obtain ⟨H, hlo, hhi, _hdvd, hMI⟩ := entropy_decrement R
+  have hH4 : 4000000 ≤ H := le_trans R.hHlo_floor hlo
+  haveI : NeZero H := ⟨by omega⟩
+  have hI : I[residueWindow R.eps H : liouvilleWindow H ; logMeasure R.x R.ω]
+      ≤ (H : ℝ) / (Real.log H * Real.log (Real.log (Real.log H))) := by
+    rw [mutualInfo_window_comm_cap]; exact hMI
+  have hepsc : (R.eps : ℝ) ≤ cE / (32 * Real.log 4) := by rw [hReps]; exact hεcE
+  have hH₀ : max H₀red H₀D3 ≤ H :=
+    le_trans (le_trans (le_trans (le_trans (le_max_left _ _) (le_max_left _ _))
+      (le_max_left _ _)) hRHlo) hlo
+  have hfloorH : budgetFloor (R.eps : ℝ)
+      (cD3 * (R.eps : ℝ) / (144 * Real.log 4)) ≤ H := by
+    rw [hReps]
+    exact le_trans (le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hRHlo) hlo
+  obtain ⟨t, g, ht, hg, hgle, hbudget1⟩ :=
+    hbudget1_witness R H cD3 C hcD3 hC
+      (by rw [hReps]; exact le_of_lt hε_half_lt)
+      (by rw [hReps]; exact hε_D3)
+      (by rw [hReps]; exact hε_D3C) hhi hfloorH
+  -- ⟦THE K-FREE hbudget2⟧ `ρ ≤ c₀ε/4 < c₀ε`
+  have hbudget2 : ρ < cD3 / (16 * C) * (R.eps : ℝ) := by
+    rw [hReps]
+    have hc0pos : (0 : ℝ) < cD3 / (16 * C) := div_pos hcD3 (mul_pos (by norm_num) hC)
+    have hpos : (0 : ℝ) < cD3 / (16 * C) * (ε : ℝ) := mul_pos hc0pos hεR0
+    linarith [hρ, hpos]
+  -- ⟦THE CORE⟧ the in-file twin of the `private` `spine_False_core_xi_sq`
+  exact spine_False_core_xi_sq_cap R hdoor cE hcE H₀red hred cD3 hcD3 H₀D3 hD3
+    C hC hcm H hlo hhi hH₀ hepsc t g
+    ((H : ℝ) / (Real.log H * Real.log (Real.log (Real.log H)))) (cD3 / (16 * C))
+    ht hg hgle hI hbudget1 hbudget2 hfail
+
 end Salt.Entropy.Chowla
+

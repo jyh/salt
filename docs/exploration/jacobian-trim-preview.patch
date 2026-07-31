@@ -1,5 +1,5 @@
 diff --git a/Counterexamples/JacobianConjecture.lean b/Counterexamples/JacobianConjecture.lean
-index 7a5e917df9..c4110dfd07 100644
+index f694ec5e4b..0e9cdbb3fc 100644
 --- a/Counterexamples/JacobianConjecture.lean
 +++ b/Counterexamples/JacobianConjecture.lean
 @@ -31,38 +31,21 @@ where `x = X 0`, `y = X 1`, `z = X 2`.

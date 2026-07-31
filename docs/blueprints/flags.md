@@ -18332,3 +18332,5 @@ proves the window met without effective Siegel/Landau-Page
 honestly, the exceedance/regime-lever genre the possible future).
 ⟦SEL-RECUT dispatched⟧ the three restorations (~200 + 15 ln, class
 A/B, S15Compose/S15Witness/S11HoistGrade) + the witness re-numeral.
+
+## () EPSPIN lands 15/15 no-stops: THE REACHABILITY CLOSED -- the pinned head (eps := 1/500 explicit, exists_rat_btwn deleted) + the 8-link Cg chain + the road carry; the terminal twin CARRIES 1/500 <= eps, 1/838400 <= delta0, Cg <= 2e12; kernel: 24Cg/delta0 <= 4.03e19 < 2^66 FROM THE TWIN ALONE; the OpenPrivate device (no landed file gained a decl)
