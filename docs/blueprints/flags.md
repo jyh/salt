@@ -18274,3 +18274,5 @@ a 20-leaf campaign (K enters only via −log ρ ≤ 450 vs anchor's
 x₀ (mmuChiRate) and Mfl (the hoist's Cb) must be ≤ ~4e19 — they eat
 the 1-bit margin directly; UNTRACED.  ⟦EPSPIN dispatched (the
 re-thread) + X0MFL-TRACE dispatched (the pricing)⟧.
+
+## () PREP-PI lands: The Fulcrum vs Pi -- "structurally strong, procedurally not submittable today"; five gaps (two Captain-tier), the AI-policy surprise (the paper EXCEEDS it; one framing decision), the full dossier at docs/exploration/pi-prep-0731.md
