@@ -17336,3 +17336,38 @@ DESIGN in R2 — the pool re-cut frees ε exactly where the tension
 binds (hεwin dropped; DoorFuseFrame_pool has no eps_hi) — carried to
 the R3/assembly brief as a verification line, not a wall.  KNOT 1 IS
 CLOSED; R1 ∥ R2 aloft; R3 queued.
+
+## (2026-07-30 17:24 PDT) R1 + R2 LAND — the stone exact, the pool with ε FREED; the maestro erratum #2 (abs8640 SURVIVES the pool → THE εr/ε SPLIT goes to R3); R3 fires in two lanes
+
+**⟦R1⟧**  M4P2MR §3-4 + the re-thread (1489/+0, 20/20, 5 files):
+**`ramP2massMR_L2_direct ≤ 24/(X·P)` at 4 ≤ P — X-FREE, exact
+off-diagonal (no +1)**; the endpoint twin with NO doubling; the cube
+gate `L²·P ≤ 3X_d`; `GRowsZeroGate'.p2` at μ/500 (the 500× drop; the
+last μ/500 is R2's π₀ target as designed); `gRows_at_socketBase`
+landed w/ the honest split (the decaying residue carried at the
+base).  FENCES: the χ-zero absorption site unconverted; THE A3
+MIDDLE un-threaded (seam_row_number' → capfree' → a2Mrow' →
+thm_a2'_of_rows' — mechanical, both suppliers minted).
+
+**⟦R2⟧**  ThmA2Pool/M4AssemblyPool/M4ArithPool (913 ln, 21 decls,
+18/18): `thm_a2'_of_rows_pool` — hεwin/hL4096 DROPPED, **ε FREE**,
+the two stated gates; the χ-wrapper (π₀ scalar — the φ(q) ledger
+safe); `DoorFuseFrame_pool` (10 fields); THE KERNEL BRIDGES:
+`a2DoorGrade_pool_at_decay` (the landed grade at π₀ := the decay, BY
+RFL) + the `_of_decay` subsumption pair — "a generalization, not a
+weakening" as kernel facts.  DEFERRED: the M4MeanSq twins; the
+DoorRowCarried re-cut; the π-form reads (R1-coordination).  ⚠ THE
+JOIN DIRECTION: `a2RowsSum' ≤ a2RowsSum` makes the primed gate
+WEAKER — the R1×R2 join goes through `a2Mrow'`, NEVER the inequality.
+
+**⟦MAESTRO ERRATUM #2⟧**  My "the εr/abs8640 tension resolves BY
+DESIGN in R2" was WRONG: `habs : 8640 ≤ (log X)^ε` is a SEPARATE
+𝒰-leg gate that SURVIVES the pool, and the pool's own `hgU` still
+forces ε < θ₂₉₃ (else the 𝒰-source grows).  THE HONEST RESOLUTION:
+**THE εr/ε SPLIT** — the crossing's exponent and the cap bundle's
+absorption exponent are DIFFERENT ROLES fed one symbol by an S12
+pinning choice; the split is a binder change in the perBlock capstone
+twin (εr its own function).  To R3's brief.  Build 9605 exit-0
+maestro-verified; R3 fires: R3-A (the join + the A3 middle + the
+deferred R2 threading) ∥ R3-B (the quantifier re-cut + the
+M-selection certificate + the λ-erratum + the εr split).

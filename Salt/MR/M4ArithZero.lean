@@ -547,4 +547,231 @@ theorem gRows_zero_of_gate {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd)
   rw [hsum]
   linarith
 
+/-! ## §5 — ⟦R1: THE RESIDUAL AT THE DIRECT `L²` `p²` GRADE⟧
+
+`ThmA2.a2RowsSum'` is `a2RowsSum` with `16·log₂(2X_d)/𝒫ⱼ ↦ 24/𝒫ⱼ`
+(`M4P2MR.ramP2massMR_L2_direct`, threaded by `M4RowMR` §6).  §5 is §4's twin at that
+numeral.  The whole point is the `p2` FIELD:
+
+  landed  `p2 : μ·(1 + 1/500) + 15 ≤ (log 2)·Adoor M`
+  R1      `p2 : μ·(1/500)     + 15 ≤ (log 2)·Adoor M`
+
+— the `μ`-coefficient drops from `1.002` to `0.002`, i.e. **the `p²` row's `μ`-CAP is
+relaxed by a factor `500`, and its LEFT side `24·(1/𝒫₁ + 1/𝒫₂)` is `X_d`-FREE**: the only
+`μ` left is the target's own `(log X_d)^{−1/500}` decay, which is R2's business, not R1's.
+The other three fields are BYTE-IDENTICAL to `GRowsZeroGate`'s. -/
+
+/-- **⟦THE EXACT DECOMPOSITION — R1⟧** (`a2RowsSum'_door_decomp`).  `ThmA2.a2RowsSum'` at the
+door family, summed:
+
+  `a2RowsSum' M X_d = (5/2)·e²·a2Level1 M + (2e + 2)/X_d + 24·(1/𝒫₁ + 1/𝒫₂)` .
+
+`a2RowsSum_door_decomp`'s proof verbatim; only the third summand's numeral moves. -/
+theorem a2RowsSum'_door_decomp {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd) :
+    a2RowsSum' M Xd
+      = 5 / 2 * Real.exp 1 ^ 2 * a2Level1 M
+        + (2 * Real.exp 1 + 2) / (Xd : ℝ)
+        + 24 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
+              + 1 / ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ)) := by
+  have hXd0 : (0 : ℝ) < (Xd : ℝ) := by exact_mod_cast hXd
+  have hH2 : (2 : ℝ) ≤ H1door M := H1door_two hM
+  have hH0 : (0 : ℝ) < H1door M := by linarith
+  have hIcc : Finset.Icc 1 2 = ({1, 2} : Finset ℕ) := by decide
+  rw [a2RowsSum', hIcc, Finset.sum_insert (by decide), Finset.sum_singleton,
+    show calH (H1door M) 1 = H1door M by rw [calH]; norm_num,
+    show calH (H1door M) 2 = 4 * H1door M by rw [calH]; norm_num,
+    window_row_eq hXd0 hH0, window_row_eq hXd0 (by linarith : (0 : ℝ) < 4 * H1door M),
+    ← one_div_H1door_eq_a2Level1]
+  ring
+
+/-- **⟦THE ZERO-DENSITY `gRows` GATE — R1⟧** (`GRowsZeroGate'`).  `GRowsZeroGate` with the
+`p²` field re-priced: the two `p²` rows are now `24/𝒫ⱼ` (`X_d`-FREE), so the field's `μ`
+appears ONLY through the target's `(log X_d)^{−1/500}` decay.
+
+* `base`, `level1`, `endpt` — BYTE-IDENTICAL to `GRowsZeroGate`'s;
+* `p2` — `μ/500 + 15 ≤ (log 2)·Adoor M` (was `μ(1 + 1/500) + 15 ≤ (log 2)·Adoor M`).
+
+The numeral `15` covers `log(276480) + log 3 ≤ 21·log 2 = 14.556`. -/
+structure GRowsZeroGate' (M Xd : ℕ) : Prop where
+  /-- `1 ≤ log X_d`. -/
+  base : 1 ≤ Real.log (Xd : ℝ)
+  /-- ⟦THE LEVEL-1 SLOT⟧ `μ/500 + loglog Q₁/3 + 14 ≤ (log 2/12)·Adoor M`. -/
+  level1 : Real.log (Real.log (Xd : ℝ)) / 500
+      + Real.log (Real.log ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ)) / 3 + 14
+    ≤ Real.log 2 / 12 * (Adoor M : ℝ)
+  /-- ⟦THE ENDPOINT SLOT⟧ `μ/500 + 13 ≤ log X_d`. -/
+  endpt : Real.log (Real.log (Xd : ℝ)) / 500 + 13 ≤ Real.log (Xd : ℝ)
+  /-- ⟦THE `p²` SLOT, R1⟧ `μ/500 + 15 ≤ (log 2)·Adoor M` — the `μ`-coefficient is `1/500`,
+  not `1 + 1/500`. -/
+  p2 : Real.log (Real.log (Xd : ℝ)) * (1 / 500) + 15 ≤ Real.log 2 * (Adoor M : ℝ)
+
+/-- **⟦THE RESIDUAL, PRICED — R1⟧** (`gRows_zero_of_gate'`):
+
+  `5760·(a2RowsSum' M X_d + 0·(2/M)) ≤ (log X_d)^{−1/500}` from `GRowsZeroGate'` alone. -/
+theorem gRows_zero_of_gate' {M Xd : ℕ} (hM : 1 ≤ M) (hXd : 1 ≤ Xd)
+    (hg : GRowsZeroGate' M Xd) :
+    5760 * (a2RowsSum' M Xd + (0 : ℝ) * (2 / (M : ℝ)))
+      ≤ (Real.log (Xd : ℝ)) ^ (-(1 : ℝ) / 500) := by
+  obtain ⟨h14400, h3, h43200, h460800⟩ := pricing_numerals
+  have hl2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  have hlt2 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hgt2 : 0.6931471803 < Real.log 2 := Real.log_two_gt_d9
+  have h276480 : Real.log 276480 ≤ 19 * Real.log 2 :=
+    le_trans (Real.log_le_log (by norm_num) (by norm_num : (276480 : ℝ) ≤ 460800)) h460800
+  have hXd0 : (0 : ℝ) < (Xd : ℝ) := by exact_mod_cast hXd
+  have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
+  have hLX : (1 : ℝ) ≤ Real.log (Xd : ℝ) := hg.base
+  have hLX0 : (0 : ℝ) < Real.log (Xd : ℝ) := by linarith
+  have hQ1 : (1 : ℝ) ≤ Real.log ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ) :=
+    one_le_log_calQK_door_one hM
+  have hQ10 : (0 : ℝ) < Real.log ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ) := by linarith
+  have hP1 : (64 : ℝ) ≤ ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := calP_door_one_ge M
+  have hP10 : (0 : ℝ) < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by linarith
+  have hP12 : ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
+      ≤ ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ) := by
+    exact_mod_cast calP_door_one_le_two hM
+  have hP20 : (0 : ℝ) < ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ) := by linarith
+  have hlogP1 := log_calP_door_one M
+  have hlog3 : Real.log (1 / 3 : ℝ) = -Real.log 3 := by rw [one_div, Real.log_inv]
+  -- ⟦SLOT 1 — the level-1 rows⟧ (verbatim)
+  have hq3 : (0 : ℝ)
+      < (Real.log ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ)) ^ ((1 : ℝ) / 3) :=
+    Real.rpow_pos_of_pos hQ10 _
+  have hp12 : (0 : ℝ) < ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) ^ ((1 : ℝ) / 12) :=
+    Real.rpow_pos_of_pos hP10 _
+  have ha2pos : (0 : ℝ) < a2Level1 M := by rw [a2Level1]; exact div_pos hq3 hp12
+  have hepos : (0 : ℝ) < Real.exp 1 ^ 2 := pow_pos (Real.exp_pos 1) 2
+  have hlvl0 : (0 : ℝ) < 14400 * Real.exp 1 ^ 2 * a2Level1 M :=
+    mul_pos (mul_pos (by norm_num) hepos) ha2pos
+  have hlvllog : Real.log (14400 * Real.exp 1 ^ 2 * a2Level1 M)
+      = Real.log 14400 + 2
+          + (1 : ℝ) / 3 * Real.log (Real.log ((calQK (Adoor M) (3072 * M) M 1 : ℕ) : ℝ))
+          - (1 : ℝ) / 12 * ((Adoor M : ℝ) * Real.log 2) := by
+    rw [Real.log_mul (by positivity) ha2pos.ne', Real.log_mul (by norm_num) hepos.ne',
+      a2Level1, Real.log_div hq3.ne' hp12.ne', Real.log_rpow hQ10, Real.log_rpow hP10,
+      Real.log_pow, Real.log_exp, hlogP1]
+    push_cast
+    ring
+  have hslot1 : 14400 * Real.exp 1 ^ 2 * a2Level1 M
+      ≤ 1 / 3 * (Real.log (Xd : ℝ)) ^ (-(1 : ℝ) / 500) := by
+    refine slot_of_log_gate hlvl0 (by norm_num) hLX0 ?_
+    rw [hlvllog, hlog3]
+    have := hg.level1
+    linarith
+  -- ⟦SLOT 2 — the endpoint residue⟧ (verbatim)
+  have hendle : 5760 * (2 * Real.exp 1 + 2) / (Xd : ℝ) ≤ 43200 / (Xd : ℝ) := by
+    have he : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
+    have hinv : (0 : ℝ) ≤ 1 / (Xd : ℝ) := (div_pos one_pos hXd0).le
+    have hnum : 5760 * (2 * Real.exp 1 + 2) ≤ 43200 := by linarith
+    calc 5760 * (2 * Real.exp 1 + 2) / (Xd : ℝ)
+        = 5760 * (2 * Real.exp 1 + 2) * (1 / (Xd : ℝ)) := by ring
+      _ ≤ 43200 * (1 / (Xd : ℝ)) := mul_le_mul_of_nonneg_right hnum hinv
+      _ = 43200 / (Xd : ℝ) := by ring
+  have hslot2 : 5760 * (2 * Real.exp 1 + 2) / (Xd : ℝ)
+      ≤ 1 / 3 * (Real.log (Xd : ℝ)) ^ (-(1 : ℝ) / 500) := by
+    refine hendle.trans (slot_of_log_gate (div_pos (by norm_num) hXd0)
+      (by norm_num) hLX0 ?_)
+    rw [Real.log_div (by norm_num) hXd0.ne', hlog3]
+    have := hg.endpt
+    linarith
+  -- ⟦SLOT 3 — the two `p²` rows, `X_d`-FREE⟧
+  have hinv2 : 1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
+      + 1 / ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ)
+      ≤ 2 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by
+    have h : 1 / ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ)
+        ≤ 1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) :=
+      one_div_le_one_div_of_le hP10 hP12
+    have h2 : 2 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
+        = 1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
+          + 1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by ring
+    linarith
+  have hp2le : 138240 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
+        + 1 / ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ))
+      ≤ 276480 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by
+    have h := mul_le_mul_of_nonneg_left hinv2 (by norm_num : (0 : ℝ) ≤ 138240)
+    calc 138240 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
+            + 1 / ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ))
+        ≤ 138240 * (2 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)) := h
+      _ = 276480 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ) := by ring
+  have hslot3 : 138240 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
+        + 1 / ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ))
+      ≤ 1 / 3 * (Real.log (Xd : ℝ)) ^ (-(1 : ℝ) / 500) := by
+    refine hp2le.trans (slot_of_log_gate (div_pos (by norm_num) hP10) (by norm_num) hLX0 ?_)
+    rw [Real.log_div (by norm_num) hP10.ne', hlogP1, hlog3]
+    have := hg.p2
+    linarith
+  -- ⟦THE THREE SLOTS, SUMMED⟧
+  rw [a2RowsSum'_door_decomp hM hXd]
+  have hsum : 5760 * (5 / 2 * Real.exp 1 ^ 2 * a2Level1 M
+        + (2 * Real.exp 1 + 2) / (Xd : ℝ)
+        + 24 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
+              + 1 / ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ))
+        + (0 : ℝ) * (2 / (M : ℝ)))
+      = 14400 * Real.exp 1 ^ 2 * a2Level1 M
+        + 5760 * (2 * Real.exp 1 + 2) / (Xd : ℝ)
+        + 138240 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
+              + 1 / ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ)) := by ring
+  rw [hsum]
+  linarith
+
+/-- **⟦`gRows` ON THE WHOLE CAPPED RANGE, FROM ONE INSTANCE⟧** (`gRows_at_socketBase`) — the
+`gRows` twin of `M4SocketDischarge.gP1_at_socketBase`, and the K4-CENSUS's first required R1
+addition.
+
+Post-R1 `a2RowsSum'` splits into an `X_d`-FREE half and a single `1/X_d` residue
+(`a2RowsSum'_door_decomp`):
+
+  `a2RowsSum' M X_d = [ (5/2)e²·a2Level1 M + 24·(1/𝒫₁ + 1/𝒫₂) ]  +  (2e + 2)/X_d` .
+
+The bracket is a CONSTANT in `X_d`, so — exactly as in `gP1_of_le` — it collapses ANTITONELY
+from the top of the socket's capped range `X_d = A + s ≤ 3·R.x`
+(`M4SocketDischarge.socketBase_base_le_three_x`): one numeric instance at `3·R.x` serves
+every base the socket reaches.  ⟦THE R1 CONTENT⟧ is what that instance now costs: the
+bracket's `p²` part is `24·2/𝒫₁`, `X_d`-FREE, so the demand is
+`μ/500 + log(276480·3) ≤ (log 2)·Adoor M` — where the LANDED bracket's
+`16·log₂(6·R.x)·2/𝒫₁` demanded `μ(1 + 1/500) + …`, the `μ`-cap that KNOT 2 named.
+
+The `(2e + 2)/X_d` residue is the `endpt` slot: it DECAYS in `X_d`, so it does not collapse
+from the top and is carried at the base (`hend`) — honestly, exactly as
+`GRowsZeroGate'.endpt` states it. -/
+theorem gRows_at_socketBase {R : ChowlaRegime} {M H L q j A s : ℕ}
+    (hM : 1 ≤ M) (hb : SocketBase R M H L q j A s)
+    (hX1 : (1 : ℝ) ≤ Real.log (((A + s : ℕ)) : ℝ))
+    (htop : 5760 * (5 / 2 * Real.exp 1 ^ 2 * a2Level1 M
+          + 24 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
+              + 1 / ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ)))
+        ≤ 1 / 2 * Real.log (3 * (R.x : ℝ)) ^ (-(1 : ℝ) / 500))
+    (hend : 5760 * ((2 * Real.exp 1 + 2) / (((A + s : ℕ)) : ℝ))
+        ≤ 1 / 2 * Real.log (((A + s : ℕ)) : ℝ) ^ (-(1 : ℝ) / 500)) :
+    5760 * (a2RowsSum' M (A + s) + (0 : ℝ) * (2 / (M : ℝ)))
+      ≤ Real.log (((A + s : ℕ)) : ℝ) ^ (-(1 : ℝ) / 500) := by
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  have hXdN : 1 ≤ A + s := by omega
+  have hX0 : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by
+    have hpos : 0 < A + s := by omega
+    exact_mod_cast hpos
+  -- ⟦THE ANTITONE COLLAPSE⟧ the `X_d`-free bracket, from the top of the capped range
+  have hcap : (((A + s : ℕ)) : ℝ) ≤ 3 * (R.x : ℝ) := socketBase_base_le_three_x hb
+  have hmono : Real.log (3 * (R.x : ℝ)) ^ (-(1 : ℝ) / 500)
+      ≤ Real.log (((A + s : ℕ)) : ℝ) ^ (-(1 : ℝ) / 500) :=
+    Real.rpow_le_rpow_of_nonpos (by linarith) (Real.log_le_log hX0 hcap) (by norm_num)
+  have hconst : 5760 * (5 / 2 * Real.exp 1 ^ 2 * a2Level1 M
+        + 24 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
+            + 1 / ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ)))
+      ≤ 1 / 2 * Real.log (((A + s : ℕ)) : ℝ) ^ (-(1 : ℝ) / 500) := by
+    refine htop.trans ?_
+    linarith
+  rw [a2RowsSum'_door_decomp hM hXdN]
+  have hid : 5760 * (5 / 2 * Real.exp 1 ^ 2 * a2Level1 M
+        + (2 * Real.exp 1 + 2) / (((A + s : ℕ)) : ℝ)
+        + 24 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
+            + 1 / ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ))
+        + (0 : ℝ) * (2 / (M : ℝ)))
+      = 5760 * (5 / 2 * Real.exp 1 ^ 2 * a2Level1 M
+          + 24 * (1 / ((calP (Adoor M) (3072 * M) 1 : ℕ) : ℝ)
+              + 1 / ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ)))
+        + 5760 * ((2 * Real.exp 1 + 2) / (((A + s : ℕ)) : ℝ)) := by ring
+  rw [hid]
+  linarith
+
 end Salt.MR

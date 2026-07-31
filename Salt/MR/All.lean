@@ -287,6 +287,9 @@ import Salt.MR.M4DoorL2
 import Salt.MR.S12Compose
 import Salt.MR.S13FramesB
 import Salt.MR.S13FramesA
+import Salt.MR.ThmA2Pool
+import Salt.MR.M4AssemblyPool
+import Salt.MR.M4ArithPool
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -6387,4 +6390,52 @@ open Salt.Tactic in
   Salt.MR.s13_g2_jfloor
   Salt.MR.s13_gate8
   Salt.MR.s13_smallGradeFits
+/-! ⟦R2 — THE CONSTANT POOL⟧ (`ThmA2Pool`, `M4AssemblyPool`, `M4ArithPool`), the KNOT-2
+closure freeze's second wave (`docs/exploration/knot2-closure-freeze-0730.md`; the re-cut
+inventory of KNOT2-SCOPE, `flags.md` 2026-07-30 15:50; fired by K4-CENSUS, 16:42).
+
+**THE RE-CUT.**  The frozen interface grades three `X`-side sources against ONE decaying
+right-hand side `(log X)^{−1/500}`.  The pool twins replace it by a FREE real `π₀ ≥ 0`:
+`hgP1`/`hgRows` read `≤ π₀`; the two gates the landed proof DERIVED become STATED —
+`hgU : (log X)^{−θ₂₉₃+ε} ≤ π₀` (so **`ε` is FREE**: `hεwin` is gone) and
+`hgBand : 4096·(log X)^{−1+1/500} ≤ π₀` (so `hL4096` is gone).  The conclusion's third
+summand is `188133·π₀` — the coefficient LINEAR in the pool (`37620·5 + 33`: five copies
+through the row number, one through the band).  `a2DoorGrade_pool_at_decay` records by `rfl`
+that `π₀ := (log X)^{−1/500}` IS the landed grade, so nothing is weakened.
+
+**THE FRAME.**  `DoorFuseFrame_pool` has TEN fields where `DoorFuseFrame` has eleven:
+`eps_lo`/`eps_hi` collapse to `eps_pool`, `L4096` becomes `band_pool`, and `0 ≤ π₀` is
+DERIVED (`DoorFuseFrame_pool.pool_nonneg`) from `band_pool` + `X_three`.
+
+⚠ **`π₀` IS `χ`-FREE** — it is indexed by the BASE `A + s` exactly as `C₁`/`M₀` are, never by
+the character: the ⟦φ(q) LEDGER⟧'s single payment (`a2_sum_const_chars`) depends on the third
+summand staying on the `χ`-free side.
+
+**THE PRICING MIGRATES.**  Summand 3 was cleared by ⟦C4⟧'s ARM against the decay; at a free
+pool no frame field can clear it, so `doorGrade_summand3_priced_pool` (and its `ρ` twin) take
+the cleared inequality as a HYPOTHESIS, and the consumer that chooses `π₀` pays it.
+`doorGrade_summand3_priced_pool_of_decay` closes that hypothesis from `π₀ ≤ (log X)^{−1/500}`
+plus the landed arm — the twin subsumes the landed pricing.  Summands 1, 2, 4, 5 are pool-free
+and reused verbatim; the budgets `2⁻³⁴² + 4·2⁻³⁴⁴ = 2⁻³⁴¹` and `ρ/2 + 4·(ρ/8) = ρ` are
+unchanged.  `SocketBase`, `RSanDoor`, `RSanDoorRho`, `m4ChiRowGraded` and `m4_arith_gate4_rho`
+are grade-blind and are reused as they stand.
+
+Additive: no landed declaration is touched. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.thm_a2'_of_rows_pool
+  Salt.MR.thm_a2'_of_rows_chiSummed_pool
+  Salt.MR.a2DoorGrade_pool_at_decay
+  Salt.MR.a2DoorGrade_pool_nonneg
+  Salt.MR.m4_chiFreeRowSq_sum_at_door_pool
+  Salt.MR.DoorFuseFrame_pool.pool_nonneg
+  Salt.MR.m4_chiSummedFreeRowBig_of_doorGrade_pool
+  Salt.MR.m4_chiSummedFreeRow_of_doorGrade_pool
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool
+  Salt.MR.doorGrade_summand3_priced_pool_of_decay
+  Salt.MR.doorGrade_summand3_priced_rho_pool_of_decay
+  Salt.MR.a2DoorGrade_pool_priced
+  Salt.MR.a2DoorGrade_pool_priced_rho
+  Salt.MR.m4_chiSummedFreeRowBig_of_doorGradeGated_pool
+  Salt.MR.m4_arith_henv_rho_pool
+  Salt.MR.m4_chiSummedFreeRow_of_doorArithRho_pool
   Salt.MR.s13_doorRowZeroBase_five

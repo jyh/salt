@@ -343,6 +343,64 @@ theorem ramErr_meanSq_all_chi_ws_priced (q : ℕ) [NeZero q] (H : ℝ) (hH : 2 �
     mul_le_mul_of_nonneg_left hMtail hfac
   linarith
 
+/-- **⟦THE STRICT-LAW `Σ_χ` ERROR MOMENT, PRICED — R1⟧**
+(`ramErr_meanSq_all_chi_ws_priced'`).  `ramErr_meanSq_all_chi_ws_priced` with the fused `p²`
+row at the DIRECT `L²` grade (`M4P2MR.ramP2massEndMR_L2_direct`):
+
+  `16·log₂(2X)/(X·P) + endMass X   ↦   24/(X·P) + endMass X` ,
+
+the `X`-FREE numerator, at the floor `4 ≤ P` (free at the door: `𝒫₁ ≥ 64`).  This is the
+`E_ge` row-2 retirement: the `E`-slack no longer has to cover a `log₂(2X)` that grows with
+the base.  `endMass X = 4·(log₂(2X))²/X²` is untouched — it DECAYS, and it is the summand
+`M4RowMR.logbsq_two_mul_P_le` absorbs on the row side. -/
+theorem ramErr_meanSq_all_chi_ws_priced' (q : ℕ) [NeZero q] (H : ℝ) (hH : 2 ≤ H)
+    (N X P Q : ℕ) (hX : 1 ≤ X) (hN : 2 * X ≤ N) (hN2 : (N : ℝ) ≤ 2 * (X : ℝ))
+    (hHX : H ≤ (X : ℝ)) (hP : 4 ≤ P) (a b c : ℕ → ℂ)
+    (hcoefWS : SeamCoefWS X P Q a b c)
+    (ha : ∀ n, ‖a n‖ ≤ 1) (hb : ∀ m, ‖b m‖ ≤ 1) (hc : ∀ p, ‖c p‖ ≤ 1)
+    (hasupp : ∀ n : ℕ, a n ≠ 0 → (X : ℝ) ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * (X : ℝ))
+    (Mtail : ℝ)
+    (hMtail : ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+        ‖a n‖ ^ 2 / (n : ℝ) ^ 2 ≤ Mtail)
+    (T : ℝ) (hT : 0 ≤ T) :
+    (∑ χ : DirichletCharacter ℂ q, ∫ t in (-T)..T,
+        ‖ramErr H N X P Q (chiBarCoeff q χ a) (chiBarCoeff q χ b)
+          (chiBarCoeff q χ c) t‖ ^ 2)
+      ≤ 4 * ((q.totient : ℝ) * (520 * (T / (X : ℝ) + 1) / H)
+          + (2 * (q.totient : ℝ) * T + 7 * (q.totient : ℝ) * (N : ℝ) / q)
+              * (24 / ((X : ℝ) * (P : ℝ)) + endMass X)
+          + (2 * (q.totient : ℝ) * T + 7 * (q.totient : ℝ) * (N : ℝ) / q) * Mtail) := by
+  refine (ramErr_meanSq_all_chi_ws q H hH N X P Q hX hN (by omega) a b c hcoefWS hasupp hb hc
+    T hT).trans ?_
+  simp only [endMass]
+  have hphi : (0 : ℝ) ≤ (q.totient : ℝ) := Nat.cast_nonneg _
+  have hfac : (0 : ℝ) ≤ 2 * (q.totient : ℝ) * T + 7 * (q.totient : ℝ) * (N : ℝ) / q := by
+    have h1 : (0 : ℝ) ≤ 2 * (q.totient : ℝ) * T := by positivity
+    have h2 : (0 : ℝ) ≤ 7 * (q.totient : ℝ) * (N : ℝ) / q := by positivity
+    linarith
+  have hgrade := seam_rows_grade H hH N X hX hN2 hHX T hT
+  have hmass := ramP2massEndMR_L2_direct N X P Q hX hN hP a b c ha hb hc
+  have hseam : (q.totient : ℝ)
+        * ((2 * T + 20 * (N : ℝ)) * ((2 * Real.exp 1 * (X : ℝ) / H + 1) / (X : ℝ) ^ 2))
+      + (q.totient : ℝ)
+        * ((2 * T + 80 * (X : ℝ))
+            * ((4 * Real.exp 1 * (X : ℝ) / H + 1) / (2 * (X : ℝ)) ^ 2))
+      ≤ (q.totient : ℝ) * (520 * (T / (X : ℝ) + 1) / H) := by
+    rw [← mul_add]
+    exact mul_le_mul_of_nonneg_left hgrade hphi
+  have hp2 : (2 * (q.totient : ℝ) * T + 7 * (q.totient : ℝ) * (N : ℝ) / q)
+        * (∑ n ∈ Finset.Icc 1 N, ‖ramP2coeffEndMR N X P Q a b c n‖ ^ 2 / (n : ℝ) ^ 2)
+      ≤ (2 * (q.totient : ℝ) * T + 7 * (q.totient : ℝ) * (N : ℝ) / q)
+        * (24 / ((X : ℝ) * (P : ℝ))
+          + 4 * (Real.logb 2 (2 * (X : ℝ))) ^ 2 / (X : ℝ) ^ 2) :=
+    mul_le_mul_of_nonneg_left hmass hfac
+  have htail : (2 * (q.totient : ℝ) * T + 7 * (q.totient : ℝ) * (N : ℝ) / q)
+        * (∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+            ‖a n‖ ^ 2 / (n : ℝ) ^ 2)
+      ≤ (2 * (q.totient : ℝ) * T + 7 * (q.totient : ℝ) * (N : ℝ) / q) * Mtail :=
+    mul_le_mul_of_nonneg_left hMtail hfac
+  linarith
+
 /-! ## §3 — ⟦THE DOOR DISCHARGE⟧ `DoorCapErrWS` and `m4_capE_at_door`
 
 `M4CapWire.DoorCapBase.E_binder` at the door datum.  The analytic content — the block
@@ -427,6 +485,72 @@ theorem m4_capE_at_door {q M Nd Xd P Q : ℕ} [NeZero q] {b cf : ℕ → ℂ} {T
       linarith
   exact ramErr_meanSq_all_chi_ws_priced q (H83 ((Xd : ℕ) : ℝ) theta293) hH2 (2 * Xd) Xd P Q
     hNd le_rfl hN2 hHle hP1 (winCutH Xd (doorCoeffU M)) b cf hcoef
+    (fun n => norm_doorRowDatumU_le_one M Xd n) hb1 hcf1 hasupp Mtail htail Tann hT
+
+/-- **⟦THE PER-BASE ERROR BUNDLE — R1⟧** (`DoorCapErrWS'`).  `DoorCapErrWS` with `P_one`
+strengthened to `4 ≤ P` (free at the door) and the `E_ge` field's `p²` row RETIRED to the
+`X`-free constant:
+
+  landed  `E_ge : … (16·log₂(2N_d)/(N_d·P) + endMass N_d) … ≤ E`
+  R1      `E_ge : … (24/(N_d·P)          + endMass N_d) … ≤ E`
+
+Everything else is byte-identical.  Since `24/(N_d·P) ≤ 16·log₂(2N_d)/(N_d·P)` at `N_d ≥ 2`,
+this asks strictly LESS of `E` — the S13CapGate slack it consumed is returned. -/
+structure DoorCapErrWS' (M Nd q Xd P Q : ℕ) (b cf : ℕ → ℂ) (Tann E Mtail : ℝ) : Prop where
+  /-- ⟦THE PIN⟧ the ram-block dyadic parameter IS the socket base. -/
+  Xd_eq : Xd = Nd
+  /-- `1 ≤ N_d`. -/
+  Nd_one : 1 ≤ Nd
+  /-- `2 ≤ H₈₃ X θ₂₉₃`. -/
+  H83_two : 2 ≤ H83 ((Nd : ℕ) : ℝ) theta293
+  /-- `H₈₃ X θ₂₉₃ ≤ X`. -/
+  H83_le : H83 ((Nd : ℕ) : ℝ) theta293 ≤ ((Nd : ℕ) : ℝ)
+  /-- ⟦R1's FLOOR⟧ `4 ≤ P` — the `24`-constant's binder, free at the door (`𝒫₁ ≥ 64`). -/
+  P_four : 4 ≤ P
+  /-- `0 ≤ T_ann`. -/
+  Tann_nonneg : 0 ≤ Tann
+  /-- `‖b m‖ ≤ 1`. -/
+  b_one : ∀ m, ‖b m‖ ≤ 1
+  /-- `‖cf p‖ ≤ 1`. -/
+  cf_one : ∀ p, ‖cf p‖ ≤ 1
+  /-- The STRICT relativized pair law at the door datum. -/
+  coefWS : SeamCoefWS Xd P Q (winCutH Nd (doorCoeffU M)) b cf
+  /-- The coprime-tail (sieve-remainder) mass, priced not pinned. -/
+  tail : ∑ n ∈ (Finset.Icc 1 (2 * Nd)).filter (fun n => blockOmega P Q n = 0),
+      ‖winCutH Nd (doorCoeffU M) n‖ ^ 2 / (n : ℝ) ^ 2 ≤ Mtail
+  /-- `E` dominates the R1-priced four-row bound. -/
+  E_ge : 4 * ((q.totient : ℝ)
+        * (520 * (Tann / ((Nd : ℕ) : ℝ) + 1) / H83 ((Nd : ℕ) : ℝ) theta293)
+      + (2 * (q.totient : ℝ) * Tann
+            + 7 * (q.totient : ℝ) * (((2 * Nd : ℕ)) : ℝ) / q)
+          * (24 / (((Nd : ℕ) : ℝ) * (P : ℝ)) + endMass Nd)
+      + (2 * (q.totient : ℝ) * Tann
+            + 7 * (q.totient : ℝ) * (((2 * Nd : ℕ)) : ℝ) / q) * Mtail) ≤ E
+
+/-- **⟦THE `E_binder` WIRE — R1⟧** (`m4_capE_at_door'`).  `m4_capE_at_door` from the
+R1-priced bundle. -/
+theorem m4_capE_at_door' {q M Nd Xd P Q : ℕ} [NeZero q] {b cf : ℕ → ℂ} {Tann E Mtail : ℝ}
+    (h : DoorCapErrWS' M Nd q Xd P Q b cf Tann E Mtail) :
+    (∑ χ : DirichletCharacter ℂ q, ∫ t in (-Tann)..Tann,
+        ‖ramErr (H83 ((Nd : ℕ) : ℝ) theta293) (2 * Nd) Xd P Q
+          (chiBarCoeff q χ (winCutH Nd (doorCoeffU M))) (chiBarCoeff q χ b)
+          (chiBarCoeff q χ cf) t‖ ^ 2)
+      ≤ E := by
+  obtain ⟨hXd, hNd, hH2, hHle, hP4, hT, hb1, hcf1, hcoef, htail, hE⟩ := h
+  subst hXd
+  refine le_trans ?_ hE
+  have hN2 : (((2 * Xd : ℕ)) : ℝ) ≤ 2 * ((Xd : ℕ) : ℝ) := by push_cast; exact le_rfl
+  have hasupp : ∀ n : ℕ, winCutH Xd (doorCoeffU M) n ≠ 0 →
+      ((Xd : ℕ) : ℝ) ≤ (n : ℝ) ∧ (n : ℝ) ≤ 2 * ((Xd : ℕ) : ℝ) := by
+    intro n hn
+    obtain ⟨h1, h2⟩ := winCutH_asupp hn
+    constructor
+    · exact_mod_cast h1
+    · have : ((n : ℕ) : ℝ) ≤ ((2 * Xd : ℕ) : ℝ) := by exact_mod_cast h2
+      push_cast at this
+      linarith
+  exact ramErr_meanSq_all_chi_ws_priced' q (H83 ((Xd : ℕ) : ℝ) theta293) hH2 (2 * Xd) Xd P Q
+    hNd le_rfl hN2 hHle hP4 (winCutH Xd (doorCoeffU M)) b cf hcoef
     (fun n => norm_doorRowDatumU_le_one M Xd n) hb1 hcf1 hasupp Mtail htail Tann hT
 
 /-! ## §4 — ⟦THE COMPOSITE⟧ `m4_socket_discharged_capwired_ws`

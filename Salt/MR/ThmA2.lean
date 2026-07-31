@@ -127,6 +127,53 @@ def a2RowsSum (M Xd : ℕ) : ℝ :=
       + 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ)
       + 1 / (Xd : ℝ))
 
+/-- **⟦R1 — THE ROW SUM AT THE DIRECT `L²` `p²` GRADE⟧** (`a2RowsSum'`).  `a2RowsSum` with
+its `p²` slot re-priced by `M4P2MR.ramP2massMR_L2_direct`:
+
+  `16·log₂(2X_d)/𝒫ⱼ  ↦  24/𝒫ⱼ`   — **`X_d`-FREE**.
+
+⟦THE BENIGN RULE-1 AUTHORIZATION, GRANTED (JYH, 2026-07-30)⟧.  This is a NEW definition
+beside the landed one, not an edit of it: `a2RowsSum` and every statement mentioning it keep
+their text VERBATIM.  A consumer stated at `a2RowsSum'` carries a **weaker** hypothesis
+(`a2RowsSum' M X_d ≤ a2RowsSum M X_d` at `2 ≤ X_d`, `a2RowsSum'_le_a2RowsSum`), so its
+conclusion is STRICTLY STRONGER than the landed one — the S8 summit gains, it does not
+move. -/
+def a2RowsSum' (M Xd : ℕ) : ℝ :=
+  ∑ j ∈ Finset.Icc 1 2,
+    ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH (H1door M) j + 1)
+        * (Real.exp 1 / (Xd : ℝ) ^ 2))
+      + 24 / ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ)
+      + 1 / (Xd : ℝ))
+
+/-- **THE TWIN IS SMALLER** (`a2RowsSum'_le_a2RowsSum`): at `2 ≤ X_d`,
+`log₂(2X_d) ≥ 2 ≥ 3/2`, so `24/𝒫ⱼ ≤ 16·log₂(2X_d)/𝒫ⱼ` term by term.  This is the formal
+content of "the `hgRows` hypothesis WEAKENS": any gate met by `a2RowsSum` is met by
+`a2RowsSum'`. -/
+lemma a2RowsSum'_le_a2RowsSum {M Xd : ℕ} (hXd : 2 ≤ Xd) :
+    a2RowsSum' M Xd ≤ a2RowsSum M Xd := by
+  have hXd2 : (2 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
+  have hXd0 : (0 : ℝ) < (Xd : ℝ) := by linarith
+  have hlogb : (3 / 2 : ℝ) ≤ Real.logb 2 (2 * (Xd : ℝ)) := by
+    have hl2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+    have hlt2 := Real.log_two_lt_d9
+    have hgt2 := Real.log_two_gt_d9
+    have hlogXd : Real.log 2 ≤ Real.log (Xd : ℝ) := Real.log_le_log (by norm_num) hXd2
+    have hmul : Real.log (2 * (Xd : ℝ)) = Real.log 2 + Real.log (Xd : ℝ) :=
+      Real.log_mul (by norm_num) (ne_of_gt hXd0)
+    rw [Real.logb, le_div_iff₀ hl2, hmul]
+    linarith
+  rw [a2RowsSum', a2RowsSum]
+  refine Finset.sum_le_sum (fun j hj => ?_)
+  have hP0 : (0 : ℝ) < ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ) := by
+    have : 0 < calP (Adoor M) (3072 * M) j := by
+      rw [calP]; positivity
+    exact_mod_cast this
+  have hterm : (24 : ℝ) / ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ)
+      ≤ 16 * Real.logb 2 (2 * (Xd : ℝ)) / ((calP (Adoor M) (3072 * M) j : ℕ) : ℝ) := by
+    gcongr
+    linarith
+  linarith
+
 /-- **THE FLAT ROW NUMBER.**  `a2Mrow Cs C M Xd X ε` is the weighted seam row's bound,
 uniform over the whole family `X/h ≤ T`, `2T ≤ X`, at the corrected door family
 (`A = Adoor M`, `G = 3072M`, `Jb = 2`, `H₁ = H1door M`, `η = 1/12`).  Four summands:

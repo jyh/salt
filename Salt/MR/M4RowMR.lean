@@ -768,6 +768,550 @@ theorem sum_lemma12RowsMR_priced_calibratedK2 :
   · have hT0 : (0 : ℝ) ≤ T / (Xd : ℝ) := div_nonneg hT hXd0.le
     linarith
 
+/-! ## §6 — ⟦R1: THE `p²`-ROW RE-PRICED⟧, the additive twins
+
+The whole `X_d`-dependence of the `p²` row was the Hölder sup-half's `ω(n) ≤ log₂ n`
+(`M4P2MR` §1).  `M4P2MR.ramP2massMR_L2_direct` replaces it by the direct `L²` fibre count
+and delivers `24/(X_d·P)` — **`X_d`-FREE** — at the floor `4 ≤ P` (free at every consumer:
+`DoorFrameH1.calP_door_one_ge` gives `P₁ ≥ 64`; the constant `24` breaks only at `P ≤ 3`).
+This section carries that numeral up the row chain as ADDITIVE twins: every landed
+declaration of §3–§5 stands untouched, and each twin's right-hand side is its landed
+sibling's with
+
+  `16·log₂(2X_d)/(X_d·P)  ↦  24/(X_d·P)`   (and `16·log₂(2X_d)/P ↦ 24/P` after the `X_d`
+  distribution).
+
+⟦THE NEW ABSORPTION GATE⟧.  The endpoint mass `4L²/X_d²` (`L := log₂(2X_d)`) must still fit
+inside `four_rows_le_end`'s unspent half of the `B2` slot, which is now
+`(1/2)·24/(X_d·P) = 12/(X_d·P)`:
+
+  `4L²/X_d² ≤ 12/(X_d·P)`   ⟺   **`L²·P ≤ 3·X_d`** ,
+
+`logbsq_two_mul_P_le` — the SQUARE of the landed gate's demand, discharged from the same
+binders by the CUBE of `Real.add_one_le_exp`: with `u = log X_d`, `s = √u ≥ 100`,
+`e^{u−s} = (e^{(u−s)/3})³ ≥ ((33/100)u)³` and `(3/4)u² ≤ (33/100 u)³` at `u ≥ 10⁴`. -/
+
+/-- **⟦THE NEW ABSORPTION GATE⟧** (`logbsq_two_mul_P_le`): `log₂(2X_d)²·P ≤ 3·X_d`, from the
+row's OWN binders — the `L²`-form of `logb_two_mul_P_le`, which the R1 numerator needs
+because the `B2` slot's spare half is now the CONSTANT `12/(X_d·P)`.
+
+`P ≤ e^s` and `L ≤ (3/2)u` as before; the new content is `(9/4)u²·e^s ≤ 3·e^u`, i.e.
+`(3/4)u² ≤ e^{u−s}`, which follows from `e^{u−s} = (e^{(u−s)/3})³ ≥ ((u−s)/3)³ ≥ ((33/100)u)³`
+(using `s ≤ u/100`) and `(33/100)³·u³ ≥ (3/4)u²` at `u ≥ 10⁴`. -/
+private lemma logbsq_two_mul_P_le {P Q Xd : ℕ} (hP : 2 ≤ P) (hPQ : P ≤ Q) (hXd : 1 ≤ Xd)
+    (hreg : Real.log Q ≤ Real.sqrt (Real.log Xd))
+    (hbig : (100 : ℝ) ≤ Real.sqrt (Real.log Xd)) :
+    (Real.logb 2 (2 * (Xd : ℝ))) ^ 2 * (P : ℝ) ≤ 3 * (Xd : ℝ) := by
+  have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
+  have hXd0 : (0 : ℝ) < (Xd : ℝ) := by linarith
+  have hP0 : (0 : ℝ) < (P : ℝ) := by
+    have : (2 : ℝ) ≤ (P : ℝ) := by exact_mod_cast hP
+    linarith
+  have hPQR : (P : ℝ) ≤ (Q : ℝ) := by exact_mod_cast hPQ
+  have hu0 : 0 ≤ Real.log (Xd : ℝ) := by
+    by_contra hcon
+    push Not at hcon
+    rw [Real.sqrt_eq_zero'.mpr hcon.le] at hbig
+    norm_num at hbig
+  have hsq : Real.sqrt (Real.log (Xd : ℝ)) * Real.sqrt (Real.log (Xd : ℝ))
+      = Real.log (Xd : ℝ) := Real.mul_self_sqrt hu0
+  have hu4 : (10000 : ℝ) ≤ Real.log (Xd : ℝ) := by nlinarith
+  -- `s ≤ u/100`
+  have hsu : Real.sqrt (Real.log (Xd : ℝ)) ≤ Real.log (Xd : ℝ) / 100 := by nlinarith
+  have hs0 : (0 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) := Real.sqrt_nonneg _
+  -- `P ≤ e^s`
+  have hPexp : (P : ℝ) ≤ Real.exp (Real.sqrt (Real.log (Xd : ℝ))) := by
+    have hlogP : Real.log (P : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) :=
+      le_trans (Real.log_le_log hP0 hPQR) hreg
+    calc (P : ℝ) = Real.exp (Real.log (P : ℝ)) := (Real.exp_log hP0).symm
+      _ ≤ Real.exp (Real.sqrt (Real.log (Xd : ℝ))) := Real.exp_le_exp.mpr hlogP
+  -- `log₂(2X_d) ≤ (3/2)·log X_d`
+  have hl2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  have hL0 : (0 : ℝ) ≤ Real.logb 2 (2 * (Xd : ℝ)) :=
+    Real.logb_nonneg (by norm_num) (by linarith)
+  have hLb : Real.logb 2 (2 * (Xd : ℝ)) ≤ 3 / 2 * Real.log (Xd : ℝ) := by
+    have hgt2 := Real.log_two_gt_d9
+    have hlt2 := Real.log_two_lt_d9
+    have hprod : (0 : ℝ) ≤ (Real.log (Xd : ℝ) - 10000) * (Real.log 2 - 0.6931471803) :=
+      mul_nonneg (by linarith) (by linarith)
+    have hlogb : Real.logb 2 (2 * (Xd : ℝ))
+        = (Real.log 2 + Real.log (Xd : ℝ)) / Real.log 2 := by
+      rw [Real.logb, Real.log_mul (by norm_num) (ne_of_gt hXd0)]
+    rw [hlogb, div_le_iff₀ hl2]
+    linarith
+  -- ⟦THE CUBE⟧ `(3/4)u² ≤ e^{u−s}`
+  have hx : (33 / 100 : ℝ) * Real.log (Xd : ℝ)
+      ≤ (Real.log (Xd : ℝ) - Real.sqrt (Real.log (Xd : ℝ))) / 3 := by linarith
+  have hx0 : (0 : ℝ) ≤ (33 / 100 : ℝ) * Real.log (Xd : ℝ) := by linarith
+  have hexp1 : (33 / 100 : ℝ) * Real.log (Xd : ℝ)
+      ≤ Real.exp ((Real.log (Xd : ℝ) - Real.sqrt (Real.log (Xd : ℝ))) / 3) := by
+    have h1 := Real.add_one_le_exp
+      ((Real.log (Xd : ℝ) - Real.sqrt (Real.log (Xd : ℝ))) / 3)
+    linarith
+  have hcube : ((33 / 100 : ℝ) * Real.log (Xd : ℝ)) ^ 3
+      ≤ (Real.exp ((Real.log (Xd : ℝ) - Real.sqrt (Real.log (Xd : ℝ))) / 3)) ^ 3 :=
+    pow_le_pow_left₀ hx0 hexp1 3
+  have hexp3 : (Real.exp ((Real.log (Xd : ℝ) - Real.sqrt (Real.log (Xd : ℝ))) / 3)) ^ 3
+      = Real.exp (Real.log (Xd : ℝ) - Real.sqrt (Real.log (Xd : ℝ))) := by
+    rw [← Real.exp_nat_mul]
+    congr 1
+    push_cast
+    ring
+  have hgap : 3 / 4 * Real.log (Xd : ℝ) ^ 2
+      ≤ Real.exp (Real.log (Xd : ℝ) - Real.sqrt (Real.log (Xd : ℝ))) := by
+    rw [← hexp3]
+    nlinarith [hcube, hu4, sq_nonneg (Real.log (Xd : ℝ))]
+  calc (Real.logb 2 (2 * (Xd : ℝ))) ^ 2 * (P : ℝ)
+      ≤ (3 / 2 * Real.log (Xd : ℝ)) ^ 2 * Real.exp (Real.sqrt (Real.log (Xd : ℝ))) := by
+        have hLsq : (Real.logb 2 (2 * (Xd : ℝ))) ^ 2 ≤ (3 / 2 * Real.log (Xd : ℝ)) ^ 2 := by
+          nlinarith
+        exact mul_le_mul hLsq hPexp hP0.le (by positivity)
+    _ = 3 * (3 / 4 * Real.log (Xd : ℝ) ^ 2) * Real.exp (Real.sqrt (Real.log (Xd : ℝ))) := by
+        ring
+    _ ≤ 3 * Real.exp (Real.log (Xd : ℝ) - Real.sqrt (Real.log (Xd : ℝ)))
+          * Real.exp (Real.sqrt (Real.log (Xd : ℝ))) := by
+        have := mul_le_mul_of_nonneg_right
+          (mul_le_mul_of_nonneg_left hgap (by norm_num : (0 : ℝ) ≤ 3))
+          (Real.exp_pos (Real.sqrt (Real.log (Xd : ℝ)))).le
+        linarith
+    _ = 3 * Real.exp (Real.log (Xd : ℝ)) := by
+        rw [mul_assoc, ← Real.exp_add]
+        congr 2
+        ring
+    _ = 3 * (Xd : ℝ) := by rw [Real.exp_log hXd0]
+
+/-- **THE MR ROW, PRICED — R1** (`lemma12RowsMR_pricedK'`).  `lemma12RowsMR_pricedK` with the
+`p²` row at the direct `L²` grade: the bracket's second summand is `24/(X_d·P)`, `X_d`-FREE.
+The only hypothesis change is `2 ≤ P ↦ 4 ≤ P`. -/
+theorem lemma12RowsMR_pricedK' :
+    ∃ C : ℝ, 0 < C ∧ ∀ (P Q N Xd : ℕ) (H T : ℝ) (a b c : ℕ → ℂ),
+      4 ≤ P → P ≤ Q → 1 ≤ Xd → 2 * Xd ≤ N → 0 ≤ T → 2 ≤ H →
+      Real.log Q ≤ Real.sqrt (Real.log Xd) →
+      (100 : ℝ) ≤ Real.sqrt (Real.log Xd) →
+      ((Nat.sqrt Xd : ℝ) + 1) * ∏ p ∈ primeBand P Q, (1 + 3 / (p : ℝ))
+          ≤ (Xd : ℝ) * (Real.log P / Real.log Q) →
+      (∀ n, ‖a n‖ ≤ 1) → (∀ m, ‖b m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+      lemma12RowsMR N Xd P Q H T a b c
+        ≤ 12 * (2 * T + 20 * (N : ℝ))
+            * ((2 * Real.exp 1 * (Xd : ℝ) / H + 1) * (Real.exp 1 / (Xd : ℝ) ^ 2)
+                + 24 / ((Xd : ℝ) * (P : ℝ))
+                + (C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2)) := by
+  obtain ⟨C, hC, hbf⟩ := blockfree_sum_le
+  refine ⟨C, hC, ?_⟩
+  intro P Q N Xd H T a b c hP hPQ hXd hN hT hH hreg hbig herr ha hb hc hasupp
+  have hP2 : 2 ≤ P := by omega
+  have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
+  have hXd0 : (0 : ℝ) < (Xd : ℝ) := by linarith
+  have hNR : 2 * (Xd : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN
+  have hpre : (0 : ℝ) ≤ 2 * T + 20 * (N : ℝ) := by
+    have : (0 : ℝ) ≤ (N : ℝ) := Nat.cast_nonneg _
+    linarith
+  have he2 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.exp_one_gt_d9]
+  have hH0 : (0 : ℝ) < H := by linarith
+  have hwin2 := second_window_le_first_row (H := H) (T := T) (Nr := (N : ℝ)) (X := Xd)
+    hH hXd hT hNR
+  have hrow1nn : (0 : ℝ) ≤ (2 * Real.exp 1 * (Xd : ℝ) / H + 1) / (Xd : ℝ) ^ 2 := by positivity
+  have hrow1 : 2 * ((2 * Real.exp 1 * (Xd : ℝ) / H + 1) / (Xd : ℝ) ^ 2)
+      ≤ (2 * Real.exp 1 * (Xd : ℝ) / H + 1) * (Real.exp 1 / (Xd : ℝ) ^ 2) := by
+    have hid : (2 * Real.exp 1 * (Xd : ℝ) / H + 1) * (Real.exp 1 / (Xd : ℝ) ^ 2)
+        - 2 * ((2 * Real.exp 1 * (Xd : ℝ) / H + 1) / (Xd : ℝ) ^ 2)
+        = (Real.exp 1 - 2) * ((2 * Real.exp 1 * (Xd : ℝ) / H + 1) / (Xd : ℝ) ^ 2) := by
+      field_simp
+    have hnn : (0 : ℝ)
+        ≤ (Real.exp 1 - 2) * ((2 * Real.exp 1 * (Xd : ℝ) / H + 1) / (Xd : ℝ) ^ 2) :=
+      mul_nonneg (by linarith) hrow1nn
+    linarith [hid.le, hid.ge, hnn]
+  -- ⟦ROW 3⟧ the `p²` mass at the DIRECT `L²` grade
+  have hp2 := ramP2massMR_L2_direct N Xd P Q hXd hN hP a b c ha hb hc
+  have hp2nn : (0 : ℝ) ≤ ∑ n ∈ Finset.Icc 1 N,
+      ‖ramP2coeffMR N Xd P Q a b c n‖ ^ 2 / (n : ℝ) ^ 2 :=
+    Finset.sum_nonneg (fun n _ => by positivity)
+  have hbfr := hbf P Q Xd N a hP2 hPQ hXd (densGate_of_sqrt (le_trans hP2 hPQ) hreg hbig)
+    herr ha hasupp
+  have hbfnn : (0 : ℝ) ≤ ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+      ‖a n‖ ^ 2 / (n : ℝ) ^ 2 :=
+    Finset.sum_nonneg (fun n _ => by positivity)
+  rw [lemma12RowsMR]
+  refine four_rows_le hwin2 ?_ (mul_le_mul_of_nonneg_left hp2 hpre)
+    (mul_le_mul_of_nonneg_left hbfr hpre) (mul_nonneg hpre hrow1nn) (mul_nonneg hpre hp2nn)
+    (mul_nonneg hpre hbfnn)
+  have h := mul_le_mul_of_nonneg_left hrow1 hpre
+  linarith
+
+/-- **THE `(T/X_d + 1)` EXIT — R1** (`lemma12RowsMR_priced_ratioK'`).  `X_d` distributes into
+the bracket and the `p²` slot becomes the **`X_d`-free constant `24/P`**. -/
+theorem lemma12RowsMR_priced_ratioK' :
+    ∃ C : ℝ, 0 < C ∧ ∀ (P Q N Xd : ℕ) (H T : ℝ) (a b c : ℕ → ℂ),
+      4 ≤ P → P ≤ Q → 1 ≤ Xd → 2 * Xd ≤ N → 0 ≤ T → 2 ≤ H → (N : ℝ) ≤ 4 * (Xd : ℝ) →
+      Real.log Q ≤ Real.sqrt (Real.log Xd) →
+      (100 : ℝ) ≤ Real.sqrt (Real.log Xd) →
+      ((Nat.sqrt Xd : ℝ) + 1) * ∏ p ∈ primeBand P Q, (1 + 3 / (p : ℝ))
+          ≤ (Xd : ℝ) * (Real.log P / Real.log Q) →
+      (∀ n, ‖a n‖ ≤ 1) → (∀ m, ‖b m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+      lemma12RowsMR N Xd P Q H T a b c
+        ≤ 960 * (T / (Xd : ℝ) + 1)
+            * ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / H + 1) * (Real.exp 1 / (Xd : ℝ) ^ 2))
+                + 24 / (P : ℝ)
+                + C * (Real.log P / Real.log Q)
+                + 1 / (Xd : ℝ)) := by
+  obtain ⟨C, hC, hrow⟩ := lemma12RowsMR_pricedK'
+  refine ⟨C, hC, ?_⟩
+  intro P Q N Xd H T a b c hP hPQ hXd hN hT hH hN4 hreg hbig herr ha hb hc hasupp
+  have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
+  have hXd0 : (0 : ℝ) < (Xd : ℝ) := by linarith
+  have hXdne : (Xd : ℝ) ≠ 0 := ne_of_gt hXd0
+  have hP0 : (0 : ℝ) < (P : ℝ) := by
+    have h : 0 < P := by omega
+    exact_mod_cast h
+  have hPne : (P : ℝ) ≠ 0 := ne_of_gt hP0
+  have hlogP : (0 : ℝ) ≤ Real.log (P : ℝ) :=
+    Real.log_nonneg (by exact_mod_cast (by omega : 1 ≤ P))
+  have hlogQ : (0 : ℝ) < Real.log (Q : ℝ) :=
+    Real.log_pos (by exact_mod_cast lt_of_lt_of_le (by omega : 1 < P) hPQ)
+  have hratio : (0 : ℝ) ≤ Real.log (P : ℝ) / Real.log (Q : ℝ) := by positivity
+  have hp2nn : (0 : ℝ) ≤ 24 / ((Xd : ℝ) * (P : ℝ)) := by positivity
+  have hBnn : (0 : ℝ) ≤ (2 * Real.exp 1 * (Xd : ℝ) / H + 1) * (Real.exp 1 / (Xd : ℝ) ^ 2)
+      + 24 / ((Xd : ℝ) * (P : ℝ))
+      + (C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2) := by
+    have hH0 : (0 : ℝ) < H := by linarith
+    have hb1 : (0 : ℝ) ≤ (2 * Real.exp 1 * (Xd : ℝ) / H + 1) * (Real.exp 1 / (Xd : ℝ) ^ 2) := by
+      positivity
+    have hb3 : (0 : ℝ) ≤ C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2 := by
+      positivity
+    linarith
+  have hcoefle : 12 * (2 * T + 20 * (N : ℝ)) ≤ 960 * (Xd : ℝ) * (T / (Xd : ℝ) + 1) := by
+    have hTid : (Xd : ℝ) * (T / (Xd : ℝ)) = T := by field_simp
+    nlinarith [hN4, hT, hXd0]
+  have hstep := hrow P Q N Xd H T a b c hP hPQ hXd hN hT hH hreg hbig herr ha hb hc hasupp
+  refine hstep.trans ?_
+  have hmul := mul_le_mul_of_nonneg_right hcoefle hBnn
+  refine hmul.trans (le_of_eq ?_)
+  field_simp
+  ring
+
+/-- **THE MR ROW, PRICED — R1, STRICT/FUSED** (`lemma12RowsMR_pricedK_end'`).  The right-hand
+side is `lemma12RowsMR_pricedK'`'s byte for byte: the endpoint mass `4L²/X_d²` is absorbed in
+the `B2` slot's unspent half, now the CONSTANT `12/(X_d·P)`, by ⟦THE NEW ABSORPTION GATE⟧
+`logbsq_two_mul_P_le` (`L²·P ≤ 3X_d`). -/
+theorem lemma12RowsMR_pricedK_end' :
+    ∃ C : ℝ, 0 < C ∧ ∀ (P Q N Xd : ℕ) (H T : ℝ) (a b c : ℕ → ℂ),
+      4 ≤ P → P ≤ Q → 1 ≤ Xd → 2 * Xd ≤ N → 0 ≤ T → 2 ≤ H →
+      Real.log Q ≤ Real.sqrt (Real.log Xd) →
+      (100 : ℝ) ≤ Real.sqrt (Real.log Xd) →
+      ((Nat.sqrt Xd : ℝ) + 1) * ∏ p ∈ primeBand P Q, (1 + 3 / (p : ℝ))
+          ≤ (Xd : ℝ) * (Real.log P / Real.log Q) →
+      (∀ n, ‖a n‖ ≤ 1) → (∀ m, ‖b m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+      lemma12RowsMR_end N Xd P Q H T a b c
+        ≤ 12 * (2 * T + 20 * (N : ℝ))
+            * ((2 * Real.exp 1 * (Xd : ℝ) / H + 1) * (Real.exp 1 / (Xd : ℝ) ^ 2)
+                + 24 / ((Xd : ℝ) * (P : ℝ))
+                + (C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2)) := by
+  obtain ⟨C, hC, hbf⟩ := blockfree_sum_le
+  refine ⟨C, hC, ?_⟩
+  intro P Q N Xd H T a b c hP hPQ hXd hN hT hH hreg hbig herr ha hb hc hasupp
+  have hP2 : 2 ≤ P := by omega
+  have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
+  have hXd0 : (0 : ℝ) < (Xd : ℝ) := by linarith
+  have hP0 : (0 : ℝ) < (P : ℝ) := by
+    have : (4 : ℝ) ≤ (P : ℝ) := by exact_mod_cast hP
+    linarith
+  have hNR : 2 * (Xd : ℝ) ≤ (N : ℝ) := by exact_mod_cast hN
+  have hpre : (0 : ℝ) ≤ 2 * T + 20 * (N : ℝ) := by
+    have : (0 : ℝ) ≤ (N : ℝ) := Nat.cast_nonneg _
+    linarith
+  have he2 : (2 : ℝ) ≤ Real.exp 1 := by linarith [Real.exp_one_gt_d9]
+  have hH0 : (0 : ℝ) < H := by linarith
+  have hL0 : (0 : ℝ) ≤ Real.logb 2 (2 * (Xd : ℝ)) :=
+    Real.logb_nonneg (by norm_num) (by linarith)
+  have hwin2 := second_window_le_first_row (H := H) (T := T) (Nr := (N : ℝ)) (X := Xd)
+    hH hXd hT hNR
+  have hrow1nn : (0 : ℝ) ≤ (2 * Real.exp 1 * (Xd : ℝ) / H + 1) / (Xd : ℝ) ^ 2 := by positivity
+  have hrow1 : 2 * ((2 * Real.exp 1 * (Xd : ℝ) / H + 1) / (Xd : ℝ) ^ 2)
+      ≤ (2 * Real.exp 1 * (Xd : ℝ) / H + 1) * (Real.exp 1 / (Xd : ℝ) ^ 2) := by
+    have hid : (2 * Real.exp 1 * (Xd : ℝ) / H + 1) * (Real.exp 1 / (Xd : ℝ) ^ 2)
+        - 2 * ((2 * Real.exp 1 * (Xd : ℝ) / H + 1) / (Xd : ℝ) ^ 2)
+        = (Real.exp 1 - 2) * ((2 * Real.exp 1 * (Xd : ℝ) / H + 1) / (Xd : ℝ) ^ 2) := by
+      field_simp
+    have hnn : (0 : ℝ)
+        ≤ (Real.exp 1 - 2) * ((2 * Real.exp 1 * (Xd : ℝ) / H + 1) / (Xd : ℝ) ^ 2) :=
+      mul_nonneg (by linarith) hrow1nn
+    linarith [hid.le, hid.ge, hnn]
+  -- ⟦ROW 3⟧ the FUSED `p²` mass at the direct `L²` grade, and the NEW absorption
+  have hp2 := ramP2massEndMR_L2_direct N Xd P Q hXd hN hP a b c ha hb hc
+  have hgate := logbsq_two_mul_P_le (P := P) (Q := Q) (Xd := Xd) hP2 hPQ hXd hreg hbig
+  have habs : 4 * (Real.logb 2 (2 * (Xd : ℝ))) ^ 2 / (Xd : ℝ) ^ 2
+      ≤ 1 / 2 * (24 / ((Xd : ℝ) * (P : ℝ))) := by
+    rw [show (1 : ℝ) / 2 * (24 / ((Xd : ℝ) * (P : ℝ))) = 12 / ((Xd : ℝ) * (P : ℝ)) by ring,
+      div_le_div_iff₀ (by positivity) (by positivity)]
+    nlinarith [mul_nonneg hXd0.le
+      (by linarith : (0 : ℝ) ≤ 3 * (Xd : ℝ) - (Real.logb 2 (2 * (Xd : ℝ))) ^ 2 * (P : ℝ))]
+  have hp2' : (∑ n ∈ Finset.Icc 1 N,
+        ‖ramP2coeffEndMR N Xd P Q a b c n‖ ^ 2 / (n : ℝ) ^ 2)
+      ≤ 3 / 2 * (24 / ((Xd : ℝ) * (P : ℝ))) := by linarith
+  have hp2nn : (0 : ℝ) ≤ ∑ n ∈ Finset.Icc 1 N,
+      ‖ramP2coeffEndMR N Xd P Q a b c n‖ ^ 2 / (n : ℝ) ^ 2 :=
+    Finset.sum_nonneg (fun n _ => by positivity)
+  have hrow3 : (2 * T + 20 * (N : ℝ)) * (∑ n ∈ Finset.Icc 1 N,
+        ‖ramP2coeffEndMR N Xd P Q a b c n‖ ^ 2 / (n : ℝ) ^ 2)
+      ≤ (2 * T + 20 * (N : ℝ)) * (3 / 2) * (24 / ((Xd : ℝ) * (P : ℝ))) := by
+    have := mul_le_mul_of_nonneg_left hp2' hpre
+    linarith
+  have hbfr := hbf P Q Xd N a hP2 hPQ hXd (densGate_of_sqrt (le_trans hP2 hPQ) hreg hbig)
+    herr ha hasupp
+  have hbfnn : (0 : ℝ) ≤ ∑ n ∈ (Finset.Icc 1 N).filter (fun n => blockOmega P Q n = 0),
+      ‖a n‖ ^ 2 / (n : ℝ) ^ 2 :=
+    Finset.sum_nonneg (fun n _ => by positivity)
+  rw [lemma12RowsMR_end]
+  refine four_rows_le_end hwin2 ?_ hrow3
+    (mul_le_mul_of_nonneg_left hbfr hpre) (mul_nonneg hpre hrow1nn) (mul_nonneg hpre hp2nn)
+    (mul_nonneg hpre hbfnn)
+  have h := mul_le_mul_of_nonneg_left hrow1 hpre
+  linarith
+
+/-- **THE `(T/X_d + 1)` EXIT — R1, STRICT/FUSED** (`lemma12RowsMR_priced_ratioK_end'`). -/
+theorem lemma12RowsMR_priced_ratioK_end' :
+    ∃ C : ℝ, 0 < C ∧ ∀ (P Q N Xd : ℕ) (H T : ℝ) (a b c : ℕ → ℂ),
+      4 ≤ P → P ≤ Q → 1 ≤ Xd → 2 * Xd ≤ N → 0 ≤ T → 2 ≤ H → (N : ℝ) ≤ 4 * (Xd : ℝ) →
+      Real.log Q ≤ Real.sqrt (Real.log Xd) →
+      (100 : ℝ) ≤ Real.sqrt (Real.log Xd) →
+      ((Nat.sqrt Xd : ℝ) + 1) * ∏ p ∈ primeBand P Q, (1 + 3 / (p : ℝ))
+          ≤ (Xd : ℝ) * (Real.log P / Real.log Q) →
+      (∀ n, ‖a n‖ ≤ 1) → (∀ m, ‖b m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+      lemma12RowsMR_end N Xd P Q H T a b c
+        ≤ 960 * (T / (Xd : ℝ) + 1)
+            * ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / H + 1) * (Real.exp 1 / (Xd : ℝ) ^ 2))
+                + 24 / (P : ℝ)
+                + C * (Real.log P / Real.log Q)
+                + 1 / (Xd : ℝ)) := by
+  obtain ⟨C, hC, hrow⟩ := lemma12RowsMR_pricedK_end'
+  refine ⟨C, hC, ?_⟩
+  intro P Q N Xd H T a b c hP hPQ hXd hN hT hH hN4 hreg hbig herr ha hb hc hasupp
+  have hXd1 : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd
+  have hXd0 : (0 : ℝ) < (Xd : ℝ) := by linarith
+  have hXdne : (Xd : ℝ) ≠ 0 := ne_of_gt hXd0
+  have hP0 : (0 : ℝ) < (P : ℝ) := by
+    have h : 0 < P := by omega
+    exact_mod_cast h
+  have hPne : (P : ℝ) ≠ 0 := ne_of_gt hP0
+  have hlogP : (0 : ℝ) ≤ Real.log (P : ℝ) :=
+    Real.log_nonneg (by exact_mod_cast (by omega : 1 ≤ P))
+  have hlogQ : (0 : ℝ) < Real.log (Q : ℝ) :=
+    Real.log_pos (by exact_mod_cast lt_of_lt_of_le (by omega : 1 < P) hPQ)
+  have hratio : (0 : ℝ) ≤ Real.log (P : ℝ) / Real.log (Q : ℝ) := by positivity
+  have hp2nn : (0 : ℝ) ≤ 24 / ((Xd : ℝ) * (P : ℝ)) := by positivity
+  have hBnn : (0 : ℝ) ≤ (2 * Real.exp 1 * (Xd : ℝ) / H + 1) * (Real.exp 1 / (Xd : ℝ) ^ 2)
+      + 24 / ((Xd : ℝ) * (P : ℝ))
+      + (C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2) := by
+    have hH0 : (0 : ℝ) < H := by linarith
+    have hb1 : (0 : ℝ) ≤ (2 * Real.exp 1 * (Xd : ℝ) / H + 1) * (Real.exp 1 / (Xd : ℝ) ^ 2) := by
+      positivity
+    have hb3 : (0 : ℝ) ≤ C * (Real.log P / Real.log Q) / (Xd : ℝ) + 1 / (Xd : ℝ) ^ 2 := by
+      positivity
+    linarith
+  have hcoefle : 12 * (2 * T + 20 * (N : ℝ)) ≤ 960 * (Xd : ℝ) * (T / (Xd : ℝ) + 1) := by
+    have hTid : (Xd : ℝ) * (T / (Xd : ℝ)) = T := by field_simp
+    nlinarith [hN4, hT, hXd0]
+  have hstep := hrow P Q N Xd H T a b c hP hPQ hXd hN hT hH hreg hbig herr ha hb hc hasupp
+  refine hstep.trans ?_
+  have hmul := mul_le_mul_of_nonneg_right hcoefle hBnn
+  refine hmul.trans (le_of_eq ?_)
+  field_simp
+  ring
+
+/-! ### §6.2 — the `j`-collection and the calibrated exit, at R1's numeral -/
+
+/-- **THE `j`-COLLECTION — R1** (`sum_lemma12RowsMR_pricedK'`). -/
+theorem sum_lemma12RowsMR_pricedK' :
+    ∃ C : ℝ, 0 < C ∧ ∀ (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ) (Jb N Xd : ℕ) (T : ℝ)
+      (a : ℕ → ℂ) (b : ℕ → ℕ → ℂ) (c : ℕ → ℂ),
+      1 ≤ Xd → 2 * Xd ≤ N → 0 ≤ T → (N : ℝ) ≤ 4 * (Xd : ℝ) →
+      (∀ j ∈ Finset.Icc 1 Jb, 4 ≤ Pseq j ∧ Pseq j ≤ Qseq j ∧ 2 ≤ Hseq j) →
+      (∀ j ∈ Finset.Icc 1 Jb, Real.log (Qseq j : ℝ) ≤ Real.sqrt (Real.log Xd)) →
+      (100 : ℝ) ≤ Real.sqrt (Real.log Xd) →
+      (∀ j ∈ Finset.Icc 1 Jb,
+        ((Nat.sqrt Xd : ℝ) + 1) * ∏ p ∈ primeBand (Pseq j) (Qseq j), (1 + 3 / (p : ℝ))
+          ≤ (Xd : ℝ) * (Real.log (Pseq j : ℝ) / Real.log (Qseq j : ℝ))) →
+      (∀ n, ‖a n‖ ≤ 1) → (∀ j m, ‖b j m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+      ∑ j ∈ Finset.Icc 1 Jb, lemma12RowsMR N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c
+        ≤ 960 * (T / (Xd : ℝ) + 1)
+            * ((∑ j ∈ Finset.Icc 1 Jb,
+                  ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / Hseq j + 1)
+                      * (Real.exp 1 / (Xd : ℝ) ^ 2))
+                    + 24 / (Pseq j : ℝ)
+                    + 1 / (Xd : ℝ)))
+              + C * ∑ j ∈ Finset.Icc 1 Jb,
+                  Real.log (Pseq j : ℝ) / Real.log (Qseq j : ℝ)) := by
+  obtain ⟨C, hC, hrow⟩ := lemma12RowsMR_priced_ratioK'
+  refine ⟨C, hC, ?_⟩
+  intro Pseq Qseq Hseq Jb N Xd T a b c hXd hN hT hN4 hgates hreg hbig herr ha hb hc hasupp
+  have hlevel : ∀ j ∈ Finset.Icc 1 Jb,
+      lemma12RowsMR N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c
+        ≤ 960 * (T / (Xd : ℝ) + 1)
+            * ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / Hseq j + 1)
+                  * (Real.exp 1 / (Xd : ℝ) ^ 2))
+                + 24 / (Pseq j : ℝ)
+                + 1 / (Xd : ℝ)
+                + C * (Real.log (Pseq j : ℝ) / Real.log (Qseq j : ℝ))) := by
+    intro j hj
+    obtain ⟨hP, hPQ, hH⟩ := hgates j hj
+    exact (hrow (Pseq j) (Qseq j) N Xd (Hseq j) T a (b j) c hP hPQ hXd hN hT hH hN4
+      (hreg j hj) hbig (herr j hj) ha (hb j) hc hasupp).trans (le_of_eq (by ring))
+  refine (Finset.sum_le_sum hlevel).trans (le_of_eq ?_)
+  rw [← Finset.mul_sum, Finset.sum_add_distrib, ← Finset.mul_sum]
+
+/-- **THE `j`-COLLECTION — R1, STRICT/FUSED** (`sum_lemma12RowsMR_pricedK_end'`). -/
+theorem sum_lemma12RowsMR_pricedK_end' :
+    ∃ C : ℝ, 0 < C ∧ ∀ (Pseq Qseq : ℕ → ℕ) (Hseq : ℕ → ℝ) (Jb N Xd : ℕ) (T : ℝ)
+      (a : ℕ → ℂ) (b : ℕ → ℕ → ℂ) (c : ℕ → ℂ),
+      1 ≤ Xd → 2 * Xd ≤ N → 0 ≤ T → (N : ℝ) ≤ 4 * (Xd : ℝ) →
+      (∀ j ∈ Finset.Icc 1 Jb, 4 ≤ Pseq j ∧ Pseq j ≤ Qseq j ∧ 2 ≤ Hseq j) →
+      (∀ j ∈ Finset.Icc 1 Jb, Real.log (Qseq j : ℝ) ≤ Real.sqrt (Real.log Xd)) →
+      (100 : ℝ) ≤ Real.sqrt (Real.log Xd) →
+      (∀ j ∈ Finset.Icc 1 Jb,
+        ((Nat.sqrt Xd : ℝ) + 1) * ∏ p ∈ primeBand (Pseq j) (Qseq j), (1 + 3 / (p : ℝ))
+          ≤ (Xd : ℝ) * (Real.log (Pseq j : ℝ) / Real.log (Qseq j : ℝ))) →
+      (∀ n, ‖a n‖ ≤ 1) → (∀ j m, ‖b j m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+      ∑ j ∈ Finset.Icc 1 Jb, lemma12RowsMR_end N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c
+        ≤ 960 * (T / (Xd : ℝ) + 1)
+            * ((∑ j ∈ Finset.Icc 1 Jb,
+                  ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / Hseq j + 1)
+                      * (Real.exp 1 / (Xd : ℝ) ^ 2))
+                    + 24 / (Pseq j : ℝ)
+                    + 1 / (Xd : ℝ)))
+              + C * ∑ j ∈ Finset.Icc 1 Jb,
+                  Real.log (Pseq j : ℝ) / Real.log (Qseq j : ℝ)) := by
+  obtain ⟨C, hC, hrow⟩ := lemma12RowsMR_priced_ratioK_end'
+  refine ⟨C, hC, ?_⟩
+  intro Pseq Qseq Hseq Jb N Xd T a b c hXd hN hT hN4 hgates hreg hbig herr ha hb hc hasupp
+  have hlevel : ∀ j ∈ Finset.Icc 1 Jb,
+      lemma12RowsMR_end N Xd (Pseq j) (Qseq j) (Hseq j) T a (b j) c
+        ≤ 960 * (T / (Xd : ℝ) + 1)
+            * ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / Hseq j + 1)
+                  * (Real.exp 1 / (Xd : ℝ) ^ 2))
+                + 24 / (Pseq j : ℝ)
+                + 1 / (Xd : ℝ)
+                + C * (Real.log (Pseq j : ℝ) / Real.log (Qseq j : ℝ))) := by
+    intro j hj
+    obtain ⟨hP, hPQ, hH⟩ := hgates j hj
+    exact (hrow (Pseq j) (Qseq j) N Xd (Hseq j) T a (b j) c hP hPQ hXd hN hT hH hN4
+      (hreg j hj) hbig (herr j hj) ha (hb j) hc hasupp).trans (le_of_eq (by ring))
+  refine (Finset.sum_le_sum hlevel).trans (le_of_eq ?_)
+  rw [← Finset.mul_sum, Finset.sum_add_distrib, ← Finset.mul_sum]
+
+/-- The `4 ≤ P` floor at the calibrated ladder: `2 ≤ A` gives `calE ≥ 2`, hence
+`calP = 2^{calE} ≥ 4`.  Free at the door (`Adoor M ≥ 2^36`). -/
+private lemma four_le_calP {A G j : ℕ} (hA : 2 ≤ A) (hG : 1 ≤ G) : 4 ≤ calP A G j := by
+  have hE2 : 2 ≤ calE A G j := by
+    rw [calE]
+    calc (2 : ℕ) = 2 * 1 * 1 := by norm_num
+      _ ≤ A * G ^ (j - 1) * (Nat.factorial j) ^ 2 :=
+          Nat.mul_le_mul (Nat.mul_le_mul hA (Nat.one_le_pow _ _ (by omega)))
+            (Nat.one_le_pow _ _ (Nat.factorial_pos j))
+  rw [calP]
+  calc (4 : ℕ) = 2 ^ 2 := by norm_num
+    _ ≤ 2 ^ calE A G j := Nat.pow_le_pow_right (by norm_num) hE2
+
+/-- **THE FULLY-PRICED MR SEAM ROW — R1** (`sum_lemma12RowsMR_priced_calibratedK2'`).  The
+bracket's `p²` slot is the `X_d`-FREE constant `24/P_j`.  The only hypothesis change against
+the landed exit is `1 ≤ A ↦ 2 ≤ A` (the census's `4 ≤ P` floor, free at the door). -/
+theorem sum_lemma12RowsMR_priced_calibratedK2' :
+    ∃ C : ℝ, 0 < C ∧ ∀ (A G M Jb N Xd : ℕ) (H1 T : ℝ) (a : ℕ → ℂ) (b : ℕ → ℕ → ℂ)
+      (c : ℕ → ℂ),
+      2 ≤ A → 1 ≤ G → 1 ≤ M → 1 ≤ Xd → 2 * Xd ≤ N → 0 ≤ T → 2 ≤ H1 →
+      (N : ℝ) ≤ 4 * (Xd : ℝ) →
+      (∀ j ∈ Finset.Icc 1 Jb,
+        Real.log ((calQK A G M j : ℕ) : ℝ) ≤ Real.sqrt (Real.log Xd)) →
+      (100 : ℝ) ≤ Real.sqrt (Real.log Xd) →
+      (∀ j ∈ Finset.Icc 1 Jb,
+        ((Nat.sqrt Xd : ℝ) + 1)
+            * ∏ p ∈ primeBand (calP A G j) (calQK A G M j), (1 + 3 / (p : ℝ))
+          ≤ (Xd : ℝ)
+            * (Real.log ((calP A G j : ℕ) : ℝ) / Real.log ((calQK A G M j : ℕ) : ℝ))) →
+      (∀ n, ‖a n‖ ≤ 1) → (∀ j m, ‖b j m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+      ∑ j ∈ Finset.Icc 1 Jb,
+          lemma12RowsMR N Xd (calP A G j) (calQK A G M j) (calH H1 j) T a (b j) c
+        ≤ 960 * (T / (Xd : ℝ) + 1)
+            * ((∑ j ∈ Finset.Icc 1 Jb,
+                  ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
+                      * (Real.exp 1 / (Xd : ℝ) ^ 2))
+                    + 24 / ((calP A G j : ℕ) : ℝ)
+                    + 1 / (Xd : ℝ)))
+              + C * (2 / (M : ℝ))) := by
+  obtain ⟨C, hC, hsum⟩ := sum_lemma12RowsMR_pricedK'
+  refine ⟨C, hC, ?_⟩
+  intro A G M Jb N Xd H1 T a b c hA hG hM hXd hN hT hH1 hN4 hreg hbig herr ha hb hc hasupp
+  have hXd0 : (0 : ℝ) < (Xd : ℝ) := by exact_mod_cast hXd
+  have hgates : ∀ j ∈ Finset.Icc 1 Jb,
+      4 ≤ calP A G j ∧ calP A G j ≤ calQK A G M j ∧ 2 ≤ calH H1 j := by
+    intro j hj
+    rw [Finset.mem_Icc] at hj
+    refine ⟨four_le_calP hA hG, calP_le_calQK hM hj.1, ?_⟩
+    rw [calH]
+    have hjR : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
+    nlinarith
+  have h := hsum (calP A G) (calQK A G M) (calH H1) Jb N Xd T a b c hXd hN hT hN4 hgates hreg
+    hbig herr ha hb hc hasupp
+  refine h.trans (mul_le_mul_of_nonneg_left ?_ ?_)
+  · have hratio := sum_ratioK_le (by omega : 1 ≤ A) hG hM Jb
+    have := mul_le_mul_of_nonneg_left hratio hC.le
+    linarith
+  · have hT0 : (0 : ℝ) ≤ T / (Xd : ℝ) := div_nonneg hT hXd0.le
+    linarith
+
+/-- **THE FULLY-PRICED MR SEAM ROW — R1, STRICT/FUSED**
+(`sum_lemma12RowsMR_priced_calibratedK2_end'`). -/
+theorem sum_lemma12RowsMR_priced_calibratedK2_end' :
+    ∃ C : ℝ, 0 < C ∧ ∀ (A G M Jb N Xd : ℕ) (H1 T : ℝ) (a : ℕ → ℂ) (b : ℕ → ℕ → ℂ)
+      (c : ℕ → ℂ),
+      2 ≤ A → 1 ≤ G → 1 ≤ M → 1 ≤ Xd → 2 * Xd ≤ N → 0 ≤ T → 2 ≤ H1 →
+      (N : ℝ) ≤ 4 * (Xd : ℝ) →
+      (∀ j ∈ Finset.Icc 1 Jb,
+        Real.log ((calQK A G M j : ℕ) : ℝ) ≤ Real.sqrt (Real.log Xd)) →
+      (100 : ℝ) ≤ Real.sqrt (Real.log Xd) →
+      (∀ j ∈ Finset.Icc 1 Jb,
+        ((Nat.sqrt Xd : ℝ) + 1)
+            * ∏ p ∈ primeBand (calP A G j) (calQK A G M j), (1 + 3 / (p : ℝ))
+          ≤ (Xd : ℝ)
+            * (Real.log ((calP A G j : ℕ) : ℝ) / Real.log ((calQK A G M j : ℕ) : ℝ))) →
+      (∀ n, ‖a n‖ ≤ 1) → (∀ j m, ‖b j m‖ ≤ 1) → (∀ p, ‖c p‖ ≤ 1) →
+      (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+      ∑ j ∈ Finset.Icc 1 Jb,
+          lemma12RowsMR_end N Xd (calP A G j) (calQK A G M j) (calH H1 j) T a (b j) c
+        ≤ 960 * (T / (Xd : ℝ) + 1)
+            * ((∑ j ∈ Finset.Icc 1 Jb,
+                  ((Xd : ℝ) * ((2 * Real.exp 1 * (Xd : ℝ) / calH H1 j + 1)
+                      * (Real.exp 1 / (Xd : ℝ) ^ 2))
+                    + 24 / ((calP A G j : ℕ) : ℝ)
+                    + 1 / (Xd : ℝ)))
+              + C * (2 / (M : ℝ))) := by
+  obtain ⟨C, hC, hsum⟩ := sum_lemma12RowsMR_pricedK_end'
+  refine ⟨C, hC, ?_⟩
+  intro A G M Jb N Xd H1 T a b c hA hG hM hXd hN hT hH1 hN4 hreg hbig herr ha hb hc hasupp
+  have hXd0 : (0 : ℝ) < (Xd : ℝ) := by exact_mod_cast hXd
+  have hgates : ∀ j ∈ Finset.Icc 1 Jb,
+      4 ≤ calP A G j ∧ calP A G j ≤ calQK A G M j ∧ 2 ≤ calH H1 j := by
+    intro j hj
+    rw [Finset.mem_Icc] at hj
+    refine ⟨four_le_calP hA hG, calP_le_calQK hM hj.1, ?_⟩
+    rw [calH]
+    have hjR : (1 : ℝ) ≤ (j : ℝ) := by exact_mod_cast hj.1
+    nlinarith
+  have h := hsum (calP A G) (calQK A G M) (calH H1) Jb N Xd T a b c hXd hN hT hN4 hgates hreg
+    hbig herr ha hb hc hasupp
+  refine h.trans (mul_le_mul_of_nonneg_left ?_ ?_)
+  · have hratio := sum_ratioK_le (by omega : 1 ≤ A) hG hM Jb
+    have := mul_le_mul_of_nonneg_left hratio hC.le
+    linarith
+  · have hT0 : (0 : ℝ) ≤ T / (Xd : ℝ) := div_nonneg hT hXd0.le
+    linarith
+
 end Salt.MR
 
 end
