@@ -17601,3 +17601,49 @@ Queued behind wave 1: ARITHRHO-FAMILY (E9's assembly), the CapGate
 supply scope (E3), DoorBandBase per BANDBASE-SCOPE's plan.  The
 compose brief inherits: symbolic Λ, the epsrf pin, MSelect v2 BEFORE
 the compose (E6), the fuse route, the Hlo export.
+
+## (2026-07-30 20:30 PDT) WAVE 1 LANDS 3/3 first-attempt: MSelect v2 (547) + the decay frame pages (839, NO JAM) + BANDBASE-SCOPE (D-RISK ZERO) -- three fork rulings; ⚠ F4 THE MU_CAP KILL flagged
+
+⟦MSELECT-V2⟧ S13MSelect2.lean 22 decls: MSelect' {bfloor, gRows,
+blockCeil verbatim; winFit AT THE TRUE GATE; no absorb} + the FORCED
+ρ-parameter (G carries −log ρ; ρ = doorRhoOfDelta(s12DeltaSock δ₀ K),
+fixed before M — sound); the x-scale abs8640 chain (√H ≤ log A;
+loglog A ≥ ½·log H — THE EIGHTEEN ORDERS IN KERNEL; R3-B's finding
+refuted as a kernel object); consumer bridges + of_headroom +
+of_halfWindow, no numeral beyond the tables.  OWED banked: rpow is
+INCREASING so abs8640 does NOT transport down to free εr — THE
+COMPOSE PINS epsrf := θ₂₉₃ − 1/500 EXACTLY (or adds the e-50 floor);
+s13_abs8640_at_exponent is the general form.
+⟦FRAMES-DECAY⟧ M4AssemblyFrames.lean 24 decls, ALL items at
+decayPool, zero constPool fallback: DoorBaseFrame/ArithRho(12 fields)/
+RowZero/RowEnd at-socket + families; hgP1/GRowsZeroGate''' absorbed to
+ONE top instance each (X_d = 3R.x, the g-arm genre); hL4096
+base-LOWER (8.37 vs the ARM's 356600); E_ge BOTH ends (gArmEge = THE
+SECOND g, 8500λ+7800 — consumer takes max of the two g's, both before
+R); BONUS: both fuses AT-SOCKET (hbf/hgP1/hgRows/hL4096/harith GONE).
+Honest residue named: the four M-side numerals; s13BlockFloor ≤ A+s
+(quadratic vs linear — NOT socket-implied); coefWS/dom; hcap/hband;
+the register group.
+⟦BANDBASE-SCOPE⟧ THE VERDICT: NO NEW ANALYTIC STONE — 7/9 fields
+kernel-probed green (err's e-cancellation EXACT at the M0 pin; qfit
+off the arm at 5833×; the trio M-uniform at Aexp=3), 2 irreducible
+gate lines (x₀_le, grade — MmuChiRate's opaque witnesses; the
+S13-genre default).  ONE supplier serves all 18 sites (byte-identical
+binder).  Wave plan W-BAND-1 ~700 class-B, probes port verbatim;
+R1 LOW (collision-neutral: every field base-LOWER or base-free).
+
+⟦MAESTRO RULINGS 3-5 (push-forward grant)⟧ F1: Aexp := 3 ADOPTED
+(zero cost, no Lean object reads the prose pin; saves a numeral
+page).  F2: s13BandM0 EXPORTED from S13BandBase, both unbuilt
+suppliers consume it (the incompatibility fence).  F3: the block
+floor rides as a GATE LINE (no landed-statement amendment).
+⟦W-BAND-1 dispatched⟧.
+
+**⚠ F4 — THE MU_CAP KILL (kernel-certified, NOT ruled, scoped
+first): S13CapGatePerBlock.mu_cap (log X_d ≤ (5/48)·log 𝒫₂)
+CONTRADICTS s13BlockFloor M ≤ X_d for EVERY M ≥ 1 (probe_mucap_kill;
+gap ≥ 2e17); the header's "the spine meets it inside that window" is
+FALSE — the window is EMPTY.  The exits: retire mu_cap + re-price
+the X^{2μ/log𝒫₂} leg, or re-derive the KNOT1-REF budget correction.
+BLOCKS THE FINAL ASSEMBLY regardless of the band wave.
+⟦MUCAP-SCOPE dispatched⟧ — the Captain rules on its verdict.**

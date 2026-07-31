@@ -300,6 +300,8 @@ import Salt.MR.M4RowsChiEndPrime
 import Salt.MR.M4RowsChiZeroPrime
 import Salt.MR.M4DoorClosePool
 import Salt.MR.M4ClosureRepair
+import Salt.MR.M4AssemblyFrames
+import Salt.MR.S13MSelect2
 import Salt.Tactic.AuditAxioms
 
 /-!
