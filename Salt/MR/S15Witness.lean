@@ -706,6 +706,422 @@ theorem s15_sel'_empty_at_closed_forms {Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : Chowl
   have hgap : (2 : ℝ) ^ 74 < (2 : ℝ) ^ 282 := by norm_num
   linarith
 
-end Salt.MR
+/-! ## §8 — ⟦SEL-RECUT⟧ THE RE-CUT REGISTER, WITNESSED
 
-end
+PURELY ADDITIVE: §1–§7 are untouched.
+
+`S15Compose` §10's `S15Sel''` states `x0M` and `anchor` at their suppliers' own forms.  This
+section witnesses IT, and both restorations pay:
+
+| slot | §4 (at `S15Sel'`) | here (at `S15Sel''`) |
+|---|---|---|
+| `λ₋` | `≈ 69.08` (`log H₋ ≥ 10^30`) | `≈ 277.26` (`log H₋ ≥ 2^400`) |
+| `λ₊` | `≤ 2·10^8` | `≤ 9.87·10^10` |
+| `M` | `≤ 2^56` | `= 2^355` |
+| `Mfl` | `≤ 2^56` | `≤ 2^355` |
+| `24·Cg/δ₀` | `≤ 2^56` (from `Cg ≤ 2^41`, `δ₀ ≥ 2^{-10}`) | `≤ 2^355`, stated directly |
+| `x₀` | `≤ 2^56` | `≤ e^{e^{275}}` |
+
+⟦WHY THE CEILING MOVES⟧ §4's `M`-ceiling was forced by the WEAK anchor: `λ₊ ≤ 2.7857·10^8`
+against the compose's only `λ₊`-handle `λ₊ ≤ λ₋^{9/2}` capped `λ₋ ≤ 75.28`, hence
+`log H₋ ≤ e^{75.28}` and (through `half`) `M ≤ 2^{66}`.  Restored, the cap reads
+`λ₋^{9/2} ≤ 2.7857·10^8·(log₂M + 1)` and GROWS with `M`; `half` is the only remaining
+`M`-upper, and the two meet at `λ₋ ≈ 277.7`, `M ≈ 2^{356}`.  `2^{400} ≤ log H₋` sits just
+inside that.
+
+⟦THE `x₀` WINDOW, AND WHY IT IS A HYPOTHESIS⟧ `S13BandGate'.x0_le` asks `x₀ ≤ 2^{doorRowFloor
+M}`, i.e. `log₂ x₀ ≤ 356·2^{391}`, i.e. `x₀ ≤ e^{e^{276.53}}` at this working point (the
+extremal read; `275` below keeps the discharge on `log 2` alone).  That is 175 DOUBLE-LOG
+units above the analytic chain's own pinned floor `exp (exp 100)`
+(`mmu1Chi_rate_of_pinned`'s `filter_upwards`).  It is nevertheless carried as the NAMED
+hypothesis `hx0win` and is NOT discharged, because the threshold `x₀` the chain produces is
+Siegel-INEFFECTIVE (`PortClose`'s `K`: the port's one ineffective constant).  No theorem can
+say the window is met without an effective Siegel–Landau–Page input; that is a research-tier
+wall of the field, not of this file.  ⚠ **The register itself carries no such cap** — the
+hypothesis lives only in this witness.
+
+⟦THE `b`-FLOOR READ⟧ §5's ceiling on `24·Cg/δ₀` moves from `2^{74}` to `2^{355}`, so the gap
+against `ConstantsExposed.b_floor_cert` (`2^{603}`) narrows from **529 bits to 248**. -/
+
+/-! ### §8.1 — the witness scale `⌈e^{2^400}⌉₊` -/
+
+/-- **⟦THE RE-CUT WITNESS SCALE⟧** (`s15WitFloor2`) — `⌈e^{2^{400}}⌉₊`, so
+`log H₋ ∈ [2^{400}, 2^{400} + 1]` and `λ₋ ≤ 400·log 2 = 277.2589`: above the `50` floor the
+spine demands, below the `277.7` the RESTORED `anchor` allows through the `9/2` tower. -/
+def s15WitFloor2 : ℕ := ⌈Real.exp ((2 : ℝ) ^ 400)⌉₊
+
+theorem s15WitFloor2_log_ge : (2 : ℝ) ^ 400 ≤ Real.log ((s15WitFloor2 : ℕ) : ℝ) := by
+  have h : Real.exp ((2 : ℝ) ^ 400) ≤ ((s15WitFloor2 : ℕ) : ℝ) := Nat.le_ceil _
+  have h2 := Real.log_le_log (Real.exp_pos _) h
+  rwa [Real.log_exp] at h2
+
+theorem s15WitFloor2_log_le : Real.log ((s15WitFloor2 : ℕ) : ℝ) ≤ (2 : ℝ) ^ 400 + 1 := by
+  have hc : ((s15WitFloor2 : ℕ) : ℝ) < Real.exp ((2 : ℝ) ^ 400) + 1 :=
+    Nat.ceil_lt_add_one (Real.exp_pos _).le
+  have hb : Real.exp ((2 : ℝ) ^ 400) + 1 ≤ 2 * Real.exp ((2 : ℝ) ^ 400) := by
+    have : (1 : ℝ) ≤ Real.exp ((2 : ℝ) ^ 400) := Real.one_le_exp (by positivity)
+    linarith
+  have hle : ((s15WitFloor2 : ℕ) : ℝ) ≤ 2 * Real.exp ((2 : ℝ) ^ 400) := by linarith
+  have hpos : (0 : ℝ) < ((s15WitFloor2 : ℕ) : ℝ) := by
+    have h : Real.exp ((2 : ℝ) ^ 400) ≤ ((s15WitFloor2 : ℕ) : ℝ) := Nat.le_ceil _
+    have := Real.exp_pos ((2 : ℝ) ^ 400)
+    linarith
+  have h1 := Real.log_le_log hpos hle
+  rw [Real.log_mul (by norm_num) (Real.exp_pos _).ne', Real.log_exp] at h1
+  have hlt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  linarith
+
+/-- `λ₋ ≥ 50` at the re-cut scale (crudely: `2^{99} ≤ 2^{400}`). -/
+theorem s15WitFloor2_loglog_ge :
+    (50 : ℝ) ≤ Real.log (Real.log ((s15WitFloor2 : ℕ) : ℝ)) := by
+  have hlo := s15WitFloor2_log_ge
+  have h1 : (2 : ℝ) ^ (99 : ℕ) ≤ Real.log ((s15WitFloor2 : ℕ) : ℝ) := by
+    refine le_trans ?_ hlo
+    norm_num
+  have h2 := Real.log_le_log (by positivity) h1
+  rw [Real.log_pow] at h2
+  have hgt : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  push_cast at h2
+  linarith
+
+/-- **⟦THE RE-CUT `λ₋` CEILING⟧** — `λ₋ ≤ 277.2589 = 400·log 2 + 2^{-400}`. -/
+theorem s15WitFloor2_loglog_le :
+    Real.log (Real.log ((s15WitFloor2 : ℕ) : ℝ)) ≤ 2772589 / 10000 := by
+  have hhi := s15WitFloor2_log_le
+  have hpos : (0 : ℝ) < Real.log ((s15WitFloor2 : ℕ) : ℝ) := by
+    have := s15WitFloor2_log_ge
+    have h0 : (0 : ℝ) < (2 : ℝ) ^ 400 := by positivity
+    linarith
+  have h1 := Real.log_le_log hpos hhi
+  -- `log (2^400 + 1) ≤ 400·log 2 + 2^{-400}`
+  have hp0 : (0 : ℝ) < (2 : ℝ) ^ (400 : ℕ) := by positivity
+  have hdiv : Real.log (((2 : ℝ) ^ (400 : ℕ) + 1) / (2 : ℝ) ^ (400 : ℕ))
+      ≤ ((2 : ℝ) ^ (400 : ℕ) + 1) / (2 : ℝ) ^ (400 : ℕ) - 1 :=
+    Real.log_le_sub_one_of_pos (by positivity)
+  rw [Real.log_div (by positivity) (by positivity), Real.log_pow] at hdiv
+  have hsmall : ((2 : ℝ) ^ (400 : ℕ) + 1) / (2 : ℝ) ^ (400 : ℕ) - 1 ≤ 1 / 10 ^ 7 := by
+    rw [div_sub_one (by positivity)]
+    rw [div_le_div_iff₀ hp0 (by norm_num)]
+    norm_num
+  have hlt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  push_cast at hdiv
+  norm_num at h1 ⊢
+  linarith
+
+/-- **⟦THE TOWER, AT THE RE-CUT SCALE⟧** — `λ₋ ≤ 277.2589 ⟹ λ₋^{9/2} ≤ 9.87·10^{10}`. -/
+theorem s15w2_tower_bound {x : ℝ} (hx0 : 0 ≤ x) (hx : x ≤ 2772589 / 10000) :
+    x ^ ((9 : ℝ) / 2) ≤ 987 * 10 ^ 8 := by
+  have hpow : x ^ ((9 : ℝ) / 2) ≤ (2772589 / 10000 : ℝ) ^ ((9 : ℝ) / 2) :=
+    Real.rpow_le_rpow hx0 hx (by norm_num)
+  have hnn : (0 : ℝ) ≤ (2772589 / 10000 : ℝ) ^ ((9 : ℝ) / 2) :=
+    Real.rpow_nonneg (by norm_num) _
+  have hsq : ((2772589 / 10000 : ℝ) ^ ((9 : ℝ) / 2)) ^ (2 : ℕ)
+      = (2772589 / 10000 : ℝ) ^ (9 : ℕ) := by
+    rw [← Real.rpow_natCast ((2772589 / 10000 : ℝ) ^ ((9 : ℝ) / 2)) 2,
+      ← Real.rpow_mul (by norm_num), ← Real.rpow_natCast (2772589 / 10000 : ℝ) 9]
+    norm_num
+  have hb : (2772589 / 10000 : ℝ) ^ ((9 : ℝ) / 2) ≤ 987 * 10 ^ 8 := by
+    nlinarith [hsq, hnn]
+  linarith
+
+/-- `2 ≤ e^{0.694}` — the base step of the window's `ℕ`-floors. -/
+theorem s15w2_two_le_exp : (2 : ℝ) ≤ Real.exp (694 / 1000) := by
+  have hlt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  calc (2 : ℝ) = Real.exp (Real.log 2) := (Real.exp_log (by norm_num)).symm
+    _ ≤ Real.exp (694 / 1000) := Real.exp_le_exp.mpr (by linarith)
+
+/-- `arcFloor36 = 10^138 ≤ s15WitFloor2`. -/
+theorem s15WitFloor2_arc : arcFloor36 ≤ s15WitFloor2 := by
+  have hpow : (2 : ℝ) ^ (1000 : ℕ) ≤ Real.exp 694 := by
+    calc (2 : ℝ) ^ (1000 : ℕ) ≤ (Real.exp (694 / 1000)) ^ (1000 : ℕ) :=
+          pow_le_pow_left₀ (by norm_num) s15w2_two_le_exp 1000
+      _ = Real.exp 694 := by rw [← Real.exp_nat_mul]; norm_num
+  have hmono : Real.exp 694 ≤ Real.exp ((2 : ℝ) ^ 400) :=
+    Real.exp_le_exp.mpr (by norm_num)
+  have h10 : ((arcFloor36 : ℕ) : ℝ) ≤ (2 : ℝ) ^ (1000 : ℕ) := by
+    rw [arcFloor36]; push_cast; norm_num
+  have hfin : ((arcFloor36 : ℕ) : ℝ) ≤ ((s15WitFloor2 : ℕ) : ℝ) :=
+    le_trans (le_trans (le_trans h10 hpow) hmono) (Nat.le_ceil _)
+  exact_mod_cast hfin
+
+/-- `loglogFloor50 = ⌈e^{e^{50}}⌉₊ ≤ s15WitFloor2`, since `e^{50} ≤ 2^{400}`. -/
+theorem s15WitFloor2_ll : loglogFloor50 ≤ s15WitFloor2 := by
+  have h1 : Real.exp 1 ≤ 2.72 := le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))
+  have h50 : Real.exp 50 ≤ (2 : ℝ) ^ 400 := by
+    have he : Real.exp 50 = Real.exp 1 ^ (50 : ℕ) := by
+      rw [← Real.exp_nat_mul]; norm_num
+    rw [he]
+    calc Real.exp 1 ^ (50 : ℕ) ≤ (2.72 : ℝ) ^ (50 : ℕ) :=
+          pow_le_pow_left₀ (Real.exp_pos 1).le h1 50
+      _ ≤ (2 : ℝ) ^ 400 := by norm_num
+  have hmono : Real.exp (Real.exp 50) ≤ Real.exp ((2 : ℝ) ^ 400) := Real.exp_le_exp.mpr h50
+  rw [loglogFloor50, s15WitFloor2]
+  exact Nat.ceil_le_ceil hmono
+
+/-! ### §8.2 — the witness modulus `M = 2^355` and its exact door row -/
+
+/-- `Adoor (2^355) = 2^{36}·356`. -/
+theorem s15w2_Adoor : Adoor (2 ^ 355) = 2 ^ 36 * 356 := by
+  rw [Adoor, Nat.log_pow (by norm_num)]
+
+/-- `doorRowFloor (2^355) = 356·2^{391}` — the row the whole witness is read against. -/
+theorem s15w2_doorRowFloor : doorRowFloor (2 ^ 355) = 356 * 2 ^ 391 := by
+  rw [doorRowFloor, s15w2_Adoor]
+  norm_num [← pow_add]
+
+/-- `s13BlockExp (2^355) ≤ 2^{1542}`. -/
+theorem s15w2_blockExp_le : s13BlockExp (2 ^ 355) ≤ 2 ^ 1542 := by
+  have hid : s13BlockExp (2 ^ 355)
+      = 14427 + (64 + 8 * (Nat.log 2 (2 ^ 355) + 1))
+        + 400 * (Adoor (2 ^ 355) * (3072 * 2 ^ 355) * 2 ^ 355) ^ 2 := rfl
+  rw [hid, s15w2_Adoor, Nat.log_pow (by norm_num)]
+  norm_num
+
+/-- `2^{1600} ≤ H₊` at the re-cut scale. -/
+theorem s15w2_Hhi_ge {R : ChowlaRegime} (hlo : (2 : ℝ) ^ 400 ≤ Real.log ((R.Hlo : ℕ) : ℝ)) :
+    (2 : ℕ) ^ 1600 ≤ R.Hhi := by
+  have hpos : (0 : ℝ) < ((R.Hlo : ℕ) : ℝ) := by
+    have := R.hHlo_floor
+    have hp : (0 : ℕ) < R.Hlo := by omega
+    exact_mod_cast hp
+  have hexp : Real.exp 1111 ≤ ((R.Hlo : ℕ) : ℝ) := by
+    have h1 : (1111 : ℝ) ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
+      refine le_trans ?_ hlo; norm_num
+    have h2 := Real.exp_le_exp.mpr h1
+    rwa [Real.exp_log hpos] at h2
+  have hpow : (2 : ℝ) ^ (1600 : ℕ) ≤ Real.exp 1111 := by
+    calc (2 : ℝ) ^ (1600 : ℕ) ≤ (Real.exp (694 / 1000)) ^ (1600 : ℕ) :=
+          pow_le_pow_left₀ (by norm_num) s15w2_two_le_exp 1600
+      _ = Real.exp 1110.4 := by rw [← Real.exp_nat_mul]; norm_num
+      _ ≤ Real.exp 1111 := Real.exp_le_exp.mpr (by norm_num)
+  have hlo' : ((2 : ℕ) ^ 1600 : ℝ) ≤ ((R.Hlo : ℕ) : ℝ) := by
+    push_cast; linarith
+  have hnat : (2 : ℕ) ^ 1600 ≤ R.Hlo := by exact_mod_cast hlo'
+  exact le_trans hnat R.hHlohi
+
+/-- **⟦`M`-UPPER 1's WINDOW SIDE, RE-CUT⟧** — `2^{1541} ≤ ⌊ε²·H₊⌋₊` at `ε ≥ 2^{-9}`. -/
+theorem s15w2_blk_floor {R : ChowlaRegime} (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
+    (hlo : (2 : ℝ) ^ 400 ≤ Real.log ((R.Hlo : ℕ) : ℝ)) :
+    (2 : ℕ) ^ 1541 ≤ ⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ := by
+  have hHhi := s15w2_Hhi_ge hlo
+  have hHq : ((2 : ℕ) ^ 1600 : ℚ) ≤ (R.Hhi : ℚ) := by exact_mod_cast hHhi
+  have hHq' : (2 : ℚ) ^ 1600 ≤ (R.Hhi : ℚ) := by push_cast at hHq; linarith
+  have hepspos : (0 : ℚ) < R.eps := R.heps
+  have hsq : (1 : ℚ) / 2 ^ 18 ≤ R.eps ^ 2 := by nlinarith [heps, hepspos]
+  refine Nat.le_floor ?_
+  have hstep : ((2 : ℕ) ^ 1541 : ℚ) ≤ (1 / 2 ^ 18) * 2 ^ 1600 := by
+    push_cast; norm_num
+  refine le_trans hstep ?_
+  exact mul_le_mul hsq hHq' (by positivity) (sq_nonneg _)
+
+/-- **⟦THE `level1` NUMERAL⟧** (`s15w2_lvl_num`) — the register's binding const-pool line at
+`A(M) = 2^{36}·356`, abstracted from its three atoms: `26 + 14λ₊ + loglog𝒬/3 + log(1/ρ)`
+spends `1.3818·10^{12}` against `(1/12)·2.4464·10^{13}·log 2 ≥ 1.4131·10^{12}`. -/
+theorem s15w2_lvl_num {X Q Y : ℝ} (hX : X ≤ 987 * 10 ^ 8) (hQ : Q ≤ 277) (hY : -Y ≤ 36) :
+    26 + 14 * X + 1 / 3 * Q + -Y ≤ 1 / 12 * 24464133718016 * Real.log 2 := by
+  linarith only [Real.log_two_gt_d9, hX, hQ, hY]
+
+/-! ### §8.3 — ⟦THE WITNESS⟧ -/
+
+set_option maxHeartbeats 1600000 in
+-- eleven register lines at `M = 2^355`: the `blk` line alone carries `2^1542`-sized casts and
+-- the `x0M` line an `exp∘exp` chain, so the default budget is exhausted well before `lvl`
+/-- **⟦THE RE-CUT REGISTER, WITNESSED⟧** (`s15_sel''_witness`).
+
+Every one of `S15Sel''`'s eleven lines, discharged at `M = 2^{355}` against the stated
+numeric window and two numeric facts about the regime (`hlo`: `log H₋ ≥ 2^{400}`, a CHOICE at
+the compose; `hhi`: `λ₊ ≤ 9.87·10^{10}`, the tower conjunct at `λ₋ ≤ 277.2589`).
+
+⟦THE LEDGER⟧ `hM` free; `mfloor`/`bfloor` are the window's own two lines at `2^{355}`;
+`rho`/`anchor` off §1's `log(1/ρ) ≤ 36` against `3.9·10^9·356 = 1.3884·10^{12}` (`14·λ₊`
+spends `1.3818·10^{12}` — 0.48% of margin, the binding line); `gRows`/`gP1`/`lvl` off
+`A(M) = 2^{36}·356 = 2.4464·10^{13}`; `half` off `doorRowFloor M = 356·2^{391}` against
+`2^{399}` (2.7%); `blk` off §8.2; `x0M` off `hx0win` through `e^{275} ≤ 2^{398} ≤
+doorRowFloor M · log 2`.
+
+⟦THE ONE UNDISCHARGEABLE HYPOTHESIS⟧ `hx0win`.  See the section preamble: `x₀` is
+Siegel-ineffective, so no theorem places it in any window. -/
+theorem s15_sel''_witness {Cg δ₀ Ct K : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime}
+    (hδ : 0 < δ₀) (hδb : 1 / 2 ^ 10 ≤ δ₀)
+    (hK : 0 < K) (hKb : K ≤ 2 ^ 20)
+    (hCt : 0 < Ct) (hCtb : Ct ≤ 2 ^ 20)
+    (hbfl : 24 * Cg / δ₀ ≤ 2 ^ 355)
+    (hMfl : Mfl ≤ 2 ^ 355)
+    (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp 275))
+    (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
+    (hlo : (2 : ℝ) ^ 400 ≤ Real.log ((R.Hlo : ℕ) : ℝ))
+    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 987 * 10 ^ 8) :
+    S15Sel'' Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R (2 ^ 355) := by
+  have hρlog : -Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) ≤ 36 :=
+    s15w_neglog_rho_le hδ hK hδb hKb
+  have hinv : Real.log (1 / doorRhoOfDelta (s12DeltaSock δ₀ K))
+      = -Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) := by
+    rw [one_div, Real.log_inv]
+  have hlog2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hlog2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  -- ⟦the door row, exactly⟧
+  have hAdR : ((Adoor (2 ^ 355) : ℕ) : ℝ) = 24464133718016 := by
+    rw [s15w2_Adoor]; norm_num
+  have hdrfR : ((doorRowFloor (2 ^ 355) : ℕ) : ℝ) = 356 * 2 ^ 391 := by
+    rw [s15w2_doorRowFloor]; push_cast; ring
+  have hnR : ((Nat.log 2 (2 ^ 355) + 1 : ℕ) : ℝ) = 356 := by
+    rw [Nat.log_pow (by norm_num)]; norm_num
+  refine
+    { hM := Nat.one_le_two_pow
+      mfloor := hMfl
+      bfloor := ?_
+      gRows := ?_
+      x0M := ?_
+      blk := ?_
+      half := ?_
+      rho := ?_
+      anchor := ?_
+      gP1 := ?_
+      lvl := ?_ }
+  · -- ⟦`M`-LOWER 1⟧ the spine's `hMδ`, stated at the window
+    exact_mod_cast hbfl
+  · -- ⟦`M`-LOWER 2⟧ `242·λ₊ ≤ A(M)`
+    rw [hAdR]; linarith [hhi]
+  · -- ⟦RESTORED⟧ `x₀ ≤ 2^{doorRowFloor M}`
+    have h398 : Real.exp 275 ≤ (2 : ℝ) ^ (398 : ℕ) := by
+      have hl : (275 : ℝ) ≤ Real.log ((2 : ℝ) ^ (398 : ℕ)) := by
+        rw [Real.log_pow]; push_cast; linarith
+      calc Real.exp 275 ≤ Real.exp (Real.log ((2 : ℝ) ^ (398 : ℕ))) := Real.exp_le_exp.mpr hl
+        _ = (2 : ℝ) ^ (398 : ℕ) := Real.exp_log (by positivity)
+    have hrow : (2 : ℝ) ^ (398 : ℕ)
+        ≤ ((doorRowFloor (2 ^ 355) : ℕ) : ℝ) * Real.log 2 := by
+      rw [hdrfR]; nlinarith [hlog2lo]
+    have hpowid : ((2 : ℝ) ^ (doorRowFloor (2 ^ 355) : ℕ))
+        = Real.exp (((doorRowFloor (2 ^ 355) : ℕ) : ℝ) * Real.log 2) := by
+      rw [← Real.log_pow]
+      exact (Real.exp_log (by positivity)).symm
+    have hfin : (x₀ : ℝ) ≤ (2 : ℝ) ^ (doorRowFloor (2 ^ 355) : ℕ) := by
+      rw [hpowid]
+      refine le_trans hx0win (Real.exp_le_exp.mpr ?_)
+      linarith [h398, hrow]
+    exact_mod_cast hfin
+  · -- ⟦`M`-UPPER 1⟧ the block ceiling
+    have hbe : ((s13BlockExp (2 ^ 355) : ℕ) : ℝ) ≤ 2 ^ 1542 := by
+      have h := s15w2_blockExp_le
+      have h' : ((s13BlockExp (2 ^ 355) : ℕ) : ℝ) ≤ ((2 ^ 1542 : ℕ) : ℝ) := by exact_mod_cast h
+      calc ((s13BlockExp (2 ^ 355) : ℕ) : ℝ) ≤ ((2 ^ 1542 : ℕ) : ℝ) := h'
+        _ = 2 ^ 1542 := by push_cast; ring
+    have hfl := s15w2_blk_floor heps hlo
+    have hfl' : (2 : ℝ) ^ 1541 ≤ ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) := by
+      have h : ((2 ^ 1541 : ℕ) : ℝ) ≤ ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) := by
+        exact_mod_cast hfl
+      calc (2 : ℝ) ^ 1541 = ((2 ^ 1541 : ℕ) : ℝ) := by push_cast; ring
+        _ ≤ _ := h
+    have hgap : (2 : ℝ) ^ 1542 + 1 + 18 * (987 * 10 ^ 8) ≤ 4 * (2 : ℝ) ^ 1541 := by
+      norm_num
+    linarith [hbe, hfl', hhi, hgap]
+  · -- ⟦`M`-UPPER 2⟧ the window gate
+    rw [hinv, hdrfR]
+    have h2 : (7 / 10 : ℝ) * (356 * 2 ^ 391) + 3 * 36 ≤ (2 : ℝ) ^ 400 / 2 := by norm_num
+    linarith [h2, hρlog, hlo]
+  · -- the clearing charge
+    linarith [hρlog]
+  · -- ⟦RESTORED⟧ the `ρ`-frame's anchor at `3.9·10^9·(log₂M + 1)`
+    rw [hinv, hnR]
+    linarith [hhi, hρlog]
+  · -- the `𝒯`-leg budget
+    rw [hAdR]
+    have hCtl : Real.log Ct ≤ 20 * Real.log 2 := by
+      have h := Real.log_le_log hCt hCtb
+      rwa [Real.log_pow] at h
+    have hρ' : -(36 : ℝ) ≤ Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) := by
+      linarith [hρlog]
+    nlinarith [hlog2lo, hhi, hCtl, hρ', hlog2hi]
+  · -- the `level1` budget
+    rw [hAdR, s15_log_calQK_one (2 ^ 355), hdrfR]
+    have hQ : Real.log ((356 : ℝ) * 2 ^ 391 * Real.log 2) ≤ 277 := by
+      have hl2 : (0 : ℝ) < Real.log 2 := by linarith only [hlog2lo]
+      have hpos : (0 : ℝ) < 356 * 2 ^ 391 * Real.log 2 := by positivity
+      have hle : (356 : ℝ) * 2 ^ 391 * Real.log 2 ≤ (2 : ℝ) ^ (399 : ℕ) := by
+        linarith only [hlog2hi]
+      have h := Real.log_le_log hpos hle
+      rw [Real.log_pow] at h
+      push_cast at h
+      linarith only [h, hlog2hi]
+    exact s15w2_lvl_num hhi hQ hρlog
+
+/-! ### §8.4 — ⟦THE COMPOSE⟧ THE RE-CUT CONDITIONAL, REGISTER DISCHARGED -/
+
+set_option maxHeartbeats 800000 in
+-- the `∃`-block re-elaborates the capstone's instantiated prefix, as in `S15Compose` §10
+/-- **⟦THE RE-CUT CONDITIONAL, REGISTER DISCHARGED⟧**
+(`logChowla2_conditional_sharp2_nonvacuous`).
+
+`S15Compose.logChowla2_conditional_sharp2` fired at `U1floor := s15WitFloor2` and
+`M := 2^{355}`, with `S15Sel''` DISCHARGED by §8.3's witness.  What remains inside the
+`∃`-block is one implication whose antecedent is the numeric window and whose consequent
+names `S15CrossingBound` as the only surviving analytic hypothesis.
+
+⟦AGAINST §6⟧ the window moved: `Mfl ≤ 2^{56} → Mfl ≤ 2^{355}` (the graded twin's floor is
+`2` once `S11HoistGrade` §4's numeral is kept — 353 bits of room), `24·Cg/δ₀ ≤ 2^{56} →
+2^{355}` (the `b`-floor gap 529 bits → 248), and `x₀ ≤ 2^{56}` became the DOUBLE-EXPONENTIAL
+window `x₀ ≤ e^{e^{275}}`, against a chain whose own `x₀` floor is `e^{e^{100}}`.
+
+⟦WHAT DID NOT MOVE⟧ `hx0win` is a hypothesis, not a discharge: `x₀` is Siegel-ineffective.
+And `S15CrossingBound` is still the one analytic survivor. -/
+theorem logChowla2_conditional_sharp2_nonvacuous :
+    ∃ (ε : ℚ) (Cg K δ₀ Ct : ℝ) (x₀ Hcap Mfl : ℕ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < K ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      ((1 : ℚ) / 2 ^ 9 ≤ ε → 24 * Cg / δ₀ ≤ 2 ^ 355 → 1 / 2 ^ 10 ≤ δ₀ → K ≤ 2 ^ 20 →
+        Ct ≤ 2 ^ 20 → (x₀ : ℝ) ≤ Real.exp (Real.exp 275) → Mfl ≤ 2 ^ 355 →
+        Hcap ≤ s15WitFloor2 →
+        ∀ g : ℕ → ℕ → ℕ, ∃ (R : ChowlaRegime) (M : ℕ),
+          R.eps = ε ∧ R.Hlo = s15WitFloor2 ∧ g R.Hhi R.ω ≤ R.x ∧
+          S15Sel'' Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R M ∧
+          (S15CrossingBound R M → ¬ logChowla2Fails R.eps R.x R.ω)) := by
+  obtain ⟨ε, Cg, K, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hK, hδ₀, hCt, hMfl1, hbody⟩ :=
+    logChowla2_conditional_sharp2
+  refine ⟨ε, Cg, K, δ₀, Ct, x₀, Hcap, Mfl, hε, hCg, hK, hδ₀, hCt, hMfl1, ?_⟩
+  intro hεb hbfl hδb hKb hCtb hx0b hMflb hHcap g
+  have hU : max Hcap (max arcFloor36 loglogFloor50) ≤ s15WitFloor2 := by
+    have h1 := s15WitFloor2_arc
+    have h2 := s15WitFloor2_ll
+    omega
+  obtain ⟨R, hReps, hHlo, hRg, hRtow, hfire⟩ := hbody s15WitFloor2 g hU
+  have hlo : (2 : ℝ) ^ 400 ≤ Real.log ((R.Hlo : ℕ) : ℝ) := by
+    rw [hHlo]; exact s15WitFloor2_log_ge
+  have h50 : (50 : ℝ) ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) := by
+    rw [hHlo]; exact s15WitFloor2_loglog_ge
+  have hlam : Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) ≤ 2772589 / 10000 := by
+    rw [hHlo]; exact s15WitFloor2_loglog_le
+  have hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 987 * 10 ^ 8 := by
+    refine le_trans (hRtow h50) ?_
+    exact s15w2_tower_bound (by linarith) hlam
+  have heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps := by rw [hReps]; exact hεb
+  refine ⟨R, 2 ^ 355, hReps, hHlo, hRg, ?_, ?_⟩
+  · exact s15_sel''_witness hδ₀ hδb hK hKb hCt hCtb hbfl hMflb hx0b heps hlo hhi
+  · exact hfire (2 ^ 355)
+      (s15_sel''_witness hδ₀ hδb hK hKb hCt hCtb hbfl hMflb hx0b heps hlo hhi)
+
+/-- **⟦THE `b`-FLOOR CEILING, RE-CUT⟧** (`s15_sel''_bfloor_window`) — §5's unconditional read
+at `S15Sel''`: `half` and `bfloor` did not move, so the arithmetic is §5's verbatim.  What
+moved is the `λ₋` the RESTORED `anchor` certifies through the `9/2` tower — `75.28 → 277.7`,
+i.e. `log H₋ ≤ 2^{110} → 2^{401}` — and with it the ceiling `2^{74} → 2^{365}`: **238 bits**
+against `ConstantsExposed.b_floor_cert`'s `2^{603}`, where §5 measured 529.  (At the witness's
+own `M = 2^{355}` the read is 248 bits; the extra ten are the crude `A(M) ≥ 2^{36}` step this
+`M`-free statement is forced to take.) -/
+theorem s15_sel''_bfloor_window {Cg δ₀ Ct ρ : ℝ} {x₀ Mfl : ℕ} {R : ChowlaRegime} {M : ℕ}
+    (hρ0 : 0 < ρ) (hρ1 : ρ ≤ 1) (hsel : S15Sel'' Cg δ₀ Ct ρ x₀ Mfl R M)
+    (hw : Real.log ((R.Hlo : ℕ) : ℝ) ≤ 2 ^ 401) :
+    24 * Cg / δ₀ ≤ 2 ^ 365 := by
+  have hlρ : (0 : ℝ) ≤ Real.log (1 / ρ) := by
+    rw [one_div, Real.log_inv]
+    have : Real.log ρ ≤ 0 := Real.log_nonpos hρ0.le hρ1
+    linarith
+  have hdrf : ((M : ℕ) : ℝ) * 2 ^ 36 ≤ ((doorRowFloor M : ℕ) : ℝ) := by
+    have h : M * 2 ^ 36 ≤ doorRowFloor M := by
+      calc M * 2 ^ 36 ≤ M * Adoor M := Nat.mul_le_mul_left _ (Adoor_ge M)
+        _ = doorRowFloor M := rfl
+    have h' : ((M * 2 ^ 36 : ℕ) : ℝ) ≤ ((doorRowFloor M : ℕ) : ℝ) := by exact_mod_cast h
+    calc ((M : ℕ) : ℝ) * 2 ^ 36 = ((M * 2 ^ 36 : ℕ) : ℝ) := by push_cast; ring
+      _ ≤ _ := h'
+  have hhalf := hsel.half
+  have hM : ((M : ℕ) : ℝ) ≤ 2 ^ 365 := by
+    linarith [hhalf, hdrf, hlρ, hw]
+  exact le_trans hsel.bfloor hM
+

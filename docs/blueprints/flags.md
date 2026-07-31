@@ -18334,3 +18334,27 @@ honestly, the exceedance/regime-lever genre the possible future).
 A/B, S15Compose/S15Witness/S11HoistGrade) + the witness re-numeral.
 
 ## () EPSPIN lands 15/15 no-stops: THE REACHABILITY CLOSED -- the pinned head (eps := 1/500 explicit, exists_rat_btwn deleted) + the 8-link Cg chain + the road carry; the terminal twin CARRIES 1/500 <= eps, 1/838400 <= delta0, Cg <= 2e12; kernel: 24Cg/delta0 <= 4.03e19 < 2^66 FROM THE TWIN ALONE; the OpenPrivate device (no landed file gained a decl)
+
+## () SEL-RECUT lands 3/3 (+878/-0): the register restored -- Mfl = 2 (the kept grade floor); x0 at the tolerant band-gate form; anchor at its own (log2M+1); the witness at M := 2^355 with the honest x0-window e^(e^275) as the ONE named Siegel hypothesis; b-floor gap 529 -> 248 bits
+
+S11HoistGrade §4: s11GradeFloor + s11_grade_absorption' (byte-
+identical body, the (4e10)^{2.501} floor KEPT; Mfl = 2 for all
+0 < C ≤ 30 — probe_repair_pays ported).  S15Compose §10: S15Sel''
+(nine lines verbatim; x0M at 2^doorRowFloor M; anchor at the frame's
+own RHS — a DIRECT read now; jfloor repaid off Adoor ≤ doorRowFloor)
++ logChowla2_conditional_sharp2 (same fifteen discharges, the lone
+survivor S15CrossingBound).  S15Witness §8: the M := 2^355 pinned
+witness (DEVIATION 1, forced: x₀ inside the max defeats the
+restoration — it rides as hx0win instead); the extremal ceiling is
+a THEOREM of the design: c = 276.53 exact at the working point, 277
+only in a 0.043-band at 0.07% — 275 keeps the discharge on log 2
+alone at 68% (DEVIATION 2, honest); binding margins anchor 0.48% /
+half 2.7% / gRows 2.4% / lvl 2.3%.  s15_sel''_witness +
+logChowla2_conditional_sharp2_nonvacuous IN KERNEL; hypothesis set
+banked incl. hx0win (Siegel-ineffective, NAMED, undischargeable —
+the field's wall carried honestly).  17/17 axioms; executor-verified
+build 9633 exit-0 (maestro re-verify rides the G-RECUT batch seal —
+the twins are mid-flight in DoorFrame/S13GK/GLever lanes and a race
+now would be noise).  TACTIC NOTE banked: linarith degrades in large
+elaboration contexts — extract top-level numeral lemmas (the
+s15w2_lvl_num remedy).
