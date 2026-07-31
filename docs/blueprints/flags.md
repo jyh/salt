@@ -18041,3 +18041,31 @@ B4 re-supply (a crossing-bound pricing that does NOT route through
 budget — the seam-row constant, the ~70-declaration census, the
 eps_pool-side alternatives) is THE design question for the
 Captain's coffee, with the width law as its wall map.
+
+## (2026-07-30 23:24 PDT) COMPOSE-2 LANDS: logChowla2_conditional FIRED (15/16 discharged; S15Compose 1022 ln, 30/30 axioms) -- the capstone MODULO the named crossing bound; the 2484 catch; a CLAIMED second width leg (refuter dispatched)
+
+⟦THE FIRE⟧ logChowla2_conditional (S15Compose:839): the const
+capstone at the working point — Cp := 0, epsrf ≡ θ₂₉₃−1/500 (fired
+at the UPPER endpoint, the reserve paying abs8640), C₁ ≡ 1, M₀ :=
+s13BandM0, U1floor ≥ max Hcap (arcFloor36, loglogFloor50) PINNING
+R.Hlo = U1floor exactly (EDGE-5 spent).  15/16 binders discharged
+(the table in the file header ledger); logChowla2_witnessed_scale_
+conditional via the S14 last-mile; THE INHABITATION CERTIFICATE
+s15_socketBase_inhabited + s15_compose_nonvacuous at the composed
+tuple — vacuity fenced in the kernel.  SURVIVORS, exact: (1)
+S15CrossingBound (B4, the width law its docstring); (2) ONE band
+line, grade — the landed const twin consumes the UNGRADED wire, so
+the hoist's absorption cannot be spent (⟦GRADE-RECUT dispatched⟧ —
+mechanical, removes it and nothing else); (3) S15Sel, the 11-line
+selection system CARRIED not proved (the M-window nonempty at
+λ₋ ∈ [50, 2e4] per the analysis — the ∃M discharge a follow-up).
+⟦THE CATCH⟧ the 2484 anchor blanket would have been FATAL (M ≥
+2^2483 ⟹ λ₋ ≥ 1753 ⟹ infeasible outright) — §2 re-assembled the
+frame at the fields' own statements; jfloor costs no second line.
+⟦THE CLAIMED SECOND LEG⟧ the band's err_res sharp form reads λ₊ ≤
+487.9·λ₋ vs the width law's λ₊ ≥ λ₋³ — short 5.12× at λ₋ = 50,
+worse as λ₋ grows: IF TRUE the width wall has TWO legs (B4/budget
+AND the T₀-band err), not one.  HAND ARITHMETIC, NOT KERNEL-CHECKED
+— ⟦ERR-REF dispatched⟧ per the verify posture; the coffee brief
+waits for its verdict.  Build 9629 exit-0 maestro-verified; audit
+tail stripped at the seal.
