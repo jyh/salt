@@ -18166,3 +18166,47 @@ morning coffee 7/31, which is the one time-claim that was right.)
 ## (2026-07-31 07:27 PDT) COUNCIL 0731 C3 RATIFIED: rulings 1-11 whole ("to the const road!"); Rbd_grade SHELVED-with-intent (discharge in whatever form survives B4-SUPPLY); the ruling-6 erratum acknowledged ("a census of readers is not a census of demands")
 
 ## (2026-07-31 07:33 PDT) C4 RATIFIED — THE CHRISTENING: house name "the Pearl"; paper #2 = "THE WITNESS" (subtitle: a machine-checked windowed Chowla bound at witnessed scales); the Steinbeck epigraph at the door; JYH's wife's read pending
+
+## (2026-07-31 07:37 PDT) B4-SUPPLY SCOPE 4/4: THE WALL IS UNIQUE (all four directions converge on the ONE budget binder) -- and S1 found THE TWO HOLES: the H83 rescale (kernel-certified, kills WALL-A) and THE J-LEVER (the one knob in the statement, not the proof) -- J-REF fires
+
+⟦THE CONVERGENCE⟧ S2 DEAD (S = q·Tann IS the ordinate height — MR
+Lemma 8's k-amplification pins it; the H-repin buys +log2 of the
+needed 5000×; loglog S ≥ Λ_x − log2 at every admissible height).
+S3 DEAD-at-the-same-wall (the raw and bundle routes are ONE route —
+both land on m4_rowChi_capstone's own hbudget binder, three files
+apart; CONFIRMED en route: the 4320× dissolves at positive εr, the
+const road's εr-decoupling holds end-to-end, no wrong-sign reader).
+S4 DEAD (εr's whole reach = one rem_priced call; budget is a
+DISJOINT hypothesis of the same theorem; side-finding: the 4320× is
+a statement-normalization constant, absorbable with 9 orders).
+S1 PARTIAL: the census proves the space — ONE genealogy (every
+crossing conclusion descends from m4_rowChi_capstone), no budget-
+free 𝒰-leg (all six hUint suppliers carry the thin bundle), no
+whole-annulus bypass, no post-7/30 producer, no constant escape
+(720→520 = 1.04× vs 4320×).
+
+⟦HOLE 1 — THE H83 RESCALE, kernel-certified (probes A+B)⟧ H is a
+pricing-side free parameter invisible in the B4 bytes; at H :=
+8640·H83 the remainder leg closes at εr = 0 with NO absorption
+(probe_rem_zero_bigH) and balance_priced_main survives at cost c³
+in hCqgate — met at loglog X ≥ 3983 vs the spine's 8.75e8 floor
+(probe_balance_priced_main_scaled).  WALL-A DIES for one linear
+rescale (~15 H83 sites in the capstone statement).
+
+⟦HOLE 2 — THE J-LEVER (Captain-tier)⟧ the width ceiling ∝ log 𝒫_J
+= calE·log2 with calE A G J = A·G^{J-1}·(J!)² — and THE BYTES PIN
+J = 2 (the literal in seamTtotG's slot).  probe_calE_general
+(kernel): 4·calE A G J = G^{J-2}·(J!)²·calE A G 2.  In λ-currency
+the width law becomes λ₊ ≤ λ₋ + 7.14 + (J-2)·log G + 2·log J! − log4
+with log G ≈ λ₋ − 16.6 — at the compose's PINNED base λ₋ ≈ 50 the
+deficit closes near J ≈ 2700 (HAND ARITHMETIC).  Every rung is
+J-generic in its own statement (usetGChi_row_exit_perChi takes J
+free); the re-cut is a NUMERAL change across the 52 byte-uniform
+carriers; the J-fold costs benign by the corpus's own rows (the
+m4MrowChi sum j²-summable; VJ² = Q_J^{1/2} vs 2η·log X with vast
+room); the scale pins verified not-excluding.  ⟦J-REF dispatched —
+the verify-posture refuter on the THREE hand-arithmetic claims: the
+λ-currency law, the J ≈ 2700 closure at the pinned base, the cost
+table incl. the k-amplification at large J⟧.  On PASS → COUNCIL v2:
+the J re-cut is a statement change across the capstone family — THE
+CAPTAIN'S RULING REQUIRED.
