@@ -17730,3 +17730,35 @@ cap-bundle route live at positive εr, the one new stone is
 eps_pool-at-constPool — priced, not fired.  Build 9620 executor-
 verified; maestro re-verify at the lane-clear batch seal (W-BAND-1
 mid-build — no concurrent lake).
+
+## (2026-07-30 20:50 PDT) W-BAND-1 LANDS + W-MUCAP-1 APPLIED: DoorBandBase IS A THEOREM (the last unbuilt object built, first-attempt) + the fossil excised by the maestro's hand -- 9621 exit-0, the assembly's supply side is COMPLETE
+
+⟦W-BAND-1⟧ S13BandBase.lean 604 ln, 21 decls, first-attempt, probes
+ported verbatim: doorBandBase_family at the consumer sites' byte-
+identical binder (site count now 21 — the sibling's S12FuseCompose
+added three; the fit CERTIFIED BY COMPILE via s13_hband_at_door_of_
+gate through the hoist).  S13BandGate = EXACTLY FIVE gate lines:
+x0_le (2^doorRowFloor M, the opaque MmuChiRate witness), C1_one
+(free at C₁ ≡ 1), grade (8C' ≤ (log2·doorRowFloor M)^{5/2+1/1000},
+M-only, bridged to the base by rpow), err_res (a NUMERAL line: ≈4300
+≤ 347900 at the arm's Λ ≥ 356600), block (F3's gate line).  The
+three scale floors DISCHARGED not carried (one tight numeral:
+log(log 2) ≥ −0.3725 at 0.0008 margin).  s13BandM0_window exported
+for the ArithRho family wave (F2's fence holding).
+⟦W-MUCAP-1⟧ the 16-line surgery applied by the maestro: mu_cap field
++ header claim + listing EXCISED from S13FramesB; the retirement
+record written in place (the stale-freeze origin, the zero readers,
+the dropped outer log, the kernel-verified one-more-log alternative
+named for recovery).  Build 9621 exit-0 MAESTRO-VERIFIED post-
+surgery; axioms spot-checked on doorCapBundle_family_perBlock +
+doorBandBase_family + logChowla2_capstone_final_rawcap' — 3/3
+standard.  THE GATE IS NOW INHABITABLE.
+
+**THE ASSEMBLY'S SUPPLY SIDE IS COMPLETE.**  Every residue item of
+the compose road (rawcap') now has a landed supplier or a named gate
+line: A1-A5 (MSelect' + arm), the fuse demands (at-socket forms),
+B3 (the five-field page), B4 raw (the crossing bound at εr ≡ 0),
+B5 (doorBandBase_family + the five gate lines), B6 (the ArithRho
+fields — the FAMILY assembly is the one wiring page left), + the
+register group + Hcap-pinned base.  NEXT: THE FINAL COMPOSE (+ the
+parallel SAT-refuter per the verify posture).

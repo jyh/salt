@@ -753,13 +753,16 @@ contradictory field would make the whole gate vacuous — a silent trivializatio
 refuses.  The pair is recorded here as the adjudication owed, exactly as §3's header records
 `KS_gate`/`E_ge`.
 
-⚠ ⟦THE BUDGET's CEILING — CARRIED, NOT ASSERTED⟧ `mu_cap` (`μ ≤ (5/48)·log 𝒫₂`) is the
-KNOT1-REF budget correction: at the true pins (`M = s13M = 4.5·10¹⁹`, `log 𝒬K₂ = 3.13·10⁵⁶`,
-`log 𝒫₂ = 1.74·10³⁶` — **never `M = 66`, which is `m = log₂M+1`**) the binding leg of the
-graded budget is the one never walked, the bundle's own `X^{2μ/log 𝒫₂}` factor.  It gives an
-UPPER cap `μ ≤ (5/48)·log 𝒫₂ = 1280·log2·M·A_door M`, i.e. exactly `×1280` above KNOT-2's
-floor, M-INDEPENDENT and structural.  It is carried as a gate line because it is KNOT-2
-adjacent; the spine meets it inside that window.
+⟦THE BUDGET's CEILING — RETIRED 7/30 (MUCAP-SCOPE; maestro ruling 6)⟧ this file briefly
+carried a `mu_cap` field (`log Nd ≤ (5/48)·log 𝒫₂`), transcribed from the KNOT1-REF freeze
+at the `μ = log X_d` reading — 8 minutes after K4-CENSUS had pinned `μ = log H` (the
+stale-freeze catch, flags #99).  The field had ZERO readers, and was kernel-refuted from
+the gate's own `Q2_reg` at every `M ≥ 1` (probe_mucap_internal_kill).  The honest facts:
+the bundle's leg is `exp(2·(log S/log 𝒫₂)·loglog S)` at `S = q·Tann` — its absorption
+demand sits verbatim inside the carried `budget` field below; the ×1280 window's own
+bookkeeping is `MSelect'.winFit` (`S13MSelect2`); the one-more-log shape
+`loglog X_d ≤ (5/48)·log 𝒫₂` is kernel-verified satisfiable at the block floor
+(scratch probe_mucap_repaired_at_floor) if a documented ceiling is ever wanted.
 
 **PURELY ADDITIVE.**  §1–§7 stand unmodified. -/
 
@@ -979,8 +982,7 @@ pins.  Against `S13CapGate` the changes are:
 * NEW: the scale floor is `8 ≤ log X` (was `4`; `logX_four` comes off it) — the strengthening
   §8a's grid floor asks for, free at every base the regime reaches; `P_le_Q`; the tail band's
   two side conditions `Q_hundred` and `band_product`; the three `E_ge` rows `phi_row`,
-  `p2_row`, `tail_row`; the `φ(q)` line's honest modulus home `q_arcDen`; and the budget's
-  carried ceiling `mu_cap`;
+  `p2_row`, `tail_row`; and the `φ(q)` line's honest modulus home `q_arcDen`;
 * `budget` now reads the PER-BLOCK cap `s13Mr Nd j` inside `∀ j ∈ ramI`.
 
 `Hreg` is the regime's own length `H` (the `SocketBase` slot), and enters ONLY through
@@ -1036,11 +1038,6 @@ structure S13CapGatePerBlock (Cq cs T₀ Kq Ks C : ℝ) (M Nd q P Q Hreg : ℕ)
     thinBundleGChi ((q : ℝ) * Tann) (s13VJ M) (calH (H1door M) 2)
         (calP (Adoor M) (3072 * M) 2) (calQK (Adoor M) (3072 * M) M 2)
       * ((Nd : ℕ) : ℝ) ^ (1 - 2 * s13Eta + s13EpsD q Nd) ≤ ((s13Mr Nd j : ℕ) : ℝ)
-  /-- ⚠ ⟦THE BUDGET's CEILING, CARRIED⟧ `μ ≤ (5/48)·log 𝒫₂` — KNOT1-REF's correction: the
-  bundle's `X^{2μ/log 𝒫₂}` leg caps `μ` at `1280·log2·M·A_door M`, `×1280` above KNOT-2's
-  floor and M-INDEPENDENT.  KNOT-2 adjacent; carried, not asserted. -/
-  mu_cap : Real.log ((Nd : ℕ) : ℝ)
-    ≤ (5 / 48) * Real.log ((calP (Adoor M) (3072 * M) 2 : ℕ) : ℝ)
   /-- `H₈₃ ≤ j` on the grid. -/
   Hj : ∀ j ∈ ramI (H83 ((Nd : ℕ) : ℝ) theta293) P Q,
     H83 ((Nd : ℕ) : ℝ) theta293 ≤ (j : ℝ)
