@@ -17439,3 +17439,59 @@ destructure and the discharge read (d46 d47 d68) are §4-byte-verbatim.
 m4_t0band_discharged is blind to R1+R2 (X-side gates only).  The
 closure's mechanical residue is now ZERO; the examiner's verdict is the
 only gate before THE FINAL ASSEMBLY.
+
+## (2026-07-30 18:46 PDT) THE CLOSURE EXAMINER RULES: terminal CONFIRMED, closure DEFECT (five named, two kernel-certified) -- and THE WORKING POINT SURVIVES (R3-B's abs8640 finding REFUTED at the bytes)
+
+Probes at scratchpad/examiner/{P1..P5,Ax}.lean, all kernel-elaborated;
+spine axioms 8/8 standard.  **M1 MEANING: CONFIRMED** — the terminal
+diffed byte-for-byte vs §3; only the authorized changes (x₀ hoist, ∀M
+inside ∃R uninvertible, the ε-split); π₀ never χ-indexed, φ(q) paid
+once.  One amendment: the consumer pays BOTH ε-windows via
+doorFuseFrame_reEps (sound, redundant, not a defect).
+
+**THE FIVE DEFECTS.**
+⟦D1 THE POOL PINCH, kernel⟧ hone : 1 ≤ π₀ (M4ArithPrime:152)
+contradicts the summand-3 price 188133·π₀·e^{14λ} ≤ ρ/2 —
+m4_chiSummedFreeRow_of_doorAssembly_join UNINSTANTIABLE as landed
+(the R4 exits bypass it; the closure keeps a live path).  REPAIR
+KERNEL-VERIFIED (P4): π₀ := (log X_d)^{−θ₂₉₃}, ε := 0; the band
+threshold at exponent 1−1/500−θ₂₉₃ (NOT 1−1/250); the price from the
+ARM alone, margin 1.707× — gU/gBand jointly satisfiable, the
+direction as hoped.
+⟦D2 MSELECT UNSATISFIABLE, kernel⟧ winFloor ∧ absorb kill the λ-table
+(¬MSelect at s13M; short 86.6× in loglog).  BUT fields ⟦2⟧/⟦4⟧ are
+WRITE-ONLY (no consumer reads them), and abs8640 is a BASE-lower
+discharged by SocketBase's x-scale field + hPHheadroom: loglog A ≳
+e^λ/2 ≥ 2.6e21 vs the 6412.6 demand — EIGHTEEN ORDERS.  R3-B's banked
+finding ("abs8640's honest home is MSelect.absorb, an M-lower")
+REFUTED; the certified point (m=66, s13M, λ ∈ [74.198, 83.667], §9's
+81.184) SURVIVES UNTOUCHED.  The m-symbolic S13-A re-derivations the
+freeze budgeted are NOT NEEDED — a budget reduction, but a freeze
+correction: CAPTAIN-FIRST.
+⟦D3 THE C_p PINNING⟧ the join track pins C_p = 0; both R4 suppliers
+demand 0 < Cp.  Adapter: the fourth pool slot 5760·Ccc·(2/M) ≤ π₀/4 +
+the four-way GRowsZeroGate'' re-split.
+⟦D4 THE UNGATED henv⟧ the join/end'/zero' exits read the ungated
+henv — unsatisfiable at RSanDoorRho ((log H)^12 vs decay); the only
+supplier is SocketBase-GATED.  R2's own exit got this right; R3-A
+regressed.  Adapter: gated twins through
+m4_chiSummedFreeRowBig_of_doorGradeGated_pool (template in hand).
+⟦D5 THE A-5 GAP⟧ winFloor (log 2 coeff) does not imply hfit (7/10 +
+3G ≈ 1.94e4 additive); the certified point clears the TRUE gate at
+17% slack — a field restatement, not a wall.
+⟦D6 = K4's FLAG STANDS⟧ DoorBandBase: hypothesis in six files,
+theorem in NONE.  Nine analytic fields; the closure's single largest
+unbuilt object.  CAPTAIN-FIRST.
++ THE E_ge LINE derived (P5): 49920·φ(q) ≤ (log X_d)^{εr}, worst case
+8489.6·λ — 1.213× ABOVE the ARM's 7000·λ; a base-lower met with
+astronomic slack at x-scale, but the frame wants arm ≥ 8490·λ or a
+standalone gate.
+
+**THE SPLIT.**  Night-executable (⟦R5-REPAIR dispatched⟧, additive
+twins, ~610 ln): D1's decay frame + the price wrapper; D3's four-slot
+re-split; D4's gated twins; the E_ge standalone gate (the frozen arm
+untouched).  CAPTAIN-FIRST at coffee: the D2 freeze correction (+
+whether MSelect survives as an object — ⟦1⟧/⟦3⟧/⟦5⟧ carry the whole
+load); the DoorBandBase supplier (~500-900, new genre); MSelect v2
+(⟦2⟧ restated at 7/10·doorRowFloor + 3G, ⟦4⟧ deleted for the x-scale
+discharge).  THE ASSEMBLY HOLDS until the ruling.
