@@ -18659,3 +18659,18 @@ pair.  The unconditional road runs through a SPINE-SIDE design
 block: the budget's tower vs the register's window — the deepest
 question the campaign has produced.  NOTHING FIRES ON IT WITHOUT
 THE CAPTAIN.
+
+## () THE INTERFACE DESIGN BLOCK OPENS (JYH: "We need to do that design block") -- the campaign's deepest question: THE ENTROPY SPINE'S REGIME DEMANDS vs THE SIEVE REGISTER'S SCALE WINDOW; four scopers fly (budget origin / tower / register ceiling / interface map); freeze -> refuter pass -> council v2 after
+
+THE UNIFIED READING (maestro pre-analysis, UNVERIFIED -- the scopers
+check it, catch #100): both cubic collisions trace to ONE root.  The
+spine demands (a) the tower lambda+ >= lambda-^3 (hJcon's drop-sum)
+and (b) the budget floor logloglog H >= ~3000log4/(eps^6 beta^2) ~
+6.5e19; the register's faces (anchor/winFit; cap+frame; blk/lvl)
+appear to cap lambda- at ~1e4-genre (anchor-vs-winFit: 14·lambda-^3
+<= 3.9e9·log2M with log2M <~ 1.44·lambda- forces lambda- <= ~2e4;
+cap+frame+winFit similar) -- vs the budget's e^{6.5e19}.  NO NUMERAL
+closes a gap of this shape; the design must move a SHAPE: the
+budget's logloglog demand (spine-side), the tower law (regime
+construction), or the cap's H-coupling (register-side).  The four
+scopers establish the honest facts under each face before any freeze.
