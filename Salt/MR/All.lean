@@ -326,6 +326,7 @@ import Salt.MR.HloExportMRFlatRoot
 import Salt.MR.S16FlatTerminal
 import Salt.MR.ArithPageLinear
 import Salt.MR.S15SelLinear
+import Salt.MR.S15SelLinearWide
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -6797,3 +6798,38 @@ unsatisfiable at `Adoor M = 2^36·(⌊log₂M⌋+1)` and the flat width all clea
   Salt.MR.s15_sel''_L_gk_of_L
   Salt.MR.s15_sel''_L_gk_witness_flat
 
+
+/-! ## ⟦COMPOSE-FLAT-2⟧ — the acceptance at the WIDE riders, and the joint point
+
+`Salt.MR.S15SelLinearWide` re-mints ⟦LINEAR-PAGE⟧'s acceptance against the riders
+that are TRUE at the terminal's own witness — `1/2^20 ≤ δ₀`, `Kc ≤ 2^539`,
+`Ct ≤ 2^23`, the `ρ`-charge at `403` (⟦REPAIRS-LANE⟧'s certified numerals) — by
+carrying the charge as a PARAMETER through the five `ρ`-spending register lines;
+the six `ρ`-free lines transport verbatim.  `flat_linear_joint_point` is the
+compose refuter's mandate in ONE kernel statement: the flat floor, the Fannes
+ceiling, the width law's OWN demand `4^{(20/21)A}` against the supplied width, the
+linear `anchor`/`gRows` pair, the `half` window, and the budget's height-1 floor
+under the pinned base — all at `λ₋ = 3.2A`, `M = flatDoorM A`, uniformly in
+`A ≥ 26`.  `flat_landed_ladder_break` is the RESIDUE, kernelized: the road and the
+fuse read the door a SECOND time, through `calP (Adoor M) (s13GK K M)`, and that
+copy of the budget line is false at the flat design point for every `A ≥ 26` — so
+the re-fire needs the LADDER re-cut, not only the register. -/
+#audit_axioms Salt.MR.flat_exp_ge_lin
+  Salt.MR.flat_gRows_line
+  Salt.MR.flat_anchor_line
+  Salt.MR.flat_half_line
+  Salt.MR.flat_gP1_line
+  Salt.MR.flat_lvl_line
+  Salt.MR.s15_sel''_L_witness_flat_charge
+  Salt.MR.s15_sel''_L_witness_flat_wide
+  Salt.MR.flat_blk_line_gk
+  Salt.MR.s15_sel''_L_gk_witness_flat_wide
+  Salt.MR.flatC_bracket
+  Salt.MR.flat_rpow_four_le
+  Salt.MR.flat_linear_joint_point
+  Salt.MR.s13BlockExp_le_L
+  Salt.MR.s15_sel''_L_blk_landed
+  Salt.MR.s15_sel''_L_half_landed
+  Salt.MR.s15_gRows_const_at_socket_flat_doorL
+  Salt.MR.flatDoorM_natLog_le
+  Salt.MR.flat_landed_ladder_break
