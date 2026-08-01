@@ -323,6 +323,7 @@ import Salt.MR.FlatConsumers
 import Salt.MR.S12ConstComposeFlat
 import Salt.MR.S16BudgetFlat
 import Salt.MR.HloExportMRFlatRoot
+import Salt.MR.S16FlatTerminal
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -6680,3 +6681,52 @@ open Salt.Tactic in
   Salt.MR.doorL_length_gate
   Salt.MR.doorL_length_gate_iff
 
+
+/-! ⟦COMPOSE-FLAT — THE FLAT TERMINAL⟧ (`S16FlatTerminal`, 2026-08-01, the ratified
+flat-tower sequence's last step).
+
+`logChowla2_witnessed_scale_flat` is `S16Budget.logChowla2_witnessed_scale_final'_v3`'s
+counterpart on the FLAT road, reached through `logChowla2_capstone_final_const'_graded_gk_
+pinned_Mfl_flatRoot` (HOP 3) and `logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot`
+(HOP 4) — both rooted in `HloExportMRFlatRoot.m4_second_road_L2_gk_flatRoot`, so no
+triple-exponential `budgetFloor` occurs anywhere beneath them.
+
+⟦THE THIRD FACE⟧ the rider `Hcap ≤ s15WitFloor2` is GONE from the terminal: the base is
+pinned at the road's OWN cap `flatWitFloor`, and `flatCap_le_flatWitFloor` discharges the
+pin unconditionally.  §1 prices what that costs and what it does not: the flat cap is
+HEIGHT 2 (`⌈e^{e^{3.2A}}⌉₊`) where the landed one was height 3, and it fits under
+`s15WitFloor2` exactly when `3.2·A ≤ 400·log 2` — a demand which, at the head's own
+`β = cD3·ε/(144·log 4)`, forces `cD3 ≥ 19000` against the landed leaf's `1/4`.
+
+⟦THE NEW NAMED DEBT⟧ the S15 register (`S15Sel''_gk`) is CARRIED, not produced: §3/§7 price
+the break on both sides (`anchor` is a FRAME constant and breaks independently of the
+`Adoor`-linear re-cut).
+
+Additive: no landed declaration is touched. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.budgetAFlat_spend
+  Salt.MR.flat_design_window_demand
+  Salt.MR.flatHead_budget_pair
+  Salt.MR.flat_window_forces_cD3
+  Salt.MR.flat_design_window_necessary
+  Salt.MR.flatCap_le_s15WitFloor2_forces_cD3
+  Salt.MR.flatWitFloor
+  Salt.MR.flatWitFloor_arc
+  Salt.MR.flatWitFloor_ll
+  Salt.MR.flatCap_le_flatWitFloor
+  Salt.MR.flatWitFloor_design
+  Salt.MR.flatWitFloor_le_ceil_exp
+  Salt.MR.flat_base_in_s15_window
+  Salt.MR.s15_window_eq_cap_window
+  Salt.MR.flatCap_join_floor
+  Salt.MR.logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot
+  Salt.MR.logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot
+  Salt.MR.logChowla2_witnessed_scale_flat
+  Salt.MR.flatWitA
+  Salt.MR.flatWitA_ge
+  Salt.MR.flatWitA_budget
+  Salt.MR.flatWitFloor_regime_exists
+  Salt.MR.s15w2_anchor_landed_margin
+  Salt.MR.s15w2_anchor_flat_break
+  Salt.MR.s15w2_gRows_flat_break
+  Salt.MR.s15w2_gRows_flat_doorL
