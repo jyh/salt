@@ -6797,4 +6797,3 @@ unsatisfiable at `Adoor M = 2^36·(⌊log₂M⌋+1)` and the flat width all clea
   Salt.MR.s15_sel''_L_gk_of_L
   Salt.MR.s15_sel''_L_gk_witness_flat
 
-end Salt.MR
