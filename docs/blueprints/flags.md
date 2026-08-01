@@ -18720,3 +18720,5 @@ block's target) + the Siegel pair.  The five missing end-Salt.MR
 enders restored by the maestro (S11HoistGrade/S12ConstCompose/
 S15Compose/S15Witness/S16Budget).  Build 9635 exit-0
 maestro-verified; 12/12 axioms.
+
+## () THE INTERFACE REFUTER PASS LANDS 3/3 -- THE FREEZE TAKES FIRE AND FALLS: D1-BENNETT REFUTED (R2: the bridge variable is GENUINELY RANGE-SPREAD -- no log H gain at any threshold; best case eps^6->eps^4 leaves height-3 at 4.9e21); CLAIM 3 a LEVEL ERROR (R3: the cap face does not exist post-D1 -- K = 0-2 suffices; branch (a) K = 6.8e7 INSIDE the pin); R1: no working point at either branch (branch (a) dies at THE WIDTH LAW -- corrected to 6.4517, the freeze 7.1448 dropped a /2; branch (b) closes EVERY register face then dies at THE EPS-COUPLING e^{3-lambda}); the b-floor/x0 floors dominate (honest lambda- = 449 -- CHECK vs the pinned-road 2^65 b-floor, possible stale-expression read, COUNCIL ITEM); full reports at docs/exploration/iface-refuter-reports-0731.md -- COUNCIL v3 IN THE MORNING (JYH: "we commence with a council in the morning")
