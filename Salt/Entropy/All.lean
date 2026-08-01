@@ -68,6 +68,7 @@ import Salt.Entropy.Chowla.TowerDischarge
 import Salt.Entropy.Chowla.BoundaryMap
 import Salt.Entropy.Chowla.RegimeParam
 import Salt.Entropy.Chowla.TowerExport
+import Salt.Entropy.Chowla.TowerFlat
 import Salt.Entropy.Chowla.SpineFinal
 import Salt.Entropy.Chowla.TransportWall
 import Salt.Entropy.Chowla.Windows
