@@ -18629,3 +18629,33 @@ the §6.3 audit page's certified numerals); the cs re-carry; T0's
 forced-equality tell noted.  The new terminal:
 logChowla2_witnessed_scale_final'_Cproven (C in the prefix).
 Build 9635 exit-0 maestro-verified; 15/15 axioms.
+
+## () HCAP-SCOPE: THE THIRD FACE IS REAL -- a GIANT, kernel-certified, definitional (BudgetCore:21: the height-3 tower is IN THE DEF; budgetX >= 270270 at EVERY admissible eps/beta -- 12 probes); the streak holds at three-of-three; the two live directions are D-TIER -- THE DESIGN COUNCIL'S NEXT MOUNTAIN
+
+THE CLEAN FORM: the entropy budget demands logloglog H >= 6.5e19;
+the register's lambda-ceiling permits logloglog H <= 6.24 — a factor
+1e19 IN THE TRIPLE LOG.  Every knob kernel-dead: eps (the window
+divides budgetX by 4.1; even eps -> 1/2 leaves 270270); K (needs
+1.5e31 vs the frame's 1.7e8); beta (IS the door grade, small by
+design); budgetX itself ("enlargeable, never shrinkable" — a freeze).
+THE ARMS SORTED: 4e6 / eps-arm / H0xi benign; H0arc REPAIRABLE (a
+witness re-cut to ceil(e^{e^300}) clears it — lambda 284.44 < the
+sharpened ceiling 490, kernel: 491 fails, 490 passes); H0red = H0D3
+IDENTICALLY (one arm, not two) and its defect is UNDISCHARGEABILITY
+(K_Chen rides siegelWalfisz_holds — only 0 <= K known), the Siegel
+genre, not falsity.  THE TWO LIVE DIRECTIONS (both D-tier, the
+council's): (i) weaken budget_facts' demand on H — the tower
+originates in ONE ratio line (logloglog H >~ 3000·log4/(eps^6·beta^2))
+— the spine-side design question; (ii) decouple the socket base
+scale from H so the cap stops being cubic in lambda — the carried,
+underived S16BaseScaleCap is the symptom.  The honest residual: the
+lambda-cubed link lives as design prose (S16Budget:50), but the
+verdict is independent of it (the anchor ceiling 277.7 + the_third_
+face kill any ceiling <= 512).  CONSEQUENCE FOR THE BOARD: even
+after L2-PROD lands (the Mfl face dies), the final object stays
+vacuous at the Hcap rider — the honest state is then ONE structural
+vacuity (the budget/register scale mismatch) + the named Siegel
+pair.  The unconditional road runs through a SPINE-SIDE design
+block: the budget's tower vs the register's window — the deepest
+question the campaign has produced.  NOTHING FIRES ON IT WITHOUT
+THE CAPTAIN.
