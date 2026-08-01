@@ -324,6 +324,8 @@ import Salt.MR.S12ConstComposeFlat
 import Salt.MR.S16BudgetFlat
 import Salt.MR.HloExportMRFlatRoot
 import Salt.MR.S16FlatTerminal
+import Salt.MR.ArithPageLinear
+import Salt.MR.S15SelLinear
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -6730,3 +6732,69 @@ open Salt.Tactic in
   Salt.MR.s15w2_anchor_flat_break
   Salt.MR.s15w2_gRows_flat_break
   Salt.MR.s15w2_gRows_flat_doorL
+
+/-! ## ⟦LINEAR-PAGE⟧ — the arithmetic page and the register at the linear door
+
+`Salt.MR.ArithPageLinear` carries the `_L` twin family from `W0`'s door
+(`Salt.MR.DoorLinear`) through the analytic objects that hardwired the landed
+anchor — `a2Level1`, `a2RowsSum(')`, `a2Mrow`, `a2DoorGrade`, `DoorArithFrameRho` —
+and `Salt.MR.S15SelLinear` states the eleven-line `M`-selection register there and
+discharges it AT THE FLAT ROAD'S DESIGN POINT, symbolically in `A ≥ 26`
+(`s15_sel''_L_witness_flat`, and its levered twin at the door's own `K`-ceiling).
+This is ⟦H1-ANCHOR⟧'s repair: the four register lines that are jointly
+unsatisfiable at `Adoor M = 2^36·(⌊log₂M⌋+1)` and the flat width all clear at
+`AdoorL M = 2^36·M`, with `~900×` of margin, uniformly in the design constant. -/
+#audit_axioms Salt.MR.s15_log_calQK_L_one
+  Salt.MR.s15_doorRowFloorL_ge
+  Salt.MR.s15_log_calQK_L_one_pos
+  Salt.MR.s15_loglogQ1_L_nonneg
+  Salt.MR.s15_calP_L_one_pos
+  Salt.MR.s15_calP_L_one_le_two
+  Salt.MR.a2Level1_L_pos
+  Salt.MR.a2Level1_L_nonneg
+  Salt.MR.a2Level1_L_gk_eq
+  Salt.MR.s15_a2Level1_L_exp
+  Salt.MR.a2RowsSum'_L_le_a2RowsSum_L
+  Salt.MR.a2RowsSum_L_gk_le
+  Salt.MR.a2RowsSum'_L_gk_le
+  Salt.MR.a2Mrow_L_gk_le
+  Salt.MR.anchorL_of_anchor
+  Salt.MR.DoorArithFrameRho_L.armWeak
+  Salt.MR.DoorArithFrameRho_L.loglogX_ge
+  Salt.MR.DoorArithFrameRho_L.one_lt_logX
+  Salt.MR.DoorArithFrameRho_L.of_landed
+  Salt.MR.m4_arith_anchor_of_C1_rho_L
+  Salt.MR.m4_arith_jfloorL_of_row
+  Salt.MR.doorGrade_summand2_priced_rho_L
+  Salt.MR.a2DoorGrade_L_nonneg
+  Salt.MR.a2DoorGrade_L_priced_rho
+  Salt.MR.log_calP_one_gen
+  Salt.MR.s15_gP1_of_budget_gen
+  Salt.MR.s15_p2_of_budget_gen
+  Salt.MR.s15_level1_L_of_budget
+  Salt.MR.doorRowFloor_le_doorRowFloorL
+  Salt.MR.socketBase_of_socketBaseL
+  Salt.MR.s15_doorArithFrameRho_L_at_socket''
+  Salt.MR.s15_doorArithFrameRho_L_family''
+  Salt.MR.a2DoorGrade_pool_L_at_decay
+  Salt.MR.a2DoorGrade_pool_L_nonneg
+  Salt.MR.a2DoorGrade_pool_L_priced_rho
+  Salt.MR.m4_arith_henv_rho_L
+  Salt.MR.gRowsZeroGate'''_L_of_budget
+#audit_axioms Salt.MR.s13BlockExp_L_head
+  Salt.MR.s13BlockExp_L_le
+  Salt.MR.S15Sel''_L.head
+  Salt.MR.S15Sel''_L_gk.head
+  Salt.MR.flat_exp_half_ge
+  Salt.MR.flat_exp_sq
+  Salt.MR.flat_exp_ge_quartic
+  Salt.MR.flatDoorM_le
+  Salt.MR.flatDoorM_ge
+  Salt.MR.flatDoorM_one_le
+  Salt.MR.s15_sel''_L_witness_flat
+  Salt.MR.s13BlockExp_L_gk_head
+  Salt.MR.s13BlockExp_L_gk_le
+  Salt.MR.s15_sel''_L_gk_of_L
+  Salt.MR.s15_sel''_L_gk_witness_flat
+
+end Salt.MR
