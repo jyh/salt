@@ -1465,3 +1465,5 @@ theorem m4_hT0band_at_door_discharged_split_graded_prod_gk (K : ℕ) (hMmu : Mmu
   exact m4_hT0band_at_door_gk K χ M hX3 hXd hXdN hN hC₁ hS₀ hSle
     (hpiece q χ M Xd N hXd hX400 hx₀ h16 hq hcovP hcovQ hcovB hgHalf hgO1 hgWin) hErr
 
+
+end Salt.MR

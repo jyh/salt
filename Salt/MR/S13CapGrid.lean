@@ -1110,4 +1110,7 @@ theorem s13CapGrid_all_gk (K : ℕ) {R : ChowlaRegime} {M H L q j A s : ℕ} {cs
     s13CapGrid_WL hμ hΛ, s13CapGrid_gate hcs hμ hΛ, s13CapGrid_Q_hundred hμ hΛ,
     s13CapGrid_band_product hμ hΛ⟩
 
--- #audit (temporary)
+
+end Salt.MR
+
+end

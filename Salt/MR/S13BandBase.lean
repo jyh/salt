@@ -1071,4 +1071,7 @@ theorem doorBandBase_family'_gk (K : ℕ) {R : ChowlaRegime} {M x₀ : ℕ} {C' 
   · -- ⟦`err`⟧ THE ARM AT THE TOP — no `λ₊` cap anywhere
     exact s13_band_err_free hρ0 hρ1 (hgate.C1_one (A + s)) (hC1hi (A + s)) hHreg hg hb
 
--- #audit (temporary)
+
+end Salt.MR
+
+end

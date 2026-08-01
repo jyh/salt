@@ -831,3 +831,5 @@ theorem twoWindow_mass_le (P₁ Q₁ P₂ Q₂ z : ℕ) (h₁4 : 4 ≤ P₁) (h�
   have hM0 : (0 : ℝ) ≤ windowMassConst P₁ Q₁ := (Real.exp_pos _).le
   exact mul_le_mul hA hB hB0 hM0
 
+
+end Salt.MR

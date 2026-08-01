@@ -704,3 +704,7 @@ theorem s13CapEps_pins_supply {R : ChowlaRegime} {M H L q j A s : ℕ}
   have hpos : (0 : ℝ) < (10 : ℝ) ^ (21 : ℕ) := by positivity
   refine ⟨Nat.le_ceil _, m4_tail_grade_rounded (by linarith) (by linarith) hP4 hQ4⟩
 
+
+end Salt.MR
+
+end
