@@ -694,4 +694,140 @@ theorem ramTailWeight_htail_door (P Q y : ℕ) (A : ℝ) (hA : 0 < A)
     _ = 1 / (Real.log (y : ℝ)) ^ A := by
         rw [← Real.rpow_add hLy, show -(2 * A) + A = -A by ring, Real.rpow_neg hLy.le, one_div]
 
-end Salt.MR
+/-! ## §4 — ⟦THE PRIME-SET ENGINE⟧ (LEVEL2-PROD, 2026-07-31): THE SAME ENGINE AT AN
+ARBITRARY PRIME SET, AND THE PRODUCT SPLIT
+
+§1's engine reads `P, Q` ONLY through membership in `primeBand P Q`: the divisor domination
+`b ∣ ∏_{p ∈ S} p^z`, the multiplicativity, and the local geometric majorant are all
+statements about a FINSET OF PRIMES.  This section states them that way
+(`primeSet_rpow_sum_le`), adds the union split `∏_{S₁ ∪ S₂} ≤ ∏_{S₁}·∏_{S₂}` (every Euler
+factor is `≥ 1`), and composes both at `u = 1` into the TWO-WINDOW mass
+(`twoWindow_mass_le`).
+
+⟦WHY⟧ the door's mask names two blocks; pricing them against ONE covering window forces the
+covering ratio `log 𝒬₂/log 𝒫₁`, which at the `G`-lever carries `2^K`.  Priced PER BLOCK the
+two ratios are `M` and `4M` at EVERY base — the lever cancels inside each block.
+
+**PURELY ADDITIVE**: §1–§3 are untouched; `windowSmooth_rpow_sum_le` remains the door of the
+single-window lane. -/
+
+/-- Every `b` with `1 ≤ b ≤ z` whose prime factors lie in `S` divides `N = ∏_{p ∈ S} p^z`. -/
+lemma primeSetSmooth_dvd_setPow {S : Finset ℕ} {z b : ℕ} (hb1 : 1 ≤ b) (hbz : b ≤ z)
+    (hbsm : b.primeFactors ⊆ S) : b ∣ ∏ p ∈ S, p ^ z := by
+  have hb0 : b ≠ 0 := by omega
+  have hbfac : ∏ p ∈ b.primeFactors, p ^ (b.factorization p) = b := by
+    have h := Nat.prod_factorization_pow_eq_self hb0
+    rwa [Finsupp.prod, Nat.support_factorization] at h
+  rw [← hbfac]
+  refine dvd_trans (Finset.prod_dvd_prod_of_dvd _ _ ?_)
+    (Finset.prod_dvd_prod_of_subset _ _ _ hbsm)
+  intro p _
+  exact pow_dvd_pow p (le_trans (Nat.factorization_lt p hb0).le hbz)
+
+/-- **THE ENGINE, PRIME-SET GENERIC.** -/
+theorem primeSet_rpow_sum_le (S : Finset ℕ) (hS : ∀ p ∈ S, p.Prime) (z : ℕ) {u : ℝ}
+    (hu : 0 < u) :
+    ∑ b ∈ (Finset.Icc 1 z).filter (fun b => b.primeFactors ⊆ S), (b : ℝ) ^ (-u)
+      ≤ ∏ p ∈ S, (1 - (p : ℝ) ^ (-u))⁻¹ := by
+  classical
+  set N : ℕ := ∏ p ∈ S, p ^ z with hNdef
+  have hNpos : 0 < N := by
+    rw [hNdef]
+    exact Finset.prod_pos fun p hp => pow_pos (hS p hp).pos z
+  have hsub : (Finset.Icc 1 z).filter (fun b => b.primeFactors ⊆ S) ⊆ N.divisors := by
+    intro b hb
+    rw [Finset.mem_filter, Finset.mem_Icc] at hb
+    obtain ⟨⟨hb1, hbz⟩, hbsm⟩ := hb
+    rw [Nat.mem_divisors]
+    exact ⟨hNdef ▸ primeSetSmooth_dvd_setPow hb1 hbz hbsm, hNpos.ne'⟩
+  have hcop : ((S : Finset ℕ) : Set ℕ).Pairwise
+      (Function.onFun Nat.Coprime (fun p => p ^ z)) := by
+    intro p hp q hq hpq
+    exact Nat.Coprime.pow _ _
+      ((Nat.coprime_primes (hS p (Finset.mem_coe.mp hp))
+        (hS q (Finset.mem_coe.mp hq))).mpr hpq)
+  calc ∑ b ∈ (Finset.Icc 1 z).filter (fun b => b.primeFactors ⊆ S), (b : ℝ) ^ (-u)
+      = ∑ b ∈ (Finset.Icc 1 z).filter (fun b => b.primeFactors ⊆ S), invRpow u b := by
+        refine Finset.sum_congr rfl fun b hb => ?_
+        rw [Finset.mem_filter, Finset.mem_Icc] at hb
+        rw [invRpow_apply_of (by omega : b ≠ 0)]
+    _ ≤ ∑ d ∈ N.divisors, invRpow u d :=
+        Finset.sum_le_sum_of_subset_of_nonneg hsub (fun d _ _ => invRpow_nonneg u d)
+    _ = divisorRpow u N := (divisorRpow_apply u N).symm
+    _ = ∏ p ∈ S, divisorRpow u (p ^ z) := by
+        rw [hNdef]
+        exact ArithmeticFunction.IsMultiplicative.map_prod (fun p => p ^ z)
+          (divisorRpow_isMultiplicative u) S hcop
+    _ ≤ ∏ p ∈ S, (1 - (p : ℝ) ^ (-u))⁻¹ :=
+        Finset.prod_le_prod (fun p _ => divisorRpow_nonneg u _)
+          (fun p hp => divisorRpow_prime_pow_le (hS p hp) hu z)
+
+/-- Every local Euler factor at a prime is `≥ 1`. -/
+lemma one_le_geom_factor {p : ℕ} (hp : p.Prime) {u : ℝ} (hu : 0 < u) :
+    (1 : ℝ) ≤ (1 - (p : ℝ) ^ (-u))⁻¹ := by
+  have hp1 : (1 : ℝ) < (p : ℝ) := by exact_mod_cast hp.one_lt
+  have hr0 : (0 : ℝ) < (p : ℝ) ^ (-u) := Real.rpow_pos_of_pos (by linarith) _
+  have hr1 : (p : ℝ) ^ (-u) < 1 := Real.rpow_lt_one_of_one_lt_of_neg hp1 (by linarith)
+  rw [le_inv_comm₀ (by norm_num) (by linarith)]
+  linarith
+
+/-- **THE PRODUCT SPLIT.**  The Euler product over a union is at most the product of the two
+Euler products (every factor is `≥ 1`). -/
+theorem prod_geom_union_le (S₁ S₂ : Finset ℕ) (hS₁ : ∀ p ∈ S₁, p.Prime)
+    (hS₂ : ∀ p ∈ S₂, p.Prime) {u : ℝ} (hu : 0 < u) :
+    ∏ p ∈ S₁ ∪ S₂, (1 - (p : ℝ) ^ (-u))⁻¹
+      ≤ (∏ p ∈ S₁, (1 - (p : ℝ) ^ (-u))⁻¹) * ∏ p ∈ S₂, (1 - (p : ℝ) ^ (-u))⁻¹ := by
+  classical
+  have hdisj : Disjoint S₁ (S₂ \ S₁) := Finset.disjoint_sdiff
+  have hunion : S₁ ∪ S₂ = S₁ ∪ (S₂ \ S₁) := by
+    ext p; simp [Finset.mem_union]
+  rw [hunion, Finset.prod_union hdisj]
+  have hle : ∏ p ∈ S₂ \ S₁, (1 - (p : ℝ) ^ (-u))⁻¹
+      ≤ ∏ p ∈ S₂, (1 - (p : ℝ) ^ (-u))⁻¹ := by
+    refine Finset.prod_le_prod_of_subset_of_one_le Finset.sdiff_subset
+      (fun p hp => le_trans zero_le_one
+        (one_le_geom_factor (hS₂ p (Finset.sdiff_subset hp)) hu)) ?_
+    intro p hp _
+    exact one_le_geom_factor (hS₂ p hp) hu
+  have hpos : (0 : ℝ) ≤ ∏ p ∈ S₁, (1 - (p : ℝ) ^ (-u))⁻¹ :=
+    Finset.prod_nonneg fun p hp => le_trans zero_le_one (one_le_geom_factor (hS₁ p hp) hu)
+  exact mul_le_mul_of_nonneg_left hle hpos
+
+
+/-! ### W1b — the two-window composition at `u = 1` -/
+
+/-- **THE TWO-WINDOW MASS.**  The `[P₁,Q₁] ∪ [P₂,Q₂]`-smooth harmonic mass is at most the
+PRODUCT of the two window mass constants. -/
+theorem twoWindow_mass_le (P₁ Q₁ P₂ Q₂ z : ℕ) (h₁4 : 4 ≤ P₁) (h₁ : P₁ ≤ Q₁)
+    (h₂4 : 4 ≤ P₂) (h₂ : P₂ ≤ Q₂) :
+    ∑ b ∈ (Finset.Icc 1 z).filter
+        (fun b => b.primeFactors ⊆ primeBand P₁ Q₁ ∪ primeBand P₂ Q₂), 1 / (b : ℝ)
+      ≤ windowMassConst P₁ Q₁ * windowMassConst P₂ Q₂ := by
+  classical
+  have hpb : ∀ (P Q : ℕ), ∀ p ∈ primeBand P Q, p.Prime := by
+    intro P Q p hp; rw [primeBand, Finset.mem_filter] at hp; exact hp.2
+  have hprime : ∀ p ∈ primeBand P₁ Q₁ ∪ primeBand P₂ Q₂, p.Prime := by
+    intro p hp
+    rcases Finset.mem_union.mp hp with h | h
+    · exact hpb _ _ p h
+    · exact hpb _ _ p h
+  have hrw : ∀ b ∈ (Finset.Icc 1 z).filter
+      (fun b => b.primeFactors ⊆ primeBand P₁ Q₁ ∪ primeBand P₂ Q₂),
+      1 / (b : ℝ) = (b : ℝ) ^ (-(1 : ℝ)) := by
+    intro b hb
+    rw [Finset.mem_filter, Finset.mem_Icc] at hb
+    have hb0 : (0 : ℝ) < (b : ℝ) := by
+      have : 1 ≤ b := hb.1.1
+      exact_mod_cast Nat.lt_of_lt_of_le Nat.zero_lt_one this
+    rw [Real.rpow_neg hb0.le, Real.rpow_one, one_div]
+  rw [Finset.sum_congr rfl hrw]
+  refine le_trans (primeSet_rpow_sum_le _ hprime z (by norm_num)) ?_
+  refine le_trans (prod_geom_union_le _ _ (hpb _ _) (hpb _ _) (by norm_num)) ?_
+  have hA := prod_band_geom_one_le P₁ Q₁ h₁4 h₁
+  have hB := prod_band_geom_one_le P₂ Q₂ h₂4 h₂
+  have hB0 : (0 : ℝ) ≤ ∏ p ∈ primeBand P₂ Q₂, (1 - (p : ℝ) ^ (-(1 : ℝ)))⁻¹ :=
+    Finset.prod_nonneg fun p hp =>
+      le_trans zero_le_one (one_le_geom_factor (hpb _ _ p hp) (by norm_num))
+  have hM0 : (0 : ℝ) ≤ windowMassConst P₁ Q₁ := (Real.exp_pos _).le
+  exact mul_le_mul hA hB hB0 hM0
+

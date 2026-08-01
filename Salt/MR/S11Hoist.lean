@@ -852,6 +852,103 @@ theorem s11_windowMassConst_door_le_gk (K M : ℕ) (hM : 1 ≤ M) :
         mul_le_mul_of_nonneg_left h2 (Real.exp_pos _).le
     _ = Real.exp 26.25 * ((49152 : ℝ) * 2 ^ K) ^ (1.05 : ℝ) * (M : ℝ) ^ (2.1 : ℝ) := by ring
 
+/-- Generic step: `windowMassConst P Q ≤ e^{26.25}·ratio^{1.05}` whenever the loglog
+difference is `log ratio`, `1 ≤ ratio` and the Euler exponent `c = 1 + 1/(P−1)` sits in
+`[1, 1.05]`. -/
+theorem s11_wmc_le_of_ratio {P Q : ℕ} {ratio : ℝ} (hratio : 1 ≤ ratio)
+    (hdiff : Real.log (Real.log ((Q : ℕ) : ℝ)) - Real.log (Real.log ((P : ℕ) : ℝ))
+      = Real.log ratio)
+    (hcle : (1 : ℝ) + 1 / ((P : ℝ) - 1) ≤ 1.05) :
+    windowMassConst P Q ≤ Real.exp 26.25 * ratio ^ (1.05 : ℝ) := by
+  set c : ℝ := 1 + 1 / ((P : ℝ) - 1) with hc
+  have hr0 : (0 : ℝ) < ratio := by linarith
+  rw [windowMassConst, ← hc, hdiff]
+  have hsplit : Real.exp (c * (Real.log ratio + 25))
+      = Real.exp (25 * c) * ratio ^ c := by
+    rw [Real.rpow_def_of_pos hr0, ← Real.exp_add]; congr 1; ring
+  rw [hsplit]
+  have h1 : Real.exp (25 * c) ≤ Real.exp 26.25 := Real.exp_le_exp.mpr (by linarith)
+  have h2 : ratio ^ c ≤ ratio ^ (1.05 : ℝ) :=
+    Real.rpow_le_rpow_of_exponent_le hratio hcle
+  have hpos : (0 : ℝ) < ratio ^ c := Real.rpow_pos_of_pos hr0 c
+  nlinarith [Real.exp_pos (25 * c), Real.exp_pos (26.25 : ℝ)]
+
+set_option maxRecDepth 100000 in
+/-- **⟦THE `K`-FREE REPRICE⟧** (`s11_windowMassConst_door_prod_le_gk`) — the door's mass,
+priced PER BLOCK:
+
+  `windowMassConst 𝒫₁ 𝒬₁ · windowMassConst 𝒫₂ 𝒬₂ ≤ e^{52.5}·4^{1.05}·M^{2.1}`
+
+against the single-covering-window `s11_windowMassConst_door_le_gk`, whose absolute factor
+carries `2^{1.05K}`.  ⟦WHY `K` LEAVES⟧ the two per-block loglog gaps are `log M` and
+`log(4M)` at EVERY base `G` — the lever's `G` cancels inside each block and survives only in
+the CROSS ratio `log 𝒬₂/log 𝒫₁` the covering window reads.  The `M`-slope is unchanged at
+`M^{2.1}`, so `S11HoistGrade`'s absorption is reused VERBATIM. -/
+theorem s11_windowMassConst_door_prod_le_gk (K M : ℕ) (hM : 1 ≤ M) :
+    windowMassConst (calP (Adoor M) (s13GK K M) 1) (calQK (Adoor M) (s13GK K M) M 1)
+        * windowMassConst (calP (Adoor M) (s13GK K M) 2)
+            (calQK (Adoor M) (s13GK K M) M 2)
+      ≤ Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ) * (M : ℝ) ^ (2.1 : ℝ) := by
+  have hMR : (1 : ℝ) ≤ (M : ℝ) := by exact_mod_cast hM
+  have hAd := one_le_Adoor M
+  have hd1 : Real.log (Real.log ((calQK (Adoor M) (s13GK K M) M 1 : ℕ) : ℝ))
+      - Real.log (Real.log ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ)) = Real.log (M : ℝ) :=
+    loglog_calQK_sub_calP (Adoor M) (s13GK K M) M hAd hM
+  have he2 : calE (Adoor M) (s13GK K M) 2 = Adoor M * s13GK K M * 4 := by
+    simp [calE, Nat.factorial]
+  have he2pos : 1 ≤ calE (Adoor M) (s13GK K M) 2 := by
+    rw [he2]; have := one_le_s13GK K hM; nlinarith [hAd]
+  have he2R : (1 : ℝ) ≤ ((calE (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) := by exact_mod_cast he2pos
+  have hl2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  have hd2 : Real.log (Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ))
+      - Real.log (Real.log ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ))
+      = Real.log (4 * (M : ℝ)) := by
+    have hP : Real.log ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ)
+        = ((calE (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) * Real.log 2 := by
+      rw [calP]; push_cast; rw [Real.log_pow]
+    have hQ : Real.log ((calQK (Adoor M) (s13GK K M) M 2 : ℕ) : ℝ)
+        = (4 * (M : ℝ)) * (((calE (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) * Real.log 2) := by
+      rw [calQK]; push_cast; rw [Real.log_pow]; push_cast; ring
+    rw [hP, hQ, Real.log_mul (by positivity) (by positivity)]; ring
+  have hP1ge : (68719476736 : ℝ) ≤ ((calP (Adoor M) (s13GK K M) 1 : ℕ) : ℝ) := by
+    rw [calP_gk_one_eq]; exact s11_calP_door_geR M
+  have hP2ge : (68719476736 : ℝ) ≤ ((calP (Adoor M) (s13GK K M) 2 : ℕ) : ℝ) := by
+    refine le_trans hP1ge ?_
+    have : calP (Adoor M) (s13GK K M) 1 ≤ calP (Adoor M) (s13GK K M) 2 := by
+      rw [calP, calP]
+      exact Nat.pow_le_pow_right (by norm_num)
+        (calE_mono (Adoor M) (one_le_s13GK K hM) (by norm_num : (1 : ℕ) ≤ 2))
+    exact_mod_cast this
+  have hcaps : ∀ {P : ℕ}, (68719476736 : ℝ) ≤ ((P : ℕ) : ℝ) →
+      (1 : ℝ) ≤ 1 + 1 / ((P : ℝ) - 1) ∧ (1 : ℝ) + 1 / ((P : ℝ) - 1) ≤ 1.05 := by
+    intro P hP
+    have hden : (0 : ℝ) < (P : ℝ) - 1 := by linarith
+    have h1 : (0 : ℝ) ≤ 1 / ((P : ℝ) - 1) := one_div_nonneg.mpr hden.le
+    have h2 : 1 / ((P : ℝ) - 1) ≤ 1 / 68719476735 := by
+      apply one_div_le_one_div_of_le (by norm_num); linarith
+    exact ⟨by linarith, by linarith⟩
+  obtain ⟨-, hc1b⟩ := hcaps hP1ge
+  obtain ⟨-, hc2b⟩ := hcaps hP2ge
+  have hb1 := s11_wmc_le_of_ratio (P := calP (Adoor M) (s13GK K M) 1)
+    (Q := calQK (Adoor M) (s13GK K M) M 1) hMR hd1 hc1b
+  have hb2 := s11_wmc_le_of_ratio (P := calP (Adoor M) (s13GK K M) 2)
+    (Q := calQK (Adoor M) (s13GK K M) M 2) (by linarith : (1 : ℝ) ≤ 4 * (M : ℝ)) hd2 hc2b
+  have hsplit4 : (4 * (M : ℝ)) ^ (1.05 : ℝ) = (4 : ℝ) ^ (1.05 : ℝ) * (M : ℝ) ^ (1.05 : ℝ) :=
+    Real.mul_rpow (by norm_num) (by linarith)
+  have hMsum : (M : ℝ) ^ (1.05 : ℝ) * (M : ℝ) ^ (1.05 : ℝ) = (M : ℝ) ^ (2.1 : ℝ) := by
+    rw [← Real.rpow_add (by linarith)]; norm_num
+  have he : Real.exp 26.25 * Real.exp 26.25 = Real.exp 52.5 := by
+    rw [← Real.exp_add]; norm_num
+  have h0b : (0 : ℝ) ≤ windowMassConst (calP (Adoor M) (s13GK K M) 2)
+      (calQK (Adoor M) (s13GK K M) M 2) := (Real.exp_pos _).le
+  have hR1 : (0 : ℝ) ≤ Real.exp 26.25 * (M : ℝ) ^ (1.05 : ℝ) := by positivity
+  calc windowMassConst (calP (Adoor M) (s13GK K M) 1) (calQK (Adoor M) (s13GK K M) M 1)
+        * windowMassConst (calP (Adoor M) (s13GK K M) 2) (calQK (Adoor M) (s13GK K M) M 2)
+      ≤ (Real.exp 26.25 * (M : ℝ) ^ (1.05 : ℝ))
+          * (Real.exp 26.25 * (4 * (M : ℝ)) ^ (1.05 : ℝ)) := mul_le_mul hb1 hb2 h0b hR1
+    _ = Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ) * (M : ℝ) ^ (2.1 : ℝ) := by
+        rw [hsplit4, ← he, ← hMsum]; ring
+
 /-- `m4_hband_at_door_slot_hoisted` (:58), at the lever. -/
 theorem m4_hband_at_door_slot_hoisted_gk (K : ℕ) (hMmu : MmuChiRate) (Aexp : ℝ)
     (hAexp : 0 < Aexp) (M : ℕ) (hM : 1 ≤ M) :
@@ -1221,8 +1318,16 @@ theorem m4_socket_discharged_capwired_ws_hoisted_perBlock_split_gk (K : ℕ)
     hrest (m4_capE_at_door_gk K hws)⟩
 
 /-- `m4_hband_at_door_slot_split_graded` (:582), at the lever — ⟦THE SEPARATION POINT⟧.  The
-`M`-slope is UNCHANGED (`M^{2.1}`); the lever's whole cost is inside the top-block constant
-`Cb`, which gains a factor `(2^K)^{1.05}` through `s11_windowMassConst_door_le_gk`. -/
+`M`-slope is UNCHANGED (`M^{2.1}`).
+
+⟦LEVEL2-PROD, 2026-07-31 — THE RE-WITNESS⟧ the `∃`-witness for `Cb` is now the PER-BLOCK
+price `C·4^{Aexp}·(e^{52.5}·4^{1.05}) + 1` (`s11_windowMassConst_door_prod_le_gk`), which
+carries NO `K` — in place of the covering-window price
+`C·4^{Aexp}·(e^{26.25}·(49152·2^K)^{1.05}) + 1`, whose `2^{1.05K}` was the `G`-lever's
+recoil.  **THE STATEMENT IS UNCHANGED**: `Cb` is existential, so every consumer below
+(`S11HoistGrade`, `S12ConstCompose`'s `Mfl = s11GradeFloor Cb`) inherits the smaller witness
+with no edit.  `s11_windowMassConst_door_le_gk` is untouched and still names the
+covering-window price. -/
 theorem m4_hband_at_door_slot_split_graded_gk (K : ℕ) (hMmu : MmuChiRate) (Aexp : ℝ)
     (hAexp : 0 < Aexp) :
     ∃ (x₀ : ℕ) (Cb : ℝ), 0 < Cb ∧ ∀ (M : ℕ), 1 ≤ M →
@@ -1238,31 +1343,37 @@ theorem m4_hband_at_door_slot_split_graded_gk (K : ℕ) (hMmu : MmuChiRate) (Aex
                   ≤ t0BandB (((A + s : ℕ)) : ℝ)
                       (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (M₀ (A + s))) := by
   obtain ⟨x₀, C, hCpos, hsplit⟩ :=
-    m4_hT0band_at_door_discharged_split_graded_gk K hMmu Aexp hAexp
+    m4_hT0band_at_door_discharged_split_graded_prod_gk K hMmu Aexp hAexp
   have h4A : (0 : ℝ) < (4 : ℝ) ^ Aexp := Real.rpow_pos_of_pos (by norm_num) Aexp
-  have hEpos : (0 : ℝ) < Real.exp 26.25 * ((49152 : ℝ) * 2 ^ K) ^ (1.05 : ℝ) := by positivity
-  refine ⟨x₀, C * (4 : ℝ) ^ Aexp * (Real.exp 26.25 * ((49152 : ℝ) * 2 ^ K) ^ (1.05 : ℝ)) + 1,
+  have hEpos : (0 : ℝ) < Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ) := by positivity
+  refine ⟨x₀, C * (4 : ℝ) ^ Aexp * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ)) + 1,
     by positivity, ?_⟩
   intro M hM
   obtain ⟨hP4, hPQ⟩ := door_window_bounds_gk K M hM
+  obtain ⟨hP4₁, hPQ₁⟩ := door_block_bounds_gk K M hM (j := 1) le_rfl
+  obtain ⟨hP4₂, hPQ₂⟩ := door_block_bounds_gk K M hM (j := 2) (by norm_num)
   obtain ⟨C', hC'pos, hC'le, hband⟩ := hsplit
-    (calP (Adoor M) (s13GK K M) 1) (calQK (Adoor M) (s13GK K M) M 2) hP4 hPQ
+    (calP (Adoor M) (s13GK K M) 1) (calQK (Adoor M) (s13GK K M) M 2)
+    (calP (Adoor M) (s13GK K M) 1) (calQK (Adoor M) (s13GK K M) M 1)
+    (calP (Adoor M) (s13GK K M) 2) (calQK (Adoor M) (s13GK K M) M 2)
+    hP4 hPQ hP4₁ hPQ₁ hP4₂ hPQ₂
   obtain ⟨hcovP, hcovQ⟩ := door_cover_gk K M hM
+  have hcovB := door_block_cover_gk K M
   refine ⟨C', hC'pos, ?_, ?_⟩
-  · -- ⟦THE ABSORPTION⟧ the levered window's mass, priced in `M`
-    have hmass := s11_windowMassConst_door_le_gk K M hM
+  · -- ⟦THE ABSORPTION⟧ the per-block mass, priced in `M` — `K`-FREE
+    have hmass := s11_windowMassConst_door_prod_le_gk K M hM
     have hone := s11_one_le_rpow_M M hM
     have hstep : C * (4 : ℝ) ^ Aexp
-        * windowMassConst (calP (Adoor M) (s13GK K M) 1) (calQK (Adoor M) (s13GK K M) M 2)
+        * (windowMassConst (calP (Adoor M) (s13GK K M) 1) (calQK (Adoor M) (s13GK K M) M 1)
+            * windowMassConst (calP (Adoor M) (s13GK K M) 2)
+                (calQK (Adoor M) (s13GK K M) M 2))
         ≤ C * (4 : ℝ) ^ Aexp
-            * (Real.exp 26.25 * ((49152 : ℝ) * 2 ^ K) ^ (1.05 : ℝ) * (M : ℝ) ^ (2.1 : ℝ)) := by
+            * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ) * (M : ℝ) ^ (2.1 : ℝ)) := by
       have hcoef : (0 : ℝ) ≤ C * (4 : ℝ) ^ Aexp := by positivity
       exact mul_le_mul_of_nonneg_left hmass hcoef
-    have hexp : (C * (4 : ℝ) ^ Aexp
-          * (Real.exp 26.25 * ((49152 : ℝ) * 2 ^ K) ^ (1.05 : ℝ)) + 1)
+    have hexp : (C * (4 : ℝ) ^ Aexp * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ)) + 1)
         * (M : ℝ) ^ (2.1 : ℝ)
-        = C * (4 : ℝ) ^ Aexp
-            * (Real.exp 26.25 * ((49152 : ℝ) * 2 ^ K) ^ (1.05 : ℝ) * (M : ℝ) ^ (2.1 : ℝ))
+        = C * (4 : ℝ) ^ Aexp * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ) * (M : ℝ) ^ (2.1 : ℝ))
           + (M : ℝ) ^ (2.1 : ℝ) := by ring
     linarith
   · intro R C₁ M₀ hgates H L q j A s hb χ
@@ -1274,7 +1385,7 @@ theorem m4_hband_at_door_slot_split_graded_gk (K : ℕ) (hMmu : MmuChiRate) (Aex
       have : (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by linarith
       exact_mod_cast this
     exact hband q χ M (A + s) (2 * (A + s)) rfl hD.X400 (by omega) le_rfl hD.C₁_one
-      hD.x₀_le h16 hD.qfit hcovP hcovQ hD.gHalf hD.gO1 hD.gWin hD.grade hD.err
+      hD.x₀_le h16 hD.qfit hcovP hcovQ hcovB hD.gHalf hD.gO1 hD.gWin hD.grade hD.err
 
 /-- `m4_socket_discharged_fused_split_graded` (:634), at the lever. -/
 theorem m4_socket_discharged_fused_split_graded_gk (K : ℕ) (hK : K ≤ 170000000)
@@ -1404,4 +1515,3 @@ end Salt.MR
 
 end
 
--- #audit (temporary)

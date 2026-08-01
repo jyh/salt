@@ -371,3 +371,119 @@ theorem s11_hband_slot_grade_discharged_gk (K : ℕ) (hMmu : MmuChiRate) :
   obtain ⟨C', hC'pos, hC'le, hbody⟩ := hband M (le_trans hM₀ hM)
   exact ⟨C', hC'pos, habs M hM C' hC'le, hbody⟩
 
+/-! ## §5 — ⟦LEVEL2-PROD⟧ THE `K`-FREE BAND CONSTANT'S FLOOR
+
+`S11Hoist.m4_hband_at_door_slot_split_graded_gk` now witnesses `Cb` at the PER-BLOCK price
+`C·4^{Aexp}·(e^{52.5}·4^{1.05}) + 1` — no `K`.  §3's `s11_hoistCb_le` /
+`s11_grade_floor_hoistCb_two` price the OLD (non-levered) witness
+`C·4^{Aexp}·(e^{26.25}·49152^{1.05}) + 1` and are left untouched; this section prices the new
+one, at the rider the final object already carries (`log C ≤ 40`).
+
+**PURELY ADDITIVE.** -/
+
+/-- `exp 40 ≤ 2.4·10^{17}` (true value `2.3538·10^{17}`). -/
+theorem s11_exp40_le : Real.exp 40 ≤ 240000000000000000 := by
+  have h1 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
+  have hpow : (Real.exp 1) ^ (40 : ℕ) ≤ (2.7182818286 : ℝ) ^ (40 : ℕ) :=
+    pow_le_pow_left₀ (Real.exp_pos 1).le h1.le 40
+  have heq : (Real.exp 1) ^ (40 : ℕ) = Real.exp 40 := by
+    rw [← Real.exp_nat_mul]; norm_num
+  have hnum : (2.7182818286 : ℝ) ^ (40 : ℕ) ≤ 240000000000000000 := by norm_num
+  rw [heq] at hpow
+  linarith
+
+/-- `exp 52.5 ≤ 1.1·10^{23}` (true value `6.3175·10^{22}`; the crude read goes through
+`exp 53`). -/
+theorem s11_exp525_le : Real.exp 52.5 ≤ 110000000000000000000000 := by
+  have h1 : Real.exp 1 < 2.7182818286 := Real.exp_one_lt_d9
+  have hpow : (Real.exp 1) ^ (53 : ℕ) ≤ (2.7182818286 : ℝ) ^ (53 : ℕ) :=
+    pow_le_pow_left₀ (Real.exp_pos 1).le h1.le 53
+  have heq : (Real.exp 1) ^ (53 : ℕ) = Real.exp 53 := by
+    rw [← Real.exp_nat_mul]; norm_num
+  have hnum : (2.7182818286 : ℝ) ^ (53 : ℕ) ≤ 110000000000000000000000 := by norm_num
+  have hmono : Real.exp 52.5 ≤ Real.exp 53 := Real.exp_le_exp.mpr (by norm_num)
+  rw [heq] at hpow
+  linarith
+
+/-- `4^{1.05} ≤ 8` (true value `4.2871`). -/
+theorem s11_rpow4_le : (4 : ℝ) ^ (1.05 : ℝ) ≤ 8 := by
+  have hsplit : (4 : ℝ) ^ (1.05 : ℝ) = 4 * (4 : ℝ) ^ (0.05 : ℝ) := by
+    rw [show (1.05 : ℝ) = 1 + 0.05 by norm_num, Real.rpow_add (by norm_num), Real.rpow_one]
+  have h05 : (4 : ℝ) ^ (0.05 : ℝ) ≤ 2 := by
+    have h1 : (4 : ℝ) ^ (0.05 : ℝ) ≤ (1048576 : ℝ) ^ (0.05 : ℝ) :=
+      Real.rpow_le_rpow (by norm_num) (by norm_num) (by norm_num)
+    have h2 : (1048576 : ℝ) ^ (0.05 : ℝ) = 2 := by
+      rw [show (1048576 : ℝ) = (2 : ℝ) ^ (20 : ℕ) by norm_num,
+        ← Real.rpow_natCast (2 : ℝ) 20, ← Real.rpow_mul (by norm_num)]
+      norm_num
+    linarith
+  rw [hsplit]; nlinarith [h05]
+
+/-- **⟦THE `K`-FREE `Cb`, PRICED UNDER `log C ≤ 40`⟧** (`s11_hoistCb_prod_ratio_le`) — the
+per-block band constant's charge against the discarded numeral is at most `10^{23}`. -/
+theorem s11_hoistCb_prod_ratio_le (C : ℝ) (hC0 : 0 < C) (hC : Real.log C ≤ 40) :
+    8 * (C * (4 : ℝ) ^ (s13Aexp) * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ)) + 1)
+        / (40000000000 : ℝ) ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 / 1000))
+      ≤ (10 : ℝ) ^ (23 : ℕ) := by
+  have hN : (1600000000000000000000 : ℝ)
+      ≤ (40000000000 : ℝ) ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 / 1000)) := s11_grade_numeral_ge
+  have hN0 : (0 : ℝ) < (40000000000 : ℝ) ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 / 1000)) := by
+    linarith
+  have hCe : C ≤ Real.exp 40 := by
+    have := Real.exp_log hC0
+    calc C = Real.exp (Real.log C) := this.symm
+      _ ≤ Real.exp 40 := Real.exp_le_exp.mpr hC
+  have hC40 : C ≤ 240000000000000000 := le_trans hCe s11_exp40_le
+  have hE0 : (0 : ℝ) ≤ (4 : ℝ) ^ (1.05 : ℝ) := Real.rpow_nonneg (by norm_num) _
+  have hE : Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ) ≤ 880000000000000000000000 := by
+    nlinarith [s11_exp525_le, s11_rpow4_le, Real.exp_pos (52.5 : ℝ), hE0]
+  have hE0' : (0 : ℝ) ≤ Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ) := by positivity
+  -- ⟦the numerator⟧ `8·Cb ≤ 1.09·10^{44}`
+  have hnum : 8 * (C * (4 : ℝ) ^ (s13Aexp) * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ)) + 1)
+      ≤ (109 : ℝ) * 10 ^ (42 : ℕ) := by
+    rw [s11_four_rpow_aexp]
+    nlinarith [hE, hC40, hC0, hE0']
+  have hden : (0 : ℝ) ≤ 8 * (C * (4 : ℝ) ^ (s13Aexp)
+      * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ)) + 1) := by
+    have : (0 : ℝ) ≤ C * (4 : ℝ) ^ (s13Aexp) * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ)) := by
+      have h4 : (0 : ℝ) < (4 : ℝ) ^ (s13Aexp) := Real.rpow_pos_of_pos (by norm_num) _
+      positivity
+    linarith
+  rw [div_le_iff₀ hN0]
+  nlinarith [hnum, hN]
+
+/-- **⟦THE FIRST WALL FALLS AT THE `K`-FREE WITNESS⟧** (`s11_grade_floor_hoistCb_prod_le`) —
+`Mfl = s11GradeFloor Cb ≤ 2^355` for the PER-BLOCK band constant
+`Cb = C·4^{Aexp}·(e^{52.5}·4^{1.05}) + 1` under the carried rider `log C ≤ 40`.
+
+⟦THE ACCOUNTING⟧ `8·Cb ≤ 1.09·10^{44}`, charged against the discarded numeral's crude read
+`1.6·10^{21}`, gives `u ≤ 10^{23}`, hence `Mfl ≤ ⌈10^{57.5}⌉ + 1 ≤ 10^{58} + 1` — against the
+rider's `2^{355} = 7.3·10^{106}`, **49 orders of margin**.  (At the numeral's TRUE value
+`3.28·10^{26}` the floor is `≈ 2^{141}`; at `C ≤ 2` it collapses to `2`.)
+
+⚠ ⟦WHAT THIS IS NOT⟧ this is the ARITHMETIC half only.  The terminal's `Mfl` is a
+`Classical.choose` five hops below `S16Budget`; discharging its rider needs `Cb`'s bound
+threaded through the `∃`-prefixes of `S11Hoist` → `S12FuseCompose` → `S12ConstCompose` →
+`S15Compose` → `S15Witness` → `S16Budget`.  That plumbing is NOT done here. -/
+theorem s11_grade_floor_hoistCb_prod_le (C : ℝ) (hC0 : 0 < C) (hC : Real.log C ≤ 40) :
+    s11GradeFloor (C * (4 : ℝ) ^ (s13Aexp) * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ)) + 1)
+      ≤ 2 ^ 355 := by
+  set Cb : ℝ := C * (4 : ℝ) ^ (s13Aexp) * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ)) + 1 with hCb
+  set N : ℝ := (40000000000 : ℝ) ^ (s13Aexp + (-(1 : ℝ) / 2 + 1 / 1000)) with hNdef
+  have hratio : 8 * Cb / N ≤ (10 : ℝ) ^ (23 : ℕ) := s11_hoistCb_prod_ratio_le C hC0 hC
+  have hu : max 1 (8 * Cb / N) ≤ (10 : ℝ) ^ (23 : ℕ) :=
+    max_le (by norm_num) hratio
+  have hu1 : (1 : ℝ) ≤ max 1 (8 * Cb / N) := le_max_left _ _
+  have hpow : (max 1 (8 * Cb / N)) ^ (2.5 : ℝ) ≤ ((10 : ℝ) ^ (23 : ℕ)) ^ (2.5 : ℝ) :=
+    Real.rpow_le_rpow (by linarith) hu (by norm_num)
+  have hval : ((10 : ℝ) ^ (23 : ℕ)) ^ (2.5 : ℝ) ≤ ((10 : ℝ) ^ (58 : ℕ)) := by
+    rw [← Real.rpow_natCast (10 : ℝ) 23, ← Real.rpow_mul (by norm_num)]
+    rw [← Real.rpow_natCast (10 : ℝ) 58]
+    exact Real.rpow_le_rpow_of_exponent_le (by norm_num) (by norm_num)
+  have hceil : ⌈(max 1 (8 * Cb / N)) ^ (2.5 : ℝ)⌉₊ ≤ 10 ^ (58 : ℕ) := by
+    rw [Nat.ceil_le]
+    push_cast
+    linarith
+  rw [s11GradeFloor, ← hNdef]
+  omega
+

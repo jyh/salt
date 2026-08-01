@@ -18674,3 +18674,30 @@ closes a gap of this shape; the design must move a SHAPE: the
 budget's logloglog demand (spine-side), the tower law (regime
 construction), or the cap's H-coupling (register-side).  The four
 scopers establish the honest facts under each face before any freeze.
+
+## () L2-PROD LANDS W1-W4 whole (W1 the engine COMPILED first-attempt -- the risk gate passed): Cb re-witnessed K-FREE, THE MFL-CAP CONFLICT IS DEAD; W5 partial (two findings) + MAESTRO SEAL ERROR owned: the greedy strip destroyed RIDER-LANE section 6.4 -- SEAL-REPAIR fires
+
+THE WAVE: the prime-set-generic Euler engine (P,Q entered only
+through membership — the scoper exact); jMask_mass_le_prod + the
+_prod twins; P6 lifted verbatim; the re-witness at S11Hoist:1329
+STATEMENT-BYTE-IDENTICAL (only the ∃-witness moved: Cb = C·4^Aexp·
+(e^{52.5}·4^{1.05}) + 1, ~1.7e25·C, NO K); both consumers fire
+unchanged; whole-corpus green.  Mfl no longer sees K: the first
+wall's joint-unsatisfiability GONE; Mfl ≤ 10^58 ≪ 2^355 PENDING one
+constant (the band-lane C — a DIFFERENT C than the carried log C ≤
+40 rider, which is m4_tail_mass_at_band's; the discharge needs its
+own rider on MlambdaChi_rate's C).  The grade-floor arithmetic
+landed (s11_grade_floor_hoistCb_prod_le at 49 orders).  Threading
+to the terminal NOT done (hop 3 = the ~120-line pinned capstone
+statement, the cost centre).
+THE SEAL ERROR — catch #101, the maestro's own: RIDER-LANE's file
+carried TWO audit tails; the maestro's strip (sed from the FIRST
+tail to EOF) destroyed §6.4 WHOLESALE incl. the _Cproven terminal —
+the build stayed green because the loss was self-contained, and the
+ledger claimed decls that do not exist in the tree.  THE STRIP LAW:
+inspect the span between the tail marker and EOF BEFORE deleting
+(applied this seal: four files, spans 0-2, verified pure).
+SEAL-REPAIR dispatched: re-land §6.4 from RIDER-LANE's report
+(blockfree_sum_le_bounded, m4_tail_mass_at_band_bounded, the
+_Cproven terminal) + the band-C rider + the W5 threading (the six
+hops to the terminal) — the full Mfl discharge in one lane.
