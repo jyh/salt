@@ -18701,3 +18701,5 @@ SEAL-REPAIR dispatched: re-land §6.4 from RIDER-LANE's report
 (blockfree_sum_le_bounded, m4_tail_mass_at_band_bounded, the
 _Cproven terminal) + the band-C rider + the W5 threading (the six
 hops to the terminal) — the full Mfl discharge in one lane.
+
+## () THE INTERFACE SCOPE LANDS 4/4 + THE FREEZE v1: THE WALL DECOMPOSED TO ITS ATOMS -- the height-3 demand is ONE SUMMAND with an EXACT cancellation behind it; the road out = D1 THE BENNETT RE-PROOF (Hoeffding range-square -> variance in FBridge; the budget drops to HEIGHT 1 with ~190 orders of room); the tower NOT intrinsic (k=2 additive window available); the register ceiling ONE definition; the x-coupling ONE antecedent (the omega factor) -- CLAIM 3 the honest residual (the S4/S3 face may survive D1 by ~23 orders); THE REFUTER PASS fires (R1 joint / R2 D1-shape / R3 residual)
