@@ -18577,3 +18577,36 @@ escape, the companion-certificate question.  The next move is a
 DESIGN COUNCIL, not an executor.
 
 ## () WIDTH COUNCIL RULED: C1 GO (the level-2 band-pair scope); C2 BOTH LAWS RATIFIED (companion certificate; R.x exposure); C3 decide-after with THE CAPTAIN'S STATED PREFERENCE ("I don't like the conditional outcome" -- the unconditional is the target; if exit (a) dies the design work CONTINUES, it does not settle); C4 the rider lane GO; C5 the ceremony fires this weekend
+
+## () LEVEL2-SCOPE: **WINDMILL** -- THE CAPTAIN WINS AGAIN. The literal exit dies at a hard pin (the cover forces block 1) BUT the goal is LIVE by the per-block PRODUCT route the corpus itself named "the SHARP value" and declined to mint -- kernel-certified K-FREE reprice (P6), M^2.1 slope unchanged, Mfl = 2^141 at 214 bits spare, ZERO twin re-instantiation, wave ~700-1000 ln
+
+THE PIN (honest): any SINGLE covering window must contain block 1
+(M4T0DatumDischarge:613/:984) whose left edge 𝒫₁ is K-invariant —
+no single-window instantiation is K-free.  THE PIVOT: the mask's
+(P,Q) is a DEVICE for two rows; the mass budget M is a free abstract
+parameter (LambdaChiMask:803's top-block C is K-free) — price the
+mask PER BLOCK and the cover dissolves.  THE REPRICE, kernel (P6):
+windowMassConst 𝒫₁ 𝒬₁ · windowMassConst 𝒫₂ 𝒬₂ ≤ e^{52.5}·4^{1.05}·
+M^{2.1} — K-FREE (P1/P2: the loglog gaps are log(4M) and log M at
+ANY base; the G cancels), costs 2^{23.6} once vs saving 2^{1.05K};
+s11_grade_absorption reused VERBATIM.  Mfl: 2^{2.625K−70} → 2 at
+C = 1, 2^{141.2} at log C ≤ 40 — the rider clears at 214 BITS.
+FACE (iii)'s second cap DIES; riders 4+12 jointly satisfiable;
+the inner implication of logChowla2_witnessed_scale_final' STOPS
+BEING VACUOUS AT ITS OWN WITNESS (faces ii+iii-a were already
+compatible at K = 32M by s16_recut_cap_demand_met).  Face (i) (the
+pigeonhole) untouched — the remaining honest conditionality.
+THE SWEEP verified: mfloor was the SOLE M-side K-coupling in the
+register.  THE WAVE (L2-PROD, ~700-1000, zero twins re-cut): W1 the
+prime-set-generic Euler-product engine (~200, C — THE ONE RISK,
+read-verified not compiled); W2 jMask_mass_le_prod (~150, B); W3
+the _prod twins (~250, B); W4 lift P6 + re-witness Cb (~120, A/B —
+the statement at S11Hoist:1244 UNCHANGED, only the witness moves);
+W5 optional: Mfl removed-because-proven under log C ≤ 40 (the C2
+companion lane).  THE SCOPE'S ERRATUM banked: M4T0DatumDischarge:50
+("both enter C' linearly, so the exit is indifferent") — TRUE
+pre-lever, FALSE post-lever; the G-lever is what made the sharp
+form load-bearing.  ⟦HELD FOR THE CAPTAIN'S WORD + THE TANK⟧:
+L2-PROD fires on silicon-acct (the 88% law) or post-reset; the C3
+fork (The Witness's theorem) now resolves toward THE UNCONDITIONAL
+as the Captain preferred.
