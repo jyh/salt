@@ -805,3 +805,218 @@ theorem logChowla2_witnessed_scale_final' :
       (regime_Hfloor_of_loglogFloor50 (le_trans hfl hb.1)) hsel.blk
   exact hfire (hsupply hcs hT₀ hKq hKs hC R M hsel.hM hfl hblk hcof hcap)
 
+
+/-! ## §6.3 — ⟦C4: THE RIDER LANE⟧ THE COMPANION CERTIFICATE, PAGE 1
+
+⟦WHAT THIS IS⟧ THE WIDTH COUNCIL's C4 (2026-07-31, JYH-ratified): every opaque rider of
+`logChowla2_witnessed_scale_final'` traced to the `∃`-site that MINTS its witness, and there
+either PROVEN (§6.4) or given its honest bound with the gap to the rider's ceiling stated.
+Nothing in §6.3 is consumed by a landed declaration — it is an audit page.
+
+⚠ ⟦THE READS ARE PROOF-TERM READS⟧ each witness below is a `Classical.choose` of a landed
+`∃`, which the kernel cannot evaluate (`ConstantsExposed` §0's reachability caveat).  What IS
+kernel-certified here is the ARITHMETIC of the ceilings — the theorems of this section.
+Where the descent is a chain of VERBATIM pass-throughs (every hop
+`obtain ⟨C, hC, h⟩ := <lower>` then `refine ⟨C, hC, ?_⟩`) the read is mechanical rather than
+interpretive; that is flagged per rider.
+
+### ⟦THE TABLE⟧ (⛔ false at the witness · ❓ opaque · ✅ true)
+
+| rider | verdict | the witness | honest ceiling |
+|---|---|---|---|
+| `Kc ≤ 2^20` | ⛔ | `bigXi_bounded`'s L²-count, `≈ 2^538` | `2^539` — and FREE |
+| `Ct ≤ 2^20` | ⛔ | `6·e^{14} = 2^{22.78}` (mechanical read) | `2^23` — and FREE |
+| `Hcap ≤ s15WitFloor2` | ⛔ | `budgetFloor ≈ ⌈e^{e^{e^{1.04·10^{31}}}}⌉` | NONE — THE SECOND WALL |
+| `Mfl ≤ 2^355` | ⛔ | §6's warning, unchanged | NONE — THE FIRST WALL |
+| `1 ≤ cs` | ⛔ | `cs ≤ 1/10` is a LANDED PROOF LINE | none as stated; carry `cs` |
+| `T₀ ≤ e^{e^{100}}` | ❓ | `max e^{e^{100}} T₀z` | forces equality; 3 leaves |
+| `Kq ≤ e^{100}` | ✅ | `1/(10^8·c₀) = 0.00126848` | 46 orders spare; not carried |
+| `e^{-100} ≤ Ks` | ❓ | `10^8·min Cs_Siegel (1/4059136)` | Siegel — unprovable |
+| `log C ≤ 40` | ✅ | `2·e^{19/log 2}+1 = 1.605·10^{12}` | **PROVEN — §6.4** |
+| `x₀ ≤ e^{e^{275}}` | ❓ | unchanged | Siegel — the field's wall |
+
+### ⟦RIDER `Ct`⟧ FALSE BY 6.88×; CEILING `2^23`; FREE
+
+Thirteen hops, every one a verbatim pass-through except the one marked:
+`final'` ← `S15Witness.logChowla2_conditional_sharp2_nonvacuous_gk'` (:1858)
+← `S15Compose.logChowla2_conditional_sharp2_atK_gk_pinned` (:2757)
+← `S12ConstCompose.logChowla2_capstone_final_const'_graded_gk_pinned` (:1460)
+← `S12ConstCompose.m4_closure_fuse_zero'_const_nonneg_gk` (:934)
+← `M4RowsChiZeroPrime.m4_hrowsSlot_at_door_zero'_gk` (:849)
+← `…m4_hrowsSum_chi_door_zero'_gk` (:800) ← `…m4_hrowsSum_chi_zero'` (:570)
+← `…m4_rowChi_number_of_capstone_zero'` (:448) ← `TLegExit.TLeg_feeds_capstone_gen` (:1228)
+← `TLegExit.TLeg_bound_gen` (:1069) ← `TLegExit.Ej_bound_gen` (:765)
+← `TLegKill.cell_bound_pinned` (:979) ← `TLegKill.cell_bound_raw` (:905)
+← `TLegKill.mix_moment` (:803)
+← `MomentsA2.lemma13_moment` (:246)  ⟵ THE ONE NON-IDENTITY HOP: `refine ⟨3 * C, …⟩`
+← `MomentsA2.blockDiv_sq_div_sq_sum_le` (:127)
+← `ShiuMoment.shiu_moment_sq` (:436)  ⟵ THE LITERAL: `refine ⟨2 * Real.exp 14, …⟩`.
+
+So `Ct = 3·(2·e^{14}) = 6·e^{14} = 7.2156·10^6 = 2^{22.78}` — MR eq (18)'s absolute Shiu
+constant, tripled by the dyadic geometric series.  Against `2^20 = 1.0486·10^6` the rider is
+FALSE by 6.88× (`s16_audit_Ct_over_pin`) — the FOURTH register vacuity of the
+`REF-FINAL-SAT` genre.  ⟦WHY THE REPAIR IS FREE⟧ `Ct` is read by EXACTLY ONE register line,
+`S15Sel''_gk.gP1`, whose two sides at `M = 2^355` are `1.3818·10^{12}` and `1.6957·10^{13}`
+— a factor of 12.3.  `s16_audit_Ct_ceiling` gives the ceiling `2^23` (14% of room) and
+`s16_audit_Ct_gP1_room` certifies `gP1` AT THE TRUE `Ct` and at rider `Kc`'s widened
+`ρ`-charge simultaneously.
+
+### ⟦RIDER `Kc`⟧ FALSE BY ~515 BITS; CEILING `2^539`; ALSO FREE
+
+`Kc` descends (all pass-throughs) `final'` ← … ← `logChowla2_capstone_final_const'_graded_gk_
+pinned` ← `HloExportMR.m4_second_road_L2_hloCap_pinned_gk` (:698) ← `…_close_split_sq_
+hloCap_pinned_gk` (:640) ← `…m4_exit_socket_split_sq_arc_hloCap_pinned` (:277) ←
+`HloExport.log_chowla_two_budget_head_g_sq_count_hloCap_pinned` (:564), where it is minted as
+`bigXi_bounded`'s `∃`-constant (`GoldbachEnergyFinal` :502) — the large-spectrum `L²` count.
+`ConstantsExposed.KExpr` (:339) IS that constant's closed form at the same `ε`-pin; the two
+landed numerals about it are `KExpr_le : KExpr ≤ 12·10^{161}` (:356) and
+`S15Witness.s15w_KExpr_ge : 12·10^{65} ≤ KExpr` (:693).  The LOWER one settles the rider:
+`Kc ≳ 2^{219}` at the closed form, `≈ 2^{538}` at the full tower — `2^20` is out by 199–518
+bits.  (`bigXi_bounded_500`, the variant with the count in its statement, is NOT on this
+chain and lands at `2^{221.6}` anyway.)
+⟦WHY THIS IS ALSO FREE⟧ `Kc` enters the register only through the clearing charge
+`−log ρ`, `ρ = doorRhoOfDelta (s12DeltaSock δ₀ Kc) = min 1 (δ₀/(1768400·Kc))`.  At
+`Kc ≤ 2^539` (which covers `KExpr_le`'s `12·10^{161} = 2^{538.42}`) the charge is `403`
+instead of `43` (`s16_audit_neglog_rho_le_wide`), and ALL FOUR charge-spending register lines
+still close: `lvl` (the binding one, `3.13·10^{10}` of slack — `s16_audit_lvl_num_wide`),
+`anchor` (`6.6·10^9` — `s16_audit_anchor_wide`), `half` (`6.8·2^{391}` —
+`s16_audit_half_wide`) and `gP1` (`s16_audit_Ct_gP1_room`).  `rho`'s own ceiling is `10^{14}`.
+
+### ⟦RIDER `Hcap`⟧ FALSE — AND THE SECOND FACE OF THE WALL
+
+Exported `Hcap = max Hcap_road (max arcFloor36 loglogFloor50)`; the two right arms are
+LANDED-fine (`s15WitFloor2_arc`, `s15WitFloor2_ll`).  `Hcap_road` descends to
+`HloExportMR.m4_exit_socket_split_sq_arc_hloCap_pinned` (:303) as `max Hcap_head H₀arc`, with
+`Hcap_head = max 4000000 (max A (4·⌈1/ε⌉^4))`, `A = max (max (max H₀red H₀D3) H₀xi)
+(budgetFloor …)` (`HloExport` :566).  Leaf by leaf: `H₀xi = 2` (benign);
+`H₀D3 = H₀red = max (96^8) (⌈e^{64·K_Chen}⌉+1)` with `K_Chen` the Siegel-ineffective PNT
+constant (`Chen.lambda_mass_lower` ← `psiTot_pnt` ← `SW.siegelWalfisz_holds`) — FORMALLY
+UNBOUNDED; `H₀arc`'s own exp-arm is `⌈e^{25^{25}·10^{40}·250001^9}⌉ ≈ e^{3.39·10^{123}}`;
+and `budgetFloor (1/500) β = ⌈e^{e^{e^{1.036·10^{31}}}}⌉` (`BudgetCore` :21) — a HEIGHT-3
+TOWER.  Against `s15WitFloor2 = ⌈e^{2^{400}}⌉` (a single exponential, `log = 2.582·10^{120}`)
+the `H₀arc` arm alone overshoots by 1313× IN THE EXPONENT and `budgetFloor` by a whole tower
+level.  ⚠ ⟦THE SECOND WALL⟧ unlike `Kc`/`Ct` this is NOT relaxable: `R.Hlo` must clear
+`Hcap`, so `λ₋ = loglog R.Hlo` would inherit the tower, while `s16_audit_hcap_wall` shows the
+base-scale cap's demand `λ₋³ ≤ (K+413)·log 2` FAILS at every `λ₋ ≥ 492` and every admissible
+`K ≤ 1.7·10^8`.  `Hcap` and `S16BaseScaleCap_gk` are therefore jointly unsatisfiable at the
+proof's own witnesses — a SECOND face of the wall §6 already records for `Mfl`, and
+independent of it.
+
+### ⟦THE FIVE CONSTANT RIDERS⟧ (`S16Budget` §4's supply)
+
+`cs`/`T₀`/`Kq`/`Ks` share a nine-hop pass-through from `m4_fuse_hcap_of_capWS_gk` (:754 of
+`S12FuseCompose`) down to `PortAssembly.halasz_primes_chi_pair_of_gates` (:1468).
+* `cs` — minted at `PortAssembly.halaszPrimesChiGated_of_price` (:812) as
+  `min (min (c_vk/(2·K₄)) (c₀/(2·Cκ))) (1/10)` at the LITERAL `c_vk = 1/10^8`, so
+  `cs ≤ 1.86·10^{-10}`; and `cs ≤ 1/10` is a LANDED LINE OF THAT PROOF (:826).  The rider
+  `1 ≤ cs` is FALSE.  The demand side (`S13CapGrid` :727's `gate`) has a `μ`-power margin
+  `3/40 − 2θ₂₉₃ ≥ 0.068`, so the repair is to CARRY `cs` through the margin rather than to
+  floor it — a design item, named here.
+* `T₀ = max (e^{e^{100}}) T₀z` — the first arm is EXACTLY `e^{e^{100}}`
+  (`TwistedEdge.twisted_edge_price_strip` :896, the `le_refl` tell), so the rider forces
+  equality and reduces to `T₀z ≤ e^{e^{100}}`; `T₀z` rides three compactness/VK leaves
+  (`HalaszPrimesCore` :1061's `δ₀`, :570's `ε₀`, the VK `c_pow`).  No landed bound.
+* `Kq = 1/(10^8·c₀)` with `c₀ = min (1/50456) (1/126848) = 1/126848`
+  (`SW.zero_free_region_all'` ← `ZeroFree` :262, `ZeroFreeReal` :392) — a RATIONAL NUMERAL
+  `0.00126848`.  The rider is TRUE with 46 orders to spare; carrying it needs three
+  `_bounded` twins on the zero-free chain (the cheapest open item of this lane).
+* `Ks = 10^8·min (min Cs_Siegel (c₀/32)) (1/2)` — upper side closed (`Ks ≤ 24.63`), lower
+  side is Siegel's own ineffective constant (`SiegelClose.siegel_theorem` :841).  TRUE but
+  UNPROVABLE on this road; it joins `hx0win` as a genuine Siegel item.
+* `C` — PROVEN, §6.4. -/
+
+set_option exponentiation.threshold 4000 in
+/-- ⟦AUDIT⟧ `e^{14}` bracketed off mathlib's `d9` decimals of `e`. -/
+theorem s16_audit_exp14_bracket :
+    (1200000 : ℝ) < Real.exp 14 ∧ Real.exp 14 < 1210000 := by
+  have hpow : Real.exp 1 ^ (14 : ℕ) = Real.exp 14 := by
+    rw [Real.exp_one_pow]; norm_num
+  have hlo : (2.718 : ℝ) < Real.exp 1 := by linarith [Real.exp_one_gt_d9]
+  have hhi : Real.exp 1 < 2.719 := by linarith [Real.exp_one_lt_d9]
+  constructor
+  · have h : (2.718 : ℝ) ^ (14 : ℕ) < Real.exp 1 ^ (14 : ℕ) := by gcongr
+    rw [hpow] at h
+    have hnum : (1200000 : ℝ) < (2.718 : ℝ) ^ (14 : ℕ) := by norm_num
+    linarith
+  · have h : Real.exp 1 ^ (14 : ℕ) < (2.719 : ℝ) ^ (14 : ℕ) := by gcongr
+    rw [hpow] at h
+    have hnum : (2.719 : ℝ) ^ (14 : ℕ) < 1210000 := by norm_num
+    linarith
+
+/-- ⟦AUDIT⟧ **THE RIDER `Ct ≤ 2^20` IS FALSE** at the chain's own witness `Ct = 6·e^{14}`. -/
+theorem s16_audit_Ct_over_pin : (2 : ℝ) ^ 20 < 6 * Real.exp 14 := by
+  have h := s16_audit_exp14_bracket.1
+  norm_num
+  linarith
+
+/-- ⟦AUDIT⟧ `Ct`'s honest ceiling: `6·e^{14} ≤ 2^23` (14% of room). -/
+theorem s16_audit_Ct_ceiling : 6 * Real.exp 14 ≤ (2 : ℝ) ^ 23 := by
+  have h := s16_audit_exp14_bracket.2
+  norm_num
+  linarith
+
+set_option exponentiation.threshold 4000 in
+/-- ⟦AUDIT⟧ the `ρ` floor at the WIDE `Kc` ceiling `2^539` (which covers `KExpr_le`). -/
+theorem s16_audit_rho_ge_wide {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K)
+    (hδb : 1 / 2 ^ 20 ≤ δ₀) (hKb : K ≤ 2 ^ 539) :
+    (1 : ℝ) / 2 ^ 581 ≤ doorRhoOfDelta (s12DeltaSock δ₀ K) := by
+  rw [doorRhoOfDelta, le_min_iff]
+  refine ⟨by norm_num, ?_⟩
+  rw [s12DeltaSock_sq hδ hK, div_div, le_div_iff₀ (by positivity)]
+  nlinarith [hKb, hδb, hK]
+
+set_option exponentiation.threshold 4000 in
+/-- ⟦AUDIT⟧ the clearing charge at the WIDE `Kc` ceiling: `log(1/ρ) ≤ 403` (was `43`). -/
+theorem s16_audit_neglog_rho_le_wide {δ₀ K : ℝ} (hδ : 0 < δ₀) (hK : 0 < K)
+    (hδb : 1 / 2 ^ 20 ≤ δ₀) (hKb : K ≤ 2 ^ 539) :
+    -Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) ≤ 403 := by
+  have hge := s16_audit_rho_ge_wide hδ hK hδb hKb
+  have h1 : Real.log ((1 : ℝ) / 2 ^ 581)
+      ≤ Real.log (doorRhoOfDelta (s12DeltaSock δ₀ K)) :=
+    Real.log_le_log (by norm_num) hge
+  have h2 : Real.log ((1 : ℝ) / 2 ^ 581) = -(581 * Real.log 2) := by
+    rw [one_div, Real.log_inv, Real.log_pow]
+    push_cast; ring
+  have hlt : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  rw [h2] at h1
+  linarith
+
+/-- ⟦AUDIT⟧ the BINDING `lvl` register line at the wide charge `403` (`s15w2_lvl_num'` at
+`43`).  Slack `3.13·10^{10}`: the widened `Kc` ceiling is invisible against `14·λ₊`. -/
+theorem s16_audit_lvl_num_wide {X Q Y : ℝ} (hX : X ≤ 987 * 10 ^ 8) (hQ : Q ≤ 277)
+    (hY : -Y ≤ 403) :
+    26 + 14 * X + 1 / 3 * Q + -Y ≤ 1 / 12 * 24464133718016 * Real.log 2 :=
+  by linarith only [Real.log_two_gt_d9, hX, hQ, hY]
+
+/-- ⟦AUDIT⟧ the `anchor` register line at the wide charge, at `M = 2^355`. -/
+theorem s16_audit_anchor_wide {X Y : ℝ} (hX : X ≤ 987 * 10 ^ 8) (hY : Y ≤ 403) :
+    14 * X + Y + 33 ≤ 39 * 10 ^ 8 * 356 := by linarith
+
+set_option exponentiation.threshold 4000 in
+/-- ⟦AUDIT⟧ the `half` window line at the wide charge, at `M = 2^355`. -/
+theorem s16_audit_half_wide :
+    (7 / 10 : ℝ) * (356 * 2 ^ 391) + 3 * 403 ≤ (2 : ℝ) ^ 400 / 2 := by norm_num
+
+/-- ⟦AUDIT⟧ the `gP1` line at the TRUE `Ct = 6·e^{14}` AND the wide `ρ`-charge. -/
+theorem s16_audit_Ct_gP1_room :
+    29 + Real.log (6 * Real.exp 14) + 14 * (987 * 10 ^ 8)
+      ≤ 24464133718016 * Real.log 2 + -403 := by
+  have hlog : Real.log (6 * Real.exp 14) = Real.log 6 + 14 := by
+    rw [Real.log_mul (by norm_num) (Real.exp_ne_zero 14), Real.log_exp]
+  have h6 : Real.log 6 ≤ 5 := by
+    have h := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 6)
+    linarith
+  linarith only [Real.log_two_gt_d9, hlog, h6]
+
+/-- ⟦AUDIT⟧ **THE SECOND WALL** — at `λ₋ ≥ 492` the base-scale cap's demand
+`λ₋³ ≤ log(log 𝒫₂) = (K + 413)·log 2` fails at EVERY admissible `K ≤ 1.7·10^8`.  `Hcap`'s own
+`budgetFloor` leaf forces `λ₋ ≥ e^{e^{1.04·10^{31}}}`, so `Hcap ≤ s15WitFloor2` and
+`S16BaseScaleCap_gk` are jointly unsatisfiable — independently of §6's `Mfl` defect. -/
+theorem s16_audit_hcap_wall {lam : ℝ} (hlam : 492 ≤ lam) {K : ℕ} (hK : K ≤ 170000000) :
+    ((K : ℝ) + 413) * Real.log 2 < lam ^ 3 := by
+  have hKR : (K : ℝ) ≤ 170000000 := by exact_mod_cast hK
+  have hl2 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hl0 : (0 : ℝ) < Real.log 2 := by linarith [Real.log_two_gt_d9]
+  have hcube : (492 : ℝ) ^ 3 ≤ lam ^ 3 := by gcongr
+  nlinarith [hKR, hl2, hl0, hcube]
+

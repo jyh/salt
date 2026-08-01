@@ -18610,3 +18610,22 @@ form load-bearing.  ⟦HELD FOR THE CAPTAIN'S WORD + THE TANK⟧:
 L2-PROD fires on silicon-acct (the 88% law) or post-reset; the C3
 fork (The Witness's theorem) now resolves toward THE UNCONDITIONAL
 as the Captain preferred.
+
+## (2026-07-31 17:17 PDT)RIDER-LANE lands (15 decls, S16Budget §6.3-6.4): C PROVEN-AND-REMOVED (a wiring gap); Kc/Ct FALSE-BUT-FREE (wide ceilings 2^539 / 2^23 close everything, the rho-charge 43 -> 403 with 3e10 slack); cs FALSE AS STATED (a landed proof line caps it at 1/10 — repair via the 0.068 mu-margin); Kq TRUE; Ks joins the Siegel pair; ⚠ Hcap = THE WALL'S THIRD FACE
+
+THE THIRD FACE: budgetFloor(1/500) reads as a height-3 tower —
+exp(exp(exp(1.04e31))) — vs the witness floor's single exp
+(exp(2^400)); R.Hlo must clear Hcap (the EDGE-5 pin device), so
+lambda-minus inherits the tower — while the base-scale cap dies at
+lambda-minus >= 492 for every legal K.  CAVEAT honestly carried: the
+Kc/Hcap witness reads are INTERPRETIVE (nested Classical.choose
+leaves) — the ceilings' arithmetic is kernel, the identifications
+are proof-term reads.  THEREFORE: HCAP-SCOPE queued AHEAD of
+judgment — is budgetFloor honestly tower-tall AT THE BYTES, what is
+its epsilon-dependence, and WHICH head's floor is it (the
+stale-expression lesson: check the _sq/_hloCap chain, not the L1
+head).  Also queued free: the Kc/Ct wide-ceiling re-cut (mechanical,
+the §6.3 audit page's certified numerals); the cs re-carry; T0's
+forced-equality tell noted.  The new terminal:
+logChowla2_witnessed_scale_final'_Cproven (C in the prefix).
+Build 9635 exit-0 maestro-verified; 15/15 axioms.
