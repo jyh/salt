@@ -487,3 +487,7 @@ theorem s11_grade_floor_hoistCb_prod_le (C : ℝ) (hC0 : 0 < C) (hC : Real.log C
   rw [s11GradeFloor, ← hNdef]
   omega
 
+
+end Salt.MR
+
+end

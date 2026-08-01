@@ -1899,3 +1899,7 @@ theorem logChowla2_conditional_sharp2_nonvacuous_gk' (Klev : ℕ) (hKle : Klev �
     hMflb hx0b heps hlo hhi
   exact ⟨R, 2 ^ 355, hReps, hHlo, hRg, hwit, hfire (2 ^ 355) hwit⟩
 
+
+end Salt.MR
+
+end

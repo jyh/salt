@@ -1672,3 +1672,7 @@ theorem logChowla2_capstone_final_const'_graded_gk_pinned (K : ℕ) (hK : K ≤ 
     rw [hval]
     linarith [hend]
 
+
+end Salt.MR
+
+end

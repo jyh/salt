@@ -18703,3 +18703,20 @@ _Cproven terminal) + the band-C rider + the W5 threading (the six
 hops to the terminal) — the full Mfl discharge in one lane.
 
 ## () THE INTERFACE SCOPE LANDS 4/4 + THE FREEZE v1: THE WALL DECOMPOSED TO ITS ATOMS -- the height-3 demand is ONE SUMMAND with an EXACT cancellation behind it; the road out = D1 THE BENNETT RE-PROOF (Hoeffding range-square -> variance in FBridge; the budget drops to HEIGHT 1 with ~190 orders of room); the tower NOT intrinsic (k=2 additive window available); the register ceiling ONE definition; the x-coupling ONE antecedent (the omega factor) -- CLAIM 3 the honest residual (the S4/S3 face may survive D1 by ~23 orders); THE REFUTER PASS fires (R1 joint / R2 D1-shape / R3 residual)
+
+## () SEAL-REPAIR 3/3 (+865/-0): section 6.4 re-landed; the band-lane rider = ONE NAMED PROP (S16BandLaneCBounded); THE V2 TERMINAL -- five riders removed-because-proven incl. Mfl; + the maestro's five eaten file-enders restored (catch #101 collateral closed)
+
+logChowla2_witnessed_scale_final'_v2 (S16Budget): theorem hypothesis
+= S16BandLaneCBounded 32000000 alone; the ∃-prefix PROVES seventeen
+conjuncts (incl. Cg ≤ 2e12, ε ≥ 1/500, δ₀ ≥ 1/838400, log C ≤ 40,
+Mfl ≤ 2^355 — each formerly a rider); the inner implication: Kc/Ct/
+x₀win/Hcap/cs/T₀/Kq/Ks + the two predicates.  The Mfl discharge
+rests kernel-visibly on ONE inequality about ONE named constant
+(the band-lane C; minted at both hops, bridged).  The known-false
+riders REMAIN by design pending the free re-cuts (Kc→2^539, Ct→2^23,
+the cs re-carry — RIDER-LANE's certified numerals, queued); the
+STRUCTURAL vacuity remaining = Hcap (the third face, the design
+block's target) + the Siegel pair.  The five missing end-Salt.MR
+enders restored by the maestro (S11HoistGrade/S12ConstCompose/
+S15Compose/S15Witness/S16Budget).  Build 9635 exit-0
+maestro-verified; 12/12 axioms.

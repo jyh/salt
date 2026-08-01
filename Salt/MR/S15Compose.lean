@@ -2849,3 +2849,7 @@ theorem logChowla2_conditional_sharp2_atK_gk_pinned (K : ℕ) (hK : K ≤ 170000
       (hgarm R.Hhi R.hHlohi le_rfl) harith hgate)
     harith
 
+
+end Salt.MR
+
+end
