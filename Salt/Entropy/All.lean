@@ -69,12 +69,20 @@ import Salt.Entropy.Chowla.BoundaryMap
 import Salt.Entropy.Chowla.RegimeParam
 import Salt.Entropy.Chowla.TowerExport
 import Salt.Entropy.Chowla.TowerFlat
+import Salt.Entropy.Chowla.TowerFlatRegime
+import Salt.Entropy.Chowla.BudgetFlat
+import Salt.Entropy.Chowla.StepFlat
+import Salt.Entropy.Chowla.DecrementFlat
 import Salt.Entropy.Chowla.SpineFinal
 import Salt.Entropy.Chowla.TransportWall
 import Salt.Entropy.Chowla.Windows
 import Salt.Entropy.Chowla.PrimeWindow
 import Salt.Entropy.Chowla.HeadPinLeaves
 import Salt.Entropy.Chowla.HloExport
+import Salt.Entropy.Chowla.SpineFlat
+import Salt.Entropy.Chowla.TowerFlatExport
+import Salt.Entropy.Chowla.TowerFlatBuilder
+import Salt.Entropy.Chowla.HloExportFlat
 import Salt.Entropy.ConsumerTest
 import Salt.Tactic.AuditAxioms
 
@@ -348,3 +356,4 @@ head and core is byte-untouched. -/
 open Salt.Tactic in
 #audit_axioms Salt.Entropy.Chowla.log_chowla_two_budget_head_g_sq_count
   Salt.Entropy.Chowla.log_chowla_two_budget_head_g_sq
+

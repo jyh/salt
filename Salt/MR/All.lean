@@ -317,6 +317,12 @@ import Salt.MR.S12ConstCompose
 import Salt.MR.S15Compose
 import Salt.MR.S15Witness
 import Salt.MR.S16Budget
+import Salt.MR.DoorLinear
+import Salt.MR.HloExportMRFlat
+import Salt.MR.FlatConsumers
+import Salt.MR.S12ConstComposeFlat
+import Salt.MR.S16BudgetFlat
+import Salt.MR.HloExportMRFlatRoot
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -6624,3 +6630,53 @@ open Salt.Tactic in
   Salt.MR.s13_MSelect_of_headroom
   Salt.MR.s13_doorGates_of_MSelect
   Salt.MR.s13_loglogHhi_le_tight
+
+/-! ⟦W0-DOOR — THE ADOOR-LINEAR RE-CUT⟧ (`DoorLinear`, 2026-08-01, FLAT-REF amendment 0).
+
+The flat-threshold wave's step 0: the door's anchor re-cut from `Adoor M = 2^36(⌊log₂ M⌋ + 1)`
+to `AdoorL M = 2^36·M`, with the four arithmetic bridges, both frame inhabitants (the
+`K`-ceiling now `1.7·10^8·M` rather than the absolute `1.7·10^8`), the `S11Hoist` reads and
+the cap chain's single door-reading link.
+
+Additive: `DoorFrame.Adoor` and every landed consumer of it are untouched, and the landed cap
+IMPLIES the linear cap (`s16_baseScaleCapL_of_baseScaleCap`), so the re-cut costs the cap
+face nothing. -/
+open Salt.Tactic in
+#audit_axioms Salt.MR.AdoorL
+  Salt.MR.AdoorL_ge
+  Salt.MR.AdoorL_ge_old
+  Salt.MR.one_le_AdoorL
+  Salt.MR.Adoor_le_AdoorL
+  Salt.MR.AdoorL_cast
+  Salt.MR.calE_doorL_two
+  Salt.MR.calE_doorL_two_gk
+  Salt.MR.log_calE_doorL_two
+  Salt.MR.log_calE_doorL_two_gk
+  Salt.MR.log_four_M_doorL
+  Salt.MR.log_gate_doorL
+  Salt.MR.log_gate_doorL_gk
+  Salt.MR.calFrameK_satisfiable_doorL
+  Salt.MR.calFrameK_satisfiable_doorL_gk
+  Salt.MR.levelGates_calibrated_doorL
+  Salt.MR.levelGates_calibrated_doorL_gk
+  Salt.MR.eq28_doorL_clears
+  Salt.MR.eq28_doorL_clears_gk
+  Salt.MR.log_calQK_doorL_one
+  Salt.MR.log_calQK_doorL_one_gk
+  Salt.MR.calP_doorL_one_gk
+  Salt.MR.s11_calE_doorL_two
+  Salt.MR.s11_log_calQK_doorL_two
+  Salt.MR.s11_log_calP_doorL_one
+  Salt.MR.s11_calE_doorL_two_gk
+  Salt.MR.s11_log_calQK_doorL_two_gk
+  Salt.MR.S16BaseScaleCapL_gk
+  Salt.MR.S16BaseScaleCapL96_gk
+  Salt.MR.s16_baseScaleCapL_of_baseScaleCap
+  Salt.MR.s16_baseScaleCapL96_of_baseScaleCapL
+  Salt.MR.doorRowFloorL
+  Salt.MR.doorRowFloorL_eq
+  Salt.MR.s13_calQK_doorL_one
+  Salt.MR.s13_calQK_doorL_two
+  Salt.MR.doorL_length_gate
+  Salt.MR.doorL_length_gate_iff
+
