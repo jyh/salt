@@ -350,6 +350,7 @@ import Salt.MR.S16FlatFinal
 import Salt.MR.S16Uniform
 import Salt.MR.NumeralCt
 import Salt.MR.NumeralKq
+import Salt.MR.S16Compose
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -7273,3 +7274,33 @@ machinery to `GoldbachEnergyKc` without touching `GoldbachEnergyHsq2`.
   Salt.MR.twisted_rect_zero_free_siegel_bounded
   Salt.MR.m4_fuse_hcap_of_capWS_gk_bounded
   Salt.MR.m4_fuse_hcap_of_capWS_gk_ceiling
+
+/-! ⟦THE BAR-2 CLOSING PASS — `logChowla2_ineffective_v3`⟧ (`S16Compose`, 2026-08-02).
+
+The NUMERAL wave's three `_ceiling` hooks, THREADED through the uniform lane, so that
+`Kc ≤ 2^539`, `Ct ≤ 2^23` and `Kq ≤ e^100` stop being asks and become facts the proof itself
+supplies.  `Kc` rides seven twins (head → socket → door-`L²` → road → windowed capstone →
+windowed conditional → terminal): it enters the head as an UPPER BOUND ON A COUNT and leaves
+the door as a BUDGET COEFFICIENT, so the sign change forbids any short-circuit above the leaf.
+`Ct` enters at the constant-pool fuse.  `Kq` — ⟦THE CORRECTION TO THE WAVE'S CONSUMPTION
+LIST⟧ — is NOT the constant `S16Uniform` :660 opens (that `obtain`'s payload is discarded and
+its constants are dropped again one hop later): the terminal's `Kq` is minted by
+`s15_crossing_supplied_L_gk` off the LINEAR wire, so §8 re-cuts `m4_hcap_at_door_perBlock_L_gk`
+→ `m4_fuse_hcap_of_capWS_L_gk` → `s15_crossing_supplied_L_gk` against the SHARED leaf
+`m4_rowChi_capstone_perBlock_bounded`, and the wide hook is not consumed.
+
+`logChowla2_ineffective_v3` therefore carries **no outer hypothesis** and **three** inner
+riders — `e^{-100} ≤ cs`, `T₀ ≤ e^{e^{100}}`, `e^{-100} ≤ Ks`, the untouched compactness/VK
+lane — plus the same two carried predicates on the conclusion side. -/
+#audit_axioms Salt.MR.flat_head_uniform_ceiling
+  Salt.MR.flat_socket_uniform_ceiling
+  Salt.MR.flat_doorL2_uniform_ceiling
+  Salt.MR.flat_road_uniform_ceiling
+  Salt.MR.m4_closure_fuse_zero'_const_nonneg_L_gk_ceiling
+  Salt.MR.flat_capstone_uniform_win_ceiling
+  Salt.MR.flat_conditional_uniform_win_ceiling
+  Salt.MR.m4_hcap_at_door_perBlock_L_gk_bounded
+  Salt.MR.m4_fuse_hcap_of_capWS_L_gk_ceiling
+  Salt.MR.s15_crossing_supplied_L_gk_ceiling
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling
+  Salt.MR.logChowla2_ineffective_v3

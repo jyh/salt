@@ -54,7 +54,7 @@ together with the FLAT FLOOR
 which is what makes the second-order factors `1/100`-small.  It PROPAGATES up
 the tower (`towerFlat_inv`) because `x ↦ x − 100·(c + log x)` is increasing past
 `x = 100`.  At the flat design's own working point (`A ≈ 2·10³⁰`, so `c ≈ 70`)
-the floor asks only `log B ≳ 7·10³`, astronomically below the design's own
+the floor asks only `log B ≳ 8·10³`, astronomically below the design's own
 height-1 floor `log B ≥ 2.2·10³¹` (KAPPA-SCOPE p7).
 -/
 import Salt.Entropy.Chowla.TowerExport
