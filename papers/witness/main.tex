@@ -167,7 +167,11 @@ road replaces by the single exponential
 $\lceil e^{\max(4X,\,2\log A + 2)}\rceil$
 (\leaninline{budgetFloor} against \leaninline{budgetFloorFlat}). \S\ref{sec:toll}
 makes this two-axis reading precise and states exactly which part of it is
-kernel-checked.
+kernel-checked. The width half is not special to a constant threshold: for an
+arbitrary threshold schedule $\varphi_j \ge A_b$ driving the same step, crossing
+the budget still forces a factor at least $4^{(20/21)A_b}$, and the constant
+schedule at $A_b$ pays at most $\frac{21}{20}4^{A_b}$
+(Theorem~\ref{thm:shapetoll} and Corollary~\ref{cor:extremal}).
 
 \subsection{The pearl}
 The second theorem is conditional, and we state its conditionality here
@@ -491,27 +495,80 @@ $\lceil e^{\max(4X,\ 2\log A + 2)}\rceil$
 $A \ge 2304\log 4/(\varepsilon^{6}\beta^{2})$
 (\leaninline{budgetAFlat}) absorbing what the third logarithm used to
 absorb. Two roads, one invoice, two axes. This paragraph's individual
-claims are each kernel-checked; the sentence that fuses them --- that
+claims are each kernel-checked. The sentence that fuses them --- that
 \emph{every} threshold pays the same toll on one axis or the other --- is
-not, and we say so in the next reading.
+proved below on the width axis, for every threshold schedule feeding this
+step (Theorem~\ref{thm:shapetoll}); the further reading that the two axes
+carry the same invoice remains a reading and not a theorem.
 
-\emph{Third: the extremality question, and its exact present status.} It
-is natural to ask whether some third threshold shape evades the toll
-entirely. An exploratory pass over that question (nineteen probes, recorded
-in the repository's ledger) found the flat tower extremal --- no shape
-beats it by more than a factor $2$ in the exponent base --- and closed
-several escape routes, including cheap levels and $Q$-ary steps. That pass
-produced kernel-elaborated probes, not a landed corpus theorem, and this
-paper accordingly claims no shape-free statement. We record the question as
-open in the precise form: is there a decrement step whose concatenation
-error is not of the form $\varepsilon^{2}/m$, and does it evade
-\eqref{eq:bracket}?
-%
-% TODO(extremality): if the shape-free width law is landed as a corpus
-% theorem before submission, promote this paragraph to a theorem with its
-% own \leanname and move the probe record to \S\ref{sec:method}. Until
-% then it stays a stated open question -- the claim is NOT in the kernel.
-%
+\emph{Third: the shape of the threshold does not change the price.} It is
+natural to ask whether some other threshold shape evades the toll. Let
+$\varphi : \mathbb{N} \to \mathbb{R}$ be an arbitrary \emph{schedule} --- a
+different design constant at every level, chosen with full knowledge of the
+tower --- and let the schedule tower and its telescoped decrement be
+\[
+H_0 = B, \qquad H_{j+1} = H_j\bigl\lfloor 2\varphi_j \log H_j\bigr\rfloor,
+\qquad
+S_J = \sum_{j<J} \frac{1}{2\varphi_j \log H_j}
+\]
+(\leaninline{Salt.Entropy.Chowla.chowlaTowerShape},
+\leaninline{towerDropSumShape}). Fix a \emph{budget floor} $A_b \ge 1$ with
+$\varphi_j \ge A_b$ at every level, and measure the width at that floor:
+$c_b = \log 2A_b$, $\lambda_j = \log\log H_j$, $w_j = \log(c_b+\lambda_j)$
+(\leaninline{towerLS, towerLamS, towerWS}).
+
+\begin{theorem}[The shape-free toll]\label{thm:shapetoll}
+Let $A_b \ge 1$, let $\varphi_j \ge A_b$ for every $j$, let
+$B \ge 4\cdot10^{6}$, and let the flat floor hold at the budget constant,
+$100(c_b + \lambda_0) \le L_0$. Then for \emph{every} $J$ at which the
+schedule's decrement crosses the one-bit budget, $\log 2 < S_J$,
+\[
+\bigl(c_b + \lambda_0\bigr)\,4^{(20/21)A_b} \;\le\; c_b + \lambda_J .
+\]
+\leanname{Salt.Entropy.Chowla.towerShape\_width\_ge}
+\end{theorem}
+
+\begin{corollary}[The flat tower is extremal]\label{cor:extremal}
+Take $A_b = A \ge 1$ and the hypotheses of Theorem~\ref{thm:shapetoll}.
+Every schedule with budget floor $A$ multiplies the doubly-logarithmic
+width by at least $4^{(20/21)A}$ when it crosses the budget; the constant
+schedule $\varphi \equiv A$, which is the flat tower of
+Definition~\ref{def:flattower}, multiplies it by at most
+$\frac{21}{20}4^{A}$ at its minimal crossing length. The two bounds differ
+by the factor $\frac{21}{20}\,4^{A/21}$.
+\leanname{Salt.Entropy.Chowla.chowlaTowerShape\_const,
+Salt.Entropy.Chowla.towerShape\_flat\_le}
+\end{corollary}
+
+Three observations make the schedule tower cost little beyond
+\S\ref{sec:flat}. First, the per-step bracket \eqref{eq:stepbracket} is
+proved over abstract reals (\leaninline{flatStep\_dw\_le},
+\leaninline{flatStep\_dw\_ge}), so it is available at any step size.
+Second, the floor price transfers in one direction only: $\lfloor\cdot\rfloor$
+and $\log$ are monotone, so $\varphi_j \ge A_b$ gives
+$\log\lfloor 2\varphi_j L_j\rfloor \ge c_b + \lambda_j - \frac{1}{500}$
+(\leaninline{shapeStep\_logMul\_ge}), while the companion upper price
+$\log\lfloor 2\varphi_j L_j\rfloor \le c_b + \lambda_j$ fails as soon as
+$\varphi_j > A_b$. It is not needed: the necessity direction consumes only
+the lower half. Removing it from the per-step law costs one monotonicity
+step --- $w_{j+1} - w_j$ increases with the step, so truncating the step at
+$\min(d_j,\, c_b + \lambda_j)$, which does satisfy both flat hypotheses,
+only decreases it (\leaninline{shapeStep\_dw\_ge}). Third, the invariant
+(H3) propagates for every schedule (\leaninline{towerShape\_inv}), and here
+the schedule tower is the easier case: $\Delta\lambda_j \le d_j/L_j$ and
+$100\,d_j/L_j \le d_j$ already at $L_j \ge 100$, so a larger multiplier
+only helps.
+
+Theorem~\ref{thm:shapetoll} quantifies over thresholds, not over step laws.
+Its step is $H \mapsto H\lfloor 2\varphi\log H\rfloor$, the step that the
+entropy decrement of \S\ref{sec:toll} funds; a decrement lemma whose
+concatenation error is not of the form $\varepsilon^{2}/m$ would fund a
+different step, and whether such a lemma exists is open. The exploratory
+pass that preceded this theorem (nineteen probes, recorded in the
+repository's ledger) also closed two escape routes that are not step-law
+changes, cheap levels and $Q$-ary steps; those two closures are probe
+records, not kernel-checked statements, and nothing above rests on them.
+
 The practical corollary of the toll is one the campaign paid for three
 times: an apparent wall in this method --- a triple-exponential floor, a
 frame constant at a door, a window on the design constant --- is worth
@@ -966,6 +1023,28 @@ Lem~\ref{lem:step} & \leaninline{flatStep\_dw\_le, flatStep\_dw\_ge} & the three
 \S\ref{sec:toll} the two floors & \leaninline{budgetFloor}
   (\texttt{BudgetCore}), \leaninline{budgetFloorFlat,} & --- \\
  & \leaninline{budgetAFlat} (\texttt{BudgetFlat.lean}) & \\
+\midrule
+\multicolumn{3}{l}{\emph{The shape-free toll} (\S\ref{sec:toll});
+file \texttt{Salt/Entropy/Chowla/TowerShape.lean}} \\
+\midrule
+Thm~\ref{thm:shapetoll} schedule & \leaninline{chowlaTowerShape,
+  towerDropSumShape} (defs) & --- \\
+Thm~\ref{thm:shapetoll} glyphs & \leaninline{towerLS, towerLamS, towerWS,
+  towerMulS} (defs) & --- \\
+Thm~\ref{thm:shapetoll} & \leaninline{towerShape\_width\_ge} & the three \\
+Thm~\ref{thm:shapetoll} telescope & \leaninline{towerShape\_dropSum\_le} & the three \\
+Thm~\ref{thm:shapetoll} invariant & \leaninline{towerShape\_inv} & the three \\
+Thm~\ref{thm:shapetoll} floor price & \leaninline{shapeStep\_logMul\_ge\_abs,
+  shapeStep\_logMul\_ge} & the three \\
+Thm~\ref{thm:shapetoll} per-step & \leaninline{shapeStep\_dw\_ge,
+  towerStepS\_dw\_ge} & the three \\
+Cor~\ref{cor:extremal} tie & \leaninline{chowlaTowerShape\_const, towerLS\_const,}
+  & the three \\
+ & \leaninline{towerLamS\_const, towerWS\_const, towerDropSumShape\_const} & \\
+Cor~\ref{cor:extremal} & \leaninline{towerShape\_flat\_le} & the three \\
+\S\ref{sec:toll} schedule floor & \leaninline{shapeMul\_ge\_two,
+  chowlaTowerShape\_base\_floor,} & the three \\
+ & \leaninline{towerLS\_ge\_fifteen, towerLamS\_ge\_two, towerLS\_succ} & \\
 \midrule
 \multicolumn{3}{l}{\emph{The pearl} (\S\ref{sec:pearl}, \S\ref{sec:limit})
 --- statements stubbed, declarations landed} \\

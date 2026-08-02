@@ -70,6 +70,7 @@ import Salt.Entropy.Chowla.BoundaryMap
 import Salt.Entropy.Chowla.RegimeParam
 import Salt.Entropy.Chowla.TowerExport
 import Salt.Entropy.Chowla.TowerFlat
+import Salt.Entropy.Chowla.TowerShape
 import Salt.Entropy.Chowla.TowerFlatRegime
 import Salt.Entropy.Chowla.BudgetFlat
 import Salt.Entropy.Chowla.StepFlat
