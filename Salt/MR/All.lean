@@ -7574,6 +7574,14 @@ reads none of them.  §0 records the band rider in its witness-uniform shape (ON
 `Cband`, hence ONE `Mfl` and ONE `Awin`, for every lever) — the shape
 `m4_hband_at_door_slot_split_graded_L_gk_uniform` already mints.
 
+§4b rethreads the `T₀` rider onto its consumer's TRUE tolerance.  RIDER-TRACE proved
+`T₀ ≤ e^{e^{100}}` unreachable along this proof and diagnosed a MIS-SIZED NUMERAL: the sole
+consumer `S13CapFloor.capfloor_T0_Tann` has a sharp sibling (`:226`) asking only
+`T₀ ≤ e^{√H/2}`.  Four hops, uniform carrier `T₀ ≤ exp(√(R.Hlo)/2)` (every hop has the regime
+in scope and the socket puts `R.Hlo ≤ H`), one binder move (the crossing supply's rider goes
+INSIDE its own `∀ R`).  At `v4` the rider reads `T₀ ≤ exp(√(flatDesignBase A)/2)` — satisfiable
+at the corpus's own witness by two exponential levels.
+
 §6's `logChowla2_ineffective_v4` chooses `A` FIRST, sets `K := KlevF A` SECOND, and discharges
 the base-scale cap inside the proof by `s16_baseScaleCap96_L_at_klevF`.  The cap predicate —
 the one CAP-SCOPE proved FALSE at the produced regime — is GONE from the statement.  What
@@ -7582,6 +7590,9 @@ as a named antecedent: X-CEIL landed it at the builder and explicitly banked the
 threading, so the terminal cannot yet EXPORT it.  That is a repair, not a paper-over — the `v3`
 antecedent was false at the regime, this one is the builder's own landed law. -/
 #audit_axioms Salt.MR.s16_bandLaneWinL_holdsU
+  Salt.MR.s13CapFloor_all_L_gk_sharpT0
+  Salt.MR.s16_capGate_supply_L_gk_sharpT0
+  Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0
   Salt.MR.flat_doorL2_uniform_ceiling_khoist
   Salt.MR.flat_road_uniform_ceiling_khoist
   Salt.MR.flat_capstone_uniform_win_ceiling_kwide_khoist

@@ -19343,3 +19343,32 @@ is deleted from the statement and replaced by a true-at-the-builder one. The mis
 numeral is **DIAGNOSED AND CARRIED IN THE OPEN**, its sharp replacement landed and its rethread
 priced. `logChowla2_ineffective` `v1`/`v2`/`v3` remain marked in the Trophy Room as superseded
 by `v4` — they are not to be cited.
+
+## (2026-08-02 16:40 PDT) **COMPOSE-2, FOLLOW-ON: THE `T₀` RIDER IS RESHAPED — `v4` NOW ASKS ITS CONSUMER'S TRUE TOLERANCE. 3 twins + 2 in-place reshapes, full `lake build` 9686 EXIT-0 from `$?`, warnings 186 = 186 baseline, 10/10 decls at 3 axioms** (COMPOSE-2)
+
+The STOP recorded an hour ago is spent. RIDER-TRACE's four-hop chain rethreaded, in the same
+purely-additive file, exactly as priced: `s13CapFloor_all_L_gk_sharpT0` (the leaf, off the
+LANDED `capfloor_T0_Tann_sharp` with one `Real.sqrt` monotonicity step against the socket's own
+`R.Hlo ≤ H`), `s16_capGate_supply_L_gk_sharpT0` (the 37-field per-block gate, body verbatim),
+`s15_crossing_supplied_L_gk_ceiling_sharpT0` (the ONE statement reshape: the rider moves INSIDE
+its own `∀ R`, because the sharp carrier names `R.Hlo`), then the terminal khoist and `v4`
+reshaped IN PLACE — `v4` keeps its name and gains the sharper rider rather than spawning a `v5`.
+
+⟦THE CARRIER⟧ `T₀ ≤ exp(√(R.Hlo)/2)` at every hop; `exp(√(flatWitFloor ε β A Hopq)/2)` at the
+terminal; `exp(√(flatDesignBase A)/2)` at `v4`. ⟦DIRECTION VERIFIED AT THE BYTES⟧
+`flatDesignBase A = ⌈e^{e^{3.2A}}⌉₊ ≥ e^{e^{518.4}}` at `A ≥ 162`, so `√(flatDesignBase A) ≥
+e^{6.4·10^{224}}` and the rider ALLOWS `T₀ ≤ e^{½·e^{6.4·10^{224}}}`, against the corpus's own
+witness `T₀ ≈ e^{e^{1251}} = e^{10^{543}}` — clear by two exponential levels, no `A₀` raise, no
+new analysis. The mis-sized numeral `T₀ ≤ e^{e^{100}}` is GONE from `v4`.
+
+⟦WHAT `v4` NOW READS, EXACT AND COMPLETE⟧ outer: nothing. Inner: `e^{-100} ≤ cs` (33 orders of
+room at the witness, kernel-pinned, carried); `T₀ ≤ exp(√(flatDesignBase A)/2)` (SHARP, two
+exponential levels of room); `e^{-100} ≤ Ks` (Siegel-genre). Conclusion-side at `KlevF A`:
+`log R.x ≤ (31/R.eps)·R.Hhi` (the builder's own landed outer-scale ceiling, awaiting the
+uniform-lane threading wave) and `S16CofactorSupply_L_gk (KlevF A) Cq R (flatDoorM A)`.
+
+⟦BOTH 8/02 VACUITIES ARE NOW REPAIRED⟧ the cap (predicate deleted, theorem at the raised lever)
+and the `T₀` numeral (replaced by the consumer's tolerance). What remains conditional is named,
+and each name is either a landed law one threading wave away or an open debt the ledger already
+carries. STILL STOPPED, prices unchanged: the `x`-ceiling threading (~800 ln + the `s15Arm`
+class-B/C estimate) and the co-factor register inhabitation.
