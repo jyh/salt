@@ -303,12 +303,12 @@ it, and the `∃`-prefix carries the three flat items `A`, `β`, `Hopq` plus the
 The proof body is the landed one, verbatim; only the first `obtain` and the `refine`'s prefix
 move. -/
 theorem logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot (K : ℕ)
-    (hK : K ≤ 170000000) (hband : S16BandLaneCBounded K) (A₀ : ℝ) (hA₀ : 26 ≤ A₀) :
+    (hK : K ≤ 170000000) (hband : S16BandLaneCBounded K) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kc δ₀ Ct Cq cs T₀ Kq Ks A β : ℝ) (x₀ Hcap Hopq Mfl : ℕ),
       1 ≤ Cg ∧ 0 < ε ∧ 0 < Kc ∧ 0 < δ₀ ∧
         0 < Ct ∧ 0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 1 ≤ Mfl ∧
       Cg ≤ 2 * 10 ^ 12 ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧ Mfl ≤ 2 ^ 355 ∧
-      0 < β ∧ 26 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
+      0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
       Hcap ≤ max (flatDesignFloor A)
         (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
       ∀ (Cp : ℝ), 0 ≤ Cp →
@@ -534,11 +534,11 @@ flat socket consumers of `Salt.MR.FlatConsumers` are spent against a road that i
 THE WAY DOWN.  The `∃`-prefix carries `A`, `β`, `Hopq` and the flat cap bound; the body is
 `S16BudgetFlat`'s, verbatim. -/
 theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot (K : ℕ)
-    (hK : K ≤ 170000000) (hband : S16BandLaneCBounded K) (A₀ : ℝ) (hA₀ : 26 ≤ A₀) :
+    (hK : K ≤ 170000000) (hband : S16BandLaneCBounded K) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
     ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (x₀ Hcap Hopq Mfl : ℕ),
       0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
       Cg ≤ 2 * 10 ^ 12 ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧ Mfl ≤ 2 ^ 355 ∧
-      0 < β ∧ 26 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
+      0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
       Hcap ≤ max (flatDesignFloor A)
         (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
       ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
@@ -655,7 +655,9 @@ of `S16Budget.logChowla2_witnessed_scale_final'_v3`, pinned at the road's OWN ca
 
 ⟦THE HYPOTHESIS LIST, EXACT AND COMPLETE⟧  the theorem's own arguments are
 `hband : S16BandLaneCBounded 32000000` (the band-lane `C`) and the design floor
-`A₀` with `26 ≤ A₀`.  The inner implication asks for, in order:
+`A₀` with `162 ≤ A₀` (⟦LADDER-L G4⟧'s floor bump: `FlatFloorBump` kernelizes the two
+`flatDoorM` demands the flat re-fire owes, and `162` is the least integer clearing both).
+The inner implication asks for, in order:
 
 * `e^{-100} ≤ cs` — the honest floor (`REPAIRS-LANE` ITEM 2), unchanged;
 * `T₀ ≤ e^{e^{100}}` — the fuse's forced-equality opaque, unchanged;
@@ -674,17 +676,17 @@ and the payload then carries three predicates per `M`:
 * `S16CofactorSupply_gk 32000000 Cq R M` — ⟦RULING 9⟧'s shelved `Rbd`/`Cq` debt, carried;
 * `S16BaseScaleCap96_gk 32000000 R M` — ⟦ITEM 3⟧'s base-scale cap at the divisor `9.60000096`.
 
-⟦WHAT IS EXPORTED ABOUT THE DESIGN CONSTANT⟧ `0 < β ∧ 26 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat ε β ≤ A`
+⟦WHAT IS EXPORTED ABOUT THE DESIGN CONSTANT⟧ `0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat ε β ≤ A`
 — `A` is SYMBOLIC (FLAT-REF §4: no numeral anywhere), above the caller's `A₀`, and the head's
 own budget demand is exported so §1's price is readable at the terminal itself. -/
 theorem logChowla2_witnessed_scale_flat (hband : S16BandLaneCBounded 32000000)
-    (A₀ : ℝ) (hA₀ : 26 ≤ A₀) :
+    (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
     ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (x₀ Hopq Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
       0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
       0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧
       Cg ≤ 2 * 10 ^ 12 ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧ Real.log C ≤ 40 ∧
       Mfl ≤ 2 ^ 355 ∧
-      0 < β ∧ 26 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
+      0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
       (Real.exp (-100) ≤ cs → T₀ ≤ Real.exp (Real.exp 100) → Kq ≤ Real.exp 100 →
         Real.exp (-100) ≤ Ks →
         ∀ g : ℕ → ℕ → ℕ, ∃ R : ChowlaRegime,
@@ -722,10 +724,10 @@ theorem logChowla2_witnessed_scale_flat (hband : S16BandLaneCBounded 32000000)
 
 /-- **THE FLAT DESIGN POINT, AS A DEFINITION** (FLAT-REF §4: symbolic in `A`, no numeral
 anywhere).  `flatWitA` is the least legal design constant at a given budget pair: the house
-floor `26` joined with the head's own budget demand `budgetAFlat`. -/
-def flatWitA (ε β : ℝ) : ℝ := max 26 (budgetAFlat ε β)
+floor `162` (⟦LADDER-L G4⟧'s bump) joined with the head's own budget demand `budgetAFlat`. -/
+def flatWitA (ε β : ℝ) : ℝ := max 162 (budgetAFlat ε β)
 
-theorem flatWitA_ge (ε β : ℝ) : 26 ≤ flatWitA ε β := le_max_left _ _
+theorem flatWitA_ge (ε β : ℝ) : 162 ≤ flatWitA ε β := le_max_left _ _
 
 theorem flatWitA_budget (ε β : ℝ) : budgetAFlat ε β ≤ flatWitA ε β := le_max_right _ _
 

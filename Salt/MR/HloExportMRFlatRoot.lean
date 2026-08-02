@@ -67,9 +67,9 @@ FLAT cap BOUND, and the tower conjunct is at the flat shape by construction.
 M4-0's arc floor `H₀` is absorbed into `Hopq` (not into a fresh `Hcap` arm), so
 the cap bound keeps the head's three-arm shape and the height claim survives the
 step. -/
-theorem m4_exit_socket_split_sq_arc_flatRoot (A₀ : ℝ) (hA₀ : 26 ≤ A₀) :
+theorem m4_exit_socket_split_sq_arc_flatRoot (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
     ∃ (ε : ℚ) (K δ₀ A β : ℝ) (Hcap Hopq : ℕ), 0 < ε ∧ 0 < K ∧ 0 < δ₀ ∧
-      1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧ 0 < β ∧ 26 ≤ A ∧ A₀ ≤ A ∧
+      1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧ 0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧
       budgetAFlat (ε : ℝ) β ≤ A ∧
       Hcap ≤ max (flatDesignFloor A)
         (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
@@ -93,11 +93,12 @@ theorem m4_exit_socket_split_sq_arc_flatRoot (A₀ : ℝ) (hA₀ : 26 ≤ A₀) 
             (∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi →
               K * (2 * Bsieve H) + 2 * Binsert ≤ δ₀) →
             ¬ logChowla2Fails R.eps R.x R.ω) := by
-  obtain ⟨ε, K, δ₀, A, β, Hcap, Hopq, hε, hK, hδ₀, hεpin, hδpin, hβ, hA26, hA₀A,
-    hAge, hCapEq, hhead⟩ := log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat A₀ hA₀
+  obtain ⟨ε, K, δ₀, A, β, Hcap, Hopq, hε, hK, hδ₀, hεpin, hδpin, hβ, _hA26, hA₀A,
+    hAge, hCapEq, hhead⟩ := log_chowla_two_budget_head_g_sq_count_hloCap_pinned_flat A₀
+      (by linarith : (26 : ℝ) ≤ A₀)
   obtain ⟨H₀, hH₀⟩ := sum_bigXi_norm_windowExpSum_sq_le_twelve ε hε
   refine ⟨ε, K, δ₀, A, β, max Hcap H₀, max Hopq H₀, hε, hK, hδ₀, hεpin, hδpin, hβ,
-    hA26, hA₀A, hAge, by rw [hCapEq]; exact flatRootCap_arc _ _ _ _ _, ?_⟩
+    le_trans hA₀ hA₀A, hA₀A, hAge, by rw [hCapEq]; exact flatRootCap_arc _ _ _ _ _, ?_⟩
   intro U1floor g
   obtain ⟨R, hReps, _, hRU1, hRg, hcount, hRtow, hRcap, hR⟩ := hhead 0 (max U1floor H₀) g
   have hU1 : U1floor ≤ R.Hlo := le_trans (le_max_left _ _) hRU1
@@ -114,10 +115,10 @@ theorem m4_exit_socket_split_sq_arc_flatRoot (A₀ : ℝ) (hA₀ : 26 ≤ A₀) 
 /-- **THE LOOP, CLOSED, AT THE FLAT ROOT** (`m4_doorL2_close_split_sq_flatRoot`) —
 `HloExportMR.m4_doorL2_close_split_sq_hloCap_pinned` on §1.  A pure conjunct
 carry: the door body is the landed one, verbatim. -/
-theorem m4_doorL2_close_split_sq_flatRoot (A₀ : ℝ) (hA₀ : 26 ≤ A₀) :
+theorem m4_doorL2_close_split_sq_flatRoot (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
     ∃ (Cg : ℝ) (ε : ℚ) (K δ₀ A β : ℝ) (Hcap Hopq : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
       0 < ε ∧ 0 < K ∧ 0 < δ₀ ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧ 0 < β ∧
-      26 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
+      162 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
       Hcap ≤ max (flatDesignFloor A)
         (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
       ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
@@ -178,10 +179,10 @@ theorem m4_doorL2_close_split_sq_flatRoot (A₀ : ℝ) (hA₀ : 26 ≤ A₀) :
 /-- `m4_doorL2_close_split_sq_flatRoot` at `G := s13GK K M` (the `GLever` form the
 capstone compose actually consumes), `(K : ℕ)` first, the road's `L²` constant
 alpha-renamed to `Kb` per THE KDESIGN. -/
-theorem m4_doorL2_close_split_sq_gk_flatRoot (K : ℕ) (A₀ : ℝ) (hA₀ : 26 ≤ A₀) :
+theorem m4_doorL2_close_split_sq_gk_flatRoot (K : ℕ) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ A β : ℝ) (Hcap Hopq : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
       0 < ε ∧ 0 < Kb ∧ 0 < δ₀ ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧ 0 < β ∧
-      26 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
+      162 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
       Hcap ≤ max (flatDesignFloor A)
         (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
       ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
@@ -242,10 +243,10 @@ theorem m4_doorL2_close_split_sq_gk_flatRoot (K : ℕ) (A₀ : ℝ) (hA₀ : 26 
 (`m4_second_road_L2_flatRoot`) — `HloExportMR.m4_second_road_L2_hloCap_pinned` on
 §2.  THE ELEVEN-ITEM CENSUS and the four named suppliers are the landed ones,
 item for item; the proof body is the landed one, verbatim. -/
-theorem m4_second_road_L2_flatRoot (A₀ : ℝ) (hA₀ : 26 ≤ A₀) :
+theorem m4_second_road_L2_flatRoot (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
     ∃ (Cg : ℝ) (ε : ℚ) (K δ₀ A β : ℝ) (Hcap Hopq : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
       0 < ε ∧ 0 < K ∧ 0 < δ₀ ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧ 0 < β ∧
-      26 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
+      162 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
       Hcap ≤ max (flatDesignFloor A)
         (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
       ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
@@ -340,10 +341,10 @@ occurs anywhere beneath it and the threshold spent is `κ = H/(A·log H)`.
 arm: the flat arm by freeze F-5, the LANDED arm still by
 `tower_loglog_le_45` + `pow_nine_halves_le_exp_half`.  The exported SHAPE is flat
 either way; what survives is a citation, not a `9/2` bound in any statement. -/
-theorem m4_second_road_L2_gk_flatRoot (K : ℕ) (A₀ : ℝ) (hA₀ : 26 ≤ A₀) :
+theorem m4_second_road_L2_gk_flatRoot (K : ℕ) (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
     ∃ (Cg : ℝ) (ε : ℚ) (Kb δ₀ A β : ℝ) (Hcap Hopq : ℕ), 1 ≤ Cg ∧ Cg ≤ 2 * 10 ^ 12 ∧
       0 < ε ∧ 0 < Kb ∧ 0 < δ₀ ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧ 0 < β ∧
-      26 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
+      162 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
       Hcap ≤ max (flatDesignFloor A)
         (max (max Hopq (budgetFloorFlat (ε : ℝ) β A)) (4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4)) ∧
       ∀ (U1floor : ℕ) (g : ℕ → ℕ → ℕ),
