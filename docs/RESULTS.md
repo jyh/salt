@@ -77,7 +77,7 @@ authority on the method's record. [METHODS.md](METHODS.md), [OPERATIONS.md](OPER
 
 | Theorem (Lean name) | Plain statement (one line) | File:line | Date landed | Commit | Axioms |
 |---|---|---|---|---|---|
-| `Salt.Maynard.bounded_gaps_from_eh_complete` | The Maynard capstone: `BoundedGapsFromEH` with no residual hypotheses (`CompatFrontier` proved for every regime width). | Salt/Maynard/Complete.lean:1472 | 2026-07-09 | `418df26` | ⚠ unaudited |
+| `Salt.Maynard.bounded_gaps_from_eh_complete` | The Maynard capstone: `BoundedGapsFromEH` with no residual hypotheses (`CompatFrontier` proved for every regime width). | Salt/Maynard/Complete.lean:1472 | 2026-07-09 | `418df26` | 3 axioms (audited) |
 | `Salt.Twelve.gaps_le_twelve` | Explicit bounded gaps **≤ 12** (standing analytic inputs `WindowPNT`, `EHall`): for every `N`, two primes `p ≠ q > N` with `\|q−p\| ≤ 12`. | Salt/Twelve/GapsUncond.lean:1061 | 2026-07-11 | `6b24881` | 3 (blueprint_lint P3) |
 | `Salt.BV.bounded_gaps_of_siegelWalfisz` | Bounded prime gaps from Siegel–Walfisz — the first load-bearing Bombieri–Vinogradov chain. | Salt/BV/AbelCore.lean:757 | 2026-07-12 | `fa06560` | 3 (Salt/BV/All.lean:58) |
 | `Salt.SW.siegelWalfisz_holds` | **Siegel–Walfisz, unconditional**: `\|ψ(x;q,a) − x/φ(q)\| ≤ K·x/(log x)^A` uniformly for `q ≤ (log x)^C`, `a` reduced. | Salt/SW/Gate.lean:150 | 2026-07-13 | `0d6a613` | 3 (Salt/SW/All.lean:124) |
@@ -138,17 +138,17 @@ machinery beneath them is ledger-audited at `Salt/Vk/All.lean:52`.
 |---|---|---|---|---|---|
 | `Salt.MR.mvHilbertUniform_holds` | The Montgomery–Vaughan generalized Hilbert inequality, unconditional: `‖Σ_{i≠j} x_j x̄_i/(λ_j−λ_i)‖ ≤ (π/δ)·Σ‖x_i‖²`. | Salt/MR/MVCore2.lean:575 | 2026-07-19 | `c119b50` | 3 (Salt/MR/All.lean:399) |
 | `Salt.MR.lambda_nonpret` | **λ-non-pretentiousness, unconditional**: `(1/4)·loglog x − 4·logloglog(\|t\|+16) − C ≤ 𝔻(λ, n^{it}; x)²` — the campaign's oldest open hypothesis, closed. | Salt/MR/NonPretClose.lean:49 | 2026-07-19 | `60537ef` | 3 (Salt/MR/All.lean:399) |
-| `Salt.Entropy.Chowla.log_chowla_two_budget_head` | The spine-budget head: the log-Chowla-2 contradiction with the AM–GM `t`/`g`/`hbudget1` residual discharged internally, `∀ extraFloor`. | Salt/Entropy/Chowla/SpineFinal.lean:750 | 2026-07-19 | `3aef39b` | ⚠ unaudited |
-| `Salt.Entropy.Chowla.log_chowla_two_door_only` | **The door-only terminal**: log-Chowla-2 does not fail, conditional on the Matomäki–Radziwiłł–Tao door ALONE — no other residual on any surface. | Salt/Entropy/Chowla/SpineFinal.lean:981 | 2026-07-19 | `3aef39b` | ⚠ unaudited |
+| `Salt.Entropy.Chowla.log_chowla_two_budget_head` | The spine-budget head: the log-Chowla-2 contradiction with the AM–GM `t`/`g`/`hbudget1` residual discharged internally, `∀ extraFloor`. | Salt/Entropy/Chowla/SpineFinal.lean:750 | 2026-07-19 | `3aef39b` | 3 axioms (audited) |
+| `Salt.Entropy.Chowla.log_chowla_two_door_only` | **The door-only terminal**: log-Chowla-2 does not fail, conditional on the Matomäki–Radziwiłł–Tao door ALONE — no other residual on any surface. | Salt/Entropy/Chowla/SpineFinal.lean:981 | 2026-07-19 | `3aef39b` | 3 axioms (audited) |
 | `Salt.MR.halasz_ball_decay` | The Halász ball-decay exit stone: the head/tail split delivers the `(log X)^{−1/(32e)}` floor at the range-minimum head distance `M_range`. | Salt/MR/HalaszCore.lean:440 | 2026-07-20 | `9a2686c` | 3 (Salt/MR/All.lean:399) |
 | `Salt.MR.thm_a2'` | **The S7/S8 summit**: Theorem A2′ in the kernel — the two-branch row capstone (`CapFreeFloor` branch unconditional), constants side by side. | Salt/MR/ThmA2Rows.lean:636 | 2026-07-27 | `6207cb2` | 3 (Salt/MR/All.lean:399) |
 | `Salt.MR.mmuChiRate_holds_gated` | The χ-twisted `t`-uniform Möbius rate, unconditional: `‖Σ_{n≤y} μ(n)χ̄(n)n^{it}‖ ≤ C·y/(log y)^A` uniformly in `q ≤ (log y)^{12}`, `\|t\| ≤ y`. | Salt/MR/PortClose.lean:157 | 2026-07-30 | `6725743` | 3 (Salt/MR/All.lean:5463) |
-| `Salt.Entropy.Chowla.towerDropSumFlat_ge_log_ratio` **[THE TOLL]** | The master law, lower half (sufficiency): `(1/(2A))·(w_J − w₀) ≤ S_J`, exactly — no relative loss. | Salt/Entropy/Chowla/TowerFlat.lean:419 | 2026-08-01 | `adb503f` | ⚠ unaudited |
-| `Salt.Entropy.Chowla.towerDropSumFlat_le_log_ratio_mul` **[THE TOLL]** | The master law, upper half (width necessity): `S_J ≤ (21/20)·(1/(2A))·(w_J − w₀)`. | Salt/Entropy/Chowla/TowerFlat.lean:443 | 2026-08-01 | `adb503f` | ⚠ unaudited |
-| `Salt.Entropy.Chowla.towerFlat_width_ge` **[THE TOLL]** | The width necessity: any crossing level forces `(λ₊+c) ≥ 4^{(20/21)A}·(λ₋+c)` — the honest form of KAPPA-SCOPE's `4^A`. | Salt/Entropy/Chowla/TowerFlat.lean:585 | 2026-08-01 | `adb503f` | ⚠ unaudited |
-| `Salt.Entropy.Chowla.towerFlat_width_le` **[THE TOLL]** | The no-overshoot companion: `(λ₊+c) ≤ (21/20)·4^A·(λ₋+c)`, bracketing the flat width in `[4^{(20/21)A}, (21/20)·4^A]`. | Salt/Entropy/Chowla/TowerFlat.lean:625 | 2026-08-01 | `adb503f` | ⚠ unaudited |
+| `Salt.Entropy.Chowla.towerDropSumFlat_ge_log_ratio` **[THE TOLL]** | The master law, lower half (sufficiency): `(1/(2A))·(w_J − w₀) ≤ S_J`, exactly — no relative loss. | Salt/Entropy/Chowla/TowerFlat.lean:419 | 2026-08-01 | `adb503f` | 3 axioms (audited) |
+| `Salt.Entropy.Chowla.towerDropSumFlat_le_log_ratio_mul` **[THE TOLL]** | The master law, upper half (width necessity): `S_J ≤ (21/20)·(1/(2A))·(w_J − w₀)`. | Salt/Entropy/Chowla/TowerFlat.lean:443 | 2026-08-01 | `adb503f` | 3 axioms (audited) |
+| `Salt.Entropy.Chowla.towerFlat_width_ge` **[THE TOLL]** | The width necessity: any crossing level forces `(λ₊+c) ≥ 4^{(20/21)A}·(λ₋+c)` — the honest form of KAPPA-SCOPE's `4^A`. | Salt/Entropy/Chowla/TowerFlat.lean:585 | 2026-08-01 | `adb503f` | 3 axioms (audited) |
+| `Salt.Entropy.Chowla.towerFlat_width_le` **[THE TOLL]** | The no-overshoot companion: `(λ₊+c) ≤ (21/20)·4^A·(λ₋+c)`, bracketing the flat width in `[4^{(20/21)A}, (21/20)·4^A]`. | Salt/Entropy/Chowla/TowerFlat.lean:625 | 2026-08-01 | `adb503f` | 3 axioms (audited) |
 | `Salt.MR.logChowla2_witnessed_scale_flat_L_v2` **[THE PEARL]** | The witnessed flat-scale terminal at the LINEAR door: the crossing is gone from the surviving list; `A` symbolic and above the caller's `A₀`. | Salt/MR/S16FlatFinal.lean:136 | 2026-08-01 | `2040ee5` | 3 (Salt/MR/All.lean:7195) |
-| `Salt.Entropy.Chowla.towerShape_width_ge` **[THE SHAPE-FREE TOLL]** | No shape of threshold schedule evades the toll: for ANY `φ ≥ A_b`, crossing forces `(c_b+λ_0)·4^{(20/21)A_b} ≤ c_b+λ_J`. | Salt/Entropy/Chowla/TowerShape.lean:362 | 2026-08-02 | `79c79ad` | ⚠ unaudited |
+| `Salt.Entropy.Chowla.towerShape_width_ge` **[THE SHAPE-FREE TOLL]** | No shape of threshold schedule evades the toll: for ANY `φ ≥ A_b`, crossing forces `(c_b+λ_0)·4^{(20/21)A_b} ≤ c_b+λ_J`. | Salt/Entropy/Chowla/TowerShape.lean:362 | 2026-08-02 | `79c79ad` | 3 axioms (audited) |
 | `Salt.MR.logChowla2_ineffective` | [SUPERSEDED → `logChowla2_ineffective_v4`; cap antecedent vacuous, CAP-SCOPE 2026-08-02] For EVERY depth `A₀`, a regime at window base `⌈e^{e^{3.2A}}⌉₊` with `A ≥ A₀`; outer hypothesis = the band-lane constant alone. No `x₀`, no `Hopq`, no Siegel. | Salt/MR/S16Uniform.lean:1061 | 2026-08-02 | `937aac9` | 3 (Salt/MR/All.lean:7215) |
 | `Salt.MR.logChowla2_ineffective_v2` | [SUPERSEDED → `logChowla2_ineffective_v4`; cap antecedent vacuous, CAP-SCOPE 2026-08-02] The same, with the OUTER hypothesis list empty — the caller supplies only the depth `A₀`; the pin replaced by `Mfl ≤ flatDoorM A`. | Salt/MR/S16Uniform.lean:1707 | 2026-08-02 | `108d2c5` | 3 (Salt/MR/All.lean:7239) |
 | `Salt.MR.logChowla2_ineffective_v3` | [SUPERSEDED → `logChowla2_ineffective_v4`] The composed terminal: three numeral riders left (`cs`, `T₀`, `Ks`), all on constants it produces. No band rider, no `Kc`/`Ct`/`Kq`, no Siegel hypothesis. **Its base-scale-cap antecedent is FALSE at the regime it produces (CAP-SCOPE 2026-08-02), so the implication is vacuous — do not cite.** | Salt/MR/S16Compose.lean:1112 | 2026-08-02 | `73d02e6` | 3 (Salt/MR/All.lean:7295) |
@@ -175,12 +175,7 @@ machinery beneath them is ledger-audited at `Salt/Vk/All.lean:52`.
 
 ## Standing chores
 
-- **Close the eight `⚠ unaudited` rows.** Add each name to its track's
-  `#audit_axioms` block: `Salt.Maynard.bounded_gaps_from_eh_complete`
-  (Maynard has no ledger at all), `Salt.Entropy.Chowla.log_chowla_two_budget_head`,
-  `…log_chowla_two_door_only`, and the five tower laws
-  (`towerDropSumFlat_ge_log_ratio`, `towerDropSumFlat_le_log_ratio_mul`,
-  `towerFlat_width_ge`, `towerFlat_width_le`, `towerShape_width_ge`).
+- ~~Close the eight `⚠ unaudited` rows~~ **DONE 2026-08-02 night** — all eight added to their track ledgers (Salt/Entropy/All.lean's AUDIT-ROWS block; Salt/Maynard/All.lean's first-ever audit block), build exit 0, every one at 3 axioms.
 - **`Salt.SW.dh_repulsion_ordered` has a namesake in a doc comment** at
   `Salt/SW/DHRepulsion.lean:267` (the frozen target contract, inside a fenced
   block). The live declaration is the TBalR8 one in this table.

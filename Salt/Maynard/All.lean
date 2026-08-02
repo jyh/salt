@@ -101,3 +101,8 @@ import Salt.Maynard.ShiuIV
 import Salt.Maynard.ShiuS5
 import Salt.Maynard.ShiuS5b
 import Salt.Maynard.GehShiuWire
+import Salt.Tactic.AuditAxioms
+
+/-! ⟦AUDIT-ROWS 0802⟧ The Maynard capstone, ledger-absent until TROPHY's
+census (this file had no audit block at all). -/
+#audit_axioms Salt.Maynard.bounded_gaps_from_eh_complete
