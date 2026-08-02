@@ -1135,6 +1135,254 @@ theorem logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L (K : ℕ)
       (hgarm R.Hhi R.hHlohi le_rfl) harith hgate)
     harith
 
+/-! ## §5b — ⟦THE ARM CENSUS AND THE `Nat.ceil` OVERSHOOT⟧ ⟦added per REF-FLAT-SAT⟧
+
+The pinned base `flatWitFloor ε β A Hopq` is a `max` over five arms.  At `A ≥ 162` and the
+terminal's OWN exported pins (`1/500 ≤ ε ≤ 1/2`, `0 < β`, `budgetAFlat ε β ≤ A`), FOUR of
+them collapse under `flatDesignBase A = ⌈e^{e^{3.2A}}⌉₊`: `arcFloor36 = 10^138`,
+`loglogFloor50 = ⌈e^{e^{50}}⌉₊`, `4⌈1/ε⌉₊⁴ ≤ 2.5·10^{11}`, `flatBase A` and the HEIGHT-1
+`budgetFloorFlat`.  So the base equals the design base as soon as the ONE remaining arm —
+the road's Siegel-carrying `Hopq` — is inside it, and the terminal can price its width rider
+against a KNOWN base.  The price is a factor `2`: `Nat.ceil` overshoots, so the base's
+`loglog` is `≤ 3.2A + log 2`, NOT `≤ 3.2A`, and the road's width export `e^{λ₋/2}` therefore
+lands at `2·e^{1.6A}` rather than at `e^{1.6A}`.  The register's `Λ` slot was widened to
+match (`S15SelLinear`/`S15SelLinearWide`/`FlatFloorBump`, `898× → 449×`). -/
+
+/-- `log 10 ≤ 3`. -/
+private theorem flat_log_ten_le_three : Real.log 10 ≤ 3 := by
+  have he : Real.exp 3 = (Real.exp 1) ^ (3 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+  have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+  have h10 : (10 : ℝ) ≤ Real.exp 3 := by rw [he]; nlinarith [h1, sq_nonneg (Real.exp 1)]
+  have := Real.log_le_log (by norm_num : (0 : ℝ) < 10) h10
+  rwa [Real.log_exp] at this
+
+private theorem flat_expA_ge_519 {A : ℝ} (hA : 162 ≤ A) : (519 : ℝ) ≤ Real.exp (3.2 * A) := by
+  have := Real.add_one_le_exp (3.2 * A); linarith
+
+private theorem flat_ten138_le : (10 : ℝ) ^ (138 : ℕ) ≤ Real.exp 414 := by
+  have hl : Real.log ((10 : ℝ) ^ (138 : ℕ)) = 138 * Real.log 10 := by rw [Real.log_pow]; norm_num
+  have h := Real.exp_le_exp.mpr
+    (show Real.log ((10 : ℝ) ^ (138 : ℕ)) ≤ 414 by rw [hl]; linarith [flat_log_ten_le_three])
+  rwa [Real.exp_log (by positivity)] at h
+
+/-- ⟦ARM 1⟧ `arcFloor36 = 10^138 ≤ flatDesignBase A` at `A ≥ 162` (102 orders of room). -/
+theorem flat_arm_arcFloor_le {A : ℝ} (hA : 162 ≤ A) : arcFloor36 ≤ flatDesignBase A := by
+  have hlit : ((arcFloor36 : ℕ) : ℝ) = (10 : ℝ) ^ (138 : ℕ) := by
+    rw [arcFloor36, Nat.cast_pow, Nat.cast_ofNat]
+  have hR : ((arcFloor36 : ℕ) : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by
+    rw [hlit]
+    exact le_trans flat_ten138_le (Real.exp_le_exp.mpr (by linarith [flat_expA_ge_519 hA]))
+  have := le_trans hR (Nat.le_ceil (Real.exp (Real.exp (3.2 * A))))
+  rw [flatDesignBase]; exact_mod_cast this
+
+/-- ⟦ARM 2⟧ `loglogFloor50 ≤ flatDesignBase A` — `50 < 3.2·162 = 518.4`. -/
+theorem flat_arm_loglogFloor_le {A : ℝ} (hA : 162 ≤ A) : loglogFloor50 ≤ flatDesignBase A := by
+  rw [loglogFloor50, flatDesignBase]
+  exact Nat.ceil_le_ceil (Real.exp_le_exp.mpr (Real.exp_le_exp.mpr (by linarith)))
+
+theorem flat_designBase_ge_4e6 {A : ℝ} (hA : 162 ≤ A) : 4000000 ≤ flatDesignBase A :=
+  le_trans (by norm_num [arcFloor36]) (flat_arm_arcFloor_le hA)
+
+/-- ⟦ARM 3⟧ `flatBase A = ⌈e^{200·c + 10000}⌉₊ ≤ flatDesignBase A` at `A ≥ 162`. -/
+theorem flat_arm_flatBase_le {A : ℝ} (hA : 162 ≤ A) : flatBase A ≤ flatDesignBase A := by
+  rw [flatBase, flatDesignBase]
+  refine Nat.ceil_le_ceil (Real.exp_le_exp.mpr ?_)
+  have hApos : (0 : ℝ) < 2 * A := by linarith
+  have hlA : Real.log (2 * A) ≤ 2 * A - 1 := Real.log_le_sub_one_of_pos hApos
+  have hu : (0 : ℝ) ≤ A - 162 := by linarith
+  have hsplit : Real.exp (3.2 * A) = Real.exp 518.4 * Real.exp (3.2 * (A - 162)) := by
+    rw [← Real.exp_add]; ring_nf
+  have hlin : (1 : ℝ) + 3.2 * (A - 162) ≤ Real.exp (3.2 * (A - 162)) := by
+    have := Real.add_one_le_exp (3.2 * (A - 162)); linarith
+  have hE2 : (100000 : ℝ) ≤ Real.exp 518.4 := by
+    have he : Real.exp 12 = (Real.exp 1) ^ (12 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+    have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+    have h12 : (100000 : ℝ) ≤ Real.exp 12 := by
+      rw [he]
+      calc (100000 : ℝ) ≤ (2.7 : ℝ) ^ (12 : ℕ) := by norm_num
+        _ ≤ (Real.exp 1) ^ (12 : ℕ) := pow_le_pow_left₀ (by norm_num) h1.le 12
+    exact le_trans h12 (Real.exp_le_exp.mpr (by norm_num))
+  rw [flatC, hsplit]
+  nlinarith [hlA, hlin, hu, hE2, Real.exp_pos (3.2 * (A - 162))]
+
+/-- `flatDesignFloor A = flatDesignBase A` at `A ≥ 162`. -/
+theorem flat_designFloor_eq_designBase {A : ℝ} (hA : 162 ≤ A) :
+    flatDesignFloor A = flatDesignBase A := by
+  rw [flatDesignFloor]
+  have h1 := flat_designBase_ge_4e6 hA
+  have h2 := flat_arm_flatBase_le hA
+  omega
+
+/-- ⟦ARM 4⟧ `4·⌈1/ε⌉₊⁴ ≤ flatDesignBase A` from the exported pin `1/500 ≤ ε`. -/
+theorem flat_arm_eps_le {A : ℝ} {ε : ℚ} (hA : 162 ≤ A) (hε : 0 < ε) (hεpin : 1 / 500 ≤ ε) :
+    4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4 ≤ flatDesignBase A := by
+  have hceil : ⌈(1 / ε : ℚ)⌉₊ ≤ 500 := by
+    refine Nat.ceil_le.mpr ?_
+    rw [div_le_iff₀ hε]
+    push_cast
+    nlinarith [hεpin, hε]
+  have h1 : 4 * ⌈(1 / ε : ℚ)⌉₊ ^ 4 ≤ 4 * 500 ^ 4 :=
+    Nat.mul_le_mul_left _ (Nat.pow_le_pow_left hceil 4)
+  exact le_trans h1 (le_trans (by norm_num [arcFloor36] : 4 * 500 ^ 4 ≤ arcFloor36)
+    (flat_arm_arcFloor_le hA))
+
+/-- ⟦ARM 5⟧ `budgetFloorFlat ε β A ≤ flatDesignBase A`, from the terminal's OWN exported
+budget conjunct `budgetAFlat ε β ≤ A` plus `1/500 ≤ ε ≤ 1/2`.  The flat budget floor is
+HEIGHT 1 (`⌈e^{max(4X, 2 log A + 2)}⌉₊`), so it is invisible against the design base. -/
+theorem flat_arm_budget_le {A β : ℝ} {ε : ℚ} (hA : 162 ≤ A) (hβ : 0 < β)
+    (hε : (1 : ℝ) / 500 ≤ (ε : ℝ)) (hε2 : (ε : ℝ) ≤ 1 / 2)
+    (hbudA : budgetAFlat (ε : ℝ) β ≤ A) :
+    budgetFloorFlat (ε : ℝ) β A ≤ flatDesignBase A := by
+  set e : ℝ := (ε : ℝ) with hedef
+  have hepos : (0 : ℝ) < e := by rw [hedef]; linarith
+  have hlog4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
+  have hl2lo : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hl2hi : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have hden : (0 : ℝ) < e ^ 6 * β ^ 2 := by positivity
+  have hbud' : 2304 * Real.log 4 ≤ A * (e ^ 6 * β ^ 2) := by
+    rw [budgetAFlat, div_le_iff₀ hden] at hbudA
+    linarith [hbudA]
+  have he6 : e ^ 6 ≤ 1 / 64 := by
+    have h := pow_le_pow_left₀ hepos.le hε2 6
+    norm_num at h; linarith
+  have hbsq : (1 : ℝ) / β ^ 2 ≤ A / 204352 := by
+    rw [div_le_div_iff₀ (by positivity) (by norm_num)]
+    nlinarith [hbud', he6, hl2lo, hlog4, sq_nonneg β, hβ, pow_pos hepos 6]
+  have hb1 : (1 : ℝ) / β ≤ 1 + A / 204352 := by
+    have ht : (1 : ℝ) / β ≤ 1 + 1 / β ^ 2 := by
+      have h : (1 : ℝ) / β ^ 2 = (1 / β) ^ 2 := by field_simp
+      nlinarith [sq_nonneg (1 / β - 1), h]
+    linarith [hbsq]
+  have he6lo : (1 : ℝ) / 15625000000000000 ≤ e ^ 6 := by
+    have h := pow_le_pow_left₀ (by norm_num : (0 : ℝ) ≤ 1 / 500) hε 6
+    norm_num at h; linarith
+  have hepow : (1 : ℝ) / e ^ 6 ≤ 15625000000000000 := by
+    rw [div_le_iff₀ (by positivity)]
+    linarith [he6lo]
+  have hS : (1 : ℝ) / β ^ 2 + 1 / β + 1 ≤ A := by
+    have : A / 204352 + (1 + A / 204352) + 1 ≤ A := by linarith
+    linarith [hbsq, hb1]
+  have hSpos : (0 : ℝ) ≤ 1 / β ^ 2 + 1 / β + 1 := by positivity
+  have hT : (1 : ℝ) / e ^ 6 + 1 ≤ 15625000000000001 := by linarith
+  have hTpos : (0 : ℝ) ≤ 1 / e ^ 6 + 1 := by positivity
+  have hApos : (0 : ℝ) < A := by linarith
+  have hbX : budgetXFlat e β ≤ 10 ^ 21 * A := by
+    rw [budgetXFlat, budgetX]
+    have hprod : (1 / β ^ 2 + 1 / β + 1) * (1 / e ^ 6 + 1) ≤ A * 15625000000000001 :=
+      mul_le_mul hS hT hTpos hApos.le
+    nlinarith [hprod, hl2hi, hlog4, hApos]
+  have hexp : 10 ^ 21 * A * 4 ≤ Real.exp (3.2 * A) := by
+    have hu : (0 : ℝ) ≤ A - 162 := by linarith
+    have hsplit : Real.exp (3.2 * A) = Real.exp 518.4 * Real.exp (3.2 * (A - 162)) := by
+      rw [← Real.exp_add]; ring_nf
+    have hlin : (1 : ℝ) + 3.2 * (A - 162) ≤ Real.exp (3.2 * (A - 162)) := by
+      have := Real.add_one_le_exp (3.2 * (A - 162)); linarith
+    have hE : (10 : ℝ) ^ 25 ≤ Real.exp 518.4 := by
+      have he60 : Real.exp 60 = (Real.exp 1) ^ (60 : ℕ) := by rw [← Real.exp_nat_mul]; norm_num
+      have h1 : (2.7 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; linarith
+      have h60 : (10 : ℝ) ^ 25 ≤ Real.exp 60 := by
+        rw [he60]
+        calc (10 : ℝ) ^ 25 ≤ (2.7 : ℝ) ^ (60 : ℕ) := by norm_num
+          _ ≤ (Real.exp 1) ^ (60 : ℕ) := pow_le_pow_left₀ (by norm_num) h1.le 60
+      exact le_trans h60 (Real.exp_le_exp.mpr (by norm_num))
+    rw [hsplit]
+    nlinarith [hE, hlin, hu, Real.exp_pos (3.2 * (A - 162))]
+  have hmax : max (4 * budgetXFlat e β) (2 * Real.log A + 2) ≤ Real.exp (3.2 * A) := by
+    refine max_le ?_ ?_
+    · nlinarith [hbX, hexp]
+    · have hlA : Real.log A ≤ A - 1 := Real.log_le_sub_one_of_pos hApos
+      have : (2 : ℝ) * A ≤ Real.exp (3.2 * A) := by
+        nlinarith [Real.add_one_le_exp (3.2 * A)]
+      linarith
+  rw [budgetFloorFlat, flatDesignBase]
+  exact Nat.ceil_le_ceil (Real.exp_le_exp.mpr hmax)
+
+/-- **⟦THE ARM CENSUS, ASSEMBLED⟧** ⟦added per REF-FLAT-SAT⟧ — at `A ≥ 162` and the terminal's
+own exported pins, the pinned base collapses to `flatDesignBase A = ⌈e^{e^{3.2A}}⌉₊` as soon
+as the ONE opaque arm `Hopq` is inside it.  `Hopq` is the road's
+`max (max H₀red H₀D3) H₀xi`, whose `H₀red`/`H₀D3` carry the SIEGEL-INEFFECTIVE `K_Chen`
+(`⌈e^{64·K_Chen}⌉+1`, FORMALLY UNBOUNDED at `S16Budget:887`).  So `Hopq ≤ flatDesignBase A`
+is the honest surviving form of the old width rider: one Siegel ask, the same genre as the
+`x₀` window. -/
+theorem flat_witFloor_eq_designBase {A β : ℝ} {ε : ℚ} {Hopq : ℕ} (hA : 162 ≤ A) (hβ : 0 < β)
+    (hε : (1 : ℝ) / 500 ≤ (ε : ℝ)) (hε2 : (ε : ℝ) ≤ 1 / 2) (hεq : 0 < ε)
+    (hεqpin : 1 / 500 ≤ ε) (hbudA : budgetAFlat (ε : ℝ) β ≤ A)
+    (hopq : Hopq ≤ flatDesignBase A) :
+    flatWitFloor ε β A Hopq = flatDesignBase A := by
+  have hbud := flat_arm_budget_le hA hβ hε hε2 hbudA
+  have hepsarm := flat_arm_eps_le hA hεq hεqpin
+  have harc := flat_arm_arcFloor_le hA
+  have hll := flat_arm_loglogFloor_le hA
+  have hdf := flat_designFloor_eq_designBase hA
+  rw [flatWitFloor, hdf]
+  omega
+
+/-- **⟦THE CEILING OVERSHOOT⟧** ⟦added per REF-FLAT-SAT⟧ — the pinned base's `loglog` is
+`3.2·A` PLUS the `Nat.ceil` overshoot, which is bounded by `log 2` and NOT provably zero.
+It is therefore NOT `≤ 3.2·A`, and every consumer that wanted the base AT its design law
+must pay the resulting factor. -/
+theorem flatDesignBase_loglog_le {A : ℝ} (hA : 162 ≤ A) :
+    Real.log (Real.log ((flatDesignBase A : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 := by
+  have hceil : ((flatDesignBase A : ℕ) : ℝ) ≤ 2 * Real.exp (Real.exp (3.2 * A)) := by
+    rw [flatDesignBase]
+    have h1 : ((⌈Real.exp (Real.exp (3.2 * A))⌉₊ : ℕ) : ℝ)
+        ≤ Real.exp (Real.exp (3.2 * A)) + 1 := (Nat.ceil_lt_add_one (Real.exp_pos _).le).le
+    have h2 : (1 : ℝ) ≤ Real.exp (Real.exp (3.2 * A)) := by
+      have := Real.add_one_le_exp (Real.exp (3.2 * A)); linarith [Real.exp_pos (3.2 * A)]
+    linarith
+  have hge : Real.exp (Real.exp (3.2 * A)) ≤ ((flatDesignBase A : ℕ) : ℝ) := by
+    rw [flatDesignBase]; exact Nat.le_ceil _
+  have hlogge : Real.exp (3.2 * A) ≤ Real.log ((flatDesignBase A : ℕ) : ℝ) := by
+    have := Real.log_le_log (Real.exp_pos _) hge
+    rwa [Real.log_exp] at this
+  have hE1 : (1 : ℝ) ≤ Real.exp (3.2 * A) := by
+    have := Real.add_one_le_exp (3.2 * A); linarith
+  have hposlog : (0 : ℝ) < Real.log ((flatDesignBase A : ℕ) : ℝ) := by linarith
+  have hDpos : (0 : ℝ) < ((flatDesignBase A : ℕ) : ℝ) :=
+    lt_of_lt_of_le (Real.exp_pos _) hge
+  have hlog : Real.log ((flatDesignBase A : ℕ) : ℝ) ≤ Real.log 2 + Real.exp (3.2 * A) := by
+    have h := Real.log_le_log hDpos hceil
+    rwa [Real.log_mul (by norm_num) (Real.exp_ne_zero _), Real.log_exp] at h
+  have hlog2 : Real.log 2 ≤ 1 := by
+    have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 2); linarith
+  calc Real.log (Real.log ((flatDesignBase A : ℕ) : ℝ))
+      ≤ Real.log (2 * Real.exp (3.2 * A)) := by
+        refine Real.log_le_log hposlog ?_
+        linarith
+    _ = 3.2 * A + Real.log 2 := by
+        rw [Real.log_mul (by norm_num) (Real.exp_ne_zero _), Real.log_exp]; ring
+
+/-- **⟦THE WIDTH RIDER, PRICED AT THE PINNED BASE⟧** ⟦added per REF-FLAT-SAT⟧ — the road's
+own width certificate plus the arm census give the register's `Λ` line ONLY up to `2×`: the
+literal ceiling `e^{3.2A/2}` is NOT reached, because the base's `loglog` carries the
+`Nat.ceil` overshoot.  This is why the register's slot was widened. -/
+theorem flat_L_width_priced {A : ℝ} {R : ChowlaRegime} (hA : 162 ≤ A)
+    (hbase : Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2)
+    (hdes : 3.2 * A ≤ Real.log (Real.log ((R.Hlo : ℕ) : ℝ)))
+    (htow : 50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+      Real.log (Real.log (R.Hhi : ℝ)) ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) :
+    Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) := by
+  have h50 : (50 : ℝ) ≤ Real.log (Real.log (R.Hlo : ℝ)) := by linarith
+  have h := htow h50
+  have hmono : Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)
+      ≤ Real.exp ((3.2 * A + Real.log 2) / 2) := Real.exp_le_exp.mpr (by linarith)
+  have hsplit : Real.exp ((3.2 * A + Real.log 2) / 2)
+      = Real.exp (3.2 * A / 2) * Real.exp (Real.log 2 / 2) := by
+    rw [← Real.exp_add]; ring_nf
+  have hhalf : Real.exp (Real.log 2 / 2) ≤ 2 := by
+    have h1 : Real.log 2 / 2 ≤ Real.log 2 := by
+      have := Real.log_two_gt_d9; linarith
+    have := Real.exp_le_exp.mpr h1
+    rwa [Real.exp_log (by norm_num : (0 : ℝ) < 2)] at this
+  have hpos : (0 : ℝ) < Real.exp (3.2 * A / 2) := Real.exp_pos _
+  calc Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
+      ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2) := h
+    _ ≤ Real.exp ((3.2 * A + Real.log 2) / 2) := hmono
+    _ = Real.exp (3.2 * A / 2) * Real.exp (Real.log 2 / 2) := hsplit
+    _ ≤ Real.exp (3.2 * A / 2) * 2 := by nlinarith [hhalf, hpos]
+    _ = 2 * Real.exp (3.2 * A / 2) := by ring
+
 /-! ## §6 — ⟦THE FLAT TERMINAL AT THE LINEAR LADDER, WITH THE REGISTER SUPPLIED⟧ -/
 
 /-- `flatWitFloor_design` read as the register's `hlo` line: the pinned base clears
@@ -1171,14 +1419,29 @@ set_option maxHeartbeats 1000000 in
 `hband : S16BandLaneCBoundedL 32000000` (the band-lane `C`, at the linear ladder) and the
 design floor `A₀ ≥ 162`.  The inner implication asks for, in order:
 
-1. `Kc ≤ 2^539` — ⟦REPAIRS-LANE⟧'s wide socket ceiling (TRUE at the chain's witness `2^538.42`);
-2. `Ct ≤ 2^23` — the wide constant-pool ceiling (TRUE at `6·e^{14} = 2^{22.78}`);
+1. `Kc ≤ 2^539` — ⟦REPAIRS-LANE⟧'s wide socket ceiling.  ⟦amended per REF-FLAT-HONEST⟧ true
+   at the CLOSED FORM `ConstantsExposed.KExpr` (`12·10^161 = 2^538.42`); the chain's own `Kc`
+   is `bigXi_bounded`'s opaque `∃ C, 0 < C ∧ …`, which exports POSITIVITY ONLY — the
+   identification with the closed form is prose, not kernel;
+2. `Ct ≤ 2^23` — the wide constant-pool ceiling.  ⟦amended per REF-FLAT-HONEST⟧ true at the
+   closed form `6·e^{14} = 2^{22.78}` (`s16_audit_Ct_ceiling`); the chain's own `Ct` is
+   `m4_hrowsSlot_at_door_zero'_L_gk`'s opaque `∃ Ct, 0 < Ct` — again positivity only;
 3. `(x₀ : ℝ) ≤ e^{e^{3.2A}/10}` — ⟦THE `x0` WINDOW⟧, the register's second-tightest line
    (⟦LINEAR-PAGE⟧ measured `1.24×` of margin at the design point): a REAL design constraint
-   on the opaque Siegel threshold, carried;
-4. `loglog H₊ ≤ e^{1.6A}` — ⟦THE FLAT WIDTH DEMAND⟧: the road supplies
-   `loglog H₊ ≤ e^{loglog H₋ / 2}` and the pinned base has `loglog H₋ ≥ 3.2A`, so this asks
-   the base to sit AT its design law rather than above it (§7 prices it);
+   on the opaque Siegel threshold, carried.  `x₀` too is an opaque `∃` of the band lane;
+4. `Hopq ≤ flatDesignBase A` — ⟦THE SIEGEL-HONEST SURVIVING FORM OF THE OLD WIDTH DEMAND⟧.
+   ⟦amended per REF-FLAT-HONEST + REF-FLAT-SAT⟧ the earlier rider `loglog H₊ ≤ e^{1.6A}` was
+   UN-DISCHARGEABLE from this theorem's own exports (the proof obtained the road's width
+   certificate and discarded it) and, once restored, was still short by the `Nat.ceil`
+   overshoot of the pinned base.  Both are repaired: the width certificate is now EXPORTED,
+   the register's `Λ` slot was widened to `2·e^{1.6A}` (`898× → 449×` on the four
+   `Λ`-spending lines), and §5b's ARM CENSUS shows every closed-form arm of `flatWitFloor`
+   sits under `flatDesignBase A = ⌈e^{e^{3.2A}}⌉₊`.  What remains is exactly ONE arm:
+   `Hopq` (`HloExportFlat`: `max (max H₀red H₀D3) H₀xi`, whose `H₀red = H₀D3 = max (96^8)
+   (⌈e^{64·K_Chen}⌉+1)` carries the SIEGEL-INEFFECTIVE `K_Chen`, recorded FORMALLY UNBOUNDED
+   at `S16Budget:887`).  So this rider is a quantitative bound on a Siegel-ineffective
+   constant — the SAME GENRE as rider 3's `x₀` window, not a free lunch — and the width
+   demand itself is now REMOVED-BECAUSE-PROVEN (exported as a fact, conjunct 6 below);
 5. `S15CrossingBound_L_gk 32000000 R (flatDoorM A)` — the crossing bound at the linear
    ladder, CARRIED.  Its landed supplier `S16Budget.s15_crossing_supplied_wide_gk` spends
    `cs`/`T₀`/`Kq`/`Ks`, ⟦RULING 9⟧'s cofactor debt and the base-scale cap through the
@@ -1186,34 +1449,72 @@ design floor `A₀ ≥ 162`.  The inner implication asks for, in order:
 
 ⟦WHAT IS EXPORTED ABOUT THE DESIGN CONSTANT⟧ `0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat ε β ≤ A`
 — `A` is SYMBOLIC, above the caller's `A₀`, and the head's own budget demand rides the
-prefix. -/
+prefix.  Plus the ARM CENSUS itself: `Hopq ≤ flatDesignBase A → flatWitFloor ε β A Hopq =
+flatDesignBase A`, so a caller who discharges the Siegel arm KNOWS the base.
+
+⟦THE REGIME'S EXPORTED CONJUNCT LIST⟧ ⟦amended per REF-FLAT-HONEST + REF-FLAT-SAT⟧
+`R.eps = ε`, `R.Hlo = flatWitFloor ε β A Hopq`, `g R.Hhi R.ω ≤ R.x`, THE WIDTH CERTIFICATE
+`50 ≤ loglog H₋ → loglog H₊ ≤ e^{loglog H₋/2}` (restored — the earlier cut destructured and
+discarded it, and `ChowlaRegime` itself carries no upper bound on `Hhi` in terms of `Hlo`),
+`3.2A ≤ loglog H₋` (redundant given conjunct 2 and `flatWitFloor_design`, kept as a
+convenience), THE PRICED WIDTH `loglog H₊ ≤ 2·e^{1.6A}` (a FACT, not a demand), then the
+inner implication — whose only surviving hypothesis is the crossing bound. -/
 theorem logChowla2_witnessed_scale_flat_L (hband : S16BandLaneCBoundedL 32000000)
     (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
     ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (x₀ Hopq Mfl : ℕ),
       0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
       Cg ≤ 2 * 10 ^ 12 ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧ Mfl ≤ 2 ^ 355 ∧
       0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
+      -- amended per REF-FLAT-SAT: THE ARM CENSUS, exported
+      (Hopq ≤ flatDesignBase A → flatWitFloor ε β A Hopq = flatDesignBase A) ∧
       (Kc ≤ 2 ^ 539 → Ct ≤ 2 ^ 23 →
         (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) →
+        -- amended per REF-FLAT-SAT: the Siegel-honest surviving form of the width demand
+        Hopq ≤ flatDesignBase A →
         ∀ g : ℕ → ℕ → ℕ, ∃ R : ChowlaRegime,
           R.eps = ε ∧ R.Hlo = flatWitFloor ε β A Hopq ∧ g R.Hhi R.ω ≤ R.x ∧
+          -- amended per REF-FLAT-HONEST: the road's WIDTH CERTIFICATE, restored to the
+          -- export (it was destructured and discarded; §7 cannot compose without it)
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
           3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
-          (Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ Real.exp (3.2 * A / 2) →
-            S15CrossingBound_L_gk 32000000 R (flatDoorM A) →
-              ¬ logChowla2Fails R.eps R.x R.ω)) := by
+          -- amended per REF-FLAT-SAT: the width demand, REMOVED-BECAUSE-PROVEN at `2×`
+          Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
+          (S15CrossingBound_L_gk 32000000 R (flatDoorM A) →
+            ¬ logChowla2Fails R.eps R.x R.ω)) := by
   obtain ⟨ε, Cg, Kc, δ₀, Ct, A, β, x₀, Hcap, Hopq, Mfl, hε, hCg, hKc, hδ₀, hCt, hMfl1,
     hCgle, hεpin, hδpin, hMflb, hβ, hA26, hA₀A, hAge, hCapLe, hbody⟩ :=
     logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L 32000000 (by norm_num) hband
       A₀ hA₀
+  -- ⟦THE `ε`-CEILING⟧ read off ONE regime's own `heps1` (the census needs `ε ≤ 1/2`)
+  obtain ⟨R0, hR0eps, -, -, -, -⟩ :=
+    hbody (flatWitFloor ε β A Hopq) (fun _ _ => 0) (flatCap_le_flatWitFloor hCapLe)
+  have hε2q : ε ≤ 1 / 2 := by rw [← hR0eps]; exact R0.heps1
+  have hε2 : (ε : ℝ) ≤ 1 / 2 := by
+    have h := (Rat.cast_le (K := ℝ)).mpr hε2q
+    rw [show (((1 : ℚ) / 2 : ℚ) : ℝ) = 1 / 2 by norm_num] at h
+    exact h
+  have hεR : (1 : ℝ) / 500 ≤ (ε : ℝ) := by
+    have h := (Rat.cast_le (K := ℝ)).mpr hεpin
+    rw [show (((1 : ℚ) / 500 : ℚ) : ℝ) = 1 / 500 by norm_num] at h
+    exact h
   refine ⟨ε, Cg, Kc, δ₀, Ct, A, β, x₀, Hopq, Mfl,
-    hε, hCg, hKc, hδ₀, hCt, hMfl1, hCgle, hεpin, hδpin, hMflb, hβ, hA26, hA₀A, hAge, ?_⟩
-  intro hKb hCtb hx0win g
+    hε, hCg, hKc, hδ₀, hCt, hMfl1, hCgle, hεpin, hδpin, hMflb, hβ, hA26, hA₀A, hAge,
+    fun hopq => flat_witFloor_eq_designBase hA26 hβ hεR hε2 hε hεpin hAge hopq, ?_⟩
+  intro hKb hCtb hx0win hopq g
   obtain ⟨R, hReps, hHlo, hRg, hRtow, hfire⟩ :=
     hbody (flatWitFloor ε β A Hopq) g (flatCap_le_flatWitFloor hCapLe)
   have hdes : 3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) := by
     rw [hHlo]; exact flatWitFloor_design ε β A Hopq
-  refine ⟨R, hReps, hHlo, hRg, hdes, ?_⟩
-  intro hwin hcross
+  -- ⟦THE WIDTH DEMAND, DISCHARGED⟧ arm census + the `Nat.ceil` overshoot + the road's law
+  have hbaseceil : Real.log (Real.log ((R.Hlo : ℕ) : ℝ)) ≤ 3.2 * A + Real.log 2 := by
+    rw [hHlo, flat_witFloor_eq_designBase hA26 hβ hεR hε2 hε hεpin hAge hopq]
+    exact flatDesignBase_loglog_le hA26
+  have hwin : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) :=
+    flat_L_width_priced hA26 hbaseceil hdes hRtow
+  refine ⟨R, hReps, hHlo, hRg, hRtow, hdes, hwin, ?_⟩  -- amended per REF-FLAT-HONEST/SAT
+  intro hcross
   -- ⟦THE REGISTER, SUPPLIED⟧ at the flat design modulus
   have hM1 : 1 ≤ flatDoorM A := flatDoorM_one_le (flat162_ge_26 hA26)
   have hKle : (32000000 : ℕ) ≤ 170000000 * flatDoorM A := by
@@ -1231,10 +1532,20 @@ theorem logChowla2_witnessed_scale_flat_L (hband : S16BandLaneCBoundedL 32000000
 
 /-! ## §7 — THE INHABITATION AND NON-VACUITY CERTIFICATES AT THE FLAT LINEAR POINT -/
 
-/-- **⟦THE WIDTH RIDER, PRICED⟧** — the road's own width conjunct plus a base sitting AT its
-design law give the register's `hhi` line.  So rider 4 of §6 is exactly the statement that
-`flatWitFloor`'s opaque arm (the road's `Hopq`) does not push the base above `e^{e^{3.2A}}`;
-nothing analytic is asked. -/
+/-- **⟦THE WIDTH RIDER, PRICED — THE WIDTH-LAW ROUTE⟧** ⟦amended per REF-FLAT-HONEST⟧ — §6's
+now-exported width certificate (`htow`, verbatim the shape §6 hands out) plus a base sitting
+AT its design law give the register's `hhi` line.  What rider 4 of §6 asks along THIS route
+is therefore a CEILING on `flatWitFloor`'s opaque arm — the road's `Hopq`, whose `H₀red`/
+`H₀D3` are built from the SIEGEL-INEFFECTIVE `K_Chen` (`⌈e^{64·K_Chen}⌉+1`, recorded FORMALLY
+UNBOUNDED at `S16Budget:887`).  So this IS an analytic ask, of the same genre as the `x₀`
+window of rider 3: it says `K_Chen` is not astronomically large.  The route is also the
+LOSSY one — it demands the base at its design law EXACTLY, and ⟦REF-FLAT-SAT⟧ showed that
+demand is not met: `flatDesignBase A = ⌈e^{e^{3.2A}}⌉₊`'s `Nat.ceil` overshoots, so the
+pinned base only satisfies `loglog H₋ ≤ 3.2A + log 2` (`flatDesignBase_loglog_le`), never
+`≤ 3.2A`.  §6 therefore prices the rider through `flat_L_width_priced` (at `2×`) instead;
+this lemma is kept as the statement of what the tight route would have needed, and
+`flat_L_width_of_flat_arm` below prices the same rider off the flat tower's own
+no-overshoot law with no equality demand at all. -/
 theorem flat_L_width_of_base_at_design {A : ℝ} {R : ChowlaRegime} (hA : 162 ≤ A)
     (htow : 50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
       Real.log (Real.log (R.Hhi : ℝ)) ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2))
@@ -1246,6 +1557,112 @@ theorem flat_L_width_of_base_at_design {A : ℝ} {R : ChowlaRegime} (hA : 162 �
   have hmono : Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2) ≤ Real.exp (3.2 * A / 2) :=
     Real.exp_le_exp.mpr (by linarith)
   exact le_trans h hmono
+
+/-- **⟦THE SHARP WIDTH BRICK, AT THE DESIGN POINT⟧** ⟦amended per REF-FLAT-HONEST⟧ —
+`TowerFlat.towerFlat_width_le`'s no-overshoot law `(λ₊ + c) ≤ (21/20)·4^A·(λ₋ + c)` evaluated
+at the design base `λ₋ = 3.2A` already sits under the rider's ceiling `e^{1.6A}`: the flat
+arm's `4^A = e^{1.3863A}` loses to `e^{1.6A}` by the fixed exponent gap `0.2137·A`, which at
+`A ≥ 162` swallows the linear factor `(21/20)(c + 3.2A) ≤ 5.46A`. -/
+theorem flat_arm_width_sharp {A : ℝ} (hA : 162 ≤ A) :
+    (21 / 20 : ℝ) * ((4 : ℝ) ^ A * (flatC A + 3.2 * A)) ≤ flatC A + Real.exp (3.2 * A / 2) := by
+  obtain ⟨hC0, hCle⟩ := flatC_bracket (A := A) (by linarith)
+  have hl4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]; norm_num
+  have hl2 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have h4 : (4 : ℝ) ^ A = Real.exp (Real.log 4 * A) := Real.rpow_def_of_pos (by norm_num) _
+  have h4le : (4 : ℝ) ^ A ≤ Real.exp (1.3863 * A) := by
+    rw [h4]; exact Real.exp_le_exp.mpr (by nlinarith [hl4, hl2, hA])
+  have hy : (7 : ℝ) ≤ 0.2137 * A / 2 := by linarith
+  have hlin : 19 * (0.2137 * A / 2) ≤ Real.exp (0.2137 * A / 2) := flat_exp_ge_lin hy
+  have hsq : Real.exp (0.2137 * A / 2) * Real.exp (0.2137 * A / 2) = Real.exp (0.2137 * A) := by
+    rw [← Real.exp_add]; congr 1; ring
+  have hgap : (21 / 20 : ℝ) * (flatC A + 3.2 * A) ≤ Real.exp (0.2137 * A) := by
+    nlinarith [hlin, hCle, hA, hsq, (Real.exp_pos (0.2137 * A / 2)).le]
+  have hsplit : Real.exp (1.3863 * A) * Real.exp (0.2137 * A) = Real.exp (3.2 * A / 2) := by
+    rw [← Real.exp_add]; congr 1; ring
+  have hpos : (0 : ℝ) ≤ flatC A + 3.2 * A := by linarith
+  have hstep : (21 / 20 : ℝ) * ((4 : ℝ) ^ A * (flatC A + 3.2 * A))
+      ≤ Real.exp (1.3863 * A) * Real.exp (0.2137 * A) := by
+    have h1 : (4 : ℝ) ^ A * (flatC A + 3.2 * A) ≤ Real.exp (1.3863 * A) * (flatC A + 3.2 * A) :=
+      mul_le_mul_of_nonneg_right h4le hpos
+    nlinarith [hgap, (Real.exp_pos (1.3863 * A)).le, h1]
+  rw [hsplit] at hstep; linarith
+
+/-- **⟦THE SHARP WIDTH BRICK, WITH THE BASE FREE⟧** ⟦amended per REF-FLAT-HONEST⟧ — the same
+no-overshoot law with NO equality demand on the base: any `λ₋` in `[0, e^{A/10}]` still lands
+`(21/20)·4^A·(c + λ₋)` under `c + e^{1.6A}`.  At `A = 162` the ceiling `e^{16.2} ≈ 1.1·10^7`
+is `20 000×` the design law's `3.2A = 518.4` (`flat_arm_tolerance_contains_design`), so the
+design point sits strictly INSIDE the window rather than on its edge — this is what the
+width-law route (`flat_L_width_of_base_at_design`, which demands `λ₋ = 3.2A` exactly) was
+paying for and did not need to. -/
+theorem flat_arm_width_sharp_tolerant {A lam : ℝ} (hA : 162 ≤ A) (hlam0 : 0 ≤ lam)
+    (hlam : lam ≤ Real.exp (A / 10)) :
+    (21 / 20 : ℝ) * ((4 : ℝ) ^ A * (flatC A + lam)) ≤ flatC A + Real.exp (3.2 * A / 2) := by
+  obtain ⟨hC0, hCle⟩ := flatC_bracket (A := A) (by linarith)
+  have hl4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ (2 : ℕ) by norm_num, Real.log_pow]; norm_num
+  have hl2 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  have h4 : (4 : ℝ) ^ A = Real.exp (Real.log 4 * A) := Real.rpow_def_of_pos (by norm_num) _
+  have h4le : (4 : ℝ) ^ A ≤ Real.exp (1.3863 * A) := by
+    rw [h4]; exact Real.exp_le_exp.mpr (by nlinarith [hl4, hl2, hA])
+  have h20 : (7 : ℝ) ≤ A / 20 := by linarith
+  have hlin20 : 19 * (A / 20) ≤ Real.exp (A / 20) := flat_exp_ge_lin h20
+  have hsq20 : Real.exp (A / 20) * Real.exp (A / 20) = Real.exp (A / 10) := by
+    rw [← Real.exp_add]; congr 1; ring
+  have h2A : 2 * A ≤ Real.exp (A / 10) := by
+    have hnn : (0 : ℝ) ≤ 19 * (A / 20) := by linarith
+    have hmm := mul_le_mul hlin20 hlin20 hnn (Real.exp_pos (A / 20)).le
+    rw [hsq20] at hmm
+    nlinarith [hmm, hA]
+  have hsum : flatC A + lam ≤ 2 * Real.exp (A / 10) := by linarith
+  have h1137 : (7 : ℝ) ≤ 0.1137 * A := by linarith
+  have hlin1137 : 19 * (0.1137 * A) ≤ Real.exp (0.1137 * A) := flat_exp_ge_lin h1137
+  have hc21 : (21 / 20 : ℝ) * 2 ≤ Real.exp (0.1137 * A) := by linarith
+  have hE : (0 : ℝ) < Real.exp (1.3863 * A) := Real.exp_pos _
+  have hE2 : (0 : ℝ) < Real.exp (A / 10) := Real.exp_pos _
+  have hpos0 : (0 : ℝ) ≤ flatC A + lam := by linarith
+  have hsplit : Real.exp (1.3863 * A) * (Real.exp (A / 10) * Real.exp (0.1137 * A))
+      = Real.exp (3.2 * A / 2) := by
+    rw [← Real.exp_add, ← Real.exp_add]; congr 1; ring
+  have hstep1 : (4 : ℝ) ^ A * (flatC A + lam)
+      ≤ Real.exp (1.3863 * A) * (2 * Real.exp (A / 10)) :=
+    le_trans (mul_le_mul_of_nonneg_right h4le hpos0) (mul_le_mul_of_nonneg_left hsum hE.le)
+  have hmul := mul_le_mul_of_nonneg_left hc21 (mul_nonneg hE.le hE2.le)
+  calc (21 / 20 : ℝ) * ((4 : ℝ) ^ A * (flatC A + lam))
+      ≤ (21 / 20 : ℝ) * (Real.exp (1.3863 * A) * (2 * Real.exp (A / 10))) :=
+        mul_le_mul_of_nonneg_left hstep1 (by norm_num)
+    _ = Real.exp (1.3863 * A) * Real.exp (A / 10) * ((21 / 20 : ℝ) * 2) := by ring
+    _ ≤ Real.exp (1.3863 * A) * Real.exp (A / 10) * Real.exp (0.1137 * A) := hmul
+    _ = Real.exp (1.3863 * A) * (Real.exp (A / 10) * Real.exp (0.1137 * A)) := by ring
+    _ = Real.exp (3.2 * A / 2) := hsplit
+    _ ≤ flatC A + Real.exp (3.2 * A / 2) := by linarith
+
+/-- **⟦THE TOLERANCE CONTAINS THE DESIGN POINT⟧** ⟦amended per REF-FLAT-HONEST⟧ — `3.2A` is
+below `e^{A/10}` at every `A ≥ 162`, so `flat_arm_width_sharp_tolerant` covers the pinned
+base and a wide neighbourhood above it. -/
+theorem flat_arm_tolerance_contains_design {A : ℝ} (hA : 162 ≤ A) :
+    3.2 * A ≤ Real.exp (A / 10) := by
+  have h20 : (7 : ℝ) ≤ A / 20 := by linarith
+  have hlin20 : 19 * (A / 20) ≤ Real.exp (A / 20) := flat_exp_ge_lin h20
+  have hsq20 : Real.exp (A / 20) * Real.exp (A / 20) = Real.exp (A / 10) := by
+    rw [← Real.exp_add]; congr 1; ring
+  have hnn : (0 : ℝ) ≤ 19 * (A / 20) := by linarith
+  have hmm := mul_le_mul hlin20 hlin20 hnn (Real.exp_pos (A / 20)).le
+  rw [hsq20] at hmm
+  nlinarith [hmm, hA]
+
+/-- **⟦THE WIDTH RIDER, PRICED — THE FLAT-ARM ROUTE⟧** ⟦amended per REF-FLAT-HONEST⟧ — rider 4
+of §6 off the flat tower's OWN no-overshoot law (`towerFlat_width_le`'s conclusion, carried
+here as `hwid`), with the base only required to lie in the tolerance window
+`[0, e^{A/10}]` — no equality demand.  This is the brick §7 should have been priced on. -/
+theorem flat_L_width_of_flat_arm {A : ℝ} {R : ChowlaRegime} (hA : 162 ≤ A)
+    (hbase0 : 0 ≤ Real.log (Real.log (R.Hlo : ℝ)))
+    (hbase : Real.log (Real.log (R.Hlo : ℝ)) ≤ Real.exp (A / 10))
+    (hwid : flatC A + Real.log (Real.log (R.Hhi : ℝ))
+      ≤ (21 / 20 : ℝ) * ((4 : ℝ) ^ A * (flatC A + Real.log (Real.log (R.Hlo : ℝ))))) :
+    Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ Real.exp (3.2 * A / 2) := by
+  have h := flat_arm_width_sharp_tolerant hA hbase0 hbase
+  linarith
 
 /-- **⟦THE BASE IS ABOVE EVERY REGISTER FLOOR⟧** — the pinned flat base clears the `50`-floor
 the whole `S13`/`S15` layer reads, by `3.2·162 = 518.4`.  Non-vacuity of the pin, in one

@@ -269,7 +269,8 @@ theorem s15_sel''_L_witness_flat {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K : ℝ}
     (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10))
     (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
     (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
-    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ Real.exp (3.2 * A / 2)) :
+    -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
+    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
     S15Sel''_L Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R (flatDoorM A) := by
   set E : ℝ := Real.exp (3.2 * A / 2) with hEdef
   set Mr : ℝ := ((flatDoorM A : ℕ) : ℝ) with hMrdef
@@ -366,8 +367,9 @@ theorem s15_sel''_L_witness_flat {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K : ℝ}
     have hM6 : Mr ^ (6 : ℕ) * 2 ^ (108 : ℕ) ≤ E ^ (6 : ℕ) := by rw [← hid6]; exact hM18'
     have h108 : ((2 : ℝ) ^ (108 : ℕ)) = 16 * (2 : ℝ) ^ (104 : ℕ) := by
       rw [show (108 : ℕ) = 4 + 104 by norm_num, pow_add]; norm_num
+    -- amended per REF-FLAT-SAT: `19 → 55` absorbs the doubled `Λ` (`18·2E ≤ 36·E^6`)
     have hlhs : ((s13BlockExp_L (flatDoorM A) : ℕ) : ℝ) + 1
-        + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 19 * E ^ (6 : ℕ) := by
+        + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 55 * E ^ (6 : ℕ) := by
       have h1 : (2 : ℝ) ^ (104 : ℕ) * Mr ^ (6 : ℕ) ≤ E ^ (6 : ℕ) / 16 := by
         rw [h108] at hM6
         linarith [hM6]
@@ -401,13 +403,14 @@ theorem s15_sel''_L_witness_flat {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K : ℝ}
       mul_le_mul hepssq hHhige (Real.exp_pos _).le (by positivity)
     -- `e^{E²} ≥ E⁸/256`, so `2^{-18}·e^{E²} ≥ E⁸/2^{26} ≥ 6·E⁶` at `E ≥ 10^{17}`
     have hquart : (E ^ 2) ^ 4 / 256 ≤ Real.exp (E ^ 2) := flat_exp_ge_quartic (by positivity)
-    have hbig : 6 * E ^ (6 : ℕ) ≤ 1 / 262144 * Real.exp (E ^ 2) := by
+    -- amended per REF-FLAT-SAT: `6 → 15`, matching `hlhs`'s `19 → 55`
+    have hbig : 15 * E ^ (6 : ℕ) ≤ 1 / 262144 * Real.exp (E ^ 2) := by
       have h2 : (1 : ℝ) / 262144 * ((E ^ 2) ^ 4 / 256)
           = E ^ (6 : ℕ) * E ^ (2 : ℕ) / 67108864 := by ring
-      have h3 : (6 : ℝ) * E ^ (6 : ℕ) ≤ E ^ (6 : ℕ) * E ^ (2 : ℕ) / 67108864 := by
-        have hEsq : (402653184 : ℝ) ≤ E ^ (2 : ℕ) := by nlinarith [hE17, hE0]
+      have h3 : (15 : ℝ) * E ^ (6 : ℕ) ≤ E ^ (6 : ℕ) * E ^ (2 : ℕ) / 67108864 := by
+        have hEsq : (1006632960 : ℝ) ≤ E ^ (2 : ℕ) := by nlinarith [hE17, hE0]
         have hE60 : (0 : ℝ) ≤ E ^ (6 : ℕ) := by positivity
-        nlinarith [mul_nonneg hE60 (show (0 : ℝ) ≤ E ^ (2 : ℕ) - 402653184 by linarith)]
+        nlinarith [mul_nonneg hE60 (show (0 : ℝ) ≤ E ^ (2 : ℕ) - 1006632960 by linarith)]
       have h1 : (1 : ℝ) / 262144 * ((E ^ 2) ^ 4 / 256) ≤ 1 / 262144 * Real.exp (E ^ 2) := by
         linarith [hquart]
       linarith [h1, h2, h3]
@@ -529,7 +532,8 @@ theorem s15_sel''_L_gk_witness_flat {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ)
     (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10))
     (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
     (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
-    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ Real.exp (3.2 * A / 2)) :
+    -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
+    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
     S15Sel''_L_gk Klev Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R
       (flatDoorM A) := by
   refine s15_sel''_L_gk_of_L Klev

@@ -159,7 +159,8 @@ theorem s15_sel''_L_gk_witness_flat_bumped {A : ℝ} (hA : 162 ≤ A) (Klev : �
     (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10))
     (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
     (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
-    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ Real.exp (3.2 * A / 2)) :
+    -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
+    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
     S15Sel''_L_gk Klev Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R
       (flatDoorM A) :=
   s15_sel''_L_gk_witness_flat_wide (flat162_ge_26 hA) Klev hKle hδ

@@ -82,6 +82,16 @@ theorem flat_anchor_line {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 403) :
   have hMge := flatDoorM_ge A
   linarith
 
+/-- **THE `anchor` LINE AT THE DOUBLED `Λ` SLOT** ⟦amended per REF-FLAT-SAT⟧ — the same line
+at `Λ ≤ 2·E`, the width the road can actually export off a `Nat.ceil`-pinned base:
+`28·E + 436` against `1.2568·10⁴·E`, `449×`.  Half the margin, still three orders. -/
+theorem flat_anchor_line_wide {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 403) :
+    14 * (2 * Real.exp (3.2 * A / 2)) + c + 33
+      ≤ 39 * 10 ^ 8 * ((flatDoorM A : ℕ) : ℝ) := by
+  have hE17 := flat_exp_half_ge hA
+  have hMge := flatDoorM_ge A
+  linarith
+
 /-- ⟦`M`-UPPER 2⟧ **THE WINDOW GATE AT THE FLAT DESIGN POINT**, at ANY charge `c ≤ 403`:
 `0.49959·e^{3.2A} + 1209` against `e^{3.2A}/2`.  THE BINDING LINE — `M` sits at its ceiling
 by design — and still `4.1·10^{-4}·e^{3.2A}` of slack pays the `1209`. -/
@@ -111,7 +121,8 @@ theorem flat_half_line {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 403) :
 `c ≥ -403`: `14·E + 45` against `1.53·10⁵·E`, `10⁴×`.  `Ct`'s `8×` widening costs `2.08` on
 a line with eleven orders of slack. -/
 theorem flat_gP1_line {A c Ct Λ : ℝ} (hA : 26 ≤ A) (hc : -403 ≤ c) (hCt : 0 < Ct)
-    (hCtb : Ct ≤ 2 ^ 23) (hΛ : Λ ≤ Real.exp (3.2 * A / 2)) :
+    -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
+    (hCtb : Ct ≤ 2 ^ 23) (hΛ : Λ ≤ 2 * Real.exp (3.2 * A / 2)) :
     29 + Real.log Ct + 14 * Λ ≤ ((AdoorL (flatDoorM A) : ℕ) : ℝ) * Real.log 2 + c := by
   have hE17 := flat_exp_half_ge hA
   have hMge := flatDoorM_ge A
@@ -135,7 +146,8 @@ theorem flat_gP1_line {A c Ct Λ : ℝ} (hA : 26 ≤ A) (hc : -403 ≤ c) (hCt :
 /-- **THE `level1` BUDGET AT THE FLAT DESIGN POINT**, at ANY charge `c ≤ 403`:
 `14·E + 429 + ⅔·log E` against `1.279·10⁴·E`, `913×`. -/
 theorem flat_lvl_line {A c Λ : ℝ} (hA : 26 ≤ A) (hc : c ≤ 403)
-    (hΛ : Λ ≤ Real.exp (3.2 * A / 2)) :
+    -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
+    (hΛ : Λ ≤ 2 * Real.exp (3.2 * A / 2)) :
     26 + 14 * Λ
         + (1 / 3) * Real.log (Real.log ((calQK (AdoorL (flatDoorM A))
             (3072 * flatDoorM A) (flatDoorM A) 1 : ℕ) : ℝ)) + c
@@ -208,7 +220,8 @@ theorem s15_sel''_L_witness_flat_charge {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct �
     (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10))
     (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
     (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
-    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ Real.exp (3.2 * A / 2)) :
+    -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
+    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
     S15Sel''_L Cg δ₀ Ct ρ x₀ Mfl R (flatDoorM A) := by
   have hbase := s15_sel''_L_witness_flat (A := A) (Cg := 0) (δ₀ := 1 / 2 ^ 10) (Ct := 1)
     (K := 1) (x₀ := x₀) (Mfl := Mfl) (R := R) hA (by norm_num) (by norm_num) (by norm_num)
@@ -230,7 +243,8 @@ theorem s15_sel''_L_witness_flat_charge {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct �
     exact le_trans (flat_half_line hA hρlog) (by linarith [hlo])
   · linarith [hρlog]
   · rw [hinv]
-    exact le_trans (by linarith [hhi]) (flat_anchor_line hA hρlog)
+    -- amended per REF-FLAT-SAT: the wide anchor line, at the doubled `Λ` slot
+    exact le_trans (by linarith [hhi]) (flat_anchor_line_wide hA hρlog)
   · exact flat_gP1_line hA (by linarith [hρlog]) hCt hCtb hhi
   · exact flat_lvl_line hA hρlog hhi
 
@@ -251,7 +265,8 @@ theorem s15_sel''_L_witness_flat_wide {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K :
     (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10))
     (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
     (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
-    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ Real.exp (3.2 * A / 2)) :
+    -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
+    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
     S15Sel''_L Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R (flatDoorM A) :=
   s15_sel''_L_witness_flat_charge hA (s16_audit_neglog_rho_le_wide hδ hK hδb hKb) hCt hCtb
     hbfl hMfl hx0win heps hlo hhi
@@ -263,7 +278,8 @@ theorem flat_blk_line_gk {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ)
     (hKle : Klev ≤ 170000000 * flatDoorM A) {R : ChowlaRegime}
     (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
     (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
-    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ Real.exp (3.2 * A / 2)) :
+    -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
+    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
     ((s13BlockExp_L_gk Klev (flatDoorM A) : ℕ) : ℝ) + 1
         + 18 * Real.log (Real.log ((R.Hhi : ℕ) : ℝ))
       ≤ 4 * ((⌊R.eps ^ 2 * (R.Hhi : ℚ)⌋₊ : ℕ) : ℝ) :=
@@ -285,7 +301,8 @@ theorem s15_sel''_L_gk_witness_flat_wide {A : ℝ} (hA : 26 ≤ A) (Klev : ℕ)
     (hx0win : (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10))
     (heps : (1 : ℚ) / 2 ^ 9 ≤ R.eps)
     (hlo : Real.exp (3.2 * A) ≤ Real.log ((R.Hlo : ℕ) : ℝ))
-    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ Real.exp (3.2 * A / 2)) :
+    -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
+    (hhi : Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2)) :
     S15Sel''_L_gk Klev Cg δ₀ Ct (doorRhoOfDelta (s12DeltaSock δ₀ K)) x₀ Mfl R
       (flatDoorM A) :=
   s15_sel''_L_gk_of_L Klev
