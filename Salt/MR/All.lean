@@ -354,6 +354,7 @@ import Salt.MR.S16Compose
 import Salt.MR.RegisterSupply
 import Salt.MR.RiderTrace
 import Salt.MR.XCeil
+import Salt.MR.CofactorBulk
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -7372,3 +7373,48 @@ must be re-cut — a design ruling, named with the arithmetic that forces it. -/
   Salt.MR.s16_baseScaleCap96_L_of_xceil
   Salt.MR.s16_baseScaleCap96_L_supplied
   Salt.MR.flatA_endpoint_ceiling_misses_K_half
+
+/-! ⟦THE CO-FACTOR BULK, INSTANTIATED AT THE LINEAR ANCHORS⟧ (`CofactorBulk`, 2026-08-02).
+
+`RegisterSupply` §4 closed the only anchor-reading and the only character-reading binder of
+⟦RULING 9⟧'s co-factor supplier and STOPPED on the bulk — the ~35 anchor-blind binders of
+`CaseAWide.m4_supplier_complete`, carried and never discharged at either door
+(`M4RowLinear.DoorRowCarried_L_gk`, :5799).  `CofactorBulk` instantiates them end-to-end at
+`Pseq := calP (AdoorL M) (s13GK K M)`, `Qseq := calQK (AdoorL M) (s13GK K M) M`, `J := 2`,
+`Ps := 1`, `X := A+s`, `H := H₈₃(X, θ₂₉₃)`, `P/Q := s13BandP/Q (A+s)`, `Tann := 2T`, and lands
+the predicate `S16CofactorSupply_L_gk` from a NAMED seventeen-conjunct register — every one of
+whose conjuncts is Ramaré-band geometry or an opaque constant, and NONE of which reads the
+door blocks, `AdoorL`, `s13GK`, or `χ` (⟦COFK-L⟧ §4's "anchor-blind", at the bytes).
+
+**THE LADDER IS DETERMINED.**  `kk := witKk`, `Mt := witMt` (`FrameWitness`'s witness table),
+`Dd := 1`, `Xa := ramRbot`.  SEVEN of the ten per-block ladder laws become theorems off
+`TLBlockGates34`'s own C7 gate — including `pin2Gate ≤ k₀(j)`, which routes through
+`USetGradedPrice.pin2Gate_le_ballQuarterThreshold`.  Two gates the door register CARRIES are
+recovered here: `5 ≤ B_j` (from `4 ≤ ballQuarterThreshold`) and ⟦THE WINDOW CEILING IS FREE AT
+THE BAND⟧ `2·B_j ≤ X` — every `j ∈ ramI H P Q` sits above `H·log P − 1 ≥ 2H − 1`, so
+`j/H ≥ 1` and `B_j ≤ X/e < X/2`; the band's own bottom endpoint pays for the anchor ceiling
+and for C15.
+
+**`TLBlockGates34` IS DISCHARGED, ALL SEVENTEEN**, through
+`FrameWitness.tlBlockGates34_at_witness` — and at THIS consumer the C6 `cq`-gate is FREE
+(`cq` occurs in no other hypothesis and not in the conclusion, so the instantiation chooses
+`cq := 420·L·L^{3/4}·(log L)^5` and C6 collapses to `1 ≤ (log P)²`).  The band floors
+`3 ≤ P`, `2 ≤ log P` are DERIVED from the socket's own scale via `(log X)^{1−θ} ≥ e^{31/32}`.
+
+**`K_vt` STAYS SYMBOLIC**, Skolemized as `Kvt : ℕ → ℕ → ℝ` (lever, modulus cap) and carried
+under `RegisterSupply`'s single explicit cushion `32·K_vt + 32·D ≤ log H₊/4` at the cap
+`Q_m := ⌈arcDen 12 R.H₊⌉₊`, which `cofkL_q_le_arcCap` supplies from the socket's own
+`q ≤ arcDen 12 H ≤ arcDen 12 R.H₊`.  At the terminal's regime it admits `K_vt ≤ 10^{222}`. -/
+#audit_axioms Salt.MR.cofk_two_le_exp_31_32
+  Salt.MR.cofkL_ramRbot_le_kk
+  Salt.MR.cofkL_one_le_kk
+  Salt.MR.cofkL_sqrt_le_kk
+  Salt.MR.cofkL_pin2_le_kk
+  Salt.MR.cofkL_Mt_le_two_ramRbot
+  Salt.MR.four_le_ballQuarterThreshold
+  Salt.MR.cofkL_five_le_ramRbot
+  Salt.MR.cofkL_two_ramRbot_le
+  Salt.MR.cofkL_socket_floors
+  Salt.MR.cofkL_q_le_arcCap
+  Salt.MR.cofkL_cofactorSupply_L_gk_of_bulk
+  Salt.MR.cofkL_cofactorSupply_L_gk_flat

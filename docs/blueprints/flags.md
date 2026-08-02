@@ -19150,3 +19150,94 @@ numeral); route through `(2 : ℚ) * eps ≤ 1` and cast the product instead.
 ## () X-CEIL HOME (964d6dd, exit-0, 7 decls 3-axiom) -- THE FINDING ESCALATES W2 TO A DESIGN QUESTION: the outer-scale ceiling WAS recovered (log x <= (31/eps)*H+ + the g-arm, exported as additive twins) BUT the endpoint window is FALSE at the terminal's regime BY THE TOLL ITSELF -- towerFlat_width_ge (a landed LOWER bound) forces loglog(endpoint) >= (c+lambda-)*4^{(20/21)A} ~ 10^95 at A=162, so no numeral repair reaches the lever's 1.6e7 window (would need K ~ 10^95) and sharpening UPPER laws cannot help. The "fifth mis-sized numeral" reading TESTED AND REJECTED. THE REDIRECT: the lossy step is SocketBaseL's (A:R) <= 2*R.x -- either the socket's other twelve conjuncts pin A+s far below x (W2 = a socket-side theorem; the x-road is not on its path) or ITEM 3 is FALSE-as-stated at the terminal's regime and the cap must be RE-CUT at its consumer's honest tolerance. The uniform-lane threading deliberately NOT spent (~450 ln saved until the redirect rules). Tactic catch banked (linarith atom-normalization on products; the cast route for rational eps). ⟦CAP-SCOPE fires (read-only decision dossier: the socket census + the cap's consumption site + inhabitation probes) -> Fable ruling; COFACTOR-BULK fires in the sequential writer slot⟧
 
 ## () ⟦CAP-SCOPE VERDICT + THE VACUITY FINDING + THE RULING⟧ The base-scale cap is FALSE-AS-STATED at the flat regime -- (i) refuted (SocketBaseL's conjuncts pin A+s AT the endpoint: [x/(16w(logH)^12), 3x]; conjunct 11 is a FLOOR); (ii) refuted (the landed vacuity-fence witness s14_socketBase_witness sits at A+s = 2*R.x EXACTLY; the linear twin inherits with uniform 2.02x slack at every A); (iii) CONFIRMED on two independent grounds (interface via the caller's g; arithmetic at g==0 via the Toll's lower bound: loglog(A+s) >= 10^(1.76e95) vs RHS 10^(9.6e6) at A=162). **THE HONESTY FINDING: the FLAT-lane terminals' conclusion-side implication -- THE PEARL v2 AND logChowla2_ineffective v1/v2/v3 -- is currently VACUOUS** (false antecedent at the produced regime); the WIDE v3 at the landed tower is FINE (cap true there, 10^44 vs 10^{9.6e6} -- which is why every earlier certification passed); the wide lane's dual hazard (M-escape uninhabitation) also banked. The corpus must NOT read the flat conditionals as results until repair. X-CEIL AMENDED: the numeral repair FITS at the linear door (Klev := ceil(4e^{1.6A}), 137x uniform margin inside the landed 1.7e8*M ceiling; the wide 1.7e8-flat ceiling reaches its spend sites through the kwide widener that THROWS AWAY the M factor -- both spend sites have landed linear twins). ⟦RULING (Fable): composite iii-B + iii-A⟧ -- re-cut the cap onto the endpoint form (theorem modulo the g-rider), move the door-vs-endpoint numeral into the budget field explicit, raise the lever (~25 signature WEAKENINGS, mechanical), add the g-rider (builder sits 4 orders inside), discharge via the already-written s16_baseScaleCap96_L_supplied. GATED on BAND-K-PROBE (the band lane's K-uniformity at K ~ e^{1.6A} -- the one genuine risk, CAP-SCOPE's call-out). The dossier ADDENDUM landed: **(e) IS NOT RIPE** until v4. The vacuity was caught by our own instruments (the Toll -> X-CEIL -> CAP-SCOPE) before any word -- the summit protocol's reason for existing.
+
+## (2026-08-02 14:20 PDT) **COFACTOR-BULK (Road B, follow-on 2): ⟦RULING 9⟧'s CO-FACTOR DEBT IS INSTANTIATED END-TO-END AT THE LINEAR ANCHORS — `S16CofactorSupply_L_gk` LANDS FROM A NAMED SEVENTEEN-CONJUNCT REGISTER, AND EVERY CONJUNCT OF THAT REGISTER IS ANCHOR-BLIND. 13 decls, 1 new file (628 ln), build 9684 EXIT-0 from `$?`, warnings 186 = 186 baseline, every new decl at 3 axioms** (COFACTOR-BULK)
+
+⟦THE MISSION⟧ `RegisterSupply` (arm 1) closed the ONLY anchor-reading and the ONLY
+character-reading binder of `RbdSupply.m4_supplier_all_chi` and STOPPED LOUDLY on the bulk —
+the ~35 anchor-blind binders of `CaseAWide.m4_supplier_complete`, carried-and-never-discharged
+at BOTH doors (`M4RowLinear.DoorRowCarried_L_gk`, :5799, ~98 conjuncts). COFACTOR-BULK was to
+instantiate them.
+
+⟦WHAT LANDED — `Salt/MR/CofactorBulk.lean`⟧ **`cofkL_cofactorSupply_L_gk_of_bulk`** —
+
+> `∃ (Xsk : ℝ) (Kvt : ℕ → ℕ → ℝ) (Cb : ℝ), 0 < Xsk ∧ (∀ K Qm, 0 ≤ Kvt K Qm) ∧ 0 ≤ Cb ∧`
+> `∀ (K : ℕ) (Cq : ℝ) (R : ChowlaRegime) (M : ℕ), 1 ≤ M → 1/500 ≤ R.eps →`
+> `518 ≤ loglog R.Hlo → 32·Kvt K ⌈arcDen 12 R.Hhi⌉₊ + 32·(2 log M + log 4 + 50) ≤ log R.Hhi/4 →`
+> `(∀ socket instance, ∀ T in the window, CofactorBulkL Cq Xsk Cb (A+s) T) →`
+> `S16CofactorSupply_L_gk K Cq R M`
+
+plus the terminal specialization **`cofkL_cofactorSupply_L_gk_flat`**, which reads the design
+floor off `162 ≤ A` and `3.2·A ≤ loglog H₋` (`3.2·162 = 518.4`) and concludes
+`S16CofactorSupply_L_gk 32000000 Cq R (flatDoorM A)` — the exact shape
+`s16_capGate_supply_L_gk`'s `hcof` slot demands.
+
+⟦THE INSTANTIATION⟧ `Pseq := calP (AdoorL M) (s13GK K M)`, `Qseq := calQK (AdoorL M) (s13GK K M) M`,
+`J := 2`, `Ps := 1`, `X := (A+s)`, `Xd := A+s`, `N := 2(A+s)`, `H := H₈₃(X, θ₂₉₃)`,
+`P/Q := s13BandP/Q (A+s)`, `Tann := 2T`, `Rrad := seamRad X`, `θ := θ₂₉₃`,
+`c = c_g := 1/e`, `t₁` free, `R̄ = 2^J·R̄₀ = 4·R̄₀`, `C_R := gradeCR2 Cb`.
+
+⟦(a) THE LADDER IS DETERMINED, NOT FREE⟧ `kk := witKk`, `Mt := witMt` (`FrameWitness`'s
+witness table), **`Dd := 1`**, **`Xa := ramRbot`**. SEVEN of the ten per-block ladder laws are
+theorems, all off `TLBlockGates34`'s OWN C7 gate `ballQuarterThreshold + 1 ≤ B_j`:
+`1 ≤ D(j)`; `D(j) ≤ k₀(j)`; `√X_a ≤ k₀/D` (`√B ≤ B−1` at `B ≥ 5`); `pin2Gate ≤ k₀/D` (through
+the landed `USetGradedPrice.pin2Gate_le_ballQuarterThreshold`); `e ≤ X_a`; `M(j) ≤ 2X_a`;
+`2X_a ≤ X`. The three that are NOT theorems — the OPAQUE `X₀ ≤ √X_a(j)`,
+`0 ≤ cofactorMfl X θ k₀(j)`, and the two contour boxes — ride in the register.
+
+⟦(b) `TLBlockGates34`: ALL SEVENTEEN DISCHARGED, NONE RESISTED⟧ through
+`FrameWitness.tlBlockGates34_at_witness` at the band `[P, Q]`. Two inputs that are CARRIED at
+the M4-5 consumer are **FREE here**: (i) **C6, the `cq`-gate** — `cq` is a binder of
+`m4_supplier_complete` occurring in no other hypothesis and NOT in the conclusion, so the
+instantiation chooses `cq := 420·L·L^{3/4}·(log L)^5` and C6 collapses to `1 ≤ (log P)²`
+(at M4-5 `cq` is the capstone's opaque `cq₁`, which is why it is carried THERE and not here);
+(ii) **C4, the `h`-ceiling** — read at the band top through `Q ≤ Q₈₃ X`, so the register
+carries the single clean charge `30·(log X/loglog X) ≤ log(2T)` and per-block C4 follows from
+the sandwich `ramQbase ≤ Q`.
+
+⟦TWO GATES THE DOOR REGISTER CARRIES, RECOVERED HERE⟧ `5 ≤ B_j` (from the new
+`four_le_ballQuarterThreshold`), and **⟦THE WINDOW CEILING IS FREE AT THE BAND⟧**
+(`cofkL_two_ramRbot_le`): every `j ∈ ramI H P Q` sits at or above `⌊H·log P⌋₊ > H·log P − 1 ≥
+2H − 1`, so `j/H ≥ 1` and `B_j = X·e^{−j/H} ≤ X/e < X/2`. The band's own BOTTOM endpoint pays
+for the supplier's anchor ceiling `2X_a ≤ X` and for C15. Register: 19 → **17**.
+
+⟦(c) THE HEAD⟧ `Cb` from `GradeConst.exists_shortIntervalDatum` (Cb = 250), hoisted ONCE
+outside every quantifier; `c = c_g = 1/e` makes `0 < c`, `c ≤ 1/e`, `2c < 1` numerals. The
+band floors are **DERIVED, not carried**: `2 ≤ log P` and `3 ≤ P` from the socket's own scale
+via `P₈₃ X θ ≤ P` and `(log X)^{1−θ} ≥ e^{31/32} ≥ 2` (the new `cofk_two_le_exp_31_32`,
+quartic bracket); `1 ≤ Q`, `Q ≤ Q₈₃ X`, `log Q ≤ log X/loglog X ≤ log X` likewise.
+
+⟦(d) THE GRADE⟧ `C_R := gradeCR2 Cb`, so the predicate's two grading conjuncts are exactly
+`M4RowLinear`'s own carried pair `4·R̄₀ ≤ C_R·(log X)^{−ρ₂₉₃}` and
+`1728·C_q·C_R² ≤ (log X)^{2θ₂₉₃}`.
+
+⟦(e) THE COMPOSE + THE `K_vt` DISPOSITION⟧ arm 1's `cofkL_capFreeFloor_at_socket` is consumed
+VERBATIM as `m4_supplier_complete`'s `hfloor` slot (it is exactly `∀ 𝒥 ⊆ Icc 1 2,
+CapFreeFloor3 (pieceDatum χ 𝒥 Pseq Qseq) X` at these anchors). **`K_vt` STAYS SYMBOLIC** — no
+effective bound exists anywhere in the corpus — and is Skolemized as `Kvt : ℕ → ℕ → ℝ` (lever
+`K`, modulus cap `Q_m`), carried under arm 1's ONE explicit cushion
+`32·K_vt + 32·D ≤ log H₊/4`. The `Q_m` slot is **CLOSED here, not carried**: the new
+`cofkL_q_le_arcCap` supplies `q ≤ ⌈arcDen 12 R.H₊⌉₊` from the socket's own
+`q ≤ arcDen 12 H` and `H ≤ H₊`, so ONE modulus cap serves every socket instance of a given
+regime. At the terminal's regime the cushion admits `K_vt ≤ e^{518}/128 ≈ 10^{222}`.
+
+⟦THE VERDICT ON ⟦COFK-L⟧ §4, AT THE BYTES⟧ the seventeen carried conjuncts are: the band's
+nonemptiness `P ≤ Q`, `Q ≤ 2T`, the `h`-ceiling charge, the C7 window floor, the loglog
+descent charge C16, the seam-radius gate, the opaque `X₀`, `0 ≤ cofactorMfl`, the two contour
+boxes, `0 ≤ S` and the CASE-A exit bound, the two `cofactorRbdGen` gates, `0 ≤ R̄₀`, and the
+two grading gates. **NOT ONE of them mentions `AdoorL`, `s13GK`, `calP`/`calQK`, or `χ`** —
+COFK-L's "the BULK is anchor-blind and the L re-cut adds ZERO to it", now kernel-checked.
+
+⟦WHAT THIS DOES NOT DO⟧ no terminal twin is minted (COMPOSE-2 owns that); the base-scale cap
+is untouched (CAP-SCOPE's lane); `CofactorBulkL` is a REGISTER, not a theorem — the seventeen
+gates are the honest residual price of ⟦RULING 9⟧ and are stated, not hidden. The register is
+inhabited only where the Ramaré band geometry is (it wants `X ≳ e^{e^{165}}` through C7);
+whether the terminal's own regime supplies it is the SAME inhabitation question CAP-SCOPE just
+opened on the socket side, and is deliberately NOT answered here.
+
+⟦BUILD⟧ `~/.elan/bin/lake build` EXIT-0 read from `$?` via redirection (never a pipe); 9684
+jobs; warnings **186 = 186 baseline**, none from `CofactorBulk.lean` or the `All.lean`
+additions; all 13 new top-level decls at `[propext, Classical.choice, Quot.sound]` (audited in
+`All.lean`'s own `#audit_axioms` block). Purely additive: no landed declaration touched.
+
+## () ROAD-B FOLLOW-ON 2 HOME (COFACTOR-BULK, exit-0, 13 decls 3-axiom, 628 ln): ⟦RULING 9⟧'s CO-FACTOR DEBT IS INSTANTIATED -- cofkL_cofactorSupply_L_gk_of_bulk lands S16CofactorSupply_L_gk from a NAMED 17-conjunct register (+ the terminal specialization cofkL_cofactorSupply_L_gk_flat at K=32000000, M=flatDoorM A, 162<=A). The ladder is DETERMINED (kk=witKk, Mt=witMt, Dd=1, Xa=ramRbot): 7 of the 10 per-block laws are theorems off TLBlockGates34's own C7. ALL SEVENTEEN TLBlockGates34 conjuncts discharged, NONE resisted -- and TWO of its inputs are FREE at this consumer (C6's cq-gate: cq occurs in no other hypothesis and not in the conclusion, so we CHOOSE it; C4 reads the band top through Q<=Q83). TWO carried gates recovered: 5<=B_j from 4<=ballQuarterThreshold, and ⟦THE WINDOW CEILING IS FREE AT THE BAND⟧ 2*B_j<=X off the band's own bottom endpoint (j >= H log P - 1 >= 2H-1 => B_j <= X/e). Band floors 3<=P, 2<=log P DERIVED from the socket's scale ((log X)^{1-theta} >= e^{31/32} >= 2). Kvt STAYS SYMBOLIC (Skolemized ℕ→ℕ→ℝ over lever+modulus cap) under arm 1's single cushion; the Qm slot CLOSED by cofkL_q_le_arcCap (q <= ceil(arcDen 12 Hhi) from the socket's own arc bound). THE HEADLINE FOR THE ACCOUNTING: not one of the 17 carried conjuncts mentions AdoorL, s13GK, calP/calQK or chi -- COFK-L §4's anchor-blindness verdict is now kernel-checked. Register inhabitation (C7 wants X >~ e^{e^165}) deliberately NOT answered -- same genre as CAP-SCOPE's open socket-side question.
