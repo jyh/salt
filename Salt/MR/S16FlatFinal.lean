@@ -29,9 +29,20 @@ carries, in its place: the fuse's four numeric riders `e^{-100} ≤ cs`, `T₀ �
 `Kq ≤ e^{100}`, `e^{-100} ≤ Ks` (spent on EXISTENTIALLY BOUND constants the statement itself
 produces), and the two predicates the landed wide terminal also carries — ⟦RULING 9⟧'s
 co-factor debt `S16CofactorSupply_L_gk` and ⟦ITEM 3⟧'s base-scale cap
-`S16BaseScaleCap96_L_gk`, both at the LINEAR door and the LINEAR socket, hence both WEAKER
-than their landed counterparts (`s16_baseScaleCap96_L_of_baseScaleCap96` proves the cap
-direction outright).  What is GONE is the crossing itself: `cs`/`T₀`/`Kq`/`Ks` are now
+`S16BaseScaleCap96_L_gk`, both at the LINEAR door and the LINEAR socket.
+
+⟦THE CORRECTION — DELTA-REF D1, 2026-08-02⟧ of that pair only the BASE-SCALE CAP is weaker
+than its landed counterpart; `s16_baseScaleCap96_L_of_baseScaleCap96` proves that direction
+outright, and the claim was never true of the other.  The CO-FACTOR is a NEW ASK at the linear
+door: no transport bridge exists (the socket bounds `‖ramR‖`, which is not monotone in the
+indicator, and the two doors' block families are non-nested), so `S16CofactorSupply_L_gk` is
+incomparable to `S16Budget.S16CofactorSupply_gk` rather than weaker.  ⟦COFK-L PRICES IT
+TRANSFERABLE⟧ both doors' asks are UNPAID — ⟦RULING 9⟧'s debt is one debt, not two — and the
+intended supplier (`RbdSupply.m4_supplier_all_chi`) reads NO anchor numeral: of its ~30 binders
+exactly one touches `Pseq`/`Qseq` (the Mertens debit), and `D ≤ 2·log M + log 4 + 50` is
+identical at `Adoor` and `AdoorL`.  So the L re-cut adds ZERO to the unbuilt bulk; the
+L-vs-landed delta is two symbol substitutions (class A) plus the debit page and the `μ`-floor
+compose (class B).  What is GONE is the crossing itself: `cs`/`T₀`/`Kq`/`Ks` are now
 witnessed constants of this theorem rather than an opaque `Prop` about an integral.
 
 **PURELY ADDITIVE.**  No landed declaration is touched.

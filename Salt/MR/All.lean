@@ -7217,3 +7217,28 @@ and at that `A` the riders are theorems.  What survives: `hband`, the two socket
   Salt.MR.flat_conditional_uniform
   Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform
   Salt.MR.logChowla2_ineffective
+
+/-! ⟦THE BAND WINDOW — THE LAST OUTER HYPOTHESIS, DISSOLVED⟧
+(`FlatFloorBump` §2b, `S16Uniform` §9, 2026-08-02).
+
+CMU-HUNT traced the band-lane constant to its leaves: EFFECTIVE, but `log Cband ≈ 22 661`
+against a rider that asks `40`.  The `40` is spent at ONE place — the graded twin's `Mfl`
+floor, charged against the numeral pin `2^355` — and the door modulus `flatDoorM A` grows
+without bound in a constant the terminal quantifies SYMBOLICALLY.  So the rider is not a
+number but a WINDOW: `flatDoorM_gradeFloor_win` proves `log Cband ≤ 0.64·A − 20 ⟹
+Mfl ≤ flatDoorM A` at every `A ≥ 162`, `flatDoorM_ge_pow` states the same trade in the `2^n`
+currency, and §9's three windowed twins carry the window's Π-statement in the numeral pin's
+slot.  `s16_bandLaneWinL_holds` then DISCHARGES the rider outright off
+`m4_hband_at_door_slot_split_graded_L_gk` (on the unconditional `mmuChiRate_holds_gated`), and
+`logChowla2_ineffective_v2` is the ineffective limit with **no outer hypothesis at all**: the
+six numeral riders inside and the two carried predicates on the conclusion side, nothing
+else. -/
+#audit_axioms Salt.MR.flatDoorM_ge_pow
+  Salt.MR.flatDoorM_gradeFloor_win
+  Salt.MR.s15_sel''_L_gk_witness_flat_bumped_win
+  Salt.MR.s16_bandLaneWinL_of_bandL
+  Salt.MR.s16_bandLaneWinL_holds
+  Salt.MR.flat_capstone_uniform_win
+  Salt.MR.flat_conditional_uniform_win
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win
+  Salt.MR.logChowla2_ineffective_v2

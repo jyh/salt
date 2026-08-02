@@ -118,8 +118,9 @@ theorem flat_half_line {A c : ℝ} (hA : 26 ≤ A) (hc : c ≤ 403) :
   linarith [hsq, hE2, hc]
 
 /-- **THE `𝒯`-LEG BUDGET AT THE FLAT DESIGN POINT**, at the WIDE `Ct ≤ 2^23` and ANY charge
-`c ≥ -403`: `14·E + 45` against `1.53·10⁵·E`, `10⁴×`.  `Ct`'s `8×` widening costs `2.08` on
-a line with eleven orders of slack. -/
+`c ≥ -403`: at the amended `2E` slot (`Λ ≤ 2·e^{1.6A}`) it spends `28·E + 45` against
+`1.53·10⁵·E`, `≈5.5·10³×`.  `Ct`'s `8×` widening costs `2.08` on a line with eleven orders
+of slack. -/
 theorem flat_gP1_line {A c Ct Λ : ℝ} (hA : 26 ≤ A) (hc : -403 ≤ c) (hCt : 0 < Ct)
     -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
     (hCtb : Ct ≤ 2 ^ 23) (hΛ : Λ ≤ 2 * Real.exp (3.2 * A / 2)) :
@@ -143,8 +144,9 @@ theorem flat_gP1_line {A c Ct Λ : ℝ} (hA : 26 ≤ A) (hc : -403 ≤ c) (hCt :
   rw [AdoorL_cast]
   linarith
 
-/-- **THE `level1` BUDGET AT THE FLAT DESIGN POINT**, at ANY charge `c ≤ 403`:
-`14·E + 429 + ⅔·log E` against `1.279·10⁴·E`, `913×`. -/
+/-- **THE `level1` BUDGET AT THE FLAT DESIGN POINT**, at ANY charge `c ≤ 403`: at the amended
+`2E` slot (`Λ ≤ 2·e^{1.6A}`) it spends `28·E + 429 + ⅔·log E` against `1.279·10⁴·E`,
+`457×`. -/
 theorem flat_lvl_line {A c Λ : ℝ} (hA : 26 ≤ A) (hc : c ≤ 403)
     -- amended per REF-FLAT-SAT: the `Λ` slot carries the `Nat.ceil` overshoot factor `2`
     (hΛ : Λ ≤ 2 * Real.exp (3.2 * A / 2)) :
@@ -344,8 +346,8 @@ in ONE kernel statement.  At `λ₋ = 3.2·A`, `L₋ = e^{3.2A}`, `λ₊ = e^{1.
    proved is EXTREMAL: `4^{(20/21)A} = e^{1.3203A}` against `e^{1.6A}`, so the margin is an
    exponent gap of `0.2797·A` — the only conjunct here that is not astronomic.
 4. ⟦THE LINEAR ANCHOR⟧ `14·λ₊ + 403 + 33 ≤ 3.9·10⁹·M` — ⟦H1-ANCHOR⟧'s repair, at the WIDE
-   `ρ`-charge.  `898×`.
-5. ⟦`gRows`⟧ `242·λ₊ ≤ A_L(M)`.  `915×`.
+   `ρ`-charge.  `449×` at the amended `2E` slot (`λ₊ ≤ 2·e^{1.6A}`).
+5. ⟦`gRows`⟧ `242·λ₊ ≤ A_L(M)`.  `457×` at the same slot.
 6. ⟦THE HALF WINDOW⟧ `0.7·doorRowFloorL M + 3·403 ≤ L₋/2` — the binding register line, `M`
    at its ceiling.
 7. ⟦THE BUDGET'S HEIGHT-1 FLOOR⟧ `budgetFloorFlat ε β A ≤ flatWitFloor ε β A Hopq` for every

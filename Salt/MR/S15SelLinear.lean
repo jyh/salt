@@ -30,16 +30,21 @@ M  = ⌊e^{λ₋/2}/310301⌋      (`flatDoorM A` — the largest `M` the `half`
 | line | spends | against | margin |
 |---|---|---|---|
 | `half` | `0.49959·e^{3.2A} + 108` | `e^{3.2A}/2` | `8.3·10^{-4}` relative |
-| `gRows` | `242·e^{1.6A}` | `2.2146·10⁵·e^{1.6A}` | `915×` |
-| `anchor` | `14·e^{1.6A} + 69` | `1.2569·10⁴·e^{1.6A}` | `898×` |
-| `gP1` | `14·e^{1.6A} + 79` | `1.535·10⁵·e^{1.6A}` | `10⁴×` |
-| `lvl` | `14·e^{1.6A} + 62 + ⅔·log e^{1.6A}` | `1.279·10⁴·e^{1.6A}` | `913×` |
+| `gRows` | `484·e^{1.6A}` | `2.2146·10⁵·e^{1.6A}` | `457×` |
+| `anchor` | `28·e^{1.6A} + 69` | `1.2569·10⁴·e^{1.6A}` | `449×` |
+| `gP1` | `28·e^{1.6A} + 79` | `1.535·10⁵·e^{1.6A}` | `≈5.5·10³×` |
+| `lvl` | `28·e^{1.6A} + 62 + ⅔·log e^{1.6A}` | `1.279·10⁴·e^{1.6A}` | `457×` |
 | `blk` | `≤ 19·e^{9.6A}` | `2^{-16}·e^{e^{3.2A}}` | astronomic |
 | `x0M` | `e^{3.2A}/10` | `0.1236·e^{3.2A}` | `1.24×` |
 
+⟦THE `Λ` SLOT, AS AMENDED⟧ the four `λ₊`-reading rows above are quoted at `λ₊ ≤ 2·e^{1.6A}`
+— REF-FLAT-SAT's `Nat.ceil` overshoot factor `2`, which the register's own hypotheses carry
+(`flat_gP1_line`, `flat_lvl_line`, …).  Every one of those margins is therefore HALF the
+single-`E` figure this table used to quote; the rows are the amended ones.
+
 The `half` line is the binding one — as it must be, since `M` is chosen AT its ceiling — and
 the `anchor`/`gRows`/`lvl` triple, which at the landed door misses by a factor `~2·10⁶` at
-this same point (⟦H1-ANCHOR⟧ `p8`), now clears with three orders to spare **uniformly in
+this same point (⟦H1-ANCHOR⟧ `p8`), now clears by `449×` at its tightest **uniformly in
 `A`** (⟦H1-ANCHOR⟧ `p9`).  Nothing here caps `A` from above: that is the whole content of
 ⟦H2-CONSTANTS⟧'s synthesis — the `86.65` window was a frozen-witness artifact, and the flat
 road pins its own floor.
@@ -315,7 +320,7 @@ theorem s15_sel''_L_witness_flat {A : ℝ} (hA : 26 ≤ A) {Cg δ₀ Ct K : ℝ}
       anchor := ?_
       gP1 := ?_
       lvl := ?_ }
-  · -- ⟦`M`-LOWER 2⟧ `242·λ₊ ≤ A_L(M)`: `242·E` against `2.2146·10⁵·E`
+  · -- ⟦`M`-LOWER 2⟧ `242·λ₊ ≤ A_L(M)`: `484·E` (the `2E` slot) against `2.2146·10⁵·E`
     rw [hAd]
     linarith [hhi, hAdlo, hE17]
   · -- ⟦RESTORED⟧ `x₀ ≤ 2^{doorRowFloorL M}`, through `2^36·M²·log 2 ≥ 0.1236·E²`
