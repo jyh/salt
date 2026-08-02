@@ -356,6 +356,7 @@ import Salt.MR.RiderTrace
 import Salt.MR.XCeil
 import Salt.MR.CofactorBulk
 import Salt.MR.KLever
+import Salt.MR.S16ComposeV4
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -7557,3 +7558,33 @@ immediately after it, so the `M` in scope is the terminal's own.  -/
   Salt.MR.m4_closure_fuse_zero'_const_nonneg_L_gk_ceiling_kwide
   Salt.MR.flat_capstone_uniform_win_ceiling_kwide
   Salt.MR.flat_conditional_uniform_win_ceiling_kwide
+
+
+/-! ⟦COMPOSE-2 — THE `K`-HOIST AND `logChowla2_ineffective_v4`⟧ (`S16ComposeV4`, 2026-08-02).
+
+CAP-RECUT proved the base-scale cap AT the raised lever `KlevF A`; KWIDE-65 widened every flat
+`K ≤ 1.7·10⁸` binder so the lever can flow.  What neither could reach is the BINDER ORDER: in
+`v3` the design constant `A` is chosen from `ε`, `β`, `x₀`, `Hopq`, which the conditional
+produces only AFTER a lever is fixed, so `K := KlevF A` closes a circle.  It is a false circle —
+`flat_head_uniform_ceiling` and `flat_socket_uniform_ceiling` take no `K`, and the door/road
+merely forward their witnesses — and §1–§5 re-mint the chain with the `∀ K` hoisted INSIDE the
+`∃`-prefix (`∃ ε Cg Kc δ₀ β x₀ Hopq Mfl, ⟨K-free facts⟩ ∧ ∀ K, ∃ Ct …, ∀ A, …`).  Only the
+constant-pool `Ct` and the crossing supply's six constants move with `K`, and the `A`-choice
+reads none of them.  §0 records the band rider in its witness-uniform shape (ONE `x₀`, ONE
+`Cband`, hence ONE `Mfl` and ONE `Awin`, for every lever) — the shape
+`m4_hband_at_door_slot_split_graded_L_gk_uniform` already mints.
+
+§6's `logChowla2_ineffective_v4` chooses `A` FIRST, sets `K := KlevF A` SECOND, and discharges
+the base-scale cap inside the proof by `s16_baseScaleCap96_L_at_klevF`.  The cap predicate —
+the one CAP-SCOPE proved FALSE at the produced regime — is GONE from the statement.  What
+stands in its place is the flat builder's own outer-scale ceiling `log x ≤ (31/ε)·H₊`, carried
+as a named antecedent: X-CEIL landed it at the builder and explicitly banked the uniform-lane
+threading, so the terminal cannot yet EXPORT it.  That is a repair, not a paper-over — the `v3`
+antecedent was false at the regime, this one is the builder's own landed law. -/
+#audit_axioms Salt.MR.s16_bandLaneWinL_holdsU
+  Salt.MR.flat_doorL2_uniform_ceiling_khoist
+  Salt.MR.flat_road_uniform_ceiling_khoist
+  Salt.MR.flat_capstone_uniform_win_ceiling_kwide_khoist
+  Salt.MR.flat_conditional_uniform_win_ceiling_kwide_khoist
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_khoist
+  Salt.MR.logChowla2_ineffective_v4

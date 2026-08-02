@@ -19251,3 +19251,95 @@ additions; all 13 new top-level decls at `[propext, Classical.choice, Quot.sound
 ## () CAP-RECUT HOME (94f74af, exit-0, 19 decls 3-axiom): THE DESIGN CONTENT ALL LANDED -- P1 4/4 hoists (the swap KERNEL-CONFIRMED: one Awin for every K); P2a the dial (kcap := 4, KlevF, the 137x wide-ceiling lemma uniform in A); P2c the kwide hop REPLACED (the M-factor no longer thrown away); P3 the g-rider (coefficient CORRECTED at the bytes: NINE orders inside the budget, not four -- dossier amendment queued); P4 THE CAP DISCHARGE: s16_baseScaleCap96_L_at_klevF -- ⟦ITEM 3⟧ IS A THEOREM AT THE RAISED LEVER (the whole question reduced to 2 < kcap*log2 = 2.7724, the 1.386x named-dial margin; everything else slack). STOPPED LOUDLY: P2b at 2/67 -- the verified census is 67 decls / 14 files (brief priced ~25), M internally quantified at every one, ~4000 ln of verbatim restatement; the two deepest landed as the pattern (m4_hrowsSum_chi/_hrowsSlot _kwide, recipe recorded); the remaining 65 = a dedicated mechanical wave. ⟦KWIDE-65 fires -> COMPOSE-2 mints v4⟧
 
 ## () KWIDE-65 HOME (exit-0, 64 twins / 14 files, +6095 ln 0 deletions, 3-axiom): **CAP-RECUT's P2(b) RESIDUE IS SPENT.**  Every flat `hK : K ≤ 170000000` binder on the L-door chain now carries an additive `_kwide` twin whose ceiling has moved INSIDE the statement's own `∀ M` as `K ≤ 170000000 * M` — the WIDE ceiling `calFrameK_satisfiable_doorH1_L_gk` always carried and the deleted `ThmA2Linear.kwide` hop threw away. Bottom-up along the dependency order: ThmA2Linear(7) M4LadderLinear(6) M4RowLinear(5) M4RowAssemblyLinear(10) M4RowSpineLinear(1) M4SocketLinear(3) M4RowsChiPrimeLinear(6) M4ArithZeroLinear(4) NumeralCt(3) M4ClosureRepairLinear(6) S11HoistLinear(3) S16FlatTerminalLinear(3) S16Uniform(4) S16Compose(3). ⟦CENSUS CORRECTION⟧ the wave is 64, not 65: M4RowSpineLinear had ONE flat decl left (`m4_chiSummedFreeRow_of_doorAssembly_zero_L_gk`), not two — the other two entries in CAP-RECUT's per-file count are the ORIGINALS of the two already-landed pattern twins.  No census false positives otherwise; every listed decl really read the ceiling.  ⟦THE END STATE⟧ the terminal-adjacent set COMPOSE-2's v4 needs is complete: `S16Compose.{m4_closure_fuse_zero'_const_nonneg_L_gk_ceiling, flat_capstone_uniform_win_ceiling, flat_conditional_uniform_win_ceiling}_kwide`, `S16FlatTerminalLinear.{m4_closure_fuse_zero'_const_nonneg_L_gk, logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L, logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L}_kwide`, `S16Uniform.{flat_capstone_uniform, flat_conditional_uniform, flat_capstone_uniform_win, flat_conditional_uniform_win}_kwide`.  ⟦THE ONE DESIGN NOTE⟧ at the two capstone genres the internal `1 ≤ M` anchor does NOT exist: the M-binder is the grade floor (`∀ (M : ℕ), Mfl ≤ M →`, six decls) or the selector (`∀ M : ℕ, S15Sel''_L_gk … R M →`, four decls).  The widened antecedent sits immediately AFTER that binder's own first hypothesis, so the `M` it prices is the terminal's own `flatDoorM A` — exactly the shape `KlevF_le_wideCeiling` discharges.  METHOD: script-driven verbatim transcription (statement bytes identical apart from the moved antecedent; proof bytes identical apart from the `_kwide` re-pointing and the forwarded `hKw`), one build per file, EVERY FILE EXIT-0 ON THE FIRST ATTEMPT — not one twin needed a second try, nothing stopped.  Full `lake build` exit 0; ZERO new warnings (the only diffs are two pre-existing warning line numbers that shifted with the appended blocks).  All 64 audited in `Salt/MR/All.lean` (`#audit_axioms`, 3 axioms each) plus five sampled through scratch `#print axioms`.  PURELY ADDITIVE: 0 deletions, originals untouched, every original consumer still compiles against the original.  ⟦COMPOSE-2 MINTS v4⟧
+
+## (2026-08-02 15:52 PDT) **COMPOSE-2: `logChowla2_ineffective_v4` IS MINTED — THE CAP PREDICATE IS GONE FROM THE STATEMENT, DISCHARGED INSIDE AT THE RAISED LEVER. 7 decls, 1 new file (872 ln), full `lake build` 9686 EXIT-0 from `$?`, warnings 186 = 186 baseline, every new decl at 3 axioms** (COMPOSE-2)
+
+⟦THE FINDING THAT CAME FIRST — THE BRIEF'S INGREDIENT LIST WAS INCOMPLETE BY ONE PREREQUISITE⟧
+CAP-RECUT + KWIDE-65 left `s16_baseScaleCap96_L_at_klevF` ready and every flat ceiling widened,
+but **the lever depends on `A` and `A` depends on the lever**: `v3` chooses
+`A := max (max (max A₀ 162) Awin) (max (budgetAFlat ε β) (max (4·x₀) Hopq))` from constants
+`flat_conditional_uniform_win_ceiling K` produces — i.e. AFTER a lever is fixed — so `K := KlevF A`
+closes a circle. It is not openable by a `max`, and not by classical choice either: for an
+arbitrary family `K ↦ A(K)` the fixed point `KlevF (A K) ≤ K` need not exist (take `A K = K`).
+`s16_bandLaneWinL_holds_uniform`'s ONE `Awin` was necessary but NOT sufficient — `ε`, `β`, `x₀`,
+`Hopq` had the same problem and nobody had priced them.
+
+⟦THE CIRCLE IS FALSE, AND THE BYTES SAY WHY⟧ `flat_head_uniform_ceiling` and
+`flat_socket_uniform_ceiling` take **no `K` argument at all** (the head pins `ε := 1/500`,
+`β := c_D3·ε/(144 log 4)`, `δ₀`, `Hopq` off four `K`-free bounded hooks), and
+`flat_doorL2_uniform_ceiling`/`flat_road_uniform_ceiling` merely FORWARD those witnesses. The
+band lane's `x₀`/`Cband` were already `K`-free at their mint
+(`m4_hband_at_door_slot_split_graded_L_gk_uniform : ∃ x₀ Cb, 0 < Cb ∧ ∀ K M, …`). So the `∀ K`
+can be hoisted INSIDE the `∃`-prefix at every hop.
+
+⟦THE WAVE⟧ `Salt/MR/S16ComposeV4.lean`, purely additive, seven declarations, script-driven
+verbatim transcription (statement bytes identical apart from the re-bracketing; proof bytes
+identical apart from the forwarded `K`):
+* `S16BandLaneCBoundedL_winU` + `s16_bandLaneWinL_holdsU` — ONE `x₀`, ONE `Cband`, hence ONE
+  `Mfl` and ONE `Awin`, for every lever.
+* `flat_doorL2_uniform_ceiling_khoist`, `flat_road_uniform_ceiling_khoist` — `∀ (K : ℕ) (A : ℝ)`.
+* `flat_capstone_uniform_win_ceiling_kwide_khoist`, `flat_conditional_uniform_win_ceiling_kwide_khoist`,
+  `logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_khoist` —
+  `∃ ⟨K-free⟩, … ∧ ∀ K, ∃ Ct …, ∀ A, …`. Only `Ct` (the constant-pool fuse) and the crossing
+  supply's six constants move with `K`, and the `A`-choice reads none of them. The capstone's
+  landed `Cq, cs, T₀, Kq, Ks` prefix members are DROPPED (never read by its own body). The
+  terminal gains `K ≤ 170000000 * flatDoorM A` as an explicit hypothesis where the landed twin
+  computed it from the pinned `K = 32000000`; `KlevF_le_wideCeiling` discharges it.
+* `logChowla2_ineffective_v4` — `A` chosen FIRST, `K := KlevF A` SECOND, and
+  **`s16_baseScaleCap96_L_at_klevF` discharges the cap in ONE LINE**. EVERY FILE EXIT-0; the
+  chain needed one fix total (an `obtain ⟨-, …⟩` on a dependent witness).
+
+⟦V4'S EXACT SURVIVING LIST⟧ outer: NOTHING (the caller supplies `A₀`). Inner riders, all on
+constants `v4` itself produces: `e^{-100} ≤ cs` (SATISFIED at the corpus's witness —
+`cs = 3.716e-11` vs `3.72e-44`, 33 orders, `RiderTrace.cs_closed_form_ge_exp_neg_hundred`;
+carried, not threaded); `T₀ ≤ e^{e^100}` (RIDER-TRACE's MIS-SIZED NUMERAL — carried in the
+landed shape, see the STOP below); `e^{-100} ≤ Ks` (the Siegel-genre remnant). Conclusion-side,
+at the raised lever: `Real.log R.x ≤ (31/ε)·H₊` (NEW — see below) and
+`S16CofactorSupply_L_gk (KlevF A) Cq R (flatDoorM A)` (unchanged from `v3` but now at `KlevF A`).
+**`S16BaseScaleCap96_L_gk` IS GONE.**
+
+⟦THE HONEST TRADE, NAMED⟧ `s16_baseScaleCap96_L_at_klevF` wants four inputs; three are at the
+compose point (`1 ≤ flatDoorM A`, `ε ≥ 1/500`, the width export `loglog H₊ ≤ 2e^{1.6A}`). The
+fourth — the flat builder's outer-scale ceiling `log x ≤ (31/ε)·H₊` — is **NOT exported by the
+uniform lane**: X-CEIL landed it at the builder (`chowlaRegimeFlat_exists_param_head_ceiling`)
+and explicitly banked the threading ("the uniform-lane threading deliberately NOT spent"). The
+brief assumed it available; it is not. `v4` therefore ASKS for it as a named antecedent on the
+regime it produces. **This is a repair, not a paper-over**: `v3`'s cap antecedent is FALSE at
+the produced regime (CAP-SCOPE, two independent refutations); this one is the builder's own
+landed law, one threading wave from being a theorem, with nine orders of coefficient room
+(`log x ≈ 1.386·ε²·H₊` against `31·H₊/ε`).
+
+⟦STOPPED LOUDLY, WITH PRICES⟧
+* **THE X-CEILING THREADING (the one that would make `v4` conclusion-free).** ~800 ln of chain
+  copy (head → socket → doorL2 → road → capstone → conditional → terminal) PLUS one genuine
+  estimate: the conditional substitutes `g' := fun H ω => s15Arm δ₀ ρ H ω + g H ω`, so the
+  rider must be verified for `s15Arm`, whose `gArmDoorRho` summand is `exp(exp(7000·loglog H + …))`
+  — i.e. `log s15Arm ≈ (log H)^{7000}` against a budget `15500·H₊`, true by a mile at
+  `loglog H ≥ 50` (`7000u` vs `e^u`, `u ≥ 50`) but a class-B/C estimate, not a transcription.
+  NOT attempted: it is a wave, not an item.
+* **THE `T₀` RESHAPE.** Traced to the bytes and priced, NOT spent. The consumer chain is exactly
+  four hops: `capfloor_T0_Tann` (S13CapFloor:238, sharp sibling `_sharp` at :226 LANDED) ←
+  `s13CapFloor_all_L_gk` (S13BandCapLinear:256) ← `s16_capGate_supply_L_gk`
+  (S13CapGateLinear:939) ← `s15_crossing_supplied_L_gk_ceiling` (S16Compose:960) ← the terminal
+  ← `v4`. The sharp form asks `T₀ ≤ exp(√H/2)` at the SOCKET's `H`, and every hop has `R` in
+  scope with `R.Hlo ≤ H`, so the uniform carrier is `T₀ ≤ exp(√R.Hlo/2)` with one
+  `Real.sqrt` monotonicity step at the leaf; at the terminal it becomes
+  `T₀ ≤ exp(√(flatWitFloor ε β A Hopq)/2)` and at `v4` `T₀ ≤ exp(√(flatDesignBase A)/2)`
+  — satisfiable by an astronomical margin (`exp(e^{10^{225}}/2)` at `A = 162` against the
+  corpus's `T₀ ≈ e^{e^{1251}}`). ONE statement reshape is required beyond transcription: the
+  crossing supply's rider must move INSIDE its own `∀ R` binder. ~420 ln, all landable in this
+  same file.
+* **THE COFACTOR REGISTER INHABITATION.** Read, not attempted, and the reason is a finding:
+  `cofkL_cofactorSupply_L_gk_of_bulk` is `K`-parametric (the `KlevF A` instance is five lines),
+  but discharging the predicate would trade ONE named conclusion-side ask for TWO carried
+  hypotheses — the 17-conjunct `CofactorBulkL` inhabitation AND the cushion
+  `32·K_vt K ⌈arcDen 12 H₊⌉ + 32(2 log M + log 4 + 50) ≤ log H₊/4`, whose `K_vt` is SYMBOLIC
+  (COFACTOR-BULK: "no effective bound exists in the corpus"). That is not a discharge; `v4`
+  keeps the single named predicate. The register's own inhabitation (C7 wants `X ≳ e^{e^{165}}`,
+  the μ-floor supplies `loglog X ≈ 10^{95}`) remains the open stone it was.
+
+⟦WHAT THE 8/02 VACUITY LEDGER NOW READS⟧ the CAP vacuity is **REPAIRED** — the false antecedent
+is deleted from the statement and replaced by a true-at-the-builder one. The mis-sized `T₀`
+numeral is **DIAGNOSED AND CARRIED IN THE OPEN**, its sharp replacement landed and its rethread
+priced. `logChowla2_ineffective` `v1`/`v2`/`v3` remain marked in the Trophy Room as superseded
+by `v4` — they are not to be cited.
