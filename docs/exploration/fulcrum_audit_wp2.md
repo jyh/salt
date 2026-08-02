@@ -20,6 +20,11 @@ TBalCompose.lean:489), `zfr_harvest` (DHBal.lean:62), `selberg_opt_eq` (SelOpt.l
 `tail_shift_to_beta0` (SelWeight.lean:381). The ONLY unlanded producer piece: the R8c
 final assembly (trivial split + by_contra inversion into the contract ∃-shape) —
 dispatched per flags/git (cf2f0c0), no `theorem dh_repulsion_ordered` in Lean yet.
+**[STALE — corrected 2026-08-02 by HB-CENSUS: this line was written at cf2f0c0,
+one commit before the landing. `dh_repulsion_ordered` LANDED at f1b92ca
+(2026-07-18, TBalR8.lean:1752, 3 axioms, audit-registered All.lean:305). The
+§3 T-BAL-BUDGET demand-side audit below remains the lane's one genuine open
+item, gated on the consuming node.]**
 
 ## 1. WHAT THE REPULSION SIDE DEMANDS OF THE ZERO (link by link)
 
