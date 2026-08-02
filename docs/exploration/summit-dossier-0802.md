@@ -137,3 +137,41 @@ on the Toll; (6) T-BAL-BUDGET (gated on the fulcrum's consuming node).
 
 **Recommendation:** the bar-2 state is met. When the ceremony returns
 green, the dossier is complete and (e) is ripe.
+
+---
+
+## ADDENDUM (2026-08-02 evening) — THE CAP VACUITY: (e) IS NOT RIPE
+
+**CAP-SCOPE (read-only, mpmath probes + kernel reads) proved
+S16BaseScaleCap96_L_gk FALSE at the very regime the flat terminals
+produce** — the socket's own conjuncts pin the scale AT the endpoint
+(A+s ∈ [x/(16ω(log H)^12), 3x], and the landed vacuity-fence witness
+sits at A+s = 2·R.x exactly), while the Toll's landed LOWER bound
+forces loglog(endpoint) ≈ 10^(1.76·10^95) at A = 162 against the
+cap's RHS ≈ 10^(9.6·10^6). Two independent refutations (interface
+via the caller's g; arithmetic at g ≡ 0).
+
+**Consequence: the conclusion-side implication of the FLAT-lane
+terminals — the Pearl (v2) and logChowla2_ineffective v1/v2/v3 — is
+currently VACUOUS** (false antecedent at the produced regime). The
+non-vacuous standing objects today: the WIDE v3 terminal at the
+landed tower (the cap is TRUE there: 10^44 vs 10^(9.6e6)), the
+door-only reduction, the budget head, and the Tolls. The refuters
+missed it because the falsity is manufactured by the Toll's lower
+bound — landed in the same wave the refuters were ruling on.
+
+**The repair is priced and ruled (composite iii-B + iii-A, class B):**
+re-cut the cap onto the endpoint form (a THEOREM modulo the g-rider —
+already the intermediate line of s16_baseScaleCap96_L_of_xceil), move
+the door-vs-endpoint numeral into the budget field as an explicit
+hypothesis, raise the lever to Klev := ⌈4·e^{1.6A}⌉ (admissible with
+137× uniform margin inside the landed 1.7e8·M ceiling; ~25 signature
+weakenings, mechanical), add the g-rider (log(g H₊ ω) ≤ (31/ε)·H₊ —
+the builder's own x sits four orders inside it), then the
+already-written s16_baseScaleCap96_L_supplied discharges the cap.
+**GATED on one probe: the band lane's K-uniformity** (S16BandLane
+reads K through the mass gate; at K ≈ e^{1.6A} the window discharge
+s16_bandLaneWinL_holds must survive — BAND-K-PROBE in flight).
+
+**(e) waits for the repaired v4.** The summit word must not cite the
+flat-lane conditionals until then.
