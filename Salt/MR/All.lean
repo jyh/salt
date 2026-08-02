@@ -327,6 +327,24 @@ import Salt.MR.S16FlatTerminal
 import Salt.MR.ArithPageLinear
 import Salt.MR.S15SelLinear
 import Salt.MR.S15SelLinearWide
+import Salt.MR.DoorLadderLinear
+import Salt.MR.ThmA2Linear
+import Salt.MR.M4LadderLinear
+import Salt.MR.M4WaveLinear
+import Salt.MR.M4RowLinear
+import Salt.MR.M4RowAssemblyLinear
+import Salt.MR.M4RowSpineLinear
+import Salt.MR.M4ArithRhoLinear
+import Salt.MR.M4SocketLinear
+import Salt.MR.M4RowsChiPrimeLinear
+import Salt.MR.M4ArithZeroLinear
+import Salt.MR.M4CapWireLinear
+import Salt.MR.M4ClosureRepairLinear
+import Salt.MR.S11HoistLinear
+import Salt.MR.FlatFloorBump
+import Salt.MR.S13FramesLinear
+import Salt.MR.S13BandCapLinear
+import Salt.MR.S16FlatTerminalLinear
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -6833,3 +6851,301 @@ the re-fire needs the LADDER re-cut, not only the register. -/
   Salt.MR.s15_gRows_const_at_socket_flat_doorL
   Salt.MR.flatDoorM_natLog_le
   Salt.MR.flat_landed_ladder_break
+
+
+/-! ⟦LADDER-L G1 — THE COEFFICIENT + DOOR-PAGE LAYER AT THE LINEAR ANCHOR⟧
+(`DoorLadderLinear`, `ThmA2Linear`, `M4LadderLinear`, `M4WaveLinear`, 2026-08-01).
+
+⟦COMPOSE-FLAT-2⟧ kernelized `flat_landed_ladder_break`: the road and the fuse read
+the door a SECOND time, through the LADDER `calP (Adoor M) (s13GK K M)`, a copy the
+register's re-cut missed.  These four pages carry the `_L` twin family of the
+coefficient + door-page layer (import-depth band 83–103) at `AdoorL M = 2^36·M`,
+with the `G`-slot unchanged (`3072·M`, resp. `s13GK K M`).  Purely additive: no
+landed declaration moves, and every twin is a RESTATEMENT with the landed body
+replayed — the analytic chain below the door is `(A,G)`-parametric, so the anchor
+never leaves its symbol slot.
+
+The seed is `doorChiCoeff_L`/`doorChiCoeff_L_gk` (`M4WaveLinear`), a DEFINITION whose
+type is door-free but whose body reads the ladder at the anchor; the rest of the
+layer is a restatement over it.  Two hypotheses are added by the re-cut and by
+nothing else: `1 ≤ M` wherever the landed proof used the UNCONDITIONAL anchor floor
+`2^36 ≤ Adoor M` (`AdoorL 0 = 0`), and the WIDE `K`-ceiling `K ≤ 1.7·10⁸·M` at the
+levered frames — which is exactly what the linear re-cut buys. -/
+#audit_axioms Salt.MR.calFrameK_satisfiable_doorH1_L
+  Salt.MR.calFrameK_satisfiable_doorH1_L_gk
+  Salt.MR.level1_term_door_decays_L
+  Salt.MR.calFrameK_satisfiable_scaled_L
+  Salt.MR.calFrameK_satisfiable_Ah_L
+  Salt.MR.memS_dilate_door_L
+  Salt.MR.residue_split_dilate_door_L_gk
+  Salt.MR.thm_a2'_of_rows_L
+  Salt.MR.thm_a2'_of_rows_L_gk
+  Salt.MR.thm_a2'_L
+  Salt.MR.a2Rows_of_capfree3_end_L
+  Salt.MR.a2Rows_of_capfree3_end'_L
+  Salt.MR.a2Rows_of_capfree3'_L_gk
+  Salt.MR.thm_a2'_of_rows'_L
+  Salt.MR.m4_meansq_per_chi_gen_L
+  Salt.MR.m4_meansq_or_trivial_L_gk
+  Salt.MR.m4_meansq_per_chi_gen_pool_L
+  Salt.MR.m4_meansq_per_chi_gen_join_L
+  Salt.MR.m4_class_price_L
+  Salt.MR.m4_class_dilate_exit_L_gk
+  Salt.MR.absWindowSum_doorChiCoeff_zero_L
+  Salt.MR.doorChiCoeff_seamCoefW_at_door_L
+  Salt.MR.m4_door_tail_supply_end_L
+  Salt.MR.m4_nonCoprime_classMeanSq_N_L
+  Salt.MR.doorChiCoeff_seamCoefW_punct_H_L_gk
+
+
+/-! ⟦LADDER-L G2 — THE ROWS / `T₀` / ASSEMBLY LAYER AT THE LINEAR ANCHOR⟧
+(`M4RowLinear`, `M4RowAssemblyLinear`, `M4RowSpineLinear`, 2026-08-01).
+
+⟦COMPOSE-FLAT-2⟧ kernelized `flat_landed_ladder_break`: the road and the fuse read the door a
+SECOND time, through the LADDER `calP (Adoor M) (s13GK K M)` — a copy the register's re-cut
+(⟦LINEAR-PAGE⟧) missed.  These three pages carry the `_L` twin family of the ROW/`T₀`/ASSEMBLY
+layer (import-depth band 104–110) at `AdoorL M = 2^36·M`, with the `G`-slot unchanged
+(`3072·M`, resp. `s13GK K M`).  Purely additive: no landed declaration moves, and every twin
+is a RESTATEMENT with the landed body replayed — the analytic chain below the door is
+`(A,G)`-parametric, so the anchor never leaves its symbol slot.
+
+The layer's roots are the row/datum carriers whose TYPE is door-free but whose BODY reads the
+ladder: `chiFreeRowSq_L`, `M4ChiFreeRowMeanSq_L`, `M4ChiFreeRowMeanSqN_L`, `M4RowDatumAt_L`,
+`doorCoeffU_L`, `M4ChiSummedFreeRowBig_L`, `m4ChiRowGraded_L` and the six
+`DoorRowCarried*_L` registers (each `_gk`-twinned).  Above them sit the `T₀`-band arm and its
+discharge, the fuse frames (`DoorFuseFrame_L`, `_pool`, `_pool'`), the row bases
+(`DoorRowEndBase_L`, `DoorRowZeroBase_L`), the Gauss/strata bridge, the collapse, the narrowed
+base and the second road.
+
+Two hypotheses are added by the re-cut and by nothing else: `1 ≤ M` wherever the landed proof
+used the UNCONDITIONAL anchor floor `2^36 ≤ Adoor M` (`AdoorL 0 = 0`), and the wide `K`-ceiling
+at the levered frames.
+
+`M4RowLinear.G2Scaffold` is a NAMESPACED, deletable restatement of the M4-wave closure spine
+(`M4Close`/`M4WaveClosed`/`M4Maximal`/`M4ClassPrice`/`M4Join`/`M4BridgeBlock`/`M4BridgeCover`/
+`M4BridgePhase`/`M4CapWire`/`RamErrWS`/`S13FramesB`/`M4SocketDischarge`/`M4DoorRow`) at the
+linear anchor: that cone sits at a LOWER import depth and belongs to a different lane of the
+⟦LADDER-L⟧ wave.  It is namespaced precisely so it cannot collide with that lane's public
+twins, and it deletes verbatim once they land. -/
+#audit_axioms Salt.MR.m4_hT0band_at_door_L
+  Salt.MR.m4_hT0band_at_door_L_gk
+  Salt.MR.m4_door_meansq_carried_L
+  Salt.MR.m4_door_meansq_carried_L_gk
+  Salt.MR.m4_wave_structurally_closed_L
+  Salt.MR.m4_wave_structurally_closed_L_gk
+  Salt.MR.m4_hT0band_at_door_discharged_split_graded_prod_L_gk
+  Salt.MR.m4_wave_closed_T0_discharged_L
+  Salt.MR.m4_wave_closed_T0_discharged_L_gk
+  Salt.MR.m4_freeBlockSup_of_chiSummed_L
+  Salt.MR.m4_freeBlockSup_of_chiSummed_L_gk
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_L
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_L_gk
+  Salt.MR.m4_wave_closed_coprime_discharged_L
+  Salt.MR.m4_wave_closed_coprime_discharged_False_L
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool_L
+  Salt.MR.m4_wave_collapsed_L
+  Salt.MR.m4_wave_collapsed_False_L
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_end_L
+  Salt.MR.m4_second_road_L
+  Salt.MR.m4_second_road_L_gk
+  Salt.MR.m4_second_road_tower_L
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_zero_L
+  Salt.MR.m4_register_forces_endpoint_interval_L
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool'_L
+
+
+/-! ⟦LADDER-L G3 — THE ARITH / SOCKET / CLOSURE / HOIST LAYER AT THE LINEAR ANCHOR⟧
+(`M4ArithRhoLinear`, `M4SocketLinear`, `M4RowsChiPrimeLinear`, `M4ArithZeroLinear`,
+`M4CapWireLinear`, `M4ClosureRepairLinear`, `S11HoistLinear`, 2026-08-01).
+
+⟦COMPOSE-FLAT-2⟧ kernelized `flat_landed_ladder_break`: the road and the fuse read the door a
+SECOND time, through the LADDER `calP (Adoor M) (s13GK K M)` — a copy the register's re-cut
+missed.  These seven pages carry the `_L` twin family of the gRows → fuse → capstone layer
+(import-depth band 111–116) at `AdoorL M = 2^36·M`, with the `G`-slot unchanged (`3072·M`,
+resp. `s13GK K M`).  Purely additive: no landed declaration moves, and every twin is a
+RESTATEMENT with the landed body replayed — the analytic chains below the door are
+`(A, G, H1)`-parametric, so the anchor never leaves its symbol slot.
+
+⟦THE ONE NEW ARITHMETIC STONE⟧ `M4SocketLinear.a2Level1_L_le_a2Level1`: the LEVEL-1 grade at
+the linear anchor sits UNDER the landed one (`⅓·log(A_L/A) ≤ ⅓(A_L − A)/2^36` against
+`(1/12)(A_L − A)·log 2`, which wins by `2^36·log 2/4 ≈ 1.2·10¹⁰`).  Hence
+`a2DoorGrade_L ≤ a2DoorGrade` pointwise, and EVERY landed pricing transports down with no new
+hypothesis — which is why `M4ArithPage.DoorArithFrame` (DOOR-FREE) is carried verbatim
+through the whole non-`ρ` layer.
+
+⟦THE HYPOTHESES THE RE-CUT ADDS⟧ two, and nothing else: `1 ≤ M` wherever the landed proof used
+the UNCONDITIONAL anchor floor `2^36 ≤ Adoor M` (`AdoorL 0 = 0` — this is the whole content of
+`s11_calP_door_geR_L`'s new binder), and the WIDE `K`-ceiling `K ≤ 1.7·10⁸` at the levered
+frames.  The socket base is `ArithPageLinear.SocketBaseL` throughout — the landed `SocketBase`
+with the window-index floor at `doorRowFloorL M = 2^36·M²`, a STRONGER antecedent, so every
+landed consumer still applies (`socketBase_of_socketBaseL`). -/
+#audit_axioms Salt.MR.m4_arith_door_exit_of_delta_L
+  Salt.MR.m4_arith_door_exit_of_delta_L_gk
+  Salt.MR.a2Level1_L_le_a2Level1
+  Salt.MR.a2DoorGrade_L_priced
+  Salt.MR.m4_socket_discharged_bandfree_L
+  Salt.MR.m4_socket_discharged_bandfree_L_gk
+  Salt.MR.doorRowZeroBase_coefWS_witness_L
+  Salt.MR.doorRowZeroBase_coefWS_witness_L_gk
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool_end'_L
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool_end'_L_gk
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_L
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_L_gk
+  Salt.MR.m4_socket_discharged_bandfree_zero_L
+  Salt.MR.m4_socket_discharged_bandfree_zero_L_gk
+  Salt.MR.m4_chiSummedFreeRow_of_doorArithRho_pool_L
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_join_L
+  Salt.MR.m4_socket_discharged_fused_L
+  Salt.MR.m4_socket_discharged_fused_L_gk
+  Salt.MR.m4_hcap_at_door_L
+  Salt.MR.m4_hcap_at_door_L_gk
+  Salt.MR.m4_hcap_at_door_perBlock_L
+  Salt.MR.m4_hcap_at_door_perBlock_L_gk
+  Salt.MR.m4_closure_fuse_end'_L
+  Salt.MR.m4_closure_fuse_zero'_L
+  Salt.MR.m4_closure_fuse_end'_const_L
+  Salt.MR.m4_closure_fuse_zero'_const_L
+  Salt.MR.m4_closure_fuse_end'_L_gk
+  Salt.MR.m4_closure_fuse_zero'_L_gk
+  Salt.MR.m4_socket_discharged_fused_split_graded_L
+  Salt.MR.m4_socket_discharged_fused_split_graded_L_gk
+  Salt.MR.s11_windowMassConst_door_le_L
+
+
+/-! ⟦LADDER-L G4 — THE FRAMES / SELECT / BAND / CAP LAYER AT THE LINEAR ANCHOR, AND THE
+FLAT TERMINAL'S TWO FLOOR BUMPS⟧ (`FlatFloorBump`, `S13FramesLinear`, `S13BandCapLinear`,
+2026-08-01).
+
+⟦THE FLOOR BUMPS⟧ `S15SelLinearWide.s15_sel''_L_gk_witness_flat_wide` leaves two
+`flatDoorM`-floor hypotheses to its caller.  At the flat terminal's own pins
+(`Cg ≤ 2·10¹²`, `1/838400 ≤ δ₀`, `Mfl ≤ 2^355`) both are pure `A`-arithmetic:
+`24·Cg/δ₀ = 4.02432·10¹⁹` needs `A ≥ 36.117` and `Mfl = 2^355` needs `A ≥ 161.696`.
+`FlatFloorBump` kernelizes both, and the flat terminal chain's design floor is raised
+from `26` to `162` IN PLACE (`HloExportMRFlatRoot` §1–§3, `S16FlatTerminal` §5–§7,
+`flatWitA`).  `162 ≥ 26`, so `flat_linear_joint_point`'s uniform `A ≥ 26` and every
+other `26`-floored flat statement are untouched.  `s15_sel''_L_gk_witness_flat_bumped`
+is the register with BOTH floors discharged — the shape the re-fire consumes.
+
+⟦THE LAYER⟧ `S13FramesLinear` re-cuts the frames/select layer the register's producers
+sit on, and `S13BandCapLinear` the band/cap-floor layer above it.  ⟦COMPOSE-FLAT-2⟧'s
+first two named break sites are `MSelect_gk.gRows` and `MSelect'_gk.gRows`; they are
+re-cut here as `MSelect_L_gk.gRows` and `MSelect'_L_gk.gRows` at `AdoorL M = 2^36·M`,
+with every consumer bridge re-routed.  The third, `s15_gate8_gk`, is `s13_gate8_L_gk`.
+
+⟦THE STRUCTURAL MOVE⟧ six landed proofs on this layer read the anchor only through
+`2^36 ≤ A` (or `1 ≤ A`) and the `G`-slot only through `1 ≤ G`.  Rather than replay each
+twice they are stated ONCE at a SYMBOLIC anchor — `s13_sieveBlockGate_gen`,
+`s13_gate8_gen`, `s13_doorRowZeroBase_five_gen`, `s13_winFit_of_halfWindow_gen`,
+`capfloor_one_lt_QK2_gen`, `capfloor_QTann_gen`/`capfloor_kappa30Q_gen` — and both cuts
+are instances.  Landed declarations are untouched; the `G`-slot never moves. -/
+#audit_axioms Salt.MR.flatDoorM_ge_pow355
+  Salt.MR.flatDoorM_ge_bfloorConst
+  Salt.MR.flatDoorM_bfloor_bump
+  Salt.MR.flatDoorM_Mfl_bump
+  Salt.MR.s15_sel''_L_gk_witness_flat_bumped
+  Salt.MR.logChowla2_witnessed_scale_flat
+  Salt.MR.m4_second_road_L2_gk_flatRoot
+  Salt.MR.s13_sieveBlockGate_gen
+  Salt.MR.s13_sieveBlockGate_L
+  Salt.MR.s13_sieveBlockGate_L_gk
+  Salt.MR.s13_gate8_L
+  Salt.MR.s13_gate8_L_gk
+  Salt.MR.s13_doorRowZeroBase_five_L
+  Salt.MR.s13_doorRowZeroBase_five_L_gk
+  Salt.MR.s13_gate8_of_MSelect_L
+  Salt.MR.s13_gate8_of_MSelect_L_gk
+  Salt.MR.s13_g2_jfloor_of_MSelect_L
+  Salt.MR.s13_g2_jfloor_of_MSelect_L_gk
+  Salt.MR.s13_MSelect_L_of_headroom
+  Salt.MR.s13_MSelect_L_of_headroom_gk
+  Salt.MR.s13_winFit_of_halfWindow_gen
+  Salt.MR.s13_gate8_of_MSelect'_L
+  Salt.MR.s13_gate8_of_MSelect'_L_gk
+  Salt.MR.s13_g2_jfloor_of_MSelect'_L
+  Salt.MR.s13_g2_jfloor_of_MSelect'_L_gk
+  Salt.MR.s13_smallGradeFits_of_MSelect'_L
+  Salt.MR.s13_smallGradeFits_of_MSelect'_L_gk
+  Salt.MR.s13_MSelect'_L_of_headroom
+  Salt.MR.s13_MSelect'_L_of_headroom_gk
+  Salt.MR.s13_MSelect'_L_of_halfWindow
+  Salt.MR.s13_MSelect'_L_of_halfWindow_gk
+  Salt.MR.MSelect'_L_of_S15Sel''_L
+  Salt.MR.MSelect'_L_gk_of_S15Sel''_L_gk
+  Salt.MR.s13BlockFloor_le_L
+  Salt.MR.s13_band_log_calP_one_L
+  Salt.MR.s13_band_log_calP_one_L_gk
+  Salt.MR.s13_band_log_calQK_two_L
+  Salt.MR.s13_band_log_calQK_two_L_gk
+  Salt.MR.s13_band_loglog_calP_one_L
+  Salt.MR.s13_band_loglog_calP_one_L_gk
+  Salt.MR.s13_band_log_calQK_two_ge_L
+  Salt.MR.s13_band_log_calQK_two_ge_L_gk
+  Salt.MR.capfloor_one_lt_QK2_L
+  Salt.MR.capfloor_one_lt_QK2_L_gk
+  Salt.MR.capfloor_QTann_L
+  Salt.MR.capfloor_QTann_L_gk
+  Salt.MR.capfloor_kappa30Q_L
+  Salt.MR.capfloor_kappa30Q_L_gk
+  Salt.MR.s13CapFloor_all_L
+  Salt.MR.s13CapFloor_all_L_gk
+  Salt.MR.s14_p2_in_logs_L
+
+/-! ⟦LADDER-L RE-FIRE — THE FLAT TERMINAL AT THE LINEAR LADDER⟧ (`S16FlatTerminalLinear`,
+2026-08-01).
+
+⟦COMPOSE-FLAT-2⟧ left `S16FlatTerminal.logChowla2_witnessed_scale_flat` carrying the `S15`
+register `S15Sel''_gk` as a NAMED DEBT: at the flat design point the LANDED ladder
+`Adoor M = 2^36·(⌊log₂M⌋+1)` cannot satisfy it (`flat_landed_ladder_break`).  ⟦LADDER-L⟧
+G1–G4 re-cut the ladder at `AdoorL M = 2^36·M`; this page COMPOSES that re-cut into the
+terminal.  The chain is the landed one with the door reads moved and the `G`-slot fixed:
+§2 the road at the flat root (`m4_second_road_L2_gk_flatRoot_L`) → §3 HOP 3 → §5 HOP 4 →
+§6 `logChowla2_witnessed_scale_flat_L`.
+
+⟦THE HEADLINE⟧ **THE REGISTER IS SUPPLIED, NOT CARRIED.**
+`FlatFloorBump.s15_sel''_L_gk_witness_flat_bumped` produces `S15Sel''_L_gk` at the flat
+design modulus `M = flatDoorM A = ⌊e^{1.6A}/310301⌋`, and the terminal fires the payload
+there.  The register's own `hlo` line (`e^{3.2A} ≤ log H₋`) is DISCHARGED at the pinned base
+by `flatWitFloor_log_ge` — the road's cap IS its design law — and `heps` (`1/2^9 ≤ ε`) and
+the wide `K`-ceiling (`3.2·10⁷ ≤ 1.7·10⁸·flatDoorM A`) come from the prefix.
+
+⟦THE COMPLETE SURVIVING LIST⟧ `S16BandLaneCBoundedL 32000000` + `A₀ ≥ 162` as arguments;
+inside: `Kc ≤ 2^539`, `Ct ≤ 2^23` (⟦REPAIRS-LANE⟧'s wide ceilings, TRUE at the witness),
+`x₀ ≤ e^{e^{3.2A}/10}` (⟦THE x0 WINDOW⟧, the 1.24× line), `loglog H₊ ≤ e^{1.6A}` (⟦THE FLAT
+WIDTH DEMAND⟧ — the base at its design law, §7's `flat_L_width_of_base_at_design`), and
+`S15CrossingBound_L_gk` CARRIED (its landed supplier runs through the `S13CapGrid`/
+`S13FramesB` cap lane, which this wave does not re-cut; that lane is where `cs`/`T₀`/`Kq`/
+`Ks`, ⟦RULING 9⟧'s cofactor debt and the base-scale cap are spent).
+
+§7 carries the certificates at the flat linear point: the width rider priced, the base above
+every register floor (`3.2·162 = 518.4 ≥ 50`), `flatDoorM A ≥ 1` with the `K`-ceiling met, and
+the flat regime's INHABITATION at the pinned base.
+
+Purely additive: no landed declaration is touched. -/
+#audit_axioms Salt.MR.m4_closure_fuse_zero'_const_nonneg_L_gk
+  Salt.MR.doorFuseFrame_pool'_of_gates_const_pos_L_gk
+  Salt.MR.m4_doorL2_close_split_sq_gk_flatRoot_L
+  Salt.MR.m4_second_road_L2_gk_flatRoot_L
+  Salt.MR.s11_grade_absorption'_L
+  Salt.MR.logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L
+  Salt.MR.frames_logX_ge_L
+  Salt.MR.doorBaseFrame_at_socket_L
+  Salt.MR.s15_block_at_socket_gen
+  Salt.MR.s15_block_at_socket_L_gk
+  Salt.MR.s13_band_baseFloor_L
+  Salt.MR.s15_bandGate''_of_grade_L_gk
+  Salt.MR.doorBandBase_family'_L_gk
+  Salt.MR.s13_doorGates_of_arm'_L_gk
+  Salt.MR.s13_doorGates_of_MSelect'_L_gk
+  Salt.MR.s13_g2_jfloor_gen
+  Salt.MR.calQK_L_one_gk_eq
+  Salt.MR.gRowsZeroGate'''_L_gk_of_budget
+  Salt.MR.s15_gRows_const_at_socket_flat_doorL_gk
+  Salt.MR.logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L
+  Salt.MR.flatWitFloor_log_ge
+  Salt.MR.logChowla2_witnessed_scale_flat_L
+  Salt.MR.flat_L_width_of_base_at_design
+  Salt.MR.flatWitFloor_loglog_ge_fifty
+  Salt.MR.flatDoorM_pos_at_162
+  Salt.MR.flat_L_regime_exists
+  Salt.MR.flat_linear_joint_point_at_162
+  Salt.MR.m4_fuse_hcap_of_capWS_L_gk
