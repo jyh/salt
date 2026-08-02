@@ -357,6 +357,7 @@ import Salt.MR.XCeil
 import Salt.MR.CofactorBulk
 import Salt.MR.KLever
 import Salt.MR.S16ComposeV4
+import Salt.MR.XThread
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -7599,3 +7600,47 @@ antecedent was false at the regime, this one is the builder's own landed law. -/
   Salt.MR.flat_conditional_uniform_win_ceiling_kwide_khoist
   Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling_khoist
   Salt.MR.logChowla2_ineffective_v4
+
+
+/-! ⟦X-THREAD — THE `x`-CEILING, THREADED, AND `logChowla2_ineffective_v5`⟧ (`XThread`,
+2026-08-02).
+
+`v4`'s last conclusion-side ask beyond the co-factor predicate was the flat builder's own
+outer-scale ceiling `log R.x ≤ (31/ε)·R.H₊` — the fourth input of
+`KLever.s16_baseScaleCap96_L_at_klevF`, landed at the builder by X-CEIL and explicitly banked
+for a threading wave.  This file spends that wave, hop by hop (head → socket → doorL2 → road →
+capstone → conditional → terminal), and `v5` proves the ask inside.
+
+⟦THE GATE⟧ the ceiling cannot be exported unconditionally: the builder ENLARGES its outer scale
+to `max x (g H₊ ω)`, so the caller's own request `g` is part of the answer.  `XCeilRider` /
+`XCeilRiderStrict` state the price, and `XCeilGate` is the constraint the caller may assume —
+`H₊ ≥ 4·10⁶`, `loglog H₊ ≥ 50`, and the width window `log ω + ε²·H₊ ≤ (31/ε)·H₊`.  The window is
+a THEOREM about the produced regime, read off the regime's own majorant field
+`hPHheadroom : 8·(4^⌊ε²H₊⌋)²·ω ≤ x` against the ceiling — the `ε²·H₊` margin is precisely the
+`2·log(4^⌊ε²H₊⌋)` that field spends.  Without the gate the threading is FALSE, not merely hard:
+the conditional substitutes `g' := s15Arm δ₀ ρ + g` and `s15Arm` reads `ω` linearly.
+
+⟦THE ONE GENUINE ESTIMATE⟧ `s15Arm_log_le`: `log (s15Arm δ₀ ρ H₊ ω) ≤ log ω + H₊/10⁶` on the
+gate.  The binding summand is `gArmDoorRho`'s
+`16·ω·(log H₊)^{12}·exp(exp(7000·loglog H₊ + 500·log(1/ρ) + 6600))`, whose log carries the
+double exponential `(log H₊)^{7000}·ρ^{-500}·e^{6600}`; the heart is `7000·λ + C ≤ e^λ/2` at
+`λ = loglog H₊ ≥ 50`, i.e. `5.6·10⁵` against `2.6·10²¹` — fifteen orders.  The `ρ`-cost is
+bounded once and for all by the register's own constants (`δ₀ ≥ 1/838400`, `Kc ≤ 2^539` give
+`1/ρ ≤ 2^580`, `log(1/ρ) ≤ 403`).
+
+⟦WHAT `v5` READS⟧ outer: nothing.  Inner: `e^{-100} ≤ cs`, `T₀ ≤ exp(√(flatDesignBase A)/2)`,
+`e^{-100} ≤ Ks`, and `XCeilRiderStrict ε g` on the caller's own outer-scale request.
+Conclusion-side: `S16CofactorSupply_L_gk (KlevF A) Cq R (flatDoorM A)` — ⟦RULING 9⟧'s co-factor
+debt, ALONE. -/
+#audit_axioms Salt.Entropy.Chowla.chowlaRegimeFlat_exists_param_head_xceil
+  Salt.MR.xt_log_inv_rho_le
+  Salt.MR.xt_log_add_le
+  Salt.MR.s15Arm_log_le
+  Salt.MR.flat_head_uniform_xceil
+  Salt.MR.flat_socket_uniform_xceil
+  Salt.MR.flat_doorL2_uniform_xceil_khoist
+  Salt.MR.flat_road_uniform_xceil_khoist
+  Salt.MR.flat_capstone_uniform_win_xceil_kwide_khoist
+  Salt.MR.flat_conditional_uniform_win_xceil_kwide_khoist
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_khoist
+  Salt.MR.logChowla2_ineffective_v5

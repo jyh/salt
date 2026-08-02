@@ -19374,3 +19374,78 @@ carries. STILL STOPPED, prices unchanged: the `x`-ceiling threading (~800 ln + t
 class-B/C estimate) and the co-factor register inhabitation.
 
 ## () ⟦V4 SEALED -- THE DOSSIER ADDENDUM 2⟧ COMPOSE-2 home (9647450+5012681+d103766, exit-0 9686 jobs, 10 decls 3-axiom, RESULTS 67 rows lint-green, v1-v3 SUPERSEDED in place): logChowla2_ineffective_v4 = the standing summit object -- the cap GONE (discharged at KlevF), the T0 rider RESHAPED sharp-and-satisfiable (two exponential levels clear), the K-circularity caught and repaired at the mint (the forall-K hoist inside the K-free prefix -- the mint's own quantifier catch, the day's SIXTH); surviving: cs/T0sharp/Ks riders + TWO conclusion-side items (the x-ceiling rider, one threading wave from theorem; the cofactor predicate, RULING 9's debt kept as ONE named ask -- the honest trade over two carried hypotheses). Dossier addendum 2 landed; (e) ripens on the Captain's read of v4, as-is or post-X-THREAD. ⟦X-THREAD fires (the last wave of the night); AUDIT-ROWS + the Salt-root/Maynard solo retries queue behind it on the quiet machine⟧
+
+## (2026-08-02 16:40 PDT) **X-THREAD: THE `x`-CEILING IS A THEOREM — `logChowla2_ineffective_v5` MINTED, THE CO-FACTOR PREDICATE IS THE ONLY CONCLUSION-SIDE ASK LEFT. 12 decls, 1 new file (1448 ln), full `lake build` 9276 EXIT-0 from `$?`, warnings 186 = 186 baseline, every new decl at 3 axioms** (X-THREAD)
+
+⟦THE TRUE `gArmDoorRho` SHAPE, READ AT THE BYTES⟧ the report's "7000" is RIGHT but the shape is
+one level deeper than the summary reads.  `M4ArithRho:665` gives
+`gArmDoorRho x₀ K ω ρ H = max x₀ (16·ω·(log H)^{12}·exp(exp(7000·loglog H + 500·log(1/ρ) + 6600
++ 36K)))` — a **DOUBLE** exponential, consumed at `x₀ = K = 0`.  So
+`log (gArmDoorRho 0 0 ω ρ H) = log(16ω) + 12·loglog H + (log H)^{7000}·ρ^{-500}·e^{6600}`: the
+`(log H)^{7000}` sits at the level of the LOG, not of the arm.  The arithmetic heart is therefore
+exactly `7000·λ + 500·log(1/ρ) + 6600 ≤ e^{λ}/2` at `λ = loglog H ≥ 50` — `5.6·10^5` against
+`e^{50}/2 = 2.6·10^{21}`, **fifteen orders**, and the whole double exponential lands under
+`√H₊`.  `ρ = doorRhoOfDelta (s12DeltaSock δ₀ Kc) = min 1 (δ₀/(16·Kc·110525))`, so the register's
+own constants (`δ₀ ≥ 1/838400`, `Kc ≤ 2^539`) bound it once and for all: `1/ρ ≤ 2^580`,
+`log(1/ρ) ≤ 403` (`xt_log_inv_rho_le`).  Estimate class: **B**, not C — it never needed a new
+bridge, only `e^{λ/2} ≥ e^{25} ≥ 6·10^{10}` (the `flat_lambda_core` numeral, re-derived).
+
+⟦THE FINDING THAT SHAPED THE WAVE — A BARE `∀ H₊ ω` RIDER IS FALSE, NOT HARD⟧ the brief's shape
+`log (g H₊ ω) ≤ (31/ε)·H₊` for ALL `(H₊, ω)` cannot survive the conditional hop: `s15Arm` reads
+`ω` LINEARLY (`s13GArm' = 2ω(H₊+2) + 8ω + ⌈128ω/δ₀⌉` and `gArmDoorRho`'s own `16ω`), so at
+`ω → ∞` with `H₊` fixed no bound holds.  `KLever.chowlaRegimeFlat_exists_param_head_gceil` (the
+landed `g`-rider) is exactly that shape, which is why it could NOT be the threading's carrier.
+The repair is `XCeilGate`: the rider is asked only where the builder's own regime lives —
+`H₊ ≥ 4·10^6`, `loglog H₊ ≥ 50`, and the width window `log ω + ε²·H₊ ≤ (31/ε)·H₊`.
+
+⟦THE WIDTH WINDOW IS A THEOREM, AND IT COST NOTHING⟧ the first design put the window at
+`log ω ≤ (30/ε)·log H₊` and priced a ~130-line twin of `chowlaRegimeFlat_exists_param_gen_ceiling`
+to export it (the sharp ceiling `30/ε·log H₊ + 2·log(P+1)` is internal).  **Not needed.**  The
+regime's OWN majorant field `hPHheadroom : 8·(4^⌊ε²H₊⌋)²·ω ≤ x` read against the flat exported
+ceiling gives `log ω ≤ (31/ε)·H₊ − 2·⌊ε²H₊⌋·log 4 − log 8`, and `hcoprime` (`ε²·H₋ ≥ 2·a ≥ 2`)
+closes it to `log ω + ε²·H₊ ≤ (31/ε)·H₊`.  The `ε²·H₊` margin the field spends is precisely the
+margin the arm needs — at `ε ≥ 1/500` it is `≥ 4·H₊/10^6` against the arm's `H₊/10^6` plus two
+`log 2`s, with `3·H₊/10^6 ≥ 12` to spare.  ZERO builder twins: the whole §1 is 80 lines on top of
+the LANDED `chowlaRegimeFlat_exists_param_gen_ceiling`.
+
+⟦THE WAVE⟧ `Salt/MR/XThread.lean`, purely additive, 12 declarations + 3 defs, script-driven
+verbatim transcription of seven hops (statement bytes identical apart from the rider hypothesis
+after the `g` binder and the ceiling conjunct after `g H₊ ω ≤ R.x`; proof bytes identical apart
+from the forwarded rider and the destructured ceiling):
+`chowlaRegimeFlat_exists_param_head_xceil` → `flat_head_uniform_xceil` →
+`flat_socket_uniform_xceil` → `flat_doorL2_uniform_xceil_khoist` →
+`flat_road_uniform_xceil_khoist` → `flat_capstone_uniform_win_xceil_kwide_khoist` →
+`flat_conditional_uniform_win_xceil_kwide_khoist` (**the only hop that moves `g`**) →
+`logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_khoist` → `logChowla2_ineffective_v5`.
+Support: `xt_log_inv_rho_le`, `xt_log_add_le` (`log(m+n) ≤ log 2 + B`, `log 0 = 0` handled not
+assumed), `s15Arm_log_le`.  Six of the seven hops were EXIT-0 on the first attempt; the two
+retries were both mine, not the corpus's (a `Real.exp_add` that matched the inner exponent, and
+an `ε² ≥ 1/250000` step `nlinarith` wanted spelled out).
+
+⟦V5'S EXACT SURVIVING LIST⟧ outer: **NOTHING**.  Inner, on constants `v5` itself produces:
+`e^{-100} ≤ cs` (33 orders of room at the corpus's witness, kernel-pinned at
+`RiderTrace.cs_closed_form_ge_exp_neg_hundred`); `T₀ ≤ exp(√(flatDesignBase A)/2)` (COMPOSE-2's
+sharp reshape, two exponential levels of room); `e^{-100} ≤ Ks` (the Siegel-genre remnant).
+Inner, on the CALLER's own function: `XCeilRiderStrict ε g`.  Conclusion-side at `KlevF A`:
+`S16CofactorSupply_L_gk (KlevF A) Cq R (flatDoorM A)` — **ALONE**.  The `x`-ceiling ask is GONE.
+
+⟦THE TRADE, STATED HONESTLY⟧ `v5` is not `v4` with an antecedent deleted: the flat builder
+ENLARGES its outer scale to `max x (g H₊ ω)`, so a caller who asks for an astronomical `g` gets
+an astronomical `x` and NO theorem can export a ceiling without constraining the request.  What
+changed is WHO the condition is about: `v4` asked for a property of the regime it PRODUCES (which
+its consumer cannot check); `v5` asks for a property of the function its consumer SUPPLIES, on a
+gate the builder itself certifies.  The budget is `(31/ε)·H₊ ≥ 15500·H₊` against a builder scale
+of `log x ≈ 1.386·ε²·H₊` — nine orders inside.  Both consumers in the corpus meet it: `g ≡ 0`
+(the terminal's own `ε`-probe) and the compose's arm (§8, with `3·H₊/10^6` to spare).
+
+⟦BUILD⟧ `~/.elan/bin/lake build` EXIT-0 read from `$?` via redirection (never a pipe); warnings
+**186 = 186 baseline**; all 12 new top-level decls at `[propext, Classical.choice, Quot.sound]`
+(audited in `Salt/MR/All.lean`'s own `#audit_axioms` block, plus three sampled through scratch
+`#print axioms`).  PURELY ADDITIVE: no landed declaration touched, `v4` still compiles and
+remains citable.
+
+⟦WHAT THIS DOES NOT DO⟧ the co-factor register's inhabitation is untouched (COFACTOR-BULK's
+17-conjunct `CofactorBulkL` at the flat scale, and the symbolic-`K_vt` cushion) — that is the ONE
+stone left under `v5`, and it is the same stone the 8/02 ledger already carries.  The three
+numeral riders are carried, not discharged; each is satisfied at the corpus's own witness by
+between 33 orders and two exponential levels, and rethreading them is a separate wave.
