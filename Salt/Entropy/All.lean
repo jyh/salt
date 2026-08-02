@@ -59,6 +59,7 @@ import Salt.Entropy.Chowla.GoldbachEnergyHpt
 import Salt.Entropy.Chowla.HReduce
 import Salt.Entropy.Chowla.GoldbachEnergyFinal
 import Salt.Entropy.Chowla.GoldbachEnergyN0
+import Salt.Entropy.Chowla.GoldbachEnergyKc
 import Salt.Entropy.Chowla.DilationStability
 import Salt.Entropy.Chowla.HMainAssembly
 import Salt.Entropy.Chowla.HBudget
@@ -357,3 +358,21 @@ open Salt.Tactic in
 #audit_axioms Salt.Entropy.Chowla.log_chowla_two_budget_head_g_sq_count
   Salt.Entropy.Chowla.log_chowla_two_budget_head_g_sq
 
+
+/-! ⟦THE BAR-2 NUMERAL WAVE — `Kc` AT ITS LEAF⟧ (`GoldbachEnergyKc`, 2026-08-02).
+
+`logChowla2_ineffective_v2`'s first inner rider `Kc ≤ 2^539` is a rider only because
+`bigXi_bounded`'s `∃ C, 0 < C ∧ …` exports POSITIVITY ALONE.  At the flat head's pinned
+`ε = 1/500` the count is already explicit (`bigXi_bounded_500`), and the last opacity is
+`hFac2_lcm_sum_le`'s `∃ K` at the closed form `exp(24·ζ(2)) = exp(4π²)`.  GB-14b's body is
+replayed verbatim here (its per-prime machinery reached with `open private`, so
+`GoldbachEnergyHsq2` is untouched) against the numeral `exp 40`, via mathlib's
+`hasSum_zeta_two` and `Real.pi_lt_d6`.  The exported ceiling is
+`32·exp 40·(2^35)²·500^10 ≤ 2^5·3^40·2^70·500^10 ≈ 2^228.2` — ~310 bits under the rider. -/
+open Salt.Tactic in
+#audit_axioms Salt.Entropy.Chowla.hFac2_lcm_sum_le_exp40
+  Salt.Entropy.Chowla.hFac2_lcm_sum_le_bounded
+  Salt.Entropy.Chowla.exp_forty_le_pow40
+  Salt.Entropy.Chowla.bigXi_bounded_500_explicit40
+  Salt.Entropy.Chowla.bigXi_bounded_500_ceiling
+  Salt.Entropy.Chowla.bigXi_bounded_ceiling_of_pin

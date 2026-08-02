@@ -348,6 +348,8 @@ import Salt.MR.S16FlatTerminalLinear
 import Salt.MR.S13CapGateLinear
 import Salt.MR.S16FlatFinal
 import Salt.MR.S16Uniform
+import Salt.MR.NumeralCt
+import Salt.MR.NumeralKq
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -7242,3 +7244,32 @@ else. -/
   Salt.MR.flat_conditional_uniform_win
   Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win
   Salt.MR.logChowla2_ineffective_v2
+
+/-! ⟦THE BAR-2 NUMERAL WAVE — `Kc`/`Ct`/`Kq` PRICED AT THEIR LEAVES⟧
+(`GoldbachEnergyKc`, `NumeralCt`, `NumeralKq`, 2026-08-02).
+
+Three of `logChowla2_ineffective_v2`'s six inner riders are MECHANICAL: the constants are
+closed forms at the bottom of their chains and opaque only because every hop packs them into
+an `∃ C, 0 < C ∧ …` that exports POSITIVITY ALONE.  This wave mints the `_bounded` twins hop
+by hop — each the landed statement with ONE conjunct added and the landed proof replayed
+verbatim against the twin below it — from the leaf up to the last hop outside the terminal
+files.  Nothing landed is modified; `open private` (Batteries) supplies GB-14b's per-prime
+machinery to `GoldbachEnergyKc` without touching `GoldbachEnergyHsq2`.
+
+* **`Kc`** — `32·K_lcm·(2^35)²·500^10` at the head's pinned `ε = 1/500`, with
+  `K_lcm = exp(24·ζ(2)) ≤ exp 40` (mathlib's `hasSum_zeta_two` + `Real.pi_lt_d6`):
+  `≤ 2^228.2` against the rider's `2^539`.
+* **`Ct`** — `ShiuMoment.shiu_moment_sq`'s own witness `2·e^14`, thirteen hops with ONE
+  rescale (`lemma13_moment`'s `×3`): `6·e^14 = 2^22.78` against the rider's `2^23`.
+* **`Kq`** — `1/(10^8·c₀)` with `c₀ = min (1/50456) (1/126848)` at literal `refine`
+  witnesses: `1.26848·10^{-3}` against the rider's `e^100`. -/
+#audit_axioms Salt.MR.shiu_moment_sq_bounded
+  Salt.MR.lemma13_moment_bounded
+  Salt.MR.TLeg_feeds_capstone_gen_bounded
+  Salt.MR.m4_hrowsSlot_at_door_zero'_L_gk_bounded
+  Salt.MR.m4_hrowsSlot_at_door_zero'_L_gk_ceiling
+  Salt.SW.zero_free_region_real_bounded
+  Salt.SW.zero_free_region_all'_bounded
+  Salt.MR.twisted_rect_zero_free_siegel_bounded
+  Salt.MR.m4_fuse_hcap_of_capWS_gk_bounded
+  Salt.MR.m4_fuse_hcap_of_capWS_gk_ceiling
