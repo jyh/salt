@@ -175,3 +175,37 @@ s16_bandLaneWinL_holds must survive — BAND-K-PROBE in flight).
 
 **(e) waits for the repaired v4.** The summit word must not cite the
 flat-lane conditionals until then.
+
+## ADDENDUM 2 (2026-08-02 night) — v4 MINTED; BOTH VACUITIES REPAIRED
+
+**`logChowla2_ineffective_v4` (S16ComposeV4.lean:1002, 3-axiom,
+d103766) is the standing summit object.** v1/v2/v3 are marked
+SUPERSEDED in RESULTS.md with the vacuity reason on the row.
+
+- **The cap vacuity: REPAIRED** — S16BaseScaleCap96_L_gk is GONE,
+  discharged by `s16_baseScaleCap96_L_at_klevF` at the raised lever
+  KlevF A (dial kcap := 4, budget 547, margin 1.386× named).
+- **The T₀ vacuity: REPAIRED** — the rider reshaped IN the terminal
+  to the sharp landed form `T₀ ≤ e^{√(flatDesignBase A)/2}`,
+  satisfiable at the corpus witness with two exponential levels of
+  clearance (e^{10^543} vs e^{½·e^{6.4e224}}).
+- **A quantifier finding en route** (the mint's own catch): K := KlevF A
+  closed a circle at v3's prefix order; repaired by hoisting ∀K inside
+  the ∃ of the K-free constants — kernel-verified that only Ct and the
+  crossing constants move with K.
+
+**v4's exact surviving list**: outer NOTHING. Inner riders (3, all
+satisfiable-or-named): cs (clears by 33 orders, kernel-pinned),
+the sharp T₀ (above), Ks (Siegel-genre, the field's caveat).
+Conclusion-side (2): the x-ceiling rider
+`log R.x ≤ (31/ε)·R.Hhi` — the builder's OWN landed law, one
+threading wave (~800 ln, one true-by-a-mile estimate) from being a
+theorem — X-THREAD in flight; and `S16CofactorSupply_L_gk (KlevF A)`
+— RULING 9's known debt, kept as ONE named predicate rather than
+traded for two carried hypotheses (the register inhabitation + the
+symbolic K_vt cushion): the honest bookkeeping.
+
+**(e) ripens** on the Captain's read of v4 — either as-is (the two
+conclusion-side items named plainly) or after X-THREAD lands (one
+named predicate only). The g-rider coefficient correction also banked:
+the builder sits NINE orders inside the budget, not four.
