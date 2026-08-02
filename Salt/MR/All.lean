@@ -352,6 +352,7 @@ import Salt.MR.NumeralCt
 import Salt.MR.NumeralKq
 import Salt.MR.S16Compose
 import Salt.MR.RegisterSupply
+import Salt.MR.RiderTrace
 import Salt.Tactic.AuditAxioms
 
 /-!

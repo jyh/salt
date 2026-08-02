@@ -42,9 +42,29 @@ and would not claim. Nothing here is new; every line cites the ledger.*
   NOT a field wall — an unread trace. Post-summit route: trace or
   floor the leaves (open; my earlier "cs likely dischargeable" remains
   a guess, not a result).
+  > **ERRATUM (RIDER-TRACE, 2026-08-02).** K₄ and Cκ are NOT compactness
+  > existentials — they are closed-form `noncomputable def`s
+  > (`K₄ = 2^{3/4}·16`, PortAssembly:637; `Cκ = 2^{3/4}·8`,
+  > HalaszPrimesCore:3456). Every cs leaf is effective: `c_vk = 1/10^8`
+  > literal, `c₀ = 1/10^9` literal (PowRegion:365). cs = 3.716e-11
+  > against e^{-100} = 3.72e-44 — **33 orders of room**, kernel-pinned at
+  > `MR/RiderTrace.cs_closed_form_ge_exp_neg_hundred`. The discharge is
+  > conjunct-carry, no new analysis.
 - `T₀ ≤ e^{e^100}` — equivalent to T₀z ≤ e^{e^100} over three
   compactness/VK leaves with no landed bound. (ERRATUM banked: I once
   called this "dischargeable by construction" — wrong.)
+  > **RIDER-TRACE (2026-08-02): UNREACHABLE at the corpus's own witness.**
+  > T₀ = max T₀e T₀z; the twisted row's T₀e = e^{e^100} EXACTLY (meets the
+  > rider with equality), but the ζ row's T₀z inherits
+  > `zeta_zero_free_region_pow`'s own threshold `e^{e^{A}} + t₀ + 3`,
+  > A = 8·log(20000K) + 1100 ≥ 1100 — so **T₀ ≥ e^{e^{1100}}** (at the
+  > corpus's own K: e^{e^{1251.2}}). A second, worse floor `e^{e^{Cbig}}`,
+  > Cbig = 9000·c_vk + c_vk/(2δ₀) + 1, rides the opaque δ₀ at height
+  > e^{e^{A}}. NOT a wall: the numeral is MIS-SIZED (the hband-at-40
+  > genre) — the consumer's real need is `capfloor_T0_Tann_sharp`'s
+  > `T₀ ≤ e^{√H/2}` ≈ 10^{10^{225}} at A = 162, ALREADY LANDED. Repair =
+  > rethread the sharp form (6 hops, class B) + floor ε₀ (the CMU-HUNT
+  > class-C stone).
 - `e^{-100} ≤ Ks` — the Siegel-genre remnant: a fixed numeral against
   a fixed constant with Siegel-ineffective content. The honest wall's
   last echo inside the statement. Consumer-side A-windowing is a

@@ -18984,3 +18984,101 @@ Build: full `lake build` **EXIT 0** taken from `$?` through redirection (NEVER a
 **CONSEQUENCE FOR THE ACCOUNTING.** COFK-L's headline ("the two carried predicates are BOTH priced") needs one amendment: the CO-FACTOR is priced and its anchor half is now PAID; the BASE-SCALE CAP is NOT priced -- it is unprovable as stated from the terminal's exports and needs the `x`-ceiling export first. The predicate-free classical terminal therefore costs: (1) the `x`-ceiling threading pass (BAND-WINDOW genre), (2) the co-factor bulk (transcription), (3) the cs/T0/Ks riders (the sibling arm + the named Siegel caveat).
 
 ## () ROAD-B ARM 1 HOME (REGISTER-SUPPLY, 31c14c6+7ef684a) + CATCH #104 + THE ACCOUNTING AMENDMENT: W1's anchor-reading half PAID in kernel (the cancellation log QK = i^2*M*log P at the bytes; the debit 2logM+log4+50 anchor-identical; the mu-floor loglog(A+s) >= log H+ - 14 via hPHheadroom -- the ONE step carrying the whole margin; the vt-threshold discharged from the terminal's OWN exports; the capFreeFloor exit closes the supplier's only anchor+character-reading binder; K_vt carried under the explicit cushion 32K_vt+32D <= logH+/4, admits ~10^222). STOPPED LOUDLY on the bulk (c)+(d): the ~98-conjunct register carried-never-discharged at both doors (M4RowLinear:5799) -- transcription not mathematics, ~300 ln class B, ONE wave. W2 HEADLINE: the base-scale cap is NOT dischargeable from the terminal's current exports -- the terminal exports x-FLOORS only; the cap needs an x-CEILING export (the builder holds x in closed form; BAND-WINDOW-genre threading, the landed reductions s16_baseScaleCap96_L_of_xwindow/_of_x_small await it). ⟦CATCH #104 (operational)⟧: the quiescence guard `pgrep -f "leanchecker|lake build"` SELF-MATCHES its own bash cmdline and never terminates (both arms deadlocked ~30 min past ceremony end) -- future briefs: pattern-narrow to bin/-prefixed + exclude $$. ⟦All.lean = shared-write hazard between parallel arms -- Road-B follow-ons go SEQUENTIAL⟧. Road-B remaining: X-CEIL threading + COFACTOR-BULK + the riders (RIDER-TRACE in flight, T0 tripwire already fired).
+
+## 2026-08-02 RIDER-TRACE Opus done — ⟦THE cs RIDER IS EFFECTIVE AT EVERY LEAF; THE T₀ RIDER IS A MIS-SIZED NUMERAL, UNREACHABLE AT THE CORPUS'S OWN WITNESS⟧ `Salt/MR/RiderTrace.lean` (three rungs + the cs arithmetic, exit 0)
+
+**THE ASSIGNMENT.** Road B's W3: discharge the `cs` and `T₀` inner riders of
+`logChowla2_ineffective_v3` at their LEAVES (`e^{-100} ≤ cs`, `T₀ ≤ e^{e^{100}}`), or price the
+repair honestly if a leaf refuses. Both riders bound constants the theorem's own ∃-prefix mints.
+
+**⟦THE SHARED MINT⟧** — the trace's first result. `cs` and `T₀` are BOTH minted at ONE site,
+`PortAssembly.halaszPrimesChiGated_of_price` (:802):
+`cs := min (min (c_vk/(2·K₄)) (c₀/(2·Cκ))) (1/10)`, `T₀ := max T₀e T₀z`. From there they travel to
+`v3` through eleven pass-throughs (the NumeralKq ladder, then S16Compose's four) — every hop
+verified to leave both constants untouched. So ONE floor at the mint serves both riders, and the
+carry above the mint is conjunct-arithmetic with no analysis in it.
+
+**⟦FINDING 1 — `cs` IS EFFECTIVE AT EVERY LEAF; THE DOSSIER'S §3 IS IN ERROR⟧** the 0802 summit
+dossier calls `cs`'s leaves "(K₄, Cκ) … compactness existentials of our own port". **They are not
+existentials at all** — `K₄ = 2^{3/4}·16` (`PortAssembly.lean:637`) and `Cκ = 2^{3/4}·8`
+(`HalaszPrimesCore.lean:3456`) are closed-form `noncomputable def`s. The other two leaves are
+literals in the source: `c_vk = 1/10^8` (visible AT THE CALL SITE — the mint is invoked on
+`TwistedWindowPriceGated (1/10^8)`) and `c₀ = 1/10^9` (`Vk/PowRegion.lean:365`, hidden only by the
+`∃`-prefixes, which export positivity alone). Hence
+
+> **cs = min(1.858e-10, 3.716e-11, 0.1) = 3.716e-11 against e^{-100} = 3.720e-44 — 33 ORDERS OF
+> ROOM.** Kernel-pinned as `cs_closed_form_ge_exp_neg_hundred`, stated on the corpus's own `K₄`/`Cκ`
+> defs so it cannot drift from the mint.
+
+**⟦FINDING 2 — THE `T₀` RIDER IS UNREACHABLE ALONG THIS PROOF (the headline)⟧** and the split is
+exactly CMU-HUNT's Row-1/Row-2 split for the band constant:
+
+* **the twisted (χ≠1) row meets the rider WITH EQUALITY** — `T₀e = e^{e^{100}}` exactly, the third
+  witness slot of `TwistedEdge.twisted_edge_price_strip` (:879), passed through
+  `twisted_window_price_gated_holds` verbatim;
+* **the ζ row blows it by two exponential levels** —
+  `T₀z = per_pair_contour`'s threshold `= max (max T₀s 3) (e^{e^{c_vk+1}})`,
+  `T₀s = shifted_edge_price_strip`'s `= max (max T₁ 3) (e^{e^{Cbig}})`,
+  `T₁ = rect_zero_free_margin`'s `= max 3 (max M E)`, and `M` IS
+  `zeta_zero_free_region_pow`'s own threshold `e^{e^{A}} + t₀ + 3` with
+  `A = 8·log(20000K) + 1100 ≥ 1100`. Therefore **T₀ ≥ e^{e^{1100}}**, and at the corpus's own `K`
+  the floor is `e^{e^{1251.2}}` — the same `A_pow = 1251.23` CMU-HUNT found driving the band
+  constant. The rider asks `T₀ ≤ e^{e^{100}}`. Violation factor: `e^{e^{1100} − e^{100}}`.
+* a SECOND, worse floor sits above it: `e^{e^{Cbig}}` with `Cbig = 9000·c_vk + c_vk/(2·δ₀) + 1`,
+  `δ₀ = ε₀/2`, `ε₀` the OPAQUE `IsCompact.exists_isMinOn` constant of
+  `zeta_zero_free_strip_height` at height `H = e^{e^{A}}` (CMU-HUNT's leaf #1, here evaluated at a
+  double-exponential height). So `T₀` has **no effective upper bound at all** today.
+
+**⟦THE HONEST VERDICT ON REFUTABILITY⟧** the rider is **not refutable as a proposition** — the `∃`
+could in principle be witnessed by a different proof, so `∀ T₀ ≤ e^{e^{100}}, ¬P(T₀)` is not what
+we know. What IS true, and is what the wave reports: **the rider is unreachable along the corpus's
+own proof**, because the VK region only speaks above height `e^{e^{A}}` and every consumer of it
+inherits that threshold. Rungs 1–3 of that floor are now kernel-pinned (below).
+
+**⟦THE REPAIR — AND IT IS NOT A WALL⟧** the numeral `e^{e^{100}}` is spent at exactly ONE place:
+`S13CapFloor.capfloor_T0_Tann` (:238), which converts it into the socket's real need `T₀ ≤ Tann`.
+**Its SHARP sibling `capfloor_T0_Tann_sharp` (:226) is ALREADY IN THE KERNEL** and asks only
+`T₀ ≤ e^{√H/2}` — at the flat design base `H ≥ ⌈e^{e^{3.2A}}⌉` that is `T₀ ≤ e^{e^{e^{3.2A}/2}/2}`,
+about `10^{10^{225}}` at the design floor `A = 162`. The corpus's own floor `e^{e^{1251}}` clears it
+by two whole exponential levels **already at A = 162** — no `A₀` raise needed. So the rider is a
+**MIS-SIZED NUMERAL, the hband-at-40 genre exactly**: the corpus asked `e^{e^{100}}` where the
+consumer tolerates `10^{10^{225}}` and the truth is `e^{e^{1251}}`. Repair:
+
+* **(a) class B, ~6 hops, no analysis** — rethread `capfloor_T0_Tann_sharp` for `capfloor_T0_Tann`
+  and restate the rider in its `A`-windowed form through `s13CapFloor_all_L_gk`,
+  `s16_capGate_supply_L_gk`, `s15_crossing_supplied_L_gk(_ceiling)`,
+  `logChowla2_witnessed_scale_flat_L_v2(_uniform_win)(_ceiling)`, `_v3`;
+* **(b) THE ONLY GENUINELY OPEN ITEM behind either rider** — an `A`-free EFFECTIVE ceiling on `T₀`,
+  which needs `ε₀` floored. Route: the corpus's own classical region `Salt.SW.zeta_zero_free_region`
+  (`c₃ = min(1/75712, ε₀·log 2)`) once its height-1 `ε₀` is floored, giving
+  `ε₀(H) ≥ min(1/2, c₃/log(H+2))`. That is precisely the CMU-HUNT class-C stone (the low-height
+  zero-free strip), and it is the SAME stone the band lane's effective discharge needs — one stone,
+  three riders.
+
+**WHAT LANDED (`Salt/MR/RiderTrace.lean`, 3-axiom, exit 0, warning set unchanged).**
+
+| decl | content |
+|---|---|
+| `two_rpow_three_quarters_le_two` | `2^{3/4} ≤ 2` |
+| `exp_neg_hundred_le_ten_pow_neg_eleven` | `e^{-100} ≤ 10^{-11}` via `log 10 ≤ 9` (no `Real.exp_one_gt_d9` needed) |
+| `cs_closed_form_ge_exp_neg_hundred` | **⟦THE cs FLOOR⟧** `e^{-100} ≤ min(min((1/10^8)/(2·K₄), (1/10^9)/(2·Cκ)), 1/10)` — stated on the corpus's own `K₄`/`Cκ` |
+| `exp_exp_hundred_lt_exp_exp_1100` | **⟦THE T₀ VIOLATION⟧** `e^{e^{100}} < e^{e^{1100}}` |
+| `zeta_zero_free_region_pow_of_growth_bounded` / `_pow_bounded` | **RUNG 1** — the VK region with `1/10^9 ≤ c` AND `e^{e^{1100}} ≤ T₀` exported (body verbatim from `Vk/PowRegion.lean:354`); ONE twin serving BOTH riders |
+| `rect_zero_free_margin_bounded` | **RUNG 2** — ZFREE-RECT carrying both (body verbatim from `HalaszPrimesCore.lean:618`) |
+| `shifted_edge_price_strip_bounded` | **RUNG 3** — the shifted edge strip carrying both (body verbatim from `HalaszPrimesCore.lean:2246`) |
+
+**⟦THE PRICE OF FINISHING cs⟧** two big replays remain below the ladder —
+`per_pair_contour` (647 ln, 12.8M heartbeats) and `halaszPrimesChiGated_of_price` (377 ln) — plus
+**nine one-conjunct EDITS to twins that already exist** in `NumeralKq` (the `Kq ≤ 126848/10^8`
+ladder threads exactly these declarations) and four in `S16Compose`. Recommended: refactor the two
+big ones into `_of_strip` / `_of_contour` hypothesis-taking forms so the heavy body elaborates ONCE
+and both the landed theorem and the bounded twin fall out as five-line corollaries — that halves
+the build cost against straight replay. NOT attempted here: the refactor moves 1024 lines inside two
+landed files while a sibling executor and a ceremony hold the tree.
+
+**FILE FENCE HONOURED** — nothing touched under REGISTER-SUPPLY's areas; one import line appended to
+`Salt/MR/All.lean` (after `S16Compose`, before `Salt.Tactic.AuditAxioms`). No terminal twin minted:
+COMPOSE-2 owns that.
+
+**ALSO** — `docs/exploration/summit-dossier-0802.md` §3 corrected in place with both errata (the
+`K₄`/`Cκ` misclassification and the `T₀` unreachability), since that document is the Captain's read.
