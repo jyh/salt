@@ -351,6 +351,7 @@ import Salt.MR.S16Uniform
 import Salt.MR.NumeralCt
 import Salt.MR.NumeralKq
 import Salt.MR.S16Compose
+import Salt.MR.RegisterSupply
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -7304,3 +7305,33 @@ lane — plus the same two carried predicates on the conclusion side. -/
   Salt.MR.s15_crossing_supplied_L_gk_ceiling
   Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_ceiling
   Salt.MR.logChowla2_ineffective_v3
+
+/-! ⟦THE REGISTER DISCHARGE, ROAD B — the two carried predicates of `logChowla2_ineffective_v3`⟧
+(`RegisterSupply`, 2026-08-02).
+
+**W2, the base-scale cap.**  ⟦ITEM 3⟧ is NOT a wide numeric inequality: `loglog(A+s)` is
+bounded above by the socket's `A ≤ 2·R.x` alone, and `ChowlaRegime` bounds `R.x` only from
+below, while the cap's right side reads only `M` and the lever.  So the cap needs an
+`x`-CEILING that the terminal does not export (it exports the caller-chosen FLOOR
+`g R.Hhi R.ω ≤ R.x`).  `s16_baseScaleCap96_L_of_xwindow` /
+`s16_baseScaleCap96_L_of_x_small` prove the reduction: one window `loglog(3·R.x) ≤ 𝒢K`
+discharges ⟦ITEM 3⟧ at the linear door and socket.
+
+**W1, the co-factor supply.**  ⟦COFK-L⟧'s split, at the bytes: `m4_supplier_all_chi`'s ONE
+anchor-reading binder (the powerset Mertens debit) and its `_vt` threshold are DISCHARGED at
+the linear anchors — `cofkL_logQK_eq` (the anchor cancellation `log 𝒬_i = (i²M)·log 𝒫_i`),
+`cofkL_debit_bound` (`D = 2·log M + log 4 + 50`), `cofkL_logX_floor`/`cofkL_mu_floor` (the
+EXPONENTIAL supply `loglog(A+s) ≥ log H₊ − 14`, off the regime's `hPHheadroom` against the
+socket's arc arm), `cofkL_threshold_at_socket`, and the exit
+`cofkL_capFreeFloor_at_socket`.  What remains of `S16CofactorSupply_L_gk` reads neither
+`AdoorL` nor `s13GK` nor `χ`: the ladder bundle, `TLBlockGates34`, and the `Rbd`/`Cq` grading.
+`K_vt` is carried under one explicit cushion (`32·K_vt + 32·D ≤ log H₊/4`, i.e. `≈ 10^{222}`
+of room at the terminal's regime) — the honest hole, unchanged. -/
+#audit_axioms Salt.MR.s16_baseScaleCap96_L_of_xwindow
+  Salt.MR.s16_baseScaleCap96_L_of_x_small
+  Salt.MR.cofkL_logQK_eq
+  Salt.MR.cofkL_debit_bound
+  Salt.MR.cofkL_logX_floor
+  Salt.MR.cofkL_mu_floor
+  Salt.MR.cofkL_threshold_at_socket
+  Salt.MR.cofkL_capFreeFloor_at_socket
