@@ -4,6 +4,9 @@
 ### [pilot.md](exploration/pilot.md) holds the fine grain, [flags.md](blueprints/flags.md)
 ### the catches. Seeded 2026-07-20 (v1, reconstructed from the ledgers; JYH-review welcome).
 
+**Headline registry: [docs/RESULTS.md](RESULTS.md)** (lint: `scripts/results_lint.py`) — the
+dated, lint-verified row-per-theorem register. **Read it before asserting absence.**
+
 | # | Campaign | Goal | Status | Headline |
 |---|---|---|---|---|
 | 1 | [BRUN](../Salt/Brun/) (N-series) | Brun's theorem | ✅ | `BrunStatement` via `Salt.N6.N6_2`; `TwinCountingBigO` (`Salt.M5BigO.N5_3`) — [guide](blueprints/brun-guide.md) |
