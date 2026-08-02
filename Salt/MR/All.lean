@@ -353,6 +353,7 @@ import Salt.MR.NumeralKq
 import Salt.MR.S16Compose
 import Salt.MR.RegisterSupply
 import Salt.MR.RiderTrace
+import Salt.MR.XCeil
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -7336,3 +7337,38 @@ of room at the terminal's regime) — the honest hole, unchanged. -/
   Salt.MR.cofkL_mu_floor
   Salt.MR.cofkL_threshold_at_socket
   Salt.MR.cofkL_capFreeFloor_at_socket
+
+/-! ⟦THE OUTER-SCALE CEILING, AND THE CLOSURE OF THE `x`-WINDOW LINE⟧ (`XCeil`, 2026-08-02).
+
+`RegisterSupply` §1 left W2 at a named missing export: the base-scale cap needs an `x`-CEILING
+beside the `x`-floors the terminal carries.  `XCeil` supplies it at its source and then shows
+the line it opens is CLOSED.
+
+**The export.**  `regime_outer_param_ceiling` is the additive twin of
+`RegimeParam.regime_outer_param`, keeping the closed form the landed proof discards
+(`x = K·ω`, `K = 8H₊³ + 8P² + ⌈48(1+2/ε²)/ε⌉₊`, `ω = (H₊+2)^N`): `log x ≤ (30/ε)·log H₊ +
+2·log(P+1)`.  `chowlaRegimeFlat_exists_param_gen_ceiling` carries it at the builder's own
+`P = 4^⌊ε²H₊⌋` as `log R.x ≤ (31/ε)·R.H₊`, and `..._head_ceiling` through the enlargement as
+`log R.x ≤ max ((31/ε)·R.H₊) (log (g R.Hhi R.ω))` — the caller's `g` is unavoidable and stated.
+
+**What it discharges.**  `s16_baseScaleCap96_L_of_xceil` converts `RegisterSupply`'s `x`-window
+into an ENDPOINT window (`loglog(3x) ≤ log H₊ + log(1/ε) + log 32`), and
+`s16_baseScaleCap96_L_supplied` states it at the lever's own numeral: `loglog R.Hhi ≤ K/2`.
+
+**THE FINDING — the window is FALSE at the terminal's regime.**
+`flat_endpoint_loglog_gt_lever` reads `TowerFlat.towerFlat_width_ge` (the landed extremality
+LOWER bound: every crossing pays `(log 2A + loglog H₋)·4^{(20/21)A}`) and concludes
+`loglog (chowlaTowerFlat A 1 H₋ J) > 1.6·10⁷` for EVERY `A ≥ 162` — crudely, via
+`4^{(20/21)A} ≥ 4^{100}`; the sharp value at `A = 162` is `≈ 5·10^{95}`.  The flat endpoint
+dominates that arm, so no flat regime at the terminal's `A` meets the window, and no numeral
+repair reaches it (the lever would need `K ≈ 10^{95}`).  ⟦ITEM 3⟧ therefore cannot be
+discharged through the regime's outer scale: the lossy step is the socket's `(A : ℝ) ≤ 2·R.x`,
+the only ceiling `SocketBaseL` puts on the base scale.  W2 is a socket-side question or the cap
+must be re-cut — a design ruling, named with the arithmetic that forces it. -/
+#audit_axioms Salt.Entropy.Chowla.regime_outer_param_ceiling
+  Salt.Entropy.Chowla.chowlaRegimeFlat_exists_param_gen_ceiling
+  Salt.Entropy.Chowla.chowlaRegimeFlat_exists_param_head_ceiling
+  Salt.Entropy.Chowla.flat_endpoint_loglog_gt_lever
+  Salt.MR.s16_baseScaleCap96_L_of_xceil
+  Salt.MR.s16_baseScaleCap96_L_supplied
+  Salt.MR.flatA_endpoint_ceiling_misses_K_half

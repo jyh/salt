@@ -19084,3 +19084,65 @@ COMPOSE-2 owns that.
 `K₄`/`Cκ` misclassification and the `T₀` unreachability), since that document is the Captain's read.
 
 ## () ROAD-B ARM 2 HOME (RIDER-TRACE, d9a72cd, exit-0, 8 decls 3-axiom): THE SHARED MINT -- cs AND T0 are minted at ONE site (PortAssembly.halaszPrimesChiGated_of_price:802) and travel through eleven verified pass-throughs. cs: EFFECTIVE AT EVERY LEAF (K4 = 2^{3/4}*16 and Ckappa = 2^{3/4}*8 are CLOSED-FORM defs -- the dossier's "compactness existentials" was wrong, erratum landed in-place); cs = 3.716e-11 vs e^{-100}: 33 ORDERS, kernel-pinned (cs_closed_form_ge_exp_neg_hundred). T0: UNREACHABLE at the corpus's witness -- T0e = e^{e^100} EXACTLY but T0z inherits zeta_zero_free_region_pow's threshold e^{e^A}, A >= 1100 (at the corpus K: e^{e^1251}); PLUS a second floor riding the opaque eps0. NOT refutable as a Prop, unreachable along this proof; NOT a wall -- a MIS-SIZED NUMERAL (the hband-at-40 genre, FOURTH instance): the spend site is capfloor_T0_Tann:238 whose SHARP SIBLING :226 is ALREADY LANDED asking only T0 <= e^{sqrt H/2} ~ 10^{10^225} at A=162 -- two exponential levels of clearance, no A0 raise. THE ONE GENUINELY OPEN STONE behind cs/T0/band: the eps0 floor (the CMU-HUNT class-C stone) -- ONE STONE, THREE RIDERS. Three descent-rung _bounded twins landed (zeta_zero_free_region_pow_bounded exporting c >= 1/10^9 AND T0 >= e^{e^1100}; rect_zero_free_margin_bounded; shifted_edge_price_strip_bounded); the two heavy rungs below the mint (per_pair_contour 647 ln 12.8M heartbeats; the mint 377 ln) recommended for _of_strip/_of_contour hypothesis-taking refactor so the twin falls out as a 5-line corollary. ⟦X-CEIL fires next, sequential per the All.lean hazard law⟧
+
+## (2026-08-02 13:57 PDT) **X-CEIL (Road B, follow-on 1): THE `x`-CEILING IS EXPORTED — AND IT CLOSES THE `x`-WINDOW LINE RATHER THAN OPENING IT. `flat_endpoint_loglog_gt_lever`: the flat schedule's OWN landed extremality LOWER bound forces `loglog H₊ > 1.6·10⁷` at every `A ≥ 162`, so `s16_baseScaleCap96_L_supplied`'s window is FALSE at the terminal's regime, not merely unproven — W2 is a socket-side question. 7 decls, 1 new file (712 ln), build 9262 EXIT-0 from `$?`, warnings 186 = 186 baseline, every new decl at 3 axioms** (X-CEIL)
+
+⟦THE MISSION⟧ REGISTER-SUPPLY's W2 finding named a missing export: ⟦ITEM 3⟧'s base-scale cap
+needs an `x`-CEILING and the terminal exports only `x`-FLOORS (`g R.Hhi R.ω ≤ R.x`, caller-chosen
+`g`). X-CEIL was to extract the builder's closed form, thread it, and discharge the cap.
+
+⟦WHAT LANDED — `Salt/MR/XCeil.lean`⟧
+* `regime_outer_param_ceiling` — the additive twin of `RegimeParam.regime_outer_param` (the
+  landed proof `clear`s its own construction at `:337`). The closed form kept:
+  `x = K·ω`, `K = 8H₊³ + 8P² + ⌈48(1+2/ε²)/ε⌉₊`, `ω = (H₊+2)^N`, `N = ⌈RHS/log(H₊+2)⌉₊ + 1`,
+  yielding **`log x ≤ (30/ε)·log H₊ + 2·log(P+1)`** (inputs: `N ≤ RHS/LG + 2`,
+  `log(H₊+2) ≤ log H₊ + 1`, `K ≤ 600·H₊³·(P+1)²/ε³`; the slack `(14/ε−5)·log H₊` absorbs the
+  debris at `log H₊ ≥ 14`, `1/ε ≥ 2`).
+* `chowlaRegimeFlat_exists_param_gen_ceiling` — at the builder's own `P = 4^⌊ε²H₊⌋`:
+  **`log R.x ≤ (31/ε)·R.H₊`** (the outer scale is SINGLE-EXPONENTIAL in the endpoint).
+* `chowlaRegimeFlat_exists_param_head_ceiling` — through `regimeFlatEnlargeX`:
+  **`log R.x ≤ max ((31/ε)·R.H₊) (log (g R.Hhi R.ω))`**. The enlargement is `x ↦ max x (g H₊ ω)`,
+  so the `g`-dependence is unavoidable in EVERY threading — stated, not hidden.
+* `s16_baseScaleCap96_L_of_xceil` / `s16_baseScaleCap96_L_supplied` — the cap from the ceiling
+  plus ONE endpoint window, the second stated at the lever's own numeral `loglog R.Hhi ≤ K/2`
+  (at `K = 32000000`: `1.6·10⁷`), with the terminal's `ε ≥ 1/500`.
+
+⟦THE HEADLINE — THE LINE IS CLOSED, NOT STALLED⟧ **`flat_endpoint_loglog_gt_lever`.**
+`TowerFlat.towerFlat_width_ge` is a LANDED LOWER bound: every crossing length pays
+`(log 2A + loglog H₋)·4^{(20/21)A} ≤ log 2A + loglog H_J`. With the design law `3.2A ≤ loglog H₋`
+this forces `loglog (chowlaTowerFlat A 1 H₋ J) > 1.6·10⁷` for EVERY `A ≥ 162` — pinned crudely
+through `4^{(20/21)A} ≥ 4^{100}`; the sharp value at `A = 162` is `3.2·162·4^{154.3} ≈ 5·10^{95}`.
+The flat builder's endpoint dominates that arm (`hfitF`). So:
+1. the endpoint window is FALSE at the terminal's regime, by ~88 orders — **not** a mis-sized
+   numeral (the FIFTH-instance reading was tested and REJECTED): no lever raise reaches it
+   (`K ≈ 10^{95}` would be needed), and no sharpening of the UPPER width laws can help, because
+   the obstruction is a lower bound;
+2. `loglog(3·R.x) ≈ log H₊ = exp(loglog H₊) ≈ exp(10^{95})` against a lever affording
+   `3072·2^K·M ≈ 10^{9.6·10⁶}` — so `s16_baseScaleCap96_L_of_xwindow`'s window is unreachable at
+   the terminal's regime, and `RegisterSupply` §1's `x`-window line is CLOSED.
+* Secondary pin: `flatA_endpoint_ceiling_misses_K_half` — the terminal's own exported UPPER
+  ceiling `loglog R.Hhi ≤ 2·exp(3.2A/2)` is `≈ 3.7·10^{112}` at `A = 162`, so it cannot route
+  through `_supplied` either.
+
+⟦THE REDIRECT (for COMPOSE-2 and the design bench)⟧ ⟦ITEM 3⟧ cannot be discharged through the
+regime's outer scale AT ALL. The lossy step is the socket binder `(A : ℝ) ≤ 2·R.x` — the only
+ceiling `SocketBaseL` puts on the base scale (RegisterSupply's own reading). Either
+`SocketBaseL`'s other twelve conjuncts pin `A + s` far below `3·R.x` (W2 becomes a socket-side
+theorem and XCeil §1–§2 are NOT on its path), or ⟦ITEM 3⟧ is FALSE at the terminal's regime and
+the cap must be re-cut. **This is a design ruling, not an executor's call.**
+
+⟦STOPPED LOUDLY⟧ the uniform-lane threading (mission item 2) was NOT performed. The head-ceiling
+twin is the interface; the remaining hops are `S16Uniform:299 → flat_capstone_uniform_win →
+flat_conditional_uniform_win → logChowla2_witnessed_scale_flat_L_v2_uniform_win(_ceiling) →
+S16Compose:146` — a four-hop seven-twin wave (BAND-WINDOW genre, ~450 ln). It is deliberately
+not spent: the conjunct it would carry cannot discharge the cap at the terminal's `A`, per the
+headline. Thread it only if the redirect lands on the socket side and still wants the ceiling.
+
+⟦TACTIC LEDGER (catch, operational)⟧ `linarith` does NOT ring-normalise products of
+non-numerals: `31 / e * H`, `1 / e * H` and `32 / e * H` are THREE unrelated atoms and no
+certificate is found. The fix that works throughout this file: keep the shared factor
+syntactically intact and scale by a numeral — `31 * (1/e * H)` — and bridge the readable
+division form with an explicit `show … from by ring` equation passed to `linarith`. Same trap
+for `16 * u * l` (parses `(16*u)*l`, an atom) versus `16 * (u * l)` (linear in the atom `u*l`).
+Also banked: `exact_mod_cast heps1` FAILS on `(eps : ℚ) ≤ 1/2 ⟹ (↑eps : ℝ) ≤ 1/2` (the `1/2`
+numeral); route through `(2 : ℚ) * eps ≤ 1` and cast the product instead.
