@@ -347,6 +347,7 @@ import Salt.MR.S13BandCapLinear
 import Salt.MR.S16FlatTerminalLinear
 import Salt.MR.S13CapGateLinear
 import Salt.MR.S16FlatFinal
+import Salt.MR.S16Uniform
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -7197,3 +7198,22 @@ Purely additive: no landed declaration is touched. -/
   Salt.MR.s16_capGate_supply_L_gk
   Salt.MR.s15_crossing_supplied_L_gk
   Salt.MR.logChowla2_witnessed_scale_flat_L_v2
+
+/-! ⟦THE DISCHARGE WAVE — THE `A`-UNIFORM CHAIN AND THE INEFFECTIVE LIMIT⟧
+(`S16Uniform`, 2026-08-02).
+
+The council's #1: the flat linear terminal re-cut with the design constant `A` HOISTED OUT of
+the `∃`-prefix (seven additive twins, §1–§7 — the whole flat linear road from the head up), and
+then the corollary that hoist exists for: `logChowla2_ineffective`, the terminal with the TWO
+SIEGEL RIDERS GONE (the `x0` window and the arm census), discharged by the classical limit —
+the constants are fixed, the windows are double-exponential in `A`, so an `A` above both exists
+and at that `A` the riders are theorems.  What survives: `hband`, the two socket ceilings
+(`Kc ≤ 2^539`, `Ct ≤ 2^23`), the fuse's four numerals, and the two carried predicates. -/
+#audit_axioms Salt.MR.flat_head_uniform
+  Salt.MR.flat_socket_uniform
+  Salt.MR.flat_doorL2_uniform
+  Salt.MR.flat_road_uniform
+  Salt.MR.flat_capstone_uniform
+  Salt.MR.flat_conditional_uniform
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform
+  Salt.MR.logChowla2_ineffective
