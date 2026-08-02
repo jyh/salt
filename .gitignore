@@ -15,3 +15,9 @@ main.pdf
 # texts from the FULL git history (git-filter-repo) -- see OPERATIONS.
 docs/sources/*.pdf
 docs/sources/*.txt
+# SEARCH lane derived artifacts (scripts/search/README.md: derived, never
+# remembered -- rebuild with extract.py + bm25.py + embed.py). The venv and
+# the index are local-only; the CODE and aliases.json ARE tracked.
+/scripts/search/.venv/
+/scripts/search/index/
+/scripts/search/__pycache__/

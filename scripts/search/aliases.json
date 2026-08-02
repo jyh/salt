@@ -1,0 +1,208 @@
+{
+  "_readme": [
+    "The canonical-name table for the SEARCH lane.  This is the ONLY hand-maintained",
+    "file in scripts/search/: everything else is derived from the working tree.",
+    "",
+    "Each group is {canonical, aliases:[...]}.  A query mentioning ANY member of a",
+    "group is expanded to search for ALL of them (at a discounted weight -- see",
+    "query.py's ALIAS_WEIGHT).  This is the fix for the failure that motivated the",
+    "lane: 'Matomaki' is a name we say out loud constantly and write down almost",
+    "never, so grep for it returns nothing while the corpus is full of the object.",
+    "",
+    "Matching is case-insensitive and ASCII-folded (Matomaki == Matomaki),",
+    "multi-word aliases match as substrings of the query, single tokens match",
+    "whole words.  Add a group whenever you catch yourself saying a name the",
+    "corpus does not spell."
+  ],
+  "groups": [
+    {
+      "canonical": "Matomaki-Radziwill-Tao (the door)",
+      "aliases": [
+        "Matomäki", "Matomaki", "Radziwiłł", "Radziwill", "Tao",
+        "MRT", "MR", "the door", "door", "MRTDoor",
+        "MRTUniformity", "MRTUniformityXi", "MRTUniformityXiL2",
+        "mrtUniformity", "multiplicative functions in short intervals",
+        "short interval", "Salt.MR"
+      ]
+    },
+    {
+      "canonical": "the M4 road (the second road)",
+      "aliases": [
+        "M4", "the M4 road", "M4 road", "the second road", "second road",
+        "M4SecondRoad", "m4_wave", "M4Wave", "M4Join", "M4Door",
+        "logChowla2", "logChowla2_capstone", "the Pearl", "Pearl"
+      ]
+    },
+    {
+      "canonical": "the S-spine (S0-S16)",
+      "aliases": [
+        "S0", "S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8",
+        "S9", "S10", "S11", "S12", "S13", "S14", "S15", "S16",
+        "the spine", "spine", "S-spine", "thm_a2", "ThmA2"
+      ]
+    },
+    {
+      "canonical": "Heath-Brown repulsion (the third banner)",
+      "aliases": [
+        "Heath-Brown", "Heath Brown", "HeathBrown", "HB",
+        "repulsion", "the third banner", "third banner",
+        "T-BAL", "TBAL", "TBal", "TBalR8", "TBalR7",
+        "dh_repulsion_ordered", "DHRepulsion", "dh_repulsion",
+        "Deuring-Heilbronn", "Deuring Heilbronn", "exceptional zero",
+        "Siegel zero"
+      ]
+    },
+    {
+      "canonical": "the Toll (the width law)",
+      "aliases": [
+        "the Toll", "Toll", "width law", "the width law", "width",
+        "towerFlat_width", "towerFlat_width_ge", "towerFlat_width_le",
+        "towerShape_width", "towerShape_width_ge",
+        "TowerFlat", "TowerShape", "WidthGrade", "tower"
+      ]
+    },
+    {
+      "canonical": "the fulcrum (the dichotomy)",
+      "aliases": [
+        "fulcrum", "the fulcrum", "dichotomy", "the dichotomy",
+        "Fulcrum", "Dichotomy", "fulcrum_dichotomy",
+        "ball_center_dichotomy", "CZeroNumeral", "c-zero", "czero"
+      ]
+    },
+    {
+      "canonical": "TwinBar (the parity wall / Z / GAP)",
+      "aliases": [
+        "TwinBar", "twinbar", "twin bar", "parity wall", "the parity wall",
+        "ParityWall", "parity barrier", "the parity barrier",
+        "ParityBarrier", "parity", "Z", "the Z theorem", "Z theorem",
+        "GAP", "the GAP theorem", "GAP theorem",
+        "Salt.Parity", "Impossibility", "impossibility",
+        "TwinPrimeConjecture", "TPC"
+      ]
+    },
+    {
+      "canonical": "VMVT / VK (Vinogradov-Korobov)",
+      "aliases": [
+        "VMVT", "VK", "Vinogradov", "Korobov", "Vinogradov-Korobov",
+        "Vinogradov Korobov", "vinogradov korobov",
+        "Vinogradov mean value", "Vinogradov mean value theorem",
+        "mean value theorem", "Salt.Vk", "Salt.Vmvt",
+        "zero-free region", "zero free region", "ZeroFree",
+        "Littlewood", "PowRegion", "power region", "the power region"
+      ]
+    },
+    {
+      "canonical": "Siegel-Walfisz (SW)",
+      "aliases": [
+        "Siegel-Walfisz", "Siegel Walfisz", "SiegelWalfisz", "SW",
+        "siegelWalfisz", "siegelWalfisz_holds", "Siegel", "Walfisz",
+        "Salt.SW", "primes in arithmetic progressions"
+      ]
+    },
+    {
+      "canonical": "Bombieri-Vinogradov (BV)",
+      "aliases": [
+        "Bombieri-Vinogradov", "Bombieri Vinogradov", "BombieriVinogradov",
+        "BV", "Bombieri", "Salt.BV", "level of distribution",
+        "Elliott-Halberstam", "EH", "psi_BV", "bounded_gaps"
+      ]
+    },
+    {
+      "canonical": "Chen's theorem",
+      "aliases": [
+        "Chen", "chen", "Chen's theorem", "Chen theorem",
+        "Salt.Chen", "chen_headline", "semiprime", "almost prime",
+        "P2", "switching principle", "the switch", "SwitchBV"
+      ]
+    },
+    {
+      "canonical": "Brun's theorem",
+      "aliases": [
+        "Brun", "brun", "Brun's theorem", "Brun sieve", "pure sieve",
+        "Salt.Brun", "BrunLower", "brun_upper", "brun_lower",
+        "Brun constant", "twin prime constant"
+      ]
+    },
+    {
+      "canonical": "Maynard-Tao (bounded gaps)",
+      "aliases": [
+        "Maynard", "maynard", "Maynard-Tao", "Maynard Tao",
+        "Salt.Maynard", "bounded gaps", "bounded_gaps",
+        "GPY", "Goldston-Pintz-Yildirim", "admissible tuple",
+        "Salt.Twelve", "explicit12", "gaps <= 12"
+      ]
+    },
+    {
+      "canonical": "Ramare's identity",
+      "aliases": [
+        "Ramaré", "Ramare", "ramare", "ramareWeight", "RamareWeight",
+        "Ramare identity", "Ramare's identity", "RamareMR",
+        "LambdaChiRamare", "MobiusChiRamare"
+      ]
+    },
+    {
+      "canonical": "Halasz's theorem",
+      "aliases": [
+        "Halász", "Halasz", "halasz", "Halasz theorem",
+        "HalaszCore", "HalaszKernel", "center_halasz",
+        "pretentious", "pretentiousness", "NonPret", "PretentiousTriangle"
+      ]
+    },
+    {
+      "canonical": "Shiu's theorem",
+      "aliases": [
+        "Shiu", "shiu", "Shiu bound", "Shiu's theorem",
+        "ShiuMoment", "MultShiu", "class_bound_shiu",
+        "multiplicative short-interval bound"
+      ]
+    },
+    {
+      "canonical": "Rosser-Iwaniec (the linear sieve)",
+      "aliases": [
+        "Rosser-Iwaniec", "Rosser Iwaniec", "Rosser", "rosser",
+        "Iwaniec", "linear sieve", "the linear sieve", "LinearSieve",
+        "RosserChain", "sieve weights", "beta sieve"
+      ]
+    },
+    {
+      "canonical": "Turan-Kubilius",
+      "aliases": [
+        "Turán-Kubilius", "Turan-Kubilius", "Turan Kubilius",
+        "TuranKubilius", "Turán", "Turan", "Kubilius",
+        "normal order", "omega(n)"
+      ]
+    },
+    {
+      "canonical": "Polya-Vinogradov",
+      "aliases": [
+        "Pólya-Vinogradov", "Polya-Vinogradov", "Polya Vinogradov",
+        "PolyaVinogradov", "polya_vinogradov", "Polya",
+        "character sum", "character sums"
+      ]
+    },
+    {
+      "canonical": "Weil / Stepanov (Kloosterman)",
+      "aliases": [
+        "Weil", "Stepanov", "Kloosterman", "Salt.Weil",
+        "WeilStepanov", "Riemann hypothesis for curves",
+        "point count", "Artin-Schreier", "ArtinSchreier"
+      ]
+    },
+    {
+      "canonical": "van der Corput",
+      "aliases": [
+        "van der Corput", "van-der-Corput", "VanDerCorput",
+        "VdCorput", "VdCSocket", "exponent pair", "exponential sum",
+        "ExpSum", "Salt.ExpSum"
+      ]
+    },
+    {
+      "canonical": "entropy / Chowla",
+      "aliases": [
+        "entropy", "Chowla", "chowla", "logarithmic Chowla",
+        "Salt.Entropy", "PFR", "Kernel", "Tao entropy",
+        "logChowla", "Elliott conjecture"
+      ]
+    }
+  ]
+}
