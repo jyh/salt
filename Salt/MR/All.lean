@@ -7470,3 +7470,90 @@ which is why the dial has a name. -/
   Salt.MR.s16_capGate_supply_L_gk_end
   Salt.MR.s16_capGate_supply_L_gk_klevF
   Salt.MR.calFrameK_doorH1_at_L_gk_flat
+
+/-! ⟦KWIDE-65 — THE MECHANICAL WIDENING WAVE⟧ (`ThmA2Linear` → `S16Compose`, 2026-08-02).
+
+CAP-RECUT's P2(b) residue, executed.  Every flat `hK : K ≤ 170000000` binder on the `L`-door
+chain is now shadowed by an additive `_kwide` twin in which the ceiling has moved INSIDE the
+statement's own `∀ M` as `K ≤ 170000000 * M` — the WIDE ceiling
+`DoorLadderLinear.calFrameK_satisfiable_doorH1_L_gk` has always carried and the deleted
+`ThmA2Linear.kwide` hop used to throw away.  64 twins across 14 files, bottom-up along the
+dependency order, each statement verbatim apart from the moved antecedent and each proof
+verbatim apart from re-pointing its ceiling consumption at the `_kwide` upstream.  The
+originals are UNTOUCHED and every original consumer still compiles against them: the wave is
+purely additive.
+
+The terminal-adjacent twins — `S16Compose.{m4_closure_fuse_zero'_const_nonneg_L_gk_ceiling,
+flat_capstone_uniform_win_ceiling, flat_conditional_uniform_win_ceiling}_kwide`,
+`S16FlatTerminalLinear.{m4_closure_fuse_zero'_const_nonneg_L_gk,
+logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L,
+logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L}_kwide` and
+`S16Uniform.{flat_capstone_uniform, flat_conditional_uniform, flat_capstone_uniform_win,
+flat_conditional_uniform_win}_kwide` — are the ingredient set COMPOSE-2's `v4` terminal
+consumes at `K = KlevF A`.  At the two capstone genres the anchor is not `1 ≤ M` but the
+grade floor (`Mfl ≤ M →`) or the selector (`S15Sel''… R M →`); the widened antecedent sits
+immediately after it, so the `M` in scope is the terminal's own.  -/
+#audit_axioms Salt.MR.a2Rows_of_capfree_L_gk_kwide
+  Salt.MR.a2Rows_of_cap_L_gk_kwide
+  Salt.MR.thm_a2'_L_gk_kwide
+  Salt.MR.a2Rows_of_capfree3_L_gk_kwide
+  Salt.MR.a2Rows_of_capfree3_end_L_gk_kwide
+  Salt.MR.a2Rows_of_capfree3_end'_L_gk_kwide
+  Salt.MR.a2Rows_of_capfree3'_L_gk_kwide
+  Salt.MR.m4_meansq_per_chi_gen_L_gk_kwide
+  Salt.MR.m4_meansq_or_trivial_L_gk_kwide
+  Salt.MR.m4_meansq_per_chi_gen_pool_L_gk_kwide
+  Salt.MR.m4_meansq_or_trivial_pool_L_gk_kwide
+  Salt.MR.m4_meansq_per_chi_gen_join_L_gk_kwide
+  Salt.MR.m4_meansq_or_trivial_join_L_gk_kwide
+  Salt.MR.m4_door_meansq_carried_L_gk_kwide
+  Salt.MR.m4_dyadicRow_carried_L_gk_kwide
+  Salt.MR.m4_wave_structurally_closed_L_gk_kwide
+  Salt.MR.m4_hrowsSum_chi_door_L_gk_kwide
+  Salt.MR.m4_wave_closed_T0_discharged_L_gk_kwide
+  Salt.MR.m4_wave_closed_coprime_discharged_L_gk_kwide
+  Salt.MR.m4_wave_closed_coprime_discharged_False_L_gk_kwide
+  Salt.MR.m4_door_meansq_carried_pool_L_gk_kwide
+  Salt.MR.m4_dyadicRow_carried_pool_L_gk_kwide
+  Salt.MR.m4_door_meansq_carried_join_L_gk_kwide
+  Salt.MR.m4_dyadicRow_carried_join_L_gk_kwide
+  Salt.MR.m4_rowDatum_dilated_L_gk_kwide
+  Salt.MR.m4_hrowsSum_chi_door_end_L_gk_kwide
+  Salt.MR.m4_hrowsSlot_at_door_end_L_gk_kwide
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_end_L_gk_kwide
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_zero_L_gk_kwide
+  Salt.MR.m4_chiSummedFreeRow_of_doorArith_end_L_gk_kwide
+  Salt.MR.m4_socket_discharged_conditional_L_gk_kwide
+  Salt.MR.m4_socket_discharged_bandfree_L_gk_kwide
+  Salt.MR.m4_hrowsSum_chi_door_end'_L_gk_kwide
+  Salt.MR.m4_hrowsSlot_at_door_end'_L_gk_kwide
+  Salt.MR.m4_hrowsSum_chi_door_zero'_L_gk_kwide
+  Salt.MR.m4_hrowsSlot_at_door_zero'_L_gk_kwide
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool_end'_L_gk_kwide
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_L_gk_kwide
+  Salt.MR.m4_chiSummedFreeRow_of_doorArith_zero_L_gk_kwide
+  Salt.MR.m4_socket_discharged_conditional_zero_L_gk_kwide
+  Salt.MR.m4_socket_discharged_bandfree_zero_L_gk_kwide
+  Salt.MR.m4_socket_discharged_fused_L_gk_kwide
+  Salt.MR.m4_hrowsSum_chi_door_zero'_L_gk_bounded_kwide
+  Salt.MR.m4_hrowsSlot_at_door_zero'_L_gk_bounded_kwide
+  Salt.MR.m4_hrowsSlot_at_door_zero'_L_gk_ceiling_kwide
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool_end'_gated_L_gk_kwide
+  Salt.MR.m4_chiSummedFreeRow_of_doorAssembly_pool_zero'_gated_L_gk_kwide
+  Salt.MR.m4_closure_fuse_end'_L_gk_kwide
+  Salt.MR.m4_closure_fuse_zero'_L_gk_kwide
+  Salt.MR.m4_closure_fuse_end'_const_L_gk_kwide
+  Salt.MR.m4_closure_fuse_zero'_const_L_gk_kwide
+  Salt.MR.m4_socket_discharged_fused_hoisted_L_gk_kwide
+  Salt.MR.m4_socket_discharged_fused_split_L_gk_kwide
+  Salt.MR.m4_socket_discharged_fused_split_graded_L_gk_kwide
+  Salt.MR.m4_closure_fuse_zero'_const_nonneg_L_gk_kwide
+  Salt.MR.logChowla2_capstone_final_const'_graded_gk_pinned_Mfl_flatRoot_L_kwide
+  Salt.MR.logChowla2_conditional_sharp2_atK_gk_pinned_Mfl_flatRoot_L_kwide
+  Salt.MR.flat_capstone_uniform_kwide
+  Salt.MR.flat_conditional_uniform_kwide
+  Salt.MR.flat_capstone_uniform_win_kwide
+  Salt.MR.flat_conditional_uniform_win_kwide
+  Salt.MR.m4_closure_fuse_zero'_const_nonneg_L_gk_ceiling_kwide
+  Salt.MR.flat_capstone_uniform_win_ceiling_kwide
+  Salt.MR.flat_conditional_uniform_win_ceiling_kwide

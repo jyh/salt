@@ -3465,6 +3465,879 @@ theorem a2Rows_of_capfree3'_L_gk (K : ℕ) (hK : K ≤ 170000000) :
   · exact a3_term3_weigh_mr hRS0 hg3
   · exact a3_term4_weigh hZ0 hg32
 
+/-! ## §Xw — ⟦KWIDE-65⟧ THE WIDE-CEILING TWINS (this file)
+
+Mechanical widening of the flat `hK : K ≤ 170000000` binders on the `L`-chain: the ceiling
+moves INSIDE the internal `∀ M` as `K ≤ 170000000 * M`, so the raised lever `KlevF` can flow.
+Statements and proofs are verbatim apart from that antecedent and the `_kwide` re-pointing.
+The originals are untouched.
+-/
+
+/-- ⟦WIDE CEILING TWIN⟧ (`a2Rows_of_capfree_L_gk_kwide`) —
+`a2Rows_of_capfree_L_gk` with the flat ceiling moved inside the `∀ M`.
+The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
+the `_kwide` upstream. -/
+theorem a2Rows_of_capfree_L_gk_kwide (K : ℕ) :
+    ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
+      ∀ (g c a b cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖c n‖ ≤ 1) →
+        (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) →
+      ∀ (N Xd P Q M : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
+      ∀ (X h δ' V VJ L Cb Rrad kmin Ymax ε EP2 : ℝ),
+        1 ≤ M → K ≤ 170000000 * M → calQK (AdoorL M) (s13GK K M) M 2 ≤ Xd →
+        A2Frame g cf a N Xd P Q (AdoorL M) (s13GK K M) M 2 Ms Mt kk (H1doorL M) X h δ' VJ L
+          (1 / 12) Cb Rrad EP2 cq T₀ →
+        2 ≤ H83 X theta293 →
+        Real.exp 1 ≤ X → Real.exp 2 ≤ Real.log X →
+        4 ≤ h → ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ h →
+        Real.exp 1 ≤ L →
+        Real.exp (mrAlpha (1 / 12) 2
+            * Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)) ≤ VJ →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
+        0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
+        CapFreeFloor g X →
+        0 < Rrad → Rrad ≤ seamRad X → seamRad X ≤ Rrad →
+        ShortIntervalDatum Cb →
+        X₀ ≤ kmin → 0 ≤ cofactorMfl X theta293 kmin → 2 ≤ kmin → kmin ≤ X →
+        (∀ j ∈ ramI (H83 X theta293) P Q, kmin ≤ ((kk j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, pin2Gate ≤ ((Mt j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, ((Mt j : ℕ) : ℝ) ≤ Ymax) →
+        (1 - 1 / Real.log (Real.log X)) * Real.log X ≤ Real.log kmin →
+        pin2Gate ≤ Ymax → Real.log Ymax ≤ 2 * Real.log kmin →
+        Real.log X ≤ Real.log Ymax →
+        32 * ballSupC34 ≤ (Real.log Ymax) ^ ((3 : ℝ) / 20 - rho293) →
+        1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
+        X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
+        2 * Xd ≤ N →
+        (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (AdoorL M) (s13GK K M) j ≤ p →
+          p ≤ calQK (AdoorL M) (s13GK K M) M j → ¬ p ∣ m → a (p * m) = b m * c p) →
+        (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (AdoorL M) (s13GK K M) j ≤ p →
+          p ≤ calQK (AdoorL M) (s13GK K M) M j → c p * b m ≠ 0 →
+          (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
+        Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (N : ℝ) ≤ 4 * (Xd : ℝ) →
+        (∀ j ∈ Finset.Icc 1 2,
+          ((Nat.sqrt Xd : ℝ) + 1)
+              * ∏ p ∈ primeBand (calP (AdoorL M) (s13GK K M) j)
+                    (calQK (AdoorL M) (s13GK K M) M j), (1 + 3 / (p : ℝ))
+            ≤ (Xd : ℝ) * (Real.log ((calP (AdoorL M) (s13GK K M) j : ℕ) : ℝ)
+                / Real.log ((calQK (AdoorL M) (s13GK K M) M j : ℕ) : ℝ))) →
+        (∀ n : ℕ, ‖a n‖ ≤ 1) →
+        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+        ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X → TannGate X (2 * T) →
+          5 ≤ Real.log (Real.log (2 * T)) →
+          X / h / T * (∫ t in seamAnn X (2 * T), ‖spoly N a t‖ ^ 2)
+            ≤ a2Mrow_L_gk K Cs C M Xd X ε := by
+  obtain ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, hrow⟩ := seam_row_number_capfree
+  refine ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, ?_⟩
+  intro g c a b cf hg hc1 hb1 hcf1 N Xd P Q M m₀ Ms Mt kk X h δ' V VJ L Cb Rrad kmin Ymax ε
+    EP2 hM hKw hXdQ F hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV hCb0 hPlow
+    hQ0 hQhigh hPQ83 hfloor hR0 hRrad hRlow hCbound hX₀k hMfl0 hk2 hkX hkk hMtpin hMt hgateW
+    hYpin hWY hXY hthr hCqgate hε0 habs hEP2 hXN hN2 hsupp hNXd hcoef hwin hQXd hXdbig hN4
+    hdom ha1 hasupp T hT hTX2 hTgate hTll
+  -- ⟦the scale page⟧
+  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
+  have he2 : (4 : ℝ) ≤ Real.exp 2 := by
+    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
+    nlinarith [Real.exp_one_gt_d9]
+  have hLXe : Real.exp 1 ≤ Real.log X :=
+    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
+  have hL0 : (0 : ℝ) ≤ Real.log X := by linarith
+  have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (AdoorL M) (s13GK K M) M 2) hXdQ
+  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
+  have hX4Xd : X ≤ 4 * (Xd : ℝ) := le_trans hXN hN4
+  have hQ10 : (0 : ℝ) ≤ ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) := Nat.cast_nonneg _
+  -- ⟦the frame at the row's own scale⟧
+  have hF := calFrameK_doorH1_at_L_gk_kwide K M Xd hM hKw hXdQ
+  -- ⟦the window's two endpoints, at `Tann = 2T`⟧
+  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
+  have h2b : (2 : ℝ) * T ≤ X := hTX2
+  have h2T0 : (0 : ℝ) < 2 * T := by
+    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
+    linarith
+  -- ⟦THE ROW, at `Tann = 2T`⟧
+  have hinst := hrow g c a b cf hg hc1 hb1 hcf1 N Xd P Q (AdoorL M) (s13GK K M) M 2 m₀ Ms Mt kk
+    (H1doorL M) X (2 * T) δ' V VJ L (1 / 12) Cb Rrad kmin Ymax ε EP2
+    (3 * (720 * (2 * T / X + 1) / H83 X theta293 + EP2))
+    hF hH2 hX0 hXe hLXe hL4 hlX2 hTgate (F.one_lt _ h2a h2b) h2b (F.T0_le _ h2a h2b) hTll
+    (F.one_le_log _ h2a h2b) (F.log_le_L _ h2a h2b) hLe hVJg hMs (F.thin _ h2a h2b) hm₀2 hm₀
+    hMs4 hV1 hVδ hlogV hCb0 hPlow hQ0 hQhigh hPQ83 hfloor hR0 hRrad hRlow (F.blocks _ h2a h2b)
+    (F.box_at h2b) hCbound hX₀k hMfl0 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr
+    hCqgate (F.ksGate_at h2T0 h2b hL0) hε0 habs hEP2 le_rfl (F.err _ h2a h2b) hXN hN2 hsupp
+    hNXd hcoef hwin hQXd hXdbig hN4 hdom ha1 hasupp
+  -- ⟦THE WEIGHTING⟧
+  obtain ⟨hw0, -, hg9, hg244, hg3, hg32⟩ :=
+    a2_weight_gates (X := X) (h := h) (T := T) (Xd := (Xd : ℝ))
+      (Q1 := ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ)) hh4 hX0 hT hX4Xd hQ1h hQ10
+  refine (mul_le_mul_of_nonneg_left hinst hw0).trans ?_
+  have hRS0 : (0 : ℝ) ≤ a2RowsSum_L_gk K M Xd + C * (2 / (M : ℝ)) := by
+    have hM0 : (0 : ℝ) < (M : ℝ) := by exact_mod_cast hM
+    have h2 : (0 : ℝ) ≤ C * (2 / (M : ℝ)) := by positivity
+    linarith [a2RowsSum_nonneg_L_gk K hM hXd1]
+  have hZ0 : (0 : ℝ) ≤ (Real.log X) ^ (-theta293 + ε) :=
+    Real.rpow_nonneg hL0 _
+  have hP0 : (0 : ℝ) < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ) := by
+    linarith [calP_door_one_ge_L_gk K hM]
+  have hlvl0 : (0 : ℝ) ≤ a2Level1_L M := a2Level1_L_nonneg hM
+  have hT0 : (0 : ℝ) < T := lt_of_lt_of_le (div_pos hX0 (by linarith)) hT
+  have hRnn : (0 : ℝ) ≤ 2 * T * ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) / (Xd : ℝ) + 1 := by
+    have := div_nonneg (mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * T) hQ10)
+      (by linarith : (0 : ℝ) ≤ (Xd : ℝ))
+    linarith
+  unfold a2Mrow_L_gk
+  refine a2_row_weigh ?_ ?_ ?_ ?_
+  · exact a2_level1_weigh (fun R' hR' => level1_term_door_decays_L_gk K hM hR')
+      (mul_nonneg hw0 hRnn) hg9 hlvl0
+  · exact a2_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
+  · exact a2_term3_weigh hRS0 hg3
+  · exact a2_term4_weigh hZ0 hg32
+
+/-- ⟦WIDE CEILING TWIN⟧ (`a2Rows_of_cap_L_gk_kwide`) —
+`a2Rows_of_cap_L_gk` with the flat ceiling moved inside the `∀ M`.
+The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
+the `_kwide` upstream. -/
+theorem a2Rows_of_cap_L_gk_kwide (K : ℕ) :
+    ∃ Cq cq T₀ X₀ Cs C Ccol : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
+      ∀ (g c a b cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖c n‖ ≤ 1) →
+        (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) →
+      ∀ (N Xd P Q M : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
+      ∀ (X h δ' V VJ L Cb Rrad kmin Ymax ε EP2 Sb Ccc : ℝ),
+        1 ≤ M → K ≤ 170000000 * M → calQK (AdoorL M) (s13GK K M) M 2 ≤ Xd →
+        A2Frame g cf a N Xd P Q (AdoorL M) (s13GK K M) M 2 Ms Mt kk (H1doorL M) X h δ' VJ L
+          (1 / 12) Cb Rrad EP2 cq T₀ →
+        2 ≤ H83 X theta293 →
+        Real.exp 1 ≤ X → Real.exp 2 ≤ Real.log X →
+        4 ≤ h → ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ h →
+        Real.exp 1 ≤ L →
+        Real.exp (mrAlpha (1 / 12) 2
+            * Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)) ≤ VJ →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
+        0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
+        800 < Real.log (Real.log X) → ¬ CapFreeFloor g X →
+        collisionGate X 25 Ccol →
+        (∀ t₁ : ℝ, |t₁| ≤ X → ∀ t : ℝ, seamT0 X ≤ |t| → |t| ≤ X → |t - t₁| ≤ seamRad X →
+          ∀ m : ℕ, m ≤ N → ‖spolyA a t m‖ ≤ Sb * (m : ℝ) / (1 + |t - t₁|)) →
+        C + (M : ℝ) * Sb ^ 2 / 2 ≤ Ccc →
+        0 < Rrad → Rrad ≤ seamRad X → seamRad X ≤ Rrad →
+        ShortIntervalDatum Cb →
+        X₀ ≤ kmin → 0 ≤ cofactorMfl X theta293 kmin → 2 ≤ kmin → kmin ≤ X →
+        (∀ j ∈ ramI (H83 X theta293) P Q, kmin ≤ ((kk j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, pin2Gate ≤ ((Mt j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, ((Mt j : ℕ) : ℝ) ≤ Ymax) →
+        (1 - 1 / Real.log (Real.log X)) * Real.log X ≤ Real.log kmin →
+        pin2Gate ≤ Ymax → Real.log Ymax ≤ 2 * Real.log kmin →
+        Real.log X ≤ Real.log Ymax →
+        32 * ballSupC34 ≤ (Real.log Ymax) ^ ((3 : ℝ) / 20 - rho293) →
+        1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
+        X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
+        2 * Xd ≤ N →
+        (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (AdoorL M) (s13GK K M) j ≤ p →
+          p ≤ calQK (AdoorL M) (s13GK K M) M j → ¬ p ∣ m → a (p * m) = b m * c p) →
+        (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (AdoorL M) (s13GK K M) j ≤ p →
+          p ≤ calQK (AdoorL M) (s13GK K M) M j → c p * b m ≠ 0 →
+          (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
+        Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (N : ℝ) ≤ 4 * (Xd : ℝ) →
+        (∀ j ∈ Finset.Icc 1 2,
+          ((Nat.sqrt Xd : ℝ) + 1)
+              * ∏ p ∈ primeBand (calP (AdoorL M) (s13GK K M) j)
+                    (calQK (AdoorL M) (s13GK K M) M j), (1 + 3 / (p : ℝ))
+            ≤ (Xd : ℝ) * (Real.log ((calP (AdoorL M) (s13GK K M) j : ℕ) : ℝ)
+                / Real.log ((calQK (AdoorL M) (s13GK K M) M j : ℕ) : ℝ))) →
+        (∀ n : ℕ, ‖a n‖ ≤ 1) →
+        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+        ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X → TannGate X (2 * T) →
+          5 ≤ Real.log (Real.log (2 * T)) →
+          X / h / T * (∫ t in seamAnn X (2 * T), ‖spoly N a t‖ ^ 2)
+            ≤ a2Mrow_L_gk K Cs Ccc M Xd X ε := by
+  obtain ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, hrow⟩ := seam_row_number_nocap
+  obtain ⟨Ccol, hpock⟩ := pocketSocket_of_row
+  refine ⟨Cq, cq, T₀, X₀, Cs, C, Ccol, hCq, hcq, hT₀, hX₀0, hCs, hC, ?_⟩
+  intro g c a b cf hg hc1 hb1 hcf1 N Xd P Q M m₀ Ms Mt kk X h δ' V VJ L Cb Rrad kmin Ymax ε
+    EP2 Sb Ccc hM hKw hXdQ F hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV hCb0
+    hPlow hQ0 hQhigh hPQ83 hLL hnfl hgate hStation hCcc hR0 hRrad hRlow hCbound hX₀k hMfl0
+    hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr hCqgate hε0 habs hEP2 hXN hN2 hsupp
+    hNXd hcoef hwin hQXd hXdbig hN4 hdom ha1 hasupp T hT hTX2 hTgate hTll
+  -- ⟦the scale page⟧
+  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
+  have he2 : (4 : ℝ) ≤ Real.exp 2 := by
+    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
+    nlinarith [Real.exp_one_gt_d9]
+  have hLXe : Real.exp 1 ≤ Real.log X :=
+    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
+  have hL0 : (0 : ℝ) ≤ Real.log X := by linarith
+  have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (AdoorL M) (s13GK K M) M 2) hXdQ
+  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
+  have hX4Xd : X ≤ 4 * (Xd : ℝ) := le_trans hXN hN4
+  have hQ10 : (0 : ℝ) ≤ ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) := Nat.cast_nonneg _
+  -- ⟦the frame at the row's own scale⟧
+  have hF := calFrameK_doorH1_at_L_gk_kwide K M Xd hM hKw hXdQ
+  -- ⟦the window's two endpoints, at `Tann = 2T`⟧
+  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
+  have h2b : (2 : ℝ) * T ≤ X := hTX2
+  have h2T0 : (0 : ℝ) < 2 * T := by
+    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
+    linarith
+  -- ⟦THE ROUTING WITNESS⟧ the bare-datum cap at `v₀`, and the socket it closes
+  obtain ⟨v₀, hv₀box, hv₀cap⟩ := a2_row_cap_of_not_capFreeFloor hLL hnfl
+  have hsock : PocketSocket g P Q X theta293 v₀ :=
+    hpock g hg P Q X theta293 v₀ hXe hLXe theta293_pos
+      (le_of_lt theta293_lt_one_div_32) hPlow hQhigh hPQ83 hv₀box hv₀cap hgate
+  -- ⟦THE BALL LEG⟧ the carried supply, read at the produced centre
+  have hSup : ∀ t : ℝ, seamT0 X ≤ |t| → |t| ≤ 2 * T → |t - v₀| ≤ seamRad X →
+      ∀ m : ℕ, m ≤ N → ‖spolyA a t m‖ ≤ Sb * (m : ℝ) / (1 + |t - v₀|) :=
+    fun t h1 h2 h3 m hm => hStation v₀ hv₀box t h1 (le_trans h2 h2b) h3 m hm
+  -- ⟦THE ROW, at `Tann = 2T`, `t₁ = v₀`⟧
+  have hinst := hrow g c a b cf hg hc1 hb1 hcf1 N Xd P Q (AdoorL M) (s13GK K M) M 2 m₀ Ms Mt kk
+    (H1doorL M) X (2 * T) v₀ δ' V VJ L (1 / 12) Cb Rrad kmin Ymax ε EP2
+    (3 * (720 * (2 * T / X + 1) / H83 X theta293 + EP2)) Sb
+    hF hH2 hX0 hXe hLXe hL4 hlX2 hTgate (F.one_lt _ h2a h2b) h2b (F.T0_le _ h2a h2b) hTll
+    (F.one_le_log _ h2a h2b) (F.log_le_L _ h2a h2b) hLe hVJg hMs (F.thin _ h2a h2b) hm₀2 hm₀
+    hMs4 hV1 hVδ hlogV hCb0 hPlow hQ0 hQhigh hPQ83 hsock hR0 hRrad hRlow (F.blocks _ h2a h2b)
+    (F.box_at h2b) hCbound hX₀k hMfl0 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr
+    hCqgate (F.ksGate_at h2T0 h2b hL0) hε0 habs hEP2 le_rfl (F.err _ h2a h2b) hXN hN2 hsupp
+    hSup hNXd hcoef hwin hQXd hXdbig hN4 hdom ha1 hasupp
+  -- ⟦THE WEIGHTING⟧
+  obtain ⟨hw0, hw1, hg9, hg244, hg3, hg32⟩ :=
+    a2_weight_gates (X := X) (h := h) (T := T) (Xd := (Xd : ℝ))
+      (Q1 := ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ)) hh4 hX0 hT hX4Xd hQ1h hQ10
+  refine (mul_le_mul_of_nonneg_left hinst hw0).trans ?_
+  have hM1' : (1 : ℝ) ≤ (M : ℝ) := by exact_mod_cast hM
+  have hRS0 : (0 : ℝ) ≤ a2RowsSum_L_gk K M Xd := a2RowsSum_nonneg_L_gk K hM hXd1
+  have hZ0 : (0 : ℝ) ≤ (Real.log X) ^ (-theta293 + ε) :=
+    Real.rpow_nonneg hL0 _
+  have hP0 : (0 : ℝ) < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ) := by
+    linarith [calP_door_one_ge_L_gk K hM]
+  have hlvl0 : (0 : ℝ) ≤ a2Level1_L M := a2Level1_L_nonneg hM
+  have hT0 : (0 : ℝ) < T := lt_of_lt_of_le (div_pos hX0 (by linarith)) hT
+  have hRnn : (0 : ℝ) ≤ 2 * T * ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) / (Xd : ℝ) + 1 := by
+    have := div_nonneg (mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * T) hQ10)
+      (by linarith : (0 : ℝ) ≤ (Xd : ℝ))
+    linarith
+  unfold a2Mrow_L_gk
+  refine a2_row_weigh_cap ?_ ?_ ?_ ?_
+  · exact a2_level1_weigh (fun R' hR' => level1_term_door_decays_L_gk K hM hR')
+      (mul_nonneg hw0 hRnn) hg9 hlvl0
+  · exact a2_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
+  · exact a2_term3_ball_weigh hw1 hRS0 hC.le hM1' hCcc hg3
+  · exact a2_term4_weigh hZ0 hg32
+
+/-- ⟦WIDE CEILING TWIN⟧ (`thm_a2'_L_gk_kwide`) —
+`thm_a2'_L_gk` with the flat ceiling moved inside the `∀ M`.
+The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
+the `_kwide` upstream. -/
+theorem thm_a2'_L_gk_kwide (K : ℕ) :
+    ∃ Cq₁ cq₁ T₀₁ X₀₁ Cs₁ C₁ Cq₂ cq₂ T₀₂ X₀₂ Cs₂ C₂ Ccol : ℝ,
+      0 < Cq₁ ∧ 0 < cq₁ ∧ 3 ≤ T₀₁ ∧ 0 < X₀₁ ∧ 0 < Cs₁ ∧ 0 < C₁ ∧
+      0 < Cq₂ ∧ 0 < cq₂ ∧ 3 ≤ T₀₂ ∧ 0 < X₀₂ ∧ 0 < Cs₂ ∧ 0 < C₂ ∧
+      ∀ (g c a b cf : ℕ → ℂ), (∀ p : ℕ, p.Prime → ‖g p‖ ≤ 1) → (∀ n : ℕ, ‖c n‖ ≤ 1) →
+        (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) →
+      ∀ (N Xd P Q M : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
+      ∀ (X h δ' V VJ L Cb Rrad kmin Ymax ε EP2 Sb Ccc C₁' M₀ : ℝ),
+        1 ≤ M → K ≤ 170000000 * M → calQK (AdoorL M) (s13GK K M) M 2 ≤ Xd →
+        A2Frame g cf a N Xd P Q (AdoorL M) (s13GK K M) M 2 Ms Mt kk (H1doorL M) X h δ' VJ L
+          (1 / 12) Cb Rrad EP2 cq₁ T₀₁ →
+        A2Frame g cf a N Xd P Q (AdoorL M) (s13GK K M) M 2 Ms Mt kk (H1doorL M) X h δ' VJ L
+          (1 / 12) Cb Rrad EP2 cq₂ T₀₂ →
+        2 ≤ H83 X theta293 →
+        Real.exp 1 ≤ X → Real.exp 2 ≤ Real.log X →
+        4 ≤ h → ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ h →
+        Real.exp 1 ≤ L →
+        Real.exp (mrAlpha (1 / 12) 2
+            * Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)) ≤ VJ →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
+        0 ≤ Cb → P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X → P ≤ Q →
+        800 < Real.log (Real.log X) →
+        collisionGate X 25 Ccol →
+        (∀ t₁ : ℝ, |t₁| ≤ X → ∀ t : ℝ, seamT0 X ≤ |t| → |t| ≤ X → |t - t₁| ≤ seamRad X →
+          ∀ m : ℕ, m ≤ N → ‖spolyA a t m‖ ≤ Sb * (m : ℝ) / (1 + |t - t₁|)) →
+        C₂ + (M : ℝ) * Sb ^ 2 / 2 ≤ Ccc →
+        0 < Rrad → Rrad ≤ seamRad X → seamRad X ≤ Rrad →
+        ShortIntervalDatum Cb →
+        X₀₁ ≤ kmin → X₀₂ ≤ kmin → 0 ≤ cofactorMfl X theta293 kmin → 2 ≤ kmin → kmin ≤ X →
+        (∀ j ∈ ramI (H83 X theta293) P Q, kmin ≤ ((kk j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, pin2Gate ≤ ((Mt j : ℕ) : ℝ)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, ((Mt j : ℕ) : ℝ) ≤ Ymax) →
+        (1 - 1 / Real.log (Real.log X)) * Real.log X ≤ Real.log kmin →
+        pin2Gate ≤ Ymax → Real.log Ymax ≤ 2 * Real.log kmin →
+        Real.log X ≤ Real.log Ymax →
+        32 * ballSupC34 ≤ (Real.log Ymax) ^ ((3 : ℝ) / 20 - rho293) →
+        1728 * Cq₁ * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
+        1728 * Cq₂ * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293) →
+        X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
+        2 * Xd ≤ N →
+        (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (AdoorL M) (s13GK K M) j ≤ p →
+          p ≤ calQK (AdoorL M) (s13GK K M) M j → ¬ p ∣ m → a (p * m) = b m * c p) →
+        (∀ j ∈ Finset.Icc 1 2, ∀ p m : ℕ, p.Prime → calP (AdoorL M) (s13GK K M) j ≤ p →
+          p ≤ calQK (AdoorL M) (s13GK K M) M j → c p * b m ≠ 0 →
+          (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) ∧ (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ)) →
+        Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (N : ℝ) ≤ 4 * (Xd : ℝ) →
+        (∀ j ∈ Finset.Icc 1 2,
+          ((Nat.sqrt Xd : ℝ) + 1)
+              * ∏ p ∈ primeBand (calP (AdoorL M) (s13GK K M) j)
+                    (calQK (AdoorL M) (s13GK K M) M j), (1 + 3 / (p : ℝ))
+            ≤ (Xd : ℝ) * (Real.log ((calP (AdoorL M) (s13GK K M) j : ℕ) : ℝ)
+                / Real.log ((calQK (AdoorL M) (s13GK K M) M j : ℕ) : ℝ))) →
+        (∀ n : ℕ, ‖a n‖ ≤ 1) →
+        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+        3 ≤ X → h ≤ X * (Real.log X) ^ (-(1 / 5 : ℝ)) →
+        TannGate X (2 * (X / h)) → 5 ≤ Real.log (Real.log (2 * (X / h))) →
+        (∫ t in (-(seamT0 X))..(seamT0 X), ‖dpolyA a (seamS0 N X) t‖ ^ 2)
+          ≤ t0BandB X C₁' M₀ →
+        374784 * Cs₁ * Real.exp 3 * (1 / ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ))
+          ≤ (Real.log X) ^ (-(1 : ℝ) / 500) →
+        374784 * Cs₂ * Real.exp 3 * (1 / ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ))
+          ≤ (Real.log X) ^ (-(1 : ℝ) / 500) →
+        5760 * (a2RowsSum_L_gk K M Xd + C₁ * (2 / (M : ℝ))) ≤ (Real.log X) ^ (-(1 : ℝ) / 500) →
+        5760 * (a2RowsSum_L_gk K M Xd + Ccc * (2 / (M : ℝ))) ≤ (Real.log X) ^ (-(1 : ℝ) / 500) →
+        (0 ≤ ε ∧ ε ≤ theta293 - 1 / 500) →
+        4096 ≤ (Real.log X) ^ (1 - (1 : ℝ) / 250) →
+        1 / X * (∫ x in X..(2 * X), ‖((1 / h : ℝ) : ℂ) * shortSum a (seamS0 N X) x h‖ ^ 2)
+          ≤ 8448 * C₁' ^ 2 * Real.exp (-(1 / Real.exp 1) * M₀)
+            + 1787702400 * a2Level1_L M
+            + 188133 * (Real.log X) ^ (-(1 : ℝ) / 500)
+            + 304128 * ballSupC ^ 2
+                * ((Real.log X) ^ (-(43 : ℝ) / 45) * (1 + Real.log (Real.log X)) ^ 2)
+            + 6315000 / h := by
+  obtain ⟨Cq₁, cq₁, T₀₁, X₀₁, Cs₁, C₁, hCq₁, hcq₁, hT₀₁, hX₀₁, hCs₁, hC₁, hcapfree⟩ :=
+    a2Rows_of_capfree_L_gk_kwide K
+  obtain ⟨Cq₂, cq₂, T₀₂, X₀₂, Cs₂, C₂, Ccol, hCq₂, hcq₂, hT₀₂, hX₀₂, hCs₂, hC₂, hcap⟩ :=
+    a2Rows_of_cap_L_gk_kwide K
+  refine ⟨Cq₁, cq₁, T₀₁, X₀₁, Cs₁, C₁, Cq₂, cq₂, T₀₂, X₀₂, Cs₂, C₂, Ccol,
+    hCq₁, hcq₁, hT₀₁, hX₀₁, hCs₁, hC₁, hCq₂, hcq₂, hT₀₂, hX₀₂, hCs₂, hC₂, ?_⟩
+  intro g c a b cf hg hc1 hb1 hcf1 N Xd P Q M m₀ Ms Mt kk X h δ' V VJ L Cb Rrad kmin Ymax ε
+    EP2 Sb Ccc C₁' M₀ hM hKw hXdQ F₁ F₂ hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ
+    hlogV hCb0 hPlow hQ0 hQhigh hPQ83 hLL hgate hStation hCcc hR0 hRrad hRlow hCbound hX₀k₁
+    hX₀k₂ hMfl0 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr hCqgate₁ hCqgate₂ hε0 habs
+    hEP2 hXN hN2 hsupp hNXd hcoef hwin hQXd hXdbig hN4 hdom ha1 hasupp hX3 hhX hTann hceil
+    hT0band hgP1₁ hgP1₂ hgRows₁ hgRows₂ hεwin hL4096
+  -- ⟦R3c⟧ the row's `EP₂` budget is now the ε-GRADED one; the frozen interface still
+  -- carries the sharp `(log X)^{−θ₂₉₃}` gate, which is stronger (`ε ≥ 0`, `log X ≥ 1`)
+  have hL1 : (1 : ℝ) ≤ Real.log X := le_trans (Real.one_le_exp (by norm_num)) hlX2
+  have hEP2ε : 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) :=
+    le_trans hEP2 (Real.rpow_le_rpow_of_exponent_le hL1 (by linarith))
+  by_cases hfl : CapFreeFloor g X
+  · exact thm_a2'_of_rows_L_gk K hM hXe hX3 hh4 hhX ha1 hsupp hN2 hTann hceil
+      (hcapfree g c a b cf hg hc1 hb1 hcf1 N Xd P Q M m₀ Ms Mt kk X h δ' V VJ L Cb Rrad kmin
+        Ymax ε EP2 hM hKw hXdQ F₁ hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV
+        hCb0 hPlow hQ0 hQhigh hPQ83 hfl hR0 hRrad hRlow hCbound hX₀k₁ hMfl0 hk2 hkX hkk
+        hMtpin hMt hgateW hYpin hWY hXY hthr hCqgate₁ hε0 habs hEP2ε hXN hN2 hsupp hNXd hcoef
+        hwin hQXd hXdbig hN4 hdom ha1 hasupp)
+      hT0band hgP1₁ hgRows₁ hεwin hL4096
+  · exact thm_a2'_of_rows_L_gk K hM hXe hX3 hh4 hhX ha1 hsupp hN2 hTann hceil
+      (hcap g c a b cf hg hc1 hb1 hcf1 N Xd P Q M m₀ Ms Mt kk X h δ' V VJ L Cb Rrad kmin
+        Ymax ε EP2 Sb Ccc hM hKw hXdQ F₂ hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1
+        hVδ hlogV hCb0 hPlow hQ0 hQhigh hPQ83 hLL hfl hgate hStation hCcc hR0 hRrad hRlow
+        hCbound hX₀k₂ hMfl0 hk2 hkX hkk hMtpin hMt hgateW hYpin hWY hXY hthr hCqgate₂ hε0
+        habs hEP2ε hXN hN2 hsupp hNXd hcoef hwin hQXd hXdbig hN4 hdom ha1 hasupp)
+      hT0band hgP1₂ hgRows₂ hεwin hL4096
+
+/-- ⟦WIDE CEILING TWIN⟧ (`a2Rows_of_capfree3_L_gk_kwide`) —
+`a2Rows_of_capfree3_L_gk` with the flat ceiling moved inside the `∀ M`.
+The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
+the `_kwide` upstream. -/
+theorem a2Rows_of_capfree3_L_gk_kwide (K : ℕ) :
+    ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
+      ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
+        (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) → (∀ j n : ℕ, ‖bfam j n‖ ≤ 1) →
+      ∀ (N Xd P Q M : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
+      ∀ (X h δ' V VJ L Cb Rrad Rbar ε EP2 : ℝ),
+        1 ≤ M → K ≤ 170000000 * M → calQK (AdoorL M) (s13GK K M) M 2 ≤ Xd →
+        A2Frame3 b cf a N Xd P Q (AdoorL M) (s13GK K M) M 2 Ms Mt kk (H1doorL M) X h δ' VJ L
+          (1 / 12) Cb Rrad EP2 cq T₀ →
+        2 ≤ H83 X theta293 →
+        Real.exp 1 ≤ X → Real.exp 2 ≤ Real.log X →
+        4 ≤ h → ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ h →
+        Real.exp 1 ≤ L →
+        Real.exp (mrAlpha (1 / 12) 2
+            * Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)) ≤ VJ →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
+        P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X →
+        Rrad ≤ seamRad X →
+        -- ⟦THE ONE NEW DATUM⟧ the co-factor socket at the window's TOP, and its grade
+        0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
+        CofactorSocket (H83 X theta293) N Xd P Q X Rrad 0 Rbar b →
+        1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
+        X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
+        2 * Xd ≤ N →
+        (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (AdoorL M) (s13GK K M) j ≤ p →
+          p ≤ calQK (AdoorL M) (s13GK K M) M j → ¬ p ∣ m →
+          (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
+          a (p * m) = bfam j m * c p) →
+        Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (N : ℝ) ≤ 4 * (Xd : ℝ) →
+        (∀ j ∈ Finset.Icc 1 2,
+          ((Nat.sqrt Xd : ℝ) + 1)
+              * ∏ p ∈ primeBand (calP (AdoorL M) (s13GK K M) j)
+                    (calQK (AdoorL M) (s13GK K M) M j), (1 + 3 / (p : ℝ))
+            ≤ (Xd : ℝ) * (Real.log ((calP (AdoorL M) (s13GK K M) j : ℕ) : ℝ)
+                / Real.log ((calQK (AdoorL M) (s13GK K M) M j : ℕ) : ℝ))) →
+        (∀ n : ℕ, ‖a n‖ ≤ 1) →
+        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+        ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X → TannGate X (2 * T) →
+          5 ≤ Real.log (Real.log (2 * T)) →
+          X / h / T * (∫ t in seamAnn X (2 * T), ‖spoly N a t‖ ^ 2)
+            ≤ a2Mrow_L_gk K Cs C M Xd X ε := by
+  obtain ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, hrow⟩ := seam_row_number_capfree3
+  refine ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, ?_⟩
+  intro c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q M m₀ Ms Mt kk X h δ' V VJ L Cb Rrad Rbar ε
+    EP2 hM hKw hXdQ F hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV hPlow
+    hQ0 hQhigh hRrad hRbar0 hRgrade hsockR hCqgate hε0 habs hEP2 hXN hN2 hsupp hNXd hcoef
+    hQXd hXdbig hN4 hdom ha1 hasupp T hT hTX2 hTgate hTll
+  -- ⟦the scale page⟧
+  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
+  have he2 : (4 : ℝ) ≤ Real.exp 2 := by
+    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
+    nlinarith [Real.exp_one_gt_d9]
+  have hLXe : Real.exp 1 ≤ Real.log X :=
+    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
+  have hL0 : (0 : ℝ) ≤ Real.log X := by linarith
+  have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (AdoorL M) (s13GK K M) M 2) hXdQ
+  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
+  have hX4Xd : X ≤ 4 * (Xd : ℝ) := le_trans hXN hN4
+  have hQ10 : (0 : ℝ) ≤ ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) := Nat.cast_nonneg _
+  -- ⟦the frame at the row's own scale⟧
+  have hF := calFrameK_doorH1_at_L_gk_kwide K M Xd hM hKw hXdQ
+  -- ⟦the window's two endpoints, at `Tann = 2T`⟧
+  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
+  have h2b : (2 : ℝ) * T ≤ X := hTX2
+  have h2T0 : (0 : ℝ) < 2 * T := by
+    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
+    linarith
+  -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
+  have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (AdoorL M) (s13GK K M) M 2 m₀ Ms
+    Mt kk
+    (H1doorL M) X (2 * T) δ' V VJ L (1 / 12) Cb Rrad Rbar ε EP2
+    (3 * (720 * (2 * T / X + 1) / H83 X theta293 + EP2))
+    hF hH2 hX0 hXe hLXe hL4 hTgate (F.one_lt _ h2a h2b) h2b (F.T0_le _ h2a h2b) hTll
+    (F.one_le_log _ h2a h2b) (F.log_le_L _ h2a h2b) hLe hVJg hMs (F.thin _ h2a h2b) hm₀2 hm₀
+    hMs4 hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade (hsockR.mono h2b)
+    (F.blocks _ h2a h2b) hCqgate (F.ksGate_at h2T0 h2b hL0) hε0 habs hEP2 le_rfl
+    (F.err _ h2a h2b) hXN hN2 hsupp hNXd hcoef hQXd hXdbig hN4 hdom ha1 hasupp
+  -- ⟦THE WEIGHTING⟧
+  obtain ⟨hw0, -, hg9, hg244, hg3, hg32⟩ :=
+    a2_weight_gates (X := X) (h := h) (T := T) (Xd := (Xd : ℝ))
+      (Q1 := ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ)) hh4 hX0 hT hX4Xd hQ1h hQ10
+  refine (mul_le_mul_of_nonneg_left hinst hw0).trans ?_
+  have hRS0 : (0 : ℝ) ≤ a2RowsSum_L_gk K M Xd + C * (2 / (M : ℝ)) := by
+    have hM0 : (0 : ℝ) < (M : ℝ) := by exact_mod_cast hM
+    have h2 : (0 : ℝ) ≤ C * (2 / (M : ℝ)) := by positivity
+    linarith [a2RowsSum_nonneg_L_gk K hM hXd1]
+  have hZ0 : (0 : ℝ) ≤ (Real.log X) ^ (-theta293 + ε) :=
+    Real.rpow_nonneg hL0 _
+  have hP0 : (0 : ℝ) < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ) := by
+    linarith [calP_door_one_ge_L_gk K hM]
+  have hlvl0 : (0 : ℝ) ≤ a2Level1_L M := a2Level1_L_nonneg hM
+  have hT0 : (0 : ℝ) < T := lt_of_lt_of_le (div_pos hX0 (by linarith)) hT
+  have hRnn : (0 : ℝ) ≤ 2 * T * ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) / (Xd : ℝ) + 1 := by
+    have := div_nonneg (mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * T) hQ10)
+      (by linarith : (0 : ℝ) ≤ (Xd : ℝ))
+    linarith
+  unfold a2Mrow_L_gk
+  refine a2_row_weigh ?_ ?_ ?_ ?_
+  · exact a2_level1_weigh (fun R' hR' => level1_term_door_decays_L_gk K hM hR')
+      (mul_nonneg hw0 hRnn) hg9 hlvl0
+  · exact a2_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
+  · exact a2_term3_weigh_mr hRS0 hg3
+  · exact a2_term4_weigh hZ0 hg32
+
+/-- ⟦WIDE CEILING TWIN⟧ (`a2Rows_of_capfree3_end_L_gk_kwide`) —
+`a2Rows_of_capfree3_end_L_gk` with the flat ceiling moved inside the `∀ M`.
+The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
+the `_kwide` upstream. -/
+theorem a2Rows_of_capfree3_end_L_gk_kwide (K : ℕ) :
+    ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
+      ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
+        (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) → (∀ j n : ℕ, ‖bfam j n‖ ≤ 1) →
+      ∀ (N Xd P Q M : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
+      ∀ (X h δ' V VJ L Cb Rrad Rbar ε EP2 : ℝ),
+        1 ≤ M → K ≤ 170000000 * M → calQK (AdoorL M) (s13GK K M) M 2 ≤ Xd →
+        A2Frame3 b cf a N Xd P Q (AdoorL M) (s13GK K M) M 2 Ms Mt kk (H1doorL M) X h δ' VJ L
+          (1 / 12) Cb Rrad EP2 cq T₀ →
+        2 ≤ H83 X theta293 →
+        Real.exp 1 ≤ X → Real.exp 2 ≤ Real.log X →
+        4 ≤ h → ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ h →
+        Real.exp 1 ≤ L →
+        Real.exp (mrAlpha (1 / 12) 2
+            * Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)) ≤ VJ →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
+        P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X →
+        Rrad ≤ seamRad X →
+        -- ⟦THE ONE NEW DATUM⟧ the co-factor socket at the window's TOP, and its grade
+        0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
+        CofactorSocket (H83 X theta293) N Xd P Q X Rrad 0 Rbar b →
+        1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
+        X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
+        2 * Xd ≤ N →
+        (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (AdoorL M) (s13GK K M) j ≤ p →
+          p ≤ calQK (AdoorL M) (s13GK K M) M j → ¬ p ∣ m →
+          (Xd : ℝ) < (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
+          a (p * m) = bfam j m * c p) →
+        Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (N : ℝ) ≤ 4 * (Xd : ℝ) →
+        (∀ j ∈ Finset.Icc 1 2,
+          ((Nat.sqrt Xd : ℝ) + 1)
+              * ∏ p ∈ primeBand (calP (AdoorL M) (s13GK K M) j)
+                    (calQK (AdoorL M) (s13GK K M) M j), (1 + 3 / (p : ℝ))
+            ≤ (Xd : ℝ) * (Real.log ((calP (AdoorL M) (s13GK K M) j : ℕ) : ℝ)
+                / Real.log ((calQK (AdoorL M) (s13GK K M) M j : ℕ) : ℝ))) →
+        (∀ n : ℕ, ‖a n‖ ≤ 1) →
+        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+        ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X → TannGate X (2 * T) →
+          5 ≤ Real.log (Real.log (2 * T)) →
+          X / h / T * (∫ t in seamAnn X (2 * T), ‖spoly N a t‖ ^ 2)
+            ≤ a2Mrow_L_gk K Cs C M Xd X ε := by
+  obtain ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, hrow⟩ := seam_row_number_capfree3_end
+  refine ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, ?_⟩
+  intro c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q M m₀ Ms Mt kk X h δ' V VJ L Cb Rrad Rbar ε
+    EP2 hM hKw hXdQ F hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV hPlow
+    hQ0 hQhigh hRrad hRbar0 hRgrade hsockR hCqgate hε0 habs hEP2 hXN hN2 hsupp hNXd hcoef
+    hQXd hXdbig hN4 hdom ha1 hasupp T hT hTX2 hTgate hTll
+  -- ⟦the scale page⟧
+  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
+  have he2 : (4 : ℝ) ≤ Real.exp 2 := by
+    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
+    nlinarith [Real.exp_one_gt_d9]
+  have hLXe : Real.exp 1 ≤ Real.log X :=
+    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
+  have hL0 : (0 : ℝ) ≤ Real.log X := by linarith
+  have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (AdoorL M) (s13GK K M) M 2) hXdQ
+  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
+  have hX4Xd : X ≤ 4 * (Xd : ℝ) := le_trans hXN hN4
+  have hQ10 : (0 : ℝ) ≤ ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) := Nat.cast_nonneg _
+  -- ⟦the frame at the row's own scale⟧
+  have hF := calFrameK_doorH1_at_L_gk_kwide K M Xd hM hKw hXdQ
+  -- ⟦the window's two endpoints, at `Tann = 2T`⟧
+  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
+  have h2b : (2 : ℝ) * T ≤ X := hTX2
+  have h2T0 : (0 : ℝ) < 2 * T := by
+    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
+    linarith
+  -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
+  have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (AdoorL M) (s13GK K M) M 2 m₀ Ms
+    Mt kk
+    (H1doorL M) X (2 * T) δ' V VJ L (1 / 12) Cb Rrad Rbar ε EP2
+    (3 * (720 * (2 * T / X + 1) / H83 X theta293 + EP2))
+    hF hH2 hX0 hXe hLXe hL4 hTgate (F.one_lt _ h2a h2b) h2b (F.T0_le _ h2a h2b) hTll
+    (F.one_le_log _ h2a h2b) (F.log_le_L _ h2a h2b) hLe hVJg hMs (F.thin _ h2a h2b) hm₀2 hm₀
+    hMs4 hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade (hsockR.mono h2b)
+    (F.blocks _ h2a h2b) hCqgate (F.ksGate_at h2T0 h2b hL0) hε0 habs hEP2 le_rfl
+    (F.err _ h2a h2b) hXN hN2 hsupp hNXd hcoef hQXd hXdbig hN4 hdom ha1 hasupp
+  -- ⟦THE WEIGHTING⟧
+  obtain ⟨hw0, -, hg9, hg244, hg3, hg32⟩ :=
+    a2_weight_gates (X := X) (h := h) (T := T) (Xd := (Xd : ℝ))
+      (Q1 := ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ)) hh4 hX0 hT hX4Xd hQ1h hQ10
+  refine (mul_le_mul_of_nonneg_left hinst hw0).trans ?_
+  have hRS0 : (0 : ℝ) ≤ a2RowsSum_L_gk K M Xd + C * (2 / (M : ℝ)) := by
+    have hM0 : (0 : ℝ) < (M : ℝ) := by exact_mod_cast hM
+    have h2 : (0 : ℝ) ≤ C * (2 / (M : ℝ)) := by positivity
+    linarith [a2RowsSum_nonneg_L_gk K hM hXd1]
+  have hZ0 : (0 : ℝ) ≤ (Real.log X) ^ (-theta293 + ε) :=
+    Real.rpow_nonneg hL0 _
+  have hP0 : (0 : ℝ) < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ) := by
+    linarith [calP_door_one_ge_L_gk K hM]
+  have hlvl0 : (0 : ℝ) ≤ a2Level1_L M := a2Level1_L_nonneg hM
+  have hT0 : (0 : ℝ) < T := lt_of_lt_of_le (div_pos hX0 (by linarith)) hT
+  have hRnn : (0 : ℝ) ≤ 2 * T * ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) / (Xd : ℝ) + 1 := by
+    have := div_nonneg (mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * T) hQ10)
+      (by linarith : (0 : ℝ) ≤ (Xd : ℝ))
+    linarith
+  unfold a2Mrow_L_gk
+  refine a2_row_weigh ?_ ?_ ?_ ?_
+  · exact a2_level1_weigh (fun R' hR' => level1_term_door_decays_L_gk K hM hR')
+      (mul_nonneg hw0 hRnn) hg9 hlvl0
+  · exact a2_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
+  · exact a2_term3_weigh_mr hRS0 hg3
+  · exact a2_term4_weigh hZ0 hg32
+
+/-- ⟦WIDE CEILING TWIN⟧ (`a2Rows_of_capfree3_end'_L_gk_kwide`) —
+`a2Rows_of_capfree3_end'_L_gk` with the flat ceiling moved inside the `∀ M`.
+The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
+the `_kwide` upstream. -/
+theorem a2Rows_of_capfree3_end'_L_gk_kwide (K : ℕ) :
+    ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
+      ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
+        (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) → (∀ j n : ℕ, ‖bfam j n‖ ≤ 1) →
+      ∀ (N Xd P Q M : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
+      ∀ (X h δ' V VJ L Cb Rrad Rbar ε EP2 : ℝ),
+        1 ≤ M → K ≤ 170000000 * M → calQK (AdoorL M) (s13GK K M) M 2 ≤ Xd →
+        A2Frame3 b cf a N Xd P Q (AdoorL M) (s13GK K M) M 2 Ms Mt kk (H1doorL M) X h δ' VJ L
+          (1 / 12) Cb Rrad EP2 cq T₀ →
+        2 ≤ H83 X theta293 →
+        Real.exp 1 ≤ X → Real.exp 2 ≤ Real.log X →
+        4 ≤ h → ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ h →
+        Real.exp 1 ≤ L →
+        Real.exp (mrAlpha (1 / 12) 2
+            * Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)) ≤ VJ →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
+        P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X →
+        Rrad ≤ seamRad X →
+        0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
+        CofactorSocket (H83 X theta293) N Xd P Q X Rrad 0 Rbar b →
+        1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
+        X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
+        2 * Xd ≤ N →
+        (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (AdoorL M) (s13GK K M) j ≤ p →
+          p ≤ calQK (AdoorL M) (s13GK K M) M j → ¬ p ∣ m →
+          (Xd : ℝ) < (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
+          a (p * m) = bfam j m * c p) →
+        Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (N : ℝ) ≤ 4 * (Xd : ℝ) →
+        (∀ j ∈ Finset.Icc 1 2,
+          ((Nat.sqrt Xd : ℝ) + 1)
+              * ∏ p ∈ primeBand (calP (AdoorL M) (s13GK K M) j)
+                    (calQK (AdoorL M) (s13GK K M) M j), (1 + 3 / (p : ℝ))
+            ≤ (Xd : ℝ) * (Real.log ((calP (AdoorL M) (s13GK K M) j : ℕ) : ℝ)
+                / Real.log ((calQK (AdoorL M) (s13GK K M) M j : ℕ) : ℝ))) →
+        (∀ n : ℕ, ‖a n‖ ≤ 1) →
+        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+        ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X → TannGate X (2 * T) →
+          5 ≤ Real.log (Real.log (2 * T)) →
+          X / h / T * (∫ t in seamAnn X (2 * T), ‖spoly N a t‖ ^ 2)
+            ≤ a2Mrow'_L_gk K Cs C M Xd X ε := by
+  obtain ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, hrow⟩ :=
+    seam_row_number_capfree3_end'
+  refine ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, ?_⟩
+  intro c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q M m₀ Ms Mt kk X h δ' V VJ L Cb Rrad Rbar ε
+    EP2 hM hKw hXdQ F hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV hPlow
+    hQ0 hQhigh hRrad hRbar0 hRgrade hsockR hCqgate hε0 habs hEP2 hXN hN2 hsupp hNXd hcoef
+    hQXd hXdbig hN4 hdom ha1 hasupp T hT hTX2 hTgate hTll
+  -- ⟦the scale page⟧
+  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
+  have he2 : (4 : ℝ) ≤ Real.exp 2 := by
+    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
+    nlinarith [Real.exp_one_gt_d9]
+  have hLXe : Real.exp 1 ≤ Real.log X :=
+    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
+  have hL0 : (0 : ℝ) ≤ Real.log X := by linarith
+  have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (AdoorL M) (s13GK K M) M 2) hXdQ
+  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
+  have hX4Xd : X ≤ 4 * (Xd : ℝ) := le_trans hXN hN4
+  have hQ10 : (0 : ℝ) ≤ ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) := Nat.cast_nonneg _
+  -- ⟦the frame at the row's own scale⟧
+  have hF := calFrameK_doorH1_at_L_gk_kwide K M Xd hM hKw hXdQ
+  -- ⟦the window's two endpoints, at `Tann = 2T`⟧
+  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
+  have h2b : (2 : ℝ) * T ≤ X := hTX2
+  have h2T0 : (0 : ℝ) < 2 * T := by
+    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
+    linarith
+  -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint, at the PRIMED bracket⟧
+  have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (AdoorL M) (s13GK K M) M 2 m₀ Ms
+    Mt kk
+    (H1doorL M) X (2 * T) δ' V VJ L (1 / 12) Cb Rrad Rbar ε EP2
+    (3 * (720 * (2 * T / X + 1) / H83 X theta293 + EP2))
+    hF hH2 hX0 hXe hLXe hL4 hTgate (F.one_lt _ h2a h2b) h2b (F.T0_le _ h2a h2b) hTll
+    (F.one_le_log _ h2a h2b) (F.log_le_L _ h2a h2b) hLe hVJg hMs (F.thin _ h2a h2b) hm₀2 hm₀
+    hMs4 hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade (hsockR.mono h2b)
+    (F.blocks _ h2a h2b) hCqgate (F.ksGate_at h2T0 h2b hL0) hε0 habs hEP2 le_rfl
+    (F.err _ h2a h2b) hXN hN2 hsupp hNXd hcoef hQXd hXdbig hN4 hdom ha1 hasupp
+  -- ⟦THE WEIGHTING⟧
+  obtain ⟨hw0, -, hg9, hg244, hg3, hg32⟩ :=
+    a3_weight_gates (X := X) (h := h) (T := T) (Xd := (Xd : ℝ))
+      (Q1 := ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ)) hh4 hX0 hT hX4Xd hQ1h hQ10
+  refine (mul_le_mul_of_nonneg_left hinst hw0).trans ?_
+  have hRS0 : (0 : ℝ) ≤ a2RowsSum'_L_gk K M Xd + C * (2 / (M : ℝ)) := by
+    have hM0 : (0 : ℝ) < (M : ℝ) := by exact_mod_cast hM
+    have h2 : (0 : ℝ) ≤ C * (2 / (M : ℝ)) := by positivity
+    linarith [a2RowsSum'_nonneg_L_gk K hM hXd1]
+  have hZ0 : (0 : ℝ) ≤ (Real.log X) ^ (-theta293 + ε) :=
+    Real.rpow_nonneg hL0 _
+  have hP0 : (0 : ℝ) < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ) := by
+    linarith [calP_door_one_ge_L_gk K hM]
+  have hlvl0 : (0 : ℝ) ≤ a2Level1_L M := a2Level1_L_nonneg hM
+  have hT0 : (0 : ℝ) < T := lt_of_lt_of_le (div_pos hX0 (by linarith)) hT
+  have hRnn : (0 : ℝ) ≤ 2 * T * ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) / (Xd : ℝ) + 1 := by
+    have := div_nonneg (mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * T) hQ10)
+      (by linarith : (0 : ℝ) ≤ (Xd : ℝ))
+    linarith
+  unfold a2Mrow'_L_gk
+  refine a3_row_weigh ?_ ?_ ?_ ?_
+  · exact a3_level1_weigh (fun R' hR' => level1_term_door_decays_L_gk K hM hR')
+      (mul_nonneg hw0 hRnn) hg9 hlvl0
+  · exact a3_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
+  · exact a3_term3_weigh_mr hRS0 hg3
+  · exact a3_term4_weigh hZ0 hg32
+
+/-- ⟦WIDE CEILING TWIN⟧ (`a2Rows_of_capfree3'_L_gk_kwide`) —
+`a2Rows_of_capfree3'_L_gk` with the flat ceiling moved inside the `∀ M`.
+The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
+the `_kwide` upstream. -/
+theorem a2Rows_of_capfree3'_L_gk_kwide (K : ℕ) :
+    ∃ Cq cq T₀ X₀ Cs C : ℝ, 0 < Cq ∧ 0 < cq ∧ 3 ≤ T₀ ∧ 0 < X₀ ∧ 0 < Cs ∧ 0 < C ∧
+      ∀ (c a b cf : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ), (∀ n : ℕ, ‖c n‖ ≤ 1) →
+        (∀ n : ℕ, ‖b n‖ ≤ 1) → (∀ n : ℕ, ‖cf n‖ ≤ 1) → (∀ j n : ℕ, ‖bfam j n‖ ≤ 1) →
+      ∀ (N Xd P Q M : ℕ) (m₀ Ms Mt kk : ℕ → ℕ),
+      ∀ (X h δ' V VJ L Cb Rrad Rbar ε EP2 : ℝ),
+        1 ≤ M → K ≤ 170000000 * M → calQK (AdoorL M) (s13GK K M) M 2 ≤ Xd →
+        A2Frame3 b cf a N Xd P Q (AdoorL M) (s13GK K M) M 2 Ms Mt kk (H1doorL M) X h δ' VJ L
+          (1 / 12) Cb Rrad EP2 cq T₀ →
+        2 ≤ H83 X theta293 →
+        Real.exp 1 ≤ X → Real.exp 2 ≤ Real.log X →
+        4 ≤ h → ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ h →
+        Real.exp 1 ≤ L →
+        Real.exp (mrAlpha (1 / 12) 2
+            * Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)) ≤ VJ →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ramRrange (H83 X theta293) N Xd j ⊆ Finset.Icc 1 (Ms j)) →
+        (∀ j ∈ ramI (H83 X theta293) P Q, 2 ≤ m₀ j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((m₀ j : ℕ) : ℝ) ≤ ramRbot (H83 X theta293) Xd j) →
+        (∀ j ∈ ramI (H83 X theta293) P Q,
+          ((Ms j : ℕ) : ℝ) ≤ 4 * (((m₀ j : ℕ) : ℝ) - 1)) →
+        1 ≤ V → V⁻¹ ≤ δ' → Real.log V ≤ 100 * Real.log L →
+        P83 X theta293 ≤ (P : ℝ) → 0 < Q → (Q : ℝ) ≤ Q83 X →
+        Rrad ≤ seamRad X →
+        -- ⟦THE ONE NEW DATUM⟧ the co-factor socket at the window's TOP, and its grade
+        0 ≤ Rbar → Rbar ≤ gradeCR2 Cb * (Real.log X) ^ (-rho293) →
+        CofactorSocket (H83 X theta293) N Xd P Q X Rrad 0 Rbar b →
+        1728 * Cq * (gradeCR2 Cb) ^ 2 ≤ (Real.log X) ^ (2 * theta293) →
+        0 ≤ ε → 8640 ≤ (Real.log X) ^ ε → 12 * EP2 ≤ (Real.log X) ^ (-theta293 + ε) →
+        X ≤ (N : ℝ) → (N : ℝ) ≤ 2 * X → (∀ n : ℕ, (n : ℝ) ≤ X → a n = 0) →
+        2 * Xd ≤ N →
+        (∀ j ∈ Finset.Icc 1 2, ∀ p m, p.Prime → calP (AdoorL M) (s13GK K M) j ≤ p →
+          p ≤ calQK (AdoorL M) (s13GK K M) M j → ¬ p ∣ m →
+          (Xd : ℝ) ≤ (p : ℝ) * (m : ℝ) → (p : ℝ) * (m : ℝ) ≤ 2 * (Xd : ℝ) →
+          a (p * m) = bfam j m * c p) →
+        Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (N : ℝ) ≤ 4 * (Xd : ℝ) →
+        (∀ j ∈ Finset.Icc 1 2,
+          ((Nat.sqrt Xd : ℝ) + 1)
+              * ∏ p ∈ primeBand (calP (AdoorL M) (s13GK K M) j)
+                    (calQK (AdoorL M) (s13GK K M) M j), (1 + 3 / (p : ℝ))
+            ≤ (Xd : ℝ) * (Real.log ((calP (AdoorL M) (s13GK K M) j : ℕ) : ℝ)
+                / Real.log ((calQK (AdoorL M) (s13GK K M) M j : ℕ) : ℝ))) →
+        (∀ n : ℕ, ‖a n‖ ≤ 1) →
+        (∀ n : ℕ, a n ≠ 0 → Xd ≤ n ∧ n ≤ 2 * Xd) →
+        ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X → TannGate X (2 * T) →
+          5 ≤ Real.log (Real.log (2 * T)) →
+          X / h / T * (∫ t in seamAnn X (2 * T), ‖spoly N a t‖ ^ 2)
+            ≤ a2Mrow'_L_gk K Cs C M Xd X ε := by
+  obtain ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, hrow⟩ :=
+    seam_row_number_capfree3'
+  refine ⟨Cq, cq, T₀, X₀, Cs, C, hCq, hcq, hT₀, hX₀0, hCs, hC, ?_⟩
+  intro c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q M m₀ Ms Mt kk X h δ' V VJ L Cb Rrad Rbar ε
+    EP2 hM hKw hXdQ F hH2 hXe hlX2 hh4 hQ1h hLe hVJg hMs hm₀2 hm₀ hMs4 hV1 hVδ hlogV hPlow
+    hQ0 hQhigh hRrad hRbar0 hRgrade hsockR hCqgate hε0 habs hEP2 hXN hN2 hsupp hNXd hcoef
+    hQXd hXdbig hN4 hdom ha1 hasupp T hT hTX2 hTgate hTll
+  -- ⟦the scale page⟧
+  have hX0 : (0 : ℝ) < X := lt_of_lt_of_le (Real.exp_pos 1) hXe
+  have he2 : (4 : ℝ) ≤ Real.exp 2 := by
+    have hsplit : Real.exp 2 = Real.exp 1 * Real.exp 1 := by rw [← Real.exp_add]; norm_num
+    nlinarith [Real.exp_one_gt_d9]
+  have hLXe : Real.exp 1 ≤ Real.log X :=
+    le_trans (Real.exp_le_exp.mpr (by norm_num)) hlX2
+  have hL4 : (4 : ℝ) ≤ Real.log X := le_trans he2 hlX2
+  have hL0 : (0 : ℝ) ≤ Real.log X := by linarith
+  have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (AdoorL M) (s13GK K M) M 2) hXdQ
+  have hXd1' : (1 : ℝ) ≤ (Xd : ℝ) := by exact_mod_cast hXd1
+  have hX4Xd : X ≤ 4 * (Xd : ℝ) := le_trans hXN hN4
+  have hQ10 : (0 : ℝ) ≤ ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) := Nat.cast_nonneg _
+  -- ⟦the frame at the row's own scale⟧
+  have hF := calFrameK_doorH1_at_L_gk_kwide K M Xd hM hKw hXdQ
+  -- ⟦the window's two endpoints, at `Tann = 2T`⟧
+  have h2a : 2 * (X / h) ≤ 2 * T := by linarith
+  have h2b : (2 : ℝ) * T ≤ X := hTX2
+  have h2T0 : (0 : ℝ) < 2 * T := by
+    have : (0 : ℝ) < X / h := div_pos hX0 (by linarith)
+    linarith
+  -- ⟦THE ROW, at `Tann = 2T`, at the `3X` mint⟧
+  have hinst := hrow c a b cf bfam hc1 hb1 hcf1 hbf1 N Xd P Q (AdoorL M) (s13GK K M) M 2 m₀ Ms
+    Mt kk
+    (H1doorL M) X (2 * T) δ' V VJ L (1 / 12) Cb Rrad Rbar ε EP2
+    (3 * (720 * (2 * T / X + 1) / H83 X theta293 + EP2))
+    hF hH2 hX0 hXe hLXe hL4 hTgate (F.one_lt _ h2a h2b) h2b (F.T0_le _ h2a h2b) hTll
+    (F.one_le_log _ h2a h2b) (F.log_le_L _ h2a h2b) hLe hVJg hMs (F.thin _ h2a h2b) hm₀2 hm₀
+    hMs4 hV1 hVδ hlogV hPlow hQ0 hQhigh hRrad hRbar0 hRgrade (hsockR.mono h2b)
+    (F.blocks _ h2a h2b) hCqgate (F.ksGate_at h2T0 h2b hL0) hε0 habs hEP2 le_rfl
+    (F.err _ h2a h2b) hXN hN2 hsupp hNXd hcoef hQXd hXdbig hN4 hdom ha1 hasupp
+  -- ⟦THE WEIGHTING⟧
+  obtain ⟨hw0, -, hg9, hg244, hg3, hg32⟩ :=
+    a3_weight_gates (X := X) (h := h) (T := T) (Xd := (Xd : ℝ))
+      (Q1 := ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ)) hh4 hX0 hT hX4Xd hQ1h hQ10
+  refine (mul_le_mul_of_nonneg_left hinst hw0).trans ?_
+  have hRS0 : (0 : ℝ) ≤ a2RowsSum'_L_gk K M Xd + C * (2 / (M : ℝ)) := by
+    have hM0 : (0 : ℝ) < (M : ℝ) := by exact_mod_cast hM
+    have h2 : (0 : ℝ) ≤ C * (2 / (M : ℝ)) := by positivity
+    linarith [a2RowsSum'_nonneg_L_gk K hM hXd1]
+  have hZ0 : (0 : ℝ) ≤ (Real.log X) ^ (-theta293 + ε) :=
+    Real.rpow_nonneg hL0 _
+  have hP0 : (0 : ℝ) < ((calP (AdoorL M) (s13GK K M) 1 : ℕ) : ℝ) := by
+    linarith [calP_door_one_ge_L_gk K hM]
+  have hlvl0 : (0 : ℝ) ≤ a2Level1_L M := a2Level1_L_nonneg hM
+  have hT0 : (0 : ℝ) < T := lt_of_lt_of_le (div_pos hX0 (by linarith)) hT
+  have hRnn : (0 : ℝ) ≤ 2 * T * ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) / (Xd : ℝ) + 1 := by
+    have := div_nonneg (mul_nonneg (by linarith : (0 : ℝ) ≤ 2 * T) hQ10)
+      (by linarith : (0 : ℝ) ≤ (Xd : ℝ))
+    linarith
+  unfold a2Mrow'_L_gk
+  refine a3_row_weigh ?_ ?_ ?_ ?_
+  · exact a3_level1_weigh (fun R' hR' => level1_term_door_decays_L_gk K hM hR')
+      (mul_nonneg hw0 hRnn) hg9 hlvl0
+  · exact a3_term2_weigh hCs.le (div_pos one_pos hP0).le hg244
+  · exact a3_term3_weigh_mr hRS0 hg3
+  · exact a3_term4_weigh hZ0 hg32
+
 end Salt.MR
 
 end

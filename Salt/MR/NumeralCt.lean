@@ -1091,4 +1091,155 @@ theorem m4_hrowsSlot_at_door_zero'_L_gk_ceiling (K : ℕ) (hK : K ≤ 170000000)
   obtain ⟨Ct, hCt, hCtb, hslot⟩ := m4_hrowsSlot_at_door_zero'_L_gk_bounded K hK
   exact ⟨Ct, hCt, le_trans hCtb six_exp_fourteen_le_two_pow_23, hslot⟩
 
+/-! ## §Xw — ⟦KWIDE-65⟧ THE WIDE-CEILING TWINS (this file)
+
+Mechanical widening of the flat `hK` ceiling binders on the `L`-chain: the ceiling moves
+INSIDE the internal `∀ M` as `≤ 170000000 * M`, so the raised lever `KlevF` can flow.
+Statements and proofs are verbatim apart from that antecedent and the `_kwide` re-pointing.
+The originals are untouched.
+-/
+
+/-- ⟦WIDE CEILING TWIN⟧ (`m4_hrowsSum_chi_door_zero'_L_gk_bounded_kwide`) —
+`m4_hrowsSum_chi_door_zero'_L_gk_bounded` with the flat ceiling moved inside the `∀ M`.
+The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
+the `_kwide` upstream. -/
+theorem m4_hrowsSum_chi_door_zero'_L_gk_bounded_kwide (K : ℕ) :
+    ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 6 * Real.exp 14 ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp →
+      ∀ (q : ℕ) [NeZero q] (c : ℕ → ℂ) (bfam : ℕ → ℕ → ℂ),
+        (∀ j m : ℕ, ‖bfam j m‖ ≤ 1) → (∀ p : ℕ, ‖c p‖ ≤ 1) →
+      ∀ (N Xd M : ℕ) (X h ε : ℝ) (t₁ : DirichletCharacter ℂ q → ℝ),
+        1 ≤ M → K ≤ 170000000 * M → calQK (AdoorL M) (s13GK K M) M 2 ≤ Xd →
+        2 * Xd ≤ N → (N : ℝ) ≤ 4 * (Xd : ℝ) →
+        (∀ j ∈ Finset.Icc 1 2,
+          SeamCoefWS Xd (calP (AdoorL M) (s13GK K M) j) (calQK (AdoorL M) (s13GK K M) M j)
+            (winCutH Xd (doorCoeffU_L_gk K M)) (bfam j) c) →
+        Real.log ((calQK (AdoorL M) (s13GK K M) M 2 : ℕ) : ℝ)
+            ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        (100 : ℝ) ≤ Real.sqrt (Real.log (Xd : ℝ)) →
+        4 ≤ h → 0 < X → 0 ≤ Real.log X → X ≤ 4 * (Xd : ℝ) →
+        ((calQK (AdoorL M) (s13GK K M) M 1 : ℕ) : ℝ) ≤ h →
+        (∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X →
+          TannGate X (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+          (∫ t in seamAnn X (2 * T),
+              ‖spoly N (chiBarCoeff q χ (winCutH Xd (doorCoeffU_L_gk K M))) t‖ ^ 2)
+            ≤ 8 * (0 : ℝ) ^ 2
+              + (∫ t in (seamAnn X (2 * T) \ seamBall X (t₁ χ))
+                  ∩ seamTtotG (chiBarCoeff q χ c) (calP (AdoorL M) (s13GK K M))
+                      (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
+                      (mrAlpha (1 / 12)) 2,
+                  ‖spoly N (chiBarCoeff q χ (winCutH Xd (doorCoeffU_L_gk K M))) t‖ ^ 2)
+              + 2 * ((2 * T / X + 1) * (Real.log X) ^ (-theta293 + ε))) →
+        ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ, X / h ≤ T → 2 * T ≤ X →
+          TannGate X (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+          X / h / T * (∫ t in seamAnn X (2 * T),
+              ‖spoly N (chiBarCoeff q χ (winCutH Xd (doorCoeffU_L_gk K M))) t‖ ^ 2)
+            ≤ a2Mrow'_L_gk K Ct Cp M Xd X ε := by
+  obtain ⟨Ct, hCt, hCtb, hrows⟩ := m4_hrowsSum_chi_zero'_bounded
+  refine ⟨Ct, hCt, hCtb, ?_⟩
+  intro Cp hCp q _ c bfam hb1 hc1 N Xd M X h ε t₁ hM hKw hXdQ hNXd hN4 hcoefWS hQXd
+    hXdbig hh4 hX0 hL0 hX4Xd hQ1h hcap χ T hT hTX2 hTgate hTll
+  have hXd1 : 1 ≤ Xd := le_trans (one_le_calQK (AdoorL M) (s13GK K M) M 2) hXdQ
+  have ha1 : ∀ n : ℕ, ‖winCutH Xd (doorCoeffU_L_gk K M) n‖ ≤ 1 :=
+    fun n => norm_winCutH_le
+      (fun m => norm_memSCoeff_le_one liouvilleC_norm_le_one _ _ 2 m) n
+  refine (hrows Cp hCp q c (winCutH Xd (doorCoeffU_L_gk K M)) bfam ha1 hb1 hc1 N Xd
+    (AdoorL M) (s13GK K M) M 2 (H1doorL M) X h (1 / 12) ε t₁ (fun _ => 0)
+    (calFrameK_doorH1_at_L_gk_kwide K M Xd hM hKw hXdQ) hNXd hN4 hcoefWS
+    (fun n hn => winCutH_asupp hn)
+    (fun i hi => blockLive_winCutH_doorCoeffU_L_gk K M Xd hi) hQXd hXdbig hh4 hX0 hL0 hX4Xd hQ1h
+    hcap χ T hT hTX2 hTgate hTll).trans ?_
+  exact m4MrowChiEnd'_le_a2Mrow'_L_gk K hM hXd1 hCp
+
+/-- ⟦WIDE CEILING TWIN⟧ (`m4_hrowsSlot_at_door_zero'_L_gk_bounded_kwide`) —
+`m4_hrowsSlot_at_door_zero'_L_gk_bounded` with the flat ceiling moved inside the `∀ M`.
+The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
+the `_kwide` upstream. -/
+theorem m4_hrowsSlot_at_door_zero'_L_gk_bounded_kwide (K : ℕ) :
+    ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 6 * Real.exp 14 ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp →
+      ∀ (R : ChowlaRegime) (M : ℕ) (ε : ℕ → ℝ) (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ)
+        (t₁ : ∀ q : ℕ, DirichletCharacter ℂ q → ℝ),
+        1 ≤ M → K ≤ 170000000 * M → (∀ i m : ℕ, ‖bU i m‖ ≤ 1) → (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+          DoorRowZeroBase_L_gk K M (A + s) j cU bU) →
+        (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) (t₁ q χ))
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (AdoorL M) (s13GK K M))
+                        (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s)))) →
+        ∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) / T
+                * (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+              ≤ a2Mrow'_L_gk K Ct Cp M (A + s) (((A + s : ℕ)) : ℝ) (ε (A + s)) := by
+  obtain ⟨Ct, hCt, hCtb, hrows⟩ := m4_hrowsSum_chi_door_zero'_L_gk_bounded_kwide K
+  refine ⟨Ct, hCt, hCtb, ?_⟩
+  intro Cp hCp R M ε cU bU t₁ hM hKw hb1 hc1 hbase hcap H L q j A s hb χ T hT hTX2 hTgate hTll
+  have hq : 0 < q := hb.2.2.2.1
+  have hA : 0 < A := hb.2.2.2.2.2.2.2.1
+  haveI : NeZero q := ⟨hq.ne'⟩
+  have hD := hbase H L q j A s hb
+  have hAs : 0 < A + s := lt_of_lt_of_le hA (Nat.le_add_right A s)
+  have hAsR : (0 : ℝ) < (((A + s : ℕ)) : ℝ) := by exact_mod_cast hAs
+  have hN4 : (((2 * (A + s) : ℕ)) : ℝ) ≤ 4 * (((A + s : ℕ)) : ℝ) := by push_cast; linarith
+  have hslot := hrows Cp hCp q cU bU hb1 hc1
+    (2 * (A + s)) (A + s) M (((A + s : ℕ)) : ℝ) ((2 ^ j : ℕ) : ℝ) (ε (A + s)) (t₁ q)
+    hM hKw hD.Q2_le le_rfl hN4 hD.coefWS hD.reg hD.big
+    hD.h_four hAsR (log_natCast_nonneg' (A + s)) (by linarith) hD.Q1_le_h
+    (by simpa only [chiBarCoeff_doorRowDatum_L_gk] using hcap H L q j A s hb) χ T
+    hT hTX2 hTgate hTll
+  simpa only [chiBarCoeff_doorRowDatum_L_gk] using hslot
+
+/-- ⟦WIDE CEILING TWIN⟧ (`m4_hrowsSlot_at_door_zero'_L_gk_ceiling_kwide`) —
+`m4_hrowsSlot_at_door_zero'_L_gk_ceiling` with the flat ceiling moved inside the `∀ M`.
+The widened antecedent is `K ≤ 170000000 * M`; statement and proof otherwise verbatim, off
+the `_kwide` upstream. -/
+theorem m4_hrowsSlot_at_door_zero'_L_gk_ceiling_kwide (K : ℕ) :
+    ∃ Ct : ℝ, 0 < Ct ∧ Ct ≤ 2 ^ 23 ∧
+      ∀ (Cp : ℝ), 0 ≤ Cp →
+      ∀ (R : ChowlaRegime) (M : ℕ) (ε : ℕ → ℝ) (cU : ℕ → ℂ) (bU : ℕ → ℕ → ℂ)
+        (t₁ : ∀ q : ℕ, DirichletCharacter ℂ q → ℝ),
+        1 ≤ M → K ≤ 170000000 * M → (∀ i m : ℕ, ‖bU i m‖ ≤ 1) → (∀ p : ℕ, ‖cU p‖ ≤ 1) →
+        (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+          DoorRowZeroBase_L_gk K M (A + s) j cU bU) →
+        (∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+              ≤ 8 * (0 : ℝ) ^ 2
+                + (∫ t in (seamAnn (((A + s : ℕ)) : ℝ) (2 * T)
+                      \ seamBall (((A + s : ℕ)) : ℝ) (t₁ q χ))
+                    ∩ seamTtotG (chiBarCoeff q χ cU) (calP (AdoorL M) (s13GK K M))
+                        (calQK (AdoorL M) (s13GK K M) M) (calH (H1doorL M))
+                        (mrAlpha (1 / 12)) 2,
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+                + 2 * ((2 * T / (((A + s : ℕ)) : ℝ) + 1)
+                    * (Real.log (((A + s : ℕ)) : ℝ)) ^ (-theta293 + ε (A + s)))) →
+        ∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+          ∀ χ : DirichletCharacter ℂ q, ∀ T : ℝ,
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) ≤ T → 2 * T ≤ (((A + s : ℕ)) : ℝ) →
+            TannGate (((A + s : ℕ)) : ℝ) (2 * T) → 5 ≤ Real.log (Real.log (2 * T)) →
+            (((A + s : ℕ)) : ℝ) / ((2 ^ j : ℕ) : ℝ) / T
+                * (∫ t in seamAnn (((A + s : ℕ)) : ℝ) (2 * T),
+                    ‖spoly (2 * (A + s)) (winCutH (A + s) (doorChiCoeff_L_gk K χ M)) t‖ ^ 2)
+              ≤ a2Mrow'_L_gk K Ct Cp M (A + s) (((A + s : ℕ)) : ℝ) (ε (A + s)) := by
+  obtain ⟨Ct, hCt, hCtb, hslot⟩ := m4_hrowsSlot_at_door_zero'_L_gk_bounded_kwide K
+  exact ⟨Ct, hCt, le_trans hCtb six_exp_fourteen_le_two_pow_23, hslot⟩
+
 end Salt.MR
