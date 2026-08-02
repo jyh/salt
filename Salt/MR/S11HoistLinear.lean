@@ -851,6 +851,72 @@ theorem m4_socket_discharged_fused_split_graded_L_gk (K : ℕ) (hK : K ≤ 17000
     hframe (hslot Cp hCp R M ε cU bU t₁ hM hb1 hc1 hbase hcap)
     (hbandslot R C₁ M₀ hbandbase) harith
 
+/-! ## §Xu — ⟦THE UNIFORM BAND SLOT⟧ -/
+
+/-- **⟦THE BAND SLOT, `K`-UNIFORM⟧** (`m4_hband_at_door_slot_split_graded_L_gk_uniform`) —
+⟦CAP-RECUT P1⟧ the additive twin of `m4_hband_at_door_slot_split_graded_L_gk` with the `K` binder
+moved INSIDE the `∃ x₀ Cb` prefix.  `Cb` is minted `K`-free (the LEVEL2-PROD per-block price
+`C·4^{Aexp}·(e^{52.5}·4^{1.05}) + 1`), so the swap costs nothing.  Body verbatim off the uniform
+exit twin. -/
+theorem m4_hband_at_door_slot_split_graded_L_gk_uniform (hMmu : MmuChiRate) (Aexp : ℝ)
+    (hAexp : 0 < Aexp) :
+    ∃ (x₀ : ℕ) (Cb : ℝ), 0 < Cb ∧ ∀ (K M : ℕ), 1 ≤ M →
+      ∃ C' : ℝ, 0 < C' ∧ C' ≤ Cb * (M : ℝ) ^ (2.1 : ℝ) ∧
+        ∀ (R : ChowlaRegime) (C₁ M₀ : ℕ → ℝ),
+          ((∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+              DoorBandBase_L_gk K x₀ C' Aexp M (A + s) q (C₁ (A + s)) (M₀ (A + s))) →
+            ∀ H L q j A s : ℕ, SocketBaseL R M H L q j A s →
+              ∀ χ : DirichletCharacter ℂ q,
+                (∫ t in (-(seamT0 (((A + s : ℕ)) : ℝ)))..(seamT0 (((A + s : ℕ)) : ℝ)),
+                  ‖dpolyA (winCutH (A + s) (doorChiCoeff_L_gk K χ M))
+                    (seamS0 (2 * (A + s)) (((A + s : ℕ)) : ℝ)) t‖ ^ 2)
+                  ≤ t0BandB (((A + s : ℕ)) : ℝ)
+                      (cfbC₁ (((A + s : ℕ)) : ℝ) (C₁ (A + s))) (M₀ (A + s))) := by
+  obtain ⟨x₀, C, hCpos, hsplit⟩ :=
+    m4_hT0band_at_door_discharged_split_graded_prod_L_gk_uniform hMmu Aexp hAexp
+  have h4A : (0 : ℝ) < (4 : ℝ) ^ Aexp := Real.rpow_pos_of_pos (by norm_num) Aexp
+  have hEpos : (0 : ℝ) < Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ) := by positivity
+  refine ⟨x₀, C * (4 : ℝ) ^ Aexp * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ)) + 1,
+    by positivity, ?_⟩
+  intro K M hM
+  obtain ⟨hP4, hPQ⟩ := door_window_bounds_L_gk K M hM
+  obtain ⟨hP4₁, hPQ₁⟩ := door_block_bounds_L_gk K M hM (j := 1) le_rfl
+  obtain ⟨hP4₂, hPQ₂⟩ := door_block_bounds_L_gk K M hM (j := 2) (by norm_num)
+  obtain ⟨C', hC'pos, hC'le, hband⟩ := hsplit K
+    (calP (AdoorL M) (s13GK K M) 1) (calQK (AdoorL M) (s13GK K M) M 2)
+    (calP (AdoorL M) (s13GK K M) 1) (calQK (AdoorL M) (s13GK K M) M 1)
+    (calP (AdoorL M) (s13GK K M) 2) (calQK (AdoorL M) (s13GK K M) M 2)
+    hP4 hPQ hP4₁ hPQ₁ hP4₂ hPQ₂
+  obtain ⟨hcovP, hcovQ⟩ := door_cover_L_gk K M hM
+  have hcovB := door_block_cover_L_gk K M
+  refine ⟨C', hC'pos, ?_, ?_⟩
+  · -- ⟦THE ABSORPTION⟧ the per-block mass, priced in `M` — `K`-FREE
+    have hmass := s11_windowMassConst_door_prod_le_L_gk K M hM
+    have hone := s11_one_le_rpow_M M hM
+    have hstep : C * (4 : ℝ) ^ Aexp
+        * (windowMassConst (calP (AdoorL M) (s13GK K M) 1) (calQK (AdoorL M) (s13GK K M) M 1)
+            * windowMassConst (calP (AdoorL M) (s13GK K M) 2)
+                (calQK (AdoorL M) (s13GK K M) M 2))
+        ≤ C * (4 : ℝ) ^ Aexp
+            * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ) * (M : ℝ) ^ (2.1 : ℝ)) := by
+      have hcoef : (0 : ℝ) ≤ C * (4 : ℝ) ^ Aexp := by positivity
+      exact mul_le_mul_of_nonneg_left hmass hcoef
+    have hexp : (C * (4 : ℝ) ^ Aexp * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ)) + 1)
+        * (M : ℝ) ^ (2.1 : ℝ)
+        = C * (4 : ℝ) ^ Aexp * (Real.exp 52.5 * (4 : ℝ) ^ (1.05 : ℝ) * (M : ℝ) ^ (2.1 : ℝ))
+          + (M : ℝ) ^ (2.1 : ℝ) := by ring
+    linarith
+  · intro R C₁ M₀ hgates H L q j A s hb χ
+    have hq : 0 < q := hb.2.2.2.1
+    haveI : NeZero q := ⟨hq.ne'⟩
+    have hD := hgates H L q j A s hb
+    have h16 : 16 ≤ A + s := by
+      have h400 : (400 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := hD.X400
+      have : (16 : ℝ) ≤ (((A + s : ℕ)) : ℝ) := by linarith
+      exact_mod_cast this
+    exact hband q χ M (A + s) (2 * (A + s)) rfl hD.X400 (by omega) le_rfl hD.C₁_one
+      hD.x₀_le h16 hD.qfit hcovP hcovQ hcovB hD.gHalf hD.gO1 hD.gWin hD.grade hD.err
+
 end Salt.MR
 
 end

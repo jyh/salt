@@ -355,6 +355,7 @@ import Salt.MR.RegisterSupply
 import Salt.MR.RiderTrace
 import Salt.MR.XCeil
 import Salt.MR.CofactorBulk
+import Salt.MR.KLever
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -7418,3 +7419,54 @@ under `RegisterSupply`'s single explicit cushion `32·K_vt + 32·D ≤ log H₊/
   Salt.MR.cofkL_q_le_arcCap
   Salt.MR.cofkL_cofactorSupply_L_gk_of_bulk
   Salt.MR.cofkL_cofactorSupply_L_gk_flat
+
+
+/-! ⟦CAP-RECUT — THE RAISED LEVER, THE `g`-RIDER, AND THE RE-CUT BASE-SCALE CAP⟧
+(`KLever` + the uniform hoists + the wide-ceiling twins, 2026-08-02).
+
+CAP-SCOPE proved `S16BaseScaleCap96_L_gk 32000000 R (flatDoorM A)` FALSE at the flat terminal's
+own regime, which made the flat-lane conditionals VACUOUS.  The Fable ruling's composite repair
+lands here in four parts.
+
+**P1 — the uniform hoists.**  `∀K ∃C` → `∃C ∀K` at four sites, bodies verbatim: the piece rate,
+the `T₀`-band exit, the band slot, and the windowed band-lane rider.  BAND-K-PROBE traced the
+witnesses `K`-free (bought by the 7/31 LEVEL2-PROD per-block reprice), so the swap is free —
+`s16_bandLaneWinL_holds_uniform` gives ONE `Awin` serving every `K`, the raised lever included.
+
+**P2 — the lever.**  `kcap := 4` is a NAMED design dial and `KlevF A := ⌈kcap·e^{1.6A}⌉₊`.
+`KlevF_le_wideCeiling` proves it admissible inside the register's own `1.7·10⁸·flatDoorM A`
+with a `137×` margin.  `ThmA2Linear.kwide` — the private hop that threw the `M` factor away —
+is deleted in `calFrameK_doorH1_at_L_gk_kwide`, and the two deepest chain twins
+(`m4_hrows{Sum_chi,Slot_at}_door_zero_L_gk_kwide`) show the propagation pattern: the ceiling
+moves INSIDE the `∀ M` as `K ≤ 1.7·10⁸·M`.
+
+**P3 — the `g`-rider.**  `chowlaRegimeFlat_exists_param_head_gceil` collapses the `max` in
+`XCeil`'s head-shaped ceiling for any caller `g` with `log (g H₊ ω) ≤ (31/ε)·H₊`.  The
+builder's own `x` sits `22.4/ε³ ≥ 2.8·10^9` inside that budget.
+
+**P4 — the re-cut.**  `S16BaseScaleCapEnd_L_gk` is the `K`-FREE endpoint form
+`loglog(A+s) ≤ log H₊ + log(1/ε) + 5`, a THEOREM off the `x`-ceiling
+(`s16_baseScaleCapEnd_L_of_xceil`).  `s16_baseScaleCap96_L_of_end` states the door-vs-endpoint
+numeral as an explicit hypothesis, `klevF_capNumeral` proves it at `K = KlevF A`, and
+`s16_baseScaleCap96_L_at_klevF` lands ⟦ITEM 3⟧ as a theorem at the raised lever.  The whole
+question is the exponent comparison `2 < kcap·log 2 = 2.7724` — a `1.386×` coefficient margin,
+which is why the dial has a name. -/
+#audit_axioms Salt.MR.m4_hpiece_at_door_split_graded_prod_L_gk_uniform
+  Salt.MR.m4_hT0band_at_door_discharged_split_graded_prod_L_gk_uniform
+  Salt.MR.m4_hband_at_door_slot_split_graded_L_gk_uniform
+  Salt.MR.s16_bandLaneWinL_holds_uniform
+  Salt.MR.calFrameK_doorH1_at_L_gk_kwide
+  Salt.MR.m4_hrowsSum_chi_door_zero_L_gk_kwide
+  Salt.MR.m4_hrowsSlot_at_door_zero_L_gk_kwide
+  Salt.Entropy.Chowla.chowlaRegimeFlat_exists_param_head_gceil
+  Salt.MR.exp_sixteen_eq
+  Salt.MR.KlevF_ge
+  Salt.MR.KlevF_lt
+  Salt.MR.KlevF_le_wideCeiling
+  Salt.MR.s16_baseScaleCapEnd_L_of_xceil
+  Salt.MR.s16_baseScaleCap96_L_of_end
+  Salt.MR.klevF_capNumeral
+  Salt.MR.s16_baseScaleCap96_L_at_klevF
+  Salt.MR.s16_capGate_supply_L_gk_end
+  Salt.MR.s16_capGate_supply_L_gk_klevF
+  Salt.MR.calFrameK_doorH1_at_L_gk_flat

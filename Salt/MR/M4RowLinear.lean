@@ -10766,6 +10766,138 @@ theorem m4_wave_closed_T0_discharged_L_gk (K : ℕ) (hK : K ≤ 170000000) (Qm :
   exact hbridge Cq cq T₀ Xcap Cs Ccc Kfl Xsk Kcf Ctail q χ M
     (doorLadder R.x H (i + 1) + s) j (MS j H) hqQm
     (hcar H hlo hhi q hq hqQ i hik χ j hjL hj0 s hsH)
+/-! ## §4u — ⟦THE UNIFORM HOISTS⟧ the `K`-binder moved INSIDE the witness prefix
+
+⟦CAP-RECUT P1, 2026-08-02⟧ the lever raise `K := KlevF A` makes the rate constants' `K`-freeness
+load-bearing: every consumer that must hold at a `K` chosen AFTER the witness needs the swap
+`∀K ∃C` → `∃C ∀K`.  BAND-K-PROBE traced the witness hop-by-hop and found it `K`-free already
+(the LEVEL2-PROD reprice of 7/31 bought it: the per-block mass carries no `2^{1.05K}`), so the
+twins below are the SAME proofs with `intro K` moved inside.  Bodies verbatim; the originals are
+untouched and remain the consumers' default.
+-/
+
+/-- **⟦THE PIECE RATE, `K`-UNIFORM⟧** (`m4_hpiece_at_door_split_graded_prod_L_gk_uniform`) — the
+additive twin of `m4_hpiece_at_door_split_graded_prod_L_gk` with the `K` binder moved inside the
+`∃ x₀ C` prefix.  The witness comes from `piece_partial_sum_rate_split_graded_prod_L`, which is
+`K`-free, so the hoist is free. -/
+theorem m4_hpiece_at_door_split_graded_prod_L_gk_uniform (hMmu : MmuChiRate) (A : ℝ)
+    (hA : 0 < A) :
+    ∃ (x₀ : ℕ) (C : ℝ), 0 < C ∧ ∀ (K P Q P₁ Q₁ P₂ Q₂ : ℕ), 4 ≤ P → P ≤ Q →
+      4 ≤ P₁ → P₁ ≤ Q₁ → 4 ≤ P₂ → P₂ ≤ Q₂ →
+      ∃ C' : ℝ, 0 < C' ∧
+        C' ≤ C * (4 : ℝ) ^ A * (windowMassConst P₁ Q₁ * windowMassConst P₂ Q₂) + 1 ∧
+        ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (M Xd N : ℕ) {X : ℝ},
+          ((Xd : ℕ) : ℝ) = X → (400 : ℝ) ≤ X → x₀ ≤ Xd → 16 ≤ Xd →
+          (q : ℝ) ≤ (Real.log X) ^ (10 : ℕ) →
+          (∀ j ∈ Finset.Icc 1 2, P ≤ calP (AdoorL M) (s13GK K M) j) →
+          (∀ j ∈ Finset.Icc 1 2, calQK (AdoorL M) (s13GK K M) M j ≤ Q) →
+          (∀ j ∈ Finset.Icc 1 2,
+              (P₁ ≤ calP (AdoorL M) (s13GK K M) j
+                  ∧ calQK (AdoorL M) (s13GK K M) M j ≤ Q₁)
+                ∨ (P₂ ≤ calP (AdoorL M) (s13GK K M) j
+                  ∧ calQK (AdoorL M) (s13GK K M) M j ≤ Q₂)) →
+          (∀ k : ℕ, Xd ≤ k → k ≤ N →
+            16 * A * Real.log (Real.log (k : ℝ)) ≤ Real.log (k : ℝ)) →
+          (∀ k : ℕ, Xd ≤ k → k ≤ N →
+            8 * A * Real.log (Real.log (k : ℝ)) * Real.log (Q : ℝ) ≤ Real.log (k : ℝ)) →
+          (∀ k : ℕ, Xd ≤ k → k ≤ N →
+            Real.exp (2 * Real.exp 1
+                * (Real.log (Real.log (Q : ℝ)) - Real.log (Real.log (P : ℝ)) + 25))
+              ≤ (Real.log (k : ℝ)) ^ A) →
+          ∀ 𝒥 ∈ (Finset.Icc 1 2).powerset, ∀ t : ℝ, |t| ≤ seamT0 X →
+            ∀ k : ℕ, Xd ≤ k → k ≤ N →
+              ‖∑ n ∈ Finset.Icc 1 k,
+                  pieceDatum χ 𝒥 (calP (AdoorL M) (s13GK K M)) (calQK (AdoorL M) (s13GK K M) M) n
+                    * eIu (-t) n‖
+                ≤ (C' / (Real.log X) ^ A) * (k : ℝ) := by
+  obtain ⟨x₀, C, hCpos, hsplit⟩ := piece_partial_sum_rate_split_graded_prod_L hMmu A hA
+  refine ⟨x₀, C, hCpos, ?_⟩
+  intro K P Q P₁ Q₁ P₂ Q₂ hP4 hPQ h₁4 h₁ h₂4 h₂
+  obtain ⟨C', hC'pos, hC'le, hrate⟩ := hsplit P Q P₁ Q₁ P₂ Q₂ hP4 hPQ h₁4 h₁ h₂4 h₂
+  refine ⟨C', hC'pos, hC'le, ?_⟩
+  intro q _ χ M Xd N X hXd hX400 hx₀ h16 hq hcovP hcovQ hcovB hgHalf hgO1 hgWin 𝒥 h𝒥 t ht k
+    hk1 hk2
+  have h𝒥sub : 𝒥 ⊆ Finset.Icc 1 2 := Finset.mem_powerset.mp h𝒥
+  have hX0 : (0 : ℝ) < X := by linarith
+  have hXk : X ≤ (k : ℝ) := by
+    rw [← hXd]
+    exact_mod_cast hk1
+  have hLXpos : 0 < Real.log X := Real.log_pos (by linarith)
+  have hLk : Real.log X ≤ Real.log (k : ℝ) := Real.log_le_log hX0 hXk
+  have hLkpos : 0 < Real.log (k : ℝ) := lt_of_lt_of_le hLXpos hLk
+  have hk16 : 16 ≤ k := le_trans h16 hk1
+  have hkx₀ : x₀ ≤ k := le_trans hx₀ hk1
+  have hqk : (q : ℝ) ≤ (Real.log (k : ℝ)) ^ (10 : ℕ) := by
+    refine le_trans hq ?_
+    gcongr
+  have hth : |t| ≤ (Nat.sqrt (Nat.sqrt k) : ℝ) := by
+    refine le_trans ht (le_trans (seamT0_le_sqrt_sqrt hXd hX400) ?_)
+    exact_mod_cast Nat.sqrt_le_sqrt (Nat.sqrt_le_sqrt hk1)
+  have hmain := hrate k hkx₀ hk16 (hgHalf k hk1 hk2) (hgO1 k hk1 hk2) (hgWin k hk1 hk2)
+    q χ hqk t hth 𝒥 _ _ (fun j hj => hcovP j (h𝒥sub hj)) (fun j hj => hcovQ j (h𝒥sub hj))
+    (fun j hj => hcovB j (h𝒥sub hj))
+  refine le_trans hmain ?_
+  have hLAX : (0 : ℝ) < (Real.log X) ^ A := Real.rpow_pos_of_pos hLXpos A
+  have hLAk : (Real.log X) ^ A ≤ (Real.log (k : ℝ)) ^ A :=
+    Real.rpow_le_rpow hLXpos.le hLk hA.le
+  have hk0 : (0 : ℝ) ≤ (k : ℝ) := Nat.cast_nonneg k
+  rw [show C' / (Real.log X) ^ A * (k : ℝ) = C' * (k : ℝ) / (Real.log X) ^ A from by ring]
+  exact div_le_div_of_nonneg_left (mul_nonneg hC'pos.le hk0) hLAX hLAk
+
+/-- **⟦THE `T₀`-BAND EXIT, `K`-UNIFORM⟧**
+(`m4_hT0band_at_door_discharged_split_graded_prod_L_gk_uniform`) — the additive twin with the `K`
+binder inside the witness prefix, off the uniform piece rate.  Body verbatim. -/
+theorem m4_hT0band_at_door_discharged_split_graded_prod_L_gk_uniform (hMmu : MmuChiRate)
+    (A : ℝ) (hA : 0 < A) :
+    ∃ (x₀ : ℕ) (C : ℝ), 0 < C ∧ ∀ (K P Q P₁ Q₁ P₂ Q₂ : ℕ), 4 ≤ P → P ≤ Q →
+      4 ≤ P₁ → P₁ ≤ Q₁ → 4 ≤ P₂ → P₂ ≤ Q₂ →
+      ∃ C' : ℝ, 0 < C' ∧
+        C' ≤ C * (4 : ℝ) ^ A * (windowMassConst P₁ Q₁ * windowMassConst P₂ Q₂) + 1 ∧
+        ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (M Xd N : ℕ) {X C₁ M₀ : ℝ},
+          ((Xd : ℕ) : ℝ) = X → (400 : ℝ) ≤ X → Xd ≤ N → N ≤ 2 * Xd → 1 ≤ C₁ →
+          x₀ ≤ Xd → 16 ≤ Xd →
+          (q : ℝ) ≤ (Real.log X) ^ (10 : ℕ) →
+          (∀ j ∈ Finset.Icc 1 2, P ≤ calP (AdoorL M) (s13GK K M) j) →
+          (∀ j ∈ Finset.Icc 1 2, calQK (AdoorL M) (s13GK K M) M j ≤ Q) →
+          (∀ j ∈ Finset.Icc 1 2,
+              (P₁ ≤ calP (AdoorL M) (s13GK K M) j
+                  ∧ calQK (AdoorL M) (s13GK K M) M j ≤ Q₁)
+                ∨ (P₂ ≤ calP (AdoorL M) (s13GK K M) j
+                  ∧ calQK (AdoorL M) (s13GK K M) M j ≤ Q₂)) →
+          (∀ k : ℕ, Xd ≤ k → k ≤ N →
+            16 * A * Real.log (Real.log (k : ℝ)) ≤ Real.log (k : ℝ)) →
+          (∀ k : ℕ, Xd ≤ k → k ≤ N →
+            8 * A * Real.log (Real.log (k : ℝ)) * Real.log (Q : ℝ) ≤ Real.log (k : ℝ)) →
+          (∀ k : ℕ, Xd ≤ k → k ≤ N →
+            Real.exp (2 * Real.exp 1
+                * (Real.log (Real.log (Q : ℝ)) - Real.log (Real.log (P : ℝ)) + 25))
+              ≤ (Real.log (k : ℝ)) ^ A) →
+          8 * C' ≤ (Real.log X) ^ (A + (-(1 : ℝ) / 2 + 1 / 1000)) →
+          4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)
+              ≤ Real.exp (-(1 / (2 * Real.exp 1)) * M₀) →
+          (∫ t in (-(seamT0 X))..(seamT0 X),
+              ‖dpolyA (winCutH Xd (doorChiCoeff_L_gk K χ M)) (seamS0 N X) t‖ ^ 2)
+            ≤ t0BandB X (cfbC₁ X C₁) M₀ := by
+  obtain ⟨x₀, C, hCpos, hsplit⟩ := m4_hpiece_at_door_split_graded_prod_L_gk_uniform hMmu A hA
+  refine ⟨x₀, C, hCpos, ?_⟩
+  intro K P Q P₁ Q₁ P₂ Q₂ hP4 hPQ h₁4 h₁ h₂4 h₂
+  obtain ⟨C', hC'pos, hC'le, hpiece⟩ := hsplit K P Q P₁ Q₁ P₂ Q₂ hP4 hPQ h₁4 h₁ h₂4 h₂
+  refine ⟨C', hC'pos, hC'le, ?_⟩
+  intro q _ χ M Xd N X C₁ M₀ hXd hX400 hXdN hN hC₁ hx₀ h16 hq hcovP hcovQ hcovB hgHalf hgO1
+    hgWin hgrade hErr
+  have hX3 : (3 : ℝ) ≤ X := by linarith
+  have hLXpos : 0 < Real.log X := Real.log_pos (by linarith)
+  have hLA : (0 : ℝ) < (Real.log X) ^ A := Real.rpow_pos_of_pos hLXpos A
+  have hS₀ : (0 : ℝ) ≤ C' / (Real.log X) ^ A := le_of_lt (div_pos hC'pos hLA)
+  have hSle : 8 * (C' / (Real.log X) ^ A)
+      ≤ 2 * (C₁ * Real.exp (-(1 / (2 * Real.exp 1)) * M₀)
+          + 4 * Real.log X ^ (-(1 : ℝ) / 2 + 1 / 1000)) := by
+    refine t0datum_grade_of_fit hX3 hC₁ ?_
+    calc C' ≤ 8 * C' := by linarith
+      _ ≤ (Real.log X) ^ (A + (-(1 : ℝ) / 2 + 1 / 1000)) := hgrade
+  exact m4_hT0band_at_door_L_gk K χ M hX3 hXd hXdN hN hC₁ hS₀ hSle
+    (hpiece q χ M Xd N hXd hX400 hx₀ h16 hq hcovP hcovQ hcovB hgHalf hgO1 hgWin) hErr
+
 end Salt.MR
 
 end

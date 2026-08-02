@@ -541,6 +541,25 @@ theorem calFrameK_doorH1_at_L_gk (K M Xd : ℕ) (hM : 1 ≤ M) (hK : K ≤ 17000
   exact ⟨hF.eta_pos, hF.eta_lt, hF.one_le_Jb, hF.one_le_G, hF.one_le_M, hF.G_gateK,
     hF.A_gate_lin, hF.A_gate_logK, hF.A_floor, hF.H1_two, hF.H1_pin, hXd⟩
 
+/-- **⟦THE WIDE DOOR FRAME⟧** (`calFrameK_doorH1_at_L_gk_kwide`) — `calFrameK_doorH1_at_L_gk`
+with the `kwide` hop deleted.
+
+`ThmA2Linear.kwide` is the private step `K ≤ 1.7·10⁸ → 1 ≤ M → K ≤ 1.7·10⁸·M`; it is the ONE
+place the L chain throws the `M` factor away.  The landed frame
+`DoorLadderLinear.calFrameK_satisfiable_doorH1_L_gk` already takes the WIDE ceiling, so deleting
+the hop is free — this twin takes `K ≤ 1.7·10⁸·M` directly, and at `K = KlevF A`,
+`M = flatDoorM A` that hypothesis is `KlevF_le_wideCeiling`.
+
+⟦THE ROOT OF P2(b)⟧  Every `hK : K ≤ 170000000` on the L chain is spent, ultimately, here (via
+`M4RowSpineLinear:1493` and `A3Middle:1031/:1148`); this twin is where the propagation of the
+weakened ceiling starts. -/
+theorem calFrameK_doorH1_at_L_gk_kwide (K M Xd : ℕ) (hM : 1 ≤ M) (hK : K ≤ 170000000 * M)
+    (hXd : calQK (AdoorL M) (s13GK K M) M 2 ≤ Xd) :
+    CalFrameK (1 / 12) (H1doorL M) (AdoorL M) (s13GK K M) M 2 Xd := by
+  have hF := calFrameK_satisfiable_doorH1_L_gk K M hM hK
+  exact ⟨hF.eta_pos, hF.eta_lt, hF.one_le_Jb, hF.one_le_G, hF.one_le_M, hF.G_gateK,
+    hF.A_gate_lin, hF.A_gate_logK, hF.A_floor, hF.H1_two, hF.H1_pin, hXd⟩
+
 /-! ### `ThmA2` :972 — `thm_a2'_of_rows_gk` -/
 /-- **thm_A2′ AT THE G-LEVER** (`thm_a2'_of_rows_L_gk`).  `thm_a2'_of_rows_L` verbatim with
 `G := s13GK K M`: the row family is taken at `a2Mrow_L_gk`, the `𝒫₁` gate at the lever's `𝒫₁`
