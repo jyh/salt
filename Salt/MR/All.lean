@@ -345,6 +345,8 @@ import Salt.MR.FlatFloorBump
 import Salt.MR.S13FramesLinear
 import Salt.MR.S13BandCapLinear
 import Salt.MR.S16FlatTerminalLinear
+import Salt.MR.S13CapGateLinear
+import Salt.MR.S16FlatFinal
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -7149,3 +7151,49 @@ Purely additive: no landed declaration is touched. -/
   Salt.MR.flat_L_regime_exists
   Salt.MR.flat_linear_joint_point_at_162
   Salt.MR.m4_fuse_hcap_of_capWS_L_gk
+
+/-! ⟦CAPGATE-L — THE CAP-GATE LANE AT THE LINEAR DOOR, AND THE CROSSING DISCHARGED⟧
+(`S13CapGateLinear`, `S16FlatFinal`, 2026-08-01).
+
+⟦LADDER-L RE-FIRE⟧ left `S15CrossingBound_L_gk 32000000 R (flatDoorM A)` as the ONE remaining
+named supply of the linear ladder, and named three objects that did not exist:
+`S13CapGatePerBlock_L_gk` (the 37-field per-block gate), `s13CapGrid_all_L_gk` (the 18-field
+grid supply) and `doorCapBundle_at_workingPoint_perBlock_L_gk` (the composite).  This wave
+mints all three, plus the two bundles between them, the budget field and the cap-gate supply,
+and then discharges the rider.
+
+⟦THE ANATOMY OF THE RE-CUT⟧ of the gate's 37 fields, FIVE read the door (`QTann`, `kappa30Q`,
+`Q2_reg`, `budget`, `Rbd_socket`) and move by anchor substitution `Adoor M → AdoorL M`,
+`H1door M → H1doorL M`; the other thirty-two are the landed terms verbatim.  Of the grid
+wave's 18 conjuncts exactly ONE reads the door (`Q2_reg`, off the landed
+`s13_doorRowZeroBase_five_L_gk`).  The `eps` wave (`S13CapEps`) is LADDER-BLIND and composes
+through `ArithPageLinear.socketBase_of_socketBaseL`; the floor wave was already paid
+(`S13BandCapLinear.s13CapFloor_all_L_gk`).  The budget field's numeric core
+(`s16_budget_num_96`) is stated in seven abstract symbols, so the L2-PROD product route is
+ladder-blind — only `Lq = 4M·Lp` and the width cap `log 𝓗₂ ≤ 2 + Lp/73728` re-cut.
+
+⟦THE HEADLINE⟧ **`logChowla2_witnessed_scale_flat_L_v2` — THE CROSSING IS GONE FROM THE LIST.**
+It is not deleted, it is PAID: in its place the terminal carries the fuse's four numeric
+riders (`e^{-100} ≤ cs`, `T₀ ≤ e^{e^{100}}`, `Kq ≤ e^{100}`, `e^{-100} ≤ Ks`, spent on
+constants the ∃-prefix itself produces) and the landed wide terminal's own two predicates at
+the LINEAR door and socket — `S16CofactorSupply_L_gk` (⟦RULING 9⟧'s shelved `Rbd`/`Cq` debt)
+and `S16BaseScaleCap96_L_gk` (⟦ITEM 3⟧'s base-scale cap), the latter WEAKER than its landed
+counterpart, which implies it (`s16_baseScaleCap96_L_of_baseScaleCap96`).
+
+⟦THE COMPLETE SURVIVING LIST OF `logChowla2_witnessed_scale_flat_L_v2`⟧ `hband`
+(`S16BandLaneCBoundedL 32000000`) + `A₀ ≥ 162` as arguments; inside: `Kc ≤ 2^539`,
+`Ct ≤ 2^23`, `x₀ ≤ e^{e^{3.2A}/10}` (⟦THE x0 WINDOW⟧, Siegel), `Hopq ≤ flatDesignBase A`
+(⟦THE ARM CENSUS⟧, ⟦REF-FLAT-SAT⟧'s Siegel-honest form of the old width demand), the four
+`cs`/`T₀`/`Kq`/`Ks` numerals, and the two carried predicates above.  The width line
+`loglog H₊ ≤ 2·e^{1.6A}` is EXPORTED, not asked.
+
+Purely additive: no landed declaration is touched. -/
+#audit_axioms Salt.MR.s13_doorCapErrWS_perBlock_L_gk
+  Salt.MR.s13_doorCapBase_perBlock_L_gk
+  Salt.MR.doorCapBundle_at_workingPoint_perBlock_L_gk
+  Salt.MR.s13CapGrid_all_L_gk
+  Salt.MR.s16_budget_field_L_gk_96
+  Salt.MR.s16_baseScaleCap96_L_of_baseScaleCap96
+  Salt.MR.s16_capGate_supply_L_gk
+  Salt.MR.s15_crossing_supplied_L_gk
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2
