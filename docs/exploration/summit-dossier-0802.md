@@ -209,3 +209,35 @@ symbolic K_vt cushion): the honest bookkeeping.
 conclusion-side items named plainly) or after X-THREAD lands (one
 named predicate only). The g-rider coefficient correction also banked:
 the builder sits NINE orders inside the budget, not four.
+
+## ADDENDUM 3 (2026-08-03) — v6: THE COROLLARY LINE'S FINAL FORM
+
+**`logChowla2_ineffective_v6` (RegisterCompose.lean:345, 3-axiom,
+b36f53a) — outer: NOTHING; conclusion-side: NOTHING.** The cofactor
+predicate is discharged: all seventeen register conjuncts proven at
+the repaired dilation ladder D = ⌈log X⌉ (two were FALSE at the
+T-range bottom until the socket's own forcing was found — checked
+before proving; two "carried gates" turned out to be theorems — a
+stale reading corrected; the keystone: the band's true bottom
+log B_v ≥ (1−1/loglog X)·log X survives the division by D). The
+∃Cq ∀K hoist closed the quantifier circle, all first-attempt.
+
+**The five inner riders, exact and final**:
+1. `e^{-100} ≤ cs` — TRUE with 33 orders, kernel-pinned.
+2. `T₀ ≤ e^{√(flatDesignBase A)/2}` — the sharp form, satisfiable
+   two exponential levels clear.
+3. `e^{-100} ≤ Ks` — Siegel-genre (the field's caveat).
+4. `XCeilRiderStrict ε g` — the caller's own growth condition, met
+   by g ≡ 0 and by the compose's own arm.
+5. The K_vt cushion (32·K_vt + 32·D̂ ≤ log H₊/4) — carried BY NAME
+   because its third leg is SiegelArm:166's EVT minimum of ‖L(s,χ)‖
+   uniform in q: **the Siegel-zero obstruction itself**. K_vt sits
+   in the ∃-prefix so the caller can state the cushion.
+
+The honest sentence: **the unconditional-ineffective log-Chowla-2
+corollary now carries, beyond its own satisfiable bookkeeping,
+exactly the Siegel obstruction — named twice (Ks, K_vt), nothing
+else.** The wall the campaign met honestly on 7/29 is the only
+thing left inside the statement. Registry: 71 rows, v5 superseded
+in place and still citable. **(e) IS RIPE on the Captain's read of
+v6.**
