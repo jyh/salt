@@ -34,3 +34,18 @@ outside `ParityInv`. `ParityBarrier` is stated, never assumed.
   parityInv_twin_almost_prime
   parityInv_N5_3
   parityInv_chen_second
+
+/-!
+## The four census rows APPENDIX-A found outside every audit block
+
+`Prop 8.4`'s census has nine `parityInv_*` instances; four of them
+(`Parity/Instances.lean:53/62/72/93`) were listed in the manuscript's
+Appendix A but sat in no `#audit_axioms` block, so the kernel never
+re-checked their axiom sets alongside the rest. Folded in here
+(N5 wave 2, 2026-08-03).
+-/
+
+#audit_axioms parityInv_twin_gate_fails
+  parityInv_no_twin_weight
+  parityInv_noSiegel_iff
+  parityInv_N6_2

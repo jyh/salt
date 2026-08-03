@@ -37,6 +37,7 @@ import Salt.HB.L2cGlue
 import Salt.HB.L2cEngineRoute
 import Salt.HB.L2cMasterUncond
 import Salt.HB.RosserDim4
+import Salt.HB.RosserDim4FL
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -125,3 +126,19 @@ open Salt.Tactic in
   Salt.HB.hMert_dim4
   Salt.HB.brun_lower_dim4
   Salt.HB.brun_upper_dim4
+  Salt.HB.flB_level_bound
+  Salt.HB.fl_defect_le
+  Salt.HB.fl_defect_le_upper
+  Salt.HB.flConst_quarter_le
+  Salt.HB.fl_dim4_lower
+  Salt.HB.fl_dim4_upper
+  Salt.HB.firstFailure_decomposition
+  Salt.HB.exists_firstFailure
+  Salt.HB.failSet_unique
+  Salt.HB.failSet_le_rpow
+  Salt.HB.failSet_forced_count
+  Salt.HB.failSet_moebius
+  Salt.HB.firstFailure_decomposition_signed
+  Salt.HB.perDelta_transfer
+  Salt.HB.transfer_of_decomposition
+  Salt.HB.hb_perDelta_transfer
