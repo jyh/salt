@@ -21,3 +21,7 @@ docs/sources/*.txt
 /scripts/search/.venv/
 /scripts/search/index/
 /scripts/search/__pycache__/
+
+# Copyrighted source papers: never tracked (the public-gate purge list covers history)
+docs/sources/*.pdf
+articles/*.pdf
