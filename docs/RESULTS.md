@@ -173,6 +173,8 @@ machinery beneath them is ledger-audited at `Salt/Vk/All.lean:52`.
 | `Salt.Weil.norm_kloosterman_le_two_sqrt` | **The Weil bound** for Kloosterman sums: `‖S(a,b;p)‖ ≤ 2√p` for odd `p` and `a, b ≠ 0`. | Salt/Weil/Descent.lean:206 | 2026-07-17 | `5c9d9cf` | 3 (Salt/Weil/All.lean:39) |
 | `Keller.keller_not_injective` [tier-2] | `Fmap : ℚ³ → ℚ³` is not injective (two distinct rational points with the same image). | Salt/Keller/Counterexample.lean:142 | 2026-07-21 | `a25042b` | 3 (Salt/Keller/All.lean:24) |
 | `Keller.jacobian_conjecture_counterexample` | **The Alpöge counterexample to the Jacobian conjecture** (Thm 3.1) verified: `J.det = C(−2)` and `F` is not injective on `ℚ³`. | Salt/Keller/Counterexample.lean:159 | 2026-07-21 | `a25042b` | 3 (Salt/Keller/All.lean:24) |
+| `Salt.HB.fl_dim4_lower` / `fl_dim4_upper` | The fundamental lemma at sieve dimension 4 (block-Brun): main-term defect ≤ flConst·e^{−flRate·s}, both sides — believed the first FL at dimension > 1 in any proof assistant. | Salt/HB/RosserDim4FL.lean:364 | 2026-08-03 | `8c62a10` | 3 axioms (audited) |
+| `Salt.HB.hbSieve_fl_sandwich` | N5's exit: the dimension-4 Rosser-sieve service layer at Heath-Brown's sifted object — sandwich (2.2) PROVED (not axiom-assumed), W(z)+correction identification, the ρ₂/ρ₃ transfer; one carried analytic field (Λ* ≥ 0). | Salt/HB/RosserDim4Instance.lean:564 | 2026-08-03 | `5b2b87a` | 3 axioms (audited) |
 
 ---
 
