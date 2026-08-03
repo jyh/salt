@@ -38,6 +38,7 @@ import Salt.HB.L2cEngineRoute
 import Salt.HB.L2cMasterUncond
 import Salt.HB.RosserDim4
 import Salt.HB.RosserDim4FL
+import Salt.HB.RosserDim4Instance
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -142,3 +143,16 @@ open Salt.Tactic in
   Salt.HB.perDelta_transfer
   Salt.HB.transfer_of_decomposition
   Salt.HB.hb_perDelta_transfer
+  Salt.HB.nuG_isMultiplicative
+  Salt.HB.hbSieve
+  Salt.HB.hbP_squarefree
+  Salt.HB.hbP_chi
+  Salt.HB.hb_sandwich_lower
+  Salt.HB.hb_sandwich_upper
+  Salt.HB.moebSum_nu_eq_W
+  Salt.HB.mainSum_chi_eq_W_sub_correction
+  Salt.HB.hb_levelRatio_eq
+  Salt.HB.hb_fl_lower
+  Salt.HB.hb_fl_upper
+  Salt.HB.hb_transfer
+  Salt.HB.hbSieve_fl_sandwich
