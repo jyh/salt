@@ -358,6 +358,7 @@ import Salt.MR.CofactorBulk
 import Salt.MR.KLever
 import Salt.MR.S16ComposeV4
 import Salt.MR.XThread
+import Salt.MR.RegisterInhabit
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -7644,3 +7645,52 @@ debt, ALONE. -/
   Salt.MR.flat_conditional_uniform_win_xceil_kwide_khoist
   Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_khoist
   Salt.MR.logChowla2_ineffective_v5
+
+
+/-! ⟦REGISTER-INHABIT — THE CO-FACTOR REGISTER IS REFUTED, AND THE REPAIR IS PRICED⟧
+(`RegisterInhabit`, 2026-08-03).
+
+This file was opened to INHABIT `CofactorBulk.CofactorBulkL` at the terminal's own scale — the
+one stone under `logChowla2_ineffective_v5`.  It proves the opposite, in three lines of the
+register's own arithmetic and with no analysis at all:
+
+* conjunct 12 (`cSq·caseASwide + cSq·D^{−1/4} ≤ S`) at the ladder `D ≡ 1` gives `S ≥ cSq`;
+* conjunct 14 with `cofactorRbdGen S W Y Rmax R = 3·max(2S, …)` gives `R̄₀ ≥ 6·S`;
+* conjunct 16 (`4·R̄₀ ≤ gradeCR2 Cb·(log X)^{−ρ₂₉₃}`) then forces
+  `24·cSq·(log X)^{ρ₂₉₃} ≤ gradeCR2 Cb` — a fixed constant above an unbounded function of the
+  scale.
+
+So `CofactorBulkL` is FALSE past a `Cb`-determined threshold (`cofkL_bulk_infeasible`), and the
+terminal's own `μ`-floor (`loglog(A+s) ≥ log H₊ − 14`, with `log H₊ ≥ e^{3.2A} ≥ e^{518}`) puts
+every socket of every terminal regime astronomically past it
+(`cofkL_bulk_false_at_socket`): `cofkL_cofactorSupply_L_gk_of_bulk` is true and VACUOUS there.
+
+⟦WHERE THE DEFECT IS⟧ NOT in `m4_supplier_complete` and NOT in the grading — in `CofactorBulk`
+§1's choice of the TRIVIAL dilation ladder `D(j) = 1`, which turns the supplier's own
+`cSq·D^{−1/4}` charge into a constant floor under a decaying ceiling.  `S16CofactorSupply_L_gk`
+does not ask for `C_R = gradeCR2 Cb`: its `C_R` is existential, and eliminating it between the
+two grading conjuncts (`s16cof_exit_decay`) gives the register's true law
+`Rbd ≤ (log X)^{−2θ₂₉₃}/√(1728·C_q)` — the exit ceiling must DECAY.  Against the supplier's
+floor this prices the repair exactly (`cofk_dilation_price`):
+`D ≥ (24·cSq)⁴·(1728·C_q)²·(log X)^{8θ₂₉₃}`, i.e. `D := ⌈log X⌉` clears it with `8θ₂₉₃ ≈ 0.027`
+to spare and stays far under law #253's own ceiling `D ≲ √k₀`.
+
+⟦THE SCALE FACTS, BANKED FOR THE REPAIR⟧ `cofk_sqrt_le_ramRbot`: every block of the band has
+`B_v ≥ √X` (the band's top endpoint obeys `log Q ≤ log X/loglog X ≤ log X/2`).  Off that single
+fact: the C7 gate `e^{e^{165}} + 1 ≤ B_v` (`cofk_ballQuarter_at_band`), the supplier's opaque
+wide threshold `X₀ ≤ √(B_v)` (`cofk_wideThreshold_at_band` — `X₀` is minted outside every
+quantifier, so the design constant `A` absorbs it), the seam radius
+(`cofk_seamRad_at_band`), and the `loglog` descent charge (`cofk_descent_at_band`, gate
+`loglog X ≥ 194` against the terminal's `e^{518}`). -/
+#audit_axioms Salt.MR.s16cof_exit_decay
+  Salt.MR.cofk_ramI_bot_mem
+  Salt.MR.cofkL_bulk_grade_floor
+  Salt.MR.cofkL_bulk_infeasible
+  Salt.MR.cofkL_bulk_infeasible_loglog
+  Salt.MR.cofkL_bulk_false_at_socket
+  Salt.MR.cofk_sqrt_le_ramRbot
+  Salt.MR.cofk_ballQuarter_at_band
+  Salt.MR.cofk_wideThreshold_at_band
+  Salt.MR.cofk_seamRad_at_band
+  Salt.MR.cofk_descent_at_band
+  Salt.MR.cofk_dilation_price

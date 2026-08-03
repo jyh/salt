@@ -19461,3 +19461,118 @@ between 33 orders and two exponential levels, and rethreading them is a separate
 ## () COUNCIL v6 RULED: C0 noted (the stress-test remark banked -- "probably nobody has stress tested the system like we have"); C1 THE WORD WAITS FOR THE STONE (ruled: land the register discharge first); C2 THE ALLOCATION RATIFIED (B-residue today; A the next campaign; C the design frontier; MINE+SEARCH standing; mathlib post-Fulcrum); C3 ROSSER-SCOPE fires today; C4 open items: the outside reviewer status update (ahead of schedule) + THE SCHEDULING DECISION (a slot offered -- accept or hold; counsel to follow). ⟦REGISTER-INHABIT (writer) + ROSSER-SCOPE (read-only) + the SEARCH --full embed fire now⟧
 
 ## () ROSSER-SCOPE HOME -- THE N5 DOSSIER (verdict: ROUTE (a), and the decisive FIND): Salt/BrunLower's brun_lower/brun_upper (H-R Theoreme 2) are ALREADY DIMENSION-GENERAL -- sieve dimension A is a free real, the main-term relative error is A-FREE, dimension enters at exactly two points (hMert via Lambda=2lam/A; hOmegaA on the remainder side which HB's main-term-only ask NEVER NEEDS). N5 = an INSTANTIATION at A=4 + ONE new C-class stone (a1: the block-Brun level bound, ~300-550 ln, Abel-over-the-ladder) + B-class packaging/rescale/wiring: total ~1.05-1.95k ln, 4 nodes, 2 waves, ~0.8-1.6M -- AT the road's WP3 price. Route (b) RI-dim-4 proper: 6-12k ln, 50-90 nodes, >=1 D-risk (beta(4) existence), buys nothing HB consumes -- reclassified a MINE-lane campaign; (b-prime) the crude-Tn middle (~1.5-3k, no D-risk) if the reusability prize is wanted. Numerics verified at A=4 (three operating points beat e^{-0.75s} with room). NAMED GATE before the ruling executes: source checks #1-#3 (HB p.199's "sieving limit" reading -- if HB operates at bounded s near beta(4) route (a) COLLAPSES; the lambda-weight usage; the literal density 4) -- REQUIRES the HB 1983 PDF + Jutila, NOT in docs/sources (staging debt confirmed). FREE FINDING banked: the dim-1 FL is one simp away off Fchain_close at N=0 (A-class, publishable line). ⟦RULING PENDING THE SOURCES⟧
+
+## (2026-08-03 09:42 PDT) **REGISTER-INHABIT: THE CO-FACTOR REGISTER IS REFUTED, NOT INHABITED — `CofactorBulkL` IS FALSE AT EVERY TERMINAL SOCKET, THE DEFECT IS THE TRIVIAL DILATION LADDER `D(j) = 1`, AND THE REPAIR IS PRICED TO THE EXPONENT. 12 decls, 1 new file (529 ln), full `lake build` EXIT-0 read from `$?`, warnings 186 = 186 baseline, all 12 at 3 axioms. NO `v6` — THE WORD STILL WAITS** (REGISTER-INHABIT)
+
+⟦THE WAVE WAS SENT TO INHABIT THE REGISTER; IT REFUTED IT INSTEAD⟧ the brief's item 1 ("walk the
+17 conjuncts at the terminal's scale; each should fall to the `μ`-floor") is IMPOSSIBLE, and the
+proof is three lines of the register's OWN arithmetic with no analysis at all
+(`Salt/MR/RegisterInhabit.lean`, `cofkL_bulk_grade_floor`):
+
+* conjunct 12 — `cSq·caseASwide(…) + cSq·D^{−1/4} ≤ S` at `CofactorBulk` §1's ladder `D ≡ 1`
+  reads `cSq·caseASwide + cSq ≤ S`, and `caseASwide ≥ 0`, so **`S ≥ cSq = 20736`**;
+* conjunct 14 — `cofactorRbdGen S W Y Rmax R = 3·max(2S, farSupS34 …) ≤ R̄₀`, so **`R̄₀ ≥ 6S`**;
+* conjunct 16 — `4·R̄₀ ≤ gradeCR2 Cb·(log X)^{−ρ₂₉₃}`.
+
+Chained: `24·cSq·(log X)^{ρ₂₉₃} ≤ gradeCR2 Cb` — a FIXED constant (`Cb` is minted by
+`exists_shortIntervalDatum` outside every quantifier) above an unbounded increasing function of
+the scale.  So the register holds only below `loglog X ≤ log(gradeCR2 Cb/(24·cSq))/ρ₂₉₃`, and the
+terminal's own `μ`-floor (`cofkL_mu_floor`: `loglog(A+s) ≥ log H₊ − 14`, with
+`log H₊ ≥ e^{3.2A} ≥ e^{518} ≈ 10^{225}`) puts EVERY socket of EVERY terminal regime
+astronomically past that line.  `cofkL_bulk_false_at_socket` states it at the socket, for ALL
+`T`: **`cofkL_cofactorSupply_L_gk_of_bulk` is true and VACUOUS at the terminal**, exactly as
+`v3`'s cap antecedent was on 8/02 (the CAP-SCOPE genre, second instance).
+
+⟦WHERE THE DEFECT IS — NOT THE SUPPLIER, NOT THE GRADING, THE LADDER⟧ `m4_supplier_complete`'s
+exit charge is `cSq·caseASwide c Cb (cofactorMfl X θ ⌊k₀/D⌋) ⌊k₀/D⌋ (Xa) + cSq·D^{−1/4} ≤ S`, and
+law #253's own gates permit `D` up to `≈ √k₀` (`1 ≤ D ≤ k₀`, `√(Xa) ≤ ⌊k₀/D⌋`).  At `D = 1` that
+second summand is the CONSTANT `cSq`, i.e. a constant floor under a ceiling that must decay.
+`CofactorBulk` §1 chose `D(j) = 1` ("the trivial divisor ladder") and the whole 17-conjunct
+register inherited the defect.  Everything else in the design is coherent and the exponents fit:
+`caseASwide`'s three summands decay at `(log X)^{−c(1/32−θ₂₉₃)}` — at the pin `c = 1/e` this is
+EXACTLY `(log X)^{−ρ₂₉₃}`, the identity `(1/32 − θ₂₉₃)/e = 3·θ₂₉₃` being the whole point of
+`θ₂₉₃ = 1/(32(3e+1))` — plus `(log Xw)^{−1/(32e)}` and `(log Xa)^{−1/2+1/1000}`; the far arm
+`farSupS34 W Y Rmax R = 2√2/R + farErr34` decays at `(log X)^{−1/46}` (the seam radius) and
+`(log X)^{−3/20}` (`T*₂ = exp(L^{2/5}+L^{3/5})` against `(log W)^{3/4}`).  All of them beat the
+`2θ₂₉₃` the predicate demands.
+
+⟦THE REGISTER'S TRUE LAW, AND THE PRICE OF THE REPAIR⟧ `S16CofactorSupply_L_gk` does NOT ask for
+`C_R = gradeCR2 Cb` — its `C_R` is EXISTENTIAL (`S13CapGateLinear:897`), constrained only by
+`Rbd ≤ C_R·(log X)^{−ρ₂₉₃}` and `1728·C_q·C_R² ≤ (log X)^{2θ₂₉₃}`.  Eliminating `C_R` between the
+two (`s16cof_exit_decay`) gives the law the register was hiding:
+
+  **`Rbd ≤ (log X)^{−2θ₂₉₃}/√(1728·C_q)` — THE EXIT CEILING MUST DECAY.**
+
+Against the supplier's floor `Rbd = 2^J·R̄₀ = 4·R̄₀ ≥ 24·S ≥ 24·cSq·D^{−1/4}` this prices the
+repair to the exponent (`cofk_dilation_price`):
+
+  **`D ≥ (24·cSq)⁴·(1728·C_q)²·(log X)^{8θ₂₉₃}`, i.e. `D := ⌈log X⌉` clears it** (`8θ₂₉₃ ≈ 0.027`
+  against exponent 1) and stays far under law #253's own ceiling `D ≲ √k₀ ≈ X^{1/4}`.
+
+⟦THE SCALE FACTS, BANKED FOR THE REPAIR WAVE⟧ the conjuncts that ARE pure scale facts are proved
+here at a free block scale, so the repaired register consumes them verbatim:
+`cofk_sqrt_le_ramRbot` — **every block of the band has `B_v ≥ √X`** (the band's top endpoint obeys
+`log Q ≤ log X/loglog X ≤ log X/2`, so `B_v = X·e^{−v/H} ≥ X/Q ≥ e^{log X/2}`); off that ONE fact:
+the C7 gate `e^{e^{165}} + 1 ≤ B_v` (`cofk_ballQuarter_at_band`, gate `log X ≥ 2e^{165}+2`), the
+supplier's opaque wide threshold `X₀ ≤ √(B_v)` (`cofk_wideThreshold_at_band`, gate
+`X₀ ≤ e^{log X/4}` — `X₀` is minted OUTSIDE every quantifier so the design constant `A` absorbs
+it), the seam radius (`cofk_seamRad_at_band`), and the `loglog` descent charge
+(`cofk_descent_at_band`, gate `loglog X ≥ 194` against the terminal's `e^{518}`, using
+`32·θ₂₉₃ = 1/(3e+1) ≥ 1/10`).
+
+⟦PER-CONJUNCT STATUS AT THE TERMINAL (the brief's item 1, answered)⟧ 1 band-nonempty: free from
+`P83 ≤ P ≤ Q ≤ Q83`; 2/3 the `T`-window and the `30·log X/loglog X ≤ log 2T` charge: NOT examined
+(the socket's `T`-window is `[(A+s)/2^j, (A+s)/2]`, and `30·log X/loglog X` against `log 2T ≈ log X`
+is comfortable — class B); **4 C7, 5 the descent charge, 6 the seam radius, 7 the `X₀` threshold:
+PROVED here**; 8 `0 ≤ cofactorMfl`: falls to the same `√X` floor (class A, not written); 9/10 the
+two contour boxes: `T*₂(i) = exp(L^{2/5}+L^{3/5})` against `3X` at `i ≤ 2B ≤ X` — class B, needs
+`Tstar2` monotonicity which the corpus does NOT state at this generality (law #253 carries the box
+gate for exactly this reason); 11/13/15 free by construction (`S`, `R̄₀` chosen as finite sups over
+the band); **12/14/16 THE REFUTATION** — mutually unsatisfiable at `D = 1`; 17 `1728·C_q·C_R²`:
+satisfiable ONLY with the free `C_R`, and then it needs `loglog X ≥ log(1728·C_q·C_R²)/(2θ₂₉₃)`,
+which the design constant `A` can absorb — see the `C_q` verdict.
+
+⟦THE `C_q` VERDICT (traced this wave)⟧ `Cq` from `s15_crossing_supplied_L_gk_ceiling_sharpT0 K` is
+**`K`-INDEPENDENT**: the lever is a dead argument that DROPS at hop 3
+(`S16Compose.m4_rowChi_capstone_perBlock_bounded` takes no `K`), and the mint is
+`PortAssembly:827` — `Cq = (3/2)·(44π + Cε)` with `Cε = C₁K₅ + 10C₂ + C₃K₅ + E₁K₂ + 10E₂ + E₃K₂ + 9`,
+a closed arithmetic form whose leaves are explicit numerals EXCEPT one: `logDeriv_Zc_compact_bound`
+(`HalaszPrimesCore:1094`, `hKcompact.exists_bound_of_continuousOn`) — a compactness existential.
+So `Cq` is opaque-but-`K`-free, and NO landed lemma bounds it (`grep "Cq ≤"` = zero hits).
+CONSEQUENCE FOR `v6`: conjunct 17 needs `A` chosen after `Cq`; the terminal's own shape is
+`∀K, ∃Cq, ∀A`, but `v5`'s proof must choose `A` BEFORE the lever `K = KlevF A` (the base-scale cap
+needs `2^K ≳ e^{2e^{1.6A}}`), so the `A`-absorption is CIRCULAR as the lane now stands.  The clean
+fix is the `∃Cq ∀K` hoist — provable, since the chain is `K`-free from hop 3 down (the same
+surgery as the 8/02 `∀K` hoist), ~3 hops.  **This is a named prerequisite for `v6`, discovered
+here, not previously on the ledger.**
+
+⟦THE `K_vt` VERDICT (traced this wave — the brief's item 2)⟧ **GENUINELY OPAQUE, and the
+obstruction is Siegel.**  `capFreeFloor3_margin_all_chi_vt`'s witness is
+`max 0 (max Kvk (max Kbulk Kband))`: leg 1 `Kvk` is CLOSED FORM
+(`12 + cpeel + primeTailConst + 5 + log 4 − mertensM ≈ 44.8`, `ChiEuler:346` → `PrimeTail:358`);
+leg 2 `Kbulk` is CLOSED FORM but astronomical (`DistHalasz:194`, `≈ log(2e^{e^{100}}) ≈ 2.7·10^{43}`,
+and pinning it needs one mechanical re-freeze of `one_line_pow_growth`'s unpinned witnesses
+`⟨8000005, exp(exp 100)⟩`); leg 3 `Kband` bottoms out at `SiegelArm:166`
+`bandBox_isCompact.exists_isMinOn` — the EVT minimum of `‖L(s,χ)‖` on `[1,2]×[−1,1]`, uniform over
+`q ≤ Qm`, i.e. **"POISON 2", the Siegel-zero obstruction itself**.  No formula, no rate, no
+monotonicity-in-`Q` lemma, and `siegelBandB`'s only landed `≤` is domination by another
+`Classical.choose`.  So the cushion `32·K_vt + 32·D ≤ log H₊/4` CANNOT be discharged outright; it
+must be carried as ONE named hypothesis, exactly as `RegisterSupply` §3 already does — the honest
+form, now with the trace behind it.  (Legs 1–2 are a class-B re-freeze page if anyone wants the
+`K_vt` cushion narrowed to its Siegel leg alone.)
+
+⟦WHAT `v6` NEEDS, EXACTLY⟧ three items, none of them today's wave: (a) **the repaired register** —
+re-instantiate `m4_supplier_complete` at a nontrivial constant ladder `D := ⌈log X⌉` with `C_R`
+chosen as `4·R̄₀·(log X)^{ρ₂₉₃}` (a constant, since `R̄₀` decays at exactly that rate), then inhabit
+it: the ladder laws over `Nat` division, the two contour boxes, and the per-block `caseASwide`/far
+pricing (the landed `Rbd34loc_grade_priced` is the shape, but the `cSq` factor must be re-run
+against the free `C_R`, which now has room); (b) **the `∃Cq ∀K` hoist**; (c) the `K_vt` cushion
+carried by name.  Only after (a)+(b) does the predicate come off the terminal.  **`v5` remains the
+standing summit object and is UNCHANGED and citable** — nothing landed today touches it; what is
+refuted is the ROUTE that was supposed to discharge its last predicate.
+
+⟦BUILD⟧ `~/.elan/bin/lake build` EXIT-0 from `$?` via redirection (never a pipe); warnings
+**186 = 186 baseline**; all 12 new declarations `[propext, Classical.choice, Quot.sound]` in
+`Salt/MR/All.lean`'s own `#audit_axioms` block.  PURELY ADDITIVE: no landed declaration touched
+(`CofactorBulk` still compiles and its theorems remain TRUE — they are implications whose
+hypothesis this wave refutes).
