@@ -19604,3 +19604,91 @@ hypothesis this wave refutes).
 **THE ORDERED RESIDUE (§8 of the doc).** Blocking the form: ORCID · MSC 2020 codes · the affiliation line · the 350–500 word Overview (Pi wants overview **and** abstract). Blocking on judgment: the artifact/gate timing · the APC waiver route · what the COI line names. Mechanical at posting: numbers + date · one `pdflatex` · the leanchecker re-run. Referee-facing: **Appendix A is still a placeholder** while `main.tex:180-182` promises prose↔Lean side-by-side renderings — the most visible unkept promise in the manuscript; and **six bibliography entries remain uncited** (`Chen1973`, `HalesKepler`, `Littlewood1922`, `MR2016`, `MRT`, `Maynard2015`), with `HalesKepler` not mentioned in the body at all — exact insertion sites listed, left to JYH because the paper is under the ratified delete-the-bracket citation style (`ca41713`).
 
 ## () PI-PACK HOME (367a919) + THE FOURTH MAP-CORRECTION: "the trim patch" NEVER EXISTED for the flagship -- it was the Jacobian docstring trim, misfiled into council-0801.md:69's Fulcrum bullet and propagated into two briefs (source annotated in place; Pi states NO page/word limit, so no trim was owed). Applied instead: the dossier's G16 (the in-preparation bibitem deleted per Pi's IFC -- it was also uncited; the bibliography alphabetized); the C-star Remark 4.4 landed with Lean-verified grounding (fulcrum_dichotomy quantifies C away -- read before written); the lambda(n+1) fix verified at the bytes; LaTeX balance clean (one author-side pdflatex still owed); leanname 32/32 verified; the live-numbers policy (measure on posting day -- commands banked; today: 631,947 ln / 1,107 files / 18,953 decls); G5 EFFECTIVELY SATISFIED by the 8/2 ceremony (1097/1097). THE CAPTAIN'S FORM QUEUE: ORCID, MSC 2020 codes, affiliation line, the 350-500-word Overview, + six uncited bibitems (voice call, sites listed in pi-package-0803.md 2.4). REFEREE-FACING GAP: Appendix A placeholder vs the promised prose-Lean side-by-side (main.tex:180-182 -- the manuscript's most visible unkept promise). ⟦APPENDIX-A fires⟧
+
+## (2026-08-03 11:05 PDT) **REGISTER-REPAIR: THE CO-FACTOR REGISTER IS INHABITED AT `D = ⌈log X⌉₊` AND `logChowla2_ineffective_v6` IS MINTED — THE CO-FACTOR PREDICATE IS GONE FROM THE TERMINAL. 17 decls, 2 new files (1616 ln), full `lake build` EXIT-0 from `$?`, warnings 186 = 186 baseline, all 17 at 3 axioms, RESULTS 71 rows, both lints green** (REGISTER-REPAIR)
+
+⟦THE REPAIR LANDED WHOLE⟧ `RegisterInhabit` (8/03 morning) refuted `CofactorBulkL` at every
+terminal socket and priced the repair to the exponent.  This wave spends the price.
+`Salt/MR/RegisterRepair.lean` (1165 ln) re-instantiates `CaseAWide.m4_supplier_complete` at the
+**nontrivial ladder `D(j) := ⌈log X⌉₊`** with the predicate's OWN existential
+`C_R := 4·cofkRConst Cb` in place of the pinned `gradeCR2 Cb`, and INHABITS the register:
+`cofkR_cofactorSupply_L_gk` produces `S16CofactorSupply_L_gk K Cq R M` outright.
+
+⟦PER-CONJUNCT STATUS AT THE REPAIRED LADDER — ALL SEVENTEEN DISCHARGED⟧
+
+* **1 (band nonempty)** — FREE: `S13CapGrid.s13CapGrid_P_le_Q` off the socket's own
+  `μ ≥ 2000`, `Λ ≥ 10²¹` (`s13CapGrid_mu_2000`/`_Lambda_lo` from `loglogFloor50 ≤ H₋`).
+* **2/3 (the `T`-window and the `30·log X/loglog X` charge)** — **THEOREMS, and this was the
+  wave's first surprise.**  They look like gates on the caller's `T`; they are not.
+  `S13CapFloor.capfloor_core` proves `log T_ann ≥ (log X)/2` at EVERY socket and EVERY
+  admissible `T`, because the socket base forces `2^j ≤ H` and `log H ≤ √H/2 ≤ (log X)/2`.
+  So the whole `T`-window costs `loglog X ≥ 60`.  (Without that fact the conjuncts would be
+  FALSE at the bottom of the `T`-range — the first thing this wave checked.)
+* **4/5/6/7 (C7, the loglog descent charge, the seam radius, the `X₀` threshold)** — the four
+  band facts `RegisterInhabit` banked, consumed verbatim.
+* **8 (`0 ≤ cofactorMfl X θ ⌊k₀/D⌋`)** — `cofkR_mfl_nonneg`.  The LANDED
+  `cofactorMfl_nonneg_of_descent` asks the SHARP gate `(1 − 1/loglog X)·log X ≤ log W`, which
+  the divided window misses by exactly `log D ≈ loglog X`; the repair does not need it —
+  `cofkR_descent_crude` re-runs sharp Mertens-2 at HALF a log and the charge is then `≤ 2.4`
+  against the grade `(1/32 − θ₂₉₃)·loglog X`.
+* **9/10 (the two contour boxes)** — **THEOREMS, not carried gates.**  The 8/03 morning reading
+  ("needs `Tstar2` monotonicity which the corpus does not state at this generality") was STALE:
+  `PinFamily2.Tstar2_mono` is real-valued and fully general above `pin2Gate`, and
+  `FrameWitness.Tstar2_le_self` closes it at the top.  Its only missing stone was the side
+  condition `2·(log X)^{3/5} ≤ log X`, three lines from `pin2_powers`
+  (`cofkR_two_rpow_three_fifths`).  `cofkR_box_of_le` then gives `|t| + T*₂(i, log i) ≤ 3X`
+  with a full `X` of slack, for BOTH the narrow (`M_j`) and the wide (`i ∈ [⌊k₀/D⌋, 2B]`) box.
+* **11/13/15 (the sup/floor shapes)** — free by construction: `S` and `R̄₀` are now CLOSED
+  FORMS, `cofkRSconst Cb·(log X)^{−ρ₂₉₃}` and `cofkRConst Cb·(log X)^{−ρ₂₉₃}`, not sups.
+* **12 (the CASE-A exit charge)** — `cofkR_caseASwide_priced`.  All four summands at the
+  divided window: the grade summand is `cofactorMfl_grade_293`'s EXACT identity with the
+  descent factor capped at `2`; the `1/(32e)` and `0.499` summands are `logW_rpow_le` at
+  `rho293_le_far`/`rho293_le_desmooth`; and the repaired `cSq·D^{−1/4} ≤ cSq·(log X)^{−1/4}`.
+  The whole point: **`D = ⌈log X⌉₊` turns the constant floor into a `(log X)^{−1/4}` decay.**
+* **14 (the `R̄₀` ceiling)** — `3·max(2S, farSupS34) ≤ cofkRConst Cb·(log X)^{−ρ₂₉₃}`, the far
+  arm at `farMain_priced` + `farErr34_local_closes` (whose threshold `Y₀` is hoisted into the
+  `∃`-prefix and absorbed by the same scale gate).
+* **16 (`4·R̄₀ ≤ C_R·(log X)^{−ρ₂₉₃}`)** — an IDENTITY at `C_R := 4·cofkRConst Cb`.
+* **17 (`1728·C_q·C_R² ≤ (log X)^{2θ₂₉₃}`)** — the ONE scale gate, `cofkRThr C_q C_b X_sk Y₀`,
+  stated in-statement (law #253) and absorbed by the terminal's design constant.
+
+⟦THE DIVIDED WINDOW, THE ONE INEQUALITY THE REPAIR RUNS ON⟧ `cofkR_window_lower`:
+`⌊k₀/D⌋ ≥ e^{L/2}` at `L = log X ≥ 10⁶`, off `k₀ ≥ B_v − 1 ≥ e^{3L/4} − 1`, `D ≤ L + 1 ≤ e^{L/10}`
+and Nat division's one-unit loss, closed by `4·e^{3L/5} ≤ e^{3L/4}`.  Its input is the band's
+TRUE bottom `log B_v ≥ (1 − 1/loglog X)·log X` (`cofkR_band_log_lower`) — a notch sharper than
+`RegisterInhabit`'s `B_v ≥ √X`, and exactly the `caseAS` page's own descent gate at the block.
+
+⟦THE HOIST (item 2), LANDED⟧ `Salt/MR/RegisterCompose.lean` (451 ln) performs the `∃C_q ∀K`
+surgery in the ⟦COMPOSE-2⟧ genre: three hop twins (`m4_hcap_at_door_perBlock_L_gk_bounded`,
+`m4_fuse_hcap_of_capWS_L_gk_ceiling`, `s15_crossing_supplied_L_gk_ceiling_sharpT0`), each the
+landed body plus ONE `intro K`, legal because `C_q` is `K`-independent from hop 3 down
+(`NumeralKq.m4_rowChi_capstone_perBlock_bounded` takes no lever — the mint is
+`PortAssembly:827`).  A fourth twin
+(`logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist`) carries the six crossing
+constants outside the flat terminal's lever binder, leaving only `Ct` moving with `K` — the
+mixed shape the 8/02 hoist already used.  **All four landed first-attempt.**
+
+⟦`v6` (item 4), MINTED⟧ `logChowla2_ineffective_v6` (`RegisterCompose:345`).  `v5` with the
+co-factor predicate GONE.  THE EXACT LIST — outer: **NOTHING**.  Inner, five:
+`e^{-100} ≤ cs`; `T₀ ≤ exp(√(flatDesignBase A)/2)`; `e^{-100} ≤ Ks`; the caller's own
+`XCeilRiderStrict ε g`; and **`32·K_vt(KlevF A, Q_m) + 32·(2 log M + log 4 + 50) ≤ (log H₊)/4`**
+— the ONE new item, carried by name because `RegisterInhabit` traced its third leg to
+`SiegelArm:166`'s EVT minimum of `‖L(s,χ)‖` on a box uniform over `q ≤ Q_m`, i.e. the
+Siegel-zero obstruction itself.  `K_vt` is exposed in `v6`'s `∃`-prefix so the caller can state
+the cushion; at the terminal's own regime it admits `K_vt ≤ e^{518}/128 ≈ 10²²²`.
+Conclusion-side: **NOTHING**.
+
+⟦WHY THE DESIGN CONSTANT CAN NOW CLEAR THE GATE⟧ `v6` chooses
+`A := max(A₀, 162, A_win, cofkRThr C_q C_b X_sk Y₀, budgetAFlat, 4x₀, H_opq)` — the fourth term
+is the new one, and it is only legal because §1–§2 mint `C_q` BEFORE the lever.  Then
+`cofkRThr ≤ A ≤ 3.2A + 1 ≤ e^{3.2A} ≤ log H₋` and the gate is met.  That is the whole content
+of the circularity `REGISTER-INHABIT` flagged, and its whole repair.
+
+⟦BUILD⟧ `~/.elan/bin/lake build` EXIT-0 read from `$?` via redirection (never a pipe); warnings
+**186 = 186 baseline**; all 17 new declarations `[propext, Classical.choice, Quot.sound]` in
+`Salt/MR/All.lean`'s own `#audit_axioms` block; `scripts/blueprint_lint.py` and
+`scripts/results_lint.py` both exit 0 (71 rows).  PURELY ADDITIVE: no landed declaration is
+touched — `CofactorBulk`, `RegisterInhabit`, `XThread` and `v5` all still compile unchanged,
+and `v5` remains true (it is now marked `[SUPERSEDED → v6]` in place).
+
+## () ⟦THE REGISTER INHABITED -- THE PREDICATE IS GONE⟧ REGISTER-REPAIR home (exit-0, 17 decls 3-axiom, RESULTS 71 rows, both lints green): the co-factor register is INHABITED at the repaired ladder D = ceil(log X) with the freed existential C_R = 4*cofkRConst Cb -- ALL SEVENTEEN conjuncts discharged. TWO STALE READINGS CORRECTED en route: conjuncts 9/10 (the contour boxes) are THEOREMS off Tstar2_mono + Tstar2_le_self (the corpus DOES state the monotonicity; only the side condition 2*(log X)^{3/5} <= log X was missing, 3 lines); conjuncts 2/3 (the T-window) are the SOCKET's own arithmetic via capfloor_core's log 2T >= (log X)/2 -- and without that fact they would have been FALSE at the bottom of the T-range, the wave's first check. The exists-Cq forall-K hoist landed in four twins, all first-attempt. **logChowla2_ineffective_v6 MINTED**: v5 with the co-factor predicate GONE; outer NOTHING, conclusion-side NOTHING, inner = cs / T0-sharp / Ks / the caller's XCeilRiderStrict + THE ONE K_vt CUSHION (Siegel-genre, SiegelArm:166's EVT minimum, carried by name with the full trace). v5 SUPERSEDED in place and still citable. ⟦THE WORD WAITED ONE WAVE⟧

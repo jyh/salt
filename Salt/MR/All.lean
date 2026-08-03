@@ -359,6 +359,8 @@ import Salt.MR.KLever
 import Salt.MR.S16ComposeV4
 import Salt.MR.XThread
 import Salt.MR.RegisterInhabit
+import Salt.MR.RegisterRepair
+import Salt.MR.RegisterCompose
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -7694,3 +7696,57 @@ quantifier, so the design constant `A` absorbs it), the seam radius
   Salt.MR.cofk_seamRad_at_band
   Salt.MR.cofk_descent_at_band
   Salt.MR.cofk_dilation_price
+
+/-! ⟦REGISTER-REPAIR — THE CO-FACTOR REGISTER INHABITED AT `D = ⌈log X⌉₊`, THE `∃C_q ∀K`
+HOIST, AND `logChowla2_ineffective_v6`⟧ (`RegisterRepair`, `RegisterCompose`)
+
+`RegisterInhabit` proved `CofactorBulkL` FALSE at every terminal socket and priced the repair
+to the exponent: the defect is the trivial dilation ladder `D ≡ 1`, whose `cSq·D^{−1/4}` charge
+is a CONSTANT floor under a ceiling that must decay (`s16cof_exit_decay`), and the price is
+`D ≳ (log X)^{8θ₂₉₃}` (`cofk_dilation_price`).
+
+⟦THE REPAIR⟧ `RegisterRepair` re-instantiates `CaseAWide.m4_supplier_complete` at
+**`D(j) := ⌈log X⌉₊`** with the predicate's OWN existential `C_R := 4·cofkRConst Cb` in place
+of the pinned `gradeCR2 Cb`, and INHABITS all seventeen conjuncts:
+
+* the band's true bottom `log B_v ≥ (1 − 1/loglog X)·log X` (`cofkR_band_log_lower`) carries
+  the divided window `log ⌊k₀/D⌋ ≥ (log X)/2` (`cofkR_window_lower`), so every landed pricing
+  page applies at the divided scale;
+* the exit is re-priced summand by summand — all six decay at rate `≥ ρ₂₉₃`
+  (`cofkR_caseASwide_priced`, `cofkR_farSup_priced`), so `S`, `R̄₀` are `const·(log X)^{−ρ₂₉₃}`
+  and the second grading conjunct becomes the SCALE GATE `1728·C_q·(4·Rconst)² ≤ (log X)^{2θ}`;
+* the two contour boxes are THEOREMS, not gates (`cofkR_box_of_le`, off
+  `PinFamily2.Tstar2_mono` + `FrameWitness.Tstar2_le_self`, whose side condition
+  `2·(log X)^{3/5} ≤ log X` is `cofkR_two_rpow_three_fifths`) — the 8/03 "needs monotonicity
+  the corpus does not state" reading was stale;
+* the `T`-window conjuncts are the socket's own arithmetic (`S13CapFloor.capfloor_core` gives
+  `log 2T ≥ (log X)/2` at EVERY admissible `T`, because `2^j ≤ H` and `log H ≤ √H/2`).
+
+`cofkR_cofactorSupply_L_gk`: ⟦RULING 9⟧'s co-factor supply, DISCHARGED, modulo ONE scale gate
+(`cofkRThr`, absorbed by the design constant) and ONE named cushion (`K_vt`, Siegel-genre).
+
+⟦THE HOIST⟧ `RegisterCompose` moves the lever inside the `∃`-prefix at three hops (each the
+landed body plus one `intro K`; legal because `C_q` is `K`-independent from hop 3 down) and at
+the flat terminal, so the design constant `A` may be chosen AFTER `C_q` — which is what lets
+`A` clear `cofkRThr C_q C_b X_sk Y₀`.
+
+⟦THE MINT⟧ `logChowla2_ineffective_v6` = `v5` with the co-factor predicate GONE and the `K_vt`
+cushion added as the ONE new inner hypothesis.  Outer: nothing.  Inner: `cs`, `T₀`-sharp,
+`Ks`, the caller's `XCeilRiderStrict ε g`, and the cushion. -/
+#audit_axioms Salt.MR.cofkRSconst_pos
+  Salt.MR.cofkRConst_pos
+  Salt.MR.cofkR_band_log_lower
+  Salt.MR.cofkR_two_rpow_three_fifths
+  Salt.MR.cofkR_Tstar2_le
+  Salt.MR.cofkR_box_of_le
+  Salt.MR.cofkR_descent_crude
+  Salt.MR.cofkR_mfl_nonneg
+  Salt.MR.cofkR_window_lower
+  Salt.MR.cofkR_caseASwide_priced
+  Salt.MR.cofkR_farSup_priced
+  Salt.MR.cofkR_cofactorSupply_L_gk
+  Salt.MR.m4_hcap_at_door_perBlock_L_gk_bounded_khoist
+  Salt.MR.m4_fuse_hcap_of_capWS_L_gk_ceiling_khoist
+  Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist
+  Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist
+  Salt.MR.logChowla2_ineffective_v6
