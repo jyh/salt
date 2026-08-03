@@ -604,9 +604,117 @@ Owed at posting, mechanical:
 10. **The leanchecker re-run at the posting HEAD** (G5).
 
 Referee-facing, strongly recommended, not required:
-11. **Appendix A completion** (G14) — the paper promises at
-    `main.tex:180-182` that the appendix "renders every headline
-    statement in Lean and in prose side by side". It does not yet. This
-    is the single promise in the manuscript most visible to a referee.
+11. ~~**Appendix A completion** (G14)~~ — **DONE 2026-08-03**, see §9.1.
+    The promise (now `main.tex:227-229`) is kept: 24 side-by-side entries
+    covering 16 numbered statements + 63 declarations.
 12. **The six uncited references** (§2.4).
 13. **A funding statement** (G15) — the absence of funding, said.
+
+---
+
+## 9. WHAT LANDED AFTER THE DOSSIER WAS WRITTEN
+
+### 9.1 APPENDIX A — the renderings (G14, §8 item 11) — **DONE**
+
+`papers/flagship/main.tex`, commit of 2026-08-03. The existing 12-row
+table is untouched; the renderings follow it as `\subsection`s A.1–A.9
+(`main.tex:843-1309`).
+
+- **Coverage:** 24 code blocks, 63 declarations, 16 numbered paper
+  statements (Thm 3.1–3.4, Def 4.1, Thm 4.2, Thm 5.1, Thm 6.1, Def 7.1,
+  Thm 7.2, Thm 7.3, Def 8.1, Thm 8.2, Thm 8.3, Prop 8.4, Thm 9.1) plus
+  the two inherited almost-prime statements of §3 and the grade guard.
+- **Fidelity:** every line was extracted from the tree at
+  `HEAD = 244ba62` by script (declaration's source lines, proof body cut,
+  nothing else changed) and then re-checked by an independent pass: all
+  **180** transcribed lines match a `Salt/**.lean` line byte-for-byte.
+  Only three LaTeX escapes occur inside a listing — `\{`, `\}`,
+  `\textbackslash{}` — and a mechanical check confirms no others.
+- **Packages added: one, `alltt`** (base LaTeX), plus 36
+  `\DeclareUnicodeCharacter` mappings and one `\lchar` box macro
+  (`main.tex:23-68`). Reason: Lean statements carry 36 distinct non-ASCII
+  codepoints; `verbatim` makes UTF-8 lead bytes catcode-12 and breaks
+  under pdfLaTeX, `alltt` leaves them active so the mappings apply. The
+  mappings need a LaTeX kernel of 2018+ (UTF-8 by default); the one-line
+  fallback for an older one (`\usepackage[utf8]{inputenc}`) is stated in
+  the preamble comment. **The rest of `main.tex` is pure ASCII** (checked:
+  0 non-ASCII bytes before this change), so the mappings affect the
+  appendix only.
+- **Width:** every listing line is ≤ 93 characters; `\lchar` sets each
+  glyph in one tt-character box measured from the current font, so a line
+  is exactly (chars × charwidth) wide — 93 × 4.725pt = 439pt against the
+  6.3in (454.5pt) measure at `\footnotesize`. No listing can overflow.
+  This is a computation, not a compile: §6 step 1 still owed.
+- **Structural re-check after the edit** (same script shape as §3.1):
+  environments balanced, brace depth 0, `$` count 472 (even), `\[`14 =
+  `\]`14, no dangling `\ref`/`\cite`, and every non-ASCII byte in the file
+  declared. Six labels that §3.1 listed as unused are now referenced
+  (`def:sign`, `def:z`, `rem:arms`, `sec:dichotomy`, `sec:spine`,
+  `thm:vmvt`).
+
+**Three things the renderings expose, each stated in the appendix itself
+rather than smoothed over** — a referee will find them, so they are on
+the record here:
+
+1. **Thm 3.3's constants are proof data, not statement data.**
+   `dh_repulsion_ordered` (`Salt/SW/TBalR8.lean:1752`) binds `b c k`
+   **existentially**; the numerals reach them at `:1836`
+   (`refine ⟨680, c, 14, …⟩`), with `c` the explicit `min`-tower `set` at
+   `:1776`. The paper's §3 says "There are explicit constants
+   $b = 680$, $k = 14$" — true, and true of the proof; the appendix says
+   where they live.
+2. **No Lean declaration asserts the fulcrum's minimality.** The corpus
+   carries `FulcrumQualityMin` (`Salt/Fulcrum/Basic.lean:61`) and the
+   reality derivation (`:93`); minimality is a property of the demand
+   audit (the Fulcrum Hunt) recorded in the exploration ledger. A.3 says
+   so in as many words.
+3. **Four of Prop 8.4's ten census declarations are outside the audit
+   block.** `Salt/Parity/All.lean:22` names six;
+   `parityInv_twin_gate_fails`, `parityInv_no_twin_weight`,
+   `parityInv_noSiegel_iff` and `parityInv_N6_2`
+   (`Salt/Parity/Instances.lean:53, 62, 72, 93`) appear in no
+   `#audit_axioms` block anywhere under `Salt/` — mechanically checked
+   across all 23 manifests. **Cheap fix, not applied here** (this agent
+   touched no `.lean`): four names appended to that block. Until then the
+   appendix reports the 6/10 split rather than claiming ten.
+
+One inventory correction to §3.2: `twin_almost_prime` is cited there as
+`BrunLower/TwinInstance.lean:16` — line 16 is inside the module
+docstring's code fence; the declaration is at **`:771`**.
+
+### 9.2 MSC-SUGGESTIONS (G2) — candidate codes for the form
+
+**These are SUGGESTIONS. The Captain picks; nothing below is ratified.**
+Pi wants primary + secondary on the first page (§7.2); arXiv's metadata
+form asks for the same codes (§6 step 4), so one list serves both. Code
+definitions are PREP-PI's transcription at `pi-prep-0731.md:395`
+(re-used, not re-verified against <https://msc2020.org/> today — check
+before entering them). The manuscript currently declares none:
+`\subjclass` does not appear in `main.tex`.
+
+*Primary — one of these two; the choice is what the paper is filed as:*
+
+| Code | MSC 2020 title | Why it fits |
+|---|---|---|
+| **11N05** | Distribution of primes | The targets are prime-distribution statements: `TwinPrimeConjecture` (`Salt/Basic.lean:25`) is the conclusion of Thm 5.1 and one side of Thm 8.3; §8's whole apparatus is a statement about twin counting. |
+| **11N36** | Applications of sieve methods | The machinery that carries the results is sieve-theoretic: the sifted window of §6 (`l2cWindow`, `Salt/HB/L2cCore.lean:159`), Chen at Ω ≤ 3 (`Salt/Fulcrum/ChenCorollary.lean:34`), Ω(n(n+2)) ≤ 20 (`Salt/BrunLower/TwinInstance.lean:771`), the Brun-grade witness of Thm 8.2. |
+
+*Secondary — the four that name the paper's other halves:*
+
+| Code | MSC 2020 title | Why it fits |
+|---|---|---|
+| **11M20** | Real zeros of $L(s,\chi)$; exceptional and Siegel zeros | The fulcrum **is** a hypothesis about real zeros of quadratic $L$-functions (`Salt/Fulcrum/Basic.lean:61`), `NoSiegelZeros` is its negation-side object (`Salt/TwinBar/SiegelTwin.lean:76`), and Thm 3.3 is a Deuring–Heilbronn repulsion contract. |
+| **11M26** | Nonreal zeros of $\zeta$ and $L$-functions; RH | The two banner regions are ζ zero-free regions (`Salt/Vk/Littlewood.lean:409`, `Salt/Vk/GrowthPow.lean:1044`); Thm 4.2 derives reality *from* one of them. |
+| **68V20** | Formalization of mathematics in connection with theorem provers | Every stated result is Lean 4 + mathlib, kernel-checked at a 3-axiom base; Appendix A is the statement↔declaration audit. |
+| **68V15** | Theorem proving (automated and interactive theorem provers, deduction, resolution, etc.) | §10 is a method contribution about how the proofs were produced — difficulty-class routing across model tiers with the kernel as referee. |
+
+*Alternates, if the form takes more than five:* **11N35** (sieves —
+narrower sibling of 11N36); **11M06** ($\zeta(s)$ and $L(s,\chi)$ —
+generic, and 11M20/11M26 are sharper); **11N13** (primes in progressions
+— fits the Siegel–Walfisz / Bombieri–Vinogradov infrastructure of §3,
+not the headline results).
+
+*Deliberately not suggested:* **68V05** "Computer assisted proofs of
+proofs-by-exhaustion type". The corpus forbids `native_decide`
+(`main.tex:200`) and no result here is a proof by exhaustion; the code
+would misdescribe the work to exactly the readers who search on it.

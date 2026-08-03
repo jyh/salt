@@ -20,6 +20,53 @@
 \newcommand{\leanname}[1]{\par\noindent{\small\texttt{#1}}}
 \newcommand{\leaninline}[1]{{\small\texttt{#1}}}
 
+% --- Appendix A transcribes Lean source. `alltt' is base LaTeX's verbatim-like
+% environment that keeps \ { } active, which is what lets the Unicode below be
+% mapped to math glyphs; the mappings need a LaTeX kernel of 2018 or later
+% (UTF-8 input by default), or on an older one add \usepackage[utf8]{inputenc}.
+% \lchar sets each glyph in one typewriter-character box (measured from the
+% current font, so the listings stay column-aligned under any tt family).
+% Every non-ASCII character occurring in Appendix A is declared here; the list
+% is exhaustive and was generated from the appendix source.
+\usepackage{alltt}
+\newcommand{\lchar}[1]{\hbox to \fontcharwd\font`\M{\hss$#1$\hss}}
+\DeclareUnicodeCharacter{00AC}{\lchar{\neg}}
+\DeclareUnicodeCharacter{039B}{\lchar{\Lambda}}
+\DeclareUnicodeCharacter{03B1}{\lchar{\alpha}}
+\DeclareUnicodeCharacter{03B2}{\lchar{\beta}}
+\DeclareUnicodeCharacter{03B4}{\lchar{\delta}}
+\DeclareUnicodeCharacter{03B5}{\lchar{\varepsilon}}
+\DeclareUnicodeCharacter{03B8}{\lchar{\theta}}
+\DeclareUnicodeCharacter{03BC}{\lchar{\mu}}
+\DeclareUnicodeCharacter{03BE}{\lchar{\xi}}
+\DeclareUnicodeCharacter{03C1}{\lchar{\rho}}
+\DeclareUnicodeCharacter{03C7}{\lchar{\chi}}
+\DeclareUnicodeCharacter{03C9}{\lchar{\omega}}
+\DeclareUnicodeCharacter{2016}{\lchar{\Vert}}
+\DeclareUnicodeCharacter{2080}{\lchar{{}_0}}
+\DeclareUnicodeCharacter{208A}{\lchar{{}_+}}
+\DeclareUnicodeCharacter{2102}{\lchar{\mathbb{C}}}
+\DeclareUnicodeCharacter{2115}{\lchar{\mathbb{N}}}
+\DeclareUnicodeCharacter{211A}{\lchar{\mathbb{Q}}}
+\DeclareUnicodeCharacter{211D}{\lchar{\mathbb{R}}}
+\DeclareUnicodeCharacter{2124}{\lchar{\mathbb{Z}}}
+\DeclareUnicodeCharacter{2192}{\lchar{\to}}
+\DeclareUnicodeCharacter{2200}{\lchar{\forall}}
+\DeclareUnicodeCharacter{2202}{\lchar{\partial}}
+\DeclareUnicodeCharacter{2203}{\lchar{\exists}}
+\DeclareUnicodeCharacter{2208}{\lchar{\in}}
+\DeclareUnicodeCharacter{220F}{\lchar{\prod}}
+\DeclareUnicodeCharacter{2211}{\lchar{\sum}}
+\DeclareUnicodeCharacter{2223}{\lchar{\mid}}
+\DeclareUnicodeCharacter{2227}{\lchar{\wedge}}
+\DeclareUnicodeCharacter{2228}{\lchar{\vee}}
+\DeclareUnicodeCharacter{222B}{\lchar{\int}}
+\DeclareUnicodeCharacter{2260}{\lchar{\neq}}
+\DeclareUnicodeCharacter{2264}{\lchar{\le}}
+\DeclareUnicodeCharacter{2265}{\lchar{\ge}}
+\DeclareUnicodeCharacter{230A}{\lchar{\lfloor}}
+\DeclareUnicodeCharacter{230B}{\lchar{\rfloor}}
+
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{definition}[theorem]{Definition}
@@ -761,9 +808,13 @@ shoulders of that community.
 \appendix
 \section{The formal-statement index}\label{app:index}
 % ============================================================================
-% At release: generated from the All.lean audit blocks; every row's axiom
-% column verified by #audit_axioms. Prose <-> Lean side-by-side renderings
-% for the headline statements follow the table. [v0.1: headline rows only]
+% At release: the table below is generated from the All.lean audit blocks; every
+% row's axiom column verified by #audit_axioms. The prose <-> Lean renderings
+% that follow the table were transcribed from the tree at commit 244ba62
+% (2026-08-03) by an extractor: each block is the declaration's source lines with
+% the proof body cut, so re-running the extractor is the way to refresh them.
+% Widths: every listing line is <= 93 characters, which fits the 6.3in measure at
+% \footnotesize in a 0.5em-per-character tt font. Do not hand-edit the listings.
 
 \begin{table}[h]
 \centering\small
@@ -788,6 +839,474 @@ Thm~\ref{thm:spine} & \leaninline{log\_chowla\_two\_door\_only} & the three \\
 \caption{``The three'' $=$ \leaninline{propext, Classical.choice,
 Quot.sound}. Full index generated at release.}
 \end{table}
+
+\subsection{Reading convention}\label{app:conv}
+
+Each entry below pairs a numbered statement of \S\S\ref{sec:banners}--\ref{sec:spine}
+with the declaration that carries it, transcribed from the source at the cited
+\leaninline{file:line} with the proof body removed and nothing else changed:
+implicit binders, instance binders, coercions and numerals stand as Lean writes
+them, and where a section-level \leaninline{variable} supplies a binder the entry
+says so. The definitions a statement depends on follow it, so an entry closes
+over its own vocabulary; anything dropped for width is named and located in the
+entry's line, never silently. Every declaration here is listed in an
+\leaninline{\#audit\_axioms} block, which is a build-time gate and not a print
+(\leaninline{Salt/Tactic/AuditAxioms.lean:81}): it aborts elaboration, naming the
+offender, if a listed declaration's axiom closure leaves
+$\{\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}\}$ or if the
+name does not resolve --- so \leaninline{lake build} succeeding is the audit
+passing, and each entry cites the manifest line that runs it. Names are stable
+across the corpus; line numbers are as of commit \leaninline{244ba62}
+(2026-08-03), and the source is the arbiter wherever this rendering and the
+declaration could be read apart.
+
+\subsection{The four banners (\S\ref{sec:banners})}
+
+\medskip\noindent\textbf{Theorem~\ref{thm:litt}} (Littlewood-strength zero-free
+region). Source \leaninline{Salt/Vk/Littlewood.lean:409}; audit
+\leaninline{Salt/Vk/All.lean:52}. The width $\log\log|t|/\log|t|$ is the content;
+the witnesses $c = 1/88214$ and $T_0 = \exp\exp(\log C + 400)$ are supplied inside
+the proof and are not part of the statement.
+{\footnotesize\begin{alltt}
+theorem zeta_zero_free_region_littlewood :
+    ∃ c T₀ : ℝ, 0 < c ∧ 3 ≤ T₀ ∧ ∀ ρ : ℂ, riemannZeta ρ = 0 → T₀ ≤ |ρ.im| →
+      ρ.re ≤ 1 - c * (Real.log (Real.log |ρ.im|) / Real.log |ρ.im|)
+\end{alltt}}
+
+\medskip\noindent\textbf{Theorem~\ref{thm:pow}} (the power-saving region,
+$\theta = 3/4$). Source \leaninline{Salt/Vk/GrowthPow.lean:1044}; audit
+\leaninline{Salt/Vk/All.lean:52}. The paper's $(\log\log|t|)^{-O(1)}$ is pinned in
+the declaration at the exponent $3$.
+{\footnotesize\begin{alltt}
+theorem zeta_zero_free_region_pow :
+    ∃ c T₀ : ℝ, 0 < c ∧ 3 ≤ T₀ ∧ ∀ ρ : ℂ, riemannZeta ρ = 0 → T₀ ≤ |ρ.im| →
+      ρ.re ≤ 1 - c / ((Real.log |ρ.im|) ^ ((3 : ℝ) / 4)
+        * (Real.log (Real.log |ρ.im|)) ^ (3 : ℕ))
+\end{alltt}}
+
+\medskip\noindent\textbf{Theorem~\ref{thm:rep}} (Deuring--Heilbronn repulsion,
+contract form). Source \leaninline{Salt/SW/TBalR8.lean:1752}; audit
+\leaninline{Salt/SW/All.lean:124}. The three constants are bound existentially in
+the statement; the witnesses are supplied at \leaninline{Salt/SW/TBalR8.lean:1836}
+as $\langle 680, c, 14, \ldots \rangle$, with $c$ the explicit minimum set at
+\leaninline{:1776}. The paper's $b = 680$ and $k = 14$ are therefore proof data,
+not statement data, and a reader checking the display of \S\ref{sec:banners}
+against the declaration should read them there.
+{\footnotesize\begin{alltt}
+theorem dh_repulsion_ordered : ∃ b c k : ℝ, 0 < b ∧ 0 < c ∧ 0 ≤ k ∧
+    ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
+      χ.IsPrimitive → χ ≠ 1 → χ ^ 2 = 1 → 2 ≤ q →
+      ∀ β₀ : ℝ, DirichletCharacter.LFunction χ (β₀ : ℂ) = 0 → 1 / 2 < β₀ → β₀ < 1 →
+      ∀ ρ : ℂ, DirichletCharacter.LFunction χ ρ = 0 → ρ.im ≠ 0 → |ρ.im| ≤ 1 →
+        16 / 17 ≤ ρ.re → ρ.re < 1 → ρ.re ≤ β₀ →
+        (1 - β₀) ≥ c * ((q : ℝ) * (|ρ.im| + 2)) ^ (-(b * (1 - ρ.re)))
+          / (Real.log ((q : ℝ) * (|ρ.im| + 2)) + 2) ^ k
+\end{alltt}}
+
+\medskip\noindent\textbf{Theorem~\ref{thm:vmvt}} (Vinogradov mean value theorem).
+Source \leaninline{Salt/Vmvt/Summit2.lean:151}; audit
+\leaninline{Salt/Vmvt/All.lean:39}. The conclusion is the named predicate; its
+unfolding and the two constants follow, with the exponent $E(k,r)$ the quantity
+the source fixes and the constant $D(k,r)$ free.
+{\footnotesize\begin{alltt}
+theorem vmvt (k r x : ℕ) (hk : 2 ≤ k) (hr : 1 ≤ r) (hx : 1 ≤ x) : VmvtBound k r x
+
+def VmvtBound (k r x : ℕ) : Prop :=
+  (JkI k (k * r) x : ℝ) ≤ vmvtConst k r * (x : ℝ) ^ (vmvtExp k r)
+
+noncomputable def JkI (k b x : ℕ) : ℕ := Jk k b (Finset.Ioc (0 : ℤ) (x : ℤ))
+
+noncomputable def vmvtExp (k r : ℕ) : ℝ :=
+  2 * (r : ℝ) * (k : ℝ) - (1 / 2) * (k : ℝ) * ((k : ℝ) + 1) + vmvtEta k r
+
+noncomputable def vmvtEta (k r : ℕ) : ℝ := (1 / 2) * (k : ℝ) ^ 2 * (1 - 1 / (k : ℝ)) ^ r
+
+noncomputable def vmvtConst (k r : ℕ) : ℝ := (vmvtC0 k) ^ r
+
+noncomputable def vmvtC0 (k : ℕ) : ℝ := (k : ℝ) ^ (24 * k ^ 2)
+\end{alltt}}
+
+\subsection{The fulcrum (\S\ref{sec:fulcrum})}
+
+\medskip\noindent\textbf{Definition~\ref{def:fulcrum}} (the fulcrum). Source
+\leaninline{Salt/Fulcrum/Basic.lean:61}. What is formalized is the family
+\leaninline{FulcrumQualityMin C}; $C^\star$ is not a Lean constant, and no
+declaration in the corpus asserts the minimality claimed for it in
+\S\ref{sec:fulcrum} --- that minimality is a property of the demand audit which
+produced the definition (the Fulcrum Hunt, recorded in the repository's
+exploration ledger), and is to be read as such. The four things the definition
+does \emph{not} require of $\rho$ --- reality, $\mathrm{Re}\,\rho < 1$,
+$\mathrm{Re}\,\rho > 1/2$, maximality --- are visible as the absence of those
+conjuncts.
+{\footnotesize\begin{alltt}
+def FulcrumQualityMin (C : ℝ) : Prop :=
+  ∀ Q : ℕ, ∃ (q : ℕ) (_ : NeZero q) (χ : DirichletCharacter ℂ q) (ρ : ℂ),
+    Q < q ∧ χ.IsPrimitive ∧ χ ^ 2 = 1 ∧ χ ≠ 1 ∧
+    LFunction χ ρ = 0 ∧ ‖(1 : ℂ) - ρ‖ * (C * Real.log q) ≤ 1
+\end{alltt}}
+
+\medskip\noindent\textbf{Theorem~\ref{thm:fulcrumreal}} (reality is derived).
+Source \leaninline{Salt/Fulcrum/Basic.lean:93}; audit
+\leaninline{Salt/Fulcrum/All.lean:54}. The zero-free region enters as the
+hypothesis \leaninline{hZFR} and the quality threshold as \leaninline{hC}; the
+conclusion is the conjunction
+$\mathrm{Im}\,\rho = 0 \wedge 1/2 \le \mathrm{Re}\,\rho \wedge
+\mathrm{Re}\,\rho < 1$.
+{\footnotesize\begin{alltt}
+theorem fulcrum_zero_real
+    (C c₀ : ℝ) (hc₀pos : 0 < c₀) (hc₀le : c₀ ≤ 1) (hC : 2 ≤ C * c₀)
+    (hZFR : ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsPrimitive →
+      χ ≠ 1 → ∀ \{ρ : ℂ\}, LFunction χ ρ = 0 → 1 / 2 ≤ ρ.re →
+        (χ ^ 2 ≠ 1 ∨ ρ.im ≠ 0) →
+        ρ.re ≤ 1 - c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)))
+    \{q : ℕ\} [NeZero q] \{χ : DirichletCharacter ℂ q\} \{ρ : ℂ\}
+    (hq3 : 3 ≤ q) (hprim : χ.IsPrimitive) (hne : χ ≠ 1)
+    (hzero : LFunction χ ρ = 0)
+    (hball : ‖(1 : ℂ) - ρ‖ * (C * Real.log q) ≤ 1) :
+    ρ.im = 0 ∧ 1 / 2 ≤ ρ.re ∧ ρ.re < 1
+\end{alltt}}
+
+\noindent The numeral instance, with the region supplied from the corpus at
+$c_0 = 1/126848$ and the threshold read off as $253696 = 2/c_0$ --- the arm of
+$C^\star$ that Remark~\ref{rem:arms} reports. Sources
+\leaninline{Salt/Fulcrum/CZeroNumeral.lean:427} and \leaninline{:387}; audit
+\leaninline{Salt/Fulcrum/All.lean:54}.
+{\footnotesize\begin{alltt}
+theorem fulcrum_zero_real_numeral (C : ℝ) (hC : 253696 ≤ C)
+    \{q : ℕ\} [NeZero q] \{χ : DirichletCharacter ℂ q\} \{ρ : ℂ\}
+    (hq3 : 3 ≤ q) (hprim : χ.IsPrimitive) (hne : χ ≠ 1)
+    (hzero : LFunction χ ρ = 0)
+    (hball : ‖(1 : ℂ) - ρ‖ * (C * Real.log q) ≤ 1) :
+    ρ.im = 0 ∧ 1 / 2 ≤ ρ.re ∧ ρ.re < 1
+
+theorem zero_free_region_all_numeral :
+    ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsPrimitive →
+      χ ≠ 1 → ∀ \{ρ : ℂ\}, LFunction χ ρ = 0 → 1 / 2 ≤ ρ.re → (χ ^ 2 ≠ 1 ∨ ρ.im ≠ 0) →
+        ρ.re ≤ 1 - 1 / 126848 / Real.log ((q : ℝ) * (|ρ.im| + 2))
+\end{alltt}}
+
+\subsection{The dichotomy (\S\ref{sec:dichotomy})}
+
+\medskip\noindent The three targets, verbatim: sources
+\leaninline{Salt/Basic.lean:25}, \leaninline{Salt/TwinBar/SiegelTwin.lean:76}
+and \leaninline{:97}.
+{\footnotesize\begin{alltt}
+def TwinPrimeConjecture : Prop :=
+  ∀ n : ℕ, ∃ p : ℕ, n ≤ p ∧ p.Prime ∧ (p + 2).Prime
+
+def NoSiegelZeros : Prop :=
+  ∃ c : ℝ, 0 < c ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
+    1 < q → χ.IsPrimitive → χ ^ 2 = 1 → χ ≠ 1 →
+    ∀ β : ℝ, LFunction χ β = 0 → β < 1 →
+      β ≤ 1 - c / Real.log q
+
+def HeathBrownDichotomy : Prop :=
+  TwinPrimeConjecture ∨ NoSiegelZeros
+\end{alltt}}
+
+\medskip\noindent\textbf{Theorem~\ref{thm:dich}} (the dichotomy). Sources
+\leaninline{Salt/Fulcrum/Dichotomy.lean:82} (the unconditional horn) and
+\leaninline{:102} (the composite); audit \leaninline{Salt/Fulcrum/All.lean:54}.
+The conditionality of the twin horn is a binder: \leaninline{hEngine} is an
+argument of the theorem, so no instance of \leaninline{fulcrum\_dichotomy} exists
+without one, and Table~\ref{tab:conditional}'s first row is that binder.
+{\footnotesize\begin{alltt}
+theorem not_fulcrum_implies_noSiegelZeros \{C : ℝ\} (hC : 0 < C)
+    (hnF : ¬ FulcrumQualityMin C) : NoSiegelZeros
+
+theorem fulcrum_dichotomy \{C : ℝ\} (hC : 0 < C)
+    (hEngine : FulcrumQualityMin C → TwinPrimeConjecture) :
+    HeathBrownDichotomy
+\end{alltt}}
+
+\subsection{The keystone (\S\ref{sec:keystone})}
+
+\medskip\noindent\textbf{Theorem~\ref{thm:master}} (the master estimate). Source
+\leaninline{Salt/HB/L2cMasterUncond.lean:85}; audit
+\leaninline{Salt/HB/All.lean:54}. The modulus is supplied by the section
+\leaninline{variable} at \leaninline{Salt/HB/L2cMasterUncond.lean:41}. The
+hypothesis packet is four items and nothing else --- \leaninline{hsq},
+\leaninline{hz100}, \leaninline{hz8}, \leaninline{hzx} --- which is the sense in
+which \S\ref{sec:keystone} calls the estimate unconditional; the paper's $2^{31}$
+is \leaninline{L2cCmain}.
+{\footnotesize\begin{alltt}
+theorem hb_l2c_master_unconditional (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1) \{z x : ℕ\}
+    (hz100 : 100 ^ 16 ≤ z) (hz8 : Lwin x ^ 8 ≤ z) (hzx : (z : ℝ) ^ 3 ≤ x) :
+    S2 χ (l2cWindow χ z x) - S1 (l2cWindow χ z x)
+      ≤ L2cCmain * ((x : ℝ) / z0 z x)
+        + L2cCmain * ((x : ℝ) / Real.log x) * Real.exp (5 * z0 z x)
+            * PretenseSum χ (2 * x + 2)
+        + L2cCmain * Real.exp (2 * z0 z x)
+            * ((x : ℝ) / (z : ℝ) ^ (1 / 8 : ℝ) + (x : ℝ) ^ ((9 : ℝ) / 10)) * Lwin x ^ 3
+\end{alltt}}
+
+\noindent The vocabulary of that statement, in order of appearance:
+\leaninline{Salt/HB/L2cMaster.lean:356}, \leaninline{Salt/HB/L2cCore.lean:159},
+\leaninline{:54}, \leaninline{:57}, \leaninline{Salt/HB/Transfer.lean:176} and
+\leaninline{:179}. \leaninline{LamTilde} and \leaninline{excPrimorial} are the
+character-indexed originals of the two generic definitions rendered in
+\S\ref{app:wall}.
+{\footnotesize\begin{alltt}
+noncomputable def L2cCmain : ℝ := 2 ^ 31
+
+noncomputable def l2cWindow (χ : DirichletCharacter ℂ q) (z x : ℕ) : Finset ℕ :=
+  (Finset.Ioc x (2 * x)).filter (fun n => Nat.Coprime (n * (n + 2)) (q * excPrimorial χ z))
+
+noncomputable def Lwin (x : ℕ) : ℝ := Real.log (2 * (x : ℝ) + 2)
+
+noncomputable def z0 (z x : ℕ) : ℝ := Lwin x / Real.log z
+
+noncomputable def S1 (A : Finset ℕ) : ℝ := ∑ n ∈ A, Λ n * Λ (n + 2)
+
+noncomputable def S2 (χ : DirichletCharacter ℂ q) (A : Finset ℕ) : ℝ :=
+  ∑ n ∈ A, LamTilde χ n * LamTilde χ (n + 2)
+\end{alltt}}
+
+\subsection{The exchange-rate wall (\S\ref{sec:walls})}\label{app:wall}
+
+\medskip\noindent\textbf{Definition~\ref{def:sign}} (sign functions). Source
+\leaninline{Salt/HB/SignChain.lean:39}. Four fields, no modulus.
+{\footnotesize\begin{alltt}
+structure IsSignFunction (f : ℕ → ℝ) : Prop where
+  map_one    : f 1 = 1
+  map_mul    : ∀ a b : ℕ, f (a * b) = f a * f b
+  abs_le_one : ∀ n : ℕ, |f n| ≤ 1
+  prime_pm   : ∀ p : ℕ, p.Prime → f p = 1 ∨ f p = -1
+\end{alltt}}
+
+\medskip\noindent\textbf{Theorem~\ref{thm:wall}} (neutrality and the rate).
+Sources \leaninline{Salt/HB/SignChain.lean:511} (the unconditional leg),
+\leaninline{Salt/HB/SignRate.lean:42} (the budget shape) and \leaninline{:53}
+(the rate); audit \leaninline{Salt/HB/All.lean:54}. The split the paper states is
+the split in the signature: \leaninline{S1\_le\_S2Gen} carries no hypothesis
+beyond \leaninline{hf}, and the upper bound consumes \leaninline{hbudget} ---
+Table~\ref{tab:conditional}'s third row.
+{\footnotesize\begin{alltt}
+theorem S1_le_S2Gen (hf : IsSignFunction f) (A : Finset ℕ) : S1 A ≤ S2Gen f A
+
+noncomputable def EngineBound (Cmain : ℝ) (z x : ℕ) (P : ℝ) : ℝ :=
+  Cmain * ((x : ℝ) / z0 z x)
+    + Cmain * ((x : ℝ) / Real.log x) * Real.exp (5 * z0 z x) * P
+    + Cmain * Real.exp (2 * z0 z x)
+        * ((x : ℝ) / (z : ℝ) ^ ((1 : ℝ) / 8) + (x : ℝ) ^ ((9 : ℝ) / 10)) * Lwin x ^ 3
+
+theorem neutrality_rate (f : ℕ → ℝ) (hf : IsSignFunction f) (z x : ℕ) (Cmain : ℝ)
+    (hbudget : ∑ n ∈ l2cWindowGen f z x, overshootExactGen f n
+        ≤ EngineBound Cmain z x (PretenseSumGen f (2 * x + 2))) :
+    0 ≤ S2Gen f (l2cWindowGen f z x) - S1 (l2cWindowGen f z x) ∧
+      S2Gen f (l2cWindowGen f z x) - S1 (l2cWindowGen f z x)
+        ≤ EngineBound Cmain z x (PretenseSumGen f (2 * x + 2))
+\end{alltt}}
+
+\medskip\noindent\textbf{Theorem~\ref{thm:liouville}} (the neutrality point).
+Source \leaninline{Salt/HB/SignLiouville.lean:93, 97, 103, 109}; audit
+\leaninline{Salt/HB/All.lean:54}. Four statements, four lines;
+\leaninline{lamR} is the real-valued Liouville function.
+{\footnotesize\begin{alltt}
+theorem LamTildeGen_lamR_eq_vonMangoldt (n : ℕ) : LamTildeGen lamR n = Λ n
+
+theorem S2Gen_lamR_eq_S1 (A : Finset ℕ) : S2Gen lamR A = S1 A
+
+lemma overshootExactGen_lamR (n : ℕ) : overshootExactGen lamR n = 0
+
+theorem PretenseSumGen_lamR_eq_zero (N : ℕ) : PretenseSumGen lamR N = 0
+\end{alltt}}
+
+\noindent The generic vocabulary, all from \leaninline{Salt/HB/SignChain.lean}
+(lines 52, 80, 84, 89, 95, 100). \leaninline{S1} is shared verbatim with
+\S\ref{sec:keystone}: the transfer is re-typed on one side of the comparison
+only.
+{\footnotesize\begin{alltt}
+noncomputable def LamTildeGen (f : ℕ → ℝ) (n : ℕ) : ℝ :=
+  ∑ d ∈ n.divisors, (μ d : ℝ) ^ 2 * f d * Real.log ((n / d : ℕ) : ℝ)
+
+noncomputable def S2Gen (f : ℕ → ℝ) (A : Finset ℕ) : ℝ :=
+  ∑ n ∈ A, LamTildeGen f n * LamTildeGen f (n + 2)
+
+noncomputable def overshootExactGen (f : ℕ → ℝ) (n : ℕ) : ℝ :=
+  (LamTildeGen f n - Λ n) * LamTildeGen f (n + 2) + Λ n * (LamTildeGen f (n + 2) - Λ (n + 2))
+
+noncomputable def PretenseSumGen (f : ℕ → ℝ) (N : ℕ) : ℝ :=
+  ∑ p ∈ (Finset.range (N + 1)).filter (fun p => Nat.Prime p ∧ f p = 1), Real.log (p : ℝ) / p
+
+noncomputable def excPrimorialGen (f : ℕ → ℝ) (z : ℕ) : ℕ :=
+  ∏ p ∈ (Finset.range z).filter (fun p => p.Prime ∧ f p ≠ -1), p
+
+noncomputable def l2cWindowGen (f : ℕ → ℝ) (z x : ℕ) : Finset ℕ :=
+  (Finset.Ioc x (2 * x)).filter (fun n => Nat.Coprime (n * (n + 2)) (excPrimorialGen f z))
+\end{alltt}}
+
+\subsection{The parity gap (\S\ref{sec:parity})}
+
+\medskip\noindent\textbf{Definition~\ref{def:z}} (completions, parity invariance,
+$Z$). Source \leaninline{Salt/Parity/Z.lean:44--103}, in file order. Two features
+claimed in \S\ref{sec:parity} are checkable here by inspection:
+\leaninline{typeISum} is the only functional through which
+\leaninline{Completion} reads the weighting, so no bilinear datum is expressible
+in the class; and \leaninline{twinRho} is a fixed function, not a quantified one,
+so every completion carries the same main term.
+{\footnotesize\begin{alltt}
+def twinRho (d : ℕ) : ℕ :=
+  ((Finset.range d).filter (fun r => d ∣ r * (r + 2))).card
+
+noncomputable def typeISum (a : ℕ → ℝ) (d x : ℕ) : ℝ :=
+  ∑ n ∈ Finset.Icc 1 x, if d ∣ n * (n + 2) then a n else 0
+
+noncomputable def typeIError (a : ℕ → ℝ) (θ : ℝ) (x : ℕ) : ℝ :=
+  ∑ d ∈ Finset.Icc 1 ⌊(x : ℝ) ^ θ⌋₊,
+    |typeISum a d x - (twinRho d : ℝ) / d * x|
+
+def Completion (θ A₀ : ℝ) (a : ℕ → ℝ) : Prop :=
+  (∀ n, 0 ≤ a n) ∧
+  ∃ C : ℝ, 0 < C ∧ ∀ x : ℕ, 2 ≤ x →
+    typeIError a θ x ≤ C * x / Real.log x ^ A₀
+
+def ParityInv (θ A₀ : ℝ) (E : (ℕ → ℝ) → Prop) : Prop :=
+  ∀ a : ℕ → ℝ, Completion θ A₀ a → E a
+
+noncomputable def twinMass (a : ℕ → ℝ) (x : ℕ) : ℝ :=
+  ∑ n ∈ Finset.Icc 1 x, if n.Prime ∧ (n + 2).Prime then a n else 0
+
+def TwinSufficient (θ A₀ : ℝ) (E : (ℕ → ℝ) → Prop) : Prop :=
+  ∀ a : ℕ → ℝ, Completion θ A₀ a → E a →
+    ∀ C : ℝ, ∃ x : ℕ, C < twinMass a x
+
+def oneWeight : ℕ → ℝ := fun _ => 1
+
+noncomputable def twinFree : ℕ → ℝ :=
+  fun n => if n.Prime ∧ (n + 2).Prime then 0 else 1
+
+def Z (θ A₀ : ℝ) : Prop :=
+  ∃ E : (ℕ → ℝ) → Prop, TwinSufficient θ A₀ E ∧ E oneWeight
+\end{alltt}}
+
+\medskip\noindent\textbf{Theorem~\ref{thm:gap}} (the gap theorem). Source
+\leaninline{Salt/Parity/Z.lean:670}; audit \leaninline{Salt/Parity/All.lean:22}.
+The paper's ``certified $A_0$ range'' is the pair of binders \leaninline{h1} and
+\leaninline{h2}: $1 \le A_0 \le 2$.
+{\footnotesize\begin{alltt}
+theorem sufficient_true_not_parityInv \{θ A₀ : ℝ\} (h0 : 0 < θ) (h : θ < 1 / 2)
+    (h1 : 1 ≤ A₀) (h2 : A₀ ≤ 2) \{E\}
+    (hs : TwinSufficient θ A₀ E) (ht : E oneWeight) : ¬ ParityInv θ A₀ E
+\end{alltt}}
+
+\medskip\noindent\textbf{Theorem~\ref{thm:ziff}} ($Z$ is exactly the demand).
+Sources \leaninline{Salt/Parity/Z.lean:687} and \leaninline{:216}; audit
+\leaninline{Salt/Parity/All.lean:22}. The forward direction is certified on
+$0 < \theta < 1/2$, $0 \le A_0$; the converse carries no grade hypothesis.
+{\footnotesize\begin{alltt}
+theorem Z_implies_TPC \{θ A₀ : ℝ\} (h0 : 0 < θ) (h : θ < 1 / 2) (hA : 0 ≤ A₀) :
+    Z θ A₀ → TwinPrimeConjecture
+
+theorem TPC_implies_Z \{θ A₀ : ℝ\} : TwinPrimeConjecture → Z θ A₀
+\end{alltt}}
+
+\medskip\noindent The grade guard of \S\ref{sec:parity}, which states the
+degeneracy rather than leaving it to be found. Source
+\leaninline{Salt/Parity/Z.lean:125}; audit \leaninline{Salt/Parity/All.lean:22}.
+{\footnotesize\begin{alltt}
+theorem Z_trivial_of_not_completion \{θ A₀ : ℝ\}
+    (h : ¬ Completion θ A₀ oneWeight) : Z θ A₀
+\end{alltt}}
+
+\medskip\noindent\textbf{Proposition~\ref{prop:census}} (the census). Source
+\leaninline{Salt/Parity/Instances.lean}, ten declarations at lines 37, 45, 53,
+62, 72, 79, 86, 93, 99, 106: \leaninline{parityInv\_S1\_le\_S2},
+\leaninline{parityInv\_twin\_bar}, \leaninline{parityInv\_twin\_gate\_fails},
+\leaninline{parityInv\_no\_twin\_weight}, \leaninline{parityInv\_noSiegel\_iff},
+\leaninline{parityInv\_chen\_headline},
+\leaninline{parityInv\_twin\_almost\_prime}, \leaninline{parityInv\_N6\_2},
+\leaninline{parityInv\_N5\_3}, \leaninline{parityInv\_chen\_second}. Six of the
+ten are named in the audit block at \leaninline{Salt/Parity/All.lean:22}; the
+four that are not are \leaninline{parityInv\_twin\_gate\_fails},
+\leaninline{parityInv\_no\_twin\_weight}, \leaninline{parityInv\_noSiegel\_iff}
+and \leaninline{parityInv\_N6\_2}. Each of the ten has the shape below --- the
+closed corpus theorem wrapped by \leaninline{parityInv\_of\_closed}
+(\leaninline{Salt/Parity/Z.lean:117}) --- so the census is one lemma about where
+a closed proposition sits, instantiated ten times.
+{\footnotesize\begin{alltt}
+theorem parityInv_S1_le_S2 (θ A₀ : ℝ) :
+    Salt.Parity.ParityInv θ A₀
+      (fun _ => ∀ (q : ℕ) (χ : DirichletCharacter ℂ q), χ ^ 2 = 1 →
+        ∀ A : Finset ℕ, Salt.HB.S1 A ≤ Salt.HB.S2 χ A)
+\end{alltt}}
+
+\subsection{The door-only spine (\S\ref{sec:spine})}
+
+\medskip\noindent\textbf{Theorem~\ref{thm:spine}} (log-Chowla, door-only).
+Sources \leaninline{Salt/Entropy/Chowla/SpineFinal.lean:981} (the terminal) and
+\leaninline{:750} (the $\forall$-quantified head); audit
+\leaninline{Salt/Entropy/All.lean:384}. The single residual is the door binder ---
+Table~\ref{tab:conditional}'s second row --- and the head's
+\leaninline{extraFloor} quantifier is what places the regime floor above a
+prescribed threshold.
+{\footnotesize\begin{alltt}
+theorem log_chowla_two_door_only :
+    ∃ (δ₀ : ℝ) (R : ChowlaRegime), 0 < δ₀ ∧
+      ∀ δ : ℝ, 0 < δ → δ ≤ δ₀ → MRTUniformity R δ →
+        ¬ logChowla2Fails R.eps R.x R.ω
+
+theorem log_chowla_two_budget_head :
+    ∃ (ε : ℚ) (δ₀ : ℝ), 0 < ε ∧ 0 < δ₀ ∧
+      ∀ extraFloor : ℕ, ∃ R : ChowlaRegime, R.eps = ε ∧ extraFloor ≤ R.Hlo ∧
+        ∀ δ : ℝ, 0 < δ → δ ≤ δ₀ → MRTUniformityXi R δ →
+          ¬ logChowla2Fails R.eps R.x R.ω
+\end{alltt}}
+
+\noindent The door, its $\Xi_H$-restriction (the form the terminal consumes
+before weakening), and the failure predicate the theorems negate. Sources
+\leaninline{Salt/Entropy/Chowla/MRTDoor.lean:48}, \leaninline{:109} and
+\leaninline{Salt/Entropy/Chowla/ChowlaFailure.lean:59}. The negated predicate is
+Tao's two-point statement at shift $1$: the display of \S\ref{sec:spine} is
+\leaninline{logChowla2Fails} with the inequality reversed.
+{\footnotesize\begin{alltt}
+noncomputable def MRTUniformity (R : ChowlaRegime) (δ : ℝ) : Prop :=
+  ∀ H : ℕ, R.Hlo ≤ H → H ≤ R.Hhi → ∀ α : ℝ,
+    (∫ n, ‖windowExpSum H n α‖ ∂(logMeasure R.x R.ω)) ≤ δ * (H : ℝ)
+
+noncomputable def MRTUniformityXi (R : ChowlaRegime) (δ : ℝ) : Prop :=
+  ∀ H : ℕ, ∀ [NeZero H], R.Hlo ≤ H → H ≤ R.Hhi → ∀ ξ ∈ bigXi R.eps H,
+    (∫ n, ‖windowExpSum H n (-(ξ.val : ℝ) / (H : ℝ))‖ ∂(logMeasure R.x R.ω)) ≤ δ * (H : ℝ)
+
+def logChowla2Fails (eps : ℚ) (x ω : ℕ) : Prop :=
+  (eps : ℝ) * Real.log (ω : ℝ) <
+    |∑ n ∈ Finset.Ioc (x / ω) x,
+      (ArithmeticFunction.liouville n : ℝ)
+        * (ArithmeticFunction.liouville (n + 1) : ℝ) / (n : ℝ)|
+\end{alltt}}
+
+\noindent The regime carrying the scales, data fields only. Source
+\leaninline{Salt/Entropy/Chowla/Regime.lean:56}; the structure's remaining $19$
+fields (lines 73--141, \leaninline{hx} through \leaninline{hxbig}) are proof
+obligations discharged at construction, elided here for width.
+{\footnotesize\begin{alltt}
+structure ChowlaRegime where
+  x : ℕ
+  ω : ℕ
+  a : ℕ
+  eps : ℚ
+  Hlo : ℕ
+  Hhi : ℕ
+  C0 : ℕ
+  J : ℕ
+\end{alltt}}
+
+\subsection{Inherited infrastructure (\S\ref{sec:banners})}
+
+\medskip\noindent The two unconditional almost-prime statements
+\S\ref{sec:banners} cites. Sources
+\leaninline{Salt/Fulcrum/ChenCorollary.lean:34} (audit
+\leaninline{Salt/Fulcrum/All.lean:54}) and
+\leaninline{Salt/BrunLower/TwinInstance.lean:771} (audit
+\leaninline{Salt/BrunLower/All.lean:54}); \leaninline{cardFactors} is
+\textsf{mathlib}'s $\Omega$.
+{\footnotesize\begin{alltt}
+theorem chen_omega_prod_le_three :
+    \{p : ℕ | p.Prime ∧ cardFactors (p * (p + 2)) ≤ 3\}.Infinite
+
+theorem twin_almost_prime :
+    \{n : ℕ | ArithmeticFunction.cardFactors (n * (n + 2)) ≤ 20\}.Infinite
+\end{alltt}}
 
 % Ordered alphabetically by first-author surname, cited numerically, per the
 % Forum of Mathematics Pi instructions for contributors.
