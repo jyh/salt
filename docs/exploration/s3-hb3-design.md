@@ -949,7 +949,14 @@ Halász–Montgomery; we do not need it).
   effective C^(1) in Corollary 2; the repulsion route keeps the
   campaign's final theorem effective.
 - Jutila's own Thm 2 proof is NEW (not Turán power-sum; via the
-  Graham/Halász lemma apparatus) — §§ later in the paper; house
+  Graham/Halász lemma apparatus)
+  **[STALE-POINTER, corrected 2026-08-03 by JUTILA-STAGE at the source
+  bytes: Thm 2's proof is §5 Lemmas 9-12 + §6 (the 1∗χ₁ detector +
+  μ·2^{-ω}·n mollifier + Mellin shift where β₁ cancels the Γ-pole) and
+  uses NEITHER Graham (L4) nor Halász (L7) — those are §3/Thm-1
+  apparatus. 'Not Turán' was right. Also: L ≤ 550 is Jutila 1969/70;
+  THIS paper proves L ≤ 80 (Thm 3). Full notes:
+  docs/sources/jutila1977-notes.md]** — §§ later in the paper; house
   reads the proof section IF the in-flight spike returns
   YELLOW/RED (the D-posture siege prep). Local copy:
   scratchpad/jutila_linnik.pdf (session) — re-curl the URL above
