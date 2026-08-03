@@ -36,6 +36,7 @@ import Salt.HB.L2cMop
 import Salt.HB.L2cGlue
 import Salt.HB.L2cEngineRoute
 import Salt.HB.L2cMasterUncond
+import Salt.HB.RosserDim4
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -116,3 +117,11 @@ open Salt.Tactic in
   Salt.HB.cPairSum_bound_unconditional
   Salt.HB.EL_uncov_bound_unconditional
   Salt.HB.hb_l2c_master_unconditional
+  Salt.HB.chi_log_le_level
+  Salt.HB.chi_le_rpow_level
+  Salt.HB.Gdens_le_four
+  Salt.HB.log_Wratio_le_ladder_dim4
+  Salt.HB.M_bound_gen
+  Salt.HB.hMert_dim4
+  Salt.HB.brun_lower_dim4
+  Salt.HB.brun_upper_dim4
