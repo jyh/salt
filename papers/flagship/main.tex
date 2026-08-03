@@ -306,6 +306,31 @@ per window; this is the weakest shape for which the engine of
 \emph{this} engine leaves nothing weaker on the table.
 \end{remark}
 
+\begin{remark}[The two arms of $C^\star$]\label{rem:arms}
+Only the second arm of $C^\star = \max(C^{(1)}, 2/c_0)$ is a numeral. The
+first, $C^{(1)} = \exp\exp\{2A/(\mathfrak{S}\,C(\alpha))\}$ in the
+notation of \cite{HB1983} (its Corollary~2, with $A$ the effective
+constant of its Corollary~1), is the threshold at which that engine's
+error budget closes. It is a double exponential: an inner exponent as
+small as $2A/(\mathfrak{S}\,C(\alpha)) = 10$ already places $C^{(1)}$
+near $e^{22026}$, against the reality arm's $2/c_0 = 253696$. So
+$C^{(1)}$ decides the maximum, and the constant this paper exhibits as a
+numeral is the reality floor---the quality at or above which
+Theorem~\ref{thm:fulcrumreal} derives that the witnessing zero is
+real---not the quality at which any engine is expected to run.
+
+No statement here depends on the size of that gap.
+Theorem~\ref{thm:dich} quantifies $C$ away: it is stated for every
+$C > 0$ and consumes the engine implication at that same $C$, so an
+engine supplying $h_{\mathrm{Engine}}$ at $C^{(1)}$ instantiates the
+dichotomy at $C^{(1)}$, with the same conclusion. The reality derivation
+runs in the same direction---its hypothesis is $C \ge 2/c_0$, so it
+applies a fortiori at any threshold above the numeral. We report
+$253696$ because it is the arm the corpus certifies
+(\leaninline{fulcrum\_zero\_real\_numeral}), not as a prediction of where
+$h_{\mathrm{Engine}}$ will be supplied.
+\end{remark}
+
 % ============================================================================
 \section{The dichotomy}\label{sec:dichotomy}
 % ============================================================================
@@ -764,18 +789,21 @@ Thm~\ref{thm:spine} & \leaninline{log\_chowla\_two\_door\_only} & the three \\
 Quot.sound}. Full index generated at release.}
 \end{table}
 
+% Ordered alphabetically by first-author surname, cited numerically, per the
+% Forum of Mathematics Pi instructions for contributors.
 \begin{thebibliography}{99}
-\bibitem{HB1983} D.~R. Heath-Brown, \emph{Prime twins and Siegel zeros},
-Proc.\ London Math.\ Soc.\ (3) \textbf{47} (1983), 193--224.
 \bibitem{Chen1973} J.~R. Chen, \emph{On the representation of a larger
 even integer as the sum of a prime and the product of at most two primes},
 Sci.\ Sinica \textbf{16} (1973), 157--176.
+\bibitem{HalesKepler} T.~Hales et al., \emph{A formal proof of the Kepler
+conjecture}, Forum of Mathematics, Pi \textbf{5} (2017), e2.
+\bibitem{HB1983} D.~R. Heath-Brown, \emph{Prime twins and Siegel zeros},
+Proc.\ London Math.\ Soc.\ (3) \textbf{47} (1983), 193--224.
 \bibitem{Littlewood1922} J.~E. Littlewood, \emph{Researches in the theory
 of the Riemann $\zeta$-function}, Proc.\ London Math.\ Soc.\ (2)
 \textbf{20} (1922).
-\bibitem{TaoChowla} T.~Tao, \emph{The logarithmically averaged Chowla and
-Elliott conjectures for two-point correlations}, Forum Math.\ Pi
-\textbf{4} (2016).
+\bibitem{mathlib} The mathlib community, \emph{The Lean mathematical
+library}, CPP 2020.
 \bibitem{MR2016} K.~Matom\"aki and M.~Radziwi\l\l, \emph{Multiplicative
 functions in short intervals}, Ann.\ of Math.\ \textbf{183} (2016).
 \bibitem{MRT} K.~Matom\"aki, M.~Radziwi\l\l, and T.~Tao, \emph{An
@@ -783,11 +811,9 @@ averaged form of Chowla's conjecture}, Algebra Number Theory \textbf{9}
 (2015).
 \bibitem{Maynard2015} J.~Maynard, \emph{Small gaps between primes},
 Ann.\ of Math.\ \textbf{181} (2015), 383--413.
-\bibitem{HalesKepler} T.~Hales et al., \emph{A formal proof of the Kepler
-conjecture}, Forum of Mathematics, Pi \textbf{5} (2017), e2.
-\bibitem{mathlib} The mathlib community, \emph{The Lean mathematical
-library}, CPP 2020.
-\bibitem{companion} J.~Hickey, \emph{The Salt method}, in preparation.
+\bibitem{TaoChowla} T.~Tao, \emph{The logarithmically averaged Chowla and
+Elliott conjectures for two-point correlations}, Forum Math.\ Pi
+\textbf{4} (2016).
 \end{thebibliography}
 
 \end{document}
