@@ -181,3 +181,5 @@ Siegel's ineffective lower bound on L(1,χ): NEVER used.
 - Hazard: "one zero, quality only" — correct per triple, but the QUANTITY demand (infinitely
   many moduli) is irreducible in this architecture: each triple yields twins only inside its
   own window [q³⁰⁰, q⁵⁰⁰].
+
+**[HB-STAGE CORRECTIONS 2026-08-03, at the source bytes — three fixes to readings below/above: (1) the p.217 character-sum bound reads Σ_t χ(ut+u′)χ(vt+v′) ≪ (q, uv′−vu′) — the recorded form dropped the v; fix before N6 quotes it. (2) Lemma 8 carries the hypothesis Z ≪ (x/d₁d₂)² — a Lean statement omitting it would be FALSE. (3) §6 spans pp.215–221, not 214–218. ALSO the 🔴 two-site Deuring–Heilbronn finding: Lemma 3 (p.206) consumes r₀ over |γ| ≤ 1 — served by dh_repulsion_ordered; Lemma 7 (p.209) independently consumes σ₀ over the DISC |ρ| ≤ q² — NOT served by the landed contract (|Im ρ| ≤ 1). Belongs to N0/N4, not N3. Full notes: docs/sources/hb1983-notes.md]**
