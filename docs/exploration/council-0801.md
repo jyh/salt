@@ -68,6 +68,11 @@ refuter). All mechanical or certified.
   THE UNCONDITIONAL — the paper waits on C1's road.
 - **The Fulcrum**: trim patch standing by; Pi prep dossier complete;
   arXiv gated on endorsement only.
+  **[STALE-POINTER, corrected 2026-08-03 by PI-PACK: "trim patch" here
+  misfiled the JACOBIAN docstring trim (jacobian-trim-preview.patch)
+  under the Fulcrum bullet — no flagship trim patch ever existed, and
+  Pi states no page/word limit. The error propagated into two briefs
+  before the byte-check caught it.]**
 
 ## C5 — HOUSEKEEPING
 
