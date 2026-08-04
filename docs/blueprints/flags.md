@@ -19793,3 +19793,5 @@ Vocabulary the exit is stated in (all new, all nameable by N8): `lamBB Lam z sid
 ## () ⟦THE SENTENCE⟧ three corrections relayed and applied; the salt lesson is the phase-split law: a headline number that omits its phases is not a measurement
 
 ## () ⟦THE RETRACTION + THE CROWN⟧ a ratio RETRACTED on a second measurement; the salt lesson is that a single-run ratio is a sample, and the format under test measures the format
+
+## () DOC-REVIEW HOME a fixes-first review filed; the salt lesson is the map-consistency catch: a document whose prose contradicts its own tables fails before any reader reaches the tables
