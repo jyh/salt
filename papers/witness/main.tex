@@ -19,14 +19,21 @@
 % Two words are banned from the prose of this paper by house rule: "honest"
 % (and "honestly") and "load-bearing". Em-dashes are permitted.
 %
-% SECTION STATUS at v0.1
-%   1  Introduction ........ DRAFTED (conservative; every hypothesis named)
+% SECTION STATUS at v0.2 (2026-08-04, after the word on
+% logChowla2_ineffective_v6)
+%   1  Introduction ........ DRAFTED (conservative; every hypothesis named);
+%                            abstract + 1.2 reconciled with v6 on 08-04
 %   2  The Toll ............ DRAFTED IN FULL (the chapter this draft exists for)
 %   3  The flat tower ...... DRAFTED IN FULL (the technical heart of section 2)
-%   4  The Pearl ........... STUB -- awaits BAND-WINDOW's final hypothesis list
-%   5  The classical limit . HALF -- containment + hoist drafted; final form TODO
+%   4  The Pearl ........... DRAFTED IN FULL against the FINAL objects: the
+%                            landed terminal (v2), the two 08-02 defects and
+%                            their repairs, the re-cut terminal at an
+%                            arbitrary admissible lever
+%   5  The classical limit . DRAFTED IN FULL: containment, hoist, the v1->v6
+%                            chain, v6 with its five riders by nature
 %   6  Method .............. STUB -- contents listed, prose not written
-%   A  Statement index ..... Toll rows FILLED; Pearl rows stubbed
+%   A  Statement index ..... Toll rows FILLED; Pearl rows FILLED, with the
+%                            v2/v6 signature transcriptions
 %
 % No local LaTeX toolchain on the build machine: this file has never been
 % compiled. Compile checks happen author-side.
@@ -38,6 +45,32 @@
 \usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=blue!60!black,urlcolor=blue!60!black]{hyperref}
 \usepackage{microtype}
 \usepackage{xcolor}
+
+% --- Appendix A transcribes Lean source, exactly as papers/flagship/main.tex
+% does. `alltt' is base LaTeX's verbatim-like environment that still expands
+% \-commands, so the unicode of the declarations can be mapped character by
+% character below. On a modern LaTeX (UTF-8 input by default) nothing further
+% is needed; on an older one add \usepackage[utf8]{inputenc}. The list is
+% exactly the characters occurring in this paper's transcriptions.
+\usepackage{alltt}
+\newcommand{\lchar}[1]{\hbox to \fontcharwd\font`\M{\hss$#1$\hss}}
+\DeclareUnicodeCharacter{00AC}{\lchar{\neg}}
+\DeclareUnicodeCharacter{03B2}{\lchar{\beta}}
+\DeclareUnicodeCharacter{03B4}{\lchar{\delta}}
+\DeclareUnicodeCharacter{03B5}{\lchar{\varepsilon}}
+\DeclareUnicodeCharacter{03C9}{\lchar{\omega}}
+\DeclareUnicodeCharacter{2080}{\lchar{{}_0}}
+\DeclareUnicodeCharacter{208A}{\lchar{{}_+}}
+\DeclareUnicodeCharacter{2115}{\lchar{\mathbb{N}}}
+\DeclareUnicodeCharacter{211A}{\lchar{\mathbb{Q}}}
+\DeclareUnicodeCharacter{211D}{\lchar{\mathbb{R}}}
+\DeclareUnicodeCharacter{2192}{\lchar{\to}}
+\DeclareUnicodeCharacter{2200}{\lchar{\forall}}
+\DeclareUnicodeCharacter{2203}{\lchar{\exists}}
+\DeclareUnicodeCharacter{2227}{\lchar{\wedge}}
+\DeclareUnicodeCharacter{2264}{\lchar{\le}}
+\DeclareUnicodeCharacter{2308}{\lchar{\lceil}}
+\DeclareUnicodeCharacter{2309}{\lchar{\rceil}}
 
 \newcommand{\leanname}[1]{\par\noindent{\small\texttt{#1}}}
 \newcommand{\leaninline}[1]{{\small\texttt{#1}}}
@@ -56,7 +89,7 @@ Chowla Regime and the Width Law of the Entropy Decrement}
 \thanks{Developed in collaboration with Claude (Anthropic's Fable~5 and
 Opus models); see \S\ref{sec:method} and the repository's commit ledger,
 in which every commit is co-authored. Written in a personal capacity.}
-\date{August 2, 2026}
+\date{August 4, 2026}
 
 \begin{document}
 
@@ -89,10 +122,21 @@ $\lceil e^{e^{3.2A}}\rceil$, and for that regime the logarithmically
 averaged two-point Chowla correlation does not fail at the witnessed
 scale, on a list of hypotheses given in full in \S\ref{sec:pearl}: one
 analytic constant of the band lane, eight numeric riders on constants the
-theorem itself produces, and two carried predicates. A corollary removes
-the two Siegel-genre riders of that list at the price of effectivity, by
-the classical limit; making that limit available required a quantifier hoist
-that the formal statement, and only the formal statement, made visible.
+theorem itself produces, and two carried predicates. Of that list, one
+rider was found unreachable along the proof and one predicate false at the
+regime the theorem itself produces --- the second refuted by the first
+theorem's own lower bound --- and both were repaired at the level of the
+statement, which is the episode \S\ref{sec:pearl} is written around. A
+chain of six corollaries then removes, in order, the two Siegel-genre
+riders by the classical limit, the band-lane constant by its own window,
+three numerals at their leaves, the base-scale cap at a raised lever, the
+outer-scale ceiling by threading, and the co-factor supply by repairing
+its register; the last of them has no outer hypothesis and no
+conclusion-side predicate, and of its five surviving hypotheses three are
+met by objects the development exhibits and two are the Siegel
+obstruction. Making the classical limit available required a quantifier
+hoist that the formal statement, and only the formal statement, made
+visible.
 \end{abstract}
 
 \maketitle
@@ -191,13 +235,24 @@ window does not exceed $\varepsilon\log\omega$ in absolute value.
 The eight hypotheses and two predicates are listed in full in
 \S\ref{sec:pearl}; none is hidden, and the paper claims nothing
 unconditional about \eqref{eq:chowla}. Two of the eight are of Siegel
-genre --- windows on constants that the theory does not effectively bound
---- and they are removed by the corollary of \S\ref{sec:limit}:
-\leanname{Salt.MR.logChowla2\_ineffective}
-which carries the band-lane hypothesis, six numeric riders
-($K_c \le 2^{539}$, $C_t \le 2^{23}$, $e^{-100} \le c_s$,
-$T_0 \le e^{e^{100}}$, $K_q \le e^{100}$, $e^{-100} \le K_s$) and the two
-carried predicates, and no Siegel item of any kind.
+genre --- windows on constants that the theory does not effectively bound.
+Two other items of the list did not survive inspection: the rider
+$T_0 \le e^{e^{100}}$ is unreachable along the proof, and the base-scale
+cap predicate is false at the regime the theorem produces, refuted by the
+lower bound of Theorem~\ref{thm:toll-intro}. \S\ref{sec:pearl} states both
+findings, their dates, and the two statement-level repairs --- a raised
+lever for the cap, the consumer's own tolerance for $T_0$ --- and gives the
+re-cut terminal that carries them (Theorem~\ref{thm:pearl-recut}).
+
+\S\ref{sec:limit} then runs the chain of six corollaries that ends at
+\leanname{Salt.MR.logChowla2\_ineffective\_v6}
+which has no outer hypothesis and no conclusion-side predicate, and carries
+exactly five: $e^{-100} \le c_s$ and
+$T_0 \le \exp(\tfrac12\sqrt{\lceil e^{e^{3.2A}}\rceil})$ and a condition on
+the caller's own outer-scale request, all three met by objects the
+development exhibits; and $e^{-100} \le K_s$ together with a cushion on a
+constant whose third leg is the extreme-value minimum of $\|L(s,\chi)\|$
+uniform in $q$ --- the Siegel obstruction, named twice.
 
 \subsection{Effective, ineffective, and the order of quantifiers}
 The two statements stand in the anatomy familiar from the theory of the
@@ -725,76 +780,322 @@ consumption is the subject of \S\ref{sec:pearl}.
 \section{The pearl}\label{sec:pearl}
 % ============================================================================
 
-% ------------------------------------------------------------------
-% STUB. Nothing in this section is drafted except the placeholder
-% statement below and the hypothesis inventory, which are recorded here
-% so that the final draft can be checked against them.
-% ------------------------------------------------------------------
+\subsection{The target}
+A \emph{Chowla regime} is the corpus's record of one working scale of the
+entropy-decrement argument: an outer scale $x$, a logarithmic window width
+$\omega$ (the correlation sum runs over $n \in (x/\omega,\,x]$), a stride, a
+tolerance $\varepsilon \le 1/2$, an admissible window pair $H_- \le H_+$ with
+$H_- \ge 4\cdot10^{6}$, a tower ratio and a tower length, together with the
+side conditions those data must satisfy --- among them that the tower fits
+below $H_+$ and that its telescoped decrement crosses $\log 2$.
+\leanname{Salt.Entropy.Chowla.ChowlaRegime (Salt/Entropy/Chowla/Regime.lean:56)}
+The flat extension adds the design constant $A \ge 26$, the design law
+$3.2A \le \log\log H_-$, a flat tower length, and the flat tower's own fit and
+crossing (\leaninline{ChowlaRegimeFlat},
+\texttt{Salt/Entropy/Chowla/TowerFlatRegime.lean:122}); it is the structure
+whose consumption \S\ref{sec:flat} announced.
 
-\noindent\textbf{TODO (\S\ref{sec:pearl} is a stub): this section awaits
-BAND-WINDOW's final hypothesis list, so that the theorem is stated once,
-in its final form.} What is pending, exactly: (a) whether the band-lane
-hypothesis \leaninline{S16BandLaneCBoundedL} survives as a hypothesis or
-is replaced by an $A$-windowed form; (b) which of the six numeric riders
-($K_c$, $C_t$, $c_s$, $T_0$, $K_q$, $K_s$) have been discharged by then;
-(c) the final form of the two carried predicates. Until (a)--(c) are
-settled the statement below is a placeholder, and no prose in this section
-should be written against it.
+Failure of the two-point statement at a regime is a Prop about that regime's
+own data:
+\begin{equation}\label{eq:fails}
+\mathrm{logChowla2Fails}(\varepsilon, x, \omega)
+\quad:\Longleftrightarrow\quad
+\varepsilon\,\log\omega \;<\;
+\Bigl|\sum_{x/\omega < n \le x} \frac{\lambda(n)\,\lambda(n+1)}{n}\Bigr| ,
+\end{equation}
+with the right-hand side unnormalized: this is (2.4) of \cite{TaoChowla} at the
+Liouville model $a=1$, $b=0$, $h=1$, $g_1 = g_2 = \lambda$.
+\leanname{Salt.Entropy.Chowla.logChowla2Fails
+(Salt/Entropy/Chowla/ChowlaFailure.lean:59)}
 
-\begin{theorem}[The pearl; PLACEHOLDER STATEMENT]\label{thm:pearl}
-For every $A_0 \ge 162$ there are constants
-$\varepsilon, C_g, K_c, \delta_0, C_t, A, \beta, x_0, H_{\mathrm{opq}},
-M_{\mathrm{fl}}, C_q, c_s, T_0, K_q, K_s, C$ with
-$0 < \varepsilon$, $\tfrac{1}{500}\le\varepsilon$,
-$A \ge 162$, $A \ge A_0$, together with a prefix of explicit sign and size
-conditions on the constants and one arm-census conjunct pinning the
-witness floor at the design base, such that under the eight named
-hypotheses
+Denying \eqref{eq:fails} at one regime is not \eqref{eq:chowla}, and this
+paper claims no more than it proves: the denial says that the correlation on
+the window $(x/\omega,\,x]$ of that regime does not exceed
+$\varepsilon\log\omega$ in absolute value. What the pearl adds to a single
+denial is depth. The regime's window base is pinned --- exported as an
+equation, not a bound --- at
+\[
+\mathrm{flatDesignBase}(A) \;=\; \bigl\lceil e^{e^{3.2A}} \bigr\rceil
+\]
+\leanname{Salt.Entropy.Chowla.flatDesignBase
+(Salt/Entropy/Chowla/TowerFlatBuilder.lean:95)}
+\noindent with $A$ above any floor the caller prescribes, and its outer scale exceeds
+$g(H_+, \omega)$ for a function $g$ the caller supplies. Both quantifiers are
+inside the statement.
+
+\subsection{The statement}
+We state the theorem in the form the corpus carries it, with every hypothesis
+at the statement.
+
+\begin{theorem}[The pearl; conditional, hypotheses in full]\label{thm:pearl}
+Assume the band-lane hypothesis
+$\mathrm{S16BandLaneCBoundedL}(32\cdot10^{6})$ of \S\ref{sec:pearl-hyp}, and
+let $A_0 \ge 162$. Then there exist $\varepsilon \in \mathbb{Q}$, reals
+$C_g, K_c, \delta_0, C_t, A, \beta$, naturals $x_0, H_{\mathrm{opq}},
+M_{\mathrm{fl}}$ and reals $C_q, c_s, T_0, K_q, K_s, C$ such that:
+\begin{enumerate}
+\item[(a)] \emph{(sign and size)} $0 < \varepsilon$, $1 \le C_g$, $0 < K_c$,
+  $0 < \delta_0$, $0 < C_t$, $1 \le M_{\mathrm{fl}}$, $0 < C_q$, $0 < c_s$,
+  $3 \le T_0$, $0 < K_q$, $0 < K_s$, $0 < C$, $\log C \le 40$,
+  $C_g \le 2\cdot10^{12}$, $\tfrac{1}{500} \le \varepsilon$,
+  $\tfrac{1}{838400} \le \delta_0$, $M_{\mathrm{fl}} \le 2^{355}$,
+  $0 < \beta$;
+\item[(b)] \emph{(the design constant)} $162 \le A$, $A_0 \le A$, and
+  $\mathrm{budgetAFlat}(\varepsilon,\beta) \le A$;
+\item[(c)] \emph{(the arm census)} if
+  $H_{\mathrm{opq}} \le \mathrm{flatDesignBase}(A)$ then
+  $\mathrm{flatWitFloor}(\varepsilon,\beta,A,H_{\mathrm{opq}})
+   = \mathrm{flatDesignBase}(A)$;
+\item[(d)] \emph{(the conditional)} under the eight hypotheses
 \[
 K_c \le 2^{539},\quad C_t \le 2^{23},\quad
-x_0 \le e^{e^{3.2A}/10},\quad H_{\mathrm{opq}} \le \lceil e^{e^{3.2A}}\rceil,
+x_0 \le e^{e^{3.2A}/10},\quad
+H_{\mathrm{opq}} \le \mathrm{flatDesignBase}(A),
 \]
 \[
 e^{-100}\le c_s,\quad T_0 \le e^{e^{100}},\quad K_q \le e^{100},\quad
 e^{-100}\le K_s,
 \]
-the following holds: for every $g : \mathbb{N}\to\mathbb{N}\to\mathbb{N}$
-there is a Chowla regime $R$ with $R.\varepsilon = \varepsilon$, window
-base $R.H_- $ pinned at the road's witness floor,
-$g(R.H_+, R.\omega) \le R.x$, the width certificate
-$\log\log R.H_+ \le 2e^{1.6A}$, and $3.2A \le \log\log R.H_-$, such that
-the two carried predicates
-\leaninline{S16CofactorSupply\_L\_gk} and
-\leaninline{S16BaseScaleCap96\_L\_gk}
-imply $\lnot\,\mathrm{logChowla2Fails}(R.\varepsilon, R.x, R.\omega)$.
+for every $g : \mathbb{N}\to\mathbb{N}\to\mathbb{N}$ there is a Chowla regime
+$R$ with
+\[
+R.\varepsilon = \varepsilon,\quad
+R.H_- = \mathrm{flatWitFloor}(\varepsilon,\beta,A,H_{\mathrm{opq}}),\quad
+g(R.H_+, R.\omega) \le R.x,
+\]
+\[
+50 \le \log\log R.H_- \;\Rightarrow\;
+\log\log R.H_+ \le \exp\bigl(\tfrac{1}{2}\log\log R.H_-\bigr),
+\qquad
+3.2A \le \log\log R.H_-,
+\]
+\[
+\log\log R.H_+ \;\le\; 2\,e^{1.6A},
+\]
+and such that
+\[
+\mathrm{S16CofactorSupply\_L\_gk}(32\cdot10^{6}, C_q, R,
+  \mathrm{flatDoorM}(A))
+\;\Rightarrow\;
+\mathrm{S16BaseScaleCap96\_L\_gk}(32\cdot10^{6}, R, \mathrm{flatDoorM}(A))
+\]
+\[
+\Rightarrow\;
+\lnot\,\mathrm{logChowla2Fails}(R.\varepsilon, R.x, R.\omega).
+\]
+\end{enumerate}
 \leanname{Salt.MR.logChowla2\_witnessed\_scale\_flat\_L\_v2
-(Salt/MR/S16FlatFinal.lean)}
+(Salt/MR/S16FlatFinal.lean:136)}
 \end{theorem}
 
-\noindent\textbf{TODO: prose for this section} --- the plain reading of
-the conclusion (``at every design constant above the floor there is a
-regime, arbitrarily deep, at which the correlation does not fail at the
-witnessed scale''), the exact meaning of
-\leaninline{logChowla2Fails} (namely
-$\varepsilon\log\omega <
-\bigl|\sum_{x/\omega < n \le x}\lambda(n)\lambda(n+1)/n\bigr|$,
-\leaninline{Salt.Entropy.Chowla.logChowla2Fails}), the pinning of the base
-at $\lceil e^{e^{3.2A}}\rceil$ (\leaninline{flatDesignBase}), the
-arm-census conjunct of the prefix
-($H_{\mathrm{opq}} \le \mathrm{flatDesignBase}(A) \Rightarrow
-\mathrm{flatWitFloor}(\varepsilon,\beta,A,H_{\mathrm{opq}})
-= \mathrm{flatDesignBase}(A)$), and how Corollary~\ref{cor:export}
-supplies the regime's width conjunct. None of it is written yet.
+Three of the conclusion's lines are the tower's, and \S\ref{sec:toll} is where
+they come from. The line $3.2A \le \log\log R.H_-$ is the design law, which the
+witness floor satisfies by construction
+(\leaninline{Salt.MR.flatWitFloor\_design}); under the arm-census hypothesis
+that floor \emph{equals} the design base $\lceil e^{e^{3.2A}}\rceil$, by (c),
+which is how the base comes to be exported as an equation. The implication
+$50 \le \log\log R.H_- \Rightarrow \log\log R.H_+ \le
+\exp(\tfrac12\log\log R.H_-)$ is Corollary~\ref{cor:export} in the regime's own
+variables --- the $A$-free width export, which is what lets the terminal state
+a width certificate without carrying the design constant into it. The line
+$\log\log R.H_+ \le 2e^{1.6A}$ is that export evaluated at the pinned base:
+$\log\log H_- \le 3.2A + \log 2$, so
+$\exp(\tfrac12\log\log H_-) \le \sqrt{2}\,e^{1.6A} \le 2e^{1.6A}$
+(\leaninline{Salt.MR.flat\_L\_width\_priced}). This is the toll arriving at the
+pearl: the width the tower must buy, priced in the coordinate the downstream
+lemmas read.
+
+\subsection{The hypothesis list, item by item}\label{sec:pearl-hyp}
+Theorem~\ref{thm:pearl} is conditional in three separate ways, and they are
+different in kind.
+
+\emph{The outer hypothesis.} $\mathrm{S16BandLaneCBoundedL}(32\cdot10^{6})$
+(\leaninline{Salt/MR/S16FlatTerminalLinear.lean:49}) is the band lane's
+constant hypothesis. Everything in it beyond a landed unconditional theorem
+(\leaninline{Salt.MR.mmuChiRate\_holds\_gated}, carried through
+\leaninline{S11HoistLinear}) is the single conjunct $\log C_{\mathrm{band}}
+\le 40$. It is not of Siegel genre: the constant is effective, and a trace of
+every existential hop that mints it puts it at
+$\log C_{\mathrm{band}} \approx 22\,661$, dominated by a literal
+double-exponential threshold in the zero-free-region lane. So the numeral $40$
+is not payable as stated. \S\ref{sec:limit} records what happened to it.
+
+\emph{The two Siegel-genre riders.} $x_0 \le e^{e^{3.2A}/10}$ and
+$H_{\mathrm{opq}} \le \lceil e^{e^{3.2A}}\rceil$ are windows, not bounds: each
+compares a constant the theorem produces against a double exponential in the
+design constant. $x_0$ is the band lane's opaque threshold; $H_{\mathrm{opq}}$
+is the road's opaque floor arm, whose own constituents ride the
+Siegel-ineffective constant of the Chen-type input. Neither constant is
+effectively bounded anywhere in the corpus or in the literature.
+\S\ref{sec:limit} removes both, at the price named there.
+
+\emph{The six numeric riders.} $K_c \le 2^{539}$ and $C_t \le 2^{23}$ are
+ceilings on socket constants; $e^{-100} \le c_s$, $T_0 \le e^{e^{100}}$,
+$K_q \le e^{100}$ and $e^{-100} \le K_s$ come from the crossing supply. All six
+are spent on constants \emph{this theorem existentially produces}: they are
+conjuncts the $\exists$-prefix could in principle export and does not, because
+every hop that mints such a constant packs it into an
+$\exists\,C,\ 0 < C \wedge \ldots$ that exports positivity alone.
+
+\emph{The two carried predicates.} The conclusion's implication asks for
+$\mathrm{S16CofactorSupply\_L\_gk}$ --- a supply statement about the co-factor
+block at the linear door and socket --- and
+$\mathrm{S16BaseScaleCap96\_L\_gk}$, the base-scale cap
+\[
+\forall\ \text{sockets } (H,L,q,j,A',s):\quad
+\log\log(A'+s) \;\le\;
+\frac{\log \mathcal{P}\bigl(\mathrm{AdoorL}(M), \mathrm{s13GK}(K,M), 2\bigr)}
+     {9.60000096} ,
+\]
+both at \leaninline{Salt/MR/S13CapGateLinear.lean:891,897}. A theorem of the
+form $P \to Q \to \lnot F$ says nothing about $F$ when $P$ or $Q$ is false at
+the objects the theorem itself produces. That observation is the subject of the
+next subsection.
+
+\subsection{Two defects, found and repaired}\label{sec:pearl-defects}
+On 2 August 2026 two of Theorem~\ref{thm:pearl}'s hypotheses were shown to be
+unsatisfiable at the objects the theorem produces. Both were found by
+instruments the corpus had built for other purposes, and both were repaired the
+same day at the level of the statement. We record them because a paper that
+lists only what survived its own checks is not evidence that the checks work.
+
+\emph{The base-scale cap is false at the produced regime, and the width law of
+\S\ref{sec:toll} is what refutes it.} The cap bounds $\log\log(A'+s)$ at every
+socket by a quantity fixed by the lever $K$, which Theorem~\ref{thm:pearl}
+pins at $K = 32\cdot10^{6}$; the right-hand side is then about $10^{9.6\cdot
+10^{6}}$. But the socket's own conjuncts pin the block scale $A'+s$ at the
+window endpoint --- the corpus's own inhabitation witness for the socket sits
+at $A'+s = 2R.x$ exactly --- and at the endpoint the regime's outer scale is
+governed by the tower, whose width Theorem~\ref{thm:tollge} bounds from
+\emph{below}: crossing the entropy budget forces the doubly-logarithmic width
+up by $4^{(20/21)A}$, which at $A = 162$ puts $\log\log(A'+s)$ at or above
+$10^{1.76\cdot10^{95}}$. A fixed ceiling of $10^{9.6\cdot10^{6}}$ against a
+demand of $10^{1.76\cdot10^{95}}$ is not a numeral that can be adjusted. The
+consequence for Theorem~\ref{thm:pearl} as stated is exact and we state it
+plainly: its inner implication has a false antecedent at the regime it
+produces, so that implication carries no information about
+\eqref{eq:fails} until the lever is changed. The finding was reached twice
+independently (through the caller's $g$, and by arithmetic at $g \equiv 0$);
+the arithmetic is probe arithmetic against kernel-checked inputs, not itself a
+kernel-checked theorem, and we mark it as such. What \emph{is} kernel-checked
+is the lower bound that forces it, Theorem~\ref{thm:tollge}.
+
+Two features of this episode are worth naming. First, the refuter was the
+paper's own unconditional theorem: the toll was proved on 1 August and refuted
+a hypothesis of a terminal on 2 August. Second, the defect is invisible to an
+axiom audit and to the kernel, both of which certify Theorem~\ref{thm:pearl}
+as a true statement, which it is.
+
+\emph{The $T_0$ numeral is mis-sized.} The rider $T_0 \le e^{e^{100}}$ is
+unreachable along this proof. $T_0$ is a maximum of two thresholds; the
+twisted row meets $e^{e^{100}}$ with equality, but the $\zeta$ row inherits the
+threshold of the power-saving zero-free region, which is $e^{e^{A'}}$ with
+$A' \ge 1100$ --- so $T_0 \ge e^{e^{1100}}$, and at the corpus's own lever
+$T_0 \approx e^{e^{1251}}$. Again this is not refutation of a Prop but
+unreachability along the proof, and again the repair is at the statement: the
+sole consumer of the rider has a sharp sibling that asks only
+$T_0 \le e^{\sqrt{H_-}/2}$, which was already landed. At $A \ge 162$ the pinned
+base gives $\sqrt{H_-} \ge e^{e^{518.4}/2}$, so the sharp rider admits
+$T_0$ up to $e^{\frac12 e^{6.4\cdot10^{224}}}$ against a witness at
+$e^{e^{1251}} = e^{10^{543}}$: two exponential levels of clearance. (Numerical
+illustration; the formal content is the displayed inequality.)
+
+\subsection{The repaired terminal}\label{sec:pearl-repair}
+Both repairs are statement-level and neither weakens a landed declaration:
+Theorem~\ref{thm:pearl} stands as proved, marked in the repository's registry
+with the vacuity reason, and the road was re-cut beside it.
+
+The cap repair turns on the observation that the lever is a parameter, not a
+constant of the mathematics. Set
+\[
+\mathrm{KlevF}(A) \;=\; \bigl\lceil k_{\mathrm{cap}}\, e^{1.6A}\bigr\rceil,
+\qquad k_{\mathrm{cap}} := 4 .
+\]
+\leanname{Salt.MR.kcap, Salt.MR.KlevF (Salt/MR/KLever.lean:147)}
+\noindent Two inequalities decide it. \emph{Admissible:}
+$\mathrm{KlevF}(A) \le 1.7\cdot10^{8}\cdot\mathrm{flatDoorM}(A)$ for every
+$A \ge 26$, the ceiling the door and the selection register both carry, with a
+margin of $137$ uniform in $A$
+(\leaninline{Salt.MR.KlevF\_le\_wideCeiling}). \emph{Sufficient:} the cap's
+demand is $\log\log H_+ \le 2e^{1.6A}$, the width line the regime already
+exports, and the supply at lever $K$ is $K\log 2 = k_{\mathrm{cap}}(\log 2)
+e^{1.6A} = 2.7724\,e^{1.6A}$ --- a margin of $1.386$, which is why
+$k_{\mathrm{cap}}$ is a named dial and not an inline numeral. At that lever the
+cap is a theorem, on the regime's own exported ceilings plus
+$\varepsilon \ge 1/500$:
+\leanname{Salt.MR.s16\_baseScaleCap96\_L\_at\_klevF (Salt/MR/KLever.lean:427)}
+The two levers are separated by exactly the coefficient comparison
+$2 < k_{\mathrm{cap}}\log 2$.
+
+The lane's terminal is therefore stated at an arbitrary admissible lever, so
+that the instantiation $K := \mathrm{KlevF}(A)$ is available to its consumer,
+and with the two 2~August repairs in place.
+
+\begin{theorem}[The pearl, re-cut at an arbitrary
+lever]\label{thm:pearl-recut}
+Let $A_{\mathrm{win}} \in \mathbb{R}$ and assume the $A$-windowed band-lane
+hypothesis $\mathrm{S16BandLaneCBoundedL\_winU}(A_{\mathrm{win}})$. Then there
+exist $\varepsilon \in \mathbb{Q}$, reals $C_g, K_c, \delta_0, \beta$, naturals
+$x_0, H_{\mathrm{opq}}, M_{\mathrm{fl}}$ and reals
+$C_q, c_s, T_0, K_q, K_s, C$, satisfying the sign and size conditions of
+Theorem~\ref{thm:pearl}(a) other than those on $C_t$, and with
+$M_{\mathrm{fl}} \le \mathrm{flatDoorM}(A)$ at every admissible $A$ in place of
+$M_{\mathrm{fl}} \le 2^{355}$, such that: for every lever $K \in \mathbb{N}$
+there is
+$C_t > 0$ such that for every design constant $A$ with $162 \le A$,
+$A_{\mathrm{win}} \le A$, $\mathrm{budgetAFlat}(\varepsilon,\beta) \le A$ and
+$K \le 1.7\cdot10^{8}\cdot\mathrm{flatDoorM}(A)$, the arm census
+of Theorem~\ref{thm:pearl}(c) holds, and under the five hypotheses
+\[
+x_0 \le e^{e^{3.2A}/10},\qquad
+H_{\mathrm{opq}} \le \mathrm{flatDesignBase}(A),\qquad
+e^{-100} \le c_s,
+\]
+\[
+T_0 \le \exp\Bigl(\tfrac12\sqrt{\mathrm{flatWitFloor}
+(\varepsilon,\beta,A,H_{\mathrm{opq}})}\Bigr),
+\qquad
+e^{-100} \le K_s,
+\]
+for every $g$ obeying the caller-side rider
+$\mathrm{XCeilRiderStrict}(\varepsilon, g)$ there is a Chowla regime $R$ with
+the exports of Theorem~\ref{thm:pearl}(d), together with the outer-scale
+ceiling $\log R.x \le (31/\varepsilon)\,R.H_+$, such that
+\[
+\mathrm{S16CofactorSupply\_L\_gk}(K, C_q, R, \mathrm{flatDoorM}(A))
+\;\Rightarrow\;
+\mathrm{S16BaseScaleCap96\_L\_gk}(K, R, \mathrm{flatDoorM}(A))
+\]
+\[
+\Rightarrow\;
+\lnot\,\mathrm{logChowla2Fails}(R.\varepsilon, R.x, R.\omega).
+\]
+\leanname{Salt.MR.logChowla2\_witnessed\_scale\_flat\_L\_v2\_uniform\_win\_%
+xceil\_cqhoist (Salt/MR/RegisterCompose.lean:209)}
+\end{theorem}
+
+Three differences from Theorem~\ref{thm:pearl} carry the content. The lever is
+universally quantified, which is what makes $K := \mathrm{KlevF}(A)$ legal and
+the base-scale cap a theorem rather than a hypothesis. The $T_0$ rider is the
+sharp one. And the regime now exports its own outer-scale ceiling
+$\log R.x \le (31/\varepsilon)R.H_+$, at the cost of a condition on the
+function the caller supplies: $\mathrm{XCeilRiderStrict}(\varepsilon,g)$ asks
+that on the gate the builder's own regime satisfies, $\log g(H_+,\omega) +
+\varepsilon^{2}H_+ \le (31/\varepsilon)H_+$
+(\leaninline{Salt/MR/XThread.lean:82}). The trade is in the consumer's favour:
+Theorem~\ref{thm:pearl} asked for a property of the regime it produces, which
+its consumer cannot inspect; Theorem~\ref{thm:pearl-recut} asks for a property
+of the function its consumer writes down. The budget is
+$(31/\varepsilon)H_+ \ge 15\,500\,H_+$ and the builder's own scale sits at
+$\log x \approx 1.386\,\varepsilon^{2}H_+$, a ratio $22.4/\varepsilon^{3} \ge
+2.8\cdot10^{9}$ at $\varepsilon \le 1/500$.
+
+What Theorem~\ref{thm:pearl-recut} still carries, and \S\ref{sec:limit}
+discharges, is the co-factor supply predicate and the two Siegel-genre windows.
 
 % ============================================================================
 \section{The classical limit}\label{sec:limit}
 % ============================================================================
-
-% ------------------------------------------------------------------
-% HALF DRAFT. The containment argument and the quantifier-hoist finding
-% are drafted; the final form of the corollary is TODO pending
-% BAND-WINDOW (see \S\ref{sec:pearl}).
-% ------------------------------------------------------------------
 
 \subsection{The containment}
 Two of Theorem~\ref{thm:pearl}'s eight hypotheses are windows rather than
@@ -820,29 +1121,13 @@ bound by \texttt{Classical.choice} and no bound on it is claimed --- which
 is precisely the caveat the analytic literature attaches to every
 consequence of Siegel's theorem. The effective-conditional statement
 contains the ineffective statement; the containment is the standard one,
-and the corollary below is its instance.
+and Step~1 of \S\ref{sec:chain} is its instance.
 
-\begin{corollary}[The Siegel-free form; ineffective in $A$]\label{cor:ineff}
-Assume the band-lane hypothesis. For every $A_0$ there exist constants
-$(\varepsilon, C_g, K_c, \delta_0, C_t, A, \beta, M_{\mathrm{fl}}, C_q,
-c_s, T_0, K_q, K_s, C)$ with $A \ge 162$ and $A \ge A_0$ such that, under
-the six riders
-$K_c \le 2^{539}$, $C_t \le 2^{23}$, $e^{-100}\le c_s$,
-$T_0 \le e^{e^{100}}$, $K_q\le e^{100}$, $e^{-100}\le K_s$, one has: for
-every $g$ there is a Chowla regime $R$ with
-$R.\varepsilon = \varepsilon$, base pinned at
-$R.H_- = \lceil e^{e^{3.2A}}\rceil$, $g(R.H_+,R.\omega)\le R.x$,
-$3.2A \le \log\log R.H_-$, $\log\log R.H_+ \le 2e^{1.6A}$, and such that
-the two carried predicates imply
-$\lnot\,\mathrm{logChowla2Fails}(R.\varepsilon,R.x,R.\omega)$.
-No hypothesis of Siegel genre occurs: neither $x_0$ nor
-$H_{\mathrm{opq}}$ appears in the statement.
-\leanname{Salt.MR.logChowla2\_ineffective (Salt/MR/S16Uniform.lean)}
-\end{corollary}
-
-The base is exported as an \emph{equation}, $R.H_- = \lceil
-e^{e^{3.2A}}\rceil$, not as a bound, and $A$ is unbounded: the regime is
-pinned arbitrarily deep.
+The device applies once, at the first corollary of \S\ref{sec:chain}, and is
+then reused verbatim for every constant that is fixed while its window grows in
+$A$: the band-lane constant, and the two Siegel-genre arms. What it never
+touches is a constant on which the road's own conclusion depends --- those are
+the riders that survive to the end.
 
 \subsection{The hoist}
 The containment argument above has a hypothesis we underlined: \emph{if
@@ -890,14 +1175,196 @@ the reader's head, and which a formal statement records as data. Here the
 step was blocked, the blockage was visible in the statement, and the
 repair --- seven verbatim re-cuts --- was mechanical once identified.
 
-\noindent\textbf{TODO (final form): this section is a half draft.} The
-corollary above is stated as landed; BAND-WINDOW is expected to produce a
-second corollary in which the band-lane hypothesis is itself $A$-windowed,
-at which point (i) Corollary~\ref{cor:ineff} should be restated in that
-final form, (ii) the sentence in \S\ref{sec:intro} listing the surviving
-hypotheses must be updated to match, and (iii) the residual-hypothesis
-table (Table~\ref{tab:conditional}) must be regenerated. The paragraph on
-the hoist is stable and does not depend on that outcome.
+\subsection{The chain}\label{sec:chain}
+With the order corrected, the classical limit is available, and it was taken.
+What followed was six statements, each the previous one with one hypothesis
+removed and the removal paid for. We give the chain because the arithmetic of
+the payments is the content: at each step the item that left the statement left
+for a stated reason, and the reasons are of four kinds --- a limit, a window, a
+numeral proved at its leaves, and a predicate proved outright.
+
+\emph{Step 1: the Siegel pair, by the limit.} The two windows of
+\S\ref{sec:pearl-hyp} fall to the $\max$ of the containment argument. The
+resulting statement carries the band-lane hypothesis, six numeric riders and
+the two predicates, and no Siegel item of any kind.
+\leanname{Salt.MR.logChowla2\_ineffective (Salt/MR/S16Uniform.lean:1061)}
+
+\emph{Step 2: the band lane, by an $A$-window.} The numeral
+$\log C_{\mathrm{band}} \le 40$ of \S\ref{sec:pearl-hyp} is unpayable, and it
+is also not what the consumer needs: the constant is spent at exactly one site,
+to put a graded constant under a pin which a later step charges against
+$\mathrm{flatDoorM}(A)$. Re-cutting the band lane's hypothesis as the
+$A$-window $\log C_{\mathrm{band}} \le 0.64A - 20$ makes it a consequence of
+the landed hypothesis-free existential, and the same $\max$ device then
+discharges it. The band constant is $A$-free and $K$-free, a property that
+Step 4 will need in the stronger form of one witness
+$A_{\mathrm{win}} \approx 3.5\cdot10^{4}$ serving every lever. The outer
+hypothesis list is now empty: the caller supplies only the depth $A_0$.
+\leanname{Salt.MR.logChowla2\_ineffective\_v2 (Salt/MR/S16Uniform.lean:1707)}
+
+\emph{Step 3: $K_c$, $C_t$, $K_q$, by conjunct-carry.} Each of the three was a
+rider only because the hop that mints it exports positivity alone. Pricing them
+at their leaves gives $K_c \le 2^{228.2}$ against a rider of $2^{539}$ (more
+than $300$ bits of room), $C_t = 6e^{14} = 2^{22.78}$ against $2^{23}$
+(occupying $86\%$ of its budget), and $K_q = 1.26848\cdot10^{-3}$ against
+$e^{100}$ ($46$ orders); carrying the three conjuncts up the lane spends them
+where the proof needs them.
+\leanname{Salt.MR.logChowla2\_ineffective\_v3 (Salt/MR/S16Compose.lean:1112)}
+
+\emph{Step 4: the base-scale cap, at the raised lever; and the $T_0$ reshape.}
+This is \S\ref{sec:pearl-defects} arriving in the corollary line: the lever is
+raised to $\mathrm{KlevF}(A)$, where the cap is a theorem, and the predicate is
+deleted from the statement; the $T_0$ numeral is replaced by its consumer's
+tolerance. What appears in their place is one new conclusion-side antecedent,
+the outer-scale ceiling $\log R.x \le (31/\varepsilon)R.H_+$ --- the builder's
+own law, which the lane did not yet export.
+\leanname{Salt.MR.logChowla2\_ineffective\_v4 (Salt/MR/S16ComposeV4.lean:1002)}
+
+\emph{Step 5: the outer-scale ceiling, by threading.} The builder's law is
+carried down every hop of the uniform lane, so the antecedent becomes an
+export. The cost is the caller-side rider
+$\mathrm{XCeilRiderStrict}(\varepsilon,g)$ of \S\ref{sec:pearl-repair}. One
+conclusion-side predicate remains, the co-factor supply.
+\leanname{Salt.MR.logChowla2\_ineffective\_v5 (Salt/MR/XThread.lean:1367)}
+
+\emph{Step 6: the co-factor supply, by repairing its register and
+instantiating its supplier.} The predicate had a landed reduction: a named
+seventeen-conjunct register implies it, uniformly in the lever. On 3 August
+that register was proved \emph{false} at every socket the terminal produces ---
+its own conjuncts, at the trivial dilation ladder $D \equiv 1$, chain into a
+fixed constant standing above an unbounded function of the scale. Unlike the
+cap refutation of \S\ref{sec:pearl-defects}, this one is a theorem:
+\leanname{Salt.MR.cofkL\_bulk\_false\_at\_socket
+(Salt/MR/RegisterInhabit.lean:260)}
+so the route died and the object it fed did not: Step 5's statement is
+unaffected and remains citable. The repair re-instantiates the supplier at the
+ladder the exponent count demands, $D = \lceil \log X\rceil$, and inhabits all
+seventeen conjuncts --- two of which were false at the bottom of the $T$-range
+until the socket's own forcing was found, and two of which turned out to be
+theorems rather than the carried gates a previous reading had recorded. One
+prerequisite had to be cleared first, and it was again a quantifier order: the
+threshold that absorbs the supply reads $C_q$, and the design constant must
+clear that threshold, so $A$ must be chosen after $C_q$ --- while the lane
+chose $A$ first. Since $C_q$ is independent of the lever, moving $\forall K$
+inside the existential of the $K$-free constants closes the circle.
+\leanname{Salt.MR.cofkR\_cofactorSupply\_L\_gk (Salt/MR/RegisterRepair.lean:476)}
+
+\subsection{The corollary}
+\begin{corollary}[The classical limit; ineffective in $A$]\label{cor:v6}
+For every $A_0 \in \mathbb{R}$ there exist $\varepsilon \in \mathbb{Q}$, reals
+$C_g, K_c, \delta_0, C_t, A, \beta$, a natural $M_{\mathrm{fl}}$, reals
+$C_q, c_s, T_0, K_q, K_s, C$, and a function
+$K_{\mathrm{vt}} : \mathbb{N}\to\mathbb{N}\to\mathbb{R}$, with the sign and
+size conditions of Theorem~\ref{thm:pearl}(a), except that
+$M_{\mathrm{fl}} \le \mathrm{flatDoorM}(A)$ stands in place of
+$M_{\mathrm{fl}} \le 2^{355}$, and with $162 \le A$, $A_0 \le A$ and
+$K_{\mathrm{vt}} \ge 0$ everywhere, such that, under the three riders
+\[
+e^{-100} \le c_s,
+\qquad
+T_0 \le \exp\Bigl(\tfrac12\sqrt{\mathrm{flatDesignBase}(A)}\Bigr),
+\qquad
+e^{-100} \le K_s ,
+\]
+for every $g : \mathbb{N}\to\mathbb{N}\to\mathbb{N}$ obeying
+$\mathrm{XCeilRiderStrict}(\varepsilon, g)$ there is a Chowla regime $R$ with
+\[
+R.\varepsilon = \varepsilon, \qquad
+R.H_- = \mathrm{flatDesignBase}(A) = \bigl\lceil e^{e^{3.2A}}\bigr\rceil,
+\qquad g(R.H_+, R.\omega) \le R.x,
+\]
+\[
+50 \le \log\log R.H_- \Rightarrow
+\log\log R.H_+ \le \exp\bigl(\tfrac12\log\log R.H_-\bigr),
+\qquad
+3.2A \le \log\log R.H_-,
+\]
+\[
+\log\log R.H_+ \le 2e^{1.6A},
+\]
+such that the cushion
+\[
+32\,K_{\mathrm{vt}}\bigl(\mathrm{KlevF}(A),\,
+  \lceil (\log R.H_+)^{12}\rceil\bigr)
+\;+\; 32\bigl(2\log \mathrm{flatDoorM}(A) + \log 4 + 50\bigr)
+\;\le\; \tfrac{1}{4}\log R.H_+
+\]
+implies $\lnot\,\mathrm{logChowla2Fails}(R.\varepsilon, R.x, R.\omega)$.
+The caller supplies only $A_0$: there is no outer hypothesis, and no named
+predicate is carried --- the cushion is an explicit inequality in the theorem's
+own data, stated where it is used.
+\leanname{Salt.MR.logChowla2\_ineffective\_v6
+(Salt/MR/RegisterCompose.lean:345)}
+\end{corollary}
+
+The price of the whole chain is stated in the name. $A$ is produced by
+constants bound through \texttt{Classical.choice}, so no numeral for the
+witnessed scale can be read off the theorem; that, and nothing else, is what
+``ineffective'' means here, and it is the price the analytic literature pays
+for every consequence of Siegel's theorem.
+
+\subsection{The five riders, by nature}
+Corollary~\ref{cor:v6} carries five hypotheses. Three of them are met by
+objects the corpus exhibits.
+
+\begin{itemize}
+\item $e^{-100} \le c_s$. The constant is minted in closed form; every leaf on
+  its chain is a literal. Its value is $c_s = 3.716\cdot10^{-11}$ against
+  $e^{-100} = 3.72\cdot10^{-44}$: $33$ orders of room, and the inequality at
+  the closed form is kernel-checked.
+  \leanname{Salt.MR.cs\_closed\_form\_ge\_exp\_neg\_hundred
+  (Salt/MR/RiderTrace.lean:132)}
+  It is carried rather than discharged because the constant travels through
+  eleven pass-throughs between its mint and this statement, and rethreading
+  them is a separate wave.
+\item $T_0 \le \exp(\tfrac12\sqrt{\mathrm{flatDesignBase}(A)})$. At
+  $A \ge 162$ the rider admits $T_0$ up to $e^{\frac12 e^{6.4\cdot10^{224}}}$,
+  and the corpus's own witness sits at $e^{e^{1251}} = e^{10^{543}}$: two
+  exponential levels of clearance (\S\ref{sec:pearl-defects}).
+\item $\mathrm{XCeilRiderStrict}(\varepsilon, g)$. This is a condition on the
+  function the caller writes down, not on any object the theorem produces. The
+  constant request $g \equiv 0$ satisfies it, as does the request the
+  composition itself supplies; the budget is $(31/\varepsilon)H_+$ against a
+  builder scale of $1.386\,\varepsilon^{2}H_+$.
+\end{itemize}
+
+\noindent The other two are one obstruction, appearing twice.
+
+\begin{itemize}
+\item $e^{-100} \le K_s$. A fixed numeral against a fixed constant whose
+  content is Siegel-ineffective: nothing in the corpus or in the literature
+  bounds it from the side the rider needs.
+\item The $K_{\mathrm{vt}}$ cushion. The constant has three legs. Two are
+  closed form, of sizes about $44.8$ and $2.7\cdot10^{43}$. The third bottoms
+  out at the minimum of $\|L(s,\chi)\|$ on a compact box, taken uniformly over
+  the moduli $q \le \lceil(\log H_+)^{12}\rceil$ that the socket's own arc
+  bound admits. That minimum exists by the extreme-value theorem and is not
+  effective in $q$ --- and the declaration that supplies it says so at the
+  statement.
+  \leanname{Salt.MR.LFunction\_band\_lower (Salt/MR/SiegelArm.lean:161)}
+  This is the single point at which Siegel's ineffective constant enters, and
+  the cushion is therefore carried by name, with the trace behind it rather
+  than a bound. At the terminal's own regime the cushion admits
+  $K_{\mathrm{vt}}$ up to $e^{518}/128 \approx 10^{222}$.
+\end{itemize}
+
+\subsection{What the corollary does not say}
+Three readings are excluded by the statement itself, and we exclude them here
+so that no reader has to reconstruct the exclusion. It does not say that
+\eqref{eq:chowla} is proved: the conclusion is a denial of failure at one
+witnessed window of one produced regime, at every depth. It does not say
+``unconditional'' without qualification: five hypotheses stand, and they are
+listed above. And it gives no numeral --- not for $A$, not for the window base,
+not for the outer scale --- because the design constant is chosen classically.
+
+What it does say is that the road from the entropy decrement to a witnessed
+Chowla regime, with the Siegel windows removed by the classical limit, the band
+lane's constant removed by its own $A$-window, three numerals removed at their
+leaves, the base-scale cap removed at the raised lever, the outer-scale ceiling
+removed by threading, and the co-factor supply removed by repairing its
+register, now ends at one place. The wall the campaign met in July, and did not
+pass, is the only hypothesis left standing inside the statement: Siegel's
+ineffective constant, named twice.
 
 % ============================================================================
 \section{Method}\label{sec:method}
@@ -972,7 +1439,8 @@ shoulders of that community.
 % At release: the axiom column is regenerated from the All.lean
 % #audit_axioms blocks, exactly as in the flagship. ``The three'' below
 % records the corpus-wide audit at the sealed state (build 9674/9675,
-% exit 0); rows marked (stub) await \S\ref{sec:pearl}'s final statement.
+% exit 0). Pearl rows filled 2026-08-04 against the tree at b36f53a; the
+% two headline signatures are transcribed in Appendix B.
 
 \begin{table}[h]
 \centering\small
@@ -1046,24 +1514,71 @@ Cor~\ref{cor:extremal} & \leaninline{towerShape\_flat\_le} & the three \\
   chowlaTowerShape\_base\_floor,} & the three \\
  & \leaninline{towerLS\_ge\_fifteen, towerLamS\_ge\_two, towerLS\_succ} & \\
 \midrule
-\multicolumn{3}{l}{\emph{The pearl} (\S\ref{sec:pearl}, \S\ref{sec:limit})
---- statements stubbed, declarations landed} \\
+\multicolumn{3}{l}{\emph{The pearl} (\S\ref{sec:pearl}, \S\ref{sec:limit});
+namespace \leaninline{Salt.MR}, file \texttt{Salt/MR/} unless noted} \\
 \midrule
-Thm~\ref{thm:pearl} (stub) &
-  \leaninline{Salt.MR.logChowla2\_witnessed\_scale\_flat\_L\_v2} & the three \\
-Cor~\ref{cor:ineff} &
-  \leaninline{Salt.MR.logChowla2\_ineffective} & the three \\
+\S\ref{sec:pearl} target & \leaninline{Salt.Entropy.Chowla.logChowla2Fails}
+  (def) & --- \\
+ & (\texttt{Salt/Entropy/Chowla/ChowlaFailure.lean:59}) & \\
+\S\ref{sec:pearl} regime & \leaninline{Salt.Entropy.Chowla.ChowlaRegime},
+  \leaninline{ChowlaRegimeFlat} & --- \\
+\S\ref{sec:pearl} base & \leaninline{Salt.Entropy.Chowla.flatDesignBase},
+  \leaninline{flatWitFloor,} & --- \\
+ & \leaninline{flatDoorM} (defs) & \\
+Thm~\ref{thm:pearl} & \leaninline{logChowla2\_witnessed\_scale\_flat\_L\_v2}
+  & the three \\
+ & (\texttt{S16FlatFinal.lean:136}) & \\
+Thm~\ref{thm:pearl} width & \leaninline{flatWitFloor\_design,
+  flat\_L\_width\_priced} & the three \\
+\S\ref{sec:pearl-hyp} predicates & \leaninline{S16BaseScaleCap96\_L\_gk,
+  S16CofactorSupply\_L\_gk} & --- \\
+ & (defs, \texttt{S13CapGateLinear.lean:891,897}) & \\
+\S\ref{sec:pearl-hyp} band lane & \leaninline{S16BandLaneCBoundedL} (def,
+  \texttt{S16FlatTerminalLinear.lean:49}) & --- \\
+\S\ref{sec:pearl-repair} lever & \leaninline{kcap, KlevF} (defs),
+  \leaninline{KlevF\_le\_wideCeiling} & the three \\
+ & (\texttt{KLever.lean:147,172}) & \\
+\S\ref{sec:pearl-repair} cap & \leaninline{s16\_baseScaleCap96\_L\_at\_klevF}
+  (\texttt{KLever.lean:427}) & the three \\
+Thm~\ref{thm:pearl-recut} &
+  \leaninline{logChowla2\_witnessed\_scale\_flat\_L\_v2\_} & the three \\
+ & \leaninline{uniform\_win\_xceil\_cqhoist}
+  (\texttt{RegisterCompose.lean:209}) & \\
+\S\ref{sec:pearl-repair} rider & \leaninline{XCeilGate, XCeilRiderStrict}
+  (defs, \texttt{XThread.lean:68,82}) & --- \\
 \S\ref{sec:limit} hoist (7) &
-  \leaninline{Salt.MR.flat\_head\_uniform \ldots} & the three \\
- & \leaninline{logChowla2\_witnessed\_scale\_flat\_L\_v2\_uniform} & \\
-\S\ref{sec:pearl} target &
-  \leaninline{Salt.Entropy.Chowla.logChowla2Fails} (def) & --- \\
+  \leaninline{flat\_head\_uniform \ldots
+  logChowla2\_witnessed\_} & the three \\
+ & \leaninline{scale\_flat\_L\_v2\_uniform} (\texttt{S16Uniform.lean}) & \\
+\S\ref{sec:chain} step 1 & \leaninline{logChowla2\_ineffective}
+  (\texttt{S16Uniform.lean:1061}) & the three \\
+\S\ref{sec:chain} step 2 & \leaninline{logChowla2\_ineffective\_v2}
+  (\texttt{S16Uniform.lean:1707}) & the three \\
+\S\ref{sec:chain} step 3 & \leaninline{logChowla2\_ineffective\_v3}
+  (\texttt{S16Compose.lean:1112}) & the three \\
+\S\ref{sec:chain} step 4 & \leaninline{logChowla2\_ineffective\_v4}
+  (\texttt{S16ComposeV4.lean:1002}) & the three \\
+\S\ref{sec:chain} step 5 & \leaninline{logChowla2\_ineffective\_v5}
+  (\texttt{XThread.lean:1367}) & the three \\
+\S\ref{sec:chain} refutation & \leaninline{cofkL\_bulk\_false\_at\_socket}
+  (\texttt{RegisterInhabit.lean:260}) & the three \\
+\S\ref{sec:chain} repair & \leaninline{cofkR\_cofactorSupply\_L\_gk}
+  (\texttt{RegisterRepair.lean:476}) & the three \\
+Cor~\ref{cor:v6} & \leaninline{logChowla2\_ineffective\_v6}
+  (\texttt{RegisterCompose.lean:345}) & the three \\
+\S\ref{sec:limit} riders & \leaninline{cs\_closed\_form\_ge\_exp\_neg\_hundred}
+  & the three \\
+ & (\texttt{RiderTrace.lean:132}) & \\
+\S\ref{sec:limit} Siegel leg & \leaninline{LFunction\_band\_lower}
+  (\texttt{SiegelArm.lean:161}) & the three \\
 \bottomrule
 \end{tabular}
 \caption{``The three'' $=$ \leaninline{propext, Classical.choice,
-Quot.sound}. Toll rows are complete; pearl rows carry landed declarations
-against statements that \S\ref{sec:pearl} has not yet fixed. Full index
-generated at release.}
+Quot.sound}. Toll rows and pearl rows are both complete as of commit
+\leaninline{b36f53a} (2026-08-03); line numbers are as of that commit and the
+source is the arbiter wherever a rendering here and a declaration could be read
+apart. The two headline declarations are transcribed in
+Appendix~\ref{app:signatures}. Full index generated at release.}
 \label{tab:index}
 \end{table}
 
@@ -1073,20 +1588,110 @@ generated at release.}
 \toprule
 Conditional statement & Residual hypothesis & Status \\
 \midrule
-Thm~\ref{thm:pearl} & band-lane constant; 8 numeric riders; & \S\ref{sec:pearl}
-  (stub) \\
- & 2 carried predicates & \\
-Cor~\ref{cor:ineff} & band-lane constant; 6 numeric riders; & landed \\
- & 2 carried predicates & \\
+Thm~\ref{thm:pearl} & band-lane constant ($\log C \le 40$); & landed;
+  cap arm false \\
+ & 8 numeric riders; 2 carried predicates & at the produced regime \\
+Thm~\ref{thm:pearl-recut} & band-lane $A$-window; 5 riders; &
+  landed \\
+ & 2 carried predicates, at a free lever & \\
+\S\ref{sec:chain} step 1 & band-lane constant; 6 riders; 2 predicates
+  & landed \\
+\S\ref{sec:chain} step 2 & 6 riders; 2 predicates & landed \\
+\S\ref{sec:chain} step 3 & 3 riders; 2 predicates & landed \\
+\S\ref{sec:chain} step 4 & 3 riders; $x$-ceiling; co-factor supply & landed \\
+\S\ref{sec:chain} step 5 & 3 riders; $g$-rider; co-factor supply & landed \\
+Cor~\ref{cor:v6} & $c_s$, $T_0$, $K_s$; $g$-rider; $K_{\mathrm{vt}}$ cushion
+  & landed \\
 \bottomrule
 \end{tabular}
 \caption{Every conditional in this paper, with its exact named residual.
 Nothing in \S\ref{sec:toll} or \S\ref{sec:flat} is conditional: the toll
 is unconditional given its three stated hypotheses (H1)--(H3), which are
-hypotheses on the tower's parameters, not on the theory.
-\textbf{TODO: regenerate when \S\ref{sec:pearl} is drafted.}}
+hypotheses on the tower's parameters, not on the theory. Theorem~\ref{thm:pearl}
+is a true statement whose inner implication has a false antecedent at the
+regime it produces (\S\ref{sec:pearl-defects}); its row is kept because the
+repair line runs through it. Of Corollary~\ref{cor:v6}'s five residuals, three
+are met by objects the development exhibits and two are the Siegel
+obstruction.}
 \label{tab:conditional}
 \end{table}
+
+% ============================================================================
+\section{The two headline signatures}\label{app:signatures}
+% ============================================================================
+% Transcribed from the tree at commit b36f53a (2026-08-03): each block is the
+% declaration's source lines with the proof body cut. Widths are <= 87
+% characters, inside the 93 that fits the measure at \footnotesize. Do not
+% hand-edit; re-read the source to refresh.
+
+The two declarations that \S\ref{sec:pearl} and \S\ref{sec:limit} are written
+around are given here in full, so that the renderings above can be checked
+against them. Each block is the declaration's source with the proof body cut.
+Both close over the three axioms.
+
+\medskip\noindent\textbf{Theorem~\ref{thm:pearl}} (the pearl). Source
+\leaninline{Salt/MR/S16FlatFinal.lean:136}; audit
+\leaninline{Salt/MR/All.lean:7195}. The eight riders are the eight arrows of
+the second parenthesised block; the two carried predicates are the last two.
+\leaninline{flatDesignBase A} is $\lceil e^{e^{3.2A}}\rceil$ and
+\leaninline{flatWitFloor} is the road's witness floor, which the conjunct
+before that block pins to it.
+{\footnotesize\begin{alltt}
+theorem logChowla2_witnessed_scale_flat_L_v2 (hband : S16BandLaneCBoundedL 32000000)
+    (A₀ : ℝ) (hA₀ : 162 ≤ A₀) :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (x₀ Hopq Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧ Real.log C ≤ 40 ∧
+      Cg ≤ 2 * 10 ^ 12 ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧ Mfl ≤ 2 ^ 355 ∧
+      0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧ budgetAFlat (ε : ℝ) β ≤ A ∧
+      (Hopq ≤ flatDesignBase A → flatWitFloor ε β A Hopq = flatDesignBase A) ∧
+      (Kc ≤ 2 ^ 539 → Ct ≤ 2 ^ 23 →
+        (x₀ : ℝ) ≤ Real.exp (Real.exp (3.2 * A) / 10) →
+        Hopq ≤ flatDesignBase A →
+        Real.exp (-100) ≤ cs → T₀ ≤ Real.exp (Real.exp 100) → Kq ≤ Real.exp 100 →
+        Real.exp (-100) ≤ Ks →
+        ∀ g : ℕ → ℕ → ℕ, ∃ R : ChowlaRegime,
+          R.eps = ε ∧ R.Hlo = flatWitFloor ε β A Hopq ∧ g R.Hhi R.ω ≤ R.x ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+          3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
+          Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
+          (S16CofactorSupply_L_gk 32000000 Cq R (flatDoorM A) →
+            S16BaseScaleCap96_L_gk 32000000 R (flatDoorM A) →
+              ¬ logChowla2Fails R.eps R.x R.ω))
+\end{alltt}}
+
+\medskip\noindent\textbf{Corollary~\ref{cor:v6}} (the classical limit). Source
+\leaninline{Salt/MR/RegisterCompose.lean:345}; audit
+\leaninline{Salt/MR/All.lean:7736}. There is no hypothesis to the left of the
+colon but the depth \leaninline{A₀}, and no predicate in the conclusion: the
+five residuals are the three arrows \leaninline{cs}, \leaninline{T₀},
+\leaninline{Ks}, the caller-side \leaninline{XCeilRiderStrict ε g}, and the
+final \leaninline{Kvt} cushion. \leaninline{arcDen 12 R.Hhi} is
+$(\log H_+)^{12}$, the modulus ceiling the socket's arc bound admits.
+{\footnotesize\begin{alltt}
+theorem logChowla2_ineffective_v6 (A₀ : ℝ) :
+    ∃ (ε : ℚ) (Cg Kc δ₀ Ct A β : ℝ) (Mfl : ℕ) (Cq cs T₀ Kq Ks C : ℝ) (Kvt : ℕ → ℕ → ℝ),
+      0 < ε ∧ 1 ≤ Cg ∧ 0 < Kc ∧ 0 < δ₀ ∧ 0 < Ct ∧ 1 ≤ Mfl ∧
+      0 < Cq ∧ 0 < cs ∧ 3 ≤ T₀ ∧ 0 < Kq ∧ 0 < Ks ∧ 0 < C ∧ Real.log C ≤ 40 ∧
+      Cg ≤ 2 * 10 ^ 12 ∧ 1 / 500 ≤ ε ∧ 1 / 838400 ≤ δ₀ ∧ Mfl ≤ flatDoorM A ∧
+      0 < β ∧ 162 ≤ A ∧ A₀ ≤ A ∧ (∀ K Qm : ℕ, 0 ≤ Kvt K Qm) ∧
+      (Real.exp (-100) ≤ cs →
+        T₀ ≤ Real.exp (Real.sqrt ((flatDesignBase A : ℕ) : ℝ) / 2) →
+        Real.exp (-100) ≤ Ks →
+        ∀ g : ℕ → ℕ → ℕ, XCeilRiderStrict ε g → ∃ R : ChowlaRegime,
+          R.eps = ε ∧ R.Hlo = flatDesignBase A ∧ g R.Hhi R.ω ≤ R.x ∧
+          (50 ≤ Real.log (Real.log (R.Hlo : ℝ)) →
+            Real.log (Real.log (R.Hhi : ℝ))
+              ≤ Real.exp (Real.log (Real.log (R.Hlo : ℝ)) / 2)) ∧
+          3.2 * A ≤ Real.log (Real.log (R.Hlo : ℝ)) ∧
+          Real.log (Real.log ((R.Hhi : ℕ) : ℝ)) ≤ 2 * Real.exp (3.2 * A / 2) ∧
+          (32 * Kvt (KlevF A) ⌈arcDen 12 R.Hhi⌉₊
+              + 32 * (2 * Real.log ((flatDoorM A : ℕ) : ℝ) + Real.log 4 + 50)
+            ≤ Real.log (R.Hhi : ℝ) / 4 →
+            ¬ logChowla2Fails R.eps R.x R.ω))
+\end{alltt}}
 
 \begin{thebibliography}{99}
 \bibitem{TaoChowla} T.~Tao, \emph{The logarithmically averaged Chowla and
