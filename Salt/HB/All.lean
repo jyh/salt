@@ -40,6 +40,7 @@ import Salt.HB.RosserDim4
 import Salt.HB.RosserDim4FL
 import Salt.HB.RosserDim4Instance
 import Salt.HB.PretenseSumProof
+import Salt.HB.TwistedMertens
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -175,3 +176,18 @@ open Salt.Tactic in
   Salt.HB.pretenseSum_le_quarter_rate
   Salt.HB.hb_lemma2_of_pretenseSum_le
   Salt.HB.hb_lemma2_at_hb_rate
+  Salt.HB.logDeriv_LFunction_eq_LSeries
+  Salt.HB.neg_re_logDeriv_LFunction_eq_tsum
+  Salt.HB.neg_re_logDeriv_zeta_eq_tsum
+  Salt.HB.neg_re_logDeriv_LFunction_le
+  Salt.HB.vmPairS_le_pole
+  Salt.HB.norm_inv_sub_inv
+  Salt.HB.dist_one_lower_of_floor
+  Salt.HB.per_zero_inv_diff_le
+  Salt.HB.neg_re_logDeriv_differenced
+  Salt.HB.invSq_sum_split_le
+  Salt.HB.hbCoreRate_at_operating_point
+  Salt.HB.hbCoreRate_at_hb_optimum
+  Salt.HB.vmPairS_le_hb_core
+  Salt.HB.pretenseSum_le_differenced
+  Salt.HB.hb_lemma3_final
