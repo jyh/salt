@@ -99,7 +99,7 @@ inherited verbatim from N3) are:
    remainder at the two operating points.  This is Davenport ch.12 (17)'s `O(1)`.  It is
    **the one genuinely analytic item this wave does not close**: the corpus's bound on the
    remainder itself (`Salt.SW.LFunction_norm_logDeriv_sub_sum`) is `O(log M₀) = O(L)` *and*
-   is gated by the unlanded Borel–Carathéodory sup input `hsup`; a *difference* bound of
+   is gated by the unlanded Borel–Carathéodory sup input `hsup ⟦RETIRED 8/4: hsup was DISCHARGED at 910f779; hrem is now a theorem — Salt/SW/BCSup.lean⟧`; a *difference* bound of
    size `O(a)` needs a Cauchy estimate on `(h′/h)′` over the disk, which needs the same
    `hsup`.  So `Rrem` is blocked behind `hsup` — **the PB-floor flag of
    `Salt/SW/BCBound.lean`, reached again from a second direction.**

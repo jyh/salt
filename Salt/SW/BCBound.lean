@@ -44,7 +44,11 @@ throughout the disk; `g` is non-vanishing, so it has an analytic logarithm and B
   abstract lemma, exposing `Z`, `m` and the numeric bound **gated by `hsup`**.
 * `LFunction_neg_reLogDeriv_le` — the real-part corollary S3 consumes.
 
-## Flag (PB-floor boundary — the single remaining analytic input `hsup`)
+## Flag ⟦RETIRED 2026-08-04: SUPERSEDED — the ungated endpoint
+LFunction_norm_logDeriv_sub_sum' landed at 910f779 in Salt/SW/MaxModulus.lean;
+this flag described only THIS file's gated lemma and mispriced two waves.
+Law: a Flag block is a claim about the corpus and goes stale like any
+absence assertion.⟧ (historical text follows) (PB-floor boundary — the single remaining analytic input `hsup`)
 
 The one classical step **not** discharged here is `hsup`: the maximum-modulus sup bound
 `‖g z‖ ≤ M₀` on `ball c (3/2)` for the Blaschke-normalized `g = h·∏ reflectedFactor^m`. Its proof
