@@ -88,6 +88,7 @@ import Salt.SW.EFSharpMult
 import Salt.SW.DensityCrude
 import Salt.SW.TauExt
 import Salt.SW.TBalTall
+import Salt.SW.BCSup
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -341,3 +342,6 @@ open Salt.Tactic in
   Salt.SW.dhAbel_leg1_rho_tall Salt.SW.dhAbel_inner_rho_tall Salt.SW.unmoll_extraction_rho_tall
   Salt.SW.dh_extraction_upper_rho_tall Salt.SW.dh_master_ray_tall Salt.SW.C2Rho_le_tall
   Salt.SW.row_Eρ_cap_tall Salt.SW.dh_repulsion_tall Salt.SW.boxZeros_re_le_at_efHeight
+  Salt.SW.norm_logDeriv_le_of_bound_off_zeros Salt.SW.norm_sub_le_of_norm_le_on_ball
+  Salt.SW.mem_of_LFunction_eq_zero Salt.SW.multiplicity_eq_zeroMult
+  Salt.SW.LFunction_partialFraction_remainder_diff

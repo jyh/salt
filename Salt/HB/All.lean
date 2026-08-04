@@ -41,6 +41,7 @@ import Salt.HB.RosserDim4FL
 import Salt.HB.RosserDim4Instance
 import Salt.HB.PretenseSumProof
 import Salt.HB.TwistedMertens
+import Salt.HB.Lemma3Uncond
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -191,3 +192,4 @@ open Salt.Tactic in
   Salt.HB.vmPairS_le_hb_core
   Salt.HB.pretenseSum_le_differenced
   Salt.HB.hb_lemma3_final
+  Salt.HB.hb_lemma3_unconditional
