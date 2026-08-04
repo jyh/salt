@@ -83,6 +83,7 @@ import Salt.SW.TBalCompose
 import Salt.SW.TBalR7
 import Salt.SW.TBalR8
 import Salt.SW.EFSharp
+import Salt.SW.EFSharpZeros
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -310,3 +311,6 @@ open Salt.Tactic in
   Salt.SW.efRieszSum_diff_sub_efZeroSum_le Salt.SW.psi_explicit_sharp_of_riesz_residues
   Salt.SW.LFunction_growth_sphere_wide Salt.SW.log_four_M0Lbox_le
   Salt.SW.halfbox_subset_closedBall Salt.SW.LFunction_halfbox_zero_count
+  Salt.SW.rectBI_finsetSum Salt.SW.psi1_contour_shift_finset
+  Salt.SW.boxZeroSet_finite Salt.SW.mem_boxZeros
+  Salt.SW.psi_explicit_sharp Salt.SW.psi_sharp_at_efHeight
