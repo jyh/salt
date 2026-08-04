@@ -87,6 +87,7 @@ import Salt.SW.EFSharpZeros
 import Salt.SW.EFSharpMult
 import Salt.SW.DensityCrude
 import Salt.SW.TauExt
+import Salt.SW.TBalTall
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -336,3 +337,7 @@ open Salt.Tactic in
   Salt.SW.repulsion_ceiling_of_contract Salt.SW.repulsionCeiling_mono
   Salt.SW.boxZeros_re_le_of_repulsion Salt.SW.efZeroSumM_spend_at_repulsion
   Salt.SW.boxZeros_re_le_unit_box
+  Salt.SW.zeta_partial_em_free Salt.SW.norm_zeta_rho_le_tall Salt.SW.emrho_perterm_tall
+  Salt.SW.dhAbel_leg1_rho_tall Salt.SW.dhAbel_inner_rho_tall Salt.SW.unmoll_extraction_rho_tall
+  Salt.SW.dh_extraction_upper_rho_tall Salt.SW.dh_master_ray_tall Salt.SW.C2Rho_le_tall
+  Salt.SW.row_Eρ_cap_tall Salt.SW.dh_repulsion_tall Salt.SW.boxZeros_re_le_at_efHeight
