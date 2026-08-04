@@ -84,6 +84,7 @@ import Salt.SW.TBalR7
 import Salt.SW.TBalR8
 import Salt.SW.EFSharp
 import Salt.SW.EFSharpZeros
+import Salt.SW.EFSharpMult
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -314,3 +315,12 @@ open Salt.Tactic in
   Salt.SW.rectBI_finsetSum Salt.SW.psi1_contour_shift_finset
   Salt.SW.boxZeroSet_finite Salt.SW.mem_boxZeros
   Salt.SW.psi_explicit_sharp Salt.SW.psi_sharp_at_efHeight
+  Salt.SW.analyticOrderAt_LFunction_ne_top Salt.SW.analyticOrderAt_LFunction_eq
+  Salt.SW.zeroMult_eq_one Salt.SW.one_le_zeroMult Salt.SW.LFunction_local_factor
+  Salt.SW.efMultTotal_nonneg Salt.SW.efRieszSumM_eq_of_simple
+  Salt.SW.efZeroSumM_eq_of_simple Salt.SW.efMultTotal_eq_card_of_simple
+  Salt.SW.rectBI_const_mul Salt.SW.logDeriv_sub_const_pow
+  Salt.SW.psi1_contour_shift_finsetM Salt.SW.efRieszSumM_diff_sub_efZeroSumM_le
+  Salt.SW.psi_explicit_sharpM_of_riesz_residues
+  Salt.SW.psi_explicit_sharpM Salt.SW.psi_sharp_at_efHeightM
+  Salt.SW.efMultTotal_le_divisor Salt.SW.efMultTotal_halfbox_le
