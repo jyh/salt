@@ -82,6 +82,7 @@ import Salt.SW.TBalFinal
 import Salt.SW.TBalCompose
 import Salt.SW.TBalR7
 import Salt.SW.TBalR8
+import Salt.SW.EFSharp
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -303,3 +304,9 @@ open Salt.Tactic in
   Salt.SW.logz_factor_pow9_le Salt.SW.row_Eβ_cap Salt.SW.row_Eρ_cap
   Salt.SW.tbal_hguard Salt.SW.tbal_hscale Salt.SW.tbal_hcov Salt.SW.C2Rho_le
   Salt.SW.dh_repulsion_ordered
+  Salt.SW.psi1Chi_sub_eq Salt.SW.psiChiR_sub_riesz_diff_le
+  Salt.SW.psi_sharp_of_riesz_bounds Salt.SW.psi_sharp_riesz_at_height
+  Salt.SW.vonMangoldt_mass_sdiff_le Salt.SW.cpow_riesz_residue_desmooth
+  Salt.SW.efRieszSum_diff_sub_efZeroSum_le Salt.SW.psi_explicit_sharp_of_riesz_residues
+  Salt.SW.LFunction_growth_sphere_wide Salt.SW.log_four_M0Lbox_le
+  Salt.SW.halfbox_subset_closedBall Salt.SW.LFunction_halfbox_zero_count
