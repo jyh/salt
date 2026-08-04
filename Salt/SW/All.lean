@@ -86,6 +86,7 @@ import Salt.SW.EFSharp
 import Salt.SW.EFSharpZeros
 import Salt.SW.EFSharpMult
 import Salt.SW.DensityCrude
+import Salt.SW.TauExt
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -330,3 +331,8 @@ open Salt.Tactic in
   Salt.SW.zeroCountM_efHeight_le
   Salt.SW.zeroSum_rpow_le Salt.SW.efZeroSumM_norm_le
   Salt.SW.efZeroSumM_spend_le Salt.SW.efZeroSumM_spend_at_efHeight
+  Salt.SW.zetaHol_norm_le_of_lt Salt.SW.zetaHol_norm_le
+  Salt.SW.zetaHol_bound_tall Salt.SW.zetaHol_bound_five
+  Salt.SW.repulsion_ceiling_of_contract Salt.SW.repulsionCeiling_mono
+  Salt.SW.boxZeros_re_le_of_repulsion Salt.SW.efZeroSumM_spend_at_repulsion
+  Salt.SW.boxZeros_re_le_unit_box
