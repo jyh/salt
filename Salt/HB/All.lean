@@ -39,6 +39,7 @@ import Salt.HB.L2cMasterUncond
 import Salt.HB.RosserDim4
 import Salt.HB.RosserDim4FL
 import Salt.HB.RosserDim4Instance
+import Salt.HB.PretenseSumProof
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -156,3 +157,21 @@ open Salt.Tactic in
   Salt.HB.hb_fl_upper
   Salt.HB.hb_transfer
   Salt.HB.hbSieve_fl_sandwich
+  Salt.HB.two_mul_pretenseSum_le_vmPairW
+  Salt.HB.two_mul_pretenseSum_le_mertens
+  Salt.HB.two_mul_pretenseSum_le_vmPairS
+  Salt.HB.inv_le_rpow_mul_rpow_neg
+  Salt.HB.pole_cancel_le
+  Salt.HB.hb_rate_at_optimal_a
+  Salt.HB.hb_rate_optimal
+  Salt.HB.one_sub_ceiling_le_dist_one
+  Salt.HB.nearOne_multTotal_le
+  Salt.HB.nearOne_invSq_sum_le
+  Salt.HB.pretenseSum_nonneg
+  Salt.HB.pretenseSum_le
+  Salt.HB.pretenseSum_le_series
+  Salt.HB.pretenseSum_le_hb_rate
+  Salt.HB.pretenseSum_le_hb_rate_rpow
+  Salt.HB.pretenseSum_le_quarter_rate
+  Salt.HB.hb_lemma2_of_pretenseSum_le
+  Salt.HB.hb_lemma2_at_hb_rate
