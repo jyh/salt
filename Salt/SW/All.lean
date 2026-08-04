@@ -85,6 +85,7 @@ import Salt.SW.TBalR8
 import Salt.SW.EFSharp
 import Salt.SW.EFSharpZeros
 import Salt.SW.EFSharpMult
+import Salt.SW.DensityCrude
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -324,3 +325,8 @@ open Salt.Tactic in
   Salt.SW.psi_explicit_sharpM_of_riesz_residues
   Salt.SW.psi_explicit_sharpM Salt.SW.psi_sharp_at_efHeightM
   Salt.SW.efMultTotal_le_divisor Salt.SW.efMultTotal_halfbox_le
+  Salt.SW.log_39_37_lower Salt.SW.windowConst_le_137 Salt.SW.efMultTotal_box_le
+  Salt.SW.zeroCountM_le Salt.SW.zeroCountM_density_crude Salt.SW.zeroCountM_density_log
+  Salt.SW.zeroCountM_efHeight_le
+  Salt.SW.zeroSum_rpow_le Salt.SW.efZeroSumM_norm_le
+  Salt.SW.efZeroSumM_spend_le Salt.SW.efZeroSumM_spend_at_efHeight
