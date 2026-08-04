@@ -95,7 +95,7 @@ strengthening ladder addresses.
 | x₀ Siegel window | hypothesis | discharged (quantifier hoist + max-trick, S16Uniform) |
 | Hopq/K_Chen arm | hypothesis | discharged (same device) |
 | band lane log C ≤ 40 | hypothesis, UNSATISFIABLE at the corpus's own witness (true value ≈ 22 661 — CMU-HUNT) | A-windowed (log C ≤ 0.64A − 20) and discharged off the landed hypothesis-free ∃C |
-| Kc ≤ 2^539 | rider | proven at ≈ 2^228 (317 bits room) |
+| Kc ≤ 2^539 | rider | proven at ≈ 2^228 (310.8 bits room — corr. 8/4; the entry earlier said 317) |
 | Ct ≤ 2^23 | rider | proven at 6e^14 (86% of budget) |
 | Kq ≤ e^100 | rider | proven at 1.27e-3 (46 orders) |
 
