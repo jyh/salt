@@ -321,3 +321,45 @@ budget rows added: w ≲ 1/(count) forced by hsep's σ-half, B ≍ L₄/w,
 and the left-edge term forces σ₀ = 1 − Θ(log L/L) — checked
 compatible with β₀ ∈ box under hN+ and with hσ₀w. hηq spelled ONE
 way: hηq : log η ≤ L.
+
+
+## D9. HSEP-GAP SCOUT VERDICT (2026-08-05 late): RESTATEMENT-VIABLE
+### — D5 amended; hsep is dischargeable with NO unlanded analytic input
+
+The width-2 band is an ARTIFACT of the hZall/hZsep asymmetry, not
+structural. The scout's byte-priced recipe (class A/B, ~40-50 ln
+across 3 declarations, generalize-in-place so the old statement is
+a one-line corollary):
+
+- ONE hypothesis change at the socket (EFSharpMult.lean:240
+  HEAD-relative): hZall gains the disjunct `ρ ∈ Z ∨ T + w ≤ |ρ.im|`;
+  two proof-site repairs (:328 rcases ~4 ln; :644-651 by_cases ~10
+  ln via Complex.abs_im_le_norm — works uniformly for all edges).
+  The +2 reach (the 3/2 Borel–Carathéodory ball in
+  MaxModulus.lean:89-101) stays — it was never the problem.
+- Re-instantiate psi_explicit_sharpM (+ the at_efHeight and the
+  EFSharpZeros twin if consumed) at the box-exact Z := boxZeros …
+  T; the ceiling base IMPROVES q(T+4) → q(T+2) (D8's +4 note
+  relaxes).
+- The residual demand is a width-2w band + a width-2w σ-strip, and
+  BOTH pigeonhole off LANDED counts (efMultTotal_halfbox_le for the
+  Im-half; zeroCountM_le for the σ-half, which BINDS:
+  w ≍ 1/(L·T·log qT)) via a pure Finset midpoint argument — no
+  measure theory, no density theorem. hsep then RETIRES as a proved
+  step, not a binder.
+- Downstream D1 route survives with ZERO constant changes
+  (psi_sharp_of_riesz_bounds is Z-agnostic; the spend/ceiling rows
+  are T-free).
+
+**THE ONE OPEN CHECK (budget, not structure)**: the σ-half's w
+forces B ≍ T·log³(qT) in efShiftError's edge terms; at
+T(u) = (log qu)⁶ that is polylog, but the LEFT-EDGE term
+B·x^{σ₀+1}·π/σ₀ must be re-priced at that B (the D8 row). Assigned
+to the W2 brief as a MANDATORY pre-proof ledger row; if it fails,
+raise the T-exponent (T is free) until it closes and record the
+final exponent.
+
+**Sequencing**: the HSEP-GAP stone is W0.5 — fires the moment W0
+releases the EFSharpMult writer slot; W2 consumes the restated
+socket. N2-DENSITY remains minted as the road's asset (the
+power-height route), no longer N4b's dependency.
