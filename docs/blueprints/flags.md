@@ -19976,3 +19976,62 @@ brief**: (a) instantiate `T₀ := (log(qu)+2)^6`, `h := u/√T₀`, `σb := 1 �
 numeric rows of the ledger table above in Lean and integrate; (d) the `Y → ∞` limit (the landed
 transfer is uniform in `Y`, which is HB's own statement of `(4.12)`, so this is a corollary, not
 a re-proof).
+
+## ⟦N4B-W2b — (a) (b) (d) LANDED, (c) FLAGGED WITH A NEW STRUCTURAL FINDING⟧
+
+(2026-08-05, Opus executor, continuation of N4B-W2; all in `Salt/HB/Lemma7EF.lean`, 1328 ln,
+46 declarations, every one `[propext, Classical.choice, Quot.sound]`; full `lake build` exit 0
+from `$?`, 9706 jobs, 188 warnings = baseline, none from the new file.)
+
+**(b) THE CEILING DISCHARGE — landed, first attempt.** `re_le_repulsionCeiling_of_ne` (:661) is
+the **`erase`-form** of `boxZeros_re_le_of_repulsion`, stated pointwise with the escape `ρ ≠ β₀`
+inside `hreal′`; `hord` (T-BAL-UNORDERED) and `hN+` (D2's regime form) enter the block here as
+named binders, and `hceil16` covers the discarded strip `Re ρ < 16/17` for free.
+`exists_repulsion_ceiling_of_ne` (:696) packages it off `dh_repulsion_tall` — whose contract is
+height-free, so the ceiling holds at **every** `T` with no re-derivation.
+`re_le_of_zeroFree_of_ne` (:722) is Range B off `zero_free_region_all` for the complex zeros plus
+`hreal′` for the real ones (the region's side condition `χ² ≠ 1 ∨ Im ρ ≠ 0` excludes the real
+zeros of a real character — D4, confirmed at the bytes). `psiDefect_norm_le_rangeA` (:748) is the
+composite with `hceil` discharged at the repulsion ceiling, base `q(T₀+3)`.
+
+**(a) THE CLOSED-FORM ENVELOPE — landed.** `efT0 q u = (log(qu)+2)^6`, `efH q u =
+u/(log(qu)+2)^3` — note `√(efT0) = (log(qu)+2)^3` **exactly**, which is a second reason the
+ledger's exponent `6` is the right one to carry. `efEnvelope` (:824) is the relative explicit-
+formula error as a function of `u` ALONE: the socket's pigeonholed `(σ₀,T,w)` are eliminated by
+`efShiftError_le_efShiftBound` and by the `T`-monotonicity of the two count rows at `T ≤ T₀+1`.
+`psiDefect_norm_le_envelope` (:838) is `‖ψ(u,χ) + m u^{β₀}/β₀‖ ≤ u·G(u)`, the exact hypothesis
+the transfer demands; `continuousOn_efEnvelope` (:1007) and the three nonnegativity lemmas
+(:1050/:1075/:1093) discharge its remaining side conditions, and
+**`logChiSum_composite_of_ceiling` (:1128) is everything of W2 in one statement.**
+
+**(d) THE TAIL FORM — landed, first attempt.** `logChiSum_tendsto_of_envelope` (:1214). **The
+observation that makes it cheap: the finite `(4.12)` bound applied on `[N,Y]` IS a Cauchy
+estimate** — the transfer is simply fired a second time at a moving left endpoint, so the tail
+converges with no new analytic input. Supporting: `logChiSum_add` (:1155),
+`intervalIntegrable_rpow_div_log` (:1168), `integrableOn_rpow_div_log` (:1181 — the improper main
+term exists because `β₀ − 2 < −1`, via `integrableOn_Ioi_rpow_of_lt` dominated by `log v ≥ 1`).
+The two extra hypotheses are exactly the ledger row's own content: the envelope's `dt/(t log t)`
+integral converges, and `G t/log t → 0`.
+
+**(c) THE NUMERIC CLOSURE — FLAGGED, with the obstruction named.** Not attempted beyond the
+paper ledger. **The obstruction is structural, not arithmetic, and is a new finding:**
+
+> **A single constant `bceil` cannot serve the whole tail.** `logChiSum_composite_of_ceiling`
+> carries ONE ceiling number `bceil`, and its envelope's decaying rows are `u^{bceil}` and
+> `u^{bceil−1}`. On any window `[X,Y]` that is fine — the repulsion ceiling at the top height
+> `T₀(Y)+1` serves the whole window. But as `u → ∞` the box height `T₀(u) = (log qu+2)^6` grows,
+> and **no ceiling `< 1` is valid at all heights**: the repulsion contract goes vacuous once
+> `k·log(log Q + 2)` eats `log(1/(1−β₀))`, and the ZFR ceiling `1 − c₀/log(q(T+2))` tends to `1`.
+> Hence **the Range-A/Range-B split is forced at the ENVELOPE level, not merely at the
+> ceiling-discharge level**: `logChiSum_composite_of_ceiling` is a Range-A statement, and above
+> `Y₁ = exp(20·L·log L/c₀)` the tail needs the envelope re-instantiated with the `u`-dependent
+> ceiling `bceil(u) = 1 − c₀/log(q(T₀(u)+3))` (which is what `re_le_of_zeroFree_of_ne` supplies).
+
+Consequently the follow-up brief is: (c1) a `bceil`-as-a-function-of-`u` variant of
+`psiDefect_norm_le_envelope` (mechanical — `psiDefect_norm_le_envelope` is already per-`u`, so
+only the continuity of `u ↦ efEnvelope q β₀ (B u) m σa σb u` is new); (c2) the Range-A numeric
+rows on `[X,Y₁]` against the `hN+` η-gain; (c3) the Range-B rows above `Y₁` at the `L^{−20}`
+grade; (c4) assemble into `hGint`/`hGlim` and hence into `logChiSum_tendsto_of_envelope`.
+**K remains paper-only**: the ledger table gives `K = 100` at `L ≥ 250` (the binding horizontal-
+edge row at `≈ 100/L` against `(log X)^{−1/2} ≤ (250L)^{−1/2}`), and nothing found in W2b
+contradicts it — but it is not in the kernel and must not be quoted as if it were.
