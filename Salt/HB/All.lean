@@ -43,6 +43,7 @@ import Salt.HB.PretenseSumProof
 import Salt.HB.TwistedMertens
 import Salt.HB.Lemma3Uncond
 import Salt.HB.Lemma7L
+import Salt.HB.Lemma7EF
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -194,3 +195,6 @@ open Salt.Tactic in
   Salt.HB.pretenseSum_le_differenced
   Salt.HB.hb_lemma3_final
   Salt.HB.hb_lemma3_unconditional
+  Salt.HB.wLog_nonneg Salt.HB.wLog'_nonpos Salt.HB.hasDerivAt_wLog
+  Salt.HB.sum_Icc_zero_eq_psiChiR Salt.HB.abel_logChiSum Salt.HB.mainTerm_ibp
+  Salt.HB.logChiSum_add_mainTerm_norm_le
