@@ -467,6 +467,119 @@ theorem neg_re_logDeriv_differenced {Lf : ℂ → ℂ} {Z : Finset ℂ} {m : ℂ
     rw [hdiff, hsplit]; linarith
   linarith
 
+/-- **THE DIFFERENCING AT `σ = 1`, WITH THE MULTIPLICITY RETAINED (N4b W0-iv).**
+`neg_re_logDeriv_differenced` relaxed in two directions at once, both of which N4b needs:
+
+* the left operating point is allowed to sit **on** the line, `1 ≤ σ` rather than `1 < σ` —
+  everything the proof reads at `σ` is `per_zero_inv_diff_le`, which already takes `1 ≤ σ`, and
+  the positivity `0 < σ − β₀` comes from `β₀ < 1 ≤ σ`;
+* the exceptional zero's residue is kept at **full multiplicity**: the isolated `β₀` term is an
+  *equality* (`hβreal` at both points), so the conclusion carries `−m_{β₀}/(σ−β₀)` and
+  `+m_{β₀}/(σ′−β₀)` instead of the `m`-free `−1/(σ−β₀)`, `+1/(σ′−β₀)`.
+
+    Re(−L′/L(σ))  ≤  −m_{β₀}/(σ−β₀) + [1/(σ′−1) + 1] + m_{β₀}/(σ′−β₀)
+                       + 4(σ′−σ)·∑_{ρ≠β₀} m_ρ‖ρ−1‖^{−2} + Rrem.
+
+Because the `β₀` term is now an equality, `1 ≤ m β₀` is **not** used — the hypothesis is dropped
+(a consumer that wants the `m ≥ 1` strengthening applies it to the conclusion). Additive: the
+landed `neg_re_logDeriv_differenced` is untouched. -/
+theorem neg_re_logDeriv_differenced_mult {Lf : ℂ → ℂ} {Z : Finset ℂ} {m : ℂ → ℕ}
+    {σ σ' β₀ r0 Sinv Rrem : ℝ}
+    (hσ1 : 1 ≤ σ) (hlt : σ ≤ σ') (hβ1 : β₀ < 1)
+    (hβZ : (β₀ : ℂ) ∈ Z)
+    (hr0 : 0 < r0) (hσr : σ - 1 ≤ r0 / 2) (hσ'r : σ' - 1 ≤ r0 / 2)
+    (hfloor : ∀ ρ ∈ Z.erase ((β₀ : ℂ)), r0 ≤ ‖ρ - 1‖)
+    (hSinv : ∑ ρ ∈ Z.erase ((β₀ : ℂ)), (m ρ : ℝ) / ‖ρ - 1‖ ^ 2 ≤ Sinv)
+    (hrem : ‖(logDeriv Lf (σ : ℂ) - ∑ ρ ∈ Z, (m ρ : ℂ) / ((σ : ℂ) - ρ))
+            - (logDeriv Lf (σ' : ℂ) - ∑ ρ ∈ Z, (m ρ : ℂ) / ((σ' : ℂ) - ρ))‖ ≤ Rrem)
+    (hs'top : (-logDeriv Lf (σ' : ℂ)).re ≤ 1 / (σ' - 1) + 1) :
+    (-logDeriv Lf (σ : ℂ)).re
+      ≤ -((m (β₀ : ℂ) : ℝ) / (σ - β₀)) + (1 / (σ' - 1) + 1)
+        + (m (β₀ : ℂ) : ℝ) / (σ' - β₀) + 4 * (σ' - σ) * Sinv + Rrem := by
+  classical
+  have hσ'1 : (1 : ℝ) ≤ σ' := le_trans hσ1 hlt
+  have hdβ : (0 : ℝ) < σ - β₀ := by linarith
+  have hdβ' : (0 : ℝ) < σ' - β₀ := by linarith
+  -- the real parts of the two partial-fraction sums
+  set S : ℝ := (∑ ρ ∈ Z, (m ρ : ℂ) / ((σ : ℂ) - ρ)).re with hS
+  set S' : ℝ := (∑ ρ ∈ Z, (m ρ : ℂ) / ((σ' : ℂ) - ρ)).re with hS'
+  set A : ℝ := (logDeriv Lf (σ : ℂ)).re with hA
+  set A' : ℝ := (logDeriv Lf (σ' : ℂ)).re with hA'
+  -- the remainder hypothesis, projected
+  have hproj : -((A - S) - (A' - S')) ≤ Rrem := by
+    refine le_trans ?_ hrem
+    have habs := Complex.abs_re_le_norm
+      ((logDeriv Lf (σ : ℂ) - ∑ ρ ∈ Z, (m ρ : ℂ) / ((σ : ℂ) - ρ))
+        - (logDeriv Lf (σ' : ℂ) - ∑ ρ ∈ Z, (m ρ : ℂ) / ((σ' : ℂ) - ρ)))
+    have hre : ((logDeriv Lf (σ : ℂ) - ∑ ρ ∈ Z, (m ρ : ℂ) / ((σ : ℂ) - ρ))
+        - (logDeriv Lf (σ' : ℂ) - ∑ ρ ∈ Z, (m ρ : ℂ) / ((σ' : ℂ) - ρ))).re
+        = (A - S) - (A' - S') := by
+      simp [hA, hA', hS, hS']
+    rw [hre] at habs
+    linarith [(abs_le.mp habs).1]
+  -- the termwise difference
+  have hsumre : ∀ τ : ℝ, (∑ ρ ∈ Z, (m ρ : ℂ) / ((τ : ℂ) - ρ)).re
+      = ∑ ρ ∈ Z, ((m ρ : ℂ) / ((τ : ℂ) - ρ)).re := by
+    intro τ; exact Complex.re_sum Z _
+  have hdiff : S' - S = ∑ ρ ∈ Z,
+      (((m ρ : ℂ) / ((σ' : ℂ) - ρ)).re - ((m ρ : ℂ) / ((σ : ℂ) - ρ)).re) := by
+    rw [hS, hS', hsumre σ, hsumre σ', ← Finset.sum_sub_distrib]
+  -- split off `β₀`
+  have hsplit : ∑ ρ ∈ Z, (((m ρ : ℂ) / ((σ' : ℂ) - ρ)).re - ((m ρ : ℂ) / ((σ : ℂ) - ρ)).re)
+      = ((((m (β₀ : ℂ)) : ℂ) / ((σ' : ℂ) - (β₀ : ℂ))).re
+          - (((m (β₀ : ℂ)) : ℂ) / ((σ : ℂ) - (β₀ : ℂ))).re)
+        + ∑ ρ ∈ Z.erase ((β₀ : ℂ)),
+            (((m ρ : ℂ) / ((σ' : ℂ) - ρ)).re - ((m ρ : ℂ) / ((σ : ℂ) - ρ)).re) :=
+    (Finset.add_sum_erase Z _ hβZ).symm
+  -- the isolated `β₀` term: real, and now kept AT EQUALITY (no `m ≥ 1` collapse)
+  have hβreal : ∀ τ : ℝ, 0 < τ - β₀ →
+      (((m (β₀ : ℂ)) : ℂ) / ((τ : ℂ) - (β₀ : ℂ))).re = (m (β₀ : ℂ) : ℝ) / (τ - β₀) := by
+    intro τ _
+    have hc : ((τ : ℂ) - (β₀ : ℂ)) = (((τ - β₀ : ℝ)) : ℂ) := by push_cast; ring
+    rw [hc, ← Complex.ofReal_natCast, ← Complex.ofReal_div, Complex.ofReal_re]
+  have hβterm : (((m (β₀ : ℂ)) : ℂ) / ((σ' : ℂ) - (β₀ : ℂ))).re
+      - (((m (β₀ : ℂ)) : ℂ) / ((σ : ℂ) - (β₀ : ℂ))).re
+      = (m (β₀ : ℂ) : ℝ) / (σ' - β₀) - (m (β₀ : ℂ) : ℝ) / (σ - β₀) := by
+    rw [hβreal σ' hdβ', hβreal σ hdβ]
+  -- the remaining zeros: paid at `4(σ′−σ)‖ρ−1‖^{−2}` (`per_zero_inv_diff_le` at `1 ≤ σ`)
+  have hother : ∑ ρ ∈ Z.erase ((β₀ : ℂ)),
+      (((m ρ : ℂ) / ((σ' : ℂ) - ρ)).re - ((m ρ : ℂ) / ((σ : ℂ) - ρ)).re)
+      ≤ 4 * (σ' - σ) * Sinv := by
+    have hstep : ∀ ρ ∈ Z.erase ((β₀ : ℂ)),
+        (((m ρ : ℂ) / ((σ' : ℂ) - ρ)).re - ((m ρ : ℂ) / ((σ : ℂ) - ρ)).re)
+          ≤ 4 * (σ' - σ) * ((m ρ : ℝ) / ‖ρ - 1‖ ^ 2) := by
+      intro ρ hρ
+      have hfl := hfloor ρ hρ
+      have hρ0 : 0 < ‖ρ - 1‖ := lt_of_lt_of_le hr0 hfl
+      have hnorm := per_zero_inv_diff_le (σ := σ) (σ' := σ') (r0 := r0) (ρ := ρ)
+        hσ1 hlt hσr hσ'r hr0 hfl
+      have heq : ((m ρ : ℂ) / ((σ' : ℂ) - ρ)) - ((m ρ : ℂ) / ((σ : ℂ) - ρ))
+          = -((m ρ : ℂ) * (1 / ((σ : ℂ) - ρ) - 1 / ((σ' : ℂ) - ρ))) := by ring
+      have hre : (((m ρ : ℂ) / ((σ' : ℂ) - ρ)).re - ((m ρ : ℂ) / ((σ : ℂ) - ρ)).re)
+          = (-((m ρ : ℂ) * (1 / ((σ : ℂ) - ρ) - 1 / ((σ' : ℂ) - ρ)))).re := by
+        rw [← heq, Complex.sub_re]
+      rw [hre]
+      refine le_trans (le_trans (le_abs_self _) (Complex.abs_re_le_norm _)) ?_
+      have hmn : ‖((m ρ : ℕ) : ℂ)‖ = (m ρ : ℝ) := by simp
+      rw [norm_neg, norm_mul, hmn]
+      calc (m ρ : ℝ) * ‖1 / ((σ : ℂ) - ρ) - 1 / ((σ' : ℂ) - ρ)‖
+          ≤ (m ρ : ℝ) * (4 * (σ' - σ) / ‖ρ - 1‖ ^ 2) :=
+            mul_le_mul_of_nonneg_left hnorm (by positivity)
+        _ = 4 * (σ' - σ) * ((m ρ : ℝ) / ‖ρ - 1‖ ^ 2) := by ring
+    refine le_trans (Finset.sum_le_sum hstep) ?_
+    rw [← Finset.mul_sum]
+    have hc : (0 : ℝ) ≤ 4 * (σ' - σ) := by linarith
+    exact mul_le_mul_of_nonneg_left hSinv hc
+  -- assemble
+  have hneg : (-logDeriv Lf (σ : ℂ)).re = -A := by rw [hA, Complex.neg_re]
+  have hneg' : (-logDeriv Lf (σ' : ℂ)).re = -A' := by rw [hA', Complex.neg_re]
+  rw [hneg'] at hs'top
+  rw [hneg]
+  have hSS : S' - S ≤ (m (β₀ : ℂ) : ℝ) / (σ' - β₀) - (m (β₀ : ℂ) : ℝ) / (σ - β₀)
+      + 4 * (σ' - σ) * Sinv := by
+    rw [hdiff, hsplit]; linarith
+  linarith
+
 /-! ## §3 — the `(4.1)` error sum: the near shells and the `|γ| ≥ 1` tail -/
 
 /-- **HB's (4.1) error sum, split at `|ρ−1| = 1/4`.**  For a primitive `χ` mod `f ≥ 2` and a
