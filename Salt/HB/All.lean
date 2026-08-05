@@ -42,6 +42,7 @@ import Salt.HB.RosserDim4Instance
 import Salt.HB.PretenseSumProof
 import Salt.HB.TwistedMertens
 import Salt.HB.Lemma3Uncond
+import Salt.HB.Lemma7L
 import Salt.Tactic.AuditAxioms
 
 /-!
