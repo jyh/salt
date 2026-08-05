@@ -1097,4 +1097,219 @@ lemma efMultTotal_halfbox_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q
     (efMultTotal_le_divisor (ne_one_of_isPrimitive χ hχ hq) (isCompact_closedBall _ _) hZK hZ0)
     (LFunction_halfbox_zero_count χ hχ hq t₀)
 
+/-! ## 7. THE UN-COLLAPSED VARIANTS — the per-zero shapes N4b's EF socket consumes
+
+§4's de-smoothing and §5's capstone both end by *collapsing* the per-zero spend
+`∑_ρ m_ρ·h·y^{Re ρ−1}` into `efMultTotal χ Z · h · y^{σ−1}` at the sup exponent. That collapse
+is exactly what makes `psi_explicit_sharpM` vacuous at the N4b operating point: the collapsed
+count is `T`-free and `h`-free, so no choice of `(T,h)` makes the de-smoothing term small. The
+variants below stop one `Finset.sum_le_sum` earlier, keeping the `1/‖ρ‖`- and `y^{Re ρ}`-graded
+per-zero weights that A3's harmonic batching (`Salt.SW.efMultHarmonic_box_le`) then prices.
+Everything here is **additive**: the collapsed forms of §4/§5 are untouched. -/
+
+/-- **The de-smoothing, UN-COLLAPSED (N4b W0-vi).** `efRieszSumM_diff_sub_efZeroSumM_le` with
+its final `Finset.sum_le_sum` removed:
+
+    ‖h^{−1}(𝓡_M(y+h) − 𝓡_M(y)) − Σ_M(y)‖ ≤ ∑_{ρ ∈ Z} m_ρ·h·y^{Re ρ−1}.
+
+The per-zero estimate is the same landed `cpow_riesz_residue_desmooth`; only the sup-exponent
+collapse `y^{Re ρ−1} ≤ y^{σ−1}` is not taken. -/
+theorem efRieszSumM_diff_sub_efZeroSumM_le_perZero {q : ℕ} [NeZero q]
+    (χ : DirichletCharacter ℂ q) {Z : Finset ℂ} {σ : ℝ} (hσ : σ ≤ 1)
+    (hZ : ∀ ρ ∈ Z, 0 < ρ.re ∧ ρ.re ≤ σ) {y h : ℝ} (hy : 1 ≤ y) (hh : 0 < h) :
+    ‖(efRieszSumM χ Z (y + h) - efRieszSumM χ Z y) / (h : ℂ) - efZeroSumM χ Z y‖
+      ≤ ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ) * (h * y ^ (ρ.re - 1)) := by
+  have hhC : (h : ℂ) ≠ 0 := by exact_mod_cast hh.ne'
+  set D : ℂ → ℂ := fun ρ => (zeroMult χ ρ : ℂ) *
+    (((y + h : ℝ) : ℂ) ^ (ρ + 1) / (ρ * (ρ + 1))
+      - ((y : ℝ) : ℂ) ^ (ρ + 1) / (ρ * (ρ + 1)) - (h : ℂ) * (((y : ℝ) : ℂ) ^ ρ / ρ)) with hD
+  have hDsum : ∑ ρ ∈ Z, D ρ
+      = (efRieszSumM χ Z (y + h) - efRieszSumM χ Z y) - (h : ℂ) * efZeroSumM χ Z y := by
+    simp only [hD, efRieszSumM, efZeroSumM, Finset.mul_sum, ← Finset.sum_sub_distrib]
+    exact Finset.sum_congr rfl (fun ρ _ => by ring)
+  have hid : (efRieszSumM χ Z (y + h) - efRieszSumM χ Z y) / (h : ℂ) - efZeroSumM χ Z y
+      = (∑ ρ ∈ Z, D ρ) / (h : ℂ) := by
+    rw [hDsum]; field_simp
+  have hterm : ∀ ρ ∈ Z, ‖D ρ‖ ≤ (zeroMult χ ρ : ℝ) * (h ^ 2 * y ^ (ρ.re - 1)) := by
+    intro ρ hρ
+    obtain ⟨hρ0, hρσ⟩ := hZ ρ hρ
+    have hbase := cpow_riesz_residue_desmooth hρ0 (le_trans hρσ hσ) hy hh
+    rw [hD]
+    simp only [norm_mul, Complex.norm_natCast]
+    exact mul_le_mul_of_nonneg_left hbase (by positivity)
+  have hsum : ‖∑ ρ ∈ Z, D ρ‖ ≤ ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ) * (h ^ 2 * y ^ (ρ.re - 1)) :=
+    le_trans (norm_sum_le _ _) (Finset.sum_le_sum hterm)
+  rw [hid, norm_div, Complex.norm_real, Real.norm_eq_abs, abs_of_pos hh, div_le_iff₀ hh]
+  calc ‖∑ ρ ∈ Z, D ρ‖ ≤ ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ) * (h ^ 2 * y ^ (ρ.re - 1)) := hsum
+    _ = (∑ ρ ∈ Z, (zeroMult χ ρ : ℝ) * (h * y ^ (ρ.re - 1))) * h := by
+        rw [Finset.sum_mul]
+        exact Finset.sum_congr rfl (fun ρ _ => by ring)
+
+/-- **The weighted capstone, UN-COLLAPSED (N4b W0-vi).** `psi_explicit_sharpM_of_riesz_residues`
+carrying the per-zero de-smoothing spend. -/
+theorem psi_explicit_sharpM_of_riesz_residues_perZero {q : ℕ} [NeZero q]
+    (χ : DirichletCharacter ℂ q) {Z : Finset ℂ} {σ : ℝ} (hσ : σ ≤ 1)
+    (hZ : ∀ ρ ∈ Z, 0 < ρ.re ∧ ρ.re ≤ σ) {y h : ℝ} (hy : 1 ≤ y) (hh : 0 < h) {E₁ E₂ : ℝ}
+    (h₁ : ‖psi1Chi y χ + efRieszSumM χ Z y‖ ≤ E₁)
+    (h₂ : ‖psi1Chi (y + h) χ + efRieszSumM χ Z (y + h)‖ ≤ E₂) :
+    ‖psiChiR y χ + efZeroSumM χ Z y‖
+      ≤ (h + 1) * Real.log (y + h) + (E₁ + E₂) / h
+        + ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ) * (h * y ^ (ρ.re - 1)) := by
+  have hsock := psi_sharp_of_riesz_bounds (A₁ := -efRieszSumM χ Z y)
+    (A₂ := -efRieszSumM χ Z (y + h)) hy hh χ (by simpa using h₁) (by simpa using h₂)
+  have hdes := efRieszSumM_diff_sub_efZeroSumM_le_perZero χ hσ hZ hy hh
+  have hsplit : psiChiR y χ + efZeroSumM χ Z y
+      = (psiChiR y χ - (-efRieszSumM χ Z (y + h) - -efRieszSumM χ Z y) / (h : ℂ))
+        - ((efRieszSumM χ Z (y + h) - efRieszSumM χ Z y) / (h : ℂ) - efZeroSumM χ Z y) := by
+    field_simp
+    ring
+  rw [hsplit]
+  calc ‖(psiChiR y χ - (-efRieszSumM χ Z (y + h) - -efRieszSumM χ Z y) / (h : ℂ))
+        - ((efRieszSumM χ Z (y + h) - efRieszSumM χ Z y) / (h : ℂ) - efZeroSumM χ Z y)‖
+      ≤ ‖psiChiR y χ - (-efRieszSumM χ Z (y + h) - -efRieszSumM χ Z y) / (h : ℂ)‖
+        + ‖(efRieszSumM χ Z (y + h) - efRieszSumM χ Z y) / (h : ℂ) - efZeroSumM χ Z y‖ :=
+        norm_sub_le _ _
+    _ ≤ ((h + 1) * Real.log (y + h) + (E₁ + E₂) / h)
+          + ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ) * (h * y ^ (ρ.re - 1)) := add_le_add hsock hdes
+    _ = (h + 1) * Real.log (y + h) + (E₁ + E₂) / h
+          + ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ) * (h * y ^ (ρ.re - 1)) := by ring
+
+/-- **THE SHARP EXPLICIT FORMULA, UN-COLLAPSED (N4b W0-vi).** `psi_explicit_sharpM` with its
+de-smoothing term left per-zero:
+
+    ‖ψ(y,χ) + ∑_{ρ ∈ boxZeros} m_ρ·y^ρ/ρ‖
+      ≤ (h+1)·log(y+h) + (E(y) + E(y+h))/h + ∑_{ρ ∈ boxZeros} m_ρ·h·y^{Re ρ−1}.
+
+Hypotheses identical to `psi_explicit_sharpM`'s; only the last summand differs. -/
+theorem psi_explicit_sharpM_perZero {f : ℕ} [NeZero f] (χ : DirichletCharacter ℂ f)
+    (hχ : χ.IsPrimitive) (hf : 2 ≤ f) {y h T σ₀ w : ℝ}
+    (hy : 3 ≤ y) (hh : 0 < h) (hT : 2 ≤ T) (hw : 0 < w)
+    (hσ₀w : 9 / 10 ≤ σ₀ - w) (hσ₀1 : σ₀ < 1)
+    (hsep : ∀ ρ ∈ boxZeros χ (σ₀ - w) 1 (T + 2), σ₀ + w ≤ ρ.re ∧ |ρ.im| + w ≤ T) :
+    ‖psiChiR y χ + efZeroSumM χ (boxZeros χ (σ₀ - w) 1 (T + 2)) y‖
+      ≤ (h + 1) * Real.log (y + h)
+        + (efShiftError f T σ₀ w y + efShiftError f T σ₀ w (y + h)) / h
+        + ∑ ρ ∈ boxZeros χ (σ₀ - w) 1 (T + 2), (zeroMult χ ρ : ℝ) * (h * y ^ (ρ.re - 1)) := by
+  have hχ1 : χ ≠ 1 := ne_one_of_isPrimitive χ hχ hf
+  set Z : Finset ℂ := boxZeros χ (σ₀ - w) 1 (T + 2) with hZ
+  have hZall : ∀ ρ : ℂ, LFunction χ ρ = 0 → σ₀ - w ≤ ρ.re → ρ.re ≤ 1 → |ρ.im| ≤ T + 2 → ρ ∈ Z :=
+    fun ρ h1 h2 h3 h4 => by rw [hZ, mem_boxZeros hχ1]; exact ⟨h1, h2, h3, h4⟩
+  have hZzero : ∀ ρ ∈ Z, LFunction χ ρ = 0 := by
+    intro ρ hρ
+    rw [hZ, mem_boxZeros hχ1] at hρ
+    exact hρ.1
+  have hZbox : ∀ ρ ∈ Z, 0 < ρ.re ∧ ρ.re ≤ 1 := by
+    intro ρ hρ
+    rw [hZ, mem_boxZeros hχ1] at hρ
+    exact ⟨by linarith [hρ.2.1], hρ.2.2.1⟩
+  have hy1 : (1 : ℝ) ≤ y := by linarith
+  have hyh : (3 : ℝ) ≤ y + h := by linarith
+  have h₁ := psi1_contour_shift_finsetM χ hχ hf hy hT hw hσ₀w hσ₀1 hsep hZzero hZall
+  have h₂ := psi1_contour_shift_finsetM χ hχ hf hyh hT hw hσ₀w hσ₀1 hsep hZzero hZall
+  exact psi_explicit_sharpM_of_riesz_residues_perZero (σ := 1) χ le_rfl hZbox hy1 hh h₁ h₂
+
+/-- **The Riesz residue's first difference, per zero (N4b W0-vii).** For `0 < Re ρ`, `y ≥ 1`,
+`h > 0`,
+
+    ‖(y+h)^{ρ+1}/(ρ(ρ+1)) − y^{ρ+1}/(ρ(ρ+1))‖ ≤ h·(y+h)^{Re ρ}/‖ρ‖.
+
+Route: the *elementary* mean-value bound (`Convex.norm_image_sub_le_of_norm_hasDerivWithin_le`)
+on `φ(u) = u^{ρ+1}/(ρ(ρ+1))`, whose derivative is `u^ρ/ρ` with norm `u^{Re ρ}/‖ρ‖ ≤
+(y+h)^{Re ρ}/‖ρ‖` throughout `[y, y+h]` — the same route `cpow_riesz_residue_desmooth` takes,
+and it delivers exactly the grade the `∫_y^{y+h}(ρ+1)t^ρ dt` identity would (the identity is not
+needed: the segment sup of `‖t^ρ‖` is what both routes spend). -/
+theorem cpow_riesz_diff_norm_le {ρ : ℂ} (hρ0 : 0 < ρ.re) {y h : ℝ} (hy : 1 ≤ y) (hh : 0 < h) :
+    ‖((y + h : ℝ) : ℂ) ^ (ρ + 1) / (ρ * (ρ + 1)) - ((y : ℝ) : ℂ) ^ (ρ + 1) / (ρ * (ρ + 1))‖
+      ≤ h * ((y + h) ^ ρ.re / ‖ρ‖) := by
+  have hy0 : (0 : ℝ) < y := by linarith
+  have hρne : ρ ≠ 0 := by
+    intro h0; rw [h0, Complex.zero_re] at hρ0; exact lt_irrefl 0 hρ0
+  have hρ1ne : ρ + 1 ≠ 0 := by
+    intro h0
+    have := congrArg Complex.re h0
+    rw [Complex.add_re, Complex.one_re, Complex.zero_re] at this
+    linarith
+  have hρnorm : (0 : ℝ) < ‖ρ‖ := norm_pos_iff.mpr hρne
+  set S : Set ℝ := Set.Icc y (y + h) with hSdef
+  have hconv : Convex ℝ S := convex_Icc _ _
+  set φ : ℝ → ℂ := fun u => (u : ℂ) ^ (ρ + 1) / (ρ * (ρ + 1)) with hφ
+  have hderiv : ∀ u ∈ S, HasDerivWithinAt φ ((u : ℂ) ^ ρ / ρ) S u := by
+    intro u hu
+    rw [hSdef, Set.mem_Icc] at hu
+    have hu0 : u ≠ 0 := by have : (0 : ℝ) < u := lt_of_lt_of_le hy0 hu.1; linarith
+    have h1 : HasDerivAt (fun v : ℝ => (v : ℂ) ^ (ρ + 1)) ((ρ + 1) * (u : ℂ) ^ (ρ + 1 - 1)) u :=
+      hasDerivAt_ofReal_cpow_const hu0 hρ1ne
+    have h3 : HasDerivAt φ ((ρ + 1) * (u : ℂ) ^ (ρ + 1 - 1) / (ρ * (ρ + 1))) u := h1.div_const _
+    have heq : (ρ + 1) * (u : ℂ) ^ (ρ + 1 - 1) / (ρ * (ρ + 1)) = (u : ℂ) ^ ρ / ρ := by
+      rw [show ρ + 1 - 1 = ρ from by ring]
+      field_simp
+    rw [heq] at h3
+    exact h3.hasDerivWithinAt
+  have hbound : ∀ u ∈ S, ‖(u : ℂ) ^ ρ / ρ‖ ≤ (y + h) ^ ρ.re / ‖ρ‖ := by
+    intro u hu
+    rw [hSdef, Set.mem_Icc] at hu
+    have hu0 : (0 : ℝ) < u := lt_of_lt_of_le hy0 hu.1
+    rw [norm_div, Complex.norm_cpow_eq_rpow_re_of_pos hu0]
+    exact div_le_div_of_nonneg_right
+      (Real.rpow_le_rpow hu0.le hu.2 hρ0.le) hρnorm.le
+  have hyS : y ∈ S := by rw [hSdef, Set.mem_Icc]; exact ⟨le_refl _, by linarith⟩
+  have hyhS : y + h ∈ S := by rw [hSdef, Set.mem_Icc]; exact ⟨by linarith, le_refl _⟩
+  have hmvt := hconv.norm_image_sub_le_of_norm_hasDerivWithin_le hderiv hbound hyS hyhS
+  refine le_trans hmvt (le_of_eq ?_)
+  rw [Real.norm_eq_abs, show y + h - y = h from by ring, abs_of_pos hh]
+  ring
+
+/-- **THE DIRECT `𝓡_M` DIFFERENCE-QUOTIENT BOUND (N4b W0-vii).** Summing
+`cpow_riesz_diff_norm_le` with multiplicities, at a uniform real-part ceiling `β̄`:
+
+    ‖𝓡_M(y+h) − 𝓡_M(y)‖ ≤ (y+h)^{β̄}·h·∑_{ρ ∈ Z} m_ρ/‖ρ‖.
+
+The right factor is exactly A3's harmonic weight (`Salt.SW.efMultHarmonic_box_le`), so this is
+the term the N4b EF socket prices at `log(qT)·log T` grade — **no** collapsed, `T`-free count
+appears. -/
+theorem efRieszSumM_diff_norm_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q) {Z : Finset ℂ}
+    {y h β : ℝ} (hy : 1 ≤ y) (hh : 0 < h) (hZ : ∀ ρ ∈ Z, 0 < ρ.re ∧ ρ.re ≤ β) :
+    ‖efRieszSumM χ Z (y + h) - efRieszSumM χ Z y‖
+      ≤ (y + h) ^ β * (h * ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ) / ‖ρ‖) := by
+  have hyh1 : (1 : ℝ) ≤ y + h := by linarith
+  have hdiff : efRieszSumM χ Z (y + h) - efRieszSumM χ Z y
+      = ∑ ρ ∈ Z, (zeroMult χ ρ : ℂ) *
+          (((y + h : ℝ) : ℂ) ^ (ρ + 1) / (ρ * (ρ + 1))
+            - ((y : ℝ) : ℂ) ^ (ρ + 1) / (ρ * (ρ + 1))) := by
+    simp only [efRieszSumM, ← Finset.sum_sub_distrib]
+    exact Finset.sum_congr rfl (fun ρ _ => by ring)
+  have hrhs : (y + h) ^ β * (h * ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ) / ‖ρ‖)
+      = ∑ ρ ∈ Z, (y + h) ^ β * (h * ((zeroMult χ ρ : ℝ) / ‖ρ‖)) := by
+    rw [Finset.mul_sum, Finset.mul_sum]
+  rw [hdiff, hrhs]
+  refine le_trans (norm_sum_le _ _) (Finset.sum_le_sum fun ρ hρ => ?_)
+  obtain ⟨hρ0, hρβ⟩ := hZ ρ hρ
+  have hρnorm : (0 : ℝ) < ‖ρ‖ := by
+    refine norm_pos_iff.mpr ?_
+    intro h0; rw [h0, Complex.zero_re] at hρ0; exact lt_irrefl 0 hρ0
+  have hbase := cpow_riesz_diff_norm_le (ρ := ρ) hρ0 hy hh
+  have hmono : (y + h) ^ ρ.re ≤ (y + h) ^ β :=
+    Real.rpow_le_rpow_of_exponent_le hyh1 hρβ
+  rw [norm_mul, Complex.norm_natCast]
+  calc (zeroMult χ ρ : ℝ) * ‖((y + h : ℝ) : ℂ) ^ (ρ + 1) / (ρ * (ρ + 1))
+          - ((y : ℝ) : ℂ) ^ (ρ + 1) / (ρ * (ρ + 1))‖
+      ≤ (zeroMult χ ρ : ℝ) * (h * ((y + h) ^ ρ.re / ‖ρ‖)) :=
+        mul_le_mul_of_nonneg_left hbase (by positivity)
+    _ ≤ (zeroMult χ ρ : ℝ) * (h * ((y + h) ^ β / ‖ρ‖)) := by
+        refine mul_le_mul_of_nonneg_left ?_ (by positivity)
+        exact mul_le_mul_of_nonneg_left
+          (div_le_div_of_nonneg_right hmono hρnorm.le) hh.le
+    _ = (y + h) ^ β * (h * ((zeroMult χ ρ : ℝ) / ‖ρ‖)) := by ring
+
+/-- The same, as a **difference quotient** — the shape `psi_sharp_of_riesz_bounds` consumes
+after the `A_i := −𝓡_M` substitution: `‖(𝓡_M(y+h) − 𝓡_M(y))/h‖ ≤ (y+h)^{β̄}·∑ m_ρ/‖ρ‖`, the
+`h` having cancelled. -/
+theorem efRieszSumM_diff_quotient_norm_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
+    {Z : Finset ℂ} {y h β : ℝ} (hy : 1 ≤ y) (hh : 0 < h) (hZ : ∀ ρ ∈ Z, 0 < ρ.re ∧ ρ.re ≤ β) :
+    ‖(efRieszSumM χ Z (y + h) - efRieszSumM χ Z y) / (h : ℂ)‖
+      ≤ (y + h) ^ β * ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ) / ‖ρ‖ := by
+  rw [norm_div, Complex.norm_real, Real.norm_eq_abs, abs_of_pos hh, div_le_iff₀ hh]
+  refine le_trans (efRieszSumM_diff_norm_le χ hy hh hZ) (le_of_eq ?_)
+  ring
+
 end Salt.SW
