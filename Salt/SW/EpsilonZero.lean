@@ -331,4 +331,105 @@ theorem zeta_zero_free_region_bounded :
       ρ.re ≤ 1 - c₃ / Real.log (|ρ.im| + 2) :=
   ⟨1 / 10 ^ 7, by norm_num, le_refl _, fun hρ hre => zeta_zero_free_region_explicit hρ hre⟩
 
+
+/-! ## 5. ZETA-INV-SHALLOW — explicit `‖Zc‖` floors on the pole patch
+
+CMU-HUNT leaf #2 (`Salt/SW/ZetaInvShallow.lean:53`, `Zc_patch_lower`): `‖Zc‖` attains a
+positive minimum `δ` on the rectangle `R = {a ≤ Re ≤ 3, |Im| ≤ 2}` by
+`IsCompact.exists_isMinOn`, and `δ` sits under a division in `zeta_inv_shallow`'s `C`.
+
+`R` splits into three pieces. Two of them fall to compactness-free arguments and are
+proved here with generous explicit floors:
+
+* `Re z ≥ 2` — `‖Zc z‖ = ‖z−1‖·‖ζ z‖ ≥ 1·(1/4)` (`Zc_lower_of_two_le_re`);
+* `‖z − 1‖ ≤ 1/5` — pole dominance again, now used as a *lower* bound rather than a
+  non-vanishing statement: `‖Zc z‖ = ‖1 + (z−1)R(z)‖ ≥ 1 − ‖z−1‖·‖R(z)‖ ≥ 1 − (1/5)(18/5)`
+  (`Zc_lower_near_pole`). This is the tool minted by `zeta_ne_zero_of_pole_dominant`,
+  applied exactly as the ZETA-INV-SHALLOW strategy predicted.
+
+The third piece is **the residual band** `{a ≤ Re z ≤ 2, |Im z| ≤ 2, ‖z − 1‖ ≥ 1/5}`, and it
+does **not** fall: it demands an explicit lower bound for `|ζ|` on a box abutting `Re = 1` at
+heights up to `2`, which is the classical low-height input. `zeta_lower_shallow` cannot serve
+it (that theorem carries a standing `2 ≤ |t|`, inherited from `zeta_log_bound`, precisely
+because the pole intrudes below it). See `docs/blueprints/flags.md` for the two priced routes
+and the honest constant estimate.
+
+So the deliverable here is the **hypothesis-taking** form (`_of_band`, the corpus's
+`_of_strip`/`_of_contour` refactor genre): every piece of the patch except the band is
+discharged with an explicit numeral, and the band is exposed as a single named input whose
+own floor `δ₁` is carried through to the conclusion. -/
+
+/-- **The near-pole `Zc` floor.** For `1/2 ≤ Re z` and `‖z − 1‖ ≤ 1/5`, `7/25 ≤ ‖Zc z‖`.
+
+Pole dominance in lower-bound form: `Zc z = 1 + (z−1)·R(z)` (`Zc_eq_series`) with
+`‖R‖ ≤ ‖z‖(1 + 1/Re z) ≤ (6/5)·3` (`norm_R_le`), so `‖Zc z‖ ≥ 1 − (1/5)(18/5) = 7/25`. -/
+theorem Zc_lower_near_pole {z : ℂ} (hre : 1 / 2 ≤ z.re) (hz : ‖z - 1‖ ≤ 1 / 5) :
+    (7 : ℝ) / 25 ≤ ‖Zc z‖ := by
+  have hzre : 0 < z.re := by linarith
+  have hser := Zc_eq_series z hzre
+  have hRle : ‖∑' n : ℕ, dTerm z (n + 1)‖ ≤ ‖z‖ * (1 + 1 / z.re) := norm_R_le z hzre
+  have hznorm : ‖z‖ ≤ 6 / 5 := by
+    calc ‖z‖ = ‖(1 : ℂ) + (z - 1)‖ := by ring_nf
+      _ ≤ ‖(1 : ℂ)‖ + ‖z - 1‖ := norm_add_le _ _
+      _ ≤ 6 / 5 := by rw [norm_one]; linarith
+  have hinv : 1 + 1 / z.re ≤ 3 := by
+    have h : 1 / z.re ≤ 2 := by rw [div_le_iff₀ hzre]; linarith
+    linarith
+  have hinv0 : (0 : ℝ) ≤ 1 + 1 / z.re := by positivity
+  have hR3 : ‖∑' n : ℕ, dTerm z (n + 1)‖ ≤ 18 / 5 := by
+    have hA : ‖z‖ * (1 + 1 / z.re) ≤ 6 / 5 * 3 :=
+      mul_le_mul hznorm hinv hinv0 (by norm_num)
+    linarith
+  have hRnn : (0 : ℝ) ≤ ‖∑' n : ℕ, dTerm z (n + 1)‖ := norm_nonneg _
+  have h1 : (1 : ℝ) ≤ ‖Zc z‖ + ‖z - 1‖ * ‖∑' n : ℕ, dTerm z (n + 1)‖ := by
+    have hstep : (1 : ℝ) ≤ ‖Zc z‖ + ‖(z - 1) * ∑' n : ℕ, dTerm z (n + 1)‖ := by
+      calc (1 : ℝ) = ‖(1 : ℂ)‖ := norm_one.symm
+        _ = ‖Zc z - (z - 1) * ∑' n : ℕ, dTerm z (n + 1)‖ := by rw [hser]; ring_nf
+        _ ≤ ‖Zc z‖ + ‖(z - 1) * ∑' n : ℕ, dTerm z (n + 1)‖ := norm_sub_le _ _
+    rwa [norm_mul] at hstep
+  nlinarith [h1, hz, hR3, hRnn, norm_nonneg (z - 1)]
+
+/-- **The right-half `Zc` floor.** For `2 ≤ Re z`, `1/4 ≤ ‖Zc z‖`: here `‖z−1‖ ≥ Re z − 1 ≥ 1`
+and `‖ζ z‖ ≥ 1/4` (`zeta_norm_ge`). -/
+theorem Zc_lower_of_two_le_re {z : ℂ} (hre : 2 ≤ z.re) : (1 : ℝ) / 4 ≤ ‖Zc z‖ := by
+  have hne1 : z ≠ 1 := by
+    intro h; rw [h, Complex.one_re] at hre; norm_num at hre
+  rw [Zc_eq_of_ne hne1, norm_mul]
+  have h1 : (1 : ℝ) ≤ ‖z - 1‖ := by
+    have h := Complex.abs_re_le_norm (z - 1)
+    rw [Complex.sub_re, Complex.one_re, abs_of_nonneg (by linarith : (0 : ℝ) ≤ z.re - 1)] at h
+    linarith
+  have h2 : (1 : ℝ) / 4 ≤ ‖riemannZeta z‖ := zeta_norm_ge hre
+  nlinarith [h1, h2, norm_nonneg (riemannZeta z)]
+
+/-- **The pole patch floored, modulo the residual band.** Given any explicit floor `δ₁` on the
+band `{a ≤ Re z ≤ 2, |Im z| ≤ 2, 1/5 ≤ ‖z−1‖}`, the whole `Zc_patch_lower` rectangle carries
+the explicit floor `min δ₁ (1/4)` — no compactness, no extremal value.
+
+The two off-band pieces are discharged outright (`Zc_lower_of_two_le_re`,
+`Zc_lower_near_pole`); the band is the single named input. Note what is *absent* from the
+hypotheses: the zero-free region. `Zc_patch_lower` needs `Hzfr` and `hcompat` only to know
+`Zc ≠ 0` on `R`; a quantitative band floor subsumes that, so the `c₃`-narrowing wrinkle
+never arises here. -/
+theorem Zc_patch_lower_of_band {a δ₁ : ℝ} (ha : 1 / 2 ≤ a)
+    (hband : ∀ z : ℂ, a ≤ z.re → z.re ≤ 2 → |z.im| ≤ 2 → 1 / 5 ≤ ‖z - 1‖ → δ₁ ≤ ‖Zc z‖) :
+    ∀ z : ℂ, a ≤ z.re → z.re ≤ 3 → |z.im| ≤ 2 → min δ₁ (1 / 4) ≤ ‖Zc z‖ := by
+  intro z hzlo hzhi hzim
+  have hzre : 1 / 2 ≤ z.re := le_trans ha hzlo
+  rcases le_or_gt 2 z.re with h2 | h2
+  · exact le_trans (min_le_right _ _) (Zc_lower_of_two_le_re h2)
+  · rcases le_or_gt ‖z - 1‖ (1 / 5) with hnear | hfar
+    · have := Zc_lower_near_pole hzre hnear
+      have hm : min δ₁ (1 / 4 : ℝ) ≤ 1 / 4 := min_le_right _ _
+      linarith
+    · exact le_trans (min_le_left _ _) (hband z hzlo h2.le hzim hfar.le)
+
+/-- The `∃`-shaped `_bounded` twin at `Zc_patch_lower`'s own call shape: the patch minimum
+exists *and* is floored by the explicit `min δ₁ (1/4)`. -/
+theorem Zc_patch_lower_bounded_of_band {a δ₁ : ℝ} (ha : 1 / 2 ≤ a) (hδ₁ : 0 < δ₁)
+    (hband : ∀ z : ℂ, a ≤ z.re → z.re ≤ 2 → |z.im| ≤ 2 → 1 / 5 ≤ ‖z - 1‖ → δ₁ ≤ ‖Zc z‖) :
+    ∃ δ₀ > 0, min δ₁ (1 / 4) ≤ δ₀ ∧
+      ∀ z : ℂ, a ≤ z.re → z.re ≤ 3 → |z.im| ≤ 2 → δ₀ ≤ ‖Zc z‖ :=
+  ⟨min δ₁ (1 / 4), lt_min hδ₁ (by norm_num), le_refl _, Zc_patch_lower_of_band ha hband⟩
+
 end Salt.SW
