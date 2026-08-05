@@ -432,4 +432,503 @@ theorem Zc_patch_lower_bounded_of_band {a δ₁ : ℝ} (ha : 1 / 2 ≤ a) (hδ�
       ∀ z : ℂ, a ≤ z.re → z.re ≤ 3 → |z.im| ≤ 2 → δ₀ ≤ ‖Zc z‖ :=
   ⟨min δ₁ (1 / 4), lt_min hδ₁ (by norm_num), le_refl _, Zc_patch_lower_of_band ha hband⟩
 
+
+/-! ## 6. EPSILON-SHARP — the un-collapsed keep-one constant, and `ε₀ = 2·10⁻⁵`
+
+§2's `ε₀ = 10⁻⁶` was short of the CMU-HUNT §2 target `ε₀ ≥ 1.9·10⁻⁵` by a factor `≈ 19`, and
+the gap was traced (`docs/blueprints/flags.md`, EPSILON-ZERO) to **one pre-collapsed constant**:
+`zeta_neg_re_logDeriv_le_keep` and `zeta_neg_re_logDeriv_le` both carry
+`1080·log(|γ|+2)`, which is `120·log(4·M₀ζ)` after the *uniform* collapse
+`log(4·M₀ζ(t₀)) ≤ 9·log(|t₀|+2)` (`log_4M0zeta_le_self`). At height `≤ 1` that collapse costs
+a factor `≈ 1.57`: the honest `120·log(4·M₀ζ(γ)) ≈ 757` against the collapsed
+`1080·log 3 ≈ 1186`. This section keeps the constant un-collapsed, and then sharpens `M₀ζ`
+itself at low height, in three additive steps:
+
+1. **`Zc_sphere_bound_sharp`** — the sphere bound re-derived with the triangle inequality taken
+   at the *centre* `c = 2 + t₀i` rather than at the origin: `‖z‖ ≤ ‖c‖ + R` and
+   `‖z−1‖ ≤ ‖c−1‖ + R` with the *exact* `‖c‖ = √(4+t₀²)`, `‖c−1‖ = √(1+t₀²)`, instead of
+   `M0zeta`'s `‖z‖ ≤ 15/4+|t₀|`, `‖z−1‖ ≤ ‖z‖+1`. At `|t₀| ≤ 1` this gives `‖Zc‖ ≤ 66`
+   against `M₀ζ(1) = 137.6`; at `|t₀| ≤ 2`, `96` against `195.1`.
+2. **`zeta_neg_re_logDeriv_le_keep_of_growth` / `zeta_neg_re_logDeriv_le_of_growth`** — the
+   keep-one and drop-all ζ log-derivative bounds in the corpus's hypothesis-taking genre: the
+   growth majorant `M` on the sphere `‖z − (2+t₀i)‖ ≤ 7/4` is an *input*, and the conclusion
+   carries `120·log(4M)` with no collapse. Instantiating `M := M0zeta t₀` recovers the landed
+   lemmas verbatim; instantiating `M := 66`, `M := 96` gives the numerals used here.
+3. **`zeta_zero_free_strip_sharp`** — the same two-branch route as
+   `zeta_zero_free_strip_explicit` (pole dominance below `|γ| = 1/5`, 3-4-1 above it) with
+   `4·120·log 264 + 120·log 384 ≤ 3395.3` in place of `5·1080·log 4 = 7560`, and the near-optimal
+   `σ = 1 + 1/7700` in place of `1 + 1/15200`. The chain reads `4/(σ−β) ≤ 26521`, incompatible
+   with `β > 1 − 2·10⁻⁵`.
+
+**What the sharpening buys, exactly.** `zeta_zero_free_region`'s constant is
+`c₃ = min(1/75712, ε₀·log 2)`, and `(1/75712)/log 2 = 1.9055·10⁻⁵` — *that* is where
+CMU-HUNT's target `1.9·10⁻⁵` comes from. At `ε₀ = 2·10⁻⁵` the `min` is attained by its **first**
+argument, so `zeta_zero_free_region_sharp` carries `c₃ = 1/75712` — the literal the compactness
+version already had. The leaf does not merely become effective (§4's `c₃ = 10⁻⁷` did that); it
+vanishes into the existing literal, which was the whole point of the hunt. -/
+
+/-- **The sharp `Zc` sphere bound.** On the disk `‖z − (2+t₀i)‖ ≤ 7/4` (where `Re z ≥ 1/4`),
+`‖Zc z‖ ≤ 1 + 5(7/4+a)(7/4+b)` for any `a ≥ ‖c−1‖ = √(1+t₀²)` and `b ≥ ‖c‖ = √(4+t₀²)`.
+
+Same route as `Zc_sphere_bound` (`Zc_growth` plus `1 + 1/Re z ≤ 5`), but the two norm factors
+are estimated from the **centre** outwards, which is where `M0zeta`'s slack lives: `M0zeta`
+bounds `‖z‖ ≤ 2+|t₀|+7/4` and then `‖z−1‖ ≤ ‖z‖+1`, paying `|t₀|` where `√(4+t₀²)` is honest
+and paying a full `+1` where `‖c−1‖ = √(1+t₀²)` is honest. -/
+theorem Zc_sphere_bound_sharp {t₀ a b : ℝ} (ha : 0 ≤ a) (hb : 0 ≤ b)
+    (ha2 : 1 + t₀ ^ 2 ≤ a ^ 2) (hb2 : 4 + t₀ ^ 2 ≤ b ^ 2) {z : ℂ}
+    (hz : ‖z - (2 + (t₀ : ℂ) * I)‖ ≤ 7 / 4) :
+    ‖Zc z‖ ≤ 1 + 5 * (7 / 4 + a) * (7 / 4 + b) := by
+  set c : ℂ := 2 + (t₀ : ℂ) * I with hc
+  have hcre : c.re = 2 := by rw [hc]; simp
+  have hcim : c.im = t₀ := by rw [hc]; simp
+  have hzc_re : (1 : ℝ) / 4 ≤ z.re := by
+    have h := Complex.abs_re_le_norm (z - c)
+    rw [Complex.sub_re, hcre] at h
+    have h2 := abs_le.mp h
+    linarith [h2.1, hz]
+  have hre_pos : 0 < z.re := by linarith
+  have hcn : ‖c‖ ≤ b := by
+    have h2 : ‖c‖ ^ 2 = 4 + t₀ ^ 2 := by
+      rw [Complex.sq_norm, Complex.normSq_apply, hcre, hcim]; ring
+    nlinarith [norm_nonneg c, h2, hb2, hb]
+  have hc1n : ‖c - 1‖ ≤ a := by
+    have hre1 : (c - 1).re = 1 := by rw [Complex.sub_re, hcre, Complex.one_re]; norm_num
+    have him1 : (c - 1).im = t₀ := by rw [Complex.sub_im, hcim, Complex.one_im]; ring
+    have h2 : ‖c - 1‖ ^ 2 = 1 + t₀ ^ 2 := by
+      rw [Complex.sq_norm, Complex.normSq_apply, hre1, him1]; ring
+    nlinarith [norm_nonneg (c - 1), h2, ha2, ha]
+  have hznorm : ‖z‖ ≤ 7 / 4 + b := by
+    calc ‖z‖ = ‖c + (z - c)‖ := by ring_nf
+      _ ≤ ‖c‖ + ‖z - c‖ := norm_add_le _ _
+      _ ≤ 7 / 4 + b := by linarith
+  have hz1norm : ‖z - 1‖ ≤ 7 / 4 + a := by
+    calc ‖z - 1‖ = ‖(c - 1) + (z - c)‖ := by ring_nf
+      _ ≤ ‖c - 1‖ + ‖z - c‖ := norm_add_le _ _
+      _ ≤ 7 / 4 + a := by linarith
+  have h1re : (0 : ℝ) ≤ 1 / z.re := div_nonneg zero_le_one hre_pos.le
+  have hinv : 1 + 1 / z.re ≤ 5 := by
+    have h4 : 1 / z.re ≤ 4 := by rw [div_le_iff₀ hre_pos]; linarith
+    linarith
+  have hA : ‖z‖ * (1 + 1 / z.re) ≤ (7 / 4 + b) * 5 :=
+    mul_le_mul hznorm hinv (by linarith) (by linarith)
+  have hAnn : (0 : ℝ) ≤ ‖z‖ * (1 + 1 / z.re) := mul_nonneg (norm_nonneg _) (by linarith)
+  have hB : ‖z - 1‖ * (‖z‖ * (1 + 1 / z.re)) ≤ (7 / 4 + a) * ((7 / 4 + b) * 5) :=
+    mul_le_mul hz1norm hA hAnn (by linarith)
+  calc ‖Zc z‖ ≤ 1 + ‖z - 1‖ * (‖z‖ * (1 + 1 / z.re)) := Zc_growth hre_pos
+    _ ≤ 1 + (7 / 4 + a) * ((7 / 4 + b) * 5) := by linarith
+    _ = 1 + 5 * (7 / 4 + a) * (7 / 4 + b) := by ring
+
+/-- `‖Zc‖ ≤ 66` on the growth disk at any height `|t₀| ≤ 1` (`a = 3/2 ≥ √2`, `b = 9/4 ≥ √5`).
+Against `M₀ζ(1) = 137.5625`: the log gain is `log(550.25/264) = 0.734`, i.e. `88` off the
+`120·log(4M)` constant. -/
+theorem Zc_sphere_bound_height_one {t₀ : ℝ} (ht : |t₀| ≤ 1) {z : ℂ}
+    (hz : ‖z - (2 + (t₀ : ℂ) * I)‖ ≤ 7 / 4) : ‖Zc z‖ ≤ 66 := by
+  have hsq : t₀ ^ 2 ≤ 1 := by
+    have := sq_abs t₀; nlinarith [abs_nonneg t₀]
+  have h := Zc_sphere_bound_sharp (a := 3 / 2) (b := 9 / 4) (by norm_num) (by norm_num)
+    (by nlinarith) (by nlinarith) hz
+  norm_num at h
+  linarith
+
+/-- `‖Zc‖ ≤ 96` on the growth disk at any height `|t₀| ≤ 2` (`a = 9/4 ≥ √5`, `b = 3 ≥ √8`) —
+the `s₂ = σ + 2iγ` slot of the 3-4-1 at `|γ| ≤ 1`. Against `M₀ζ(2) = 195.0625`. -/
+theorem Zc_sphere_bound_height_two {t₀ : ℝ} (ht : |t₀| ≤ 2) {z : ℂ}
+    (hz : ‖z - (2 + (t₀ : ℂ) * I)‖ ≤ 7 / 4) : ‖Zc z‖ ≤ 96 := by
+  have hsq : t₀ ^ 2 ≤ 4 := by
+    have := sq_abs t₀; nlinarith [abs_nonneg t₀]
+  have h := Zc_sphere_bound_sharp (a := 9 / 4) (b := 3) (by norm_num) (by norm_num)
+    (by nlinarith) (by nlinarith) hz
+  norm_num at h
+  linarith
+
+/-- **The keep-one ζ bound, un-collapsed.** `zeta_neg_re_logDeriv_le_keep` with the growth
+majorant as an input and the conclusion carrying `120·log(4M)` instead of `1080·log(|γ|+2)`:
+for a zero `ρ` with `1/2 < Re ρ < 1`, `1 < σ < 2`, and any `M ≥ 1` bounding `‖Zc‖` on the disk
+`‖z − (2 + i·Im ρ)‖ ≤ 7/4`,
+`Re(−ζ'/ζ(σ+i·Im ρ)) ≤ Re(1/(s−1)) + 120·log(4M) − 1/(σ − Re ρ)`.
+
+Proof identical to `zeta_neg_re_logDeriv_le_keep`; only the final collapse step is dropped.
+`M := M0zeta (Im ρ)` recovers the landed statement (via `Zc_sphere_bound`, `one_le_M0zeta` and
+`log_4M0zeta_le_self`). -/
+theorem zeta_neg_re_logDeriv_le_keep_of_growth {ρ : ℂ} (hρ0 : riemannZeta ρ = 0)
+    (hβlt : 1 / 2 < ρ.re) (hβ1 : ρ.re < 1) {σ M : ℝ} (h1 : 1 < σ) (h2 : σ < 2) (hM : 1 ≤ M)
+    (hgrow : ∀ z : ℂ, ‖z - (2 + (ρ.im : ℂ) * I)‖ ≤ 7 / 4 → ‖Zc z‖ ≤ M) :
+    (-logDeriv riemannZeta ((σ : ℂ) + (ρ.im : ℂ) * I)).re
+      ≤ (1 / (((σ : ℂ) + (ρ.im : ℂ) * I) - 1)).re + 120 * Real.log (4 * M)
+        - 1 / (σ - ρ.re) := by
+  set γ : ℝ := ρ.im with hγ
+  set s : ℂ := (σ : ℂ) + (γ : ℂ) * I with hs
+  set c : ℂ := 2 + (γ : ℂ) * I with hc
+  have hsre : s.re = σ := by rw [hs]; simp [Complex.add_re, Complex.mul_re]
+  have hσC : (1 : ℝ) < s.re := by rw [hsre]; exact h1
+  have hs_ne1 : s ≠ 1 := fun h => by rw [h, Complex.one_re] at hσC; norm_num at hσC
+  have hζs : riemannZeta s ≠ 0 := riemannZeta_ne_zero_of_one_le_re (le_of_lt hσC)
+  have hsplit := neg_logDeriv_zeta_split hs_ne1 hζs
+  have hsphere74 : ∀ z ∈ sphere c (7 / 4), ‖Zc z‖ ≤ M := by
+    intro z hz; rw [mem_sphere, dist_eq_norm] at hz; exact hgrow z (le_of_eq hz)
+  have hsphere32 : ∀ z ∈ sphere c (3 / 2), ‖Zc z‖ ≤ M := by
+    intro z hz; rw [mem_sphere, dist_eq_norm] at hz; exact hgrow z (by rw [hz]; norm_num)
+  obtain ⟨Z, m, h, hmemb, -, hne_h, hEqOn, -, hnum⟩ :=
+    entire_norm_logDeriv_sub_sum' Zc_differentiable hM (Zc_center_lower γ) hsphere74 hsphere32
+  have hscnorm : ‖s - c‖ ≤ 23 / 20 := by
+    have hsub : s - c = ((σ - 2 : ℝ) : ℂ) := by rw [hs, hc]; push_cast; ring
+    rw [hsub, Complex.norm_real, Real.norm_eq_abs, abs_of_nonpos (by linarith : σ - 2 ≤ 0)]
+    linarith
+  have hZcs : Zc s ≠ 0 := by
+    rw [Zc_eq_of_ne hs_ne1]; exact mul_ne_zero (sub_ne_zero.mpr hs_ne1) hζs
+  have hre := neg_re_logDeriv_le (hnum s hscnorm hZcs)
+  have hρ1 : ρ ≠ 1 := fun h => by rw [h, Complex.one_re] at hβ1; norm_num at hβ1
+  have hZcρ : Zc ρ = 0 := by rw [Zc_eq_of_ne hρ1, hρ0, mul_zero]
+  have hρball : ρ ∈ ball c (3 / 2) := by
+    rw [mem_ball, dist_eq_norm]
+    have hsub : ρ - c = ((ρ.re - 2 : ℝ) : ℂ) := by
+      rw [hc, hγ]; apply Complex.ext <;>
+        simp [Complex.sub_re, Complex.sub_im, Complex.add_re, Complex.add_im,
+          Complex.mul_re, Complex.mul_im, Complex.I_re, Complex.I_im,
+          Complex.ofReal_re, Complex.ofReal_im]
+    rw [hsub, Complex.norm_real, Real.norm_eq_abs, abs_of_nonpos (by linarith : ρ.re - 2 ≤ 0)]
+    linarith
+  obtain ⟨hρZ, hmρ⟩ := mem_zeros_of_factorization_gen hne_h hEqOn hρball hZcρ
+  have hpos : ∀ ρ' ∈ Z, 0 < (s - ρ').re := by
+    intro ρ' hρ'
+    have hρ'0 : Zc ρ' = 0 := (hmemb ρ' hρ').2
+    have hρ'1 : ρ' ≠ 1 := fun h => by rw [h, Zc_one] at hρ'0; exact one_ne_zero hρ'0
+    have hζρ' : riemannZeta ρ' = 0 := by
+      rw [Zc_eq_of_ne hρ'1] at hρ'0
+      exact (mul_eq_zero.mp hρ'0).resolve_left (sub_ne_zero.mpr hρ'1)
+    have hlt : ρ'.re < 1 := by
+      by_contra hcn; exact riemannZeta_ne_zero_of_one_le_re (not_lt.mp hcn) hζρ'
+    rw [Complex.sub_re]; linarith [hσC]
+  have hsρ : s - ρ = ((σ - ρ.re : ℝ) : ℂ) := by
+    rw [hs, hγ]; apply Complex.ext <;>
+      simp [Complex.sub_re, Complex.sub_im, Complex.add_re, Complex.add_im,
+        Complex.mul_re, Complex.mul_im, Complex.I_re, Complex.I_im,
+        Complex.ofReal_re, Complex.ofReal_im]
+  have hσρpos : 0 < σ - ρ.re := by linarith
+  have hterm_re : (1 / (s - ρ)).re = 1 / (σ - ρ.re) := by
+    rw [hsρ, show (1 : ℂ) / ((σ - ρ.re : ℝ) : ℂ) = (((1 / (σ - ρ.re)) : ℝ) : ℂ) by push_cast; ring,
+      Complex.ofReal_re]
+  have hsingle : (m ρ : ℝ) * (1 / (s - ρ)).re ≤ ∑ ρ' ∈ Z, (m ρ' : ℝ) * (1 / (s - ρ')).re :=
+    Finset.single_le_sum (term_re_nonneg m hpos) hρZ
+  have hlow : 1 / (σ - ρ.re) ≤ ∑ ρ' ∈ Z, (m ρ' : ℝ) * (1 / (s - ρ')).re := by
+    have hm1 : (1 : ℝ) ≤ (m ρ : ℝ) := by exact_mod_cast hmρ
+    have hnn : (0 : ℝ) ≤ 1 / (σ - ρ.re) := by positivity
+    have h3 : 1 / (σ - ρ.re) ≤ (m ρ : ℝ) * (1 / (s - ρ)).re := by rw [hterm_re]; nlinarith
+    linarith [h3, hsingle]
+  rw [hsplit]
+  linarith [hre, hlow]
+
+/-- **The drop-all ζ bound at `σ + 2iγ`, un-collapsed.** `zeta_neg_re_logDeriv_le` with the
+growth majorant as an input: `Re(−ζ'/ζ(σ+2iγ)) ≤ Re(1/(s−1)) + 120·log(4M)` for any `M ≥ 1`
+bounding `‖Zc‖` on `‖z − (2 + 2iγ)‖ ≤ 7/4`. All partial-fraction zero terms dropped, exactly as
+in the landed lemma; only the collapse `120·log(4M₀ζ(2γ)) ≤ 1080·log(|γ|+2)` is omitted. -/
+theorem zeta_neg_re_logDeriv_le_of_growth {σ γ M : ℝ} (h1 : 1 < σ) (h2 : σ ≤ 2) (hM : 1 ≤ M)
+    (hgrow : ∀ z : ℂ, ‖z - (2 + ((2 * γ : ℝ) : ℂ) * I)‖ ≤ 7 / 4 → ‖Zc z‖ ≤ M) :
+    (-logDeriv riemannZeta ((σ : ℂ) + 2 * (γ : ℂ) * I)).re
+      ≤ (1 / (((σ : ℂ) + 2 * (γ : ℂ) * I) - 1)).re + 120 * Real.log (4 * M) := by
+  set t₀ : ℝ := 2 * γ with ht₀
+  set s : ℂ := (σ : ℂ) + 2 * (γ : ℂ) * I with hs
+  set c : ℂ := 2 + (t₀ : ℂ) * I with hc
+  have hsceq : s = (σ : ℂ) + (t₀ : ℂ) * I := by rw [hs, ht₀]; push_cast; ring
+  have hsre : s.re = σ := by rw [hsceq]; simp [Complex.add_re, Complex.mul_re]
+  have hσC : (1 : ℝ) < s.re := by rw [hsre]; exact h1
+  have hs_ne1 : s ≠ 1 := fun h => by rw [h, Complex.one_re] at hσC; norm_num at hσC
+  have hζs : riemannZeta s ≠ 0 := riemannZeta_ne_zero_of_one_le_re (le_of_lt hσC)
+  have hsplit := neg_logDeriv_zeta_split hs_ne1 hζs
+  have hsphere74 : ∀ z ∈ sphere c (7 / 4), ‖Zc z‖ ≤ M := by
+    intro z hz; rw [mem_sphere, dist_eq_norm] at hz; exact hgrow z (le_of_eq hz)
+  have hsphere32 : ∀ z ∈ sphere c (3 / 2), ‖Zc z‖ ≤ M := by
+    intro z hz; rw [mem_sphere, dist_eq_norm] at hz; exact hgrow z (by rw [hz]; norm_num)
+  obtain ⟨Z, m, h, hmemb, -, -, -, -, hnum⟩ :=
+    entire_norm_logDeriv_sub_sum' Zc_differentiable hM (Zc_center_lower t₀) hsphere74 hsphere32
+  have hscnorm : ‖s - c‖ ≤ 23 / 20 := by
+    have hsub : s - c = ((σ - 2 : ℝ) : ℂ) := by rw [hsceq, hc]; push_cast; ring
+    rw [hsub, Complex.norm_real, Real.norm_eq_abs, abs_of_nonpos (by linarith : σ - 2 ≤ 0)]
+    linarith
+  have hZcs : Zc s ≠ 0 := by
+    rw [Zc_eq_of_ne hs_ne1]
+    exact mul_ne_zero (sub_ne_zero.mpr hs_ne1) hζs
+  have hbound := hnum s hscnorm hZcs
+  have hdrop : 0 ≤ ∑ ρ ∈ Z, (m ρ : ℝ) * (1 / (s - ρ)).re := by
+    refine Finset.sum_nonneg (fun ρ hρ => ?_)
+    have hρ0 : Zc ρ = 0 := (hmemb ρ hρ).2
+    have hρ1 : ρ ≠ 1 := fun h => by rw [h, Zc_one] at hρ0; exact one_ne_zero hρ0
+    have hζρ : riemannZeta ρ = 0 := by
+      rw [Zc_eq_of_ne hρ1] at hρ0
+      exact (mul_eq_zero.mp hρ0).resolve_left (sub_ne_zero.mpr hρ1)
+    have hρre : ρ.re < 1 := by
+      by_contra hcn; exact riemannZeta_ne_zero_of_one_le_re (not_lt.mp hcn) hζρ
+    refine mul_nonneg (by positivity) ?_
+    rw [one_div, Complex.inv_re]
+    refine div_nonneg ?_ (Complex.normSq_nonneg _)
+    rw [Complex.sub_re]; linarith [hσC, hρre]
+  have hZcnum : (-logDeriv Zc s).re ≤ 120 * Real.log (4 * M) := by
+    have h := neg_re_logDeriv_le hbound
+    linarith [h, hdrop]
+  rw [hsplit]
+  linarith [hZcnum]
+
+/-- `log 264 ≤ 5.5765` — via `264 = 256·(33/32)`, `log 256 = 8 log 2` and
+`log(1+x) ≤ x` (`Real.log_le_sub_one_of_pos`). The `s₁` slot's constant is `120·log 264`. -/
+theorem log_264_le : Real.log 264 ≤ 5.5765 := by
+  have h1 : Real.log 264 = Real.log 256 + Real.log (33 / 32) := by
+    rw [show (264 : ℝ) = 256 * (33 / 32) by norm_num,
+      Real.log_mul (by norm_num) (by norm_num)]
+  have h2 : Real.log 256 = 8 * Real.log 2 := by
+    rw [show (256 : ℝ) = 2 ^ (8 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
+  have h3 : Real.log (33 / 32) ≤ 33 / 32 - 1 := Real.log_le_sub_one_of_pos (by norm_num)
+  have h4 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  rw [h1, h2]; linarith
+
+/-- `log 384 ≤ 5.9884` — via `384 = 512·(3/4)`, `log 512 = 9 log 2` and `log(3/4) ≤ −1/4`.
+The `s₂` slot's constant is `120·log 384`. -/
+theorem log_384_le : Real.log 384 ≤ 5.9884 := by
+  have h1 : Real.log 384 = Real.log 512 + Real.log (3 / 4) := by
+    rw [show (384 : ℝ) = 512 * (3 / 4) by norm_num,
+      Real.log_mul (by norm_num) (by norm_num)]
+  have h2 : Real.log 512 = 9 * Real.log 2 := by
+    rw [show (512 : ℝ) = 2 ^ (9 : ℕ) by norm_num, Real.log_pow]; push_cast; ring
+  have h3 : Real.log (3 / 4) ≤ 3 / 4 - 1 := Real.log_le_sub_one_of_pos (by norm_num)
+  have h4 : Real.log 2 < 0.6931471808 := Real.log_two_lt_d9
+  rw [h1, h2]; linarith
+
+set_option maxHeartbeats 1200000 in
+-- Same reason as `zeta_zero_free_strip_explicit`: the 3-4-1 assembly in one declaration.
+/-- **EPSILON-SHARP — the sharpened explicit ζ zero-free strip.** Every zero `ρ` of `ζ` with
+`|Im ρ| ≤ 1` satisfies `Re ρ ≤ 1 − 2·10⁻⁵`, twenty times `zeta_zero_free_strip_explicit`'s
+`10⁻⁶` and past CMU-HUNT §2's `1.9·10⁻⁵` target.
+
+Route as in §2, with three changes, all in branch 2: the keep-one and drop-all constants are
+taken un-collapsed off the sharp sphere bounds (`120·log 264 ≤ 669.2` at `s₁`,
+`120·log 384 ≤ 718.6` at `s₂`, against `1080·log 4 = 1512` each); the chain therefore reads
+`4/(σ−β) ≤ 3·7700 + 3 + 4·5 + 5/2 + 4·669.2 + 718.6 ≤ 26521`; and `σ = 1 + 1/7700` is the
+near-optimal offset for that constant (the maximum of `d(1−Cd)/(3+Cd)` sits at `C·d ≈ 0.464`).
+Branch 1 (pole dominance, `|γ| ≤ 1/5`) is unchanged apart from the numeral: the disk product is
+`(1/5 + 2·10⁻⁵)(6/5)(3) = 0.72007 < 1`. -/
+theorem zeta_zero_free_strip_sharp {ρ : ℂ} (hρ : riemannZeta ρ = 0) (him : |ρ.im| ≤ 1) :
+    ρ.re ≤ 1 - 1 / 50000 := by
+  by_contra hcon
+  rw [not_le] at hcon
+  have hβ1 : ρ.re < 1 := by
+    by_contra h
+    exact riemannZeta_ne_zero_of_one_le_re (not_lt.mp h) hρ
+  have hβhalf : (1 : ℝ) / 2 < ρ.re := by norm_num at hcon ⊢; linarith
+  have hγ0 : (0 : ℝ) ≤ |ρ.im| := abs_nonneg _
+  rcases le_or_gt |ρ.im| (1 / 5) with hγ | hγ
+  · -- ⟦BRANCH 1⟧ `|γ| ≤ 1/5`: the pole-dominance disk
+    refine zeta_ne_zero_of_pole_dominant (by linarith) ?_ hρ
+    have hd1 : ‖ρ - 1‖ ≤ 1 / 5 + 1 / 50000 := by
+      have h := Complex.norm_le_abs_re_add_abs_im (ρ - 1)
+      rw [Complex.sub_re, Complex.sub_im, Complex.one_re, Complex.one_im, sub_zero] at h
+      rw [abs_of_nonpos (by linarith : ρ.re - 1 ≤ 0)] at h
+      norm_num at hcon
+      linarith
+    have hd2 : ‖ρ‖ ≤ 6 / 5 := by
+      have h := Complex.norm_le_abs_re_add_abs_im ρ
+      rw [abs_of_nonneg (by linarith : (0 : ℝ) ≤ ρ.re)] at h
+      linarith
+    have hd3 : 1 + 1 / ρ.re ≤ 3 := by
+      have : 1 / ρ.re ≤ 2 := by
+        rw [div_le_iff₀ (by linarith)]; linarith
+      linarith
+    have hd0 : (0 : ℝ) ≤ ‖ρ - 1‖ := norm_nonneg _
+    have hd4 : (0 : ℝ) ≤ ‖ρ‖ := norm_nonneg _
+    have hd5 : (0 : ℝ) ≤ 1 + 1 / ρ.re := by positivity
+    have hA : ‖ρ‖ * (1 + 1 / ρ.re) ≤ 6 / 5 * 3 := mul_le_mul hd2 hd3 hd5 (by norm_num)
+    have hAnn : (0 : ℝ) ≤ ‖ρ‖ * (1 + 1 / ρ.re) := mul_nonneg hd4 hd5
+    have hB : ‖ρ - 1‖ * (‖ρ‖ * (1 + 1 / ρ.re)) ≤ (1 / 5 + 1 / 50000) * (6 / 5 * 3) :=
+      mul_le_mul hd1 hA hAnn (by norm_num)
+    calc ‖ρ - 1‖ * (‖ρ‖ * (1 + 1 / ρ.re)) ≤ (1 / 5 + 1 / 50000) * (6 / 5 * 3) := hB
+      _ < 1 := by norm_num
+  · -- ⟦BRANCH 2⟧ `1/5 < |γ| ≤ 1`: the 3-4-1 keep-one chain at the sharp constants
+    have him2 : |2 * ρ.im| ≤ 2 := by
+      rw [abs_mul]; norm_num; linarith [him]
+    set σ : ℝ := 1 + 1 / 7700 with hσdef
+    have hσ1 : 1 < σ := by rw [hσdef]; norm_num
+    have hσ2 : σ < 2 := by rw [hσdef]; norm_num
+    have h341 := three_four_one_logDeriv (1 : DirichletCharacter ℂ 1) hσ1 ρ.im
+    rw [show ((1 : DirichletCharacter ℂ 1) ^ 2) = 1 from one_pow 2] at h341
+    set s1 : ℂ := (σ : ℂ) + (ρ.im : ℂ) * I with hs1def
+    set s2 : ℂ := (σ : ℂ) + 2 * (ρ.im : ℂ) * I with hs2def
+    have hσ0C : (1 : ℝ) < ((σ : ℝ) : ℂ).re := by rw [Complex.ofReal_re]; exact hσ1
+    have hσ1C : (1 : ℝ) < s1.re := by rw [hs1def]; simpa using hσ1
+    have hσ2C : (1 : ℝ) < s2.re := by rw [hs2def]; simpa using hσ1
+    rw [neg_logDeriv_LSeries_eq (1 : DirichletCharacter ℂ 1) hσ0C,
+        neg_logDeriv_LSeries_eq (1 : DirichletCharacter ℂ 1) hσ1C,
+        neg_logDeriv_LSeries_eq (1 : DirichletCharacter ℂ 1) hσ2C] at h341
+    simp only [LFunction_modOne_eq] at h341
+    -- A₀ : the sharp real-`σ` pole bound
+    have hA0 : (-logDeriv riemannZeta (σ : ℂ)).re ≤ 1 / (σ - 1) + 1 := by
+      rw [logDeriv_apply, ← neg_div]; exact neg_logDeriv_zeta_le hσ1 hσ2.le
+    -- A₁ : the retained-zero bound at `s₁`, constant `120·log(4·66)`
+    have hA1 : (-logDeriv riemannZeta s1).re
+        ≤ (1 / (s1 - 1)).re + 120 * Real.log 264 - 1 / (σ - ρ.re) := by
+      have h := zeta_neg_re_logDeriv_le_keep_of_growth hρ hβhalf hβ1 hσ1 hσ2 (M := 66)
+        (by norm_num) (fun z hz => Zc_sphere_bound_height_one him hz)
+      rw [show (4 : ℝ) * 66 = 264 by norm_num] at h
+      rw [← hs1def] at h; exact h
+    -- A₂ : the drop-all bound at `s₂`, constant `120·log(4·96)`
+    have hA2 : (-logDeriv riemannZeta s2).re
+        ≤ (1 / (s2 - 1)).re + 120 * Real.log 384 := by
+      have h := zeta_neg_re_logDeriv_le_of_growth hσ1 hσ2.le (M := 96) (γ := ρ.im)
+        (by norm_num) (fun z hz => Zc_sphere_bound_height_two him2 hz)
+      rw [show (4 : ℝ) * 96 = 384 by norm_num] at h
+      rw [← hs2def] at h; exact h
+    -- the pole real parts at height `≥ 1/5`
+    have hP1 : (1 / (s1 - 1)).re ≤ 5 := by
+      have him1 : (s1 - 1).im = ρ.im := by
+        rw [hs1def]; simp [Complex.sub_im, Complex.add_im, Complex.mul_im, Complex.I_re,
+          Complex.I_im, Complex.ofReal_re, Complex.ofReal_im]
+      have hn : (1 : ℝ) / 5 ≤ ‖s1 - 1‖ := by
+        have h := Complex.abs_im_le_norm (s1 - 1); rw [him1] at h; linarith
+      calc (1 / (s1 - 1)).re ≤ ‖1 / (s1 - 1)‖ :=
+            le_trans (le_abs_self _) (Complex.abs_re_le_norm _)
+        _ = 1 / ‖s1 - 1‖ := by rw [norm_div, norm_one]
+        _ ≤ 5 := by rw [div_le_iff₀ (by linarith)]; linarith
+    have hP2 : (1 / (s2 - 1)).re ≤ 5 / 2 := by
+      have himm : (s2 - 1).im = 2 * ρ.im := by
+        rw [hs2def]; simp [Complex.sub_im, Complex.add_im, Complex.mul_im, Complex.I_re,
+          Complex.I_im, Complex.ofReal_re, Complex.ofReal_im]
+      have hn : (2 : ℝ) / 5 ≤ ‖s2 - 1‖ := by
+        have h := Complex.abs_im_le_norm (s2 - 1); rw [himm] at h
+        have h2 : |2 * ρ.im| = 2 * |ρ.im| := by rw [abs_mul]; norm_num
+        rw [h2] at h; linarith
+      calc (1 / (s2 - 1)).re ≤ ‖1 / (s2 - 1)‖ :=
+            le_trans (le_abs_self _) (Complex.abs_re_le_norm _)
+        _ = 1 / ‖s2 - 1‖ := by rw [norm_div, norm_one]
+        _ ≤ 5 / 2 := by rw [div_le_iff₀ (by linarith)]; linarith
+    have hpole : (1 : ℝ) / (σ - 1) = 7700 := by rw [hσdef]; norm_num
+    rw [hpole] at hA0
+    -- the Davenport chain at the sharp constants
+    have hkey : 4 * (1 / (σ - ρ.re)) ≤ 26521 := by
+      linarith [h341, hA0, hA1, hA2, hP1, hP2, log_264_le, log_384_le]
+    -- the numeric contradiction with `β > 1 − 2·10⁻⁵`
+    have hpos : 0 < σ - ρ.re := by rw [hσdef]; linarith
+    have hlt : σ - ρ.re ≤ 1 / 7700 + 1 / 50000 := by
+      rw [hσdef]; norm_num at hcon ⊢; linarith
+    have hinv : (1 : ℝ) / (1 / 7700 + 1 / 50000) ≤ 1 / (σ - ρ.re) :=
+      one_div_le_one_div_of_le hpos hlt
+    have hnum : (1 : ℝ) / (1 / 7700 + 1 / 50000) = 3850000 / 577 := by norm_num
+    rw [hnum] at hinv
+    linarith
+
+/-- The `∃`-shaped `_bounded` twin of the sharpened strip: `zeta_zero_free_strip` with its
+constant floored by `2·10⁻⁵`. -/
+theorem zeta_zero_free_strip_sharp_bounded :
+    ∃ ε₀ : ℝ, 0 < ε₀ ∧ 1 / 50000 ≤ ε₀ ∧
+      ∀ {ρ : ℂ}, riemannZeta ρ = 0 → |ρ.im| ≤ 1 → ρ.re ≤ 1 - ε₀ :=
+  ⟨1 / 50000, by norm_num, le_refl _, fun hρ him => zeta_zero_free_strip_sharp hρ him⟩
+
+set_option maxHeartbeats 800000 in
+-- Same budget and reason as `zeta_zero_free_region_explicit`.
+/-- **The explicit ζ zero-free region at the ORIGINAL literal.** Every zero `ρ` of `ζ` with
+`Re ρ ≥ 1/2` satisfies `Re ρ ≤ 1 − (1/75712)/log(|Im ρ| + 2)`.
+
+`zeta_zero_free_region`'s constant is `c₃ = min(1/75712, ε₀·log 2)` with `ε₀` opaque. §4 made it
+effective at the cost of the numeral (`c₃ = 10⁻⁷`); here the numeral is **recovered**: at
+`ε₀ = 2·10⁻⁵` the second argument is `1.386·10⁻⁵ > 1.3208·10⁻⁵ = 1/75712`, so the `min` is its
+first argument and the compactness leaf leaves no trace at all in the constant. The `|γ| ≥ 1`
+branch is the Davenport extraction verbatim (`dd/7 = 1/75712` exactly); the `|γ| < 1` branch is
+`zeta_zero_free_strip_sharp`. -/
+theorem zeta_zero_free_region_sharp {ρ : ℂ} (hρ : riemannZeta ρ = 0) (hre : 1 / 2 ≤ ρ.re) :
+    ρ.re ≤ 1 - (1 / 75712) / Real.log (|ρ.im| + 2) := by
+  set Lv : ℝ := Real.log (|ρ.im| + 2) with hLdef
+  have hLlog2 : Real.log 2 ≤ Lv := by
+    rw [hLdef]; exact Real.log_le_log (by norm_num) (by linarith [abs_nonneg ρ.im])
+  have hLpos : 0 < Lv := lt_of_lt_of_le (Real.log_pos (by norm_num)) hLlog2
+  have hβ1 : ρ.re < 1 := by
+    by_contra h; exact riemannZeta_ne_zero_of_one_le_re (not_lt.mp h) hρ
+  rcases le_or_gt 1 |ρ.im| with hγ1 | hγ1
+  · -- Case `|γ| ≥ 1`: the 3-4-1 keep-one region (verbatim)
+    have hL1 : (1 : ℝ) ≤ Lv := by
+      rw [hLdef]
+      have hexp : Real.exp 1 ≤ 3 := le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))
+      have h3 : (1 : ℝ) ≤ Real.log 3 := by
+        rw [← Real.log_exp 1]; exact Real.log_le_log (Real.exp_pos 1) hexp
+      exact le_trans h3 (Real.log_le_log (by norm_num) (by linarith [hγ1]))
+    rcases le_or_gt ρ.re (1 / 2) with hβ | hβ
+    · have hc₃Lv : (1 / 75712 : ℝ) / Lv ≤ 1 / 2 := by
+        rw [div_le_iff₀ hLpos]; nlinarith [hL1]
+      linarith
+    · set dd : ℝ := 1 / 10816 with hdddef
+      have hddpos : (0 : ℝ) < dd := by norm_num
+      have hddlt1 : dd < 1 := by rw [hdddef]; norm_num
+      set σ : ℝ := 1 + dd / Lv with hσdef
+      have hddL : dd / Lv ≤ dd := by rw [div_le_iff₀ hLpos]; nlinarith [hL1, hddpos]
+      have hσ1 : 1 < σ := by
+        rw [hσdef]; have : 0 < dd / Lv := div_pos hddpos hLpos; linarith
+      have hσ2 : σ < 2 := by rw [hσdef]; linarith [hddL, hddlt1]
+      have h341 := three_four_one_logDeriv (1 : DirichletCharacter ℂ 1) hσ1 ρ.im
+      rw [show ((1 : DirichletCharacter ℂ 1) ^ 2) = 1 from one_pow 2] at h341
+      set s1 : ℂ := (σ : ℂ) + (ρ.im : ℂ) * I with hs1def
+      set s2 : ℂ := (σ : ℂ) + 2 * (ρ.im : ℂ) * I with hs2def
+      have hσ0C : (1 : ℝ) < ((σ : ℝ) : ℂ).re := by rw [Complex.ofReal_re]; exact hσ1
+      have hσ1C : (1 : ℝ) < s1.re := by rw [hs1def]; simpa using hσ1
+      have hσ2C : (1 : ℝ) < s2.re := by rw [hs2def]; simpa using hσ1
+      rw [neg_logDeriv_LSeries_eq (1 : DirichletCharacter ℂ 1) hσ0C,
+          neg_logDeriv_LSeries_eq (1 : DirichletCharacter ℂ 1) hσ1C,
+          neg_logDeriv_LSeries_eq (1 : DirichletCharacter ℂ 1) hσ2C] at h341
+      simp only [LFunction_modOne_eq] at h341
+      have hA0 : (-logDeriv riemannZeta (σ : ℂ)).re ≤ 1 / (σ - 1) + 1 := by
+        rw [logDeriv_apply, ← neg_div]; exact neg_logDeriv_zeta_le hσ1 hσ2.le
+      have hA1 : (-logDeriv riemannZeta s1).re
+          ≤ (1 / (s1 - 1)).re + 1080 * Real.log (|ρ.im| + 2) - 1 / (σ - ρ.re) := by
+        have h := zeta_neg_re_logDeriv_le_keep hρ hβ hβ1 hσ1 hσ2
+        rw [← hs1def] at h; exact h
+      have hA2 : (-logDeriv riemannZeta s2).re
+          ≤ (1 / (s2 - 1)).re + 1080 * Real.log (|ρ.im| + 2) := by
+        have h := zeta_neg_re_logDeriv_le hσ1 hσ2.le (γ := ρ.im)
+        rw [← hs2def] at h; exact h
+      have hP1 : (1 / (s1 - 1)).re ≤ 1 := by
+        have him : (s1 - 1).im = ρ.im := by
+          rw [hs1def]; simp [Complex.sub_im, Complex.add_im, Complex.mul_im, Complex.I_re,
+            Complex.I_im, Complex.ofReal_re, Complex.ofReal_im]
+        have hn : (1 : ℝ) ≤ ‖s1 - 1‖ := by
+          have h := Complex.abs_im_le_norm (s1 - 1); rw [him] at h; linarith [hγ1]
+        calc (1 / (s1 - 1)).re ≤ ‖1 / (s1 - 1)‖ :=
+              le_trans (le_abs_self _) (Complex.abs_re_le_norm _)
+          _ = 1 / ‖s1 - 1‖ := by rw [norm_div, norm_one]
+          _ ≤ 1 := by rw [div_le_one (by linarith : (0 : ℝ) < ‖s1 - 1‖)]; exact hn
+      have hP2 : (1 / (s2 - 1)).re ≤ 1 := by
+        have him : (s2 - 1).im = 2 * ρ.im := by
+          rw [hs2def]; simp [Complex.sub_im, Complex.add_im, Complex.mul_im, Complex.I_re,
+            Complex.I_im, Complex.ofReal_re, Complex.ofReal_im]
+        have hn : (1 : ℝ) ≤ ‖s2 - 1‖ := by
+          have h := Complex.abs_im_le_norm (s2 - 1); rw [him] at h
+          have h2 : (2 : ℝ) * |ρ.im| = |2 * ρ.im| := by rw [abs_mul]; norm_num
+          nlinarith [hγ1, h, h2, abs_nonneg (2 * ρ.im)]
+        calc (1 / (s2 - 1)).re ≤ ‖1 / (s2 - 1)‖ :=
+              le_trans (le_abs_self _) (Complex.abs_re_le_norm _)
+          _ = 1 / ‖s2 - 1‖ := by rw [norm_div, norm_one]
+          _ ≤ 1 := by rw [div_le_one (by linarith : (0 : ℝ) < ‖s2 - 1‖)]; exact hn
+      have e8 : (8 : ℝ) ≤ 8 * Lv := by nlinarith [hL1]
+      have key : 4 * (1 / (σ - ρ.re)) ≤ 3 * (1 / (σ - 1)) + 5408 * Lv := by
+        linarith [h341, hA0, hA1, hA2, hP1, hP2, e8, hLdef]
+      have hchain' : 4 / (dd / Lv + (1 - ρ.re)) ≤ 3 / (dd / Lv) + 5408 * Lv := by
+        rw [mul_one_div, mul_one_div] at key
+        have e1 : σ - ρ.re = dd / Lv + (1 - ρ.re) := by rw [hσdef]; ring
+        have e2 : σ - 1 = dd / Lv := by rw [hσdef]; ring
+        rw [e1, e2] at key; exact key
+      have hCdd : (5408 : ℝ) * dd = 1 / 2 := by rw [hdddef]; norm_num
+      have hext := zero_free_extraction hLpos hddpos hCdd hβ1 hchain'
+      have hfin : (1 / 75712 : ℝ) / Lv ≤ dd / (7 * Lv) := by
+        rw [show dd / (7 * Lv) = dd / 7 / Lv from (div_div dd 7 Lv).symm,
+            div_le_div_iff_of_pos_right hLpos, hdddef]
+        norm_num
+      linarith [hext, hfin]
+  · -- Case `|γ| < 1`: the SHARPENED fixed zero-free strip
+    have hst := zeta_zero_free_strip_sharp hρ (le_of_lt hγ1)
+    have hc₃Lv : (1 / 75712 : ℝ) / Lv ≤ 1 / 50000 := by
+      rw [div_le_iff₀ hLpos]
+      have h2 : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+      linarith [hLlog2, h2]
+    linarith
+
+/-- The `∃`-shaped `_bounded` twin of the sharpened region: `zeta_zero_free_region`'s constant
+floored by `1/75712` — the literal of its own first `min` argument. -/
+theorem zeta_zero_free_region_sharp_bounded :
+    ∃ c₃ : ℝ, 0 < c₃ ∧ 1 / 75712 ≤ c₃ ∧ ∀ {ρ : ℂ}, riemannZeta ρ = 0 → 1 / 2 ≤ ρ.re →
+      ρ.re ≤ 1 - c₃ / Real.log (|ρ.im| + 2) :=
+  ⟨1 / 75712, by norm_num, le_refl _, fun hρ hre => zeta_zero_free_region_sharp hρ hre⟩
+
 end Salt.SW
