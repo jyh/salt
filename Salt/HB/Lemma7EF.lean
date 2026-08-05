@@ -642,4 +642,143 @@ theorem efShiftError_le_efShiftBound {q : ℕ} {T₀ σa σb T σ₀ w x : ℝ}
       exact mul_nonneg this (le_of_lt hex)
     exact mul_le_mul_of_nonneg_left h2T hlgnn
 
+/-! ## 6. Discharging the ceiling binder — the two ranges (W2b, part (b))
+
+`psiDefect_norm_le_of_ef` carries one abstract ceiling binder `hceil`.  This section discharges
+it, in the freeze's two ranges, against the landed artillery.  The Range-A stone is the
+**`erase`-form** of `boxZeros_re_le_of_repulsion`: the packaged version cannot be used at all on a
+box containing `β₀`, because its `hreal` demands every real box zero obey the repulsion ceiling
+and `β₀` by construction does not.  Here `hreal′` carries the escape `ρ ≠ β₀` explicitly, and
+`hord` (T-BAL-UNORDERED) and `hN+` (D2's regime form) enter the block as named binders. -/
+
+/-- **RANGE A — the Deuring–Heilbronn ceiling, `β₀` excepted** (the `erase`-form).  Every zero of
+`L(·,χ)` other than `β₀` in the strip `9/10 ≤ Re ρ ≤ 1`, `|Im ρ| ≤ T` obeys the repulsion ceiling
+at the box top `Q = q(T+2)`.  `hrep` is `dh_repulsion_tall`'s contract specialised at `χ, β₀`
+(height-free, so no `|Im ρ| ≤ T` appears in it); `hord` is the named T-BAL-UNORDERED deviation;
+`hreal′` is the real-zero binder RESTATED over the erased box (D4); `hN` is `hN+`'s
+non-vacuousness statement at the box top; `hceil16` covers the discarded strip `Re ρ < 16/17`
+for free. -/
+theorem re_le_repulsionCeiling_of_ne {q : ℕ} [NeZero q] {χ : DirichletCharacter ℂ q}
+    (hχ1 : χ ≠ 1) {b c k β₀ T : ℝ} (hb : 0 < b) (hc : 0 < c) (hk : 0 ≤ k)
+    (hq : 2 ≤ q) (hβ₀1 : β₀ < 1)
+    (hrep : ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ.im ≠ 0 → 16 / 17 ≤ ρ.re → ρ.re < 1 → ρ.re ≤ β₀ →
+      c * ((q : ℝ) * (|ρ.im| + 2)) ^ (-(b * (1 - ρ.re)))
+        / (Real.log ((q : ℝ) * (|ρ.im| + 2)) + 2) ^ k ≤ 1 - β₀)
+    (hord : ∀ ρ : ℂ, LFunction χ ρ = 0 → 9 / 10 ≤ ρ.re → ρ.re ≤ 1 → |ρ.im| ≤ T → ρ.re ≤ β₀)
+    (hreal : ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ.im = 0 → ρ ≠ (β₀ : ℂ) → 9 / 10 ≤ ρ.re → ρ.re ≤ 1 →
+      |ρ.im| ≤ T → ρ.re ≤ repulsionCeiling b c k ((q : ℝ) * (T + 2)) (1 - β₀))
+    (hceil16 : 16 / 17 ≤ repulsionCeiling b c k ((q : ℝ) * (T + 2)) (1 - β₀))
+    (hN : 0 ≤ Real.log (1 / (1 - β₀)) - Real.log (1 / c)
+      - k * Real.log (Real.log ((q : ℝ) * (T + 2)) + 2)) :
+    ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ ≠ (β₀ : ℂ) → 9 / 10 ≤ ρ.re → ρ.re ≤ 1 → |ρ.im| ≤ T →
+      ρ.re ≤ repulsionCeiling b c k ((q : ℝ) * (T + 2)) (1 - β₀) := by
+  intro ρ hzero hne hlo hhi him
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hu : (0 : ℝ) < 1 - β₀ := by linarith
+  have hlt1 : ρ.re < 1 := by
+    rcases lt_or_eq_of_le hhi with h | h
+    · exact h
+    · exact absurd hzero (LFunction_ne_zero_of_one_le_re χ (Or.inl hχ1) (le_of_eq h.symm))
+  rcases le_or_gt (16 / 17 : ℝ) ρ.re with hwin | hwin
+  · rcases eq_or_ne ρ.im 0 with hre0 | hre0
+    · exact hreal ρ hzero hre0 hne hlo hhi him
+    · have hQρ1 : (1 : ℝ) < (q : ℝ) * (|ρ.im| + 2) := by nlinarith [abs_nonneg ρ.im]
+      have hQρle : (q : ℝ) * (|ρ.im| + 2) ≤ (q : ℝ) * (T + 2) := by
+        nlinarith [abs_nonneg ρ.im]
+      have hstep := repulsion_ceiling_of_contract (σ := ρ.re) hb hc hQρ1 hu
+        (hrep ρ hzero hre0 hwin hlt1 (hord ρ hzero hlo hhi him))
+      exact le_trans hstep (repulsionCeiling_mono hb hk hQρ1 hQρle hN)
+  · linarith [hceil16]
+
+/-- **RANGE A, packaged off `dh_repulsion_tall`.**  The artillery's own `(b,c,k)` — the
+height-free contract — delivered together with the erased-box ceiling it forces, at every height
+`T`.  `hord`/`hreal′`/`hN+` ride as named binders exactly as the freeze's §1 says. -/
+theorem exists_repulsion_ceiling_of_ne {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hχ1 : χ ≠ 1) (hχ2 : χ ^ 2 = 1) (hq : 2 ≤ q) {β₀ : ℝ}
+    (hβ₀zero : LFunction χ (β₀ : ℂ) = 0) (hβ₀half : 1 / 2 < β₀) (hβ₀1 : β₀ < 1) :
+    ∃ b c k : ℝ, 0 < b ∧ 0 < c ∧ 0 ≤ k ∧
+      ∀ T : ℝ,
+        (∀ ρ : ℂ, LFunction χ ρ = 0 → 9 / 10 ≤ ρ.re → ρ.re ≤ 1 → |ρ.im| ≤ T → ρ.re ≤ β₀) →
+        (∀ ρ : ℂ, LFunction χ ρ = 0 → ρ.im = 0 → ρ ≠ (β₀ : ℂ) → 9 / 10 ≤ ρ.re → ρ.re ≤ 1 →
+          |ρ.im| ≤ T → ρ.re ≤ repulsionCeiling b c k ((q : ℝ) * (T + 2)) (1 - β₀)) →
+        16 / 17 ≤ repulsionCeiling b c k ((q : ℝ) * (T + 2)) (1 - β₀) →
+        0 ≤ Real.log (1 / (1 - β₀)) - Real.log (1 / c)
+          - k * Real.log (Real.log ((q : ℝ) * (T + 2)) + 2) →
+        ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ ≠ (β₀ : ℂ) → 9 / 10 ≤ ρ.re → ρ.re ≤ 1 → |ρ.im| ≤ T →
+          ρ.re ≤ repulsionCeiling b c k ((q : ℝ) * (T + 2)) (1 - β₀) := by
+  obtain ⟨b, c, k, hb, hc, hk, hDH⟩ := dh_repulsion_tall
+  refine ⟨b, c, k, hb, hc, hk, fun T hord hreal hceil16 hN => ?_⟩
+  exact re_le_repulsionCeiling_of_ne hχ1 hb hc hk hq hβ₀1
+    (fun ρ hz him hwin hlt hle =>
+      hDH q χ hχ hχ1 hχ2 hq β₀ hβ₀zero hβ₀half hβ₀1 ρ hz him hwin hlt hle)
+    hord hreal hceil16 hN
+
+/-- **RANGE B — the classical zero-free region, `β₀` excepted.**  Above `Y₁` the repulsion
+contract goes vacuous (its `−k·log(log Q + 2)` correction eats the numerator), and D4's fallback
+is `zero_free_region_all`.  That region covers ONLY the complex zeros of a real character — its
+side condition `χ² ≠ 1 ∨ Im ρ ≠ 0` excludes the real ones — so `hreal′` is carried here too,
+at whatever ceiling the caller supplies (D4: the repulsion ceiling, the stronger of the two, so
+ONE binder serves both ranges). -/
+theorem re_le_of_zeroFree_of_ne {q : ℕ} [NeZero q] {χ : DirichletCharacter ℂ q}
+    {c₀ β₀ T bc : ℝ} (hq : 2 ≤ q) (hc₀ : 0 < c₀)
+    (hZFR : ∀ ρ : ℂ, LFunction χ ρ = 0 → 1 / 2 ≤ ρ.re → (χ ^ 2 ≠ 1 ∨ ρ.im ≠ 0) →
+      ρ.re ≤ 1 - c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)))
+    (hreal : ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ.im = 0 → ρ ≠ (β₀ : ℂ) → 9 / 10 ≤ ρ.re → ρ.re ≤ 1 →
+      |ρ.im| ≤ T → ρ.re ≤ bc)
+    (hbc : 1 - c₀ / Real.log ((q : ℝ) * (T + 2)) ≤ bc) :
+    ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ ≠ (β₀ : ℂ) → 9 / 10 ≤ ρ.re → ρ.re ≤ 1 → |ρ.im| ≤ T →
+      ρ.re ≤ bc := by
+  intro ρ hzero hne hlo hhi him
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  rcases eq_or_ne ρ.im 0 with hre0 | hre0
+  · exact hreal ρ hzero hre0 hne hlo hhi him
+  · have h := hZFR ρ hzero (by linarith) (Or.inr hre0)
+    have hQ1 : (1 : ℝ) < (q : ℝ) * (|ρ.im| + 2) := by nlinarith [abs_nonneg ρ.im]
+    have hQ2 : (q : ℝ) * (|ρ.im| + 2) ≤ (q : ℝ) * (T + 2) := by nlinarith [abs_nonneg ρ.im]
+    have hl1 : (0 : ℝ) < Real.log ((q : ℝ) * (|ρ.im| + 2)) := Real.log_pos hQ1
+    have hl2 : Real.log ((q : ℝ) * (|ρ.im| + 2)) ≤ Real.log ((q : ℝ) * (T + 2)) :=
+      Real.log_le_log (by linarith) hQ2
+    have hdiv : c₀ / Real.log ((q : ℝ) * (T + 2)) ≤ c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)) :=
+      div_le_div_of_nonneg_left (le_of_lt hc₀) hl1 hl2
+    linarith
+
+/-- **THE COMPOSITE WITH `hceil` DISCHARGED, RANGE A.**  `psiDefect_norm_le_of_ef` fired at the
+repulsion ceiling: `hceil` is replaced by `hord`, `hreal′` and `hN+` — the freeze's own binder
+set — with the artillery's `(b,c,k)` obtained from `dh_repulsion_tall`. -/
+theorem psiDefect_norm_le_rangeA {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hχ2 : χ ^ 2 = 1) (hq : 2 ≤ q) {β₀ u h σa σb T₀ : ℝ}
+    (hu : 3 ≤ u) (hh : 0 < h) (hσa : 9 / 10 ≤ σa) (hσab : σa < σb) (hσb : σb < 1)
+    (hT₀ : 2 ≤ T₀) (hβ₀half : 1 / 2 < β₀) (hβ₀1 : β₀ < 1) (hσbβ₀ : σb ≤ β₀)
+    (hβ₀zero : LFunction χ (β₀ : ℂ) = 0) :
+    ∃ b c k : ℝ, 0 < b ∧ 0 < c ∧ 0 ≤ k ∧
+      ((∀ ρ : ℂ, LFunction χ ρ = 0 → 9 / 10 ≤ ρ.re → ρ.re ≤ 1 → |ρ.im| ≤ T₀ + 1 → ρ.re ≤ β₀) →
+       (∀ ρ : ℂ, LFunction χ ρ = 0 → ρ.im = 0 → ρ ≠ (β₀ : ℂ) → 9 / 10 ≤ ρ.re → ρ.re ≤ 1 →
+          |ρ.im| ≤ T₀ + 1 →
+          ρ.re ≤ repulsionCeiling b c k ((q : ℝ) * (T₀ + 3)) (1 - β₀)) →
+       16 / 17 ≤ repulsionCeiling b c k ((q : ℝ) * (T₀ + 3)) (1 - β₀) →
+       0 ≤ Real.log (1 / (1 - β₀)) - Real.log (1 / c)
+          - k * Real.log (Real.log ((q : ℝ) * (T₀ + 3)) + 2) →
+       ∃ σ₀ T w : ℝ,
+        (σa ≤ σ₀ ∧ σ₀ ≤ σb) ∧ (T₀ ≤ T ∧ T ≤ T₀ + 1) ∧ 0 < w ∧
+        (σb - σa) / (4 * (137 * (2 * T₀ + 7) * Real.log ((q : ℝ) * (T₀ + 5)) + 1)) ≤ w ∧
+        ‖psiDefect χ β₀ (zeroMult χ (β₀ : ℂ)) u‖
+          ≤ (h + 1) * Real.log (u + h)
+            + (efShiftError q T σ₀ w u + efShiftError q T σ₀ w (u + h)) / h
+            + ((zeroMult χ (β₀ : ℂ) : ℝ) * (h * u ^ (β₀ - 1))
+                + h * u ^ (repulsionCeiling b c k ((q : ℝ) * (T₀ + 3)) (1 - β₀) - 1)
+                  * (137 * (2 * T + 3) * Real.log ((q : ℝ) * (T + 3))))
+            + u ^ (repulsionCeiling b c k ((q : ℝ) * (T₀ + 3)) (1 - β₀))
+              * (137 * Real.log ((q : ℝ) * (T + 3)) * (8 + 4 * Real.log (T + 1)))) := by
+  have hχ1 : χ ≠ 1 := ne_one_of_isPrimitive χ hχ hq
+  obtain ⟨b, c, k, hb, hc, hk, hceilA⟩ :=
+    exists_repulsion_ceiling_of_ne χ hχ hχ1 hχ2 hq hβ₀zero hβ₀half hβ₀1
+  refine ⟨b, c, k, hb, hc, hk, fun hord hreal hceil16 hN => ?_⟩
+  have hbase : (q : ℝ) * (T₀ + 1 + 2) = (q : ℝ) * (T₀ + 3) := by ring
+  exact psiDefect_norm_le_of_ef χ hχ hq hu hh hσa hσab hσb hT₀ (le_of_lt hβ₀1) hσbβ₀ hβ₀zero
+    (by
+      have := hceilA (T₀ + 1) hord (by rw [hbase]; exact hreal) (by rw [hbase]; exact hceil16)
+        (by rw [hbase]; exact hN)
+      rw [hbase] at this
+      exact this)
+
 end Salt.HB

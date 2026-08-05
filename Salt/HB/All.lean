@@ -200,3 +200,5 @@ open Salt.Tactic in
   Salt.HB.logChiSum_add_mainTerm_norm_le
   Salt.HB.psiDefect_norm_le_of_ef
   Salt.HB.rpow_c_add_one Salt.HB.efShiftError_le_efShiftBound
+  Salt.HB.re_le_repulsionCeiling_of_ne Salt.HB.exists_repulsion_ceiling_of_ne
+  Salt.HB.re_le_of_zeroFree_of_ne Salt.HB.psiDefect_norm_le_rangeA
