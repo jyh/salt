@@ -233,14 +233,23 @@ set_option maxHeartbeats 2400000 in
 -- enumerated removable singularity is filled, whatever the orders), and re-attaches `m_ρ`
 -- `kernel_residue` applications per enumerated zero. The copied edge/tail estimates plus the
 -- `E`-arithmetic need the same headroom the wave-2 variant needed, plus the scaling algebra.
-/-- **A1-M — the contour-shift bound at an enumerated zero set, WITH MULTIPLICITY.** Wave 2's
-`psi1_contour_shift_finset` with its `hZsimple` hypothesis **deleted**:
+/-- **A1-M — the contour-shift bound at an enumerated zero set, WITH MULTIPLICITY, AT THE GAP
+HYPOTHESIS (N4B-W0.5).** Wave 2's `psi1_contour_shift_finset` with its `hZsimple` hypothesis
+**deleted** and its `hZall` **weakened to the width-`w` gap form**:
 
 * `hZsep` — every `ρ ∈ Z` is `w`-separated from the left and horizontal edges (unchanged);
 * `hZzero` — every `ρ ∈ Z` **is a zero** (what wave 2 *derived* from `hZsimple`; free at
   `Z = boxZeros`);
-* `hZall` — `Z` contains every zero in the widened box region (unchanged; the contour identity is
-  an equality, so nothing may be left out).
+* `hZall` — every zero in the widened box region is **either enumerated or `w`-above the
+  contour's horizontal edges**: `ρ ∈ Z ∨ T + w ≤ |Im ρ|`.
+
+The old hypothesis (`… → ρ ∈ Z`, demanding a *zero-free band of width 2* above the contour) is the
+`Or.inl` specialization — `psi1_contour_shift_finsetM` below, statement untouched. The weakened
+form is what makes the well-spacing binder `hsep` a **pigeonhole theorem** rather than an
+assumption: only a width-`2w` band must be cleared, and `w` may be taken as small as the zero
+count allows. Nothing in the estimates changes — `hZall` is read at exactly two sites (box
+non-vanishing off `Z`, and the edge-distance argument `hdist_edge`), and at both the new right
+disjunct closes the goal directly (`|Im| ≤ T` on the contour vs `T + w ≤ |Im ρ|`).
 
 The shift picks up **`m_ρ` residues per enumerated zero**:
 
@@ -248,12 +257,13 @@ The shift picks up **`m_ρ` residues per enumerated zero**:
 
 with `E = efShiftError f T σ₀ w x` **identical** to wave 2's, hence to the landed
 `psi1_contour_shift_exceptional` bound: no estimate in the argument reads a zero's order. -/
-theorem psi1_contour_shift_finsetM {f : ℕ} [NeZero f] (χ : DirichletCharacter ℂ f)
+theorem psi1_contour_shift_finsetM_gap {f : ℕ} [NeZero f] (χ : DirichletCharacter ℂ f)
     (hχ : χ.IsPrimitive) (hf : 2 ≤ f) {x : ℝ} (hx : 3 ≤ x) {T σ₀ w : ℝ} {Z : Finset ℂ}
     (hT : 2 ≤ T) (hw : 0 < w) (hσ₀w : 9 / 10 ≤ σ₀ - w) (hσ₀1 : σ₀ < 1)
     (hZsep : ∀ ρ ∈ Z, σ₀ + w ≤ ρ.re ∧ |ρ.im| + w ≤ T)
     (hZzero : ∀ ρ ∈ Z, LFunction χ ρ = 0)
-    (hZall : ∀ ρ : ℂ, LFunction χ ρ = 0 → σ₀ - w ≤ ρ.re → ρ.re ≤ 1 → |ρ.im| ≤ T + 2 → ρ ∈ Z) :
+    (hZall : ∀ ρ : ℂ, LFunction χ ρ = 0 → σ₀ - w ≤ ρ.re → ρ.re ≤ 1 → |ρ.im| ≤ T + 2 →
+      ρ ∈ Z ∨ T + w ≤ |ρ.im|) :
     ‖psi1Chi x χ + efRieszSumM χ Z x‖ ≤ efShiftError f T σ₀ w x := by
   classical
   rw [efShiftError]
@@ -341,7 +351,9 @@ theorem psi1_contour_shift_finsetM {f : ℕ} [NeZero f] (χ : DirichletCharacter
     intro s hsl hsu hsi hsZ hs0
     by_cases h1 : 1 ≤ s.re
     · exact LFunction_ne_zero_of_one_le_re χ (Or.inl hχ1) h1 hs0
-    · exact hsZ (hZall s hs0 (by linarith) (not_le.mp h1).le (by linarith))
+    · rcases hZall s hs0 (by linarith) (not_le.mp h1).le (by linarith) with hmem | hfar
+      · exact hsZ hmem
+      · linarith
   -- THE LOCAL FACTORIZATIONS, at the honest multiplicities (no simplicity)
   choose g hg_ana hg_ne hg_eq using LFunction_local_factor (χ := χ) hχ1
   -- the de-singularized log-derivative, multiplicity-weighted
@@ -657,14 +669,21 @@ theorem psi1_contour_shift_finsetM {f : ℕ} [NeZero f] (χ : DirichletCharacter
         have hb : |s.im| - |ρ.im| ≤ |s.im - ρ.im| := abs_sub_abs_le_abs_sub _ _
         rw [him] at hb
         linarith
-    · have hρre2 : ρ.re ≤ σ₀ - w := by
-        by_contra hcon
-        exact hρZ (hZall ρ hρ0 (le_of_lt (not_le.mp hcon)) hρre1.le hρim)
-      have hre := Complex.abs_re_le_norm (s - ρ)
-      rw [Complex.sub_re] at hre
-      calc w ≤ s.re - ρ.re := by linarith
-        _ = |s.re - ρ.re| := (abs_of_nonneg (by linarith)).symm
-        _ ≤ ‖s - ρ‖ := hre
+    · by_cases hρre2 : ρ.re ≤ σ₀ - w
+      · have hre := Complex.abs_re_le_norm (s - ρ)
+        rw [Complex.sub_re] at hre
+        calc w ≤ s.re - ρ.re := by linarith
+          _ = |s.re - ρ.re| := (abs_of_nonneg (by linarith)).symm
+          _ ≤ ‖s - ρ‖ := hre
+      · -- the gap disjunct: `ρ` is not enumerated and sits inside the strip, so it is `w` above
+        -- the horizontal edges, and the *imaginary* distance already exceeds `w`
+        rcases hZall ρ hρ0 (le_of_lt (not_le.mp hρre2)) hρre1.le hρim with hmem | hfar
+        · exact absurd hmem hρZ
+        · have him := Complex.abs_im_le_norm (s - ρ)
+          rw [Complex.sub_im] at him
+          have hb : |ρ.im| - |s.im| ≤ |ρ.im - s.im| := abs_sub_abs_le_abs_sub _ _
+          rw [abs_sub_comm] at hb
+          linarith
   -- edge bound constant and the horizontal pointwise estimate
   set Cbnd : ℝ := x ^ (c + 1) * B / T ^ 2 with hCbnd
   have hxc1pos : (0 : ℝ) < x ^ (c + 1) := by positivity
@@ -864,6 +883,34 @@ theorem psi1_contour_shift_finsetM {f : ℕ} [NeZero f] (χ : DirichletCharacter
         linarith [h1, hTAILb]
     _ = 2 * (c - σ₀) * B * x ^ (c + 1) / T ^ 2 + B * x ^ (σ₀ + 1) * (Real.pi / σ₀)
           + (Real.log x + 1) * x ^ (c + 1) * (2 / T) := by ring
+
+/-- **A1-M — the contour-shift bound at an enumerated zero set, WITH MULTIPLICITY.** Wave 2's
+`psi1_contour_shift_finset` with its `hZsimple` hypothesis **deleted**:
+
+* `hZsep` — every `ρ ∈ Z` is `w`-separated from the left and horizontal edges (unchanged);
+* `hZzero` — every `ρ ∈ Z` **is a zero** (what wave 2 *derived* from `hZsimple`; free at
+  `Z = boxZeros`);
+* `hZall` — `Z` contains every zero in the widened box region (unchanged; the contour identity is
+  an equality, so nothing may be left out).
+
+The shift picks up **`m_ρ` residues per enumerated zero**:
+
+    ‖ψ₁(x,χ) + ∑_{ρ ∈ Z} m_ρ·x^{ρ+1}/(ρ(ρ+1))‖ ≤ E,
+
+with `E = efShiftError f T σ₀ w x` **identical** to wave 2's, hence to the landed
+`psi1_contour_shift_exceptional` bound: no estimate in the argument reads a zero's order.
+
+Statement unchanged since wave 3; the proof is now the `Or.inl` specialization of the gap form
+`psi1_contour_shift_finsetM_gap`. -/
+theorem psi1_contour_shift_finsetM {f : ℕ} [NeZero f] (χ : DirichletCharacter ℂ f)
+    (hχ : χ.IsPrimitive) (hf : 2 ≤ f) {x : ℝ} (hx : 3 ≤ x) {T σ₀ w : ℝ} {Z : Finset ℂ}
+    (hT : 2 ≤ T) (hw : 0 < w) (hσ₀w : 9 / 10 ≤ σ₀ - w) (hσ₀1 : σ₀ < 1)
+    (hZsep : ∀ ρ ∈ Z, σ₀ + w ≤ ρ.re ∧ |ρ.im| + w ≤ T)
+    (hZzero : ∀ ρ ∈ Z, LFunction χ ρ = 0)
+    (hZall : ∀ ρ : ℂ, LFunction χ ρ = 0 → σ₀ - w ≤ ρ.re → ρ.re ≤ 1 → |ρ.im| ≤ T + 2 → ρ ∈ Z) :
+    ‖psi1Chi x χ + efRieszSumM χ Z x‖ ≤ efShiftError f T σ₀ w x :=
+  psi1_contour_shift_finsetM_gap χ hχ hf hx hT hw hσ₀w hσ₀1 hZsep hZzero
+    (fun ρ h1 h2 h3 h4 => Or.inl (hZall ρ h1 h2 h3 h4))
 
 /-! ## 4. The weighted de-smoothing and the weighted capstone
 
