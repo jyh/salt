@@ -485,4 +485,161 @@ theorem psiDefect_norm_le_of_ef {q : ℕ} [NeZero q] (χ : DirichletCharacter �
           + h * u ^ (bceil - 1) * (137 * (2 * T + 3) * Real.log ((q : ℝ) * (T + 3)))))
   linarith [this, hspend]
 
+/-! ## 5. Uniformising the contour budget over the pigeonholed parameters
+
+`psi_explicit_sharpM_perZero_unsep` hands back `(σ₀, T, w)` from an internal pigeonhole, so an
+envelope `G` — which must be a *function of `u` alone* — has to dominate `efShiftError q T σ₀ w ·`
+uniformly over `σ₀ ∈ [σa,σb]`, `T ∈ [T₀,T₀+1]`, `w ≥ w₀`.  That is what this section does. -/
+
+/-- `x^{c+1} = e·x²` at `c = 1 + 1/log x` — the one rpow identity the contour budget needs
+(`efShiftError`'s two `x^{(1+1/log x)+1}` factors). -/
+lemma rpow_c_add_one {x : ℝ} (hx : 3 ≤ x) :
+    x ^ ((1 + 1 / Real.log x) + 1) = Real.exp 1 * x ^ (2 : ℕ) := by
+  have hx0 : (0 : ℝ) < x := by linarith
+  have hlogpos : (0 : ℝ) < Real.log x := Real.log_pos (by linarith)
+  have hsplit : (1 + 1 / Real.log x) + 1 = (2 : ℝ) + 1 / Real.log x := by ring
+  rw [hsplit, Real.rpow_add hx0, Real.rpow_def_of_pos hx0 (1 / Real.log x)]
+  rw [show Real.log x * (1 / Real.log x) = 1 from by field_simp]
+  rw [show (2 : ℝ) = ((2 : ℕ) : ℝ) from by norm_num, Real.rpow_natCast]
+  ring
+
+/-- **The uniform Borel–Carathéodory/Jensen edge constant** on the pigeonhole's parameter box:
+`B = 120·L₄ + L₄/log(7/6)/w ≤ efShiftB q T₀ σa σb` whenever `T ≤ T₀+1` and `w ≥ w₀`. -/
+noncomputable def efShiftB (q : ℕ) (T₀ σa σb : ℝ) : ℝ :=
+  (120 + 4 * (137 * (2 * T₀ + 7) * Real.log ((q : ℝ) * (T₀ + 5)) + 1)
+      / (Real.log (7 / 6) * (σb - σa)))
+    * Real.log (4 * (5 * (5 + T₀) * Real.sqrt q * (1 + Real.log q)))
+
+/-- **The uniform contour budget.**  `efShiftError q T σ₀ w x ≤ efShiftBound q T₀ σa σb x` for
+every `(σ₀,T,w)` the pigeonhole can produce. -/
+noncomputable def efShiftBound (q : ℕ) (T₀ σa σb x : ℝ) : ℝ :=
+  (1 / (2 * Real.pi)) *
+    (2 * ((1 + 1 / Real.log x) - σa) * efShiftB q T₀ σa σb * (Real.exp 1 * x ^ (2 : ℕ)) / T₀ ^ 2
+      + efShiftB q T₀ σa σb * x ^ (σb + 1) * (Real.pi / σa)
+      + (Real.log x + 1) * (Real.exp 1 * x ^ (2 : ℕ)) * (2 / T₀))
+
+set_option maxHeartbeats 1000000 in
+-- Three independent monotonicity rows, each a `mul_le_mul` chain over a five-factor product
+-- (edge constant × rpow × 1/T-power), plus the `x^{c+1} = e·x²` rewrite; the elaborator needs
+-- the same headroom the landed contour-shift assembly needed.
+/-- **THE UNIFORMISATION (N4b W2, the ledger row's Lean form).**  Over the parameter box the
+`exists_contour_params` pigeonhole ranges in, the landed contour budget is dominated by an
+explicit function of `x` alone.  The three summands are, in order, the horizontal edges, the
+left edge (`B·x^{σ₀+1}·π/σ₀` — D9's flagged row) and the truncation tail; the ledger row in
+`docs/blueprints/flags.md` prices each of them at `T₀ = (log qx + 2)^6`. -/
+theorem efShiftError_le_efShiftBound {q : ℕ} {T₀ σa σb T σ₀ w x : ℝ}
+    (hq : 2 ≤ q) (hT₀ : 2 ≤ T₀) (hT : T₀ ≤ T) (hT2 : T ≤ T₀ + 1)
+    (hσa : 9 / 10 ≤ σa) (hσab : σa < σb) (hσb : σb < 1)
+    (hσ0a : σa ≤ σ₀) (hσ0b : σ₀ ≤ σb) (hw : 0 < w)
+    (hwlb : (σb - σa) / (4 * (137 * (2 * T₀ + 7) * Real.log ((q : ℝ) * (T₀ + 5)) + 1)) ≤ w)
+    (hx : 3 ≤ x) :
+    efShiftError q T σ₀ w x ≤ efShiftBound q T₀ σa σb x := by
+  have hx0 : (0 : ℝ) < x := by linarith
+  have hx1 : (1 : ℝ) ≤ x := by linarith
+  have hlogpos : (0 : ℝ) < Real.log x := Real.log_pos (by linarith)
+  have hq1 : (1 : ℝ) ≤ (q : ℝ) := by exact_mod_cast Nat.one_le_of_lt hq
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hT0pos : (0 : ℝ) < T₀ := by linarith
+  have hTpos : (0 : ℝ) < T := by linarith
+  have hσapos : (0 : ℝ) < σa := by linarith
+  have hσ0pos : (0 : ℝ) < σ₀ := by linarith
+  have hba : (0 : ℝ) < σb - σa := by linarith
+  have hlog76 : (0 : ℝ) < Real.log (7 / 6) := Real.log_pos (by norm_num)
+  have hsq : (1 : ℝ) ≤ Real.sqrt q := by
+    rw [show (1 : ℝ) = Real.sqrt 1 from (Real.sqrt_one).symm]
+    exact Real.sqrt_le_sqrt hq1
+  have hlogq : (0 : ℝ) ≤ Real.log q := Real.log_nonneg hq1
+  -- the two `L₄`s and their comparison
+  set L4 : ℝ := Real.log (4 * (5 * (4 + T) * Real.sqrt q * (1 + Real.log q))) with hL4
+  set L4' : ℝ := Real.log (4 * (5 * (5 + T₀) * Real.sqrt q * (1 + Real.log q))) with hL4'
+  have hprod : (30 : ℝ) ≤ 5 * (4 + T) * Real.sqrt q * (1 + Real.log q) := by
+    have h1 : (30 : ℝ) * 1 ≤ 5 * (4 + T) * Real.sqrt q :=
+      mul_le_mul (by linarith) hsq (by norm_num) (by linarith)
+    have h2 : (30 : ℝ) * 1 ≤ 5 * (4 + T) * Real.sqrt q * (1 + Real.log q) :=
+      mul_le_mul (by linarith) (by linarith) (by norm_num) (by linarith)
+    linarith
+  have hinner : (1 : ℝ) ≤ 4 * (5 * (4 + T) * Real.sqrt q * (1 + Real.log q)) := by linarith
+  have hL4nn : 0 ≤ L4 := Real.log_nonneg hinner
+  have hL4le : L4 ≤ L4' := by
+    refine Real.log_le_log (by linarith) ?_
+    have hs : (0 : ℝ) ≤ Real.sqrt q * (1 + Real.log q) := by positivity
+    have h1 : 5 * (4 + T) * (Real.sqrt q * (1 + Real.log q))
+        ≤ 5 * (5 + T₀) * (Real.sqrt q * (1 + Real.log q)) :=
+      mul_le_mul_of_nonneg_right (by linarith) hs
+    nlinarith [h1]
+  have hL4'nn : 0 ≤ L4' := le_trans hL4nn hL4le
+  -- the edge constant
+  set K : ℝ := 4 * (137 * (2 * T₀ + 7) * Real.log ((q : ℝ) * (T₀ + 5)) + 1) with hK
+  have hlogK : (0 : ℝ) ≤ Real.log ((q : ℝ) * (T₀ + 5)) := by
+    refine Real.log_nonneg ?_
+    nlinarith
+  have hKpos : (0 : ℝ) < K := by
+    have h := mul_nonneg (mul_nonneg (by norm_num : (0:ℝ) ≤ 137)
+      (by linarith : (0:ℝ) ≤ 2 * T₀ + 7)) hlogK
+    rw [hK]; linarith
+  have hinvw : 1 / w ≤ K / (σb - σa) := by
+    rw [div_le_div_iff₀ hw hba]
+    rw [div_le_iff₀ hKpos] at hwlb
+    nlinarith [hwlb]
+  have hcnn : (0 : ℝ) ≤ 120 * L4 + L4 / Real.log (7 / 6) / w :=
+    add_nonneg (by linarith)
+      (div_nonneg (div_nonneg hL4nn (le_of_lt hlog76)) (le_of_lt hw))
+  have hB : 120 * L4 + L4 / Real.log (7 / 6) / w ≤ efShiftB q T₀ σa σb := by
+    have h1 : L4 / Real.log (7 / 6) / w = (L4 / Real.log (7 / 6)) * (1 / w) := by
+      rw [div_eq_mul_inv]; ring
+    have hstep : (L4 / Real.log (7 / 6)) * (1 / w)
+        ≤ (L4' / Real.log (7 / 6)) * (K / (σb - σa)) :=
+      mul_le_mul (by gcongr) hinvw (by positivity) (div_nonneg hL4'nn (le_of_lt hlog76))
+    have h4 : (L4' / Real.log (7 / 6)) * (K / (σb - σa))
+        = K / (Real.log (7 / 6) * (σb - σa)) * L4' := by field_simp
+    rw [h4] at hstep
+    have hgoal : efShiftB q T₀ σa σb
+        = 120 * L4' + K / (Real.log (7 / 6) * (σb - σa)) * L4' := by
+      rw [efShiftB, ← hL4', ← hK]; ring
+    rw [hgoal, h1]
+    linarith [hstep, hL4le]
+  have hBnn : 0 ≤ efShiftB q T₀ σa σb := le_trans hcnn hB
+  -- the three rows
+  rw [efShiftError, efShiftBound, ← hL4, rpow_c_add_one hx]
+  have hex : (0 : ℝ) < Real.exp 1 * x ^ (2 : ℕ) := by positivity
+  have hπ : (0 : ℝ) < Real.pi := Real.pi_pos
+  have hcx : (0 : ℝ) < 1 / Real.log x := by positivity
+  refine mul_le_mul_of_nonneg_left (add_le_add (add_le_add ?_ ?_) ?_) (by positivity)
+  · -- the horizontal edges
+    have hnum : 2 * ((1 + 1 / Real.log x) - σ₀) * (120 * L4 + L4 / Real.log (7 / 6) / w)
+          * (Real.exp 1 * x ^ (2 : ℕ))
+        ≤ 2 * ((1 + 1 / Real.log x) - σa) * efShiftB q T₀ σa σb
+          * (Real.exp 1 * x ^ (2 : ℕ)) := by
+      have ha : (0 : ℝ) ≤ 2 * ((1 + 1 / Real.log x) - σ₀) := by linarith
+      have hb : 2 * ((1 + 1 / Real.log x) - σ₀) ≤ 2 * ((1 + 1 / Real.log x) - σa) := by linarith
+      have hstep : 2 * ((1 + 1 / Real.log x) - σ₀) * (120 * L4 + L4 / Real.log (7 / 6) / w)
+          ≤ 2 * ((1 + 1 / Real.log x) - σa) * efShiftB q T₀ σa σb :=
+        mul_le_mul hb hB hcnn (by linarith)
+      exact mul_le_mul_of_nonneg_right hstep (le_of_lt hex)
+    have hnum0 : (0 : ℝ) ≤ 2 * ((1 + 1 / Real.log x) - σ₀) * (120 * L4
+        + L4 / Real.log (7 / 6) / w) * (Real.exp 1 * x ^ (2 : ℕ)) := by
+      have : (0 : ℝ) ≤ 2 * ((1 + 1 / Real.log x) - σ₀) := by linarith
+      have h2 := mul_nonneg this hcnn
+      exact mul_nonneg h2 (le_of_lt hex)
+    have hTsq : T₀ ^ 2 ≤ T ^ 2 := by nlinarith
+    rw [div_le_div_iff₀ (by positivity) (by positivity)]
+    nlinarith [hnum, hnum0, hTsq]
+  · -- the left edge (D9's flagged row)
+    have hxr : x ^ (σ₀ + 1) ≤ x ^ (σb + 1) :=
+      Real.rpow_le_rpow_of_exponent_le hx1 (by linarith)
+    have hxp : (0 : ℝ) < x ^ (σ₀ + 1) := Real.rpow_pos_of_pos hx0 _
+    have hxp' : (0 : ℝ) < x ^ (σb + 1) := Real.rpow_pos_of_pos hx0 _
+    have hσinv : Real.pi / σ₀ ≤ Real.pi / σa :=
+      div_le_div_of_nonneg_left (le_of_lt hπ) hσapos hσ0a
+    have hstep1 : (120 * L4 + L4 / Real.log (7 / 6) / w) * x ^ (σ₀ + 1)
+        ≤ efShiftB q T₀ σa σb * x ^ (σb + 1) :=
+      mul_le_mul hB hxr (le_of_lt hxp) hBnn
+    exact mul_le_mul hstep1 hσinv (by positivity) (mul_nonneg hBnn (le_of_lt hxp'))
+  · -- the truncation tail
+    have h2T : (2 : ℝ) / T ≤ 2 / T₀ := div_le_div_of_nonneg_left (by norm_num) hT0pos hT
+    have hlgnn : (0 : ℝ) ≤ (Real.log x + 1) * (Real.exp 1 * x ^ (2 : ℕ)) := by
+      have : (0 : ℝ) ≤ Real.log x + 1 := by linarith
+      exact mul_nonneg this (le_of_lt hex)
+    exact mul_le_mul_of_nonneg_left h2T hlgnn
+
 end Salt.HB

@@ -199,3 +199,4 @@ open Salt.Tactic in
   Salt.HB.sum_Icc_zero_eq_psiChiR Salt.HB.abel_logChiSum Salt.HB.mainTerm_ibp
   Salt.HB.logChiSum_add_mainTerm_norm_le
   Salt.HB.psiDefect_norm_le_of_ef
+  Salt.HB.rpow_c_add_one Salt.HB.efShiftError_le_efShiftBound
