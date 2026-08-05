@@ -364,6 +364,45 @@ theorem efZeroSumM_norm_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q) 
     apply div_le_div₀ (by positivity) h2 ha hρa
   exact mul_le_mul_of_nonneg_left h3 (by positivity)
 
+/-- **THE A3-BATCHED SPEND (N4b W0-ii).** The same per-term estimate as `efZeroSumM_norm_le`,
+stopped *before* the `1/‖ρ‖ ≤ 1/a` collapse:
+
+    ‖∑_{ρ∈Z} m_ρ·y^ρ/ρ‖ ≤ y^β · ∑_{ρ∈Z} m_ρ/‖ρ‖.
+
+Keeping the harmonic weight is what lets A3's batching (`efMultTotal_harmonic_box_le`) price the
+sum at `log(qT)·log T` grade rather than at the left-edge-divided count `T·log(qT)/a` — the
+difference between a `T`-sized and a `log T`-sized prefactor in the Range-B tail. No hypothesis
+on `ρ ≠ 0` is needed: at `ρ = 0` both sides' terms are `0`. -/
+theorem efZeroSumM_norm_le_harmonic {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
+    {Z : Finset ℂ} {y β : ℝ} (hy : 1 ≤ y) (hβ : ∀ ρ ∈ Z, ρ.re ≤ β) :
+    ‖efZeroSumM χ Z y‖ ≤ y ^ β * ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ) / ‖ρ‖ := by
+  have hy0 : (0 : ℝ) < y := lt_of_lt_of_le one_pos hy
+  rw [efZeroSumM, Finset.mul_sum]
+  refine le_trans (norm_sum_le _ _) (Finset.sum_le_sum fun ρ hρ => ?_)
+  rw [norm_mul, norm_div, Complex.norm_cpow_eq_rpow_re_of_pos hy0, Complex.norm_natCast]
+  have h2 : y ^ ρ.re ≤ y ^ β := Real.rpow_le_rpow_of_exponent_le hy (hβ ρ hρ)
+  have hnn : (0 : ℝ) ≤ (zeroMult χ ρ : ℝ) / ‖ρ‖ :=
+    div_nonneg (by positivity) (norm_nonneg ρ)
+  calc (zeroMult χ ρ : ℝ) * (y ^ ρ.re / ‖ρ‖)
+      = ((zeroMult χ ρ : ℝ) / ‖ρ‖) * y ^ ρ.re := by ring
+    _ ≤ ((zeroMult χ ρ : ℝ) / ‖ρ‖) * y ^ β := mul_le_mul_of_nonneg_left h2 hnn
+    _ = y ^ β * ((zeroMult χ ρ : ℝ) / ‖ρ‖) := by ring
+
+/-- **THE ERASED SPEND (N4b W0-ii, the Range-B consumer).** After the exceptional zero's residue
+is peeled off by `efZeroSumM_erase_split`, what is left is priced by the *whole* box's harmonic
+weight — subset monotonicity, so the erased sum never has to be re-batched:
+
+    ‖∑_{ρ ∈ Z∖{β₀}} m_ρ·y^ρ/ρ‖ ≤ y^β · ∑_{ρ ∈ Z} m_ρ/‖ρ‖. -/
+theorem efZeroSumM_erase_norm_le_harmonic {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
+    {Z : Finset ℂ} (β₀ : ℂ) {y β : ℝ} (hy : 1 ≤ y) (hβ : ∀ ρ ∈ Z, ρ.re ≤ β) :
+    ‖efZeroSumM χ (Z.erase β₀) y‖ ≤ y ^ β * ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ) / ‖ρ‖ := by
+  classical
+  refine le_trans (efZeroSumM_norm_le_harmonic χ (Z := Z.erase β₀) hy
+    (fun ρ hρ => hβ ρ (Finset.mem_of_mem_erase hρ))) ?_
+  refine mul_le_mul_of_nonneg_left ?_ (Real.rpow_nonneg (by linarith) β)
+  exact Finset.sum_le_sum_of_subset_of_nonneg (Finset.erase_subset _ _)
+    (fun i _ _ => div_nonneg (by positivity) (norm_nonneg i))
+
 /-- **THE EXIT (general height).** The explicit formula's zero sum over the box
 `{σ ≤ Re ρ ≤ 1, |Im ρ| ≤ T}` is bounded by the box count times `y^β`, where `β` bounds the
 zeros' real parts (the repulsion input). At `σ ≥ 1/2` the `1/σ ≤ 2` is folded into the

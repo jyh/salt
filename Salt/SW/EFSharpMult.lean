@@ -188,6 +188,22 @@ lemma efMultTotal_eq_card_of_simple {q : ℕ} [NeZero q] {χ : DirichletCharacte
     ∀ ρ ∈ Z, ((zeroMult χ ρ : ℝ)) = 1)]
   simp
 
+/-- **THE β₀ ERASE-SPLIT (N4b W0-i).** The exceptional zero's residue peeled off the weighted
+zero sum:
+
+    ∑_{ρ ∈ Z} m_ρ·y^ρ/ρ  =  m_{β₀}·y^{β₀}/β₀  +  ∑_{ρ ∈ Z∖{β₀}} m_ρ·y^ρ/ρ.
+
+HB p.209 spends the first term against the Siegel-zero main term and prices the second by the
+repulsion band; this is the split, at the bytes, via `Finset.add_sum_erase` (the corpus pattern
+of `Salt.HB.neg_re_logDeriv_differenced`'s `hsplit`). -/
+lemma efZeroSumM_erase_split {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q) {Z : Finset ℂ}
+    {β₀ : ℂ} (hβZ : β₀ ∈ Z) (y : ℝ) :
+    efZeroSumM χ Z y
+      = (zeroMult χ β₀ : ℂ) * (((y : ℝ) : ℂ) ^ β₀ / β₀) + efZeroSumM χ (Z.erase β₀) y := by
+  classical
+  simp only [efZeroSumM]
+  exact (Finset.add_sum_erase Z (fun ρ => (zeroMult χ ρ : ℂ) * (((y : ℝ) : ℂ) ^ ρ / ρ)) hβZ).symm
+
 /-! ## 2. Two pieces of plumbing: `rectBI` scaling and the `m`-fold log-derivative -/
 
 /-- **`rectBI` is homogeneous.** Scaling the integrand by a constant scales the rectangle boundary
