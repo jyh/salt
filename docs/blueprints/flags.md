@@ -19873,3 +19873,84 @@ Vocabulary the exit is stated in (all new, all nameable by N8): `lamBB Lam z sid
 ## () EPSILON-SHARP — **THE ε₀ SHARPENING CLOSES, AND THE `c₃` LITERAL COMES BACK** (`Salt/SW/EpsilonZero.lean` §6, 11 decls, 11/11 audited at 3 axioms, `~/.elan/bin/lake build` EXIT 0 from `$?`, warnings 188 = baseline, **zero** from the new section; purely additive — no landed statement touched, no other file touched, `All.lean` untouched): the sharpening EPSILON-ZERO registered on 8/5 is done, and it overshoots its own target. **`ε₀ : 10⁻⁶ → 2·10⁻⁵` (20×, past CMU-HUNT §2's `1.9·10⁻⁵`), `c₃ : 10⁻⁷ → 1/75712` (132×).** ⟦THE PREDICTION WAS RIGHT ABOUT THE CULPRIT AND CONSERVATIVE ABOUT THE PRICE⟧ the flag named the pre-collapsed `1080·log(|γ|+2)` inside `zeta_neg_re_logDeriv_le_keep` and priced the sharp `120·log(4·M₀ζ(γ))` at `≈757` vs `≈1186`, forecasting `ε₀ ≈ 1.87e-5` — *just* under target. That forecast holds exactly (`4K₁+K₂ = 3828` ⟹ `ε₀ = 1.863e-5`), but it prices only ONE of the two slacks. The second is inside `M₀ζ` itself: `Zc_sphere_bound` estimates the growth-disk factors **from the origin** (`‖z‖ ≤ 2+|t₀|+7/4`, then `‖z−1‖ ≤ ‖z‖+1`) where the honest estimate is **from the centre** `c = 2+t₀i` (`‖z‖ ≤ ‖c‖+R` with `‖c‖ = √(4+t₀²)`, `‖z−1‖ ≤ ‖c−1‖+R` with `‖c−1‖ = √(1+t₀²)`). That is `Zc_sphere_bound_sharp` (:477) with its two instances `Zc_sphere_bound_height_one` (:524, `‖Zc‖ ≤ 66` at `|t₀| ≤ 1`, against `M₀ζ(1) = 137.6`) and `Zc_sphere_bound_height_two` (:535, `≤ 96` at `|t₀| ≤ 2`, against `195.1`) — a clean factor `≈ 2` in `M₀`, i.e. `≈ 88` off each `120·log(4M)`. ⟦THE NUMERALS, AT THE BYTES⟧ `K₁ = 120·log 264 ≤ 669.2` (was `1080·log 3 = 1186`, and `757` at the flag's `M₀ζ`), `K₂ = 120·log 384 ≤ 718.6`; both log bounds are `Real.log_le_sub_one_of_pos` off a power of two (`log_264_le` :673, `log_384_le` :685 — `264 = 256·33/32`, `384 = 512·3/4`). The chain constant excluding the pole is `C = 3 + 4·5 + 5/2 + 4K₁ + K₂ ≤ 3420.8` (was `7585.5`), the offset is re-optimised to `σ = 1 + 1/7700` (the maximum of `d(1−Cd)/(3+Cd)` sits at `C·d = √12−3 = 0.464`, and the landed `1/15200` was already near-optimal *for its own C*), and the 3-4-1 reads `4/(σ−β) ≤ 26521` against `4/(1/7700+1/50000) = 26689.8` — a 0.63% margin, exact-rational, and the theoretical ceiling of this route is `ε₀ = 0.0718/C = 2.099e-5`, so `2·10⁻⁵` spends 95% of what the constants allow. ⟦THE DELIVERABLES⟧ `zeta_neg_re_logDeriv_le_keep_of_growth` (:553) and `zeta_neg_re_logDeriv_le_of_growth` (:625) are the keep-one and drop-all bounds in the corpus's **hypothesis-taking genre** — the growth majorant `M` on `‖z−(2+t₀i)‖ ≤ 7/4` is an input and the conclusion carries `120·log(4M)` un-collapsed; `M := M0zeta t₀` reproduces the landed lemmas verbatim, so this is a strict generalisation, not a fork. Then `zeta_zero_free_strip_sharp` (:708, `Re ρ ≤ 1 − 2·10⁻⁵` at `|Im ρ| ≤ 1`), `zeta_zero_free_strip_sharp_bounded` (:817), `zeta_zero_free_region_sharp` (:833), `zeta_zero_free_region_sharp_bounded` (:929). ⟦WHY `1/75712` IS THE POINT⟧ `zeta_zero_free_region`'s constant is `c₃ = min(1/75712, ε₀·log 2)`, and `(1/75712)/log 2 = 1.9055e-5` — **that** is where CMU-HUNT's `1.9e-5` target came from, and it is a threshold, not a preference: below it the `min` flips and the compactness leaf leaves a scar on the numeral; at or above it the `min` is its first argument and the leaf vanishes into an existing literal. At `ε₀ = 2e-5` the second argument is `1.386e-5 > 1.3208e-5`, so `zeta_zero_free_region_sharp` carries **the same `1/75712` the opaque version had**. EPSILON-ZERO made the region effective; EPSILON-SHARP makes it effective *at no cost in the constant*. §4's `zeta_zero_free_region_explicit` (`c₃ = 10⁻⁷`) stays landed and is now strictly dominated — consumers should prefer the `_sharp` twins. ⟦WHAT THIS RE-PRICES DOWNSTREAM⟧ every `_bounded` rider that divides by `ε₀` or `c₃` improves by the same factors: `Cbig = 9000·c_vk + c_vk/(2δ₀) + 1` with `δ₀ = ε₀/2` drops its second term **20×**, and the `T₀z` ceiling behind it follows; ZETA-INV-SHALLOW's route-(a) estimate should be re-run at the new separation (`Re ρ ≤ 1 − (1/75712)/log 4` instead of `1 − 10⁻⁷/log 4` — a 132× wider gap, which enters that estimate logarithmically, so expect `e^{−14000} → e^{−13000}`-ish, an improvement but not a change of genre). ⟦NOT DONE, AND PRICED⟧ (1) the pole real parts are still bounded crudely (`Re(1/(s₁−1)) ≤ 1/|γ| ≤ 5` where the honest value is `(σ−1)/((σ−1)²+γ²) ≈ 0.003`) — worth `22.5` of `3420.8`, i.e. `ε₀ → 2.11e-5`, and it needs one `Complex.inv_re` computation; (2) the `1+1/Re z ≤ 5` factor in the sphere bound is attained only at the leftmost point of the disk, where `‖z‖` is *small* — a joint optimisation over the disk gives `M ≈ 16` rather than `66` (another `≈ 200` off `K₁`, i.e. `ε₀ ≈ 2.6e-5`), but it is a genuine two-variable estimate, not a triangle inequality; (3) the `120` in `120·log(4M)` is the Borel–Carathéodory pipeline's own constant (`entire_norm_logDeriv_sub_sum'`) and is untouched — that is where the next factor of two lives, and it is a shared-machinery edit, not a leaf. None of the three is needed: the threshold that mattered has been crossed. Opus executor, 1 attempt (every declaration first-attempt clean; no tactic degradations).
 
 ## () ⟦N4B-W0 COMPLETE — SEVEN FOR SEVEN⟧ (2026-08-05, Opus executor, one commit per stone/pair, full `lake build` exit 0, every new decl at `[propext, Classical.choice, Quot.sound]`). The prerequisite wave of the N4b block (design: `docs/exploration/n4b-design-0805.md`, v3 DELTA §D6), all seven byte-verified recipes landed first-attempt, additive only — no landed statement altered anywhere. **Landed**: (i) `efZeroSumM_erase_split` (EFSharpMult.lean:199); (ii) `efZeroSumM_norm_le_harmonic` + `efZeroSumM_erase_norm_le_harmonic` (DensityCrude.lean:565/585); (iii) `efMultHarmonic_box_le` + `sum_range_inv_succ_eq_harmonic` (DensityCrude.lean:201/181) — `∑ m_ρ/‖ρ‖ ≤ 137·log(q(T+3))·(8 + 4·log(T+1))`, the `log(qT)·log T` grade, no new analytic input; (iv) `neg_re_logDeriv_differenced_mult` (TwistedMertens.lean:486); (v) `pretenseSum_unconditional_absorbed` (Lemma3Uncond.lean:117); (vi) `efRieszSumM_diff_sub_efZeroSumM_le_perZero` + `psi_explicit_sharpM_of_riesz_residues_perZero` + `psi_explicit_sharpM_perZero` (EFSharpMult.lean:1117/1150/1184, new §7); (vii) `cpow_riesz_diff_norm_le` + `efRieszSumM_diff_norm_le` + `efRieszSumM_diff_quotient_norm_le` (EFSharpMult.lean:1221/1270/1307). **THREE RECIPE-vs-BYTES DELTAS, all in the executor's favour**: (a) W0-iv's briefed new binder `hσ'1 : 1 < σ'` is NOT needed — `0 < σ'−β₀` follows from `β₀ < 1 ≤ σ ≤ σ'`, so adding it would have been an unused binder (a warning under this repo's linter); (b) W0-iv's `hmβ : 1 ≤ m β₀` also drops — once the `β₀` term is kept at EQUALITY the `m ≥ 1` collapse is never read, so the new theorem has strictly fewer hypotheses than briefed; (c) W0-vii did NOT need the complex-power integral identity `(y+h)^{ρ+1} − y^{ρ+1} = ∫_y^{y+h}(ρ+1)t^ρ dt` — the elementary MVT (`Convex.norm_image_sub_le_of_norm_hasDerivWithin_le` on `φ(u) = u^{ρ+1}/(ρ(ρ+1))`, `‖φ'(u)‖ = u^{Re ρ}/‖ρ‖`), i.e. the very route the landed `cpow_riesz_residue_desmooth` takes, delivers the same per-zero grade `h·(y+h)^{Re ρ}/‖ρ‖` in ~30 lines. Minor: W0-iii used mathlib's `harmonic_le_one_add_log` rather than the briefed `harmonic_floor_le_one_add_log` — the fibre index is already a `ℕ`, so the floor version's `⌊·⌋₊` is a detour. Classes as experienced matched the brief throughout except (iii), which was the wave's only real work (the `round∘Im` fibring re-run with a per-fibre WEIGHT, plus the `Icc(−n,n) ⊆ image ∪ image` harmonic reindex).
+
+## ⟦N4B-W2 — THE MANDATORY PRE-PROOF LEDGER ROW: VERDICT **CLOSES AT T-EXPONENT 6** (no raise)⟧
+
+(2026-08-05, Opus executor, node N4B-W2; design `docs/exploration/n4b-design-0805.md` §D9's
+"ONE OPEN CHECK", assigned to this brief.) The check: with W0.5's delivered
+`w ≥ (σb−σa)/(4·(137·(2T₀+7)·log(q(T₀+5))+1))`, the `efShiftError` edge constant is
+`B ≍ L₄·T·log(qT)/(σb−σa)`; **price the LEFT-EDGE term `B·x^{σ₀+1}·π/σ₀` through the partial
+summation at `T(u) = (log qu + 2)^p` and the D8 σ-window `σb−σa ≍ log L/L`.** Notation: `L = log q`,
+`s = log u`, `ℓ = s/L ≥ 250` (the window's lower edge `X ≥ q^{250}`, which RIDES on W2's statement),
+`h = u/√T₀`, `σb = 1 − log L/L`, `σa = 1 − 2 log L/L` (so `σa ≥ 9/10` for `L ≥ 80`; the campaign
+runs at `L ≥ 250` since D2 records `hN+ ∧ hηq` is empty below `q ≈ e^{250}`).
+
+**Row-by-row, all relative (÷ u) and all integrated against `du/(u log u) = dℓ/ℓ`:**
+
+| row | relative size | `∫_{250}^∞ · dℓ/ℓ` |
+|---|---|---|
+| left edge `B·x^{σ₀+1}π/σ₀` | `≤ (40/9)·B·√T₀·u^{σb−1}`, and `u^{σb−1} = L^{−ℓ}`; `B ≍ 3555·L²T₀log(qT₀)/log L` gives `≲ 5.7e7·L^{12−ℓ}(1+ℓ)^{10}` | `≲ 1e35·L^{−228}` |
+| horizontal edges `2(c−σ₀)Bx^{c+1}/T²` | `≍ (e/π)(c−σ₀)B/T₀^{3/2} ≍ 2.5e4/(L(1+ℓ))` | `≈ 100/L` |
+| truncation tail `(log x+1)x^{c+1}·2/T` | `≍ (e/π)(s+1)/T₀^{1/2} ≍ s/(L(1+ℓ))^3` | `O(L^{−2})` |
+| de-smoothing `(h+1)log(y+h)` | `≍ 2(s+1)/(L(1+ℓ))^3` | `O(L^{−2})` |
+| de-smoothing zero sum `∑ m_ρ h y^{Re ρ−1}` | `≍ m/√T₀ + count·u^{β̄−1}/√T₀` | `O(mL^{−3})` + the Range A/B row |
+| erased zero-sum spend | `u^{β̄−1}·137·log(q(T+3))·(8+4log(T+1))` | the η-gain row (repulsion / ZFR), `T`-free up to logs |
+
+**VERDICT: the row CLOSES at `p = 6`, and the exponent is NOT raised.** Two findings worth
+recording, both against the freeze's expectation:
+
+1. **The left edge is NOT the binding row.** D9 flagged it as the risk; in fact `u^{σb−1} = L^{−ℓ}`
+   with `ℓ ≥ 250` annihilates the whole `B√T₀` polylog stack (`L^{12}(1+ℓ)^{10}`) by ≈ 226 orders in
+   the exponent. The general rule the row exposes: *the left edge closes iff
+   `(1−σb)·log X > (deg of the polylog in B·√T)·log L`*, i.e. `250 > 12` here — a factor ≈ 19 of
+   margin. It is the WINDOW'S LOWER EDGE `X ≥ q^{250}`, not the height, that pays for the left edge.
+2. **The binding row is the HORIZONTAL edge**, at `≈ 100/L` — and it is exactly the row the height
+   exponent controls: at `T = (log qu+2)^p` it reads `≍ L·log(qT)/T^{1/2} ≍ L²/(L(1+ℓ))^{p/2−1}`,
+   whose `dℓ/ℓ` integral is `O(L^{3−p/2})`. Target is `K(log X)^{−1/2} ≍ L^{−1/2}`; so
+   **`p ≥ 7` would be needed for the row alone to be `o(L^{−1/2})`, `p = 6` gives `O(L^{−1})`
+   which is `≤ L^{−1/2}` outright, and `p = 4` (`efHeight`'s exponent) gives `O(L)` — divergent
+   against the target.** So D1's raise 4 → 6 was *necessary*, and 6 *suffices with one power of
+   `L` to spare*. **FINAL EXPONENT RECORDED: 6.**
+
+No raise, no flag against the design. (The rows that DO carry the `η`-gain — the erased spend and
+the de-smoothing count — are the Range-A/B repulsion business and are height-free up to logs, so
+the exponent choice does not interact with hN+.)
+
+## ⟦N4B-W2 — WHAT LANDED, AND THE ONE STRUCTURAL REPAIR FOUND⟧
+
+**LANDED (Salt/HB/Lemma7EF.lean, new; 1 import line + 7 roll-call rows in Salt/HB/All.lean; all
+`[propext, Classical.choice, Quot.sound]`; `lake build` exit 0 from `$?`):**
+`logChiSum_add_mainTerm_norm_le` — **the composite transfer**, D3's deliverable shape. From a
+pointwise envelope `‖ψ(t,χ) + m·t^{β₀}/β₀‖ ≤ t·G t` on `[X,Y]` (`psiDefect` names the LHS) it
+delivers HB's `(4.12)`:
+
+    ‖∑_{X<n≤Y} χ(n)Λ(n)/(n log n) + m·∫_X^Y v^{β₀−2}/log v dv‖
+      ≤ G X/log X + G Y/log Y + 2·∫_X^Y G t/(t log t) dt,
+
+uniformly in `Y ≥ X ≥ 3`. Route: mathlib's `sum_mul_eq_sub_sub_integral_mul` at the weight
+`w(t) = (t log t)^{−1}` against the sharp carrier `psiChiR` (`abel_logChiSum`), plus ONE
+integration by parts (`mainTerm_ibp`) which carries the exceptional zero's residue across the
+partial summation **at equality** — no error whatsoever is charged to the main term. Hence the
+multiplicative mandate is met at the interface: the only additive object reaching W3 is the named
+integral, and every remaining term is the envelope's own `dt/(t log t)` ledger. `m` rides
+explicitly; no simplicity, no well-spacing (W0.5 retired `hsep`), no `β₀ < 1` even (only
+`0 < β₀`).
+
+**THE STRUCTURAL REPAIR FOUND (for the follow-up brief):** `boxZeros_re_le_of_repulsion`
+(TauExt.lean:259) is **unusable on a box that contains `β₀`** — its `hreal` hypothesis demands
+every REAL zero of the box obey the repulsion ceiling, and `β₀` is a real zero of the box that by
+construction does not. (This is R2's v1 "A4 β₀-isolation" finding surfacing at the consumer.) The
+erase-split is therefore not merely convenient but **forced**: W2's ceiling must be proved over
+`(boxZeros χ (σ₀−w) 1 T).erase β₀`, i.e. a `boxZeros_erase_re_le_of_repulsion` variant whose
+`hreal′` reads `∀ ρ ∈ box, ρ.im = 0 → ρ ≠ β₀ → ρ.re ≤ ceiling`. Recorded so it is not re-found.
+
+**RESIDUE (the honest wall, budget):** the envelope `G` itself — the composition
+`psi_explicit_sharpM_perZero_unsep` (at `T₀(u) = (log qu+2)^6`, `h = u/√T₀`, the σ-window above)
+→ erase-split → A3-batched erased spend → the Range-A repulsion ceiling / Range-B
+`zero_free_region_all` ceiling → the explicit evaluation of `efShiftError` at the row table above.
+The ledger row above prices every piece of it on paper and it closes; what remains is the
+explicit-constant arithmetic in Lean (`x^{c+1} = e·x²`, the uniform bounds over
+`σ₀ ∈ [σa,σb]`, `T ∈ [T₀,T₀+1]`, `w ≥ w₀`), plus the Range-A/B split at
+`Y₁ = exp(20L log L/c₀)`. Estimated ≥ 1000 lines of constant bookkeeping; NOT attempted in this
+session rather than half-landed. The transfer above is the interface it plugs into: it demands
+exactly `ContinuousOn G`, `0 ≤ G`, and the pointwise `psiDefect` bound.
