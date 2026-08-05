@@ -19954,3 +19954,25 @@ explicit-constant arithmetic in Lean (`x^{c+1} = e·x²`, the uniform bounds ove
 `Y₁ = exp(20L log L/c₀)`. Estimated ≥ 1000 lines of constant bookkeeping; NOT attempted in this
 session rather than half-landed. The transfer above is the interface it plugs into: it demands
 exactly `ContinuousOn G`, `0 ≤ G`, and the pointwise `psiDefect` bound.
+
+**⟦N4B-W2 AMENDMENT (same session)⟧** — two further stones landed after the entry above was
+written, so the residue is smaller than it states. **`psiDefect_norm_le_of_ef`** (the EF bridge):
+the W0.5 socket composed with the `β₀` erase-split, the A3-batched erased spend and a SECOND
+erase-split of the de-smoothing sum; one named ceiling binder `hceil` (every zero `≠ β₀` in the
+strip `9/10 ≤ Re ≤ 1`, `|Im| ≤ T₀+1` obeys `bceil`) carries the whole Range-A/B ceiling. **Trap
+recorded**: the de-smoothing sum `∑_ρ m_ρ·h·u^{Re ρ−1}` must NOT be collapsed to
+`efMultTotal·h` — at `h = u/√T` that single term is `≈ 274·√T·log(qT)` *relative*, i.e. fatal;
+only the erase-split (which keeps `β₀`'s own `u^{β₀−1}` and charges the ceiling to the rest)
+saves it. **`efShiftError_le_efShiftBound`** (the uniformisation): the landed contour budget
+dominated uniformly over the entire parameter box the `exists_contour_params` pigeonhole ranges
+in — which is what makes an envelope `G` that is a function of `u` ALONE exist at all
+(the socket's `(σ₀,T,w)` are existential, and `logChiSum_add_mainTerm_norm_le` demands a
+`t`-function). Supporting: `rpow_c_add_one` (`x^{c+1} = e·x²` at `c = 1 + 1/log x`), `efShiftB`
+(the uniform Borel–Carathéodory/Jensen edge constant). **What actually remains for the follow-up
+brief**: (a) instantiate `T₀ := (log(qu)+2)^6`, `h := u/√T₀`, `σb := 1 − log L/L`,
+`σa := 1 − 2log L/L` and read off a closed-form `G` from `efShiftBound` + the bridge's four rows;
+(b) discharge `hceil` in the two ranges (`dh_repulsion_tall` + the `erase`-form ceiling on
+`[X,Y₁]`, `zero_free_region_all` + `hreal′` above `Y₁ = exp(20L log L/c₀)`); (c) verify the six
+numeric rows of the ledger table above in Lean and integrate; (d) the `Y → ∞` limit (the landed
+transfer is uniform in `Y`, which is HB's own statement of `(4.12)`, so this is a corollary, not
+a re-proof).
