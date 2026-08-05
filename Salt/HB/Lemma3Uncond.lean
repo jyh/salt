@@ -101,6 +101,55 @@ theorem hb_lemma3_unconditional {f : ℕ} [NeZero f] (χ : DirichletCharacter �
     exact hb_lemma3_final χ hsq hA x N Cmain z0 Aexp junk hσ1 hσ2 hlt hσ'2 hβ1 hβZ hmβ
       hr0 hσr hσ'r hfloor hSinv hrem hres hcoef
 
+/-- **THE PRETENSE SUM, UNCONDITIONAL (N4b W0-v).**  The same discharge as
+`hb_lemma3_unconditional` — one call to `Salt.SW.LFunction_partialFraction_remainder_diff`
+supplying `Z`, `m`, `hβZ`, `hmβ`, `hmz` and `hrem` — but stopped one stage earlier, at
+`pretenseSum_le_differenced` rather than at `hb_lemma3_final`.  N4b consumes the pretense sum
+*directly* (the transfer-side data `hsq`/`hA`/`hres`/`hcoef` of HB (3.3) is not in its route),
+so this is the shape it needs:
+
+    2·PretenseSum χ N  ≤  N^{σ−1}·( (1−β₀)/(σ−1)²
+                              + hbCoreRate σ σ′ Sinv (1600·log(80√f(1+log f))·(σ′−σ)) ),
+
+with **no analytic input carried**: only the operating-point arithmetic and the two F-side
+Deuring–Heilbronn items `hfloor`/`hSinv`.  `pretenseSum_le_differenced` keeps `1 < σ` strict,
+which costs nothing — N4b fires this composite at `σ = 1 + 1/L`. -/
+theorem pretenseSum_unconditional_absorbed {f : ℕ} [NeZero f] (χ : DirichletCharacter ℂ f)
+    (hχ : χ.IsPrimitive) (hf : 2 ≤ f) (N : ℕ) {σ σ' β₀ r0 Sinv : ℝ}
+    (hσ1 : 1 < σ) (hσ2 : σ ≤ 2) (hlt : σ ≤ σ') (hσ'2 : σ' ≤ 2)
+    (hβlo : 1 / 2 < β₀) (hβ1 : β₀ < 1)
+    (hβ0 : DirichletCharacter.LFunction χ (β₀ : ℂ) = 0)
+    (hr0 : 0 < r0) (hσr : σ - 1 ≤ r0 / 2) (hσ'r : σ' - 1 ≤ r0 / 2) :
+    ∃ (Z : Finset ℂ) (m : ℂ → ℕ),
+      (β₀ : ℂ) ∈ Z ∧ 1 ≤ m (β₀ : ℂ) ∧
+      (∀ ρ ∈ Z, DirichletCharacter.LFunction χ ρ = 0) ∧
+      (∀ ρ ∈ Z, (m ρ : ℝ) ≤ (Salt.SW.zeroMult χ ρ : ℝ)) ∧
+      ((∀ ρ ∈ Z.erase ((β₀ : ℂ)), r0 ≤ ‖ρ - 1‖) →
+        (∑ ρ ∈ Z.erase ((β₀ : ℂ)), (m ρ : ℝ) / ‖ρ - 1‖ ^ 2 ≤ Sinv) →
+        2 * PretenseSum χ N
+          ≤ (N : ℝ) ^ (σ - 1) * ((1 - β₀) / (σ - 1) ^ 2
+              + hbCoreRate σ σ' Sinv
+                  (1600 * Real.log (80 * Real.sqrt f * (1 + Real.log f)) * (σ' - σ)))) := by
+  classical
+  obtain ⟨Z, m, hmemZ, hconv, hmult, hdiff⟩ :=
+    Salt.SW.LFunction_partialFraction_remainder_diff χ hχ hf
+  have hβball : ((β₀ : ℝ) : ℂ) ∈ ball (2 : ℂ) (3 / 2) := by
+    rw [mem_ball, dist_eq_norm]
+    have hcast : (((β₀ : ℝ) : ℂ) - 2) = ((β₀ - 2 : ℝ) : ℂ) := by push_cast; ring
+    rw [hcast, Complex.norm_real, Real.norm_eq_abs, abs_lt]
+    constructor <;> linarith
+  obtain ⟨hβZ, hmβ⟩ := hconv ((β₀ : ℝ) : ℂ) hβball hβ0
+  refine ⟨Z, m, hβZ, hmβ, fun ρ hρ => (hmemZ ρ hρ).2, fun ρ hρ => le_of_eq ?_, ?_⟩
+  · exact_mod_cast congrArg (Nat.cast : ℕ → ℝ) (hmult ρ hρ)
+  · intro hfloor hSinv
+    have hσ'1 : 1 ≤ σ' := by linarith
+    have hrem := hdiff σ σ' (by linarith) hσ2 hσ'1 hσ'2
+    have habs : |σ - σ'| = σ' - σ := by
+      rw [abs_of_nonpos (by linarith)]; ring
+    rw [habs] at hrem
+    exact pretenseSum_le_differenced χ N hσ1 hσ2 hlt hσ'2 hβ1 hβZ hmβ hr0 hσr hσ'r hfloor
+      hSinv hrem
+
 /-! ## §2 — the `Rrem` absorption: one rate constant, `K = 802 + 4Cs` -/
 
 /-- **The remainder absorbed into the rate constant.**  At HB's optimum
