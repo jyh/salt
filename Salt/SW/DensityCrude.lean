@@ -175,6 +175,195 @@ theorem efMultTotal_box_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
     _ = (J.card : ℝ) * C := by rw [Finset.sum_const, nsmul_eq_mul]
     _ ≤ (2 * T + 3) * C := mul_le_mul_of_nonneg_right hcardR hCnn
 
+/-! ## 2b. A3 — THE HARMONIC BATCHING `∑ m_ρ/‖ρ‖` -/
+
+/-- The real-valued partial harmonic sum, as mathlib's `harmonic`. -/
+lemma sum_range_inv_succ_eq_harmonic (n : ℕ) :
+    ∑ i ∈ Finset.range n, (1 : ℝ) / ((i : ℝ) + 1) = (harmonic n : ℝ) := by
+  induction n with
+  | zero => simp
+  | succ n ih =>
+      rw [Finset.sum_range_succ, ih, harmonic_succ]
+      push_cast
+      ring
+
+/-- **A3 — THE HARMONIC BATCHING (N4b W0-iii).** The `1/‖ρ‖`-weighted zero mass of the box
+`{1/2 ≤ Re ρ ≤ 1, |Im ρ| ≤ T}` is a `log(qT)·log T`, not a `T·log(qT)`:
+
+    ∑_{ρ ∈ Z} m_ρ/‖ρ‖ ≤ 137·log(q(T+3))·(8 + 4·log(T+1)).
+
+Route — the same fibring as `efMultTotal_box_le` (`j = round (Im ρ)`, each fibre priced at
+`≈ 133·log(q(T+3))` by N1's landed unit-window count), but the fibre's *weight* is now read off
+its height: `‖ρ‖ ≥ max(|j|,1)/2`, because `‖ρ‖ ≥ |Im ρ| ≥ |j| − 1/2` and `‖ρ‖ ≥ Re ρ ≥ 1/2`.
+Summing `2/max(|j|,1)` over `|j| ≤ ⌈T⌉` is twice a harmonic sum, and mathlib's
+`harmonic_le_one_add_log` closes it. **No new analytic input**: this is the landed window count
+plus `∑_{k≤n} 1/k ≤ 1 + log n`. -/
+theorem efMultHarmonic_box_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hq : 2 ≤ q) {Z : Finset ℂ} {T : ℝ} (hT : 0 ≤ T)
+    (hZ0 : ∀ ρ ∈ Z, LFunction χ ρ = 0)
+    (hZre : ∀ ρ ∈ Z, 1 / 2 ≤ ρ.re ∧ ρ.re ≤ 1)
+    (hZim : ∀ ρ ∈ Z, |ρ.im| ≤ T) :
+    ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ) / ‖ρ‖
+      ≤ 137 * Real.log ((q : ℝ) * (T + 3)) * (8 + 4 * Real.log (T + 1)) := by
+  classical
+  have hq0 : (0 : ℝ) < (q : ℝ) := by
+    have : 0 < q := by omega
+    exact_mod_cast this
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  set n : ℕ := ⌈T⌉₊ with hn
+  have hTn : T ≤ (n : ℝ) := Nat.le_ceil T
+  have hnT : (n : ℝ) < T + 1 := Nat.ceil_lt_add_one hT
+  set J : Finset ℤ := Finset.Icc (-(n : ℤ)) (n : ℤ) with hJ
+  set C : ℝ := (7 / Real.log (39 / 37)) * Real.log ((q : ℝ) * (T + 3)) with hC
+  have hlogpos : (0 : ℝ) < Real.log (39 / 37) := lt_of_lt_of_le (by norm_num) log_39_37_lower
+  have hlognn : 0 ≤ Real.log ((q : ℝ) * (T + 3)) := by
+    refine Real.log_nonneg ?_; nlinarith
+  have hCnn : 0 ≤ C := by rw [hC]; positivity
+  set w : ℤ → ℝ := fun j => 2 / max |(j : ℝ)| 1 with hw
+  have hmax1 : ∀ j : ℤ, (1 : ℝ) ≤ max |(j : ℝ)| 1 := fun j => le_max_right _ _
+  have hwnn : ∀ j : ℤ, 0 ≤ w j := fun j => by
+    rw [hw]; exact div_nonneg (by norm_num) (le_trans zero_le_one (hmax1 j))
+  -- the fibre map lands in `J` (`efMultTotal_box_le`'s `hmaps`, verbatim)
+  have hmaps : ∀ ρ ∈ Z, round ρ.im ∈ J := by
+    intro ρ hρ
+    have h1' := abs_le.mp (abs_sub_round ρ.im)
+    have h2' := abs_le.mp (hZim ρ hρ)
+    rw [hJ, Finset.mem_Icc]
+    constructor
+    · have h5 : ((-(n : ℤ) - 1 : ℤ) : ℝ) < ((round ρ.im : ℤ) : ℝ) := by push_cast; linarith
+      have h6 : (-(n : ℤ) - 1 : ℤ) < round ρ.im := by exact_mod_cast h5
+      omega
+    · have h5 : ((round ρ.im : ℤ) : ℝ) < (((n : ℤ) + 1 : ℤ) : ℝ) := by push_cast; linarith
+      have h6 : round ρ.im < (n : ℤ) + 1 := by exact_mod_cast h5
+      omega
+  -- each fibre's *mass* is N1's window count (`efMultTotal_box_le`'s `hfib`, verbatim)
+  have hfibmass : ∀ j ∈ J, efMultTotal χ {ρ ∈ Z | round ρ.im = j} ≤ C := by
+    intro j hj
+    have hball : ∀ ρ ∈ {ρ ∈ Z | round ρ.im = j},
+        ρ ∈ Metric.closedBall (2 + ((j : ℝ) : ℂ) * I) (37 / 20) := by
+      intro ρ hρ
+      rw [Finset.mem_filter] at hρ
+      obtain ⟨hρZ, hrj⟩ := hρ
+      refine halfbox_subset_closedBall (j : ℝ) ⟨(hZre ρ hρZ).1, (hZre ρ hρZ).2, ?_⟩
+      rw [← hrj]
+      exact le_trans (abs_sub_round ρ.im) (by norm_num)
+    refine (efMultTotal_halfbox_le χ hχ hq (j : ℝ) hball
+      (fun ρ hρ => hZ0 ρ (Finset.mem_filter.mp hρ).1)).trans ?_
+    have hjn := Finset.mem_Icc.mp hj
+    have hjabs : |(j : ℝ)| ≤ (n : ℝ) := by
+      rw [abs_le]
+      constructor
+      · have : ((-(n : ℤ) : ℤ) : ℝ) ≤ ((j : ℤ) : ℝ) := by exact_mod_cast hjn.1
+        push_cast at this; linarith
+      · have : ((j : ℤ) : ℝ) ≤ ((n : ℤ) : ℝ) := by exact_mod_cast hjn.2
+        push_cast at this; linarith
+    have hle : (q : ℝ) * (|(j : ℝ)| + 2) ≤ (q : ℝ) * (T + 3) := by nlinarith
+    rw [hC]
+    exact mul_le_mul_of_nonneg_left (Real.log_le_log (by positivity) hle) (by positivity)
+  -- the fibre's *weight*: `‖ρ‖ ≥ max(|j|,1)/2`
+  have hfib : ∀ j ∈ J,
+      ∑ ρ ∈ {ρ ∈ Z | round ρ.im = j}, (zeroMult χ ρ : ℝ) / ‖ρ‖ ≤ w j * C := by
+    intro j hj
+    have hterm : ∀ ρ ∈ {ρ ∈ Z | round ρ.im = j},
+        (zeroMult χ ρ : ℝ) / ‖ρ‖ ≤ w j * (zeroMult χ ρ : ℝ) := by
+      intro ρ hρ
+      rw [Finset.mem_filter] at hρ
+      obtain ⟨hρZ, hrj⟩ := hρ
+      have hre : ρ.re ≤ ‖ρ‖ := le_trans (le_abs_self _) (Complex.abs_re_le_norm ρ)
+      have him : |ρ.im| ≤ ‖ρ‖ := Complex.abs_im_le_norm ρ
+      have hhalf : (1 : ℝ) / 2 ≤ ‖ρ‖ := le_trans (hZre ρ hρZ).1 hre
+      have hround : |ρ.im - (j : ℝ)| ≤ 1 / 2 := by
+        rw [← hrj]; exact abs_sub_round ρ.im
+      have hjim : |(j : ℝ)| ≤ |ρ.im| + 1 / 2 := by
+        have := abs_sub_abs_le_abs_sub ((j : ℝ)) ρ.im
+        have habs : |(j : ℝ) - ρ.im| = |ρ.im - (j : ℝ)| := abs_sub_comm _ _
+        rw [habs] at this
+        linarith
+      have hlow : max |(j : ℝ)| 1 / 2 ≤ ‖ρ‖ := by
+        rw [div_le_iff₀ (by norm_num)]
+        exact max_le (by linarith) (by linarith)
+      have hpos : (0 : ℝ) < ‖ρ‖ := by linarith
+      have hinv : 1 / ‖ρ‖ ≤ w j := by
+        simp only [hw]
+        have h2 : (2 : ℝ) / max |(j : ℝ)| 1 = 1 / (max |(j : ℝ)| 1 / 2) := by
+          rw [div_div_eq_mul_div, one_mul]
+        rw [h2]
+        exact one_div_le_one_div_of_le (by linarith [hmax1 j]) hlow
+      calc (zeroMult χ ρ : ℝ) / ‖ρ‖ = (zeroMult χ ρ : ℝ) * (1 / ‖ρ‖) := by ring
+        _ ≤ (zeroMult χ ρ : ℝ) * w j := mul_le_mul_of_nonneg_left hinv (by positivity)
+        _ = w j * (zeroMult χ ρ : ℝ) := by ring
+    calc ∑ ρ ∈ {ρ ∈ Z | round ρ.im = j}, (zeroMult χ ρ : ℝ) / ‖ρ‖
+        ≤ ∑ ρ ∈ {ρ ∈ Z | round ρ.im = j}, w j * (zeroMult χ ρ : ℝ) := Finset.sum_le_sum hterm
+      _ = w j * efMultTotal χ {ρ ∈ Z | round ρ.im = j} := by rw [efMultTotal, Finset.mul_sum]
+      _ ≤ w j * C := mul_le_mul_of_nonneg_left (hfibmass j hj) (hwnn j)
+  -- the weight sum: twice a harmonic sum
+  set A : Finset ℤ := (Finset.range (n + 1)).image (fun k : ℕ => (k : ℤ)) with hA
+  set B : Finset ℤ := (Finset.range (n + 1)).image (fun k : ℕ => -(k : ℤ)) with hB
+  have hJsub : J ⊆ A ∪ B := by
+    intro j hj
+    rw [hJ, Finset.mem_Icc] at hj
+    rcases le_or_gt 0 j with h | h
+    · exact Finset.mem_union_left _ (Finset.mem_image.mpr
+        ⟨j.natAbs, Finset.mem_range.mpr (by omega), by omega⟩)
+    · exact Finset.mem_union_right _ (Finset.mem_image.mpr
+        ⟨j.natAbs, Finset.mem_range.mpr (by omega), by omega⟩)
+  have hrange : ∑ k ∈ Finset.range (n + 1), (2 : ℝ) / max ((k : ℕ) : ℝ) 1
+      = 2 + 2 * (harmonic n : ℝ) := by
+    rw [Finset.sum_range_succ' (fun k : ℕ => (2 : ℝ) / max ((k : ℕ) : ℝ) 1) n]
+    have hstep : ∀ i ∈ Finset.range n,
+        (2 : ℝ) / max (((i + 1 : ℕ)) : ℝ) 1 = 2 * (1 / ((i : ℝ) + 1)) := by
+      intro i _
+      have hc : (((i + 1 : ℕ)) : ℝ) = (i : ℝ) + 1 := by push_cast; ring
+      have hi : (0 : ℝ) ≤ (i : ℝ) := Nat.cast_nonneg i
+      rw [hc, max_eq_left (by linarith)]
+      ring
+    rw [Finset.sum_congr rfl hstep, ← Finset.mul_sum, sum_range_inv_succ_eq_harmonic]
+    norm_num
+    ring
+  have hAsum : ∑ j ∈ A, w j = ∑ k ∈ Finset.range (n + 1), (2 : ℝ) / max ((k : ℕ) : ℝ) 1 := by
+    rw [hA, Finset.sum_image (by intro x _ y _ h; simpa using h)]
+    refine Finset.sum_congr rfl (fun k _ => ?_)
+    simp only [hw]
+    norm_num
+  have hBsum : ∑ j ∈ B, w j = ∑ k ∈ Finset.range (n + 1), (2 : ℝ) / max ((k : ℕ) : ℝ) 1 := by
+    rw [hB, Finset.sum_image (by intro x _ y _ h; simpa using h)]
+    refine Finset.sum_congr rfl (fun k _ => ?_)
+    simp only [hw]
+    norm_num
+  have hwsum : ∑ j ∈ J, w j ≤ 4 + 4 * (harmonic n : ℝ) := by
+    have h1 : ∑ j ∈ J, w j ≤ ∑ j ∈ A ∪ B, w j :=
+      Finset.sum_le_sum_of_subset_of_nonneg hJsub (fun i _ _ => hwnn i)
+    have h2 : ∑ j ∈ A ∪ B, w j + ∑ j ∈ A ∩ B, w j = ∑ j ∈ A, w j + ∑ j ∈ B, w j :=
+      Finset.sum_union_inter
+    have h3 : 0 ≤ ∑ j ∈ A ∩ B, w j := Finset.sum_nonneg (fun j _ => hwnn j)
+    rw [hAsum, hBsum, hrange] at h2
+    linarith
+  -- the harmonic bound, and the height comparison
+  have hharm : (harmonic n : ℝ) ≤ 1 + Real.log (T + 1) := by
+    refine (harmonic_le_one_add_log n).trans ?_
+    have hlogn : Real.log (n : ℝ) ≤ Real.log (T + 1) := by
+      rcases Nat.eq_zero_or_pos n with h0 | h0
+      · rw [h0]
+        simpa using Real.log_nonneg (by linarith)
+      · exact Real.log_le_log (by exact_mod_cast h0) hnT.le
+    linarith
+  have hsum : ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ) / ‖ρ‖
+      = ∑ j ∈ J, ∑ ρ ∈ {ρ ∈ Z | round ρ.im = j}, (zeroMult χ ρ : ℝ) / ‖ρ‖ :=
+    (Finset.sum_fiberwise_of_maps_to hmaps (fun ρ => (zeroMult χ ρ : ℝ) / ‖ρ‖)).symm
+  have hlogT : 0 ≤ Real.log (T + 1) := Real.log_nonneg (by linarith)
+  calc ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ) / ‖ρ‖
+      = ∑ j ∈ J, ∑ ρ ∈ {ρ ∈ Z | round ρ.im = j}, (zeroMult χ ρ : ℝ) / ‖ρ‖ := hsum
+    _ ≤ ∑ j ∈ J, w j * C := Finset.sum_le_sum hfib
+    _ = (∑ j ∈ J, w j) * C := by rw [Finset.sum_mul]
+    _ ≤ (4 + 4 * (harmonic n : ℝ)) * C := mul_le_mul_of_nonneg_right hwsum hCnn
+    _ ≤ (8 + 4 * Real.log (T + 1)) * C := by
+        refine mul_le_mul_of_nonneg_right (by linarith) hCnn
+    _ ≤ (8 + 4 * Real.log (T + 1)) * (137 * Real.log ((q : ℝ) * (T + 3))) := by
+        refine mul_le_mul_of_nonneg_left ?_ (by linarith)
+        rw [hC]
+        exact mul_le_mul_of_nonneg_right windowConst_le_137 hlognn
+    _ = 137 * Real.log ((q : ℝ) * (T + 3)) * (8 + 4 * Real.log (T + 1)) := by ring
+
 /-! ## 3. `N(σ,T,χ)` and the crude density -/
 
 /-- **`zeroCountM χ σ T` — HB/Jutila's `N(σ,T,χ)`**: the zeros of `L(·,χ)` in the box
