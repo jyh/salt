@@ -355,4 +355,134 @@ theorem logChiSum_add_mainTerm_norm_le {q : ℕ} (χ : DirichletCharacter ℂ q)
     _ = G X / Real.log X + G Y / Real.log Y + 2 * ∫ t in X..Y, G t / (t * Real.log t) := by
         ring
 
+/-! ## 4. The explicit-formula side — the socket to `psiDefect` bridge -/
+
+/-- **THE EF BRIDGE (N4b W2, design D1/D2/D4).**  The W0.5 socket
+`psi_explicit_sharpM_perZero_unsep` (no well-spacing hypothesis: it pigeonholes internally)
+composed with
+
+* the `β₀` erase-split `efZeroSumM_erase_split` — which is **forced**, not merely convenient:
+  the packaged `boxZeros_re_le_of_repulsion` cannot be used on a box containing `β₀` (its `hreal`
+  demands every real zero of the box obey the repulsion ceiling, and `β₀` by construction does
+  not);
+* the A3-batched erased spend `efZeroSumM_norm_le_harmonic` × `efMultHarmonic_box_le` — the
+  `log(qT)·log T` grade, never the `T·log(qT)` count;
+* the same erase-split applied to the de-smoothing sum, so that `β₀`'s de-smoothing term keeps
+  its own `u^{β₀−1}` and only the REST is charged the ceiling `bceil` (collapsing the whole sum to
+  `efMultTotal·h` would be fatal — that term alone is `≈ 274·√T·log(qT)` relative).
+
+The single carried ceiling binder is
+
+    hceil : every zero `ρ ≠ β₀` of the strip `9/10 ≤ Re ρ ≤ 1`, `|Im ρ| ≤ T₀+1`, has `Re ρ ≤ bceil`,
+
+which is exactly what the Range-A Deuring–Heilbronn ceiling (`dh_repulsion_tall` fed through the
+`erase`-form of `boxZeros_re_le_of_repulsion`, under `hord`/`hreal′`/`hN+`) and the Range-B
+`zero_free_region_all` ceiling supply; `hσbβ₀` is the statement that the `(1.11)` zero sits above
+the contour window, and `hβ₀0` that it is a zero at all.  Nothing is silent: `m := zeroMult χ β₀`
+rides explicitly, and the surviving `efShiftError` is the landed contour budget verbatim (its
+explicit evaluation is the ledger row recorded in `docs/blueprints/flags.md`). -/
+theorem psiDefect_norm_le_of_ef {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hq : 2 ≤ q) {β₀ bceil u h σa σb T₀ : ℝ}
+    (hu : 3 ≤ u) (hh : 0 < h) (hσa : 9 / 10 ≤ σa) (hσab : σa < σb) (hσb : σb < 1)
+    (hT₀ : 2 ≤ T₀) (hβ₀1 : β₀ ≤ 1) (hσbβ₀ : σb ≤ β₀)
+    (hβ₀zero : LFunction χ (β₀ : ℂ) = 0)
+    (hceil : ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ ≠ (β₀ : ℂ) → 9 / 10 ≤ ρ.re → ρ.re ≤ 1 →
+      |ρ.im| ≤ T₀ + 1 → ρ.re ≤ bceil) :
+    ∃ σ₀ T w : ℝ,
+      (σa ≤ σ₀ ∧ σ₀ ≤ σb) ∧ (T₀ ≤ T ∧ T ≤ T₀ + 1) ∧ 0 < w ∧
+      (σb - σa) / (4 * (137 * (2 * T₀ + 7) * Real.log ((q : ℝ) * (T₀ + 5)) + 1)) ≤ w ∧
+      ‖psiDefect χ β₀ (zeroMult χ (β₀ : ℂ)) u‖
+        ≤ (h + 1) * Real.log (u + h)
+          + (efShiftError q T σ₀ w u + efShiftError q T σ₀ w (u + h)) / h
+          + ((zeroMult χ (β₀ : ℂ) : ℝ) * (h * u ^ (β₀ - 1))
+              + h * u ^ (bceil - 1) * (137 * (2 * T + 3) * Real.log ((q : ℝ) * (T + 3))))
+          + u ^ bceil * (137 * Real.log ((q : ℝ) * (T + 3)) * (8 + 4 * Real.log (T + 1))) := by
+  classical
+  have hχ1 : χ ≠ 1 := ne_one_of_isPrimitive χ hχ hq
+  have hu1 : (1 : ℝ) ≤ u := by linarith
+  have hu0 : (0 : ℝ) < u := by linarith
+  obtain ⟨σ₀, T, w, hσ, hT, hw, hwlb, hσ₀w, hσ₀1, hsock⟩ :=
+    psi_explicit_sharpM_perZero_unsep χ hχ hq hu hh hσa hσab hσb hT₀
+  refine ⟨σ₀, T, w, hσ, hT, hw, hwlb, ?_⟩
+  have hT0 : (0 : ℝ) ≤ T := by linarith [hT.1]
+  -- `β₀` lies in the contour box
+  have hβZ : (β₀ : ℂ) ∈ boxZeros χ (σ₀ - w) 1 T := by
+    rw [mem_boxZeros hχ1]
+    refine ⟨hβ₀zero, ?_, ?_, ?_⟩
+    · simp only [Complex.ofReal_re]; linarith [hσ.2]
+    · simpa using hβ₀1
+    · simp only [Complex.ofReal_im, abs_zero]; linarith [hT.1]
+  -- the ceiling, on the ERASED box (the `hreal`-at-`β₀` repair)
+  have hbar : ∀ ρ ∈ (boxZeros χ (σ₀ - w) 1 T).erase (β₀ : ℂ), ρ.re ≤ bceil := by
+    intro ρ hρ
+    have hmem := (mem_boxZeros hχ1).mp (Finset.mem_of_mem_erase hρ)
+    exact hceil ρ hmem.1 (Finset.ne_of_mem_erase hρ) (by linarith [hmem.2.1])
+      hmem.2.2.1 (le_trans hmem.2.2.2 hT.2)
+  -- the box's own strip data, for the A3 batching and the count
+  have hZ0 : ∀ ρ ∈ boxZeros χ (σ₀ - w) 1 T, LFunction χ ρ = 0 :=
+    fun ρ hρ => ((mem_boxZeros hχ1).mp hρ).1
+  have hZre : ∀ ρ ∈ boxZeros χ (σ₀ - w) 1 T, 1 / 2 ≤ ρ.re ∧ ρ.re ≤ 1 := by
+    intro ρ hρ
+    have hmem := (mem_boxZeros hχ1).mp hρ
+    exact ⟨by linarith [hmem.2.1], hmem.2.2.1⟩
+  have hZim : ∀ ρ ∈ boxZeros χ (σ₀ - w) 1 T, |ρ.im| ≤ T :=
+    fun ρ hρ => ((mem_boxZeros hχ1).mp hρ).2.2.2
+  -- the exceptional residue is exactly `psiDefect`'s main term
+  have hres : (((zeroMult χ (β₀ : ℂ) : ℝ) * u ^ β₀ / β₀ : ℝ) : ℂ)
+      = (zeroMult χ (β₀ : ℂ) : ℂ) * (((u : ℝ) : ℂ) ^ (β₀ : ℂ) / (β₀ : ℂ)) := by
+    push_cast [Complex.ofReal_cpow (le_of_lt hu0)]
+    ring
+  have hkey : psiDefect χ β₀ (zeroMult χ (β₀ : ℂ)) u
+      = (psiChiR u χ + efZeroSumM χ (boxZeros χ (σ₀ - w) 1 T) u)
+        - efZeroSumM χ ((boxZeros χ (σ₀ - w) 1 T).erase (β₀ : ℂ)) u := by
+    rw [efZeroSumM_erase_split χ hβZ u, psiDefect, hres]
+    ring
+  -- the A3-batched erased spend
+  have hspend : ‖efZeroSumM χ ((boxZeros χ (σ₀ - w) 1 T).erase (β₀ : ℂ)) u‖
+      ≤ u ^ bceil * (137 * Real.log ((q : ℝ) * (T + 3)) * (8 + 4 * Real.log (T + 1))) := by
+    refine le_trans (efZeroSumM_norm_le_harmonic χ hu1 hbar) ?_
+    refine mul_le_mul_of_nonneg_left ?_ (Real.rpow_nonneg (by linarith) bceil)
+    refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg (Finset.erase_subset _ _)
+      (fun i _ _ => div_nonneg (by positivity) (norm_nonneg i))) ?_
+    exact efMultHarmonic_box_le χ hχ hq hT0 hZ0 hZre hZim
+  -- the de-smoothing sum, `β₀` kept apart from the ceiling
+  have hcount : efMultTotal χ ((boxZeros χ (σ₀ - w) 1 T).erase (β₀ : ℂ))
+      ≤ 137 * (2 * T + 3) * Real.log ((q : ℝ) * (T + 3)) := by
+    refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg (Finset.erase_subset _ _)
+      (fun i _ _ => by positivity)) ?_
+    exact zeroCountM_le χ hχ hq (by linarith : (1:ℝ)/2 ≤ σ₀ - w) hT0
+  have hdesm : ∑ ρ ∈ boxZeros χ (σ₀ - w) 1 T, (zeroMult χ ρ : ℝ) * (h * u ^ (ρ.re - 1))
+      ≤ (zeroMult χ (β₀ : ℂ) : ℝ) * (h * u ^ (β₀ - 1))
+        + h * u ^ (bceil - 1) * (137 * (2 * T + 3) * Real.log ((q : ℝ) * (T + 3))) := by
+    rw [← Finset.add_sum_erase _ (fun ρ => (zeroMult χ ρ : ℝ) * (h * u ^ (ρ.re - 1))) hβZ]
+    simp only [Complex.ofReal_re]
+    refine add_le_add le_rfl ?_
+    calc ∑ ρ ∈ (boxZeros χ (σ₀ - w) 1 T).erase (β₀ : ℂ),
+          (zeroMult χ ρ : ℝ) * (h * u ^ (ρ.re - 1))
+        ≤ ∑ ρ ∈ (boxZeros χ (σ₀ - w) 1 T).erase (β₀ : ℂ),
+            (zeroMult χ ρ : ℝ) * (h * u ^ (bceil - 1)) := by
+          refine Finset.sum_le_sum (fun ρ hρ => ?_)
+          refine mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left ?_ (le_of_lt hh))
+            (by positivity)
+          exact Real.rpow_le_rpow_of_exponent_le hu1 (by linarith [hbar ρ hρ])
+      _ = efMultTotal χ ((boxZeros χ (σ₀ - w) 1 T).erase (β₀ : ℂ)) * (h * u ^ (bceil - 1)) := by
+          rw [efMultTotal, Finset.sum_mul]
+      _ ≤ (137 * (2 * T + 3) * Real.log ((q : ℝ) * (T + 3))) * (h * u ^ (bceil - 1)) := by
+          refine mul_le_mul_of_nonneg_right hcount ?_
+          have : (0:ℝ) < u ^ (bceil - 1) := Real.rpow_pos_of_pos hu0 _
+          positivity
+      _ = h * u ^ (bceil - 1) * (137 * (2 * T + 3) * Real.log ((q : ℝ) * (T + 3))) := by ring
+  -- assembly
+  rw [hkey]
+  refine le_trans (norm_sub_le _ _) ?_
+  have := le_trans hsock (by linarith [hdesm] :
+    (h + 1) * Real.log (u + h)
+      + (efShiftError q T σ₀ w u + efShiftError q T σ₀ w (u + h)) / h
+      + ∑ ρ ∈ boxZeros χ (σ₀ - w) 1 T, (zeroMult χ ρ : ℝ) * (h * u ^ (ρ.re - 1))
+    ≤ (h + 1) * Real.log (u + h)
+      + (efShiftError q T σ₀ w u + efShiftError q T σ₀ w (u + h)) / h
+      + ((zeroMult χ (β₀ : ℂ) : ℝ) * (h * u ^ (β₀ - 1))
+          + h * u ^ (bceil - 1) * (137 * (2 * T + 3) * Real.log ((q : ℝ) * (T + 3)))))
+  linarith [this, hspend]
+
 end Salt.HB
