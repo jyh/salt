@@ -346,3 +346,19 @@ open Salt.Tactic in
   Salt.SW.norm_logDeriv_le_of_bound_off_zeros Salt.SW.norm_sub_le_of_norm_le_on_ball
   Salt.SW.mem_of_LFunction_eq_zero Salt.SW.multiplicity_eq_zeroMult
   Salt.SW.LFunction_partialFraction_remainder_diff
+  -- N4b W0 (the prerequisite wave): the β₀ erase-split, the per-zero un-collapse, the
+  -- A3 harmonic batching and the harmonic-form erased spend
+  Salt.SW.efZeroSumM_erase_split
+  Salt.SW.efRieszSumM_diff_sub_efZeroSumM_le_perZero
+  Salt.SW.psi_explicit_sharpM_of_riesz_residues_perZero
+  Salt.SW.psi_explicit_sharpM_perZero
+  Salt.SW.cpow_riesz_diff_norm_le Salt.SW.efRieszSumM_diff_norm_le
+  Salt.SW.efRieszSumM_diff_quotient_norm_le
+  Salt.SW.sum_range_inv_succ_eq_harmonic Salt.SW.efMultHarmonic_box_le
+  Salt.SW.efZeroSumM_norm_le_harmonic Salt.SW.efZeroSumM_erase_norm_le_harmonic
+  -- N4b W0.5 (HSEP-GAP): the gap-form contour shift, the box-exact EF, and the
+  -- pigeonhole that retires the well-spacing hypothesis outright
+  Salt.SW.psi1_contour_shift_finsetM_gap Salt.SW.card_le_efMultTotal
+  Salt.SW.psi_explicit_sharpM_perZero_box Salt.SW.psi_explicit_sharpM_box
+  Salt.SW.exists_gap_midpoint Salt.SW.exists_contour_params
+  Salt.SW.psi_explicit_sharpM_perZero_unsep
