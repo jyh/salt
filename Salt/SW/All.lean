@@ -29,6 +29,7 @@ import Salt.SW.ContourShift
 import Salt.SW.ShiftAssembly
 import Salt.SW.ShiftVariants
 import Salt.SW.ZetaZeroFree
+import Salt.SW.EpsilonZero
 import Salt.SW.ShiftTrivChar
 import Salt.SW.Psi1Transfer
 import Salt.SW.CharDispatch
