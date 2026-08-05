@@ -44,6 +44,7 @@ import Salt.HB.TwistedMertens
 import Salt.HB.Lemma3Uncond
 import Salt.HB.Lemma7L
 import Salt.HB.Lemma7EF
+import Salt.HB.Lemma7F
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -207,3 +208,7 @@ open Salt.Tactic in
   Salt.HB.efEnvelope_nonneg Salt.HB.logChiSum_composite_of_ceiling
   Salt.HB.logChiSum_add Salt.HB.intervalIntegrable_rpow_div_log
   Salt.HB.integrableOn_rpow_div_log Salt.HB.logChiSum_tendsto_of_envelope
+  Salt.HB.integrableOn_expNeg_div_Ioi Salt.HB.integrableOn_expNeg_mul_log_Ioi_zero
+  Salt.HB.hasDerivAt_expNeg_mul_log Salt.HB.expIntegral_ibp Salt.HB.expIntegral_eq_sub
+  Salt.HB.abs_integral_expNeg_mul_log_Ioc_le Salt.HB.expIntegral_sub_log_gamma_abs_le
+  Salt.HB.integral_rpow_div_log_Ioi_eq_expIntegral Salt.HB.hb_F_tail_integral
