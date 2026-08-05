@@ -1144,4 +1144,185 @@ theorem logChiSum_composite_of_ceiling {q : ℕ} [NeZero q] (χ : DirichletChara
     (fun t ht => psiDefect_norm_le_envelope χ hχ hq (le_trans hX ht.1) hσa hσab hσb hβ₀1
       hσbβ₀ hβ₀zero (hceil t ht))
 
+/-! ## 8. The tail form (W2b, part (d))
+
+HB states `(4.12)` "uniformly in `y`", which is the finite form above; what his `F`-computation
+actually substitutes is the tail `∑_{n>X}` against the improper integral `∫_X^∞`.  This section
+takes the limit: the finite bound applied on `[Y₁,Y₂]` IS a Cauchy estimate, so the partial sums
+converge with no further analytic input. -/
+
+/-- Splitting the log-weighted sum at an intermediate point. -/
+lemma logChiSum_add {q : ℕ} (χ : DirichletCharacter ℂ q) {X Y₁ Y₂ : ℝ}
+    (h1 : X ≤ Y₁) (h2 : Y₁ ≤ Y₂) :
+    logChiSum χ X Y₂ = logChiSum χ X Y₁ + logChiSum χ Y₁ Y₂ := by
+  classical
+  have hf1 : ⌊X⌋₊ ≤ ⌊Y₁⌋₊ := Nat.floor_le_floor h1
+  have hf2 : ⌊Y₁⌋₊ ≤ ⌊Y₂⌋₊ := Nat.floor_le_floor h2
+  simp only [logChiSum]
+  rw [← Finset.Ioc_union_Ioc_eq_Ioc hf1 hf2, Finset.sum_union]
+  refine Finset.disjoint_left.mpr (fun x hx hx' => ?_)
+  rw [Finset.mem_Ioc] at hx hx'
+  omega
+
+/-- The main-term integrand is continuous, hence interval-integrable, above `3`. -/
+lemma intervalIntegrable_rpow_div_log {β₀ a b : ℝ} (ha : 3 ≤ a) (hab : a ≤ b) :
+    IntervalIntegrable (fun v : ℝ => v ^ (β₀ - 2) / Real.log v) volume a b := by
+  rw [intervalIntegrable_iff_integrableOn_Icc_of_le hab]
+  refine ContinuousOn.integrableOn_compact isCompact_Icc ?_
+  have hmem : ∀ t ∈ Set.Icc a b, (3 : ℝ) ≤ t := fun t ht => le_trans ha ht.1
+  have hid : ContinuousOn (fun t : ℝ => t) (Set.Icc a b) := continuousOn_id
+  refine ContinuousOn.div (hid.rpow_const
+    (fun t ht => Or.inl (ne_of_gt (by linarith [hmem t ht]))))
+    (Real.continuousOn_log.mono (fun t ht => ne_of_gt (by linarith [hmem t ht])))
+    (fun t ht => ne_of_gt (Real.log_pos (by linarith [hmem t ht])))
+
+/-- **The main term converges**: `∫_X^∞ v^{β₀−2}/log v dv` exists for `β₀ < 1`, `X ≥ 3`
+(`β₀ − 2 < −1`, and `log v ≥ 1` on the range). -/
+lemma integrableOn_rpow_div_log {β₀ X : ℝ} (hβ₀ : β₀ < 1) (hX : 3 ≤ X) :
+    IntegrableOn (fun v : ℝ => v ^ (β₀ - 2) / Real.log v) (Set.Ioi X) := by
+  have hX0 : (0 : ℝ) < X := by linarith
+  have hg : IntegrableOn (fun v : ℝ => v ^ (β₀ - 2)) (Set.Ioi X) :=
+    integrableOn_Ioi_rpow_of_lt (by linarith) hX0
+  have hid : ContinuousOn (fun t : ℝ => t) (Set.Ioi X) := continuousOn_id
+  have hmeas : AEStronglyMeasurable (fun v : ℝ => v ^ (β₀ - 2) / Real.log v)
+      (volume.restrict (Set.Ioi X)) := by
+    refine ContinuousOn.aestronglyMeasurable ?_ measurableSet_Ioi
+    refine ContinuousOn.div (hid.rpow_const
+      (fun t ht => Or.inl (ne_of_gt (by linarith [Set.mem_Ioi.mp ht]))))
+      (Real.continuousOn_log.mono (fun t ht => ne_of_gt (by linarith [Set.mem_Ioi.mp ht])))
+      (fun t ht => ne_of_gt (Real.log_pos (by linarith [Set.mem_Ioi.mp ht])))
+  refine hg.mono' hmeas ((ae_restrict_iff' measurableSet_Ioi).mpr (ae_of_all _ (fun v hv => ?_)))
+  have hv3 : (3 : ℝ) < v := lt_of_le_of_lt hX (Set.mem_Ioi.mp hv)
+  have hv0 : (0 : ℝ) < v := by linarith
+  have hlog : (1 : ℝ) ≤ Real.log v := by
+    have he : Real.exp 1 ≤ v :=
+      le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) (le_of_lt hv3)
+    exact (Real.le_log_iff_exp_le hv0).mpr he
+  have hrp : (0 : ℝ) < v ^ (β₀ - 2) := Real.rpow_pos_of_pos hv0 _
+  rw [Real.norm_eq_abs, abs_of_nonneg (by positivity), div_le_iff₀ (by linarith)]
+  nlinarith
+
+/-- **THE TAIL FORM (N4b W2b, part (d)) — what W3 consumes.**  The finite `(4.12)` bound applied
+on `[Y₁,Y₂]` is exactly a Cauchy estimate, so the log-weighted tail converges, and in the limit
+
+    ‖∑_{n>X} χ(n)Λ(n)/(n log n) + m·∫_X^∞ v^{β₀−2}/log v dv‖
+      ≤ G X/log X + 2·∫_X^∞ G t/(t log t) dt,
+
+with the `Y`-boundary term gone.  The two extra hypotheses are exactly the ledger row's own
+content: the envelope's `dt/(t log t)` integral converges, and `G t/log t → 0`.  The `X`-window
+edge (`q^{250} ≤ X`) rides on the caller, unchanged. -/
+theorem logChiSum_tendsto_of_envelope {q : ℕ} (χ : DirichletCharacter ℂ q)
+    {β₀ : ℝ} (hβ₀0 : 0 < β₀) (hβ₀1 : β₀ < 1) (m : ℕ) {X : ℝ} (hX : 3 ≤ X)
+    {G : ℝ → ℝ} (hGc : ContinuousOn G (Set.Ici X)) (hG0 : ∀ t ∈ Set.Ici X, 0 ≤ G t)
+    (hEF : ∀ t ∈ Set.Ici X, ‖psiDefect χ β₀ m t‖ ≤ t * G t)
+    (hGint : IntegrableOn (fun t : ℝ => G t / (t * Real.log t)) (Set.Ioi X))
+    (hGlim : Tendsto (fun t : ℝ => G t / Real.log t) atTop (𝓝 0)) :
+    ∃ S : ℂ, Tendsto (fun Y : ℝ => logChiSum χ X Y) atTop (𝓝 S) ∧
+      ‖S + (m : ℂ) * ((∫ v in Set.Ioi X, v ^ (β₀ - 2) / Real.log v : ℝ) : ℂ)‖
+        ≤ G X / Real.log X + 2 * ∫ v in Set.Ioi X, G v / (v * Real.log v) := by
+  classical
+  set I : ℝ := ∫ v in Set.Ioi X, G v / (v * Real.log v) with hIdef
+  set J : ℝ := ∫ v in Set.Ioi X, v ^ (β₀ - 2) / Real.log v with hJdef
+  set H : ℝ → ℝ := fun Y => ∫ t in X..Y, G t / (t * Real.log t) with hHdef
+  set H₂ : ℝ → ℝ := fun Y => ∫ t in X..Y, t ^ (β₀ - 2) / Real.log t with hH₂def
+  set F : ℝ → ℂ := fun Y => logChiSum χ X Y + (m : ℂ) * ((H₂ Y : ℝ) : ℂ) with hFdef
+  have hJint : IntegrableOn (fun v : ℝ => v ^ (β₀ - 2) / Real.log v) (Set.Ioi X) :=
+    integrableOn_rpow_div_log hβ₀1 hX
+  have hGii : ∀ a b : ℝ, X ≤ a → a ≤ b →
+      IntervalIntegrable (fun t : ℝ => G t / (t * Real.log t)) volume a b := by
+    intro a b ha hab
+    rw [intervalIntegrable_iff_integrableOn_Icc_of_le hab]
+    refine ContinuousOn.integrableOn_compact isCompact_Icc ?_
+    have hmem : ∀ t ∈ Set.Icc a b, X ≤ t := fun t ht => le_trans ha ht.1
+    have hmem3 : ∀ t ∈ Set.Icc a b, (3 : ℝ) ≤ t := fun t ht => le_trans hX (hmem t ht)
+    refine ContinuousOn.div (hGc.mono (fun t ht => hmem t ht))
+      (continuousOn_id.mul (Real.continuousOn_log.mono
+        (fun t ht => ne_of_gt (by linarith [hmem3 t ht])))) (fun t ht => ?_)
+    have h3 := hmem3 t ht
+    have : 0 < Real.log t := Real.log_pos (by linarith)
+    positivity
+  have hHle : ∀ Y : ℝ, X ≤ Y → H Y ≤ I := by
+    intro Y hY
+    simp only [hHdef, hIdef]
+    rw [intervalIntegral.integral_of_le hY]
+    refine setIntegral_mono_set hGint ?_ (ae_of_all _ (fun t ht => Set.Ioc_subset_Ioi_self ht))
+    refine (ae_restrict_iff' measurableSet_Ioi).mpr (ae_of_all _ (fun t ht => ?_))
+    have hXt : X ≤ t := le_of_lt (Set.mem_Ioi.mp ht)
+    have h3 : (3 : ℝ) ≤ t := le_trans hX hXt
+    have hlt : 0 < Real.log t := Real.log_pos (by linarith)
+    exact div_nonneg (hG0 t hXt) (by positivity)
+  have hHtend : Tendsto H atTop (𝓝 I) :=
+    intervalIntegral_tendsto_integral_Ioi X hGint tendsto_id
+  have hH₂tend : Tendsto H₂ atTop (𝓝 J) :=
+    intervalIntegral_tendsto_integral_Ioi X hJint tendsto_id
+  have hwin : ∀ a b : ℝ, X ≤ a → a ≤ b →
+      ‖logChiSum χ a b + (m : ℂ) * (((∫ t in a..b, t ^ (β₀ - 2) / Real.log t : ℝ)) : ℂ)‖
+        ≤ G a / Real.log a + G b / Real.log b
+          + 2 * ∫ t in a..b, G t / (t * Real.log t) :=
+    fun a b ha hab => logChiSum_add_mainTerm_norm_le χ hβ₀0 m (le_trans hX ha) hab
+      (hGc.mono (fun t ht => le_trans ha ht.1)) (fun t ht => hG0 t (le_trans ha ht.1))
+      (fun t ht => hEF t (le_trans ha ht.1))
+  -- the Cauchy estimate IS the finite bound on `[N, Y]`
+  have hcauchy : CauchySeq F := by
+    rw [Metric.cauchySeq_iff']
+    intro ε hε
+    have hev1 : ∀ᶠ t in atTop, G t / Real.log t < ε / 4 :=
+      hGlim.eventually (gt_mem_nhds (by linarith : (0 : ℝ) < ε / 4))
+    have hev2 : ∀ᶠ N in atTop, I - H N < ε / 4 := by
+      filter_upwards [hHtend.eventually (lt_mem_nhds (show I - ε / 4 < I by linarith))] with N hN
+      linarith
+    rw [eventually_atTop] at hev1 hev2
+    obtain ⟨N₁, hN₁⟩ := hev1
+    obtain ⟨N₂, hN₂⟩ := hev2
+    refine ⟨max (max N₁ N₂) X, fun Y hY => ?_⟩
+    set N : ℝ := max (max N₁ N₂) X with hNdef
+    have hNX : X ≤ N := le_max_right _ _
+    have hN1 : N₁ ≤ N := le_trans (le_max_left _ _) (le_max_left _ _)
+    have hN2' : N₂ ≤ N := le_trans (le_max_right _ _) (le_max_left _ _)
+    have hNY : N ≤ Y := hY
+    set K : ℝ := ∫ t in N..Y, t ^ (β₀ - 2) / Real.log t with hKdef
+    have hsplit2 : H₂ N + K = H₂ Y := by
+      simp only [hH₂def, hKdef]
+      exact intervalIntegral.integral_add_adjacent_intervals
+        (intervalIntegrable_rpow_div_log hX hNX)
+        (intervalIntegrable_rpow_div_log (le_trans hX hNX) hNY)
+    have hdiff : F Y - F N = logChiSum χ N Y + (m : ℂ) * ((K : ℝ) : ℂ) := by
+      have h1 : logChiSum χ X Y = logChiSum χ X N + logChiSum χ N Y :=
+        logChiSum_add χ hNX hNY
+      have h3 : ((H₂ Y : ℝ) : ℂ) = ((H₂ N : ℝ) : ℂ) + ((K : ℝ) : ℂ) := by
+        rw [← Complex.ofReal_add]; congr 1; linarith
+      simp only [hFdef]
+      rw [h1, h3]
+      ring
+    rw [dist_eq_norm, hdiff]
+    have hb := hwin N Y hNX hNY
+    have hsplit1 : H N + (∫ t in N..Y, G t / (t * Real.log t)) = H Y := by
+      simp only [hHdef]
+      exact intervalIntegral.integral_add_adjacent_intervals (hGii X N le_rfl hNX)
+        (hGii N Y hNX hNY)
+    have hGN : G N / Real.log N < ε / 4 := hN₁ N hN1
+    have hGY : G Y / Real.log Y < ε / 4 := hN₁ Y (le_trans hN1 hNY)
+    have hIH : I - H N < ε / 4 := hN₂ N hN2'
+    have hHY : H Y ≤ I := hHle Y (le_trans hNX hNY)
+    linarith [hb]
+  obtain ⟨S', hS'⟩ := cauchySeq_tendsto_of_complete hcauchy
+  refine ⟨S' - (m : ℂ) * ((J : ℝ) : ℂ), ?_, ?_⟩
+  · have h1 : Tendsto (fun Y : ℝ => (m : ℂ) * ((H₂ Y : ℝ) : ℂ)) atTop
+        (𝓝 ((m : ℂ) * ((J : ℝ) : ℂ))) :=
+      tendsto_const_nhds.mul ((Complex.continuous_ofReal.tendsto J).comp hH₂tend)
+    refine (hS'.sub h1).congr (fun Y => ?_)
+    simp only [hFdef]
+    ring
+  · have hlim : Tendsto (fun Y : ℝ => ‖F Y‖) atTop (𝓝 ‖S'‖) := hS'.norm
+    have hbnd : Tendsto (fun Y : ℝ => G X / Real.log X + G Y / Real.log Y + 2 * H Y) atTop
+        (𝓝 (G X / Real.log X + 0 + 2 * I)) :=
+      (tendsto_const_nhds.add hGlim).add (tendsto_const_nhds.mul hHtend)
+    have hle : ∀ᶠ Y in atTop, ‖F Y‖ ≤ G X / Real.log X + G Y / Real.log Y + 2 * H Y := by
+      filter_upwards [eventually_ge_atTop X] with Y hY
+      exact hwin X Y le_rfl hY
+    have hfin := le_of_tendsto_of_tendsto hlim hbnd hle
+    have hS : S' - (m : ℂ) * ((J : ℝ) : ℂ) + (m : ℂ) * ((J : ℝ) : ℂ) = S' := by ring
+    rw [hS]
+    linarith
+
 end Salt.HB

@@ -205,3 +205,5 @@ open Salt.Tactic in
   Salt.HB.two_le_efT0 Salt.HB.efH_pos Salt.HB.psiDefect_norm_le_envelope
   Salt.HB.continuousOn_efEnvelope Salt.HB.efShiftB_nonneg Salt.HB.efShiftBound_nonneg
   Salt.HB.efEnvelope_nonneg Salt.HB.logChiSum_composite_of_ceiling
+  Salt.HB.logChiSum_add Salt.HB.intervalIntegrable_rpow_div_log
+  Salt.HB.integrableOn_rpow_div_log Salt.HB.logChiSum_tendsto_of_envelope
