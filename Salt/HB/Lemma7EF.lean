@@ -781,4 +781,367 @@ theorem psiDefect_norm_le_rangeA {q : ℕ} [NeZero q] (χ : DirichletCharacter �
       rw [hbase] at this
       exact this)
 
+/-! ## 7. The closed-form envelope at the design parameters (W2b, part (a))
+
+The freeze's D1 parameters: the growing truncation height `T₀(u) = (log(qu) + 2)^6` and the
+de-smoothing step `h(u) = u/√(T₀(u)) = u/(log(qu) + 2)^3` (the square root is exact, which is why
+the exponent `6` is written as it is).  Everything the EF bridge produces is then dominated by a
+function of `u` ALONE — the socket's `(σ₀, T, w)` are eliminated by `efShiftError_le_efShiftBound`
+and by the `T`-monotonicity of the two count rows. -/
+
+/-- The design height `T₀(u) = (log(q·u) + 2)^6` (freeze D1; the ledger row in
+`docs/blueprints/flags.md` fixes the exponent `6`). -/
+noncomputable def efT0 (q : ℕ) (u : ℝ) : ℝ := (Real.log ((q : ℝ) * u) + 2) ^ 6
+
+/-- The de-smoothing step `h(u) = u/√(T₀(u)) = u/(log(q·u) + 2)^3`. -/
+noncomputable def efH (q : ℕ) (u : ℝ) : ℝ := u / (Real.log ((q : ℝ) * u) + 2) ^ 3
+
+lemma two_le_efT0 {q : ℕ} {u : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u) : 2 ≤ efT0 q u := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hqu : (6 : ℝ) ≤ (q : ℝ) * u := by nlinarith
+  have hlog : (1 : ℝ) ≤ Real.log ((q : ℝ) * u) := by
+    have he : Real.exp 1 ≤ (q : ℝ) * u :=
+      le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) hqu
+    exact (Real.le_log_iff_exp_le (by linarith)).mpr he
+  rw [efT0]
+  nlinarith [pow_le_pow_left₀ (by norm_num : (0:ℝ) ≤ 3)
+    (by linarith : (3:ℝ) ≤ Real.log ((q : ℝ) * u) + 2) 6]
+
+lemma efH_pos {q : ℕ} {u : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u) : 0 < efH q u := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hqu : (6 : ℝ) ≤ (q : ℝ) * u := by nlinarith
+  have hlog : (0 : ℝ) ≤ Real.log ((q : ℝ) * u) := Real.log_nonneg (by linarith)
+  rw [efH]
+  apply div_pos (by linarith)
+  positivity
+
+/-- **THE ENVELOPE `G`** — the closed form of HB's relative explicit-formula error at the design
+parameters, a function of `u` alone.  The four groups are, in order: the de-smoothing boundary
+`(h+1)log(u+h)`, the uniformised contour budget `(E(u)+E(u+h))/h`, the de-smoothing zero mass
+(`β₀`'s own term kept apart from the ceiling — collapsing them is fatal), and the A3-batched
+erased spend.  The `/u` at the end is the relative normalisation `logChiSum_add_mainTerm_norm_le`
+consumes. -/
+noncomputable def efEnvelope (q : ℕ) (β₀ bceil : ℝ) (m : ℕ) (σa σb u : ℝ) : ℝ :=
+  ((efH q u + 1) * Real.log (u + efH q u)
+    + (efShiftBound q (efT0 q u) σa σb u + efShiftBound q (efT0 q u) σa σb (u + efH q u))
+        / efH q u
+    + ((m : ℝ) * (efH q u * u ^ (β₀ - 1))
+        + efH q u * u ^ (bceil - 1)
+          * (137 * (2 * efT0 q u + 5) * Real.log ((q : ℝ) * (efT0 q u + 4))))
+    + u ^ bceil * (137 * Real.log ((q : ℝ) * (efT0 q u + 4))
+        * (8 + 4 * Real.log (efT0 q u + 2)))) / u
+
+/-- **THE ENVELOPE BOUND (N4b W2b, part (a)).**  `‖ψ(u,χ) + m·u^{β₀}/β₀‖ ≤ u·G(u)` at
+`G = efEnvelope`, the exact hypothesis `logChiSum_add_mainTerm_norm_le` demands.  The socket's
+pigeonholed `(σ₀,T,w)` are gone: the contour budget by `efShiftError_le_efShiftBound`, the two
+count rows by `T`-monotonicity at `T ≤ T₀+1`. -/
+theorem psiDefect_norm_le_envelope {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hq : 2 ≤ q) {β₀ bceil u σa σb : ℝ}
+    (hu : 3 ≤ u) (hσa : 9 / 10 ≤ σa) (hσab : σa < σb) (hσb : σb < 1)
+    (hβ₀1 : β₀ ≤ 1) (hσbβ₀ : σb ≤ β₀) (hβ₀zero : LFunction χ (β₀ : ℂ) = 0)
+    (hceil : ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ ≠ (β₀ : ℂ) → 9 / 10 ≤ ρ.re → ρ.re ≤ 1 →
+      |ρ.im| ≤ efT0 q u + 1 → ρ.re ≤ bceil) :
+    ‖psiDefect χ β₀ (zeroMult χ (β₀ : ℂ)) u‖
+      ≤ u * efEnvelope q β₀ bceil (zeroMult χ (β₀ : ℂ)) σa σb u := by
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hT0 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
+  have hHpos : 0 < efH q u := efH_pos hq hu
+  have huh : (3 : ℝ) ≤ u + efH q u := by linarith
+  obtain ⟨σ₀, T, w, hσ, hT, hw, hwlb, hbnd⟩ :=
+    psiDefect_norm_le_of_ef χ hχ hq hu hHpos hσa hσab hσb hT0 hβ₀1 hσbβ₀ hβ₀zero hceil
+  refine le_trans hbnd ?_
+  -- unfold the relative normalisation
+  have hnorm : u * efEnvelope q β₀ bceil (zeroMult χ (β₀ : ℂ)) σa σb u
+      = (efH q u + 1) * Real.log (u + efH q u)
+        + (efShiftBound q (efT0 q u) σa σb u
+            + efShiftBound q (efT0 q u) σa σb (u + efH q u)) / efH q u
+        + ((zeroMult χ (β₀ : ℂ) : ℝ) * (efH q u * u ^ (β₀ - 1))
+            + efH q u * u ^ (bceil - 1)
+              * (137 * (2 * efT0 q u + 5) * Real.log ((q : ℝ) * (efT0 q u + 4))))
+        + u ^ bceil * (137 * Real.log ((q : ℝ) * (efT0 q u + 4))
+            * (8 + 4 * Real.log (efT0 q u + 2))) := by
+    rw [efEnvelope]; field_simp
+  rw [hnorm]
+  -- the two `T`-monotone count rows
+  have hTb : T ≤ efT0 q u + 1 := hT.2
+  have hTpos : (0 : ℝ) < T := by linarith [hT.1]
+  have hqT1 : (1 : ℝ) ≤ (q : ℝ) * (T + 3) := by nlinarith
+  have hlogT : (0 : ℝ) ≤ Real.log ((q : ℝ) * (T + 3)) := Real.log_nonneg hqT1
+  have hlogTle : Real.log ((q : ℝ) * (T + 3)) ≤ Real.log ((q : ℝ) * (efT0 q u + 4)) := by
+    refine Real.log_le_log (by linarith) ?_
+    nlinarith
+  have hlogT1 : (0 : ℝ) ≤ Real.log (T + 1) := Real.log_nonneg (by linarith)
+  have hlogT1le : Real.log (T + 1) ≤ Real.log (efT0 q u + 2) :=
+    Real.log_le_log (by linarith) (by linarith)
+  have hrow3 : 137 * (2 * T + 3) * Real.log ((q : ℝ) * (T + 3))
+      ≤ 137 * (2 * efT0 q u + 5) * Real.log ((q : ℝ) * (efT0 q u + 4)) :=
+    mul_le_mul (by linarith) hlogTle hlogT (by linarith)
+  have hrow4 : 137 * Real.log ((q : ℝ) * (T + 3)) * (8 + 4 * Real.log (T + 1))
+      ≤ 137 * Real.log ((q : ℝ) * (efT0 q u + 4)) * (8 + 4 * Real.log (efT0 q u + 2)) :=
+    mul_le_mul (by linarith) (by linarith) (by linarith) (by linarith)
+  refine add_le_add (add_le_add (add_le_add le_rfl ?_) ?_) ?_
+  · -- the uniformised contour budget
+    have hE1 : efShiftError q T σ₀ w u ≤ efShiftBound q (efT0 q u) σa σb u :=
+      efShiftError_le_efShiftBound hq hT0 hT.1 hT.2 hσa hσab hσb hσ.1 hσ.2 hw hwlb hu
+    have hE2 : efShiftError q T σ₀ w (u + efH q u)
+        ≤ efShiftBound q (efT0 q u) σa σb (u + efH q u) :=
+      efShiftError_le_efShiftBound hq hT0 hT.1 hT.2 hσa hσab hσb hσ.1 hσ.2 hw hwlb huh
+    exact div_le_div_of_nonneg_right (by linarith) (le_of_lt hHpos)
+  · -- the de-smoothing zero mass
+    refine add_le_add le_rfl (mul_le_mul_of_nonneg_left hrow3 ?_)
+    have : (0 : ℝ) < u ^ (bceil - 1) := Real.rpow_pos_of_pos hu0 _
+    positivity
+  · -- the A3-batched erased spend
+    exact mul_le_mul_of_nonneg_left hrow4 (le_of_lt (Real.rpow_pos_of_pos hu0 bceil))
+
+/-! ### The envelope is continuous — the last hypothesis of the transfer -/
+
+private lemma cont_log_comp {s : Set ℝ} {g : ℝ → ℝ} (hg : ContinuousOn g s)
+    (h0 : ∀ x ∈ s, g x ≠ 0) : ContinuousOn (fun x => Real.log (g x)) s :=
+  Real.continuousOn_log.comp hg (fun x hx => by simpa using h0 x hx)
+
+private lemma cont_logqu {q : ℕ} (hq : 2 ≤ q) :
+    ContinuousOn (fun u : ℝ => Real.log ((q : ℝ) * u)) (Set.Ici (3 : ℝ)) := by
+  have hq0 : (0 : ℝ) < (q : ℝ) := by
+    have : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+    linarith
+  refine cont_log_comp (continuousOn_const.mul continuousOn_id) (fun u hu => ?_)
+  have h3 : (3 : ℝ) ≤ u := hu
+  exact ne_of_gt (by positivity)
+
+private lemma logqu_ge {q : ℕ} (hq : 2 ≤ q) {u : ℝ} (hu : 3 ≤ u) :
+    (3 : ℝ) ≤ Real.log ((q : ℝ) * u) + 2 := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hqu : (6 : ℝ) ≤ (q : ℝ) * u := by nlinarith
+  have he : Real.exp 1 ≤ (q : ℝ) * u :=
+    le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) hqu
+  have : (1 : ℝ) ≤ Real.log ((q : ℝ) * u) := (Real.le_log_iff_exp_le (by linarith)).mpr he
+  linarith
+
+private lemma cont_efT0 {q : ℕ} (hq : 2 ≤ q) :
+    ContinuousOn (fun u : ℝ => efT0 q u) (Set.Ici (3 : ℝ)) := by
+  simp only [efT0]
+  exact ((cont_logqu hq).add continuousOn_const).pow 6
+
+private lemma cont_efH {q : ℕ} (hq : 2 ≤ q) :
+    ContinuousOn (fun u : ℝ => efH q u) (Set.Ici (3 : ℝ)) := by
+  simp only [efH]
+  refine continuousOn_id.div (((cont_logqu hq).add continuousOn_const).pow 3) (fun u hu => ?_)
+  have h := logqu_ge hq (show (3:ℝ) ≤ u from hu)
+  positivity
+
+private lemma cont_logQT {q : ℕ} (hq : 2 ≤ q) (a : ℝ) (ha : 0 ≤ a) :
+    ContinuousOn (fun u : ℝ => Real.log ((q : ℝ) * (efT0 q u + a))) (Set.Ici (3 : ℝ)) := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  refine cont_log_comp (continuousOn_const.mul ((cont_efT0 hq).add continuousOn_const))
+    (fun u hu => ne_of_gt ?_)
+  have h1 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
+  nlinarith
+
+private lemma cont_efShiftB {q : ℕ} (hq : 2 ≤ q) {σa σb : ℝ} :
+    ContinuousOn (fun u : ℝ => efShiftB q (efT0 q u) σa σb) (Set.Ici (3 : ℝ)) := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hsq : (1 : ℝ) ≤ Real.sqrt q := by
+    rw [show (1 : ℝ) = Real.sqrt 1 from (Real.sqrt_one).symm]
+    exact Real.sqrt_le_sqrt (by linarith)
+  have hlq : (0 : ℝ) ≤ Real.log q := Real.log_nonneg (by linarith)
+  have hfac1 : ContinuousOn (fun u : ℝ => 120 + 4 * (137 * (2 * efT0 q u + 7)
+      * Real.log ((q : ℝ) * (efT0 q u + 5)) + 1) / (Real.log (7 / 6) * (σb - σa)))
+      (Set.Ici (3 : ℝ)) := by
+    refine continuousOn_const.add (ContinuousOn.div_const (continuousOn_const.mul ?_) _)
+    exact ((continuousOn_const.mul ((continuousOn_const.mul (cont_efT0 hq)).add
+      continuousOn_const)).mul (cont_logQT hq 5 (by norm_num))).add continuousOn_const
+  have hfac2 : ContinuousOn (fun u : ℝ =>
+      Real.log (4 * (5 * (5 + efT0 q u) * Real.sqrt q * (1 + Real.log q)))) (Set.Ici (3 : ℝ)) := by
+    refine cont_log_comp (continuousOn_const.mul (((continuousOn_const.mul
+      (continuousOn_const.add (cont_efT0 hq))).mul continuousOn_const).mul continuousOn_const))
+      (fun u hu => ne_of_gt ?_)
+    have h1 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
+    have h5 : (0 : ℝ) < 5 * (5 + efT0 q u) := by linarith
+    have hs : (0 : ℝ) < Real.sqrt q := by linarith
+    have hl : (0 : ℝ) < 1 + Real.log q := by linarith
+    have := mul_pos (mul_pos h5 hs) hl
+    linarith
+  simp only [efShiftB]
+  exact hfac1.mul hfac2
+
+private lemma cont_efShiftBound {q : ℕ} (hq : 2 ≤ q) {σa σb : ℝ}
+    (hσb1 : 0 < σb + 1) {φ : ℝ → ℝ} (hφ : ContinuousOn φ (Set.Ici (3 : ℝ)))
+    (hφ3 : ∀ u ∈ Set.Ici (3 : ℝ), 3 ≤ φ u) :
+    ContinuousOn (fun u : ℝ => efShiftBound q (efT0 q u) σa σb (φ u)) (Set.Ici (3 : ℝ)) := by
+  have hlogφ : ContinuousOn (fun u : ℝ => Real.log (φ u)) (Set.Ici (3 : ℝ)) :=
+    cont_log_comp hφ (fun u hu => ne_of_gt (by linarith [hφ3 u hu]))
+  have hlogφ0 : ∀ u ∈ Set.Ici (3 : ℝ), Real.log (φ u) ≠ 0 := by
+    intro u hu
+    have h3 := hφ3 u hu
+    have he : Real.exp 1 ≤ φ u :=
+      le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) h3
+    have : (1 : ℝ) ≤ Real.log (φ u) := (Real.le_log_iff_exp_le (by linarith)).mpr he
+    linarith
+  have hrow1 : ContinuousOn (fun u : ℝ => 2 * ((1 + 1 / Real.log (φ u)) - σa)
+      * efShiftB q (efT0 q u) σa σb * (Real.exp 1 * φ u ^ (2 : ℕ)) / efT0 q u ^ 2)
+      (Set.Ici (3 : ℝ)) := by
+    refine ContinuousOn.div (((continuousOn_const.mul ((continuousOn_const.add
+      (continuousOn_const.div hlogφ hlogφ0)).sub continuousOn_const)).mul
+      (cont_efShiftB hq)).mul (continuousOn_const.mul (hφ.pow 2)))
+      ((cont_efT0 hq).pow 2) (fun u hu => ?_)
+    have h1 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
+    positivity
+  have hrow2 : ContinuousOn (fun u : ℝ => efShiftB q (efT0 q u) σa σb * φ u ^ (σb + 1)
+      * (Real.pi / σa)) (Set.Ici (3 : ℝ)) :=
+    ((cont_efShiftB hq).mul (hφ.rpow_const (fun u _ => Or.inr (by linarith)))).mul
+      continuousOn_const
+  have hrow3 : ContinuousOn (fun u : ℝ => (Real.log (φ u) + 1) * (Real.exp 1 * φ u ^ (2 : ℕ))
+      * (2 / efT0 q u)) (Set.Ici (3 : ℝ)) := by
+    refine ((hlogφ.add continuousOn_const).mul (continuousOn_const.mul (hφ.pow 2))).mul
+      (continuousOn_const.div (cont_efT0 hq) (fun u hu => ?_))
+    have h1 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
+    linarith
+  simp only [efShiftBound]
+  exact continuousOn_const.mul ((hrow1.add hrow2).add hrow3)
+
+/-- **The envelope is continuous on `[3,∞)`** — the last hypothesis
+`logChiSum_add_mainTerm_norm_le` asks for, so parts (a)/(b) compose with the transfer without
+any further side condition. -/
+lemma continuousOn_efEnvelope {q : ℕ} (hq : 2 ≤ q) {β₀ bceil σa σb : ℝ} (m : ℕ)
+    (hσb1 : 0 < σb + 1) :
+    ContinuousOn (fun u : ℝ => efEnvelope q β₀ bceil m σa σb u) (Set.Ici (3 : ℝ)) := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hφ2 : ContinuousOn (fun u : ℝ => u + efH q u) (Set.Ici (3 : ℝ)) :=
+    continuousOn_id.add (cont_efH hq)
+  have hφ23 : ∀ u ∈ Set.Ici (3 : ℝ), (3 : ℝ) ≤ u + efH q u := by
+    intro u hu
+    have h3 : (3 : ℝ) ≤ u := hu
+    linarith [efH_pos hq h3]
+  have hA : ContinuousOn (fun u : ℝ => (efH q u + 1) * Real.log (u + efH q u))
+      (Set.Ici (3 : ℝ)) :=
+    ((cont_efH hq).add continuousOn_const).mul
+      (cont_log_comp hφ2 (fun u hu => ne_of_gt (by linarith [hφ23 u hu])))
+  have hB : ContinuousOn (fun u : ℝ => (efShiftBound q (efT0 q u) σa σb u
+      + efShiftBound q (efT0 q u) σa σb (u + efH q u)) / efH q u) (Set.Ici (3 : ℝ)) :=
+    ContinuousOn.div ((cont_efShiftBound hq hσb1 (continuousOn_id (α := ℝ)) (fun u hu => hu)).add
+      (cont_efShiftBound hq hσb1 hφ2 hφ23)) (cont_efH hq)
+      (fun u hu => ne_of_gt (efH_pos hq (show (3:ℝ) ≤ u from hu)))
+  have hid : ContinuousOn (fun u : ℝ => u) (Set.Ici (3 : ℝ)) := continuousOn_id
+  have hne0 : ∀ u ∈ Set.Ici (3 : ℝ), u ≠ 0 :=
+    fun u hu => ne_of_gt (by linarith [show (3:ℝ) ≤ u from hu])
+  have hrpow : ∀ p : ℝ, ContinuousOn (fun u : ℝ => u ^ p) (Set.Ici (3 : ℝ)) := fun p =>
+    hid.rpow_const (fun u hu => Or.inl (hne0 u hu))
+  have hC : ContinuousOn (fun u : ℝ => (m : ℝ) * (efH q u * u ^ (β₀ - 1))
+      + efH q u * u ^ (bceil - 1)
+        * (137 * (2 * efT0 q u + 5) * Real.log ((q : ℝ) * (efT0 q u + 4)))) (Set.Ici (3 : ℝ)) :=
+    (continuousOn_const.mul ((cont_efH hq).mul (hrpow _))).add
+      (((cont_efH hq).mul (hrpow _)).mul ((continuousOn_const.mul
+        ((continuousOn_const.mul (cont_efT0 hq)).add continuousOn_const)).mul
+        (cont_logQT hq 4 (by norm_num))))
+  have hD : ContinuousOn (fun u : ℝ => u ^ bceil * (137 * Real.log ((q : ℝ) * (efT0 q u + 4))
+      * (8 + 4 * Real.log (efT0 q u + 2)))) (Set.Ici (3 : ℝ)) := by
+    refine (hrpow _).mul ((continuousOn_const.mul (cont_logQT hq 4 (by norm_num))).mul
+      (continuousOn_const.add (continuousOn_const.mul ?_)))
+    refine cont_log_comp ((cont_efT0 hq).add continuousOn_const) (fun u hu => ne_of_gt ?_)
+    have h1 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
+    linarith
+  simp only [efEnvelope]
+  exact ContinuousOn.div (((hA.add hB).add hC).add hD) hid hne0
+
+/-! ### Nonnegativity, and the end-to-end composite -/
+
+lemma efShiftB_nonneg {q : ℕ} {T₀ σa σb : ℝ} (hq : 2 ≤ q) (hT₀ : 2 ≤ T₀) (hσab : σa < σb) :
+    0 ≤ efShiftB q T₀ σa σb := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hsq : (1 : ℝ) ≤ Real.sqrt q := by
+    rw [show (1 : ℝ) = Real.sqrt 1 from (Real.sqrt_one).symm]
+    exact Real.sqrt_le_sqrt (by linarith)
+  have hlq : (0 : ℝ) ≤ Real.log q := Real.log_nonneg (by linarith)
+  have hlog76 : (0 : ℝ) < Real.log (7 / 6) := Real.log_pos (by norm_num)
+  have hlogQ : (0 : ℝ) ≤ Real.log ((q : ℝ) * (T₀ + 5)) := Real.log_nonneg (by nlinarith)
+  have harg : (1 : ℝ) ≤ 4 * (5 * (5 + T₀) * Real.sqrt q * (1 + Real.log q)) := by
+    have h1 : (35 : ℝ) ≤ 5 * (5 + T₀) := by linarith
+    have h2 : (35 : ℝ) * 1 ≤ 5 * (5 + T₀) * Real.sqrt q :=
+      mul_le_mul h1 hsq (by norm_num) (by linarith)
+    have h3 : (35 : ℝ) * 1 ≤ 5 * (5 + T₀) * Real.sqrt q * (1 + Real.log q) :=
+      mul_le_mul (by linarith) (by linarith) (by norm_num) (by linarith)
+    linarith
+  rw [efShiftB]
+  refine mul_nonneg ?_ (Real.log_nonneg harg)
+  have hnum : (0 : ℝ) ≤ 4 * (137 * (2 * T₀ + 7) * Real.log ((q : ℝ) * (T₀ + 5)) + 1) := by
+    nlinarith
+  have hden : (0 : ℝ) < Real.log (7 / 6) * (σb - σa) := by
+    apply mul_pos hlog76; linarith
+  have := div_nonneg hnum (le_of_lt hden)
+  linarith
+
+lemma efShiftBound_nonneg {q : ℕ} {T₀ σa σb x : ℝ} (hq : 2 ≤ q) (hT₀ : 2 ≤ T₀)
+    (hσa : 0 < σa) (hσa1 : σa ≤ 1) (hσab : σa < σb) (hx : 3 ≤ x) :
+    0 ≤ efShiftBound q T₀ σa σb x := by
+  have hx0 : (0 : ℝ) < x := by linarith
+  have hlogx : (0 : ℝ) < Real.log x := Real.log_pos (by linarith)
+  have hBnn : 0 ≤ efShiftB q T₀ σa σb := efShiftB_nonneg hq hT₀ hσab
+  have hT0pos : (0 : ℝ) < T₀ := by linarith
+  have hex : (0 : ℝ) < Real.exp 1 * x ^ (2 : ℕ) := by positivity
+  have hc : (0 : ℝ) ≤ (1 + 1 / Real.log x) - σa := by
+    have : (0 : ℝ) < 1 / Real.log x := by positivity
+    linarith
+  rw [efShiftBound]
+  refine mul_nonneg (by positivity) (add_nonneg (add_nonneg ?_ ?_) ?_)
+  · exact div_nonneg (mul_nonneg (mul_nonneg (by linarith) hBnn) (le_of_lt hex)) (by positivity)
+  · exact mul_nonneg (mul_nonneg hBnn (le_of_lt (Real.rpow_pos_of_pos hx0 _)))
+      (by positivity [Real.pi_pos])
+  · exact mul_nonneg (mul_nonneg (by linarith) (le_of_lt hex)) (by positivity)
+
+lemma efEnvelope_nonneg {q : ℕ} {β₀ bceil σa σb u : ℝ} {m : ℕ} (hq : 2 ≤ q) (hu : 3 ≤ u)
+    (hσa : 0 < σa) (hσa1 : σa ≤ 1) (hσab : σa < σb) :
+    0 ≤ efEnvelope q β₀ bceil m σa σb u := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hT0 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
+  have hHpos : 0 < efH q u := efH_pos hq hu
+  have huh : (3 : ℝ) ≤ u + efH q u := by linarith
+  have hlogQ4 : (0 : ℝ) ≤ Real.log ((q : ℝ) * (efT0 q u + 4)) := Real.log_nonneg (by nlinarith)
+  have hlogT2 : (0 : ℝ) ≤ Real.log (efT0 q u + 2) := Real.log_nonneg (by linarith)
+  have hrp1 : (0 : ℝ) < u ^ (β₀ - 1) := Real.rpow_pos_of_pos hu0 _
+  have hrp2 : (0 : ℝ) < u ^ (bceil - 1) := Real.rpow_pos_of_pos hu0 _
+  have hrp3 : (0 : ℝ) < u ^ bceil := Real.rpow_pos_of_pos hu0 _
+  rw [efEnvelope]
+  refine div_nonneg (add_nonneg (add_nonneg (add_nonneg ?_ ?_) ?_) ?_) (by linarith)
+  · exact mul_nonneg (by linarith) (Real.log_nonneg (by linarith))
+  · exact div_nonneg (add_nonneg (efShiftBound_nonneg hq hT0 hσa hσa1 hσab hu)
+      (efShiftBound_nonneg hq hT0 hσa hσa1 hσab huh)) (le_of_lt hHpos)
+  · refine add_nonneg (by positivity) (mul_nonneg (by positivity) ?_)
+    have : (0 : ℝ) ≤ 137 * (2 * efT0 q u + 5) := by linarith
+    exact mul_nonneg this hlogQ4
+  · refine mul_nonneg (le_of_lt hrp3) (mul_nonneg (mul_nonneg (by norm_num) hlogQ4) ?_)
+    linarith
+
+/-- **THE (4.12) COMPOSITE AT THE DESIGN PARAMETERS (N4b W2b, (a)+(b) composed).**  Everything
+of W2 in one statement: for `3 ≤ X ≤ Y`,
+
+    ‖∑_{X<n≤Y} χ(n)Λ(n)/(n log n) + m·∫_X^Y v^{β₀−2}/log v dv‖
+      ≤ G X/log X + G Y/log Y + 2·∫_X^Y G t/(t log t) dt,  G = efEnvelope …,
+
+uniformly in `Y`, at the freeze's own parameters `T₀(u) = (log qu + 2)^6`, `h(u) = u/√T₀(u)`, with
+`m = zeroMult χ β₀` explicit and ONE named ceiling binder `hceil` (discharged in §6 by the
+Range-A repulsion and the Range-B zero-free region).  `G` is the closed-form envelope of §7; the
+numeric closure of the six ledger rows — which is what turns the right-hand side into
+`K·(log X)^{−1/2}` — is the residue recorded in `docs/blueprints/flags.md`. -/
+theorem logChiSum_composite_of_ceiling {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hq : 2 ≤ q) {β₀ bceil X Y σa σb : ℝ}
+    (hX : 3 ≤ X) (hXY : X ≤ Y) (hσa : 9 / 10 ≤ σa) (hσab : σa < σb) (hσb : σb < 1)
+    (hβ₀0 : 0 < β₀) (hβ₀1 : β₀ ≤ 1) (hσbβ₀ : σb ≤ β₀) (hβ₀zero : LFunction χ (β₀ : ℂ) = 0)
+    (hceil : ∀ t ∈ Set.Icc X Y, ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ ≠ (β₀ : ℂ) → 9 / 10 ≤ ρ.re →
+      ρ.re ≤ 1 → |ρ.im| ≤ efT0 q t + 1 → ρ.re ≤ bceil) :
+    ‖logChiSum χ X Y
+        + (zeroMult χ (β₀ : ℂ) : ℂ) * ((∫ t in X..Y, t ^ (β₀ - 2) / Real.log t : ℝ) : ℂ)‖
+      ≤ efEnvelope q β₀ bceil (zeroMult χ (β₀ : ℂ)) σa σb X / Real.log X
+        + efEnvelope q β₀ bceil (zeroMult χ (β₀ : ℂ)) σa σb Y / Real.log Y
+        + 2 * ∫ t in X..Y,
+            efEnvelope q β₀ bceil (zeroMult χ (β₀ : ℂ)) σa σb t / (t * Real.log t) := by
+  have hsub : Set.Icc X Y ⊆ Set.Ici (3 : ℝ) := fun t ht => le_trans hX ht.1
+  refine logChiSum_add_mainTerm_norm_le χ hβ₀0 (zeroMult χ (β₀ : ℂ)) hX hXY
+    ((continuousOn_efEnvelope hq (β₀ := β₀) (bceil := bceil) _ (by linarith)).mono hsub)
+    (fun t ht => efEnvelope_nonneg hq (le_trans hX ht.1) (by linarith) (by linarith) hσab)
+    (fun t ht => psiDefect_norm_le_envelope χ hχ hq (le_trans hX ht.1) hσa hσab hσb hβ₀1
+      hσbβ₀ hβ₀zero (hceil t ht))
+
 end Salt.HB

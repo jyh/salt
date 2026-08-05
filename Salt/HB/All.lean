@@ -202,3 +202,6 @@ open Salt.Tactic in
   Salt.HB.rpow_c_add_one Salt.HB.efShiftError_le_efShiftBound
   Salt.HB.re_le_repulsionCeiling_of_ne Salt.HB.exists_repulsion_ceiling_of_ne
   Salt.HB.re_le_of_zeroFree_of_ne Salt.HB.psiDefect_norm_le_rangeA
+  Salt.HB.two_le_efT0 Salt.HB.efH_pos Salt.HB.psiDefect_norm_le_envelope
+  Salt.HB.continuousOn_efEnvelope Salt.HB.efShiftB_nonneg Salt.HB.efShiftBound_nonneg
+  Salt.HB.efEnvelope_nonneg Salt.HB.logChiSum_composite_of_ceiling
