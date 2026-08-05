@@ -1,4 +1,4 @@
-# N4b DESIGN FREEZE v2 — HB Lemma 7 at the multiplicative mandate
+# N4b DESIGN FREEZE v3 — HB Lemma 7 at the multiplicative mandate
 ### 2026-08-05, Fable design block (Sancho). v1 REFUTED (4 refuters:
 ### R1 HOLD / R2 HOLD / R3 REPAIR-THEN-FIRE / R4 HOLD — full verdicts
 ### in the session ledger); v2 folds every repair. Status: FROZEN
@@ -171,3 +171,153 @@ For the (4.11)-analog on Σ_{u<n≤v} χ(n)Λ(n)/n, v ≥ u ≥ x ≥ q^{250}:
 - **(L1)-additive note for N6**: Lemma 5's A′(p) ≪ B log p wants
   the additive precision — (L1) is shipped additive (v2 §0), so no
   re-derivation owed. Recorded so it is not re-found as a defect.
+
+
+---
+
+# v3 DELTA (2026-08-05 evening) — the delta pass verdicts folded
+### R1′/R2′ both REPAIR-THEN-FIRE. Where v3 conflicts with v2 above,
+### v3 GOVERNS. Wave briefs quote v3.
+
+## D1. The EF socket route (replaces v2 §2's Range-A EF sentence and
+## the psi_explicit_sharpM supply row — R1′-1, R2′-1a)
+
+`psi_explicit_sharpM` is VACUOUS at every (T, h) — its de-smoothing
+term rides the collapsed count (rel(B)·rel(C) = 948·log u·log qT,
+T-free and h-free). The A3 batching was the WRONG TOOL for that term
+(no 1/‖ρ‖ weight exists there); A3's role is the ZERO SUM only.
+Route instead:
+- fire `psi_sharp_of_riesz_bounds` (Salt/SW/EFSharp.lean:322 — the
+  order-blind socket, A₁/A₂ free) directly on the two
+  `psi1_contour_shift_finsetM` outputs (EFSharpMult.lean:235),
+  A_i := −efRieszSumM χ Z (y or y+h);
+- bound the difference quotient ‖(𝓡_M(y+h) − 𝓡_M(y))/h‖ DIRECTLY:
+  (y+h)^{ρ+1} − y^{ρ+1} = ∫_y^{y+h} (ρ+1)t^ρ dt gives the per-zero
+  bound m_ρ·h·(y+h)^{β̄}/‖ρ‖ — then the A3 batching applies (W0-vii);
+- β₀'s residue split off first (W0-i), its own difference quotient
+  by the single-zero Taylor bound (cost ≈ h·y^{β₀−1}, negligible);
+- **h := u/√T(u)** (NOT u·√(log u)/(log qu)²);
+- **T(u) := (log(qu) + 2)⁶** (6th power — the pointwise EF error
+  becomes ε(t) ≍ (log qt)^{−2}, dt/t-summable outright, retiring the
+  composite-only subtlety of D3 with margin; T is free in the
+  contour stack, this costs nothing).
+
+## D2. The regime binder (replaces hN's role — R1′-2)
+
+- **hN+ : log(1/(1−β₀)) ≥ 2·(log(1/c) + k·log(log Q(Y₁)+2))** — the
+  quantitative form; θ ≥ 0.18-grade uniformly follows, and the
+  consumer needs only L·η^{−θ} → 0 (HB's (4.11) tolerates ANY A > 0;
+  250/700 was over-claimed and is retired).
+- The honest grade: log(1/c) ≥ 631.6 — the binding arm is
+  (c₀/KErho)⁸, KErho = 16·636·627⁹, c₀ = 1/126848
+  (ZeroFreeReal.lean:604) — NOT the 2^{−250} arm. hN+ ⟺
+  η ≳ e^{1264+26·log L}-grade. **TAU-SHARP re-scoped accordingly: the
+  KErho arm is the target, and k must go to 0, not merely shrink.**
+- hN+ ∧ hηq is empty below q ≈ e^{250}: said aloud so no executor
+  reads the pair as a contradiction.
+- The Range-A ledger stated honestly: u^{β̄−1} ≤ (e^{632}·L^{13}/η)^θ
+  — the prefactor rides EXPLICITLY; consumers check against that
+  form, never against a bare η^{−θ}.
+
+## D3. W2's deliverable (replaces the standalone (4.11) — R1′-U2,
+## R2′-unassigned-2)
+
+No uniform-error (4.11) exists at slowly-growing heights. **W2
+delivers the log-weighted composite Σ_{n>X} χ(n)Λ(n)/(n log n)
+directly** (the (4.12)-form, which is what W3 consumes anyway),
+integrating the EF error against dt/(t log t). At T(u) = (log qu)⁶
+the ledger closes with ∫_x^∞ (log t)^{−2}-grade margin.
+
+## D4. Range B re-cut (R1′-2iv, R1′-U1)
+
+- **Y₁ := exp(20·L·log L/c₀)** (decay L^{−20} beats the growing-height
+  count prefactor for L ≳ 300);
+- the erased spend exits through the **A3 harmonic form** (prefactor
+  ≍ log(qT)·log T), NOT the count form — W0-ii is restated
+  accordingly (keep Σ m_ρ/‖ρ‖ BEFORE the a-collapse:
+  norm_sum_le + per-term ‖y^ρ/ρ‖ ≤ y^{β̄}/‖ρ‖);
+- the tail grade stated with its constant: ≈ 1.27e5·L^{−19}-grade
+  (the freeze's own explicit-constant discipline);
+- `zero_free_region_all` (decl ZeroFreeReal.lean:605; obtained at
+  TBalTall.lean:2089) covers ONLY complex zeros (side condition
+  χ² ≠ 1 ∨ Im ρ ≠ 0; our χ is real) — hreal′ is carried height-free
+  at the repulsion ceiling (the stronger of the two), one binder
+  suffices.
+
+## D5. hsep DEMOTED (Captain-visible — R1′-U4, R2′-unassigned-1)
+
+The ∃T′ dodge is docstring prose (EFSharpZeros.lean:41-42, :842-843),
+NOT a landed lemma; and no landed count can pigeonhole the width-2
+zero-free band the contour socket demands (the unit-window count
+gives gaps of width ~1/log, not 2). **hsep rides as a NAMED SYMBOLIC
+binder** exactly as hN+ does. Two road nodes minted:
+- **HSEP-GAP** (scout first): price whether
+  `psi1_contour_shift_finsetM`'s +2 box margin is load-bearing in its
+  proof — if the socket restates at a δ-margin (δ ≍ 1/log qT), the
+  landed unit-window count `efMultTotal_halfbox_le`
+  (EFSharpMult.lean:1075) discharges hsep by pigeonhole in [T₀,T₀+1].
+  Read-only scout, then class B/C wave if viable.
+- **N2-DENSITY** (the fallback and the road's eventual asset): Jutila
+  Thm 1, N(σ,T,χ) ≪ (qT)^{(5/2)(1−σ)} — which ALSO reopens HB's
+  original power-height route (T = y^{1/3}), where hsep discharges by
+  pigeonhole against the density count and the whole polylog
+  apparatus simplifies. Research-tier; the flags-19844 warning
+  honored.
+**N4b ships conditional on TWO named binders (hN+, hsep), both
+explicit, both queued for retirement.** This is the v6-riders
+pattern applied to the road: land the object, name the debt.
+
+## D6. W0 — THE PREREQUISITE WAVE, v3 list (all recipes byte-verified
+## by R2′; classes confirmed)
+
+In-place authorizations: EFSharpMult.lean, DensityCrude.lean,
+TwistedMertens.lean, Lemma3Uncond.lean, flags.md. Sequential, one
+executor.
+- (i) the β₀ erase-split of efZeroSumM — Finset.add_sum_erase at the
+  :140-142 def; the corpus pattern at TwistedMertens.lean:404-408.
+  Class A. ✔ verified
+- (ii) the A3-BATCHED erased spend (v3 form, per D4): the :356-365
+  body with the a-division deleted, + the subset-monotonicity
+  one-liner. Class A/B. ✔ recipe corrected
+- (iii) A3 batching Σ m_ρ/‖ρ‖ ≪ log(qT)·log T (sharper than the v2
+  claim): `efMultTotal_halfbox_le` (EFSharpMult.lean:1075) + the
+  fibring of DensityCrude.lean:100-176 (Finset.sum_fiberwise_of_maps_to)
+  + `harmonic_floor_le_one_add_log` (in use at Goldbach/Final.lean:143).
+  Class B. ✔ verified derivable, NO new analytic input
+- (iv) the σ = 1 relaxation, CORRECTED recipe: hσ1 : 1 < σ →
+  **hσ1 : 1 ≤ σ** (NOT hβσ) + NEW binder hσ'1 : 1 < σ'; drop the .le
+  at :445; hdβ closes from hσ1 + hβ1. IN THE SAME STONE retain the
+  multiplicity: hβterm (:417-433) becomes the m-equality and the
+  conclusion carries −(m/(σ−β₀)) + m/(σ'−β₀) (proof SHORTENS:
+  hmono/hm1 drop). Class A/B. ✔ recipe corrected at the bytes
+- (v) `pretenseSum_unconditional_absorbed`: the :84-102 export feeds
+  `pretenseSum_le_differenced` verbatim — the closing line is
+  literally `exact pretenseSum_le_differenced χ N hσ1 hσ2 hlt hσ'2
+  hβ1 hβZ hmβ hr0 hσr hσ'r hfloor hSinv hrem`. ~50 ln, class B.
+  ✔ verified verbatim
+- (vi) un-collapse `efRieszSumM_diff_sub_efZeroSumM_le` to the
+  per-zero form Σ m_ρ·h·y^{ρ.re−1} (the proof already proves it at
+  :884-897; the collapse is only :900-901) + restate the two
+  downstream forms un-collapsed. Class A, ~15 ln + 2 restatements.
+- (vii) the direct 𝓡_M difference-quotient bound via
+  ∫_y^{y+h}(ρ+1)t^ρ dt → per-zero m_ρ·h·(y+h)^{β̄}/‖ρ‖. Class B.
+
+## D7. (L1) one-sided (R2′-2iv)
+
+The landed differencing yields the UPPER side only; (L1) is restated
+one-sided (Re(−L′/L(1,χ)) bounded by the m·ηL main term + the rate),
+which is all HB's p.200 consumer uses; recorded in §6 for N6. The
+lower side, if ever needed, is a separate stone (Σ m_ρ(1−Re ρ)/|1−ρ|²
+off the DH floor) — NOT in W0.
+
+## D8. Byte-exactness sweep (R1′-U3, R2′-1b-e)
+
+Base heights: the box is (T+2) so the ceiling base is q(T(u)+4) —
+briefs say +4, never +2. `boxZeros_re_le_at_efHeight` (exact name).
+`psi_explicit_sharpM_of_riesz_residues` at :914 (σ-general — but see
+D1: not the route). `zeroCountM_le` (DensityCrude.lean:188) added as
+the general-T count row. EulerLink decl at :57. The w/left-edge
+budget rows added: w ≲ 1/(count) forced by hsep's σ-half, B ≍ L₄/w,
+and the left-edge term forces σ₀ = 1 − Θ(log L/L) — checked
+compatible with β₀ ∈ box under hN+ and with hσ₀w. hηq spelled ONE
+way: hηq : log η ≤ L.
