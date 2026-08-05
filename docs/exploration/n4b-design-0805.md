@@ -363,3 +363,21 @@ final exponent.
 releases the EFSharpMult writer slot; W2 consumes the restated
 socket. N2-DENSITY remains minted as the road's asset (the
 power-height route), no longer N4b's dependency.
+
+
+## D10. W1 LANDED (f94cedb) — two notes for W4's consumption
+
+- (L1) landed in the SHARP direction: m·ηL − Re(L′/L(1,χ)) ≤
+  K₁·L·(log η)^{−1/2} (the D7 prose's minus-sign reading would have
+  been the trivial direction). W4 quotes `hb_L1_one_sided`
+  (Lemma7L.lean:231): conclusion
+  Re(−L′/L(1)) ≤ −(m·ηL) + (1604 + 2m + 8Cs)·L/√(log η).
+  K₁ = Lemma 3's constant + one m; NO hN+/hord/hreal′/hsep on W1
+  (the route never touches the artillery ceiling) — the binder is
+  the DH floor + Sinv pair, discharged the Lemma-3 way.
+- PROCESS (for every parallel brief henceforth): concurrent
+  executors share the lake build dir — transient olean vanishing
+  and Scratch.lean collisions occurred. Rule: each executor uses
+  Scratch<NODE>.lean (unique), tolerates transient build breakage
+  from the neighbor by re-running, and judges only its OWN final
+  full build.
