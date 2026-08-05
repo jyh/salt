@@ -654,4 +654,227 @@ theorem efZeroSumM_spend_at_efHeight {q : ℕ} [NeZero q] (χ : DirichletCharact
         mul_le_mul_of_nonneg_right hcount (by positivity)
     _ = 4110 * (Real.log q + 2) ^ 5 * y ^ β := by ring
 
+/-! ## 5. THE WELL-SPACING PIGEONHOLE (N4B-W0.5) — `hsep` retired as a theorem
+
+Every explicit-formula socket from N1 onward carried the well-spacing hypothesis
+
+    hsep : ∀ ρ ∈ boxZeros …, σ₀ + w ≤ ρ.re ∧ |ρ.im| + w ≤ T
+
+as a **binder** — the `∃T'`/`∃σ₀'` dodge of the literature, prose in the docstrings and an
+assumption in the kernel. With the gap socket `psi1_contour_shift_finsetM_gap` (N4B-W0.5) the
+contour's residual demand shrinks to two **width-`2w` corridors** — one around the left edge
+`Re = σ₀`, one around the horizontal edges `|Im| = T` — and both are cleared by the same
+elementary midpoint argument against the landed count `zeroCountM_le`: cut the parameter window
+into `2N+1` slots of width `2w`, note each of the `N` zeros can spoil at most one, and take a
+surviving slot. **No measure theory, no density theorem, no new analytic input.**
+
+The `w` that comes out is
+`(σb − σa)/(4·(137·(2T₀+7)·log(q(T₀+5)) + 1))`, i.e. `w ≍ (σb − σa)/(T₀ log qT₀)` — the
+σ-half binds, exactly as the design block priced it (the Im-half's window has length `1`, the
+σ-half's only `σb − σa ≍ log L / L`). The budget consequence — `B ≍ L₄/w` in `efShiftError`'s
+edge terms — is W2's ledger row. -/
+
+/-- **THE MIDPOINT PIGEONHOLE.** In any window `[c, c+δ]` there is a midpoint `t` whose
+`δ/(2M)`-neighbourhood misses a given finite obstruction set `S`, as soon as `#S < M`:
+
+    ∃ t ∈ [c + δ/(2M), c + δ − δ/(2M)],  ∀ v ∈ S,  δ/(2M) ≤ |v − t|.
+
+The proof is the pigeonhole in its bare form: the `M` slots `(c + jδ/M, c + (j+1)δ/M)` are
+pairwise disjoint, so if every one of them held an element of `S` the assignment `j ↦ v_j` would
+be injective and `M ≤ #S`. Nothing here is analytic — this is the whole content of the
+`∃T'`/`∃σ₀'` dodge. -/
+lemma exists_gap_midpoint (S : Finset ℝ) (c : ℝ) {δ : ℝ} (hδ : 0 < δ) {M : ℕ}
+    (hM : S.card < M) :
+    ∃ t : ℝ, c + δ / (2 * M) ≤ t ∧ t + δ / (2 * M) ≤ c + δ ∧
+      ∀ v ∈ S, δ / (2 * M) ≤ |v - t| := by
+  classical
+  have hM0 : 0 < M := lt_of_le_of_lt (Nat.zero_le _) hM
+  have hMR : (1 : ℝ) ≤ (M : ℝ) := by exact_mod_cast hM0
+  have hMpos : (0 : ℝ) < (M : ℝ) := by linarith
+  set u : ℝ := δ / (2 * M) with hudef
+  have hu : (0 : ℝ) < u := by rw [hudef]; positivity
+  have hMu : 2 * (M : ℝ) * u = δ := by rw [hudef]; field_simp
+  have h2u : 2 * u ≤ δ := by nlinarith
+  rcases S.eq_empty_or_nonempty with rfl | ⟨v₀, hv₀⟩
+  · exact ⟨c + u, le_rfl, by linarith, by simp⟩
+  by_contra hcon
+  push Not at hcon
+  have key : ∀ j : ℕ, ∃ v, v ∈ S ∧ (j < M → |v - (c + (2 * (j : ℝ) + 1) * u)| < u) := by
+    intro j
+    by_cases hj : j < M
+    · have hj0 : (0 : ℝ) ≤ (j : ℝ) := Nat.cast_nonneg j
+      have hjM : (j : ℝ) + 1 ≤ (M : ℝ) := by exact_mod_cast hj
+      have h1 : c + u ≤ c + (2 * (j : ℝ) + 1) * u := by nlinarith
+      have h2 : c + (2 * (j : ℝ) + 1) * u + u ≤ c + δ := by nlinarith
+      obtain ⟨v, hvS, hv⟩ := hcon _ h1 h2
+      exact ⟨v, hvS, fun _ => hv⟩
+    · exact ⟨v₀, hv₀, fun h => absurd h hj⟩
+  choose f hfS hf using key
+  have hmaps : ∀ j ∈ Finset.range M, f j ∈ S := fun j _ => hfS j
+  have hinj : Set.InjOn f (Finset.range M) := by
+    intro j hj k hk hjk
+    simp only [Finset.coe_range, Set.mem_Iio] at hj hk
+    by_contra hne
+    have h1 := abs_lt.mp (hf j hj)
+    have h2 := abs_lt.mp (hf k hk)
+    rw [hjk] at h1
+    rcases Nat.lt_or_ge j k with hlt | hge
+    · have hjk' : (j : ℝ) + 1 ≤ (k : ℝ) := by exact_mod_cast hlt
+      nlinarith [h1.2, h2.1]
+    · have hkj : k < j := by omega
+      have hjk' : (k : ℝ) + 1 ≤ (j : ℝ) := by exact_mod_cast hkj
+      nlinarith [h1.1, h2.2]
+  have hcard : (Finset.range M).card ≤ S.card := Finset.card_le_card_of_injOn f hmaps hinj
+  rw [Finset.card_range] at hcard
+  omega
+
+/-- **THE CONTOUR PARAMETERS EXIST — `hsep` IS A THEOREM (N4B-W0.5).** For every primitive `χ`,
+every left-edge window `[σa, σb] ⊆ [9/10, 1)` and every height `T₀ ≥ 2` there are
+`σ₀ ∈ [σa, σb]`, `T ∈ [T₀, T₀+1]` and `w > 0` with
+
+    w ≥ (σb − σa) / (4·(137·(2T₀+7)·log(q(T₀+5)) + 1))
+
+at which **both** demands of the box-exact contour socket hold outright:
+
+* `hsep` — every zero of the box `boxZeros χ (σ₀−w) 1 T` is `w`-clear of the left edge `Re = σ₀`
+  and of the horizontal edges `|Im| = T`;
+* `hgap` — no zero of the strip `σ₀ − w ≤ Re ≤ 1` has `T < |Im| < T + w`.
+
+Route: **one** obstruction set — the box `boxZeros χ (9/10) 1 (T₀+2)`, whose cardinality the
+landed `zeroCountM_le` prices through `card_le_efMultTotal` — and **two** applications of
+`exists_gap_midpoint`, one over the height window `[T₀, T₀+1]` (half-width `1/(2M)`) and one over
+the left-edge window `[σa, σb]` (half-width `(σb−σa)/(2M)`), with `M = #box + 1`. The reported
+`w` is *half* the σ-half's half-width, so both corridors are cleared **strictly** — the boundary
+case `Re ρ = σ₀ − w`, a zero enumerated but not separated, is exactly what the halving kills.
+
+This is the retirement of the last of N1's two open-shaped hypotheses (`hsimple` went in wave 3);
+the design block's D5 demotion of `hsep` to a named binder is hereby superseded. -/
+theorem exists_contour_params {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hq : 2 ≤ q) {σa σb T₀ : ℝ}
+    (hσa : 9 / 10 ≤ σa) (hσab : σa < σb) (hσb : σb < 1) (hT₀ : 2 ≤ T₀) :
+    ∃ σ₀ T w : ℝ,
+      (σa ≤ σ₀ ∧ σ₀ ≤ σb) ∧ (T₀ ≤ T ∧ T ≤ T₀ + 1) ∧ 0 < w ∧
+      (σb - σa) / (4 * (137 * (2 * T₀ + 7) * Real.log ((q : ℝ) * (T₀ + 5)) + 1)) ≤ w ∧
+      9 / 10 ≤ σ₀ - w ∧ σ₀ < 1 ∧
+      (∀ ρ ∈ boxZeros χ (σ₀ - w) 1 T, σ₀ + w ≤ ρ.re ∧ |ρ.im| + w ≤ T) ∧
+      (∀ ρ : ℂ, LFunction χ ρ = 0 → σ₀ - w ≤ ρ.re → ρ.re ≤ 1 → T < |ρ.im| →
+        T + w ≤ |ρ.im|) := by
+  classical
+  have hχ1 : χ ≠ 1 := ne_one_of_isPrimitive χ hχ hq
+  set B : Finset ℂ := boxZeros χ (9 / 10) 1 (T₀ + 2) with hB
+  set M : ℕ := B.card + 1 with hMdef
+  have hM1 : (1 : ℝ) ≤ (M : ℝ) := by
+    have : 1 ≤ M := by omega
+    exact_mod_cast this
+  have hMpos : (0 : ℝ) < (M : ℝ) := by linarith
+  -- the landed whole-box count prices the number of obstructions
+  have hMcount : (M : ℝ) ≤ 137 * (2 * T₀ + 7) * Real.log ((q : ℝ) * (T₀ + 5)) + 1 := by
+    have h1 : ((B.card : ℕ) : ℝ) ≤ efMultTotal χ B :=
+      card_le_efMultTotal hχ1 (fun ρ hρ => ((mem_boxZeros hχ1).mp (hB ▸ hρ)).1)
+    have h2 := zeroCountM_le χ hχ hq (σ := 9 / 10) (T := T₀ + 2) (by norm_num) (by linarith)
+    rw [zeroCountM, ← hB, show (2 : ℝ) * (T₀ + 2) + 3 = 2 * T₀ + 7 from by ring,
+      show T₀ + 2 + 3 = T₀ + 5 from by ring] at h2
+    rw [hMdef]; push_cast; linarith
+  -- the two pigeonholes, at a common obstruction set
+  obtain ⟨T, hT1, hT2, hTgap⟩ :=
+    exists_gap_midpoint (B.image fun ρ => |ρ.im|) T₀ (δ := 1) one_pos (M := M)
+      (by rw [hMdef]; exact Nat.lt_succ_of_le Finset.card_image_le)
+  obtain ⟨σ₀, hs1, hs2, hsgap⟩ :=
+    exists_gap_midpoint (B.image fun ρ => ρ.re) σa (δ := σb - σa) (by linarith) (M := M)
+      (by rw [hMdef]; exact Nat.lt_succ_of_le Finset.card_image_le)
+  set u : ℝ := (σb - σa) / (2 * (M : ℝ)) with hudef
+  have hu : 0 < u := by rw [hudef]; positivity
+  have huT : u ≤ 1 / (2 * (M : ℝ)) := by
+    calc u = (σb - σa) * (1 / (2 * (M : ℝ))) := by rw [hudef]; ring
+      _ ≤ 1 * (1 / (2 * (M : ℝ))) :=
+          mul_le_mul_of_nonneg_right (by linarith) (by positivity)
+      _ = 1 / (2 * (M : ℝ)) := by ring
+  set w : ℝ := u / 2 with hwdef
+  have hw : 0 < w := by rw [hwdef]; linarith
+  have hwu : w < u := by rw [hwdef]; linarith
+  have hwT : w < 1 / (2 * (M : ℝ)) := by linarith
+  have hσ₀a : σa ≤ σ₀ := by linarith
+  have hσ₀b : σ₀ ≤ σb := by linarith
+  have hσ₀w : 9 / 10 ≤ σ₀ - w := by linarith
+  have hTlow : T₀ ≤ T := by
+    have : (0 : ℝ) < 1 / (2 * (M : ℝ)) := by positivity
+    linarith
+  have hThigh : T ≤ T₀ + 1 := by
+    have : (0 : ℝ) < 1 / (2 * (M : ℝ)) := by positivity
+    linarith
+  have hwhalf : w ≤ 1 / 2 := by
+    have h2 : 1 / (2 * (M : ℝ)) ≤ 1 / 2 := one_div_le_one_div_of_le (by norm_num) (by linarith)
+    linarith
+  -- membership in the common box `B`
+  have hmemB : ∀ ρ : ℂ, LFunction χ ρ = 0 → σ₀ - w ≤ ρ.re → ρ.re ≤ 1 → |ρ.im| ≤ T₀ + 2 →
+      ρ ∈ B := by
+    intro ρ h0 hl hu' him
+    rw [hB, mem_boxZeros hχ1]
+    exact ⟨h0, by linarith, hu', him⟩
+  refine ⟨σ₀, T, w, ⟨hσ₀a, hσ₀b⟩, ⟨hTlow, hThigh⟩, hw, ?_, hσ₀w, by linarith, ?_, ?_⟩
+  · -- the explicit lower bound on `w`
+    have hKpos : (0 : ℝ) < 137 * (2 * T₀ + 7) * Real.log ((q : ℝ) * (T₀ + 5)) + 1 := by
+      linarith
+    have hrec : 1 / (4 * (137 * (2 * T₀ + 7) * Real.log ((q : ℝ) * (T₀ + 5)) + 1))
+        ≤ 1 / (4 * (M : ℝ)) := one_div_le_one_div_of_le (by positivity) (by linarith)
+    calc (σb - σa) / (4 * (137 * (2 * T₀ + 7) * Real.log ((q : ℝ) * (T₀ + 5)) + 1))
+        = (σb - σa) * (1 / (4 * (137 * (2 * T₀ + 7) * Real.log ((q : ℝ) * (T₀ + 5)) + 1))) := by
+          ring
+      _ ≤ (σb - σa) * (1 / (4 * (M : ℝ))) := mul_le_mul_of_nonneg_left hrec (by linarith)
+      _ = w := by rw [hwdef, hudef]; field_simp; ring
+  · -- the well-spacing off both edges
+    intro ρ hρ
+    rw [mem_boxZeros hχ1] at hρ
+    obtain ⟨hρ0, hρl, hρu, hρim⟩ := hρ
+    have hρB : ρ ∈ B := hmemB ρ hρ0 hρl hρu (by linarith)
+    constructor
+    · by_contra hcon
+      have hlt : σ₀ + w > ρ.re := not_le.mp hcon
+      have hg := hsgap _ (Finset.mem_image_of_mem (fun z => z.re) hρB)
+      have habs : |ρ.re - σ₀| < u := by rw [abs_lt]; constructor <;> linarith
+      linarith
+    · by_contra hcon
+      have hlt : |ρ.im| + w > T := not_le.mp hcon
+      have hg := hTgap _ (Finset.mem_image_of_mem (fun z => |z.im|) hρB)
+      have habs : |(|ρ.im|) - T| < 1 / (2 * (M : ℝ)) := by
+        rw [abs_lt]; constructor <;> linarith
+      linarith
+  · -- the width-`w` band above the contour is zero-free
+    intro ρ hρ0 hρl hρu hρim
+    by_contra hcon
+    have hlt : |ρ.im| < T + w := not_le.mp hcon
+    have hρB : ρ ∈ B := hmemB ρ hρ0 hρl hρu (by linarith)
+    have hg := hTgap _ (Finset.mem_image_of_mem (fun z => |z.im|) hρB)
+    have habs : |(|ρ.im|) - T| < 1 / (2 * (M : ℝ)) := by
+      rw [abs_lt]; constructor <;> linarith
+    linarith
+
+/-- **THE SHARP EXPLICIT FORMULA WITH NO WELL-SPACING HYPOTHESIS (N4B-W0.5).** The un-collapsed
+box-exact capstone `psi_explicit_sharpM_perZero_box` fired at the parameters
+`exists_contour_params` produces: for every window `[σa, σb] ⊆ [9/10, 1)` and every `T₀ ≥ 2`,
+
+    ∃ σ₀ ∈ [σa,σb], T ∈ [T₀,T₀+1], w ≥ (σb−σa)/(4·(137·(2T₀+7)·log(q(T₀+5))+1)),
+      ‖ψ(y,χ) + ∑_{ρ ∈ boxZeros χ (σ₀−w) 1 T} m_ρ·y^ρ/ρ‖
+        ≤ (h+1)·log(y+h) + (E(y) + E(y+h))/h + ∑_ρ m_ρ·h·y^{Re ρ−1}.
+
+**Hypotheses: primitivity, `2 ≤ f`, `3 ≤ y`, `0 < h`, and the two windows.** No simplicity, no
+well-spacing, no density input, no count hypothesis. The consumer chooses the windows; the
+`w`-bound is what W2's budget row prices `B ≍ L₄/w` against. -/
+theorem psi_explicit_sharpM_perZero_unsep {f : ℕ} [NeZero f] (χ : DirichletCharacter ℂ f)
+    (hχ : χ.IsPrimitive) (hf : 2 ≤ f) {y h σa σb T₀ : ℝ}
+    (hy : 3 ≤ y) (hh : 0 < h) (hσa : 9 / 10 ≤ σa) (hσab : σa < σb) (hσb : σb < 1)
+    (hT₀ : 2 ≤ T₀) :
+    ∃ σ₀ T w : ℝ,
+      (σa ≤ σ₀ ∧ σ₀ ≤ σb) ∧ (T₀ ≤ T ∧ T ≤ T₀ + 1) ∧ 0 < w ∧
+      (σb - σa) / (4 * (137 * (2 * T₀ + 7) * Real.log ((f : ℝ) * (T₀ + 5)) + 1)) ≤ w ∧
+      9 / 10 ≤ σ₀ - w ∧ σ₀ < 1 ∧
+      ‖psiChiR y χ + efZeroSumM χ (boxZeros χ (σ₀ - w) 1 T) y‖
+        ≤ (h + 1) * Real.log (y + h)
+          + (efShiftError f T σ₀ w y + efShiftError f T σ₀ w (y + h)) / h
+          + ∑ ρ ∈ boxZeros χ (σ₀ - w) 1 T, (zeroMult χ ρ : ℝ) * (h * y ^ (ρ.re - 1)) := by
+  obtain ⟨σ₀, T, w, hσ, hT, hw, hwlb, hσ₀w, hσ₀1, hsep, hgap⟩ :=
+    exists_contour_params χ hχ hf hσa hσab hσb hT₀
+  exact ⟨σ₀, T, w, hσ, hT, hw, hwlb, hσ₀w, hσ₀1,
+    psi_explicit_sharpM_perZero_box χ hχ hf hy hh (by linarith [hT.1]) hw hσ₀w hσ₀1 hsep hgap⟩
+
 end Salt.SW
