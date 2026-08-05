@@ -1144,6 +1144,18 @@ lemma efMultTotal_halfbox_le {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q
     (efMultTotal_le_divisor (ne_one_of_isPrimitive χ hχ hq) (isCompact_closedBall _ _) hZK hZ0)
     (LFunction_halfbox_zero_count χ hχ hq t₀)
 
+/-- **The plain cardinality is under the weighted count** — every zero carries `m_ρ ≥ 1`, so any
+bound on `efMultTotal` is a bound on `#Z`. The bridge the N4B-W0.5 pigeonhole crosses: the landed
+supplies count *with multiplicity*, the midpoint argument needs only the number of obstructions. -/
+lemma card_le_efMultTotal {q : ℕ} [NeZero q] {χ : DirichletCharacter ℂ q} (hχ1 : χ ≠ 1)
+    {Z : Finset ℂ} (hZ0 : ∀ ρ ∈ Z, LFunction χ ρ = 0) :
+    (Z.card : ℝ) ≤ efMultTotal χ Z := by
+  rw [efMultTotal]
+  calc (Z.card : ℝ) = ∑ _ρ ∈ Z, (1 : ℝ) := by simp
+    _ ≤ ∑ ρ ∈ Z, (zeroMult χ ρ : ℝ) :=
+        Finset.sum_le_sum fun ρ hρ => by
+          exact_mod_cast one_le_zeroMult hχ1 (hZ0 ρ hρ)
+
 /-! ## 7. THE UN-COLLAPSED VARIANTS — the per-zero shapes N4b's EF socket consumes
 
 §4's de-smoothing and §5's capstone both end by *collapsing* the per-zero spend
@@ -1358,5 +1370,101 @@ theorem efRieszSumM_diff_quotient_norm_le {q : ℕ} [NeZero q] (χ : DirichletCh
   rw [norm_div, Complex.norm_real, Real.norm_eq_abs, abs_of_pos hh, div_le_iff₀ hh]
   refine le_trans (efRieszSumM_diff_norm_le χ hy hh hZ) (le_of_eq ?_)
   ring
+
+/-! ## 8. THE BOX-EXACT VARIANTS (N4B-W0.5) — the zero sum cut at the contour height
+
+`psi_explicit_sharpM` and its un-collapsed twin enumerate at `boxZeros χ (σ₀−w) 1 (T+2)`: the
+*widened* box, forced by the old `hZall`, which demanded a zero-free band of width `2` above the
+contour. With the gap socket `psi1_contour_shift_finsetM_gap` the enumeration is **box-exact** —
+`Z = boxZeros χ (σ₀−w) 1 T`, the zeros the contour actually encircles — and the residual demand
+is the width-`w` band
+
+    hgap : no zero of the strip has `T < |Im ρ| < T + w`,
+
+which is a **pigeonhole conclusion** off the landed counts (`Salt.SW.exists_contour_params`), not
+a hypothesis. Downstream this also drops the ceiling base from `q(T+4)` to `q(T+2)`. -/
+
+/-- **THE SHARP EXPLICIT FORMULA, UN-COLLAPSED AND BOX-EXACT (N4B-W0.5).**
+`psi_explicit_sharpM_perZero` at `Z = boxZeros χ (σ₀−w) 1 T` — the zeros of the contour box
+itself, no `+2` widening:
+
+    ‖ψ(y,χ) + ∑_{ρ ∈ boxZeros …T} m_ρ·y^ρ/ρ‖
+      ≤ (h+1)·log(y+h) + (E(y) + E(y+h))/h + ∑_{ρ ∈ boxZeros …T} m_ρ·h·y^{Re ρ−1}.
+
+`hsep` is the old well-spacing (now at the exact box); `hgap` replaces the width-2 zero-free band
+by the width-`w` one. Both are discharged together by `Salt.SW.exists_contour_params`. -/
+theorem psi_explicit_sharpM_perZero_box {f : ℕ} [NeZero f] (χ : DirichletCharacter ℂ f)
+    (hχ : χ.IsPrimitive) (hf : 2 ≤ f) {y h T σ₀ w : ℝ}
+    (hy : 3 ≤ y) (hh : 0 < h) (hT : 2 ≤ T) (hw : 0 < w)
+    (hσ₀w : 9 / 10 ≤ σ₀ - w) (hσ₀1 : σ₀ < 1)
+    (hsep : ∀ ρ ∈ boxZeros χ (σ₀ - w) 1 T, σ₀ + w ≤ ρ.re ∧ |ρ.im| + w ≤ T)
+    (hgap : ∀ ρ : ℂ, LFunction χ ρ = 0 → σ₀ - w ≤ ρ.re → ρ.re ≤ 1 → T < |ρ.im| →
+      T + w ≤ |ρ.im|) :
+    ‖psiChiR y χ + efZeroSumM χ (boxZeros χ (σ₀ - w) 1 T) y‖
+      ≤ (h + 1) * Real.log (y + h)
+        + (efShiftError f T σ₀ w y + efShiftError f T σ₀ w (y + h)) / h
+        + ∑ ρ ∈ boxZeros χ (σ₀ - w) 1 T, (zeroMult χ ρ : ℝ) * (h * y ^ (ρ.re - 1)) := by
+  have hχ1 : χ ≠ 1 := ne_one_of_isPrimitive χ hχ hf
+  set Z : Finset ℂ := boxZeros χ (σ₀ - w) 1 T with hZ
+  have hZall : ∀ ρ : ℂ, LFunction χ ρ = 0 → σ₀ - w ≤ ρ.re → ρ.re ≤ 1 → |ρ.im| ≤ T + 2 →
+      ρ ∈ Z ∨ T + w ≤ |ρ.im| := by
+    intro ρ h1 h2 h3 _
+    by_cases him : |ρ.im| ≤ T
+    · exact Or.inl (by rw [hZ, mem_boxZeros hχ1]; exact ⟨h1, h2, h3, him⟩)
+    · exact Or.inr (hgap ρ h1 h2 h3 (not_le.mp him))
+  have hZzero : ∀ ρ ∈ Z, LFunction χ ρ = 0 := by
+    intro ρ hρ
+    rw [hZ, mem_boxZeros hχ1] at hρ
+    exact hρ.1
+  have hZbox : ∀ ρ ∈ Z, 0 < ρ.re ∧ ρ.re ≤ 1 := by
+    intro ρ hρ
+    rw [hZ, mem_boxZeros hχ1] at hρ
+    exact ⟨by linarith [hρ.2.1], hρ.2.2.1⟩
+  have hy1 : (1 : ℝ) ≤ y := by linarith
+  have hyh : (3 : ℝ) ≤ y + h := by linarith
+  have h₁ := psi1_contour_shift_finsetM_gap χ hχ hf hy hT hw hσ₀w hσ₀1 hsep hZzero hZall
+  have h₂ := psi1_contour_shift_finsetM_gap χ hχ hf hyh hT hw hσ₀w hσ₀1 hsep hZzero hZall
+  exact psi_explicit_sharpM_of_riesz_residues_perZero (σ := 1) χ le_rfl hZbox hy1 hh h₁ h₂
+
+/-- **THE SHARP EXPLICIT FORMULA, BOX-EXACT (N4B-W0.5).** `psi_explicit_sharpM` with the
+enumeration cut at the contour height `T` rather than `T+2`, at the width-`w` gap hypothesis.
+The collapsed de-smoothing spend `efMultTotal · h` is unchanged in shape; only the enumerated set
+shrinks. -/
+theorem psi_explicit_sharpM_box {f : ℕ} [NeZero f] (χ : DirichletCharacter ℂ f)
+    (hχ : χ.IsPrimitive) (hf : 2 ≤ f) {y h T σ₀ w : ℝ}
+    (hy : 3 ≤ y) (hh : 0 < h) (hT : 2 ≤ T) (hw : 0 < w)
+    (hσ₀w : 9 / 10 ≤ σ₀ - w) (hσ₀1 : σ₀ < 1)
+    (hsep : ∀ ρ ∈ boxZeros χ (σ₀ - w) 1 T, σ₀ + w ≤ ρ.re ∧ |ρ.im| + w ≤ T)
+    (hgap : ∀ ρ : ℂ, LFunction χ ρ = 0 → σ₀ - w ≤ ρ.re → ρ.re ≤ 1 → T < |ρ.im| →
+      T + w ≤ |ρ.im|) :
+    ‖psiChiR y χ + efZeroSumM χ (boxZeros χ (σ₀ - w) 1 T) y‖
+      ≤ (h + 1) * Real.log (y + h)
+        + (efShiftError f T σ₀ w y + efShiftError f T σ₀ w (y + h)) / h
+        + efMultTotal χ (boxZeros χ (σ₀ - w) 1 T) * h := by
+  have hχ1 : χ ≠ 1 := ne_one_of_isPrimitive χ hχ hf
+  set Z : Finset ℂ := boxZeros χ (σ₀ - w) 1 T with hZ
+  have hZall : ∀ ρ : ℂ, LFunction χ ρ = 0 → σ₀ - w ≤ ρ.re → ρ.re ≤ 1 → |ρ.im| ≤ T + 2 →
+      ρ ∈ Z ∨ T + w ≤ |ρ.im| := by
+    intro ρ h1 h2 h3 _
+    by_cases him : |ρ.im| ≤ T
+    · exact Or.inl (by rw [hZ, mem_boxZeros hχ1]; exact ⟨h1, h2, h3, him⟩)
+    · exact Or.inr (hgap ρ h1 h2 h3 (not_le.mp him))
+  have hZzero : ∀ ρ ∈ Z, LFunction χ ρ = 0 := by
+    intro ρ hρ
+    rw [hZ, mem_boxZeros hχ1] at hρ
+    exact hρ.1
+  have hZbox : ∀ ρ ∈ Z, 0 < ρ.re ∧ ρ.re ≤ 1 := by
+    intro ρ hρ
+    rw [hZ, mem_boxZeros hχ1] at hρ
+    exact ⟨by linarith [hρ.2.1], hρ.2.2.1⟩
+  have hy1 : (1 : ℝ) ≤ y := by linarith
+  have hyh : (3 : ℝ) ≤ y + h := by linarith
+  have h₁ := psi1_contour_shift_finsetM_gap χ hχ hf hy hT hw hσ₀w hσ₀1 hsep hZzero hZall
+  have h₂ := psi1_contour_shift_finsetM_gap χ hχ hf hyh hT hw hσ₀w hσ₀1 hsep hZzero hZall
+  have hmain := psi_explicit_sharpM_of_riesz_residues (σ := 1) χ le_rfl hZbox hy1 hh h₁ h₂
+  have hrw : y ^ ((1 : ℝ) - 1) = 1 := by
+    rw [show (1 : ℝ) - 1 = 0 by ring, Real.rpow_zero]
+  rw [hrw, mul_one] at hmain
+  exact hmain
 
 end Salt.SW
