@@ -381,3 +381,24 @@ power-height route), no longer N4b's dependency.
   Scratch<NODE>.lean (unique), tolerates transient build breakage
   from the neighbor by re-running, and judges only its OWN final
   full build.
+
+
+## D11. MULTIPLICITY CORRECTION (Sancho's own catch, briefing W3) —
+## v2-changelog item 5 is WRONG on the F-side
+
+The claim "the cancellation survives with (m·ηL) throughout" is
+FALSE for m ≥ 2: the tail contributes −m·∫ v^{β₀−2}/log v, so
+log F = log log z − m·log(ηL) + (m−1)·log log X + m·γ₀ + errors —
+F carries (ηL)^{−m} as an EXPONENT. κS₁·(L′/L)² then scales like
+(ηL)^{2−2m}: clean only at m = 1. (L1) as landed (m·ηL linear) is
+TRUE and unaffected.
+
+RULING: **hm1 : zeroMult χ (β₀:ℂ) = 1 rides as a named binder** on
+W3/W4/(L2) — the debt list is now (hN+, hm1). Minted micro-node
+**M-ONE**: discharge hm1 at large η from the landed Prachar
+disc-count machinery (heuristic: ≥ 2 zeros in |s−1| ≤ 2(1−β₀)
+forces 2 ≤ C(1 + 2/η) — with the corpus's explicit constant this
+may force m = 1 outright for η above a small threshold; a small
+stone, priced after W4). The m ≥ 2 branch of the road, if M-ONE's
+constant does not force it away, is a separate statement family —
+recorded, not owed by this block.
