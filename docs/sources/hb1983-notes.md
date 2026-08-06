@@ -608,24 +608,53 @@ parts so that `T_i(w₁,w₂) = T` or `T/w₂` on each) `T ≪ R₂ + x/δ₂ + 
     total ψ-contribution to S ≪ δ₁ q^{5/2}(S₁S₂ + S₁² + x + xS₁/S₂) S₁^{ε−1/4}
                               ≪ δ₁ q^{5/2} x^{15/16+ε},
 
-using `S₁ ≤ R₁` ⟹ `S₁ ≪ x^{1/2}`; valid provided `S₂ ≪ x^{1/4}` and `S₁S₂ ≫ x^{15/16}`, and
-trivially true otherwise (there are `O(S₁S₂)` terms in (5.14) and each ψ is O(1)).
+using `S₁ ≤ R₁` ⟹ `S₁ ≪ x^{1/2}` [**HB prints `x^{1/4}` — a typo in the paper, see below**];
+valid provided `S₂ ≪ x^{1/2}` [**HB prints `x^{1/4}` — the same typo again**] and
+`S₁S₂ ≫ x^{15/16}`, and trivially true otherwise (there are `O(S₁S₂)` terms in (5.14) and each ψ
+is O(1)).
 
-> **[corrected 2026-08-06]** This line previously read `S₁ ≪ x^{1/4}`. That was a transcription
-> error and it made the stated non-trivial regime empty. The correct exponent is `1/2`, forced by
-> (5.2): `δ₁R₁S₁ ≍ x` with `S₁ ≤ R₁` gives `S₁² ≤ R₁S₁ ≍ x/δ₁ ≤ x`, hence `S₁ ≪ x^{1/2}`.
-> Ruled in `docs/exploration/weil-trio-design-0806.md` §D6 (WEIL-TRIO v2); R1's ledger already
-> used the correct form and reproduces HB :609.
+> ## ⚠️ **[corrected 2026-08-06 — RESOLVED AT THE SOURCE, p.214]**
 >
-> ⚠️ **RESIDUAL, FLAGGED NOT FIXED** (outside the §D6 ruling's scope, so not touched here): even
-> at `1/2` the two stated provisos still do not overlap — `S₁ ≪ x^{1/2}` with `S₂ ≪ x^{1/4}` gives
-> `S₁S₂ ≪ x^{3/4}`, which contradicts `S₁S₂ ≫ x^{15/16}`. Either the `S₂` proviso is a second
-> transcription error (the symmetric (5.2) argument in the case `S₂ ≤ R₂` gives `S₂ ≪ x^{1/2}`,
-> and then `S₁S₂ ≪ x` leaves `(x^{15/16}, x]` genuinely non-empty), or the `S₂ ≫ x^{1/4}` branch
-> is meant to be absorbed by HB's own symmetry remark on p.214 ("by symmetry one may apply
-> appropriate analogues of (5.19) when `S_i ≤ R_i` fails"). **Resolving this needs HB p.214 at
-> the bytes, which this seat does not have open.** N7 owns Lemma 10 and should settle it before
-> consuming (5.19).
+> **THIS IS AN ERRATUM IN THE PUBLISHED PAPER, NOT A TRANSCRIPTION ERROR.** The notes originally
+> read `S₁ ≪ x^{1/4}` because **that is what HB prints** (p.214, line 6: *"Since `S₁ ≤ R₁` we have
+> `S₁ ≪ x^{1/4}` by (5.2)"*). `weil-trio-design-0806.md` §D6 ruled the exponent should be `1/2`
+> and was **right about the mathematics**, but described it as a defect in these notes; the notes
+> were a faithful transcription. Both statements are now reconciled here.
+>
+> **PROOF THAT HB MEANT `1/2`, FROM HB'S OWN NEXT DISPLAY.** He substitutes into
+> `(S₁S₂ + S₁² + x + xS₁/S₂)·S₁^{ε−1/4}` and gets
+> `(x^{3/8}S₂ + x^{7/8} + xS₁^{−1/4} + x^{11/8}S₂^{−1})x^ε`. Solve each substituted term for the
+> `θ` in `S₁ ≪ x^θ` that it presupposes:
+>
+> | term | substitution | forces |
+> |---|---|---|
+> | `S₁S₂·S₁^{−1/4} = S₁^{3/4}S₂` | `→ x^{3/8}S₂` | `θ = 1/2` |
+> | `S₁²·S₁^{−1/4} = S₁^{7/4}` | `→ x^{7/8}` | `θ = 1/2` |
+> | `xS₁/S₂·S₁^{−1/4} = xS₁^{3/4}/S₂` | `→ x^{11/8}S₂^{−1}` | `θ = 1/2` |
+>
+> **Three independent confirmations, all `1/2`, none consistent with `1/4`.** The derivation from
+> (5.2) agrees: `δ₁R₁S₁ ≍ x` with `S₁ ≤ R₁` gives `S₁² ≤ R₁S₁ ≍ x/δ₁ ≤ x`.
+>
+> **AND THE SAME TYPO OCCURS TWICE IN ONE SENTENCE — this closes the residual flagged earlier.**
+> HB's proviso `S₂ ≪ x^{1/4}` is wrong for the identical reason (the symmetric (5.2) argument in
+> the case `S₂ ≤ R₂` gives `S₂ ≪ x^{1/2}`), and **as printed it is what empties the regime**:
+> `S₁ ≪ x^{1/2}` with `S₂ ≪ x^{1/4}` forces `S₁S₂ ≪ x^{3/4}`, contradicting `S₁S₂ ≫ x^{15/16}`.
+> With both at `x^{1/2}` the regime is `S₁S₂ ∈ (x^{15/16}, x]` — **non-empty**.
+>
+> **THE CORRECTED ARGUMENT CLOSES, TERM BY TERM** (verified in exact rationals). Requiring each
+> substituted term `≪ x^{15/16}`:
+> `term1 ⟹ S₂ ≪ x^{9/16}` · `term2` holds always · `term3 ⟹ S₁ ≫ x^{1/4}` ·
+> `term4 ⟹ S₂ ≫ x^{7/16}`.
+> Given `S₁S₂ ≫ x^{15/16}` with `S₁, S₂ ≪ x^{1/2}`: `S₂ ≫ x^{15/16}/x^{1/2} = x^{7/16}` — **term 4
+> is free, exactly at the margin** — and `S₁ ≫ x^{7/16} > x^{1/4}` — **term 3 is free**. Only
+> term 1 binds, and `S₂ ≪ x^{1/2} ≤ x^{9/16}` discharges it. So the only conditions actually
+> needed are **`S₁, S₂ ≪ x^{1/2}` (from (5.2)) and `S₁S₂ ≫ x^{15/16}`** — HB's `S₂ ≪ x^{1/4}` is
+> not merely mistyped, it is **not needed at all**.
+>
+> **STATUS: the residual is CLOSED.** N7 no longer owes a resolution before consuming (5.19); it
+> owes only the corrected exponents. This is the **second** erratum-grade finding in HB 1983,
+> alongside the (5.5) hole at `v₂(q)=3` recorded in `weil-trio-design-0806.md` §D6 — and unlike
+> that one, this affects the twin-prime road directly, since (5.19) is on the critical path.
 
 > **LEMMA 11** (p.214). `S(δ₁,δ₂;V₁,V₂) = Σ_{R_i,S_i} Σ_{a_i,b_i=1}^{q} χ(b₁b₂) S`  (5.18), the
 > `R_i/V_i, S_i` powers of 2 subject to (5.2) and `a_i,b_i` subject to (5.3),(5.4),(5.5); and if
