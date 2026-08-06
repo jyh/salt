@@ -1,4 +1,9 @@
 /-
+Copyright (c) 2026 Jason Hickey. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Jason Hickey, Claude
+-/
+/-
 # The poly-log bound on `1/ζ` over the shallow half-plane (`T-1ζ′`)
 
 `zeta_inv_shallow` : `∃ c₄ > 0, ∃ C > 0, ∀ σ t,`

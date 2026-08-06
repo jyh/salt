@@ -1,4 +1,9 @@
 /-
+Copyright (c) 2026 Jason Hickey. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Jason Hickey, Claude
+-/
+/-
 # The shallow-contour ζ lower bound (`T-lo′`)
 
 `zeta_lower_shallow` : `∃ c₄ > 0, ∃ c > 0, ∀ σ t, 2 ≤ |t| →`

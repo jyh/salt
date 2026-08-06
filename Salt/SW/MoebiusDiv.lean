@@ -1,4 +1,9 @@
 /-
+Copyright (c) 2026 Jason Hickey. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Jason Hickey, Claude
+-/
+/-
 # The classical theorem `Σ_{d} μ(d)/d = 0` — decay of the weighted Möbius partial sums
 
 This module lands `mwWeighted_tendsto_zero : Tendsto mwWeighted atTop (𝓝 0)`,
