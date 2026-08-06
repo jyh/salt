@@ -20306,3 +20306,58 @@ throughout, with `chiReTB_abs_le_one` transporting the `Salt.SW` proof by defini
 (b) `hb_coprime_segment`'s statement had to bind `q` *explicitly* (`∀ (q : ℕ), 0 < q → ...`)
 because the Mertens constant is extracted once, outside the `∀`.  (c) `hb_hseg`'s `hq`/`hzX`
 are carried for the record but discharged by `hC`'s provider, hence underscore-named.
+
+## ⟦M-ONE — `hm1` DISCHARGED AT AN **ABSOLUTE** THRESHOLD `η ≥ 15000`, AND THE BRIEFED DISC-COUNT ROUTE REFUTED⟧
+
+(2026-08-05, Opus executor, 1 attempt, new file `Salt/HB/MOne.lean` 164 ln / 3 theorems +
+1 private lemma; `~/.elan/bin/lake build Salt.HB.MOne` exit 0, **zero warnings from the new
+file**; 3/3 audited at `[propext, Classical.choice, Quot.sound]`; purely additive — no landed
+statement touched, `Salt/HB/All.lean` **NOT** touched by instruction.)
+
+**⛔ ROLL-CALL OWED**: `Salt/HB/All.lean` needs one `import Salt.HB.MOne` row and the three
+audit names `Salt.HB.zeroMult_eq_one_of_window` / `_of_gap` / `_of_eta`. Deliberately left to
+the wave that owns that file.
+
+⟦THE DELIVERABLE⟧ N4b §D11's binder `hm1 : zeroMult χ (β₀ : ℂ) = 1` is a theorem above a
+**bare numeral** threshold — no `q`-growth, unlike this design's `hN`/`hN+` regime demands:
+
+    zeroMult_eq_one_of_eta  (MOne.lean:142) : χ primitive, χ ≠ 1, L(β₀,χ) = 0,
+      η = ((1−β₀)·log q)⁻¹, 15000 ≤ η  →  zeroMult χ (β₀ : ℂ) = 1
+
+with two upstream forms: `zeroMult_eq_one_of_gap` (:99, hypothesis `(1−β₀)·log q ≤ 1/15000`)
+and `zeroMult_eq_one_of_window` (:78, Landau's own window `1 − (1/5000)/log(4q) ≤ β₀`, the
+sharpest). `15000 = 3·5000` is sharp *for this route at `q = 2`*; for `q ≥ 4` the same window
+reads `η ≥ 10000`, in general `η ≥ 5000·(1 + log 4/log q)`.
+**Convention warning, stated in the file**: the threshold is against §0's
+`η := ((1−β₀)·log q)⁻¹`. Under an L-free reading `η := (1−β₀)⁻¹` the identical window reads
+`η ≥ 5000·log(4q)` — `q`-growing. Consumers must name which `η` they mean.
+
+⟦🔴 THE BRIEFED ROUTE IS DEAD AT EVERY `η`, AND THE OBSTRUCTION IS STRUCTURAL⟧ D11 proposed the
+**Prachar disc count**: two zeros (with multiplicity) in `|s−1| ≤ 2(1−β₀)` forcing
+`2 ≤ C·(1 + 2/η)`, hoping the corpus's explicit `C` would kill it. It cannot, at any threshold.
+The landed count `LFunction_zero_count_near_one` (`Salt/SW/ZeroCountNearOne.lean:98`) is
+`count(closedBall 1 r) ≤ 7200·(1 + r·log(q+2))`, whose right side tends to the **additive**
+constant `C = 7200` as `r → 0`; a disc-count contradiction against `m ≥ 2` needs that additive
+constant `< 2`. The guarded twin is worse (`≥ 2C` on its own guard `r ≥ 1/log(q+2)`). Nor is
+this constant slack: the additive `1` in Prachar's shape **is** the mass of the counted zero
+itself, and pushing its coefficient below `2` is precisely the optimized-radius Landau
+argument — i.e. the disc count, sharpened enough to prove simplicity, ceases to be a disc count.
+
+⟦AND IT WAS ALREADY IN THE KERNEL — a third VK-forgetting, caught before the spend⟧
+`Salt.SW.landau_one_exceptional_at` (`Salt/SW/LandauPage.lean:194`, landed with the S3e wave)
+evaluates the partial fraction at `σ = 1 + (3/5000)/log(4q)` — the radius tuned so a double
+zero's kept term `2/(σ−β₀) ≥ 2500·log(4q)` overruns the whole budget
+`1/(σ−1) + 1 + 720·log(4q)` — and returns `analyticOrderAt (LFunction χ) β₀ = 1` for **any**
+real zero in the window, needing only primitivity and `χ ≠ 1` (no `χ² = 1`; the quadratic
+hypothesis on `landau_one_exceptional_simple` is decorative). M-ONE is therefore the bridge to
+the `zeroMult` currency (`Salt.SW.zeroMult_eq_one`, `EFSharpMult.lean:108`) plus the
+`η`-translation `log(4q) ≤ 3·log q`: three thin wrappers, ~35 proof lines total. **The lesson
+repeats the HSUP and VK entries**: the design named a *route* (Prachar) and the corpus already
+held the *theorem* (Landau) one directory over. Before pricing a micro-node, grep the
+conclusion, not the method.
+
+⟦WHAT THIS DOES NOT SAY⟧ Nothing about `m ≥ 2` below the threshold: for `η < 15000` (i.e.
+`(1−β₀)·log q > 1/15000` — a zero not deep in the exceptional window) the binder is still owed,
+and D11's ruling stands that the `m ≥ 2` branch is a separate statement family. But since the
+whole N4b road is the Siegel-zero regime (`hN`/`hN+` already demand `η` astronomically larger
+than `15000`), `hm1` is discharged wherever the road runs.
