@@ -161,6 +161,29 @@ L-power, not the size of `log(1/c)`. Say this in the landing commit so no later 
 
 ---
 
+## ⚠️ OPEN AT DISPATCH TIME — THE `-M` CAP MAY NOT BIND (check before you trust it)
+
+The wrapper's `*.lean` branch now carries `lean -M 12000`. **Whether that cap actually binds is
+UNVERIFIED as of this writing.** `-M` is enforced inside Lean, which is why it survives Darwin's
+rlimit gap (`ulimit -v`/`-m` are measured no-ops here) — but a `decide +kernel` runaway lives in
+kernel `whnf`, which may not sit on the allocation path Lean's counter checks. If it does not
+bind, the cap is cosmetic and this wave's axiom-check step runs unprotected.
+
+**TS-1 executor: make this wave produce the datum.** While your build/audit runs, and once at
+wave exit, run
+
+```
+python3 /Users/jyh/projects/claude/saltworks/docs/ledger-tools/fleet_hygiene.py --brief
+```
+
+The evidence seat's detector parses each live Lean process's own `-M` out of its argv and reports
+**cap versus RSS**. A process holding **more RSS than its own cap** is a live proof that `-M` does
+not bind that workload — if you see that, **post it to `FLEET.md` with the exact numbers**, it
+settles an open fleet ruling. Note the converse is *not* proof: caps present and unbreached only
+means this run did not test them. TBal work is elaboration-heavy rather than `decide`-heavy, so it
+is unlikely to be the breaching workload — but "unlikely" is not a bound, which is the whole
+lesson of 2026-08-06.
+
 ## EXIT TEST (both waves)
 1. `saltbuild.sh Salt.SW.TBalR8`, then `saltbuild.sh Salt.SW.TBalTall` while iterating; full
    `saltbuild.sh` at wave exit with **`saltbuild EXIT=0`**, no new warnings.
