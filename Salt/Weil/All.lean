@@ -27,6 +27,7 @@ import Salt.Weil.Incomplete
 import Salt.Weil.CompositeFull
 import Salt.Weil.GcdBranch
 import Salt.Weil.Estermann
+import Salt.Weil.EstermannGlobal
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -122,3 +123,24 @@ open Salt.Tactic in
   Salt.Weil.norm_kloosterman_prime_pow_odd_sharp
   Salt.Weil.norm_kloosterman_prime_pow_unit_sharp
   Salt.Weil.norm_kloosterman_prime_pow_gcd
+
+/-! ### WEIL-TRIO W3 — the global Estermann assembly (2026-08-06)
+
+`Salt.Weil.EstermannGlobal`. The exit row N7 quotes as Estermann (7.1) is
+`norm_kloosterman_estermann`: at an **arbitrary** modulus `k ≥ 1` and **arbitrary** `a, b`,
+
+`‖S(a,b;k)‖ ≤ 2^{v₂(k)/2} · d(k) · √k · √((k,a,b))`
+
+— the 2-adic factor `√(2^{v₂ k})` carried EXPLICITLY (design §D3), never absorbed: it is the
+honest residue of the trivial 2-part `‖S(a,b;2^κ)‖ ≤ 2^κ` (P6), half of which folds into `√k`.
+The odd part is factor-free (W1-c's `c_e = 2 ≤ d(p^e)`). `norm_kloosterman_estermann_nat` is the
+same bound at nat arguments (the recursion's native form); `norm_kloosterman_estermann_road`
+specialises to `k = D·δ₁·w₁` with `δ₁, w₁` odd, where the factor reads `2^{v₂(D)/2} ≤ 2^{3/2}`. -/
+open Salt.Tactic in
+#audit_axioms Salt.Weil.kloosterman_mul_of_coprime_unit_twist
+  Salt.Weil.natCast_chineseRemainder_fst
+  Salt.Weil.natCast_chineseRemainder_snd
+  Salt.Weil.gcd_unit_twist_nat
+  Salt.Weil.norm_kloosterman_estermann_nat
+  Salt.Weil.norm_kloosterman_estermann
+  Salt.Weil.norm_kloosterman_estermann_road
