@@ -29,6 +29,11 @@ is the quadratic (Legendre) character on `ZMod p` for an odd prime `p`.
 * `quadraticChar_sum_two_forms_bound` — the general two-linear-forms bound (QCS-2):
   `‖∑ t, χ (a t + b) * χ (c t + d)‖ ≤ 2` when the forms are non-proportional
   (`a d - b c ≠ 0`), together with the trivial bound `≤ Fintype.card F` always.
+* `quadraticChar_sum_two_forms_eq` — QCS-2 *evaluated* (node WEIL-TRIO-W4-c0): under the same
+  hypothesis the sum is either `0` (one form constant) or exactly `-(χ a · χ c)`.
+* `quadraticChar_sum_two_forms_bound_one` — the sharp constant: `|∑| ≤ 1`.  This is the
+  per-prime input of the composite bound (`Salt/HB/RealPrimitive.lean`), where constant `2`
+  would cost a spurious `2 ^ ω(q)`.
 
 ## Proof of the keystone
 
@@ -185,6 +190,79 @@ theorem quadraticChar_sum_two_forms_bound (hF : ringChar F ≠ 2) {a b c d : F}
       rw [hval, abs_neg, abs_mul]
       exact le_trans (mul_le_one₀ hqa (abs_nonneg _) hqc) (by norm_num)
 
+/-- **QCS-2 evaluated (node WEIL-TRIO-W4-c0).**  Under the non-proportionality hypothesis
+`a d - b c ≠ 0`, the two-form quadratic character sum takes one of exactly two values: it is
+`0` when one of the forms is constant, and `-(χ a · χ c)` when both are genuinely linear.
+
+This is `quadraticChar_sum_two_forms_bound`'s proof with the final collapse to `≤ 2` dropped;
+the sharp corollary `quadraticChar_sum_two_forms_bound_one` follows.  N7/`RealPrimitive`
+quote it as the per-prime input of the composite `gcd` bound. -/
+theorem quadraticChar_sum_two_forms_eq (hF : ringChar F ≠ 2) {a b c d : F}
+    (h : a * d - b * c ≠ 0) :
+    (∑ t : F, quadraticChar F (a * t + b) * quadraticChar F (c * t + d)) = 0 ∨
+      (∑ t : F, quadraticChar F (a * t + b) * quadraticChar F (c * t + d))
+        = -(quadraticChar F a * quadraticChar F c) := by
+  by_cases ha : a = 0
+  · by_cases hc : c = 0
+    · exact absurd (by rw [ha, hc]; ring) h
+    · -- `a = 0`: the first form is the constant `b`, the sum factors and vanishes.
+      refine Or.inl ?_
+      have hsum : ∑ t : F, quadraticChar F (a * t + b) * quadraticChar F (c * t + d)
+          = quadraticChar F b * ∑ t : F, quadraticChar F (c * t + d) := by
+        rw [Finset.mul_sum]
+        exact Finset.sum_congr rfl fun t _ => by rw [ha, zero_mul, zero_add]
+      rw [hsum, quadraticChar_sum_linear hF hc, mul_zero]
+  · by_cases hc : c = 0
+    · -- `c = 0`: the second form is the constant `d`, the sum factors and vanishes.
+      refine Or.inl ?_
+      have hsum : ∑ t : F, quadraticChar F (a * t + b) * quadraticChar F (c * t + d)
+          = (∑ t : F, quadraticChar F (a * t + b)) * quadraticChar F d := by
+        rw [Finset.sum_mul]
+        exact Finset.sum_congr rfl fun t _ => by rw [hc, zero_mul, zero_add]
+      rw [hsum, quadraticChar_sum_linear hF ha, zero_mul]
+    · -- Both forms genuinely linear: normalize to leading coefficient `1` and use QCS-1.
+      refine Or.inr ?_
+      have e_ne : d / c - b / a ≠ 0 := by
+        refine sub_ne_zero.mpr fun heq => h ?_
+        field_simp at heq
+        linear_combination heq
+      have step1 : ∀ t : F, quadraticChar F (a * t + b) * quadraticChar F (c * t + d)
+          = quadraticChar F a * quadraticChar F c
+            * (quadraticChar F (t + b / a) * quadraticChar F (t + d / c)) := by
+        intro t
+        rw [show a * t + b = a * (t + b / a) by field_simp,
+            show c * t + d = c * (t + d / c) by field_simp, map_mul, map_mul]
+        ring
+      have hbij : Function.Bijective (fun t : F => t + b / a) :=
+        ⟨fun x y hxy => add_right_cancel hxy, fun y => ⟨y - b / a, by simp⟩⟩
+      have step2 : ∑ t : F, quadraticChar F (t + b / a) * quadraticChar F (t + d / c)
+          = ∑ u : F, quadraticChar F u * quadraticChar F (u + (d / c - b / a)) :=
+        Fintype.sum_bijective (fun t => t + b / a) hbij _ _
+          (fun t => by rw [show t + b / a + (d / c - b / a) = t + d / c by ring])
+      rw [Finset.sum_congr rfl fun t _ => step1 t, ← Finset.mul_sum, step2,
+          quadraticChar_sum_mul_shift hF e_ne]
+      ring
+
+/-- **QCS-2 at the sharp constant `1` (node WEIL-TRIO-W4-c0).**  For non-proportional linear
+forms over a finite field of odd characteristic,
+`|∑ t, χ (a t + b) · χ (c t + d)| ≤ 1`.
+
+The constant matters: the composite assembly multiplies one such bound per odd prime factor
+of the modulus, so any constant `> 1` would accumulate a factor `2 ^ ω(q)` that
+Heath-Brown's `≪ (q, u v' - v u')` does not carry. -/
+theorem quadraticChar_sum_two_forms_bound_one (hF : ringChar F ≠ 2) {a b c d : F}
+    (h : a * d - b * c ≠ 0) :
+    |∑ t : F, quadraticChar F (a * t + b) * quadraticChar F (c * t + d)| ≤ 1 := by
+  have hq : (quadraticChar F).IsQuadratic := quadraticChar_isQuadratic F
+  rcases quadraticChar_sum_two_forms_eq hF h with hz | hv
+  · rw [hz, abs_zero]; norm_num
+  · have hqa : |quadraticChar F a| ≤ 1 := by
+      rcases hq a with h' | h' | h' <;> rw [h'] <;> norm_num
+    have hqc : |quadraticChar F c| ≤ 1 := by
+      rcases hq c with h' | h' | h' <;> rw [h'] <;> norm_num
+    rw [hv, abs_neg, abs_mul]
+    exact mul_le_one₀ hqa (abs_nonneg _) hqc
+
 end TwoForms
 
 section ZModSpecialization
@@ -206,6 +284,15 @@ theorem legendre_sum_two_forms_bound (hp : p ≠ 2) {a b c d : ZMod p}
       ≤ 2 :=
   quadraticChar_sum_two_forms_bound ((ZMod.ringChar_zmod_n p).substr hp) h
 
+/-- **QCS-2 for the Legendre character at the sharp constant `1`** (node WEIL-TRIO-W4-c0).
+For an odd prime `p` and `p ∤ a d - b c`,
+`|∑ t : ZMod p, χ (a t + b) · χ (c t + d)| ≤ 1`. -/
+theorem legendre_sum_two_forms_bound_one (hp : p ≠ 2) {a b c d : ZMod p}
+    (h : a * d - b * c ≠ 0) :
+    |∑ t : ZMod p, quadraticChar (ZMod p) (a * t + b) * quadraticChar (ZMod p) (c * t + d)|
+      ≤ 1 :=
+  quadraticChar_sum_two_forms_bound_one ((ZMod.ringChar_zmod_n p).substr hp) h
+
 /-- **QCS-2 for the Legendre character (trivial bound).** Unconditionally, the two-form
 Legendre sum is bounded in absolute value by `p`. -/
 theorem legendre_sum_two_forms_trivial (a b c d : ZMod p) :
@@ -222,9 +309,12 @@ end ZModSpecialization
 The prime case above is the load-bearing content of Heath-Brown's omitted lemma. Two
 extensions remain, recorded here as named residuals.
 
-**QCS-3 — multiplicativity over coprime odd moduli (squarefree case).** For coprime odd
-`q₁, q₂` the sum at modulus `q₁ q₂` factors as a product of the sums at `q₁` and `q₂`,
-yielding a bound of the shape `2 ^ ω(q) · gcd(q, a d - b c)` for squarefree odd `q`. This is
+**QCS-3 — multiplicativity over coprime odd moduli (squarefree case).**  **LANDED** in
+`Salt/HB/RealPrimitive.lean` (node WEIL-TRIO-W4-c), and at constant `1`, not `2 ^ ω(q)`:
+`quadraticChar_sum_two_forms_bound_one` above supplies the per-prime input at the sharp
+constant, so the coprime product telescopes into `gcd(q, u v' - v u')` alone.  The sketch
+below is the original (pre-W4) reading of the step and is kept for orientation.  For coprime
+odd `q₁, q₂` the sum at modulus `q₁ q₂` factors as a product of the sums at `q₁` and `q₂`. This is
 *not* a direct corollary of the results here: for composite `q` the ring `ZMod q` is not a
 field, so `quadraticChar (ZMod q)` is not the relevant object. The correct character is the
 Jacobi symbol `jacobiSym · q` (a real Dirichlet character mod `q`), and the factorization
@@ -235,11 +325,19 @@ sums; (ii) `jacobiSym (n) (q₁ q₂) = jacobiSym n q₁ * jacobiSym n q₂`; (i
 input, which is exactly `legendre_sum_two_forms_bound` above (bound `2`) versus the trivial
 bound `p` when `p ∣ a d - b c`, assembled into the `gcd` factor.
 
-**Prime-power case (`mod p²`, and `mod 4`, `mod 8`).** OUT OF SCOPE. A real *primitive*
-character `χ (mod q)` for cube-free `q` has prime-power components mod `p²` (and mod `4`/`8`);
-there the analogue of QCS-1 is a Ramanujan/Kloosterman-type evaluation rather than a Jacobi
-sum, and the `≪ gcd(q, a d - b c)` bound requires a separate stationary-phase / completion
-argument. Not attempted.
+**Prime-power case.**  Split by the modulus, as the structure lemma
+`q = 2^a · m` (`a ∈ {0, 2, 3}`, `m` odd squarefree) demands:
+
+* the `2`-power components (`mod 4` and `mod 8`, for `χ₄`, `χ₈`, `χ₈'`) are **LANDED** in
+  `Salt/HB/RealPrimitive.lean` (node WEIL-TRIO-W4-b) — with at most `8^4 = 4096` quadruples
+  of coefficients these are *finite decision problems*, closed by `decide`, and they come out
+  at the sharp gcd form `|∑| ≤ (2^a, u v' - v u')`;
+* the odd prime-power components `mod p^k` with `k ≥ 2` remain OUT OF SCOPE (class C).  They
+  do not occur on the Heath-Brown road at all: a real primitive character has odd conductor
+  part squarefree, which is exactly why the structure lemma above is the right statement.
+  There the analogue of QCS-1 is a Ramanujan/Kloosterman-type evaluation rather than a Jacobi
+  sum, and the `≪ gcd(q, a d - b c)` bound requires a separate stationary-phase / completion
+  argument.  Not attempted.
 -/
 
 end Salt.HB
