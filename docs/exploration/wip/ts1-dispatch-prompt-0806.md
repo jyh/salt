@@ -7,9 +7,12 @@ Paste as the `prompt` of a single `Agent` call, `subagent_type: "general-purpose
 voided by a shell syntax error, not a memory failure.**
 - Cap must sit **above** the ~670 MB Lean+mathlib baseline and **below** baseline + reduction:
   `--cap 900` with a ~300–500 MB `decide +kernel` reduction.
-- **Judge by the ERROR TEXT, never the exit code.** Only Lean's own memory diagnostic
-  (`memory limit exceeded` / `maximum memory`) counts as a cap hit. `syntax error near unexpected
-  token`, `EXIT=75`, or a missing file mean **the run did not test the cap** — void and retry, do
+- **Judge by the ERROR TEXT, never the exit code.** Only Lean's own memory diagnostic counts as a
+  cap hit, and its ACTUAL wordings (compiler's binary-verified strings, 8/6 16:10) are:
+  `(kernel) excessive memory consumption detected` or
+  `excessive memory consumption detected at '<component>'` — nothing else. `syntax error near
+  unexpected token`, `EXIT=75`, `deep recursion`, `GNU MP: Cannot allocate memory`, `out of memory`
+  (allocator), or a missing file mean **the run did not test the cap** — void and retry, do
   **not** adjust the cap.
 - Sanity first: a no-`decide` file at the same cap must exit 0. If it dies, read *why* before
   concluding the cap is too low.

@@ -35,8 +35,10 @@ mistake produced an unverified commit in this fleet on 8/6. Read the `saltbuild 
 2. **`EXIT=75`** — lock-wait timeout. The build **never started**. RETRY the same command;
 3. **`syntax error near unexpected token`** — the wrapper was edited in place while you were
    queued. **Not your build.** RETRY.
-A memory-cap hit counts **only** on Lean's own `(deterministic) memory limit exceeded` /
-`maximum memory` diagnostic. Anything else means the run did not test what you think it tested.
+A memory-cap hit counts **only** on Lean's own diagnostic, whose ACTUAL wordings (compiler's
+binary-verified strings, 8/6 16:10) are `(kernel) excessive memory consumption detected` or
+`excessive memory consumption detected at '<component>'` — nothing else. `(deterministic) timeout`,
+GMP/allocator errors, and shell noise mean the run did not test what you think it tested.
 
 ⚠️ `Salt/SW/TBalTall.lean` imports `Salt.SW.TauExt` which imports `Salt.SW.TBalR8` — a dependency
 **CHAIN**. Build `TBalR8` **first**, then `TBalTall`. They cannot elaborate concurrently.
