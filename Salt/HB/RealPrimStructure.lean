@@ -201,4 +201,103 @@ theorem crtFactor₂_unique (hcop : Nat.Coprime q₁ q₂) (χ : DirichletCharac
 
 end CRT
 
+/-! ### S2: primitivity is componentwise -/
+
+section Componentwise
+
+variable {R : Type*} [CommMonoidWithZero R] {q₁ q₂ : ℕ}
+
+/-- **S2 (the `q₁`-part).**  If `χ` is primitive mod `q₁ q₂` then its `q₁`-part is primitive.
+
+Contrapositive: if the `q₁`-part factored through a proper divisor `d ∣ q₁`, then `χ` itself
+would factor through `d q₂`, a proper divisor of `q₁ q₂`. -/
+theorem crtFactor₁_isPrimitive [NeZero q₁] [NeZero q₂] (hcop : Nat.Coprime q₁ q₂)
+    (χ : DirichletCharacter R (q₁ * q₂)) (hprim : χ.IsPrimitive) :
+    (crtFactor₁ hcop χ).IsPrimitive := by
+  haveI : NeZero (q₁ * q₂) := ⟨Nat.mul_ne_zero (NeZero.ne q₁) (NeZero.ne q₂)⟩
+  rw [DirichletCharacter.isPrimitive_def]
+  set χ₁ := crtFactor₁ hcop χ with hχ₁
+  set d := χ₁.conductor with hd
+  have hdvd : d ∣ q₁ := DirichletCharacter.conductor_dvd_level χ₁
+  have hdq : d * q₂ ∣ q₁ * q₂ := mul_dvd_mul_right hdvd q₂
+  have hker₁ : (ZMod.unitsMap hdvd).ker ≤ χ₁.toUnitHom.ker :=
+    (DirichletCharacter.factorsThrough_iff_ker_unitsMap hdvd).mp
+      (DirichletCharacter.factorsThrough_conductor χ₁)
+  have hft : χ.FactorsThrough (d * q₂) := by
+    rw [DirichletCharacter.factorsThrough_iff_ker_unitsMap hdq]
+    intro u hu
+    rw [MonoidHom.mem_ker] at hu ⊢
+    have hU₂ : ZMod.unitsMap (dvd_mul_left q₂ q₁) u = 1 := by
+      have h2 := congrArg (ZMod.unitsMap (dvd_mul_left q₂ d)) hu
+      rw [← MonoidHom.comp_apply, ZMod.unitsMap_comp, map_one] at h2
+      exact h2
+    have hU₁ : ZMod.unitsMap hdvd (ZMod.unitsMap (dvd_mul_right q₁ q₂) u) = 1 := by
+      have h1 := DFunLike.congr_fun (ZMod.unitsMap_comp hdvd (dvd_mul_right q₁ q₂)) u
+      rw [MonoidHom.comp_apply] at h1
+      have h2 := congrArg (ZMod.unitsMap (dvd_mul_right d q₂)) hu
+      rw [← MonoidHom.comp_apply, ZMod.unitsMap_comp, map_one] at h2
+      rw [h1]; exact h2
+    have hval₁ : χ₁.toUnitHom (ZMod.unitsMap (dvd_mul_right q₁ q₂) u) = 1 :=
+      hker₁ (MonoidHom.mem_ker.mpr hU₁)
+    refine Units.ext ?_
+    rw [MulChar.coe_toUnitHom, Units.val_one, crtFactor_apply hcop χ,
+      ← ZMod.unitsMap_val (dvd_mul_right q₁ q₂) u, ← ZMod.unitsMap_val (dvd_mul_left q₂ q₁) u,
+      hU₂, Units.val_one, ← hχ₁, MulChar.map_one, mul_one, ← MulChar.coe_toUnitHom, hval₁,
+      Units.val_one]
+  have hle : χ.conductor ≤ d * q₂ :=
+    Nat.sInf_le ((DirichletCharacter.mem_conductorSet_iff χ).mpr hft)
+  rw [DirichletCharacter.isPrimitive_def] at hprim
+  rw [hprim] at hle
+  refine Nat.le_antisymm (Nat.le_of_dvd (Nat.pos_of_ne_zero (NeZero.ne q₁)) hdvd) ?_
+  by_contra hlt
+  have hlt' : d < q₁ := Nat.lt_of_not_le hlt
+  exact absurd (lt_of_lt_of_le
+    (mul_lt_mul_of_pos_right hlt' (Nat.pos_of_ne_zero (NeZero.ne q₂))) hle) (lt_irrefl _)
+
+/-- **S2 (the `q₂`-part).**  If `χ` is primitive mod `q₁ q₂` then its `q₂`-part is primitive. -/
+theorem crtFactor₂_isPrimitive [NeZero q₁] [NeZero q₂] (hcop : Nat.Coprime q₁ q₂)
+    (χ : DirichletCharacter R (q₁ * q₂)) (hprim : χ.IsPrimitive) :
+    (crtFactor₂ hcop χ).IsPrimitive := by
+  haveI : NeZero (q₁ * q₂) := ⟨Nat.mul_ne_zero (NeZero.ne q₁) (NeZero.ne q₂)⟩
+  rw [DirichletCharacter.isPrimitive_def]
+  set χ₂ := crtFactor₂ hcop χ with hχ₂
+  set d := χ₂.conductor with hd
+  have hdvd : d ∣ q₂ := DirichletCharacter.conductor_dvd_level χ₂
+  have hdq : q₁ * d ∣ q₁ * q₂ := mul_dvd_mul_left q₁ hdvd
+  have hker₂ : (ZMod.unitsMap hdvd).ker ≤ χ₂.toUnitHom.ker :=
+    (DirichletCharacter.factorsThrough_iff_ker_unitsMap hdvd).mp
+      (DirichletCharacter.factorsThrough_conductor χ₂)
+  have hft : χ.FactorsThrough (q₁ * d) := by
+    rw [DirichletCharacter.factorsThrough_iff_ker_unitsMap hdq]
+    intro u hu
+    rw [MonoidHom.mem_ker] at hu ⊢
+    have hU₁ : ZMod.unitsMap (dvd_mul_right q₁ q₂) u = 1 := by
+      have h2 := congrArg (ZMod.unitsMap (dvd_mul_right q₁ d)) hu
+      rw [← MonoidHom.comp_apply, ZMod.unitsMap_comp, map_one] at h2
+      exact h2
+    have hU₂ : ZMod.unitsMap hdvd (ZMod.unitsMap (dvd_mul_left q₂ q₁) u) = 1 := by
+      have h1 := DFunLike.congr_fun (ZMod.unitsMap_comp hdvd (dvd_mul_left q₂ q₁)) u
+      rw [MonoidHom.comp_apply] at h1
+      have h2 := congrArg (ZMod.unitsMap (dvd_mul_left d q₁)) hu
+      rw [← MonoidHom.comp_apply, ZMod.unitsMap_comp, map_one] at h2
+      rw [h1]; exact h2
+    have hval₂ : χ₂.toUnitHom (ZMod.unitsMap (dvd_mul_left q₂ q₁) u) = 1 :=
+      hker₂ (MonoidHom.mem_ker.mpr hU₂)
+    refine Units.ext ?_
+    rw [MulChar.coe_toUnitHom, Units.val_one, crtFactor_apply hcop χ,
+      ← ZMod.unitsMap_val (dvd_mul_right q₁ q₂) u, ← ZMod.unitsMap_val (dvd_mul_left q₂ q₁) u,
+      hU₁, Units.val_one, MulChar.map_one, one_mul, ← hχ₂, ← MulChar.coe_toUnitHom, hval₂,
+      Units.val_one]
+  have hle : χ.conductor ≤ q₁ * d :=
+    Nat.sInf_le ((DirichletCharacter.mem_conductorSet_iff χ).mpr hft)
+  rw [DirichletCharacter.isPrimitive_def] at hprim
+  rw [hprim] at hle
+  refine Nat.le_antisymm (Nat.le_of_dvd (Nat.pos_of_ne_zero (NeZero.ne q₂)) hdvd) ?_
+  by_contra hlt
+  have hlt' : d < q₂ := Nat.lt_of_not_le hlt
+  exact absurd (lt_of_lt_of_le
+    (mul_lt_mul_of_pos_left hlt' (Nat.pos_of_ne_zero (NeZero.ne q₁))) hle) (lt_irrefl _)
+
+end Componentwise
+
 end Salt.HB
