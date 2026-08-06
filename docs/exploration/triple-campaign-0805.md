@@ -296,3 +296,18 @@ No manual tracking; transcripts + published rubric + spot-audit.
   reach the agents dispatched before it existed.** Both incidents
   cost ~zero work (lake resumes incrementally); both are honest
   entries for the unattended-operations story, not blemishes on it.
+
+## 12. SILICON BOUGHT (8/6, ~10:30) + THE PRICE EXHIBIT
+- **4 tiles (2×2) purchased on TTSKY26c, €280** (~$305; C2 envelope).
+  Deadline 2026-09-07 13:00 PDT. Payment ≠ submission — the "Submit
+  a new revision" click is a separate later act (dossier §7.2).
+- **THE PRICE EXHIBIT (JYH, from the room, verbatim source):** the
+  1988 fabrication of the original Batcher-banyan chips cost
+  **~$150,000 at VLSI Technology Inc** (his recollection; order of
+  magnitude). Today's access: **€280**. Nominal ratio ≈ 500×;
+  inflation-adjusted (~2.7× CPI 1988→2026, so ~$400K real) ≈
+  **1,300×**. README framing, honest form: "In 1988, fabricating
+  this design cost roughly $150,000 (VLSI Technology Inc; the
+  author's recollection). In 2026 it cost €280 — and this time it
+  shipped with a machine-checked proof." State the recollection AS
+  a recollection; the ratio needs no precision to land.

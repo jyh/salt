@@ -20615,3 +20615,141 @@ while W4.5's binder is `1 ∨ −1 ∨ 0`; the `rcases … <;> rw … <;> simp` 
 that from `Nat.floor_mono` on `eventually_ge_atTop z` — the real-vs-floor cut needs no `3 ≤ z`
 guard here.  (c) `#audit_axioms` rows were added for the 17 theorem/lemma names only; the two
 `noncomputable def`s (`hbL1`, `hbEulerProdBelow`) are audited in `ScratchCT.lean`.
+
+## ⛔ ⟦TAU-SHARP TS-0 — THE REFUTER PASS: THE DOOR CLAIM IS DEAD, THE CONSTANT STONES SURVIVE⟧
+
+(2026-08-06 morning, salt MATHEMATICS seat, 4 parallel read-only Opus refuters, 0 Lean.
+Full verdict page: `docs/exploration/tau-sharp-refuter-0806.md` (435d73a). Freeze under attack:
+`docs/exploration/tau-sharp-scout-dossier-0805.md`. Verdicts: K1 REPAIR-THEN-FIRE,
+K2 REPAIR-THEN-FIRE, **K3 HOLD**, K4 REPAIR-THEN-FIRE.)
+
+**⛔ PENDING-JYH / DESIGN SEAT — THIS ENTRY CONTAINS NO EXECUTOR RULING ON A STATEMENT.** The
+fatal finding below is statement-layer. This seat records it and stops; TS-3 and the dossier §6
+design ruling are HELD pending the design seat and the Captain.
+
+**THE FINDING THAT OUTRANKS THE REST — THE BINDER LAW IS OFF BY ONE POWER OF `L`.** Derived
+INDEPENDENTLY by K1, K2, K3 and the conductor before any refuter reported, so it is not one
+agent's opinion. The freeze asserts the regime binder's L-power is `(1+ξ)(k−1)`, hence
+"**k = 1 makes the threshold ABSOLUTE — `η ≤ c^{1+ξ}`, no L at all — for any ξ**". From §D2's
+literally-stated `hN+` (`n4b-design-0805.md:207`) with the road's own
+`η := ((1−β₀)·log q)^{−1}` (`:52`):
+
+> `log η ≥ (1+ξ)·log(1/c) + [ (1+ξ)k − 1 ]·log L`
+
+The lone `−log L` comes from the `η ↔ (1−β₀)` conversion and is **never doubled** by the margin;
+the margin multiplies the block `log(1/c) + k·log L`. The freeze subtracts `(1+ξ)·log L` where
+only ONE exists. The two laws agree only at `ξ = 0` and diverge exactly where the headline lives:
+at `k = 14, ξ = 1` the honest power is **27**, not 26; at `k = 1, ξ = 1` it is **1**, not 0.
+§D2's own two numerals are mutually inconsistent — `:214`'s `e^{1264+26 log L}` carries the
+DOUBLED `log(1/c)` (an ξ=1 shape) but the `(k−1)` power of `:218`'s `(e^{632}·L^{13}/η)^θ`
+(an ξ=0 shape) — and the freeze fused them. "26 = 2·13" is a coincidence of that fusion.
+**The `k : 14 → 1` SCOPE survives (L-power 27 → ξ, a real win). The word ABSOLUTE does not.**
+
+**⛔ K3 CONFIRMED-FATAL — THE N11 DOOR DOES NOT CLOSE AT `k = 1`, AND `k` IS NOT THE LEVER.**
+A **k-INDEPENDENT** L-power survives, from the LANDED ledger, not from the margin:
+`efEnvelope_le_ledger_sharp` (`Salt/HB/Lemma7EF.lean:2624-2632`) prices the Range-A erased-spend
+row at `10^3·M^3·N·u^{bceil−1}` against the consumer's target grade `(m+255)/log u` (`:2907-2908`)
+inside the byte-fixed window `250·log q ≤ log u` (`:2844`), forcing
+`𝒩 ≥ (b/250)·(5·log L + 29)`, hence
+`log η ≥ log(1/c) + [(k−1) + 5b/s]·log L + O(1)`. At TS-3's own target `(k=1, b=174,
+log(1/c)=52)` that is `log η` = 102.2 at L=250, 120.0 at L=10⁶, 168.1 at L=10¹² — i.e.
+`η ≳ e^{~100}·L^{~3}`, **q-GROWING**. But `FulcrumQualityMin C` (`Salt/Fulcrum/Basic.lean:61-64`)
+is `‖1−ρ‖·(C·log q) ≤ 1` with `C` a **FIXED** real, and `imsz_gives_fulcrum_witnesses`
+(`Gadget.lean:128-131`) supplies it only for a constant, so
+`not_fulcrum_implies_noSiegelZeros` (`Dichotomy.lean:82`) never fires. **The lever is `b/s`, not
+`k`** — the surviving power is `Θ(b/s)`; `b: 680 → 174` improves it 3.9×; only a Jutila-grade
+`b ≈ 3.09` approaches zero, and even then it is positive. **ABSOLUTE is unreachable in this
+skeleton by ANY `(b, c, k)`.**
+
+**COROLLARY THE WAVE PLAN MUST CARRY:** `imsz_gives_fulcrum_witnesses` accepts EVERY constant
+`C > 0`, so the door is **indifferent to the size of `log(1/c)`** — `e^{631.6}` is as acceptable
+as `e^{52}`, provided it is a constant. The door's gate is purely the L-power. **S1, S2, S5, S6,
+S8 and most of S3 — all of TS-1 and all of TS-2 — buy the N11 door exactly nothing.** They buy
+explicit-constant hygiene and (through `b`) the θ ledger. Recorded so no later reader mistakes a
+TS-2 landing for door progress.
+
+**AND TS-3's PREMISE IS UNVERIFIED.** The landed end-to-end consumer
+`logChiSum_tendsto_zfr_hundred` (`Lemma7EF.lean:3136`) closes HB's (4.12) tail at `K = 100` using
+the CLASSICAL ZFR ceiling `efZfrCeil` at every `u`, and `logChiSum_tendsto_zfr`'s own docstring
+says in the open that "`hN+`, `hord` and the `q^{250} ≤ X` edge do NOT appear — they are
+Range-A's". **On the landed bytes the repulsion contract is currently not load-bearing for
+Lemma 7's tail at all.** Before ~300 Lean lines go into TS-3, the road must state which consumer
+obligation the repulsion ceiling discharges that `efZfrCeil` cannot. (It cannot discharge
+`hreal′`: `dh_repulsion_tall` excludes real zeros by hypothesis, `ρ.im ≠ 0`.)
+
+**⛔ TWO BUILD-BREAKERS FOR ANYONE WHO TOUCHES THIS STACK.**
+
+1. **THE DOSSIER'S S1/S2 EDIT LISTS OMIT THE ENTIRE TWIN.** §2.4 says `hc_t1` is "consumed at
+   EXACTLY ONE site". FALSE: there is a second, identical site at **`TBalR8.lean:1425-1428`**,
+   inside `dh_repulsion_inst` (`:1373`), the body of the **LANDED `dh_repulsion_ordered`**
+   (`:1752`) — consumed at `TauExt.lean:353`, audited in `Salt/SW/All.lean:313`. Four of the five
+   row caps are SHARED verbatim by both assemblies (`row_rho_main_cap`, `row_A_cap`, `row_1x_cap`,
+   `row_Eβ_cap`); only the Eρ row is forked. There are **two** `c`-min towers, an **11-fold** at
+   `TBalR8:1776-1833` and a **10-fold** at `TBalTall:2105-2156`, and TBalR8's KEβ/KEρ arms carry a
+   free `Z₀` (`:1387-1388`) so the dossier's §3 arm table — computed at the tall numerals — does
+   not price that tower at all. Following S1 literally turns a landed theorem red. S1 as specified
+   re-priced at **~123 ln / 2 files / 5 declarations**, against the dossier's ~15 ln.
+2. **TWO OF THREE γ-FLOOR NUMERALS ARE INADMISSIBLE — THE FREEZE ROUNDED THE WRONG WAY.** The
+   exact infima (each attained at the closed endpoint `hσlo : 16/17 ≤ σ`) are
+   `γ_Eρ = 5247/1700 = 3.0864705…` and `γ_Eβ = 3547/1700 = 2.0864705…`, **BELOW** the claimed
+   `3.0865`/`2.0865` by `2.941e−5`. Those side goals are FALSE at `σ = 16/17` and no `nlinarith`
+   closes them — an executor handed 3.0865 burns its budget on an unprovable goal. `γ_A`'s
+   `0.15647` survives (`133/850`, margin `5.9e−7`, corner not attained since `u > 0`). Use exact
+   rationals and `linarith [hσlo]`. Corrected arm: `log(KEβ)/(3547/1700) = 32.15`, not 32.16.
+
+**K2's WALL W4, NEW AND UNNAMED BY THE FREEZE.** The shortfall-∝-w mechanism SURVIVES uniformly
+on `(c₀/log Q, 1/17]` (the hα demand divides by `w`), but S4 move (iii) converts the WHOLE
+`L₂^{10}/L₂^{11}` to a Q-power, re-injecting exactly the CONSTANT Q-power catch R8b-B
+(`flags.md:11253`) forbids. That imposes a ceiling **independent of `b`**:
+`δ' ≤ (a/2 − g − 5/2)/11` (Eρ), `(a/2 − g − 1/2)/10` (Eβ). At the landed `a = 104` these are
+3.409/3.950 and the freeze's defence closes; **S3 (a: 104 → 51) collapses them to 1.000/1.300**,
+and at `δ' = 1` the Eρ w-free part is exactly zero — a knife edge. **S3 and S4 are
+ANTI-synergistic**: S3 cuts `γ_Eβ` 2.0865 → 1.1141, tripling the conversion cost, and at
+`δ' = 1/2` the Eβ arm becomes **60.4 and BINDING**, overturning §6's "the binding arm is the ZFR
+residue row". S4's numerals fail outright at the freeze's own target: `(a,m,b) = (51,12,174)` with
+`δ' = 1/2` needs `b ≥ 193.80`. S4 re-priced **class C, 600–900 ln jointly with S3**, with
+`ray_pow_bound`'s hardcoded `680`/`14` (they are in its STATEMENT, `TBalR8:370-371`) to be
+parametrized FIRST as a pure refactor.
+
+**AND §2.6's b-FLOOR NAMES THE WRONG ROW.** `row_A_cap`'s `ray_pow_bound` call (`TBalR8:534-540`)
+carries `δ_A = 1/50` INSIDE γ, so at the corner `u → 0+` the true floor is
+`b ≥ a/(1 − δ_A − m·w₀) = 664.66`, not the ρ-main row's 589.33. **The landed slack is 680/664.66 =
+1.023, not 1.154**, and §2.6/§3's "b: 680 → 174 multiplies θ by 3.9" is wrong — the multiplier is
+3.24 and **θ = 0.595, not 0.72**. Also `row_A_cap`'s `hulogY` guard (`:499-510`) calls
+`ray_pow_bound` at `ε = 1, γ = 49/50`; at `k = 1` hε reads `1 ≤ 49/50` — FALSE, with a CONSTANT
+shortfall — and S4's four-move list does not name it.
+
+**WHAT SURVIVED THE ATTACK, UNBROKEN.** Headline (i) is byte-exact: all ten arms reproduce
+(`631.5764` landed on the `(c₀/KEρ)^8` arm; `86.2267` post-S2 on `(c₀/32)^{17/3}`; `c₀ = 1/126848`
+confirmed at `ZeroFreeReal.lean:392/:605`). The `htriv` guard claim is right — `htriv : u <
+1/(40·L₂)` (`TBalTall:1735`) is live through the whole deep bullet and gives `u·L₂ < 1/40` with no
+`L₂` lower bound needed, so `hc_t9 : c ≤ 1/18` is genuinely redundant in BOTH assemblies (but
+worth **0.00**, since `1/576` at 6.36 already dominates `1/18` at 2.89 — do not spend on it).
+`tbal_tau_le_split` really does need only `c ≤ 1` (`c ≤ 204.8` suffices). The rpow sign convention
+is correct and does not invert. The window `hσlo` is already in scope at all three collapse sites.
+`2z⁴ ≤ Y` at `(51,12,12,3)` re-checks true.
+
+**⟦EXECUTION RULING — execution layer only, no statement touched⟧** TS-1 and TS-2 FIRE with the
+K1+K4 repairs: **both towers always**; S1 by **numeral replacement** (`2^{−250}` → `1/40`) rather
+than arm deletion, which keeps every hand-built min-projection chain index-stable (~20 ln instead
+of ~123) and pre-pays S4; γ-floors as **exact rationals**; and the shared writer-slot block is
+`TBalR8:1776-1833` **AND** `TBalTall:2105-2156`, which is what forces TS-1 strictly before TS-2.
+Honest delivery, stated in advance: **631.58 → 86.23** (`e^{1264}` → `e^{172}`), no parameter
+changed, no statement outside the two files — and, per the corollary above, **zero door progress**.
+⛔ Both waves are HELD until 20:00 by the fleet's third-OOM standing order (math seat pauses all
+Lean building; `FLEET.md`, 8/6 09:22). The briefs are banked at
+`docs/exploration/tau-sharp-ts1-ts2-briefs-0806.md` so they fire tonight with no re-derivation.
+
+**W2C FOLLOW-UP CENSUS (read-only, same session).** Of the `N4B-W2c` entry's named leftovers:
+the ledger sharpening **LANDED** (`N4B-SYMSPLIT`, `K = 100 at L ≥ 250` now kernel-checked, so the
+"paper-only, must not be quoted" caveat is DISCHARGED). **TWO REMAIN OPEN**, both inside
+`Salt/HB/Lemma7EF.lean`: (i) the **two-window argument** — `logChiSum_composite_of_ceiling` on
+`[X,Y₁]` at the constant repulsion ceiling plus the tail form above `Y₁`, joined by `logChiSum_add`
+(`:1155`); the joiner and both halves exist (`psiDefect_norm_le_rangeA` `:748`,
+`logChiSum_composite_of_ceiling` `:1128`) but **no assembly composes them**; (ii) the **existential
+`X₀`** in `logChiSum_tendsto_zfr_hundred` (`:3145`, the file's last declaration), which SYMSPLIT
+named as "a separate, cheap node: add `hσbrate : ε ≤ 1 − σb` and a numeric `c₀`". **This seat does
+NOT take either**: `Lemma7EF.lean` is fenced off by its work order (other work is wiring the
+`Lemma7*` files — `Salt/HB/` saw commits at 09:04 and 09:18 today). Recorded here for whoever
+owns that file. Note (ii) interacts with K3's finding: the `250 ≤ Real.log q` hypothesis at
+`:3137` is the same window edge that carries the surviving L-power.
