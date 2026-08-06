@@ -20864,3 +20864,86 @@ sharper prime-power constant. The same run re-confirms the W1-a erratum: `S(3,3;
 `3·S(1,1;3) = −3.0`, `3·S(1,1;3^0) = +3.0`. It also prices what W1-c bought: the crude
 `norm_kloosterman_prime_pow_odd` gives 18.0 / 50.0 / 54.0 / 98.0 on those same four cases —
 between 1.7× and 2.6× the truth, and growing like `√p`.
+
+## (2026-08-06) ⟦WEIL-TRIO-W4Q HOME — **THE p.217 COMPOSITE BOUND LANDS AT CONSTANT ONE, AND THE p.216 VANISHING WITH IT**⟧
+
+`Salt/HB/RealPrimitive.lean` (NEW, 460 ln, 20 decls) + `Salt/HB/QuadCharSum.lean` (**purely
+additive**: the landed `:137` `quadraticChar_sum_two_forms_bound` and every other proof
+UNTOUCHED; three new theorems + docstring corrections) + `Salt/HB/All.lean` (one import row,
+21 audit names). **21/21 audited at `[propext, Classical.choice, Quot.sound]`** (`gcd_val_castHom`
+needs only two). Every build through `/Users/jyh/projects/claude/saltbuild.sh`, judged on its
+printed `saltbuild EXIT=`; `Salt.HB.All` EXIT=0; audit run `saltbuild.sh ScratchW4Q.lean` EXIT=0.
+**Zero new warnings** (`RealPrimitive`/`QuadCharSum` contribute none; the 6 in the log are the
+standing baseline in `Mertens/TwinDensity`, `SW/SelOpt`, the `push_neg` macro). All five stones
+first-attempt except two name lookups. `Salt/Weil/*` untouched.
+
+**W4-c0 — the `:137` proof's `hval`, exposed.** `quadraticChar_sum_two_forms_eq`: under
+`a d − b c ≠ 0` the sum is `0 ∨ −(χ a · χ c)`, i.e. the `:141-186` body with the final collapse
+dropped; `quadraticChar_sum_two_forms_bound_one` reads off `|∑| ≤ 1`, and
+`legendre_sum_two_forms_bound_one` specializes to `ZMod p`. The old `≤ 2` stays for compatibility.
+**This is the whole reason the composite constant is `1`**: the assembly multiplies one per-prime
+bound per odd prime factor, so constant `2` would have accumulated the `2^{ω(q)}` that HB's `≪`
+hides and that D4 rules is not there.
+
+**W4-b — the `2`-power cases, in gcd form, by `decide`.** `chi4_sum_two_forms_le_gcd` (256
+quadruples), `chi8_sum_two_forms_le_gcd` and `chi8'_sum_two_forms_le_gcd` (4096 each):
+`|∑_{t mod 2^a} χ(ut+u')χ(vt+v')| ≤ (2^a, uv'−vu')` for `χ₄, χ₈, χ₈'`. Kernel `decide` closes all
+three in **seconds** — no `native_decide`. The bound is attained (`u=v=1, u'=0, v'=2` mod 4 gives
+`−2` at gcd 2; `v'=4` mod 8 gives `−4` at gcd 4), and the sum vanishes at unit determinant, as the
+refuter's exhaustive pre-run said. **The `QuadCharSum:238-242` "prime-power case OUT OF SCOPE"
+docstring is corrected**: the `2`-power half is now landed and is a *finite decision problem*; what
+remains out of scope is the odd `p^k`, `k ≥ 2` case, which **cannot occur on the road** — a real
+primitive character has squarefree odd conductor part, which is exactly why the structure lemma
+`q = 2^a·m` is the right statement. The stale QCS-3 paragraph is likewise retired in place.
+
+**W4-c′ — the Δ-fold periodicity descent.** `sum_range_nsmul_of_periodic` (`∑_{t<Δr} f = Δ • ∑_{t<r} f`
+for `r`-periodic `f`) and `sum_range_eq_nsmul_of_dvd_of_periodic` (`Δ ∣ q`, period `q/Δ` ⟹
+`∑_{t<q} f = Δ • ∑_{t<q/Δ} f`). Stated over an arbitrary `AddCommMonoid`, Finset form, so N7 can
+quote it at whatever carrier the completion lives in. R3-U3's unowned step is now owned.
+
+**W4-c — the composite bound, at constant ONE.** The engine is
+`HasTwoFormGcdBound.mul`: CRT-split at any coprime factorization, per-factor bounds multiply, and
+`(q₁,D)·(q₂,D) ≤ (q₁q₂,D)` closes by coprimality of the two gcds — *exactly*, with nothing left
+over. The odd part `hasTwoFormGcdBound_jacobiChar` is an induction over the prime factorization
+(`Nat.recOnPosPrimePosCoprime`), squarefreeness collapsing the prime-power case to a single prime
+where W4-c0 fires (and the trivial `≤ p` fires when `p ∣ det`). The exit is
+`sum_two_forms_le_gcd_of_split`: `|∑_{t mod em} χ(ut+u')χ(vt+v')| ≤ (em, uv'−vu')` at **arbitrary**
+coefficients, with the decomposition of `χ` as the CRT product of an admissible `2`-part and the
+odd part carried as a **hypothesis** (W4-a discharges it later, as D4 designs). The four admissible
+`2`-parts are supplied: `hasTwoFormGcdBound_of_modulus_one` (`2^0 = 1`), `_chi4` (`2^2 = 4`),
+`_chi8` / `_chi8'` (`2^3 = 8`) — precisely the exponent set `a ∈ {0,2,3}`.
+
+**Two design decisions worth banking.**
+(1) **`HasTwoFormGcdBound` sums over `Finset.range q`, not `∑ t : ZMod q`, and carries NO `NeZero q`
+instance.** With the instance in the definition, the `p^n → p` step of the factorization induction
+is unreachable: `rw [pow_one]` builds the motive `fun x => @HasTwoFormGcdBound x inst (…)` with
+`inst : NeZero (p^1)` and fails "motive is not type correct". Dropping the instance makes the
+modulus a *plain* natural number, the motive abstracts cleanly, and `sum_two_forms_range_eq_univ`
+converts back whenever `q ≠ 0`. **This is a reusable pattern for any statement inducted over a
+modulus.**
+(2) **The odd part is `jacobiChar m n = J(n.val | m)`, not a `Finset.prod` of `quadraticChar`s.**
+`quadraticChar (ZMod p)` demands `[Field (ZMod p)]`, i.e. `Fact p.Prime`, which is unavailable for a
+*variable* `p ∈ m.primeFactors` — the product form does not even elaborate without `.attach`
+gymnastics. `jacobiSym` is instance-free, is *definitionally* the product of the Legendre symbols
+over the prime factorization, and hands multiplicativity over (`jacobiSym.mul_right`) for free;
+`jacobiChar_prime` states the per-prime identification.
+
+**W4-d — the p.216 class-restricted vanishing.** `sum_class_eq_zero_of_isPrimitive`: for `χ`
+primitive mod `q`, `f ∣ q`, `f ≠ q`, and **any** residue `c` (no coprimality on `c`),
+`∑_{b ≡ c (f)} χ b = 0`. The refuter-validated route, verbatim: primitivity ⟹ `χ` does not factor
+through `f` ⟹ (`DirichletCharacter.factorsThrough_iff_ker_unitsMap`) a unit `a ≡ 1 (mod f)` with
+`χ a ≠ 1`; `b ↦ ab` permutes `ZMod q` and fixes the class setwise, so `χ(a)·S = S` and `S = 0` in
+a domain. Stated over an arbitrary `[CommRing R] [IsDomain R]`, so it serves `ℤ` and `ℂ` consumers
+alike.
+
+**Value ring.** Every two-forms exit is `ℤ`-valued per D4's ruling; a `MulChar (ZMod q) ℤ` is fed
+in as `⇑χ`, and a `ℂ`-valued consumer composes with `MulChar.ringHomComp (Int.castRingHom ℂ)` —
+noted in the exit docstrings.
+
+**Process.** catch #105 guarded: all 21 signatures `#check`ed at the bytes (`ScratchW4Q.lean`),
+zero stray auto-bound variables, every binder authored. Traps banked: `Fintype.sum_prod_type`
+cannot be `rw`-ed backwards through `∑ i, ∑ j, A i * B j` (the `?f (x,y)` pattern does not
+higher-order-unify) — go forward from the `Prod` sum instead; `legendreSym.to_jacobiSym` lives
+inside `namespace jacobiSym`, so the real name is `jacobiSym.legendreSym.to_jacobiSym`;
+`Nat.recOnPosPrimePosCoprime` is stated inside `namespace Nat`, so its `prime_pow` hypothesis is
+`Nat.Prime p`, **not** `_root_.Prime p`.

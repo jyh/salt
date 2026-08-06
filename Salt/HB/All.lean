@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.HB.QuadCharSum
+import Salt.HB.RealPrimitive
 import Salt.HB.TwistChain
 import Salt.HB.TwistChainC
 import Salt.HB.Transfer
@@ -262,3 +263,16 @@ open Salt.Tactic in
   Salt.HB.hbEulerProdBelow_split Salt.HB.tendsto_hbEulerProdBelow_hbL1
   Salt.HB.hbL1_eq_of_tendsto Salt.HB.hbL1_split_indep
   Salt.HB.hb_L2_at_split_point_char Salt.HB.hb_L2_at_split_point_charTrio
+  Salt.HB.quadraticChar_sum_two_forms_eq Salt.HB.quadraticChar_sum_two_forms_bound_one
+  Salt.HB.legendre_sum_two_forms_bound_one
+  Salt.HB.chi4_sum_two_forms_le_gcd Salt.HB.chi8_sum_two_forms_le_gcd
+  Salt.HB.chi8'_sum_two_forms_le_gcd
+  Salt.HB.sum_range_nsmul_of_periodic Salt.HB.sum_range_eq_nsmul_of_dvd_of_periodic
+  Salt.HB.sum_range_natCast_eq_sum_univ Salt.HB.sum_two_forms_range_eq_univ
+  Salt.HB.gcd_val_castHom Salt.HB.HasTwoFormGcdBound.mul
+  Salt.HB.hasTwoFormGcdBound_of_modulus_one
+  Salt.HB.hasTwoFormGcdBound_chi4 Salt.HB.hasTwoFormGcdBound_chi8
+  Salt.HB.hasTwoFormGcdBound_chi8'
+  Salt.HB.jacobiChar_prime Salt.HB.hasTwoFormGcdBound_jacobiChar_prime
+  Salt.HB.hasTwoFormGcdBound_jacobiChar Salt.HB.sum_two_forms_le_gcd_of_split
+  Salt.HB.sum_class_eq_zero_of_isPrimitive
