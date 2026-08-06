@@ -212,6 +212,32 @@ Formulas, for re-derivation: with `γ₀` the row's floor, the arm becomes `(1/(
 (`R8:1387-1388`) and cannot be priced numerically at all, which is the brief's own warning that the
 table "does not price that tower".
 
+## 🚦 AMENDMENT 7 — RULING: **TS-1 DOES NOT ATTEMPT S5(b) TONIGHT** (execution call, overrulable)
+
+The brief calls S5(b) (the δ re-tune `1/100 → ≈1/50`, `248 → ≈137`) **"GUARDED, and it is
+optional"**, with a stop-rule to abandon it if it costs >~40 lines or breaks any window check.
+**This seat rules that it is not started at all tonight.** Three grounds, the third being new:
+
+1. **It delivers 0.00 to this program's grade, now quantified.** Amendment 6 puts the two arms it
+   shrinks at `28.15` (Eβ) and `22.84` (Eρ) *after* S5(a)+S6 — already far below the binding
+   `86.23`. S5(b) makes small numbers smaller. The brief says this itself; Amendment 6 measures it.
+2. **Its blast radius is the widest of any stone here.** It changes the `u`-exponent `−9/100` at
+   *every* consumer of `logz_factor_pow9_le` — every γ-floor and every window `nlinarith`.
+3. ⛔ **NEW, and it is the decisive one: S5(b) COUPLES THE TWO WAVES.** Every exact rational in
+   Amendment 1 (`5247/1700`, `3547/1700`) is derived at the `−9/100` exponent. If TS-1 lands S5(b),
+   **all four of TS-2's floors must be re-derived** (`5247/1700 − 9/100`, `3547/1700 − 9/100`) before
+   a single numeral is written — and the mutation check's inadmissible value moves with them.
+   Two waves that are otherwise **independent** become order-dependent, on the night, for **0.00**.
+
+**Therefore:** TS-1 lands S1 + S5(a) + S6 and stops. **If** it finishes early, the tree is green and
+committed, and there is appetite, S5(b) may be attempted **strictly last and in a SEPARATE commit** —
+in which case **TS-2 must re-derive its floors and must not use Amendment 1's numerals as written.**
+The TS-2 prompt already instructs the executor to read the TS-1 flags entry to find out which
+happened rather than assume; that instruction becomes load-bearing if this option is exercised.
+
+*This is an execution call about an explicitly-optional item, not a statement change — the maestro
+or the Captain can overrule it at dispatch time and the wave still runs.*
+
 ## PRE-FLIGHT ALREADY COMPLETED (do not repeat)
 
 | check | result |
