@@ -21064,3 +21064,75 @@ Both directions are the easy ones; the equalities are true but unnecessary.
 swept into `fe2c41d` under W4A's message (nothing lost; ledger row `f6e0c12` carries the W3
 message). **Executors sharing a worktree must commit with explicit pathspecs**
 (`git commit -- <paths>`), never a bare `git commit` over a shared index.
+
+## ⚠️ ⟦WEIL-TRIO — STATEMENT AUDIT: THE EXITS ARE CLEAN. TWO ITEMS THE NEXT EXECUTOR NEEDS⟧
+
+(2026-08-06, salt MATHEMATICS seat, read-only, no Lean, maestro-tasked. Full audit:
+`docs/exploration/weil-trio-audit-0806.md`, commit `c4303b8`. Three auditors + this seat's read of
+the W3 exit, against the freeze's §2 riders / §3 / D3/D4/D8/D9. **NOT A RULING** on the WEIL-TRIO
+campaign — findings and recommendations only.)
+
+**VERDICT FIRST, BECAUSE IT IS GOOD NEWS: no 🔴 MISMATCH, no 🟠 WEAKER.** Every landed W1, W4Q and
+W3 exit delivers what the freeze promised. Rider 1 (**no `IsUnit` in an exit-interface statement**)
+and rider 2 (**gcd factor never absorbed**) are met at every exit; the `IsUnit` rows are interior,
+which rider 1 permits. W3's `norm_kloosterman_estermann` carries `2^{v₂(k)/2}` explicitly and
+`_road` keeps `2^{v₂(D)/2}` explicit — the gating this seat asked for at `a7fa34e` is real at the
+bytes. `sum_two_forms_le_gcd_of_split` is at constant ONE with no `IsUnit`, no determinant
+condition, no coefficient coprimality, and is **not vacuous** (satisfying instances exhibited;
+at `q = 12` the max `|Σ|` is 12, so any constant bound would be FALSE — the gcd is load-bearing).
+`hprim` is load-bearing too (the imprimitive χ mod 9 gives `Σ = ±3`). No `native_decide` anywhere.
+Both W4Q commits are **purely additive at the bytes**. The constant 2 is **attained** in the limit
+(1.99662 → 2.00000), so it is sharp, not padded.
+
+**⛔ ITEM 1 — FOR N7 (this seat's own consumer constraint, filed against itself).**
+**The W1 gcd exit is VACUOUS ON THE TOP GCD CLASS.** With `gcd(p^e, A, B) = p^j`, the exit gives
+`2·p^{(e+j)/2}` against the trivial `φ(p^e) = p^{e−1}(p−1)`; it beats trivial only when
+
+    e − j ≥ 3  (p = 3),    e − j ≥ 2  (p = 5),    e − j ≥ 1  (p ≥ 7).
+
+**At `j = e` — `p^e ∣ A` and `p^e ∣ B`, including `A = B = 0` — the bound `2p^e` is strictly WORSE
+than trivial, for every `p` and every `e`.** The theorem is also vacuous outright at `p = 3, e ≤ 2`
+and `p = 5, e = 1`. This is Estermann's intrinsic shape (HB's (7.1) is the same) and **not** a
+defect in W1. But N7 assembles (7.7) by summing Kloosterman bounds over `s ≤ k₀`, and the `s` with
+`p^e ∣ s` land precisely in this class, so **N7 owes an explicit `j = e` case split falling back to
+the trivial bound.** Filed here so the Lemma-10 wave does not discover it mid-flight.
+
+**⛔ ITEM 2 — FOR THE W4-a EXECUTOR, AND IT IS A TRAP THAT COSTS A WAVE.**
+`Salt/HB/RealPrimitive.lean:51-53` — the module docstring of the file W4-a must satisfy — states
+the split hypothesis in the form
+
+    ∀ n, χ n = χ₂ (cast n) * ∏ p ∈ m.primeFactors, quadraticChar (ZMod p) (cast n)
+
+**That shape does not elaborate**, and D9 (`weil-trio-design-0806.md:198-202`) plus the W4Q flags
+entry both say so: `quadraticChar (ZMod p)` demands `Fact p.Prime`, unavailable at a *variable*
+`p ∈ m.primeFactors`. The **landed** binder at `:384` is
+`χ₂ (ZMod.cast n) * jacobiChar m (ZMod.cast n)`. A W4-a executor whose first move is to read the
+consuming file's own header will build an object that does not typecheck against the exit it is
+meant to feed. **Repair is docstring-only, no statement change**: replace `:52`'s formula with the
+`jacobiChar` form and add the one-line reason. (Also, do not grep this file for `hsplit` — the
+binder is named `hχ`; `hsplit` occurs at `:206` as an unrelated internal `have`.)
+
+**FIVE MORE 🟡, bookkeeping, no soundness gap.** `hD : D ≠ 0` is redundant on
+`factorization_two_mul_odd_mul_odd` (`:324`), `factorization_two_kloosterman_modulus` (`:347`) and
+`two_pow_factorization_dvd_of_odd_cofactors` (`:355`) — at `D = 0` both sides are `0`.
+`factorization_two_kloosterman_modulus` is a **pure ℕ identity with no Kloosterman content**; the
+`k = D·δ₁·w₁` identification (HB (5.11)/(5.12)) is prose only, so N7 carries it by hand.
+`HasTwoFormGcdBound q f` is **content-free at `q = 0`** (LHS `= 0`, RHS `= gcd 0 d = d`, so it
+holds for every `f`) — contained today by `[NeZero e] [NeZero m]` and `Squarefree m`, but
+undocumented, and a future consumer with a variable modulus must supply `q ≠ 0` itself.
+`Salt/Weil/All.lean`'s roll-call is short by 7 of 28 (`ushift3`, `ushift3_val`, `ushift3_inv_val`,
+`klSummand`, `norm_klSummand`, `salieShift`, `kloosterman_eq_sum_crit'` — note the *unprimed*
+variant IS listed), plus `quadraticChar_sum_linear` in `Salt/HB/All.lean`; all are transitively
+covered, so this is an enumeration gap, and §3's real requirement (the three exit rows) is met.
+D8's "21 decls" is the roll-call count, not the **28** that landed.
+Finally, `quadraticChar_sum_two_forms_eq`'s right disjunct holds **unconditionally** (at `a = 0`,
+`χ 0 = 0` makes `−χ(a)χ(c) = 0` = the sum; verified exhaustively over `𝔽₃…𝔽₁₃`, zero cases needing
+the left branch), so the sharp form is the equality — **graded 🟡 and not 🟠 because D4 asked for
+the disjunction: the weakness is in the freeze, the delivery is faithful.**
+
+**⚠️ HONESTY MARKER.** No Lean was run — this certifies STATEMENTS, not that the files
+kernel-check. The `EXIT=0` claims rest on the landing commits' own bodies. And the audit caught
+**this seat** three times in its own N7-prep dossier (three line cites 3 low, `EstermannGlobal.lean`
+called untracked when it is tracked and imported, `GcdBranch` called six declarations when it has
+13) — all corrected at `c4303b8`, all the same root cause: a snapshot of another seat's live tree
+ages in minutes.
