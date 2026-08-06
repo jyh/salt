@@ -1325,4 +1325,610 @@ theorem logChiSum_tendsto_of_envelope {q : ℕ} (χ : DirichletCharacter ℂ q)
     rw [hS]
     linarith
 
+/-! ## 9. The ceiling as a function of `u` (N4b W2c, part (c1))
+
+`logChiSum_composite_of_ceiling` carries ONE ceiling number `bceil`, and W2b's structural finding
+is that no single constant `< 1` serves the whole tail: the box height `T₀(u) = (log qu + 2)^6`
+grows, the repulsion contract goes vacuous once `k·log(log Q + 2)` eats `log(1/(1−β₀))`, and the
+zero-free-region ceiling `1 − c₀/log(q(T+2))` tends to `1`.  So the envelope must be
+re-instantiated at a `u`-DEPENDENT ceiling `B u`.  `psiDefect_norm_le_envelope` is already a
+per-`u` statement — its `hceil` binder is quantified at the height `efT0 q u + 1` — so the only
+new mathematics here is the continuity of `u ↦ efEnvelope q β₀ (B u) m σa σb u`, which needs
+`ContinuousOn.rpow` in place of `ContinuousOn.rpow_const`. -/
+
+/-- **The envelope is continuous when the ceiling varies with `u`** — the `(c1)` upgrade of
+`continuousOn_efEnvelope`.  The exponents `u ^ (B u − 1)` and `u ^ (B u)` are now genuinely
+two-variable `rpow`s; `u ≥ 3 > 0` is what makes them continuous. -/
+lemma continuousOn_efEnvelope_ceilFun {q : ℕ} (hq : 2 ≤ q) {β₀ σa σb : ℝ} (m : ℕ)
+    {B : ℝ → ℝ} (hB : ContinuousOn B (Set.Ici (3 : ℝ))) (hσb1 : 0 < σb + 1) :
+    ContinuousOn (fun u : ℝ => efEnvelope q β₀ (B u) m σa σb u) (Set.Ici (3 : ℝ)) := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hφ2 : ContinuousOn (fun u : ℝ => u + efH q u) (Set.Ici (3 : ℝ)) :=
+    continuousOn_id.add (cont_efH hq)
+  have hφ23 : ∀ u ∈ Set.Ici (3 : ℝ), (3 : ℝ) ≤ u + efH q u := by
+    intro u hu
+    have h3 : (3 : ℝ) ≤ u := hu
+    linarith [efH_pos hq h3]
+  have hA : ContinuousOn (fun u : ℝ => (efH q u + 1) * Real.log (u + efH q u))
+      (Set.Ici (3 : ℝ)) :=
+    ((cont_efH hq).add continuousOn_const).mul
+      (cont_log_comp hφ2 (fun u hu => ne_of_gt (by linarith [hφ23 u hu])))
+  have hBd : ContinuousOn (fun u : ℝ => (efShiftBound q (efT0 q u) σa σb u
+      + efShiftBound q (efT0 q u) σa σb (u + efH q u)) / efH q u) (Set.Ici (3 : ℝ)) :=
+    ContinuousOn.div ((cont_efShiftBound hq hσb1 (continuousOn_id (α := ℝ)) (fun u hu => hu)).add
+      (cont_efShiftBound hq hσb1 hφ2 hφ23)) (cont_efH hq)
+      (fun u hu => ne_of_gt (efH_pos hq (show (3:ℝ) ≤ u from hu)))
+  have hid : ContinuousOn (fun u : ℝ => u) (Set.Ici (3 : ℝ)) := continuousOn_id
+  have hne0 : ∀ u ∈ Set.Ici (3 : ℝ), u ≠ 0 :=
+    fun u hu => ne_of_gt (by linarith [show (3:ℝ) ≤ u from hu])
+  have hrpowc : ∀ p : ℝ, ContinuousOn (fun u : ℝ => u ^ p) (Set.Ici (3 : ℝ)) := fun p =>
+    hid.rpow_const (fun u hu => Or.inl (hne0 u hu))
+  have hrpowB : ContinuousOn (fun u : ℝ => u ^ (B u)) (Set.Ici (3 : ℝ)) :=
+    hid.rpow hB (fun u hu => Or.inl (hne0 u hu))
+  have hrpowB1 : ContinuousOn (fun u : ℝ => u ^ (B u - 1)) (Set.Ici (3 : ℝ)) :=
+    hid.rpow (hB.sub continuousOn_const) (fun u hu => Or.inl (hne0 u hu))
+  have hC : ContinuousOn (fun u : ℝ => (m : ℝ) * (efH q u * u ^ (β₀ - 1))
+      + efH q u * u ^ (B u - 1)
+        * (137 * (2 * efT0 q u + 5) * Real.log ((q : ℝ) * (efT0 q u + 4)))) (Set.Ici (3 : ℝ)) :=
+    (continuousOn_const.mul ((cont_efH hq).mul (hrpowc _))).add
+      (((cont_efH hq).mul hrpowB1).mul ((continuousOn_const.mul
+        ((continuousOn_const.mul (cont_efT0 hq)).add continuousOn_const)).mul
+        (cont_logQT hq 4 (by norm_num))))
+  have hD : ContinuousOn (fun u : ℝ => u ^ (B u) * (137 * Real.log ((q : ℝ) * (efT0 q u + 4))
+      * (8 + 4 * Real.log (efT0 q u + 2)))) (Set.Ici (3 : ℝ)) := by
+    refine hrpowB.mul ((continuousOn_const.mul (cont_logQT hq 4 (by norm_num))).mul
+      (continuousOn_const.add (continuousOn_const.mul ?_)))
+    refine cont_log_comp ((cont_efT0 hq).add continuousOn_const) (fun u hu => ne_of_gt ?_)
+    have h1 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
+    linarith
+  simp only [efEnvelope]
+  exact ContinuousOn.div (((hA.add hBd).add hC).add hD) hid hne0
+
+/-- **THE (4.12) COMPOSITE AT A `u`-DEPENDENT CEILING (N4b W2c, part (c1)).**  Exactly
+`logChiSum_composite_of_ceiling`, but the ceiling binder is a FUNCTION `B` of the height
+parameter: on `[X,Y]` every non-`β₀` zero of `L(·,χ)` below the box top `T₀(t)+1` obeys
+`Re ρ ≤ B t`.  This is the form the tail above `Y₁` needs, with
+`B t = 1 − c₀/log(q(T₀(t)+3))` (`efZfrCeil` below). -/
+theorem logChiSum_composite_of_ceilFun {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hq : 2 ≤ q) {β₀ X Y σa σb : ℝ} {B : ℝ → ℝ}
+    (hX : 3 ≤ X) (hXY : X ≤ Y) (hσa : 9 / 10 ≤ σa) (hσab : σa < σb) (hσb : σb < 1)
+    (hβ₀0 : 0 < β₀) (hβ₀1 : β₀ ≤ 1) (hσbβ₀ : σb ≤ β₀) (hβ₀zero : LFunction χ (β₀ : ℂ) = 0)
+    (hBc : ContinuousOn B (Set.Ici (3 : ℝ)))
+    (hceil : ∀ t ∈ Set.Icc X Y, ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ ≠ (β₀ : ℂ) → 9 / 10 ≤ ρ.re →
+      ρ.re ≤ 1 → |ρ.im| ≤ efT0 q t + 1 → ρ.re ≤ B t) :
+    ‖logChiSum χ X Y
+        + (zeroMult χ (β₀ : ℂ) : ℂ) * ((∫ t in X..Y, t ^ (β₀ - 2) / Real.log t : ℝ) : ℂ)‖
+      ≤ efEnvelope q β₀ (B X) (zeroMult χ (β₀ : ℂ)) σa σb X / Real.log X
+        + efEnvelope q β₀ (B Y) (zeroMult χ (β₀ : ℂ)) σa σb Y / Real.log Y
+        + 2 * ∫ t in X..Y,
+            efEnvelope q β₀ (B t) (zeroMult χ (β₀ : ℂ)) σa σb t / (t * Real.log t) := by
+  have hsub : Set.Icc X Y ⊆ Set.Ici (3 : ℝ) := fun t ht => le_trans hX ht.1
+  refine logChiSum_add_mainTerm_norm_le χ hβ₀0 (zeroMult χ (β₀ : ℂ)) hX hXY
+    ((continuousOn_efEnvelope_ceilFun hq (β₀ := β₀) (B := B) _ hBc (by linarith)).mono hsub)
+    (fun t ht => efEnvelope_nonneg hq (le_trans hX ht.1) (by linarith) (by linarith) hσab)
+    (fun t ht => psiDefect_norm_le_envelope χ hχ hq (le_trans hX ht.1) hσa hσab hσb hβ₀1
+      hσbβ₀ hβ₀zero (hceil t ht))
+
+/-! ## 10. The ledger rows in closed form (N4b W2c, parts (c2)/(c3))
+
+Every row of `efEnvelope` is priced against the SINGLE scale `M = log(qu) + 2`, so that
+`T₀(u) = M^6` and `h(u) = u/M^3` exactly.  The substitutions `log q ≤ M − 3` and `log M ≤ M − 1`
+are deliberately coarse — each row's true size separates `log q` from `log M` — but they cost
+only fixed factors, which the closing constants absorb, and the design's window edge
+`q^{250} ≤ X` is what makes the loss harmless downstream (there `log q ≤ (log u)/250`, so `M` and
+`log u` agree to within `1 + 1/250`).
+
+One numeric hypothesis is named and carried: `hgap : 1/20 ≤ σb − σa`.  At the design parameters
+`σa = 9/10`, `σb = 1 − log L/L` this holds for `L ≥ 250` (there `log L/L ≤ 0.0221`, so
+`σb − σa ≥ 0.0779`); it is what turns the Borel–Carathéodory edge constant's `1/(σb − σa)` into a
+number. -/
+
+private lemma log_u_le_scale {q : ℕ} {u M : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u)
+    (hM : M = Real.log ((q : ℝ) * u) + 2) : Real.log u ≤ M - 2 := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have h : Real.log u ≤ Real.log ((q : ℝ) * u) := Real.log_le_log (by linarith) (by nlinarith)
+  rw [hM]; linarith
+
+private lemma log_q_le_scale {q : ℕ} {u M : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u)
+    (hM : M = Real.log ((q : ℝ) * u) + 2) : Real.log q ≤ M - 3 := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hlu : (1 : ℝ) ≤ Real.log u := by
+    have he : Real.exp 1 ≤ u :=
+      le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) hu
+    exact (Real.le_log_iff_exp_le (by linarith)).mpr he
+  have hsplit : Real.log ((q : ℝ) * u) = Real.log q + Real.log u :=
+    Real.log_mul (ne_of_gt (by linarith : (0:ℝ) < (q:ℝ))) (ne_of_gt (by linarith : (0:ℝ) < u))
+  rw [hM, hsplit]; linarith
+
+private lemma scale_pow_ge {M : ℝ} (hM3 : 3 ≤ M) (n : ℕ) : (3 : ℝ) ^ n ≤ M ^ n :=
+  pow_le_pow_left₀ (by norm_num) hM3 n
+
+/-- `log(T₀(u) + a) ≤ 7M` for `0 ≤ a ≤ 5`: `M^6 + a ≤ M^7` and `log M ≤ M − 1`. -/
+private lemma log_efT0_add_le {q : ℕ} {u M a : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u)
+    (hM : M = Real.log ((q : ℝ) * u) + 2) (ha0 : 0 ≤ a) (ha5 : a ≤ 5) :
+    Real.log (efT0 q u + a) ≤ 7 * M := by
+  have hM3 : (3 : ℝ) ≤ M := by rw [hM]; exact logqu_ge hq hu
+  have hT : efT0 q u = M ^ 6 := by rw [efT0, hM]
+  have hM6 : (729 : ℝ) ≤ M ^ 6 := by have h := scale_pow_ge hM3 6; norm_num at h; exact h
+  have h7 : M ^ 7 = M ^ 6 * M := by ring
+  have hle : efT0 q u + a ≤ M ^ 7 := by rw [hT]; nlinarith
+  have hpos : (0 : ℝ) < efT0 q u + a := by rw [hT]; linarith
+  have hlogM : Real.log M ≤ M - 1 := Real.log_le_sub_one_of_pos (by linarith)
+  calc Real.log (efT0 q u + a) ≤ Real.log (M ^ 7) := Real.log_le_log hpos hle
+    _ = 7 * Real.log M := by rw [Real.log_pow]; norm_num
+    _ ≤ 7 * M := by linarith
+
+/-- `log(q(T₀(u) + a)) ≤ 8M` for `0 ≤ a ≤ 5`. -/
+private lemma log_q_efT0_add_le {q : ℕ} {u M a : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u)
+    (hM : M = Real.log ((q : ℝ) * u) + 2) (ha0 : 0 ≤ a) (ha5 : a ≤ 5) :
+    Real.log ((q : ℝ) * (efT0 q u + a)) ≤ 8 * M := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hM3 : (3 : ℝ) ≤ M := by rw [hM]; exact logqu_ge hq hu
+  have hT : efT0 q u = M ^ 6 := by rw [efT0, hM]
+  have hM6 : (729 : ℝ) ≤ M ^ 6 := by have h := scale_pow_ge hM3 6; norm_num at h; exact h
+  have hpos : (0 : ℝ) < efT0 q u + a := by rw [hT]; linarith
+  rw [Real.log_mul (ne_of_gt (by linarith : (0:ℝ) < (q:ℝ))) (ne_of_gt hpos)]
+  linarith [log_q_le_scale hq hu hM, log_efT0_add_le hq hu hM ha0 ha5]
+
+/-- The Jensen/Borel–Carathéodory argument's log, `≤ 15M`. -/
+private lemma log_efShiftB_arg_le {q : ℕ} {u M : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u)
+    (hM : M = Real.log ((q : ℝ) * u) + 2) :
+    Real.log (4 * (5 * (5 + efT0 q u) * Real.sqrt q * (1 + Real.log q))) ≤ 15 * M := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hM3 : (3 : ℝ) ≤ M := by rw [hM]; exact logqu_ge hq hu
+  have hT : efT0 q u = M ^ 6 := by rw [efT0, hM]
+  have hM6 : (729 : ℝ) ≤ M ^ 6 := by have h := scale_pow_ge hM3 6; norm_num at h; exact h
+  have hM7 : (2187 : ℝ) ≤ M ^ 7 := by have h := scale_pow_ge hM3 7; norm_num at h; exact h
+  have hsq : Real.sqrt q ≤ (q : ℝ) := by
+    have h : Real.sqrt q ≤ Real.sqrt ((q : ℝ) ^ 2) := Real.sqrt_le_sqrt (by nlinarith)
+    rwa [Real.sqrt_sq (by linarith)] at h
+  have hsq0 : (0 : ℝ) ≤ Real.sqrt q := Real.sqrt_nonneg _
+  have hlq : Real.log q ≤ M - 3 := log_q_le_scale hq hu hM
+  have hlq0 : (0 : ℝ) ≤ Real.log q := Real.log_nonneg (by linarith)
+  -- the argument is bounded by `q · M^14`
+  have hstep : 4 * (5 * (5 + efT0 q u) * Real.sqrt q * (1 + Real.log q)) ≤ (q : ℝ) * M ^ 14 := by
+    rw [hT]
+    have h1 : 5 * (5 + M ^ 6) ≤ 10 * M ^ 6 := by nlinarith
+    have h2 : 5 * (5 + M ^ 6) * Real.sqrt q ≤ 10 * M ^ 6 * (q : ℝ) :=
+      mul_le_mul h1 hsq hsq0 (by nlinarith)
+    have h3 : 5 * (5 + M ^ 6) * Real.sqrt q * (1 + Real.log q)
+        ≤ 10 * M ^ 6 * (q : ℝ) * M := by
+      refine mul_le_mul h2 (by linarith) (by linarith) (by positivity)
+    have h4 : M ^ 14 = M ^ 7 * M ^ 7 := by ring
+    have h5 : (4 : ℝ) * (10 * M ^ 6 * (q : ℝ) * M) = 40 * (q : ℝ) * M ^ 7 := by ring
+    nlinarith [mul_nonneg (le_of_lt (show (0:ℝ) < (q:ℝ) by linarith))
+      (le_of_lt (show (0:ℝ) < M ^ 7 by positivity))]
+  have hpos : (0 : ℝ) < 4 * (5 * (5 + efT0 q u) * Real.sqrt q * (1 + Real.log q)) := by
+    rw [hT]
+    have : (1 : ℝ) ≤ Real.sqrt q := by
+      rw [show (1:ℝ) = Real.sqrt 1 from Real.sqrt_one.symm]; exact Real.sqrt_le_sqrt (by linarith)
+    positivity
+  have hlogM : Real.log M ≤ M - 1 := Real.log_le_sub_one_of_pos (by linarith)
+  calc Real.log (4 * (5 * (5 + efT0 q u) * Real.sqrt q * (1 + Real.log q)))
+      ≤ Real.log ((q : ℝ) * M ^ 14) := Real.log_le_log hpos hstep
+    _ = Real.log q + 14 * Real.log M := by
+        rw [Real.log_mul (ne_of_gt (by linarith : (0:ℝ) < (q:ℝ)))
+          (ne_of_gt (show (0:ℝ) < M ^ 14 by positivity)), Real.log_pow]
+        norm_num
+    _ ≤ 15 * M := by linarith
+
+/-- **THE EDGE CONSTANT, PRICED (W2c).**  `B ≤ 3·10^7·M^8` at `T₀ = M^6`, under the design gap
+`σb − σa ≥ 1/20`.  (`log(7/6) ≥ 1/7` is the only transcendental input.) -/
+lemma efShiftB_le_scale {q : ℕ} {u σa σb M : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u)
+    (hM : M = Real.log ((q : ℝ) * u) + 2) (hgap : 1 / 20 ≤ σb - σa) :
+    efShiftB q (efT0 q u) σa σb ≤ 3 * 10 ^ 7 * M ^ 8 := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hM3 : (3 : ℝ) ≤ M := by rw [hM]; exact logqu_ge hq hu
+  have hT : efT0 q u = M ^ 6 := by rw [efT0, hM]
+  have hM6 : (729 : ℝ) ≤ M ^ 6 := by have h := scale_pow_ge hM3 6; norm_num at h; exact h
+  have hM7 : (2187 : ℝ) ≤ M ^ 7 := by have h := scale_pow_ge hM3 7; norm_num at h; exact h
+  have hlogQ : Real.log ((q : ℝ) * (efT0 q u + 5)) ≤ 8 * M :=
+    log_q_efT0_add_le hq hu hM (by norm_num) (by norm_num)
+  have hlogQ0 : (0 : ℝ) ≤ Real.log ((q : ℝ) * (efT0 q u + 5)) := by
+    refine Real.log_nonneg ?_
+    rw [hT]; nlinarith
+  have hlogA : Real.log (4 * (5 * (5 + efT0 q u) * Real.sqrt q * (1 + Real.log q))) ≤ 15 * M :=
+    log_efShiftB_arg_le hq hu hM
+  have hlogA0 : (0 : ℝ) ≤ Real.log (4 * (5 * (5 + efT0 q u) * Real.sqrt q * (1 + Real.log q))) := by
+    have hsq : (1 : ℝ) ≤ Real.sqrt q := by
+      rw [show (1:ℝ) = Real.sqrt 1 from Real.sqrt_one.symm]; exact Real.sqrt_le_sqrt (by linarith)
+    have hlq0 : (0 : ℝ) ≤ Real.log q := Real.log_nonneg (by linarith)
+    refine Real.log_nonneg ?_
+    rw [hT]
+    have ha : (3670 : ℝ) ≤ 5 * (5 + M ^ 6) := by nlinarith
+    have hb : (3670 : ℝ) * 1 ≤ 5 * (5 + M ^ 6) * Real.sqrt q :=
+      mul_le_mul ha hsq (by norm_num) (by nlinarith)
+    have hc : (3670 : ℝ) * 1 ≤ 5 * (5 + M ^ 6) * Real.sqrt q * (1 + Real.log q) :=
+      mul_le_mul (by linarith) (by linarith) (by norm_num) (by nlinarith)
+    linarith
+  -- `log(7/6) ≥ 1/7`
+  have hlog76 : (1 : ℝ) / 7 ≤ Real.log (7 / 6) := by
+    have h : Real.log (6 / 7) ≤ 6 / 7 - 1 := Real.log_le_sub_one_of_pos (by norm_num)
+    have hinv : Real.log (7 / 6) = -Real.log (6 / 7) := by
+      rw [show (6:ℝ)/7 = ((7:ℝ)/6)⁻¹ by norm_num, Real.log_inv]; ring
+    rw [hinv]; linarith
+  have hden : (1 : ℝ) / 140 ≤ Real.log (7 / 6) * (σb - σa) := by nlinarith
+  -- the numerator
+  have hnum : 137 * (2 * efT0 q u + 7) * Real.log ((q : ℝ) * (efT0 q u + 5)) + 1
+      ≤ 3289 * M ^ 7 := by
+    have h1 : 137 * (2 * efT0 q u + 7) ≤ 411 * M ^ 6 := by rw [hT]; nlinarith
+    have h2 : 137 * (2 * efT0 q u + 7) * Real.log ((q : ℝ) * (efT0 q u + 5))
+        ≤ 411 * M ^ 6 * (8 * M) :=
+      mul_le_mul h1 hlogQ hlogQ0 (by positivity)
+    have h3 : (411 : ℝ) * M ^ 6 * (8 * M) = 3288 * M ^ 7 := by ring
+    linarith
+  have hnum0 : (0 : ℝ) ≤ 137 * (2 * efT0 q u + 7) * Real.log ((q : ℝ) * (efT0 q u + 5)) + 1 := by
+    have : (0 : ℝ) ≤ 137 * (2 * efT0 q u + 7) := by rw [hT]; nlinarith
+    nlinarith
+  -- the first factor
+  have hfrac : 4 * (137 * (2 * efT0 q u + 7) * Real.log ((q : ℝ) * (efT0 q u + 5)) + 1)
+      / (Real.log (7 / 6) * (σb - σa)) ≤ 560 * (3289 * M ^ 7) := by
+    rw [div_le_iff₀ (by linarith)]
+    have hle : 4 * (137 * (2 * efT0 q u + 7) * Real.log ((q : ℝ) * (efT0 q u + 5)) + 1)
+        ≤ 4 * (3289 * M ^ 7) := by linarith
+    nlinarith [mul_nonneg (show (0:ℝ) ≤ 560 * (3289 * M ^ 7) by positivity)
+      (show (0:ℝ) ≤ Real.log (7 / 6) * (σb - σa) - 1 / 140 by linarith)]
+  have hfirst : 120 + 4 * (137 * (2 * efT0 q u + 7) * Real.log ((q : ℝ) * (efT0 q u + 5)) + 1)
+      / (Real.log (7 / 6) * (σb - σa)) ≤ 2 * 10 ^ 6 * M ^ 7 := by linarith
+  have hfirst0 : (0 : ℝ) ≤ 120 + 4 * (137 * (2 * efT0 q u + 7)
+      * Real.log ((q : ℝ) * (efT0 q u + 5)) + 1) / (Real.log (7 / 6) * (σb - σa)) := by
+    have : (0 : ℝ) ≤ 4 * (137 * (2 * efT0 q u + 7)
+        * Real.log ((q : ℝ) * (efT0 q u + 5)) + 1) / (Real.log (7 / 6) * (σb - σa)) :=
+      div_nonneg (by linarith) (by linarith)
+    linarith
+  rw [efShiftB]
+  calc (120 + 4 * (137 * (2 * efT0 q u + 7) * Real.log ((q : ℝ) * (efT0 q u + 5)) + 1)
+        / (Real.log (7 / 6) * (σb - σa)))
+      * Real.log (4 * (5 * (5 + efT0 q u) * Real.sqrt q * (1 + Real.log q)))
+      ≤ 2 * 10 ^ 6 * M ^ 7 * (15 * M) := mul_le_mul hfirst hlogA hlogA0 (by positivity)
+    _ = 3 * 10 ^ 7 * M ^ 8 := by ring
+
+/-- **THE CONTOUR BUDGET, PRICED (W2c).**  The three edges of `efShiftBound` against the plain
+shape `S·x²/T₀² + S·x^{σb+1} + (log x + 1)x²/T₀`. -/
+lemma efShiftBound_le_rows {q : ℕ} {T₀ σa σb x : ℝ} (hq : 2 ≤ q) (hT₀ : 2 ≤ T₀)
+    (hσa : 9 / 10 ≤ σa) (hσab : σa < σb) (hσb : σb < 1) (hx : 3 ≤ x) :
+    efShiftBound q T₀ σa σb x
+      ≤ 2 * efShiftB q T₀ σa σb * x ^ (2 : ℕ) / T₀ ^ 2
+        + efShiftB q T₀ σa σb * x ^ (σb + 1)
+        + (Real.log x + 1) * x ^ (2 : ℕ) / T₀ := by
+  have hx0 : (0 : ℝ) < x := by linarith
+  have hS : 0 ≤ efShiftB q T₀ σa σb := efShiftB_nonneg hq hT₀ hσab
+  have hlogx : (1 : ℝ) ≤ Real.log x := by
+    have he : Real.exp 1 ≤ x :=
+      le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) hx
+    exact (Real.le_log_iff_exp_le hx0).mpr he
+  have hex : Real.exp 1 ≤ 3 := le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))
+  have hex0 : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
+  have hpi3 : (3 : ℝ) < Real.pi := Real.pi_gt_three
+  have hpi315 : Real.pi < 3.15 := Real.pi_lt_d2
+  have hT0pos : (0 : ℝ) < T₀ := by linarith
+  have hxrp : (0 : ℝ) < x ^ (σb + 1) := Real.rpow_pos_of_pos hx0 _
+  have hx2 : (0 : ℝ) < x ^ (2 : ℕ) := by positivity
+  -- the three edges
+  have hrow1 : 2 * ((1 + 1 / Real.log x) - σa) * efShiftB q T₀ σa σb
+      * (Real.exp 1 * x ^ (2 : ℕ)) / T₀ ^ 2 ≤ 12 * (efShiftB q T₀ σa σb * x ^ (2 : ℕ) / T₀ ^ 2) := by
+    rw [div_le_iff₀ (by positivity)]
+    have hc : (1 + 1 / Real.log x) - σa ≤ 2 := by
+      have : 1 / Real.log x ≤ 1 := by
+        rw [div_le_one (by linarith)]; linarith
+      linarith
+    have h1 : 2 * ((1 + 1 / Real.log x) - σa) * efShiftB q T₀ σa σb * (Real.exp 1 * x ^ (2 : ℕ))
+        ≤ 2 * 2 * efShiftB q T₀ σa σb * (3 * x ^ (2 : ℕ)) := by
+      have hc0 : (0 : ℝ) ≤ (1 + 1 / Real.log x) - σa := by
+        have : (0 : ℝ) < 1 / Real.log x := by positivity
+        linarith
+      have hstep : Real.exp 1 * x ^ (2 : ℕ) ≤ 3 * x ^ (2 : ℕ) :=
+        mul_le_mul_of_nonneg_right hex (le_of_lt hx2)
+      have hstep2 : 2 * ((1 + 1 / Real.log x) - σa) * efShiftB q T₀ σa σb
+          ≤ 2 * 2 * efShiftB q T₀ σa σb := by nlinarith
+      exact mul_le_mul hstep2 hstep (by positivity) (by positivity)
+    have h2 : (12 : ℝ) * (efShiftB q T₀ σa σb * x ^ (2 : ℕ) / T₀ ^ 2) * T₀ ^ 2
+        = 12 * (efShiftB q T₀ σa σb * x ^ (2 : ℕ)) := by field_simp
+    rw [h2]; linarith
+  have hrow2 : efShiftB q T₀ σa σb * x ^ (σb + 1) * (Real.pi / σa)
+      ≤ 5 * (efShiftB q T₀ σa σb * x ^ (σb + 1)) := by
+    have hdiv : Real.pi / σa ≤ 5 := by
+      rw [div_le_iff₀ (by linarith)]; linarith
+    have h0 : (0 : ℝ) ≤ efShiftB q T₀ σa σb * x ^ (σb + 1) := by positivity
+    nlinarith
+  have hrow3 : (Real.log x + 1) * (Real.exp 1 * x ^ (2 : ℕ)) * (2 / T₀)
+      ≤ 6 * ((Real.log x + 1) * x ^ (2 : ℕ) / T₀) := by
+    have hstep : (Real.log x + 1) * (Real.exp 1 * x ^ (2 : ℕ)) * 2
+        ≤ 6 * ((Real.log x + 1) * x ^ (2 : ℕ)) := by
+      have h : Real.exp 1 * x ^ (2 : ℕ) ≤ 3 * x ^ (2 : ℕ) :=
+        mul_le_mul_of_nonneg_right hex (le_of_lt hx2)
+      nlinarith
+    calc (Real.log x + 1) * (Real.exp 1 * x ^ (2 : ℕ)) * (2 / T₀)
+        = ((Real.log x + 1) * (Real.exp 1 * x ^ (2 : ℕ)) * 2) / T₀ := by ring
+      _ ≤ (6 * ((Real.log x + 1) * x ^ (2 : ℕ))) / T₀ :=
+          div_le_div_of_nonneg_right hstep (le_of_lt hT0pos)
+      _ = 6 * ((Real.log x + 1) * x ^ (2 : ℕ) / T₀) := by ring
+  have hsum0 : (0 : ℝ) ≤ 2 * ((1 + 1 / Real.log x) - σa) * efShiftB q T₀ σa σb
+      * (Real.exp 1 * x ^ (2 : ℕ)) / T₀ ^ 2
+      + efShiftB q T₀ σa σb * x ^ (σb + 1) * (Real.pi / σa)
+      + (Real.log x + 1) * (Real.exp 1 * x ^ (2 : ℕ)) * (2 / T₀) := by
+    have hc0 : (0 : ℝ) ≤ (1 + 1 / Real.log x) - σa := by
+      have : (0 : ℝ) < 1 / Real.log x := by positivity
+      linarith
+    have e1 : (0 : ℝ) ≤ 2 * ((1 + 1 / Real.log x) - σa) * efShiftB q T₀ σa σb
+        * (Real.exp 1 * x ^ (2 : ℕ)) / T₀ ^ 2 := by positivity
+    have e2 : (0 : ℝ) ≤ efShiftB q T₀ σa σb * x ^ (σb + 1) * (Real.pi / σa) := by
+      have : (0 : ℝ) ≤ Real.pi / σa := by positivity
+      positivity
+    have e3 : (0 : ℝ) ≤ (Real.log x + 1) * (Real.exp 1 * x ^ (2 : ℕ)) * (2 / T₀) := by positivity
+    linarith
+  rw [efShiftBound]
+  have hcoef : (1 : ℝ) / (2 * Real.pi) ≤ 1 / 6 :=
+    one_div_le_one_div_of_le (by norm_num) (by linarith)
+  have hstep : (1 : ℝ) / (2 * Real.pi) *
+      (2 * ((1 + 1 / Real.log x) - σa) * efShiftB q T₀ σa σb
+          * (Real.exp 1 * x ^ (2 : ℕ)) / T₀ ^ 2
+        + efShiftB q T₀ σa σb * x ^ (σb + 1) * (Real.pi / σa)
+        + (Real.log x + 1) * (Real.exp 1 * x ^ (2 : ℕ)) * (2 / T₀))
+      ≤ 1 / 6 * (12 * (efShiftB q T₀ σa σb * x ^ (2 : ℕ) / T₀ ^ 2)
+        + 5 * (efShiftB q T₀ σa σb * x ^ (σb + 1))
+        + 6 * ((Real.log x + 1) * x ^ (2 : ℕ) / T₀)) := by
+    refine mul_le_mul hcoef (by linarith) hsum0 (by norm_num)
+  refine le_trans hstep ?_
+  have hq2 : (0 : ℝ) ≤ efShiftB q T₀ σa σb * x ^ (σb + 1) := by positivity
+  have : (1 : ℝ) / 6 * (12 * (efShiftB q T₀ σa σb * x ^ (2 : ℕ) / T₀ ^ 2)
+      + 5 * (efShiftB q T₀ σa σb * x ^ (σb + 1))
+      + 6 * ((Real.log x + 1) * x ^ (2 : ℕ) / T₀))
+      = 2 * efShiftB q T₀ σa σb * x ^ (2 : ℕ) / T₀ ^ 2
+        + 5 / 6 * (efShiftB q T₀ σa σb * x ^ (σb + 1))
+        + (Real.log x + 1) * x ^ (2 : ℕ) / T₀ := by ring
+  rw [this]
+  linarith
+
+set_option maxHeartbeats 1000000 in
+/-- The purely algebraic core of the ledger: the four groups, once each has been replaced by its
+closed-form majorant, sum to the four-term bound.  `S` is the edge constant, `P = u^{σb−1}`,
+`R = u^{bceil−1}`, `mm = m`. -/
+private lemma ledger_algebra {S M u P R mm : ℝ} (hM3 : 3 ≤ M) (hu3 : 3 ≤ u) (hS0 : 0 ≤ S)
+    (hS : S ≤ 3 * 10 ^ 7 * M ^ 8) (hP0 : 0 ≤ P) (hR0 : 0 ≤ R) (hm0 : 0 ≤ mm) :
+    (u / M ^ 3 + 1) * (M - 1)
+      + (2 * S * u ^ 2 / M ^ 12 + S * (P * u ^ 2) + M * u ^ 2 / M ^ 6
+          + (8 * S * u ^ 2 / M ^ 12 + 4 * (S * (P * u ^ 2)) + 4 * (M * u ^ 2 / M ^ 6)))
+          / (u / M ^ 3)
+      + (mm * (u / M ^ 3) + 3288 * M ^ 4 * (R * u))
+      + 33976 * M ^ 2 * (R * u)
+    ≤ ((mm + 4 * 10 ^ 8) / M + M / u + 2 * 10 ^ 8 * M ^ 11 * P + 5 * 10 ^ 4 * M ^ 4 * R) * u := by
+  have hM0 : (0 : ℝ) < M := by linarith
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hPu0 : (0 : ℝ) ≤ P * u := mul_nonneg hP0 (le_of_lt hu0)
+  have hRu0 : (0 : ℝ) ≤ R * u := mul_nonneg hR0 (le_of_lt hu0)
+  -- the quotient, in closed form
+  have hdiv : (2 * S * u ^ 2 / M ^ 12 + S * (P * u ^ 2) + M * u ^ 2 / M ^ 6
+      + (8 * S * u ^ 2 / M ^ 12 + 4 * (S * (P * u ^ 2)) + 4 * (M * u ^ 2 / M ^ 6)))
+      / (u / M ^ 3)
+      = 10 * S * u / M ^ 9 + 5 * (S * (P * u)) * M ^ 3 + 5 * (u / M ^ 2) := by
+    field_simp <;> ring
+  -- the three quotient rows
+  have h1 : 10 * S * u / M ^ 9 ≤ 3 * 10 ^ 8 * (u / M) := by
+    have hnum : 10 * S * u ≤ 10 * (3 * 10 ^ 7 * M ^ 8) * u := by nlinarith
+    have hstep : 10 * S * u / M ^ 9 ≤ 10 * (3 * 10 ^ 7 * M ^ 8) * u / M ^ 9 :=
+      div_le_div_of_nonneg_right hnum (by positivity)
+    have heq : 10 * (3 * 10 ^ 7 * M ^ 8) * u / M ^ 9 = 3 * 10 ^ 8 * (u / M) := by
+      field_simp <;> ring
+    linarith [hstep, heq.le, heq.ge]
+  have h2 : 5 * (S * (P * u)) * M ^ 3 ≤ 15 * 10 ^ 7 * M ^ 11 * (P * u) := by
+    have hSP : S * (P * u) ≤ 3 * 10 ^ 7 * M ^ 8 * (P * u) :=
+      mul_le_mul_of_nonneg_right hS hPu0
+    nlinarith [pow_pos hM0 3]
+  -- the de-smoothing boundary
+  have h3 : (u / M ^ 3 + 1) * (M - 1) ≤ u / M ^ 2 + M := by
+    have hkey : u / M ^ 2 - u / M ^ 3 * (M - 1) = u / M ^ 3 := by field_simp; ring
+    have hpos : (0 : ℝ) ≤ u / M ^ 3 := by positivity
+    nlinarith
+  -- the three collapse rows
+  have e1 : u / M ^ 2 ≤ u / (3 * M) :=
+    div_le_div_of_nonneg_left (le_of_lt hu0) (by linarith) (by nlinarith)
+  have e1' : u / (3 * M) = 1 / 3 * (u / M) := by ring
+  have e2 : mm * (u / M ^ 3) ≤ mm * (u / M) := by
+    have : u / M ^ 3 ≤ u / M := div_le_div_of_nonneg_left (le_of_lt hu0) hM0 (by nlinarith)
+    nlinarith
+  have hM2sq : (9 : ℝ) ≤ M ^ 2 := by nlinarith
+  have hM24 : M ^ 2 ≤ M ^ 4 := by
+    have h4 : M ^ 4 = M ^ 2 * M ^ 2 := by ring
+    nlinarith [hM2sq]
+  have e3 : 33976 * M ^ 2 * (R * u) ≤ 33976 * M ^ 4 * (R * u) := by
+    nlinarith [mul_le_mul_of_nonneg_right hM24 hRu0]
+  have hexp : ((mm + 4 * 10 ^ 8) / M + M / u + 2 * 10 ^ 8 * M ^ 11 * P + 5 * 10 ^ 4 * M ^ 4 * R) * u
+      = mm * (u / M) + 4 * 10 ^ 8 * (u / M) + M + 2 * 10 ^ 8 * M ^ 11 * (P * u)
+        + 5 * 10 ^ 4 * M ^ 4 * (R * u) := by
+    field_simp <;> ring
+  have hM11P : (0 : ℝ) ≤ M ^ 11 * (P * u) := by positivity
+  have hM4R : (0 : ℝ) ≤ M ^ 4 * (R * u) := by positivity
+  have hq1 : (0 : ℝ) ≤ u / M := by positivity
+  have hq2 : (0 : ℝ) ≤ u / M ^ 2 := by positivity
+  have hq3 : (0 : ℝ) ≤ u / M ^ 3 := by positivity
+  rw [hdiv, hexp]
+  linarith
+
+set_option maxHeartbeats 2000000 in
+/-- **THE LEDGER (N4b W2c, parts (c2)/(c3)).**  The closed-form envelope, priced:
+
+    G(u) ≤ (m + 4·10^8)/M + M/u + 2·10^8·M^11·u^{σb−1} + 5·10^4·M^4·u^{bceil−1},
+    M = log(qu) + 2.
+
+The four terms are, in order: the `1/M`-grade rows (de-smoothing boundary, the horizontal edges,
+the truncation tail, the `β₀` mass), the de-smoothing constant, the LEFT-EDGE row (the `σb`-decay
+— D9's flagged row, here priced at `M^{11}`), and the ERASED SPEND (the `bceil`-decay — the row
+where Range A's constant ceiling and Range B's `u`-dependent one differ).  `bceil` is arbitrary:
+Range A instantiates it at the repulsion ceiling (a constant `< 1`, so `u^{bceil−1}` is a power
+saving — the `hN+` η-gain), Range B at `efZfrCeil` below. -/
+theorem efEnvelope_le_ledger {q : ℕ} {β₀ bceil σa σb u M : ℝ} {m : ℕ}
+    (hq : 2 ≤ q) (hu : 3 ≤ u) (hM : M = Real.log ((q : ℝ) * u) + 2)
+    (hσa : 9 / 10 ≤ σa) (hσab : σa < σb) (hσb : σb < 1) (hgap : 1 / 20 ≤ σb - σa)
+    (hβ₀1 : β₀ ≤ 1) :
+    efEnvelope q β₀ bceil m σa σb u
+      ≤ ((m : ℝ) + 4 * 10 ^ 8) / M + M / u
+        + 2 * 10 ^ 8 * M ^ 11 * u ^ (σb - 1)
+        + 5 * 10 ^ 4 * M ^ 4 * u ^ (bceil - 1) := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hM3 : (3 : ℝ) ≤ M := by rw [hM]; exact logqu_ge hq hu
+  have hM0 : (0 : ℝ) < M := by linarith
+  have hT : efT0 q u = M ^ 6 := by rw [efT0, hM]
+  have hT0 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
+  have hH : efH q u = u / M ^ 3 := by rw [efH, hM]
+  have hHpos : (0 : ℝ) < efH q u := efH_pos hq hu
+  have hM6 : (729 : ℝ) ≤ M ^ 6 := by have h := scale_pow_ge hM3 6; norm_num at h; exact h
+  have hlogu : Real.log u ≤ M - 2 := log_u_le_scale hq hu hM
+  have hlogu0 : (0 : ℝ) ≤ Real.log u := Real.log_nonneg (by linarith)
+  have huh2 : u + efH q u ≤ 2 * u := by
+    rw [hH]
+    have hM27 : (27 : ℝ) ≤ M ^ 3 := by
+      have h := scale_pow_ge hM3 3; norm_num at h; exact h
+    have : u / M ^ 3 ≤ u := by
+      rw [div_le_iff₀ (by positivity)]; nlinarith
+    linarith
+  have huh3 : (3 : ℝ) ≤ u + efH q u := by linarith
+  have hlogh : Real.log (u + efH q u) + 1 ≤ M := by
+    have hstep : Real.log (u + efH q u) ≤ Real.log (2 * u) := Real.log_le_log (by linarith) huh2
+    have h2u : Real.log (2 * u) = Real.log 2 + Real.log u :=
+      Real.log_mul (by norm_num) (ne_of_gt hu0)
+    have hlog2 : Real.log 2 ≤ 1 := by linarith [Real.log_le_sub_one_of_pos (show (0:ℝ) < 2 by norm_num)]
+    linarith
+  have hlogh0 : (0 : ℝ) ≤ Real.log (u + efH q u) := Real.log_nonneg (by linarith)
+  -- the rpow bookkeeping
+  have hP0 : (0 : ℝ) < u ^ (σb - 1) := Real.rpow_pos_of_pos hu0 _
+  have hR0 : (0 : ℝ) < u ^ (bceil - 1) := Real.rpow_pos_of_pos hu0 _
+  have hEle : u ^ (β₀ - 1) ≤ 1 :=
+    Real.rpow_le_one_of_one_le_of_nonpos (by linarith) (by linarith)
+  have hxsb : u ^ (σb + 1) = u ^ (σb - 1) * u ^ (2 : ℕ) := by
+    rw [← Real.rpow_natCast u 2, ← Real.rpow_add hu0]
+    congr 1
+    push_cast
+    ring
+  have hpow2 : (2 : ℝ) ^ (2 : ℝ) = 4 := by
+    rw [show (2:ℝ) = ((2:ℕ):ℝ) from by norm_num, Real.rpow_natCast]; norm_num
+  have huhsb : (u + efH q u) ^ (σb + 1) ≤ 4 * (u ^ (σb - 1) * u ^ (2 : ℕ)) := by
+    have h1 : (u + efH q u) ^ (σb + 1) ≤ (2 * u) ^ (σb + 1) :=
+      Real.rpow_le_rpow (by linarith) huh2 (by linarith)
+    have h2 : (2 * u) ^ (σb + 1) = 2 ^ (σb + 1) * u ^ (σb + 1) :=
+      Real.mul_rpow (by norm_num) (le_of_lt hu0)
+    have h3 : (2 : ℝ) ^ (σb + 1) ≤ 4 := by
+      have h := Real.rpow_le_rpow_of_exponent_le (by norm_num : (1:ℝ) ≤ 2)
+        (by linarith : σb + 1 ≤ 2)
+      rwa [hpow2] at h
+    have h4 : (0 : ℝ) < u ^ (σb + 1) := Real.rpow_pos_of_pos hu0 _
+    rw [hxsb] at h2 h4
+    nlinarith
+  have hbc : u ^ bceil = u ^ (bceil - 1) * u := by
+    have h := Real.rpow_add hu0 (bceil - 1) 1
+    rw [Real.rpow_one] at h
+    rw [← h]; norm_num
+  -- the count rows
+  have hlogQ4 : Real.log ((q : ℝ) * (efT0 q u + 4)) ≤ 8 * M :=
+    log_q_efT0_add_le hq hu hM (by norm_num) (by norm_num)
+  have hlogQ40 : (0 : ℝ) ≤ Real.log ((q : ℝ) * (efT0 q u + 4)) := by
+    refine Real.log_nonneg ?_; rw [hT]; nlinarith
+  have hlogT2 : Real.log (efT0 q u + 2) ≤ 7 * M :=
+    log_efT0_add_le hq hu hM (by norm_num) (by norm_num)
+  have hlogT20 : (0 : ℝ) ≤ Real.log (efT0 q u + 2) := by
+    refine Real.log_nonneg ?_; rw [hT]; nlinarith
+  have hSle : efShiftB q (efT0 q u) σa σb ≤ 3 * 10 ^ 7 * M ^ 8 := efShiftB_le_scale hq hu hM hgap
+  have hS0 : (0 : ℝ) ≤ efShiftB q (efT0 q u) σa σb := efShiftB_nonneg hq hT0 hσab
+  have hT2 : efT0 q u ^ 2 = M ^ 12 := by rw [hT]; ring
+  -- the two contour budgets
+  have hEu : efShiftBound q (efT0 q u) σa σb u
+      ≤ 2 * efShiftB q (efT0 q u) σa σb * u ^ 2 / M ^ 12
+        + efShiftB q (efT0 q u) σa σb * (u ^ (σb - 1) * u ^ 2)
+        + M * u ^ 2 / M ^ 6 := by
+    refine le_trans (efShiftBound_le_rows hq hT0 hσa hσab hσb hu) ?_
+    have e3 : (Real.log u + 1) * u ^ (2 : ℕ) / efT0 q u ≤ M * u ^ (2 : ℕ) / M ^ 6 := by
+      rw [hT]
+      exact div_le_div_of_nonneg_right (by nlinarith [sq_nonneg u]) (by positivity)
+    rw [hT2, hxsb]
+    linarith
+  have hEuh : efShiftBound q (efT0 q u) σa σb (u + efH q u)
+      ≤ 8 * efShiftB q (efT0 q u) σa σb * u ^ 2 / M ^ 12
+        + 4 * (efShiftB q (efT0 q u) σa σb * (u ^ (σb - 1) * u ^ 2))
+        + 4 * (M * u ^ 2 / M ^ 6) := by
+    refine le_trans (efShiftBound_le_rows hq hT0 hσa hσab hσb huh3) ?_
+    have hsq : (u + efH q u) ^ (2 : ℕ) ≤ 4 * u ^ (2 : ℕ) := by
+      have h := pow_le_pow_left₀ (show (0:ℝ) ≤ u + efH q u by linarith) huh2 2
+      nlinarith
+    have hsq0 : (0 : ℝ) ≤ (u + efH q u) ^ (2 : ℕ) := by positivity
+    have r1 : 2 * efShiftB q (efT0 q u) σa σb * (u + efH q u) ^ (2 : ℕ) / efT0 q u ^ 2
+        ≤ 8 * efShiftB q (efT0 q u) σa σb * u ^ 2 / M ^ 12 := by
+      rw [hT2]
+      refine div_le_div_of_nonneg_right ?_ (by positivity)
+      have := mul_le_mul_of_nonneg_left hsq
+        (show (0:ℝ) ≤ 2 * efShiftB q (efT0 q u) σa σb by linarith)
+      nlinarith [this]
+    have r2 : efShiftB q (efT0 q u) σa σb * (u + efH q u) ^ (σb + 1)
+        ≤ 4 * (efShiftB q (efT0 q u) σa σb * (u ^ (σb - 1) * u ^ 2)) := by
+      have := mul_le_mul_of_nonneg_left huhsb hS0
+      linarith [this]
+    have r3 : (Real.log (u + efH q u) + 1) * (u + efH q u) ^ (2 : ℕ) / efT0 q u
+        ≤ 4 * (M * u ^ 2 / M ^ 6) := by
+      rw [hT]
+      have hnum : (Real.log (u + efH q u) + 1) * (u + efH q u) ^ (2 : ℕ) ≤ M * (4 * u ^ (2 : ℕ)) := by
+        have hstep : (Real.log (u + efH q u) + 1) * (u + efH q u) ^ (2 : ℕ)
+            ≤ M * (u + efH q u) ^ (2 : ℕ) := by nlinarith
+        nlinarith
+      have := div_le_div_of_nonneg_right hnum (show (0:ℝ) ≤ M ^ 6 by positivity)
+      have heq : M * (4 * u ^ (2 : ℕ)) / M ^ 6 = 4 * (M * u ^ 2 / M ^ 6) := by ring
+      linarith [heq.le, heq.ge]
+    linarith
+  -- the four groups
+  have hG1 : (efH q u + 1) * Real.log (u + efH q u) ≤ (u / M ^ 3 + 1) * (M - 1) := by
+    have h0 : (0 : ℝ) ≤ efH q u + 1 := by linarith
+    calc (efH q u + 1) * Real.log (u + efH q u) ≤ (efH q u + 1) * (M - 1) :=
+          mul_le_mul_of_nonneg_left (by linarith) h0
+      _ = (u / M ^ 3 + 1) * (M - 1) := by rw [hH]
+  have hG2 : (efShiftBound q (efT0 q u) σa σb u
+      + efShiftBound q (efT0 q u) σa σb (u + efH q u)) / efH q u
+      ≤ (2 * efShiftB q (efT0 q u) σa σb * u ^ 2 / M ^ 12
+          + efShiftB q (efT0 q u) σa σb * (u ^ (σb - 1) * u ^ 2) + M * u ^ 2 / M ^ 6
+          + (8 * efShiftB q (efT0 q u) σa σb * u ^ 2 / M ^ 12
+            + 4 * (efShiftB q (efT0 q u) σa σb * (u ^ (σb - 1) * u ^ 2))
+            + 4 * (M * u ^ 2 / M ^ 6))) / (u / M ^ 3) := by
+    rw [← hH]
+    exact div_le_div_of_nonneg_right (by linarith) (le_of_lt hHpos)
+  have hG3 : (m : ℝ) * (efH q u * u ^ (β₀ - 1))
+      + efH q u * u ^ (bceil - 1)
+        * (137 * (2 * efT0 q u + 5) * Real.log ((q : ℝ) * (efT0 q u + 4)))
+      ≤ (m : ℝ) * (u / M ^ 3) + 3288 * M ^ 4 * (u ^ (bceil - 1) * u) := by
+    have p1 : (m : ℝ) * (efH q u * u ^ (β₀ - 1)) ≤ (m : ℝ) * (u / M ^ 3) := by
+      have hin : efH q u * u ^ (β₀ - 1) ≤ efH q u * 1 :=
+        mul_le_mul_of_nonneg_left hEle (le_of_lt hHpos)
+      have hin2 : efH q u * u ^ (β₀ - 1) ≤ u / M ^ 3 := by rw [← hH]; linarith
+      exact mul_le_mul_of_nonneg_left hin2 (Nat.cast_nonneg m)
+    have p2 : 137 * (2 * efT0 q u + 5) * Real.log ((q : ℝ) * (efT0 q u + 4)) ≤ 3288 * M ^ 7 := by
+      have h1 : 137 * (2 * efT0 q u + 5) ≤ 411 * M ^ 6 := by rw [hT]; nlinarith
+      have h2 : 137 * (2 * efT0 q u + 5) * Real.log ((q : ℝ) * (efT0 q u + 4))
+          ≤ 411 * M ^ 6 * (8 * M) :=
+        mul_le_mul h1 hlogQ4 hlogQ40 (by positivity)
+      nlinarith
+    have p3 : efH q u * u ^ (bceil - 1)
+        * (137 * (2 * efT0 q u + 5) * Real.log ((q : ℝ) * (efT0 q u + 4)))
+        ≤ 3288 * M ^ 4 * (u ^ (bceil - 1) * u) := by
+      have hfac : (0 : ℝ) ≤ efH q u * u ^ (bceil - 1) := by positivity
+      calc efH q u * u ^ (bceil - 1)
+            * (137 * (2 * efT0 q u + 5) * Real.log ((q : ℝ) * (efT0 q u + 4)))
+          ≤ efH q u * u ^ (bceil - 1) * (3288 * M ^ 7) :=
+            mul_le_mul_of_nonneg_left p2 hfac
+        _ = u / M ^ 3 * u ^ (bceil - 1) * (3288 * M ^ 7) := by rw [hH]
+        _ = 3288 * M ^ 4 * (u ^ (bceil - 1) * u) := by field_simp <;> ring
+    linarith
+  have hG4 : u ^ bceil * (137 * Real.log ((q : ℝ) * (efT0 q u + 4))
+      * (8 + 4 * Real.log (efT0 q u + 2)))
+      ≤ 33976 * M ^ 2 * (u ^ (bceil - 1) * u) := by
+    have p1 : 137 * Real.log ((q : ℝ) * (efT0 q u + 4)) ≤ 1096 * M := by linarith
+    have p2 : 8 + 4 * Real.log (efT0 q u + 2) ≤ 31 * M := by linarith
+    have p3 : 137 * Real.log ((q : ℝ) * (efT0 q u + 4)) * (8 + 4 * Real.log (efT0 q u + 2))
+        ≤ 1096 * M * (31 * M) :=
+      mul_le_mul p1 p2 (by linarith) (by positivity)
+    have hb0 : (0 : ℝ) < u ^ bceil := Real.rpow_pos_of_pos hu0 _
+    rw [hbc] at hb0 ⊢
+    have := mul_le_mul_of_nonneg_left p3 (le_of_lt hb0)
+    nlinarith [this]
+  rw [efEnvelope, div_le_iff₀ hu0]
+  refine le_trans (by linarith) (ledger_algebra (S := efShiftB q (efT0 q u) σa σb) (M := M)
+    (u := u) (P := u ^ (σb - 1)) (R := u ^ (bceil - 1)) (mm := (m : ℝ))
+    hM3 hu hS0 hSle (le_of_lt hP0) (le_of_lt hR0) (Nat.cast_nonneg m))
+
 end Salt.HB
