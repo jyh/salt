@@ -20753,3 +20753,114 @@ NOT take either**: `Lemma7EF.lean` is fenced off by its work order (other work i
 `Lemma7*` files — `Salt/HB/` saw commits at 09:04 and 09:18 today). Recorded here for whoever
 owns that file. Note (ii) interacts with K3's finding: the `250 ≤ Real.log q` hypothesis at
 `:3137` is the same window edge that carries the surviving L-power.
+
+## ⟦WEIL-TRIO-W1 — PRE-FLIGHT **PASSES** (W2 STAYS DEAD); W1-a/b/c/d ALL LANDED AT `c_e = 2`⟧
+(2026-08-06, Opus executor. Governing doc: `docs/exploration/weil-trio-design-0806.md`, v2 DELTA
+§D1/D2/D3/D7. New files `Salt/Weil/GcdBranch.lean` + `Salt/Weil/Estermann.lean`, roll-calls in
+`Salt/Weil/All.lean`. Additive only — no landed statement touched anywhere.)
+
+**THE D2 PRE-FLIGHT, BYTE-CHECKED AT THE SOURCE PDF, VERDICT: PASS.** Read at 400-dpi page images
+of the staged PDF (`~/Downloads/Proceedings of London Math Soc - September 1983 - Heath-Brown -
+Prime Twins and Siegel Zeros.pdf`; journal page = PDF page + 192), journal pp.194 and 211–215. The
+four bytes the design turns on are all there and all governing. **(1.5), p.194**: the standing
+normalisation is `2 | α_i (i = 1,2)` — *both* forms have even leading coefficient, so
+`α = (α₁, α₂)` is even. **(5.1), p.211**: `S(δ₁,δ₂;V₁,V₂)` "is clearly zero unless
+`(δ_i,q) = 1, (δ_i,α) = 1, (δ₁,δ₂) = 1` … as we henceforth assume" — a *standing assumption* for
+the whole of §5, not a passing remark. **(5.6), p.212**: "For the congruence conditions we first
+observe that `(w₁,α) = (w₁,δ₂) = (w₁,q) = 1` **or there will be no solutions**" — i.e. every `w₁`
+violating it contributes a count of zero and needs no bound at all. **The chain that reaches Lemma
+10 is derived under both.** The single congruence (5.11) `v₂w₂ ≡ C (mod Dδ₁w₁)` with
+`D = α₂qΔ^{−1}` (5.12) is obtained on p.213 by an argument that cites (5.1) and (5.6) by name
+twice ("It is a routine matter to verify (5.13), using (5.1), (5.4), (5.5), and (5.6)"; and
+"`= α₂δ₁w₁·α₂q/(α,q)` **by (5.1) and (5.6)**"); (5.14)/(5.17) are rewritings of (5.11); and the
+Lemma-10 application on p.214 is applied to "the sum of the ψ functions in (5.17)" with
+"`k = Dδ₁w₁, E = S₂`". The restriction is then *restated explicitly in the summary lemma*: Lemma
+11's (5.19), p.214, reads "where `Σ*` indicates that `T₂ > T₁`, **that `w₁` satisfies (5.6)**, and
+that `(w₂, Dδ₁w₁) = 1`". §6's (6.1), p.215, restates it a third time. **Conclusion:** every `δ₁`
+and every `w₁` reaching the Lemma-10 application is coprime to the even `α`, hence odd, hence
+`v₂(k) = v₂(Dδ₁w₁) = v₂(D) = v₂(α₂qΔ^{−1})`. R3's counter ("q odd ⟹ no constraint on w₁") is
+answered by (5.6)'s `(w₁,α) = 1` clause, which is independent of q's parity, exactly as the
+maestro adjudicated. **W2 remains deleted; the 2-adic stationary-phase stone is not needed.**
+
+**⚠ ONE STATEMENT CORRECTION IN THE BRIEF ITSELF (arithmetic, not a design change).** W1-a was
+briefed as `p ∣ a → p ∣ b → 2 ≤ e → S(a,b;p^e) = p·S(a/p, b/p; p^{e−2})`. The exponent is wrong:
+the descent drops **one** power of `p`, not two. Counterexample, hand-computed and re-checked:
+`p = 3, e = 2, a = b = 3`. `S(3,3;9) = Σ_{t ∈ (Z/9)ˣ} e((t+t̄)/3) = 3(ω+ω²) = −3`, while
+`3·S(1,1;3^0) = 3·1 = +3` and `3·S(1,1;3) = 3·(−1) = −3`. The reason is structural: `e_{p^e}(p·x)`
+is `e_{p^{e−1}}(x)`, and the fibres of `(Z/p^e)ˣ ↠ (Z/p^{e−1})ˣ` have size `p` — one level, one
+factor of `p`. **The `p^{e−1}` form is also the one the grade needs**, and it is *exactly*
+loss-neutral: `|S| = p·|S'| ≤ p·c·p^{(e−1)/2}·(p^{e−1},a',b')^{1/2} = c·p^{(e+1)/2}·(…)^{1/2}`,
+and the target `c·p^{e/2}·(p^e,a,b)^{1/2}` equals the same thing because
+`(p^e,pa',pb') = p·(p^{e−1},a',b')`. The `p^{e−2}` form would have been lossy by a full `p^{1/2}`
+per descent step — i.e. it would have reintroduced precisely the loss D1 fired W1-c to remove.
+Landed as `kloosterman_descent` in the corrected form.
+
+**LANDED (all four stones, first serious attempt each; two build-error fix rounds total).**
+`Salt/Weil/GcdBranch.lean` (~330 ln): the level bridge `ψ_{p^{f+1}}(p·c) = ψ_{p^f}(c)` and
+`ψ_{p^{n+1}}(p^n·c) = ψ_p(c)` (`stdAddChar_mul_descend`, `stdAddChar_pow_descend` — both sides are
+`exp(2πi c/·)`, so `ZMod.toCircle_natCast` settles them; everything downstream is bookkeeping on
+these two); `unitsMap_prime_pow_fiber_card` (`φ(p^k)/φ(p^j) = p^{k−j}`, the generalisation of
+`critN_card_le`'s buried `hKval`); **W1-a** `kloosterman_descent`; the **unit-free** localisation
+identity `kloosterman_eq_sum_crit` (the averaging/orthogonality half of
+`norm_kloosterman_prime_pow_ge_two` with the counting step removed **and the `IsUnit a` hypothesis
+dropped** — the shift family `1+p^j z` never reads it, and both W1-b and W1-c need the non-unit
+case); **W1-b** `kloosterman_zero_right_prime_pow` (`S(a,0;p^e) = 0` for `e ≥ 2`, the Ramanujan
+value `μ(p^e)`, proved in six lines *from* the localisation: `w t = a·t` is a unit, so the critical
+set is empty) plus the norm form; **W1-d** `factorization_two_mul_odd_mul_odd` /
+`factorization_two_kloosterman_modulus` / `two_pow_factorization_dvd_of_odd_cofactors` — the last
+is the form N7 names, `2^{v₂(D·δ₁·w₁)} ∣ D` under `2 ∣ α`, `(δ₁,α) = (w₁,α) = 1`.
+
+`Salt/Weil/Estermann.lean` (~590 ln): **W1-c, THE stone** —
+`norm_kloosterman_prime_pow_odd_sharp : ‖S(a,b;p^{2m+1})‖ ≤ 2·p^m·√p` for odd `p`, `m ≥ 1`,
+`IsUnit a`, **any** `b`. Route (four steps, all elementary): (i) localise at `j = m+1` onto
+`C = {t : p^{m+1}·w t = 0}`, `#C ≤ 2p^{m+1}` by the landed `critN_card_le`; (ii) shift again by
+`1 + p^m z`, which for `m ≥ 1` is a unit because the **cube** `p^{3m}` vanishes mod `p^{2m+1}` —
+new `ushift3`, inverse `1 − p^m z + (p^m z)^2`; the correction terms in `p^{m+1}·w(t·u)` carry
+`p^{2m+1}` and `p^{3m+1}` and die, so `C` is *literally* preserved (`crit_mul_ushift3`, one
+`linear_combination`); (iii) on `C` one has `p^m ∣ (w t).val`, so the whole phase carries `p^{2m}`
+and the level bridge collapses it to `B z² + C z` on `ZMod p`, with `B = b t⁻¹ mod p` **forced to
+be a unit** by membership in `C` (if `p ∣ b` then `C = ∅` — this is the branch that makes the
+theorem unconditional in `b`); (iv) average over `z : ZMod p`.
+
+**THE GAUSS-SUM INPUT CAME OUT CHEAPER THAN BRIEFED.** The brief pointed at mathlib's
+`gaussSum_sq` (`Mathlib/NumberTheory/GaussSum.lean:178`) and, behind it, the corpus's own
+`Salt.LS.gaussSum_normSq`. Neither was needed. `norm_quadExpSum : ‖∑_{z ∈ ZMod p} e_p(Bz²+Cz)‖ =
+√p` (B a unit, p odd) is ~55 lines **from scratch**: `T·conj T`, substitute `z = y+h`, factor as
+`∑_h e_p(Bh²+Ch)·∑_y e_p(y·2Bh)`, and `AddChar.sum_mulShift` kills every `h ≠ 0` because `2B` is a
+unit; the surviving `h = 0` term is `p`. No `MulChar`, no `quadraticChar`, no primitivity
+bookkeeping, no completing the square, and an **equality** rather than the `≤ √p` the brief would
+have accepted. Worth recording as a reusable row: this is the cleanest form of the quadratic-Gauss
+magnitude in the corpus, and it is stated for the standard additive character at any odd prime.
+
+**THE EXIT ROW.** `norm_kloosterman_prime_pow_gcd`, stated at **arbitrary naturals `A, B`** (so no
+`IsUnit` anywhere in the exit interface, per the freeze's iron-rule rider) and arbitrary `e ≥ 1`:
+`‖S(A,B;p^e)‖ ≤ 2·√(p^e)·√((p^e, A, B))`. **`c_e = 2`, uniformly in `e`** — the four branches
+(`e = 1` unit → Weil `norm_kloosterman_prime_unit`; `e` even unit →
+`norm_kloosterman_prime_pow_even`; `e` odd `≥ 3` unit → W1-c; both non-units → W1-a's descent, plus
+the trivial `φ(p) ≤ p` at `e = 1`) each deliver constant 2 and the gcd factor is *never* absorbed.
+So `∏_p c_{e_p} = 2^{ω(k)} ≤ d(k)`, which is exactly the shape (7.1) demands; W3 inherits it with
+no constant to reconcile. Note the statement is in **ℕ arguments** (`(A : ZMod (p^e))`) rather than
+`ZMod` arguments — deliberate: `(p^e, A, B)` is then a plain `Nat.gcd` with no `.val` gymnastics,
+and every `a : ZMod (p^e)` is `(a.val : ZMod (p^e))`, so nothing is lost.
+
+**Audits.** All 21 new names at `[propext, Classical.choice, Quot.sound]` via `#audit_axioms` in
+`Salt/Weil/All.lean` and a scratch run. No `sorry`, no `native_decide`, no new axioms. Every build
+through `/Users/jyh/projects/claude/saltbuild.sh` (fleet lock), judged on its printed
+`saltbuild EXIT=`.
+
+**One residue for W3, named not hidden:** this wave closes the **odd** prime-power branch only.
+The `p = 2` prime-power branch is still the landed placeholder `norm_kloosterman_two_pow`
+(`CompositeTail.lean:73`, the trivial `2^k`) — which is exactly what D2/D3 intend, since W1-d shows
+the road's 2-part is bounded (`v₂(k) = v₂(D) ≤ v₂(α₂)+3`) and the constant `2^{κ₀/2} ≈ 2.83` is
+paid once. W3's assembly must therefore carry the `2^{v₂(k)/2}` factor explicitly, as D3 already
+states it.
+
+**NUMERICAL CONFIRMATION (independent, brute-force over all `(a,b)`).** Exhaustive evaluation of
+`S(a,b;p^e)` at every unit `a` and every `b`: `p=3,e=3` max`|S| = 10.3747` vs the landed bound
+`2·p^{e/2} = 10.3923` (ratio 0.9983); `p=5,e=3` `22.3536` vs `22.3607`; `p=3,e=5` `31.1763` vs
+`31.1769`; `p=7,e=3` `37.0401` vs `37.0405` (ratio 1.0000 to four places). **The constant 2 is
+attained, not slack** — `c_e = 2` cannot be improved, so no later wave should go hunting for a
+sharper prime-power constant. The same run re-confirms the W1-a erratum: `S(3,3;9) = −3.0`,
+`3·S(1,1;3) = −3.0`, `3·S(1,1;3^0) = +3.0`. It also prices what W1-c bought: the crude
+`norm_kloosterman_prime_pow_odd` gives 18.0 / 50.0 / 54.0 / 98.0 on those same four cases —
+between 1.7× and 2.6× the truth, and growing like `√p`.

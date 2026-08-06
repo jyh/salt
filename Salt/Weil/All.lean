@@ -25,6 +25,8 @@ import Salt.Weil.MultiExtract
 import Salt.Weil.Descent
 import Salt.Weil.Incomplete
 import Salt.Weil.CompositeFull
+import Salt.Weil.GcdBranch
+import Salt.Weil.Estermann
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -90,3 +92,33 @@ open Salt.Tactic in
   Salt.Weil.kloosterman_conj Salt.Weil.kloosterman_reindex_units
   Salt.Weil.X_sub_C_pow_dvd_iff_hasseDeriv
   Salt.Weil.galoisField_trace_eq_sum_frobenius
+
+/-! ### WEIL-TRIO W1 — the Estermann prime-power grade (2026-08-06)
+
+`Salt.Weil.GcdBranch` (W1-a/b/d) + `Salt.Weil.Estermann` (W1-c). The exit row N7 quotes is
+`norm_kloosterman_prime_pow_gcd`: `‖S(A,B;p^e)‖ ≤ 2·√(p^e)·√((p^e,A,B))` at an odd prime `p`,
+arbitrary `e ≥ 1` and arbitrary `A, B` — constant `c_e = 2` uniformly, hence
+`∏_p c_{e_p} = 2^{ω(k)} ≤ d(k)` for the composite assembly (W3). The 2-adic bookkeeping row is
+`factorization_two_kloosterman_modulus` (HB (5.1)+(5.6)+(1.5) ⟹ `v₂(D·δ₁·w₁) = v₂(D)`). -/
+open Salt.Tactic in
+#audit_axioms Salt.Weil.stdAddChar_mul_descend
+  Salt.Weil.stdAddChar_pow_descend
+  Salt.Weil.unitsMap_prime_pow_fiber_card
+  Salt.Weil.kloosterman_descent
+  Salt.Weil.kloosterman_eq_sum_crit
+  Salt.Weil.isUnit_of_prime_pow_iff
+  Salt.Weil.prime_pow_cast_ne_zero
+  Salt.Weil.kloosterman_zero_right_prime_pow
+  Salt.Weil.norm_kloosterman_zero_right_prime_pow
+  Salt.Weil.odd_of_coprime_of_two_dvd
+  Salt.Weil.factorization_two_mul_odd_mul_odd
+  Salt.Weil.factorization_two_kloosterman_modulus
+  Salt.Weil.two_pow_factorization_dvd_of_odd_cofactors
+  Salt.Weil.pj_cube_eq_zero
+  Salt.Weil.klSummand_mul_ushift3
+  Salt.Weil.crit_mul_ushift3
+  Salt.Weil.norm_quadExpSum
+  Salt.Weil.castHom_eq_zero_iff_not_isUnit
+  Salt.Weil.norm_kloosterman_prime_pow_odd_sharp
+  Salt.Weil.norm_kloosterman_prime_pow_unit_sharp
+  Salt.Weil.norm_kloosterman_prime_pow_gcd
