@@ -2355,4 +2355,852 @@ theorem logChiSum_tendsto_zfr {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ 
     exact hG0 t ht
   exact logChiSum_tendsto_of_envelope χ hβ₀0 hβ₀1 m hX hGc hG0 hEF hGint hGlim
 
+/-! ## 13. THE SHARP LEDGER — `log q` and `log M` carried as SEPARATE symbols (W2c sharpening)
+
+§10 prices every row against the SINGLE scale `M = log(qu) + 2`, substituting `log q ≤ M − 3` and
+`log M ≤ M − 1` throughout to keep the proof division-free.  That is exactly what inflates the
+ledger's leading constant to `4·10^8`, and with it the `L`-threshold at which the paper's `K = 100`
+becomes provable by about nine orders of magnitude (see the `N4B-W2c` flag).  This section redoes
+the same rows with **two** symbols,
+
+    M = log(qu) + 2      and      N = log q + 11·log M,
+
+which is the shape the contour rows actually have: `log(q(T₀+a)) = log q + 7 log M` (already
+landed as `log_q_efT0_add3_le`) and `log(4·5(5+T₀)√q(1+log q)) ≤ 11 log M + (log q)/2`.  `log M ≍
+log log u` is never replaced by `M` again.
+
+The edge constant drops from `3·10^7·M^8` to `2·10^5·M^6·N^2`, and the ledger's leading term from
+the constant `4·10^8` to `2·10^6·N²/M²` — which §14 turns into a NUMBER by pushing the design
+window's `q^{250} ≤ X` edge in (`log q ≤ M/250`, so `N/M` is genuinely small).  Everything here is
+additive: §10's rows are untouched and still serve every caller that does not have the window. -/
+
+private lemma one_le_log_scale {M : ℝ} (hM3 : 3 ≤ M) : 1 ≤ Real.log M := by
+  have h : Real.exp 1 ≤ M :=
+    le_trans (le_of_lt (lt_trans Real.exp_one_lt_d9 (by norm_num))) hM3
+  exact (Real.le_log_iff_exp_le (by linarith)).mpr h
+
+/-- The two-symbol scale `N = log q + 11 log M` sits in `[11, 12M]`: the lower bound is
+`log M ≥ 1`, the upper is §10's own two coarse substitutions used ONCE, at the very end, where
+they cost nothing. -/
+private lemma scaleN_bounds {q : ℕ} {u M N : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u)
+    (hM : M = Real.log ((q : ℝ) * u) + 2) (hN : N = Real.log q + 11 * Real.log M) :
+    11 ≤ N ∧ N ≤ 12 * M := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hM3 : (3 : ℝ) ≤ M := by rw [hM]; exact logqu_ge hq hu
+  have hlq0 : (0 : ℝ) ≤ Real.log q := Real.log_nonneg (by linarith)
+  have hlq : Real.log q ≤ M - 3 := log_q_le_scale hq hu hM
+  have hlM1 : (1 : ℝ) ≤ Real.log M := one_le_log_scale hM3
+  have hlM : Real.log M ≤ M - 1 := Real.log_le_sub_one_of_pos (by linarith)
+  exact ⟨by rw [hN]; linarith, by rw [hN]; linarith⟩
+
+/-- `log(T₀(u) + a) ≤ 7·log M` for `0 ≤ a ≤ 5` — the SHARP row (§10's `log_efT0_add_le` gives
+`≤ 7M`, one `exp` worse). -/
+private lemma log_efT0_add_le_sharp {q : ℕ} {u M a : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u)
+    (hM : M = Real.log ((q : ℝ) * u) + 2) (ha0 : 0 ≤ a) (ha5 : a ≤ 5) :
+    Real.log (efT0 q u + a) ≤ 7 * Real.log M := by
+  have hM3 : (3 : ℝ) ≤ M := by rw [hM]; exact logqu_ge hq hu
+  have hT : efT0 q u = M ^ 6 := by rw [efT0, hM]
+  have hM6 : (729 : ℝ) ≤ M ^ 6 := by have h := scale_pow_ge hM3 6; norm_num at h; exact h
+  have h7 : M ^ 7 = M ^ 6 * M := by ring
+  have hle : efT0 q u + a ≤ M ^ 7 := by rw [hT]; nlinarith
+  have hpos : (0 : ℝ) < efT0 q u + a := by rw [hT]; linarith
+  calc Real.log (efT0 q u + a) ≤ Real.log (M ^ 7) := Real.log_le_log hpos hle
+    _ = 7 * Real.log M := by rw [Real.log_pow]; norm_num
+
+/-- `log(q(T₀(u) + a)) ≤ log q + 7·log M` for `0 ≤ a ≤ 5` — the SHARP row. -/
+private lemma log_q_efT0_add_le_sharp {q : ℕ} {u M a : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u)
+    (hM : M = Real.log ((q : ℝ) * u) + 2) (ha0 : 0 ≤ a) (ha5 : a ≤ 5) :
+    Real.log ((q : ℝ) * (efT0 q u + a)) ≤ Real.log q + 7 * Real.log M := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hM3 : (3 : ℝ) ≤ M := by rw [hM]; exact logqu_ge hq hu
+  have hT : efT0 q u = M ^ 6 := by rw [efT0, hM]
+  have hM6 : (729 : ℝ) ≤ M ^ 6 := by have h := scale_pow_ge hM3 6; norm_num at h; exact h
+  have hpos : (0 : ℝ) < efT0 q u + a := by rw [hT]; linarith
+  rw [Real.log_mul (ne_of_gt (by linarith : (0:ℝ) < (q:ℝ))) (ne_of_gt hpos)]
+  linarith [log_efT0_add_le_sharp hq hu hM ha0 ha5]
+
+/-- The Jensen/Borel–Carathéodory argument's log, SHARP: `≤ N = log q + 11 log M`.  The `√q` is
+kept (it contributes `(log q)/2`, not `log q`) and `1 + log q ≤ M` absorbs the last factor, so the
+whole argument is `≤ M^{11}·√q`.  §10's row gives `≤ 15M`. -/
+private lemma log_efShiftB_arg_le_sharp {q : ℕ} {u M N : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u)
+    (hM : M = Real.log ((q : ℝ) * u) + 2) (hN : N = Real.log q + 11 * Real.log M) :
+    Real.log (4 * (5 * (5 + efT0 q u) * Real.sqrt q * (1 + Real.log q))) ≤ N := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hM3 : (3 : ℝ) ≤ M := by rw [hM]; exact logqu_ge hq hu
+  have hM0 : (0 : ℝ) < M := by linarith
+  have hT : efT0 q u = M ^ 6 := by rw [efT0, hM]
+  have hM6 : (729 : ℝ) ≤ M ^ 6 := by have h := scale_pow_ge hM3 6; norm_num at h; exact h
+  have hM4 : (81 : ℝ) ≤ M ^ 4 := by have h := scale_pow_ge hM3 4; norm_num at h; exact h
+  have hM7 : (2187 : ℝ) ≤ M ^ 7 := by have h := scale_pow_ge hM3 7; norm_num at h; exact h
+  have hlq0 : (0 : ℝ) ≤ Real.log q := Real.log_nonneg (by linarith)
+  have hlq : Real.log q ≤ M - 3 := log_q_le_scale hq hu hM
+  have hsq0 : (0 : ℝ) < Real.sqrt q := Real.sqrt_pos.mpr (by linarith)
+  -- `2·log √q = log q`
+  have hlogsq : 2 * Real.log (Real.sqrt q) = Real.log q := by
+    rw [two_mul, ← Real.log_mul (ne_of_gt hsq0) (ne_of_gt hsq0),
+      Real.mul_self_sqrt (by linarith : (0:ℝ) ≤ (q:ℝ))]
+  -- the argument is `≤ M^{11}·√q`
+  have hstep : 4 * (5 * (5 + efT0 q u) * Real.sqrt q * (1 + Real.log q))
+      ≤ M ^ 11 * Real.sqrt q := by
+    rw [hT]
+    have hA : 5 * (5 + M ^ 6) ≤ 10 * M ^ 6 := by nlinarith
+    have hA' : 5 * (5 + M ^ 6) * Real.sqrt q ≤ 10 * M ^ 6 * Real.sqrt q :=
+      mul_le_mul_of_nonneg_right hA (le_of_lt hsq0)
+    have hB : 5 * (5 + M ^ 6) * Real.sqrt q * (1 + Real.log q) ≤ 10 * M ^ 6 * Real.sqrt q * M := by
+      refine mul_le_mul hA' (by linarith) (by linarith) (by positivity)
+    have hC : (40 : ℝ) * M ^ 7 ≤ M ^ 11 := by nlinarith [pow_pos hM0 7]
+    nlinarith [mul_le_mul_of_nonneg_right hC (le_of_lt hsq0)]
+  have hposArg : (0 : ℝ) < 4 * (5 * (5 + efT0 q u) * Real.sqrt q * (1 + Real.log q)) := by
+    rw [hT]
+    have h1 : (1 : ℝ) ≤ Real.sqrt q := by
+      rw [show (1:ℝ) = Real.sqrt 1 from Real.sqrt_one.symm]; exact Real.sqrt_le_sqrt (by linarith)
+    positivity
+  calc Real.log (4 * (5 * (5 + efT0 q u) * Real.sqrt q * (1 + Real.log q)))
+      ≤ Real.log (M ^ 11 * Real.sqrt q) := Real.log_le_log hposArg hstep
+    _ = 11 * Real.log M + Real.log (Real.sqrt q) := by
+        rw [Real.log_mul (ne_of_gt (show (0:ℝ) < M ^ 11 by positivity)) (ne_of_gt hsq0),
+          Real.log_pow]
+        norm_num
+    _ ≤ N := by rw [hN]; linarith
+
+/-- **THE EDGE CONSTANT, SHARP (W2c sharpening).**  `B ≤ 2·10^5·M^6·N^2` with
+`N = log q + 11·log M`, against §10's `3·10^7·M^8`.  Same named hypothesis `hgap`, same
+`log(7/6) ≥ 1/7`; the only change is that `log q` and `log M` are never collapsed into `M`. -/
+lemma efShiftB_le_scale_sharp {q : ℕ} {u σa σb M N : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u)
+    (hM : M = Real.log ((q : ℝ) * u) + 2) (hN : N = Real.log q + 11 * Real.log M)
+    (hgap : 1 / 20 ≤ σb - σa) :
+    efShiftB q (efT0 q u) σa σb ≤ 2 * 10 ^ 5 * M ^ 6 * N ^ 2 := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hM3 : (3 : ℝ) ≤ M := by rw [hM]; exact logqu_ge hq hu
+  have hT : efT0 q u = M ^ 6 := by rw [efT0, hM]
+  have hM6 : (729 : ℝ) ≤ M ^ 6 := by have h := scale_pow_ge hM3 6; norm_num at h; exact h
+  obtain ⟨hN11, hNM⟩ := scaleN_bounds hq hu hM hN
+  have hlM0 : (0 : ℝ) ≤ Real.log M := le_trans (by norm_num) (one_le_log_scale hM3)
+  have hlq0 : (0 : ℝ) ≤ Real.log q := Real.log_nonneg (by linarith)
+  -- the two logarithmic rows, sharp
+  have hlogQ : Real.log ((q : ℝ) * (efT0 q u + 5)) ≤ N := by
+    have h := log_q_efT0_add_le_sharp hq hu hM (a := 5) (by norm_num) (by norm_num)
+    rw [hN]; linarith
+  have hlogQ0 : (0 : ℝ) ≤ Real.log ((q : ℝ) * (efT0 q u + 5)) := by
+    refine Real.log_nonneg ?_
+    rw [hT]; nlinarith
+  have hlogA : Real.log (4 * (5 * (5 + efT0 q u) * Real.sqrt q * (1 + Real.log q))) ≤ N :=
+    log_efShiftB_arg_le_sharp hq hu hM hN
+  have hlogA0 : (0 : ℝ) ≤ Real.log (4 * (5 * (5 + efT0 q u) * Real.sqrt q * (1 + Real.log q))) := by
+    have hsq : (1 : ℝ) ≤ Real.sqrt q := by
+      rw [show (1:ℝ) = Real.sqrt 1 from Real.sqrt_one.symm]; exact Real.sqrt_le_sqrt (by linarith)
+    refine Real.log_nonneg ?_
+    rw [hT]
+    have ha : (3670 : ℝ) ≤ 5 * (5 + M ^ 6) := by nlinarith
+    have hb : (3670 : ℝ) * 1 ≤ 5 * (5 + M ^ 6) * Real.sqrt q :=
+      mul_le_mul ha hsq (by norm_num) (by nlinarith)
+    have hc : (3670 : ℝ) * 1 ≤ 5 * (5 + M ^ 6) * Real.sqrt q * (1 + Real.log q) :=
+      mul_le_mul (by linarith) (by linarith) (by norm_num) (by nlinarith)
+    linarith
+  -- `log(7/6) ≥ 1/7`, as in §10
+  have hlog76 : (1 : ℝ) / 7 ≤ Real.log (7 / 6) := by
+    have h : Real.log (6 / 7) ≤ 6 / 7 - 1 := Real.log_le_sub_one_of_pos (by norm_num)
+    have hinv : Real.log (7 / 6) = -Real.log (6 / 7) := by
+      rw [show (6:ℝ)/7 = ((7:ℝ)/6)⁻¹ by norm_num, Real.log_inv]; ring
+    rw [hinv]; linarith
+  have hden : (1 : ℝ) / 140 ≤ Real.log (7 / 6) * (σb - σa) := by nlinarith
+  -- the numerator, sharp: `137(2T₀+7) ≤ 276M^6` and `log(q(T₀+5)) ≤ N`
+  have hnum : 137 * (2 * efT0 q u + 7) * Real.log ((q : ℝ) * (efT0 q u + 5)) + 1
+      ≤ 276 * M ^ 6 * N + 1 := by
+    have h1 : 137 * (2 * efT0 q u + 7) ≤ 276 * M ^ 6 := by rw [hT]; nlinarith
+    have h2 : 137 * (2 * efT0 q u + 7) * Real.log ((q : ℝ) * (efT0 q u + 5))
+        ≤ 276 * M ^ 6 * N :=
+      mul_le_mul h1 hlogQ hlogQ0 (by positivity)
+    linarith
+  have hnum0 : (0 : ℝ) ≤ 137 * (2 * efT0 q u + 7) * Real.log ((q : ℝ) * (efT0 q u + 5)) + 1 := by
+    have : (0 : ℝ) ≤ 137 * (2 * efT0 q u + 7) := by rw [hT]; nlinarith
+    nlinarith
+  have hMN : (8019 : ℝ) ≤ M ^ 6 * N := by nlinarith
+  have hfrac : 4 * (137 * (2 * efT0 q u + 7) * Real.log ((q : ℝ) * (efT0 q u + 5)) + 1)
+      / (Real.log (7 / 6) * (σb - σa)) ≤ 560 * (276 * M ^ 6 * N + 1) := by
+    rw [div_le_iff₀ (by linarith)]
+    have hle : 4 * (137 * (2 * efT0 q u + 7) * Real.log ((q : ℝ) * (efT0 q u + 5)) + 1)
+        ≤ 4 * (276 * M ^ 6 * N + 1) := by linarith
+    nlinarith [mul_nonneg (show (0:ℝ) ≤ 560 * (276 * M ^ 6 * N + 1) by nlinarith)
+      (show (0:ℝ) ≤ Real.log (7 / 6) * (σb - σa) - 1 / 140 by linarith)]
+  have hfirst : 120 + 4 * (137 * (2 * efT0 q u + 7) * Real.log ((q : ℝ) * (efT0 q u + 5)) + 1)
+      / (Real.log (7 / 6) * (σb - σa)) ≤ 2 * 10 ^ 5 * M ^ 6 * N := by linarith
+  have hfirst0 : (0 : ℝ) ≤ 120 + 4 * (137 * (2 * efT0 q u + 7)
+      * Real.log ((q : ℝ) * (efT0 q u + 5)) + 1) / (Real.log (7 / 6) * (σb - σa)) := by
+    have : (0 : ℝ) ≤ 4 * (137 * (2 * efT0 q u + 7)
+        * Real.log ((q : ℝ) * (efT0 q u + 5)) + 1) / (Real.log (7 / 6) * (σb - σa)) :=
+      div_nonneg (by linarith) (by linarith)
+    linarith
+  rw [efShiftB]
+  calc (120 + 4 * (137 * (2 * efT0 q u + 7) * Real.log ((q : ℝ) * (efT0 q u + 5)) + 1)
+        / (Real.log (7 / 6) * (σb - σa)))
+      * Real.log (4 * (5 * (5 + efT0 q u) * Real.sqrt q * (1 + Real.log q)))
+      ≤ 2 * 10 ^ 5 * M ^ 6 * N * N := mul_le_mul hfirst hlogA hlogA0 (by nlinarith)
+    _ = 2 * 10 ^ 5 * M ^ 6 * N ^ 2 := by ring
+
+set_option maxHeartbeats 1000000 in
+-- The sharp twin of `ledger_algebra`: the same three quotient rows over `M^12`/`M^9`/`M^3`, with
+-- the edge constant now carrying `N^2` instead of `M^2`.
+/-- The purely algebraic core of the SHARP ledger. -/
+private lemma ledger_algebra_sharp {S M N u P R mm : ℝ} (hM3 : 3 ≤ M) (hu3 : 3 ≤ u)
+    (_hS0 : 0 ≤ S) (hS : S ≤ 2 * 10 ^ 5 * M ^ 6 * N ^ 2) (hN11 : 11 ≤ N) (hNM : N ≤ 12 * M)
+    (hP0 : 0 ≤ P) (hR0 : 0 ≤ R) (hm0 : 0 ≤ mm) :
+    (u / M ^ 3 + 1) * (M - 1)
+      + (2 * S * u ^ 2 / M ^ 12 + S * (P * u ^ 2) + M * u ^ 2 / M ^ 6
+          + (8 * S * u ^ 2 / M ^ 12 + 4 * (S * (P * u ^ 2)) + 4 * (M * u ^ 2 / M ^ 6)))
+          / (u / M ^ 3)
+      + (mm * (u / M ^ 3) + 300 * M ^ 3 * N * (R * u))
+      + 500 * N ^ 2 * (R * u)
+    ≤ ((mm + 2 + 2 * 10 ^ 6 * N ^ 2 / M ^ 2) / M + M / u
+        + 10 ^ 6 * M ^ 9 * N ^ 2 * P + 10 ^ 3 * M ^ 3 * N * R) * u := by
+  have hM0 : (0 : ℝ) < M := by linarith
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hN0 : (0 : ℝ) < N := by linarith
+  have hPu0 : (0 : ℝ) ≤ P * u := mul_nonneg hP0 (le_of_lt hu0)
+  have hRu0 : (0 : ℝ) ≤ R * u := mul_nonneg hR0 (le_of_lt hu0)
+  -- the quotient, in closed form
+  have hdiv : (2 * S * u ^ 2 / M ^ 12 + S * (P * u ^ 2) + M * u ^ 2 / M ^ 6
+      + (8 * S * u ^ 2 / M ^ 12 + 4 * (S * (P * u ^ 2)) + 4 * (M * u ^ 2 / M ^ 6)))
+      / (u / M ^ 3)
+      = 10 * S * u / M ^ 9 + 5 * (S * (P * u)) * M ^ 3 + 5 * (u / M ^ 2) := by
+    field_simp
+    ring
+  -- the horizontal-edge row: the ONE place the sharpening pays
+  have h1 : 10 * S * u / M ^ 9 ≤ 2 * 10 ^ 6 * N ^ 2 * (u / M ^ 3) := by
+    have hnum : 10 * S * u ≤ 10 * (2 * 10 ^ 5 * M ^ 6 * N ^ 2) * u := by nlinarith
+    have hstep : 10 * S * u / M ^ 9 ≤ 10 * (2 * 10 ^ 5 * M ^ 6 * N ^ 2) * u / M ^ 9 :=
+      div_le_div_of_nonneg_right hnum (by positivity)
+    have heq : 10 * (2 * 10 ^ 5 * M ^ 6 * N ^ 2) * u / M ^ 9
+        = 2 * 10 ^ 6 * N ^ 2 * (u / M ^ 3) := by
+      field_simp
+    linarith [hstep, heq.le, heq.ge]
+  -- the left edge
+  have h2 : 5 * (S * (P * u)) * M ^ 3 ≤ 10 ^ 6 * M ^ 9 * N ^ 2 * (P * u) := by
+    have hSP : S * (P * u) ≤ 2 * 10 ^ 5 * M ^ 6 * N ^ 2 * (P * u) :=
+      mul_le_mul_of_nonneg_right hS hPu0
+    nlinarith [pow_pos hM0 3]
+  -- the de-smoothing boundary
+  have h3 : (u / M ^ 3 + 1) * (M - 1) ≤ u / M ^ 2 + M := by
+    have hkey : u / M ^ 2 - u / M ^ 3 * (M - 1) = u / M ^ 3 := by field_simp; ring
+    have hpos : (0 : ℝ) ≤ u / M ^ 3 := by positivity
+    nlinarith
+  -- the collapse rows
+  have e1 : u / M ^ 2 ≤ u / (3 * M) :=
+    div_le_div_of_nonneg_left (le_of_lt hu0) (by linarith) (by nlinarith)
+  have e1' : u / (3 * M) = 1 / 3 * (u / M) := by ring
+  have e2 : mm * (u / M ^ 3) ≤ mm * (u / M) := by
+    have : u / M ^ 3 ≤ u / M := div_le_div_of_nonneg_left (le_of_lt hu0) hM0 (by nlinarith)
+    nlinarith
+  -- the erased-spend rows merge: `N ≤ 12M ≤ (7/5)M^3`
+  have hM3cube : 9 * M ≤ M ^ 3 := by
+    nlinarith [mul_nonneg (mul_nonneg (le_of_lt hM0) (by linarith : (0:ℝ) ≤ M - 3))
+      (by linarith : (0:ℝ) ≤ M + 3)]
+  have hNM3 : N ≤ 7 / 5 * M ^ 3 := by linarith
+  have e3 : 500 * N ^ 2 * (R * u) ≤ 700 * M ^ 3 * N * (R * u) := by
+    have hstep : 500 * N ^ 2 ≤ 700 * M ^ 3 * N := by
+      nlinarith [mul_le_mul_of_nonneg_left hNM3 (le_of_lt hN0)]
+    exact mul_le_mul_of_nonneg_right hstep hRu0
+  have hexp : ((mm + 2 + 2 * 10 ^ 6 * N ^ 2 / M ^ 2) / M + M / u
+        + 10 ^ 6 * M ^ 9 * N ^ 2 * P + 10 ^ 3 * M ^ 3 * N * R) * u
+      = mm * (u / M) + 2 * (u / M) + 2 * 10 ^ 6 * N ^ 2 * (u / M ^ 3) + M
+        + 10 ^ 6 * M ^ 9 * N ^ 2 * (P * u) + 10 ^ 3 * M ^ 3 * N * (R * u) := by
+    field_simp
+  have hq1 : (0 : ℝ) ≤ u / M := by positivity
+  have hq3 : (0 : ℝ) ≤ u / M ^ 3 := by positivity
+  rw [hdiv, hexp]
+  linarith
+
+set_option maxHeartbeats 2000000 in
+-- The same four `mul_le_mul` groups as `efEnvelope_le_ledger`, now against the two-symbol rows.
+/-- **THE SHARP LEDGER (the W2c sharpening).**
+
+    G(u) ≤ (m + 2 + 2·10^6·N²/M²)/M + M/u + 10^6·M^9·N²·u^{σb−1} + 10^3·M^3·N·u^{bceil−1},
+    M = log(qu) + 2,  N = log q + 11·log M.
+
+Against §10's `efEnvelope_le_ledger` (leading constant `4·10^8`) the leading term is now a
+QUOTIENT `2·10^6·N²/M²`, which the design window's `q^{250} ≤ X` edge turns into a number of size
+`≈ 70` (see `ledger_const_le_of_window`, which proves the crude `≤ 250`).  Both ledgers are kept:
+this one needs the window to be numerically useful, §10's needs nothing. -/
+theorem efEnvelope_le_ledger_sharp {q : ℕ} {β₀ bceil σa σb u M N : ℝ} {m : ℕ}
+    (hq : 2 ≤ q) (hu : 3 ≤ u) (hM : M = Real.log ((q : ℝ) * u) + 2)
+    (hN : N = Real.log q + 11 * Real.log M)
+    (hσa : 9 / 10 ≤ σa) (hσab : σa < σb) (hσb : σb < 1) (hgap : 1 / 20 ≤ σb - σa)
+    (hβ₀1 : β₀ ≤ 1) :
+    efEnvelope q β₀ bceil m σa σb u
+      ≤ ((m : ℝ) + 2 + 2 * 10 ^ 6 * N ^ 2 / M ^ 2) / M + M / u
+        + 10 ^ 6 * M ^ 9 * N ^ 2 * u ^ (σb - 1)
+        + 10 ^ 3 * M ^ 3 * N * u ^ (bceil - 1) := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hM3 : (3 : ℝ) ≤ M := by rw [hM]; exact logqu_ge hq hu
+  have hM0 : (0 : ℝ) < M := by linarith
+  have hT : efT0 q u = M ^ 6 := by rw [efT0, hM]
+  have hT0 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
+  have hH : efH q u = u / M ^ 3 := by rw [efH, hM]
+  have hHpos : (0 : ℝ) < efH q u := efH_pos hq hu
+  have hM6 : (729 : ℝ) ≤ M ^ 6 := by have h := scale_pow_ge hM3 6; norm_num at h; exact h
+  obtain ⟨hN11, hNM⟩ := scaleN_bounds hq hu hM hN
+  have hN0 : (0 : ℝ) < N := by linarith
+  have hlM1 : (1 : ℝ) ≤ Real.log M := one_le_log_scale hM3
+  have hlq0 : (0 : ℝ) ≤ Real.log q := Real.log_nonneg (by linarith)
+  have hlogu : Real.log u ≤ M - 2 := log_u_le_scale hq hu hM
+  have hlogu0 : (0 : ℝ) ≤ Real.log u := Real.log_nonneg (by linarith)
+  have huh2 : u + efH q u ≤ 2 * u := by
+    rw [hH]
+    have hM27 : (27 : ℝ) ≤ M ^ 3 := by
+      have h := scale_pow_ge hM3 3; norm_num at h; exact h
+    have : u / M ^ 3 ≤ u := by
+      rw [div_le_iff₀ (by positivity)]; nlinarith
+    linarith
+  have huh3 : (3 : ℝ) ≤ u + efH q u := by linarith
+  have hlogh : Real.log (u + efH q u) + 1 ≤ M := by
+    have hstep : Real.log (u + efH q u) ≤ Real.log (2 * u) := Real.log_le_log (by linarith) huh2
+    have h2u : Real.log (2 * u) = Real.log 2 + Real.log u :=
+      Real.log_mul (by norm_num) (ne_of_gt hu0)
+    have hlog2 : Real.log 2 ≤ 1 := by
+      linarith [Real.log_le_sub_one_of_pos (show (0:ℝ) < 2 by norm_num)]
+    linarith
+  have hlogh0 : (0 : ℝ) ≤ Real.log (u + efH q u) := Real.log_nonneg (by linarith)
+  -- the rpow bookkeeping (identical to §10)
+  have hP0 : (0 : ℝ) < u ^ (σb - 1) := Real.rpow_pos_of_pos hu0 _
+  have hR0 : (0 : ℝ) < u ^ (bceil - 1) := Real.rpow_pos_of_pos hu0 _
+  have hEle : u ^ (β₀ - 1) ≤ 1 :=
+    Real.rpow_le_one_of_one_le_of_nonpos (by linarith) (by linarith)
+  have hxsb : u ^ (σb + 1) = u ^ (σb - 1) * u ^ (2 : ℕ) := by
+    rw [← Real.rpow_natCast u 2, ← Real.rpow_add hu0]
+    congr 1
+    push_cast
+    ring
+  have hpow2 : (2 : ℝ) ^ (2 : ℝ) = 4 := by
+    rw [show (2:ℝ) = ((2:ℕ):ℝ) from by norm_num, Real.rpow_natCast]; norm_num
+  have huhsb : (u + efH q u) ^ (σb + 1) ≤ 4 * (u ^ (σb - 1) * u ^ (2 : ℕ)) := by
+    have h1 : (u + efH q u) ^ (σb + 1) ≤ (2 * u) ^ (σb + 1) :=
+      Real.rpow_le_rpow (by linarith) huh2 (by linarith)
+    have h2 : (2 * u) ^ (σb + 1) = 2 ^ (σb + 1) * u ^ (σb + 1) :=
+      Real.mul_rpow (by norm_num) (le_of_lt hu0)
+    have h3 : (2 : ℝ) ^ (σb + 1) ≤ 4 := by
+      have h := Real.rpow_le_rpow_of_exponent_le (by norm_num : (1:ℝ) ≤ 2)
+        (by linarith : σb + 1 ≤ 2)
+      rwa [hpow2] at h
+    have h4 : (0 : ℝ) < u ^ (σb + 1) := Real.rpow_pos_of_pos hu0 _
+    rw [hxsb] at h2 h4
+    nlinarith
+  have hbc : u ^ bceil = u ^ (bceil - 1) * u := by
+    have h := Real.rpow_add hu0 (bceil - 1) 1
+    rw [Real.rpow_one] at h
+    rw [← h]; norm_num
+  -- the count rows, SHARP
+  have hlogQ4 : Real.log ((q : ℝ) * (efT0 q u + 4)) ≤ N := by
+    have h := log_q_efT0_add_le_sharp hq hu hM (a := 4) (by norm_num) (by norm_num)
+    rw [hN]; linarith
+  have hlogQ40 : (0 : ℝ) ≤ Real.log ((q : ℝ) * (efT0 q u + 4)) := by
+    refine Real.log_nonneg ?_; rw [hT]; nlinarith
+  have hlogT2 : Real.log (efT0 q u + 2) ≤ 7 * Real.log M :=
+    log_efT0_add_le_sharp hq hu hM (by norm_num) (by norm_num)
+  have hlogT20 : (0 : ℝ) ≤ Real.log (efT0 q u + 2) := by
+    refine Real.log_nonneg ?_; rw [hT]; nlinarith
+  have hSle : efShiftB q (efT0 q u) σa σb ≤ 2 * 10 ^ 5 * M ^ 6 * N ^ 2 :=
+    efShiftB_le_scale_sharp hq hu hM hN hgap
+  have hS0 : (0 : ℝ) ≤ efShiftB q (efT0 q u) σa σb := efShiftB_nonneg hq hT0 hσab
+  have hT2 : efT0 q u ^ 2 = M ^ 12 := by rw [hT]; ring
+  -- the two contour budgets (unchanged shape)
+  have hEu : efShiftBound q (efT0 q u) σa σb u
+      ≤ 2 * efShiftB q (efT0 q u) σa σb * u ^ 2 / M ^ 12
+        + efShiftB q (efT0 q u) σa σb * (u ^ (σb - 1) * u ^ 2)
+        + M * u ^ 2 / M ^ 6 := by
+    refine le_trans (efShiftBound_le_rows hq hT0 hσa hσab hσb hu) ?_
+    have e3 : (Real.log u + 1) * u ^ (2 : ℕ) / efT0 q u ≤ M * u ^ (2 : ℕ) / M ^ 6 := by
+      rw [hT]
+      exact div_le_div_of_nonneg_right (by nlinarith [sq_nonneg u]) (by positivity)
+    rw [hT2, hxsb]
+    linarith
+  have hEuh : efShiftBound q (efT0 q u) σa σb (u + efH q u)
+      ≤ 8 * efShiftB q (efT0 q u) σa σb * u ^ 2 / M ^ 12
+        + 4 * (efShiftB q (efT0 q u) σa σb * (u ^ (σb - 1) * u ^ 2))
+        + 4 * (M * u ^ 2 / M ^ 6) := by
+    refine le_trans (efShiftBound_le_rows hq hT0 hσa hσab hσb huh3) ?_
+    have hsq : (u + efH q u) ^ (2 : ℕ) ≤ 4 * u ^ (2 : ℕ) := by
+      have h := pow_le_pow_left₀ (show (0:ℝ) ≤ u + efH q u by linarith) huh2 2
+      nlinarith
+    have hsq0 : (0 : ℝ) ≤ (u + efH q u) ^ (2 : ℕ) := by positivity
+    have r1 : 2 * efShiftB q (efT0 q u) σa σb * (u + efH q u) ^ (2 : ℕ) / efT0 q u ^ 2
+        ≤ 8 * efShiftB q (efT0 q u) σa σb * u ^ 2 / M ^ 12 := by
+      rw [hT2]
+      refine div_le_div_of_nonneg_right ?_ (by positivity)
+      have := mul_le_mul_of_nonneg_left hsq
+        (show (0:ℝ) ≤ 2 * efShiftB q (efT0 q u) σa σb by linarith)
+      nlinarith [this]
+    have r2 : efShiftB q (efT0 q u) σa σb * (u + efH q u) ^ (σb + 1)
+        ≤ 4 * (efShiftB q (efT0 q u) σa σb * (u ^ (σb - 1) * u ^ 2)) := by
+      have := mul_le_mul_of_nonneg_left huhsb hS0
+      linarith [this]
+    have r3 : (Real.log (u + efH q u) + 1) * (u + efH q u) ^ (2 : ℕ) / efT0 q u
+        ≤ 4 * (M * u ^ 2 / M ^ 6) := by
+      rw [hT]
+      have hnum : (Real.log (u + efH q u) + 1) * (u + efH q u) ^ (2 : ℕ)
+          ≤ M * (4 * u ^ (2 : ℕ)) := by
+        have hstep : (Real.log (u + efH q u) + 1) * (u + efH q u) ^ (2 : ℕ)
+            ≤ M * (u + efH q u) ^ (2 : ℕ) := by nlinarith
+        nlinarith
+      have := div_le_div_of_nonneg_right hnum (show (0:ℝ) ≤ M ^ 6 by positivity)
+      have heq : M * (4 * u ^ (2 : ℕ)) / M ^ 6 = 4 * (M * u ^ 2 / M ^ 6) := by ring
+      linarith [heq.le, heq.ge]
+    linarith
+  -- the four groups
+  have hG1 : (efH q u + 1) * Real.log (u + efH q u) ≤ (u / M ^ 3 + 1) * (M - 1) := by
+    have h0 : (0 : ℝ) ≤ efH q u + 1 := by linarith
+    calc (efH q u + 1) * Real.log (u + efH q u) ≤ (efH q u + 1) * (M - 1) :=
+          mul_le_mul_of_nonneg_left (by linarith) h0
+      _ = (u / M ^ 3 + 1) * (M - 1) := by rw [hH]
+  have hG2 : (efShiftBound q (efT0 q u) σa σb u
+      + efShiftBound q (efT0 q u) σa σb (u + efH q u)) / efH q u
+      ≤ (2 * efShiftB q (efT0 q u) σa σb * u ^ 2 / M ^ 12
+          + efShiftB q (efT0 q u) σa σb * (u ^ (σb - 1) * u ^ 2) + M * u ^ 2 / M ^ 6
+          + (8 * efShiftB q (efT0 q u) σa σb * u ^ 2 / M ^ 12
+            + 4 * (efShiftB q (efT0 q u) σa σb * (u ^ (σb - 1) * u ^ 2))
+            + 4 * (M * u ^ 2 / M ^ 6))) / (u / M ^ 3) := by
+    rw [← hH]
+    exact div_le_div_of_nonneg_right (by linarith) (le_of_lt hHpos)
+  have hG3 : (m : ℝ) * (efH q u * u ^ (β₀ - 1))
+      + efH q u * u ^ (bceil - 1)
+        * (137 * (2 * efT0 q u + 5) * Real.log ((q : ℝ) * (efT0 q u + 4)))
+      ≤ (m : ℝ) * (u / M ^ 3) + 300 * M ^ 3 * N * (u ^ (bceil - 1) * u) := by
+    have p1 : (m : ℝ) * (efH q u * u ^ (β₀ - 1)) ≤ (m : ℝ) * (u / M ^ 3) := by
+      have hin : efH q u * u ^ (β₀ - 1) ≤ efH q u * 1 :=
+        mul_le_mul_of_nonneg_left hEle (le_of_lt hHpos)
+      have hin2 : efH q u * u ^ (β₀ - 1) ≤ u / M ^ 3 := by rw [← hH]; linarith
+      exact mul_le_mul_of_nonneg_left hin2 (Nat.cast_nonneg m)
+    have p2 : 137 * (2 * efT0 q u + 5) * Real.log ((q : ℝ) * (efT0 q u + 4))
+        ≤ 300 * M ^ 6 * N := by
+      have h1 : 137 * (2 * efT0 q u + 5) ≤ 276 * M ^ 6 := by rw [hT]; nlinarith
+      have h2 : 137 * (2 * efT0 q u + 5) * Real.log ((q : ℝ) * (efT0 q u + 4))
+          ≤ 276 * M ^ 6 * N :=
+        mul_le_mul h1 hlogQ4 hlogQ40 (by positivity)
+      nlinarith
+    have p3 : efH q u * u ^ (bceil - 1)
+        * (137 * (2 * efT0 q u + 5) * Real.log ((q : ℝ) * (efT0 q u + 4)))
+        ≤ 300 * M ^ 3 * N * (u ^ (bceil - 1) * u) := by
+      have hfac : (0 : ℝ) ≤ efH q u * u ^ (bceil - 1) := by positivity
+      calc efH q u * u ^ (bceil - 1)
+            * (137 * (2 * efT0 q u + 5) * Real.log ((q : ℝ) * (efT0 q u + 4)))
+          ≤ efH q u * u ^ (bceil - 1) * (300 * M ^ 6 * N) :=
+            mul_le_mul_of_nonneg_left p2 hfac
+        _ = u / M ^ 3 * u ^ (bceil - 1) * (300 * M ^ 6 * N) := by rw [hH]
+        _ = 300 * M ^ 3 * N * (u ^ (bceil - 1) * u) := by field_simp
+    linarith
+  have hG4 : u ^ bceil * (137 * Real.log ((q : ℝ) * (efT0 q u + 4))
+      * (8 + 4 * Real.log (efT0 q u + 2)))
+      ≤ 500 * N ^ 2 * (u ^ (bceil - 1) * u) := by
+    have p1 : 137 * Real.log ((q : ℝ) * (efT0 q u + 4)) ≤ 137 * N := by linarith
+    have p2 : 8 + 4 * Real.log (efT0 q u + 2) ≤ 36 * Real.log M := by linarith
+    have p3 : 137 * Real.log ((q : ℝ) * (efT0 q u + 4)) * (8 + 4 * Real.log (efT0 q u + 2))
+        ≤ 137 * N * (36 * Real.log M) :=
+      mul_le_mul p1 p2 (by linarith) (by nlinarith)
+    have p4 : 137 * N * (36 * Real.log M) ≤ 500 * N ^ 2 := by
+      have hkey : 11 * Real.log M ≤ N := by rw [hN]; linarith
+      nlinarith [mul_nonneg (le_of_lt hN0) (sub_nonneg.mpr hkey)]
+    have hb0 : (0 : ℝ) < u ^ bceil := Real.rpow_pos_of_pos hu0 _
+    rw [hbc] at hb0 ⊢
+    have := mul_le_mul_of_nonneg_left (le_trans p3 p4) (le_of_lt hb0)
+    nlinarith [this]
+  rw [efEnvelope, div_le_iff₀ hu0]
+  refine le_trans (by linarith) (ledger_algebra_sharp (S := efShiftB q (efT0 q u) σa σb) (M := M)
+    (N := N) (u := u) (P := u ^ (σb - 1)) (R := u ^ (bceil - 1)) (mm := (m : ℝ))
+    hM3 hu hS0 hSle hN11 hNM (le_of_lt hP0) (le_of_lt hR0) (Nat.cast_nonneg m))
+
+/-! ## 14. THE WINDOW EDGE PUSHED IN — the ledger constant becomes a NUMBER (W2c sharpening)
+
+§13's ledger leads with the QUOTIENT `2·10^6·N²/M²`, not a constant.  The design's window edge
+`q^{250} ≤ X` — which W2's own ledger table rides on, and which §12's Range-B route never needed —
+says exactly `log q ≤ M/250`.  With `log M ≤ 8·M^{1/8}` (three applications of `log x ≤ 2√x`) that
+forces `N ≤ M/90` and hence `2·10^6·N²/M² ≤ 250` for every `u` in the window at `L = log q ≥ 250`.
+
+The true value of the quotient at the window's own lower corner (`L = 250`, `log u = 62500`) is
+`≈ 70`; `250` is the price of the division-free `M^{1/8}` route.  Either way the ledger's leading
+constant is now a two- or three-digit number where §10's was `4·10^8`. -/
+
+/-- `log M ≤ 8·M^{1/8}` — `log x ≤ 2√x` applied three times.  This is what stops the `11·log M`
+row from swamping `log q ≤ M/250` at the window edge (`log M ≤ 2√M` is NOT enough: it leaves
+`22/√M`, which at `M = 62500` is `0.088` against the window's own `0.004`). -/
+private lemma log_le_eight_sqrt3 {M : ℝ} (hM : 0 < M) :
+    Real.log M ≤ 8 * Real.sqrt (Real.sqrt (Real.sqrt M)) := by
+  have hr0 : (0 : ℝ) < Real.sqrt M := Real.sqrt_pos.mpr hM
+  have ht0 : (0 : ℝ) < Real.sqrt (Real.sqrt M) := Real.sqrt_pos.mpr hr0
+  have h1 : Real.log M = 2 * Real.log (Real.sqrt M) := by
+    conv_lhs => rw [← Real.sq_sqrt (le_of_lt hM)]
+    rw [Real.log_pow]; norm_num
+  have h2 : Real.log (Real.sqrt M) = 2 * Real.log (Real.sqrt (Real.sqrt M)) := by
+    conv_lhs => rw [← Real.sq_sqrt (le_of_lt hr0)]
+    rw [Real.log_pow]; norm_num
+  have h3 : Real.log (Real.sqrt (Real.sqrt M)) ≤ 2 * Real.sqrt (Real.sqrt (Real.sqrt M)) :=
+    log_le_two_sqrt ht0
+  linarith
+
+/-- **THE WINDOW EDGE, PUSHED INTO THE LEDGER.**  At `L = log q ≥ 250` and inside the design's
+window `q^{250} ≤ u`, the sharp ledger's leading term is the NUMBER `250` — against §10's
+`4·10^8`.  (`N/M ≤ 1/90` is what is actually proved; the true ratio at the corner is `≈ 1/169`.) -/
+lemma ledger_const_le_of_window {q : ℕ} {u M N : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u)
+    (hM : M = Real.log ((q : ℝ) * u) + 2) (hN : N = Real.log q + 11 * Real.log M)
+    (hL : 250 ≤ Real.log q) (hwin : 250 * Real.log q ≤ Real.log u) :
+    2 * 10 ^ 6 * N ^ 2 / M ^ 2 ≤ 250 := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hlq0 : (0 : ℝ) ≤ Real.log q := by linarith
+  have hlogu : (62500 : ℝ) ≤ Real.log u := by linarith
+  have hMeq : M = Real.log q + Real.log u + 2 := by
+    rw [hM, Real.log_mul (ne_of_gt (by linarith : (0:ℝ) < (q:ℝ))) (ne_of_gt hu0)]
+  have hMlow : (62500 : ℝ) ≤ M := by rw [hMeq]; linarith
+  have hM0 : (0 : ℝ) < M := by linarith
+  have hqM : Real.log q ≤ M / 250 := by rw [hMeq]; linarith
+  -- three square roots: `M = s^8`, `log M ≤ 8s`, `s ≥ 3.97`
+  obtain ⟨s, hs0, hMs, hlogM, hslow⟩ :
+      ∃ s : ℝ, 0 < s ∧ s ^ 8 = M ∧ Real.log M ≤ 8 * s ∧ 3.97 ≤ s := by
+    refine ⟨Real.sqrt (Real.sqrt (Real.sqrt M)),
+      Real.sqrt_pos.mpr (Real.sqrt_pos.mpr (Real.sqrt_pos.mpr hM0)), ?_,
+      log_le_eight_sqrt3 hM0, ?_⟩
+    · have hr0 : (0 : ℝ) ≤ Real.sqrt M := Real.sqrt_nonneg _
+      have ht0 : (0 : ℝ) ≤ Real.sqrt (Real.sqrt M) := Real.sqrt_nonneg _
+      calc Real.sqrt (Real.sqrt (Real.sqrt M)) ^ 8
+          = ((Real.sqrt (Real.sqrt (Real.sqrt M)) ^ 2) ^ 2) ^ 2 := by ring
+        _ = M := by
+            rw [Real.sq_sqrt ht0, Real.sq_sqrt hr0, Real.sq_sqrt (le_of_lt hM0)]
+    · have b1 : (250 : ℝ) ≤ Real.sqrt M := by
+        have h := Real.sqrt_le_sqrt hMlow
+        rwa [show (62500:ℝ) = 250 ^ 2 by norm_num,
+          Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 250)] at h
+      have b2 : (15.8 : ℝ) ≤ Real.sqrt (Real.sqrt M) := by
+        have h := Real.sqrt_le_sqrt (show (249.64:ℝ) ≤ Real.sqrt M by linarith)
+        rwa [show (249.64:ℝ) = 15.8 ^ 2 by norm_num,
+          Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 15.8)] at h
+      have h := Real.sqrt_le_sqrt (show (15.7609:ℝ) ≤ Real.sqrt (Real.sqrt M) by linarith)
+      rwa [show (15.7609:ℝ) = 3.97 ^ 2 by norm_num,
+        Real.sqrt_sq (by norm_num : (0:ℝ) ≤ 3.97)] at h
+  have hs7 : (15000 : ℝ) ≤ s ^ 7 := by
+    have h := pow_le_pow_left₀ (by norm_num : (0:ℝ) ≤ 3.97) hslow 7
+    norm_num at h
+    linarith
+  have hs8 : (15000 : ℝ) * s ≤ s ^ 8 := by
+    have h := mul_le_mul_of_nonneg_left hs7 (le_of_lt hs0)
+    have heq : s * s ^ 7 = s ^ 8 := by ring
+    linarith [h, heq.le, heq.ge]
+  -- `N ≤ M/250 + 88·s ≤ M/90`
+  have hNle : N ≤ M / 90 := by
+    have h3 : (88 : ℝ) * s ≤ (1 / 90 - 1 / 250) * M := by rw [← hMs]; linarith
+    rw [hN]; linarith
+  have hN0 : (0 : ℝ) ≤ N := by
+    have hlM0 : (0 : ℝ) ≤ Real.log M := Real.log_nonneg (by linarith)
+    rw [hN]; linarith
+  have hNsq : N ^ 2 ≤ (M / 90) ^ 2 := pow_le_pow_left₀ hN0 hNle 2
+  rw [div_le_iff₀ (by positivity : (0:ℝ) < M ^ 2)]
+  nlinarith [hNsq]
+
+set_option maxHeartbeats 1000000 in
+-- Four decay rows against a degree-12 polynomial in `log u`, now with the two-symbol scale.
+/-- **THE ENVELOPE IS EVENTUALLY `(m + 255)/log u` — THE SHARP GRADE.**  Same shape as
+`efEnvelope_zfr_eventually_le`, with its `4·10^8` replaced by `252`: six orders of magnitude, and
+this is precisely the constant the tail's `K` is proportional to.  The one new hypothesis is the
+campaign's own running window assumption `L = log q ≥ 250` (D2: `hN+ ∧ hηq` is empty below
+`q ≈ e^{250}` anyway), which lets the `q^{250} ≤ X` edge be pushed into the ledger. -/
+theorem efEnvelope_zfr_eventually_le_sharp {q : ℕ} {β₀ σa σb c₀ : ℝ} {m : ℕ}
+    (hq : 2 ≤ q) (hL : 250 ≤ Real.log q) (hσa : 9 / 10 ≤ σa) (hσab : σa < σb) (hσb : σb < 1)
+    (hgap : 1 / 20 ≤ σb - σa) (hβ₀1 : β₀ ≤ 1) (hc₀ : 0 < c₀) :
+    ∀ᶠ u : ℝ in atTop, efEnvelope q β₀ (efZfrCeil q c₀ u) m σa σb u
+      ≤ ((m : ℝ) + 255) / Real.log u := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hlq0 : (0 : ℝ) ≤ Real.log q := by linarith
+  have e1 : ∀ᶠ u : ℝ in atTop, Real.log q + 2 ≤ Real.log u :=
+    Real.tendsto_log_atTop.eventually_ge_atTop _
+  have ewin : ∀ᶠ u : ℝ in atTop, 250 * Real.log q ≤ Real.log u :=
+    Real.tendsto_log_atTop.eventually_ge_atTop _
+  have e2 : ∀ᶠ u : ℝ in atTop, Real.log q + 7 ≤ Real.sqrt (Real.log u) :=
+    (Real.tendsto_sqrt_atTop.comp Real.tendsto_log_atTop).eventually_ge_atTop _
+  have e5 : ∀ᶠ u : ℝ in atTop,
+      (2 : ℝ) * ((Real.log u) ^ 2 * Real.exp (-(1 * Real.log u))) ≤ 1 :=
+    Real.tendsto_log_atTop.eventually (eventually_pow_exp_le_one 2 2 one_pos)
+  have e6 : ∀ᶠ u : ℝ in atTop,
+      (3 * 10 ^ 11 : ℝ) * ((Real.log u) ^ 12 * Real.exp (-((1 - σb) * Real.log u))) ≤ 1 :=
+    Real.tendsto_log_atTop.eventually
+      (eventually_pow_exp_le_one (3 * 10 ^ 11) 12 (by linarith))
+  have e7 : ∀ᶠ u : ℝ in atTop,
+      (2 * 10 ^ 5 : ℝ) * ((Real.log u) ^ 5
+        * Real.exp (-((c₀ / 15) * Real.sqrt (Real.log u)))) ≤ 1 :=
+    Real.tendsto_log_atTop.eventually
+      (eventually_pow_exp_sqrt_le_one (2 * 10 ^ 5) 5 (by linarith))
+  filter_upwards [e1, ewin, e2, e5, e6, e7, eventually_ge_atTop (3:ℝ)]
+    with u h1 hwin h2 h5 h6 h7 hu
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hs1 : (1 : ℝ) ≤ Real.log u := by linarith
+  have hs0 : (0 : ℝ) < Real.log u := by linarith
+  set M : ℝ := Real.log ((q : ℝ) * u) + 2 with hMdef
+  set N : ℝ := Real.log q + 11 * Real.log M with hNdef
+  clear_value N
+  clear_value M
+  have hMeq : M = Real.log q + Real.log u + 2 := by
+    rw [hMdef, Real.log_mul (ne_of_gt (by linarith : (0:ℝ) < (q:ℝ))) (ne_of_gt hu0)]
+  have hM2s : M ≤ 2 * Real.log u := by rw [hMeq]; linarith
+  have hMs : Real.log u ≤ M := by rw [hMeq]; linarith
+  have hM3 : (3 : ℝ) ≤ M := by rw [hMdef]; exact logqu_ge hq hu
+  have hM0 : (0 : ℝ) < M := by linarith
+  obtain ⟨hN11, hNM⟩ := scaleN_bounds hq hu hMdef hNdef
+  have hled := efEnvelope_le_ledger_sharp (β₀ := β₀) (bceil := efZfrCeil q c₀ u) (m := m)
+    (M := M) (N := N) hq hu hMdef hNdef hσa hσab hσb hgap hβ₀1
+  have hCled : 2 * 10 ^ 6 * N ^ 2 / M ^ 2 ≤ 250 :=
+    ledger_const_le_of_window hq hu hMdef hNdef hL hwin
+  -- (i) the `1/M` grade, now a two-digit constant
+  have hi : ((m : ℝ) + 2 + 2 * 10 ^ 6 * N ^ 2 / M ^ 2) / M ≤ ((m : ℝ) + 252) / Real.log u := by
+    have hstep1 : ((m : ℝ) + 2 + 2 * 10 ^ 6 * N ^ 2 / M ^ 2) / M ≤ ((m : ℝ) + 252) / M :=
+      div_le_div_of_nonneg_right (by linarith) (le_of_lt hM0)
+    have hstep2 : ((m : ℝ) + 252) / M ≤ ((m : ℝ) + 252) / Real.log u :=
+      div_le_div_of_nonneg_left (by positivity) hs0 hMs
+    linarith
+  -- (ii) the de-smoothing constant
+  have hexpneg : Real.exp (-(1 * Real.log u)) = u⁻¹ := by
+    rw [one_mul, Real.exp_neg, Real.exp_log hu0]
+  have hii : M / u ≤ 1 / Real.log u := by
+    rw [hexpneg] at h5
+    have hsq : (2 : ℝ) * (Real.log u) ^ 2 ≤ u := by
+      have hmul := mul_le_mul_of_nonneg_right h5 (le_of_lt hu0)
+      rw [one_mul] at hmul
+      have heq : 2 * (Real.log u ^ 2 * u⁻¹) * u = 2 * Real.log u ^ 2 := by field_simp
+      linarith [heq.le, heq.ge]
+    rw [div_le_div_iff₀ hu0 hs0]
+    nlinarith
+  -- (iii) the left edge
+  have hiii : 10 ^ 6 * M ^ 9 * N ^ 2 * u ^ (σb - 1) ≤ 1 / Real.log u := by
+    have hrp : u ^ (σb - 1) = Real.exp (-((1 - σb) * Real.log u)) := by
+      rw [Real.rpow_def_of_pos hu0]
+      congr 1
+      ring
+    have hN2 : N ^ 2 ≤ 144 * M ^ 2 := by
+      nlinarith [mul_nonneg (sub_nonneg.mpr hNM) (show (0:ℝ) ≤ 12 * M + N by linarith)]
+    have hMp : M ^ 11 ≤ 2048 * (Real.log u) ^ 11 := by
+      have h := pow_le_pow_left₀ (by linarith : (0:ℝ) ≤ M) hM2s 11
+      calc M ^ 11 ≤ (2 * Real.log u) ^ 11 := h
+        _ = 2048 * (Real.log u) ^ 11 := by ring
+    have hcoef : 10 ^ 6 * M ^ 9 * N ^ 2 ≤ 3 * 10 ^ 11 * (Real.log u) ^ 11 := by
+      have hM9 : (0 : ℝ) ≤ M ^ 9 := by positivity
+      have hstep : M ^ 9 * N ^ 2 ≤ 144 * M ^ 11 := by
+        nlinarith [mul_le_mul_of_nonneg_left hN2 hM9]
+      nlinarith [hstep, hMp]
+    have hE0 : (0 : ℝ) < Real.exp (-((1 - σb) * Real.log u)) := Real.exp_pos _
+    rw [le_div_iff₀ hs0, hrp]
+    have hstep : 10 ^ 6 * M ^ 9 * N ^ 2 * Real.exp (-((1 - σb) * Real.log u)) * Real.log u
+        ≤ 3 * 10 ^ 11 * ((Real.log u) ^ 12 * Real.exp (-((1 - σb) * Real.log u))) := by
+      nlinarith [mul_nonneg (le_of_lt hE0) (le_of_lt hs0), hcoef]
+    linarith
+  -- (iv) the erased spend, at the Range-B ceiling
+  have hiv : 10 ^ 3 * M ^ 3 * N * u ^ (efZfrCeil q c₀ u - 1) ≤ 1 / Real.log u := by
+    have hsq0 : (0 : ℝ) < Real.sqrt (Real.log u) := Real.sqrt_pos.mpr hs0
+    have hsqsq : Real.sqrt (Real.log u) * Real.sqrt (Real.log u) = Real.log u :=
+      Real.mul_self_sqrt (le_of_lt hs0)
+    have hlogM : Real.log M ≤ 1 + 2 * Real.sqrt (Real.log u) := by
+      have hmono : Real.log M ≤ Real.log (2 * Real.log u) := Real.log_le_log hM0 hM2s
+      have hsplit : Real.log (2 * Real.log u) = Real.log 2 + Real.log (Real.log u) :=
+        Real.log_mul (by norm_num) (ne_of_gt hs0)
+      have hlog2 : Real.log 2 ≤ 1 := by
+        linarith [Real.log_le_sub_one_of_pos (show (0:ℝ) < 2 by norm_num)]
+      linarith [log_le_two_sqrt hs0]
+    have hA : (0 : ℝ) ≤ c₀ / 15 * Real.sqrt (Real.log u) := by positivity
+    have hAle : c₀ / 15 * Real.sqrt (Real.log u) * (Real.log q + 7 * Real.log M)
+        ≤ c₀ * Real.log u := by
+      have hbnd : Real.log q + 7 * Real.log M ≤ 15 * Real.sqrt (Real.log u) := by linarith
+      have hmul := mul_le_mul_of_nonneg_left hbnd hA
+      have heq : c₀ / 15 * Real.sqrt (Real.log u) * (15 * Real.sqrt (Real.log u))
+          = c₀ * (Real.sqrt (Real.log u) * Real.sqrt (Real.log u)) := by ring
+      rw [heq, hsqsq] at hmul
+      exact hmul
+    have hdecay : u ^ (efZfrCeil q c₀ u - 1)
+        ≤ Real.exp (-(c₀ / 15 * Real.sqrt (Real.log u))) :=
+      efZfrCeil_rpow_le hq hu hMdef hA hAle
+    have hE0 : (0 : ℝ) < Real.exp (-(c₀ / 15 * Real.sqrt (Real.log u))) := Real.exp_pos _
+    have hMp : M ^ 4 ≤ 16 * (Real.log u) ^ 4 := by
+      have h := pow_le_pow_left₀ (by linarith : (0:ℝ) ≤ M) hM2s 4
+      calc M ^ 4 ≤ (2 * Real.log u) ^ 4 := h
+        _ = 16 * (Real.log u) ^ 4 := by ring
+    have hcoef : 10 ^ 3 * M ^ 3 * N ≤ 2 * 10 ^ 5 * (Real.log u) ^ 4 := by
+      have hM3p : (0 : ℝ) ≤ M ^ 3 := by positivity
+      have hstep : M ^ 3 * N ≤ 12 * M ^ 4 := by
+        nlinarith [mul_le_mul_of_nonneg_left hNM hM3p]
+      nlinarith [hstep, hMp]
+    rw [le_div_iff₀ hs0]
+    have hfac : (0 : ℝ) ≤ 10 ^ 3 * M ^ 3 * N := by positivity
+    have hstep : 10 ^ 3 * M ^ 3 * N * u ^ (efZfrCeil q c₀ u - 1) * Real.log u
+        ≤ 2 * 10 ^ 5 * ((Real.log u) ^ 5 * Real.exp (-(c₀ / 15 * Real.sqrt (Real.log u)))) := by
+      calc 10 ^ 3 * M ^ 3 * N * u ^ (efZfrCeil q c₀ u - 1) * Real.log u
+          ≤ 10 ^ 3 * M ^ 3 * N * Real.exp (-(c₀ / 15 * Real.sqrt (Real.log u)))
+              * Real.log u :=
+            mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left hdecay hfac) (le_of_lt hs0)
+        _ ≤ 2 * 10 ^ 5 * (Real.log u) ^ 4
+              * Real.exp (-(c₀ / 15 * Real.sqrt (Real.log u))) * Real.log u :=
+            mul_le_mul_of_nonneg_right
+              (mul_le_mul_of_nonneg_right hcoef (le_of_lt hE0)) (le_of_lt hs0)
+        _ = 2 * 10 ^ 5 * ((Real.log u) ^ 5
+              * Real.exp (-(c₀ / 15 * Real.sqrt (Real.log u)))) := by ring
+    linarith
+  have hcollect : ((m : ℝ) + 255) / Real.log u
+      = ((m : ℝ) + 252) / Real.log u + 1 / Real.log u + 1 / Real.log u
+        + 1 / Real.log u := by ring
+  rw [hcollect]
+  linarith
+
+/-! ## 15. `K = 100` IN THE KERNEL (the point of the sharpening)
+
+The `N4B-W2c` flag records `K = 2·C·(log X)^{−1/2} + O((log X)^{−3/2})` with `C = m + 4·10^8 + 3`,
+so that `K ≤ 100` needed `log X ≥ 6.4·10^13`, i.e. `L ≥ 2.6·10^11` — nine orders of magnitude past
+the paper's `L ≥ 250`.  With §14's `C = m + 255` the same reading gives `K = 2(m+255)/√(log X)`,
+which at the window's own corner `L = 250` (`log X ≥ 62500`, `√(log X) ≥ 250`) is **`K ≈ 2`**.  The
+statement below is the kernel form: `K = 100`, with room to spare. -/
+
+/-- `∫_X^∞ dv/(v (log v)^2) = 1/log X` — the antiderivative is `−1/log t`, so the `dt/(t log t)`
+ledger against `G ≤ C/log t` integrates EXACTLY to `C/log X`. -/
+lemma integral_inv_mul_log_sq {X : ℝ} (hX : 1 < X) :
+    ∫ v in Set.Ioi X, 1 / (v * Real.log v ^ 2) = 1 / Real.log X := by
+  have hderiv : ∀ x ∈ Set.Ioi X, HasDerivAt (fun t : ℝ => -(Real.log t)⁻¹)
+      (1 / (x * Real.log x ^ 2)) x := by
+    intro x hx
+    have hx1 : (1 : ℝ) < x := lt_trans hX hx
+    have hx0 : x ≠ 0 := ne_of_gt (by linarith)
+    have hlogpos : (0 : ℝ) < Real.log x := Real.log_pos hx1
+    have h := ((Real.hasDerivAt_log hx0).inv (ne_of_gt hlogpos)).neg
+    have heq : -(-x⁻¹ / Real.log x ^ 2) = 1 / (x * Real.log x ^ 2) := by
+      rw [neg_div, neg_neg, inv_eq_one_div, div_div]
+    rw [heq] at h
+    exact h
+  have hcont : ContinuousWithinAt (fun t : ℝ => -(Real.log t)⁻¹) (Set.Ici X) X := by
+    refine ContinuousAt.continuousWithinAt (ContinuousAt.neg (ContinuousAt.inv₀ ?_ ?_))
+    · exact Real.continuousAt_log (by linarith)
+    · exact ne_of_gt (Real.log_pos hX)
+  have hlim : Tendsto (fun t : ℝ => -(Real.log t)⁻¹) atTop (𝓝 0) := by
+    have h1 : Tendsto (fun t : ℝ => (Real.log t)⁻¹) atTop (𝓝 0) :=
+      tendsto_inv_atTop_zero.comp Real.tendsto_log_atTop
+    simpa using h1.neg
+  have h := MeasureTheory.integral_Ioi_of_hasDerivAt_of_tendsto hcont hderiv
+    (integrableOn_inv_mul_log_sq hX) hlim
+  rw [h]
+  simp [one_div]
+
+/-- **THE `(4.12)` TAIL, PRICED.**  From a pointwise `G ≤ C/log t` on `[X,∞)`, the composite
+transfer's own right-hand side is `≤ C/(log X)² + 2C/log X`. -/
+lemma tail_le_of_pointwise {X C : ℝ} (hX : 3 ≤ X) {G : ℝ → ℝ}
+    (hGc : ContinuousOn G (Set.Ici X)) (hG0 : ∀ t ∈ Set.Ici X, 0 ≤ G t)
+    (hle : ∀ t ∈ Set.Ici X, G t ≤ C / Real.log t) :
+    G X / Real.log X + 2 * ∫ v in Set.Ioi X, G v / (v * Real.log v)
+      ≤ C / Real.log X ^ 2 + 2 * (C / Real.log X) := by
+  have hX1 : (1 : ℝ) < X := by linarith
+  have hlogX : (0 : ℝ) < Real.log X := Real.log_pos hX1
+  have hev : ∀ᶠ t : ℝ in atTop, G t ≤ C / Real.log t := by
+    filter_upwards [eventually_ge_atTop X] with t ht
+    exact hle t ht
+  have hGint : IntegrableOn (fun v : ℝ => G v / (v * Real.log v)) (Set.Ioi X) :=
+    integrableOn_div_of_eventually_le hX hGc hG0 hev
+  have hCint : IntegrableOn (fun v : ℝ => C * (1 / (v * Real.log v ^ 2))) (Set.Ioi X) :=
+    (integrableOn_inv_mul_log_sq hX1).const_mul C
+  have hpt : ∀ v ∈ Set.Ioi X, G v / (v * Real.log v) ≤ C * (1 / (v * Real.log v ^ 2)) := by
+    intro v hv
+    have hvX : X < v := hv
+    have hv0 : (0 : ℝ) < v := by linarith
+    have hlv : (0 : ℝ) < Real.log v := Real.log_pos (by linarith)
+    have hb := hle v (le_of_lt hvX)
+    rw [div_le_iff₀ (by positivity)]
+    have heq : C * (1 / (v * Real.log v ^ 2)) * (v * Real.log v) = C / Real.log v := by
+      field_simp
+    rw [heq]
+    exact hb
+  have hint : (∫ v in Set.Ioi X, G v / (v * Real.log v)) ≤ C / Real.log X := by
+    calc (∫ v in Set.Ioi X, G v / (v * Real.log v))
+        ≤ ∫ v in Set.Ioi X, C * (1 / (v * Real.log v ^ 2)) :=
+          setIntegral_mono_on hGint hCint measurableSet_Ioi hpt
+      _ = C * (1 / Real.log X) := by
+          rw [MeasureTheory.integral_const_mul, integral_inv_mul_log_sq hX1]
+      _ = C / Real.log X := by ring
+  have hGX : G X / Real.log X ≤ C / Real.log X ^ 2 := by
+    have hb := hle X (le_refl X)
+    have hstep : G X / Real.log X ≤ C / Real.log X / Real.log X :=
+      div_le_div_of_nonneg_right hb (le_of_lt hlogX)
+    have heq : C / Real.log X / Real.log X = C / Real.log X ^ 2 := by
+      rw [div_div, sq]
+    linarith [hstep, heq.le, heq.ge]
+  linarith
+
+/-- **`K = 100`, KERNEL-CHECKED.**  At `L = log q ≥ 250` the composite `(4.12)` tail at the
+Range-B ceiling obeys HB's normalisation `K·(log X)^{−1/2}` with **`K = 100`** — the paper's own
+constant, which the `N4B-W2c` flag had to record as paper-only because §10's division-free ledger
+priced the same object at `K = 2(m + 4·10^8 + 3)(log X)^{−1/2}`.  With §13/§14's two-symbol ledger
+the constant is `2(m + 255)`, and `K = 100` holds with a factor ≈ 50 to spare.
+
+The threshold `X₀` is existential for one honest reason: the two decaying rows (`u^{σb−1}` and the
+Range-B `u^{bceil−1}`) are killed at rates `1 − σb` and `c₀`, and NEITHER is quantified by this
+theorem's hypotheses (`σb < 1` and `0 < c₀` are all that is assumed).  The `1/M`-grade row — the
+only one whose size `K` actually tracks — is explicit: it is `≤ 252/log u` for every `u` in the
+design window, from `L ≥ 250` on. -/
+theorem logChiSum_tendsto_zfr_hundred {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hq : 2 ≤ q) (hL : 250 ≤ Real.log q) {β₀ σa σb c₀ : ℝ}
+    (hσa : 9 / 10 ≤ σa) (hσab : σa < σb) (hσb : σb < 1) (hgap : 1 / 20 ≤ σb - σa)
+    (hβ₀0 : 0 < β₀) (hβ₀1 : β₀ < 1) (hσbβ₀ : σb ≤ β₀) (hβ₀zero : LFunction χ (β₀ : ℂ) = 0)
+    (hc₀ : 0 < c₀)
+    (hZFR : ∀ ρ : ℂ, LFunction χ ρ = 0 → 1 / 2 ≤ ρ.re → (χ ^ 2 ≠ 1 ∨ ρ.im ≠ 0) →
+      ρ.re ≤ 1 - c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)))
+    (hreal : ∀ t : ℝ, ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ.im = 0 → ρ ≠ (β₀ : ℂ) → 9 / 10 ≤ ρ.re →
+      ρ.re ≤ 1 → |ρ.im| ≤ efT0 q t + 1 → ρ.re ≤ efZfrCeil q c₀ t) :
+    ∃ X₀ : ℝ, 3 ≤ X₀ ∧ ∀ X : ℝ, X₀ ≤ X →
+      ∃ S : ℂ, Tendsto (fun Y : ℝ => logChiSum χ X Y) atTop (𝓝 S) ∧
+        ‖S + (zeroMult χ (β₀ : ℂ) : ℂ)
+            * ((∫ v in Set.Ioi X, v ^ (β₀ - 2) / Real.log v : ℝ) : ℂ)‖
+          ≤ 100 / Real.sqrt (Real.log X) := by
+  set C : ℝ := ((zeroMult χ (β₀ : ℂ) : ℕ) : ℝ) + 255 with hCdef
+  have hC255 : (255 : ℝ) ≤ C := by
+    rw [hCdef]; have : (0:ℝ) ≤ ((zeroMult χ (β₀ : ℂ) : ℕ) : ℝ) := Nat.cast_nonneg _; linarith
+  obtain ⟨X₁, hX₁⟩ := eventually_atTop.mp
+    (efEnvelope_zfr_eventually_le_sharp (β₀ := β₀) (σa := σa) (σb := σb) (c₀ := c₀)
+      (m := zeroMult χ (β₀ : ℂ)) hq hL hσa hσab hσb hgap (le_of_lt hβ₀1) hc₀)
+  refine ⟨max 3 (max X₁ (Real.exp (C ^ 2))), le_max_left _ _, ?_⟩
+  intro X hX
+  have hX3 : (3 : ℝ) ≤ X := le_trans (le_max_left _ _) hX
+  have hXX₁ : X₁ ≤ X := le_trans (le_trans (le_max_left _ _) (le_max_right _ _)) hX
+  have hXexp : Real.exp (C ^ 2) ≤ X :=
+    le_trans (le_trans (le_max_right _ _) (le_max_right _ _)) hX
+  have hX0 : (0 : ℝ) < X := by linarith
+  have hlogX : C ^ 2 ≤ Real.log X := (Real.le_log_iff_exp_le hX0).mpr hXexp
+  have hlogXpos : (0 : ℝ) < Real.log X := by nlinarith
+  have hsub : Set.Ici X ⊆ Set.Ici (3 : ℝ) := fun t ht => le_trans hX3 ht
+  have hGc : ContinuousOn
+      (fun t : ℝ => efEnvelope q β₀ (efZfrCeil q c₀ t) (zeroMult χ (β₀ : ℂ)) σa σb t)
+      (Set.Ici X) :=
+    (continuousOn_efEnvelope_ceilFun hq (β₀ := β₀) (B := fun u => efZfrCeil q c₀ u)
+      (zeroMult χ (β₀ : ℂ)) (continuousOn_efZfrCeil hq c₀) (by linarith)).mono hsub
+  have hG0 : ∀ t ∈ Set.Ici X,
+      0 ≤ efEnvelope q β₀ (efZfrCeil q c₀ t) (zeroMult χ (β₀ : ℂ)) σa σb t := fun t ht =>
+    efEnvelope_nonneg hq (le_trans hX3 ht) (by linarith) (by linarith) hσab
+  have hle : ∀ t ∈ Set.Ici X,
+      efEnvelope q β₀ (efZfrCeil q c₀ t) (zeroMult χ (β₀ : ℂ)) σa σb t ≤ C / Real.log t :=
+    fun t ht => hX₁ t (le_trans hXX₁ ht)
+  obtain ⟨S, hS, hbound⟩ := logChiSum_tendsto_zfr χ hχ hq hX3 hσa hσab hσb hgap hβ₀0 hβ₀1 hσbβ₀
+    hβ₀zero hc₀ hZFR hreal
+  refine ⟨S, hS, le_trans hbound (le_trans (tail_le_of_pointwise hX3 hGc hG0 hle) ?_)⟩
+  -- `C/(log X)^2 + 2C/log X ≤ 100/√(log X)` once `√(log X) ≥ C`
+  have hsq : Real.sqrt (Real.log X) ^ 2 = Real.log X :=
+    Real.sq_sqrt (le_of_lt hlogXpos)
+  have hsC : C ≤ Real.sqrt (Real.log X) := by
+    have h1 : Real.sqrt (C ^ 2) ≤ Real.sqrt (Real.log X) := Real.sqrt_le_sqrt hlogX
+    rwa [Real.sqrt_sq (by linarith : (0:ℝ) ≤ C)] at h1
+  have hs0 : (0 : ℝ) < Real.sqrt (Real.log X) := by linarith
+  have key : ∀ s : ℝ, 0 < s → C ≤ s → s ^ 2 = Real.log X →
+      C / Real.log X ^ 2 + 2 * (C / Real.log X) ≤ 100 / s := by
+    intro s hspos hsle hssq
+    rw [← hssq]
+    have hs255 : (255 : ℝ) ≤ s := le_trans hC255 hsle
+    have hmul : C * s ≤ s * s := mul_le_mul_of_nonneg_right hsle (le_of_lt hspos)
+    have hss : (1 : ℝ) ≤ s * s := by nlinarith
+    have hs4 : s * s ≤ (s ^ 2) ^ 2 := by
+      nlinarith [mul_nonneg (by linarith : (0:ℝ) ≤ s * s) (by linarith : (0:ℝ) ≤ s * s - 1)]
+    have e1 : C / (s ^ 2) ^ 2 ≤ 1 / s := by
+      rw [div_le_div_iff₀ (by positivity) hspos]
+      linarith [hmul, hs4]
+    have e2 : 2 * (C / s ^ 2) ≤ 99 / s := by
+      rw [show 2 * (C / s ^ 2) = 2 * C / s ^ 2 by ring, div_le_div_iff₀ (by positivity) hspos]
+      nlinarith [hmul, sq_nonneg s]
+    have e3 : 1 / s + 99 / s = 100 / s := by ring
+    linarith
+  exact key (Real.sqrt (Real.log X)) hs0 hsC hsq
+
 end Salt.HB
