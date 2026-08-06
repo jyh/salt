@@ -20035,3 +20035,80 @@ grade; (c4) assemble into `hGint`/`hGlim` and hence into `logChiSum_tendsto_of_e
 **K remains paper-only**: the ledger table gives `K = 100` at `L ≥ 250` (the binding horizontal-
 edge row at `≈ 100/L` against `(log X)^{−1/2} ≤ (250L)^{−1/2}`), and nothing found in W2b
 contradicts it — but it is not in the kernel and must not be quoted as if it were.
+
+## ⟦N4B-W3 — THE F COMPUTATION: the integral LANDED, the segment half-landed, three named rows⟧
+
+(2026-08-05, Opus executor, new file `Salt/HB/Lemma7F.lean`; every declaration
+`[propext, Classical.choice, Quot.sound]`; no `sorry`, no `native_decide`.)
+
+**§§1–3 — THE INTEGRAL (HB p.210), landed whole, first attempt.** This is the block's calculus
+heart and it is now in the kernel:
+
+* `expIntegral_sub_log_gamma_abs_le` — `|∫_{t₀}^∞ e^{−t}dt/t − (−log t₀ − γ₀)| ≤ t₀(1 − 2 log t₀)`
+  for `0 < t₀ ≤ 1`.  The brief's fallback ("derive the two-sided elementary bound from scratch")
+  was **not** needed: the corpus already owns `Salt.Mertens.integral_exp_neg_log :
+  ∫_0^∞ e^{−v} log v dv = −γ₀` (`Salt/Mertens/GammaIntegral.lean:34`, off mathlib's
+  `Real.hasDerivAt_Gamma_one`) — a MERTENS-arc asset re-used by the HB arc for the first time.
+  Route as briefed: the `[e^{−t} log t]` integration by parts, run as an FTC on `[t₀,Y]` plus
+  `Y → ∞`, then the `(0,t₀]` piece bounded by `∫_0^{t₀}|log| = t₀ − t₀ log t₀`.
+  Constants landed: `1` and `2` (i.e. `C = 2` in the brief's `C·t₀(1+|log t₀|)` shape).
+* `integral_rpow_div_log_Ioi_eq_expIntegral` — HB's substitution `v = e^{t/(1−β₀)}` at the
+  improper level, via `intervalIntegral.integral_deriv_smul_comp'` on `[t₀,t₁]` plus
+  `intervalIntegral_tendsto_integral_Ioi` on both sides.
+* `hb_F_tail_integral` — **the upper window edge, consumed here and only here**:
+  `|∫_X^∞ v^{β₀−2}/log v dv − (log(ηL) − log log X − γ₀)| ≤ 500·(1 + 2·log(ηL))/η`.
+  Per R4 the `500` is LITERAL in the statement.  Two honest deltas from the recipe:
+  (i) the error's log-factor is `log(ηL) = −log(1−β₀)`, **not** `log η` — that is the exact
+  quantity `−log t₀ + log log X` produces, and it is the honest currency;
+  (ii) `t₀ ≤ 1` is not free at this window — it *is* `η ≥ 500`, so `hηlarge : 500 ≤ η` rides as a
+  named binder (compatible with, and much weaker than, D2's `hN+`).
+
+**§4 — THE SEGMENT, half landed.**
+
+* `logChiSum_re_eq` — the exact decomposition `∑_{z<n≤X} χΛ/(n log n) = 2·∑_{χ_ℝ=1} − ∑_{(n,q)=1}`
+  for real `χ`, off the detector identity `χ_ℝ(n) = 2·1_{χ_ℝ=1} − 1_{(n,q)=1}`
+  (`chiRe_eq_two_mul_ind_sub`) and `chi_eq_ofReal_chiRe`.
+* `chiOne_prime_logWeighted_le` — the weight exchange `∑_{z<p≤X,χ_ℝ(p)=1} Λ/(p log p) ≤
+  PretenseSum χ ⌊X⌋ / log z` (HB's `z₀ = L/log z` factor).
+* `rankin_floor_le` — `⌊X⌋^{1/(2L)} ≤ e^{250}`, the **second** consumption of `X ≤ q^{500}`,
+  exactly where the freeze said it would be.
+* `two_mul_pretenseSum_le_at_window` / `hb_chiOne_kill_at_window` — Lemma 3 fired at
+  `σ = 1+1/(2L)`, `σ′ = 1+√ℓ/(2L)` (the campaign's `Lp := 2L`) with the Rankin factor discharged:
+  `2·∑_{z<p≤X,χ_ℝ(p)=1} Λ/(p log p) ≤ e^{250}((1−β₀)(2L)² + 2 + (802+4Cs)·2L/√ℓ)/log z`.
+  Every constant literal.  **THE χ(p)=1 HALF IS KILLED IN THE KERNEL.**
+
+**⛔ THE RESIDUE — three named rows carried into `hb_logF_at_split_point` (§5).** The assembly is
+the multiplicative-mandate statement
+
+    |log F − (log log z − log(ηL) + γ₀)| ≤ Ecorr + Eseg + Etail + 500(1+2 log(ηL))/η,
+
+`hm1` (D11) collapsing the socket's `m`; but three of its inputs ride as **named binders with
+explicit bounds**, not as proved steps:
+
+1. `hcorr` (**HB's step 1**): `|log F − (∑_{z<n≤X} + ∑_{n>X})| ≤ Ecorr`.  Blocked on a genuine
+   corpus gap, not on difficulty: **the corpus has no definition of the infinite Euler product
+   `F = ∏_{p≥z}(1−χ(p)/p)^{−1}`**, so `log F` cannot be written down as a closed term here.
+   The row also absorbs the `k ≥ 2` prime-power tail `∑_{p^k>z,k≥2} 1/(k p^k) ≪ z^{−1/2}`, whose
+   `p ≥ √z` half is ALREADY landed as `Salt.Mertens.mertensB_tail_le`
+   (`|B − B_N| ≤ 2/(N−1)`, `Salt/Mertens/PrimePower.lean:188`) — the `p < √z` half is a fresh
+   ~60-line stone.  **Follow-up: define `logEulerTail χ z` and discharge `hcorr`; the mertensB
+   machinery is the right tool and it is already in the corpus.**
+2. `hseg`: the coprime half `∑_{z<n≤X,(n,q)=1} Λ/(n log n) = log log X − log log z + O(1/log z)`.
+   The inputs are all landed (`mertens_second_sharp'` at `Mertens/Third.lean:679`, i.e.
+   `M = γ − B`), and the `p ∣ q, p ≥ z` correction is the divisor-count row `≤ z₀/z`
+   (hb1983-notes:451); what is missing is the ~200 lines of Finset/floor bookkeeping between
+   `∑_{p ≤ n} 1/p` and `∑ n ∈ Ioc ⌊z⌋ ⌊X⌋ with (n,q)=1, wLog n · Λ n`.  **Purely mechanical,
+   class B, no design content.**
+3. `htail`: W2's socket `logChiSum_tendsto_of_envelope`, carried verbatim in its `m`-weighted
+   form as briefed (the W2C executor owns its discharge).
+
+**Recipe-vs-bytes deltas recorded.** (a) `chiRe` exists TWICE in the corpus —
+`Salt.SW.chiRe` (DHDetector.lean:78) and `Salt.TwinBar.chiRe` (TwistedSieve.lean:63), identical
+definitions; `PretenseSum` and `chiRe_eq_one_or_neg_one` both use the **TwinBar** one, so W3 uses
+it too and any future W4 statement must match.  (b) `mertensB` at `PrimePower.lean:148` is the
+`1/(k p^k)`-weighted constant, i.e. exactly the prime-power correction of HB's step 1 — the brief
+called it "the prime-power correction" and that is right, but note its *tail* lemma
+(`mertensB_tail_le`) is what step 1 actually needs.  (c) `mertens_second_sharp` (Second.lean:216)
+carries an existential `M`; `mertens_second_sharp'` (Third.lean:679) is the one to quote, since
+only there is `M` identified as `γ − B` — and the `γ` must be the same `Real.eulerMascheroniConstant`
+that §1's integral produces, which it is.

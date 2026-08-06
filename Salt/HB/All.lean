@@ -212,3 +212,7 @@ open Salt.Tactic in
   Salt.HB.hasDerivAt_expNeg_mul_log Salt.HB.expIntegral_ibp Salt.HB.expIntegral_eq_sub
   Salt.HB.abs_integral_expNeg_mul_log_Ioc_le Salt.HB.expIntegral_sub_log_gamma_abs_le
   Salt.HB.integral_rpow_div_log_Ioi_eq_expIntegral Salt.HB.hb_F_tail_integral
+  Salt.HB.chi_eq_ofReal_chiRe Salt.HB.chiRe_eq_two_mul_ind_sub Salt.HB.logChiSum_re_eq
+  Salt.HB.chiOne_prime_logWeighted_le Salt.HB.rankin_floor_le
+  Salt.HB.two_mul_pretenseSum_le_at_window Salt.HB.hb_chiOne_kill_at_window
+  Salt.HB.hb_logF_at_split_point
