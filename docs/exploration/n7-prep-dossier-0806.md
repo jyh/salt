@@ -13,6 +13,9 @@ never blurred:
 - **[IN FLIGHT]** — present in the working tree, **uncommitted** (another seat's live work).
 - **[DESIGN]** — priced/planned in a freeze doc only.
 - **[HB-NOTES]** — transcribed from the paper, not formalized. **All of §5, §6, §7 is this.**
+  ⬆️ **UPGRADED SAME DAY:** §5, §6, §7 and Lemma 5's statement have since been **verified against
+  the paper itself** (ADDENDA A–D). They remain un-formalized, but they are no longer
+  *unverified transcription* — with the single exception of `κ`'s four-product formula (ADDENDUM D).
 
 ---
 
@@ -28,7 +31,16 @@ never blurred:
 3. **Two supply rows are cheaper than priced**, both because the corpus already holds the tool.
    The `Salt/MR/` sawtooth and phase-sum kit was missed by the WEIL-TRIO dossier entirely.
 4. **N7 is very large**: order **9,000–18,000 ln**, and §6 — not Lemma 10 — is the bulk of it.
-   Lemma 10 is the famous part; §6 is the expensive part.
+   Lemma 10 is the famous part; §6 is the expensive part. *(ADDENDUM B re-prices §6's scariest
+   sub-block downward: the two-variable Euler-product differentiation is two GENERIC product
+   formulae, provable once and reused — the range stands, but the shape is friendlier.)*
+5. **⬆️ ADDED AFTER THE SOURCE SWEEP (ADDENDA A–D).** This dossier was built from a transcription.
+   All five blocks it depends on have since been read at the paper. **HB was corrected twice; our
+   own transcription was corrected three times; two blocks were clean.** The two defects that
+   would actually have cost a wave were **ours** — the dropped `w₂` index in (5.14), which is
+   Lemma 10's own summation variable, and the dropped *"not necessarily in `α`"* on the `C_i`,
+   which would have made a Lean statement **false**. Read the addenda before pricing N7; §§1–4
+   below are the pre-sweep text and the addenda amend them where they differ.
 
 ---
 
