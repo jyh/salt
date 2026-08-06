@@ -1606,7 +1606,8 @@ lemma efShiftBound_le_rows {q : ℕ} {T₀ σa σb x : ℝ} (hq : 2 ≤ q) (hT�
   have hx2 : (0 : ℝ) < x ^ (2 : ℕ) := by positivity
   -- the three edges
   have hrow1 : 2 * ((1 + 1 / Real.log x) - σa) * efShiftB q T₀ σa σb
-      * (Real.exp 1 * x ^ (2 : ℕ)) / T₀ ^ 2 ≤ 12 * (efShiftB q T₀ σa σb * x ^ (2 : ℕ) / T₀ ^ 2) := by
+      * (Real.exp 1 * x ^ (2 : ℕ)) / T₀ ^ 2
+      ≤ 12 * (efShiftB q T₀ σa σb * x ^ (2 : ℕ) / T₀ ^ 2) := by
     rw [div_le_iff₀ (by positivity)]
     have hc : (1 + 1 / Real.log x) - σa ≤ 2 := by
       have : 1 / Real.log x ≤ 1 := by
@@ -1681,10 +1682,12 @@ lemma efShiftBound_le_rows {q : ℕ} {T₀ σa σb x : ℝ} (hq : 2 ≤ q) (hT�
   linarith
 
 set_option maxHeartbeats 1000000 in
+-- Three quotient rows over a degree-12 denominator: `field_simp` on `M^12`/`M^9`/`M^3` produces
+-- large polynomial identities, and the closing `linarith` runs over ten monomial atoms.
 /-- The purely algebraic core of the ledger: the four groups, once each has been replaced by its
 closed-form majorant, sum to the four-term bound.  `S` is the edge constant, `P = u^{σb−1}`,
 `R = u^{bceil−1}`, `mm = m`. -/
-private lemma ledger_algebra {S M u P R mm : ℝ} (hM3 : 3 ≤ M) (hu3 : 3 ≤ u) (hS0 : 0 ≤ S)
+private lemma ledger_algebra {S M u P R mm : ℝ} (hM3 : 3 ≤ M) (hu3 : 3 ≤ u) (_hS0 : 0 ≤ S)
     (hS : S ≤ 3 * 10 ^ 7 * M ^ 8) (hP0 : 0 ≤ P) (hR0 : 0 ≤ R) (hm0 : 0 ≤ mm) :
     (u / M ^ 3 + 1) * (M - 1)
       + (2 * S * u ^ 2 / M ^ 12 + S * (P * u ^ 2) + M * u ^ 2 / M ^ 6
@@ -1702,14 +1705,15 @@ private lemma ledger_algebra {S M u P R mm : ℝ} (hM3 : 3 ≤ M) (hu3 : 3 ≤ u
       + (8 * S * u ^ 2 / M ^ 12 + 4 * (S * (P * u ^ 2)) + 4 * (M * u ^ 2 / M ^ 6)))
       / (u / M ^ 3)
       = 10 * S * u / M ^ 9 + 5 * (S * (P * u)) * M ^ 3 + 5 * (u / M ^ 2) := by
-    field_simp <;> ring
+    field_simp
+    ring
   -- the three quotient rows
   have h1 : 10 * S * u / M ^ 9 ≤ 3 * 10 ^ 8 * (u / M) := by
     have hnum : 10 * S * u ≤ 10 * (3 * 10 ^ 7 * M ^ 8) * u := by nlinarith
     have hstep : 10 * S * u / M ^ 9 ≤ 10 * (3 * 10 ^ 7 * M ^ 8) * u / M ^ 9 :=
       div_le_div_of_nonneg_right hnum (by positivity)
     have heq : 10 * (3 * 10 ^ 7 * M ^ 8) * u / M ^ 9 = 3 * 10 ^ 8 * (u / M) := by
-      field_simp <;> ring
+      field_simp
     linarith [hstep, heq.le, heq.ge]
   have h2 : 5 * (S * (P * u)) * M ^ 3 ≤ 15 * 10 ^ 7 * M ^ 11 * (P * u) := by
     have hSP : S * (P * u) ≤ 3 * 10 ^ 7 * M ^ 8 * (P * u) :=
@@ -1736,7 +1740,7 @@ private lemma ledger_algebra {S M u P R mm : ℝ} (hM3 : 3 ≤ M) (hu3 : 3 ≤ u
   have hexp : ((mm + 4 * 10 ^ 8) / M + M / u + 2 * 10 ^ 8 * M ^ 11 * P + 5 * 10 ^ 4 * M ^ 4 * R) * u
       = mm * (u / M) + 4 * 10 ^ 8 * (u / M) + M + 2 * 10 ^ 8 * M ^ 11 * (P * u)
         + 5 * 10 ^ 4 * M ^ 4 * (R * u) := by
-    field_simp <;> ring
+    field_simp
   have hM11P : (0 : ℝ) ≤ M ^ 11 * (P * u) := by positivity
   have hM4R : (0 : ℝ) ≤ M ^ 4 * (R * u) := by positivity
   have hq1 : (0 : ℝ) ≤ u / M := by positivity
@@ -1746,6 +1750,8 @@ private lemma ledger_algebra {S M u P R mm : ℝ} (hM3 : 3 ≤ M) (hu3 : 3 ≤ u
   linarith
 
 set_option maxHeartbeats 2000000 in
+-- Four groups, each a `mul_le_mul` chain over a five-factor product, composed with the
+-- degree-12 algebra of `ledger_algebra`; the same headroom §5's uniformisation needed.
 /-- **THE LEDGER (N4b W2c, parts (c2)/(c3)).**  The closed-form envelope, priced:
 
     G(u) ≤ (m + 4·10^8)/M + M/u + 2·10^8·M^11·u^{σb−1} + 5·10^4·M^4·u^{bceil−1},
@@ -1788,7 +1794,8 @@ theorem efEnvelope_le_ledger {q : ℕ} {β₀ bceil σa σb u M : ℝ} {m : ℕ}
     have hstep : Real.log (u + efH q u) ≤ Real.log (2 * u) := Real.log_le_log (by linarith) huh2
     have h2u : Real.log (2 * u) = Real.log 2 + Real.log u :=
       Real.log_mul (by norm_num) (ne_of_gt hu0)
-    have hlog2 : Real.log 2 ≤ 1 := by linarith [Real.log_le_sub_one_of_pos (show (0:ℝ) < 2 by norm_num)]
+    have hlog2 : Real.log 2 ≤ 1 := by
+      linarith [Real.log_le_sub_one_of_pos (show (0:ℝ) < 2 by norm_num)]
     linarith
   have hlogh0 : (0 : ℝ) ≤ Real.log (u + efH q u) := Real.log_nonneg (by linarith)
   -- the rpow bookkeeping
@@ -1865,7 +1872,8 @@ theorem efEnvelope_le_ledger {q : ℕ} {β₀ bceil σa σb u M : ℝ} {m : ℕ}
     have r3 : (Real.log (u + efH q u) + 1) * (u + efH q u) ^ (2 : ℕ) / efT0 q u
         ≤ 4 * (M * u ^ 2 / M ^ 6) := by
       rw [hT]
-      have hnum : (Real.log (u + efH q u) + 1) * (u + efH q u) ^ (2 : ℕ) ≤ M * (4 * u ^ (2 : ℕ)) := by
+      have hnum : (Real.log (u + efH q u) + 1) * (u + efH q u) ^ (2 : ℕ)
+          ≤ M * (4 * u ^ (2 : ℕ)) := by
         have hstep : (Real.log (u + efH q u) + 1) * (u + efH q u) ^ (2 : ℕ)
             ≤ M * (u + efH q u) ^ (2 : ℕ) := by nlinarith
         nlinarith
@@ -1912,7 +1920,7 @@ theorem efEnvelope_le_ledger {q : ℕ} {β₀ bceil σa σb u M : ℝ} {m : ℕ}
           ≤ efH q u * u ^ (bceil - 1) * (3288 * M ^ 7) :=
             mul_le_mul_of_nonneg_left p2 hfac
         _ = u / M ^ 3 * u ^ (bceil - 1) * (3288 * M ^ 7) := by rw [hH]
-        _ = 3288 * M ^ 4 * (u ^ (bceil - 1) * u) := by field_simp <;> ring
+        _ = 3288 * M ^ 4 * (u ^ (bceil - 1) * u) := by field_simp
     linarith
   have hG4 : u ^ bceil * (137 * Real.log ((q : ℝ) * (efT0 q u + 4))
       * (8 + 4 * Real.log (efT0 q u + 2)))
@@ -1930,5 +1938,421 @@ theorem efEnvelope_le_ledger {q : ℕ} {β₀ bceil σa σb u M : ℝ} {m : ℕ}
   refine le_trans (by linarith) (ledger_algebra (S := efShiftB q (efT0 q u) σa σb) (M := M)
     (u := u) (P := u ^ (σb - 1)) (R := u ^ (bceil - 1)) (mm := (m : ℝ))
     hM3 hu hS0 hSle (le_of_lt hP0) (le_of_lt hR0) (Nat.cast_nonneg m))
+
+/-! ## 11. Range B as a function of `u` (N4b W2c, part (c3))
+
+The `u`-dependent ceiling W2b's structural finding forces: at the box top `T₀(u)+1` the classical
+zero-free region gives `Re ρ ≤ 1 − c₀/log(q(T₀(u)+3))`, valid at EVERY height (unlike the
+repulsion ceiling, whose contract goes vacuous above `Y₁`).  Its decay is stated in the honest,
+`Y₁`-free form: whatever grade `A` you want, you get it as soon as
+`A·(log q + 7·log M) ≤ c₀·log u`.  Reading that at `Y₁ = exp(20·L·log L/c₀)` gives the design's
+`L^{−20}` MINUS the `7 log M` correction — the delta is visible in the hypothesis, not hidden in
+the constant. -/
+
+/-- **THE RANGE-B CEILING AS A FUNCTION OF `u`**: `1 − c₀/log(q(T₀(u)+3))`. -/
+noncomputable def efZfrCeil (q : ℕ) (c₀ u : ℝ) : ℝ :=
+  1 - c₀ / Real.log ((q : ℝ) * (efT0 q u + 3))
+
+lemma log_q_efT0_add3_pos {q : ℕ} {u : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u) :
+    (0 : ℝ) < Real.log ((q : ℝ) * (efT0 q u + 3)) := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hT0 : (2 : ℝ) ≤ efT0 q u := two_le_efT0 hq hu
+  exact Real.log_pos (by nlinarith)
+
+lemma efZfrCeil_le_one {q : ℕ} {c₀ u : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u) (hc₀ : 0 < c₀) :
+    efZfrCeil q c₀ u ≤ 1 := by
+  have h := log_q_efT0_add3_pos hq hu
+  rw [efZfrCeil]
+  have : (0 : ℝ) < c₀ / Real.log ((q : ℝ) * (efT0 q u + 3)) := div_pos hc₀ h
+  linarith
+
+lemma continuousOn_efZfrCeil {q : ℕ} (hq : 2 ≤ q) (c₀ : ℝ) :
+    ContinuousOn (fun u : ℝ => efZfrCeil q c₀ u) (Set.Ici (3 : ℝ)) := by
+  simp only [efZfrCeil]
+  refine continuousOn_const.sub (continuousOn_const.div (cont_logQT hq 3 (by norm_num))
+    (fun u hu => ne_of_gt (log_q_efT0_add3_pos hq hu)))
+
+/-- **RANGE B AT THE BOX TOP (W2c).**  `re_le_of_zeroFree_of_ne` instantiated at
+`T = T₀(u) + 1`, `bc = efZfrCeil q c₀ u` — the ceiling holds at every `u`, which is exactly what
+the single constant `bceil` could not do. -/
+theorem re_le_efZfrCeil {q : ℕ} [NeZero q] {χ : DirichletCharacter ℂ q} {c₀ β₀ u : ℝ}
+    (hq : 2 ≤ q) (hc₀ : 0 < c₀)
+    (hZFR : ∀ ρ : ℂ, LFunction χ ρ = 0 → 1 / 2 ≤ ρ.re → (χ ^ 2 ≠ 1 ∨ ρ.im ≠ 0) →
+      ρ.re ≤ 1 - c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)))
+    (hreal : ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ.im = 0 → ρ ≠ (β₀ : ℂ) → 9 / 10 ≤ ρ.re → ρ.re ≤ 1 →
+      |ρ.im| ≤ efT0 q u + 1 → ρ.re ≤ efZfrCeil q c₀ u) :
+    ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ ≠ (β₀ : ℂ) → 9 / 10 ≤ ρ.re → ρ.re ≤ 1 →
+      |ρ.im| ≤ efT0 q u + 1 → ρ.re ≤ efZfrCeil q c₀ u := by
+  refine re_le_of_zeroFree_of_ne (β₀ := β₀) (T := efT0 q u + 1) hq hc₀ hZFR hreal ?_
+  rw [show efT0 q u + 1 + 2 = efT0 q u + 3 from by ring, efZfrCeil]
+
+/-- The sharp height bound the decay needs: `log(q(T₀+3)) ≤ log q + 7·log M` — sharp in the sense
+that `log M ≍ log log u` is NOT replaced by `M`, which is what makes the Range-B saving real. -/
+lemma log_q_efT0_add3_le {q : ℕ} {u M : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u)
+    (hM : M = Real.log ((q : ℝ) * u) + 2) :
+    Real.log ((q : ℝ) * (efT0 q u + 3)) ≤ Real.log q + 7 * Real.log M := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hM3 : (3 : ℝ) ≤ M := by rw [hM]; exact logqu_ge hq hu
+  have hT : efT0 q u = M ^ 6 := by rw [efT0, hM]
+  have hM6 : (729 : ℝ) ≤ M ^ 6 := by have h := scale_pow_ge hM3 6; norm_num at h; exact h
+  have h7 : M ^ 7 = M ^ 6 * M := by ring
+  have hle : efT0 q u + 3 ≤ M ^ 7 := by rw [hT]; nlinarith
+  have hpos : (0 : ℝ) < efT0 q u + 3 := by rw [hT]; linarith
+  rw [Real.log_mul (ne_of_gt (by linarith : (0:ℝ) < (q:ℝ))) (ne_of_gt hpos)]
+  have : Real.log (efT0 q u + 3) ≤ Real.log (M ^ 7) := Real.log_le_log hpos hle
+  rw [Real.log_pow] at this
+  push_cast at this
+  linarith
+
+/-- **THE RANGE-B DECAY, GRADE `A` (N4b W2c, part (c3)).**  `u^{bceil(u)−1} ≤ e^{−A}` as soon as
+`A·(log q + 7·log M) ≤ c₀·log u`.  Read at the design's `Y₁ = exp(20·L·log L/c₀)` with
+`A = 20·log L` the hypothesis becomes `20 log L·(L + 7 log M) ≤ 20 L log L`, i.e. `7 log M ≤ 0` —
+FALSE: the achievable grade at `Y₁` is `A = 20 log L·L/(L + 7 log M)`, strictly below the paper's
+`L^{−20}`.  At `L = 250` that is about `L^{−13}`; the gap closes as `L → ∞`. -/
+theorem efZfrCeil_rpow_le {q : ℕ} {u M c₀ A : ℝ} (hq : 2 ≤ q) (hu : 3 ≤ u)
+    (hM : M = Real.log ((q : ℝ) * u) + 2) (hA : 0 ≤ A)
+    (hAle : A * (Real.log q + 7 * Real.log M) ≤ c₀ * Real.log u) :
+    u ^ (efZfrCeil q c₀ u - 1) ≤ Real.exp (-A) := by
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hlogQ : (0 : ℝ) < Real.log ((q : ℝ) * (efT0 q u + 3)) := log_q_efT0_add3_pos hq hu
+  have hsharp : Real.log ((q : ℝ) * (efT0 q u + 3)) ≤ Real.log q + 7 * Real.log M :=
+    log_q_efT0_add3_le hq hu hM
+  have hkey : Real.log u * (efZfrCeil q c₀ u - 1) ≤ -A := by
+    rw [efZfrCeil]
+    have hstep : A * Real.log ((q : ℝ) * (efT0 q u + 3)) ≤ c₀ * Real.log u :=
+      le_trans (mul_le_mul_of_nonneg_left hsharp hA) hAle
+    have heq : Real.log u * (1 - c₀ / Real.log ((q : ℝ) * (efT0 q u + 3)) - 1)
+        = -(c₀ * Real.log u / Real.log ((q : ℝ) * (efT0 q u + 3))) := by
+      field_simp
+      ring
+    rw [heq, neg_le_neg_iff, le_div_iff₀ hlogQ]
+    linarith
+  rw [Real.rpow_def_of_pos hu0]
+  exact Real.exp_le_exp.mpr hkey
+
+/-! ## 12. The tail hypotheses discharged (N4b W2c, part (c4))
+
+`logChiSum_tendsto_of_envelope` asks for exactly two analytic facts about the envelope:
+`∫^∞ G(t) dt/(t log t)` converges, and `G(t)/log t → 0`.  Both follow from ONE quantitative
+statement — `G(t) ≤ C/log t` eventually — which the ledger of §10 delivers once the three
+decaying rows are priced.  The decay engine is the same in all three: `s^n e^{−δs} → 0` (the
+`σb` row, the de-smoothing constant) and `s^n e^{−δ√s} → 0` (the Range-B row, where the ceiling
+itself creeps to `1` and only `log(q(T₀+3)) ≍ log q + 7 log M` keeps the exponent alive). -/
+
+private lemma tendsto_pow_mul_exp_neg_const (n : ℕ) {δ : ℝ} (hδ : 0 < δ) :
+    Tendsto (fun r : ℝ => r ^ n * Real.exp (-(δ * r))) atTop (𝓝 0) := by
+  have hδ0 : δ ≠ 0 := ne_of_gt hδ
+  have hmul : Tendsto (fun r : ℝ => δ * r) atTop atTop :=
+    Filter.Tendsto.const_mul_atTop hδ tendsto_id
+  have h1 : Tendsto (fun r : ℝ => (δ * r) ^ n * Real.exp (-(δ * r))) atTop (𝓝 0) :=
+    (Real.tendsto_pow_mul_exp_neg_atTop_nhds_zero n).comp hmul
+  have h2 := h1.const_mul ((δ ^ n)⁻¹)
+  rw [mul_zero] at h2
+  refine h2.congr (fun r => ?_)
+  rw [mul_pow]
+  field_simp
+
+private lemma tendsto_pow_mul_exp_neg_sqrt (n : ℕ) {δ : ℝ} (hδ : 0 < δ) :
+    Tendsto (fun s : ℝ => s ^ n * Real.exp (-(δ * Real.sqrt s))) atTop (𝓝 0) := by
+  have hc : Tendsto (fun s : ℝ => Real.sqrt s ^ (2 * n) * Real.exp (-(δ * Real.sqrt s)))
+      atTop (𝓝 0) := (tendsto_pow_mul_exp_neg_const (2 * n) hδ).comp Real.tendsto_sqrt_atTop
+  refine hc.congr' ?_
+  filter_upwards [eventually_ge_atTop (0:ℝ)] with s hs
+  rw [pow_mul, Real.sq_sqrt hs]
+
+private lemma eventually_pow_exp_le_one (C : ℝ) (n : ℕ) {δ : ℝ} (hδ : 0 < δ) :
+    ∀ᶠ s : ℝ in atTop, C * (s ^ n * Real.exp (-(δ * s))) ≤ 1 := by
+  have h : Tendsto (fun s : ℝ => C * (s ^ n * Real.exp (-(δ * s)))) atTop (𝓝 0) := by
+    have := (tendsto_pow_mul_exp_neg_const n hδ).const_mul C
+    rwa [mul_zero] at this
+  filter_upwards [h.eventually (gt_mem_nhds (by norm_num : (0:ℝ) < 1))] with s hs
+  linarith
+
+private lemma eventually_pow_exp_sqrt_le_one (C : ℝ) (n : ℕ) {δ : ℝ} (hδ : 0 < δ) :
+    ∀ᶠ s : ℝ in atTop, C * (s ^ n * Real.exp (-(δ * Real.sqrt s))) ≤ 1 := by
+  have h : Tendsto (fun s : ℝ => C * (s ^ n * Real.exp (-(δ * Real.sqrt s)))) atTop (𝓝 0) := by
+    have := (tendsto_pow_mul_exp_neg_sqrt n hδ).const_mul C
+    rwa [mul_zero] at this
+  filter_upwards [h.eventually (gt_mem_nhds (by norm_num : (0:ℝ) < 1))] with s hs
+  linarith
+
+/-- `log x ≤ 2√x` — the only bound needed to keep `log M ≍ log log u` away from `M`. -/
+private lemma log_le_two_sqrt {x : ℝ} (hx : 0 < x) : Real.log x ≤ 2 * Real.sqrt x := by
+  have hs : (0 : ℝ) < Real.sqrt x := Real.sqrt_pos.mpr hx
+  have h1 : Real.log (Real.sqrt x) ≤ Real.sqrt x - 1 := Real.log_le_sub_one_of_pos hs
+  have h2 : Real.log x = 2 * Real.log (Real.sqrt x) := by
+    conv_lhs => rw [← Real.sq_sqrt (le_of_lt hx)]
+    rw [Real.log_pow]
+    norm_num
+  linarith
+
+set_option maxHeartbeats 1000000 in
+-- Four independent decay rows, each an rpow-to-exp rewrite followed by a `mul_le_mul` chain
+-- against a degree-12 polynomial in `log u`.
+/-- **THE ENVELOPE IS EVENTUALLY `C/log u` (N4b W2c, part (c4)).**  At the Range-B ceiling the
+closed-form envelope satisfies `G(u) ≤ (m + 4·10^8 + 3)/log u` for all large `u`.  The three
+non-`1/M` rows each die faster: the de-smoothing constant like `(log u)^2/u`, the left edge like
+`(log u)^{12} u^{σb−1}`, and the erased spend like `(log u)^5 e^{−(c₀/15)√(log u)}`. -/
+theorem efEnvelope_zfr_eventually_le {q : ℕ} {β₀ σa σb c₀ : ℝ} {m : ℕ}
+    (hq : 2 ≤ q) (hσa : 9 / 10 ≤ σa) (hσab : σa < σb) (hσb : σb < 1) (hgap : 1 / 20 ≤ σb - σa)
+    (hβ₀1 : β₀ ≤ 1) (hc₀ : 0 < c₀) :
+    ∀ᶠ u : ℝ in atTop, efEnvelope q β₀ (efZfrCeil q c₀ u) m σa σb u
+      ≤ ((m : ℝ) + 4 * 10 ^ 8 + 3) / Real.log u := by
+  have hq2 : (2 : ℝ) ≤ (q : ℝ) := by exact_mod_cast hq
+  have hlq0 : (0 : ℝ) ≤ Real.log q := Real.log_nonneg (by linarith)
+  have e1 : ∀ᶠ u : ℝ in atTop, Real.log q + 2 ≤ Real.log u :=
+    Real.tendsto_log_atTop.eventually_ge_atTop _
+  have e2 : ∀ᶠ u : ℝ in atTop, Real.log q + 7 ≤ Real.sqrt (Real.log u) :=
+    (Real.tendsto_sqrt_atTop.comp Real.tendsto_log_atTop).eventually_ge_atTop _
+  have e5 : ∀ᶠ u : ℝ in atTop,
+      (2 : ℝ) * ((Real.log u) ^ 2 * Real.exp (-(1 * Real.log u))) ≤ 1 :=
+    Real.tendsto_log_atTop.eventually (eventually_pow_exp_le_one 2 2 one_pos)
+  have e6 : ∀ᶠ u : ℝ in atTop,
+      (4096 * 10 ^ 8 : ℝ) * ((Real.log u) ^ 12 * Real.exp (-((1 - σb) * Real.log u))) ≤ 1 :=
+    Real.tendsto_log_atTop.eventually
+      (eventually_pow_exp_le_one (4096 * 10 ^ 8) 12 (by linarith))
+  have e7 : ∀ᶠ u : ℝ in atTop,
+      (8 * 10 ^ 5 : ℝ) * ((Real.log u) ^ 5
+        * Real.exp (-((c₀ / 15) * Real.sqrt (Real.log u)))) ≤ 1 :=
+    Real.tendsto_log_atTop.eventually
+      (eventually_pow_exp_sqrt_le_one (8 * 10 ^ 5) 5 (by linarith))
+  filter_upwards [e1, e2, e5, e6, e7, eventually_ge_atTop (3:ℝ)] with u h1 h2 h5 h6 h7 hu
+  have hu0 : (0 : ℝ) < u := by linarith
+  have hs1 : (1 : ℝ) ≤ Real.log u := by linarith
+  have hs0 : (0 : ℝ) < Real.log u := by linarith
+  have hMeq : Real.log ((q : ℝ) * u) + 2 = Real.log q + Real.log u + 2 := by
+    rw [Real.log_mul (ne_of_gt (by linarith : (0:ℝ) < (q:ℝ))) (ne_of_gt hu0)]
+  have hM2s : Real.log ((q : ℝ) * u) + 2 ≤ 2 * Real.log u := by rw [hMeq]; linarith
+  have hMs : Real.log u ≤ Real.log ((q : ℝ) * u) + 2 := by rw [hMeq]; linarith
+  have hM3 : (3 : ℝ) ≤ Real.log ((q : ℝ) * u) + 2 := logqu_ge hq hu
+  have hM0 : (0 : ℝ) < Real.log ((q : ℝ) * u) + 2 := by linarith
+  have hled := efEnvelope_le_ledger (β₀ := β₀) (bceil := efZfrCeil q c₀ u) (m := m)
+    (M := Real.log ((q : ℝ) * u) + 2) hq hu rfl hσa hσab hσb hgap hβ₀1
+  -- (i) the `1/M` grade
+  have hi : ((m : ℝ) + 4 * 10 ^ 8) / (Real.log ((q : ℝ) * u) + 2)
+      ≤ ((m : ℝ) + 4 * 10 ^ 8) / Real.log u :=
+    div_le_div_of_nonneg_left (by positivity) hs0 hMs
+  -- (ii) the de-smoothing constant
+  have hexpneg : Real.exp (-(1 * Real.log u)) = u⁻¹ := by
+    rw [one_mul, Real.exp_neg, Real.exp_log hu0]
+  have hii : (Real.log ((q : ℝ) * u) + 2) / u ≤ 1 / Real.log u := by
+    rw [hexpneg] at h5
+    have hsq : (2 : ℝ) * (Real.log u) ^ 2 ≤ u := by
+      have hmul := mul_le_mul_of_nonneg_right h5 (le_of_lt hu0)
+      rw [one_mul] at hmul
+      have heq : 2 * (Real.log u ^ 2 * u⁻¹) * u = 2 * Real.log u ^ 2 := by field_simp
+      linarith [heq.le, heq.ge]
+    rw [div_le_div_iff₀ hu0 hs0]
+    nlinarith
+  -- (iii) the left edge
+  have hiii : 2 * 10 ^ 8 * (Real.log ((q : ℝ) * u) + 2) ^ 11 * u ^ (σb - 1)
+      ≤ 1 / Real.log u := by
+    have hrp : u ^ (σb - 1) = Real.exp (-((1 - σb) * Real.log u)) := by
+      rw [Real.rpow_def_of_pos hu0]
+      congr 1
+      ring
+    have hMp : (Real.log ((q : ℝ) * u) + 2) ^ 11 ≤ 2048 * (Real.log u) ^ 11 := by
+      have h := pow_le_pow_left₀ (by linarith : (0:ℝ) ≤ Real.log ((q : ℝ) * u) + 2) hM2s 11
+      calc (Real.log ((q : ℝ) * u) + 2) ^ 11 ≤ (2 * Real.log u) ^ 11 := h
+        _ = 2048 * (Real.log u) ^ 11 := by ring
+    have hE0 : (0 : ℝ) < Real.exp (-((1 - σb) * Real.log u)) := Real.exp_pos _
+    rw [le_div_iff₀ hs0, hrp]
+    have hstep : 2 * 10 ^ 8 * (Real.log ((q : ℝ) * u) + 2) ^ 11
+        * Real.exp (-((1 - σb) * Real.log u)) * Real.log u
+        ≤ 4096 * 10 ^ 8 * ((Real.log u) ^ 12 * Real.exp (-((1 - σb) * Real.log u))) := by
+      have hx : 2 * 10 ^ 8 * (Real.log ((q : ℝ) * u) + 2) ^ 11
+          ≤ 2 * 10 ^ 8 * (2048 * (Real.log u) ^ 11) := by linarith
+      nlinarith [mul_nonneg (le_of_lt hE0) (le_of_lt hs0)]
+    linarith
+  -- (iv) the erased spend, at the Range-B ceiling
+  have hiv : 5 * 10 ^ 4 * (Real.log ((q : ℝ) * u) + 2) ^ 4 * u ^ (efZfrCeil q c₀ u - 1)
+      ≤ 1 / Real.log u := by
+    have hsq0 : (0 : ℝ) < Real.sqrt (Real.log u) := Real.sqrt_pos.mpr hs0
+    have hsqsq : Real.sqrt (Real.log u) * Real.sqrt (Real.log u) = Real.log u :=
+      Real.mul_self_sqrt (le_of_lt hs0)
+    have hlogM : Real.log (Real.log ((q : ℝ) * u) + 2) ≤ 1 + 2 * Real.sqrt (Real.log u) := by
+      have hmono : Real.log (Real.log ((q : ℝ) * u) + 2) ≤ Real.log (2 * Real.log u) :=
+        Real.log_le_log hM0 hM2s
+      have hsplit : Real.log (2 * Real.log u) = Real.log 2 + Real.log (Real.log u) :=
+        Real.log_mul (by norm_num) (ne_of_gt hs0)
+      have hlog2 : Real.log 2 ≤ 1 := by
+        linarith [Real.log_le_sub_one_of_pos (show (0:ℝ) < 2 by norm_num)]
+      linarith [log_le_two_sqrt hs0]
+    have hA : (0 : ℝ) ≤ c₀ / 15 * Real.sqrt (Real.log u) := by positivity
+    have hAle : c₀ / 15 * Real.sqrt (Real.log u)
+        * (Real.log q + 7 * Real.log (Real.log ((q : ℝ) * u) + 2)) ≤ c₀ * Real.log u := by
+      have hbnd : Real.log q + 7 * Real.log (Real.log ((q : ℝ) * u) + 2)
+          ≤ 15 * Real.sqrt (Real.log u) := by linarith
+      have hmul := mul_le_mul_of_nonneg_left hbnd hA
+      have heq : c₀ / 15 * Real.sqrt (Real.log u) * (15 * Real.sqrt (Real.log u))
+          = c₀ * (Real.sqrt (Real.log u) * Real.sqrt (Real.log u)) := by ring
+      rw [heq, hsqsq] at hmul
+      exact hmul
+    have hdecay : u ^ (efZfrCeil q c₀ u - 1)
+        ≤ Real.exp (-(c₀ / 15 * Real.sqrt (Real.log u))) :=
+      efZfrCeil_rpow_le hq hu rfl hA hAle
+    have hE0 : (0 : ℝ) < Real.exp (-(c₀ / 15 * Real.sqrt (Real.log u))) := Real.exp_pos _
+    have hMp : (Real.log ((q : ℝ) * u) + 2) ^ 4 ≤ 16 * (Real.log u) ^ 4 := by
+      have h := pow_le_pow_left₀ (by linarith : (0:ℝ) ≤ Real.log ((q : ℝ) * u) + 2) hM2s 4
+      calc (Real.log ((q : ℝ) * u) + 2) ^ 4 ≤ (2 * Real.log u) ^ 4 := h
+        _ = 16 * (Real.log u) ^ 4 := by ring
+    rw [le_div_iff₀ hs0]
+    have hrp0 : (0 : ℝ) < u ^ (efZfrCeil q c₀ u - 1) := Real.rpow_pos_of_pos hu0 _
+    have hstep : 5 * 10 ^ 4 * (Real.log ((q : ℝ) * u) + 2) ^ 4 * u ^ (efZfrCeil q c₀ u - 1)
+        * Real.log u
+        ≤ 8 * 10 ^ 5 * ((Real.log u) ^ 5
+            * Real.exp (-(c₀ / 15 * Real.sqrt (Real.log u)))) := by
+      have hx : 5 * 10 ^ 4 * (Real.log ((q : ℝ) * u) + 2) ^ 4 ≤ 8 * 10 ^ 5 * (Real.log u) ^ 4 := by
+        linarith
+      have hfac : (0 : ℝ) ≤ 5 * 10 ^ 4 * (Real.log ((q : ℝ) * u) + 2) ^ 4 := by positivity
+      calc 5 * 10 ^ 4 * (Real.log ((q : ℝ) * u) + 2) ^ 4 * u ^ (efZfrCeil q c₀ u - 1)
+            * Real.log u
+          ≤ 5 * 10 ^ 4 * (Real.log ((q : ℝ) * u) + 2) ^ 4
+              * Real.exp (-(c₀ / 15 * Real.sqrt (Real.log u))) * Real.log u :=
+            mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left hdecay hfac) (le_of_lt hs0)
+        _ ≤ 8 * 10 ^ 5 * (Real.log u) ^ 4
+              * Real.exp (-(c₀ / 15 * Real.sqrt (Real.log u))) * Real.log u :=
+            mul_le_mul_of_nonneg_right
+              (mul_le_mul_of_nonneg_right hx (le_of_lt hE0)) (le_of_lt hs0)
+        _ = 8 * 10 ^ 5 * ((Real.log u) ^ 5
+              * Real.exp (-(c₀ / 15 * Real.sqrt (Real.log u)))) := by ring
+    linarith
+  have hcollect : ((m : ℝ) + 4 * 10 ^ 8 + 3) / Real.log u
+      = ((m : ℝ) + 4 * 10 ^ 8) / Real.log u + 1 / Real.log u + 1 / Real.log u
+        + 1 / Real.log u := by ring
+  rw [hcollect]
+  linarith
+
+/-- **`∫^∞ dt/(t(log t)^2)` converges** — the antiderivative is `−1/log t`, which is what makes
+`G ≤ C/log t` exactly the right grade for the transfer's `dt/(t log t)` ledger. -/
+lemma integrableOn_inv_mul_log_sq {a : ℝ} (ha : 1 < a) :
+    IntegrableOn (fun t : ℝ => 1 / (t * Real.log t ^ 2)) (Set.Ioi a) := by
+  refine integrableOn_Ioi_deriv_of_nonneg (l := 0) (g := fun t : ℝ => -(Real.log t)⁻¹) ?_ ?_ ?_ ?_
+  · refine ContinuousAt.continuousWithinAt (ContinuousAt.neg (ContinuousAt.inv₀ ?_ ?_))
+    · exact Real.continuousAt_log (by linarith)
+    · exact ne_of_gt (Real.log_pos ha)
+  · intro x hx
+    have hx1 : (1 : ℝ) < x := lt_trans ha hx
+    have hx0 : x ≠ 0 := ne_of_gt (by linarith)
+    have hlogpos : (0 : ℝ) < Real.log x := Real.log_pos hx1
+    have h := ((Real.hasDerivAt_log hx0).inv (ne_of_gt hlogpos)).neg
+    have heq : -(-x⁻¹ / Real.log x ^ 2) = 1 / (x * Real.log x ^ 2) := by
+      rw [neg_div, neg_neg, inv_eq_one_div, div_div]
+    rw [heq] at h
+    exact h
+  · intro x hx
+    have hx1 : (1 : ℝ) < x := lt_trans ha hx
+    have hlogpos : (0 : ℝ) < Real.log x := Real.log_pos hx1
+    positivity
+  · have h1 : Tendsto (fun t : ℝ => (Real.log t)⁻¹) atTop (𝓝 0) :=
+      tendsto_inv_atTop_zero.comp Real.tendsto_log_atTop
+    simpa using h1.neg
+
+/-- `G(t)/log t → 0` from the eventual bound `G ≤ C/log t`. -/
+lemma tendsto_div_log_of_eventually_le {C : ℝ} {G : ℝ → ℝ}
+    (hG0 : ∀ᶠ t : ℝ in atTop, 0 ≤ G t) (hev : ∀ᶠ t : ℝ in atTop, G t ≤ C / Real.log t) :
+    Tendsto (fun t : ℝ => G t / Real.log t) atTop (𝓝 0) := by
+  have hlogsq : Tendsto (fun t : ℝ => Real.log t ^ 2) atTop atTop :=
+    (tendsto_pow_atTop (by norm_num)).comp Real.tendsto_log_atTop
+  have hmaj : Tendsto (fun t : ℝ => C * (Real.log t ^ 2)⁻¹) atTop (𝓝 0) := by
+    have := (tendsto_inv_atTop_zero.comp hlogsq).const_mul C
+    rwa [mul_zero] at this
+  refine squeeze_zero' ?_ ?_ hmaj
+  · filter_upwards [hG0, eventually_gt_atTop (1:ℝ)] with t h0 ht
+    exact div_nonneg h0 (le_of_lt (Real.log_pos ht))
+  · filter_upwards [hev, eventually_gt_atTop (1:ℝ)] with t hb ht
+    have hlt : (0 : ℝ) < Real.log t := Real.log_pos ht
+    rw [div_le_iff₀ hlt]
+    have hC : C / Real.log t * Real.log t = C := by field_simp
+    have hgoal : C * (Real.log t ^ 2)⁻¹ * Real.log t = C / Real.log t := by
+      field_simp
+    rw [hgoal]
+    exact hb
+
+/-- `∫^∞ G(t) dt/(t log t)` converges from the same eventual bound. -/
+lemma integrableOn_div_of_eventually_le {X C : ℝ} (hX : 3 ≤ X) {G : ℝ → ℝ}
+    (hGc : ContinuousOn G (Set.Ici X)) (hG0 : ∀ t ∈ Set.Ici X, 0 ≤ G t)
+    (hev : ∀ᶠ t : ℝ in atTop, G t ≤ C / Real.log t) :
+    IntegrableOn (fun t : ℝ => G t / (t * Real.log t)) (Set.Ioi X) := by
+  obtain ⟨N, hN⟩ := eventually_atTop.mp hev
+  set N' : ℝ := max N X with hN'def
+  have hXN' : X ≤ N' := le_max_right _ _
+  have hNN' : N ≤ N' := le_max_left _ _
+  have hcont : ∀ s : Set ℝ, s ⊆ Set.Ici X →
+      ContinuousOn (fun t : ℝ => G t / (t * Real.log t)) s := by
+    intro s hs
+    refine ContinuousOn.div (hGc.mono hs) (continuousOn_id.mul (Real.continuousOn_log.mono
+      (fun t ht => ne_of_gt (by linarith [show X ≤ t from hs ht])))) (fun t ht => ?_)
+    have h3 : (3 : ℝ) ≤ t := le_trans hX (show X ≤ t from hs ht)
+    have : (0 : ℝ) < Real.log t := Real.log_pos (by linarith)
+    positivity
+  have hsplit : Set.Ioi X = Set.Ioc X N' ∪ Set.Ioi N' :=
+    (Set.Ioc_union_Ioi_eq_Ioi hXN').symm
+  rw [hsplit]
+  refine IntegrableOn.union ?_ ?_
+  · exact (ContinuousOn.integrableOn_compact isCompact_Icc
+      (hcont (Set.Icc X N') (fun t ht => ht.1))).mono_set
+        Set.Ioc_subset_Icc_self
+  · have hmaj : IntegrableOn (fun t : ℝ => C * (1 / (t * Real.log t ^ 2))) (Set.Ioi N') :=
+      (integrableOn_inv_mul_log_sq (show (1:ℝ) < N' by linarith)).const_mul C
+    refine hmaj.mono' ((hcont (Set.Ioi N')
+      (fun t ht => le_trans hXN' (le_of_lt ht))).aestronglyMeasurable measurableSet_Ioi) ?_
+    refine (ae_restrict_iff' measurableSet_Ioi).mpr (ae_of_all _ (fun t ht => ?_))
+    have htN : N' < t := ht
+    have h3 : (3 : ℝ) ≤ t := by linarith
+    have ht0 : (0 : ℝ) < t := by linarith
+    have hlt : (0 : ℝ) < Real.log t := Real.log_pos (by linarith)
+    have hb : G t ≤ C / Real.log t := hN t (by linarith)
+    have hg0 : 0 ≤ G t := hG0 t (show X ≤ t by linarith)
+    rw [Real.norm_eq_abs, abs_of_nonneg (div_nonneg hg0 (by positivity))]
+    rw [div_le_iff₀ (by positivity)]
+    have hEq : C * (1 / (t * Real.log t ^ 2)) * (t * Real.log t) = C / Real.log t := by
+      field_simp
+    rw [hEq]
+    exact hb
+
+/-- **THE TAIL FORM AT THE RANGE-B CEILING (N4b W2c, part (c4)) — END TO END.**  The log-weighted
+tail converges and obeys the `(4.12)` bound with the `Y`-boundary term gone, at the freeze's own
+parameters `T₀(u) = (log qu + 2)^6`, `h(u) = u/(log qu + 2)^3`, and the `u`-dependent Range-B
+ceiling `1 − c₀/log(q(T₀(u)+3))`.  The ONLY remaining binders are the freeze's own named ones:
+`hZFR` (the zero-free region, landed as `zero_free_region_all`), `hreal′` (the real-zero
+escape, D4), and the design's numeric `hgap`.  `hN+`, `hord` and the `q^{250} ≤ X` edge do NOT
+appear — they are Range-A's, and Range B needs neither. -/
+theorem logChiSum_tendsto_zfr {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
+    (hχ : χ.IsPrimitive) (hq : 2 ≤ q) {β₀ σa σb c₀ X : ℝ}
+    (hX : 3 ≤ X) (hσa : 9 / 10 ≤ σa) (hσab : σa < σb) (hσb : σb < 1) (hgap : 1 / 20 ≤ σb - σa)
+    (hβ₀0 : 0 < β₀) (hβ₀1 : β₀ < 1) (hσbβ₀ : σb ≤ β₀) (hβ₀zero : LFunction χ (β₀ : ℂ) = 0)
+    (hc₀ : 0 < c₀)
+    (hZFR : ∀ ρ : ℂ, LFunction χ ρ = 0 → 1 / 2 ≤ ρ.re → (χ ^ 2 ≠ 1 ∨ ρ.im ≠ 0) →
+      ρ.re ≤ 1 - c₀ / Real.log ((q : ℝ) * (|ρ.im| + 2)))
+    (hreal : ∀ t : ℝ, ∀ ρ : ℂ, LFunction χ ρ = 0 → ρ.im = 0 → ρ ≠ (β₀ : ℂ) → 9 / 10 ≤ ρ.re →
+      ρ.re ≤ 1 → |ρ.im| ≤ efT0 q t + 1 → ρ.re ≤ efZfrCeil q c₀ t) :
+    ∃ S : ℂ, Tendsto (fun Y : ℝ => logChiSum χ X Y) atTop (𝓝 S) ∧
+      ‖S + (zeroMult χ (β₀ : ℂ) : ℂ)
+          * ((∫ v in Set.Ioi X, v ^ (β₀ - 2) / Real.log v : ℝ) : ℂ)‖
+        ≤ efEnvelope q β₀ (efZfrCeil q c₀ X) (zeroMult χ (β₀ : ℂ)) σa σb X / Real.log X
+          + 2 * ∫ v in Set.Ioi X,
+              efEnvelope q β₀ (efZfrCeil q c₀ v) (zeroMult χ (β₀ : ℂ)) σa σb v
+                / (v * Real.log v) := by
+  set m : ℕ := zeroMult χ (β₀ : ℂ) with hmdef
+  set G : ℝ → ℝ := fun t => efEnvelope q β₀ (efZfrCeil q c₀ t) m σa σb t with hGdef
+  have hsub : Set.Ici X ⊆ Set.Ici (3 : ℝ) := fun t ht => le_trans hX ht
+  have hGc : ContinuousOn G (Set.Ici X) :=
+    (continuousOn_efEnvelope_ceilFun hq (β₀ := β₀) (B := fun u => efZfrCeil q c₀ u) m
+      (continuousOn_efZfrCeil hq c₀) (by linarith)).mono hsub
+  have hG0 : ∀ t ∈ Set.Ici X, 0 ≤ G t := fun t ht =>
+    efEnvelope_nonneg hq (le_trans hX ht) (by linarith) (by linarith) hσab
+  have hEF : ∀ t ∈ Set.Ici X, ‖psiDefect χ β₀ m t‖ ≤ t * G t := fun t ht =>
+    psiDefect_norm_le_envelope χ hχ hq (le_trans hX ht) hσa hσab hσb (le_of_lt hβ₀1) hσbβ₀
+      hβ₀zero (re_le_efZfrCeil hq hc₀ hZFR (hreal t))
+  have hev : ∀ᶠ t : ℝ in atTop, G t ≤ ((m : ℝ) + 4 * 10 ^ 8 + 3) / Real.log t :=
+    efEnvelope_zfr_eventually_le hq hσa hσab hσb hgap (le_of_lt hβ₀1) hc₀
+  have hGint : IntegrableOn (fun t : ℝ => G t / (t * Real.log t)) (Set.Ioi X) :=
+    integrableOn_div_of_eventually_le hX hGc hG0 hev
+  have hGlim : Tendsto (fun t : ℝ => G t / Real.log t) atTop (𝓝 0) := by
+    refine tendsto_div_log_of_eventually_le ?_ hev
+    filter_upwards [eventually_ge_atTop X] with t ht
+    exact hG0 t ht
+  exact logChiSum_tendsto_of_envelope χ hβ₀0 hβ₀1 m hX hGc hG0 hEF hGint hGlim
 
 end Salt.HB
