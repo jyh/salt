@@ -276,7 +276,7 @@ with `v` dropped the RHS `(q, uv′−vu′)` does not match its own arguments.
 **The landed form is the corrected form.** The trivial companion is exactly the
 `(q, det) = q` branch.
 
-**Two document defects to fix inside N6** (no math impact):
+**Two document defects to fix inside N6** (no math impact) — ✅ BOTH FIXED 8/6, commit 7a1a6a1 (WEIL-TRIO W4-e):
 - `Salt/HB/QuadCharSum.lean:13-14` and `:44` cite *"The fourth power moment of the
   Riemann zeta-function (Proc. LMS 1981)"*. Wrong paper. The bound is
   **Prime Twins and Siegel Zeros, Proc. LMS (3) 47 (1983) 193-224, p.217**
