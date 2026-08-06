@@ -214,3 +214,19 @@ The dossier ends with **14 numbers safe to speak** and **11 items
 marked DO NOT QUOTE** (incl. the stale 259/259 replay, the
 "256 catches" counter-vs-count problem, and "zero wrong proofs",
 which could not be verified). Read both lists before any room.
+
+## 9. THE ORIGIN ARTIFACTS (JYH, 8/5 night) — both PUBLIC, both citable
+
+- The IEEE conference paper: the high-speed ATM packet switch in CMOS VLSI.
+- **US Patent 4,910,730** (patents.google.com/patent/US4910730A) — and
+  the detail that matters: **it was TWO chips, Batcher and banyan
+  separate**, with a pinout chosen so the fabric could stack in 3D.
+
+**DESIGN CORRESPONDENCE (use this in the README):** the 1988
+two-chip partition IS our proof partition. Chip 1 (sorter) =
+the sorted-datum HYPOTHESIS, discharged by `Finset.orderEmbOfFin`.
+Chip 2 (banyan) = `banyan_selfrouting`, PROVED, parametric in k.
+The interface we assume is the interface he wired. **If we tape
+out, we tape out chip 2 — the proved half.** The proof's shape is
+not an arbitrary scoping choice; it is the original silicon's own
+modularity, recovered 38 years later.
