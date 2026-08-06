@@ -113,61 +113,6 @@ lemma primeProdBelow_pos {z : ℝ} : 0 < primeProdBelow z := by
     rw [div_le_div_iff_of_pos_left one_pos (by linarith) (by norm_num)]; linarith
   linarith
 
-/-- The `⌊·⌋ → ℝ` bridge for the iterated logarithm: `|log log z − log log ⌊z⌋| ≤ 1/log z`
-for `z ≥ 3`.  (`log z − log⌊z⌋ ≤ 1/⌊z⌋` by `log x ≤ x − 1`, then the same step again, then
-`log z ≤ z − 1 < ⌊z⌋`.) -/
-lemma abs_log_log_floor_sub_le {z : ℝ} (hz : 3 ≤ z) :
-    |Real.log (Real.log z) - Real.log (Real.log (⌊z⌋₊ : ℝ))| ≤ 1 / Real.log z := by
-  have hn3 : 3 ≤ ⌊z⌋₊ := Nat.le_floor (by exact_mod_cast hz)
-  have hnR : (3 : ℝ) ≤ (⌊z⌋₊ : ℝ) := by exact_mod_cast hn3
-  have hnz : ((⌊z⌋₊ : ℕ) : ℝ) ≤ z := Nat.floor_le (by linarith)
-  have hzn : z < (⌊z⌋₊ : ℝ) + 1 := Nat.lt_floor_add_one z
-  have hn0 : (0 : ℝ) < (⌊z⌋₊ : ℝ) := by linarith
-  have hz0 : (0 : ℝ) < z := by linarith
-  -- `log 3 > 1`
-  have hlog3 : (1 : ℝ) < Real.log 3 := by
-    have he : Real.exp 1 < 3 := lt_trans Real.exp_one_lt_d9 (by norm_num)
-    calc (1 : ℝ) = Real.log (Real.exp 1) := (Real.log_exp 1).symm
-      _ < Real.log 3 := Real.log_lt_log (Real.exp_pos 1) he
-  have hlogn1 : (1 : ℝ) < Real.log (⌊z⌋₊ : ℝ) :=
-    lt_of_lt_of_le hlog3 (Real.log_le_log (by norm_num) hnR)
-  have hlogz1 : (1 : ℝ) < Real.log z := lt_of_lt_of_le hlogn1 (Real.log_le_log hn0 hnz)
-  have hlogle : Real.log (⌊z⌋₊ : ℝ) ≤ Real.log z := Real.log_le_log hn0 hnz
-  -- step 1: `log z − log ⌊z⌋ ≤ 1/⌊z⌋`
-  have hstep1 : Real.log z - Real.log (⌊z⌋₊ : ℝ) ≤ 1 / (⌊z⌋₊ : ℝ) := by
-    have hdiv : Real.log (z / (⌊z⌋₊ : ℝ)) ≤ z / (⌊z⌋₊ : ℝ) - 1 :=
-      Real.log_le_sub_one_of_pos (by positivity)
-    rw [Real.log_div (ne_of_gt hz0) (ne_of_gt hn0)] at hdiv
-    have hq : z / (⌊z⌋₊ : ℝ) - 1 ≤ 1 / (⌊z⌋₊ : ℝ) := by
-      rw [div_sub_one (ne_of_gt hn0), div_le_div_iff_of_pos_right hn0]
-      linarith
-    linarith
-  -- step 2: the same for the iterated log
-  have hstep2 : Real.log (Real.log z) - Real.log (Real.log (⌊z⌋₊ : ℝ))
-      ≤ 1 / (⌊z⌋₊ : ℝ) := by
-    have hdiv : Real.log (Real.log z / Real.log (⌊z⌋₊ : ℝ))
-        ≤ Real.log z / Real.log (⌊z⌋₊ : ℝ) - 1 :=
-      Real.log_le_sub_one_of_pos (by positivity)
-    rw [Real.log_div (by linarith) (by linarith)] at hdiv
-    have hq : Real.log z / Real.log (⌊z⌋₊ : ℝ) - 1 ≤ 1 / (⌊z⌋₊ : ℝ) := by
-      rw [div_sub_one (by linarith), div_le_div_iff₀ (by linarith) hn0]
-      have hle : Real.log z - Real.log (⌊z⌋₊ : ℝ) ≤ 1 / (⌊z⌋₊ : ℝ) := hstep1
-      have h1 : (Real.log z - Real.log (⌊z⌋₊ : ℝ)) * (⌊z⌋₊ : ℝ) ≤ 1 := by
-        rw [← le_div_iff₀ hn0]
-        simpa [one_div] using hle
-      nlinarith
-    linarith
-  -- `1/⌊z⌋ ≤ 1/log z` since `log z ≤ z − 1 < ⌊z⌋`
-  have hcmp : 1 / (⌊z⌋₊ : ℝ) ≤ 1 / Real.log z := by
-    have hlz : Real.log z ≤ z - 1 := Real.log_le_sub_one_of_pos hz0
-    have : Real.log z ≤ (⌊z⌋₊ : ℝ) := by linarith
-    exact div_le_div_of_nonneg_left (by norm_num) (by linarith) this
-  have hnonneg : 0 ≤ Real.log (Real.log z) - Real.log (Real.log (⌊z⌋₊ : ℝ)) := by
-    have := Real.log_le_log (by linarith) hlogle
-    linarith
-  rw [abs_of_nonneg hnonneg]
-  linarith
-
 /-- **`(4.6)`, re-indexed to a real cutoff** (the freeze's "`mertens_third` is `∃C` and
 `ℕ`-indexed — W4 owes the re-indexing"):
 

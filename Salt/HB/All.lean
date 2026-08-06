@@ -225,4 +225,8 @@ open Salt.Tactic in
   Salt.HB.logChiSum_re_eq_sum Salt.HB.logChiSum_re_sub_primeSum_le
   Salt.HB.exp_two_mul_log Salt.HB.sq_eq_exp_mul_one_add Salt.HB.abs_one_add_mul_sub_one_le
   Salt.HB.primeProdBelow_pos Salt.HB.abs_log_log_floor_sub_le Salt.HB.hb_mertens_third_real
+  Salt.HB.one_lt_log_three Salt.HB.log_le_two_mul_log_floor
+  Salt.HB.sum_recip_windowPrimes_eq Salt.HB.sum_recip_largePrimeFactors_le
+  Salt.HB.hb_coprime_segment Salt.HB.hb_hseg
+  Salt.HB.hb_hcorr_finite Salt.HB.hb_hcorr_at_limit
   Salt.HB.hb_L2_core Salt.HB.hb_L2_at_split_point
