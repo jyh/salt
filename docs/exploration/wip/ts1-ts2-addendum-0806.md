@@ -182,6 +182,36 @@ and nothing else). After S1 it is **unused**, and `lakefile.toml` runs
 If the build turns out **not** to warn, drop step 2 and say so in flags — do not add an underscore
 the compiler did not ask for.
 
+## 📊 AMENDMENT 6 — THE ARM TABLE, RECOMPUTED INDEPENDENTLY: TWO "AFTER" CELLS ARE STALE
+
+Recomputed from scratch (`log`, exact rationals) rather than copied. **The brief's landed column
+reproduces exactly at every entry** — `log(1/c₀) = 11.7507`, `86.23`, `83.71`, `536.67`, `631.58` —
+so both the brief's arithmetic and the arm model below are confirmed. **The headline claim is
+correct and now independently verified end-to-end: MAX `631.58 → 86.23`, binding arm
+`(c₀/32)^{17/3}`, unchanged by this amendment.**
+
+Two "after TS-1+TS-2" cells were computed **without TS-1's own stones applied**:
+
+| arm | landed | brief's "after" | **corrected "after"** | why |
+|---|---|---|---|---|
+| `(1/KEβ)^8` → γ_Eβ | 536.67 ✓ | 32.15 | **28.15** | brief used `627^9`; S5(a) makes it `248^9` |
+| `(c₀/KEρ)^8` → γ_Eρ | 631.58 ✓ | 25.58 | **22.84** | brief used `627^9`,`636`; S5(a)+S6 give `248^9`,`570` |
+
+`32.15` is *exactly* the value at `627^9`, and `25.58` is *exactly* the value at `627^9`/`636` —
+so both cells are the pre-TS-1 numbers sitting in a post-TS-1 column. The Eρ cell at least carried
+a parenthetical "(less, w/ S5+S6)"; the Eβ cell carries no caveat and is simply stale.
+
+**Nothing downstream moves** — both stay far below the binding `86.23`, which is exactly the brief's
+own point that S5 and S6 "deliver 0.00 to this program's grade." Recorded so the executor's reported
+table can be *checked* rather than accepted, and so nobody later quotes `32.15` as a measured
+post-wave figure.
+
+Formulas, for re-derivation: with `γ₀` the row's floor, the arm becomes `(1/(8K))^{1/γ₀}` and
+`log(1/arm) = (1/γ₀)·log(8K)`. Tall numerals: `KEβ = 16·(328+48·5)·248⁹`, `KEρ = 16·570·248⁹`,
+`c₀ = 1/126848`. **This is a TALL-tower table only** — R8's KEβ/KEρ arms carry a free `Z₀`
+(`R8:1387-1388`) and cannot be priced numerically at all, which is the brief's own warning that the
+table "does not price that tower".
+
 ## PRE-FLIGHT ALREADY COMPLETED (do not repeat)
 
 | check | result |
