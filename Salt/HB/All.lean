@@ -48,6 +48,7 @@ import Salt.HB.Lemma7F
 import Salt.HB.Lemma7Prod
 import Salt.HB.Lemma7
 import Salt.HB.Lemma7Kappa
+import Salt.HB.CharTrio
 import Salt.HB.MOne
 import Salt.Tactic.AuditAxioms
 
@@ -253,3 +254,11 @@ open Salt.Tactic in
   Salt.HB.qFactors_low_prod_eq Salt.HB.hbS1_eq Salt.HB.hbKappaTail_split
   Salt.HB.one_sub_sum_le_prod_one_sub Salt.HB.abs_prod_one_sub_two_div_sub_one_le
   Salt.HB.hb_hrear Salt.HB.hb_L2_at_split_point_concrete
+  Salt.HB.chiRe_eq_one_or_neg_one_or_zero Salt.HB.chiRe_eq_zero_iff_map_eq_zero
+  Salt.HB.chiRe_eq_zero_iff_not_coprime Salt.HB.chiRe_prime_eq_zero_iff_dvd
+  Salt.HB.hb_hchi01 Salt.HB.hb_hchi0
+  Salt.HB.hbL1_eq Salt.HB.prod_one_sub_chiRe_div_Pz_pos Salt.HB.hbL1_pos
+  Salt.HB.Pz_eq_union_windowPrimes Salt.HB.Pz_disjoint_windowPrimes
+  Salt.HB.hbEulerProdBelow_split Salt.HB.tendsto_hbEulerProdBelow_hbL1
+  Salt.HB.hbL1_eq_of_tendsto Salt.HB.hbL1_split_indep
+  Salt.HB.hb_L2_at_split_point_char Salt.HB.hb_L2_at_split_point_charTrio
