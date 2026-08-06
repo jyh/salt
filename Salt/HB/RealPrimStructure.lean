@@ -384,4 +384,235 @@ theorem eq_quadraticChar_of_isPrimitive {p : ℕ} [Fact p.Prime] (hp2 : p ≠ 2)
 
 end OddLocal
 
+/-! ### S4: the local classification at `2` -/
+
+section TwoLocal
+
+/-- **S4 (`a = 1`).**  There is no primitive character modulo `2`: `(ZMod 2)ˣ` is trivial, so
+every character mod `2` is the trivial one, of conductor `1`. -/
+theorem not_isPrimitive_two (χ : DirichletCharacter ℤ 2) : ¬ χ.IsPrimitive := by
+  have htriv : ∀ a : (ZMod 2)ˣ, a = 1 := by decide
+  have h1 : χ = 1 := MulChar.ext fun a => by
+    rw [htriv a, Units.val_one, MulChar.map_one, MulChar.map_one]
+  intro hprim
+  rw [DirichletCharacter.isPrimitive_def, h1, DirichletCharacter.conductor_one] at hprim
+  exact absurd hprim (by norm_num)
+
+/-- **Hensel at `2`.**  An integer `≡ 1 (mod 8)` is a square modulo every power of `2`, with an
+odd square root.  The lift `y ↦ y - 2 ^ (j-1) c` gains one `2`-adic digit as soon as `j ≥ 3`
+(that is where `2 j - 2 ≥ j + 1` bites) — the arithmetic reason the `2`-part of a real primitive
+modulus never exceeds `8`. -/
+theorem exists_odd_sq_sub_dvd (k : ℕ) {n : ℤ} (h8 : (8 : ℤ) ∣ n - 1) :
+    ∃ y : ℤ, Odd y ∧ (2 : ℤ) ^ k ∣ y ^ 2 - n := by
+  induction k with
+  | zero => exact ⟨1, odd_one, by simp⟩
+  | succ j ih =>
+      rcases le_or_gt (j + 1) 3 with hj | hj
+      · refine ⟨1, odd_one, ?_⟩
+        have h1 : (2 : ℤ) ^ (j + 1) ∣ 8 := by
+          have : (8 : ℤ) = 2 ^ 3 := by norm_num
+          rw [this]; exact pow_dvd_pow 2 hj
+        have h2 : (8 : ℤ) ∣ 1 ^ 2 - n := by
+          obtain ⟨c, hc⟩ := h8; exact ⟨-c, by rw [one_pow]; omega⟩
+        exact h1.trans h2
+      · obtain ⟨i, rfl⟩ : ∃ i, j = i + 3 := ⟨j - 3, by omega⟩
+        obtain ⟨y, hyodd, c, hc⟩ := ih
+        obtain ⟨e, he⟩ := hyodd
+        refine ⟨y - 2 ^ (i + 2) * c, ⟨e - 2 ^ (i + 1) * c, by rw [he]; ring⟩,
+          ⟨-(c * e) + 2 ^ i * c ^ 2, ?_⟩⟩
+        linear_combination hc - 2 ^ (i + 3) * c * he
+
+/-- **S4 (`a ≥ 4`).**  There is no primitive character modulo `2 ^ a` for `a ≥ 4`.
+
+A unit `≡ 1 (mod 8)` is a square (`exists_odd_sq_sub_dvd`), and a `ℤ`-valued character kills
+squares; so `χ` factors through `8 < 2 ^ a`. -/
+theorem not_isPrimitive_two_pow {a : ℕ} (ha : 4 ≤ a) (χ : DirichletCharacter ℤ (2 ^ a)) :
+    ¬ χ.IsPrimitive := by
+  haveI : NeZero (2 ^ a) := ⟨pow_ne_zero a two_ne_zero⟩
+  have h8 : (8 : ℕ) ∣ 2 ^ a := by
+    have : (8 : ℕ) = 2 ^ 3 := by norm_num
+    rw [this]; exact pow_dvd_pow 2 (by omega)
+  have hft : χ.FactorsThrough 8 := by
+    rw [DirichletCharacter.factorsThrough_iff_ker_unitsMap h8]
+    intro u hu
+    rw [MonoidHom.mem_ker] at hu ⊢
+    -- the value of `u`, as an integer `≡ 1 (mod 8)`
+    set n : ℤ := ((u : ZMod (2 ^ a)).val : ℤ) with hn
+    have hcast : ((n : ℤ) : ZMod (2 ^ a)) = (u : ZMod (2 ^ a)) := by
+      rw [hn]; push_cast; rw [ZMod.natCast_val, ZMod.cast_id]
+    have h8n : (8 : ℤ) ∣ n - 1 := by
+      have h1 : ((u : ZMod (2 ^ a)).cast : ZMod 8) = 1 := by
+        have := congrArg Units.val hu
+        rwa [ZMod.unitsMap_val, Units.val_one] at this
+      have h2 : ((n : ℤ) : ZMod 8) = 1 := by
+        rw [hn]; push_cast; rw [ZMod.natCast_val]; exact h1
+      have h3 : ((n - 1 : ℤ) : ZMod 8) = 0 := by rw [Int.cast_sub, h2, Int.cast_one, sub_self]
+      exact_mod_cast (ZMod.intCast_zmod_eq_zero_iff_dvd (n - 1) 8).mp h3
+    obtain ⟨y, _, hy⟩ := exists_odd_sq_sub_dvd a h8n
+    -- `u` is a square, so `χ u = (χ y) ^ 2 = 1`
+    have hsq : ((y : ℤ) : ZMod (2 ^ a)) * ((y : ℤ) : ZMod (2 ^ a)) = (u : ZMod (2 ^ a)) := by
+      have h4 : (((y ^ 2 - n : ℤ)) : ZMod (2 ^ a)) = 0 := by
+        rw [ZMod.intCast_zmod_eq_zero_iff_dvd]
+        exact_mod_cast hy
+      rw [Int.cast_sub, sub_eq_zero, Int.cast_pow, sq] at h4
+      rw [h4, hcast]
+    have hyu : IsUnit ((y : ℤ) : ZMod (2 ^ a)) :=
+      isUnit_of_mul_isUnit_left (y := ((y : ℤ) : ZMod (2 ^ a))) (by rw [hsq]; exact Units.isUnit u)
+    refine Units.ext ?_
+    rw [MulChar.coe_toUnitHom, Units.val_one, ← hsq, map_mul]
+    rcases int_apply_unit χ hyu with h | h <;> rw [h] <;> norm_num
+  intro hprim
+  have hle : χ.conductor ≤ 8 := Nat.sInf_le ((DirichletCharacter.mem_conductorSet_iff χ).mpr hft)
+  rw [DirichletCharacter.isPrimitive_def] at hprim
+  rw [hprim] at hle
+  have hlt : (8 : ℕ) < 2 ^ a := by
+    calc (8 : ℕ) = 2 ^ 3 := by norm_num
+      _ < 2 ^ a := Nat.pow_lt_pow_right one_lt_two (by omega)
+  omega
+
+/-- Divisor bookkeeping at a prime power: to be primitive mod `2 ^ a` it suffices not to factor
+through `2 ^ (a - 1)`, since every proper divisor of `2 ^ a` divides `2 ^ (a - 1)`. -/
+theorem isPrimitive_two_pow_of_not_factorsThrough {a : ℕ} (ha : 1 ≤ a)
+    (χ : DirichletCharacter ℤ (2 ^ a)) (h : ¬ χ.FactorsThrough (2 ^ (a - 1))) : χ.IsPrimitive := by
+  haveI : NeZero (2 ^ a) := ⟨pow_ne_zero a two_ne_zero⟩
+  rw [DirichletCharacter.isPrimitive_def]
+  by_contra hne
+  obtain ⟨j, hj, hcj⟩ :=
+    (Nat.dvd_prime_pow Nat.prime_two).mp (DirichletCharacter.conductor_dvd_level χ)
+  have hjlt : j < a := by
+    rcases Nat.eq_or_lt_of_le hj with rfl | h1
+    · exact absurd hcj hne
+    · exact h1
+  have hdvd1 : χ.conductor ∣ 2 ^ (a - 1) := by rw [hcj]; exact pow_dvd_pow 2 (by omega)
+  have hdvd2 : (2 : ℕ) ^ (a - 1) ∣ 2 ^ a := pow_dvd_pow 2 (by omega)
+  exact h (DirichletCharacter.FactorsThrough.mono
+    (hχ := DirichletCharacter.factorsThrough_conductor χ) (hd := hdvd1) (hm := hdvd2))
+
+/-- **S4: `χ₄` is primitive.**  mathlib names `χ₄` "the primitive quadratic character on
+`ZMod 4`" in prose only; this is the proof.  The unit `3 ≡ 1 (mod 2)` is in the kernel of
+`(ZMod 4)ˣ → (ZMod 2)ˣ` but not in the kernel of `χ₄`. -/
+theorem isPrimitive_chi4 :
+    DirichletCharacter.IsPrimitive (ZMod.χ₄ : DirichletCharacter ℤ 4) := by
+  refine isPrimitive_two_pow_of_not_factorsThrough (a := 2) (by norm_num) ZMod.χ₄ ?_
+  change ¬ DirichletCharacter.FactorsThrough (ZMod.χ₄ : DirichletCharacter ℤ 4) 2
+  intro hft
+  rw [DirichletCharacter.factorsThrough_iff_ker_unitsMap (show (2 : ℕ) ∣ 4 by norm_num)] at hft
+  obtain ⟨u, hu3⟩ : ∃ u : (ZMod 4)ˣ, (u : ZMod 4) = 3 := ⟨⟨3, 3, by decide, by decide⟩, rfl⟩
+  have hmem : u ∈ (ZMod.unitsMap (show (2 : ℕ) ∣ 4 by norm_num)).ker := by
+    rw [MonoidHom.mem_ker]
+    refine Units.ext ?_
+    rw [ZMod.unitsMap_val, Units.val_one, hu3]
+    decide
+  have hk := congrArg Units.val (MonoidHom.mem_ker.mp (hft hmem))
+  rw [MulChar.coe_toUnitHom, Units.val_one, hu3] at hk
+  exact absurd hk (by decide)
+
+/-- **S4: `χ₈` is primitive.**  The unit `5 ≡ 1 (mod 4)` separates `χ₈` from level `4`. -/
+theorem isPrimitive_chi8 :
+    DirichletCharacter.IsPrimitive (ZMod.χ₈ : DirichletCharacter ℤ 8) := by
+  refine isPrimitive_two_pow_of_not_factorsThrough (a := 3) (by norm_num) ZMod.χ₈ ?_
+  change ¬ DirichletCharacter.FactorsThrough (ZMod.χ₈ : DirichletCharacter ℤ 8) 4
+  intro hft
+  rw [DirichletCharacter.factorsThrough_iff_ker_unitsMap (show (4 : ℕ) ∣ 8 by norm_num)] at hft
+  obtain ⟨u, hu5⟩ : ∃ u : (ZMod 8)ˣ, (u : ZMod 8) = 5 := ⟨⟨5, 5, by decide, by decide⟩, rfl⟩
+  have hmem : u ∈ (ZMod.unitsMap (show (4 : ℕ) ∣ 8 by norm_num)).ker := by
+    rw [MonoidHom.mem_ker]
+    refine Units.ext ?_
+    rw [ZMod.unitsMap_val, Units.val_one, hu5]
+    decide
+  have hk := congrArg Units.val (MonoidHom.mem_ker.mp (hft hmem))
+  rw [MulChar.coe_toUnitHom, Units.val_one, hu5] at hk
+  exact absurd hk (by decide)
+
+/-- **S4: `χ₈'` is primitive.** -/
+theorem isPrimitive_chi8' :
+    DirichletCharacter.IsPrimitive (ZMod.χ₈' : DirichletCharacter ℤ 8) := by
+  refine isPrimitive_two_pow_of_not_factorsThrough (a := 3) (by norm_num) ZMod.χ₈' ?_
+  change ¬ DirichletCharacter.FactorsThrough (ZMod.χ₈' : DirichletCharacter ℤ 8) 4
+  intro hft
+  rw [DirichletCharacter.factorsThrough_iff_ker_unitsMap (show (4 : ℕ) ∣ 8 by norm_num)] at hft
+  obtain ⟨u, hu5⟩ : ∃ u : (ZMod 8)ˣ, (u : ZMod 8) = 5 := ⟨⟨5, 5, by decide, by decide⟩, rfl⟩
+  have hmem : u ∈ (ZMod.unitsMap (show (4 : ℕ) ∣ 8 by norm_num)).ker := by
+    rw [MonoidHom.mem_ker]
+    refine Units.ext ?_
+    rw [ZMod.unitsMap_val, Units.val_one, hu5]
+    decide
+  have hk := congrArg Units.val (MonoidHom.mem_ker.mp (hft hmem))
+  rw [MulChar.coe_toUnitHom, Units.val_one, hu5] at hk
+  exact absurd hk (by decide)
+
+/-- **S4 (`a = 2`).**  The only primitive character modulo `4` is `χ₄`. -/
+theorem eq_chi4_of_isPrimitive (χ : DirichletCharacter ℤ 4) (hprim : χ.IsPrimitive) :
+    χ = ZMod.χ₄ := by
+  have hunits : ∀ v : (ZMod 4)ˣ, (v : ZMod 4) = 1 ∨ (v : ZMod 4) = 3 := by decide
+  have hne : χ ≠ 1 := by
+    intro h
+    rw [DirichletCharacter.isPrimitive_def, h, DirichletCharacter.conductor_one] at hprim
+    exact absurd hprim (by norm_num)
+  obtain ⟨u, hu⟩ := MulChar.ne_one_iff.mp hne
+  have hu3 : (u : ZMod 4) = 3 := by
+    rcases hunits u with h | h
+    · exact absurd (by rw [h]; exact MulChar.map_one χ) hu
+    · exact h
+  rw [hu3] at hu
+  have h3 : χ (3 : ZMod 4) = -1 :=
+    (int_apply_unit χ (⟨⟨3, 3, by decide, by decide⟩, rfl⟩ : IsUnit (3 : ZMod 4))).resolve_left hu
+  refine MulChar.ext fun a => ?_
+  rcases hunits a with h | h
+  · rw [h, MulChar.map_one, MulChar.map_one]
+  · rw [h, h3]; decide
+
+/-- **S4 (`a = 3`).**  The primitive characters modulo `8` are exactly `χ₈` and `χ₈'`.
+
+Primitivity means `χ` does not factor through `4`, i.e. `χ 5 = -1`; the remaining freedom is the
+sign of `χ 3`, and `χ 7 = χ 3 · χ 5` is then forced. -/
+theorem eq_chi8_or_chi8'_of_isPrimitive (χ : DirichletCharacter ℤ 8) (hprim : χ.IsPrimitive) :
+    χ = ZMod.χ₈ ∨ χ = ZMod.χ₈' := by
+  have h48 : (4 : ℕ) ∣ 8 := by norm_num
+  have hnft : ¬ χ.FactorsThrough 4 := by
+    intro hft
+    have hle : χ.conductor ≤ 4 :=
+      Nat.sInf_le ((DirichletCharacter.mem_conductorSet_iff χ).mpr hft)
+    rw [DirichletCharacter.isPrimitive_def] at hprim
+    rw [hprim] at hle
+    omega
+  rw [DirichletCharacter.factorsThrough_iff_ker_unitsMap h48] at hnft
+  obtain ⟨u, hu1, hu2⟩ := SetLike.not_le_iff_exists.mp hnft
+  have hcast : ((u : ZMod 8).cast : ZMod 4) = 1 := by
+    have h := congrArg Units.val (MonoidHom.mem_ker.mp hu1)
+    rwa [ZMod.unitsMap_val, Units.val_one] at h
+  have hker : ∀ v : (ZMod 8)ˣ, ((v : ZMod 8).cast : ZMod 4) = 1 →
+      (v : ZMod 8) = 1 ∨ (v : ZMod 8) = 5 := by decide
+  have hu5 : (u : ZMod 8) = 5 := by
+    rcases hker u hcast with h | h
+    · refine absurd (MonoidHom.mem_ker.mpr (Units.ext ?_)) hu2
+      rw [MulChar.coe_toUnitHom, Units.val_one, h, MulChar.map_one]
+    · exact h
+  have h5 : χ (5 : ZMod 8) = -1 := by
+    refine (int_apply_unit χ
+      (⟨⟨5, 5, by decide, by decide⟩, rfl⟩ : IsUnit (5 : ZMod 8))).resolve_left ?_
+    intro h
+    refine absurd (MonoidHom.mem_ker.mpr (Units.ext ?_)) hu2
+    rw [MulChar.coe_toUnitHom, Units.val_one, hu5, h]
+  have h7 : χ (7 : ZMod 8) = χ 3 * χ 5 := by
+    rw [show (7 : ZMod 8) = 3 * 5 by decide, map_mul]
+  have hunits : ∀ v : (ZMod 8)ˣ, (v : ZMod 8) = 1 ∨ (v : ZMod 8) = 3 ∨ (v : ZMod 8) = 5 ∨
+      (v : ZMod 8) = 7 := by decide
+  rcases int_apply_unit χ
+    (⟨⟨3, 3, by decide, by decide⟩, rfl⟩ : IsUnit (3 : ZMod 8)) with h3 | h3
+  · refine Or.inr (MulChar.ext fun a => ?_)
+    rcases hunits a with h | h | h | h
+    · rw [h, MulChar.map_one, MulChar.map_one]
+    · rw [h, h3]; decide
+    · rw [h, h5]; decide
+    · rw [h, h7, h3, h5]; decide
+  · refine Or.inl (MulChar.ext fun a => ?_)
+    rcases hunits a with h | h | h | h
+    · rw [h, MulChar.map_one, MulChar.map_one]
+    · rw [h, h3]; decide
+    · rw [h, h5]; decide
+    · rw [h, h7, h3, h5]; decide
+
+end TwoLocal
+
 end Salt.HB
