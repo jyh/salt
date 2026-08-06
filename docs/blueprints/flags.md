@@ -20361,3 +20361,95 @@ conclusion, not the method.
 and D11's ruling stands that the `m ≥ 2` branch is a separate statement family. But since the
 whole N4b road is the Siegel-zero regime (`hN`/`hN+` already demand `η` astronomically larger
 than `15000`), `hm1` is discharged wherever the road runs.
+
+## ⟦N4B-SYMSPLIT — THE W2C SHARPENING: `K = 100 at L ≥ 250` IS NOW IN THE KERNEL⟧
+
+(2026-08-05, Opus executor, class B as priced; `Salt/HB/Lemma7EF.lean` only — 2358 → 3206 ln,
+77 → 90 declarations, 13 new, every one `[propext, Classical.choice, Quot.sound]`; no `sorry`, no
+`native_decide`; full `lake build` exit 0, 9709 jobs, warnings = baseline, **none from this
+file**. Additive throughout: §10's rows and every existing caller are untouched.)
+
+**THE DIAGNOSIS `N4B-W2c` RECORDED IS CONFIRMED, AND THE REPAIR IS THE MECHANICAL ONE.** §10
+prices every row against the single scale `M = log(qu) + 2`, substituting `log q ≤ M − 3` and
+`log M ≤ M − 1` to stay division-free. Carrying the two logarithms as SEPARATE symbols —
+
+> `M = log(qu) + 2` and **`N = log q + 11·log M`**
+
+— is the whole of the change. `N` is not invented: it is the shape the rows already have
+(`log(q(T₀+a)) = log q + 7 log M`, landed since W2c as `log_q_efT0_add3_le`; and
+`log(4·5(5+T₀)√q(1+log q)) ≤ 11 log M + (log q)/2`, since the `√q` contributes `(log q)/2` and
+`1 + log q ≤ M` absorbs the last factor, so the whole Jensen argument is `≤ M^{11}·√q`).
+
+**§13 — THE SHARP LEDGER.** `efShiftB_le_scale_sharp` (:2469):
+`B ≤ 2·10^5·M^6·N^2` against §10's `3·10^7·M^8` — same `hgap`, same `log(7/6) ≥ 1/7`, one `exp`
+of savings in each of the two factors. Then `efEnvelope_le_ledger_sharp` (:2624):
+
+> `G(u) ≤ (m + 2 + 2·10^6·N²/M²)/M + M/u + 10^6·M^9·N²·u^{σb−1} + 10^3·M^3·N·u^{bceil−1}`.
+
+The leading term is now a **quotient**, not a constant — that is the point. Support:
+`log_efT0_add_le_sharp`/`log_q_efT0_add_le_sharp` (:2398/:2411, `≤ 7 log M` and
+`≤ log q + 7 log M`, where §10 had `7M`/`8M`), `log_efShiftB_arg_le_sharp` (:2425, `≤ N`, where
+§10 had `15M`), `scaleN_bounds` (:2385, `11 ≤ N ≤ 12M` — §10's two coarse substitutions used
+ONCE, at the end, where they cost nothing), and `ledger_algebra_sharp` (:2545).
+
+**§14 — THE WINDOW EDGE PUSHED IN.** `ledger_const_le_of_window` (:2842): at `L = log q ≥ 250`
+and inside `q^{250} ≤ u` (so `log q ≤ M/250`), `2·10^6·N²/M² ≤ 250`. The only real input is
+**`log M ≤ 8·M^{1/8}`** (`log_le_eight_sqrt3`, :2825 — `log x ≤ 2√x` applied three times).
+`log M ≤ 2√M`, the obvious first try, is NOT enough: it leaves `22/√M ≈ 0.088` at `M = 62500`
+against the window's own `1/250 = 0.004`, and gives `C ≈ 1.7·10^4` — over the K line. The third
+square root is what closes it. Then `efEnvelope_zfr_eventually_le_sharp` (:2904):
+
+> `G(u) ≤ (m + 255)/log u` eventually — where §12 had `(m + 4·10^8 + 3)/log u`.
+
+**§15 — `K = 100`, KERNEL-CHECKED.** `integral_inv_mul_log_sq` (:3056) evaluates the ledger
+integral EXACTLY (`∫_X^∞ dv/(v(log v)²) = 1/log X`, the antiderivative `−1/log t` — the
+integrability half was already landed, only the value was owed); `tail_le_of_pointwise` (:3084)
+turns a pointwise `G ≤ C/log t` on `[X,∞)` into `G(X)/log X + 2∫ ≤ C/(log X)² + 2C/log X`; and
+`logChiSum_tendsto_zfr_hundred` (:3136) is the statement W2c said must not be quoted:
+
+> at `L = log q ≥ 250`, the composite `(4.12)` tail at the Range-B ceiling is
+> **`≤ 100/√(log X)`** — HB's own `K`, with `K = 100`.
+
+**THE ACHIEVED NUMBERS, HONESTLY.**
+
+| | W2c (§10/§12) | SYMSPLIT (§13–§15) |
+|---|---|---|
+| edge constant `B` | `3·10^7·M^8` | `2·10^5·M^6·N^2` |
+| ledger leading term | `4·10^8` | `2·10^6·N²/M²`, `≤ 250` in the window |
+| tail constant `C` | `m + 4·10^8 + 3` | **`m + 255`** |
+| `K = 2C/√(log X)` at `L = 250` | `≈ 3.2·10^6` | **`≈ 2.05`** |
+| `L` needed for `K ≤ 100` | `≈ 2.6·10^11` | **`250` — the window's own floor** |
+
+So the improvement in `C` is a factor `1.6·10^6`, and in the `L`-threshold nine orders of
+magnitude, landing exactly on the paper's `L ≥ 250`. **`K = 100` is not tight and is not the
+binding constraint**: at `L = 250` the arithmetic gives `K ≈ 2`, a factor ≈ 49 of margin, and
+what actually forces `L ≥ 250` is the *window hypothesis itself* (`ledger_const_le_of_window`
+needs `log q ≥ 250` to make `N/M ≤ 1/90`), not the size of `K`. The residual slack against the
+`N4B-W2c` flag's own estimate (`C ≈ 10`) is fully accounted: the flag priced `hgap` at the design
+value `σb − σa ≥ 0.0779`, this ledger keeps the LANDED named hypothesis `1/20 ≤ σb − σa` (factor
+1.68), and `log M ≤ 8·M^{1/8}` costs `31.8` where the truth is `11.0` (factor ≈ 2.6 in `N`). Both
+are recoverable by re-pricing, and neither is worth spending on: `K` has 49× of room.
+
+**⛔ THE ONE HONEST CAVEAT — the `X₀` in `logChiSum_tendsto_zfr_hundred` is EXISTENTIAL.** The
+`1/M`-grade row, the only one whose size `K` tracks, is fully explicit: `≤ 252/log u` for every
+`u` in the design window from `L ≥ 250` on. But the two decaying rows die at rates `1 − σb` and
+`c₀`, and **neither is quantified by the theorem's hypotheses** (`σb < 1` and `0 < c₀` is all
+that is assumed), so no explicit threshold for them can be extracted. Making `X₀` explicit is a
+separate, cheap node: add `hσbrate : ε ≤ 1 − σb` and a numeric `c₀`, then the two
+`eventually_pow_exp_le_one` calls become threshold computations. **Not owed by this node**, and
+nothing downstream needs it — the transfer consumes the `∃ X₀` form.
+
+**WHAT DID *NOT* NEED SHARPENING.** The `1/M`-grade collapse rows (`u/M²`, `u/M³`), the
+de-smoothing boundary and the two contour-budget shapes are all `M`-only and were already sharp;
+§13 reuses `efShiftBound_le_rows` verbatim. Only the three rows carrying a `log(q·)` or `log T₀`
+factor moved. That is a useful rule for the corpus: **when a ledger constant looks absurd, the
+row to re-price is always one that swallowed a logarithm of the modulus or the height into the
+scale.**
+
+**ROLL-CALL OWED.** The 8 public new names —
+`efShiftB_le_scale_sharp`, `efEnvelope_le_ledger_sharp`, `ledger_const_le_of_window`,
+`efEnvelope_zfr_eventually_le_sharp`, `integral_inv_mul_log_sq`, `tail_le_of_pointwise`,
+`logChiSum_tendsto_zfr_hundred` (plus nothing else public; the other 6 are `private`) — are NOT
+yet in `Salt/HB/All.lean`'s roll-call. Left for the W4.5 executor's `All.lean` sweep tonight, per
+the dispatch. `Salt/HB/Lemma7Kappa.lean` was being edited by a neighbour during this node; no
+overlap, nothing touched outside `Lemma7EF.lean`.
