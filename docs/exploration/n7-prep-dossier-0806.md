@@ -579,3 +579,29 @@ kernel, and it is the one place in this sweep where I am reporting "structure ma
 **our transcription corrected three times** (the dropped `w₂` index in (5.14); the dropped "not
 necessarily in `α`" on the `C_i`; the over-stated log power in (7.8)). Two blocks clean.
 **We were the less reliable party, by half again.**
+
+## ADDENDUM D.1 — `κ`'s LEAN RENDERING CROSS-CHECKED (what I *could* settle)
+
+I cannot certify `κ` against the print, but I can check our **two internal records against each
+other**, and I can attack the definition's branch structure. Both done:
+
+**(i) `hbKappa` and the notes agree exactly.** `Salt/HB/Lemma7Kappa.lean:346` carries κ's
+four-product form in its docstring verbatim as `hb1983-notes.md:225-226` has it, and the Lean body
+matches that docstring term for term:
+`x * L1^2 * ∏_{p ∈ q.primeFactors, p ∤ α}(1 − 2/p) * ∏_{p ∈ α.primeFactors}(1 − χ_ℝ(p)/p)^2 *
+hbKappaTail`, with `hbKappaTail = ∏'_{p > 2} hbWfac χ α p` documented as HB's two infinite products.
+
+**(ii) THE PARTITION IS CORRECT — I attacked it and it held.** HB's two tail products run over
+`p ∤ α` split by `χ(p) = ±1`; primes with `χ(p) = 0` (i.e. `p ∣ q`) belong to the **first, finite**
+product instead. So the tail factor must return `1` on them or those primes are **counted twice**.
+`hbSfac` (`:132`) is a three-way split — `χ_ℝ(p) = 1 ↦ (1−1/p²)`, `χ_ℝ(p) = −1 ↦ (1−2/p)(1+1/p)²`,
+**`else ↦ 1`** — so the `χ(p) = 0` primes contribute exactly `1`, and `hbWfac` (`:139`) returns `1`
+on `p ∣ α`. **No double-counting; both `p ∣ α` and `χ(p) = 0` are handled, and the `else ↦ 1` is
+load-bearing rather than a junk default** (the file says as much at `:34`).
+
+**⚠️ WHAT THIS DOES AND DOES NOT BUY.** It rules out an *internal* inconsistency and the obvious
+partition bug. It does **not** verify `κ` against p.199 — and because `hbKappa` reproduces the
+notes exactly, **any mis-transcription in the notes is inherited by the kernel definition
+verbatim**. So the risk is not eliminated, it is **localised to a single line of small type**, and
+one careful read of p.199 by anyone with a cleaner copy discharges it for both records at once.
+That is a sharper ask than "someone check κ", and it is the last open item from this sweep.
