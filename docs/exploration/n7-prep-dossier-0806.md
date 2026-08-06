@@ -320,3 +320,77 @@ for conditionally convergent Euler products) and `TwistedMertens.lean:136`
 "[KERNEL]" row is *bytes-say-so*, not kernel-checked; the §6 line estimate is an analogy to
 Lemma 7, not a priced brief; FINDING #3's reduction of (7.7b) to `geom_phase_bound` is a shape
 match, not a proof.
+
+---
+
+# ADDENDUM A (2026-08-06) — §7 VERIFIED AGAINST THE SOURCE, pp.221–223
+
+**Why:** §1 of this dossier mapped §7 from `hb1983-notes.md`, a *transcription*. Hours later the
+same transcription's §5 was found to sit on **two errata in one printed sentence** of the paper
+(`b25d8aa`). The block N7 must formalize therefore deserved a direct read. The PDF is staged at
+`~/Downloads/Proceedings of London Math Soc - September 1983 - Heath-Brown - Prime Twins and
+Siegel Zeros.pdf`. Read-only, no Lean.
+
+## A.1 — WHAT VERIFIED CLEAN ✅
+
+`(7.1)`, `(7.2)`, `(7.3)` (with its `K ≥ 2`), `(7.4)`, `(7.5)`, `(7.6)` and `(7.7)` all match
+`hb1983-notes.md` as transcribed. Also confirmed at the source:
+
+- **§7 cites exactly one external result.** "This will then be tackled using **Estermann's bound
+  [6]** for the Kloosterman sum" — and the reference list gives **[6] T. Estermann, 'On
+  Kloosterman's sum', *Mathematika* 8 (1961) 83–86**, exactly as this dossier recorded. The
+  "only one thing from outside HB" headline is confirmed **at the paper**, not just at the notes.
+- **`K = 2 + k^{1/4}`** is the printed choice ("We choose `K = 2 + k^{1/4}`, and Lemma 10
+  follows"), and the `K ≥ 2` of (7.3) is what forces the `2 +`.
+- **(7.6)'s `I₀` is "a certain subinterval of `I`"** — a genuine interval, not an arbitrary set.
+  This matters for §4 FINDING #3 (see A.3).
+- The final display on p.223 carries **`d³(k)(log Kk)³`**, confirming the `(log Kk)³` vs
+  `(log 2k)³` conversion this dossier flagged as owed by N7.
+
+## A.2 — 🟡 THE NOTES OMIT AN INTERMEDIATE STEP, AND IT IS THE ONE THAT INTRODUCES `k₀`
+
+Between (7.7) and (7.8) the paper has a line the notes do not carry:
+
+> "On comparing estimates, we see that (7.6) yields
+> `S_m ≪ (1+m|T|E^{−1}k^{−1})·d(k)²·q^{3/2}·(log 2k₀)·{E(k₀,m)^{1/2} + k₀}·k^{−1/2}`
+> **since `(C,k₀) = 1`**."
+
+Two things N7 needs that are invisible in the notes: the `d(k)²` intermediate (it becomes `d(k)³`
+only after the `Σ_{M<m≤2M}(k₀,m)^{1/2} ≪ M·d(k₀)` step), and the **explicit use of `(C,k₀) = 1`**,
+which is a *hypothesis of Lemma 10* (`(C,k) = 1`) being spent here via `k₀ ∣ k`. Add both to the
+formalization plan.
+
+**⚠️ AND ONE EXPONENT I COULD NOT SETTLE FROM THE PAGE IMAGE.** The notes transcribe (7.8) with
+`(log 2k)³`; the printed (7.8) appears to carry `(log 2k)` to the **first** power, with the cube
+appearing only in the p.223 combination (`(log Kk)³`). I am **not** asserting a discrepancy — the
+rendering is not sharp enough to be sure, and the difference is *safe in our direction* (a larger
+log-power is a weaker claim). But the freeze rules that Lean statements carry
+`d(k)³(log 2k)³` **literally**, so **someone should confirm the exponent against a clean copy
+before that numeral is frozen into a statement.** Recorded as an open check, not a finding.
+
+## A.3 — ⭐ THE SOURCE STRENGTHENS FINDING #3 (the W5 re-price), AND NAMES ITS EDGE CASE
+
+The completion step reads, at the paper:
+
+> `Σ'_{n∈I₀} g(n) = (1/k) Σ_{s=1}^{k} S(k;s,Cm) · Σ_{n∈I₀, q∣n−b} e(−sn/k)`,
+> with `Σ_{n∈I₀, q∣n−b} e(−sn/k) ≪ Min(E, ‖sq/k‖^{−1})`.
+
+Since `k = q·k₀`, the phase is `sq/k = s/k₀`. So **the `E` branch of that `Min` is exactly the
+case `‖s/k₀‖ = 0`, i.e. `k₀ ∣ s`** — which is why HB's next line splits off `E(k₀,Cm)^{1/2}` from
+the `s`-sum. That is precisely the junk-value edge the statement audit worried about
+(`weil-trio-audit-0806.md` §3, the `1/‖0‖ = ∞` case), and **the corpus already handles it in the
+right shape**: `Salt.MR.minTerm` (`MinorArcVaughan.lean:271`) is
+`if t = 0 then Y else min Y (1/(2t))`, carrying the vanishing-distance case honestly rather than
+by a junk value, and `Salt.MR.geom_phase_bound` (`:298`) delivers exactly
+`‖Σ_{M₁<m≤M₂} e(θm)‖ ≤ minTerm (M₂−M₁) (dist₁ θ 0)`.
+
+Combined with A.1's confirmation that `I₀` is a genuine **subinterval**, the reindex `n = b + qm`
+maps it onto a `Finset.Ioc` cleanly. **This raises confidence in the W5 re-price from "shape
+match" to "shape match with the edge case named and already served"** — but it is still not a
+proof, and the off-by-one check remains owed (queued for after 20:00).
+
+## A.4 — WHAT THIS ADDENDUM DOES NOT CHANGE
+
+The consumption map (§1), the supply map (§3), the gap list (§5) and the scale estimate (§6)
+stand as written. The `j = e` vacuity constraint of `weil-trio-audit-0806.md` §2 is untouched and
+still owed by N7.
