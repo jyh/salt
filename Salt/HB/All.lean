@@ -5,6 +5,7 @@ Authors: Jason Hickey, Claude
 -/
 import Salt.HB.QuadCharSum
 import Salt.HB.RealPrimitive
+import Salt.HB.RealPrimStructure
 import Salt.HB.TwistChain
 import Salt.HB.TwistChainC
 import Salt.HB.Transfer
@@ -276,3 +277,17 @@ open Salt.Tactic in
   Salt.HB.jacobiChar_prime Salt.HB.hasTwoFormGcdBound_jacobiChar_prime
   Salt.HB.hasTwoFormGcdBound_jacobiChar Salt.HB.sum_two_forms_le_gcd_of_split
   Salt.HB.sum_class_eq_zero_of_isPrimitive
+  -- node WEIL-TRIO-W4-a (Salt/HB/RealPrimStructure.lean): the real primitive structure theorem
+  Salt.HB.isQuadratic_of_int Salt.HB.int_apply_unit
+  Salt.HB.chineseRemainder_apply Salt.HB.crtIn₁ Salt.HB.crtIn₂
+  Salt.HB.crtFactor₁ Salt.HB.crtFactor₂ Salt.HB.crtFactor_apply
+  Salt.HB.crtFactor₁_unique Salt.HB.crtFactor₂_unique
+  Salt.HB.crtFactor₁_isPrimitive Salt.HB.crtFactor₂_isPrimitive
+  Salt.HB.not_isPrimitive_of_odd_prime_pow Salt.HB.eq_quadraticChar_of_isPrimitive
+  Salt.HB.not_isPrimitive_two Salt.HB.exists_odd_sq_sub_dvd Salt.HB.not_isPrimitive_two_pow
+  Salt.HB.isPrimitive_two_pow_of_not_factorsThrough
+  Salt.HB.isPrimitive_chi4 Salt.HB.isPrimitive_chi8 Salt.HB.isPrimitive_chi8'
+  Salt.HB.eq_chi4_of_isPrimitive Salt.HB.eq_chi8_or_chi8'_of_isPrimitive
+  Salt.HB.squarefree_and_eq_jacobiChar_of_isPrimitive
+  Salt.HB.exists_split_of_isPrimitive Salt.HB.exists_split_of_isPrimitive_enumerated
+  Salt.HB.structure_of_isPrimitive Salt.HB.sum_two_forms_le_gcd_of_isPrimitive

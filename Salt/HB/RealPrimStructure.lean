@@ -19,27 +19,37 @@ Over the value ring `ℤ` the "real" hypothesis is automatic: `ℤˣ = {1, -1}`,
 
 ## Main results
 
+* `isQuadratic_of_int` (S0) — every `MulChar R ℤ` is quadratic; the "real" hypothesis is free.
 * `crtFactor₁` / `crtFactor₂`, `crtFactor_apply` (S1) — the Chinese-Remainder splitting of a
   Dirichlet character across a coprime factorisation of the modulus, with uniqueness
-  (`crtFactor₁_unique`).
+  (`crtFactor₁_unique`, `crtFactor₂_unique`).
 * `crtFactor₁_isPrimitive` / `crtFactor₂_isPrimitive` (S2) — primitivity is componentwise.
 * `not_isPrimitive_of_odd_prime_pow` (S3) — a character mod `p ^ k`, `p` odd, `k ≥ 2`, is never
   primitive.
 * `eq_quadraticChar_of_isPrimitive` (S3) — mod an odd prime `p`, the only primitive character
   is the Legendre character.
-* `not_isPrimitive_two`, `not_isPrimitive_two_pow` (S4) — no primitive character mod `2`, none
-  mod `2 ^ a` for `a ≥ 4`.
+* `not_isPrimitive_two`, `exists_odd_sq_sub_dvd`, `not_isPrimitive_two_pow` (S4) — no primitive
+  character mod `2`, none mod `2 ^ a` for `a ≥ 4` (via Hensel lifting of square roots at `2`).
 * `eq_chi4_of_isPrimitive`, `eq_chi8_or_chi8'_of_isPrimitive` (S4) — the classification mod `4`
   and mod `8`.
 * `isPrimitive_chi4`, `isPrimitive_chi8`, `isPrimitive_chi8'` (S4) — the primitivity of
   `χ₄`, `χ₈`, `χ₈'`, which mathlib asserts only in prose.
-* `eq_jacobiChar_of_isPrimitive` (S5) — the odd part: a primitive character to an odd modulus
-  `m` forces `m` squarefree and the character to be `J(· | m)`.
+* `squarefree_and_eq_jacobiChar_of_isPrimitive` (S5) — the odd part: a primitive character to an
+  odd modulus `m` forces `m` squarefree and the character to be `J(· | m)`.
+* `exists_split_of_isPrimitive` (S5) — the decomposition in the exact shape consumed by
+  `sum_two_forms_le_gcd_of_split`, and `exists_split_of_isPrimitive_enumerated` with the `2`-part
+  named (`1`, `χ₄`, `χ₈`, `χ₈'`).
 * `structure_of_isPrimitive` (S5) — **the structure theorem**: `q = 2 ^ a * m` with
   `a ∈ {0, 2, 3}`, `m` odd squarefree, and `χ n = χ₂ n * J(n | m)` for all `n : ℕ`.
 * `sum_two_forms_le_gcd_of_isPrimitive` (S5) — **the discharge**: the p.217 bound
   `|∑_{t mod q} χ (u t + u') χ (v t + v')| ≤ (q, u v' - v u')` for *every* primitive
   `ℤ`-valued (equivalently: real) character mod `q`, with no structure hypothesis left.
+
+## Value ring
+
+`ℤ`-valued throughout, matching `Salt/HB/RealPrimitive.lean` and `Salt/HB/QuadCharSum.lean`.
+A `ℂ`-valued consumer composes with `MulChar.ringHomComp (Int.castRingHom ℂ)`.
+
 -/
 
 namespace Salt.HB
@@ -614,5 +624,186 @@ theorem eq_chi8_or_chi8'_of_isPrimitive (χ : DirichletCharacter ℤ 8) (hprim :
     · rw [h, h7, h3, h5]; decide
 
 end TwoLocal
+
+/-! ### S5: the assembly -/
+
+section Assembly
+
+/-- **S5 (the odd part), by induction over the prime factorisation.**  The modulus is carried as
+a *variable* `q` with `q = m`, so that the exponent-one collapse `p ^ 1 = p` can be discharged by
+`subst` instead of a dependent rewrite of the character's type (the transport trap).
+
+`not_isPrimitive_of_odd_prime_pow` collapses every prime power to a single prime,
+`eq_quadraticChar_of_isPrimitive` identifies the local factor with the Legendre symbol, and the
+coprime step is `crtFactor_apply` fed by the multiplicativity of `jacobiSym` in its modulus. -/
+theorem squarefree_and_eq_jacobiChar_aux : ∀ m : ℕ, ¬ 2 ∣ m →
+    ∀ q : ℕ, q = m → ∀ χ : DirichletCharacter ℤ q, χ.IsPrimitive →
+      Squarefree q ∧ ∀ n : ZMod q, χ n = jacobiChar q n := by
+  intro m
+  induction m using Nat.recOnPosPrimePosCoprime with
+  | zero => exact fun h => absurd (dvd_zero 2) h
+  | one =>
+      rintro _ q rfl χ _
+      refine ⟨squarefree_one, fun n => ?_⟩
+      rw [show n = 1 from Subsingleton.elim n 1, MulChar.map_one, jacobiChar, jacobiSym.one_right]
+  | prime_pow p k hp hk =>
+      intro hodd
+      have hp2 : p ≠ 2 := by rintro rfl; exact hodd (dvd_pow_self 2 hk.ne')
+      haveI : Fact p.Prime := ⟨hp⟩
+      rcases Nat.lt_or_ge k 2 with hk1 | hk2
+      · obtain rfl : k = 1 := by omega
+        intro q hq
+        rw [pow_one] at hq
+        subst hq
+        intro χ hprim
+        refine ⟨hp.squarefree, fun n => ?_⟩
+        rw [eq_quadraticChar_of_isPrimitive hp2 χ hprim]
+        exact (jacobiChar_prime n).symm
+      · rintro q rfl χ hprim
+        exact absurd hprim (not_isPrimitive_of_odd_prime_pow hp hp2 hk2 χ)
+  | coprime a b ha hb hcop iha ihb =>
+      rintro hodd q rfl χ hprim
+      haveI : NeZero a := ⟨by omega⟩
+      haveI : NeZero b := ⟨by omega⟩
+      have hodda : ¬ 2 ∣ a := fun h => hodd (h.mul_right b)
+      have hoddb : ¬ 2 ∣ b := fun h => hodd (h.mul_left a)
+      obtain ⟨hsqa, hea⟩ :=
+        iha hodda a rfl (crtFactor₁ hcop χ) (crtFactor₁_isPrimitive hcop χ hprim)
+      obtain ⟨hsqb, heb⟩ :=
+        ihb hoddb b rfl (crtFactor₂ hcop χ) (crtFactor₂_isPrimitive hcop χ hprim)
+      refine ⟨Nat.squarefree_mul_iff.mpr ⟨hcop, hsqa, hsqb⟩, fun n => ?_⟩
+      have key : jacobiChar (a * b) n
+          = jacobiChar a (ZMod.cast n) * jacobiChar b (ZMod.cast n) := by
+        have hcast₁ : ((ZMod.cast n : ZMod a).val : ℤ) = (n.val : ℤ) % (a : ℤ) := by
+          rw [← ZMod.natCast_val n, ZMod.val_natCast]
+          push_cast
+          ring
+        have hcast₂ : ((ZMod.cast n : ZMod b).val : ℤ) = (n.val : ℤ) % (b : ℤ) := by
+          rw [← ZMod.natCast_val n, ZMod.val_natCast]
+          push_cast
+          ring
+        rw [jacobiChar, jacobiChar, jacobiChar, hcast₁, hcast₂, ← jacobiSym.mod_left,
+          ← jacobiSym.mod_left, jacobiSym.mul_right]
+      rw [crtFactor_apply hcop χ, hea, heb, key]
+
+/-- **S5 (the odd part).**  A primitive `ℤ`-valued character to an *odd* modulus `m` forces `m`
+to be squarefree, and the character to be the Jacobi symbol `J(· | m)`. -/
+theorem squarefree_and_eq_jacobiChar_of_isPrimitive (m : ℕ) (hodd : ¬ 2 ∣ m)
+    (χ : DirichletCharacter ℤ m) (hprim : χ.IsPrimitive) :
+    Squarefree m ∧ ∀ n : ZMod m, χ n = jacobiChar m n :=
+  squarefree_and_eq_jacobiChar_aux m hodd m rfl χ hprim
+
+/-- **S5 (the local shape at a factored modulus).**  For `q = 2 ^ a · m` with `m` odd, a
+primitive character mod `q` forces `a ∈ {0, 2, 3}`, `m` squarefree, and the D9 exit shape:
+`χ n = χ₂ (cast n) · J(cast n | m)` with the `2`-part `χ₂` carrying the two-forms bound. -/
+theorem exists_split_of_isPrimitive {a m : ℕ} [NeZero m] (hodd : ¬ 2 ∣ m)
+    (hcop : Nat.Coprime (2 ^ a) m) (χ : DirichletCharacter ℤ (2 ^ a * m)) (hprim : χ.IsPrimitive) :
+    (a = 0 ∨ a = 2 ∨ a = 3) ∧ Squarefree m ∧
+      ∃ χ₂ : ZMod (2 ^ a) → ℤ, HasTwoFormGcdBound (2 ^ a) χ₂ ∧
+        ∀ n : ZMod (2 ^ a * m), χ n = χ₂ (ZMod.cast n) * jacobiChar m (ZMod.cast n) := by
+  haveI : NeZero (2 ^ a) := ⟨pow_ne_zero a two_ne_zero⟩
+  have h2prim := crtFactor₁_isPrimitive hcop χ hprim
+  have hmprim := crtFactor₂_isPrimitive hcop χ hprim
+  obtain ⟨hsq, hem⟩ := squarefree_and_eq_jacobiChar_of_isPrimitive m hodd _ hmprim
+  have hsplit : ∀ n : ZMod (2 ^ a * m),
+      χ n = crtFactor₁ hcop χ (ZMod.cast n) * jacobiChar m (ZMod.cast n) := fun n => by
+    rw [crtFactor_apply hcop χ, hem]
+  rcases a with _ | _ | _ | _ | a4
+  · exact ⟨Or.inl rfl, hsq, _, hasTwoFormGcdBound_of_modulus_one _ (by
+      rw [show (0 : ZMod 1) = 1 from Subsingleton.elim _ _, MulChar.map_one]; norm_num), hsplit⟩
+  · exact absurd h2prim (not_isPrimitive_two _)
+  · refine ⟨Or.inr (Or.inl rfl), hsq, _, ?_, hsplit⟩
+    rw [eq_chi4_of_isPrimitive _ h2prim]
+    exact hasTwoFormGcdBound_chi4
+  · rcases eq_chi8_or_chi8'_of_isPrimitive _ h2prim with h8 | h8
+    · refine ⟨Or.inr (Or.inr rfl), hsq, _, ?_, hsplit⟩
+      rw [h8]; exact hasTwoFormGcdBound_chi8
+    · refine ⟨Or.inr (Or.inr rfl), hsq, _, ?_, hsplit⟩
+      rw [h8]; exact hasTwoFormGcdBound_chi8'
+  · exact absurd h2prim (not_isPrimitive_two_pow (by omega) _)
+
+/-- **S5: THE STRUCTURE THEOREM (node WEIL-TRIO-W4-a).**  Let `χ` be a primitive `ℤ`-valued —
+equivalently, real — Dirichlet character modulo `q ≥ 1`.  Then
+
+* `q = 2 ^ a · m` with `a ∈ {0, 2, 3}` and `m` odd squarefree, and
+* `χ n = χ₂ n · J(n | m)` for every natural `n`,
+
+where the `2`-part `χ₂` is one of the four admissible characters (trivial, `χ₄`, `χ₈`, `χ₈'`) —
+recorded here through the property that actually matters downstream, namely that `χ₂` satisfies
+the two-forms bound at the sharp constant `1`.
+
+The `ℕ`-indexed form of the decomposition avoids all dependent transport; the `ZMod`-indexed
+form fixed by design note D9 is `exists_split_of_isPrimitive`. -/
+theorem structure_of_isPrimitive {q : ℕ} [NeZero q] (χ : DirichletCharacter ℤ q)
+    (hprim : χ.IsPrimitive) :
+    ∃ (a m : ℕ) (χ₂ : ZMod (2 ^ a) → ℤ), q = 2 ^ a * m ∧ (a = 0 ∨ a = 2 ∨ a = 3) ∧
+      Squarefree m ∧ ¬ 2 ∣ m ∧ HasTwoFormGcdBound (2 ^ a) χ₂ ∧
+      ∀ n : ℕ, χ n = χ₂ n * jacobiChar m n := by
+  obtain ⟨a, m, hodd, rfl⟩ := Nat.exists_eq_pow_mul_and_not_dvd (NeZero.ne q) 2 (by norm_num)
+  haveI : NeZero m := ⟨by rintro rfl; exact hodd (dvd_zero 2)⟩
+  haveI : NeZero (2 ^ a) := ⟨pow_ne_zero a two_ne_zero⟩
+  have hcop : Nat.Coprime (2 ^ a) m :=
+    Nat.Coprime.pow_left a ((Nat.Prime.coprime_iff_not_dvd Nat.prime_two).mpr hodd)
+  obtain ⟨ha, hsq, χ₂, hb, hs⟩ := exists_split_of_isPrimitive hodd hcop χ hprim
+  refine ⟨a, m, χ₂, rfl, ha, hsq, hodd, hb, fun n => ?_⟩
+  have e1 : (ZMod.cast ((n : ℕ) : ZMod (2 ^ a * m)) : ZMod (2 ^ a)) = ((n : ℕ) : ZMod (2 ^ a)) := by
+    rw [← ZMod.castHom_apply (h := dvd_mul_right (2 ^ a) m), map_natCast]
+  have e2 : (ZMod.cast ((n : ℕ) : ZMod (2 ^ a * m)) : ZMod m) = ((n : ℕ) : ZMod m) := by
+    rw [← ZMod.castHom_apply (h := dvd_mul_left m (2 ^ a)), map_natCast]
+  rw [hs, e1, e2]
+
+/-- **S5: THE DISCHARGE (Heath-Brown p.217, unconditional form).**  For **every** primitive
+`ℤ`-valued (equivalently: real) character `χ` modulo `q` and arbitrary coefficients,
+
+`|∑_{t mod q} χ (u t + u') χ (v t + v')| ≤ (q, u v' - v u')`.
+
+This is `sum_two_forms_le_gcd_of_split` with its structure hypothesis discharged by the structure
+theorem: nothing is assumed about the shape of `q` or of `χ` beyond primitivity.  A `ℂ`-valued
+consumer composes with `MulChar.ringHomComp (Int.castRingHom ℂ)`. -/
+theorem sum_two_forms_le_gcd_of_isPrimitive {q : ℕ} [NeZero q] (χ : DirichletCharacter ℤ q)
+    (hprim : χ.IsPrimitive) (u u' v v' : ZMod q) :
+    |∑ t : ZMod q, χ (u * t + u') * χ (v * t + v')|
+      ≤ (Nat.gcd q (u * v' - v * u').val : ℤ) := by
+  obtain ⟨a, m, hodd, rfl⟩ := Nat.exists_eq_pow_mul_and_not_dvd (NeZero.ne q) 2 (by norm_num)
+  haveI : NeZero m := ⟨by rintro rfl; exact hodd (dvd_zero 2)⟩
+  haveI : NeZero (2 ^ a) := ⟨pow_ne_zero a two_ne_zero⟩
+  have hcop : Nat.Coprime (2 ^ a) m :=
+    Nat.Coprime.pow_left a ((Nat.Prime.coprime_iff_not_dvd Nat.prime_two).mpr hodd)
+  obtain ⟨_, hsq, χ₂, hb, hs⟩ := exists_split_of_isPrimitive hodd hcop χ hprim
+  exact sum_two_forms_le_gcd_of_split hcop hsq hodd hb hs u u' v v'
+
+/-- **S5 (ii) in enumerated form.**  The same decomposition as `exists_split_of_isPrimitive`, but
+with the `2`-part named: the admissible characters are the trivial one (`a = 0`), `χ₄` (`a = 2`),
+and `χ₈` or `χ₈'` (`a = 3`) — precisely the list of `2`-parts enumerated in
+`Salt/HB/RealPrimitive.lean`.  (Recall `χ₈' = χ₄ · χ₈`, mathlib's `ZMod.χ₈'_eq_χ₄_mul_χ₈`.) -/
+theorem exists_split_of_isPrimitive_enumerated {a m : ℕ} [NeZero m] (hodd : ¬ 2 ∣ m)
+    (hcop : Nat.Coprime (2 ^ a) m) (χ : DirichletCharacter ℤ (2 ^ a * m)) (hprim : χ.IsPrimitive) :
+    Squarefree m ∧
+      ((a = 0 ∧ ∀ n : ZMod (2 ^ a * m), χ n = jacobiChar m (ZMod.cast n)) ∨
+       (a = 2 ∧ ∀ n : ZMod (2 ^ a * m),
+          χ n = ZMod.χ₄ (ZMod.cast n) * jacobiChar m (ZMod.cast n)) ∨
+       (a = 3 ∧ ∀ n : ZMod (2 ^ a * m),
+          χ n = ZMod.χ₈ (ZMod.cast n) * jacobiChar m (ZMod.cast n)) ∨
+       (a = 3 ∧ ∀ n : ZMod (2 ^ a * m),
+          χ n = ZMod.χ₈' (ZMod.cast n) * jacobiChar m (ZMod.cast n))) := by
+  haveI : NeZero (2 ^ a) := ⟨pow_ne_zero a two_ne_zero⟩
+  have h2prim := crtFactor₁_isPrimitive hcop χ hprim
+  have hmprim := crtFactor₂_isPrimitive hcop χ hprim
+  obtain ⟨hsq, hem⟩ := squarefree_and_eq_jacobiChar_of_isPrimitive m hodd _ hmprim
+  have hsplit : ∀ n : ZMod (2 ^ a * m),
+      χ n = crtFactor₁ hcop χ (ZMod.cast n) * jacobiChar m (ZMod.cast n) := fun n => by
+    rw [crtFactor_apply hcop χ, hem]
+  rcases a with _ | _ | _ | _ | a4
+  · refine ⟨hsq, Or.inl ⟨rfl, fun n => ?_⟩⟩
+    rw [hsplit n, show (ZMod.cast n : ZMod (2 ^ 0)) = 1 from
+      (Subsingleton.elim (α := ZMod 1) _ _), MulChar.map_one, one_mul]
+  · exact absurd h2prim (not_isPrimitive_two _)
+  · exact ⟨hsq, Or.inr (Or.inl ⟨rfl, fun n => by rw [hsplit n, eq_chi4_of_isPrimitive _ h2prim]⟩)⟩
+  · rcases eq_chi8_or_chi8'_of_isPrimitive _ h2prim with h8 | h8
+    · exact ⟨hsq, Or.inr (Or.inr (Or.inl ⟨rfl, fun n => by rw [hsplit n, h8]⟩))⟩
+    · exact ⟨hsq, Or.inr (Or.inr (Or.inr ⟨rfl, fun n => by rw [hsplit n, h8]⟩))⟩
+  · exact absurd h2prim (not_isPrimitive_two_pow (by omega) _)
+
+end Assembly
 
 end Salt.HB

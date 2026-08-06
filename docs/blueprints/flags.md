@@ -21136,3 +21136,59 @@ kernel-check. The `EXIT=0` claims rest on the landing commits' own bodies. And t
 called untracked when it is tracked and imported, `GcdBranch` called six declarations when it has
 13) — all corrected at `c4303b8`, all the same root cause: a snapshot of another seat's live tree
 ages in minutes.
+
+## WEIL-TRIO-W4A — the real primitive structure theorem: LANDED whole (5/5 stones)
+
+`Salt/HB/RealPrimStructure.lean` (new module, 799 ln, 26 declarations, all
+`[propext, Classical.choice, Quot.sound]`). The node's exit discharges
+`sum_two_forms_le_gcd_of_split`'s structure hypothesis, so Heath-Brown p.217 now holds for
+*every* primitive character with no hypothesis left:
+`sum_two_forms_le_gcd_of_isPrimitive : |∑_{t mod q} χ(ut+u')χ(vt+v')| ≤ (q, uv'−vu')`.
+
+**THE FREE HYPOTHESIS (a real simplification, worth propagating).** The design brief asked for
+"χ real (χ² = 1) primitive". Over the ruled value ring `ℤ` the realness hypothesis is **not
+needed at all**: `ℤˣ = {±1}`, so every `MulChar R ℤ` is quadratic (`isQuadratic_of_int`). All
+five stones assume primitivity only. A `ℂ`-valued consumer still owes the descent to `ℤ`; that
+is the consumer's `MulChar.ringHomComp` step, unchanged.
+
+**S3 WITHOUT CYCLICITY (the brief's route was heavier than needed).** The brief routed the odd
+prime-power kill through `UnitsCyclic`. It is cheaper by an order of magnitude to observe that
+`ker((ZMod p^k)ˣ → (ZMod p)ˣ)` has order `p^(k−1)`, which for odd `p` is **odd**; a `±1`-valued
+character satisfies `v = v^odd = 1` on it, so χ factors through `p`. `Subgroup.card_mul_index` +
+`Subgroup.index_ker` + `Nat.totient_prime_pow` is the whole computation. Cyclicity is used only
+in the exponent-1 case (`eq_quadraticChar_of_isPrimitive`), where a generator is genuinely needed.
+
+**S4's ARITHMETIC HEART.** `exists_odd_sq_sub_dvd` (Hensel at 2): `n ≡ 1 (mod 8) ⟹ ∃ y odd,
+2^k ∣ y² − n`, by the lift `y ↦ y − 2^(j−1)c`. The lift gains a digit exactly when `2j − 2 ≥
+j + 1`, i.e. `j ≥ 3` — **that inequality is the reason the 2-part of a real primitive modulus
+stops at 8**. Consequently every unit `≡ 1 (mod 8)` is a square, a `ℤ`-valued character kills it,
+and no `2^a` with `a ≥ 4` carries a primitive character. `linear_combination hc − 2^(i+3)*c*he`
+closes the lifting identity in one line.
+
+**mathlib GAP CLOSED.** `ZMod.χ₄`, `ZMod.χ₈`, `ZMod.χ₈'` are called "the primitive quadratic
+character" in mathlib **in docstring prose only** — there is no `IsPrimitive` proof upstream.
+`isPrimitive_chi4` / `isPrimitive_chi8` / `isPrimitive_chi8'` supply it, via the reusable
+`isPrimitive_two_pow_of_not_factorsThrough` (every proper divisor of `2^a` divides `2^(a−1)`, so
+primitivity at a 2-power reduces to a single non-factoring check). **Upstreamable as-is.**
+
+**THE TRANSPORT TRAP (D9's NeZero trap has a sibling).** In the odd-part induction the
+`prime_pow` case must specialise `p^k` to `p^1 = p`, and `rw`/`simp only [pow_one]` will **not**
+rewrite the *type of the bound character* `χ : DirichletCharacter ℤ (p^1)` (`p^1` is not defeq to
+`p`: `Nat.mul 1 p` does not reduce for variable `p`). The fix is to carry the modulus as a
+variable: state the induction as `∀ m, ¬2∣m → ∀ q, q = m → ∀ χ : DirichletCharacter ℤ q, …`, so
+the collapse is a plain `subst` on a `ℕ` equation. Same trick will be needed by anyone inducting
+a character over a factorisation.
+
+**NAME TRAPS BANKED (this mathlib revision).** `Nat.mul_lt_mul_right` is an **iff**, not an
+implication. `DirichletCharacter.IsPrimitive` / `.FactorsThrough` do **not** accept MulChar dot
+notation (`ZMod.χ₄.IsPrimitive` fails — the head is `MulChar`). `FactorsThrough.mono` takes `χ`
+as its first *explicit* argument, so dot notation misaligns the remaining arguments — pass
+`(hχ := …) (hd := …) (hm := …)` by name. `ord_proj`/`ord_compl` no longer exist; use
+`Nat.exists_eq_pow_mul_and_not_dvd`. `IsUnit` of a `ZMod` literal is not `decide`-able; give the
+unit directly (`⟨⟨3, 3, by decide, by decide⟩, rfl⟩`), and quantify over `(ZMod n)ˣ` rather than
+over `ZMod n` with an `IsUnit` hypothesis whenever a `decide` is wanted.
+
+**FLEET HYGIENE (the incident, confirmed from this side).** The `WEIL-TRIO-W4A(S1)` commit
+`fe2c41d` was made with a bare `git commit` in the shared worktree and swept the concurrent W3
+executor's staged files (nothing lost; `f6e0c12` carries the W3 message). Stones S2–S5 were
+committed with explicit pathspecs. The rule stands: **`git commit -- <paths>`, never bare.**

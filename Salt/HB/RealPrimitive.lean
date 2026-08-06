@@ -49,9 +49,11 @@ commutes with the finite sums and with `|·|` (`Int.cast_abs`).
 ## The structure hypothesis
 
 `sum_two_forms_le_gcd_of_split` takes the decomposition of `χ` as a *hypothesis*, in the
-exact form `∀ n, χ n = χ₂ (cast n) * ∏ p ∈ m.primeFactors, quadraticChar (ZMod p) (cast n)`.
-That χ *has* such a decomposition, for `χ` real and primitive, is node W4-a (a separate
-sub-wave); nothing here depends on it, so this file lands independently.
+exact form `∀ n, χ n = χ₂ (cast n) * jacobiChar m (cast n)`.  That χ *has* such a decomposition,
+for `χ` real and primitive, is node W4-a; nothing here depends on it, so this file lands
+independently.  **W4-a has since landed**, in `Salt/HB/RealPrimStructure.lean`: see
+`Salt.HB.exists_split_of_isPrimitive` for the hypothesis in this exact shape, and
+`Salt.HB.sum_two_forms_le_gcd_of_isPrimitive` for the hypothesis-free p.217 bound.
 -/
 
 namespace Salt.HB
