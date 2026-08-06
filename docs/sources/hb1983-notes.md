@@ -608,8 +608,24 @@ parts so that `T_i(w₁,w₂) = T` or `T/w₂` on each) `T ≪ R₂ + x/δ₂ + 
     total ψ-contribution to S ≪ δ₁ q^{5/2}(S₁S₂ + S₁² + x + xS₁/S₂) S₁^{ε−1/4}
                               ≪ δ₁ q^{5/2} x^{15/16+ε},
 
-using `S₁ ≤ R₁` ⟹ `S₁ ≪ x^{1/4}`; valid provided `S₂ ≪ x^{1/4}` and `S₁S₂ ≫ x^{15/16}`, and
+using `S₁ ≤ R₁` ⟹ `S₁ ≪ x^{1/2}`; valid provided `S₂ ≪ x^{1/4}` and `S₁S₂ ≫ x^{15/16}`, and
 trivially true otherwise (there are `O(S₁S₂)` terms in (5.14) and each ψ is O(1)).
+
+> **[corrected 2026-08-06]** This line previously read `S₁ ≪ x^{1/4}`. That was a transcription
+> error and it made the stated non-trivial regime empty. The correct exponent is `1/2`, forced by
+> (5.2): `δ₁R₁S₁ ≍ x` with `S₁ ≤ R₁` gives `S₁² ≤ R₁S₁ ≍ x/δ₁ ≤ x`, hence `S₁ ≪ x^{1/2}`.
+> Ruled in `docs/exploration/weil-trio-design-0806.md` §D6 (WEIL-TRIO v2); R1's ledger already
+> used the correct form and reproduces HB :609.
+>
+> ⚠️ **RESIDUAL, FLAGGED NOT FIXED** (outside the §D6 ruling's scope, so not touched here): even
+> at `1/2` the two stated provisos still do not overlap — `S₁ ≪ x^{1/2}` with `S₂ ≪ x^{1/4}` gives
+> `S₁S₂ ≪ x^{3/4}`, which contradicts `S₁S₂ ≫ x^{15/16}`. Either the `S₂` proviso is a second
+> transcription error (the symmetric (5.2) argument in the case `S₂ ≤ R₂` gives `S₂ ≪ x^{1/2}`,
+> and then `S₁S₂ ≪ x` leaves `(x^{15/16}, x]` genuinely non-empty), or the `S₂ ≫ x^{1/4}` branch
+> is meant to be absorbed by HB's own symmetry remark on p.214 ("by symmetry one may apply
+> appropriate analogues of (5.19) when `S_i ≤ R_i` fails"). **Resolving this needs HB p.214 at
+> the bytes, which this seat does not have open.** N7 owns Lemma 10 and should settle it before
+> consuming (5.19).
 
 > **LEMMA 11** (p.214). `S(δ₁,δ₂;V₁,V₂) = Σ_{R_i,S_i} Σ_{a_i,b_i=1}^{q} χ(b₁b₂) S`  (5.18), the
 > `R_i/V_i, S_i` powers of 2 subject to (5.2) and `a_i,b_i` subject to (5.3),(5.4),(5.5); and if
