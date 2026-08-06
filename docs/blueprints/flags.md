@@ -20532,3 +20532,86 @@ unfolds it past `mem_gt2Primes` — index-set `ext` proofs must reach for
 `Finset.mem_range`/`Nat.lt_succ_iff` instead.  (c) `hb_hsing` carries `32 ≤ z` (not W4's
 `3 ≤ z`) purely for the exponentiation guard `|τ − σ| ≤ 1`; the consumer's threshold is `η`-driven
 and far above it.
+
+## ⟦CHAR-TRIO — W4.5's THREE CHARACTER RIDERS: `hchi01`/`hchi0` DISCHARGED, `hL1` SPLIT INTO A LANDED HALF AND ONE PRICED BOUNDARY GAP⟧
+
+(2026-08-06, Opus executor, 1 attempt per rider; new file `Salt/HB/CharTrio.lean` 275 ln /
+19 declarations; `Salt/HB/All.lean` touched by this node only — 1 import row (`CharTrio`) +
+17 roll-call names.  All 19 declarations audit at `[propext, Classical.choice, Quot.sound]`
+(`ScratchCT.lean`, uncommitted; and in-build via `#audit_axioms`); no `sorry`, no
+`native_decide`; full `lake build` exit 0, warnings = baseline, none from the new file.
+Purely additive: not one landed statement touched.)
+
+**`hchi01` — LANDED** (`hb_hchi01`, `:109`; general-`n` core
+`chiRe_eq_one_or_neg_one_or_zero`, `:72`).  One `MulChar.isQuadratic_iff_sq_eq_one` turn of
+`χ ^ 2 = 1` into `χ.IsQuadratic`, then `rcases … <;> rw <;> simp` on the three values.  The
+flag's "one unfolding away" estimate was right.
+
+**`hchi0` — LANDED** (`hb_hchi0`, `:115`; at primes `chiRe_prime_eq_zero_iff_dvd`, `:101`;
+general-`n` `chiRe_eq_zero_iff_not_coprime`, `:95`).  Route:
+`chiRe_eq_zero_iff_map_eq_zero` (`:81`) → `MulChar.apply_eq_zero_iff` →
+`ZMod.isUnit_prime_iff_not_dvd` / `ZMod.isUnit_iff_coprime`.
+
+**⭐ WHERE `χ² = 1` IS ACTUALLY LOAD-BEARING IN `hchi0`.**  Not in the `←` direction (`p ∣ q`
+kills `χ(p)` for any character), but in the `→`: `Re χ(n) = 0` does **not** give `χ(n) = 0`
+for a general complex character — `χ(n) = ±i` is a unit with vanishing real part.  The
+quadratic hypothesis is exactly what closes `chiRe χ n = 0 ↔ χ n = 0`.  A `hchi0` proved
+without it would be false.
+
+**`hL1` — HALF LANDED, HALF FLAGGED.**  The binder is
+`L1 = (∏_{p≤⌊z⌋}(1−χ(p)/p))^{−1}·F`.  Landed: `hbL1 χ z` (`:124`) *names* that value, so the
+binder is discharged **by definition** (`hbL1_eq`, `:128`) — and it is not an empty naming,
+because `tendsto_hbEulerProdBelow_hbL1` (`:181`) proves `hbL1 χ z` is the honest **ordered
+Euler product over all primes**: under the corpus's own tail-convergence idiom
+(`Tendsto (fun Y => hbEulerLog χ z Y) atTop (𝓝 A)`, the binder `hb_hcorr_closed` already
+carries) the partial products `∏_{p≤Y}(1−χ(p)/p)^{−1}` converge to `hbL1 χ z`.  Corollaries:
+the split point is immaterial (`hbL1_split_indep`, `:204`) and the value is pinned by any
+identification of that limit (`hbL1_eq_of_tendsto`, `:196`).
+
+**THE CONSUMER-READY COMPOSITES.**  `hb_L2_at_split_point_char` (`:215`) — the W4.5 capstone
+with `hchi01`/`hchi0` replaced by the single `χ ^ 2 = 1`.  `hb_L2_at_split_point_charTrio`
+(`:247`) — **no character binders at all**, the L-value entering as `hbL1 χ z`.  This is the
+shape the N5/N6 wiring should plug into.
+
+**⛔ THE ONE REMAINING RIDER, PRICED.**  What is *not* paid is the arithmetic identification
+
+    hbL1 χ z = (DirichletCharacter.LFunction χ 1).re          (χ ≠ 1, χ ² = 1).
+
+`s = 1` is the boundary and this is not a bookkeeping gap.  **What mathlib has**:
+`DirichletCharacter.LSeries_eulerProduct_hasProd` / `eulerProduct_completely_multiplicative`
+— stated for `1 < s.re`, resting on `Summable (‖·‖)`, which *fails* at `s = 1`;
+`differentiable_LFunction` (χ ≠ 1) for continuity at 1; `LFunction_apply_one_ne_zero`.
+**What mathlib does NOT have**: any Euler product at `s = 1`, and no Mertens-type theorem for
+`∑_p χ(p)/p`.  Writing the identity down unconditionally would either be false or would
+silently assume the convergence it is meant to prove, so it is flagged, not forced.
+
+**THE HONEST ROUTE (class C, ~4–5 nodes), and the good news that it is corpus-reachable:**
+
+1. *(convergence, class B/C)* Discharge the `Tendsto (hbEulerLog χ z ·)` hypothesis itself —
+   the corpus is one comparison away: `logChiSum_tendsto_zfr_hundred`
+   (`Salt/HB/Lemma7EF.lean:3136`) already delivers `Tendsto (fun Y => logChiSum χ X Y) atTop`
+   **with the rate `100/√log X`** off the zero-free region, and
+   `hbEulerLog_sub_primeSum_termwise` + `logChiSum_re_sub_primeSum_le` bound the difference by
+   an absolutely convergent `∑ 2/p²` tail.  Cauchy criterion closes it.
+2. *(uniformity, the crux)* `∑_{p>Y} χ(p)p^{−s}` small **uniformly in `s ≥ 1`**.  Abel
+   summation against the *monotone* weight `p^{1−s}` (total variation `≤ 1` for `s ≥ 1`)
+   reduces this to step 1's `s = 1` partial-sum rate — no new analytic input, which is why the
+   route is priced C and not D.
+3. *(the identity at `s > 1`)* mathlib's Euler product + `LFunction_eq_LSeries`.
+4. *(the interchange)* `s ↓ 1` by `differentiable_LFunction`'s continuity against 1–2.
+5. *(reality)* `(LFunction χ 1).im = 0` for real primitive `χ`; the corpus already has
+   `LFunction_apply_one_pos` (`Salt/SW/Siegel.lean:99`).
+
+**WHY NOTHING DOWNSTREAM IS BLOCKED.**  `hb_L2_at_split_point_charTrio` is unconditional in
+the character theory; `κ`'s L-value is whatever `hbL1 χ z` is.  The identification is needed
+only where a *lower bound* on the L-value enters the final count — i.e. at Siegel
+(`Salt/SW/Siegel.lean`) — so the rider can be paid in the WP2 lane, in parallel, without
+holding the sieve side.
+
+**RECIPE-VS-BYTES DELTAS.**  (a) `MulChar.IsQuadratic`'s disjunction order is `0 ∨ 1 ∨ −1`
+while W4.5's binder is `1 ∨ −1 ∨ 0`; the `rcases … <;> rw … <;> simp` shape absorbs it, but a
+`tauto`-free hand proof must permute.  (b) `Pz` and `windowPrimes` split cleanly
+(`Pz_eq_union_windowPrimes`, `:145`) only under `⌊z⌋₊ ≤ ⌊Y⌋₊`, and the `Tendsto` argument gets
+that from `Nat.floor_mono` on `eventually_ge_atTop z` — the real-vs-floor cut needs no `3 ≤ z`
+guard here.  (c) `#audit_axioms` rows were added for the 17 theorem/lemma names only; the two
+`noncomputable def`s (`hbL1`, `hbEulerProdBelow`) are audited in `ScratchCT.lean`.
