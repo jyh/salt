@@ -399,3 +399,83 @@ proof, and the off-by-one check remains owed (queued for after 20:00).
 The consumption map (§1), the supply map (§3), the gap list (§5) and the scale estimate (§6)
 stand as written. The `j = e` vacuity constraint of `weil-trio-audit-0806.md` §2 is untouched and
 still owed by N7.
+
+---
+
+# ADDENDUM B (2026-08-06) — §6 VERIFIED AGAINST THE SOURCE, pp.215–221
+
+**Why:** §6 is the bulk of N7 by this dossier's own estimate (4,000–9,000 ln, class C) and had
+**never been read at the source** — only through `hb1983-notes.md`. After the source produced two
+HB errata and one of ours in §5/§7, that gap was the largest remaining. Read-only, no Lean.
+
+## B.1 — VERIFIED CLEAN, and three of them settle open questions ✅
+
+- **p.217 — HB EXPLICITLY OMITS THE TWO-FORMS PROOF.** Verbatim: *"However, for a real,
+  primitive, character `χ (mod q)`, one has `Σ_{t=1}^{q} χ(ut+u')χ(vt+v') ≪ (q, uv'−vu')`.
+  **(The proof of this is straightforward. We shall omit it.)**"* This confirms at the source what
+  the road table asserted — the second character-sum input is stated without proof and must be
+  supplied. **WEIL-TRIO's W4-c has now landed it at constant ONE, which is strictly sharper than
+  HB's `≪`.**
+- **⭐ THE `Δ^{−1}` IS REAL, AND W4-c′ IS NECESSARY — confirmed at the source.** This dossier §3
+  predicted that "p.217 is consumed at length `q/Δ`, not `q`". p.217 shows exactly that: the sum
+  HB actually needs is `|Σ_{t=1}^{q/Δ} χ(Δγ₁t+β₁)χ(Δγ₂t+β₂)|`, and he concludes
+  `Σ ≪ Δ^{−1}(q, Δγ₁β₂ − Δγ₂β₁) ≪ Δ^{−1}(q, Δα^{−1}(α₁β₂−α₂β₁)) ≪ 1`. **The prediction was
+  right**, and D4's addition of W4-c′ (the Δ-fold periodicity descent) is load-bearing, not
+  optional. Note the final `≪ 1` also spends **(1.6)** (`α₁β₂ − α₂β₁ ≠ 0`), exactly as the freeze's
+  supply table records.
+- **p.216 — regime (b) is killed by primitivity.** *"b₂ runs over a congruence class (mod dΔ).
+  Since χ is primitive, this last sum vanishes unless `dΔ = q`."* Matches W4-d's landed
+  `sum_class_eq_zero_of_isPrimitive` (proper divisor ⟹ the class sum vanishes).
+- **p.218 — the window edge is `x ≥ q^{250}`**, spent exactly where the notes say: the (6.9) error
+  terms contribute `≪ x^{1+ε}q^{−1} + x^{15/16+3ε}q^{14} ≪ x^{1+ε}q^{−1}` (6.11) *"since
+  `δ₁δ₂ ≤ q⁴d²` and `x ≥ q^{250}`"*.
+- **p.219 — (6.15) `S(d;t) − S'(d;t) ≪ L⁴z^{−1}d^{−1}4^{ω(d)}` IS Lemma 5's stated error**, as the
+  notes record. The `M(r) → N(r)` replacement is where it arises.
+- **p.218 — (6.10) is PV-free**, as recorded: `Σ_{w∈I,(w,f)=1} χ(w) = Σ_{g∣f} μ(g)Σ_{w∈I, g∣w} χ(w)
+  ≪ q·d(f)`, *"since `|Σχ(w)| ≤ q` when `w` runs over any interval"* — the trivial complete-sum
+  bound, no Pólya–Vinogradov needed.
+
+## B.2 — ⚠️ ONE TRANSCRIPTION DEFECT, AND IT WOULD PRODUCE AN UNPROVABLE LEMMA
+
+`hb1983-notes.md:776` had the `C_i` bounded *"`≪ 1` uniformly in q, t, σ"*. **HB's p.220 continues:
+"but not necessarily in `α`."** The full sentence is:
+
+> *"`C_i` denotes a continuous function of `σ` (`σ ≥ 1`), depending on `i, q, χ, t` and `α`, but not
+> on `d`, for which `C_i ≪ 1` uniformly in `q`, `t`, and `σ`, **but not necessarily in `α`**."*
+
+**A Lean statement asserting `C_i ≪ 1` uniformly in `α` would be FALSE**, so an executor working
+from the notes alone could spend a wave on an unprovable lemma. This is the sp1-lean failure mode
+one level upstream — in a *transcription* rather than a statement. **Moot for twin primes**, where
+`α₁ = α₂ = 4` is fixed, but it must be *stated*, not silently relied on. HB separates two facts and
+both matter: "independent of `d`" (which the argument uses, `d` being the summation variable) and
+"not uniform in `α`" (which it survives only because `α` is fixed). Fixed in the notes with a
+`[corrected 2026-08-06, from the source p.220]` block.
+
+## B.3 — §6 RE-PRICED, AND IT IS BETTER NEWS THAN §6 SOUNDED
+
+The phrase "two-variable logarithmic differentiation of an Euler product" was doing a lot of
+frightening work in this dossier's §6 estimate. At the source (p.220) the differentiation rests on
+**exactly two formulae**, and both are *generic statements about products*, not about this Euler
+product:
+
+```
+    ∂/∂u  ∏_m a^{(m)}(u,v) = {∏_m a^{(m)}}·{Σ_m a_u^{(m)}/a^{(m)}}
+    ∂²/∂u∂v ∏_m a^{(m)}(u,v) = {∏ a^{(m)}}·{(∂_u ∏ a)(∂_v ∏ a) + Σ_m (a_uv^{(m)}/a^{(m)} − a_u^{(m)}a_v^{(m)}/(a^{(m)})²)}
+```
+
+So the hard analytic core is **one reusable lemma pair proved once**, then applied to `F(u,v)` and
+`G(u,v)` whose factors are explicit finite rational expressions in `p^{−σ−u}`, `p^{−σ−v}`,
+`p^{−2σ−u−v}`. That is materially cheaper than "differentiate an Euler product in two variables"
+implies, and the corpus already has the ordered-partial-product machinery
+(`Salt/HB/Lemma7Prod.lean`) for the convergence side.
+**I am NOT revising the 4,000–9,000 ln estimate downward on this alone** — the three regime splits,
+(6.12)–(6.16), the `M(r)→N(r)` replacement and the `σ→1` limit are all still there — but the single
+scariest sub-block is smaller than it looked, and a §6 executor should be pointed at these two
+formulae first.
+
+## B.4 — WHERE `κ` COMES FROM (for the N5/N6 consumer wiring)
+
+p.221, last line of §6: *"On taking `σ → 1` we have `MF(0,0) → κx^{−1}`, `G(0,0) → G(d)`. Lemma 5
+now follows on integrating over `t`, since the integral of `A₃(d)` is also an additive function of
+`d`."* So `κ` is **defined by that limit**, not by an independent formula — worth knowing for
+anyone reconciling `Salt/HB/Lemma7Kappa.lean`'s `hbKappa` against the paper.

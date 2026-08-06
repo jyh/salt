@@ -774,7 +774,18 @@ Three successive replacements clean this up:
 Logarithmic differentiation gives `F_u(0,0)/F(0,0) = F_v(0,0)/F(0,0) = L′(σ,χ)/L(σ,χ) + C₁`,
 `F_{uv}(0,0) = F(0,0)((L′/L)² + 2C₁(L′/L) + C₂)`, `G_u(0,0) = G_v(0,0) = G(0,0)A₁(d)`,
 `G_{uv}(0,0) = G(0,0)(A₂(d) + A₁(d)²)`, where the `C_i` are continuous in σ ≥ 1, `≪ 1` uniformly in
-q, t, σ, and `A₁, A₂` are additive in d with `A₁(p) ≪ log p`, `A₂(p) ≪ (log p)²`. Hence
+q, t, σ — **but NOT necessarily in `α`** — and `A₁, A₂` are additive in d with `A₁(p) ≪ log p`,
+`A₂(p) ≪ (log p)²`. Hence
+
+> **[corrected 2026-08-06, from the source p.220]** The clause "**but not necessarily in `α`**" was
+> dropped in transcription. HB's exact words: *"`C_i` denotes a continuous function of `σ` (`σ ≥ 1`),
+> depending on `i`, `q`, `χ`, `t` and `α`, but not on `d`, for which `C_i ≪ 1` uniformly in `q`, `t`,
+> and `σ`, but not necessarily in `α`."* ⚠️ **A Lean statement asserting `C_i ≪ 1` uniformly in `α`
+> would be FALSE**, so an executor working from the notes alone could state an unprovable lemma —
+> the sp1-lean failure mode, one level upstream, in a transcription. **Moot for twin primes**
+> (`α₁ = α₂ = 4` is fixed on the road, so `α` is a constant), but it must be stated, not assumed:
+> the two facts HB separates are "independent of `d`" (which the argument uses, since `d` is the
+> summation variable) and "not uniform in `α`" (which it survives only because `α` is fixed).
 
     Σ_{d = d₁d₂} S(d_i,l_i,σ) = F(0,0)G(0,0){ (L′(σ,χ)/L(σ,χ))² + A₁(d)² + A₃(d)
                                               + L²C₃ + L C₄ (L′(σ,χ)/L(σ,χ)) },
