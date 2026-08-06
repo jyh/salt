@@ -184,6 +184,28 @@ means this run did not test them. TBal work is elaboration-heavy rather than `de
 is unlikely to be the breaching workload — but "unlikely" is not a bound, which is the whole
 lesson of 2026-08-06.
 
+## ⭐ MUTATION CHECK — TS-2's REAL EXIT TEST (borrowed from the silicon seat, 8/6)
+
+A green build proves the γ-floors are **sufficient**. It does not prove they are **load-bearing** —
+a numeral that is satisfied for an unrelated reason would also build green, and that is precisely
+the vacuity failure this campaign has been hunting all day. The silicon seat's netlist work supplies
+the missing positive control: **mutate one input and confirm the check FAILS.**
+
+**So TS-2 does not exit on a green build alone. After the γ-honest arms land:**
+
+1. Replace one exact-rational floor with the freeze's **inadmissible** value — e.g. `γ_Eρ`'s
+   `5247/1700` → `3.0865` (which exceeds the true infimum by `2.941e−5`).
+2. `saltbuild.sh Salt.SW.TBalTall`. **It MUST fail**, and it must fail at that side goal
+   (`linarith [hσlo]` unable to close `3.0865 ≤ 14σ − 1009/100` at `σ = 16/17`).
+3. Restore the exact rational; green again.
+4. **Report both outcomes in the flags entry.** If the mutated build *passes*, the numeral is not
+   load-bearing and something else is discharging the goal — **stop and flag it**, because that
+   would mean the arm table is not measuring what it claims to measure.
+
+The same check applies to S1: replace `1/40` with something `> 1` and `tbal_tau_le_split` must fail.
+**Cost: two builds. Value: it converts "the wave built" into "the wave's numerals are the reason it
+built."**
+
 ## EXIT TEST (both waves)
 1. `saltbuild.sh Salt.SW.TBalR8`, then `saltbuild.sh Salt.SW.TBalTall` while iterating; full
    `saltbuild.sh` at wave exit with **`saltbuild EXIT=0`**, no new warnings.
