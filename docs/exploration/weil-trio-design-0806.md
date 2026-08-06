@@ -190,3 +190,18 @@ W1-d), θ = 0 on the odd part. Docstring carries the N7 rider:
   (Composite.lean:107 / CompositeTail.lean:94, unit CRT twists),
   W1-d's factorization_two_kloosterman_modulus for the road's v₂
   discharge.
+
+## D9. W4Q LANDED (f2aba94 + 49361e2; 21 decls, 5/5 first-attempt) —
+## the W4-a brief MUST carry these two findings
+- The composite engine's exit hypothesis is
+  `hsplit : ∀ n, χ n = χ₂(cast n) * jacobiChar m (cast n)`
+  (sum_two_forms_le_gcd_of_split, RealPrimitive.lean:381) — the odd
+  part is jacobiChar (instance-free, definitionally the Legendre
+  product), NOT a Finset.prod of quadraticChars (Fact p.Prime is
+  unavailable for variable p). W4-a delivers the decomposition IN
+  THAT SHAPE.
+- The NeZero-in-definition trap: definitions inducted over a
+  modulus must NOT carry [NeZero q] (the p^1 motive fails).
+- Also: odd p^k (k ≥ 2) two-forms cases CANNOT occur on the road
+  (real primitive ⟹ odd part squarefree) — recorded in the
+  corrected QuadCharSum docstring.
