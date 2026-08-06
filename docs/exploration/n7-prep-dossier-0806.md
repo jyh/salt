@@ -365,13 +365,19 @@ only after the `Σ_{M<m≤2M}(k₀,m)^{1/2} ≪ M·d(k₀)` step), and the **exp
 which is a *hypothesis of Lemma 10* (`(C,k) = 1`) being spent here via `k₀ ∣ k`. Add both to the
 formalization plan.
 
-**⚠️ AND ONE EXPONENT I COULD NOT SETTLE FROM THE PAGE IMAGE.** The notes transcribe (7.8) with
-`(log 2k)³`; the printed (7.8) appears to carry `(log 2k)` to the **first** power, with the cube
-appearing only in the p.223 combination (`(log Kk)³`). I am **not** asserting a discrepancy — the
-rendering is not sharp enough to be sure, and the difference is *safe in our direction* (a larger
-log-power is a weaker claim). But the freeze rules that Lean statements carry
-`d(k)³(log 2k)³` **literally**, so **someone should confirm the exponent against a clean copy
-before that numeral is frozen into a statement.** Recorded as an open check, not a finding.
+**⚠️ AND ONE EXPONENT I COULD NOT SETTLE FROM THE PAGE IMAGE — ✅ NOW SETTLED, BY DERIVATION.**
+The notes transcribed (7.8) with `(log 2k)³`; **it is `(log 2k)` to the FIRST power.** Rather than
+squint at the rendering I re-derived it from the intermediate step recovered above: summing
+`S_m ≪ (1+m|T|E^{−1}k^{−1})d(k)²q^{3/2}(log 2k₀){E(k₀,m)^{1/2}+k₀}k^{−1/2}` over `M < m ≤ 2M` with
+`Σ(k₀,m)^{1/2} ≪ M·d(k₀)` gives
+`(1+M|T|E^{−1}k^{−1})·d(k)²·q^{3/2}·(log 2k₀)·k^{−1/2}·M{E·d(k₀)+k₀}`; folding `d(k₀) ≤ d(k)`
+(valid since `k₀ ∣ k`) produces **`d(k)³`** and `{E+k}` — and **exactly one log survives**. The
+cube arrives only at p.223, where the (7.2)–(7.4) truncation contributes `log K` and the dyadic
+`m`-summation another, giving `d³(k)(log Kk)³`.
+**CONSEQUENCE FOR THE FREEZE — reassuring.** Its rule that Lean statements carry `d(k)³(log 2k)³`
+literally is **correct for Lemma 10** (p.223's `(log Kk)³` with `K = 2 + k^{1/4}`, so
+`log(Kk) ≍ log k`); only the *intermediate* (7.8) was over-stated in our notes, and stating (7.8)
+at `(log 2k)³` would be provable-but-blunt, **not false**. Fixed in the notes at the (7.8) block.
 
 ## A.3 — ⭐ THE SOURCE STRENGTHENS FINDING #3 (the W5 re-price), AND NAMES ITS EDGE CASE
 

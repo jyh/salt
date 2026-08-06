@@ -826,7 +826,28 @@ the Kloosterman sums `S(k; s, Cm)`; with `k₀ = k/q` (recall `q ∣ k`) and
 
     Σ′_{n∈I₀} g(n) ≪ d(k) k^{−1/2} q^{3/2} { E(k₀,Cm)^{1/2} + Σ_{1 ≤ s ≤ k₀} k₀(k₀,s)^{1/2} s^{−1} },
     Σ_{1 ≤ s ≤ k₀} (k₀,s)^{1/2} s^{−1} ≪ d(k₀) log(2k₀),                              (7.7)
-    Σ_{M < m ≤ 2M} |S_m| ≪ (1 + M|T|E^{−1}k^{−1}) d(k)³ (log 2k)³ q^{3/2} M {E + k} k^{−1/2}.   (7.8)
+    S_m ≪ (1 + m|T|E^{−1}k^{−1}) d(k)² q^{3/2} (log 2k₀) {E(k₀,m)^{1/2} + k₀} k^{−1/2},
+      the intermediate step — "since (C,k₀) = 1"
+    Σ_{M < m ≤ 2M} (k₀,m)^{1/2} ≪ M·d(k₀),   "by a method similar to (7.7)"
+    Σ_{M < m ≤ 2M} |S_m| ≪ (1 + M|T|E^{−1}k^{−1}) d(k)³ (log 2k) q^{3/2} M {E + k} k^{−1/2}.    (7.8)
+
+> **[corrected 2026-08-06, from the source p.222]** Two fixes here. (i) The **intermediate `S_m`
+> step was missing entirely** — it is the line that introduces `k₀`, carries `d(k)²`, and **spends
+> `(C,k₀) = 1`**, i.e. Lemma 10's own `(C,k) = 1` hypothesis via `k₀ ∣ k`. (ii) (7.8)'s log factor
+> was transcribed as **`(log 2k)³`; it is `(log 2k)` to the FIRST power.**
+> Re-derived rather than read off the page image: summing the intermediate step over `M < m ≤ 2M`
+> with `Σ(k₀,m)^{1/2} ≪ M·d(k₀)` gives
+> `(1+M|T|E^{−1}k^{−1})·d(k)²·q^{3/2}·(log 2k₀)·k^{−1/2}·M{E·d(k₀) + k₀}`; folding `d(k₀) ≤ d(k)`
+> (valid as `k₀ ∣ k`) turns `d(k)²·d(k₀)` into **`d(k)³`** and `E·d(k₀)+k₀` into `d(k₀){E+k}` — so
+> exactly **one** log survives into (7.8). The cube appears only later, at p.223, where the
+> `(7.2)–(7.4)` truncation contributes `log K` and the dyadic `m`-summation another log, giving
+> HB's `d³(k)(log Kk)³`.
+> ⚠️ **CONSEQUENCE FOR THE FREEZE, and it is reassuring**: `weil-trio-design-0806.md:90-93` rules
+> that Lean statements carry `d(k)³(log 2k)³` **literally**. That is **correct for Lemma 10**
+> (p.223's `(log Kk)³` with `K = 2 + k^{1/4}`, so `log(Kk) ≍ log k`), and it was only the
+> *intermediate* (7.8) that these notes over-stated. Stating (7.8) itself at `(log 2k)³` would be
+> provable-but-blunt, not false. Closes the open check raised in
+> `n7-prep-dossier-0806.md` ADDENDUM A §A.2.
 
 Combining (7.2)–(7.4) with (7.5) for `m ≥ Kk^{1/2}` and (7.8) otherwise:
 
