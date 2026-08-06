@@ -152,3 +152,65 @@ a repo whose selling point is the axiom posture.
 form follows in ~5 lines. Plus a minimal counterexample (k=2,
 sources {0,2}, dests {0,1}) showing concentration is necessary —
 credibility detail, put it in the repo as an `example`.
+
+
+## 8. AMENDMENT 2 (8/5 night) — the LEG-1 HARVEST corrections
+### Full dossier: docs/exploration/leg1-evidence-0805.md (740 ln, f5c80b9)
+
+**THE NUMBERS ARE BIGGER THAN WE SAID** (all measured, commands in
+the dossier): **652,312 Lean lines · 1,130 files · 19,564
+declarations · 1,940 commits · 30 days** = 21,744 lines/day
+sustained; +21.3% in the last five days. Zero `sorry`, zero
+`native_decide`, zero home-rolled axioms across all 1,130 files.
+**166 `#audit_axioms` build-time assertions naming 6,302 distinct
+declarations.** 73 registry rows, lint-green. Papers: witness 20pp
+with **172 statement-to-declaration citations**; flagship 17pp/152.
+
+**⚠️ CORRECTION 1 — THE UNATTENDED CLAIM MUST CHANGE UNITS.**
+The 21:00–05:00 night column is only **10.7%**; 77.2% of commits
+land 07:00–18:59. *"Landed while the human slept" would fail the
+first skeptic who runs `git log`.* The claim that IS true, is
+stronger, and is checkable: **human-silence windows.** 14 days:
+712 commits, 346,567 Lean lines inserted; **46.9% of commits (334)
+and 193,289 lines landed inside a ≥1h silence window**; at ≥8h,
+90 commits / 39,002 lines. **Best exhibit: 20h 56m of silence
+(08-02 12:13 → 08-03 09:09) carrying 26 commits and 12,310 lines.
+Longest unbroken run: 34 consecutive commits in 3h 20m with not one
+typed human word.** SPEAK SILENCE WINDOWS, NEVER NIGHT HOURS.
+
+**⚠️ CORRECTION 2 — the transcript record is contaminated, and it
+flattered the OPPOSITE conclusion.** `task-notification` blocks are
+injected with `role: "user"`, so naive counting showed 98.5% of
+commits within 30 min of a "human message". Filtering (1,457
+rejected + 214 slash-command echoes) moved the ≥1h figure from
+**0.3% → 21.5%**. Any ledger we publish must filter these AND say
+that it does — the methodology note is part of the credibility.
+
+**⚠️ CORRECTION 3 — "13 waves on 8/5" is WRONG.** Measured: **11**
+HB-Lemma-7 execution waves, or **15** Lean-landing waves counting
+the morning constants work. Say 11 or 15, never 13. The day itself
+is real: 45 commits, 8h 12m, 8,891 Lean insertions, 8 new files,
+253 declarations. **"13 first-attempt landings" is UNVERIFIED** —
+a flags.md claim, not derivable from git. Do not quote it.
+
+**⚠️ CORRECTION 4 — THE HISTORY PURGE IS NOW ON THE CRITICAL PATH.**
+**1,108 of 1,940 commits carry `the pre-remap address` as author email**
+(known catch, fixed forward at a8fd364 on 7/21; history never
+rewritten). Consequences: (a) salt's public release still gates on
+the purge, as always; (b) **the purge rewrites 57% of the very
+ledger that is leg-1's evidence.** RULING: **capture the ledger
+NOW, from the current history, into a preserved artifact** (the
+dossier already does this) — and note the triple's NEW public repo
+is unaffected, born clean. The evidence can be SHOWN without
+publishing salt.
+
+**Overclaim hygiene:** the witness paper makes ZERO firstness
+claims in 1,714 lines — good. All overclaim risk lives in internal
+docs: `docs/RESULTS.md:170` states "first in a proof assistant"
+flat where its own source `flags.md:3983` hedges it. Restore the
+hedge before anything ships.
+
+The dossier ends with **14 numbers safe to speak** and **11 items
+marked DO NOT QUOTE** (incl. the stale 259/259 replay, the
+"256 catches" counter-vs-count problem, and "zero wrong proofs",
+which could not be verified). Read both lists before any room.
