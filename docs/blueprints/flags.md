@@ -20211,3 +20211,98 @@ The sharpening is mechanical and is the obvious next stone: restate `efShiftB_le
 **`K = 100 at L ≥ 250` remains paper-only and must not be quoted as kernel-checked**; what IS
 kernel-checked is `K = 2(m + 4·10^8 + 3)(log X)^{−1/2}`, plus the strictly better `(log X)^{−1}`
 shape.
+
+## ⟦N4B-W4 — THE PRODUCT LAYER + THE ASSEMBLY TO (L2): all three parts landed⟧
+
+(2026-08-05, Opus executor; new files `Salt/HB/Lemma7Prod.lean` (914 ln, 39 declarations) and
+`Salt/HB/Lemma7.lean` (304 ln, 9 declarations); wired into `Salt/HB/All.lean`.  Every
+declaration `[propext, Classical.choice, Quot.sound]`; no `sorry`, no `native_decide`; full
+`lake build` exit 0.)
+
+**PART α — the corpus gap closed: `F` is an OBJECT, and the route is RECORDED.**
+
+The design freedom was exercised **against** `tprod`, and the reason is mathematical, not
+ergonomic: mathlib's `Multipliable` is *unconditional* (net) convergence, which for
+`∏_{p≥z}(1−χ(p)/p)^{−1}` is equivalent to `∑_{p≥z}|χ(p)|/p < ∞` — and that series **diverges**
+(it is `∑_{p≥z, p∤q} 1/p`).  HB's product converges only *conditionally*, in the ordered sense.
+`∏'` is therefore the WRONG object here; no amount of Lean effort would have produced it.  This
+is worth remembering the next time an Euler product over primes is asked for.
+
+Route as landed: `F` is the **limit of the ordered partial products**, defined through its
+logarithm — `hbEulerLog` / `hbEulerProd` (with `log_hbEulerProd` proved from factor positivity),
+`hbLogF := limUnder atTop`, `hbF := Real.exp`.  So `Real.log (hbF χ z) = hbLogF χ z` and
+`0 < hbF χ z` are free, and `tendsto_hbEulerProd_hbF` **pays the corollary the exp-of-series
+route owes**: whenever the log-products converge, the partial *products* converge to `hbF`.
+
+**PART α′ — `hcorr` DISCHARGED, both halves.**  `hb_hcorr_finite`:
+`|hbEulerLog χ z Y − (logChiSum χ z Y).re| ≤ 2/⌊z⌋ + ppDefect(z,Y)` at every `Y`, from
+(i) the product side, `|−log(1−x) − x| ≤ 2x²` at `|x| ≤ 1/2` (mathlib's
+`Real.abs_log_sub_add_sum_range_le` at `n = 1` — the *whole* series was never needed) summed by
+`sum_Ioc_inv_sq_le_sub`, and (ii) the `Λ` side, where `w(p)Λ(p) = 1/p` collapses on primes and
+everything else is `ppDefect`.  `hb_hcorr_at_limit` / `hb_hcorr_closed` pass to the limit:
+`|log F − A'| ≤ 2/⌊z⌋ + 10/√⌊z⌋`.
+
+**THE `ppDefect` STONE (the one W3 flagged as "a fresh ~60-line stone").**  `ppDefect_le`:
+`∑_{z<n≤Y, n not prime} Λ(n)/(n log n) ≤ 10/√⌊z⌋`.  Route: **Abel summation, not the
+`(p,k)` restructure** — mathlib's `sum_mul_eq_sub_sub_integral_mul'` at `f = wLog`,
+`c = 1_{¬prime}Λ`, whose partial sums are Chebyshev's `ψ − θ` verbatim
+(`Chebyshev.psi_sub_theta_eq_sum_not_prime`), bounded by `2√t log t`
+(`Chebyshev.psi_sub_theta_le`).  Boundary terms `2/√⌊Y⌋` and `−w(⌊z⌋)(ψ−θ)(⌊z⌋) ≤ 0`; the
+`w'`-integral majorised pointwise by `4t^{−3/2}` (`abs_wLog'_mul_psi_sub_theta_le`, valid at
+`t ≥ 3` because `log t ≥ 1`) and integrated by `integral_rpow` to `≤ 8/√⌊z⌋`.
+**Lesson for the corpus**: the elementary even/odd square-injection over prime powers was
+priced at ~165 lines and abandoned; the Abel route is ~110 lines and reuses the pattern already
+in `Lemma7EF.abel_logChiSum`.  Whenever a `Λ`-sum's non-prime part must be discarded, go
+through `ψ − θ`.
+
+**PART β — `hseg` DISCHARGED.**  `hb_coprime_segment` (∃C, C = 4C₀+2 with C₀ = 12):
+
+    |∑_{z<n≤X,(n,q)=1} Λ/(n log n) − (log log X − log log z)|
+        ≤ ppDefect(z,X) + C/log z + (log q / log z)/z.
+
+Mertens' second theorem is fired **twice** and the Meissel–Mertens constant `γ − B` cancels
+exactly — that cancellation is the whole content of the main term.  Two prices are paid for the
+`⌊·⌋ → ℝ` re-indexing and both are recorded as reusable lemmas: `log_le_two_mul_log_floor`
+(`z ≤ ⌊z⌋²` for `z ≥ 3`, so every `C/log n` costs a factor 2) and `abs_log_log_floor_sub_le`
+(`|log log z − log log ⌊z⌋| ≤ 1/log z`, twice `log x ≤ x − 1`).  The `p ∣ q` row of
+hb1983-notes:451 is landed exactly as HB states it (`sum_recip_largePrimeFactors_le`):
+`z^{#} ≤ ∏_{p∣q} p ≤ q` off `Nat.prod_primeFactors_dvd` gives `#{p ∣ q : p > ⌊z⌋} ≤ L/log z`,
+hence `∑ 1/p ≤ (L/log z)/z = z₀/z`.  `hb_hseg` / `hb_hseg_closed` then put W3's own row in its
+final form, with only W3's `hb_chiOne_kill_at_window` bound (`Ekill`) left symbolic:
+
+    |∑_{z<n≤X} χΛ/(n log n) − (log log z − log log X)|
+        ≤ Ekill + 30/√⌊z⌋ + C/log z + (L/log z)/z.
+
+**PART γ — `(L2)` LANDED.**  `hb_L2_at_split_point` (with W3's `hb_logF_at_split_point` fired
+inside, so the block's whole binder set is visible in one statement):
+
+    κ·S₁ = (1 + δ)·x·𝔖·C(α)/(ηL)²,
+    |δ| ≤ 4·(Ecorr + Eseg + Etail + 500(1 + 2 log ηL)/η) + 8·E_P + 2a₁ + 2a₂.
+
+**K₄ = 4** on W3's total; the other constants are 8 (on `(4.6)`'s error) and 2 (on each sieve
+row).  Three points of substance:
+
+1. **`𝔖` is not a parameter.**  It is the corpus's own
+   `Salt.HardyLittlewood.twinSingularSeries` (`= 2·twinC2`, `Frame.lean:46`), i.e. HB's `(1.2)`
+   constant.  `S₁` is *defined* (`hbS1`, HB p.207's `∏_{p<z,χ(p)=1,p∤α}(p−1)(p−2)/(p(p+1))`).
+2. **`(4.6)` is PROVED, not assumed** — `hb_mertens_third_real`, the freeze's owed re-indexing:
+   `mertens_third_log` is `∃C` and `ℕ`-indexed, and the real-cutoff form costs `C ↦ 2C₀+1`.
+3. **The `F²` step is an explicit `Real.exp` bound** (`sq_eq_exp_mul_one_add`: `F² = e^{2A}(1+ε)`
+   with `|ε| ≤ 4Δ` off `Real.abs_exp_sub_one_le`) under the *named* guard `hsmall`.  There is no
+   informal `O`-absorption anywhere in the assembly; the four `{1+ε}` factors are composed by an
+   explicit two-factor algebra (`abs_one_add_mul_sub_one_le`).  A pleasant simplification found
+   in flight: `exp(2A)·exp(2A′) = exp(−2 log ηL) = (ηL)^{−2}` **without** unwinding
+   `(log z)²`/`e^{2γ₀}` separately — the `log log z` and `γ₀` terms cancel inside the exponent.
+
+**⛔ THE ONE RESIDUE — `W4.5` (minted here).**  `(4.4)`'s rearrangement (`hrear`) and `(4.5)`'s
+singular-series truncation (`hsing`) ride as **named binders with explicit numeric bounds**
+`a₁`, `a₂` — never as free `O(·)`s.  They cannot be proved at the bytes because **`κ` has no
+corpus definition**: `(4.4)` is a statement about `ρ₁`, `G(p)` and `C(α)`, none of which exist
+yet.  `W4.5` is exactly: *define `κ`, `G`, `C(α)`; prove `hrear` and `hsing`.*  That is the
+N5/N6 consumer wiring, not analysis.
+
+**Recipe-vs-bytes deltas.**  (a) W3's `chiRe` namespace trap honoured — `Salt.TwinBar.chiRe`
+throughout, with `chiReTB_abs_le_one` transporting the `Salt.SW` proof by definitional equality.
+(b) `hb_coprime_segment`'s statement had to bind `q` *explicitly* (`∀ (q : ℕ), 0 < q → ...`)
+because the Mertens constant is extracted once, outside the `∀`.  (c) `hb_hseg`'s `hq`/`hzX`
+are carried for the record but discharged by `hC`'s provider, hence underscore-named.

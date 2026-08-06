@@ -45,14 +45,18 @@ HB's step 1 is `log F = ∑_{n ≥ z} χ(n)Λ(n)/(n log n) + O(z^{−1/2})`.  Th
   `Real.abs_log_sub_add_sum_range_le` at `n = 1`), giving
   `|hbEulerLog χ z Y − ∑_{z<p≤Y} χ(p)/p| ≤ 2/⌊z⌋` (`hbEulerLog_sub_primeSum_le`);
 * §3 (`Λ`-side): `(logChiSum χ z Y).re − ∑_{z<p≤Y} χ(p)/p` is bounded by the **prime-power
-  defect** `ppDefect z Y = ∑_{z<n≤Y, n not prime} Λ(n)/(n log n)`, which is Chebyshev's `ψ − θ`
-  read through the Abel weight `1/(t log t)` — bounded by `12/√z` in `ppDefect_le`.
+  defect** `ppDefect z Y = ∑_{z<n≤Y, n not prime} Λ(n)/(n log n)`;
+* §6 evaluates it: `ppDefect z Y ≤ 10/√⌊z⌋` (`ppDefect_le`), by Abel summation at the weight
+  `w(t) = 1/(t log t)` against Chebyshev's `ψ − θ ≤ 2√t log t` — the boundary terms are
+  `2/√⌊Y⌋` and `−w(⌊z⌋)(ψ−θ)(⌊z⌋) ≤ 0`, the `w'`-integral is majorised by
+  `∫ 4t^{−3/2} ≤ 8/√⌊z⌋`.  This is HB's `O(z^{−1/2})` with its constant visible.
 
-Composing, `hb_hcorr` is HB's step 1 with `Ecorr = 2/⌊z⌋ + 12/√z`, and `hcorr` no longer rides.
+Composing, `hb_hcorr_closed` is HB's step 1 with `Ecorr = 2/⌊z⌋ + 10/√⌊z⌋`, and `hcorr` no
+longer rides.
 
 ## §4 — `hseg` (part β of the W4 brief)
 
-`hb_hseg` is the `[z, X]` segment of `(4.7)`:
+`hb_coprime_segment` / `hb_hseg` / `hb_hseg_closed` are the `[z, X]` segment of `(4.7)`:
 `|(logChiSum χ z X).re − (log log z − log log X)|` is bounded by Mertens' second theorem twice
 (`mertens_second_sharp'`, whose Meissel–Mertens constant *cancels*), the prime-power defect above,
 and the `p ∣ q` divisor-count correction `z₀/z` of hb1983-notes:451 — `at most z₀ = L/log z`
@@ -675,5 +679,236 @@ theorem hb_hcorr_at_limit {q : ℕ} (χ : DirichletCharacter ℂ q) (hsq : χ ^ 
       atTop (𝓝 |A - A'|) := (hlimP.sub hlimS).abs
   refine le_of_tendsto hdiff (Filter.Eventually.of_forall (fun Y => ?_))
   exact le_trans (hb_hcorr_finite χ hsq hz) (by linarith [hE Y])
+
+/-! ## §6 — the prime-power defect evaluated: `ppDefect ≤ 10/√⌊z⌋`
+
+Abel summation at the weight `w(t) = 1/(t log t)` against Chebyshev's `ψ − θ`, whose growth
+mathlib bounds by `2√t log t`.  The boundary terms are `2/√M` and `−w(N)(ψ−θ)(N) ≤ 0`; the
+`w'`-integral is majorised by `∫ 4 t^{−3/2} ≤ 8/√N`.  This is HB's `O(z^{−1/2})`, with its
+constant visible. -/
+
+/-- The non-prime von Mangoldt coefficient `1_{n not prime}·Λ(n)`; its partial sums are
+Chebyshev's `ψ − θ`. -/
+noncomputable def ppCoef (n : ℕ) : ℝ := if Nat.Prime n then 0 else vonMangoldt n
+
+lemma sum_ppCoef_eq (t : ℝ) :
+    ∑ k ∈ Finset.Icc 0 ⌊t⌋₊, ppCoef k = Chebyshev.psi t - Chebyshev.theta t := by
+  classical
+  rw [Chebyshev.psi_sub_theta_eq_sum_not_prime, Finset.sum_filter]
+  rw [Finset.Icc_eq_cons_Ioc (Nat.zero_le ⌊t⌋₊), Finset.sum_cons]
+  have h0 : ppCoef 0 = 0 := by
+    rw [ppCoef, if_neg Nat.not_prime_zero]
+    exact ArithmeticFunction.map_zero
+  rw [h0, zero_add]
+  refine Finset.sum_congr rfl (fun k _ => ?_)
+  rw [ppCoef]
+  by_cases hk : Nat.Prime k
+  · rw [if_pos hk, if_neg (not_not.mpr hk)]
+  · rw [if_neg hk, if_pos hk]
+
+lemma sum_ppCoef_nat_eq (m : ℕ) :
+    ∑ k ∈ Finset.Icc 0 m, ppCoef k
+      = Chebyshev.psi (m : ℝ) - Chebyshev.theta (m : ℝ) := by
+  have h := sum_ppCoef_eq (m : ℝ)
+  rwa [Nat.floor_natCast] at h
+
+lemma psi_sub_theta_nonneg (t : ℝ) : 0 ≤ Chebyshev.psi t - Chebyshev.theta t := by
+  have := Chebyshev.theta_le_psi t
+  linarith
+
+/-- The pointwise Abel majorant: `|w'(t)|·(ψ−θ)(t) ≤ 4 t^{−3/2}` for `t ≥ 3`. -/
+lemma abs_wLog'_mul_psi_sub_theta_le {t : ℝ} (ht3 : 3 ≤ t) :
+    |wLog' t * (Chebyshev.psi t - Chebyshev.theta t)| ≤ 4 * t ^ (-(3 : ℝ) / 2) := by
+  have ht1 : (1 : ℝ) < t := by linarith
+  have hlogt : (1 : ℝ) ≤ Real.log t :=
+    le_trans one_lt_log_three.le (Real.log_le_log (by norm_num) ht3)
+  have hA0 : 0 ≤ Chebyshev.psi t - Chebyshev.theta t := psi_sub_theta_nonneg t
+  have hAle : Chebyshev.psi t - Chebyshev.theta t ≤ 2 * Real.sqrt t * Real.log t :=
+    Chebyshev.psi_sub_theta_le (by linarith)
+  have hsqt : Real.sqrt t * Real.sqrt t = t := Real.mul_self_sqrt (by linarith)
+  have hsqt0 : (0 : ℝ) < Real.sqrt t := Real.sqrt_pos.mpr (by linarith)
+  have hrp : t ^ (-(3 : ℝ) / 2) = 1 / (t * Real.sqrt t) := by
+    rw [show (-(3 : ℝ) / 2) = -(3 / 2) by ring, Real.rpow_neg (by linarith),
+      show ((3 : ℝ) / 2) = 1 + 1 / 2 by norm_num, Real.rpow_add (by linarith),
+      Real.rpow_one, ← Real.sqrt_eq_rpow, one_div]
+  rw [hrp, mul_one_div, abs_mul, abs_of_nonneg hA0, wLog']
+  have hnum : |(-(Real.log t + 1)) / (t * Real.log t) ^ 2|
+      = (Real.log t + 1) / (t * Real.log t) ^ 2 := by
+    rw [abs_div, abs_neg, abs_of_nonneg (by linarith : (0 : ℝ) ≤ Real.log t + 1),
+      abs_of_nonneg (sq_nonneg _)]
+  rw [hnum, div_mul_eq_mul_div, div_le_div_iff₀ (by positivity) (by positivity)]
+  have hstep : (Real.log t + 1) * (Chebyshev.psi t - Chebyshev.theta t) * (t * Real.sqrt t)
+      ≤ (Real.log t + 1) * (2 * Real.sqrt t * Real.log t) * (t * Real.sqrt t) := by
+    exact mul_le_mul_of_nonneg_right
+      (mul_le_mul_of_nonneg_left hAle (by linarith)) (by positivity)
+  have hfin : (Real.log t + 1) * (2 * Real.sqrt t * Real.log t) * (t * Real.sqrt t)
+      ≤ 4 * (t * Real.log t) ^ 2 := by
+    have hexp : (Real.log t + 1) * (2 * Real.sqrt t * Real.log t) * (t * Real.sqrt t)
+        = 2 * (Real.log t + 1) * Real.log t * t * (Real.sqrt t * Real.sqrt t) := by ring
+    rw [hexp, hsqt]
+    nlinarith [sq_nonneg t, hlogt, ht1]
+  linarith
+
+/-- **The prime-power defect is `O(z^{−1/2})`, with the constant `10`.**  Abel summation at
+`w(t) = 1/(t log t)` against Chebyshev's `ψ − θ ≤ 2√t log t`:  boundary terms `2/√⌊Y⌋` and
+`−w(⌊z⌋)(ψ−θ)(⌊z⌋) ≤ 0`, and the `w'`-integral majorised by `∫ 4t^{−3/2} ≤ 8/√⌊z⌋`.
+This is HB's `O(z^{−1/2})` of p.207, with its constant visible. -/
+theorem ppDefect_le {z Y : ℝ} (hz : 3 ≤ z) (hzY : z ≤ Y) :
+    ppDefect z Y ≤ 10 / Real.sqrt (⌊z⌋₊ : ℝ) := by
+  classical
+  have hN3 : 3 ≤ ⌊z⌋₊ := Nat.le_floor (by exact_mod_cast hz)
+  have hNM : ⌊z⌋₊ ≤ ⌊Y⌋₊ := Nat.floor_le_floor hzY
+  have hNR : (3 : ℝ) ≤ ((⌊z⌋₊ : ℕ) : ℝ) := by exact_mod_cast hN3
+  have hMR : (3 : ℝ) ≤ ((⌊Y⌋₊ : ℕ) : ℝ) := by exact_mod_cast (le_trans hN3 hNM)
+  have hNMR : ((⌊z⌋₊ : ℕ) : ℝ) ≤ ((⌊Y⌋₊ : ℕ) : ℝ) := by exact_mod_cast hNM
+  have hlogM : (0 : ℝ) < Real.log ((⌊Y⌋₊ : ℕ) : ℝ) := Real.log_pos (by linarith)
+  have hsqM : (0 : ℝ) < Real.sqrt ((⌊Y⌋₊ : ℕ) : ℝ) := Real.sqrt_pos.mpr (by linarith)
+  have hsqN : (0 : ℝ) < Real.sqrt ((⌊z⌋₊ : ℕ) : ℝ) := Real.sqrt_pos.mpr (by linarith)
+  -- (0) the defect as an Abel sum
+  have hdef : ppDefect z Y = ∑ n ∈ Finset.Ioc ⌊z⌋₊ ⌊Y⌋₊, wLog n * ppCoef n := by
+    rw [ppDefect, Finset.sum_filter]
+    refine Finset.sum_congr rfl (fun n _ => ?_)
+    rw [ppCoef]
+    by_cases hn : Nat.Prime n
+    · rw [if_pos hn, if_neg (not_not.mpr hn), mul_zero]
+    · rw [if_neg hn, if_pos hn]
+  -- (1) the side conditions of Abel summation
+  have hmemIcc : ∀ t ∈ Set.Icc (((⌊z⌋₊ : ℕ) : ℝ)) (((⌊Y⌋₊ : ℕ) : ℝ)), (1 : ℝ) < t := by
+    intro t ht; linarith [ht.1]
+  have hf_diff : ∀ t ∈ Set.Icc (((⌊z⌋₊ : ℕ) : ℝ)) (((⌊Y⌋₊ : ℕ) : ℝ)),
+      DifferentiableAt ℝ wLog t :=
+    fun t ht => (hasDerivAt_wLog (hmemIcc t ht)).differentiableAt
+  have hderiv : ∀ t ∈ Set.Icc (((⌊z⌋₊ : ℕ) : ℝ)) (((⌊Y⌋₊ : ℕ) : ℝ)),
+      deriv wLog t = wLog' t :=
+    fun t ht => (hasDerivAt_wLog (hmemIcc t ht)).deriv
+  have hf_int : IntegrableOn (deriv wLog)
+      (Set.Icc (((⌊z⌋₊ : ℕ) : ℝ)) (((⌊Y⌋₊ : ℕ) : ℝ))) :=
+    ((continuousOn_wLog' hmemIcc).integrableOn_compact isCompact_Icc).congr_fun
+      (fun t ht => (hderiv t ht).symm) measurableSet_Icc
+  have habel := sum_mul_eq_sub_sub_integral_mul' (𝕜 := ℝ) ppCoef hNM hf_diff hf_int
+  rw [sum_ppCoef_nat_eq, sum_ppCoef_nat_eq] at habel
+  simp only [sum_ppCoef_eq] at habel
+  rw [hdef, habel]
+  -- (2) the two boundary terms
+  have hAM0 : 0 ≤ Chebyshev.psi ((⌊Y⌋₊ : ℕ) : ℝ) - Chebyshev.theta ((⌊Y⌋₊ : ℕ) : ℝ) :=
+    psi_sub_theta_nonneg _
+  have hAN0 : 0 ≤ Chebyshev.psi ((⌊z⌋₊ : ℕ) : ℝ) - Chebyshev.theta ((⌊z⌋₊ : ℕ) : ℝ) :=
+    psi_sub_theta_nonneg _
+  have hAMle : Chebyshev.psi ((⌊Y⌋₊ : ℕ) : ℝ) - Chebyshev.theta ((⌊Y⌋₊ : ℕ) : ℝ)
+      ≤ 2 * Real.sqrt ((⌊Y⌋₊ : ℕ) : ℝ) * Real.log ((⌊Y⌋₊ : ℕ) : ℝ) :=
+    Chebyshev.psi_sub_theta_le (by linarith)
+  have hsqMsq : Real.sqrt ((⌊Y⌋₊ : ℕ) : ℝ) * Real.sqrt ((⌊Y⌋₊ : ℕ) : ℝ)
+      = ((⌊Y⌋₊ : ℕ) : ℝ) := Real.mul_self_sqrt (by linarith)
+  have hbdM : wLog ((⌊Y⌋₊ : ℕ) : ℝ)
+      * (Chebyshev.psi ((⌊Y⌋₊ : ℕ) : ℝ) - Chebyshev.theta ((⌊Y⌋₊ : ℕ) : ℝ))
+      ≤ 2 / Real.sqrt ((⌊Y⌋₊ : ℕ) : ℝ) := by
+    rw [wLog, inv_mul_eq_div, div_le_div_iff₀ (by positivity) hsqM]
+    nlinarith [hsqMsq, hlogM.le, hAM0, hAMle]
+  have hbdN : 0 ≤ wLog ((⌊z⌋₊ : ℕ) : ℝ)
+      * (Chebyshev.psi ((⌊z⌋₊ : ℕ) : ℝ) - Chebyshev.theta ((⌊z⌋₊ : ℕ) : ℝ)) := by
+    have : (0 : ℝ) ≤ wLog ((⌊z⌋₊ : ℕ) : ℝ) := wLog_nonneg (by linarith)
+    positivity
+  -- (3) the integral
+  have hcontMaj : ContinuousOn (fun t : ℝ => 4 * t ^ (-(3 : ℝ) / 2))
+      (Set.Icc (((⌊z⌋₊ : ℕ) : ℝ)) (((⌊Y⌋₊ : ℕ) : ℝ))) := by
+    refine continuousOn_const.mul (ContinuousOn.rpow_const continuousOn_id ?_)
+    intro t ht
+    exact Or.inl (by have := ht.1; intro h; rw [h] at this; linarith)
+  have hmaj : IntegrableOn (fun t : ℝ => 4 * t ^ (-(3 : ℝ) / 2))
+      (Set.Ioc (((⌊z⌋₊ : ℕ) : ℝ)) (((⌊Y⌋₊ : ℕ) : ℝ))) :=
+    (hcontMaj.integrableOn_compact isCompact_Icc).mono_set Set.Ioc_subset_Icc_self
+  have hae : ∀ᵐ t ∂(volume.restrict
+        (Set.Ioc (((⌊z⌋₊ : ℕ) : ℝ)) (((⌊Y⌋₊ : ℕ) : ℝ)))),
+      ‖deriv wLog t * (Chebyshev.psi t - Chebyshev.theta t)‖ ≤ 4 * t ^ (-(3 : ℝ) / 2) := by
+    filter_upwards [MeasureTheory.ae_restrict_mem measurableSet_Ioc] with t ht
+    have ht3 : (3 : ℝ) ≤ t := le_trans hNR ht.1.le
+    have htd : deriv wLog t = wLog' t := (hasDerivAt_wLog (by linarith)).deriv
+    rw [htd, Real.norm_eq_abs]
+    exact abs_wLog'_mul_psi_sub_theta_le ht3
+  have hnorm := MeasureTheory.norm_integral_le_of_norm_le hmaj hae
+  rw [Real.norm_eq_abs] at hnorm
+  have hmajint : ∫ t in Set.Ioc (((⌊z⌋₊ : ℕ) : ℝ)) (((⌊Y⌋₊ : ℕ) : ℝ)),
+        4 * t ^ (-(3 : ℝ) / 2)
+      ≤ 8 / Real.sqrt ((⌊z⌋₊ : ℕ) : ℝ) := by
+    rw [← intervalIntegral.integral_of_le hNMR, intervalIntegral.integral_const_mul,
+      integral_rpow (Or.inr ⟨by norm_num, by
+        rw [Set.uIcc_of_le hNMR]
+        intro hmem
+        have := hmem.1
+        linarith⟩)]
+    have hexp : -(3 : ℝ) / 2 + 1 = -(1 / 2) := by norm_num
+    rw [hexp]
+    have hMv : ((⌊Y⌋₊ : ℕ) : ℝ) ^ (-(1 / 2 : ℝ)) = (Real.sqrt ((⌊Y⌋₊ : ℕ) : ℝ))⁻¹ := by
+      rw [Real.rpow_neg (by linarith), ← Real.sqrt_eq_rpow]
+    have hNv : ((⌊z⌋₊ : ℕ) : ℝ) ^ (-(1 / 2 : ℝ)) = (Real.sqrt ((⌊z⌋₊ : ℕ) : ℝ))⁻¹ := by
+      rw [Real.rpow_neg (by linarith), ← Real.sqrt_eq_rpow]
+    rw [hMv, hNv]
+    have hcmp : (Real.sqrt ((⌊Y⌋₊ : ℕ) : ℝ))⁻¹ ≤ (Real.sqrt ((⌊z⌋₊ : ℕ) : ℝ))⁻¹ := by
+      rw [inv_le_inv₀ hsqM hsqN]
+      exact Real.sqrt_le_sqrt hNMR
+    rw [show (-(1 / 2 : ℝ)) = -(1/2) from rfl]
+    have hrw : (4 : ℝ) * (((Real.sqrt ((⌊Y⌋₊ : ℕ) : ℝ))⁻¹
+          - (Real.sqrt ((⌊z⌋₊ : ℕ) : ℝ))⁻¹) / (-(1/2 : ℝ)))
+        = 8 * ((Real.sqrt ((⌊z⌋₊ : ℕ) : ℝ))⁻¹ - (Real.sqrt ((⌊Y⌋₊ : ℕ) : ℝ))⁻¹) := by
+      field_simp; ring
+    rw [hrw, div_eq_mul_inv]
+    have hinvM : (0 : ℝ) ≤ (Real.sqrt ((⌊Y⌋₊ : ℕ) : ℝ))⁻¹ := by positivity
+    linarith
+  -- (4) assemble
+  have hIabs := abs_le.mp hnorm
+  have hcmpMN : 2 / Real.sqrt ((⌊Y⌋₊ : ℕ) : ℝ) ≤ 2 / Real.sqrt ((⌊z⌋₊ : ℕ) : ℝ) :=
+    div_le_div_of_nonneg_left (by norm_num) hsqN (Real.sqrt_le_sqrt hNMR)
+  have hten : (10 : ℝ) / Real.sqrt ((⌊z⌋₊ : ℕ) : ℝ)
+      = 2 / Real.sqrt ((⌊z⌋₊ : ℕ) : ℝ) + 8 / Real.sqrt ((⌊z⌋₊ : ℕ) : ℝ) := by
+    field_simp
+    norm_num
+  rw [hten]
+  linarith [hIabs.1, hIabs.2, hmajint]
+
+/-- `ppDefect_le` with no ordering hypothesis on `Y` (the window is empty when `Y < z`). -/
+lemma ppDefect_le' {z : ℝ} (hz : 3 ≤ z) (Y : ℝ) :
+    ppDefect z Y ≤ 10 / Real.sqrt (⌊z⌋₊ : ℝ) := by
+  classical
+  rcases le_or_gt z Y with h | h
+  · exact ppDefect_le hz h
+  · have hfl : ⌊Y⌋₊ ≤ ⌊z⌋₊ := Nat.floor_le_floor h.le
+    have hN3 : 3 ≤ ⌊z⌋₊ := Nat.le_floor (by exact_mod_cast hz)
+    have hNR : (3 : ℝ) ≤ ((⌊z⌋₊ : ℕ) : ℝ) := by exact_mod_cast hN3
+    have hsqN : (0 : ℝ) < Real.sqrt ((⌊z⌋₊ : ℕ) : ℝ) := Real.sqrt_pos.mpr (by linarith)
+    rw [ppDefect, Finset.Ioc_eq_empty (by omega), Finset.filter_empty, Finset.sum_empty]
+    positivity
+
+/-! ## §7 — the two rows closed, every term numeric -/
+
+/-- **`hcorr`, closed.**  W3's first residue row with an explicit constant:
+`|log F − A'| ≤ 2/⌊z⌋ + 10/√⌊z⌋` — HB's `O(z^{−1/2})`. -/
+theorem hb_hcorr_closed {q : ℕ} (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1)
+    {z A A' : ℝ} (hz : 3 ≤ z)
+    (hlimP : Tendsto (fun Y : ℝ => hbEulerLog χ z Y) atTop (𝓝 A))
+    (hlimS : Tendsto (fun Y : ℝ => (logChiSum χ z Y).re) atTop (𝓝 A')) :
+    |Real.log (hbF χ z) - A'| ≤ 2 / (⌊z⌋₊ : ℝ) + 10 / Real.sqrt (⌊z⌋₊ : ℝ) :=
+  hb_hcorr_at_limit χ hsq (by linarith) (ppDefect_le' hz) hlimP hlimS
+
+/-- **`hseg`, closed.**  W3's second residue row with every term numeric: `Ekill` is W3's
+`hb_chiOne_kill_at_window` bound on the `χ_ℝ(p)=1` half, `30/√⌊z⌋` is the prime-power
+bookkeeping, `C/log z` Mertens', and `(L/log z)/z` the `p ∣ q` divisor-count row. -/
+theorem hb_hseg_closed {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q) (hsq : χ ^ 2 = 1)
+    (hq : 0 < q) {z X : ℝ} (hz : 3 ≤ z) (hzX : z ≤ X) {C Ekill : ℝ}
+    (hC : |(∑ n ∈ (Finset.Ioc ⌊z⌋₊ ⌊X⌋₊).filter (fun n => Nat.Coprime n q),
+            wLog n * vonMangoldt n)
+          - (Real.log (Real.log X) - Real.log (Real.log z))|
+        ≤ ppDefect z X + C / Real.log z + (Real.log q / Real.log z) / z)
+    (hkill : 2 * (∑ n ∈ (Finset.Ioc ⌊z⌋₊ ⌊X⌋₊).filter
+              (fun n => Nat.Prime n ∧ Salt.TwinBar.chiRe χ n = 1), wLog n * vonMangoldt n)
+        ≤ Ekill) :
+    |(logChiSum χ z X).re - (Real.log (Real.log z) - Real.log (Real.log X))|
+      ≤ Ekill + 30 / Real.sqrt (⌊z⌋₊ : ℝ) + C / Real.log z
+        + (Real.log q / Real.log z) / z := by
+  have hmain := hb_hseg χ hsq hq hz hzX hC
+  have hppd := ppDefect_le' hz X
+  have h3 : (3 : ℝ) * ppDefect z X ≤ 30 / Real.sqrt (⌊z⌋₊ : ℝ) := by
+    rw [show (30 : ℝ) / Real.sqrt (⌊z⌋₊ : ℝ) = 3 * (10 / Real.sqrt (⌊z⌋₊ : ℝ)) by ring]
+    linarith
+  linarith
 
 end Salt.HB

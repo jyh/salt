@@ -229,4 +229,7 @@ open Salt.Tactic in
   Salt.HB.sum_recip_windowPrimes_eq Salt.HB.sum_recip_largePrimeFactors_le
   Salt.HB.hb_coprime_segment Salt.HB.hb_hseg
   Salt.HB.hb_hcorr_finite Salt.HB.hb_hcorr_at_limit
+  Salt.HB.sum_ppCoef_eq Salt.HB.sum_ppCoef_nat_eq Salt.HB.psi_sub_theta_nonneg
+  Salt.HB.abs_wLog'_mul_psi_sub_theta_le Salt.HB.ppDefect_le Salt.HB.ppDefect_le'
+  Salt.HB.hb_hcorr_closed Salt.HB.hb_hseg_closed
   Salt.HB.hb_L2_core Salt.HB.hb_L2_at_split_point
