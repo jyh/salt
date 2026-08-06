@@ -173,3 +173,20 @@ W1-d), θ = 0 on the odd part. Docstring carries the N7 rider:
 ## D7. Fire order (v2): W1 (w/ pre-flight) ∥ W4(b,c0,c′,d) now;
 ## W5 next slot; W3 after W1; W4-a as its own sub-wave behind them.
 ## ALL briefs: builds via /Users/jyh/projects/claude/saltbuild.sh.
+
+## D8. W1 LANDED (d1a5668 + 4a58e51; 21 decls, 3 axioms) — notes for W3/N7
+- PRE-FLIGHT PASS at the staged PDF (pp.194/211-215; (5.1)+(5.6)
+  restated three times) — the D2 adjudication holds at the source;
+  W2 stays dead.
+- BRIEF ERRATUM (maestro's arithmetic): the gcd descent is
+  S(pA,pB;p^e) = p·S(A,B;p^{e−1}) — e−1, NOT e−2 as briefed
+  (counterexample S(3,3;9)); e−1 is exactly loss-neutral.
+- W1-c SHARP: norm_kloosterman_prime_pow_odd_sharp (Estermann.lean
+  :268) + the gcd exit :498 — c_e = 2 uniformly, ATTAINED (0.998-
+  1.000 at small cases). The Gauss input needed NO MulChar
+  machinery: norm_quadExpSum :167 is a 55-line equality.
+- W3 CONSUMES: norm_kloosterman_prime_pow_gcd (odd branch), P6 (the
+  2-part, ≤ 2^{v₂(k)} trivial — carried explicitly per D3), C1+C4
+  (Composite.lean:107 / CompositeTail.lean:94, unit CRT twists),
+  W1-d's factorization_two_kloosterman_modulus for the road's v₂
+  discharge.
