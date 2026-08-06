@@ -7750,3 +7750,4 @@ cushion added as the ONE new inner hypothesis.  Outer: nothing.  Inner: `cs`, `T
   Salt.MR.s15_crossing_supplied_L_gk_ceiling_sharpT0_khoist
   Salt.MR.logChowla2_witnessed_scale_flat_L_v2_uniform_win_xceil_cqhoist
   Salt.MR.logChowla2_ineffective_v6
+  Salt.MR.cs_closed_form_ge_exp_neg_hundred

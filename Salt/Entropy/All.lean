@@ -388,3 +388,9 @@ TOLL), named by TROPHY's census as sorry-free but ledger-absent. -/
   Salt.Entropy.Chowla.towerFlat_width_ge
   Salt.Entropy.Chowla.towerFlat_width_le
   Salt.Entropy.Chowla.towerShape_width_ge
+  Salt.Entropy.Chowla.chowlaTowerShape_const
+  Salt.Entropy.Chowla.towerLS_const
+  Salt.Entropy.Chowla.towerLamS_const
+  Salt.Entropy.Chowla.towerWS_const
+  Salt.Entropy.Chowla.towerDropSumShape_const
+  Salt.Entropy.Chowla.towerShape_flat_le

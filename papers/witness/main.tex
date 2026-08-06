@@ -35,8 +35,8 @@
 %   A  Statement index ..... Toll rows FILLED; Pearl rows FILLED, with the
 %                            v2/v6 signature transcriptions
 %
-% No local LaTeX toolchain on the build machine: this file has never been
-% compiled. Compile checks happen author-side.
+% Compiled with pdfLaTeX (TeX Live 2026); box-clean (0 overfull, 0
+% underfull) as of 2026-08-06.
 % ============================================================================
 \documentclass[11pt]{amsart}
 \usepackage[margin=1.1in]{geometry}
@@ -72,7 +72,7 @@
 \DeclareUnicodeCharacter{2308}{\lchar{\lceil}}
 \DeclareUnicodeCharacter{2309}{\lchar{\rceil}}
 
-\newcommand{\leanname}[1]{\par\noindent{\small\texttt{#1}}}
+\newcommand{\leanname}[1]{\par{\noindent\small\ttfamily\raggedright #1\par}}
 \newcommand{\leaninline}[1]{{\small\texttt{#1}}}
 
 \newtheorem{theorem}{Theorem}[section]
@@ -86,9 +86,10 @@
 \title[The Pearl and the Toll]{The Pearl and the Toll: a Witnessed-Scale
 Chowla Regime and the Width Law of the Entropy Decrement}
 \author{Jason Hickey}
-\thanks{Developed in collaboration with Claude (Anthropic's Fable~5 and
-Opus models); see \S\ref{sec:method} and the repository's commit ledger,
-in which every commit is co-authored. Written in a personal capacity.}
+\thanks{This work was developed in collaboration with Claude
+(Anthropic's Fable~5 and Opus models); see \S\ref{sec:method} and the
+repository's commit ledger, in which every commit is co-authored. It was
+written in a personal capacity.}
 \date{August 4, 2026}
 
 \begin{document}
@@ -167,23 +168,46 @@ answer was, three separate times, the difference between a route that
 closed and a route that did not. The first of our two theorems answers it
 exactly.
 
+It is worth stating why the flat threshold does not appear in the
+original argument. The theorem of \cite{TaoChowla} is qualitative,
+meaning the correlation tends to zero, with no rate claimed. It is
+proved, as it happens, by an argument that is effective in principle ---
+and the tower's cost is invisible to the statement, because a terminal
+scale is a rate-shaped quantity and no rate is asked for. The threshold
+$\kappa = H/(\log H\log\log\log H)$ is the one the argument's internal
+bookkeeping produces when nothing bills the terminal scale. The growing
+factor is not idle there --- it buys the decrement step its hypotheses
+cheaply at every scale --- but the formal rebuild shows how little of it
+the budget itself consumes: in our development the budget chain
+degenerates from requiring $0 < \log\log\log H$ to requiring $0 < A$,
+positivity and nothing more (\leaninline{budgetFloor} against
+\leaninline{budgetFloorFlat}, \S\ref{sec:toll}). Forfeiting the growing
+threshold is therefore possible, but not free: at a constant threshold
+the decrement step must be re-established against a fixed design, and
+the price appears in this paper as the floor $A \ge 162$ and the window
+base $\lceil e^{e^{3.2A}}\rceil$ of the second theorem
+(\S\ref{sec:pearl}). The trade is pointless for the limit statement and
+decisive for a budgeted one: it converts the triple-exponential terminal
+scale into a single exponential, at the cost of constants that a
+qualitative proof has no reason to purchase.
+
 \subsection{The toll}
 Fix a real design constant $A \ge 1$ and an integer base $B$, and let the
 \emph{flat tower} be $H_0 = B$, $H_{j+1} = H_j\lfloor 2A\log H_j\rfloor$;
 its telescoped decrement at length $J$ is
 $S_J = \sum_{j<J} \bigl(2A\log H_j\bigr)^{-1}$. Write $L = \log H$,
-$\lambda = \log L$, $c = \log 2A$.
+$\ell = \log L$, $c = \log 2A$.
 
 \begin{theorem}[The toll; \S\ref{sec:toll}, unconditional]\label{thm:toll-intro}
 Let $A \ge 1$, $B \ge 4\cdot 10^{6}$, and let the base satisfy the flat
-floor $100(c + \lambda_0) \le L_0$. Then any tower length $J$ at which the
+floor $100(c + \ell_0) \le L_0$. Then any tower length $J$ at which the
 decrement crosses the one-bit budget, $\log 2 < S_J$, forces
 \[
-c + \lambda_J \;\ge\; 4^{(20/21)A}\,\bigl(c + \lambda_0\bigr),
+c + \ell_J \;\ge\; 4^{(20/21)A}\,\bigl(c + \ell_0\bigr),
 \]
 and at the least such length the width does not overshoot:
 \[
-c + \lambda_{J} \;\le\; \tfrac{21}{20}\,4^{A}\,\bigl(c + \lambda_0\bigr).
+c + \ell_{J} \;\le\; \tfrac{21}{20}\,4^{A}\,\bigl(c + \ell_0\bigr).
 \]
 \leanname{Salt.Entropy.Chowla.towerFlat\_width\_ge,
 Salt.Entropy.Chowla.towerFlat\_width\_le}
@@ -194,7 +218,7 @@ $[\,4^{(20/21)A},\ (21/20)\,4^{A}\,]$, which contains the continuum value
 $4^{A}$: the exponent is pinned to within $20/21 = 0.952\ldots$ of the
 truth and the constant to within $21/20$. Both halves come from one law
 (Theorem~\ref{thm:master}): the decrement $S_J$ \emph{is} a potential
-difference, $S_J = (2A)^{-1}(w_J - w_0)$ with $w = \log(c+\lambda)$, to
+difference, $S_J = (2A)^{-1}(w_J - w_0)$ with $w = \log(c+\ell)$, to
 within a factor $21/20$. The whole content of the floor function in the
 tower's definition is the $20/21$.
 
@@ -219,18 +243,36 @@ schedule at $A_b$ pays at most $\frac{21}{20}4^{A_b}$
 
 \subsection{The pearl}
 The second theorem is conditional, and we state its conditionality here
-rather than later. In the form the corpus carries it: for every $A_0 \ge
-162$ there exist constants
-$(\varepsilon, C_g, K_c, \delta_0, C_t, A, \beta, x_0, H_{\mathrm{opq}},
-M_{\mathrm{fl}}, C_q, c_s, T_0, K_q, K_s, C)$ with $A \ge \max(162, A_0)$
-such that, \emph{given} eight numeric hypotheses on those constants and
-two carried predicates, there is a Chowla regime $R$ with window base
-pinned at the design base, terminal scale beyond any prescribed function
-of the regime's own data, and
-$\lnot\,\mathrm{logChowla2Fails}(R.\varepsilon, R.x, R.\omega)$ --- that
-is, the logarithmically averaged two-point correlation at the witnessed
-window does not exceed $\varepsilon\log\omega$ in absolute value.
+rather than later. Here is the form the corpus carries.
+
+\begin{theorem}[The pearl; \S\ref{sec:pearl}, conditional]\label{thm:pearl-intro}
+For every $A_0 \ge 162$ there exist a tolerance $\varepsilon > 0$, a
+design constant $A \ge \max(162, A_0)$, and fourteen further constants
+such that, \emph{given} one analytic constant hypothesis of the band
+lane, eight numeric riders on those constants, and two carried
+predicates --- each listed in full in \S\ref{sec:pearl} --- there is a
+Chowla regime $R$ with window base pinned at the design base,
+terminal scale beyond any prescribed function of the regime's own data,
+and
+\[
+\lnot\,\mathrm{logChowla2Fails}(R.\varepsilon,\ R.x,\ R.\omega),
+\]
+that is, the logarithmically averaged two-point correlation at the
+witnessed window does not exceed $\varepsilon\log\omega$ in absolute
+value.
 \leanname{Salt.MR.logChowla2\_witnessed\_scale\_flat\_L\_v2}
+\end{theorem}
+
+The sixteen constants are the point: they are what a classical proof
+would sweep into ``for suitable constants,'' and the formal statement
+of \S\ref{sec:pearl} cannot --- it names each one at the binder, and
+Table~\ref{tab:dials} labels them. A reader needs two of them now:
+$\varepsilon$ is the conclusion's tolerance, and $A$ is the design
+constant --- the toll's dial. The hypotheses sort in
+\S\ref{sec:pearl-hyp}: the eight riders are six ceilings on constants
+the theorem itself produces and two windows of Siegel genre, and it is
+the Siegel pair that survives every removal \S\ref{sec:limit}
+performs.
 
 The eight hypotheses and two predicates are listed in full in
 \S\ref{sec:pearl}; none is hidden, and the paper claims nothing
@@ -310,8 +352,8 @@ $e(H) := \mathbb{H}\bigl[\lambda\text{-window of length } H\bigr]/H$
 be the per-symbol entropy of the Liouville window under the logarithmic
 measure of the regime. Two endpoint facts fix the budget: $e(H) \le \log
 2$ for every $H \ge 1$, since the window is $\pm1$-valued
-(\leaninline{Salt.Entropy.Chowla.entropy\_per\_symbol\_le}), and $e(H) \ge
-0$ (\leaninline{Salt.Entropy.Chowla.entropy\_nonneg\_per\_symbol}). The
+(\leaninline{Salt.Entropy.Chowla.\allowbreak entropy\_per\_symbol\_le}), and $e(H) \ge
+0$ (\leaninline{Salt.Entropy.Chowla.\allowbreak entropy\_nonneg\_per\_symbol}). The
 decrement step says that if the correlation fails at level $j$ then
 $e(H_{j+1}) - e(H_j) \le -\,1/(2A\log H_j)$ at the flat threshold
 $\kappa = H/(A\log H)$; summing over $j < J$ gives
@@ -329,7 +371,7 @@ summands $1/(2A\log H_j)$ shrink. The question the toll answers is what
 the terminal scale must be.
 
 Convention for \S\ref{sec:toll} and \S\ref{sec:flat}: every declaration
-cited below lives in \texttt{Salt/Entropy/Chowla/TowerFlat.lean} of the
+cited below lives in \texttt{Salt/\allowbreak Entropy/\allowbreak Chowla/\allowbreak TowerFlat.lean} of the
 repository unless a different file is named at the citation, and all are
 in the namespace \leaninline{Salt.Entropy.Chowla}.
 
@@ -353,17 +395,17 @@ the contrast with the original threshold $H/(\log H \log\log\log H)$: the
 third logarithm has been replaced by a constant the designer picks.
 
 \begin{definition}[The potential]\label{def:potential}
-Write $L_j = \log H_j$, $\lambda_j = \log L_j$, $c = \log 2A$, and
+Write $L_j = \log H_j$, $\ell_j = \log L_j$, $c = \log 2A$, and
 \[
-w_j \;=\; \log\bigl(c + \lambda_j\bigr).
+w_j \;=\; \log\bigl(c + \ell_j\bigr).
 \]
 \leanname{Salt.Entropy.Chowla.towerLF, towerLamF, flatC, towerWF}
 \end{definition}
 
 The potential is forced by the arithmetic of the step, not chosen for
 convenience. One step adds $d_j = \log\lfloor 2A L_j\rfloor$ to $L$, and
-$d_j = c + \lambda_j$ exactly up to the floor function; so
-$\Delta\lambda_j \approx (c+\lambda_j)/L_j$ and
+$d_j = c + \ell_j$ exactly up to the floor function; so
+$\Delta\ell_j \approx (c+\ell_j)/L_j$ and
 $\Delta w_j \approx 1/L_j$. That is: the summand $1/(2AL_j)$ of $S_J$
 \emph{is} $\Delta w_j/(2A)$. The next theorem says so with explicit
 two-sided constants.
@@ -374,9 +416,9 @@ each is named at every statement that uses it.
 \begin{itemize}
 \item[(H1)] $A \ge 1$: the design constant is at least one.
 \item[(H2)] $B \ge 4\cdot 10^{6}$: the house regime floor, which supplies
-  $\log B \ge 15$ and, along the tower, $L_j \ge 15$ and $\lambda_j \ge 2$
+  $\log B \ge 15$ and, along the tower, $L_j \ge 15$ and $\ell_j \ge 2$
   at every level.
-\item[(H3)] the \emph{flat floor} $100\,(c + \lambda_0) \le L_0$, i.e.
+\item[(H3)] the \emph{flat floor} $100\,(c + \ell_0) \le L_0$, i.e.
   $100\,(\log 2A + \log\log B) \le \log B$.
 \end{itemize}
 (H3) is what makes the second-order factors of the step $1/100$-small, and
@@ -400,8 +442,8 @@ Assume (H1), (H2), (H3). Then for every $J$,
 \;\le\; S_J \;\le\;
 \frac{21}{20}\cdot\frac{1}{2A}\bigl(w_J - w_0\bigr).
 \]
-\leanname{Salt.Entropy.Chowla.towerDropSumFlat\_ge\_log\_ratio,
-Salt.Entropy.Chowla.towerDropSumFlat\_le\_log\_ratio\_mul}
+\leanname{Salt.Entropy.Chowla.\allowbreak towerDropSumFlat\_ge\_log\_ratio,
+Salt.Entropy.Chowla.\allowbreak towerDropSumFlat\_le\_log\_ratio\_mul}
 \end{theorem}
 
 The two-sided constant is $21/20$: the telescoped decrement of the flat
@@ -409,25 +451,25 @@ tower is the potential difference $w_J - w_0$, divided by $2A$, to within
 $5\%$. The lower half is exact --- no relative loss at all --- because both
 prices charged by the floor function point the same way in that direction;
 the $1/20$ of the upper half pays three items, two second-order factors of
-the step ($L' \le (101/100)L$ and $c + \lambda' \le (c+\lambda) + 1/100$,
+the step ($L' \le (101/100)L$ and $c + \ell' \le (c+\ell) + 1/100$,
 both from (H3)) and the floor price $1/500$.
 
 \subsection{The toll}
 
-\begin{theorem}[The toll, necessity]\label{thm:tollge}
+\begin{theorem}[The toll, necessity --- the lower half of Theorem~\ref{thm:toll-intro}, at the working hypotheses]\label{thm:tollge}
 Assume (H1), (H2), (H3). For \emph{every} tower length $J$ at which
 $\log 2 < S_J$,
 \[
-\bigl(c + \lambda_0\bigr)\, 4^{(20/21)A} \;\le\; c + \lambda_J .
+\bigl(c + \ell_0\bigr)\, 4^{(20/21)A} \;\le\; c + \ell_J .
 \]
 \leanname{Salt.Entropy.Chowla.towerFlat\_width\_ge}
 \end{theorem}
 
-\begin{theorem}[The toll, no overshoot]\label{thm:tollle}
+\begin{theorem}[The toll, no overshoot --- the upper half of Theorem~\ref{thm:toll-intro}]\label{thm:tollle}
 Assume (H1), (H2), (H3), and let $J_{\min}$ be the least $J$ with
 $\log 2 < S_J$ (it exists, by Proposition~\ref{prop:crossing}). Then
 \[
-c + \lambda_{J_{\min}} \;\le\; \frac{21}{20}\,4^{A}\,\bigl(c + \lambda_0\bigr).
+c + \ell_{J_{\min}} \;\le\; \frac{21}{20}\,4^{A}\,\bigl(c + \ell_0\bigr).
 \]
 \leanname{Salt.Entropy.Chowla.towerFlat\_width\_le}
 \end{theorem}
@@ -435,10 +477,10 @@ c + \lambda_{J_{\min}} \;\le\; \frac{21}{20}\,4^{A}\,\bigl(c + \lambda_0\bigr).
 \begin{proposition}[The crossing is reached, at a named
 level]\label{prop:crossing}
 Assume (H1), (H2), (H3), and set
-$J^{\star} := \bigl\lceil \exp\bigl(2(c+\lambda_0)4^{A}\bigr)\bigr\rceil$.
+$J^{\star} := \bigl\lceil \exp\bigl(2(c+\ell_0)4^{A}\bigr)\bigr\rceil$.
 Then $\log 2 < S_{J^{\star}}$; in particular the set of crossing lengths
 is nonempty and $J_{\min}$ is well defined and positive.
-\leanname{Salt.Entropy.Chowla.towerFlatJstar,
+\leanname{Salt.Entropy.Chowla.\allowbreak towerFlatJstar,
 towerFlat\_crossing\_at\_Jstar, towerFlat\_crossing\_exists,
 towerFlatJmin, towerFlatJmin\_spec, towerFlatJmin\_pos}
 \end{proposition}
@@ -446,7 +488,7 @@ towerFlatJmin, towerFlatJmin\_spec, towerFlatJmin\_pos}
 Together, Theorems~\ref{thm:tollge} and \ref{thm:tollle} bracket the width
 multiplier of a minimal crossing tower:
 \begin{equation}\label{eq:bracket}
-4^{(20/21)A} \;\le\; \frac{c+\lambda_{J_{\min}}}{c+\lambda_0}
+4^{(20/21)A} \;\le\; \frac{c+\ell_{J_{\min}}}{c+\ell_0}
 \;\le\; \frac{21}{20}\,4^{A},
 \end{equation}
 and the continuum value $4^{A}$ --- what the same computation gives with
@@ -456,10 +498,10 @@ is determined, the exponent to within $4.8\%$, the constant to within
 $5\%$.
 
 To see the size of the toll, take the working point of \S\ref{sec:pearl},
-$A = 162$, where the base is pinned so that $\lambda_0 \ge 3.2A = 518.4$
+$A = 162$, where the base is pinned so that $\ell_0 \ge 3.2A = 518.4$
 and $c = \log 324 = 5.78\ldots$. Then \eqref{eq:bracket} puts
-$\lambda_{J_{\min}}$ between $4\cdot10^{95}$ and $1.9\cdot10^{100}$: the
-terminal scale of the tower is $H_{J_{\min}} = \exp\exp(\lambda_{J_{\min}})$,
+$\ell_{J_{\min}}$ between $4\cdot10^{95}$ and $1.9\cdot10^{100}$: the
+terminal scale of the tower is $H_{J_{\min}} = \exp\exp(\ell_{J_{\min}})$,
 a doubly exponential object whose doubly-logarithmic width has been
 multiplied by about $10^{93}$. (Numerical illustration; the formal content
 is the displayed inequalities.)
@@ -474,10 +516,10 @@ $3.2A \le \log\log B$ hold. Then, at the minimal crossing length,
 \end{corollary}
 
 Corollary~\ref{cor:export} is Theorem~\ref{thm:tollle} with the design law
-substituted and $A$ eliminated: under $3.2A \le \lambda_0$ the whole right
-side $\frac{21}{20}4^{A}(c+\lambda_0)$ is below $e^{\lambda_0/2}$, with the
-step from the design point $\lambda_0 = 3.2A$ to the whole half-line
-$\lambda_0 \ge 3.2A$ carried by a single application of $1 + x \le e^{x}$
+substituted and $A$ eliminated: under $3.2A \le \ell_0$ the whole right
+side $\frac{21}{20}4^{A}(c+\ell_0)$ is below $e^{\ell_0/2}$, with the
+step from the design point $\ell_0 = 3.2A$ to the whole half-line
+$\ell_0 \ge 3.2A$ carried by a single application of $1 + x \le e^{x}$
 (\leaninline{Salt.Entropy.Chowla.flatWidth\_coef},
 \leaninline{flatWidth\_engine\_at}, \leaninline{flatWidth\_engine}). The
 $A$-free form is what \S\ref{sec:pearl}'s road consumes; stating it
@@ -502,7 +544,7 @@ Theorem~\ref{thm:master}, the upper half acquiring the factor $21/20 =
 \emph{Exponentiating, necessity.} If $\log 2 < S_J$, the upper half of the
 master law gives $\log 2 < \frac{21}{40A}(w_J - w_0)$, i.e.
 $w_J - w_0 > \frac{40}{21}A\log 2 = \frac{20}{21}A\log 4$. Since
-$w = \log(c+\lambda)$, exponentiating is Theorem~\ref{thm:tollge}. The
+$w = \log(c+\ell)$, exponentiating is Theorem~\ref{thm:tollge}. The
 $\log 4$ is where the base $4$ of the toll comes from: the budget is
 $\log 2$ and the drop carries a factor $\frac{1}{2A}$, so the exponent
 carries $2\log 2$.
@@ -511,7 +553,7 @@ carries $2\log 2$.
 $S_k \le \log 2$, and the lower half of the master law converts that into
 $w_k - w_0 \le 2A\log 2 = A \log 4$. One further step costs at most
 $1/L_k \le 1/300 \le 1/21 \le \log(21/20)$, using $L_k \ge 300$ from (H3)
-and $c + \lambda_k \ge 3$. Hence
+and $c + \ell_k \ge 3$. Hence
 $w_{J_{\min}} - w_0 \le \log\frac{21}{20} + A\log 4$, which is
 Theorem~\ref{thm:tollle}. Proposition~\ref{prop:crossing} is the crude
 direction: each step adds at least $1$ to $L$, so $L_j \ge L_0 + j$, and
@@ -519,7 +561,8 @@ at $J^\star$ the potential has grown past $\log 2 + A\log 4$, which the
 master law's lower half converts into a crossing.
 
 \subsection{What the toll means}
-Three readings, in decreasing order of how much of each is kernel-checked.
+We record three readings, in decreasing order of how much of each is
+kernel-checked.
 
 \emph{First: the price is a conservation law, not an optimization
 target.} Theorem~\ref{thm:master} is two-sided. A cleverer tower of the
@@ -531,25 +574,22 @@ $4^{A}$ in doubly-logarithmic width, and both directions of that sentence
 are theorems.
 
 \emph{Second: the invoice has two axes, and a design chooses only the
-axis.} At the flat threshold $\kappa = H/(A\log H)$, the multiplier $A$ is
-a constant and the toll is a factor $4^{A}$ on the width
-$c + \lambda = \log 2A + \log\log H$. At the original threshold
-$\kappa = H/(\log H\log\log\log H)$, the role of $A$ is played by
-$\log\log\log H$, which is not a constant; the same telescoping (with
-potential $\log\log\log\log H$) then yields not a factor but a
-\emph{power}: $(\log\log B)^{3} \le \log\log H_{J_{\min}} \le
-(\log\log B)^{5}$
+axis.} The two thresholds and their two budget floors were set against
+each other in \S\ref{sec:intro}; what this section adds is the kernel's
+half of each claim. On the flat road the toll is a factor $4^{A}$ on the
+width (Theorems~\ref{thm:tollge}--\ref{thm:tollle}). On the original
+road the same telescoping, run with potential $\log\log\log\log H$,
+yields not a factor but a \emph{power}:
+$(\log\log B)^{3} \le \log\log H_{J_{\min}} \le (\log\log B)^{5}$
 (\leaninline{Salt.Entropy.Chowla.tower\_loglog\_ge},
-\leaninline{tower\_loglog\_le}). A power on the doubly-logarithmic axis is
-a height on the scale axis, and it shows up as such: the budget floor of
-the original road is the triple exponential
-$\lceil e^{e^{e^{X}}}\rceil$ (\leaninline{budgetFloor}), while the flat
-road's is the single exponential
-$\lceil e^{\max(4X,\ 2\log A + 2)}\rceil$
-(\leaninline{budgetFloorFlat}), with the design constant's own demand
+\leaninline{tower\_loglog\_le}). A power on the doubly-logarithmic axis
+is a height on the scale axis, and the two budget floors of
+\S\ref{sec:intro} record exactly that
+(\leaninline{budgetFloor} against \leaninline{budgetFloorFlat}), with
+the design constant's own demand
 $A \ge 2304\log 4/(\varepsilon^{6}\beta^{2})$
 (\leaninline{budgetAFlat}) absorbing what the third logarithm used to
-absorb. Two roads, one invoice, two axes. This paragraph's individual
+absorb. Two roads pay one invoice on two axes. This paragraph's individual
 claims are each kernel-checked. The sentence that fuses them --- that
 \emph{every} threshold pays the same toll on one axis or the other --- is
 proved below on the width axis, for every threshold schedule feeding this
@@ -569,16 +609,16 @@ S_J = \sum_{j<J} \frac{1}{2\varphi_j \log H_j}
 (\leaninline{Salt.Entropy.Chowla.chowlaTowerShape},
 \leaninline{towerDropSumShape}). Fix a \emph{budget floor} $A_b \ge 1$ with
 $\varphi_j \ge A_b$ at every level, and measure the width at that floor:
-$c_b = \log 2A_b$, $\lambda_j = \log\log H_j$, $w_j = \log(c_b+\lambda_j)$
+$c_b = \log 2A_b$, $\ell_j = \log\log H_j$, $w_j = \log(c_b+\ell_j)$
 (\leaninline{towerLS, towerLamS, towerWS}).
 
 \begin{theorem}[The shape-free toll]\label{thm:shapetoll}
 Let $A_b \ge 1$, let $\varphi_j \ge A_b$ for every $j$, let
 $B \ge 4\cdot10^{6}$, and let the flat floor hold at the budget constant,
-$100(c_b + \lambda_0) \le L_0$. Then for \emph{every} $J$ at which the
+$100(c_b + \ell_0) \le L_0$. Then for \emph{every} $J$ at which the
 schedule's decrement crosses the one-bit budget, $\log 2 < S_J$,
 \[
-\bigl(c_b + \lambda_0\bigr)\,4^{(20/21)A_b} \;\le\; c_b + \lambda_J .
+\bigl(c_b + \ell_0\bigr)\,4^{(20/21)A_b} \;\le\; c_b + \ell_J .
 \]
 \leanname{Salt.Entropy.Chowla.towerShape\_width\_ge}
 \end{theorem}
@@ -601,16 +641,16 @@ proved over abstract reals (\leaninline{flatStep\_dw\_le},
 \leaninline{flatStep\_dw\_ge}), so it is available at any step size.
 Second, the floor price transfers in one direction only: $\lfloor\cdot\rfloor$
 and $\log$ are monotone, so $\varphi_j \ge A_b$ gives
-$\log\lfloor 2\varphi_j L_j\rfloor \ge c_b + \lambda_j - \frac{1}{500}$
+$\log\lfloor 2\varphi_j L_j\rfloor \ge c_b + \ell_j - \frac{1}{500}$
 (\leaninline{shapeStep\_logMul\_ge}), while the companion upper price
-$\log\lfloor 2\varphi_j L_j\rfloor \le c_b + \lambda_j$ fails as soon as
+$\log\lfloor 2\varphi_j L_j\rfloor \le c_b + \ell_j$ fails as soon as
 $\varphi_j > A_b$. It is not needed: the necessity direction consumes only
 the lower half. Removing it from the per-step law costs one monotonicity
 step --- $w_{j+1} - w_j$ increases with the step, so truncating the step at
-$\min(d_j,\, c_b + \lambda_j)$, which does satisfy both flat hypotheses,
+$\min(d_j,\, c_b + \ell_j)$, which does satisfy both flat hypotheses,
 only decreases it (\leaninline{shapeStep\_dw\_ge}). Third, the invariant
 (H3) propagates for every schedule (\leaninline{towerShape\_inv}), and here
-the schedule tower is the easier case: $\Delta\lambda_j \le d_j/L_j$ and
+the schedule tower is the easier case: $\Delta\ell_j \le d_j/L_j$ and
 $100\,d_j/L_j \le d_j$ already at $L_j \ge 100$, so a larger multiplier
 only helps.
 
@@ -629,11 +669,10 @@ times: an apparent wall in this method --- a triple-exponential floor, a
 frame constant at a door, a window on the design constant --- is worth
 re-reading as an invoice in the wrong coordinate before it is treated as a
 height. In all three episodes the obstruction moved when the coordinates
-changed. What did not move, in any of them, is $4^{A}$.
-%
-% TODO(three walls): \S\ref{sec:method} owes the three episodes by name,
-% with dates and ledger entries, and owes the distinction between the two
-% that dissolved and the one that did not.
+changed, though not in the same way: \S\ref{sec:method} records the
+distinction between the two that dissolved on re-reading and the one
+that was proved impassable as posed and had to be routed around. What
+did not move, in any of them, is $4^{A}$.
 
 % ============================================================================
 \section{The flat tower}\label{sec:flat}
@@ -654,7 +693,7 @@ $\log H \ge 15$ and $A \ge 1$
 stays above the base floor,
 $B \le H_j$ and $4\cdot10^{6}\le H_j$
 (\leaninline{chowlaTowerFlat\_base\_ge}, \leaninline{chowlaTowerFlat\_base\_floor}),
-and therefore $L_j \ge 15$ and $\lambda_j \ge 2$ at every level
+and therefore $L_j \ge 15$ and $\ell_j \ge 2$ at every level
 (\leaninline{towerLF\_ge\_fifteen}, \leaninline{towerLamF\_ge\_two}). The
 step in the glyph $L$ is exactly additive,
 \[
@@ -667,20 +706,20 @@ The floor function in the multiplier is the only inexactness in the whole
 construction, and it is priced on both sides.
 
 \begin{lemma}[The floor price]\label{lem:floorprice}
-Assume (H1), (H2). At every level, $d_j \le c + \lambda_j$. If moreover
-the invariant $100(c+\lambda_j) \le L_j$ holds at that level, then
+Assume (H1), (H2). At every level, $d_j \le c + \ell_j$. If moreover
+the invariant $100(c+\ell_j) \le L_j$ holds at that level, then
 \[
-c + \lambda_j - \tfrac{1}{500} \;\le\; d_j \;\le\; c + \lambda_j .
+c + \ell_j - \tfrac{1}{500} \;\le\; d_j \;\le\; c + \ell_j .
 \]
 \leanname{Salt.Entropy.Chowla.flatStep\_logMul\_le,
 Salt.Entropy.Chowla.flatStep\_logMul\_ge}
 \end{lemma}
 
 The upper half is $\log\lfloor x\rfloor \le \log x$ with
-$\log(2AL) = c + \lambda$ (\leaninline{flatLog\_prod}). The lower half is
+$\log(2AL) = c + \ell$ (\leaninline{flatLog\_prod}). The lower half is
 $\log x - \log\lfloor x \rfloor \le (x - \lfloor x\rfloor)/\lfloor
 x\rfloor \le 1/\lfloor x \rfloor$, and the invariant forces
-$c + \lambda \ge 3$ (\leaninline{flatLevel\_s\_ge\_three}), hence
+$c + \ell \ge 3$ (\leaninline{flatLevel\_s\_ge\_three}), hence
 $L \ge 300$, hence $2AL \ge 600$ and $\lfloor 2AL\rfloor \ge 599$: the
 floor costs at most $1/599 \le 1/500$ in the logarithm. That $1/500$ is
 the only place where the discreteness of the construction is paid for, and
@@ -691,13 +730,13 @@ Theorem~\ref{thm:master}.
 
 \begin{proposition}[The flat floor propagates]\label{prop:inv}
 Assume (H1), (H2) and the base hypothesis (H3). Then
-$100(c + \lambda_j) \le L_j$ at every level $j$.
+$100(c + \ell_j) \le L_j$ at every level $j$.
 \leanname{Salt.Entropy.Chowla.towerFlat\_inv}
 \end{proposition}
 
 The induction is one line of arithmetic once Lemma~\ref{lem:floorprice} is
 available: the step adds $d_j \ge 1$ to $L$ and at most $d_j/L_j \le
-1/100$ to $\lambda$, so the slack $L - 100(c+\lambda)$ does not decrease.
+1/100$ to $\ell$, so the slack $L - 100(c+\ell)$ does not decrease.
 The proposition is what allows every subsequent statement to assume the
 invariant at an arbitrary level while hypothesizing it only at the base.
 
@@ -708,13 +747,13 @@ reals, and then applies it at each level.
 
 \begin{lemma}[The per-step bracket]\label{lem:step}
 Let $L, L', d, c \in \mathbb{R}$ with $L' = L + d$, and set
-$\lambda = \log L$, $\lambda' = \log L'$, $w = \log(c+\lambda)$,
-$w' = \log(c+\lambda')$. Then:
+$\ell = \log L$, $\ell' = \log L'$, $w = \log(c+\ell)$,
+$w' = \log(c+\ell')$. Then:
 \begin{enumerate}
-\item[(i)] if $L > 0$, $c + \lambda > 0$, $0 \le d \le c + \lambda$, then
+\item[(i)] if $L > 0$, $c + \ell > 0$, $0 \le d \le c + \ell$, then
   $w' - w \le 1/L$;
-\item[(ii)] if $c + \lambda \ge 3$, $100(c+\lambda) \le L$, and
-  $c + \lambda - \tfrac{1}{500} \le d \le c + \lambda$, then
+\item[(ii)] if $c + \ell \ge 3$, $100(c+\ell) \le L$, and
+  $c + \ell - \tfrac{1}{500} \le d \le c + \ell$, then
   $(20/21)/L \le w' - w$.
 \end{enumerate}
 \leanname{Salt.Entropy.Chowla.flatStep\_dw\_le,
@@ -724,16 +763,16 @@ Salt.Entropy.Chowla.flatStep\_dw\_ge}
 Both halves are two applications of an elementary logarithm estimate, one
 per glyph level. For (i) it is $\log x \le x - 1$ in the form
 $\log b - \log a \le (b-a)/a$: first at the $L$ level,
-$\lambda' - \lambda \le d/L$, then at the $c+\lambda$ level,
-$w' - w \le (\lambda'-\lambda)/(c+\lambda)$; multiplying and using
-$d \le c + \lambda$ gives $w' - w \le 1/L$ with no error term at all. For
+$\ell' - \ell \le d/L$, then at the $c+\ell$ level,
+$w' - w \le (\ell'-\ell)/(c+\ell)$; multiplying and using
+$d \le c + \ell$ gives $w' - w \le 1/L$ with no error term at all. For
 (ii) it is the dual $1 - 1/x \le \log x$, giving
-$d/L' \le \lambda' - \lambda$ and
-$(\lambda'-\lambda)/(c+\lambda') \le w' - w$; the two second-order factors
-$L' \le \frac{101}{100}L$ and $c + \lambda' \le (c+\lambda) + \frac{1}{100}$
+$d/L' \le \ell' - \ell$ and
+$(\ell'-\ell)/(c+\ell') \le w' - w$; the two second-order factors
+$L' \le \frac{101}{100}L$ and $c + \ell' \le (c+\ell) + \frac{1}{100}$
 (both from the invariant) and the floor price
-$d \ge (c+\lambda) - \frac{1}{500}$ then give the constant. At
-$c + \lambda \ge 3$ the constant this computation actually yields is
+$d \ge (c+\ell) - \frac{1}{500}$ then give the constant. At
+$c + \ell \ge 3$ the constant this computation actually yields is
 $0.986$; the lemma states $20/21 = 0.952\ldots$, which is what the
 downstream arithmetic uses.
 
@@ -750,8 +789,8 @@ Proposition~\ref{prop:crossing} names a level at which the decrement has
 crossed the budget. The estimate behind it is deliberately crude: since
 $d_j \ge 1$ at every level, $L_j \ge L_0 + j$
 (\leaninline{Salt.Entropy.Chowla.towerLF\_ge\_add}), so at
-$J^\star = \lceil \exp(2(c+\lambda_0)4^{A})\rceil$ one has
-$\lambda_{J^\star} \ge 2(c+\lambda_0)4^{A}$, hence
+$J^\star = \lceil \exp(2(c+\ell_0)4^{A})\rceil$ one has
+$\ell_{J^\star} \ge 2(c+\ell_0)4^{A}$, hence
 $w_{J^\star} - w_0 \ge \log 2 + A\log 4$, and the master law's lower half
 turns that into $S_{J^\star} > \log 2$. The named level is superexponentially
 larger than necessary --- the toll's own bracket \eqref{eq:bracket} shows
@@ -788,11 +827,11 @@ tolerance $\varepsilon \le 1/2$, an admissible window pair $H_- \le H_+$ with
 $H_- \ge 4\cdot10^{6}$, a tower ratio and a tower length, together with the
 side conditions those data must satisfy --- among them that the tower fits
 below $H_+$ and that its telescoped decrement crosses $\log 2$.
-\leanname{Salt.Entropy.Chowla.ChowlaRegime (Salt/Entropy/Chowla/Regime.lean:56)}
+\leanname{Salt.Entropy.Chowla.\allowbreak ChowlaRegime (Salt/\allowbreak Entropy/\allowbreak Chowla/\allowbreak Regime.lean:56)}
 The flat extension adds the design constant $A \ge 26$, the design law
 $3.2A \le \log\log H_-$, a flat tower length, and the flat tower's own fit and
 crossing (\leaninline{ChowlaRegimeFlat},
-\texttt{Salt/Entropy/Chowla/TowerFlatRegime.lean:122}); it is the structure
+\texttt{Salt/\allowbreak Entropy/\allowbreak Chowla/\allowbreak TowerFlatRegime.lean:122}); it is the structure
 whose consumption \S\ref{sec:flat} announced.
 
 Failure of the two-point statement at a regime is a Prop about that regime's
@@ -818,7 +857,7 @@ equation, not a bound --- at
 \mathrm{flatDesignBase}(A) \;=\; \bigl\lceil e^{e^{3.2A}} \bigr\rceil
 \]
 \leanname{Salt.Entropy.Chowla.flatDesignBase
-(Salt/Entropy/Chowla/TowerFlatBuilder.lean:95)}
+(Salt/\allowbreak Entropy/\allowbreak Chowla/\allowbreak TowerFlatBuilder.lean:95)}
 \noindent with $A$ above any floor the caller prescribes, and its outer scale exceeds
 $g(H_+, \omega)$ for a function $g$ the caller supplies. Both quantifiers are
 inside the statement.
@@ -843,7 +882,7 @@ M_{\mathrm{fl}}$ and reals $C_q, c_s, T_0, K_q, K_s, C$ such that:
 \item[(b)] \emph{(the design constant)} $162 \le A$, $A_0 \le A$, and
   $\mathrm{budgetAFlat}(\varepsilon,\beta) \le A$;
 \item[(c)] \emph{(the arm census)} if
-  $H_{\mathrm{opq}} \le \mathrm{flatDesignBase}(A)$ then
+  $H_{\mathrm{opq}} \le \mathrm{flatDesignBase}(A)$ then\\
   $\mathrm{flatWitFloor}(\varepsilon,\beta,A,H_{\mathrm{opq}})
    = \mathrm{flatDesignBase}(A)$;
 \item[(d)] \emph{(the conditional)} under the eight hypotheses
@@ -874,10 +913,12 @@ g(R.H_+, R.\omega) \le R.x,
 \]
 and such that
 \[
-\mathrm{S16CofactorSupply\_L\_gk}(32\cdot10^{6}, C_q, R,
-  \mathrm{flatDoorM}(A))
-\;\Rightarrow\;
+\begin{aligned}
+&\mathrm{S16CofactorSupply\_L\_gk}(32\cdot10^{6}, C_q, R,
+  \mathrm{flatDoorM}(A))\\
+&\quad\Rightarrow\;
 \mathrm{S16BaseScaleCap96\_L\_gk}(32\cdot10^{6}, R, \mathrm{flatDoorM}(A))
+\end{aligned}
 \]
 \[
 \Rightarrow\;
@@ -887,6 +928,52 @@ and such that
 \leanname{Salt.MR.logChowla2\_witnessed\_scale\_flat\_L\_v2
 (Salt/MR/S16FlatFinal.lean:136)}
 \end{theorem}
+
+Table~\ref{tab:dials} labels the sixteen constants, each traced to the
+declaration that mints it. They arrive in five groups: the spine's own
+dials; the exported witnesses of the conditional hop, each carrying a
+pin even where no rider consumes it (the theorem reports the sizes of
+its internal constants); the opaque Siegel pair; the four constants of
+the crossing supply; and the co-factor gate with the coprime-tail
+export.
+
+\begin{table}[h]
+\centering\scriptsize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llll}
+\toprule
+Constant & What it is & Pin --- and how tight & Spent at \\
+\midrule
+$\varepsilon$ & the spine's window parameter & $\tfrac{1}{500}\le\varepsilon$, attained exactly & the tolerance $R.\varepsilon$ \\
+$A$ & the design constant, symbolic & $162\le A$, binding (via $M_{\mathrm{fl}}$'s pin) & the base, door, width \\
+$\beta$ & the decrement bracket parameter & positivity only & $\mathrm{budgetAFlat}(\varepsilon,\beta)\le A$ \\
+$\delta_0$ & the spine's budget decrement & $\tfrac{1}{838400}\le\delta_0$, attained exactly & exported witness \\
+\midrule
+$C_g$ & the sieve-mass constant & $\le 2\cdot10^{12}$, true at $1.6\cdot10^{12}$ & exported witness \\
+$K_c$ & the large-spectrum bound & $\le 2^{539}$, true at $2^{538.42}$ & rider 1 \\
+$C_t$ & the constant-pool constant & $\le 2^{23}$, true at $2^{22.78}$ & rider 2 \\
+$M_{\mathrm{fl}}$ & the graded door-modulus floor & $\le 2^{355}$, 49 orders of margin & exported witness \\
+\midrule
+$x_0$ & the band supplier's threshold & inherits Siegel's ineffectivity & rider 3's window \\
+$H_{\mathrm{opq}}$ & the road's opaque floor arm & carries $K_{\mathrm{Chen}}$ (Siegel) & rider 4, census (c) \\
+\midrule
+$c_s$ & the decay constant & rider met with 33 orders of room & rider 5 \\
+$T_0$ & the socket floor & the unreachable rider (\S\ref{sec:pearl-defects}) & rider 6 \\
+$K_q$ & the below-floor comparison & rider met with 46 orders of room & rider 7 \\
+$K_s$ & the port's one ineffective constant & unbounded from the needed side & rider 8 \\
+\midrule
+$C_q$ & the co-factor grade gate & positivity only & inside the co-factor predicate \\
+$C$ & the coprime-tail export & $\log C\le 40$, true at ${\approx}28$ & a pure export \\
+\bottomrule
+\end{tabular}
+\caption{The dials of Theorem~\ref{thm:pearl}, each traced to the
+declaration that mints it. An ``exported witness'' is a constant the
+$\exists$-prefix reports with a pin although no rider consumes it. The
+constant $C$ here is the coprime-tail export; it is \emph{not} the
+band-lane constant of the outer hypothesis, whose trace
+\S\ref{sec:pearl-hyp} discusses --- the two share a numeral and nothing
+else.}
+\label{tab:dials}
+\end{table}
 
 Three of the conclusion's lines are the tower's, and \S\ref{sec:toll} is where
 they come from. The line $3.2A \le \log\log R.H_-$ is the design law, which the
@@ -909,16 +996,17 @@ lemmas read.
 Theorem~\ref{thm:pearl} is conditional in three separate ways, and they are
 different in kind.
 
+{\emergencystretch=2.5em
 \emph{The outer hypothesis.} $\mathrm{S16BandLaneCBoundedL}(32\cdot10^{6})$
-(\leaninline{Salt/MR/S16FlatTerminalLinear.lean:49}) is the band lane's
-constant hypothesis. Everything in it beyond a landed unconditional theorem
-(\leaninline{Salt.MR.mmuChiRate\_holds\_gated}, carried through
+is the band lane's constant hypothesis
+(\leaninline{Salt/\allowbreak MR/\allowbreak S16FlatTerminalLinear.lean:49}). Everything in it beyond a landed unconditional theorem
+(\leaninline{Salt.MR.\allowbreak mmuChiRate\_holds\_gated}, carried through
 \leaninline{S11HoistLinear}) is the single conjunct $\log C_{\mathrm{band}}
 \le 40$. It is not of Siegel genre: the constant is effective, and a trace of
 every existential hop that mints it puts it at
 $\log C_{\mathrm{band}} \approx 22\,661$, dominated by a literal
 double-exponential threshold in the zero-free-region lane. So the numeral $40$
-is not payable as stated. \S\ref{sec:limit} records what happened to it.
+is not payable as stated. \S\ref{sec:limit} records what happened to it.\par}
 
 \emph{The two Siegel-genre riders.} $x_0 \le e^{e^{3.2A}/10}$ and
 $H_{\mathrm{opq}} \le \lceil e^{e^{3.2A}}\rceil$ are windows, not bounds: each
@@ -937,10 +1025,11 @@ conjuncts the $\exists$-prefix could in principle export and does not, because
 every hop that mints such a constant packs it into an
 $\exists\,C,\ 0 < C \wedge \ldots$ that exports positivity alone.
 
+{\sloppy
 \emph{The two carried predicates.} The conclusion's implication asks for
 $\mathrm{S16CofactorSupply\_L\_gk}$ --- a supply statement about the co-factor
 block at the linear door and socket --- and
-$\mathrm{S16BaseScaleCap96\_L\_gk}$, the base-scale cap
+$\mathrm{S16BaseScaleCap96\_L\_gk}$, the base-scale cap\par}
 \[
 \forall\ \text{sockets } (H,L,q,j,A',s):\quad
 \log\log(A'+s) \;\le\;
@@ -1011,7 +1100,7 @@ constant of the mathematics. Set
 \mathrm{KlevF}(A) \;=\; \bigl\lceil k_{\mathrm{cap}}\, e^{1.6A}\bigr\rceil,
 \qquad k_{\mathrm{cap}} := 4 .
 \]
-\leanname{Salt.MR.kcap, Salt.MR.KlevF (Salt/MR/KLever.lean:147)}
+\leanname{Salt.MR.kcap, Salt.MR.KlevF (Salt/MR/KLever.lean:142,147)}
 \noindent Two inequalities decide it. \emph{Admissible:}
 $\mathrm{KlevF}(A) \le 1.7\cdot10^{8}\cdot\mathrm{flatDoorM}(A)$ for every
 $A \ge 26$, the ceiling the door and the selection register both carry, with a
@@ -1029,7 +1118,7 @@ $2 < k_{\mathrm{cap}}\log 2$.
 
 The lane's terminal is therefore stated at an arbitrary admissible lever, so
 that the instantiation $K := \mathrm{KlevF}(A)$ is available to its consumer,
-and with the two 2~August repairs in place.
+and it is stated with the two 2~August repairs in place.
 
 \begin{theorem}[The pearl, re-cut at an arbitrary
 lever]\label{thm:pearl-recut}
@@ -1062,16 +1151,19 @@ $\mathrm{XCeilRiderStrict}(\varepsilon, g)$ there is a Chowla regime $R$ with
 the exports of Theorem~\ref{thm:pearl}(d), together with the outer-scale
 ceiling $\log R.x \le (31/\varepsilon)\,R.H_+$, such that
 \[
-\mathrm{S16CofactorSupply\_L\_gk}(K, C_q, R, \mathrm{flatDoorM}(A))
-\;\Rightarrow\;
+\begin{aligned}
+&\mathrm{S16CofactorSupply\_L\_gk}(K, C_q, R, \mathrm{flatDoorM}(A))\\
+&\quad\Rightarrow\;
 \mathrm{S16BaseScaleCap96\_L\_gk}(K, R, \mathrm{flatDoorM}(A))
+\end{aligned}
 \]
 \[
 \Rightarrow\;
 \lnot\,\mathrm{logChowla2Fails}(R.\varepsilon, R.x, R.\omega).
 \]
-\leanname{Salt.MR.logChowla2\_witnessed\_scale\_flat\_L\_v2\_uniform\_win\_%
-xceil\_cqhoist (Salt/MR/RegisterCompose.lean:209)}
+\leanname{Salt.MR.\allowbreak logChowla2\_witnessed\_scale\_flat\_L\_v2\_%
+\allowbreak uniform\_win\_xceil\_cqhoist
+(Salt/\allowbreak MR/\allowbreak RegisterCompose.lean:209)}
 \end{theorem}
 
 Three differences from Theorem~\ref{thm:pearl} carry the content. The lever is
@@ -1164,7 +1256,7 @@ Every body is the landed body verbatim.
 \leanname{Salt.MR.flat\_head\_uniform, flat\_socket\_uniform,
 flat\_doorL2\_uniform, flat\_road\_uniform, flat\_capstone\_uniform,\\
 flat\_conditional\_uniform,
-logChowla2\_witnessed\_scale\_flat\_L\_v2\_uniform}
+logChowla2\_witnessed\_scale\_\allowbreak flat\_L\_v2\_uniform}
 
 We draw one methodological conclusion, and it is not about this theorem.
 The step ``the constants are fixed, the window grows, so take the
@@ -1236,7 +1328,7 @@ fixed constant standing above an unbounded function of the scale. Unlike the
 cap refutation of \S\ref{sec:pearl-defects}, this one is a theorem:
 \leanname{Salt.MR.cofkL\_bulk\_false\_at\_socket
 (Salt/MR/RegisterInhabit.lean:260)}
-so the route died and the object it fed did not: Step 5's statement is
+The route died and the object it fed did not; Step 5's statement is
 unaffected and remains citable. The repair re-instantiates the supplier at the
 ladder the exponent count demands, $D = \lceil \log X\rceil$, and inhabits all
 seventeen conjuncts --- two of which were false at the bottom of the $T$-range
@@ -1331,9 +1423,9 @@ objects the corpus exhibits.
 \noindent The other two are one obstruction, appearing twice.
 
 \begin{itemize}
-\item $e^{-100} \le K_s$. A fixed numeral against a fixed constant whose
-  content is Siegel-ineffective: nothing in the corpus or in the literature
-  bounds it from the side the rider needs.
+\item $e^{-100} \le K_s$. This is a fixed numeral against a fixed
+  constant whose content is Siegel-ineffective: nothing in the corpus or in
+  the literature bounds it from the side the rider needs.
 \item The $K_{\mathrm{vt}}$ cushion. The constant has three legs. Two are
   closed form, of sizes about $44.8$ and $2.7\cdot10^{43}$. The third bottoms
   out at the minimum of $\|L(s,\chi)\|$ on a compact box, taken uniformly over
@@ -1370,51 +1462,108 @@ ineffective constant, named twice.
 \section{Method}\label{sec:method}
 % ============================================================================
 
-% ------------------------------------------------------------------
-% STUB. Contents listed, prose not written. The full treatment is the
-% companion paper \cite{companion}; this section is the part of it that
-% this paper's results require.
-% ------------------------------------------------------------------
+This section records the working mode that produced the results,
+because part of what this paper reports is that the mode exists. The
+mathematics was developed by AI agents (Claude: the Fable~5 and Opus
+models) working under the author's direction, with the Lean kernel as
+the referee of record; every step below is a dated entry in the
+repository's ledger or a commit in its history, and both are part of
+the archived sources.
 
-\noindent\textbf{TODO (\S\ref{sec:method} is a stub).} Intended content,
-in the order it should be written:
+\emph{Statements are frozen before proofs are attempted.} Every theorem
+in this development began as a design block that fixed its statement,
+its hypotheses, and the shapes of its constants before any proof search
+was allowed to touch it. A frozen statement is then attacked by
+independent refuters --- agents whose standing instruction is to refute,
+each carrying assigned kill-checks --- and executors are forbidden to
+alter a frozen statement to make a proof go through: an executor that
+discovers a statement unprovable is required to stop and report, and
+the report is a ledger entry, not a failure. The pearl is the worked
+example. Its hypothesis list survived three adversarial passes --- a
+non-vacuity pass, a satisfiability pass at the objects the theorem
+itself produces, and a delta pass over the final supply chain --- and
+the passes found two defects that an axiom audit could not have seen:
+the rider $T_0 \le e^{e^{100}}$, true as a proposition but unreachable
+along the corpus's own proof, and the base-scale cap, false at the
+regime the theorem produces, refuted by the toll's own lower bound.
+\S\ref{sec:pearl-defects} records both; both were repaired at the level
+of the statement, on the day they were found.
 
-\begin{enumerate}
-\item \emph{The design-block and refuter protocol.} Statements are frozen
-by a design block before any proof is attempted; a freeze is then attacked
-by independent refuters with a standing default of \emph{refuted}, each
-carrying assigned kill-checks; executors are forbidden to alter a frozen
-statement and are required to stop and report on discovering one
-unprovable. To be written with the three refuter verdicts on the pearl
-(the non-vacuity pass, the satisfiability pass, and the delta pass over
-the final supply chain) as the worked example, including the two defects
-each found and how they were repaired at the statement level.
+\emph{The toll was found by an audit, not transcribed from the
+literature.} On 31~July~2026 the campaign faced what its ledger then
+called a single mountain: the entropy budget demanded
+$\log\log\log H \ge 6.5\cdot10^{19}$ while the register permitted
+$\log\log\log H \le 6.24$. The demand audit that priced this deficit
+produced the master law (Theorem~\ref{thm:master}) the same evening ---
+the ledger's verdict, dated 19:43 that day, reads ``the mountain is a
+pricing choice'' --- and the flat tower with it. The shape-free toll
+(Theorem~\ref{thm:shapetoll}) was produced two days later by a
+different instrument: a hunt commissioned to kernelize the wall
+statement should two parallel hunts come back hard, and it returned the
+width law as a theorem instead. The claim we make here is about the
+mode and not about the novelty of the computation: a two-sided law came
+out of a demand audit that a prose development has no reason to
+perform, because a prose development is never billed.
 
-\item \emph{The discovery mode.} How the toll was found: not transcribed
-from the literature, but produced by auditing what a formalized tower
-actually charges, at a point in the campaign where three different
-apparent walls were open at once. The claim to be made carefully here is
-about the mode --- a two-sided law came out of a demand audit that a prose
-development has no reason to perform --- and not about novelty of the
-underlying computation.
+\emph{The three walls have names and dates.} Between 17:17 on 31~July
+and 12:49 on 1~August the development met three apparent walls, and for
+roughly fifty minutes on the morning of 1~August all three were open at
+once. The first was the triple-exponential budget floor above. The
+second was a frame constant at the door: a numeral $3.9\cdot10^{9}$
+against which the flat road's width demand had no fixed point, with a
+computed deficit near $10^{49}$. The third was a window on the design
+constant: the surviving arm of the first wall, re-expressed in the flat
+coordinate, demanded $A \le 86.6$ while the budget demanded
+$A \approx 8\cdot10^{30}$. Two of the three dissolved on re-reading,
+and the ledger's verdicts say so in their own words: the budget floor
+because ``the mountain is a pricing choice,'' and the frame constant
+because it was not a frame constant at all --- the numeral is
+$\tfrac{1}{12}A(M)\log 2$ rounded down by $1.8\%$, so ``the anchor is
+the door,'' and the $10^{49}$ deficit was an artifact of the witness
+window. The third did not dissolve. As posed it was proved impassable
+--- the kernel holds a floor $A \ge 1.7\cdot10^{6}$ against the
+window's $86.6$ --- and it moved only when a frozen base pin, chosen
+for the old road, was unfrozen and the door re-cut, at the cost of a
+rebuild measured in thousands of lines. Its coordinate is still visible
+in Theorem~\ref{thm:pearl}: the floor $162 \le A$, the design law
+$3.2A \le \log\log R.H_-$, the pinned base
+$\lceil e^{e^{3.2A}}\rceil$, and the two double-exponential windows.
+The first and third walls are the same wall in two coordinates; the
+second was independent. The general lesson is the one
+\S\ref{sec:toll} stated: an apparent wall in this method is worth
+re-reading as an invoice in the wrong coordinate before it is treated
+as a height --- and the size of a deficit is evidence of its nature,
+since the true walls of this development are tight, while a deficit of
+$10^{19}$ in a triple logarithm is bookkeeping. The ledger's entry for
+that law, dated 31~July, carries the author's own remark, which we
+preserve because it is the section's thesis in one sentence: ``do you
+not see the irony, the largest giant is but a windmill.''
 
-\item \emph{The three walls, by name.} The triple-exponential budget
-floor; the frame constant at the door; the window on the design constant.
-Two dissolved on re-reading and one did not; the section owes which is
-which, with dates and ledger entries, and owes the general lesson stated
-in \S\ref{sec:toll}: an apparent wall in this method is worth re-reading
-as an invoice in the wrong coordinate before it is treated as a height.
+\emph{Some walls stayed walls.} A method section that lists only its
+successes is not evidence, so we state plainly what this method did not
+get past. The Siegel obstruction is carried exactly where
+\S\ref{sec:pearl} and \S\ref{sec:limit} name it: the threshold $x_0$
+and the floor arm $H_{\mathrm{opq}}$ ride as double-exponential windows
+in Theorem~\ref{thm:pearl}, and after every removal \S\ref{sec:limit}
+performs, the pair that survives in the final corollary is of the same
+genre. The band-lane constant is carried as a hypothesis whose stated
+numeral, $\log C_{\mathrm{band}} \le 40$, is not payable as stated:
+the trace of every existential hop that mints it puts it near
+$22\,661$, and \S\ref{sec:limit} records what the window that replaced
+it costs. Two constants are exported with positivity alone ($\beta$ and
+$C_q$), and their numeric traces are open. The method found these walls
+quickly and priced them exactly; it did not move them.
 
-\item \emph{Walls that stayed walls.} The section must state plainly what
-this method did not get past, including the items still carried as
-hypotheses in \S\ref{sec:pearl} and the two constants whose traces are
-open. A method section that lists only its successes is not evidence.
-
-\item \emph{The error ledger.} The public, append-only record of every
-design error caught, numbered; the count at the time of writing, and the
-measurement that goes with it (no design error first discovered by the
-kernel).
-\end{enumerate}
+\emph{The development keeps an error ledger.} The ledger is an
+append-only record of every design error caught, numbered and dated,
+and the file is part of the archived sources. Its headline measurement
+is that no design error of the campaign was first discovered by the
+kernel: every one was caught by a refuter, an audit, or a neighboring
+theorem --- once by this paper's own Theorem~\ref{thm:toll-intro} ---
+and the kernel's role was to certify the repairs. The kernel is the
+floor of this method, not its net; what the floor guarantees is that an
+error which survives every instrument above it still cannot become a
+theorem.
 
 % ============================================================================
 \section*{Acknowledgments}
@@ -1466,8 +1615,8 @@ Prop~\ref{prop:crossing} & \leaninline{towerFlatJmin\_pos} & the three \\
 \S\ref{sec:toll} minimality & \leaninline{towerDropSumFlat\_le\_log\_two\_of\_lt\_Jmin} & the three \\
 Cor~\ref{cor:export} & \leaninline{towerFlat\_width\_export}
   (\texttt{TowerFlatExport.lean}) & the three \\
-Cor~\ref{cor:export} engine & \leaninline{flatWidth\_coef, flatWidth\_engine\_at,
-  flatWidth\_engine} & the three \\
+Cor~\ref{cor:export} engine & \leaninline{flatWidth\_coef, flatWidth\_engine\_at,} & the three \\
+ & \leaninline{flatWidth\_engine} (\texttt{TowerFlatExport.lean}) & \\
 (H3) is a theorem & \leaninline{flatFloor\_of\_design}
   (\texttt{TowerFlatRegime.lean}) & the three \\
 Lem~\ref{lem:floorprice} & \leaninline{flatStep\_logMul\_le, flatStep\_logMul\_ge} & the three \\
@@ -1522,9 +1671,10 @@ namespace \leaninline{Salt.MR}, file \texttt{Salt/MR/} unless noted} \\
  & (\texttt{Salt/Entropy/Chowla/ChowlaFailure.lean:59}) & \\
 \S\ref{sec:pearl} regime & \leaninline{Salt.Entropy.Chowla.ChowlaRegime},
   \leaninline{ChowlaRegimeFlat} & --- \\
+ & (\texttt{Entropy/Chowla/Regime:56}, \texttt{TowerFlatRegime:122}) & \\
 \S\ref{sec:pearl} base & \leaninline{Salt.Entropy.Chowla.flatDesignBase},
   \leaninline{flatWitFloor,} & --- \\
- & \leaninline{flatDoorM} (defs) & \\
+ & \leaninline{flatDoorM} (defs; \texttt{TowerFlatBuilder:95}, \texttt{S15SelLinear:201}) & \\
 Thm~\ref{thm:pearl} & \leaninline{logChowla2\_witnessed\_scale\_flat\_L\_v2}
   & the three \\
  & (\texttt{S16FlatFinal.lean:136}) & \\
@@ -1537,7 +1687,7 @@ Thm~\ref{thm:pearl} width & \leaninline{flatWitFloor\_design,
   \texttt{S16FlatTerminalLinear.lean:49}) & --- \\
 \S\ref{sec:pearl-repair} lever & \leaninline{kcap, KlevF} (defs),
   \leaninline{KlevF\_le\_wideCeiling} & the three \\
- & (\texttt{KLever.lean:147,172}) & \\
+ & (\texttt{KLever.lean:142,147,172}) & \\
 \S\ref{sec:pearl-repair} cap & \leaninline{s16\_baseScaleCap96\_L\_at\_klevF}
   (\texttt{KLever.lean:427}) & the three \\
 Thm~\ref{thm:pearl-recut} &
@@ -1545,7 +1695,8 @@ Thm~\ref{thm:pearl-recut} &
  & \leaninline{uniform\_win\_xceil\_cqhoist}
   (\texttt{RegisterCompose.lean:209}) & \\
 \S\ref{sec:pearl-repair} rider & \leaninline{XCeilGate, XCeilRiderStrict}
-  (defs, \texttt{XThread.lean:68,82}) & --- \\
+  (defs, \texttt{XThread:68,82}; & --- \\
+ & ns.\ \leaninline{Salt.Entropy.Chowla}) & \\
 \S\ref{sec:limit} hoist (7) &
   \leaninline{flat\_head\_uniform \ldots
   logChowla2\_witnessed\_} & the three \\
@@ -1578,7 +1729,7 @@ Quot.sound}. Toll rows and pearl rows are both complete as of commit
 \leaninline{b36f53a} (2026-08-03); line numbers are as of that commit and the
 source is the arbiter wherever a rendering here and a declaration could be read
 apart. The two headline declarations are transcribed in
-Appendix~\ref{app:signatures}. Full index generated at release.}
+Appendix~\ref{app:signatures}. The full index is generated at release.}
 \label{tab:index}
 \end{table}
 
@@ -1590,9 +1741,10 @@ Conditional statement & Residual hypothesis & Status \\
 \midrule
 Thm~\ref{thm:pearl} & band-lane constant ($\log C \le 40$); & landed;
   cap arm false \\
- & 8 numeric riders; 2 carried predicates & at the produced regime \\
-Thm~\ref{thm:pearl-recut} & band-lane $A$-window; 5 riders; &
-  landed \\
+ & 2 Siegel windows $+$ 6 numeric riders; & at the produced \\
+ & 2 carried predicates & regime \\
+Thm~\ref{thm:pearl-recut} & band-lane $A$-window; 5 riders; the
+  $g$-rider; & landed \\
  & 2 carried predicates, at a free lever & \\
 \S\ref{sec:chain} step 1 & band-lane constant; 6 riders; 2 predicates
   & landed \\
@@ -1604,7 +1756,8 @@ Cor~\ref{cor:v6} & $c_s$, $T_0$, $K_s$; $g$-rider; $K_{\mathrm{vt}}$ cushion
   & landed \\
 \bottomrule
 \end{tabular}
-\caption{Every conditional in this paper, with its exact named residual.
+\caption{Every conditional in this paper appears here with its exact
+named residual.
 Nothing in \S\ref{sec:toll} or \S\ref{sec:flat} is conditional: the toll
 is unconditional given its three stated hypotheses (H1)--(H3), which are
 hypotheses on the tower's parameters, not on the theory. Theorem~\ref{thm:pearl}
@@ -1630,8 +1783,8 @@ against them. Each block is the declaration's source with the proof body cut.
 Both close over the three axioms.
 
 \medskip\noindent\textbf{Theorem~\ref{thm:pearl}} (the pearl). Source
-\leaninline{Salt/MR/S16FlatFinal.lean:136}; audit
-\leaninline{Salt/MR/All.lean:7195}. The eight riders are the eight arrows of
+\leaninline{Salt/\allowbreak MR/\allowbreak S16FlatFinal.lean:136}; the audit is at
+\leaninline{Salt/\allowbreak MR/\allowbreak All.lean:7205}. The eight riders are the eight arrows of
 the second parenthesised block; the two carried predicates are the last two.
 \leaninline{flatDesignBase A} is $\lceil e^{e^{3.2A}}\rceil$ and
 \leaninline{flatWitFloor} is the road's witness floor, which the conjunct
@@ -1663,8 +1816,8 @@ theorem logChowla2_witnessed_scale_flat_L_v2 (hband : S16BandLaneCBoundedL 32000
 \end{alltt}}
 
 \medskip\noindent\textbf{Corollary~\ref{cor:v6}} (the classical limit). Source
-\leaninline{Salt/MR/RegisterCompose.lean:345}; audit
-\leaninline{Salt/MR/All.lean:7736}. There is no hypothesis to the left of the
+\leaninline{Salt/\allowbreak MR/\allowbreak RegisterCompose.lean:345}; the audit is at
+\leaninline{Salt/\allowbreak MR/\allowbreak All.lean:7736}. There is no hypothesis to the left of the
 colon but the depth \leaninline{A₀}, and no predicate in the conclusion: the
 five residuals are the three arrows \leaninline{cs}, \leaninline{T₀},
 \leaninline{Ks}, the caller-side \leaninline{XCeilRiderStrict ε g}, and the
@@ -1692,6 +1845,18 @@ theorem logChowla2_ineffective_v6 (A₀ : ℝ) :
             ≤ Real.log (R.Hhi : ℝ) / 4 →
             ¬ logChowla2Fails R.eps R.x R.ω))
 \end{alltt}}
+
+\subsection*{Availability of the formal sources}
+The Lean sources for every declaration cited in this paper are
+archived as a curated, self-contained snapshot at Zenodo
+(DOI: \texttt{10.5281/zenodo.TBD}); the same archive accompanies the
+arXiv submission as ancillary files. The archive pins the toolchain
+(Lean~4, \texttt{v4.32.0-rc1}, with mathlib at the same tag), builds
+with two commands (\texttt{lake exe cache get; lake build}), and
+carries the build-time axiom audit whose whitelist is exactly
+\leaninline{propext, Classical.choice, Quot.sound}. Declaration names
+in the text are the stable identifiers; file:line citations refer to
+the archived snapshot.
 
 \begin{thebibliography}{99}
 \bibitem{TaoChowla} T.~Tao, \emph{The logarithmically averaged Chowla and
