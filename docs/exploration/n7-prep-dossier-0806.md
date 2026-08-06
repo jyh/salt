@@ -585,7 +585,9 @@ necessarily in `α`" on the `C_i`; the over-stated log power in (7.8)). Two bloc
 I cannot certify `κ` against the print, but I can check our **two internal records against each
 other**, and I can attack the definition's branch structure. Both done:
 
-**(i) `hbKappa` and the notes agree exactly.** `Salt/HB/Lemma7Kappa.lean:346` carries κ's
+**(i) `hbKappa` and the notes agree exactly.** `Salt/HB/Lemma7Kappa.lean:348` *(corrected — I
+first wrote `:346`, which is the docstring's κ display, not the `def`; the maestro caught it in
+D.3)* carries κ's
 four-product form in its docstring verbatim as `hb1983-notes.md:225-226` has it, and the Lean body
 matches that docstring term for term:
 `x * L1^2 * ∏_{p ∈ q.primeFactors, p ∤ α}(1 − 2/p) * ∏_{p ∈ α.primeFactors}(1 − χ_ℝ(p)/p)^2 *
