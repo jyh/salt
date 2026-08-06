@@ -45,6 +45,8 @@ import Salt.HB.Lemma3Uncond
 import Salt.HB.Lemma7L
 import Salt.HB.Lemma7EF
 import Salt.HB.Lemma7F
+import Salt.HB.Lemma7Prod
+import Salt.HB.Lemma7
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -216,3 +218,11 @@ open Salt.Tactic in
   Salt.HB.chiOne_prime_logWeighted_le Salt.HB.rankin_floor_le
   Salt.HB.two_mul_pretenseSum_le_at_window Salt.HB.hb_chiOne_kill_at_window
   Salt.HB.hb_logF_at_split_point
+  Salt.HB.chiReTB_abs_le_one Salt.HB.log_hbEulerProd Salt.HB.hbEulerProd_pos
+  Salt.HB.hbLogF_eq_of_tendsto Salt.HB.tendsto_hbEulerProd_hbF
+  Salt.HB.abs_neg_log_one_sub_sub_self_le Salt.HB.hbEulerLog_sub_primeSum_termwise
+  Salt.HB.sum_two_div_sq_windowPrimes_le Salt.HB.ppDefect_nonneg
+  Salt.HB.logChiSum_re_eq_sum Salt.HB.logChiSum_re_sub_primeSum_le
+  Salt.HB.exp_two_mul_log Salt.HB.sq_eq_exp_mul_one_add Salt.HB.abs_one_add_mul_sub_one_le
+  Salt.HB.primeProdBelow_pos Salt.HB.abs_log_log_floor_sub_le Salt.HB.hb_mertens_third_real
+  Salt.HB.hb_L2_core Salt.HB.hb_L2_at_split_point
