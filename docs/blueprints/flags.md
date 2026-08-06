@@ -21250,3 +21250,53 @@ bare `Real.sin (2πxn)` idiom, so the bridge is `e_eq_cos_add_sin` + the `±m` p
 Anyone consolidating tracks later should note that the three MR rows used here
 (`abs_sum_mul_le_of_bounded`, `abs_sum_shift_mul_le_of_bounded`, `tendsto_sum_sin_div_nat`,
 `abs_sum_sin_le`, `sin_pi_mul_pos`) are track-neutral and belong in a commons.
+
+## ⚠️ ⟦WEIL-TRIO W5(S2) — (7.3)/(7.4): THE `(log K)/K` ARM LANDS; THE `K/m²` ARM AND THE EXPANSION ARE BANKED⟧
+
+(2026-08-06, Opus executor, `Salt/Weil/Sawtooth.lean`, same wave as S1+S3. Landed rows at
+`[propext, Classical.choice, Quot.sound]`; roll-call in `Salt/Weil/All.lean`.)
+
+**LANDED.**
+
+* `sawtoothMajorant_eq_inv_max` (`1 ≤ K`): the §D5 degenerate-split `if` **is** `(max (K‖θ‖) 1)⁻¹`
+  — one closed form, no case split. **This is the finding worth carrying**: it makes the majorant
+  a composite of continuous pieces, so every integrability side condition in the file is a
+  `ContinuousOn.congr` against `fun θ => (max (Kθ) 1)⁻¹` and no `a.e.`/measurability plumbing is
+  needed anywhere. Anyone extending S2 should start from this row, not from the `if`.
+* `integral_sawtoothMajorant_eq` (`2 ≤ K`): the `L¹` mass **exactly**,
+  `∫₀¹ Min(1/(K‖θ‖),1) dθ = 2(1 + log(K/2))/K`. (Route: `dist₁ θ 0 = θ` on `[0,1/2]`; split at
+  `1/K`; `integral_inv`; the upper half by `integral_comp_sub_left` and the symmetry
+  `M(1−θ) = M(θ)`.)
+* `integral_sawtoothMajorant_le`: `≤ 2(1 + log K)/K`.
+* `majorantCoeff K m := ∫₀¹ M(θ)·e(−mθ) dθ` and `norm_majorantCoeff_le` (`2 ≤ K`):
+  `‖a_m‖ ≤ 2(1 + log K)/K` for **every** `m`, `a₀` included — i.e. (7.4)'s `(log K)/K` arm and
+  §D5's separate-`a₀` row in one statement, constant `C = 2` explicit.
+
+**NOT LANDED, AND WHY — read this before re-attempting.**
+
+1. **(7.4)'s `K/m²` arm.** `a_m = 2∫₀^{1/2} M(θ)cos(2πmθ)dθ`, and the whole content sits at the
+   corner `θ = 1/K`: `M′` jumps by `−K` there, and `∫_{1/K}^{1/2}|M″| = ∫ 2/(Kθ³) = (K²−4)/K ≈ K`.
+   Both contribute at order `K/(2πm)²`. The proof is: split at `1/K`, integrate by parts **twice**
+   on each piece, and carry the boundary terms — the naive single IBP gives only `≪ 1/m`, because
+   the leading `sin(2πm/K)/(πm)` from `∫₀^{1/K}cos` and the matching boundary term from the first
+   IBP of `∫_{1/K}^{1/2}` **cancel**; that cancellation *is* the difference between `1/m` and
+   `K/m²`. Nothing exotic is needed —
+   `intervalIntegral.integral_mul_deriv_eq_deriv_mul` and the differentiability of `θ⁻¹` away from
+   `0` are all in mathlib — but it is a genuine class-C block, ~300–500 ln.
+2. **(7.3), the expansion itself.** It is **downstream of #1, not independent**: with
+   `|a_m| ≤ CK/m²` the coefficients are summable and mathlib's
+   `AddCircle.hasSum_fourier_series_of_summable` applies to the continuous 1-periodic lift of the
+   majorant (continuity is exactly `sawtoothMajorant_eq_inv_max` + continuity of `dist₁`). Without
+   #1 there is no summability and the inversion is unavailable.
+
+**A SHORTCUT THAT DOES NOT EXIST (recorded so nobody re-chases it).** The W5 brief suggested that
+`Salt.BV.sum_norm_fourierCutoff_le` (`Salt/BV/Completion.lean:237`, the `2 + log H` `L¹` mass) might
+give `∑_m |a_m| ≤ C log K` "nearly free". **It does not.** That row is the mass of the *finite DFT
+mod `H`* of the *sharp interval indicator* — a different function and a different transform. It is
+the indicator analogue in the dossier's sense, not a supply for this majorant. Moreover
+`∑_m|a_m| ≤ C log K` is itself downstream of the `K/m²` arm (the tail `|m| > K` is what makes the
+sum converge), so it is not a cheaper substitute — it is strictly harder than #1.
+
+**CONSUMER WARNING FOR N7.** (7.7)/(7.8) cannot be assembled from the landed arm alone: the
+`(log K)/K` bound covers the `|m| ≤ K` half of `∑_m |a_m||S_m|`; the tail `|m| > K` needs `K/m²`.
+The landed rows are a genuine half of (7.4), not a usable substitute for it.

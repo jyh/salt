@@ -20,8 +20,11 @@ This module is a **supply depot**: it delivers the three harmonic-analysis input
   `ψ θ = −∑_{0<|m|≤K} e(mθ)/(2πim) + R_K θ` with the explicit majorant
   `‖R_K θ‖ ≤ (5/2) · Min(1/(K·‖θ‖), 1)`, in the §D5 degenerate-split form (the arm
   `dist₁ θ 0 = 0` carries the value `1`, not a junk `⊤`).  No `O(·)`.
-* **S2 — (7.3)/(7.4), the majorant's own Fourier coefficients.**  See the flag row: only the
-  `(log K)/K` arm landed here (`sawtoothMajorant` and its `L¹` mass); the `K/m²` arm is banked.
+* **S2 — (7.3)/(7.4), the majorant's own Fourier coefficients.**  ⚠️ **PARTIAL**: the
+  `(log K)/K` arm only — `integral_sawtoothMajorant_eq` (the `L¹` mass, exactly
+  `2(1 + log(K/2))/K`) and `norm_majorantCoeff_le` (`‖a_m‖ ≤ 2(1 + log K)/K` for every `m`, `a₀`
+  included).  The `K/m²` arm, and (7.3) itself which is downstream of it, are banked in
+  `docs/blueprints/flags.md`.
 * **S3 — the sixth exit row, the congruence-restricted completion.**  For `q ∣ k` and any
   `b, s`, `‖∑_{n ∈ (A,B], n ≡ b (q)} e(−s·n/k)‖ ≤ Min(B−A, (2·dist₁(sq/k, 0))⁻¹)`, again with
   the degenerate arm (`k ∣ sq`) split off.
@@ -475,6 +478,202 @@ theorem norm_sawtoothRem_le {K : ℕ} (hK : 1 ≤ K) (θ : ℝ) :
         rw [show ((2 : ℝ) / 5)⁻¹ = 5 / 2 by norm_num]
       rw [h25]
       exact inv_anti₀ (by nlinarith) hgoal
+
+/-! ## S2 — (7.3)/(7.4), the majorant's own Fourier coefficients  ⚠️ **PARTIAL**
+
+HB p.221: `Min(1/(K‖θ‖),1) = ∑_m a_m e(mθ)` (7.3) with `a_m ≪ Min((log K)/K, K/m²)` (7.4).
+
+**What lands here** is the `(log K)/K` arm, for `a₀` and for every `a_m` alike, off the exact
+`L¹` mass of the majorant:
+
+`∫₀¹ Min(1/(K‖θ‖),1) dθ = 2(1 + log(K/2))/K ≤ 2(1 + log K)/K`,   `‖a_m‖ ≤ 2(1 + log K)/K`.
+
+**What does NOT land**: the `K/m²` arm (two integrations by parts across the corner `‖θ‖ = 1/K`)
+and hence (7.3) itself (the inversion needs summable coefficients).  Banked in
+`docs/blueprints/flags.md`.
+
+The key normal form is `sawtoothMajorant_eq_inv_max`: the §D5 degenerate-split `if` is exactly
+`(max (K‖θ‖) 1)⁻¹`, which is **continuous** — that is what makes every integrability side
+condition a `ContinuousOn.congr`.
+-/
+
+/-- `dist₁ θ 0 = θ` on `[0, 1/2]`. -/
+private lemma dist₁_eq_self {θ : ℝ} (h0 : 0 ≤ θ) (h1 : θ ≤ 1 / 2) : dist₁ θ 0 = θ := by
+  have hle : dist₁ θ 0 ≤ θ := by
+    have h := dist₁_le_abs θ 0
+    rwa [sub_zero, abs_of_nonneg h0] at h
+  have hge : θ ≤ dist₁ θ 0 := by
+    have hd : dist₁ θ 0 = |θ - (round θ : ℝ)| := by unfold dist₁; simp only [sub_zero]
+    rw [hd]
+    rcases le_or_gt ((round θ : ℤ) : ℝ) 0 with hr | hr
+    · rw [abs_of_nonneg (by linarith)]; linarith
+    · have hone : (1 : ℝ) ≤ ((round θ : ℤ) : ℝ) := by
+        have : (0 : ℤ) < round θ := by exact_mod_cast hr
+        exact_mod_cast this
+      rw [abs_of_nonpos (by linarith)]; linarith
+  linarith
+
+/-- **The majorant's continuous normal form.**  The §D5 degenerate-split `if` is literally
+`(max (K‖θ‖) 1)⁻¹` — no case split, and continuous wherever `dist₁` is. -/
+theorem sawtoothMajorant_eq_inv_max {K : ℕ} (hK : 1 ≤ K) (θ : ℝ) :
+    sawtoothMajorant K θ = (max ((K : ℝ) * dist₁ θ 0) 1)⁻¹ := by
+  have hKR : (1 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
+  have hd : 0 ≤ dist₁ θ 0 := dist₁_nonneg _ _
+  unfold sawtoothMajorant
+  by_cases hz : dist₁ θ 0 = 0
+  · rw [if_pos hz, hz, mul_zero, max_eq_right (by norm_num : (0 : ℝ) ≤ 1), inv_one]
+  · rw [if_neg hz]
+    have hdpos : 0 < dist₁ θ 0 := lt_of_le_of_ne hd (Ne.symm hz)
+    have hpos : 0 < (K : ℝ) * dist₁ θ 0 := mul_pos (by linarith) hdpos
+    have hinv : ((K : ℝ) * dist₁ θ 0)⁻¹ * ((K : ℝ) * dist₁ θ 0) = 1 := inv_mul_cancel₀ hpos.ne'
+    have hinvpos : (0 : ℝ) < ((K : ℝ) * dist₁ θ 0)⁻¹ := inv_pos.mpr hpos
+    rcases le_or_gt ((K : ℝ) * dist₁ θ 0) 1 with h | h
+    · rw [max_eq_right h, inv_one]
+      refine min_eq_right ?_
+      nlinarith [hinv, mul_nonneg (le_of_lt hinvpos) (sub_nonneg.mpr h)]
+    · rw [max_eq_left (le_of_lt h)]
+      refine min_eq_left ?_
+      nlinarith [hinv, mul_nonneg (le_of_lt hinvpos) (le_of_lt (sub_pos.mpr h))]
+
+/-- The majorant is symmetric about `1/2`. -/
+private lemma sawtoothMajorant_one_sub (K : ℕ) (θ : ℝ) :
+    sawtoothMajorant K (1 - θ) = sawtoothMajorant K θ := by
+  have hd : dist₁ (1 - θ) 0 = dist₁ θ 0 := by
+    have h := dist₁_add_int_left (-θ) 0 1
+    rw [show -θ + ((1 : ℤ) : ℝ) = 1 - θ by push_cast; ring] at h
+    rw [h, dist₁_neg_zero]
+  simp only [sawtoothMajorant, hd]
+
+/-- The continuous comparison function on the lower half-period. -/
+private noncomputable def majPiece (K : ℕ) (θ : ℝ) : ℝ := (max ((K : ℝ) * θ) 1)⁻¹
+
+private lemma continuous_majPiece (K : ℕ) : Continuous (majPiece K) := by
+  refine Continuous.inv₀ (by fun_prop) (fun θ => ?_)
+  have : (1 : ℝ) ≤ max ((K : ℝ) * θ) 1 := le_max_right _ _
+  linarith
+
+private lemma majorant_eqOn_lower {K : ℕ} (hK : 1 ≤ K) :
+    Set.EqOn (sawtoothMajorant K) (majPiece K) (Set.Icc (0 : ℝ) (1 / 2)) := by
+  intro θ hθ
+  rw [sawtoothMajorant_eq_inv_max hK, dist₁_eq_self hθ.1 hθ.2]
+  rfl
+
+private lemma intervalIntegrable_majorant_lower {K : ℕ} (hK : 1 ≤ K) {a b : ℝ}
+    (ha : 0 ≤ a) (hb : b ≤ 1 / 2) (hab : a ≤ b) :
+    IntervalIntegrable (sawtoothMajorant K) MeasureTheory.volume a b := by
+  refine ContinuousOn.intervalIntegrable ?_
+  refine ContinuousOn.congr ((continuous_majPiece K).continuousOn) ?_
+  intro θ hθ
+  rw [Set.uIcc_of_le hab] at hθ
+  exact majorant_eqOn_lower hK ⟨le_trans ha hθ.1, le_trans hθ.2 hb⟩
+
+/-- **The `L¹` mass of the (7.3) majorant, exactly.** -/
+theorem integral_sawtoothMajorant_eq {K : ℕ} (hK : 2 ≤ K) :
+    ∫ θ in (0 : ℝ)..1, sawtoothMajorant K θ = 2 * (1 + Real.log ((K : ℝ) / 2)) / K := by
+  have hK1 : 1 ≤ K := le_trans (by norm_num) hK
+  have hKR : (2 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
+  have hKpos : (0 : ℝ) < (K : ℝ) := by linarith
+  have hinvK : 1 / (K : ℝ) ≤ 1 / 2 := by
+    rw [div_le_div_iff₀ hKpos (by norm_num)]; linarith
+  have hinvK0 : (0 : ℝ) < 1 / (K : ℝ) := by positivity
+  -- the lower half splits at `1/K`
+  have hi1 : IntervalIntegrable (sawtoothMajorant K) MeasureTheory.volume 0 (1 / (K : ℝ)) :=
+    intervalIntegrable_majorant_lower hK1 le_rfl hinvK (le_of_lt hinvK0)
+  have hi2 : IntervalIntegrable (sawtoothMajorant K) MeasureTheory.volume (1 / (K : ℝ)) (1 / 2) :=
+    intervalIntegrable_majorant_lower hK1 (le_of_lt hinvK0) le_rfl hinvK
+  have h1 : ∫ θ in (0 : ℝ)..(1 / (K : ℝ)), sawtoothMajorant K θ = 1 / (K : ℝ) := by
+    rw [intervalIntegral.integral_congr (g := fun _ : ℝ => (1 : ℝ)) ?_]
+    · simp
+    · intro θ hθ
+      rw [Set.uIcc_of_le (le_of_lt hinvK0)] at hθ
+      rw [sawtoothMajorant_eq_inv_max hK1,
+        dist₁_eq_self hθ.1 (le_trans hθ.2 hinvK)]
+      have hle : (K : ℝ) * θ ≤ 1 := by
+        have h := hθ.2
+        rw [le_div_iff₀ hKpos] at h
+        linarith [h, mul_comm (K : ℝ) θ]
+      rw [max_eq_right hle, inv_one]
+  have h2 : ∫ θ in (1 / (K : ℝ))..(1 / 2), sawtoothMajorant K θ
+      = Real.log ((K : ℝ) / 2) / (K : ℝ) := by
+    rw [intervalIntegral.integral_congr (g := fun θ : ℝ => (1 / (K : ℝ)) * θ⁻¹) ?_]
+    · rw [intervalIntegral.integral_const_mul, integral_inv ?_]
+      · rw [show (1 / 2 : ℝ) / (1 / (K : ℝ)) = (K : ℝ) / 2 by field_simp]
+        ring
+      · rw [Set.uIcc_of_le hinvK]
+        intro hmem
+        exact absurd hmem.1 (not_le.mpr hinvK0)
+    · intro θ hθ
+      rw [Set.uIcc_of_le hinvK] at hθ
+      have hθ0 : 0 < θ := lt_of_lt_of_le hinvK0 hθ.1
+      rw [sawtoothMajorant_eq_inv_max hK1, dist₁_eq_self (le_of_lt hθ0) hθ.2]
+      have hge : (1 : ℝ) ≤ (K : ℝ) * θ := by
+        have h := hθ.1
+        rw [div_le_iff₀ hKpos] at h
+        linarith [h, mul_comm θ (K : ℝ)]
+      rw [max_eq_left hge, mul_inv, one_div]
+  -- the two halves are equal
+  have hsym : ∫ θ in (1 / 2 : ℝ)..1, sawtoothMajorant K θ
+      = ∫ θ in (0 : ℝ)..(1 / 2), sawtoothMajorant K θ := by
+    have h := intervalIntegral.integral_comp_sub_left (a := (0 : ℝ)) (b := 1 / 2)
+      (sawtoothMajorant K) 1
+    rw [intervalIntegral.integral_congr
+      (g := sawtoothMajorant K) (fun θ _ => sawtoothMajorant_one_sub K θ),
+      show (1 : ℝ) - 1 / 2 = 1 / 2 by norm_num, show (1 : ℝ) - 0 = 1 by norm_num] at h
+    exact h.symm
+  have hilo : IntervalIntegrable (sawtoothMajorant K) MeasureTheory.volume 0 (1 / 2) :=
+    intervalIntegrable_majorant_lower hK1 le_rfl le_rfl (by norm_num)
+  have hihi : IntervalIntegrable (sawtoothMajorant K) MeasureTheory.volume (1 / 2) 1 := by
+    refine ContinuousOn.intervalIntegrable ?_
+    refine ContinuousOn.congr (f := fun θ : ℝ => majPiece K (1 - θ))
+      (((continuous_majPiece K).comp (continuous_const.sub continuous_id)).continuousOn) ?_
+    intro θ hθ
+    rw [Set.uIcc_of_le (by norm_num : (1 / 2 : ℝ) ≤ 1)] at hθ
+    rw [← sawtoothMajorant_one_sub K θ]
+    exact majorant_eqOn_lower hK1 ⟨by linarith [hθ.2], by linarith [hθ.1]⟩
+  have htot : (∫ θ in (0 : ℝ)..(1 / 2), sawtoothMajorant K θ)
+      + ∫ θ in (1 / 2 : ℝ)..1, sawtoothMajorant K θ = ∫ θ in (0 : ℝ)..1, sawtoothMajorant K θ :=
+    intervalIntegral.integral_add_adjacent_intervals hilo hihi
+  have hhalf : ∫ θ in (0 : ℝ)..(1 / 2), sawtoothMajorant K θ
+      = 1 / (K : ℝ) + Real.log ((K : ℝ) / 2) / (K : ℝ) := by
+    rw [← intervalIntegral.integral_add_adjacent_intervals hi1 hi2, h1, h2]
+  have hKne : (K : ℝ) ≠ 0 := hKpos.ne'
+  rw [← htot, hsym, hhalf]
+  field_simp
+  try ring
+
+/-- **The `(log K)/K` arm of (7.4), for the mass.** -/
+theorem integral_sawtoothMajorant_le {K : ℕ} (hK : 2 ≤ K) :
+    ∫ θ in (0 : ℝ)..1, sawtoothMajorant K θ ≤ 2 * (1 + Real.log K) / K := by
+  have hKR : (2 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
+  have hKpos : (0 : ℝ) < (K : ℝ) := by linarith
+  rw [integral_sawtoothMajorant_eq hK]
+  have hlog : Real.log ((K : ℝ) / 2) ≤ Real.log K :=
+    Real.log_le_log (by linarith) (by linarith)
+  rw [div_le_div_iff₀ hKpos hKpos]
+  nlinarith [hlog, hKpos]
+
+/-- The (7.3) Fourier coefficient `a_m = ∫₀¹ Min(1/(K‖θ‖),1)·e(−mθ) dθ` of the majorant. -/
+noncomputable def majorantCoeff (K : ℕ) (m : ℤ) : ℂ :=
+  ∫ θ in (0 : ℝ)..1, (sawtoothMajorant K θ : ℂ) * e (-((m : ℝ) * θ))
+
+/-- **(7.4), the `(log K)/K` arm.**  N7 quotes this as the `a₀`-row of (7.4) and as the
+uniform half of the `a_m`-row: *every* coefficient (including `m = 0`, per §D5's `a₀`-separate
+discipline) obeys `‖a_m‖ ≤ 2(1 + log K)/K`.  The complementary `K/m²` arm is **not** proved
+here — see `docs/blueprints/flags.md`. -/
+theorem norm_majorantCoeff_le {K : ℕ} (hK : 2 ≤ K) (m : ℤ) :
+    ‖majorantCoeff K m‖ ≤ 2 * (1 + Real.log K) / K := by
+  have hK1 : 1 ≤ K := le_trans (by norm_num) hK
+  unfold majorantCoeff
+  refine le_trans (intervalIntegral.norm_integral_le_integral_norm (by norm_num : (0:ℝ) ≤ 1)) ?_
+  have hnorm : ∀ θ : ℝ, ‖(sawtoothMajorant K θ : ℂ) * e (-((m : ℝ) * θ))‖
+      = sawtoothMajorant K θ := by
+    intro θ
+    rw [norm_mul, norm_e, mul_one, Complex.norm_real, Real.norm_eq_abs,
+      abs_of_nonneg (by
+        rw [sawtoothMajorant_eq_inv_max hK1]
+        exact inv_nonneg.mpr (le_trans zero_le_one (le_max_right _ _)))]
+  rw [intervalIntegral.integral_congr (g := sawtoothMajorant K) (fun θ _ => hnorm θ)]
+  exact integral_sawtoothMajorant_le hK
 
 /-! ## S3 — the congruence-restricted completion (the sixth exit row)
 

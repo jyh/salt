@@ -163,7 +163,12 @@ open Salt.Tactic in
 * **S3 — the sixth exit row (design §D5)**: `norm_congrExpSum_le`, the congruence-restricted
   completion `‖∑_{n∈(A,B], n≡b (q)} e(−sn/k)‖ ≤ Min(B−A, (2·dist₁(sq/k,0))⁻¹)` with the
   degenerate arm (`k ∣ sq`, `dist₁_mul_div_eq_zero_iff`) split off.  `C′ = 1/2`.
-* **S2 — (7.3)/(7.4)**: see `docs/blueprints/flags.md` (the `K/m²` arm is banked, not landed). -/
+* **S2 — (7.3)/(7.4), PARTIAL**: the `(log K)/K` arm only. `integral_sawtoothMajorant_eq` gives
+  the majorant's `L¹` mass **exactly** (`2(1 + log(K/2))/K`) and `norm_majorantCoeff_le` gives
+  `‖a_m‖ ≤ 2(1 + log K)/K` for every `m`, `a₀` included (§D5's separate-`a₀` row). The `K/m²` arm
+  of (7.4) and the expansion (7.3) itself — which is downstream of it — are **banked**, see
+  `docs/blueprints/flags.md`. The reusable finding is `sawtoothMajorant_eq_inv_max`: the
+  degenerate-split `if` IS `(max (K‖θ‖) 1)⁻¹`, hence continuous. -/
 open Salt.Tactic in
 #audit_axioms Salt.Weil.sawtooth_fourier_expansion
   Salt.Weil.norm_sawtoothRem_le
@@ -175,3 +180,7 @@ open Salt.Tactic in
   Salt.Weil.dist₁_mul_div_eq_zero_iff
   Salt.Weil.dist₁_neg_zero
   Salt.Weil.dist₁_sub_zero
+  Salt.Weil.sawtoothMajorant_eq_inv_max
+  Salt.Weil.integral_sawtoothMajorant_eq
+  Salt.Weil.integral_sawtoothMajorant_le
+  Salt.Weil.norm_majorantCoeff_le
