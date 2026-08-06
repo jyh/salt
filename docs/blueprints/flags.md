@@ -20947,3 +20947,70 @@ higher-order-unify) — go forward from the `Prod` sum instead; `legendreSym.to_
 inside `namespace jacobiSym`, so the real name is `jacobiSym.legendreSym.to_jacobiSym`;
 `Nat.recOnPosPrimePosCoprime` is stated inside `namespace Nat`, so its `prime_pow` hypothesis is
 `Nat.Prime p`, **not** `_root_.Prime p`.
+
+## ⚠️ ⟦WEIL-TRIO W3 — A REFUTATION FROM THE MATH SEAT: **THE D3 EXIT IS NOT (7.1)**, AND W4-a IS ON ITS CRITICAL PATH⟧
+
+(2026-08-06 ~10:05, salt MATHEMATICS seat, read-only, no Lean. Full derivation and citations:
+`docs/exploration/n7-prep-dossier-0806.md` §3 FINDING #1, commit `1019c0e`. **THIS IS NOT A RULING
+ON THE WEIL-TRIO CAMPAIGN** — that campaign is another seat's and its design layer is not mine to
+touch. It is a finding, recorded here because it lands on a wave that may fire soon, and because
+the bus is not a channel this seat has observed WEIL-TRIO using. Delivered by the ledger instead.)
+
+**THE KILL.** `weil-trio-design-0806.md` §D3 restates W3's exit as "the achieved pair, not (7.1)
+verbatim":
+
+```
+  W3 exit :  ‖S(a,b;k)‖ ≤ 2^{v₂(k)/2} · d(k) · k^{1/2} · (k,a,b)^{1/2}     [arbitrary k,a,b]
+  HB (7.1):  ‖S(k;u,v)‖ ≪              d(k) · k^{1/2} · (k,u,v)^{1/2}       [hb1983-notes:758]
+```
+
+The `2^{v₂(k)/2}` is **not a bookkeeping decoration — it is unbounded at general `k`, growing to
+`√k`.** So the W3 exit is a **strictly weaker theorem than (7.1)**, not a restatement of it. It
+arises from D2 deleting W2: the 2-part is then served by the crude placeholder
+`norm_kloosterman_two_pow` (`Salt/Weil/CompositeTail.lean:73`, `‖S‖ ≤ 2^κ`), which sits `2^{κ/2}`
+above the target `√(2^κ)`. (The odd part is fine — W1-c landed at `θ = 0`, and the implied
+constant is explicit and equal to 1, which is *sharper* than HB. The loss is the 2-part alone.)
+
+**THE UNNAMED DEPENDENCY — this is the part worth acting on.** The collapse of `2^{v₂(k)/2}` to a
+constant on road moduli is **not a landed lemma and is not implied by W1-d alone.** W1-d
+(`factorization_two_kloosterman_modulus`, `Salt/Weil/GcdBranch.lean:347`) gives `v₂(k) = v₂(D)` for
+`k = Dδ₁w₁`, with `D = α₂qΔ^{−1}`, `Δ = (α₂,q)`. At the twin instance `α₁ = α₂ = 4` this is
+
+    v₂(D) = max(2, v₂(q)),
+
+which is bounded **only because `v₂(q) ≤ 3` — and that is the structure lemma, W4-a.** Therefore
+
+> **W4-a sits on the critical path for the 2-adic CONSTANT, not merely for the p.217 lift.**
+
+D4 *decoupled* W4-a and re-priced it at 1,300–2,600 ln on the understanding that W4-c could land
+without it. That remains true for W4-c. It is **not** true for W3's numeric exit.
+
+**AND D2's OWN INEQUALITY IS LOOSE.** `weil-trio-design-0806.md:99-100` carries
+`v₂(k) ≤ v₂(α₂) + 3`, which at `α₂ = 4` gives `≤ 5`. The correct bound is `max(2, v₂(q)) ≤ 3`,
+conditional on W4-a. Worth fixing wherever it is quoted.
+
+**RECOMMENDATION (for the WEIL-TRIO seat and the maestro, not a ruling):** amend §3's exit table
+and W3's brief to state the `2^{v₂(k)/2}` gap and the W4-a dependency **before W3 fires**, so W3's
+executor knows it is delivering a two-row supply (`W3 inequality` + `two_pow_factorization_dvd_of_
+odd_cofactors`, `GcdBranch.lean:355`) whose numeric collapse is gated elsewhere.
+
+**A SECOND, HAPPIER FINDING IN THE SAME DOSSIER (§4, FINDING #3).** §3's sixth row [W5] — the
+congruence-restricted completion `Σ_{n∈I₀, q∣n−b} e(−sn/k) ≪ Min(E, ‖sq/k‖^{−1})` (`hb1983-notes:
+776`) — is recorded as "nothing serving" in both `n6-scout-dossier-0805.md:410-413` and D5. That
+looks too pessimistic: `Salt.MR.geom_phase_bound` (`Salt/MR/MinorArcVaughan.lean:298`, landed AND
+audited at `Salt/MR/All.lean:1599`) is Montgomery p.40 eq.(2) with the `‖0‖` case carried honestly
+by `minTerm` (`:271`), and `dist₁` (`Salt/LS/Dist.lean:29`) is literally HB §7's `‖·‖`. The
+restricted sum reindexes as `n = b + qm` ⟹ `e(−sb/k)·Σ_m e((−sq/k)·m)`, i.e. **exactly
+`geom_phase_bound` at `θ = −sq/k`**. Also landed: the exact sawtooth Fourier series
+(`Salt/MR/Sawtooth.lean:358`), `abs_sum_sin_le` (`:329`), Abel (`:65`), Jordan
+(`MinorArcVaughan.lean:136`), and the `Salt/BV/Completion.lean` kit with its `2 + log H` L¹ mass —
+none of which the WEIL-TRIO dossier's supply table names. **If this holds, W5 is not the class-C
+block it was priced at.**
+⚠️ **SHAPE MATCH, NOT A PROOF.** Nobody has checked that `I₀ ⊆ (E,2E]` maps onto a
+`Finset.Ioc M₁ M₂` without an off-by-one. A ~20-line scratch file settles it — **after 20:00**
+(this seat is under the fleet's no-Lean-until-20:00 standing order and did not test-fire it).
+
+**STATUS NOTE.** This entry was written before `WEIL-TRIO-W4Q` (`:20887`) was read; that entry
+lands the p.217 composite bound at constant ONE and the p.216 vanishing, so the dossier's
+"[IN FLIGHT]" marks on `sum_two_forms_le_gcd_of_split` / `sum_class_eq_zero_of_isPrimitive` are
+now stale in WEIL-TRIO's favour. Nothing above depends on those rows.
