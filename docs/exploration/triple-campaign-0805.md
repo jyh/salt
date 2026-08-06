@@ -282,3 +282,17 @@ counterfactual test "would the artifact exist without this touch";
 WATCHING reported proudly as its own line (required ~40 min/day;
 voluntary fascination: hours — the joy is evidence, not overhead).
 No manual tracking; transcripts + published rubric + spot-audit.
+
+## 11. FLEET RESOURCE LESSONS (8/6, day 1 — evidence-grade, keep honest)
+- OOM #1 (morning): 5 seats × default parallelism on 64 GB; single
+  Lean elaborations measured at 6-9 GB on heavy files. Fix:
+  saltbuild.sh (fleet-wide lock + thread cap).
+- OOM #2 (midday, averted): 49 bare lean processes, swap 37 GB — the
+  lock covered `lake build` but not `lake env lean` audit runs, and
+  in-flight subagents carried pre-rule briefs. Fix: the wrapper now
+  fronts EVERY lean invocation; mid-flight executors re-briefed
+  directly; seats re-pasted. **The lesson, ledger-worthy: locks must
+  cover every door, not just the front one — and a rule change must
+  reach the agents dispatched before it existed.** Both incidents
+  cost ~zero work (lake resumes incrementally); both are honest
+  entries for the unattended-operations story, not blemishes on it.
