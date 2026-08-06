@@ -230,3 +230,55 @@ The interface we assume is the interface he wired. **If we tape
 out, we tape out chip 2 — the proved half.** The proof's shape is
 not an arbitrary scoping choice; it is the original silicon's own
 modularity, recovered 38 years later.
+
+## 10. COUNCIL I RULINGS (8/6 morning) — THE SEAM DOCTRINE
+
+**THE SEAM DOCTRINE (JYH-ratified, "now we have it"):** in the agent
+era the compiler dissolves into the checked seam. Agents are
+unverified stochastic translators (jas: 5 implementations, 5
+languages); the field's old answer — translation validation (Pnueli
+1998), proof-carrying code (Necula-Lee) — failed on human
+proof-production cost. **Agents just paid its bills.** Per-instance
+certification is the native verification mode of agentic
+development. The campaign demonstrates the spectrum at three
+altitudes: (1) AMORTIZED (the verified optimizer — prove once, run
+millions); (2) PER-INSTANCE (the netlist equivalence — LibreLane
+never trusted, every run checked); (3) THE FIVE-ARTIFACT LOOP
+(spec/code/proof/certificates — code language fungible, the SPEC is
+the only artifact whose language matters because it is the one a
+human must read, and the certificate suite is how they read it).
+
+**THE TOWER, retold (the toy-language answer):** the claim is DEPTH
+not breadth — every seam closed, program → compiler → ISA → gates →
+GDSII, kernel at each junction. CompCert = breadth on one seam;
+nobody has depth on all. We say "miniature" first, then: name the
+seam you distrust and we show its certificate.
+
+**COMPILER PAIR (ruled):** leg 2 week-1 = the circuit-DSL verified
+optimizer (committed, feeds leg 3). Week-2 stretch = the mini
+software language → RV32I-subset code generator w/ simulation proof,
+composing with the datapath into THE TOWER. (JYH's Caltech verified-
+compiler research closes its own circle here.)
+
+**FUNGIBILITY EXHIBIT (ruled, ~1 day, leg 2):** ONE spec of the
+banyan router, SEVERAL deliberately different implementations
+(iterative / unrolled / re-encoded), each proved equivalent to the
+same spec — jas's observation converted from anecdote to theorem:
+the certificate outlives every implementation.
+
+**SYSTOLIC STRETCH (ruled, w/ the firewall):** a "systolic matmul
+unit, after Kung–Leiserson 1978" — never the three letters — as
+fleet-capacity stretch; int8 authentic; the multiplier proved
+STRUCTURALLY (induction, not enumeration — the one real stone).
+Two-chip tapeout echo noted (1988 had two chips; tiles are €70).
+
+**MEASUREMENT PRE-REGISTRATION (ruled):** frozen TODAY before data
+accumulates — (a) tokens by tier×project×task from session
+transcripts (cache reported separately; tokens-not-dollars on
+subscriptions; per-account attribution honest-if-weak); (b) JYH's
+time in four categories: DIRECTING / REVIEWING / UNBLOCKING /
+WATCHING — the campaign's dependency claim = the first three only,
+counterfactual test "would the artifact exist without this touch";
+WATCHING reported proudly as its own line (required ~40 min/day;
+voluntary fascination: hours — the joy is evidence, not overhead).
+No manual tracking; transcripts + published rubric + spot-audit.
