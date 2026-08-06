@@ -88,10 +88,14 @@ The ψ's arise from **(5.17)** (`:594`). "Applying Lemma 10" is `:605-609`. The 
 
 ### ⛔ THREE TRANSCRIPTION DEFECTS N7 MUST FIX BEFORE WIRING
 
-1. **(5.14) as transcribed (`:588`) DROPS the `w₂` summation.** It reads
-   `S = Σ_{S₁<w₁≤2S₁} #{v₂ : …}` with `w₂` free in both the summand and `T_i(w₁,w₂)` — yet (5.19)
-   at `:634` sums over **both** `w_i`. **The variable the notes lose is exactly Lemma 10's
-   summation variable.** Recover the double-sum form from the source first.
+1. ~~**(5.14) as transcribed (`:588`) DROPS the `w₂` summation** — recover the double-sum form
+   from the source.~~
+   ✅ **CLOSED at the source, p.213 (`8e906ed`-successor).** HB prints the **`i`-indexed**
+   subscript `Σ_{S_i < w_i ≤ 2S_i, w_i ≡ b_i (mod q)}` — a double sum over both `w₁` and `w₂`,
+   matching (5.19). The transcription had collapsed it to `w₁` alone. **The dropped index was
+   exactly Lemma 10's summation variable** (`n ↦ w₂`), so this one would have bitten N7 hardest.
+   Unlike the `:611` pair, **this defect was ours, not HB's.** Fixed in `hb1983-notes.md:588`
+   with a `[corrected 2026-08-06, from the source p.213]` block.
 2. ~~**The `:611` erratum residual** — needs HB p.214 at the bytes; N7 owns it.~~
    ✅ **CLOSED at the source, same day (`b25d8aa`).** p.214 read directly: HB **prints**
    `S₁ ≪ x^{1/4}`, so the notes were faithful and **the typo is the paper's**; his own next

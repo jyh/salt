@@ -585,9 +585,18 @@ with `C` independent of `v₂, w₂` and `(C, Dδ₁w₁) = 1`. The proof is a C
 
 **The ψ-reduction (5.14)–(5.17).**
 
-    S = Σ_{S₁<w₁≤2S₁, w₁ ≡ b₁ (q)} #{v₂ : v₂w₂ ≡ C (mod Dδ₁w₁), T₁ < v₂ ≤ T₂},      (5.14)
+    S = Σ_{S_i<w_i≤2S_i, w_i ≡ b_i (q)} #{v₂ : v₂w₂ ≡ C (mod Dδ₁w₁), T₁ < v₂ ≤ T₂},  (5.14)
     T₁(w₁,w₂) = Max{ R₂, (α₂x+β₂)/(δ₂w₂), (α₂δ₁w₁R₁ + α₁β₂ − α₂β₁)/(α₁δ₂w₂) },      (5.15)
     T₂(w₁,w₂) = Min{ 2R₂, (2α₂x+β₂)/(δ₂w₂), (2α₂δ₁w₁R₁ + α₁β₂ − α₂β₁)/(α₁δ₂w₂) },   (5.16)
+
+> **[corrected 2026-08-06, from the source p.213]** (5.14)'s subscript previously read
+> `Σ_{S₁<w₁≤2S₁, w₁ ≡ b₁ (q)}` — a **single** sum over `w₁`. HB prints the **`i`-indexed** form
+> `Σ_{S_i < w_i ≤ 2S_i, w_i ≡ b_i (mod q)}`, i.e. a **double** sum over both `w₁` and `w₂`, which
+> is also what (5.19) at :634 sums over. **The variable the transcription dropped, `w₂`, is
+> exactly Lemma 10's summation variable** (`n ↦ w₂`, `k = Dδ₁w₁`, `E = S₂`), so the omission
+> would have been maximally confusing to N7 — it hid the very index the whole §7 machine runs on.
+> Flagged in `n7-prep-dossier-0806.md` §2 as defect 1 and now **closed at the source**; unlike the
+> `:611` pair this one was ours, not HB's.
 
 and with `ψ(θ) = θ − [θ] − ½` and `w̄₂` defined by `0 < w̄₂ ≤ Dδ₁w₁`, `w₂w̄₂ ≡ 1 (mod Dδ₁w₁)`:
 
