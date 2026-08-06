@@ -21014,3 +21014,53 @@ block it was priced at.**
 lands the p.217 composite bound at constant ONE and the p.216 vanishing, so the dossier's
 "[IN FLIGHT]" marks on `sum_two_forms_le_gcd_of_split` / `sum_class_eq_zero_of_isPrimitive` are
 now stale in WEIL-TRIO's favour. Nothing above depends on those rows.
+
+## ✅ ⟦WEIL-TRIO W3 — THE GLOBAL ESTERMANN ASSEMBLY LANDED, AND IT CONFIRMS THE MATH SEAT'S FINDING⟧
+
+(2026-08-06, Opus executor, `Salt/Weil/EstermannGlobal.lean`, 413 ln, 7 decls, all at
+`[propext, Classical.choice, Quot.sound]`. Roll-call rows in `Salt/Weil/All.lean`.)
+
+**THE EXIT LANDED**, arbitrary `k ≥ 1` (`NeZero k`), arbitrary `a b : ZMod k`:
+
+```
+  norm_kloosterman_estermann :
+    ‖kloosterman a b‖ ≤ √(2 ^ k.factorization 2) * ↑k.divisors.card * √↑k
+                          * √↑(Nat.gcd k (Nat.gcd a.val b.val))
+```
+
+i.e. `‖S(a,b;k)‖ ≤ 2^{v₂(k)/2}·d(k)·k^{1/2}·(k,a,b)^{1/2}` — the D3 shape, 2-adic factor
+**explicit in the statement**, never absorbed. `norm_kloosterman_estermann_nat` is the same at nat
+arguments (the recursion's native form, and the one that composes with W1-c's `(A B : ℕ)` shape).
+
+**THE 2-PART FACTOR ACHIEVED IS `2^{v₂(k)/2}`, NOT `2^{v₂(k)}`.** The fold arithmetic checks: P6
+gives `‖S(a,b;2^κ)‖ ≤ 2^κ = 2^{κ/2}·2^{κ/2}`; one half is exactly the `√(2^κ)` inside `√k`, the
+other is the explicit factor. `d(2^κ) = κ+1 ≥ 1` and `(2^κ,a,b) ≥ 1` are left as slack (they would
+buy back the factor only for `κ ≤ 5`: `2^{κ/2} ≤ κ+1` fails first at `κ = 6`, `8 > 7` — so the
+factor cannot be dropped uniformly, which is the same wall the math seat named).
+
+**THE MATH SEAT'S REFUTATION (`:20969`) IS CONFIRMED AT THE LEAN LEVEL AND IS NOW CARRIED IN THE
+DOCSTRINGS.** The landed theorem is (7.1) *plus* an unbounded factor; nothing in this module
+discharges it. `norm_kloosterman_estermann_road` (the `k = D·δ₁·w₁` corollary N7 quotes) **states**
+`2^{v₂(D)/2}` and explicitly disclaims the `≤ 2^{3/2}` collapse: at `α₁ = α₂ = 4`,
+`v₂(D) = max(2, v₂(q))`, so the bound is the structure lemma `v₂(q) ≤ 3` = W4-a. The module and
+`All.lean` section docstrings both carry the ⚠️ pointer to `:20969`. No design/blueprint text was
+touched — that is the WEIL-TRIO seat's and the maestro's call.
+
+**A SUPPLY REPAIR WORTH KNOWING (corpus hygiene).** `kloosterman_mul_of_coprime_unit`
+(`Salt/Weil/CompositeTail.lean:139`) carries an `IsUnit a` hypothesis that is used **only** to
+state `IsUnit` of the *products* `lᵢ·(e a).ᵢ`; the twisted-multiplicativity computation itself
+never touches it. The non-unit branch (all of W3) needs unit **twists**, not a unit `a`, so the
+proof was re-landed as `kloosterman_mul_of_coprime_unit_twist` in `EstermannGlobal.lean:61`
+(arbitrary `a b`, `IsUnit l₁ ∧ IsUnit l₂`). A future consolidation should generalise the
+`CompositeTail` row and derive the unit-`a` version from it, deleting ~60 duplicated lines.
+
+**GCD BOOKKEEPING, for anyone assembling a similar composite.** Only *divisibility* is needed, never
+gcd multiplicativity: `(c₁,A,B)·(c₂,A,B) ∣ (c₁c₂,A,B)` (coprime factors + `Nat.dvd_gcd`), and a unit
+twist can only shrink the datum, `(n, l.val·A, l.val·B) ∣ (n,A,B)` via `ZMod.val_coe_unit_coprime`.
+Both directions are the easy ones; the equalities are true but unnecessary.
+
+**FLEET HYGIENE (a real incident, 10:08).** This node's two files were staged when the concurrent
+`WEIL-TRIO-W4A(S1)` executor ran a bare `git commit` in the shared worktree: the W3 content was
+swept into `fe2c41d` under W4A's message (nothing lost; ledger row `f6e0c12` carries the W3
+message). **Executors sharing a worktree must commit with explicit pathspecs**
+(`git commit -- <paths>`), never a bare `git commit` over a shared index.

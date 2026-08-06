@@ -42,8 +42,21 @@ divisor factor `d(2^κ) = κ+1 ≥ 1` and the 2-part gcd `(2^κ,a,b) ≥ 1` left
 
 `norm_kloosterman_estermann_road` specialises to the Kloosterman moduli of Heath-Brown 1983 §5,
 `k = D·δ₁·w₁` with `δ₁, w₁` odd (W1-d, `factorization_two_kloosterman_modulus`): there the 2-adic
-factor reads `2^{v₂(D)/2}`, bounded by `2^{3/2}` on the road. N7 quotes this as Estermann (7.1);
-Lemma 10 then reads at `k^{ε−1/4}`-grade, (5.19) at `x^{15/16+ε}`.
+factor reads `2^{v₂(D)/2}`. N7 quotes this as Estermann (7.1); Lemma 10 then reads at
+`k^{ε−1/4}`-grade, (5.19) at `x^{15/16+ε}`.
+
+## ⚠️ The standing caveat (math-seat refutation, `docs/blueprints/flags.md`, 2026-08-06)
+
+This is **(7.1) plus an explicit 2-adic factor**, not (7.1) verbatim: `2^{v₂(k)/2}` is *unbounded*
+at general `k` (it grows to `√k`), so at general moduli the exit here is strictly weaker than
+Heath-Brown's `≪ d(k)k^{1/2}(k,u,v)^{1/2}`. The loss is the 2-part alone — `norm_kloosterman_two_pow`
+sits `2^{κ/2}` above the true `√(2^κ)` — and the odd part is *sharper* than HB (implied constant
+`1`). The collapse of the factor to a bounded constant on road moduli is **not proved here and is
+not implied by W1-d alone**: W1-d gives `v₂(k) = v₂(D)` with `D = α₂qΔ^{−1}`, which at the twin
+instance `α₁ = α₂ = 4` is `max(2, v₂(q))` — bounded by `3` only through the structure lemma
+`v₂(q) ≤ 3` (W4-a). A consumer wanting a numeric constant must discharge that separately; what is
+delivered here is the two-row supply (this inequality + `two_pow_factorization_dvd_of_odd_cofactors`,
+`Salt/Weil/GcdBranch.lean:355`).
 -/
 
 namespace Salt.Weil
@@ -395,9 +408,13 @@ congruence (5.6), normalisation (1.5) — W1-d), the whole 2-part of `k` sits in
 
 `‖S(a, b; D δ₁ w₁)‖ ≤ 2^{v₂(D)/2} · d(k) · √k · √((k, a, b))`.
 
-On the road `v₂(D) ≤ 3`, so the 2-adic factor is at most `2^{3/2} ≈ 2.83` — a bounded constant, no
-2-adic stationary phase needed. Lemma 10 then reads at `k^{ε−1/4}`-grade, (5.19) at
-`x^{15/16+ε}`. -/
+N7 quotes this as Estermann (7.1); Lemma 10 then reads at `k^{ε−1/4}`-grade, (5.19) at
+`x^{15/16+ε}`.
+
+⚠️ The 2-adic factor is stated, not discharged: `2^{v₂(D)/2} ≤ 2^{3/2} ≈ 2.83` requires
+`v₂(D) ≤ 3`, and at the twin instance `α₁ = α₂ = 4` one has `v₂(D) = max(2, v₂(q))`, so that bound
+is exactly the structure lemma `v₂(q) ≤ 3` (W4-a) — **not** a consequence of W1-d, and not proved
+in this module (math-seat refutation, `docs/blueprints/flags.md`, 2026-08-06). -/
 theorem norm_kloosterman_estermann_road {D δ₁ w₁ α : ℕ} [NeZero (D * δ₁ * w₁)] (hα : 2 ∣ α)
     (hδ : Nat.Coprime δ₁ α) (hw : Nat.Coprime w₁ α) (a b : ZMod (D * δ₁ * w₁)) :
     ‖kloosterman a b‖

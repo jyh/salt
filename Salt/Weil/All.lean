@@ -135,7 +135,11 @@ open Salt.Tactic in
 honest residue of the trivial 2-part `‖S(a,b;2^κ)‖ ≤ 2^κ` (P6), half of which folds into `√k`.
 The odd part is factor-free (W1-c's `c_e = 2 ≤ d(p^e)`). `norm_kloosterman_estermann_nat` is the
 same bound at nat arguments (the recursion's native form); `norm_kloosterman_estermann_road`
-specialises to `k = D·δ₁·w₁` with `δ₁, w₁` odd, where the factor reads `2^{v₂(D)/2} ≤ 2^{3/2}`. -/
+specialises to `k = D·δ₁·w₁` with `δ₁, w₁` odd, where the factor reads `2^{v₂(D)/2}`.
+
+⚠️ Standing caveat (flags.md, 2026-08-06): this is (7.1) PLUS the explicit 2-adic factor, which is
+unbounded at general `k`; its collapse to a constant on road moduli needs `v₂(q) ≤ 3` (W4-a), not
+W1-d alone. Stated in the docstrings, discharged nowhere in this module. -/
 open Salt.Tactic in
 #audit_axioms Salt.Weil.kloosterman_mul_of_coprime_unit_twist
   Salt.Weil.natCast_chineseRemainder_fst
