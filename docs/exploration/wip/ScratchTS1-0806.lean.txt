@@ -1,0 +1,106 @@
+import Salt.SW.TBalR7
+
+open Complex Finset
+
+noncomputable section
+
+namespace ScratchTS1
+
+/-! S1 — the generalised split -/
+
+lemma tbal_tau_le_split {Q w c : ℝ} (hQ : 1 ≤ Q) (hw : 0 < w) (hc0 : 0 ≤ c) (hc : c ≤ 1) :
+    c * Q ^ (-(680 * w)) / (Real.log Q + 2) ^ (14 : ℝ)
+      ≤ 1 / (40 * (Real.log Q + 2)) := by
+  have hlogQ : 0 ≤ Real.log Q := Real.log_nonneg hQ
+  have hL2 : (2 : ℝ) ≤ Real.log Q + 2 := by linarith
+  have hLpos : (0 : ℝ) < Real.log Q + 2 := by linarith
+  have hQpow : Q ^ (-(680 * w)) ≤ 1 :=
+    Real.rpow_le_one_of_one_le_of_nonpos hQ (by nlinarith [hw])
+  have hQpownn : (0 : ℝ) ≤ Q ^ (-(680 * w)) := (Real.rpow_pos_of_pos (by linarith) _).le
+  have hL14pos : (0 : ℝ) < (Real.log Q + 2) ^ (14 : ℝ) := Real.rpow_pos_of_pos hLpos _
+  -- `L₂^{13} ≥ 2^{13} = 8192`
+  have hL13 : (8192 : ℝ) ≤ (Real.log Q + 2) ^ (13 : ℝ) := by
+    have h2 : (2 : ℝ) ^ (13 : ℝ) ≤ (Real.log Q + 2) ^ (13 : ℝ) :=
+      Real.rpow_le_rpow (by norm_num) hL2 (by norm_num)
+    have : (2 : ℝ) ^ (13 : ℝ) = 8192 := by
+      rw [show (13 : ℝ) = ((13 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]; norm_num
+    linarith [this ▸ h2]
+  -- `L₂^{14} = L₂^{13}·L₂`
+  have hsplit : (Real.log Q + 2) ^ (14 : ℝ)
+      = (Real.log Q + 2) ^ (13 : ℝ) * (Real.log Q + 2) := by
+    rw [show (14 : ℝ) = 13 + 1 by norm_num, Real.rpow_add hLpos, Real.rpow_one]
+  rw [div_le_div_iff₀ hL14pos (by positivity : (0 : ℝ) < 40 * (Real.log Q + 2))]
+  -- goal: c·Q^{−680w}·(40 L₂) ≤ 1·L₂^{14}
+  rw [hsplit]
+  have hstep : c * Q ^ (-(680 * w)) * (40 * (Real.log Q + 2))
+      ≤ 8192 * (Real.log Q + 2) := by
+    have h1 : c * Q ^ (-(680 * w)) ≤ 1 := by
+      calc c * Q ^ (-(680 * w))
+          ≤ 1 * 1 := mul_le_mul hc hQpow hQpownn (by norm_num)
+        _ = 1 := by norm_num
+    nlinarith [mul_nonneg hc0 hQpownn, hLpos]
+  calc c * Q ^ (-(680 * w)) * (40 * (Real.log Q + 2))
+      ≤ 8192 * (Real.log Q + 2) := hstep
+    _ ≤ (Real.log Q + 2) ^ (13 : ℝ) * (Real.log Q + 2) := by
+        apply mul_le_mul_of_nonneg_right hL13 hLpos.le
+    _ = 1 * ((Real.log Q + 2) ^ (13 : ℝ) * (Real.log Q + 2)) := by ring
+
+/-! S5(a) — the sharp crude-log -/
+
+lemma neg_log_le_rpow' {u δ : ℝ} (hu0 : 0 < u) (hδ : 0 < δ) :
+    -Real.log u ≤ u ^ (-δ) / (Real.exp 1 * δ) := by
+  have he : (0 : ℝ) < Real.exp 1 := Real.exp_pos 1
+  have hy : (0 : ℝ) < u ^ (-δ) := Real.rpow_pos_of_pos hu0 _
+  -- `log y ≤ y/e` for `y > 0`, from `log(y/e) ≤ y/e − 1`
+  have hle : Real.log (u ^ (-δ)) ≤ u ^ (-δ) / Real.exp 1 := by
+    have hd := Real.log_le_sub_one_of_pos (div_pos hy he)
+    rw [Real.log_div hy.ne' he.ne', Real.log_exp] at hd
+    linarith
+  rw [Real.log_rpow hu0, le_div_iff₀ he] at hle
+  rw [le_div_iff₀ (by positivity : (0 : ℝ) < Real.exp 1 * δ)]
+  calc -Real.log u * (Real.exp 1 * δ) = -δ * Real.log u * Real.exp 1 := by ring
+    _ ≤ u ^ (-δ) := hle
+
+lemma logz_factor_le {Q L₂ z u : ℝ} (hQ4 : 4 ≤ Q) (hL2 : Real.log Q + 2 ≤ L₂)
+    (hu0 : 0 < u) (hu1 : u ≤ 1) (hzpos : 0 < z)
+    (hzhi : z ≤ 2 * Q ^ (12 : ℝ) * u ^ (-(3 : ℝ))) :
+    1 + Real.log (z ^ 2) ≤ 248 * u ^ (-(1 / 100 : ℝ)) * L₂ := by
+  have hQ1 : (1 : ℝ) ≤ Q := by linarith
+  have hQ0 : (0 : ℝ) < Q := by linarith
+  have hlogQ0 : 0 ≤ Real.log Q := Real.log_nonneg hQ1
+  have hL2' : (1 : ℝ) ≤ L₂ := by linarith
+  have hu100 : (1 : ℝ) ≤ u ^ (-(1 / 100 : ℝ)) :=
+    Real.one_le_rpow_of_pos_of_le_one_of_nonpos hu0 hu1 (by norm_num)
+  have hlogz2 : Real.log (z ^ 2) = 2 * Real.log z := by
+    rw [Real.log_pow]; push_cast; ring
+  have hlogz : Real.log z ≤ Real.log 2 + 12 * Real.log Q + -3 * Real.log u := by
+    have hle : Real.log z ≤ Real.log (2 * Q ^ (12 : ℝ) * u ^ (-(3 : ℝ))) :=
+      Real.log_le_log hzpos hzhi
+    rwa [Real.log_mul (by positivity) (by positivity), Real.log_mul (by norm_num) (by positivity),
+      Real.log_rpow hQ0, Real.log_rpow hu0] at hle
+  have hlog2 : Real.log 2 ≤ 1 := by
+    have := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 2 by norm_num); linarith
+  have hnlognn : 0 ≤ -Real.log u := by
+    have := Real.log_nonpos hu0.le hu1; linarith
+  have hnlogu : -Real.log u * (Real.exp 1 / 100) ≤ u ^ (-(1 / 100 : ℝ)) := by
+    have h := neg_log_le_rpow' (u := u) (δ := 1 / 100) hu0 (by norm_num)
+    rw [le_div_iff₀ (by positivity : (0 : ℝ) < Real.exp 1 * (1 / 100))] at h
+    calc -Real.log u * (Real.exp 1 / 100)
+        = -Real.log u * (Real.exp 1 * (1 / 100)) := by ring
+      _ ≤ _ := h
+  have he9 : (2.7182818283 : ℝ) < Real.exp 1 := Real.exp_one_gt_d9
+  rw [hlogz2]
+  have e1 : (1 : ℝ) ≤ u ^ (-(1 / 100 : ℝ)) * L₂ := by nlinarith [hu100, hL2']
+  have e2 : 24 * Real.log Q ≤ 24 * (u ^ (-(1 / 100 : ℝ)) * L₂) := by
+    have hlogQL : Real.log Q ≤ L₂ := by linarith
+    nlinarith [hu100, hlogQL, hlogQ0]
+  have e3 : -6 * Real.log u ≤ 221 * u ^ (-(1 / 100 : ℝ)) := by
+    nlinarith [hnlogu, mul_nonneg hnlognn
+      (by linarith [he9] : (0 : ℝ) ≤ Real.exp 1 - 2.7182818283)]
+  have e4 : 221 * u ^ (-(1 / 100 : ℝ)) ≤ 221 * (u ^ (-(1 / 100 : ℝ)) * L₂) := by
+    nlinarith [hL2', Real.rpow_nonneg hu0.le (-(1 / 100 : ℝ))]
+  nlinarith [hlogz, hlog2, e1, e2, e3, e4]
+
+end ScratchTS1
+
+end
