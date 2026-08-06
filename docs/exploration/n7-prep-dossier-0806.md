@@ -198,9 +198,16 @@ loss-neutral gcd descent) · `kloosterman_eq_sum_crit` (`:197`, unit-free locali
 
 **W1-c — `Estermann.lean`, [KERNEL as of `4a58e51`]** (the scouts saw it untracked; it was
 committed mid-run — re-checked by this seat): `norm_quadExpSum` (`:167`, `√p`, proved from scratch
-— **no `gaussSum`**) · `norm_kloosterman_prime_pow_odd_sharp` (`:265`) ·
-`norm_kloosterman_prime_pow_unit_sharp` (`:456`) · **`norm_kloosterman_prime_pow_gcd` (`:495`) —
-the W1 exit**, `‖S(A,B;p^e)‖ ≤ 2√(p^e)·√(gcd(p^e, gcd A B))`, odd `p`, **no `IsUnit`**, constant 2.
+— **no `gaussSum`**) · `norm_kloosterman_prime_pow_odd_sharp` (**`:268`**) ·
+`norm_kloosterman_prime_pow_unit_sharp` (**`:459`**) · **`norm_kloosterman_prime_pow_gcd`
+(`:498`) — the W1 exit**, `‖S(A,B;p^e)‖ ≤ 2√(p^e)·√(gcd(p^e, gcd A B))`, odd `p`, **no
+`IsUnit`**, constant 2.
+> **[corrected 2026-08-06, by the statement audit]** These three cites originally read `:265`,
+> `:456`, `:495` — each exactly **3 low**, because the scouts read the file while it was still
+> uncommitted and 3 lines shorter between `:167` and `:265`. (`norm_quadExpSum :167` was
+> unaffected and is correct.) The committed numbers are `:268` / `:459` / `:498`, matching
+> `weil-trio-design-0806.md` §D8. Recorded rather than silently patched: it is a worked example
+> of this dossier's own warning that a snapshot of another seat's in-flight tree ages fast.
 
 ### 4b. Character sums
 [KERNEL]: `quadraticChar_sum_two_forms_bound` (`QuadCharSum.lean:143`, `≤ 2`) ·
