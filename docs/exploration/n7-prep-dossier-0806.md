@@ -520,3 +520,50 @@ twice** (both the `:611` exponent pair) and corrected **our transcription three 
 `w₂` index in (5.14); the dropped "not necessarily in `α`" on the `C_i`; the over-stated log power
 in (7.8)). **We remain the less reliable party.** This block breaks the streak of "every block
 yields a defect" — reported as prominently as the defects were.
+
+---
+
+# ADDENDUM D (2026-08-06) — LEMMA 5's STATEMENT VERIFIED, p.199: **CLEAN**
+
+The last unverified block, and the most expensive place for a defect: this is the theorem N7 must
+render in Lean. Read-only, no Lean.
+
+**RESULT: `hb1983-notes.md:216-240` matches the source.** Verified item by item:
+
+- **Hypotheses `d ∣ P`, `(d,α) = 1`, `d, z ≤ q^{1/3}`** — match. The `q^{1/3}` bound is carried,
+  and it is not decorative: p.199 takes `z ≤ q^{1/3}`, `D = q^{1/3}` so the errors contribute
+  `≪ xL⁴z^{−1}Σ_{d≤D}d^{−1}4^{ω(d)} ≪ xL⁸z^{−1}` (2.3).
+- **Conclusion** `S(d) = κ(G(d)/d){(L′(1,χ)/L(1,χ))² + A²(d) + A′(d) + C₀} + O(xL⁴z^{−1}d^{−1}4^{ω(d)})`
+  — matches.
+- **`G(d) = 2^{ω(d)}∏_{p∣d}(2p−1)/(p+1)`** — matches, and independently confirms
+  `Salt/HB/Lemma7Kappa.lean:86`'s `hbG`, which the W4.5 flag cites as "HB p.199's `G(d)`".
+- **`A(p) ≪ log p`, `A′(p) ≪ B log p` with `B = L + |L′(1,χ)/L(1,χ)|`, `C₀` independent of `d`,
+  `C₀ ≪ BL`** — all match.
+- **`G(p) ≤ 4` and the dimension-4 sieve** — p.200 states *"As `G(p) ≤ 4` we need a sieve of
+  dimension 4 here"*, confirming `hbG_le_four` and the N5 gate check's CHECK 3 at the source.
+- **The `β ≥ 3` sieving-limit fact** — p.199: *"To obtain the bound `δ ≤ q` we need the fact that
+  the sieving limit satisfies `β ≥ 3` for the case of dimension 4."* Confirms the N5 gate check's
+  CHECK 1 (that `β ≥ 3` is spent only on support bookkeeping) at the source.
+
+**⭐ ONE RECONCILIATION WORTH RECORDING.** Lemma 5's error is `O(x·L⁴z^{−1}d^{−1}4^{ω(d)})` while
+(6.15) is `S(d;t) − S′(d;t) ≪ L⁴z^{−1}d^{−1}4^{ω(d)}` — **no `x`**. These are consistent, not a
+discrepancy: (6.15) lives at the `S(d;t)` level and Lemma 5 is reached through
+`M∫_x^{2x} S(d;t)dt`, so the `x` is the length of the `t`-integration range. A formalizer comparing
+the two statements side by side would otherwise see a missing factor and go looking for a defect
+that is not there.
+
+**⚠️ ONE HONEST LIMIT — `κ` WAS NOT VERIFIED TO BYTE PRECISION.** `κ`'s four-product formula is a
+dense single line of small type and my page rendering is not sharp enough to certify each factor's
+subscript (`p ∣ q, p∤α` / `p ∣ α` / `p∤α, χ(p)=1` / `p∤α, χ(p)=−1`) and exponent individually. The
+**structure** matches the notes — four products, in that order, with those factor shapes — and
+nothing above depends on `κ`'s internals. But `Salt/HB/Lemma7Kappa.lean:348`'s `hbKappa` **does**,
+and W4.5 built it from Lemma 5. **Recommend one careful re-read of p.199's `κ` against `hbKappa`
+by whoever owns `Lemma7Kappa`** — it is a five-minute check against a definition already in the
+kernel, and it is the one place in this sweep where I am reporting "structure matches" rather than
+"verified".
+
+**FINAL TALLY FOR THE SOURCE-VERIFICATION SWEEP** (Lemma 5 statement, §5-opening, §5-body, §6, §7):
+**HB corrected twice** (the `S₁`/`S₂` exponent pair at p.214, one erratum in two places);
+**our transcription corrected three times** (the dropped `w₂` index in (5.14); the dropped "not
+necessarily in `α`" on the `C_i`; the over-stated log power in (7.8)). Two blocks clean.
+**We were the less reliable party, by half again.**
