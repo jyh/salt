@@ -92,7 +92,8 @@ feeds the size of the main term — it is consumed only to (i) make Λ̃ ≈ Λ 
   Machinery: Λ* opening (p.210–211), congruence gymnastics (5.4)–(5.17), Lemma 10 ψ-sums via
   ESTERMANN's Kloosterman bound S(k;u,v) ≪ d(k)k^{1/2}(k,u,v)^{1/2} (7.1) — Weil-strength,
   effective, elementary (Estermann 1961); real-primitive-χ character sums (p.216–217), incl.
-  Σ_t χ(ut+u')χ(t+v') ≪ (q, uv'−vu') and "Σχ(b₂) vanishes unless dΔ = q since χ primitive";
+  Σ_t χ(ut+u')χ(vt+v') ≪ (q, uv'−vu') [corrected 8/6 per the :185 erratum] and "Σχ(b₂)
+  vanishes unless dΔ = q since χ primitive";
   q CUBE-FREE (from χ real primitive) consumed at (α_i, q/Δ)=1 steps via (1.9) (pp.212, 215–216).
   CAVEAT (architecture-fossil hazard): the paper's standing assumptions (p.196) formally include
   (1.11) throughout; Lemma 5's independence from the zero is my audit finding, not a stated claim.

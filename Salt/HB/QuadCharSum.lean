@@ -11,8 +11,8 @@ import Mathlib.Data.ZMod.Basic
 /-!
 # Complete quadratic character sums (Heath-Brown 1983, p.217 omitted lemma)
 
-Heath-Brown's *The fourth power moment of the Riemann zeta-function* (Proc. LMS 1981,
-also the 1983 mean-value paper) states without proof: for a real, primitive character
+Heath-Brown's *Prime Twins and Siegel Zeros* (Proc. London Math. Soc. (3) **47** (1983)
+193–224), at p.217, states without proof: for a real, primitive character
 `χ (mod q)`,
 `∑_{t=1}^{q} χ(u t + u') χ(v t + v') ≪ (q, u v' − v u')`,
 remarking only that "the proof of this is straightforward. We shall omit it."
@@ -41,7 +41,8 @@ Hence the sum equals `χ(-1)·(-χ(-1)) = -(χ(-1)²) = -1`.
 
 ## References
 
-* D. R. Heath-Brown, *The fourth power moment of the Riemann zeta-function*, p.217.
+* D. R. Heath-Brown, *Prime Twins and Siegel Zeros*, Proc. London Math. Soc. (3) **47**
+  (1983) 193–224, p.217.
 * K. Ireland, M. Rosen, *A Classical Introduction to Modern Number Theory*, §8.3.
 -/
 
