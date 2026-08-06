@@ -300,4 +300,88 @@ theorem crtFactor₂_isPrimitive [NeZero q₁] [NeZero q₂] (hcop : Nat.Coprime
 
 end Componentwise
 
+/-! ### S3: the local classification at an odd prime -/
+
+section OddLocal
+
+/-- **S3 (odd prime, exponent `≥ 2`).**  There is no primitive `ℤ`-valued character modulo
+`p ^ k` for `p` an odd prime and `k ≥ 2`.
+
+The kernel `K` of the reduction `(ZMod p^k)ˣ → (ZMod p)ˣ` has order `p ^ (k-1)`, which is **odd**;
+a character into `ℤˣ = {±1}` is therefore trivial on `K` (a `±1` value raised to an odd power
+returns itself), so `χ` factors through `p < p ^ k`. -/
+theorem not_isPrimitive_of_odd_prime_pow {p k : ℕ} (hp : p.Prime) (hp2 : p ≠ 2) (hk : 2 ≤ k)
+    (χ : DirichletCharacter ℤ (p ^ k)) : ¬ χ.IsPrimitive := by
+  haveI : Fact p.Prime := ⟨hp⟩
+  haveI : NeZero (p ^ k) := ⟨pow_ne_zero k hp.pos.ne'⟩
+  have hple : 2 ≤ p := hp.two_le
+  have hpk : p ∣ p ^ k := dvd_pow_self p (by omega)
+  set K := (ZMod.unitsMap hpk).ker with hK
+  have hcard : Nat.card K = p ^ (k - 1) := by
+    have h2 : (ZMod.unitsMap hpk).range = ⊤ :=
+      MonoidHom.range_eq_top.mpr (ZMod.unitsMap_surjective hpk)
+    have h3 : Nat.card K * Nat.card ((ZMod p)ˣ) = Nat.card ((ZMod (p ^ k))ˣ) := by
+      rw [← Subgroup.card_mul_index K, hK, Subgroup.index_ker, h2, Subgroup.card_top]
+    rw [Nat.card_eq_fintype_card (α := (ZMod p)ˣ), ZMod.card_units_eq_totient,
+      Nat.totient_prime hp, Nat.card_eq_fintype_card (α := (ZMod (p ^ k))ˣ),
+      ZMod.card_units_eq_totient, Nat.totient_prime_pow hp (by omega)] at h3
+    exact Nat.eq_of_mul_eq_mul_right (by omega) h3
+  have hoddK : Odd (Nat.card K) := by rw [hcard]; exact (hp.odd_of_ne_two hp2).pow
+  have hft : χ.FactorsThrough p := by
+    rw [DirichletCharacter.factorsThrough_iff_ker_unitsMap hpk]
+    intro u hu
+    rw [MonoidHom.mem_ker]
+    have hu1 : u ^ Nat.card K = 1 := by
+      have h := pow_card_eq_one' (G := K) (x := (⟨u, hu⟩ : K))
+      have h' : (((⟨u, hu⟩ : K) ^ Nat.card K : K) : (ZMod (p ^ k))ˣ)
+          = ((1 : K) : (ZMod (p ^ k))ˣ) := congrArg (fun x : K => (x : (ZMod (p ^ k))ˣ)) h
+      rw [Subgroup.coe_pow, OneMemClass.coe_one] at h'
+      exact h'
+    rcases Int.units_eq_one_or (χ.toUnitHom u) with h | h
+    · exact h
+    · exfalso
+      have h2 := congrArg χ.toUnitHom hu1
+      rw [map_pow, map_one, h, hoddK.neg_one_pow] at h2
+      have h3 : ((-1 : ℤˣ) : ℤ) = ((1 : ℤˣ) : ℤ) := congrArg Units.val h2
+      norm_num at h3
+  intro hprim
+  have hle : χ.conductor ≤ p := Nat.sInf_le ((DirichletCharacter.mem_conductorSet_iff χ).mpr hft)
+  rw [DirichletCharacter.isPrimitive_def] at hprim
+  rw [hprim] at hle
+  have hlt : p < p ^ k := by
+    calc p = p ^ 1 := (pow_one p).symm
+      _ < p ^ k := Nat.pow_lt_pow_right hp.one_lt (by omega)
+  omega
+
+/-- **S3 (odd prime, exponent `1`).**  Modulo an odd prime `p` the *only* primitive `ℤ`-valued
+character is the Legendre (quadratic) character.
+
+`(ZMod p)ˣ` is cyclic; a `±1`-valued character is determined by its value at a generator `g`,
+and a nontrivial one must send `g` to `-1`.  Both `χ` and `quadraticChar` are nontrivial. -/
+theorem eq_quadraticChar_of_isPrimitive {p : ℕ} [Fact p.Prime] (hp2 : p ≠ 2)
+    (χ : DirichletCharacter ℤ p) (hprim : χ.IsPrimitive) : χ = quadraticChar (ZMod p) := by
+  have hp : p.Prime := Fact.out
+  haveI : NeZero p := ⟨hp.pos.ne'⟩
+  have hrc : ringChar (ZMod p) ≠ 2 := by rw [ZMod.ringChar_zmod_n]; exact hp2
+  have hne : χ ≠ 1 := by
+    intro h
+    rw [DirichletCharacter.isPrimitive_def, h, DirichletCharacter.conductor_one] at hprim
+    exact hp.ne_one hprim.symm
+  obtain ⟨g, hg⟩ := IsCyclic.exists_generator (α := (ZMod p)ˣ)
+  have key : ∀ ψ : DirichletCharacter ℤ p, ψ ≠ 1 → ψ.toUnitHom g = -1 := by
+    intro ψ hψ
+    rcases Int.units_eq_one_or (ψ.toUnitHom g) with h | h
+    · refine absurd (MulChar.ext fun a => ?_) hψ
+      obtain ⟨n, rfl⟩ := Subgroup.mem_zpowers_iff.mp (hg a)
+      rw [← MulChar.coe_toUnitHom, map_zpow, h, one_zpow, Units.val_one, MulChar.one_apply_coe]
+    · exact h
+  have h1 := key χ hne
+  have h2 := key (quadraticChar (ZMod p)) (quadraticChar_ne_one hrc)
+  refine MulChar.ext fun a => ?_
+  obtain ⟨n, rfl⟩ := Subgroup.mem_zpowers_iff.mp (hg a)
+  rw [← MulChar.coe_toUnitHom, ← MulChar.coe_toUnitHom (quadraticChar (ZMod p)), map_zpow,
+    map_zpow, h1, h2]
+
+end OddLocal
+
 end Salt.HB
