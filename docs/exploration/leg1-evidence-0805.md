@@ -700,3 +700,39 @@ Each of these was measured today, by a command recorded above.
 7. **The corpus grew 21% in the five days since the last snapshot was
    taken.** Any evidence page must carry a harvest date, because these
    numbers go stale in under a week.
+
+---
+
+## 11. ONE GATING FACT FOR THE PUBLIC-REPO DELIVERABLE
+
+The triple's deliverable is "a public repo that builds end to end with one
+command" (`docs/exploration/triple-campaign-0805.md:82-85`). Measured
+against that:
+
+| Author email | Commits | Command |
+|---|---:|---|
+| `the pre-remap address` | **1,108** | `git log --format='%ae' \| sort \| uniq -c` |
+| `jasonh@gmail.com` | 810 | same |
+| `noreply@anthropic.com` | 19 | same |
+| `jason@karyk.com` (cloud-shift) | 4 | same |
+
+**1,108 of 1,940 commits carry the pre-remap address in the author field.**
+This is already a known catch, not a new one: it was found and fixed
+forward on 2026-07-21 at `a8fd364` — *"THE EMAIL-IDENTITY CATCH — global
+gitconfig was the pre-remap address"* — the last commit under the old
+identity being `1b4f6ba` (2026-07-21 15:21:01) and the first under the new
+one `a8fd364` (15:24:20). The **fix is forward-only**; the history was not
+rewritten.
+
+Consequence for leg 1: the history purge named in the portfolio gate
+(`~/projects/claude/CLAUDE.md`, "Private now; public later behind a hard
+gate (history purge + the SaltBench wave boundary)") is **on the critical
+path for the deliverable**, not optional hygiene — and the purge will
+rewrite 57% of the commit ledger. Since the ledger *is* the leg-1
+evidence artifact (§4), **capture the ledger numbers before the purge, or
+capture them from a preserved mirror**, or the unattended evidence and the
+public repo cannot both exist in the same history.
+
+**UNVERIFIED and out of scope here:** whether any commit *content* (as
+opposed to author metadata) needs review before publication. That is a
+separate audit.
