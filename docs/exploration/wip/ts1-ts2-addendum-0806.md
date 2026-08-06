@@ -131,6 +131,57 @@ had never elaborated. **A pass from a build that did no work is not evidence of 
 
 ---
 
+## ⚠️ AMENDMENT 5 — S1's THREADING MAKES `hc_t1` **UNUSED**, WHICH THE EXIT TEST WILL CATCH
+
+Pre-derived by reading; **not yet confirmed by a build** — treat the warning claim as a prediction
+with a recommended handling, not as a measurement.
+
+The two consumer sites are **byte-identical** 5-line blocks (`R8:1422-1428`, `Tall:1727-1733`):
+
+```lean
+have hsplit := tbal_tau_le_split hQ1 hw0
+rw [← hL₂def] at hsplit
+have hbase_nn : (0 : ℝ) ≤ Q ^ (-(680 * w)) / L₂ ^ (14 : ℝ) := by positivity
+have hτle : c * Q ^ (-(680 * w)) / L₂ ^ (14 : ℝ)
+    ≤ 2 ^ (-(250 : ℝ)) * Q ^ (-(680 * w)) / L₂ ^ (14 : ℝ) := by
+  rw [mul_div_assoc, mul_div_assoc]; exact mul_le_mul_of_nonneg_right hc_t1 hbase_nn
+linarith only [hτle, hsplit, htriv]
+```
+
+`hbase_nn` + `hτle` exist **only** to bridge from the `2^{−250}`-specific lemma to the actual `c`,
+using `hc_t1`. The generalised lemma delivers the bound **at `c` directly**, so the whole block
+collapses to:
+
+```lean
+have hsplit := tbal_tau_le_split hQ1 hw0 hcpos.le hc1
+rw [← hL₂def] at hsplit
+linarith only [hsplit, htriv]
+```
+
+`hcpos : 0 < c` and `hc1 : c ≤ 1` are **already in scope** at both sites (`R8:1383`, `Tall:1684`) —
+S1 needs no new hypothesis. That is −4 lines per tower, and it is the whole S1 threading.
+
+⛔ **The consequence:** `hc_t1` is consumed at **exactly one place in each tower** — this block
+(verified: `grep -nF hc_t1` gives declaration, this site, the min projection, and the pass-through,
+and nothing else). After S1 it is **unused**, and `lakefile.toml` runs
+`weak.linter.mathlibStandardSet`. **Expect an unused-variable warning, which fails exit test #1
+("no new warnings").**
+
+**Recommended handling — keep the churn at zero:**
+1. **Keep the head arm** in both mins, renumbered `2^(-(250:ℝ))` → `1/40`. The arm's *numeral* is
+   what delivers `173.29 → 3.69`; that is independent of whether the *hypothesis* is consumed.
+   Keeping the arm keeps **every projection index below it unchanged** (the brief's core ruling —
+   deleting a min head would shift `hc_t2` two deep through `hc_t10` nine deep, ~123 lines).
+2. **Rename the binder** `hc_t1` → `_hc_t1` at `R8:1383` and `Tall:1684` only. The local
+   `have hc_t1` (`R8:1796`, `Tall:2124`) stays as-is — it is still used, passed positionally at
+   `R8:1847` / `Tall:2179`.
+   *This file already uses that idiom* — `(_hCρnn : 0 ≤ Cρ)` at `Tall:1578` — so it is the
+   codebase's own convention, not an invention.
+3. `hp1` becomes `by norm_num` at `R8:1780` / `Tall:2109`, per the brief.
+
+If the build turns out **not** to warn, drop step 2 and say so in flags — do not add an underscore
+the compiler did not ask for.
+
 ## PRE-FLIGHT ALREADY COMPLETED (do not repeat)
 
 | check | result |
