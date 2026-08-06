@@ -59,7 +59,8 @@ standard character facts, WP2's business), `hα0`/`hα2` (`0 < α`, `2 ∣ α` �
 split at `z`, `L(1,χ) = (∏_{p≤⌊z⌋}(1−χ(p)/p))^{−1}·F`, which is WP2 input, not sieve algebra.
 -/
 
-open Filter
+open Filter Set MeasureTheory
+open Salt.SW
 open scoped Topology
 
 namespace Salt.HB
@@ -513,5 +514,457 @@ theorem hb_hsing {q : ℕ} (χ : DirichletCharacter ℂ q) {z : ℝ} (hz : 32 �
     _ ≤ 64 / z := by
         rw [div_le_div_iff₀ hN0 hz0]
         linarith
+
+/-! ## §6 — `(4.4)`: the finite rearrangement -/
+
+/-- The `κ S₁`-side factor at a prime `p`: the five `p`-factors of `κ S₁` after the `L(1,χ)`
+Euler product has been split at `z` — the inverse Euler factor, HB's `∏_{p∣q,p∤α}`, his
+`∏_{p∣α}`, the tail factor `hbWfac`, and `S₁`'s. -/
+noncomputable def hbRearL {q : ℕ} (χ : DirichletCharacter ℂ q) (α p : ℕ) : ℝ :=
+  ((1 - Salt.TwinBar.chiRe χ p / (p : ℝ))⁻¹) ^ 2
+    * (if p ∣ q ∧ ¬ p ∣ α then 1 - 2 / (p : ℝ) else 1)
+    * (if p ∣ α then (1 - Salt.TwinBar.chiRe χ p / (p : ℝ)) ^ 2 else 1)
+    * (if 2 < p then hbWfac χ α p else 1)
+    * (if Salt.TwinBar.chiRe χ p = 1 ∧ ¬ p ∣ α then
+        ((p : ℝ) - 1) * ((p : ℝ) - 2) / ((p : ℝ) * ((p : ℝ) + 1)) else 1)
+
+/-- The `C(α)·∏(1−1/p)²·𝔖(z,χ)`-side factor at a prime `p`. -/
+noncomputable def hbRearR (α p : ℕ) : ℝ :=
+  (if p ∣ α ∧ p ≠ 2 then (1 - 2 / (p : ℝ))⁻¹ else 1)
+    * (1 - 1 / (p : ℝ)) ^ 2
+    * (if 2 < p then 1 - (((p : ℝ) - 1) ^ 2)⁻¹ else 1)
+
+/-- **The per-prime identity behind `(4.4)`, at an odd prime `p`.**  Four cases:
+`p ∣ α` (both sides `1`), and for `p ∤ α` the three values of `χ(p)` (both sides `(p−2)/p`). -/
+lemma hb_rear_factor {q : ℕ} (χ : DirichletCharacter ℂ q) {α p : ℕ}
+    (hchi01 : Salt.TwinBar.chiRe χ p = 1 ∨ Salt.TwinBar.chiRe χ p = -1 ∨
+      Salt.TwinBar.chiRe χ p = 0)
+    (hchi0 : Salt.TwinBar.chiRe χ p = 0 ↔ p ∣ q) (hp : Nat.Prime p) (hp2 : p ≠ 2) :
+    hbRearL χ α p = hbRearR α p := by
+  rw [hbRearL, hbRearR]
+  have hp3 : 3 ≤ p := by have := hp.two_le; omega
+  have h2p : 2 < p := by omega
+  have hp3R : (3 : ℝ) ≤ (p : ℝ) := by exact_mod_cast hp3
+  have hp0 : (0 : ℝ) < (p : ℝ) := by linarith
+  have hpm1 : ((p : ℝ) - 1) ≠ 0 := by intro h; rw [sub_eq_zero] at h; linarith
+  have hpm2 : ((p : ℝ) - 2) ≠ 0 := by intro h; rw [sub_eq_zero] at h; linarith
+  have hpp1 : ((p : ℝ) + 1) ≠ 0 := by positivity
+  have hp0' : (p : ℝ) ≠ 0 := ne_of_gt hp0
+  have h2ne : (1 : ℝ) - 2 / (p : ℝ) ≠ 0 := by
+    intro h
+    rw [sub_eq_zero, eq_div_iff hp0'] at h
+    linarith
+  rw [if_pos h2p, if_pos h2p, hbWfac]
+  by_cases hpα : p ∣ α
+  · rw [if_neg (fun h : p ∣ q ∧ ¬ p ∣ α => h.2 hpα), if_pos hpα,
+      if_neg (fun h : Salt.TwinBar.chiRe χ p = 1 ∧ ¬ p ∣ α => h.2 hpα),
+      if_pos (⟨hpα, hp2⟩ : p ∣ α ∧ p ≠ 2), if_pos hpα]
+    have hne : (1 - Salt.TwinBar.chiRe χ p / (p : ℝ)) ≠ 0 :=
+      ne_of_gt (one_sub_chiRe_div_pos χ hp)
+    simp only [mul_one]
+    rw [← mul_pow, inv_mul_cancel₀ hne, one_pow, eq_comm]
+    field_simp
+    ring
+  · rw [if_neg (fun h : p ∣ α ∧ p ≠ 2 => hpα h.1), if_neg hpα, if_neg hpα, hbSfac]
+    rcases hchi01 with h1 | h1 | h1
+    · have hpq : ¬ p ∣ q := by
+        intro h
+        rw [hchi0.mpr h] at h1
+        norm_num at h1
+      rw [if_neg (fun h : p ∣ q ∧ ¬ p ∣ α => hpq h.1),
+        if_pos (⟨h1, hpα⟩ : Salt.TwinBar.chiRe χ p = 1 ∧ ¬ p ∣ α), if_pos h1, h1]
+      have hne1 : (1 : ℝ) - 1 / (p : ℝ) ≠ 0 := by
+        intro h
+        rw [sub_eq_zero, eq_div_iff hp0'] at h
+        linarith
+      field_simp
+      ring
+    · have hpq : ¬ p ∣ q := by
+        intro h
+        rw [hchi0.mpr h] at h1
+        norm_num at h1
+      rw [if_neg (fun h : p ∣ q ∧ ¬ p ∣ α => hpq h.1),
+        if_neg (fun h : Salt.TwinBar.chiRe χ p = 1 ∧ ¬ p ∣ α => by
+          rw [h.1] at h1; norm_num at h1),
+        if_neg (show ¬ Salt.TwinBar.chiRe χ p = 1 by rw [h1]; norm_num), if_pos h1, h1]
+      have hne1 : (1 : ℝ) - (-1) / (p : ℝ) ≠ 0 := by
+        intro h
+        rw [sub_eq_zero, eq_div_iff hp0'] at h
+        linarith
+      field_simp
+      ring
+    · have hpq : p ∣ q := hchi0.mp h1
+      rw [if_pos (⟨hpq, hpα⟩ : p ∣ q ∧ ¬ p ∣ α),
+        if_neg (fun h : Salt.TwinBar.chiRe χ p = 1 ∧ ¬ p ∣ α => by
+          rw [h.1] at h1; norm_num at h1),
+        if_neg (show ¬ Salt.TwinBar.chiRe χ p = 1 by rw [h1]; norm_num),
+        if_neg (show ¬ Salt.TwinBar.chiRe χ p = -1 by rw [h1]; norm_num), h1]
+      field_simp
+      ring
+
+/-- **The `p = 2` factor.**  Under `2 ∣ α` (HB's `(1.3)–(1.9)`) the left factor is `1` and the
+right one is `1/4`; the missing `4` is exactly `C(α)`'s leading `2` times `𝔖(z,χ)`'s. -/
+lemma hb_rear_factor_two {q : ℕ} (χ : DirichletCharacter ℂ q) {α : ℕ} (hα2 : 2 ∣ α) :
+    hbRearL χ α 2 = 1 ∧ hbRearR α 2 = 1 / 4 := by
+  constructor
+  · rw [hbRearL, if_neg (fun h : (2 : ℕ) ∣ q ∧ ¬ (2 : ℕ) ∣ α => h.2 hα2), if_pos hα2,
+      if_neg (fun h : Salt.TwinBar.chiRe χ 2 = 1 ∧ ¬ (2 : ℕ) ∣ α => h.2 hα2),
+      if_neg (by norm_num : ¬ (2 : ℕ) < 2)]
+    have hne : (1 - Salt.TwinBar.chiRe χ 2 / ((2 : ℕ) : ℝ)) ≠ 0 :=
+      ne_of_gt (one_sub_chiRe_div_pos χ Nat.prime_two)
+    simp only [mul_one]
+    rw [← mul_pow, inv_mul_cancel₀ hne, one_pow]
+  · rw [hbRearR, if_neg (fun h : (2 : ℕ) ∣ α ∧ (2 : ℕ) ≠ 2 => h.2 rfl),
+      if_neg (by norm_num : ¬ (2 : ℕ) < 2)]
+    norm_num
+
+lemma gt2Primes_eq_filter {z : ℝ} :
+    Salt.Mertens.gt2Primes ⌊z⌋₊ = (Pz z).filter (fun p => 2 < p) := by
+  ext p
+  simp only [Finset.mem_filter, mem_Pz, Finset.mem_range, Nat.lt_succ_iff]
+
+/-- **The product form of `(4.4)`'s exact half**: over the primes `p ≤ ⌊z⌋`,
+
+    ∏ (κS₁-side factor)  =  4 · ∏ (C(α)·∏(1−1/p)²·𝔖(z,χ)-side factor),
+
+the `4` being the two leading `2`s, absorbed by the `p = 2` factor. -/
+lemma hb_rear_prod_identity {q : ℕ} (χ : DirichletCharacter ℂ q) {α : ℕ} {z : ℝ}
+    (hchi01 : ∀ p : ℕ, Nat.Prime p → Salt.TwinBar.chiRe χ p = 1 ∨
+      Salt.TwinBar.chiRe χ p = -1 ∨ Salt.TwinBar.chiRe χ p = 0)
+    (hchi0 : ∀ p : ℕ, Nat.Prime p → (Salt.TwinBar.chiRe χ p = 0 ↔ p ∣ q))
+    (hα2 : 2 ∣ α) (hz : 3 ≤ z) :
+    (∏ p ∈ Pz z, hbRearL χ α p) = 4 * ∏ p ∈ Pz z, hbRearR α p := by
+  classical
+  have h2mem : (2 : ℕ) ∈ Pz z := by
+    refine mem_Pz.mpr ⟨?_, Nat.prime_two⟩
+    have : (3 : ℕ) ≤ ⌊z⌋₊ := Nat.le_floor (by exact_mod_cast hz)
+    omega
+  have hcong : ∀ p ∈ (Pz z).erase 2, hbRearL χ α p = hbRearR α p := by
+    intro p hp
+    have hpm := Finset.mem_of_mem_erase hp
+    have hp2 := Finset.ne_of_mem_erase hp
+    obtain ⟨_, hpp⟩ := mem_Pz.mp hpm
+    exact hb_rear_factor χ (hchi01 p hpp) (hchi0 p hpp) hpp hp2
+  obtain ⟨hL2, hR2⟩ := hb_rear_factor_two (α := α) χ hα2
+  calc (∏ p ∈ Pz z, hbRearL χ α p)
+      = hbRearL χ α 2 * ∏ p ∈ (Pz z).erase 2, hbRearL χ α p :=
+        (Finset.mul_prod_erase _ _ h2mem).symm
+    _ = 1 * ∏ p ∈ (Pz z).erase 2, hbRearR α p := by
+        rw [hL2, Finset.prod_congr rfl hcong]
+    _ = 4 * (hbRearR α 2 * ∏ p ∈ (Pz z).erase 2, hbRearR α p) := by
+        rw [hR2]; ring
+    _ = 4 * ∏ p ∈ Pz z, hbRearR α p := by
+        rw [Finset.mul_prod_erase _ _ h2mem]
+
+/-! ### The index-set conversions -/
+
+lemma hbCalpha_eq {α : ℕ} {z : ℝ} (hα0 : 0 < α) (hαz : (α : ℝ) < z) :
+    hbCalpha α = 2 * ∏ p ∈ Pz z, (if p ∣ α ∧ p ≠ 2 then (1 - 2 / (p : ℝ))⁻¹ else 1) := by
+  classical
+  have hαN : α ≤ ⌊z⌋₊ := Nat.le_floor hαz.le
+  have hset : α.primeFactors.filter (fun p => p ≠ 2)
+      = (Pz z).filter (fun p => p ∣ α ∧ p ≠ 2) := by
+    ext p
+    simp only [Finset.mem_filter, mem_Pz, Nat.mem_primeFactors]
+    constructor
+    · rintro ⟨⟨hpp, hpα, -⟩, hp2⟩
+      exact ⟨⟨le_trans (Nat.le_of_dvd hα0 hpα) hαN, hpp⟩, hpα, hp2⟩
+    · rintro ⟨⟨-, hpp⟩, hpα, hp2⟩
+      exact ⟨⟨hpp, hpα, hα0.ne'⟩, hp2⟩
+  rw [hbCalpha, hset, Finset.prod_filter]
+
+lemma alpha_primeFactors_prod_eq {q : ℕ} (χ : DirichletCharacter ℂ q) {α : ℕ} {z : ℝ}
+    (hα0 : 0 < α) (hαz : (α : ℝ) < z) :
+    (∏ p ∈ α.primeFactors, (1 - Salt.TwinBar.chiRe χ p / (p : ℝ)) ^ 2)
+      = ∏ p ∈ Pz z, (if p ∣ α then (1 - Salt.TwinBar.chiRe χ p / (p : ℝ)) ^ 2 else 1) := by
+  classical
+  have hαN : α ≤ ⌊z⌋₊ := Nat.le_floor hαz.le
+  have hset : α.primeFactors = (Pz z).filter (fun p => p ∣ α) := by
+    ext p
+    simp only [Finset.mem_filter, mem_Pz, Nat.mem_primeFactors]
+    constructor
+    · rintro ⟨hpp, hpα, -⟩
+      exact ⟨⟨le_trans (Nat.le_of_dvd hα0 hpα) hαN, hpp⟩, hpα⟩
+    · rintro ⟨⟨-, hpp⟩, hpα⟩
+      exact ⟨hpp, hpα, hα0.ne'⟩
+  rw [hset, Finset.prod_filter]
+
+lemma qFactors_low_prod_eq {q α : ℕ} {z : ℝ} (hq : 0 < q) :
+    (∏ p ∈ (q.primeFactors.filter (fun p => ¬ p ∣ α)).filter (fun p => p ≤ ⌊z⌋₊),
+        (1 - 2 / (p : ℝ)))
+      = ∏ p ∈ Pz z, (if p ∣ q ∧ ¬ p ∣ α then 1 - 2 / (p : ℝ) else 1) := by
+  classical
+  have hset : (q.primeFactors.filter (fun p => ¬ p ∣ α)).filter (fun p => p ≤ ⌊z⌋₊)
+      = (Pz z).filter (fun p => p ∣ q ∧ ¬ p ∣ α) := by
+    ext p
+    simp only [Finset.mem_filter, mem_Pz, Nat.mem_primeFactors]
+    constructor
+    · rintro ⟨⟨⟨hpp, hpq, -⟩, hpα⟩, hpN⟩
+      exact ⟨⟨hpN, hpp⟩, hpq, hpα⟩
+    · rintro ⟨⟨hpN, hpp⟩, hpq, hpα⟩
+      exact ⟨⟨⟨hpp, hpq, hq.ne'⟩, hpα⟩, hpN⟩
+  rw [hset, Finset.prod_filter]
+
+lemma hbS1_eq {q : ℕ} (χ : DirichletCharacter ℂ q) {α : ℕ} {z : ℝ} :
+    hbS1 χ α z = ∏ p ∈ Pz z, (if Salt.TwinBar.chiRe χ p = 1 ∧ ¬ p ∣ α then
+      ((p : ℝ) - 1) * ((p : ℝ) - 2) / ((p : ℝ) * ((p : ℝ) + 1)) else 1) := by
+  classical
+  rw [hbS1, show (Finset.range (⌊z⌋₊ + 1)).filter
+      (fun p => Nat.Prime p ∧ Salt.TwinBar.chiRe χ p = 1 ∧ ¬ (p ∣ α))
+      = (Pz z).filter (fun p => Salt.TwinBar.chiRe χ p = 1 ∧ ¬ (p ∣ α)) from by
+    rw [Pz, Finset.filter_filter], Finset.prod_filter]
+
+/-! ### The `κ`-tail split at `z` -/
+
+/-- **The tails cancel.**  Under HB's `z > α`, every prime `p > ⌊z⌋` is coprime to `α`, so
+`κ`'s Euler product factors as its `p ≤ ⌊z⌋` part times *exactly* `𝔖(z,χ)`'s tail. -/
+lemma hbKappaTail_split {q : ℕ} (χ : DirichletCharacter ℂ q) {α : ℕ} {z : ℝ}
+    (hα0 : 0 < α) (hαz : (α : ℝ) < z) :
+    hbKappaTail χ α
+      = (∏ p ∈ Pz z, (if 2 < p then hbWfac χ α p else 1)) * hbSingTail χ z := by
+  classical
+  set N : ℕ := ⌊z⌋₊ with hNdef
+  have hαN : α ≤ N := Nat.le_floor hαz.le
+  set W : Salt.TwinBar.PrimesGt2 → ℝ := fun p => hbWfac χ α (p : ℕ) with hWdef
+  set tf : Salt.TwinBar.PrimesGt2 → ℝ :=
+    fun p => if N < (p : ℕ) then hbSfac χ (p : ℕ) else 1 with htfdef
+  have hWpos : ∀ p, 0 < W p := fun p => hbWfac_pos χ α (three_le_of_primesGt2 p)
+  have hWsum : Summable (fun p => Real.log (W p)) := hbWfac_log_summable χ α
+  have htfpos : ∀ p, 0 < tf p := by
+    intro p
+    rw [htfdef]
+    dsimp only
+    split_ifs
+    · exact hbSfac_pos χ (three_le_of_primesGt2 p)
+    · norm_num
+  have htfsum : Summable (fun p => Real.log (tf p)) := by
+    refine Summable.of_abs (Summable.of_nonneg_of_le (fun _ => abs_nonneg _) (fun p => ?_)
+      summable_eight_div_sq)
+    rw [htfdef]
+    dsimp only
+    split_ifs
+    · exact abs_log_hbSfac_le χ (three_le_of_primesGt2 p)
+    · rw [Real.log_one, abs_zero]; positivity
+  set T : Finset Salt.TwinBar.PrimesGt2 :=
+    (Salt.Mertens.gt2Primes N).subtype (fun p => p.Prime ∧ 2 < p) with hT
+  have hTgt : ∀ x : Salt.TwinBar.PrimesGt2, x ∉ T → N < ((x : Salt.TwinBar.PrimesGt2) : ℕ) := by
+    intro x hx
+    rcases Nat.lt_or_ge N ((x : Salt.TwinBar.PrimesGt2) : ℕ) with h | h
+    · exact h
+    · exact absurd (by rw [hT, Finset.mem_subtype, Salt.Mertens.mem_gt2Primes]
+                       exact ⟨h, x.2.1, x.2.2⟩) hx
+  have hTle : ∀ x ∈ T, ((x : Salt.TwinBar.PrimesGt2) : ℕ) ≤ N := by
+    intro x hx
+    rw [hT, Finset.mem_subtype, Salt.Mertens.mem_gt2Primes] at hx
+    exact hx.1
+  have hnd : ∀ x : Salt.TwinBar.PrimesGt2, N < ((x : Salt.TwinBar.PrimesGt2) : ℕ) →
+      ¬ ((x : Salt.TwinBar.PrimesGt2) : ℕ) ∣ α := by
+    intro x hx hdvd
+    have := Nat.le_of_dvd hα0 hdvd
+    omega
+  have h1 := hWsum.sum_add_tsum_subtype_compl T
+  have h2 := htfsum.sum_add_tsum_subtype_compl T
+  have hTz : ∑ p ∈ T, Real.log (tf p) = 0 := by
+    refine Finset.sum_eq_zero (fun p hp => ?_)
+    rw [htfdef]
+    dsimp only
+    rw [if_neg (by have := hTle p hp; omega), Real.log_one]
+  have heq : (∑' x : {p : Salt.TwinBar.PrimesGt2 // p ∉ T}, Real.log (W x))
+      = ∑' x : {p : Salt.TwinBar.PrimesGt2 // p ∉ T}, Real.log (tf x) := by
+    refine tsum_congr (fun x => ?_)
+    have hgt := hTgt x.1 x.2
+    rw [hWdef, htfdef]
+    dsimp only
+    rw [if_pos hgt, hbWfac, if_neg (hnd x.1 hgt)]
+  have hKT : hbKappaTail χ α = Real.exp (∑' p, Real.log (W p)) :=
+    (Real.rexp_tsum_eq_tprod hWpos hWsum).symm
+  have hST : hbSingTail χ z = Real.exp (∑' p, Real.log (tf p)) :=
+    (Real.rexp_tsum_eq_tprod htfpos htfsum).symm
+  have hfin : (∏ p ∈ Pz z, (if 2 < p then hbWfac χ α p else 1))
+      = Real.exp (∑ p ∈ T, Real.log (W p)) := by
+    rw [Real.exp_sum]
+    have hstep : ∏ p ∈ T, Real.exp (Real.log (W p)) = ∏ p ∈ T, W p :=
+      Finset.prod_congr rfl (fun p _ => Real.exp_log (hWpos p))
+    rw [hstep, hT]
+    rw [Finset.prod_subtype_of_mem (fun k : ℕ => hbWfac χ α k)
+      (fun x hx => ⟨(Salt.Mertens.mem_gt2Primes.mp hx).2.1,
+        (Salt.Mertens.mem_gt2Primes.mp hx).2.2⟩)]
+    rw [← Finset.prod_filter, ← gt2Primes_eq_filter, hNdef]
+  rw [hKT, hST, hfin, ← h1, ← h2, hTz, heq, zero_add, Real.exp_add]
+
+/-! ### The one error: HB's `p ∣ q, p > z` truncation -/
+
+lemma one_sub_sum_le_prod_one_sub (g : ℕ → ℝ) :
+    ∀ S : Finset ℕ, (∀ p ∈ S, 0 ≤ g p) → (∀ p ∈ S, g p ≤ 1) →
+      1 - ∑ p ∈ S, g p ≤ ∏ p ∈ S, (1 - g p) := by
+  classical
+  intro S
+  induction S using Finset.induction_on with
+  | empty => intro _ _; simp
+  | @insert a s ha ih =>
+      intro h0 h1
+      rw [Finset.sum_insert ha, Finset.prod_insert ha]
+      have hga0 : 0 ≤ g a := h0 a (Finset.mem_insert_self a s)
+      have hga1 : g a ≤ 1 := h1 a (Finset.mem_insert_self a s)
+      have h0s : ∀ p ∈ s, 0 ≤ g p := fun p hp => h0 p (Finset.mem_insert_of_mem hp)
+      have h1s : ∀ p ∈ s, g p ≤ 1 := fun p hp => h1 p (Finset.mem_insert_of_mem hp)
+      have hih := ih h0s h1s
+      have hprod1 : ∏ p ∈ s, (1 - g p) ≤ 1 :=
+        Finset.prod_le_one (fun p hp => by linarith [h0s p hp, h1s p hp])
+          (fun p hp => by linarith [h0s p hp])
+      have hsum0 : 0 ≤ ∑ p ∈ s, g p := Finset.sum_nonneg h0s
+      nlinarith [hih, hprod1, hga0, hga1, hsum0,
+        mul_nonneg (by linarith : (0 : ℝ) ≤ 1 - g a)
+          (by linarith : (0 : ℝ) ≤ (∏ p ∈ s, (1 - g p)) - (1 - ∑ p ∈ s, g p)),
+        mul_nonneg hga0 hsum0]
+
+/-- **The truncation error, explicitly.**  For a finite set of primes,
+`|∏ (1 − 2/p) − 1| ≤ 2 ∑ 1/p` — the Weierstrass bound, one-sided in each direction. -/
+lemma abs_prod_one_sub_two_div_sub_one_le {S : Finset ℕ} (hS : ∀ p ∈ S, (2 : ℝ) ≤ (p : ℝ)) :
+    |(∏ p ∈ S, (1 - 2 / (p : ℝ))) - 1| ≤ 2 * ∑ p ∈ S, 1 / (p : ℝ) := by
+  classical
+  have h0 : ∀ p ∈ S, (0 : ℝ) ≤ 2 / (p : ℝ) := by
+    intro p hp; have := hS p hp; positivity
+  have h1 : ∀ p ∈ S, (2 : ℝ) / (p : ℝ) ≤ 1 := by
+    intro p hp
+    have h := hS p hp
+    rw [div_le_one (by linarith)]
+    linarith
+  have hlow := one_sub_sum_le_prod_one_sub (fun p => 2 / (p : ℝ)) S h0 h1
+  have hhigh : ∏ p ∈ S, (1 - 2 / (p : ℝ)) ≤ 1 :=
+    Finset.prod_le_one (fun p hp => by linarith [h0 p hp, h1 p hp])
+      (fun p hp => by linarith [h0 p hp])
+  have hsumeq : ∑ p ∈ S, 2 / (p : ℝ) = 2 * ∑ p ∈ S, 1 / (p : ℝ) := by
+    rw [Finset.mul_sum]
+    exact Finset.sum_congr rfl (fun p _ => by ring)
+  have hsum0 : (0 : ℝ) ≤ ∑ p ∈ S, 1 / (p : ℝ) :=
+    Finset.sum_nonneg (fun p hp => by have := hS p hp; positivity)
+  rw [abs_le]
+  constructor <;> linarith [hlow, hhigh, hsumeq]
+
+/-! ### `(4.4)` -/
+
+/-- **`(4.4)` — HB's rearrangement of `κ S₁`** (p.207):
+
+    κ S₁ = {1 + a₁} · x · C(α) · F² · ∏_{p≤⌊z⌋}(1 − 1/p)² · 𝔖(z,χ),
+    |a₁| ≤ 2 (log q / log z) / z = 2 z₀ / z .
+
+Everything except `a₁` is an *exact* identity: the `p ≥ z` halves of `κ`'s Euler product are
+literally `𝔖(z,χ)`'s (HB's `z > α`), and the `p ≤ ⌊z⌋` factors match one by one
+(`hb_rear_prod_identity`).  `a₁` is HB's own truncation of `∏_{p∣q,p∤α}(1−2/p)` at `z`, priced by
+`sum_recip_largePrimeFactors_le` (hb1983-notes:451).
+
+`hL1` is the Euler product for `L(1,χ)` split at `z` — WP2 input, not sieve algebra. -/
+theorem hb_hrear {q : ℕ} (χ : DirichletCharacter ℂ q) {α : ℕ} {z x L1 : ℝ}
+    (hq : 0 < q)
+    (hchi01 : ∀ p : ℕ, Nat.Prime p → Salt.TwinBar.chiRe χ p = 1 ∨
+      Salt.TwinBar.chiRe χ p = -1 ∨ Salt.TwinBar.chiRe χ p = 0)
+    (hchi0 : ∀ p : ℕ, Nat.Prime p → (Salt.TwinBar.chiRe χ p = 0 ↔ p ∣ q))
+    (hα0 : 0 < α) (hα2 : 2 ∣ α) (hz : 3 ≤ z) (hαz : (α : ℝ) < z)
+    (hL1 : L1 = (∏ p ∈ Pz z, (1 - Salt.TwinBar.chiRe χ p / (p : ℝ)))⁻¹ * hbF χ z) :
+    ∃ e1 : ℝ,
+      hbKappa χ α x L1 * hbS1 χ α z
+        = (1 + e1) * (x * hbCalpha α * hbF χ z ^ 2 * primeProdBelow z ^ 2 * hbSingz χ z)
+      ∧ |e1| ≤ 2 * (Real.log q / Real.log z) / z := by
+  classical
+  have hAsplit :
+      (∏ p ∈ (q.primeFactors.filter (fun p => ¬ p ∣ α)).filter (fun p => p ≤ ⌊z⌋₊),
+        (1 - 2 / (p : ℝ)))
+      * (∏ p ∈ (q.primeFactors.filter (fun p => ¬ p ∣ α)).filter (fun p => ¬ p ≤ ⌊z⌋₊),
+        (1 - 2 / (p : ℝ)))
+      = ∏ p ∈ q.primeFactors.filter (fun p => ¬ p ∣ α), (1 - 2 / (p : ℝ)) :=
+    Finset.prod_filter_mul_prod_filter_not _ _ _
+  -- the exact half
+  have hmaster : ((∏ p ∈ Pz z, (1 - Salt.TwinBar.chiRe χ p / (p : ℝ)))⁻¹) ^ 2
+        * (∏ p ∈ (q.primeFactors.filter (fun p => ¬ p ∣ α)).filter (fun p => p ≤ ⌊z⌋₊),
+            (1 - 2 / (p : ℝ)))
+        * (∏ p ∈ α.primeFactors, (1 - Salt.TwinBar.chiRe χ p / (p : ℝ)) ^ 2)
+        * (∏ p ∈ Pz z, (if 2 < p then hbWfac χ α p else 1))
+        * hbS1 χ α z
+      = hbCalpha α * primeProdBelow z ^ 2
+          * (2 * ∏ p ∈ Salt.Mertens.gt2Primes ⌊z⌋₊, (1 - (((p : ℝ) - 1) ^ 2)⁻¹)) := by
+    have hL : ((∏ p ∈ Pz z, (1 - Salt.TwinBar.chiRe χ p / (p : ℝ)))⁻¹) ^ 2
+        = ∏ p ∈ Pz z, ((1 - Salt.TwinBar.chiRe χ p / (p : ℝ))⁻¹) ^ 2 := by
+      rw [← Finset.prod_inv_distrib, ← Finset.prod_pow]
+    have hP : primeProdBelow z ^ 2 = ∏ p ∈ Pz z, (1 - 1 / (p : ℝ)) ^ 2 := by
+      rw [primeProdBelow_eq, ← Finset.prod_pow]
+    have hT2 : (∏ p ∈ Salt.Mertens.gt2Primes ⌊z⌋₊, (1 - (((p : ℝ) - 1) ^ 2)⁻¹))
+        = ∏ p ∈ Pz z, (if 2 < p then 1 - (((p : ℝ) - 1) ^ 2)⁻¹ else 1) := by
+      rw [gt2Primes_eq_filter, Finset.prod_filter]
+    have hEq := hb_rear_prod_identity χ hchi01 hchi0 hα2 hz (α := α) (z := z)
+    simp only [hbRearL, hbRearR, Finset.prod_mul_distrib] at hEq
+    rw [hL, qFactors_low_prod_eq (α := α) (z := z) hq,
+      alpha_primeFactors_prod_eq χ hα0 hαz, hbS1_eq χ (α := α) (z := z),
+      hbCalpha_eq hα0 hαz, hP, hT2]
+    rw [hEq]
+    ring
+  refine ⟨(∏ p ∈ (q.primeFactors.filter (fun p => ¬ p ∣ α)).filter (fun p => ¬ p ≤ ⌊z⌋₊),
+      (1 - 2 / (p : ℝ))) - 1, ?_, ?_⟩
+  · rw [hbKappa, hL1, hbKappaTail_split χ hα0 hαz, hbSingz, ← hAsplit]
+    linear_combination (x * hbF χ z ^ 2 * hbSingTail χ z
+      * (∏ p ∈ (q.primeFactors.filter (fun p => ¬ p ∣ α)).filter (fun p => ¬ p ≤ ⌊z⌋₊),
+        (1 - 2 / (p : ℝ)))) * hmaster
+  · have hprime : ∀ p ∈ (q.primeFactors.filter (fun p => ¬ p ∣ α)).filter
+        (fun p => ¬ p ≤ ⌊z⌋₊), (2 : ℝ) ≤ (p : ℝ) := by
+      intro p hp
+      simp only [Finset.mem_filter, Nat.mem_primeFactors] at hp
+      exact_mod_cast hp.1.1.1.two_le
+    have hb := abs_prod_one_sub_two_div_sub_one_le hprime
+    have hsub : (q.primeFactors.filter (fun p => ¬ p ∣ α)).filter (fun p => ¬ p ≤ ⌊z⌋₊)
+        ⊆ q.primeFactors.filter (fun p => ⌊z⌋₊ < p) := by
+      intro p hp
+      simp only [Finset.mem_filter] at hp ⊢
+      exact ⟨hp.1.1, by omega⟩
+    have hmono : ∑ p ∈ (q.primeFactors.filter (fun p => ¬ p ∣ α)).filter (fun p => ¬ p ≤ ⌊z⌋₊),
+        1 / (p : ℝ) ≤ ∑ p ∈ q.primeFactors.filter (fun p => ⌊z⌋₊ < p), 1 / (p : ℝ) :=
+      Finset.sum_le_sum_of_subset_of_nonneg hsub (fun p _ _ => by positivity)
+    have hkey := sum_recip_largePrimeFactors_le hq hz (by exact_mod_cast hq.ne')
+    have hfin : 2 * (Real.log q / Real.log z) / z = 2 * ((Real.log q / Real.log z) / z) := by
+      ring
+    rw [hfin]
+    linarith
+
+/-! ## §7 — the capstone: `(L2)` with **no** free sieve binders -/
+
+/-- **`(L2)` at the split point, fully discharged** — W4's `hb_L2_at_split_point` with its two
+sieve-side binders `hrear`/`hsing` supplied by this file, so that `κ`, `C(α)` and `𝔖(z,χ)` are
+now the corpus's own objects and the error is fully numeric:
+
+    κ·S₁ = (1 + δ)·x·𝔖·C(α)/(ηL)²,
+    |δ| ≤ 4(Ecorr + Eseg + Etail + 500(1 + 2 log ηL)/η) + 8·E_P
+            + 2·(2 z₀/z) + 2·(64/z),      z₀ = log q / log z .
+
+This is HB's `{1 + O(z₀(log η)^{−1/2})}` with every constant on the page. -/
+theorem hb_L2_at_split_point_concrete {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q)
+    {α : ℕ} {β₀ L η z x X L1 Ecorr Eseg Etail EP : ℝ} {Stail : ℂ}
+    (hq : 0 < q)
+    (hchi01 : ∀ p : ℕ, Nat.Prime p → Salt.TwinBar.chiRe χ p = 1 ∨
+      Salt.TwinBar.chiRe χ p = -1 ∨ Salt.TwinBar.chiRe χ p = 0)
+    (hchi0 : ∀ p : ℕ, Nat.Prime p → (Salt.TwinBar.chiRe χ p = 0 ↔ p ∣ q))
+    (hα0 : 0 < α) (hα2 : 2 ∣ α)
+    (hβ₀1 : β₀ < 1) (hL : 0 < L) (hη : η = 1 / ((1 - β₀) * L))
+    (hz : 32 ≤ z) (hαz : (α : ℝ) < z)
+    (hX : 3 ≤ X) (hwin : Real.log X ≤ 500 * L) (hηlarge : 500 ≤ η)
+    (hm1 : zeroMult χ (β₀ : ℂ) = 1)
+    (htail : ‖Stail + ((zeroMult χ (β₀ : ℂ) : ℕ) : ℂ)
+        * ((∫ v in Ioi X, v ^ (β₀ - 2) / Real.log v : ℝ) : ℂ)‖ ≤ Etail)
+    (hseg : |(logChiSum χ z X).re
+        - (Real.log (Real.log z) - Real.log (Real.log X))| ≤ Eseg)
+    (hcorr : |Real.log (hbF χ z) - ((logChiSum χ z X).re + Stail.re)| ≤ Ecorr)
+    (hP : |Real.log (primeProdBelow z) + Real.log (Real.log z)
+        + Real.eulerMascheroniConstant| ≤ EP)
+    (hL1 : L1 = (∏ p ∈ Pz z, (1 - Salt.TwinBar.chiRe χ p / (p : ℝ)))⁻¹ * hbF χ z)
+    (hsmall : 4 * (Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log (η * L)) / η)
+        + 8 * EP + 2 * (64 / z) ≤ 1) :
+    ∃ δ : ℝ,
+      hbKappa χ α x L1 * hbS1 χ α z
+        = (1 + δ) * (x * Salt.HardyLittlewood.twinSingularSeries * hbCalpha α / (η * L) ^ 2)
+      ∧ |δ| ≤ 4 * (Ecorr + Eseg + Etail + 500 * (1 + 2 * Real.log (η * L)) / η)
+          + 8 * EP + 2 * (2 * (Real.log q / Real.log z) / z) + 2 * (64 / z) := by
+  obtain ⟨e1, hrear, he1⟩ :=
+    hb_hrear χ (x := x) hq hchi01 hchi0 hα0 hα2 (by linarith) hαz hL1
+  obtain ⟨e2, hsing, he2⟩ := hb_hsing χ hz
+  exact hb_L2_at_split_point χ hβ₀1 hL hη (by linarith) hαz hX hwin hηlarge hm1 htail hseg
+    hcorr hP hrear hsing he1 he2 hsmall
 
 end Salt.HB

@@ -25,3 +25,4 @@ docs/sources/*.txt
 # Copyrighted source papers: never tracked (the public-gate purge list covers history)
 docs/sources/*.pdf
 articles/*.pdf
+/ScratchW45.lean

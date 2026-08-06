@@ -47,6 +47,8 @@ import Salt.HB.Lemma7EF
 import Salt.HB.Lemma7F
 import Salt.HB.Lemma7Prod
 import Salt.HB.Lemma7
+import Salt.HB.Lemma7Kappa
+import Salt.HB.MOne
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -233,3 +235,21 @@ open Salt.Tactic in
   Salt.HB.abs_wLog'_mul_psi_sub_theta_le Salt.HB.ppDefect_le Salt.HB.ppDefect_le'
   Salt.HB.hb_hcorr_closed Salt.HB.hb_hseg_closed
   Salt.HB.hb_L2_core Salt.HB.hb_L2_at_split_point
+  Salt.HB.efShiftB_le_scale_sharp Salt.HB.efEnvelope_le_ledger_sharp
+  Salt.HB.ledger_const_le_of_window Salt.HB.efEnvelope_zfr_eventually_le_sharp
+  Salt.HB.integral_inv_mul_log_sq Salt.HB.tail_le_of_pointwise
+  Salt.HB.logChiSum_tendsto_zfr_hundred
+  Salt.HB.zeroMult_eq_one_of_window Salt.HB.zeroMult_eq_one_of_gap
+  Salt.HB.zeroMult_eq_one_of_eta
+  Salt.HB.hbG_prime Salt.HB.hbG_prime_dvd Salt.HB.hbG_le_four Salt.HB.one_sub_hbG_div_eq
+  Salt.HB.mem_Pz Salt.HB.primeProdBelow_eq
+  Salt.HB.hbSfac_le_one Salt.HB.one_sub_four_div_sq_le_hbSfac Salt.HB.hbSfac_pos
+  Salt.HB.abs_log_hbSfac_le Salt.HB.tsum_tail_inv_sq_le Salt.HB.three_le_of_primesGt2
+  Salt.HB.summable_eight_div_sq Salt.HB.abs_log_twinFactor_le Salt.HB.hbSfac_log_summable
+  Salt.HB.hbWfac_pos Salt.HB.abs_log_hbWfac_le Salt.HB.hbWfac_log_summable
+  Salt.HB.hbWfac_multipliable Salt.HB.hb_hsing
+  Salt.HB.hb_rear_factor Salt.HB.hb_rear_factor_two Salt.HB.gt2Primes_eq_filter
+  Salt.HB.hb_rear_prod_identity Salt.HB.hbCalpha_eq Salt.HB.alpha_primeFactors_prod_eq
+  Salt.HB.qFactors_low_prod_eq Salt.HB.hbS1_eq Salt.HB.hbKappaTail_split
+  Salt.HB.one_sub_sum_le_prod_one_sub Salt.HB.abs_prod_one_sub_two_div_sub_one_le
+  Salt.HB.hb_hrear Salt.HB.hb_L2_at_split_point_concrete

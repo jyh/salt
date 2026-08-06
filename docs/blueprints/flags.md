@@ -20314,9 +20314,9 @@ are carried for the record but discharged by `hC`'s provider, hence underscore-n
 file**; 3/3 audited at `[propext, Classical.choice, Quot.sound]`; purely additive — no landed
 statement touched, `Salt/HB/All.lean` **NOT** touched by instruction.)
 
-**⛔ ROLL-CALL OWED**: `Salt/HB/All.lean` needs one `import Salt.HB.MOne` row and the three
-audit names `Salt.HB.zeroMult_eq_one_of_window` / `_of_gap` / `_of_eta`. Deliberately left to
-the wave that owns that file.
+**✅ ROLL-CALL PAID** (by N4B-W4.5, same night): `Salt/HB/All.lean` now carries
+`import Salt.HB.MOne` and the three audit names `Salt.HB.zeroMult_eq_one_of_window` / `_of_gap` /
+`_of_eta`. (Originally left to the wave that owns that file.)
 
 ⟦THE DELIVERABLE⟧ N4b §D11's binder `hm1 : zeroMult χ (β₀ : ℂ) = 1` is a theorem above a
 **bare numeral** threshold — no `q`-growth, unlike this design's `hN`/`hN+` regime demands:
@@ -20446,10 +20446,89 @@ factor moved. That is a useful rule for the corpus: **when a ledger constant loo
 row to re-price is always one that swallowed a logarithm of the modulus or the height into the
 scale.**
 
-**ROLL-CALL OWED.** The 8 public new names —
-`efShiftB_le_scale_sharp`, `efEnvelope_le_ledger_sharp`, `ledger_const_le_of_window`,
-`efEnvelope_zfr_eventually_le_sharp`, `integral_inv_mul_log_sq`, `tail_le_of_pointwise`,
-`logChiSum_tendsto_zfr_hundred` (plus nothing else public; the other 6 are `private`) — are NOT
-yet in `Salt/HB/All.lean`'s roll-call. Left for the W4.5 executor's `All.lean` sweep tonight, per
-the dispatch. `Salt/HB/Lemma7Kappa.lean` was being edited by a neighbour during this node; no
+**✅ ROLL-CALL PAID** (by N4B-W4.5's `All.lean` sweep, same night, per the dispatch). The 7
+public new names — `efShiftB_le_scale_sharp`, `efEnvelope_le_ledger_sharp`,
+`ledger_const_le_of_window`, `efEnvelope_zfr_eventually_le_sharp`, `integral_inv_mul_log_sq`,
+`tail_le_of_pointwise`, `logChiSum_tendsto_zfr_hundred` (the other 6 are `private`) — are now in
+`Salt/HB/All.lean`'s roll-call, all `[propext, Classical.choice, Quot.sound]`. `Salt/HB/Lemma7Kappa.lean` was being edited by a neighbour during this node; no
 overlap, nothing touched outside `Lemma7EF.lean`.
+
+## ⟦N4B-W4.5 — `κ`, `G`, `C(α)` DEFINED AND BOTH SIEVE ROWS `(4.4)`/`(4.5)` PROVED: THE W4 RESIDUE IS CLOSED⟧
+
+(2026-08-05, Opus executor, 1 attempt per part; new file `Salt/HB/Lemma7Kappa.lean` 970 ln /
+44 declarations; `Salt/HB/All.lean` touched by this node only — 2 import rows
+(`Lemma7Kappa`, `MOne`) + 45 roll-call names, **including the two roll-call debts other night
+executors left** (M-ONE's 3 and N4B-SYMSPLIT's 7).  All 44 new declarations audit at
+`[propext, Classical.choice, Quot.sound]` (`ScratchW45.lean`, uncommitted); no `sorry`, no
+`native_decide`; full `lake build` exit 0 (9711 jobs), warnings = baseline, **none from the new
+file**.  Purely additive: not one landed statement touched.)
+
+**THE THREE DEFINITIONS.**  `hbG α d` (`:86`) is HB p.199's `G(d) = 2^{ω(d)}∏_{p∣d}(2p−1)/(p+1)`
+carrying his convention `G(d) = 0` for `(d,α) ≠ 1`; `hbG_le_four` is the dimension-4 fact
+verbatim, and `one_sub_hbG_div_eq` is p.207's `1 − G(p)/p = (p−1)(p−2)/(p(p+1))` — the bridge
+that makes W4's `hbS1` the complementary product of the sieve density `ρ₁`.  `hbCalpha α`
+(`:123`) is `(1.12)`.  `hbKappa χ α x L1` (`:348`) is Lemma 5's `κ` with `L(1,χ)` entering as
+the explicit real argument `L1` (the L-value is WP2's, not the sieve's), and its two infinite
+products folded into ONE `tprod` over the corpus's `PrimesGt2`, earned by
+`hbWfac_multipliable`.  `hbSingz χ z` (`:362`) is p.207's `𝔖(z,χ)`.
+
+**⭐ THE STRUCTURAL FIND — THE TAILS CANCEL LITERALLY, AND `z > α` IS EXACTLY WHY.**  HB's
+"assuming `z > α`" is not a convenience: it is the hypothesis under which every prime `p ≥ z`
+is coprime to `α`, so the `p ≥ z` halves of `κ`'s two Euler products *are* the two Euler
+products of `𝔖(z,χ)` — the same function of `p`, factor for factor.  `hbKappaTail_split`
+(`:721`) is that statement.  Consequence: `(4.4)` is a **finite** identity, and the only error
+in it is the one HB himself names.  This is why the file needed no infinite-product
+rearrangement theory at all.
+
+**⭐ THE SECOND FIND — `2 ∣ α` IS FORCED, AND IT IS WHERE THE `4` LIVES.**  If `2 ∤ α` then
+`κS₁ = 0`: the `p = 2` factor vanishes on **all three** branches (`χ(2) = 0` kills it through
+`∏_{p∣q,p∤α}(1−2/p)`, `χ(2) = −1` through `(1−2/p)(1+1/p)²`, `χ(2) = 1` through `S₁`'s
+`(p−1)(p−2)`).  So HB's `(1.3)–(1.9)` must force `2 ∣ α` — and once they do, the `p = 2`
+factor of `κS₁` is `1` while the right side's is `1/4`, which is precisely how `C(α)`'s leading
+`2` and `𝔖(z,χ)`'s leading `2` are absorbed.  `hb_rear_factor_two` is that bookkeeping; without
+it the identity is off by a factor 4 and no amount of odd-prime algebra finds the error.
+
+**`(4.4)` — `hb_hrear` (`:858`)**, with `a₁` **explicit**:
+
+    hbKappa χ α x L1 · hbS1 χ α z
+      = (1 + e₁)·(x · C(α) · F² · ∏_{p≤⌊z⌋}(1−1/p)² · 𝔖(z,χ)),   |e₁| ≤ 2(log q/log z)/z.
+
+Everything but `e₁` is exact.  The finite core `hb_rear_prod_identity` (`:631`) is a
+factor-by-factor check over `Pz z` in five cases (`p = 2`; and for odd `p`: `p ∣ α`, then
+`χ(p) = 0/1/−1`, all three giving `(p−2)/p` on both sides — `hb_rear_factor`, `:539`).  `e₁` is
+`∏_{p∣q, p>⌊z⌋, p∤α}(1−2/p) − 1`, priced by the Weierstrass bound
+`|∏(1−2/p) − 1| ≤ 2∑1/p` (`abs_prod_one_sub_two_div_sub_one_le`, off a hand-rolled
+`one_sub_sum_le_prod_one_sub` — mathlib has no Weierstrass product inequality in this shape)
+composed with W4's landed `sum_recip_largePrimeFactors_le`.  So `a₁ = 2z₀/z` exactly as
+hb1983-notes:451 predicts.
+
+**`(4.5)` — `hb_hsing` (`:371`)**: `hbSingz χ z = (1 + e₂)·𝔖`, `|e₂| ≤ 64/z` at `z ≥ 32`.
+Route: **stay at the log level throughout.**  `𝔖(z,χ)/𝔖 = exp(τ − σ)` where `τ` and `σ` are the
+two `p > ⌊z⌋` log-tails over the *same* complement subtype (`Summable.sum_add_tsum_subtype_compl`
+at the same `T`), each `≤ 8/⌊z⌋` by the new `tsum_tail_inv_sq_le`, and `|e^w − 1| ≤ 2|w|`
+closes it.  **This dodges an obstacle worth recording**: bounding `|𝔖(z,χ) − 𝔖|` additively
+would have required an explicit *lower* bound on `twinC2` (to convert to a relative error), which
+the corpus does not have; the multiplicative/log route never needs the constant's value.  The
+uniform pointwise majorant is `|log(factor)| ≤ 8/p²` for **both** families
+(`abs_log_hbSfac_le`, `abs_log_twinFactor_le`), got from `log x ≤ x − 1` at `x = (1−y)^{−1}`
+with `0 ≤ y ≤ 4/p² ≤ 4/9` — valid at `p = 3` too, where mathlib's `neg_log_one_sub_le`
+(`y ≤ 1/4`) does not reach.
+
+**THE CAPSTONE — `hb_L2_at_split_point_concrete` (`:938`).**  W4's `(L2)` with BOTH sieve
+binders discharged, so `κ`, `C(α)`, `𝔖(z,χ)` are now corpus objects and `δ` is fully numeric:
+
+    |δ| ≤ 4(Ecorr + Eseg + Etail + 500(1 + 2 log ηL)/η) + 8·E_P + 2·(2 z₀/z) + 2·(64/z).
+
+**WHAT STILL RIDES, AND WHY IT IS NOT THIS NODE'S.**  Three named binders, all WP2/character
+theory rather than sieve algebra: `hchi01` (`χ_ℝ(p) ∈ {0,±1}`), `hchi0` (`χ(p) = 0 ↔ p ∣ q`),
+and `hL1` — the Euler product `L(1,χ) = (∏_{p≤⌊z⌋}(1−χ(p)/p))^{−1}·F` split at `z`.  The first
+two are one `χ² = 1` unfolding away; `hL1` is the standard L-function Euler product against W4's
+`hbF`.  Flagged here so the N5/N6 consumer wiring knows the exact shape it owes.
+
+**RECIPE-VS-BYTES DELTAS.**  (a) The corpus already owns `one_sub_chiRe_div_pos`
+(`Lemma7Prod.lean:177`, no character hypothesis needed — it runs off `|χ_ℝ(p)| ≤ 1`); a
+duplicate was written and deleted.  (b) `Salt.Mertens.gt2Primes` is an `abbrev`, so `simp only`
+unfolds it past `mem_gt2Primes` — index-set `ext` proofs must reach for
+`Finset.mem_range`/`Nat.lt_succ_iff` instead.  (c) `hb_hsing` carries `32 ≤ z` (not W4's
+`3 ≤ z`) purely for the exponentiation guard `|τ − σ| ≤ 1`; the consumer's threshold is `η`-driven
+and far above it.
