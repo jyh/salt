@@ -605,3 +605,25 @@ notes exactly, **any mis-transcription in the notes is inherited by the kernel d
 verbatim**. So the risk is not eliminated, it is **localised to a single line of small type**, and
 one careful read of p.199 by anyone with a cleaner copy discharges it for both records at once.
 That is a sharper ask than "someone check κ", and it is the last open item from this sweep.
+
+### D.2 — the PDF text-layer route: **tried, and it cannot settle `κ`**
+
+Recorded as a negative result so nobody repeats it. The staged PDF *does* carry a text layer
+(`pdftotext -layout`, p.199 extracts ~3.3 KB), and it is **useful for prose but destroys displayed
+mathematics** — this is a scan with weak formula OCR.
+
+**What it DOES confirm** (independently of my page-image read, which is worth having):
+`"LEMMA 5. Let d\P, (d,oc) = 1, and d,z ^ qil3"` → the hypotheses `d ∣ P`, `(d,α) = 1`,
+**`d, z ≤ q^{1/3}`**; `"A(p) « log p, >4'(p) « £ log p (B = L + …)"` → the additive bounds;
+`"Co is independent of d and satisfies Co « BL"` → verbatim; `"We take z ^ ql/3, D = q1'3"` → the
+(2.3) parameter choice.
+
+**What it does NOT recover: `κ`'s factors.** The display degrades to fragments. The *subscripts*
+partially survive and are **consistent with the notes' four-product split** — `P[q\ / Plot`
+(= `∏_{p∣q, p∤α}`), `Pi*` (= `∏_{p∣α}`), `x<p)'=` and `X(P?=-I` (= the `χ(p)=1` and `χ(p)=−1`
+products) — which is weak corroboration of the *structure* only. **Every factor
+(`1−2/p`, `(1−χ(p)/p)²`, `1−1/p²`, `(1−2/p)(1+1/p)²`) and every exponent is lost.**
+
+**So the `κ` ask stands unchanged and cannot be closed by tooling available here**: it needs a
+cleaner copy or human eyes on one line of p.199. Both cheap routes — page image and text layer —
+are now exhausted and documented.
