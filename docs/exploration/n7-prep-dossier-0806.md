@@ -627,3 +627,25 @@ products) — which is weak corroboration of the *structure* only. **Every facto
 **So the `κ` ask stands unchanged and cannot be closed by tooling available here**: it needs a
 cleaner copy or human eyes on one line of p.199. Both cheap routes — page image and text layer —
 are now exhausted and documented.
+
+## ADDENDUM D.3 (2026-08-06, maestro) — κ VERIFIED AT THE PRINT; THE SWEEP'S LAST GAP CLOSES
+
+The maestro's own page-image read of the staged PDF (p.199 = PDF page 7) resolved the display
+at full resolution: every subscript and every exponent of κ's four products is individually
+legible. Against `hbKappa` (`Salt/HB/Lemma7Kappa.lean:348`):
+
+1. `∏_{p|q, p∤α}(1−2/p)` — stacked subscript `p|q` over `p∤α`, exactly as rendered. **VERIFIED.**
+2. `∏_{p|α}(1−χ(p)/p)²` — square OUTSIDE the parenthesis. **VERIFIED.**
+3. `∏_{p∤α, χ(p)=1}(1−1/p²)` — square on `p` inside, no outer exponent. **VERIFIED.**
+4. `∏_{p∤α, χ(p)=−1}(1−2/p)(1+1/p)²` — square on the `(1+1/p)` factor only. **VERIFIED.**
+
+Prefactor `xL(1,χ)²` matches `x * L1^2`. With D.1's internal cross-check (rendering vs. notes),
+`hbKappa` is now certified against the source. The five-block sweep carries **zero** remaining
+"structure matches" rows — everything is "verified".
+
+Line-number reconciliation (the evidence seat's 11:52 flag): `hbKappa` is at **:348**
+(`hbKappaTail` at :339); the 11:51 post's `:346` was the stale number.
+
+Method note for the record: ADDENDUM D.2's negative on the text layer stands — this read used
+the page image, which at full page resolution IS sharp enough for the subscripts. The earlier
+"not sharp enough" verdict was a property of the earlier render, not of the scan.
