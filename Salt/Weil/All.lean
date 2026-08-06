@@ -63,6 +63,8 @@ open Salt.Tactic in
   Salt.Weil.kloostermanMoment_eq_neg_localPowerSum
   Salt.Weil.newton_bridge
   Salt.Weil.kloostermanMoment_eq_cCoeff
+  Salt.Weil.kloosterman_mul_of_coprime_unit
+  Salt.Weil.kloosterman_mul_of_coprime_unit_twist
   Salt.Weil.norm_kloosterman_le_mul_of_coprime_unit
   Salt.Weil.weil_stepanov
   Salt.Weil.norm_kloosterman_prime_pow_even
@@ -142,8 +144,7 @@ specialises to `k = D·δ₁·w₁` with `δ₁, w₁` odd, where the factor rea
 unbounded at general `k`; its collapse to a constant on road moduli needs `v₂(q) ≤ 3` (W4-a), not
 W1-d alone. Stated in the docstrings, discharged nowhere in this module. -/
 open Salt.Tactic in
-#audit_axioms Salt.Weil.kloosterman_mul_of_coprime_unit_twist
-  Salt.Weil.natCast_chineseRemainder_fst
+#audit_axioms Salt.Weil.natCast_chineseRemainder_fst
   Salt.Weil.natCast_chineseRemainder_snd
   Salt.Weil.gcd_unit_twist_nat
   Salt.Weil.norm_kloosterman_estermann_nat

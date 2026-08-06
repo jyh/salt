@@ -44,7 +44,10 @@ per-prime-power Salié bound needs `IsUnit` of the first argument. We thread tha
 * `exists_split_stdAddChar_unit` upgrades the additive-character split to assert the twists
   `l₁, l₂` are **units** (the split constant of a faithful character is a non-zero-divisor, hence
   a unit in the finite ring `ZMod cᵢ`).
-* `kloosterman_mul_of_coprime_unit` — the twisted multiplicativity carrying `IsUnit` of both
+* `kloosterman_mul_of_coprime_unit_twist` — the twisted multiplicativity at **arbitrary** `a, b`,
+  carrying `IsUnit` of the two Bézout twists `l₁, l₂`. This is the general row (the computation
+  never needs a unit `a`); the gcd bookkeeping of `Salt.Weil.EstermannGlobal` consumes it directly.
+* `kloosterman_mul_of_coprime_unit` — its `IsUnit a` **corollary**, carrying `IsUnit` of both
   first arguments `l₁·(e a).1`, `l₂·(e a).2` (projections of a unit under the CRT iso are units,
   and the Bézout twists `lᵢ` are units, so their product is).
 * `norm_kloosterman_le_mul_of_coprime_unit` — the reduction: bounds `M₁, M₂` that hold merely at
@@ -131,28 +134,24 @@ theorem exists_split_stdAddChar_unit {c₁ c₂ : ℕ} [NeZero c₁] [NeZero c�
     intro z z' hzz
     exact (Prod.ext_iff.mp (e.symm.injective (ZMod.injective_stdAddChar hzz))).2
 
-/-- **Unit-carrying twisted multiplicativity.** For coprime `c₁, c₂` and a **unit** `a`,
-`S(a, b; c₁c₂) = S(A₁, B₁; c₁) · S(A₂, B₂; c₂)` with `A₁ = l₁·(e a).1`, `A₂ = l₂·(e a).2` both
-units (`l₁, l₂` the unit twists of `exists_split_stdAddChar_unit`, `(e a).ᵢ` the unit CRT
-projections). This is `kloosterman_mul_of_coprime` with `IsUnit` of both first arguments threaded
-through — exactly what the per-prime-power Salié bound needs. -/
-theorem kloosterman_mul_of_coprime_unit {c₁ c₂ : ℕ} [NeZero c₁] [NeZero c₂]
-    (h : Nat.Coprime c₁ c₂) (a b : ZMod (c₁ * c₂)) (ha : IsUnit a) :
-    ∃ (l₁ : ZMod c₁) (l₂ : ZMod c₂),
-      IsUnit (l₁ * (ZMod.chineseRemainder h a).1)
-      ∧ IsUnit (l₂ * (ZMod.chineseRemainder h a).2)
-      ∧ kloosterman a b
+/-- **Twisted multiplicativity with unit twists, at arbitrary `a`.** For coprime `c₁, c₂` and
+**any** `a, b`, `S(a,b;c₁c₂) = S(l₁a₁, l₁b₁; c₁)·S(l₂a₂, l₂b₂; c₂)` where the Bézout twists
+`l₁, l₂` are **units**. This is the general form: `kloosterman_mul_of_coprime_unit` below is the
+`IsUnit a` corollary (the unit hypothesis serves only to assert `IsUnit` of the *products*
+`lᵢ·(e a).ᵢ`; the computation never touches it). Unit-ness of the twists alone is what the
+composite gcd bookkeeping of `Salt.Weil.EstermannGlobal` needs: a unit twist cannot enlarge
+`(cᵢ, a, b)`. -/
+theorem kloosterman_mul_of_coprime_unit_twist {c₁ c₂ : ℕ} [NeZero c₁] [NeZero c₂]
+    (h : Nat.Coprime c₁ c₂) (a b : ZMod (c₁ * c₂)) :
+    ∃ (l₁ : ZMod c₁) (l₂ : ZMod c₂), IsUnit l₁ ∧ IsUnit l₂ ∧
+      kloosterman a b
         = kloosterman (l₁ * (ZMod.chineseRemainder h a).1) (l₁ * (ZMod.chineseRemainder h b).1)
           * kloosterman (l₂ * (ZMod.chineseRemainder h a).2)
               (l₂ * (ZMod.chineseRemainder h b).2) := by
   haveI : NeZero (c₁ * c₂) := ⟨mul_ne_zero (NeZero.ne c₁) (NeZero.ne c₂)⟩
   obtain ⟨l₁, l₂, hu₁, hu₂, hsplit⟩ := exists_split_stdAddChar_unit h
   set e := ZMod.chineseRemainder h with he
-  have hp1 : IsUnit (e a).1 :=
-    (ha.map (e : ZMod (c₁ * c₂) →+* ZMod c₁ × ZMod c₂)).map (MonoidHom.fst (ZMod c₁) (ZMod c₂))
-  have hp2 : IsUnit (e a).2 :=
-    (ha.map (e : ZMod (c₁ * c₂) →+* ZMod c₁ × ZMod c₂)).map (MonoidHom.snd (ZMod c₁) (ZMod c₂))
-  refine ⟨l₁, l₂, hu₁.mul hp1, hu₂.mul hp2, ?_⟩
+  refine ⟨l₁, l₂, hu₁, hu₂, ?_⟩
   let ue : (ZMod (c₁ * c₂))ˣ ≃* (ZMod c₁)ˣ × (ZMod c₂)ˣ :=
     (Units.mapEquiv e.toMulEquiv).trans MulEquiv.prodUnits
   have hval1 : ∀ s : (ZMod (c₁ * c₂))ˣ,
@@ -215,6 +214,33 @@ theorem kloosterman_mul_of_coprime_unit {c₁ c₂ : ℕ} [NeZero c₁] [NeZero 
   dsimp only
   rw [← Fintype.sum_mul_sum]
   rfl
+
+/-- **Unit-carrying twisted multiplicativity.** For coprime `c₁, c₂` and a **unit** `a`,
+`S(a, b; c₁c₂) = S(A₁, B₁; c₁) · S(A₂, B₂; c₂)` with `A₁ = l₁·(e a).1`, `A₂ = l₂·(e a).2` both
+units (`l₁, l₂` the unit twists of `exists_split_stdAddChar_unit`, `(e a).ᵢ` the unit CRT
+projections). This is `kloosterman_mul_of_coprime` with `IsUnit` of both first arguments threaded
+through — exactly what the per-prime-power Salié bound needs. Derived from
+`kloosterman_mul_of_coprime_unit_twist` above: the `IsUnit a` hypothesis contributes only the
+unit-ness of the *products*, never the identity. -/
+theorem kloosterman_mul_of_coprime_unit {c₁ c₂ : ℕ} [NeZero c₁] [NeZero c₂]
+    (h : Nat.Coprime c₁ c₂) (a b : ZMod (c₁ * c₂)) (ha : IsUnit a) :
+    ∃ (l₁ : ZMod c₁) (l₂ : ZMod c₂),
+      IsUnit (l₁ * (ZMod.chineseRemainder h a).1)
+      ∧ IsUnit (l₂ * (ZMod.chineseRemainder h a).2)
+      ∧ kloosterman a b
+        = kloosterman (l₁ * (ZMod.chineseRemainder h a).1) (l₁ * (ZMod.chineseRemainder h b).1)
+          * kloosterman (l₂ * (ZMod.chineseRemainder h a).2)
+              (l₂ * (ZMod.chineseRemainder h b).2) := by
+  haveI : NeZero (c₁ * c₂) := ⟨mul_ne_zero (NeZero.ne c₁) (NeZero.ne c₂)⟩
+  obtain ⟨l₁, l₂, hu₁, hu₂, hmul⟩ := kloosterman_mul_of_coprime_unit_twist h a b
+  set e := ZMod.chineseRemainder h with he
+  -- The projections of a unit under the CRT ring iso are units …
+  have hp1 : IsUnit (e a).1 :=
+    (ha.map (e : ZMod (c₁ * c₂) →+* ZMod c₁ × ZMod c₂)).map (MonoidHom.fst (ZMod c₁) (ZMod c₂))
+  have hp2 : IsUnit (e a).2 :=
+    (ha.map (e : ZMod (c₁ * c₂) →+* ZMod c₁ × ZMod c₂)).map (MonoidHom.snd (ZMod c₁) (ZMod c₂))
+  -- … so the twisted first arguments `lᵢ·(e a).ᵢ` are units, the twists `lᵢ` being units.
+  exact ⟨l₁, l₂, hu₁.mul hp1, hu₂.mul hp2, hmul⟩
 
 /-- **(3) The unit-threaded reduction step.** For coprime `c₁, c₂` and a **unit** `a`, bounds
 `M₁, M₂` that hold merely at *unit* first arguments already control the composite:

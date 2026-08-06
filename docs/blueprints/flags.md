@@ -21054,6 +21054,26 @@ proof was re-landed as `kloosterman_mul_of_coprime_unit_twist` in `EstermannGlob
 (arbitrary `a b`, `IsUnit l₁ ∧ IsUnit l₂`). A future consolidation should generalise the
 `CompositeTail` row and derive the unit-`a` version from it, deleting ~60 duplicated lines.
 
+> **ADDENDUM 2026-08-06 — ⟦WEIL-CONS⟧ THE CONSOLIDATION LANDED (salt Opus executor, attempt 1).**
+> `kloosterman_mul_of_coprime_unit_twist` now lives in `Salt/Weil/CompositeTail.lean:144`, directly
+> above its corollary `kloosterman_mul_of_coprime_unit` (`:225`). Its proof descends only from
+> `exists_split_stdAddChar_unit` (`CompositeTail:94`) plus mathlib — nothing from
+> `Estermann`/`EstermannGlobal` was needed, so the move was clean supply-wise (verified at the
+> kernel, not by eye). **The derived shape** (10 lines, statement byte-identical, iron rule 1):
+> `obtain ⟨l₁, l₂, hu₁, hu₂, hmul⟩ := kloosterman_mul_of_coprime_unit_twist h a b`, then the two
+> CRT-projection unit facts `hp1/hp2` (`ha.map (e : … →+* …)` pushed through `MonoidHom.fst/snd`),
+> then `exact ⟨l₁, l₂, hu₁.mul hp1, hu₂.mul hp2, hmul⟩` — the `IsUnit a` hypothesis is now visibly
+> confined to unit-ness of the *products*, never to the identity. **Line count:** the duplicate is
+> gone from `EstermannGlobal.lean` (−84 lines there, replaced by a 3-line pointer comment) and the
+> `CompositeTail` unit row's ~60-line body collapsed to 10; net −55 lines across the two modules
+> with the general row now stated once. Downstream `EstermannGlobal.lean:226`
+> (`norm_kloosterman_estermann_nat`'s recursion) resolves through the transitive import unchanged.
+> **Roll-call:** the `All.lean` attestation moved out of the W3 section into the main
+> `#audit_axioms` block beside `norm_kloosterman_le_mul_of_coprime_unit` (its `CompositeTail`
+> neighbour), and `kloosterman_mul_of_coprime_unit` — previously unattested — was added there too.
+> Both names audit at exactly `[propext, Classical.choice, Quot.sound]`; `Salt.Weil.All` builds
+> `saltbuild EXIT=0`, every roll-call row green, no new warnings.
+
 **GCD BOOKKEEPING, for anyone assembling a similar composite.** Only *divisibility* is needed, never
 gcd multiplicativity: `(c₁,A,B)·(c₂,A,B) ∣ (c₁c₂,A,B)` (coprime factors + `Nat.dvd_gcd`), and a unit
 twist can only shrink the datum, `(n, l.val·A, l.val·B) ∣ (n,A,B)` via `ZMod.val_coe_unit_coprime`.

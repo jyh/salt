@@ -25,11 +25,12 @@ divisor factor `d(2^κ) = κ+1 ≥ 1` and the 2-part gcd `(2^κ,a,b) ≥ 1` left
 
 ## The assembly
 
-* `kloosterman_mul_of_coprime_unit_twist` — twisted multiplicativity at **arbitrary** `a, b`
-  (no `IsUnit a`) carrying `IsUnit` of the two Bézout twists `l₁, l₂`. This is
-  `kloosterman_mul_of_coprime_unit` with the unit hypothesis on `a` dropped: the hypothesis was
-  used only to state `IsUnit` of the *products* `lᵢ·(e a).ᵢ`, and W3 needs unit-ness of the
-  twists alone (that is what preserves the gcd factor).
+* `kloosterman_mul_of_coprime_unit_twist` (imported from `Salt.Weil.CompositeTail`, where it was
+  consolidated on 2026-08-06) — twisted multiplicativity at **arbitrary** `a, b` (no `IsUnit a`)
+  carrying `IsUnit` of the two Bézout twists `l₁, l₂`. The unit-`a` row
+  `kloosterman_mul_of_coprime_unit` is now its corollary: that hypothesis was used only to state
+  `IsUnit` of the *products* `lᵢ·(e a).ᵢ`, and W3 needs unit-ness of the twists alone (that is
+  what preserves the gcd factor).
 * `gcd_unit_twist_nat` — a unit twist `l` on `ZMod n` rewrites nat arguments as
   `l·(A : ZMod n) = (l.val·A : ZMod n)` and can only *shrink* the gcd datum:
   `(n, l.val·A, l.val·B) ∣ (n, A, B)` (coprimality of `l.val` to `n`).
@@ -65,85 +66,9 @@ open scoped BigOperators
 
 /-! ### W3.0 — the supply repairs -/
 
-/-- **Twisted multiplicativity with unit twists, at arbitrary `a`.** For coprime `c₁, c₂` and
-**any** `a, b`, `S(a,b;c₁c₂) = S(l₁a₁, l₁b₁; c₁)·S(l₂a₂, l₂b₂; c₂)` where the Bézout twists
-`l₁, l₂` are **units**. Identical to `kloosterman_mul_of_coprime_unit` except that the `IsUnit a`
-hypothesis — which there served only to assert `IsUnit` of the products `lᵢ·(e a).ᵢ` — is dropped.
-Unit-ness of the twists is what the composite gcd bookkeeping needs: a unit twist cannot enlarge
-`(cᵢ, a, b)`. -/
-theorem kloosterman_mul_of_coprime_unit_twist {c₁ c₂ : ℕ} [NeZero c₁] [NeZero c₂]
-    (h : Nat.Coprime c₁ c₂) (a b : ZMod (c₁ * c₂)) :
-    ∃ (l₁ : ZMod c₁) (l₂ : ZMod c₂), IsUnit l₁ ∧ IsUnit l₂ ∧
-      kloosterman a b
-        = kloosterman (l₁ * (ZMod.chineseRemainder h a).1) (l₁ * (ZMod.chineseRemainder h b).1)
-          * kloosterman (l₂ * (ZMod.chineseRemainder h a).2)
-              (l₂ * (ZMod.chineseRemainder h b).2) := by
-  haveI : NeZero (c₁ * c₂) := ⟨mul_ne_zero (NeZero.ne c₁) (NeZero.ne c₂)⟩
-  obtain ⟨l₁, l₂, hu₁, hu₂, hsplit⟩ := exists_split_stdAddChar_unit h
-  set e := ZMod.chineseRemainder h with he
-  refine ⟨l₁, l₂, hu₁, hu₂, ?_⟩
-  let ue : (ZMod (c₁ * c₂))ˣ ≃* (ZMod c₁)ˣ × (ZMod c₂)ˣ :=
-    (Units.mapEquiv e.toMulEquiv).trans MulEquiv.prodUnits
-  have hval1 : ∀ s : (ZMod (c₁ * c₂))ˣ,
-      (e (s : ZMod (c₁ * c₂))).1 = ((ue s).1 : ZMod c₁) := by
-    intro s
-    rw [show ((ue s).1 : ZMod c₁)
-        = ((Units.map (MonoidHom.fst (ZMod c₁) (ZMod c₂)) (Units.mapEquiv e.toMulEquiv s) :
-            (ZMod c₁)ˣ) : ZMod c₁) from rfl,
-      Units.coe_map, MonoidHom.coe_fst, Units.coe_mapEquiv]
-    rfl
-  have hval2 : ∀ s : (ZMod (c₁ * c₂))ˣ,
-      (e (s : ZMod (c₁ * c₂))).2 = ((ue s).2 : ZMod c₂) := by
-    intro s
-    rw [show ((ue s).2 : ZMod c₂)
-        = ((Units.map (MonoidHom.snd (ZMod c₁) (ZMod c₂)) (Units.mapEquiv e.toMulEquiv s) :
-            (ZMod c₂)ˣ) : ZMod c₂) from rfl,
-      Units.coe_map, MonoidHom.coe_snd, Units.coe_mapEquiv]
-    rfl
-  set A₁ := l₁ * (e a).1 with hA₁
-  set B₁ := l₁ * (e b).1 with hB₁
-  set A₂ := l₂ * (e a).2 with hA₂
-  set B₂ := l₂ * (e b).2 with hB₂
-  have hLHS : kloosterman a b
-      = ∑ t : (ZMod (c₁ * c₂))ˣ,
-          ZMod.stdAddChar
-              (A₁ * ((ue t).1 : ZMod c₁) + B₁ * (((ue t).1⁻¹ : (ZMod c₁)ˣ) : ZMod c₁))
-            * ZMod.stdAddChar
-                (A₂ * ((ue t).2 : ZMod c₂) + B₂ * (((ue t).2⁻¹ : (ZMod c₂)ˣ) : ZMod c₂)) := by
-    unfold kloosterman
-    refine Finset.sum_congr rfl (fun t _ => ?_)
-    have hinv1 : (e ((t⁻¹ : (ZMod (c₁ * c₂))ˣ) : ZMod (c₁ * c₂))).1
-        = (((ue t).1⁻¹ : (ZMod c₁)ˣ) : ZMod c₁) := by
-      rw [hval1 t⁻¹, map_inv ue t]; rfl
-    have hinv2 : (e ((t⁻¹ : (ZMod (c₁ * c₂))ˣ) : ZMod (c₁ * c₂))).2
-        = (((ue t).2⁻¹ : (ZMod c₂)ˣ) : ZMod c₂) := by
-      rw [hval2 t⁻¹, map_inv ue t]; rfl
-    have arg1 : l₁ * (e (a * (t : ZMod (c₁ * c₂))
-          + b * ((t⁻¹ : (ZMod (c₁ * c₂))ˣ) : ZMod (c₁ * c₂)))).1
-        = A₁ * ((ue t).1 : ZMod c₁) + B₁ * (((ue t).1⁻¹ : (ZMod c₁)ˣ) : ZMod c₁) := by
-      rw [map_add, map_mul, map_mul, Prod.fst_add, Prod.fst_mul, Prod.fst_mul, hval1 t, hinv1,
-        hA₁, hB₁]; ring
-    have arg2 : l₂ * (e (a * (t : ZMod (c₁ * c₂))
-          + b * ((t⁻¹ : (ZMod (c₁ * c₂))ˣ) : ZMod (c₁ * c₂)))).2
-        = A₂ * ((ue t).2 : ZMod c₂) + B₂ * (((ue t).2⁻¹ : (ZMod c₂)ˣ) : ZMod c₂) := by
-      rw [map_add, map_mul, map_mul, Prod.snd_add, Prod.snd_mul, Prod.snd_mul, hval2 t, hinv2,
-        hA₂, hB₂]; ring
-    rw [hsplit, arg1, arg2]
-  rw [hLHS]
-  rw [Fintype.sum_equiv ue.toEquiv
-    (fun t =>
-      ZMod.stdAddChar
-          (A₁ * ((ue t).1 : ZMod c₁) + B₁ * (((ue t).1⁻¹ : (ZMod c₁)ˣ) : ZMod c₁))
-        * ZMod.stdAddChar
-          (A₂ * ((ue t).2 : ZMod c₂) + B₂ * (((ue t).2⁻¹ : (ZMod c₂)ˣ) : ZMod c₂)))
-    (fun p =>
-      ZMod.stdAddChar (A₁ * (p.1 : ZMod c₁) + B₁ * ((p.1⁻¹ : (ZMod c₁)ˣ) : ZMod c₁))
-        * ZMod.stdAddChar (A₂ * (p.2 : ZMod c₂) + B₂ * ((p.2⁻¹ : (ZMod c₂)ˣ) : ZMod c₂)))
-    (fun t => rfl)]
-  rw [Fintype.sum_prod_type]
-  dsimp only
-  rw [← Fintype.sum_mul_sum]
-  rfl
+-- `kloosterman_mul_of_coprime_unit_twist` (W3.0's twisted multiplicativity at arbitrary `a, b`
+-- with unit Bézout twists) now lives in `Salt/Weil/CompositeTail.lean`, above its `IsUnit a`
+-- corollary `kloosterman_mul_of_coprime_unit`, which is derived from it (WEIL-CONS, 2026-08-06).
 
 /-- **The CRT projections of a nat cast are nat casts** (first coordinate): the Chinese-remainder
 ring isomorphism is a ring hom, so it commutes with `Nat.cast`. -/
