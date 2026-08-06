@@ -21192,3 +21192,61 @@ over `ZMod n` with an `IsUnit` hypothesis whenever a `decide` is wanted.
 `fe2c41d` was made with a bare `git commit` in the shared worktree and swept the concurrent W3
 executor's staged files (nothing lost; `f6e0c12` carries the W3 message). Stones S2–S5 were
 committed with explicit pathspecs. The rule stands: **`git commit -- <paths>`, never bare.**
+
+## ✅ ⟦WEIL-TRIO W5 — THE SAWTOOTH KIT: S1 + S3 LAND, AND THE MATH SEAT'S §21016 FINDING IS CONFIRMED⟧
+
+(2026-08-06, Opus executor, `Salt/Weil/Sawtooth.lean` (new), roll-call rows in
+`Salt/Weil/All.lean`. All exits at `[propext, Classical.choice, Quot.sound]`.)
+
+**THE HEADLINE: W5 WAS NOT THE CLASS-C BLOCK IT WAS PRICED AT — because the corpus already
+owned the hard half.** The math seat's entry at `:21016` was right on both counts, and both were
+test-fired:
+
+1. **The sixth exit row (S3) really is a geometric sum.** `‖∑_{n∈(A,B], n≡b (q)} e(−sn/k)‖`
+   reindexes as `e(−s·n₀/k)·∑_{i<t} (e(−sq/k))^i`. Landed first attempt, no off-by-one: the
+   residue class inside `Finset.Ioc A B` is `(Finset.range t).image (fun i => b + q(c+1+i))`
+   with `c = (A−b)/q`, `t = ((B−b)/q − (A−b)/q).toNat` (Euclidean division, `filter_Ioc_dvd_
+   eq_image`). The ⚠️ SHAPE-MATCH caveat at `:21027` is **discharged**.
+2. **The sawtooth Fourier series was already in the kernel.** `Salt.MR.tendsto_sum_sin_div_nat`
+   (`Salt/MR/Sawtooth.lean:358`) — landed for the Hurwitz-zeta `k = 0` case of `LandauOdd`, and
+   the one thing mathlib genuinely lacks (`ZetaValues.hasSum_one_div_nat_pow_mul_sin` needs
+   exponent `≥ 3`; the `AddCircle` inversion needs summable coefficients). Without it, (7.2)'s
+   sharp arm needs either Abel's limit theorem at `e(θ) ≠ 1` plus a `log(1−z)` argument
+   computation, or a Dirichlet-kernel integration-by-parts — **each a 300–500 ln class-C block
+   in its own right**. With it, the whole rate argument is ~90 lines.
+
+**WHAT S1 ACTUALLY DELIVERS (constants explicit, no `O(·)`).**
+`sawtooth θ = Int.fract θ − 1/2`; `sawtoothFourier K θ = −∑_{0<|m|≤K} e(mθ)/(2πim)` (the
+literal (7.2) shape, over `(Finset.Icc (−K) K).erase 0`); `sawtoothRem K θ` the exact defect.
+
+* `sawtooth_fourier_expansion` — the identity, **hypothesis-free** (`ψ = fourier + rem`).
+* `norm_sawtoothRem_le_dist`: `‖R_K θ‖ ≤ (π(K+1)‖θ‖)⁻¹` for `‖θ‖ ≠ 0`. Route: `remReal K θ =
+  −(1/π)·lim_M (F(K+1+M) − F(K+1))` where `F` is the sine partial sum, and the block is Abel-
+  summed by `Salt.MR.abs_sum_shift_mul_le_of_bounded` against `1/n`, giving `2/((K+1)sin πx)`;
+  then Jordan `2‖x‖ ≤ sin(πx)` on `[0,1]` (`Real.mul_le_sin` + `sin_pi_sub` for the upper half).
+* `norm_sawtoothRem_le_linear`: `‖R_K θ‖ ≤ 1/2 + 2K‖θ‖`, **everywhere including the integers**
+  (there it reads `= 1/2`). Route: `|sin 2πy| ≤ 2π‖y‖` plus `‖mθ‖ ≤ m‖θ‖`.
+* `norm_sawtoothRem_le` (the exit N7 quotes): `‖R_K θ‖ ≤ (5/2)·Min(1/(K‖θ‖), 1)` for `K ≥ 1`,
+  with `sawtoothMajorant` carrying the §D5 degenerate arm as the honest `1`.
+  **`C = 5/2` is not sharp** — the sharp arm alone gives `1/π ≈ 0.318`; the `5/2` is the cost of
+  the `K‖θ‖ ≤ 1` regime, where the bound is `1/2 + 2K‖θ‖ ≤ 5/2`. N7 should quote the two arms
+  directly if it wants better.
+
+**S3's exit, precisely.** `norm_congrExpSum_le` (`q ≥ 1`, `q ∣ k` carried for the caller's
+bookkeeping — the *bound* never uses it), `‖·‖ ≤ if ‖sq/k‖ = 0 then (B−A) else Min(B−A,
+(2‖sq/k‖)⁻¹)`. `C′ = 1/2`. `dist₁_mul_div_eq_zero_iff` names the degenerate locus as `k ∣ sq`,
+which is the shape N7 tests when it splits the `s`-sum of (7.7). The length arm is
+`Finset.card_filter_le`-cheap and needs no reindex; the geometric arm is `Salt.BV.geom_e_bound`
+(`Salt/BV/PolyaVinogradov.lean:80`) at `θ = −sq/k`, i.e. the corpus's PV kernel, not `Salt.MR`'s.
+
+**CONVENTION CHECK (the notation hazard sheet, `hb1983-notes.md:883-903`).** `e` is
+`Salt.LS.e = exp(2πix)` — the *same* character `Salt.BV.sum_e_eq` is built on — and `‖·‖` is
+`Salt.LS.dist₁ · 0`. No second convention was introduced. `Salt/MR/Sawtooth.lean` works in the
+bare `Real.sin (2πxn)` idiom, so the bridge is `e_eq_cos_add_sin` + the `±m` pairing
+`e(mθ)/(2πim) + e(−mθ)/(−2πim) = sin(2πmθ)/(πm)`, done by induction on `K` (`sum_pair_eq`).
+
+**A CROSS-TRACK IMPORT, DELIBERATELY.** `Salt/Weil/Sawtooth.lean` imports `Salt.MR.Sawtooth`
+(and `Salt.BV.Completion`). No cycle exists (`Salt/MR/*` imports nothing from `Salt/Weil/*`).
+Anyone consolidating tracks later should note that the three MR rows used here
+(`abs_sum_mul_le_of_bounded`, `abs_sum_shift_mul_le_of_bounded`, `tendsto_sum_sin_div_nat`,
+`abs_sum_sin_le`, `sin_pi_mul_pos`) are track-neutral and belong in a commons.

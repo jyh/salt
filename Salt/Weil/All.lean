@@ -28,6 +28,7 @@ import Salt.Weil.CompositeFull
 import Salt.Weil.GcdBranch
 import Salt.Weil.Estermann
 import Salt.Weil.EstermannGlobal
+import Salt.Weil.Sawtooth
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -148,3 +149,29 @@ open Salt.Tactic in
   Salt.Weil.norm_kloosterman_estermann_nat
   Salt.Weil.norm_kloosterman_estermann
   Salt.Weil.norm_kloosterman_estermann_road
+
+/-! ### WEIL-TRIO W5 — the sawtooth kit (2026-08-06)
+
+`Salt.Weil.Sawtooth`, a **supply depot** for N7 (Lemma 10 does not live here).
+
+* **S1 — (7.2)**: `sawtooth_fourier_expansion` (the identity, hypothesis-free) plus
+  `norm_sawtoothRem_le`: `‖R_K θ‖ ≤ (5/2)·Min(1/(K‖θ‖), 1)` at `K ≥ 1` and every real `θ`, the
+  majorant in the §D5 degenerate-split form (`sawtoothMajorant`).  The two arms are exported
+  separately and are sharper: `norm_sawtoothRem_le_dist` (`(π(K+1)‖θ‖)⁻¹`, off the integers)
+  and `norm_sawtoothRem_le_linear` (`1/2 + 2K‖θ‖`, everywhere).  The analytic core is the
+  corpus's own `Salt.MR.tendsto_sum_sin_div_nat` + Abel (`Salt/MR/Sawtooth.lean`), NOT re-proved.
+* **S3 — the sixth exit row (design §D5)**: `norm_congrExpSum_le`, the congruence-restricted
+  completion `‖∑_{n∈(A,B], n≡b (q)} e(−sn/k)‖ ≤ Min(B−A, (2·dist₁(sq/k,0))⁻¹)` with the
+  degenerate arm (`k ∣ sq`, `dist₁_mul_div_eq_zero_iff`) split off.  `C′ = 1/2`.
+* **S2 — (7.3)/(7.4)**: see `docs/blueprints/flags.md` (the `K/m²` arm is banked, not landed). -/
+open Salt.Tactic in
+#audit_axioms Salt.Weil.sawtooth_fourier_expansion
+  Salt.Weil.norm_sawtoothRem_le
+  Salt.Weil.norm_sawtoothRem_le_dist
+  Salt.Weil.norm_sawtoothRem_le_linear
+  Salt.Weil.norm_congrExpSum_le
+  Salt.Weil.norm_congrExpSum_le_length
+  Salt.Weil.norm_congrExpSum_le_dist
+  Salt.Weil.dist₁_mul_div_eq_zero_iff
+  Salt.Weil.dist₁_neg_zero
+  Salt.Weil.dist₁_sub_zero
