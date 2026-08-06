@@ -20112,3 +20112,102 @@ called it "the prime-power correction" and that is right, but note its *tail* le
 carries an existential `M`; `mertens_second_sharp'` (Third.lean:679) is the one to quote, since
 only there is `M` identified as `γ − B` — and the `γ` must be the same `Real.eulerMascheroniConstant`
 that §1's integral produces, which it is.
+
+## ⟦N4B-W2c — (c1) (c2) (c3) (c4) ALL LANDED; K RE-PRICED, THE DELTA NAMED⟧
+
+(2026-08-05 evening, Opus executor, follow-up to N4B-W2b's four-part brief; all in
+`Salt/HB/Lemma7EF.lean`, now 2358 ln, 73 declarations, every new one
+`[propext, Classical.choice, Quot.sound]`; full `lake build` exit 0 from `$?`, 9707 jobs,
+188 warnings = baseline, **none from this file** — the three `maxHeartbeats` raises carry the
+mandated explanatory comments.)
+
+**(c1) THE CEILING AS A FUNCTION OF `u` — landed, first attempt.**
+`continuousOn_efEnvelope_ceilFun` (:1342) is the `(c1)` upgrade of `continuousOn_efEnvelope`:
+with `bceil = B u` the two exponents `u^{B u}` and `u^{B u − 1}` become genuinely two-variable
+`rpow`s, so `ContinuousOn.rpow` replaces `ContinuousOn.rpow_const` — that is the whole of the new
+mathematics, exactly as W2b predicted. `logChiSum_composite_of_ceilFun` (:1392) is then the
+`(4.12)` composite with the ceiling binder quantified per-`t` at the box top `T₀(t)+1`.
+
+**(c2) THE LEDGER — landed, 3 iterations.** `efEnvelope_le_ledger` (:1766):
+
+> `G(u) ≤ (m + 4·10^8)/M + M/u + 2·10^8·M^11·u^{σb−1} + 5·10^4·M^4·u^{bceil−1}`,
+> `M = log(qu) + 2`, so `T₀(u) = M^6` and `h(u) = u/M^3` EXACTLY.
+
+Supporting: `efShiftB_le_scale` (:1517 — the Borel–Carathéodory/Jensen edge constant
+`B ≤ 3·10^7·M^8`), `efShiftBound_le_rows` (:1588 — the three contour edges against the plain
+shape `S x²/T₀² + S x^{σb+1} + (log x+1)x²/T₀`; the middle one is D9's flagged LEFT EDGE),
+and `ledger_algebra` (:1690 — the division-heavy combination, isolated as pure algebra).
+`bceil` is left free, so ONE ledger serves both ranges: Range A instantiates it at the constant
+repulsion ceiling (the `hN+` η-gain is then the power saving `u^{bceil−1}`), Range B at
+`efZfrCeil`.
+
+**ONE NEW NAMED HYPOTHESIS, carried and priced: `hgap : 1/20 ≤ σb − σa`.** At the design
+parameters `σa = 9/10`, `σb = 1 − log L/L` this holds for `L ≥ 250` (`log L/L ≤ 0.0221` there, so
+`σb − σa ≥ 0.0779`). It is what turns the edge constant's `1/(σb − σa)` into a number.
+
+**(c3) RANGE B AT EVERY HEIGHT — landed, 2 attempts.** `efZfrCeil q c₀ u = 1 − c₀/log(q(T₀(u)+3))`
+(:1953), with `continuousOn_efZfrCeil` (:1969) and `re_le_efZfrCeil` (:1978 — the ceiling holds at
+EVERY `u`, which is precisely what no constant `bceil < 1` can do). The decay,
+`efZfrCeil_rpow_le` (:2012), is stated in the **honest, `Y₁`-free form**:
+
+> `u^{bceil(u)−1} ≤ e^{−A}` as soon as `A·(log q + 7·log M) ≤ c₀·log u`.
+
+**THE `L^{−20}` DELTA, MADE VISIBLE.** Read at the design's `Y₁ = exp(20·L·log L/c₀)` with
+`A = 20 log L`, the hypothesis reads `20 log L·(L + 7 log M) ≤ 20 L log L`, i.e. `7 log M ≤ 0` —
+FALSE. The achievable grade at `Y₁` is `A = 20 log L·L/(L + 7 log M)`; at `L = 250`,
+`log M ≈ log(20·250·log 250/c₀) ≈ 21.9`, so `A ≈ 20 log L·250/(250+153) ≈ 0.62·(20 log L)`, i.e.
+about `L^{−12.4}` and not `L^{−20}`. The gap closes as `L → ∞` (the correction is
+`L/(L + 7 log M)`). D4's `L^{−20}` is therefore an asymptotic reading, not a bound at `L = 250`;
+the sharp statement is in the kernel, and it is the hypothesis, not a constant, that carries the
+loss. **Nothing downstream in W2 depends on the grade being exactly 20** — the tail only needs
+`A → ∞`.
+
+**(c4) THE TAIL, CONSUMABLE END TO END — landed, 3 attempts.** `logChiSum_tendsto_zfr` (:2321)
+is `logChiSum_tendsto_of_envelope` fully instantiated at the freeze's parameters and the Range-B
+ceiling, with `hGint`/`hGlim` DISCHARGED. The route:
+`efEnvelope_zfr_eventually_le` (:2096) — `G(u) ≤ (m + 4·10^8 + 3)/log u` for all large `u` —
+then `integrableOn_div_of_eventually_le` (:2273) and `tendsto_div_log_of_eventually_le` (:2252),
+both riding on `integrableOn_inv_mul_log_sq` (:2228: `∫^∞ dt/(t (log t)^2)` converges, the
+antiderivative being `−1/log t`). **`G ≤ C/log t` is exactly the right grade** — one power of
+`log` better and the `dt/(t log t)` integral diverges; one power worse and it is free.
+
+The decay engine is a single pair of lemmas: `s^n e^{−δs} → 0` for the left edge and the
+de-smoothing constant, and `s^n e^{−δ√s} → 0` for the erased spend, where the ceiling itself
+creeps to `1` and only `log(q(T₀+3)) ≤ log q + 7 log M` (`log M ≍ log log u`, NOT `M`) keeps the
+exponent alive. The `√s` is not slack: `Lq + 7 log M ≤ 15√(log u)` is what makes
+`A = (c₀/15)√(log u)` admissible.
+
+**THE REMAINING BINDERS on the tail form are `hZFR`, `hreal′`, `hgap` — and NOTHING ELSE.**
+`hN+`, `hord` and the `q^{250} ≤ X` edge do **not** appear: they are Range-A's, and the Range-B
+ceiling needs none of them. This is a genuine simplification over the freeze's expectation.
+
+**A STRUCTURAL COROLLARY (new).** Since `re_le_of_zeroFree_of_ne` holds at every height, the
+Range-A/Range-B split is NOT needed for the tail's two analytic hypotheses at all — Range B alone
+delivers them. Range A is needed only for the NUMERIC size of `∫_X^{Y₁} G/(t log t)`, where the
+constant repulsion ceiling is enormously better than `1 − c₀/log(q(T₀+3))`. And that numeric use
+CANNOT be glued into one envelope: a piecewise ceiling (`bA` below `Y₁`, `efZfrCeil` above) is
+discontinuous, and the transfer demands `ContinuousOn`; a `max`-glue keeps continuity but throws
+away Range A's saving exactly where it is wanted. **The correct shape is a two-window argument** —
+`logChiSum_composite_of_ceiling` on `[X,Y₁]` at the constant repulsion ceiling, plus the tail form
+above `Y₁` — joined by `logChiSum_add` (:1155). Recorded here; not owed by this node.
+
+**THE KERNEL CONSTANT `K` — re-priced, and the delta named.** From the landed ledger the tail
+bound is
+`G(X)/log X + 2∫_X^∞ G/(t log t) ≤ C/(log X)^2 + 2C/log X`, `C = m + 4·10^8 + 3`.
+Note the SHAPE is one full power of `log` better than the paper's `K(log X)^{−1/2}`. Matching the
+paper's normalisation, the kernel forces
+**`K = 2C·(log X)^{−1/2} + O((log X)^{−3/2})`**, so `K ≤ 100` needs
+`log X ≥ (2C/100)^2 ≈ 6.4·10^13` (at `m = 1`), i.e. `L ≥ 2.6·10^11` at the `q^{250} ≤ X` edge —
+against the paper's `L ≥ 250`. **That is a delta of about nine orders of magnitude in `L`, and it
+is entirely the ledger's, not the mathematics'.** Traced: the `4·10^8` is `10·S/M^9` with
+`S ≤ 3·10^7 M^8`, and §10 deliberately substitutes `log q ≤ M − 3` and `log M ≤ M − 1` throughout
+to keep the proof division-free. Sharply, `S ≍ 9.1·10^4·M^6·(L + 6 log M)(L/2 + 6 log M + 3)`, so
+`10 S/M^9 ≍ 9.1·10^5(L+6 log M)(L/2+6 log M+3)/M^3`; at the window edge `L ≤ M/250` that is
+`≈ 8/M`, i.e. `C ≈ 10` rather than `4·10^8` — with which `K = 100` at `L ≥ 250` is comfortable.
+**So the paper's `K = 100` is not contradicted; it is simply not what OUR ledger proves.**
+The sharpening is mechanical and is the obvious next stone: restate `efShiftB_le_scale` and
+`efEnvelope_le_ledger` carrying `log q` and `log M` as separate symbols (i.e. push the
+`q^{250} ≤ X` edge INTO §10) instead of collapsing both into `M`. Until that lands,
+**`K = 100 at L ≥ 250` remains paper-only and must not be quoted as kernel-checked**; what IS
+kernel-checked is `K = 2(m + 4·10^8 + 3)(log X)^{−1/2}`, plus the strictly better `(log X)^{−1}`
+shape.
