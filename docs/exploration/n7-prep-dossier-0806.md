@@ -485,3 +485,38 @@ p.221, last line of §6: *"On taking `σ → 1` we have `MF(0,0) → κx^{−1}`
 now follows on integrating over `t`, since the integral of `A₃(d)` is also an additive function of
 `d`."* So `κ` is **defined by that limit**, not by an independent formula — worth knowing for
 anyone reconciling `Salt/HB/Lemma7Kappa.lean`'s `hbKappa` against the paper.
+
+---
+
+# ADDENDUM C (2026-08-06) — §5's OPENING VERIFIED, pp.210–211: **CLEAN**
+
+Read-only, no Lean. Continues the source-verification sweep (§7 = ADDENDUM A, §6 = ADDENDUM B).
+
+**RESULT: no defects.** Every item in `hb1983-notes.md`'s §5 opening matches the paper:
+
+- the `Λ*` μ-sieve expansion and its truncation at `m < q`, with error
+  `O(d(n)(log n)·#{m : m²∣n, m ≥ q})` — matches p.210;
+- the truncation error in `S(d)`, `≪ Σ_{m≥q} x^{1+ε}m^{−2} ≪ x^{1+ε}q^{−1}` — matches p.210;
+- **Lemma 9** (`d ∣ P`; the double `dV_i/V_i` integral over `S(m₁²d₁j₁, m₂²d₂j₂; V₁,V₂)` with
+  `O(x^{1+ε}q^{−1})`) — matches p.211 term for term;
+- **(5.1)** `(δ_i,q) = (δ_i,α) = (δ₁,δ₂) = 1` — matches;
+- **(5.3)** `Σ_{R_i,S_i} Σ_{a_i,b_i=1}^{q} χ(b₁b₂)S` with `(q, a_ib_i) = 1`, and the definition of
+  `S` as the four-condition lattice count — matches.
+
+**⭐ AND (5.2) IS VERBATIM AT THE SOURCE**, which independently re-confirms the p.214 erratum:
+
+> *"Since `x ≪ l_i ≪ x` we may assume that `R_i ≥ V_i`, `S_i ≫ 1`, `x ≪ δ_i R_i S_i ≪ x`."* (5.2)
+
+From this alone, `S₁ ≤ R₁` gives `S₁² ≤ R₁S₁ ≍ x/δ₁ ≤ x`, hence **`S₁ ≪ x^{1/2}`** — the exponent
+HB's p.214 prints as `x^{1/4}`. So the erratum is now established **twice over and independently**:
+once from HB's own substituted display (ADDENDUM A / `b25d8aa`), once from (5.2) read directly.
+
+**Scope note.** Lemma 5's *statement* lives in §2 (pp.197–204), not here; §5 opens with "we show how
+the proof of Lemma 5 may be made to depend on the estimation of some simpler sums". Verifying the
+statement itself remains the last unchecked block, and it is the one N7 must render in Lean.
+
+**Running tally after four blocks** (§5-opening, §5-body, §6, §7): the source has corrected **HB
+twice** (both the `:611` exponent pair) and corrected **our transcription three times** (the dropped
+`w₂` index in (5.14); the dropped "not necessarily in `α`" on the `C_i`; the over-stated log power
+in (7.8)). **We remain the less reliable party.** This block breaks the streak of "every block
+yields a defect" — reported as prominently as the defects were.
