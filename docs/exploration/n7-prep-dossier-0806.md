@@ -92,12 +92,13 @@ The ψ's arise from **(5.17)** (`:594`). "Applying Lemma 10" is `:605-609`. The 
    `S = Σ_{S₁<w₁≤2S₁} #{v₂ : …}` with `w₂` free in both the summand and `T_i(w₁,w₂)` — yet (5.19)
    at `:634` sums over **both** `w_i`. **The variable the notes lose is exactly Lemma 10's
    summation variable.** Recover the double-sum form from the source first.
-2. **The `:611` erratum residual** (corrected today at `1de7dc3`, residual flagged at
-   `:620-628`): even at the corrected `S₁ ≪ x^{1/2}`, the provisos `S₁ ≪ x^{1/2}` and
-   `S₂ ≪ x^{1/4}` give `S₁S₂ ≪ x^{3/4}`, contradicting the required `S₁S₂ ≫ x^{15/16}` — the
-   regime is **still empty as written**. Likely a second transcription error (`S₂ ≪ x^{1/2}` by
-   the symmetric (5.2) argument leaves `(x^{15/16}, x]` non-empty). **Needs HB p.214 at the
-   bytes. N7 owns it.**
+2. ~~**The `:611` erratum residual** — needs HB p.214 at the bytes; N7 owns it.~~
+   ✅ **CLOSED at the source, same day (`b25d8aa`).** p.214 read directly: HB **prints**
+   `S₁ ≪ x^{1/4}`, so the notes were faithful and **the typo is the paper's**; his own next
+   display forces `1/2` three times over. The `S₂ ≪ x^{1/4}` proviso is **the same typo again**
+   and is what emptied the regime — at `x^{1/2}` the regime `S₁S₂ ∈ (x^{15/16}, x]` is non-empty,
+   and term-by-term the `S₂` proviso **is not needed at all**. N7 owes only the corrected
+   exponents. See `docs/sources/hb1983-notes.md` at the `[corrected 2026-08-06]` block.
 3. **`(log Kk)³` vs `(log 2k)³`.** The freeze rules Lean statements carry `d(k)³(log 2k)³`
    literally (`weil-trio-design-0806.md:90-93`), but the notes' pre-final display carries
    `(log Kk)³`. Bounded conversion: `sup_{k≥2} log(Kk)/log(2k) = 1.3366` (at `k=2`; limit `5/4`),
