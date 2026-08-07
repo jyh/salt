@@ -50,6 +50,7 @@ import Salt.HB.Lemma7F
 import Salt.HB.Lemma7Prod
 import Salt.HB.Lemma7
 import Salt.HB.Lemma7Kappa
+import Salt.HB.HSigmaComp
 import Salt.HB.CharTrio
 import Salt.HB.MOne
 import Salt.Tactic.AuditAxioms
@@ -291,3 +292,7 @@ open Salt.Tactic in
   Salt.HB.squarefree_and_eq_jacobiChar_of_isPrimitive
   Salt.HB.exists_split_of_isPrimitive Salt.HB.exists_split_of_isPrimitive_enumerated
   Salt.HB.structure_of_isPrimitive Salt.HB.sum_two_forms_le_gcd_of_isPrimitive
+  -- node HSIGMA-COMP (Salt/HB/HSigmaComp.lean): the repulsion floor composed into
+  -- `hb_L1_one_sided`'s `hσ'r` — the `hσ'r` obligation ONLY (see the file's scope fence)
+  Salt.HB.sqrt_quad_of_threshold Salt.HB.repulsion_floor_gives_hsigma
+  Salt.HB.hb_L1_one_sided_at_repulsion_floor Salt.HB.hsigma_largeness_satisfiable

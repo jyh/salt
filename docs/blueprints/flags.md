@@ -21892,3 +21892,116 @@ frozen**. It buys **zero** arithmetic — `log(1/c)` is still **86.2267**, the b
 arm 2 `(c₀/32)^{17/3}`, and every delivered claim is the one that was delivered this morning.
 TS-0's four contested counts (the infeasible `(51,12,174)` target, wall W4, S3/S4
 anti-synergy, the b-floor's misnamed row) are **untouched and still open**.
+
+---
+
+## ⟦HSIGMA-COMP — THE REPULSION FLOOR COMPOSED INTO `hb_L1_one_sided`'s `hσ'r`: LANDED, END TO END, AND **NOT VACUOUS**⟧
+
+**2026-08-07, Opus executor. `Salt/HB/HSigmaComp.lean` (new, 268 lines: 145 code, 111 docstring,
+12 blank), 4 declarations, `Salt/HB/All.lean` +5 lines (import + roll-call). Attempts: statement
+shape 1, proofs 2 (one build round of three tactic repairs). Full `saltbuild.sh` EXIT=0,
+9719 jobs, no new warnings; all four declarations at `[propext, Classical.choice, Quot.sound]`.**
+
+### ⛔ THE SCOPE FENCE — READ IT BEFORE QUOTING THIS ENTRY
+
+This composition kernel-checks the **`hσ'r` obligation only**. There is a *second, independent*
+demand on `log η` from the Range-A EF ledger (`efEnvelope_le_ledger_sharp`,
+`Salt/HB/Lemma7EF.lean:2624-2632`, inside the byte-fixed window at `:2844`), which contributes a
+`5b/s·log L` term that is **entirely `k`-independent**. **Nothing here certifies the door, or
+`q`-freeness, or the full threshold. It certifies one of two conjoined obligations.** The same
+fence is written into the new file's header and into both delivered docstrings.
+
+### WHY THE WAVE EXISTED
+
+`docs/exploration/n4-n8-obligation-trace-0806.md` §5 priced the repulsion contract against its
+consumer and produced the two numbers that **deferred** a 600–900-line wave — *"an infinitely
+sharp `c` is worth 0.27 % of the consumer's threshold; `b : 680 → 210` is worth 10.5×"* — and §7.1
+of that same trace recorded, honestly, that they were a **hand derivation**: *"No Lean anywhere
+instantiates `r0` at the repulsion value … My §5 arithmetic is my own hand derivation from the two
+landed statements, not a kernel-checked composition."* It is now a kernel-checked composition.
+
+### WHAT LANDED
+
+`Salt/HB/HSigmaComp.lean`, a **new leaf module** importing `Salt.HB.Lemma7L`:
+
+1. `sqrt_quad_of_threshold {B D ell} (hB : 0 < B) (hD : 0 ≤ D) (hthr : (B + D/B)^2 ≤ ell) :
+   B * √ell + D ≤ ell` — the quadratic step, the whole mathematical content. Sharp to within
+   `(D/B)²`: at `s = B + D/B` the quadratic `s² − Bs − D` is exactly `(D/B)²`.
+2. `repulsion_floor_gives_hsigma` — the composition. Delivers **both** `r0`-binders of
+   `hb_L1_one_sided` at once:
+   ```lean
+   lemma repulsion_floor_gives_hsigma {b c k Q u η L β₀ : ℝ}
+       (hb : 0 < b) (hL : 0 < L) (hQ : 1 < Q) (hβ1 : β₀ < 1)
+       (hη : η = 1 / ((1 - β₀) * L)) (hu : u = 1 - β₀)
+       (hD : 0 ≤ Real.log (1/c) + k * Real.log (Real.log Q + 2) - Real.log L)
+       (hlarge : (b * Real.log Q / L
+           + (Real.log (1/c) + k * Real.log (Real.log Q + 2) - Real.log L)
+               / (b * Real.log Q / L)) ^ 2 ≤ Real.log η) :
+       0 < (Real.log (1/u) - Real.log (1/c) - k * Real.log (Real.log Q + 2)) / (b * Real.log Q) ∧
+         Real.sqrt (Real.log η) / (2 * L)
+           ≤ ((Real.log (1/u) - Real.log (1/c) - k * Real.log (Real.log Q + 2))
+               / (b * Real.log Q)) / 2
+   ```
+3. `hb_L1_one_sided_at_repulsion_floor` — **the end-to-end feed CLOSED.** `(L1)` with the `hfloor`
+   antecedent *discharged*: same conclusion as `hb_L1_one_sided` minus
+   `(∀ ρ ∈ Z.erase β₀, r0 ≤ ‖ρ − 1‖) →`, off the single extra hypothesis
+   `hceil : ∀ ρ, L(ρ,χ) = 0 → ρ ≠ β₀ → ρ.re ≤ repulsionCeiling b c k Q u`. What remains behind the
+   arrow is the `(4.1)` error-sum antecedent alone.
+4. `hsigma_largeness_satisfiable` — the vacuity refutation (below).
+
+### THE END-TO-END STEP CLOSED — AND THE `Q` QUESTION ANSWERED
+
+The trace pre-flagged the risk *"if the eventual composition needs a different `Q` (e.g. the tall
+box rather than `ball(2,3/2)`), the `log Q/L` factor moves."* **It closed with no `Q` conflict**,
+because it needs none: `hb_L1_one_sided` never mentions `Q`, and the `Z ⊂ ball(2,3/2)` of
+`LFunction_partialFraction_remainder_diff` is *internal* to it — the exported `Z` is quantified
+existentially and the only thing asked of its members is `L(ρ,χ) = 0`, which the conclusion itself
+supplies. So `hb_L1_one_sided_at_repulsion_floor` leaves **`Q` free** and assumes **no** relation
+between `Q` and `L = log q`. The base enters in exactly one place, `hlarge`, as the ratio
+`log Q / L` scaling `b` — i.e. **the trace's `b`-vs-`c` ratio is robust at every base**, since
+changing the base rescales `b` and leaves `log(1/c)` additive. That is the one robustness claim
+§7.1 said it had not proved; it is now visible in the type.
+
+The `hσ'r` obligation is discharged by the algebra `1/u = ηL ⇒ log(1/u) = log η + log L`, which
+turns it into the quadratic `(b·log Q/L)·√ℓ ≤ ℓ + log L − log(1/c) − k·log(log Q + 2)` in `√ℓ`.
+**`b` enters through `b²`; `log(1/c)` enters additively.** The trace's §5 shape is confirmed at
+the bytes.
+
+### THE `hηq` × LARGENESS CONSISTENCY QUESTION — **SATISFIABLE, NOT VACUOUS**
+
+`hb_L1_one_sided` carries `hηq : Real.log η ≤ L`; the largeness bound needs
+`log η ≥ (B + D/B)² ≈ b² ≈ 4.6 × 10⁵` when `log Q ≈ L`. Together they force `L ≳ 4.6 × 10⁵`,
+i.e. `q ≳ e^{460000}`. **That is a large-`q` regime, not a contradiction**, and the point is
+kernel-checked rather than argued: `hsigma_largeness_satisfiable` exhibits a simultaneous witness
+for `hβlo`, `hβ1`, `hη`, `hell`, `hηq`, `hD` and `hlarge` at
+
+    b = 680,  k = 14,  log(1/c) = 90,  Q = e^{10⁶},  L = 10⁶,  log η = 5·10⁵,
+
+with `β₀ = 1 − (ηL)^{−1}` pinned by `hη` and landing in `(1/2, 1)` with room to spare. (`log(1/c)`
+is taken as **90**, conservatively above the post-TAU-SHARP `86.2267`, via `c = e^{−90}`; the
+deficit `D = 90 + 14·log(10⁶+2) − log(10⁶) ≈ 269` is bounded in the kernel by
+`log(10⁶+2) ≤ 20·log 2 < 20`.) The remaining binders of `hb_L1_one_sided` — `hCs`, `hSinvC`,
+`hCR` — impose no lower bound on `L` and are not part of the tension.
+
+⇒ **The composed lemma is not vacuous. The only price is `q`-largeness**, and per the trace's §5
+the door (`FulcrumQualityMin`, `imsz_gives_fulcrum_witnesses`) is indifferent to it. Note that
+this is a statement about *this* obligation; see the scope fence.
+
+### WHERE IT SITS, AND WHY NOT NEXT TO ITS SUPPLIER
+
+The brief named `Salt/HB/PretenseSumProof.lean` (home of `one_sub_ceiling_le_dist_one`) as the
+natural home. **It cannot be**: `PretenseSumProof` is *upstream* of `TwistedMertens`, which is
+upstream of `Lemma7L`, so a lemma mentioning `hb_L1_one_sided` there is an import cycle. Landing
+the composition in a new leaf keeps supply and demand in one file and costs one module rather than
+a rebuild of the whole `Lemma7*` tower. `one_sub_ceiling_le_dist_one` was **not touched**; neither
+was any `Salt/HB/Lemma7*.lean`.
+
+### WHAT IS STILL OWED
+
+- The `hceil` hypothesis of `hb_L1_one_sided_at_repulsion_floor` is *stated*, not *supplied*:
+  wiring `Salt.SW.boxZeros_re_le_unit_box` (or `…_at_efHeight`) into it needs the F-side context
+  (`hord`, `hreal`, `hceil16`, `hN`), and — per the trace's §4 caveat — `dh_repulsion_tall`
+  excludes real zeros, so the `hreal′` residual is owed by neither ceiling and is untouched here.
+- The `(4.1)` error-sum antecedent `∑ m_ρ/‖ρ−1‖² ≤ Sinv` is still an antecedent.
+- The second conjoined obligation (the Range-A EF ledger's `k`-independent term) is **not** priced
+  by this wave. Read the scope fence.
