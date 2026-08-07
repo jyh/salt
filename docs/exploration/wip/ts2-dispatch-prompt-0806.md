@@ -72,16 +72,38 @@ rational `pinv`**, with the side condition `pinv * p = 1` closed `by norm_num`.
 `TBalR8:939-940` is TBalR8's **own Eρ row**, the forked twin of `TBalTall:1644-1645`, and the brief
 omits it. Same exponent, same floor.
 
-| # | row | `hcγ` site | `hg` hypothesis | discharge | exact γ | **floor to use** |
-|---|---|---|---|---|---|---|
-| 1 | A | `R8:542-543` | `R8:454` | `R8:1674`, `Tall:1987` | `49/50 − 14(w−u)` | `133/850` |
-| 2 | Eβ | `R8:816-817` | `R8:746` | `R8:1683`, `Tall:1996` | `14σ − 1109/100` | `3547/1700` |
-| 3 | **Eρ (R8)** | **`R8:939-940`** | **`R8:872`** | **`R8:1693`** | `14σ − 1009/100` | **`5247/1700`** |
-| 4 | Eρ (Tall) | `Tall:1644-1645` | `Tall:1578` | `Tall:2006` | `14σ − 1009/100` | `5247/1700` |
+**⭐ ALL LINE NUMBERS BELOW ARE POST-TS-1 AND WERE RE-VERIFIED AGAINST THE BYTES BY THE MATH SEAT
+AT 17:30, AFTER `e8d975c` LANDED.** (Amendment 1's originals are stale — S5(a) shifted R8 by +51.)
 
-Plus the two arm definitions: `hc_t7` (Eρ) and `hc_t6` (Eβ) in **both** mins — `R8:1387-1388`
-(free `Z₀`) and `Tall:2097-2098` (numerals). Line numbers are pre-TS-1; re-locate with
-**`grep -nF`** (see the grep warning below) rather than trusting them after TS-1's edits.
+| # | row | lemma | `hg` hypothesis | **`hcγ` collapse** | discharge | exact γ | **floor to use** |
+|---|---|---|---|---|---|---|---|
+| 1 | A | `row_A_cap` `R8:468` | `hg2` `R8:476` | **`R8:564-565`** | R8 + Tall min blocks | `49/50 − 14(β₀−σ)` | `133/850` |
+| 2 | Eβ | `row_Eβ_cap` `R8:775` | `R8:784` | **`R8:854-855`** | R8 + Tall min blocks | `14σ − 1109/100` | `3547/1700` |
+| 3 | **Eρ (R8)** | `row_Eρ_cap` `R8:901` | `R8:910` | **`R8:977-978`** | R8 min block | `14σ − 1009/100` | **`5247/1700`** |
+| 4 | Eρ (Tall) | `row_Eρ_cap_tall` `Tall:1574` | `Tall:1582` | **`Tall:1648-1649`** | Tall min block | `14σ − 1009/100` | `5247/1700` |
+
+Verified present at each `hcγ` site: `Real.rpow_le_rpow_of_exponent_ge hcc hc1 (by … [hσlo])`, with
+the post-S5(a) constants already in place (`248^9` throughout; tall Eρ carries `570`).
+
+⛔ **`grep -nF "rpow_le_rpow_of_exponent_ge"` in R8 returns SIX hits and only THREE are yours.**
+`R8:454` (`row_1x_cap`, collapses to `c^13`) and `R8:687` (`row_rho_main_cap`, `c^{3/17}`) are
+**NOT γ-collapses — do not touch them.**
+
+⚠️ **THE A ROW IS DIFFERENT FROM THE OTHER THREE: its side goal does not currently cite `hσlo`.**
+It reads `(by rw [hp]; nlinarith [hw0, hu0])`. `hσlo` **is** a binder of `row_A_cap` (`R8:470`), so
+there is no uniformity trap — but you must **add `hσlo` to that tactic's list**, unlike rows 2–4
+where it is already there.
+
+Plus the two arm definitions, **forked between towers**: `hc_t7` (Eρ) — R8 free-`Z₀`
+(`set KEρ` `R8:1803`, binder `R8:1426`) vs Tall numeral `570` (`Tall:2098`, binder `Tall:1693`);
+and `hc_t6` (Eβ) — `R8:1802`/`R8:1425` vs `Tall:2097`/`Tall:1692`, forked at the numeral even though
+`row_Eβ_cap` itself is shared. ⛔ **NEVER DELETE AN ARM.** Keep R8 **eleven** deep and Tall **ten**
+deep and replace numerals in place — every projection index below is hand-built and depth-sensitive.
+
+Arm-table comments already exist at **`R8:1810`** and **`Tall:2105`** and already carry the projected
+post-TS-2 figures (`28.1507` Eβ, `22.8383` Eρ, arm 2 `86.2267` becoming BINDING). **Update them to
+the realised values; do not leave a projection sitting in a post-wave column** — that exact defect
+was Amendment 6.
 
 ### ⛔ USE EXACT RATIONALS — THE FREEZE'S DECIMALS ARE INADMISSIBLE
 Each γ is a function of σ alone and strictly increasing, so the infimum is at the **closed**
@@ -97,18 +119,19 @@ applied with the side goal in the FLOOR direction. Substituting `γ₀ > 1/8` ke
 `hg` a **weaker** demand on `c`. `hσlo` is already in scope and already load-bearing at all four
 sites — no uniformity trap.
 
-### IF TS-1 LANDED S5(b) (the δ re-tune `1/100 → ≈1/50`)
-The `u`-exponent becomes `−9/50` in place of `−9/100`, so **recompute both Eρ/Eβ floors before
-writing any numeral**: `5247/1700 − 9/100` and `3547/1700 − 9/100`. If TS-1 abandoned S5(b) under
-its stop-rule (the likely case), use the floors in the table above unchanged. **Check the TS-1
-flags entry to find out which — do not assume.**
+### ✅ S5(b) — SETTLED, NO ACTION: TS-1 DID **NOT** LAND IT
+Amendment 7 was upheld at dispatch and TS-1 confirms it in flags: S5(b) was **not started**.
+**The `u`-exponent is still `−9/100`, so the floors `5247/1700`, `3547/1700`, `133/850` are
+USABLE AS WRITTEN.** No re-derivation. (This mattered: had S5(b) landed, all four floors *and* the
+mutation check's inadmissible value would have moved.)
 
 ## ⭐ THE MUTATION CHECK — THIS WAVE DOES NOT EXIT ON A GREEN BUILD
 A green build proves the floors are **sufficient**. It does not prove they are **load-bearing** — a
 numeral satisfied for an unrelated reason also builds green, and that is the vacuity failure this
 campaign has been hunting. So, after the γ-honest arms land green:
 
-1. Substitute the **inadmissible** `3.0865` for `γ_Eρ`'s `5247/1700` (at **`Tall:1645`**).
+1. Substitute the **inadmissible** `3.0865` for `γ_Eρ`'s `5247/1700` at the **tall** Eρ side goal —
+   post-TS-1 that is **`Tall:1648-1649`** (re-locate with `grep -nF` after your own edits).
 2. `saltbuild.sh Salt.SW.TBalTall`. **It MUST fail**, and it must fail **at that side goal** —
    `linarith [hσlo]` unable to close `3.0865 ≤ 14σ − 1009/100` at `σ = 16/17`.
    ⛔ **Confirm the build actually re-elaborated `TBalTall`** (the module must appear as compiling
