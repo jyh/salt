@@ -48,12 +48,15 @@ Fable panels), and ceremonies — no model-switching. The earlier
 "Opus-conductor + Fable-on-credits surgeon" split was a BILLING artifact
 (a cliff that turned out not to exist — Fable is included with Max); it is
 retired. What is UNCHANGED is the discipline: the escalation laws below,
-the worst-corner law (incl. asymptotic corners), the workflow-gate (now
-ordinary QUOTA prudence for heavy panels, not a price emergency), Zeno /
-give-up-loudly, and — load-bearing — **never silently alter a frozen
-statement or merge to main without JYH**. The maestro rules house-tier
-inline and surfaces only genuinely JYH-tier calls: merge-to-main, a new
-heavy design panel (quota-aware nod), a blueprint statement change.
+the worst-corner law (incl. asymptotic corners), THE INVERTED PURSE
+(JYH 2026-08-07, supersedes the workflow-gate: "unless a design block
+looks clearly misconceived, do it" — probes always authorized; fresh
+freezes draft-until-refuted; the 5h window managed by prudence + the
+triples habit, never by pre-approval), Zeno / give-up-loudly, and —
+load-bearing — **never silently alter a frozen statement or merge to
+main without JYH**. The maestro rules house-tier inline and surfaces
+only genuinely JYH-tier calls: merge-to-main, a blueprint statement
+change, anything public or irreversible.
 
 ## The four properties this document guarantees
 
