@@ -21764,3 +21764,131 @@ parameter changed and no statement outside the two files**. Per TS-0's K3 this i
 **explicit-constant hygiene**. It moves the `hN+ ∧ hηq` non-emptiness floor. It buys the **N11 door
 nothing**, because `imsz_gives_fulcrum_witnesses` accepts every *constant* `C > 0` — the door is
 gated on the L-power, not on the size of `log(1/c)`.
+
+## ✅ (2026-08-06) ⟦TAU-SHARP TS-3-PREP — `ray_pow_bound` PARAMETRIZED OVER `(b, k)`; A PURE REFACTOR; ALL SIX EXIT TESTS PASS; **NOTHING MOVED**⟧
+
+**Opus executor, ONE serious attempt (no retries, no mutation), one commit, full `saltbuild.sh`
+EXIT=0 (9718 jobs), 0 errors, no new warnings, every touched declaration at
+`[propext, Classical.choice, Quot.sound]`.** Governing document: the ⛔ ⟦TAU-SHARP TS-0⟧ refuter
+entry above (`docs/exploration/tau-sharp-refuter-0806.md`, BINDING), §2's **"MANDATORY PREP STEP
+(K2's repair, banked for TS-3)"**, executed verbatim and *nothing else*. **S3 and S4 remain HELD**;
+`(a, m, b, k)` stay `(104, 14, 680, 14)` to the digit. Files touched: `Salt/SW/TBalR8.lean` (+38
+−28), `Salt/SW/TBalTall.lean` (+2 −2). **`Salt/SW/All.lean` needed no change** — no new declaration,
+and the roll-call already carries every touched name.
+
+### WHAT CHANGED — THE STATEMENT, AND SEVEN CALL SITES
+
+`ray_pow_bound` (`TBalR8:390` pre-wave → `TBalR8:395` post-wave) had `680` and `14` as **hardcoded
+numerals in three places in its statement**, not two: TS-0 named the two side conditions
+(`hα : α ≤ 680·w·γ`, `hε : ε ≤ 14·γ`) but the ray hypothesis `huτ` carried them as well
+(`u ≤ c·Q^{−(680w)}/L₂^{(14:ℝ)}`). All three are now the bound variables `b`, `k`:
+
+```
+lemma ray_pow_bound {Q L₂ c u w α γ ε b k : ℝ} (hQ1 : 1 ≤ Q) (hL2 : 1 ≤ L₂) (hcc : 0 < c)
+    (hb : 0 < b) (hk : 0 ≤ k) (hu0 : 0 < u) (hγ : 0 < γ)
+    (huτ : u ≤ c * Q ^ (-(b * w)) / L₂ ^ k)
+    (hα : α ≤ b * w * γ) (hε : ε ≤ k * γ) :
+    Q ^ α * u ^ γ * L₂ ^ ε ≤ c ^ γ
+```
+
+`hb`/`hk` are placed after `hcc` so the three *parameter*-positivity conditions sit together, and
+they are deliberately the **same shape as the `0 < b ∧ 0 < c ∧ 0 ≤ k` that
+`dh_repulsion_ordered`/`dh_repulsion_tall` already existentially quantify** — the engine now demands
+exactly what the contracts supply.
+
+Seven call sites re-threaded, each by adding `(b := 680) (k := 14)` to the named-argument group and
+two `(by norm_num)` positional arguments for `hb`/`hk`:
+
+| # | lemma | file:line (post-wave) |
+|---|---|---|
+| 1 | `row_1x_cap` | `TBalR8:456` |
+| 2 | `row_A_cap` (the `u·log Y ≤ 1` leg) | `TBalR8:531` |
+| 3 | `row_A_cap` (the monomial leg) | `TBalR8:565` |
+| 4 | `row_rho_main_cap` | `TBalR8:659` |
+| 5 | `row_Eβ_cap` | `TBalR8:843` |
+| 6 | `row_Eρ_cap` | `TBalR8:951` |
+| 7 | `row_Eρ_cap_tall` | `TBalTall:1603` |
+
+**Honest line count: 40 insertions, 30 deletions, net +10 lines** across two files. Of the 40
+insertions, **9 are the new docstring paragraph + the `hb`/`hk` comment** and 3 are pure re-wrapping
+to stay inside the 100-column linter (`linter.style.longLine` IS live in this corpus — it fired on
+`Salt/SW/BCBound.lean:51` during the wave, so the wrap was not cosmetic). The actual proof delta is
+**11 lines edited in place** (numeral → variable) plus **one `have`**.
+
+### ⛔ THE LOAD-BEARING QUESTION — THE ANSWER IS **NO**, AND THAT IS THE FINDING TS-3 NEEDS
+
+**Not one downstream proof had to change an argument.** Every side-goal tactic block at all seven
+call sites is **byte-identical** to its pre-wave text — `(by positivity)`, `(by nlinarith [hσlo])`,
+`(by rw [hwdef] at *; nlinarith [hw0])`, and the rest are untouched. This is not luck: because `b`
+and `k` are supplied as the *named literals* `680` and `14`, every instantiated hypothesis type
+(`0 ≤ 680 * w * (49/50)`, `u ≤ c * Q ^ (-(680 * w)) / L₂ ^ (14 : ℝ)`, …) elaborates to the **same
+term** it did before. The pre-existing `huτ` hypotheses in the seven ambient contexts
+(`TBalR8:442, 483, 640, 797, 929` — `row_A_cap`'s two call sites share one binder;
+`TBalTall:1581`) matched with no coercion and no rewriting.
+
+**So the numerals were load-bearing ONLY inside `ray_pow_bound` itself.** TS-0's §2 was right about
+the mechanism and one site short about the count (three statement occurrences, not two).
+
+### ⚠️ `hb` AND `hk` ARE **NOT NEEDED BY THE PROOF** — RECORD THIS BEFORE S3/S4 REASONS FROM IT
+
+The collapse is true for **every real `b` and `k`**, of either sign. The two side conditions do all
+the work: `hα` and `hε` *state outright* that the net exponents `α − b·w·γ` and `ε − k·γ` are
+nonpositive, and `Real.rpow_le_one_of_one_le_of_nonpos` needs nothing else; `h2`'s `div_rpow` /
+`mul_rpow` / `rpow_mul` chain is gated on `0 < Q`, `0 < L₂`, `0 < c` only. Consequence for a future
+S3/S4: **`0 < b` and `0 ≤ k` are an interface contract, not a mathematical constraint of this
+engine** — they can be moved to anything without re-proving `ray_pow_bound`; what constrains the
+re-cut lives in the `c`-min tower and in the seven call sites' *own* side goals, not here.
+
+Lean's `unusedVariables` linter therefore flags them (verified with a one-line probe:
+`theorem t (h : (0:Nat) < 1) : True := trivial` ⇒ *"Variable name `h` is not explicitly
+referenced"*). Rather than rename them `_hb`/`_hk` (which would hide the finding) or smuggle them
+into an `nlinarith` hint list (which would *misrepresent* them as needed), the proof opens with an
+explicitly commented
+
+```
+  have _hbk : 0 < b ∧ 0 ≤ k := ⟨hb, hk⟩
+```
+
+whose comment says in the source exactly what this paragraph says. **This is the one line in the
+wave that is not forced by the mathematics.** A later session that finds a real use for either sign
+should delete it.
+
+### THE SURFACE CENSUS — TS-0'S ESTIMATE, MEASURED
+
+TS-0 predicted `680` at ~63 sites and `(14 : ℝ)` at ~101. Measured (lines, `grep -nF`): `680` at
+**46 + 11 = 57**, `(14 : ℝ)` at **71 + 24 = 95** across `TBalR8`/`TBalTall`. The estimate was sound.
+**Only 8 of those ~152 lines were in scope** (the statement + seven call sites); the remaining
+~144 are the contract statements, the `huτ` binders of the row lemmas, and the `c`-min towers, and
+**every one of them is untouched**, as required.
+
+### EXIT TEST — ALL SIX PASS
+
+1. `saltbuild.sh Salt.SW.TBalR8` ✔ (**92 s** elaboration) → `saltbuild.sh Salt.SW.TBalTall` ✔
+   (**187 s**, unchanged from TS-2's post-wave cost — the parametrization is free) → full
+   `saltbuild.sh` **EXIT=0, 9718 jobs, 0 errors**.
+2. **Both** `dh_repulsion_ordered` (`TBalR8:1921`) and `dh_repulsion_tall` (`TBalTall:2194`) build,
+   with the **byte-identical** witness `refine ⟨680, c, 14, by norm_num, hcpos, by norm_num, ?_⟩` —
+   the line does not appear in `git diff` at all. `#check` confirms both delivered statements are
+   character-for-character the pre-wave existentials.
+3. The corpus's **190** warnings are unchanged and **none** is in `Salt/SW/TBalR8.lean`,
+   `Salt/SW/TBalTall.lean` or `Salt/SW/All.lean` (grepped by filename on the full build log).
+4. `#print axioms` on all **nine** touched/delivered declarations = `[propext, Classical.choice,
+   Quot.sound]`, via `saltbuild.sh ScratchTS3P.lean` (**not committed**); `Salt/SW/All.lean:132`'s
+   roll-call independently reports `✓ … [3 axioms]` for every one in the full build. (The two
+   per-instance bodies are `private`, so they are audited transitively through the contracts.)
+5. **Neither arm table moved by one digit.** `TBalR8:1846`/`TBalTall:2121` still read
+   `2. (c₀/32)^{17/3}  86.2267 ← BINDING`, and both `log(1/c)` MAX lines still read **86.2267**.
+   Neither table is in the diff.
+6. `git diff` sanity: the diff is **parametrization + re-threading and nothing else**. The only
+   numerals that changed are `680 ⇝ b` and `14 ⇝ k` inside `ray_pow_bound`, and the `(b := 680)
+   (k := 14)` / `(by norm_num) (by norm_num)` additions at the seven call sites. No other numeral in
+   either file was touched.
+
+### WHAT THIS UNBLOCKS, AND WHAT IT DOES NOT
+
+It unblocks **every** future TS-3 variant without committing to any of them: S3's scale re-cut and
+S4's `k → 1` can now move witnesses and `c`-min arms while `ray_pow_bound`'s **statement stays
+frozen**. It buys **zero** arithmetic — `log(1/c)` is still **86.2267**, the binding arm is still
+arm 2 `(c₀/32)^{17/3}`, and every delivered claim is the one that was delivered this morning.
+TS-0's four contested counts (the infeasible `(51,12,174)` target, wall W4, S3/S4
+anti-synergy, the b-floor's misnamed row) are **untouched and still open**.

@@ -383,37 +383,46 @@ lemma rho_row_power_bound {w Q u c c₀ Y : ℝ} (hw0 : 0 < w) (hw : w ≤ 1 / 1
   exact mul_le_mul_of_nonneg_right hmain (inv_nonneg.mpr hc0.le)
 
 /-- **The on-ray monomial engine.**  For a base pair `Q ≥ 1`, `L₂ ≥ 1`, on the ray
-`u ≤ τ = c·Q^{−680w}/L₂^{14}` (`0 < c`, `0 < u`), any monomial `Q^α·u^γ·L₂^ε` with a *positive*
-`u`-power `γ` and *nonpositive net* `Q`- and `L₂`-exponents (`α ≤ 680wγ`, `ε ≤ 14γ`) collapses to
+`u ≤ τ = c·Q^{−bw}/L₂^{k}` (`0 < c`, `0 < u`), any monomial `Q^α·u^γ·L₂^ε` with a *positive*
+`u`-power `γ` and *nonpositive net* `Q`- and `L₂`-exponents (`α ≤ bwγ`, `ε ≤ kγ`) collapses to
 `≤ c^γ`.  This is the exponent-balance skeleton of `rho_row_power_bound`, abstracted: `u^γ ≤ τ^γ`
-substitutes the ray bound, and the window law makes the residual `Q`/`L₂` powers `≤ 1`. -/
-lemma ray_pow_bound {Q L₂ c u w α γ ε : ℝ} (hQ1 : 1 ≤ Q) (hL2 : 1 ≤ L₂) (hcc : 0 < c)
-    (hu0 : 0 < u) (hγ : 0 < γ)
-    (huτ : u ≤ c * Q ^ (-(680 * w)) / L₂ ^ (14 : ℝ))
-    (hα : α ≤ 680 * w * γ) (hε : ε ≤ 14 * γ) :
+substitutes the ray bound, and the window law makes the residual `Q`/`L₂` powers `≤ 1`.
+
+⟦TAU-SHARP TS-3-PREP⟧ The ray exponents `(b, k)` are **parameters**, not the numerals `(680, 14)`
+this engine is instantiated at throughout `dh_repulsion_inst` / `dh_repulsion_inst_tall`; `hb`/`hk`
+mirror the `0 < b ∧ 0 ≤ k` of the `dh_repulsion_ordered` / `dh_repulsion_tall` contracts, so a
+future re-cut of the scale moves witnesses only and never this statement. -/
+lemma ray_pow_bound {Q L₂ c u w α γ ε b k : ℝ} (hQ1 : 1 ≤ Q) (hL2 : 1 ≤ L₂) (hcc : 0 < c)
+    (hb : 0 < b) (hk : 0 ≤ k) (hu0 : 0 < u) (hγ : 0 < γ)
+    (huτ : u ≤ c * Q ^ (-(b * w)) / L₂ ^ k)
+    (hα : α ≤ b * w * γ) (hε : ε ≤ k * γ) :
     Q ^ α * u ^ γ * L₂ ^ ε ≤ c ^ γ := by
+  -- `hb`/`hk` are INTERFACE conditions, carried so the engine's hypotheses match what the
+  -- `dh_repulsion_*` contracts already supply.  The collapse itself needs neither sign: `hα` and
+  -- `hε` state outright that the two net exponents are nonpositive.
+  have _hbk : 0 < b ∧ 0 ≤ k := ⟨hb, hk⟩
   have hQ0 : (0 : ℝ) < Q := by linarith
   have hL0 : (0 : ℝ) < L₂ := by linarith
   have hcγ : (0 : ℝ) < c ^ γ := Real.rpow_pos_of_pos hcc _
-  set τ : ℝ := c * Q ^ (-(680 * w)) / L₂ ^ (14 : ℝ) with hτdef
-  have h2 : τ ^ γ = c ^ γ * Q ^ (-(680 * w) * γ) * L₂ ^ (-(14 * γ)) := by
+  set τ : ℝ := c * Q ^ (-(b * w)) / L₂ ^ k with hτdef
+  have h2 : τ ^ γ = c ^ γ * Q ^ (-(b * w) * γ) * L₂ ^ (-(k * γ)) := by
     rw [hτdef, Real.div_rpow (by positivity) (Real.rpow_nonneg hL0.le _),
       Real.mul_rpow hcc.le (Real.rpow_nonneg hQ0.le _),
       ← Real.rpow_mul hQ0.le, ← Real.rpow_mul hL0.le, div_eq_mul_inv,
       ← Real.rpow_neg hL0.le]
-  have huτpow : u ^ γ ≤ c ^ γ * Q ^ (-(680 * w) * γ) * L₂ ^ (-(14 * γ)) := by
+  have huτpow : u ^ γ ≤ c ^ γ * Q ^ (-(b * w) * γ) * L₂ ^ (-(k * γ)) := by
     rw [← h2]; exact Real.rpow_le_rpow hu0.le huτ hγ.le
   have hQnn : (0 : ℝ) ≤ Q ^ α := (Real.rpow_pos_of_pos hQ0 _).le
   have hLnn : (0 : ℝ) ≤ L₂ ^ ε := (Real.rpow_pos_of_pos hL0 _).le
-  have hQ1' : Q ^ (α + -(680 * w) * γ) ≤ 1 :=
+  have hQ1' : Q ^ (α + -(b * w) * γ) ≤ 1 :=
     Real.rpow_le_one_of_one_le_of_nonpos hQ1 (by nlinarith)
-  have hL1' : L₂ ^ (ε + -(14 * γ)) ≤ 1 :=
+  have hL1' : L₂ ^ (ε + -(k * γ)) ≤ 1 :=
     Real.rpow_le_one_of_one_le_of_nonpos hL2 (by nlinarith)
   calc Q ^ α * u ^ γ * L₂ ^ ε
-      ≤ Q ^ α * (c ^ γ * Q ^ (-(680 * w) * γ) * L₂ ^ (-(14 * γ))) * L₂ ^ ε :=
+      ≤ Q ^ α * (c ^ γ * Q ^ (-(b * w) * γ) * L₂ ^ (-(k * γ))) * L₂ ^ ε :=
         mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left huτpow hQnn) hLnn
-    _ = c ^ γ * (Q ^ α * Q ^ (-(680 * w) * γ)) * (L₂ ^ ε * L₂ ^ (-(14 * γ))) := by ring
-    _ = c ^ γ * Q ^ (α + -(680 * w) * γ) * L₂ ^ (ε + -(14 * γ)) := by
+    _ = c ^ γ * (Q ^ α * Q ^ (-(b * w) * γ)) * (L₂ ^ ε * L₂ ^ (-(k * γ))) := by ring
+    _ = c ^ γ * Q ^ (α + -(b * w) * γ) * L₂ ^ (ε + -(k * γ)) := by
         rw [← Real.rpow_add hQ0, ← Real.rpow_add hL0]
     _ ≤ c ^ γ * 1 * 1 := by
         apply mul_le_mul (mul_le_mul_of_nonneg_left hQ1' hcγ.le) hL1'
@@ -444,8 +453,8 @@ lemma row_1x_cap {Q L₂ c u w σ β₀ Y : ℝ}
       ← Real.rpow_mul (by linarith), ← Real.rpow_mul hu0.le,
       show -(14 : ℝ) * e = -(14 * e) by ring]
   have hγpos : (0 : ℝ) < -(14 * e) := by nlinarith
-  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w)
-    (α := 104 * e) (γ := -(14 * e)) (ε := 0) hQ1 hL2 hcc hu0 hγpos huτ
+  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := 680) (k := 14)
+    (α := 104 * e) (γ := -(14 * e)) (ε := 0) hQ1 hL2 hcc (by norm_num) (by norm_num) hu0 hγpos huτ
     (by nlinarith [hw0, hγpos, hene]) (by nlinarith [hene])
   rw [Real.rpow_zero, mul_one] at hmono
   rw [hexp] at hstep1
@@ -519,9 +528,9 @@ lemma row_A_cap {Q L₂ c u w σ β₀ Y : ℝ}
     linarith [hle, hexp ▸ hstep]
   -- Step 2 : `u·log Y ≤ 1` (the `rpow_sub_one_le` guard)
   have hulogY : u * Real.log Y ≤ 1 := by
-    have hb := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w)
-      (α := 0) (γ := 49 / 50) (ε := 1) hQ1 hL2' hcc hu0 (by norm_num) huτ
-      (by positivity) (by norm_num)
+    have hb := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := 680) (k := 14)
+      (α := 0) (γ := 49 / 50) (ε := 1) hQ1 hL2' hcc (by norm_num) (by norm_num) hu0 (by norm_num)
+      huτ (by positivity) (by norm_num)
     rw [Real.rpow_zero, one_mul, Real.rpow_one] at hb
     have hmul : u * Real.log Y ≤ u * (805 * u ^ (-(1 / 50 : ℝ)) * L₂) :=
       mul_le_mul_of_nonneg_left hlogY hu0.le
@@ -553,8 +562,9 @@ lemma row_A_cap {Q L₂ c u w σ β₀ Y : ℝ}
         show -(14 : ℝ) * (β₀ - σ) = -(14 * (β₀ - σ)) by ring] at h1
       exact h1
     -- the monomial `Q^{104p}·u^{49/50−14p}·L₂ ≤ c^{49/50−14p}`
-    have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w)
-      (α := 104 * (β₀ - σ)) (γ := 49 / 50 - 14 * (β₀ - σ)) (ε := 1) hQ1 hL2' hcc hu0
+    have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := 680) (k := 14)
+      (α := 104 * (β₀ - σ)) (γ := 49 / 50 - 14 * (β₀ - σ)) (ε := 1) hQ1 hL2' hcc
+      (by norm_num) (by norm_num) hu0
       (by rw [hp]; nlinarith [hw0, hu0, mul_nonneg hw0.le hw0.le])
       huτ
       (by rw [hp]; nlinarith [hw0, hu0, mul_nonneg hw0.le hw0.le,
@@ -646,8 +656,8 @@ lemma row_rho_main_cap {Q L₂ c c₀ u w σ β₀ Y n1 n2 : ℝ}
       ← Real.rpow_mul hQ0.le, ← Real.rpow_mul hu0.le,
       show -(14 : ℝ) * w = -(14 * w) by ring] at h1
   -- the monomial collapse
-  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w)
-    (α := 104 * w) (γ := 1 - 14 * w) (ε := 1) hQ1 hL2 hcc hu0
+  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := 680) (k := 14)
+    (α := 104 * w) (γ := 1 - 14 * w) (ε := 1) hQ1 hL2 hcc (by norm_num) (by norm_num) hu0
     (by rw [hwdef] at *; nlinarith [hw0]) huτ (by nlinarith [hw0]) (by nlinarith [hw0])
   rw [Real.rpow_one] at hmono
   -- `1/(n1 n2) ≤ L₂/c₀`
@@ -830,10 +840,10 @@ lemma row_Eβ_cap {Q L₂ c u w σ β₀ Y z M Z₀ : ℝ}
   -- monomial collapse via ray_pow_bound
   have hγpos : (0 : ℝ) < -(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ)) := by
     nlinarith [hσlo]
-  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w)
+  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := 680) (k := 14)
     (α := 1 / 2 + 12 + 104 * (1 / 2 - σ))
     (γ := -(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ)))
-    (ε := 1 + 9) hQ1 hL2' hcc hu0 hγpos huτ
+    (ε := 1 + 9) hQ1 hL2' hcc (by norm_num) (by norm_num) hu0 hγpos huτ
     (by rw [hwdef] at *; nlinarith [hw0, hσlo]) (by nlinarith [hσlo])
   -- collect the product into the monomial
   have hQg : Q ^ (1 / 2 : ℝ) * Q ^ (12 : ℝ) * Q ^ (104 * (1 / 2 - σ))
@@ -938,10 +948,10 @@ lemma row_Eρ_cap {Q L₂ c c₀ u w σ Y z Cρ Z₀ : ℝ}
       show -(14 : ℝ) * (1 / 2 - σ) = -(14 * (1 / 2 - σ)) by ring] at h1
   -- monomial collapse via ray_pow_bound
   have hγpos : (0 : ℝ) < -(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ)) := by nlinarith [hσlo]
-  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w)
+  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := 680) (k := 14)
     (α := 1 / 2 + 12 + 104 * (1 / 2 - σ))
     (γ := -(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ)))
-    (ε := 2 + 9) hQ1 hL2' hcc hu0 hγpos huτ
+    (ε := 2 + 9) hQ1 hL2' hcc (by norm_num) (by norm_num) hu0 hγpos huτ
     (by nlinarith [hσlo, mul_pos hw0 hγpos]) (by nlinarith [hσlo])
   have hQg : Q ^ (1 / 2 : ℝ) * Q ^ (12 : ℝ) * Q ^ (104 * (1 / 2 - σ))
       = Q ^ (1 / 2 + 12 + 104 * (1 / 2 - σ)) := by

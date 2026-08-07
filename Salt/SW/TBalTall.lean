@@ -1600,10 +1600,10 @@ lemma row_Eρ_cap_tall {Q L₂ c c₀ u w σ Y z Cρ : ℝ}
       show -(14 : ℝ) * (1 / 2 - σ) = -(14 * (1 / 2 - σ)) by ring] at h1
   -- monomial collapse via ray_pow_bound (the tall `α` carries two extra `Q`-powers)
   have hγpos : (0 : ℝ) < -(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ)) := by nlinarith [hσlo]
-  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w)
+  have hmono := ray_pow_bound (Q := Q) (L₂ := L₂) (c := c) (u := u) (w := w) (b := 680) (k := 14)
     (α := 5 / 2 + 12 + 104 * (1 / 2 - σ))
     (γ := -(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ)))
-    (ε := 2 + 9) hQ1 hL2' hcc hu0 hγpos huτ
+    (ε := 2 + 9) hQ1 hL2' hcc (by norm_num) (by norm_num) hu0 hγpos huτ
     (by nlinarith [hσlo, mul_pos hw0 hγpos]) (by nlinarith [hσlo])
   have hQg : Q ^ (5 / 2 : ℝ) * Q ^ (12 : ℝ) * Q ^ (104 * (1 / 2 - σ))
       = Q ^ (5 / 2 + 12 + 104 * (1 / 2 - σ)) := by
