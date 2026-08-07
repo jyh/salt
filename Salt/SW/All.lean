@@ -305,6 +305,7 @@ open Salt.Tactic in
   Salt.SW.dhW_detector_floor_rho Salt.SW.dh_balance
   Salt.SW.tbal_tau_le_split Salt.SW.dh_master_ray
   Salt.SW.exp_sub_one_le_e_mul Salt.SW.rpow_sub_one_le Salt.SW.neg_log_le_rpow
+  Salt.SW.neg_log_le_rpow'
   Salt.SW.rho_row_power_bound
   Salt.SW.ray_pow_bound Salt.SW.row_1x_cap Salt.SW.row_A_cap Salt.SW.row_rho_main_cap
   Salt.SW.logz_factor_le
