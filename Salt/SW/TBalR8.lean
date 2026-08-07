@@ -473,7 +473,7 @@ lemma row_A_cap {Q L₂ c u w σ β₀ Y : ℝ}
     (hYhi : Y ≤ 2 * Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)))
     (huτ : u ≤ c * Q ^ (-(680 * w)) / L₂ ^ (14 : ℝ))
     (hg1 : 805 * c ^ (49 / 50 : ℝ) ≤ 1)
-    (hg2 : 1610 * Real.exp 1 * c ^ (1 / 8 : ℝ) ≤ 1 / 8) :
+    (hg2 : 1610 * Real.exp 1 * c ^ (133 / 850 : ℝ) ≤ 1 / 8) :
     Y ^ (β₀ - σ) * (Y ^ (1 - β₀) - 1) ≤ 1 / 8 := by
   have hQ1 : (1 : ℝ) ≤ Q := by linarith
   have hQ0 : (0 : ℝ) < Q := by linarith
@@ -561,8 +561,12 @@ lemma row_A_cap {Q L₂ c u w σ β₀ Y : ℝ}
         mul_nonneg hw0.le hu0.le])
       (by rw [hp]; nlinarith [hw0, hu0])
     rw [Real.rpow_one] at hmono
-    have hγ8 : c ^ (49 / 50 - 14 * (β₀ - σ)) ≤ c ^ (1 / 8 : ℝ) :=
-      Real.rpow_le_rpow_of_exponent_ge hcc hc1 (by rw [hp]; nlinarith [hw0, hu0])
+    -- TAU-SHARP S2: the A row's **own** γ-floor, not the uniform `1/8`.  `γ_A(σ,β₀) =
+    -- 49/50 − 14(β₀−σ)` is decreasing in `β₀−σ`, and `β₀ − σ = w − u < w ≤ 1/17` on the window
+    -- (`hσlo : 16/17 ≤ σ`, `hu0 : 0 < u`), so `γ_A > 49/50 − 14/17 = 133/850` — the closed-endpoint
+    -- infimum, exact as a rational.  `linarith` (not `nlinarith`): the goal is linear in `σ`, `u`.
+    have hγ8 : c ^ (49 / 50 - 14 * (β₀ - σ)) ≤ c ^ (133 / 850 : ℝ) :=
+      Real.rpow_le_rpow_of_exponent_ge hcc hc1 (by rw [hp]; linarith [hσlo, hw0, hu0])
     have h2p : (2 : ℝ) ^ (β₀ - σ) ≤ 2 := by
       calc (2 : ℝ) ^ (β₀ - σ) ≤ (2 : ℝ) ^ (1 : ℝ) :=
             Real.rpow_le_rpow_of_exponent_le (by norm_num) (by rw [hp]; linarith)
@@ -570,7 +574,7 @@ lemma row_A_cap {Q L₂ c u w σ β₀ Y : ℝ}
     -- assemble
     have hEnn : (0 : ℝ) ≤ Real.exp 1 := (Real.exp_pos 1).le
     have hchain : Y ^ (β₀ - σ) * (Real.exp 1 * (u * Real.log Y))
-        ≤ 1610 * Real.exp 1 * c ^ (1 / 8 : ℝ) := by
+        ≤ 1610 * Real.exp 1 * c ^ (133 / 850 : ℝ) := by
       have hstep1 : Y ^ (β₀ - σ) * (Real.exp 1 * (u * Real.log Y))
           ≤ (2 ^ (β₀ - σ) * Q ^ (104 * (β₀ - σ)) * u ^ (-(14 * (β₀ - σ))))
             * (Real.exp 1 * (805 * (u ^ (49 / 50 : ℝ) * L₂))) := by
@@ -593,17 +597,17 @@ lemma row_A_cap {Q L₂ c u w σ β₀ Y : ℝ}
       have hBnn : (0 : ℝ) ≤ Q ^ (104 * (β₀ - σ)) * u ^ (49 / 50 - 14 * (β₀ - σ)) * L₂ := by
         positivity
       have hB : Q ^ (104 * (β₀ - σ)) * u ^ (49 / 50 - 14 * (β₀ - σ)) * L₂
-          ≤ c ^ (1 / 8 : ℝ) := le_trans hmono' hγ8
+          ≤ c ^ (133 / 850 : ℝ) := le_trans hmono' hγ8
       have hinner : 2 ^ (β₀ - σ)
             * (Q ^ (104 * (β₀ - σ)) * u ^ (49 / 50 - 14 * (β₀ - σ)) * L₂)
-          ≤ 2 * c ^ (1 / 8 : ℝ) :=
+          ≤ 2 * c ^ (133 / 850 : ℝ) :=
         le_trans (mul_le_mul_of_nonneg_right h2p hBnn) (mul_le_mul_of_nonneg_left hB (by norm_num))
       calc 805 * Real.exp 1 * 2 ^ (β₀ - σ)
             * (Q ^ (104 * (β₀ - σ)) * u ^ (49 / 50 - 14 * (β₀ - σ)) * L₂)
           = (805 * Real.exp 1) * (2 ^ (β₀ - σ)
               * (Q ^ (104 * (β₀ - σ)) * u ^ (49 / 50 - 14 * (β₀ - σ)) * L₂)) := by ring
-        _ ≤ (805 * Real.exp 1) * (2 * c ^ (1 / 8 : ℝ)) := mul_le_mul_of_nonneg_left hinner hA
-        _ = 1610 * Real.exp 1 * c ^ (1 / 8 : ℝ) := by ring
+        _ ≤ (805 * Real.exp 1) * (2 * c ^ (133 / 850 : ℝ)) := mul_le_mul_of_nonneg_left hinner hA
+        _ = 1610 * Real.exp 1 * c ^ (133 / 850 : ℝ) := by ring
     linarith [hchain, hg2]
   calc Y ^ (β₀ - σ) * (Y ^ u - 1)
       ≤ Y ^ (β₀ - σ) * (Real.exp 1 * (u * Real.log Y)) :=
@@ -781,7 +785,7 @@ lemma row_Eβ_cap {Q L₂ c u w σ β₀ Y z M Z₀ : ℝ}
     (hYlo : Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)) ≤ Y)
     (_hYhi : Y ≤ 2 * Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)))
     (huτ : u ≤ c * Q ^ (-(680 * w)) / L₂ ^ (14 : ℝ))
-    (hg : 2 * (328 + 48 * Z₀) * 248 ^ 9 * c ^ (1 / 8 : ℝ) ≤ 1 / 8) :
+    (hg : 2 * (328 + 48 * Z₀) * 248 ^ 9 * c ^ (3547 / 1700 : ℝ) ≤ 1 / 8) :
     Y ^ (β₀ - σ) * ((136 + 48 * M + 48 * M * Z₀ + 144 * M / (1 - β₀))
         * z * (1 + Real.log (z ^ 2)) ^ 9 * Y ^ (1 / 2 - β₀)) ≤ 1 / 8 := by
   have hQ1 : (1 : ℝ) ≤ Q := by linarith
@@ -851,8 +855,14 @@ lemma row_Eβ_cap {Q L₂ c u w σ β₀ Y z M Z₀ : ℝ}
     rw [← hQg, ← hug, ← hLg]; ring
   -- final chain
   have hCnn : (0 : ℝ) ≤ 2 * (328 + 48 * Z₀) * 248 ^ 9 := by positivity
-  have hcγ : c ^ (-(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ))) ≤ c ^ (1 / 8 : ℝ) :=
-    Real.rpow_le_rpow_of_exponent_ge hcc hc1 (by nlinarith [hσlo])
+  -- TAU-SHARP S2: the Eβ row's **own** γ-floor.  `γ_Eβ(σ) = 14σ − 1109/100` is strictly increasing
+  -- in `σ`, so its infimum over the window sits at the CLOSED endpoint `hσlo : 16/17 ≤ σ`, where it
+  -- equals `3547/1700` EXACTLY (`14·16/17 − 1109/100 = 22400/1700 − 18853/1700`).  The freeze's
+  -- decimal `2.0865` exceeds this by `2.941e−5` and is FALSE at the endpoint — the rational is the
+  -- only admissible numeral.  `linarith` (not `nlinarith`): linear in `σ`, tight at equality.
+  have hcγ : c ^ (-(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ)))
+      ≤ c ^ (3547 / 1700 : ℝ) :=
+    Real.rpow_le_rpow_of_exponent_ge hcc hc1 (by linarith [hσlo])
   have hbnn : (0 : ℝ) ≤ 1 + Real.log (z ^ 2) := by
     have := Real.log_nonneg (show (1 : ℝ) ≤ z ^ 2 by nlinarith [hz1]); linarith
   have hpolynn : (0 : ℝ) ≤ (1 + Real.log (z ^ 2)) ^ 9 := pow_nonneg hbnn 9
@@ -888,7 +898,7 @@ lemma row_Eβ_cap {Q L₂ c u w σ β₀ Y z M Z₀ : ℝ}
     _ ≤ 2 * (328 + 48 * Z₀) * 248 ^ 9
         * c ^ (-(1 : ℝ) + -(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ))) :=
         mul_le_mul_of_nonneg_left hmono hCnn
-    _ ≤ 2 * (328 + 48 * Z₀) * 248 ^ 9 * c ^ (1 / 8 : ℝ) :=
+    _ ≤ 2 * (328 + 48 * Z₀) * 248 ^ 9 * c ^ (3547 / 1700 : ℝ) :=
         mul_le_mul_of_nonneg_left hcγ hCnn
     _ ≤ 1 / 8 := hg
 
@@ -907,7 +917,7 @@ lemma row_Eρ_cap {Q L₂ c c₀ u w σ Y z Cρ Z₀ : ℝ}
     (hz1 : 1 ≤ z) (hzhi : z ≤ 2 * Q ^ (12 : ℝ) * u ^ (-(3 : ℝ)))
     (hYlo : Q ^ (104 : ℝ) * u ^ (-(14 : ℝ)) ≤ Y)
     (huτ : u ≤ c * Q ^ (-(680 * w)) / L₂ ^ (14 : ℝ))
-    (hg : 2 * (564 + 72 * Z₀) * 248 ^ 9 / c₀ * c ^ (1 / 8 : ℝ) ≤ 1 / 8) :
+    (hg : 2 * (564 + 72 * Z₀) * 248 ^ 9 / c₀ * c ^ (5247 / 1700 : ℝ) ≤ 1 / 8) :
     Cρ * z * (1 + Real.log (z ^ 2)) ^ 9 * Y ^ (1 / 2 - σ) ≤ 1 / 8 := by
   have hQ1 : (1 : ℝ) ≤ Q := by linarith
   have hQ0 : (0 : ℝ) < Q := by linarith
@@ -974,8 +984,13 @@ lemma row_Eρ_cap {Q L₂ c c₀ u w σ Y z Cρ Z₀ : ℝ}
       mul_le_mul h1 hpoly hpolynn (mul_nonneg hCbarnn hzbarnn)
     exact mul_le_mul h2 hYb hYsnn (mul_nonneg (mul_nonneg hCbarnn hzbarnn) hPbarnn)
   have hCnn : (0 : ℝ) ≤ 2 * (564 + 72 * Z₀) * 248 ^ 9 / c₀ := by positivity
-  have hcγ : c ^ (-(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ))) ≤ c ^ (1 / 8 : ℝ) :=
-    Real.rpow_le_rpow_of_exponent_ge hcc hc1 (by nlinarith [hσlo])
+  -- TAU-SHARP S2: the Eρ row's **own** γ-floor.  `γ_Eρ(σ) = 14σ − 1009/100` is strictly increasing
+  -- in `σ`, so its infimum over the window sits at the CLOSED endpoint `hσlo : 16/17 ≤ σ`, where it
+  -- equals `5247/1700` EXACTLY (`14·16/17 − 1009/100 = 22400/1700 − 17153/1700`).  The freeze's
+  -- decimal `3.0865` exceeds this by `2.941e−5` and is FALSE at the endpoint — the rational is the
+  -- only admissible numeral.  `linarith` (not `nlinarith`): linear in `σ`, tight at equality.
+  have hcγ : c ^ (-(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ))) ≤ c ^ (5247 / 1700 : ℝ) :=
+    Real.rpow_le_rpow_of_exponent_ge hcc hc1 (by linarith [hσlo])
   calc Cρ * z * (1 + Real.log (z ^ 2)) ^ 9 * Y ^ (1 / 2 - σ)
       ≤ ((564 + 72 * Z₀) * (Q ^ (1 / 2 : ℝ) * L₂ ^ (2 : ℝ)) * (1 / c₀))
           * (2 * Q ^ (12 : ℝ) * u ^ (-(3 : ℝ)))
@@ -988,7 +1003,7 @@ lemma row_Eρ_cap {Q L₂ c c₀ u w σ Y z Cρ Z₀ : ℝ}
     _ ≤ 2 * (564 + 72 * Z₀) * 248 ^ 9 / c₀
         * c ^ (-(3 : ℝ) + -(9 / 100 : ℝ) + -(14 * (1 / 2 - σ))) :=
         mul_le_mul_of_nonneg_left hmono hCnn
-    _ ≤ 2 * (564 + 72 * Z₀) * 248 ^ 9 / c₀ * c ^ (1 / 8 : ℝ) :=
+    _ ≤ 2 * (564 + 72 * Z₀) * 248 ^ 9 / c₀ * c ^ (5247 / 1700 : ℝ) :=
         mul_le_mul_of_nonneg_left hcγ hCnn
     _ ≤ 1 / 8 := hg
 
@@ -1421,9 +1436,9 @@ private lemma dh_repulsion_inst {q : ℕ} [NeZero q] (χ : DirichletCharacter �
     (hcpos : 0 < c) (hc1 : c ≤ 1) (hc_t1 : c ≤ 1 / 40)
     (hc_t2 : c ≤ (c₀ / 32) ^ (17 / 3 : ℝ))
     (hc_t3 : c ≤ (1 / 805 : ℝ) ^ (50 / 49 : ℝ))
-    (hc_t4 : c ≤ (1 / (8 * 1610 * Real.exp 1)) ^ (8 : ℝ)) (hc_t5 : c ≤ 1 / 2)
-    (hc_t6 : c ≤ (1 / (16 * (328 + 48 * Z₀) * 248 ^ 9)) ^ (8 : ℝ))
-    (hc_t7 : c ≤ (c₀ / (16 * (564 + 72 * Z₀) * 248 ^ 9)) ^ (8 : ℝ))
+    (hc_t4 : c ≤ (1 / (8 * 1610 * Real.exp 1)) ^ (850 / 133 : ℝ)) (hc_t5 : c ≤ 1 / 2)
+    (hc_t6 : c ≤ (1 / (16 * (328 + 48 * Z₀) * 248 ^ 9)) ^ (1700 / 3547 : ℝ))
+    (hc_t7 : c ≤ (c₀ / (16 * (564 + 72 * Z₀) * 248 ^ 9)) ^ (1700 / 5247 : ℝ))
     (hc_t8 : c ≤ 1 / (3 * (Real.log 2 + 4 * Real.log (256 * (82 + 12 * Z₀)))))
     (hc_t9 : c ≤ 1 / 18) (hc_t10 : c ≤ 1 / 576) (hc_t11 : c ≤ 1 / (Z₀ + 1)) :
     (1 - β₀) ≥ c * ((q : ℝ) * (|ρ.im| + 2)) ^ (-(680 * (1 - ρ.re)))
@@ -1705,18 +1720,19 @@ private lemma dh_repulsion_inst {q : ℕ} [NeZero q] (χ : DirichletCharacter �
       have hp : c ^ (49 / 50 : ℝ) ≤ 1 / 805 :=
         hcollapse (1 / 805) (50 / 49) (49 / 50) (by norm_num) (by norm_num) hc_t3 (by norm_num)
       nlinarith only [mul_le_mul_of_nonneg_left hp (show (0 : ℝ) ≤ 805 by norm_num)]
-    have hg2A : 1610 * Real.exp 1 * c ^ (1 / 8 : ℝ) ≤ 1 / 8 := by
-      have hp : c ^ (1 / 8 : ℝ) ≤ 1 / (8 * 1610 * Real.exp 1) :=
-        hcollapse (1 / (8 * 1610 * Real.exp 1)) 8 (1 / 8) (by positivity) (by norm_num) hc_t4
-          (by norm_num)
+    have hg2A : 1610 * Real.exp 1 * c ^ (133 / 850 : ℝ) ≤ 1 / 8 := by
+      have hp : c ^ (133 / 850 : ℝ) ≤ 1 / (8 * 1610 * Real.exp 1) :=
+        hcollapse (1 / (8 * 1610 * Real.exp 1)) (850 / 133) (133 / 850) (by positivity)
+          (by norm_num) hc_t4 (by norm_num)
       have hepos : 0 < Real.exp 1 := Real.exp_pos 1
       have heq : 1610 * Real.exp 1 * (1 / (8 * 1610 * Real.exp 1)) = 1 / 8 := by field_simp
       nlinarith only
         [mul_le_mul_of_nonneg_left hp (show (0 : ℝ) ≤ 1610 * Real.exp 1 by positivity), heq]
     have hg1x : c ≤ 1 / 2 := hc_t5
-    have hgEβ : 2 * (328 + 48 * Z₀) * 248 ^ 9 * c ^ (1 / 8 : ℝ) ≤ 1 / 8 := by
-      have hp : c ^ (1 / 8 : ℝ) ≤ 1 / (16 * (328 + 48 * Z₀) * 248 ^ 9) :=
-        hcollapse (1 / (16 * (328 + 48 * Z₀) * 248 ^ 9)) 8 (1 / 8) (by positivity) (by norm_num)
+    have hgEβ : 2 * (328 + 48 * Z₀) * 248 ^ 9 * c ^ (3547 / 1700 : ℝ) ≤ 1 / 8 := by
+      have hp : c ^ (3547 / 1700 : ℝ) ≤ 1 / (16 * (328 + 48 * Z₀) * 248 ^ 9) :=
+        hcollapse (1 / (16 * (328 + 48 * Z₀) * 248 ^ 9)) (1700 / 3547) (3547 / 1700)
+          (by positivity) (by norm_num)
           hc_t6
           (by norm_num)
       have heq : 2 * (328 + 48 * Z₀) * 248 ^ 9 * (1 / (16 * (328 + 48 * Z₀) * 248 ^ 9))
@@ -1724,9 +1740,10 @@ private lemma dh_repulsion_inst {q : ℕ} [NeZero q] (χ : DirichletCharacter �
         field_simp; ring
       nlinarith only [mul_le_mul_of_nonneg_left hp
         (show (0 : ℝ) ≤ 2 * (328 + 48 * Z₀) * 248 ^ 9 by positivity), heq]
-    have hgEρ : 2 * (564 + 72 * Z₀) * 248 ^ 9 / c₀ * c ^ (1 / 8 : ℝ) ≤ 1 / 8 := by
-      have hp : c ^ (1 / 8 : ℝ) ≤ c₀ / (16 * (564 + 72 * Z₀) * 248 ^ 9) :=
-        hcollapse (c₀ / (16 * (564 + 72 * Z₀) * 248 ^ 9)) 8 (1 / 8) (by positivity) (by norm_num)
+    have hgEρ : 2 * (564 + 72 * Z₀) * 248 ^ 9 / c₀ * c ^ (5247 / 1700 : ℝ) ≤ 1 / 8 := by
+      have hp : c ^ (5247 / 1700 : ℝ) ≤ c₀ / (16 * (564 + 72 * Z₀) * 248 ^ 9) :=
+        hcollapse (c₀ / (16 * (564 + 72 * Z₀) * 248 ^ 9)) (1700 / 5247) (5247 / 1700)
+          (by positivity) (by norm_num)
           hc_t7
           (by norm_num)
       have heq : 2 * (564 + 72 * Z₀) * 248 ^ 9 / c₀ * (c₀ / (16 * (564 + 72 * Z₀) * 248 ^ 9))
@@ -1810,37 +1827,40 @@ theorem dh_repulsion_ordered : ∃ b c k : ℝ, 0 < b ∧ 0 < c ∧ 0 ≤ k ∧
   -- **THE ARM TABLE** (`log(1/arm)`; the BINDING arm is the largest).  Arms 6, 7, 8, 11 carry the
   -- FREE variable `Z₀`, so this tower cannot be priced numerically; the figures below are that
   -- pricing **evaluated at `Z₀ ⇝ 5`**, purely for comparison with the tall twin (`TBalTall:2105`),
-  -- whose `Eρ` arm is genuinely `Z₀`-free.  Post-TAU-SHARP TS-1 (S1: arm 1 `2^{−250} ⇝ 1/40`;
-  -- S5(a): `627 ⇝ 248` inside `KEβ`/`KEρ`; S6 is TALL-ONLY — `C2Rho_le` here is tight already):
-  --   1. `1/40`                        3.6889   (was `2^{−250}`: 173.2868 — S1 retired it)
-  --   2. `(c₀/32)^{17/3}`             86.2267
-  --   3. `(1/805)^{50/49}`             6.8274
-  --   4. `(1/(8·1610·e))^8`           83.7074
-  --   5. `1/2`                         0.6931
-  --   6. `(1/KEβ)^8`                 469.8846   (was 536.6658 — S5(a): `−8·9·log(627/248)`)
-  --   7. `(c₀/KEρ)^8`                567.7832   (was 634.5645 — S5(a); BINDING)
-  --   8. `1/(3A₀)`                     4.8527
-  --   9. `1/18`                        2.8904
-  --  10. `1/576`                       6.3561
-  --  11. `1/(Z₀+1)`                    1.7918
-  -- `log(1/c)` = the MAX = 567.7832 at `Z₀ ⇝ 5` (was 634.5645).  The `1/40` arm is inert: it is
-  -- dominated by arm 10 (`log 576 = 6.3561`), so S1's full 173.29 is realised.  NEXT WAVE (TS-2,
-  -- the γ-honest arms) rewrites arms 6/7 only; every projection index below is hand-built and
-  -- depth-sensitive, so keep this tower ELEVEN deep and replace numerals in place — never delete
-  -- an arm.
+  -- whose `Eρ` arm is genuinely `Z₀`-free.  REALISED post-TAU-SHARP TS-1 (S1: arm 1
+  -- `2^{−250} ⇝ 1/40`; S5(a): `627 ⇝ 248` inside `KEβ`/`KEρ`; S6 is TALL-ONLY — `C2Rho_le` here is
+  -- tight already) **and TS-2** (S2: arms 4/6/7 carry each row's own γ-floor in place of the
+  -- uniform `1/8`, so the exponent `8 ⇝ 1/γ₀`):
+  --                                after TS-1     **after TS-2 (REALISED)**
+  --   1. `1/40`                        3.6889          3.6889
+  --   2. `(c₀/32)^{17/3}`             86.2267         86.2267  ← **BINDING**
+  --   3. `(1/805)^{50/49}`             6.8274          6.8274
+  --   4. `(1/(8·1610·e))^{850/133}`   83.7074         66.8716   (γ_A = 133/850)
+  --   5. `1/2`                         0.6931          0.6931
+  --   6. `(1/KEβ)^{1700/3547}`       469.8846         28.1507   (γ_Eβ = 3547/1700)
+  --   7. `(c₀/KEρ)^{1700/5247}`      567.7832 ←BIND   22.9948   (γ_Eρ = 5247/1700)
+  --   8. `1/(3A₀)`                     4.8527          4.8527
+  --   9. `1/18`                        2.8904          2.8904
+  --  10. `1/576`                       6.3561          6.3561
+  --  11. `1/(Z₀+1)`                    1.7918          1.7918
+  -- `log(1/c)` = the MAX = **86.2267** at `Z₀ ⇝ 5` (was 567.7832 after TS-1, 634.5645 landed).
+  -- The binding arm moves from 7 to 2: `(c₀/32)^{17/3}`, which is the ρ-main row and is NOT a
+  -- γ-collapse — retiring it is TS-3's, not this wave's.  The `1/40` arm stays inert (dominated by
+  -- arm 10, `log 576 = 6.3561`).  Every projection index below is hand-built and depth-sensitive,
+  -- so keep this tower ELEVEN deep and replace numerals in place — never delete an arm.
   set c : ℝ := min (1 / 40 : ℝ) (min ((c₀ / 32) ^ (17 / 3 : ℝ))
-    (min ((1 / 805 : ℝ) ^ (50 / 49 : ℝ)) (min ((1 / (8 * 1610 * Real.exp 1)) ^ (8 : ℝ))
-    (min (1 / 2 : ℝ) (min ((1 / KEβ) ^ (8 : ℝ)) (min ((c₀ / KEρ) ^ (8 : ℝ))
+    (min ((1 / 805 : ℝ) ^ (50 / 49 : ℝ)) (min ((1 / (8 * 1610 * Real.exp 1)) ^ (850 / 133 : ℝ))
+    (min (1 / 2 : ℝ) (min ((1 / KEβ) ^ (1700 / 3547 : ℝ)) (min ((c₀ / KEρ) ^ (1700 / 5247 : ℝ))
     (min (1 / (3 * A₀)) (min (1 / 18 : ℝ) (min (1 / 576 : ℝ) (1 / (Z₀ + 1))))))))))) with hcdef
   have hp1 : (0 : ℝ) < 1 / 40 := by norm_num
   have hp2 : (0 : ℝ) < (c₀ / 32) ^ (17 / 3 : ℝ) :=
     Real.rpow_pos_of_pos (div_pos hc₀pos (by norm_num)) _
   have hp3 : (0 : ℝ) < (1 / 805 : ℝ) ^ (50 / 49 : ℝ) := Real.rpow_pos_of_pos (by norm_num) _
-  have hp4 : (0 : ℝ) < (1 / (8 * 1610 * Real.exp 1)) ^ (8 : ℝ) :=
+  have hp4 : (0 : ℝ) < (1 / (8 * 1610 * Real.exp 1)) ^ (850 / 133 : ℝ) :=
     Real.rpow_pos_of_pos (by positivity) _
-  have hp6 : (0 : ℝ) < (1 / KEβ) ^ (8 : ℝ) :=
+  have hp6 : (0 : ℝ) < (1 / KEβ) ^ (1700 / 3547 : ℝ) :=
     Real.rpow_pos_of_pos (by rw [hKEβdef]; positivity) _
-  have hp7 : (0 : ℝ) < (c₀ / KEρ) ^ (8 : ℝ) :=
+  have hp7 : (0 : ℝ) < (c₀ / KEρ) ^ (1700 / 5247 : ℝ) :=
     Real.rpow_pos_of_pos (div_pos hc₀pos (by rw [hKEρdef]; positivity)) _
   have hp8 : (0 : ℝ) < 1 / (3 * A₀) := div_pos one_pos (by linarith only [hA₀pos])
   have hp11 : (0 : ℝ) < 1 / (Z₀ + 1) := div_pos one_pos (by linarith only [hZ0nn])
@@ -1853,17 +1873,17 @@ theorem dh_repulsion_ordered : ∃ b c k : ℝ, 0 < b ∧ 0 < c ∧ 0 ≤ k ∧
     rw [hcdef]; exact le_trans (min_le_right _ _) (min_le_left _ _)
   have hc_t3 : c ≤ (1 / 805 : ℝ) ^ (50 / 49 : ℝ) := by
     rw [hcdef]; exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (min_le_left _ _))
-  have hc_t4 : c ≤ (1 / (8 * 1610 * Real.exp 1)) ^ (8 : ℝ) := by
+  have hc_t4 : c ≤ (1 / (8 * 1610 * Real.exp 1)) ^ (850 / 133 : ℝ) := by
     rw [hcdef]; exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
       (le_trans (min_le_right _ _) (min_le_left _ _)))
   have hc_t5 : c ≤ (1 / 2 : ℝ) := by
     rw [hcdef]; exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
       (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (min_le_left _ _))))
-  have hc_t6 : c ≤ (1 / KEβ) ^ (8 : ℝ) := by
+  have hc_t6 : c ≤ (1 / KEβ) ^ (1700 / 3547 : ℝ) := by
     rw [hcdef]; exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
       (le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
         (le_trans (min_le_right _ _) (min_le_left _ _)))))
-  have hc_t7 : c ≤ (c₀ / KEρ) ^ (8 : ℝ) := by
+  have hc_t7 : c ≤ (c₀ / KEρ) ^ (1700 / 5247 : ℝ) := by
     rw [hcdef]; exact le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
       (le_trans (min_le_right _ _) (le_trans (min_le_right _ _) (le_trans (min_le_right _ _)
         (le_trans (min_le_right _ _) (min_le_left _ _))))))

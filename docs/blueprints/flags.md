@@ -21560,3 +21560,207 @@ largest RSS **6.1 GB**. Both were `lake build` invocations, which `saltbuild.sh:
 6.1 GB uncapped elaboration is not a breach of a cap that was never set. The `*.lean` audit branch
 (`-M 12000`) ran the ScratchTS1 audit without incident, which again only means it was not tested.
 **The open ruling stands untouched.**
+
+## ✅ (2026-08-06) ⟦TAU-SHARP TS-2 — THE γ-HONEST ARMS LAND IN **BOTH** TOWERS; ALL FOUR SITES; log(1/c) 563.9186 → **86.2267**; THE γ_Eρ MUTATION FAILS AS DESIGNED⟧
+
+**Opus executor, one commit, full `saltbuild.sh` EXIT=0 (9718 jobs), 0 errors, no new warnings, every
+touched declaration at `[propext, Classical.choice, Quot.sound]`.** Governing documents:
+`docs/exploration/wip/ts2-dispatch-prompt-0806.md` (binding; its line numbers were re-verified
+post-TS-1 and were correct at every one of the four sites),
+`docs/exploration/wip/ts1-ts2-addendum-0806.md` (7 amendments),
+`docs/exploration/tau-sharp-ts1-ts2-briefs-0806.md` §"WAVE TS-2", and the ⟦TAU-SHARP TS-1⟧ entry
+above. Files touched: `Salt/SW/TBalR8.lean`, `Salt/SW/TBalTall.lean` — **`Salt/SW/All.lean` needed
+no change**, because this wave introduced no new declaration and the roll-call already carries all
+six touched names (`All.lean:132` reports `✓ … [3 axioms]` for each).
+
+### WHAT LANDED — S2, ALL **FOUR** γ-COLLAPSE SITES (Addendum Amendment 1 confirmed against bytes)
+
+Each row's `c^{exponent} ≤ c^{1/8}` collapse threw the row's true exponent away. Replaced by the
+row's **own γ-floor**: `hg` restated as `K·c^{γ₀} ≤ 1/8`, the matching `c`-min arm restated as
+`c ≤ (1/(8K))^{1/γ₀}`, and `hcollapse`'s arbitrary rational `pinv` fed `1/γ₀` with `pinv·p = 1`
+closed `by norm_num`.
+
+| # | row | lemma | `hg` | `hcγ` collapse | exact γ(σ) | **floor landed** | arm exponent `8 ⇝` |
+|---|---|---|---|---|---|---|---|
+| 1 | A | `row_A_cap` `R8:468` | `hg2` `R8:476` | `R8:568-569` | `49/50 − 14(β₀−σ)` | `133/850` | `850/133` |
+| 2 | Eβ | `row_Eβ_cap` `R8:779` | `R8:788` | `R8:863-865` | `14σ − 1109/100` | `3547/1700` | `1700/3547` |
+| 3 | Eρ (R8) | `row_Eρ_cap` `R8:911` | `R8:920` | `R8:992-993` | `14σ − 1009/100` | `5247/1700` | `1700/5247` |
+| 4 | Eρ (Tall) | `row_Eρ_cap_tall` `Tall:1574` | `Tall:1582` | `Tall:1655-1656` | `14σ − 1009/100` | `5247/1700` | `1700/5247` |
+
+Rows 1, 2 are **shared lemmas** — one restatement, landing in both towers — but their **arms are
+forked at the numeral**, so `hc_t4`/`hc_t6` were edited in both `dh_repulsion_inst`
+(`R8:1439-1440`) and `dh_repulsion_inst_tall` (`Tall:1698-1699`) plus both min blocks. Row 3/4 is a
+genuinely forked lemma (R8's free `(564 + 72·Z₀)` vs Tall's numeral `570`).
+**Six `rpow_le_rpow_of_exponent_ge` calls exist in `TBalR8`; only three are γ-collapses.**
+`R8:454` (`row_1x_cap`, `c^13`) and `R8:687` (`row_rho_main_cap`, `c^{3/17}`) were **not touched** —
+they already carry their rows' own exponents.
+
+**The A row was the odd one out, exactly as the brief predicted.** Its side goal did not cite
+`hσlo` (it read `by rw [hp]; nlinarith [hw0, hu0]`); `hσlo` is a binder (`R8:470`) so no uniformity
+trap, and it is now `by rw [hp]; linarith [hσlo, hw0, hu0]`. Rows 2–4 became `by linarith [hσlo]`.
+
+### ⛔ THE EXACT RATIONALS WERE MANDATORY — THE FREEZE'S DECIMALS ARE FALSE, AND THE BUILD SAYS SO
+
+Each γ is a function of σ alone and strictly increasing, so its infimum sits at the **closed**
+endpoint `hσlo : 16/17 ≤ σ`. At `σ = 16/17`: `14σ − 1009/100 = 22400/1700 − 17153/1700 =
+5247/1700` **exactly** (`= 3.086470588…`), and `14σ − 1109/100 = 3547/1700` **exactly**
+(`= 2.086470588…`). The freeze's `3.0865`/`2.0865` each exceed their infimum by `2.941e−5` and are
+**FALSE at the endpoint**. `133/850 = 0.156470588…` is the A row's (the freeze's `0.15647` is true
+there by `5.88e−7`, but the rational was used for uniformity).
+**`linarith [hσlo]`, not `nlinarith`, closed all four** — the goals are linear in σ and two of them
+hold *at equality*, which is where `nlinarith`'s preprocessing was expected to stumble. It was not
+tested: `linarith` was used from the first attempt and worked.
+
+### ⭐ THE MUTATION CHECK — RUN, **FAILED AS DESIGNED**, SINGLE UNAMBIGUOUS ERROR
+
+Per the brief this wave does **not** exit on a green build. The inadmissible `3.0865` was
+substituted for `γ_Eρ`'s `5247/1700`. **Method note, so the next reader can reproduce it exactly:**
+the substitution was applied **consistently to all nine tall-side Eρ code sites** (`hg` statement,
+`hcγ`, the `calc` step, the `hc_t7` binder, `hgEρ` ×2, the `hcollapse` call, the min arm, `hp7`,
+the local `hc_t7`; the arm exponent correspondingly `1700/5247 ⇝ 1/3.0865`), **not only at the two
+side-goal lines.** Mutating the side goal alone would also have produced a *second*, downstream
+type-mismatch error at the `calc` step and muddied the signal; the consistent substitution leaves
+the whole tower coherent so that **the only thing that can fail is the floor itself.**
+
+- **`saltbuild.sh Salt.SW.TBalTall` ⇒ EXIT=1**, and the module genuinely **re-elaborated**:
+  `✖ [8822/8822] Building Salt.SW.TBalTall (187s)` — not a cached replay (Amendment 4's third guard).
+- **Exactly ONE error, at exactly the intended site:**
+
+```
+error: Salt/SW/TBalTall.lean:1656:49: linarith failed to find a contradiction
+…
+hσlo : 16 / 17 ≤ σ
+…
+a✝ : -3 + -(9 / 100) + -(14 * (1 / 2 - σ)) < 3.0865
+⊢ False
+failed
+```
+
+  The negated goal `14σ − 1009/100 < 3.0865` is **consistent with `hσlo`** — it is satisfiable at
+  every admissible σ, because `3.0865` sits strictly above the infimum `5247/1700` — so no tactic
+  could close it and there was no alternative route. This is the **valid positive control** of
+  Amendment 4: the mutated *goal itself* is false at the closed endpoint.
+- **Restored byte-exactly** (SHA-256 `80f9a9b9…7ee9fa` before mutation and after restore, verified
+  identical), then rebuilt: full corpus **EXIT=0, 9718 jobs, 0 errors.**
+
+**Green outcome, for the record:** with `5247/1700` in place the same file builds
+`✔ [8822/8822] Built Salt.SW.TBalTall (187s)` with **no diagnostics at all**. So the numeral is
+both sufficient (green) and **load-bearing** (the arm table is measuring what it claims).
+
+*(Contrast with TS-1's S1 mutation, which also failed but was only a **routing fact** because
+`hc1 : c ≤ 1` remained an alternative route to the generalised split's hypothesis. This one is
+different in kind: the goal becomes arithmetically false, so there is nothing to route around.)*
+
+### 📊 THE REALISED ARM TABLES — RECOMPUTED, NOT COPIED; THEY MATCH THE PROJECTION EXACTLY
+
+`log(1/arm)`; `c` is a `min`, so `log(1/c)` is the **MAX**. `c₀ = 1/126848`, `log(1/c₀) = 11.7507`.
+**TALL tower** (`TBalTall:2114`, the only one that prices numerically):
+`KEβ = 16·(328+48·5)·248⁹`, `KEρ = 16·570·248⁹`.
+
+| # | arm | landed | after TS-1 | **after TS-2 (REALISED)** | TS-1's projection |
+|---|---|---|---|---|---|
+| 1 | `1/40` | 173.2868 | 3.6889 | 3.6889 | 3.6889 ✓ |
+| 2 | `(c₀/32)^{17/3}` | 86.2267 | 86.2267 | **86.2267 ← BINDING** | 86.2267 ✓ |
+| 3 | `(1/805)^{50/49}` | 6.8274 | 6.8274 | 6.8274 | 6.8274 ✓ |
+| 4 | `(1/(8·1610·e))^{850/133}` | 83.7074 | 83.7074 | **66.8716** | 66.87 ✓ |
+| 5 | `1/2` | 0.6931 | 0.6931 | 0.6931 | 0.6931 ✓ |
+| 6 | `(1/KEβ)^{1700/3547}` | 536.6658 | 469.8846 | **28.1507** | 28.1507 ✓ |
+| 7 | `(c₀/KEρ)^{1700/5247}` | **631.5764 ←BIND** | **563.9186 ←BIND** | **22.8383** | 22.8383 ✓ |
+| 8 | `1/(3A₀)` | 4.8527 | 4.8527 | 4.8527 | 4.8527 ✓ |
+| 9 | `1/18` | 2.8904 | 2.8904 | 2.8904 | 2.8904 ✓ |
+| 10 | `1/576` | 6.3561 | 6.3561 | 6.3561 | 6.3561 ✓ |
+| — | **MAX** | **631.5764** | **563.9186** | **86.2267** | 86.2267 ✓ |
+
+**Every realised value matches TS-1's projected column to four decimals.** Addendum Amendment 6's
+corrections (`28.15`, `22.84`, against the brief's stale `32.15`/`25.58`) are confirmed as the
+measured post-wave figures. Formula used, for re-derivation: with `γ₀` the row's floor the arm is
+`(1/(8K))^{1/γ₀}`, so `log(1/arm) = (1/γ₀)·log(8K)`.
+
+**R8 tower** (`TBalR8:1827`) — arms 6, 7, 8, 11 carry the **free `Z₀`**, so it does not price; the
+figures are that pricing **evaluated at `Z₀ ⇝ 5`**, purely for comparison. Post-TS-2: arm 4
+**66.8716**, arm 6 **28.1507**, arm 7 **22.9948**, arm 11 `1/(Z₀+1)` 1.7918, **MAX = 86.2267**
+(was 567.7832 after TS-1). ⚠️ **R8's arm 7 is 22.9948, not the tall 22.8383** — the difference is
+exactly `(1700/5247)·log(924/570) = 0.1565`, i.e. R8's `KEρ` carries `(564+72·Z₀) = 924` at
+`Z₀ ⇝ 5` against the tall's `570`. A reader who copies the tall number into the R8 column repeats
+the killed pre-rule executor's error (banked in the TS-1 entry).
+
+### ⭐ THE BINDING ARM MOVES FROM 7 TO 2 — AND ARM 2 IS **NOT** A γ-COLLAPSE
+
+`(c₀/32)^{17/3}` at **86.2267** is `row_rho_main_cap`'s threshold, and its exponent `3/17` is
+**already that row's own** (`R8:687`, deliberately not touched by this wave). So TS-2 has driven
+`log(1/c)` down to the point where the residual is a row this wave was never scoped to move.
+**Retiring 86.23 is TS-3's business (S3+S4, HELD and statement-layer), not a leftover of TS-2.**
+Arms 4/6/7 now sit at 66.87 / 28.15 / 22.84, and arm 4 (the A row, 66.87) is the new runner-up —
+i.e. after TS-3 the A row becomes binding next, which is a useful pointer for whoever scopes it.
+
+### ATTEMPT COUNTS — **0 FAILED ATTEMPTS ON ALL FOUR SITES**
+
+- **Site 1 (A row): 0 failed.** First build green. The predicted `hσlo`-addition was needed and
+  sufficient; `linarith` closed `133/850 ≤ 49/50 − 14(w−u)` from `hwdef`+`hσlo` (`w ≤ 1/17`) and
+  `hu0` (strict, with `14u` to spare).
+- **Site 2 (Eβ): 0 failed.** `linarith [hσlo]` closed at **exact equality**.
+- **Site 3 (Eρ R8): 0 failed.** Same, at exact equality.
+- **Site 4 (Eρ Tall): 0 failed.** Same.
+- **Builds run:** `Salt.SW.TBalR8` ✔ (72 s, no diagnostics) → `Salt.SW.TBalTall` ✔ (187 s, no
+  diagnostics) → mutation ✖ (187 s) → restore → full `saltbuild.sh` **EXIT=0, 9718 jobs** →
+  `ScratchTS2.lean` audit ✔. **Six invocations, all through the wrapper, none piped, one at a time.**
+- **Nothing was left undone and nothing was flagged as blocked.** No statement outside the two
+  files moved; `ray_pow_bound`, `a`/`m`/`b`, `k` were not touched (the HELD boundary).
+
+### ⚠️ A COST DATUM WORTH BANKING: `TBalTall` ELABORATION 37 s → **187 s** (5×)
+
+TS-1 recorded `TBalTall` at **37 s**; post-TS-2 it is **187 s**, reproducibly (green run, mutated
+run, and the full build all 187 s). `TBalR8` moved the other way, 94 s → **72 s**. The plausible
+cause is the rational exponents: `(1700/3547 : ℝ)` and `(850/133 : ℝ)` are arbitrary rationals where
+`(8 : ℝ)` was a small numeral, and they are re-normalised by `positivity`, `norm_num` and the `min`
+projections at ten sites. **No heartbeat limit was hit and no `set_option maxHeartbeats` was
+touched.** Recorded because a future wave that adds more rational arms should budget for it —
+and because the total corpus build is now the slowest it has been this campaign.
+
+### THE HONEST LINE COUNT
+
+| measure | count |
+|---|---|
+| files touched | **2** (`TBalR8`, `TBalTall`) — `All.lean` needed nothing |
+| lines added | **130** |
+| lines removed | **97** |
+| **total churn** | **227** |
+| of the added: comment/docstring | **63** (the two rewritten arm tables + three γ-floor provenance blocks) |
+| of the added: code | **67** |
+| of that code: pure numeral carriage (a floor or its reciprocal) | **56** |
+| of that code: line-wrap reflow (`hcollapse` argument lists, one `have` split) | **7** |
+| of that code: genuinely behavioural (the four side-goal tactics) | **4** |
+
+**Four tactic lines are the whole mathematical content of this wave.** The other 63 code lines are
+the price of carrying a numeral through two parallel `calc` towers, which is TS-1's own rule of
+thumb (`~45 numeral lines per tower per constant`) holding almost exactly: 56 carriers across two
+towers and three constants, i.e. the per-constant cost is lower here than TS-1's because a γ-floor
+touches `hg`/`hcγ`/one `calc` step/the arm quartet rather than every factor of a monomial.
+**Against the dossier's `~120 ln` for the whole TAU-SHARP scope: TS-1 spent 327 and TS-2 spends 227,
+so the two waves together are ~4.6× the dossier's estimate on churn** — while the *new mathematics*
+(TS-1's 36 ln + TS-2's 4 ln) is comfortably inside it. The estimate was never wrong about the
+mathematics; it never budgeted the ledger or the numeral carriage.
+
+### EXIT TEST — ALL FIVE PASS
+
+1. `saltbuild.sh Salt.SW.TBalR8` ✔ → `saltbuild.sh Salt.SW.TBalTall` ✔ → full `saltbuild.sh`
+   **EXIT=0, 9718 jobs, 0 errors**. The corpus's **190** warnings are unchanged and **none** is in
+   `Salt/SW/TBalR8.lean`, `Salt/SW/TBalTall.lean` or `Salt/SW/All.lean`.
+2. **Both** `dh_repulsion_ordered` (`TBalR8:1911`) and `dh_repulsion_tall` (`TBalTall:2194`) build,
+   with the byte-identical witness `refine ⟨680, c, 14, by norm_num, hcpos, by norm_num, ?_⟩`.
+3. `#print axioms` on all six touched declarations = `[propext, Classical.choice, Quot.sound]`
+   (via `saltbuild.sh ScratchTS2.lean`, **not committed**), and `Salt/SW/All.lean`'s `#audit_axioms`
+   roll-call reports `✓ … [3 axioms]` for every one of them in the full build.
+4. The γ_Eρ mutation: run, failed at the intended goal with the error text quoted above, restored
+   byte-exactly (SHA verified), rebuilt green. **Both outcomes recorded.**
+5. **Both arm-table comments carry REALISED figures, not projections** (`TBalR8:1827`,
+   `TBalTall:2114`), with the after-TS-1 and after-TS-2 columns side by side and the binding arm
+   marked. Amendment 6's defect — a projection left sitting in a post-wave column — is not repeated.
+
+### THE HONEST STATEMENT OF WHAT THIS BUYS (do not let a later reader misread it)
+
+`log(1/c)`: **631.58 → 86.23** across TS-1 + TS-2, i.e. §D2's `e^{1264}` → `e^{172}`, with **no
+parameter changed and no statement outside the two files**. Per TS-0's K3 this is
+**explicit-constant hygiene**. It moves the `hN+ ∧ hηq` non-emptiness floor. It buys the **N11 door
+nothing**, because `imsz_gives_fulcrum_witnesses` accepts every *constant* `C > 0` — the door is
+gated on the L-power, not on the size of `log(1/c)`.
