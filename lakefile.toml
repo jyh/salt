@@ -3,6 +3,26 @@ version = "0.1.0"
 keywords = ["math"]
 defaultTargets = ["Salt"]
 
+# MEMORY BACKSTOP for the build path (Captain-approved 19:02; compiler seat).
+# `saltbuild.sh` caps only its `*.lean` audit branch — `lake build` passed no
+# `-M` at all, and every pressure event of 2026-08-06 came from a `lake build`.
+#
+# `weakLeanArgs`, NOT `moreLeanArgs` as the order named. Both are passed to
+# `lean` when compiling a module (Lake source `LeanConfig.lean:161-180`, read
+# rather than remembered); they differ in exactly one property, and Lake's own
+# docstring is explicit: `weakLeanArgs` "do not affect the trace of the build
+# result, so they can be changed without triggering a rebuild."
+# A memory cap cannot change a successful build's OUTPUT — it only decides
+# whether the build survives — so it is semantically weak by nature. In
+# `moreLeanArgs` it would invalidate all 9,718 traces here on every adjustment,
+# mid-wave, for a guard that changes no result.
+#
+# VERIFIED, not assumed (saltworks, 19:0x): at `-M 1000` a forced module compile
+# dies with Lean's own ratified diagnostic — `excessive memory consumption
+# detected at 'interpreter'` — and at `-M 20000` the full build is green with 13
+# of 16 modules REPLAYED, i.e. the cap moved without invalidating the cache.
+weakLeanArgs = ["-M", "20000"]
+
 [leanOptions]
 pp.unicode.fun = true # pretty-prints `fun a ↦ b`
 relaxedAutoImplicit = false
