@@ -20,11 +20,11 @@ This module is a **supply depot**: it delivers the three harmonic-analysis input
   `ψ θ = −∑_{0<|m|≤K} e(mθ)/(2πim) + R_K θ` with the explicit majorant
   `‖R_K θ‖ ≤ (5/2) · Min(1/(K·‖θ‖), 1)`, in the §D5 degenerate-split form (the arm
   `dist₁ θ 0 = 0` carries the value `1`, not a junk `⊤`).  No `O(·)`.
-* **S2 — (7.3)/(7.4), the majorant's own Fourier coefficients.**  ⚠️ **PARTIAL**: the
-  `(log K)/K` arm only — `integral_sawtoothMajorant_eq` (the `L¹` mass, exactly
-  `2(1 + log(K/2))/K`) and `norm_majorantCoeff_le` (`‖a_m‖ ≤ 2(1 + log K)/K` for every `m`, `a₀`
-  included).  The `K/m²` arm, and (7.3) itself which is downstream of it, are banked in
-  `docs/blueprints/flags.md`.
+* **S2 — (7.3)/(7.4), the majorant's own Fourier coefficients.**  **Both arms**:
+  `integral_sawtoothMajorant_eq` (the `L¹` mass, exactly `2(1 + log(K/2))/K`),
+  `norm_majorantCoeff_le` (`‖a_m‖ ≤ 2(1 + log K)/K` for every `m`, `a₀` included), and
+  `norm_majorantCoeff_le_sq` (`‖a_m‖ ≤ K/(π²m²)` for `m ≠ 0`).  (7.3) itself, which is downstream
+  of the second arm, is still banked in `docs/blueprints/flags.md`.
 * **S3 — the sixth exit row, the congruence-restricted completion.**  For `q ∣ k` and any
   `b, s`, `‖∑_{n ∈ (A,B], n ≡ b (q)} e(−s·n/k)‖ ≤ Min(B−A, (2·dist₁(sq/k, 0))⁻¹)`, again with
   the degenerate arm (`k ∣ sq`) split off.
@@ -658,8 +658,8 @@ noncomputable def majorantCoeff (K : ℕ) (m : ℤ) : ℂ :=
 
 /-- **(7.4), the `(log K)/K` arm.**  N7 quotes this as the `a₀`-row of (7.4) and as the
 uniform half of the `a_m`-row: *every* coefficient (including `m = 0`, per §D5's `a₀`-separate
-discipline) obeys `‖a_m‖ ≤ 2(1 + log K)/K`.  The complementary `K/m²` arm is **not** proved
-here — see `docs/blueprints/flags.md`. -/
+discipline) obeys `‖a_m‖ ≤ 2(1 + log K)/K`.  The complementary `K/m²` arm is
+`norm_majorantCoeff_le_sq`, below. -/
 theorem norm_majorantCoeff_le {K : ℕ} (hK : 2 ≤ K) (m : ℤ) :
     ‖majorantCoeff K m‖ ≤ 2 * (1 + Real.log K) / K := by
   have hK1 : 1 ≤ K := le_trans (by norm_num) hK
@@ -674,6 +674,431 @@ theorem norm_majorantCoeff_le {K : ℕ} (hK : 2 ≤ K) (m : ℤ) :
         exact inv_nonneg.mpr (le_trans zero_le_one (le_max_right _ _)))]
   rw [intervalIntegral.integral_congr (g := sawtoothMajorant K) (fun θ _ => hnorm θ)]
   exact integral_sawtoothMajorant_le hK
+
+/-! ### The `K/m²` arm of (7.4)
+
+The route (verified numerically before it was formalised): `a_m` is real and even in `m`, so
+`a_m = 2∫₀^{1/2} M(θ)cos(2πmθ)dθ`.  Split at the corner `θ = 1/K`.  On `[0, 1/K]` the majorant
+is `≡ 1`, so that piece is the closed form `sin(2πm/K)/(πm)` — **no integration by parts**.  One
+IBP on `[1/K, 1/2]` produces a boundary term at `θ = 1/K` that **cancels that closed form
+exactly**, and the whole coefficient collapses to
+`a_m = (πmK)⁻¹ ∫_{1/K}^{1/2} sin(2πmθ)/θ² dθ`.  The `θ = 1/2` boundary term is *exactly* zero by
+`Real.sin_int_mul_pi` — bounding it by `1/(πm)` instead would silently revert the estimate to the
+very `1/m` this route exists to beat.  A second IBP plus `|sin| ≤ 1`, `|cos| ≤ 1` and
+`∫_{1/K}^{1/2} θ⁻³ dθ = (K²−4)/2` gives `|J| ≤ K²/(πm)`, whence `C = 1/π²`.  The `+4` and `−4`
+cancel exactly, so there is no triangle-inequality slop. -/
+
+/-- Triangle inequality in the `A − B − C` shape the second IBP produces. -/
+private lemma abs_sub_sub_le (A B C : ℝ) : |A - B - C| ≤ |A| + |B| + |C| :=
+  abs_le.mpr ⟨by linarith [neg_abs_le A, le_abs_self B, le_abs_self C],
+    by linarith [le_abs_self A, neg_abs_le B, neg_abs_le C]⟩
+
+/-- `2sin(wθ)/w` is an antiderivative of `2cos(wθ)`. -/
+private lemma hasDerivAt_two_sin {w : ℝ} (hw : w ≠ 0) (θ : ℝ) :
+    HasDerivAt (fun t : ℝ => 2 * Real.sin (w * t) / w) (2 * Real.cos (w * θ)) θ := by
+  have h1 : HasDerivAt (fun t : ℝ => w * t) w θ := by
+    simpa using (hasDerivAt_id θ).const_mul w
+  have h2 : HasDerivAt (fun t : ℝ => Real.sin (w * t)) (Real.cos (w * θ) * w) θ :=
+    (Real.hasDerivAt_sin (w * θ)).comp θ h1
+  exact ((h2.const_mul (2 : ℝ)).div_const w).congr_deriv (by field_simp; try ring)
+
+/-- `−cos(wθ)/w` is an antiderivative of `sin(wθ)`. -/
+private lemma hasDerivAt_neg_cos {w : ℝ} (hw : w ≠ 0) (θ : ℝ) :
+    HasDerivAt (fun t : ℝ => -Real.cos (w * t) / w) (Real.sin (w * θ)) θ := by
+  have h1 : HasDerivAt (fun t : ℝ => w * t) w θ := by
+    simpa using (hasDerivAt_id θ).const_mul w
+  have h2 : HasDerivAt (fun t : ℝ => Real.cos (w * t)) (-Real.sin (w * θ) * w) θ :=
+    (Real.hasDerivAt_cos (w * θ)).comp θ h1
+  exact (h2.neg.div_const w).congr_deriv (by field_simp; try ring)
+
+/-- `∫_{1/K}^{1/2} θ⁻³ dθ = (K²−4)/2`.  At `K = 2` the interval degenerates and both sides are
+`0` — that is why the `K/m²` arm needs no special case at `K = 2`. -/
+private lemma integral_inv_cube {K : ℕ} (hK : 2 ≤ K) :
+    (∫ θ in (1 / (K : ℝ))..(1 / 2 : ℝ), (θ ^ 3)⁻¹) = ((K : ℝ) ^ 2 - 4) / 2 := by
+  have hKR : (2 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
+  have hK0 : (0 : ℝ) < (K : ℝ) := by linarith
+  have hKne : (K : ℝ) ≠ 0 := hK0.ne'
+  have hL0 : (0 : ℝ) < 1 / (K : ℝ) := by positivity
+  have hL2 : 1 / (K : ℝ) ≤ 1 / 2 := by
+    rw [div_le_div_iff₀ hK0 (by norm_num)]; linarith
+  have hd : ∀ x ∈ Set.uIcc (1 / (K : ℝ)) (1 / 2 : ℝ),
+      HasDerivAt (fun t : ℝ => -(2 * t ^ 2)⁻¹) ((x ^ 3)⁻¹) x := by
+    intro x hx
+    rw [Set.uIcc_of_le hL2] at hx
+    have hx0 : x ≠ 0 := ne_of_gt (lt_of_lt_of_le hL0 hx.1)
+    have h1 : HasDerivAt (fun t : ℝ => 2 * t ^ 2) (2 * (2 * x ^ 1)) x :=
+      (hasDerivAt_pow 2 x).const_mul 2
+    exact (h1.inv (by positivity)).neg.congr_deriv (by field_simp; try ring)
+  have hint : IntervalIntegrable (fun x : ℝ => (x ^ 3)⁻¹) MeasureTheory.volume
+      (1 / (K : ℝ)) (1 / 2) := by
+    apply ContinuousOn.intervalIntegrable
+    rw [Set.uIcc_of_le hL2]
+    apply ContinuousOn.inv₀ (by fun_prop)
+    intro x hx
+    exact pow_ne_zero 3 (ne_of_gt (lt_of_lt_of_le hL0 hx.1))
+  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hd hint]
+  field_simp
+  ring
+
+set_option maxHeartbeats 1000000 in
+-- two integrations by parts with their side conditions in one declaration
+/-- **The analytic core of the `K/m²` arm.**  The two explicit pieces of
+`2∫₀^{1/2} M(θ)cos(2πmθ)dθ` — `M ≡ 1` on `[0, 1/K]`, `M = 1/(Kθ)` on `[1/K, 1/2]` — obey the
+`K/(π²m²)` bound.  This is where the two integrations by parts and the exact cancellation
+live. -/
+private lemma majorantCoeff_core_bound {K : ℕ} (hK : 2 ≤ K) {m : ℤ} (hm : m ≠ 0) :
+    |(∫ θ in (0 : ℝ)..(1 / (K : ℝ)), 2 * Real.cos (2 * Real.pi * (m : ℝ) * θ))
+      + (∫ θ in (1 / (K : ℝ))..(1 / 2 : ℝ),
+          1 / ((K : ℝ) * θ) * (2 * Real.cos (2 * Real.pi * (m : ℝ) * θ)))|
+      ≤ (K : ℝ) / (Real.pi ^ 2 * (m : ℝ) ^ 2) := by
+  have hpi : (0 : ℝ) < Real.pi := Real.pi_pos
+  have hpine : Real.pi ≠ 0 := ne_of_gt hpi
+  have hm0 : ((m : ℝ)) ≠ 0 := Int.cast_ne_zero.mpr hm
+  have hKR : (2 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
+  have hK0 : (0 : ℝ) < (K : ℝ) := by linarith
+  have hKne : (K : ℝ) ≠ 0 := hK0.ne'
+  set w : ℝ := 2 * Real.pi * (m : ℝ) with hwdef
+  have hw : w ≠ 0 := by rw [hwdef]; exact mul_ne_zero (by positivity) hm0
+  have hWpos : (0 : ℝ) < |w| := abs_pos.mpr hw
+  set L : ℝ := 1 / (K : ℝ) with hLdef
+  have hL0 : (0 : ℝ) < L := by rw [hLdef]; positivity
+  have hL2 : L ≤ 1 / 2 := by rw [hLdef, div_le_div_iff₀ hK0 (by norm_num)]; linarith
+  have huIcc : Set.uIcc L (1 / 2 : ℝ) = Set.Icc L (1 / 2) := Set.uIcc_of_le hL2
+  have hne : ∀ x ∈ Set.Icc L (1 / 2 : ℝ), x ≠ 0 :=
+    fun x hx => ne_of_gt (lt_of_lt_of_le hL0 hx.1)
+  -- (i) the `[0, 1/K]` piece: closed form, no IBP
+  have hI1 : (∫ θ in (0 : ℝ)..L, 2 * Real.cos (w * θ)) = 2 * Real.sin (w * L) / w := by
+    rw [intervalIntegral.integral_eq_sub_of_hasDerivAt
+      (fun x _ => hasDerivAt_two_sin hw x)
+      (by apply Continuous.intervalIntegrable; fun_prop)]
+    simp
+  -- the `θ = 1/2` boundary sine is EXACTLY zero (`Real.sin_int_mul_pi`), not merely `≤ 1`
+  have hsinhalf : Real.sin (w * (1 / 2 : ℝ)) = 0 := by
+    have hx : w * (1 / 2 : ℝ) = ((m : ℤ) : ℝ) * Real.pi := by rw [hwdef]; ring
+    rw [hx, Real.sin_int_mul_pi]
+  -- (ii) first IBP on `[1/K, 1/2]`; its `θ = 1/K` boundary term cancels (i) exactly
+  set J : ℝ := ∫ θ in L..(1 / 2 : ℝ), (θ ^ 2)⁻¹ * Real.sin (w * θ) with hJdef
+  have hu : ∀ x ∈ Set.uIcc L (1 / 2 : ℝ),
+      HasDerivAt (fun t : ℝ => 1 / ((K : ℝ) * t)) (-(1 / ((K : ℝ) * x ^ 2))) x := by
+    intro x hx
+    rw [huIcc] at hx
+    have hx0 : x ≠ 0 := hne x hx
+    have h1 : HasDerivAt (fun t : ℝ => (K : ℝ) * t) (K : ℝ) x := by
+      simpa using (hasDerivAt_id x).const_mul ((K : ℝ))
+    have heq : (fun t : ℝ => 1 / ((K : ℝ) * t)) = fun t : ℝ => ((K : ℝ) * t)⁻¹ := by
+      funext t; rw [one_div]
+    rw [heq]
+    exact (h1.inv (mul_ne_zero hKne hx0)).congr_deriv (by field_simp; try ring)
+  have hu' : IntervalIntegrable (fun x : ℝ => -(1 / ((K : ℝ) * x ^ 2)))
+      MeasureTheory.volume L (1 / 2) := by
+    apply ContinuousOn.intervalIntegrable
+    rw [huIcc]
+    apply ContinuousOn.neg
+    apply ContinuousOn.div continuousOn_const (by fun_prop)
+    intro x hx
+    exact mul_ne_zero hKne (pow_ne_zero 2 (hne x hx))
+  have hv' : IntervalIntegrable (fun x : ℝ => 2 * Real.cos (w * x))
+      MeasureTheory.volume L (1 / 2) := by
+    apply Continuous.intervalIntegrable; fun_prop
+  have hIBP1 := intervalIntegral.integral_mul_deriv_eq_deriv_mul hu
+    (fun x (_ : x ∈ Set.uIcc L (1 / 2 : ℝ)) => hasDerivAt_two_sin hw x) hu' hv'
+  have hJrw : (∫ x in L..(1 / 2 : ℝ),
+      -(1 / ((K : ℝ) * x ^ 2)) * (2 * Real.sin (w * x) / w))
+      = -(2 / ((K : ℝ) * w)) * J := by
+    rw [hJdef, ← intervalIntegral.integral_const_mul]
+    refine intervalIntegral.integral_congr ?_
+    intro x hx
+    rw [huIcc] at hx
+    have hx0 : x ≠ 0 := hne x hx
+    simp only
+    field_simp
+    try ring
+  have huL : 1 / ((K : ℝ) * L) = 1 := by rw [hLdef]; field_simp
+  have hI2 : (∫ θ in L..(1 / 2 : ℝ), 1 / ((K : ℝ) * θ) * (2 * Real.cos (w * θ)))
+      = -(2 * Real.sin (w * L) / w) + 2 / ((K : ℝ) * w) * J := by
+    rw [hIBP1, hJrw, hsinhalf, huL]
+    ring
+  -- (iii) second IBP on `J`
+  set P : ℝ := ∫ θ in L..(1 / 2 : ℝ), (θ ^ 3)⁻¹ * Real.cos (w * θ) with hPdef
+  have hu2 : ∀ x ∈ Set.uIcc L (1 / 2 : ℝ),
+      HasDerivAt (fun t : ℝ => (t ^ 2)⁻¹) (-(2 / x ^ 3)) x := by
+    intro x hx
+    rw [huIcc] at hx
+    have hx0 : x ≠ 0 := hne x hx
+    have h1 : HasDerivAt (fun t : ℝ => t ^ 2) (2 * x ^ 1) x := hasDerivAt_pow 2 x
+    exact (h1.inv (pow_ne_zero 2 hx0)).congr_deriv (by field_simp; try ring)
+  have hu2' : IntervalIntegrable (fun x : ℝ => -(2 / x ^ 3))
+      MeasureTheory.volume L (1 / 2) := by
+    apply ContinuousOn.intervalIntegrable
+    rw [huIcc]
+    apply ContinuousOn.neg
+    apply ContinuousOn.div continuousOn_const (by fun_prop)
+    intro x hx
+    exact pow_ne_zero 3 (hne x hx)
+  have hv2' : IntervalIntegrable (fun x : ℝ => Real.sin (w * x))
+      MeasureTheory.volume L (1 / 2) := by
+    apply Continuous.intervalIntegrable; fun_prop
+  have hIBP2 := intervalIntegral.integral_mul_deriv_eq_deriv_mul hu2
+    (fun x (_ : x ∈ Set.uIcc L (1 / 2 : ℝ)) => hasDerivAt_neg_cos hw x) hu2' hv2'
+  have hPrw : (∫ x in L..(1 / 2 : ℝ), -(2 / x ^ 3) * (-Real.cos (w * x) / w))
+      = 2 / w * P := by
+    rw [hPdef, ← intervalIntegral.integral_const_mul]
+    refine intervalIntegral.integral_congr ?_
+    intro x hx
+    rw [huIcc] at hx
+    have hx0 : x ≠ 0 := hne x hx
+    simp only
+    field_simp
+    try ring
+  have hLsq : ((L : ℝ) ^ 2)⁻¹ = (K : ℝ) ^ 2 := by rw [hLdef]; field_simp
+  have hJval : J = 4 * (-Real.cos (w * (1 / 2 : ℝ)) / w)
+      - (K : ℝ) ^ 2 * (-Real.cos (w * L) / w) - 2 / w * P := by
+    rw [hJdef, hIBP2, hPrw, hLsq]
+    norm_num
+  -- crude bounds: `|cos| ≤ 1` and `∫_{1/K}^{1/2} θ⁻³ = (K²−4)/2`; the `±4` cancel
+  have hK24 : (0 : ℝ) ≤ (K : ℝ) ^ 2 - 4 := by nlinarith
+  have hPbound : |P| ≤ ((K : ℝ) ^ 2 - 4) / 2 := by
+    have hint1 : IntervalIntegrable (fun x : ℝ => |(x ^ 3)⁻¹ * Real.cos (w * x)|)
+        MeasureTheory.volume L (1 / 2) := by
+      apply ContinuousOn.intervalIntegrable
+      rw [huIcc]
+      apply ContinuousOn.abs
+      refine ContinuousOn.mul (ContinuousOn.inv₀ (by fun_prop) ?_) (by fun_prop)
+      intro x hx
+      exact pow_ne_zero 3 (hne x hx)
+    have hint2 : IntervalIntegrable (fun x : ℝ => (x ^ 3)⁻¹) MeasureTheory.volume L (1 / 2) := by
+      apply ContinuousOn.intervalIntegrable
+      rw [huIcc]
+      refine ContinuousOn.inv₀ (by fun_prop) ?_
+      intro x hx
+      exact pow_ne_zero 3 (hne x hx)
+    have h1 : |P| ≤ ∫ x in L..(1 / 2 : ℝ), |(x ^ 3)⁻¹ * Real.cos (w * x)| := by
+      rw [hPdef]
+      exact intervalIntegral.abs_integral_le_integral_abs hL2
+    have h2 : (∫ x in L..(1 / 2 : ℝ), |(x ^ 3)⁻¹ * Real.cos (w * x)|)
+        ≤ ∫ x in L..(1 / 2 : ℝ), (x ^ 3)⁻¹ := by
+      refine intervalIntegral.integral_mono_on hL2 hint1 hint2 ?_
+      intro x hx
+      have hx0 : (0 : ℝ) < x := lt_of_lt_of_le hL0 hx.1
+      have hxp : (0 : ℝ) < (x ^ 3)⁻¹ := by positivity
+      rw [abs_mul, abs_of_pos hxp]
+      nlinarith [Real.abs_cos_le_one (w * x), abs_nonneg (Real.cos (w * x))]
+    have h3 : (∫ x in L..(1 / 2 : ℝ), (x ^ 3)⁻¹) = ((K : ℝ) ^ 2 - 4) / 2 := by
+      rw [hLdef]; exact integral_inv_cube hK
+    linarith
+  have hJbound : |J| ≤ 2 * (K : ℝ) ^ 2 / |w| := by
+    have b1 : |4 * (-Real.cos (w * (1 / 2 : ℝ)) / w)| ≤ 4 / |w| := by
+      have he : |4 * (-Real.cos (w * (1 / 2 : ℝ)) / w)|
+          = 4 * |Real.cos (w * (1 / 2 : ℝ))| / |w| := by
+        rw [abs_mul, abs_div, abs_neg, abs_of_nonneg (by norm_num : (0 : ℝ) ≤ (4 : ℝ))]
+        ring
+      rw [he, div_le_div_iff₀ hWpos hWpos]
+      nlinarith [Real.abs_cos_le_one (w * (1 / 2 : ℝ)), hWpos]
+    have b2 : |(K : ℝ) ^ 2 * (-Real.cos (w * L) / w)| ≤ (K : ℝ) ^ 2 / |w| := by
+      have he : |(K : ℝ) ^ 2 * (-Real.cos (w * L) / w)|
+          = (K : ℝ) ^ 2 * |Real.cos (w * L)| / |w| := by
+        rw [abs_mul, abs_div, abs_neg, abs_of_nonneg (by positivity : (0 : ℝ) ≤ (K : ℝ) ^ 2)]
+        ring
+      rw [he, div_le_div_iff₀ hWpos hWpos]
+      nlinarith [mul_nonneg (mul_nonneg (sq_nonneg ((K : ℝ))) hWpos.le)
+        (sub_nonneg.mpr (Real.abs_cos_le_one (w * L)))]
+    have b3 : |2 / w * P| ≤ ((K : ℝ) ^ 2 - 4) / |w| := by
+      have he : |2 / w * P| = 2 * |P| / |w| := by
+        rw [abs_mul, abs_div, abs_of_nonneg (by norm_num : (0 : ℝ) ≤ (2 : ℝ))]
+        ring
+      rw [he, div_le_div_iff₀ hWpos hWpos]
+      nlinarith [hPbound, hWpos]
+    have htri := abs_sub_sub_le (4 * (-Real.cos (w * (1 / 2 : ℝ)) / w))
+      ((K : ℝ) ^ 2 * (-Real.cos (w * L) / w)) (2 / w * P)
+    rw [hJval]
+    have hsum : 4 / |w| + (K : ℝ) ^ 2 / |w| + ((K : ℝ) ^ 2 - 4) / |w|
+        = 2 * (K : ℝ) ^ 2 / |w| := by field_simp; try ring
+    linarith
+  -- assemble: the closed form and the first boundary term cancel, leaving `2J/(Kw)`
+  have htot : (∫ θ in (0 : ℝ)..L, 2 * Real.cos (w * θ))
+      + (∫ θ in L..(1 / 2 : ℝ), 1 / ((K : ℝ) * θ) * (2 * Real.cos (w * θ)))
+      = 2 / ((K : ℝ) * w) * J := by
+    rw [hI1, hI2]; ring
+  rw [htot]
+  have habs : |2 / ((K : ℝ) * w) * J| = 2 / ((K : ℝ) * |w|) * |J| := by
+    rw [abs_mul, abs_div, abs_mul, abs_of_nonneg (by norm_num : (0 : ℝ) ≤ (2 : ℝ)),
+      abs_of_nonneg (le_of_lt hK0)]
+  rw [habs]
+  have hstep : 2 / ((K : ℝ) * |w|) * |J| ≤ 2 / ((K : ℝ) * |w|) * (2 * (K : ℝ) ^ 2 / |w|) :=
+    mul_le_mul_of_nonneg_left hJbound (by positivity)
+  refine le_trans hstep (le_of_eq ?_)
+  have hfold : 2 / ((K : ℝ) * |w|) * (2 * (K : ℝ) ^ 2 / |w|) = 4 * (K : ℝ) / |w| ^ 2 := by
+    field_simp; try ring
+  have hw2 : |w| ^ 2 = 4 * Real.pi ^ 2 * (m : ℝ) ^ 2 := by rw [sq_abs, hwdef]; ring
+  rw [hfold, hw2]
+  field_simp
+  try ring
+
+/-- `e` kills integers: `e(r) = 1` for `r : ℤ`. -/
+private lemma e_intCast (r : ℤ) : e ((r : ℝ)) = 1 := by
+  unfold e
+  rw [show (2 * (Real.pi : ℂ) * Complex.I * ((r : ℝ) : ℂ))
+        = (r : ℂ) * (2 * (Real.pi : ℂ) * Complex.I) by push_cast; ring]
+  exact Complex.exp_int_mul_two_pi_mul_I r
+
+/-- The `±x` pair of characters is the real cosine: `e(x) + e(−x) = 2cos(2πx)`. -/
+private lemma e_add_e_neg (x : ℝ) :
+    e x + e (-x) = ((2 * Real.cos (2 * Real.pi * x) : ℝ) : ℂ) := by
+  rw [e_eq_cos_add_sin x, e_eq_cos_add_sin (-x),
+    show 2 * Real.pi * (-x) = -(2 * Real.pi * x) by ring, Real.cos_neg, Real.sin_neg]
+  push_cast
+  ring
+
+set_option maxHeartbeats 1000000 in
+-- realification, reflection and the corner split in one declaration
+/-- **(7.4), the `K/m²` arm.**  For `m ≠ 0` the majorant's Fourier coefficient obeys
+`‖a_m‖ ≤ K/(π²m²)`, the complement of `norm_majorantCoeff_le`'s uniform `(log K)/K` bound: it is
+the arm that makes the tail `|m| > K` of `∑_m ‖a_m‖‖S_m‖` converge, so N7 needs both.
+
+`hm : m ≠ 0` is **load-bearing, not cosmetic**: in Lean `K/0² = 0`, while
+`majorantCoeff K 0 = 2(1 + log(K/2))/K > 0`, so dropping it makes the row false rather than
+vacuous.  `hK : 2 ≤ K` is kept so the row composes with the landed ones; `K = 2` needs no special
+case, since then `[1/K, 1/2]` degenerates to a point and the interior integral vanishes.
+
+The constant is `C = 1/π² = 0.1013…`; a dense numerical scan (every integer `m`, `K = 2…512`)
+puts the true worst case at `sup |a_m|m²/K = 0.07318` at `(K, m) = (3, 2877)`, so this row has
+`1.385×` headroom and the sharper-looking `K/(2π²m²)` is **false**.  Composing this arm with
+`norm_majorantCoeff_le` into a `min` is the consumer's business, not this row's. -/
+theorem norm_majorantCoeff_le_sq {K : ℕ} (hK : 2 ≤ K) {m : ℤ} (hm : m ≠ 0) :
+    ‖majorantCoeff K m‖ ≤ (K : ℝ) / (Real.pi ^ 2 * (m : ℝ) ^ 2) := by
+  have hK1 : 1 ≤ K := le_trans (by norm_num) hK
+  have hKR : (2 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
+  have hK0 : (0 : ℝ) < (K : ℝ) := by linarith
+  have hL0 : (0 : ℝ) < 1 / (K : ℝ) := by positivity
+  have hLhalf : 1 / (K : ℝ) ≤ 1 / 2 := by
+    rw [div_le_div_iff₀ hK0 (by norm_num)]; linarith
+  -- integrability of the complex integrand on the two half-periods
+  have hMlo : ContinuousOn (sawtoothMajorant K) (Set.uIcc (0 : ℝ) (1 / 2)) := by
+    refine ContinuousOn.congr ((continuous_majPiece K).continuousOn) ?_
+    intro θ hθ
+    rw [Set.uIcc_of_le (by norm_num : (0 : ℝ) ≤ 1 / 2)] at hθ
+    exact majorant_eqOn_lower hK1 hθ
+  have hMhi : ContinuousOn (sawtoothMajorant K) (Set.uIcc (1 / 2 : ℝ) 1) := by
+    refine ContinuousOn.congr (f := fun θ : ℝ => majPiece K (1 - θ))
+      (((continuous_majPiece K).comp (continuous_const.sub continuous_id)).continuousOn) ?_
+    intro θ hθ
+    rw [Set.uIcc_of_le (by norm_num : (1 / 2 : ℝ) ≤ 1)] at hθ
+    rw [← sawtoothMajorant_one_sub K θ]
+    exact majorant_eqOn_lower hK1 ⟨by linarith [hθ.2], by linarith [hθ.1]⟩
+  have hilo : IntervalIntegrable
+      (fun θ : ℝ => ((sawtoothMajorant K θ : ℝ) : ℂ) * e (-((m : ℝ) * θ)))
+      MeasureTheory.volume 0 (1 / 2) :=
+    ContinuousOn.intervalIntegrable
+      ((Complex.continuous_ofReal.comp_continuousOn hMlo).mul (by fun_prop))
+  have hilo2 : IntervalIntegrable
+      (fun θ : ℝ => ((sawtoothMajorant K θ : ℝ) : ℂ) * e ((m : ℝ) * θ))
+      MeasureTheory.volume 0 (1 / 2) :=
+    ContinuousOn.intervalIntegrable
+      ((Complex.continuous_ofReal.comp_continuousOn hMlo).mul (by fun_prop))
+  have hihi : IntervalIntegrable
+      (fun θ : ℝ => ((sawtoothMajorant K θ : ℝ) : ℂ) * e (-((m : ℝ) * θ)))
+      MeasureTheory.volume (1 / 2) 1 :=
+    ContinuousOn.intervalIntegrable
+      ((Complex.continuous_ofReal.comp_continuousOn hMhi).mul (by fun_prop))
+  have hsplit : majorantCoeff K m
+      = (∫ θ in (0 : ℝ)..(1 / 2), ((sawtoothMajorant K θ : ℝ) : ℂ) * e (-((m : ℝ) * θ)))
+        + (∫ θ in (1 / 2 : ℝ)..1, ((sawtoothMajorant K θ : ℝ) : ℂ) * e (-((m : ℝ) * θ))) := by
+    unfold majorantCoeff
+    exact (intervalIntegral.integral_add_adjacent_intervals hilo hihi).symm
+  -- the reflection `θ ↦ 1 − θ` turns the upper half into the conjugate character
+  have hpt : ∀ θ : ℝ, ((sawtoothMajorant K (1 - θ) : ℝ) : ℂ) * e (-((m : ℝ) * (1 - θ)))
+      = ((sawtoothMajorant K θ : ℝ) : ℂ) * e ((m : ℝ) * θ) := by
+    intro θ
+    rw [sawtoothMajorant_one_sub]
+    congr 1
+    rw [show -((m : ℝ) * (1 - θ)) = (((-m : ℤ)) : ℝ) + (m : ℝ) * θ by push_cast; ring,
+      e_add, e_intCast, one_mul]
+  have hrefl : (∫ θ in (1 / 2 : ℝ)..1, ((sawtoothMajorant K θ : ℝ) : ℂ) * e (-((m : ℝ) * θ)))
+      = ∫ θ in (0 : ℝ)..(1 / 2), ((sawtoothMajorant K θ : ℝ) : ℂ) * e ((m : ℝ) * θ) := by
+    have h1 : (∫ θ in (0 : ℝ)..(1 / 2 : ℝ),
+        ((sawtoothMajorant K (1 - θ) : ℝ) : ℂ) * e (-((m : ℝ) * (1 - θ))))
+        = ∫ θ in (1 / 2 : ℝ)..1, ((sawtoothMajorant K θ : ℝ) : ℂ) * e (-((m : ℝ) * θ)) := by
+      have h := intervalIntegral.integral_comp_sub_left (a := (0 : ℝ)) (b := (1 / 2 : ℝ))
+        (fun θ : ℝ => ((sawtoothMajorant K θ : ℝ) : ℂ) * e (-((m : ℝ) * θ))) 1
+      rw [show (1 : ℝ) - 1 / 2 = 1 / 2 by norm_num, show (1 : ℝ) - 0 = 1 by norm_num] at h
+      exact h
+    rw [← h1]
+    exact intervalIntegral.integral_congr (fun θ _ => hpt θ)
+  -- `e(−x) + e(x) = 2cos(2πx)`: the coefficient is real
+  have hcomb : (∫ θ in (0 : ℝ)..(1 / 2), ((sawtoothMajorant K θ : ℝ) : ℂ) * e (-((m : ℝ) * θ)))
+      + (∫ θ in (0 : ℝ)..(1 / 2), ((sawtoothMajorant K θ : ℝ) : ℂ) * e ((m : ℝ) * θ))
+      = ∫ θ in (0 : ℝ)..(1 / 2),
+          ((sawtoothMajorant K θ * (2 * Real.cos (2 * Real.pi * (m : ℝ) * θ)) : ℝ) : ℂ) := by
+    rw [← intervalIntegral.integral_add hilo hilo2]
+    refine intervalIntegral.integral_congr ?_
+    intro θ _
+    have hE : e (-((m : ℝ) * θ)) + e ((m : ℝ) * θ)
+        = ((2 * Real.cos (2 * Real.pi * (m : ℝ) * θ) : ℝ) : ℂ) := by
+      rw [add_comm, e_add_e_neg ((m : ℝ) * θ),
+        show 2 * Real.pi * ((m : ℝ) * θ) = 2 * Real.pi * (m : ℝ) * θ from by ring]
+    change ((sawtoothMajorant K θ : ℝ) : ℂ) * e (-((m : ℝ) * θ))
+        + ((sawtoothMajorant K θ : ℝ) : ℂ) * e ((m : ℝ) * θ) = _
+    rw [← mul_add, hE, ← Complex.ofReal_mul]
+  have hval : majorantCoeff K m
+      = ((∫ θ in (0 : ℝ)..(1 / 2),
+          sawtoothMajorant K θ * (2 * Real.cos (2 * Real.pi * (m : ℝ) * θ)) : ℝ) : ℂ) := by
+    rw [hsplit, hrefl, hcomb, intervalIntegral.integral_ofReal]
+  rw [hval, Complex.norm_real, Real.norm_eq_abs]
+  -- split the real integral at the corner `1/K` and read off the two explicit pieces
+  have hMint : ∀ a b : ℝ, 0 ≤ a → b ≤ 1 / 2 → a ≤ b →
+      IntervalIntegrable
+        (fun θ : ℝ => sawtoothMajorant K θ * (2 * Real.cos (2 * Real.pi * (m : ℝ) * θ)))
+        MeasureTheory.volume a b := by
+    intro a b ha hb hab
+    refine ContinuousOn.intervalIntegrable ?_
+    refine ContinuousOn.mul ?_ (by fun_prop)
+    refine ContinuousOn.congr ((continuous_majPiece K).continuousOn) ?_
+    intro θ hθ
+    rw [Set.uIcc_of_le hab] at hθ
+    exact majorant_eqOn_lower hK1 ⟨le_trans ha hθ.1, le_trans hθ.2 hb⟩
+  have hsp : (∫ θ in (0 : ℝ)..(1 / 2),
+        sawtoothMajorant K θ * (2 * Real.cos (2 * Real.pi * (m : ℝ) * θ)))
+      = (∫ θ in (0 : ℝ)..(1 / (K : ℝ)),
+          sawtoothMajorant K θ * (2 * Real.cos (2 * Real.pi * (m : ℝ) * θ)))
+        + (∫ θ in (1 / (K : ℝ))..(1 / 2 : ℝ),
+          sawtoothMajorant K θ * (2 * Real.cos (2 * Real.pi * (m : ℝ) * θ))) :=
+    (intervalIntegral.integral_add_adjacent_intervals
+      (hMint 0 (1 / (K : ℝ)) le_rfl hLhalf hL0.le)
+      (hMint (1 / (K : ℝ)) (1 / 2) hL0.le le_rfl hLhalf)).symm
+  have hc1 : (∫ θ in (0 : ℝ)..(1 / (K : ℝ)),
+        sawtoothMajorant K θ * (2 * Real.cos (2 * Real.pi * (m : ℝ) * θ)))
+      = ∫ θ in (0 : ℝ)..(1 / (K : ℝ)), 2 * Real.cos (2 * Real.pi * (m : ℝ) * θ) := by
+    refine intervalIntegral.integral_congr ?_
+    intro θ hθ
+    rw [Set.uIcc_of_le hL0.le] at hθ
+    have hMone : sawtoothMajorant K θ = 1 := by
+      rw [sawtoothMajorant_eq_inv_max hK1, dist₁_eq_self hθ.1 (le_trans hθ.2 hLhalf)]
+      have hle : (K : ℝ) * θ ≤ 1 := by
+        have h := hθ.2
+        rw [le_div_iff₀ hK0] at h
+        linarith [h, mul_comm (K : ℝ) θ]
+      rw [max_eq_right hle, inv_one]
+    change sawtoothMajorant K θ * _ = _
+    rw [hMone, one_mul]
+  have hc2 : (∫ θ in (1 / (K : ℝ))..(1 / 2 : ℝ),
+        sawtoothMajorant K θ * (2 * Real.cos (2 * Real.pi * (m : ℝ) * θ)))
+      = ∫ θ in (1 / (K : ℝ))..(1 / 2 : ℝ),
+          1 / ((K : ℝ) * θ) * (2 * Real.cos (2 * Real.pi * (m : ℝ) * θ)) := by
+    refine intervalIntegral.integral_congr ?_
+    intro θ hθ
+    rw [Set.uIcc_of_le hLhalf] at hθ
+    have hθ0 : (0 : ℝ) < θ := lt_of_lt_of_le hL0 hθ.1
+    have hMinv : sawtoothMajorant K θ = 1 / ((K : ℝ) * θ) := by
+      rw [sawtoothMajorant_eq_inv_max hK1, dist₁_eq_self hθ0.le hθ.2]
+      have hge : (1 : ℝ) ≤ (K : ℝ) * θ := by
+        have h := hθ.1
+        rw [div_le_iff₀ hK0] at h
+        linarith [h, mul_comm θ (K : ℝ)]
+      rw [max_eq_left hge, one_div]
+    change sawtoothMajorant K θ * _ = _
+    rw [hMinv]
+  rw [hsp, hc1, hc2]
+  exact majorantCoeff_core_bound hK hm
 
 /-! ## S3 — the congruence-restricted completion (the sixth exit row)
 

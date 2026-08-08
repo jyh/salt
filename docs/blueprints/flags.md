@@ -22005,3 +22005,132 @@ was any `Salt/HB/Lemma7*.lean`.
 - The `(4.1)` error-sum antecedent `∑ m_ρ/‖ρ−1‖² ≤ Sinv` is still an antecedent.
 - The second conjoined obligation (the Range-A EF ledger's `k`-independent term) is **not** priced
   by this wave. Read the scope fence.
+
+## ✅ (2026-08-08) ⟦WEIL-TRIO W5(S2)#1 — THE `K/m²` ARM OF (7.4) LANDS: `‖a_m‖ ≤ K/(π²m²)`; §21293's OWN CONSTANT WAS WRONG, AND ITS ROUTE WAS TWICE TOO LONG⟧
+
+**Opus executor (MATH seat), one commit.** Files touched: `Salt/Weil/Sawtooth.lean`,
+`Salt/Weil/All.lean` — nothing else. Full `../saltbuild.sh` **EXIT=0** (9719 jobs, 0 errors, no
+new warnings; the only `Salt/Weil/` warnings are `EstermannGlobal.lean:53/:59`, pre-existing).
+This closes item #1 of §21293 ("NOT LANDED, AND WHY"), whose constant is corrected below.
+
+### WHAT LANDED
+
+```lean
+theorem norm_majorantCoeff_le_sq {K : ℕ} (hK : 2 ≤ K) {m : ℤ} (hm : m ≠ 0) :
+    ‖majorantCoeff K m‖ ≤ (K : ℝ) / (Real.pi ^ 2 * (m : ℝ) ^ 2)
+```
+
+`#print axioms Salt.Weil.norm_majorantCoeff_le_sq` →
+`[propext, Classical.choice, Quot.sound]`. Roll-call row added at `Salt/Weil/All.lean` (the
+`#audit_axioms` block prints `✓ Salt.Weil.norm_majorantCoeff_le_sq [3 axioms]`). No `sorry`, no
+`native_decide`, no new axiom, no `decide` anywhere in the chain.
+
+Supporting privates, all new and all in `Salt/Weil/Sawtooth.lean`: `abs_sub_sub_le`,
+`hasDerivAt_two_sin`, `hasDerivAt_neg_cos`, `integral_inv_cube`, `majorantCoeff_core_bound`,
+`e_intCast`, `e_add_e_neg`.
+
+**`hm : m ≠ 0` is load-bearing, not cosmetic.** In Lean `K/0² = 0` while
+`majorantCoeff K 0 = 2(1 + log(K/2))/K > 0`, so dropping it makes the row **false**, not vacuous.
+`hK : 2 ≤ K` is kept so the row composes with the landed ones; `K = 2` needs **no special case**
+(then `[1/K, 1/2]` is a point, the interior integral is `0`, and the bound holds as `0 ≤ 0`).
+The row is stated **standalone**: composing it with `norm_majorantCoeff_le` into a `min` is the
+consumer's line, not this row's.
+
+### ⛔ THE CONSTANT — §21293's OWN VALUE IS **MEASURED FALSE**. DO NOT LIFT IT.
+
+§21293 says *"Both contribute at order `K/(2πm)²`"*. That sentence is **wrong** and is corrected
+here. Two candidates were refuted numerically before any Lean was written (dense scan of every
+integer `m`, `K = 2…512`, two independent quadratures agreeing to 6 significant figures):
+
+| candidate | `C` | verdict |
+|---|---|---|
+| `K/(2πm)²` (§21293's) | 0.0253303 | **FALSE for every `K ≥ 3`** |
+| `K/(2π²m²)` | 0.0506606 | **FALSE at `K = 3,4,5,7,8,16,32,64,128`** |
+| `K/(π²m²)` ← **landed** | 0.1013212 | holds everywhere |
+
+Measured global worst: `sup |a_m|·m²/K = 0.0731764` at `(K, m) = (3, 2877)` — so the landed row
+carries `1.385×` headroom. The sharp constant `(1 + 4/K²)/(2π²)` is approached from below and
+never attained; `1/π²` is what the chain below produces with **no** triangle-inequality slop.
+§21293's *mechanism* description (the corner at `1/K`, the `M′` jump, the cancellation) is
+correct and was used; only its constant is not.
+
+### ⭐ THE ROUTE IS **HALF** WHAT §21293 PRESCRIBED — two IBPs total, not four
+
+§21293 says "integrate by parts **twice** on **each** piece". That is twice the work needed.
+Writing `M` for the majorant, `w = 2πm`, `L = 1/K`:
+
+1. **`[0, 1/K]` needs NO IBP.** `M ≡ 1` there, so the piece is the closed form
+   `2∫₀^{1/K} cos(wθ)dθ = 2sin(wL)/w`.
+2. **One IBP on `[1/K, 1/2]`** (differentiate `1/(Kθ)`, integrate `cos`). Its `θ = 1/K` boundary
+   term is `−2sin(wL)/w` — it **cancels step 1 exactly**, because `1/(K·(1/K)) = 1`. Everything
+   collapses to `a_m = (2/(Kw))·J` with `J = ∫_{1/K}^{1/2} sin(wθ)/θ² dθ`.
+3. **One IBP on `J`** gives
+   `J = −4cos(w/2)/w + K²cos(wL)/w − (2/w)∫_{1/K}^{1/2} cos(wθ)/θ³ dθ`, and
+   `|J| ≤ (4 + K² + (K²−4))/|w| = 2K²/|w|` — **the `+4` and `−4` cancel exactly**.
+4. `|a_m| ≤ (2/(K|w|))·(2K²/|w|) = 4K/w² = K/(π²m²)`.
+
+**`Real.sin_int_mul_pi` is load-bearing and was used as such.** The `θ = 1/2` boundary sine is
+`sin(mπ) = 0` **on the nose**; bounding it by `1/(πm)` instead silently reverts the estimate to
+the very `1/m` this route exists to beat. In the Lean text this is the `hsinhalf` step.
+
+Realification (the `a_m` is real and even in `m`): split `[0,1]` at `1/2`, reflect the upper half
+by `intervalIntegral.integral_comp_sub_left` + `sawtoothMajorant_one_sub` + `e_intCast`, then
+`e(−x) + e(x) = 2cos(2πx)` (`e_add_e_neg`) and `intervalIntegral.integral_ofReal`.
+
+**§21293's "reusable finding" is confirmed in full.** Starting from `sawtoothMajorant_eq_inv_max`
+rather than the `if`, **every** integrability side condition in this wave was a
+`ContinuousOn.congr` against `majPiece`, and **no `a.e.`/measurability plumbing was needed
+anywhere** — including for the complex integrand `M(θ)·e(−mθ)`.
+
+**There is no `Ci`/`Si` in mathlib** (searches over `Analysis/SpecialFunctions/` return zero). The
+closed form `a_m = sin(2πm/K)/(πm) + (2/K)[Ci(πm) − Ci(2πm/K)]` is TRUE and was used as an
+independent numerical check, but it is **not** a proof route. Recorded so nobody re-chases it.
+
+### ⭐ THE MUTATION CONTROLS — **BOTH** RUN, BOTH REPORTED, AND ONLY ONE OF THEM BITES
+
+The brief asked for one; two were run, because the naive one is weak under the fleet's
+mutation-control law (a mutation is a valid positive control only if the goal becomes FALSE, not
+merely unreachable by one route).
+
+- **M1 (naive) — mutate only the theorem's RHS to the refuted `K/(2π²m²)`.**
+  `saltbuild EXIT=1`. It fails at the closing `exact majorantCoeff_core_bound hK hm` with
+  `↑K / (Real.pi ^ 2 * ↑m ^ 2)` vs `↑K / (2 * Real.pi ^ 2 * ↑m ^ 2)`. The mutated statement *is*
+  measured false, so this is consistent — **but the failure is a type mismatch at the last line,
+  i.e. a ROUTE-level control. Reported as such; it is not on its own evidence of falsity.**
+- **M2 (the biting one) — mutate the theorem's RHS *and* `majorantCoeff_core_bound`'s RHS
+  consistently**, so the halved constant has to be produced by the arithmetic rather than merely
+  matched at the seam. `saltbuild EXIT=1`, and the residual goal is literally
+
+  ```
+  ⊢ 2 = 1
+  ```
+
+  with `hJbound : |J| ≤ 2 * ↑K ^ 2 / |w|`, `hfold : … = 4 * ↑K / |w| ^ 2` and
+  `hw2 : |w| ^ 2 = 4 * Real.pi ^ 2 * ↑m ^ 2` all still in context. **This is the control that
+  bites**: the last step is an *equality* (`le_of_eq`), so there is no slack anywhere in the chain
+  for a factor of 2 to hide in — the chain produces `1/π²` and nothing smaller.
+- **Restore.** `saltbuild EXIT=0` (byte-identical restore, `sha256` first 16 = `a4b86412d8cd383a`
+  before and after), then the full-repo `saltbuild EXIT=0`.
+
+### ⛔ WHAT COST TIME — three gotchas worth carrying
+
+1. **`convert h using 1` on a `HasDerivAt` goal emits TWO instance-equality goals BEFORE the
+   arithmetic one** (`Real.instAddCommGroup = NormedDivisionRing.toNormedRing.toAddCommGroup`,
+   `Semiring.toModule = (NormedAlgebra.toNormedSpace ℝ).toModule`), because `div_const`/`inv`
+   land in the `NormedDivisionRing` instance path. The symptom is the *misleading* error
+   ``field_simp made no progress on the goal`` — field_simp was being handed the instance goal,
+   not the algebra. **Use `HasDerivAt.congr_deriv h (by field_simp)` instead of `convert`.** Four
+   sites in this wave hit it; all four are one-liners once switched.
+2. `majorantCoeff_core_bound` and `norm_majorantCoeff_le_sq` each need
+   `set_option maxHeartbeats 1000000 in` (default 200000 is not enough for two IBPs plus side
+   conditions in one declaration). The `linter.style.maxHeartbeats` lint then requires a comment
+   line under the `set_option`.
+3. `linter.style.show` rejects a `show` that *changes* the goal (three beta-reduction sites here);
+   `change` is the sanctioned spelling.
+
+### ⚠️ WHAT IS STILL OWED — (7.3) IS NOW UNBLOCKED, NOT DONE
+
+§21293 item #2 stands as written, minus its blocker: with `‖a_m‖ ≤ K/(π²m²)` the coefficients are
+summable, so `AddCircle.hasSum_fourier_series_of_summable` is now *available* for the continuous
+1-periodic lift of the majorant. Nobody has assembled it. Also still owed, and unchanged: the
+`∑_m ‖a_m‖ ≤ C log K` row, and N7's own (7.6)–(7.8).
