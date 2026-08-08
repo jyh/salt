@@ -22197,7 +22197,7 @@ agreeing to **1.7e-15**:
 | quantity | value |
 |---|---|
 | `sup_K ∑_m ‖a_m‖` | **1.2582** at `K = 5` (an interior max, not an edge) |
-| `∑_m ‖a_m‖` as `K → ∞` | **1.2232** (`K = 1000, 4096, 16384` agree to 7 figures) |
+| `∑_m ‖a_m‖` as `K → ∞` | **1.22306** (`K = 1000, 4096, 16384` agree to 7 figures) |
 | `sup_K (∑_m ‖a_m‖)/log K` | 1.4427 at `K = 2` ( `= 1/log 2`, since `∑ = 1` exactly there) |
 
 **Hard anchor:** at `K = 2` the majorant is *identically 1* on `(0,1)`, forcing `a₀ = 1` exactly

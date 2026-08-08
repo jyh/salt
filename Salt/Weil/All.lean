@@ -173,7 +173,7 @@ open Salt.Tactic in
   `13 log K`, the source's literal shape, and is NOT derivable from the first — at `K = 2` the
   two are incomparable), resting on `summable_norm_majorantCoeff`, which is load-bearing rather
   than cosmetic since a Lean `∑'` of a non-summable family is `0`.  The measured truth is that
-  `∑_m ‖a_m‖` is **bounded** (`sup = 1.2582` at `K = 5`, `→ 1.2232`), so the `log K` is an
+  `∑_m ‖a_m‖` is **bounded** (`sup = 1.2582` at `K = 5`, `→ 1.22306`), so the `log K` is an
   artefact of the split; the `O(1)` row is strictly harder and buys N7 nothing.
   The expansion (7.3) itself, downstream of that
   arm, is still **banked**, see `docs/blueprints/flags.md`. The reusable finding is

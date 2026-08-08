@@ -1271,7 +1271,7 @@ the summability and the bound.
 
 **Measured, so nobody sharpens the wrong thing.**  The true total is *bounded*, not
 logarithmic: a dense scan over every integer `K = 2…300` (two independent quadratures agreeing
-to `1.7e-15`) puts `sup_K ∑_m ‖a_m‖ = 1.2582` at `K = 5`, with `∑_m ‖a_m‖ → 1.2232` as
+to `1.7e-15`) puts `sup_K ∑_m ‖a_m‖ = 1.2582` at `K = 5`, with `∑_m ‖a_m‖ → 1.22306` as
 `K → ∞`.  The `log K` here is an artefact of the split, not of the object.  It is nevertheless
 the right row to prove: N7 consumes `∑_m ‖a_m‖‖S_m‖` and only ever needs `≪ log K` (HB's third
 log in `(log Kk)³` comes from the (7.2) truncation's harmonic weights), and the `O(1)` version
