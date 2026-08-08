@@ -23,8 +23,11 @@ This module is a **supply depot**: it delivers the three harmonic-analysis input
 * **S2 — (7.3)/(7.4), the majorant's own Fourier coefficients.**  **Both arms**:
   `integral_sawtoothMajorant_eq` (the `L¹` mass, exactly `2(1 + log(K/2))/K`),
   `norm_majorantCoeff_le` (`‖a_m‖ ≤ 2(1 + log K)/K` for every `m`, `a₀` included), and
-  `norm_majorantCoeff_le_sq` (`‖a_m‖ ≤ K/(π²m²)` for `m ≠ 0`).  (7.3) itself, which is downstream
-  of the second arm, is still banked in `docs/blueprints/flags.md`.
+  `norm_majorantCoeff_le_sq` (`‖a_m‖ ≤ K/(π²m²)` for `m ≠ 0`), and — from the two arms together —
+  the `L¹` row `tsum_norm_majorantCoeff_le` (`∑_{m∈ℤ} ‖a_m‖ ≤ 6(1 + log K)`, also in the source's
+  literal shape as `tsum_norm_majorantCoeff_le_log`) with its load-bearing
+  `summable_norm_majorantCoeff`.  (7.3) itself, which is downstream of the second arm, is still
+  banked in `docs/blueprints/flags.md`.
 * **S3 — the sixth exit row, the congruence-restricted completion.**  For `q ∣ k` and any
   `b, s`, `‖∑_{n ∈ (A,B], n ≡ b (q)} e(−s·n/k)‖ ≤ Min(B−A, (2·dist₁(sq/k, 0))⁻¹)`, again with
   the degenerate arm (`k ∣ sq`) split off.
@@ -1255,5 +1258,191 @@ theorem dist₁_mul_div_eq_zero_iff {k : ℕ} (hk : 0 < k) (s q : ℤ) :
       exact_mod_cast congrArg (fun z : ℤ => (z : ℝ)) hn
     rw [this]
     field_simp
+
+/-! ### The `L¹` row of (7.4): `∑_{m ∈ ℤ} ‖a_m‖ ≪ log K`
+
+The two arms above are complementary, and this is what they were for: the uniform
+`(log K)/K` arm carries the `2K+1` terms with `|m| ≤ K`, the `K/m²` arm carries the tail
+`|m| > K`, and neither alone gives a finite total.
+
+Architecture: `summable_of_sum_le` and `Real.tsum_le_of_sum_le` take the **same** two inputs
+(nonnegativity, and a bound on every finite partial sum), so one finset lemma discharges both
+the summability and the bound.
+
+**Measured, so nobody sharpens the wrong thing.**  The true total is *bounded*, not
+logarithmic: a dense scan over every integer `K = 2…300` (two independent quadratures agreeing
+to `1.7e-15`) puts `sup_K ∑_m ‖a_m‖ = 1.2582` at `K = 5`, with `∑_m ‖a_m‖ → 1.2232` as
+`K → ∞`.  The `log K` here is an artefact of the split, not of the object.  It is nevertheless
+the right row to prove: N7 consumes `∑_m ‖a_m‖‖S_m‖` and only ever needs `≪ log K` (HB's third
+log in `(log Kk)³` comes from the (7.2) truncation's harmonic weights), and the `O(1)` version
+is strictly harder — it needs the decay `a_m ≈ (2/K)log(K/2πm)` in `m` rather than a uniform
+bound.  **Chasing it would buy the consumer nothing.** -/
+
+/-- Tail of `∑ 1/m²` over any finite set of integers of modulus `> K`, via mathlib's
+`sum_Ioo_inv_sq_le` on each sign separately (`Int.natAbs` is injective on each). -/
+private lemma sum_inv_sq_of_natAbs_gt {K : ℕ} (v : Finset ℤ) (hv : ∀ m ∈ v, K < m.natAbs) :
+    ∑ m ∈ v, ((m : ℝ) ^ 2)⁻¹ ≤ 4 / ((K : ℝ) + 1) := by
+  classical
+  set N := v.sup (fun m => m.natAbs) + 1 with hN
+  have hltN : ∀ m ∈ v, m.natAbs < N := by
+    intro m hm
+    have := Finset.le_sup (f := fun m : ℤ => m.natAbs) hm
+    omega
+  have key : ∀ w : Finset ℤ, (∀ m ∈ w, K < m.natAbs) → (∀ m ∈ w, m.natAbs < N) →
+      (∀ x ∈ w, ∀ y ∈ w, x.natAbs = y.natAbs → x = y) →
+      ∑ m ∈ w, ((m : ℝ) ^ 2)⁻¹ ≤ 2 / ((K : ℝ) + 1) := by
+    intro w h1 h2 hinj
+    have heq : ∑ m ∈ w, ((m : ℝ) ^ 2)⁻¹ = ∑ n ∈ w.image Int.natAbs, ((n : ℝ) ^ 2)⁻¹ := by
+      rw [Finset.sum_image hinj]
+      exact Finset.sum_congr rfl (fun m _ => by
+        simp [Nat.cast_natAbs, Int.cast_abs, sq_abs])
+    have hsub : w.image Int.natAbs ⊆ Finset.Ioo K N := by
+      intro n hn
+      simp only [Finset.mem_image] at hn
+      obtain ⟨m, hm, rfl⟩ := hn
+      exact Finset.mem_Ioo.mpr ⟨h1 m hm, h2 m hm⟩
+    rw [heq]
+    calc ∑ n ∈ w.image Int.natAbs, ((n : ℝ) ^ 2)⁻¹
+        ≤ ∑ n ∈ Finset.Ioo K N, ((n : ℝ) ^ 2)⁻¹ :=
+          Finset.sum_le_sum_of_subset_of_nonneg hsub (fun _ _ _ => by positivity)
+      _ ≤ 2 / ((K : ℝ) + 1) := sum_Ioo_inv_sq_le K N
+  rw [← Finset.sum_filter_add_sum_filter_not v (fun m => 0 < m)]
+  have hpos := key (v.filter (fun m => 0 < m))
+    (fun m hm => hv m (Finset.mem_filter.mp hm).1)
+    (fun m hm => hltN m (Finset.mem_filter.mp hm).1)
+    (fun x hx y hy h => by
+      have hx' := (Finset.mem_filter.mp hx).2
+      have hy' := (Finset.mem_filter.mp hy).2
+      omega)
+  have hneg := key (v.filter (fun m => ¬ 0 < m))
+    (fun m hm => hv m (Finset.mem_filter.mp hm).1)
+    (fun m hm => hltN m (Finset.mem_filter.mp hm).1)
+    (fun x hx y hy h => by
+      have hx' := (Finset.mem_filter.mp hx).2
+      have hy' := (Finset.mem_filter.mp hy).2
+      have hx'' := hv x (Finset.mem_filter.mp hx).1
+      have hy'' := hv y (Finset.mem_filter.mp hy).1
+      omega)
+  have hsplit : (2 : ℝ) / ((K : ℝ) + 1) + 2 / ((K : ℝ) + 1) = 4 / ((K : ℝ) + 1) := by ring
+  linarith
+
+/-- Every finite partial sum of `‖a_m‖` over `ℤ`, at the raw constant the split produces. -/
+private lemma sum_norm_majorantCoeff_finset_le_raw {K : ℕ} (hK : 2 ≤ K) (u : Finset ℤ) :
+    ∑ m ∈ u, ‖majorantCoeff K m‖ ≤ 5 * (1 + Real.log K) + 4 / Real.pi ^ 2 := by
+  classical
+  have hKR : (2 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
+  have hK0 : (0 : ℝ) < (K : ℝ) := by linarith
+  have hlog : (0 : ℝ) ≤ Real.log K := Real.log_nonneg (by linarith)
+  rw [← Finset.sum_filter_add_sum_filter_not u (fun m => m.natAbs ≤ K)]
+  -- inner block `|m| ≤ K`: at most `2K+1` terms, each at the `(log K)/K` arm
+  have h1 : ∑ m ∈ u.filter (fun m => m.natAbs ≤ K), ‖majorantCoeff K m‖
+      ≤ (2 * (K : ℝ) + 1) * (2 * (1 + Real.log K) / K) := by
+    have hsub : u.filter (fun m => m.natAbs ≤ K) ⊆ Finset.Icc (-(K : ℤ)) (K : ℤ) := by
+      intro m hm
+      have := (Finset.mem_filter.mp hm).2
+      exact Finset.mem_Icc.mpr (by omega)
+    have hcard : ((u.filter (fun m => m.natAbs ≤ K)).card : ℝ) ≤ 2 * (K : ℝ) + 1 := by
+      have hc := Finset.card_le_card hsub
+      have hIcc : (Finset.Icc (-(K : ℤ)) (K : ℤ)).card = 2 * K + 1 := by
+        rw [Int.card_Icc]; omega
+      rw [hIcc] at hc
+      have : ((u.filter (fun m => m.natAbs ≤ K)).card : ℝ) ≤ ((2 * K + 1 : ℕ) : ℝ) := by
+        exact_mod_cast hc
+      push_cast at this
+      linarith
+    calc ∑ m ∈ u.filter (fun m => m.natAbs ≤ K), ‖majorantCoeff K m‖
+        ≤ ∑ _m ∈ u.filter (fun m => m.natAbs ≤ K), (2 * (1 + Real.log K) / K) :=
+          Finset.sum_le_sum (fun m _ => norm_majorantCoeff_le hK m)
+      _ = ((u.filter (fun m => m.natAbs ≤ K)).card : ℝ) * (2 * (1 + Real.log K) / K) := by
+          rw [Finset.sum_const, nsmul_eq_mul]
+      _ ≤ (2 * (K : ℝ) + 1) * (2 * (1 + Real.log K) / K) := by
+          apply mul_le_mul_of_nonneg_right hcard
+          positivity
+  -- outer block `|m| > K`: the `K/m²` arm against the `1/m²` tail
+  have h2 : ∑ m ∈ u.filter (fun m => ¬ (m.natAbs ≤ K)), ‖majorantCoeff K m‖
+      ≤ 4 / Real.pi ^ 2 := by
+    have hgt : ∀ m ∈ u.filter (fun m => ¬ (m.natAbs ≤ K)), K < m.natAbs := by
+      intro m hm
+      have := (Finset.mem_filter.mp hm).2
+      omega
+    have hpi : (0 : ℝ) < Real.pi := Real.pi_pos
+    calc ∑ m ∈ u.filter (fun m => ¬ (m.natAbs ≤ K)), ‖majorantCoeff K m‖
+        ≤ ∑ m ∈ u.filter (fun m => ¬ (m.natAbs ≤ K)),
+            (K : ℝ) / (Real.pi ^ 2 * (m : ℝ) ^ 2) := by
+          refine Finset.sum_le_sum (fun m hm => norm_majorantCoeff_le_sq hK ?_)
+          have := hgt m hm
+          omega
+      _ = ((K : ℝ) / Real.pi ^ 2) *
+            ∑ m ∈ u.filter (fun m => ¬ (m.natAbs ≤ K)), ((m : ℝ) ^ 2)⁻¹ := by
+          rw [Finset.mul_sum]
+          exact Finset.sum_congr rfl (fun m _ => by field_simp)
+      _ ≤ ((K : ℝ) / Real.pi ^ 2) * (4 / ((K : ℝ) + 1)) := by
+          apply mul_le_mul_of_nonneg_left (sum_inv_sq_of_natAbs_gt _ hgt)
+          positivity
+      _ ≤ 4 / Real.pi ^ 2 := by
+          rw [div_mul_div_comm, div_le_div_iff₀ (by positivity) (by positivity)]
+          nlinarith [sq_nonneg Real.pi, hpi, hK0]
+  -- The close.  `(2K+1)·2/K = 4 + 2/K ≤ 5` is an **equality** at `K = 2`, which is exactly why
+  -- the round constant `5(1 + log K)` is not provable on this route: the tail's `4/π²` has
+  -- nowhere to go.  (The *theorem* at `5` is true — the truth is `≤ 1.26` — so `5` is a
+  -- route-break, not a false statement.  Recorded to keep the two apart.)
+  have hp1 : (2 * (K : ℝ) + 1) * (2 * (1 + Real.log K) / K) ≤ 5 * (1 + Real.log K) := by
+    have hre : (2 * (K : ℝ) + 1) * (2 * (1 + Real.log K) / K)
+        = (4 * (K : ℝ) + 2) * (1 + Real.log K) / K := by ring
+    rw [hre, div_le_iff₀ hK0]
+    nlinarith [mul_nonneg (by linarith : (0:ℝ) ≤ 1 + Real.log K)
+      (by linarith : (0:ℝ) ≤ (K : ℝ) - 2)]
+  linarith
+
+/-- `4/π² < 0.406`, the numeral both closes below spend. -/
+private lemma four_div_pi_sq_lt : (4 : ℝ) / Real.pi ^ 2 < 0.406 := by
+  have hpi : (3.14 : ℝ) < Real.pi := Real.pi_gt_d2
+  rw [div_lt_iff₀ (by positivity)]
+  nlinarith [hpi, Real.pi_pos]
+
+private lemma sum_norm_majorantCoeff_finset_le {K : ℕ} (hK : 2 ≤ K) (u : Finset ℤ) :
+    ∑ m ∈ u, ‖majorantCoeff K m‖ ≤ 6 * (1 + Real.log K) := by
+  have hKR : (2 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
+  have hlog : (0 : ℝ) ≤ Real.log K := Real.log_nonneg (by linarith)
+  have := sum_norm_majorantCoeff_finset_le_raw hK u
+  have := four_div_pi_sq_lt
+  linarith
+
+private lemma sum_norm_majorantCoeff_finset_le_log {K : ℕ} (hK : 2 ≤ K) (u : Finset ℤ) :
+    ∑ m ∈ u, ‖majorantCoeff K m‖ ≤ 13 * Real.log K := by
+  have hKR : (2 : ℝ) ≤ (K : ℝ) := by exact_mod_cast hK
+  have hlog2 : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
+  have hlogK : Real.log 2 ≤ Real.log K := Real.log_le_log (by norm_num) hKR
+  have := sum_norm_majorantCoeff_finset_le_raw hK u
+  have := four_div_pi_sq_lt
+  linarith
+
+/-- **Summability of the majorant's Fourier coefficients.**  This is what makes the `tsum` rows
+below statements about a convergent series rather than vacuous ones: in Lean `∑' m, f m = 0` by
+definition when `f` is not summable, so without this the bounds would be true and empty —
+`hm : m ≠ 0`'s role in `norm_majorantCoeff_le_sq`, one level up.
+
+It is also exactly the hypothesis `AddCircle.hasSum_fourier_series_of_summable` wants for the
+majorant's continuous 1-periodic lift, i.e. the last missing input to **(7.3)**.  (7.3) itself
+is deliberately **not** assembled here. -/
+theorem summable_norm_majorantCoeff {K : ℕ} (hK : 2 ≤ K) :
+    Summable (fun m : ℤ => ‖majorantCoeff K m‖) :=
+  summable_of_sum_le (fun _ => norm_nonneg _) (sum_norm_majorantCoeff_finset_le hK)
+
+/-- **The `L¹` row of (7.4).**  `∑_{m ∈ ℤ} ‖a_m‖ ≤ 6(1 + log K)`, the form that composes with
+`norm_majorantCoeff_le`'s own `2(1 + log K)/K`. -/
+theorem tsum_norm_majorantCoeff_le {K : ℕ} (hK : 2 ≤ K) :
+    ∑' m : ℤ, ‖majorantCoeff K m‖ ≤ 6 * (1 + Real.log K) :=
+  Real.tsum_le_of_sum_le (fun _ => norm_nonneg _) (sum_norm_majorantCoeff_finset_le hK)
+
+/-- The same row in the literal `C log K` shape the source asks for (`C = 13`).
+
+**Not** a consequence of `tsum_norm_majorantCoeff_le`: at `K = 2`,
+`6(1 + log 2) = 10.16 > 13 log 2 = 9.01`, so the two rows are incomparable and this one is
+taken off the raw finset bound directly.  Chaining them in the obvious order does not typecheck,
+and that is the point of recording it. -/
+theorem tsum_norm_majorantCoeff_le_log {K : ℕ} (hK : 2 ≤ K) :
+    ∑' m : ℤ, ‖majorantCoeff K m‖ ≤ 13 * Real.log K :=
+  Real.tsum_le_of_sum_le (fun _ => norm_nonneg _) (sum_norm_majorantCoeff_finset_le_log hK)
 
 end Salt.Weil

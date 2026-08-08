@@ -168,7 +168,14 @@ open Salt.Tactic in
   **exactly** (`2(1 + log(K/2))/K`); `norm_majorantCoeff_le` gives `‖a_m‖ ≤ 2(1 + log K)/K` for
   every `m`, `a₀` included (§D5's separate-`a₀` row); and `norm_majorantCoeff_le_sq` gives
   `‖a_m‖ ≤ K/(π²m²)` for `m ≠ 0` — the tail arm N7 needs for `|m| > K`, with `C = 1/π²` (the
-  sharper-looking `K/(2π²m²)` is measured FALSE). The expansion (7.3) itself, downstream of that
+  sharper-looking `K/(2π²m²)` is measured FALSE).  The two arms are then composed into the `L¹`
+  row `tsum_norm_majorantCoeff_le` (`∑_{m∈ℤ} ‖a_m‖ ≤ 6(1 + log K)`; `…_le_log` restates it as
+  `13 log K`, the source's literal shape, and is NOT derivable from the first — at `K = 2` the
+  two are incomparable), resting on `summable_norm_majorantCoeff`, which is load-bearing rather
+  than cosmetic since a Lean `∑'` of a non-summable family is `0`.  The measured truth is that
+  `∑_m ‖a_m‖` is **bounded** (`sup = 1.2582` at `K = 5`, `→ 1.2232`), so the `log K` is an
+  artefact of the split; the `O(1)` row is strictly harder and buys N7 nothing.
+  The expansion (7.3) itself, downstream of that
   arm, is still **banked**, see `docs/blueprints/flags.md`. The reusable finding is
   `sawtoothMajorant_eq_inv_max`: the degenerate-split `if` IS `(max (K‖θ‖) 1)⁻¹`, hence
   continuous. -/
@@ -188,3 +195,6 @@ open Salt.Tactic in
   Salt.Weil.integral_sawtoothMajorant_le
   Salt.Weil.norm_majorantCoeff_le
   Salt.Weil.norm_majorantCoeff_le_sq
+  Salt.Weil.summable_norm_majorantCoeff
+  Salt.Weil.tsum_norm_majorantCoeff_le
+  Salt.Weil.tsum_norm_majorantCoeff_le_log

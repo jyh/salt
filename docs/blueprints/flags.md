@@ -22134,3 +22134,114 @@ merely unreachable by one route).
 summable, so `AddCircle.hasSum_fourier_series_of_summable` is now *available* for the continuous
 1-periodic lift of the majorant. Nobody has assembled it. Also still owed, and unchanged: the
 `∑_m ‖a_m‖ ≤ C log K` row, and N7's own (7.6)–(7.8).
+
+## ✅ (2026-08-08) ⟦WEIL-TRIO W5(S2) — THE `L¹` ROW LANDS: `∑_{m∈ℤ} ‖a_m‖ ≤ 6(1 + log K)`; AND THE ROW IS **NOT SHARP AND NEVER WILL BE** — THE TRUE SUM IS BOUNDED⟧
+
+**Opus executor (MATH seat), one commit.** Files touched: `Salt/Weil/Sawtooth.lean`,
+`Salt/Weil/All.lean`, this file — nothing else. Full `../saltbuild.sh` **EXIT=0** (9719 jobs, 0
+errors, **0 warnings introduced**; `Salt/Weil/Sawtooth.lean` audits clean on its own). This closes
+the `∑_m ‖a_m‖ ≤ C log K` row listed as still-owed in the §21293 follow-up above. **(7.3) is
+deliberately NOT assembled — see the warning at the end.**
+
+### WHAT LANDED
+
+```lean
+theorem summable_norm_majorantCoeff {K : ℕ} (hK : 2 ≤ K) :
+    Summable (fun m : ℤ => ‖majorantCoeff K m‖)
+
+theorem tsum_norm_majorantCoeff_le {K : ℕ} (hK : 2 ≤ K) :
+    ∑' m : ℤ, ‖majorantCoeff K m‖ ≤ 6 * (1 + Real.log K)
+
+theorem tsum_norm_majorantCoeff_le_log {K : ℕ} (hK : 2 ≤ K) :
+    ∑' m : ℤ, ‖majorantCoeff K m‖ ≤ 13 * Real.log K
+```
+
+All three at `[propext, Classical.choice, Quot.sound]`, **verified by a direct
+`lake env lean Salt/Weil/All.lean` audit run through the wrapper, not by a replayed build line.**
+Roll-call rows added to `Salt/Weil/All.lean`. Supporting privates, all new:
+`sum_inv_sq_of_natAbs_gt`, `sum_norm_majorantCoeff_finset_le_raw`, `four_div_pi_sq_lt`,
+`sum_norm_majorantCoeff_finset_le`, `sum_norm_majorantCoeff_finset_le_log`.
+
+### ⭐ THE ARCHITECTURE — one finset lemma, both results
+
+`summable_of_sum_le` and `Real.tsum_le_of_sum_le`
+(`Mathlib/Topology/Algebra/InfiniteSum/Real.lean:84,95`) take **the same two inputs**: `0 ≤ f`,
+and a bound on *every* finite partial sum. So the whole wave is one finset lemma plus two
+three-line consequences — no `sum_add_tsum_compl` subtype juggling. **This was verified to
+elaborate against a `sorry`'d key lemma BEFORE the 150-line finset block was written.**
+
+The split: `|m| ≤ K` (at most `2K+1` terms, each at `norm_majorantCoeff_le`) plus `|m| > K`
+(at `norm_majorantCoeff_le_sq` against mathlib's `sum_Ioo_inv_sq_le`, applied to each sign
+separately since `Int.natAbs` is injective on each). Raw total: `5(1 + log K) + 4/π²`.
+
+### ⛔ TWO CONSTANTS THAT DO **NOT** WORK, AND THEY ARE THE TEMPTING ONES
+
+1. **`5(1 + log K)` is not provable on this route.** `(2K+1)·2/K = 4 + 2/K ≤ 5` is an
+   **equality at `K = 2`**, so the inner block alone consumes the whole budget and the tail's
+   `4/π²` has nowhere to go. ⚠️ **But the *theorem* at `5` is TRUE** (the truth is `≤ 1.26`), so
+   this is a **route-break, not a false statement.** Both facts recorded, because conflating them
+   is precisely the failure this corpus keeps paying for.
+2. **`tsum_norm_majorantCoeff_le_log` is NOT a corollary of `tsum_norm_majorantCoeff_le`.** At
+   `K = 2`, `6(1 + log 2) = 10.16` while `13 log 2 = 9.01` — the two rows are **incomparable**.
+   The obvious chaining does not typecheck; the `13 log K` row is taken off the raw finset bound
+   directly. (The author wrote the chained version first and the kernel refused it.)
+
+### ⭐⭐ THE MEASUREMENT THAT MATTERS MORE THAN THE ROW: `∑_m ‖a_m‖` IS **BOUNDED**
+
+Dense scan over **every** integer `K = 2…300` with a rigorous tail bracket from the landed
+`K/(π²m²)` row; two independent evaluations of `a_m` (the closed form
+`a_m = sin(2πm/K)/(πm) + (2/K)[Ci(πm) − Ci(2πm/K)]` with `Ci` by Numerical Recipes' `cisi`, and
+Gauss–Legendre 20-point subdivided at every half-period **and geometrically on `[1/K,1/2]`**)
+agreeing to **1.7e-15**:
+
+| quantity | value |
+|---|---|
+| `sup_K ∑_m ‖a_m‖` | **1.2582** at `K = 5` (an interior max, not an edge) |
+| `∑_m ‖a_m‖` as `K → ∞` | **1.2232** (`K = 1000, 4096, 16384` agree to 7 figures) |
+| `sup_K (∑_m ‖a_m‖)/log K` | 1.4427 at `K = 2` ( `= 1/log 2`, since `∑ = 1` exactly there) |
+
+**Hard anchor:** at `K = 2` the majorant is *identically 1* on `(0,1)`, forcing `a₀ = 1` exactly
+and `a_m = 0` for `m ≠ 0`. Both methods return `1.000000000`. (An early quadrature that broke
+`[0,1/2]` only at half-periods disagreed with the closed form by `2.7e-4` at `K = 1000` — it
+under-resolved `1/(Kθ)`, which is smooth only in `log θ`. **The disagreement was the diagnosis;
+it was not averaged away.**)
+
+🔑 **So the `log K` is an artefact of the split, not of the object, and the landed row is ~4×
+loose at `K = 2` and unboundedly loose as `K` grows.** ⚠️ **DO NOT CHASE THE `O(1)` VERSION.** It
+is strictly harder — it needs the decay `a_m ≈ (2/K)log(K/2πm)` in `m`, not a uniform bound — and
+it buys the consumer **nothing**: N7 consumes `∑_m ‖a_m‖‖S_m‖` and only ever needs `≪ log K`,
+because HB's third log in `(log Kk)³` comes from the **(7.2) truncation's harmonic weights**
+`∑_{0<|m|≤K} 1/(2π|m|)`, not from this row. *(That last attribution is an INFERENCE from the
+structure of the assembly at `hb1983-notes.md:843`, not a measurement; the boundedness is
+measured.)*
+
+### ⚖️ THE MUTATION CONTROLS — **four designed, TWO discarded as route-breaks BEFORE running**
+
+Applying the fleet's law *as an author*: a mutation is a control only if the mutated statement is
+**FALSE**, and one must be able to write down the witness.
+
+| mutation | mutated statement | verdict |
+|---|---|---|
+| tail `4/(K+1) → 2/(K+1)` | at `K=2`, `v = {m : 2<\|m\|≤N}` gives `0.7899 > 0.6667` | **FALSE ⇒ CONTROL.** Ran: `EXIT=1`, residual `2/(K+1) ≤ 0` |
+| constant `6 → 1/2` | at `K=2` truth is exactly `1`, bound is `0.8466` | **FALSE ⇒ CONTROL.** Ran: `EXIT=1`, residual `4.5(1+log K) + 0.406 ≤ 0` |
+| constant `6 → 5` | truth `≤ 1.26`; `5(1+log 5) = 13.05` | **TRUE ⇒ ROUTE-BREAK, discarded** |
+| drop `hK : 2 ≤ K` | at `K=0,1` majorant is `0`/`1`, sum `≤ 6` | **TRUE ⇒ ROUTE-BREAK, discarded** |
+
+**Restore verified byte-identical** (`sha256` first 16 = `cf97d7870b596979` before and after each
+mutation), then the full-repo `EXIT=0`.
+
+📌 **The author's own pre-registration named all four as goal-level. Two were not.** They were
+caught by writing out what each mutated statement *asserts* and testing it numerically **before**
+running the build — which is the repair recorded in `feedback_mutation_control.md` working as
+intended, applied by an author rather than a reviewer.
+
+### ⚠️ WHAT THIS DOES TO (7.3) — SAID PLAINLY
+
+`summable_norm_majorantCoeff` **is** the last missing input to (7.3): it is exactly the hypothesis
+`AddCircle.hasSum_fourier_series_of_summable` wants for the majorant's continuous 1-periodic lift
+(continuity being `sawtoothMajorant_eq_inv_max`). It is load-bearing here for an independent
+reason — in Lean `∑' m, f m = 0` when `f` is not summable, so without it the two `tsum` rows would
+be true and **vacuous**, the same trap `hm : m ≠ 0` guards one level up.
+
+**(7.3) is NOT assembled, by choice.** It carries the Captain's word. This wave reduces it to one
+click; it does not take the click. **Still owed and unchanged: N7's own (7.6)–(7.8).**
