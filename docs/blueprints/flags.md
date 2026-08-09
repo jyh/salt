@@ -22245,3 +22245,124 @@ be true and **vacuous**, the same trap `hm : m ≠ 0` guards one level up.
 
 **(7.3) is NOT assembled, by choice.** It carries the Captain's word. This wave reduces it to one
 click; it does not take the click. **Still owed and unchanged: N7's own (7.6)–(7.8).**
+
+## ✅ (2026-08-08) ⟦(7.7d) — THE GCD-WEIGHTED DIVISOR SUMS LAND; GAP-LIST ROW 4 ("SUPPLIER: NOBODY") IS CLOSED⟧
+
+**Opus executor (MATH seat, life 7), one commit.** New module `Salt/Weil/GcdDivisorSum.lean`
+(220 ln) + `Salt/Weil/All.lean` roll-call + this file — nothing else touched. Full
+`../saltbuild.sh` **EXIT=0** (9720 jobs; **0 warnings introduced** — every one of the 190 warnings
+in the log is a pre-existing `Strip.lean`/`BCBound.lean`/`CertEval.lean`/`Siegel.lean` line, and
+the only log line naming this module is `✔ [9717/9720] Built Salt.Weil.GcdDivisorSum (3.6s)`).
+
+### THE DEMAND TRACE THAT PICKED THIS ROW (demand-side-first law)
+
+The question asked FIRST was what the spec REQUIRES and is UNPROVED — not what exists:
+
+```
+n7-prep-dossier-0806.md:79    deduplicated input list, item 4: "The gcd-weighted divisor
+                              sum (7.7d) + divisor bookkeeping for (7.8)"
+n7-prep-dossier-0806.md:282   gap list row 4 | supplier: **nobody**
+                              | **[GENUINELY OPEN]** — elementary, unpriced, N7's own
+```
+
+⇒ unproved **AND** spec-required. Only then was the corpus censused (no gcd-weighted divisor sum
+anywhere in `Salt/`; mathlib supplies the one analytic input, `harmonic_le_one_add_log`, already
+in use at `Salt/Goldbach/Final.lean:145`, so the import path was known-good rather than hoped-for).
+
+### WHAT LANDED
+
+```lean
+theorem sqrt_gcd_le_sum_sqrt_divisors (n m : ℕ) (hn : n ≠ 0) :
+    Real.sqrt (Nat.gcd n m) ≤ ∑ d ∈ n.divisors.filter (· ∣ m), Real.sqrt d
+
+theorem sum_sqrt_gcd_div_le (n : ℕ) (hn : n ≠ 0) :          -- HB (7.7), second line
+    ∑ s ∈ Finset.Icc 1 n, Real.sqrt (Nat.gcd n s : ℝ) / s
+      ≤ (n.divisors.card : ℝ) * (1 + Real.log n)
+
+theorem sum_sqrt_gcd_dyadic_le (n M : ℕ) (hn : n ≠ 0) :     -- the (7.8) intermediate
+    ∑ m ∈ Finset.Ioc M (2 * M), Real.sqrt (Nat.gcd n m : ℝ)
+      ≤ 2 * M * (n.divisors.card : ℝ)
+```
+
+All three at `[propext, Classical.choice, Quot.sound]` **twice over**: a direct
+`lake env lean Salt/Weil/All.lean` audit run through the wrapper (not a replayed build line), and
+then `#print axioms` in its literal iron-rule-3 form, because the fleet has recorded that
+`#audit_axioms` is blind to `decide`. Private helpers: `sqrt_le_self_of_one_le`,
+`filter_dvd_Icc_eq_image`, `rowA_term`, `rowB_term`.
+
+### ⭐ THE ARCHITECTURE — ONE IDEA, BOTH ROWS, AND IT IS THE REUSABLE PART
+
+Everything rests on the **over-count**
+
+    (n,m)^{1/2} ≤ ∑_{d ∣ n, d ∣ m} d^{1/2}
+
+which is `Finset.single_le_sum` and nothing else: the gcd **is** one of the terms and the rest are
+`≥ 0`. 🔑 ***Over-counting is what buys the simplicity — it removes the exact-gcd partition, all
+the coprimality bookkeeping, and the Möbius inversion the textbook route spends.*** Swap the two
+sums (`Finset.sum_comm`) and each row reduces to bounding **one** of the `d(n)` terms and
+multiplying by the card (`Finset.sum_const`):
+
+* row A's term is a harmonic block — reindex `s = d·t` over `d·[1, n/d]`, drop `√d ≤ d` to reach
+  `∑ 1/t`, then mathlib's `harmonic_le_one_add_log`;
+* row B's term is a multiples count — `Nat.Ioc_filter_dvd_card_eq_div` gives `⌊2M/d⌋`, and
+  `d^{1/2}·(2M/d) = 2M/√d ≤ 2M`. **No case split on `d ≤ 2M` is needed**: the crude count already
+  carries it, which is why the constant is a clean `2`.
+
+📌 The skeleton was verified to elaborate **against `sorry`'d per-term cores BEFORE either core was
+written** — my predecessor's law, and it paid: row B's whole architecture came back green on the
+first run while row A still had two plumbing slips, so the slips were known to be slips.
+
+### ⚠️ WHAT THE CONSTANTS ARE WORTH — MEASURED, NOT ASSUMED
+
+Dense scan (row A over `n = 1…3000`; row B over `n = 1…600 × M = 0…200`):
+
+| row | worst `LHS/RHS` | where |
+|---|---|---|
+| A at `d(n)(1 + log n)` | **1.000000**, an EQUALITY | `n = 1` |
+| A, highly-composite stress | 0.0158 | `n = 720720` |
+| B at `2·M·d(n)` | 0.5 | `n = 1`, `M = 1` |
+
+**Row A's constant `1` is TIGHT** — attained at the trivial point and nowhere else; the row is
+loose exactly where it is consumed.
+
+⛔ **ROW B AT THE CONSTANT `1` IS MEASURED TRUE AND IS DELIBERATELY NOT STATED.** The over-count
+costs `d(n)·√(2M)` on top of `M·d(n)`, so `1` is unreachable **on this route**. ***That is a
+ROUTE-BREAK, not a false statement*** — the same distinction the `L¹` row paid for at
+`5(1 + log K)` (§22218 above), and the same discipline: both facts recorded, because conflating
+them is precisely the failure this corpus keeps paying for. N7 consumes both rows through a `≪`,
+so the constant is free and buying it back is worth nothing.
+
+### ⚖️ THE MUTATION CONTROLS — **SEVEN DESIGNED, THREE DISCARDED BEFORE ANY BUILD**
+
+Every mutant got a WITNESS HUNT against the mutated **statement** first; a mutant with no witness
+is not a control. Each surviving control also **verified its own treatment was applied** (a
+one-site `grep -c` gate that aborts rather than builds) before spending the lock — evidence's
+treatment-assertion law, applied by an author.
+
+| mutation | mutated statement | verdict |
+|---|---|---|
+| A1 `d(n)(1+log n) → d(n)·log n` | at `n=2`: `1.7071 > 1.3863` | **FALSE ⇒ CONTROL.** Ran: `EXIT=1`, 3 errors |
+| A2 constant `1 → 1/2` | at `n=2`: `1.7071 > 1.6931` | **FALSE ⇒ CONTROL.** Ran: `EXIT=1`, 3 errors |
+| A3 `d(n) → 1` | at `n=2`: `1.7071 > 1.6931` | **FALSE ⇒ CONTROL.** Ran: `EXIT=1`, 3 errors |
+| B3 `M → √M` | at `n=1, M=10` | **FALSE ⇒ CONTROL.** Ran: `EXIT=1`, 3 errors |
+| B1 constant `2 → 1` | no witness in `n≤400, M≤120` | **TRUE ⇒ ROUTE-BREAK, discarded** |
+| B4 constant `3 → 2` | no witness — and it became the STATEMENT | **retired into the row** |
+| A4 drop `hn : n ≠ 0` | at `n=0` Lean's own conventions make both sides `0` | **TRUE ⇒ ROUTE-BREAK, discarded** |
+
+**Restore verified byte-identical**, `sha256` first 16 = `b11cb150c68514af` before and after every
+mutation (each mutant's own sha recorded in-flight: `a2a7b6d9f794bc68`, `d012ad9cd7229fac`,
+`53d84513d7cd4c54`).
+
+📌 **B4 is the entry worth reading twice.** It was designed as a control at constant `3`; hunting
+its witness found none, which said the sharper `2` was true — and inspecting *why* showed the
+route reached `2` directly, with a **simpler** proof than the one aimed at `3` (the crude
+`count ≤ ⌊2M/d⌋` already kills the `d > 2M` case, so the case split I had budgeted was never
+needed). 🔑 ***The witness hunt did not just filter a control here; it improved the theorem and
+shortened its proof.*** That is a second reason to spend it before the build, and it is not the
+reason the law was written.
+
+### WHAT IS STILL OWED ON THIS ROAD — UNCHANGED
+
+**(7.3) itself** (Captain's click; NOT touched, NOT assembled — the assembly remains untouched and
+his) and **N7's own (7.6)–(7.8)**. Gap-list rows 10 and 11 of the dossier (`q ∣ k` discharge; the
+(5.14) double-sum recovery) also still stand at supplier **nobody**.

@@ -29,6 +29,7 @@ import Salt.Weil.GcdBranch
 import Salt.Weil.Estermann
 import Salt.Weil.EstermannGlobal
 import Salt.Weil.Sawtooth
+import Salt.Weil.GcdDivisorSum
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -198,3 +199,27 @@ open Salt.Tactic in
   Salt.Weil.summable_norm_majorantCoeff
   Salt.Weil.tsum_norm_majorantCoeff_le
   Salt.Weil.tsum_norm_majorantCoeff_le_log
+
+/-! ### WEIL-TRIO — (7.7d), the gcd-weighted divisor sums (2026-08-08)
+
+`Salt.Weil.GcdDivisorSum`, a second **supply depot** for N7.  Closes gap-list row 4 of
+`docs/exploration/n7-prep-dossier-0806.md:282`, which stood at supplier **nobody**,
+*GENUINELY OPEN — elementary, unpriced, N7's own*.
+
+* `sum_sqrt_gcd_div_le` — HB (7.7) second line, `∑_{s=1}^{n} (n,s)^{1/2}/s ≤ d(n)(1 + log n)`.
+  The constant `1` is **tight**: at `n = 1` both sides are exactly `1`.  It is loose where it is
+  consumed (ratio `0.016` at `n = 720720`).
+* `sum_sqrt_gcd_dyadic_le` — the (7.8) intermediate, `∑_{M<m≤2M} (n,m)^{1/2} ≤ 2·M·d(n)`,
+  HB's *"by a method similar to (7.7)"*.  Holds at `M = 0`.  ⚠️ The constant `1` is **measured
+  true** and deliberately not stated: the over-count costs `d(n)·√(2M)`, so `1` is a
+  **route-break, not a false statement**.
+* `sqrt_gcd_le_sum_sqrt_divisors` — the reusable idea both rows rest on:
+  `(n,m)^{1/2} ≤ ∑_{d∣n, d∣m} d^{1/2}`, because the gcd IS one of the terms and the rest are
+  `≥ 0`.  Over-counting is what removes the exact-gcd partition, the coprimality bookkeeping and
+  the Möbius inversion; each row then bounds ONE of the `d(n)` terms and multiplies by the card.
+
+Still owed on this road, unchanged: (7.3) itself, and N7's own (7.6)–(7.8). -/
+open Salt.Tactic in
+#audit_axioms Salt.Weil.sqrt_gcd_le_sum_sqrt_divisors
+  Salt.Weil.sum_sqrt_gcd_div_le
+  Salt.Weil.sum_sqrt_gcd_dyadic_le

@@ -77,6 +77,8 @@ consumption scout and are consistent.
 2. The sawtooth kit (7.2)+(7.3)+(7.4).
 3. The congruence-restricted completion (7.7b).
 4. The gcd-weighted divisor sum (7.7d) + divisor bookkeeping for (7.8).
+   **[the two sums KERNEL 2026-08-08, `Salt/Weil/GcdDivisorSum.lean`; the `d(k)³`
+   bookkeeping still open — see gap list row 4 and `flags.md`]**
 5. Additive-character orthogonality mod `k` (7.7a).
 
 ---
@@ -279,7 +281,7 @@ already discharged.**
 | 1 | Estermann (7.1), arbitrary `k,u,v` | W3 + W1-d pair | W1-c/W1-d **[KERNEL, `4a58e51`/`d1a5668`]**, W3 **[DESIGN]** — and see FINDING #1: the pair is weaker than (7.1) at general `k`, bounded only via **W4-a** |
 | 2 | sawtooth (7.2)+(7.3)+(7.4) | W5 | **[DESIGN]** — but see FINDING #3; `Salt/MR/Sawtooth.lean` may cover much of it |
 | 3 | congruence-restricted completion (7.7b) | W5 (D5's sixth row) | **[DESIGN]** — likely reducible to landed `geom_phase_bound`; **re-price** |
-| 4 | gcd-weighted divisor sum (7.7d) + `d(k)³` bookkeeping | **nobody** | **[GENUINELY OPEN]** — elementary, unpriced, N7's own |
+| 4 | gcd-weighted divisor sum (7.7d) + `d(k)³` bookkeeping | W5 depot #2 | **the two sums are [KERNEL] 2026-08-08** — `Salt/Weil/GcdDivisorSum.lean`: `sum_sqrt_gcd_div_le` ((7.7) 2nd line) and `sum_sqrt_gcd_dyadic_le` (the (7.8) intermediate), explicit constants, `[3 axioms]`. The `d(k)³` **bookkeeping** is still open. Was: supplier **nobody**, *[GENUINELY OPEN] — elementary, unpriced, N7's own*; the "elementary" pricing held |
 | 5 | additive-character orthogonality mod `k` (7.7a) | corpus/mathlib | **[UNVERIFIED]** — standard; confirm the exact form |
 | 6 | p.217 real-primitive two-forms, composite `q` | W4-c + W4-c′ | **[IN FLIGHT]** `RealPrimitive.lean:381`, **split as a hypothesis** until W4-a lands |
 | 7 | p.216 `Σχ(b₂)` vanishing | W4-d | **[IN FLIGHT]** `RealPrimitive.lean:413` |
