@@ -21308,6 +21308,10 @@ Anyone consolidating tracks later should note that the three MR rows used here
    `AddCircle.hasSum_fourier_series_of_summable` applies to the continuous 1-periodic lift of the
    majorant (continuity is exactly `sawtoothMajorant_eq_inv_max` + continuity of `dist₁`). Without
    #1 there is no summability and the inversion is unavailable.
+   ⟦**SUPERSEDED 2026-08-09 12:1x** — #1 landed 2026-08-08, and **(7.3) IS NOW ASSEMBLED**
+   (`Salt/Weil/MajorantExpansion.lean`, `sawtoothMajorant_fourier_expansion` /
+   `hasSum_majorantCoeff`). The recipe recorded here is exactly the one that was used, down to the
+   named lemma — it needed no repair. See the ⟦(7.3) ASSEMBLED⟧ entry at the end of this file.⟧
 
 **A SHORTCUT THAT DOES NOT EXIST (recorded so nobody re-chases it).** The W5 brief suggested that
 `Salt.BV.sum_norm_fourierCutoff_le` (`Salt/BV/Completion.lean:237`, the `2 + log H` `L¹` mass) might
@@ -22130,6 +22134,10 @@ merely unreachable by one route).
 
 ### ⚠️ WHAT IS STILL OWED — (7.3) IS NOW UNBLOCKED, NOT DONE
 
+⟦**SUPERSEDED 2026-08-09 12:1x — (7.3) IS DONE.** Both residues named below are closed: the
+`∑_m ‖a_m‖ ≤ C log K` row on 2026-08-08, the assembly itself today. Only N7's own (7.6)–(7.8)
+survives from this list. See the ⟦(7.3) ASSEMBLED⟧ entry at the end of this file.⟧
+
 §21293 item #2 stands as written, minus its blocker: with `‖a_m‖ ≤ K/(π²m²)` the coefficients are
 summable, so `AddCircle.hasSum_fourier_series_of_summable` is now *available* for the continuous
 1-periodic lift of the majorant. Nobody has assembled it. Also still owed, and unchanged: the
@@ -22245,6 +22253,10 @@ be true and **vacuous**, the same trap `hm : m ≠ 0` guards one level up.
 
 **(7.3) is NOT assembled, by choice.** It carries the Captain's word. This wave reduces it to one
 click; it does not take the click. **Still owed and unchanged: N7's own (7.6)–(7.8).**
+
+⟦**THE CLICK CAME 2026-08-09 ~12:0x** — *"assemble (7.3)"*. The reading recorded in this section
+held exactly: `summable_norm_majorantCoeff` was the last input, and it went into
+`has_pointwise_sum_fourier_series_of_summable` unmodified. ⟦(7.3) ASSEMBLED⟧, end of this file.⟧
 
 ## ✅ (2026-08-08) ⟦(7.7d) — THE GCD-WEIGHTED DIVISOR SUMS LAND; GAP-LIST ROW 4 ("SUPPLIER: NOBODY") IS CLOSED⟧
 
@@ -22367,6 +22379,9 @@ reason the law was written.
 his) and **N7's own (7.6)–(7.8)**. Gap-list rows 10 and 11 of the dossier (`q ∣ k` discharge; the
 (5.14) double-sum recovery) also still stand at supplier **nobody**.
 
+⟦**STALE 2026-08-09 12:1x**: (7.3) assembled (the click came); row 10 closed 2026-08-08. Row 11
+and (7.6)–(7.8) stand.⟧
+
 ## ✅ (2026-08-08) ⟦GAP ROW 10 — THE `q ∣ k` DISCHARGE LANDS, AND THE ROW WAS **MISPRICED**; GAP ROW 5's GATE WAS **VACUOUS**⟧
 
 **Opus executor (MATH seat, life 7), same sitting as the (7.7d) entry above.** New module
@@ -22449,6 +22464,9 @@ design-block item, not a solo pull. **Gap row 11** — §2's three transcription
 double-sum recovery, the `:611` residual), still supplier **nobody**. **Gap row 4's second half**
 — the `d(k)³` bookkeeping, still open; only its two sums landed.
 
+⟦**STALE 2026-08-09 12:1x**: (7.3) assembled; row 4's second half closed 2026-08-08. (7.6)–(7.8)
+and row 11 stand.⟧
+
 ## ✅ (2026-08-08) ⟦GAP ROW 4's SECOND HALF — THE `d(k₀) ≤ d(k)` FOLD, FOUND BY RE-DERIVING (7.8) RATHER THAN BY READING THE ROW⟧
 
 **Opus executor (MATH seat, life 7), same sitting.** Appended to `Salt/Weil/GcdDivisorSum.lean`.
@@ -22514,6 +22532,8 @@ row 11  STILL OPEN — §2's transcription defects. ⚠️ ONE THIRD OF IT IS ST
 ```
 **(7.3) untouched — the Captain's. N7's own (7.6)–(7.8) is the remaining campaign, and it is a
 design-block item, not a solo pull.**
+
+⟦**STALE 2026-08-09 12:1x**: (7.3) assembled. (7.6)–(7.8) stands, unchanged.⟧
 
 ## ✅ (2026-08-08, night) ⟦A MUTATION CONTROL PROMOTED FROM RUNG 2 TO RUNG 4 — `hdvd_is_load_bearing`⟧
 
@@ -22642,3 +22662,116 @@ docstring caveat.
 `roadModulus_eq_lcm` was landed at 17:2x as an `A`-class row closing a *"GENUINELY OPEN"* gap
 that turned out mispriced. ***Five hours later the same one-line `rfl` is the hinge of the
 dossier's most important finding.*** A row's value is not its class.
+
+## ✅ (2026-08-09) ⟦(7.3) **ASSEMBLED** — THE MAJORANT'S FOURIER EXPANSION LANDS; THE CAPTAIN'S CLICK IS SPENT⟧
+
+**Opus executor (MATH seat), one commit, first attempt.** New module
+`Salt/Weil/MajorantExpansion.lean` (176 ln) + `Salt/Weil/All.lean` roll-call + this file —
+nothing else touched. The click came **2026-08-09 ~12:0x**: *"assemble (7.3)"*. It is spent.
+
+### WHAT LANDED
+
+```lean
+theorem hasSum_majorantCoeff {K : ℕ} (hK : 2 ≤ K) (θ : ℝ) :
+    HasSum (fun m : ℤ => majorantCoeff K m * e ((m : ℝ) * θ))
+      (sawtoothMajorant K θ : ℂ)
+
+theorem sawtoothMajorant_fourier_expansion {K : ℕ} (hK : 2 ≤ K) (θ : ℝ) :   -- HB (7.3)
+    (sawtoothMajorant K θ : ℂ) = ∑' m : ℤ, majorantCoeff K m * e ((m : ℝ) * θ)
+
+theorem summable_majorantCoeff_mul_e {K : ℕ} (hK : 2 ≤ K) (θ : ℝ) :
+    Summable (fun m : ℤ => majorantCoeff K m * e ((m : ℝ) * θ))
+```
+
+plus the four transport rows `dist₁_zero_eq_norm_unitAddCircle`, `majorantCircle_coe`,
+`fourierCoeff_majorantCircle`, `summable_fourierCoeff_majorantCircle` and the definition
+`majorantCircle`. This is `hb1983-notes.md:815` literally —
+`Min(1/(K‖θ‖),1) = Σ_{m=−∞}^{∞} a_m e(mθ)`, `K ≥ 2` — for **every real `θ`**, no exceptional set.
+
+Full `../saltbuild.sh` **EXIT=0** (9722 jobs, was 9721). **Warnings by difference: 190 before,
+190 after, 0 errors both sides** — every warning in the log is a pre-existing
+`Twelve/MvJ`/`ExpSum/Strip`/`Chen`/`MR` line, and the only log line naming this module is
+`✔ [9719/9722] Built Salt.Weil.MajorantExpansion (3.7s)` (a `✔`, not a `⚠`). All seven rows at
+`[propext, Classical.choice, Quot.sound]`, verified **twice**: `#audit_axioms` in `All.lean`, and
+then iron-rule-3's literal `#print axioms` in a throwaway scratch run through the wrapper
+(`saltbuild ScratchN73-opus1.lean`, EXIT=0, not committed) — because `#audit_axioms` is blind to
+`decide` and a replayed build line is not a fresh reading.
+
+### ⭐ THE ONE PIECE OF CONTENT: `dist₁ θ 0` **IS** `‖(θ : ℝ/ℤ)‖`
+
+Both sides are `|θ − round θ|`, so `dist₁_zero_eq_norm_unitAddCircle` is
+`UnitAddCircle.norm_eq` + `sub_zero`. 🔑 ***That one line is the whole assembly.*** It pays for
+three separate obligations at once:
+
+* **continuity** — `round` is *not* continuous, so proving `fun θ => dist₁ θ 0` continuous from
+  the corpus's definition is real work; mathlib's circle norm is continuous by construction, and
+  it is the same function;
+* **1-periodicity** — free, it lives on `ℝ/ℤ` already;
+* **the change of variable** — the target `AddCircle 1` *is* where the norm lives.
+
+🔑 **So `majorantCircle` is DEFINED ON `ℝ/ℤ` DIRECTLY** — `x ↦ ((max (K‖x‖) 1)⁻¹ : ℂ)`, straight
+off `sawtoothMajorant_eq_inv_max`'s closed form — rather than descended from `ℝ` with a
+`Function.Periodic` side condition. Continuity is then `Continuous.inv₀` against
+`max (K‖x‖) 1 ≥ 1 > 0`, five lines, no case split, no `a.e.` plumbing. **Anyone extending S2
+should reach for this bridge before writing any periodicity lemma.**
+
+### THE RECIPE WAS RIGHT — IT NEEDED NO REPAIR
+
+`§21325` and `§22259` predicted the assembly exactly: `summable_norm_majorantCoeff` is the
+hypothesis `has_pointwise_sum_fourier_series_of_summable` wants, with continuity from
+`sawtoothMajorant_eq_inv_max`. Both were used verbatim; **the module elaborated green on the
+first build**, only two long-line lints (in my own docstring) to fix. The predicted-cost claim in
+the banking entries is confirmed rather than merely believed.
+
+⚠️ **Two small facts the recipe did not name, recorded for the next reader:**
+
+1. `fourierCoeff`, `fourier`, `has_pointwise_sum_fourier_series_of_summable` live in mathlib's
+   **root** namespace, not under `AddCircle` (the banking entries wrote
+   `AddCircle.hasSum_fourier_series_of_summable`; that name does not resolve).
+2. The API is gated on `Fact (0 < T)` and mathlib carries **no** global `Fact ((0:ℝ) < 1)`. It is
+   supplied here as a `local instance`, deliberately: no exported statement mentions `AddCircle`,
+   so the instance does not escape the file.
+
+`fourierCoeff` of the lift **is** `majorantCoeff` — they differ only by the order of the two
+factors and by the `T = 1` normalisation `(1/T) • ·`, so `fourierCoeff_majorantCircle` is one
+`intervalIntegral.integral_congr`.
+
+### ⭐⭐ WHY THE HEADLINE ROW IS A `HasSum`, NOT THE `∑'`
+
+`§22259`'s trap is the reason: **in Lean `∑' m, f m = 0` when `f` is not summable**, so an
+expansion stated only as `M θ = ∑' m, a_m e(mθ)` could in principle be satisfied by a degenerate
+reading. `hasSum_majorantCoeff` carries the *convergence* HB's `=` intends and cannot;
+`sawtoothMajorant_fourier_expansion` is read off it by `.tsum_eq.symm`, and
+`summable_majorantCoeff_mul_e` exports the certificate on its own so a consumer never has to
+re-derive it. 📌 **The `∑'` row is the one that matches the source's typography; the `HasSum` row
+is the one that matches the source's meaning. Both are stated, on purpose.**
+
+### ⚖️ THE MUTATION CONTROL — one designed, one discarded before any build
+
+A mutation is a control only if the mutated **statement** is FALSE and the witness can be written
+down (`feedback_mutation_control.md`). Both candidates were evaluated on paper first:
+
+| mutation | mutated statement | verdict |
+|---|---|---|
+| `hK : 2 ≤ K` → `hK : 0 ≤ K` | at `K = 0, θ = 0`: `sawtoothMajorant 0 0 = 1` (the `dist₁ = 0` arm), while for every `m` the integrand vanishes off `{0,1}` (Lean's `0⁻¹ = 0` sends the non-integer arm to `min 0 1 = 0`), so `a_m = 0` and the sum is `0`. **`1 ≠ 0`** | **FALSE ⇒ CONTROL.** Ran: `saltbuild EXIT=1`, one error, an application type mismatch at the `summable_norm_majorantCoeff hK` seam |
+| `hK : 2 ≤ K` → `hK : 1 ≤ K` | at `K = 1`, `K‖θ‖ ≤ 1/2 < 1` so the majorant is **identically 1**, `a₀ = 1`, `a_m = 0` otherwise, and the expansion holds | **TRUE ⇒ ROUTE-BREAK, discarded** (`summable_norm_majorantCoeff` needs `2 ≤ K`; the statement is true, the route is not) |
+
+The surviving control carried a one-site `grep -c` treatment gate (asserted `= 1`) before the
+lock was spent. **Restore verified byte-identical** (`sha256` first 16 = `68237e16e48be466`
+before and after), then the full-repo `EXIT=0` above was re-run on the restored bytes.
+
+⚠️ Note the `K = 1` row is the same distinction this arc keeps paying for and keeps recording:
+**a true statement my route cannot reach is a ROUTE-BREAK, not a false statement.** Third time in
+three waves on this road (`5(1 + log K)` at §22218, row B's constant `1` at §22347).
+
+### WHAT IS NOW OWED ON THE N7 ROAD
+
+**N7's own (7.6)–(7.8)** — the real campaign, a design-block item, not a solo pull. **Gap row 11**
+— §2's transcription defects ((5.14) double-sum recovery, the `:611` residual), supplier
+**nobody**. (7.3) is off the list; its "still owed" co-references above are marked stale in place.
+
+⚠️ **One stale claim is OUTSIDE this commit's pathspec and is left for the maestro:**
+`docs/exploration/n7-prep-dossier-0806.md:302` still reads *"(7.3) ITSELF IS DELIBERATELY NOT
+ASSEMBLED — it is the CAPTAIN'S CLICK, one click since 16:06"*, and `:55` still carries (7.3) as
+not-landed. Both are now false. Named here rather than silently edited, because this executor's
+brief fenced the commit to the module + `All.lean` + this file.

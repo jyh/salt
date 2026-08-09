@@ -30,6 +30,7 @@ import Salt.Weil.Estermann
 import Salt.Weil.EstermannGlobal
 import Salt.Weil.Sawtooth
 import Salt.Weil.GcdDivisorSum
+import Salt.Weil.MajorantExpansion
 import Salt.Weil.RoadModulus
 import Salt.Tactic.AuditAxioms
 
@@ -177,8 +178,9 @@ open Salt.Tactic in
   than cosmetic since a Lean `∑'` of a non-summable family is `0`.  The measured truth is that
   `∑_m ‖a_m‖` is **bounded** (`sup = 1.2582` at `K = 5`, `→ 1.22306`), so the `log K` is an
   artefact of the split; the `O(1)` row is strictly harder and buys N7 nothing.
-  The expansion (7.3) itself, downstream of that
-  arm, is still **banked**, see `docs/blueprints/flags.md`. The reusable finding is
+  The expansion (7.3) itself, downstream of that arm, **LANDED 2026-08-09** in
+  `Salt.Weil.MajorantExpansion` (roll-call below); this row's "still banked" note is retired.
+  The reusable finding is
   `sawtoothMajorant_eq_inv_max`: the degenerate-split `if` IS `(max (K‖θ‖) 1)⁻¹`, hence
   continuous. -/
 open Salt.Tactic in
@@ -226,7 +228,8 @@ open Salt.Tactic in
   sum at a *divisor* `k₀` of `k` already folded to `d(k)`; its `k₀ ∣ k` is **load-bearing** (at
   `k₀ = 60, k = 1, M = 3` the conclusion is false, `6.685 > 6`).
 
-Still owed on this road, unchanged: (7.3) itself, and N7's own (7.6)–(7.8). -/
+Still owed on this road: N7's own (7.6)–(7.8).  ((7.3) was owed when this block was written and
+is **no longer** — see the `MajorantExpansion` roll-call below, 2026-08-09.) -/
 open Salt.Tactic in
 #audit_axioms Salt.Weil.sqrt_gcd_le_sum_sqrt_common_divisors
   Salt.Weil.sum_sqrt_gcd_div_le
@@ -256,3 +259,38 @@ open Salt.Tactic in
   Salt.Weil.dvd_roadModulus_left
   Salt.Weil.factorization_two_roadModulus
   Salt.Weil.factorization_two_roadModulus_le
+
+/-! ### WEIL-TRIO W5(S2) — **(7.3) ASSEMBLED**, the majorant's Fourier expansion (2026-08-09)
+
+`Salt.Weil.MajorantExpansion`.  HB `hb1983-notes.md:815`:
+`Min(1/(K‖θ‖),1) = Σ_{m=−∞}^{∞} a_m e(mθ)` for `K ≥ 2`.
+
+* `sawtoothMajorant_fourier_expansion` — (7.3) in the source's literal shape,
+  `(sawtoothMajorant K θ : ℂ) = ∑' m : ℤ, majorantCoeff K m * e (m·θ)`, at `2 ≤ K`, every real `θ`.
+* `hasSum_majorantCoeff` — **the row to quote.**  The same statement as a `HasSum`, i.e. carrying
+  the *convergence* HB's `=` intends.  A Lean `∑'` of a non-summable family is `0`, so the `∑'`
+  restatement alone would be satisfiable vacuously; this one is not.  `summable_majorantCoeff_mul_e`
+  exports the certificate on its own.
+* `dist₁_zero_eq_norm_unitAddCircle` — the bridge, and the only new content:
+  `dist₁ θ 0 = ‖(θ : ℝ/ℤ)‖`.  Both sides are `|θ − round θ|`.  It buys 1-periodicity, continuity
+  and the change of variable in one step: `round` is not continuous, mathlib's circle norm is, and
+  they are the same function.  So `majorantCircle` is **defined on `ℝ/ℤ` directly** from
+  `sawtoothMajorant_eq_inv_max`'s closed form rather than descended from `ℝ` with a periodicity
+  side condition.
+* `majorantCircle` / `majorantCircle_coe` / `fourierCoeff_majorantCircle` /
+  `summable_fourierCoeff_majorantCircle` — the transport into mathlib's
+  `has_pointwise_sum_fourier_series_of_summable`.  `fourierCoeff` of the lift **is**
+  `majorantCoeff`: they differ only by factor order and by the `T = 1` normalisation.
+
+⚠️ Nothing analytic is new here — both (7.4) arms and `summable_norm_majorantCoeff` were already
+in the kernel.  This module is the assembly, and the assembly is what (7.3) was waiting on.
+
+Still owed on the N7 road: N7's own (7.6)–(7.8). -/
+open Salt.Tactic in
+#audit_axioms Salt.Weil.dist₁_zero_eq_norm_unitAddCircle
+  Salt.Weil.majorantCircle_coe
+  Salt.Weil.fourierCoeff_majorantCircle
+  Salt.Weil.summable_fourierCoeff_majorantCircle
+  Salt.Weil.hasSum_majorantCoeff
+  Salt.Weil.sawtoothMajorant_fourier_expansion
+  Salt.Weil.summable_majorantCoeff_mul_e
