@@ -22366,3 +22366,85 @@ reason the law was written.
 **(7.3) itself** (Captain's click; NOT touched, NOT assembled — the assembly remains untouched and
 his) and **N7's own (7.6)–(7.8)**. Gap-list rows 10 and 11 of the dossier (`q ∣ k` discharge; the
 (5.14) double-sum recovery) also still stand at supplier **nobody**.
+
+## ✅ (2026-08-08) ⟦GAP ROW 10 — THE `q ∣ k` DISCHARGE LANDS, AND THE ROW WAS **MISPRICED**; GAP ROW 5's GATE WAS **VACUOUS**⟧
+
+**Opus executor (MATH seat, life 7), same sitting as the (7.7d) entry above.** New module
+`Salt/Weil/RoadModulus.lean` (~55 ln) + `All.lean` roll-call + the dossier's rows 5 and 10.
+Full `../saltbuild.sh` **EXIT=0**, 9721 jobs. **0 warnings introduced, measured by DIFFERENCE
+rather than asserted**: the real-diagnostic count (`error:`/`warning:`) is **190 before and 190
+after** both of today's modules, and no diagnostic line names either one.
+
+### 🔑 ROW 10 — `D` **IS** THE LCM, SO HB's IMPLICIT STEP IS ONE MATHLIB LEMMA
+
+Gap row 10 read *supplier **nobody** · [GENUINELY OPEN] — HB leaves it implicit; N7 owes it*.
+The source gives `Δ = (α₁,q) = (α₂,q)` (`hb1983-notes.md:566`) and `D = α₂ q Δ^{−1}` (`:579`,
+eq. (5.12)). ***That expression is `Nat.lcm α₂ q` on the nose*** — mathlib defines
+`Nat.lcm m n = m * n / Nat.gcd m n` — so `roadModulus_eq_lcm` is **`rfl`**, `q ∣ D` is
+`Nat.dvd_lcm_right`, and `q ∣ k = D·δ₁·w₁` is one `mul_right`.
+
+```lean
+def roadModulus (α₂ q : ℕ) : ℕ := α₂ * q / Nat.gcd α₂ q      -- HB (5.12)
+theorem roadModulus_eq_lcm  : roadModulus α₂ q = Nat.lcm α₂ q := rfl
+theorem dvd_roadModulus     : q ∣ roadModulus α₂ q
+theorem dvd_roadLevel       : q ∣ roadModulus α₂ q * δ₁ * w₁   -- the shape §5 fires
+theorem dvd_roadModulus_left : α₂ ∣ roadModulus α₂ q
+```
+
+**Every row is hypothesis-free** — no nonvanishing, no coprimality, nothing on `α₂, q, δ₁, w₁`.
+📌 **A row priced *GENUINELY OPEN* — which prices an unknown — is class `A`.** HB's implicitness
+was *harmless*, not hidden; that is a different fact from "someone must eventually check it", and
+the dossier now says which. `roadModulus` also **pins the overloaded `D`** that `:975` flags (§2's
+Rosser sieve level `D = q^{1/3}` vs §5's `D = α₂qΔ^{−1}`); this name is only ever the §5 one.
+
+### ⚖️ CONTROLS — two, both witnessed before the build, both fired
+
+| mutation | mutated statement | verdict |
+|---|---|---|
+| C1 `D = lcm → D = gcd` | at `α₂=2, q=3`: `lcm = 6`, `gcd = 1` | **FALSE ⇒ CONTROL.** `EXIT=1`, 6 errors |
+| C2 `q ∣ D → D ∣ q` | at `α₂=2, q=3`: `6 ∤ 3` | **FALSE ⇒ CONTROL.** `EXIT=1`, 4 errors |
+
+Restore byte-identical, `sha256` first 16 = `e16d8d2eb40b98a1`.
+
+### ⛔ MY OWN INSTRUMENT MISLABELLED THE AUDIT, AND THE AUDIT WAS **BETTER** THAN THE BAR
+
+The audit sweep I wrote printed *"any Weil row NOT at 3 axioms?"* and then listed all four new
+rows — under a label reading `(empty = all clean)`. **The filter was `grep -v "[3 axioms]"`, built
+on the assumption that `[3 axioms]` is what clean looks like.** These rows are *below* it:
+
+```
+Salt.Weil.roadModulus_eq_lcm      does not depend on any axioms
+Salt.Weil.dvd_roadModulus         [propext, Quot.sound]     -- no Classical.choice
+Salt.Weil.dvd_roadLevel           [propext, Quot.sound]
+Salt.Weil.dvd_roadModulus_left    [propext, Quot.sound]
+```
+
+🔑 ***An instrument whose "pass" is an exact-match against the usual value reports a BETTER result
+as a failure.*** It cost nothing here only because the rule is `#print axioms` must show **at
+most** the three, and I went and read the names instead of trusting the count — the fleet's own
+"print what you READ, not only verdicts" law catching a defect in the very instrument built to
+apply it. The `[3 axioms]` shorthand is a corpus habit, not the rule.
+
+### ✅ ROW 5 — THE GATE WAS **VACUOUS** (a forty-second probe, no build spent)
+
+Gap row 5, *additive-character orthogonality mod `k` (7.7a)* — supplier `corpus/mathlib`, status
+**[UNVERIFIED] — standard; confirm the exact form**. It is **already in the kernel**:
+`Salt.BV.sum_e_eq` (`Salt/BV/Completion.lean:76`, headed *"P1 — additive orthogonality"*),
+
+    ∑_{h < H} e(h·r/H) = if (H : ℤ) ∣ r then H else 0,
+
+which is exactly (7.7a)'s detector at `H := k`, `r := n − r`. It is not merely present but
+**load-bearing**: the W5 depot's sixth exit row `norm_congrExpSum_le` is built on it, and the
+Sawtooth module docstring already cites it as the completion kernel.
+
+📌 **That is the THIRD gate in two days to dissolve under a probe cheaper than queueing behind it**
+(after L3's and L4's, §22150-region entries). The running score is now **three of five gates met
+were not real**. The lesson is not "gates are usually fake" — it is that *a pricing is a
+hypothesis, and the probe that tests it costs less than one build.*
+
+### WHAT REMAINS ON THE N7 ROAD
+
+**(7.3)** — the Captain's click, untouched. **N7's own (7.6)–(7.8)** — the real campaign, and a
+design-block item, not a solo pull. **Gap row 11** — §2's three transcription defects ((5.14)
+double-sum recovery, the `:611` residual), still supplier **nobody**. **Gap row 4's second half**
+— the `d(k)³` bookkeeping, still open; only its two sums landed.

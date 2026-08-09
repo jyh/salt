@@ -30,6 +30,7 @@ import Salt.Weil.Estermann
 import Salt.Weil.EstermannGlobal
 import Salt.Weil.Sawtooth
 import Salt.Weil.GcdDivisorSum
+import Salt.Weil.RoadModulus
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -223,3 +224,21 @@ open Salt.Tactic in
 #audit_axioms Salt.Weil.sqrt_gcd_le_sum_sqrt_divisors
   Salt.Weil.sum_sqrt_gcd_div_le
   Salt.Weil.sum_sqrt_gcd_dyadic_le
+
+/-! ### WEIL-TRIO — the `q ∣ k` discharge, HB §5's (5.12) modulus (2026-08-08)
+
+`Salt.Weil.RoadModulus`.  Closes gap-list row 10 of `docs/exploration/n7-prep-dossier-0806.md:290`
+(supplier **nobody**, *GENUINELY OPEN — HB leaves it implicit; N7 owes it*).
+
+🔑 **The finding is that the row was mispriced, and by how much.**  With `Δ = (α₂,q)`, HB's
+`D = α₂ q Δ^{−1}` **is** `Nat.lcm α₂ q` — mathlib's `Nat.lcm` is defined by that very expression,
+so `roadModulus_eq_lcm` is `rfl`.  Hence `q ∣ D` is `Nat.dvd_lcm_right`, `q ∣ k = D·δ₁·w₁` is one
+`mul_right`, and **every row here is hypothesis-free**: no nonvanishing, no coprimality, nothing
+on `α₂`, `q`, `δ₁`, `w₁`.  A row that read *GENUINELY OPEN* — a price for an unknown — is class
+`A`.  `roadModulus` also **pins the overloaded `D`**: `hb1983-notes.md:975` records the collision
+with §2's Rosser sieve level `D = q^{1/3}`, and this name is only ever the §5 one. -/
+open Salt.Tactic in
+#audit_axioms Salt.Weil.roadModulus_eq_lcm
+  Salt.Weil.dvd_roadModulus
+  Salt.Weil.dvd_roadLevel
+  Salt.Weil.dvd_roadModulus_left

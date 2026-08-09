@@ -282,12 +282,12 @@ already discharged.**
 | 2 | sawtooth (7.2)+(7.3)+(7.4) | W5 | **[DESIGN]** — but see FINDING #3; `Salt/MR/Sawtooth.lean` may cover much of it |
 | 3 | congruence-restricted completion (7.7b) | W5 (D5's sixth row) | **[DESIGN]** — likely reducible to landed `geom_phase_bound`; **re-price** |
 | 4 | gcd-weighted divisor sum (7.7d) + `d(k)³` bookkeeping | W5 depot #2 | **the two sums are [KERNEL] 2026-08-08** — `Salt/Weil/GcdDivisorSum.lean`: `sum_sqrt_gcd_div_le` ((7.7) 2nd line) and `sum_sqrt_gcd_dyadic_le` (the (7.8) intermediate), explicit constants, `[3 axioms]`. The `d(k)³` **bookkeeping** is still open. Was: supplier **nobody**, *[GENUINELY OPEN] — elementary, unpriced, N7's own*; the "elementary" pricing held |
-| 5 | additive-character orthogonality mod `k` (7.7a) | corpus/mathlib | **[UNVERIFIED]** — standard; confirm the exact form |
+| 5 | additive-character orthogonality mod `k` (7.7a) | corpus | **CONFIRMED PRESENT 2026-08-08, exact form named** — `Salt.BV.sum_e_eq` (`Salt/BV/Completion.lean:76`, "P1 — additive orthogonality"): `∑_{h<H} e(h·r/H) = if (H:ℤ) ∣ r then H else 0`, which is (7.7a)'s detector at `H := k`, `r := n − r`. Already load-bearing: the W5 depot's sixth exit row `norm_congrExpSum_le` is built on it. **The gate was vacuous** |
 | 6 | p.217 real-primitive two-forms, composite `q` | W4-c + W4-c′ | **[IN FLIGHT]** `RealPrimitive.lean:381`, **split as a hypothesis** until W4-a lands |
 | 7 | p.216 `Σχ(b₂)` vanishing | W4-d | **[IN FLIGHT]** `RealPrimitive.lean:413` |
 | 8 | `q = 2^a m`, `a ∈ {0,2,3}` structure | W4-a | **[DESIGN]**, 1,300–2,600 ln — **and on the critical path for FINDING #1** |
 | 9 | Λ* positivity (Lemma 1) | corpus | **✅ [KERNEL]** `TwistChain.lean:359/:367` |
-| 10 | `q ∣ k` discharge (`q ∣ D`) | **nobody** | **[GENUINELY OPEN]** — HB leaves it implicit; N7 owes it |
+| 10 | `q ∣ k` discharge (`q ∣ D`) | W5 depot #3 | **[KERNEL] 2026-08-08** — `Salt/Weil/RoadModulus.lean`: `dvd_roadModulus`, `dvd_roadLevel`, hypothesis-free. **The row was MISPRICED**: with `Δ = (α₂,q)`, HB's `D = α₂qΔ^{−1}` **is** `Nat.lcm α₂ q` (`roadModulus_eq_lcm` is `rfl`), so the discharge is `Nat.dvd_lcm_right`. Was: supplier **nobody**, *[GENUINELY OPEN] — HB leaves it implicit; N7 owes it*; the honest class is `A` |
 | 11 | (5.14) double-sum recovery; the `:611` residual; `(log Kk)³→(log 2k)³` | **nobody** | **[GENUINELY OPEN]** — §2's three transcription defects |
 
 ---
