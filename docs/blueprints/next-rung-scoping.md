@@ -1,5 +1,19 @@
 # Scoping the next rung (post-Brun)
 
+> ⛔ **STALENESS BANNER (Fable/maestro, 2026-08-08 night — math's
+> entry-2 scan, its readings verified at the named files): the §1
+> constraint list's "What mathlib lacks (all confirmed absent)" is
+> TRUE OF MATHLIB and STALE FOR PLANNING — the corpus itself landed
+> at least four of the listed absences in the month after this was
+> written: Siegel–Walfisz (`Salt/Goldbach/A1.lean`), the large sieve
+> (`Salt/LS/Farey.lean`), Mertens (`Salt/SW/EulerLink.lean`),
+> Vaughan (`Salt/SW/Siegel.lean`). The doc rotted from SUCCESS, not
+> carelessness. Its CONCLUSION is unchallenged but its premises are
+> not current: DO NOT PLAN FROM §1 WITHOUT RE-RECON. For live
+> planning use the gap dossier + saltworks/docs/QUEUE.md. A re-run
+> of this recon against today's corpus is registered maestro-owed,
+> post-council (QUEUE open items).**
+
 *Fable, 2026-07-07. Recon: four-agent sweep over the local mathlib pin
 (360da6fa, 2026-06-18), external Lean/Isabelle artifacts, and a full
 ingredient inventory for the Maynard-conditional candidate. Raw findings:
