@@ -233,6 +233,7 @@ open Salt.Tactic in
   Salt.Weil.sum_sqrt_gcd_dyadic_le
   Salt.Weil.card_divisors_le_of_dvd
   Salt.Weil.sum_sqrt_gcd_dyadic_le_of_dvd
+  Salt.Weil.hdvd_is_load_bearing
 
 /-! ### WEIL-TRIO — the `q ∣ k` discharge, HB §5's (5.12) modulus (2026-08-08)
 

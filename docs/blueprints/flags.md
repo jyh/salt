@@ -22514,3 +22514,40 @@ row 11  STILL OPEN — §2's transcription defects. ⚠️ ONE THIRD OF IT IS ST
 ```
 **(7.3) untouched — the Captain's. N7's own (7.6)–(7.8) is the remaining campaign, and it is a
 design-block item, not a solo pull.**
+
+## ✅ (2026-08-08, night) ⟦A MUTATION CONTROL PROMOTED FROM RUNG 2 TO RUNG 4 — `hdvd_is_load_bearing`⟧
+
+**Opus (MATH seat, life 7), under the Captain's full-throttle order.** One theorem appended to
+`Salt/Weil/GcdDivisorSum.lean` + its roll-call row. Full `../saltbuild.sh` **EXIT=0**, 9721 jobs,
+real-diagnostic count **190 — exactly the pre-work baseline**, no diagnostic naming the module.
+
+### WHY, AND IT IS A LAW ABOUT EVIDENCE RATHER THAN ABOUT GCDs
+
+Silicon's 8/8 night axis (kit → bank → gate) sorts laws by *when they are consulted*. I added a
+fourth rung — **a law in the BUILD, consulted by every hand, forever** — and then had to admit my
+own mutation controls sit at rung 2: `flags.md` records **that they fired**, and a successor
+inherits *my word*, not the firing.
+
+🔑 ***A mutation control cannot itself be promoted: a mutation makes the BUILD FAIL, and a failing
+build cannot live in the repo. But its WITNESS can, and the witness is the mathematical content.***
+
+```lean
+theorem hdvd_is_load_bearing :
+    ¬ (∑ m ∈ Finset.Ioc 3 6, Real.sqrt (Nat.gcd 60 m : ℝ)
+        ≤ 2 * 3 * ((1 : ℕ).divisors.card : ℝ))
+```
+At `k₀ = 60, k = 1, M = 3`: `√4 + √5 + √6 = 6.6856… > 6`. So the `hdvd : k₀ ∣ k` hypothesis of
+`sum_sqrt_gcd_dyadic_le_of_dvd` is **necessary**, and that necessity is now re-checked by every
+build rather than asserted in a commit message. `[3 axioms]`, direct audit run.
+
+### ⚠️ TWO PLUMBING FACTS THE NEXT PERSON WILL HIT
+
+1. **`norm_num [Nat.gcd, …]` blows `maxRecDepth`** — unfolding `Nat.gcd` as a simp lemma recurses.
+   Evaluate each gcd ONCE into a `have` (`by decide`) and rewrite with those.
+2. **`push_neg` is DEPRECATED** in this toolchain (`Prefer using push Not`). It is a *warning*, so
+   the build stays green and the count drifts silently — **caught only because I measure
+   diagnostics BY DIFFERENCE (190 → 191) rather than by "EXIT=0".** Fixed to `push Not`; count
+   back to 190.
+
+📌 **#2 is the day's own lesson biting me at 21:2x: a green exit is not a clean landing, and the
+only reason I noticed is that I had a baseline to subtract from.**

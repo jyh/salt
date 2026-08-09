@@ -238,6 +238,44 @@ theorem sum_sqrt_gcd_dyadic_le (n M : ℕ) (hn : n ≠ 0) :
     _ = 2 * M * (n.divisors.card : ℝ) := by
         rw [Finset.sum_const, nsmul_eq_mul]; ring
 
+/-- **The `hdvd : k₀ ∣ k` hypothesis of `sum_sqrt_gcd_dyadic_le_of_dvd` is LOAD-BEARING — and
+this is its WITNESS, as a kernel fact rather than a claim in a commit message.**
+
+At `k₀ = 60`, `k = 1`, `M = 3` the folded conclusion is FALSE:
+`√4 + √5 + √6 = 6.6856… > 6 = 2·M·d(1)`.
+
+📌 **Landed deliberately, and the reason generalises.**  A mutation control that lives only in
+`flags.md` is a *claim that it once fired*: a successor inherits my word, not the firing.  The
+statement below is re-checked by every build, by every hand, forever — so the necessity of that
+hypothesis survives me.  (Its sibling controls in this module cannot be landed the same way: a
+mutation makes the *build* fail, and a failing build cannot live in the repo.  The WITNESS can,
+and the witness is the mathematical content.) -/
+theorem hdvd_is_load_bearing :
+    ¬ (∑ m ∈ Finset.Ioc 3 6, Real.sqrt (Nat.gcd 60 m : ℝ)
+        ≤ 2 * 3 * ((1 : ℕ).divisors.card : ℝ)) := by
+  -- the three gcds, evaluated ONCE each (unfolding `Nat.gcd` as a simp lemma blows maxRecDepth)
+  have g4 : Nat.gcd 60 4 = 4 := by decide
+  have g5 : Nat.gcd 60 5 = 5 := by decide
+  have g6 : Nat.gcd 60 6 = 6 := by decide
+  have hset : Finset.Ioc 3 6 = ({4, 5, 6} : Finset ℕ) := by decide
+  have hsum : ∑ m ∈ Finset.Ioc 3 6, Real.sqrt (Nat.gcd 60 m : ℝ)
+      = Real.sqrt 4 + Real.sqrt 5 + Real.sqrt 6 := by
+    rw [hset, Finset.sum_insert (by decide), Finset.sum_insert (by decide),
+      Finset.sum_singleton, g4, g5, g6]
+    norm_num
+    ring
+  have h4 : Real.sqrt (4:ℝ) = 2 := by
+    rw [show (4:ℝ) = 2 ^ 2 by norm_num, Real.sqrt_sq (by norm_num)]
+  -- `√5 > 2` and `√6 > 2`, each on its own: if `√5 ≤ 2` then `5 = √5² ≤ 4`.
+  have b5 : (2:ℝ) < Real.sqrt 5 := by
+    nlinarith [Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 5), Real.sqrt_nonneg (5:ℝ)]
+  have b6 : (2:ℝ) < Real.sqrt 6 := by
+    nlinarith [Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 6), Real.sqrt_nonneg (6:ℝ)]
+  have hd : ((1 : ℕ).divisors.card : ℝ) = 1 := by norm_num
+  rw [hsum, h4, hd]
+  push Not
+  linarith [b5, b6]
+
 /-! ### The divisor bookkeeping for (7.8) — the `d(k₀) ≤ d(k)` fold
 
 The second half of dossier gap-list row 4 (*"+ divisor bookkeeping for (7.8)"*).  It is the step
@@ -260,6 +298,7 @@ theorem card_divisors_le_of_dvd {m n : ℕ} (hn : n ≠ 0) (hmn : m ∣ n) :
 theorem sum_sqrt_gcd_dyadic_le_of_dvd {k₀ k M : ℕ} (hk : k ≠ 0) (hdvd : k₀ ∣ k) :
     ∑ m ∈ Finset.Ioc M (2 * M), Real.sqrt (Nat.gcd k₀ m : ℝ)
       ≤ 2 * M * (k.divisors.card : ℝ) := by
+  -- see `hdvd_is_load_bearing` below: without `hdvd` this statement is FALSE.
   have hk₀ : k₀ ≠ 0 := by
     rintro rfl; exact hk (Nat.eq_zero_of_zero_dvd hdvd)
   have hcard : (k₀.divisors.card : ℝ) ≤ (k.divisors.card : ℝ) := by
