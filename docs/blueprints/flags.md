@@ -22448,3 +22448,69 @@ hypothesis, and the probe that tests it costs less than one build.*
 design-block item, not a solo pull. **Gap row 11** — §2's three transcription defects ((5.14)
 double-sum recovery, the `:611` residual), still supplier **nobody**. **Gap row 4's second half**
 — the `d(k)³` bookkeeping, still open; only its two sums landed.
+
+## ✅ (2026-08-08) ⟦GAP ROW 4's SECOND HALF — THE `d(k₀) ≤ d(k)` FOLD, FOUND BY RE-DERIVING (7.8) RATHER THAN BY READING THE ROW⟧
+
+**Opus executor (MATH seat, life 7), same sitting.** Appended to `Salt/Weil/GcdDivisorSum.lean`.
+Full `../saltbuild.sh` **EXIT=0**, 9721 jobs, real-diagnostic count **190 — identical to the
+pre-work baseline**, no diagnostic naming either of today's modules.
+
+### HOW THIS ROW WAS FOUND — a re-derivation, not a queue read
+
+Having landed `sum_sqrt_gcd_dyadic_le`, I re-derived HB's passage from the intermediate `S_m`
+step to (7.8) to check the notes' own 2026-08-06 correction (the `(log Kk)³ → (log 2k)` fix).
+**The correction re-derives independently and is right — exactly one log survives into (7.8).**
+Summing the intermediate over `M < m ≤ 2M`:
+
+```
+Σ {E(k₀,m)^{1/2} + k₀}  =  E·Σ(k₀,m)^{1/2} + M·k₀  ≤  M{E·d(k₀) + k₀}   ← MY row enters HERE
+E·d(k₀) + k₀ ≤ d(k₀){E + k}          (needs k₀ ≤ k, from k₀ ∣ k)
+d(k)²·d(k₀)  ≤ d(k)³                 (needs d(k₀) ≤ d(k), from k₀ ∣ k)   ← UNSUPPLIED
+```
+
+🔑 ***The re-derivation is what exposed the missing row.*** The gap list says only *"+ divisor
+bookkeeping for (7.8)"*; working the algebra says precisely which fact, and that mathlib carries
+`Nat.divisors_subset_of_dvd` but **not** its card consequence.
+
+```lean
+theorem card_divisors_le_of_dvd {m n : ℕ} (hn : n ≠ 0) (hmn : m ∣ n) :
+    m.divisors.card ≤ n.divisors.card
+
+theorem sum_sqrt_gcd_dyadic_le_of_dvd {k₀ k M : ℕ} (hk : k ≠ 0) (hdvd : k₀ ∣ k) :
+    ∑ m ∈ Finset.Ioc M (2 * M), Real.sqrt (Nat.gcd k₀ m : ℝ) ≤ 2 * M * (k.divisors.card : ℝ)
+```
+
+The second states the dyadic sum at a **divisor** `k₀` of `k` already folded to `d(k)` — the shape
+(7.8) consumes, so N7 does not repeat the fold.
+
+### ⚖️ CONTROLS — two, witnessed before the build, both fired
+
+| mutation | mutated statement | verdict |
+|---|---|---|
+| C3 drop `hdvd : k₀ ∣ k` | at `k₀=60, k=1, M=3`: `√4+√5+√6 = 6.6856 > 6 = 2·3·d(1)` | **FALSE ⇒ CONTROL.** `EXIT=1` |
+| C4 reverse the fold to `d(n) ≤ d(m)` | at `m=1, n=6`: `d(6)=4 > d(1)=1` | **FALSE ⇒ CONTROL.** `EXIT=1` |
+
+Restore byte-identical, `sha256` first 16 = `295d980690137664`.
+📌 **C3 matters beyond its own row:** `hdvd` is easy to read as bookkeeping — it is *not*, and the
+witness says so in one line. That hypothesis is the whole difference between the folded row and a
+false statement.
+
+### TODAY'S NINE ROWS, ALL AUDITED IN ONE DIRECT `lake env lean` RUN
+
+`sqrt_gcd_le_sum_sqrt_divisors`, `sum_sqrt_gcd_div_le`, `sum_sqrt_gcd_dyadic_le`,
+`card_divisors_le_of_dvd`, `sum_sqrt_gcd_dyadic_le_of_dvd` at `[3 axioms]`; `roadModulus_eq_lcm`
+at **`[0 axioms]`**; `dvd_roadModulus`, `dvd_roadLevel`, `dvd_roadModulus_left` at
+**`[propext, Quot.sound]`**.
+
+### GAP-LIST STATE AFTER TODAY
+
+```
+row 4   BOTH HALVES CLOSED  (the two sums + the divisor bookkeeping)
+row 5   VACUOUS — Salt.BV.sum_e_eq already is it, and already load-bearing
+row 10  CLOSED, and was MISPRICED (D is the lcm; class A, not "GENUINELY OPEN")
+row 11  STILL OPEN — §2's transcription defects. ⚠️ ONE THIRD OF IT IS STALE: the
+        (log Kk)³→(log 2k)³ item was already corrected in the notes on 2026-08-06 and
+        I re-derived that correction today. The (5.14) recovery and the :611 residual stand.
+```
+**(7.3) untouched — the Captain's. N7's own (7.6)–(7.8) is the remaining campaign, and it is a
+design-block item, not a solo pull.**

@@ -238,4 +238,36 @@ theorem sum_sqrt_gcd_dyadic_le (n M : ℕ) (hn : n ≠ 0) :
     _ = 2 * M * (n.divisors.card : ℝ) := by
         rw [Finset.sum_const, nsmul_eq_mul]; ring
 
+/-! ### The divisor bookkeeping for (7.8) — the `d(k₀) ≤ d(k)` fold
+
+The second half of dossier gap-list row 4 (*"+ divisor bookkeeping for (7.8)"*).  It is the step
+the source's corrected derivation spends when it says *"folding `d(k₀) ≤ d(k)` (valid as
+`k₀ ∣ k`) turns `d(k)²·d(k₀)` into `d(k)³`"* (`hb1983-notes.md`, the 2026-08-06 correction block
+under (7.8)).  mathlib has `Nat.divisors_subset_of_dvd` but **not** the card consequence. -/
+
+/-- **`d` is monotone under divisibility**: `m ∣ n` and `n ≠ 0` give `d(m) ≤ d(n)`.
+`Nat.divisors_subset_of_dvd` plus `Finset.card_le_card`; mathlib carries the former and not
+this. -/
+theorem card_divisors_le_of_dvd {m n : ℕ} (hn : n ≠ 0) (hmn : m ∣ n) :
+    m.divisors.card ≤ n.divisors.card :=
+  Finset.card_le_card (Nat.divisors_subset_of_dvd hn hmn)
+
+/-- **The (7.8) fold, in the shape the derivation consumes.**  The dyadic gcd sum taken at a
+*divisor* `k₀` of `k`, bounded by `d(k)` rather than `d(k₀)` — this is what converts
+`d(k)²·d(k₀)` into `d(k)³` in HB's passage from the intermediate `S_m` step to (7.8).
+⚠️ `hdvd` is load-bearing: at `k₀ = 60`, `k = 1`, `M = 3` the conclusion is FALSE
+(`√4 + √5 + √6 = 6.685 > 6 = 2·3·d(1)`). -/
+theorem sum_sqrt_gcd_dyadic_le_of_dvd {k₀ k M : ℕ} (hk : k ≠ 0) (hdvd : k₀ ∣ k) :
+    ∑ m ∈ Finset.Ioc M (2 * M), Real.sqrt (Nat.gcd k₀ m : ℝ)
+      ≤ 2 * M * (k.divisors.card : ℝ) := by
+  have hk₀ : k₀ ≠ 0 := by
+    rintro rfl; exact hk (Nat.eq_zero_of_zero_dvd hdvd)
+  have hcard : (k₀.divisors.card : ℝ) ≤ (k.divisors.card : ℝ) := by
+    exact_mod_cast card_divisors_le_of_dvd hk hdvd
+  calc ∑ m ∈ Finset.Ioc M (2 * M), Real.sqrt (Nat.gcd k₀ m : ℝ)
+      ≤ 2 * M * (k₀.divisors.card : ℝ) := sum_sqrt_gcd_dyadic_le k₀ M hk₀
+    _ ≤ 2 * M * (k.divisors.card : ℝ) := by
+        have hM : (0 : ℝ) ≤ 2 * M := by positivity
+        exact mul_le_mul_of_nonneg_left hcard hM
+
 end Salt.Weil

@@ -219,11 +219,20 @@ open Salt.Tactic in
   `≥ 0`.  Over-counting is what removes the exact-gcd partition, the coprimality bookkeeping and
   the Möbius inversion; each row then bounds ONE of the `d(n)` terms and multiplies by the card.
 
+* `card_divisors_le_of_dvd` + `sum_sqrt_gcd_dyadic_le_of_dvd` — gap row 4's **second half**, the
+  *"divisor bookkeeping for (7.8)"*.  mathlib carries `Nat.divisors_subset_of_dvd` but **not** its
+  card consequence, and `d(k₀) ≤ d(k)` at `k₀ ∣ k` is exactly the fold the source's corrected
+  (7.8) derivation spends to turn `d(k)²·d(k₀)` into `d(k)³`.  The second row states the dyadic
+  sum at a *divisor* `k₀` of `k` already folded to `d(k)`; its `k₀ ∣ k` is **load-bearing** (at
+  `k₀ = 60, k = 1, M = 3` the conclusion is false, `6.685 > 6`).
+
 Still owed on this road, unchanged: (7.3) itself, and N7's own (7.6)–(7.8). -/
 open Salt.Tactic in
 #audit_axioms Salt.Weil.sqrt_gcd_le_sum_sqrt_divisors
   Salt.Weil.sum_sqrt_gcd_div_le
   Salt.Weil.sum_sqrt_gcd_dyadic_le
+  Salt.Weil.card_divisors_le_of_dvd
+  Salt.Weil.sum_sqrt_gcd_dyadic_le_of_dvd
 
 /-! ### WEIL-TRIO — the `q ∣ k` discharge, HB §5's (5.12) modulus (2026-08-08)
 
