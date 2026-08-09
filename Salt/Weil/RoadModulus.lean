@@ -36,6 +36,19 @@ hours later.*
 
 `hb1983-notes.md:975` flags it: the Rosser sieve level `D = q^{1/3}` of §2 collides with §5's
 `D = α₂qΔ^{−1}`.  `roadModulus` names **only the latter**.  Nothing here is about the sieve level.
+
+## The rows, in full
+
+* `roadModulus_eq_lcm` — `D = Nat.lcm α₂ q`, by `rfl`.  Everything else follows from it.
+* `dvd_roadModulus` — `q ∣ D`, the step HB leaves implicit.  Hypothesis-free.
+* `dvd_roadModulus_mul` — `q ∣ D·δ₁·w₁`, the shape §5 fires it in.  Hypothesis-free.
+* `dvd_roadModulus_left` — `α₂ ∣ D`, used on the other side of §5's CRT split.
+* `factorization_two_roadModulus` — `v₂(D) = max(v₂ α₂, v₂ q)`.
+* `factorization_two_roadModulus_le` — under W4-a (`v₂ q ≤ 3`), `v₂(D) ≤ max(v₂ α₂, 3)`.
+
+⚠️ **This list is maintained BY HAND — the kernel cannot check a docstring.  Add a row, add its
+line.**  `scripts/docstring_coverage.py` is the smoke alarm for exactly this drift, and it caught
+this very docstring after a manual fix that I had already declared complete.
 -/
 
 namespace Salt.Weil
