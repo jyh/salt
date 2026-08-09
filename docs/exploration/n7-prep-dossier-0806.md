@@ -288,7 +288,7 @@ already discharged.**
 | 8 | `q = 2^a m`, `a ∈ {0,2,3}` structure | W4-a | **[DESIGN]**, 1,300–2,600 ln — **and on the critical path for FINDING #1** |
 | 9 | Λ* positivity (Lemma 1) | corpus | **✅ [KERNEL]** `TwistChain.lean:359/:367` |
 | 10 | `q ∣ k` discharge (`q ∣ D`) | W5 depot #3 | **[KERNEL] 2026-08-08** — `Salt/Weil/RoadModulus.lean`: `dvd_roadModulus`, `dvd_roadLevel`, hypothesis-free. **The row was MISPRICED**: with `Δ = (α₂,q)`, HB's `D = α₂qΔ^{−1}` **is** `Nat.lcm α₂ q` (`roadModulus_eq_lcm` is `rfl`), so the discharge is `Nat.dvd_lcm_right`. Was: supplier **nobody**, *[GENUINELY OPEN] — HB leaves it implicit; N7 owes it*; the honest class is `A` |
-| 11 | (5.14) double-sum recovery; the `:611` residual; `(log Kk)³→(log 2k)³` | **nobody** | **[GENUINELY OPEN]** — §2's three transcription defects |
+| 11 | (5.14) double-sum recovery; the `:611` residual; `(log Kk)³→(log 2k)³` | the source notes | **ALL THREE CLOSED — verified 2026-08-08, and this row was STALE FROM THE DAY IT WAS WRITTEN.** (i) the (5.14) `w₂` double sum: *"now closed at the source"*, `hb1983-notes.md` correction block dated 2026-08-06 — it was ours, not HB's; (ii) the `:611` residual: **RECLASSIFIED, not merely fixed** — it is *"an ERRATUM IN THE PUBLISHED PAPER, not a transcription error"* (HB prints `x^{1/4}`; three independent terms of his own next display each force `θ = 1/2`, re-derived here); (iii) `(log Kk)³→(log 2k)³`: corrected 2026-08-06 and **independently re-derived 2026-08-08** while landing the (7.8) fold. Was: supplier **nobody**, *[GENUINELY OPEN] — §2's three transcription defects* |
 
 ---
 
