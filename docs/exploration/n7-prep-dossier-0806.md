@@ -163,6 +163,26 @@ Note also D2's own inequality `v₂(k) ≤ v₂(α₂)+3` (`:99-100`) is loose/g
 `≤ 5` at `α₂ = 4`; the correct bound is `max(2, v₂(q)) ≤ 3`, conditional on W4-a.
 **RECOMMENDATION: state this in W3's brief and in §3's exit table.**
 
+> ## ✅ **[RECOMMENDATION DISCHARGED 2026-08-08 night — IT IS NOW PROVED, NOT STATED (`ac29358`)]**
+>
+> `Salt/Weil/RoadModulus.lean` carries both halves, general in `α₂`:
+> ```lean
+> factorization_two_roadModulus    : v₂(D) = max (v₂ α₂) (v₂ q)
+> factorization_two_roadModulus_le : v₂ q ≤ 3 → v₂(D) ≤ max (v₂ α₂) 3
+> ```
+> **This paragraph's arithmetic is confirmed in the kernel and its two claims are separated:**
+> at `α₂ = 4` (`v₂ = 2`) the first row gives exactly this paragraph's `v₂(D) = max(2, v₂ q)`,
+> and the second gives `≤ max(2,3) = 3` — ***so D2's `≤ 5` is confirmed LOOSE by a factor of two
+> in the exponent, and "the correct bound" is no longer a recommendation but a theorem.***
+>
+> 🔑 The route is that `D = α₂qΔ^{−1}` **is `Nat.lcm α₂ q`** (`roadModulus_eq_lcm`, `rfl`), and
+> `v₂` of an lcm is the max of the `v₂`s (`Nat.factorization_lcm`).
+>
+> ⚠️ **SCOPE, so this is not over-read.** These rows are about `D` alone. The step from `D` to
+> `k = D·δ₁·w₁` is W1-d's (`factorization_two_kloosterman_modulus`, needs `δ₁, w₁` odd), and is
+> **not** re-proved here. **W4-a itself — the `v₂(q) ≤ 3` hypothesis — remains OPEN (row 8);
+> nothing above proves it, and `hw4a` is exactly where it enters.**
+
 ### The other deltas, and what each does to N7
 
 - **D1 (θ ≤ 1/50)** — independently reproduced by arithmetic: `θ_max = 1/2 − 120/X` at `x ≥ q^X`;
