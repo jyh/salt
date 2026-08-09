@@ -22551,3 +22551,47 @@ build rather than asserted in a commit message. `[3 axioms]`, direct audit run.
 
 📌 **#2 is the day's own lesson biting me at 21:2x: a green exit is not a clean landing, and the
 only reason I noticed is that I had a baseline to subtract from.**
+
+## ✅ (2026-08-08, night) ⟦THE (7.7) INTERFACE GAP — MY OWN LANDED ROW WAS IN THE WRONG SHAPE FOR ITS CONSUMER⟧
+
+**Opus (MATH seat, life 7), under full throttle.** Two rows appended to
+`Salt/Weil/GcdDivisorSum.lean` + roll-call. Full `../saltbuild.sh` **EXIT=0**, 9721 jobs,
+diagnostics **190 = the pre-work baseline**, nothing naming the module. Both `[3 axioms]`.
+
+### THE FINDING — found by auditing whether the LANDED supply COMPOSES
+
+(7.7) consumes four inputs. Three are now landed (row 5's `sum_e_eq`, row 3's
+`norm_congrExpSum_le`, row 4's sums); the fourth is row 1's Estermann pair, still open. Asking
+whether the three *fit* turned up a mismatch in **my own** row:
+
+```
+MINE (landed 8/8)   ∑_{s≤n} √(n,s)/s ≤ d(n)·(1 + log n)
+HB (7.7) WANTS      ∑_{s≤k₀} (k₀,s)^{1/2} s^{−1} ≪ d(k₀)·log(2k₀)
+```
+🔑 ***A supply row stated in a shape its consumer does not use is a mismatch someone discovers
+MID-WAVE.*** The bridge holds with constant `1/log 2` and is **tight at `n = 1`**:
+
+```lean
+sum_sqrt_gcd_div_le_log_two_mul (hn : n ≠ 0) :
+    ∑ s ∈ Icc 1 n, √(gcd n s)/s ≤ (log 2)⁻¹ · d(n) · log (2n)
+log_two_inv_is_necessary :
+    ¬ (∑ s ∈ Icc 1 1, √(gcd 1 s)/s ≤ d(1) · log 2)      -- the constant is NOT removable
+```
+
+⚠️ **The `L¹` row already paid this bill once** (`6(1+log K)` vs `13 log K`, **incomparable** at
+`K = 2` — the chaining does not typecheck). **Here the chaining does work.** That the two cases
+differ is exactly why the check has to be *run* rather than assumed: *"it is only a constant"* was
+false the first time and true the second.
+
+### 📌 THE WITNESS IS LANDED, NOT NARRATED (rung 4, second instance tonight)
+
+`log_two_inv_is_necessary` is the `1/log 2`'s necessity as a **kernel fact**: at `n = 1` the sum is
+exactly `1` while `d(1)·log 2 = 0.693…`. A constant justified only in prose is a claim, and a
+successor inherits the claim rather than the check.
+
+### WHAT REMAINS ON (7.7)
+
+**Row 1 — Estermann (7.1) at general `k`, arguments `(s, Cm)`.** It is the dossier's own FINDING
+#1 (the landed pair carries a `2^{v₂(k)/2}` factor, unbounded at general `k`, collapsing only on
+road moduli via W4-a). ⇒ ***(7.7)'s three elementary inputs are now landed AND shape-compatible;
+its one deep input is the Kloosterman bound, and that was always the honest shape of §7.***

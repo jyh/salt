@@ -178,6 +178,47 @@ theorem sum_sqrt_gcd_div_le (n : ℕ) (hn : n ≠ 0) :
     _ = (n.divisors.card : ℝ) * (1 + Real.log n) := by
           rw [Finset.sum_const, nsmul_eq_mul]
 
+/-- **(7.7) IN THE CONSUMER'S LITERAL SHAPE.**  HB states the row as `≪ d(k₀)·log(2k₀)`
+(`hb1983-notes.md:822`), **not** as `d(k₀)·(1 + log k₀)`.  The two differ by the constant
+`1/log 2`, and this is the bridge.
+
+⚠️ **Why this exists as its own row rather than as a remark.**  A supply row stated in a shape
+the consumer does not use is a mismatch someone discovers *mid-wave*.  The `L¹` row already paid
+this bill once on salt — `6(1+log K)` and `13 log K` are **incomparable at `K = 2`**, and the
+obvious chaining does not typecheck.  Here the chaining *does* work, with constant `1/log 2`;
+it is tight at `n = 1`, where both sides are exactly `1/log 2`. -/
+theorem sum_sqrt_gcd_div_le_log_two_mul (n : ℕ) (hn : n ≠ 0) :
+    ∑ s ∈ Finset.Icc 1 n, Real.sqrt (Nat.gcd n s : ℝ) / s
+      ≤ (Real.log 2)⁻¹ * (n.divisors.card : ℝ) * Real.log (2 * n) := by
+  have h1 : (1:ℝ) ≤ (n:ℝ) := by exact_mod_cast Nat.one_le_iff_ne_zero.mpr hn
+  have hlogn : (0:ℝ) ≤ Real.log n := Real.log_nonneg h1
+  have hl2 : (0:ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  have hcard : (0:ℝ) ≤ (n.divisors.card : ℝ) := by positivity
+  have hbridge : 1 + Real.log n ≤ (Real.log 2)⁻¹ * Real.log (2 * n) := by
+    rw [show ((2 : ℝ) * n) = 2 * (n : ℝ) from rfl,
+      Real.log_mul (by norm_num) (by exact_mod_cast hn), inv_mul_eq_div, le_div_iff₀ hl2]
+    nlinarith [hlogn, Real.log_two_lt_d9]
+  calc ∑ s ∈ Finset.Icc 1 n, Real.sqrt (Nat.gcd n s : ℝ) / s
+      ≤ (n.divisors.card : ℝ) * (1 + Real.log n) := sum_sqrt_gcd_div_le n hn
+    _ ≤ (n.divisors.card : ℝ) * ((Real.log 2)⁻¹ * Real.log (2 * n)) := by
+        exact mul_le_mul_of_nonneg_left hbridge hcard
+    _ = (Real.log 2)⁻¹ * (n.divisors.card : ℝ) * Real.log (2 * n) := by ring
+
+/-- **The `1/log 2` in the row above is NECESSARY — witness, at `n = 1`.**  Dropping it gives
+`∑ ≤ d(n)·log(2n)`, which is FALSE there: the sum is exactly `1` and `d(1)·log 2 = 0.693…`.
+
+📌 Landed for the same reason as `hdvd_is_load_bearing`: a constant justified only in prose is a
+claim, and a successor inherits the claim rather than the check. -/
+theorem log_two_inv_is_necessary :
+    ¬ (∑ s ∈ Finset.Icc 1 1, Real.sqrt (Nat.gcd 1 s : ℝ) / s
+        ≤ ((1 : ℕ).divisors.card : ℝ) * Real.log 2) := by
+  have hsum : ∑ s ∈ Finset.Icc 1 1, Real.sqrt (Nat.gcd 1 s : ℝ) / s = 1 := by
+    norm_num
+  have hd : (((1 : ℕ).divisors.card : ℝ)) = 1 := by norm_num
+  rw [hsum, hd]
+  push Not
+  nlinarith [Real.log_two_lt_d9]
+
 /-! ### Row B — the (7.8) intermediate -/
 
 /-- **Row B, per-term core.**  Uniformly in `d ∣ n`, the multiples of `d` in `(M, 2M]`
