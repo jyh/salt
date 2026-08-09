@@ -12,14 +12,31 @@ Source math: `docs/sources/hb1983-notes.md:815-830`.  Demand trace:
 `docs/exploration/n7-prep-dossier-0806.md:79` (deduplicated input list, item 4) and `:282`
 (gap list row 4, supplier **nobody**, *GENUINELY OPEN — elementary, unpriced, N7's own*).
 
-This module is a **supply depot** for N7 (Lemma 10 does not live here).  It delivers the two
-arithmetic sums that HB's (7.7)/(7.8) chain consumes, with **explicit constants** in place of
-the source's `≪`:
+This module is a **supply depot** for N7 (Lemma 10 does not live here).  It delivers the
+arithmetic that HB's (7.7)/(7.8) chain consumes, with **explicit constants** in place of the
+source's `≪`.  ⚠️ *This list is the module's contents; if a row is added, it is added here too —
+see the note at the end of this docstring.*
 
+**The two sums:**
 * `sum_sqrt_gcd_div_le` — HB (7.7), second line:
   `∑_{s=1}^{n} (n,s)^{1/2}/s ≤ d(n)·(1 + log n)`.
 * `sum_sqrt_gcd_dyadic_le` — the (7.8) intermediate, HB's *"by a method similar to (7.7)"*:
   `∑_{M<m≤2M} (n,m)^{1/2} ≤ 2·M·d(n)`.
+
+**The consumer's shape** (HB writes (7.7) as `≪ d(k₀)·log(2k₀)`, not `d(k₀)(1+log k₀)`):
+* `sum_sqrt_gcd_div_le_log_two_mul` — the same sum `≤ (log 2)⁻¹·d(n)·log(2n)`.
+
+**The (7.8) divisor bookkeeping** (gap row 4's second half):
+* `card_divisors_le_of_dvd` — `m ∣ n → d(m) ≤ d(n)`; mathlib has the subset, not the card.
+* `sum_sqrt_gcd_dyadic_le_of_dvd` — the dyadic sum at a *divisor* `k₀` of `k`, folded to `d(k)`.
+
+**The shared idea**, which both sums rest on:
+* `sqrt_gcd_le_sum_sqrt_common_divisors` — `(n,m)^{1/2} ≤ ∑_{d ∣ n, d ∣ m} d^{1/2}`.
+
+**Two NECESSITY witnesses**, landed rather than narrated so a successor inherits the check and
+not the claim:
+* `hdvd_is_load_bearing` — dropping `k₀ ∣ k` makes the folded row FALSE at `k₀=60, k=1, M=3`.
+* `log_two_inv_not_removable` — dropping `1/log 2` makes the consumer-shape row FALSE at `n=1`.
 
 Both are stated at `Real.sqrt` rather than `rpow (1/2)` deliberately: the interface of a theorem
 is its statement **plus** the tactic reach its consumers get, and `Real.sqrt` is what `gcongr`,
@@ -58,6 +75,13 @@ over-count costs `d(n)·√(2M)` on top of `M·d(n)`, so `1` is unreachable **on
 route-break, not a false statement.  Conflating those two is the failure this corpus keeps
 paying for (compare the `5(1 + log K)` entry in `flags.md` for the `L¹` row).  N7 consumes both
 rows through a `≪`, so the constant is free and buying it back is worth nothing.
+
+## ⚠️ A NOTE ON THIS DOCSTRING ITSELF
+
+It said *"it delivers **the two** arithmetic sums"* while the module held **eight** theorems —
+a claim that outran its object as rows were added under it (2026-08-08 night, caught by a
+deliberate docstring-vs-contents sweep, not by the kernel).  **The kernel cannot check a
+docstring**, so this list is maintained by hand: **add a row, add its line here.**
 -/
 
 namespace Salt.Weil

@@ -22,8 +22,15 @@ With `Δ = (α₂, q)`, HB's `D = α₂ q Δ^{−1}` is exactly `Nat.lcm α₂ q
 `Nat.dvd_lcm_right` and nothing more, and the divisibility HB leaves implicit is **harmless
 rather than hidden**: it needs no hypothesis on `α₂`, `q`, `δ₁` or `w₁`, not even nonvanishing.
 
-That is the whole content of gap-list row 10.  It is recorded here rather than left inferred
+That is the whole content of **gap-list row 10**.  It is recorded here rather than left inferred
 because the row read *"GENUINELY OPEN"*, which prices an unknown; the honest price is `A`.
+
+⚠️ **This module now covers a SECOND item and this sentence used to hide it:** the 2-adic
+valuation rows at the end (`factorization_two_roadModulus`, `…_le`) are **FINDING #1**, not row
+10 — the collapse of `EstermannGlobal`'s `√(2 ^ v₂(D))` factor, which falls out of
+`roadModulus_eq_lcm` because `v₂` of an lcm is the max.  *Caught 2026-08-08 night by a
+docstring-vs-contents sweep: "the whole content of row 10" was true when written and false two
+hours later.*
 
 ## ⚠️ `D` is overloaded in the source — this module pins the §5 one
 
