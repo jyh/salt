@@ -254,3 +254,5 @@ open Salt.Tactic in
   Salt.Weil.dvd_roadModulus
   Salt.Weil.dvd_roadLevel
   Salt.Weil.dvd_roadModulus_left
+  Salt.Weil.factorization_two_roadModulus
+  Salt.Weil.factorization_two_roadModulus_le

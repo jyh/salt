@@ -22595,3 +22595,50 @@ successor inherits the claim rather than the check.
 #1 (the landed pair carries a `2^{v₂(k)/2}` factor, unbounded at general `k`, collapsing only on
 road moduli via W4-a). ⇒ ***(7.7)'s three elementary inputs are now landed AND shape-compatible;
 its one deep input is the Kloosterman bound, and that was always the honest shape of §7.***
+
+## ✅ (2026-08-08, night) ⟦FINDING #1's COLLAPSE IS NOW A TWO-LINE COMPUTATION — because `D` is the lcm⟧
+
+**Opus (MATH seat, life 7), full throttle.** Two rows appended to `Salt/Weil/RoadModulus.lean`
++ roll-call. Full `../saltbuild.sh` **EXIT=0**, 9721 jobs, diagnostics **190 = baseline**, both
+`[3 axioms]` by direct audit.
+
+### THE ROAD'S BIGGEST OPEN ITEM, AND WHAT JUST HAPPENED TO IT
+
+`EstermannGlobal`'s road exit row carries an **explicit** factor `√(2 ^ D.factorization 2)`, and
+the dossier calls its unboundedness *"the single most important finding in this dossier"*
+(FINDING #1): (7.1) is recovered only when that factor collapses, and the collapse *"needs W4-a,
+not W1-d alone."*
+
+🔑 ***`D` is `Nat.lcm α₂ q` — proved this evening in `roadModulus_eq_lcm`, a row that was priced
+`A` and looked like pure bookkeeping. The 2-adic valuation of an lcm is the MAX of the
+valuations, so the collapse falls straight out:***
+
+```lean
+factorization_two_roadModulus    : v₂(D) = max (v₂ α₂) (v₂ q)
+factorization_two_roadModulus_le : v₂ q ≤ 3 → v₂(D) ≤ max (v₂ α₂) 3
+```
+
+⇒ **`v₂(α₂)` is a constant of the PROBLEM (α₂ is a fixed coefficient of the linear forms), not of
+the modulus.  So under W4-a the factor is `≤ √(2 ^ max(v₂ α₂, 3))` — a constant — and (7.1) is
+recovered on road moduli.**
+
+### 📌 WHAT IS AND IS NOT CLOSED — stated precisely, because this row is easy to over-read
+
+```
+CLOSED   the ARITHMETIC of the collapse: v₂(D) is bounded the moment v₂(q) is, mechanically,
+         with W4-a's contribution isolated as the single hypothesis `hw4a`
+OPEN     W4-a ITSELF (`q = 2^a·m`, `a ∈ {0,2,3}`) — gap-list row 8, supplier W4-a, [DESIGN],
+         1,300–2,600 ln. NOTHING here proves it.
+OPEN     wiring these rows into `norm_kloosterman_estermann_road`'s factor — that is N7's
+         assembly step, not this depot's
+```
+⚠️ **So FINDING #1 is not discharged. What changed is that its remaining content is now
+*exactly* W4-a and nothing else** — the 2-adic bookkeeping that used to sit beside it as
+unpriced prose is in the kernel, and `hw4a` names the dependency mechanically instead of in a
+docstring caveat.
+
+### 🔑 THE LESSON, AND IT IS ABOUT PRICING AGAIN
+
+`roadModulus_eq_lcm` was landed at 17:2x as an `A`-class row closing a *"GENUINELY OPEN"* gap
+that turned out mispriced. ***Five hours later the same one-line `rfl` is the hinge of the
+dossier's most important finding.*** A row's value is not its class.
