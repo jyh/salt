@@ -22495,14 +22495,14 @@ Restore byte-identical, `sha256` first 16 = `295d980690137664`.
 witness says so in one line. That hypothesis is the whole difference between the folded row and a
 false statement.
 
-### TODAY'S NINE ROWS, ALL AUDITED IN ONE DIRECT `lake env lean` RUN
+### THE NINE ROWS OF 2026-08-08, ALL AUDITED IN ONE DIRECT `lake env lean` RUN
 
 `sqrt_gcd_le_sum_sqrt_divisors`, `sum_sqrt_gcd_div_le`, `sum_sqrt_gcd_dyadic_le`,
 `card_divisors_le_of_dvd`, `sum_sqrt_gcd_dyadic_le_of_dvd` at `[3 axioms]`; `roadModulus_eq_lcm`
 at **`[0 axioms]`**; `dvd_roadModulus`, `dvd_roadLevel`, `dvd_roadModulus_left` at
 **`[propext, Quot.sound]`**.
 
-### GAP-LIST STATE AFTER TODAY
+### GAP-LIST STATE AFTER 2026-08-08
 
 ```
 row 4   BOTH HALVES CLOSED  (the two sums + the divisor bookkeeping)
