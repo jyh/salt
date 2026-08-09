@@ -214,7 +214,7 @@ open Salt.Tactic in
   HB's *"by a method similar to (7.7)"*.  Holds at `M = 0`.  ⚠️ The constant `1` is **measured
   true** and deliberately not stated: the over-count costs `d(n)·√(2M)`, so `1` is a
   **route-break, not a false statement**.
-* `sqrt_gcd_le_sum_sqrt_divisors` — the reusable idea both rows rest on:
+* `sqrt_gcd_le_sum_sqrt_common_divisors` — the reusable idea both rows rest on:
   `(n,m)^{1/2} ≤ ∑_{d∣n, d∣m} d^{1/2}`, because the gcd IS one of the terms and the rest are
   `≥ 0`.  Over-counting is what removes the exact-gcd partition, the coprimality bookkeeping and
   the Möbius inversion; each row then bounds ONE of the `d(n)` terms and multiplies by the card.
@@ -228,14 +228,14 @@ open Salt.Tactic in
 
 Still owed on this road, unchanged: (7.3) itself, and N7's own (7.6)–(7.8). -/
 open Salt.Tactic in
-#audit_axioms Salt.Weil.sqrt_gcd_le_sum_sqrt_divisors
+#audit_axioms Salt.Weil.sqrt_gcd_le_sum_sqrt_common_divisors
   Salt.Weil.sum_sqrt_gcd_div_le
   Salt.Weil.sum_sqrt_gcd_dyadic_le
   Salt.Weil.card_divisors_le_of_dvd
   Salt.Weil.sum_sqrt_gcd_dyadic_le_of_dvd
   Salt.Weil.hdvd_is_load_bearing
   Salt.Weil.sum_sqrt_gcd_div_le_log_two_mul
-  Salt.Weil.log_two_inv_is_necessary
+  Salt.Weil.log_two_inv_not_removable
 
 /-! ### WEIL-TRIO — the `q ∣ k` discharge, HB §5's (5.12) modulus (2026-08-08)
 
@@ -252,7 +252,7 @@ with §2's Rosser sieve level `D = q^{1/3}`, and this name is only ever the §5 
 open Salt.Tactic in
 #audit_axioms Salt.Weil.roadModulus_eq_lcm
   Salt.Weil.dvd_roadModulus
-  Salt.Weil.dvd_roadLevel
+  Salt.Weil.dvd_roadModulus_mul
   Salt.Weil.dvd_roadModulus_left
   Salt.Weil.factorization_two_roadModulus
   Salt.Weil.factorization_two_roadModulus_le

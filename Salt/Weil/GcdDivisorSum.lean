@@ -27,7 +27,7 @@ is its statement **plus** the tactic reach its consumers get, and `Real.sqrt` is
 
 ## The architecture — one idea, both rows
 
-The whole module rests on `sqrt_gcd_le_sum_sqrt_divisors`:
+The whole module rests on `sqrt_gcd_le_sum_sqrt_common_divisors`:
 
     (n,m)^{1/2} ≤ ∑_{d ∣ n, d ∣ m} d^{1/2}
 
@@ -70,7 +70,7 @@ open Finset
 /-- **`(n,m)^{1/2} ≤ ∑_{d ∣ n, d ∣ m} d^{1/2}`.**  The gcd itself is one of the terms and the
 rest are nonnegative, so this is `Finset.single_le_sum` and nothing else.  Over-counting is what
 lets both rows below avoid an exact-gcd partition. -/
-theorem sqrt_gcd_le_sum_sqrt_divisors (n m : ℕ) (hn : n ≠ 0) :
+theorem sqrt_gcd_le_sum_sqrt_common_divisors (n m : ℕ) (hn : n ≠ 0) :
     Real.sqrt (Nat.gcd n m) ≤ ∑ d ∈ n.divisors.filter (· ∣ m), Real.sqrt d := by
   refine Finset.single_le_sum (f := fun d : ℕ => Real.sqrt (d : ℝ))
     (fun i _ => Real.sqrt_nonneg _) ?_
@@ -160,7 +160,7 @@ theorem sum_sqrt_gcd_div_le (n : ℕ) (hn : n ≠ 0) :
     intro s hs
     have hs1 : (1 : ℕ) ≤ s := (Finset.mem_Icc.mp hs).1
     have hspos : (0 : ℝ) < s := by exact_mod_cast hs1
-    have h := sqrt_gcd_le_sum_sqrt_divisors n s hn
+    have h := sqrt_gcd_le_sum_sqrt_common_divisors n s hn
     calc Real.sqrt (Nat.gcd n s : ℝ) / s
         ≤ (∑ d ∈ n.divisors.filter (· ∣ s), Real.sqrt (d : ℝ)) / s := by gcongr
       _ = ∑ d ∈ n.divisors, (if d ∣ s then Real.sqrt (d : ℝ) / s else 0) := by
@@ -209,7 +209,7 @@ theorem sum_sqrt_gcd_div_le_log_two_mul (n : ℕ) (hn : n ≠ 0) :
 
 📌 Landed for the same reason as `hdvd_is_load_bearing`: a constant justified only in prose is a
 claim, and a successor inherits the claim rather than the check. -/
-theorem log_two_inv_is_necessary :
+theorem log_two_inv_not_removable :
     ¬ (∑ s ∈ Finset.Icc 1 1, Real.sqrt (Nat.gcd 1 s : ℝ) / s
         ≤ ((1 : ℕ).divisors.card : ℝ) * Real.log 2) := by
   have hsum : ∑ s ∈ Finset.Icc 1 1, Real.sqrt (Nat.gcd 1 s : ℝ) / s = 1 := by
@@ -267,7 +267,7 @@ theorem sum_sqrt_gcd_dyadic_le (n M : ℕ) (hn : n ≠ 0) :
       ≤ ∑ m ∈ Finset.Ioc M (2 * M), ∑ d ∈ n.divisors,
           (if d ∣ m then Real.sqrt (d : ℝ) else 0) := by
         refine Finset.sum_le_sum fun m _ => ?_
-        have h := sqrt_gcd_le_sum_sqrt_divisors n m hn
+        have h := sqrt_gcd_le_sum_sqrt_common_divisors n m hn
         rwa [Finset.sum_filter] at h
     _ = ∑ d ∈ n.divisors, ∑ m ∈ Finset.Ioc M (2 * M),
           (if d ∣ m then Real.sqrt (d : ℝ) else 0) := Finset.sum_comm

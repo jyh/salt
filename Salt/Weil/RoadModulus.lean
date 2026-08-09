@@ -49,7 +49,7 @@ theorem dvd_roadModulus (α₂ q : ℕ) : q ∣ roadModulus α₂ q := by
 /-- **`q ∣ k` at `k = D·δ₁·w₁`** — the discharge in the shape §5 fires it, per the dossier's
 substitution table (`n7-prep-dossier-0806.md`, the Lemma 10 slot table: `k = Dδ₁w₁`).
 Again hypothesis-free. -/
-theorem dvd_roadLevel (α₂ q δ₁ w₁ : ℕ) : q ∣ roadModulus α₂ q * δ₁ * w₁ :=
+theorem dvd_roadModulus_mul (α₂ q δ₁ w₁ : ℕ) : q ∣ roadModulus α₂ q * δ₁ * w₁ :=
   ((dvd_roadModulus α₂ q).mul_right δ₁).mul_right w₁
 
 /-- `α₂ ∣ D` as well, recorded because §5 uses `D` on both sides of the CRT split. -/
