@@ -20,6 +20,18 @@ This script is the largest mechanizable fragment of the docstring half — it mo
 part into an executable that a successor inherits, and leaves the judgement where judgement has
 to stay.
 
+⚠️ THE DOMINANT FLAG CLASS IS "DESCRIBES BUT DOES NOT NAME" — measured, not guessed
+  This matcher is EXACT on identifiers, so a header that says "the sawtooth Fourier expansion"
+  while the row is `sawtooth_fourier_expansion` FLAGS.  Sampled 2026-08-08: `Sawtooth.lean` and
+  `NewtonBridge.lean` both describe their rows in prose and never name them.
+  ⇒ THREE CLASSES, and only the first is a FALSE CLAIM:
+     (1) the header asserts something untrue of the file  ("it delivers THE TWO sums" / "that
+         is the WHOLE content of row 10").  A DEFECT.  Two found, both fixed.
+     (2) the header DESCRIBES a row but does not NAME it.  Not false — but a reader cannot
+         grep from header to row.  A usability gap; the dominant class here.
+     (3) a helper the header deliberately omits.  Not a defect at all.
+  ⚠️ A raw flag count mixes all three.  Do not report flags as defects; sample first.
+
 ⚠️ WHAT A FLAG DOES AND DOES NOT MEAN — read before quoting a count
   A flag says: this header ENUMERATES rows and these ones are absent from it.  It does NOT
   say the absence is a defect: a helper row a header deliberately omits looks identical to a
