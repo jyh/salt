@@ -22515,9 +22515,9 @@ false statement.
 
 ### THE NINE ROWS OF 2026-08-08, ALL AUDITED IN ONE DIRECT `lake env lean` RUN
 
-`sqrt_gcd_le_sum_sqrt_divisors`, `sum_sqrt_gcd_div_le`, `sum_sqrt_gcd_dyadic_le`,
+`sqrt_gcd_le_sum_sqrt_common_divisors` (⚠️ RENAMED from `sqrt_gcd_le_sum_sqrt_divisors` at `588f3b4`), `sum_sqrt_gcd_div_le`, `sum_sqrt_gcd_dyadic_le`,
 `card_divisors_le_of_dvd`, `sum_sqrt_gcd_dyadic_le_of_dvd` at `[3 axioms]`; `roadModulus_eq_lcm`
-at **`[0 axioms]`**; `dvd_roadModulus`, `dvd_roadLevel`, `dvd_roadModulus_left` at
+at **`[0 axioms]`**; `dvd_roadModulus`, `dvd_roadModulus_mul` (⚠️ RENAMED from `dvd_roadLevel` at `588f3b4`), `dvd_roadModulus_left` at
 **`[propext, Quot.sound]`**.
 
 ### GAP-LIST STATE AFTER 2026-08-08
@@ -22605,7 +22605,7 @@ false the first time and true the second.
 
 ### 📌 THE WITNESS IS LANDED, NOT NARRATED (rung 4, second instance tonight)
 
-`log_two_inv_is_necessary` is the `1/log 2`'s necessity as a **kernel fact**: at `n = 1` the sum is
+`log_two_inv_not_removable` (⚠️ RENAMED from `log_two_inv_is_necessary` at `588f3b4`; the old name, used above and below, CEASES TO EXIST) is the `1/log 2`'s necessity as a **kernel fact**: at `n = 1` the sum is
 exactly `1` while `d(1)·log 2 = 0.693…`. A constant justified only in prose is a claim, and a
 successor inherits the claim rather than the check.
 
