@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Jason Hickey, Claude
 -/
 import Salt.Certs.Vaughan
+import Salt.Certs.ParityGap
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -27,6 +28,14 @@ its docstring exactly what, if anything, was traded for readability.
   **no priority** on Vaughan's identity (independently and publicly formalized
   earlier — see the file).
 
+* `Salt/Certs/ParityGap.lean` — `cert_parity_gap`, certifying
+  `Salt.Parity.sufficient_true_not_parityInv` (paper `thm:gap`). Direction:
+  **same proposition**, nothing traded. Carries the mechanism in one line (the witness
+  is `twinFree`, whose twin mass is identically `0`) and **reports that TWO of the four
+  stated hypotheses are frozen and unused** in the landed proof — `1 ≤ A₀` and
+  `E oneWeight` — so the result is strictly stronger than it is written as. Flagged for
+  the design desk under iron rule 1; **not altered here.**
+
 ## OWED (target list v1, ≈14 salt files)
 `bounded_gaps_unconditional` · `chen_headline` · `chen_goldbach` · `gaps_le_twelve`
 · `siegelWalfisz_holds` · `analytic_LS + char_LS` · `zeta_zero_free_region_pow` ·
@@ -34,11 +43,13 @@ its docstring exactly what, if anything, was traded for readability.
 `norm_kloosterman_estermann` · `twin_bar/no_twin_weight/least_k_theorem` ·
 `sufficient_true_not_parityInv` · `log_chowla_two_door_only` · `psiTot_pnt`.
 
-⚠️ **ROOTING IS NOT DONE AND IS NOT THIS SEAT'S TO DO.** `Salt.lean` does not yet
-import `Salt.Certs.All`; reported to the maestro rather than added here, per the
-root-is-maestro-only law. Until that line lands, this tree is built by naming the
-file, not by the hub build.
+✅ **ROOTED.** `Salt.lean:31` imports `Salt.Certs.All` (maestro, 2026-08-11, at the
+first cert's seal), so the hub build replays this tree: full `../saltbuild.sh` green at
+9724 jobs with `✓ Salt.Certs.cert_vaughan [3 axioms]` firing inside the hub run, not only
+when the file is named. *This paragraph replaced a "rooting is not done" note that my own
+commit left behind — it went stale the moment the import landed.*
 -/
 
 open Salt.Tactic in
 #audit_axioms Salt.Certs.cert_vaughan
+  Salt.Certs.cert_parity_gap
