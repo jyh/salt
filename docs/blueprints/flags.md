@@ -22816,6 +22816,26 @@ and it carries NO hypothesis beyond `0 < r`.** Verified at the counterexample un
 strictly better. **The hand-rolled one is DISCARDED, not landed.** My own banked law fired
 exactly as written: GREP THE LIKELY NAMES FIRST — every time, it existed.*
 
+### ⛔ AMENDMENT, 20 MINUTES LATER — THE HAZARD IS REAL AND **NOT ON THE CRITICAL PATH**
+
+I analysed the reindex before reading the row the supply table NAMES for it. **`congrExpSum`
+(`Salt/Weil/Sawtooth.lean:1114`) and `norm_congrExpSum_le` (`:1227`) are stated ENTIRELY OVER
+ℤ** — `Finset.Ioc A B` with `A B : ℤ`, filter `(q:ℤ) ∣ n - b` — and proved via
+`Salt.BV.geom_e_bound`, geometrically. **They never form `M₁`/`M₂` at all.** Corpus-wide grep
+for a hand-rolled `(A-b)/q` reindex: **ZERO sites.**
+
+⇒ **The dossier's FINDING #3 is resolved by the EXISTING STATEMENT'S SHAPE** — not by a guard,
+and not by the mathlib lemma either. Both remain the right answer for anyone who *does*
+reindex; nobody here does.
+
+🔑 ***MY PROCESS ERROR, recorded because it is the transferable part: I proved a lemma about an
+operation this corpus does not perform.*** *[[feedback-demand-side-first]] says measure what the
+SPEC REQUIRES before proving what exists — and the spec (the gate block's own supply table)
+named `norm_congrExpSum_le` on the line I was working from. **Reading the named row first would
+have answered the whole question in one command.** The off-by-one work is not wasted (it is a
+real trap, now witnessed and priced for any future reindex) but it was not the owed check's
+shortest path.
+
 ### CONSEQUENCE FOR THE W5 RE-PRICE (what the check was owed for)
 **The re-price SURVIVES.** The reindex onto `geom_phase_bound`'s `Ioc M₁ M₂` shape is
 clean **provided `M₁`/`M₂` are the ℚ/floor endpoints, never ℕ `(A-b)/q`**. A Wave-A
