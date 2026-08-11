@@ -150,7 +150,12 @@ receipt = the elaboration output quoted in flags/bus; the scratch is never commi
 (compiler's L2 shape, tested last night, re-verified at the bytes this morning — sub-lemmas
 land proved, the top statement lands WITH its proof).
 (iii) NO track branch: the checkout is cross-seat with no lock, and a branch switch would
-move the tree under three other seats. Iron rule 2 stands unamended.]**
+move the tree under three other seats. Iron rule 2 stands unamended.
+(iv) THE CONFINEMENT AUDIT (evidence, 10:28): `Scratch*.lean` is GITIGNORED (.gitignore:2),
+so this shell's `grep` (a function honoring .gitignore) and `git grep` are BOTH BLIND to it —
+their zero is compatible with any number of sorries. Audit with `command grep -rFn sorry`,
+and publish the bracketing nonzero ("N Scratch files carry sorry, 0 tracked files do") so the
+query is proven to fire. A bare "0 on main" proves nothing.]**
 
 **This block supersedes nothing in the dossier except its pins** — the dossier remains the
 reference for the mathematics; this gate is the executable form of its recommendations.
