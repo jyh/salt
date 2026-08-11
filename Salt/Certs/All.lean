@@ -6,6 +6,7 @@ Authors: Jason Hickey, Claude
 import Salt.Certs.Vaughan
 import Salt.Certs.ParityGap
 import Salt.Certs.ZetaPowRegion
+import Salt.Certs.ChowlaSpine
 import Salt.Tactic.AuditAxioms
 
 /-!
@@ -45,12 +46,20 @@ its docstring exactly what, if anything, was traded for readability.
   not evidence of inexplicitness**: the chain bottoms out in `K = 8104`,
   `t₀ = exp (exp 100)`, so the paper's word "effective" is earned by the proof.
 
+* `Salt/Certs/ChowlaSpine.lean` — `cert_log_chowla_door_only`, certifying
+  `Salt.Entropy.Chowla.log_chowla_two_door_only` (paper `thm:spine`). Direction: **same
+  proposition**, nothing traded. Both opaque predicates are **unfolded in place**:
+  `MRTUniformity` becomes the explicit log-averaged bound over every window length and
+  every frequency, and `¬ logChowla2Fails` becomes the Chowla bound
+  `|∑ λ(n)λ(n+1)/n| ≤ ε·log ω` itself. *That the unfolded form closes by `exact` is the
+  proof the unfolding is definitional, not merely plausible.*
+
 ## OWED (target list v1, ≈14 salt files)
 `bounded_gaps_unconditional` · `chen_headline` · `chen_goldbach` · `gaps_le_twelve`
 · `siegelWalfisz_holds` · `analytic_LS + char_LS` ·
 `vmvt` (the likely class-C translation; maestro owns it) ·
 `norm_kloosterman_estermann` · `twin_bar/no_twin_weight/least_k_theorem` ·
-`sufficient_true_not_parityInv` · `log_chowla_two_door_only` · `psiTot_pnt`.
+`sufficient_true_not_parityInv` · `psiTot_pnt`.
 
 ✅ **ROOTED.** `Salt.lean:31` imports `Salt.Certs.All` (maestro, 2026-08-11, at the
 first cert's seal), so the hub build replays this tree: full `../saltbuild.sh` green at
@@ -63,3 +72,4 @@ open Salt.Tactic in
 #audit_axioms Salt.Certs.cert_vaughan
   Salt.Certs.cert_parity_gap
   Salt.Certs.cert_zeta_zero_free_pow
+  Salt.Certs.cert_log_chowla_door_only
