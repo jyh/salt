@@ -166,7 +166,7 @@ direction, frontier-model design, fleet-model execution and refutation,
 and kernel verification, whose public error \emph{ledger} --- an
 append-only record in the repository of every design error caught,
 numbered and repaired, whose entries we cite as (ledger \#$N$) --- stands
-at 256 catches against zero wrong proofs and is offered as evidence that the standard of the first
+at 256 numbered catches against zero wrong proofs and is offered as evidence that the standard of the first
 sentence of the abstract is achievable at research scale and research
 speed. All of it was produced by the Salt method (\S\ref{sec:method}).
 
@@ -262,12 +262,12 @@ exponential-sum-to-growth bridge (\leaninline{Salt.Vk.vk\_block\_core}),
 with an explicit strip family at absolute constant $C = 4096$.
 
 \begin{theorem}[Deuring--Heilbronn repulsion, contract form]\label{thm:rep}
-There are explicit constants $b = 680$, $k = 14$, $c > 0$ (with $c = c_1^8$
-for an explicit $c_1$) such that: for every primitive quadratic character
-$\chi \bmod q$, $q \ge 2$, every real zero $\beta_0 \in (\tfrac12, 1)$ of
-$L(s,\chi)$, and every non-real zero $\rho$ of $L(s,\chi)$ with
-$|\mathrm{Im}\,\rho| \le 1$ and $\tfrac{16}{17} \le \mathrm{Re}\,\rho \le
-\beta_0$,
+There are explicit constants $b = 680$, $k = 14$ and $c > 0$ such that: for
+every primitive quadratic character $\chi \bmod q$, $q \ge 2$, every real
+zero $\beta_0 \in (\tfrac12, 1)$ of $L(s,\chi)$, and every non-real zero
+$\rho$ of $L(s,\chi)$ with
+$\tfrac{16}{17} \le \mathrm{Re}\,\rho \le \beta_0$ --- at \emph{every}
+height ---
 \[
 1 - \beta_0 \;\ge\;
   \frac{c\,\bigl(q(|\mathrm{Im}\,\rho| + 2)\bigr)^{-b(1 - \mathrm{Re}\,\rho)}}
@@ -276,8 +276,33 @@ $|\mathrm{Im}\,\rho| \le 1$ and $\tfrac{16}{17} \le \mathrm{Re}\,\rho \le
 The closer the real zero sits to $1$, the farther every companion zero is
 pushed from the $1$-line: the Deuring--Heilbronn repulsion phenomenon, in
 ordered two-zero contract form with every constant explicit.
-\leanname{Salt.SW.dh\_repulsion\_ordered}
+\leanname{Salt.SW.dh\_repulsion\_tall}
 \end{theorem}
+
+\begin{remark}[The constant, and what sharpening it buys]\label{rem:repc}
+The height restriction $|\mathrm{Im}\,\rho| \le 1$ is not needed: it was
+removed from the contract outright rather than widened to a parameter, and
+the height-bounded twin survives beside it at the same $b$ and $k$
+(\leaninline{Salt.SW.dh\_repulsion\_ordered}). The constant $c$ is not a
+single symbol but an explicit minimum of ten arms, each the price of one row
+of the underlying estimate; in the unrestricted form every arm is free of the
+auxiliary $\zeta$-growth constant, so the tower prices exactly:
+\[
+\log(1/c) \;=\; 86.2267 \qquad \text{at } c_0 = 1/126848,
+\]
+$c_0$ being the corpus's own zero-free-region constant, and the binding arm
+being $(c_0/32)^{17/3}$ --- that is, the repulsion constant is now limited by
+our zero-free region rather than by the estimate chain that consumes it. The
+figure was $\log(1/c) = 631.5764$ when the contract first landed; two
+sharpening waves (replacing a uniform exponent by each row's own H\"older
+floor, and retiring a $2^{-250}$ arm) brought it to the value above
+\emph{with no parameter changed and no statement outside the two contract
+files touched}. We record what this does not buy: the dichotomy of
+\S\ref{sec:dichotomy} is stated for every $C > 0$, so no threshold in this
+paper moves with the size of $c$; the gain is explicit-constant hygiene, and
+it matters only where a downstream hypothesis packet must be shown
+non-empty.
+\end{remark}
 
 \begin{theorem}[Vinogradov mean value theorem]\label{thm:vmvt}
 The mean value estimate for Weyl sums in the range needed by
@@ -771,6 +796,42 @@ $h_{\mathrm{Engine}}$); the Matom\"aki--Radziwi\l\l\ program toward the
 door of Theorem~\ref{thm:spine}; and the explicit-constants floor
 (Siegel--Walfisz through Chen with every constant explicit). The
 conditional table below is the paper's exact boundary.
+
+The first of the three has since acquired coordinates, which we state
+because ``what remains'' is itself a claim this paper is obliged to make
+precisely. The distance from Theorem~\ref{thm:master} to
+$h_{\mathrm{Engine}}$ is \S\S6--7 of \cite{HB1983}; within it the famous
+Lemma~10 cites exactly one result from outside the section---Estermann's
+bound $S(k;u,v) \ll d(k)\,k^{1/2}(k,u,v)^{1/2}$ for the complete
+Kloosterman sum \cite{Estermann}---while \S6, the two-variable
+Euler-product apparatus, is the larger share of the formalization.
+
+Two character-sum inputs of that kind are consumed there and only one is
+proved in the source. The second, stated at \cite[p.~217]{HB1983} without
+proof, is now a theorem of the corpus: for every primitive real character
+$\chi \bmod q$ and arbitrary $u, u', v, v'$,
+\[
+\Bigl|\, \sum_{t \bmod q} \chi(ut + u')\,\chi(vt + v') \,\Bigr|
+\;\le\; \gcd\bigl(q,\; uv' - vu'\bigr),
+\]
+with nothing assumed about the shape of $q$ or of $\chi$ beyond primitivity;
+the proof runs through a structure theorem for primitive real characters
+that the formalization forced us to make explicit, down to the primitivity
+of $\chi_4$---which \textsf{mathlib} names in prose as the primitive
+quadratic character on $\mathbb{Z}/4$ without proving it.
+\leanname{Salt.HB.sum\_two\_forms\_le\_gcd\_of\_isPrimitive,
+Salt.HB.structure\_of\_isPrimitive}
+Estermann's bound the corpus supplies through its own Weil track, at present
+up to a factor $2^{v_2(k)/2}$: unbounded in the modulus $k$ in general, and
+constant on the moduli the engine actually consumes. Closing that reduction
+is the named sub-campaign---and pricing the gap in a factor rather than in a
+citation is exactly what the formal route buys. The completion apparatus the
+argument needs is kernel-checked already: the sawtooth majorant's Fourier
+expansion, for every real $\theta$ and every $K \ge 2$, with its
+coefficients bounded termwise by $K/(\pi^2 m^2)$ and in $\ell^1$ by
+$6(1 + \log K)$.
+\leanname{Salt.Weil.sawtoothMajorant\_fourier\_expansion,
+Salt.Weil.norm\_majorantCoeff\_le\_sq, Salt.Weil.tsum\_norm\_majorantCoeff\_le}
 
 \begin{table}[h]
 \centering\small
@@ -1314,6 +1375,8 @@ theorem twin_almost_prime :
 \bibitem{Chen1973} J.~R. Chen, \emph{On the representation of a larger
 even integer as the sum of a prime and the product of at most two primes},
 Sci.\ Sinica \textbf{16} (1973), 157--176.
+\bibitem{Estermann} T.~Estermann, \emph{On Kloosterman's sum},
+Mathematika \textbf{8} (1961), 83--86.
 \bibitem{HalesKepler} T.~Hales et al., \emph{A formal proof of the Kepler
 conjecture}, Forum of Mathematics, Pi \textbf{5} (2017), e2.
 \bibitem{HB1983} D.~R. Heath-Brown, \emph{Prime twins and Siegel zeros},

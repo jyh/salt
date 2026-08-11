@@ -718,3 +718,105 @@ not the headline results).
 proofs-by-exhaustion type". The corpus forbids `native_decide`
 (`main.tex:200`) and no result here is a proof by exhaustion; the code
 would misdescribe the work to exactly the readers who search on it.
+
+---
+
+# ADDENDUM — 2026-08-10, THE WEEK-COLD REFRESH (math seat, life 9, under ruling (f-i))
+
+*The paper was last touched 2026-08-03 11:08 (`e484956`). It went cold at
+11:08 and the corpus landed a banner-grade improvement to one of its own
+theorems at **20:44 the same day**. This addendum records what today's
+sitting changed, re-runs this document's own gates against the live tree,
+and refreshes §4's table — including §4's **line numbers**, which were
+themselves stale.*
+
+## A1. WHAT CHANGED IN `main.tex` TODAY
+
+| # | Site | Change |
+|---|---|---|
+| 1 | Thm 3.3 (`thm:rep`) | **Restated to the unrestricted contract.** The height binder `\|Im ρ\| ≤ 1` is gone from the hypothesis and the cited name moves `dh_repulsion_ordered → dh_repulsion_tall`. Same $b = 680$, $k = 14$; the height-bounded twin is kept beside it in the new remark. |
+| 2 | after Thm 3.3 | **New Remark `rem:repc`** — the constant's price: `log(1/c) = 86.2267` at `c₀ = 1/126848`, ten arms, binding arm `(c₀/32)^{17/3}`; the 8/6 sharpening from `631.5764`; and *what it does not buy* (the dichotomy is stated for every `C > 0`, so no threshold in the paper moves). |
+| 3 | §9 `sec:forward` | **The hb-engine campaign given coordinates**: HB §§6–7, Lemma 10's single outside citation (Estermann, now a real `\cite`), the p.217 character-sum bound **discharged in the corpus for every primitive real character**, the Weil track's supply and its named `2^{v₂(k)/2}` residue, and the sawtooth completion kit with its two coefficient bounds. |
+| 4 | intro, `:169` | The one-word ledger fix this document's §4 asked for: *"stands at 256 **numbered** catches"*. |
+| 5 | bibliography | **`\bibitem{Estermann}`** added (Mathematika **8** (1961), 83–86), alphabetical between `Chen1973` and `HalesKepler`; it is **cited**, so the uncited list is unchanged at six. |
+
+⛔ **AND ONE PAPER CLAIM THE WEEK FALSIFIED, which is why item 1 is not cosmetic.**
+Thm 3.3 read *"$c > 0$ (with $c = c_1^8$ for an explicit $c_1$)"*. That was true
+when written and is **false at the bytes today**: TAU-SHARP TS-2 replaced the
+uniform exponent `8` by each row's own Hölder floor, so the arms now carry
+`17/3`, `50/49`, `850/133`, `1700/3547`, `1700/5247`… — heterogeneous, and no
+single `c₁^8` describes them (`Salt/SW/TBalTall.lean:2114-2130`, the realised
+arm table). *A week-cold draft does not merely omit new results; it can assert
+an old shape the corpus has since changed underneath it.*
+
+## A2. THIS DOCUMENT'S OWN GATES, RE-RUN AT THE LIVE TREE
+
+*A banked pin is a claim about a file that kept moving — 168 commits have
+landed since this doc was written. Both gates were re-run, not assumed.*
+
+```
+§3.2 THE NAME GATE      96 names cited (was 90) · 71 resolve to a real
+                        declaration under Salt/ (was 65) · +6 = exactly this
+                        sitting's new citations, each with file:line:
+    Salt.SW.dh_repulsion_tall                     Salt/SW/TBalTall.lean:2090
+    Salt.HB.sum_two_forms_le_gcd_of_isPrimitive   Salt/HB/RealPrimStructure.lean:763
+    Salt.HB.structure_of_isPrimitive              Salt/HB/RealPrimStructure.lean:737
+    Salt.Weil.sawtoothMajorant_fourier_expansion  Salt/Weil/MajorantExpansion.lean:166
+    Salt.Weil.norm_majorantCoeff_le_sq            Salt/Weil/Sawtooth.lean:970
+    Salt.Weil.tsum_norm_majorantCoeff_le          Salt/Weil/Sawtooth.lean:1434
+  ⚠️ NAMES STABLE, LINE PINS NOT: this doc records dh_repulsion_ordered at
+     TBalR8:1752; it is at :1813 today. Cite names, verify lines at posting.
+§3.1 THE BALANCE GATE   re-run after the edits: environments balanced and empty
+                        at EOF · 518 unescaped $ = 259 pairs · \[ 16 / \] 16 ·
+                        brace depth returns to 0 · 28 refs / 33 labels, ZERO
+                        dangling · 4 cited keys / 10 bibitems, ZERO dangling.
+                        Still BALANCE, not compilability — §6 step 1 stands.
+AXIOMS                  #print axioms run LITERALLY (not the audit macro) on the
+                        three load-bearing new citations, via ../saltbuild.sh:
+                        dh_repulsion_tall · dh_repulsion_ordered ·
+                        sawtoothMajorant_fourier_expansion — all three at
+                        [propext, Classical.choice, Quot.sound]. EXIT=0.
+FULL BUILD              ../saltbuild.sh at HEAD a1f8f0b: EXIT=0, 9,722 jobs.
+```
+
+## A3. §4's TABLE, REFRESHED — **AND ITS LINE NUMBERS WERE WRONG**
+
+⚠️ **Every site in §4 above is stale by +47 lines.** Appendix A's Unicode
+preamble (`\DeclareUnicodeCharacter`, ~47 lines) landed in `e484956` *after*
+this document was written, and pushed every number site down. **The numbers
+were the thing §4 was protecting, and the pointers to them had rotted.**
+
+Measured today, HEAD `a1f8f0b`, with §4's own commands (line numbers are
+pre-this-sitting; items 1–5 of A1 shift them again, so re-grep at posting):
+
+| Site (2026-08-03 → **today**) | Paper says | 8/3 | **2026-08-10** |
+|---|---|---|---|
+| `:71`, `:135` → **`:118`, `:182`** | 324,724 lines | 631,947 | **658,073** |
+| `:72`, `:136` → **`:119`, `:183`** | 751 files | 1,107 | **1,141** |
+| `:136` → **`:183`** | 1034 commits | 1,847 | **2,034** |
+| `:137` → **`:184`** | ≈9,400 jobs | 9,680 | **9,722** (measured today, EXIT=0) |
+| cover letter only | 16,542 declarations | 18,953 | **19,690** (theorem 11,848 / lemma 5,491 / def 2,151 / structure 107 / instance 76 / abbrev 15 / class 2) |
+| cover letter only | 127 audit invocations | 147 / 23 | **156 over 23 manifests** |
+| `:35` → **`:82`** | `\date{July 19, 2026}` | set at posting | unchanged, per policy |
+
+**THE POLICY IS UNCHANGED AND WAS DELIBERATELY NOT OVERRIDDEN TODAY: the
+numbers are still not patched into `main.tex`.** They move daily; §4 says
+measure-then-paste in one edit at posting time, and that is still right. What
+this addendum fixes is the *pointer* rot, not the policy.
+
+## A4. WHAT IS OWED, AND BY WHOM
+
+- **Maestro (Fable) review before this goes anywhere** — ruling (f)'s own gate.
+  Three items want a design eye rather than an executor's: (i) whether Thm 3.3
+  should *lead* with the unrestricted form or state both; (ii) the §9 sentence
+  attributing the p.217 bound to \cite{HB1983} *without proof* — that is a
+  claim about another author's paper, sourced to `docs/sources/hb1983-notes.md:947`
+  and to the corpus's own docstring, and it should be confirmed by a reader of
+  the source, not by an executor's transcription; (iii) whether the Weil
+  material belongs in §9 at all or wants a subsection of its own.
+- **THE SUBMISSION CLICK IS THE CAPTAIN'S ALONE**, and evidence's 17:46 flag
+  rides with it: `salt` is private behind a stated hard gate (history purge +
+  the SaltBench boundary), and *the gate and the click are two different
+  decisions*. Nothing in this addendum touches either.
+- **Unchanged from §8's ordered residue:** one `pdflatex` run; the six uncited
+  bibliography entries (JYH's voice call); `Littlewood1922`'s page range.
