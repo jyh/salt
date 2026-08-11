@@ -22877,3 +22877,38 @@ argument** — it would have to be tight at 2, cannot be, and would force a wors
 ⚖️ *Not a claim that 2.39 is wrong: it is right for `k ≥ 2` and is the smallest 3-s.f.
 constant clearing the binding case. **The finding is its DOMAIN**, which a formalizer would
 otherwise meet at the last step of a long proof.*
+
+
+## ⚠️ (2026-08-11, Wave A) ⟦(7.5)'s "TRIVIAL" BOUND: THE LEAN **TYPE** OF `E` IS THE HYPOTHESIS⟧
+
+**Opus (MATH seat, life 10).** The dossier's §5 table marks (7.5) `S_m ≪ E` as **"YES,
+trivially"** — counting only, from `I ⊆ (E,2E]`. Checked before stating it:
+
+```
+E : ℕ    #I = ⌊2E⌋ − ⌊E⌋ = 2E − E = E    EXACT.  `|I| ≤ E` holds. (0 failures, E < 2000)
+E : ℝ    E = 1.5  → #I = 2 > 1.5   ratio 4/3    ⛔ `|I| ≤ E` is FALSE
+         E = 2.5  → 3 > 2.5 · E = 10.5 → 11 > 10.5 · excess decays, ratio → 1
+⇒ honest real-valued forms:  #I ≤ E + 1,  or  #I ≤ (4/3)·E for E ≥ 1.
+```
+
+🔑 **HB writes `E` as a REAL parameter (`I` a subinterval of `(E,2E]`, `E ≥ 1`), and the
+consumption site has `E = S₂`. If `E` lands as ℝ, `S_m ≪ E` with constant 1 is a FALSE
+lemma; as ℕ it is exact. Nobody would think to write "E is a natural" as a hypothesis —
+which is exactly why it must be decided at the statement, not discovered in the proof.**
+⚖️ *Not chosen here: `E`'s type is a statement decision (iron rule 1, the maestro's desk).
+Recorded as load-bearing and currently unstated.*
+
+### ⭐ THE PATTERN — THREE FOR THREE IN WAVE A, AND IT IS A HOUSE PROPERTY, NOT A WAVE ONE
+```
+1  the (7.7b) reindex   ℤ vs ℕ        ℕ truncation drops a term — UNDER-counts (unsound)
+2  the 2.39 constant    domain 2 ≤ k  FALSE at k = 1; tight at k = 2 by 0.09%
+3  the (7.5) count      ℕ vs ℝ for E  exact in one, FALSE in the other
+```
+***Every Wave A trap so far is a STATEMENT-LEVEL TYPE-OR-DOMAIN CHOICE, not a proof
+difficulty. Each was found by ONE COMMAND, before any proof; each would otherwise have
+surfaced at the LAST step of a long one — costing a sub-proof to discover and another to
+repair.*** **Compiler corroborated the same shape from the L2 rung (08-11 10:40): "every
+expensive thing in L2 was a statement choice; the proofs were cheap once the statements
+were right." Two lanes ⇒ house property.**
+⇒ **RECOMMENDATION (mine, not a ruling): the (7.5)–(7.8) statements deserve a review pass
+BEFORE the 1,500–3,000 lines, not after.**
