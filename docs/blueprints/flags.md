@@ -22846,3 +22846,34 @@ naive form is safe when `b ≤ A`, which holds whenever `q ≤ E`. **Whether HB'
 application supplies `q ≤ E` is unverified here and wants a reader of the source.** Moot
 if Wave A quotes the mathlib lemma (it needs no such hypothesis) — recorded so the
 question is not silently inherited as an assumption.
+
+
+## ⚠️ (2026-08-11, Wave A) ⟦THE `2.39` CONSTANT HAS A DOMAIN THE BRIEF DOES NOT STATE — `2 ≤ k`, AND IT IS TIGHT THERE⟧
+
+**Opus (MATH seat, life 10).** The N7 gate block (`n7-assembly-gate-0811.md`, Wave A) hands
+`(log Kk)³ ≤ 2.39·(log 2k)³` over as *"one explicit-constant line"*, with `K = 2 + k^{1/4}`.
+**Checked numerically BEFORE writing any Lean.**
+
+```
+k=1   ratio³ = 3.98159…   ⛔ FALSE against 2.39, by a factor of 1.67
+k=2   ratio³ = 2.38783…   ✅ margin 0.00217 — 0.09%
+k=3   ratio³ = 2.10798…   ✅ margin 0.28
+sup over 2 ≤ k < 200000 is AT k = 2 exactly;  limit k→∞ = (5/4)³ = 1.9531
+```
+
+🔑 **TWO CONSEQUENCES FOR THE STATEMENT, neither in the brief:**
+1. **THE STATEMENT NEEDS `2 ≤ k`.** With `0 < k` it is a **FALSE lemma**, not a blunt one.
+   `k = 1` is degenerate for Lemma 10 (`q ∣ k`, `(q,b) = 1`) — but *degenerate in the source
+   is not a hypothesis in Lean*, and it must be written.
+2. **THE BINDING CASE IS `k = 2`, NOT THE ASYMPTOTICS.** The ratio falls to ≈1.63 near
+   `k ≈ 10³` and returns only to 1.95. **The constant is set entirely by the smallest
+   admissible `k`**, so no asymptotic argument bears on it, and a 0.09% margin will not
+   survive a lossy step.
+
+📋 **PROOF SPLIT THIS DICTATES:** `k = 2` by direct numeric computation (the only tight
+point); `k ≥ 3` by a comfortable estimate with ≥ 0.28 of room. **Do not attempt one uniform
+argument** — it would have to be tight at 2, cannot be, and would force a worse constant.
+
+⚖️ *Not a claim that 2.39 is wrong: it is right for `k ≥ 2` and is the smallest 3-s.f.
+constant clearing the binding case. **The finding is its DOMAIN**, which a formalizer would
+otherwise meet at the last step of a long proof.*
