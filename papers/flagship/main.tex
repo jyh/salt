@@ -207,7 +207,11 @@ kernel share an implementation---but it excludes elaborator and cache
 faults, which is where the practical risk lives. One consequence for the reader: every
 numbered statement in this paper---theorem, proposition,
 corollary---is kernel-checked; the labels grade importance, never
-epistemic status.
+epistemic status. Verification at this scale is not itself new---the
+formal proof of the Kepler conjecture \cite{HalesKepler} is the standing
+landmark---but the object here is a research program in progress rather
+than a settled theorem, which is what makes the demand audit of
+\S\ref{sec:fulcrum} possible at all.
 
 \subsection{The specification gap}
 What no formal system can check is whether our \emph{statements} mean what
@@ -255,7 +259,7 @@ a Vinogradov--Korobov--type region at exponent $\theta = 3/4$.
 To our knowledge Theorem~\ref{thm:pow} is the first zero-free region with
 a power saving in the exponent verified in any proof assistant, and
 Theorem~\ref{thm:litt} the first formalization of the 1922 Littlewood
-region; the strongest previously formalized regions were of classical
+region \cite{Littlewood1922}; the strongest previously formalized regions were of classical
 de la Vall\'ee Poussin shape. The proofs formalize the Vinogradov mean
 value theorem (\leaninline{Salt.Vmvt.vmvt}) and route it through an
 exponential-sum-to-growth bridge (\leaninline{Salt.Vk.vk\_block\_core}),
@@ -580,7 +584,7 @@ functions (60 declarations: the \leaninline{IsSignFunction} structure, 11
 definitions, and 48 proved statements) required deleting every coprimality
 thread;
 that the deletion is sound is itself part of the formal content: the
-character was never load-bearing.
+character was never necessary.
 
 % ============================================================================
 \section{The parity gap, as an object}\label{sec:parity}
@@ -652,10 +656,10 @@ range): $Z(\theta,A_0) \iff$ the twin prime conjecture.
 \begin{proposition}[The census]\label{prop:census}
 Ten headline theorems of the corpus lie inside the parity-invariant
 cone: the transfer's unconditional leg $S_1 \le S_2$; the $k=2$ Maynard
-bound $J_1 + J_2 \le 2\log 2 \cdot I_2$ and its $\theta$-parameterised
+bound $J_1 + J_2 \le 2\log 2 \cdot I_2$ \cite{Maynard2015} and its $\theta$-parameterised
 gate failure; the impossibility that any continuous weight crosses the
 twin gate; the equivalence of NoSiegelZeros with the failure of
-infinitely many Siegel zeros; Chen's theorem (infinitely many primes $p$
+infinitely many Siegel zeros; Chen's theorem \cite{Chen1973} (infinitely many primes $p$
 with $p+2$ a $P_2$, i.e.\ having at most two prime factors counted
 with multiplicity---the standard sieve notation, in which the ``at
 most'' is exactly the parity barrier's residue); the twin almost-prime
@@ -721,10 +725,10 @@ and every $\xi \in \Xi_H$,
 \]
 where $\mu_{\log}$ is the logarithmic measure of the regime --- the
 short-interval uniformity of $\lambda$ that
-Matom\"aki--Radziwi\l\l--Tao's Proposition~2.4 provides in prose
+Matom\"aki--Radziwi\l\l--Tao's Proposition~2.4 \cite{MRT} provides in prose
 mathematics, at finitely many frequencies only, which is all the proof
 fires. The door is the exact target of the corpus's staged
-Matom\"aki--Radziwi\l\l\ program (whose first stones, including the
+Matom\"aki--Radziwi\l\l\ program \cite{MR2016} (whose first stones, including the
 closure of a long-flagged Euler-oscillation bridge, landed the same
 day); the conjecture's entire residual is thus one named seam between
 two formalized campaigns.
