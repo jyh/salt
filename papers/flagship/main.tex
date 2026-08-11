@@ -103,9 +103,10 @@ transcribed from the literature: it was extracted from a formal corpus by
 demand-audited hypothesis minimization, a mode of discovery we argue is
 impossible over prose proofs. Around it we prove, kernel-checked: a
 Heath-Brown--type dichotomy (twin primes, or no Siegel zeros) with its
-engine-conditional horn stated explicitly; the first formalization of any
-zero-free region for $\zeta$ of Littlewood strength (1922) and the first
-power-saving region ($\theta = 3/4$) in any proof assistant; a
+engine-conditional horn stated explicitly; the first formalization, in any
+public artifact as of 2026-08-11,\footnote{Priority statements in this paper are \emph{surveyed as-of} claims, not assertions of absence. Survey: \texttt{${SEAT_DIR}/briefs/2026-08-11-priority-audit.md} (method: adversary-cited, five independent lanes, 2026-08-11); our own landing dates are given in \S\ref{sec:banners} and the results register. Salt is a private tree at the time of writing, so these are firsts \emph{in any public artifact} as of the survey date, and are re-run before submission.} of any zero-free region for
+$\zeta$ of Littlewood strength (1922) and the first such power-saving region
+($\theta = 3/4$) in any proof assistant; a
 Deuring--Heilbronn repulsion contract; the exact-identity keystone of the
 Heath-Brown engine, proven unconditional; the \emph{exchange-rate
 wall}, a neutrality theorem over arbitrary real sign functions that prices
@@ -146,14 +147,15 @@ and then weakened the hypothesis axis by axis to the audited demand, with
 the Lean kernel refereeing each weakening instantly. The fixed point of
 that process is the weakest twin-producing Siegel hypothesis yet
 formulated (Definition~\ref{def:fulcrum}); the process itself,
-\emph{demand-audited hypothesis minimization}, is to our knowledge a new
-mode of mathematical discovery, and it is the sense in which this paper's
+\emph{demand-audited hypothesis minimization}, is---on the same survey, as of
+2026-08-11---a new mode of mathematical discovery, and it is the sense in which this paper's
 formalization is an instrument rather than a notary.
 
 The results divide into four movements. First, the \emph{banners}
 (\S\ref{sec:banners}): unconditional analytic theorems formalized for the
-first time, including a Littlewood-strength zero-free region for $\zeta$
-and the first power-saving region in any proof assistant. Second, the
+first time in any public artifact as of 2026-08-11, including a
+Littlewood-strength zero-free region for $\zeta$ and the first such
+power-saving region in any proof assistant. Second, the
 \emph{fulcrum and the dichotomy} (\S\S\ref{sec:fulcrum}--\ref{sec:keystone}):
 the minimized hypothesis, the kernel-checked dichotomy it induces, and the
 exact-identity keystone of the engine, now proven unconditional. Third,
@@ -238,9 +240,12 @@ consisting of one small kernel, three axioms, and a one-page table.
 \section{The four banners}\label{sec:banners}
 % ============================================================================
 
-Four unconditional theorems anchor the corpus; none had been formalized
-before, and two had never been formalized at any strength in any proof
-assistant.
+Four unconditional theorems anchor the corpus. We do not assert that they
+were unformalized---an absence no repository search can establish, as the
+survey behind this paper's priority statements found to its cost---and cite
+the adversaries instead: the two public Lean formalizations of
+Bombieri--Vinogradov both \emph{axiomatize} Siegel--Walfisz and the large
+sieve in their own source, and say so.
 
 \begin{theorem}[Littlewood-strength zero-free region, 1922]\label{thm:litt}
 There exist effective constants such that $\zeta(s) \neq 0$ in a region of
@@ -256,10 +261,10 @@ a Vinogradov--Korobov--type region at exponent $\theta = 3/4$.
 \leanname{Salt.Vk.zeta\_zero\_free\_region\_pow}
 \end{theorem}
 
-To our knowledge Theorem~\ref{thm:pow} is the first zero-free region with
-a power saving in the exponent verified in any proof assistant, and
-Theorem~\ref{thm:litt} the first formalization of the 1922 Littlewood
-region \cite{Littlewood1922}; the strongest previously formalized regions were of classical
+As of the 2026-08-11 survey, Theorem~\ref{thm:pow} is the first zero-free
+region with a power saving in the exponent verified in any public
+proof-assistant artifact, and Theorem~\ref{thm:litt} the first formalization
+of the 1922 Littlewood region \cite{Littlewood1922}; the strongest previously formalized regions were of classical
 de la Vall\'ee Poussin shape. The proofs formalize the Vinogradov mean
 value theorem (\leaninline{Salt.Vmvt.vmvt}) and route it through an
 exponential-sum-to-growth bridge (\leaninline{Salt.Vk.vk\_block\_core}),

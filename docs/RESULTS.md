@@ -1,5 +1,7 @@
 # THE TROPHY ROOM — the headline registry of the salt corpus
 
+> **PRIORITY LANGUAGE (2026-08-11).** Every "first" in this register is a *surveyed as-of* claim — first **in any public artifact** as of the survey date, never an assertion of absence. Survey: `${SEAT_DIR}/briefs/2026-08-11-priority-audit.md` (adversary-cited, five lanes). Salt is a private tree; re-run the survey before any of these language is published. *Absence-by-grep lost every contested row in that audit.*
+
 **READ THIS BEFORE ASSERTING ABSENCE.** If a result has a row here, it is in the
 Lean kernel, on this branch, at the file and line shown. Three times in the week
 of 2026-07-27 the seat reported landed work as open because a hand-maintained
@@ -79,7 +81,7 @@ authority on the method's record. [METHODS.md](METHODS.md), [OPERATIONS.md](OPER
 |---|---|---|---|---|---|
 | `Salt.Maynard.bounded_gaps_from_eh_complete` | The Maynard capstone: `BoundedGapsFromEH` with no residual hypotheses (`CompatFrontier` proved for every regime width). | Salt/Maynard/Complete.lean:1472 | 2026-07-09 | `418df26` | 3 axioms (audited) |
 | `Salt.Twelve.gaps_le_twelve` | Explicit bounded gaps **≤ 12** (standing analytic inputs `WindowPNT`, `EHall`): for every `N`, two primes `p ≠ q > N` with `\|q−p\| ≤ 12`. | Salt/Twelve/GapsUncond.lean:1061 | 2026-07-11 | `6b24881` | 3 (blueprint_lint P3) |
-| `Salt.BV.bounded_gaps_of_siegelWalfisz` | Bounded prime gaps from Siegel–Walfisz — the first load-bearing Bombieri–Vinogradov chain. | Salt/BV/AbelCore.lean:757 | 2026-07-12 | `fa06560` | 3 (Salt/BV/All.lean:58) |
+| `Salt.BV.bounded_gaps_of_siegelWalfisz` | Bounded prime gaps from Siegel–Walfisz — the first Bombieri–Vinogradov chain consumed by a downstream theorem, in any public artifact as of 2026-08-11 (see the priority survey). | Salt/BV/AbelCore.lean:757 | 2026-07-12 | `fa06560` | 3 (Salt/BV/All.lean:58) |
 | `Salt.SW.siegelWalfisz_holds` | **Siegel–Walfisz, unconditional**: `\|ψ(x;q,a) − x/φ(q)\| ≤ K·x/(log x)^A` uniformly for `q ≤ (log x)^C`, `a` reduced. | Salt/SW/Gate.lean:150 | 2026-07-13 | `0d6a613` | 3 (Salt/SW/All.lean:124) |
 | `Salt.SW.bounded_gaps_unconditional` | **Bounded prime gaps, unconditionally**: `∃ C`, infinitely many prime pairs within `C`. The gate composed with the BV+Maynard chain. | Salt/SW/Gate.lean:376 | 2026-07-13 | `0d6a613` | 3 (Salt/SW/All.lean:124) |
 
@@ -92,7 +94,7 @@ authority on the method's record. [METHODS.md](METHODS.md), [OPERATIONS.md](OPER
 | `Salt.ExpSum.zeta_growth_strip` | `‖ζ(σ+it)‖ ≤ C·t^{1−σ}(1+log t)` on `1/2 ≤ σ ≤ 1` — at `σ = 1` a genuine `O(log t)`. | Salt/ExpSum/ZetaApprox.lean:562 | 2026-07-17 | `7cbd0d0` | 3 (Salt/ExpSum/All.lean:32) |
 | `Salt.SW.LFunction_zero_count_near_one` | Radius-resolved Prachar count: zeros of `L(·,χ)` in `closedBall 1 r`, with multiplicity, number `≤ 7200·(1 + r·log(q+2))`. | Salt/SW/ZeroCountNearOne.lean:98 | 2026-07-17 | `51205bb` | 3 (Salt/SW/All.lean:124) |
 | `Salt.Vk.zeta_zero_free_region_littlewood` | **The first machine-checked Littlewood-strength zero-free region**: `Re ρ ≤ 1 − c·loglog\|Im ρ\|/log\|Im ρ\|` (`c = 1/88214`). | Salt/Vk/Littlewood.lean:409 | 2026-07-18 | `61f6ccf` | 3 (Salt/Vk/All.lean:52) |
-| `Salt.Vk.zeta_zero_free_region_pow` | **The power zero-free region, θ = 3/4** — the first in any proof assistant: `Re ρ ≤ 1 − c/((log\|Im ρ\|)^{3/4}(loglog\|Im ρ\|)³)`. | Salt/Vk/GrowthPow.lean:1044 | 2026-07-18 | `65d361d` | 3 (Salt/Vk/All.lean:52) |
+| `Salt.Vk.zeta_zero_free_region_pow` | **The power zero-free region, θ = 3/4** — the first in any public artifact as of 2026-08-11 (see the priority survey): `Re ρ ≤ 1 − c/((log\|Im ρ\|)^{3/4}(loglog\|Im ρ\|)³)`. | Salt/Vk/GrowthPow.lean:1044 | 2026-07-18 | `65d361d` | 3 (Salt/Vk/All.lean:52) |
 | `Salt.MR.zeta_lower_all_t` | The all-`t` uniform ζ lower bound: `c''/((log(\|t\|+3))^{3/4}·(loglog(\|t\|+16))⁴) ≤ ‖ζ(1+d'+it)‖`, pole point excluded. | Salt/MR/ZetaLowerAllT.lean:273 | 2026-07-18 | `d9e92ba` | 3 (Salt/MR/All.lean:399) |
 
 ## 5. VMVT / VK
@@ -173,7 +175,7 @@ machinery beneath them is ledger-audited at `Salt/Vk/All.lean:52`.
 | `Salt.Weil.norm_kloosterman_le_two_sqrt` | **The Weil bound** for Kloosterman sums: `‖S(a,b;p)‖ ≤ 2√p` for odd `p` and `a, b ≠ 0`. | Salt/Weil/Descent.lean:206 | 2026-07-17 | `5c9d9cf` | 3 (Salt/Weil/All.lean:39) |
 | `Keller.keller_not_injective` [tier-2] | `Fmap : ℚ³ → ℚ³` is not injective (two distinct rational points with the same image). | Salt/Keller/Counterexample.lean:142 | 2026-07-21 | `a25042b` | 3 (Salt/Keller/All.lean:24) |
 | `Keller.jacobian_conjecture_counterexample` | **The Alpöge counterexample to the Jacobian conjecture** (Thm 3.1) verified: `J.det = C(−2)` and `F` is not injective on `ℚ³`. | Salt/Keller/Counterexample.lean:159 | 2026-07-21 | `a25042b` | 3 (Salt/Keller/All.lean:24) |
-| `Salt.HB.fl_dim4_lower` / `fl_dim4_upper` | The fundamental lemma at sieve dimension 4 (block-Brun): main-term defect ≤ flConst·e^{−flRate·s}, both sides — believed the first FL at dimension > 1 in any proof assistant. | Salt/HB/RosserDim4FL.lean:364 | 2026-08-03 | `8c62a10` | 3 axioms (audited) |
+| `Salt.HB.fl_dim4_lower` / `fl_dim4_upper` | The fundamental lemma at sieve dimension 4 (block-Brun): main-term defect ≤ flConst·e^{−flRate·s}, both sides — the first FL at dimension > 1 in any public artifact as of 2026-08-11 (see the priority survey). | Salt/HB/RosserDim4FL.lean:364 | 2026-08-03 | `8c62a10` | 3 axioms (audited) |
 | `Salt.HB.hbSieve_fl_sandwich` | N5's exit: the dimension-4 Rosser-sieve service layer at Heath-Brown's sifted object — sandwich (2.2) PROVED (not axiom-assumed), W(z)+correction identification, the ρ₂/ρ₃ transfer; one carried analytic field (Λ* ≥ 0). | Salt/HB/RosserDim4Instance.lean:564 | 2026-08-03 | `5b2b87a` | 3 axioms (audited) |
 
 ---
