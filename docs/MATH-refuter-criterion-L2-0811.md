@@ -105,8 +105,28 @@ It was the extractor: line 81 is a DOC-COMMENT sentence beginning with the word
 `theorem`, and an anchored `^theorem ` ate prose shaped like structure.
 
     1a32c1d  raw 27 · phantom 1 · REAL 26 · audit 26   (compiler's 26/26 EXACT)
-    a8582b8  raw 24 · phantom 1 · REAL 23 · audit 23   (3 retired, 3 audit lines
-    HEAD     raw 24 · phantom 1 · REAL 23 · audit 23    went with them, lockstep)
+    a8582b8  raw 24 · phantom 1 · REAL 23 · audit 23   (see the RETRACTION below —
+    HEAD     raw 24 · phantom 1 · REAL 23 · audit 23    the delta is a MOVE, not a
+                                                        retirement)
+
+### ⛔ RETRACTION, 07:44 — I PUBLISHED THE RIGHT COUNT WITH AN INVENTED MECHANISM
+The line above originally read "3 decls retired, 3 audit lines went with them,
+lockstep". **FALSE.** `0083614` — "the while offsets move DOWN to the emitter" —
+MOVED `whileExit`/`whileBack`/`whileFits` from WhileScheme.lean to CompileS.lean,
+where they are audited at `CompileS.lean:244`. WhileScheme 23/23 · CompileS 53/53.
+
+🔑 I saw 26 → 23, saw the audit names fall by the same three, and reached for
+"retirement" — a story that FITS THE ARITHMETIC EXACTLY and is not what happened.
+`git log -S"def whileFits"` answers it in one command, and I ran it only after
+compiler's `WhileScheme.lean:152` comment told me there was a new home.
+⇒ **A reconciliation that balances is not thereby explained.** Same defect as the
+  59/60 row of 08-10: the conclusion right, by a reason the evidence never supported.
+
+### SECOND PHANTOM, 10 MINUTES LATER — and it was made of my own prose
+The gate on `f6eadf3` read 4 decls vs 3 audit names. The member named itself: `goes`,
+from `+theorem goes FALSE and the build breaks LOUDLY …` — a docstring sentence
+quoting THIS DOCUMENT's C7 finding back into the file. 3/3, clean.
+⇒ The class fires on any docstring that DISCUSSES theorems. It needs no carelessness.
 
 ⇒ THE RULE THAT CAUGHT IT IS MECHANICAL, NOT CAREFUL: never publish a count
   without naming the member. Naming forced the word `because` into the output,
